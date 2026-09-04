@@ -36,7 +36,7 @@
 
 ## 技術的決定
 
-`.claude/decisions.md` を参照。D1 / D2 / D4 / D5 が確定。**D3 は未決。**
+`.claude/decisions.md` を参照。D1 / D2 / D4 / D5 / D6 が確定。**D3 は未決。**
 
 ## テスト状況
 
