@@ -1,0 +1,28 @@
+{
+  "name": "zumen",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "AI が描き、人が直し、また AI が理解できる構成図エディタ（Phase 0 / 計測段階）",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.18"
+  },
+  "packageManager": "pnpm@11.1.1",
+  "scripts": {
+    "test": "node --test \"experiments/**/*.test.ts\"",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "elkjs": "^0.12.0",
+    "yaml": "^2.9.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.0",
+    "typescript": "^5.9.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [],
+    "minimumReleaseAge": 1440
+  }
+}
