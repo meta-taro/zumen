@@ -92,8 +92,48 @@ export async function layout(text: string): Promise<Placed> {
     if (pin.appearance !== undefined) box.appearance = pin.appearance;
   }
 
+  // 人が枠の外へ動かしたら、枠のほうを広げる。
+  // 人の位置を枠の中へ押し戻すと、それは手直しを壊したことになる（判定基準 3.1）。
+  // 枠は「この範囲が VPC」という意味なので、中身に合わせて動くほうが正しい。
+  fitGroups(boxes, groups);
+
   const edges = routeEdges(readEdges(diagram), boxes, pins);
   return { boxes, groups, edges, ...extent(boxes, groups) };
+}
+
+/** グループの枠を、中身を含む大きさへ広げる。 */
+function fitGroups(boxes: Box[], groups: Box[]): void {
+  const PADDING = 24;
+  const TITLE = 40;
+  for (const group of groups) {
+    const children = boxes.filter((box) => box.group === group.id);
+    if (children.length === 0) continue;
+    const left = Math.min(group.x, ...children.map((c) => c.x - PADDING));
+    const top = Math.min(group.y, ...children.map((c) => c.y - TITLE));
+    const right = Math.max(group.x + group.w, ...children.map((c) => c.x + c.w + PADDING));
+    const bottom = Math.max(group.y + group.h, ...children.map((c) => c.y + c.h + PADDING));
+    group.x = left;
+    group.y = top;
+    group.w = right - left;
+    group.h = bottom - top;
+  }
+}
+
+/** 枠からはみ出した子を返す。合否ではなく観測値。 */
+export function groupEscapes(placed: Placed): string[] {
+  const out: string[] = [];
+  for (const box of placed.boxes) {
+    if (box.group === null) continue;
+    const group = placed.groups.find((g) => g.id === box.group);
+    if (group === undefined) continue;
+    const inside =
+      box.x >= group.x &&
+      box.y >= group.y &&
+      box.x + box.w <= group.x + group.w &&
+      box.y + box.h <= group.y + group.h;
+    if (!inside) out.push(box.id);
+  }
+  return out;
 }
 
 /** 重なっている組を返す。合否ではなく観測値。 */

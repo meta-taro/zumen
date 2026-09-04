@@ -13,7 +13,7 @@ import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
 import { parse, serialize, setPin } from './src/format.ts';
-import { layout, overlaps } from './src/layout.ts';
+import { groupEscapes, layout, overlaps } from './src/layout.ts';
 import { measure } from './src/measure.ts';
 import type { Expectation, Measurement } from './src/measure.ts';
 import { merge, resolve } from './src/merge.ts';
@@ -125,6 +125,8 @@ interface RoundRecord {
   conflicts: Conflict[];
   resolvedAs: 'human' | 'ai' | null;
   overlaps: [string, string][];
+  /** 枠からはみ出した子。原案 §26 の 2（pin と自動レイアウトの共存）の観測値。 */
+  escapes: string[];
 }
 
 async function main(): Promise<void> {
@@ -187,6 +189,7 @@ async function run(
   }
 
   commit(after);
+  const placed = await layout(after);
   return {
     id: round.id,
     instruction: round.instruction,
@@ -196,7 +199,8 @@ async function run(
     measurement: measure(before, after, round.expectations),
     conflicts: result.conflicts,
     resolvedAs,
-    overlaps: overlaps(await layout(after)),
+    overlaps: overlaps(placed),
+    escapes: groupEscapes(placed),
   };
 }
 
@@ -288,15 +292,15 @@ function report(records: RoundRecord[]): string {
     '',
     '**この表は測定値であって判定ではない。** 判定は `.claude/issues/001-*.md` の結果欄に書く。',
     '',
-    '| 往復 | 保持 Tier A | 保持 Tier B | 反映 | 競合 | 重なり |',
-    '|---|---|---|---|---|---|',
+    '| 往復 | 保持 Tier A | 保持 Tier B | 反映 | 競合 | 重なり | 枠外 |',
+    '|---|---|---|---|---|---|---|',
   ];
   for (const r of records) {
     const a = r.measurement.tierA;
     const b = r.measurement.tierB;
     const f = r.measurement.reflection;
     lines.push(
-      `| ${r.id} | ${a.kept}/${a.total} | ${b.kept}/${b.total} | ${f.applied}/${f.expected} | ${r.conflicts.length} | ${r.overlaps.length} |`,
+      `| ${r.id} | ${a.kept}/${a.total} | ${b.kept}/${b.total} | ${f.applied}/${f.expected} | ${r.conflicts.length} | ${r.overlaps.length} | ${r.escapes.length} |`,
     );
   }
 
@@ -316,6 +320,7 @@ function report(records: RoundRecord[]): string {
       `- 競合: ${r.conflicts.length === 0 ? 'なし' : JSON.stringify(r.conflicts)}`,
       `- 人が選んだ側: ${r.resolvedAs ?? '（選択なし）'}`,
       `- 重なり: ${r.overlaps.length === 0 ? 'なし' : r.overlaps.map((p) => p.join(' × ')).join(', ')}`,
+      `- 枠外へ出た子: ${r.escapes.length === 0 ? 'なし' : r.escapes.join(', ')}`,
       '',
       '```diff',
       r.diff.split('\n').filter((line) => !line.startsWith('  ')).join('\n'),
