@@ -73,8 +73,29 @@ export class Diagram {
   }
 }
 
+/**
+ * 正本を読む。
+ *
+ * **壊れた YAML を黙って受け取らない。** `parseDocument` は既定では例外を投げず、
+ * 誤りを `errors` に溜めるだけなので、そのまま先へ流すと ELK の内部エラーのような
+ * 見当違いの理由が人へ出る（実際にそうなった）。**書いた人が直せる形で止める。**
+ */
 export function parse(text: string): Diagram {
-  return new Diagram(parseDocument(text));
+  const doc = parseDocument(text);
+  const first = doc.errors[0];
+  if (first !== undefined) throw new DiagramSyntaxError(first.message, first.linePos?.[0]?.line);
+  return new Diagram(doc);
+}
+
+/** 読めない正本。行番号を持つ（無いこともある）。 */
+export class DiagramSyntaxError extends Error {
+  readonly line: number | undefined;
+
+  constructor(message: string, line: number | undefined) {
+    super(line === undefined ? message : `${line} 行目: ${message}`);
+    this.name = 'DiagramSyntaxError';
+    this.line = line;
+  }
 }
 
 export function serialize(diagram: Diagram): string {

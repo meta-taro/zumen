@@ -59,6 +59,8 @@ describe('render', () => {
       assert.match(svg, new RegExp(`data-node="${box.id}"`), `${box.id} が描かれていない`);
     }
     assert.match(svg, /data-group="vpc"/);
+    // グループは id ではなく label で描く。id が出ていたら人には意味が伝わらない。
+    assert.match(svg, /data-group="vpc"[\s\S]*?>Production VPC</);
     assert.equal((svg.match(/data-edge=/g) ?? []).length, 8);
   });
 

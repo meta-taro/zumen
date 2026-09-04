@@ -47,7 +47,11 @@ describe('保持の数え方', () => {
 
   it('コメントが消えたら Tier B の欠落として名指しする', () => {
     const before = pinned();
-    const after = before.replace('# 監視は本番と同じ VPC に置く。外へ出すと踏み台が要る。\n', '');
+    // 行ごと落とす。印の部分だけ消すと字下げが残り、YAML として壊れる。
+    const after = before
+      .split('\n')
+      .filter((line) => !line.includes('監視は本番と同じ VPC に置く'))
+      .join('\n');
     const result = measure(before, after, []);
     assert.equal(
       result.tierB.lost.some((l) => l.includes('監視は本番と同じ VPC')),

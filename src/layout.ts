@@ -72,12 +72,13 @@ export async function layout(text: string): Promise<Placed> {
   const nodes = readNodes(diagram);
   const groupIds = diagram.groupIds();
 
+  const groupLabels = readGroupLabels(diagram);
   const graph = buildGraph(nodes, groupIds, diagram.edges(), pins);
   const laid = await new ELK().layout(graph);
 
   const boxes: Box[] = [];
   const groups: Box[] = [];
-  collect(laid, 0, 0, nodes, groupIds, boxes, groups);
+  collect(laid, 0, 0, nodes, groupLabels, boxes, groups);
 
   // 人が置いた場所・付けた体裁へ戻す。ELK が何を決めたかに関わらず、人の値が勝つ。
   for (const box of boxes) {
@@ -178,6 +179,12 @@ interface EdgeInfo {
   from: string;
   to: string;
   label: string | null;
+}
+
+/** グループの表示名。無ければ id を使う。 */
+function readGroupLabels(diagram: ReturnType<typeof parse>): Map<string, string> {
+  const raw = diagram.doc.toJS() as { groups?: { id: string; label?: string }[] };
+  return new Map((raw.groups ?? []).map((group) => [group.id, group.label ?? group.id]));
 }
 
 function readEdges(diagram: ReturnType<typeof parse>): EdgeInfo[] {
@@ -285,7 +292,7 @@ function collect(
   offsetX: number,
   offsetY: number,
   nodes: NodeInfo[],
-  groupIds: string[],
+  groupLabels: Map<string, string>,
   boxes: Box[],
   groups: Box[],
 ): void {
@@ -298,15 +305,15 @@ function collect(
       y,
       w: child.width ?? NODE_WIDTH,
       h: child.height ?? NODE_HEIGHT,
-      group: groupIds.includes(node.id) ? node.id : null,
-      label: nodes.find((n) => n.id === child.id)?.label ?? child.id,
+      group: groupLabels.has(node.id) ? node.id : null,
+      label: groupLabels.get(child.id) ?? nodes.find((n) => n.id === child.id)?.label ?? child.id,
       type: nodes.find((n) => n.id === child.id)?.type ?? 'generic',
       appearance: null,
       pinned: false,
     };
-    if (groupIds.includes(child.id)) {
+    if (groupLabels.has(child.id)) {
       groups.push(box);
-      collect(child, x, y, nodes, groupIds, boxes, groups);
+      collect(child, x, y, nodes, groupLabels, boxes, groups);
       continue;
     }
     boxes.push(box);

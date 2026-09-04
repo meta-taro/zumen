@@ -8,7 +8,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { describe, it } from 'node:test';
 
-import { getPins, parse, serialize, setPin } from '../src/format.ts';
+import { DiagramSyntaxError, getPins, parse, serialize, setPin } from '../src/format.ts';
 
 const R0 = readFileSync(new URL('fixtures/r0.zumen.yaml', import.meta.url), 'utf8');
 
@@ -31,6 +31,33 @@ describe('parse', () => {
 
   it('pin が無い図では pin は空', () => {
     assert.deepEqual(getPins(parse(R0)), {});
+  });
+});
+
+describe('壊れた正本', () => {
+  it('読めない YAML は、その場で止める', () => {
+    // 黙って受け取ると、あとで見当違いの理由（レイアウトエンジンの内部エラー）が
+    // 人へ出る。書いた人が直せる形で止める。
+    assert.throws(
+      () => parse('version: 1\nnodes:\n  - id: a\n   bad indent'),
+      DiagramSyntaxError,
+    );
+  });
+
+  it('止めるときに行番号を出す', () => {
+    try {
+      parse('version: 1\nnodes:\n  - id: a\n   bad indent');
+      assert.fail('例外が投げられなかった');
+    } catch (error) {
+      assert.ok(error instanceof DiagramSyntaxError);
+      assert.equal(error.line, 4);
+      assert.match(error.message, /^4 行目: /);
+    }
+  });
+
+  it('空の文書は壊れていない', () => {
+    // 打ち始めの状態。誤りではない。
+    assert.doesNotThrow(() => parse(''));
   });
 });
 
