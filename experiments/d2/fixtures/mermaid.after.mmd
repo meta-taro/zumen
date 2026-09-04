@@ -1,0 +1,10 @@
+%% 監視は本番と同じ VPC に置く。
+flowchart TD
+  lb[Load Balancer]
+  web01[Web 01]
+  db[(MariaDB)]
+  redis[Redis]
+
+  lb --> web01
+  web01 --> db
+  web01 --> redis

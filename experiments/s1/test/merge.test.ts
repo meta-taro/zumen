@@ -58,6 +58,14 @@ describe('保持 — 人が直したものが残るか', () => {
     );
   });
 
+  it('正本にも提案にも無い節を、勝手に足さない', () => {
+    // 誰も書いていない `groups: []` が生えると、人が書いていない行が差分に出る。
+    const plain = ['version: 1', 'nodes:', '  - id: a', 'edges: []', ''].join('\n');
+    const result = merge(plain, plain);
+    assert.doesNotMatch(result.text, /groups:/);
+    assert.equal(result.text, plain);
+  });
+
   it('提案は pin を持たない。AI が pin を書いても採らない', () => {
     // AI が勝手に pins を書いてきても、人の指定を上書きさせない。
     const rogue = parse(proposalAdding(false));

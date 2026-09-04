@@ -1,0 +1,34 @@
+version: 1
+title: 比較用の小さい図
+
+# 監視は本番と同じ VPC に置く。
+pins:
+  db:
+    position: { x: 620, y: 410 }
+
+nodes:
+  - id: lb
+    type: load-balancer
+    label: Load Balancer
+
+  - id: web01
+    type: server
+    label: Web 01
+
+  - id: db
+    type: database
+    label: MariaDB
+
+  - id: redis
+    type: cache
+    label: Redis
+
+edges:
+  - from: lb
+    to: web01
+
+  - from: web01
+    to: db
+
+  - from: web01
+    to: redis

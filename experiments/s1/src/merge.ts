@@ -127,8 +127,9 @@ function mergeNodes(
 }
 
 function mergeGroups(current: Diagram, proposal: Diagram): void {
-  const seq = getSeq(current, 'groups');
   const proposed = itemsById(proposal, 'groups', 'id');
+  if (readSeq(current, 'groups') === null && proposed.size === 0) return;
+  const seq = getSeq(current, 'groups');
   const remaining: unknown[] = [];
 
   for (const item of seq.items) {
@@ -162,11 +163,12 @@ function mergeEdges(
   pins: Record<string, Pin>,
   conflicts: Conflict[],
 ): void {
-  const seq = getSeq(current, 'edges');
   const proposed = new Map<string, YAMLMap>();
-  for (const item of getSeq(proposal, 'edges').items) {
+  for (const item of readSeq(proposal, 'edges')?.items ?? []) {
     if (isMap(item)) proposed.set(edgeKey(item), item);
   }
+  if (readSeq(current, 'edges') === null && proposed.size === 0) return;
+  const seq = getSeq(current, 'edges');
   const proposalIds = new Set(proposal.nodeIds());
 
   const remaining: unknown[] = [];
@@ -240,9 +242,22 @@ function applyPositionIntents(
 
 // --- 小道具 ----------------------------------------------------------------
 
-function getSeq(diagram: Diagram, key: string): YAMLSeq {
+/** 読むだけ。無い節を勝手に作らない。 */
+function readSeq(diagram: Diagram, key: string): YAMLSeq | null {
   const node = diagram.doc.get(key, true);
-  if (isSeq(node)) return node;
+  return isSeq(node) ? node : null;
+}
+
+/**
+ * 書き込む用。無ければ作る。
+ *
+ * **足すものがあるときだけ呼ぶ。** 読むだけのつもりで呼ぶと、
+ * 誰も書いていない `groups: []` のような行が正本に生える。
+ * 人が書いていない行を増やさないのが、この形式のいちばん大事な性質。
+ */
+function getSeq(diagram: Diagram, key: string): YAMLSeq {
+  const existing = readSeq(diagram, key);
+  if (existing !== null) return existing;
   const created = diagram.doc.createNode([]) as YAMLSeq;
   diagram.doc.set(key, created);
   return created;
@@ -250,7 +265,7 @@ function getSeq(diagram: Diagram, key: string): YAMLSeq {
 
 function itemsById(diagram: Diagram, key: string, idKey: string): Map<string, YAMLMap> {
   const out = new Map<string, YAMLMap>();
-  for (const item of getSeq(diagram, key).items) {
+  for (const item of readSeq(diagram, key)?.items ?? []) {
     if (isMap(item)) out.set(String(item.get(idKey)), item);
   }
   return out;
@@ -288,9 +303,12 @@ function updateFields(current: Diagram, item: YAMLMap, proposed: YAMLMap): void 
 }
 
 function removeNode(diagram: Diagram, id: string): void {
-  const nodes = getSeq(diagram, 'nodes');
-  nodes.items = nodes.items.filter((item) => !(isMap(item) && String(item.get('id')) === id));
-  const edges = getSeq(diagram, 'edges');
+  const nodes = readSeq(diagram, 'nodes');
+  if (nodes !== null) {
+    nodes.items = nodes.items.filter((item) => !(isMap(item) && String(item.get('id')) === id));
+  }
+  const edges = readSeq(diagram, 'edges');
+  if (edges === null) return;
   edges.items = edges.items.filter(
     (item) => !(isMap(item) && (String(item.get('from')) === id || String(item.get('to')) === id)),
   );
@@ -298,7 +316,8 @@ function removeNode(diagram: Diagram, id: string): void {
 
 function removeEdge(diagram: Diagram, id: string): void {
   const [from, to] = id.split('>');
-  const edges = getSeq(diagram, 'edges');
+  const edges = readSeq(diagram, 'edges');
+  if (edges === null) return;
   edges.items = edges.items.filter(
     (item) => !(isMap(item) && String(item.get('from')) === from && String(item.get('to')) === to),
   );
