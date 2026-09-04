@@ -17,6 +17,10 @@
   - 実 AI が正本を丸ごと書き直した回でも、人の正本に出た差分は AI が足した 9 行だけ
 - 決定を 2 件追加 — D4（着地点は md-business の本文への埋め込み）、
   D5（AI の出力を新しい正本にしない）
+- **Issue 006（図形とアイコンのライセンス）完了。同梱するものは 0 件**（D7）。
+  6 社すべて一次情報を確認し、**第三者ツールへの同梱を明示的に許可した文は無かった**。
+  同梱するのは自作の汎用図形のみ。公式アイコンは利用者が `.zumen/icons/` へ置く。
+  調査は `docs/specs/006-図形とアイコンのライセンス.md`
 
 ## 未完了の作業
 
@@ -24,7 +28,8 @@
   zumen 側だけで囲み → 描画を通した（`src/embed.ts` / `examples/設計書サンプル.md`）。
   **md-business にはまだ一切触っていない**（別リポなので変更は提案として出す）
 - Issue 011（マージドライバ）・013（draw.io 書き出し）・014（検証器）— 未着手
-- Issue 003（9 割の定義 / D3）・004（生成品質 / S3）・006（ライセンス）は未着手
+- Issue 003（9 割の定義 / D3）・004（生成品質 / S3）は未着手
+- **アイコンパックの実装は未着手**（Issue 006 で設計のみ確定。`nodes[].type` → SVG の解決）
 - **md-business 側への `zumen` 囲みの追加は未着手**（Issue 012。着地点は D4 で確定済み）
 
 ## 次のタスク
@@ -32,11 +37,11 @@
 1. **人**: D2 の採否を決める（`docs/specs/d2-保存形式-比較と提案.md` §5 に止めるべき条件）
 2. 採用されたら立てる Issue — Git のマージドライバ / md-business への
    ```` ```zumen ```` 囲みの追加 / draw.io XML 書き出し
-3. Issue 006 — elkjs のライセンス（EPL-2.0 OR GPL-3.0）を MIT と併せてよいかの確認
+3. ~~Issue 006~~ — 完了（D6 で elkjs、D7 でアイコン）
 
 ## 技術的決定
 
-`.claude/decisions.md` を参照。D1 / D2 / D4 / D5 / D6 が確定。**D3 は未決。**
+`.claude/decisions.md` を参照。D1 / D2 / D4 / D5 / D6 / D7 が確定。**D3 は未決。**
 
 ## テスト状況
 
@@ -61,3 +66,8 @@
   記録は `experiments/d2/results/mermaid-validation.md`
 - `gh repo view` の `visibility` が PRIVATE。CLAUDE.md は public 前提。切り替えは人の判断
 - GitHub Issue は 0 件。作業は `.claude/issues/` のローカル Issue で駆動している
+- **`oss-privacy-check.sh` が遅い。** 追加行 1 行につき subshell + grep を起こすため、
+  未 push の commit が溜まると commit 前のゲートに数分かかる（未 push 13 commit /
+  追加 6,990 行で約 5 分）。**検出はしている。速度だけの問題**
+- **Google Cloud の icon library ページの利用条件の原文は取れていない**（本文が JS 描画）。
+  同梱しない結論はこれで足りるが、**同梱してよいと言うにはこの原文が要る**（Issue 006）
