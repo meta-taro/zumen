@@ -17,6 +17,11 @@ export interface Pin {
   position?: { x: number; y: number };
   size?: { w: number; h: number };
   label?: string;
+  /**
+   * 人が「AI の再配置より自分の位置を採る」と決めた印。
+   * 決定を正本へ書いておかないと、次に開いたときに同じことを聞き直すことになる。
+   */
+  locked?: boolean;
 }
 
 export type Pins = Record<string, Pin>;
@@ -97,7 +102,8 @@ export function setPin(diagram: Diagram, id: string, pin: Pin): void {
   const map = pins as YAMLMap;
   map.flow = false;
 
-  const value = doc.createNode(pin) as YAMLMap;
+  const clean = Object.fromEntries(Object.entries(pin).filter(([, v]) => v !== undefined));
+  const value = doc.createNode(clean) as YAMLMap;
   value.flow = false;
   for (const key of ['position', 'size'] as const) {
     const inner = value.get(key, true);
