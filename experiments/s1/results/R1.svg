@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="804" height="640" viewBox="0 0 804 640">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#334155"/></marker></defs>
+<g data-group="vpc"><rect x="24" y="120" width="442.6666666666667" height="496" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-dasharray="6 4"/><text x="36" y="142" font-size="13" fill="#64748b">vpc</text></g>
+<g data-edge="internet&gt;lb" data-pinned="false"><path d="M 162 100 L 278 160" fill="none" stroke="#334155" stroke-width="1" marker-end="url(#arrow)"/><text x="220" y="124" text-anchor="middle" font-size="11" fill="#475569">HTTPS</text></g>
+<g data-edge="lb&gt;web01" data-pinned="false"><path d="M 292.13 220 L 198.54 284" fill="none" stroke="#334155" stroke-width="1" marker-end="url(#arrow)"/></g>
+<g data-edge="lb&gt;web02" data-pinned="false"><path d="M 342.45 220 L 356.22 284" fill="none" stroke="#334155" stroke-width="1" marker-end="url(#arrow)"/></g>
+<g data-edge="web01&gt;db" data-pinned="false"><path d="M 234.67 332.48 L 620 421.52" fill="none" stroke="#334155" stroke-width="1" marker-end="url(#arrow)"/></g>
+<g data-edge="web02&gt;db" data-pinned="false"><path d="M 442.67 343.88 L 620 410.12" fill="none" stroke="#334155" stroke-width="1" marker-end="url(#arrow)"/></g>
+<g data-edge="db&gt;replica" data-pinned="false"><path d="M 620 468.93 L 442.67 533.07" fill="none" stroke="#334155" stroke-width="1" marker-end="url(#arrow)"/><text x="531.335" y="495" text-anchor="middle" font-size="11" fill="#475569">replication</text></g>
+<g data-edge="replica&gt;backup" data-pinned="false"><path d="M 357.87 532 L 288.8 100" fill="none" stroke="#334155" stroke-width="1" marker-end="url(#arrow)"/></g>
+<g data-edge="monitor&gt;web01" data-pinned="false"><path d="M 134.45 220 L 148.22 284" fill="none" stroke="#334155" stroke-width="1" marker-end="url(#arrow)"/></g>
+<g data-edge="web01&gt;redis" data-pinned="false"><path d="M 154.67 344 L 154.67 408" fill="none" stroke="#334155" stroke-width="1" marker-end="url(#arrow)"/></g>
+<g data-edge="web02&gt;redis" data-pinned="false"><path d="M 312.34 344 L 204.99 408" fill="none" stroke="#334155" stroke-width="1" marker-end="url(#arrow)"/></g>
+<g data-node="lb" data-pinned="false"><rect x="256" y="160" width="160" height="60" rx="6" fill="#ffffff" stroke="#334155" stroke-width="1"/><text x="336" y="195" text-anchor="middle" font-size="14" fill="#0f172a">Load Balancer</text></g>
+<g data-node="web01" data-pinned="false"><rect x="74.66666666666666" y="284" width="160" height="60" rx="6" fill="#ffffff" stroke="#334155" stroke-width="1"/><text x="154.66666666666666" y="319" text-anchor="middle" font-size="14" fill="#0f172a">Web 01</text></g>
+<g data-node="web02" data-pinned="false"><rect x="282.6666666666667" y="284" width="160" height="60" rx="6" fill="#ffffff" stroke="#334155" stroke-width="1"/><text x="362.6666666666667" y="319" text-anchor="middle" font-size="14" fill="#0f172a">Web 02</text></g>
+<g data-node="monitor" data-pinned="false"><rect x="48" y="160" width="160" height="60" rx="6" fill="#ffffff" stroke="#334155" stroke-width="1"/><text x="128" y="195" text-anchor="middle" font-size="14" fill="#0f172a">Monitoring</text></g>
+<g data-node="db" data-pinned="true"><rect x="620" y="410" width="160" height="60" rx="6" fill="#ffffff" stroke="#334155" stroke-width="2"/><text x="700" y="445" text-anchor="middle" font-size="14" fill="#0f172a">MariaDB</text></g>
+<g data-node="replica" data-pinned="false"><rect x="282.6666666666667" y="532" width="160" height="60" rx="6" fill="#ffffff" stroke="#334155" stroke-width="1"/><text x="362.6666666666667" y="567" text-anchor="middle" font-size="14" fill="#0f172a">MariaDB Replica</text></g>
+<g data-node="redis" data-pinned="false"><rect x="74.66666666666666" y="408" width="160" height="60" rx="6" fill="#ffffff" stroke="#334155" stroke-width="1"/><text x="154.66666666666666" y="443" text-anchor="middle" font-size="14" fill="#0f172a">Redis</text></g>
+<g data-node="internet" data-pinned="false"><rect x="24" y="40" width="160" height="60" rx="6" fill="#ffffff" stroke="#334155" stroke-width="1"/><text x="104" y="75" text-anchor="middle" font-size="14" fill="#0f172a">Internet</text></g>
+<g data-node="backup" data-pinned="false"><rect x="204" y="40" width="160" height="60" rx="6" fill="#ffffff" stroke="#334155" stroke-width="1"/><text x="284" y="75" text-anchor="middle" font-size="14" fill="#0f172a">Backup Storage</text></g>
+</svg>

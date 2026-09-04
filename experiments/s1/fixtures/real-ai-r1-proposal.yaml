@@ -1,0 +1,82 @@
+# 実 AI 役の提案（R1 相当）。
+#
+# 「Redis を足して、Web からキャッシュ経路も引いて」という指示に対して、
+# 正本を渡された言語モデルが**丸ごと書き直して返した**ものを想定して手で書いた。
+# 実運用でいちばん起こるのはこの形であって、綺麗な差分パッチではない。
+#
+# わざと次の 4 つを含めてある。これが起きたときに人の手直しが生き残るかが S1 の問い。
+#
+#   1. 人が書いたコメントが全部落ちている
+#   2. キーの並びが変わっている（label が type より前に来ている）
+#   3. pins の節がまるごと落ちている
+#   4. ノードの並びが変わっている（backup が monitor の前へ動いた）
+#
+# id は変えていない。id まで変わる場合は real-ai-r1-proposal-renamed.yaml の方。
+version: 1
+title: 本番構成
+
+groups:
+  - id: vpc
+    label: Production VPC
+
+nodes:
+  - id: internet
+    label: Internet
+    type: internet
+  - id: lb
+    label: Load Balancer
+    type: load-balancer
+    group: vpc
+  - id: web01
+    label: Web 01
+    type: server
+    technology: Apache
+    group: vpc
+  - id: web02
+    label: Web 02
+    type: server
+    technology: Apache
+    group: vpc
+  - id: backup
+    label: Backup Storage
+    type: storage
+  - id: monitor
+    label: Monitoring
+    type: server
+    group: vpc
+  - id: db
+    label: MariaDB
+    type: database
+    group: vpc
+  - id: replica
+    label: MariaDB Replica
+    type: database
+    group: vpc
+  - id: redis
+    label: Redis
+    type: cache
+    group: vpc
+
+edges:
+  - from: internet
+    to: lb
+    protocol: HTTPS
+  - from: lb
+    to: web01
+  - from: lb
+    to: web02
+  - from: web01
+    to: db
+  - from: web02
+    to: db
+  - from: db
+    to: replica
+    label: replication
+  - from: replica
+    to: backup
+  - from: monitor
+    to: web01
+  - from: web01
+    to: redis
+  - from: web02
+    to: redis

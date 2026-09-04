@@ -1,0 +1,76 @@
+# 実 AI 役の提案（R1 相当・id が書き換わった場合）。
+#
+# 上の real-ai-r1-proposal.yaml と同じ指示に対して、言語モデルが
+# **ノードの id まで作り直して**返した場合。実際によく起きる。
+# db が maindb になっている。
+#
+# 人の手直しは id に紐づいているので、これが起きると誰にも紐づかなくなる。
+# **黙って消えるか、競合として出るか**が S1 の分かれ目。
+version: 1
+title: 本番構成
+
+groups:
+  - id: vpc
+    label: Production VPC
+
+nodes:
+  - id: internet
+    label: Internet
+    type: internet
+  - id: lb
+    label: Load Balancer
+    type: load-balancer
+    group: vpc
+  - id: web01
+    label: Web 01
+    type: server
+    technology: Apache
+    group: vpc
+  - id: web02
+    label: Web 02
+    type: server
+    technology: Apache
+    group: vpc
+  - id: backup
+    label: Backup Storage
+    type: storage
+  - id: monitor
+    label: Monitoring
+    type: server
+    group: vpc
+  - id: maindb
+    label: MariaDB
+    type: database
+    group: vpc
+  - id: replica
+    label: MariaDB Replica
+    type: database
+    group: vpc
+  - id: redis
+    label: Redis
+    type: cache
+    group: vpc
+
+edges:
+  - from: internet
+    to: lb
+    protocol: HTTPS
+  - from: lb
+    to: web01
+  - from: lb
+    to: web02
+  - from: web01
+    to: maindb
+  - from: web02
+    to: maindb
+  - from: maindb
+    to: replica
+    label: replication
+  - from: replica
+    to: backup
+  - from: monitor
+    to: web01
+  - from: web01
+    to: redis
+  - from: web02
+    to: redis

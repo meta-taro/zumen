@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="804" height="660" viewBox="0 0 804 660">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#334155"/></marker></defs>
+<g data-group="vpc"><rect x="24" y="120" width="680.6666666666667" height="516" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-dasharray="6 4"/><text x="36" y="142" font-size="13" fill="#64748b">vpc</text></g>
+<g data-edge="internet&gt;lb" data-pinned="false"><path d="M 184 94.53 L 480.67 185.47" fill="none" stroke="#334155" stroke-width="1" marker-end="url(#arrow)"/><text x="332.33500000000004" y="134" text-anchor="middle" font-size="11" fill="#475569">HTTPS</text></g>
+<g data-edge="lb&gt;web01" data-pinned="false"><path d="M 480.67 236.38 L 264.67 307.62" fill="none" stroke="#334155" stroke-width="1" marker-end="url(#arrow)"/></g>
+<g data-edge="lb&gt;web02" data-pinned="false"><path d="M 520.02 240 L 433.31 304" fill="none" stroke="#334155" stroke-width="1" marker-end="url(#arrow)"/></g>
+<g data-edge="web01&gt;db" data-pinned="false"><path d="M 264.67 350.46 L 620 423.54" fill="none" stroke="#334155" stroke-width="1" marker-end="url(#arrow)"/></g>
+<g data-edge="web02&gt;db" data-pinned="false"><path d="M 472.67 361.59 L 620 412.41" fill="none" stroke="#334155" stroke-width="1" marker-end="url(#arrow)"/></g>
+<g data-edge="db&gt;replica" data-pinned="false"><path d="M 640.7 470 L 478.63 552" fill="none" stroke="#334155" stroke-width="1" marker-end="url(#arrow)"/><text x="559.665" y="505" text-anchor="middle" font-size="11" fill="#475569">replication</text></g>
+<g data-edge="replica&gt;backup" data-pinned="false"><path d="M 411.4 552 L 291.93 100" fill="none" stroke="#334155" stroke-width="1" marker-end="url(#arrow)"/></g>
+<g data-edge="monitor&gt;web01" data-pinned="false"><path d="M 165.96 240 L 178.7 304" fill="none" stroke="#334155" stroke-width="1" marker-end="url(#arrow)"/></g>
+<g data-edge="web01&gt;redis" data-pinned="false"><path d="M 184.67 364 L 184.67 428" fill="none" stroke="#334155" stroke-width="1" marker-end="url(#arrow)"/></g>
+<g data-edge="web02&gt;redis" data-pinned="false"><path d="M 342.34 364 L 234.99 428" fill="none" stroke="#334155" stroke-width="1" marker-end="url(#arrow)"/></g>
+<g data-edge="lb&gt;web03" data-pinned="false"><path d="M 570.34 240 L 590.99 304" fill="none" stroke="#334155" stroke-width="1" marker-end="url(#arrow)"/></g>
+<g data-edge="web03&gt;db" data-pinned="false"><path d="M 628.78 364 L 671.89 410" fill="none" stroke="#334155" stroke-width="1" marker-end="url(#arrow)"/></g>
+<g data-node="lb" data-pinned="false"><rect x="480.6666666666667" y="180" width="160" height="60" rx="6" fill="#ffffff" stroke="#334155" stroke-width="1"/><text x="560.6666666666667" y="215" text-anchor="middle" font-size="14" fill="#0f172a">Load Balancer</text></g>
+<g data-node="web01" data-pinned="false"><rect x="104.66666666666669" y="304" width="160" height="60" rx="6" fill="#ffffff" stroke="#334155" stroke-width="1"/><text x="184.66666666666669" y="339" text-anchor="middle" font-size="14" fill="#0f172a">Web 01</text></g>
+<g data-node="web02" data-pinned="false"><rect x="312.6666666666667" y="304" width="160" height="60" rx="6" fill="#ffffff" stroke="#334155" stroke-width="1"/><text x="392.6666666666667" y="339" text-anchor="middle" font-size="14" fill="#0f172a">Web 02</text></g>
+<g data-node="monitor" data-pinned="false"><rect x="48" y="160" width="220" height="80" rx="6" fill="#ffffff" stroke="#334155" stroke-width="1"/><text x="158" y="205" text-anchor="middle" font-size="14" fill="#0f172a">監視（Zabbix）</text></g>
+<g data-node="db" data-pinned="true"><rect x="620" y="410" width="160" height="60" rx="6" fill="#ffffff" stroke="#334155" stroke-width="2"/><text x="700" y="445" text-anchor="middle" font-size="14" fill="#0f172a">MariaDB</text></g>
+<g data-node="replica" data-pinned="false"><rect x="339.33333333333337" y="552" width="160" height="60" rx="6" fill="#ffffff" stroke="#334155" stroke-width="1"/><text x="419.33333333333337" y="587" text-anchor="middle" font-size="14" fill="#0f172a">MariaDB Replica</text></g>
+<g data-node="redis" data-pinned="false"><rect x="104.66666666666669" y="428" width="160" height="60" rx="6" fill="#ffffff" stroke="#334155" stroke-width="1"/><text x="184.66666666666669" y="463" text-anchor="middle" font-size="14" fill="#0f172a">Redis</text></g>
+<g data-node="web03" data-pinned="false"><rect x="520.6666666666667" y="304" width="160" height="60" rx="6" fill="#ffffff" stroke="#334155" stroke-width="1"/><text x="600.6666666666667" y="339" text-anchor="middle" font-size="14" fill="#0f172a">Web 03</text></g>
+<g data-node="internet" data-pinned="false"><rect x="24" y="40" width="160" height="60" rx="6" fill="#ffffff" stroke="#334155" stroke-width="1"/><text x="104" y="75" text-anchor="middle" font-size="14" fill="#0f172a">Internet</text></g>
+<g data-node="backup" data-pinned="false"><rect x="204" y="40" width="160" height="60" rx="6" fill="#ffffff" stroke="#334155" stroke-width="1"/><text x="284" y="75" text-anchor="middle" font-size="14" fill="#0f172a">Backup Storage</text></g>
+</svg>
