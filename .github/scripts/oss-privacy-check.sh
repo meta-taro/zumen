@@ -8,7 +8,9 @@
 # 環境変数（すべて任意）:
 #   OSS_ALLOWED_AUTHOR_EMAIL_REGEX  commit author/committer に許可するメールの ERE
 #                                   既定: @users\.noreply\.github\.com$
-#   OSS_ALLOWED_EMAIL_DOMAINS       追加行・commit message で許可するメールドメイン（空白区切り）
+#   OSS_ALLOWED_EMAIL_DOMAINS       追加行・commit message で許可するメールの許可リスト（空白区切り）
+#                                   ドメインだけ書くとそのドメイン全体を許可する。
+#                                   "@" を含めて書くとそのアドレスだけを許可する（推奨）
 #   OSS_DENY_WORDS                  禁止語（実名等）を 1 行 1 語。CI では secrets から渡す
 #
 # 設計上の約束:
@@ -18,7 +20,10 @@
 set -uo pipefail
 
 ALLOWED_AUTHOR_RE="${OSS_ALLOWED_AUTHOR_EMAIL_REGEX:-@users\.noreply\.github\.com$}"
-ALLOWED_DOMAINS="${OSS_ALLOWED_EMAIL_DOMAINS:-example.com example.org example.net users.noreply.github.com}"
+# noreply@anthropic.com は AI エージェントの Co-Authored-By 用の no-reply アドレスで、
+# 個人ではない（§32 が止めたいのは実在の個人の名前とメール）。
+# ドメイン全体ではなく、このアドレス 1 個だけを許可する。
+ALLOWED_DOMAINS="${OSS_ALLOWED_EMAIL_DOMAINS:-example.com example.org example.net users.noreply.github.com noreply@anthropic.com}"
 DENY_WORDS="${OSS_DENY_WORDS:-}"
 
 EMAIL_RE='[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}'
@@ -33,11 +38,19 @@ mask_email() {
   sed -E 's/([A-Za-z0-9._%+-])[A-Za-z0-9._%+-]*@[A-Za-z0-9.-]+\.([A-Za-z]{2,})/\1***@***.\2/g'
 }
 
+# 許可リストの項目は 2 通り。
+#   "example.com"        … そのドメイン全体を許可する
+#   "noreply@vendor.com" … そのアドレスだけを許可する（こちらのほうが穴が小さい）
 allowed_email() {
-  local e="$1" d
+  local e="$1" d el al
   d="${e##*@}"
+  el="$(printf '%s' "$e" | tr 'A-Z' 'a-z')"
   for a in $ALLOWED_DOMAINS; do
-    [ "$(printf '%s' "$d" | tr 'A-Z' 'a-z')" = "$(printf '%s' "$a" | tr 'A-Z' 'a-z')" ] && return 0
+    al="$(printf '%s' "$a" | tr 'A-Z' 'a-z')"
+    case "$al" in
+      *@*) [ "$el" = "$al" ] && return 0 ;;
+      *)   [ "$(printf '%s' "$d" | tr 'A-Z' 'a-z')" = "$al" ] && return 0 ;;
+    esac
   done
   return 1
 }

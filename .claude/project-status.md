@@ -24,6 +24,9 @@
 
 ## 未完了の作業
 
+- **Issue 009 は `LICENSE` の設置だけ済み。他の項目は未着手**
+  （2026-09-04、人の指示で MIT の本文を設置。著作権者は `meta-taro`）
+
 - **Issue 012（md-business への囲みの追加）— 第 1 段階のみ完了。**
   zumen 側だけで囲み → 描画を通した（`src/embed.ts` / `examples/設計書サンプル.md`）。
   **md-business にはまだ一切触っていない**（別リポなので変更は提案として出す）
@@ -45,7 +48,7 @@
 
 ## テスト状況
 
-- `pnpm test` — **83 件 pass / 0 fail**（`node --test`、外部サービスへ繋がない）
+- `pnpm test` — **89 件 pass / 0 fail**（`node --test`、外部サービスへ繋がない）
 - `pnpm typecheck` — 通過
 - `pnpm s1` — 往復ログを `experiments/s1/results/` へ再生成できる
 - `pnpm d2:conflict` — Git の衝突の実測を再生成できる
@@ -66,6 +69,10 @@
   記録は `experiments/d2/results/mermaid-validation.md`
 - `gh repo view` の `visibility` が PRIVATE。CLAUDE.md は public 前提。切り替えは人の判断
 - GitHub Issue は 0 件。作業は `.claude/issues/` のローカル Issue で駆動している
+- **`oss-privacy-check.sh` の許可リストにアドレス 1 個の穴を開けた**（D8）。
+  AI の `Co-Authored-By: <noreply@anthropic.com>` で CI が落ちたため。
+  **ドメイン全体ではなくアドレス 1 個**で、回帰テストで押さえてある
+  （`test/oss-privacy-check.test.ts`）。**2 個目を足す前に方針を見直すこと**
 - **`oss-privacy-check.sh` が遅い。** 追加行 1 行につき subshell + grep を起こすため、
   未 push の commit が溜まると commit 前のゲートに数分かかる（未 push 13 commit /
   追加 6,990 行で約 5 分）。**検出はしている。速度だけの問題**
