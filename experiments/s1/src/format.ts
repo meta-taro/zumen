@@ -17,6 +17,10 @@ export interface Pin {
   position?: { x: number; y: number };
   size?: { w: number; h: number };
   label?: string;
+  /** 体裁の指定。renderer が色や太さへ訳す（原案 §5.3 Semantic Style）。 */
+  appearance?: string;
+  /** 人が手で曲げたエッジの経路。エッジの pin は `from>to` を鍵にする。 */
+  waypoints?: { x: number; y: number }[];
   /**
    * 人が「AI の再配置より自分の位置を採る」と決めた印。
    * 決定を正本へ書いておかないと、次に開いたときに同じことを聞き直すことになる。

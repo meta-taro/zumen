@@ -20,12 +20,12 @@ import type { Diagram, Pin } from './format.ts';
 export type Position = { x: number; y: number };
 
 export type Conflict =
-  /** pin を持つノードを AI が消そうとした。消さずに残して聞く。 */
-  | { kind: 'pin-orphaned'; nodeId: string; reason: 'removed' }
+  /** pin を持つノード／エッジを AI が消そうとした。消さずに残して聞く。 */
+  | { kind: 'pin-orphaned'; elementId: string; reason: 'removed' }
   /** pin を持つノードに AI が別の位置を出してきた。まだ決まっていない。 */
-  | { kind: 'position-proposed'; nodeId: string; human: Position; ai: Position }
+  | { kind: 'position-proposed'; elementId: string; human: Position; ai: Position }
   /** 同じ提案だが、人が既に「自分の位置を採る」と決めている。聞き直さない。 */
-  | { kind: 'position-suppressed'; nodeId: string; ai: Position };
+  | { kind: 'position-suppressed'; elementId: string; ai: Position };
 
 export interface MergeResult {
   text: string;
@@ -44,7 +44,7 @@ export function merge(currentText: string, proposalText: string): MergeResult {
   const proposalNodes = itemsById(proposal, 'nodes', 'id');
   const kept = mergeNodes(current, proposalNodes, pins, conflicts);
   mergeGroups(current, proposal);
-  mergeEdges(current, proposal, kept);
+  mergeEdges(current, proposal, kept, pins, conflicts);
   applyPositionIntents(current, proposalNodes, pins, conflicts);
 
   return { text: serialize(current), conflicts };
@@ -58,11 +58,12 @@ export function merge(currentText: string, proposalText: string): MergeResult {
  */
 export function resolve(text: string, conflict: Conflict, choice: 'human' | 'ai'): string {
   const doc = parse(text);
-  const id = conflict.nodeId;
+  const id = conflict.elementId;
 
   if (conflict.kind === 'pin-orphaned') {
     if (choice === 'ai') {
-      removeNode(doc, id);
+      if (id.includes('>')) removeEdge(doc, id);
+      else removeNode(doc, id);
       deletePin(doc, id);
     } else {
       lockPin(doc, id);
@@ -100,7 +101,7 @@ function mergeNodes(
     if (proposed === undefined) {
       if (pins[id] !== undefined) {
         // 人が場所を決めたノードを黙って消さない。消してから聞いても戻せない。
-        conflicts.push({ kind: 'pin-orphaned', nodeId: id, reason: 'removed' });
+        conflicts.push({ kind: 'pin-orphaned', elementId: id, reason: 'removed' });
         remaining.push(item);
         kept.add(id);
       }
@@ -149,12 +150,18 @@ function mergeGroups(current: Diagram, proposal: Diagram): void {
 
 // --- エッジ ----------------------------------------------------------------
 
-/** エッジには id が無い。両端の組で照合する。 */
+/** エッジには id が無い。両端の組で照合する。pin の鍵と同じ形にする。 */
 function edgeKey(item: YAMLMap): string {
-  return `${String(item.get('from'))} ${String(item.get('to'))}`;
+  return `${String(item.get('from'))}>${String(item.get('to'))}`;
 }
 
-function mergeEdges(current: Diagram, proposal: Diagram, keptNodes: Set<string>): void {
+function mergeEdges(
+  current: Diagram,
+  proposal: Diagram,
+  keptNodes: Set<string>,
+  pins: Record<string, Pin>,
+  conflicts: Conflict[],
+): void {
   const seq = getSeq(current, 'edges');
   const proposed = new Map<string, YAMLMap>();
   for (const item of getSeq(proposal, 'edges').items) {
@@ -168,6 +175,12 @@ function mergeEdges(current: Diagram, proposal: Diagram, keptNodes: Set<string>)
     const key = edgeKey(item);
     const next = proposed.get(key);
     if (next === undefined) {
+      // 人が手で曲げた線を黙って消さない。ノードと同じ扱いで、残して聞く。
+      if (pins[key] !== undefined) {
+        conflicts.push({ kind: 'pin-orphaned', elementId: key, reason: 'removed' });
+        remaining.push(item);
+        continue;
+      }
       // 競合で残したノードに繋がる線は、ノードと一緒に残す。片端の無い線を作らない。
       const from = String(item.get('from'));
       const to = String(item.get('to'));
@@ -219,8 +232,8 @@ function applyPositionIntents(
 
     conflicts.push(
       pin.locked === true
-        ? { kind: 'position-suppressed', nodeId: id, ai }
-        : { kind: 'position-proposed', nodeId: id, human: pin.position, ai },
+        ? { kind: 'position-suppressed', elementId: id, ai }
+        : { kind: 'position-proposed', elementId: id, human: pin.position, ai },
     );
   }
 }
@@ -280,6 +293,14 @@ function removeNode(diagram: Diagram, id: string): void {
   const edges = getSeq(diagram, 'edges');
   edges.items = edges.items.filter(
     (item) => !(isMap(item) && (String(item.get('from')) === id || String(item.get('to')) === id)),
+  );
+}
+
+function removeEdge(diagram: Diagram, id: string): void {
+  const [from, to] = id.split('>');
+  const edges = getSeq(diagram, 'edges');
+  edges.items = edges.items.filter(
+    (item) => !(isMap(item) && String(item.get('from')) === from && String(item.get('to')) === to),
   );
 }
 

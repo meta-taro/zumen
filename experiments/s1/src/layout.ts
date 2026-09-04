@@ -28,14 +28,22 @@ export interface Box {
   group: string | null;
   label: string;
   type: string;
+  /** 体裁の指定。人が与えたものだけが入る。 */
+  appearance: string | null;
   /** 人が置いた場所か。 */
   pinned: boolean;
 }
 
 export interface PlacedEdge {
+  /** `from>to`。pin の鍵と同じ。 */
+  id: string;
   from: string;
   to: string;
   label: string | null;
+  /** 実際に通る点の列。両端は箱の縁。 */
+  points: { x: number; y: number }[];
+  /** 人が曲げたか。 */
+  pinned: boolean;
 }
 
 export interface Placed {
@@ -64,23 +72,28 @@ export async function layout(text: string): Promise<Placed> {
   const nodes = readNodes(diagram);
   const groupIds = diagram.groupIds();
 
-  const graph = buildGraph(nodes, groupIds, diagram.edges());
+  const graph = buildGraph(nodes, groupIds, diagram.edges(), pins);
   const laid = await new ELK().layout(graph);
 
   const boxes: Box[] = [];
   const groups: Box[] = [];
   collect(laid, 0, 0, nodes, groupIds, boxes, groups);
 
-  // 人が置いた場所へ戻す。ELK が何を決めたかに関わらず、ここは人の値が勝つ。
+  // 人が置いた場所・付けた体裁へ戻す。ELK が何を決めたかに関わらず、人の値が勝つ。
   for (const box of boxes) {
-    const position = pins[box.id]?.position;
-    if (position === undefined) continue;
-    box.x = position.x;
-    box.y = position.y;
-    box.pinned = true;
+    const pin = pins[box.id];
+    if (pin === undefined) continue;
+    if (pin.position !== undefined) {
+      box.x = pin.position.x;
+      box.y = pin.position.y;
+      box.pinned = true;
+    }
+    if (pin.label !== undefined) box.label = pin.label;
+    if (pin.appearance !== undefined) box.appearance = pin.appearance;
   }
 
-  return { boxes, groups, edges: readEdges(diagram), ...extent(boxes, groups) };
+  const edges = routeEdges(readEdges(diagram), boxes, pins);
+  return { boxes, groups, edges, ...extent(boxes, groups) };
 }
 
 /** 重なっている組を返す。合否ではなく観測値。 */
@@ -120,23 +133,91 @@ function readNodes(diagram: ReturnType<typeof parse>): NodeInfo[] {
   }));
 }
 
-function readEdges(diagram: ReturnType<typeof parse>): PlacedEdge[] {
+interface EdgeInfo {
+  id: string;
+  from: string;
+  to: string;
+  label: string | null;
+}
+
+function readEdges(diagram: ReturnType<typeof parse>): EdgeInfo[] {
   return diagram.edges().map((edge) => ({
+    id: `${edge.from}>${edge.to}`,
     from: edge.from,
     to: edge.to,
     label: edge.label ?? edge.protocol ?? null,
   }));
 }
 
+/**
+ * 線の通り道を決める。
+ *
+ * **人が曲げた線は、その点列をそのまま通す。** 曲げ方は好みではなく
+ * 「この経路で説明したい」という意思なので、機械が引き直さない。
+ * 曲げていない線は、箱の中心どうしを結んで縁で切る。S1 では回り込みまで見ない
+ * （原案 §26 の 3 = Connector routing の品質は Issue 004 の側）。
+ */
+function routeEdges(
+  edges: EdgeInfo[],
+  boxes: Box[],
+  pins: Record<string, { waypoints?: { x: number; y: number }[] }>,
+): PlacedEdge[] {
+  const byId = new Map(boxes.map((box) => [box.id, box]));
+  return edges.map((edge) => {
+    const from = byId.get(edge.from);
+    const to = byId.get(edge.to);
+    if (from === undefined || to === undefined) {
+      return { ...edge, points: [], pinned: false };
+    }
+    const waypoints = pins[edge.id]?.waypoints;
+    const start = center(from);
+    const end = center(to);
+    if (waypoints !== undefined && waypoints.length > 0) {
+      const first = waypoints[0]!;
+      const last = waypoints[waypoints.length - 1]!;
+      return {
+        ...edge,
+        points: [clip(from, first), ...waypoints, clip(to, last)],
+        pinned: true,
+      };
+    }
+    return { ...edge, points: [clip(from, end), clip(to, start)], pinned: false };
+  });
+}
+
+function center(box: Box): { x: number; y: number } {
+  return { x: box.x + box.w / 2, y: box.y + box.h / 2 };
+}
+
+/** 箱の中心から `toward` へ向かう線が、箱の縁と交わる点。 */
+function clip(box: Box, toward: { x: number; y: number }): { x: number; y: number } {
+  const c = center(box);
+  const dx = toward.x - c.x;
+  const dy = toward.y - c.y;
+  if (dx === 0 && dy === 0) return c;
+  const scale = Math.min(
+    dx === 0 ? Infinity : box.w / 2 / Math.abs(dx),
+    dy === 0 ? Infinity : box.h / 2 / Math.abs(dy),
+  );
+  return { x: round(c.x + dx * scale), y: round(c.y + dy * scale) };
+}
+
+function round(value: number): number {
+  return Math.round(value * 100) / 100;
+}
+
 function buildGraph(
   nodes: NodeInfo[],
   groupIds: string[],
   edges: { from: string; to: string }[],
+  pins: Record<string, { size?: { w: number; h: number } }>,
 ): ElkNode {
   const leaf = (node: NodeInfo): ElkNode => ({
     id: node.id,
-    width: NODE_WIDTH,
-    height: NODE_HEIGHT,
+    // 人が変えた大きさは、組み立ての入力の段階で効かせる。
+    // 後から広げると、周りが元の大きさのまま詰められていて重なる。
+    width: pins[node.id]?.size?.w ?? NODE_WIDTH,
+    height: pins[node.id]?.size?.h ?? NODE_HEIGHT,
   });
 
   const children: ElkNode[] = groupIds.map((groupId) => ({
@@ -180,6 +261,7 @@ function collect(
       group: groupIds.includes(node.id) ? node.id : null,
       label: nodes.find((n) => n.id === child.id)?.label ?? child.id,
       type: nodes.find((n) => n.id === child.id)?.type ?? 'generic',
+      appearance: null,
       pinned: false,
     };
     if (groupIds.includes(child.id)) {

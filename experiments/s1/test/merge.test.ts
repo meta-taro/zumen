@@ -104,7 +104,7 @@ describe('競合 — 人の指定と AI の変更がぶつかったとき', () =
     const proposal = parse(R0);
     removeNode(proposal, 'db');
     const result = merge(withHumanEdit(R0), serialize(proposal));
-    assert.deepEqual(result.conflicts, [{ kind: 'pin-orphaned', nodeId: 'db', reason: 'removed' }]);
+    assert.deepEqual(result.conflicts, [{ kind: 'pin-orphaned', elementId: 'db', reason: 'removed' }]);
   });
 
   it('検出 — AI が pin 付きノードに位置を書いてきたら競合として出す', () => {
@@ -114,7 +114,7 @@ describe('競合 — 人の指定と AI の変更がぶつかったとき', () =
     assert.deepEqual(result.conflicts, [
       {
         kind: 'position-proposed',
-        nodeId: 'db',
+        elementId: 'db',
         human: { x: 620, y: 410 },
         ai: { x: 100, y: 900 },
       },
@@ -153,7 +153,7 @@ describe('競合 — 人の指定と AI の変更がぶつかったとき', () =
 
     const second = merge(decided, serialize(proposal));
     assert.deepEqual(second.conflicts, [
-      { kind: 'position-suppressed', nodeId: 'db', ai: { x: 100, y: 900 } },
+      { kind: 'position-suppressed', elementId: 'db', ai: { x: 100, y: 900 } },
     ]);
     assert.deepEqual(getPins(parse(second.text)).db?.position, { x: 620, y: 410 });
   });
@@ -166,12 +166,34 @@ describe('競合 — 人の指定と AI の変更がぶつかったとき', () =
     assert.equal(getPins(parse(decided)).db?.locked, true);
   });
 
+  it('検出 — 人が手で曲げた線を AI が消したら、競合として出す', () => {
+    const current = parse(R0);
+    setPin(current, 'web01>db', { waypoints: [{ x: 10, y: 20 }] });
+    const proposal = parse(R0);
+    removeEdge(proposal, 'web01', 'db');
+    const result = merge(serialize(current), serialize(proposal));
+    assert.deepEqual(result.conflicts, [
+      { kind: 'pin-orphaned', elementId: 'web01>db', reason: 'removed' },
+    ]);
+  });
+
+  it('選択 — 曲げた線について AI を採ると、線も pin も消える', () => {
+    const current = parse(R0);
+    setPin(current, 'web01>db', { waypoints: [{ x: 10, y: 20 }] });
+    const proposal = parse(R0);
+    removeEdge(proposal, 'web01', 'db');
+    const result = merge(serialize(current), serialize(proposal));
+    const after = parse(resolve(result.text, result.conflicts[0]!, 'ai'));
+    assert.equal(after.edges().some((e) => e.from === 'web01' && e.to === 'db'), false);
+    assert.equal('web01>db' in getPins(after), false);
+  });
+
   it('検出 — AI がノード id を書き換えたら、pin の迷子を競合として出す', () => {
     // ここが最大の弱点。id が変わると人の指定は誰にも紐づかなくなる。
     const proposal = parse(R0);
     setNodeField(proposal, 'db', 'id', 'maindb');
     const result = merge(withHumanEdit(R0), serialize(proposal));
-    assert.deepEqual(result.conflicts, [{ kind: 'pin-orphaned', nodeId: 'db', reason: 'removed' }]);
+    assert.deepEqual(result.conflicts, [{ kind: 'pin-orphaned', elementId: 'db', reason: 'removed' }]);
   });
 });
 
@@ -182,6 +204,13 @@ function removeNode(diagram: ReturnType<typeof parse>, id: string): void {
   nodes.items = nodes.items.filter((item) => item.get('id') !== id);
   const edges = diagram.doc.get('edges', true) as { items: { get(k: string): unknown }[] };
   edges.items = edges.items.filter((item) => item.get('from') !== id && item.get('to') !== id);
+}
+
+function removeEdge(diagram: ReturnType<typeof parse>, from: string, to: string): void {
+  const edges = diagram.doc.get('edges', true) as { items: { get(k: string): unknown }[] };
+  edges.items = edges.items.filter(
+    (item) => !(item.get('from') === from && item.get('to') === to),
+  );
 }
 
 function setNodeField(
