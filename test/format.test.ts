@@ -10,7 +10,7 @@ import { describe, it } from 'node:test';
 
 import { getPins, parse, serialize, setPin } from '../src/format.ts';
 
-const R0 = readFileSync(new URL('../fixtures/r0.zumen.yaml', import.meta.url), 'utf8');
+const R0 = readFileSync(new URL('fixtures/r0.zumen.yaml', import.meta.url), 'utf8');
 
 describe('parse', () => {
   it('ノード・エッジ・グループを読む', () => {

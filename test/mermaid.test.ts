@@ -7,10 +7,10 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { describe, it } from 'node:test';
 
-import { parse, serialize, setPin } from '../../s1/src/format.ts';
+import { parse, serialize, setPin } from '../src/format.ts';
 import { toMermaid } from '../src/mermaid.ts';
 
-const R0 = readFileSync(new URL('../../s1/fixtures/r0.zumen.yaml', import.meta.url), 'utf8');
+const R0 = readFileSync(new URL('fixtures/r0.zumen.yaml', import.meta.url), 'utf8');
 
 describe('toMermaid', () => {
   it('Mermaid として成立する形で始まる', () => {

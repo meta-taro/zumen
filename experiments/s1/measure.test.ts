@@ -7,10 +7,10 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { describe, it } from 'node:test';
 
-import { deletePin, parse, serialize, setPin } from '../src/format.ts';
-import { measure } from '../src/measure.ts';
+import { deletePin, parse, serialize, setPin } from '../../src/format.ts';
+import { measure } from './measure.ts';
 
-const R0 = readFileSync(new URL('../fixtures/r0.zumen.yaml', import.meta.url), 'utf8');
+const R0 = readFileSync(new URL('../../test/fixtures/r0.zumen.yaml', import.meta.url), 'utf8');
 
 function pinned(): string {
   const doc = parse(R0);

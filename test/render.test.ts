@@ -13,7 +13,7 @@ import { parse, serialize, setPin } from '../src/format.ts';
 import { layout } from '../src/layout.ts';
 import { render } from '../src/render.ts';
 
-const R0 = readFileSync(new URL('../fixtures/r0.zumen.yaml', import.meta.url), 'utf8');
+const R0 = readFileSync(new URL('fixtures/r0.zumen.yaml', import.meta.url), 'utf8');
 
 function pinned(id: string, pin: Parameters<typeof setPin>[2]): string {
   const doc = parse(R0);

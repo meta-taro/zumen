@@ -13,10 +13,10 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { parse, serialize, setPin } from '../s1/src/format.ts';
+import { parse, serialize, setPin } from '../../src/format.ts';
 
 const HERE = fileURLToPath(new URL('.', import.meta.url));
-const BASE = readFileSync(`${HERE}../s1/fixtures/r0.zumen.yaml`, 'utf8');
+const BASE = readFileSync(`${HERE}../../test/fixtures/r0.zumen.yaml`, 'utf8');
 const FILE = 'diagram.zumen.yaml';
 
 interface Scenario {

@@ -12,19 +12,25 @@
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
-import { parse, serialize, setPin } from './src/format.ts';
-import { groupEscapes, layout, overlaps } from './src/layout.ts';
-import { measure } from './src/measure.ts';
-import type { Expectation, Measurement } from './src/measure.ts';
-import { merge, resolve } from './src/merge.ts';
-import type { Conflict } from './src/merge.ts';
-import { render } from './src/render.ts';
+import { parse, serialize, setPin } from '../../src/format.ts';
+import { groupEscapes, layout, overlaps } from '../../src/layout.ts';
+import { measure } from './measure.ts';
+import type { Expectation, Measurement } from './measure.ts';
+import { merge, resolve } from '../../src/merge.ts';
+import type { Conflict } from '../../src/merge.ts';
+import { render } from '../../src/render.ts';
 
 const HERE = fileURLToPath(new URL('.', import.meta.url));
 const RESULTS = `${HERE}results`;
 
+/** 実 AI 役の提案など、この実験だけが使うもの。 */
 function fixture(name: string): string {
   return readFileSync(`${HERE}fixtures/${name}`, 'utf8');
+}
+
+/** 出発点の図。テストと同じものを使う（別々に持つとずれる）。 */
+function baseDiagram(): string {
+  return readFileSync(`${HERE}../../test/fixtures/r0.zumen.yaml`, 'utf8');
 }
 
 interface Round {
@@ -133,7 +139,7 @@ async function main(): Promise<void> {
   mkdirSync(RESULTS, { recursive: true });
   const records: RoundRecord[] = [];
 
-  let text = fixture('r0.zumen.yaml');
+  let text = baseDiagram();
   writeFileSync(`${RESULTS}/R0.yaml`, text);
   writeFileSync(`${RESULTS}/R0.svg`, render(await layout(text)));
 
@@ -142,7 +148,7 @@ async function main(): Promise<void> {
   }
 
   // 実 AI が丸ごと書き直した場合（判定基準 §8）。
-  const realBase = withPin(fixture('r0.zumen.yaml'), 'db', { position: { x: 620, y: 410 } });
+  const realBase = withPin(baseDiagram(), 'db', { position: { x: 620, y: 410 } });
   for (const [id, name] of [
     ['REAL-1', 'real-ai-r1-proposal.yaml'],
     ['REAL-2', 'real-ai-r1-proposal-renamed.yaml'],

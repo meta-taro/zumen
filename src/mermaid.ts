@@ -11,8 +11,8 @@
  * **落ちるものは黙って落とさない。** Mermaid には人が置いた位置を書く場所が無い。
  * 落ちた指定を先頭のコメントに列挙して、何が失われたかを読める形にする。
  */
-import { getPins, parse } from '../../s1/src/format.ts';
-import type { Pin } from '../../s1/src/format.ts';
+import { getPins, parse } from './format.ts';
+import type { Pin } from './format.ts';
 
 interface NodeInfo {
   id: string;

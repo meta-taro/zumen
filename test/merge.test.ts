@@ -13,7 +13,7 @@ import { describe, it } from 'node:test';
 import { getPins, parse, serialize, setPin } from '../src/format.ts';
 import { merge, resolve } from '../src/merge.ts';
 
-const R0 = readFileSync(new URL('../fixtures/r0.zumen.yaml', import.meta.url), 'utf8');
+const R0 = readFileSync(new URL('fixtures/r0.zumen.yaml', import.meta.url), 'utf8');
 
 /** 人が db を手で動かした状態を作る。 */
 function withHumanEdit(text: string): string {

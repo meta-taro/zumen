@@ -12,7 +12,7 @@ import { describe, it } from 'node:test';
 import { parse, serialize, setPin } from '../src/format.ts';
 import { groupEscapes, layout, overlaps } from '../src/layout.ts';
 
-const R0 = readFileSync(new URL('../fixtures/r0.zumen.yaml', import.meta.url), 'utf8');
+const R0 = readFileSync(new URL('fixtures/r0.zumen.yaml', import.meta.url), 'utf8');
 
 function withPin(id: string, x: number, y: number): string {
   const doc = parse(R0);

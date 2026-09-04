@@ -7,7 +7,7 @@
 > **この文書は実装から独立して読めるように書く。**
 > zumen の開発が止まっても、この文書と YAML パーサがあれば図を読み直せる、
 > という状態を保つのが目的（PRD §5 の 4 問目）。
-> 実装（`experiments/`）を読まないと分からない規則が出てきたら、それはこの文書の不足。
+> 実装（`src/`）を読まないと分からない規則が出てきたら、それはこの文書の不足。
 
 ---
 
@@ -232,8 +232,8 @@ AI の出力 = 提案（semantics だけ）
 
 | 先 | 状態 | 失われるもの |
 |---|---|---|
-| Mermaid | 実装済み（`experiments/d2/src/mermaid.ts`） | `position` / `size` / `waypoints` |
-| SVG | 実装済み（`experiments/s1/src/render.ts`） | 図としてのみ。再編集はできない |
+| Mermaid | 実装済み（`src/mermaid.ts`） | `position` / `size` / `waypoints` |
+| SVG | 実装済み（`src/render.ts`） | 図としてのみ。再編集はできない |
 | draw.io XML | 未実装 | — |
 
 **失われるものを黙って落としてはならない。**
@@ -251,7 +251,7 @@ Mermaid 書き出しは、落ちた指定を先頭のコメントに列挙する
 4. §6.3 の競合 3 点（検出・選択・持続）
 5. §5.1 の `id` を書き換えない
 
-`experiments/s1/test/` と `experiments/d2/test/` のテストが、そのまま適合の確認になる。
+`test/` のテストが、そのまま適合の確認になる。
 
 ---
 

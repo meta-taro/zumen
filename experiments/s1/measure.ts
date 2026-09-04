@@ -7,8 +7,8 @@
  * 保持と反映は必ず並べて返す。片方だけを見ると、全部を固定して保持 100%・反映 0%
  * という逆方向の失敗が「成功」に見える（判定基準 3.2）。
  */
-import { getPins, parse } from './format.ts';
-import type { Pin } from './format.ts';
+import { getPins, parse } from '../../src/format.ts';
+import type { Pin } from '../../src/format.ts';
 
 /** 何が起きるはずかを、往復の前に書き出したもの。 */
 export type Expectation =
