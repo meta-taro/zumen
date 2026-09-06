@@ -56,8 +56,14 @@ export const NODE: Look = { fill: TOKEN.bgApp, stroke: TOKEN.borderStrong };
 /** 囲み（VPC・サブネット）。中身より一段沈める。 */
 export const GROUP: Look = { fill: TOKEN.bgSubtle, stroke: TOKEN.border };
 
-/** 線と、その頭。 */
-export const EDGE = { stroke: TOKEN.borderStrong } as const;
+/**
+ * 線と、その頭。
+ *
+ * **枠の色（`borderStrong`）を使わない。** ヘアライン用の薄さなので、
+ * 線に当てると地に沈んで読めなくなる（実際にそうなった）。
+ * **図の主役は関係**なので、箱の枠より濃く出す。
+ */
+export const EDGE = { stroke: TOKEN.textSecondary } as const;
 
 /** 文字。 */
 export const TEXT = {

@@ -143,4 +143,30 @@ describe('ロケールの決め方', () => {
       assert.equal(resolveLocale(env), expected);
     });
   }
+
+  it('**`process` が無くても落ちない**（画面側で全体が止まった実例がある）', () => {
+    // ブラウザには process が無い。既定引数でそれを触ると、
+    // 文言を 1 つ使った瞬間に ReferenceError で全部止まる。
+    const saved = Reflect.get(globalThis, 'process');
+    try {
+      Reflect.deleteProperty(globalThis, 'process');
+      assert.doesNotThrow(() => resolveLocale());
+      assert.equal(resolveLocale(), 'ja');
+    } finally {
+      Reflect.set(globalThis, 'process', saved);
+    }
+  });
+
+  it('`process` が無ければ navigator.language を見る', () => {
+    const saved = Reflect.get(globalThis, 'process');
+    const savedNav = Reflect.get(globalThis, 'navigator');
+    try {
+      Reflect.deleteProperty(globalThis, 'process');
+      Reflect.defineProperty(globalThis, 'navigator', { value: { language: 'en-US' }, configurable: true });
+      assert.equal(resolveLocale(), 'en');
+    } finally {
+      Reflect.set(globalThis, 'process', saved);
+      Reflect.defineProperty(globalThis, 'navigator', { value: savedNav, configurable: true });
+    }
+  });
 });

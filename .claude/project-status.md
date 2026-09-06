@@ -60,12 +60,15 @@
 
 - **GUI の第 1 段階が動く（B3 / D11 の 8 操作）。** `pnpm dev` で立つ。
   Svelte 5 + Vite。**Tauri の殻はまだ**（ブラウザで動く形）。
-  **確かめたのはコンパイルまでで、実行時の動作は人が見ていない**
+  **実際に動かして確認済み**（`pnpm gui:check` が 8 操作を通す）。
+  **動かしてみたら、`process is not defined` で画面が丸ごと動いていなかった**
+  — ビルドが通ることと動くことは別だった
 
 ## 未完了の作業
 
 - **Tauri の殻**（D12）。`app/lib/files.ts` に 3 段目として足す
-- **画面そのもののテストが 0 件。** `node --test` は `.svelte` を扱えない
+- **画面の確認は `pnpm gui:check`**（21 項目）。`node --test` は `.svelte` を
+  扱えないので分けてある。**Chrome が要る**（無ければ「確認できなかった」と言って終わる）
 - **AI の API 接続は未着手。** 鍵の投入は人の作業（ベースルール §14）なので、
   v0 は「提案（YAML）を読み込む」形にしてある
 
@@ -119,6 +122,7 @@
 - `pnpm measure <図> ...` — 「9 割」を測る（D3）。**不合格でも終了コードは 0**
 - `pnpm s3` — 基準線を再生成する
 - `pnpm dev` — 画面を立てる（`http://localhost:5173`）
+- `pnpm gui:check` — 画面の 8 操作を実際に動かして確かめる（Chrome が要る）
 - `pnpm build:app` — 画面を束ねる
 - `pnpm svg` / `pnpm mermaid` / `pnpm embed` / `pnpm merge` — 書き出しと取り込み
 

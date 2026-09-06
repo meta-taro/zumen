@@ -167,7 +167,7 @@
     width: 100%;
     height: 100%;
     display: block;
-    background: var(--bg-subtle);
+    background: var(--canvas);
     touch-action: none;
     cursor: grab;
   }

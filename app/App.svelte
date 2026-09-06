@@ -11,6 +11,7 @@
   **見た目の完成度は完了条件に含めない。汚くてよい**（PRD §3）。
 -->
 <script lang="ts">
+  import sample from '../examples/本番構成.zumen.yaml?raw';
   import { percent } from '../src/measure.ts';
   import Canvas from './lib/Canvas.svelte';
   import Conflicts from './lib/Conflicts.svelte';
@@ -21,6 +22,25 @@
   const session = new Session();
   let handle = $state<unknown>(null);
   let trouble = $state<string | null>(null);
+  let dropping = $state(false);
+
+  // 開発中だけ、外から動かせる取っ手を出す。
+  // **自動で 8 操作を通して確かめるため**（人に手作業を頼まないため）。
+  if (import.meta.env.DEV) {
+    (globalThis as unknown as { zumen?: unknown }).zumen = session;
+  }
+
+  /**
+   * 同梱の例を開く。
+   *
+   * **空の画面からの入口が、ネイティブのファイルダイアログしか無いのは行き止まり。**
+   * 初めて触る人も、動作を確かめたい人も、まずこれで先へ進める。
+   */
+  async function openSample(): Promise<void> {
+    trouble = null;
+    handle = null;
+    await session.load(sample, '本番構成.zumen.yaml');
+  }
 
   async function open(): Promise<void> {
     trouble = null;
@@ -55,13 +75,44 @@
     }
   }
 
+  /**
+   * ファイルを落として開く。
+   *
+   * **ファイルダイアログしか入口が無いのは、行き止まりになりやすい。**
+   * エディタから図を放り込む動きが、いちばん自然。
+   */
+  async function drop(event: DragEvent): Promise<void> {
+    event.preventDefault();
+    dropping = false;
+    const file = event.dataTransfer?.files?.[0];
+    if (file === undefined) return;
+    trouble = null;
+    try {
+      handle = null;
+      await session.load(await file.text(), file.name);
+    } catch (error) {
+      trouble = describe(error);
+    }
+  }
+
   /** 握り潰さない。**画面に出ないと、書いた人は気づかない。** */
   function describe(error: unknown): string {
     return error instanceof Error ? error.message : String(error);
   }
 </script>
 
-<div class="shell">
+<div
+  class="shell"
+  class:dropping
+  ondragover={(event) => {
+    event.preventDefault();
+    dropping = true;
+  }}
+  ondragleave={() => (dropping = false)}
+  ondrop={drop}
+  role="application"
+  aria-label="zumen"
+>
   <header>
     <div class="title">
       <strong>zumen</strong>
@@ -98,7 +149,8 @@
         </div>
       {:else}
         <div class="empty">
-          <p>図を開いてください。</p>
+          <p>図を開いてください。ここへ落としても開きます。</p>
+          <button class="primary" onclick={openSample}>同梱の例を開く</button>
         </div>
       {/if}
     </div>
@@ -153,6 +205,10 @@
     height: 100%;
     display: flex;
     flex-direction: column;
+  }
+  .shell.dropping {
+    outline: 2px solid var(--accent);
+    outline-offset: -2px;
   }
   header {
     display: flex;
@@ -222,9 +278,20 @@
     height: 100%;
     display: grid;
     place-content: center;
+    justify-items: center;
+    gap: var(--space-3);
     color: var(--text-tertiary);
     background: var(--bg-subtle);
     padding: var(--space-5);
+  }
+  button.primary {
+    background: var(--accent);
+    color: var(--text-on-accent);
+    border-color: transparent;
+    height: 32px;
+  }
+  button.primary:hover:not(:disabled) {
+    background: var(--accent-hover);
   }
   .trouble {
     background: var(--danger-bg);

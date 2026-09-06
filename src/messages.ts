@@ -239,12 +239,32 @@ export function messages(locale: Locale = defaultLocale()): Catalog {
 }
 
 /**
+ * いま動いている場所の環境。
+ *
+ * **`process` はブラウザに無い。** 既定引数で `process.env` を触ると、
+ * 画面側で文言を 1 つ使った瞬間に `process is not defined` で全体が止まる
+ * （2026-09-06、実際にそうなった）。
+ *
+ * 画面では `navigator.language` を見る。ここが利用者の設定に相当する。
+ */
+function ambient(): Record<string, string | undefined> {
+  const runtime = globalThis as {
+    process?: { env?: Record<string, string | undefined> };
+    navigator?: { language?: string };
+  };
+  const fromProcess = runtime.process?.env;
+  if (fromProcess !== undefined) return fromProcess;
+  const language = runtime.navigator?.language;
+  return language === undefined ? {} : { LANG: language };
+}
+
+/**
  * 環境からロケールを決める。**分からなければ日本語**。
  *
  * `ZUMEN_LOCALE` を最優先にするのは、`LANG` が意図と食い違う環境
  * （CI・Docker・SSH 越し）で、利用者が明示的に上書きできる口を残すため。
  */
-export function resolveLocale(env: Record<string, string | undefined> = process.env): Locale {
+export function resolveLocale(env: Record<string, string | undefined> = ambient()): Locale {
   const raw = env['ZUMEN_LOCALE'] ?? env['LC_ALL'] ?? env['LC_MESSAGES'] ?? env['LANG'] ?? '';
   const tag = raw.toLowerCase().replace('_', '-');
   for (const locale of LOCALES) {

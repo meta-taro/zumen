@@ -52,6 +52,7 @@
 pnpm install
 pnpm dev         # 画面を立てる（http://localhost:5173）
 pnpm test        # 走るテスト
+pnpm gui:check   # 画面の 8 操作を実際に動かして確かめる（Chrome が要る）
 pnpm validate <図のファイル> ...   # 形式に適合しているかを見る
 pnpm measure  <図のファイル> ...   # 「AI が 9 割描けたか」を測る
 pnpm svg      <図のファイル>       # SVG を書き出す
