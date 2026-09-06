@@ -49,6 +49,19 @@ const ja = {
     usageMergeDriver: '使い方: merge-driver <base> <ours> <theirs>',
     usageDrawio: '使い方: pnpm drawio <図のファイル> [書き出し先]',
     usageMeasure: '使い方: pnpm measure <図のファイル> ...',
+    usageSvg: '使い方: pnpm svg <図のファイル> [書き出し先]',
+    usageMermaid: '使い方: pnpm mermaid <図のファイル> [書き出し先]',
+    usageEmbed: '使い方: pnpm embed <Markdown のファイル> [書き出し先]',
+    usageMerge: '使い方: pnpm merge <正本> <提案>',
+    /** 囲みが 1 つも無い Markdown。**黙って何もしない、をしない。** */
+    embedNoBlocks: (path: string) => `${path} に zumen の囲みがありません。`,
+    /** 競合は適用していない。**決めるのは人。** */
+    mergedConflicts: (count: number) => `${count} 件、人の指定と提案が食い違っています。適用していません。`,
+    conflictLine: (elementId: string, detail: string) => `  ${elementId}: ${detail}`,
+    conflictRemoved: '提案では消えていますが、人が指定した要素なので残しました。',
+    conflictPosition: (human: string, ai: string) => `人の指定 ${human} / 提案 ${ai}`,
+    conflictSuppressed: (ai: string) => `提案 ${ai}。人が自分の指定を採ると決めているので聞き直しません。`,
+    mergedClean2: '食い違いはありません。',
     /** 「9 割」の測り方は `docs/specs/003-9割の定義.md`。 */
     measured: (path: string, autonomy: string, layout: string) =>
       `${path} — 自力率 ${autonomy} / 配置の自力率 ${layout}`,
@@ -142,6 +155,17 @@ const en: Catalog = {
     usageMergeDriver: 'Usage: merge-driver <base> <ours> <theirs>',
     usageDrawio: 'Usage: pnpm drawio <diagram file> [output path]',
     usageMeasure: 'Usage: pnpm measure <diagram file> ...',
+    usageSvg: 'Usage: pnpm svg <diagram file> [output path]',
+    usageMermaid: 'Usage: pnpm mermaid <diagram file> [output path]',
+    usageEmbed: 'Usage: pnpm embed <markdown file> [output path]',
+    usageMerge: 'Usage: pnpm merge <source of truth> <proposal>',
+    embedNoBlocks: (path: string) => `${path} has no zumen blocks.`,
+    mergedConflicts: (count: number) => `${count} place(s) where the proposal disagrees with a hand edit. Not applied.`,
+    conflictLine: (elementId: string, detail: string) => `  ${elementId}: ${detail}`,
+    conflictRemoved: 'The proposal drops it, but a person placed it, so it was kept.',
+    conflictPosition: (human: string, ai: string) => `hand edit ${human} / proposal ${ai}`,
+    conflictSuppressed: (ai: string) => `proposal ${ai}. The person chose their own placement, so this is not asked again.`,
+    mergedClean2: 'No disagreements.',
     measured: (path: string, autonomy: string, layout: string) =>
       `${path} — autonomy ${autonomy} / layout autonomy ${layout}`,
     measurePassed: (count: number, line: string) => `All ${count} diagram(s) meet the ${line} line.`,

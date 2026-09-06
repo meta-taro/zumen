@@ -8,7 +8,7 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
-import { run, runMergeDriver, runValidate } from '../src/cli.ts';
+import { run, runEmbed, runMerge, runMergeDriver, runMermaid, runSvg, runValidate } from '../src/cli.ts';
 
 /** ファイルを読みに行かせない。**テストが実物のファイル配置に縛られないため。** */
 function reader(files: Record<string, string>) {
@@ -130,6 +130,118 @@ describe('命令の振り分け', () => {
   it('命令が無ければ 2 で、使い方を全部出す', async () => {
     const result = await run([]);
     assert.equal(result.code, 2);
-    assert.equal(result.lines.length, 4);
+    assert.equal(result.lines.length, 8);
+  });
+});
+
+describe('変換の口', () => {
+  const DIAGRAM = 'version: 1\nnodes:\n  - id: a\n    label: A\n  - id: b\n    label: B\nedges:\n  - from: a\n    to: b\n';
+
+  function io(files: Record<string, string>) {
+    const written: Record<string, string> = {};
+    const read = ((path: string) => {
+      const text = files[path];
+      if (text === undefined) throw new Error('ENOENT');
+      return text;
+    }) as never;
+    const write = ((path: string, text: string) => {
+      written[path] = text;
+    }) as never;
+    return { read, write, written };
+  }
+
+  it('svg は書き出し先を省くと拡張子を差し替える', async () => {
+    const { read, write, written } = io({ 'z.zumen.yaml': DIAGRAM });
+    const result = await runSvg(['z.zumen.yaml'], read, write);
+    assert.equal(result.code, 0);
+    assert.match(written['z.svg'] ?? '', /^<svg/);
+  });
+
+  it('mermaid が図として出る', async () => {
+    const { read, write, written } = io({ 'z.zumen.yaml': DIAGRAM });
+    await runMermaid(['z.zumen.yaml'], read, write);
+    assert.match(written['z.mmd'] ?? '', /flowchart/);
+  });
+
+  it('引数が無ければ 2', async () => {
+    assert.equal((await runSvg([])).code, 2);
+    assert.equal((await runMermaid([])).code, 2);
+    assert.equal((await runEmbed([])).code, 2);
+    assert.equal(runMerge([]).code, 2);
+  });
+
+  it('読めないファイルは 1（黙って 0 で終わらない）', async () => {
+    const { read, write } = io({});
+    assert.equal((await runSvg(['無い.yaml'], read, write)).code, 1);
+  });
+});
+
+describe('Markdown への埋め込み', () => {
+  const MD = ['# 設計書', '', '```zumen', 'version: 1', 'nodes:', '  - id: a', '```', ''].join('\n');
+
+  function io(files: Record<string, string>) {
+    const written: Record<string, string> = {};
+    const read = ((path: string) => {
+      const text = files[path];
+      if (text === undefined) throw new Error('ENOENT');
+      return text;
+    }) as never;
+    const write = ((path: string, text: string) => {
+      written[path] = text;
+    }) as never;
+    return { read, write, written };
+  }
+
+  it('囲みが図に差し替わる', async () => {
+    const { read, write, written } = io({ 'doc.md': MD });
+    await runEmbed(['doc.md'], read, write);
+    assert.match(written['doc.zumen.md'] ?? '', /!\[.*\]\(data:image\/svg\+xml/);
+  });
+
+  it('**囲みが無ければ書き出さない**（黙って空のファイルを作らない）', async () => {
+    const { read, write, written } = io({ 'doc.md': '# ただの文書\n' });
+    const result = await runEmbed(['doc.md'], read, write);
+    assert.equal(result.code, 0);
+    assert.deepEqual(Object.keys(written), []);
+  });
+});
+
+describe('提案を正本へ入れる（merge）', () => {
+  const CURRENT = 'version: 1\npins:\n  a:\n    position: { x: 10, y: 10 }\nnodes:\n  - id: a\n    label: A\n';
+  const PROPOSAL = 'version: 1\nnodes:\n  - id: a\n    label: A\n  - id: b\n    label: B\n';
+
+  function io(files: Record<string, string>) {
+    const written: Record<string, string> = {};
+    const read = ((path: string) => {
+      const text = files[path];
+      if (text === undefined) throw new Error('ENOENT');
+      return text;
+    }) as never;
+    const write = ((path: string, text: string) => {
+      written[path] = text;
+    }) as never;
+    return { read, write, written };
+  }
+
+  it('提案の構造が入り、**人の指定は残る**', () => {
+    const { read, write, written } = io({ 'cur.yaml': CURRENT, 'pro.yaml': PROPOSAL });
+    const result = runMerge(['cur.yaml', 'pro.yaml'], read, write);
+    assert.equal(result.code, 0);
+    assert.match(written['cur.yaml'] ?? '', /id: b/);
+    assert.match(written['cur.yaml'] ?? '', /x: 10/);
+  });
+
+  it('**書き換わるのは正本の側**（提案のファイルは触らない）', () => {
+    const { read, write, written } = io({ 'cur.yaml': CURRENT, 'pro.yaml': PROPOSAL });
+    runMerge(['cur.yaml', 'pro.yaml'], read, write);
+    assert.equal(written['pro.yaml'], undefined);
+  });
+
+  it('競合が出ても失敗にしない（人が見て決めるだけ）', () => {
+    const removed = 'version: 1\nnodes:\n  - id: z\n';
+    const { read, write } = io({ 'cur.yaml': CURRENT, 'pro.yaml': removed });
+    const result = runMerge(['cur.yaml', 'pro.yaml'], read, write);
+    assert.equal(result.code, 0);
+    assert.ok(result.lines.some((line) => line.includes('a')));
   });
 });

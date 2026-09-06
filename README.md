@@ -49,8 +49,16 @@ pnpm install
 pnpm test        # 走るテスト
 pnpm validate <図のファイル> ...   # 形式に適合しているかを見る
 pnpm measure  <図のファイル> ...   # 「AI が 9 割描けたか」を測る
-pnpm drawio   <図のファイル>       # draw.io の XML へ書き出す
+pnpm svg      <図のファイル>       # SVG を書き出す
+pnpm mermaid  <図のファイル>       # Mermaid を書き出す（翌日 読める）
+pnpm drawio   <図のファイル>       # draw.io の XML へ書き出す（翌日 編集できる）
+pnpm embed    <Markdown>          # 囲みを図へ差し替える
+pnpm merge    <正本> <提案>        # AI の提案を正本へ入れる（競合は適用しない）
 ```
+
+**単体で完結します。**姉妹プロジェクト（md-business）への依存はありません。
+口の一覧と、MCP でどこまで開けるかは
+[`docs/specs/008-CLIとMCPの口.md`](docs/specs/008-CLIとMCPの口.md)。
 
 `pnpm validate` は、読めない図を**行番号つきで**指摘します。
 **迷子の手直し**（`pins` の鍵がどの要素も指していない状態）は警告として出しますが、

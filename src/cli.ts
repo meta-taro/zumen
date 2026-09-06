@@ -18,9 +18,14 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 
 import { toDrawio } from './drawio.ts';
+import { renderZumenBlocks, replaceZumenBlocks } from './embed.ts';
 import { mergeThreeWay } from './git-merge.ts';
 import { layout } from './layout.ts';
 import { PASS_LINE, measure, percent } from './measure.ts';
+import { merge } from './merge.ts';
+import type { Conflict } from './merge.ts';
+import { toMermaid } from './mermaid.ts';
+import { render } from './render.ts';
 import { messages } from './messages.ts';
 import { hasError, validate } from './validate.ts';
 import type { Finding } from './validate.ts';
@@ -171,6 +176,103 @@ export function runMeasure(paths: string[], read = readFileSync): RunResult {
   return { code: 0, lines };
 }
 
+/** 1 つ読んで 1 つ書く形の変換。**口の作りを揃える。** */
+async function convert(
+  paths: string[],
+  usage: string,
+  extension: string,
+  transform: (text: string) => string | Promise<string>,
+  read: typeof readFileSync,
+  write: typeof writeFileSync,
+): Promise<RunResult> {
+  const m = messages().cli;
+  const [input, output] = paths;
+  if (input === undefined) return { code: 2, lines: [usage] };
+  const target = output ?? `${input.replace(/\.zumen\.yaml$|\.ya?ml$|\.md$/, '')}${extension}`;
+
+  let text: string;
+  try {
+    text = String(read(input, 'utf8'));
+  } catch (error) {
+    return { code: 1, lines: [m.fileUnreadable(input, error instanceof Error ? error.message : String(error))] };
+  }
+  write(target, await transform(text));
+  return { code: 0, lines: [m.wrote(target)] };
+}
+
+export async function runSvg(paths: string[], read = readFileSync, write = writeFileSync): Promise<RunResult> {
+  return convert(paths, messages().cli.usageSvg, '.svg', async (text) => render(await layout(text)), read, write);
+}
+
+export async function runMermaid(paths: string[], read = readFileSync, write = writeFileSync): Promise<RunResult> {
+  return convert(paths, messages().cli.usageMermaid, '.mmd', (text) => toMermaid(text), read, write);
+}
+
+/**
+ * Markdown の囲みを図へ差し替える（D4 の着地点）。
+ *
+ * **描けない囲みは、理由をその位置に出して指定を残す**（`src/embed.ts` の作法）。
+ * 黙って空にすると、書いた人は「描けている」と思ったまま気づかない。
+ */
+export async function runEmbed(paths: string[], read = readFileSync, write = writeFileSync): Promise<RunResult> {
+  const m = messages().cli;
+  const [input] = paths;
+  if (input === undefined) return { code: 2, lines: [m.usageEmbed] };
+
+  let source: string;
+  try {
+    source = String(read(input, 'utf8'));
+  } catch (error) {
+    return { code: 1, lines: [m.fileUnreadable(input, error instanceof Error ? error.message : String(error))] };
+  }
+
+  const rendered = await renderZumenBlocks(source);
+  if (rendered.size === 0) return { code: 0, lines: [m.embedNoBlocks(input)] };
+
+  const target = paths[1] ?? input.replace(/\.md$/, '.zumen.md');
+  write(target, replaceZumenBlocks(source, rendered));
+  return { code: 0, lines: [m.wrote(target)] };
+}
+
+/**
+ * AI の提案を人の正本へ入れる（D5）。
+ *
+ * **競合は適用しない。** 決めるのは人であって、ここではない。
+ * 決着（`resolve`）を CLI に置かないのも同じ理由で、
+ * **承認は画面と人の仕事**（D11）。
+ */
+export function runMerge(paths: string[], read = readFileSync, write = writeFileSync): RunResult {
+  const m = messages().cli;
+  const [current, proposal] = paths;
+  if (current === undefined || proposal === undefined) return { code: 2, lines: [m.usageMerge] };
+
+  let result;
+  try {
+    result = merge(String(read(current, 'utf8')), String(read(proposal, 'utf8')));
+  } catch (error) {
+    return { code: 1, lines: [m.fileUnreadable(current, error instanceof Error ? error.message : String(error))] };
+  }
+
+  write(current, result.text);
+  const lines = [m.wrote(current)];
+  if (result.conflicts.length === 0) {
+    lines.push(m.mergedClean2);
+    return { code: 0, lines };
+  }
+  lines.push(m.mergedConflicts(result.conflicts.length));
+  for (const conflict of result.conflicts) lines.push(m.conflictLine(conflict.elementId, describe(conflict)));
+  // 競合が残っていても失敗ではない。**人が見て決める、というだけ。**
+  return { code: 0, lines };
+}
+
+function describe(conflict: Conflict): string {
+  const m = messages().cli;
+  const point = (value: { x: number; y: number }): string => `(${value.x}, ${value.y})`;
+  if (conflict.kind === 'pin-orphaned') return m.conflictRemoved;
+  if (conflict.kind === 'position-suppressed') return m.conflictSuppressed(point(conflict.ai));
+  return m.conflictPosition(point(conflict.human), point(conflict.ai));
+}
+
 /** 命令を振り分ける。**判断は持たない。** */
 export async function run(argv: string[]): Promise<RunResult> {
   const [command, ...rest] = argv;
@@ -178,8 +280,21 @@ export async function run(argv: string[]): Promise<RunResult> {
   if (command === 'merge-driver') return runMergeDriver(rest);
   if (command === 'drawio') return runDrawio(rest);
   if (command === 'measure') return runMeasure(rest);
+  if (command === 'svg') return runSvg(rest);
+  if (command === 'mermaid') return runMermaid(rest);
+  if (command === 'embed') return runEmbed(rest);
+  if (command === 'merge') return runMerge(rest);
   const m = messages().cli;
-  const usage = [m.usage, m.usageMergeDriver, m.usageDrawio, m.usageMeasure];
+  const usage = [
+    m.usage,
+    m.usageMeasure,
+    m.usageSvg,
+    m.usageMermaid,
+    m.usageDrawio,
+    m.usageEmbed,
+    m.usageMerge,
+    m.usageMergeDriver,
+  ];
   if (command === undefined) return { code: 2, lines: usage };
   return { code: 2, lines: [m.unknownCommand(command), ...usage] };
 }
