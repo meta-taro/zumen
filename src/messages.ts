@@ -42,6 +42,47 @@ const ja = {
     atLine: (line: number, reason: string) => `${line} 行目: ${reason}`,
   },
 
+
+  /** コマンドの口（`src/cli.ts`） */
+  cli: {
+    usage: '使い方: pnpm validate <図のファイル> ...',
+    fileUnreadable: (path: string, reason: string) => `${path} を読めません: ${reason}`,
+    /** 1 ファイルぶんの見出し。指摘が無いときは出さない。 */
+    fileHeading: (path: string) => `${path}`,
+    severityError: 'エラー',
+    severityWarning: '警告',
+    allClear: (count: number) => `${count} 件の図を見て、直すところはありませんでした。`,
+    /** 警告だけなら止めない。**迷子は人が解くもので、失敗ではない。** */
+    warningsOnly: (count: number) => `警告が ${count} 件あります。読める図なので、止めません。`,
+    failed: (count: number) => `読めない図が ${count} 件あります。`,
+  },
+
+  /** 形式の検証（`src/validate.ts`） */
+  validate: {
+    notMapping: '文書の最上位が写像になっていません。version: 1 から始まる形にします。',
+    versionMissing: 'version がありません。v1 の文書は version: 1 から始めます。',
+    versionUnsupported: (found: string) =>
+      `version が ${found} になっています。この検証器が読めるのは 1 です。`,
+    nodesMissing: 'nodes がありません。要素を 1 つも持たない図は描けません。',
+    nodesNotSequence: 'nodes が並びになっていません。- で始まる行を並べます。',
+    nodeIdMissing: (position: number) => `nodes の ${position} 番目に id がありません。`,
+    nodeIdDuplicated: (id: string) => `id "${id}" が 2 か所以上にあります。id は文書の中で一意です。`,
+    edgeEndpointUnknown: (edge: string, id: string) =>
+      `エッジ ${edge} が id "${id}" を指していますが、そのノードがありません。`,
+    edgeEndpointMissing: (position: number) =>
+      `edges の ${position} 番目に from か to がありません。`,
+    nodeGroupUnknown: (nodeId: string, groupId: string) =>
+      `ノード "${nodeId}" が group "${groupId}" に属していますが、その囲みがありません。`,
+    /** 迷子。**壊れているのではなく、人の手直しの行き先が失われている状態。** */
+    pinOrphan: (key: string) =>
+      `pins の "${key}" は、どの要素も指していません。手直しの行き先が失われています。`,
+    /** 知らない語は捨てずに保つのが v1 の規則（仕様 §4）。**弾かずに知らせるだけ。** */
+    appearanceUnknown: (word: string) =>
+      `体裁の語 "${word}" は v1 が定めたものではありません。既定の体裁で描きます。`,
+    /** §6.1。**読み書きで行が変われば、差分が「人が何を直したか」を映さなくなる。** */
+    roundTripChanged: '読んで書き戻すと行が変わります。人が触っていない行に差分が出ます。',
+  },
+
   /** Mermaid への書き出し（`src/mermaid.ts`） */
   mermaid: {
     /**
@@ -61,6 +102,36 @@ const en: Catalog = {
   },
   format: {
     atLine: (line: number, reason: string) => `line ${line}: ${reason}`,
+  },
+  cli: {
+    usage: 'Usage: pnpm validate <diagram file> ...',
+    fileUnreadable: (path: string, reason: string) => `Cannot read ${path}: ${reason}`,
+    fileHeading: (path: string) => `${path}`,
+    severityError: 'error',
+    severityWarning: 'warning',
+    allClear: (count: number) => `Looked at ${count} diagram(s); nothing to fix.`,
+    warningsOnly: (count: number) => `${count} warning(s). The diagrams are readable, so this is not a failure.`,
+    failed: (count: number) => `${count} diagram(s) could not be read.`,
+  },
+  validate: {
+    notMapping: 'The top level of the document is not a mapping. It should start with version: 1.',
+    versionMissing: 'version is missing. A v1 document starts with version: 1.',
+    versionUnsupported: (found: string) =>
+      `version is ${found}. This validator reads version 1.`,
+    nodesMissing: 'nodes is missing. A diagram with no elements cannot be drawn.',
+    nodesNotSequence: 'nodes is not a sequence. It should be a list of items starting with -.',
+    nodeIdMissing: (position: number) => `Item ${position} of nodes has no id.`,
+    nodeIdDuplicated: (id: string) => `id "${id}" appears more than once. Ids are unique per document.`,
+    edgeEndpointUnknown: (edge: string, id: string) =>
+      `Edge ${edge} points at id "${id}", but no such node exists.`,
+    edgeEndpointMissing: (position: number) => `Item ${position} of edges has no from or no to.`,
+    nodeGroupUnknown: (nodeId: string, groupId: string) =>
+      `Node "${nodeId}" belongs to group "${groupId}", but no such group exists.`,
+    pinOrphan: (key: string) =>
+      `pins entry "${key}" points at nothing. A hand edit has lost its target.`,
+    appearanceUnknown: (word: string) =>
+      `Appearance word "${word}" is not one v1 defines. It will be drawn with the default style.`,
+    roundTripChanged: 'Reading and writing back changes lines that nobody edited.',
   },
   mermaid: {
     geometryDroppedHeading:

@@ -15,7 +15,7 @@
  */
 import assert from 'node:assert/strict';
 import { readFileSync, readdirSync } from 'node:fs';
-import { join } from 'node:path';
+import { join, relative } from 'node:path';
 import { describe, it } from 'node:test';
 
 import { LOCALES, messages, resolveLocale } from '../src/messages.ts';
@@ -45,15 +45,31 @@ function japaneseLiterals(code: string): string[] {
   return found;
 }
 
-function sourceFiles(): string[] {
-  return readdirSync(SRC).filter((name) => name.endsWith('.ts') && name !== CATALOG);
+/**
+ * `src/` を**階層ごと**たどる。
+ *
+ * 直下だけを見ていると、`src/cli/` のような階層を切った瞬間に見張りが素通りする。
+ */
+function sourceFiles(dir = SRC): string[] {
+  return readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
+    const path = join(dir, entry.name);
+    if (entry.isDirectory()) return sourceFiles(path);
+    if (!entry.name.endsWith('.ts')) return [];
+    if (relative(SRC, path) === CATALOG) return [];
+    return [path];
+  });
 }
 
 describe('文言の置き場所', () => {
+  it('たどる先を間違えていない（src の .ts を実際に読めている）', () => {
+    assert.ok(sourceFiles().length >= 5, `見つかったのは ${sourceFiles().length} 件`);
+  });
+
   it('src の中に、文言表の外の日本語リテラルが無い', () => {
     const strays: string[] = [];
-    for (const name of sourceFiles()) {
-      const code = readFileSync(join(SRC, name), 'utf8');
+    for (const path of sourceFiles()) {
+      const code = readFileSync(path, 'utf8');
+      const name = relative(SRC, path);
       for (const literal of japaneseLiterals(code)) strays.push(`${name}: ${literal}`);
     }
     assert.deepEqual(

@@ -27,6 +27,12 @@
   散らばりは `test/messages.test.ts` が落とす（**red になることを実地で確認済み**）。
   書き方の約束は `docs/specs/文言の規則.md`
 
+- **Issue 014（形式の検証器）完了。** `pnpm validate <ファイル>` が動く。
+  判断（`src/validate.ts`）と表示（`src/cli.ts`）を分けてある。
+  **リポジトリの図 13 件すべてが指摘 0 件**で、壊した図では行番号つきの指摘が出る。
+  **迷子の pin は warning で、終了コードは 0**（人が競合として解くもので、失敗ではない）。
+  仕様 §8.1 に「機械で確かめられるもの／確かめられないもの」を追記
+
 ## 未完了の作業
 
 - **Issue 009 は `LICENSE` の設置だけ済み。他の項目は未着手**
@@ -35,7 +41,7 @@
 - **Issue 012（md-business への囲みの追加）— 第 1 段階のみ完了。**
   zumen 側だけで囲み → 描画を通した（`src/embed.ts` / `examples/設計書サンプル.md`）。
   **md-business にはまだ一切触っていない**（別リポなので変更は提案として出す）
-- Issue 011（マージドライバ）・013（draw.io 書き出し）・014（検証器）— 未着手
+- Issue 011（マージドライバ）・013（draw.io 書き出し）— 未着手
 - Issue 003（9 割の定義 / D3）・004（生成品質 / S3）は未着手
 - **アイコンパックの実装は未着手**（Issue 006 で設計のみ確定。`nodes[].type` → SVG の解決）
 - **md-business 側への `zumen` 囲みの追加は未着手**（Issue 012。着地点は D4 で確定済み）
@@ -53,10 +59,11 @@
 
 ## テスト状況
 
-- `pnpm test` — **100 件 pass / 0 fail**（`node --test`、外部サービスへ繋がない）
+- `pnpm test` — **147 件 pass / 0 fail**（`node --test`、外部サービスへ繋がない）
 - `pnpm typecheck` — 通過
 - `pnpm s1` — 往復ログを `experiments/s1/results/` へ再生成できる
 - `pnpm d2:conflict` — Git の衝突の実測を再生成できる
+- `pnpm validate <ファイル>` — 形式の検証。**警告だけなら 0、読めない図があれば 1**
 
 ## 既知の問題
 
