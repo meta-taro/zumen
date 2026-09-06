@@ -54,6 +54,11 @@
 ## 未完了の作業
 
 - **MCP サーバそのものは未実装**（Issue 008 で範囲だけ決めた）
+- **Issue 007（貼り先で崩れないか）は分析と修正まで。完了ではない。**
+  出力そのものを調べて 3 件直した（**`font-family` が無く日本語が豆腐になり得た** /
+  `orient` が SVG 2 の値 / 寸法が長い小数）。使わない機能は
+  `test/paste-safety.test.ts` で固定。**貼り先ごとの検証シートは空欄**
+  （`docs/specs/007-貼り先で崩れないか.md` §4。AI は代筆しない）
 
 - **Issue 013（draw.io 書き出し）は実装済みだが完了ではない。**
   `pnpm drawio` が動き、テスト 20 件・`xmllint` は通る。
@@ -85,7 +90,7 @@
 
 ## テスト状況
 
-- `pnpm test` — **211 件 pass / 0 fail**（`node --test`、外部サービスへ繋がない）
+- `pnpm test` — **227 件 pass / 0 fail**（`node --test`、外部サービスへ繋がない）
 - `pnpm typecheck` — 通過
 - `pnpm s1` — 往復ログを `experiments/s1/results/` へ再生成できる
 - `pnpm d2:conflict` — Git の衝突の実測を再生成できる
