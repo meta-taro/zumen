@@ -43,13 +43,17 @@
 
 ## 未完了の作業
 
+- **Issue 013（draw.io 書き出し）は実装済みだが完了ではない。**
+  `pnpm drawio` が動き、テスト 20 件・`xmllint` は通る。
+  **人が draw.io で `examples/本番構成.drawio` を開いて目で確かめる工程が残っている**
+  （ベースルール §29。AI が代筆できない）
+
 - **Issue 009 は `LICENSE` の設置だけ済み。他の項目は未着手**
   （2026-09-04、人の指示で MIT の本文を設置。著作権者は `meta-taro`）
 
 - **Issue 012（md-business への囲みの追加）— 第 1 段階のみ完了。**
   zumen 側だけで囲み → 描画を通した（`src/embed.ts` / `examples/設計書サンプル.md`）。
   **md-business にはまだ一切触っていない**（別リポなので変更は提案として出す）
-- Issue 013（draw.io 書き出し）— 未着手
 - Issue 003（9 割の定義 / D3）・004（生成品質 / S3）は未着手
 - **アイコンパックの実装は未着手**（Issue 006 で設計のみ確定。`nodes[].type` → SVG の解決）
 - **md-business 側への `zumen` 囲みの追加は未着手**（Issue 012。着地点は D4 で確定済み）
@@ -69,12 +73,13 @@
 
 ## テスト状況
 
-- `pnpm test` — **169 件 pass / 0 fail**（`node --test`、外部サービスへ繋がない）
+- `pnpm test` — **189 件 pass / 0 fail**（`node --test`、外部サービスへ繋がない）
 - `pnpm typecheck` — 通過
 - `pnpm s1` — 往復ログを `experiments/s1/results/` へ再生成できる
 - `pnpm d2:conflict` — Git の衝突の実測を再生成できる
 - `pnpm validate <ファイル>` — 形式の検証。**警告だけなら 0、読めない図があれば 1**
 - `pnpm merge-driver <base> <ours> <theirs>` — Git のマージドライバ（D10）
+- `pnpm drawio <図> [書き出し先]` — draw.io XML へ書き出す。**圧縮しない**
 
 ## 既知の問題
 

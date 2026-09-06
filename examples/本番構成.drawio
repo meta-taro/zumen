@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+zumen から書き出したもの。次は写せていない。
+  - 人が置いた位置と、自動配置の区別。draw.io は全要素が座標を持つため、形式に区別が無い。
+  - 体裁の「意味の語」（primary / muted）。色に変換されるので語は残らない。
+  - 正本のコメントと並び順。
+  - 競合を解いたときの記録（locked）。
+  - 正本は .zumen.yaml の側。ここで編集しても zumen へは戻せない。
+  人が置いた要素には zumenPinned="1" を付けた（draw.io の「データを編集」で見える）。保存し直すと失われることがある。
+-->
+<mxfile host="zumen">
+  <diagram name="本番構成">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="vpc" value="Production VPC" style="rounded=0;fillColor=#f8fafc;strokeColor=#cbd5e1;dashed=1;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="24" y="120" width="780" height="496" as="geometry" />
+        </mxCell>
+        <mxCell id="lb" value="Load Balancer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#334155;" vertex="1" parent="1">
+          <mxGeometry x="75" y="160" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="web01" value="Web 01" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#334155;" vertex="1" parent="1">
+          <mxGeometry x="256" y="284" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="web02" value="Web 02" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#334155;" vertex="1" parent="1">
+          <mxGeometry x="48" y="284" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="monitor" value="Monitoring" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f1f5f9;strokeColor=#94a3b8;" vertex="1" parent="1">
+          <mxGeometry x="283" y="160" width="160" height="60" as="geometry" />
+        </mxCell>
+        <object label="MariaDB" zumenPinned="1" id="db">
+          <mxCell style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#1d4ed8;" vertex="1" parent="1">
+            <mxGeometry x="620" y="410" width="160" height="60" as="geometry" />
+          </mxCell>
+        </object>
+        <mxCell id="replica" value="MariaDB Replica" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#334155;" vertex="1" parent="1">
+          <mxGeometry x="229" y="532" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="internet" value="Internet" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#334155;" vertex="1" parent="1">
+          <mxGeometry x="24" y="40" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="backup" value="Backup Storage" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#334155;" vertex="1" parent="1">
+          <mxGeometry x="204" y="40" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="internet&gt;lb" value="HTTPS" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="internet" target="lb">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lb&gt;web01" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="lb" target="web01">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lb&gt;web02" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="lb" target="web02">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="web01&gt;db" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="web01" target="db">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="web02&gt;db" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="web02" target="db">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="db&gt;replica" value="replication" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="db" target="replica">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="replica&gt;backup" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="replica" target="backup">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="monitor&gt;web01" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="monitor" target="web01">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

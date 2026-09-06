@@ -121,13 +121,15 @@ describe('マージドライバ（Git の口）', () => {
 });
 
 describe('命令の振り分け', () => {
-  it('知らない命令なら 2 で、使い方を出す', () => {
-    const result = run(['zzz']);
+  it('知らない命令なら 2 で、使い方を出す', async () => {
+    const result = await run(['zzz']);
     assert.equal(result.code, 2);
     assert.ok(result.lines.length >= 2);
   });
 
-  it('命令が無ければ 2', () => {
-    assert.equal(run([]).code, 2);
+  it('命令が無ければ 2 で、使い方を全部出す', async () => {
+    const result = await run([]);
+    assert.equal(result.code, 2);
+    assert.equal(result.lines.length, 3);
   });
 });

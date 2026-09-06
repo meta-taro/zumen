@@ -47,6 +47,8 @@ const ja = {
   cli: {
     usage: '使い方: pnpm validate <図のファイル> ...',
     usageMergeDriver: '使い方: merge-driver <base> <ours> <theirs>',
+    usageDrawio: '使い方: pnpm drawio <図のファイル> [書き出し先]',
+    wrote: (path: string) => `${path} へ書き出しました。`,
     unknownCommand: (name: string) => `${name} という命令はありません。`,
     /** ドライバが解いたとき。**何を解いたかを黙らない。** */
     mergedClean: (path: string) => `${path} を構造で解きました。衝突はありません。`,
@@ -62,6 +64,24 @@ const ja = {
     /** 警告だけなら止めない。**迷子は人が解くもので、失敗ではない。** */
     warningsOnly: (count: number) => `警告が ${count} 件あります。読める図なので、止めません。`,
     failed: (count: number) => `読めない図が ${count} 件あります。`,
+  },
+
+  /** draw.io への書き出し（`src/drawio.ts`） */
+  drawio: {
+    /**
+     * 落ちるものの断り書き。**XML のコメントとして先頭に置く。**
+     * draw.io で開いて保存し直すと消えることがあるので、それも書いておく。
+     */
+    lossHeading: 'zumen から書き出したもの。次は写せていない。',
+    lossPinned:
+      '人が置いた位置と、自動配置の区別。draw.io は全要素が座標を持つため、形式に区別が無い。',
+    lossAppearance: '体裁の「意味の語」（primary / muted）。色に変換されるので語は残らない。',
+    lossComments: '正本のコメントと並び順。',
+    lossLocked: '競合を解いたときの記録（locked）。',
+    lossRoundTrip: '正本は .zumen.yaml の側。ここで編集しても zumen へは戻せない。',
+    /** `zumenPinned` を持たせた要素があるときだけ添える。 */
+    pinnedNote:
+      '人が置いた要素には zumenPinned="1" を付けた（draw.io の「データを編集」で見える）。保存し直すと失われることがある。',
   },
 
   /** 形式の検証（`src/validate.ts`） */
@@ -113,6 +133,8 @@ const en: Catalog = {
   cli: {
     usage: 'Usage: pnpm validate <diagram file> ...',
     usageMergeDriver: 'Usage: merge-driver <base> <ours> <theirs>',
+    usageDrawio: 'Usage: pnpm drawio <diagram file> [output path]',
+    wrote: (path: string) => `Wrote ${path}.`,
     unknownCommand: (name: string) => `There is no command named ${name}.`,
     mergedClean: (path: string) => `Merged ${path} structurally. No conflicts.`,
     mergedWithConflicts: (path: string, count: number) =>
@@ -124,6 +146,17 @@ const en: Catalog = {
     allClear: (count: number) => `Looked at ${count} diagram(s); nothing to fix.`,
     warningsOnly: (count: number) => `${count} warning(s). The diagrams are readable, so this is not a failure.`,
     failed: (count: number) => `${count} diagram(s) could not be read.`,
+  },
+  drawio: {
+    lossHeading: 'Exported from zumen. The following did not survive.',
+    lossPinned:
+      'The distinction between hand-placed and auto-laid-out elements. Everything in draw.io carries coordinates, so the format has no such distinction.',
+    lossAppearance: 'Appearance words (primary / muted). They become colors, so the word is gone.',
+    lossComments: 'Comments and ordering from the source of truth.',
+    lossLocked: 'The record of resolved conflicts (locked).',
+    lossRoundTrip: 'The source of truth stays in .zumen.yaml. Edits made here cannot come back.',
+    pinnedNote:
+      'Hand-placed elements carry zumenPinned="1" (visible via Edit Data in draw.io). Re-saving may drop it.',
   },
   validate: {
     notMapping: 'The top level of the document is not a mapping. It should start with version: 1.',

@@ -17,7 +17,9 @@
  */
 import { readFileSync, writeFileSync } from 'node:fs';
 
+import { toDrawio } from './drawio.ts';
 import { mergeThreeWay } from './git-merge.ts';
+import { layout } from './layout.ts';
 import { messages } from './messages.ts';
 import { hasError, validate } from './validate.ts';
 import type { Finding } from './validate.ts';
@@ -106,19 +108,54 @@ export function runMergeDriver(
   return { code: 1, lines: [m.mergedWithConflicts(ours, result.conflicts.length)] };
 }
 
+/**
+ * draw.io の XML へ書き出す。
+ *
+ * **圧縮しない。** 差分が読めなくなる（`src/drawio.ts` の冒頭）。
+ */
+export async function runDrawio(
+  paths: string[],
+  read = readFileSync,
+  write = writeFileSync,
+): Promise<RunResult> {
+  const m = messages().cli;
+  const [input, output] = paths;
+  if (input === undefined) return { code: 2, lines: [m.usageDrawio] };
+  const target = output ?? `${input.replace(/\.zumen\.yaml$|\.yaml$/, '')}.drawio`;
+
+  let text: string;
+  try {
+    text = String(read(input, 'utf8'));
+  } catch (error) {
+    return { code: 1, lines: [m.fileUnreadable(input, error instanceof Error ? error.message : String(error))] };
+  }
+
+  const placed = await layout(text);
+  write(target, toDrawio(placed, titleOf(text) ?? input));
+  return { code: 0, lines: [m.wrote(target)] };
+}
+
+/** 図の題。無ければ `undefined`。**無いものを埋めない。** */
+function titleOf(text: string): string | undefined {
+  const found = /^title:\s*(.+)$/m.exec(text);
+  return found?.[1]?.trim();
+}
+
 /** 命令を振り分ける。**判断は持たない。** */
-export function run(argv: string[]): RunResult {
+export async function run(argv: string[]): Promise<RunResult> {
   const [command, ...rest] = argv;
   if (command === 'validate') return runValidate(rest);
   if (command === 'merge-driver') return runMergeDriver(rest);
+  if (command === 'drawio') return runDrawio(rest);
   const m = messages().cli;
-  if (command === undefined) return { code: 2, lines: [m.usage, m.usageMergeDriver] };
-  return { code: 2, lines: [m.unknownCommand(command), m.usage, m.usageMergeDriver] };
+  const usage = [m.usage, m.usageMergeDriver, m.usageDrawio];
+  if (command === undefined) return { code: 2, lines: usage };
+  return { code: 2, lines: [m.unknownCommand(command), ...usage] };
 }
 
 // 直接叩かれたときだけ走る。import しても副作用が出ないようにしておく。
 if (process.argv[1] !== undefined && import.meta.url.endsWith(process.argv[1].split('/').pop() ?? '')) {
-  const result = run(process.argv.slice(2));
+  const result = await run(process.argv.slice(2));
   for (const line of result.lines) console.log(line);
   process.exitCode = result.code;
 }
