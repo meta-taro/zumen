@@ -10,6 +10,7 @@ import { describe, it } from 'node:test';
 import { parse, serialize, setPin } from '../src/format.ts';
 import { toMermaid } from '../src/mermaid.ts';
 import { messages } from '../src/messages.ts';
+import { APPEARANCE } from '../src/tokens.ts';
 
 /** 手直しが落ちることの断り書き。**文面ではなく、出ているかどうかだけを見る。** */
 const NOTE = messages().mermaid.geometryDroppedHeading;
@@ -106,7 +107,9 @@ describe('落ちるものの扱い', () => {
     const doc = parse(R0);
     setPin(doc, 'db', { appearance: 'primary' });
     const out = toMermaid(serialize(doc));
-    assert.match(out, /  classDef primary fill:#dbeafe,stroke:#1d4ed8/);
+    // 色の値そのものは見ない。**人が配色を変えてもここは落ちない。**
+    const look = APPEARANCE['primary']!;
+    assert.ok(out.includes(`  classDef primary fill:${look.fill},stroke:${look.stroke}`));
     assert.match(out, /  class db primary/);
     // 体裁だけなら失われるものは無い。
     assert.ok(!out.includes(NOTE));

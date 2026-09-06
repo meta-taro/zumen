@@ -18,6 +18,7 @@ import { toDrawio } from '../src/drawio.ts';
 import { parse, serialize, setPin } from '../src/format.ts';
 import { layout } from '../src/layout.ts';
 import { messages } from '../src/messages.ts';
+import { APPEARANCE } from '../src/tokens.ts';
 
 const R0 = readFileSync(new URL('fixtures/r0.zumen.yaml', import.meta.url), 'utf8');
 
@@ -114,7 +115,7 @@ describe('**落ちるものを黙って落とさない**', () => {
 
   it('体裁は色に変換される（語は残らない。だから落ちるものに書いてある）', async () => {
     const xml = await exported(withPin(R0, 'db'));
-    assert.match(xml, /fillColor=#dbeafe/);
+    assert.ok(xml.includes(`fillColor=${APPEARANCE['primary']!.fill}`));
     assert.equal(xml.includes('appearance'), false);
   });
 });

@@ -51,7 +51,16 @@
   **競合の決着は開けない**（AI が自分の提案を自分で承認できてしまうため）。
   **姉妹側への依存は 0。**
 
+- **`DESIGN.md` を書いた（2026-09-06、人の指示）。** 姉妹アプリ
+  `md-business/apps/desktop/DESIGN.md` を出典として揃える。
+  図の色は `src/tokens.ts` の 1 か所に集約し（**以前は 3 か所に複製されていた**）、
+  `test/tokens.test.ts` がズレを見張る
+- **Issue 012 の作業内容 3 を「PR」から「依頼」へ変更**（人の指示）。
+  `docs/handoff/md-business-zumenの囲み.md`。**向こうのコードはこちらで書かない**
+
 ## 未完了の作業
+
+- **依頼書を md-business 側へ渡すのは人の作業**（別リポジトリ）
 
 - **MCP サーバそのものは未実装**（Issue 008 で範囲だけ決めた）
 - **Issue 007（貼り先で崩れないか）は分析と修正まで。完了ではない。**
@@ -73,7 +82,8 @@
   **md-business にはまだ一切触っていない**（別リポなので変更は提案として出す）
 - Issue 003（9 割の定義 / D3）・004（生成品質 / S3）は未着手
 - **アイコンパックの実装は未着手**（Issue 006 で設計のみ確定。`nodes[].type` → SVG の解決）
-- **md-business 側への `zumen` 囲みの追加は未着手**（Issue 012。着地点は D4 で確定済み）
+- **md-business 側への `zumen` 囲みの追加は未着手**（Issue 012。着地点は D4 で確定済み）。
+  **依頼書は書けている。渡すのは人**
 
 ## 次のタスク
 
@@ -90,7 +100,7 @@
 
 ## テスト状況
 
-- `pnpm test` — **227 件 pass / 0 fail**（`node --test`、外部サービスへ繋がない）
+- `pnpm test` — **236 件 pass / 0 fail**（`node --test`、外部サービスへ繋がない）
 - `pnpm typecheck` — 通過
 - `pnpm s1` — 往復ログを `experiments/s1/results/` へ再生成できる
 - `pnpm d2:conflict` — Git の衝突の実測を再生成できる

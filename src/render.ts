@@ -25,13 +25,7 @@
  * 詳細と、回避できないものは `docs/specs/007-貼り先で崩れないか.md`。
  */
 import type { Box, Placed, PlacedEdge } from './layout.ts';
-
-/** 体裁の訳。renderer 側が持ち、正本には色を書かない（原案 §5.3）。 */
-const APPEARANCE: Record<string, { fill: string; stroke: string }> = {
-  primary: { fill: '#dbeafe', stroke: '#1d4ed8' },
-  muted: { fill: '#f1f5f9', stroke: '#94a3b8' },
-};
-const DEFAULT_STYLE = { fill: '#ffffff', stroke: '#334155' };
+import { EDGE, GROUP, STROKE_WIDTH, TEXT, lookOf } from './tokens.ts';
 
 /**
  * 文字の書体。**総称ファミリだけを書く。**
@@ -67,7 +61,7 @@ function size(value: number): number {
 export function render(placed: Placed): string {
   const parts = [
     `<svg xmlns="http://www.w3.org/2000/svg" width="${size(placed.width)}" height="${size(placed.height)}" viewBox="0 0 ${size(placed.width)} ${size(placed.height)}">`,
-    '<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#334155"/></marker></defs>',
+    `<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="${EDGE.stroke}"/></marker></defs>`,
     ...placed.groups.map(renderGroup),
     ...placed.edges.map(renderEdge),
     ...placed.boxes.map(renderNode),
@@ -79,14 +73,14 @@ export function render(placed: Placed): string {
 function renderGroup(group: Box): string {
   return [
     `<g data-group="${escapeAttr(group.id)}">`,
-    `<rect x="${n(group.x)}" y="${n(group.y)}" width="${n(group.w)}" height="${n(group.h)}" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-dasharray="6 4"/>`,
-    `<text x="${n(group.x + 12)}" y="${n(group.y + 22)}" font-family="${FONT}" font-size="13" fill="#64748b">${escapeText(group.label)}</text>`,
+    `<rect x="${n(group.x)}" y="${n(group.y)}" width="${n(group.w)}" height="${n(group.h)}" rx="8" fill="${GROUP.fill}" stroke="${GROUP.stroke}" stroke-dasharray="6 4"/>`,
+    `<text x="${n(group.x + 12)}" y="${n(group.y + 22)}" font-family="${FONT}" font-size="13" fill="${TEXT.group}">${escapeText(group.label)}</text>`,
     '</g>',
   ].join('');
 }
 
 function renderNode(box: Box): string {
-  const style = (box.appearance === null ? undefined : APPEARANCE[box.appearance]) ?? DEFAULT_STYLE;
+  const style = lookOf(box.appearance);
   const attributes = [
     `data-node="${escapeAttr(box.id)}"`,
     `data-pinned="${box.pinned}"`,
@@ -97,8 +91,8 @@ function renderNode(box: Box): string {
 
   return [
     `<g ${attributes}>`,
-    `<rect x="${n(box.x)}" y="${n(box.y)}" width="${n(box.w)}" height="${n(box.h)}" rx="6" fill="${style.fill}" stroke="${style.stroke}" stroke-width="${box.pinned ? 2 : 1}"/>`,
-    `<text x="${n(box.x + box.w / 2)}" y="${n(box.y + box.h / 2 + 5)}" text-anchor="middle" font-family="${FONT}" font-size="14" fill="#0f172a">${escapeText(box.label)}</text>`,
+    `<rect x="${n(box.x)}" y="${n(box.y)}" width="${n(box.w)}" height="${n(box.h)}" rx="6" fill="${style.fill}" stroke="${style.stroke}" stroke-width="${box.pinned ? STROKE_WIDTH.pinned : STROKE_WIDTH.auto}"/>`,
+    `<text x="${n(box.x + box.w / 2)}" y="${n(box.y + box.h / 2 + 5)}" text-anchor="middle" font-family="${FONT}" font-size="14" fill="${TEXT.node}">${escapeText(box.label)}</text>`,
     '</g>',
   ].join('');
 }
@@ -110,10 +104,10 @@ function renderEdge(edge: PlacedEdge): string {
   const label =
     edge.label === null
       ? ''
-      : `<text x="${n(midpoint(edge).x)}" y="${n(midpoint(edge).y - 6)}" text-anchor="middle" font-family="${FONT}" font-size="11" fill="#475569">${escapeText(edge.label)}</text>`;
+      : `<text x="${n(midpoint(edge).x)}" y="${n(midpoint(edge).y - 6)}" text-anchor="middle" font-family="${FONT}" font-size="11" fill="${TEXT.edge}">${escapeText(edge.label)}</text>`;
   return [
     `<g data-edge="${escapeAttr(edge.id)}" data-pinned="${edge.pinned}">`,
-    `<path d="${path}" fill="none" stroke="#334155" stroke-width="${edge.pinned ? 2 : 1}" marker-end="url(#arrow)"/>`,
+    `<path d="${path}" fill="none" stroke="${EDGE.stroke}" stroke-width="${edge.pinned ? STROKE_WIDTH.pinned : STROKE_WIDTH.auto}" marker-end="url(#arrow)"/>`,
     label,
     '</g>',
   ].join('');

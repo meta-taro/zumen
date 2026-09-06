@@ -14,6 +14,7 @@
 import { getPins, parse } from './format.ts';
 import type { Pin } from './format.ts';
 import { messages } from './messages.ts';
+import { APPEARANCE } from './tokens.ts';
 
 interface NodeInfo {
   id: string;
@@ -23,11 +24,10 @@ interface NodeInfo {
   appearance: string | null;
 }
 
-/** 体裁の訳。renderer 側の APPEARANCE と同じ値にしておく。 */
-const CLASS_DEFS: Record<string, string> = {
-  primary: 'fill:#dbeafe,stroke:#1d4ed8',
-  muted: 'fill:#f1f5f9,stroke:#94a3b8',
-};
+/** 体裁の訳。**値は `src/tokens.ts` の 1 か所から取る**（3 か所に書くとズレる）。 */
+const CLASS_DEFS: Record<string, string> = Object.fromEntries(
+  Object.entries(APPEARANCE).map(([word, look]) => [word, `fill:${look.fill},stroke:${look.stroke}`]),
+);
 
 export function toMermaid(text: string): string {
   const diagram = parse(text);

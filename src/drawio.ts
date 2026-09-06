@@ -27,16 +27,10 @@
  */
 import type { Box, Placed, PlacedEdge } from './layout.ts';
 import { messages } from './messages.ts';
+import { GROUP, lookOf } from './tokens.ts';
 
-/** 体裁の訳。`src/render.ts` の APPEARANCE と同じ値にしておく。 */
-const APPEARANCE: Record<string, { fill: string; stroke: string }> = {
-  primary: { fill: '#dbeafe', stroke: '#1d4ed8' },
-  muted: { fill: '#f1f5f9', stroke: '#94a3b8' },
-};
-
-const DEFAULT_STYLE = { fill: '#ffffff', stroke: '#334155' };
 /** 囲みは中身より薄く。塗らないと、中の要素が読めなくなる。 */
-const GROUP_STYLE = 'rounded=0;fillColor=#f8fafc;strokeColor=#cbd5e1;dashed=1;verticalAlign=top;';
+const GROUP_STYLE = `rounded=0;fillColor=${GROUP.fill};strokeColor=${GROUP.stroke};dashed=1;verticalAlign=top;`;
 
 export function toDrawio(placed: Placed, title = 'zumen'): string {
   const pinned = [...placed.boxes, ...placed.edges].some((item) => item.pinned);
@@ -79,7 +73,7 @@ function losses(hasPinned: boolean): string {
 }
 
 function nodeStyle(box: Box): string {
-  const look = (box.appearance !== null ? APPEARANCE[box.appearance] : undefined) ?? DEFAULT_STYLE;
+  const look = lookOf(box.appearance);
   return `rounded=1;whiteSpace=wrap;html=1;fillColor=${look.fill};strokeColor=${look.stroke};`;
 }
 
