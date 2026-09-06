@@ -18,6 +18,15 @@
   }
   const { session, placed }: Props = $props();
 
+  /**
+   * 競合している要素の id。
+   *
+   * **印が無いと、どの箱の話か分からない。** id が改名された場面では
+   * 同じラベルの箱が 2 つ並ぶことがあり（`db` と `maindb`）、
+   * 一覧に「db」と書いてあっても図のどちらか判別できない。
+   */
+  const inConflict = $derived(new Set(session.conflicts.map((c) => c.elementId)));
+
   /** 掴んでいるもの。掴んでいる間だけ座標を持つ。 */
   let dragging = $state<{ id: string; dx: number; dy: number } | null>(null);
   let panning = $state<{ x: number; y: number } | null>(null);
@@ -153,6 +162,16 @@
           x={pos.x + box.w / 2} y={pos.y + box.h / 2 + 5}
           text-anchor="middle" font-size="14" fill={TEXT.node}
         >{box.label}</text>
+        {#if inConflict.has(box.id)}
+          <!--
+            競合の印（`DESIGN.md` §2.4）。**枠の外に添える。**
+            箱そのものの色を変えると `appearance` と混ざる。
+          -->
+          <rect
+            x={pos.x - 5} y={pos.y - 5} width={box.w + 10} height={box.h + 10}
+            rx="9" fill="none" stroke="var(--warning-fg)" stroke-width="2" stroke-dasharray="4 3"
+          />
+        {/if}
         {#if session.selected === box.id}
           <!-- 選択の印は左端の 2px バー（姉妹アプリ §5.7 と同じ作法） -->
           <rect x={pos.x} y={pos.y} width="2" height={box.h} fill="var(--accent)" />

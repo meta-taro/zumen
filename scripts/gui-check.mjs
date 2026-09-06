@@ -168,6 +168,15 @@ async function walk() {
     '7 競合 — 選択肢が画面に出る',
     (await evaluate(`document.querySelectorAll('.choose button').length`)) >= 2,
   );
+  // id が改名された場面では、同じラベルの箱が 2 つ並ぶ（db と maindb）。
+  // **印が無いと、一覧の「db」が図のどちらか判別できない。**
+  check(
+    '7 競合 — **図のどれの話か分かる**',
+    (await evaluate(`document.querySelectorAll('rect[stroke-dasharray="4 3"]').length`)) === 1,
+  );
+  await evaluate(`document.querySelector('button.id').click()`);
+  await until(`window.zumen.selected === 'db'`);
+  check('7 競合 — 一覧から図の要素を指せる', (await evaluate(`window.zumen.selected`)) === 'db');
   await evaluate(`document.querySelector('.choose button').click()`);
   await until(`window.zumen.conflicts.length === 0`);
   check('7 競合 — 選ぶと消える', (await evaluate(`window.zumen.conflicts.length`)) === 0);

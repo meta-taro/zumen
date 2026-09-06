@@ -39,8 +39,15 @@
   {:else}
     <ul>
       {#each session.conflicts as conflict (conflict.kind + conflict.elementId)}
-        <li class={tone(conflict)}>
-          <div class="id">{conflict.elementId}</div>
+        <li class={tone(conflict)} class:aimed={session.selected === conflict.elementId}>
+          <!--
+            押すと、図の中のその要素を指す。
+            **「どれの話をしているか」を人と機械で一致させる**（D11 の操作 3）。
+          -->
+          <button
+            class="id"
+            onclick={() => session.select(conflict.elementId)}
+          >{conflict.elementId}</button>
           <p>{detail(conflict)}</p>
           {#if conflict.kind !== 'position-suppressed'}
             <div class="choose">
@@ -106,10 +113,21 @@
     background: var(--neutral-bg);
     border-color: transparent;
   }
-  .id {
+  button.id {
     font-family: var(--font-mono);
     font-size: var(--text-xs);
     color: var(--text-secondary);
+    background: none;
+    border: none;
+    padding: 0;
+    height: auto;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  li.aimed {
+    outline: 2px solid var(--accent);
+    outline-offset: -2px;
   }
   p {
     margin: var(--space-1) 0 var(--space-3);
