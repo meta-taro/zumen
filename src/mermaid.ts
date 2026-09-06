@@ -13,6 +13,7 @@
  */
 import { getPins, parse } from './format.ts';
 import type { Pin } from './format.ts';
+import { messages } from './messages.ts';
 
 interface NodeInfo {
   id: string;
@@ -95,8 +96,8 @@ function droppedNotes(pins: Record<string, Pin>): string[] {
   // 次の行と繋げてしまう（`%%%%flowchart TD` になって構文エラーになる）。
   return [
     '%% ---',
-    '%% 【注意】Mermaid には位置・大きさ・線の曲げ方を書く場所が無い。',
-    '%% 次の手直しは、この書き出しでは失われている。正本は .zumen.yaml の側。',
+    `%% ${messages().mermaid.geometryDroppedHeading}`,
+    `%% ${messages().mermaid.geometryDroppedDetail}`,
     ...dropped.map(
       ([id, pin]) =>
         `%%   - ${id}: ${LAYOUT_FIELDS.filter((f) => pin[f] !== undefined).join(', ')}`,

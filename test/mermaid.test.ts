@@ -9,6 +9,10 @@ import { describe, it } from 'node:test';
 
 import { parse, serialize, setPin } from '../src/format.ts';
 import { toMermaid } from '../src/mermaid.ts';
+import { messages } from '../src/messages.ts';
+
+/** 手直しが落ちることの断り書き。**文面ではなく、出ているかどうかだけを見る。** */
+const NOTE = messages().mermaid.geometryDroppedHeading;
 
 const R0 = readFileSync(new URL('fixtures/r0.zumen.yaml', import.meta.url), 'utf8');
 
@@ -105,11 +109,11 @@ describe('落ちるものの扱い', () => {
     assert.match(out, /  classDef primary fill:#dbeafe,stroke:#1d4ed8/);
     assert.match(out, /  class db primary/);
     // 体裁だけなら失われるものは無い。
-    assert.doesNotMatch(out, /【注意】/);
+    assert.ok(!out.includes(NOTE));
   });
 
   it('手直しが無ければ、注意書きは出さない', () => {
-    assert.doesNotMatch(toMermaid(R0), /【注意】/);
+    assert.ok(!toMermaid(R0).includes(NOTE));
   });
 
   it('ラベルの二重引用符で記法が壊れない', () => {

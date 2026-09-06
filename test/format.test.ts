@@ -9,6 +9,7 @@ import { readFileSync } from 'node:fs';
 import { describe, it } from 'node:test';
 
 import { DiagramSyntaxError, getPins, parse, serialize, setPin } from '../src/format.ts';
+import { messages } from '../src/messages.ts';
 
 const R0 = readFileSync(new URL('fixtures/r0.zumen.yaml', import.meta.url), 'utf8');
 
@@ -51,7 +52,8 @@ describe('壊れた正本', () => {
     } catch (error) {
       assert.ok(error instanceof DiagramSyntaxError);
       assert.equal(error.line, 4);
-      assert.match(error.message, /^4 行目: /);
+      // 文面そのものは見ない。**人が文言を直してもここは落ちない。**
+      assert.ok(error.message.startsWith(messages().format.atLine(4, '')));
     }
   });
 

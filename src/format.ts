@@ -11,6 +11,7 @@
  */
 import { isMap, isSeq, parseDocument } from 'yaml';
 import type { Document, YAMLMap } from 'yaml';
+import { messages } from './messages.ts';
 
 /** 人が与えた指定。AI はこの節を書かない。 */
 export interface Pin {
@@ -92,7 +93,7 @@ export class DiagramSyntaxError extends Error {
   readonly line: number | undefined;
 
   constructor(message: string, line: number | undefined) {
-    super(line === undefined ? message : `${line} 行目: ${message}`);
+    super(line === undefined ? message : messages().format.atLine(line, message));
     this.name = 'DiagramSyntaxError';
     this.line = line;
   }

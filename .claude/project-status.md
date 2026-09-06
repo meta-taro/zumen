@@ -22,6 +22,11 @@
   同梱するのは自作の汎用図形のみ。公式アイコンは利用者が `.zumen/icons/` へ置く。
   調査は `docs/specs/006-図形とアイコンのライセンス.md`
 
+- **文言を `src/messages.ts` へ集約（D9）。** 多言語化（ja / en）と、
+  日本語の違和感・語彙の揺れへの対策を 1 つの仕組みにした。
+  散らばりは `test/messages.test.ts` が落とす（**red になることを実地で確認済み**）。
+  書き方の約束は `docs/specs/文言の規則.md`
+
 ## 未完了の作業
 
 - **Issue 009 は `LICENSE` の設置だけ済み。他の項目は未着手**
@@ -48,7 +53,7 @@
 
 ## テスト状況
 
-- `pnpm test` — **89 件 pass / 0 fail**（`node --test`、外部サービスへ繋がない）
+- `pnpm test` — **100 件 pass / 0 fail**（`node --test`、外部サービスへ繋がない）
 - `pnpm typecheck` — 通過
 - `pnpm s1` — 往復ログを `experiments/s1/results/` へ再生成できる
 - `pnpm d2:conflict` — Git の衝突の実測を再生成できる

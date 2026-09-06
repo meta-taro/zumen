@@ -15,6 +15,7 @@
 import { layout } from './layout.ts';
 import { parse } from './format.ts';
 import { render } from './render.ts';
+import { messages } from './messages.ts';
 
 export interface ZumenBlock {
   /** 囲みごとの元の文字列。差し替えのときの目印になる。 */
@@ -106,7 +107,7 @@ export async function renderZumenBlocks(
   source: string,
   options: RenderBlocksOptions = {},
 ): Promise<Map<string, string>> {
-  const describe = options.describe ?? ((message: string) => `図を描けませんでした: ${message}`);
+  const describe = options.describe ?? ((message: string) => messages().embed.renderFailed(message));
   const out = new Map<string, string>();
 
   for (const block of collectZumenBlocks(source)) {
@@ -154,6 +155,6 @@ function altOf(body: string): string {
   } catch {
     title = '';
   }
-  const source = title === '' ? '構成図' : title;
+  const source = title === '' ? messages().embed.untitledDiagram : title;
   return source.replace(/[[\]()]/g, ' ').replace(/\s+/g, ' ').trim();
 }
