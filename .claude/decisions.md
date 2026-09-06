@@ -664,3 +664,60 @@ AI が返すのは提案であって正本ではない。MCP から正本を直�
 - **MCP から正本を直接書きたくなったとき。** なぜ `merge()` を通せないのかを先に書く
 - CLI の命令が 12 個を超えたとき。**覚えられない口は使われない**
 - 姉妹側への依存が 1 つでも入ったとき
+
+---
+
+## D14（2026-09-06 確定）pnpm の防御設定は `pnpm-workspace.yaml` に置く。効き目をテストで見張る
+
+### 経緯 — **書いてあるのに効いていなかった**
+
+ベースルール §1 は、サプライチェーン攻撃への防御として
+`onlyBuiltDependencies`（install script の許可リスト）と
+`minimumReleaseAge`（公開直後のパッケージの隔離）を求めている。
+`package.json` の `"pnpm"` にそのとおり書いてあった。
+
+GUI の依存（Svelte / Vite）を入れたときに気づいた。
+
+```
+$ pnpm config get minimumReleaseAge
+undefined
+$ pnpm config get onlyBuiltDependencies
+undefined
+```
+
+**pnpm 10 以降、これらは `package.json` ではなく `pnpm-workspace.yaml` を見る。**
+このリポジトリは `packageManager: pnpm@11.1.1` を pin しているので、
+**書いてあった設定は 1 度も効いていなかった。**
+
+install script が止まっていたのは pnpm 11 の既定の挙動であって、
+この設定のおかげではない。**`minimumReleaseAge` は本当に無防備だった。**
+
+### 決めたこと
+
+1. **設定は `pnpm-workspace.yaml` に置く。** 置いたら
+   `pnpm config get` が値を返すことを確かめる
+2. **効き目をテストで見張る**（`test/supply-chain.test.ts`）。
+   **設定ファイルの中身を検査しても、効いていないことは見つからない。**
+   だから pnpm 自身に聞く
+3. `strictDepBuilds: false` を置く。**スクリプトは走らせないまま**、
+   「無視していることを承知している」として install を進める
+   （置かないと `pnpm install` が毎回 exit 1 になり、`pnpm exec` ごと止まる）
+
+### esbuild の install script は許可しない
+
+Vite が esbuild を使うが、**スクリプトを走らせなくても `vite build` は通る**ことを確認した。
+`onlyBuiltDependencies` は**空のまま**。
+
+**許可リストに何か足すときは、なぜ要るのかをここに書く。**
+
+### `package.json` の `"pnpm"` は残す
+
+pnpm 10 未満で作業する人には、そちらが効くため。
+**ただし正本は `pnpm-workspace.yaml`。** 両方に書くとズレるので、
+ズレたときに気づけるよう、上記のテストは**効き目のほう**を見ている。
+
+### これを止めるべき条件
+
+- pnpm がまた設定の置き場所を変えたとき。**テストが落ちるので気づける**
+- `onlyBuiltDependencies` に何かを足す必要が出たとき。
+  **足す前に、そのパッケージのスクリプトが何をするかを読む**
