@@ -6,6 +6,14 @@
  *
  * 使い捨ての git リポジトリを作り、branch を分けて merge し、
  * 衝突したかどうかと、衝突したときに何が起きるかを記録する。
+ *
+ * **同じ 6 場面を 2 通りで回す**（Issue 011）。
+ *
+ * - **ドライバ無し** — Git の既定の行単位マージ。clone しただけの人が見る挙動
+ * - **ドライバ有り** — `merge.zumen.driver` を設定した人が見る挙動
+ *
+ * 2 通りとも記録するのは、**ドライバの設定を利用の前提にしない**ため。
+ * 設定していない人が壊れるなら、そのドライバは配れない。
  */
 import { execFileSync } from 'node:child_process';
 import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
@@ -14,6 +22,7 @@ import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { parse, serialize, setPin } from '../../src/format.ts';
+import { hasError, validate } from '../../src/validate.ts';
 
 const HERE = fileURLToPath(new URL('.', import.meta.url));
 const BASE = readFileSync(`${HERE}../../test/fixtures/r0.zumen.yaml`, 'utf8');
@@ -74,26 +83,44 @@ const SCENARIOS: Scenario[] = [
   },
 ];
 
+interface Outcome {
+  conflicted: boolean;
+  /** 期待どおりか。 */
+  ok: boolean;
+  /** 衝突した箇所（先頭のみ）。 */
+  sample: string;
+  /** merge 後の図が、形式として読めるか。**壊れていないことの確認。** */
+  readable: boolean;
+}
+
 interface Result {
   name: string;
   intent: string;
-  conflicted: boolean;
   conflictIsCorrect: boolean;
-  /** 期待どおりか。 */
-  ok: boolean;
-  /** 衝突したファイルの中身（先頭のみ）。 */
-  sample: string;
+  plain: Outcome;
+  driver: Outcome;
 }
 
 function main(): void {
-  const results = SCENARIOS.map(runScenario);
+  const results = SCENARIOS.map(
+    (scenario): Result => ({
+      name: scenario.name,
+      intent: scenario.intent,
+      conflictIsCorrect: scenario.conflictIsCorrect,
+      plain: runScenario(scenario, false),
+      driver: runScenario(scenario, true),
+    }),
+  );
   const out = report(results);
   mkdirSync(`${HERE}results`, { recursive: true });
   writeFileSync(`${HERE}results/git-conflict.md`, out);
   process.stdout.write(out);
 }
 
-function runScenario(scenario: Scenario): Result {
+/** マージドライバの入口。**利用者の手元でも同じものを設定する。** */
+const DRIVER = `node ${HERE}../../src/cli.ts merge-driver %O %A %B`;
+
+function runScenario(scenario: Scenario, useDriver: boolean): Outcome {
   const dir = mkdtempSync(join(tmpdir(), 'zumen-d2-'));
   try {
     const git = (...args: string[]): string =>
@@ -102,8 +129,17 @@ function runScenario(scenario: Scenario): Result {
     git('init', '-q', '-b', 'main');
     git('config', 'user.email', 'test@example.com');
     git('config', 'user.name', 'test');
+
+    // .gitattributes はリポジトリに置く。**ドライバの設定は各自の手元**（config）で、
+    // 設定していない人は既定の行単位マージへ落ちるだけ。
+    writeFileSync(join(dir, '.gitattributes'), '*.zumen.yaml merge=zumen\n');
+    if (useDriver) {
+      git('config', 'merge.zumen.name', 'zumen structural merge');
+      git('config', 'merge.zumen.driver', DRIVER);
+    }
+
     writeFileSync(join(dir, FILE), BASE);
-    git('add', FILE);
+    git('add', FILE, '.gitattributes');
     git('commit', '-q', '-m', 'base');
 
     git('checkout', '-q', '-b', 'theirs');
@@ -123,16 +159,24 @@ function runScenario(scenario: Scenario): Result {
 
     const merged = readFileSync(join(dir, FILE), 'utf8');
     return {
-      name: scenario.name,
-      intent: scenario.intent,
       conflicted,
-      conflictIsCorrect: scenario.conflictIsCorrect,
       ok: conflicted === scenario.conflictIsCorrect,
       sample: conflicted ? conflictHunk(merged) : '',
+      readable: conflicted ? true : isReadable(merged),
     };
   } finally {
     rmSync(dir, { recursive: true, force: true });
   }
+}
+
+/**
+ * 衝突しなかった結果が、形式として読めるか。
+ *
+ * **衝突しなければ良い、ではない。** 黙って通したうえで壊れている状態が、
+ * いちばん見つかりにくい。
+ */
+function isReadable(text: string): boolean {
+  return !hasError(validate(text));
 }
 
 /** 衝突した箇所だけを取り出す。全文を載せても読めない。 */
@@ -184,28 +228,53 @@ function report(results: Result[]): string {
     '**衝突しなければ良い形式、ではない。** 本当にぶつかっているのに黙って通す形式は、',
     '人の直しを片方だけ消す。',
     '',
-    '| 場面 | 衝突 | 期待 | 判定 |',
-    '|---|---|---|---|',
+    '同じ 6 場面を 2 通りで回す（Issue 011）。',
+    '',
+    '- **既定** — Git の行単位マージ。**clone しただけの人が見る挙動**',
+    '- **ドライバ** — `merge.zumen.driver` を設定した人が見る挙動',
+    '',
+    '| 場面 | 期待 | 既定 | 判定 | ドライバ | 判定 |',
+    '|---|---|---|---|---|---|',
   ];
+  const yes = (o: Outcome): string => (o.conflicted ? 'した' : 'しない');
+  const mark = (o: Outcome): string => (o.ok ? 'OK' : '**NG**');
+
   for (const r of results) {
+    const want = r.conflictIsCorrect ? 'するのが正しい' : 'しないのが正しい';
     lines.push(
-      `| ${r.name} | ${r.conflicted ? 'した' : 'しない'} | ${r.conflictIsCorrect ? 'するのが正しい' : 'しないのが正しい'} | ${r.ok ? 'OK' : '**NG**'} |`,
+      `| ${r.name} | ${want} | ${yes(r.plain)} | ${mark(r.plain)} | ${yes(r.driver)} | ${mark(r.driver)} |`,
     );
   }
-  const ng = results.filter((r) => !r.ok);
+
+  const plainNg = results.filter((r) => !r.plain.ok);
+  const driverNg = results.filter((r) => !r.driver.ok);
+  const broken = results.filter((r) => !r.plain.readable || !r.driver.readable);
+
   lines.push(
     '',
-    `**${results.length} 場面中 ${results.length - ng.length} 場面が期待どおり。**`,
-    ...(ng.length === 0 ? [] : [`期待と違ったもの: ${ng.map((r) => r.name).join(', ')}`]),
+    `**既定: ${results.length} 場面中 ${results.length - plainNg.length} 場面が期待どおり。**`,
+    ...(plainNg.length === 0 ? [] : [`期待と違ったもの: ${plainNg.map((r) => r.name).join(', ')}`]),
+    '',
+    `**ドライバ有り: ${results.length} 場面中 ${results.length - driverNg.length} 場面が期待どおり。**`,
+    ...(driverNg.length === 0 ? [] : [`期待と違ったもの: ${driverNg.map((r) => r.name).join(', ')}`]),
+    '',
+    broken.length === 0
+      ? '**衝突せずに通った結果は、いずれも形式として読める**（黙って壊していない）。'
+      : `**読めない結果が出た: ${broken.map((r) => r.name).join(', ')}**`,
   );
 
   for (const r of results) {
     lines.push('', `## ${r.name}`, '', `**何を確かめたいか**: ${r.intent}`, '');
+    const want = r.conflictIsCorrect ? 'するのが正しい' : 'しないのが正しい';
     lines.push(
-      `- 衝突: ${r.conflicted ? 'した' : 'しない'}（${r.conflictIsCorrect ? 'するのが正しい' : 'しないのが正しい'} → ${r.ok ? 'OK' : 'NG'}）`,
+      `- 既定: 衝突${yes(r.plain)}（${want} → ${r.plain.ok ? 'OK' : 'NG'}）`,
+      `- ドライバ: 衝突${yes(r.driver)}（${want} → ${r.driver.ok ? 'OK' : 'NG'}）`,
     );
-    if (r.sample !== '') {
-      lines.push('', '衝突した箇所:', '', '```yaml', r.sample, '```');
+    if (r.plain.sample !== '') {
+      lines.push('', '既定で衝突した箇所:', '', '```yaml', r.plain.sample, '```');
+    }
+    if (r.driver.sample !== '') {
+      lines.push('', 'ドライバで衝突した箇所:', '', '```yaml', r.driver.sample, '```');
     }
   }
   return `${lines.join('\n')}\n`;

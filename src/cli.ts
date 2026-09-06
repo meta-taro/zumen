@@ -1,5 +1,5 @@
 /**
- * コマンドの口。いまは検証だけ（Issue 014）。
+ * コマンドの口。検証（Issue 014）と Git のマージドライバ（Issue 011）。
  *
  * 表示だけを持ち、判断は持たない。**判断は `src/validate.ts` にある。**
  * ここを厚くすると、同じ検査を GUI から呼びたくなったときに動かせなくなる
@@ -9,12 +9,15 @@
  *
  * | | 意味 |
  * |---|---|
- * | 0 | 読める。**警告だけなら 0**（迷子は人が解くもので、失敗ではない） |
- * | 1 | 読めない図がある |
+ * | 0 | 読める（`merge-driver` では解けた）。**警告だけなら 0** |
+ * | 1 | 読めない図がある（`merge-driver` では解けなかった） |
  * | 2 | 使い方が違う（引数が無い等） |
+ *
+ * **`merge-driver` の 1 は失敗ではなく、Git への「人が見る必要がある」の合図。**
  */
-import { readFileSync } from 'node:fs';
+import { readFileSync, writeFileSync } from 'node:fs';
 
+import { mergeThreeWay } from './git-merge.ts';
 import { messages } from './messages.ts';
 import { hasError, validate } from './validate.ts';
 import type { Finding } from './validate.ts';
@@ -72,9 +75,50 @@ function format(finding: Finding): string {
   return `[${label}] ${where}${finding.message}`;
 }
 
+/**
+ * Git のマージドライバ。`base` / `ours` / `theirs` を受け取り、**結果を `ours` の場所へ書く**
+ * （Git の約束。`%A` が出力先を兼ねる）。
+ *
+ * 終了コード 1 は失敗ではなく、**「人が見る必要がある」という Git への合図**。
+ */
+export function runMergeDriver(
+  paths: string[],
+  read = readFileSync,
+  write = writeFileSync,
+): RunResult {
+  const m = messages().cli;
+  const [base, ours, theirs] = paths;
+  if (base === undefined || ours === undefined || theirs === undefined) {
+    return { code: 2, lines: [m.usageMergeDriver] };
+  }
+
+  let result;
+  try {
+    result = mergeThreeWay(String(read(base, 'utf8')), String(read(ours, 'utf8')), String(read(theirs, 'utf8')));
+  } catch (error) {
+    // 構造で解けない（YAML として読めない等）なら、**Git の既定のマージへ委ねる。**
+    // ここで勝手に片方を書くと、人の直しが黙って消える。
+    return { code: 1, lines: [m.fileUnreadable(ours, error instanceof Error ? error.message : String(error))] };
+  }
+
+  write(ours, result.text);
+  if (result.conflicts.length === 0) return { code: 0, lines: [m.mergedClean(ours)] };
+  return { code: 1, lines: [m.mergedWithConflicts(ours, result.conflicts.length)] };
+}
+
+/** 命令を振り分ける。**判断は持たない。** */
+export function run(argv: string[]): RunResult {
+  const [command, ...rest] = argv;
+  if (command === 'validate') return runValidate(rest);
+  if (command === 'merge-driver') return runMergeDriver(rest);
+  const m = messages().cli;
+  if (command === undefined) return { code: 2, lines: [m.usage, m.usageMergeDriver] };
+  return { code: 2, lines: [m.unknownCommand(command), m.usage, m.usageMergeDriver] };
+}
+
 // 直接叩かれたときだけ走る。import しても副作用が出ないようにしておく。
 if (process.argv[1] !== undefined && import.meta.url.endsWith(process.argv[1].split('/').pop() ?? '')) {
-  const result = runValidate(process.argv.slice(2));
+  const result = run(process.argv.slice(2));
   for (const line of result.lines) console.log(line);
   process.exitCode = result.code;
 }

@@ -46,6 +46,13 @@ const ja = {
   /** コマンドの口（`src/cli.ts`） */
   cli: {
     usage: '使い方: pnpm validate <図のファイル> ...',
+    usageMergeDriver: '使い方: merge-driver <base> <ours> <theirs>',
+    unknownCommand: (name: string) => `${name} という命令はありません。`,
+    /** ドライバが解いたとき。**何を解いたかを黙らない。** */
+    mergedClean: (path: string) => `${path} を構造で解きました。衝突はありません。`,
+    /** 解けなかったとき。**片方を黙って捨てない**ので、人が選ぶ。 */
+    mergedWithConflicts: (path: string, count: number) =>
+      `${path} に ${count} 件、両方が別々に変えた箇所があります。印を付けたので、人が選んでください。`,
     fileUnreadable: (path: string, reason: string) => `${path} を読めません: ${reason}`,
     /** 1 ファイルぶんの見出し。指摘が無いときは出さない。 */
     fileHeading: (path: string) => `${path}`,
@@ -105,6 +112,11 @@ const en: Catalog = {
   },
   cli: {
     usage: 'Usage: pnpm validate <diagram file> ...',
+    usageMergeDriver: 'Usage: merge-driver <base> <ours> <theirs>',
+    unknownCommand: (name: string) => `There is no command named ${name}.`,
+    mergedClean: (path: string) => `Merged ${path} structurally. No conflicts.`,
+    mergedWithConflicts: (path: string, count: number) =>
+      `${path} has ${count} place(s) both sides changed differently. They are marked for you to choose.`,
     fileUnreadable: (path: string, reason: string) => `Cannot read ${path}: ${reason}`,
     fileHeading: (path: string) => `${path}`,
     severityError: 'error',

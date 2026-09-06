@@ -1,0 +1,9 @@
+# 図の正本は、行単位ではなく構造でマージする（Issue 011 / D10）。
+#
+# **ドライバの設定は各自の手元で 1 回必要**（下記）。設定していない人は
+# Git の既定の行単位マージへ落ちるだけで、壊れない。
+#
+#   git config merge.zumen.name   "zumen structural merge"
+#   git config merge.zumen.driver "node $(pwd)/src/cli.ts merge-driver %O %A %B"
+#
+*.zumen.yaml merge=zumen
