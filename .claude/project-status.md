@@ -41,6 +41,11 @@
   v0 は **8 操作**。すべて承認の A / B / C に紐づける。作らないものも列挙した。
   技術は **Tauri + Svelte**（姉妹アプリ `md-business/apps/desktop` の実物に揃えた）
 
+- **Issue 003（9 割の定義 / D3）完了。未決はこれで無くなった。**
+  指標は 2 つ（自力率 / 配置の自力率）、合格 **90%**。`pnpm measure` と `pnpm s3`。
+  基準の図は**実在の構成 2 枚**。**S1 の往復は 8 回中 3 回が合格ラインを割っている**
+  （R3〜R5 が 85.0%）。**指標を甘くして通していない**
+
 ## 未完了の作業
 
 - **Issue 013（draw.io 書き出し）は実装済みだが完了ではない。**
@@ -73,13 +78,15 @@
 
 ## テスト状況
 
-- `pnpm test` — **189 件 pass / 0 fail**（`node --test`、外部サービスへ繋がない）
+- `pnpm test` — **202 件 pass / 0 fail**（`node --test`、外部サービスへ繋がない）
 - `pnpm typecheck` — 通過
 - `pnpm s1` — 往復ログを `experiments/s1/results/` へ再生成できる
 - `pnpm d2:conflict` — Git の衝突の実測を再生成できる
 - `pnpm validate <ファイル>` — 形式の検証。**警告だけなら 0、読めない図があれば 1**
 - `pnpm merge-driver <base> <ours> <theirs>` — Git のマージドライバ（D10）
 - `pnpm drawio <図> [書き出し先]` — draw.io XML へ書き出す。**圧縮しない**
+- `pnpm measure <図> ...` — 「9 割」を測る（D3）。**不合格でも終了コードは 0**
+- `pnpm s3` — 基準線を再生成する
 
 ## 既知の問題
 

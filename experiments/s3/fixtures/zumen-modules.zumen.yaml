@@ -1,0 +1,108 @@
+version: 1
+title: zumen のモジュール構成
+
+# 基準の図 その 1。**実在の構成**（`src/*.ts` の import を読んで起こしたもの）。
+# 架空の綺麗な例で測らない（Issue 003）。
+#
+# この図の要点は、**中核が画面を知らないこと**（D12）。
+# cli が上にあり、下へ向かってしか矢印が無い。
+
+groups:
+  - id: entry
+    label: 入口
+  - id: core
+    label: 中核（画面を知らない）
+
+nodes:
+  - id: cli
+    type: cli
+    label: cli
+    group: entry
+
+  - id: embed
+    type: module
+    label: embed
+    group: entry
+
+  - id: format
+    type: module
+    label: format
+    group: core
+
+  - id: layout
+    type: module
+    label: layout
+    group: core
+
+  - id: render
+    type: module
+    label: render
+    group: core
+
+  - id: merge
+    type: module
+    label: merge
+    group: core
+
+  - id: git-merge
+    type: module
+    label: git-merge
+    group: core
+
+  - id: mermaid
+    type: module
+    label: mermaid
+    group: core
+
+  - id: drawio
+    type: module
+    label: drawio
+    group: core
+
+  - id: validate
+    type: module
+    label: validate
+    group: core
+
+  - id: messages
+    type: module
+    label: messages
+    group: core
+
+edges:
+  - from: cli
+    to: drawio
+  - from: cli
+    to: git-merge
+  - from: cli
+    to: layout
+  - from: cli
+    to: validate
+  - from: cli
+    to: messages
+  - from: embed
+    to: format
+  - from: embed
+    to: layout
+  - from: embed
+    to: render
+  - from: embed
+    to: messages
+  - from: drawio
+    to: layout
+  - from: drawio
+    to: messages
+  - from: format
+    to: messages
+  - from: layout
+    to: format
+  - from: merge
+    to: format
+  - from: mermaid
+    to: format
+  - from: mermaid
+    to: messages
+  - from: render
+    to: layout
+  - from: validate
+    to: messages

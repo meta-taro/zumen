@@ -1,0 +1,185 @@
+version: 1
+title: md-business のパッケージ構成
+
+# 基準の図 その 2。**実在の構成**（`apps/*/package.json` と `packages/*/package.json` の
+# @md-business/* 依存を読んで起こしたもの）。架空の綺麗な例で測らない（Issue 003）。
+#
+# その 1（zumen）より 1 段大きい図を置くのは、**規模で指標が壊れないか**を見るため。
+
+groups:
+  - id: apps
+    label: apps
+  - id: packages
+    label: packages
+
+nodes:
+  - id: desktop
+    type: app
+    label: desktop
+    group: apps
+
+  - id: chrome-extension
+    type: app
+    label: chrome-extension
+    group: apps
+
+  - id: google-workspace-addon
+    type: app
+    label: google-workspace-addon
+    group: apps
+
+  - id: core
+    type: package
+    label: core
+    group: packages
+
+  - id: data-tree
+    type: package
+    label: data-tree
+    group: packages
+
+  - id: mcp-server
+    type: package
+    label: mcp-server
+    group: packages
+
+  - id: renderer-pdf
+    type: package
+    label: renderer-pdf
+    group: packages
+
+  - id: schema-api-spec
+    type: package
+    label: schema-api-spec
+    group: packages
+
+  - id: schema-db-spec
+    type: package
+    label: schema-db-spec
+    group: packages
+
+  - id: schema-investigation
+    type: package
+    label: schema-investigation
+    group: packages
+
+  - id: schema-invoice
+    type: package
+    label: schema-invoice
+    group: packages
+
+  - id: schema-nosql-db-spec
+    type: package
+    label: schema-nosql-db-spec
+    group: packages
+
+  - id: schema-spec
+    type: package
+    label: schema-spec
+    group: packages
+
+  - id: schema-test-spec
+    type: package
+    label: schema-test-spec
+    group: packages
+
+  - id: schema-test-spec-tsv
+    type: package
+    label: schema-test-spec-tsv
+    group: packages
+
+edges:
+  - from: desktop
+    to: core
+  - from: desktop
+    to: data-tree
+  - from: desktop
+    to: mcp-server
+  - from: desktop
+    to: renderer-pdf
+  - from: desktop
+    to: schema-api-spec
+  - from: desktop
+    to: schema-db-spec
+  - from: desktop
+    to: schema-investigation
+  - from: desktop
+    to: schema-invoice
+  - from: desktop
+    to: schema-nosql-db-spec
+  - from: desktop
+    to: schema-spec
+  - from: desktop
+    to: schema-test-spec
+  - from: desktop
+    to: schema-test-spec-tsv
+  - from: chrome-extension
+    to: core
+  - from: chrome-extension
+    to: renderer-pdf
+  - from: chrome-extension
+    to: schema-api-spec
+  - from: chrome-extension
+    to: schema-db-spec
+  - from: chrome-extension
+    to: schema-invoice
+  - from: chrome-extension
+    to: schema-nosql-db-spec
+  - from: chrome-extension
+    to: schema-spec
+  - from: chrome-extension
+    to: schema-test-spec
+  - from: google-workspace-addon
+    to: core
+  - from: google-workspace-addon
+    to: schema-test-spec
+  - from: mcp-server
+    to: core
+  - from: mcp-server
+    to: data-tree
+  - from: mcp-server
+    to: schema-api-spec
+  - from: mcp-server
+    to: schema-db-spec
+  - from: mcp-server
+    to: schema-invoice
+  - from: mcp-server
+    to: schema-investigation
+  - from: mcp-server
+    to: schema-nosql-db-spec
+  - from: mcp-server
+    to: schema-spec
+  - from: mcp-server
+    to: schema-test-spec
+  - from: mcp-server
+    to: schema-test-spec-tsv
+  - from: renderer-pdf
+    to: schema-api-spec
+  - from: renderer-pdf
+    to: schema-db-spec
+  - from: renderer-pdf
+    to: schema-investigation
+  - from: renderer-pdf
+    to: schema-invoice
+  - from: renderer-pdf
+    to: schema-nosql-db-spec
+  - from: renderer-pdf
+    to: schema-spec
+  - from: renderer-pdf
+    to: schema-test-spec
+  - from: schema-api-spec
+    to: core
+  - from: schema-db-spec
+    to: core
+  - from: schema-investigation
+    to: core
+  - from: schema-invoice
+    to: core
+  - from: schema-nosql-db-spec
+    to: core
+  - from: schema-spec
+    to: core
+  - from: schema-test-spec-tsv
+    to: schema-test-spec
+  - from: schema-test-spec
+    to: core

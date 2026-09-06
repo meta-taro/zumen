@@ -48,6 +48,13 @@ const ja = {
     usage: '使い方: pnpm validate <図のファイル> ...',
     usageMergeDriver: '使い方: merge-driver <base> <ours> <theirs>',
     usageDrawio: '使い方: pnpm drawio <図のファイル> [書き出し先]',
+    usageMeasure: '使い方: pnpm measure <図のファイル> ...',
+    /** 「9 割」の測り方は `docs/specs/003-9割の定義.md`。 */
+    measured: (path: string, autonomy: string, layout: string) =>
+      `${path} — 自力率 ${autonomy} / 配置の自力率 ${layout}`,
+    measurePassed: (count: number, line: string) => `${count} 件すべてが合格ライン ${line} に届いています。`,
+    measureFailed: (count: number, line: string) =>
+      `${count} 件が合格ライン ${line} に届いていません。**人が図形を並べ直している可能性があります。**`,
     wrote: (path: string) => `${path} へ書き出しました。`,
     unknownCommand: (name: string) => `${name} という命令はありません。`,
     /** ドライバが解いたとき。**何を解いたかを黙らない。** */
@@ -134,6 +141,12 @@ const en: Catalog = {
     usage: 'Usage: pnpm validate <diagram file> ...',
     usageMergeDriver: 'Usage: merge-driver <base> <ours> <theirs>',
     usageDrawio: 'Usage: pnpm drawio <diagram file> [output path]',
+    usageMeasure: 'Usage: pnpm measure <diagram file> ...',
+    measured: (path: string, autonomy: string, layout: string) =>
+      `${path} — autonomy ${autonomy} / layout autonomy ${layout}`,
+    measurePassed: (count: number, line: string) => `All ${count} diagram(s) meet the ${line} line.`,
+    measureFailed: (count: number, line: string) =>
+      `${count} diagram(s) fall short of the ${line} line. A human may be re-arranging shapes by hand.`,
     wrote: (path: string) => `Wrote ${path}.`,
     unknownCommand: (name: string) => `There is no command named ${name}.`,
     mergedClean: (path: string) => `Merged ${path} structurally. No conflicts.`,

@@ -20,6 +20,7 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { toDrawio } from './drawio.ts';
 import { mergeThreeWay } from './git-merge.ts';
 import { layout } from './layout.ts';
+import { PASS_LINE, measure, percent } from './measure.ts';
 import { messages } from './messages.ts';
 import { hasError, validate } from './validate.ts';
 import type { Finding } from './validate.ts';
@@ -141,14 +142,44 @@ function titleOf(text: string): string | undefined {
   return found?.[1]?.trim();
 }
 
+/**
+ * 「9 割」を測る（Issue 003 / D3）。
+ *
+ * **合格しなくても 1 は返さない。** これは検査ではなく物差しで、
+ * ここで CI を落とすと、**数字を良くするために指標のほうを歪める**動機が生まれる。
+ */
+export function runMeasure(paths: string[], read = readFileSync): RunResult {
+  const m = messages().cli;
+  if (paths.length === 0) return { code: 2, lines: [m.usageMeasure] };
+
+  const lines: string[] = [];
+  let short = 0;
+  for (const path of paths) {
+    let text: string;
+    try {
+      text = String(read(path, 'utf8'));
+    } catch (error) {
+      return { code: 1, lines: [m.fileUnreadable(path, error instanceof Error ? error.message : String(error))] };
+    }
+    const result = measure(text);
+    lines.push(m.measured(path, percent(result.autonomy), percent(result.layoutAutonomy)));
+    if (!result.pass) short += 1;
+  }
+
+  const line = percent(PASS_LINE);
+  lines.push(short === 0 ? m.measurePassed(paths.length, line) : m.measureFailed(short, line));
+  return { code: 0, lines };
+}
+
 /** 命令を振り分ける。**判断は持たない。** */
 export async function run(argv: string[]): Promise<RunResult> {
   const [command, ...rest] = argv;
   if (command === 'validate') return runValidate(rest);
   if (command === 'merge-driver') return runMergeDriver(rest);
   if (command === 'drawio') return runDrawio(rest);
+  if (command === 'measure') return runMeasure(rest);
   const m = messages().cli;
-  const usage = [m.usage, m.usageMergeDriver, m.usageDrawio];
+  const usage = [m.usage, m.usageMergeDriver, m.usageDrawio, m.usageMeasure];
   if (command === undefined) return { code: 2, lines: usage };
   return { code: 2, lines: [m.unknownCommand(command), ...usage] };
 }
