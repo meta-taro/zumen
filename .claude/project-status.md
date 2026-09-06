@@ -58,7 +58,16 @@
 - **Issue 012 の作業内容 3 を「PR」から「依頼」へ変更**（人の指示）。
   `docs/handoff/md-business-zumenの囲み.md`。**向こうのコードはこちらで書かない**
 
+- **GUI の第 1 段階が動く（B3 / D11 の 8 操作）。** `pnpm dev` で立つ。
+  Svelte 5 + Vite。**Tauri の殻はまだ**（ブラウザで動く形）。
+  **確かめたのはコンパイルまでで、実行時の動作は人が見ていない**
+
 ## 未完了の作業
+
+- **Tauri の殻**（D12）。`app/lib/files.ts` に 3 段目として足す
+- **画面そのもののテストが 0 件。** `node --test` は `.svelte` を扱えない
+- **AI の API 接続は未着手。** 鍵の投入は人の作業（ベースルール §14）なので、
+  v0 は「提案（YAML）を読み込む」形にしてある
 
 - **依頼書を md-business 側へ渡すのは人の作業**（別リポジトリ）
 
@@ -109,6 +118,8 @@
 - `pnpm drawio <図> [書き出し先]` — draw.io XML へ書き出す。**圧縮しない**
 - `pnpm measure <図> ...` — 「9 割」を測る（D3）。**不合格でも終了コードは 0**
 - `pnpm s3` — 基準線を再生成する
+- `pnpm dev` — 画面を立てる（`http://localhost:5173`）
+- `pnpm build:app` — 画面を束ねる
 - `pnpm svg` / `pnpm mermaid` / `pnpm embed` / `pnpm merge` — 書き出しと取り込み
 
 ## 既知の問題

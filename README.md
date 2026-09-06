@@ -6,7 +6,11 @@
 > **いまは測る段階を終えて、土台を作っている途中です。GUI はまだありません。**
 > 動くのは、正本の読み書き・自動レイアウト・SVG 描画・Mermaid 書き出し・
 > draw.io 書き出し・Markdown への埋め込み・形式の検証・Git のマージドライバ・
-> 「9 割」の計測まで。
+> 「9 割」の計測、そして**承認のための最小 GUI（第 1 段階）**まで。
+>
+> GUI は `pnpm dev` で立ちます。**まだ Tauri の殻が無く、ブラウザで動く形**です。
+> 操作は 8 つに限ってあります（[`docs/specs/005-承認のための最小GUI.md`](docs/specs/005-承認のための最小GUI.md)）。
+> **編集機能をそろえることが目的ではありません。**
 >
 > 方向性は [`PRD.md`](PRD.md)、進め方は [`.claude/roadmap.md`](.claude/roadmap.md)、
 > 決定と理由は [`.claude/decisions.md`](.claude/decisions.md)、
@@ -46,6 +50,7 @@
 
 ```bash
 pnpm install
+pnpm dev         # 画面を立てる（http://localhost:5173）
 pnpm test        # 走るテスト
 pnpm validate <図のファイル> ...   # 形式に適合しているかを見る
 pnpm measure  <図のファイル> ...   # 「AI が 9 割描けたか」を測る
