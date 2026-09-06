@@ -8,7 +8,8 @@
 > draw.io 書き出し・Markdown への埋め込み・形式の検証・Git のマージドライバ・
 > 「9 割」の計測、そして**承認のための最小 GUI（第 1 段階）**まで。
 >
-> GUI は `pnpm dev` で立ちます。**まだ Tauri の殻が無く、ブラウザで動く形**です。
+> GUI は `pnpm app` でデスクトップアプリとして立ちます。
+> **殻が無くても `pnpm dev` でブラウザで動きます。**
 > 操作は 8 つに限ってあります（[`docs/specs/005-承認のための最小GUI.md`](docs/specs/005-承認のための最小GUI.md)）。
 > **編集機能をそろえることが目的ではありません。**
 >
@@ -50,7 +51,8 @@
 
 ```bash
 pnpm install
-pnpm dev         # 画面を立てる（http://localhost:5173）
+pnpm app         # デスクトップアプリとして立てる（Tauri。Rust が要る）
+pnpm dev         # 画面だけをブラウザで立てる（http://localhost:5173）
 pnpm test        # 走るテスト
 pnpm gui:check   # 画面の 8 操作を実際に動かして確かめる（Chrome が要る）
 pnpm validate <図のファイル> ...   # 形式に適合しているかを見る

@@ -10,6 +10,8 @@
   },
   "packageManager": "pnpm@11.1.1",
   "scripts": {
+    "app": "tauri dev",
+    "app:build": "tauri build",
     "build:app": "vite build",
     "d2:conflict": "node experiments/d2/git-conflict.ts",
     "dev": "vite",
@@ -23,16 +25,20 @@
     "s1": "node experiments/s1/run.ts",
     "s3": "node experiments/s3/run.ts",
     "svg": "node src/cli.ts svg",
+    "tauri": "tauri",
     "test": "node --test \"test/**/*.test.ts\" \"experiments/**/*.test.ts\"",
     "typecheck": "tsc --noEmit",
     "validate": "node src/cli.ts validate"
   },
   "dependencies": {
+    "@tauri-apps/api": "^2.11.1",
+    "@tauri-apps/plugin-dialog": "^2.7.3",
     "elkjs": "^0.12.0",
     "yaml": "^2.9.0"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^6.2.4",
+    "@tauri-apps/cli": "^2.11.4",
     "@types/node": "^22.15.0",
     "svelte": "^5.57.0",
     "typescript": "^5.9.0",

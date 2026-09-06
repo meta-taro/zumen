@@ -55,6 +55,68 @@ allowed_email() {
   return 1
 }
 
+# 走査の結果をファイルへ受け、**落ちたら止める**。
+#
+# `< <(awk ...)` は awk が死んでも気づけない。実際、`awk -v` に改行を渡して
+# awk が死んだのに、検査は「OK」で終わった（2026-09-06）。
+# **安全網が黙って死ぬのがいちばん悪い。**
+scan_to() {
+  local target="$1"
+  shift
+  if ! "$@" > "$target"; then
+    note "NG [scanner-failed] 走査が失敗しました。**検査を通したことにしません。**"
+    fail=1
+  fi
+}
+
+# 追加行からメールを拾う。**同じ行に複数あっても取りこぼさない。**
+scan_emails() {
+  printf '%s\n' "$added" | awk -F'\t' -v self="$SELF_RE" '
+    $1 ~ self { next }
+    {
+      line = $3
+      while (match(line, /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z][A-Za-z]+/)) {
+        found = substr(line, RSTART, RLENGTH)
+        key = $1 "\t" $2 "\t" found
+        if (!(key in seen)) { seen[key] = 1; print key }
+        line = substr(line, RSTART + RLENGTH)
+      }
+    }
+  '
+}
+
+# 追加行から禁止語を拾う。**原文は出さない。何番目の語かだけを返す。**
+scan_deny_words() {
+  printf '%s\n' "$added" | awk -F'\t' -v self="$SELF_RE" -v wordsfile="$1" '
+    BEGIN {
+      n = 0
+      while ((getline line < wordsfile) > 0) { n++; w[n] = tolower(line) }
+    }
+    $1 ~ self { next }
+    {
+      lower = tolower($3)
+      for (i = 1; i <= n; i++) {
+        if (w[i] == "") continue
+        if (index(lower, w[i]) > 0) print $1 "\t" $2 "\t" i
+      }
+    }
+  '
+}
+
+# 走査の結果をファイルへ受け、**落ちたら止める**。
+#
+# `< <(awk ...)` は awk が死んでも気づけない。実際、`awk -v` に改行を渡して
+# awk が死んだのに、検査は「OK」で終わった（2026-09-06）。
+# **安全網が黙って死ぬのがいちばん悪い。**
+scan_to() {
+  local target="$1"
+  shift
+  if ! "$@" > "$target"; then
+    note "NG [scanner-failed] 走査が失敗しました。**検査を通したことにしません。**"
+    fail=1
+  fi
+}
+
 # --- 範囲の解決 -------------------------------------------------------------
 BASE="${1:-}"
 HEAD_REF="${2:-HEAD}"
@@ -161,30 +223,39 @@ added="$(printf '%s\n' "$diff_out" | awk '
   /^\+/        { print f "\t" ln "\t" substr($0, 2); ln++; next }
 ')"
 
+# **1 行ごとに grep を起こさない。** 追加行は数千行になることがあり（lock ファイル等）、
+# 1 行につき subshell を起こすと commit 前の検査が数分かかる。
+# awk 1 本で走査し、**見つかったものだけ**を shell で扱う。
 if [ -n "$added" ]; then
-  while IFS=$'\t' read -r f ln content; do
-    [ -z "${f:-}" ] && continue
-    printf '%s' "$f" | grep -Eq "$SELF_RE" && continue
+  hits="$(mktemp)"
 
-    while read -r found; do
-      [ -z "${found:-}" ] && continue
-      allowed_email "$found" && continue
-      note "NG [added-email] $f:$ln : $(printf '%s' "$found" | mask_email)"
+  # 3-1. メール
+  scan_to "$hits" scan_emails
+  while IFS=$'\t' read -r f ln found; do
+    [ -z "${found:-}" ] && continue
+    allowed_email "$found" && continue
+    note "NG [added-email] $f:$ln : $(printf '%s' "$found" | mask_email)"
+    fail=1
+  done < "$hits"
+
+  # 3-2. 禁止語
+  #
+  # **`awk -v` に改行を含む値は渡せない**（awk が死に、しかも検査は「OK」で終わる）。
+  # 一時ファイルで渡す。
+  if [ -n "$DENY_WORDS" ]; then
+    words_file="$(mktemp)"
+    printf '%s\n' "$DENY_WORDS" > "$words_file"
+
+    scan_to "$hits" scan_deny_words "$words_file"
+    while IFS=$'\t' read -r f ln i; do
+      [ -z "${i:-}" ] && continue
+      note "NG [added-denyword] $f:$ln : 禁止語 #$i に一致"
       fail=1
-    done < <(printf '%s' "$content" | grep -Eo "$EMAIL_RE" | sort -u)
+    done < "$hits"
+    rm -f "$words_file"
+  fi
 
-    if [ -n "$DENY_WORDS" ]; then
-      i=0
-      while IFS= read -r w; do
-        i=$((i + 1))
-        [ -z "$w" ] && continue
-        if printf '%s' "$content" | grep -qiF -- "$w"; then
-          note "NG [added-denyword] $f:$ln : 禁止語 #$i に一致"
-          fail=1
-        fi
-      done <<< "$DENY_WORDS"
-    fi
-  done <<< "$added"
+  rm -f "$hits"
 fi
 
 # --- 結果 -------------------------------------------------------------------

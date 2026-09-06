@@ -64,13 +64,19 @@
   **動かしてみたら、`process is not defined` で画面が丸ごと動いていなかった**
   — ビルドが通ることと動くことは別だった
 
-## 未完了の作業
+- **Tauri の殻が動く（D12 完了）。** `pnpm app` で窓が出て、その中で図が描ける。
+  プラグインは `dialog` のみ、ファイルの読み書きは自前の 2 命令。
+  **`fs` プラグインは登録せず権限も与えていない**
 
-- **Tauri の殻**（D12）。`app/lib/files.ts` に 3 段目として足す
+## 未完了の作業
 - **画面の確認は `pnpm gui:check`**（21 項目）。`node --test` は `.svelte` を
   扱えないので分けてある。**Chrome が要る**（無ければ「確認できなかった」と言って終わる）
 - **AI の API 接続は未着手。** 鍵の投入は人の作業（ベースルール §14）なので、
   v0 は「提案（YAML）を読み込む」形にしてある
+- **アプリのアイコンが仮**（`--accent` で塗っただけの正方形）。
+  見た目は人が決める領域（`src-tauri/icons/README.md`）
+- **殻の中のファイル選択は自動で確かめられない**（ネイティブのダイアログ）。
+  読み込み自体は `同梱の例を開く` で確認済み
 
 - **依頼書を md-business 側へ渡すのは人の作業**（別リポジトリ）
 
@@ -123,6 +129,7 @@
 - `pnpm s3` — 基準線を再生成する
 - `pnpm dev` — 画面を立てる（`http://localhost:5173`）
 - `pnpm gui:check` — 画面の 8 操作を実際に動かして確かめる（Chrome が要る）
+- `pnpm app` — 殻ごと立てる（Tauri）。`pnpm app:build` で束ねる
 - `pnpm build:app` — 画面を束ねる
 - `pnpm svg` / `pnpm mermaid` / `pnpm embed` / `pnpm merge` — 書き出しと取り込み
 
@@ -148,8 +155,8 @@
   AI の `Co-Authored-By: <noreply@anthropic.com>` で CI が落ちたため。
   **ドメイン全体ではなくアドレス 1 個**で、回帰テストで押さえてある
   （`test/oss-privacy-check.test.ts`）。**2 個目を足す前に方針を見直すこと**
-- **`oss-privacy-check.sh` が遅い。** 追加行 1 行につき subshell + grep を起こすため、
-  未 push の commit が溜まると commit 前のゲートに数分かかる（未 push 13 commit /
-  追加 6,990 行で約 5 分）。**検出はしている。速度だけの問題**
+- ~~`oss-privacy-check.sh` が遅い~~ → **awk 1 本の走査に変えて 0.4 秒**（2026-09-06）。
+  同じ差分で以前は数分。あわせて**走査が落ちたら検査を止める**ようにした
+  （`awk -v` に改行を渡して awk が死んだのに「OK」で終わる状態が実際にあった）
 - **Google Cloud の icon library ページの利用条件の原文は取れていない**（本文が JS 描画）。
   同梱しない結論はこれで足りるが、**同梱してよいと言うにはこの原文が要る**（Issue 006）

@@ -61,13 +61,13 @@ function repoWith(message: string, addedLine = 'ふつうの行'): { dir: string
 }
 
 /** 検査を走らせて、合否と出力を返す。**中身は落ちたときしか見ない。** */
-function check(dir: string, base: string): { ok: boolean; out: string } {
+function check(dir: string, base: string, denyWords = ''): { ok: boolean; out: string } {
   try {
     const out = execFileSync('bash', [SCRIPT, base, 'HEAD'], {
       cwd: dir,
       encoding: 'utf8',
       stdio: ['ignore', 'pipe', 'pipe'],
-      env: { ...process.env, OSS_DENY_WORDS: '', OSS_ALLOWED_EMAIL_DOMAINS: '' },
+      env: { ...process.env, OSS_DENY_WORDS: denyWords, OSS_ALLOWED_EMAIL_DOMAINS: '' },
     });
     return { ok: true, out };
   } catch (e) {
@@ -113,5 +113,52 @@ describe('追加行のメール', () => {
   it('追加行の noreply@anthropic.com も通す', () => {
     const { dir, base } = repoWith('feat: なにか', `Co-Authored-By: <${BOT}>`);
     assert.equal(check(dir, base).ok, true);
+  });
+});
+
+describe('走査で取りこぼさない', () => {
+  // 1 行ずつ grep を起こす作りをやめ、awk 1 本の走査に変えた（2026-09-06）。
+  // **速くなった代わりに取りこぼしていないか**を、ここで押さえる。
+
+  it('1 行に 2 つあっても、両方見つける', () => {
+    const a = at('one', 'example.co.jp');
+    const b = at('two', 'example.ne.jp');
+    const { dir, base } = repoWith('feat: なにか', `連絡先 ${a} と ${b}`);
+    const { ok, out } = check(dir, base);
+    assert.equal(ok, false);
+    assert.match(out, /o\*\*\*@\*\*\*\.jp/);
+    assert.match(out, /t\*\*\*@\*\*\*\.jp/);
+  });
+
+  it('同じ行の同じアドレスは 1 回だけ言う（同じ話を繰り返さない）', () => {
+    const a = at('one', 'example.co.jp');
+    const { dir, base } = repoWith('feat: なにか', `${a} と ${a}`);
+    const { out } = check(dir, base);
+    assert.equal((out.match(/added-email/g) ?? []).length, 1);
+  });
+
+  it('検査スクリプト自身は対象にしない（自分の正規表現で落ちない）', () => {
+    const { dir, base } = repoWith('feat: なにか', 'ふつうの行');
+    assert.equal(check(dir, base).ok, true);
+  });
+
+  it('禁止語を見つける（大文字小文字を区別しない）', () => {
+    const { dir, base } = repoWith('feat: なにか', '担当は YAMADA です');
+    const { ok, out } = check(dir, base, 'yamada');
+    assert.equal(ok, false);
+    assert.match(out, /added-denyword/);
+    // **原文をログへ出さない。** 何番目の語かだけ言う。
+    assert.equal(out.includes('YAMADA'), false);
+  });
+
+  it('禁止語に当たらない行は通す', () => {
+    const { dir, base } = repoWith('feat: なにか', 'ふつうの行');
+    assert.equal(check(dir, base, 'yamada').ok, true);
+  });
+
+  it('禁止語が複数あれば、当たったものを全部言う', () => {
+    const { dir, base } = repoWith('feat: なにか', 'alpha と bravo');
+    const { out } = check(dir, base, 'alpha\nbravo');
+    assert.equal((out.match(/added-denyword/g) ?? []).length, 2);
   });
 });

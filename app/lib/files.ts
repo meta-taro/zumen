@@ -5,12 +5,14 @@
  * ベースルール §3 は「開発者の手元で完結して起動・テストできること」を求めている。
  * Tauri を立てないと何も見られない作りにすると、そこで止まる。
  *
- * 優先順は 2 段。
+ * 優先順は 3 段。**呼ぶ側は、どれで動いているかを知らない。**
  *
- * 1. **File System Access API**（Chrome 系）— 開いた場所へそのまま上書きできる
- * 2. `<input type="file">` と、ダウンロードでの保存 — どこでも動くが、保存先は選び直しになる
+ * 1. **Tauri**（殻の中）— ダイアログで選んだ場所を、そのまま読み書きする
+ * 2. **File System Access API**（Chrome 系）— 開いた場所へそのまま上書きできる
+ * 3. `<input type="file">` と、ダウンロードでの保存 — どこでも動くが、保存先は選び直しになる
  *
- * Tauri の口はここへ 3 段目として足す。**呼ぶ側は変えない。**
+ * **殻が無くても動くことを保つ**（ベースルール §3）。
+ * Tauri を立てないと何も見られない作りにすると、そこで開発が止まる。
  */
 
 export interface Opened {
@@ -19,6 +21,35 @@ export interface Opened {
   /** 上書き保存に使う手掛かり。無ければ保存はダウンロードになる。 */
   handle: unknown;
 }
+
+/**
+ * Tauri の中で動いているか。
+ *
+ * **`import` で判定しない。** ブラウザで動かすときに読み込めない口を
+ * 静的に import すると、そこで全体が落ちる（`process is not defined` と同じ形）。
+ */
+function inTauri(): boolean {
+  return (globalThis as { __TAURI_INTERNALS__?: unknown }).__TAURI_INTERNALS__ !== undefined;
+}
+
+/** Tauri の口は、要るときだけ読み込む。 */
+async function tauri(): Promise<{
+  invoke: (command: string, args?: Record<string, unknown>) => Promise<unknown>;
+  open: (options?: unknown) => Promise<string | null>;
+  save: (options?: unknown) => Promise<string | null>;
+}> {
+  const [core, dialog] = await Promise.all([
+    import('@tauri-apps/api/core'),
+    import('@tauri-apps/plugin-dialog'),
+  ]);
+  return {
+    invoke: core.invoke as never,
+    open: dialog.open as never,
+    save: dialog.save as never,
+  };
+}
+
+const FILTERS = [{ name: 'zumen の図', extensions: ['yaml', 'yml'] }];
 
 interface PickerWindow {
   showOpenFilePicker?: (options: unknown) => Promise<FileSystemHandleLike[]>;
@@ -43,10 +74,19 @@ function picker(): PickerWindow {
 }
 
 export function canWriteInPlace(): boolean {
-  return typeof picker().showOpenFilePicker === 'function';
+  return inTauri() || typeof picker().showOpenFilePicker === 'function';
 }
 
 export async function openDiagram(): Promise<Opened | null> {
+  if (inTauri()) {
+    const { invoke, open } = await tauri();
+    const path = await open({ multiple: false, filters: FILTERS });
+    if (path === null) return null;
+    const text = String(await invoke('read_text', { path }));
+    // 殻の中では、**保存先の手掛かりは道そのもの**。
+    return { text, name: basename(path), handle: path };
+  }
+
   const show = picker().showOpenFilePicker;
   if (show !== undefined) {
     const [handle] = await show({ types: TYPES, multiple: false });
@@ -68,6 +108,15 @@ export async function saveDiagram(
   name: string,
   handle: unknown,
 ): Promise<unknown> {
+  if (inTauri()) {
+    const { invoke, save } = await tauri();
+    // 開いた場所を覚えていれば、そこへ上書きする。聞き直さない。
+    const path = typeof handle === 'string' ? handle : await save({ defaultPath: name, filters: FILTERS });
+    if (path === null) return null;
+    await invoke('write_text', { path, contents: text });
+    return path;
+  }
+
   const known = handle as FileSystemHandleLike | null;
   if (known !== null && typeof known?.createWritable === 'function') {
     const writable = await known.createWritable();
@@ -116,6 +165,12 @@ function download(text: string, name: string): void {
   link.download = name;
   link.click();
   URL.revokeObjectURL(url);
+}
+
+/** 道からファイル名だけを取る。Windows の区切りも見る。 */
+function basename(path: string): string {
+  const cut = Math.max(path.lastIndexOf('/'), path.lastIndexOf('\\'));
+  return cut === -1 ? path : path.slice(cut + 1);
 }
 
 /** 提案を読み込む。**正本ではないので、開き方を分けて取り違えを防ぐ。** */
