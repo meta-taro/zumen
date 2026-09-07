@@ -29,6 +29,7 @@ import { render } from './render.ts';
 import { messages } from './messages.ts';
 import { hasError, validate } from './validate.ts';
 import type { Finding } from './validate.ts';
+import { isEntry } from './entry.ts';
 
 export interface RunResult {
   code: number;
@@ -300,7 +301,7 @@ export async function run(argv: string[]): Promise<RunResult> {
 }
 
 // 直接叩かれたときだけ走る。import しても副作用が出ないようにしておく。
-if (process.argv[1] !== undefined && import.meta.url.endsWith(process.argv[1].split('/').pop() ?? '')) {
+if (isEntry(import.meta.url, process.argv[1])) {
   const result = await run(process.argv.slice(2));
   for (const line of result.lines) console.log(line);
   process.exitCode = result.code;

@@ -64,6 +64,22 @@ pnpm embed    <Markdown>          # 囲みを図へ差し替える
 pnpm merge    <正本> <提案>        # AI の提案を正本へ入れる（競合は適用しない）
 ```
 
+### エージェントに描かせる（MCP）
+
+**これが第一の口です。**サーバ構成を把握しているエージェントに、直接図を描かせます。
+
+```json
+{ "mcpServers": { "zumen": { "command": "node", "args": ["<zumen の場所>/src/mcp.ts"] } } }
+```
+
+開いている口は 8 つ。`zumen_spec`（形式を教える）／`zumen_create`（**ゼロから作る。既にあれば失敗**）／
+`zumen_propose`（**提案の `pins` は読まない**）／`zumen_inspect`（交差・重なり・「9 割」を返す）ほか。
+
+**開けていない口**があります — **競合の決着**・`pins` の書き換え・既存ファイルの無条件な上書き。
+開けた瞬間、**AI が自分の提案を自分で承認できてしまう**からです（D18）。
+
+別の機械で使う手順は [`docs/install.md`](docs/install.md)。
+
 **単体で完結します。**姉妹プロジェクト（md-business）への依存はありません。
 口の一覧と、MCP でどこまで開けるかは
 [`docs/specs/008-CLIとMCPの口.md`](docs/specs/008-CLIとMCPの口.md)。

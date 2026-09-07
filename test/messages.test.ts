@@ -143,6 +143,15 @@ describe('文言表', () => {
           }
           continue;
         }
+        // 一覧で返す文言もある（エージェントへ渡す規則など）。
+        if (Array.isArray(value)) {
+          assert.notEqual(value.length, 0, `${locale} の ${key} が空の一覧`);
+          for (const item of value) {
+            assert.equal(typeof item, 'string', `${locale} の ${key} に文字列でないものがある`);
+            assert.notEqual(item.trim(), '', `${locale} の ${key} に空の項目がある`);
+          }
+          continue;
+        }
         assert.equal(typeof value, 'string', `${locale} の ${key} が文字列でない`);
         assert.notEqual((value as string).trim(), '', `${locale} の ${key} が空`);
       }

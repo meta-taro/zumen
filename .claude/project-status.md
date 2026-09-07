@@ -107,7 +107,20 @@
   **形式 10/10、Tier A 10/10、手直しが消えた回は 0。**
   **AI は毎回 `pins` を書いてきた**（規約違反）が、読まない作りなので影響しない
 
+- **MCP を第一の口にした（D18）。** `zumen_create` でゼロから描ける
+  （**既にあれば失敗**。上書きの経路にしない）。`zumen_spec` と `zumen_inspect` を
+  返すのが要点で、**返さないとエージェントは当て推量で書く**
+- **Windows で入口の判定が効いていなかったのを直した。**
+  `argv[1]` を `/` で切っていたため、Windows では `pnpm mcp` も `pnpm validate` も
+  **何もせずに終わっていた**（`src/entry.ts`）
+- **配布物を作る workflow を置いた**（`release.yml`）。
+  `macos-latest` と `windows-latest` の両方を回す（姉妹の warifu と同じ形）。
+  **署名はしていない**ので、そのままでは受け取った機械が開かない
+
 ## 未完了の作業
+
+- **配布は当面 clone で行う**（人の判断。2026-09-07「まだアルファ版みたいなもん」）。
+  配布物を作る workflow は置いてあるが、**署名の手続きと費用は中身が固まってから**
 
 - **`gh repo edit meta-taro/zumen --visibility public`**（人の操作。D17 で内容の判断は済み）
 
@@ -123,7 +136,9 @@
 
 - **依頼書を md-business 側へ渡すのは人の作業**（別リポジトリ）
 
-- **MCP サーバそのものは未実装**（Issue 008 で範囲だけ決めた）
+- ~~MCP サーバそのものは未実装~~ → **実装した（D18）。** `pnpm mcp` で立ち、
+  口は 8 つ（`spec` / `list` / `read` / `pins` / `inspect` / `create` / `propose` / `export`）。
+  stdio で実際に応答することを確認済み。**日英どちらでも出る**
 - **Issue 007（貼り先で崩れないか）は分析と修正まで。完了ではない。**
   出力そのものを調べて 3 件直した（**`font-family` が無く日本語が豆腐になり得た** /
   `orient` が SVG 2 の値 / 寸法が長い小数）。使わない機能は
@@ -171,6 +186,7 @@
 - `pnpm s3` — 基準線を再生成する
 - `pnpm s3:quality` — 生成品質を実測する（手元の `claude` CLI を使う）
 - `pnpm s1:real` — 本物の AI で往復のばらつきを測る（同上）
+- `pnpm mcp` — MCP サーバを立てる（エージェントの入口）
 - `pnpm dev` — 画面を立てる（`http://localhost:5173`）
 - `pnpm gui:check` — 画面の 8 操作を実際に動かして確かめる（Chrome が要る）
 - `pnpm app` — 殻ごと立てる（Tauri）。`pnpm app:build` で束ねる

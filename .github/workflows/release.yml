@@ -1,0 +1,136 @@
+name: release
+
+# **配布物を作る。** タグを打ったときと、手で回したとき。
+#
+# この Mac 単体では Windows 版を作れない（Tauri はクロスビルドを実質サポートしない）。
+# **CI で `macos-latest` と `windows-latest` の両方を回す。**
+# 姉妹プロジェクト warifu が同じ形で作っているので、そこへ揃える。
+#
+# ## 署名について
+#
+# 署名と公証には秘密情報が要る。**AI は作らない・置かない・貼らない**（ベースルール §14）。
+# 人が GitHub の Secrets へ入れる。**名前だけをここに書く。**
+#
+#   APPLE_SIGNING_IDENTITY      … "Developer ID Application: …" の文字列
+#   APPLE_CERTIFICATE           … .p12 を base64 にしたもの
+#   APPLE_CERTIFICATE_PASSWORD  … その .p12 のパスワード
+#   APPLE_ID / APPLE_PASSWORD / APPLE_TEAM_ID … 公証に使う（app 用パスワード）
+#
+# **揃っていなければ、署名せずに作る。ただし黙って作らない** —
+# 出来たものが「配れないもの」だと分かる形で出す。
+# 署名なしの .dmg を配ると、受け取った Mac は「壊れている」と言って開かない。
+# Windows は「WindowsによってPCが保護されました」を出す。
+#
+# ## MCP サーバは、これとは別に配れる
+#
+# エージェントに図を描かせるだけなら、殻は要らない。
+# Node があればどこでも動く（ネイティブ依存が無い）。`docs/install.md` を見ること。
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: read
+
+jobs:
+  macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+
+      - run: corepack enable
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: 画面を束ねる
+        run: pnpm build:app
+
+      # 秘密情報が揃っているかを、**値を出さずに**言う。
+      - name: 署名できるか
+        id: signing
+        run: |
+          if [ -n "${{ secrets.APPLE_SIGNING_IDENTITY }}" ]; then
+            echo "できる。署名して作ります。"
+            echo "signed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "**署名しない。** 受け取った Mac は「壊れている」と言って開きません。"
+            echo "配る前に、Secrets へ APPLE_* を入れてください（人の作業）。"
+            echo "signed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: 殻を建てる
+        env:
+          APPLE_SIGNING_IDENTITY: ${{ secrets.APPLE_SIGNING_IDENTITY }}
+          APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
+          APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+        run: pnpm exec tauri build
+
+      # **何ができたかを実物で言う。** 「建った」だけでは、配れるものが出たか分からない。
+      - name: できたものを並べる
+        run: |
+          find src-tauri/target/release/bundle -type f \
+            \( -name '*.dmg' -o -name '*.app.tar.gz' \) -exec ls -l {} \;
+          echo "署名: ${{ steps.signing.outputs.signed }}"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: zumen-macos
+          path: src-tauri/target/release/bundle/**/*.dmg
+          if-no-files-found: error
+
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+
+      - run: corepack enable
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: 画面を束ねる
+        run: pnpm build:app
+
+      # **署名していない。** 受け取った Windows は
+      # 「WindowsによってPCが保護されました」を出す。手順は docs/install.md。
+      - name: 殻を建てる
+        run: pnpm exec tauri build
+
+      - name: できたものを並べる
+        shell: bash
+        run: |
+          find src-tauri/target/release/bundle -type f \
+            \( -name '*.msi' -o -name '*.exe' \) -exec ls -l {} \;
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: zumen-windows
+          path: |
+            src-tauri/target/release/bundle/**/*.msi
+            src-tauri/target/release/bundle/**/*.exe
+          if-no-files-found: error

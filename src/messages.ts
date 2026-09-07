@@ -162,6 +162,84 @@ const ja = {
       '人が置いた要素には zumenPinned="1" を付けた（draw.io の「データを編集」で見える）。保存し直すと失われることがある。',
   },
 
+  /**
+   * MCP の口（`src/mcp.ts`）。
+   *
+   * **これはエージェントが読む文。** 曖昧に書くと、そのぶん当て推量で動かれる。
+   * 「してはいけないこと」は、理由まで書く。
+   */
+  mcp: {
+    specTitle: '図の形式',
+    specDesc:
+      '図の形式・書ける type と appearance の語・守る規則を返す。図を書く前にこれを読むこと。読まずに書くと当て推量になる。',
+    listTitle: '図を探す',
+    listDesc: 'その下にある図（*.zumen.yaml）の道を返す。',
+    listDir: '探し始める場所',
+    readTitle: '図を読む',
+    readDesc: '正本をそのまま返す。',
+    readPath: '図の道',
+    pinsTitle: '人が手で決めたこと',
+    pinsDesc:
+      '人が置いた位置・大きさ・ラベル・体裁を返す。読むだけで、書き換える口は無い。ここを避けて構造だけを直すこと。',
+    inspectTitle: '図を検査する',
+    inspectDesc:
+      '読めるか・要素の数・線の交差・箱の重なり・囲みからのはみ出し・図の大きさ・「9 割」を返す。書いたら必ずこれを見ること。tooTangled が真なら、線が絡みすぎて目で追えない。',
+    inspectSource: '図の中身。path とどちらか',
+    inspectPath: '図の道。source とどちらか',
+    createTitle: '新しい図を作る',
+    createDesc:
+      '新しい図を作る。既にファイルがあれば失敗する（上書きの経路にしない）。形式に適合しないものは書かない。既存の図を変えるなら zumen_propose を使うこと。',
+    createPath: '作る場所。.zumen.yaml で終わること',
+    createSource: '図の中身',
+    proposeTitle: '提案を正本へ入れる',
+    proposeDesc:
+      '既にある図へ提案を入れる。提案の pins は読まないので、人の手直しは壊れない。人の指定と食い違うところは適用せず、競合として返す。競合を決めるのは人であって、あなたではない。',
+    proposePath: '変える図の道',
+    proposeSource: '提案（図の全文）',
+    exportTitle: '書き出す',
+    exportDesc:
+      'svg（見せる）／mermaid（翌日読める）／drawio（翌日編集できる）へ書き出す。落ちるものは、それぞれの書き出しが自分で断る。',
+    needSourceOrPath: 'source か path のどちらかが要ります',
+  },
+
+  /**
+   * エージェントへ開く口（`src/tools.ts`）。
+   *
+   * **形式の説明もここに置く。** これが無いとエージェントは当て推量で書く。
+   */
+  tools: {
+    shape: [
+      'version: 1',
+      'title: <図の題>',
+      'groups:            # 囲み（VPC・サブネット等）。省いてよい',
+      '  - id: <英数字とハイフン。文書内で一意>',
+      '    label: <表示名>',
+      'nodes:             # 必須',
+      '  - id: <英数字とハイフン。文書内で一意>',
+      '    type: <nodeTypes から。未知の値は generic として描かれる>',
+      '    label: <表示名>',
+      '    group: <属する囲みの id。無所属なら書かない>',
+      'edges:',
+      '  - from: <ノードの id>',
+      '    to: <ノードの id>',
+      '    label: <省いてよい>',
+    ].join('\n'),
+    /** **守らせたいこと。** 実測では毎回 pins を書いてきたので、明示する。 */
+    rules: [
+      'pins は書かない。人が手で決めたことを置く節で、書いても採られない。',
+      '一度付けた id は、意味が変わらないのに書き換えない。人の手直しが id に紐づいている。',
+      'nodes の並び順には意味がある。人が読む順序なので、理由なく並べ替えない。',
+      '知らないキーは捨てずに保つ。',
+      '色コードを書かない。体裁は appearances の語で書く。',
+    ],
+    mustEndWith: (suffix: string) =>
+      `名前は ${suffix} で終わること（マージドライバが効かなくなる）`,
+    alreadyExists: '既にあります。既存の図を変えるなら propose を使ってください',
+    notFound: 'ありません。新しく作るなら create を使ってください',
+    invalid: '形式に適合していません',
+    invalidProposal: '提案が形式に適合していません',
+  },
+
   /** 形式の検証（`src/validate.ts`） */
   validate: {
     notMapping: '文書の最上位が写像になっていません。version: 1 から始まる形にします。',
@@ -300,6 +378,71 @@ const en: Catalog = {
     pinnedNote:
       'Hand-placed elements carry zumenPinned="1" (visible via Edit Data in draw.io). Re-saving may drop it.',
   },
+  mcp: {
+    specTitle: 'Diagram format',
+    specDesc:
+      'Returns the format, the type and appearance words you may use, and the rules to follow. Read this before writing a diagram. Writing without it is guesswork.',
+    listTitle: 'Find diagrams',
+    listDesc: 'Returns the paths of diagrams (*.zumen.yaml) underneath.',
+    listDir: 'Where to start looking',
+    readTitle: 'Read a diagram',
+    readDesc: 'Returns the source of truth as it is.',
+    readPath: 'Path to the diagram',
+    pinsTitle: 'What a person decided by hand',
+    pinsDesc:
+      'Returns the positions, sizes, labels and appearance a person set. Read only; there is no way to write here. Leave it alone and change the structure instead.',
+    inspectTitle: 'Inspect a diagram',
+    inspectDesc:
+      'Returns readability, element counts, edge crossings, box overlaps, group escapes, size, and the autonomy figure. Always look at this after writing. If tooTangled is true, the edges are too knotted to follow by eye.',
+    inspectSource: 'The diagram body. Either this or path',
+    inspectPath: 'Path to the diagram. Either this or source',
+    createTitle: 'Create a new diagram',
+    createDesc:
+      'Creates a new diagram. Fails if the file already exists (this is not an overwrite path). Nothing is written unless it conforms to the format. To change an existing diagram, use zumen_propose.',
+    createPath: 'Where to create it. Must end with .zumen.yaml',
+    createSource: 'The diagram body',
+    proposeTitle: 'Apply a proposal to the source of truth',
+    proposeDesc:
+      'Applies a proposal to an existing diagram. The pins in your proposal are not read, so hand edits survive. Anything that disagrees with a hand edit is not applied and comes back as a conflict. Conflicts are decided by a person, not by you.',
+    proposePath: 'Path to the diagram to change',
+    proposeSource: 'The proposal (the whole diagram)',
+    exportTitle: 'Export',
+    exportDesc:
+      'Exports to svg (to show), mermaid (readable tomorrow) or drawio (editable tomorrow). Each exporter states what it could not carry.',
+    needSourceOrPath: 'Either source or path is required',
+  },
+
+  tools: {
+    shape: [
+      'version: 1',
+      'title: <diagram title>',
+      'groups:            # containers (VPC, subnet, ...). optional',
+      '  - id: <letters, digits, hyphen. unique in the document>',
+      '    label: <display name>',
+      'nodes:             # required',
+      '  - id: <letters, digits, hyphen. unique in the document>',
+      '    type: <one of nodeTypes. unknown values are drawn as generic>',
+      '    label: <display name>',
+      '    group: <id of the containing group. omit if none>',
+      'edges:',
+      '  - from: <node id>',
+      '    to: <node id>',
+      '    label: <optional>',
+    ].join('\n'),
+    rules: [
+      'Do not write pins. That section holds what a person decided by hand; anything you write there is dropped.',
+      'Do not rename an id whose meaning has not changed. Hand edits are tied to ids.',
+      'The order of nodes carries meaning. It is the order a person reads. Do not reorder without a reason.',
+      'Keep keys you do not recognise.',
+      'Do not write colour codes. Express appearance with the words in appearances.',
+    ],
+    mustEndWith: (suffix: string) => `The name must end with ${suffix} (the merge driver keys off it)`,
+    alreadyExists: 'It already exists. Use propose to change an existing diagram.',
+    notFound: 'It does not exist. Use create to make a new one.',
+    invalid: 'Does not conform to the format',
+    invalidProposal: 'The proposal does not conform to the format',
+  },
+
   validate: {
     notMapping: 'The top level of the document is not a mapping. It should start with version: 1.',
     versionMissing: 'version is missing. A v1 document starts with version: 1.',
