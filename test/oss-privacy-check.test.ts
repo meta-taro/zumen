@@ -283,4 +283,16 @@ describe('ファイル名をメールと読み違えない（2026-09-07）', () 
     const { dir, base } = repoWith('feat: なにか', `連絡先 ${PERSONAL}`);
     assert.equal(check(dir, base).ok, false);
   });
+
+  it('**commit message でも同じ**（追加行だけ直して片手落ちにしない）', () => {
+    // 追加行の除外だけ入れて message 側を忘れ、アイコンの commit が
+    // 2 度目に止まった（2026-09-07）。**同じ規則を 2 か所で使う。**
+    const { dir, base } = repoWith('feat: icons/128x128@2x.png を足した');
+    assert.equal(check(dir, base).ok, true);
+  });
+
+  it('commit message の本物の住所は、これまでどおり止める', () => {
+    const { dir, base } = repoWith(`feat: なにか\n\n担当 ${PERSONAL}\n`);
+    assert.equal(check(dir, base).ok, false);
+  });
 });

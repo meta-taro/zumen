@@ -102,6 +102,25 @@ describe('重ならないようにする', () => {
     assert.ok(labels.length < crowd.length, `${labels.length} 本とも置けてしまった`);
   });
 
+  it('**囲みの見出しの上には置かない**（囲みの名前と重なって読めなくなる）', () => {
+    // 実際に出た。`doko001（さくら VPS）` の見出しに `掲載停止` が 7px かぶった。
+    const group = box('host', 24, 238, 1066, 420);
+    group.label = 'doko001（さくら VPS）';
+    // 弧長の中央がちょうど見出しの帯（y=238〜268）に来る線。
+    const points: [number, number][] = [[184, 100], [184, 406]];
+    const [label] = placeEdgeLabels([edge('a>b', '掲載停止', points)], [], [group]);
+    assert.ok(label !== undefined, '避けられずに消えてしまった');
+    // 見出しの帯（囲みの上端から 30px）から外れていること。
+    assert.equal(label!.y > 238 && label!.y < 268, false, `y=${label!.y} が見出しの帯`);
+  });
+
+  it('囲みの中そのものは避けない（辺の大半は囲みの中を通る）', () => {
+    const group = box('host', 0, 0, 800, 600);
+    const [label] = placeEdgeLabels([edge('a>b', 'HTTPS', [[400, 200], [400, 500]])], [], [group]);
+    assert.ok(label !== undefined);
+    assert.ok(label!.y > 200 && label!.y < 500, `y=${label!.y}`);
+  });
+
   it('**箱の上には置かない**（ノードのラベルと重なって読めなくなる）', () => {
     const points: [number, number][] = [[100, 0], [100, 400]];
     const labels = placeEdgeLabels([edge('a>b', 'HTTPS', points)], [box('mid', 20, 150)]);

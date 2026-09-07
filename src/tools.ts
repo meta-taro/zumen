@@ -180,7 +180,9 @@ export async function inspect(source: string): Promise<Inspection> {
   const placed = await layout(source);
   const crossed = crossings(placed);
   const nine = measure(source);
-  const shown = new Set(placeEdgeLabels(placed.edges, placed.boxes).map((label) => label.id));
+  const shown = new Set(
+    placeEdgeLabels(placed.edges, placed.boxes, placed.groups).map((label) => label.id),
+  );
 
   return {
     readable: true,

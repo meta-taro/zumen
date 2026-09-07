@@ -20,6 +20,19 @@ const FONT = 11;
 /** 文字の高さの見積り。当たり判定にだけ使う。 */
 const LINE = 14;
 
+/** 囲みの題の字の大きさと左の余白。`src/render.ts` と揃える。 */
+const GROUP_FONT = 13;
+const GROUP_TITLE_PAD = 12;
+
+/**
+ * 囲みの見出しが占める帯の高さ（囲みの上端から）。
+ *
+ * `src/render.ts` は囲みの題を上端 + 22 のベースラインに 13px で描く。
+ * **その帯を辺のラベルが通ると、囲みの名前と重なって両方読めなくなる**
+ * （`doko001（さくら VPS）` に `掲載停止` が 7px かぶった。2026-09-07）。
+ */
+const GROUP_TITLE_BAND = 30;
+
 /** 線から浮かせる量。線の上に字が乗ると読めない。 */
 const LIFT = 6;
 
@@ -56,11 +69,23 @@ export interface EdgeLabel {
  *
  * 入力の順に決めるので、同じ図なら同じ結果になる。
  */
-export function placeEdgeLabels(edges: PlacedEdge[], boxes: Box[]): EdgeLabel[] {
+export function placeEdgeLabels(
+  edges: PlacedEdge[],
+  boxes: Box[],
+  groups: Box[] = [],
+): EdgeLabel[] {
+  // **囲みの中そのものは避けない。** 辺の大半は囲みの中を通るので、
+  // 避けさせるとほとんどのラベルが消える。**避けるのは見出しの帯だけ。**
+  const titles = groups.map((group) => ({
+    ...group,
+    h: Math.min(GROUP_TITLE_BAND, group.h),
+    w: Math.min(group.w, labelWidth(group.label, GROUP_FONT) + GROUP_TITLE_PAD * 2),
+  }));
+
   const placed: EdgeLabel[] = [];
   for (const edge of edges) {
     if (edge.label === null || edge.points.length < 2) continue;
-    const spot = findSpot(edge, edge.label, boxes, placed);
+    const spot = findSpot(edge, edge.label, [...boxes, ...titles], placed);
     if (spot !== null) placed.push(spot);
   }
   return placed;

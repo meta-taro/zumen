@@ -45,6 +45,28 @@ mask_email() {
 # 許可リストの項目は 2 通り。
 #   "example.com"        … そのドメイン全体を許可する
 #   "noreply@vendor.com" … そのアドレスだけを許可する（こちらのほうが穴が小さい）
+# 住所の形に当てはまるが、実体はファイル名であるもの。
+#
+# `128x128@2x.png` は住所の形にそのまま当てはまる（2026-09-07 に実際に出た。
+# アイコンを足した commit が、追加行でも commit message でも止まった）。
+# **誤検出が続くと、検査そのものが信用されなくなる。**
+#
+# **本物の TLD と重なる拡張子は、ここに入れない**（`md` `sh` `rs` `py` `zip` `io` は
+# どれも実在する TLD で、そこで終わる住所があり得る）。
+# 迷ったら入れない。**見逃すより、誤って引っかけるほうが安全な検査**だから。
+FILE_EXT="png jpg jpeg gif svg ico icns webp bmp tiff woff woff2 ttf otf eot \
+js mjs cjs ts tsx jsx css scss html htm json yaml yml toml lock \
+txt csv tsv pdf gz tar xml wasm map"
+
+looks_like_file() {
+  local tail
+  tail="$(printf '%s' "${1##*.}" | tr 'A-Z' 'a-z')"
+  case " $FILE_EXT " in
+    *" $tail "*) return 0 ;;
+  esac
+  return 1
+}
+
 allowed_email() {
   local e="$1" d el al
   d="${e##*@}"
@@ -75,26 +97,17 @@ scan_to() {
 
 # 追加行からメールを拾う。**同じ行に複数あっても取りこぼさない。**
 scan_emails() {
-  printf '%s\n' "$added" | awk -F'\t' -v self="$SELF_RE" '
+  # 拡張子の一覧は **shell 側の `FILE_EXT` が正本**。ここに書き写さない。
+  printf '%s\n' "$added" | awk -F'\t' -v self="$SELF_RE" -v exts="$FILE_EXT" '
     # 末尾がファイルの拡張子なら、住所ではなくファイル名。
-    #
-    # `128x128@2x.png` は住所の形にそのまま当てはまる（2026-09-07 に実際に出た）。
-    # **誤検出が続くと、検査そのものが信用されなくなる**ので、ここで落とす。
-    # 拡張子で終わる本物の住所は無い。
     function looks_like_file(found,   tail) {
       tail = tolower(found)
       sub(/^.*\./, "", tail)
       return (tail in EXT)
     }
-    #
-    # **本物の TLD と重なる拡張子は、ここに入れない**（`md` `sh` `rs` `py` `zip` `io` は
-    # どれも実在する TLD で、そこで終わる住所があり得る）。
-    # 迷ったら入れない。**見逃すより、誤って引っかけるほうが安全な検査**だから。
     BEGIN {
-      split("png jpg jpeg gif svg ico icns webp bmp tiff woff woff2 ttf otf eot " \
-            "js mjs cjs ts tsx jsx css scss html htm json yaml yml toml lock " \
-            "txt csv tsv pdf gz tar xml wasm map", parts, " ")
-      for (i in parts) EXT[parts[i]] = 1
+      split(exts, parts, /[ \t\n]+/)
+      for (i in parts) if (parts[i] != "") EXT[parts[i]] = 1
     }
     $1 ~ self { next }
     {
@@ -247,6 +260,7 @@ if [ -n "$RANGE" ]; then
     msg="$(git log -1 --format='%B' "$sha")"
     while read -r found; do
       [ -z "${found:-}" ] && continue
+      looks_like_file "$found" && continue
       allowed_email "$found" && continue
       note "NG [message-email] ${sha:0:8} : $(printf '%s' "$found" | mask_email)"
       fail=1

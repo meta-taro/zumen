@@ -63,7 +63,7 @@ function size(value: number): number {
 export function render(placed: Placed): string {
   // **置けなかったラベルは、ここに入ってこない**（重ねて出さない。Issue #3 の 3）。
   const labels = new Map(
-    placeEdgeLabels(placed.edges, placed.boxes).map((label) => [label.id, label]),
+    placeEdgeLabels(placed.edges, placed.boxes, placed.groups).map((label) => [label.id, label]),
   );
   const parts = [
     `<svg xmlns="http://www.w3.org/2000/svg" width="${size(placed.width)}" height="${size(placed.height)}" viewBox="0 0 ${size(placed.width)} ${size(placed.height)}">`,
