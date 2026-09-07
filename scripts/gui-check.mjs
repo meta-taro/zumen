@@ -238,6 +238,47 @@ async function walk() {
     `)) === true,
   );
 
+  // --- 戻る / 進む（D19） ---
+  const textBefore = await evaluate('window.zumen.text');
+  await evaluate("window.zumen.place('lb', 111, 222)");
+  await until("window.zumen.text.includes('x: 111')");
+  check('戻る — 押せるようになる', (await evaluate('window.zumen.canUndo')) === true);
+
+  await evaluate('window.zumen.undo()');
+  await until('window.zumen.canRedo === true');
+  check(
+    '戻る — **正本が 1 つ前へ戻る**',
+    (await evaluate('window.zumen.text')) === textBefore,
+  );
+  check('戻る — 図も描き直される', (await evaluate('window.zumen.placed !== null')) === true);
+
+  await evaluate('window.zumen.redo()');
+  await until("window.zumen.text.includes('x: 111')");
+  check('進む — やり直せる', (await evaluate("window.zumen.text.includes('x: 111')")) === true);
+
+  // 新しく変えたら、進む先は消える（分岐を作らない）。
+  await evaluate('window.zumen.undo()');
+  await until('window.zumen.canRedo === true');
+  await evaluate("window.zumen.place('lb', 333, 444)");
+  await until("window.zumen.text.includes('x: 333')");
+  check('進む — 新しく変えたら消える（分岐を作らない）', (await evaluate('window.zumen.canRedo')) === false);
+
+  // --- 自動保存（D19） ---
+  //
+  // **保存先が決まっていないときは自動保存しない。** 決まっていないと
+  // 保存のたびにダイアログが出て作業が止まる。ここでは決まっていない状態なので、
+  // 「保存されない」ことと「印が出る」ことを見る。
+  await until('window.zumen.dirty === true');
+  await sleep(1200);
+  check(
+    '自動保存 — 保存先が無ければ書かない（ダイアログを出さない）',
+    (await evaluate('window.zumen.dirty')) === true,
+  );
+  check(
+    '自動保存 — **黙っていない**（保存先が無いことを画面に出す）',
+    (await evaluate(`document.querySelector('.state')?.textContent.trim() !== ''`)) === true,
+  );
+
   check('例外が出ていない', errors.length === 0, errors.join(' | '));
   close();
 }

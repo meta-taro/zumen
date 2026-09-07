@@ -41,6 +41,43 @@ export class Session {
   panX = $state(0);
   panY = $state(0);
 
+  /**
+   * 戻る／進むのための控え。**正本のテキストをそのまま積む。**
+   *
+   * D11 では「Undo は作らない。正本が Git にあるので二重管理になる」と決めていた。
+   * **自動保存を入れると判断が変わる** — 保存しないという逃げ道が消えるので、
+   * 取り消しが要る（D19）。
+   *
+   * 二重管理にならないのは、**積むのが正本そのもの**だから。
+   * 作図操作の履歴ではないので、正本と食い違いようがない。
+   * 持続もしない（開き直せば消える）。**残る記録は Git のほう。**
+   */
+  #past: string[] = [];
+  #future: string[] = [];
+
+  /** 控えの上限。**無限に持たない。** 古いものは落とす。 */
+  static readonly HISTORY = 100;
+
+  get canUndo(): boolean {
+    return this.#past.length > 0;
+  }
+
+  get canRedo(): boolean {
+    return this.#future.length > 0;
+  }
+
+  /** 戻る／進むが押せるかを画面へ出すための印。 */
+  historyVersion = $state(0);
+
+  /** これから正本を変える、という記録。**変える直前に呼ぶ。** */
+  #remember(): void {
+    this.#past.push(this.text);
+    if (this.#past.length > Session.HISTORY) this.#past.shift();
+    // 新しく変えたら、進む先は消える（分岐を作らない）。
+    this.#future = [];
+    this.historyVersion += 1;
+  }
+
   /** 検証で読めないと出たか。 */
   get broken(): boolean {
     return hasError(this.findings);
@@ -64,6 +101,10 @@ export class Session {
   }
 
   async load(text: string, name: string | null): Promise<void> {
+    // 別の図を開いたら、控えは持ち越さない。**別の図の履歴は別。**
+    this.#past = [];
+    this.#future = [];
+    this.historyVersion += 1;
     this.text = text;
     this.name = name;
     this.dirty = false;
@@ -90,6 +131,7 @@ export class Session {
    * 次の提案でも壊れない（D5）。
    */
   async place(id: string, x: number, y: number): Promise<void> {
+    this.#remember();
     const doc = parse(this.text);
     const pin = getPins(doc)[id] ?? {};
     setPin(doc, id, { ...pin, position: { x: Math.round(x), y: Math.round(y) } });
@@ -110,6 +152,7 @@ export class Session {
   /** 差分を見たうえで、人が入れると決めた。 */
   async applyPending(): Promise<void> {
     if (this.pending === null) return;
+    this.#remember();
     this.text = this.pending.text;
     this.conflicts = this.pending.conflicts;
     this.pending = null;
@@ -128,9 +171,37 @@ export class Session {
    * 次に開いたときに同じことを聞き直す（S1 の判定基準 3.3）。
    */
   async decide(conflict: Conflict, choice: 'human' | 'ai'): Promise<void> {
+    this.#remember();
     this.text = resolve(this.text, conflict, choice);
     this.conflicts = this.conflicts.filter((item) => item !== conflict);
     this.dirty = true;
+    await this.refresh();
+  }
+
+  /**
+   * 1 つ戻る。**正本を 1 つ前のテキストへ差し替えるだけ。**
+   *
+   * 競合の一覧は作り直さない（戻した先の正本に対する競合は、
+   * その時点で分かっているものと違うため）。**分からないものを作らない。**
+   */
+  async undo(): Promise<void> {
+    const previous = this.#past.pop();
+    if (previous === undefined) return;
+    this.#future.push(this.text);
+    this.text = previous;
+    this.dirty = true;
+    this.historyVersion += 1;
+    await this.refresh();
+  }
+
+  /** 1 つ進む。 */
+  async redo(): Promise<void> {
+    const next = this.#future.pop();
+    if (next === undefined) return;
+    this.#past.push(this.text);
+    this.text = next;
+    this.dirty = true;
+    this.historyVersion += 1;
     await this.refresh();
   }
 

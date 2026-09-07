@@ -25,6 +25,9 @@
   let handle = $state<unknown>(null);
   let trouble = $state<string | null>(null);
   let dropping = $state(false);
+  /** 自動保存の見え方。**黙って保存しない。** */
+  let saveState = $state<'idle' | 'saving' | 'saved'>('idle');
+  let saveTimer: ReturnType<typeof setTimeout> | undefined;
 
   // 開発中だけ、外から動かせる取っ手を出す。
   // **自動で 8 操作を通して確かめるため**（人に手作業を頼まないため）。
@@ -59,10 +62,62 @@
   async function save(): Promise<void> {
     trouble = null;
     try {
+      saveState = 'saving';
       handle = await saveDiagram(session.text, session.name ?? 'diagram.zumen.yaml', handle);
       session.dirty = false;
+      saveState = 'saved';
     } catch (error) {
+      saveState = 'idle';
       trouble = describe(error);
+    }
+  }
+
+  /**
+   * 自動保存。
+   *
+   * **保存先が決まっているときだけ。** 決まっていないと保存のたびに
+   * ダイアログが出て、作業が止まる。そのときは印だけ出して、人が保存する。
+   *
+   * 少し待ってから書くのは、ドラッグの途中で何度も書かないため。
+   * 書き込み自体は不可分（殻が一時ファイルへ書いて置き換える）なので、
+   * 途中で落ちても正本は壊れない。
+   */
+  function scheduleSave(): void {
+    if (!session.dirty || handle === null) return;
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(() => void save(), 800);
+  }
+
+  // 正本が変わったら、少し待って保存する。
+  $effect(() => {
+    void session.text;
+    scheduleSave();
+  });
+
+  /**
+   * ショートカット。
+   *
+   * **戻る / 進む**（⌘Z / ⇧⌘Z、Ctrl+Z / Ctrl+Y）と、**保存**（⌘S / Ctrl+S）。
+   * 自動保存があっても保存の鍵は残す — **人が「いま保存した」と分かる手段**が要る。
+   */
+  function onKey(event: KeyboardEvent): void {
+    const meta = event.metaKey || event.ctrlKey;
+    if (!meta) return;
+    const key = event.key.toLowerCase();
+
+    if (key === 'z' && !event.shiftKey) {
+      event.preventDefault();
+      void session.undo();
+      return;
+    }
+    if ((key === 'z' && event.shiftKey) || key === 'y') {
+      event.preventDefault();
+      void session.redo();
+      return;
+    }
+    if (key === 's') {
+      event.preventDefault();
+      void save();
     }
   }
 
@@ -103,6 +158,9 @@
   }
 </script>
 
+<!-- ショートカットは窓ぜんぶで効かせる。**要素の中に置けない。** -->
+<svelte:window onkeydown={onKey} />
+
 <div
   class="shell"
   class:dropping
@@ -119,11 +177,25 @@
     <div class="title">
       <strong>zumen</strong>
       {#if session.name !== null}
-        <span class="name">{session.name}{session.dirty ? ' *' : ''}</span>
+        <span class="name">{session.name}</span>
+        <!-- **黙って保存しない。** 保存したことが見えないと不安になる。 -->
+        <span class="state">
+          {#if saveState === 'saving'}{m.saving}
+          {:else if session.dirty && handle === null}{m.autosaveOff}
+          {:else if session.dirty}{m.unsaved}
+          {:else if saveState === 'saved'}{m.saved}{/if}
+        </span>
       {/if}
     </div>
 
     <div class="actions">
+      <button onclick={() => session.undo()} disabled={!session.canUndo || session.historyVersion < 0} title={m.undo}>
+        ↶
+      </button>
+      <button onclick={() => session.redo()} disabled={!session.canRedo || session.historyVersion < 0} title={m.redo}>
+        ↷
+      </button>
+      <span class="gap"></span>
       <button onclick={open}>{m.open}</button>
       <button onclick={save} disabled={session.text === ''}>{m.save}</button>
       <button onclick={propose} disabled={session.text === ''}>{m.readProposal}</button>
@@ -247,6 +319,11 @@
   .name {
     color: var(--text-secondary);
     font-size: var(--text-sm);
+  }
+  .state {
+    color: var(--text-tertiary);
+    font-size: var(--text-xs);
+    font-variant-numeric: tabular-nums;
   }
   .actions {
     display: flex;

@@ -95,6 +95,14 @@ const ja = {
       `"${a}" と "${b}" は、どちらも人が置いた位置で重なっています。動かしていません。`,
 
     canvasLabel: '図',
+    undo: '戻る',
+    redo: '進む',
+    /** 自動保存の状態。**黙って保存しない** — 保存したことが見えないと不安になる。 */
+    saving: '保存しています…',
+    saved: '保存しました',
+    unsaved: '未保存',
+    /** 保存先が決まっていないので、自動保存できない。 */
+    autosaveOff: '保存先が決まっていないので、自動では保存しません',
     /** ファイル選択のダイアログに出る種別名。**利用者に見える。** */
     fileKind: 'zumen の図',
     /** 画面を差し込む先が無い。**組み立てが壊れているときにしか出ない。** */
@@ -329,6 +337,12 @@ const en: Catalog = {
       `"${a}" and "${b}" are both placed by hand and overlap. Nothing was moved.`,
 
     canvasLabel: 'Diagram',
+    undo: 'Undo',
+    redo: 'Redo',
+    saving: 'Saving…',
+    saved: 'Saved',
+    unsaved: 'Not saved',
+    autosaveOff: 'No destination yet, so nothing is saved automatically',
     fileKind: 'zumen diagram',
     mountTargetMissing: 'There is no #app to mount into.',
   },
