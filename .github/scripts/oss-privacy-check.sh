@@ -76,14 +76,35 @@ scan_to() {
 # 追加行からメールを拾う。**同じ行に複数あっても取りこぼさない。**
 scan_emails() {
   printf '%s\n' "$added" | awk -F'\t' -v self="$SELF_RE" '
+    # 末尾がファイルの拡張子なら、住所ではなくファイル名。
+    #
+    # `128x128@2x.png` は住所の形にそのまま当てはまる（2026-09-07 に実際に出た）。
+    # **誤検出が続くと、検査そのものが信用されなくなる**ので、ここで落とす。
+    # 拡張子で終わる本物の住所は無い。
+    function looks_like_file(found,   tail) {
+      tail = tolower(found)
+      sub(/^.*\./, "", tail)
+      return (tail in EXT)
+    }
+    #
+    # **本物の TLD と重なる拡張子は、ここに入れない**（`md` `sh` `rs` `py` `zip` `io` は
+    # どれも実在する TLD で、そこで終わる住所があり得る）。
+    # 迷ったら入れない。**見逃すより、誤って引っかけるほうが安全な検査**だから。
+    BEGIN {
+      split("png jpg jpeg gif svg ico icns webp bmp tiff woff woff2 ttf otf eot " \
+            "js mjs cjs ts tsx jsx css scss html htm json yaml yml toml lock " \
+            "txt csv tsv pdf gz tar xml wasm map", parts, " ")
+      for (i in parts) EXT[parts[i]] = 1
+    }
     $1 ~ self { next }
     {
       line = $3
       while (match(line, /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z][A-Za-z]+/)) {
         found = substr(line, RSTART, RLENGTH)
+        line = substr(line, RSTART + RLENGTH)
+        if (looks_like_file(found)) continue
         key = $1 "\t" $2 "\t" found
         if (!(key in seen)) { seen[key] = 1; print key }
-        line = substr(line, RSTART + RLENGTH)
       }
     }
   '

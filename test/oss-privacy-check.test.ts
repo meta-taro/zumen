@@ -252,3 +252,35 @@ describe('禁止語の語境界（2026-09-07）', () => {
     assert.equal((out.match(/added-denyword/g) ?? []).length, 1);
   });
 });
+
+describe('ファイル名をメールと読み違えない（2026-09-07）', () => {
+  // `128x128@2x.png` が住所の形にそのまま当てはまり、アイコンを足した commit が
+  // 検査で止まった。**誤検出が続くと、検査そのものが信用されなくなる。**
+  // 拡張子で終わるものは落とすようにしたので、**緩めすぎていないか**を押さえる。
+
+  it('**画像のファイル名は住所ではない**', () => {
+    const { dir, base } = repoWith('feat: なにか', '      "icons/128x128@2x.png"');
+    assert.equal(check(dir, base).ok, true);
+  });
+
+  it('ほかの拡張子でも同じ', () => {
+    for (const name of ['sprite@2x.svg', 'font@1x.woff2', 'bundle@3.min.js']) {
+      const { dir, base } = repoWith('feat: なにか', `参照 ${name}`);
+      assert.equal(check(dir, base).ok, true, name);
+    }
+  });
+
+  it('**本物の TLD と重なる拡張子では、落とさない**（`.md` `.sh` `.rs` `.py`）', () => {
+    // これらは実在の TLD なので、そこで終わる住所があり得る。
+    // **見逃すより、誤って引っかけるほうが安全。**
+    for (const tld of ['md', 'sh', 'rs', 'py']) {
+      const { dir, base } = repoWith('feat: なにか', `連絡先 ${at('yamada', `example.${tld}`)}`);
+      assert.equal(check(dir, base).ok, false, tld);
+    }
+  });
+
+  it('ふつうの住所は、これまでどおり止める', () => {
+    const { dir, base } = repoWith('feat: なにか', `連絡先 ${PERSONAL}`);
+    assert.equal(check(dir, base).ok, false);
+  });
+});
