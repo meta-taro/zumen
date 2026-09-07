@@ -65,6 +65,16 @@ CI と同じものが手元で走ります。
 bash .github/scripts/oss-privacy-check.sh
 ```
 
+**同じものが CI でも走ります**（`.github/workflows/checks.yml`）。
+手元で通らないものを CI で通そうとしないでください。逆も同じで、
+**CI を無効化して進むのは禁止です。**
+
+殻（Rust）を触ったときは、加えて次も見ます。
+
+```bash
+cd src-tauri && cargo check && cargo clippy -- -D warnings && cargo fmt --check
+```
+
 ---
 
 ## 変更を出すときの約束

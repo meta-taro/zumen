@@ -23,7 +23,22 @@ import { fileURLToPath } from 'node:url';
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const PORT = 5178;
 const CDP = 9223;
-const CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
+/**
+ * Chrome の在処。**環境で違うので、順に探す。**
+ *
+ * CI（ubuntu）には `chrome` か `chromium` が入っている。
+ * 見つからなければ**「確認できなかった」と言って終わる**（黙って通さない）。
+ */
+const CHROME_CANDIDATES = [
+  process.env['CHROME_PATH'],
+  '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+  '/usr/bin/google-chrome',
+  '/usr/bin/google-chrome-stable',
+  '/usr/bin/chromium',
+  '/usr/bin/chromium-browser',
+  '/snap/bin/chromium',
+];
+const CHROME = CHROME_CANDIDATES.find((path) => path !== undefined && existsSync(path));
 
 const sleep = (ms) => new Promise((ok) => setTimeout(ok, ms));
 
@@ -33,8 +48,10 @@ const check = (label, ok, detail = '') => {
   console.log(`${ok ? '  ok  ' : '**NG**'} ${label}${detail === '' ? '' : `  — ${detail}`}`);
 };
 
-if (!existsSync(CHROME)) {
+if (CHROME === undefined) {
   console.log('Chrome が見つからないので確認できませんでした。**通ったことにしない。**');
+  console.log(`探した場所: ${CHROME_CANDIDATES.filter((path) => path !== undefined).join(', ')}`);
+  console.log('CHROME_PATH に道を渡せば、そこを使います。');
   process.exitCode = 2;
 } else {
   await run();
@@ -51,6 +68,9 @@ async function run() {
     [
       '--headless=new',
       '--disable-gpu',
+      // CI のコンテナでは sandbox を張れないことがある。**手元では効いたままにしたいので、
+      // 環境変数で明示されたときだけ外す。**
+      ...(process.env['CHROME_NO_SANDBOX'] === '1' ? ['--no-sandbox', '--disable-dev-shm-usage'] : []),
       `--remote-debugging-port=${CDP}`,
       `--user-data-dir=${profile}`,
       '--no-first-run',

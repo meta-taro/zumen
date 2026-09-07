@@ -1,0 +1,110 @@
+name: checks
+
+# 品質ゲート（ベースルール §5）。
+#
+# **これが無いと、手元の規律だけが唯一のゲートになる。**
+# 公開したあとは、他の人の変更を誰も検査しないことになる。
+#
+# 個人情報の検査は別の workflow（`oss-privacy-check.yml`）。
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - master
+      - develop
+
+permissions:
+  contents: read
+
+jobs:
+  # 中核（画面を持たない部分）。**これがいちばん速くて、いちばん多くを見る。**
+  core:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+
+      - name: pnpm を有効にする
+        run: corepack enable
+
+      # `--frozen-lockfile` は lock と package.json のズレを落とす。
+      # 依存の防御（onlyBuiltDependencies / minimumReleaseAge）は
+      # pnpm-workspace.yaml にあり、ここでも効く。
+      - name: 依存を入れる
+        run: pnpm install --frozen-lockfile
+
+      - name: 型を見る
+        run: pnpm typecheck
+
+      - name: テスト
+        run: pnpm test
+
+  # 画面。**「ビルドが通る」と「動く」は別**なので、実際に動かす。
+  #
+  # 実際、`process is not defined` で画面が丸ごと動かないまま
+  # 「ビルドは通る」と報告したことがある（2026-09-06）。
+  gui:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+
+      - run: corepack enable
+
+      - name: 依存を入れる
+        run: pnpm install --frozen-lockfile
+
+      - name: 画面を束ねる
+        run: pnpm build:app
+
+      - name: 8 操作を実際に動かす
+        env:
+          # runner の Chrome を使う。**無ければ「確認できなかった」と言って落ちる。**
+          CHROME_PATH: /usr/bin/google-chrome
+          # コンテナでは sandbox を張れない。
+          CHROME_NO_SANDBOX: '1'
+        run: pnpm gui:check
+
+  # 殻（Rust）。**ここを見ないと、Rust 側の壊れが誰にも見つからない。**
+  #
+  # `cargo check` に留めるのは、束ねるところまで要らないため
+  # （配布物を作るのは、公開リリースを始めてから）。
+  shell:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Tauri が要る一式（Linux）
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libwebkit2gtk-4.1-dev \
+            libappindicator3-dev \
+            librsvg2-dev \
+            patchelf
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri
+
+      - name: 型と借用を見る
+        working-directory: src-tauri
+        run: cargo check --locked
+
+      - name: 書き方を見る
+        working-directory: src-tauri
+        run: cargo clippy --locked -- -D warnings
+
+      - name: 整形されているか
+        working-directory: src-tauri
+        run: cargo fmt --check

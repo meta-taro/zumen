@@ -97,7 +97,14 @@
   **CI から手動で全履歴を検査する口**を足した（秘密情報を手元へ出さずに済む）
 - **md-business へ Issue を投げた** — meta-taro/md-business#240（囲みの追加依頼）
 
+- **品質ゲートを CI に置いた（D17）。** それまで CI は個人情報の検査しか走らせておらず、
+  **`pnpm test` も `typecheck` も CI に無かった**（手元の規律だけが唯一のゲートだった）。
+  `checks.yml` で中核（typecheck / test）・画面（`gui:check` を実際に動かす）・
+  殻（`cargo check` / `clippy` / `fmt`）を見る
+
 ## 未完了の作業
+
+- **`gh repo edit meta-taro/zumen --visibility public`**（人の操作。D17 で内容の判断は済み）
 
 - **Issue 004 の「説明に使えるか」は人の判断待ち**（`quality.md` §3 が空欄）
 - **画面の確認は `pnpm gui:check`**（21 項目）。`node --test` は `.svelte` を
@@ -181,7 +188,7 @@
   ただし**ドライバの設定は各自の手元で 1 回必要**で、未設定の人は従来どおり 6 中 4
 - **Mermaid 書き出しの検証は手作業**（mermaid を依存に入れていないため）。
   記録は `experiments/d2/results/mermaid-validation.md`
-- **`visibility` が PRIVATE。CLAUDE.md は public 前提。切り替えは人の判断。**
+- **公開してよい（D17）。切り替えの操作だけが人待ち**（取り消せないため AI は実行しない）。
   公開に必要な確認は済ませてある（`docs/specs/公開前の確認.md`）。
   全 37 commit の author・全履歴の追加行・**追跡中の全 169 ファイルの中身**まで見て、
   個人メールも秘密情報も無し。**禁止語検査だけは secret が要るので CI から手で回す**
