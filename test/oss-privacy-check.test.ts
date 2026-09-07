@@ -205,3 +205,50 @@ describe('公開の前に、中身そのものを見る', () => {
     assert.match(out, /全ファイル/);
   });
 });
+
+describe('禁止語の語境界（2026-09-07）', () => {
+  // lock ファイルの `cpu: [ppc64]` が禁止語に当たった。**部分一致だったため。**
+  // 英数字の語だけ語境界を求めるようにしたので、**緩めすぎていないか**を押さえる。
+
+  it('**単語として出ていれば見つける**', () => {
+    const { dir, base } = repoWith('feat: なにか', '担当は yamada です');
+    assert.equal(check(dir, base, 'yamada').ok, false);
+  });
+
+  it('記号で区切られていても見つける', () => {
+    // **アドレスは組み立てて作る。** literal で書くと、この検査ファイル自身が引っかかる。
+    const { dir, base } = repoWith('feat: なにか', `author: ${at('yamada', 'example.co.jp')}`);
+    assert.equal(check(dir, base, 'yamada').ok, false);
+  });
+
+  it('行頭・行末でも見つける', () => {
+    const { dir, base } = repoWith('feat: なにか', 'yamada');
+    assert.equal(check(dir, base, 'yamada').ok, false);
+  });
+
+  it('**英数字の中に埋もれた偶然の一致は拾わない**', () => {
+    const { dir, base } = repoWith('feat: なにか', 'cpu: [ppc64]');
+    assert.equal(check(dir, base, 'ppc').ok, true);
+  });
+
+  it('長い識別子の一部に含まれていても拾わない', () => {
+    const { dir, base } = repoWith('feat: なにか', 'sha512-hlxxXdyamada1mWiAcaFR7Sv9ZQT6m6UfI8');
+    assert.equal(check(dir, base, 'yamada').ok, true);
+  });
+
+  it('**日本語の語は部分一致のまま**（語の区切りが無いため）', () => {
+    const { dir, base } = repoWith('feat: なにか', '担当は山田太郎さんです');
+    assert.equal(check(dir, base, '山田太郎').ok, false);
+  });
+
+  it('日本語の語が文の途中にあっても見つける', () => {
+    const { dir, base } = repoWith('feat: なにか', 'これは山田太郎の担当分です');
+    assert.equal(check(dir, base, '山田太郎').ok, false);
+  });
+
+  it('同じ行に複数回あっても、1 回だけ言う', () => {
+    const { dir, base } = repoWith('feat: なにか', 'yamada と yamada');
+    const out = check(dir, base, 'yamada').out;
+    assert.equal((out.match(/added-denyword/g) ?? []).length, 1);
+  });
+});

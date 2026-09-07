@@ -90,17 +90,51 @@ scan_emails() {
 }
 
 # 追加行から禁止語を拾う。**原文は出さない。何番目の語かだけを返す。**
+#
+# ## 英数字だけの語は、語の区切りを見る
+#
+# 日本語には語の区切りが無いので、既定は部分一致にしてある。
+# だが**英数字の短い語**をそのまま部分一致にすると、lock ファイルのような
+# 機械生成の文字列に偶然含まれて誤検出になる
+# （実際に `cpu: [ppc64]` の行が引っかかった。2026-09-07）。
+#
+# **誤検出が続くと、検査そのものが信用されなくなる。**
+# 英数字だけの語は前後が英数字でないことを求め、日本語を含む語は部分一致のまま。
+#
+# 正規表現は使わない。**禁止語に記号が入っていても壊れないため。**
 scan_deny_words() {
   printf '%s\n' "$added" | awk -F'\t' -v self="$SELF_RE" -v wordsfile="$1" '
+    function alnum(c) { return (c >= "a" && c <= "z") || (c >= "0" && c <= "9") }
+    function bounded(hay, needle,   from, at, before, after) {
+      from = 1
+      while (1) {
+        at = index(substr(hay, from), needle)
+        if (at == 0) return 0
+        at = at + from - 1
+        before = (at == 1) ? "" : substr(hay, at - 1, 1)
+        after = substr(hay, at + length(needle), 1)
+        if (!alnum(before) && !alnum(after)) return 1
+        from = at + 1
+      }
+    }
     BEGIN {
       n = 0
-      while ((getline line < wordsfile) > 0) { n++; w[n] = tolower(line) }
+      while ((getline line < wordsfile) > 0) {
+        n++
+        w[n] = tolower(line)
+        # 日本語を含まない語か（英数字と記号だけでできているか）。
+        ascii[n] = (w[n] ~ /^[ -~]*$/)
+      }
     }
     $1 ~ self { next }
     {
       lower = tolower($3)
       for (i = 1; i <= n; i++) {
         if (w[i] == "") continue
+        if (ascii[i]) {
+          if (bounded(lower, w[i])) print $1 "\t" $2 "\t" i
+          continue
+        }
         if (index(lower, w[i]) > 0) print $1 "\t" $2 "\t" i
       }
     }
