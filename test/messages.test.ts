@@ -171,13 +171,20 @@ describe('ロケールの決め方', () => {
   it('**`process` が無くても落ちない**（画面側で全体が止まった実例がある）', () => {
     // ブラウザには process が無い。既定引数でそれを触ると、
     // 文言を 1 つ使った瞬間に ReferenceError で全部止まる。
-    const saved = Reflect.get(globalThis, 'process');
+    //
+    // **`navigator` も消す。** Node 22 には navigator があり、その language は
+    // 動かす機械の設定で変わる。消さないと、**手元では通って CI で落ちる**
+    // （実際にそうなった。2026-09-07）。
+    const savedProcess = Reflect.get(globalThis, 'process');
+    const savedNavigator = Reflect.get(globalThis, 'navigator');
     try {
       Reflect.deleteProperty(globalThis, 'process');
+      Reflect.defineProperty(globalThis, 'navigator', { value: undefined, configurable: true });
       assert.doesNotThrow(() => resolveLocale());
       assert.equal(resolveLocale(), 'ja');
     } finally {
-      Reflect.set(globalThis, 'process', saved);
+      Reflect.set(globalThis, 'process', savedProcess);
+      Reflect.defineProperty(globalThis, 'navigator', { value: savedNavigator, configurable: true });
     }
   });
 

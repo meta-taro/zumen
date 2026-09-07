@@ -127,6 +127,14 @@ async function walk() {
   const read = (p) => readFileSync(ROOT + p, 'utf8');
   const q = (value) => JSON.stringify(value);
 
+  // **画面が出るまで待つ。** 固定の待ち時間にしない（機械の速さで結果が変わる）。
+  // CI は手元より遅く、待たずに押すと `null.click()` になる（実際にそうなった）。
+  if (!(await until(`document.querySelector('.empty button') !== null`))) {
+    check('画面が出る', false, '空の画面の入口が現れなかった');
+    close();
+    return;
+  }
+
   // 1 開く
   await evaluate(`document.querySelector('.empty button').click()`);
   await until(`document.querySelectorAll('g.node').length === 8`);
