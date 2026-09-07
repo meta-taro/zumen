@@ -79,13 +79,86 @@ describe('layout', () => {
 });
 
 describe('overlaps', () => {
-  it('重なりを組で返す', async () => {
-    // 人が別のノードの真上へ動かした状況を作る。
-    const placed = await layout(R0);
-    const target = placed.boxes.find((b) => b.id === 'lb')!;
-    const moved = withPin('backup', target.x, target.y);
-    const pairs = await overlapPairs(moved);
-    assert.equal(pairs.some(([a, b]) => a === 'backup' || b === 'backup'), true);
+  it('重なりを組で返す（観測できること自体を確かめる）', () => {
+    const placed = {
+      boxes: [
+        { id: 'a', x: 0, y: 0, w: 100, h: 50, group: null, label: 'a', type: '', appearance: null, pinned: false },
+        { id: 'b', x: 10, y: 10, w: 100, h: 50, group: null, label: 'b', type: '', appearance: null, pinned: false },
+      ],
+      groups: [],
+      edges: [],
+      width: 0,
+      height: 0,
+      collisions: [],
+    };
+    assert.deepEqual(overlaps(placed), [['a', 'b']]);
+  });
+});
+
+describe('重なりを解く（Issue 015）', () => {
+  /** 人が `to` の真上へ `id` を動かした状況。 */
+  async function stackOn(id: string, to: string): Promise<Awaited<ReturnType<typeof layout>>> {
+    const first = await layout(R0);
+    const target = first.boxes.find((b) => b.id === to)!;
+    return layout(withPin(id, target.x, target.y));
+  }
+
+  it('人が別のノードの真上へ置いても、重ならない', async () => {
+    const placed = await stackOn('backup', 'lb');
+    assert.deepEqual(overlaps(placed), []);
+  });
+
+  it('**人が置いたノードは 1 px も動かない**', async () => {
+    const first = await layout(R0);
+    const target = first.boxes.find((b) => b.id === 'lb')!;
+    const placed = await layout(withPin('backup', target.x, target.y));
+    const backup = placed.boxes.find((b) => b.id === 'backup')!;
+    assert.deepEqual({ x: backup.x, y: backup.y }, { x: target.x, y: target.y });
+    assert.equal(backup.pinned, true);
+  });
+
+  it('退けるのは機械が置いたほう', async () => {
+    const first = await layout(R0);
+    const target = first.boxes.find((b) => b.id === 'lb')!;
+    const placed = await layout(withPin('backup', target.x, target.y));
+    const lb = placed.boxes.find((b) => b.id === 'lb')!;
+    assert.notDeepEqual({ x: lb.x, y: lb.y }, { x: target.x, y: target.y });
+  });
+
+  it('人どうしが重なったら、**動かさずに知らせる**', async () => {
+    const first = await layout(R0);
+    const target = first.boxes.find((b) => b.id === 'lb')!;
+    const doc = parse(R0);
+    setPin(doc, 'lb', { position: { x: target.x, y: target.y } });
+    setPin(doc, 'backup', { position: { x: target.x, y: target.y } });
+    const placed = await layout(serialize(doc));
+
+    // 動かしていない。
+    for (const id of ['lb', 'backup']) {
+      const box = placed.boxes.find((b) => b.id === id)!;
+      assert.deepEqual({ x: box.x, y: box.y }, { x: target.x, y: target.y }, id);
+    }
+    // 黙っていない。
+    assert.equal(placed.collisions.length, 1);
+    assert.deepEqual([...placed.collisions[0]!].sort(), ['backup', 'lb']);
+  });
+
+  it('重なりが無ければ、何も動かさない（同じ入力から同じ結果）', async () => {
+    const a = await layout(R0);
+    const b = await layout(R0);
+    assert.deepEqual(
+      a.boxes.map((x) => [x.id, x.x, x.y]),
+      b.boxes.map((x) => [x.id, x.x, x.y]),
+    );
+    assert.deepEqual(a.collisions, []);
+  });
+
+  it('図が不必要に広がらない', async () => {
+    const before = await layout(R0);
+    const placed = await stackOn('backup', 'lb');
+    // 退けるぶんは広がるが、**桁が変わるほど広がらない**。
+    assert.ok(placed.width < before.width * 2, `${before.width} → ${placed.width}`);
+    assert.ok(placed.height < before.height * 2, `${before.height} → ${placed.height}`);
   });
 });
 

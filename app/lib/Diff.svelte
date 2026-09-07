@@ -6,21 +6,23 @@
   正本が `git diff` で読める形（D2）と見え方が食い違う。
 -->
 <script lang="ts">
-  import type { Session } from './state.svelte.ts';
+  import { messages } from '../../src/messages.ts';
+import type { Session } from './state.svelte.ts';
 
   interface Props {
     session: Session;
   }
   const { session }: Props = $props();
+  const m = messages().app;
 
   const sign = { same: ' ', added: '+', removed: '-' } as const;
 </script>
 
-<section aria-label="差分">
-  <h2>入れる前に見る</h2>
+<section aria-label={m.diffHeading}>
+  <h2>{m.diffHeading}</h2>
 
   {#if session.diff.length === 0}
-    <p class="quiet">変わるところはありません。</p>
+    <p class="quiet">{m.noChange}</p>
   {:else}
     <pre>{#each session.diff as line, index (index)}<span class={line.kind}>{sign[line.kind]}{line.text}
 </span>{/each}</pre>
@@ -28,14 +30,13 @@
 
   {#if session.pending !== null && session.pending.conflicts.length > 0}
     <p class="note">
-      {session.pending.conflicts.length} 件は<strong>入れません</strong>。人の指定と食い違っているので、
-      入れたあとに選んでもらいます。
+      {m.notApplied(session.pending.conflicts.length)}
     </p>
   {/if}
 
   <div class="choose">
-    <button class="primary" onclick={() => session.applyPending()}>正本へ入れる</button>
-    <button onclick={() => session.discardPending()}>やめる</button>
+    <button class="primary" onclick={() => session.applyPending()}>{m.apply}</button>
+    <button onclick={() => session.discardPending()}>{m.discard}</button>
   </div>
 </section>
 

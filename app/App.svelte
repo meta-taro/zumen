@@ -13,12 +13,14 @@
 <script lang="ts">
   import sample from '../examples/本番構成.zumen.yaml?raw';
   import { percent } from '../src/measure.ts';
+  import { messages } from '../src/messages.ts';
   import Canvas from './lib/Canvas.svelte';
   import Conflicts from './lib/Conflicts.svelte';
   import Diff from './lib/Diff.svelte';
   import { openDiagram, openProposal, saveDiagram } from './lib/files.ts';
   import { Session } from './lib/state.svelte.ts';
 
+  const m = messages().app;
   const session = new Session();
   let handle = $state<unknown>(null);
   let trouble = $state<string | null>(null);
@@ -122,15 +124,19 @@
     </div>
 
     <div class="actions">
-      <button onclick={open}>開く</button>
-      <button onclick={save} disabled={session.text === ''}>保存</button>
-      <button onclick={propose} disabled={session.text === ''}>提案を読む</button>
+      <button onclick={open}>{m.open}</button>
+      <button onclick={save} disabled={session.text === ''}>{m.save}</button>
+      <button onclick={propose} disabled={session.text === ''}>{m.readProposal}</button>
       <span class="gap"></span>
-      <button onclick={() => session.zoomBy(1 / 1.2)} disabled={session.placed === null}>−</button>
-      <button onclick={() => session.resetView()} disabled={session.placed === null}>
+      <button onclick={() => session.zoomBy(1 / 1.2)} disabled={session.placed === null} title={m.zoomOut}>
+        −
+      </button>
+      <button onclick={() => session.resetView()} disabled={session.placed === null} title={m.resetView}>
         {Math.round(session.zoom * 100)}%
       </button>
-      <button onclick={() => session.zoomBy(1.2)} disabled={session.placed === null}>＋</button>
+      <button onclick={() => session.zoomBy(1.2)} disabled={session.placed === null} title={m.zoomIn}>
+        ＋
+      </button>
     </div>
   </header>
 
@@ -140,17 +146,17 @@
         <Canvas {session} placed={session.placed} />
       {:else if session.broken}
         <div class="empty">
-          <p><strong>この図は読めません。</strong></p>
+          <p><strong>{m.unreadable}</strong></p>
           <ul class="findings">
             {#each session.findings.filter((f) => f.severity === 'error') as finding, index (index)}
-              <li>{finding.line === undefined ? '' : `${finding.line} 行目: `}{finding.message}</li>
+              <li>{finding.line === undefined ? '' : m.atLine(finding.line)}{finding.message}</li>
             {/each}
           </ul>
         </div>
       {:else}
         <div class="empty">
-          <p>図を開いてください。ここへ落としても開きます。</p>
-          <button class="primary" onclick={openSample}>同梱の例を開く</button>
+          <p>{m.emptyHint}</p>
+          <button class="primary" onclick={openSample}>{m.openSample}</button>
         </div>
       {/if}
     </div>
@@ -166,31 +172,45 @@
         <Conflicts {session} />
 
         {#if session.measurement !== null}
-          <section aria-label="9 割">
-            <h2>いま何割まで自動か</h2>
+          <section aria-label={m.measureHeading}>
+            <h2>{m.measureHeading}</h2>
             <dl>
-              <dt>自力率</dt>
+              <dt>{m.autonomy}</dt>
               <dd class:short={session.measurement.autonomy < 0.9}>
                 {percent(session.measurement.autonomy)}
               </dd>
-              <dt>配置の自力率</dt>
+              <dt>{m.layoutAutonomy}</dt>
               <dd class:short={session.measurement.layoutAutonomy < 0.9}>
                 {percent(session.measurement.layoutAutonomy)}
               </dd>
             </dl>
             <p class="quiet">
-              人が動かした要素 {session.measurement.placed} / {session.measurement.elements}。
-              <strong>並べ直しているなら、それは作図ソフトに戻っている</strong>（D3）。
+              {m.measureNote(session.measurement.placed, session.measurement.elements)}
             </p>
           </section>
         {/if}
 
         {#if session.findings.some((f) => f.severity === 'warning')}
-          <section aria-label="警告">
-            <h2>気にしたほうがよいこと</h2>
+          <section aria-label={m.warningsHeading}>
+            <h2>{m.warningsHeading}</h2>
             <ul class="findings">
               {#each session.findings.filter((f) => f.severity === 'warning') as finding, index (index)}
-                <li>{finding.line === undefined ? '' : `${finding.line} 行目: `}{finding.message}</li>
+                <li>{finding.line === undefined ? '' : m.atLine(finding.line)}{finding.message}</li>
+              {/each}
+            </ul>
+          </section>
+        {/if}
+
+        {#if session.placed !== null && session.placed.collisions.length > 0}
+          <!--
+            人どうしが重なった（Issue 015）。**動かしていない。**
+            人の位置を動かして解いたら、手直しを壊したことになる。
+          -->
+          <section aria-label={m.collisionsHeading}>
+            <h2>{m.collisionsHeading}</h2>
+            <ul class="findings">
+              {#each session.placed.collisions as pair, index (index)}
+                <li>{m.collision(pair[0], pair[1])}</li>
               {/each}
             </ul>
           </section>

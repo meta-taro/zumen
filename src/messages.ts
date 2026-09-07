@@ -43,6 +43,64 @@ const ja = {
   },
 
 
+  /**
+   * 画面（`app/`）。
+   *
+   * **画面の文言もここに置く。** 置かないと、多言語化が画面で効かない
+   * （D9 の穴。2026-09-07 に塞いだ）。
+   */
+  app: {
+    open: '開く',
+    save: '保存',
+    readProposal: '提案を読む',
+    openSample: '同梱の例を開く',
+    /** 図が 1 つも開かれていないとき。**行き止まりにしない。** */
+    emptyHint: '図を開いてください。ここへ落としても開きます。',
+    unreadable: 'この図は読めません。',
+    /** 指摘に添える行番号。 */
+    atLine: (line: number) => `${line} 行目: `,
+    resetView: '見え方を戻す',
+    zoomOut: '縮める',
+    zoomIn: '広げる',
+
+    conflictsHeading: '競合',
+    noConflicts: '食い違いはありません。',
+    takeMine: '自分の指定を採る',
+    takeProposal: '提案を採る',
+    takeProposalAnyway: 'やはり提案を採る',
+    conflictRemoved: '提案では消えています。人が指定した要素なので、消さずに残しました。',
+    conflictSuppressed: (x: number, y: number) =>
+      `提案は (${x}, ${y})。自分の指定を採ると決めてあるので、聞き直しません。`,
+    conflictPosition: (humanX: number, humanY: number, aiX: number, aiY: number) =>
+      `人の指定 (${humanX}, ${humanY}) / 提案 (${aiX}, ${aiY})`,
+
+    diffHeading: '入れる前に見る',
+    noChange: '変わるところはありません。',
+    notApplied: (count: number) =>
+      `${count} 件は入れません。人の指定と食い違っているので、入れたあとに選んでもらいます。`,
+    apply: '正本へ入れる',
+    discard: 'やめる',
+
+    measureHeading: 'いま何割まで自動か',
+    autonomy: '自力率',
+    layoutAutonomy: '配置の自力率',
+    measureNote: (placed: number, elements: number) =>
+      `人が動かした要素 ${placed} / ${elements}。並べ直しているなら、それは作図ソフトに戻っている。`,
+
+    warningsHeading: '気にしたほうがよいこと',
+
+    /** **人どうしが重なった**（Issue 015）。動かしていないので、人が選ぶ。 */
+    collisionsHeading: '重なったまま',
+    collision: (a: string, b: string) =>
+      `"${a}" と "${b}" は、どちらも人が置いた位置で重なっています。動かしていません。`,
+
+    canvasLabel: '図',
+    /** ファイル選択のダイアログに出る種別名。**利用者に見える。** */
+    fileKind: 'zumen の図',
+    /** 画面を差し込む先が無い。**組み立てが壊れているときにしか出ない。** */
+    mountTargetMissing: '画面を差し込む先（#app）がありません。',
+  },
+
   /** コマンドの口（`src/cli.ts`） */
   cli: {
     usage: '使い方: pnpm validate <図のファイル> ...',
@@ -150,6 +208,53 @@ const en: Catalog = {
   format: {
     atLine: (line: number, reason: string) => `line ${line}: ${reason}`,
   },
+  app: {
+    open: 'Open',
+    save: 'Save',
+    readProposal: 'Load proposal',
+    openSample: 'Open the bundled example',
+    emptyHint: 'Open a diagram. You can also drop one here.',
+    unreadable: 'This diagram cannot be read.',
+    atLine: (line: number) => `line ${line}: `,
+    resetView: 'Reset the view',
+    zoomOut: 'Zoom out',
+    zoomIn: 'Zoom in',
+
+    conflictsHeading: 'Conflicts',
+    noConflicts: 'No disagreements.',
+    takeMine: 'Keep mine',
+    takeProposal: 'Take the proposal',
+    takeProposalAnyway: 'Take the proposal after all',
+    conflictRemoved: 'The proposal drops it. A person placed it, so it was kept.',
+    conflictSuppressed: (x: number, y: number) =>
+      `The proposal says (${x}, ${y}). You chose your own placement, so this is not asked again.`,
+    conflictPosition: (humanX: number, humanY: number, aiX: number, aiY: number) =>
+      `yours (${humanX}, ${humanY}) / proposal (${aiX}, ${aiY})`,
+
+    diffHeading: 'Look before applying',
+    noChange: 'Nothing changes.',
+    notApplied: (count: number) =>
+      `${count} are not applied. They disagree with a hand edit, so you choose afterwards.`,
+    apply: 'Apply to the source of truth',
+    discard: 'Cancel',
+
+    measureHeading: 'How much is still automatic',
+    autonomy: 'Autonomy',
+    layoutAutonomy: 'Layout autonomy',
+    measureNote: (placed: number, elements: number) =>
+      `${placed} of ${elements} elements were moved by hand. If you are re-arranging, this is a drawing tool again.`,
+
+    warningsHeading: 'Worth a look',
+
+    collisionsHeading: 'Still overlapping',
+    collision: (a: string, b: string) =>
+      `"${a}" and "${b}" are both placed by hand and overlap. Nothing was moved.`,
+
+    canvasLabel: 'Diagram',
+    fileKind: 'zumen diagram',
+    mountTargetMissing: 'There is no #app to mount into.',
+  },
+
   cli: {
     usage: 'Usage: pnpm validate <diagram file> ...',
     usageMergeDriver: 'Usage: merge-driver <base> <ours> <theirs>',

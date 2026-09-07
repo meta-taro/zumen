@@ -6,13 +6,15 @@
   危険なのは「人が置いた要素が消える」1 つだけ。
 -->
 <script lang="ts">
-  import type { Conflict } from '../../src/merge.ts';
+  import { messages } from '../../src/messages.ts';
+import type { Conflict } from '../../src/merge.ts';
   import type { Session } from './state.svelte.ts';
 
   interface Props {
     session: Session;
   }
   const { session }: Props = $props();
+  const m = messages().app;
 
   function tone(conflict: Conflict): string {
     if (conflict.kind === 'pin-orphaned') return 'danger';
@@ -22,20 +24,20 @@
 
   function detail(conflict: Conflict): string {
     if (conflict.kind === 'pin-orphaned') {
-      return '提案では消えています。人が指定した要素なので、消さずに残しました。';
+      return m.conflictRemoved;
     }
     if (conflict.kind === 'position-suppressed') {
-      return `提案は (${conflict.ai.x}, ${conflict.ai.y})。自分の指定を採ると決めてあるので、聞き直しません。`;
+      return m.conflictSuppressed(conflict.ai.x, conflict.ai.y);
     }
-    return `人の指定 (${conflict.human.x}, ${conflict.human.y}) / 提案 (${conflict.ai.x}, ${conflict.ai.y})`;
+    return m.conflictPosition(conflict.human.x, conflict.human.y, conflict.ai.x, conflict.ai.y);
   }
 </script>
 
-<section aria-label="競合">
-  <h2>競合 <span class="count">{session.conflicts.length}</span></h2>
+<section aria-label={m.conflictsHeading}>
+  <h2>{m.conflictsHeading} <span class="count">{session.conflicts.length}</span></h2>
 
   {#if session.conflicts.length === 0}
-    <p class="quiet">食い違いはありません。</p>
+    <p class="quiet">{m.noConflicts}</p>
   {:else}
     <ul>
       {#each session.conflicts as conflict (conflict.kind + conflict.elementId)}
@@ -51,12 +53,12 @@
           <p>{detail(conflict)}</p>
           {#if conflict.kind !== 'position-suppressed'}
             <div class="choose">
-              <button onclick={() => session.decide(conflict, 'human')}>自分の指定を採る</button>
-              <button onclick={() => session.decide(conflict, 'ai')}>提案を採る</button>
+              <button onclick={() => session.decide(conflict, 'human')}>{m.takeMine}</button>
+              <button onclick={() => session.decide(conflict, 'ai')}>{m.takeProposal}</button>
             </div>
           {:else}
             <div class="choose">
-              <button onclick={() => session.decide(conflict, 'ai')}>やはり提案を採る</button>
+              <button onclick={() => session.decide(conflict, 'ai')}>{m.takeProposalAnyway}</button>
             </div>
           {/if}
         </li>

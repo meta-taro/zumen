@@ -17,6 +17,7 @@ import ELK from 'elkjs/lib/elk.bundled.js';
 import type { ElkNode } from 'elkjs/lib/elk-api.js';
 
 import { getPins, parse } from './format.ts';
+import { separate } from './separate.ts';
 
 export interface Box {
   id: string;
@@ -52,6 +53,13 @@ export interface Placed {
   edges: PlacedEdge[];
   width: number;
   height: number;
+  /**
+   * **人が置いたものどうしが重なっている組**（Issue 015）。
+   *
+   * 動かしていない。人の指定を動かして重なりを解いたら、
+   * それは手直しを壊したことになる（判定基準 3.1）。**人へ出して選んでもらう。**
+   */
+  collisions: [string, string][];
 }
 
 /** S1 では図形ごとの寸法を持たない。大きさは勝負どころではない（PRD §4）。 */
@@ -93,13 +101,17 @@ export async function layout(text: string): Promise<Placed> {
     if (pin.appearance !== undefined) box.appearance = pin.appearance;
   }
 
+  // 人が置いた場所と重なった機械の箱を退ける（Issue 015）。
+  // **人の箱は 1 px も動かさない。** 動かせない組（人どうし）は返して人へ出す。
+  const { locked } = separate(boxes);
+
   // 人が枠の外へ動かしたら、枠のほうを広げる。
   // 人の位置を枠の中へ押し戻すと、それは手直しを壊したことになる（判定基準 3.1）。
   // 枠は「この範囲が VPC」という意味なので、中身に合わせて動くほうが正しい。
   fitGroups(boxes, groups);
 
   const edges = routeEdges(readEdges(diagram), boxes, pins);
-  return { boxes, groups, edges, ...extent(boxes, groups) };
+  return { boxes, groups, edges, collisions: locked, ...extent(boxes, groups) };
 }
 
 /** グループの枠を、中身を含む大きさへ広げる。 */

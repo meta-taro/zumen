@@ -14,6 +14,7 @@
  * **殻が無くても動くことを保つ**（ベースルール §3）。
  * Tauri を立てないと何も見られない作りにすると、そこで開発が止まる。
  */
+import { messages } from '../../src/messages.ts';
 
 export interface Opened {
   text: string;
@@ -49,7 +50,7 @@ async function tauri(): Promise<{
   };
 }
 
-const FILTERS = [{ name: 'zumen の図', extensions: ['yaml', 'yml'] }];
+const FILTERS = [{ name: messages().app.fileKind, extensions: ['yaml', 'yml'] }];
 
 interface PickerWindow {
   showOpenFilePicker?: (options: unknown) => Promise<FileSystemHandleLike[]>;
@@ -64,7 +65,7 @@ interface FileSystemHandleLike {
 
 const TYPES = [
   {
-    description: 'zumen の図',
+    description: messages().app.fileKind,
     accept: { 'application/yaml': ['.yaml', '.yml'], 'text/plain': ['.yaml', '.yml'] },
   },
 ];

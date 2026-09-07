@@ -9,6 +9,7 @@
 -->
 <script lang="ts">
   import type { Box, Placed } from '../../src/layout.ts';
+  import { messages } from '../../src/messages.ts';
   import { EDGE, GROUP, STROKE_WIDTH, TEXT, lookOf } from '../../src/tokens.ts';
   import type { Session } from './state.svelte.ts';
 
@@ -99,7 +100,7 @@
   bind:this={surface}
   class="surface"
   role="application"
-  aria-label="図"
+  aria-label={messages().app.canvasLabel}
   onpointerdown={startPan}
   onpointermove={move}
   onpointerup={release}

@@ -185,6 +185,31 @@ async function walk() {
     (await evaluate(`window.zumen.text.includes('locked: true')`)) === true,
   );
 
+  // 8-2. 重なりを解く（Issue 015）
+  // 図の左上（他のノードが並んでいるあたり）へわざと置く。
+  await evaluate("window.zumen.place('backup', 24, 24)");
+  await until("window.zumen.placed.boxes.some((b) => b.id === 'backup' && b.x === 24)");
+  check(
+    '重なりを解く — **人が置いたノードは動かない**',
+    (await evaluate(`
+      (() => {
+        const b = window.zumen.placed.boxes.find((x) => x.id === 'backup');
+        return b !== undefined && b.x === 24 && b.y === 24 && b.pinned === true;
+      })()
+    `)) === true,
+  );
+  check(
+    '重なりを解く — 機械が置いたほうが退く',
+    (await evaluate(`
+      (() => {
+        const boxes = window.zumen.placed.boxes;
+        const b = boxes.find((x) => x.id === 'backup');
+        return boxes.every((o) => o.id === 'backup' ||
+          o.x + o.w <= b.x || b.x + b.w <= o.x || o.y + o.h <= b.y || b.y + b.h <= o.y);
+      })()
+    `)) === true,
+  );
+
   check('例外が出ていない', errors.length === 0, errors.join(' | '));
   close();
 }

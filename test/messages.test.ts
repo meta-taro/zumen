@@ -21,9 +21,21 @@ import { describe, it } from 'node:test';
 import { LOCALES, messages, resolveLocale } from '../src/messages.ts';
 import type { Catalog, Locale } from '../src/messages.ts';
 
-const SRC = new URL('../src/', import.meta.url).pathname;
+const ROOT = new URL('../', import.meta.url).pathname;
+/** 走査する場所。**画面（`app/`）も見る。** 見ないと多言語化が画面で効かない。 */
+const SCANNED = ['src', 'app'];
 /** 文言そのものを置く場所。ここだけは日本語のリテラルを持ってよい。 */
-const CATALOG = 'messages.ts';
+const CATALOG = 'src/messages.ts';
+
+/**
+ * ファイル名は文言ではない。
+ *
+ * `'本番構成.zumen.yaml'` のような値は、訳す対象ではなく**実在するファイルの名前**。
+ * 文言表へ入れると、ロケールごとに別のファイルを指すことになる。
+ *
+ * **除外の一覧ではなく規則にする。** 一覧は増えるが、規則は増えない。
+ */
+const FILE_NAME = /^['"`][^'"`\s]+\.(ya?ml|md|svg|drawio|json|ts|css|html|png)(\?\w+)?['"`]$/;
 
 const JAPANESE = /[ぁ-んァ-ヶ一-龥]/;
 
@@ -40,42 +52,54 @@ function withoutComments(code: string): string {
 function japaneseLiterals(code: string): string[] {
   const found: string[] = [];
   for (const match of withoutComments(code).matchAll(/'[^']*'|"[^"]*"|`[^`]*`/g)) {
-    if (JAPANESE.test(match[0])) found.push(match[0]);
+    if (!JAPANESE.test(match[0])) continue;
+    if (FILE_NAME.test(match[0])) continue;
+    found.push(match[0]);
   }
   return found;
 }
 
 /**
- * `src/` を**階層ごと**たどる。
+ * `src/` と `app/` を**階層ごと**たどる。
  *
- * 直下だけを見ていると、`src/cli/` のような階層を切った瞬間に見張りが素通りする。
+ * 直下だけを見ていると、階層を切った瞬間に見張りが素通りする。
+ * **`.svelte` も見る**（画面の文言を見張らないと、多言語化が画面で効かない）。
  */
-function sourceFiles(dir = SRC): string[] {
+function sourceFiles(dir?: string): string[] {
+  if (dir === undefined) return SCANNED.flatMap((name) => sourceFiles(join(ROOT, name)));
   return readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
     const path = join(dir, entry.name);
     if (entry.isDirectory()) return sourceFiles(path);
-    if (!entry.name.endsWith('.ts')) return [];
-    if (relative(SRC, path) === CATALOG) return [];
+    if (!/\.(ts|svelte)$/.test(entry.name)) return [];
+    if (relative(ROOT, path) === CATALOG) return [];
     return [path];
   });
 }
 
 describe('文言の置き場所', () => {
-  it('たどる先を間違えていない（src の .ts を実際に読めている）', () => {
-    assert.ok(sourceFiles().length >= 5, `見つかったのは ${sourceFiles().length} 件`);
+  it('たどる先を間違えていない（src と app を実際に読めている）', () => {
+    const files = sourceFiles();
+    assert.ok(files.length >= 10, `見つかったのは ${files.length} 件`);
+    assert.ok(files.some((path) => path.endsWith('.svelte')), '画面を見ていない');
+  });
+
+  it('ファイル名は文言として数えない（訳す対象ではない）', () => {
+    assert.deepEqual(japaneseLiterals(`const a = '本番構成.zumen.yaml';`), []);
+    // ただし、**文らしいものは見逃さない**。
+    assert.deepEqual(japaneseLiterals(`const a = '図を開いてください。';`), [`'図を開いてください。'`]);
   });
 
   it('src の中に、文言表の外の日本語リテラルが無い', () => {
     const strays: string[] = [];
     for (const path of sourceFiles()) {
       const code = readFileSync(path, 'utf8');
-      const name = relative(SRC, path);
+      const name = relative(ROOT, path);
       for (const literal of japaneseLiterals(code)) strays.push(`${name}: ${literal}`);
     }
     assert.deepEqual(
       strays,
       [],
-      `利用者に見える文字列は src/${CATALOG} へ移すこと。見つかったもの:\n${strays.join('\n')}`,
+      `利用者に見える文字列は ${CATALOG} へ移すこと。見つかったもの:\n${strays.join('\n')}`,
     );
   });
 
