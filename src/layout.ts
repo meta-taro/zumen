@@ -16,7 +16,7 @@
 import ELK from 'elkjs/lib/elk.bundled.js';
 import type { ElkExtendedEdge, ElkNode } from 'elkjs/lib/elk-api.js';
 
-import { getPins, parse } from './format.ts';
+import { asText, getPins, parse } from './format.ts';
 import { separate } from './separate.ts';
 
 export interface Box {
@@ -166,8 +166,11 @@ export async function layout(text: string): Promise<Placed> {
       box.y = pin.position.y;
       box.pinned = true;
     }
-    if (pin.label !== undefined) box.label = pin.label;
-    if (pin.appearance !== undefined) box.appearance = pin.appearance;
+    // **人が書く場所なので、ここも数字が来る**（`label: 8080`）。Issue #5 と同じ。
+    const label = asText(pin.label);
+    if (label !== null) box.label = label;
+    const appearance = asText(pin.appearance);
+    if (appearance !== null) box.appearance = appearance;
   }
 
   // 人が置いた場所と重なった機械の箱を退ける（Issue 015）。
@@ -295,15 +298,18 @@ interface NodeInfo {
 
 function readNodes(diagram: ReturnType<typeof parse>): NodeInfo[] {
   const raw = diagram.doc.toJS() as {
-    nodes?: { id: string; label?: string; type?: string; group?: string; technology?: string }[];
+    nodes?: { id?: unknown; label?: unknown; type?: unknown; group?: unknown; technology?: unknown }[];
   };
-  return (raw.nodes ?? []).map((node) => ({
-    id: node.id,
-    label: node.label ?? node.id,
-    type: node.type ?? 'generic',
-    group: node.group ?? null,
-    technology: node.technology ?? null,
-  }));
+  return (raw.nodes ?? []).map((node) => {
+    const id = asText(node.id) ?? '';
+    return {
+      id,
+      label: asText(node.label) ?? id,
+      type: asText(node.type) ?? 'generic',
+      group: asText(node.group),
+      technology: asText(node.technology),
+    };
+  });
 }
 
 interface EdgeInfo {
@@ -315,17 +321,26 @@ interface EdgeInfo {
 
 /** グループの表示名。無ければ id を使う。 */
 function readGroupLabels(diagram: ReturnType<typeof parse>): Map<string, string> {
-  const raw = diagram.doc.toJS() as { groups?: { id: string; label?: string }[] };
-  return new Map((raw.groups ?? []).map((group) => [group.id, group.label ?? group.id]));
+  const raw = diagram.doc.toJS() as { groups?: { id?: unknown; label?: unknown }[] };
+  return new Map(
+    (raw.groups ?? []).map((group) => {
+      const id = asText(group.id) ?? '';
+      return [id, asText(group.label) ?? id];
+    }),
+  );
 }
 
 function readEdges(diagram: ReturnType<typeof parse>): EdgeInfo[] {
-  return diagram.edges().map((edge) => ({
-    id: `${edge.from}>${edge.to}`,
-    from: edge.from,
-    to: edge.to,
-    label: edge.label ?? edge.protocol ?? null,
-  }));
+  return diagram.edges().map((edge) => {
+    const from = asText(edge.from) ?? '';
+    const to = asText(edge.to) ?? '';
+    return {
+      id: `${from}>${to}`,
+      from,
+      to,
+      label: asText(edge.label) ?? asText(edge.protocol),
+    };
+  });
 }
 
 /**
@@ -439,16 +454,21 @@ function round(value: number): number {
   return Math.round(value * 100) / 100;
 }
 
-/** 描かれるラベル。**人が書き換えていれば、そちらの幅で測る。** */
-function labelOf(node: NodeInfo, pins: Record<string, { label?: string }>): string {
-  return pins[node.id]?.label ?? node.label;
+/**
+ * 描かれるラベル。**人が書き換えていれば、そちらの幅で測る。**
+ *
+ * 幅を測る段階でも `pins` を読むので、**ここでも文字列に寄せる**（Issue #5）。
+ * 描くときだけ直しても、幅の計算がここで落ちる。
+ */
+function labelOf(node: NodeInfo, pins: Record<string, { label?: unknown }>): string {
+  return asText(pins[node.id]?.label) ?? node.label;
 }
 
 function buildGraph(
   nodes: NodeInfo[],
   groupIds: string[],
   edges: { from: string; to: string }[],
-  pins: Record<string, { size?: { w: number; h: number }; label?: string }>,
+  pins: Record<string, { size?: { w: number; h: number }; label?: unknown }>,
 ): ElkNode {
   const leaf = (node: NodeInfo): ElkNode => ({
     id: node.id,

@@ -11,7 +11,7 @@
  * **落ちるものは黙って落とさない。** Mermaid には人が置いた位置を書く場所が無い。
  * 落ちた指定を先頭のコメントに列挙して、何が失われたかを読める形にする。
  */
-import { getPins, parse } from './format.ts';
+import { asText, getPins, parse } from './format.ts';
 import type { Pin } from './format.ts';
 import { messages } from './messages.ts';
 import { APPEARANCE } from './tokens.ts';
@@ -33,15 +33,15 @@ export function toMermaid(text: string): string {
   const diagram = parse(text);
   const raw = diagram.doc.toJS() as {
     title?: string;
-    groups?: { id: string; label?: string }[];
-    nodes?: { id: string; label?: string; type?: string; group?: string }[];
+    groups?: { id: string; label?: unknown }[];
+    nodes?: { id: string; label?: unknown; type?: string; group?: string }[];
   };
   // 人が直したラベルと体裁は Mermaid でも表せる。**表せるものは落とさない。**
   // 落とすのは、Mermaid に書く場所が無いもの（位置・大きさ・線の曲げ方）だけ。
   const pins = getPins(diagram);
   const nodes: NodeInfo[] = (raw.nodes ?? []).map((node) => ({
     id: node.id,
-    label: pins[node.id]?.label ?? node.label ?? node.id,
+    label: asText(pins[node.id]?.label) ?? asText(node.label) ?? node.id,
     type: node.type ?? 'generic',
     group: node.group ?? null,
     appearance: pins[node.id]?.appearance ?? null,
@@ -137,6 +137,7 @@ function shape(node: NodeInfo): string {
  * 二重引用符で囲めば括弧や記号を含められる。中の二重引用符は実体参照にする
  * （Mermaid 側にエスケープ記法が無いため、これが唯一の手段）。
  */
-function quote(value: string): string {
-  return `"${value.replace(/"/g, '&quot;')}"`;
+function quote(value: unknown): string {
+  // **数字で書かれた値がここへ来る**（`label: 8080`）。Issue #5 と同じ理由。
+  return `"${(asText(value) ?? '').replace(/"/g, '&quot;')}"`;
 }

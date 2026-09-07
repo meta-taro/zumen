@@ -223,15 +223,32 @@ function checkPins(
  * ここが落ちるのは文書の落ち度ではなく、**こちらの実装の落ち度**であることが多い。
  * それでも文書ごとに見るのは、実際に壊れるのが「特定の書き方をした文書」だから。
  */
+/**
+ * 読んで書き戻したときに、人が触っていない行が動かないか。
+ *
+ * **改行コードの違いは差分として数えない。**
+ *
+ * Windows の Git は `core.autocrlf` で CRLF に展開する。書き戻すのは常に LF なので、
+ * 中身が 1 文字も違わないのに**全行が「変わった」**になっていた（Issue #5 のコメント）。
+ * `pnpm validate` は最初に叩くコマンドで、**同梱の手本が落ちていた。**
+ *
+ * 改行そのものは `.gitattributes` で LF に固定してあるが、
+ * **既に CRLF で clone 済みの手元は、それでは救われない。**
+ */
 function checkRoundTrip(doc: Document, text: string, add: Add, m: Messages): void {
   const back = doc.toString({ lineWidth: 0 });
-  if (back === text) return;
+  if (normalizeEol(back) === normalizeEol(text)) return;
   add('error', 'round-trip-changed', m.roundTripChanged, firstDifferingLine(text, back));
 }
 
+/** CRLF と CR を LF に寄せる。**改行の種類だけを消し、行の中身は触らない。** */
+function normalizeEol(text: string): string {
+  return text.replace(/\r\n?/g, '\n');
+}
+
 function firstDifferingLine(a: string, b: string): number {
-  const left = a.split('\n');
-  const right = b.split('\n');
+  const left = normalizeEol(a).split('\n');
+  const right = normalizeEol(b).split('\n');
   for (let i = 0; i < Math.max(left.length, right.length); i += 1) {
     if (left[i] !== right[i]) return i + 1;
   }

@@ -143,3 +143,29 @@ export function deletePin(diagram: Diagram, id: string): void {
   const pins = diagram.doc.get('pins', true);
   if (isMap(pins)) pins.delete(id);
 }
+
+/**
+ * YAML が返した値を、表示に使える文字列にする。
+ *
+ * **YAML は `22` を数値、`true` を真偽値として読む。**
+ * 引用符を書き忘れたのではない。**ポート番号や台数を数字で書くのは自然**（Issue #5）。
+ * そこで例外になっていた（`labelWidth` の `for (const ch of label)` が数値で落ちた）。
+ *
+ * **弾かずに受ける。** 型を見ていなかったのは道具側の落ち度。
+ *
+ * ## ここに置く理由
+ *
+ * **YAML と、この製品の中との境目はここ**（`parse` / `getPins` があるのと同じ場所）。
+ * 描き手ごとに書くと、**直したものと直していないものが混ざる。**
+ * 実際、`render` だけ直したら `mermaid` が落ちたままだった。
+ *
+ * 無い（`undefined` / `null`）ときだけ null を返し、**それ以外は必ず文字列**。
+ */
+export function asText(value: unknown): string | null {
+  if (value === undefined || value === null) return null;
+  if (typeof value === 'string') return value;
+  // 日付は YAML が Date にすることがある。**書いたとおりの並びで出す。**
+  if (value instanceof Date) return value.toISOString().slice(0, 10);
+  if (typeof value === 'object') return null;
+  return String(value);
+}

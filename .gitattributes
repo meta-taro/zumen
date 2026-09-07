@@ -7,3 +7,13 @@
 #   git config merge.zumen.driver "node $(pwd)/src/cli.ts merge-driver %O %A %B"
 #
 *.zumen.yaml merge=zumen
+
+# 正本の改行は LF に固定する（Issue #5 のコメント）。
+#
+# Windows の Git は既定（`core.autocrlf=true`）で CRLF に展開する。
+# 書き戻すのは常に LF なので、**中身が 1 文字も違わないのに全行が差分**になり、
+# `pnpm validate` が同梱の手本を「読めない」と言っていた。
+#
+# **検査側も改行の違いを見逃すようにしてある**（`src/validate.ts`）。
+# こちらだけだと、**既に CRLF で clone 済みの手元が救われない**ため。
+*.zumen.yaml text eol=lf
