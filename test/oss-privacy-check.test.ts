@@ -10,7 +10,7 @@
  * 外部サービスへは繋がない。
  */
 import assert from 'node:assert/strict';
-import { execFileSync } from 'node:child_process';
+import { execFileSync, spawnSync } from 'node:child_process';
 import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
@@ -60,20 +60,24 @@ function repoWith(message: string, addedLine = 'ふつうの行'): { dir: string
   return { dir, base };
 }
 
-/** 検査を走らせて、合否と出力を返す。**中身は落ちたときしか見ない。** */
-function check(dir: string, base: string, denyWords = ''): { ok: boolean; out: string } {
-  try {
-    const out = execFileSync('bash', [SCRIPT, base, 'HEAD'], {
-      cwd: dir,
-      encoding: 'utf8',
-      stdio: ['ignore', 'pipe', 'pipe'],
-      env: { ...process.env, OSS_DENY_WORDS: denyWords, OSS_ALLOWED_EMAIL_DOMAINS: '' },
-    });
-    return { ok: true, out };
-  } catch (e) {
-    const err = e as { stderr?: string; stdout?: string };
-    return { ok: false, out: `${err.stdout ?? ''}${err.stderr ?? ''}` };
-  }
+/**
+ * 検査を走らせて、合否と出力を返す。
+ *
+ * **stdout と stderr を両方見る。** 指摘も INFO も stderr へ出るので、
+ * 片方だけ見ていると「言っているのに見えない」ことになる。
+ */
+function check(
+  dir: string,
+  base: string,
+  denyWords = '',
+  extra: Record<string, string> = {},
+): { ok: boolean; out: string } {
+  const result = spawnSync('bash', [SCRIPT, base, 'HEAD'], {
+    cwd: dir,
+    encoding: 'utf8',
+    env: { ...process.env, OSS_DENY_WORDS: denyWords, OSS_ALLOWED_EMAIL_DOMAINS: '', ...extra },
+  });
+  return { ok: result.status === 0, out: `${result.stdout ?? ''}${result.stderr ?? ''}` };
 }
 
 describe('commit message のメール', () => {
@@ -160,5 +164,44 @@ describe('走査で取りこぼさない', () => {
     const { dir, base } = repoWith('feat: なにか', 'alpha と bravo');
     const { out } = check(dir, base, 'alpha\nbravo');
     assert.equal((out.match(/added-denyword/g) ?? []).length, 2);
+  });
+});
+
+describe('公開の前に、中身そのものを見る', () => {
+  // 差分の検査は**最初の commit の中身を含まない**。
+  // 公開へ切り替える前に見たいのは「いま公開されるファイルの中身」なので、
+  // 差分ではなく全ファイルを走査する口を持つ（OSS_SCAN_ALL_FILES=1）。
+
+  it('**最初の commit にしか無いメールを見つける**（差分では見つからない）', () => {
+    const dir = mkdtempSync(join(tmpdir(), 'zumen-privacy-'));
+    workspaces.push(dir);
+    const git = (...args: string[]) => execFileSync('git', args, { cwd: dir, encoding: 'utf8' });
+    git('init', '--quiet', '--initial-branch', 'develop');
+    git('config', 'user.email', NOREPLY);
+    git('config', 'user.name', 'meta-taro');
+
+    // 最初の commit にだけ入れる。以後は触らない。
+    writeFileSync(join(dir, 'a.txt'), `連絡先 ${at('someone', 'example.co.jp')}\n`);
+    git('add', '-A');
+    git('commit', '--quiet', '-m', '最初の commit');
+    const base = git('rev-parse', 'HEAD').trim();
+
+    writeFileSync(join(dir, 'b.txt'), 'あとから足した行\n');
+    git('add', '-A');
+    git('commit', '--quiet', '-m', '2 つ目');
+
+    // 差分だけを見ると素通りする。
+    assert.equal(check(dir, base).ok, true, '差分検査で見つかってしまった（前提が違う）');
+
+    // 中身を見れば見つかる。
+    const whole = check(dir, base, '', { OSS_SCAN_ALL_FILES: '1' });
+    assert.equal(whole.ok, false);
+    assert.match(whole.out, /added-email/);
+  });
+
+  it('走査していることを言う（黙って何もしない、をしない）', () => {
+    const { dir, base } = repoWith('feat: なにか', 'ふつうの行');
+    const out = check(dir, base, '', { OSS_SCAN_ALL_FILES: '1' }).out;
+    assert.match(out, /全ファイル/);
   });
 });

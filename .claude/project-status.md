@@ -89,6 +89,11 @@
   3 件とも形式に適合。**破綻の条件が数字で出た** — エッジがノードの 3 倍あたりで
   交差が跳ねる（md-business が 2 回とも交差 143）。**規模では破綻しない**（500 ノードで 0.2 秒）
 
+- **公開前の確認を済ませた。** `docs/specs/公開前の確認.md`。
+  検査を全ファイル走査にも対応させ（`OSS_SCAN_ALL_FILES=1`）、
+  **CI から手動で全履歴を検査する口**を足した（秘密情報を手元へ出さずに済む）
+- **md-business へ Issue を投げた** — meta-taro/md-business#240（囲みの追加依頼）
+
 ## 未完了の作業
 
 - **Issue 004 の「説明に使えるか」は人の判断待ち**（`quality.md` §3 が空欄）
@@ -173,7 +178,11 @@
   ただし**ドライバの設定は各自の手元で 1 回必要**で、未設定の人は従来どおり 6 中 4
 - **Mermaid 書き出しの検証は手作業**（mermaid を依存に入れていないため）。
   記録は `experiments/d2/results/mermaid-validation.md`
-- `gh repo view` の `visibility` が PRIVATE。CLAUDE.md は public 前提。切り替えは人の判断
+- **`visibility` が PRIVATE。CLAUDE.md は public 前提。切り替えは人の判断。**
+  公開に必要な確認は済ませてある（`docs/specs/公開前の確認.md`）。
+  全 37 commit の author・全履歴の追加行・**追跡中の全 169 ファイルの中身**まで見て、
+  個人メールも秘密情報も無し。**禁止語検査だけは secret が要るので CI から手で回す**
+  （Actions → oss-privacy-check → Run workflow）
 - GitHub Issue は 0 件。作業は `.claude/issues/` のローカル Issue で駆動している
 - **`oss-privacy-check.sh` の許可リストにアドレス 1 個の穴を開けた**（D8）。
   AI の `Co-Authored-By: <noreply@anthropic.com>` で CI が落ちたため。

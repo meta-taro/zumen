@@ -12,6 +12,9 @@
 #                                   ドメインだけ書くとそのドメイン全体を許可する。
 #                                   "@" を含めて書くとそのアドレスだけを許可する（推奨）
 #   OSS_DENY_WORDS                  禁止語（実名等）を 1 行 1 語。CI では secrets から渡す
+#   OSS_SCAN_ALL_FILES              1 なら、差分ではなく**追跡中の全ファイルの中身**を見る。
+#                                   公開へ切り替える前の確認に使う（差分検査は最初の
+#                                   commit の中身を含まないため）
 #
 # 設計上の約束:
 #   - 検出しても「見つかった中身」をログへ出さない。CI ログは公開されるため、
@@ -25,6 +28,7 @@ ALLOWED_AUTHOR_RE="${OSS_ALLOWED_AUTHOR_EMAIL_REGEX:-@users\.noreply\.github\.co
 # ドメイン全体ではなく、このアドレス 1 個だけを許可する。
 ALLOWED_DOMAINS="${OSS_ALLOWED_EMAIL_DOMAINS:-example.com example.org example.net users.noreply.github.com noreply@anthropic.com}"
 DENY_WORDS="${OSS_DENY_WORDS:-}"
+SCAN_ALL="${OSS_SCAN_ALL_FILES:-}"
 
 EMAIL_RE='[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}'
 # 検査スクリプト自身は正規表現やドメイン例を含むため除外する
@@ -222,6 +226,15 @@ added="$(printf '%s\n' "$diff_out" | awk '
   /^@@ /       { split($0, a, " "); split(substr(a[3], 2), b, ","); ln = b[1]; next }
   /^\+/        { print f "\t" ln "\t" substr($0, 2); ln++; next }
 ')"
+
+# **公開の前は、差分ではなく中身そのものを見る。**
+# 差分検査は最初の commit の中身を含まないので、そこだけ素通りする。
+if [ "$SCAN_ALL" = "1" ]; then
+  note "INFO 追跡中の全ファイルの中身を検査します（差分ではなく）"
+  added="$(git ls-files -z | xargs -0 -n 50 grep -Hn '' 2>/dev/null | awk -F: '
+    { file = $1; line = $2; $1 = ""; $2 = ""; sub(/^::/, ""); print file "\t" line "\t" $0 }
+  ')"
+fi
 
 # **1 行ごとに grep を起こさない。** 追加行は数千行になることがあり（lock ファイル等）、
 # 1 行につき subshell を起こすと commit 前の検査が数分かかる。
