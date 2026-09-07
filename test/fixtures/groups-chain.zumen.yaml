@@ -1,0 +1,36 @@
+version: 1
+title: 検証（最小・一方向）
+
+groups:
+  - id: soto
+    label: 外部
+  - id: honban
+    label: 本番
+  - id: hokan
+    label: 保管先
+
+nodes:
+  - id: internet
+    type: internet
+    label: Internet
+    group: soto
+  - id: httpd
+    type: server
+    label: Apache httpd
+    group: honban
+  - id: wasabimount
+    type: storage
+    label: /mnt/wasabi
+    group: honban
+  - id: wasabi
+    type: storage
+    label: Wasabi
+    group: hokan
+
+edges:
+  - from: internet
+    to: httpd
+  - from: httpd
+    to: wasabimount
+  - from: wasabimount
+    to: wasabi

@@ -72,6 +72,22 @@ const LAYOUT_OPTIONS = {
   'elk.spacing.nodeNode': '48',
   'elk.layered.spacing.nodeNodeBetweenLayers': '64',
   'elk.padding': '[top=40,left=24,bottom=24,right=24]',
+  /**
+   * **囲みをまたぐ辺を、層の計算に使わせる**（Issue #1）。
+   *
+   * これが無いと、囲みの中と外が別々に並べられ、
+   * **囲みどうしの順序が辺から決まらない。**
+   * 一方向の鎖でも終点が最上段に来て、図の全高を逆流する矢印が生まれ、
+   * 途中のノードの箱を突き抜ける。
+   *
+   * 実測（4 ノード・3 辺・一方向）:
+   *
+   * | | 外部 | 本番 | 保管先 |
+   * |---|---|---|---|
+   * | 無し | 40 | 184 | **40**（最上段へ戻る） |
+   * | 有り | 40 | 238 | **560** |
+   */
+  'elk.hierarchyHandling': 'INCLUDE_CHILDREN',
 };
 
 export async function layout(text: string): Promise<Placed> {
