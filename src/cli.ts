@@ -160,6 +160,7 @@ export function runMeasure(paths: string[], read = readFileSync): RunResult {
 
   const lines: string[] = [];
   let short = 0;
+  let untouched = 0;
   for (const path of paths) {
     let text: string;
     try {
@@ -170,10 +171,13 @@ export function runMeasure(paths: string[], read = readFileSync): RunResult {
     const result = measure(text);
     lines.push(m.measured(path, percent(result.autonomy), percent(result.layoutAutonomy)));
     if (!result.pass) short += 1;
+    if (result.touched === 0) untouched += 1;
   }
 
   const line = percent(PASS_LINE);
   lines.push(short === 0 ? m.measurePassed(paths.length, line) : m.measureFailed(short, line));
+  // **手直しが 1 つも無い図の 100% は、成績ではない。**黙って出すと成績として読まれる。
+  if (untouched > 0) lines.push(m.measureUntouched(untouched));
   return { code: 0, lines };
 }
 

@@ -10,6 +10,7 @@ import { readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, it } from 'node:test';
 
+import { runMeasure } from '../src/cli.ts';
 import { parse, serialize, setPin } from '../src/format.ts';
 import { PASS_LINE, measure, percent } from '../src/measure.ts';
 
@@ -115,5 +116,44 @@ describe('記録のための丸め方が固定されている', () => {
     assert.equal(percent(0.85), '85.0%');
     assert.equal(percent(1), '100.0%');
     assert.equal(percent(0.6206896551724138), '62.1%');
+  });
+});
+
+/**
+ * 100% の意味を言う（Issue #3 の「良かったところ」より）。
+ *
+ * > `measure` の自力率が「人が触った量」を測っているのは素直だと思います。
+ * > ただ **1枚目は `pins` がゼロなので必ず 100%** になります。
+ * > 「まだ人の手直しがありません」と出したほうが、指標の意味が伝わるかもしれません。
+ *
+ * そのとおりで、**1 枚目の 100% は「AI が上手い」ではなく「まだ誰も直していない」。**
+ * 数字だけ出すと、良い成績として読まれる。
+ */
+/** 読み手を差し替える。**本物のディスクを触らない。** */
+function reader(text: string): typeof readFileSync {
+  return (() => text) as unknown as typeof readFileSync;
+}
+
+describe('まだ手直しが無いことを言う', () => {
+  const FRESH = 'version: 1\nnodes:\n  - id: a\n  - id: b\nedges:\n  - from: a\n    to: b\n';
+  const TOUCHED = FRESH.replace(
+    'nodes:',
+    'pins:\n  a:\n    position: { x: 10, y: 10 }\n\nnodes:',
+  );
+
+  it('**pins がゼロなら、その旨が出る**（100% を成績として読ませない）', () => {
+    const out = runMeasure(['a.zumen.yaml'], reader(FRESH)).lines.join('\n');
+    assert.match(out, /100\.0%/);
+    assert.match(out, /まだ|not yet|no hand/i);
+  });
+
+  it('手直しが 1 つでもあれば、その断りは出ない', () => {
+    const out = runMeasure(['a.zumen.yaml'], reader(TOUCHED)).lines.join('\n');
+    assert.doesNotMatch(out, /まだ人の手直し|no hand edits yet/i);
+  });
+
+  it('空の図でも 100% だが、断りは同じく出る', () => {
+    const out = runMeasure(['a.zumen.yaml'], reader('version: 1\nnodes: []\n')).lines.join('\n');
+    assert.match(out, /まだ|not yet|no hand/i);
   });
 });

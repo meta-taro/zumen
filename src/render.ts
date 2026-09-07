@@ -24,6 +24,8 @@
  *
  * 詳細と、回避できないものは `docs/specs/007-貼り先で崩れないか.md`。
  */
+import { placeEdgeLabels } from './edge-labels.ts';
+import type { EdgeLabel } from './edge-labels.ts';
 import type { Box, Placed, PlacedEdge } from './layout.ts';
 import { EDGE, GROUP, STROKE_WIDTH, TEXT, lookOf } from './tokens.ts';
 
@@ -59,11 +61,15 @@ function size(value: number): number {
 }
 
 export function render(placed: Placed): string {
+  // **置けなかったラベルは、ここに入ってこない**（重ねて出さない。Issue #3 の 3）。
+  const labels = new Map(
+    placeEdgeLabels(placed.edges, placed.boxes).map((label) => [label.id, label]),
+  );
   const parts = [
     `<svg xmlns="http://www.w3.org/2000/svg" width="${size(placed.width)}" height="${size(placed.height)}" viewBox="0 0 ${size(placed.width)} ${size(placed.height)}">`,
     `<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="${EDGE.stroke}"/></marker></defs>`,
     ...placed.groups.map(renderGroup),
-    ...placed.edges.map(renderEdge),
+    ...placed.edges.map((edge) => renderEdge(edge, labels.get(edge.id) ?? null)),
     ...placed.boxes.map(renderNode),
     '</svg>',
   ];
@@ -115,26 +121,20 @@ function nodeText(box: Box): string[] {
   ];
 }
 
-function renderEdge(edge: PlacedEdge): string {
+function renderEdge(edge: PlacedEdge, placedLabel: EdgeLabel | null): string {
   if (edge.points.length < 2) return '';
   const [head, ...rest] = edge.points;
   const path = `M ${n(head!.x)} ${n(head!.y)} ${rest.map((p) => `L ${n(p.x)} ${n(p.y)}`).join(' ')}`;
   const label =
-    edge.label === null
+    placedLabel === null
       ? ''
-      : `<text x="${n(midpoint(edge).x)}" y="${n(midpoint(edge).y - 6)}" text-anchor="middle" font-family="${FONT}" font-size="11" fill="${TEXT.edge}">${escapeText(edge.label)}</text>`;
+      : `<text x="${n(placedLabel.x)}" y="${n(placedLabel.y)}" text-anchor="middle" font-family="${FONT}" font-size="11" fill="${TEXT.edge}">${escapeText(placedLabel.text)}</text>`;
   return [
     `<g data-edge="${escapeAttr(edge.id)}" data-pinned="${edge.pinned}">`,
     `<path d="${path}" fill="none" stroke="${EDGE.stroke}" stroke-width="${edge.pinned ? STROKE_WIDTH.pinned : STROKE_WIDTH.auto}" marker-end="url(#arrow)"/>`,
     label,
     '</g>',
   ].join('');
-}
-
-function midpoint(edge: PlacedEdge): { x: number; y: number } {
-  const a = edge.points[0]!;
-  const b = edge.points[edge.points.length - 1]!;
-  return { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
 }
 
 /**

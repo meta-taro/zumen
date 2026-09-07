@@ -132,6 +132,14 @@ const ja = {
     measured: (path: string, autonomy: string, layout: string) =>
       `${path} — 自力率 ${autonomy} / 配置の自力率 ${layout}`,
     measurePassed: (count: number, line: string) => `${count} 件すべてが合格ライン ${line} に届いています。`,
+    /**
+     * **1 枚目の 100% は成績ではない。**
+     *
+     * 手直しは `pins` にしか書かれないので、まだ誰も直していない図は必ず 100% になる。
+     * 数字だけ出すと「AI が上手い」と読まれる（Issue #3 の指摘）。
+     */
+    measureUntouched: (count: number) =>
+      `うち ${count} 件は**まだ人の手直しがありません**（pins が空）。この 100% は、まだ何も測っていないという意味です。`,
     measureFailed: (count: number, line: string) =>
       `${count} 件が合格ライン ${line} に届いていません。**人が図形を並べ直している可能性があります。**`,
     wrote: (path: string) => `${path} へ書き出しました。`,
@@ -366,6 +374,8 @@ const en: Catalog = {
     measured: (path: string, autonomy: string, layout: string) =>
       `${path} — autonomy ${autonomy} / layout autonomy ${layout}`,
     measurePassed: (count: number, line: string) => `All ${count} diagram(s) meet the ${line} line.`,
+    measureUntouched: (count: number) =>
+      `${count} of them have no hand edits yet (pins is empty). That 100% means nothing has been measured yet.`,
     measureFailed: (count: number, line: string) =>
       `${count} diagram(s) fall short of the ${line} line. A human may be re-arranging shapes by hand.`,
     wrote: (path: string) => `Wrote ${path}.`,
