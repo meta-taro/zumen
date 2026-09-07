@@ -14,7 +14,7 @@
  * 実用に耐えるかの材料になる。
  */
 import ELK from 'elkjs/lib/elk.bundled.js';
-import type { ElkNode } from 'elkjs/lib/elk-api.js';
+import type { ElkExtendedEdge, ElkNode } from 'elkjs/lib/elk-api.js';
 
 import { getPins, parse } from './format.ts';
 import { separate } from './separate.ts';
@@ -31,6 +31,13 @@ export interface Box {
   type: string;
   /** 体裁の指定。人が与えたものだけが入る。 */
   appearance: string | null;
+  /**
+   * 版や役割（仕様 §3.1 の `technology`）。**箱の中に副題として描く。**
+   *
+   * 形式にあって検証も通るのに描かれていなかった（Issue #3 の 4）。
+   * 所属や版を書ける唯一の場所なので、描かれないとラベルへ畳むしかなくなる。
+   */
+  technology: string | null;
   /** 人が置いた場所か。 */
   pinned: boolean;
 }
@@ -62,9 +69,46 @@ export interface Placed {
   collisions: [string, string][];
 }
 
-/** S1 では図形ごとの寸法を持たない。大きさは勝負どころではない（PRD §4）。 */
+/** 箱の下限と上限。**文字から決めるが、際限なく広げない**（Issue #3 の 2）。 */
 const NODE_WIDTH = 160;
 const NODE_HEIGHT = 60;
+const NODE_MAX_WIDTH = 320;
+/** 文字の左右に空ける分。 */
+const LABEL_PADDING = 24;
+/** 描くときの文字の大きさ（`src/render.ts` と揃える）。 */
+const LABEL_FONT = 14;
+/** 副題（`technology`）の文字の大きさ。 */
+const SUB_FONT = 11;
+
+/**
+ * ラベルの見た目の幅を測る。
+ *
+ * **全角は半角の 2 倍**として数える。日本語のラベルが箱に入らず、
+ * 左端のノードでは x が負になって画面外へ切れていた（Issue #3 の 2）。
+ *
+ * 正確な字送りは書体で変わるが、**書体は貼り先が決める**ので正確には測れない
+ * （Issue 007 §3.1）。ここは「入らないよりはまし」を狙う見積もり。
+ */
+export function labelWidth(label: string, font = LABEL_FONT): number {
+  let units = 0;
+  for (const ch of label) {
+    // 半角の範囲（ASCII と半角カナ）は 1、それ以外は 2。
+    units += /[\u0020-\u007e\uff61-\uff9f]/.test(ch) ? 1 : 2;
+  }
+  // 半角 1 文字を、字の大きさのおよそ 0.55 倍として見積もる。
+  return Math.ceil((units * font * 0.55) / 2) * 2;
+}
+
+/**
+ * ラベルが入る箱の幅。**下限より狭くせず、上限より広げない。**
+ *
+ * 副題（`technology`）があれば、そちらも入る幅にする。
+ */
+function widthFor(label: string, technology: string | null = null): number {
+  const sub = technology === null ? 0 : labelWidth(technology, SUB_FONT);
+  const needed = Math.max(labelWidth(label), sub) + LABEL_PADDING * 2;
+  return Math.min(NODE_MAX_WIDTH, Math.max(NODE_WIDTH, needed));
+}
 
 const LAYOUT_OPTIONS = {
   'elk.algorithm': 'layered',
@@ -88,6 +132,14 @@ const LAYOUT_OPTIONS = {
    * | 有り | 40 | 238 | **560** |
    */
   'elk.hierarchyHandling': 'INCLUDE_CHILDREN',
+  /**
+   * **線を直角で引く**（Issue #3 の 1）。
+   *
+   * 以前は中心から中心へ斜めの直線を引いていた。
+   * ノードが増えるほど交差が増え、線が箱の上を通る。
+   * **ELK は箱を避ける経路を計算できるのに、それを捨てて自前で直線を引いていた。**
+   */
+  'elk.edgeRouting': 'ORTHOGONAL',
 };
 
 export async function layout(text: string): Promise<Placed> {
@@ -103,6 +155,7 @@ export async function layout(text: string): Promise<Placed> {
   const boxes: Box[] = [];
   const groups: Box[] = [];
   collect(laid, 0, 0, nodes, groupLabels, boxes, groups);
+  const routes = collectRoutes(laid, groups, nodes);
 
   // 人が置いた場所・付けた体裁へ戻す。ELK が何を決めたかに関わらず、人の値が勝つ。
   for (const box of boxes) {
@@ -126,7 +179,7 @@ export async function layout(text: string): Promise<Placed> {
   // 枠は「この範囲が VPC」という意味なので、中身に合わせて動くほうが正しい。
   fitGroups(boxes, groups);
 
-  const edges = routeEdges(readEdges(diagram), boxes, pins);
+  const edges = routeEdges(readEdges(diagram), boxes, pins, routes);
   return { boxes, groups, edges, collisions: locked, ...extent(boxes, groups) };
 }
 
@@ -236,17 +289,20 @@ interface NodeInfo {
   label: string;
   type: string;
   group: string | null;
+  /** 版や役割（仕様 §3.1 の `technology`）。無ければ null。 */
+  technology: string | null;
 }
 
 function readNodes(diagram: ReturnType<typeof parse>): NodeInfo[] {
   const raw = diagram.doc.toJS() as {
-    nodes?: { id: string; label?: string; type?: string; group?: string }[];
+    nodes?: { id: string; label?: string; type?: string; group?: string; technology?: string }[];
   };
   return (raw.nodes ?? []).map((node) => ({
     id: node.id,
     label: node.label ?? node.id,
     type: node.type ?? 'generic',
     group: node.group ?? null,
+    technology: node.technology ?? null,
   }));
 }
 
@@ -280,21 +336,67 @@ function readEdges(diagram: ReturnType<typeof parse>): EdgeInfo[] {
  * 曲げていない線は、箱の中心どうしを結んで縁で切る。S1 では回り込みまで見ない
  * （原案 §26 の 3 = Connector routing の品質は Issue 004 の側）。
  */
+/**
+ * ELK が計算した経路を集める。
+ *
+ * ## 座標の基準に注意
+ *
+ * **辺の座標は「両端の、最も近い共通の親」からの相対**で返る。
+ * 両端が同じ囲みの中なら、その囲みからの相対。またぐなら根からの相対。
+ * ここを取り違えると、線が囲みの位置ぶんずれる。
+ *
+ * v1 は囲みの入れ子を持たない（仕様 §3.3）ので、**同じ囲みか否か**だけで決まる。
+ */
+function collectRoutes(
+  laid: ElkNode,
+  groups: Box[],
+  nodes: NodeInfo[],
+): Map<string, { x: number; y: number }[]> {
+  const groupOf = new Map(nodes.map((node) => [node.id, node.group]));
+  const groupAt = new Map(groups.map((group) => [group.id, group]));
+  const out = new Map<string, { x: number; y: number }[]>();
+
+  for (const edge of (laid as { edges?: ElkExtendedEdge[] }).edges ?? []) {
+    const section = edge.sections?.[0];
+    if (section === undefined) continue;
+
+    const from = edge.sources?.[0];
+    const to = edge.targets?.[0];
+    const shared =
+      from !== undefined && to !== undefined && groupOf.get(from) === groupOf.get(to)
+        ? groupAt.get(groupOf.get(from) ?? '')
+        : undefined;
+    const dx = shared?.x ?? 0;
+    const dy = shared?.y ?? 0;
+
+    out.set(edge.id, [
+      { x: round(section.startPoint.x + dx), y: round(section.startPoint.y + dy) },
+      ...(section.bendPoints ?? []).map((point) => ({
+        x: round(point.x + dx),
+        y: round(point.y + dy),
+      })),
+      { x: round(section.endPoint.x + dx), y: round(section.endPoint.y + dy) },
+    ]);
+  }
+  return out;
+}
+
 function routeEdges(
   edges: EdgeInfo[],
   boxes: Box[],
   pins: Record<string, { waypoints?: { x: number; y: number }[] }>,
+  routes: Map<string, { x: number; y: number }[]>,
 ): PlacedEdge[] {
   const byId = new Map(boxes.map((box) => [box.id, box]));
-  return edges.map((edge) => {
+  return edges.map((edge, index) => {
     const from = byId.get(edge.from);
     const to = byId.get(edge.to);
     if (from === undefined || to === undefined) {
       return { ...edge, points: [], pinned: false };
     }
+
+    // 人が曲げた線は、人の通り道が勝つ。
     const waypoints = pins[edge.id]?.waypoints;
-    const start = center(from);
-    const end = center(to);
     if (waypoints !== undefined && waypoints.length > 0) {
       const first = waypoints[0]!;
       const last = waypoints[waypoints.length - 1]!;
@@ -304,7 +406,15 @@ function routeEdges(
         pinned: true,
       };
     }
-    return { ...edge, points: [clip(from, end), clip(to, start)], pinned: false };
+
+    // ELK の経路を使う。**箱を避けて回り込む道が入っている。**
+    const route = routes.get(`e${index}`);
+    if (route !== undefined && route.length >= 2) {
+      return { ...edge, points: route, pinned: false };
+    }
+
+    // 経路が返らなかったとき（人が置いた位置へ動かした場合など）は、直線で結ぶ。
+    return { ...edge, points: [clip(from, center(to)), clip(to, center(from))], pinned: false };
   });
 }
 
@@ -329,18 +439,24 @@ function round(value: number): number {
   return Math.round(value * 100) / 100;
 }
 
+/** 描かれるラベル。**人が書き換えていれば、そちらの幅で測る。** */
+function labelOf(node: NodeInfo, pins: Record<string, { label?: string }>): string {
+  return pins[node.id]?.label ?? node.label;
+}
+
 function buildGraph(
   nodes: NodeInfo[],
   groupIds: string[],
   edges: { from: string; to: string }[],
-  pins: Record<string, { size?: { w: number; h: number } }>,
+  pins: Record<string, { size?: { w: number; h: number }; label?: string }>,
 ): ElkNode {
   const leaf = (node: NodeInfo): ElkNode => ({
     id: node.id,
     // 人が変えた大きさは、組み立ての入力の段階で効かせる。
     // 後から広げると、周りが元の大きさのまま詰められていて重なる。
-    width: pins[node.id]?.size?.w ?? NODE_WIDTH,
-    height: pins[node.id]?.size?.h ?? NODE_HEIGHT,
+    // **ラベルの幅も同じ段階で効かせる**（後から広げると同じことが起きる）。
+    width: pins[node.id]?.size?.w ?? widthFor(labelOf(node, pins), node.technology),
+    height: pins[node.id]?.size?.h ?? (node.technology === null ? NODE_HEIGHT : NODE_HEIGHT + 16),
   });
 
   const children: ElkNode[] = groupIds.map((groupId) => ({
@@ -385,6 +501,7 @@ function collect(
       label: groupLabels.get(child.id) ?? nodes.find((n) => n.id === child.id)?.label ?? child.id,
       type: nodes.find((n) => n.id === child.id)?.type ?? 'generic',
       appearance: null,
+      technology: nodes.find((n) => n.id === child.id)?.technology ?? null,
       pinned: false,
     };
     if (groupLabels.has(child.id)) {

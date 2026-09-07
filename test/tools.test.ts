@@ -216,7 +216,9 @@ describe('自分で直せるだけの情報を返す', () => {
 
   it('絡まりすぎを知らせる（交差がエッジ数を超えたら）', async () => {
     // 少ないノードに多くの線を張ると絡む。
-    const ids = ['a', 'b', 'c', 'd', 'e', 'f'];
+    // **直交ルーティング（Issue #3 の 1）で交差が減ったので、より密にした。**
+    // 6 ノード総当たり 30 辺では交差 16 で、もう「絡まりすぎ」ではない。
+    const ids = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'];
     const nodes = ids.map((id) => `  - id: ${id}`).join('\n');
     const edges = ids
       .flatMap((from) => ids.filter((to) => to !== from).map((to) => `  - from: ${from}\n    to: ${to}`))

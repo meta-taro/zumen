@@ -92,9 +92,27 @@ function renderNode(box: Box): string {
   return [
     `<g ${attributes}>`,
     `<rect x="${n(box.x)}" y="${n(box.y)}" width="${n(box.w)}" height="${n(box.h)}" rx="6" fill="${style.fill}" stroke="${style.stroke}" stroke-width="${box.pinned ? STROKE_WIDTH.pinned : STROKE_WIDTH.auto}"/>`,
-    `<text x="${n(box.x + box.w / 2)}" y="${n(box.y + box.h / 2 + 5)}" text-anchor="middle" font-family="${FONT}" font-size="14" fill="${TEXT.node}">${escapeText(box.label)}</text>`,
+    ...nodeText(box),
     '</g>',
   ].join('');
+}
+
+/**
+ * 箱の中の文字。
+ *
+ * 副題（`technology`）があれば 2 行にする。無ければ 1 行のまま中央へ。
+ * **所属や版を書ける唯一の場所**なので、描かないとラベルへ畳むしかなくなる（Issue #3 の 4）。
+ */
+function nodeText(box: Box): string[] {
+  const cx = n(box.x + box.w / 2);
+  const main = (dy: number): string =>
+    `<text x="${cx}" y="${n(box.y + box.h / 2 + dy)}" text-anchor="middle" font-family="${FONT}" font-size="14" fill="${TEXT.node}">${escapeText(box.label)}</text>`;
+
+  if (box.technology === null) return [main(5)];
+  return [
+    main(-2),
+    `<text x="${cx}" y="${n(box.y + box.h / 2 + 16)}" text-anchor="middle" font-family="${FONT}" font-size="11" fill="${TEXT.group}">${escapeText(box.technology)}</text>`,
+  ];
 }
 
 function renderEdge(edge: PlacedEdge): string {

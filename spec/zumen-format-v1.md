@@ -80,10 +80,20 @@ nodes:
 | キー | 必須 | 意味 |
 |---|---|---|
 | `id` | ○ | 文書内で一意。**§5 の規則に従う** |
-| `type` | | 種別。未知の値は `generic` として描く |
+| `type` | | 種別。**下記のいずれか。** 未知の値は `generic` として描く |
 | `label` | | 表示名。無ければ `id` を使う |
 | `group` | | 属する `groups` の `id` |
 | その他 | | 自由。読み手は知らないキーを**捨てずに保つ** |
+
+`type` に書ける語は次の 11 個。
+
+```
+server / database / storage / cache / queue / internet
+load-balancer / container / cluster / network / generic
+```
+
+**知らない語を書いてもよい**（`generic` として描かれ、値は捨てずに保たれる）。
+MCP では `zumen_spec` が同じ一覧を返す。
 
 **`nodes` の並び順には意味がある。** 人が読む順序であり、書き手は理由なく並べ替えない。
 
