@@ -1,0 +1,70 @@
+version: 1
+title: GitHub Actions 個人情報チェック CI
+groups:
+  - id: github
+    label: GitHub 側
+  - id: runner
+    label: runner 側（ubuntu）
+nodes:
+  - id: developer
+    type: internet
+    label: 開発者
+  - id: repo
+    type: storage
+    label: リポジトリ（develop ブランチ）
+    group: github
+  - id: actions
+    type: server
+    label: GitHub Actions（workflow 起動）
+    group: github
+  - id: secrets
+    type: storage
+    label: リポジトリ secret（禁止語）
+    group: github
+  - id: checkout
+    type: generic
+    label: checkout（全履歴）
+    group: runner
+  - id: privacy-check
+    type: server
+    label: 個人情報混入チェック スクリプト
+    group: runner
+  - id: commit-data
+    type: generic
+    label: commit の author / message / 追加行
+    group: runner
+  - id: failure
+    type: generic
+    label: workflow 失敗
+    group: runner
+edges:
+  - from: developer
+    to: repo
+    label: develop へ push
+  - from: repo
+    to: actions
+    label: push イベント
+  - from: actions
+    to: checkout
+    label: job 実行
+  - from: repo
+    to: checkout
+    label: 全履歴を取得
+  - from: checkout
+    to: commit-data
+    label: 作業ツリーと履歴
+  - from: checkout
+    to: privacy-check
+    label: スクリプト実行
+  - from: commit-data
+    to: privacy-check
+    label: 検査対象
+  - from: secrets
+    to: privacy-check
+    label: 禁止語を渡す
+  - from: privacy-check
+    to: failure
+    label: 検出したら
+  - from: failure
+    to: actions
+    label: 失敗を報告

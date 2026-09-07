@@ -1,0 +1,103 @@
+version: 1
+title: zumen デスクトップアプリ構成
+groups:
+  - id: shell
+    label: 殻（Tauri / Rust）
+  - id: ui
+    label: 画面（WebView）
+  - id: core
+    label: 中核（TypeScript）
+nodes:
+  - id: tauri-shell
+    type: server
+    label: Tauri 殻（Rust）
+    group: shell
+  - id: cmd-read
+    type: generic
+    label: read_document コマンド
+    group: shell
+  - id: cmd-write
+    type: generic
+    label: write_document コマンド
+    group: shell
+  - id: dialog-plugin
+    type: generic
+    label: dialog プラグイン（ファイル選択）
+    group: shell
+  - id: webview
+    type: generic
+    label: WebView
+    group: ui
+  - id: svelte-app
+    type: generic
+    label: Svelte 画面
+    group: ui
+  - id: vite
+    type: generic
+    label: Vite（バンドル）
+    group: ui
+  - id: doc-io
+    type: generic
+    label: 正本の読み書き
+    group: core
+  - id: layout
+    type: generic
+    label: 自動レイアウト（elkjs）
+    group: core
+  - id: render
+    type: generic
+    label: SVG 描画
+    group: core
+  - id: merge
+    type: generic
+    label: マージ
+    group: core
+  - id: validate
+    type: generic
+    label: 検証
+    group: core
+  - id: zumen-yaml
+    type: storage
+    label: .zumen.yaml（正本ファイル）
+edges:
+  - from: tauri-shell
+    to: webview
+    label: 起動・ホスト
+  - from: vite
+    to: svelte-app
+    label: 束ねる
+  - from: webview
+    to: svelte-app
+  - from: svelte-app
+    to: doc-io
+    label: 呼び出し
+  - from: svelte-app
+    to: layout
+    label: 呼び出し
+  - from: svelte-app
+    to: render
+    label: 呼び出し
+  - from: svelte-app
+    to: merge
+    label: 呼び出し
+  - from: svelte-app
+    to: validate
+    label: 呼び出し
+  - from: doc-io
+    to: cmd-read
+    label: 読み込み要求
+  - from: doc-io
+    to: cmd-write
+    label: 書き込み要求
+  - from: svelte-app
+    to: dialog-plugin
+    label: ファイル選択
+  - from: dialog-plugin
+    to: tauri-shell
+    label: パス
+  - from: cmd-read
+    to: zumen-yaml
+    label: read
+  - from: cmd-write
+    to: zumen-yaml
+    label: write

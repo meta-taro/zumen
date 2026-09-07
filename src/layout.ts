@@ -165,6 +165,54 @@ export function overlaps(placed: Placed): [string, string][] {
   return found;
 }
 
+/**
+ * 線どうしが交差している数（Issue 004）。**合否ではなく観測値。**
+ *
+ * 交差が多い図は読めない。ただし**少なければ良いとも限らない**ので、
+ * 数えるだけにして、良し悪しは人が決める（Issue 004 の注意 — AI に自己採点させない）。
+ *
+ * 同じ点から出ている線どうしは数えない（扇形に広がるのは交差ではない）。
+ */
+export function crossings(placed: Placed): number {
+  const segments: [P, P][] = [];
+  for (const edge of placed.edges) {
+    for (let i = 0; i + 1 < edge.points.length; i += 1) {
+      segments.push([edge.points[i]!, edge.points[i + 1]!]);
+    }
+  }
+
+  let count = 0;
+  for (let i = 0; i < segments.length; i += 1) {
+    for (let j = i + 1; j < segments.length; j += 1) {
+      if (intersects(segments[i]!, segments[j]!)) count += 1;
+    }
+  }
+  return count;
+}
+
+interface P {
+  x: number;
+  y: number;
+}
+
+/** 線分が交わるか。**端点を共有しているだけなら交差としない。** */
+function intersects([a, b]: [P, P], [c, d]: [P, P]): boolean {
+  if (same(a, c) || same(a, d) || same(b, c) || same(b, d)) return false;
+  const d1 = side(c, d, a);
+  const d2 = side(c, d, b);
+  const d3 = side(a, b, c);
+  const d4 = side(a, b, d);
+  return ((d1 > 0) !== (d2 > 0)) && ((d3 > 0) !== (d4 > 0));
+}
+
+function same(a: P, b: P): boolean {
+  return a.x === b.x && a.y === b.y;
+}
+
+function side(a: P, b: P, p: P): number {
+  return (b.x - a.x) * (p.y - a.y) - (b.y - a.y) * (p.x - a.x);
+}
+
 // --- 組み立て --------------------------------------------------------------
 
 interface NodeInfo {
