@@ -15,6 +15,7 @@
 import { layout } from './layout.ts';
 import { parse } from './format.ts';
 import { render } from './render.ts';
+import type { Theme } from './tokens.ts';
 import { messages } from './messages.ts';
 
 export interface ZumenBlock {
@@ -84,9 +85,19 @@ export function replaceZumenBlocks(source: string, rendered: ReadonlyMap<string,
   return out;
 }
 
+export interface ToSvgOptions {
+  /**
+   * 貼り先の地の色。**渡さなければライト。**
+   *
+   * 渡せるようにしたのは、**貼り先が自分のテーマを知っているから**（md-business#240）。
+   * 図の背景を敷くだけでは、**線と枠がライトの値のまま残って浮く。**
+   */
+  theme?: Theme;
+}
+
 /** 図 1 枚を SVG にする。md-business 側から呼ぶのはここ 1 つで足りる。 */
-export async function toSvg(zumenSource: string): Promise<string> {
-  return render(await layout(zumenSource));
+export async function toSvg(zumenSource: string, options: ToSvgOptions = {}): Promise<string> {
+  return render(await layout(zumenSource), options.theme);
 }
 
 export interface RenderBlocksOptions {

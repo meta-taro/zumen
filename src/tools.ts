@@ -35,6 +35,7 @@ import type { Conflict } from './merge.ts';
 import { toMermaid } from './mermaid.ts';
 import { render } from './render.ts';
 import { APPEARANCE } from './tokens.ts';
+import type { Theme } from './tokens.ts';
 import { hasError, validate } from './validate.ts';
 import type { Finding } from './validate.ts';
 
@@ -259,14 +260,28 @@ export function propose(path: string, source: string, io: Io = realIo): WriteRes
 
 export type ExportKind = 'svg' | 'mermaid' | 'drawio';
 
+export interface ExportOptions {
+  /**
+   * 貼り先の地の色。**SVG にだけ効く。渡さなければライト。**
+   *
+   * draw.io は貼り先の道具が自分の色を持ち、mermaid は自前のテーマを持つので、
+   * ここで色を決めない（決めると、あちらの設定と二重になる）。
+   */
+  theme?: Theme;
+}
+
 /**
  * 書き出す。**落ちるものは、それぞれの書き出しが自分で断る。**
  */
-export async function exportAs(source: string, kind: ExportKind): Promise<string> {
+export async function exportAs(
+  source: string,
+  kind: ExportKind,
+  options: ExportOptions = {},
+): Promise<string> {
   if (kind === 'mermaid') return toMermaid(source);
   const placed = await layout(source);
   if (kind === 'drawio') return toDrawio(placed, titleOf(source));
-  return render(placed);
+  return render(placed, options.theme);
 }
 
 function titleOf(source: string): string {

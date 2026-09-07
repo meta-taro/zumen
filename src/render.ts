@@ -27,7 +27,8 @@
 import { placeEdgeLabels } from './edge-labels.ts';
 import type { EdgeLabel } from './edge-labels.ts';
 import type { Box, Placed, PlacedEdge } from './layout.ts';
-import { EDGE, GROUP, STROKE_WIDTH, TEXT, lookOf } from './tokens.ts';
+import { STROKE_WIDTH, lookOf, paletteOf } from './tokens.ts';
+import type { Palette, Theme } from './tokens.ts';
 
 /**
  * 文字の書体。**総称ファミリだけを書く。**
@@ -60,33 +61,40 @@ function size(value: number): number {
   return Math.ceil(value);
 }
 
-export function render(placed: Placed): string {
+/**
+ * SVG にする。
+ *
+ * **テーマを渡さなければライト**（`DESIGN.md` §3）。
+ * 貼り先が自分の地の色を知っているときだけ `dark` を渡す（md-business#240）。
+ */
+export function render(placed: Placed, theme: Theme = 'light'): string {
+  const palette = paletteOf(theme);
   // **置けなかったラベルは、ここに入ってこない**（重ねて出さない。Issue #3 の 3）。
   const labels = new Map(
     placeEdgeLabels(placed.edges, placed.boxes, placed.groups).map((label) => [label.id, label]),
   );
   const parts = [
     `<svg xmlns="http://www.w3.org/2000/svg" width="${size(placed.width)}" height="${size(placed.height)}" viewBox="0 0 ${size(placed.width)} ${size(placed.height)}">`,
-    `<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="${EDGE.stroke}"/></marker></defs>`,
-    ...placed.groups.map(renderGroup),
-    ...placed.edges.map((edge) => renderEdge(edge, labels.get(edge.id) ?? null)),
-    ...placed.boxes.map(renderNode),
+    `<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="${palette.edge.stroke}"/></marker></defs>`,
+    ...placed.groups.map((group) => renderGroup(group, palette)),
+    ...placed.edges.map((edge) => renderEdge(edge, labels.get(edge.id) ?? null, palette)),
+    ...placed.boxes.map((box) => renderNode(box, palette)),
     '</svg>',
   ];
   return parts.join('\n');
 }
 
-function renderGroup(group: Box): string {
+function renderGroup(group: Box, palette: Palette): string {
   return [
     `<g data-group="${escapeAttr(group.id)}">`,
-    `<rect x="${n(group.x)}" y="${n(group.y)}" width="${n(group.w)}" height="${n(group.h)}" rx="8" fill="${GROUP.fill}" stroke="${GROUP.stroke}" stroke-dasharray="6 4"/>`,
-    `<text x="${n(group.x + 12)}" y="${n(group.y + 22)}" font-family="${FONT}" font-size="13" fill="${TEXT.group}">${escapeText(group.label)}</text>`,
+    `<rect x="${n(group.x)}" y="${n(group.y)}" width="${n(group.w)}" height="${n(group.h)}" rx="8" fill="${palette.group.fill}" stroke="${palette.group.stroke}" stroke-dasharray="6 4"/>`,
+    `<text x="${n(group.x + 12)}" y="${n(group.y + 22)}" font-family="${FONT}" font-size="13" fill="${palette.text.group}">${escapeText(group.label)}</text>`,
     '</g>',
   ].join('');
 }
 
-function renderNode(box: Box): string {
-  const style = lookOf(box.appearance);
+function renderNode(box: Box, palette: Palette): string {
+  const style = lookOf(box.appearance, palette);
   const attributes = [
     `data-node="${escapeAttr(box.id)}"`,
     `data-pinned="${box.pinned}"`,
@@ -98,7 +106,7 @@ function renderNode(box: Box): string {
   return [
     `<g ${attributes}>`,
     `<rect x="${n(box.x)}" y="${n(box.y)}" width="${n(box.w)}" height="${n(box.h)}" rx="6" fill="${style.fill}" stroke="${style.stroke}" stroke-width="${box.pinned ? STROKE_WIDTH.pinned : STROKE_WIDTH.auto}"/>`,
-    ...nodeText(box),
+    ...nodeText(box, palette),
     '</g>',
   ].join('');
 }
@@ -109,29 +117,29 @@ function renderNode(box: Box): string {
  * 副題（`technology`）があれば 2 行にする。無ければ 1 行のまま中央へ。
  * **所属や版を書ける唯一の場所**なので、描かないとラベルへ畳むしかなくなる（Issue #3 の 4）。
  */
-function nodeText(box: Box): string[] {
+function nodeText(box: Box, palette: Palette): string[] {
   const cx = n(box.x + box.w / 2);
   const main = (dy: number): string =>
-    `<text x="${cx}" y="${n(box.y + box.h / 2 + dy)}" text-anchor="middle" font-family="${FONT}" font-size="14" fill="${TEXT.node}">${escapeText(box.label)}</text>`;
+    `<text x="${cx}" y="${n(box.y + box.h / 2 + dy)}" text-anchor="middle" font-family="${FONT}" font-size="14" fill="${palette.text.node}">${escapeText(box.label)}</text>`;
 
   if (box.technology === null) return [main(5)];
   return [
     main(-2),
-    `<text x="${cx}" y="${n(box.y + box.h / 2 + 16)}" text-anchor="middle" font-family="${FONT}" font-size="11" fill="${TEXT.group}">${escapeText(box.technology)}</text>`,
+    `<text x="${cx}" y="${n(box.y + box.h / 2 + 16)}" text-anchor="middle" font-family="${FONT}" font-size="11" fill="${palette.text.group}">${escapeText(box.technology)}</text>`,
   ];
 }
 
-function renderEdge(edge: PlacedEdge, placedLabel: EdgeLabel | null): string {
+function renderEdge(edge: PlacedEdge, placedLabel: EdgeLabel | null, palette: Palette): string {
   if (edge.points.length < 2) return '';
   const [head, ...rest] = edge.points;
   const path = `M ${n(head!.x)} ${n(head!.y)} ${rest.map((p) => `L ${n(p.x)} ${n(p.y)}`).join(' ')}`;
   const label =
     placedLabel === null
       ? ''
-      : `<text x="${n(placedLabel.x)}" y="${n(placedLabel.y)}" text-anchor="middle" font-family="${FONT}" font-size="11" fill="${TEXT.edge}">${escapeText(placedLabel.text)}</text>`;
+      : `<text x="${n(placedLabel.x)}" y="${n(placedLabel.y)}" text-anchor="middle" font-family="${FONT}" font-size="11" fill="${palette.text.edge}">${escapeText(placedLabel.text)}</text>`;
   return [
     `<g data-edge="${escapeAttr(edge.id)}" data-pinned="${edge.pinned}">`,
-    `<path d="${path}" fill="none" stroke="${EDGE.stroke}" stroke-width="${edge.pinned ? STROKE_WIDTH.pinned : STROKE_WIDTH.auto}" marker-end="url(#arrow)"/>`,
+    `<path d="${path}" fill="none" stroke="${palette.edge.stroke}" stroke-width="${edge.pinned ? STROKE_WIDTH.pinned : STROKE_WIDTH.auto}" marker-end="url(#arrow)"/>`,
     label,
     '</g>',
   ].join('');

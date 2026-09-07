@@ -205,8 +205,23 @@ async function convert(
   return { code: 0, lines: [m.wrote(target)] };
 }
 
+/**
+ * SVG を書き出す。
+ *
+ * `--dark` を付けると、暗い地へ貼る用の色になる（`DESIGN.md` §3）。
+ * **付けなければライト。** 貼り先の地の色が分からないときの既定は変えない。
+ */
 export async function runSvg(paths: string[], read = readFileSync, write = writeFileSync): Promise<RunResult> {
-  return convert(paths, messages().cli.usageSvg, '.svg', async (text) => render(await layout(text)), read, write);
+  const theme = paths.includes('--dark') ? 'dark' : 'light';
+  const files = paths.filter((part) => part !== '--dark');
+  return convert(
+    files,
+    messages().cli.usageSvg,
+    '.svg',
+    async (text) => render(await layout(text), theme),
+    read,
+    write,
+  );
 }
 
 export async function runMermaid(paths: string[], read = readFileSync, write = writeFileSync): Promise<RunResult> {

@@ -163,9 +163,11 @@ export function buildServer(): McpServer {
         kind: z.enum(['svg', 'mermaid', 'drawio']),
         source: z.string().optional(),
         path: z.string().optional(),
+        theme: z.enum(['light', 'dark']).optional().describe(m.exportTheme),
       },
     },
-    async ({ kind, source, path }) => text(await exportAs(bodyOf(source, path), kind)),
+    async ({ kind, source, path, theme }) =>
+      text(await exportAs(bodyOf(source, path), kind, { theme })),
   );
 
   return server;

@@ -115,7 +115,7 @@ const ja = {
     usageMergeDriver: '使い方: merge-driver <base> <ours> <theirs>',
     usageDrawio: '使い方: pnpm drawio <図のファイル> [書き出し先]',
     usageMeasure: '使い方: pnpm measure <図のファイル> ...',
-    usageSvg: '使い方: pnpm svg <図のファイル> [書き出し先]',
+    usageSvg: '使い方: pnpm svg <図のファイル> [書き出し先] [--dark]',
     usageMermaid: '使い方: pnpm mermaid <図のファイル> [書き出し先]',
     usageEmbed: '使い方: pnpm embed <Markdown のファイル> [書き出し先]',
     usageMerge: '使い方: pnpm merge <正本> <提案>',
@@ -215,6 +215,8 @@ const ja = {
     exportTitle: '書き出す',
     exportDesc:
       'svg（見せる）／mermaid（翌日読める）／drawio（翌日編集できる）へ書き出す。落ちるものは、それぞれの書き出しが自分で断る。',
+    exportTheme:
+      '貼り先の地の色（svg にだけ効く）。省略するとライト。暗い地へ貼るときだけ dark を渡すこと。',
     needSourceOrPath: 'source か path のどちらかが要ります',
   },
 
@@ -360,7 +362,7 @@ const en: Catalog = {
     usageMergeDriver: 'Usage: merge-driver <base> <ours> <theirs>',
     usageDrawio: 'Usage: pnpm drawio <diagram file> [output path]',
     usageMeasure: 'Usage: pnpm measure <diagram file> ...',
-    usageSvg: 'Usage: pnpm svg <diagram file> [output path]',
+    usageSvg: 'Usage: pnpm svg <diagram file> [output path] [--dark]',
     usageMermaid: 'Usage: pnpm mermaid <diagram file> [output path]',
     usageEmbed: 'Usage: pnpm embed <markdown file> [output path]',
     usageMerge: 'Usage: pnpm merge <source of truth> <proposal>',
@@ -433,6 +435,8 @@ const en: Catalog = {
     exportTitle: 'Export',
     exportDesc:
       'Exports to svg (to show), mermaid (readable tomorrow) or drawio (editable tomorrow). Each exporter states what it could not carry.',
+    exportTheme:
+      'The background the diagram will be pasted onto (svg only). Light unless given. Pass dark only when the destination is dark.',
     needSourceOrPath: 'Either source or path is required',
   },
 

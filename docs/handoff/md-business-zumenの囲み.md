@@ -64,10 +64,15 @@ md-business には `chart` の囲みが既にある。**同じ形にするだけ
 **呼ぶ口は 1 つだけ。**
 
 ```ts
-toSvg(zumenSource: string): Promise<string>
+toSvg(zumenSource: string, options?: { theme?: 'light' | 'dark' }): Promise<string>
 ```
 
 `src/embed.ts` にある。SVG の文字列が返る。
+
+**`theme` は md-business#240 の依頼で足した**（2026-09-07）。省略するとライトで、
+それまでと同じ挙動。**暗い地へ貼るときだけ `dark` を渡す。**
+
+図の背景を敷くだけでは足りない。敷いても**線と枠がライトの値のまま残って浮く**ため。
 
 囲みの拾い出しと差し替えも、必要なら zumen 側のものを使える
 （`collectZumenBlocks` / `replaceZumenBlocks` / `renderZumenBlocks`）が、
