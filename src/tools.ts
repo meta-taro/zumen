@@ -25,6 +25,7 @@ import { readFileSync, writeFileSync, existsSync, readdirSync, statSync } from '
 import { join, relative, resolve } from 'node:path';
 
 import { toDrawio } from './drawio.ts';
+import { placeEdgeLabels } from './edge-labels.ts';
 import { getPins, parse } from './format.ts';
 import { crossings, groupEscapes, layout, overlaps } from './layout.ts';
 import { messages } from './messages.ts';
@@ -138,6 +139,14 @@ export interface Inspection {
   passLine: number;
   /** **読みにくさの目安。** 交差がエッジ数を超えたら、目で追えない（Issue 004）。 */
   tooTangled: boolean;
+  /**
+   * **書いたのに絵に出ないラベルの、辺の id。**
+   *
+   * 重なるラベルは出さない（Issue #3 の 3）。それは正しいが、
+   * **黙って消すのは別の壊れ方**になる。書いた側が気づけない。
+   * ここへ返せば、**描いた AI が自分で短くできる。**
+   */
+  hiddenLabels: string[];
 }
 
 /**
@@ -164,12 +173,14 @@ export async function inspect(source: string): Promise<Inspection> {
       layoutAutonomy: null,
       passLine: PASS_LINE,
       tooTangled: false,
+      hiddenLabels: [],
     };
   }
 
   const placed = await layout(source);
   const crossed = crossings(placed);
   const nine = measure(source);
+  const shown = new Set(placeEdgeLabels(placed.edges, placed.boxes).map((label) => label.id));
 
   return {
     readable: true,
@@ -187,6 +198,7 @@ export async function inspect(source: string): Promise<Inspection> {
     layoutAutonomy: nine.layoutAutonomy,
     passLine: PASS_LINE,
     tooTangled: placed.edges.length > 0 && crossed > placed.edges.length,
+    hiddenLabels: placed.edges.filter((e) => e.label !== null && !shown.has(e.id)).map((e) => e.id),
   };
 }
 

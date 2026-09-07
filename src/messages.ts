@@ -199,7 +199,7 @@ const ja = {
       '人が置いた位置・大きさ・ラベル・体裁を返す。読むだけで、書き換える口は無い。ここを避けて構造だけを直すこと。',
     inspectTitle: '図を検査する',
     inspectDesc:
-      '読めるか・要素の数・線の交差・箱の重なり・囲みからのはみ出し・図の大きさ・「9 割」を返す。書いたら必ずこれを見ること。tooTangled が真なら、線が絡みすぎて目で追えない。',
+      '読めるか・要素の数・線の交差・箱の重なり・囲みからのはみ出し・図の大きさ・「9 割」を返す。書いたら必ずこれを見ること。tooTangled が真なら、線が絡みすぎて目で追えない。hiddenLabels に辺の id があれば、そのラベルは置き場が無くて絵に出ていない（短くするか、辺を減らす）。',
     inspectSource: '図の中身。path とどちらか',
     inspectPath: '図の道。source とどちらか',
     createTitle: '新しい図を作る',
@@ -417,7 +417,7 @@ const en: Catalog = {
       'Returns the positions, sizes, labels and appearance a person set. Read only; there is no way to write here. Leave it alone and change the structure instead.',
     inspectTitle: 'Inspect a diagram',
     inspectDesc:
-      'Returns readability, element counts, edge crossings, box overlaps, group escapes, size, and the autonomy figure. Always look at this after writing. If tooTangled is true, the edges are too knotted to follow by eye.',
+      'Returns readability, element counts, edge crossings, box overlaps, group escapes, size, and the autonomy figure. Always look at this after writing. If tooTangled is true, the edges are too knotted to follow by eye. Any edge id in hiddenLabels has a label that did not fit and is not drawn — shorten it or use fewer edges.',
     inspectSource: 'The diagram body. Either this or path',
     inspectPath: 'Path to the diagram. Either this or source',
     createTitle: 'Create a new diagram',

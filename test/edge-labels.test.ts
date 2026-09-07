@@ -123,3 +123,55 @@ function overlaps(a: { x: number; y: number; w: number }, b: { x: number; y: num
     Math.abs(a.y - b.y) < 14
   );
 }
+
+/**
+ * **落としたことを黙らない。**
+ *
+ * 置けないラベルを出さないのは正しいが、**黙って消すのは別の壊れ方**になる。
+ * 書いたのに出ていないことに、書いた側（AI も人も）が気づけない。
+ * ベースルール §8「エラーは握り潰さない」はここにも効く。
+ *
+ * `zumen_inspect` が返せば、**描いた AI が自分で気づいて短くできる。**
+ */
+describe('落としたラベルを知らせる', () => {
+  it('置けたラベルしか無い図では、空', async () => {
+    const { inspect } = await import('../src/tools.ts');
+    const out = await inspect(
+      'version: 1\nnodes:\n  - id: a\n  - id: b\nedges:\n  - from: a\n    to: b\n    label: HTTPS\n',
+    );
+    assert.deepEqual(out.hiddenLabels, []);
+  });
+
+  it('**検査の数と、絵に出る数が合う**（合わない知らせは害になる）', async () => {
+    const { exportAs, inspect } = await import('../src/tools.ts');
+
+    // 実物に近い形。囲みも technology も長いラベルも入れる。
+    const source = [
+      'version: 1',
+      'groups:',
+      '  - id: host',
+      '    label: doko001',
+      'nodes:',
+      ...['web', 'app', 'db', 'store', 'batch'].map(
+        (id) => `  - id: ${id}\n    group: host\n    technology: ${id} 1.0`,
+      ),
+      'edges:',
+      '  - from: web\n    to: app\n    label: fastcgi',
+      '  - from: app\n    to: db\n    label: ②DB行',
+      '  - from: app\n    to: store\n    label: 画像',
+      '  - from: batch\n    to: db\n    label: 更新',
+      '  - from: batch\n    to: store\n    label: 書込',
+      '  - from: web\n    to: store\n    label: 静的ファイル',
+      '',
+    ].join('\n');
+
+    const out = await inspect(source);
+    const svg = await exportAs(source, 'svg');
+    const texts = ['fastcgi', '②DB行', '画像', '更新', '書込', '静的ファイル'];
+    const drawn = texts.filter((text) => svg.includes(`>${text}</text>`)).length;
+    const labelled = texts.length;
+
+    assert.equal(out.hiddenLabels.length, labelled - drawn);
+    for (const id of out.hiddenLabels) assert.match(id, /^\w+>\w+$/);
+  });
+});
