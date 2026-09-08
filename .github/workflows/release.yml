@@ -71,26 +71,56 @@ jobs:
         run: pnpm build:app
 
       # 秘密情報が揃っているかを、**値を出さずに**言う。
+      #
+      # **3 つとも揃っていなければ「揃っていない」とする**（2026-09-08 に直した）。
+      # 以前は `APPLE_SIGNING_IDENTITY` 1 つしか見ておらず、
+      # **`APPLE_CERTIFICATE` だけが入っている状態でビルドが落ちた。**
+      #
+      #     if [ -n "" ]        ← IDENTITY は空なので「署名しない」と判定
+      #     failed codesign application: failed to import keychain certificate
+      #
+      # tauri は `APPLE_CERTIFICATE` があるだけで署名へ進むので、
+      # **判定が偽でも、環境変数を渡していれば署名が始まる。**
+      # 揃っていないときは**渡さない**ようにした（下の env）。
+      #
+      # 値は `env:` 経由で見る。**script へ直に埋めない** —
+      # 秘密情報に引用符が入っていると、そこで shell が壊れる。
       - name: 署名できるか
         id: signing
+        env:
+          IDENTITY: ${{ secrets.APPLE_SIGNING_IDENTITY }}
+          CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
+          CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+        # `[ -z "$X" ] && …` と書かない。**条件が偽のとき戻り値が 1 になり、
+        # `bash -e` がそこで止まる**（GitHub の既定シェルは `bash -e`）。
         run: |
-          if [ -n "${{ secrets.APPLE_SIGNING_IDENTITY }}" ]; then
-            echo "できる。署名して作ります。"
+          missing=""
+          if [ -z "$IDENTITY" ]; then missing="$missing APPLE_SIGNING_IDENTITY"; fi
+          if [ -z "$CERTIFICATE" ]; then missing="$missing APPLE_CERTIFICATE"; fi
+          if [ -z "$CERTIFICATE_PASSWORD" ]; then missing="$missing APPLE_CERTIFICATE_PASSWORD"; fi
+          if [ -z "$missing" ]; then
+            echo "3 つとも揃っています。署名して作ります。"
             echo "signed=true" >> "$GITHUB_OUTPUT"
           else
-            echo "**署名しない。** 受け取った Mac は「壊れている」と言って開きません。"
-            echo "配る前に、Secrets へ APPLE_* を入れてください（人の作業）。"
+            echo "**署名しません。** 受け取った Mac は「壊れている」と言って開きません。"
+            echo "足りないもの:$missing"
+            echo "**一部だけ入れると、以前はここで落ちていました。** 揃うまでは署名せずに作ります。"
+            echo "配るときは Secrets へ入れてください（人の作業。ベースルール §14）。"
             echo "signed=false" >> "$GITHUB_OUTPUT"
           fi
 
+      # **揃っていないときは、APPLE_* を 1 つも渡さない。**
+      # tauri は `APPLE_CERTIFICATE` があるだけで署名へ進むので、
+      # 半端に渡すと「署名しない」と言いながら署名して落ちる。
       - name: 殻を建てる
         env:
-          APPLE_SIGNING_IDENTITY: ${{ secrets.APPLE_SIGNING_IDENTITY }}
-          APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
-          APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
-          APPLE_ID: ${{ secrets.APPLE_ID }}
-          APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
-          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          SIGNED: ${{ steps.signing.outputs.signed }}
+          APPLE_SIGNING_IDENTITY: ${{ steps.signing.outputs.signed == 'true' && secrets.APPLE_SIGNING_IDENTITY || '' }}
+          APPLE_CERTIFICATE: ${{ steps.signing.outputs.signed == 'true' && secrets.APPLE_CERTIFICATE || '' }}
+          APPLE_CERTIFICATE_PASSWORD: ${{ steps.signing.outputs.signed == 'true' && secrets.APPLE_CERTIFICATE_PASSWORD || '' }}
+          APPLE_ID: ${{ steps.signing.outputs.signed == 'true' && secrets.APPLE_ID || '' }}
+          APPLE_PASSWORD: ${{ steps.signing.outputs.signed == 'true' && secrets.APPLE_PASSWORD || '' }}
+          APPLE_TEAM_ID: ${{ steps.signing.outputs.signed == 'true' && secrets.APPLE_TEAM_ID || '' }}
         run: pnpm exec tauri build
 
       # **何ができたかを実物で言う。** 「建った」だけでは、配れるものが出たか分からない。
