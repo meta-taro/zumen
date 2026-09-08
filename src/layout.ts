@@ -157,6 +157,18 @@ export async function layout(text: string): Promise<Placed> {
   collect(laid, 0, 0, nodes, groupLabels, boxes, groups);
   const routes = collectRoutes(laid, groups, nodes);
 
+  /**
+   * **ELK がどこへ置いたか**を控える（Issue #8）。
+   *
+   * このあと箱は 2 回動く（人の `pins` と、重なりの解消）。
+   * **辺の通り道は ELK が組んだときの位置で計算されている**ので、
+   * 動いた箱に繋がる辺は、そのままだと**元の位置を指したまま宙で切れる。**
+   *
+   * 実際にそうなっていた。同梱の例で `db` を動かしてあり、
+   * **GUI を開いた人が最初に見る図で、箱に線が 1 本も繋がっていなかった。**
+   */
+  const laidAt = new Map(boxes.map((box) => [box.id, { x: box.x, y: box.y }]));
+
   // 人が置いた場所・付けた体裁へ戻す。ELK が何を決めたかに関わらず、人の値が勝つ。
   for (const box of boxes) {
     const pin = pins[box.id];
@@ -182,7 +194,16 @@ export async function layout(text: string): Promise<Placed> {
   // 枠は「この範囲が VPC」という意味なので、中身に合わせて動くほうが正しい。
   fitGroups(boxes, groups);
 
-  const edges = routeEdges(readEdges(diagram), boxes, pins, routes);
+  // **動いた箱に繋がる辺だけ引き直す。** 動いていない辺は 1 px も変えない
+  // （ELK の直交ルーティングは、そのままのほうが読める）。
+  const moved = new Set(
+    boxes.filter((box) => {
+      const was = laidAt.get(box.id);
+      return was !== undefined && (was.x !== box.x || was.y !== box.y);
+    }).map((box) => box.id),
+  );
+
+  const edges = routeEdges(readEdges(diagram), boxes, pins, routes, moved);
   return { boxes, groups, edges, collisions: locked, ...extent(boxes, groups) };
 }
 
@@ -401,6 +422,8 @@ function routeEdges(
   boxes: Box[],
   pins: Record<string, { waypoints?: { x: number; y: number }[] }>,
   routes: Map<string, { x: number; y: number }[]>,
+  /** **組んだあとに動いた箱**。ここに触れる辺は、ELK の経路を使わない（Issue #8）。 */
+  moved: Set<string>,
 ): PlacedEdge[] {
   const byId = new Map(boxes.map((box) => [box.id, box]));
   return edges.map((edge, index) => {
@@ -423,12 +446,17 @@ function routeEdges(
     }
 
     // ELK の経路を使う。**箱を避けて回り込む道が入っている。**
+    //
+    // **ただし、端点が動いていたら使わない**（Issue #8）。
+    // その経路は ELK が組んだときの位置で計算されたもので、
+    // 動いた先の箱には届かない。**届かない線を描くくらいなら、直線で結ぶ。**
     const route = routes.get(`e${index}`);
-    if (route !== undefined && route.length >= 2) {
+    const stale = moved.has(edge.from) || moved.has(edge.to);
+    if (!stale && route !== undefined && route.length >= 2) {
       return { ...edge, points: route, pinned: false };
     }
 
-    // 経路が返らなかったとき（人が置いた位置へ動かした場合など）は、直線で結ぶ。
+    // 直線で結ぶ。**両端は箱の縁で切る**ので、動かした先へ必ず届く。
     return { ...edge, points: [clip(from, center(to)), clip(to, center(from))], pinned: false };
   });
 }
