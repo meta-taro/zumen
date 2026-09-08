@@ -34,6 +34,7 @@ import { merge } from './merge.ts';
 import type { Conflict } from './merge.ts';
 import { toMermaid } from './mermaid.ts';
 import { render } from './render.ts';
+import { reviewOf } from './review.ts';
 import { APPEARANCE } from './tokens.ts';
 import type { Intent, Theme } from './tokens.ts';
 import { hasError, validate } from './validate.ts';
@@ -148,6 +149,23 @@ export interface Inspection {
    * ここへ返せば、**描いた AI が自分で短くできる。**
    */
   hiddenLabels: string[];
+  /**
+   * **人がこの図を見たか。**
+   *
+   * `pins` は「人が**直した**」記録で、これは「人が**見た**」記録（仕様 §3.5）。
+   * 両方が空なら、**誰もこの図を見ていない。**
+   *
+   * 自力率 100% には 2 通りある ──「AI が描いて人が直す必要が無かった」と
+   * 「**誰も見ていない**」。後者はこの製品の失敗そのもの（PRD §4）。
+   *
+   * **ここへ書く口は開けていない。** 開けた瞬間、AI が自分の絵を自分で承認できる。
+   * 人が GUI で印を付けるまで false のままにしておくこと。
+   */
+  reviewed: boolean;
+  /** 最後に人が見た時刻。**一度も見ていなければ null。** */
+  reviewedAt: string | null;
+  /** 見たあとに意味が変わったか。真なら「もう一度見てもらう」段。 */
+  reviewStale: boolean;
 }
 
 /**
@@ -175,6 +193,9 @@ export async function inspect(source: string): Promise<Inspection> {
       passLine: PASS_LINE,
       tooTangled: false,
       hiddenLabels: [],
+      reviewed: false,
+      reviewedAt: null,
+      reviewStale: false,
     };
   }
 
@@ -202,6 +223,10 @@ export async function inspect(source: string): Promise<Inspection> {
     passLine: PASS_LINE,
     tooTangled: placed.edges.length > 0 && crossed > placed.edges.length,
     hiddenLabels: placed.edges.filter((e) => e.label !== null && !shown.has(e.id)).map((e) => e.id),
+    ...(() => {
+      const seen = reviewOf(source);
+      return { reviewed: seen.reviewed, reviewedAt: seen.at, reviewStale: seen.stale };
+    })(),
   };
 }
 

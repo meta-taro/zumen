@@ -196,6 +196,23 @@
         ↷
       </button>
       <span class="gap"></span>
+      <!--
+        **人が「見た」と印を付ける。この口は画面にしか無い。**
+
+        MCP にも `src/tools.ts` にも開けていない。開けた瞬間、
+        AI が自分の絵を自分で承認できる（D18 で閉じたのと同じ穴）。
+        ここを押せるのは、**画面に図が出ている人だけ**。それが唯一の担保。
+      -->
+      <button
+        class="review"
+        class:done={session.review.reviewed}
+        onclick={() => session.markReviewed()}
+        disabled={session.placed === null || session.review.reviewed}
+        title={session.review.stale ? m.reviewAgain : m.reviewHint}
+      >
+        {session.review.reviewed ? m.reviewed : session.review.stale ? m.reviewStale : m.review}
+      </button>
+      <span class="gap"></span>
       <button onclick={open}>{m.open}</button>
       <button onclick={save} disabled={session.text === ''}>{m.save}</button>
       <button onclick={propose} disabled={session.text === ''}>{m.readProposal}</button>
@@ -351,6 +368,21 @@
   button:disabled {
     color: var(--text-tertiary);
     cursor: default;
+  }
+  /*
+    **見たかどうかは、この画面でいちばん見えるべき状態。**
+
+    誰も見ていない図が 100% と出るのが、この製品の失敗そのもの
+    （PRD §4 / ベースルール §29）。**押されていないことが目に入る**必要がある。
+  */
+  button.review {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  button.review.done,
+  button.review:disabled {
+    border-color: var(--border-strong);
+    color: var(--text-tertiary);
   }
   main {
     flex: 1;

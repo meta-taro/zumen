@@ -160,7 +160,9 @@ export function runMeasure(paths: string[], read = readFileSync): RunResult {
 
   const lines: string[] = [];
   let short = 0;
-  let untouched = 0;
+  let unseen = 0;
+  let stale = 0;
+  let approved = 0;
   for (const path of paths) {
     let text: string;
     try {
@@ -171,13 +173,21 @@ export function runMeasure(paths: string[], read = readFileSync): RunResult {
     const result = measure(text);
     lines.push(m.measured(path, percent(result.autonomy), percent(result.layoutAutonomy)));
     if (!result.pass) short += 1;
-    if (result.touched === 0) untouched += 1;
+    if (result.reviewStale) stale += 1;
+    else if (!result.reviewed) unseen += 1;
+    else if (result.touched === 0) approved += 1;
   }
 
   const line = percent(PASS_LINE);
   lines.push(short === 0 ? m.measurePassed(paths.length, line) : m.measureFailed(short, line));
-  // **手直しが 1 つも無い図の 100% は、成績ではない。**黙って出すと成績として読まれる。
-  if (untouched > 0) lines.push(m.measureUntouched(untouched));
+  // **誰も見ていない図があることを黙らない**（ベースルール §29）。
+  // AI は活動量なら無人で出せる。人が関与していないことは、言わないと気づかれない。
+  //
+  // **自力率 100% には 2 通りある。** 誰も見ていない 100% と、
+  // 人が見て直すところが無かった 100%。**分けて言う。**
+  if (unseen > 0) lines.push(m.measureUnseen(unseen));
+  if (stale > 0) lines.push(m.measureStale(stale));
+  if (approved > 0) lines.push(m.measureApproved(approved));
   return { code: 0, lines };
 }
 

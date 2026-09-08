@@ -8,6 +8,8 @@
  */
 import { diffLines, condense, hasChange } from '../../src/diff.ts';
 import type { DiffLine } from '../../src/diff.ts';
+import { reviewOf, setReviewed } from '../../src/review.ts';
+import type { Review } from '../../src/review.ts';
 import { getPins, parse, serialize, setPin } from '../../src/format.ts';
 import { layout } from '../../src/layout.ts';
 import type { Placed } from '../../src/layout.ts';
@@ -122,6 +124,27 @@ export class Session {
       return;
     }
     this.placed = await layout(this.text);
+  }
+
+  /** 人がこの図を見たか（仕様 §3.5）。 */
+  get review(): Review {
+    return this.text === '' ? { reviewed: false, at: null, stale: false } : reviewOf(this.text);
+  }
+
+  /**
+   * **人が「見た」と印を付けた。**
+   *
+   * **この口は画面にしか無い。** MCP にも `src/tools.ts` にも開けていない。
+   * 開けた瞬間、**AI が自分の絵を自分で承認できる**（D18 で閉じたのと同じ穴）。
+   *
+   * ここを押せるのは、**画面に図が出ている人だけ**。それが唯一の担保。
+   */
+  async markReviewed(): Promise<void> {
+    if (this.text === '' || this.broken) return;
+    this.#remember();
+    this.text = setReviewed(this.text);
+    this.dirty = true;
+    await this.refresh();
   }
 
   /**

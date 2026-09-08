@@ -50,6 +50,12 @@ const ja = {
    * （D9 の穴。2026-09-07 に塞いだ）。
    */
   app: {
+    /** 人が「見た」と印を付ける（仕様 §3.5）。**この口は画面にしかない。** */
+    review: '見た',
+    reviewed: '見ました',
+    reviewStale: 'もう一度見る',
+    reviewHint: 'この図を見たという印を付けます。人にしか押せません。',
+    reviewAgain: '見たあとに図の意味が変わりました。もう一度見てください。',
     open: '開く',
     save: '保存',
     readProposal: '提案を読む',
@@ -133,13 +139,22 @@ const ja = {
       `${path} — 自力率 ${autonomy} / 配置の自力率 ${layout}`,
     measurePassed: (count: number, line: string) => `${count} 件すべてが合格ライン ${line} に届いています。`,
     /**
-     * **1 枚目の 100% は成績ではない。**
+     * **誰も見ていない図があることを黙らない**（ベースルール §29）。
      *
-     * 手直しは `pins` にしか書かれないので、まだ誰も直していない図は必ず 100% になる。
-     * 数字だけ出すと「AI が上手い」と読まれる（Issue #3 の指摘）。
+     * AI は commit もテスト通過も無人で出せる。**人が見ていないことは、
+     * 言わない限り誰も気づかない。** 図は理解を共有するために描くので、
+     * 誰も見ていない図は、この製品が無くても得られる（PRD §4）。
+     *
+     * 手直しが 0 件の図は必ず自力率 100% になるので、
+     * **数字だけ出すと「AI が上手い」と読まれる**（Issue #3 の指摘）。
      */
-    measureUntouched: (count: number) =>
-      `うち ${count} 件は**まだ人の手直しがありません**（pins が空）。この 100% は、まだ何も測っていないという意味です。`,
+    measureUnseen: (count: number) =>
+      `うち ${count} 件は**まだ誰も見ていません**。この 100% は「AI が上手い」ではなく「まだ誰も確かめていない」という意味です（pnpm app で開いて「見た」を付けてください）。`,
+    measureStale: (count: number) =>
+      `うち ${count} 件は**人が見たあとに図の意味が変わりました**。もう一度見てください。`,
+    /** **これが本物の 100%。**「人が見て、直すところが無かった」。 */
+    measureApproved: (count: number) =>
+      `うち ${count} 件は**人が見て、直すところがありませんでした**。この 100% は本物です。`,
     measureFailed: (count: number, line: string) =>
       `${count} 件が合格ライン ${line} に届いていません。**人が図形を並べ直している可能性があります。**`,
     wrote: (path: string) => `${path} へ書き出しました。`,
@@ -307,6 +322,11 @@ const en: Catalog = {
     atLine: (line: number, reason: string) => `line ${line}: ${reason}`,
   },
   app: {
+    review: 'Reviewed?',
+    reviewed: 'Reviewed',
+    reviewStale: 'Review again',
+    reviewHint: 'Mark that you have looked at this diagram. Only a person can press this.',
+    reviewAgain: 'The diagram changed meaning after it was reviewed. Please look again.',
     open: 'Open',
     save: 'Save',
     readProposal: 'Load proposal',
@@ -378,8 +398,12 @@ const en: Catalog = {
     measured: (path: string, autonomy: string, layout: string) =>
       `${path} — autonomy ${autonomy} / layout autonomy ${layout}`,
     measurePassed: (count: number, line: string) => `All ${count} diagram(s) meet the ${line} line.`,
-    measureUntouched: (count: number) =>
-      `${count} of them have no hand edits yet (pins is empty). That 100% means nothing has been measured yet.`,
+    measureUnseen: (count: number) =>
+      `${count} of them have not been looked at yet. That 100% does not mean the AI did well; it means nobody has checked (open it with pnpm app and mark it reviewed).`,
+    measureStale: (count: number) =>
+      `${count} of them changed meaning after a person reviewed them. Please look again.`,
+    measureApproved: (count: number) =>
+      `${count} of them were reviewed by a person with nothing to change. That 100% is real.`,
     measureFailed: (count: number, line: string) =>
       `${count} diagram(s) fall short of the ${line} line. A human may be re-arranging shapes by hand.`,
     wrote: (path: string) => `Wrote ${path}.`,

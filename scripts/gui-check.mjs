@@ -279,6 +279,34 @@ async function walk() {
     (await evaluate(`document.querySelector('.state')?.textContent.trim() !== ''`)) === true,
   );
 
+  // --- 「見た」の印（仕様 §3.5） ---
+  //
+  // **この口は画面にしか無い。** MCP に開けると AI が自分の絵を自分で承認できる。
+  // ここが押されないまま自力率 100% が出るのが、この製品の失敗そのもの
+  // （PRD §4 / ベースルール §29）。**押せること**と**意味が変われば外れること**を見る。
+  check('見た — 最初は誰も見ていない', (await evaluate('window.zumen.review.reviewed')) === false);
+
+  const reviewButton = `[...document.querySelectorAll('button')].find((b) => b.className.includes('review'))`;
+  check('見た — 画面にボタンがある', (await evaluate(`${reviewButton} !== undefined`)) === true);
+  check('見た — 最初は押せる', (await evaluate(`${reviewButton}?.disabled`)) === false);
+
+  await evaluate(`${reviewButton}.click()`);
+  await until('window.zumen.review.reviewed === true');
+  check('見た — **押すと正本へ書かれる**', (await evaluate(`window.zumen.text.includes('review:')`)) === true);
+  check('見た — 二度押しできない', (await evaluate(`${reviewButton}?.disabled`)) === true);
+
+  // 意味を変える（ノードを 1 つ足す）。**印は外れなければならない。**
+  await evaluate(`
+    window.zumen.propose(window.zumen.text.replace('nodes:', 'nodes:\\n  - id: zzz\\n    label: 追加'))
+  `);
+  await evaluate('window.zumen.applyPending()');
+  await until('window.zumen.review.reviewed === false');
+  check('見た — **意味が変われば外れる**', (await evaluate('window.zumen.review.reviewed')) === false);
+  check(
+    '見た — 「一度も見ていない」と区別が付く（いつ見たかは残る）',
+    (await evaluate('window.zumen.review.stale')) === true,
+  );
+
   check('例外が出ていない', errors.length === 0, errors.join(' | '));
   close();
 }

@@ -24,6 +24,7 @@
  * **人の作業時間を数えない。** 測っているのは製品であって人ではない（Issue 003 の注意）。
  */
 import { getPins, parse } from './format.ts';
+import { reviewOf } from './review.ts';
 import type { Pin } from './format.ts';
 
 /** 人が幾何を決めた印。ここが増えると「人が並べ直している」。 */
@@ -35,6 +36,15 @@ const CONTENT_KEYS = ['label', 'appearance'] as const;
 export const PASS_LINE = 0.9;
 
 export interface Measurement {
+  /**
+   * **人がこの図を見たか**（仕様 §3.5）。
+   *
+   * 自力率 100% には 2 通りある ──「AI が描いて人が直す必要が無かった」と
+   * 「**誰も見ていない**」。手直しの量だけでは区別が付かない。
+   */
+  reviewed: boolean;
+  /** 見たあとに意味が変わったか。 */
+  reviewStale: boolean;
   /** 要素の総数（ノード + エッジ）。 */
   elements: number;
   /** 人が何かしら手を入れた要素の数。 */
@@ -65,9 +75,12 @@ export function measure(text: string): Measurement {
   const touched = entries.filter(([, pin]) => hasAny(pin, [...GEOMETRY_KEYS, ...CONTENT_KEYS])).length;
   const placed = entries.filter(([, pin]) => hasAny(pin, GEOMETRY_KEYS)).length;
 
+  const seen = reviewOf(text);
   const autonomy = ratio(elements, touched);
   const layoutAutonomy = ratio(elements, placed);
   return {
+    reviewed: seen.reviewed,
+    reviewStale: seen.stale,
     elements,
     touched,
     placed,
