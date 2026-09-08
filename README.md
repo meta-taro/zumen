@@ -54,6 +54,8 @@ pnpm install
 pnpm app         # デスクトップアプリとして立てる（Tauri。Rust が要る）
 pnpm dev         # 画面だけをブラウザで立てる（http://localhost:5173）
 pnpm test        # 走るテスト
+pnpm build       # 取り込む側へ配る形に組み立てる（dist/）
+pnpm consume:check  # **別のところから import して呼べるか**を実際に確かめる
 pnpm gui:check   # 画面の 8 操作を実際に動かして確かめる（Chrome が要る）
 pnpm validate <図のファイル> ...   # 形式に適合しているかを見る
 pnpm measure  <図のファイル> ...   # 「AI が 9 割描けたか」を測る
@@ -81,6 +83,26 @@ pnpm merge    <正本> <提案>        # AI の提案を正本へ入れる（競
 別の機械で使う手順は [`docs/install.md`](docs/install.md)。
 
 **単体で完結します。**姉妹プロジェクト（md-business）への依存はありません。
+
+### 取り込んで使う（library）
+
+```bash
+pnpm add github:meta-taro/zumen
+```
+
+```ts
+import { toSvg } from 'zumen';
+
+const svg = await toSvg(source);                        // 図 1 枚を SVG に
+const dark = await toSvg(source, { theme: 'dark' });    // 暗い地へ貼るとき
+const vivid = await toSvg(source, { intent: 'vivid' }); // 遠くから見せるとき
+```
+
+検査は `zumen/tools` の `inspect`（交差・重なり・置けずに消えたラベル・「9 割」）。
+
+**`dist` を配ります。** Node は `node_modules` の中の TypeScript を受け付けないため
+（`ERR_UNSUPPORTED_NODE_MODULES_TYPE_STRIPPING`）、`pnpm build` で組み立てたものを指しています。
+**実際に取り込んで呼べるかは CI で毎回確かめています**（`pnpm consume:check`）。
 口の一覧と、MCP でどこまで開けるかは
 [`docs/specs/008-CLIとMCPの口.md`](docs/specs/008-CLIとMCPの口.md)。
 

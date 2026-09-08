@@ -198,7 +198,17 @@
   `DESIGN.md` §3 は「ダークは書き出さない」だったが、その理由
   （**貼り先の地の色が分からない**）は**貼り先が名乗るなら当たらない**ので §3.1 で改めた。
   ダークの値も姉妹の `tokens.css` から取る（zumen が独自に決めた色は無い）
-- **zumen の公開が md-business の実装をブロックしている**（人の操作。D17 で内容の判断は済み）
+- ~~zumen の公開~~ → **公開されました**（人が実施。2026-09-08）。
+  `https://github.com/meta-taro/zumen` は PUBLIC
+- **外から取り込める形にした**（2026-09-08）。**手元で動くことと、取り込んで動くことは別だった。**
+  Node は `node_modules` の中の TypeScript を意図的に受け付けない
+  （`ERR_UNSUPPORTED_NODE_MODULES_TYPE_STRIPPING`。実際に別パッケージを作って踏んだ）。
+  `pnpm build`（`tsconfig.build.json`）で `dist` を作り、`exports` はそこを指す。
+  **`pnpm consume:check` が pack → 別ディレクトリへ install → import して呼ぶまでを毎回やる**
+  （CI の `consume` job）。宣言の一致だけを見るテストでは、この壊れ方は捕まらない
+- **npm への publish はまだ**。`private: true` を外していない。
+  **git 依存（`pnpm add github:meta-taro/zumen`）なら publish なしで繋がる**ので、
+  どちらにするかは md-business#240 で聞いている
 
 - **映えと安全は「どちらも勝たせない」**（人の判断。2026-09-08。Issue #6）。
   呼ぶ側が個々に選ぶ（`intent: 'safe' | 'vivid'`。人の操作からもエージェントからも届く）。

@@ -44,6 +44,31 @@ jobs:
       - name: テスト
         run: pnpm test
 
+  # **外から取り込んで動くか**（md-business#240）。
+  #
+  # 手元では `node src/cli.ts` がそのまま動く。**取り込む側で初めて壊れる。**
+  # Node は `node_modules` の中の TypeScript を意図的に受け付けない
+  # （`ERR_UNSUPPORTED_NODE_MODULES_TYPE_STRIPPING`）。
+  #
+  # `pnpm test` も `pnpm dev` も通ったままなので、**気づくのは配った後**になる。
+  # 姉妹アプリの囲みの経路は、ここが通らないと丸ごと動かない。
+  consume:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+
+      - run: corepack enable
+
+      - name: 依存を入れる
+        run: pnpm install --frozen-lockfile
+
+      - name: 組み立てて、別のところから import して呼ぶ
+        run: pnpm consume:check
+
   # 画面。**「ビルドが通る」と「動く」は別**なので、実際に動かす。
   #
   # 実際、`process is not defined` で画面が丸ごと動かないまま

@@ -9,9 +9,25 @@
     "node": ">=22.18"
   },
   "packageManager": "pnpm@11.1.1",
+  "//exports": "外から呼ぶ口。姉妹プロジェクト（md-business）が囲みを図にするために import する（#240）。指すのは dist で、src ではない。Node は node_modules の中の TypeScript を受け付けないため（実測）。開けるのは書き出しと検査までで、正本への書き込みは CLI / MCP を通す。",
+  "exports": {
+    ".": { "types": "./dist/embed.d.ts", "default": "./dist/embed.js" },
+    "./tools": { "types": "./dist/tools.d.ts", "default": "./dist/tools.js" },
+    "./format": { "types": "./dist/format.d.ts", "default": "./dist/format.js" }
+  },
+  "//files": "取り込む側へ配るもの。実験・テスト・殻は入れない。仕様（spec）は入れる。",
+  "files": [
+    "dist",
+    "spec",
+    "LICENSE",
+    "LICENSES.md",
+    "README.md"
+  ],
   "scripts": {
     "app": "tauri dev",
     "app:build": "tauri build",
+    "build": "tsc -p tsconfig.build.json",
+    "consume:check": "node scripts/consume-check.mjs",
     "build:app": "vite build",
     "d2:conflict": "node experiments/d2/git-conflict.ts",
     "dev": "vite",
