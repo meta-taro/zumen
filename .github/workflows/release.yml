@@ -109,18 +109,34 @@ jobs:
             echo "signed=false" >> "$GITHUB_OUTPUT"
           fi
 
-      # **揃っていないときは、APPLE_* を 1 つも渡さない。**
-      # tauri は `APPLE_CERTIFICATE` があるだけで署名へ進むので、
-      # 半端に渡すと「署名しない」と言いながら署名して落ちる。
-      - name: 殻を建てる
+      # **段を 2 つに分ける。**「空を渡す」では駄目だった（2026-09-08。実測 2 回）。
+      #
+      # tauri は `APPLE_CERTIFICATE` が**存在するか**だけを見て署名へ進む。
+      # GitHub Actions の `env:` は**空文字でも変数を定義する**ので、
+      #
+      #     APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}   # secret が無ければ ''
+      #     APPLE_CERTIFICATE: ${{ … && secrets.… || '' }}        # これも ''
+      #
+      # どちらも「空だが存在する」になり、**署名が始まって鍵の取り込みで落ちる。**
+      #
+      #     failed codesign application: failed to import keychain certificate
+      #
+      # secret が 1 つも入っていない状態でも同じように落ちていた。
+      # **変数を定義しないためには、その `env:` を持つ段ごと動かさないしかない。**
+      - name: 殻を建てる（署名する）
+        if: steps.signing.outputs.signed == 'true'
         env:
-          SIGNED: ${{ steps.signing.outputs.signed }}
-          APPLE_SIGNING_IDENTITY: ${{ steps.signing.outputs.signed == 'true' && secrets.APPLE_SIGNING_IDENTITY || '' }}
-          APPLE_CERTIFICATE: ${{ steps.signing.outputs.signed == 'true' && secrets.APPLE_CERTIFICATE || '' }}
-          APPLE_CERTIFICATE_PASSWORD: ${{ steps.signing.outputs.signed == 'true' && secrets.APPLE_CERTIFICATE_PASSWORD || '' }}
-          APPLE_ID: ${{ steps.signing.outputs.signed == 'true' && secrets.APPLE_ID || '' }}
-          APPLE_PASSWORD: ${{ steps.signing.outputs.signed == 'true' && secrets.APPLE_PASSWORD || '' }}
-          APPLE_TEAM_ID: ${{ steps.signing.outputs.signed == 'true' && secrets.APPLE_TEAM_ID || '' }}
+          APPLE_SIGNING_IDENTITY: ${{ secrets.APPLE_SIGNING_IDENTITY }}
+          APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
+          APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+        run: pnpm exec tauri build
+
+      # **APPLE_* を 1 つも定義しない段。** ここが「署名しない」の実体。
+      - name: 殻を建てる（署名しない）
+        if: steps.signing.outputs.signed != 'true'
         run: pnpm exec tauri build
 
       # **何ができたかを実物で言う。** 「建った」だけでは、配れるものが出たか分からない。
