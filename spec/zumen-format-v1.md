@@ -86,7 +86,7 @@ nodes:
 | `group` | | 属する `groups` の `id` |
 | その他 | | 自由。読み手は知らないキーを**捨てずに保つ** |
 
-`type` に書ける語は次の 11 個。
+`type` に書ける語は次の 11 個。**うち 6 個は形が変わる**（§3.1.1）。
 
 ```
 server / database / storage / cache / queue / internet
@@ -94,6 +94,29 @@ load-balancer / container / cluster / network / generic
 ```
 
 **知らない語を書いてもよい**（`generic` として描かれ、値は捨てずに保たれる）。
+
+#### 3.1.1 形
+
+**`type` は形になる**（Issue #9）。色ではなく形で意味を持たせるのは、
+**白黒でも色覚特性でも縮小でも失われない**ため（`DESIGN.md` §7）。
+
+| `type` | 形 | draw.io |
+|---|---|---|
+| `database` | 円柱 | `shape=cylinder` |
+| `storage` | 積み重ね | **四角へ落ちる** |
+| `internet` | 雲 | `shape=cloud` |
+| `cache` | 六角形 | `shape=hexagon` |
+| `queue` | 仕切りのある矩形 | `shape=process` |
+| `container` | 二重の枠 | **四角へ落ちる** |
+| 上記以外 | 矩形 | 矩形 |
+
+**全部に別の形を与えない。** 見分けが付くことが目的で、形を増やすのが目的ではない。
+
+**ベンダーのロゴは持ち込まない**（D7）。AWS のアイコンを使うと
+「AWS 上にある」と読まれ、自前サーバの図に使えない。
+
+**形によって箱の寸法が変わる**（円柱は上下、六角形は左右に余分が要る）。
+`src/shapes.ts` の `growFor()` が返す分を配置が足す。
 MCP では `zumen_spec` が同じ一覧を返す。
 
 **`nodes` の並び順には意味がある。** 人が読む順序であり、書き手は理由なく並べ替えない。
@@ -297,7 +320,7 @@ AI の出力 = 提案（semantics だけ）
 |---|---|---|---|
 | Mermaid | 翌日**読める** | 実装済み（`src/mermaid.ts`） | `position` / `size` / `waypoints` |
 | SVG | 図として残る | 実装済み（`src/render.ts`） | 図としてのみ。再編集はできない |
-| draw.io XML | 翌日**編集できる** | 実装済み（`src/drawio.ts`） | **人の指定と自動配置の区別** / `appearance` の語 / コメントと並び順 / `locked` |
+| draw.io XML | 翌日**編集できる** | 実装済み（`src/drawio.ts`） | **人の指定と自動配置の区別** / `appearance` の語 / コメントと並び順 / `locked` / **`storage` と `container` の形**（四角へ落ちる） |
 
 **失われるものを黙って落としてはならない。**
 Mermaid も draw.io も、落ちたものを先頭のコメントに列挙する。

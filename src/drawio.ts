@@ -27,6 +27,7 @@
  */
 import type { Box, Placed, PlacedEdge } from './layout.ts';
 import { messages } from './messages.ts';
+import { drawioStyleOf, shapeOf } from './shapes.ts';
 import { GROUP, lookOf } from './tokens.ts';
 
 /** 囲みは中身より薄く。塗らないと、中の要素が読めなくなる。 */
@@ -77,7 +78,9 @@ function nodeStyle(box: Box): string {
   // **破線は色を捨てても残る 2 本目の道**（`DESIGN.md` §7）。
   // draw.io へ持ち出しても、白黒で `muted` と `primary` が見分けられるようにする。
   const dashed = look.dash === null ? '' : 'dashed=1;';
-  return `rounded=1;whiteSpace=wrap;html=1;fillColor=${look.fill};strokeColor=${look.stroke};${dashed}`;
+  // **`type` の形も持ち出す**（Issue #9）。持ち出せない形は四角へ落ちる（仕様 §7）。
+  const shape = drawioStyleOf(shapeOf(box.type));
+  return `${shape}whiteSpace=wrap;html=1;fillColor=${look.fill};strokeColor=${look.stroke};${dashed}`;
 }
 
 /**

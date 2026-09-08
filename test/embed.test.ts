@@ -148,6 +148,10 @@ describe('examples/ の文書', () => {
     const block = collectZumenBlocks(source)[0]!;
     const svg = await toSvg(block.body);
     assert.match(svg, /data-node="db"[^>]*data-pinned="true"/);
-    assert.match(svg, /<rect x="620" y="410"/);
+    // **形は `type` で変わる**（Issue #9）ので `<rect>` を直に見ない。
+    // 人が置いた座標が、その要素の絵の中に出ていることを見る。
+    const group = /<g data-node="db"[\s\S]*?<\/g>/.exec(svg)?.[0] ?? '';
+    assert.match(group, /620/, group);
+    assert.match(group, /41\d/, group);
   });
 });

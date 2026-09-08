@@ -24,6 +24,7 @@
  *
  * 詳細と、回避できないものは `docs/specs/007-貼り先で崩れないか.md`。
  */
+import { drawShape, shapeOf, textShift } from './shapes.ts';
 import { placeEdgeLabels } from './edge-labels.ts';
 import type { EdgeLabel } from './edge-labels.ts';
 import type { Box, Placed, PlacedEdge } from './layout.ts';
@@ -104,10 +105,20 @@ function renderNode(box: Box, palette: Palette): string {
     .filter((part) => part !== '')
     .join(' ');
 
+  // **`type` を形にする**（Issue #9）。以前はここが `<rect>` 固定で、
+  // Mermaid だけが形を出していた（同じ正本から違う絵が出ていた）。
+  const kind = shapeOf(box.type);
+  const shape = drawShape(kind, box, {
+    fill: style.fill,
+    stroke: style.stroke,
+    strokeWidth: box.pinned ? STROKE_WIDTH.pinned : STROKE_WIDTH.auto,
+    dash: style.dash,
+  });
+
   return [
-    `<g ${attributes}>`,
-    `<rect x="${n(box.x)}" y="${n(box.y)}" width="${n(box.w)}" height="${n(box.h)}" rx="6" fill="${style.fill}" stroke="${style.stroke}" stroke-width="${box.pinned ? STROKE_WIDTH.pinned : STROKE_WIDTH.auto}"${style.dash === null ? '' : ` stroke-dasharray="${style.dash}"`}/>`,
-    ...nodeText(box, palette, style),
+    `<g ${attributes} data-shape="${kind}">`,
+    shape,
+    ...nodeText(box, palette, style, textShift(kind)),
     '</g>',
   ].join('');
 }
@@ -129,15 +140,15 @@ function subtitleOn(style: Look, palette: Palette): string {
  * 副題（`technology`）があれば 2 行にする。無ければ 1 行のまま中央へ。
  * **所属や版を書ける唯一の場所**なので、描かないとラベルへ畳むしかなくなる（Issue #3 の 4）。
  */
-function nodeText(box: Box, palette: Palette, style: Look): string[] {
+function nodeText(box: Box, palette: Palette, style: Look, shift = 0): string[] {
   const cx = n(box.x + box.w / 2);
   const main = (dy: number): string =>
-    `<text x="${cx}" y="${n(box.y + box.h / 2 + dy)}" text-anchor="middle" font-family="${FONT}" font-size="14" fill="${style.text}">${escapeText(box.label)}</text>`;
+    `<text x="${cx}" y="${n(box.y + box.h / 2 + dy + shift)}" text-anchor="middle" font-family="${FONT}" font-size="14" fill="${style.text}">${escapeText(box.label)}</text>`;
 
   if (box.technology === null) return [main(5)];
   return [
     main(-2),
-    `<text x="${cx}" y="${n(box.y + box.h / 2 + 16)}" text-anchor="middle" font-family="${FONT}" font-size="11" fill="${subtitleOn(style, palette)}">${escapeText(box.technology)}</text>`,
+    `<text x="${cx}" y="${n(box.y + box.h / 2 + 16 + shift)}" text-anchor="middle" font-family="${FONT}" font-size="11" fill="${subtitleOn(style, palette)}">${escapeText(box.technology)}</text>`,
   ];
 }
 

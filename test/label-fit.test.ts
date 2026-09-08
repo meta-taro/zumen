@@ -132,9 +132,11 @@ describe('technology を描く（Issue #3 の 4）', () => {
   });
 
   it('副題があるぶん、箱を高くする（文字が重ならない）', async () => {
-    const placed = await layout(WITH_TECH);
-    const withTech = placed.boxes.find((b) => b.id === 'web')!;
-    const without = placed.boxes.find((b) => b.id === 'db')!;
+    // **同じ `type` どうしで比べる。** 形によって高さが変わるようになったので
+    // （Issue #9。円柱は上下に余分が要る）、違う型と比べると意味が無い。
+    const withTech = (await layout(WITH_TECH)).boxes.find((b) => b.id === 'web')!;
+    const stripped = WITH_TECH.replace(/^\s*technology:.*$/gm, '');
+    const without = (await layout(stripped)).boxes.find((b) => b.id === 'web')!;
     assert.ok(withTech.h > without.h, `${withTech.h} <= ${without.h}`);
   });
 

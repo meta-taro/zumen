@@ -27,8 +27,19 @@ async function svgOf(text: string): Promise<string> {
 
 describe('Tier B — 位置以外の手直しが描画まで届くか', () => {
   it('人が変えた大きさが、そのまま描かれる', async () => {
-    const svg = await svgOf(pinned('db', { size: { w: 240, h: 96 } }));
-    assert.match(svg, /width="240" height="96"/);
+    // **形は `type` で変わる**（Issue #9。`db` は円柱）ので、`<rect>` を直に見ない。
+    // 見るのは「人の値が配置まで届いたか」と「その大きさで描かれたか」の 2 つ。
+    const source = pinned('db', { size: { w: 240, h: 96 } });
+    const placed = await layout(source);
+    const db = placed.boxes.find((box) => box.id === 'db')!;
+    assert.equal(db.w, 240);
+    assert.equal(db.h, 96);
+
+    const svg = await svgOf(source);
+    const group = /<g data-node="db"[\s\S]*?<\/g>/.exec(svg)?.[0] ?? '';
+    assert.notEqual(group, '', 'db が描かれていない');
+    // 円柱は幅の半分を横半径に使う。**人の値から出た数字が絵に入っていること。**
+    assert.match(group, /120/, group);
   });
 
   it('人が変えたラベルが、そのまま描かれる', async () => {

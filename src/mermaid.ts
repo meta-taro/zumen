@@ -113,7 +113,15 @@ function hasLayout(pin: Pin): boolean {
   return LAYOUT_FIELDS.some((field) => pin[field] !== undefined);
 }
 
-/** 型ごとの形。語彙は多くない（PRD §4 — 図形の網羅を追わない）。 */
+/**
+ * 型ごとの形。語彙は多くない（PRD §4 — 図形の網羅を追わない）。
+ *
+ * **`src/shapes.ts` と同じ 6 種に形を付ける**（Issue #9）。
+ * 以前はこちらだけが形を出していて、**同じ正本から書き出し先ごとに違う絵**が出ていた。
+ * ここを増やすときは、あちらも一緒に増やすこと（`test/shapes.test.ts` が見張る）。
+ *
+ * `cloud` の分岐があったが、**`type` の一覧に無い語**だった。取り残しなので消した。
+ */
 function shape(node: NodeInfo): string {
   const label = quote(node.label);
   switch (node.type) {
@@ -122,10 +130,15 @@ function shape(node: NodeInfo): string {
     case 'storage':
       return `${node.id}[[${label}]]`;
     case 'internet':
-    case 'cloud':
       return `${node.id}((${label}))`;
     case 'cache':
       return `${node.id}{{${label}}}`;
+    case 'queue':
+      // 平行四辺形。**流れていくもの**を表す（Mermaid の既定の語彙）。
+      return `${node.id}[/${label}/]`;
+    case 'container':
+      // 角丸。**中に何かを入れる器**。二重枠（SVG 側）に近い含みを持たせる。
+      return `${node.id}(${label})`;
     default:
       return `${node.id}[${label}]`;
   }

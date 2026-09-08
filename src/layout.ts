@@ -18,6 +18,7 @@ import type { ElkExtendedEdge, ElkNode } from 'elkjs/lib/elk-api.js';
 
 import { asText, getPins, parse } from './format.ts';
 import { separate } from './separate.ts';
+import { growFor, shapeOf } from './shapes.ts';
 
 export interface Box {
   id: string;
@@ -503,8 +504,12 @@ function buildGraph(
     // 人が変えた大きさは、組み立ての入力の段階で効かせる。
     // 後から広げると、周りが元の大きさのまま詰められていて重なる。
     // **ラベルの幅も同じ段階で効かせる**（後から広げると同じことが起きる）。
-    width: pins[node.id]?.size?.w ?? widthFor(labelOf(node, pins), node.technology),
-    height: pins[node.id]?.size?.h ?? (node.technology === null ? NODE_HEIGHT : NODE_HEIGHT + 16),
+    // **形の分だけ広げる**（Issue #9）。円柱は上下に、六角形は左右に余分が要る。
+    // ここで足さないと、形を付けたときにラベルがはみ出す。
+    width: pins[node.id]?.size?.w ?? widthFor(labelOf(node, pins), node.technology) + growFor(shapeOf(node.type)).w,
+    height:
+      pins[node.id]?.size?.h ??
+      (node.technology === null ? NODE_HEIGHT : NODE_HEIGHT + 16) + growFor(shapeOf(node.type)).h,
   });
 
   const children: ElkNode[] = groupIds.map((groupId) => ({
