@@ -74,7 +74,10 @@ function losses(hasPinned: boolean): string {
 
 function nodeStyle(box: Box): string {
   const look = lookOf(box.appearance);
-  return `rounded=1;whiteSpace=wrap;html=1;fillColor=${look.fill};strokeColor=${look.stroke};`;
+  // **破線は色を捨てても残る 2 本目の道**（`DESIGN.md` §7）。
+  // draw.io へ持ち出しても、白黒で `muted` と `primary` が見分けられるようにする。
+  const dashed = look.dash === null ? '' : 'dashed=1;';
+  return `rounded=1;whiteSpace=wrap;html=1;fillColor=${look.fill};strokeColor=${look.stroke};${dashed}`;
 }
 
 /**

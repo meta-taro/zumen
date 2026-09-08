@@ -213,12 +213,13 @@ async function convert(
  */
 export async function runSvg(paths: string[], read = readFileSync, write = writeFileSync): Promise<RunResult> {
   const theme = paths.includes('--dark') ? 'dark' : 'light';
-  const files = paths.filter((part) => part !== '--dark');
+  const intent = paths.includes('--vivid') ? 'vivid' : 'safe';
+  const files = paths.filter((part) => !part.startsWith('--'));
   return convert(
     files,
     messages().cli.usageSvg,
     '.svg',
-    async (text) => render(await layout(text), theme),
+    async (text) => render(await layout(text), theme, intent),
     read,
     write,
   );

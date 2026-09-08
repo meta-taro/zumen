@@ -15,7 +15,7 @@
 import { layout } from './layout.ts';
 import { parse } from './format.ts';
 import { render } from './render.ts';
-import type { Theme } from './tokens.ts';
+import type { Intent, Theme } from './tokens.ts';
 import { messages } from './messages.ts';
 
 export interface ZumenBlock {
@@ -93,11 +93,18 @@ export interface ToSvgOptions {
    * 図の背景を敷くだけでは、**線と枠がライトの値のまま残って浮く。**
    */
   theme?: Theme;
+  /**
+   * 主役をどれくらい強く出すか。**渡さなければ `safe`。**
+   *
+   * オーナーの判断（2026-09-08）で、**映えと安全のどちらかを常に勝たせない。**
+   * 呼ぶ側が個々に選ぶ。**ただし「読めなくてよい」は選べない**（`DESIGN.md` §7）。
+   */
+  intent?: Intent;
 }
 
 /** 図 1 枚を SVG にする。md-business 側から呼ぶのはここ 1 つで足りる。 */
 export async function toSvg(zumenSource: string, options: ToSvgOptions = {}): Promise<string> {
-  return render(await layout(zumenSource), options.theme);
+  return render(await layout(zumenSource), options.theme, options.intent);
 }
 
 export interface RenderBlocksOptions {

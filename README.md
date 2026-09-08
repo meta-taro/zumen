@@ -57,7 +57,7 @@ pnpm test        # 走るテスト
 pnpm gui:check   # 画面の 8 操作を実際に動かして確かめる（Chrome が要る）
 pnpm validate <図のファイル> ...   # 形式に適合しているかを見る
 pnpm measure  <図のファイル> ...   # 「AI が 9 割描けたか」を測る
-pnpm svg      <図のファイル>       # SVG を書き出す（--dark で暗い地へ貼る用）
+pnpm svg      <図のファイル>       # SVG を書き出す（--dark 暗い地へ / --vivid 主役を強く）
 pnpm mermaid  <図のファイル>       # Mermaid を書き出す（翌日 読める）
 pnpm drawio   <図のファイル>       # draw.io の XML へ書き出す（翌日 編集できる）
 pnpm embed    <Markdown>          # 囲みを図へ差し替える

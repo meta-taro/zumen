@@ -35,7 +35,7 @@ import type { Conflict } from './merge.ts';
 import { toMermaid } from './mermaid.ts';
 import { render } from './render.ts';
 import { APPEARANCE } from './tokens.ts';
-import type { Theme } from './tokens.ts';
+import type { Intent, Theme } from './tokens.ts';
 import { hasError, validate } from './validate.ts';
 import type { Finding } from './validate.ts';
 
@@ -268,6 +268,8 @@ export interface ExportOptions {
    * ここで色を決めない（決めると、あちらの設定と二重になる）。
    */
   theme?: Theme;
+  /** 主役の強さ（svg にだけ効く）。**渡さなければ `safe`。** */
+  intent?: Intent;
 }
 
 /**
@@ -281,7 +283,7 @@ export async function exportAs(
   if (kind === 'mermaid') return toMermaid(source);
   const placed = await layout(source);
   if (kind === 'drawio') return toDrawio(placed, titleOf(source));
-  return render(placed, options.theme);
+  return render(placed, options.theme, options.intent);
 }
 
 function titleOf(source: string): string {

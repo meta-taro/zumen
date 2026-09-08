@@ -27,8 +27,9 @@
 import { placeEdgeLabels } from './edge-labels.ts';
 import type { EdgeLabel } from './edge-labels.ts';
 import type { Box, Placed, PlacedEdge } from './layout.ts';
+import type { Look } from './tokens.ts';
 import { STROKE_WIDTH, lookOf, paletteOf } from './tokens.ts';
-import type { Palette, Theme } from './tokens.ts';
+import type { Intent, Palette, Theme } from './tokens.ts';
 
 /**
  * 文字の書体。**総称ファミリだけを書く。**
@@ -67,8 +68,8 @@ function size(value: number): number {
  * **テーマを渡さなければライト**（`DESIGN.md` §3）。
  * 貼り先が自分の地の色を知っているときだけ `dark` を渡す（md-business#240）。
  */
-export function render(placed: Placed, theme: Theme = 'light'): string {
-  const palette = paletteOf(theme);
+export function render(placed: Placed, theme: Theme = 'light', intent: Intent = 'safe'): string {
+  const palette = paletteOf(theme, intent);
   // **置けなかったラベルは、ここに入ってこない**（重ねて出さない。Issue #3 の 3）。
   const labels = new Map(
     placeEdgeLabels(placed.edges, placed.boxes, placed.groups).map((label) => [label.id, label]),
@@ -87,8 +88,8 @@ export function render(placed: Placed, theme: Theme = 'light'): string {
 function renderGroup(group: Box, palette: Palette): string {
   return [
     `<g data-group="${escapeAttr(group.id)}">`,
-    `<rect x="${n(group.x)}" y="${n(group.y)}" width="${n(group.w)}" height="${n(group.h)}" rx="8" fill="${palette.group.fill}" stroke="${palette.group.stroke}" stroke-dasharray="6 4"/>`,
-    `<text x="${n(group.x + 12)}" y="${n(group.y + 22)}" font-family="${FONT}" font-size="13" fill="${palette.text.group}">${escapeText(group.label)}</text>`,
+    `<rect x="${n(group.x)}" y="${n(group.y)}" width="${n(group.w)}" height="${n(group.h)}" rx="8" fill="${palette.group.fill}" stroke="${palette.group.stroke}" stroke-dasharray="${palette.group.dash}"/>`,
+    `<text x="${n(group.x + 12)}" y="${n(group.y + 22)}" font-family="${FONT}" font-size="13" fill="${palette.group.text}">${escapeText(group.label)}</text>`,
     '</g>',
   ].join('');
 }
@@ -105,10 +106,21 @@ function renderNode(box: Box, palette: Palette): string {
 
   return [
     `<g ${attributes}>`,
-    `<rect x="${n(box.x)}" y="${n(box.y)}" width="${n(box.w)}" height="${n(box.h)}" rx="6" fill="${style.fill}" stroke="${style.stroke}" stroke-width="${box.pinned ? STROKE_WIDTH.pinned : STROKE_WIDTH.auto}"/>`,
-    ...nodeText(box, palette),
+    `<rect x="${n(box.x)}" y="${n(box.y)}" width="${n(box.w)}" height="${n(box.h)}" rx="6" fill="${style.fill}" stroke="${style.stroke}" stroke-width="${box.pinned ? STROKE_WIDTH.pinned : STROKE_WIDTH.auto}"${style.dash === null ? '' : ` stroke-dasharray="${style.dash}"`}/>`,
+    ...nodeText(box, palette, style),
     '</g>',
   ].join('');
+}
+
+/**
+ * 副題（`technology`）の色。
+ *
+ * **塗り潰した箱の上では、主題と同じ文字色を使う。**
+ * 既定の薄い副題色をそのまま載せると、アクセントの上で読めなくなる
+ * （`vivid` で実際にそうなった）。
+ */
+function subtitleOn(style: Look, palette: Palette): string {
+  return style.text === palette.text.node ? palette.text.group : style.text;
 }
 
 /**
@@ -117,15 +129,15 @@ function renderNode(box: Box, palette: Palette): string {
  * 副題（`technology`）があれば 2 行にする。無ければ 1 行のまま中央へ。
  * **所属や版を書ける唯一の場所**なので、描かないとラベルへ畳むしかなくなる（Issue #3 の 4）。
  */
-function nodeText(box: Box, palette: Palette): string[] {
+function nodeText(box: Box, palette: Palette, style: Look): string[] {
   const cx = n(box.x + box.w / 2);
   const main = (dy: number): string =>
-    `<text x="${cx}" y="${n(box.y + box.h / 2 + dy)}" text-anchor="middle" font-family="${FONT}" font-size="14" fill="${palette.text.node}">${escapeText(box.label)}</text>`;
+    `<text x="${cx}" y="${n(box.y + box.h / 2 + dy)}" text-anchor="middle" font-family="${FONT}" font-size="14" fill="${style.text}">${escapeText(box.label)}</text>`;
 
   if (box.technology === null) return [main(5)];
   return [
     main(-2),
-    `<text x="${cx}" y="${n(box.y + box.h / 2 + 16)}" text-anchor="middle" font-family="${FONT}" font-size="11" fill="${palette.text.group}">${escapeText(box.technology)}</text>`,
+    `<text x="${cx}" y="${n(box.y + box.h / 2 + 16)}" text-anchor="middle" font-family="${FONT}" font-size="11" fill="${subtitleOn(style, palette)}">${escapeText(box.technology)}</text>`,
   ];
 }
 

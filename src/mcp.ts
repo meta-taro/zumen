@@ -164,10 +164,11 @@ export function buildServer(): McpServer {
         source: z.string().optional(),
         path: z.string().optional(),
         theme: z.enum(['light', 'dark']).optional().describe(m.exportTheme),
+        intent: z.enum(['safe', 'vivid']).optional().describe(m.exportIntent),
       },
     },
-    async ({ kind, source, path, theme }) =>
-      text(await exportAs(bodyOf(source, path), kind, { theme })),
+    async ({ kind, source, path, theme, intent }) =>
+      text(await exportAs(bodyOf(source, path), kind, { theme, intent })),
   );
 
   return server;
