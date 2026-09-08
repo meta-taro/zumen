@@ -53,6 +53,8 @@
 pnpm install
 pnpm app         # デスクトップアプリとして立てる（Tauri。Rust が要る）
 pnpm dev         # 画面だけをブラウザで立てる（http://localhost:5173）
+                 #   5173 が埋まっていたら pnpm exec vite --port 5180
+                 #   （そのとき pnpm app は繋がらない。docs/install.md）
 pnpm test        # 走るテスト
 pnpm build       # 取り込む側へ配る形に組み立てる（dist/）
 pnpm consume:check  # **別のところから import して呼べるか**を実際に確かめる
@@ -75,7 +77,7 @@ pnpm merge    <正本> <提案>        # AI の提案を正本へ入れる（競
 ```
 
 開いている口は 8 つ。`zumen_spec`（形式を教える）／`zumen_create`（**ゼロから作る。既にあれば失敗**）／
-`zumen_propose`（**提案の `pins` は読まない**）／`zumen_inspect`（交差・重なり・**置けずに消えたラベル**・「9 割」を返す）ほか。
+`zumen_propose`（**提案の `pins` は読まない**）／`zumen_inspect`（交差・重なり・**置けずに消えたラベル**・**投影で読める大きさか**・**人が見たか**・「9 割」を返す）ほか。
 
 **開けていない口**があります — **競合の決着**・`pins` の書き換え・**「見た」印の書き込み**・既存ファイルの無条件な上書き。
 開けた瞬間、**AI が自分の提案を自分で承認できてしまう**からです（D18）。

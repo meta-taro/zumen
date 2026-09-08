@@ -26,9 +26,21 @@ name: release
 # エージェントに図を描かせるだけなら、殻は要らない。
 # Node があればどこでも動く（ネイティブ依存が無い）。`docs/install.md` を見ること。
 
+# **develop でも回す**（Issue #7）。
+#
+# 理由は、**殻でしか出ない壊れ方を、誰も確かめられなかった**から。
+# 自動保存（D19）・「見た」の記録（D20）・ドラッグ＆ドロップ・
+# ネイティブの保存ダイアログは、`pnpm gui:check`（Chrome）では触れない。
+#
+# Rust の無い機械では `pnpm app` が建たないので、**成果物が無い ＝ 触る手段が無い**。
+# 実際、報告者の Windows では**デスクトップ版を 1 度も触れていなかった**。
+#
+# タグを待つと、直すたびに実機で確かめられない。**develop で出す。**
 on:
   workflow_dispatch:
   push:
+    branches:
+      - develop
     tags:
       - 'v*'
 
@@ -88,10 +100,21 @@ jobs:
             \( -name '*.dmg' -o -name '*.app.tar.gz' \) -exec ls -l {} \;
           echo "署名: ${{ steps.signing.outputs.signed }}"
 
+      # **インストーラだけでは足りない**（Issue #7）。
+      #
+      # 署名していない `.dmg` は、受け取った Mac が「壊れている」と言って開かない。
+      # **置いてそのまま起動できるもの**が要る。`.app` をそのまま固めて上げる。
+      - name: 素の .app を固める
+        run: |
+          cd src-tauri/target/release/bundle/macos
+          tar czf "$GITHUB_WORKSPACE/zumen-macos-app.tar.gz" zumen.app
+
       - uses: actions/upload-artifact@v4
         with:
           name: zumen-macos
-          path: src-tauri/target/release/bundle/**/*.dmg
+          path: |
+            src-tauri/target/release/bundle/**/*.dmg
+            zumen-macos-app.tar.gz
           if-no-files-found: error
 
   windows:
@@ -126,11 +149,19 @@ jobs:
         run: |
           find src-tauri/target/release/bundle -type f \
             \( -name '*.msi' -o -name '*.exe' \) -exec ls -l {} \;
+          ls -l src-tauri/target/release/zumen.exe
 
+      # **インストーラだけでは足りない**（Issue #7）。
+      #
+      # 署名していない `.msi` / `setup.exe` は
+      # 「WindowsによってPCが保護されました」で止まる環境がある。
+      # `src-tauri/target/release/zumen.exe` は**置いてそのまま起動できる**。
+      # `bundle/` の下だけを拾っていたので、これまで上げていなかった。
       - uses: actions/upload-artifact@v4
         with:
           name: zumen-windows
           path: |
             src-tauri/target/release/bundle/**/*.msi
             src-tauri/target/release/bundle/**/*.exe
+            src-tauri/target/release/zumen.exe
           if-no-files-found: error

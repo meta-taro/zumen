@@ -76,21 +76,41 @@ ZUMEN_LOCALE=en pnpm mcp
 
 ## B. デスクトップアプリ
 
-**アルファの間は、これも clone して `pnpm app` で立てるのが早い。**
-Rust と、その機械の WebView が要る（[Tauri 2 の前提条件](https://v2.tauri.app/start/prerequisites/)）。
+### **Rust が無い機械はこちら**（Actions から落とす）
+
+**`develop` へ push するたびに、mac 版と Windows 版が出ます。**
+タグは要りません（Issue #7）。
+
+1. [Actions → release](../../actions/workflows/release.yml) を開く
+2. いちばん上の緑のものを開く
+3. ページ下の **Artifacts** から落とす
+
+| | 中身 |
+|---|---|
+| `zumen-windows` | `zumen.exe`（**置いてそのまま起動できる**）／ `.msi` ／ `setup.exe` |
+| `zumen-macos` | `zumen-macos-app.tar.gz`（**展開してそのまま起動できる**）／ `.dmg` |
+
+**インストーラより、素の実行ファイルのほうが確実です。** 署名していないので、
+インストーラは環境によっては実行が止まります（下記）。
+
+> Artifacts は GitHub の保存期間（既定 90 日）を過ぎると消えます。
+> 長く置くものが要るならタグを打ってください。
+
+### Rust がある機械
 
 ```bash
 pnpm app          # 立てる
 ```
 
-配布物が要るようになったら、下記。
+Rust と、その機械の WebView が要る（[Tauri 2 の前提条件](https://v2.tauri.app/start/prerequisites/)）。
 
-### 配布物を作る仕組み（まだ使っていない）
+### 配布物を作る仕組み
 
-**置いたが、まだ配っていない。**
+`.github/workflows/release.yml` が `macos-latest` と `windows-latest` の両方を回す。
+**`develop` への push・タグ・手動**のどれでも動く。
 
-`.github/workflows/release.yml` が `macos-latest` と `windows-latest` の両方を回して、
-`.dmg` と `.msi` を作る。タグを打つか、Actions から手で回す。
+**以前はタグと手動だけだった**ので、一度も回っておらず、
+**Rust の無い機械にはデスクトップ版を触る手段が 1 つも無かった**（Issue #7）。
 
 ### **署名していない**
 

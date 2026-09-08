@@ -33,6 +33,7 @@ import { PASS_LINE, measure } from './measure.ts';
 import { merge } from './merge.ts';
 import type { Conflict } from './merge.ts';
 import { toMermaid } from './mermaid.ts';
+import { projection, PROJECTION_FLOOR, SMALLEST_TEXT } from './projection.ts';
 import { render } from './render.ts';
 import { reviewOf } from './review.ts';
 import { APPEARANCE } from './tokens.ts';
@@ -166,6 +167,22 @@ export interface Inspection {
   reviewedAt: string | null;
   /** 見たあとに意味が変わったか。真なら「もう一度見てもらう」段。 */
   reviewStale: boolean;
+  /** 図の中でいちばん小さい字。 */
+  smallestText: number;
+  /** **縮小率を決める辺**（長いほう）。 */
+  longestSide: number;
+  /** 小さい字 ÷ 長辺。測れないときは null。 */
+  textRatio: number | null;
+  /** 投影で読める下限。**値をこちらが握ったままにしない。** */
+  projectionFloor: number;
+  /**
+   * **投影には小さすぎるか**（Issue #6）。
+   *
+   * 真でも**図は正しい。読みにくいだけ。**
+   * 直し方は文字を大きくすることではない（図が伸びて比がさらに下がる）。
+   * **図を分けるかどうかは意味の判断**なので、ここでは指摘だけする。
+   */
+  tooSmallToProject: boolean;
 }
 
 /**
@@ -196,6 +213,11 @@ export async function inspect(source: string): Promise<Inspection> {
       reviewed: false,
       reviewedAt: null,
       reviewStale: false,
+      smallestText: SMALLEST_TEXT,
+      longestSide: 0,
+      textRatio: null,
+      projectionFloor: PROJECTION_FLOOR,
+      tooSmallToProject: false,
     };
   }
 
@@ -227,6 +249,7 @@ export async function inspect(source: string): Promise<Inspection> {
       const seen = reviewOf(source);
       return { reviewed: seen.reviewed, reviewedAt: seen.at, reviewStale: seen.stale };
     })(),
+    ...projection(placed.width, placed.height),
   };
 }
 
