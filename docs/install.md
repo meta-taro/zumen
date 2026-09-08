@@ -90,6 +90,9 @@ ZUMEN_LOCALE=en pnpm mcp
 | `zumen-windows` | `zumen.exe`（**置いてそのまま起動できる**）／ `.msi` ／ `setup.exe` |
 | `zumen-macos` | `zumen-macos-app.tar.gz`（**展開してそのまま起動できる**）／ `.dmg` |
 
+**mac 版は Apple Silicon 用だけ**（`aarch64`）。`macos-latest` の runner がそれなので、
+**Intel の Mac では動かない。** 要るようになったら runner を足す。
+
 **インストーラより、素の実行ファイルのほうが確実です。** 署名していないので、
 インストーラは環境によっては実行が止まります（下記）。
 
