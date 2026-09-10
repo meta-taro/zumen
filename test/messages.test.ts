@@ -144,11 +144,34 @@ describe('文言表', () => {
           continue;
         }
         // 一覧で返す文言もある（エージェントへ渡す規則など）。
+        // **組で返すものもある**（`about.closed` の「何を／なぜ」）ので、
+        // 中まで辿って空を見つける。**「文字列でないから見ない」にしない。**
         if (Array.isArray(value)) {
           assert.notEqual(value.length, 0, `${locale} の ${key} が空の一覧`);
-          for (const item of value) {
-            assert.equal(typeof item, 'string', `${locale} の ${key} に文字列でないものがある`);
-            assert.notEqual(item.trim(), '', `${locale} の ${key} に空の項目がある`);
+          for (const [i, item] of value.entries()) {
+            if (typeof item === 'string') {
+              assert.notEqual(item.trim(), '', `${locale} の ${key} に空の項目がある`);
+              continue;
+            }
+            assert.equal(
+              typeof item,
+              'object',
+              `${locale} の ${key}[${i}] が文字列でも組でもない`,
+            );
+            const pairs = Object.entries(item as Record<string, unknown>);
+            assert.notEqual(pairs.length, 0, `${locale} の ${key}[${i}] が空の組`);
+            for (const [field, text] of pairs) {
+              assert.equal(
+                typeof text,
+                'string',
+                `${locale} の ${key}[${i}].${field} が文字列でない`,
+              );
+              assert.notEqual(
+                (text as string).trim(),
+                '',
+                `${locale} の ${key}[${i}].${field} が空`,
+              );
+            }
           }
           continue;
         }

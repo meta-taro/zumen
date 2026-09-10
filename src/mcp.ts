@@ -32,6 +32,7 @@ import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { z } from 'zod';
 
+import { about } from './about.ts';
 import { isEntry } from './entry.ts';
 import { messages } from './messages.ts';
 import {
@@ -58,6 +59,22 @@ function text(value: string): { content: { type: 'text'; text: string }[] } {
 export function buildServer(): McpServer {
   const server = new McpServer({ name: 'zumen', version: '0.0.0' });
   const m = messages().mcp;
+
+  // --- この道具の説明 ------------------------------------------------------
+  //
+  // **はじめに 1 回叩くもの。** 何をする道具で、何をしないか、
+  // どの口が開いていないか、版ごとに何が変わったかを返す。
+  //
+  // これが無いと、エージェントは**開いていない口を試して断られる往復**を毎回やる。
+  server.registerTool(
+    'zumen_about',
+    {
+      title: m.aboutTitle,
+      description: m.aboutDesc,
+      inputSchema: {},
+    },
+    async () => json(await about()),
+  );
 
   // --- 形式を教える --------------------------------------------------------
 

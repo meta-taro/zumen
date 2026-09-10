@@ -200,6 +200,9 @@ const ja = {
    * 「してはいけないこと」は、理由まで書く。
    */
   mcp: {
+    aboutTitle: 'この道具について',
+    aboutDesc:
+      '**はじめに 1 回叩くこと。** 何をする道具か、何をしないか、**どの口が開いていないか**（試す前に分かる）、版ごとに何が変わったかを返す。ここを読めば、断られる往復が減る。',
     specTitle: '図の形式',
     specDesc:
       '図の形式・書ける type と appearance の語・守る規則を返す。図を書く前にこれを読むこと。読まずに書くと当て推量になる。',
@@ -235,6 +238,48 @@ const ja = {
     exportIntent:
       '主役をどれくらい強く出すか（svg にだけ効く）。省略すると safe（淡く添える）。遠くから見せる場では vivid（塗り潰す）。どちらでも白黒で読めることは保たれる。',
     needSourceOrPath: 'source か path のどちらかが要ります',
+  },
+
+  /**
+   * **この道具の説明**（`zumen_about`）。
+   *
+   * エージェントが最初に読むもの。**開いていない口を試して断られる往復**を減らす。
+   * 版ごとに何が変わったかは `CHANGELOG.md` から読む（ここに書き写さない）。
+   */
+  about: {
+    oneLine:
+      'AI が構成図を描き、人が 1 か所直し、その直しが次の生成で壊れない — テキスト正本の作図ツール。',
+    purpose: [
+      '勝負するのは 1 枚目ではなく 2 枚目以降。「構成が変わったので図を直す」場面のための道具。',
+      '**人が直す往復を残すことが目的**。全自動で出るだけの図は、誰も理解しないまま貼られる。',
+      '正本はテキスト（`*.zumen.yaml`）。仕様は実装から分離してあるので、この製品が終わっても図は読める。',
+      '人の手直しは `pins` にしか書かれない。**正本 1 つを見れば、人がどれだけ手を入れたかが分かる。**',
+    ],
+    closed: [
+      {
+        what: '競合の決着',
+        why: '開けた瞬間、AI が自分の提案を自分で承認できる。人が見ずに責任は負えない。',
+      },
+      {
+        what: '`pins` の書き換え',
+        why: '人が手で決めたことは人のもの。提案に `pins` を書いても採らない（実測で 10 回中 10 回書いてきた）。',
+      },
+      {
+        what: '「見た」の印を書くこと',
+        why: '画面からしか付けられない。開けると、誰も見ていない図を AI が「見た」ことにできる。',
+      },
+      {
+        what: '既存ファイルの無条件な上書き',
+        why: '`zumen_create` は既にあれば失敗する。直すなら `zumen_propose` を通すこと。',
+      },
+    ],
+    notDoing: [
+      '図形の網羅を追わない。対象は構成図の語彙だけ（`type` は 11 語、うち形が変わるのは 6 つ）。',
+      '縮尺のある図（配置図・仮設計画図・平面図）をやらない。置き場所を決めるのは人であって AI ではない。',
+      'リアルタイム共同編集をやらない。',
+      'Web 版を先に作らない。デスクトップであることが最初の判断そのもの。',
+      '他形式のインポートを最初に作らない。入口を広げると、出力品質が他所のデータ品質に引きずられる。',
+    ],
   },
 
   /**
@@ -431,6 +476,9 @@ const en: Catalog = {
       'Hand-placed elements carry zumenPinned="1" (visible via Edit Data in draw.io). Re-saving may drop it.',
   },
   mcp: {
+    aboutTitle: 'About this tool',
+    aboutDesc:
+      'Call this once, first. Says what the tool is for, what it will not do, **which doors are closed** (so you do not try them), and what changed in each version.',
     specTitle: 'Diagram format',
     specDesc:
       'Returns the format, the type and appearance words you may use, and the rules to follow. Read this before writing a diagram. Writing without it is guesswork.',
@@ -468,6 +516,41 @@ const en: Catalog = {
     needSourceOrPath: 'Either source or path is required',
   },
 
+  about: {
+    oneLine:
+      'A text-source diagram tool: the AI draws, a person fixes one spot, and that fix survives the next generation.',
+    purpose: [
+      'The contest is not the first drawing but every one after it — for when the architecture changed and the diagram must follow.',
+      '**Keeping the human in the loop is the point.** A diagram nobody argued with is a diagram nobody understood.',
+      'The source of truth is text (`*.zumen.yaml`), and the format is specified apart from this implementation, so the diagrams outlive the tool.',
+      'Hand edits land only in `pins`, so one file tells you how much a person touched.',
+    ],
+    closed: [
+      {
+        what: 'Resolving conflicts',
+        why: 'The moment this opens, the AI can approve its own proposal. Nobody can take responsibility for what they did not look at.',
+      },
+      {
+        what: 'Writing `pins`',
+        why: 'What a person set by hand is theirs. A proposal that writes `pins` is ignored (measured: 10 of 10 runs tried).',
+      },
+      {
+        what: 'Marking a diagram reviewed',
+        why: 'Only the desktop window can set it. Open it and the AI can call a diagram reviewed that nobody has seen.',
+      },
+      {
+        what: 'Overwriting an existing file',
+        why: '`zumen_create` fails if the file exists. Change it through `zumen_propose`.',
+      },
+    ],
+    notDoing: [
+      'No chase after shape coverage. The vocabulary is architecture diagrams only (11 `type` words, 6 of which change shape).',
+      'No to-scale drawings (site plans, floor plans). There, a person decides placement, not the AI.',
+      'No realtime collaborative editing.',
+      'No web version first. Being a desktop app is the first decision itself.',
+      'No importing other formats first. A wider entrance drags output quality down to whatever came in.',
+    ],
+  },
   tools: {
     shape: [
       'version: 1',

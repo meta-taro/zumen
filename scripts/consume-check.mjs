@@ -54,6 +54,7 @@ writeFileSync(
 writeFileSync(
   join(work, 'check.mjs'),
   `import { toSvg } from 'zumen';
+import { about } from 'zumen/about';
 import { inspect } from 'zumen/tools';
 
 const source = [
@@ -87,7 +88,13 @@ if (vivid === svg) throw new Error('intent が効いていません');
 const out = await inspect(source);
 if (out.nodes !== 2 || out.edges !== 1) throw new Error('inspect の数が合いません');
 
-console.log('  ok   toSvg / theme / intent / inspect');
+// **CHANGELOG.md が配られているか。** files から漏れると、
+// 取り込んだ側では版の記録が空で返る（気づくのは配った後）。
+const meta = await about();
+if (meta.releases.length === 0) throw new Error('CHANGELOG.md が配られていません');
+if (meta.version === '0.0.0') throw new Error('版が入っていません');
+
+console.log('  ok   toSvg / theme / intent / inspect / about（版の記録つき）');
 `,
 );
 

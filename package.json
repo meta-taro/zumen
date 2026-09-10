@@ -1,6 +1,6 @@
 {
   "name": "zumen",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
   "type": "module",
   "description": "AI が描き、人が直し、また AI が理解できる構成図エディタ（Phase 0 / 計測段階）",
@@ -12,12 +12,14 @@
   "//exports": "外から呼ぶ口。姉妹プロジェクト（md-business）が囲みを図にするために import する（#240）。指すのは dist で、src ではない。Node は node_modules の中の TypeScript を受け付けないため（実測）。開けるのは書き出しと検査までで、正本への書き込みは CLI / MCP を通す。",
   "exports": {
     ".": { "types": "./dist/embed.d.ts", "default": "./dist/embed.js" },
+    "./about": { "types": "./dist/about.d.ts", "default": "./dist/about.js" },
     "./tools": { "types": "./dist/tools.d.ts", "default": "./dist/tools.js" },
     "./format": { "types": "./dist/format.d.ts", "default": "./dist/format.js" }
   },
   "//files": "取り込む側へ配るもの。実験・テスト・殻は入れない。仕様（spec）は入れる。",
   "files": [
     "dist",
+    "CHANGELOG.md",
     "spec",
     "LICENSE",
     "LICENSES.md",
