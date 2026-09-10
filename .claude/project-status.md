@@ -276,6 +276,12 @@
 - **版を 0.1.0 にした**（`package.json` / `Cargo.toml` / `tauri.conf.json`）。
   いま Actions から落とせるものが 0.1.0。**それまで全部 0.0.0 で、版が無かった**
 
+- **版を上げる手順を 1 つにまとめた**（2026-09-11。`pnpm version:set <x.y.z>`）。
+  **版は 4 か所にある**（`package.json` / `tauri.conf.json` / `Cargo.toml` / `Cargo.lock`）。
+  0.0.0 → 0.1.0 のとき 3 か所しか直さず、**CI が `--locked` で落ちた。**
+  手元の `pnpm test` は Rust を見ないので通っていた。
+  **`test/version.test.ts` が結果の一致を見張る**ので、手で直しても構わない
+
 - **配布は当面 clone で行う**（人の判断。2026-09-07「まだアルファ版みたいなもん」）。
   配布物を作る workflow は置いてあるが、**署名の手続きと費用は中身が固まってから**
 

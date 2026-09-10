@@ -58,6 +58,7 @@ pnpm dev         # 画面だけをブラウザで立てる（http://localhost:51
 pnpm test        # 走るテスト
 pnpm build       # 取り込む側へ配る形に組み立てる（dist/）
 pnpm consume:check  # **別のところから import して呼べるか**を実際に確かめる
+pnpm version:set 0.2.0  # 版を 4 か所いっぺんに上げる（記録の「未リリース」も動かす）
 pnpm gui:check   # 画面の 8 操作を実際に動かして確かめる（Chrome が要る）
 pnpm validate <図のファイル> ...   # 形式に適合しているかを見る
 pnpm measure  <図のファイル> ...   # 「AI が 9 割描けたか」を測る
