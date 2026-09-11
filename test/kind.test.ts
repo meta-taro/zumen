@@ -228,3 +228,85 @@ describe('**AI が大きさを書ける**（`nodes[].size`）', () => {
     assert.equal(placed.boxes.find((box) => box.id === 'ldk')!.w, 320);
   });
 });
+
+describe('**配置図では、置いたものを動かさない**', () => {
+  // 店舗のレイアウトを描かせてみて出た（2026-09-11）。
+  //
+  // 1. **接している箱を `separate()` が押し退けた。**
+  //    間取りや売場では、部屋や棚が接しているのが普通。**重なりではない。**
+  // 2. **囲みが縮まなかった。** 広げる向きにしか動かないので、
+  //    `at` で中身が寄っても枠が元の大きさのまま残り、**囲みどうしが重なった。**
+  const TOUCHING = [
+    'version: 1',
+    'kind: placement',
+    'groups:',
+    '  - id: left',
+    '    label: 左の区画',
+    '  - id: right',
+    '    label: 右の区画',
+    'nodes:',
+    '  - id: a',
+    '    label: 部屋 A',
+    '    at: { x: 40, y: 40 }',
+    '    size: { w: 200, h: 120 }',
+    '    group: left',
+    '  - id: b',
+    '    label: 部屋 B',
+    '    at: { x: 240, y: 40 }',   // ← A と接している
+    '    size: { w: 200, h: 120 }',
+    '    group: left',
+    '  - id: c',
+    '    label: 倉庫',
+    '    at: { x: 520, y: 40 }',
+    '    size: { w: 160, h: 120 }',
+    '    group: right',
+    '',
+  ].join('\n');
+
+  it('**接している箱を、押し退けない**', async () => {
+    const { layout } = await import('../src/layout.ts');
+    const placed = await layout(TOUCHING);
+    for (const [id, x, y] of [['a', 40, 40], ['b', 240, 40], ['c', 520, 40]] as const) {
+      const box = placed.boxes.find((n) => n.id === id)!;
+      assert.equal(box.x, x, `${id} の x が動いた`);
+      assert.equal(box.y, y, `${id} の y が動いた`);
+    }
+  });
+
+  it('**囲みどうしが重ならない**（中身に合わせて縮む）', async () => {
+    const { layout } = await import('../src/layout.ts');
+    const placed = await layout(TOUCHING);
+    const [g1, g2] = placed.groups;
+    assert.ok(g1 !== undefined && g2 !== undefined);
+    const apart =
+      g1.x + g1.w <= g2.x || g2.x + g2.w <= g1.x || g1.y + g1.h <= g2.y || g2.y + g2.h <= g1.y;
+    assert.ok(
+      apart,
+      `${g1.id} x ${g1.x}..${g1.x + g1.w} / ${g2.id} x ${g2.x}..${g2.x + g2.w}`,
+    );
+  });
+
+  it('囲みが、中身をちゃんと含んでいる', async () => {
+    const { layout, groupEscapes } = await import('../src/layout.ts');
+    assert.deepEqual(groupEscapes(await layout(TOUCHING)), []);
+  });
+
+  it('**構成図では、これまでどおり押し退ける**（重なりは重なり）', async () => {
+    const { layout, overlaps } = await import('../src/layout.ts');
+    const source = [
+      'version: 1',
+      'pins:',
+      '  a:',
+      '    position: { x: 24, y: 24 }',
+      'nodes:',
+      '  - id: a',
+      '  - id: b',
+      '  - id: c',
+      'edges:',
+      '  - from: a',
+      '    to: b',
+      '',
+    ].join('\n');
+    assert.deepEqual(overlaps(await layout(source)), []);
+  });
+});

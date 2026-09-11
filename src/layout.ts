@@ -192,13 +192,17 @@ export async function layout(text: string): Promise<Placed> {
    *
    * 構成図では見ない。置き場所は機械が決めるのが構成図の定義（`src/kind.ts`）。
    */
-  if (measureOf(kindOf(text)).positionsInSource) {
+  const inSource = measureOf(kindOf(text)).positionsInSource;
+  /** **書いて置かれた箱。** 動かさないし、接していても重なりとして数えない。 */
+  const written = new Set<string>();
+  if (inSource) {
     const at = new Map(nodes.filter((n) => n.at !== null).map((n) => [n.id, n.at!]));
     for (const box of boxes) {
       const point = at.get(box.id);
       if (point === undefined) continue;
       box.x = point.x;
       box.y = point.y;
+      written.add(box.id);
     }
   }
 
@@ -218,14 +222,20 @@ export async function layout(text: string): Promise<Placed> {
     if (appearance !== null) box.appearance = appearance;
   }
 
-  // 人が置いた場所と重なった機械の箱を退ける（Issue 015）。
-  // **人の箱は 1 px も動かさない。** 動かせない組（人どうし）は返して人へ出す。
-  const { locked } = separate(boxes);
+  /**
+   * 人が置いた場所と重なった機械の箱を退ける（Issue 015）。
+   * **人の箱は 1 px も動かさない。** 動かせない組（人どうし）は返して人へ出す。
+   *
+   * **配置図では退けない**（2026-09-11。店舗のレイアウトを描かせて出た）。
+   * 間取りや売場では、**部屋や棚が接しているのが普通**で、重なりではない。
+   * 退けると、書いた座標が黙って動く —— **配置図では座標そのものが内容。**
+   */
+  const { locked } = separate(boxes, written);
 
   // 人が枠の外へ動かしたら、枠のほうを広げる。
   // 人の位置を枠の中へ押し戻すと、それは手直しを壊したことになる（判定基準 3.1）。
   // 枠は「この範囲が VPC」という意味なので、中身に合わせて動くほうが正しい。
-  fitGroups(boxes, groups);
+  fitGroups(boxes, groups, inSource);
 
   // **動いた箱に繋がる辺だけ引き直す。** 動いていない辺は 1 px も変えない
   // （ELK の直交ルーティングは、そのままのほうが読める）。
@@ -241,16 +251,32 @@ export async function layout(text: string): Promise<Placed> {
 }
 
 /** グループの枠を、中身を含む大きさへ広げる。 */
-function fitGroups(boxes: Box[], groups: Box[]): void {
+/**
+ * 枠を中身に合わせる。
+ *
+ * 構成図では**広げるだけ** —— 人が枠の外へ動かしたら枠のほうを広げる。
+ * 中へ押し戻すと、それは手直しを壊したことになる（判定基準 3.1）。
+ *
+ * **配置図では縮めもする**（`shrink`）。
+ * `at` で中身が寄ったのに枠が元の大きさのまま残ると、**囲みどうしが重なる**
+ * （2026-09-11。店舗のレイアウトで、売場の枠がバックヤードに飲み込まれた）。
+ */
+function fitGroups(boxes: Box[], groups: Box[], shrink = false): void {
   const PADDING = 24;
   const TITLE = 40;
   for (const group of groups) {
     const children = boxes.filter((box) => box.group === group.id);
     if (children.length === 0) continue;
-    const left = Math.min(group.x, ...children.map((c) => c.x - PADDING));
-    const top = Math.min(group.y, ...children.map((c) => c.y - TITLE));
-    const right = Math.max(group.x + group.w, ...children.map((c) => c.x + c.w + PADDING));
-    const bottom = Math.max(group.y + group.h, ...children.map((c) => c.y + c.h + PADDING));
+    const around = {
+      left: Math.min(...children.map((c) => c.x - PADDING)),
+      top: Math.min(...children.map((c) => c.y - TITLE)),
+      right: Math.max(...children.map((c) => c.x + c.w + PADDING)),
+      bottom: Math.max(...children.map((c) => c.y + c.h + PADDING)),
+    };
+    const left = shrink ? around.left : Math.min(group.x, around.left);
+    const top = shrink ? around.top : Math.min(group.y, around.top);
+    const right = shrink ? around.right : Math.max(group.x + group.w, around.right);
+    const bottom = shrink ? around.bottom : Math.max(group.y + group.h, around.bottom);
     group.x = left;
     group.y = top;
     group.w = right - left;

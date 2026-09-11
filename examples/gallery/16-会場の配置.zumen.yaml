@@ -1,0 +1,75 @@
+version: 1
+kind: placement
+title: 展示会の会場（1 マス = 1800mm を 30px として）
+pins:
+  stage:
+    appearance: primary
+groups:
+  - id: hall
+    label: 展示ホール
+nodes:
+  - id: uketsuke
+    type: generic
+    label: 受付
+    at: { x: 40, y: 420 }
+    size: { w: 160, h: 70 }
+    group: hall
+  - id: stage
+    type: generic
+    label: ステージ
+    technology: 200 席
+    at: { x: 40, y: 60 }
+    size: { w: 320, h: 200 }
+    group: hall
+  - id: a1
+    type: generic
+    label: A 区画
+    technology: 6 小間
+    at: { x: 400, y: 60 }
+    size: { w: 200, h: 200 }
+    group: hall
+  - id: a2
+    type: generic
+    label: B 区画
+    technology: 6 小間
+    at: { x: 640, y: 60 }
+    size: { w: 200, h: 200 }
+    group: hall
+  - id: tsuuro
+    type: generic
+    label: 主通路
+    technology: 幅 3.6m
+    at: { x: 40, y: 300 }
+    size: { w: 800, h: 80 }
+    group: hall
+  - id: c1
+    type: generic
+    label: C 区画
+    technology: 8 小間
+    at: { x: 240, y: 420 }
+    size: { w: 280, h: 140 }
+    group: hall
+  - id: kyukei
+    type: generic
+    label: 休憩所
+    at: { x: 560, y: 420 }
+    size: { w: 160, h: 140 }
+    group: hall
+  - id: hijou
+    type: generic
+    label: 非常口
+    at: { x: 760, y: 420 }
+    size: { w: 80, h: 140 }
+    group: hall
+edges:
+  - from: uketsuke
+    to: tsuuro
+  - from: tsuuro
+    to: a1
+  - from: tsuuro
+    to: a2
+  - from: tsuuro
+    to: c1
+  - from: c1
+    to: hijou
+    label: 避難

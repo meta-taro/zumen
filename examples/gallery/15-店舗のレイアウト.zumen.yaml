@@ -1,0 +1,71 @@
+version: 1
+kind: placement
+title: コンビニの売場（1 マス = 900mm を 30px として）
+pins:
+  reji:
+    appearance: primary
+groups:
+  - id: uriba
+    label: 売場
+  - id: back
+    label: バックヤード
+nodes:
+  - id: iriguchi
+    type: generic
+    label: 入口
+    at: { x: 40, y: 380 }
+    size: { w: 90, h: 60 }
+    group: uriba
+  - id: reji
+    type: generic
+    label: レジ
+    technology: 2 台
+    at: { x: 150, y: 380 }
+    size: { w: 150, h: 60 }
+    group: uriba
+  - id: tana1
+    type: generic
+    label: 菓子・日用品
+    at: { x: 150, y: 120 }
+    size: { w: 300, h: 60 }
+    group: uriba
+  - id: tana2
+    type: generic
+    label: 加工食品
+    at: { x: 150, y: 230 }
+    size: { w: 300, h: 60 }
+    group: uriba
+  - id: reizou
+    type: storage
+    label: 冷蔵ケース
+    technology: 飲料
+    at: { x: 500, y: 120 }
+    size: { w: 90, h: 290 }
+    group: uriba
+  - id: bentou
+    type: storage
+    label: 弁当・惣菜
+    at: { x: 340, y: 380 }
+    size: { w: 250, h: 60 }
+    group: uriba
+  - id: souko
+    type: storage
+    label: 在庫
+    at: { x: 640, y: 120 }
+    size: { w: 160, h: 150 }
+    group: back
+  - id: jimu
+    type: generic
+    label: 事務所
+    at: { x: 640, y: 290 }
+    size: { w: 160, h: 120 }
+    group: back
+edges:
+  - from: iriguchi
+    to: reji
+  - from: souko
+    to: tana1
+    label: 補充
+  - from: souko
+    to: reizou
+    label: 補充

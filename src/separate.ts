@@ -46,7 +46,15 @@ export interface Separation {
  *
  * `pinned` が真の箱は 1 px も動かさない。
  */
-export function separate(boxes: Box[]): Separation {
+/**
+ * 重なりを解く。
+ *
+ * `fixed` に入れた id は**動かさないし、その組は衝突として数えない**。
+ * 配置図で `at` を書いた箱がこれ（2026-09-11）。
+ * **間取りや売場では、部屋や棚が接しているのが普通**で、重なりではない。
+ * `GAP` の隙間を要求すると、接している箱が黙って離れる。
+ */
+export function separate(boxes: Box[], fixed: ReadonlySet<string> = new Set()): Separation {
   const moved = new Set<string>();
   const locked: [string, string][] = [];
   const seenLocked = new Set<string>();
@@ -57,6 +65,8 @@ export function separate(boxes: Box[]): Separation {
 
     let didMove = false;
     for (const [a, b] of pairs) {
+      // **書いて置いたものどうしは、触れていてよい。** 数えない。
+      if (fixed.has(a.id) && fixed.has(b.id)) continue;
       if (a.pinned && b.pinned) {
         const key = `${a.id} ${b.id}`;
         if (!seenLocked.has(key)) {
@@ -65,7 +75,7 @@ export function separate(boxes: Box[]): Separation {
         }
         continue;
       }
-      if (push(a, b)) {
+      if (push(a, b, fixed)) {
         didMove = true;
         if (!a.pinned) moved.add(a.id);
         if (!b.pinned) moved.add(b.id);
@@ -106,28 +116,31 @@ function gapY(a: Box, b: Box): number {
  *
  * **浅いほうの軸へ退ける。** 深いほうへ退けると、図が不必要に広がる。
  */
-function push(a: Box, b: Box): boolean {
+function push(a: Box, b: Box, fixed: ReadonlySet<string>): boolean {
   const needX = GAP - gapX(a, b);
   const needY = GAP - gapY(a, b);
   if (needX <= 0 || needY <= 0) return false;
 
-  if (needX <= needY) return shift(a, b, needX, 'x');
-  return shift(a, b, needY, 'y');
+  if (needX <= needY) return shift(a, b, needX, 'x', fixed);
+  return shift(a, b, needY, 'y', fixed);
 }
 
 /** `axis` の向きへ `need` だけ離す。固定されている側は動かさない。 */
-function shift(a: Box, b: Box, need: number, axis: 'x' | 'y'): boolean {
+function shift(a: Box, b: Box, need: number, axis: 'x' | 'y', fixed: ReadonlySet<string>): boolean {
   // どちらが手前か。同じなら id で決める（揺れないため）。
   const aFirst = a[axis] === b[axis] ? a.id < b.id : a[axis] < b[axis];
   const back = aFirst ? a : b;
   const front = aFirst ? b : a;
 
-  if (back.pinned && front.pinned) return false;
-  if (back.pinned) {
+  // **人が置いたもの**（`pinned`）と、**書いて置いたもの**（`fixed`）は動かさない。
+  const stuck = (box: Box): boolean => box.pinned || fixed.has(box.id);
+
+  if (stuck(back) && stuck(front)) return false;
+  if (stuck(back)) {
     front[axis] += need;
     return true;
   }
-  if (front.pinned) {
+  if (stuck(front)) {
     back[axis] -= need;
     return true;
   }
