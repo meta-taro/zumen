@@ -1,0 +1,62 @@
+version: 1
+title: オンプレのサーバ構成
+groups:
+  - id: edge
+    label: 外部
+  - id: host
+    label: 本番機（さくら VPS）
+  - id: store
+    label: 保管先
+nodes:
+  - id: users
+    type: internet
+    label: 利用者
+    group: edge
+  - id: httpd
+    type: server
+    label: Apache httpd
+    technology: 2.4 / mod_php
+    group: host
+  - id: php
+    type: server
+    label: PHP-FPM
+    technology: 8.2
+    group: host
+  - id: cron
+    type: server
+    label: 夜間バッチ
+    technology: systemd timer
+    group: host
+  - id: db
+    type: database
+    label: MariaDB
+    technology: 10.11 / InnoDB
+    group: host
+  - id: mnt
+    type: storage
+    label: /mnt/wasabi
+    technology: s3fs-fuse
+    group: host
+  - id: obj
+    type: storage
+    label: Wasabi
+    technology: ap-northeast-1
+    group: store
+edges:
+  - from: users
+    to: httpd
+    label: HTTPS
+  - from: httpd
+    to: php
+    label: fastcgi
+  - from: php
+    to: db
+  - from: php
+    to: mnt
+    label: 画像
+  - from: cron
+    to: db
+    label: 集計
+  - from: mnt
+    to: obj
+    label: s3

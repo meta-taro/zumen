@@ -1,0 +1,44 @@
+version: 1
+title: 収集から配信まで
+nodes:
+  - id: src
+    type: internet
+    label: 外部 API
+  - id: fetch
+    type: server
+    label: 取り込み
+    technology: 1 時間ごと
+  - id: q
+    type: queue
+    label: 処理待ち
+  - id: work
+    type: cluster
+    label: ワーカー
+    technology: 4 並列
+  - id: db
+    type: database
+    label: 集約先
+  - id: cache
+    type: cache
+    label: 配信用キャッシュ
+  - id: api
+    type: server
+    label: 参照 API
+edges:
+  - from: src
+    to: fetch
+    label: 取得
+  - from: fetch
+    to: q
+    label: 投入
+  - from: q
+    to: work
+  - from: work
+    to: db
+    label: 書き込み
+  - from: db
+    to: cache
+    label: 温める
+  - from: api
+    to: cache
+    label: 参照

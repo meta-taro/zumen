@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>zumen — AI が描き、人が直し、その直しが壊れない構成図</title>
+<meta name="description" content="構成が変わるたびに図形を動かし直すのをやめる。テキスト正本の構成図エディタ。1 枚目ではなく 2 枚目以降で勝負します。">
+<style>
+  :root {
+    --bg: #ffffff; --bg-subtle: #fbfbfd; --border: #e8e8ed; --border-strong: #d4d4dc;
+    --fg: #1c1c22; --fg-2: #63636e; --fg-3: #9b9ba5; --accent: #5b5bd6; --accent-bg: #eeeefb;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f0f13; --bg-subtle: #141418; --border: #26262d; --border-strong: #34343d;
+      --fg: #f4f4f6; --fg-2: #a0a0ab; --fg-3: #6b6b76; --accent: #7c7cf0; --accent-bg: #1e1e3a;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--fg);
+    font: 16px/1.75 -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 24px; }
+  header { padding: 88px 0 64px; }
+  .mark { display: flex; align-items: center; gap: 12px; margin-bottom: 40px; }
+  .mark img { width: 36px; height: 36px; border-radius: 8px; }
+  .mark b { font-size: 17px; letter-spacing: .02em; }
+  h1 { font-size: 40px; line-height: 1.35; margin: 0 0 20px; letter-spacing: -.01em; }
+  h1 .quiet { color: var(--fg-3); }
+  .lede { font-size: 18px; color: var(--fg-2); margin: 0 0 36px; max-width: 34em; }
+  .cta { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .btn {
+    display: inline-block; padding: 11px 20px; border-radius: 8px; text-decoration: none;
+    border: 1px solid var(--border-strong); color: var(--fg); font-size: 15px;
+  }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .btn:hover { border-color: var(--accent); }
+  .note { color: var(--fg-3); font-size: 14px; }
+  section { padding: 56px 0; border-top: 1px solid var(--border); }
+  h2 { font-size: 13px; letter-spacing: .12em; color: var(--fg-3); margin: 0 0 28px; font-weight: 600; }
+  h3 { font-size: 20px; margin: 0 0 10px; }
+  p { margin: 0 0 16px; }
+  .problem { font-size: 20px; line-height: 1.9; }
+  .problem b { color: var(--fg); }
+  pre {
+    background: var(--bg-subtle); border: 1px solid var(--border); border-radius: 8px;
+    padding: 16px 18px; overflow-x: auto; font-size: 13.5px; line-height: 1.7; margin: 0 0 16px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .92em; }
+  p code, li code { background: var(--bg-subtle); padding: 1px 5px; border-radius: 4px; border: 1px solid var(--border); }
+  /* 図は縦長。**並べると小さくて読めない**ので、2 列で背を高くする。 */
+  .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
+  .gallery figure { margin: 0; }
+  .gallery img {
+    display: block; width: 100%; height: 420px; object-fit: contain;
+    background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 18px;
+  }
+  .gallery figcaption { color: var(--fg-2); font-size: 13px; margin-top: 10px; }
+  .flow { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 20px; }
+  .flow div { border-left: 2px solid var(--border-strong); padding-left: 14px; }
+  .flow b { display: block; margin-bottom: 4px; }
+  .flow span { color: var(--fg-2); font-size: 14px; }
+  .flow .hit { border-left-color: var(--accent); }
+  ul { margin: 0 0 16px; padding-left: 1.25em; }
+  li { margin-bottom: 8px; }
+  .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 32px; }
+  .warn {
+    background: var(--accent-bg); border: 1px solid var(--border); border-radius: 8px;
+    padding: 18px 20px; font-size: 15px;
+  }
+  footer { padding: 48px 0 72px; color: var(--fg-3); font-size: 14px; border-top: 1px solid var(--border); }
+  footer a { color: var(--fg-2); }
+  a { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<header>
+  <div class="mark">
+    <img src="icon.svg" alt="">
+    <b>zumen</b>
+  </div>
+
+  <h1>構成が変わった。<br><span class="quiet">図はそのままだ。</span></h1>
+
+  <p class="lede">
+    AI が構成図を描き、人が 1 か所だけ直す。<br>
+    <b>その直しが、次の生成で壊れません。</b>
+  </p>
+
+  <div class="cta">
+    <a class="btn primary" href="https://github.com/meta-taro/zumen/releases">ダウンロード</a>
+    <a class="btn" href="https://github.com/meta-taro/zumen">GitHub</a>
+    <span class="note">mac / Windows・MIT</span>
+  </div>
+</header>
+
+<section>
+  <h2>なぜ図は腐るのか</h2>
+  <p class="problem">
+    構成が変わった → <b>図を直すのが面倒</b> → 直さない →
+    <b>図が嘘になる</b> → 誰も図を見なくなる。
+  </p>
+  <p>
+    既存の作図ソフトは「1 枚目を描く道具」として完成しています。そこを競っても勝ち目はありません。
+    <b>zumen が向き合うのは、白紙から描く面倒ではなく、更新されないまま腐ることです。</b>
+  </p>
+</section>
+
+<section>
+  <h2>作れる図</h2>
+  <div class="gallery">
+    <figure><img src="gallery/01-オンプレのサーバ構成.svg" alt="オンプレのサーバ構成"><figcaption>サーバ構成</figcaption></figure>
+    <figure><img src="gallery/02-クラウド構成.svg" alt="クラウド構成"><figcaption>クラウド構成</figcaption></figure>
+    <figure><img src="gallery/03-データの流れ.svg" alt="データの流れ"><figcaption>データの流れ</figcaption></figure>
+    <figure><img src="gallery/04-ネットワーク構成.svg" alt="ネットワーク構成"><figcaption>ネットワーク構成</figcaption></figure>
+  </div>
+  <p class="note" style="margin-top:20px">
+    4 枚とも、下のような文章から <b>そのまま出たもの</b>です。手で位置を直してはいません。
+    交差 0・箱の重なり 0・消えたラベル 0。
+  </p>
+</section>
+
+<section>
+  <h2>正本は、読める文章</h2>
+  <pre><code>version: 1
+title: オンプレのサーバ構成
+
+nodes:
+  - id: httpd
+    type: server
+    label: Apache httpd
+    technology: 2.4 / mod_php
+  - id: db
+    type: database
+    label: MariaDB
+
+edges:
+  - from: httpd
+    to: db</code></pre>
+  <p>
+    <b>Git で差分が読めます。</b>誰が何を足したか、レビューで分かります。
+    <code>type</code> は形になるので、<b>白黒で印刷しても、縮小しても見分けが付きます</b>
+    ── 円柱はデータベース、六角形はキャッシュ、雲は外の世界。
+  </p>
+</section>
+
+<section>
+  <h2>勝負するのは 2 枚目以降</h2>
+  <div class="flow">
+    <div><b>1. 文章で頼む</b><span>サーバ構成を知っている AI に、そのまま描かせます</span></div>
+    <div><b>2. 図が出る</b><span>並びも線の引き方も自動。あなたは位置を決めません</span></div>
+    <div class="hit"><b>3. 人が 1 か所直す</b><span>納得のいかない箱を動かす。それだけ</span></div>
+    <div class="hit"><b>4. 構成が変わる</b><span>もう一度 AI に頼む。<b>直した 1 か所は動きません</b></span></div>
+  </div>
+  <p style="margin-top:28px">
+    人の手直しは正本の <code>pins</code> にしか書かれず、<b>AI はそこを書けません</b>。
+    道具の側で閉じてあるので、規約や注意書きに頼りません。
+    本物の AI で 10 回試して、<b>10 回とも手直しは消えませんでした。</b>
+  </p>
+</section>
+
+<section>
+  <h2>AI エージェントから直に描かせる</h2>
+  <pre><code>{ "mcpServers": { "zumen": {
+    "command": "node",
+    "args": ["&lt;zumen の場所&gt;/src/mcp.ts"] } } }</code></pre>
+  <p>
+    MCP の口が 9 つ。<b>サーバ構成を把握しているエージェントに、直接描かせられます。</b>
+    描いたあと <code>zumen_inspect</code> を叩けば、線の交差・箱の重なり・
+    <b>置けずに消えたラベル</b>・<b>投影して読める大きさか</b>・
+    <b>人がまだ見ていないか</b>が返ります。
+  </p>
+  <p>
+    <b>開けていない口</b>もあります ── 競合の決着、<code>pins</code> の書き換え、
+    「見た」の印。開けた瞬間、<b>AI が自分の絵を自分で承認できてしまう</b>からです。
+  </p>
+</section>
+
+<section>
+  <h2>何をしないか</h2>
+  <div class="cols">
+    <div>
+      <ul>
+        <li><b>図形の網羅を追いません。</b>対象は構成図の語彙だけ</li>
+        <li><b>縮尺のある図をやりません。</b>配置図・平面図のように寸法が価値になる図は、置き場所を決めるのが人なので</li>
+      </ul>
+    </div>
+    <div>
+      <ul>
+        <li><b>ベンダーのロゴを持ち込みません。</b>AWS のアイコンを使うと「AWS 上にある」と読まれ、自前サーバの図に使えません</li>
+        <li><b>全自動で終わらせません。</b>人が直す往復を残すこと自体が目的です</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>使ってみる</h2>
+  <div class="warn">
+    <b>アルファ版です。</b>署名していないので、受け取った機械は警告を出します
+    （mac は「壊れている」、Windows は「PC が保護されました」）。
+    <b>まだ日常の道具にしないでください。</b>置いてそのまま起動できる実行ファイルも一緒に配っています。
+  </div>
+  <p style="margin-top:24px">
+    <a class="btn primary" href="https://github.com/meta-taro/zumen/releases">配布物を見る</a>
+    <a class="btn" href="https://github.com/meta-taro/zumen/blob/develop/docs/install.md">入れ方</a>
+  </p>
+  <p class="note">
+    Rust があれば <code>pnpm app</code> でそのまま立ちます。
+    MCP サーバだけなら Node だけで動きます（殻は要りません）。
+  </p>
+</section>
+
+<footer>
+  <div class="wrap" style="padding:0">
+    <p>
+      <b>zumen（図面）</b> — 図面は「更新され続けるもの」。この製品が向き合う課題に、語がそのまま重なります。
+    </p>
+    <p>
+      MIT ・ <a href="https://github.com/meta-taro/zumen">github.com/meta-taro/zumen</a> ・
+      <a href="https://github.com/meta-taro/zumen/blob/develop/PRD.md">方向性</a> ・
+      <a href="https://github.com/meta-taro/zumen/blob/develop/CHANGELOG.md">変更の記録</a>
+    </p>
+  </div>
+</footer>
+
+</div>
+</body>
+</html>

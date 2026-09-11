@@ -17,6 +17,23 @@
 > 決定と理由は [`.claude/decisions.md`](.claude/decisions.md)、
 > 保存形式の仕様は [`spec/zumen-format-v1.md`](spec/zumen-format-v1.md) にあります。
 
+## 作れる図
+
+**下の 4 枚は、文章から出たそのままです。**手で位置を直していません。
+交差 0・箱の重なり 0・消えたラベル 0（`pnpm svg examples/gallery/*.zumen.yaml` で再生成できます）。
+
+| | |
+|---|---|
+| <img src="examples/gallery/01-オンプレのサーバ構成.svg" width="300"> | <img src="examples/gallery/02-クラウド構成.svg" width="300"> |
+| サーバ構成 | クラウド構成 |
+| <img src="examples/gallery/03-データの流れ.svg" width="300"> | <img src="examples/gallery/04-ネットワーク構成.svg" width="300"> |
+| データの流れ | ネットワーク構成 |
+
+**`type` は形になります。** 円柱はデータベース、六角形はキャッシュ、雲は外の世界。
+**色ではなく形で意味を持たせる**ので、白黒で印刷しても、縮小しても見分けが付きます。
+
+紹介のページ（GitHub Pages）は [`site/`](site/) にあります。
+
 ---
 
 ## なぜ作るか

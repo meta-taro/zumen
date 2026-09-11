@@ -1,0 +1,58 @@
+name: pages
+
+# **紹介のページを配る**（GitHub Pages）。
+#
+# 中身は `site/`。組み立ての段は無く、置いてあるものをそのまま配る。
+# **図は実物**（`examples/gallery/` で描いたものを写している）で、
+# 絵として作ったものではない。**出せない図を載せない**ため。
+#
+# ## 人の作業が 1 回だけ要る
+#
+# Settings → Pages → Source を **GitHub Actions** にすること。
+# そこまでは、この workflow が走っても配られない。
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - develop
+    paths:
+      - 'site/**'
+      - 'examples/gallery/**'
+      - '.github/workflows/pages.yml'
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 走っている途中のものは止めてよい（配るのは常に最新の 1 つ）。
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v7
+
+      # **図はここで写す。** site/ に置いたものが古くならないように、
+      # 配るたびに examples/gallery/ から取り直す。
+      - name: 図を写す
+        run: |
+          mkdir -p site/gallery
+          cp examples/gallery/*.svg site/gallery/
+          cp app/icon.svg site/icon.svg
+          ls -l site site/gallery
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+      - id: deploy
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,59 @@
+version: 1
+title: クラウド構成
+groups:
+  - id: pub
+    label: 公開サブネット
+  - id: pri
+    label: 非公開サブネット
+  - id: mgd
+    label: マネージド
+nodes:
+  - id: net
+    type: internet
+    label: インターネット
+  - id: lb
+    type: load-balancer
+    label: ロードバランサ
+    group: pub
+  - id: web1
+    type: container
+    label: web-1
+    technology: node 22
+    group: pri
+  - id: web2
+    type: container
+    label: web-2
+    technology: node 22
+    group: pri
+  - id: kv
+    type: cache
+    label: Redis
+    technology: 7.2
+    group: mgd
+  - id: db
+    type: database
+    label: PostgreSQL
+    technology: 16
+    group: mgd
+  - id: bkt
+    type: storage
+    label: オブジェクト保管
+    group: mgd
+edges:
+  - from: net
+    to: lb
+    label: 443
+  - from: lb
+    to: web1
+  - from: lb
+    to: web2
+  - from: web1
+    to: kv
+    label: セッション
+  - from: web1
+    to: db
+  - from: web2
+    to: db
+  - from: web1
+    to: bkt
+    label: 添付

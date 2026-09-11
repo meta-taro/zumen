@@ -44,8 +44,11 @@ on:
     tags:
       - 'v*'
 
+# タグを打ったときは、**Release へ実物を貼る**（下の release ジョブ）。
+# Actions の Artifacts は **GitHub にログインしないと落とせない**ので、
+# 外の人へ配るには足りない（紹介のページから辿れる先が要る）。
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   macos:
@@ -211,3 +214,42 @@ jobs:
             src-tauri/target/release/bundle/**/*.exe
             src-tauri/target/release/zumen.exe
           if-no-files-found: error
+
+  # --- タグを打ったときだけ、Release へ貼る ---------------------------------
+  #
+  # **Artifacts はログインが要る。** 紹介のページ（site/）から辿るのは Release。
+  # develop への push では走らない（配るものは、人がタグを打って決める）。
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: [macos, windows]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/download-artifact@v4
+        with:
+          path: out
+
+      - name: 貼るものを並べる
+        run: find out -type f -exec ls -l {} \;
+
+      # **署名していないことを、受け取る前に言う。**
+      # 黙って配ると「壊れている」とだけ出て、原因が分からない。
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: out/**/*
+          generate_release_notes: true
+          body: |
+            **アルファ版です。署名していません。**
+
+            | | 出るもの | 開き方 |
+            |---|---|---|
+            | Windows | 「WindowsによってPCが保護されました」 | 詳細情報 → 実行。または署名の要らない `zumen.exe` を使う |
+            | mac | 「壊れているため開けません」 | 右クリック → 開く。または `xattr -d com.apple.quarantine` |
+
+            **`zumen.exe` と `zumen-macos-app.tar.gz` は、置いてそのまま起動できます。**
+            インストーラ（`.msi` / `setup.exe` / `.dmg`）より確実です。
+
+            mac 版は Apple Silicon 用だけです。
+
+            変更の記録は [CHANGELOG.md](../blob/develop/CHANGELOG.md)。
