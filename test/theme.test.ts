@@ -74,7 +74,9 @@ describe('SVG を書き出す', () => {
 
   it('dark と言えばダークで返る', async () => {
     const svg = await toSvg(SOURCE, { theme: 'dark' });
-    assert.ok(svg.includes(DARK.bgApp), 'ダークの地が入っていない');
+    // **箱の地は `neutralBg`**（ダークでは箱を一段持ち上げる。`DESIGN.md` §8）。
+    // `bgApp` を探すと、地と同じ塗りだった頃の前提になる。
+    assert.ok(svg.includes(DARK.neutralBg), 'ダークの箱の地が入っていない');
     assert.ok(svg.includes(DARK.textPrimary), 'ダークの文字色が入っていない');
   });
 
@@ -92,7 +94,7 @@ describe('SVG を書き出す', () => {
 
   it('囲み・線・体裁の語も、ダークの値になる', async () => {
     const svg = await toSvg(SOURCE, { theme: 'dark' });
-    assert.ok(svg.includes(DARK.neutralBg), '囲みの地');
+    assert.ok(svg.includes(DARK.bgSubtle), '囲みの地');
     assert.ok(svg.includes(DARK.textSecondary), '線');
     assert.ok(svg.includes(DARK.accentSubtle), 'appearance: primary の地');
   });
@@ -104,7 +106,7 @@ describe('SVG を書き出す', () => {
 
   it('**エージェントの口からも渡せる**（zumen_export）', async () => {
     const svg = await exportAs(SOURCE, 'svg', { theme: 'dark' });
-    assert.ok(svg.includes(DARK.bgApp));
+    assert.ok(svg.includes(DARK.neutralBg));
   });
 
   it('SVG 以外はテーマを持たない（draw.io は貼り先が色を持つ／mermaid は自前のテーマ）', async () => {

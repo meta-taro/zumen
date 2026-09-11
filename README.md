@@ -19,28 +19,30 @@
 
 ## 作れる図
 
-**下の 4 枚は、文章から出たそのままです。**手で位置を直していません。
-交差 0・箱の重なり 0・消えたラベル 0。
-
-**描いてある構成は例のために組んだもの**で、実在のものではありません。
-正本は [`examples/gallery/`](examples/gallery/) にあり、同じものを手元で出せます。
-
-```bash
-node src/cli.ts svg examples/gallery/02-クラウド構成.zumen.yaml out.svg
-node src/cli.ts svg examples/gallery/02-クラウド構成.zumen.yaml out-dark.svg --dark
-```
+**サーバやネットワークだけではありません。**
+工場のライン、病院の外来、住宅の電気と給排水、店舗の在庫、稟議 ——
+**「何がどこへ繋がるか」「どの順で流れるか」を表す図なら、同じ書き方で描けます。**
 
 | | |
 |---|---|
-| <img src="examples/gallery/01-オンプレのサーバ構成.svg" width="300"> | <img src="examples/gallery/02-クラウド構成.svg" width="300"> |
-| サーバ構成 | クラウド構成 |
-| <img src="examples/gallery/03-データの流れ.svg" width="300"> | <img src="examples/gallery/04-ネットワーク構成.svg" width="300"> |
-| データの流れ | ネットワーク構成 |
+| <img src="examples/gallery/02-クラウド構成.svg" width="320"> | <img src="examples/gallery/08-工場のライン.svg" width="320"> |
+| クラウド構成 | 組立ラインと検査 |
+| <img src="examples/gallery/06-家の電気系統.svg" width="320"> | <img src="examples/gallery/12-在庫と発注.svg" width="320"> |
+| 住宅の電気系統 | 店舗の在庫と発注 |
+
+**13 枚を [`examples/gallery/`](examples/gallery/) に置いてあります。**
+[紹介のページ](https://meta-taro.github.io/zumen/)に全部並べてあります。
+
+**下の 13 枚は、文章から出たそのままです。**手で位置を直していません。
+**描いてある構成は例のために組んだもの**で、実在のものではありません。
+
+```bash
+node src/cli.ts svg examples/gallery/08-工場のライン.zumen.yaml out.svg
+node src/cli.ts svg examples/gallery/08-工場のライン.zumen.yaml out-dark.svg --dark
+```
 
 **`type` は形になります。** 円柱はデータベース、六角形はキャッシュ、雲は外の世界。
 **色ではなく形で意味を持たせる**ので、白黒で印刷しても、縮小しても見分けが付きます。
-
-紹介のページ（GitHub Pages）は [`site/`](site/) にあります。
 
 ---
 

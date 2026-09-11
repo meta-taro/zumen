@@ -1,0 +1,75 @@
+version: 1
+title: 記事ができるまで
+pins:
+  kousei:
+    appearance: primary
+  kamishita:
+    appearance: muted
+groups:
+  - id: shuzai
+    label: 取材
+  - id: seisaku
+    label: 制作
+  - id: koukai
+    label: 公開
+nodes:
+  - id: kikaku
+    type: generic
+    label: 企画会議
+    technology: 週 1
+    group: shuzai
+  - id: genba
+    type: generic
+    label: 現地取材
+    group: shuzai
+  - id: shashin
+    type: storage
+    label: 写真
+    technology: 原本を保管
+    group: shuzai
+  - id: shitagaki
+    type: generic
+    label: 原稿
+    group: seisaku
+  - id: kousei
+    type: generic
+    label: 校正
+    technology: 2 名で読む
+    group: seisaku
+  - id: kamishita
+    type: generic
+    label: 紙面下版
+    technology: 紙は縮小中
+    group: seisaku
+  - id: cms
+    type: database
+    label: CMS
+    group: koukai
+  - id: web
+    type: internet
+    label: 記事ページ
+    group: koukai
+  - id: sns
+    type: internet
+    label: SNS 告知
+    group: koukai
+edges:
+  - from: kikaku
+    to: genba
+  - from: genba
+    to: shashin
+  - from: genba
+    to: shitagaki
+  - from: shashin
+    to: shitagaki
+    label: 選定
+  - from: shitagaki
+    to: kousei
+  - from: kousei
+    to: cms
+  - from: kousei
+    to: kamishita
+  - from: cms
+    to: web
+  - from: web
+    to: sns

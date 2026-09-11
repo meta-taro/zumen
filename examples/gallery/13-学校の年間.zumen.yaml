@@ -1,0 +1,54 @@
+version: 1
+title: 入学までの流れ
+direction: down
+pins:
+  senko:
+    appearance: primary
+nodes:
+  - id: setsumei
+    type: generic
+    label: 学校説明会
+    technology: 6 月・9 月
+  - id: shutsugan
+    type: internet
+    label: 出願
+    technology: Web
+  - id: juken
+    type: generic
+    label: 受験
+  - id: senko
+    type: cluster
+    label: 選考
+    technology: 学力・面接
+  - id: goukaku
+    type: generic
+    label: 合格発表
+  - id: tetsuzuki
+    type: generic
+    label: 入学手続き
+  - id: hoketsu
+    type: queue
+    label: 補欠
+  - id: nyugaku
+    type: storage
+    label: 入学
+edges:
+  - from: setsumei
+    to: shutsugan
+  - from: shutsugan
+    to: juken
+  - from: juken
+    to: senko
+  - from: senko
+    to: goukaku
+    label: 合格
+  - from: senko
+    to: hoketsu
+    label: 補欠
+  - from: hoketsu
+    to: goukaku
+    label: 繰り上げ
+  - from: goukaku
+    to: tetsuzuki
+  - from: tetsuzuki
+    to: nyugaku

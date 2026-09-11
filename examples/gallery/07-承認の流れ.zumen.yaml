@@ -1,0 +1,51 @@
+version: 1
+title: 稟議の流れ
+direction: down
+pins:
+  bucho:
+    appearance: primary
+nodes:
+  - id: kian
+    type: generic
+    label: 起案
+    technology: 担当者
+  - id: kacho
+    type: generic
+    label: 課長
+  - id: bucho
+    type: generic
+    label: 部長
+    technology: 100 万円以上はここで止まる
+  - id: keiri
+    type: generic
+    label: 経理
+  - id: yakuin
+    type: generic
+    label: 役員会
+    technology: 月 1 回
+  - id: kaketsu
+    type: storage
+    label: 可決・保管
+  - id: sashimodoshi
+    type: queue
+    label: 差し戻し
+edges:
+  - from: kian
+    to: kacho
+  - from: kacho
+    to: bucho
+  - from: bucho
+    to: keiri
+    label: 100 万円未満
+  - from: bucho
+    to: yakuin
+    label: 100 万円以上
+  - from: keiri
+    to: kaketsu
+  - from: yakuin
+    to: kaketsu
+  - from: kacho
+    to: sashimodoshi
+    label: 要件不足
+  - from: sashimodoshi
+    to: kian

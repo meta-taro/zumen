@@ -1,0 +1,81 @@
+version: 1
+title: 住宅の給排水
+pins:
+  kyuto:
+    appearance: primary
+groups:
+  - id: hikikomi
+    label: 引き込み
+  - id: kyusui
+    label: 給水
+  - id: haisui
+    label: 排水
+nodes:
+  - id: honkan
+    type: network
+    label: 配水本管
+    group: hikikomi
+  - id: meter
+    type: generic
+    label: 量水器
+    group: hikikomi
+  - id: genatsu
+    type: generic
+    label: 減圧弁
+    group: hikikomi
+  - id: kyuto
+    type: cluster
+    label: 給湯器
+    technology: 24 号・追い焚き
+    group: kyusui
+  - id: daidokoro
+    type: generic
+    label: 台所
+    group: kyusui
+  - id: yokushitsu
+    type: generic
+    label: 浴室
+    group: kyusui
+  - id: senmen
+    type: generic
+    label: 洗面
+    group: kyusui
+  - id: toilet
+    type: generic
+    label: 便所
+    group: kyusui
+  - id: masu
+    type: generic
+    label: 汚水ます
+    group: haisui
+  - id: gesui
+    type: network
+    label: 公共下水
+    group: haisui
+edges:
+  - from: honkan
+    to: meter
+  - from: meter
+    to: genatsu
+  - from: genatsu
+    to: kyuto
+  - from: genatsu
+    to: toilet
+    label: 水
+  - from: kyuto
+    to: daidokoro
+    label: 湯
+  - from: kyuto
+    to: yokushitsu
+    label: 湯
+  - from: kyuto
+    to: senmen
+    label: 湯
+  - from: daidokoro
+    to: masu
+  - from: yokushitsu
+    to: masu
+  - from: toilet
+    to: masu
+  - from: masu
+    to: gesui

@@ -1,0 +1,75 @@
+version: 1
+title: 外来の流れ
+direction: down
+pins:
+  shinsatsu:
+    appearance: primary
+groups:
+  - id: uketsuke
+    label: 受付
+  - id: shinryo
+    label: 診療
+  - id: kaikei
+    label: 会計・薬
+nodes:
+  - id: yoyaku
+    type: internet
+    label: 予約
+    technology: Web・電話
+    group: uketsuke
+  - id: madoguchi
+    type: generic
+    label: 受付窓口
+    group: uketsuke
+  - id: karte
+    type: database
+    label: 電子カルテ
+    group: uketsuke
+  - id: machi
+    type: queue
+    label: 待合
+    group: shinryo
+  - id: shinsatsu
+    type: generic
+    label: 診察
+    technology: 医師
+    group: shinryo
+  - id: kensa
+    type: generic
+    label: 検査
+    technology: 採血・画像
+    group: shinryo
+  - id: seisan
+    type: generic
+    label: 会計
+    group: kaikei
+  - id: shohou
+    type: generic
+    label: 処方せん
+    group: kaikei
+  - id: yakkyoku
+    type: generic
+    label: 院外薬局
+    group: kaikei
+edges:
+  - from: yoyaku
+    to: madoguchi
+  - from: madoguchi
+    to: karte
+    label: 照会
+  - from: madoguchi
+    to: machi
+  - from: machi
+    to: shinsatsu
+  - from: shinsatsu
+    to: kensa
+    label: 必要なら
+  - from: kensa
+    to: shinsatsu
+    label: 結果
+  - from: shinsatsu
+    to: seisan
+  - from: shinsatsu
+    to: shohou
+  - from: shohou
+    to: yakkyoku

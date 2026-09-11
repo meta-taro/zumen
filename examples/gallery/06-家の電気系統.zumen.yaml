@@ -1,0 +1,74 @@
+version: 1
+title: 住宅の電気系統
+pins:
+  bunden:
+    appearance: primary
+groups:
+  - id: soto
+    label: 引き込み
+  - id: ikkai
+    label: 1 階
+  - id: nikai
+    label: 2 階
+nodes:
+  - id: pole
+    type: network
+    label: 電柱
+    group: soto
+  - id: meter
+    type: generic
+    label: 電力量計
+    technology: スマートメーター
+    group: soto
+  - id: bunden
+    type: cluster
+    label: 分電盤
+    technology: 主幹 60A / 分岐 12
+    group: soto
+  - id: living
+    type: generic
+    label: 居間
+    technology: 照明・コンセント
+    group: ikkai
+  - id: kitchen
+    type: generic
+    label: 台所
+    technology: IH 200V 専用
+    group: ikkai
+  - id: bath
+    type: generic
+    label: 洗面・浴室
+    technology: 漏電遮断あり
+    group: ikkai
+  - id: room1
+    type: generic
+    label: 洋室 1
+    group: nikai
+  - id: room2
+    type: generic
+    label: 洋室 2
+    group: nikai
+  - id: ac
+    type: generic
+    label: エアコン
+    technology: 各室専用
+    group: nikai
+edges:
+  - from: pole
+    to: meter
+  - from: meter
+    to: bunden
+    label: 単相 3 線
+  - from: bunden
+    to: living
+  - from: bunden
+    to: kitchen
+    label: 200V
+  - from: bunden
+    to: bath
+  - from: bunden
+    to: room1
+  - from: bunden
+    to: room2
+  - from: bunden
+    to: ac

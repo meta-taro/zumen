@@ -188,6 +188,23 @@ export function paletteOf(theme: Theme = 'light', intent: Intent = 'safe'): Pale
   const t = theme === 'dark' ? DARK : TOKEN;
 
   /**
+   * **箱の地。**
+   *
+   * ライトでは紙と同じ白でよい（箱は濃い枠で立つ）。
+   * ダークで同じことをすると、**黒地に白い輪郭だけ**になり、線画のように硬くなる。
+   * **箱を一段持ち上げて面として見せる**（人の指示。2026-09-11）。
+   */
+  const nodeFill = theme === 'dark' ? t.neutralBg : t.bgApp;
+
+  /**
+   * **囲みの地。**
+   *
+   * ライトでは紙より一段沈める。
+   * ダークでは**箱より沈める** —— 箱が手前、囲みが奥、という段になる。
+   */
+  const groupFill = theme === 'dark' ? t.bgSubtle : t.neutralBg;
+
+  /**
    * `primary` は「説明の主役」。**濃さだけが選べる。**
    *
    * `vivid` はアクセントで塗り潰す（遠くから見る場で効く）。
@@ -224,7 +241,7 @@ export function paletteOf(theme: Theme = 'light', intent: Intent = 'safe'): Pale
      * **ダークでアクセントと 1.3:1 まで近づく**ので、`appearance: primary` と区別が付かない。
      * 地から最も遠い側を選べば、どちらのテーマでも両方から離れる。
      */
-    node: { fill: t.bgApp, stroke: inkOn(t.bgApp, t.textPrimary, t.textOnAccent), text: t.textPrimary, dash: null },
+    node: { fill: nodeFill, stroke: inkOn(t.bgApp, t.textPrimary, t.textOnAccent), text: t.textPrimary, dash: null },
     /**
      * 囲みは**面と枠の両方で示す**。
      *
@@ -232,7 +249,7 @@ export function paletteOf(theme: Theme = 'light', intent: Intent = 'safe'): Pale
      * 面を `neutralBg` にし、枠を `textSecondary` の破線にする。
      * **「区画であって物ではない」ことは線種で示したまま**、存在は分かるようにする。
      */
-    group: { fill: t.neutralBg, stroke: t.textSecondary, text: t.textSecondary, dash: '6 4' },
+    group: { fill: groupFill, stroke: t.textSecondary, text: t.textSecondary, dash: '6 4' },
     edge: { stroke: t.textSecondary },
     text: { node: t.textPrimary, group: t.textSecondary, edge: t.textSecondary },
   };

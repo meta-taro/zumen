@@ -1,0 +1,67 @@
+version: 1
+title: 受注から出荷まで
+pins:
+  check:
+    appearance: primary
+  fax:
+    appearance: muted
+groups:
+  - id: uke
+    label: 受注
+  - id: naka
+    label: 社内
+  - id: deru
+    label: 出荷
+nodes:
+  - id: web
+    type: internet
+    label: 自社サイト
+    group: uke
+  - id: fax
+    type: generic
+    label: FAX
+    technology: 紙。廃止予定
+    group: uke
+  - id: order
+    type: database
+    label: 受注台帳
+    group: naka
+  - id: check
+    type: generic
+    label: 与信の確認
+    technology: 人が見る
+    group: naka
+  - id: stock
+    type: storage
+    label: 在庫
+    group: naka
+  - id: pick
+    type: queue
+    label: ピッキング待ち
+    group: deru
+  - id: ship
+    type: generic
+    label: 出荷
+    group: deru
+  - id: bill
+    type: generic
+    label: 請求
+    group: deru
+edges:
+  - from: web
+    to: order
+  - from: fax
+    to: order
+    label: 手入力
+  - from: order
+    to: check
+  - from: check
+    to: stock
+    label: 引き当て
+  - from: stock
+    to: pick
+  - from: pick
+    to: ship
+  - from: ship
+    to: bill
+    label: 出荷実績

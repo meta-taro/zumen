@@ -1,0 +1,69 @@
+version: 1
+title: 店舗の在庫と発注
+pins:
+  hachu:
+    appearance: primary
+groups:
+  - id: mise
+    label: 店舗
+  - id: honbu
+    label: 本部
+  - id: torihiki
+    label: 取引先
+nodes:
+  - id: pos
+    type: generic
+    label: レジ
+    technology: POS
+    group: mise
+  - id: zaiko
+    type: database
+    label: 店舗在庫
+    group: mise
+  - id: tanaoroshi
+    type: generic
+    label: 棚卸し
+    technology: 月 1
+    group: mise
+  - id: hachu
+    type: cluster
+    label: 発注の判断
+    technology: 基準を下回ったら
+    group: honbu
+  - id: honbuzaiko
+    type: database
+    label: 全店在庫
+    group: honbu
+  - id: yosoku
+    type: generic
+    label: 需要予測
+    group: honbu
+  - id: shiire
+    type: generic
+    label: 仕入先
+    group: torihiki
+  - id: butsuryu
+    type: queue
+    label: 配送待ち
+    group: torihiki
+edges:
+  - from: pos
+    to: zaiko
+    label: 販売実績
+  - from: tanaoroshi
+    to: zaiko
+    label: 実数で補正
+  - from: zaiko
+    to: honbuzaiko
+  - from: honbuzaiko
+    to: hachu
+  - from: yosoku
+    to: hachu
+  - from: hachu
+    to: shiire
+    label: 発注
+  - from: shiire
+    to: butsuryu
+  - from: butsuryu
+    to: zaiko
+    label: 入荷

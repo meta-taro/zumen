@@ -1,0 +1,80 @@
+version: 1
+title: 組立ラインと検査
+pins:
+  kensa:
+    appearance: primary
+  tesagyo:
+    appearance: muted
+groups:
+  - id: zairyo
+    label: 材料
+  - id: line
+    label: 組立ライン
+  - id: dashi
+    label: 出荷判定
+nodes:
+  - id: nyuka
+    type: storage
+    label: 部材倉庫
+    technology: 先入れ先出し
+    group: zairyo
+  - id: kensyu
+    type: generic
+    label: 受入検査
+    technology: 抜き取り
+    group: zairyo
+  - id: k1
+    type: generic
+    label: 第 1 工程
+    technology: プレス
+    group: line
+  - id: k2
+    type: generic
+    label: 第 2 工程
+    technology: 溶接
+    group: line
+  - id: tesagyo
+    type: generic
+    label: 手直し台
+    technology: 廃止検討
+    group: line
+  - id: k3
+    type: generic
+    label: 第 3 工程
+    technology: 塗装
+    group: line
+  - id: kensa
+    type: cluster
+    label: 全数検査
+    technology: 画像 2 台
+    group: dashi
+  - id: futekigo
+    type: queue
+    label: 不適合品
+    group: dashi
+  - id: soko
+    type: storage
+    label: 製品倉庫
+    group: dashi
+edges:
+  - from: nyuka
+    to: kensyu
+  - from: kensyu
+    to: k1
+  - from: k1
+    to: k2
+  - from: k2
+    to: k3
+  - from: k2
+    to: tesagyo
+    label: 不良
+  - from: tesagyo
+    to: k3
+  - from: k3
+    to: kensa
+  - from: kensa
+    to: soko
+    label: 合格
+  - from: kensa
+    to: futekigo
+    label: 不合格
