@@ -355,6 +355,16 @@ interface NodeInfo {
    * 構成図では見ない —— 置き場所は機械が決める。
    */
   at: { x: number; y: number } | null;
+  /**
+   * **AI が書いた大きさ**（仕様 §3.1）。
+   *
+   * 間取りを描かせてみて分かった —— **部屋の大きさが全部同じでは図にならない。**
+   * 16 畳の LDK と便所が同じ箱で出た（2026-09-11）。
+   *
+   * `pins.size`（人）とは別。**人のほうが常に強い。**
+   * 置き場所と違い、**構成図でも効く**（大きさは並べ方と関係ない）。
+   */
+  size: { w: number; h: number } | null;
 }
 
 function readNodes(diagram: ReturnType<typeof parse>): NodeInfo[] {
@@ -366,6 +376,7 @@ function readNodes(diagram: ReturnType<typeof parse>): NodeInfo[] {
       group?: unknown;
       technology?: unknown;
       at?: unknown;
+      size?: unknown;
     }[];
   };
   return (raw.nodes ?? []).map((node) => {
@@ -377,6 +388,7 @@ function readNodes(diagram: ReturnType<typeof parse>): NodeInfo[] {
       group: asText(node.group),
       technology: asText(node.technology),
       at: asPoint(node.at),
+      size: asSize(node.size),
     };
   });
 }
@@ -396,6 +408,15 @@ function asPoint(raw: unknown): { x: number; y: number } | null {
   if (typeof x !== 'number' || typeof y !== 'number') return null;
   if (!Number.isFinite(x) || !Number.isFinite(y)) return null;
   return { x, y };
+}
+
+/** `{ w, h }` として読めるものだけ受ける。**読めなければラベルから決める。** */
+function asSize(raw: unknown): { w: number; h: number } | null {
+  if (raw === null || typeof raw !== 'object') return null;
+  const { w, h } = raw as { w?: unknown; h?: unknown };
+  if (typeof w !== 'number' || typeof h !== 'number') return null;
+  if (!Number.isFinite(w) || !Number.isFinite(h) || w <= 0 || h <= 0) return null;
+  return { w, h };
 }
 
 function readGroupLabels(diagram: ReturnType<typeof parse>): Map<string, string> {
@@ -564,9 +585,15 @@ function buildGraph(
     // **ラベルの幅も同じ段階で効かせる**（後から広げると同じことが起きる）。
     // **形の分だけ広げる**（Issue #9）。円柱は上下に、六角形は左右に余分が要る。
     // ここで足さないと、形を付けたときにラベルがはみ出す。
-    width: pins[node.id]?.size?.w ?? widthFor(labelOf(node, pins), node.technology) + growFor(shapeOf(node.type)).w,
+    //
+    // 強さは **人（`pins.size`）> AI（`nodes[].size`）> ラベルから見積もる** の順。
+    width:
+      pins[node.id]?.size?.w ??
+      node.size?.w ??
+      widthFor(labelOf(node, pins), node.technology) + growFor(shapeOf(node.type)).w,
     height:
       pins[node.id]?.size?.h ??
+      node.size?.h ??
       (node.technology === null ? NODE_HEIGHT : NODE_HEIGHT + 16) + growFor(shapeOf(node.type)).h,
   });
 

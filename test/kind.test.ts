@@ -158,3 +158,73 @@ describe('**AI が位置を書ける**（`nodes[].at`）', () => {
     assert.equal(out.positionsInSource, true);
   });
 });
+
+describe('**AI が大きさを書ける**（`nodes[].size`）', () => {
+  // 間取りを描かせてみて分かった。**部屋の大きさが全部同じ**では図にならない。
+  // 16 畳の LDK と便所が同じ箱で出た（2026-09-11）。
+  //
+  // 位置と同じ穴が、大きさに残っていた。
+  //
+  //     位置   AI: nodes[].at   人: pins.position
+  //     大きさ AI: **無い**      人: pins.size
+  const ROOMS = [
+    'version: 1',
+    'kind: placement',
+    'nodes:',
+    '  - id: ldk',
+    '    label: LDK',
+    '    at: { x: 40, y: 40 }',
+    '    size: { w: 320, h: 240 }',
+    '  - id: wc',
+    '    label: 便所',
+    '    at: { x: 380, y: 40 }',
+    '    size: { w: 80, h: 80 }',
+    '',
+  ].join('\n');
+
+  it('**書いた大きさで描かれる**', async () => {
+    const { layout } = await import('../src/layout.ts');
+    const placed = await layout(ROOMS);
+    const ldk = placed.boxes.find((box) => box.id === 'ldk')!;
+    assert.equal(ldk.w, 320);
+    assert.equal(ldk.h, 240);
+  });
+
+  it('**大きさの違いが出る**（16 畳と便所が同じ箱にならない）', async () => {
+    const { layout } = await import('../src/layout.ts');
+    const placed = await layout(ROOMS);
+    const ldk = placed.boxes.find((box) => box.id === 'ldk')!;
+    const wc = placed.boxes.find((box) => box.id === 'wc')!;
+    assert.ok(ldk.w * ldk.h > wc.w * wc.h * 4, `LDK ${ldk.w}x${ldk.h} / 便所 ${wc.w}x${wc.h}`);
+  });
+
+  it('**人の `pins.size` が、AI の `size` より強い**', async () => {
+    const { layout } = await import('../src/layout.ts');
+    const source = ROOMS.replace(
+      'nodes:',
+      'pins:\n  ldk:\n    size: { w: 500, h: 400 }\n\nnodes:',
+    );
+    const placed = await layout(source);
+    const ldk = placed.boxes.find((box) => box.id === 'ldk')!;
+    assert.equal(ldk.w, 500);
+    assert.equal(ldk.h, 400);
+  });
+
+  it('**AI が書いた大きさは、人の手直しに数えない**', async () => {
+    const { measure } = await import('../src/measure.ts');
+    assert.equal(measure(ROOMS).placed, 0);
+  });
+
+  it('書いていなければ、これまでどおりラベルから決まる', async () => {
+    const { layout } = await import('../src/layout.ts');
+    const placed = await layout(ROOMS.replace(/^\s*size:.*$/gm, ''));
+    const ldk = placed.boxes.find((box) => box.id === 'ldk')!;
+    assert.equal(ldk.h, 60);
+  });
+
+  it('構成図でも効く（大きさは並べ方と関係ない）', async () => {
+    const { layout } = await import('../src/layout.ts');
+    const placed = await layout(ROOMS.replace('kind: placement\n', '').replace(/^\s*at:.*$/gm, ''));
+    assert.equal(placed.boxes.find((box) => box.id === 'ldk')!.w, 320);
+  });
+});

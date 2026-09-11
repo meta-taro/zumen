@@ -1,0 +1,54 @@
+version: 1
+kind: placement
+title: 2LDK の間取り（1 階）
+groups:
+  - id: f1
+    label: 1 階・約 62 m²（1 マス = 910mm を 40px として）
+nodes:
+  - id: ldk
+    type: generic
+    label: LDK
+    technology: 16 畳
+    at: { x: 40, y: 40 }
+    size: { w: 320, h: 280 }
+    group: f1
+  - id: washitsu
+    type: generic
+    label: 和室
+    technology: 6 畳
+    at: { x: 40, y: 320 }
+    size: { w: 200, h: 160 }
+    group: f1
+  - id: hall
+    type: generic
+    label: 廊下
+    at: { x: 240, y: 320 }
+    size: { w: 120, h: 160 }
+    group: f1
+  - id: genkan
+    type: generic
+    label: 玄関
+    technology: 3.3 m²
+    at: { x: 240, y: 480 }
+    size: { w: 120, h: 80 }
+    group: f1
+  - id: senmen
+    type: generic
+    label: 洗面脱衣
+    technology: 2 畳
+    at: { x: 360, y: 320 }
+    size: { w: 120, h: 80 }
+    group: f1
+  - id: ub
+    type: generic
+    label: 浴室
+    technology: 1616
+    at: { x: 360, y: 400 }
+    size: { w: 120, h: 120 }
+    group: f1
+  - id: wc
+    type: generic
+    label: 便所
+    at: { x: 360, y: 240 }
+    size: { w: 120, h: 80 }
+    group: f1
