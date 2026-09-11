@@ -24,6 +24,8 @@
  * **人の作業時間を数えない。** 測っているのは製品であって人ではない（Issue 003 の注意）。
  */
 import { getPins, parse } from './format.ts';
+import { kindOf, measureOf } from './kind.ts';
+import type { Kind } from './kind.ts';
 import { reviewOf } from './review.ts';
 import type { Pin } from './format.ts';
 
@@ -36,6 +38,13 @@ const CONTENT_KEYS = ['label', 'appearance'] as const;
 export const PASS_LINE = 0.9;
 
 export interface Measurement {
+  /**
+   * 図の種類（Issue #4）。**物差しの向きが、ここで変わる。**
+   *
+   * 構成図は「人が触っていないほど良い」、**配置図は逆**。
+   * 同じ数字を逆に読まないために、**種類も一緒に返す。**
+   */
+  kind: Kind;
   /**
    * **人がこの図を見たか**（仕様 §3.5）。
    *
@@ -76,9 +85,12 @@ export function measure(text: string): Measurement {
   const placed = entries.filter(([, pin]) => hasAny(pin, GEOMETRY_KEYS)).length;
 
   const seen = reviewOf(text);
+  const kind = kindOf(text);
+  const ruler = measureOf(kind);
   const autonomy = ratio(elements, touched);
   const layoutAutonomy = ratio(elements, placed);
   return {
+    kind,
     reviewed: seen.reviewed,
     reviewStale: seen.stale,
     elements,
@@ -86,7 +98,18 @@ export function measure(text: string): Measurement {
     placed,
     autonomy,
     layoutAutonomy,
-    pass: autonomy >= PASS_LINE && layoutAutonomy >= PASS_LINE,
+    /**
+     * **合格の向きは、種類で変わる**（Issue #4）。
+     *
+     * 構成図 … 人が触っていないほど良い（9 割以上が機械）
+     * 配置図 … **人が置いているほど良い**（9 割以上が人）
+     *
+     * 数字（`autonomy` / `layoutAutonomy`）は**どちらも同じ数え方**で、
+     * 読み替えているのはここだけ。**2 通りの数え方を持たない。**
+     */
+    pass: ruler.humanPlacementIsGood
+      ? layoutAutonomy <= 1 - PASS_LINE
+      : autonomy >= PASS_LINE && layoutAutonomy >= PASS_LINE,
   };
 }
 

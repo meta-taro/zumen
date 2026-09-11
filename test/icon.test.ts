@@ -84,6 +84,24 @@ describe('**参照されているのに存在しないアセット**（ベース
     assert.match(html, /icon\.svg/);
   });
 
+  it('**紹介のページもアイコンを指している**（タブで見分けが付く）', () => {
+    const html = readFileSync(join(ROOT, 'site/index.html'), 'utf8');
+    assert.match(html, /rel="icon"/);
+    assert.match(html, /icon\.svg/);
+  });
+
+  it('紹介のページのアイコンが実在する', () => {
+    assert.ok(existsSync(join(ROOT, 'site/icon.svg')));
+    assert.ok(existsSync(join(ROOT, 'site/icon-180.png')));
+  });
+
+  it('**紹介のページのアイコンが、正本と同じ**（片方だけ古くならない）', () => {
+    assert.equal(
+      readFileSync(join(ROOT, 'site/icon.svg'), 'utf8'),
+      readFileSync(join(ROOT, 'app/icon.svg'), 'utf8'),
+    );
+  });
+
   it('デスクトップだけなので、iOS / Android は置かない（D1 / PRD §4）', () => {
     for (const dir of ['android', 'ios']) {
       assert.equal(existsSync(join(ROOT, 'src-tauri/icons', dir)), false, `${dir} が残っている`);

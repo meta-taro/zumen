@@ -33,6 +33,8 @@ import { PASS_LINE, measure } from './measure.ts';
 import { merge } from './merge.ts';
 import type { Conflict } from './merge.ts';
 import { toMermaid } from './mermaid.ts';
+import { kindOf, measureOf } from './kind.ts';
+import type { Kind } from './kind.ts';
 import { projection, PROJECTION_FLOOR, SMALLEST_TEXT } from './projection.ts';
 import { render } from './render.ts';
 import { reviewOf } from './review.ts';
@@ -136,6 +138,19 @@ export interface Inspection {
   collisions: [string, string][];
   width: number;
   height: number;
+  /**
+   * 図の種類（Issue #4）。**物差しの向きが、ここで変わる。**
+   */
+  kind: Kind;
+  /**
+   * **人が置いたことを、良しとするか。**
+   *
+   * 構成図では偽 —— 人が並べ直しているなら、それは作図ソフトであってこの製品ではない。
+   * **配置図では真** —— どこに在るかが内容なので、置き場所は人が決める。
+   *
+   * **同じ数字を逆に読まないため**に、向きも一緒に返す。
+   */
+  humanPlacementIsGood: boolean;
   /** 「9 割」（D3）。合格線は `passLine`。 */
   autonomy: number | null;
   layoutAutonomy: number | null;
@@ -210,6 +225,8 @@ export async function inspect(source: string): Promise<Inspection> {
       passLine: PASS_LINE,
       tooTangled: false,
       hiddenLabels: [],
+      kind: 'structure',
+      humanPlacementIsGood: false,
       reviewed: false,
       reviewedAt: null,
       reviewStale: false,
@@ -250,6 +267,10 @@ export async function inspect(source: string): Promise<Inspection> {
       return { reviewed: seen.reviewed, reviewedAt: seen.at, reviewStale: seen.stale };
     })(),
     ...projection(placed.width, placed.height),
+    ...(() => {
+      const kind = kindOf(source);
+      return { kind, humanPlacementIsGood: measureOf(kind).humanPlacementIsGood };
+    })(),
   };
 }
 

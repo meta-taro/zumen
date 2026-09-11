@@ -149,7 +149,7 @@ const ja = {
      * **数字だけ出すと「AI が上手い」と読まれる**（Issue #3 の指摘）。
      */
     measureUnseen: (count: number) =>
-      `うち ${count} 件は**まだ誰も見ていません**。この 100% は「AI が上手い」ではなく「まだ誰も確かめていない」という意味です（pnpm app で開いて「見た」を付けてください）。`,
+      `うち ${count} 件は**まだ誰も見ていません**（pnpm app で開いて「見た」を付けてください）。`,
     measureStale: (count: number) =>
       `うち ${count} 件は**人が見たあとに図の意味が変わりました**。もう一度見てください。`,
     /** **これが本物の 100%。**「人が見て、直すところが無かった」。 */
@@ -157,6 +157,16 @@ const ja = {
       `うち ${count} 件は**人が見て、直すところがありませんでした**。この 100% は本物です。`,
     measureFailed: (count: number, line: string) =>
       `${count} 件が合格ライン ${line} に届いていません。**人が図形を並べ直している可能性があります。**`,
+    /**
+     * **配置図は、物差しの向きが逆**（Issue #4）。
+     *
+     * 「どこに在るか」が内容なので、**置き場所は人が決める。**
+     * 構成図の文言をそのまま出すと、正しい状態を「不合格」と言ってしまう。
+     */
+    measurePlacement: (count: number) =>
+      `うち ${count} 件は**配置図**です。ここでは**人が置いているほど良い**ので、自力率の数字は低いのが正しい状態です。`,
+    measurePlacementEmpty: (count: number) =>
+      `うち ${count} 件は**配置図なのに、まだ誰も置いていません**。置き場所が内容そのものなので、機械が並べたままでは図になりません。`,
     wrote: (path: string) => `${path} へ書き出しました。`,
     unknownCommand: (name: string) => `${name} という命令はありません。`,
     /** ドライバが解いたとき。**何を解いたかを黙らない。** */
@@ -217,7 +227,7 @@ const ja = {
       '人が置いた位置・大きさ・ラベル・体裁を返す。読むだけで、書き換える口は無い。ここを避けて構造だけを直すこと。',
     inspectTitle: '図を検査する',
     inspectDesc:
-      '読めるか・要素の数・線の交差・箱の重なり・囲みからのはみ出し・図の大きさ・「9 割」を返す。書いたら必ずこれを見ること。tooTangled が真なら、線が絡みすぎて目で追えない。hiddenLabels に辺の id があれば、そのラベルは置き場が無くて絵に出ていない（短くするか、辺を減らす）。tooSmallToProject が真なら、投影すると字が読めない大きさ。**文字を大きくして直そうとしないこと**（図が伸びて比がさらに下がる）。図を分けられないかを人へ聞くこと。reviewed が偽なら、まだ誰もこの図を見ていない。',
+      '読めるか・要素の数・線の交差・箱の重なり・囲みからのはみ出し・図の大きさ・「9 割」を返す。書いたら必ずこれを見ること。tooTangled が真なら、線が絡みすぎて目で追えない。hiddenLabels に辺の id があれば、そのラベルは置き場が無くて絵に出ていない（短くするか、辺を減らす）。**kind を必ず見ること** — placement（配置図）では humanPlacementIsGood が真で、**人が置いているほど良い**。自力率の数字を構成図と同じ向きに読まないこと。tooSmallToProject が真なら、投影すると字が読めない大きさ。**文字を大きくして直そうとしないこと**（図が伸びて比がさらに下がる）。図を分けられないかを人へ聞くこと。reviewed が偽なら、まだ誰もこの図を見ていない。',
     inspectSource: '図の中身。path とどちらか',
     inspectPath: '図の道。source とどちらか',
     createTitle: '新しい図を作る',
@@ -246,6 +256,16 @@ const ja = {
    * エージェントが最初に読むもの。**開いていない口を試して断られる往復**を減らす。
    * 版ごとに何が変わったかは `CHANGELOG.md` から読む（ここに書き写さない）。
    */
+  /** 図の種類ごとの物差し（`src/kind.ts`。Issue #4）。 */
+  kind: {
+    structure: '自力率',
+    structureWhy:
+      '何がどこへ繋がるかが内容なので、置き場所は機械が決めてよい。人が並べ直しているなら、それは高機能な作図ソフトであってこの製品ではない。',
+    placement: '人が決めた配置',
+    placementWhy:
+      'どこに在るかが内容なので、置き場所は人が決める。機械が並べ直したら、それは別の図になる。',
+  },
+
   about: {
     oneLine:
       'AI が構成図を描き、人が 1 か所直し、その直しが次の生成で壊れない — テキスト正本の作図ツール。',
@@ -444,13 +464,17 @@ const en: Catalog = {
       `${path} — autonomy ${autonomy} / layout autonomy ${layout}`,
     measurePassed: (count: number, line: string) => `All ${count} diagram(s) meet the ${line} line.`,
     measureUnseen: (count: number) =>
-      `${count} of them have not been looked at yet. That 100% does not mean the AI did well; it means nobody has checked (open it with pnpm app and mark it reviewed).`,
+      `${count} of them have not been looked at yet (open it with pnpm app and mark it reviewed).`,
     measureStale: (count: number) =>
       `${count} of them changed meaning after a person reviewed them. Please look again.`,
     measureApproved: (count: number) =>
       `${count} of them were reviewed by a person with nothing to change. That 100% is real.`,
     measureFailed: (count: number, line: string) =>
       `${count} diagram(s) fall short of the ${line} line. A human may be re-arranging shapes by hand.`,
+    measurePlacement: (count: number) =>
+      `${count} of them are placement drawings. There, a person placing things IS the goal, so a low autonomy figure is the correct state.`,
+    measurePlacementEmpty: (count: number) =>
+      `${count} of them are placement drawings that nobody has placed yet. Where things sit is the content, so a machine arrangement is not yet a drawing.`,
     wrote: (path: string) => `Wrote ${path}.`,
     unknownCommand: (name: string) => `There is no command named ${name}.`,
     mergedClean: (path: string) => `Merged ${path} structurally. No conflicts.`,
@@ -493,7 +517,7 @@ const en: Catalog = {
       'Returns the positions, sizes, labels and appearance a person set. Read only; there is no way to write here. Leave it alone and change the structure instead.',
     inspectTitle: 'Inspect a diagram',
     inspectDesc:
-      'Returns readability, element counts, edge crossings, box overlaps, group escapes, size, and the autonomy figure. Always look at this after writing. If tooTangled is true, the edges are too knotted to follow by eye. Any edge id in hiddenLabels has a label that did not fit and is not drawn — shorten it or use fewer edges. If tooSmallToProject is true the text is too small to read when projected; do NOT fix it by enlarging the text (that grows the diagram and lowers the ratio further) — ask the person whether the diagram can be split. If reviewed is false, nobody has looked at this diagram yet.',
+      'Returns readability, element counts, edge crossings, box overlaps, group escapes, size, and the autonomy figure. Always look at this after writing. If tooTangled is true, the edges are too knotted to follow by eye. Any edge id in hiddenLabels has a label that did not fit and is not drawn — shorten it or use fewer edges. **Always check kind**: for a placement drawing humanPlacementIsGood is true, meaning a person placing things IS the goal — do not read the autonomy figure the same way as for a structure diagram. If tooSmallToProject is true the text is too small to read when projected; do NOT fix it by enlarging the text (that grows the diagram and lowers the ratio further) — ask the person whether the diagram can be split. If reviewed is false, nobody has looked at this diagram yet.',
     inspectSource: 'The diagram body. Either this or path',
     inspectPath: 'Path to the diagram. Either this or source',
     createTitle: 'Create a new diagram',
@@ -514,6 +538,15 @@ const en: Catalog = {
     exportIntent:
       'How strongly to show the main element (svg only). safe unless given (a quiet tint). Use vivid for a room viewed from a distance. Either way the diagram stays readable in black and white.',
     needSourceOrPath: 'Either source or path is required',
+  },
+
+  kind: {
+    structure: 'Autonomy',
+    structureWhy:
+      'What connects to what is the content, so the machine may decide placement. If a person is re-arranging shapes, this is a fancy drawing app, not this product.',
+    placement: 'Placed by a person',
+    placementWhy:
+      'Where things sit is the content, so a person decides placement. If the machine re-arranges them, it becomes a different drawing.',
   },
 
   about: {

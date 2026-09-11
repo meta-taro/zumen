@@ -42,10 +42,12 @@ jobs:
 
       # **図はここで写す。** site/ に置いたものが古くならないように、
       # 配るたびに examples/gallery/ から取り直す。
-      - name: 図を写す
+      - name: 図とアイコンを写す
         run: |
           mkdir -p site/gallery
           cp examples/gallery/*.svg site/gallery/
+          # **アイコンの正本は `app/icon.svg` の 1 つだけ**（`DESIGN.md` §6）。
+          # ここで写すので、`site/` 側が古くならない。
           cp app/icon.svg site/icon.svg
           ls -l site site/gallery
 
