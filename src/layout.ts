@@ -20,6 +20,8 @@ import { asText, getPins, parse } from './format.ts';
 import { directionOf, elkDirection } from './direction.ts';
 import { kindOf, measureOf } from './kind.ts';
 import { separate } from './separate.ts';
+import { openingsOf } from './openings.ts';
+import type { Hole } from './openings.ts';
 import { growFor, shapeOf } from './shapes.ts';
 
 export interface Box {
@@ -34,6 +36,8 @@ export interface Box {
   type: string;
   /** 体裁の指定。人が与えたものだけが入る。 */
   appearance: string | null;
+  /** **壁に開く穴**（扉・窓）。平面図でだけ描く。 */
+  openings: Hole[];
   /**
    * 版や役割（仕様 §3.1 の `technology`）。**箱の中に副題として描く。**
    *
@@ -391,6 +395,8 @@ interface NodeInfo {
    * 置き場所と違い、**構成図でも効く**（大きさは並べ方と関係ない）。
    */
   size: { w: number; h: number } | null;
+  /** **壁に開く穴**（扉・窓）。平面図でだけ使う（`src/openings.ts`）。 */
+  openings: Hole[];
 }
 
 function readNodes(diagram: ReturnType<typeof parse>): NodeInfo[] {
@@ -403,6 +409,7 @@ function readNodes(diagram: ReturnType<typeof parse>): NodeInfo[] {
       technology?: unknown;
       at?: unknown;
       size?: unknown;
+      openings?: unknown;
     }[];
   };
   return (raw.nodes ?? []).map((node) => {
@@ -415,6 +422,7 @@ function readNodes(diagram: ReturnType<typeof parse>): NodeInfo[] {
       technology: asText(node.technology),
       at: asPoint(node.at),
       size: asSize(node.size),
+      openings: openingsOf(node.openings),
     };
   });
 }
@@ -666,6 +674,7 @@ function collect(
       type: nodes.find((n) => n.id === child.id)?.type ?? 'generic',
       appearance: null,
       technology: nodes.find((n) => n.id === child.id)?.technology ?? null,
+      openings: nodes.find((n) => n.id === child.id)?.openings ?? [],
       pinned: false,
     };
     if (groupLabels.has(child.id)) {

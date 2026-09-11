@@ -12,6 +12,11 @@ nodes:
     at: { x: 40, y: 40 }
     size: { w: 320, h: 280 }
     group: f1
+    openings:
+      - { kind: window, side: top, at: 0.25, width: 90 }
+      - { kind: window, side: top, at: 0.72, width: 90 }
+      - { kind: slide, side: bottom, at: 0.22, width: 80 }
+      - { kind: door, side: bottom, at: 0.83, width: 70 }
   - id: washitsu
     type: generic
     label: 和室
@@ -19,12 +24,18 @@ nodes:
     at: { x: 40, y: 320 }
     size: { w: 200, h: 160 }
     group: f1
+    openings:
+      - { kind: window, side: left, at: 0.5, width: 90 }
   - id: hall
     type: generic
     label: 廊下
     at: { x: 240, y: 320 }
     size: { w: 120, h: 160 }
     group: f1
+    openings:
+      - { kind: slide, side: left, at: 0.75, width: 70 }
+      - { kind: door, side: right, at: 0.22, width: 60 }
+      - { kind: open, side: bottom, at: 0.5, width: 80 }
   - id: genkan
     type: generic
     label: 玄関
@@ -32,6 +43,8 @@ nodes:
     at: { x: 240, y: 480 }
     size: { w: 120, h: 80 }
     group: f1
+    openings:
+      - { kind: double, side: bottom, at: 0.5, width: 90 }
   - id: senmen
     type: generic
     label: 洗面脱衣
@@ -39,6 +52,8 @@ nodes:
     at: { x: 360, y: 320 }
     size: { w: 120, h: 80 }
     group: f1
+    openings:
+      - { kind: slide, side: bottom, at: 0.5, width: 70 }
   - id: ub
     type: generic
     label: 浴室
@@ -46,9 +61,13 @@ nodes:
     at: { x: 360, y: 400 }
     size: { w: 120, h: 120 }
     group: f1
+    openings:
+      - { kind: window, side: right, at: 0.5, width: 60 }
   - id: wc
     type: generic
     label: 便所
     at: { x: 360, y: 240 }
     size: { w: 120, h: 80 }
     group: f1
+    openings:
+      - { kind: door, side: left, at: 0.5, width: 60 }

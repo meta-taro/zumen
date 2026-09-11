@@ -12,6 +12,7 @@
  * **同じ規則を 2 か所に持つことになるので、片方だけ直さない。**
  * ここを md-business 側から呼ぶ形にできるなら、そちらのほうがよい。
  */
+import { kindOf } from './kind.ts';
 import { layout } from './layout.ts';
 import { parse } from './format.ts';
 import { render } from './render.ts';
@@ -104,7 +105,8 @@ export interface ToSvgOptions {
 
 /** 図 1 枚を SVG にする。md-business 側から呼ぶのはここ 1 つで足りる。 */
 export async function toSvg(zumenSource: string, options: ToSvgOptions = {}): Promise<string> {
-  return render(await layout(zumenSource), options.theme, options.intent);
+  // **平面図かどうかは正本が決める**（`kind: placement`）。呼ぶ側が指定するものではない。
+  return render(await layout(zumenSource), options.theme, options.intent, kindOf(zumenSource) === 'placement');
 }
 
 export interface RenderBlocksOptions {

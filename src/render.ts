@@ -24,6 +24,7 @@
  *
  * 詳細と、回避できないものは `docs/specs/007-貼り先で崩れないか.md`。
  */
+import { drawOpenings } from './openings.ts';
 import { drawShape, shapeOf, textShift } from './shapes.ts';
 import { placeEdgeLabels } from './edge-labels.ts';
 import type { EdgeLabel } from './edge-labels.ts';
@@ -69,7 +70,25 @@ function size(value: number): number {
  * **テーマを渡さなければライト**（`DESIGN.md` §3）。
  * 貼り先が自分の地の色を知っているときだけ `dark` を渡す（md-business#240）。
  */
-export function render(placed: Placed, theme: Theme = 'light', intent: Intent = 'safe'): string {
+export function render(
+  placed: Placed,
+  theme: Theme = 'light',
+  intent: Intent = 'safe',
+  /**
+   * **平面図として描く**（Issue #4）。
+   *
+   * 実物の間取り図と並べて、差が出ていたところを直す。
+   *
+   * - **角を四角に。** 角丸だと隣の部屋と壁を共有して見えない
+   * - **矢印を描かない。** 平面図に部屋どうしの矢印は無い
+   * - **文字を小さく、上へ寄せる。** 実物は `LDK 18.2帖` を隅に小さく置く
+   * - **建具を描く**（`src/openings.ts`）
+   *
+   * 通り芯・寸法線・柱・設備（浴槽・便器）は入れない。
+   * **あれは「建物を記述する」道具**で、この製品とはデータの形が違う。
+   */
+  plan = false,
+): string {
   const palette = paletteOf(theme, intent);
   // **置けなかったラベルは、ここに入ってこない**（重ねて出さない。Issue #3 の 3）。
   const labels = new Map(
@@ -78,24 +97,32 @@ export function render(placed: Placed, theme: Theme = 'light', intent: Intent = 
   const parts = [
     `<svg xmlns="http://www.w3.org/2000/svg" width="${size(placed.width)}" height="${size(placed.height)}" viewBox="0 0 ${size(placed.width)} ${size(placed.height)}">`,
     `<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="${palette.edge.stroke}"/></marker></defs>`,
-    ...placed.groups.map((group) => renderGroup(group, palette)),
-    ...placed.edges.map((edge) => renderEdge(edge, labels.get(edge.id) ?? null, palette)),
-    ...placed.boxes.map((box) => renderNode(box, palette)),
+    ...placed.groups.map((group) => renderGroup(group, palette, plan)),
+    // **平面図に、部屋どうしの矢印は無い。**
+    ...(plan ? [] : placed.edges.map((edge) => renderEdge(edge, labels.get(edge.id) ?? null, palette))),
+    ...placed.boxes.map((box) => renderNode(box, palette, plan)),
     '</svg>',
   ];
   return parts.join('\n');
 }
 
-function renderGroup(group: Box, palette: Palette): string {
+function renderGroup(group: Box, palette: Palette, plan = false): string {
+  // **平面図の囲みは「外周の壁」。** 破線の角丸だと、囲いであって壁に見えない。
+  // 実物は、外周だけが内壁より太いひとつながりの線で描かれる。
+  const rect = plan
+    ? `<rect x="${n(group.x)}" y="${n(group.y)}" width="${n(group.w)}" height="${n(group.h)}" ` +
+      `fill="${palette.group.fill}" stroke="${palette.node.stroke}" stroke-width="3"/>`
+    : `<rect x="${n(group.x)}" y="${n(group.y)}" width="${n(group.w)}" height="${n(group.h)}" rx="8" fill="${palette.group.fill}" stroke="${palette.group.stroke}" stroke-dasharray="${palette.group.dash}"/>`;
+
   return [
     `<g data-group="${escapeAttr(group.id)}">`,
-    `<rect x="${n(group.x)}" y="${n(group.y)}" width="${n(group.w)}" height="${n(group.h)}" rx="8" fill="${palette.group.fill}" stroke="${palette.group.stroke}" stroke-dasharray="${palette.group.dash}"/>`,
+    rect,
     `<text x="${n(group.x + 12)}" y="${n(group.y + 22)}" font-family="${FONT}" font-size="13" fill="${palette.group.text}">${escapeText(group.label)}</text>`,
     '</g>',
   ].join('');
 }
 
-function renderNode(box: Box, palette: Palette): string {
+function renderNode(box: Box, palette: Palette, plan = false): string {
   const style = lookOf(box.appearance, palette);
   const attributes = [
     `data-node="${escapeAttr(box.id)}"`,
@@ -107,18 +134,34 @@ function renderNode(box: Box, palette: Palette): string {
 
   // **`type` を形にする**（Issue #9）。以前はここが `<rect>` 固定で、
   // Mermaid だけが形を出していた（同じ正本から違う絵が出ていた）。
-  const kind = shapeOf(box.type);
-  const shape = drawShape(kind, box, {
+  //
+  // **平面図では形を使わない。** 部屋は部屋で、円柱でも六角形でもない。
+  const kind = plan ? 'rect' : shapeOf(box.type);
+  const paint = {
     fill: style.fill,
     stroke: style.stroke,
     strokeWidth: box.pinned ? STROKE_WIDTH.pinned : STROKE_WIDTH.auto,
     dash: style.dash,
-  });
+  };
+
+  // **平面図は角を四角に。** 角丸だと、隣の部屋と壁を共有して見えない。
+  const shape = plan
+    ? `<rect x="${n(box.x)}" y="${n(box.y)}" width="${n(box.w)}" height="${n(box.h)}" ` +
+      `fill="${paint.fill}" stroke="${paint.stroke}" stroke-width="${paint.strokeWidth}"` +
+      `${paint.dash === null ? '' : ` stroke-dasharray="${paint.dash}"`}/>`
+    : drawShape(kind, box, paint);
+
+  // **建具は壁に開く穴**（`src/openings.ts`）。壁を消してから記号を描く。
+  const holes =
+    plan && box.openings.length > 0
+      ? drawOpenings(box, box.openings, style.stroke, style.fill)
+      : '';
 
   return [
     `<g ${attributes} data-shape="${kind}">`,
     shape,
-    ...nodeText(box, palette, style, textShift(kind)),
+    holes,
+    ...nodeText(box, palette, style, textShift(kind), plan),
     '</g>',
   ].join('');
 }
@@ -140,15 +183,21 @@ function subtitleOn(style: Look, palette: Palette): string {
  * 副題（`technology`）があれば 2 行にする。無ければ 1 行のまま中央へ。
  * **所属や版を書ける唯一の場所**なので、描かないとラベルへ畳むしかなくなる（Issue #3 の 4）。
  */
-function nodeText(box: Box, palette: Palette, style: Look, shift = 0): string[] {
+function nodeText(box: Box, palette: Palette, style: Look, shift = 0, plan = false): string[] {
   const cx = n(box.x + box.w / 2);
+
+  // **平面図の文字は小さい。** 実物は `LDK 18.2帖` を隅に小さく置く。
+  // 大きく中央に置くと、部屋ではなく「箱に書いたラベル」に見える。
+  const size = plan ? 12 : 15;
+  const subSize = plan ? 10 : 11;
+
   const main = (dy: number): string =>
-    `<text x="${cx}" y="${n(box.y + box.h / 2 + dy + shift)}" text-anchor="middle" font-family="${FONT}" font-size="15" fill="${style.text}">${escapeText(box.label)}</text>`;
+    `<text x="${cx}" y="${n(box.y + box.h / 2 + dy + shift)}" text-anchor="middle" font-family="${FONT}" font-size="${size}" fill="${style.text}">${escapeText(box.label)}</text>`;
 
   if (box.technology === null) return [main(5)];
   return [
-    main(-2),
-    `<text x="${cx}" y="${n(box.y + box.h / 2 + 16 + shift)}" text-anchor="middle" font-family="${FONT}" font-size="11" fill="${subtitleOn(style, palette)}">${escapeText(box.technology)}</text>`,
+    main(plan ? -4 : -2),
+    `<text x="${cx}" y="${n(box.y + box.h / 2 + (plan ? 11 : 16) + shift)}" text-anchor="middle" font-family="${FONT}" font-size="${subSize}" fill="${subtitleOn(style, palette)}">${escapeText(box.technology)}</text>`,
   ];
 }
 

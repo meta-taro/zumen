@@ -350,7 +350,7 @@ export async function exportAs(
   if (kind === 'mermaid') return toMermaid(source);
   const placed = await layout(source);
   if (kind === 'drawio') return toDrawio(placed, titleOf(source));
-  return render(placed, options.theme, options.intent);
+  return render(placed, options.theme, options.intent, kindOf(source) === 'placement');
 }
 
 function titleOf(source: string): string {

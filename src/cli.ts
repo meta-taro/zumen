@@ -26,6 +26,7 @@ import { merge } from './merge.ts';
 import type { Conflict } from './merge.ts';
 import { toMermaid } from './mermaid.ts';
 import { render } from './render.ts';
+import { kindOf } from './kind.ts';
 import { messages } from './messages.ts';
 import { hasError, validate } from './validate.ts';
 import type { Finding } from './validate.ts';
@@ -233,7 +234,7 @@ export async function runSvg(paths: string[], read = readFileSync, write = write
     files,
     messages().cli.usageSvg,
     '.svg',
-    async (text) => render(await layout(text), theme, intent),
+    async (text) => render(await layout(text), theme, intent, kindOf(text) === 'placement'),
     read,
     write,
   );
