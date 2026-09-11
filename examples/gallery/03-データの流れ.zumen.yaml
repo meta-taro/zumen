@@ -1,44 +1,76 @@
 version: 1
 title: 収集から配信まで
+pins:
+  work:
+    appearance: primary
+  legacy:
+    appearance: muted
+groups:
+  - id: take
+    label: 取り込み
+  - id: run
+    label: 処理
+  - id: serve
+    label: 配信
 nodes:
-  - id: src
+  - id: api
     type: internet
     label: 外部 API
-  - id: fetch
-    type: server
-    label: 取り込み
     technology: 1 時間ごと
+    group: take
+  - id: csv
+    type: storage
+    label: 手上げの CSV
+    technology: 担当者が置く
+    group: take
   - id: q
     type: queue
     label: 処理待ち
+    group: run
   - id: work
     type: cluster
     label: ワーカー
     technology: 4 並列
+    group: run
+  - id: legacy
+    type: server
+    label: 旧バッチ
+    technology: 停止予定
+    group: run
   - id: db
     type: database
     label: 集約先
-  - id: cache
+    technology: PostgreSQL 16
+    group: serve
+  - id: kv
     type: cache
-    label: 配信用キャッシュ
-  - id: api
+    label: 配信用
+    technology: Redis
+    group: serve
+  - id: web
     type: server
     label: 参照 API
+    group: serve
 edges:
-  - from: src
-    to: fetch
+  - from: api
+    to: q
     label: 取得
-  - from: fetch
+  - from: csv
     to: q
     label: 投入
   - from: q
     to: work
+  - from: legacy
+    to: db
+    label: 旧経路
   - from: work
     to: db
     label: 書き込み
   - from: db
-    to: cache
+    to: kv
     label: 温める
-  - from: api
-    to: cache
-    label: 参照
+  - from: kv
+    to: web
+  - from: db
+    to: web
+    label: 直参照

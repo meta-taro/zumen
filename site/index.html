@@ -9,11 +9,13 @@
   :root {
     --bg: #ffffff; --bg-subtle: #fbfbfd; --border: #e8e8ed; --border-strong: #d4d4dc;
     --fg: #1c1c22; --fg-2: #63636e; --fg-3: #9b9ba5; --accent: #5b5bd6; --accent-bg: #eeeefb;
+    --paper: #ffffff;
   }
   @media (prefers-color-scheme: dark) {
     :root {
       --bg: #0f0f13; --bg-subtle: #141418; --border: #26262d; --border-strong: #34343d;
       --fg: #f4f4f6; --fg-2: #a0a0ab; --fg-3: #6b6b76; --accent: #7c7cf0; --accent-bg: #1e1e3a;
+      --paper: #0f0f13;
     }
   }
   * { box-sizing: border-box; }
@@ -38,6 +40,13 @@
   .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
   .btn:hover { border-color: var(--accent); }
   .note { color: var(--fg-3); font-size: 14px; }
+  /* **冒頭の 1 枚。** 実物を大きく出すのが、いちばん速い説明。 */
+  .hero { margin: 0 0 8px; }
+  .hero img {
+    display: block; width: 100%; background: var(--paper);
+    border: 1px solid var(--border); border-radius: 12px; padding: 22px;
+  }
+  .hero figcaption { color: var(--fg-3); font-size: 13.5px; margin-top: 12px; }
   section { padding: 56px 0; border-top: 1px solid var(--border); }
   h2 { font-size: 13px; letter-spacing: .12em; color: var(--fg-3); margin: 0 0 28px; font-weight: 600; }
   h3 { font-size: 20px; margin: 0 0 10px; }
@@ -52,11 +61,11 @@
   code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .92em; }
   p code, li code { background: var(--bg-subtle); padding: 1px 5px; border-radius: 4px; border: 1px solid var(--border); }
   /* 図は縦長。**並べると小さくて読めない**ので、2 列で背を高くする。 */
-  .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
+  .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 22px; }
   .gallery figure { margin: 0; }
   .gallery img {
-    display: block; width: 100%; height: 420px; object-fit: contain;
-    background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 18px;
+    display: block; width: 100%; aspect-ratio: 16 / 7; object-fit: contain;
+    background: var(--paper); border: 1px solid var(--border); border-radius: 10px; padding: 16px;
   }
   .gallery figcaption { color: var(--fg-2); font-size: 13px; margin-top: 10px; }
   .gallery img { cursor: zoom-in; }
@@ -66,7 +75,7 @@
   }
   dialog#zoom::backdrop { background: rgba(0,0,0,.72); }
   dialog#zoom img {
-    display: block; max-width: 92vw; max-height: 88vh; background: #fff;
+    display: block; max-width: 92vw; max-height: 88vh; background: var(--paper);
     border-radius: 10px; padding: 20px; cursor: zoom-out;
   }
   dialog#zoom p { color: #fff; text-align: center; margin: 12px 0 0; font-size: 13px; }
@@ -111,6 +120,17 @@
   </div>
 </header>
 
+<!-- **冒頭に実物を 1 枚。** 何を作る道具かは、絵が答えるのが速い。 -->
+<figure class="hero">
+  <picture>
+    <source srcset="gallery/02-クラウド構成-dark.svg" media="(prefers-color-scheme: dark)">
+    <img src="gallery/02-クラウド構成.svg" alt="クラウド構成の図">
+  </picture>
+  <figcaption>
+    下の文章から、そのまま出たものです。<b>並びも線の引き方も、人は決めていません。</b>
+  </figcaption>
+</figure>
+
 <section>
   <h2>なぜ図は腐るのか</h2>
   <p class="problem">
@@ -127,13 +147,17 @@
   <h2>作れる図</h2>
   <div class="gallery">
     <figure><img src="gallery/01-オンプレのサーバ構成.svg" alt="オンプレのサーバ構成"><figcaption>サーバ構成</figcaption></figure>
-    <figure><img src="gallery/02-クラウド構成.svg" alt="クラウド構成"><figcaption>クラウド構成</figcaption></figure>
-    <figure><img src="gallery/03-データの流れ.svg" alt="データの流れ"><figcaption>データの流れ</figcaption></figure>
-    <figure><img src="gallery/04-ネットワーク構成.svg" alt="ネットワーク構成"><figcaption>ネットワーク構成</figcaption></figure>
+    <figure><picture><source srcset="gallery/02-クラウド構成-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/02-クラウド構成.svg" alt="クラウド構成"></picture><figcaption>クラウド構成</figcaption></figure>
+    <figure><picture><source srcset="gallery/03-データの流れ-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/03-データの流れ.svg" alt="データの流れ"></picture><figcaption>データの流れ</figcaption></figure>
+    <figure><picture><source srcset="gallery/04-ネットワーク構成-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/04-ネットワーク構成.svg" alt="ネットワーク構成"></picture><figcaption>ネットワーク構成</figcaption></figure>
   </div>
   <p class="note" style="margin-top:20px">
     4 枚とも、下のような文章から <b>そのまま出たもの</b>です。手で位置を直してはいません。
     交差 0・箱の重なり 0・消えたラベル 0。
+    <br>
+    <b>描いてある構成は例のために組んだもの</b>で、実在のものではありません。
+    正本は <a href="https://github.com/meta-taro/zumen/tree/develop/examples/gallery">examples/gallery/</a>
+    に入っているので、同じものを手元で出せます。
   </p>
 </section>
 
@@ -253,9 +277,12 @@ edges:
   // `<dialog>` の既定の挙動（Esc で閉じる・背後を覆う）をそのまま使う。
   const zoom = document.getElementById('zoom');
   const big = zoom.querySelector('img');
-  for (const img of document.querySelectorAll('.gallery img')) {
+  for (const img of document.querySelectorAll('.gallery img, .hero img')) {
+    img.style.cursor = 'zoom-in';
     img.addEventListener('click', () => {
-      big.src = img.getAttribute('src');
+      // **いま出ている方**を拡大する（<picture> でテーマごとに差し替わるため、
+      // `src` 属性ではなく `currentSrc` を見る）。
+      big.src = img.currentSrc || img.src;
       big.alt = img.alt;
       zoom.showModal();
     });

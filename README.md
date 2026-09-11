@@ -20,7 +20,15 @@
 ## 作れる図
 
 **下の 4 枚は、文章から出たそのままです。**手で位置を直していません。
-交差 0・箱の重なり 0・消えたラベル 0（`pnpm svg examples/gallery/*.zumen.yaml` で再生成できます）。
+交差 0・箱の重なり 0・消えたラベル 0。
+
+**描いてある構成は例のために組んだもの**で、実在のものではありません。
+正本は [`examples/gallery/`](examples/gallery/) にあり、同じものを手元で出せます。
+
+```bash
+node src/cli.ts svg examples/gallery/02-クラウド構成.zumen.yaml out.svg
+node src/cli.ts svg examples/gallery/02-クラウド構成.zumen.yaml out-dark.svg --dark
+```
 
 | | |
 |---|---|
