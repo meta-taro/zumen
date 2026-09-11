@@ -164,7 +164,6 @@ export function runMeasure(paths: string[], read = readFileSync): RunResult {
   let stale = 0;
   let approved = 0;
   let placed = 0;
-  let placedEmpty = 0;
   for (const path of paths) {
     let text: string;
     try {
@@ -174,29 +173,17 @@ export function runMeasure(paths: string[], read = readFileSync): RunResult {
     }
     const result = measure(text);
     lines.push(m.measured(path, percent(result.autonomy), percent(result.layoutAutonomy)));
-    // **配置図は物差しの向きが逆**（Issue #4）。構成図の文言を当てない。
-    const isPlacement = result.kind === 'placement';
-    if (isPlacement) {
-      placed += 1;
-      if (result.placed === 0) placedEmpty += 1;
-    } else if (!result.pass) {
-      short += 1;
-    }
+    if (!result.pass) short += 1;
+    if (result.kind === 'placement') placed += 1;
     if (result.reviewStale) stale += 1;
     else if (!result.reviewed) unseen += 1;
-    // **「まだ誰も見ていない」は、構成図の 100% の話。**
-    // 配置図では、置いていないこと自体が別の文言で出る。
-    else if (result.touched === 0 && !isPlacement) approved += 1;
+    else if (result.touched === 0) approved += 1;
   }
 
-  // 構成図が 1 件も無ければ、自力率の合否そのものを言わない。
-  const structures = paths.length - placed;
-  if (structures > 0) {
-    const line = percent(PASS_LINE);
-    lines.push(short === 0 ? m.measurePassed(structures, line) : m.measureFailed(short, line));
-  }
+  const line = percent(PASS_LINE);
+  lines.push(short === 0 ? m.measurePassed(paths.length, line) : m.measureFailed(short, line));
+  // **物差しは同じ向き**（2026-09-11 に考え直した）。種類は、置き場所の出どころだけ言う。
   if (placed > 0) lines.push(m.measurePlacement(placed));
-  if (placedEmpty > 0) lines.push(m.measurePlacementEmpty(placedEmpty));
   // **誰も見ていない図があることを黙らない**（ベースルール §29）。
   // AI は活動量なら無人で出せる。人が関与していないことは、言わないと気づかれない。
   //

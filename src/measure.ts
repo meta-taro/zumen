@@ -24,7 +24,7 @@
  * **人の作業時間を数えない。** 測っているのは製品であって人ではない（Issue 003 の注意）。
  */
 import { getPins, parse } from './format.ts';
-import { kindOf, measureOf } from './kind.ts';
+import { kindOf } from './kind.ts';
 import type { Kind } from './kind.ts';
 import { reviewOf } from './review.ts';
 import type { Pin } from './format.ts';
@@ -86,7 +86,6 @@ export function measure(text: string): Measurement {
 
   const seen = reviewOf(text);
   const kind = kindOf(text);
-  const ruler = measureOf(kind);
   const autonomy = ratio(elements, touched);
   const layoutAutonomy = ratio(elements, placed);
   return {
@@ -99,17 +98,13 @@ export function measure(text: string): Measurement {
     autonomy,
     layoutAutonomy,
     /**
-     * **合格の向きは、種類で変わる**（Issue #4）。
+     * **合格の向きは、種類によらない**（Issue #4。2026-09-11 に考え直した）。
      *
-     * 構成図 … 人が触っていないほど良い（9 割以上が機械）
-     * 配置図 … **人が置いているほど良い**（9 割以上が人）
-     *
-     * 数字（`autonomy` / `layoutAutonomy`）は**どちらも同じ数え方**で、
-     * 読み替えているのはここだけ。**2 通りの数え方を持たない。**
+     * 配置図でも「人が触った要素が少ないほど良い」。
+     * **AI が `nodes[].at` で置けるから**で、置けなければ反転すると考えていたのは
+     * 「配置は人がやるもの」という誤った前提のせいだった。
      */
-    pass: ruler.humanPlacementIsGood
-      ? layoutAutonomy <= 1 - PASS_LINE
-      : autonomy >= PASS_LINE && layoutAutonomy >= PASS_LINE,
+    pass: autonomy >= PASS_LINE && layoutAutonomy >= PASS_LINE,
   };
 }
 

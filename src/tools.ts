@@ -143,14 +143,12 @@ export interface Inspection {
    */
   kind: Kind;
   /**
-   * **人が置いたことを、良しとするか。**
+   * **置き場所が正本に書いてあるか**（配置図）。
    *
-   * 構成図では偽 —— 人が並べ直しているなら、それは作図ソフトであってこの製品ではない。
-   * **配置図では真** —— どこに在るかが内容なので、置き場所は人が決める。
-   *
-   * **同じ数字を逆に読まないため**に、向きも一緒に返す。
+   * 真なら、機械は並べ直さない。**`nodes[].at` に書くこと。**
+   * `pins` は人のものなので、そこへは書かない（D5）。
    */
-  humanPlacementIsGood: boolean;
+  positionsInSource: boolean;
   /** 「9 割」（D3）。合格線は `passLine`。 */
   autonomy: number | null;
   layoutAutonomy: number | null;
@@ -226,7 +224,7 @@ export async function inspect(source: string): Promise<Inspection> {
       tooTangled: false,
       hiddenLabels: [],
       kind: 'structure',
-      humanPlacementIsGood: false,
+      positionsInSource: false,
       reviewed: false,
       reviewedAt: null,
       reviewStale: false,
@@ -269,7 +267,7 @@ export async function inspect(source: string): Promise<Inspection> {
     ...projection(placed.width, placed.height),
     ...(() => {
       const kind = kindOf(source);
-      return { kind, humanPlacementIsGood: measureOf(kind).humanPlacementIsGood };
+      return { kind, positionsInSource: measureOf(kind).positionsInSource };
     })(),
   };
 }

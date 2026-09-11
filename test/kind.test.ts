@@ -53,23 +53,35 @@ describe('図の種類', () => {
   });
 });
 
-describe('**種類ごとに、物差しが違う**', () => {
-  it('構成図は「人が触っていないほど良い」', () => {
-    const m = measureOf('structure');
-    assert.equal(m.humanPlacementIsGood, false);
-    assert.match(m.label, /自力/);
+describe('**種類が決めるのは、置き場所の出どころ**', () => {
+  it('構成図は、機械が計算する', () => {
+    assert.equal(measureOf('structure').positionsInSource, false);
   });
 
-  it('**配置図は「人が置くのが正しい」**', () => {
-    const m = measureOf('placement');
-    assert.equal(m.humanPlacementIsGood, true);
+  it('**配置図は、正本に書いてある**', () => {
+    assert.equal(measureOf('placement').positionsInSource, true);
   });
 
-  it('**同じ数字を、逆に読まない**', () => {
-    assert.notEqual(
-      measureOf('structure').humanPlacementIsGood,
-      measureOf('placement').humanPlacementIsGood,
+  it('**物差しは、どちらも同じ向き**（2026-09-11 に考え直した）', async () => {
+    const { measure } = await import('../src/measure.ts');
+    // AI が置けるなら、配置図でも「人が触っていないほど良い」で正しい。
+    const placed = [
+      'version: 1',
+      'kind: placement',
+      'nodes:',
+      '  - id: a',
+      '    at: { x: 40, y: 40 }',
+      '  - id: b',
+      '    at: { x: 300, y: 40 }',
+      '',
+    ].join('\n');
+    assert.equal(measure(placed).pass, true, 'AI が置いた配置図が不合格になっている');
+
+    const nudged = placed.replace(
+      'nodes:',
+      'pins:\n  a:\n    position: { x: 60, y: 60 }\n  b:\n    position: { x: 320, y: 60 }\n\nnodes:',
     );
+    assert.equal(measure(nudged).pass, false, '人が全部動かしたのに合格している');
   });
 
   it('どちらの物差しにも、合格の説明がある', () => {
@@ -81,57 +93,68 @@ describe('**種類ごとに、物差しが違う**', () => {
   });
 });
 
-describe('**測る側が、種類を見る**', () => {
-  const PLACED = [
+describe('**AI が位置を書ける**（`nodes[].at`）', () => {
+  const AT = [
     'version: 1',
     'kind: placement',
-    'pins:',
-    '  a:',
-    '    position: { x: 100, y: 100 }',
-    '  b:',
-    '    position: { x: 400, y: 100 }',
     'nodes:',
     '  - id: a',
+    '    label: 事務室',
+    '    at: { x: 40, y: 40 }',
     '  - id: b',
+    '    label: 倉庫',
+    '    at: { x: 400, y: 40 }',
+    'edges:',
+    '  - from: a',
+    '    to: b',
     '',
   ].join('\n');
 
-  const UNPLACED = 'version: 1\nkind: placement\nnodes:\n  - id: a\n  - id: b\n';
-
-  it('測るものに、種類が入っている', async () => {
-    const { measure } = await import('../src/measure.ts');
-    assert.equal(measure(PLACED).kind, 'placement');
-    assert.equal(measure(PLAIN).kind, 'structure');
+  it('**書いた位置に置かれる**（機械が並べ直さない）', async () => {
+    const { layout } = await import('../src/layout.ts');
+    const placed = await layout(AT);
+    const a = placed.boxes.find((box) => box.id === 'a')!;
+    assert.equal(a.x, 40);
+    assert.equal(a.y, 40);
   });
 
-  it('**配置図では、人が全部置いた図が「合格」**', async () => {
+  it('**AI が置いても、人の手直しとして数えない**（`pins` ではない）', async () => {
     const { measure } = await import('../src/measure.ts');
-    const got = measure(PLACED);
-    assert.equal(got.layoutAutonomy, 0, '自力率の数字そのものは 0 のまま');
-    assert.equal(got.pass, true, '配置図なのに不合格になっている');
+    const got = measure(AT);
+    assert.equal(got.placed, 0, 'AI の配置が人の手直しに数えられている');
+    assert.equal(got.layoutAutonomy, 1);
   });
 
-  it('**配置図では、誰も置いていない図が「不合格」**', async () => {
-    const { measure } = await import('../src/measure.ts');
-    const got = measure(UNPLACED);
-    assert.equal(got.layoutAutonomy, 1, '自力率の数字そのものは 100% のまま');
-    assert.equal(got.pass, false, '誰も置いていないのに合格になっている');
+  it('**人の `pins` が、AI の `at` より強い**（D5 の向きは変わらない）', async () => {
+    const { layout } = await import('../src/layout.ts');
+    const source = AT.replace('nodes:', 'pins:\n  a:\n    position: { x: 700, y: 500 }\n\nnodes:');
+    const placed = await layout(source);
+    const a = placed.boxes.find((box) => box.id === 'a')!;
+    assert.equal(a.x, 700);
+    assert.equal(a.y, 500);
+    assert.equal(a.pinned, true);
   });
 
-  it('構成図の判定は、これまでどおり', async () => {
-    const { measure } = await import('../src/measure.ts');
-    assert.equal(measure(PLAIN).pass, true);
-    const touched = PLAIN.replace(
-      'nodes:',
-      'pins:\n  a:\n    position: { x: 1, y: 1 }\n  b:\n    position: { x: 2, y: 2 }\n\nnodes:',
-    );
-    assert.equal(measure(touched).pass, false, '構成図で人が全部置いたのに合格している');
+  it('構成図では `at` を見ない（機械が並べる）', async () => {
+    const { layout } = await import('../src/layout.ts');
+    const placed = await layout(AT.replace('kind: placement\n', ''));
+    const a = placed.boxes.find((box) => box.id === 'a')!;
+    assert.notEqual(`${a.x},${a.y}`, '40,40');
   });
 
-  it('**検査からも種類が見える**（エージェントが物差しを取り違えない）', async () => {
+  it('**配置図で `at` が無い要素は、機械が置く**（黙って重ねない）', async () => {
+    const { layout } = await import('../src/layout.ts');
+    const { overlaps } = await import('../src/layout.ts');
+    const source = AT.replace('edges:', '  - id: c\n    label: 置き忘れ\nedges:');
+    const placed = await layout(source);
+    assert.equal(placed.boxes.length, 3);
+    assert.deepEqual(overlaps(placed), []);
+  });
+
+  it('**検査から、種類と出どころが見える**', async () => {
     const { inspect } = await import('../src/tools.ts');
-    const out = await inspect(PLACED);
+    const out = await inspect(AT);
     assert.equal(out.kind, 'placement');
-    assert.equal(out.humanPlacementIsGood, true);
+    assert.equal(out.positionsInSource, true);
   });
 });

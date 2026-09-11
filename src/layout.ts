@@ -18,6 +18,7 @@ import type { ElkExtendedEdge, ElkNode } from 'elkjs/lib/elk-api.js';
 
 import { asText, getPins, parse } from './format.ts';
 import { directionOf, elkDirection } from './direction.ts';
+import { kindOf, measureOf } from './kind.ts';
 import { separate } from './separate.ts';
 import { growFor, shapeOf } from './shapes.ts';
 
@@ -183,6 +184,24 @@ export async function layout(text: string): Promise<Placed> {
    */
   const laidAt = new Map(boxes.map((box) => [box.id, { x: box.x, y: box.y }]));
 
+  /**
+   * **AI が書いた置き場所を当てる**（配置図のみ。仕様 §3.1 の `at`）。
+   *
+   * 人の `pins` より先に当てる —— **下に置いて、人の値で上書きされる**ようにする。
+   * `at` が無い要素は、機械が置いた場所のまま（黙って重ねない）。
+   *
+   * 構成図では見ない。置き場所は機械が決めるのが構成図の定義（`src/kind.ts`）。
+   */
+  if (measureOf(kindOf(text)).positionsInSource) {
+    const at = new Map(nodes.filter((n) => n.at !== null).map((n) => [n.id, n.at!]));
+    for (const box of boxes) {
+      const point = at.get(box.id);
+      if (point === undefined) continue;
+      box.x = point.x;
+      box.y = point.y;
+    }
+  }
+
   // 人が置いた場所・付けた体裁へ戻す。ELK が何を決めたかに関わらず、人の値が勝つ。
   for (const box of boxes) {
     const pin = pins[box.id];
@@ -329,11 +348,25 @@ interface NodeInfo {
   group: string | null;
   /** 版や役割（仕様 §3.1 の `technology`）。無ければ null。 */
   technology: string | null;
+  /**
+   * **AI が書いた置き場所**（仕様 §3.1。配置図で使う）。
+   *
+   * `pins.position`（人）とは別。**人のほうが常に強い**（D5 の向きは変わらない）。
+   * 構成図では見ない —— 置き場所は機械が決める。
+   */
+  at: { x: number; y: number } | null;
 }
 
 function readNodes(diagram: ReturnType<typeof parse>): NodeInfo[] {
   const raw = diagram.doc.toJS() as {
-    nodes?: { id?: unknown; label?: unknown; type?: unknown; group?: unknown; technology?: unknown }[];
+    nodes?: {
+      id?: unknown;
+      label?: unknown;
+      type?: unknown;
+      group?: unknown;
+      technology?: unknown;
+      at?: unknown;
+    }[];
   };
   return (raw.nodes ?? []).map((node) => {
     const id = asText(node.id) ?? '';
@@ -343,6 +376,7 @@ function readNodes(diagram: ReturnType<typeof parse>): NodeInfo[] {
       type: asText(node.type) ?? 'generic',
       group: asText(node.group),
       technology: asText(node.technology),
+      at: asPoint(node.at),
     };
   });
 }
@@ -355,6 +389,15 @@ interface EdgeInfo {
 }
 
 /** グループの表示名。無ければ id を使う。 */
+/** `{ x, y }` として読めるものだけ受ける。**読めなければ機械が置く。** */
+function asPoint(raw: unknown): { x: number; y: number } | null {
+  if (raw === null || typeof raw !== 'object') return null;
+  const { x, y } = raw as { x?: unknown; y?: unknown };
+  if (typeof x !== 'number' || typeof y !== 'number') return null;
+  if (!Number.isFinite(x) || !Number.isFinite(y)) return null;
+  return { x, y };
+}
+
 function readGroupLabels(diagram: ReturnType<typeof parse>): Map<string, string> {
   const raw = diagram.doc.toJS() as { groups?: { id?: unknown; label?: unknown }[] };
   return new Map(
