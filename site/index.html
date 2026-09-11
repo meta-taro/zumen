@@ -59,6 +59,17 @@
     background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 18px;
   }
   .gallery figcaption { color: var(--fg-2); font-size: 13px; margin-top: 10px; }
+  .gallery img { cursor: zoom-in; }
+  /* **押すと全体に出す。** 縦長の図は、並べると小さくて読めない。 */
+  dialog#zoom {
+    border: 0; padding: 0; background: transparent; max-width: 96vw; max-height: 96vh;
+  }
+  dialog#zoom::backdrop { background: rgba(0,0,0,.72); }
+  dialog#zoom img {
+    display: block; max-width: 92vw; max-height: 88vh; background: #fff;
+    border-radius: 10px; padding: 20px; cursor: zoom-out;
+  }
+  dialog#zoom p { color: #fff; text-align: center; margin: 12px 0 0; font-size: 13px; }
   .flow { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 20px; }
   .flow div { border-left: 2px solid var(--border-strong); padding-left: 14px; }
   .flow b { display: block; margin-bottom: 4px; }
@@ -231,5 +242,25 @@ edges:
 </footer>
 
 </div>
+
+<dialog id="zoom" aria-label="図を拡大">
+  <img alt="">
+  <p>もう一度押すか Esc で閉じます</p>
+</dialog>
+
+<script>
+  // **押すと全体に出す。** 縦長の図は並べると読めないので、拡大の口を用意する。
+  // `<dialog>` の既定の挙動（Esc で閉じる・背後を覆う）をそのまま使う。
+  const zoom = document.getElementById('zoom');
+  const big = zoom.querySelector('img');
+  for (const img of document.querySelectorAll('.gallery img')) {
+    img.addEventListener('click', () => {
+      big.src = img.getAttribute('src');
+      big.alt = img.alt;
+      zoom.showModal();
+    });
+  }
+  zoom.addEventListener('click', () => zoom.close());
+</script>
 </body>
 </html>

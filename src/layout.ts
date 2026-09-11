@@ -17,6 +17,7 @@ import ELK from 'elkjs/lib/elk.bundled.js';
 import type { ElkExtendedEdge, ElkNode } from 'elkjs/lib/elk-api.js';
 
 import { asText, getPins, parse } from './format.ts';
+import { directionOf, elkDirection } from './direction.ts';
 import { separate } from './separate.ts';
 import { growFor, shapeOf } from './shapes.ts';
 
@@ -77,7 +78,7 @@ const NODE_MAX_WIDTH = 320;
 /** 文字の左右に空ける分。 */
 const LABEL_PADDING = 24;
 /** 描くときの文字の大きさ（`src/render.ts` と揃える）。 */
-const LABEL_FONT = 14;
+const LABEL_FONT = 15;
 /** 副題（`technology`）の文字の大きさ。 */
 const SUB_FONT = 11;
 
@@ -111,11 +112,21 @@ function widthFor(label: string, technology: string | null = null): number {
   return Math.min(NODE_MAX_WIDTH, Math.max(NODE_WIDTH, needed));
 }
 
+/**
+ * 向きは正本が決める（`src/direction.ts`）。**既定は横。**
+ *
+ * 余白は詰めてある。以前は箱が図の **17〜24%** しか占めておらず、
+ * 8 割が余白だった。**空いているほど良い図ではない。**
+ */
+function layoutOptions(direction: string): Record<string, string> {
+  return { ...LAYOUT_OPTIONS, 'elk.direction': direction };
+}
+
 const LAYOUT_OPTIONS = {
   'elk.algorithm': 'layered',
-  'elk.direction': 'DOWN',
-  'elk.spacing.nodeNode': '48',
-  'elk.layered.spacing.nodeNodeBetweenLayers': '64',
+  'elk.direction': 'RIGHT',
+  'elk.spacing.nodeNode': '30',
+  'elk.layered.spacing.nodeNodeBetweenLayers': '56',
   'elk.padding': '[top=40,left=24,bottom=24,right=24]',
   /**
    * **囲みをまたぐ辺を、層の計算に使わせる**（Issue #1）。
@@ -150,7 +161,9 @@ export async function layout(text: string): Promise<Placed> {
   const groupIds = diagram.groupIds();
 
   const groupLabels = readGroupLabels(diagram);
-  const graph = buildGraph(nodes, groupIds, diagram.edges(), pins);
+  // **向きは正本が決める**（`direction: right | down`。既定は横）。
+  const direction = elkDirection(directionOf((diagram.doc.toJS() as { direction?: unknown }).direction));
+  const graph = buildGraph(nodes, groupIds, diagram.edges(), pins, direction);
   const laid = await new ELK().layout(graph);
 
   const boxes: Box[] = [];
@@ -498,7 +511,9 @@ function buildGraph(
   groupIds: string[],
   edges: { from: string; to: string }[],
   pins: Record<string, { size?: { w: number; h: number }; label?: unknown }>,
+  direction: string,
 ): ElkNode {
+  const options = layoutOptions(direction);
   const leaf = (node: NodeInfo): ElkNode => ({
     id: node.id,
     // 人が変えた大きさは、組み立ての入力の段階で効かせる。
@@ -514,14 +529,14 @@ function buildGraph(
 
   const children: ElkNode[] = groupIds.map((groupId) => ({
     id: groupId,
-    layoutOptions: LAYOUT_OPTIONS,
+    layoutOptions: options,
     children: nodes.filter((node) => node.group === groupId).map(leaf),
   }));
   children.push(...nodes.filter((node) => node.group === null).map(leaf));
 
   return {
     id: 'root',
-    layoutOptions: LAYOUT_OPTIONS,
+    layoutOptions: options,
     children,
     edges: edges.map((edge, index) => ({
       id: `e${index}`,

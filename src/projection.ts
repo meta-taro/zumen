@@ -36,6 +36,14 @@
 export const PROJECTION_FLOOR = 0.015;
 
 /**
+ * 投影先の縦横比。**16:9**（会議室の投影機も、いまの画面もこれ）。
+ *
+ * ここを変えると「効く辺」が変わる。4:3 の投影機しか無い場では
+ * 横長の図が不利になるが、**いまの既定は 16:9 でよい。**
+ */
+export const SCREEN_RATIO = 9 / 16;
+
+/**
  * 図の中でいちばん小さい字。
  *
  * 辺のラベル（`src/edge-labels.ts`）と副題（`src/render.ts` の `technology`）が
@@ -46,7 +54,11 @@ export const SMALLEST_TEXT = 11;
 export interface Projection {
   /** いちばん小さい字の大きさ。 */
   smallestText: number;
-  /** 縮小率を決める辺。**長いほう。** */
+  /**
+   * 縮小率を決める辺。**「画面からはみ出すほうの辺」**（16:9 に対して）。
+   *
+   * 縦長の図では高さ、16:9 より横長の図では `幅 × 9/16`。
+   */
   longestSide: number;
   /** 小さい字 ÷ 長辺。**測れないときは null。** */
   textRatio: number | null;
@@ -57,7 +69,8 @@ export interface Projection {
 }
 
 export function projection(width: number, height: number): Projection {
-  const longestSide = Math.max(width, height);
+  // **長辺ではない。** 16:9 の画面に収めたとき、縮小率を決めるほうの辺。
+  const longestSide = Math.max(height, width * SCREEN_RATIO);
   const base = {
     smallestText: SMALLEST_TEXT,
     longestSide,

@@ -143,7 +143,7 @@ function subtitleOn(style: Look, palette: Palette): string {
 function nodeText(box: Box, palette: Palette, style: Look, shift = 0): string[] {
   const cx = n(box.x + box.w / 2);
   const main = (dy: number): string =>
-    `<text x="${cx}" y="${n(box.y + box.h / 2 + dy + shift)}" text-anchor="middle" font-family="${FONT}" font-size="14" fill="${style.text}">${escapeText(box.label)}</text>`;
+    `<text x="${cx}" y="${n(box.y + box.h / 2 + dy + shift)}" text-anchor="middle" font-family="${FONT}" font-size="15" fill="${style.text}">${escapeText(box.label)}</text>`;
 
   if (box.technology === null) return [main(5)];
   return [

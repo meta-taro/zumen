@@ -61,6 +61,35 @@ function separation(a: Look, b: Look): number {
 const THEMES: Theme[] = ['light', 'dark'];
 const INTENTS = ['safe', 'vivid'] as const;
 
+describe('**箱と囲みが、地から見えること**', () => {
+  // ここを見ていなかった。**体裁どうしの区別しか測っていなかった**ので、
+  // 箱の枠が地に対して 1.47:1 でも通っていた。
+  //
+  //     箱の枠 vs 地     1.47:1   ← 枠がほぼ見えない
+  //     囲みの枠 vs 地   1.18:1
+  //     囲みの地 vs 地   1.03:1   ← 囲みが事実上ない
+  //
+  // 「きれいだが、見えていない」図になっていた（2026-09-11。人の指摘）。
+  for (const theme of THEMES) {
+    it(`${theme} — 箱の枠が地から見える`, () => {
+      const p = paletteOf(theme);
+      const got = contrast(p.node.stroke, p.node.fill);
+      assert.ok(got >= FLOOR, `${got.toFixed(2)}:1`);
+    });
+
+    it(`${theme} — **囲みが、外の地と見分けられる**`, () => {
+      const p = paletteOf(theme);
+      // 面か枠か、どちらかで分かればよい。**両方とも薄いのが駄目。**
+      const byFill = contrast(p.group.fill, p.node.fill);
+      const byStroke = contrast(p.group.stroke, p.node.fill);
+      assert.ok(
+        Math.max(byFill, byStroke) >= FLOOR,
+        `地 ${byFill.toFixed(2)}:1 / 枠 ${byStroke.toFixed(2)}:1`,
+      );
+    });
+  }
+});
+
 describe('文字と線が地から見えること', () => {
   for (const theme of THEMES) {
     for (const intent of INTENTS) {

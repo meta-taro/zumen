@@ -75,9 +75,12 @@ describe('姉妹アプリのトークンへ揃っている（DESIGN.md）', () =
     assert.equal(TOKEN.accentSubtle, '#eeeefb');
   });
 
-  it('既定のノードは地が bg-app、枠が border-strong', () => {
+  it('既定のノードは地が bg-app、枠は**地から最も遠いインク**', () => {
     assert.equal(NODE.fill, TOKEN.bgApp);
-    assert.equal(NODE.stroke, TOKEN.borderStrong);
+    // **`border-strong` ではない**（`DESIGN.md` §8）。
+    // あれはヘアライン用で、地に対して 1.47:1 しかなく、箱が見えなかった。
+    assert.equal(NODE.stroke, TOKEN.textPrimary);
+    assert.notEqual(NODE.stroke, TOKEN.borderStrong);
   });
 
   it('知らない体裁の語は既定へ落ちる（捨てずに保つ。仕様 §9）', async () => {

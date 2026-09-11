@@ -28,7 +28,11 @@ const FLAT = CHAIN.replace(/\n    group: \w+/g, '');
 /** 上から順に並んでいるか。 */
 async function order(text: string): Promise<string[]> {
   const placed = await layout(text);
-  return [...placed.boxes].sort((a, b) => a.y - b.y).map((box) => box.id);
+  // **向きは正本が決める**（既定は横。Issue #9 の続き）ので、
+  // 流れる方向で並べる。縦の座標で見ると、横向きの図では意味が無い。
+  const flow = (box: { x: number; y: number }): number =>
+    placed.width >= placed.height ? box.x : box.y;
+  return [...placed.boxes].sort((a, b) => flow(a) - flow(b)).map((box) => box.id);
 }
 
 const EXPECTED = ['internet', 'httpd', 'wasabimount', 'wasabi'];
@@ -46,14 +50,24 @@ describe('囲みを付けても層が壊れない（Issue #1）', () => {
     const placed = await layout(CHAIN);
     const first = placed.boxes.find((box) => box.id === 'internet')!;
     const last = placed.boxes.find((box) => box.id === 'wasabi')!;
-    assert.ok(last.y > first.y, `終点 y=${last.y} が始点 y=${first.y} より上にある`);
+    // 横向きなら x、縦向きなら y。**流れる方向で見る。**
+    const along = (p: { x: number; y: number }): number =>
+      placed.width >= placed.height ? p.x : p.y;
+    assert.ok(
+      along(last) > along(first),
+      `終点 ${along(last)} が始点 ${along(first)} より手前にある`,
+    );
   });
 
   it('囲みどうしも、辺の向きに沿って並ぶ', async () => {
     const placed = await layout(CHAIN);
-    const y = (id: string) => placed.groups.find((g) => g.id === id)!.y;
-    assert.ok(y('soto') < y('honban'), '外部より本番が上にある');
-    assert.ok(y('honban') < y('hokan'), '本番より保管先が上にある');
+    // **流れる方向で見る**（既定は横。Issue #9 の続き）。
+    const at = (id: string): number => {
+      const group = placed.groups.find((g) => g.id === id)!;
+      return placed.width >= placed.height ? group.x : group.y;
+    };
+    assert.ok(at('soto') < at('honban'), '外部より本番が手前にある');
+    assert.ok(at('honban') < at('hokan'), '本番より保管先が手前にある');
   });
 
   it('矢印が箱を突き抜けない（交差も重なりも 0）', async () => {
@@ -68,6 +82,7 @@ describe('囲みを付けても層が壊れない（Issue #1）', () => {
       if (box.group === null) continue;
       const group = placed.groups.find((g) => g.id === box.group)!;
       assert.ok(box.y >= group.y, `${box.id} が ${group.id} の上へはみ出した`);
+      assert.ok(box.x >= group.x, `${box.id} が ${group.id} の左へはみ出した`);
       assert.ok(box.y + box.h <= group.y + group.h, `${box.id} が ${group.id} の下へはみ出した`);
     }
   });

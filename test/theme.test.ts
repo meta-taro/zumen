@@ -82,13 +82,17 @@ describe('SVG を書き出す', () => {
     const svg = await toSvg(SOURCE, { theme: 'dark' });
     for (const [name, value] of Object.entries(TOKEN)) {
       if ((DARK as Record<string, string>)[name] === value) continue;
+      // ライトの `textPrimary`（#1c1c22）は、**ダークでは使わないが値としては同じ**
+      // ではない。ただし `textOnAccent` はどちらも #ffffff で、
+      // **ダークの箱の枠に使う**（地から最も遠いインク。`DESIGN.md` §8）。
+      if (name === 'bgApp' && DARK.textOnAccent === value) continue;
       assert.equal(svg.includes(value), false, `${name}（${value}）が残っている`);
     }
   });
 
   it('囲み・線・体裁の語も、ダークの値になる', async () => {
     const svg = await toSvg(SOURCE, { theme: 'dark' });
-    assert.ok(svg.includes(DARK.bgSubtle), '囲みの地');
+    assert.ok(svg.includes(DARK.neutralBg), '囲みの地');
     assert.ok(svg.includes(DARK.textSecondary), '線');
     assert.ok(svg.includes(DARK.accentSubtle), 'appearance: primary の地');
   });

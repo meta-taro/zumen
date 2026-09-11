@@ -174,7 +174,12 @@ function contrast(a: string, b: string): number {
   return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05);
 }
 
-/** 塗り潰した地の上で、**読めるほうの文字**を選ぶ。 */
+/**
+ * その地の上で、**遠いほうのインク**を選ぶ。
+ *
+ * 塗り潰した箱の上の文字にも、**箱の枠**にも使う。
+ * どちらも「地から見えること」が要件で、要件が同じなら同じ選び方でよい。
+ */
 function inkOn(fill: string, light: string, dark: string): string {
   return contrast(light, fill) >= contrast(dark, fill) ? light : dark;
 }
@@ -208,8 +213,26 @@ export function paletteOf(theme: Theme = 'light', intent: Intent = 'safe'): Pale
        */
       muted: { fill: t.neutralBg, stroke: t.textTertiary, text: t.textSecondary, dash: '3 3' },
     },
-    node: { fill: t.bgApp, stroke: t.borderStrong, text: t.textPrimary, dash: null },
-    group: { fill: t.bgSubtle, stroke: t.border, text: t.textSecondary, dash: '6 4' },
+    /**
+     * 箱の枠は**地からいちばん遠いインク**（`DESIGN.md` §8）。
+     *
+     * 姉妹アプリの `borderStrong` はヘアライン用で、地に対して **1.47:1** しかなかった。
+     * 文書の中の罫線ならそれでよいが、**図は一目で読ませるもの**で、
+     * その淡さだと「きれいだが、見えていない」図になる（2026-09-11。人の指摘）。
+     *
+     * **`textSecondary` では足りない。** ライトでは地から離れるが、
+     * **ダークでアクセントと 1.3:1 まで近づく**ので、`appearance: primary` と区別が付かない。
+     * 地から最も遠い側を選べば、どちらのテーマでも両方から離れる。
+     */
+    node: { fill: t.bgApp, stroke: inkOn(t.bgApp, t.textPrimary, t.textOnAccent), text: t.textPrimary, dash: null },
+    /**
+     * 囲みは**面と枠の両方で示す**。
+     *
+     * `bgSubtle` の面は外の地と **1.03:1** で、事実上存在していなかった。
+     * 面を `neutralBg` にし、枠を `textSecondary` の破線にする。
+     * **「区画であって物ではない」ことは線種で示したまま**、存在は分かるようにする。
+     */
+    group: { fill: t.neutralBg, stroke: t.textSecondary, text: t.textSecondary, dash: '6 4' },
     edge: { stroke: t.textSecondary },
     text: { node: t.textPrimary, group: t.textSecondary, edge: t.textSecondary },
   };
