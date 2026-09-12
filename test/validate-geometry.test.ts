@@ -161,3 +161,25 @@ describe('通り芯・縮尺・方位を見る', () => {
     );
   });
 });
+
+describe('壁の厚みを見る', () => {
+  it('正しく書いた壁は通る', () => {
+    assert.deepEqual(
+      codes('version: 1\nkind: placement\nscale: { mm: 20 }\nwall: { mm: 120 }\nnodes:\n  - id: a\n'),
+      [],
+    );
+  });
+
+  it('**縮尺が無ければ、壁の太さが変わらないことを知らせる**', () => {
+    const out = codes('version: 1\nkind: placement\nwall: { mm: 120 }\nnodes:\n  - id: a\n');
+    assert.ok(out.includes('wall-needs-scale'));
+  });
+
+  it('厚みが数でない・0 以下なら知らせる', () => {
+    assert.ok(
+      codes('version: 1\nkind: placement\nscale: { mm: 20 }\nwall: { mm: あつい }\nnodes:\n  - id: a\n').includes(
+        'wall-invalid',
+      ),
+    );
+  });
+});

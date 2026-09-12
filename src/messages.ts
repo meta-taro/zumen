@@ -328,6 +328,7 @@ const ja = {
       '      - { kind: <openings から>, side: <sides から>, at: <0〜1>, width: <px> }',
       'scale: { mm: <1px が何 mm か> }      # 寸法の数値を出すのに要る',
       'north: <up / right / down / left>    # 方位記号',
+      'wall: { mm: <間仕切の厚み>, outer: <外壁の厚み> }   # 平面図の壁を塗り潰す',
       'grid:                                 # 通り芯。kind: placement でだけ効く',
       '  x: [{ id: X1, at: <px> }, { id: X2, at: <px> }]',
       '  y: [{ id: Y1, at: <px> }, { id: Y2, at: <px> }]',
@@ -416,6 +417,10 @@ const ja = {
       `scale.mm が ${found} になっています。正の数を書きます（1px が何 mm か）。寸法の数値は出ません。`,
     northUnknown: (word: string) =>
       `north が "${word}" になっています（up / right / down / left）。方位記号は描かれません。`,
+    wallInvalid: (found: string) =>
+      `wall.mm が ${found} になっています。正の数を書きます（壁の厚み・mm）。壁の太さは変わりません。`,
+    wallNeedsScale:
+      'wall（壁の厚み）はありますが scale がありません。mm を px にできないので、壁の太さは変わりません。',
   },
 
   /** Mermaid への書き出し（`src/mermaid.ts`） */
@@ -657,6 +662,7 @@ const en: Catalog = {
       '      - { kind: <from openings>, side: <from sides>, at: <0..1>, width: <px> }',
       'scale: { mm: <how many mm one pixel is> }   # required for dimension figures',
       'north: <up / right / down / left>',
+      'wall: { mm: <partition thickness>, outer: <outer wall thickness> }  # poché walls',
       'grid:                                 # only with kind: placement',
       '  x: [{ id: X1, at: <px> }, { id: X2, at: <px> }]',
       '  y: [{ id: Y1, at: <px> }, { id: Y2, at: <px> }]',
@@ -731,6 +737,10 @@ const en: Catalog = {
       `scale.mm is ${found}. Write a positive number (how many mm one pixel is). No dimension figures are drawn.`,
     northUnknown: (word: string) =>
       `north is "${word}" (up / right / down / left). No north arrow is drawn.`,
+    wallInvalid: (found: string) =>
+      `wall.mm is ${found}. Write a positive number (wall thickness in mm). Wall thickness is unchanged.`,
+    wallNeedsScale:
+      'wall is present but scale is not, so mm cannot be turned into pixels and the wall thickness is unchanged.',
   },
   mermaid: {
     geometryDroppedHeading:

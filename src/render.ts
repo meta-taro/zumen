@@ -27,6 +27,7 @@
 import { drawDimensions, drawGrid, drawNorth } from './dimensions.ts';
 import type { Frame, Ink } from './dimensions.ts';
 import { hasGrid } from './grid.ts';
+import { wallWidth } from './wall.ts';
 import { drawOpenings } from './openings.ts';
 import { drawShape, shapeOf, textShift } from './shapes.ts';
 import { placeEdgeLabels } from './edge-labels.ts';
@@ -95,6 +96,9 @@ export function render(
   plan = false,
 ): string {
   const palette = paletteOf(theme, intent);
+  // **壁の厚みは平面図だけの話。** 構成図の箱は壁ではない。
+  const wall = plan ? wallWidth(placed.wall, placed.mm) : null;
+  const outerWall = plan ? wallWidth(placed.wall, placed.mm, true) : null;
   // **置けなかったラベルは、ここに入ってこない**（重ねて出さない。Issue #3 の 3）。
   const labels = new Map(
     placeEdgeLabels(placed.edges, placed.boxes, placed.groups).map((label) => [label.id, label]),
@@ -102,15 +106,18 @@ export function render(
   const parts = [
     `<svg xmlns="http://www.w3.org/2000/svg" width="${size(placed.width)}" height="${size(placed.height)}" viewBox="0 0 ${size(placed.width)} ${size(placed.height)}">`,
     `<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="${palette.edge.stroke}"/></marker></defs>`,
-    ...placed.groups.map((group) => renderGroup(group, palette, plan)),
-    // **矢印を出すかは、正本が決める。**
+    ...placed.groups.map((group) => renderGroup(group, palette, plan, outerWall)),
+    // **構成図では、辺は箱の下。** 箱が辺の端を隠して、繋がって見える。
+    ...(plan ? [] : placed.edges.map((edge) => renderEdge(edge, labels.get(edge.id) ?? null, palette))),
+    ...stack(placed.boxes, plan).map((box) => renderNode(box, palette, plan, wall)),
+    // **配置図では、動線は箱の上。**
     //
-    // 一度ここで「平面図に矢印は無い」として落としたが、**間違いだった。**
-    // 売場の補充動線が黙って消え、避難経路図は描けなくなる。
-    // 間取りが矢印無しで出るのは、**正本に辺が書いていないから**であって、
-    // 平面図だから落としているのではない。
-    ...placed.edges.map((edge) => renderEdge(edge, labels.get(edge.id) ?? null, palette)),
-    ...stack(placed.boxes, plan).map((box) => renderNode(box, palette, plan)),
+    // 部屋の塗りは透けないので、下に置くと**隣どうしの矢印が完全に消える。**
+    // 壁に厚みを付けたら、避難経路の矢印が丸ごと壁の下に入った（2026-09-12）。
+    // 避難経路図は**矢印が主役**の図で、消えたら図の意味が無い。
+    //
+    // **矢印を出すかは正本が決める**（辺を書かなければ出ない。間取りがそれ）。
+    ...(plan ? placed.edges.map((edge) => renderEdge(edge, labels.get(edge.id) ?? null, palette, true)) : []),
     // **通り芯・寸法・方位は最前面。**
     //
     // 一度、通り芯を下敷きにした。**建物の中で消えた** —— 箱の塗りは透けないので、
@@ -182,12 +189,14 @@ function inkOf(palette: Palette): Ink {
   return { stroke: palette.node.stroke, text: palette.text.group, paper: palette.paper, font: FONT };
 }
 
-function renderGroup(group: Box, palette: Palette, plan = false): string {
+function renderGroup(group: Box, palette: Palette, plan = false, wall: number | null = null): string {
   // **平面図の囲みは「外周の壁」。** 破線の角丸だと、囲いであって壁に見えない。
   // 実物は、外周だけが内壁より太いひとつながりの線で描かれる。
+  //
+  // **厚みを書いていれば、その太さで描く**（`src/wall.ts`）。
   const rect = plan
     ? `<rect x="${n(group.x)}" y="${n(group.y)}" width="${n(group.w)}" height="${n(group.h)}" ` +
-      `fill="${palette.group.fill}" stroke="${palette.node.stroke}" stroke-width="3"/>`
+      `fill="${palette.group.fill}" stroke="${palette.node.stroke}" stroke-width="${wall ?? 3}"/>`
     : `<rect x="${n(group.x)}" y="${n(group.y)}" width="${n(group.w)}" height="${n(group.h)}" rx="8" fill="${palette.group.fill}" stroke="${palette.group.stroke}" stroke-dasharray="${palette.group.dash}"/>`;
 
   return [
@@ -198,7 +207,7 @@ function renderGroup(group: Box, palette: Palette, plan = false): string {
   ].join('');
 }
 
-function renderNode(box: Box, palette: Palette, plan = false): string {
+function renderNode(box: Box, palette: Palette, plan = false, wall: number | null = null): string {
   const style = lookOf(box.appearance, palette);
   const attributes = [
     `data-node="${escapeAttr(box.id)}"`,
@@ -216,7 +225,10 @@ function renderNode(box: Box, palette: Palette, plan = false): string {
   const paint = {
     fill: style.fill,
     stroke: style.stroke,
-    strokeWidth: box.pinned ? STROKE_WIDTH.pinned : STROKE_WIDTH.auto,
+    // **平面図で壁の厚みを書いていれば、その太さで描く**（`src/wall.ts`）。
+    // 人が置いた印（太い枠）より壁のほうが優先 —— 壁の厚みは図の内容であって、
+    // 誰が置いたかの印ではない。
+    strokeWidth: wall ?? (box.pinned ? STROKE_WIDTH.pinned : STROKE_WIDTH.auto),
     dash: style.dash,
   };
 
@@ -230,7 +242,7 @@ function renderNode(box: Box, palette: Palette, plan = false): string {
   // **建具は壁に開く穴**（`src/openings.ts`）。壁を消してから記号を描く。
   const holes =
     plan && box.openings.length > 0
-      ? drawOpenings(box, box.openings, style.stroke, style.fill)
+      ? drawOpenings(box, box.openings, style.stroke, style.fill, paint.strokeWidth)
       : '';
 
   return [
@@ -310,7 +322,12 @@ function nodeText(box: Box, palette: Palette, style: Look, shift = 0, plan = fal
   ];
 }
 
-function renderEdge(edge: PlacedEdge, placedLabel: EdgeLabel | null, palette: Palette): string {
+function renderEdge(
+  edge: PlacedEdge,
+  placedLabel: EdgeLabel | null,
+  palette: Palette,
+  plan = false,
+): string {
   if (edge.points.length < 2) return '';
   const [head, ...rest] = edge.points;
   const path = `M ${n(head!.x)} ${n(head!.y)} ${rest.map((p) => `L ${n(p.x)} ${n(p.y)}`).join(' ')}`;
@@ -320,7 +337,11 @@ function renderEdge(edge: PlacedEdge, placedLabel: EdgeLabel | null, palette: Pa
       : `<text x="${n(placedLabel.x)}" y="${n(placedLabel.y)}" text-anchor="middle" font-family="${FONT}" font-size="11" fill="${palette.text.edge}">${escapeText(placedLabel.text)}</text>`;
   return [
     `<g data-edge="${escapeAttr(edge.id)}" data-pinned="${edge.pinned}">`,
-    `<path d="${path}" fill="none" stroke="${palette.edge.stroke}" stroke-width="${edge.pinned ? STROKE_WIDTH.pinned : STROKE_WIDTH.auto}" marker-end="url(#arrow)"/>`,
+    // **配置図の動線は太く。** 壁を塗り潰したあと、細い線では動線が
+    // 壁の黒に負けて読めない（避難経路図は矢印が主役）。
+    `<path d="${path}" fill="none" stroke="${palette.edge.stroke}" stroke-width="${
+      edge.pinned || plan ? STROKE_WIDTH.pinned : STROKE_WIDTH.auto
+    }" marker-end="url(#arrow)"/>`,
     label,
     '</g>',
   ].join('');

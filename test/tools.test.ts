@@ -304,3 +304,9 @@ describe('spec が、通り芯と縮尺を載せている', () => {
     assert.ok(spec().rules.some((rule) => rule.includes('現場') || rule.includes('site')));
   });
 });
+
+describe('spec が、壁の厚みを載せている', () => {
+  it('平面図の壁は塗り潰す。**その厚みを書く場所がある**', () => {
+    assert.match(spec().shape, /wall:/);
+  });
+});

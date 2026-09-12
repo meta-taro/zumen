@@ -93,6 +93,7 @@ describe('overlaps', () => {
       grid: { x: [], y: [] },
       mm: null,
       north: null,
+      wall: null,
     };
     assert.deepEqual(overlaps(placed), [['a', 'b']]);
   });

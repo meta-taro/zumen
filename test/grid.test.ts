@@ -155,3 +155,101 @@ describe('通り芯の分だけ、外側へ余白を取る', () => {
     assert.equal(placed.grid.x[0]!.at, box.x, '芯と箱で余白の足し方が違う');
   });
 });
+
+describe('壁の厚み（wall）', () => {
+  const WALLED = `version: 1
+kind: placement
+scale: { mm: 20 }
+wall: { mm: 120, outer: 200 }
+groups:
+  - id: f
+    label: 1 階
+nodes:
+  - id: a
+    label: 部屋
+    at: { x: 40, y: 40 }
+    size: { w: 200, h: 160 }
+    group: f
+`;
+
+  it('**壁が厚く描かれる**（120mm ÷ 20 = 6px）', async () => {
+    const out = render(await layout(WALLED), 'light', 'safe', true);
+    assert.match(out, /data-node="a"[\s\S]*?stroke-width="6"/, '間仕切の厚みが効いていない');
+  });
+
+  it('**外壁のほうが厚い**（200mm ÷ 20 = 10px）', async () => {
+    const out = render(await layout(WALLED), 'light', 'safe', true);
+    assert.match(out, /data-group="f"[\s\S]*?stroke-width="10"/, '外壁が内壁と同じ太さ');
+  });
+
+  it('**縮尺が無ければ、太さを変えない。** mm を px にできない', async () => {
+    const out = render(
+      await layout(WALLED.replace('scale: { mm: 20 }\n', '')),
+      'light',
+      'safe',
+      true,
+    );
+    assert.ok(!out.includes('stroke-width="6"'), '縮尺が無いのに壁が太くなった');
+  });
+
+  it('外壁を書かなければ、間仕切の 1.5 倍', async () => {
+    const out = render(
+      await layout(WALLED.replace('wall: { mm: 120, outer: 200 }', 'wall: { mm: 120 }')),
+      'light',
+      'safe',
+      true,
+    );
+    assert.match(out, /data-group="f"[\s\S]*?stroke-width="9"/);
+  });
+
+  it('**壁が厚くなっても、建具はきちんと穴になる**', async () => {
+    const source = WALLED.replace(
+      '    group: f\n',
+      '    group: f\n    openings:\n      - { kind: door, side: top }\n',
+    );
+    const out = render(await layout(source), 'light', 'safe', true);
+    // 壁を消す線は、壁より太くないと縁が残る。
+    assert.match(out, /stroke-width="8"/, '建具が壁を消しきれていない');
+  });
+
+  it('**構成図では太さを変えない**', async () => {
+    const out = render(await layout(WALLED.replace('kind: placement', '')), 'light', 'safe', false);
+    assert.ok(!out.includes('stroke-width="6"'));
+  });
+});
+
+describe('配置図では、動線を箱の上に描く', () => {
+  const ROUTE = `version: 1
+kind: placement
+scale: { mm: 20 }
+wall: { mm: 120 }
+nodes:
+  - id: a
+    label: 廊下
+    at: { x: 0, y: 0 }
+    size: { w: 300, h: 60 }
+  - id: b
+    label: 階段
+    at: { x: 0, y: 60 }
+    size: { w: 120, h: 100 }
+edges:
+  - from: a
+    to: b
+    label: 避難
+`;
+
+  it('**壁の下に隠れない。** 部屋の塗りは透けない', async () => {
+    const out = render(await layout(ROUTE), 'light', 'safe', true);
+    assert.ok(out.lastIndexOf('data-edge=') > out.lastIndexOf('data-node='), '動線が箱より先に描かれている');
+  });
+
+  it('構成図では、これまでどおり箱の下', async () => {
+    const out = render(await layout(ROUTE.replace('kind: placement', '')), 'light', 'safe', false);
+    assert.ok(out.indexOf('data-edge=') < out.indexOf('data-node='));
+  });
+
+  it('**動線は太く描く。** 細いと壁の黒に負ける', async () => {
+    const out = render(await layout(ROUTE), 'light', 'safe', true);
+    assert.match(out, /data-edge=[\s\S]*?stroke-width="2"/);
+  });
+});

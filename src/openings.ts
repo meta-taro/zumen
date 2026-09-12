@@ -112,6 +112,8 @@ export function drawOpenings(
   holes: readonly Hole[],
   stroke: string,
   paper: string,
+  /** 壁の太さ（`src/wall.ts`）。**消す線はこれより太くないと壁が残る。** */
+  wall = 2,
 ): string {
   const parts: string[] = [];
   for (const hole of holes) {
@@ -123,7 +125,7 @@ export function drawOpenings(
     // **まず壁を消す。** 建具は穴なので、そこに壁があってはいけない。
     parts.push(
       `<line x1="${n(x)}" y1="${n(y)}" x2="${n(to.x)}" y2="${n(to.y)}" ` +
-        `stroke="${paper}" stroke-width="4"/>`,
+        `stroke="${paper}" stroke-width="${wall + 2}"/>`,
     );
 
     if (hole.kind === 'open') continue; // 開口だけ（建具なし）。

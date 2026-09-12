@@ -1,9 +1,23 @@
 version: 1
 kind: placement
-title: 3 階 避難経路図（収容 120 名）
+title: 3 階 避難経路図（収容 90 名）
+scale: { mm: 25 }
+wall: { mm: 120, outer: 200 }
+north: up
+grid:
+  x:
+    - { id: X1, at: 40 }
+    - { id: X2, at: 280 }
+    - { id: X3, at: 460 }
+    - { id: X4, at: 620 }
+  y:
+    - { id: Y1, at: 40 }
+    - { id: Y2, at: 220 }
+    - { id: Y3, at: 290 }
+    - { id: Y4, at: 400 }
 groups:
   - id: f3
-    label: 3 階　避難口 2 か所　最遠点からの歩行距離 28m
+    label: 3 階　避難口 2 か所　最遠点からの歩行距離 21m
 nodes:
   - id: jimu
     label: 事務室
@@ -56,6 +70,13 @@ nodes:
     group: f3
     openings:
       - { kind: door, side: top, at: 0.5, width: 60 }
+  - id: kyuto
+    label: 給湯室
+    at: { x: 160, y: 290 }
+    size: { w: 90, h: 110 }
+    group: f3
+    openings:
+      - { kind: door, side: top, at: 0.5, width: 45 }
   - id: ev
     label: EV
     technology: 避難に使わない
@@ -64,8 +85,8 @@ nodes:
     group: f3
   - id: wc
     label: 便所
-    at: { x: 370, y: 290 }
-    size: { w: 120, h: 110 }
+    at: { x: 350, y: 290 }
+    size: { w: 150, h: 110 }
     group: f3
     openings:
       - { kind: door, side: top, at: 0.5, width: 50 }

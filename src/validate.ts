@@ -224,6 +224,17 @@ function checkGridAndScale(doc: Document, add: Add, m: Messages, at: At): void {
     }
   }
 
+  // **壁の厚みも mm で書く。** 縮尺が無ければ px にできない。
+  const wall = doc.get('wall', true);
+  if (wall !== undefined && wall !== null) {
+    const mm = isMap(wall) ? wall.get('mm') : undefined;
+    if (!isPositive(mm)) {
+      add('warning', 'wall-invalid', m.wallInvalid(String(mm)), at(wall));
+    } else if (!hasScale) {
+      add('warning', 'wall-needs-scale', m.wallNeedsScale, at(wall));
+    }
+  }
+
   const grid = doc.get('grid', true);
   if (grid === undefined || grid === null || !isMap(grid)) return;
 
