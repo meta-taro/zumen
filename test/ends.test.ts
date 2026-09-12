@@ -129,7 +129,20 @@ describe('図に載せる', () => {
   });
 
   it('spec が端の記号を返す', () => {
-    assert.deepEqual(spec().ends, [...ENDS]);
+    // **リストを literal で書く。** `[...ENDS]` と比べると、
+    // 同じ定数どうしの比較になって**何も守らない**（2026-09-13 の棚卸しで見つけた）。
+    assert.deepEqual(spec().ends, [
+      'none',
+      'arrow',
+      'bar',
+      'crow',
+      'dot',
+      'dot-bar',
+      'dot-crow',
+      'triangle',
+      'diamond',
+      'solid-diamond',
+    ]);
     assert.match(spec().shape, /ends:/);
   });
 });

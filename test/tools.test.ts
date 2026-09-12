@@ -17,13 +17,7 @@ import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
 import { getPins, parse } from '../src/format.ts';
-import {
-  create,
-  exportAs,
-  inspect,
-  propose,
-  spec,
-} from '../src/tools.ts';
+import { create, exportAs, inspect, list, pinsOf, propose, spec } from '../src/tools.ts';
 import type { Io } from '../src/tools.ts';
 
 const GOOD = [
@@ -315,5 +309,66 @@ describe('spec が、範囲の円を載せている', () => {
   it('クレーンの作業半径が書ける場所がある', () => {
     assert.match(spec().shape, /radius:/);
     assert.ok(spec().rules.some((rule) => rule.includes('radius')));
+  });
+});
+
+describe('図を探す口（zumen_list）', () => {
+  /**
+   * **2026-09-13 の棚卸しで見つけた。** MCP の口なのに、
+   * テストから一度も呼ばれていなかった（`tools.ts` の関数カバレッジ 52%）。
+   *
+   * エージェントが最初に叩く口の 1 つで、**ここが壊れると図に辿り着けない。**
+   */
+  const io = {
+    read: () => '',
+    write: () => undefined,
+    exists: () => true,
+    list: (dir: string) => (dir === 'docs' ? ['a.zumen.yaml', 'sub/b.zumen.yaml'] : []),
+  };
+
+  it('その下にある図の道を返す', () => {
+    assert.deepEqual(list('docs', io), ['a.zumen.yaml', 'sub/b.zumen.yaml']);
+  });
+
+  it('無ければ空（例外にしない）', () => {
+    assert.deepEqual(list('empty', io), []);
+  });
+
+  it('**本物のファイルでも動く。** 見本の置き場を数える', () => {
+    const found = list('examples/gallery');
+    assert.ok(found.length >= 51, `見本が ${found.length} 件しか見つからない`);
+    assert.ok(
+      found.every((path) => path.endsWith('.zumen.yaml')),
+      '正本でないものが混ざっている',
+    );
+  });
+});
+
+describe('人が手で決めたことを読む口（zumen_pins）', () => {
+  /** 同上。**書き換える口は無く、読むだけ**であることも、ここで固定する。 */
+  const SOURCE = `version: 1
+pins:
+  a:
+    position: { x: 100, y: 200 }
+    label: 人が付けた名前
+    appearance: primary
+nodes:
+  - id: a
+    label: AI が付けた名前
+`;
+
+  it('人が決めたものだけを返す', () => {
+    const out = pinsOf(SOURCE);
+    assert.deepEqual(Object.keys(out), ['a']);
+    assert.deepEqual((out.a as Record<string, unknown>).position, { x: 100, y: 200 });
+    assert.equal((out.a as Record<string, unknown>).label, '人が付けた名前');
+  });
+
+  it('**AI が書いた値は返さない**（`nodes[].label` は人のものではない）', () => {
+    assert.ok(!JSON.stringify(pinsOf(SOURCE)).includes('AI が付けた名前'));
+  });
+
+  it('`pins` が無ければ空', () => {
+    assert.deepEqual(pinsOf('version: 1\nnodes:\n  - id: a\n'), {});
   });
 });

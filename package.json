@@ -30,6 +30,7 @@
     "app:build": "tauri build",
     "build": "tsc -p tsconfig.build.json",
     "consume:check": "node scripts/consume-check.mjs",
+    "coverage": "node --test --experimental-test-coverage --test-coverage-include=src/**/*.ts --test-coverage-lines=95 --test-coverage-branches=88 --test-coverage-functions=92 \"test/**/*.test.ts\"",
     "build:app": "vite build",
     "d2:conflict": "node experiments/d2/git-conflict.ts",
     "dev": "vite",

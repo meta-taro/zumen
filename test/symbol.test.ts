@@ -161,7 +161,21 @@ describe('図に載せる', () => {
   });
 
   it('spec が記号の語を返す', () => {
-    assert.deepEqual(spec().symbols, [...SYMBOLS]);
+    assert.deepEqual(spec().symbols, [
+      'resistor',
+      'variable-resistor',
+      'capacitor',
+      'polarized-capacitor',
+      'inductor',
+      'diode',
+      'led',
+      'battery',
+      'source',
+      'ground',
+      'switch',
+      'fuse',
+      'lamp',
+    ]);
     assert.match(spec().shape, /symbol:/);
   });
 });

@@ -120,7 +120,7 @@ describe('知らせる', () => {
   });
 
   it('spec が印の語を返す', () => {
-    assert.deepEqual(spec().markers, [...MARKERS]);
+    assert.deepEqual(spec().markers, ['box', 'circle', 'double', 'ellipse', 'diamond', 'bar', 'none']);
     assert.match(spec().shape, /marker:/);
   });
 });
