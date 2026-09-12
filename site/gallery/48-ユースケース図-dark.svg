@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="844" height="428" viewBox="0 0 844 428">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a0a0ab"/></marker></defs>
+<g data-group="sys"><rect x="196" y="-6" width="428" height="410" fill="#141418" stroke="#ffffff" stroke-width="3"/><text x="208" y="16" font-family="sans-serif" font-size="13" fill="#a0a0ab">通販サイト（システム境界）</text></g>
+<g data-node="uc_search" data-pinned="false" data-shape="rect"><ellipse cx="280" cy="50" rx="80" ry="30" fill="#22222a" stroke="#ffffff" stroke-width="1"/><text x="280" y="54" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f4f4f6">商品を探す</text></g>
+<g data-node="uc_cart" data-pinned="false" data-shape="rect"><ellipse cx="280" cy="130" rx="80" ry="30" fill="#22222a" stroke="#ffffff" stroke-width="1"/><text x="280" y="134" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f4f4f6">カートに入れる</text></g>
+<g data-node="uc_order" data-pinned="false" data-appearance="primary" data-shape="rect"><ellipse cx="280" cy="210" rx="80" ry="30" fill="#1e1e3a" stroke="#7c7cf0" stroke-width="1"/><text x="280" y="214" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f4f4f6">注文する</text></g>
+<g data-node="uc_pay" data-pinned="false" data-shape="rect"><ellipse cx="540" cy="210" rx="80" ry="30" fill="#22222a" stroke="#ffffff" stroke-width="1"/><text x="540" y="214" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f4f4f6">支払う</text></g>
+<g data-node="uc_track" data-pinned="false" data-shape="rect"><ellipse cx="280" cy="290" rx="80" ry="30" fill="#22222a" stroke="#ffffff" stroke-width="1"/><text x="280" y="294" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f4f4f6">配送を追う</text></g>
+<g data-node="uc_ship" data-pinned="false" data-shape="rect"><ellipse cx="280" cy="370" rx="80" ry="30" fill="#22222a" stroke="#ffffff" stroke-width="1"/><text x="280" y="374" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f4f4f6">出荷する</text></g>
+<g data-node="uc_stock" data-pinned="false" data-shape="rect"><ellipse cx="540" cy="370" rx="80" ry="30" fill="#22222a" stroke="#ffffff" stroke-width="1"/><text x="540" y="374" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f4f4f6">在庫を直す</text></g>
+<g data-node="guest" data-pinned="false" data-shape="rect"><rect x="0" y="80" width="120" height="60" fill="#22222a" stroke="#ffffff" stroke-width="1"/><text x="60" y="106" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f4f4f6">来訪者</text><text x="60" y="121" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#a0a0ab">«actor»</text></g>
+<g data-node="member" data-pinned="false" data-shape="rect"><rect x="0" y="200" width="120" height="60" fill="#22222a" stroke="#ffffff" stroke-width="1"/><text x="60" y="226" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f4f4f6">会員</text><text x="60" y="241" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#a0a0ab">«actor»</text></g>
+<g data-node="staff" data-pinned="false" data-shape="rect"><rect x="0" y="340" width="120" height="60" fill="#22222a" stroke="#ffffff" stroke-width="1"/><text x="60" y="366" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f4f4f6">運営</text><text x="60" y="381" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#a0a0ab">«actor»</text></g>
+<g data-node="card" data-pinned="false" data-shape="rect"><rect x="700" y="180" width="120" height="60" fill="#22222a" stroke="#ffffff" stroke-width="1"/><text x="760" y="206" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f4f4f6">決済代行</text><text x="760" y="221" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#a0a0ab">«actor»・外部</text></g>
+<g data-edge="guest&gt;uc_search" data-pinned="false"><path d="M 120 94 L 200 72" fill="none" stroke="#a0a0ab" stroke-width="2"/></g>
+<g data-edge="member&gt;uc_cart" data-pinned="false"><path d="M 120 203 L 214 160" fill="none" stroke="#a0a0ab" stroke-width="2"/></g>
+<g data-edge="member&gt;uc_order" data-pinned="false"><path d="M 120 225 L 200 217" fill="none" stroke="#a0a0ab" stroke-width="2"/></g>
+<g data-edge="member&gt;uc_track" data-pinned="false"><path d="M 120 246 L 200 268" fill="none" stroke="#a0a0ab" stroke-width="2"/></g>
+<g data-edge="staff&gt;uc_ship" data-pinned="false"><path d="M 120 370 L 200 370" fill="none" stroke="#a0a0ab" stroke-width="2"/></g>
+<g data-edge="uc_order&gt;uc_pay" data-pinned="false"><path d="M 360 210 L 460 210" fill="none" stroke="#a0a0ab" stroke-width="2" stroke-dasharray="7 4"/><text x="410" y="204" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#a0a0ab">«include»</text></g>
+<g data-edge="uc_ship&gt;uc_stock" data-pinned="false"><path d="M 360 370 L 460 370" fill="none" stroke="#a0a0ab" stroke-width="2" stroke-dasharray="7 4"/><text x="410" y="364" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#a0a0ab">«include»</text></g>
+<g data-edge="uc_pay&gt;card" data-pinned="false"><path d="M 620 210 L 700 210" fill="none" stroke="#a0a0ab" stroke-width="2"/></g>
+
+
+
+
+
+
+
+
+
+
+
+</svg>

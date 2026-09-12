@@ -35,7 +35,7 @@ function edge(id: string, label: string | null, points: [number, number][]): Pla
     to,
     label,
     pinned: false,
-    ends: { from: 'none' as const, to: 'none' as const },
+    ends: null,
     line: 'solid' as const,
     points: points.map(([x, y]) => ({ x, y })),
   };

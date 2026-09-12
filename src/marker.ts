@@ -30,6 +30,9 @@
  * | `box`（既定） | 矩形 | 部屋・区画・棚 |
  * | `circle` | 丸 | 路線図の駅、経穴、計器 |
  * | `double` | 二重丸 | 路線図の乗換駅 |
+ * | `ellipse` | 楕円 | UML のユースケース |
+ * | `diamond` | 菱形 | UML の判断（分岐）・フローチャートの条件 |
+ * | `bar` | 太い帯 | UML のフォーク／ジョイン |
  * | `none` | 枠を描かない | 折れ点・注記だけの場所 |
  *
  * ## 印を付けたものは、文字が外へ出る
@@ -38,7 +41,15 @@
  * 実物の路線図も、駅名は丸の外に書いてある。
  */
 
-export const MARKERS = ['box', 'circle', 'double', 'none'] as const;
+export const MARKERS = [
+  'box',
+  'circle',
+  'double',
+  'ellipse',
+  'diamond',
+  'bar',
+  'none',
+] as const;
 export type Marker = (typeof MARKERS)[number];
 
 export function markerOf(raw: unknown): Marker {
@@ -77,6 +88,25 @@ export function drawMarker(marker: Marker, box: Frame, paint: Paint): string {
   const r = Math.min(box.w, box.h) / 2;
 
   if (marker === 'none') return '';
+
+  if (marker === 'ellipse') {
+    // UML のユースケース。**箱いっぱいの楕円**（丸と違い、横長の名前が入る）。
+    return `<ellipse cx="${n(cx)}" cy="${n(cy)}" rx="${n(box.w / 2)}" ry="${n(box.h / 2)}" ${skin}/>`;
+  }
+
+  if (marker === 'diamond') {
+    // UML の判断。**箱の 4 辺の中点を結ぶ。**
+    return (
+      `<path d="M ${n(cx)} ${n(box.y)} L ${n(box.x + box.w)} ${n(cy)} ` +
+      `L ${n(cx)} ${n(box.y + box.h)} L ${n(box.x)} ${n(cy)} Z" ${skin}/>`
+    );
+  }
+
+  if (marker === 'bar') {
+    // UML のフォーク／ジョイン。**塗った帯。** 枠ではなく面で示す。
+    return `<rect x="${n(box.x)}" y="${n(box.y)}" width="${n(box.w)}" height="${n(box.h)}" fill="${paint.stroke}"/>`;
+  }
+
   if (marker === 'circle') {
     return `<circle cx="${n(cx)}" cy="${n(cy)}" r="${n(r)}" ${skin}/>`;
   }

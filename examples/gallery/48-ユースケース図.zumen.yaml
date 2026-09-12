@@ -1,0 +1,101 @@
+version: 1
+kind: placement
+title: ユースケース図（通販サイト・UML）
+groups:
+  - id: sys
+    label: 通販サイト（システム境界）
+pins:
+  uc_order:
+    appearance: primary
+nodes:
+  - id: guest
+    label: 来訪者
+    technology: «actor»
+    at: { x: 0, y: 80 }
+    size: { w: 120, h: 60 }
+  - id: member
+    label: 会員
+    technology: «actor»
+    at: { x: 0, y: 200 }
+    size: { w: 120, h: 60 }
+  - id: staff
+    label: 運営
+    technology: «actor»
+    at: { x: 0, y: 340 }
+    size: { w: 120, h: 60 }
+  - id: uc_search
+    label: 商品を探す
+    marker: ellipse
+    at: { x: 200, y: 20 }
+    size: { w: 160, h: 60 }
+    group: sys
+  - id: uc_cart
+    label: カートに入れる
+    marker: ellipse
+    at: { x: 200, y: 100 }
+    size: { w: 160, h: 60 }
+    group: sys
+  - id: uc_order
+    label: 注文する
+    marker: ellipse
+    at: { x: 200, y: 180 }
+    size: { w: 160, h: 60 }
+    group: sys
+  - id: uc_pay
+    label: 支払う
+    marker: ellipse
+    at: { x: 460, y: 180 }
+    size: { w: 160, h: 60 }
+    group: sys
+  - id: uc_track
+    label: 配送を追う
+    marker: ellipse
+    at: { x: 200, y: 260 }
+    size: { w: 160, h: 60 }
+    group: sys
+  - id: uc_ship
+    label: 出荷する
+    marker: ellipse
+    at: { x: 200, y: 340 }
+    size: { w: 160, h: 60 }
+    group: sys
+  - id: uc_stock
+    label: 在庫を直す
+    marker: ellipse
+    at: { x: 460, y: 340 }
+    size: { w: 160, h: 60 }
+    group: sys
+  - id: card
+    label: 決済代行
+    technology: «actor»・外部
+    at: { x: 700, y: 180 }
+    size: { w: 120, h: 60 }
+edges:
+  - from: guest
+    to: uc_search
+    ends: { to: none }
+  - from: member
+    to: uc_cart
+    ends: { to: none }
+  - from: member
+    to: uc_order
+    ends: { to: none }
+  - from: member
+    to: uc_track
+    ends: { to: none }
+  - from: staff
+    to: uc_ship
+    ends: { to: none }
+  - from: uc_order
+    to: uc_pay
+    line: dashed
+    ends: { to: arrow }
+    label: «include»
+  - from: uc_ship
+    to: uc_stock
+    line: dashed
+    ends: { to: arrow }
+    label: «include»
+  - from: uc_pay
+    to: card
+    ends: { to: none }

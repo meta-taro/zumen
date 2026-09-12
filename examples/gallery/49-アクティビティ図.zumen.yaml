@@ -1,0 +1,92 @@
+version: 1
+kind: placement
+title: アクティビティ図（注文の処理・UML）
+groups:
+  - id: front
+    label: 受付（レーン）
+  - id: back
+    label: 倉庫（レーン）
+pins:
+  ship:
+    appearance: primary
+nodes:
+  - id: start
+    label: 開始
+    marker: circle
+    at: { x: 60, y: 0 }
+    size: { w: 26, h: 26 }
+    group: front
+  - id: recv
+    label: 注文を受ける
+    at: { x: 0, y: 60 }
+    size: { w: 150, h: 50 }
+    group: front
+  - id: dec
+    label: 在庫あり？
+    marker: diamond
+    at: { x: 10, y: 130 }
+    size: { w: 130, h: 80 }
+    group: front
+  - id: back_order
+    label: 取り寄せる
+    at: { x: 0, y: 250 }
+    size: { w: 150, h: 50 }
+    group: front
+  - id: fork
+    label: 分岐
+    marker: bar
+    at: { x: 250, y: 160 }
+    size: { w: 160, h: 8 }
+    group: back
+  - id: pick
+    label: 品を集める
+    at: { x: 250, y: 200 }
+    size: { w: 150, h: 50 }
+    group: back
+  - id: label
+    label: 伝票を作る
+    at: { x: 260, y: 270 }
+    size: { w: 150, h: 50 }
+    group: back
+  - id: join
+    label: 合流
+    marker: bar
+    at: { x: 250, y: 340 }
+    size: { w: 160, h: 8 }
+    group: back
+  - id: ship
+    label: 出荷する
+    at: { x: 250, y: 380 }
+    size: { w: 150, h: 50 }
+    group: back
+  - id: fin
+    label: 終了
+    marker: double
+    at: { x: 312, y: 450 }
+    size: { w: 26, h: 26 }
+    group: back
+edges:
+  - from: start
+    to: recv
+  - from: recv
+    to: dec
+  - from: dec
+    to: fork
+    label: あり
+  - from: dec
+    to: back_order
+    label: なし
+  - from: back_order
+    to: fork
+  - from: fork
+    to: pick
+  - from: fork
+    to: label
+  - from: pick
+    to: join
+  - from: label
+    to: join
+  - from: join
+    to: ship
+  - from: ship
+    to: fin

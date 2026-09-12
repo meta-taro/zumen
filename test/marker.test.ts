@@ -46,9 +46,12 @@ async function svg(text: string, plan = true): Promise<string> {
 }
 
 describe('印を読む', () => {
-  it('4 つで閉じる。**意味の語は無い**', () => {
-    assert.deepEqual([...MARKERS], ['box', 'circle', 'double', 'none']);
+  it('**形の名前だけで閉じる。意味の語は無い**', () => {
+    assert.deepEqual([...MARKERS], ['box', 'circle', 'double', 'ellipse', 'diamond', 'bar', 'none']);
+    // 意味の語は受けない（消火器・ユースケース・判断）。
     assert.equal(markerOf('extinguisher'), 'box', '意味の語を受けてはいけない');
+    assert.equal(markerOf('usecase'), 'box');
+    assert.equal(markerOf('decision'), 'box');
   });
 
   it('書かなければ矩形', () => {
@@ -117,7 +120,7 @@ describe('知らせる', () => {
   });
 
   it('spec が印の語を返す', () => {
-    assert.deepEqual(spec().markers, ['box', 'circle', 'double', 'none']);
+    assert.deepEqual(spec().markers, [...MARKERS]);
     assert.match(spec().shape, /marker:/);
   });
 });
@@ -176,5 +179,62 @@ nodes:
     );
     assert.match(out, /data-node="seat"[\s\S]*?<circle [^>]*stroke-width="1"/, '座席に壁厚が効いた');
     assert.match(out, /data-node="room"[\s\S]*?stroke-width="6"/, '部屋に壁厚が効いていない');
+  });
+});
+
+describe('UML の図形（楕円・菱形・帯）', () => {
+  const UML = `version: 1
+kind: placement
+nodes:
+  - id: uc
+    label: 注文する
+    marker: ellipse
+    at: { x: 0, y: 0 }
+    size: { w: 140, h: 60 }
+  - id: dec
+    label: 在庫あり？
+    marker: diamond
+    at: { x: 200, y: 0 }
+    size: { w: 140, h: 80 }
+  - id: fork
+    label: 並行処理
+    marker: bar
+    at: { x: 400, y: 0 }
+    size: { w: 140, h: 8 }
+`;
+
+  it('**楕円で描く**（UML のユースケース）', async () => {
+    const out = render(await layout(UML), 'light', 'safe', true);
+    assert.match(out, /data-node="uc"[\s\S]*?<ellipse [^>]*rx="70"[^>]*ry="30"/);
+  });
+
+  it('**菱形で描く**（UML の判断）。4 辺の中点を結ぶ', async () => {
+    const out = render(await layout(UML), 'light', 'safe', true);
+    const part = out.slice(out.indexOf('data-node="dec"'));
+    assert.match(part.slice(0, part.indexOf('</g>')), /<path d="M \d+ \d+ L \d+ \d+ L \d+ \d+ L \d+ \d+ Z"/);
+  });
+
+  it('**帯は塗った面**（UML のフォーク／ジョイン）', async () => {
+    const out = render(await layout(UML), 'light', 'safe', true);
+    assert.match(out, /data-node="fork"[\s\S]*?<rect [^>]*fill="#1c1c22"/);
+  });
+
+  it('楕円と菱形は、中に文字が入る', async () => {
+    const placed = await layout(UML);
+    const out = render(placed, 'light', 'safe', true);
+    for (const id of ['uc', 'dec']) {
+      const box = placed.boxes.find((b) => b.id === id)!;
+      const label = id === 'uc' ? '注文する' : '在庫あり？';
+      const y = Number(out.match(new RegExp(`<text x="\\d+" y="(\\d+)"[^>]*>${label}<`))![1]);
+      assert.ok(y >= box.y && y <= box.y + box.h, `${id} の文字が外へ出た`);
+    }
+  });
+
+  it('**帯の文字は外へ出る。** 塗った面の中に書くと読めない', async () => {
+    const placed = await layout(UML);
+    const box = placed.boxes.find((b) => b.id === 'fork')!;
+    const out = render(placed, 'light', 'safe', true);
+    const y = Number(out.match(/<text x="\d+" y="(\d+)"[^>]*>並行処理</)![1]);
+    assert.ok(y < box.y || y > box.y + box.h, '帯の中に文字を書いた');
   });
 });

@@ -93,8 +93,12 @@ export interface PlacedEdge {
   points: { x: number; y: number }[];
   /** 人が曲げたか。 */
   pinned: boolean;
-  /** **端の記号**（`src/ends.ts`）。ER の多重度・端子・接続点。 */
-  ends: Ends;
+  /**
+   * **端の記号**（`src/ends.ts`）。ER の多重度・UML の関係・端子。
+   *
+   * **書いていなければ null。** その場合だけ既定の矢印が出る。
+   */
+  ends: Ends | null;
   /** **線種**（`src/line.ts`）。UML の実現・依存、仮設・計画線。 */
   line: Line;
 }
@@ -563,8 +567,8 @@ interface EdgeInfo {
   from: string;
   to: string;
   label: string | null;
-  /** 端の記号（`src/ends.ts`）。 */
-  ends: Ends;
+  /** 端の記号（`src/ends.ts`）。**書いていなければ null**（既定の矢印が出る）。 */
+  ends: Ends | null;
   /** 線種（`src/line.ts`）。 */
   line: Line;
 }

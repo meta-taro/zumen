@@ -465,10 +465,10 @@ function renderEdge(
     // 端の記号（ER の多重度・端子・接続点）。**向きは線から決める。**
     edge.points.length < 2
       ? ''
-      : drawEnd(edge.ends.to, edge.points[edge.points.length - 1]!, edge.points[edge.points.length - 2]!, palette.edge.stroke, palette.paper),
+      : drawEnd(edge.ends?.to ?? 'none', edge.points[edge.points.length - 1]!, edge.points[edge.points.length - 2]!, palette.edge.stroke, palette.paper),
     edge.points.length < 2
       ? ''
-      : drawEnd(edge.ends.from, edge.points[0]!, edge.points[1]!, palette.edge.stroke, palette.paper),
+      : drawEnd(edge.ends?.from ?? 'none', edge.points[0]!, edge.points[1]!, palette.edge.stroke, palette.paper),
     label,
     '</g>',
   ].join('');

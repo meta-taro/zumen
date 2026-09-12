@@ -64,8 +64,16 @@ export interface Ends {
 
 export const NO_ENDS: Ends = { from: 'none', to: 'none' };
 
-export function endsOf(raw: unknown): Ends {
-  if (raw === null || typeof raw !== 'object') return NO_ENDS;
+/**
+ * 端の記号を読む。**書いていなければ `null`。**
+ *
+ * `{ from: none, to: none }` と「書いていない」を区別する。
+ * **書いてあれば、既定の矢印を出さない** —— UML の関連線は無向で、
+ * `ends: { to: none }` と書いたのに矢印が出ると、
+ * 「向きがある」という別の意味になる（2026-09-12 に実際にそうなった）。
+ */
+export function endsOf(raw: unknown): Ends | null {
+  if (raw === null || raw === undefined || typeof raw !== 'object') return null;
   const { from, to } = raw as Record<string, unknown>;
   return { from: oneOf(from), to: oneOf(to) };
 }
@@ -74,8 +82,9 @@ function oneOf(raw: unknown): End {
   return ENDS.includes(raw as End) ? (raw as End) : 'none';
 }
 
-export function hasEnds(ends: Ends): boolean {
-  return ends.from !== 'none' || ends.to !== 'none';
+/** 端の記号を書いたか。**書いてあれば、既定の矢印は出さない。** */
+export function hasEnds(ends: Ends | null): boolean {
+  return ends !== null;
 }
 
 export interface Point {

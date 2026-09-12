@@ -43,10 +43,13 @@ describe('端の記号を読む', () => {
     assert.deepEqual(endsOf({ to: 'generalization' }), { from: 'none', to: 'none' });
   });
 
-  it('書かなければ記号は無い', () => {
-    assert.deepEqual(endsOf(undefined), { from: 'none', to: 'none' });
-    assert.equal(hasEnds({ from: 'none', to: 'none' }), false);
-    assert.equal(hasEnds({ from: 'bar', to: 'none' }), true);
+  it('**書いていなければ null。** 書いたかどうかを区別する', () => {
+    // `{ from: none, to: none }` と「書いていない」は別 ——
+    // UML の関連線は `ends: { to: none }` と書いて**矢印を止める**。
+    assert.equal(endsOf(undefined), null);
+    assert.equal(hasEnds(null), false);
+    assert.deepEqual(endsOf({ to: 'none' }), { from: 'none', to: 'none' });
+    assert.equal(hasEnds({ from: 'none', to: 'none' }), true, '書いてあるのに矢印が出る');
   });
 
   it('片側だけでも読む', () => {
@@ -196,5 +199,24 @@ edges:
   it('spec が線種を返す', () => {
     assert.deepEqual(spec().lines, ['solid', 'dashed', 'dotted']);
     assert.match(spec().shape, /line:/);
+  });
+});
+
+describe('UML の関連線は無向', () => {
+  it('**`ends: { to: none }` と書けば、矢印が止まる**', async () => {
+    const out = render(
+      await layout(`version: 1
+nodes:
+  - id: actor
+    label: 会員
+  - id: uc
+    label: 注文する
+edges:
+  - from: actor
+    to: uc
+    ends: { to: none }
+`),
+    );
+    assert.ok(!out.includes('marker-end'), 'UML の関連に矢印が出ている');
   });
 });
