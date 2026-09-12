@@ -558,6 +558,30 @@ Mermaid も draw.io も、落ちたものを先頭のコメントに列挙する
 - 必須キー（`version` / `nodes`）があること
 - ノードの `id` が文書内で一意であること
 - `edges` の `from` / `to` が実在するノードを指していること
+- **AI が書く指定が、効く形になっていること**（下記）
+
+#### AI が書く指定の検査（すべて `warning`）
+
+`at` / `size` / `openings` / `kind` / `direction` / `wrap` は、
+**どれも AI が書いてよい。** 知らない語や壊れた形を書いても、
+描画側は既定へ落ちるので**読めない文書にはならない。**
+
+だが**黙って落とすと、書いた側は「効かない」理由が分からない。**
+同じ間違いを書き続け、人は図を見るまで気づけない。
+
+| 印 | 何を見るか |
+|---|---|
+| `node-at-invalid` | `at` が `{ x: 数, y: 数 }` か |
+| `node-at-ignored` | **構成図に `at` を書いていないか**（置き場所は機械が決める） |
+| `node-size-invalid` | `size` が `{ w: 正の数, h: 正の数 }` か |
+| `opening-kind-unknown` | 建具が `door` / `double` / `slide` / `window` / `open` か |
+| `opening-side-unknown` | 建具の辺が `top` / `right` / `bottom` / `left` か |
+| `opening-ignored` | **構成図に建具を書いていないか** |
+| `kind-unknown` | `structure` / `placement` か |
+| `direction-unknown` | `right` / `down` か |
+| `wrap-not-boolean` | `wrap` が真偽値か（`wrap: "true"` は折り返さない） |
+
+**どれも `error` にしない。** 弾くと、v1 の「捨てずに保つ」を壊す。
 
 **確かめられないものを、文書の検査で代用しない。**
 3〜5 は往復のテストで担保する領域であり、静的な検査で通ったことを

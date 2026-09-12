@@ -362,6 +362,31 @@ const ja = {
       `体裁の語 "${word}" は v1 が定めたものではありません。既定の体裁で描きます。`,
     /** §6.1。**読み書きで行が変われば、差分が「人が何を直したか」を映さなくなる。** */
     roundTripChanged: '読んで書き戻すと行が変わります。人が触っていない行に差分が出ます。',
+
+    /**
+     * **AI が書く場所の検査**（仕様 §3.1）。どれも `warning`。
+     *
+     * 読めない文書になるわけではなく、描画側が黙って無視する。
+     * **黙って無視されると、書いた側は「効かない」理由が分からない。**
+     */
+    nodeAtInvalid: (id: string) =>
+      `ノード "${id}" の at が { x: 数, y: 数 } になっていません。置き場所は無視されます。`,
+    nodeAtIgnored: (id: string) =>
+      `ノード "${id}" に at がありますが、構成図では効きません。置き場所は機械が決めます（kind: placement で効きます）。`,
+    nodeSizeInvalid: (id: string) =>
+      `ノード "${id}" の size が { w: 正の数, h: 正の数 } になっていません。大きさは無視されます。`,
+    openingKindUnknown: (id: string, word: string) =>
+      `ノード "${id}" の建具 "${word}" は v1 が定めたものではありません（door / double / slide / window / open）。この建具は描かれません。`,
+    openingSideUnknown: (id: string, word: string) =>
+      `ノード "${id}" の建具が辺 "${word}" に付いています（top / right / bottom / left）。この建具は描かれません。`,
+    openingIgnored: (id: string) =>
+      `ノード "${id}" に openings がありますが、構成図では描かれません（kind: placement で描かれます）。`,
+    kindUnknown: (word: string) =>
+      `kind が "${word}" になっています（structure / placement）。構成図として描きます。`,
+    directionUnknown: (word: string) =>
+      `direction が "${word}" になっています（right / down）。既定の横で描きます。`,
+    wrapNotBoolean: (found: string) =>
+      `wrap が ${found} になっています。折り返すのは true と書いたときだけです。`,
   },
 
   /** Mermaid への書き出し（`src/mermaid.ts`） */
@@ -630,6 +655,25 @@ const en: Catalog = {
     appearanceUnknown: (word: string) =>
       `Appearance word "${word}" is not one v1 defines. It will be drawn with the default style.`,
     roundTripChanged: 'Reading and writing back changes lines that nobody edited.',
+
+    nodeAtInvalid: (id: string) =>
+      `Node "${id}" has an at that is not { x: number, y: number }. The position is ignored.`,
+    nodeAtIgnored: (id: string) =>
+      `Node "${id}" has an at, but it has no effect on a structure diagram (positions are computed). Use kind: placement.`,
+    nodeSizeInvalid: (id: string) =>
+      `Node "${id}" has a size that is not { w: positive number, h: positive number }. The size is ignored.`,
+    openingKindUnknown: (id: string, word: string) =>
+      `Node "${id}" has an opening "${word}" that v1 does not define (door / double / slide / window / open). It is not drawn.`,
+    openingSideUnknown: (id: string, word: string) =>
+      `Node "${id}" has an opening on side "${word}" (top / right / bottom / left). It is not drawn.`,
+    openingIgnored: (id: string) =>
+      `Node "${id}" has openings, but they are not drawn on a structure diagram. Use kind: placement.`,
+    kindUnknown: (word: string) =>
+      `kind is "${word}" (structure / placement). Drawing it as a structure diagram.`,
+    directionUnknown: (word: string) =>
+      `direction is "${word}" (right / down). Drawing it in the default horizontal direction.`,
+    wrapNotBoolean: (found: string) =>
+      `wrap is ${found}. Wrapping happens only when it is written as true.`,
   },
   mermaid: {
     geometryDroppedHeading:

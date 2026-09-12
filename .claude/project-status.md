@@ -17,6 +17,11 @@
   `test/tag.test.ts`（11 件）。見本を 3 つ追加（伏図・P&ID・受変電）。
   **`note` は入れなかった** —— 自分で書いた止める条件に当たった（D22 の訂正）
 
+- **検証器の穴を塞いだ。** `at` / `size` / `openings` / `kind` / `direction` /
+  `wrap` を 1 つも見ていなかった。**AI が書く場所を、検証器が見ていなかった**ことになる。
+  9 種の警告を追加（`test/validate-geometry.test.ts` 17 件）。
+  **見本 23 件は指摘 0 件のまま**（テストで固定）
+
 - **書き出しの穴を塞いだ。** Mermaid が `flowchart TD` 固定で、**同じ正本から
   SVG は横・Mermaid は縦**が出ていた。符号と副題も Mermaid / draw.io の両方で
   落ちていた。**実パーサ（mermaid 11.17.2）で 26 件すべて PARSE OK**

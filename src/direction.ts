@@ -29,8 +29,9 @@
  * 向きは 2 つに 1 つで、**figure 全体の読み方**にしか効かない。
  */
 
-/** 図をどちらへ流すか。 */
-export type Direction = 'down' | 'right';
+/** 図をどちらへ流すか。**語の一覧は 1 か所から取る**（写すとズレる）。 */
+export const DIRECTIONS = ['down', 'right'] as const;
+export type Direction = (typeof DIRECTIONS)[number];
 
 /**
  * 既定は `right`。

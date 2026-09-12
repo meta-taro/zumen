@@ -15,7 +15,10 @@
 import { LineCounter, isMap, isSeq, parseDocument } from 'yaml';
 import type { Document, Node, YAMLMap } from 'yaml';
 
+import { DIRECTIONS as DIRECTION_WORDS } from './direction.ts';
+import { KINDS as KIND_WORDS } from './kind.ts';
 import { messages } from './messages.ts';
+import { OPENINGS, SIDES } from './openings.ts';
 
 /**
  * `error` は読めない文書。`warning` は読めるが、人が見たほうがよいもの。
@@ -36,6 +39,14 @@ export interface Finding {
 
 /** v1 が定める体裁の語（仕様 §4）。これ以外は捨てずに保ち、警告だけ出す。 */
 const KNOWN_APPEARANCE = new Set(['primary', 'muted']);
+
+/**
+ * 図ぜんたいの宣言に書ける語。**値は 1 か所から取る**（写すとズレる）。
+ */
+const KINDS = new Set<string>(KIND_WORDS);
+const DIRECTIONS = new Set<string>(DIRECTION_WORDS);
+const OPENING_KINDS = new Set<string>(OPENINGS);
+const OPENING_SIDES = new Set<string>(SIDES);
 
 /** `pins` の中で、位置や体裁ではなく人の決定を表す鍵。迷子の判定には関係しない。 */
 const EDGE_KEY = /^(.+)>(.+)$/;
@@ -72,6 +83,8 @@ export function validate(text: string): Finding[] {
 
   const groupIds = collectIds(seqOf(doc, 'groups'));
   checkGroups(doc, nodeIds, groupIds, add, m, at);
+  checkDeclarations(doc, add, m, at);
+  checkGeometry(doc, add, m, at);
   const edgeKeys = checkEdges(doc, nodeIds, add, m, at);
   checkPins(doc, nodeIds, edgeKeys, add, m, at);
   checkRoundTrip(doc, text, add, m);
@@ -144,6 +157,105 @@ function checkNodes(doc: Document, add: Add, m: Messages, at: At): Set<string> |
     ids.add(key);
   }
   return ids;
+}
+
+/**
+ * 図ぜんたいの宣言（`kind` / `direction` / `wrap`）。
+ *
+ * **どれも警告。** 知らない語を書いても描画側は既定へ落ちるので、読めない文書ではない。
+ * ただし**黙って落とすと、書いた側は「効かない」理由が分からない。**
+ */
+function checkDeclarations(doc: Document, add: Add, m: Messages, at: At): void {
+  const kind = doc.get('kind');
+  if (kind !== undefined && kind !== null && !KINDS.has(String(kind))) {
+    add('warning', 'kind-unknown', m.kindUnknown(String(kind)), at(doc.get('kind', true)));
+  }
+
+  const direction = doc.get('direction');
+  if (direction !== undefined && direction !== null && !DIRECTIONS.has(String(direction))) {
+    add(
+      'warning',
+      'direction-unknown',
+      m.directionUnknown(String(direction)),
+      at(doc.get('direction', true)),
+    );
+  }
+
+  const wrap = doc.get('wrap');
+  if (wrap !== undefined && wrap !== null && typeof wrap !== 'boolean') {
+    add('warning', 'wrap-not-boolean', m.wrapNotBoolean(String(wrap)), at(doc.get('wrap', true)));
+  }
+}
+
+/**
+ * **AI が書く置き場所・大きさ・建具**（仕様 §3.1）。
+ *
+ * ここを見ていなかったので、`at: { x: "ひだり" }` も
+ * `kind: door` を構成図へ書いたのも、**黙って無視されていた。**
+ * 書いた側は同じ間違いを書き続け、人は図を見るまで気づけない。
+ */
+function checkGeometry(doc: Document, add: Add, m: Messages, at: At): void {
+  const placement = String(doc.get('kind') ?? '') === 'placement';
+
+  for (const item of seqOf(doc, 'nodes')) {
+    const id = String(item.get('id') ?? '');
+
+    const point = item.get('at', true);
+    if (point !== undefined && point !== null) {
+      if (!isMap(point) || !isNumber(point.get('x')) || !isNumber(point.get('y'))) {
+        add('warning', 'node-at-invalid', m.nodeAtInvalid(id), at(point));
+      } else if (!placement) {
+        // **構成図では置き場所を機械が決める**（仕様 §2.3）。書いても効かない。
+        add('warning', 'node-at-ignored', m.nodeAtIgnored(id), at(point));
+      }
+    }
+
+    const size = item.get('size', true);
+    if (size !== undefined && size !== null) {
+      if (!isMap(size) || !isPositive(size.get('w')) || !isPositive(size.get('h'))) {
+        add('warning', 'node-size-invalid', m.nodeSizeInvalid(id), at(size));
+      }
+    }
+
+    checkOpenings(item, id, placement, add, m, at);
+  }
+}
+
+function checkOpenings(
+  item: YAMLMap,
+  id: string,
+  placement: boolean,
+  add: Add,
+  m: Messages,
+  at: At,
+): void {
+  const holes = item.get('openings', true);
+  if (holes === undefined || holes === null || !isSeq(holes)) return;
+
+  if (!placement) {
+    add('warning', 'opening-ignored', m.openingIgnored(id), at(holes));
+    return;
+  }
+
+  for (const hole of holes.items) {
+    if (!isMap(hole)) continue;
+    const kind = String(hole.get('kind') ?? '');
+    if (!OPENING_KINDS.has(kind)) {
+      add('warning', 'opening-kind-unknown', m.openingKindUnknown(id, kind), at(hole));
+    }
+    const side = String(hole.get('side') ?? '');
+    if (!OPENING_SIDES.has(side)) {
+      add('warning', 'opening-side-unknown', m.openingSideUnknown(id, side), at(hole));
+    }
+  }
+}
+
+function isNumber(value: unknown): boolean {
+  return typeof value === 'number' && Number.isFinite(value);
+}
+
+function isPositive(value: unknown): boolean {
+  return isNumber(value) && (value as number) > 0;
 }
 
 function checkGroups(
