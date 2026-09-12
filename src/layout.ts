@@ -21,6 +21,8 @@ import { directionOf, elkDirection } from './direction.ts';
 import { gridOf, marginFor, northOf, scaleOf } from './grid.ts';
 import type { Grid, North } from './grid.ts';
 import { arrowsOf } from './arrows.ts';
+import { markerOf } from './marker.ts';
+import type { Marker } from './marker.ts';
 import { radiusOf } from './range.ts';
 import { wallOf } from './wall.ts';
 import type { Wall } from './wall.ts';
@@ -67,6 +69,8 @@ export interface Box {
    * **物の形ではなく、届く範囲の注記。**
    */
   radius: number | null;
+  /** **配置図での印の描き方**（`src/marker.ts`）。既定は矩形。 */
+  marker: Marker;
   /** 人が置いた場所か。 */
   pinned: boolean;
 }
@@ -481,6 +485,8 @@ interface NodeInfo {
   tag: string | null;
   /** 範囲を示す円の半径（px）。無ければ null。 */
   radius: number | null;
+  /** 印の描き方（`src/marker.ts`）。 */
+  marker: Marker;
   /**
    * **AI が書いた置き場所**（仕様 §3.1。配置図で使う）。
    *
@@ -512,6 +518,7 @@ function readNodes(diagram: ReturnType<typeof parse>): NodeInfo[] {
       technology?: unknown;
       tag?: unknown;
       radius?: unknown;
+      marker?: unknown;
       at?: unknown;
       size?: unknown;
       openings?: unknown;
@@ -527,6 +534,7 @@ function readNodes(diagram: ReturnType<typeof parse>): NodeInfo[] {
       technology: asText(node.technology),
       tag: asText(node.tag),
       radius: radiusOf(node.radius),
+      marker: markerOf(node.marker),
       at: asPoint(node.at),
       size: asSize(node.size),
       openings: openingsOf(node.openings),
@@ -785,6 +793,7 @@ function collect(
       technology: nodes.find((n) => n.id === child.id)?.technology ?? null,
       tag: nodes.find((n) => n.id === child.id)?.tag ?? null,
       radius: nodes.find((n) => n.id === child.id)?.radius ?? null,
+      marker: nodes.find((n) => n.id === child.id)?.marker ?? 'box',
       openings: nodes.find((n) => n.id === child.id)?.openings ?? [],
       pinned: false,
     };

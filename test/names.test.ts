@@ -175,3 +175,31 @@ nodes:
     }
   });
 });
+
+describe('見本 44 件は、どれも読める状態', () => {
+  /**
+   * **3 つの観測値を、見本すべてで 0 に保つ。**
+   *
+   * | | 何が起きているか |
+   * |---|---|
+   * | `crossings` | 矢印が箱を突き抜けている |
+   * | `hiddenLabels` | **正本に書いたのに絵に出ていない**辺のラベル |
+   * | `crowdedNames` | 名前が他の箱に重なって出ている |
+   *
+   * とくに `hiddenLabels` は、**書いたのに出ない**状態。
+   * 見本は「こう書けばこう出る」を見せるものなので、ここがずれていると
+   * **真似た人の図もずれる。**
+   */
+  it('交差・隠れたラベル・混んだ名前がすべて 0', async () => {
+    const { readdirSync, readFileSync } = await import('node:fs');
+    const dir = new URL('../examples/gallery/', import.meta.url);
+    const files = readdirSync(dir).filter((name) => name.endsWith('.zumen.yaml'));
+    assert.ok(files.length >= 44, `見本が ${files.length} 件しかない`);
+    for (const name of files) {
+      const out = await inspect(readFileSync(new URL(name, dir), 'utf8'));
+      assert.equal(out.crossings, 0, `${name} で矢印が箱を突き抜けている`);
+      assert.deepEqual(out.hiddenLabels, [], `${name} で辺のラベルが絵に出ていない`);
+      assert.deepEqual(out.crowdedNames, [], `${name} で名前が重なっている`);
+    }
+  });
+});

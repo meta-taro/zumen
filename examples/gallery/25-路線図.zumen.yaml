@@ -1,75 +1,78 @@
 version: 1
 kind: placement
 arrows: false
-title: 架空の鉄道 路線図（本線・支線・環状）
+title: 架空の鉄道 路線図（本線 H・支線 S・環状 L）
 pins:
   chuo:
     appearance: primary
-groups:
-  - id: honsen
-    label: 本線
 nodes:
   - id: nishi
     label: 西ヶ丘
     tag: H01
     at: { x: 40, y: 200 }
-    size: { w: 96, h: 30 }
-    group: honsen
+    marker: circle
+    size: { w: 34, h: 34 }
   - id: sakura
     label: 桜台
     tag: H02
     at: { x: 196, y: 200 }
-    size: { w: 96, h: 30 }
-    group: honsen
+    marker: circle
+    size: { w: 34, h: 34 }
   - id: chuo
     label: 中央
     tag: H03
     technology: 3 線乗換
     at: { x: 352, y: 200 }
-    size: { w: 96, h: 40 }
-    group: honsen
+    marker: double
+    size: { w: 34, h: 34 }
   - id: kawa
     label: 川手
     tag: H04
     at: { x: 508, y: 200 }
-    size: { w: 96, h: 30 }
-    group: honsen
+    marker: circle
+    size: { w: 34, h: 34 }
   - id: higashi
     label: 東浜
     tag: H05
     at: { x: 664, y: 200 }
-    size: { w: 96, h: 30 }
-    group: honsen
+    marker: circle
+    size: { w: 34, h: 34 }
   - id: kita1
     label: 北町
     tag: S01
     at: { x: 352, y: 120 }
-    size: { w: 96, h: 30 }
+    marker: circle
+    size: { w: 34, h: 34 }
   - id: kita2
     label: 北の原
     tag: S02
     at: { x: 352, y: 40 }
-    size: { w: 96, h: 30 }
+    marker: circle
+    size: { w: 34, h: 34 }
   - id: minami1
     label: 南口
     tag: S11
     at: { x: 352, y: 300 }
-    size: { w: 96, h: 30 }
+    marker: circle
+    size: { w: 34, h: 34 }
   - id: minami2
     label: 港南
     tag: S12
     at: { x: 352, y: 380 }
-    size: { w: 96, h: 30 }
+    marker: circle
+    size: { w: 34, h: 34 }
   - id: kanjo_w
     label: 西環
     tag: L01
     at: { x: 196, y: 380 }
-    size: { w: 96, h: 30 }
+    marker: circle
+    size: { w: 34, h: 34 }
   - id: kanjo_e
     label: 東環
     tag: L02
     at: { x: 508, y: 380 }
-    size: { w: 96, h: 30 }
+    marker: circle
+    size: { w: 34, h: 34 }
 edges:
   - from: nishi
     to: sakura

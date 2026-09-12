@@ -36,6 +36,7 @@ import { toMermaid } from './mermaid.ts';
 import { KINDS, kindOf, measureOf } from './kind.ts';
 import { DIRECTIONS } from './direction.ts';
 import { NORTHS } from './grid.ts';
+import { MARKERS } from './marker.ts';
 import { crowdedNames, extentOf, planNames } from './names.ts';
 import { OPENINGS, SIDES } from './openings.ts';
 import type { Kind } from './kind.ts';
@@ -95,6 +96,8 @@ export function spec(): {
   /** 建具の種類と、付く辺（`src/openings.ts`）。**配置図でだけ効く。** */
   openings: string[];
   sides: string[];
+  /** 配置図での印（`src/marker.ts`）。**形の名前だけ。意味の語は無い。** */
+  markers: string[];
   /** 方位（`src/grid.ts`）。 */
   norths: string[];
   appearances: string[];
@@ -124,6 +127,7 @@ export function spec(): {
     directions: [...DIRECTIONS],
     openings: [...OPENINGS],
     sides: [...SIDES],
+    markers: [...MARKERS],
     norths: [...NORTHS],
     appearances: Object.keys(APPEARANCE),
     rules: m.rules,

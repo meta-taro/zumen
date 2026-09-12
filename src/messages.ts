@@ -324,6 +324,7 @@ const ja = {
       '    group: <属する囲みの id。無所属なら書かない>',
       '    size: { w: <幅>, h: <高さ> }      # 構成図でも効く',
       '    radius: <px>                       # 範囲の円（作業半径・警戒区域）',
+      '    marker: <box（既定）| circle | double | none>  # 配置図での印。丸は駅・経穴・計器',
       '    at:   { x: <左>, y: <上> }        # kind: placement でだけ効く',
       '    openings:                          # kind: placement でだけ効く（建具）',
       '      - { kind: <openings から>, side: <sides から>, at: <0〜1>, width: <px> }',
@@ -352,6 +353,7 @@ const ja = {
       'type を増やさない。業界の専門性は形ではなく符号（tag）で表されている。柱は C1 であって円柱の絵ではない。',
       '横一列に伸びすぎたら wrap: true を書く。文字を大きくして直そうとしない（図が伸びて比がさらに下がる）。',
       '届く範囲は radius（範囲の円）で書く。クレーンの作業半径・消火器の警戒区域・影の離隔。物の形ではなく注記なので、type は増やさない。',
+      '配置図で丸い印を打つなら marker: circle（乗換駅などは double）。路線図の駅・経穴・計器はこれ。marker の値は形の名前だけで、消火器のような意味の語は無い（type も増やさない）。名前は印の外へ出る。',
       '一度付けた id は、意味が変わらないのに書き換えない。人の手直しが id に紐づいている。',
       'nodes の並び順には意味がある。人が読む順序なので、理由なく並べ替えない。',
       '知らないキーは捨てずに保つ。',
@@ -435,6 +437,10 @@ const ja = {
       `ノード "${id}" の radius が正の数になっていません。範囲の円は描かれません。`,
     radiusIgnored: (id: string) =>
       `ノード "${id}" に radius がありますが、構成図では描かれません（kind: placement で描かれます）。`,
+    markerUnknown: (id: string, word: string) =>
+      `ノード "${id}" の marker が "${word}" になっています（box / circle / double / none）。矩形で描きます。`,
+    markerIgnored: (id: string) =>
+      `ノード "${id}" に marker がありますが、構成図では効きません（形は type で決まります）。`,
   },
 
   /** Mermaid への書き出し（`src/mermaid.ts`） */
@@ -672,6 +678,7 @@ const en: Catalog = {
       '    group: <id of the containing group. omit if none>',
       '    size: { w: <width>, h: <height> }   # applies to structure diagrams too',
       '    radius: <px>                         # range circle (crane reach, alarm zone)',
+      '    marker: <box (default) | circle | double | none>  # how it is marked on a plan',
       '    at:   { x: <left>, y: <top> }       # only with kind: placement',
       '    openings:                            # only with kind: placement',
       '      - { kind: <from openings>, side: <from sides>, at: <0..1>, width: <px> }',
@@ -699,6 +706,7 @@ const en: Catalog = {
       'Do not add to type. Domain specificity is carried by the code (tag), not by shape. A column is C1, not a cylinder.',
       'If a diagram stretches into one long row, write wrap: true. Do not try to fix it by enlarging the text.',
       'Use radius for a reach or zone: crane working radius, fire-extinguisher coverage, shading offset. It is an annotation, not a shape, so type stays as it is.',
+      'On a plan, use marker: circle for a round mark (double for an interchange): transit stations, acupuncture points, instruments. marker values are shape names only — there is no semantic value like an extinguisher, and type does not grow. The name is drawn outside the mark.',
       'Do not rename an id whose meaning has not changed. Hand edits are tied to ids.',
       'The order of nodes carries meaning. It is the order a person reads. Do not reorder without a reason.',
       'Keep keys you do not recognise.',
@@ -768,6 +776,10 @@ const en: Catalog = {
       `Node "${id}" has a radius that is not a positive number. The range circle is not drawn.`,
     radiusIgnored: (id: string) =>
       `Node "${id}" has a radius, but range circles are not drawn on a structure diagram. Use kind: placement.`,
+    markerUnknown: (id: string, word: string) =>
+      `Node "${id}" has marker "${word}" (box / circle / double / none). It is drawn as a rectangle.`,
+    markerIgnored: (id: string) =>
+      `Node "${id}" has a marker, but it has no effect on a structure diagram (shape comes from type).`,
   },
   mermaid: {
     geometryDroppedHeading:

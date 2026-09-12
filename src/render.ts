@@ -27,6 +27,7 @@
 import { drawDimensions, drawGrid, drawNorth } from './dimensions.ts';
 import type { Frame, Ink } from './dimensions.ts';
 import { hasGrid } from './grid.ts';
+import { drawMarker } from './marker.ts';
 import { NAME_FONT, SUB_FONT, planNames } from './names.ts';
 import type { Plan } from './names.ts';
 import { drawRange, ringOf } from './range.ts';
@@ -266,11 +267,8 @@ function renderNode(
   };
 
   // **平面図は角を四角に。** 角丸だと、隣の部屋と壁を共有して見えない。
-  const shape = plan
-    ? `<rect x="${n(box.x)}" y="${n(box.y)}" width="${n(box.w)}" height="${n(box.h)}" ` +
-      `fill="${paint.fill}" stroke="${paint.stroke}" stroke-width="${paint.strokeWidth}"` +
-      `${paint.dash === null ? '' : ` stroke-dasharray="${paint.dash}"`}/>`
-    : drawShape(kind, box, paint);
+  // **印の描き方は正本が選ぶ**（`src/marker.ts`。丸・二重丸・枠なし）。
+  const shape = plan ? drawMarker(box.marker, box, paint) : drawShape(kind, box, paint);
 
   // **建具は壁に開く穴**（`src/openings.ts`）。壁を消してから記号を描く。
   const holes =

@@ -18,6 +18,7 @@ import type { Document, Node, YAMLMap } from 'yaml';
 import { DIRECTIONS as DIRECTION_WORDS } from './direction.ts';
 import { KINDS as KIND_WORDS } from './kind.ts';
 import { MARKS, NORTHS } from './grid.ts';
+import { MARKERS } from './marker.ts';
 import { messages } from './messages.ts';
 import { OPENINGS, SIDES } from './openings.ts';
 
@@ -50,6 +51,7 @@ const OPENING_KINDS = new Set<string>(OPENINGS);
 const OPENING_SIDES = new Set<string>(SIDES);
 const NORTH_WORDS = new Set<string>(NORTHS);
 const MARK_WORDS = new Set<string>(MARKS);
+const MARKER_WORDS = new Set<string>(MARKERS);
 
 /** `pins` の中で、位置や体裁ではなく人の決定を表す鍵。迷子の判定には関係しない。 */
 const EDGE_KEY = /^(.+)>(.+)$/;
@@ -300,6 +302,15 @@ function checkGeometry(doc: Document, add: Add, m: Messages, at: At): void {
         add('warning', 'radius-invalid', m.radiusInvalid(id), at(radius));
       } else if (!placement) {
         add('warning', 'radius-ignored', m.radiusIgnored(id), at(radius));
+      }
+    }
+
+    const marker = item.get('marker');
+    if (marker !== undefined && marker !== null) {
+      if (!MARKER_WORDS.has(String(marker))) {
+        add('warning', 'marker-unknown', m.markerUnknown(id, String(marker)), at(item.get('marker', true)));
+      } else if (!placement) {
+        add('warning', 'marker-ignored', m.markerIgnored(id), at(item.get('marker', true)));
       }
     }
 

@@ -68,6 +68,10 @@ export function goesOutside(box: Box): boolean {
 
 /** 5 段のどれになるかを、当たり判定なしで決める。 */
 function shape(box: Box): 'inside' | 'joined' | 'aside' | 'along' | 'outside' {
+  // **印を付けたものは、文字が外へ出る**（`src/marker.ts`）。
+  // 丸は小さいので中に名前が入らない。実物の路線図も駅名は丸の外に書く。
+  // 枠なし（`none`）は、そこに何も描かないので中に書く場所が無い。
+  if (box.marker !== 'box') return 'outside';
   if (box.technology === null && wide(box, box.label, NAME_FONT)) return 'inside';
   if (
     box.technology !== null &&
