@@ -18,6 +18,7 @@ import type { ElkExtendedEdge, ElkNode } from 'elkjs/lib/elk-api.js';
 
 import { asText, getPins, parse } from './format.ts';
 import { directionOf, elkDirection } from './direction.ts';
+import { wrapOf, wrapOptions } from './wrap.ts';
 import { kindOf, measureOf } from './kind.ts';
 import { separate } from './separate.ts';
 import { openingsOf } from './openings.ts';
@@ -186,8 +187,11 @@ export async function layout(text: string): Promise<Placed> {
 
   const groupLabels = readGroupLabels(diagram);
   // **向きは正本が決める**（`direction: right | down`。既定は横）。
-  const direction = elkDirection(directionOf((diagram.doc.toJS() as { direction?: unknown }).direction));
-  const graph = buildGraph(nodes, groupIds, diagram.edges(), pins, direction);
+  const raw = diagram.doc.toJS() as { direction?: unknown; wrap?: unknown };
+  const direction = elkDirection(directionOf(raw.direction));
+  // **折り返すかは正本が決める**（`src/wrap.ts`）。既定は折り返さない。
+  const wrap = wrapOptions(wrapOf(raw.wrap));
+  const graph = buildGraph(nodes, groupIds, diagram.edges(), pins, direction, wrap);
   const laid = await new ELK().layout(graph);
 
   const boxes: Box[] = [];
@@ -633,8 +637,10 @@ function buildGraph(
   edges: { from: string; to: string }[],
   pins: Record<string, { size?: { w: number; h: number }; label?: unknown }>,
   direction: string,
+  /** 折り返しの指定（`src/wrap.ts`）。折り返さないなら空。 */
+  wrap: Record<string, string> = {},
 ): ElkNode {
-  const options = layoutOptions(direction);
+  const options = { ...layoutOptions(direction), ...wrap };
   const leaf = (node: NodeInfo): ElkNode => ({
     id: node.id,
     // 人が変えた大きさは、組み立ての入力の段階で効かせる。

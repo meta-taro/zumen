@@ -67,12 +67,36 @@
   }
   code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .92em; }
   p code, li code { background: var(--bg-subtle); padding: 1px 5px; border-radius: 4px; border: 1px solid var(--border); }
-  /* 図は縦長。**並べると小さくて読めない**ので、2 列で背を高くする。 */
-  .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 22px; }
+  /* **業界で絞り込む。** 見本が増えるほど、全部並べると自分に関係する 1 枚が沈む。
+     JS が動かない環境では、すべて出たままになる（絞り込めないだけで、読めなくならない）。 */
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 22px; }
+  .filters button {
+    font: inherit; font-size: 13px; line-height: 1; padding: 9px 14px;
+    color: var(--fg-2); background: var(--bg-subtle);
+    border: 1px solid var(--border); border-radius: 999px; cursor: pointer;
+  }
+  .filters button:hover { color: var(--fg); border-color: var(--fg-2); }
+  .filters button[aria-pressed="true"] {
+    color: var(--paper); background: var(--fg); border-color: var(--fg);
+  }
+  /* **カードの比を固定しない。**
+     図は縦長のもの（間取り・伏図・避難経路）と、極端に横長のもの
+     （業務の流れ・組立ライン）が混ざる。**どちらかに合わせると、もう片方が潰れる。**
+     16:7 にしたときは間取りが横幅の 1/3 まで縮み、4:3 にしたら
+     今度は横長の図が小さくなった（どちらも実機で確認）。
+     いまは高さだけ上限を決めて、**図の形のまま置く。**
+     横長の図（縦横比 1.9 以上）は **2 列ぶち抜き**にして、幅を倍もらう。 */
+  .gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 22px; }
   .gallery figure { margin: 0; }
+  .gallery figure[data-wide] { grid-column: span 2; }
   .gallery img {
-    display: block; width: 100%; aspect-ratio: 16 / 7; object-fit: contain;
+    display: block; margin: 0 auto; max-width: 100%; max-height: 320px;
     background: var(--paper); border: 1px solid var(--border); border-radius: 10px; padding: 16px;
+    box-sizing: border-box;
+  }
+  @media (max-width: 760px) {
+    .gallery { grid-template-columns: minmax(0, 1fr); }
+    .gallery figure[data-wide] { grid-column: span 1; }
   }
   .gallery figcaption { color: var(--fg-2); font-size: 13px; margin-top: 10px; }
   .gallery img { cursor: zoom-in; }
@@ -162,30 +186,39 @@
     専門性は形ではなく<b>符号</b>（<code>C1</code> <code>G1</code> <code>2"-CS-101</code>
     <code>LBS-1</code>）で表されているからです。
   </p>
+  <div class="filters" role="group" aria-label="業界で絞り込む">
+    <button type="button" data-pick="all" aria-pressed="true">すべて</button>
+    <button type="button" data-pick="chiku" aria-pressed="false">建築・設備</button>
+    <button type="button" data-pick="seizo" aria-pressed="false">製造・プラント</button>
+    <button type="button" data-pick="it" aria-pressed="false">IT・システム</button>
+    <button type="button" data-pick="tenpo" aria-pressed="false">店舗・物流</button>
+    <button type="button" data-pick="shoku" aria-pressed="false">医療・食品</button>
+    <button type="button" data-pick="gyomu" aria-pressed="false">組織・業務</button>
+  </div>
   <div class="gallery">
-    <figure><picture><source srcset="gallery/02-クラウド構成-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/02-クラウド構成.svg" alt="クラウド構成"></picture><figcaption>クラウド構成</figcaption></figure>
-    <figure><picture><source srcset="gallery/14-間取り-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/14-間取り.svg" alt="2LDK の間取り"></picture><figcaption>間取り（2LDK・1 階）</figcaption></figure>
-    <figure><picture><source srcset="gallery/15-店舗のレイアウト-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/15-店舗のレイアウト.svg" alt="コンビニの売場"></picture><figcaption>店舗のレイアウト</figcaption></figure>
-    <figure><picture><source srcset="gallery/17-躯体の伏図-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/17-躯体の伏図.svg" alt="RC 造の床伏図"></picture><figcaption>躯体の伏図（RC 造・2 階床）</figcaption></figure>
-    <figure><picture><source srcset="gallery/16-会場の配置-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/16-会場の配置.svg" alt="展示会の会場"></picture><figcaption>展示会の会場</figcaption></figure>
-    <figure><picture><source srcset="gallery/22-避難経路図-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/22-避難経路図.svg" alt="3 階の避難経路"></picture><figcaption>避難経路図（3 階）</figcaption></figure>
-    <figure><picture><source srcset="gallery/23-厨房の動線-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/23-厨房の動線.svg" alt="給食厨房の区域と動線"></picture><figcaption>厨房の区域と動線（HACCP）</figcaption></figure>
-    <figure><picture><source srcset="gallery/18-配管の系統-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/18-配管の系統.svg" alt="冷却水の系統"></picture><figcaption>配管の系統（P&amp;ID）</figcaption></figure>
-    <figure><picture><source srcset="gallery/19-受変電の結線-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/19-受変電の結線.svg" alt="受変電設備の単線結線図"></picture><figcaption>受変電の結線（単線結線図）</figcaption></figure>
-    <figure><picture><source srcset="gallery/08-工場のライン-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/08-工場のライン.svg" alt="組立ラインと検査"></picture><figcaption>組立ラインと検査</figcaption></figure>
-    <figure><picture><source srcset="gallery/09-患者の動線-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/09-患者の動線.svg" alt="外来の流れ"></picture><figcaption>外来の流れ</figcaption></figure>
-    <figure><picture><source srcset="gallery/05-業務の流れ-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/05-業務の流れ.svg" alt="受注から出荷まで"></picture><figcaption>受注から出荷まで</figcaption></figure>
-    <figure><picture><source srcset="gallery/06-家の電気系統-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/06-家の電気系統.svg" alt="住宅の電気系統"></picture><figcaption>住宅の電気系統</figcaption></figure>
-    <figure><picture><source srcset="gallery/10-給排水の系統-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/10-給排水の系統.svg" alt="住宅の給排水"></picture><figcaption>住宅の給排水</figcaption></figure>
-    <figure><picture><source srcset="gallery/12-在庫と発注-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/12-在庫と発注.svg" alt="店舗の在庫と発注"></picture><figcaption>店舗の在庫と発注</figcaption></figure>
-    <figure><picture><source srcset="gallery/11-取材から公開まで-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/11-取材から公開まで.svg" alt="記事ができるまで"></picture><figcaption>記事ができるまで</figcaption></figure>
-    <figure><picture><source srcset="gallery/13-学校の年間-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/13-学校の年間.svg" alt="入学までの流れ"></picture><figcaption>入学までの流れ</figcaption></figure>
-    <figure><picture><source srcset="gallery/07-承認の流れ-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/07-承認の流れ.svg" alt="稟議の流れ"></picture><figcaption>稟議の流れ</figcaption></figure>
-    <figure><picture><source srcset="gallery/20-組織図-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/20-組織図.svg" alt="会社の組織図"></picture><figcaption>組織図（2026 年度）</figcaption></figure>
-    <figure><picture><source srcset="gallery/21-テーブルの関係-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/21-テーブルの関係.svg" alt="受注管理の ER 図"></picture><figcaption>テーブルの関係（ER）</figcaption></figure>
-    <figure><picture><source srcset="gallery/01-オンプレのサーバ構成-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/01-オンプレのサーバ構成.svg" alt="オンプレのサーバ構成"></picture><figcaption>オンプレのサーバ構成</figcaption></figure>
-    <figure><picture><source srcset="gallery/03-データの流れ-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/03-データの流れ.svg" alt="データの流れ"></picture><figcaption>データの流れ</figcaption></figure>
-    <figure><picture><source srcset="gallery/04-ネットワーク構成-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/04-ネットワーク構成.svg" alt="ネットワーク構成"></picture><figcaption>ネットワーク構成</figcaption></figure>
+    <figure data-wide data-cat="it"><picture><source srcset="gallery/02-クラウド構成-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/02-クラウド構成.svg" alt="クラウド構成"></picture><figcaption>クラウド構成</figcaption></figure>
+    <figure data-cat="chiku"><picture><source srcset="gallery/14-間取り-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/14-間取り.svg" alt="2LDK の間取り"></picture><figcaption>間取り（2LDK・1 階）</figcaption></figure>
+    <figure data-cat="tenpo"><picture><source srcset="gallery/15-店舗のレイアウト-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/15-店舗のレイアウト.svg" alt="コンビニの売場"></picture><figcaption>店舗のレイアウト</figcaption></figure>
+    <figure data-cat="chiku"><picture><source srcset="gallery/17-躯体の伏図-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/17-躯体の伏図.svg" alt="RC 造の床伏図"></picture><figcaption>躯体の伏図（RC 造・2 階床）</figcaption></figure>
+    <figure data-cat="gyomu"><picture><source srcset="gallery/16-会場の配置-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/16-会場の配置.svg" alt="展示会の会場"></picture><figcaption>展示会の会場</figcaption></figure>
+    <figure data-cat="chiku"><picture><source srcset="gallery/22-避難経路図-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/22-避難経路図.svg" alt="3 階の避難経路"></picture><figcaption>避難経路図（3 階）</figcaption></figure>
+    <figure data-cat="shoku"><picture><source srcset="gallery/23-厨房の動線-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/23-厨房の動線.svg" alt="給食厨房の区域と動線"></picture><figcaption>厨房の区域と動線（HACCP）</figcaption></figure>
+    <figure data-cat="seizo"><picture><source srcset="gallery/18-配管の系統-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/18-配管の系統.svg" alt="冷却水の系統"></picture><figcaption>配管の系統（P&amp;ID）</figcaption></figure>
+    <figure data-wide data-cat="seizo"><picture><source srcset="gallery/19-受変電の結線-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/19-受変電の結線.svg" alt="受変電設備の単線結線図"></picture><figcaption>受変電の結線（単線結線図）</figcaption></figure>
+    <figure data-wide data-cat="seizo"><picture><source srcset="gallery/08-工場のライン-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/08-工場のライン.svg" alt="組立ラインと検査"></picture><figcaption>組立ラインと検査</figcaption></figure>
+    <figure data-cat="shoku"><picture><source srcset="gallery/09-患者の動線-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/09-患者の動線.svg" alt="外来の流れ"></picture><figcaption>外来の流れ</figcaption></figure>
+    <figure data-wide data-cat="gyomu"><picture><source srcset="gallery/05-業務の流れ-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/05-業務の流れ.svg" alt="受注から出荷まで"></picture><figcaption>受注から出荷まで</figcaption></figure>
+    <figure data-cat="chiku"><picture><source srcset="gallery/06-家の電気系統-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/06-家の電気系統.svg" alt="住宅の電気系統"></picture><figcaption>住宅の電気系統</figcaption></figure>
+    <figure data-cat="chiku"><picture><source srcset="gallery/10-給排水の系統-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/10-給排水の系統.svg" alt="住宅の給排水"></picture><figcaption>住宅の給排水</figcaption></figure>
+    <figure data-wide data-cat="tenpo"><picture><source srcset="gallery/12-在庫と発注-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/12-在庫と発注.svg" alt="店舗の在庫と発注"></picture><figcaption>店舗の在庫と発注</figcaption></figure>
+    <figure data-wide data-cat="gyomu"><picture><source srcset="gallery/11-取材から公開まで-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/11-取材から公開まで.svg" alt="記事ができるまで"></picture><figcaption>記事ができるまで</figcaption></figure>
+    <figure data-cat="gyomu"><picture><source srcset="gallery/13-学校の年間-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/13-学校の年間.svg" alt="入学までの流れ"></picture><figcaption>入学までの流れ</figcaption></figure>
+    <figure data-wide data-cat="gyomu"><picture><source srcset="gallery/07-承認の流れ-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/07-承認の流れ.svg" alt="稟議の流れ"></picture><figcaption>稟議の流れ</figcaption></figure>
+    <figure data-wide data-cat="gyomu"><picture><source srcset="gallery/20-組織図-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/20-組織図.svg" alt="会社の組織図"></picture><figcaption>組織図（2026 年度）</figcaption></figure>
+    <figure data-cat="it"><picture><source srcset="gallery/21-テーブルの関係-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/21-テーブルの関係.svg" alt="受注管理の ER 図"></picture><figcaption>テーブルの関係（ER）</figcaption></figure>
+    <figure data-wide data-cat="it"><picture><source srcset="gallery/01-オンプレのサーバ構成-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/01-オンプレのサーバ構成.svg" alt="オンプレのサーバ構成"></picture><figcaption>オンプレのサーバ構成</figcaption></figure>
+    <figure data-wide data-cat="it"><picture><source srcset="gallery/03-データの流れ-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/03-データの流れ.svg" alt="データの流れ"></picture><figcaption>データの流れ</figcaption></figure>
+    <figure data-wide data-cat="it"><picture><source srcset="gallery/04-ネットワーク構成-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/04-ネットワーク構成.svg" alt="ネットワーク構成"></picture><figcaption>ネットワーク構成</figcaption></figure>
   </div>
   <p class="note" style="margin-top:20px">
     4 枚とも、下のような文章から <b>そのまま出たもの</b>です。手で位置を直してはいません。
@@ -323,6 +356,24 @@ edges:
       zoom.showModal();
     });
   }
+
+  // **業界で絞り込む。** 見本が 23 件を超え、全部並べると
+  // 自分に関係する 1 枚が沈む。**数を減らすのではなく、選べるようにする。**
+  const filters = document.querySelector('.filters');
+  if (filters) {
+    filters.addEventListener('click', (event) => {
+      const button = event.target.closest('button[data-pick]');
+      if (button === null) return;
+      const pick = button.dataset.pick;
+      for (const other of filters.querySelectorAll('button')) {
+        other.setAttribute('aria-pressed', String(other === button));
+      }
+      for (const figure of document.querySelectorAll('.gallery figure')) {
+        figure.hidden = pick !== 'all' && figure.dataset.cat !== pick;
+      }
+    });
+  }
+
   zoom.addEventListener('click', () => zoom.close());
 </script>
 </body>
