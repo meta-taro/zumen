@@ -1,0 +1,109 @@
+version: 1
+kind: placement
+title: 小学校 校舎 3 階 平面図（普通教室 4・特別教室 2）
+# 1 px = 25 mm。普通教室は 8m×7m（64 m²）
+scale: { mm: 25 }
+wall: { mm: 150, outer: 250 }
+north: up
+grid:
+  x:
+    - { id: X1, at: 40 }
+    - { id: X2, at: 360 }
+    - { id: X3, at: 680 }
+    - { id: X4, at: 840 }
+  y:
+    - { id: Y1, at: 40 }
+    - { id: Y2, at: 320 }
+    - { id: Y3, at: 420 }
+groups:
+  - id: f3
+    label: 3 階　床面積 480 m²　CH＝3,000　片廊下型
+nodes:
+  - id: c31
+    label: 3 年 1 組
+    tag: 3-1
+    technology: 64 m²・35 人
+    at: { x: 40, y: 40 }
+    size: { w: 320, h: 280 }
+    group: f3
+    openings:
+      - { kind: slide, side: bottom, at: 0.2, width: 70 }
+      - { kind: slide, side: bottom, at: 0.8, width: 70 }
+      - { kind: window, side: top, at: 0.3, width: 110 }
+      - { kind: window, side: top, at: 0.7, width: 110 }
+  - id: c32
+    label: 3 年 2 組
+    tag: 3-2
+    technology: 64 m²・34 人
+    at: { x: 360, y: 40 }
+    size: { w: 320, h: 280 }
+    group: f3
+    openings:
+      - { kind: slide, side: bottom, at: 0.2, width: 70 }
+      - { kind: slide, side: bottom, at: 0.8, width: 70 }
+      - { kind: window, side: top, at: 0.3, width: 110 }
+      - { kind: window, side: top, at: 0.7, width: 110 }
+  - id: rika
+    label: 理科室
+    tag: 3-3
+    technology: 80 m²・準備室つき
+    at: { x: 680, y: 40 }
+    size: { w: 300, h: 180 }
+    group: f3
+    openings:
+      - { kind: door, side: bottom, at: 0.5, width: 70 }
+      - { kind: window, side: top, at: 0.5, width: 120 }
+  - id: junbi
+    label: 準備室
+    tag: 3-4
+    technology: 30 m²
+    at: { x: 680, y: 220 }
+    size: { w: 300, h: 100 }
+    group: f3
+    openings:
+      - { kind: door, side: bottom, at: 0.5, width: 60 }
+  - id: rouka
+    label: 廊下
+    technology: 有効 2,500
+    at: { x: 40, y: 320 }
+    size: { w: 940, h: 100 }
+    group: f3
+  - id: kaidan_w
+    label: 階段
+    tag: EX-1
+    technology: 蹴上 160・踏面 280
+    at: { x: 40, y: 420 }
+    size: { w: 200, h: 180 }
+    group: f3
+    openings:
+      - { kind: open, side: top, at: 0.5, width: 100 }
+  - id: wc_b
+    label: 男子便所
+    at: { x: 240, y: 420 }
+    size: { w: 180, h: 180 }
+    group: f3
+    openings:
+      - { kind: open, side: top, at: 0.5, width: 70 }
+  - id: wc_g
+    label: 女子便所
+    at: { x: 420, y: 420 }
+    size: { w: 180, h: 180 }
+    group: f3
+    openings:
+      - { kind: open, side: top, at: 0.5, width: 70 }
+  - id: tebiki
+    label: 手洗い
+    at: { x: 600, y: 420 }
+    size: { w: 180, h: 180 }
+    group: f3
+    openings:
+      - { kind: open, side: top, at: 0.5, width: 90 }
+  - id: kaidan_e
+    label: 階段
+    tag: EX-2
+    technology: 蹴上 160・踏面 280
+    at: { x: 780, y: 420 }
+    size: { w: 200, h: 180 }
+    group: f3
+    openings:
+      - { kind: open, side: top, at: 0.5, width: 100 }

@@ -1,0 +1,107 @@
+version: 1
+kind: placement
+title: サーバ室 ラック配置図（ホットアイル・コールドアイル）
+# 1 px = 20 mm。ラック 600×1000、コールドアイル 1,200、ホットアイル 900
+scale: { mm: 20 }
+wall: { mm: 150, outer: 200 }
+north: up
+grid:
+  x:
+    - { id: X1, at: 40 }
+    - { id: X2, at: 190 }
+    - { id: X3, at: 400 }
+    - { id: X4, at: 550 }
+  y:
+    - { id: Y1, at: 40 }
+    - { id: Y2, at: 340 }
+groups:
+  - id: room
+    label: サーバ室　120 m²　二重床 H=600　N+1 空調
+nodes:
+  - id: rowa
+    label: A 列
+    tag: R-A01〜A06
+    technology: 42U×6・6.0kW/ラック
+    at: { x: 40, y: 40 }
+    size: { w: 50, h: 300 }
+    group: room
+  - id: cold1
+    label: コールドアイル
+    technology: 有効 1,200
+    at: { x: 90, y: 40 }
+    size: { w: 60, h: 300 }
+    group: room
+  - id: rowb
+    label: B 列
+    tag: R-B01〜B06
+    technology: 42U×6・5.2kW/ラック
+    at: { x: 150, y: 40 }
+    size: { w: 50, h: 300 }
+    group: room
+  - id: hot1
+    label: ホットアイル
+    technology: 有効 900
+    at: { x: 200, y: 40 }
+    size: { w: 45, h: 300 }
+    group: room
+  - id: rowc
+    label: C 列
+    tag: R-C01〜C06
+    technology: 42U×6・4.8kW/ラック
+    at: { x: 245, y: 40 }
+    size: { w: 50, h: 300 }
+    group: room
+  - id: cold2
+    label: コールドアイル
+    technology: 有効 1,200
+    at: { x: 295, y: 40 }
+    size: { w: 60, h: 300 }
+    group: room
+  - id: rowd
+    label: D 列
+    tag: R-D01〜D06
+    technology: 42U×6・空き 2
+    at: { x: 355, y: 40 }
+    size: { w: 50, h: 300 }
+    group: room
+  - id: ups
+    label: UPS
+    tag: UPS-1/2
+    technology: 200kVA×2・15 分
+    at: { x: 420, y: 40 }
+    size: { w: 130, h: 120 }
+    group: room
+    openings:
+      - { kind: double, side: left, at: 0.5, width: 60 }
+  - id: pdu
+    label: 分電盤
+    tag: PDB-1
+    technology: 主幹 400A・分岐 24
+    at: { x: 420, y: 160 }
+    size: { w: 130, h: 80 }
+    group: room
+  - id: ac
+    label: 空調機
+    tag: CRAC-1/2
+    technology: 40kW×2・N+1
+    at: { x: 420, y: 240 }
+    size: { w: 130, h: 100 }
+    group: room
+  - id: iriguchi
+    label: 入退室
+    tag: SD-1
+    technology: 生体認証・共連れ検知
+    at: { x: 40, y: 340 }
+    size: { w: 150, h: 60 }
+    group: room
+    openings:
+      - { kind: door, side: bottom, at: 0.5, width: 50 }
+  - id: hansyutsu
+    label: 搬入口
+    tag: SD-2
+    technology: 有効 W1,200×H2,100
+    at: { x: 400, y: 340 }
+    size: { w: 150, h: 60 }
+    group: room
+    openings:
+      - { kind: double, side: bottom, at: 0.5, width: 70 }

@@ -1,6 +1,6 @@
 version: 1
 wrap: true
-title: 組立ラインと検査
+title: 組立ラインの工程図（タクト 45 秒・日産 480 個）
 pins:
   kensa:
     appearance: primary
@@ -17,65 +17,76 @@ nodes:
   - id: nyuka
     type: storage
     label: 部材倉庫
-    technology: 先入れ先出し
+    tag: ST-01
+    technology: 先入れ先出し・3 日分
     group: zairyo
   - id: kensyu
     type: generic
     label: 受入検査
-    technology: 抜き取り
+    tag: OP-05
+    technology: 抜き取り AQL1.0
     group: zairyo
   - id: k1
     type: generic
-    label: 第 1 工程
-    technology: プレス
+    label: プレス
+    tag: OP-10
+    technology: PRS-01・42 秒
     group: line
   - id: k2
     type: generic
-    label: 第 2 工程
-    technology: 溶接
+    label: 溶接
+    tag: OP-20
+    technology: WLD-02・45 秒
     group: line
   - id: tesagyo
     type: generic
     label: 手直し台
-    technology: 廃止検討
+    tag: OP-25
+    technology: 廃止検討・実績 2.1%
     group: line
   - id: k3
     type: generic
-    label: 第 3 工程
-    technology: 塗装
+    label: 塗装
+    tag: OP-30
+    technology: PNT-01・38 秒
     group: line
   - id: kensa
     type: cluster
     label: 全数検査
-    technology: 画像 2 台
+    tag: OP-40
+    technology: 画像 2 台・12 秒
     group: dashi
   - id: futekigo
     type: queue
     label: 不適合品
+    tag: NG
+    technology: 隔離・日次処理
     group: dashi
   - id: soko
     type: storage
     label: 製品倉庫
+    tag: ST-90
     group: dashi
 edges:
   - from: nyuka
     to: kensyu
   - from: kensyu
     to: k1
+    label: 合格のみ
   - from: k1
     to: k2
   - from: k2
     to: k3
   - from: k2
     to: tesagyo
-    label: 不良
+    label: 不良 2.1%
   - from: tesagyo
     to: k3
   - from: k3
     to: kensa
   - from: kensa
     to: soko
-    label: 合格
+    label: 合格 99.4%
   - from: kensa
     to: futekigo
-    label: 不合格
+    label: 不合格 0.6%

@@ -20,6 +20,7 @@ import { asText, getPins, parse } from './format.ts';
 import { directionOf, elkDirection } from './direction.ts';
 import { gridOf, marginFor, northOf, scaleOf } from './grid.ts';
 import type { Grid, North } from './grid.ts';
+import { arrowsOf } from './arrows.ts';
 import { wallOf } from './wall.ts';
 import type { Wall } from './wall.ts';
 import { wrapOf, wrapOptions } from './wrap.ts';
@@ -95,6 +96,8 @@ export interface Placed {
   north: North | null;
   /** **壁の厚み**（`src/wall.ts`）。書かなければこれまでどおりの線の太さ。 */
   wall: Wall | null;
+  /** **線に向きがあるか**（`src/arrows.ts`）。既定は真。 */
+  arrows: boolean;
 }
 
 /** 箱の下限と上限。**文字から決めるが、際限なく広げない**（Issue #3 の 2）。 */
@@ -206,6 +209,7 @@ export async function layout(text: string): Promise<Placed> {
     scale?: unknown;
     north?: unknown;
     wall?: unknown;
+    arrows?: unknown;
   };
   const direction = elkDirection(directionOf(raw.direction));
   // **折り返すかは正本が決める**（`src/wrap.ts`）。既定は折り返さない。
@@ -328,6 +332,7 @@ export async function layout(text: string): Promise<Placed> {
     mm: scaleOf(raw.scale),
     north: northOf(raw.north),
     wall: wallOf(raw.wall),
+    arrows: arrowsOf(raw.arrows),
     width: size.width + margin.right,
     height: size.height + margin.bottom,
   };

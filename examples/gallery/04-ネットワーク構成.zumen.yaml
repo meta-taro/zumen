@@ -1,51 +1,71 @@
 version: 1
 wrap: true
-title: 事務所のネットワーク
+title: 事務所のネットワーク構成（192.168.10.0/24）
 pins:
   fw:
     appearance: primary
 groups:
   - id: office
-    label: 事務所
+    label: 事務所 VLAN10
   - id: dmz
-    label: DMZ
+    label: DMZ VLAN20
 nodes:
   - id: isp
     type: internet
-    label: 回線
+    label: 光回線
+    technology: 1Gbps・固定 1 個
   - id: fw
     type: network
     label: ファイアウォール
-    technology: FortiGate
+    tag: FW-01
+    technology: .10.1 / .20.1
+    group: dmz
+  - id: web
+    type: server
+    label: 公開 Web
+    tag: WEB-01
+    technology: 192.168.20.10
     group: dmz
   - id: sw
     type: network
     label: L2 スイッチ
+    tag: SW-01
+    technology: 24 ポート・PoE
     group: office
   - id: ap
     type: network
     label: 無線 AP
-    technology: 2 台
+    tag: AP-01/02
+    technology: Wi-Fi 6・2 台
     group: office
   - id: nas
     type: storage
     label: 共有フォルダ
-    technology: NAS
+    tag: NAS-01
+    technology: 192.168.10.20
     group: office
   - id: pc
     type: generic
     label: 事務 PC
-    technology: 12 台
+    tag: PC-01〜12
+    technology: DHCP .100〜.150
     group: office
 edges:
   - from: isp
     to: fw
+    label: WAN
+  - from: fw
+    to: web
+    label: VLAN20
   - from: fw
     to: sw
+    label: VLAN10
   - from: sw
     to: ap
+    label: PoE
   - from: sw
     to: nas
+    label: 1Gbps
   - from: ap
     to: pc
     label: Wi-Fi

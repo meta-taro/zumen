@@ -107,17 +107,24 @@ export function render(
     `<svg xmlns="http://www.w3.org/2000/svg" width="${size(placed.width)}" height="${size(placed.height)}" viewBox="0 0 ${size(placed.width)} ${size(placed.height)}">`,
     `<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="${palette.edge.stroke}"/></marker></defs>`,
     ...placed.groups.map((group) => renderGroup(group, palette, plan, outerWall)),
-    // **構成図では、辺は箱の下。** 箱が辺の端を隠して、繋がって見える。
-    ...(plan ? [] : placed.edges.map((edge) => renderEdge(edge, labels.get(edge.id) ?? null, palette))),
+    // **向きの無い線は、図そのもの。箱の下に敷く**（`src/arrows.ts`）。
+    //
+    // 路線図の線を駅の上に描くと、駅の印を線が串刺しにして潰す。
+    // 構成図の辺も同じで、箱が辺の端を隠すことで繋がって見える。
+    ...(plan && placed.arrows
+      ? []
+      : placed.edges.map((edge) => renderEdge(edge, labels.get(edge.id) ?? null, palette, plan, placed.arrows))),
     ...stack(placed.boxes, plan).map((box) => renderNode(box, palette, plan, wall)),
-    // **配置図では、動線は箱の上。**
+    // **向きのある矢印は、図の上に載せる注記。**
     //
     // 部屋の塗りは透けないので、下に置くと**隣どうしの矢印が完全に消える。**
     // 壁に厚みを付けたら、避難経路の矢印が丸ごと壁の下に入った（2026-09-12）。
     // 避難経路図は**矢印が主役**の図で、消えたら図の意味が無い。
     //
     // **矢印を出すかは正本が決める**（辺を書かなければ出ない。間取りがそれ）。
-    ...(plan ? placed.edges.map((edge) => renderEdge(edge, labels.get(edge.id) ?? null, palette, true)) : []),
+    ...(plan && placed.arrows
+      ? placed.edges.map((edge) => renderEdge(edge, labels.get(edge.id) ?? null, palette, true, true))
+      : []),
     // **通り芯・寸法・方位は最前面。**
     //
     // 一度、通り芯を下敷きにした。**建物の中で消えた** —— 箱の塗りは透けないので、
@@ -309,6 +316,30 @@ function nodeText(box: Box, palette: Palette, style: Look, shift = 0, plan = fal
     !plan || labelWidth(text, font) + 6 <= box.w;
   const room = !plan || box.h >= 34;
 
+  /**
+   * **入らないなら、外へ出す。**
+   *
+   * 以前はここで落としていた。伏図の小梁（幅 20px）に
+   * 「小梁 300×600」が切れて隣へはみ出したのを止めるためで、そこは正しかった。
+   *
+   * だが**落とすのは行き過ぎだった**（2026-09-12。路線図を描いて分かった）。
+   * 駅の印は小さいので、駅名が 1 つ残らず消えた。
+   * 実物の図面も、狭い部屋の名前は**箱の外に書く。**
+   *
+   * 外にも置けないほど短い辺は、そのときだけ落とす。
+   */
+  const outside = (dy: number, text: string, font: number, fill: string): string =>
+    `<text x="${cx}" y="${n(box.y + box.h + dy)}" text-anchor="middle" font-family="${FONT}" font-size="${font}" fill="${fill}">${escapeText(text)}</text>`;
+
+  if (plan && (!room || !fits(box.label, size))) {
+    // 箱に入らないものは、箱の下へ。**符号は箱の中に残す**（拾い読みのため）。
+    const lines = [outside(13, box.label, size, style.text)];
+    if (box.technology !== null) {
+      lines.push(outside(25, box.technology, subSize, palette.text.group));
+    }
+    return lines;
+  }
+
   const main = (dy: number): string =>
     `<text x="${cx}" y="${n(box.y + box.h / 2 + dy + shift)}" text-anchor="middle" font-family="${FONT}" font-size="${size}" fill="${style.text}">${escapeText(box.label)}</text>`;
 
@@ -327,6 +358,7 @@ function renderEdge(
   placedLabel: EdgeLabel | null,
   palette: Palette,
   plan = false,
+  arrows = true,
 ): string {
   if (edge.points.length < 2) return '';
   const [head, ...rest] = edge.points;
@@ -341,7 +373,7 @@ function renderEdge(
     // 壁の黒に負けて読めない（避難経路図は矢印が主役）。
     `<path d="${path}" fill="none" stroke="${palette.edge.stroke}" stroke-width="${
       edge.pinned || plan ? STROKE_WIDTH.pinned : STROKE_WIDTH.auto
-    }" marker-end="url(#arrow)"/>`,
+    }"${arrows ? ' marker-end="url(#arrow)"' : ''}/>`,
     label,
     '</g>',
   ].join('');

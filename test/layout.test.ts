@@ -94,6 +94,7 @@ describe('overlaps', () => {
       mm: null,
       north: null,
       wall: null,
+      arrows: true,
     };
     assert.deepEqual(overlaps(placed), [['a', 'b']]);
   });
