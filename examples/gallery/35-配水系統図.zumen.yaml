@@ -1,0 +1,98 @@
+version: 1
+wrap: true
+title: 配水系統図（配水区 A・給水人口 12,000 人）
+pins:
+  haisuichi:
+    appearance: primary
+groups:
+  - id: josui
+    label: 浄水・送水
+  - id: haisui
+    label: 配水本管
+  - id: kyusui
+    label: 給水区域
+nodes:
+  - id: jousuijou
+    type: cluster
+    label: 浄水場
+    tag: WTP-1
+    technology: 計画 6,500 m³/日
+    group: josui
+  - id: sousui
+    type: generic
+    label: 送水ポンプ
+    tag: P-101/102
+    technology: 30kW×2・交互運転
+    group: josui
+  - id: haisuichi
+    type: storage
+    label: 配水池
+    tag: R-1
+    technology: 有効 2,400 m³・HWL 82.0
+    group: haisui
+  - id: genatsu
+    type: generic
+    label: 減圧弁室
+    tag: PRV-1
+    technology: 二次側 0.25MPa
+    group: haisui
+  - id: shikiri
+    type: generic
+    label: 仕切弁
+    tag: GV-12
+    technology: φ300・制水弁
+    group: haisui
+  - id: kuuki
+    type: generic
+    label: 空気弁
+    tag: AV-7
+    technology: 急速空気弁 φ75
+    group: haisui
+  - id: shoka
+    type: generic
+    label: 消火栓
+    tag: FH-23
+    technology: 単口 φ65
+    group: haisui
+  - id: kuA
+    type: network
+    label: 給水区 A-1
+    technology: 3,800 人・戸数 1,450
+    group: kyusui
+  - id: kuB
+    type: network
+    label: 給水区 A-2
+    technology: 5,100 人・戸数 1,980
+    group: kyusui
+  - id: kuC
+    type: network
+    label: 給水区 A-3
+    technology: 3,100 人・高台
+    group: kyusui
+edges:
+  - from: jousuijou
+    to: sousui
+  - from: sousui
+    to: haisuichi
+    label: DIP φ400
+  - from: haisuichi
+    to: shikiri
+    label: DIP φ300
+  - from: shikiri
+    to: kuuki
+    label: DIP φ300
+  - from: kuuki
+    to: shoka
+    label: DIP φ200
+  - from: shoka
+    to: kuA
+    label: PE φ150
+  - from: shoka
+    to: kuB
+    label: PE φ150
+  - from: haisuichi
+    to: genatsu
+    label: DIP φ200
+  - from: genatsu
+    to: kuC
+    label: PE φ100

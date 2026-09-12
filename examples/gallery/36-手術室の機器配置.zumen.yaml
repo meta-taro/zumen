@@ -1,0 +1,89 @@
+version: 1
+kind: placement
+title: 手術室 機器配置図（OR-3・清潔度クラス 100,000）
+# 1 px = 25 mm
+scale: { mm: 25 }
+wall: { mm: 150, outer: 200 }
+grid:
+  x:
+    - { id: X1, at: 0 }
+    - { id: X2, at: 280 }
+    - { id: X3, at: 480 }
+  y:
+    - { id: Y1, at: 0 }
+    - { id: Y2, at: 120 }
+    - { id: Y3, at: 400 }
+pins:
+  daizai:
+    appearance: primary
+groups:
+  - id: or3
+    label: OR-3　48 m²　CH＝2,900　層流吹出　室圧 ＋15Pa
+nodes:
+  - id: zenshitsu
+    label: 前室
+    technology: 器材搬入・6 m²
+    at: { x: 0, y: 0 }
+    size: { w: 280, h: 120 }
+    group: or3
+    openings:
+      - { kind: slide, side: bottom, at: 0.5, width: 70 }
+      - { kind: slide, side: left, at: 0.5, width: 50 }
+  - id: tearai
+    label: 手洗いコーナー
+    technology: 自動水栓 3
+    at: { x: 280, y: 0 }
+    size: { w: 200, h: 120 }
+    group: or3
+    openings:
+      - { kind: open, side: bottom, at: 0.5, width: 60 }
+  - id: daizai
+    label: 手術台
+    tag: OT-1
+    technology: 電動・X 線透過
+    at: { x: 150, y: 190 }
+    size: { w: 180, h: 110 }
+    group: or3
+    radius: 60
+  - id: mueito
+    label: 無影灯
+    tag: SL-1/2
+    technology: 天吊 2 灯
+    at: { x: 150, y: 120 }
+    size: { w: 180, h: 60 }
+    group: or3
+  - id: masui
+    label: 麻酔器
+    tag: AN-1
+    technology: 頭側・ガス 4 口
+    at: { x: 0, y: 120 }
+    size: { w: 140, h: 130 }
+    group: or3
+  - id: kikaidai
+    label: 器械台
+    tag: IT-1/2
+    technology: 清潔野・2 台
+    at: { x: 0, y: 250 }
+    size: { w: 140, h: 150 }
+    group: or3
+  - id: gas
+    label: 医療ガス
+    tag: MG-1
+    technology: O2／N2O／空気／吸引
+    at: { x: 340, y: 120 }
+    size: { w: 140, h: 130 }
+    group: or3
+  - id: denki
+    label: 電気設備
+    tag: ISP-1
+    technology: 非接地配線・IT 系統
+    at: { x: 340, y: 250 }
+    size: { w: 140, h: 150 }
+    group: or3
+edges:
+  - from: zenshitsu
+    to: daizai
+    label: 器材
+  - from: tearai
+    to: daizai
+    label: 術者

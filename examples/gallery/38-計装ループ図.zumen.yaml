@@ -1,0 +1,95 @@
+version: 1
+wrap: true
+title: 計装ループ図（TIC-101・熱交換器の出口温度制御）
+pins:
+  tic:
+    appearance: primary
+groups:
+  - id: genba
+    label: 現場（フィールド）
+  - id: seigyo
+    label: 制御室
+  - id: anzen
+    label: 安全計装
+nodes:
+  - id: tt
+    type: generic
+    label: 温度発信器
+    tag: TT-101
+    technology: 測温抵抗体 Pt100
+    group: genba
+  - id: hx
+    type: cluster
+    label: 熱交換器
+    tag: HX-101
+    technology: 出口 設定 85℃
+    group: genba
+  - id: tv
+    type: generic
+    label: 調節弁
+    tag: TV-101
+    technology: 空気作動・FC
+    group: genba
+  - id: posi
+    type: generic
+    label: ポジショナ
+    tag: ZT-101
+    technology: 電空・開度発信
+    group: genba
+  - id: tic
+    type: cluster
+    label: 温度調節計
+    tag: TIC-101
+    technology: PID・DCS 実装
+    group: seigyo
+  - id: ti
+    type: generic
+    label: 指示計
+    tag: TI-101
+    technology: 運転画面
+    group: seigyo
+  - id: ta
+    type: queue
+    label: 上限警報
+    tag: TAH-101
+    technology: 95℃ で発報
+    group: seigyo
+  - id: tsh
+    type: generic
+    label: 温度スイッチ
+    tag: TSH-102
+    technology: 独立・105℃
+    group: anzen
+  - id: sdv
+    type: generic
+    label: 緊急遮断弁
+    tag: SDV-102
+    technology: SIL2・フェイルクローズ
+    group: anzen
+edges:
+  - from: hx
+    to: tt
+    label: 測温
+  - from: tt
+    to: tic
+    label: 4-20mA
+  - from: tic
+    to: posi
+    label: 4-20mA
+  - from: posi
+    to: tv
+    label: 空気圧 0.02-0.1MPa
+  - from: tv
+    to: hx
+    label: 蒸気量
+  - from: tic
+    to: ti
+  - from: tic
+    to: ta
+    label: 95℃
+  - from: tsh
+    to: sdv
+    label: 遮断
+  - from: hx
+    to: tsh
+    label: 独立測温

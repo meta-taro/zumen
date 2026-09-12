@@ -1,0 +1,86 @@
+version: 1
+wrap: true
+title: 配送ルート図（2t 車 3 台・当日便）
+pins:
+  center:
+    appearance: primary
+groups:
+  - id: kyoten
+    label: 拠点
+  - id: bin1
+    label: 1 便（午前）
+  - id: bin2
+    label: 2 便（午後）
+nodes:
+  - id: center
+    type: storage
+    label: 配送センター
+    tag: DC-1
+    technology: 出発 7:00・積載率 82%
+    group: kyoten
+  - id: a1
+    type: generic
+    label: 北店
+    tag: S-101
+    technology: 8:10 着・12 ケース
+    group: bin1
+  - id: a2
+    type: generic
+    label: 中央店
+    tag: S-102
+    technology: 8:55 着・24 ケース
+    group: bin1
+  - id: a3
+    type: generic
+    label: 東店
+    tag: S-103
+    technology: 9:40 着・18 ケース
+    group: bin1
+  - id: b1
+    type: generic
+    label: 西店
+    tag: S-201
+    technology: 13:20 着・20 ケース
+    group: bin2
+  - id: b2
+    type: generic
+    label: 南店
+    tag: S-202
+    technology: 14:05 着・15 ケース
+    group: bin2
+  - id: b3
+    type: generic
+    label: 港店
+    tag: S-203
+    technology: 14:50 着・9 ケース
+    group: bin2
+  - id: modori
+    type: queue
+    label: 帰着・回収
+    technology: 16:30・空箱 66
+    group: kyoten
+edges:
+  - from: center
+    to: a1
+    label: 18 km
+  - from: a1
+    to: a2
+    label: 6 km
+  - from: a2
+    to: a3
+    label: 9 km
+  - from: a3
+    to: center
+    label: 21 km
+  - from: center
+    to: b1
+    label: 14 km
+  - from: b1
+    to: b2
+    label: 7 km
+  - from: b2
+    to: b3
+    label: 11 km
+  - from: b3
+    to: modori
+    label: 16 km
