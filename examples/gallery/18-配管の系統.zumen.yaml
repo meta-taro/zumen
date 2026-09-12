@@ -1,0 +1,91 @@
+version: 1
+title: 冷却水の系統（P&ID）
+pins:
+  p101a:
+    appearance: primary
+groups:
+  - id: pit
+    label: ピット
+  - id: kikai
+    label: 機械室
+  - id: process
+    label: 製造ライン
+nodes:
+  - id: tk101
+    type: storage
+    label: 冷却水槽
+    tag: TK-101
+    technology: 40 m³
+    group: pit
+  - id: p101a
+    type: generic
+    label: 循環ポンプ
+    tag: P-101A
+    technology: 3.7kW・常用
+    group: kikai
+  - id: p101b
+    type: generic
+    label: 循環ポンプ
+    tag: P-101B
+    technology: 3.7kW・予備
+    group: kikai
+  - id: st101
+    type: generic
+    label: ストレーナ
+    tag: ST-101
+    group: kikai
+  - id: hx101
+    type: cluster
+    label: 熱交換器
+    tag: HX-101
+    technology: 350kW
+    group: kikai
+  - id: ct101
+    type: cluster
+    label: 冷却塔
+    tag: CT-101
+    group: kikai
+  - id: tic
+    type: generic
+    label: 温度調節
+    tag: TIC-101
+    group: kikai
+  - id: mold
+    type: generic
+    label: 成形機
+    tag: M-201
+    group: process
+  - id: oven
+    type: generic
+    label: 乾燥炉
+    tag: OV-202
+    group: process
+edges:
+  - from: tk101
+    to: p101a
+    label: 2"-CS-101
+  - from: tk101
+    to: p101b
+    label: 2"-CS-102
+  - from: p101a
+    to: st101
+  - from: p101b
+    to: st101
+  - from: st101
+    to: hx101
+    label: 3"-CS-110
+  - from: hx101
+    to: ct101
+    label: 冷却
+  - from: ct101
+    to: tk101
+    label: 返り
+  - from: tic
+    to: hx101
+    label: 制御
+  - from: hx101
+    to: mold
+    label: 3"-CS-201
+  - from: hx101
+    to: oven
+    label: 2"-CS-202

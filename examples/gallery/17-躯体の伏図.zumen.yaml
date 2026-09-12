@@ -1,0 +1,83 @@
+version: 1
+kind: placement
+title: 2 階 床伏図（RC 造・1 スパン 6.0m を 120px として）
+groups:
+  - id: f2
+    label: 2FL＋3,200　柱 C1=700×700　大梁 G1=400×750
+nodes:
+  - id: c1a
+    label: 柱
+    tag: C1
+    at: { x: 40, y: 40 }
+    size: { w: 56, h: 56 }
+    group: f2
+  - id: c1b
+    label: 柱
+    tag: C1
+    at: { x: 400, y: 40 }
+    size: { w: 56, h: 56 }
+    group: f2
+  - id: c1c
+    label: 柱
+    tag: C1
+    at: { x: 40, y: 340 }
+    size: { w: 56, h: 56 }
+    group: f2
+  - id: c1d
+    label: 柱
+    tag: C1
+    at: { x: 400, y: 340 }
+    size: { w: 56, h: 56 }
+    group: f2
+  - id: c2
+    label: 柱
+    tag: C2
+    technology: 600×600
+    at: { x: 220, y: 340 }
+    size: { w: 48, h: 48 }
+    group: f2
+  - id: g1n
+    label: 大梁
+    tag: G1
+    at: { x: 96, y: 56 }
+    size: { w: 304, h: 24 }
+    group: f2
+  - id: g1s
+    label: 大梁
+    tag: G1
+    at: { x: 96, y: 356 }
+    size: { w: 304, h: 24 }
+    group: f2
+  - id: g2w
+    label: 大梁
+    tag: G2
+    at: { x: 56, y: 96 }
+    size: { w: 24, h: 244 }
+    group: f2
+  - id: g2e
+    label: 大梁
+    tag: G2
+    at: { x: 416, y: 96 }
+    size: { w: 24, h: 244 }
+    group: f2
+  - id: b1
+    label: 小梁
+    tag: B1
+    technology: 300×600
+    at: { x: 232, y: 80 }
+    size: { w: 20, h: 276 }
+    group: f2
+  - id: s1
+    label: スラブ
+    tag: S1
+    technology: t=180
+    at: { x: 80, y: 80 }
+    size: { w: 152, h: 276 }
+    group: f2
+  - id: s2
+    label: スラブ
+    tag: S2
+    technology: t=200
+    at: { x: 252, y: 80 }
+    size: { w: 164, h: 276 }
+    group: f2

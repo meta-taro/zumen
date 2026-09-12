@@ -1,0 +1,90 @@
+version: 1
+title: 受変電設備の単線結線図
+pins:
+  tr1:
+    appearance: primary
+groups:
+  - id: koatsu
+    label: 高圧受電（6.6kV）
+  - id: teiatsu
+    label: 低圧（400V / 200V）
+  - id: hijo
+    label: 非常用
+nodes:
+  - id: intake
+    type: network
+    label: 引込柱
+    tag: DS-1
+    technology: 6.6kV 三相 3 線
+    group: koatsu
+  - id: vct
+    type: generic
+    label: 計器用変成器
+    tag: VCT
+    group: koatsu
+  - id: lbs
+    type: generic
+    label: 高圧交流負荷開閉器
+    tag: LBS-1
+    group: koatsu
+  - id: tr1
+    type: cluster
+    label: 変圧器
+    tag: T-1
+    technology: 500kVA
+    group: koatsu
+  - id: tr2
+    type: cluster
+    label: 変圧器
+    tag: T-2
+    technology: 150kVA
+    group: koatsu
+  - id: mcc1
+    type: generic
+    label: 動力盤
+    tag: MCC-1
+    technology: 400V
+    group: teiatsu
+  - id: lp1
+    type: generic
+    label: 電灯分電盤
+    tag: LP-1
+    technology: 200/100V
+    group: teiatsu
+  - id: gen
+    type: cluster
+    label: 非常用発電機
+    tag: G-1
+    technology: 200kVA・軽油
+    group: hijo
+  - id: ats
+    type: generic
+    label: 自動切替
+    tag: ATS-1
+    group: hijo
+  - id: emb
+    type: generic
+    label: 非常用分電盤
+    tag: EMB-1
+    group: hijo
+edges:
+  - from: intake
+    to: vct
+  - from: vct
+    to: lbs
+  - from: lbs
+    to: tr1
+  - from: lbs
+    to: tr2
+  - from: tr1
+    to: mcc1
+  - from: tr2
+    to: lp1
+  - from: tr1
+    to: ats
+    label: 常用
+  - from: gen
+    to: ats
+    label: 停電時
+  - from: ats
+    to: emb

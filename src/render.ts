@@ -28,6 +28,7 @@ import { drawOpenings } from './openings.ts';
 import { drawShape, shapeOf, textShift } from './shapes.ts';
 import { placeEdgeLabels } from './edge-labels.ts';
 import type { EdgeLabel } from './edge-labels.ts';
+import { TAG_INSET, labelWidth } from './layout.ts';
 import type { Box, Placed, PlacedEdge } from './layout.ts';
 import type { Look } from './tokens.ts';
 import { STROKE_WIDTH, lookOf, paletteOf } from './tokens.ts';
@@ -100,10 +101,26 @@ export function render(
     ...placed.groups.map((group) => renderGroup(group, palette, plan)),
     // **平面図に、部屋どうしの矢印は無い。**
     ...(plan ? [] : placed.edges.map((edge) => renderEdge(edge, labels.get(edge.id) ?? null, palette))),
-    ...placed.boxes.map((box) => renderNode(box, palette, plan)),
+    ...stack(placed.boxes, plan).map((box) => renderNode(box, palette, plan)),
     '</svg>',
   ];
   return parts.join('\n');
+}
+
+/**
+ * 描く順。**平面図では、大きいものから先に描く。**
+ *
+ * 箱の塗りは透けないので、後に描いたものが前に出る。
+ * 伏図で、スラブ（152×276）が正本の後ろに来ていたため、
+ * **大梁と柱の線をスラブが塗り潰した**。
+ * 平面図でも、広い部屋が狭い部屋の壁を消す同じ壊れ方になる。
+ *
+ * 構成図では起きない（箱は重ならない）ので、並べ替えない。
+ * **正本の順序は、読み手が意味を持たせている可能性がある。**
+ */
+function stack(boxes: Box[], plan: boolean): Box[] {
+  if (!plan) return boxes;
+  return [...boxes].sort((a, b) => b.w * b.h - a.w * a.h);
 }
 
 function renderGroup(group: Box, palette: Palette, plan = false): string {
@@ -161,9 +178,26 @@ function renderNode(box: Box, palette: Palette, plan = false): string {
     `<g ${attributes} data-shape="${kind}">`,
     shape,
     holes,
+    ...nodeTag(box, palette, style),
     ...nodeText(box, palette, style, textShift(kind), plan),
     '</g>',
   ].join('');
+}
+
+/**
+ * **符号**（`tag`）。箱の左上へ小さく置く（B5 / D22）。
+ *
+ * 中央のラベルと重ねない。図面では名前と符号が**別々に**書かれていて、
+ * 読み手は符号だけを拾って断面リストと突き合わせる。
+ * **中央に混ぜると、その拾い読みができなくなる。**
+ */
+function nodeTag(box: Box, palette: Palette, style: Look): string[] {
+  if (box.tag === null) return [];
+  // **符号も、入らないなら出さない。** 伏図の小梁は幅 20px しかない。
+  if (labelWidth(box.tag, 10) + TAG_INSET > box.w) return [];
+  return [
+    `<text x="${n(box.x + TAG_INSET)}" y="${n(box.y + TAG_INSET + 9)}" font-family="${FONT}" font-size="10" fill="${subtitleOn(style, palette)}">${escapeText(box.tag)}</text>`,
+  ];
 }
 
 /**
@@ -191,10 +225,26 @@ function nodeText(box: Box, palette: Palette, style: Look, shift = 0, plan = fal
   const size = plan ? 12 : 15;
   const subSize = plan ? 10 : 11;
 
+  // **入らないなら出さない**（平面図・伏図）。
+  //
+  // 構成図では箱の大きさをラベルから決めるので、必ず入る。
+  // 平面図では大きさを人と AI が書くので、**入らない箱が出る** ——
+  // 伏図の小梁（幅 20px）に「小梁 300×600」は入らず、
+  // 実際に `0×60` と切れた文字が隣の部材の上へはみ出した。
+  //
+  // 辺のラベルと同じ扱いにする（`src/edge-labels.ts`）。
+  // **置けないものを、重ねてでも出すことはしない。**
+  const fits = (text: string, font: number): boolean =>
+    !plan || labelWidth(text, font) + 6 <= box.w;
+  const room = !plan || box.h >= 34;
+
   const main = (dy: number): string =>
     `<text x="${cx}" y="${n(box.y + box.h / 2 + dy + shift)}" text-anchor="middle" font-family="${FONT}" font-size="${size}" fill="${style.text}">${escapeText(box.label)}</text>`;
 
-  if (box.technology === null) return [main(5)];
+  if (!room || !fits(box.label, size)) return [];
+  if (box.technology === null || !fits(box.technology, subSize) || (plan && box.h < 44)) {
+    return [main(5)];
+  }
   return [
     main(plan ? -4 : -2),
     `<text x="${cx}" y="${n(box.y + box.h / 2 + (plan ? 11 : 16) + shift)}" text-anchor="middle" font-family="${FONT}" font-size="${subSize}" fill="${subtitleOn(style, palette)}">${escapeText(box.technology)}</text>`,

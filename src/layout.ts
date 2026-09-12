@@ -45,6 +45,14 @@ export interface Box {
    * 所属や版を書ける唯一の場所なので、描かれないとラベルへ畳むしかなくなる。
    */
   technology: string | null;
+  /**
+   * **符号**（仕様 §3.1 の `tag`）。箱の左上に小さく描く。
+   *
+   * 業界の専門性は、形ではなく符号で表されている（D22）。
+   * 構造図の `C1`（柱）・`G1`（大梁）、配管の `2"-CS-101`、電気の盤番号。
+   * **`label` の代わりではない。** 名前と符号は別のもので、図面は両方を出す。
+   */
+  tag: string | null;
   /** 人が置いた場所か。 */
   pinned: boolean;
 }
@@ -86,6 +94,10 @@ const LABEL_PADDING = 24;
 const LABEL_FONT = 15;
 /** 副題（`technology`）の文字の大きさ。 */
 const SUB_FONT = 11;
+/** 符号（`tag`）の文字の大きさ。**副題よりさらに小さい。** */
+const TAG_FONT = 10;
+/** 符号を箱の角から離す分。 */
+export const TAG_INSET = 8;
 
 /**
  * ラベルの見た目の幅を測る。
@@ -111,10 +123,17 @@ export function labelWidth(label: string, font = LABEL_FONT): number {
  *
  * 副題（`technology`）があれば、そちらも入る幅にする。
  */
-function widthFor(label: string, technology: string | null = null): number {
+function widthFor(
+  label: string,
+  technology: string | null = null,
+  tag: string | null = null,
+): number {
   const sub = technology === null ? 0 : labelWidth(technology, SUB_FONT);
   const needed = Math.max(labelWidth(label), sub) + LABEL_PADDING * 2;
-  return Math.min(NODE_MAX_WIDTH, Math.max(NODE_WIDTH, needed));
+  // **符号は角に置くので、ラベルとは別に幅が要る**（B5）。
+  // `2"-CS-101-A3` のような配管のライン番号は、部屋名より長い。
+  const code = tag === null ? 0 : labelWidth(tag, TAG_FONT) + TAG_INSET * 2;
+  return Math.min(NODE_MAX_WIDTH, Math.max(NODE_WIDTH, needed, code));
 }
 
 /**
@@ -378,6 +397,8 @@ interface NodeInfo {
   group: string | null;
   /** 版や役割（仕様 §3.1 の `technology`）。無ければ null。 */
   technology: string | null;
+  /** 符号（仕様 §3.1 の `tag`）。無ければ null。 */
+  tag: string | null;
   /**
    * **AI が書いた置き場所**（仕様 §3.1。配置図で使う）。
    *
@@ -407,6 +428,7 @@ function readNodes(diagram: ReturnType<typeof parse>): NodeInfo[] {
       type?: unknown;
       group?: unknown;
       technology?: unknown;
+      tag?: unknown;
       at?: unknown;
       size?: unknown;
       openings?: unknown;
@@ -420,6 +442,7 @@ function readNodes(diagram: ReturnType<typeof parse>): NodeInfo[] {
       type: asText(node.type) ?? 'generic',
       group: asText(node.group),
       technology: asText(node.technology),
+      tag: asText(node.tag),
       at: asPoint(node.at),
       size: asSize(node.size),
       openings: openingsOf(node.openings),
@@ -624,7 +647,7 @@ function buildGraph(
     width:
       pins[node.id]?.size?.w ??
       node.size?.w ??
-      widthFor(labelOf(node, pins), node.technology) + growFor(shapeOf(node.type)).w,
+      widthFor(labelOf(node, pins), node.technology, node.tag) + growFor(shapeOf(node.type)).w,
     height:
       pins[node.id]?.size?.h ??
       node.size?.h ??
@@ -674,6 +697,7 @@ function collect(
       type: nodes.find((n) => n.id === child.id)?.type ?? 'generic',
       appearance: null,
       technology: nodes.find((n) => n.id === child.id)?.technology ?? null,
+      tag: nodes.find((n) => n.id === child.id)?.tag ?? null,
       openings: nodes.find((n) => n.id === child.id)?.openings ?? [],
       pinned: false,
     };
