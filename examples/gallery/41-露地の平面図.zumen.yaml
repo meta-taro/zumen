@@ -1,0 +1,119 @@
+version: 1
+kind: placement
+title: 露地（茶庭）平面図・植栽図　16m×12m
+# 1 px = 25 mm。1m = 40px
+scale: { mm: 25 }
+wall: { mm: 100, outer: 150 }
+north: up
+grid:
+  x:
+    - { id: X1, at: 0 }
+    - { id: X2, at: 280 }
+    - { id: X3, at: 440 }
+    - { id: X4, at: 640 }
+  y:
+    - { id: Y1, at: 0 }
+    - { id: Y2, at: 120 }
+    - { id: Y3, at: 280 }
+    - { id: Y4, at: 480 }
+pins:
+  tsukubai:
+    appearance: primary
+groups:
+  - id: roji
+    label: 露地　外腰掛から茶室まで　飛石 18 枚　延段 4.2m
+nodes:
+  - id: chashitsu
+    label: 茶室
+    tag: 四畳半
+    technology: 躙口 W0.66
+    at: { x: 440, y: 0 }
+    size: { w: 200, h: 120 }
+    group: roji
+    openings:
+      - { kind: slide, side: left, at: 0.5, width: 26 }
+  - id: mizuya
+    label: 水屋
+    technology: 2.7 m²
+    at: { x: 280, y: 0 }
+    size: { w: 160, h: 120 }
+    group: roji
+    openings:
+      - { kind: slide, side: bottom, at: 0.5, width: 24 }
+  - id: koke
+    label: 苔地
+    tag: 地被
+    technology: スギゴケ 42 m²
+    at: { x: 0, y: 0 }
+    size: { w: 280, h: 280 }
+    group: roji
+  - id: tsukubai
+    label: 蹲踞
+    tag: 石組
+    technology: 手水鉢・役石 3
+    at: { x: 300, y: 140 }
+    size: { w: 120, h: 100 }
+    group: roji
+    radius: 68
+  - id: toro
+    label: 石灯籠
+    tag: 織部
+    technology: H1.8・竿埋込
+    at: { x: 460, y: 140 }
+    size: { w: 100, h: 100 }
+    group: roji
+  - id: tobiishi
+    label: 飛石
+    technology: 18 枚・芯々 450
+    at: { x: 304, y: 280 }
+    size: { w: 48, h: 200 }
+    group: roji
+  - id: nobedan
+    label: 延段
+    technology: 切石敷 W0.9×L4.2
+    at: { x: 352, y: 280 }
+    size: { w: 48, h: 200 }
+    group: roji
+  - id: chumon
+    label: 中門
+    tag: 猿戸
+    technology: 有効 W0.7
+    at: { x: 280, y: 260 }
+    size: { w: 160, h: 20 }
+    group: roji
+  - id: koshikake
+    label: 腰掛待合
+    technology: 3 人掛・雪隠つき
+    at: { x: 0, y: 320 }
+    size: { w: 200, h: 160 }
+    group: roji
+    openings:
+      - { kind: open, side: right, at: 0.5, width: 30 }
+  - id: momiji
+    label: イロハモミジ
+    tag: 高木
+    technology: H3.5 W2.0・3 本
+    at: { x: 440, y: 280 }
+    size: { w: 200, h: 100 }
+    group: roji
+  - id: doudan
+    label: ドウダンツツジ
+    tag: 中木
+    technology: H1.5 W0.8・5 本
+    at: { x: 440, y: 380 }
+    size: { w: 200, h: 100 }
+    group: roji
+  - id: ikegaki
+    label: 生垣
+    tag: 低木
+    technology: チャノキ H0.9・12m
+    at: { x: 200, y: 400 }
+    size: { w: 104, h: 80 }
+    group: roji
+edges:
+  - from: koshikake
+    to: chumon
+  - from: chumon
+    to: tsukubai
+  - from: tsukubai
+    to: chashitsu
