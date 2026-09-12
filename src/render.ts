@@ -99,6 +99,8 @@ export function render(
   // **壁の厚みは平面図だけの話。** 構成図の箱は壁ではない。
   const wall = plan ? wallWidth(placed.wall, placed.mm) : null;
   const outerWall = plan ? wallWidth(placed.wall, placed.mm, true) : null;
+  // 箱に入らない文字を、上下どちらへ出すかを決めるのに使う。
+  const span = plan && placed.boxes.length > 0 ? frameOf(placed) : null;
   // **置けなかったラベルは、ここに入ってこない**（重ねて出さない。Issue #3 の 3）。
   const labels = new Map(
     placeEdgeLabels(placed.edges, placed.boxes, placed.groups).map((label) => [label.id, label]),
@@ -114,7 +116,7 @@ export function render(
     ...(plan && placed.arrows
       ? []
       : placed.edges.map((edge) => renderEdge(edge, labels.get(edge.id) ?? null, palette, plan, placed.arrows))),
-    ...stack(placed.boxes, plan).map((box) => renderNode(box, palette, plan, wall)),
+    ...stack(placed.boxes, plan).map((box) => renderNode(box, palette, plan, wall, span)),
     // **向きのある矢印は、図の上に載せる注記。**
     //
     // 部屋の塗りは透けないので、下に置くと**隣どうしの矢印が完全に消える。**
@@ -214,7 +216,13 @@ function renderGroup(group: Box, palette: Palette, plan = false, wall: number | 
   ].join('');
 }
 
-function renderNode(box: Box, palette: Palette, plan = false, wall: number | null = null): string {
+function renderNode(
+  box: Box,
+  palette: Palette,
+  plan = false,
+  wall: number | null = null,
+  frame: Frame | null = null,
+): string {
   const style = lookOf(box.appearance, palette);
   const attributes = [
     `data-node="${escapeAttr(box.id)}"`,
@@ -257,7 +265,7 @@ function renderNode(box: Box, palette: Palette, plan = false, wall: number | nul
     shape,
     holes,
     ...nodeTag(box, palette, style),
-    ...nodeText(box, palette, style, textShift(kind), plan),
+    ...nodeText(box, palette, style, textShift(kind), plan, frame),
     '</g>',
   ].join('');
 }
@@ -295,7 +303,14 @@ function subtitleOn(style: Look, palette: Palette): string {
  * 副題（`technology`）があれば 2 行にする。無ければ 1 行のまま中央へ。
  * **所属や版を書ける唯一の場所**なので、描かないとラベルへ畳むしかなくなる（Issue #3 の 4）。
  */
-function nodeText(box: Box, palette: Palette, style: Look, shift = 0, plan = false): string[] {
+function nodeText(
+  box: Box,
+  palette: Palette,
+  style: Look,
+  shift = 0,
+  plan = false,
+  frame: Frame | null = null,
+): string[] {
   const cx = n(box.x + box.w / 2);
 
   // **平面図の文字は小さい。** 実物は `LDK 18.2帖` を隅に小さく置く。
@@ -328,14 +343,62 @@ function nodeText(box: Box, palette: Palette, style: Look, shift = 0, plan = fal
    *
    * 外にも置けないほど短い辺は、そのときだけ落とす。
    */
-  const outside = (dy: number, text: string, font: number, fill: string): string =>
-    `<text x="${cx}" y="${n(box.y + box.h + dy)}" text-anchor="middle" font-family="${FONT}" font-size="${font}" fill="${fill}">${escapeText(text)}</text>`;
+  /**
+   * **図の縁に近いほうへ出す。**
+   *
+   * 下へ固定していたら、圃場整備の図で**幹線農道の名前が田んぼの中に落ちた。**
+   * 細い帯（用水路・農道）は図の縁に沿っているので、
+   * 縁の側へ出せば、他の区画の上に乗らない。
+   *
+   * 図の外の余白へ出すことにもなるので、**寸法の帯とぶつかりにくい。**
+   */
+  //
+  // **縦に細い帯は、上へ。** 用水路や廊下のように図の端から端まで届くものは、
+  // 上下のどちらが近いかで決められない。実物では帯の頭に名前を書く。
+  const tall = box.h > box.w * 1.5;
+  const above =
+    tall || (frame !== null && box.y - frame.y < frame.y + frame.h - (box.y + box.h));
+  const outside = (step: number, text: string, font: number, fill: string): string => {
+    const y = above ? box.y - 6 - step * 12 : box.y + box.h + 13 + step * 12;
+    return `<text x="${cx}" y="${n(y)}" text-anchor="middle" font-family="${FONT}" font-size="${font}" fill="${fill}">${escapeText(text)}</text>`;
+  };
+
+  /**
+   * **縦に細い帯は、帯に沿って縦へ書く**（2026-09-12。圃場整備の図で出た）。
+   *
+   * 用水路（幅 4m）・排水路・廊下は、名前が横には入らないが**縦には入る。**
+   * 外へ出すと、隣の帯の名前と図の外で団子になる
+   * （用水路・排水路・用水路の 3 本が、図の上で重なった）。
+   *
+   * 実物の図面も、細長い帯の名前は**帯に沿って**書いてある。
+   */
+  //
+  // **横に入るなら、横に書く。** 縦長でも幅が足りていれば回さない
+  // （区画 24m×125m の田は縦長だが、名前は横で入る）。
+  const along =
+    plan && !fits(box.label, size) && box.h > box.w && labelWidth(box.label, size) + 8 <= box.h;
+  if (along) {
+    const cy = n(box.y + box.h / 2);
+    const turn = ` transform="rotate(-90 ${cx} ${cy})"`;
+    const lines = [
+      `<text x="${cx}" y="${cy}" text-anchor="middle" font-family="${FONT}" font-size="${size}" fill="${style.text}"${turn}>${escapeText(box.label)}</text>`,
+    ];
+    // 副題は、入るときだけ。帯は細いので、2 行は入らないことが多い。
+    if (box.technology !== null && labelWidth(box.technology, subSize) + 8 <= box.h && box.w >= 26) {
+      const sx = n(box.x + box.w / 2 + 11);
+      lines.push(
+        `<text x="${sx}" y="${cy}" text-anchor="middle" font-family="${FONT}" font-size="${subSize}" fill="${subtitleOn(style, palette)}" transform="rotate(-90 ${sx} ${cy})">${escapeText(box.technology)}</text>`,
+      );
+    }
+    return lines;
+  }
 
   if (plan && (!room || !fits(box.label, size))) {
-    // 箱に入らないものは、箱の下へ。**符号は箱の中に残す**（拾い読みのため）。
-    const lines = [outside(13, box.label, size, style.text)];
+    // 箱に入らないものは、箱の外へ。**符号は箱の中に残す**（拾い読みのため）。
+    // 副題は名前より外側へ（上へ出すときは上、下へ出すときは下）。
+    const lines = [outside(above && box.technology !== null ? 1 : 0, box.label, size, style.text)];
     if (box.technology !== null) {
-      lines.push(outside(25, box.technology, subSize, palette.text.group));
+      lines.push(outside(above ? 0 : 1, box.technology, subSize, palette.text.group));
     }
     return lines;
   }

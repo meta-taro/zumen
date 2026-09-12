@@ -1,0 +1,73 @@
+version: 1
+kind: placement
+title: 重力式コンクリートダム 平面図（堤高 55m・堤頂長 200m）
+# 1 px = 500 mm
+scale: { mm: 500 }
+north: up
+grid:
+  x:
+    - { id: X1, at: 0 }
+    - { id: X2, at: 140 }
+    - { id: X3, at: 260 }
+    - { id: X4, at: 400 }
+  y:
+    - { id: Y1, at: 200 }
+    - { id: Y2, at: 280 }
+nodes:
+  - id: chosui
+    label: 貯水池
+    technology: 総貯水容量 1,250 万 m³
+    at: { x: 0, y: 0 }
+    size: { w: 400, h: 200 }
+  - id: hi_l
+    label: 非越流部
+    tag: 左岸
+    technology: 天端 EL.320.0
+    at: { x: 0, y: 200 }
+    size: { w: 140, h: 80 }
+  - id: kozui
+    label: 洪水吐
+    tag: SW-1〜3
+    technology: クレストゲート 3 門
+    at: { x: 140, y: 200 }
+    size: { w: 120, h: 80 }
+  - id: hi_r
+    label: 非越流部
+    tag: 右岸
+    technology: 天端 EL.320.0
+    at: { x: 260, y: 200 }
+    size: { w: 140, h: 80 }
+  - id: shusui
+    label: 取水塔
+    tag: IT-1
+    technology: 選択取水 5 段
+    at: { x: 60, y: 150 }
+    size: { w: 50, h: 50 }
+  - id: gensei
+    label: 減勢工
+    tag: SB-1
+    technology: 副ダム・静水池
+    at: { x: 140, y: 280 }
+    size: { w: 120, h: 120 }
+  - id: horyu
+    label: 放流管
+    tag: OT-1
+    technology: φ1,800・利水放流
+    at: { x: 60, y: 280 }
+    size: { w: 80, h: 60 }
+  - id: kanri
+    label: 管理所
+    tag: ADM
+    technology: 常時監視・警報設備
+    at: { x: 300, y: 300 }
+    size: { w: 100, h: 70 }
+edges:
+  - from: chosui
+    to: kozui
+    label: 洪水時
+  - from: shusui
+    to: horyu
+    label: 利水
+  - from: kozui
+    to: gensei
+    label: 放流

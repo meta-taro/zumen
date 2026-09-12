@@ -1,0 +1,92 @@
+version: 1
+kind: placement
+title: ほ場整備 平面図（30a 区画・24m×125m）
+# 1 px = 250 mm。30a = 24m × 125m = 3,000 m²
+scale: { mm: 250 }
+wall: { mm: 500 }
+north: up
+grid:
+  x:
+    - { id: X1, at: 16 }
+    - { id: X2, at: 208 }
+    - { id: X3, at: 224 }
+    - { id: X4, at: 416 }
+    - { id: X5, at: 432 }
+    - { id: X6, at: 624 }
+  y:
+    - { id: Y1, at: 16 }
+    - { id: Y2, at: 516 }
+groups:
+  - id: block
+    label: 第 1 工区　6 区画　計 1.80 ha　暗渠排水あり
+nodes:
+  - id: nodo_n
+    label: 幹線農道
+    technology: 幅員 4.0m・舗装
+    at: { x: 0, y: 0 }
+    size: { w: 640, h: 16 }
+    group: block
+  - id: yosui_w
+    label: 用水路
+    tag: U-1
+    technology: 幅 4.0m・開水路
+    at: { x: 0, y: 16 }
+    size: { w: 16, h: 500 }
+    group: block
+  - id: f11
+    label: 1-1
+    technology: 30a
+    at: { x: 16, y: 16 }
+    size: { w: 96, h: 500 }
+    group: block
+  - id: f12
+    label: 1-2
+    technology: 30a
+    at: { x: 112, y: 16 }
+    size: { w: 96, h: 500 }
+    group: block
+  - id: haisui
+    label: 排水路
+    tag: D-1
+    technology: 幅 4.0m・三面張
+    at: { x: 208, y: 16 }
+    size: { w: 16, h: 500 }
+    group: block
+  - id: f13
+    label: 1-3
+    technology: 30a
+    at: { x: 224, y: 16 }
+    size: { w: 96, h: 500 }
+    group: block
+  - id: f14
+    label: 1-4
+    technology: 30a
+    at: { x: 320, y: 16 }
+    size: { w: 96, h: 500 }
+    group: block
+  - id: yosui_e
+    label: 用水路
+    tag: U-2
+    technology: 幅 4.0m・支線
+    at: { x: 416, y: 16 }
+    size: { w: 16, h: 500 }
+    group: block
+  - id: f15
+    label: 1-5
+    technology: 30a
+    at: { x: 432, y: 16 }
+    size: { w: 96, h: 500 }
+    group: block
+  - id: f16
+    label: 1-6
+    technology: 30a
+    at: { x: 528, y: 16 }
+    size: { w: 96, h: 500 }
+    group: block
+  - id: yosuiki
+    label: 揚水機場
+    tag: P-1
+    technology: 3.7kW・φ100
+    at: { x: 656, y: 16 }
+    size: { w: 100, h: 80 }
+    group: block

@@ -127,3 +127,51 @@ describe('箱に入らない文字は、外へ出す', () => {
     assert.equal(out.match(/<text /g)!.length, 1);
   });
 });
+
+describe('細い帯の名前は、帯に沿って縦に書く', () => {
+  /**
+   * 圃場整備の図で出た（2026-09-12）。
+   * 用水路（幅 4m）・排水路・廊下は、名前が横には入らないが**縦には入る。**
+   * 外へ出すと、隣の帯の名前と図の外で団子になる。
+   */
+  const STRIP = `version: 1
+kind: placement
+nodes:
+  - id: u
+    label: 用水路
+    at: { x: 0, y: 0 }
+    size: { w: 16, h: 500 }
+  - id: f
+    label: 1-1
+    technology: 30a
+    at: { x: 16, y: 0 }
+    size: { w: 96, h: 500 }
+`;
+
+  it('**横に入らない細い帯は、回して中に書く**', async () => {
+    const out = render(await layout(STRIP), 'light', 'safe', true);
+    assert.match(out, /transform="rotate\(-90 [^)]*\)">用水路</, '用水路が縦書きになっていない');
+  });
+
+  it('**横に入るなら回さない。** 縦長でも幅が足りていれば横書き', async () => {
+    const out = render(await layout(STRIP), 'light', 'safe', true);
+    assert.ok(out.includes('>1-1<'), '区画名が消えた');
+    assert.ok(!/transform="rotate\(-90 [^)]*\)">1-1</.test(out), '横に入るのに回した');
+  });
+
+  it('縦にも入らなければ、外へ出す（回して切れた文字を出さない）', async () => {
+    const out = render(
+      await layout(STRIP.replace('size: { w: 16, h: 500 }', 'size: { w: 16, h: 24 }')),
+      'light',
+      'safe',
+      true,
+    );
+    assert.ok(out.includes('>用水路<'));
+    assert.ok(!out.includes('rotate(-90'), '入らないのに回した');
+  });
+
+  it('**構成図では回さない**（箱は文字から決まるので必ず横に入る）', async () => {
+    const out = render(await layout(STRIP.replace('kind: placement', '')), 'light', 'safe', false);
+    assert.ok(!out.includes('rotate(-90'));
+  });
+});
