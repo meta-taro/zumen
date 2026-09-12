@@ -36,6 +36,7 @@ import { toMermaid } from './mermaid.ts';
 import { KINDS, kindOf, measureOf } from './kind.ts';
 import { DIRECTIONS } from './direction.ts';
 import { NORTHS } from './grid.ts';
+import { crowdedNames, extentOf, planNames } from './names.ts';
 import { OPENINGS, SIDES } from './openings.ts';
 import type { Kind } from './kind.ts';
 import { projection, PROJECTION_FLOOR, SMALLEST_TEXT } from './projection.ts';
@@ -183,6 +184,16 @@ export interface Inspection {
    */
   hiddenLabels: string[];
   /**
+   * **混んでいる名前**（配置図だけ）。
+   *
+   * 箱に入りきらない名前は外へ出す。**外も空いていないことがある**
+   * —— 上下とも別の部屋なら、どちらへ出しても重なる。
+   *
+   * 消しはしない（**部屋の名前が消えるのは、重なるより悪い**）。
+   * 代わりにここへ返す。**箱を大きくするか、文字を短くすれば直る。**
+   */
+  crowdedNames: string[];
+  /**
    * **人がこの図を見たか。**
    *
    * `pins` は「人が**直した**」記録で、これは「人が**見た**」記録（仕様 §3.5）。
@@ -242,6 +253,7 @@ export async function inspect(source: string): Promise<Inspection> {
       passLine: PASS_LINE,
       tooTangled: false,
       hiddenLabels: [],
+      crowdedNames: [],
       kind: 'structure',
       positionsInSource: false,
       reviewed: false,
@@ -279,6 +291,8 @@ export async function inspect(source: string): Promise<Inspection> {
     passLine: PASS_LINE,
     tooTangled: placed.edges.length > 0 && crossed > placed.edges.length,
     hiddenLabels: placed.edges.filter((e) => e.label !== null && !shown.has(e.id)).map((e) => e.id),
+    crowdedNames:
+      kindOf(source) === 'placement' ? crowdedNames(planNames(placed.boxes, extentOf(placed.boxes))) : [],
     ...(() => {
       const seen = reviewOf(source);
       return { reviewed: seen.reviewed, reviewedAt: seen.at, reviewStale: seen.stale };

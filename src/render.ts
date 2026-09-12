@@ -27,6 +27,8 @@
 import { drawDimensions, drawGrid, drawNorth } from './dimensions.ts';
 import type { Frame, Ink } from './dimensions.ts';
 import { hasGrid } from './grid.ts';
+import { NAME_FONT, SUB_FONT, planNames } from './names.ts';
+import type { Plan } from './names.ts';
 import { drawRange, ringOf } from './range.ts';
 import { wallWidth } from './wall.ts';
 import { drawOpenings } from './openings.ts';
@@ -100,8 +102,11 @@ export function render(
   // **壁の厚みは平面図だけの話。** 構成図の箱は壁ではない。
   const wall = plan ? wallWidth(placed.wall, placed.mm) : null;
   const outerWall = plan ? wallWidth(placed.wall, placed.mm, true) : null;
-  // 箱に入らない文字を、上下どちらへ出すかを決めるのに使う。
-  const span = plan && placed.boxes.length > 0 ? frameOf(placed) : null;
+  // **配置図の文字の置き方は、図ぜんたいを見て決める**（`src/names.ts`）。
+  // 1 つずつ決めると、外へ出した文字が他の箱に乗る。
+  const names = plan
+    ? planNames(placed.boxes, placed.boxes.length > 0 ? frameOf(placed) : null)
+    : new Map<string, Plan>();
   // **置けなかったラベルは、ここに入ってこない**（重ねて出さない。Issue #3 の 3）。
   const labels = new Map(
     placeEdgeLabels(placed.edges, placed.boxes, placed.groups).map((label) => [label.id, label]),
@@ -117,7 +122,7 @@ export function render(
     ...(plan && placed.arrows
       ? []
       : placed.edges.map((edge) => renderEdge(edge, labels.get(edge.id) ?? null, palette, plan, placed.arrows))),
-    ...stack(placed.boxes, plan).map((box) => renderNode(box, palette, plan, wall, span)),
+    ...stack(placed.boxes, plan).map((box) => renderNode(box, palette, plan, wall, names.get(box.id) ?? null)),
     // **向きのある矢印は、図の上に載せる注記。**
     //
     // 部屋の塗りは透けないので、下に置くと**隣どうしの矢印が完全に消える。**
@@ -234,7 +239,7 @@ function renderNode(
   palette: Palette,
   plan = false,
   wall: number | null = null,
-  frame: Frame | null = null,
+  name: Plan | null = null,
 ): string {
   const style = lookOf(box.appearance, palette);
   const attributes = [
@@ -278,7 +283,7 @@ function renderNode(
     shape,
     holes,
     ...nodeTag(box, palette, style),
-    ...nodeText(box, palette, style, textShift(kind), plan, frame),
+    ...nodeText(box, palette, style, textShift(kind), plan ? name : null),
     '</g>',
   ].join('');
 }
@@ -315,98 +320,51 @@ function subtitleOn(style: Look, palette: Palette): string {
  *
  * 副題（`technology`）があれば 2 行にする。無ければ 1 行のまま中央へ。
  * **所属や版を書ける唯一の場所**なので、描かないとラベルへ畳むしかなくなる（Issue #3 の 4）。
- */
-/**
- * 箱の中の文字。
  *
- * 副題（`technology`）があれば 2 行にする。無ければ 1 行のまま中央へ。
- * **所属や版を書ける唯一の場所**なので、描かないとラベルへ畳むしかなくなる（Issue #3 の 4）。
- *
- * ## 配置図では、入れ方を 4 段で選ぶ
- *
- * 箱の大きさを人と AI が書くので、**入らない箱が出る。**
- * 落とすのは行き過ぎで（路線図で駅名が全部消えた）、
- * かといって何でも外へ出すと、**他の部屋の上に落ちる**（映画館の横通路で出た）。
- *
- * 1. **そのまま中に入る** → 中へ
- * 2. **背が低いだけ**（横には入る）→ **名前と副題を 1 行に繋いで**中へ
- * 3. **名前は入るが副題が入らない** → 名前は中へ、**副題は横に回して添える**
- *    （駐車場の区画。`W1` は入るが `車椅子 3,500` は入らない）
- * 4. **横に入らないが、縦になら入る**（用水路・廊下）→ 帯に沿って縦へ
- * 5. **どれも駄目** → 図の縁に近いほうの外へ
+ * **配置図の置き方は `src/names.ts` が決める**（5 段 ＋ 外へ出すときの当たり判定）。
+ * ここは決まったとおりに描くだけ。
  */
 function nodeText(
   box: Box,
   palette: Palette,
   style: Look,
   shift = 0,
-  plan = false,
-  frame: Frame | null = null,
+  plan: Plan | null = null,
 ): string[] {
   const cx = n(box.x + box.w / 2);
-  const size = plan ? 12 : 15;
-  const subSize = plan ? 10 : 11;
+  const size = plan === null ? 15 : NAME_FONT;
+  const subSize = plan === null ? 11 : SUB_FONT;
   const sub = subtitleOn(style, palette);
 
   const text = (x: number, y: number, body: string, font: number, fill: string, turn = ''): string =>
     `<text x="${n(x)}" y="${n(y)}" text-anchor="middle" font-family="${FONT}" font-size="${font}" fill="${fill}"${turn}>${escapeText(body)}</text>`;
 
   // 構成図は、箱の大きさを文字から決めてある。必ず入るので選ばない。
-  if (!plan) {
-    const cy = box.y + box.h / 2 + shift;
-    if (box.technology === null) return [text(cx, cy + 5, box.label, size, style.text)];
+  if (plan === null) {
+    const mid = box.y + box.h / 2 + shift;
+    if (box.technology === null) return [text(cx, mid + 5, box.label, size, style.text)];
     return [
-      text(cx, cy - 2, box.label, size, style.text),
-      text(cx, cy + 16, box.technology, subSize, sub),
+      text(cx, mid - 2, box.label, size, style.text),
+      text(cx, mid + 16, box.technology, subSize, sub),
     ];
   }
 
-  const wide = (body: string, font: number): boolean => labelWidth(body, font) + 6 <= box.w;
-
-  /**
-   * **符号の分だけ、中の文字を下げる。**
-   *
-   * 符号は左上に置く（拾い読みのため）。箱が大きければ中央の文字と離れるが、
-   * **背の低い箱では重なる** —— 車両編成図で「2 号車」と「モハ 100-1」が
-   * 同じ行に出た（2026-09-12）。
-   */
+  // **符号の分だけ、中の文字を下げる。** 背の低い箱では符号と名前が重なる
+  // （車両編成図で「2 号車」と「モハ 100-1」が同じ行に出た）。
   const crown = box.tag === null ? 0 : 12;
   const cy = box.y + crown + (box.h - crown) / 2;
+  const turnAt = (x: number): string => ` transform="rotate(-90 ${n(x)} ${n(cy)})"`;
 
-  // 1. そのまま中へ。
-  if (box.technology === null && wide(box.label, size)) {
-    return [text(cx, cy + 4, box.label, size, style.text)];
-  }
-  if (box.technology !== null && box.h >= 34 && wide(box.label, size) && wide(box.technology, subSize)) {
+  if (plan.kind === 'joined') return [text(cx, cy + 4, plan.text, size, style.text)];
+
+  if (plan.kind === 'aside') {
     return [
-      text(cx, cy - 4, box.label, size, style.text),
-      text(cx, cy + 11, box.technology, subSize, sub),
+      text(cx + 6, cy + 4, box.label, size, style.text),
+      text(box.x + 12, cy, box.technology!, subSize, sub, turnAt(box.x + 12)),
     ];
   }
 
-  // 2. 背が低いだけなら、1 行に繋ぐ。**通路や農道はこれ。**
-  if (box.technology !== null && box.h < 34) {
-    const joined = `${box.label}　${box.technology}`;
-    if (wide(joined, size)) return [text(cx, cy + 4, joined, size, style.text)];
-  }
-
-  const turnAt = (x: number): string => ` transform="rotate(-90 ${n(x)} ${n(cy)})"`;
-
-  // 3. **名前は横に入るが、副題が入らない。** 名前は中へ、副題は横に回して添える。
-  //    駐車場の区画がこれ —— `W1` は入るが `車椅子 3,500` は入らない。
-  //    実物の区画割図も、幅の数値は区画に沿って縦に書いてある。
-  if (box.technology !== null && wide(box.label, size)) {
-    const fitsAlong = labelWidth(box.technology, subSize) + 8 <= box.h && box.w >= 30;
-    if (fitsAlong) {
-      return [
-        text(cx + 6, cy + 4, box.label, size, style.text),
-        text(box.x + 12, cy, box.technology, subSize, sub, turnAt(box.x + 12)),
-      ];
-    }
-  }
-
-  // 4. 縦に細い帯は、帯に沿って。**用水路（幅 4m）は横に入らないが縦には入る。**
-  if (!wide(box.label, size) && box.h > box.w && labelWidth(box.label, size) + 8 <= box.h) {
+  if (plan.kind === 'along') {
     const lines = [text(cx, cy, box.label, size, style.text, turnAt(cx))];
     if (box.technology !== null && labelWidth(box.technology, subSize) + 8 <= box.h && box.w >= 26) {
       const sx = box.x + box.w / 2 + 11;
@@ -415,20 +373,22 @@ function nodeText(
     return lines;
   }
 
-  // 5. 図の縁に近いほうの外へ。**符号は箱の中に残す**（拾い読みのため）。
-  //
-  // **図の外へ出してしまわない。** 上端の箱で上へ出すと、y が負になって消える
-  // （車両編成図の 1 号車で、名前が丸ごと見えなくなった）。
-  const rows = box.technology === null ? 1 : 2;
-  const roomAbove = frame === null ? 0 : box.y - frame.y;
-  const roomBelow = frame === null ? 0 : frame.y + frame.h - (box.y + box.h);
-  const above = roomAbove >= rows * 12 + 6 && roomAbove < roomBelow;
-  const outside = (step: number, body: string, font: number, fill: string): string =>
-    text(cx, above ? box.y - 6 - step * 12 : box.y + box.h + 13 + step * 12, body, font, fill);
+  if (plan.kind === 'outside') {
+    const step = (i: number): number =>
+      plan.above ? plan.y - i * 12 : plan.y + i * 12;
+    const first = plan.above && box.technology !== null ? 1 : 0;
+    const lines = [text(plan.x, step(first), box.label, size, style.text)];
+    if (box.technology !== null) {
+      lines.push(text(plan.x, step(plan.above ? 0 : 1), box.technology, subSize, sub));
+    }
+    return lines;
+  }
 
-  const lines = [outside(above && box.technology !== null ? 1 : 0, box.label, size, style.text)];
-  if (box.technology !== null) lines.push(outside(above ? 0 : 1, box.technology, subSize, sub));
-  return lines;
+  if (box.technology === null) return [text(cx, cy + 4, box.label, size, style.text)];
+  return [
+    text(cx, cy - 4, box.label, size, style.text),
+    text(cx, cy + 11, box.technology, subSize, sub),
+  ];
 }
 
 function renderEdge(
