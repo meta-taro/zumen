@@ -1,0 +1,117 @@
+version: 1
+kind: placement
+title: 平面駐車場 区画割図（14 台・車椅子使用者用 2）
+# 1 px = 50 mm。一般 2,500×5,000／車椅子使用者用 3,500／車路 5,500
+scale: { mm: 50 }
+wall: { mm: 150 }
+north: up
+grid:
+  x:
+    - { id: X1, at: 60 }
+    - { id: X2, at: 450 }
+  y:
+    - { id: Y1, at: 0 }
+    - { id: Y2, at: 100 }
+    - { id: Y3, at: 210 }
+    - { id: Y4, at: 310 }
+groups:
+  - id: lot
+    label: 敷地　附置義務 12 台に対し 14 台　うち車椅子使用者用 2
+pins:
+  w1:
+    appearance: primary
+nodes:
+  - id: p1
+    label: P1
+    at: { x: 60, y: 0 }
+    size: { w: 50, h: 100 }
+    group: lot
+  - id: p2
+    label: P2
+    at: { x: 110, y: 0 }
+    size: { w: 50, h: 100 }
+    group: lot
+  - id: p3
+    label: P3
+    at: { x: 160, y: 0 }
+    size: { w: 50, h: 100 }
+    group: lot
+  - id: p4
+    label: P4
+    at: { x: 210, y: 0 }
+    size: { w: 50, h: 100 }
+    group: lot
+  - id: p5
+    label: P5
+    at: { x: 260, y: 0 }
+    size: { w: 50, h: 100 }
+    group: lot
+  - id: p6
+    label: P6
+    at: { x: 310, y: 0 }
+    size: { w: 50, h: 100 }
+    group: lot
+  - id: p7
+    label: P7
+    at: { x: 360, y: 0 }
+    size: { w: 50, h: 100 }
+    group: lot
+  - id: k1
+    label: K1
+    technology: 軽 2,000
+    at: { x: 410, y: 0 }
+    size: { w: 40, h: 100 }
+    group: lot
+  - id: iriguchi
+    label: 出入口
+    tag: E-1
+    technology: 有効 6,000
+    at: { x: 0, y: 100 }
+    size: { w: 60, h: 110 }
+    group: lot
+  - id: sharo
+    label: 車路
+    technology: 有効 5,500・対面通行
+    at: { x: 60, y: 100 }
+    size: { w: 390, h: 110 }
+    group: lot
+  - id: w1
+    label: W1
+    technology: 車椅子 3,500
+    at: { x: 60, y: 210 }
+    size: { w: 70, h: 100 }
+    group: lot
+  - id: w2
+    label: W2
+    technology: 車椅子 3,500
+    at: { x: 130, y: 210 }
+    size: { w: 70, h: 100 }
+    group: lot
+  - id: p8
+    label: P8
+    at: { x: 200, y: 210 }
+    size: { w: 50, h: 100 }
+    group: lot
+  - id: p9
+    label: P9
+    at: { x: 250, y: 210 }
+    size: { w: 50, h: 100 }
+    group: lot
+  - id: p10
+    label: P10
+    at: { x: 300, y: 210 }
+    size: { w: 50, h: 100 }
+    group: lot
+  - id: p11
+    label: P11
+    at: { x: 350, y: 210 }
+    size: { w: 50, h: 100 }
+    group: lot
+  - id: p12
+    label: P12
+    at: { x: 400, y: 210 }
+    size: { w: 50, h: 100 }
+    group: lot
+edges:
+  - from: iriguchi
+    to: sharo

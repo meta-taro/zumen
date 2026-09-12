@@ -200,3 +200,61 @@ nodes:
     assert.ok(!out.includes('rotate(-90'));
   });
 });
+
+describe('名前は入るが、副題が入らないとき', () => {
+  /**
+   * 駐車場の区画割で出た（2026-09-12）。
+   * `W1` は 70px の区画に横で入るが、`車椅子 3,500` は入らない。
+   * 以前は**名前まで縦書きになった。**
+   * 実物の区画割図も、名前は横・幅の数値は区画に沿って縦に書いてある。
+   */
+  const STALL = `version: 1
+kind: placement
+nodes:
+  - id: w1
+    label: W1
+    technology: 車椅子 3,500
+    at: { x: 0, y: 0 }
+    size: { w: 70, h: 100 }
+`;
+
+  it('**名前は横のまま**', async () => {
+    const out = render(await layout(STALL), 'light', 'safe', true);
+    assert.ok(!/rotate\(-90 [^)]*\)">W1</.test(out), '名前まで回した');
+    assert.ok(out.includes('>W1<'));
+  });
+
+  it('**副題だけ回して添える**', async () => {
+    const out = render(await layout(STALL), 'light', 'safe', true);
+    assert.match(out, /rotate\(-90 [^)]*\)">車椅子 3,500</, '副題が回っていない');
+  });
+
+  it('副題が縦にも入らなければ、外へ出す', async () => {
+    const out = render(
+      await layout(STALL.replace('size: { w: 70, h: 100 }', 'size: { w: 70, h: 30 }')),
+      'light',
+      'safe',
+      true,
+    );
+    assert.ok(out.includes('車椅子 3,500'), '副題が落ちた');
+  });
+});
+
+describe('符号のある箱', () => {
+  it('**符号と名前が重ならない**（車両編成図で重なった）', async () => {
+    const src = `version: 1
+kind: placement
+nodes:
+  - id: c
+    label: モハ 100-1
+    tag: 2 号車
+    at: { x: 0, y: 0 }
+    size: { w: 84, h: 58 }
+`;
+    const placed = await layout(src);
+    const out = render(placed, 'light', 'safe', true);
+    const tagY = Number(out.match(/<text x="\d+" y="(\d+)"[^>]*>2 号車</)![1]);
+    const nameY = Number(out.match(/<text x="\d+" y="(\d+)"[^>]*>モハ 100-1</)![1]);
+    assert.ok(nameY - tagY >= 10, `符号 ${tagY} と名前 ${nameY} が近すぎる`);
+  });
+});

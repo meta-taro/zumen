@@ -330,8 +330,10 @@ function subtitleOn(style: Look, palette: Palette): string {
  *
  * 1. **そのまま中に入る** → 中へ
  * 2. **背が低いだけ**（横には入る）→ **名前と副題を 1 行に繋いで**中へ
- * 3. **横に入らないが、縦になら入る**（用水路・廊下）→ 帯に沿って縦へ
- * 4. **どれも駄目** → 図の縁に近いほうの外へ
+ * 3. **名前は入るが副題が入らない** → 名前は中へ、**副題は横に回して添える**
+ *    （駐車場の区画。`W1` は入るが `車椅子 3,500` は入らない）
+ * 4. **横に入らないが、縦になら入る**（用水路・廊下）→ 帯に沿って縦へ
+ * 5. **どれも駄目** → 図の縁に近いほうの外へ
  */
 function nodeText(
   box: Box,
@@ -388,20 +390,32 @@ function nodeText(
     if (wide(joined, size)) return [text(cx, cy + 4, joined, size, style.text)];
   }
 
-  // 3. 縦に細い帯は、帯に沿って。**用水路（幅 4m）は横に入らないが縦には入る。**
-  if (box.h > box.w && labelWidth(box.label, size) + 8 <= box.h) {
-    const turn = ` transform="rotate(-90 ${cx} ${n(cy)})"`;
-    const lines = [text(cx, cy, box.label, size, style.text, turn)];
+  const turnAt = (x: number): string => ` transform="rotate(-90 ${n(x)} ${n(cy)})"`;
+
+  // 3. **名前は横に入るが、副題が入らない。** 名前は中へ、副題は横に回して添える。
+  //    駐車場の区画がこれ —— `W1` は入るが `車椅子 3,500` は入らない。
+  //    実物の区画割図も、幅の数値は区画に沿って縦に書いてある。
+  if (box.technology !== null && wide(box.label, size)) {
+    const fitsAlong = labelWidth(box.technology, subSize) + 8 <= box.h && box.w >= 30;
+    if (fitsAlong) {
+      return [
+        text(cx + 6, cy + 4, box.label, size, style.text),
+        text(box.x + 12, cy, box.technology, subSize, sub, turnAt(box.x + 12)),
+      ];
+    }
+  }
+
+  // 4. 縦に細い帯は、帯に沿って。**用水路（幅 4m）は横に入らないが縦には入る。**
+  if (!wide(box.label, size) && box.h > box.w && labelWidth(box.label, size) + 8 <= box.h) {
+    const lines = [text(cx, cy, box.label, size, style.text, turnAt(cx))];
     if (box.technology !== null && labelWidth(box.technology, subSize) + 8 <= box.h && box.w >= 26) {
       const sx = box.x + box.w / 2 + 11;
-      lines.push(
-        text(sx, cy, box.technology, subSize, sub, ` transform="rotate(-90 ${n(sx)} ${n(cy)})"`),
-      );
+      lines.push(text(sx, cy, box.technology, subSize, sub, turnAt(sx)));
     }
     return lines;
   }
 
-  // 4. 図の縁に近いほうの外へ。**符号は箱の中に残す**（拾い読みのため）。
+  // 5. 図の縁に近いほうの外へ。**符号は箱の中に残す**（拾い読みのため）。
   //
   // **図の外へ出してしまわない。** 上端の箱で上へ出すと、y が負になって消える
   // （車両編成図の 1 号車で、名前が丸ごと見えなくなった）。

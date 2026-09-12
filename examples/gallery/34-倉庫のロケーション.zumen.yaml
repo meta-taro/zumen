@@ -1,0 +1,93 @@
+version: 1
+kind: placement
+title: 物流倉庫 ロケーション図（中量棚 3 列・リーチフォーク）
+# 1 px = 25 mm。棚 W1800×D600、通路 有効 2,800
+scale: { mm: 25 }
+wall: { mm: 150, outer: 250 }
+north: up
+grid:
+  x:
+    - { id: X1, at: 0 }
+    - { id: X2, at: 600 }
+    - { id: X3, at: 760 }
+  y:
+    - { id: Y1, at: 0 }
+    - { id: Y2, at: 296 }
+    - { id: Y3, at: 420 }
+groups:
+  - id: soko
+    label: 保管区画　有効 H=5,000　床荷重 15kN/m²　スプリンクラー
+nodes:
+  - id: tanaA
+    label: A 列
+    tag: A-01〜A-16
+    technology: 中量棚 W1800×D600×H2100・4 段
+    at: { x: 0, y: 0 }
+    size: { w: 600, h: 24 }
+    group: soko
+  - id: tsuroA
+    label: 通路
+    technology: 有効 2,800
+    at: { x: 0, y: 24 }
+    size: { w: 600, h: 112 }
+    group: soko
+  - id: tanaB
+    label: B 列
+    tag: B-01〜B-16
+    technology: 中量棚 W1800×D600×H2100・4 段
+    at: { x: 0, y: 136 }
+    size: { w: 600, h: 24 }
+    group: soko
+  - id: tsuroB
+    label: 通路
+    technology: 有効 2,800
+    at: { x: 0, y: 160 }
+    size: { w: 600, h: 112 }
+    group: soko
+  - id: tanaC
+    label: C 列
+    tag: C-01〜C-16
+    technology: パレットラック・2 段
+    at: { x: 0, y: 272 }
+    size: { w: 600, h: 24 }
+    group: soko
+  - id: mainT
+    label: 基幹通路
+    technology: 有効 4,000・双方向
+    at: { x: 600, y: 0 }
+    size: { w: 160, h: 296 }
+    group: soko
+  - id: kenpin
+    label: 検品エリア
+    tag: QC
+    technology: 作業台 4・ハンディ端末
+    at: { x: 0, y: 296 }
+    size: { w: 260, h: 124 }
+    group: soko
+    openings:
+      - { kind: open, side: top, at: 0.5, width: 80 }
+  - id: shukka
+    label: 出荷バース
+    tag: DK-1/2
+    technology: ドックレベラー 2・H=1,200
+    at: { x: 260, y: 296 }
+    size: { w: 340, h: 124 }
+    group: soko
+    openings:
+      - { kind: double, side: bottom, at: 0.3, width: 60 }
+      - { kind: double, side: bottom, at: 0.7, width: 60 }
+  - id: jimu
+    label: 事務所
+    technology: 在庫管理 3 名
+    at: { x: 600, y: 296 }
+    size: { w: 160, h: 124 }
+    group: soko
+    openings:
+      - { kind: door, side: left, at: 0.5, width: 34 }
+edges:
+  - from: shukka
+    to: kenpin
+    label: 出荷検品
+  - from: mainT
+    to: tsuroA
+    label: ピッキング
