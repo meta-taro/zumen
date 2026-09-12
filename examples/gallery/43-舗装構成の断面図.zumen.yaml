@@ -1,0 +1,40 @@
+version: 1
+kind: placement
+title: 車道 舗装構成断面図（N5 交通・TA=21cm 相当）
+# 1 px = 5 mm。断面なので y は深さ（下が深い）
+scale: { mm: 5 }
+grid:
+  x:
+    - { id: X1, at: 0 }
+    - { id: X2, at: 400 }
+  y:
+    - { id: FH±0, at: 0, mark: level }
+    - { id: 路盤上 -100, at: 20, mark: level }
+    - { id: 路床面 -550, at: 110, mark: level }
+    - { id: 掘削底 -1550, at: 310, mark: level }
+nodes:
+  - id: hyoso
+    label: 表層
+    technology: 密粒度アスコン 13F t=50
+    at: { x: 0, y: 0 }
+    size: { w: 400, h: 10 }
+  - id: kiso
+    label: 基層
+    technology: 粗粒度アスコン 20 t=50
+    at: { x: 0, y: 10 }
+    size: { w: 400, h: 10 }
+  - id: joban
+    label: 上層路盤
+    technology: 粒度調整砕石 M-25 t=150
+    at: { x: 0, y: 20 }
+    size: { w: 400, h: 30 }
+  - id: kaban
+    label: 下層路盤
+    technology: クラッシャラン C-40 t=300
+    at: { x: 0, y: 50 }
+    size: { w: 400, h: 60 }
+  - id: rosho
+    label: 路床
+    technology: 設計 CBR 6・t=1,000
+    at: { x: 0, y: 110 }
+    size: { w: 400, h: 200 }

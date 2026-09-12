@@ -1,0 +1,131 @@
+version: 1
+wrap: true
+title: 小型地球観測衛星 系統図（150kg 級・太陽同期軌道）
+pins:
+  obc:
+    appearance: primary
+groups:
+  - id: mission
+    label: ミッション系
+  - id: bus
+    label: バス系
+  - id: power
+    label: 電源系
+  - id: aocs
+    label: 姿勢軌道制御系（AOCS）
+nodes:
+  - id: sensor
+    type: generic
+    label: 光学センサ
+    tag: OPT
+    technology: 地上分解能 2.5m
+    group: mission
+  - id: mdr
+    type: storage
+    label: ミッション記録装置
+    tag: MDR
+    technology: 512Gbit・SSD
+    group: mission
+  - id: xband
+    type: network
+    label: X 帯送信機
+    tag: XTX
+    technology: 100Mbps・観測データ
+    group: mission
+  - id: obc
+    type: cluster
+    label: 搭載計算機
+    tag: OBC
+    technology: 冗長 2 系・SpaceWire
+    group: bus
+  - id: sband
+    type: network
+    label: S 帯送受信機
+    tag: STXR
+    technology: 上り 4kbps／下り 32kbps
+    group: bus
+  - id: thermal
+    type: generic
+    label: 熱制御
+    tag: TCS
+    technology: MLI・ヒータ 12 系統
+    group: bus
+  - id: paddle
+    type: generic
+    label: 太陽電池パドル
+    tag: SAP
+    technology: 2 翼・BOL 900W
+    group: power
+  - id: pcu
+    type: cluster
+    label: 電力制御装置
+    tag: PCU
+    technology: 非安定 50V バス
+    group: power
+  - id: battery
+    type: storage
+    label: バッテリ
+    tag: BAT
+    technology: Li-ion 50Ah・DOD 20%
+    group: power
+  - id: str
+    type: generic
+    label: スタートラッカ
+    tag: STT
+    technology: 2 台・精度 10 秒角
+    group: aocs
+  - id: irus
+    type: generic
+    label: 慣性基準装置
+    tag: IRU
+    technology: 光ファイバジャイロ 3 軸
+    group: aocs
+  - id: rw
+    type: generic
+    label: リアクションホイール
+    tag: RW
+    technology: 4 台・0.1Nm
+    group: aocs
+  - id: thruster
+    type: queue
+    label: スラスタ
+    tag: RCS
+    technology: ヒドラジン 1N×8
+    group: aocs
+edges:
+  - from: sensor
+    to: mdr
+  - from: mdr
+    to: xband
+    label: 100Mbps
+  - from: obc
+    to: sensor
+    label: 撮像
+  - from: obc
+    to: sband
+    label: TLM
+  - from: sband
+    to: obc
+    label: CMD
+  - from: paddle
+    to: pcu
+  - from: pcu
+    to: battery
+    label: 充放電
+  - from: pcu
+    to: obc
+    label: 50V
+  - from: pcu
+    to: thermal
+  - from: str
+    to: obc
+    label: 姿勢
+  - from: irus
+    to: obc
+    label: 角速度
+  - from: obc
+    to: rw
+    label: トルク
+  - from: obc
+    to: thruster
+    label: 噴射
