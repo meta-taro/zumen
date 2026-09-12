@@ -18,6 +18,7 @@ import type { Document, Node, YAMLMap } from 'yaml';
 import { DIRECTIONS as DIRECTION_WORDS } from './direction.ts';
 import { KINDS as KIND_WORDS } from './kind.ts';
 import { MARKS, NORTHS } from './grid.ts';
+import { HATCHES } from './hatch.ts';
 import { MARKERS } from './marker.ts';
 import { messages } from './messages.ts';
 import { OPENINGS, SIDES } from './openings.ts';
@@ -52,6 +53,7 @@ const OPENING_SIDES = new Set<string>(SIDES);
 const NORTH_WORDS = new Set<string>(NORTHS);
 const MARK_WORDS = new Set<string>(MARKS);
 const MARKER_WORDS = new Set<string>(MARKERS);
+const HATCH_WORDS = new Set<string>(HATCHES);
 
 /** `pins` の中で、位置や体裁ではなく人の決定を表す鍵。迷子の判定には関係しない。 */
 const EDGE_KEY = /^(.+)>(.+)$/;
@@ -311,6 +313,15 @@ function checkGeometry(doc: Document, add: Add, m: Messages, at: At): void {
         add('warning', 'marker-unknown', m.markerUnknown(id, String(marker)), at(item.get('marker', true)));
       } else if (!placement) {
         add('warning', 'marker-ignored', m.markerIgnored(id), at(item.get('marker', true)));
+      }
+    }
+
+    const hatch = item.get('hatch');
+    if (hatch !== undefined && hatch !== null) {
+      if (!HATCH_WORDS.has(String(hatch))) {
+        add('warning', 'hatch-unknown', m.hatchUnknown(id, String(hatch)), at(item.get('hatch', true)));
+      } else if (!placement) {
+        add('warning', 'hatch-ignored', m.hatchIgnored(id), at(item.get('hatch', true)));
       }
     }
 

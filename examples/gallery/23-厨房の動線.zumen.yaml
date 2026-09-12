@@ -3,22 +3,24 @@ kind: placement
 title: 給食厨房の区域と一方通行（HACCP）
 groups:
   - id: osen
-    label: 汚染作業区域
+    label: 汚染作業区域（格子）
   - id: junsei
-    label: 準清潔作業区域
+    label: 準清潔作業区域（斜線）
   - id: seiketsu
-    label: 清潔作業区域
+    label: 清潔作業区域（無地）
 nodes:
   - id: kenpin
     label: 検収
     tag: A-01
     technology: 10℃ 以下で受け
+    hatch: cross
     at: { x: 40, y: 40 }
     size: { w: 150, h: 110 }
     group: osen
   - id: shitagoshirae
     label: 下処理
     tag: A-02
+    hatch: cross
     at: { x: 40, y: 170 }
     size: { w: 150, h: 110 }
     group: osen
@@ -26,6 +28,7 @@ nodes:
     label: 洗浄
     tag: A-03
     technology: 三槽シンク
+    hatch: cross
     at: { x: 40, y: 300 }
     size: { w: 150, h: 110 }
     group: osen
@@ -33,6 +36,7 @@ nodes:
     label: 加熱調理
     tag: B-01
     technology: 中心 75℃ 1 分
+    hatch: lines
     at: { x: 250, y: 40 }
     size: { w: 170, h: 170 }
     group: junsei
@@ -40,6 +44,7 @@ nodes:
     label: 急速冷却
     tag: B-02
     technology: 30 分で 20℃
+    hatch: lines
     at: { x: 250, y: 230 }
     size: { w: 170, h: 110 }
     group: junsei
@@ -47,6 +52,7 @@ nodes:
     label: 保温
     tag: B-03
     technology: 65℃ 以上
+    hatch: lines
     at: { x: 250, y: 360 }
     size: { w: 170, h: 90 }
     group: junsei

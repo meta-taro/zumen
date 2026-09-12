@@ -17,7 +17,7 @@ grid:
     - { id: Y4, at: 400 }
 groups:
   - id: f3
-    label: 3 階　避難口 2 か所　最遠点からの歩行距離 21m
+    label: 3 階　避難口 2 か所　最遠点からの歩行距離 21m　格子＝避難に使わない
 nodes:
   - id: jimu
     label: 事務室
@@ -79,6 +79,7 @@ nodes:
       - { kind: door, side: top, at: 0.5, width: 45 }
   - id: ev
     label: EV
+    hatch: cross
     technology: 避難に使わない
     at: { x: 250, y: 290 }
     size: { w: 100, h: 110 }

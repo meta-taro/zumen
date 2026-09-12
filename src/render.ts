@@ -27,6 +27,7 @@
 import { drawDimensions, drawGrid, drawNorth } from './dimensions.ts';
 import type { Frame, Ink } from './dimensions.ts';
 import { hasGrid } from './grid.ts';
+import { drawHatch } from './hatch.ts';
 import { drawMarker } from './marker.ts';
 import { NAME_FONT, SUB_FONT, planNames } from './names.ts';
 import type { Plan } from './names.ts';
@@ -270,6 +271,27 @@ function renderNode(
   // **印の描き方は正本が選ぶ**（`src/marker.ts`。丸・二重丸・枠なし）。
   const shape = plan ? drawMarker(box.marker, box, paint) : drawShape(kind, box, paint);
 
+  // **材料と区域の模様**（`src/hatch.ts`）。枠の内側に、枠と同じ色で描く。
+  // **建具より先。** 建具は穴なので、模様の上に開ける。
+  const pattern = plan ? drawHatch(box.hatch, box, style.stroke) : '';
+
+  // **塗り潰した面の上では、文字を地の色にする。**
+  // 黒く塗ったアスコンの上に黒い文字を書くと読めない
+  // （`DESIGN.md` §8 と同じ考え —— 地から遠いインクを選ぶ）。
+  const ink =
+    plan && box.hatch === 'solid' ? { ...style, text: palette.paper } : style;
+
+  /**
+   * **模様の上の文字は、下地を抜く。**
+   *
+   * 点や斜線の上に文字を重ねると読めない。実物の図面も、
+   * **文字のところで模様を切っている**（寸法線の数値と同じ扱い）。
+   *
+   * 塗り潰し（`solid`）は抜かない —— 文字を地の色にしてあるので、
+   * 抜くと文字が消える。
+   */
+  const halo = plan && box.hatch !== 'none' && box.hatch !== 'solid' ? palette.paper : null;
+
   // **建具は壁に開く穴**（`src/openings.ts`）。壁を消してから記号を描く。
   const holes =
     plan && box.openings.length > 0
@@ -279,9 +301,10 @@ function renderNode(
   return [
     `<g ${attributes} data-shape="${kind}">`,
     shape,
+    pattern,
     holes,
-    ...nodeTag(box, palette, style),
-    ...nodeText(box, palette, style, textShift(kind), plan ? name : null),
+    ...nodeTag(box, palette, style, halo),
+    ...nodeText(box, palette, ink, textShift(kind), plan ? name : null, halo),
     '</g>',
   ].join('');
 }
@@ -293,12 +316,21 @@ function renderNode(
  * 読み手は符号だけを拾って断面リストと突き合わせる。
  * **中央に混ぜると、その拾い読みができなくなる。**
  */
-function nodeTag(box: Box, palette: Palette, style: Look): string[] {
+function nodeTag(box: Box, palette: Palette, style: Look, halo: string | null = null): string[] {
   if (box.tag === null) return [];
   // **符号も、入らないなら出さない。** 伏図の小梁は幅 20px しかない。
   if (labelWidth(box.tag, 10) + TAG_INSET > box.w) return [];
+  const x = box.x + TAG_INSET;
+  const y = box.y + TAG_INSET + 9;
+  // **模様の上では下地を抜く**（`halo`）。符号は拾い読みするものなので、
+  // 読めないと役に立たない。
+  const patch =
+    halo === null
+      ? ''
+      : `<rect x="${n(x - 2)}" y="${n(y - 9)}" width="${n(labelWidth(box.tag, 10) + 4)}" height="12" fill="${halo}"/>`;
   return [
-    `<text x="${n(box.x + TAG_INSET)}" y="${n(box.y + TAG_INSET + 9)}" font-family="${FONT}" font-size="10" fill="${subtitleOn(style, palette)}">${escapeText(box.tag)}</text>`,
+    patch +
+      `<text x="${n(x)}" y="${n(y)}" font-family="${FONT}" font-size="10" fill="${subtitleOn(style, palette)}">${escapeText(box.tag)}</text>`,
   ];
 }
 
@@ -328,14 +360,22 @@ function nodeText(
   style: Look,
   shift = 0,
   plan: Plan | null = null,
+  halo: string | null = null,
 ): string[] {
   const cx = n(box.x + box.w / 2);
   const size = plan === null ? 15 : NAME_FONT;
   const subSize = plan === null ? 11 : SUB_FONT;
   const sub = subtitleOn(style, palette);
 
-  const text = (x: number, y: number, body: string, font: number, fill: string, turn = ''): string =>
-    `<text x="${n(x)}" y="${n(y)}" text-anchor="middle" font-family="${FONT}" font-size="${font}" fill="${fill}"${turn}>${escapeText(body)}</text>`;
+  const text = (x: number, y: number, body: string, font: number, fill: string, turn = ''): string => {
+    const label = `<text x="${n(x)}" y="${n(y)}" text-anchor="middle" font-family="${FONT}" font-size="${font}" fill="${fill}"${turn}>${escapeText(body)}</text>`;
+    if (halo === null) return label;
+    // 文字の下地を抜く（模様を切る）。回っている文字にも同じ変換をかける。
+    const w = labelWidth(body, font) + 6;
+    const h = font + 3;
+    const patch = `<rect x="${n(x - w / 2)}" y="${n(y - font + 1)}" width="${n(w)}" height="${n(h)}" fill="${halo}"${turn}/>`;
+    return patch + label;
+  };
 
   // 構成図は、箱の大きさを文字から決めてある。必ず入るので選ばない。
   if (plan === null) {

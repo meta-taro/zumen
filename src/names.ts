@@ -68,10 +68,22 @@ export function goesOutside(box: Box): boolean {
 
 /** 5 段のどれになるかを、当たり判定なしで決める。 */
 function shape(box: Box): 'inside' | 'joined' | 'aside' | 'along' | 'outside' {
-  // **印を付けたものは、文字が外へ出る**（`src/marker.ts`）。
-  // 丸は小さいので中に名前が入らない。実物の路線図も駅名は丸の外に書く。
+  // **印を付けたものの文字。**
+  //
+  // 丸は小さいので、たいてい中に名前が入らない
+  // —— 実物の路線図も駅名は丸の外に書く。
+  //
+  // **ただし丸に入る短い文字は、中に書く。**
+  // 盛付指示書の丸数字（①②③）や駅番号がそれで、
+  // **中に書くことがその印の意味**（外へ出すと、何の番号か分からなくなる）。
+  if (box.marker === 'circle' || box.marker === 'double') {
+    const bore = Math.min(box.w, box.h) * (box.marker === 'double' ? 0.5 : 1);
+    return labelWidth(box.label, NAME_FONT) + 6 <= bore && box.technology === null
+      ? 'inside'
+      : 'outside';
+  }
   // 枠なし（`none`）は、そこに何も描かないので中に書く場所が無い。
-  if (box.marker !== 'box') return 'outside';
+  if (box.marker === 'none') return 'outside';
   if (box.technology === null && wide(box, box.label, NAME_FONT)) return 'inside';
   if (
     box.technology !== null &&

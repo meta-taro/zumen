@@ -19,42 +19,67 @@ pins:
     appearance: primary
 groups:
   - id: yoki
-    label: 容器 BF-210　PP 製 5 仕切　フタ 嵌合式　賞味 当日 24 時
+    label: 容器 BF-210　PP 製 5 仕切　フタ 嵌合式　丸数字は盛付順
 nodes:
   - id: gohan
     label: ごはん
-    tag: 1
     technology: 220g・平ら／黒ごま 0.2g
     at: { x: 0, y: 0 }
     size: { w: 200, h: 340 }
     group: yoki
   - id: shusai
     label: 鶏の唐揚げ
-    tag: 2
     technology: 3 個 90g・中心 75℃ 1 分
     at: { x: 200, y: 0 }
     size: { w: 220, h: 140 }
     group: yoki
   - id: fuku1
     label: きんぴら
-    tag: 3
     technology: 45g・カップ 小
     at: { x: 200, y: 140 }
     size: { w: 110, h: 100 }
     group: yoki
   - id: fuku2
     label: 玉子焼
-    tag: 4
     technology: 2 切 55g
     at: { x: 310, y: 140 }
     size: { w: 110, h: 100 }
     group: yoki
   - id: tsukemono
     label: 漬物・仕切
-    tag: 5
     technology: 30g・バラン 1
     at: { x: 200, y: 240 }
     size: { w: 220, h: 100 }
+    group: yoki
+  - id: m1
+    label: 1
+    marker: circle
+    at: { x: 4, y: 4 }
+    size: { w: 26, h: 26 }
+    group: yoki
+  - id: m2
+    label: 2
+    marker: circle
+    at: { x: 204, y: 4 }
+    size: { w: 26, h: 26 }
+    group: yoki
+  - id: m3
+    label: 3
+    marker: circle
+    at: { x: 204, y: 144 }
+    size: { w: 26, h: 26 }
+    group: yoki
+  - id: m4
+    label: 4
+    marker: circle
+    at: { x: 314, y: 144 }
+    size: { w: 26, h: 26 }
+    group: yoki
+  - id: m5
+    label: 5
+    marker: circle
+    at: { x: 204, y: 244 }
+    size: { w: 26, h: 26 }
     group: yoki
 edges:
   - from: gohan

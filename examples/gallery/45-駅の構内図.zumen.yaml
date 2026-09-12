@@ -1,0 +1,125 @@
+version: 1
+kind: placement
+title: 駅 構内図（1F 改札階・B1F ホーム階）
+# 1 px = 100 mm。scale は書かない —— 1 枚に 2 つの図があるので、
+# 通しで測ると「2 階を合わせた全長」という意味のない数字が出る（課題 3）。
+# scale が無いと壁の厚みも効かないので、wall も書かない。
+groups:
+  - id: f1
+    label: 1F 改札階　GL±0　36m×20m
+  - id: b1
+    label: B1F ホーム階　GL−6,000　36m×26m
+pins:
+  kaisatsu:
+    appearance: primary
+nodes:
+  - id: kitaguchi
+    label: 北口
+    tag: E-1
+    technology: 有効 4,000
+    at: { x: 0, y: 0 }
+    size: { w: 110, h: 60 }
+    group: f1
+    openings:
+      - { kind: double, side: top, at: 0.5, width: 40 }
+  - id: kaisatsu
+    label: 改札
+    tag: G-1
+    technology: 自動改札 6 通路
+    at: { x: 110, y: 0 }
+    size: { w: 140, h: 60 }
+    group: f1
+  - id: minamiguchi
+    label: 南口
+    tag: E-2
+    technology: 有効 4,000
+    at: { x: 250, y: 0 }
+    size: { w: 110, h: 60 }
+    group: f1
+    openings:
+      - { kind: double, side: top, at: 0.5, width: 40 }
+  - id: concourse
+    label: コンコース
+    technology: 有効 6,000・みどりの窓口
+    at: { x: 0, y: 60 }
+    size: { w: 250, h: 80 }
+    group: f1
+  - id: wc1
+    label: 便所
+    at: { x: 250, y: 60 }
+    size: { w: 110, h: 80 }
+    group: f1
+  - id: kaidan1
+    label: 階段
+    tag: S-1
+    technology: B1F へ
+    at: { x: 0, y: 140 }
+    size: { w: 120, h: 60 }
+    group: f1
+    openings:
+      - { kind: open, side: top, at: 0.5, width: 50 }
+  - id: ev1
+    label: EV
+    tag: EV-1
+    technology: B1F へ・11 人乗
+    at: { x: 120, y: 140 }
+    size: { w: 100, h: 60 }
+    group: f1
+  - id: esc1
+    label: エスカレータ
+    tag: ESC-1
+    technology: 上り・B1F へ
+    at: { x: 220, y: 140 }
+    size: { w: 140, h: 60 }
+    group: f1
+  - id: kaidan2
+    label: 階段
+    tag: S-1
+    technology: 1F へ
+    at: { x: 460, y: 140 }
+    size: { w: 120, h: 60 }
+    group: b1
+    openings:
+      - { kind: open, side: top, at: 0.5, width: 50 }
+  - id: ev2
+    label: EV
+    tag: EV-1
+    technology: 1F へ・11 人乗
+    at: { x: 580, y: 140 }
+    size: { w: 100, h: 60 }
+    group: b1
+  - id: esc2
+    label: エスカレータ
+    tag: ESC-1
+    technology: 下り・1F へ
+    at: { x: 680, y: 140 }
+    size: { w: 140, h: 60 }
+    group: b1
+  - id: home1
+    label: 1・2 番線
+    tag: P-1
+    technology: 島式・有効長 200m
+    at: { x: 460, y: 60 }
+    size: { w: 360, h: 80 }
+    group: b1
+  - id: track_n
+    label: 下り線
+    technology: 軌道中心 間隔 4,000
+    at: { x: 460, y: 0 }
+    size: { w: 360, h: 60 }
+    group: b1
+  - id: track_s
+    label: 上り線
+    technology: 軌道中心 間隔 4,000
+    at: { x: 460, y: 200 }
+    size: { w: 360, h: 60 }
+    group: b1
+edges:
+  - from: kitaguchi
+    to: kaisatsu
+  - from: minamiguchi
+    to: kaisatsu
+  - from: kaisatsu
+    to: concourse
+  - from: concourse
+    to: esc1
