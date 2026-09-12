@@ -82,8 +82,9 @@ function shape(box: Box): 'inside' | 'joined' | 'aside' | 'along' | 'outside' {
       ? 'inside'
       : 'outside';
   }
-  // 枠なし（`none`）は、そこに何も描かないので中に書く場所が無い。
-  if (box.marker === 'none') return 'outside';
+  // 枠なし（`none`）は「枠を描かない注記」。**文字は箱の場所に置く** ——
+  // 枠が無いのに「枠の外」へ出しても意味が無い（座席図の列名 A〜F がこれ）。
+  // 以降の段（入るか／繋ぐか／回すか）は矩形と同じに見る。
   if (box.technology === null && wide(box, box.label, NAME_FONT)) return 'inside';
   if (
     box.technology !== null &&

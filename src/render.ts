@@ -263,7 +263,12 @@ function renderNode(
     // **平面図で壁の厚みを書いていれば、その太さで描く**（`src/wall.ts`）。
     // 人が置いた印（太い枠）より壁のほうが優先 —— 壁の厚みは図の内容であって、
     // 誰が置いたかの印ではない。
-    strokeWidth: wall ?? (box.pinned ? STROKE_WIDTH.pinned : STROKE_WIDTH.auto),
+    //
+    // **ただし壁の厚みは「部屋」のもの。** 丸い印（`marker`）には効かせない ——
+    // 座席図で、壁厚 150mm（6px）が 21px の座席の丸を塗り潰した（2026-09-12）。
+    strokeWidth:
+      (box.marker === 'box' ? wall : null) ??
+      (box.pinned ? STROKE_WIDTH.pinned : STROKE_WIDTH.auto),
     dash: style.dash,
   };
 

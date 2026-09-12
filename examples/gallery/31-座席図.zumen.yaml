@@ -1,0 +1,446 @@
+version: 1
+kind: placement
+title: 小ホール 座席図（6 列 × 10 席 ＝ 60 席・車椅子 2）
+# 1 px = 25 mm。席幅 520・席ピッチ 550・列間 1,000
+scale: { mm: 25 }
+wall: { mm: 150, outer: 200 }
+grid:
+  x:
+    - { id: X1, at: 0 }
+    - { id: X2, at: 300 }
+  y:
+    - { id: Y1, at: 38 }
+    - { id: Y2, at: 120 }
+    - { id: Y3, at: 360 }
+groups:
+  - id: hall
+    label: 小ホール　60 席　勾配 10°　CH＝4,500　誘導灯 2
+pins:
+  screen:
+    appearance: primary
+nodes:
+  - id: screen
+    label: スクリーン
+    technology: W6,000×H2,600
+    hatch: solid
+    at: { x: 20, y: 38 }
+    size: { w: 260, h: 28 }
+    group: hall
+  - id: tsuro_f
+    label: 前通路
+    technology: 有効 1,200
+    at: { x: 0, y: 72 }
+    size: { w: 300, h: 48 }
+    group: hall
+  - id: row_a
+    label: A
+    marker: none
+    at: { x: 14, y: 120 }
+    size: { w: 22, h: 20 }
+    group: hall
+  - id: row_b
+    label: B
+    marker: none
+    at: { x: 14, y: 160 }
+    size: { w: 22, h: 20 }
+    group: hall
+  - id: row_c
+    label: C
+    marker: none
+    at: { x: 14, y: 200 }
+    size: { w: 22, h: 20 }
+    group: hall
+  - id: row_d
+    label: D
+    marker: none
+    at: { x: 14, y: 240 }
+    size: { w: 22, h: 20 }
+    group: hall
+  - id: row_e
+    label: E
+    marker: none
+    at: { x: 14, y: 280 }
+    size: { w: 22, h: 20 }
+    group: hall
+  - id: row_f
+    label: F
+    marker: none
+    at: { x: 14, y: 320 }
+    size: { w: 22, h: 20 }
+    group: hall
+  - id: a1
+    label: 1
+    marker: circle
+    at: { x: 40, y: 120 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: a2
+    label: 2
+    marker: circle
+    at: { x: 62, y: 120 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: a3
+    label: 3
+    marker: circle
+    at: { x: 84, y: 120 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: a4
+    label: 4
+    marker: circle
+    at: { x: 106, y: 120 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: a5
+    label: 5
+    marker: circle
+    at: { x: 128, y: 120 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: a6
+    label: 6
+    marker: circle
+    at: { x: 150, y: 120 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: a7
+    label: 7
+    marker: circle
+    at: { x: 172, y: 120 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: a8
+    label: 8
+    marker: circle
+    at: { x: 194, y: 120 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: a9
+    label: 9
+    marker: circle
+    at: { x: 216, y: 120 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: a10
+    label: 10
+    marker: circle
+    at: { x: 238, y: 120 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: b1
+    label: 1
+    marker: circle
+    at: { x: 40, y: 160 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: b2
+    label: 2
+    marker: circle
+    at: { x: 62, y: 160 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: b3
+    label: 3
+    marker: circle
+    at: { x: 84, y: 160 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: b4
+    label: 4
+    marker: circle
+    at: { x: 106, y: 160 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: b5
+    label: 5
+    marker: circle
+    at: { x: 128, y: 160 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: b6
+    label: 6
+    marker: circle
+    at: { x: 150, y: 160 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: b7
+    label: 7
+    marker: circle
+    at: { x: 172, y: 160 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: b8
+    label: 8
+    marker: circle
+    at: { x: 194, y: 160 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: b9
+    label: 9
+    marker: circle
+    at: { x: 216, y: 160 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: b10
+    label: 10
+    marker: circle
+    at: { x: 238, y: 160 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: c1
+    label: 1
+    marker: circle
+    at: { x: 40, y: 200 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: c2
+    label: 2
+    marker: circle
+    at: { x: 62, y: 200 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: c3
+    label: 3
+    marker: circle
+    at: { x: 84, y: 200 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: c4
+    label: 4
+    marker: circle
+    at: { x: 106, y: 200 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: c5
+    label: 5
+    marker: circle
+    at: { x: 128, y: 200 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: c6
+    label: 6
+    marker: circle
+    at: { x: 150, y: 200 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: c7
+    label: 7
+    marker: circle
+    at: { x: 172, y: 200 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: c8
+    label: 8
+    marker: circle
+    at: { x: 194, y: 200 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: c9
+    label: 9
+    marker: circle
+    at: { x: 216, y: 200 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: c10
+    label: 10
+    marker: circle
+    at: { x: 238, y: 200 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: d1
+    label: 1
+    marker: circle
+    at: { x: 40, y: 240 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: d2
+    label: 2
+    marker: circle
+    at: { x: 62, y: 240 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: d3
+    label: 3
+    marker: circle
+    at: { x: 84, y: 240 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: d4
+    label: 4
+    marker: circle
+    at: { x: 106, y: 240 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: d5
+    label: 5
+    marker: circle
+    at: { x: 128, y: 240 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: d6
+    label: 6
+    marker: circle
+    at: { x: 150, y: 240 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: d7
+    label: 7
+    marker: circle
+    at: { x: 172, y: 240 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: d8
+    label: 8
+    marker: circle
+    at: { x: 194, y: 240 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: d9
+    label: 9
+    marker: circle
+    at: { x: 216, y: 240 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: d10
+    label: 10
+    marker: circle
+    at: { x: 238, y: 240 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: e1
+    label: 1
+    marker: circle
+    at: { x: 40, y: 280 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: e2
+    label: 2
+    marker: circle
+    at: { x: 62, y: 280 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: e3
+    label: 3
+    marker: circle
+    at: { x: 84, y: 280 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: e4
+    label: 4
+    marker: circle
+    at: { x: 106, y: 280 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: e5
+    label: 5
+    marker: circle
+    at: { x: 128, y: 280 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: e6
+    label: 6
+    marker: circle
+    at: { x: 150, y: 280 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: e7
+    label: 7
+    marker: circle
+    at: { x: 172, y: 280 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: e8
+    label: 8
+    marker: circle
+    at: { x: 194, y: 280 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: e9
+    label: 9
+    marker: circle
+    at: { x: 216, y: 280 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: e10
+    label: 10
+    marker: circle
+    at: { x: 238, y: 280 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: f1
+    label: 1
+    marker: circle
+    at: { x: 40, y: 320 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: f2
+    label: 2
+    marker: circle
+    at: { x: 62, y: 320 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: f3
+    label: 3
+    marker: circle
+    at: { x: 84, y: 320 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: f4
+    label: 4
+    marker: circle
+    at: { x: 106, y: 320 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: f5
+    label: 5
+    marker: circle
+    at: { x: 128, y: 320 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: f6
+    label: 6
+    marker: circle
+    at: { x: 150, y: 320 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: f7
+    label: 7
+    marker: circle
+    at: { x: 172, y: 320 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: f8
+    label: 8
+    marker: circle
+    at: { x: 194, y: 320 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: f9
+    label: 9
+    marker: circle
+    at: { x: 216, y: 320 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: f10
+    label: 10
+    marker: circle
+    at: { x: 238, y: 320 }
+    size: { w: 21, h: 20 }
+    group: hall
+  - id: w1
+    label: 車椅子席
+    tag: W1/W2
+    technology: 2 台・同伴席つき
+    at: { x: 0, y: 360 }
+    size: { w: 150, h: 50 }
+    group: hall
+  - id: deguchi
+    label: 非常口
+    tag: EX-1
+    technology: 有効 1,200
+    at: { x: 150, y: 360 }
+    size: { w: 150, h: 50 }
+    group: hall
+    openings:
+      - { kind: double, side: bottom, at: 0.5, width: 45 }

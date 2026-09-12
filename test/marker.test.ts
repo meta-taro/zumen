@@ -121,3 +121,60 @@ describe('知らせる', () => {
     assert.match(spec().shape, /marker:/);
   });
 });
+
+describe('枠なし（none）は、枠を描かない注記', () => {
+  /**
+   * 座席図の列名（A〜F）で出た（2026-09-12）。
+   * **枠が無いのに「枠の外」へ出しても意味が無い。**
+   * `none` は「枠を描かない注記」なので、文字は箱の場所に置く。
+   */
+  const ROW = `version: 1
+kind: placement
+nodes:
+  - id: row
+    label: A
+    marker: none
+    at: { x: 0, y: 0 }
+    size: { w: 22, h: 20 }
+  - id: seat
+    label: 1
+    marker: circle
+    at: { x: 30, y: 0 }
+    size: { w: 21, h: 20 }
+`;
+
+  it('**文字は箱の場所に置く**（外へ出さない）', async () => {
+    const placed = await layout(ROW);
+    const box = placed.boxes.find((b) => b.id === 'row')!;
+    const out = render(placed, 'light', 'safe', true);
+    const y = Number(out.match(/<text x="\d+" y="(\d+)"[^>]*>A</)![1]);
+    assert.ok(y >= box.y && y <= box.y + box.h, '枠なしの文字が外へ出た');
+  });
+});
+
+describe('壁の厚みは「部屋」のもの', () => {
+  it('**丸い印には効かせない。** 座席の丸が塗り潰された', async () => {
+    const out = render(
+      await layout(`version: 1
+kind: placement
+scale: { mm: 25 }
+wall: { mm: 150 }
+nodes:
+  - id: seat
+    label: 1
+    marker: circle
+    at: { x: 0, y: 0 }
+    size: { w: 21, h: 20 }
+  - id: room
+    label: 前通路
+    at: { x: 40, y: 0 }
+    size: { w: 200, h: 40 }
+`),
+      'light',
+      'safe',
+      true,
+    );
+    assert.match(out, /data-node="seat"[\s\S]*?<circle [^>]*stroke-width="1"/, '座席に壁厚が効いた');
+    assert.match(out, /data-node="room"[\s\S]*?stroke-width="6"/, '部屋に壁厚が効いていない');
+  });
+});
