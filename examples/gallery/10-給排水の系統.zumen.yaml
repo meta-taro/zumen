@@ -1,6 +1,6 @@
 version: 1
 wrap: true
-title: 住宅の給排水
+title: 住宅の給排水衛生設備系統図
 pins:
   kyuto:
     appearance: primary
@@ -8,75 +8,98 @@ groups:
   - id: hikikomi
     label: 引き込み
   - id: kyusui
-    label: 給水
+    label: 給水・給湯
   - id: haisui
     label: 排水
 nodes:
   - id: honkan
     type: network
     label: 配水本管
+    technology: 呼び径 75A
     group: hikikomi
   - id: meter
     type: generic
     label: 量水器
+    tag: WM
+    technology: 20A
     group: hikikomi
   - id: genatsu
     type: generic
     label: 減圧弁
+    tag: PRV
+    technology: 二次側 0.2MPa
     group: hikikomi
   - id: kyuto
     type: cluster
     label: 給湯器
+    tag: WH-1
     technology: 24 号・追い焚き
     group: kyusui
   - id: daidokoro
     type: generic
     label: 台所
+    tag: SK-1
+    technology: 給水 13A・給湯 13A
     group: kyusui
   - id: yokushitsu
     type: generic
     label: 浴室
+    tag: BT-1
+    technology: 給水 13A・給湯 13A
     group: kyusui
   - id: senmen
     type: generic
     label: 洗面
+    tag: LV-1
+    technology: 給水 13A・給湯 13A
     group: kyusui
   - id: toilet
     type: generic
     label: 便所
+    tag: WC-1
+    technology: 給水 13A
     group: kyusui
   - id: masu
     type: generic
     label: 汚水ます
+    tag: MH-1
+    technology: 塩ビ 内径 200
     group: haisui
   - id: gesui
     type: network
     label: 公共下水
+    technology: 本管 200A
     group: haisui
 edges:
   - from: honkan
     to: meter
   - from: meter
     to: genatsu
+    label: 20A
   - from: genatsu
     to: kyuto
+    label: 20A
   - from: genatsu
     to: toilet
-    label: 水
+    label: 13A
   - from: kyuto
     to: daidokoro
-    label: 湯
+    label: 給湯 13A
   - from: kyuto
     to: yokushitsu
-    label: 湯
+    label: 給湯 13A
   - from: kyuto
     to: senmen
-    label: 湯
+    label: 給湯 13A
   - from: daidokoro
     to: masu
+    label: 排水 50A
   - from: yokushitsu
     to: masu
+    label: 排水 50A
   - from: toilet
     to: masu
+    label: 排水 75A
   - from: masu
     to: gesui
+    label: 100A

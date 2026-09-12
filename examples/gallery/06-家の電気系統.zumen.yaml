@@ -1,5 +1,6 @@
 version: 1
-title: 住宅の電気系統
+wrap: true
+title: 住宅の電気設備系統図（分電盤 L-1）
 pins:
   bunden:
     appearance: primary
@@ -13,54 +14,73 @@ groups:
 nodes:
   - id: pole
     type: network
-    label: 電柱
+    label: 引込柱
+    technology: 単相 3 線 100/200V
     group: soto
   - id: meter
     type: generic
     label: 電力量計
+    tag: Wh
     technology: スマートメーター
     group: soto
   - id: bunden
     type: cluster
     label: 分電盤
-    technology: 主幹 60A / 分岐 12
+    tag: L-1
+    technology: 主幹 ELB 60A・分岐 12
     group: soto
   - id: living
     type: generic
-    label: 居間
-    technology: 照明・コンセント
+    label: 居間 照明
+    tag: 回路 1
+    technology: 20A・VVF1.6
+    group: ikkai
+  - id: livcon
+    type: generic
+    label: 居間 コンセント
+    tag: 回路 2
+    technology: 20A・VVF2.0
     group: ikkai
   - id: kitchen
     type: generic
-    label: 台所
-    technology: IH 200V 専用
+    label: 台所 IH
+    tag: 回路 3
+    technology: 200V 30A・VVF2.6
     group: ikkai
   - id: bath
     type: generic
     label: 洗面・浴室
-    technology: 漏電遮断あり
+    tag: 回路 4
+    technology: 20A・ELB 付
     group: ikkai
   - id: room1
     type: generic
     label: 洋室 1
+    tag: 回路 5
+    technology: 20A・VVF1.6
     group: nikai
   - id: room2
     type: generic
     label: 洋室 2
+    tag: 回路 6
+    technology: 20A・VVF1.6
     group: nikai
   - id: ac
     type: generic
     label: エアコン
-    technology: 各室専用
+    tag: 回路 7
+    technology: 200V 20A・各室専用
     group: nikai
 edges:
   - from: pole
     to: meter
   - from: meter
     to: bunden
-    label: 単相 3 線
+    label: 単相 3 線 60A
   - from: bunden
     to: living
+  - from: bunden
+    to: livcon
   - from: bunden
     to: kitchen
     label: 200V
@@ -72,3 +92,4 @@ edges:
     to: room2
   - from: bunden
     to: ac
+    label: 200V
