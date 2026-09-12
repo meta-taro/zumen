@@ -1,5 +1,5 @@
 version: 1
-title: 受注管理のテーブル関係（ER）
+title: 受注管理のテーブル関係（ER・鳥の足記法）
 pins:
   juchu:
     appearance: primary
@@ -60,19 +60,19 @@ nodes:
 edges:
   - from: kokyaku
     to: juchu
-    label: 1 対 多
+    ends: { from: bar, to: crow }
   - from: juchu
     to: meisai
-    label: 1 対 多
+    ends: { from: bar, to: crow }
   - from: shohin
     to: meisai
-    label: 1 対 多
+    ends: { from: bar, to: crow }
   - from: shohin
     to: tanka
-    label: 1 対 多
+    ends: { from: bar, to: crow }
   - from: juchu
     to: shukka
-    label: 1 対 多
+    ends: { from: bar, to: crow }
   - from: shohin
     to: zaiko
   - from: souko

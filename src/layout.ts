@@ -25,6 +25,8 @@ import { hatchOf } from './hatch.ts';
 import type { Hatch } from './hatch.ts';
 import { markerOf } from './marker.ts';
 import type { Marker } from './marker.ts';
+import { endsOf } from './ends.ts';
+import type { Ends } from './ends.ts';
 import { radiusOf } from './range.ts';
 import { wallOf } from './wall.ts';
 import type { Wall } from './wall.ts';
@@ -89,6 +91,8 @@ export interface PlacedEdge {
   points: { x: number; y: number }[];
   /** 人が曲げたか。 */
   pinned: boolean;
+  /** **端の記号**（`src/ends.ts`）。ER の多重度・端子・接続点。 */
+  ends: Ends;
 }
 
 export interface Placed {
@@ -555,6 +559,8 @@ interface EdgeInfo {
   from: string;
   to: string;
   label: string | null;
+  /** 端の記号（`src/ends.ts`）。 */
+  ends: Ends;
 }
 
 /** グループの表示名。無ければ id を使う。 */
@@ -595,6 +601,7 @@ function readEdges(diagram: ReturnType<typeof parse>): EdgeInfo[] {
       from,
       to,
       label: asText(edge.label) ?? asText(edge.protocol),
+      ends: endsOf(edge.ends),
     };
   });
 }

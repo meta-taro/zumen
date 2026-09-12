@@ -27,6 +27,7 @@
 import { drawDimensions, drawGrid, drawNorth } from './dimensions.ts';
 import type { Frame, Ink } from './dimensions.ts';
 import { hasGrid } from './grid.ts';
+import { drawEnd, hasEnds } from './ends.ts';
 import { drawHatch } from './hatch.ts';
 import { drawMarker } from './marker.ts';
 import { NAME_FONT, SUB_FONT, planNames } from './names.ts';
@@ -452,9 +453,19 @@ function renderEdge(
     `<g data-edge="${escapeAttr(edge.id)}" data-pinned="${edge.pinned}">`,
     // **配置図の動線は太く。** 壁を塗り潰したあと、細い線では動線が
     // 壁の黒に負けて読めない（避難経路図は矢印が主役）。
+    //
+    // **端の記号を書いた辺には、既定の矢印を付けない**（`src/ends.ts`）。
+    // 記号が矢印の代わりで、両方出すと向きが二重に言われる。
     `<path d="${path}" fill="none" stroke="${palette.edge.stroke}" stroke-width="${
       edge.pinned || plan ? STROKE_WIDTH.pinned : STROKE_WIDTH.auto
-    }"${arrows ? ' marker-end="url(#arrow)"' : ''}/>`,
+    }"${arrows && !hasEnds(edge.ends) ? ' marker-end="url(#arrow)"' : ''}/>`,
+    // 端の記号（ER の多重度・端子・接続点）。**向きは線から決める。**
+    edge.points.length < 2
+      ? ''
+      : drawEnd(edge.ends.to, edge.points[edge.points.length - 1]!, edge.points[edge.points.length - 2]!, palette.edge.stroke),
+    edge.points.length < 2
+      ? ''
+      : drawEnd(edge.ends.from, edge.points[0]!, edge.points[1]!, palette.edge.stroke),
     label,
     '</g>',
   ].join('');

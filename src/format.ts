@@ -36,6 +36,8 @@ export interface Edge {
   to: string;
   label?: string;
   protocol?: string;
+  /** 端の記号（`src/ends.ts`）。読んだまま渡し、解釈はあちらでやる。 */
+  ends?: unknown;
 }
 
 /** 折り返しでの改行を止める。人が書いた行の形を機械が変えないため。 */
@@ -69,6 +71,8 @@ export class Diagram {
       if (label !== undefined && label !== null) edge.label = String(label);
       const protocol = item.get('protocol');
       if (protocol !== undefined && protocol !== null) edge.protocol = String(protocol);
+      const ends = item.get('ends', true);
+      if (ends !== undefined && ends !== null) edge.ends = ends.toJSON() as unknown;
       return edge;
     });
   }

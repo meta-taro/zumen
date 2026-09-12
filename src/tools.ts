@@ -36,6 +36,7 @@ import { toMermaid } from './mermaid.ts';
 import { KINDS, kindOf, measureOf } from './kind.ts';
 import { DIRECTIONS } from './direction.ts';
 import { NORTHS } from './grid.ts';
+import { ENDS } from './ends.ts';
 import { HATCHES } from './hatch.ts';
 import { MARKERS } from './marker.ts';
 import { crowdedNames, extentOf, planNames } from './names.ts';
@@ -101,6 +102,8 @@ export function spec(): {
   markers: string[];
   /** 材料と区域の模様（`src/hatch.ts`）。**模様の名前だけ。材料の語は無い。** */
   hatches: string[];
+  /** 辺の端の記号（`src/ends.ts`）。**形の名前だけ。意味の語は無い。** */
+  ends: string[];
   /** 方位（`src/grid.ts`）。 */
   norths: string[];
   appearances: string[];
@@ -132,6 +135,7 @@ export function spec(): {
     sides: [...SIDES],
     markers: [...MARKERS],
     hatches: [...HATCHES],
+    ends: [...ENDS],
     norths: [...NORTHS],
     appearances: Object.keys(APPEARANCE),
     rules: m.rules,

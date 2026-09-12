@@ -29,7 +29,15 @@ import type { Box, PlacedEdge } from '../src/layout.ts';
 
 function edge(id: string, label: string | null, points: [number, number][]): PlacedEdge {
   const [from = id, to = id] = id.split('>');
-  return { id, from, to, label, pinned: false, points: points.map(([x, y]) => ({ x, y })) };
+  return {
+    id,
+    from,
+    to,
+    label,
+    pinned: false,
+    ends: { from: 'none' as const, to: 'none' as const },
+    points: points.map(([x, y]) => ({ x, y })),
+  };
 }
 
 function box(id: string, x: number, y: number, w = 160, h = 60): Box {

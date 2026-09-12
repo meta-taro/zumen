@@ -18,6 +18,7 @@ import type { Document, Node, YAMLMap } from 'yaml';
 import { DIRECTIONS as DIRECTION_WORDS } from './direction.ts';
 import { KINDS as KIND_WORDS } from './kind.ts';
 import { MARKS, NORTHS } from './grid.ts';
+import { ENDS } from './ends.ts';
 import { HATCHES } from './hatch.ts';
 import { MARKERS } from './marker.ts';
 import { messages } from './messages.ts';
@@ -54,6 +55,7 @@ const NORTH_WORDS = new Set<string>(NORTHS);
 const MARK_WORDS = new Set<string>(MARKS);
 const MARKER_WORDS = new Set<string>(MARKERS);
 const HATCH_WORDS = new Set<string>(HATCHES);
+const END_WORDS = new Set<string>(ENDS);
 
 /** `pins` の中で、位置や体裁ではなく人の決定を表す鍵。迷子の判定には関係しない。 */
 const EDGE_KEY = /^(.+)>(.+)$/;
@@ -93,6 +95,7 @@ export function validate(text: string): Finding[] {
   checkDeclarations(doc, add, m, at);
   checkGeometry(doc, add, m, at);
   checkGridAndScale(doc, add, m, at);
+  checkEnds(doc, add, m, at);
   const edgeKeys = checkEdges(doc, nodeIds, add, m, at);
   checkPins(doc, nodeIds, edgeKeys, add, m, at);
   checkRoundTrip(doc, text, add, m);
@@ -405,6 +408,22 @@ function checkEdges(doc: Document, nodeIds: Set<string>, add: Add, m: Messages, 
     }
   }
   return keys;
+}
+
+/** 辺の端の記号（`src/ends.ts`）。知らない語は描かないので、知らせる。 */
+function checkEnds(doc: Document, add: Add, m: Messages, at: At): void {
+  for (const item of seqOf(doc, 'edges')) {
+    const ends = item.get('ends', true);
+    if (ends === undefined || ends === null || !isMap(ends)) continue;
+    const name = `${String(item.get('from'))}>${String(item.get('to'))}`;
+    for (const side of ['from', 'to']) {
+      const value = ends.get(side);
+      if (value === undefined || value === null) continue;
+      if (!END_WORDS.has(String(value))) {
+        add('warning', 'ends-unknown', m.endsUnknown(name, String(value)), at(ends));
+      }
+    }
+  }
 }
 
 function checkPins(
