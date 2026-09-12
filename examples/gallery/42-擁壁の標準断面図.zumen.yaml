@@ -1,0 +1,52 @@
+version: 1
+kind: placement
+title: L 型擁壁 標準断面図（H=3.0m・盛土部・水抜管 φ75 @3m²）
+# 1 px = 10 mm。断面なので y は高さ（上が高い）
+scale: { mm: 10 }
+grid:
+  x:
+    - { id: X1, at: 200 }
+    - { id: X2, at: 250 }
+    - { id: X3, at: 400 }
+  y:
+    - { id: "天端 +3,000", at: 0, mark: level }
+    - { id: GL±0, at: 300, mark: level }
+    - { id: 底版下 -350, at: 350, mark: level }
+nodes:
+  - id: haimen
+    label: 背面地盤
+    technology: 盛土・締固め度 90%
+    at: { x: 0, y: 0 }
+    size: { w: 170, h: 300 }
+  - id: uragome
+    label: 裏込砕石
+    technology: C-40 t=300
+    at: { x: 170, y: 0 }
+    size: { w: 30, h: 300 }
+  - id: tatekabe
+    label: 竪壁
+    tag: W1
+    technology: t=250・D13@200
+    at: { x: 200, y: 0 }
+    size: { w: 50, h: 300 }
+  - id: teiban
+    label: 底版
+    tag: F1
+    technology: t=350・B=2,000
+    at: { x: 200, y: 300 }
+    size: { w: 200, h: 50 }
+  - id: zensetsu
+    label: 前面地盤
+    technology: 根入れ 350
+    at: { x: 250, y: 250 }
+    size: { w: 250, h: 50 }
+  - id: saiseki
+    label: 基礎砕石
+    technology: t=100
+    at: { x: 200, y: 350 }
+    size: { w: 200, h: 20 }
+  - id: mizunuki
+    label: 水抜管
+    tag: φ75
+    at: { x: 170, y: 205 }
+    size: { w: 95, h: 30 }

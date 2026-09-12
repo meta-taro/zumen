@@ -65,6 +65,12 @@ export function drawGrid(grid: Grid, frame: Frame, ink: Ink): string {
   for (const axis of grid.y) {
     const y = axis.at;
     parts.push(line(left, y, right, y, ink.stroke, CHAIN));
+    if (axis.mark === 'level') {
+      // **高さの基準線**（断面図・立面図）。丸ではなく三角と値。
+      parts.push(level(left - 4, y, axis.id, ink, 'left'));
+      parts.push(level(right + 4, y, axis.id, ink, 'right'));
+      continue;
+    }
     parts.push(code(left - CODE_R - 2, y, axis.id, ink));
     parts.push(code(right + CODE_R + 2, y, axis.id, ink));
   }
@@ -168,6 +174,22 @@ function segment(
   const label = `<text x="${n(tx)}" y="${n(ty)}" text-anchor="middle" font-family="${ink.font}" font-size="10" fill="${ink.text}"${turn}>${value}</text>`;
 
   return body + tick(from) + tick(to) + erase + label;
+}
+
+/**
+ * **高さの基準線の印**（`GL±0` / `2FL+3,200`）。
+ *
+ * 実物の断面図では、丸ではなく**塗った三角**を線の上に置き、
+ * その脇に値を書く。**丸は平面の通り芯の記号**なので、
+ * 断面で使うと「この線は通り芯だ」と読まれる。
+ */
+function level(x: number, y: number, id: string, ink: Ink, side: 'left' | 'right'): string {
+  const dir = side === 'left' ? -1 : 1;
+  const tip = x + dir * 2;
+  return (
+    `<path d="M ${n(tip)} ${n(y)} L ${n(tip + dir * 11)} ${n(y - 6)} L ${n(tip + dir * 11)} ${n(y + 6)} Z" fill="${ink.stroke}"/>` +
+    `<text x="${n(x + dir * 15)}" y="${n(y - 5)}" text-anchor="${side === 'left' ? 'end' : 'start'}" font-family="${ink.font}" font-size="10" fill="${ink.text}">${id}</text>`
+  );
 }
 
 /** 符号を丸で囲んで置く。**丸の中は地の色で塗る**（芯の線が文字に重なる）。 */

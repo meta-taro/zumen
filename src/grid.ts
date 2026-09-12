@@ -38,12 +38,43 @@
  */
 import type { Box } from './layout.ts';
 
+/** 基準線の印。 */
+export const MARKS = ['code', 'level'] as const;
+export type Mark = (typeof MARKS)[number];
+
 /** 通り芯 1 本。 */
 export interface Axis {
-  /** 符号（`X1` / `Y1` / `1` / `A`）。丸で囲んで出す。 */
+  /** 符号（`X1` / `Y1` / `GL±0` / `2FL+3,200`）。 */
   id: string;
   /** 図の座標（px）。 */
   at: number;
+  /**
+   * **印の形。**
+   *
+   * | | |
+   * |---|---|
+   * | `code`（既定） | 丸で囲んだ符号。**平面図の通り芯** |
+   * | `level` | 三角の高さ記号と、その脇に書く値。**断面図・立面図のレベル** |
+   *
+   * ## なぜ `kind: section` を足さなかったか
+   *
+   * 断面図を 1 枚描いて確かめた（2026-09-12）。**8 割はそのまま描けた。**
+   * 座標の `y` を高さとして読み替えるだけで、寸法も通り芯も効く。
+   *
+   * 違ったのは 3 点。
+   *
+   * 1. 横の基準線が**通り芯ではなくレベル**（`GL±0` / `2FL+3,200`）で、記号が違う
+   * 2. **方位が要らない** —— これは `north` を書かなければ済む（正本が決める）
+   * 3. 貫通・埋設で**箱が重なるのが普通** —— 重なりは観測値で、失敗ではない
+   *
+   * **測り方は配置図と同じ**（置き場所は正本に書いてある）。
+   * `src/kind.ts` に「3 つ目の `kind` を足すのは、測り方が 3 つ目になるときだけ。
+   * 断面図を足したくなっても、測り方が配置図と同じなら足さない」と書いてあり、
+   * **自分で書いた歯止めに当たった。**
+   *
+   * 残った違いは 1 だけなので、**基準線の印を選べるようにした。**
+   */
+  mark: Mark;
 }
 
 export interface Grid {
@@ -71,7 +102,8 @@ function axesOf(raw: unknown): Axis[] {
     if (typeof at !== 'number' || !Number.isFinite(at)) continue;
     const label = id === undefined || id === null ? '' : String(id);
     if (label === '') continue;
-    out.push({ id: label, at });
+    const mark = (item as Record<string, unknown>).mark;
+    out.push({ id: label, at, mark: mark === 'level' ? 'level' : 'code' });
   }
   // **同じ入力から同じ絵**（D2）。書いた順に依らず、位置の順で並べる。
   return out.sort((a, b) => a.at - b.at);
@@ -112,10 +144,15 @@ export const MARGIN = { near: 26, far: 50, code: 78, top: 46, right: 46 } as con
 
 export function marginFor(grid: Grid): { left: number; top: number; right: number; bottom: number } {
   if (!hasGrid(grid)) return { left: 0, top: 0, right: 0, bottom: 0 };
+  // **レベルは値を脇に書く**ので、丸の符号より外へ張り出す（`GL±0` / `2FL+3,200`）。
+  const level = grid.y.some((axis) => axis.mark === 'level');
+  const widest = level
+    ? Math.max(...grid.y.filter((a) => a.mark === 'level').map((a) => a.id.length)) * 9 + 24
+    : 0;
   return {
-    left: grid.y.length > 0 ? MARGIN.code + 14 : 0,
+    left: grid.y.length > 0 ? Math.max(MARGIN.code + 14, widest) : 0,
     top: MARGIN.top,
-    right: MARGIN.right,
+    right: Math.max(MARGIN.right, widest),
     bottom: grid.x.length > 0 ? MARGIN.code + 14 : 0,
   };
 }

@@ -253,3 +253,71 @@ edges:
     assert.match(out, /data-edge=[\s\S]*?stroke-width="2"/);
   });
 });
+
+describe('高さの基準線（mark: level）', () => {
+  /**
+   * 断面図を 1 枚描いて確かめた（2026-09-12）。**8 割はそのまま描けた。**
+   * 違ったのは 3 点で、うち 2 点は正本の書き方で済んだ（方位を書かない／
+   * 重なりは観測値）。残った 1 点が、**横の基準線の記号**。
+   *
+   * **`kind: section` は足さなかった。** 測り方が配置図と同じなので、
+   * `src/kind.ts` に自分で書いた歯止め（3 つ目の kind は測り方が 3 つ目に
+   * なるときだけ）に当たった。
+   */
+  const SECTION = `version: 1
+kind: placement
+scale: { mm: 10 }
+grid:
+  x:
+    - { id: X1, at: 200 }
+    - { id: X2, at: 400 }
+  y:
+    - { id: "天端 +3,000", at: 0, mark: level }
+    - { id: GL±0, at: 300, mark: level }
+nodes:
+  - id: a
+    label: 竪壁
+    at: { x: 200, y: 0 }
+    size: { w: 50, h: 300 }
+`;
+
+  it('**三角の高さ記号で描く。** 丸は平面の通り芯の記号', async () => {
+    const out = render(await layout(SECTION), 'light', 'safe', true);
+    assert.match(out, /<path d="M [^"]*" fill="[^"]*"\/>/, '高さ記号が描かれていない');
+    assert.ok(out.includes('>GL±0<'), 'レベルの値が出ていない');
+  });
+
+  it('値は両端に出る', async () => {
+    const out = render(await layout(SECTION), 'light', 'safe', true);
+    assert.equal(out.match(/>GL±0</g)!.length, 2);
+  });
+
+  it('**縦の基準線は丸のまま**（断面でも通り芯は通り芯）', async () => {
+    const out = render(await layout(SECTION), 'light', 'safe', true);
+    assert.match(out, /<circle [^>]*r="12"[^>]*\/><text[^>]*>X1</);
+  });
+
+  it('書かなければ丸（これまでの図の見え方を変えない）', async () => {
+    const out = render(
+      await layout(SECTION.replace(/, mark: level/g, '')),
+      'light',
+      'safe',
+      true,
+    );
+    assert.equal(out.match(/<circle [^>]*r="12"/g)!.length, 8, '丸が 4 本 × 両端で 8 個出ていない');
+  });
+
+  it('**値の分だけ余白を取る。** 図の外へ切れない', async () => {
+    const placed = await layout(SECTION);
+    const box = placed.boxes[0]!;
+    assert.ok(box.x >= 60, `左の余白が ${box.x} しかなく、レベルの値が切れる`);
+    assert.ok(placed.width - (box.x + box.w) >= 60, '右の余白が足りない');
+  });
+
+  it('知らない mark は丸で描き、警告を出す', async () => {
+    const { validate } = await import('../src/validate.ts');
+    const found = validate(SECTION.replace('mark: level', 'mark: sankaku'));
+    assert.ok(found.some((f) => f.code === 'grid-mark-unknown'));
+    assert.ok(found.every((f) => f.severity === 'warning'));
+  });
+});

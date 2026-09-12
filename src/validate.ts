@@ -17,7 +17,7 @@ import type { Document, Node, YAMLMap } from 'yaml';
 
 import { DIRECTIONS as DIRECTION_WORDS } from './direction.ts';
 import { KINDS as KIND_WORDS } from './kind.ts';
-import { NORTHS } from './grid.ts';
+import { MARKS, NORTHS } from './grid.ts';
 import { messages } from './messages.ts';
 import { OPENINGS, SIDES } from './openings.ts';
 
@@ -49,6 +49,7 @@ const DIRECTIONS = new Set<string>(DIRECTION_WORDS);
 const OPENING_KINDS = new Set<string>(OPENINGS);
 const OPENING_SIDES = new Set<string>(SIDES);
 const NORTH_WORDS = new Set<string>(NORTHS);
+const MARK_WORDS = new Set<string>(MARKS);
 
 /** `pins` の中で、位置や体裁ではなく人の決定を表す鍵。迷子の判定には関係しない。 */
 const EDGE_KEY = /^(.+)>(.+)$/;
@@ -255,6 +256,10 @@ function checkGridAndScale(doc: Document, add: Add, m: Messages, at: At): void {
       if (id === undefined || id === null || String(id) === '' || !isNumber(value)) {
         add('warning', 'grid-axis-invalid', m.gridAxisInvalid(position), at(item));
         continue;
+      }
+      const mark = isMap(item) ? item.get('mark') : undefined;
+      if (mark !== undefined && mark !== null && !MARK_WORDS.has(String(mark))) {
+        add('warning', 'grid-mark-unknown', m.gridMarkUnknown(position, String(mark)), at(item));
       }
       axes += 1;
     }
