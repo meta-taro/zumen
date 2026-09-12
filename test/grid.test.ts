@@ -321,3 +321,105 @@ nodes:
     assert.ok(found.every((f) => f.severity === 'warning'));
   });
 });
+
+describe('時間軸（mark: tick）', () => {
+  /**
+   * 工程表を 1 枚描いて分かった（2026-09-13）。**道具は 1 つ足りなかった。**
+   *
+   * 通り芯の丸で囲むと「通り芯」に見え、寸法を引くと
+   * `60 / 60 / 60 / 総 240` という**意味のない数字**が並ぶ
+   * （名前が既に月を言っている）。
+   */
+  const GANTT = `version: 1
+kind: placement
+arrows: false
+grid:
+  x:
+    - { id: 4月, at: 0, mark: tick }
+    - { id: 5月, at: 30, mark: tick }
+    - { id: 6月, at: 60, mark: tick }
+nodes:
+  - id: a
+    label: 基礎
+    at: { x: 0, y: 0 }
+    size: { w: 35, h: 22 }
+`;
+
+  it('**丸で囲まない。** 名前だけを目盛りの上に書く', async () => {
+    const out = render(await layout(GANTT), 'light', 'safe', true);
+    assert.ok(out.includes('>4月<'), '目盛りの名前が出ていない');
+    assert.ok(!out.includes('r="12"'), '時間軸に丸が出ている');
+  });
+
+  it('**寸法を引かない。** 名前が既に時刻を言っている', async () => {
+    const out = render(await layout(GANTT.replace('arrows: false', 'arrows: false\nscale: { mm: 1 }')), 'light', 'safe', true);
+    assert.ok(!out.includes('>30<'), '時間軸に寸法が出ている');
+  });
+
+  it('目盛りの線は図の中を通る', async () => {
+    const out = render(await layout(GANTT), 'light', 'safe', true);
+    assert.ok(out.includes('stroke-dasharray="14 3 3 3"'), '目盛りの線が無い');
+  });
+
+  it('**縮尺が無くても警告しない**（時間軸に縮尺は要らない）', async () => {
+    const { validate } = await import('../src/validate.ts');
+    assert.ok(!validate(GANTT).some((f) => f.code === 'scale-missing'));
+  });
+
+  it('通り芯（code）と混ぜても、寸法は通り芯だけに引く', async () => {
+    const mixed = GANTT.replace('- { id: 6月, at: 60, mark: tick }', '- { id: X1, at: 60 }\n    - { id: X2, at: 120 }');
+    const { validate } = await import('../src/validate.ts');
+    assert.ok(validate(mixed).some((f) => f.code === 'scale-missing'), '通り芯があるのに縮尺を求めていない');
+  });
+});
+
+describe('負の座標', () => {
+  /**
+   * 工程表の行見出しを `x: -120` に置いて踏んだ（2026-09-13）。
+   * **画用紙の外へ落ちて消えていた** —— 以前は右下の端だけを測っていた。
+   *
+   * 負の座標は間違いではない。**本体より左に見出しの列を置く**のは、
+   * 工程表・座席図・表のある図でふつうの書き方。
+   */
+  const LEFT = `version: 1
+kind: placement
+nodes:
+  - id: head
+    label: 準備・仮設
+    marker: none
+    at: { x: -120, y: 0 }
+    size: { w: 110, h: 22 }
+  - id: bar
+    label: 14
+    at: { x: 0, y: 0 }
+    size: { w: 14, h: 22 }
+`;
+
+  it('**画用紙の中へ入る。** 消えない', async () => {
+    const placed = await layout(LEFT);
+    for (const box of placed.boxes) {
+      assert.ok(box.x >= 0, `${box.id} が画用紙の外（x=${box.x}）`);
+      assert.ok(box.x + box.w <= placed.width, `${box.id} が右へはみ出した`);
+    }
+  });
+
+  it('相対の位置関係は変わらない', async () => {
+    const placed = await layout(LEFT);
+    const head = placed.boxes.find((b) => b.id === 'head')!;
+    const bar = placed.boxes.find((b) => b.id === 'bar')!;
+    assert.equal(bar.x - head.x, 120, '見出しと帯の間が変わった');
+  });
+
+  it('**負が無ければ 1 px も動かさない**（人が書いた座標がそのまま出る）', async () => {
+    const placed = await layout(`version: 1
+kind: placement
+nodes:
+  - id: a
+    label: あ
+    at: { x: 3, y: 5 }
+    size: { w: 40, h: 20 }
+`);
+    assert.equal(placed.boxes[0]!.x, 3, '近いだけで動かした');
+    assert.equal(placed.boxes[0]!.y, 5);
+  });
+});

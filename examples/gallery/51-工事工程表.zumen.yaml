@@ -1,0 +1,99 @@
+version: 1
+kind: placement
+arrows: false
+title: 工事工程表（RC 5 階・工期 9 か月・バーチャート）
+grid:
+  x:
+    - { id: 4月, at: 0, mark: tick }
+    - { id: 5月, at: 30, mark: tick }
+    - { id: 6月, at: 60, mark: tick }
+    - { id: 7月, at: 90, mark: tick }
+    - { id: 8月, at: 120, mark: tick }
+    - { id: 9月, at: 150, mark: tick }
+    - { id: 10月, at: 180, mark: tick }
+    - { id: 11月, at: 210, mark: tick }
+    - { id: 12月, at: 240, mark: tick }
+pins:
+  kutai:
+    appearance: primary
+nodes:
+  - id: n1
+    label: 準備・仮設
+    marker: none
+    at: { x: -120, y: 0 }
+    size: { w: 110, h: 22 }
+  - id: junbi
+    label: 14
+    hatch: dots
+    at: { x: 0, y: 0 }
+    size: { w: 14, h: 22 }
+  - id: n2
+    label: 山留・掘削
+    marker: none
+    at: { x: -120, y: 30 }
+    size: { w: 110, h: 22 }
+  - id: yamadome
+    label: 28
+    hatch: dots
+    at: { x: 14, y: 30 }
+    size: { w: 28, h: 22 }
+  - id: n3
+    label: 基礎
+    marker: none
+    at: { x: -120, y: 60 }
+    size: { w: 110, h: 22 }
+  - id: kiso
+    label: 35
+    hatch: lines
+    at: { x: 42, y: 60 }
+    size: { w: 35, h: 22 }
+  - id: n4
+    label: 躯体（5 階）
+    marker: none
+    at: { x: -120, y: 90 }
+    size: { w: 110, h: 22 }
+  - id: kutai
+    label: 100 日
+    hatch: solid
+    at: { x: 77, y: 90 }
+    size: { w: 100, h: 22 }
+  - id: n5
+    label: 外壁・建具
+    marker: none
+    at: { x: -120, y: 120 }
+    size: { w: 110, h: 22 }
+  - id: gaiheki
+    label: 60 日
+    hatch: lines
+    at: { x: 150, y: 120 }
+    size: { w: 60, h: 22 }
+  - id: n6
+    label: 設備
+    marker: none
+    at: { x: -120, y: 150 }
+    size: { w: 110, h: 22 }
+  - id: setsubi
+    label: 90 日
+    hatch: dots
+    at: { x: 140, y: 150 }
+    size: { w: 90, h: 22 }
+  - id: n7
+    label: 内装
+    marker: none
+    at: { x: -120, y: 180 }
+    size: { w: 110, h: 22 }
+  - id: naiso
+    label: 70 日
+    hatch: lines
+    at: { x: 180, y: 180 }
+    size: { w: 70, h: 22 }
+  - id: n8
+    label: 検査・是正
+    marker: none
+    at: { x: -120, y: 210 }
+    size: { w: 110, h: 22 }
+  - id: kensa
+    label: 20
+    hatch: cross
+    at: { x: 250, y: 210 }
+    size: { w: 20, h: 22 }

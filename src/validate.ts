@@ -276,8 +276,15 @@ function checkGridAndScale(doc: Document, add: Add, m: Messages, at: At): void {
     }
   }
 
+  // **時間軸には寸法を引かない**ので、縮尺は要らない（`src/grid.ts` の `tick`）。
+  const onlyTicks = ['x', 'y'].every((key) => {
+    const seq = grid.get(key, true);
+    if (seq === undefined || seq === null || !isSeq(seq)) return true;
+    return seq.items.every((item) => isMap(item) && String(item.get('mark')) === 'tick');
+  });
+
   // **芯が 2 本以上あってはじめて寸法が引ける。** 1 本では長さが無い。
-  if (axes >= 2 && !hasScale) {
+  if (axes >= 2 && !hasScale && !onlyTicks) {
     add('warning', 'scale-missing', m.scaleMissing, at(grid));
   }
 }

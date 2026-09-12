@@ -58,6 +58,14 @@ export function drawGrid(grid: Grid, frame: Frame, ink: Ink): string {
 
   for (const axis of grid.x) {
     const x = axis.at;
+    if (axis.mark === 'tick') {
+      // **時間軸。** 目盛りの線と、上に名前だけ（丸で囲むと通り芯に見える）。
+      parts.push(line(x, frame.y - 10, x, frame.y + frame.h, ink.stroke, CHAIN));
+      parts.push(
+        `<text x="${n(x)}" y="${n(frame.y - 16)}" text-anchor="middle" font-family="${ink.font}" font-size="11" fill="${ink.text}">${axis.id}</text>`,
+      );
+      continue;
+    }
     parts.push(line(x, top, x, bottom, ink.stroke, CHAIN));
     parts.push(code(x, top - CODE_R - 2, axis.id, ink));
     parts.push(code(x, bottom + CODE_R + 2, axis.id, ink));
@@ -65,6 +73,13 @@ export function drawGrid(grid: Grid, frame: Frame, ink: Ink): string {
   for (const axis of grid.y) {
     const y = axis.at;
     parts.push(line(left, y, right, y, ink.stroke, CHAIN));
+    if (axis.mark === 'tick') {
+      parts.push(line(frame.x - 10, y, frame.x + frame.w, y, ink.stroke, CHAIN));
+      parts.push(
+        `<text x="${n(frame.x - 16)}" y="${n(y + 4)}" text-anchor="end" font-family="${ink.font}" font-size="11" fill="${ink.text}">${axis.id}</text>`,
+      );
+      continue;
+    }
     if (axis.mark === 'level') {
       // **高さの基準線**（断面図・立面図）。丸ではなく三角と値。
       parts.push(level(left - 4, y, axis.id, ink, 'left'));
@@ -87,20 +102,25 @@ export function drawDimensions(grid: Grid, frame: Frame, mm: number | null, ink:
   if (mm === null) return '';
   const parts: string[] = [];
 
+  // **時間軸には寸法を引かない。** 名前が既に時刻を言っているので、
+  // 引くと `60 / 60 / 60 / 総 240` という意味のない数字が並ぶ。
+  const spanX = grid.x.filter((axis) => axis.mark !== 'tick');
+  const spanY = grid.y.filter((axis) => axis.mark !== 'tick');
+
   // 下側 —— 横方向の寸法。
-  if (grid.x.length >= 2) {
+  if (spanX.length >= 2) {
     const near = frame.y + frame.h + MARGIN.near;
-    parts.push(chainOf(grid.x, near, mm, ink, 'x'));
+    parts.push(chainOf(spanX, near, mm, ink, 'x'));
     // **芯が 2 本なら、総寸法は芯どうしの寸法と同じ。** 同じ数字を 2 段書かない。
-    if (grid.x.length > 2) {
-      parts.push(totalOf(grid.x, frame.y + frame.h + MARGIN.far, mm, ink, 'x'));
+    if (spanX.length > 2) {
+      parts.push(totalOf(spanX, frame.y + frame.h + MARGIN.far, mm, ink, 'x'));
     }
   }
   // 左側 —— 縦方向の寸法。
-  if (grid.y.length >= 2) {
-    parts.push(chainOf(grid.y, frame.x - MARGIN.near, mm, ink, 'y'));
-    if (grid.y.length > 2) {
-      parts.push(totalOf(grid.y, frame.x - MARGIN.far, mm, ink, 'y'));
+  if (spanY.length >= 2) {
+    parts.push(chainOf(spanY, frame.x - MARGIN.near, mm, ink, 'y'));
+    if (spanY.length > 2) {
+      parts.push(totalOf(spanY, frame.x - MARGIN.far, mm, ink, 'y'));
     }
   }
   return parts.join('');

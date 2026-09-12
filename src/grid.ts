@@ -39,7 +39,7 @@
 import type { Box } from './layout.ts';
 
 /** 基準線の印。 */
-export const MARKS = ['code', 'level'] as const;
+export const MARKS = ['code', 'level', 'tick'] as const;
 export type Mark = (typeof MARKS)[number];
 
 /** 通り芯 1 本。 */
@@ -55,6 +55,23 @@ export interface Axis {
    * |---|---|
    * | `code`（既定） | 丸で囲んだ符号。**平面図の通り芯** |
    * | `level` | 三角の高さ記号と、その脇に書く値。**断面図・立面図のレベル** |
+   * | `tick` | 目盛りと名前だけ。**時間軸**（工程表・ガントチャート） |
+   *
+   * ## `tick` —— 時間軸
+   *
+   * 工程表を 1 枚描いて分かった（2026-09-13）。**道具は 1 つ足りなかった。**
+   *
+   * | | 通り芯（`code`） | 時間軸（`tick`） |
+   * |---|---|---|
+   * | 印 | 丸で囲んだ符号 | **名前だけ**（`4月`・`T+0`） |
+   * | 寸法 | 芯どうしと総寸法 | **引かない** |
+   *
+   * 丸で囲むと「通り芯」に見え、寸法を引くと
+   * **`60 / 60 / 60 / 60 / 総 240` という意味のない数字**が並ぶ
+   * （名前が既に月を言っている）。
+   *
+   * 工程表・ネットワーク工程表・ガントチャート・タイムチャートは、
+   * すべて「時刻の目盛りと、その上に伸びる帯」でできている。
    *
    * ## なぜ `kind: section` を足さなかったか
    *
@@ -103,7 +120,7 @@ function axesOf(raw: unknown): Axis[] {
     const label = id === undefined || id === null ? '' : String(id);
     if (label === '') continue;
     const mark = (item as Record<string, unknown>).mark;
-    out.push({ id: label, at, mark: mark === 'level' ? 'level' : 'code' });
+    out.push({ id: label, at, mark: mark === 'level' || mark === 'tick' ? mark : 'code' });
   }
   // **同じ入力から同じ絵**（D2）。書いた順に依らず、位置の順で並べる。
   return out.sort((a, b) => a.at - b.at);
@@ -149,11 +166,14 @@ export function marginFor(grid: Grid): { left: number; top: number; right: numbe
   const widest = level
     ? Math.max(...grid.y.filter((a) => a.mark === 'level').map((a) => a.id.length)) * 9 + 24
     : 0;
+  // **時間軸は名前だけ。** 丸も寸法も出ないので、余白は少なくて済む。
+  const ticksX = grid.x.length > 0 && grid.x.every((axis) => axis.mark === 'tick');
+  const ticksY = grid.y.length > 0 && grid.y.every((axis) => axis.mark === 'tick');
   return {
-    left: grid.y.length > 0 ? Math.max(MARGIN.code + 14, widest) : 0,
+    left: grid.y.length === 0 ? 0 : ticksY ? 56 : Math.max(MARGIN.code + 14, widest),
     top: MARGIN.top,
     right: Math.max(MARGIN.right, widest),
-    bottom: grid.x.length > 0 ? MARGIN.code + 14 : 0,
+    bottom: grid.x.length === 0 ? 0 : ticksX ? 12 : MARGIN.code + 14,
   };
 }
 

@@ -354,6 +354,38 @@ export async function layout(text: string): Promise<Placed> {
     for (const axis of grid.y) axis.at += margin.top;
   }
 
+  /**
+   * **負の座標を画用紙の中へ入れる。**
+   *
+   * 正本に書いた座標は、原点が左上だとは限らない
+   * （工程表は本体より左に見出しの列を置く）。
+   * SVG に負の画用紙は無いので、**負のときだけ**まとめてずらす。
+   *
+   * **負が無ければ 1 px も動かさない。**
+   * 人が `pins.position` に書いた座標がそのまま出ることは、この製品の保証
+   * （判定基準 3.1 / `test/human-wins.test.ts`）。**近いだけで動かしてはいけない。**
+   *
+   * 負を使った図は、**図ぜんたいがずれる**（相対の位置関係は変わらない）。
+   * 正本の値は動かさない。
+   */
+  const edge = bounds(boxes, groups);
+  const slideX = edge.minX < 0 ? -edge.minX : 0;
+  const slideY = edge.minY < 0 ? -edge.minY : 0;
+  if (slideX > 0 || slideY > 0) {
+    for (const box of [...boxes, ...groups]) {
+      box.x += slideX;
+      box.y += slideY;
+    }
+    for (const line of edges) {
+      for (const point of line.points) {
+        point.x += slideX;
+        point.y += slideY;
+      }
+    }
+    for (const axis of grid.x) axis.at += slideX;
+    for (const axis of grid.y) axis.at += slideY;
+  }
+
   const size = extent(boxes, groups);
   return {
     boxes,
@@ -894,11 +926,32 @@ function collect(
   }
 }
 
-function extent(boxes: Box[], groups: Box[]): { width: number; height: number } {
+/** 図の外周に残す余白。 */
+const PAD = 24;
+
+/**
+ * 図の四隅。
+ *
+ * **左上が原点だと決めてかからない。**
+ * 以前はここで `max` だけを測っていたので、**負の座標に置いたものが
+ * 画用紙の外へ落ちて消えていた**（2026-09-13。工程表の行見出しを
+ * `x: -120` に置いて踏んだ）。
+ *
+ * 負の座標は間違いではない —— **本体より左に見出しの列を置く**のは、
+ * 工程表・座席図・表のある図でふつうの書き方。
+ */
+function bounds(boxes: Box[], groups: Box[]): { minX: number; minY: number; maxX: number; maxY: number } {
   const all = [...boxes, ...groups];
-  if (all.length === 0) return { width: 0, height: 0 };
+  if (all.length === 0) return { minX: 0, minY: 0, maxX: 0, maxY: 0 };
   return {
-    width: Math.max(...all.map((b) => b.x + b.w)) + 24,
-    height: Math.max(...all.map((b) => b.y + b.h)) + 24,
+    minX: Math.min(...all.map((b) => b.x)),
+    minY: Math.min(...all.map((b) => b.y)),
+    maxX: Math.max(...all.map((b) => b.x + b.w)),
+    maxY: Math.max(...all.map((b) => b.y + b.h)),
   };
+}
+
+function extent(boxes: Box[], groups: Box[]): { width: number; height: number } {
+  const box = bounds(boxes, groups);
+  return { width: box.maxX + PAD, height: box.maxY + PAD };
 }
