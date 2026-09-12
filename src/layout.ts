@@ -18,6 +18,8 @@ import type { ElkExtendedEdge, ElkNode } from 'elkjs/lib/elk-api.js';
 
 import { asText, getPins, parse } from './format.ts';
 import { directionOf, elkDirection } from './direction.ts';
+import { gridOf, marginFor, northOf, scaleOf } from './grid.ts';
+import type { Grid, North } from './grid.ts';
 import { wrapOf, wrapOptions } from './wrap.ts';
 import { kindOf, measureOf } from './kind.ts';
 import { separate } from './separate.ts';
@@ -83,6 +85,12 @@ export interface Placed {
    * それは手直しを壊したことになる（判定基準 3.1）。**人へ出して選んでもらう。**
    */
   collisions: [string, string][];
+  /** **通り芯**（`src/grid.ts`）。書かなければ空。配置図でだけ描く。 */
+  grid: Grid;
+  /** 1 px が何 mm か。**書かなければ寸法の数値を出さない。** */
+  mm: number | null;
+  /** 方位。書かなければ描かない。 */
+  north: North | null;
 }
 
 /** 箱の下限と上限。**文字から決めるが、際限なく広げない**（Issue #3 の 2）。 */
@@ -187,7 +195,13 @@ export async function layout(text: string): Promise<Placed> {
 
   const groupLabels = readGroupLabels(diagram);
   // **向きは正本が決める**（`direction: right | down`。既定は横）。
-  const raw = diagram.doc.toJS() as { direction?: unknown; wrap?: unknown };
+  const raw = diagram.doc.toJS() as {
+    direction?: unknown;
+    wrap?: unknown;
+    grid?: unknown;
+    scale?: unknown;
+    north?: unknown;
+  };
   const direction = elkDirection(directionOf(raw.direction));
   // **折り返すかは正本が決める**（`src/wrap.ts`）。既定は折り返さない。
   const wrap = wrapOptions(wrapOf(raw.wrap));
@@ -274,7 +288,43 @@ export async function layout(text: string): Promise<Placed> {
   );
 
   const edges = routeEdges(readEdges(diagram), boxes, pins, routes, moved);
-  return { boxes, groups, edges, collisions: locked, ...extent(boxes, groups) };
+  /**
+   * **通り芯と寸法線の分だけ、外側へ空ける**（`src/grid.ts`）。
+   *
+   * 正本の座標は余白を知らないので、**描く直前に全部ずらす。**
+   * 先にずらすと `at` に書いた値と図の座標が食い違い、
+   * 人が「40 と書いたのに 118 にある」と読むことになる。
+   */
+  const grid = gridOf(raw.grid);
+  const margin = marginFor(grid);
+  if (margin.left > 0 || margin.top > 0) {
+    for (const box of [...boxes, ...groups]) {
+      box.x += margin.left;
+      box.y += margin.top;
+    }
+    for (const edge of edges) {
+      for (const point of edge.points) {
+        point.x += margin.left;
+        point.y += margin.top;
+      }
+    }
+    // **通り芯も一緒にずらす。** ここでずらしておけば、描く側は余白を知らずに済む。
+    for (const axis of grid.x) axis.at += margin.left;
+    for (const axis of grid.y) axis.at += margin.top;
+  }
+
+  const size = extent(boxes, groups);
+  return {
+    boxes,
+    groups,
+    edges,
+    collisions: locked,
+    grid,
+    mm: scaleOf(raw.scale),
+    north: northOf(raw.north),
+    width: size.width + margin.right,
+    height: size.height + margin.bottom,
+  };
 }
 
 /** グループの枠を、中身を含む大きさへ広げる。 */
@@ -289,8 +339,15 @@ export async function layout(text: string): Promise<Placed> {
  * （2026-09-11。店舗のレイアウトで、売場の枠がバックヤードに飲み込まれた）。
  */
 function fitGroups(boxes: Box[], groups: Box[], shrink = false): void {
-  const PADDING = 24;
-  const TITLE = 40;
+  /**
+   * 囲みと中身の間。
+   *
+   * **配置図では詰める。** 実物の平面図では、外周の壁が部屋の壁そのもので、
+   * 間に隙間は無い。24px 空けると、建物の周りに廊下があるように見える。
+   * 見出しの分だけは上に残す（囲みの名前を書く場所）。
+   */
+  const PADDING = shrink ? 4 : 24;
+  const TITLE = shrink ? 26 : 40;
   for (const group of groups) {
     const children = boxes.filter((box) => box.group === group.id);
     if (children.length === 0) continue;

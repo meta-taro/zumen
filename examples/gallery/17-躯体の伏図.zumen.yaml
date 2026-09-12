@@ -1,6 +1,17 @@
 version: 1
 kind: placement
-title: 2 階 床伏図（RC 造・1 スパン 6.0m を 120px として）
+title: 2 階 床伏図（RC 造）
+# 1 px = 20 mm。柱芯の間隔 180px が 1 スパン 3,600mm になる。
+scale: { mm: 20 }
+north: up
+grid:
+  x:
+    - { id: X1, at: 68 }
+    - { id: X2, at: 248 }
+    - { id: X3, at: 428 }
+  y:
+    - { id: Y1, at: 68 }
+    - { id: Y2, at: 368 }
 groups:
   - id: f2
     label: 2FL＋3,200　柱 C1=700×700　大梁 G1=400×750
@@ -33,7 +44,7 @@ nodes:
     label: 柱
     tag: C2
     technology: 600×600
-    at: { x: 220, y: 340 }
+    at: { x: 224, y: 340 }
     size: { w: 48, h: 48 }
     group: f2
   - id: g1n

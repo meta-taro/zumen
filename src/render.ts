@@ -24,6 +24,9 @@
  *
  * 詳細と、回避できないものは `docs/specs/007-貼り先で崩れないか.md`。
  */
+import { drawDimensions, drawGrid, drawNorth } from './dimensions.ts';
+import type { Frame, Ink } from './dimensions.ts';
+import { hasGrid } from './grid.ts';
 import { drawOpenings } from './openings.ts';
 import { drawShape, shapeOf, textShift } from './shapes.ts';
 import { placeEdgeLabels } from './edge-labels.ts';
@@ -108,6 +111,13 @@ export function render(
     // 平面図だから落としているのではない。
     ...placed.edges.map((edge) => renderEdge(edge, labels.get(edge.id) ?? null, palette)),
     ...stack(placed.boxes, plan).map((box) => renderNode(box, palette, plan)),
+    // **通り芯・寸法・方位は最前面。**
+    //
+    // 一度、通り芯を下敷きにした。**建物の中で消えた** —— 箱の塗りは透けないので、
+    // スラブや部屋の下に入ると、外側の切れ端しか見えない。
+    // 実物では一点鎖線が**建物を貫いて**見えている。基準線なので、
+    // 隠れたら基準として使えない。
+    ...(plan && hasGrid(placed.grid) ? [gridLayer(placed, palette), dimensionLayer(placed, palette)] : []),
     '</svg>',
   ];
   return parts.join('\n');
@@ -127,6 +137,49 @@ export function render(
 function stack(boxes: Box[], plan: boolean): Box[] {
   if (!plan) return boxes;
   return [...boxes].sort((a, b) => b.w * b.h - a.w * a.h);
+}
+
+/**
+ * 通り芯（`src/grid.ts`）。**建物を貫いて描く。**
+ *
+ * 実物では一点鎖線が建物を貫いて外まで伸び、端に符号が丸で付く。
+ * **下敷きにすると建物の中で消える**（箱の塗りは透けない）。
+ * 基準線が隠れたら、基準として使えない。
+ */
+function gridLayer(placed: Placed, palette: Palette): string {
+  const frame = frameOf(placed);
+  const ink = inkOf(palette);
+  return `<g data-grid="true">${drawGrid(placed.grid, frame, ink)}</g>`;
+}
+
+/** 寸法線と方位。**最前面**（数値が隠れると読めない）。 */
+function dimensionLayer(placed: Placed, palette: Palette): string {
+  const frame = frameOf(placed);
+  const ink = inkOf(palette);
+  const north = placed.north === null ? '' : drawNorth(placed.north, frame, ink);
+  return (
+    '<g data-dimensions="true">' +
+    drawDimensions(placed.grid, frame, placed.mm, ink) +
+    north +
+    '</g>'
+  );
+}
+
+/** 図の中身が占める矩形。通り芯の長さと、寸法線を置く位置がここから決まる。 */
+function frameOf(placed: Placed): Frame {
+  const all = [...placed.boxes, ...placed.groups];
+  const x = Math.min(...all.map((b) => b.x));
+  const y = Math.min(...all.map((b) => b.y));
+  return {
+    x,
+    y,
+    w: Math.max(...all.map((b) => b.x + b.w)) - x,
+    h: Math.max(...all.map((b) => b.y + b.h)) - y,
+  };
+}
+
+function inkOf(palette: Palette): Ink {
+  return { stroke: palette.node.stroke, text: palette.text.group, paper: palette.paper, font: FONT };
 }
 
 function renderGroup(group: Box, palette: Palette, plan = false): string {

@@ -90,6 +90,9 @@ describe('overlaps', () => {
       width: 0,
       height: 0,
       collisions: [],
+      grid: { x: [], y: [] },
+      mm: null,
+      north: null,
     };
     assert.deepEqual(overlaps(placed), [['a', 'b']]);
   });

@@ -292,3 +292,15 @@ describe('spec が、AI の書ける場所をすべて載せている', () => {
     assert.deepEqual(parseDocument(template()).errors, []);
   });
 });
+
+describe('spec が、通り芯と縮尺を載せている', () => {
+  it('**建築の図で最も重要な 2 つ** —— これが無いと現場で使えない', () => {
+    assert.match(spec().shape, /grid:/);
+    assert.match(spec().shape, /scale:/);
+    assert.deepEqual(spec().norths, ['up', 'right', 'down', 'left']);
+  });
+
+  it('規則に「寸法が無い図は現場で使えない」がある', () => {
+    assert.ok(spec().rules.some((rule) => rule.includes('現場') || rule.includes('site')));
+  });
+});

@@ -1,9 +1,23 @@
 version: 1
 kind: placement
-title: 2LDK の間取り（1 階）
+title: 2LDK 平面詳細図（1 階）
+# 1 px = 15 mm。通り芯どうしの寸法が現場の数字になる。
+scale: { mm: 15 }
+north: up
+grid:
+  x:
+    - { id: X1, at: 40 }
+    - { id: X2, at: 240 }
+    - { id: X3, at: 360 }
+    - { id: X4, at: 480 }
+  y:
+    - { id: Y1, at: 40 }
+    - { id: Y2, at: 320 }
+    - { id: Y3, at: 480 }
+    - { id: Y4, at: 560 }
 groups:
   - id: f1
-    label: 1 階・約 62 m²（1 マス = 910mm を 40px として）
+    label: 1 階　床面積 51.48 m²　CH＝2,400
 nodes:
   - id: ldk
     type: generic
@@ -45,6 +59,25 @@ nodes:
     group: f1
     openings:
       - { kind: double, side: bottom, at: 0.5, width: 90 }
+  - id: yoshitsu
+    type: generic
+    label: 洋室
+    technology: 5.4 畳
+    at: { x: 360, y: 40 }
+    size: { w: 120, h: 200 }
+    group: f1
+    openings:
+      - { kind: window, side: right, at: 0.5, width: 90 }
+      - { kind: door, side: left, at: 0.8, width: 60 }
+  - id: shunou
+    type: generic
+    label: 納戸
+    technology: 2.7 m²
+    at: { x: 40, y: 480 }
+    size: { w: 200, h: 80 }
+    group: f1
+    openings:
+      - { kind: slide, side: top, at: 0.5, width: 80 }
   - id: senmen
     type: generic
     label: 洗面脱衣
@@ -59,7 +92,7 @@ nodes:
     label: 浴室
     technology: 1616
     at: { x: 360, y: 400 }
-    size: { w: 120, h: 120 }
+    size: { w: 120, h: 160 }
     group: f1
     openings:
       - { kind: window, side: right, at: 0.5, width: 60 }

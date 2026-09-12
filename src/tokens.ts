@@ -147,6 +147,16 @@ export interface Palette {
   group: Look;
   edge: { stroke: string };
   text: { node: string; group: string; edge: string };
+  /**
+   * **図の外の地の色。**
+   *
+   * SVG は自分の地を塗らない（貼り先の地に乗る。Issue 007）ので、
+   * ここは**貼り先がこの色だろう、という想定**でしかない。
+   *
+   * 使うのは「線を切って数値を置く」ような、**地と同じ色で消す**用途だけ。
+   * 箱の地（`node.fill`）で消すと、ダークでは一段明るいので**四角く浮く。**
+   */
+  paper: string;
 }
 
 /**
@@ -241,6 +251,7 @@ export function paletteOf(theme: Theme = 'light', intent: Intent = 'safe'): Pale
      * **ダークでアクセントと 1.3:1 まで近づく**ので、`appearance: primary` と区別が付かない。
      * 地から最も遠い側を選べば、どちらのテーマでも両方から離れる。
      */
+    paper: t.bgApp,
     node: { fill: nodeFill, stroke: inkOn(t.bgApp, t.textPrimary, t.textOnAccent), text: t.textPrimary, dash: null },
     /**
      * 囲みは**面と枠の両方で示す**。

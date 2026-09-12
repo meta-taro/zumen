@@ -326,6 +326,11 @@ const ja = {
       '    at:   { x: <左>, y: <上> }        # kind: placement でだけ効く',
       '    openings:                          # kind: placement でだけ効く（建具）',
       '      - { kind: <openings から>, side: <sides から>, at: <0〜1>, width: <px> }',
+      'scale: { mm: <1px が何 mm か> }      # 寸法の数値を出すのに要る',
+      'north: <up / right / down / left>    # 方位記号',
+      'grid:                                 # 通り芯。kind: placement でだけ効く',
+      '  x: [{ id: X1, at: <px> }, { id: X2, at: <px> }]',
+      '  y: [{ id: Y1, at: <px> }, { id: Y2, at: <px> }]',
       'edges:',
       '  - from: <ノードの id>',
       '    to: <ノードの id>',
@@ -335,6 +340,7 @@ const ja = {
     rules: [
       'pins は書かない。人が手で決めたことを置く節で、書いても採られない。',
       'kind: placement（配置図）では、置き場所を自分で書く。機械は並べ直さない。間取り・伏図・売場・避難経路はこちら。nodes[].at と nodes[].size の両方を書くこと。大きさを書かないと、便所と 16 畳の LDK が同じ箱で出る。',
+      '建築の図（間取り・伏図・平面詳細図）を描くなら、grid（通り芯）と scale を必ず書く。寸法の数値が出ない図は、現場では使えない。通り芯は壁や柱の芯に置き、符号は X1 / Y1 のように付ける。',
       '配置図では部屋や棚が接しているのが普通で、隙間を空けない。壁は隣どうしで共有する。',
       'type を増やさない。業界の専門性は形ではなく符号（tag）で表されている。柱は C1 であって円柱の絵ではない。',
       '横一列に伸びすぎたら wrap: true を書く。文字を大きくして直そうとしない（図が伸びて比がさらに下がる）。',
@@ -400,6 +406,16 @@ const ja = {
       `direction が "${word}" になっています（right / down）。既定の横で描きます。`,
     wrapNotBoolean: (found: string) =>
       `wrap が ${found} になっています。折り返すのは true と書いたときだけです。`,
+    gridAxisInvalid: (position: number) =>
+      `通り芯の ${position} 番目が { id: 符号, at: 数 } になっていません。この芯は描かれません。`,
+    gridIgnored:
+      'grid（通り芯）がありますが、構成図では描かれません（kind: placement で描かれます）。',
+    scaleMissing:
+      '通り芯はありますが scale がありません。寸法の数値は出ません（scale: { mm: 20 } で 1px = 20mm）。',
+    scaleInvalid: (found: string) =>
+      `scale.mm が ${found} になっています。正の数を書きます（1px が何 mm か）。寸法の数値は出ません。`,
+    northUnknown: (word: string) =>
+      `north が "${word}" になっています（up / right / down / left）。方位記号は描かれません。`,
   },
 
   /** Mermaid への書き出し（`src/mermaid.ts`） */
@@ -639,6 +655,11 @@ const en: Catalog = {
       '    at:   { x: <left>, y: <top> }       # only with kind: placement',
       '    openings:                            # only with kind: placement',
       '      - { kind: <from openings>, side: <from sides>, at: <0..1>, width: <px> }',
+      'scale: { mm: <how many mm one pixel is> }   # required for dimension figures',
+      'north: <up / right / down / left>',
+      'grid:                                 # only with kind: placement',
+      '  x: [{ id: X1, at: <px> }, { id: X2, at: <px> }]',
+      '  y: [{ id: Y1, at: <px> }, { id: Y2, at: <px> }]',
       'edges:',
       '  - from: <node id>',
       '    to: <node id>',
@@ -647,6 +668,7 @@ const en: Catalog = {
     rules: [
       'Do not write pins. That section holds what a person decided by hand; anything you write there is dropped.',
       'With kind: placement you place things yourself; the machine does not lay them out. Floor plans, framing plans, store layouts and escape routes are placement. Write both nodes[].at and nodes[].size. Without sizes, a toilet and a 16-mat living room come out the same box.',
+      'For an architectural drawing, always write grid and scale. A drawing with no dimension figures cannot be used on site. Put the grid lines on the centre of walls and columns, and code them X1 / Y1.',
       'In a placement diagram rooms and shelves normally touch. Do not leave gaps; neighbours share a wall.',
       'Do not add to type. Domain specificity is carried by the code (tag), not by shape. A column is C1, not a cylinder.',
       'If a diagram stretches into one long row, write wrap: true. Do not try to fix it by enlarging the text.',
@@ -700,6 +722,15 @@ const en: Catalog = {
       `direction is "${word}" (right / down). Drawing it in the default horizontal direction.`,
     wrapNotBoolean: (found: string) =>
       `wrap is ${found}. Wrapping happens only when it is written as true.`,
+    gridAxisInvalid: (position: number) =>
+      `Axis ${position} of grid is not { id: code, at: number }. It is not drawn.`,
+    gridIgnored: 'grid is present, but grid lines are not drawn on a structure diagram. Use kind: placement.',
+    scaleMissing:
+      'There is a grid but no scale, so no dimension figures are drawn (scale: { mm: 20 } means 1px = 20mm).',
+    scaleInvalid: (found: string) =>
+      `scale.mm is ${found}. Write a positive number (how many mm one pixel is). No dimension figures are drawn.`,
+    northUnknown: (word: string) =>
+      `north is "${word}" (up / right / down / left). No north arrow is drawn.`,
   },
   mermaid: {
     geometryDroppedHeading:

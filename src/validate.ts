@@ -17,6 +17,7 @@ import type { Document, Node, YAMLMap } from 'yaml';
 
 import { DIRECTIONS as DIRECTION_WORDS } from './direction.ts';
 import { KINDS as KIND_WORDS } from './kind.ts';
+import { NORTHS } from './grid.ts';
 import { messages } from './messages.ts';
 import { OPENINGS, SIDES } from './openings.ts';
 
@@ -47,6 +48,7 @@ const KINDS = new Set<string>(KIND_WORDS);
 const DIRECTIONS = new Set<string>(DIRECTION_WORDS);
 const OPENING_KINDS = new Set<string>(OPENINGS);
 const OPENING_SIDES = new Set<string>(SIDES);
+const NORTH_WORDS = new Set<string>(NORTHS);
 
 /** `pins` の中で、位置や体裁ではなく人の決定を表す鍵。迷子の判定には関係しない。 */
 const EDGE_KEY = /^(.+)>(.+)$/;
@@ -85,6 +87,7 @@ export function validate(text: string): Finding[] {
   checkGroups(doc, nodeIds, groupIds, add, m, at);
   checkDeclarations(doc, add, m, at);
   checkGeometry(doc, add, m, at);
+  checkGridAndScale(doc, add, m, at);
   const edgeKeys = checkEdges(doc, nodeIds, add, m, at);
   checkPins(doc, nodeIds, edgeKeys, add, m, at);
   checkRoundTrip(doc, text, add, m);
@@ -194,6 +197,64 @@ function checkDeclarations(doc: Document, add: Add, m: Messages, at: At): void {
  * `kind: door` を構成図へ書いたのも、**黙って無視されていた。**
  * 書いた側は同じ間違いを書き続け、人は図を見るまで気づけない。
  */
+/**
+ * **通り芯・縮尺・方位**（`src/grid.ts`）。
+ *
+ * ここも AI が書く場所なので、黙って落とさない。
+ * とくに **「通り芯はあるが縮尺が無い」** は気づきにくい ——
+ * 芯は描かれるので図は出るが、**寸法の数値だけが出ない。**
+ * 現場で使う図としては、それが抜けたら意味が無い。
+ */
+function checkGridAndScale(doc: Document, add: Add, m: Messages, at: At): void {
+  const placement = String(doc.get('kind') ?? '') === 'placement';
+
+  const north = doc.get('north');
+  if (north !== undefined && north !== null && !NORTH_WORDS.has(String(north))) {
+    add('warning', 'north-unknown', m.northUnknown(String(north)), at(doc.get('north', true)));
+  }
+
+  const scale = doc.get('scale', true);
+  let hasScale = false;
+  if (scale !== undefined && scale !== null) {
+    const mm = isMap(scale) ? scale.get('mm') : undefined;
+    if (typeof mm === 'number' && Number.isFinite(mm) && mm > 0) {
+      hasScale = true;
+    } else {
+      add('warning', 'scale-invalid', m.scaleInvalid(String(mm)), at(scale));
+    }
+  }
+
+  const grid = doc.get('grid', true);
+  if (grid === undefined || grid === null || !isMap(grid)) return;
+
+  if (!placement) {
+    add('warning', 'grid-ignored', m.gridIgnored, at(grid));
+    return;
+  }
+
+  let axes = 0;
+  for (const key of ['x', 'y']) {
+    const seq = grid.get(key, true);
+    if (seq === undefined || seq === null || !isSeq(seq)) continue;
+    let position = 0;
+    for (const item of seq.items) {
+      position += 1;
+      const id = isMap(item) ? item.get('id') : undefined;
+      const value = isMap(item) ? item.get('at') : undefined;
+      if (id === undefined || id === null || String(id) === '' || !isNumber(value)) {
+        add('warning', 'grid-axis-invalid', m.gridAxisInvalid(position), at(item));
+        continue;
+      }
+      axes += 1;
+    }
+  }
+
+  // **芯が 2 本以上あってはじめて寸法が引ける。** 1 本では長さが無い。
+  if (axes >= 2 && !hasScale) {
+    add('warning', 'scale-missing', m.scaleMissing, at(grid));
+  }
+}
+
 function checkGeometry(doc: Document, add: Add, m: Messages, at: At): void {
   const placement = String(doc.get('kind') ?? '') === 'placement';
 

@@ -113,3 +113,51 @@ describe('見本 23 件は、指摘 0 件のまま', () => {
     }
   });
 });
+
+describe('通り芯・縮尺・方位を見る', () => {
+  const PLAN = 'version: 1\nkind: placement\n';
+
+  it('正しく書いた通り芯は通る', () => {
+    assert.deepEqual(
+      codes(`${PLAN}scale: { mm: 20 }\ngrid:\n  x:\n    - { id: X1, at: 40 }\n    - { id: X2, at: 400 }\nnodes:\n  - id: a\n`),
+      [],
+    );
+  });
+
+  it('**符号の無い芯を知らせる。** 名前の無い基準線は使えない', () => {
+    assert.ok(codes(`${PLAN}grid:\n  x:\n    - { at: 40 }\nnodes:\n  - id: a\n`).includes('grid-axis-invalid'));
+  });
+
+  it('位置が数でない芯を知らせる', () => {
+    assert.ok(
+      codes(`${PLAN}grid:\n  x:\n    - { id: X1, at: ひだり }\nnodes:\n  - id: a\n`).includes('grid-axis-invalid'),
+    );
+  });
+
+  it('**構成図に通り芯を書いても効かないことを知らせる**', () => {
+    assert.ok(
+      codes('version: 1\ngrid:\n  x:\n    - { id: X1, at: 40 }\nnodes:\n  - id: a\n').includes('grid-ignored'),
+    );
+  });
+
+  it('**通り芯があるのに縮尺が無いことを知らせる。** 寸法が出ない', () => {
+    const out = codes(`${PLAN}grid:\n  x:\n    - { id: X1, at: 40 }\n    - { id: X2, at: 400 }\nnodes:\n  - id: a\n`);
+    assert.ok(out.includes('scale-missing'), '寸法が出ないことを知らせていない');
+  });
+
+  it('縮尺が 0 以下・数でないことを知らせる', () => {
+    assert.ok(codes(`${PLAN}scale: { mm: 0 }\nnodes:\n  - id: a\n`).includes('scale-invalid'));
+    assert.ok(codes(`${PLAN}scale: { mm: おおきい }\nnodes:\n  - id: a\n`).includes('scale-invalid'));
+  });
+
+  it('知らない方位を知らせる', () => {
+    assert.ok(codes(`${PLAN}north: naname\nnodes:\n  - id: a\n`).includes('north-unknown'));
+  });
+
+  it('どれも warning。**読めない文書ではない**', () => {
+    assert.equal(
+      hasError(validate(`${PLAN}north: naname\nscale: { mm: 0 }\ngrid:\n  x:\n    - { at: 1 }\nnodes:\n  - id: a\n`)),
+      false,
+    );
+  });
+});
