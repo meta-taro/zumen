@@ -323,6 +323,7 @@ const ja = {
       '    tag: <符号。C1 / G1 / LBS-1。箱の左上に小さく出る>',
       '    group: <属する囲みの id。無所属なら書かない>',
       '    size: { w: <幅>, h: <高さ> }      # 構成図でも効く',
+      '    radius: <px>                       # 範囲の円（作業半径・警戒区域）',
       '    at:   { x: <左>, y: <上> }        # kind: placement でだけ効く',
       '    openings:                          # kind: placement でだけ効く（建具）',
       '      - { kind: <openings から>, side: <sides から>, at: <0〜1>, width: <px> }',
@@ -349,6 +350,7 @@ const ja = {
       '配置図では部屋や棚が接しているのが普通で、隙間を空けない。壁は隣どうしで共有する。',
       'type を増やさない。業界の専門性は形ではなく符号（tag）で表されている。柱は C1 であって円柱の絵ではない。',
       '横一列に伸びすぎたら wrap: true を書く。文字を大きくして直そうとしない（図が伸びて比がさらに下がる）。',
+      '届く範囲は radius（範囲の円）で書く。クレーンの作業半径・消火器の警戒区域・影の離隔。物の形ではなく注記なので、type は増やさない。',
       '一度付けた id は、意味が変わらないのに書き換えない。人の手直しが id に紐づいている。',
       'nodes の並び順には意味がある。人が読む順序なので、理由なく並べ替えない。',
       '知らないキーは捨てずに保つ。',
@@ -426,6 +428,10 @@ const ja = {
       `wall.mm が ${found} になっています。正の数を書きます（壁の厚み・mm）。壁の太さは変わりません。`,
     wallNeedsScale:
       'wall（壁の厚み）はありますが scale がありません。mm を px にできないので、壁の太さは変わりません。',
+    radiusInvalid: (id: string) =>
+      `ノード "${id}" の radius が正の数になっていません。範囲の円は描かれません。`,
+    radiusIgnored: (id: string) =>
+      `ノード "${id}" に radius がありますが、構成図では描かれません（kind: placement で描かれます）。`,
   },
 
   /** Mermaid への書き出し（`src/mermaid.ts`） */
@@ -662,6 +668,7 @@ const en: Catalog = {
       '    tag: <code. C1 / G1 / LBS-1. drawn small at the top left>',
       '    group: <id of the containing group. omit if none>',
       '    size: { w: <width>, h: <height> }   # applies to structure diagrams too',
+      '    radius: <px>                         # range circle (crane reach, alarm zone)',
       '    at:   { x: <left>, y: <top> }       # only with kind: placement',
       '    openings:                            # only with kind: placement',
       '      - { kind: <from openings>, side: <from sides>, at: <0..1>, width: <px> }',
@@ -687,6 +694,7 @@ const en: Catalog = {
       'In a placement diagram rooms and shelves normally touch. Do not leave gaps; neighbours share a wall.',
       'Do not add to type. Domain specificity is carried by the code (tag), not by shape. A column is C1, not a cylinder.',
       'If a diagram stretches into one long row, write wrap: true. Do not try to fix it by enlarging the text.',
+      'Use radius for a reach or zone: crane working radius, fire-extinguisher coverage, shading offset. It is an annotation, not a shape, so type stays as it is.',
       'Do not rename an id whose meaning has not changed. Hand edits are tied to ids.',
       'The order of nodes carries meaning. It is the order a person reads. Do not reorder without a reason.',
       'Keep keys you do not recognise.',
@@ -750,6 +758,10 @@ const en: Catalog = {
       `wall.mm is ${found}. Write a positive number (wall thickness in mm). Wall thickness is unchanged.`,
     wallNeedsScale:
       'wall is present but scale is not, so mm cannot be turned into pixels and the wall thickness is unchanged.',
+    radiusInvalid: (id: string) =>
+      `Node "${id}" has a radius that is not a positive number. The range circle is not drawn.`,
+    radiusIgnored: (id: string) =>
+      `Node "${id}" has a radius, but range circles are not drawn on a structure diagram. Use kind: placement.`,
   },
   mermaid: {
     geometryDroppedHeading:

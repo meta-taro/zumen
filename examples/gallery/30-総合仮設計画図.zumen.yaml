@@ -1,0 +1,104 @@
+version: 1
+kind: placement
+title: 総合仮設計画図（敷地 60m×45m・移動式クレーン 25t 吊）
+# 1 px = 100 mm
+scale: { mm: 100 }
+wall: { mm: 300, outer: 500 }
+north: up
+grid:
+  x:
+    - { id: X1, at: 0 }
+    - { id: X2, at: 150 }
+    - { id: X3, at: 500 }
+    - { id: X4, at: 600 }
+  y:
+    - { id: Y1, at: 0 }
+    - { id: Y2, at: 225 }
+    - { id: Y3, at: 275 }
+    - { id: Y4, at: 450 }
+pins:
+  crane:
+    appearance: primary
+groups:
+  - id: site
+    label: 工事範囲　仮囲い H=3,000 鋼板　隣地境界より 500 離す
+nodes:
+  - id: gate
+    label: 出入口
+    tag: G-1
+    technology: 有効 W6,000・誘導員 2 名
+    at: { x: 0, y: 0 }
+    size: { w: 200, h: 50 }
+    group: site
+  - id: tatemono
+    label: 建物（躯体）
+    tag: 本体
+    technology: 35m×20m・RC 5 階
+    at: { x: 150, y: 25 }
+    size: { w: 350, h: 200 }
+    group: site
+  - id: ashiba
+    label: 外部足場
+    technology: くさび緊結式・幅 600
+    at: { x: 500, y: 25 }
+    size: { w: 100, h: 200 }
+    group: site
+  - id: tsuro
+    label: 車輌通路
+    technology: 有効 5,000・敷鉄板
+    at: { x: 0, y: 225 }
+    size: { w: 600, h: 50 }
+    group: site
+  - id: crane
+    label: クレーン
+    tag: CR-1
+    technology: 25t 吊・定格 5.0t/10m
+    at: { x: 200, y: 228 }
+    size: { w: 120, h: 54 }
+    radius: 250
+    group: site
+  - id: shizai
+    label: 材料置場
+    technology: 積載 5.0kN/m²
+    at: { x: 0, y: 325 }
+    size: { w: 140, h: 125 }
+    group: site
+  - id: kako
+    label: 加工場
+    technology: 鉄筋・型枠
+    at: { x: 140, y: 325 }
+    size: { w: 160, h: 125 }
+    group: site
+  - id: haiki
+    label: 廃棄物置場
+    technology: 分別 5 種
+    at: { x: 300, y: 325 }
+    size: { w: 100, h: 125 }
+    group: site
+  - id: jimusho
+    label: 仮設事務所
+    tag: 2 階建
+    technology: 現場 8 名
+    at: { x: 400, y: 280 }
+    size: { w: 112, h: 170 }
+    group: site
+    openings:
+      - { kind: door, side: top, at: 0.5, width: 20 }
+  - id: benjo
+    label: 仮設便所
+    technology: 水洗 2・手洗い
+    at: { x: 512, y: 280 }
+    size: { w: 88, h: 170 }
+    group: site
+    openings:
+      - { kind: door, side: top, at: 0.5, width: 18 }
+edges:
+  - from: gate
+    to: tsuro
+    label: 搬入
+  - from: tsuro
+    to: kako
+    label: 荷下し
+  - from: kako
+    to: crane
+    label: 揚重

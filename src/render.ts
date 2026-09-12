@@ -27,6 +27,7 @@
 import { drawDimensions, drawGrid, drawNorth } from './dimensions.ts';
 import type { Frame, Ink } from './dimensions.ts';
 import { hasGrid } from './grid.ts';
+import { drawRange, ringOf } from './range.ts';
 import { wallWidth } from './wall.ts';
 import { drawOpenings } from './openings.ts';
 import { drawShape, shapeOf, textShift } from './shapes.ts';
@@ -127,6 +128,11 @@ export function render(
     ...(plan && placed.arrows
       ? placed.edges.map((edge) => renderEdge(edge, labels.get(edge.id) ?? null, palette, true, true))
       : []),
+    // **範囲の円は、箱の上・寸法の下**（`src/range.ts`）。
+    //
+    // 箱の下に敷くと、クレーンの作業半径が資材置場の塗りで切れる。
+    // 寸法より上に出すと、破線の円が数値を横切る。
+    ...(plan ? placed.boxes.map((box) => renderRange(box, placed.mm, palette)) : []),
     // **通り芯・寸法・方位は最前面。**
     //
     // 一度、通り芯を下敷きにした。**建物の中で消えた** —— 箱の塗りは透けないので、
@@ -196,6 +202,13 @@ function frameOf(placed: Placed): Frame {
 
 function inkOf(palette: Palette): Ink {
   return { stroke: palette.node.stroke, text: palette.text.group, paper: palette.paper, font: FONT };
+}
+
+/** 範囲を示す円（`src/range.ts`）。書かなければ何も出さない。 */
+function renderRange(box: Box, mm: number | null, palette: Palette): string {
+  const ring = ringOf(box, mm);
+  if (ring === null) return '';
+  return `<g data-range="${escapeAttr(box.id)}">${drawRange(ring, palette.edge.stroke, palette.text.group, FONT)}</g>`;
 }
 
 function renderGroup(group: Box, palette: Palette, plan = false, wall: number | null = null): string {

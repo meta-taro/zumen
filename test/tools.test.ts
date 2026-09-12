@@ -310,3 +310,10 @@ describe('spec が、壁の厚みを載せている', () => {
     assert.match(spec().shape, /wall:/);
   });
 });
+
+describe('spec が、範囲の円を載せている', () => {
+  it('クレーンの作業半径が書ける場所がある', () => {
+    assert.match(spec().shape, /radius:/);
+    assert.ok(spec().rules.some((rule) => rule.includes('radius')));
+  });
+});

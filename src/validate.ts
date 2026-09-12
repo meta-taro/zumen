@@ -289,6 +289,15 @@ function checkGeometry(doc: Document, add: Add, m: Messages, at: At): void {
       }
     }
 
+    const radius = item.get('radius', true);
+    if (radius !== undefined && radius !== null) {
+      if (!isPositive(isMap(radius) ? undefined : item.get('radius'))) {
+        add('warning', 'radius-invalid', m.radiusInvalid(id), at(radius));
+      } else if (!placement) {
+        add('warning', 'radius-ignored', m.radiusIgnored(id), at(radius));
+      }
+    }
+
     checkOpenings(item, id, placement, add, m, at);
   }
 }

@@ -183,3 +183,21 @@ describe('壁の厚みを見る', () => {
     );
   });
 });
+
+describe('範囲の円を見る', () => {
+  it('正しく書いた範囲は通る', () => {
+    assert.deepEqual(
+      codes('version: 1\nkind: placement\nnodes:\n  - id: a\n    radius: 100\n'),
+      [],
+    );
+  });
+
+  it('数でない・0 以下の半径を知らせる', () => {
+    assert.ok(codes('version: 1\nkind: placement\nnodes:\n  - id: a\n    radius: とおく\n').includes('radius-invalid'));
+    assert.ok(codes('version: 1\nkind: placement\nnodes:\n  - id: a\n    radius: 0\n').includes('radius-invalid'));
+  });
+
+  it('**構成図に書いても効かないことを知らせる**', () => {
+    assert.ok(codes('version: 1\nnodes:\n  - id: a\n    radius: 100\n').includes('radius-ignored'));
+  });
+});
