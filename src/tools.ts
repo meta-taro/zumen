@@ -38,6 +38,7 @@ import { DIRECTIONS } from './direction.ts';
 import { NORTHS } from './grid.ts';
 import { ENDS } from './ends.ts';
 import { LINES } from './line.ts';
+import { SYMBOLS } from './symbol.ts';
 import { HATCHES } from './hatch.ts';
 import { MARKERS } from './marker.ts';
 import { crowdedNames, extentOf, planNames } from './names.ts';
@@ -107,6 +108,8 @@ export function spec(): {
   ends: string[];
   /** 辺の線種（`src/line.ts`）。 */
   lines: string[];
+  /** 電気・電子の図記号（`src/symbol.ts`）。**IEC／JIS の名前。** */
+  symbols: string[];
   /** 方位（`src/grid.ts`）。 */
   norths: string[];
   appearances: string[];
@@ -140,6 +143,7 @@ export function spec(): {
     hatches: [...HATCHES],
     ends: [...ENDS],
     lines: [...LINES],
+    symbols: [...SYMBOLS],
     norths: [...NORTHS],
     appearances: Object.keys(APPEARANCE),
     rules: m.rules,

@@ -22,6 +22,8 @@ import { gridOf, marginFor, northOf, scaleOf } from './grid.ts';
 import type { Grid, North } from './grid.ts';
 import { arrowsOf } from './arrows.ts';
 import { hatchOf } from './hatch.ts';
+import { legsOf, symbolOf } from './symbol.ts';
+import type { Symbol } from './symbol.ts';
 import type { Hatch } from './hatch.ts';
 import { markerOf } from './marker.ts';
 import type { Marker } from './marker.ts';
@@ -79,6 +81,8 @@ export interface Box {
   marker: Marker;
   /** **ハッチング**（材料・区域の模様。`src/hatch.ts`）。既定は無地。 */
   hatch: Hatch;
+  /** **電気・電子の図記号**（`src/symbol.ts`）。無ければ null。 */
+  symbol: Symbol | null;
   /** 人が置いた場所か。 */
   pinned: boolean;
 }
@@ -505,6 +509,8 @@ interface NodeInfo {
   marker: Marker;
   /** 模様（`src/hatch.ts`）。 */
   hatch: Hatch;
+  /** 図記号（`src/symbol.ts`）。 */
+  symbol: Symbol | null;
   /**
    * **AI が書いた置き場所**（仕様 §3.1。配置図で使う）。
    *
@@ -538,6 +544,7 @@ function readNodes(diagram: ReturnType<typeof parse>): NodeInfo[] {
       radius?: unknown;
       marker?: unknown;
       hatch?: unknown;
+      symbol?: unknown;
       at?: unknown;
       size?: unknown;
       openings?: unknown;
@@ -555,6 +562,7 @@ function readNodes(diagram: ReturnType<typeof parse>): NodeInfo[] {
       radius: radiusOf(node.radius),
       marker: markerOf(node.marker),
       hatch: hatchOf(node.hatch),
+      symbol: symbolOf(node.symbol),
       at: asPoint(node.at),
       size: asSize(node.size),
       openings: openingsOf(node.openings),
@@ -698,6 +706,17 @@ function routeEdges(
       };
     }
 
+    // **図記号どうしの配線は直角に曲げる**（`src/symbol.ts`）。
+    //
+    // 回路図の線は必ず直角。斜めの線は「配線」に見えず、
+    // **どこに繋がっているかを目で追えない。**
+    // 足の位置は決まっているので、間で 1 回曲げれば足りる。
+    if (from.symbol !== null || to.symbol !== null) {
+      const a = clip(from, center(to));
+      const b = clip(to, center(from));
+      return { ...edge, points: elbow(a, b), pinned: false };
+    }
+
     // ELK の経路を使う。**箱を避けて回り込む道が入っている。**
     //
     // **ただし、端点が動いていたら使わない**（Issue #8）。
@@ -714,12 +733,53 @@ function routeEdges(
   });
 }
 
+/**
+ * 2 点を直角で結ぶ道。
+ *
+ * 離れている向き（縦か横か）へ先に進み、**真ん中で 1 回曲げる。**
+ * 同じ行・同じ列にあるときは、曲げずに真っすぐ。
+ */
+function elbow(
+  a: { x: number; y: number },
+  b: { x: number; y: number },
+): { x: number; y: number }[] {
+  if (Math.abs(a.x - b.x) < 1 || Math.abs(a.y - b.y) < 1) return [a, b];
+  if (Math.abs(b.x - a.x) >= Math.abs(b.y - a.y)) {
+    const mid = round((a.x + b.x) / 2);
+    return [a, { x: mid, y: a.y }, { x: mid, y: b.y }, b];
+  }
+  const mid = round((a.y + b.y) / 2);
+  return [a, { x: a.x, y: mid }, { x: b.x, y: mid }, b];
+}
+
 function center(box: Box): { x: number; y: number } {
   return { x: box.x + box.w / 2, y: box.y + box.h / 2 };
 }
 
-/** 箱の中心から `toward` へ向かう線が、箱の縁と交わる点。 */
+/**
+ * 線が箱へ取り付く点。
+ *
+ * **図記号を持つ部品は、足（端子）へ繋がる**（`src/symbol.ts`）。
+ * 抵抗の胴体の真横から線が出ると、回路図に見えない ——
+ * 実物は必ず足の先に繋がっている。
+ *
+ * 2 本足の部品は、**近いほうの足**を自動で選ぶので正本に何も書かなくてよい。
+ * 3 本以上の部品（トランジスタ・オペアンプ）は足に名前が要るが、**まだ入れていない。**
+ */
 function clip(box: Box, toward: { x: number; y: number }): { x: number; y: number } {
+  if (box.symbol !== null) {
+    const legs = legsOf(box.symbol, box);
+    let best = legs[0]!;
+    let near = Infinity;
+    for (const leg of legs) {
+      const d = (leg.x - toward.x) ** 2 + (leg.y - toward.y) ** 2;
+      if (d < near) {
+        near = d;
+        best = leg;
+      }
+    }
+    return { x: round(best.x), y: round(best.y) };
+  }
   const c = center(box);
   const dx = toward.x - c.x;
   const dy = toward.y - c.y;
@@ -821,6 +881,7 @@ function collect(
       radius: nodes.find((n) => n.id === child.id)?.radius ?? null,
       marker: nodes.find((n) => n.id === child.id)?.marker ?? 'box',
       hatch: nodes.find((n) => n.id === child.id)?.hatch ?? 'none',
+      symbol: nodes.find((n) => n.id === child.id)?.symbol ?? null,
       openings: nodes.find((n) => n.id === child.id)?.openings ?? [],
       pinned: false,
     };

@@ -1,0 +1,83 @@
+version: 1
+kind: placement
+arrows: false
+title: LED 点灯回路（電子工学の入門・IEC／JIS 記号）
+# 記号は IEC／JIS の形（抵抗は長方形）。
+# トランジスタとオペアンプは足に名前が要るので、この図には入れていない。
+nodes:
+  - id: bat
+    label: BT1
+    technology: 9V
+    symbol: battery
+    at: { x: 0, y: 100 }
+    size: { w: 40, h: 80 }
+  - id: sw
+    label: SW1
+    technology: 押しボタン
+    symbol: switch
+    at: { x: 60, y: 0 }
+    size: { w: 80, h: 40 }
+  - id: fuse
+    label: F1
+    technology: 0.5A
+    symbol: fuse
+    at: { x: 160, y: 0 }
+    size: { w: 80, h: 40 }
+  - id: r1
+    label: R1
+    technology: 330Ω
+    symbol: resistor
+    at: { x: 260, y: 0 }
+    size: { w: 80, h: 40 }
+  - id: led
+    label: LED1
+    technology: Vf 2.0V・If 20mA
+    symbol: led
+    at: { x: 360, y: 0 }
+    size: { w: 80, h: 40 }
+  - id: c1
+    label: C1
+    technology: 100µF・平滑
+    symbol: polarized-capacitor
+    at: { x: 460, y: 90 }
+    size: { w: 40, h: 80 }
+  - id: r2
+    label: R2
+    technology: 10kΩ・放電
+    symbol: resistor
+    at: { x: 560, y: 100 }
+    size: { w: 40, h: 80 }
+  - id: gnd1
+    label: GND
+    symbol: ground
+    at: { x: 0, y: 250 }
+    size: { w: 40, h: 44 }
+  - id: gnd2
+    label: GND
+    symbol: ground
+    at: { x: 460, y: 250 }
+    size: { w: 40, h: 44 }
+  - id: gnd3
+    label: GND
+    symbol: ground
+    at: { x: 560, y: 250 }
+    size: { w: 40, h: 44 }
+edges:
+  - from: bat
+    to: sw
+  - from: sw
+    to: fuse
+  - from: fuse
+    to: r1
+  - from: r1
+    to: led
+  - from: led
+    to: c1
+  - from: c1
+    to: r2
+  - from: c1
+    to: gnd2
+  - from: r2
+    to: gnd3
+  - from: bat
+    to: gnd1

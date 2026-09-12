@@ -31,6 +31,7 @@ import { drawEnd, hasEnds } from './ends.ts';
 import { drawHatch } from './hatch.ts';
 import { dashOf } from './line.ts';
 import { drawMarker } from './marker.ts';
+import { drawSymbol } from './symbol.ts';
 import { NAME_FONT, SUB_FONT, planNames } from './names.ts';
 import type { Plan } from './names.ts';
 import { drawRange, ringOf } from './range.ts';
@@ -276,7 +277,15 @@ function renderNode(
 
   // **平面図は角を四角に。** 角丸だと、隣の部屋と壁を共有して見えない。
   // **印の描き方は正本が選ぶ**（`src/marker.ts`。丸・二重丸・枠なし）。
-  const shape = plan ? drawMarker(box.marker, box, paint) : drawShape(kind, box, paint);
+  //
+  // **図記号があれば、枠を描かずに記号だけを描く**（`src/symbol.ts`）。
+  // 抵抗やコンデンサに枠は無い —— 枠があると「箱の中に部品がある」ように見える。
+  const shape =
+    box.symbol !== null
+      ? drawSymbol(box.symbol, box, { stroke: style.stroke, paper: palette.paper })
+      : plan
+        ? drawMarker(box.marker, box, paint)
+        : drawShape(kind, box, paint);
 
   // **材料と区域の模様**（`src/hatch.ts`）。枠の内側に、枠と同じ色で描く。
   // **建具より先。** 建具は穴なので、模様の上に開ける。

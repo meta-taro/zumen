@@ -21,6 +21,7 @@ import { MARKS, NORTHS } from './grid.ts';
 import { ENDS } from './ends.ts';
 import { LINES } from './line.ts';
 import { HATCHES } from './hatch.ts';
+import { SYMBOLS } from './symbol.ts';
 import { MARKERS } from './marker.ts';
 import { messages } from './messages.ts';
 import { OPENINGS, SIDES } from './openings.ts';
@@ -56,6 +57,7 @@ const NORTH_WORDS = new Set<string>(NORTHS);
 const MARK_WORDS = new Set<string>(MARKS);
 const MARKER_WORDS = new Set<string>(MARKERS);
 const HATCH_WORDS = new Set<string>(HATCHES);
+const SYMBOL_WORDS = new Set<string>(SYMBOLS);
 const END_WORDS = new Set<string>(ENDS);
 const LINE_WORDS = new Set<string>(LINES);
 
@@ -319,6 +321,11 @@ function checkGeometry(doc: Document, add: Add, m: Messages, at: At): void {
       } else if (!placement) {
         add('warning', 'marker-ignored', m.markerIgnored(id), at(item.get('marker', true)));
       }
+    }
+
+    const symbol = item.get('symbol');
+    if (symbol !== undefined && symbol !== null && !SYMBOL_WORDS.has(String(symbol))) {
+      add('warning', 'symbol-unknown', m.symbolUnknown(id, String(symbol)), at(item.get('symbol', true)));
     }
 
     const hatch = item.get('hatch');

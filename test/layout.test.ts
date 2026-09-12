@@ -82,8 +82,8 @@ describe('overlaps', () => {
   it('重なりを組で返す（観測できること自体を確かめる）', () => {
     const placed = {
       boxes: [
-        { id: 'a', x: 0, y: 0, w: 100, h: 50, group: null, label: 'a', type: '', appearance: null, technology: null, openings: [], tag: null, radius: null, marker: 'box' as const, hatch: 'none' as const, pinned: false },
-        { id: 'b', x: 10, y: 10, w: 100, h: 50, group: null, label: 'b', type: '', appearance: null, technology: null, openings: [], tag: null, radius: null, marker: 'box' as const, hatch: 'none' as const, pinned: false },
+        { id: 'a', x: 0, y: 0, w: 100, h: 50, group: null, label: 'a', type: '', appearance: null, technology: null, openings: [], tag: null, radius: null, marker: 'box' as const, hatch: 'none' as const, symbol: null, pinned: false },
+        { id: 'b', x: 10, y: 10, w: 100, h: 50, group: null, label: 'b', type: '', appearance: null, technology: null, openings: [], tag: null, radius: null, marker: 'box' as const, hatch: 'none' as const, symbol: null, pinned: false },
       ],
       groups: [],
       edges: [],

@@ -326,6 +326,7 @@ const ja = {
       '    radius: <px>                       # 範囲の円（作業半径・警戒区域）',
       '    marker: <box（既定）| circle | double | none>  # 配置図での印。丸は駅・経穴・計器',
       '    hatch: <none（既定）| solid | dots | lines | cross>  # 材料と区域の模様',
+      '    symbol: <SYMBOLS から>              # 電気・電子の図記号（IEC／JIS）',
       '    at:   { x: <左>, y: <上> }        # kind: placement でだけ効く',
       '    openings:                          # kind: placement でだけ効く（建具）',
       '      - { kind: <openings から>, side: <sides から>, at: <0〜1>, width: <px> }',
@@ -359,6 +360,7 @@ const ja = {
       '配置図で丸い印を打つなら marker: circle（乗換駅などは double）。路線図の駅・経穴・計器はこれ。marker の値は形の名前だけで、消火器のような意味の語は無い（type も増やさない）。名前は印の外へ出るが、丸に入る短い文字（番号）は中に書く。',
       'UML のクラス図は ends と line で書く。汎化は実線＋triangle、実現は破線＋triangle、集約は diamond、コンポジションは solid-diamond、依存は破線＋arrow。端の記号が同じでも線種で意味が変わる（汎化と実現は線種でしか区別できない）。**属性と操作は描かない** —— コードに書いてあるものを図へ写すと、コードが変わった瞬間に図が嘘になる。',
       'ER 図の多重度は文字で書かず ends で書く（1 は bar、多は crow、0 以上は dot-crow）。データベースをやる人は端の形で読む。文字で書くと辺が増えるほど置き場が無くなって消える。ends の値は形の名前だけで、one-to-many のような意味の語は無い。',
+      '電子回路図は symbol で描く（抵抗は resistor、コンデンサは capacitor）。記号は IEC／JIS の形で、抵抗は長方形。ジグザグの ANSI 形は描かない。**枠は描かず記号だけ**が出て、部品名と値は記号の脇に出る。配線は自動で直角に曲がり、部品の足へ繋がる。**トランジスタとオペアンプは足に名前が要るので、まだ描けない。**',
       '材料と区域は hatch で描き分ける。solid はアスコン・コンクリート、dots は砕石・砂、lines は地盤・既存部分、cross は撤去や立入禁止の区域。断面図と区域図は、模様が無いと専門の図に見えない（縮小すると文字は消えるが模様は残る）。値は模様の名前だけで、アスコンのような材料の語は無い。',
       '一度付けた id は、意味が変わらないのに書き換えない。人の手直しが id に紐づいている。',
       'nodes の並び順には意味がある。人が読む順序なので、理由なく並べ替えない。',
@@ -449,6 +451,8 @@ const ja = {
       `ノード "${id}" に marker がありますが、構成図では効きません（形は type で決まります）。`,
     hatchUnknown: (id: string, word: string) =>
       `ノード "${id}" の hatch が "${word}" になっています（none / solid / dots / lines / cross）。無地で描きます。`,
+    symbolUnknown: (id: string, word: string) =>
+      `ノード "${id}" の symbol が "${word}" になっています。描ける図記号は SYMBOLS の語だけです（矩形で描きます）。`,
     hatchIgnored: (id: string) =>
       `ノード "${id}" に hatch がありますが、構成図では描かれません（kind: placement で描かれます）。`,
     endsUnknown: (edge: string, word: string) =>
@@ -694,6 +698,7 @@ const en: Catalog = {
       '    radius: <px>                         # range circle (crane reach, alarm zone)',
       '    marker: <box (default) | circle | double | none>  # how it is marked on a plan',
       '    hatch: <none (default) | solid | dots | lines | cross>  # material / zone pattern',
+      '    symbol: <from SYMBOLS>               # electrical symbol (IEC / JIS)',
       '    at:   { x: <left>, y: <top> }       # only with kind: placement',
       '    openings:                            # only with kind: placement',
       '      - { kind: <from openings>, side: <from sides>, at: <0..1>, width: <px> }',
@@ -726,6 +731,7 @@ const en: Catalog = {
       'On a plan, use marker: circle for a round mark (double for an interchange): transit stations, acupuncture points, instruments. marker values are shape names only — there is no semantic value like an extinguisher, and type does not grow. The name is drawn outside the mark, except a short label (a number) which goes inside.',
       'A UML class diagram is written with ends and line: generalization is solid + triangle, realization is dashed + triangle, aggregation is diamond, composition is solid-diamond, dependency is dashed + arrow. The same end symbol means different things depending on the line style (generalization and realization differ only in that). Do NOT draw attributes and operations — copying what the code already says makes the diagram a lie the moment the code changes.',
       'Write ER cardinality with ends, not words (bar for one, crow for many, dot-crow for zero-or-more). Database people read the end shape. Words run out of room as edges multiply. ends values are shape names only, never a semantic value like one-to-many.',
+      'Draw an electronic circuit with symbol (resistor, capacitor, and so on). Symbols follow IEC / JIS shapes — a resistor is a rectangle, not an ANSI zigzag. No box is drawn, only the symbol; the part name and value go beside it. Wires bend at right angles automatically and attach to the legs. Transistors and op-amps need named legs and cannot be drawn yet.',
       'Distinguish materials and zones with hatch: solid for asphalt and concrete, dots for crushed stone and sand, lines for ground and existing work, cross for removal or no-entry areas. A section or a zoning drawing does not read as professional without patterns (shrink it and the text disappears but the pattern remains). Values are pattern names only, never a material name.',
       'Do not rename an id whose meaning has not changed. Hand edits are tied to ids.',
       'The order of nodes carries meaning. It is the order a person reads. Do not reorder without a reason.',
@@ -802,6 +808,8 @@ const en: Catalog = {
       `Node "${id}" has a marker, but it has no effect on a structure diagram (shape comes from type).`,
     hatchUnknown: (id: string, word: string) =>
       `Node "${id}" has hatch "${word}" (none / solid / dots / lines / cross). It is drawn plain.`,
+    symbolUnknown: (id: string, word: string) =>
+      `Node "${id}" has symbol "${word}". Only the words in SYMBOLS are drawn (it falls back to a rectangle).`,
     hatchIgnored: (id: string) =>
       `Node "${id}" has a hatch, but hatching is not drawn on a structure diagram. Use kind: placement.`,
     endsUnknown: (edge: string, word: string) =>

@@ -68,6 +68,9 @@ export function goesOutside(box: Box): boolean {
 
 /** 5 段のどれになるかを、当たり判定なしで決める。 */
 function shape(box: Box): 'inside' | 'joined' | 'aside' | 'along' | 'outside' {
+  // **図記号の文字は外へ出す**（`src/symbol.ts`）。
+  // 実物の回路図も、部品名（R1）と値（10kΩ）は記号の脇に書いてある。
+  if (box.symbol !== null) return 'outside';
   // **印を付けたものの文字。**
   //
   // 丸は小さいので、たいてい中に名前が入らない
