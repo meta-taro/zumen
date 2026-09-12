@@ -1,0 +1,161 @@
+version: 1
+kind: placement
+title: ビジネスホテル 基準階 平面図（客室 12 室・シングル 13.6 m²）
+# 1 px = 25 mm
+scale: { mm: 25 }
+wall: { mm: 150, outer: 200 }
+north: up
+grid:
+  x:
+    - { id: X1, at: 0 }
+    - { id: X2, at: 408 }
+    - { id: X3, at: 816 }
+    - { id: X4, at: 976 }
+  y:
+    - { id: Y1, at: 0 }
+    - { id: Y2, at: 240 }
+    - { id: Y3, at: 312 }
+    - { id: Y4, at: 552 }
+groups:
+  - id: f5
+    label: 基準階（5〜9 階）　客室 12 室　CH＝2,400　片側各 6 室
+nodes:
+  - id: n1
+    label: 501
+    technology: シングル 13.6 m²
+    at: { x: 0, y: 0 }
+    size: { w: 136, h: 240 }
+    group: f5
+    openings:
+      - { kind: door, side: bottom, at: 0.2, width: 34 }
+      - { kind: window, side: top, at: 0.5, width: 80 }
+  - id: n2
+    label: 502
+    technology: シングル 13.6 m²
+    at: { x: 136, y: 0 }
+    size: { w: 136, h: 240 }
+    group: f5
+    openings:
+      - { kind: door, side: bottom, at: 0.2, width: 34 }
+      - { kind: window, side: top, at: 0.5, width: 80 }
+  - id: n3
+    label: 503
+    technology: シングル 13.6 m²
+    at: { x: 272, y: 0 }
+    size: { w: 136, h: 240 }
+    group: f5
+    openings:
+      - { kind: door, side: bottom, at: 0.2, width: 34 }
+      - { kind: window, side: top, at: 0.5, width: 80 }
+  - id: n4
+    label: 504
+    technology: ツイン 19.8 m²
+    at: { x: 408, y: 0 }
+    size: { w: 200, h: 240 }
+    group: f5
+    openings:
+      - { kind: door, side: bottom, at: 0.2, width: 34 }
+      - { kind: window, side: top, at: 0.5, width: 110 }
+  - id: n5
+    label: 505
+    technology: シングル 13.6 m²
+    at: { x: 608, y: 0 }
+    size: { w: 136, h: 240 }
+    group: f5
+    openings:
+      - { kind: door, side: bottom, at: 0.2, width: 34 }
+      - { kind: window, side: top, at: 0.5, width: 80 }
+  - id: n6
+    label: 506
+    technology: シングル 13.6 m²
+    at: { x: 744, y: 0 }
+    size: { w: 136, h: 240 }
+    group: f5
+    openings:
+      - { kind: door, side: bottom, at: 0.2, width: 34 }
+      - { kind: window, side: top, at: 0.5, width: 80 }
+  - id: rouka
+    label: 内廊下
+    technology: 有効 1,800・排煙窓
+    at: { x: 0, y: 240 }
+    size: { w: 880, h: 72 }
+    group: f5
+  - id: s1
+    label: 507
+    technology: シングル 13.6 m²
+    at: { x: 0, y: 312 }
+    size: { w: 136, h: 240 }
+    group: f5
+    openings:
+      - { kind: door, side: top, at: 0.2, width: 34 }
+      - { kind: window, side: bottom, at: 0.5, width: 80 }
+  - id: s2
+    label: 508
+    technology: シングル 13.6 m²
+    at: { x: 136, y: 312 }
+    size: { w: 136, h: 240 }
+    group: f5
+    openings:
+      - { kind: door, side: top, at: 0.2, width: 34 }
+      - { kind: window, side: bottom, at: 0.5, width: 80 }
+  - id: s3
+    label: 509
+    technology: シングル 13.6 m²
+    at: { x: 272, y: 312 }
+    size: { w: 136, h: 240 }
+    group: f5
+    openings:
+      - { kind: door, side: top, at: 0.2, width: 34 }
+      - { kind: window, side: bottom, at: 0.5, width: 80 }
+  - id: s4
+    label: 510
+    technology: シングル 13.6 m²
+    at: { x: 408, y: 312 }
+    size: { w: 136, h: 240 }
+    group: f5
+    openings:
+      - { kind: door, side: top, at: 0.2, width: 34 }
+      - { kind: window, side: bottom, at: 0.5, width: 80 }
+  - id: s5
+    label: 511
+    technology: バリアフリー 22.0 m²
+    at: { x: 544, y: 312 }
+    size: { w: 200, h: 240 }
+    group: f5
+    openings:
+      - { kind: slide, side: top, at: 0.2, width: 40 }
+      - { kind: window, side: bottom, at: 0.5, width: 110 }
+  - id: s6
+    label: 512
+    technology: シングル 13.6 m²
+    at: { x: 744, y: 312 }
+    size: { w: 136, h: 240 }
+    group: f5
+    openings:
+      - { kind: door, side: top, at: 0.2, width: 34 }
+      - { kind: window, side: bottom, at: 0.5, width: 80 }
+  - id: ev
+    label: EV ホール
+    tag: EV-1/2
+    technology: 15 人乗×2
+    at: { x: 880, y: 240 }
+    size: { w: 96, h: 160 }
+    group: f5
+    openings:
+      - { kind: open, side: left, at: 0.5, width: 60 }
+  - id: kaidan
+    label: 階段
+    tag: EX-1
+    technology: 特別避難階段
+    at: { x: 880, y: 400 }
+    size: { w: 96, h: 152 }
+    group: f5
+    openings:
+      - { kind: door, side: left, at: 0.5, width: 40 }
+  - id: linen
+    label: リネン室
+    at: { x: 880, y: 0 }
+    size: { w: 96, h: 240 }
+    group: f5
+    openings:
+      - { kind: door, side: bottom, at: 0.5, width: 34 }

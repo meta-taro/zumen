@@ -1,0 +1,75 @@
+version: 1
+kind: placement
+title: シネマ 3 番スクリーン 座席図（220 席・車椅子 4）
+# 1 px = 100 mm
+scale: { mm: 100 }
+wall: { mm: 200, outer: 300 }
+grid:
+  x:
+    - { id: X1, at: 0 }
+    - { id: X2, at: 200 }
+  y:
+    - { id: Y1, at: 6 }
+    - { id: Y2, at: 420 }
+groups:
+  - id: hall
+    label: 3 番スクリーン　客席 220 席　勾配 12°　CH＝7,000
+pins:
+  screen:
+    appearance: primary
+nodes:
+  - id: screen
+    label: スクリーン
+    technology: W16,000×H6,800
+    at: { x: 20, y: 6 }
+    size: { w: 160, h: 40 }
+    group: hall
+  - id: zenpou
+    label: 前方ブロック
+    tag: A〜E 列
+    technology: 60 席・席幅 520
+    at: { x: 20, y: 60 }
+    size: { w: 160, h: 90 }
+    group: hall
+  - id: tsuro1
+    label: 横通路
+    technology: 有効 1,200
+    at: { x: 0, y: 150 }
+    size: { w: 200, h: 12 }
+    group: hall
+  - id: chuo
+    label: 中央ブロック
+    tag: F〜M 列
+    technology: 112 席・列間 1,000
+    at: { x: 20, y: 162 }
+    size: { w: 160, h: 140 }
+    group: hall
+  - id: tsuro2
+    label: 横通路
+    technology: 有効 1,200
+    at: { x: 0, y: 302 }
+    size: { w: 200, h: 12 }
+    group: hall
+  - id: kouhou
+    label: 後方ブロック
+    tag: N〜R 列
+    technology: 48 席
+    at: { x: 20, y: 314 }
+    size: { w: 160, h: 70 }
+    group: hall
+  - id: kurumaisu
+    label: 車椅子席
+    tag: W1〜W4
+    technology: 4 台・同伴席つき
+    at: { x: 20, y: 384 }
+    size: { w: 90, h: 36 }
+    group: hall
+  - id: deguchi
+    label: 非常口
+    tag: EX-1
+    technology: 有効 1,200・誘導灯
+    at: { x: 110, y: 384 }
+    size: { w: 90, h: 36 }
+    group: hall
+    openings:
+      - { kind: double, side: bottom, at: 0.5, width: 30 }

@@ -88,12 +88,24 @@ describe('箱に入らない文字は、外へ出す', () => {
     assert.ok(out.includes('>桜台<'));
   });
 
-  it('外へ出すのは箱の下', async () => {
+  it('**背が低いだけなら、中に書く。** 外へ出すのは最後の手段', async () => {
+    // 高さ 30px でも、12px の文字は入る。
+    // 以前は「高さ 34px 未満は外」としていたが、**行き過ぎだった** ——
+    // 映画館の横通路（高さ 12px）の名前が、隣のブロックの上に落ちた。
     const placed = await layout(LINE);
     const box = placed.boxes.find((b) => b.id === 'a')!;
     const out = render(placed, 'light', 'safe', true);
     const y = Number(out.match(/<text x="\d+" y="(\d+)"[^>]*>西ヶ丘</)![1]);
-    assert.ok(y > box.y + box.h, '文字が箱の外へ出ていない');
+    assert.ok(y > box.y && y < box.y + box.h, '入るのに外へ出た');
+  });
+
+  it('横にも縦にも入らなければ、外へ出す', async () => {
+    const narrow = LINE.replace('size: { w: 96, h: 30 }', 'size: { w: 30, h: 20 }');
+    const placed = await layout(narrow);
+    const box = placed.boxes.find((b) => b.id === 'a')!;
+    const out = render(placed, 'light', 'safe', true);
+    const y = Number(out.match(/<text x="\d+" y="(\d+)"[^>]*>西ヶ丘</)![1]);
+    assert.ok(y > box.y + box.h || y < box.y, '文字が箱の外へ出ていない');
   });
 
   it('**符号は箱の中に残る。** 拾い読みするものなので', async () => {
@@ -104,12 +116,25 @@ describe('箱に入らない文字は、外へ出す', () => {
     assert.ok(y < box.y + box.h, '符号まで外へ出た');
   });
 
-  it('副題も一緒に外へ出る（名前だけ外、副題は中、にしない）', async () => {
-    const out = await svg(LINE.replace('    tag: H01\n', '    tag: H01\n    technology: 3 線乗換\n'));
-    assert.ok(out.includes('>3 線乗換<'));
+  it('**背が低い箱では、名前と副題を 1 行に繋ぐ**（通路・農道はこれ）', async () => {
+    const out = await svg(
+      LINE.replace('    tag: H01\n', '    tag: H01\n    technology: 3 線乗換\n').replace(
+        'size: { w: 96, h: 30 }',
+        'size: { w: 160, h: 24 }',
+      ),
+    );
+    assert.ok(out.includes('西ヶ丘　3 線乗換'), '1 行に繋がっていない');
   });
 
-  it('入る箱では、これまでどおり中に書く', async () => {
+  it('1 行に繋いでも入らなければ、外へ出す（両方出す）', async () => {
+    const out = await svg(
+      LINE.replace('    tag: H01\n', '    tag: H01\n    technology: 特急・急行・準急がとまる\n'),
+    );
+    assert.ok(out.includes('>西ヶ丘<'));
+    assert.ok(out.includes('>特急・急行・準急がとまる<'));
+  });
+
+  it('大きい箱では、これまでどおり中に書く', async () => {
     const placed = await layout(LINE.replace('size: { w: 96, h: 30 }', 'size: { w: 200, h: 80 }'));
     const box = placed.boxes.find((b) => b.id === 'a')!;
     const out = render(placed, 'light', 'safe', true);

@@ -316,6 +316,23 @@ function subtitleOn(style: Look, palette: Palette): string {
  * 副題（`technology`）があれば 2 行にする。無ければ 1 行のまま中央へ。
  * **所属や版を書ける唯一の場所**なので、描かないとラベルへ畳むしかなくなる（Issue #3 の 4）。
  */
+/**
+ * 箱の中の文字。
+ *
+ * 副題（`technology`）があれば 2 行にする。無ければ 1 行のまま中央へ。
+ * **所属や版を書ける唯一の場所**なので、描かないとラベルへ畳むしかなくなる（Issue #3 の 4）。
+ *
+ * ## 配置図では、入れ方を 4 段で選ぶ
+ *
+ * 箱の大きさを人と AI が書くので、**入らない箱が出る。**
+ * 落とすのは行き過ぎで（路線図で駅名が全部消えた）、
+ * かといって何でも外へ出すと、**他の部屋の上に落ちる**（映画館の横通路で出た）。
+ *
+ * 1. **そのまま中に入る** → 中へ
+ * 2. **背が低いだけ**（横には入る）→ **名前と副題を 1 行に繋いで**中へ
+ * 3. **横に入らないが、縦になら入る**（用水路・廊下）→ 帯に沿って縦へ
+ * 4. **どれも駄目** → 図の縁に近いほうの外へ
+ */
 function nodeText(
   box: Box,
   palette: Palette,
@@ -325,108 +342,79 @@ function nodeText(
   frame: Frame | null = null,
 ): string[] {
   const cx = n(box.x + box.w / 2);
-
-  // **平面図の文字は小さい。** 実物は `LDK 18.2帖` を隅に小さく置く。
-  // 大きく中央に置くと、部屋ではなく「箱に書いたラベル」に見える。
   const size = plan ? 12 : 15;
   const subSize = plan ? 10 : 11;
+  const sub = subtitleOn(style, palette);
 
-  // **入らないなら出さない**（平面図・伏図）。
-  //
-  // 構成図では箱の大きさをラベルから決めるので、必ず入る。
-  // 平面図では大きさを人と AI が書くので、**入らない箱が出る** ——
-  // 伏図の小梁（幅 20px）に「小梁 300×600」は入らず、
-  // 実際に `0×60` と切れた文字が隣の部材の上へはみ出した。
-  //
-  // 辺のラベルと同じ扱いにする（`src/edge-labels.ts`）。
-  // **置けないものを、重ねてでも出すことはしない。**
-  const fits = (text: string, font: number): boolean =>
-    !plan || labelWidth(text, font) + 6 <= box.w;
-  const room = !plan || box.h >= 34;
+  const text = (x: number, y: number, body: string, font: number, fill: string, turn = ''): string =>
+    `<text x="${n(x)}" y="${n(y)}" text-anchor="middle" font-family="${FONT}" font-size="${font}" fill="${fill}"${turn}>${escapeText(body)}</text>`;
 
-  /**
-   * **入らないなら、外へ出す。**
-   *
-   * 以前はここで落としていた。伏図の小梁（幅 20px）に
-   * 「小梁 300×600」が切れて隣へはみ出したのを止めるためで、そこは正しかった。
-   *
-   * だが**落とすのは行き過ぎだった**（2026-09-12。路線図を描いて分かった）。
-   * 駅の印は小さいので、駅名が 1 つ残らず消えた。
-   * 実物の図面も、狭い部屋の名前は**箱の外に書く。**
-   *
-   * 外にも置けないほど短い辺は、そのときだけ落とす。
-   */
-  /**
-   * **図の縁に近いほうへ出す。**
-   *
-   * 下へ固定していたら、圃場整備の図で**幹線農道の名前が田んぼの中に落ちた。**
-   * 細い帯（用水路・農道）は図の縁に沿っているので、
-   * 縁の側へ出せば、他の区画の上に乗らない。
-   *
-   * 図の外の余白へ出すことにもなるので、**寸法の帯とぶつかりにくい。**
-   */
-  //
-  // **縦に細い帯は、上へ。** 用水路や廊下のように図の端から端まで届くものは、
-  // 上下のどちらが近いかで決められない。実物では帯の頭に名前を書く。
-  const tall = box.h > box.w * 1.5;
-  const above =
-    tall || (frame !== null && box.y - frame.y < frame.y + frame.h - (box.y + box.h));
-  const outside = (step: number, text: string, font: number, fill: string): string => {
-    const y = above ? box.y - 6 - step * 12 : box.y + box.h + 13 + step * 12;
-    return `<text x="${cx}" y="${n(y)}" text-anchor="middle" font-family="${FONT}" font-size="${font}" fill="${fill}">${escapeText(text)}</text>`;
-  };
-
-  /**
-   * **縦に細い帯は、帯に沿って縦へ書く**（2026-09-12。圃場整備の図で出た）。
-   *
-   * 用水路（幅 4m）・排水路・廊下は、名前が横には入らないが**縦には入る。**
-   * 外へ出すと、隣の帯の名前と図の外で団子になる
-   * （用水路・排水路・用水路の 3 本が、図の上で重なった）。
-   *
-   * 実物の図面も、細長い帯の名前は**帯に沿って**書いてある。
-   */
-  //
-  // **横に入るなら、横に書く。** 縦長でも幅が足りていれば回さない
-  // （区画 24m×125m の田は縦長だが、名前は横で入る）。
-  const along =
-    plan && !fits(box.label, size) && box.h > box.w && labelWidth(box.label, size) + 8 <= box.h;
-  if (along) {
-    const cy = n(box.y + box.h / 2);
-    const turn = ` transform="rotate(-90 ${cx} ${cy})"`;
-    const lines = [
-      `<text x="${cx}" y="${cy}" text-anchor="middle" font-family="${FONT}" font-size="${size}" fill="${style.text}"${turn}>${escapeText(box.label)}</text>`,
+  // 構成図は、箱の大きさを文字から決めてある。必ず入るので選ばない。
+  if (!plan) {
+    const cy = box.y + box.h / 2 + shift;
+    if (box.technology === null) return [text(cx, cy + 5, box.label, size, style.text)];
+    return [
+      text(cx, cy - 2, box.label, size, style.text),
+      text(cx, cy + 16, box.technology, subSize, sub),
     ];
-    // 副題は、入るときだけ。帯は細いので、2 行は入らないことが多い。
+  }
+
+  const wide = (body: string, font: number): boolean => labelWidth(body, font) + 6 <= box.w;
+
+  /**
+   * **符号の分だけ、中の文字を下げる。**
+   *
+   * 符号は左上に置く（拾い読みのため）。箱が大きければ中央の文字と離れるが、
+   * **背の低い箱では重なる** —— 車両編成図で「2 号車」と「モハ 100-1」が
+   * 同じ行に出た（2026-09-12）。
+   */
+  const crown = box.tag === null ? 0 : 12;
+  const cy = box.y + crown + (box.h - crown) / 2;
+
+  // 1. そのまま中へ。
+  if (box.technology === null && wide(box.label, size)) {
+    return [text(cx, cy + 4, box.label, size, style.text)];
+  }
+  if (box.technology !== null && box.h >= 34 && wide(box.label, size) && wide(box.technology, subSize)) {
+    return [
+      text(cx, cy - 4, box.label, size, style.text),
+      text(cx, cy + 11, box.technology, subSize, sub),
+    ];
+  }
+
+  // 2. 背が低いだけなら、1 行に繋ぐ。**通路や農道はこれ。**
+  if (box.technology !== null && box.h < 34) {
+    const joined = `${box.label}　${box.technology}`;
+    if (wide(joined, size)) return [text(cx, cy + 4, joined, size, style.text)];
+  }
+
+  // 3. 縦に細い帯は、帯に沿って。**用水路（幅 4m）は横に入らないが縦には入る。**
+  if (box.h > box.w && labelWidth(box.label, size) + 8 <= box.h) {
+    const turn = ` transform="rotate(-90 ${cx} ${n(cy)})"`;
+    const lines = [text(cx, cy, box.label, size, style.text, turn)];
     if (box.technology !== null && labelWidth(box.technology, subSize) + 8 <= box.h && box.w >= 26) {
-      const sx = n(box.x + box.w / 2 + 11);
+      const sx = box.x + box.w / 2 + 11;
       lines.push(
-        `<text x="${sx}" y="${cy}" text-anchor="middle" font-family="${FONT}" font-size="${subSize}" fill="${subtitleOn(style, palette)}" transform="rotate(-90 ${sx} ${cy})">${escapeText(box.technology)}</text>`,
+        text(sx, cy, box.technology, subSize, sub, ` transform="rotate(-90 ${n(sx)} ${n(cy)})"`),
       );
     }
     return lines;
   }
 
-  if (plan && (!room || !fits(box.label, size))) {
-    // 箱に入らないものは、箱の外へ。**符号は箱の中に残す**（拾い読みのため）。
-    // 副題は名前より外側へ（上へ出すときは上、下へ出すときは下）。
-    const lines = [outside(above && box.technology !== null ? 1 : 0, box.label, size, style.text)];
-    if (box.technology !== null) {
-      lines.push(outside(above ? 0 : 1, box.technology, subSize, palette.text.group));
-    }
-    return lines;
-  }
+  // 4. 図の縁に近いほうの外へ。**符号は箱の中に残す**（拾い読みのため）。
+  //
+  // **図の外へ出してしまわない。** 上端の箱で上へ出すと、y が負になって消える
+  // （車両編成図の 1 号車で、名前が丸ごと見えなくなった）。
+  const rows = box.technology === null ? 1 : 2;
+  const roomAbove = frame === null ? 0 : box.y - frame.y;
+  const roomBelow = frame === null ? 0 : frame.y + frame.h - (box.y + box.h);
+  const above = roomAbove >= rows * 12 + 6 && roomAbove < roomBelow;
+  const outside = (step: number, body: string, font: number, fill: string): string =>
+    text(cx, above ? box.y - 6 - step * 12 : box.y + box.h + 13 + step * 12, body, font, fill);
 
-  const main = (dy: number): string =>
-    `<text x="${cx}" y="${n(box.y + box.h / 2 + dy + shift)}" text-anchor="middle" font-family="${FONT}" font-size="${size}" fill="${style.text}">${escapeText(box.label)}</text>`;
-
-  if (!room || !fits(box.label, size)) return [];
-  if (box.technology === null || !fits(box.technology, subSize) || (plan && box.h < 44)) {
-    return [main(5)];
-  }
-  return [
-    main(plan ? -4 : -2),
-    `<text x="${cx}" y="${n(box.y + box.h / 2 + (plan ? 11 : 16) + shift)}" text-anchor="middle" font-family="${FONT}" font-size="${subSize}" fill="${subtitleOn(style, palette)}">${escapeText(box.technology)}</text>`,
-  ];
+  const lines = [outside(above && box.technology !== null ? 1 : 0, box.label, size, style.text)];
+  if (box.technology !== null) lines.push(outside(above ? 0 : 1, box.technology, subSize, sub));
+  return lines;
 }
 
 function renderEdge(
