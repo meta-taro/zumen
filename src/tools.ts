@@ -37,6 +37,7 @@ import { KINDS, kindOf, measureOf } from './kind.ts';
 import { DIRECTIONS } from './direction.ts';
 import { NORTHS } from './grid.ts';
 import { ENDS } from './ends.ts';
+import { LINES } from './line.ts';
 import { HATCHES } from './hatch.ts';
 import { MARKERS } from './marker.ts';
 import { crowdedNames, extentOf, planNames } from './names.ts';
@@ -104,6 +105,8 @@ export function spec(): {
   hatches: string[];
   /** 辺の端の記号（`src/ends.ts`）。**形の名前だけ。意味の語は無い。** */
   ends: string[];
+  /** 辺の線種（`src/line.ts`）。 */
+  lines: string[];
   /** 方位（`src/grid.ts`）。 */
   norths: string[];
   appearances: string[];
@@ -136,6 +139,7 @@ export function spec(): {
     markers: [...MARKERS],
     hatches: [...HATCHES],
     ends: [...ENDS],
+    lines: [...LINES],
     norths: [...NORTHS],
     appearances: Object.keys(APPEARANCE),
     rules: m.rules,

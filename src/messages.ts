@@ -343,7 +343,8 @@ const ja = {
       '  - from: <ノードの id>',
       '    to: <ノードの id>',
       '    label: <省いてよい>',
-      '    ends: { from: <ENDS から>, to: <ENDS から> }   # 端の記号（ER の多重度など）',
+      '    ends: { from: <ENDS から>, to: <ENDS から> }   # 端の記号（ER の多重度・UML の関係）',
+      '    line: <solid（既定）| dashed | dotted>        # 線種（UML の実現・依存、仮設）',
     ].join('\n'),
     /** **守らせたいこと。** 実測では毎回 pins を書いてきたので、明示する。 */
     rules: [
@@ -356,6 +357,7 @@ const ja = {
       '横一列に伸びすぎたら wrap: true を書く。文字を大きくして直そうとしない（図が伸びて比がさらに下がる）。',
       '届く範囲は radius（範囲の円）で書く。クレーンの作業半径・消火器の警戒区域・影の離隔。物の形ではなく注記なので、type は増やさない。',
       '配置図で丸い印を打つなら marker: circle（乗換駅などは double）。路線図の駅・経穴・計器はこれ。marker の値は形の名前だけで、消火器のような意味の語は無い（type も増やさない）。名前は印の外へ出るが、丸に入る短い文字（番号）は中に書く。',
+      'UML のクラス図は ends と line で書く。汎化は実線＋triangle、実現は破線＋triangle、集約は diamond、コンポジションは solid-diamond、依存は破線＋arrow。端の記号が同じでも線種で意味が変わる（汎化と実現は線種でしか区別できない）。**属性と操作は描かない** —— コードに書いてあるものを図へ写すと、コードが変わった瞬間に図が嘘になる。',
       'ER 図の多重度は文字で書かず ends で書く（1 は bar、多は crow、0 以上は dot-crow）。データベースをやる人は端の形で読む。文字で書くと辺が増えるほど置き場が無くなって消える。ends の値は形の名前だけで、one-to-many のような意味の語は無い。',
       '材料と区域は hatch で描き分ける。solid はアスコン・コンクリート、dots は砕石・砂、lines は地盤・既存部分、cross は撤去や立入禁止の区域。断面図と区域図は、模様が無いと専門の図に見えない（縮小すると文字は消えるが模様は残る）。値は模様の名前だけで、アスコンのような材料の語は無い。',
       '一度付けた id は、意味が変わらないのに書き換えない。人の手直しが id に紐づいている。',
@@ -450,7 +452,9 @@ const ja = {
     hatchIgnored: (id: string) =>
       `ノード "${id}" に hatch がありますが、構成図では描かれません（kind: placement で描かれます）。`,
     endsUnknown: (edge: string, word: string) =>
-      `エッジ ${edge} の ends が "${word}" になっています（none / arrow / bar / crow / dot / dot-bar / dot-crow）。記号は描かれません。`,
+      `エッジ ${edge} の ends が "${word}" になっています（ENDS の語のいずれか）。記号は描かれません。`,
+    lineUnknown: (edge: string, word: string) =>
+      `エッジ ${edge} の line が "${word}" になっています（solid / dashed / dotted）。実線で描きます。`,
   },
 
   /** Mermaid への書き出し（`src/mermaid.ts`） */
@@ -707,7 +711,8 @@ const en: Catalog = {
       '  - from: <node id>',
       '    to: <node id>',
       '    label: <optional>',
-      '    ends: { from: <from ENDS>, to: <from ENDS> }   # end symbols (ER cardinality)',
+      '    ends: { from: <from ENDS>, to: <from ENDS> }   # end symbols (ER cardinality, UML)',
+      '    line: <solid (default) | dashed | dotted>      # line style (UML realization, temporary works)',
     ].join('\n'),
     rules: [
       'Do not write pins. That section holds what a person decided by hand; anything you write there is dropped.',
@@ -719,6 +724,7 @@ const en: Catalog = {
       'If a diagram stretches into one long row, write wrap: true. Do not try to fix it by enlarging the text.',
       'Use radius for a reach or zone: crane working radius, fire-extinguisher coverage, shading offset. It is an annotation, not a shape, so type stays as it is.',
       'On a plan, use marker: circle for a round mark (double for an interchange): transit stations, acupuncture points, instruments. marker values are shape names only — there is no semantic value like an extinguisher, and type does not grow. The name is drawn outside the mark, except a short label (a number) which goes inside.',
+      'A UML class diagram is written with ends and line: generalization is solid + triangle, realization is dashed + triangle, aggregation is diamond, composition is solid-diamond, dependency is dashed + arrow. The same end symbol means different things depending on the line style (generalization and realization differ only in that). Do NOT draw attributes and operations — copying what the code already says makes the diagram a lie the moment the code changes.',
       'Write ER cardinality with ends, not words (bar for one, crow for many, dot-crow for zero-or-more). Database people read the end shape. Words run out of room as edges multiply. ends values are shape names only, never a semantic value like one-to-many.',
       'Distinguish materials and zones with hatch: solid for asphalt and concrete, dots for crushed stone and sand, lines for ground and existing work, cross for removal or no-entry areas. A section or a zoning drawing does not read as professional without patterns (shrink it and the text disappears but the pattern remains). Values are pattern names only, never a material name.',
       'Do not rename an id whose meaning has not changed. Hand edits are tied to ids.',
@@ -799,7 +805,9 @@ const en: Catalog = {
     hatchIgnored: (id: string) =>
       `Node "${id}" has a hatch, but hatching is not drawn on a structure diagram. Use kind: placement.`,
     endsUnknown: (edge: string, word: string) =>
-      `Edge ${edge} has ends "${word}" (none / arrow / bar / crow / dot / dot-bar / dot-crow). No symbol is drawn.`,
+      `Edge ${edge} has ends "${word}" (one of ENDS). No symbol is drawn.`,
+    lineUnknown: (edge: string, word: string) =>
+      `Edge ${edge} has line "${word}" (solid / dashed / dotted). It is drawn solid.`,
   },
   mermaid: {
     geometryDroppedHeading:

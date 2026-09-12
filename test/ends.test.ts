@@ -33,9 +33,14 @@ edges:
 `;
 
 describe('端の記号を読む', () => {
-  it('7 つで閉じる。**意味の語は無い**', () => {
-    assert.deepEqual([...ENDS], ['none', 'arrow', 'bar', 'crow', 'dot', 'dot-bar', 'dot-crow']);
+  it('**形の名前だけで閉じる。意味の語は無い**', () => {
+    assert.deepEqual(
+      [...ENDS],
+      ['none', 'arrow', 'bar', 'crow', 'dot', 'dot-bar', 'dot-crow', 'triangle', 'diamond', 'solid-diamond'],
+    );
+    // 意味の語は受けない（ER の `one-to-many`、UML の `generalization`）。
     assert.deepEqual(endsOf({ from: 'one-to-many' }), { from: 'none', to: 'none' });
+    assert.deepEqual(endsOf({ to: 'generalization' }), { from: 'none', to: 'none' });
   });
 
   it('書かなければ記号は無い', () => {
@@ -123,5 +128,73 @@ describe('図に載せる', () => {
   it('spec が端の記号を返す', () => {
     assert.deepEqual(spec().ends, [...ENDS]);
     assert.match(spec().shape, /ends:/);
+  });
+});
+
+describe('UML の関係記号', () => {
+  const tip = { x: 100, y: 100 };
+  const back = { x: 0, y: 100 };
+
+  it('**中抜きの三角は地の色で塗る。** 線が透けると汎化に見えない', () => {
+    const out = drawEnd('triangle', tip, back, '#111', '#ffffff');
+    assert.match(out, /<path [^>]*fill="#ffffff"/);
+  });
+
+  it('集約は中抜きの菱形、コンポジションは塗った菱形', () => {
+    assert.match(drawEnd('diamond', tip, back, '#111', '#fff'), /fill="#fff"/);
+    assert.match(drawEnd('solid-diamond', tip, back, '#111', '#fff'), /fill="#111"/);
+  });
+
+  it('三角も菱形も、閉じた形（1 つの path）', () => {
+    for (const kind of ['triangle', 'diamond', 'solid-diamond'] as const) {
+      const out = drawEnd(kind, tip, back, '#111', '#fff');
+      assert.equal(out.match(/<path /g)!.length, 1, `${kind} が 1 つの path でない`);
+      assert.ok(out.includes(' Z"'), `${kind} が閉じていない`);
+    }
+  });
+});
+
+describe('辺の線種', () => {
+  const UML = `version: 1
+nodes:
+  - id: a
+    label: SqlOrderRepository
+  - id: b
+    label: OrderRepository
+edges:
+  - from: a
+    to: b
+    line: dashed
+    ends: { to: triangle }
+`;
+
+  it('**破線で描く。** 汎化と実現は線種でしか区別できない', async () => {
+    const { lineOf, dashOf } = await import('../src/line.ts');
+    assert.equal(lineOf('dashed'), 'dashed');
+    assert.equal(dashOf('dashed'), '7 4');
+    assert.equal(dashOf('solid'), null);
+    const out = render(await layout(UML));
+    assert.match(out, /<path d="[^"]*"[^>]*stroke-dasharray="7 4"/);
+  });
+
+  it('書かなければ実線（これまでの図の見え方を変えない）', async () => {
+    const out = render(await layout(UML.replace('    line: dashed\n', '')));
+    assert.ok(!out.includes('stroke-dasharray="7 4"'));
+  });
+
+  it('意味の語は受けない', async () => {
+    const { lineOf } = await import('../src/line.ts');
+    assert.equal(lineOf('dependency'), 'solid');
+  });
+
+  it('知らない語を警告する', () => {
+    const found = validate(UML.replace('line: dashed', 'line: nami'));
+    assert.ok(found.some((f) => f.code === 'line-unknown'));
+    assert.ok(found.every((f) => f.severity === 'warning'));
+  });
+
+  it('spec が線種を返す', () => {
+    assert.deepEqual(spec().lines, ['solid', 'dashed', 'dotted']);
+    assert.match(spec().shape, /line:/);
   });
 });

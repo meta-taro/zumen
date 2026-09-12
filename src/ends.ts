@@ -33,12 +33,26 @@
  * | `dot` | 丸 | ER の「0 または」・接続点 |
  * | `dot-bar` | 丸 ＋ 棒 | ER の「0 または 1」 |
  * | `dot-crow` | 丸 ＋ 鳥の足 | ER の「0 以上」 |
+ * | `triangle` | 中抜きの三角 | UML の汎化（継承）・実現 |
+ * | `diamond` | 中抜きの菱形 | UML の集約 |
+ * | `solid-diamond` | 塗った菱形 | UML のコンポジション |
  *
  * **端の記号を書いた辺には、既定の矢印を付けない。** 記号が矢印の代わりになる
  * （両方出すと、向きが二重に言われて読めなくなる）。
  */
 
-export const ENDS = ['none', 'arrow', 'bar', 'crow', 'dot', 'dot-bar', 'dot-crow'] as const;
+export const ENDS = [
+  'none',
+  'arrow',
+  'bar',
+  'crow',
+  'dot',
+  'dot-bar',
+  'dot-crow',
+  'triangle',
+  'diamond',
+  'solid-diamond',
+] as const;
 export type End = (typeof ENDS)[number];
 
 export interface Ends {
@@ -79,7 +93,14 @@ function n(value: number): number {
  * `tip` は線の端、`back` はその 1 つ手前の点。
  * **向きは線から決める** —— 正本に角度を書かせない。
  */
-export function drawEnd(kind: End, tip: Point, back: Point, stroke: string): string {
+export function drawEnd(
+  kind: End,
+  tip: Point,
+  back: Point,
+  stroke: string,
+  /** 地の色。**中抜きの記号を塗るのに使う**（線が透けると意味が変わる）。 */
+  paper = '#ffffff',
+): string {
   if (kind === 'none' || kind === 'arrow') return '';
 
   const dx = tip.x - back.x;
@@ -127,8 +148,26 @@ export function drawEnd(kind: End, tip: Point, back: Point, stroke: string): str
     }
   }
 
-  if (kind === 'dot') {
-    // 丸だけ。上で描いてある。
+  if (kind === 'triangle') {
+    // **中抜きの三角**（UML の汎化・実現）。**地の色で塗る** ——
+    // 線が三角の中を通って見えると、汎化ではなく「単なる矢印」に見える。
+    const back2 = { x: tip.x + ux * 12, y: tip.y + uy * 12 };
+    parts.push(
+      `<path d="M ${n(tip.x)} ${n(tip.y)} L ${n(back2.x + px * 6)} ${n(back2.y + py * 6)} ` +
+        `L ${n(back2.x - px * 6)} ${n(back2.y - py * 6)} Z" fill="${paper}" stroke="${stroke}" stroke-width="1.2"/>`,
+    );
+  }
+
+  if (kind === 'diamond' || kind === 'solid-diamond') {
+    // 菱形（UML の集約・コンポジション）。**塗りの有無で意味が変わる。**
+    const mid = { x: tip.x + ux * 7, y: tip.y + uy * 7 };
+    const far = { x: tip.x + ux * 14, y: tip.y + uy * 14 };
+    const fill = kind === 'solid-diamond' ? stroke : paper;
+    parts.push(
+      `<path d="M ${n(tip.x)} ${n(tip.y)} L ${n(mid.x + px * 5)} ${n(mid.y + py * 5)} ` +
+        `L ${n(far.x)} ${n(far.y)} L ${n(mid.x - px * 5)} ${n(mid.y - py * 5)} Z" ` +
+        `fill="${fill}" stroke="${stroke}" stroke-width="1.2"/>`,
+    );
   }
 
   return parts.join('');

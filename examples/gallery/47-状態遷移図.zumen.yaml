@@ -1,0 +1,63 @@
+version: 1
+wrap: true
+title: 状態遷移図（注文の状態・UML）
+pins:
+  shipped:
+    appearance: primary
+nodes:
+  - id: start
+    type: generic
+    label: ●
+    technology: 開始
+  - id: draft
+    type: generic
+    label: 下書き
+    technology: 編集できる
+  - id: placed
+    type: generic
+    label: 受付済
+    technology: 在庫確保／取消で戻す
+  - id: paid
+    type: generic
+    label: 入金済
+    technology: 出荷待ち
+  - id: shipped
+    type: generic
+    label: 出荷済
+    technology: 出荷で番号を発行
+  - id: done
+    type: generic
+    label: 完了
+  - id: cancelled
+    type: generic
+    label: 取消
+    technology: 在庫を戻す
+  - id: fin
+    type: generic
+    label: ◉
+    technology: 終了
+edges:
+  - from: start
+    to: draft
+  - from: draft
+    to: placed
+    label: 注文
+  - from: placed
+    to: paid
+    label: 入金［与信 OK］
+  - from: paid
+    to: shipped
+    label: 出荷
+  - from: shipped
+    to: done
+    label: 受領
+  - from: placed
+    to: cancelled
+    label: 取消 ／ 在庫を戻す
+  - from: paid
+    to: cancelled
+    label: 取消 ／ 返金
+  - from: done
+    to: fin
+  - from: cancelled
+    to: fin

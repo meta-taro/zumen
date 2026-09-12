@@ -19,6 +19,7 @@ import { DIRECTIONS as DIRECTION_WORDS } from './direction.ts';
 import { KINDS as KIND_WORDS } from './kind.ts';
 import { MARKS, NORTHS } from './grid.ts';
 import { ENDS } from './ends.ts';
+import { LINES } from './line.ts';
 import { HATCHES } from './hatch.ts';
 import { MARKERS } from './marker.ts';
 import { messages } from './messages.ts';
@@ -56,6 +57,7 @@ const MARK_WORDS = new Set<string>(MARKS);
 const MARKER_WORDS = new Set<string>(MARKERS);
 const HATCH_WORDS = new Set<string>(HATCHES);
 const END_WORDS = new Set<string>(ENDS);
+const LINE_WORDS = new Set<string>(LINES);
 
 /** `pins` の中で、位置や体裁ではなく人の決定を表す鍵。迷子の判定には関係しない。 */
 const EDGE_KEY = /^(.+)>(.+)$/;
@@ -413,9 +415,13 @@ function checkEdges(doc: Document, nodeIds: Set<string>, add: Add, m: Messages, 
 /** 辺の端の記号（`src/ends.ts`）。知らない語は描かないので、知らせる。 */
 function checkEnds(doc: Document, add: Add, m: Messages, at: At): void {
   for (const item of seqOf(doc, 'edges')) {
+    const name = `${String(item.get('from'))}>${String(item.get('to'))}`;
+    const line = item.get('line');
+    if (line !== undefined && line !== null && !LINE_WORDS.has(String(line))) {
+      add('warning', 'line-unknown', m.lineUnknown(name, String(line)), at(item.get('line', true)));
+    }
     const ends = item.get('ends', true);
     if (ends === undefined || ends === null || !isMap(ends)) continue;
-    const name = `${String(item.get('from'))}>${String(item.get('to'))}`;
     for (const side of ['from', 'to']) {
       const value = ends.get(side);
       if (value === undefined || value === null) continue;

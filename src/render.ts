@@ -29,6 +29,7 @@ import type { Frame, Ink } from './dimensions.ts';
 import { hasGrid } from './grid.ts';
 import { drawEnd, hasEnds } from './ends.ts';
 import { drawHatch } from './hatch.ts';
+import { dashOf } from './line.ts';
 import { drawMarker } from './marker.ts';
 import { NAME_FONT, SUB_FONT, planNames } from './names.ts';
 import type { Plan } from './names.ts';
@@ -458,14 +459,16 @@ function renderEdge(
     // 記号が矢印の代わりで、両方出すと向きが二重に言われる。
     `<path d="${path}" fill="none" stroke="${palette.edge.stroke}" stroke-width="${
       edge.pinned || plan ? STROKE_WIDTH.pinned : STROKE_WIDTH.auto
-    }"${arrows && !hasEnds(edge.ends) ? ' marker-end="url(#arrow)"' : ''}/>`,
+    }"${dashOf(edge.line) === null ? '' : ` stroke-dasharray="${dashOf(edge.line)}"`}${
+      arrows && !hasEnds(edge.ends) ? ' marker-end="url(#arrow)"' : ''
+    }/>`,
     // 端の記号（ER の多重度・端子・接続点）。**向きは線から決める。**
     edge.points.length < 2
       ? ''
-      : drawEnd(edge.ends.to, edge.points[edge.points.length - 1]!, edge.points[edge.points.length - 2]!, palette.edge.stroke),
+      : drawEnd(edge.ends.to, edge.points[edge.points.length - 1]!, edge.points[edge.points.length - 2]!, palette.edge.stroke, palette.paper),
     edge.points.length < 2
       ? ''
-      : drawEnd(edge.ends.from, edge.points[0]!, edge.points[1]!, palette.edge.stroke),
+      : drawEnd(edge.ends.from, edge.points[0]!, edge.points[1]!, palette.edge.stroke, palette.paper),
     label,
     '</g>',
   ].join('');

@@ -1,0 +1,93 @@
+version: 1
+wrap: true
+title: クラス図（注文ドメイン・UML）
+# 属性と操作は描かない。コードに書いてあるものを図へ写すと、
+# コードが変わった瞬間に図が嘘になる（PRD §1）。図は関係を描く。
+pins:
+  order:
+    appearance: primary
+groups:
+  - id: domain
+    label: ドメイン
+  - id: port
+    label: ポート（インタフェース）
+  - id: infra
+    label: インフラ
+nodes:
+  - id: order
+    type: generic
+    label: Order
+    technology: 注文（集約ルート）
+    group: domain
+  - id: line
+    type: generic
+    label: OrderLine
+    technology: 明細
+    group: domain
+  - id: money
+    type: generic
+    label: Money
+    technology: 値オブジェクト
+    group: domain
+  - id: customer
+    type: generic
+    label: Customer
+    group: domain
+  - id: indiv
+    type: generic
+    label: Individual
+    technology: 個人
+    group: domain
+  - id: corp
+    type: generic
+    label: Corporate
+    technology: 法人
+    group: domain
+  - id: repo
+    type: generic
+    label: OrderRepository
+    technology: «interface»
+    group: port
+  - id: pay
+    type: generic
+    label: PaymentGateway
+    technology: «interface»
+    group: port
+  - id: sqlrepo
+    type: database
+    label: SqlOrderRepository
+    group: infra
+  - id: stripe
+    type: network
+    label: StripeGateway
+    group: infra
+edges:
+  - from: order
+    to: line
+    ends: { from: solid-diamond, to: none }
+    label: 1..*
+  - from: line
+    to: money
+    ends: { from: diamond, to: none }
+  - from: order
+    to: customer
+    label: 1
+  - from: indiv
+    to: customer
+    ends: { to: triangle }
+  - from: corp
+    to: customer
+    ends: { to: triangle }
+  - from: sqlrepo
+    to: repo
+    line: dashed
+    ends: { to: triangle }
+  - from: stripe
+    to: pay
+    line: dashed
+    ends: { to: triangle }
+  - from: order
+    to: repo
+    line: dashed
+    ends: { to: arrow }
+    label: 依存
