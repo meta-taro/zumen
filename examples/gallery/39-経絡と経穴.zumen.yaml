@@ -1,0 +1,111 @@
+version: 1
+kind: placement
+title: 手の太陰肺経・手の陽明大腸経（WHO/ISO 標準経穴部位）
+pins:
+  lu9:
+    appearance: primary
+groups:
+  - id: lung
+    label: 手の太陰肺経　LU　11 穴　流注は胸から手へ
+  - id: li
+    label: 手の陽明大腸経　LI　20 穴　流注は手から顔へ
+nodes:
+  - id: lu1
+    label: 中府
+    tag: LU-1
+    technology: 前胸部・第 1 肋間
+    at: { x: 0, y: 0 }
+    size: { w: 150, h: 42 }
+    group: lung
+  - id: lu2
+    label: 雲門
+    tag: LU-2
+    technology: 鎖骨下窩
+    at: { x: 0, y: 52 }
+    size: { w: 150, h: 42 }
+    group: lung
+  - id: lu5
+    label: 尺沢
+    tag: LU-5
+    technology: 肘窩・二頭筋腱外方
+    at: { x: 0, y: 104 }
+    size: { w: 150, h: 42 }
+    group: lung
+  - id: lu7
+    label: 列缺
+    tag: LU-7
+    technology: 手関節横紋の上 1.5 寸
+    at: { x: 0, y: 156 }
+    size: { w: 150, h: 42 }
+    group: lung
+  - id: lu9
+    label: 太淵
+    tag: LU-9
+    technology: 橈骨動脈拍動部
+    at: { x: 0, y: 208 }
+    size: { w: 150, h: 42 }
+    group: lung
+  - id: lu11
+    label: 少商
+    tag: LU-11
+    technology: 母指爪甲根部・橈側
+    at: { x: 0, y: 260 }
+    size: { w: 150, h: 42 }
+    group: lung
+  - id: li1
+    label: 商陽
+    tag: LI-1
+    technology: 示指爪甲根部・橈側
+    at: { x: 220, y: 260 }
+    size: { w: 150, h: 42 }
+    group: li
+  - id: li4
+    label: 合谷
+    tag: LI-4
+    technology: 第 2 中手骨中点・橈側
+    at: { x: 220, y: 208 }
+    size: { w: 150, h: 42 }
+    group: li
+  - id: li11
+    label: 曲池
+    tag: LI-11
+    technology: 肘窩横紋外端
+    at: { x: 220, y: 156 }
+    size: { w: 150, h: 42 }
+    group: li
+  - id: li15
+    label: 肩髃
+    tag: LI-15
+    technology: 肩峰外縁の前下方
+    at: { x: 220, y: 104 }
+    size: { w: 150, h: 42 }
+    group: li
+  - id: li20
+    label: 迎香
+    tag: LI-20
+    technology: 鼻唇溝中・鼻翼外縁中点
+    at: { x: 220, y: 0 }
+    size: { w: 150, h: 42 }
+    group: li
+edges:
+  - from: lu1
+    to: lu2
+  - from: lu2
+    to: lu5
+  - from: lu5
+    to: lu7
+  - from: lu7
+    to: lu9
+  - from: lu9
+    to: lu11
+  - from: lu11
+    to: li1
+    label: 表裏の接続
+  - from: li1
+    to: li4
+  - from: li4
+    to: li11
+  - from: li11
+    to: li15
+  - from: li15
+    to: li20

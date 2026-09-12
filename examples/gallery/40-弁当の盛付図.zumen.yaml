@@ -1,0 +1,68 @@
+version: 1
+kind: placement
+title: 幕の内弁当 盛付指示書（容器 210×170・総重量 480g）
+# 1 px = 0.5 mm
+scale: { mm: 0.5 }
+wall: { mm: 2 }
+grid:
+  x:
+    - { id: X1, at: 0 }
+    - { id: X2, at: 200 }
+    - { id: X3, at: 420 }
+  y:
+    - { id: Y1, at: 0 }
+    - { id: Y2, at: 140 }
+    - { id: Y3, at: 240 }
+    - { id: Y4, at: 340 }
+pins:
+  gohan:
+    appearance: primary
+groups:
+  - id: yoki
+    label: 容器 BF-210　PP 製 5 仕切　フタ 嵌合式　賞味 当日 24 時
+nodes:
+  - id: gohan
+    label: ごはん
+    tag: 1
+    technology: 220g・平ら／黒ごま 0.2g
+    at: { x: 0, y: 0 }
+    size: { w: 200, h: 340 }
+    group: yoki
+  - id: shusai
+    label: 鶏の唐揚げ
+    tag: 2
+    technology: 3 個 90g・中心 75℃ 1 分
+    at: { x: 200, y: 0 }
+    size: { w: 220, h: 140 }
+    group: yoki
+  - id: fuku1
+    label: きんぴら
+    tag: 3
+    technology: 45g・カップ 小
+    at: { x: 200, y: 140 }
+    size: { w: 110, h: 100 }
+    group: yoki
+  - id: fuku2
+    label: 玉子焼
+    tag: 4
+    technology: 2 切 55g
+    at: { x: 310, y: 140 }
+    size: { w: 110, h: 100 }
+    group: yoki
+  - id: tsukemono
+    label: 漬物・仕切
+    tag: 5
+    technology: 30g・バラン 1
+    at: { x: 200, y: 240 }
+    size: { w: 220, h: 100 }
+    group: yoki
+edges:
+  - from: gohan
+    to: shusai
+    label: 盛付順
+  - from: shusai
+    to: fuku1
+  - from: fuku1
+    to: fuku2
+  - from: fuku2
+    to: tsukemono
