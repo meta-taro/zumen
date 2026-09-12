@@ -66,6 +66,8 @@
     font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   }
   code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .92em; }
+  /* 正本の中のコメント。**値より静かに**（読む順を値 → 説明にする）。 */
+  pre .c { color: var(--fg-3); }
   p code, li code { background: var(--bg-subtle); padding: 1px 5px; border-radius: 4px; border: 1px solid var(--border); }
   /* **業界で絞り込む。** 見本が増えるほど、全部並べると自分に関係する 1 枚が沈む。
      JS が動かない環境では、すべて出たままになる（絞り込めないだけで、読めなくならない）。 */
@@ -185,6 +187,8 @@
     <br>下はすべて、<b>同じ 11 語の語彙</b>で書いたものです。業界ごとの図形は 1 つも足していません。
     専門性は形ではなく<b>符号</b>（<code>C1</code> <code>G1</code> <code>2"-CS-101</code>
     <code>LBS-1</code>）で表されているからです。
+    <br><b>建築の図は、通り芯と寸法が入ります。</b>壁は塗り潰し、建具は開き勝手まで描きます
+    ── <b>寸法が無い図では、何も建てられません。</b>
   </p>
   <div class="filters" role="group" aria-label="業界で絞り込む">
     <button type="button" data-pick="all" aria-pressed="true">すべて</button>
@@ -251,6 +255,38 @@ edges:
     <b>Git で差分が読めます。</b>誰が何を足したか、レビューで分かります。
     <code>type</code> は形になるので、<b>白黒で印刷しても、縮小しても見分けが付きます</b>
     ── 円柱はデータベース、六角形はキャッシュ、雲は外の世界。
+  </p>
+
+  <h3 style="font-size:17px;margin:32px 0 12px">平面図も、同じ文章で</h3>
+  <pre><code>version: 1
+kind: placement
+<span class="c"># 1 px = 15 mm。間仕切 105・外壁 180</span>
+scale: { mm: 15 }
+wall: { mm: 105, outer: 180 }
+north: up
+grid:
+  x:
+    - { id: X1, at: 40 }
+    - { id: X2, at: 240 }
+  y:
+    - { id: Y1, at: 40 }
+    - { id: Y2, at: 320 }
+
+nodes:
+  - id: ldk
+    label: LDK
+    technology: 16 畳
+    at: { x: 40, y: 40 }
+    size: { w: 320, h: 280 }
+    openings:
+      - { kind: window, side: top, at: 0.25, width: 90 }
+      - { kind: door, side: bottom, at: 0.83, width: 70 }</code></pre>
+  <p>
+    <b>寸法は通り芯からしか出しません。</b>部屋の箱から出すと、
+    壁の厚みをどちらに数えるかで値が変わり、<b>現場で食い違います</b>
+    ── 実物の図面が通り芯を基準にしているのは、そこを一意にするためです。
+    <br><b><code>scale</code> が無ければ、寸法の数値を出しません。</b>
+    知らない縮尺で数値を書くより、出さないほうがましだからです。
   </p>
 </section>
 

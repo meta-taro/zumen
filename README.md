@@ -64,11 +64,11 @@ nodes:
   - id: ldk
     label: LDK
     technology: 16 畳
-    at:   { x: 40, y: 40 }
+    at: { x: 40, y: 40 }
     size: { w: 320, h: 280 }
     openings:
-      - { kind: window, side: top,    at: 0.25, width: 90 }
-      - { kind: door,   side: bottom, at: 0.83, width: 70 }
+      - { kind: window, side: top, at: 0.25, width: 90 }
+      - { kind: door, side: bottom, at: 0.83, width: 70 }
 ```
 
 - **置き場所は書いた座標のまま。** 機械が並べ直しません
@@ -77,12 +77,17 @@ nodes:
 - **通り芯・寸法線・方位記号を描きます**（`grid` / `scale` / `north`）
 
 ```yaml
-scale: { mm: 15 }                # 1 px = 15 mm
-wall:  { mm: 105, outer: 180 }   # 間仕切 105・外壁 180
+# 1 px = 15 mm。間仕切 105・外壁 180
+scale: { mm: 15 }
+wall: { mm: 105, outer: 180 }
 north: up
 grid:
-  x: [{ id: X1, at: 40 }, { id: X2, at: 240 }]
-  y: [{ id: Y1, at: 40 }, { id: Y2, at: 320 }]
+  x:
+    - { id: X1, at: 40 }
+    - { id: X2, at: 240 }
+  y:
+    - { id: Y1, at: 40 }
+    - { id: Y2, at: 320 }
 ```
 
 **壁は塗り潰します。** 1 本線では、部屋を分ける境界線には見えても、

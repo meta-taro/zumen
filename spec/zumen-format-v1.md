@@ -53,7 +53,7 @@
 ### 2.3 図の種類（`kind`）
 
 ```yaml
-kind: placement   # 省略すると structure
+kind: placement # 省略すると structure
 ```
 
 | | | 置き場所を決めるのは |
@@ -68,7 +68,7 @@ kind: placement
 nodes:
   - id: jimu
     label: 事務室
-    at: { x: 420, y: 200 }   # ← 機械は並べ直さない
+    at: { x: 420, y: 200 } # ← 機械は並べ直さない
 ```
 
 | | 書くのは | 強さ |
@@ -220,7 +220,7 @@ wrap: true
 
 ```yaml
 kind: placement
-scale: { mm: 15 }      # 1 px = 15 mm
+scale: { mm: 15 } # 1 px = 15 mm
 north: up
 grid:
   x:
@@ -254,13 +254,27 @@ grid:
 
 **芯が 2 本なら総寸法を重ねて書かない**（芯どうしの寸法と同じ数字になる）。
 
+**桁を揃える空白を入れない。** 書き戻しで詰められるので §6.1 に反する
+（`round-trip-changed` で落ちる。2026-09-12 に実際に踏んだ）。
+
+| 書き方 | 書き戻すと |
+|---|---|
+| `at: { x: 40 }   # ← 注記` | **`#` の前の空白が 1 つに詰まる** |
+| `x: [{ id: X1, at: 40 }]` | `x: [ { id: X1, at: 40 } ]`（括弧の内側に空白が入る） |
+| `at:   { x: 40, y: 40 }` | `at: { x: 40, y: 40 }` |
+
+**通り芯は 1 行 1 本の並びで書く。**
+
+**目で見ても分からない。** 書き戻しの差は、目で追う種類のものではない
+（`test/docs-samples.test.ts` が、文書に載せた見本を毎回検査する）。
+
 #### 3.0.3 壁の厚み（`wall`）
 
 **配置図でだけ効く。`scale` が無ければ何も変えない**（mm を px にできない）。
 
 ```yaml
 scale: { mm: 15 }
-wall: { mm: 105, outer: 180 }   # 間仕切 105・外壁 180
+wall: { mm: 105, outer: 180 } # 間仕切 105・外壁 180
 ```
 
 `outer` を書かなければ、間仕切の 1.5 倍。
@@ -304,11 +318,11 @@ zumen が出す図は 1/100 前後の粗さなので、**塗り潰しのほう�
 ```yaml
   - id: ldk
     label: LDK
-    at:   { x: 40, y: 40 }
+    at: { x: 40, y: 40 }
     size: { w: 320, h: 280 }
     openings:
-      - { kind: window, side: top,    at: 0.25, width: 90 }
-      - { kind: door,   side: bottom, at: 0.83, width: 70 }
+      - { kind: window, side: top, at: 0.25, width: 90 }
+      - { kind: door, side: bottom, at: 0.83, width: 70 }
 ```
 
 | キー | 既定 | 意味 |
