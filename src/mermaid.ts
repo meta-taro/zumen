@@ -12,6 +12,7 @@
  * 落ちた指定を先頭のコメントに列挙して、何が失われたかを読める形にする。
  */
 import { asText, getPins, parse } from './format.ts';
+import { directionOf } from './direction.ts';
 import type { Pin } from './format.ts';
 import { messages } from './messages.ts';
 import { APPEARANCE } from './tokens.ts';
@@ -22,6 +23,10 @@ interface NodeInfo {
   type: string;
   group: string | null;
   appearance: string | null;
+  /** 版や役割（仕様 §3.1）。**Mermaid でも表せるので落とさない。** */
+  technology: string | null;
+  /** 符号（仕様 §3.1.3）。同上。 */
+  tag: string | null;
 }
 
 /** 体裁の訳。**値は `src/tokens.ts` の 1 か所から取る**（3 か所に書くとズレる）。 */
@@ -34,7 +39,15 @@ export function toMermaid(text: string): string {
   const raw = diagram.doc.toJS() as {
     title?: string;
     groups?: { id: string; label?: unknown }[];
-    nodes?: { id: string; label?: unknown; type?: string; group?: string }[];
+    direction?: unknown;
+    nodes?: {
+      id: string;
+      label?: unknown;
+      type?: string;
+      group?: string;
+      technology?: unknown;
+      tag?: unknown;
+    }[];
   };
   // 人が直したラベルと体裁は Mermaid でも表せる。**表せるものは落とさない。**
   // 落とすのは、Mermaid に書く場所が無いもの（位置・大きさ・線の曲げ方）だけ。
@@ -45,12 +58,17 @@ export function toMermaid(text: string): string {
     type: node.type ?? 'generic',
     group: node.group ?? null,
     appearance: pins[node.id]?.appearance ?? null,
+    technology: asText(node.technology),
+    tag: asText(node.tag),
   }));
 
   const lines: string[] = [];
   if (raw.title !== undefined) lines.push(`%% ${raw.title}`);
   lines.push(...droppedNotes(pins));
-  lines.push('flowchart TD');
+  // **向きは正本が決める**（`src/direction.ts`。既定は横）。
+  // ここを `TD` で固定していたので、**同じ正本から SVG は横、Mermaid は縦**が出ていた。
+  // Issue #9 で直したのと同じ壊れ方（書き出し先ごとに違う絵）。
+  lines.push(`flowchart ${directionOf(raw.direction) === 'down' ? 'TD' : 'LR'}`);
 
   for (const group of raw.groups ?? []) {
     const members = nodes.filter((node) => node.group === group.id);
@@ -123,7 +141,7 @@ function hasLayout(pin: Pin): boolean {
  * `cloud` の分岐があったが、**`type` の一覧に無い語**だった。取り残しなので消した。
  */
 function shape(node: NodeInfo): string {
-  const label = quote(node.label);
+  const label = quote(labelOf(node));
   switch (node.type) {
     case 'database':
       return `${node.id}[(${label})]`;
@@ -142,6 +160,21 @@ function shape(node: NodeInfo): string {
     default:
       return `${node.id}[${label}]`;
   }
+}
+
+/**
+ * 箱に出す文字。**符号・名前・副題の 3 行。**
+ *
+ * SVG は 3 つを別々の位置に描く（符号は左上、名前は中央、副題はその下）。
+ * Mermaid に位置を書く場所は無いが、**行は分けられる**（`<br>`）。
+ * 1 つの名前に潰すと、`C1 柱 700×700` という**存在しない名前**ができてしまう。
+ *
+ * ここを落としていたので、符号と副題が**書き出した時点で消えて**いた。
+ */
+function labelOf(node: NodeInfo): string {
+  return [node.tag, asText(node.label) ?? node.id, node.technology]
+    .filter((part) => part !== null && part !== '')
+    .join('<br>');
 }
 
 /**

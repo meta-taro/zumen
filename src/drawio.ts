@@ -105,10 +105,11 @@ function px(value: number): number {
  */
 function vertex(box: Box, style: string): string {
   const geometry = `<mxGeometry x="${px(box.x)}" y="${px(box.y)}" width="${px(box.w)}" height="${px(box.h)}" as="geometry" />`;
+  const value = escapeXml(labelOf(box));
 
   if (box.pinned) {
     return [
-      `        <object label="${escapeXml(box.label)}" zumenPinned="1" id="${escapeXml(box.id)}">`,
+      `        <object label="${value}" zumenPinned="1" id="${escapeXml(box.id)}">`,
       `          <mxCell style="${style}" vertex="1" parent="1">`,
       `            ${geometry}`,
       '          </mxCell>',
@@ -117,10 +118,26 @@ function vertex(box: Box, style: string): string {
   }
 
   return [
-    `        <mxCell id="${escapeXml(box.id)}" value="${escapeXml(box.label)}" style="${style}" vertex="1" parent="1">`,
+    `        <mxCell id="${escapeXml(box.id)}" value="${value}" style="${style}" vertex="1" parent="1">`,
     `          ${geometry}`,
     '        </mxCell>',
   ].join('\n');
+}
+
+/**
+ * 箱に出す文字。**符号・名前・副題の 3 行。**
+ *
+ * SVG は 3 つを別々の位置に描くが、draw.io の `value` は 1 つしかない。
+ * ただし `html=1` を付けてあるので、**行は分けられる**（`<br>`）。
+ * 1 つの名前に潰すと `C1 柱 700×700` という**存在しない名前**ができる。
+ *
+ * ここを落としていたので、符号と副題が**書き出した時点で消えて**いた
+ * （Mermaid 側も同じ穴が開いていた）。
+ */
+function labelOf(box: Box): string {
+  return [box.tag, box.label, box.technology]
+    .filter((part) => part !== null && part !== '')
+    .join('<br>');
 }
 
 function edge(placedEdge: PlacedEdge): string {

@@ -168,3 +168,29 @@ describe('差分が読める', () => {
     assert.equal(await exported(R0), await exported(R0));
   });
 });
+
+describe('書き出しで、符号と副題を落とさない', () => {
+  it('**副題（technology）が落ちない**', async () => {
+    const out = toDrawio(
+      await layout('version: 1\nnodes:\n  - id: a\n    label: DB\n    technology: PostgreSQL 16\n'),
+    );
+    assert.ok(out.includes('PostgreSQL 16'), '副題が黙って落ちた');
+  });
+
+  it('**符号（tag）が落ちない**', async () => {
+    const out = toDrawio(await layout('version: 1\nnodes:\n  - id: c1\n    label: 柱\n    tag: C1\n'));
+    assert.ok(out.includes('C1'), '符号が黙って落ちた');
+  });
+
+  it('符号・名前・副題は行を分ける（1 つの名前に潰さない）', async () => {
+    const out = toDrawio(
+      await layout('version: 1\nnodes:\n  - id: c1\n    label: 柱\n    tag: C1\n    technology: 700×700\n'),
+    );
+    assert.ok(out.includes('C1&lt;br&gt;柱&lt;br&gt;700×700'), out.match(/value="[^"]*"/)?.[0]);
+  });
+
+  it('符号も副題も無ければ、名前だけのまま', async () => {
+    const out = toDrawio(await layout('version: 1\nnodes:\n  - id: a\n    label: あ\n'));
+    assert.ok(out.includes('value="あ"'), '余分な区切りが入った');
+  });
+});

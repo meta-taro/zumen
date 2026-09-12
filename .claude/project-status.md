@@ -17,6 +17,11 @@
   `test/tag.test.ts`（11 件）。見本を 3 つ追加（伏図・P&ID・受変電）。
   **`note` は入れなかった** —— 自分で書いた止める条件に当たった（D22 の訂正）
 
+- **書き出しの穴を塞いだ。** Mermaid が `flowchart TD` 固定で、**同じ正本から
+  SVG は横・Mermaid は縦**が出ていた。符号と副題も Mermaid / draw.io の両方で
+  落ちていた。**実パーサ（mermaid 11.17.2）で 26 件すべて PARSE OK**
+  （`experiments/d2/results/mermaid-validation.md` に再検証を追記）
+
 - **長い鎖の折り返し（`wrap`）を追加。** 見本 23 件の縦横比が
   **0.28〜8.69 → 0.87〜4.03** に収まった。`test/wrap.test.ts`（10 件）。
   **既定は折り返さない** —— 既定にしたら `test/groups.test.ts` が 4 件落ちたため

@@ -19,7 +19,9 @@ const R0 = readFileSync(new URL('fixtures/r0.zumen.yaml', import.meta.url), 'utf
 
 describe('toMermaid', () => {
   it('Mermaid として成立する形で始まる', () => {
-    assert.match(toMermaid(R0), /^%% 本番構成\nflowchart TD\n/);
+    // **向きは正本が決める**（既定は横）。ここで見たいのは
+    // 「題のコメントの次に図の宣言が来る」ことで、向きの値ではない。
+    assert.match(toMermaid(R0), /^%% 本番構成\nflowchart (LR|TD)\n/);
   });
 
   it('グループが subgraph になり、中身が入る', () => {
@@ -74,7 +76,7 @@ describe('Mermaid のパーサが通る形か', () => {
     const doc = parse(R0);
     setPin(doc, 'db', { position: { x: 620, y: 410 } });
     const out = toMermaid(serialize(doc)).split('\n');
-    const head = out.slice(0, out.indexOf('flowchart TD'));
+    const head = out.slice(0, out.findIndex((line) => line.startsWith('flowchart ')));
     for (const line of head) assert.match(line, /^%% /, `コメントでない行: ${line}`);
   });
 });
@@ -127,5 +129,38 @@ describe('落ちるものの扱い', () => {
     nodes.items.find((n) => n.get('id') === 'db')!.set('label', doc.doc.createNode('DB "本番"'));
     const out = toMermaid(serialize(doc));
     assert.match(out, /db\[\("DB &quot;本番&quot;"\)\]/);
+  });
+});
+
+describe('書き出し先で、同じ正本から同じ図が出る', () => {
+  it('**向きが正本どおりに出る。** 既定は横なので `flowchart LR`', () => {
+    const out = toMermaid('version: 1\nnodes:\n  - id: a\n  - id: b\nedges:\n  - from: a\n    to: b\n');
+    assert.match(out, /flowchart LR/, 'SVG は横なのに Mermaid が縦になっている');
+  });
+
+  it('`direction: down` なら `flowchart TD`', () => {
+    const out = toMermaid('version: 1\ndirection: down\nnodes:\n  - id: a\n');
+    assert.match(out, /flowchart TD/);
+  });
+
+  it('**副題（technology）が落ちない**', () => {
+    const out = toMermaid('version: 1\nnodes:\n  - id: a\n    label: DB\n    technology: PostgreSQL 16\n');
+    assert.ok(out.includes('PostgreSQL 16'), '副題が黙って落ちた');
+  });
+
+  it('**符号（tag）が落ちない**', () => {
+    const out = toMermaid('version: 1\nnodes:\n  - id: c1\n    label: 柱\n    tag: C1\n');
+    assert.ok(out.includes('C1'), '符号が黙って落ちた');
+  });
+
+  it('符号と副題は、ラベルと別の行になる（1 つの名前に潰さない）', () => {
+    const out = toMermaid('version: 1\nnodes:\n  - id: c1\n    label: 柱\n    tag: C1\n    technology: 700×700\n');
+    const m = out.match(/c1\["([^"]*)"\]/)!;
+    assert.equal(m[1], 'C1<br>柱<br>700×700');
+  });
+
+  it('符号も副題も無ければ、ラベルだけのまま', () => {
+    const out = toMermaid('version: 1\nnodes:\n  - id: a\n    label: あ\n');
+    assert.match(out, /a\["あ"\]/);
   });
 });
