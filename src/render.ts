@@ -81,8 +81,9 @@ export function render(
    * 実物の間取り図と並べて、差が出ていたところを直す。
    *
    * - **角を四角に。** 角丸だと隣の部屋と壁を共有して見えない
-   * - **矢印を描かない。** 平面図に部屋どうしの矢印は無い
    * - **文字を小さく、上へ寄せる。** 実物は `LDK 18.2帖` を隅に小さく置く
+   * - **入らない文字は出さない。** 大きさを人が書くので、入らない箱が出る
+   * - **大きいものから先に描く。** 後に描いたものが前に出る
    * - **建具を描く**（`src/openings.ts`）
    *
    * 通り芯・寸法線・柱・設備（浴槽・便器）は入れない。
@@ -99,8 +100,13 @@ export function render(
     `<svg xmlns="http://www.w3.org/2000/svg" width="${size(placed.width)}" height="${size(placed.height)}" viewBox="0 0 ${size(placed.width)} ${size(placed.height)}">`,
     `<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="${palette.edge.stroke}"/></marker></defs>`,
     ...placed.groups.map((group) => renderGroup(group, palette, plan)),
-    // **平面図に、部屋どうしの矢印は無い。**
-    ...(plan ? [] : placed.edges.map((edge) => renderEdge(edge, labels.get(edge.id) ?? null, palette))),
+    // **矢印を出すかは、正本が決める。**
+    //
+    // 一度ここで「平面図に矢印は無い」として落としたが、**間違いだった。**
+    // 売場の補充動線が黙って消え、避難経路図は描けなくなる。
+    // 間取りが矢印無しで出るのは、**正本に辺が書いていないから**であって、
+    // 平面図だから落としているのではない。
+    ...placed.edges.map((edge) => renderEdge(edge, labels.get(edge.id) ?? null, palette)),
     ...stack(placed.boxes, plan).map((box) => renderNode(box, palette, plan)),
     '</svg>',
   ];

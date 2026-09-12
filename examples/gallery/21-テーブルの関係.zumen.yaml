@@ -1,0 +1,81 @@
+version: 1
+title: 受注管理のテーブル関係（ER）
+pins:
+  juchu:
+    appearance: primary
+groups:
+  - id: master
+    label: マスタ
+  - id: torihiki
+    label: 取引
+  - id: zaiko
+    label: 在庫
+nodes:
+  - id: kokyaku
+    type: database
+    label: 顧客
+    tag: customers
+    technology: PK customer_id
+    group: master
+  - id: shohin
+    type: database
+    label: 商品
+    tag: products
+    technology: PK product_id
+    group: master
+  - id: tanka
+    type: database
+    label: 価格
+    tag: price_lists
+    technology: 期間つき
+    group: master
+  - id: juchu
+    type: database
+    label: 受注
+    tag: orders
+    technology: PK order_id
+    group: torihiki
+  - id: meisai
+    type: database
+    label: 受注明細
+    tag: order_items
+    technology: FK order_id
+    group: torihiki
+  - id: shukka
+    type: database
+    label: 出荷
+    tag: shipments
+    group: torihiki
+  - id: souko
+    type: database
+    label: 倉庫
+    tag: warehouses
+    group: zaiko
+  - id: zaiko
+    type: database
+    label: 在庫
+    tag: stocks
+    technology: 商品×倉庫
+    group: zaiko
+edges:
+  - from: kokyaku
+    to: juchu
+    label: 1 対 多
+  - from: juchu
+    to: meisai
+    label: 1 対 多
+  - from: shohin
+    to: meisai
+    label: 1 対 多
+  - from: shohin
+    to: tanka
+    label: 1 対 多
+  - from: juchu
+    to: shukka
+    label: 1 対 多
+  - from: shohin
+    to: zaiko
+    label: 1 対 多
+  - from: souko
+    to: zaiko
+    label: 1 対 多

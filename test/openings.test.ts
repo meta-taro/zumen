@@ -142,3 +142,41 @@ describe('建具を描く（drawOpenings）', () => {
     assert.equal(svg.match(new RegExp(`stroke="${PAPER}"`, 'g'))!.length, 3);
   });
 });
+
+describe('平面図でも、正本が書いた辺は描く', () => {
+  it('**矢印を落とさない。** 売場の補充動線・避難経路は平面図の上に引く', async () => {
+    const { layout } = await import('../src/layout.ts');
+    const { render } = await import('../src/render.ts');
+    const source = `version: 1
+kind: placement
+nodes:
+  - id: a
+    label: 入口
+    at: { x: 0, y: 0 }
+    size: { w: 120, h: 80 }
+  - id: b
+    label: レジ
+    at: { x: 200, y: 0 }
+    size: { w: 120, h: 80 }
+edges:
+  - from: a
+    to: b
+    label: 動線
+`;
+    const out = render(await layout(source), 'light', 'safe', true);
+    assert.ok(out.includes('data-edge='), '平面図で辺が消えた');
+    assert.ok(out.includes('>動線<'), '辺のラベルが消えた');
+  });
+
+  it('辺を書かなければ、矢印は出ない（間取りはこちら）', async () => {
+    const { layout } = await import('../src/layout.ts');
+    const { render } = await import('../src/render.ts');
+    const out = render(
+      await layout('version: 1\nkind: placement\nnodes:\n  - id: a\n    at: { x: 0, y: 0 }\n'),
+      'light',
+      'safe',
+      true,
+    );
+    assert.ok(!out.includes('data-edge='), '辺が無いのに矢印が出た');
+  });
+});

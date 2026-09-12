@@ -1,0 +1,84 @@
+version: 1
+kind: placement
+title: 3 階 避難経路図（収容 120 名）
+groups:
+  - id: f3
+    label: 3 階　避難口 2 か所　最遠点からの歩行距離 28m
+nodes:
+  - id: jimu
+    label: 事務室
+    tag: 3-01
+    technology: 40 名
+    at: { x: 40, y: 40 }
+    size: { w: 240, h: 180 }
+    group: f3
+    openings:
+      - { kind: door, side: bottom, at: 0.8, width: 60 }
+      - { kind: window, side: top, at: 0.3, width: 100 }
+  - id: kaigi
+    label: 会議室
+    tag: 3-02
+    technology: 30 名
+    at: { x: 280, y: 40 }
+    size: { w: 180, h: 180 }
+    group: f3
+    openings:
+      - { kind: slide, side: bottom, at: 0.5, width: 70 }
+  - id: shokudo
+    label: 休憩室
+    tag: 3-03
+    technology: 20 名
+    at: { x: 460, y: 40 }
+    size: { w: 160, h: 180 }
+    group: f3
+    openings:
+      - { kind: door, side: bottom, at: 0.5, width: 60 }
+  - id: rouka
+    label: 廊下
+    at: { x: 40, y: 220 }
+    size: { w: 580, h: 70 }
+    group: f3
+  - id: kaidan_w
+    label: 階段
+    tag: EX-1
+    technology: 屋外へ
+    at: { x: 40, y: 290 }
+    size: { w: 120, h: 110 }
+    group: f3
+    openings:
+      - { kind: door, side: top, at: 0.5, width: 60 }
+  - id: kaidan_e
+    label: 階段
+    tag: EX-2
+    technology: 屋外へ
+    at: { x: 500, y: 290 }
+    size: { w: 120, h: 110 }
+    group: f3
+    openings:
+      - { kind: door, side: top, at: 0.5, width: 60 }
+  - id: ev
+    label: EV
+    technology: 避難に使わない
+    at: { x: 250, y: 290 }
+    size: { w: 100, h: 110 }
+    group: f3
+  - id: wc
+    label: 便所
+    at: { x: 370, y: 290 }
+    size: { w: 120, h: 110 }
+    group: f3
+    openings:
+      - { kind: door, side: top, at: 0.5, width: 50 }
+edges:
+  - from: jimu
+    to: rouka
+  - from: kaigi
+    to: rouka
+  - from: shokudo
+    to: rouka
+  - from: rouka
+    to: kaidan_w
+    label: 避難
+  - from: rouka
+    to: kaidan_e
+    label: 避難
