@@ -33,7 +33,9 @@ import { PASS_LINE, measure } from './measure.ts';
 import { merge } from './merge.ts';
 import type { Conflict } from './merge.ts';
 import { toMermaid } from './mermaid.ts';
-import { kindOf, measureOf } from './kind.ts';
+import { KINDS, kindOf, measureOf } from './kind.ts';
+import { DIRECTIONS } from './direction.ts';
+import { OPENINGS, SIDES } from './openings.ts';
 import type { Kind } from './kind.ts';
 import { projection, PROJECTION_FLOOR, SMALLEST_TEXT } from './projection.ts';
 import { render } from './render.ts';
@@ -84,6 +86,13 @@ export function spec(): {
   suffix: string;
   shape: string;
   nodeTypes: string[];
+  /** 図の種類（`src/kind.ts`）。**配置図に入る口。** */
+  kinds: string[];
+  /** 向き（`src/direction.ts`）。 */
+  directions: string[];
+  /** 建具の種類と、付く辺（`src/openings.ts`）。**配置図でだけ効く。** */
+  openings: string[];
+  sides: string[];
   appearances: string[];
   rules: string[];
 } {
@@ -105,6 +114,12 @@ export function spec(): {
       'network',
       'generic',
     ],
+    // **語の一覧は 1 か所から取る**（写すとズレる）。
+    // ここに載っていないキーは、エージェントにとって存在しないのと同じ。
+    kinds: [...KINDS],
+    directions: [...DIRECTIONS],
+    openings: [...OPENINGS],
+    sides: [...SIDES],
     appearances: Object.keys(APPEARANCE),
     rules: m.rules,
   };

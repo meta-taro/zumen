@@ -242,3 +242,53 @@ describe('書き出す', () => {
     assert.match(await exportAs(GOOD, 'drawio'), /<mxfile/);
   });
 });
+
+describe('spec が、AI の書ける場所をすべて載せている', () => {
+  /**
+   * **エージェントは図を書く前にここを読む。**
+   * 載っていないキーは、存在しないのと同じ。
+   *
+   * 実際、`kind` / `at` / `size` / `tag` / `openings` を足したあとも
+   * `spec` は 1 つも載せていなかった。**誰も間取り図を書けない状態**だった。
+   */
+  const template = (): string => spec().shape;
+
+  it('図の種類（kind）が載っている。**これが無いと配置図に入れない**', () => {
+    assert.match(template(), /kind:/);
+    assert.deepEqual(spec().kinds, ['structure', 'placement']);
+  });
+
+  it('置き場所（at）と大きさ（size）が載っている', () => {
+    assert.match(template(), /at:/);
+    assert.match(template(), /size:/);
+  });
+
+  it('符号（tag）と副題（technology）が載っている', () => {
+    assert.match(template(), /tag:/);
+    assert.match(template(), /technology:/);
+  });
+
+  it('建具（openings）と、書ける語が載っている', () => {
+    assert.match(template(), /openings:/);
+    assert.deepEqual(spec().openings, ['door', 'slide', 'window', 'double', 'open']);
+    assert.deepEqual(spec().sides, ['top', 'right', 'bottom', 'left']);
+  });
+
+  it('向き（direction）と折り返し（wrap）が載っている', () => {
+    assert.match(template(), /direction:/);
+    assert.match(template(), /wrap:/);
+    assert.deepEqual(spec().directions, ['down', 'right']);
+  });
+
+  it('**配置図では自分で置く、という規則がある**', () => {
+    assert.ok(
+      spec().rules.some((rule) => rule.includes('placement')),
+      '配置図の書き方が規則に無い',
+    );
+  });
+
+  it('雛形は、そのまま読める YAML のままである', async () => {
+    const { parseDocument } = await import('yaml');
+    assert.deepEqual(parseDocument(template()).errors, []);
+  });
+});
