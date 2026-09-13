@@ -46,7 +46,7 @@ import { MARKERS } from './marker.ts';
 import { crowdedNames, extentOf, planNames } from './names.ts';
 import { OPENINGS, SIDES } from './openings.ts';
 import type { Kind } from './kind.ts';
-import { projection, PROJECTION_FLOOR, SMALLEST_TEXT } from './projection.ts';
+import { projection, smallestTextOf, PROJECTION_FLOOR, SMALLEST_TEXT } from './projection.ts';
 import { render } from './render.ts';
 import { reviewOf } from './review.ts';
 import { APPEARANCE } from './tokens.ts';
@@ -325,7 +325,7 @@ export async function inspect(source: string): Promise<Inspection> {
       const seen = reviewOf(source);
       return { reviewed: seen.reviewed, reviewedAt: seen.at, reviewStale: seen.stale };
     })(),
-    ...projection(placed.width, placed.height),
+    ...projection(placed.width, placed.height, smallestTextOf(placed, kindOf(source) === 'placement')),
     ...(() => {
       const kind = kindOf(source);
       return { kind, positionsInSource: measureOf(kind).positionsInSource };

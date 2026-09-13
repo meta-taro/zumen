@@ -138,7 +138,9 @@ describe('検査から返る', () => {
     assert.equal(typeof out.textRatio, 'number');
     assert.equal(out.projectionFloor, PROJECTION_FLOOR);
     assert.equal(typeof out.tooSmallToProject, 'boolean');
-    assert.equal(out.smallestText, SMALLEST_TEXT);
+    // **その図に出る字**を返す（名前しか無い図なので、名前の大きさ）。
+    assert.equal(out.smallestText, 15);
+    assert.ok(out.smallestText >= SMALLEST_TEXT, '副題より小さい字は出ていない');
   });
 
   it('大きい図では真になる', async () => {
@@ -157,5 +159,86 @@ describe('検査から返る', () => {
     assert.equal(out.readable, false);
     assert.equal(out.tooSmallToProject, false);
     assert.equal(out.textRatio, null);
+  });
+});
+
+/**
+ * **いちばん小さい字は、その図に実際に出る字。**
+ *
+ * 2026-09-13。見本の SVG を数えたら、**10px の字が出ていた**（符号・寸法・方位）。
+ * `projection` は 11 を決め打ちしていたので、**投影の比を 1 割ぶん甘く報告していた。**
+ *
+ * 測るものを間違えている門は、**通っていることの意味が無い。**
+ */
+describe('いちばん小さい字は、図ごとに違う', () => {
+  it('**符号（tag）があれば 10**（構成図でも符号は 10px で描かれる）', async () => {
+    const out = await inspect(`version: 1
+nodes:
+  - id: a
+    label: 機器
+    tag: FW-01
+  - id: b
+    label: 相手
+`);
+    assert.equal(out.smallestText, 10, '符号の 10px を数えていない');
+  });
+
+  it('**符号も副題も辺のラベルも無ければ、名前の大きさ**', async () => {
+    const out = await inspect('version: 1\nnodes:\n  - id: a\n    label: 甲\n  - id: b\n    label: 乙\n');
+    assert.equal(out.smallestText, 15);
+  });
+
+  it('副題があれば、構成図は 11', async () => {
+    const out = await inspect(`version: 1
+nodes:
+  - id: a
+    label: 機器
+    technology: 1Gbps
+  - id: b
+    label: 相手
+`);
+    assert.equal(out.smallestText, 11);
+  });
+
+  it('**配置図の副題は 10**（名前より小さい）', async () => {
+    const out = await inspect(`version: 1
+kind: placement
+nodes:
+  - id: a
+    label: 事務室
+    technology: 12 席
+    at: { x: 0, y: 0 }
+    size: { w: 200, h: 120 }
+`);
+    assert.equal(out.smallestText, 10);
+  });
+
+  it('**寸法を引いた図は 10**（寸法値と通り芯の符号）', async () => {
+    const out = await inspect(`version: 1
+kind: placement
+scale: { mm: 25 }
+grid:
+  x:
+    - { id: X1, at: 0 }
+    - { id: X2, at: 300 }
+nodes:
+  - id: a
+    label: 部屋
+    at: { x: 0, y: 0 }
+    size: { w: 300, h: 200 }
+`);
+    assert.equal(out.smallestText, 10);
+  });
+
+  it('比は、その図の字で割る', async () => {
+    const out = await inspect(`version: 1
+nodes:
+  - id: a
+    label: 機器
+    tag: FW-01
+  - id: b
+    label: 相手
+`);
+    assert.equal(out.textRatio, out.smallestText / out.longestSide);
   });
 });

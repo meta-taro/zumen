@@ -44,12 +44,60 @@ export const PROJECTION_FLOOR = 0.015;
 export const SCREEN_RATIO = 9 / 16;
 
 /**
- * 図の中でいちばん小さい字。
+ * 図に出る字の大きさ（`src/render.ts` と `src/dimensions.ts` の実際の値）。
  *
- * 辺のラベル（`src/edge-labels.ts`）と副題（`src/render.ts` の `technology`）が
- * どちらも 11px。**ここを変えたらこの値も変える。**
+ * **ここが実装とずれると、門が測るものを間違える。**
+ * 2026-09-13 に実際にずれていた —— 11px 決め打ちで測っていたが、
+ * 見本の SVG には **10px の字（符号・寸法・方位）** が出ていて、
+ * **投影の比を 1 割ぶん甘く報告していた。**
  */
-export const SMALLEST_TEXT = 11;
+export const FONT_SIZE = {
+  /** 構成図の名前。 */
+  title: 15,
+  /** 囲みの名前。 */
+  group: 13,
+  /** 配置図の名前（`src/names.ts` の `NAME_FONT`）。 */
+  name: 12,
+  /** 構成図の副題・辺のラベル。 */
+  sub: 11,
+  /** 符号・寸法値・方位・範囲・配置図の副題（`src/names.ts` の `SUB_FONT`）。 */
+  small: 10,
+} as const;
+
+/**
+ * 図の中でいちばん小さい字。**その図に実際に出る字だけ**を数える。
+ *
+ * 出ない字を数えると、**大きさに関係なく全部の図が下限を割る。**
+ * 出る字を数え落とすと、**読めない図が門を通る。**
+ */
+export const SMALLEST_TEXT = FONT_SIZE.sub;
+
+/** どの字が出るかを見るのに要るもの（`src/layout.ts` の `Placed` の一部）。 */
+export interface Inked {
+  boxes: readonly { technology: string | null; tag: string | null; radius: number | null }[];
+  groups: readonly unknown[];
+  edges: readonly { label: string | null }[];
+  grid: { x: readonly unknown[]; y: readonly unknown[] };
+  north: unknown;
+}
+
+export function smallestTextOf(placed: Inked, plan: boolean): number {
+  const used: number[] = [plan ? FONT_SIZE.name : FONT_SIZE.title];
+  if (placed.groups.length > 0) used.push(FONT_SIZE.group);
+  if (placed.edges.some((edge) => edge.label !== null)) used.push(FONT_SIZE.sub);
+  if (placed.boxes.some((box) => box.technology !== null)) {
+    used.push(plan ? FONT_SIZE.small : FONT_SIZE.sub);
+  }
+  // 符号は**構成図でも 10px で描かれる**（`src/render.ts` の `nodeTag`）。
+  if (placed.boxes.some((box) => box.tag !== null)) used.push(FONT_SIZE.small);
+  if (plan) {
+    // 寸法値・通り芯の符号・方位・範囲の注記。**配置図でだけ出る。**
+    if (placed.grid.x.length > 0 || placed.grid.y.length > 0) used.push(FONT_SIZE.small);
+    if (placed.north !== null) used.push(FONT_SIZE.small);
+    if (placed.boxes.some((box) => box.radius !== null)) used.push(FONT_SIZE.small);
+  }
+  return Math.min(...used);
+}
 
 export interface Projection {
   /** いちばん小さい字の大きさ。 */
@@ -68,18 +116,14 @@ export interface Projection {
   tooSmallToProject: boolean;
 }
 
-export function projection(width: number, height: number): Projection {
+export function projection(width: number, height: number, smallestText: number = SMALLEST_TEXT): Projection {
   // **長辺ではない。** 16:9 の画面に収めたとき、縮小率を決めるほうの辺。
   const longestSide = Math.max(height, width * SCREEN_RATIO);
-  const base = {
-    smallestText: SMALLEST_TEXT,
-    longestSide,
-    projectionFloor: PROJECTION_FLOOR,
-  };
+  const base = { smallestText, longestSide, projectionFloor: PROJECTION_FLOOR };
   // 空の図では割れない。**数字を作らない。**
   if (longestSide <= 0) {
     return { ...base, textRatio: null, tooSmallToProject: false };
   }
-  const textRatio = SMALLEST_TEXT / longestSide;
+  const textRatio = smallestText / longestSide;
   return { ...base, textRatio, tooSmallToProject: textRatio < PROJECTION_FLOOR };
 }
