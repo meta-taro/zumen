@@ -37,7 +37,7 @@ import { drawSymbol } from './symbol.ts';
 import { NAME_FONT, SUB_FONT, planNames } from './names.ts';
 import type { Plan } from './names.ts';
 import { drawRange, ringOf } from './range.ts';
-import { wallWidth } from './wall.ts';
+import { wallFits, wallWidth } from './wall.ts';
 import { drawOpenings } from './openings.ts';
 import { drawShape, shapeOf, textShift } from './shapes.ts';
 import { placeEdgeLabels } from './edge-labels.ts';
@@ -298,8 +298,11 @@ function renderNode(
     //
     // **ただし壁の厚みは「部屋」のもの。** 丸い印（`marker`）には効かせない ——
     // 座席図で、壁厚 150mm（6px）が 21px の座席の丸を塗り潰した（2026-09-12）。
+    //
+    // **小さすぎる箱にも効かせない**（`wallFits`）——
+    // フードコートの凡例の見本（26×20）が、壁でほとんど枠になった（2026-09-13）。
     strokeWidth:
-      (box.marker === 'box' ? wall : null) ??
+      (box.marker === 'box' && wallFits(wall, box) ? wall : null) ??
       (box.pinned ? STROKE_WIDTH.pinned : STROKE_WIDTH.auto),
     dash: style.dash,
   };

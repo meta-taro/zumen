@@ -155,6 +155,52 @@ nodes:
   });
 });
 
+describe('壁の厚みが箱を食い尽くさない', () => {
+  /**
+   * フードコートの配置図で出た（2026-09-13）。
+   * **凡例の見本（26×20）が、6px の壁でほとんど枠になっていた。**
+   *
+   * 縮尺のある平面図の中には、**縮尺の外のもの**（凡例・注記の見本）が混じる。
+   * 機械にはそれが部屋なのか見本なのか分からないが、
+   * **壁が短辺の 1/5 を超える箱は、どちらにしても読めない。**
+   *
+   * 本当に細い物入れは poché を失うが、**全部が壁の箱よりはましで、
+   * そこまで細いものは詳細図で描くもの**（`wallWidth` の上限と同じ考え）。
+   */
+  const PLAN = `version: 1
+kind: placement
+scale: { mm: 22 }
+wall: { mm: 150 }
+nodes:
+  - id: room
+    label: 客席
+    at: { x: 0, y: 0 }
+    size: { w: 300, h: 200 }
+  - id: swatch
+    label: ""
+    hatch: lines
+    at: { x: 0, y: 240 }
+    size: { w: 26, h: 20 }
+`;
+
+  it('**小さい箱には壁を効かせない**（線で描く）', async () => {
+    const out = render(await layout(PLAN), 'light', 'safe', true);
+    assert.match(out, /data-node="swatch"[\s\S]*?stroke-width="1"/, '見本が壁で埋まった');
+  });
+
+  it('部屋には、これまでどおり壁が効く', async () => {
+    const out = render(await layout(PLAN), 'light', 'safe', true);
+    assert.match(out, /data-node="room"[\s\S]*?stroke-width="6.8"/, '部屋の壁が消えた');
+  });
+
+  it('境目は短辺の 5 倍（壁 6.8px なら 34px から）', async () => {
+    const thin = render(await layout(PLAN.replace('{ w: 26, h: 20 }', '{ w: 60, h: 33 }')), 'light', 'safe', true);
+    assert.match(thin, /data-node="swatch"[\s\S]*?stroke-width="1"/, '33px の箱に壁が効いた');
+    const thick = render(await layout(PLAN.replace('{ w: 26, h: 20 }', '{ w: 60, h: 35 }')), 'light', 'safe', true);
+    assert.match(thick, /data-node="swatch"[\s\S]*?stroke-width="6.8"/, '35px の箱で壁が消えた');
+  });
+});
+
 describe('壁の厚みは「部屋」のもの', () => {
   it('**丸い印には効かせない。** 座席の丸が塗り潰された', async () => {
     const out = render(

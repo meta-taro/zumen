@@ -62,3 +62,24 @@ export function wallWidth(wall: Wall | null, mm: number | null, outer = false): 
   const px = (outer ? wall.outer : wall.mm) / mm;
   return Math.max(1, Math.min(24, Math.round(px * 10) / 10));
 }
+
+/**
+ * **壁が箱を食い尽くさない下限**（短辺が壁の何倍あれば壁として描くか）。
+ *
+ * フードコートの配置図で出た（2026-09-13）。
+ * **凡例の見本（26×20）が、6.8px の壁でほとんど枠になっていた。**
+ *
+ * 縮尺のある平面図の中には、**縮尺の外のもの**（凡例・注記の見本）が混じる。
+ * 機械にはそれが部屋なのか見本なのか分からないが、
+ * **壁が短辺の 1/5 を超える箱は、どちらにしても読めない。**
+ *
+ * 本当に細い物入れは poché を失う。それでも**全部が壁の箱よりはまし**で、
+ * そこまで細いものは詳細図で描くもの（`wallWidth` の上限と同じ考え）。
+ */
+const ROOM_ENOUGH = 5;
+
+/** その箱に壁を効かせてよいか。**小さすぎる箱には効かせない。** */
+export function wallFits(width: number | null, box: { w: number; h: number }): boolean {
+  if (width === null) return false;
+  return Math.min(box.w, box.h) >= width * ROOM_ENOUGH;
+}

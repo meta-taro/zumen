@@ -1,0 +1,185 @@
+version: 1
+kind: placement
+arrows: false
+title: 中央本町商店街 店舗案内図（駅前通り・全 16 店）
+# 通りを挟んで両側に店。番号は店の看板と一覧表に合わせてある。
+# 業種は「色」ではなく「模様」で示す（DESIGN.md §7）——
+# 白黒で刷っても、色覚特性でも、縮小しても失われないため。
+nodes:
+  - id: n01
+    label: "さくら食堂"
+    technology: 飲食
+    tag: "01"
+    hatch: lines
+    at: { x: 70, y: 118 }
+    size: { w: 96, h: 84 }
+  - id: n02
+    label: "みなと薬局"
+    technology: 医療・福祉
+    tag: "02"
+    hatch: cross
+    at: { x: 170, y: 118 }
+    size: { w: 88, h: 84 }
+  - id: n03
+    label: "丸八青果"
+    technology: 物販
+    tag: "03"
+    hatch: none
+    at: { x: 262, y: 118 }
+    size: { w: 80, h: 84 }
+  - id: n04
+    label: "はな美容室"
+    technology: サービス
+    tag: "04"
+    hatch: dots
+    at: { x: 346, y: 118 }
+    size: { w: 88, h: 84 }
+  - id: n05
+    label: "中央信用金庫"
+    technology: 公共・金融
+    tag: "05"
+    hatch: solid
+    at: { x: 438, y: 118 }
+    size: { w: 110, h: 84 }
+  - id: n06
+    label: "こばやし文具"
+    technology: 物販
+    tag: "06"
+    hatch: none
+    at: { x: 552, y: 118 }
+    size: { w: 96, h: 84 }
+  - id: n07
+    label: "珈琲 あさひ"
+    technology: 飲食
+    tag: "07"
+    hatch: lines
+    at: { x: 652, y: 118 }
+    size: { w: 96, h: 84 }
+  - id: n08
+    label: "港クリーニング"
+    technology: サービス
+    tag: "08"
+    hatch: dots
+    at: { x: 752, y: 118 }
+    size: { w: 104, h: 84 }
+  - id: s11
+    label: "魚辰"
+    technology: 物販
+    tag: "11"
+    hatch: none
+    at: { x: 70, y: 290 }
+    size: { w: 72, h: 84 }
+  - id: s12
+    label: "ラーメン一心"
+    technology: 飲食
+    tag: "12"
+    hatch: lines
+    at: { x: 146, y: 290 }
+    size: { w: 104, h: 84 }
+  - id: s13
+    label: "みどり歯科"
+    technology: 医療・福祉
+    tag: "13"
+    hatch: cross
+    at: { x: 254, y: 290 }
+    size: { w: 96, h: 84 }
+  - id: s14
+    label: "丸善書店"
+    technology: 物販
+    tag: "14"
+    hatch: none
+    at: { x: 354, y: 290 }
+    size: { w: 88, h: 84 }
+  - id: s15
+    label: "スナック純"
+    technology: 飲食
+    tag: "15"
+    hatch: lines
+    at: { x: 446, y: 290 }
+    size: { w: 88, h: 84 }
+  - id: s16
+    label: "中央郵便局"
+    technology: 公共・金融
+    tag: "16"
+    hatch: solid
+    at: { x: 538, y: 290 }
+    size: { w: 104, h: 84 }
+  - id: s17
+    label: "山田電器"
+    technology: 物販
+    tag: "17"
+    hatch: none
+    at: { x: 646, y: 290 }
+    size: { w: 88, h: 84 }
+  - id: s18
+    label: "たこ焼 まる"
+    technology: 飲食
+    tag: "18"
+    hatch: lines
+    at: { x: 738, y: 290 }
+    size: { w: 88, h: 84 }
+  - id: street
+    label: "駅前通り（歩行者専用 10:00〜19:00）"
+    appearance: muted
+    at: { x: 70, y: 210 }
+    size: { w: 786, h: 72 }
+  - id: eki
+    label: "中央駅 東口"
+    marker: none
+    at: { x: -22, y: 210 }
+    size: { w: 86, h: 72 }
+  - id: jinja
+    label: "本町神社"
+    marker: none
+    at: { x: 862, y: 210 }
+    size: { w: 70, h: 72 }
+  - id: lg_lines
+    label: ""
+    hatch: lines
+    at: { x: 70, y: 404 }
+    size: { w: 26, h: 20 }
+  - id: lgn_lines
+    label: "飲食"
+    marker: none
+    at: { x: 98, y: 404 }
+    size: { w: 92, h: 20 }
+  - id: lg_none
+    label: ""
+    hatch: none
+    at: { x: 196, y: 404 }
+    size: { w: 26, h: 20 }
+  - id: lgn_none
+    label: "物販"
+    marker: none
+    at: { x: 224, y: 404 }
+    size: { w: 92, h: 20 }
+  - id: lg_dots
+    label: ""
+    hatch: dots
+    at: { x: 322, y: 404 }
+    size: { w: 26, h: 20 }
+  - id: lgn_dots
+    label: "サービス"
+    marker: none
+    at: { x: 350, y: 404 }
+    size: { w: 92, h: 20 }
+  - id: lg_cross
+    label: ""
+    hatch: cross
+    at: { x: 448, y: 404 }
+    size: { w: 26, h: 20 }
+  - id: lgn_cross
+    label: "医療・福祉"
+    marker: none
+    at: { x: 476, y: 404 }
+    size: { w: 92, h: 20 }
+  - id: lg_solid
+    label: ""
+    hatch: solid
+    at: { x: 574, y: 404 }
+    size: { w: 26, h: 20 }
+  - id: lgn_solid
+    label: "公共・金融"
+    marker: none
+    at: { x: 602, y: 404 }
+    size: { w: 92, h: 20 }

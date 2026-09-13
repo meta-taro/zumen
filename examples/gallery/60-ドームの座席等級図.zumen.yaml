@@ -1,0 +1,468 @@
+version: 1
+kind: placement
+arrows: false
+title: 架空ドーム ライブ座席図（北面ステージ・席種 5 区分）
+# 席種は「色」ではなく「模様」で示す（DESIGN.md §7）——
+# 白黒で刷っても、色覚特性でも、縮小しても失われないため。
+# 券面の SS / S / A / B と、この図の区画名は同じ記号にしてある。
+#
+# 実物のドームは外周が曲線だが、zumen はまだ曲線を引けない（課題 2）。
+# ここでは区画を矩形で並べている —— 席種と位置関係は読めるが、外形は実物と違う。
+nodes:
+  - id: stage
+    label: "ステージ"
+    hatch: solid
+    at: { x: 300, y: 20 }
+    size: { w: 440, h: 70 }
+  - id: ar0_0
+    label: "A1"
+    hatch: solid
+    technology: SS
+    at: { x: 306, y: 110 }
+    size: { w: 66, h: 50 }
+  - id: ar0_1
+    label: "A2"
+    hatch: solid
+    technology: SS
+    at: { x: 378, y: 110 }
+    size: { w: 66, h: 50 }
+  - id: ar0_2
+    label: "A3"
+    hatch: solid
+    technology: SS
+    at: { x: 450, y: 110 }
+    size: { w: 66, h: 50 }
+  - id: ar0_3
+    label: "A4"
+    hatch: solid
+    technology: SS
+    at: { x: 522, y: 110 }
+    size: { w: 66, h: 50 }
+  - id: ar0_4
+    label: "A5"
+    hatch: solid
+    technology: SS
+    at: { x: 594, y: 110 }
+    size: { w: 66, h: 50 }
+  - id: ar0_5
+    label: "A6"
+    hatch: solid
+    technology: SS
+    at: { x: 666, y: 110 }
+    size: { w: 66, h: 50 }
+  - id: ar1_0
+    label: "B1"
+    hatch: solid
+    technology: SS
+    at: { x: 306, y: 166 }
+    size: { w: 66, h: 50 }
+  - id: ar1_1
+    label: "B2"
+    hatch: solid
+    technology: SS
+    at: { x: 378, y: 166 }
+    size: { w: 66, h: 50 }
+  - id: ar1_2
+    label: "B3"
+    hatch: solid
+    technology: SS
+    at: { x: 450, y: 166 }
+    size: { w: 66, h: 50 }
+  - id: ar1_3
+    label: "B4"
+    hatch: solid
+    technology: SS
+    at: { x: 522, y: 166 }
+    size: { w: 66, h: 50 }
+  - id: ar1_4
+    label: "B5"
+    hatch: solid
+    technology: SS
+    at: { x: 594, y: 166 }
+    size: { w: 66, h: 50 }
+  - id: ar1_5
+    label: "B6"
+    hatch: solid
+    technology: SS
+    at: { x: 666, y: 166 }
+    size: { w: 66, h: 50 }
+  - id: ar2_0
+    label: "C1"
+    hatch: lines
+    technology: S
+    at: { x: 306, y: 222 }
+    size: { w: 66, h: 50 }
+  - id: ar2_1
+    label: "C2"
+    hatch: lines
+    technology: S
+    at: { x: 378, y: 222 }
+    size: { w: 66, h: 50 }
+  - id: ar2_2
+    label: "C3"
+    hatch: lines
+    technology: S
+    at: { x: 450, y: 222 }
+    size: { w: 66, h: 50 }
+  - id: ar2_3
+    label: "C4"
+    hatch: lines
+    technology: S
+    at: { x: 522, y: 222 }
+    size: { w: 66, h: 50 }
+  - id: ar2_4
+    label: "C5"
+    hatch: lines
+    technology: S
+    at: { x: 594, y: 222 }
+    size: { w: 66, h: 50 }
+  - id: ar2_5
+    label: "C6"
+    hatch: lines
+    technology: S
+    at: { x: 666, y: 222 }
+    size: { w: 66, h: 50 }
+  - id: ar3_0
+    label: "D1"
+    hatch: lines
+    technology: S
+    at: { x: 306, y: 278 }
+    size: { w: 66, h: 50 }
+  - id: ar3_1
+    label: "D2"
+    hatch: lines
+    technology: S
+    at: { x: 378, y: 278 }
+    size: { w: 66, h: 50 }
+  - id: ar3_2
+    label: "D3"
+    hatch: lines
+    technology: S
+    at: { x: 450, y: 278 }
+    size: { w: 66, h: 50 }
+  - id: ar3_3
+    label: "D4"
+    hatch: lines
+    technology: S
+    at: { x: 522, y: 278 }
+    size: { w: 66, h: 50 }
+  - id: ar3_4
+    label: "D5"
+    hatch: lines
+    technology: S
+    at: { x: 594, y: 278 }
+    size: { w: 66, h: 50 }
+  - id: ar3_5
+    label: "D6"
+    hatch: lines
+    technology: S
+    at: { x: 666, y: 278 }
+    size: { w: 66, h: 50 }
+  - id: ar4_0
+    label: "E1"
+    hatch: dots
+    technology: A
+    at: { x: 306, y: 334 }
+    size: { w: 66, h: 50 }
+  - id: ar4_1
+    label: "E2"
+    hatch: dots
+    technology: A
+    at: { x: 378, y: 334 }
+    size: { w: 66, h: 50 }
+  - id: ar4_2
+    label: "E3"
+    hatch: dots
+    technology: A
+    at: { x: 450, y: 334 }
+    size: { w: 66, h: 50 }
+  - id: ar4_3
+    label: "E4"
+    hatch: dots
+    technology: A
+    at: { x: 522, y: 334 }
+    size: { w: 66, h: 50 }
+  - id: ar4_4
+    label: "E5"
+    hatch: dots
+    technology: A
+    at: { x: 594, y: 334 }
+    size: { w: 66, h: 50 }
+  - id: ar4_5
+    label: "E6"
+    hatch: dots
+    technology: A
+    at: { x: 666, y: 334 }
+    size: { w: 66, h: 50 }
+  - id: l1_0
+    label: "1-1"
+    hatch: lines
+    technology: S
+    at: { x: 150, y: 110 }
+    size: { w: 120, h: 50 }
+  - id: r1_0
+    label: "1-11"
+    hatch: lines
+    technology: S
+    at: { x: 750, y: 110 }
+    size: { w: 120, h: 50 }
+  - id: l1_1
+    label: "1-2"
+    hatch: lines
+    technology: S
+    at: { x: 150, y: 166 }
+    size: { w: 120, h: 50 }
+  - id: r1_1
+    label: "1-12"
+    hatch: lines
+    technology: S
+    at: { x: 750, y: 166 }
+    size: { w: 120, h: 50 }
+  - id: l1_2
+    label: "1-3"
+    hatch: lines
+    technology: S
+    at: { x: 150, y: 222 }
+    size: { w: 120, h: 50 }
+  - id: r1_2
+    label: "1-13"
+    hatch: lines
+    technology: S
+    at: { x: 750, y: 222 }
+    size: { w: 120, h: 50 }
+  - id: l1_3
+    label: "1-4"
+    hatch: lines
+    technology: S
+    at: { x: 150, y: 278 }
+    size: { w: 120, h: 50 }
+  - id: r1_3
+    label: "1-14"
+    hatch: lines
+    technology: S
+    at: { x: 750, y: 278 }
+    size: { w: 120, h: 50 }
+  - id: l1_4
+    label: "1-5"
+    hatch: lines
+    technology: S
+    at: { x: 150, y: 334 }
+    size: { w: 120, h: 50 }
+  - id: r1_4
+    label: "1-15"
+    hatch: lines
+    technology: S
+    at: { x: 750, y: 334 }
+    size: { w: 120, h: 50 }
+  - id: b1_0
+    label: "1-21"
+    hatch: dots
+    technology: A
+    at: { x: 306, y: 398 }
+    size: { w: 66, h: 56 }
+  - id: b1_1
+    label: "1-22"
+    hatch: dots
+    technology: A
+    at: { x: 378, y: 398 }
+    size: { w: 66, h: 56 }
+  - id: b1_2
+    label: "1-23"
+    hatch: dots
+    technology: A
+    at: { x: 450, y: 398 }
+    size: { w: 66, h: 56 }
+  - id: b1_3
+    label: "1-24"
+    hatch: dots
+    technology: A
+    at: { x: 522, y: 398 }
+    size: { w: 66, h: 56 }
+  - id: b1_4
+    label: "1-25"
+    hatch: dots
+    technology: A
+    at: { x: 594, y: 398 }
+    size: { w: 66, h: 56 }
+  - id: b1_5
+    label: "1-26"
+    hatch: dots
+    technology: A
+    at: { x: 666, y: 398 }
+    size: { w: 66, h: 56 }
+  - id: l2_0
+    label: "2-1"
+    hatch: cross
+    technology: B
+    at: { x: 20, y: 110 }
+    size: { w: 120, h: 50 }
+  - id: r2_0
+    label: "2-11"
+    hatch: cross
+    technology: B
+    at: { x: 880, y: 110 }
+    size: { w: 120, h: 50 }
+  - id: l2_1
+    label: "2-2"
+    hatch: cross
+    technology: B
+    at: { x: 20, y: 166 }
+    size: { w: 120, h: 50 }
+  - id: r2_1
+    label: "2-12"
+    hatch: cross
+    technology: B
+    at: { x: 880, y: 166 }
+    size: { w: 120, h: 50 }
+  - id: l2_2
+    label: "2-3"
+    hatch: cross
+    technology: B
+    at: { x: 20, y: 222 }
+    size: { w: 120, h: 50 }
+  - id: r2_2
+    label: "2-13"
+    hatch: cross
+    technology: B
+    at: { x: 880, y: 222 }
+    size: { w: 120, h: 50 }
+  - id: l2_3
+    label: "2-4"
+    hatch: cross
+    technology: B
+    at: { x: 20, y: 278 }
+    size: { w: 120, h: 50 }
+  - id: r2_3
+    label: "2-14"
+    hatch: cross
+    technology: B
+    at: { x: 880, y: 278 }
+    size: { w: 120, h: 50 }
+  - id: l2_4
+    label: "2-5"
+    hatch: cross
+    technology: B
+    at: { x: 20, y: 334 }
+    size: { w: 120, h: 50 }
+  - id: r2_4
+    label: "2-15"
+    hatch: cross
+    technology: B
+    at: { x: 880, y: 334 }
+    size: { w: 120, h: 50 }
+  - id: l2_5
+    label: "2-6"
+    hatch: cross
+    technology: B
+    at: { x: 20, y: 390 }
+    size: { w: 120, h: 50 }
+  - id: r2_5
+    label: "2-16"
+    hatch: cross
+    technology: B
+    at: { x: 880, y: 390 }
+    size: { w: 120, h: 50 }
+  - id: b2_0
+    label: "2-21"
+    hatch: cross
+    technology: B
+    at: { x: 160, y: 466 }
+    size: { w: 98, h: 56 }
+  - id: b2_1
+    label: "2-22"
+    hatch: cross
+    technology: B
+    at: { x: 264, y: 466 }
+    size: { w: 98, h: 56 }
+  - id: b2_2
+    label: "2-23"
+    hatch: cross
+    technology: B
+    at: { x: 368, y: 466 }
+    size: { w: 98, h: 56 }
+  - id: b2_3
+    label: "2-24"
+    hatch: cross
+    technology: B
+    at: { x: 472, y: 466 }
+    size: { w: 98, h: 56 }
+  - id: b2_4
+    label: "2-25"
+    hatch: cross
+    technology: B
+    at: { x: 576, y: 466 }
+    size: { w: 98, h: 56 }
+  - id: b2_5
+    label: "2-26"
+    hatch: cross
+    technology: B
+    at: { x: 680, y: 466 }
+    size: { w: 98, h: 56 }
+  - id: b2_6
+    label: "2-27"
+    hatch: cross
+    technology: B
+    at: { x: 784, y: 466 }
+    size: { w: 98, h: 56 }
+  - id: b2_7
+    label: "2-28"
+    hatch: cross
+    technology: B
+    at: { x: 888, y: 466 }
+    size: { w: 98, h: 56 }
+  - id: tachimi
+    label: "立見エリア"
+    hatch: none
+    technology: 立見
+    at: { x: 20, y: 532 }
+    size: { w: 980, h: 44 }
+  - id: lg_solid
+    label: ""
+    hatch: solid
+    at: { x: 20, y: 596 }
+    size: { w: 26, h: 20 }
+  - id: lgn_solid
+    label: "SS席"
+    marker: none
+    at: { x: 48, y: 596 }
+    size: { w: 80, h: 20 }
+  - id: lg_lines
+    label: ""
+    hatch: lines
+    at: { x: 138, y: 596 }
+    size: { w: 26, h: 20 }
+  - id: lgn_lines
+    label: "S席"
+    marker: none
+    at: { x: 166, y: 596 }
+    size: { w: 80, h: 20 }
+  - id: lg_dots
+    label: ""
+    hatch: dots
+    at: { x: 256, y: 596 }
+    size: { w: 26, h: 20 }
+  - id: lgn_dots
+    label: "A席"
+    marker: none
+    at: { x: 284, y: 596 }
+    size: { w: 80, h: 20 }
+  - id: lg_cross
+    label: ""
+    hatch: cross
+    at: { x: 374, y: 596 }
+    size: { w: 26, h: 20 }
+  - id: lgn_cross
+    label: "B席"
+    marker: none
+    at: { x: 402, y: 596 }
+    size: { w: 80, h: 20 }
+  - id: lg_none
+    label: ""
+    hatch: none
+    at: { x: 492, y: 596 }
+    size: { w: 26, h: 20 }
+  - id: lgn_none
+    label: "立見"
+    marker: none
+    at: { x: 520, y: 596 }
+    size: { w: 80, h: 20 }
