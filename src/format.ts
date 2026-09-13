@@ -40,6 +40,8 @@ export interface Edge {
   ends?: unknown;
   /** 線種（`src/line.ts`）。 */
   line?: unknown;
+  /** 線の太さ（`src/weight.ts`）。 */
+  weight?: unknown;
 }
 
 /** 折り返しでの改行を止める。人が書いた行の形を機械が変えないため。 */
@@ -77,6 +79,8 @@ export class Diagram {
       if (ends !== undefined && ends !== null) edge.ends = ends.toJSON() as unknown;
       const line = item.get('line');
       if (line !== undefined && line !== null) edge.line = line;
+      const weight = item.get('weight');
+      if (weight !== undefined && weight !== null) edge.weight = weight;
       return edge;
     });
   }

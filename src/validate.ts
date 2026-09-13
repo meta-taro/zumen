@@ -20,6 +20,7 @@ import { KINDS as KIND_WORDS } from './kind.ts';
 import { MARKS, NORTHS } from './grid.ts';
 import { ENDS } from './ends.ts';
 import { LINES } from './line.ts';
+import { WEIGHTS } from './weight.ts';
 import { HATCHES } from './hatch.ts';
 import { SYMBOLS } from './symbol.ts';
 import { MARKERS } from './marker.ts';
@@ -60,6 +61,7 @@ const HATCH_WORDS = new Set<string>(HATCHES);
 const SYMBOL_WORDS = new Set<string>(SYMBOLS);
 const END_WORDS = new Set<string>(ENDS);
 const LINE_WORDS = new Set<string>(LINES);
+const WEIGHT_WORDS = new Set<string>(WEIGHTS);
 
 /** `pins` の中で、位置や体裁ではなく人の決定を表す鍵。迷子の判定には関係しない。 */
 const EDGE_KEY = /^(.+)>(.+)$/;
@@ -433,6 +435,10 @@ function checkEnds(doc: Document, add: Add, m: Messages, at: At): void {
     const line = item.get('line');
     if (line !== undefined && line !== null && !LINE_WORDS.has(String(line))) {
       add('warning', 'line-unknown', m.lineUnknown(name, String(line)), at(item.get('line', true)));
+    }
+    const weight = item.get('weight');
+    if (weight !== undefined && weight !== null && !WEIGHT_WORDS.has(String(weight))) {
+      add('warning', 'weight-unknown', m.weightUnknown(name, String(weight)), at(item.get('weight', true)));
     }
     const ends = item.get('ends', true);
     if (ends === undefined || ends === null || !isMap(ends)) continue;

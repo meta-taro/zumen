@@ -30,6 +30,7 @@ import { hasGrid } from './grid.ts';
 import { drawEnd, hasEnds } from './ends.ts';
 import { drawHatch } from './hatch.ts';
 import { dashOf } from './line.ts';
+import { roundedOf, widthOf } from './weight.ts';
 import { drawMarker } from './marker.ts';
 import { drawSymbol } from './symbol.ts';
 import { NAME_FONT, SUB_FONT, planNames } from './names.ts';
@@ -428,8 +429,16 @@ function nodeText(
   }
 
   if (plan.kind === 'outside') {
+    /**
+     * **丸い印からは、もう少し離す。**
+     *
+     * 丸は箱いっぱいに描かれるので、箱の縁から 13px では
+     * **文字の上端が丸の線に触れる**（2026-09-13。日本式の路線図で出た）。
+     * 実物の路線図は必ず離してある。
+     */
+    const clear = box.marker === 'circle' || box.marker === 'double' ? 5 : 0;
     const step = (i: number): number =>
-      plan.above ? plan.y - i * 12 : plan.y + i * 12;
+      plan.above ? plan.y - clear - i * 12 : plan.y + clear + i * 12;
     const first = plan.above && box.technology !== null ? 1 : 0;
     const lines = [text(plan.x, step(first), box.label, size, style.text)];
     if (box.technology !== null) {
@@ -466,11 +475,17 @@ function renderEdge(
     //
     // **端の記号を書いた辺には、既定の矢印を付けない**（`src/ends.ts`）。
     // 記号が矢印の代わりで、両方出すと向きが二重に言われる。
+    // **太さを書いていれば、それに従う**（`src/weight.ts`。路線図の路線）。
+    // 書いていなければ、これまでどおり（配置図は太め、構成図は細め）。
     `<path d="${path}" fill="none" stroke="${palette.edge.stroke}" stroke-width="${
-      edge.pinned || plan ? STROKE_WIDTH.pinned : STROKE_WIDTH.auto
-    }"${dashOf(edge.line) === null ? '' : ` stroke-dasharray="${dashOf(edge.line)}"`}${
-      arrows && !hasEnds(edge.ends) ? ' marker-end="url(#arrow)"' : ''
-    }/>`,
+      edge.weight === 'normal'
+        ? edge.pinned || plan
+          ? STROKE_WIDTH.pinned
+          : STROKE_WIDTH.auto
+        : widthOf(edge.weight)
+    }"${roundedOf(edge.weight) ? ' stroke-linejoin="round" stroke-linecap="round"' : ''}${
+      dashOf(edge.line) === null ? '' : ` stroke-dasharray="${dashOf(edge.line)}"`
+    }${arrows && !hasEnds(edge.ends) ? ' marker-end="url(#arrow)"' : ''}/>`,
     // 端の記号（ER の多重度・端子・接続点）。**向きは線から決める。**
     edge.points.length < 2
       ? ''

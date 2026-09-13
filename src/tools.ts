@@ -39,6 +39,7 @@ import { NORTHS } from './grid.ts';
 import { ENDS } from './ends.ts';
 import { LINES } from './line.ts';
 import { SYMBOLS } from './symbol.ts';
+import { WEIGHTS } from './weight.ts';
 import { HATCHES } from './hatch.ts';
 import { MARKERS } from './marker.ts';
 import { crowdedNames, extentOf, planNames } from './names.ts';
@@ -110,6 +111,8 @@ export function spec(): {
   lines: string[];
   /** 電気・電子の図記号（`src/symbol.ts`）。**IEC／JIS の名前。** */
   symbols: string[];
+  /** 辺の太さ（`src/weight.ts`）。 */
+  weights: string[];
   /** 方位（`src/grid.ts`）。 */
   norths: string[];
   appearances: string[];
@@ -144,6 +147,7 @@ export function spec(): {
     ends: [...ENDS],
     lines: [...LINES],
     symbols: [...SYMBOLS],
+    weights: [...WEIGHTS],
     norths: [...NORTHS],
     appearances: Object.keys(APPEARANCE),
     rules: m.rules,

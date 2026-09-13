@@ -346,6 +346,7 @@ const ja = {
       '    label: <省いてよい>',
       '    ends: { from: <ENDS から>, to: <ENDS から> }   # 端の記号（ER の多重度・UML の関係）',
       '    line: <solid（既定）| dashed | dotted>        # 線種（UML の実現・依存、仮設）',
+      '    weight: <thin | normal（既定）| thick>        # 線の太さ（路線図の路線）',
     ].join('\n'),
     /** **守らせたいこと。** 実測では毎回 pins を書いてきたので、明示する。 */
     rules: [
@@ -459,6 +460,8 @@ const ja = {
       `エッジ ${edge} の ends が "${word}" になっています（ENDS の語のいずれか）。記号は描かれません。`,
     lineUnknown: (edge: string, word: string) =>
       `エッジ ${edge} の line が "${word}" になっています（solid / dashed / dotted）。実線で描きます。`,
+    weightUnknown: (edge: string, word: string) =>
+      `エッジ ${edge} の weight が "${word}" になっています（thin / normal / thick）。ふつうの太さで描きます。`,
   },
 
   /** Mermaid への書き出し（`src/mermaid.ts`） */
@@ -718,6 +721,7 @@ const en: Catalog = {
       '    label: <optional>',
       '    ends: { from: <from ENDS>, to: <from ENDS> }   # end symbols (ER cardinality, UML)',
       '    line: <solid (default) | dashed | dotted>      # line style (UML realization, temporary works)',
+      '    weight: <thin | normal (default) | thick>      # line width (transit routes)',
     ].join('\n'),
     rules: [
       'Do not write pins. That section holds what a person decided by hand; anything you write there is dropped.',
@@ -816,6 +820,8 @@ const en: Catalog = {
       `Edge ${edge} has ends "${word}" (one of ENDS). No symbol is drawn.`,
     lineUnknown: (edge: string, word: string) =>
       `Edge ${edge} has line "${word}" (solid / dashed / dotted). It is drawn solid.`,
+    weightUnknown: (edge: string, word: string) =>
+      `Edge ${edge} has weight "${word}" (thin / normal / thick). It is drawn at the normal width.`,
   },
   mermaid: {
     geometryDroppedHeading:

@@ -238,3 +238,41 @@ nodes:
     assert.ok(y < box.y || y > box.y + box.h, '帯の中に文字を書いた');
   });
 });
+
+describe('印の外へ出す文字は、印から離す', () => {
+  /**
+   * 日本式の路線図を描いて出た（2026-09-13）。
+   * **駅名が丸の下の弧に重なっていた。** 実物の路線図は必ず離してある。
+   *
+   * 箱の縁から 13px では足りない —— 丸は箱いっぱいに描かれるので、
+   * **文字の上端が丸の線に触れる。**
+   */
+  const STATION = `version: 1
+kind: placement
+nodes:
+  - id: s
+    label: 桜台
+    tag: H02
+    marker: circle
+    at: { x: 0, y: 0 }
+    size: { w: 34, h: 34 }
+`;
+
+  it('**丸の下端から 4px 以上あける**', async () => {
+    const placed = await layout(STATION);
+    const box = placed.boxes[0]!;
+    const out = render(placed, 'light', 'safe', true);
+    const baseline = Number(out.match(/<text x="\d+" y="(\d+)"[^>]*>桜台</)![1]);
+    // 文字の上端 ≒ baseline - 文字の大きさ（12px）。
+    const top = baseline - 12;
+    assert.ok(top - (box.y + box.h) >= 4, `丸の下端から ${top - (box.y + box.h)}px しか離れていない`);
+  });
+
+  it('矩形のときは、これまでどおりの間隔（詰めて置ける）', async () => {
+    const placed = await layout(STATION.replace('    marker: circle\n', '').replace('{ w: 34, h: 34 }', '{ w: 20, h: 16 }'));
+    const box = placed.boxes[0]!;
+    const out = render(placed, 'light', 'safe', true);
+    const baseline = Number(out.match(/<text x="\d+" y="(\d+)"[^>]*>桜台</)![1]);
+    assert.ok(baseline - (box.y + box.h) <= 14, '矩形まで離してしまった');
+  });
+});

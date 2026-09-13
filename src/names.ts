@@ -80,10 +80,19 @@ function shape(box: Box): 'inside' | 'joined' | 'aside' | 'along' | 'outside' {
   // 盛付指示書の丸数字（①②③）や駅番号がそれで、
   // **中に書くことがその印の意味**（外へ出すと、何の番号か分からなくなる）。
   if (box.marker === 'circle' || box.marker === 'double') {
+    /**
+     * **印の中に置けるのは 1 つだけ。**
+     *
+     * 符号（`tag`）があるなら、中はそれのもの ——
+     * 路線図の丸に入るのは**駅番号**で、駅名は外（実物もそう）。
+     * 符号が無いときだけ、短い名前が中に入る（盛付指示書の丸数字がそれ）。
+     *
+     * 一度、符号があるのに短い名前まで中へ入れた（2026-09-13）。
+     * **駅名が駅番号に重なった。**
+     */
     const bore = Math.min(box.w, box.h) * (box.marker === 'double' ? 0.5 : 1);
-    return labelWidth(box.label, NAME_FONT) + 6 <= bore && box.technology === null
-      ? 'inside'
-      : 'outside';
+    const alone = box.technology === null && box.tag === null;
+    return alone && labelWidth(box.label, NAME_FONT) + 6 <= bore ? 'inside' : 'outside';
   }
   // **楕円と菱形は、中に文字が入る。** UML のユースケース名と判断の条件は
   // 中に書くのが決まり（外へ出すと、どの図形の話か分からなくなる）。
