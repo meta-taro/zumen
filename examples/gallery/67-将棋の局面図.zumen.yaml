@@ -1,0 +1,437 @@
+version: 1
+kind: placement
+arrows: false
+title: 将棋 平手初形（先手番）
+# 棋譜の局面図。筋は右から９〜１、段は上から一〜九。
+# 後手の駒は実物では上下逆さに置くが、印刷の棋譜（BOD 形式）と同じく
+# 「v」を付けて表している —— zumen は文字を 180 度回せない。
+nodes:
+  - id: c0_0
+    label: "v香"
+    at: { x: 56, y: 56 }
+    size: { w: 50, h: 50 }
+  - id: c0_1
+    label: "v桂"
+    at: { x: 106, y: 56 }
+    size: { w: 50, h: 50 }
+  - id: c0_2
+    label: "v銀"
+    at: { x: 156, y: 56 }
+    size: { w: 50, h: 50 }
+  - id: c0_3
+    label: "v金"
+    at: { x: 206, y: 56 }
+    size: { w: 50, h: 50 }
+  - id: c0_4
+    label: "v玉"
+    at: { x: 256, y: 56 }
+    size: { w: 50, h: 50 }
+  - id: c0_5
+    label: "v金"
+    at: { x: 306, y: 56 }
+    size: { w: 50, h: 50 }
+  - id: c0_6
+    label: "v銀"
+    at: { x: 356, y: 56 }
+    size: { w: 50, h: 50 }
+  - id: c0_7
+    label: "v桂"
+    at: { x: 406, y: 56 }
+    size: { w: 50, h: 50 }
+  - id: c0_8
+    label: "v香"
+    at: { x: 456, y: 56 }
+    size: { w: 50, h: 50 }
+  - id: c1_0
+    label: ""
+    at: { x: 56, y: 106 }
+    size: { w: 50, h: 50 }
+  - id: c1_1
+    label: "v飛"
+    at: { x: 106, y: 106 }
+    size: { w: 50, h: 50 }
+  - id: c1_2
+    label: ""
+    at: { x: 156, y: 106 }
+    size: { w: 50, h: 50 }
+  - id: c1_3
+    label: ""
+    at: { x: 206, y: 106 }
+    size: { w: 50, h: 50 }
+  - id: c1_4
+    label: ""
+    at: { x: 256, y: 106 }
+    size: { w: 50, h: 50 }
+  - id: c1_5
+    label: ""
+    at: { x: 306, y: 106 }
+    size: { w: 50, h: 50 }
+  - id: c1_6
+    label: ""
+    at: { x: 356, y: 106 }
+    size: { w: 50, h: 50 }
+  - id: c1_7
+    label: "v角"
+    at: { x: 406, y: 106 }
+    size: { w: 50, h: 50 }
+  - id: c1_8
+    label: ""
+    at: { x: 456, y: 106 }
+    size: { w: 50, h: 50 }
+  - id: c2_0
+    label: "v歩"
+    at: { x: 56, y: 156 }
+    size: { w: 50, h: 50 }
+  - id: c2_1
+    label: "v歩"
+    at: { x: 106, y: 156 }
+    size: { w: 50, h: 50 }
+  - id: c2_2
+    label: "v歩"
+    at: { x: 156, y: 156 }
+    size: { w: 50, h: 50 }
+  - id: c2_3
+    label: "v歩"
+    at: { x: 206, y: 156 }
+    size: { w: 50, h: 50 }
+  - id: c2_4
+    label: "v歩"
+    at: { x: 256, y: 156 }
+    size: { w: 50, h: 50 }
+  - id: c2_5
+    label: "v歩"
+    at: { x: 306, y: 156 }
+    size: { w: 50, h: 50 }
+  - id: c2_6
+    label: "v歩"
+    at: { x: 356, y: 156 }
+    size: { w: 50, h: 50 }
+  - id: c2_7
+    label: "v歩"
+    at: { x: 406, y: 156 }
+    size: { w: 50, h: 50 }
+  - id: c2_8
+    label: "v歩"
+    at: { x: 456, y: 156 }
+    size: { w: 50, h: 50 }
+  - id: c3_0
+    label: ""
+    at: { x: 56, y: 206 }
+    size: { w: 50, h: 50 }
+  - id: c3_1
+    label: ""
+    at: { x: 106, y: 206 }
+    size: { w: 50, h: 50 }
+  - id: c3_2
+    label: ""
+    at: { x: 156, y: 206 }
+    size: { w: 50, h: 50 }
+  - id: c3_3
+    label: ""
+    at: { x: 206, y: 206 }
+    size: { w: 50, h: 50 }
+  - id: c3_4
+    label: ""
+    at: { x: 256, y: 206 }
+    size: { w: 50, h: 50 }
+  - id: c3_5
+    label: ""
+    at: { x: 306, y: 206 }
+    size: { w: 50, h: 50 }
+  - id: c3_6
+    label: ""
+    at: { x: 356, y: 206 }
+    size: { w: 50, h: 50 }
+  - id: c3_7
+    label: ""
+    at: { x: 406, y: 206 }
+    size: { w: 50, h: 50 }
+  - id: c3_8
+    label: ""
+    at: { x: 456, y: 206 }
+    size: { w: 50, h: 50 }
+  - id: c4_0
+    label: ""
+    at: { x: 56, y: 256 }
+    size: { w: 50, h: 50 }
+  - id: c4_1
+    label: ""
+    at: { x: 106, y: 256 }
+    size: { w: 50, h: 50 }
+  - id: c4_2
+    label: ""
+    at: { x: 156, y: 256 }
+    size: { w: 50, h: 50 }
+  - id: c4_3
+    label: ""
+    at: { x: 206, y: 256 }
+    size: { w: 50, h: 50 }
+  - id: c4_4
+    label: ""
+    at: { x: 256, y: 256 }
+    size: { w: 50, h: 50 }
+  - id: c4_5
+    label: ""
+    at: { x: 306, y: 256 }
+    size: { w: 50, h: 50 }
+  - id: c4_6
+    label: ""
+    at: { x: 356, y: 256 }
+    size: { w: 50, h: 50 }
+  - id: c4_7
+    label: ""
+    at: { x: 406, y: 256 }
+    size: { w: 50, h: 50 }
+  - id: c4_8
+    label: ""
+    at: { x: 456, y: 256 }
+    size: { w: 50, h: 50 }
+  - id: c5_0
+    label: ""
+    at: { x: 56, y: 306 }
+    size: { w: 50, h: 50 }
+  - id: c5_1
+    label: ""
+    at: { x: 106, y: 306 }
+    size: { w: 50, h: 50 }
+  - id: c5_2
+    label: ""
+    at: { x: 156, y: 306 }
+    size: { w: 50, h: 50 }
+  - id: c5_3
+    label: ""
+    at: { x: 206, y: 306 }
+    size: { w: 50, h: 50 }
+  - id: c5_4
+    label: ""
+    at: { x: 256, y: 306 }
+    size: { w: 50, h: 50 }
+  - id: c5_5
+    label: ""
+    at: { x: 306, y: 306 }
+    size: { w: 50, h: 50 }
+  - id: c5_6
+    label: ""
+    at: { x: 356, y: 306 }
+    size: { w: 50, h: 50 }
+  - id: c5_7
+    label: ""
+    at: { x: 406, y: 306 }
+    size: { w: 50, h: 50 }
+  - id: c5_8
+    label: ""
+    at: { x: 456, y: 306 }
+    size: { w: 50, h: 50 }
+  - id: c6_0
+    label: "歩"
+    at: { x: 56, y: 356 }
+    size: { w: 50, h: 50 }
+  - id: c6_1
+    label: "歩"
+    at: { x: 106, y: 356 }
+    size: { w: 50, h: 50 }
+  - id: c6_2
+    label: "歩"
+    at: { x: 156, y: 356 }
+    size: { w: 50, h: 50 }
+  - id: c6_3
+    label: "歩"
+    at: { x: 206, y: 356 }
+    size: { w: 50, h: 50 }
+  - id: c6_4
+    label: "歩"
+    at: { x: 256, y: 356 }
+    size: { w: 50, h: 50 }
+  - id: c6_5
+    label: "歩"
+    at: { x: 306, y: 356 }
+    size: { w: 50, h: 50 }
+  - id: c6_6
+    label: "歩"
+    at: { x: 356, y: 356 }
+    size: { w: 50, h: 50 }
+  - id: c6_7
+    label: "歩"
+    at: { x: 406, y: 356 }
+    size: { w: 50, h: 50 }
+  - id: c6_8
+    label: "歩"
+    at: { x: 456, y: 356 }
+    size: { w: 50, h: 50 }
+  - id: c7_0
+    label: ""
+    at: { x: 56, y: 406 }
+    size: { w: 50, h: 50 }
+  - id: c7_1
+    label: "角"
+    at: { x: 106, y: 406 }
+    size: { w: 50, h: 50 }
+  - id: c7_2
+    label: ""
+    at: { x: 156, y: 406 }
+    size: { w: 50, h: 50 }
+  - id: c7_3
+    label: ""
+    at: { x: 206, y: 406 }
+    size: { w: 50, h: 50 }
+  - id: c7_4
+    label: ""
+    at: { x: 256, y: 406 }
+    size: { w: 50, h: 50 }
+  - id: c7_5
+    label: ""
+    at: { x: 306, y: 406 }
+    size: { w: 50, h: 50 }
+  - id: c7_6
+    label: ""
+    at: { x: 356, y: 406 }
+    size: { w: 50, h: 50 }
+  - id: c7_7
+    label: "飛"
+    at: { x: 406, y: 406 }
+    size: { w: 50, h: 50 }
+  - id: c7_8
+    label: ""
+    at: { x: 456, y: 406 }
+    size: { w: 50, h: 50 }
+  - id: c8_0
+    label: "香"
+    at: { x: 56, y: 456 }
+    size: { w: 50, h: 50 }
+  - id: c8_1
+    label: "桂"
+    at: { x: 106, y: 456 }
+    size: { w: 50, h: 50 }
+  - id: c8_2
+    label: "銀"
+    at: { x: 156, y: 456 }
+    size: { w: 50, h: 50 }
+  - id: c8_3
+    label: "金"
+    at: { x: 206, y: 456 }
+    size: { w: 50, h: 50 }
+  - id: c8_4
+    label: "玉"
+    at: { x: 256, y: 456 }
+    size: { w: 50, h: 50 }
+  - id: c8_5
+    label: "金"
+    at: { x: 306, y: 456 }
+    size: { w: 50, h: 50 }
+  - id: c8_6
+    label: "銀"
+    at: { x: 356, y: 456 }
+    size: { w: 50, h: 50 }
+  - id: c8_7
+    label: "桂"
+    at: { x: 406, y: 456 }
+    size: { w: 50, h: 50 }
+  - id: c8_8
+    label: "香"
+    at: { x: 456, y: 456 }
+    size: { w: 50, h: 50 }
+  - id: s0
+    label: "９"
+    marker: none
+    at: { x: 56, y: 26 }
+    size: { w: 50, h: 26 }
+  - id: s1
+    label: "８"
+    marker: none
+    at: { x: 106, y: 26 }
+    size: { w: 50, h: 26 }
+  - id: s2
+    label: "７"
+    marker: none
+    at: { x: 156, y: 26 }
+    size: { w: 50, h: 26 }
+  - id: s3
+    label: "６"
+    marker: none
+    at: { x: 206, y: 26 }
+    size: { w: 50, h: 26 }
+  - id: s4
+    label: "５"
+    marker: none
+    at: { x: 256, y: 26 }
+    size: { w: 50, h: 26 }
+  - id: s5
+    label: "４"
+    marker: none
+    at: { x: 306, y: 26 }
+    size: { w: 50, h: 26 }
+  - id: s6
+    label: "３"
+    marker: none
+    at: { x: 356, y: 26 }
+    size: { w: 50, h: 26 }
+  - id: s7
+    label: "２"
+    marker: none
+    at: { x: 406, y: 26 }
+    size: { w: 50, h: 26 }
+  - id: s8
+    label: "１"
+    marker: none
+    at: { x: 456, y: 26 }
+    size: { w: 50, h: 26 }
+  - id: d0
+    label: "一"
+    marker: none
+    at: { x: 510, y: 56 }
+    size: { w: 28, h: 50 }
+  - id: d1
+    label: "二"
+    marker: none
+    at: { x: 510, y: 106 }
+    size: { w: 28, h: 50 }
+  - id: d2
+    label: "三"
+    marker: none
+    at: { x: 510, y: 156 }
+    size: { w: 28, h: 50 }
+  - id: d3
+    label: "四"
+    marker: none
+    at: { x: 510, y: 206 }
+    size: { w: 28, h: 50 }
+  - id: d4
+    label: "五"
+    marker: none
+    at: { x: 510, y: 256 }
+    size: { w: 28, h: 50 }
+  - id: d5
+    label: "六"
+    marker: none
+    at: { x: 510, y: 306 }
+    size: { w: 28, h: 50 }
+  - id: d6
+    label: "七"
+    marker: none
+    at: { x: 510, y: 356 }
+    size: { w: 28, h: 50 }
+  - id: d7
+    label: "八"
+    marker: none
+    at: { x: 510, y: 406 }
+    size: { w: 28, h: 50 }
+  - id: d8
+    label: "九"
+    marker: none
+    at: { x: 510, y: 456 }
+    size: { w: 28, h: 50 }
+  - id: gote
+    label: "後手 持駒 なし"
+    marker: none
+    at: { x: 56, y: -8 }
+    size: { w: 220, h: 26 }
+  - id: sente
+    label: "先手 持駒 なし"
+    marker: none
+    at: { x: 286, y: 516 }
+    size: { w: 220, h: 26 }
+  - id: note
+    label: "v は後手の駒（印刷の棋譜と同じ表し方）。先手が下、後手が上。"
+    marker: none
+    at: { x: 56, y: 550 }
+    size: { w: 420, h: 24 }

@@ -467,6 +467,8 @@ const ja = {
       `エッジ ${name} に close がありますが、構成図では効きません（線の通り道は機械が決めます）。`,
     writeUnknown: (id: string, word: string) =>
       `ノード "${id}" の write が "${word}" になっています（across / down）。横組みで描きます。`,
+    appearanceInNodes: (id: string) =>
+      `ノード "${id}" に appearance がありますが、体裁は人が pins に書くものです（nodes では効きません）。`,
     writeIgnored: (id: string) =>
       `ノード "${id}" に write がありますが、構成図では効きません（箱の大きさを文字から決めているためです）。`,
     hatchUnknown: (id: string, word: string) =>
@@ -852,6 +854,8 @@ const en: Catalog = {
       `Edge ${name} has close, but it has no effect on a structure diagram (the machine routes the line).`,
     writeUnknown: (id: string, word: string) =>
       `Node "${id}" has write "${word}" (across / down). It is set horizontally.`,
+    appearanceInNodes: (id: string) =>
+      `Node "${id}" has appearance, but appearance belongs to pins (it has no effect under nodes).`,
     writeIgnored: (id: string) =>
       `Node "${id}" has write, but it has no effect on a structure diagram (box size is derived from the text there).`,
     hatchUnknown: (id: string, word: string) =>

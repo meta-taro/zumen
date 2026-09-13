@@ -196,3 +196,52 @@ describe('書き戻しで行が変わらない（仕様 §6.1）', () => {
 function rewrite(text: string): string {
   return parseDocument(text).toString({ lineWidth: 0 });
 }
+
+/**
+ * **黙って無視される鍵を知らせる。**
+ *
+ * 2026-09-13。見本を 6 枚、`nodes[].appearance: muted` と書いて描いていた。
+ * **体裁は `pins`（人の指定）のものなので、`nodes` に書いても効かない** ——
+ * それでも検証器は何も言わず、**書いた人は効いていると思ったまま**だった。
+ *
+ * 知らない鍵は捨てずに保つのが仕様（§3.1 の「その他」）。
+ * だが **`appearance` は仕様が別の場所で定めている語**なので、
+ * 「ここでは効かない」と言えるし、言わないと気づけない。
+ */
+describe('体裁は人のもの（nodes に書いても効かない）', () => {
+  const SRC = `version: 1
+kind: placement
+nodes:
+  - id: a
+    label: 通路
+    appearance: muted
+    at: { x: 0, y: 0 }
+    size: { w: 120, h: 40 }
+`;
+
+  it('**nodes の appearance を知らせる**（効かないまま通さない）', () => {
+    const found = validate(SRC);
+    assert.ok(
+      found.some((f) => f.code === 'appearance-in-nodes'),
+      `知らせていない（${found.map((f) => f.code).join(', ')}）`,
+    );
+    assert.ok(found.every((f) => f.severity === 'warning'), '読める図なので止めない');
+  });
+
+  it('pins に書いた appearance は、これまでどおり何も言わない', () => {
+    const found = validate(`version: 1
+pins:
+  a:
+    appearance: muted
+nodes:
+  - id: a
+    label: 通路
+`);
+    assert.ok(!found.some((f) => f.code === 'appearance-in-nodes'));
+  });
+
+  it('知らない鍵そのものは、これまでどおり黙って保つ', () => {
+    const found = validate(SRC.replace('appearance: muted', 'nazo: なにか'));
+    assert.deepEqual(found, [], '仕様が定めていない鍵まで言い始めた');
+  });
+});

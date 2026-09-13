@@ -338,6 +338,18 @@ function checkGeometry(doc: Document, add: Add, m: Messages, at: At): void {
       }
     }
 
+    /**
+     * **体裁は人のもの**（`pins`。仕様 §4）。
+     *
+     * 知らない鍵は捨てずに保つのが仕様だが、**`appearance` は別の場所で
+     * 定めている語**なので「ここでは効かない」と言える。
+     * 言わないと、書いた人は効いていると思ったままになる（見本 6 枚が実際そうだった）。
+     */
+    const appearance = item.get('appearance');
+    if (appearance !== undefined && appearance !== null) {
+      add('warning', 'appearance-in-nodes', m.appearanceInNodes(id), at(item.get('appearance', true)));
+    }
+
     const write = item.get('write');
     if (write !== undefined && write !== null) {
       if (!WRITE_WORDS.has(String(write))) {
