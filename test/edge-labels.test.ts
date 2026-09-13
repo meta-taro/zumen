@@ -38,6 +38,7 @@ function edge(id: string, label: string | null, points: [number, number][]): Pla
     ends: null,
     line: 'solid' as const,
     weight: 'normal' as const,
+  curve: 'none' as const,
     color: null,
     points: points.map(([x, y]) => ({ x, y })),
   };

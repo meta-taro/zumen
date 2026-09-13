@@ -44,6 +44,8 @@ export interface Edge {
   weight?: unknown;
   /** 路線の色の鍵（`src/palette.ts`）。 */
   color?: unknown;
+  via?: unknown;
+  curve?: unknown;
 }
 
 /** 折り返しでの改行を止める。人が書いた行の形を機械が変えないため。 */
@@ -85,6 +87,10 @@ export class Diagram {
       if (weight !== undefined && weight !== null) edge.weight = weight;
       const color = item.get('color');
       if (color !== undefined && color !== null) edge.color = color;
+      const via = item.get('via', true);
+      if (via !== undefined && via !== null) edge.via = via.toJSON() as unknown;
+      const curve = item.get('curve');
+      if (curve !== undefined && curve !== null) edge.curve = curve;
       return edge;
     });
   }

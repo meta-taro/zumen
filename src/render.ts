@@ -29,6 +29,7 @@ import type { Frame, Ink } from './dimensions.ts';
 import { hasGrid } from './grid.ts';
 import { drawEnd, hasEnds } from './ends.ts';
 import { drawHatch } from './hatch.ts';
+import { pathOf } from './curve.ts';
 import { laysDown } from './write.ts';
 import { dashOf } from './line.ts';
 import { roundedOf, widthOf } from './weight.ts';
@@ -540,8 +541,8 @@ function renderEdge(
   arrows = true,
 ): string {
   if (edge.points.length < 2) return '';
-  const [head, ...rest] = edge.points;
-  const path = `M ${n(head!.x)} ${n(head!.y)} ${rest.map((p) => `L ${n(p.x)} ${n(p.y)}`).join(' ')}`;
+  // **通り道の丸め方は正本が決める**（`src/curve.ts`）。書かなければ折れ線。
+  const path = pathOf(edge.points, edge.curve);
   const label =
     placedLabel === null
       ? ''

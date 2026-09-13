@@ -42,6 +42,7 @@ import { SYMBOLS } from './symbol.ts';
 import { WEIGHTS } from './weight.ts';
 import { HATCHES } from './hatch.ts';
 import { WRITES } from './write.ts';
+import { CURVES } from './curve.ts';
 import { MARKERS } from './marker.ts';
 import { crowdedNames, extentOf, planNames } from './names.ts';
 import { OPENINGS, SIDES } from './openings.ts';
@@ -108,6 +109,8 @@ export function spec(): {
   hatches: string[];
   /** 文字の組み方（`src/write.ts`）。**縦組みは、回すのとは別。** */
   writes: string[];
+  /** 辺の丸め方（`src/curve.ts`）。**形の名前だけ。意味の語は無い。** */
+  curves: string[];
   /** 辺の端の記号（`src/ends.ts`）。**形の名前だけ。意味の語は無い。** */
   ends: string[];
   /** 辺の線種（`src/line.ts`）。 */
@@ -148,6 +151,7 @@ export function spec(): {
     markers: [...MARKERS],
     hatches: [...HATCHES],
     writes: [...WRITES],
+    curves: [...CURVES],
     ends: [...ENDS],
     lines: [...LINES],
     symbols: [...SYMBOLS],

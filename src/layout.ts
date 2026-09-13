@@ -29,6 +29,8 @@ import { markerOf } from './marker.ts';
 import type { Marker } from './marker.ts';
 import { endsOf } from './ends.ts';
 import { lineOf } from './line.ts';
+import { curveOf, viaOf } from './curve.ts';
+import type { Curve, Point } from './curve.ts';
 import { colorOf, paletteOf as routePalette } from './palette.ts';
 import { weightOf } from './weight.ts';
 import type { Weight } from './weight.ts';
@@ -116,6 +118,8 @@ export interface PlacedEdge {
   line: Line;
   /** **線の太さ**（`src/weight.ts`）。路線図の路線。 */
   weight: Weight;
+  /** **通り道の丸め方**（`src/curve.ts`）。道路の平面線形・河川・園路。 */
+  curve: Curve;
   /** **路線の色**（`src/palette.ts`）。`palette` に無ければ null。 */
   color: string | null;
 }
@@ -649,6 +653,10 @@ interface EdgeInfo {
   color: string | null;
   /** 色の鍵（引く前）。 */
   colorKey: unknown;
+  /** 正本が書いた通り道（`src/curve.ts`）。無ければ空。 */
+  via: Point[];
+  /** 丸め方（`src/curve.ts`）。 */
+  curve: Curve;
 }
 
 /** グループの表示名。無ければ id を使う。 */
@@ -694,6 +702,8 @@ function readEdges(diagram: ReturnType<typeof parse>): EdgeInfo[] {
       weight: weightOf(edge.weight),
       color: null,
       colorKey: edge.color,
+      via: viaOf(edge.via),
+      curve: curveOf(edge.curve),
     };
   });
 }
@@ -777,6 +787,14 @@ function routeEdges(
         points: [clip(from, first), ...waypoints, clip(to, last)],
         pinned: true,
       };
+    }
+
+    // **正本が通り道を書いていれば、そこを通す**（`src/curve.ts`）。
+    // 人の `pins.waypoints` はこの上（上書き）。**書いた順のまま通す。**
+    if (edge.via.length > 0) {
+      const first = edge.via[0]!;
+      const last = edge.via[edge.via.length - 1]!;
+      return { ...edge, points: [clip(from, first), ...edge.via, clip(to, last)], pinned: false };
     }
 
     // **図記号どうしの配線は直角に曲げる**（`src/symbol.ts`）。

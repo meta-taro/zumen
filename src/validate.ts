@@ -20,6 +20,7 @@ import { KINDS as KIND_WORDS } from './kind.ts';
 import { MARKS, NORTHS } from './grid.ts';
 import { ENDS } from './ends.ts';
 import { LINES } from './line.ts';
+import { CURVES, viaOf } from './curve.ts';
 import { faintOn, paletteOf as routePalette } from './palette.ts';
 import { WEIGHTS } from './weight.ts';
 import { HATCHES } from './hatch.ts';
@@ -64,6 +65,7 @@ const HATCH_WORDS = new Set<string>(HATCHES);
 const SYMBOL_WORDS = new Set<string>(SYMBOLS);
 const END_WORDS = new Set<string>(ENDS);
 const LINE_WORDS = new Set<string>(LINES);
+const CURVE_WORDS = new Set<string>(CURVES);
 const WEIGHT_WORDS = new Set<string>(WEIGHTS);
 
 /** `pins` の中で、位置や体裁ではなく人の決定を表す鍵。迷子の判定には関係しない。 */
@@ -485,8 +487,24 @@ function checkColors(doc: Document, add: Add, m: Messages, at: At): void {
 }
 
 function checkEnds(doc: Document, add: Add, m: Messages, at: At): void {
+  const placement = String(doc.get('kind') ?? '') === 'placement';
   for (const item of seqOf(doc, 'edges')) {
     const name = `${String(item.get('from'))}>${String(item.get('to'))}`;
+
+    // **通り道と、その丸め方**（`src/curve.ts`）。
+    const curve = item.get('curve');
+    if (curve !== undefined && curve !== null && !CURVE_WORDS.has(String(curve))) {
+      add('warning', 'curve-unknown', m.curveUnknown(name, String(curve)), at(item.get('curve', true)));
+    }
+    const via = item.get('via', true);
+    if (via !== undefined && via !== null) {
+      if (!placement) {
+        // 構成図の線の通り道は機械が決める。**書いても効かないことを言う。**
+        add('warning', 'via-ignored', m.viaIgnored(name), at(via));
+      } else if (!isSeq(via) || via.items.length === 0 || viaOf(via.toJSON()).length !== via.items.length) {
+        add('warning', 'via-invalid', m.viaInvalid(name), at(via));
+      }
+    }
     const line = item.get('line');
     if (line !== undefined && line !== null && !LINE_WORDS.has(String(line))) {
       add('warning', 'line-unknown', m.lineUnknown(name, String(line)), at(item.get('line', true)));

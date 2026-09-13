@@ -348,6 +348,8 @@ const ja = {
       '    ends: { from: <ENDS から>, to: <ENDS から> }   # 端の記号（ER の多重度・UML の関係）',
       '    line: <solid（既定）| dashed | dotted>        # 線種（UML の実現・依存、仮設）',
       '    weight: <thin | normal（既定）| thick>        # 線の太さ（路線図の路線）',
+      '    via: [{ x: <左>, y: <上> }, ...]              # 線の通り道。kind: placement でだけ効く',
+      '    curve: <none（既定）| smooth>                 # 通り道を丸める（道路・河川・園路）',
     ].join('\n'),
     /** **守らせたいこと。** 実測では毎回 pins を書いてきたので、明示する。 */
     rules: [
@@ -452,6 +454,12 @@ const ja = {
       `ノード "${id}" の marker が "${word}" になっています（box / circle / double / none）。矩形で描きます。`,
     markerIgnored: (id: string) =>
       `ノード "${id}" に marker がありますが、構成図では効きません（形は type で決まります）。`,
+    curveUnknown: (name: string, word: string) =>
+      `エッジ ${name} の curve が "${word}" になっています（none / smooth）。折れ線で描きます。`,
+    viaInvalid: (name: string) =>
+      `エッジ ${name} の via が点の並びになっていません（- { x: 100, y: 40 }）。通り道は使いません。`,
+    viaIgnored: (name: string) =>
+      `エッジ ${name} に via がありますが、構成図では効きません（線の通り道は機械が決めます）。`,
     writeUnknown: (id: string, word: string) =>
       `ノード "${id}" の write が "${word}" になっています（across / down）。横組みで描きます。`,
     writeIgnored: (id: string) =>
@@ -735,6 +743,8 @@ const en: Catalog = {
       '    ends: { from: <from ENDS>, to: <from ENDS> }   # end symbols (ER cardinality, UML)',
       '    line: <solid (default) | dashed | dotted>      # line style (UML realization, temporary works)',
       '    weight: <thin | normal (default) | thick>      # line width (transit routes)',
+      '    via: [{ x: <left>, y: <top> }, ...]            # waypoints; only with kind: placement',
+      '    curve: <none (default) | smooth>               # round the waypoints (roads, rivers, paths)',
     ].join('\n'),
     rules: [
       'Do not write pins. That section holds what a person decided by hand; anything you write there is dropped.',
@@ -824,6 +834,12 @@ const en: Catalog = {
       `Node "${id}" has marker "${word}" (box / circle / double / none). It is drawn as a rectangle.`,
     markerIgnored: (id: string) =>
       `Node "${id}" has a marker, but it has no effect on a structure diagram (shape comes from type).`,
+    curveUnknown: (name: string, word: string) =>
+      `Edge ${name} has curve "${word}" (none / smooth). It is drawn as a polyline.`,
+    viaInvalid: (name: string) =>
+      `Edge ${name} has a via that is not a list of points (- { x: 100, y: 40 }). The route is ignored.`,
+    viaIgnored: (name: string) =>
+      `Edge ${name} has via, but it has no effect on a structure diagram (the machine routes the line).`,
     writeUnknown: (id: string, word: string) =>
       `Node "${id}" has write "${word}" (across / down). It is set horizontally.`,
     writeIgnored: (id: string) =>
