@@ -1,0 +1,563 @@
+version: 1
+kind: placement
+arrows: false
+title: 市営バス 中央病院前（3 番のりば）時刻表　海浜公園駅 行（2026-09 改正）
+# バス停の柱に巻いてある、あの表。左が時、右がその時台の発車分。
+# 平日・土曜・日祝の 3 本立て（曜日で本数が変わるのがバスの特徴）。
+#
+# 色は曜日区分そのもの（DESIGN.md §7 の例外・src/palette.ts）。
+# 色だけに頼らせない —— 見出しに「平日」「土曜」「日祝」と文字で出ている。
+palette:
+  heijitsu: "#606068"
+  doyo: "#0072bc"
+  nikkyu: "#e5171f"
+  kyuko: "#d95f02"
+nodes:
+  - id: heijitsu_h
+    label: "時"
+    hatch: solid
+    at: { x: 0, y: 0 }
+    size: { w: 40, h: 26 }
+  - id: heijitsu_head
+    label: "平日"
+    hatch: solid
+    color: heijitsu
+    at: { x: 40, y: 0 }
+    size: { w: 208, h: 26 }
+  - id: heijitsu_06
+    label: "6"
+    hatch: solid
+    at: { x: 0, y: 26 }
+    size: { w: 40, h: 24 }
+  - id: heijitsu_06_12
+    label: "12"
+    at: { x: 40, y: 26 }
+    size: { w: 52, h: 24 }
+  - id: heijitsu_06_35
+    label: "35"
+    hatch: solid
+    color: kyuko
+    at: { x: 92, y: 26 }
+    size: { w: 52, h: 24 }
+  - id: heijitsu_07
+    label: "7"
+    hatch: solid
+    at: { x: 0, y: 50 }
+    size: { w: 40, h: 24 }
+  - id: heijitsu_07_05
+    label: "05"
+    at: { x: 40, y: 50 }
+    size: { w: 52, h: 24 }
+  - id: heijitsu_07_20
+    label: "20"
+    hatch: solid
+    color: kyuko
+    at: { x: 92, y: 50 }
+    size: { w: 52, h: 24 }
+  - id: heijitsu_07_40
+    label: "40"
+    at: { x: 144, y: 50 }
+    size: { w: 52, h: 24 }
+  - id: heijitsu_07_55
+    label: "55"
+    at: { x: 196, y: 50 }
+    size: { w: 52, h: 24 }
+  - id: heijitsu_08
+    label: "8"
+    hatch: solid
+    at: { x: 0, y: 74 }
+    size: { w: 40, h: 24 }
+  - id: heijitsu_08_10
+    label: "10"
+    at: { x: 40, y: 74 }
+    size: { w: 52, h: 24 }
+  - id: heijitsu_08_30
+    label: "30"
+    hatch: solid
+    color: kyuko
+    at: { x: 92, y: 74 }
+    size: { w: 52, h: 24 }
+  - id: heijitsu_08_50
+    label: "50"
+    at: { x: 144, y: 74 }
+    size: { w: 52, h: 24 }
+  - id: heijitsu_09
+    label: "9"
+    hatch: solid
+    at: { x: 0, y: 98 }
+    size: { w: 40, h: 24 }
+  - id: heijitsu_09_15
+    label: "15"
+    at: { x: 40, y: 98 }
+    size: { w: 52, h: 24 }
+  - id: heijitsu_09_45
+    label: "45"
+    at: { x: 92, y: 98 }
+    size: { w: 52, h: 24 }
+  - id: heijitsu_10
+    label: "10"
+    hatch: solid
+    at: { x: 0, y: 122 }
+    size: { w: 40, h: 24 }
+  - id: heijitsu_10_20
+    label: "20"
+    at: { x: 40, y: 122 }
+    size: { w: 52, h: 24 }
+  - id: heijitsu_11
+    label: "11"
+    hatch: solid
+    at: { x: 0, y: 146 }
+    size: { w: 40, h: 24 }
+  - id: heijitsu_11_20
+    label: "20"
+    at: { x: 40, y: 146 }
+    size: { w: 52, h: 24 }
+  - id: heijitsu_12
+    label: "12"
+    hatch: solid
+    at: { x: 0, y: 170 }
+    size: { w: 40, h: 24 }
+  - id: heijitsu_12_20
+    label: "20"
+    at: { x: 40, y: 170 }
+    size: { w: 52, h: 24 }
+  - id: heijitsu_13
+    label: "13"
+    hatch: solid
+    at: { x: 0, y: 194 }
+    size: { w: 40, h: 24 }
+  - id: heijitsu_13_20
+    label: "20"
+    at: { x: 40, y: 194 }
+    size: { w: 52, h: 24 }
+  - id: heijitsu_14
+    label: "14"
+    hatch: solid
+    at: { x: 0, y: 218 }
+    size: { w: 40, h: 24 }
+  - id: heijitsu_14_20
+    label: "20"
+    at: { x: 40, y: 218 }
+    size: { w: 52, h: 24 }
+  - id: heijitsu_15
+    label: "15"
+    hatch: solid
+    at: { x: 0, y: 242 }
+    size: { w: 40, h: 24 }
+  - id: heijitsu_15_10
+    label: "10"
+    at: { x: 40, y: 242 }
+    size: { w: 52, h: 24 }
+  - id: heijitsu_15_50
+    label: "50"
+    at: { x: 92, y: 242 }
+    size: { w: 52, h: 24 }
+  - id: heijitsu_16
+    label: "16"
+    hatch: solid
+    at: { x: 0, y: 266 }
+    size: { w: 40, h: 24 }
+  - id: heijitsu_16_25
+    label: "25"
+    at: { x: 40, y: 266 }
+    size: { w: 52, h: 24 }
+  - id: heijitsu_16_55
+    label: "55"
+    hatch: solid
+    color: kyuko
+    at: { x: 92, y: 266 }
+    size: { w: 52, h: 24 }
+  - id: heijitsu_17
+    label: "17"
+    hatch: solid
+    at: { x: 0, y: 290 }
+    size: { w: 40, h: 24 }
+  - id: heijitsu_17_15
+    label: "15"
+    at: { x: 40, y: 290 }
+    size: { w: 52, h: 24 }
+  - id: heijitsu_17_35
+    label: "35"
+    at: { x: 92, y: 290 }
+    size: { w: 52, h: 24 }
+  - id: heijitsu_17_58
+    label: "58"
+    at: { x: 144, y: 290 }
+    size: { w: 52, h: 24 }
+  - id: heijitsu_18
+    label: "18"
+    hatch: solid
+    at: { x: 0, y: 314 }
+    size: { w: 40, h: 24 }
+  - id: heijitsu_18_20
+    label: "20"
+    at: { x: 40, y: 314 }
+    size: { w: 52, h: 24 }
+  - id: heijitsu_18_50
+    label: "50"
+    at: { x: 92, y: 314 }
+    size: { w: 52, h: 24 }
+  - id: heijitsu_19
+    label: "19"
+    hatch: solid
+    at: { x: 0, y: 338 }
+    size: { w: 40, h: 24 }
+  - id: heijitsu_19_25
+    label: "25"
+    at: { x: 40, y: 338 }
+    size: { w: 52, h: 24 }
+  - id: heijitsu_20
+    label: "20"
+    hatch: solid
+    at: { x: 0, y: 362 }
+    size: { w: 40, h: 24 }
+  - id: heijitsu_20_10
+    label: "10"
+    at: { x: 40, y: 362 }
+    size: { w: 52, h: 24 }
+  - id: heijitsu_20_55
+    label: "55"
+    at: { x: 92, y: 362 }
+    size: { w: 52, h: 24 }
+  - id: heijitsu_21
+    label: "21"
+    hatch: solid
+    at: { x: 0, y: 386 }
+    size: { w: 40, h: 24 }
+  - id: heijitsu_21_40
+    label: "40"
+    at: { x: 40, y: 386 }
+    size: { w: 52, h: 24 }
+  - id: doyo_h
+    label: "時"
+    hatch: solid
+    at: { x: 286, y: 0 }
+    size: { w: 40, h: 26 }
+  - id: doyo_head
+    label: "土曜"
+    hatch: solid
+    color: doyo
+    at: { x: 326, y: 0 }
+    size: { w: 208, h: 26 }
+  - id: doyo_06
+    label: "6"
+    hatch: solid
+    at: { x: 286, y: 26 }
+    size: { w: 40, h: 24 }
+  - id: doyo_06_30
+    label: "30"
+    at: { x: 326, y: 26 }
+    size: { w: 52, h: 24 }
+  - id: doyo_07
+    label: "7"
+    hatch: solid
+    at: { x: 286, y: 50 }
+    size: { w: 40, h: 24 }
+  - id: doyo_07_15
+    label: "15"
+    at: { x: 326, y: 50 }
+    size: { w: 52, h: 24 }
+  - id: doyo_07_50
+    label: "50"
+    at: { x: 378, y: 50 }
+    size: { w: 52, h: 24 }
+  - id: doyo_08
+    label: "8"
+    hatch: solid
+    at: { x: 286, y: 74 }
+    size: { w: 40, h: 24 }
+  - id: doyo_08_25
+    label: "25"
+    at: { x: 326, y: 74 }
+    size: { w: 52, h: 24 }
+  - id: doyo_08_55
+    label: "55"
+    at: { x: 378, y: 74 }
+    size: { w: 52, h: 24 }
+  - id: doyo_09
+    label: "9"
+    hatch: solid
+    at: { x: 286, y: 98 }
+    size: { w: 40, h: 24 }
+  - id: doyo_09_35
+    label: "35"
+    at: { x: 326, y: 98 }
+    size: { w: 52, h: 24 }
+  - id: doyo_10
+    label: "10"
+    hatch: solid
+    at: { x: 286, y: 122 }
+    size: { w: 40, h: 24 }
+  - id: doyo_10_35
+    label: "35"
+    at: { x: 326, y: 122 }
+    size: { w: 52, h: 24 }
+  - id: doyo_11
+    label: "11"
+    hatch: solid
+    at: { x: 286, y: 146 }
+    size: { w: 40, h: 24 }
+  - id: doyo_11_35
+    label: "35"
+    at: { x: 326, y: 146 }
+    size: { w: 52, h: 24 }
+  - id: doyo_12
+    label: "12"
+    hatch: solid
+    at: { x: 286, y: 170 }
+    size: { w: 40, h: 24 }
+  - id: doyo_12_35
+    label: "35"
+    at: { x: 326, y: 170 }
+    size: { w: 52, h: 24 }
+  - id: doyo_13
+    label: "13"
+    hatch: solid
+    at: { x: 286, y: 194 }
+    size: { w: 40, h: 24 }
+  - id: doyo_13_35
+    label: "35"
+    at: { x: 326, y: 194 }
+    size: { w: 52, h: 24 }
+  - id: doyo_14
+    label: "14"
+    hatch: solid
+    at: { x: 286, y: 218 }
+    size: { w: 40, h: 24 }
+  - id: doyo_14_35
+    label: "35"
+    at: { x: 326, y: 218 }
+    size: { w: 52, h: 24 }
+  - id: doyo_15
+    label: "15"
+    hatch: solid
+    at: { x: 286, y: 242 }
+    size: { w: 40, h: 24 }
+  - id: doyo_15_35
+    label: "35"
+    at: { x: 326, y: 242 }
+    size: { w: 52, h: 24 }
+  - id: doyo_16
+    label: "16"
+    hatch: solid
+    at: { x: 286, y: 266 }
+    size: { w: 40, h: 24 }
+  - id: doyo_16_30
+    label: "30"
+    at: { x: 326, y: 266 }
+    size: { w: 52, h: 24 }
+  - id: doyo_17
+    label: "17"
+    hatch: solid
+    at: { x: 286, y: 290 }
+    size: { w: 40, h: 24 }
+  - id: doyo_17_25
+    label: "25"
+    at: { x: 326, y: 290 }
+    size: { w: 52, h: 24 }
+  - id: doyo_17_55
+    label: "55"
+    at: { x: 378, y: 290 }
+    size: { w: 52, h: 24 }
+  - id: doyo_18
+    label: "18"
+    hatch: solid
+    at: { x: 286, y: 314 }
+    size: { w: 40, h: 24 }
+  - id: doyo_18_40
+    label: "40"
+    at: { x: 326, y: 314 }
+    size: { w: 52, h: 24 }
+  - id: doyo_19
+    label: "19"
+    hatch: solid
+    at: { x: 286, y: 338 }
+    size: { w: 40, h: 24 }
+  - id: doyo_19_30
+    label: "30"
+    at: { x: 326, y: 338 }
+    size: { w: 52, h: 24 }
+  - id: doyo_20
+    label: "20"
+    hatch: solid
+    at: { x: 286, y: 362 }
+    size: { w: 40, h: 24 }
+  - id: doyo_20_25
+    label: "25"
+    at: { x: 326, y: 362 }
+    size: { w: 52, h: 24 }
+  - id: doyo_21
+    label: "21"
+    hatch: solid
+    at: { x: 286, y: 386 }
+    size: { w: 40, h: 24 }
+  - id: doyo_21_15
+    label: "15"
+    at: { x: 326, y: 386 }
+    size: { w: 52, h: 24 }
+  - id: nikkyu_h
+    label: "時"
+    hatch: solid
+    at: { x: 572, y: 0 }
+    size: { w: 40, h: 26 }
+  - id: nikkyu_head
+    label: "日祝"
+    hatch: solid
+    color: nikkyu
+    at: { x: 612, y: 0 }
+    size: { w: 208, h: 26 }
+  - id: nikkyu_06
+    label: "6"
+    hatch: solid
+    at: { x: 572, y: 26 }
+    size: { w: 40, h: 24 }
+  - id: nikkyu_06_45
+    label: "45"
+    at: { x: 612, y: 26 }
+    size: { w: 52, h: 24 }
+  - id: nikkyu_07
+    label: "7"
+    hatch: solid
+    at: { x: 572, y: 50 }
+    size: { w: 40, h: 24 }
+  - id: nikkyu_07_40
+    label: "40"
+    at: { x: 612, y: 50 }
+    size: { w: 52, h: 24 }
+  - id: nikkyu_08
+    label: "8"
+    hatch: solid
+    at: { x: 572, y: 74 }
+    size: { w: 40, h: 24 }
+  - id: nikkyu_08_35
+    label: "35"
+    at: { x: 612, y: 74 }
+    size: { w: 52, h: 24 }
+  - id: nikkyu_09
+    label: "9"
+    hatch: solid
+    at: { x: 572, y: 98 }
+    size: { w: 40, h: 24 }
+  - id: nikkyu_09_40
+    label: "40"
+    at: { x: 612, y: 98 }
+    size: { w: 52, h: 24 }
+  - id: nikkyu_10
+    label: "10"
+    hatch: solid
+    at: { x: 572, y: 122 }
+    size: { w: 40, h: 24 }
+  - id: nikkyu_10_40
+    label: "40"
+    at: { x: 612, y: 122 }
+    size: { w: 52, h: 24 }
+  - id: nikkyu_11
+    label: "11"
+    hatch: solid
+    at: { x: 572, y: 146 }
+    size: { w: 40, h: 24 }
+  - id: nikkyu_11_40
+    label: "40"
+    at: { x: 612, y: 146 }
+    size: { w: 52, h: 24 }
+  - id: nikkyu_12
+    label: "12"
+    hatch: solid
+    at: { x: 572, y: 170 }
+    size: { w: 40, h: 24 }
+  - id: nikkyu_12_40
+    label: "40"
+    at: { x: 612, y: 170 }
+    size: { w: 52, h: 24 }
+  - id: nikkyu_13
+    label: "13"
+    hatch: solid
+    at: { x: 572, y: 194 }
+    size: { w: 40, h: 24 }
+  - id: nikkyu_13_40
+    label: "40"
+    at: { x: 612, y: 194 }
+    size: { w: 52, h: 24 }
+  - id: nikkyu_14
+    label: "14"
+    hatch: solid
+    at: { x: 572, y: 218 }
+    size: { w: 40, h: 24 }
+  - id: nikkyu_14_40
+    label: "40"
+    at: { x: 612, y: 218 }
+    size: { w: 52, h: 24 }
+  - id: nikkyu_15
+    label: "15"
+    hatch: solid
+    at: { x: 572, y: 242 }
+    size: { w: 40, h: 24 }
+  - id: nikkyu_15_40
+    label: "40"
+    at: { x: 612, y: 242 }
+    size: { w: 52, h: 24 }
+  - id: nikkyu_16
+    label: "16"
+    hatch: solid
+    at: { x: 572, y: 266 }
+    size: { w: 40, h: 24 }
+  - id: nikkyu_16_40
+    label: "40"
+    at: { x: 612, y: 266 }
+    size: { w: 52, h: 24 }
+  - id: nikkyu_17
+    label: "17"
+    hatch: solid
+    at: { x: 572, y: 290 }
+    size: { w: 40, h: 24 }
+  - id: nikkyu_17_40
+    label: "40"
+    at: { x: 612, y: 290 }
+    size: { w: 52, h: 24 }
+  - id: nikkyu_18
+    label: "18"
+    hatch: solid
+    at: { x: 572, y: 314 }
+    size: { w: 40, h: 24 }
+  - id: nikkyu_18_35
+    label: "35"
+    at: { x: 612, y: 314 }
+    size: { w: 52, h: 24 }
+  - id: nikkyu_19
+    label: "19"
+    hatch: solid
+    at: { x: 572, y: 338 }
+    size: { w: 40, h: 24 }
+  - id: nikkyu_19_30
+    label: "30"
+    at: { x: 612, y: 338 }
+    size: { w: 52, h: 24 }
+  - id: nikkyu_20
+    label: "20"
+    hatch: solid
+    at: { x: 572, y: 362 }
+    size: { w: 40, h: 24 }
+  - id: nikkyu_20_20
+    label: "20"
+    at: { x: 612, y: 362 }
+    size: { w: 52, h: 24 }
+  - id: nikkyu_21
+    label: "21"
+    hatch: solid
+    at: { x: 572, y: 386 }
+    size: { w: 40, h: 24 }
+  - id: nikkyu_21_05
+    label: "05"
+    at: { x: 612, y: 386 }
+    size: { w: 52, h: 24 }
+  - id: lg
+    label: "急"
+    hatch: solid
+    color: kyuko
+    at: { x: 0, y: 424 }
+    size: { w: 52, h: 24 }
+  - id: lgn
+    label: "色の付いた時刻は急行便（中央公園・学園前は通過）"
+    marker: none
+    at: { x: 58, y: 424 }
+    size: { w: 430, h: 24 }

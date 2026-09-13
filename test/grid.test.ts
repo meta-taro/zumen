@@ -423,3 +423,70 @@ nodes:
     assert.equal(placed.boxes[0]!.y, 5);
   });
 });
+
+/**
+ * **縦の目盛り**（`grid.y` の `mark: tick`）。
+ *
+ * 登山のコースタイム図（縦が標高、横が累積時間）で出た（2026-09-13）。
+ * **標高の数字を、目盛りの線が横切っていた。**
+ *
+ * 原因は線を 2 本引いていたこと —— 通り芯の長い線（余白まで伸びる）を引いてから、
+ * 目盛りの短い線を重ねていた。**長いほうが文字の上を通っていた。**
+ * 横の目盛り（`grid.x`）は 1 本だけで、そちらは正しかった。
+ */
+describe('縦の目盛り（mark: tick）', () => {
+  const PROFILE = `version: 1
+kind: placement
+arrows: false
+grid:
+  y:
+    - { id: 2000 m, at: 40, mark: tick }
+    - { id: 1000 m, at: 240, mark: tick }
+nodes:
+  - id: a
+    label: 登山口
+    marker: circle
+    at: { x: 60, y: 230 }
+    size: { w: 26, h: 26 }
+  - id: b
+    label: 山頂
+    marker: circle
+    at: { x: 300, y: 30 }
+    size: { w: 26, h: 26 }
+`;
+
+  /** その図の一点鎖線（横方向のものだけ）。 */
+  function rules(out: string): { x1: number; x2: number; y: number }[] {
+    return [...out.matchAll(/<line x1="(-?\d+)" y1="(-?\d+)" x2="(-?\d+)" y2="(-?\d+)"[^>]*stroke-dasharray="14 3 3 3"/g)]
+      .filter((m) => m[2] === m[4])
+      .map((m) => ({ x1: Number(m[1]), x2: Number(m[3]), y: Number(m[2]) }));
+  }
+
+  it('**線は 1 本**（同じ高さに 2 本引かない）', async () => {
+    const out = render(await layout(PROFILE), 'light', 'safe', true);
+    const ys = rules(out).map((r) => r.y);
+    assert.equal(new Set(ys).size, ys.length, `同じ高さに 2 本引いた（${ys.join(', ')}）`);
+    assert.equal(ys.length, 2, '目盛りの本数が合わない');
+  });
+
+  it('**文字を線が横切らない**（線は文字より右から始まる）', async () => {
+    const out = render(await layout(PROFILE), 'light', 'safe', true);
+    const label = out.match(/<text x="(\d+)" y="(\d+)"[^>]*text-anchor="end"[^>]*>2000 m</)!;
+    const right = Number(label[1]);
+    const rule = rules(out).find((r) => Math.abs(r.y - Number(label[2])) < 12)!;
+    assert.ok(rule.x1 > right, `線が文字の上を通っている（文字の右端 ${right}・線の左端 ${rule.x1}）`);
+  });
+
+  it('横の目盛り（grid.x）は、これまでどおり 1 本', async () => {
+    const out = render(
+      await layout(PROFILE.replace('  y:', '  x:').replace('at: 40, mark', 'at: 60, mark').replace('at: 240, mark', 'at: 300, mark')),
+      'light',
+      'safe',
+      true,
+    );
+    const vertical = [...out.matchAll(/<line x1="(-?\d+)" y1="(-?\d+)" x2="(-?\d+)" y2="(-?\d+)"[^>]*stroke-dasharray="14 3 3 3"/g)]
+      .filter((m) => m[1] === m[3])
+      .map((m) => Number(m[1]));
+    assert.equal(new Set(vertical).size, vertical.length, '同じ位置に 2 本引いた');
+  });
+});

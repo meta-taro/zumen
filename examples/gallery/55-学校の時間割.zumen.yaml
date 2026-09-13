@@ -1,0 +1,226 @@
+version: 1
+kind: placement
+arrows: false
+title: 第三中学校 3 年 2 組 時間割（2026 年度 2 学期）
+# 週の表。縦が時限、横が曜日。セルは隙間なく並べる —— 罫線が繋がって表になる。
+# 昼休みは行をまたぐ帯（曜日で変わらないので、1 つの箱で通す）。
+nodes:
+  - id: corner
+    label: "時限"
+    hatch: solid
+    at: { x: 0, y: 0 }
+    size: { w: 64, h: 30 }
+  - id: d0
+    label: "月"
+    hatch: solid
+    at: { x: 64, y: 0 }
+    size: { w: 132, h: 30 }
+  - id: d1
+    label: "火"
+    hatch: solid
+    at: { x: 196, y: 0 }
+    size: { w: 132, h: 30 }
+  - id: d2
+    label: "水"
+    hatch: solid
+    at: { x: 328, y: 0 }
+    size: { w: 132, h: 30 }
+  - id: d3
+    label: "木"
+    hatch: solid
+    at: { x: 460, y: 0 }
+    size: { w: 132, h: 30 }
+  - id: d4
+    label: "金"
+    hatch: solid
+    at: { x: 592, y: 0 }
+    size: { w: 132, h: 30 }
+  - id: p0
+    label: "1"
+    hatch: solid
+    at: { x: 0, y: 30 }
+    size: { w: 64, h: 52 }
+  - id: c0_0
+    label: "国語"
+    technology: 3-2
+    at: { x: 64, y: 30 }
+    size: { w: 132, h: 52 }
+  - id: c0_1
+    label: "数学"
+    technology: 3-2
+    at: { x: 196, y: 30 }
+    size: { w: 132, h: 52 }
+  - id: c0_2
+    label: "英語"
+    technology: LL
+    at: { x: 328, y: 30 }
+    size: { w: 132, h: 52 }
+  - id: c0_3
+    label: "理科"
+    technology: 理科室
+    at: { x: 460, y: 30 }
+    size: { w: 132, h: 52 }
+  - id: c0_4
+    label: "社会"
+    technology: 3-2
+    at: { x: 592, y: 30 }
+    size: { w: 132, h: 52 }
+  - id: p1
+    label: "2"
+    hatch: solid
+    at: { x: 0, y: 82 }
+    size: { w: 64, h: 52 }
+  - id: c1_0
+    label: "数学"
+    technology: 3-2
+    at: { x: 64, y: 82 }
+    size: { w: 132, h: 52 }
+  - id: c1_1
+    label: "体育"
+    technology: 体育館
+    at: { x: 196, y: 82 }
+    size: { w: 132, h: 52 }
+  - id: c1_2
+    label: "国語"
+    technology: 3-2
+    at: { x: 328, y: 82 }
+    size: { w: 132, h: 52 }
+  - id: c1_3
+    label: "理科"
+    technology: 理科室
+    at: { x: 460, y: 82 }
+    size: { w: 132, h: 52 }
+  - id: c1_4
+    label: "英語"
+    technology: 3-2
+    at: { x: 592, y: 82 }
+    size: { w: 132, h: 52 }
+  - id: p2
+    label: "3"
+    hatch: solid
+    at: { x: 0, y: 134 }
+    size: { w: 64, h: 52 }
+  - id: c2_0
+    label: "英語"
+    technology: 3-2
+    at: { x: 64, y: 134 }
+    size: { w: 132, h: 52 }
+  - id: c2_1
+    label: "社会"
+    technology: 3-2
+    at: { x: 196, y: 134 }
+    size: { w: 132, h: 52 }
+  - id: c2_2
+    label: "数学"
+    technology: 3-2
+    at: { x: 328, y: 134 }
+    size: { w: 132, h: 52 }
+  - id: c2_3
+    label: "国語"
+    technology: 3-2
+    at: { x: 460, y: 134 }
+    size: { w: 132, h: 52 }
+  - id: c2_4
+    label: "音楽"
+    technology: 音楽室
+    at: { x: 592, y: 134 }
+    size: { w: 132, h: 52 }
+  - id: p3
+    label: "4"
+    hatch: solid
+    at: { x: 0, y: 186 }
+    size: { w: 64, h: 52 }
+  - id: c3_0
+    label: "理科"
+    technology: 理科室
+    at: { x: 64, y: 186 }
+    size: { w: 132, h: 52 }
+  - id: c3_1
+    label: "国語"
+    technology: 3-2
+    at: { x: 196, y: 186 }
+    size: { w: 132, h: 52 }
+  - id: c3_2
+    label: "社会"
+    technology: 3-2
+    at: { x: 328, y: 186 }
+    size: { w: 132, h: 52 }
+  - id: c3_3
+    label: "数学"
+    technology: 3-2
+    at: { x: 460, y: 186 }
+    size: { w: 132, h: 52 }
+  - id: c3_4
+    label: "体育"
+    technology: 校庭
+    at: { x: 592, y: 186 }
+    size: { w: 132, h: 52 }
+  - id: lunch
+    label: "昼休み・清掃"
+    appearance: muted
+    at: { x: 0, y: 238 }
+    size: { w: 724, h: 26 }
+  - id: p4
+    label: "5"
+    hatch: solid
+    at: { x: 0, y: 264 }
+    size: { w: 64, h: 52 }
+  - id: c4_0
+    label: "美術"
+    technology: 美術室
+    at: { x: 64, y: 264 }
+    size: { w: 132, h: 52 }
+  - id: c4_1
+    label: "技術"
+    technology: 技術室
+    at: { x: 196, y: 264 }
+    size: { w: 132, h: 52 }
+  - id: c4_2
+    label: "保健"
+    technology: 3-2
+    at: { x: 328, y: 264 }
+    size: { w: 132, h: 52 }
+  - id: c4_3
+    label: "英語"
+    technology: LL
+    at: { x: 460, y: 264 }
+    size: { w: 132, h: 52 }
+  - id: c4_4
+    label: "学活"
+    technology: 3-2
+    at: { x: 592, y: 264 }
+    size: { w: 132, h: 52 }
+  - id: p5
+    label: "6"
+    hatch: solid
+    at: { x: 0, y: 316 }
+    size: { w: 64, h: 52 }
+  - id: c5_0
+    label: "総合"
+    technology: 3-2
+    at: { x: 64, y: 316 }
+    size: { w: 132, h: 52 }
+  - id: c5_1
+    label: "技術"
+    technology: 技術室
+    at: { x: 196, y: 316 }
+    size: { w: 132, h: 52 }
+  - id: c5_2
+    label: "道徳"
+    technology: 3-2
+    at: { x: 328, y: 316 }
+    size: { w: 132, h: 52 }
+  - id: c5_3
+    label: "総合"
+    technology: 3-2
+    at: { x: 460, y: 316 }
+    size: { w: 132, h: 52 }
+  - id: c5_4
+    label: ""
+    at: { x: 592, y: 316 }
+    size: { w: 132, h: 52 }
+  - id: after
+    label: "放課後　部活動（〜18:00）"
+    marker: none
+    at: { x: 0, y: 368 }
+    size: { w: 724, h: 26 }

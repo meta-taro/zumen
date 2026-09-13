@@ -72,14 +72,22 @@ export function drawGrid(grid: Grid, frame: Frame, ink: Ink): string {
   }
   for (const axis of grid.y) {
     const y = axis.at;
-    parts.push(line(left, y, right, y, ink.stroke, CHAIN));
     if (axis.mark === 'tick') {
+      /**
+       * **目盛りの線は、通り芯の線より短い。**
+       *
+       * 通り芯は符号の丸まで伸ばすが、目盛りは名前が線の外にある。
+       * 長い線を引いてから短い線を重ねていたので、
+       * **長いほうが名前の上を通っていた**（2026-09-13。登山のコースタイム図で、
+       * 標高の数字を線が横切っていた）。横の目盛り（`grid.x`）は 1 本だけで正しかった。
+       */
       parts.push(line(frame.x - 10, y, frame.x + frame.w, y, ink.stroke, CHAIN));
       parts.push(
         `<text x="${n(frame.x - 16)}" y="${n(y + 4)}" text-anchor="end" font-family="${ink.font}" font-size="11" fill="${ink.text}">${axis.id}</text>`,
       );
       continue;
     }
+    parts.push(line(left, y, right, y, ink.stroke, CHAIN));
     if (axis.mark === 'level') {
       // **高さの基準線**（断面図・立面図）。丸ではなく三角と値。
       parts.push(level(left - 4, y, axis.id, ink, 'left'));

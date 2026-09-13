@@ -1,0 +1,85 @@
+version: 1
+kind: placement
+arrows: false
+title: 架空岳 コースタイム図（北面ルート・登り 4 時間 45 分）
+# 山行計画の縦断図。横が累積コースタイム、縦が標高。
+# 線の傾きがそのまま登りのきつさ —— 岩場の手前が立っているのが目で分かる。
+# 目盛りだけなので寸法は引かない（mark: tick）。区間の数字はコースタイム。
+grid:
+  y:
+    - { id: "2,200 m", at: 40, mark: tick }
+    - { id: "2,000 m", at: 112, mark: tick }
+    - { id: "1,800 m", at: 184, mark: tick }
+    - { id: "1,600 m", at: 256, mark: tick }
+    - { id: "1,400 m", at: 328, mark: tick }
+    - { id: "1,200 m", at: 400, mark: tick }
+    - { id: "1,000 m", at: 472, mark: tick }
+    - { id: "800 m", at: 544, mark: tick }
+  x:
+    - { id: "出発", at: 90, mark: tick }
+    - { id: "1:00", at: 246, mark: tick }
+    - { id: "2:00", at: 402, mark: tick }
+    - { id: "3:00", at: 558, mark: tick }
+    - { id: "4:00", at: 714, mark: tick }
+    - { id: "4:45", at: 831, mark: tick }
+nodes:
+  - id: p0
+    label: "登山口"
+    marker: circle
+    technology: バス停・水場
+    at: { x: 77, y: 523 }
+    size: { w: 26, h: 26 }
+  - id: p1
+    label: "一合目"
+    marker: circle
+    at: { x: 181, y: 441 }
+    size: { w: 26, h: 26 }
+  - id: p2
+    label: "休憩所"
+    marker: circle
+    technology: ベンチ・トイレ
+    at: { x: 298, y: 354 }
+    size: { w: 26, h: 26 }
+  - id: p3
+    label: "分岐"
+    marker: double
+    technology: 尾根道と沢道
+    at: { x: 411, y: 282 }
+    size: { w: 34, h: 34 }
+  - id: p4
+    label: "岩場"
+    marker: circle
+    technology: 鎖場 60m
+    at: { x: 558, y: 207 }
+    size: { w: 26, h: 26 }
+  - id: p5
+    label: "山小屋"
+    marker: circle
+    technology: 宿泊・水場
+    at: { x: 662, y: 142 }
+    size: { w: 26, h: 26 }
+  - id: p6
+    label: "山頂"
+    marker: double
+    technology: 2,140m
+    at: { x: 814, y: 44 }
+    size: { w: 34, h: 34 }
+edges:
+  - from: p0
+    to: p1
+    label: "40 分"
+  - from: p1
+    to: p2
+    label: "45 分"
+  - from: p2
+    to: p3
+    label: "45 分"
+  - from: p3
+    to: p4
+    label: "55 分"
+  - from: p4
+    to: p5
+    label: "40 分"
+  - from: p5
+    to: p6
+    label: "60 分"
