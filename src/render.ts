@@ -122,6 +122,15 @@ export function render(
   );
   const parts = [
     `<svg xmlns="http://www.w3.org/2000/svg" width="${size(paper.w)}" height="${size(paper.h)}" viewBox="0 0 ${size(paper.w)} ${size(paper.h)}">`,
+    /**
+     * **図の題は、絵の中には描かないが SVG の中には入れる。**
+     *
+     * SVG を 1 枚だけ人へ渡す使い方（チャットへ投げる）が実際にある。
+     * `<title>` は表示されないので図の見た目は変わらないが、
+     * **絵を見られない人と機械には、何の図かが届く**（読み上げ・貼り先の説明）。
+     * いちばん最初の子に置く —— 読み上げの順がそこで決まる。
+     */
+    placed.title === null || placed.title === '' ? '' : `<title>${escapeText(placed.title)}</title>`,
     `<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="${palette.edge.stroke}"/></marker></defs>`,
     ...placed.groups.map((group) => renderGroup(group, palette, plan, outerWall)),
     // **向きの無い線は、図そのもの。箱の下に敷く**（`src/arrows.ts`）。

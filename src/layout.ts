@@ -139,6 +139,8 @@ export interface Placed {
    * それは手直しを壊したことになる（判定基準 3.1）。**人へ出して選んでもらう。**
    */
   collisions: [string, string][];
+  /** **図の題**（`title`）。書かなければ null。**描かないが、SVG の中に入れる。** */
+  title: string | null;
   /** **通り芯**（`src/grid.ts`）。書かなければ空。配置図でだけ描く。 */
   grid: Grid;
   /** 1 px が何 mm か。**書かなければ寸法の数値を出さない。** */
@@ -258,6 +260,7 @@ export async function layout(text: string): Promise<Placed> {
   const raw = diagram.doc.toJS() as {
     direction?: unknown;
     wrap?: unknown;
+    title?: unknown;
     grid?: unknown;
     palette?: unknown;
     scale?: unknown;
@@ -422,6 +425,7 @@ export async function layout(text: string): Promise<Placed> {
     groups,
     edges,
     collisions: locked,
+    title: asText(raw.title),
     grid,
     mm: scaleOf(raw.scale),
     north: northOf(raw.north),

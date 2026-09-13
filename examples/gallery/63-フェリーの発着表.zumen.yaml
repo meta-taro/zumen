@@ -1,0 +1,354 @@
+version: 1
+kind: placement
+arrows: false
+title: 架空汽船 本土港 — 南島港 発着時刻表（2026-09-01 改正）
+# 待合所に貼ってある発着表。上が航路、下が便ごとの表。
+# 車両航送の可否と運航日は、便ごとに違う（フェリーはここが要る）。
+# 航路は直線ではないので curve: smooth で通している。
+nodes:
+  - id: honto
+    label: "本土港"
+    marker: circle
+    technology: 待合所・駐車場
+    at: { x: 60, y: 60 }
+    size: { w: 80, h: 34 }
+  - id: minami
+    label: "南島港"
+    marker: circle
+    technology: 待合所
+    at: { x: 560, y: 150 }
+    size: { w: 80, h: 34 }
+  - id: shima
+    label: "中島（通過）"
+    marker: none
+    at: { x: 300, y: 22 }
+    size: { w: 90, h: 20 }
+  - id: koro
+    label: "航路 22.4km ／ 所要 1 時間 15 分"
+    marker: none
+    at: { x: 240, y: 190 }
+    size: { w: 280, h: 24 }
+  - id: go_t
+    label: "本土港 発 → 南島港 着（往路）"
+    hatch: solid
+    at: { x: 0, y: 250 }
+    size: { w: 490, h: 26 }
+  - id: go_h0
+    label: "便名"
+    appearance: muted
+    at: { x: 0, y: 276 }
+    size: { w: 70, h: 26 }
+  - id: go_h1
+    label: "出港"
+    appearance: muted
+    at: { x: 70, y: 276 }
+    size: { w: 70, h: 26 }
+  - id: go_h2
+    label: "入港"
+    appearance: muted
+    at: { x: 140, y: 276 }
+    size: { w: 70, h: 26 }
+  - id: go_h3
+    label: "所要"
+    appearance: muted
+    at: { x: 210, y: 276 }
+    size: { w: 70, h: 26 }
+  - id: go_h4
+    label: "車両"
+    appearance: muted
+    at: { x: 280, y: 276 }
+    size: { w: 60, h: 26 }
+  - id: go_h5
+    label: "運航日"
+    appearance: muted
+    at: { x: 340, y: 276 }
+    size: { w: 150, h: 26 }
+  - id: go_c0_0
+    label: "第 1 便"
+    at: { x: 0, y: 302 }
+    size: { w: 70, h: 26 }
+  - id: go_c0_1
+    label: "06:40"
+    at: { x: 70, y: 302 }
+    size: { w: 70, h: 26 }
+  - id: go_c0_2
+    label: "07:55"
+    at: { x: 140, y: 302 }
+    size: { w: 70, h: 26 }
+  - id: go_c0_3
+    label: "1:15"
+    at: { x: 210, y: 302 }
+    size: { w: 70, h: 26 }
+  - id: go_c0_4
+    label: "○"
+    at: { x: 280, y: 302 }
+    size: { w: 60, h: 26 }
+  - id: go_c0_5
+    label: "毎日"
+    at: { x: 340, y: 302 }
+    size: { w: 150, h: 26 }
+  - id: go_c1_0
+    label: "第 3 便"
+    at: { x: 0, y: 328 }
+    size: { w: 70, h: 26 }
+  - id: go_c1_1
+    label: "09:20"
+    at: { x: 70, y: 328 }
+    size: { w: 70, h: 26 }
+  - id: go_c1_2
+    label: "10:35"
+    at: { x: 140, y: 328 }
+    size: { w: 70, h: 26 }
+  - id: go_c1_3
+    label: "1:15"
+    at: { x: 210, y: 328 }
+    size: { w: 70, h: 26 }
+  - id: go_c1_4
+    label: "○"
+    at: { x: 280, y: 328 }
+    size: { w: 60, h: 26 }
+  - id: go_c1_5
+    label: "毎日"
+    at: { x: 340, y: 328 }
+    size: { w: 150, h: 26 }
+  - id: go_c2_0
+    label: "第 5 便"
+    at: { x: 0, y: 354 }
+    size: { w: 70, h: 26 }
+  - id: go_c2_1
+    label: "12:10"
+    at: { x: 70, y: 354 }
+    size: { w: 70, h: 26 }
+  - id: go_c2_2
+    label: "13:25"
+    at: { x: 140, y: 354 }
+    size: { w: 70, h: 26 }
+  - id: go_c2_3
+    label: "1:15"
+    at: { x: 210, y: 354 }
+    size: { w: 70, h: 26 }
+  - id: go_c2_4
+    label: "○"
+    at: { x: 280, y: 354 }
+    size: { w: 60, h: 26 }
+  - id: go_c2_5
+    label: "毎日"
+    at: { x: 340, y: 354 }
+    size: { w: 150, h: 26 }
+  - id: go_c3_0
+    label: "第 7 便"
+    at: { x: 0, y: 380 }
+    size: { w: 70, h: 26 }
+  - id: go_c3_1
+    label: "15:00"
+    at: { x: 70, y: 380 }
+    size: { w: 70, h: 26 }
+  - id: go_c3_2
+    label: "16:15"
+    at: { x: 140, y: 380 }
+    size: { w: 70, h: 26 }
+  - id: go_c3_3
+    label: "1:15"
+    at: { x: 210, y: 380 }
+    size: { w: 70, h: 26 }
+  - id: go_c3_4
+    label: "○"
+    at: { x: 280, y: 380 }
+    size: { w: 60, h: 26 }
+  - id: go_c3_5
+    label: "毎日"
+    at: { x: 340, y: 380 }
+    size: { w: 150, h: 26 }
+  - id: go_c4_0
+    label: "第 9 便"
+    at: { x: 0, y: 406 }
+    size: { w: 70, h: 26 }
+  - id: go_c4_1
+    label: "17:50"
+    at: { x: 70, y: 406 }
+    size: { w: 70, h: 26 }
+  - id: go_c4_2
+    label: "19:05"
+    at: { x: 140, y: 406 }
+    size: { w: 70, h: 26 }
+  - id: go_c4_3
+    label: "1:15"
+    at: { x: 210, y: 406 }
+    size: { w: 70, h: 26 }
+  - id: go_c4_4
+    label: "×"
+    at: { x: 280, y: 406 }
+    size: { w: 60, h: 26 }
+  - id: go_c4_5
+    label: "金土日・祝"
+    at: { x: 340, y: 406 }
+    size: { w: 150, h: 26 }
+  - id: bk_t
+    label: "南島港 発 → 本土港 着（復路）"
+    hatch: solid
+    at: { x: 0, y: 450 }
+    size: { w: 490, h: 26 }
+  - id: bk_h0
+    label: "便名"
+    appearance: muted
+    at: { x: 0, y: 476 }
+    size: { w: 70, h: 26 }
+  - id: bk_h1
+    label: "出港"
+    appearance: muted
+    at: { x: 70, y: 476 }
+    size: { w: 70, h: 26 }
+  - id: bk_h2
+    label: "入港"
+    appearance: muted
+    at: { x: 140, y: 476 }
+    size: { w: 70, h: 26 }
+  - id: bk_h3
+    label: "所要"
+    appearance: muted
+    at: { x: 210, y: 476 }
+    size: { w: 70, h: 26 }
+  - id: bk_h4
+    label: "車両"
+    appearance: muted
+    at: { x: 280, y: 476 }
+    size: { w: 60, h: 26 }
+  - id: bk_h5
+    label: "運航日"
+    appearance: muted
+    at: { x: 340, y: 476 }
+    size: { w: 150, h: 26 }
+  - id: bk_c0_0
+    label: "第 2 便"
+    at: { x: 0, y: 502 }
+    size: { w: 70, h: 26 }
+  - id: bk_c0_1
+    label: "08:20"
+    at: { x: 70, y: 502 }
+    size: { w: 70, h: 26 }
+  - id: bk_c0_2
+    label: "09:35"
+    at: { x: 140, y: 502 }
+    size: { w: 70, h: 26 }
+  - id: bk_c0_3
+    label: "1:15"
+    at: { x: 210, y: 502 }
+    size: { w: 70, h: 26 }
+  - id: bk_c0_4
+    label: "○"
+    at: { x: 280, y: 502 }
+    size: { w: 60, h: 26 }
+  - id: bk_c0_5
+    label: "毎日"
+    at: { x: 340, y: 502 }
+    size: { w: 150, h: 26 }
+  - id: bk_c1_0
+    label: "第 4 便"
+    at: { x: 0, y: 528 }
+    size: { w: 70, h: 26 }
+  - id: bk_c1_1
+    label: "11:00"
+    at: { x: 70, y: 528 }
+    size: { w: 70, h: 26 }
+  - id: bk_c1_2
+    label: "12:15"
+    at: { x: 140, y: 528 }
+    size: { w: 70, h: 26 }
+  - id: bk_c1_3
+    label: "1:15"
+    at: { x: 210, y: 528 }
+    size: { w: 70, h: 26 }
+  - id: bk_c1_4
+    label: "○"
+    at: { x: 280, y: 528 }
+    size: { w: 60, h: 26 }
+  - id: bk_c1_5
+    label: "毎日"
+    at: { x: 340, y: 528 }
+    size: { w: 150, h: 26 }
+  - id: bk_c2_0
+    label: "第 6 便"
+    at: { x: 0, y: 554 }
+    size: { w: 70, h: 26 }
+  - id: bk_c2_1
+    label: "14:05"
+    at: { x: 70, y: 554 }
+    size: { w: 70, h: 26 }
+  - id: bk_c2_2
+    label: "15:20"
+    at: { x: 140, y: 554 }
+    size: { w: 70, h: 26 }
+  - id: bk_c2_3
+    label: "1:15"
+    at: { x: 210, y: 554 }
+    size: { w: 70, h: 26 }
+  - id: bk_c2_4
+    label: "○"
+    at: { x: 280, y: 554 }
+    size: { w: 60, h: 26 }
+  - id: bk_c2_5
+    label: "毎日"
+    at: { x: 340, y: 554 }
+    size: { w: 150, h: 26 }
+  - id: bk_c3_0
+    label: "第 8 便"
+    at: { x: 0, y: 580 }
+    size: { w: 70, h: 26 }
+  - id: bk_c3_1
+    label: "16:45"
+    at: { x: 70, y: 580 }
+    size: { w: 70, h: 26 }
+  - id: bk_c3_2
+    label: "18:00"
+    at: { x: 140, y: 580 }
+    size: { w: 70, h: 26 }
+  - id: bk_c3_3
+    label: "1:15"
+    at: { x: 210, y: 580 }
+    size: { w: 70, h: 26 }
+  - id: bk_c3_4
+    label: "○"
+    at: { x: 280, y: 580 }
+    size: { w: 60, h: 26 }
+  - id: bk_c3_5
+    label: "毎日"
+    at: { x: 340, y: 580 }
+    size: { w: 150, h: 26 }
+  - id: bk_c4_0
+    label: "第 10 便"
+    at: { x: 0, y: 606 }
+    size: { w: 70, h: 26 }
+  - id: bk_c4_1
+    label: "19:30"
+    at: { x: 70, y: 606 }
+    size: { w: 70, h: 26 }
+  - id: bk_c4_2
+    label: "20:45"
+    at: { x: 140, y: 606 }
+    size: { w: 70, h: 26 }
+  - id: bk_c4_3
+    label: "1:15"
+    at: { x: 210, y: 606 }
+    size: { w: 70, h: 26 }
+  - id: bk_c4_4
+    label: "×"
+    at: { x: 280, y: 606 }
+    size: { w: 60, h: 26 }
+  - id: bk_c4_5
+    label: "金土日・祝"
+    at: { x: 340, y: 606 }
+    size: { w: 150, h: 26 }
+  - id: note
+    label: "荒天時は欠航（風速 15m/s 以上・波高 2.5m 以上）。当日 6:00 に運航判断。"
+    marker: none
+    at: { x: 0, y: 648 }
+    size: { w: 470, h: 26 }
+edges:
+  - from: honto
+    to: minami
+    curve: smooth
+    weight: thick
+    via:
+      - { x: 240, y: 120 }
+      - { x: 335, y: 65 }
+      - { x: 430, y: 110 }

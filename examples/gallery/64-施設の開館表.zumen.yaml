@@ -1,0 +1,231 @@
+version: 1
+kind: placement
+arrows: false
+title: 中央市民体育館 週間開放表（第 1 競技場・2026 年度 下期）
+# 入口に貼ってある開館表。横が時刻、縦が曜日。
+# 区分は「色」ではなく模様で示す（DESIGN.md §7）。
+# 水曜は休館 —— 帯を描かないことが「開いていない」の意味。
+# 凡例と注記は、いちばん右の目盛りより外へ置く
+# （目盛りの一点鎖線が文字の上を通るため。課題 13）。
+grid:
+  x:
+    - { id: "9:00", at: 130, mark: tick }
+    - { id: "10:00", at: 184, mark: tick }
+    - { id: "11:00", at: 238, mark: tick }
+    - { id: "12:00", at: 292, mark: tick }
+    - { id: "13:00", at: 346, mark: tick }
+    - { id: "14:00", at: 400, mark: tick }
+    - { id: "15:00", at: 454, mark: tick }
+    - { id: "16:00", at: 508, mark: tick }
+    - { id: "17:00", at: 562, mark: tick }
+    - { id: "18:00", at: 616, mark: tick }
+    - { id: "19:00", at: 670, mark: tick }
+    - { id: "20:00", at: 724, mark: tick }
+    - { id: "21:00", at: 778, mark: tick }
+    - { id: "22:00", at: 832, mark: tick }
+nodes:
+  - id: d0
+    label: "月"
+    hatch: solid
+    at: { x: 0, y: 60 }
+    size: { w: 110, h: 32 }
+  - id: s0_0
+    label: "一般開放"
+    hatch: none
+    at: { x: 130, y: 60 }
+    size: { w: 162, h: 32 }
+  - id: s0_1
+    label: ""
+    hatch: solid
+    at: { x: 292, y: 60 }
+    size: { w: 54, h: 32 }
+  - id: s0_2
+    label: "一般開放"
+    hatch: none
+    at: { x: 346, y: 60 }
+    size: { w: 216, h: 32 }
+  - id: s0_3
+    label: "団体予約"
+    hatch: lines
+    at: { x: 562, y: 60 }
+    size: { w: 216, h: 32 }
+  - id: d1
+    label: "火"
+    hatch: solid
+    at: { x: 0, y: 100 }
+    size: { w: 110, h: 32 }
+  - id: s1_0
+    label: "教室"
+    hatch: dots
+    at: { x: 130, y: 100 }
+    size: { w: 162, h: 32 }
+  - id: s1_1
+    label: ""
+    hatch: solid
+    at: { x: 292, y: 100 }
+    size: { w: 54, h: 32 }
+  - id: s1_2
+    label: "一般開放"
+    hatch: none
+    at: { x: 346, y: 100 }
+    size: { w: 216, h: 32 }
+  - id: s1_3
+    label: "団体予約"
+    hatch: lines
+    at: { x: 562, y: 100 }
+    size: { w: 216, h: 32 }
+  - id: d2
+    label: "水"
+    hatch: solid
+    at: { x: 0, y: 140 }
+    size: { w: 110, h: 32 }
+  - id: r2
+    label: "休館日"
+    marker: none
+    at: { x: 130, y: 140 }
+    size: { w: 702, h: 32 }
+  - id: d3
+    label: "木"
+    hatch: solid
+    at: { x: 0, y: 180 }
+    size: { w: 110, h: 32 }
+  - id: s3_0
+    label: "一般開放"
+    hatch: none
+    at: { x: 130, y: 180 }
+    size: { w: 162, h: 32 }
+  - id: s3_1
+    label: ""
+    hatch: solid
+    at: { x: 292, y: 180 }
+    size: { w: 54, h: 32 }
+  - id: s3_2
+    label: "教室"
+    hatch: dots
+    at: { x: 346, y: 180 }
+    size: { w: 216, h: 32 }
+  - id: s3_3
+    label: "一般開放"
+    hatch: none
+    at: { x: 562, y: 180 }
+    size: { w: 216, h: 32 }
+  - id: d4
+    label: "金"
+    hatch: solid
+    at: { x: 0, y: 220 }
+    size: { w: 110, h: 32 }
+  - id: s4_0
+    label: "一般開放"
+    hatch: none
+    at: { x: 130, y: 220 }
+    size: { w: 162, h: 32 }
+  - id: s4_1
+    label: ""
+    hatch: solid
+    at: { x: 292, y: 220 }
+    size: { w: 54, h: 32 }
+  - id: s4_2
+    label: "一般開放"
+    hatch: none
+    at: { x: 346, y: 220 }
+    size: { w: 216, h: 32 }
+  - id: s4_3
+    label: "団体予約"
+    hatch: lines
+    at: { x: 562, y: 220 }
+    size: { w: 270, h: 32 }
+  - id: d5
+    label: "土"
+    hatch: solid
+    at: { x: 0, y: 260 }
+    size: { w: 110, h: 32 }
+  - id: s5_0
+    label: "一般開放"
+    hatch: none
+    at: { x: 130, y: 260 }
+    size: { w: 216, h: 32 }
+  - id: s5_1
+    label: ""
+    hatch: solid
+    at: { x: 346, y: 260 }
+    size: { w: 54, h: 32 }
+  - id: s5_2
+    label: "一般開放"
+    hatch: none
+    at: { x: 400, y: 260 }
+    size: { w: 378, h: 32 }
+  - id: d6
+    label: "日"
+    hatch: solid
+    at: { x: 0, y: 300 }
+    size: { w: 110, h: 32 }
+  - id: s6_0
+    label: "一般開放"
+    hatch: none
+    at: { x: 130, y: 300 }
+    size: { w: 216, h: 32 }
+  - id: s6_1
+    label: ""
+    hatch: solid
+    at: { x: 346, y: 300 }
+    size: { w: 54, h: 32 }
+  - id: s6_2
+    label: "一般開放"
+    hatch: none
+    at: { x: 400, y: 300 }
+    size: { w: 216, h: 32 }
+  - id: lg_none
+    label: ""
+    hatch: none
+    at: { x: 880, y: 60 }
+    size: { w: 26, h: 20 }
+  - id: lgn_none
+    label: "一般開放"
+    marker: none
+    at: { x: 910, y: 60 }
+    size: { w: 110, h: 20 }
+  - id: lg_lines
+    label: ""
+    hatch: lines
+    at: { x: 880, y: 90 }
+    size: { w: 26, h: 20 }
+  - id: lgn_lines
+    label: "団体予約"
+    marker: none
+    at: { x: 910, y: 90 }
+    size: { w: 110, h: 20 }
+  - id: lg_dots
+    label: ""
+    hatch: dots
+    at: { x: 880, y: 120 }
+    size: { w: 26, h: 20 }
+  - id: lgn_dots
+    label: "教室"
+    marker: none
+    at: { x: 910, y: 120 }
+    size: { w: 110, h: 20 }
+  - id: lg_solid
+    label: ""
+    hatch: solid
+    at: { x: 880, y: 150 }
+    size: { w: 26, h: 20 }
+  - id: lgn_solid
+    label: "清掃・点検"
+    marker: none
+    at: { x: 910, y: 150 }
+    size: { w: 110, h: 20 }
+  - id: note0
+    label: "団体予約は前月 1 日 9:00 から"
+    marker: none
+    at: { x: 880, y: 190 }
+    size: { w: 230, h: 24 }
+  - id: note1
+    label: "窓口・電子申請で受付"
+    marker: none
+    at: { x: 880, y: 216 }
+    size: { w: 230, h: 24 }
+  - id: note2
+    label: "第 1 競技場は 2 面まで分割可"
+    marker: none
+    at: { x: 880, y: 242 }
+    size: { w: 230, h: 24 }

@@ -87,3 +87,49 @@ describe('render', () => {
     assert.match(svg, /&lt;script&gt;&amp;&quot;/);
   });
 });
+
+/**
+ * **図の題を SVG の中へ入れる**（`<title>`）。
+ *
+ * 2026-09-13。`title` は Markdown へ埋め込むときの代替文字にしか使っていなかった。
+ * **書き出した SVG そのものには、何の図かがどこにも書かれていない。**
+ *
+ * SVG を 1 枚だけ人に渡す使い方（グループチャットへ投げる）が実際にあるので、
+ * **絵を見られない人と機械にも、何の図かが届く**必要がある。
+ * 描くものは増やさない —— `<title>` は表示されない。
+ */
+describe('図の題は SVG の中にある', () => {
+  const SRC = `version: 1
+title: 中央本町商店街 店舗案内図
+nodes:
+  - id: a
+    label: 甲
+  - id: b
+    label: 乙
+`;
+
+  it('**`<title>` が、svg のいちばん最初の子になる**（読み上げの順）', async () => {
+    const out = render(await layout(SRC), 'light', 'safe', false);
+    assert.match(out, /^<svg [^>]*>\s*<title>中央本町商店街 店舗案内図<\/title>/);
+  });
+
+  it('題が無ければ、`<title>` を出さない（空の題を作らない）', async () => {
+    const out = render(await layout(SRC.replace(/^title: .*\n/m, '')), 'light', 'safe', false);
+    assert.ok(!out.includes('<title>'), '題が無いのに出した');
+  });
+
+  it('題の記号は逃がす（図が壊れない）', async () => {
+    const out = render(await layout(SRC.replace('中央本町商店街 店舗案内図', 'A & B <試作>')), 'light', 'safe', false);
+    assert.match(out, /<title>A &amp; B &lt;試作&gt;<\/title>/);
+  });
+
+  it('配置図でも入る', async () => {
+    const out = render(
+      await layout('version: 1\nkind: placement\ntitle: 平面図\nnodes:\n  - id: a\n    label: 室\n    at: { x: 0, y: 0 }\n    size: { w: 80, h: 40 }\n'),
+      'light',
+      'safe',
+      true,
+    );
+    assert.match(out, /<title>平面図<\/title>/);
+  });
+});
