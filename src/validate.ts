@@ -20,6 +20,7 @@ import { KINDS as KIND_WORDS } from './kind.ts';
 import { MARKS, NORTHS } from './grid.ts';
 import { ENDS } from './ends.ts';
 import { LINES } from './line.ts';
+import { FAINT, contrastOn, paletteOf as routePalette } from './palette.ts';
 import { WEIGHTS } from './weight.ts';
 import { HATCHES } from './hatch.ts';
 import { SYMBOLS } from './symbol.ts';
@@ -102,6 +103,7 @@ export function validate(text: string): Finding[] {
   checkGeometry(doc, add, m, at);
   checkGridAndScale(doc, add, m, at);
   checkEnds(doc, add, m, at);
+  checkColors(doc, add, m, at);
   const edgeKeys = checkEdges(doc, nodeIds, add, m, at);
   checkPins(doc, nodeIds, edgeKeys, add, m, at);
   checkRoundTrip(doc, text, add, m);
@@ -429,6 +431,48 @@ function checkEdges(doc: Document, nodeIds: Set<string>, add: Add, m: Messages, 
 }
 
 /** 辺の端の記号（`src/ends.ts`）。知らない語は描かないので、知らせる。 */
+/**
+ * **路線の色**（`src/palette.ts`）。
+ *
+ * 色は `DESIGN.md` §7 の例外として入れた（色が記法そのものである業界のため）。
+ * **例外である以上、外れ方を見張る。**
+ *
+ * - 鍵が `palette` に無い（色が付かない）
+ * - 色が薄すぎる（**白黒に落とすと消える**）
+ * - **色だけで示している**（`tag` に路線記号が出ていない）
+ */
+function checkColors(doc: Document, add: Add, m: Messages, at: At): void {
+  const raw = doc.get('palette', true);
+  const table = routePalette(isMap(raw) ? raw.toJSON() : undefined);
+
+  for (const [key, value] of Object.entries(table)) {
+    if (contrastOn(value, '#ffffff') < FAINT) {
+      add('warning', 'color-faint', m.colorFaint(key, value), at(raw));
+    }
+  }
+
+  const seen = (item: YAMLMap, name: string, tag: string | null): void => {
+    const key = item.get('color');
+    if (key === undefined || key === null) return;
+    if (table[String(key)] === undefined) {
+      add('warning', 'color-unknown', m.colorUnknown(name, String(key)), at(item.get('color', true)));
+      return;
+    }
+    // **色だけに頼らせない。** 路線記号が図に文字として出ていること。
+    if (tag !== null && !tag.startsWith(String(key))) {
+      add('warning', 'color-without-code', m.colorWithoutCode(name, String(key)), at(item));
+    }
+  };
+
+  for (const item of seqOf(doc, 'nodes')) {
+    const tag = item.get('tag');
+    seen(item, String(item.get('id')), tag === undefined || tag === null ? null : String(tag));
+  }
+  for (const item of seqOf(doc, 'edges')) {
+    seen(item, `${String(item.get('from'))}>${String(item.get('to'))}`, null);
+  }
+}
+
 function checkEnds(doc: Document, add: Add, m: Messages, at: At): void {
   for (const item of seqOf(doc, 'edges')) {
     const name = `${String(item.get('from'))}>${String(item.get('to'))}`;

@@ -29,6 +29,7 @@ import { markerOf } from './marker.ts';
 import type { Marker } from './marker.ts';
 import { endsOf } from './ends.ts';
 import { lineOf } from './line.ts';
+import { colorOf, paletteOf as routePalette } from './palette.ts';
 import { weightOf } from './weight.ts';
 import type { Weight } from './weight.ts';
 import type { Line } from './line.ts';
@@ -85,6 +86,8 @@ export interface Box {
   hatch: Hatch;
   /** **電気・電子の図記号**（`src/symbol.ts`）。無ければ null。 */
   symbol: Symbol | null;
+  /** **路線の色**（`src/palette.ts`）。`palette` に無ければ null。 */
+  color: string | null;
   /** 人が置いた場所か。 */
   pinned: boolean;
 }
@@ -109,6 +112,8 @@ export interface PlacedEdge {
   line: Line;
   /** **線の太さ**（`src/weight.ts`）。路線図の路線。 */
   weight: Weight;
+  /** **路線の色**（`src/palette.ts`）。`palette` に無ければ null。 */
+  color: string | null;
 }
 
 export interface Placed {
@@ -237,11 +242,14 @@ export async function layout(text: string): Promise<Placed> {
   const groupIds = diagram.groupIds();
 
   const groupLabels = readGroupLabels(diagram);
+  // **路線の色は正本が決める**（`src/palette.ts`）。こちらは色を持たない。
+  const routes = routePalette((diagram.doc.toJS() as { palette?: unknown }).palette);
   // **向きは正本が決める**（`direction: right | down`。既定は横）。
   const raw = diagram.doc.toJS() as {
     direction?: unknown;
     wrap?: unknown;
     grid?: unknown;
+    palette?: unknown;
     scale?: unknown;
     north?: unknown;
     wall?: unknown;
@@ -256,7 +264,7 @@ export async function layout(text: string): Promise<Placed> {
   const boxes: Box[] = [];
   const groups: Box[] = [];
   collect(laid, 0, 0, nodes, groupLabels, boxes, groups);
-  const routes = collectRoutes(laid, groups, nodes);
+  const routeMap = collectRoutes(laid, groups, nodes);
 
   /**
    * **ELK がどこへ置いたか**を控える（Issue #8）。
@@ -332,7 +340,15 @@ export async function layout(text: string): Promise<Placed> {
     }).map((box) => box.id),
   );
 
-  const edges = routeEdges(readEdges(diagram), boxes, pins, routes, moved);
+  const rawEdges = readEdges(diagram);
+  const edges = routeEdges(rawEdges, boxes, pins, routeMap, moved);
+  // **色は鍵から引く。** `palette` に無い鍵は使わない（勝手な色を作らない）。
+  for (const [index, line] of edges.entries()) {
+    line.color = colorOf(rawEdges[index]?.colorKey, routes);
+  }
+  for (const box of boxes) {
+    box.color = colorOf(nodes.find((n) => n.id === box.id)?.color, routes);
+  }
   /**
    * **通り芯と寸法線の分だけ、外側へ空ける**（`src/grid.ts`）。
    *
@@ -547,6 +563,8 @@ interface NodeInfo {
   hatch: Hatch;
   /** 図記号（`src/symbol.ts`）。 */
   symbol: Symbol | null;
+  /** 色の鍵（`src/palette.ts`）。 */
+  color: unknown;
   /**
    * **AI が書いた置き場所**（仕様 §3.1。配置図で使う）。
    *
@@ -581,6 +599,7 @@ function readNodes(diagram: ReturnType<typeof parse>): NodeInfo[] {
       marker?: unknown;
       hatch?: unknown;
       symbol?: unknown;
+      color?: unknown;
       at?: unknown;
       size?: unknown;
       openings?: unknown;
@@ -599,6 +618,7 @@ function readNodes(diagram: ReturnType<typeof parse>): NodeInfo[] {
       marker: markerOf(node.marker),
       hatch: hatchOf(node.hatch),
       symbol: symbolOf(node.symbol),
+      color: node.color,
       at: asPoint(node.at),
       size: asSize(node.size),
       openings: openingsOf(node.openings),
@@ -617,6 +637,10 @@ interface EdgeInfo {
   line: Line;
   /** 線の太さ（`src/weight.ts`）。 */
   weight: Weight;
+  /** 路線の色（`src/palette.ts`）。**引く前は鍵、引いたあとは色。** */
+  color: string | null;
+  /** 色の鍵（引く前）。 */
+  colorKey: unknown;
 }
 
 /** グループの表示名。無ければ id を使う。 */
@@ -660,6 +684,8 @@ function readEdges(diagram: ReturnType<typeof parse>): EdgeInfo[] {
       ends: endsOf(edge.ends),
       line: lineOf(edge.line),
       weight: weightOf(edge.weight),
+      color: null,
+      colorKey: edge.color,
     };
   });
 }
@@ -921,6 +947,7 @@ function collect(
       marker: nodes.find((n) => n.id === child.id)?.marker ?? 'box',
       hatch: nodes.find((n) => n.id === child.id)?.hatch ?? 'none',
       symbol: nodes.find((n) => n.id === child.id)?.symbol ?? null,
+      color: null,
       openings: nodes.find((n) => n.id === child.id)?.openings ?? [],
       pinned: false,
     };

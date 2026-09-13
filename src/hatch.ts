@@ -41,6 +41,7 @@
  *
  * 間隔には下限を置く（**細かすぎると潰れて黒い面になる**）。
  */
+import type { Marker } from './marker.ts';
 import type { Rect } from './openings.ts';
 
 export const HATCHES = ['none', 'solid', 'dots', 'lines', 'cross'] as const;
@@ -65,12 +66,45 @@ function n(value: number): number {
  * **箱の縁からはみ出さない。** はみ出すと隣の区画の模様と混ざって、
  * どこまでが同じ材料か読めなくなる。
  */
-export function drawHatch(hatch: Hatch, box: Rect, stroke: string): string {
+/**
+ * **塗りと模様が乗る形**（`src/marker.ts` の印と同じ形）。
+ *
+ * 丸い印を四角で塗ると、**丸の上に四角が乗る**（2026-09-13。
+ * 停車駅案内図の ● で踏んだ）。形は印が決めているので、面もそれに従う。
+ */
+function faceOf(marker: Marker, box: Rect, attrs: string): string {
+  const cx = box.x + box.w / 2;
+  const cy = box.y + box.h / 2;
+  if (marker === 'circle' || marker === 'double') {
+    return `<circle cx="${n(cx)}" cy="${n(cy)}" r="${n(Math.min(box.w, box.h) / 2)}" ${attrs}/>`;
+  }
+  if (marker === 'ellipse') {
+    return `<ellipse cx="${n(cx)}" cy="${n(cy)}" rx="${n(box.w / 2)}" ry="${n(box.h / 2)}" ${attrs}/>`;
+  }
+  if (marker === 'diamond') {
+    const d = `M ${n(cx)} ${n(box.y)} L ${n(box.x + box.w)} ${n(cy)} L ${n(cx)} ${n(box.y + box.h)} L ${n(box.x)} ${n(cy)} Z`;
+    return `<path d="${d}" ${attrs}/>`;
+  }
+  return `<rect x="${n(box.x)}" y="${n(box.y)}" width="${n(box.w)}" height="${n(box.h)}" ${attrs}/>`;
+}
+
+/** 切り抜きの名前に使える字だけにする（`id` は人が書くもの）。 */
+function slug(id: string): string {
+  return id.replace(/[^A-Za-z0-9_-]/g, '_');
+}
+
+export function drawHatch(
+  hatch: Hatch,
+  box: Rect,
+  stroke: string,
+  marker: Marker = 'box',
+  id = '',
+): string {
   if (hatch === 'none' || box.w <= 2 || box.h <= 2) return '';
 
   if (hatch === 'solid') {
     // 塗り潰し。**枠は別に描かれているので、ここは面だけ。**
-    return `<rect x="${n(box.x)}" y="${n(box.y)}" width="${n(box.w)}" height="${n(box.h)}" fill="${stroke}" fill-opacity="0.82"/>`;
+    return faceOf(marker, box, `fill="${stroke}" fill-opacity="0.82"`);
   }
 
   const parts: string[] = [];
@@ -84,7 +118,7 @@ export function drawHatch(hatch: Hatch, box: Rect, stroke: string): string {
         count += 1;
       }
     }
-    return parts.join('');
+    return clipped(parts.join(''), marker, box, id);
   }
 
   // 斜線と格子。**45 度**（製図の決まり）。
@@ -107,7 +141,18 @@ export function drawHatch(hatch: Hatch, box: Rect, stroke: string): string {
       count += 1;
     }
   }
-  return parts.join('');
+  return clipped(parts.join(''), marker, box, id);
+}
+
+/**
+ * **模様は印からはみ出さない。**
+ *
+ * 矩形はそのまま（切り抜きは要らない）。丸や菱形のときだけ、印の形で切る。
+ */
+function clipped(body: string, marker: Marker, box: Rect, id: string): string {
+  if (body === '' || marker === 'box' || marker === 'none' || marker === 'bar') return body;
+  const name = `hatch-${slug(id)}`;
+  return `<clipPath id="${name}">${faceOf(marker, box, '')}</clipPath><g clip-path="url(#${name})">${body}</g>`;
 }
 
 /**

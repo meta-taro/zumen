@@ -128,3 +128,95 @@ nodes:
     assert.match(spec().shape, /hatch:/);
   });
 });
+
+/**
+ * **塗りは、印の形に従う。**
+ *
+ * 停車駅案内図（ホームに貼ってある、どの種別がどこに停まるかの表）で出た
+ * （2026-09-13）。停車を示す ● を丸＋塗りで描いたら、
+ * **丸の上に四角が乗った。** 印の形を無視して箱を塗っていた。
+ */
+describe('塗りは、印の形に従う', () => {
+  const DOT = `version: 1
+kind: placement
+nodes:
+  - id: stop
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 0, y: 0 }
+    size: { w: 20, h: 20 }
+`;
+
+  it('**丸の塗りは丸**（四角が乗らない）', async () => {
+    const out = render(await layout(DOT), 'light', 'safe', true);
+    const part = out.slice(out.indexOf('data-node="stop"'));
+    const body = part.slice(0, part.indexOf('</g>'));
+    assert.ok(!body.includes('<rect'), '丸の上に四角を乗せた');
+    assert.match(body, /<circle [^>]*fill-opacity="0.82"/, '丸が塗られていない');
+  });
+
+  it('楕円の塗りは楕円', async () => {
+    const out = render(await layout(DOT.replace('marker: circle', 'marker: ellipse')), 'light', 'safe', true);
+    const part = out.slice(out.indexOf('data-node="stop"'));
+    const body = part.slice(0, part.indexOf('</g>'));
+    assert.ok(!body.includes('<rect'), '楕円の上に四角を乗せた');
+    assert.match(body, /<ellipse [^>]*fill-opacity="0.82"/);
+  });
+
+  it('矩形は、これまでどおり四角で塗る', async () => {
+    const out = render(await layout(DOT.replace('    marker: circle\n', '')), 'light', 'safe', true);
+    assert.match(out, /data-node="stop"[\s\S]*?<rect [^>]*fill-opacity="0.82"/);
+  });
+
+  it('**模様も印からはみ出さない**（丸の外に点が散らない）', async () => {
+    const out = render(await layout(DOT.replace('hatch: solid', 'hatch: dots')), 'light', 'safe', true);
+    const part = out.slice(out.indexOf('data-node="stop"'));
+    const body = part.slice(0, part.indexOf('</g>'));
+    assert.match(body, /clip-path="url\(#/, '丸で切り抜いていない');
+  });
+});
+
+/**
+ * **名前が空なら、何も書かない。**
+ *
+ * 停車駅案内図の ● には名前が無い（駅名は上の行にある）。
+ * 名前を書かないと **id がそのまま図に出ていた**（`stop1` のような内部の名前）。
+ */
+describe('名前が空の印', () => {
+  it('`label: ""` は文字を出さない', async () => {
+    const out = render(
+      await layout(`version: 1
+kind: placement
+nodes:
+  - id: stop1
+    label: ""
+    marker: circle
+    at: { x: 0, y: 0 }
+    size: { w: 20, h: 20 }
+`),
+      'light',
+      'safe',
+      true,
+    );
+    assert.ok(!out.includes('stop1<'), 'id が図に出た');
+    assert.ok(!out.includes('<text'), '空の名前で文字を出した');
+  });
+
+  it('名前を書かなければ、これまでどおり id が出る（書き忘れに気づける）', async () => {
+    const out = render(
+      await layout(`version: 1
+kind: placement
+nodes:
+  - id: stop1
+    marker: circle
+    at: { x: 0, y: 0 }
+    size: { w: 20, h: 20 }
+`),
+      'light',
+      'safe',
+      true,
+    );
+    assert.ok(out.includes('>stop1<'), 'id も出なくなった');
+  });
+});

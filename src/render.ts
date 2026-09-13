@@ -111,14 +111,15 @@ export function render(
   // **配置図の文字の置き方は、図ぜんたいを見て決める**（`src/names.ts`）。
   // 1 つずつ決めると、外へ出した文字が他の箱に乗る。
   const names = plan
-    ? planNames(placed.boxes, placed.boxes.length > 0 ? frameOf(placed) : null)
+    ? planNames(placed.boxes, placed.boxes.length > 0 ? frameOf(placed) : null, placed.edges)
     : new Map<string, Plan>();
+  const paper = paperFor(placed, names);
   // **置けなかったラベルは、ここに入ってこない**（重ねて出さない。Issue #3 の 3）。
   const labels = new Map(
     placeEdgeLabels(placed.edges, placed.boxes, placed.groups).map((label) => [label.id, label]),
   );
   const parts = [
-    `<svg xmlns="http://www.w3.org/2000/svg" width="${size(placed.width)}" height="${size(placed.height)}" viewBox="0 0 ${size(placed.width)} ${size(placed.height)}">`,
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${size(paper.w)}" height="${size(paper.h)}" viewBox="0 0 ${size(paper.w)} ${size(paper.h)}">`,
     `<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="${palette.edge.stroke}"/></marker></defs>`,
     ...placed.groups.map((group) => renderGroup(group, palette, plan, outerWall)),
     // **向きの無い線は、図そのもの。箱の下に敷く**（`src/arrows.ts`）。
@@ -199,6 +200,30 @@ function dimensionLayer(placed: Placed, palette: Palette): string {
 }
 
 /** 図の中身が占める矩形。通り芯の長さと、寸法線を置く位置がここから決まる。 */
+/**
+ * **外へ出した名前の分だけ、紙を広げる。**
+ *
+ * 名前は箱の外へ出るので、箱の外周で紙を切ると**端の名前が切れる。**
+ * 広げられるのは右と下だけ（左と上は座標が負になるので `src/names.ts` が避ける）。
+ */
+function paperFor(placed: Placed, plans: Map<string, Plan>): { w: number; h: number } {
+  let w = placed.width;
+  let h = placed.height;
+  for (const box of placed.boxes) {
+    const plan = plans.get(box.id);
+    if (plan === undefined || plan.kind !== 'outside') continue;
+    const half =
+      Math.max(
+        labelWidth(box.label, NAME_FONT),
+        box.technology === null ? 0 : labelWidth(box.technology, SUB_FONT),
+      ) / 2;
+    const rows = box.technology === null ? 1 : 2;
+    w = Math.max(w, plan.x + half + 12);
+    h = Math.max(h, (plan.above ? plan.y : plan.y + (rows - 1) * 12) + 12);
+  }
+  return { w, h };
+}
+
 function frameOf(placed: Placed): Frame {
   const all = [...placed.boxes, ...placed.groups];
   const x = Math.min(...all.map((b) => b.x));
@@ -263,7 +288,9 @@ function renderNode(
   const kind = plan ? 'rect' : shapeOf(box.type);
   const paint = {
     fill: style.fill,
-    stroke: style.stroke,
+    // **路線の色は枠にだけ載せる**（`src/palette.ts`）。
+    // 文字まで染めると、地の上で読めなくなる。
+    stroke: box.color ?? style.stroke,
     // **平面図で壁の厚みを書いていれば、その太さで描く**（`src/wall.ts`）。
     // 人が置いた印（太い枠）より壁のほうが優先 —— 壁の厚みは図の内容であって、
     // 誰が置いたかの印ではない。
@@ -290,7 +317,9 @@ function renderNode(
 
   // **材料と区域の模様**（`src/hatch.ts`）。枠の内側に、枠と同じ色で描く。
   // **建具より先。** 建具は穴なので、模様の上に開ける。
-  const pattern = plan ? drawHatch(box.hatch, box, style.stroke) : '';
+  // **塗りにも路線の色を乗せる**（`src/palette.ts`）。停車駅案内図の ● は、
+  // ●そのものが種別の色をしている（枠だけ色を付けても読めない）。
+  const pattern = plan ? drawHatch(box.hatch, box, box.color ?? style.stroke, box.marker, box.id) : '';
 
   // **塗り潰した面の上では、文字を地の色にする。**
   // 黒く塗ったアスコンの上に黒い文字を書くと読めない
@@ -337,6 +366,26 @@ function nodeTag(box: Box, palette: Palette, style: Look, halo: string | null = 
   if (box.tag === null) return [];
   // **符号も、入らないなら出さない。** 伏図の小梁は幅 20px しかない。
   if (labelWidth(box.tag, 10) + TAG_INSET > box.w) return [];
+  /**
+   * **印の中の符号は、印の真ん中。**
+   *
+   * 左上へ寄せていたので、二重丸（乗換駅）の**内側の丸が駅番号を横切っていた**
+   * （2026-09-13）。実物の路線図の駅番号は丸の中央にある。
+   * 矩形はこれまでどおり左上（伏図の部材符号は隅にある）。
+   */
+  const round = box.marker === 'circle' || box.marker === 'double' || box.marker === 'ellipse';
+  if (round) {
+    const cx = box.x + box.w / 2;
+    const cy = box.y + box.h / 2 + 4;
+    const cover =
+      halo === null
+        ? ''
+        : `<rect x="${n(cx - labelWidth(box.tag, 10) / 2 - 2)}" y="${n(cy - 9)}" width="${n(labelWidth(box.tag, 10) + 4)}" height="12" fill="${halo}"/>`;
+    return [
+      cover +
+        `<text x="${n(cx)}" y="${n(cy)}" text-anchor="middle" font-family="${FONT}" font-size="10" fill="${subtitleOn(style, palette)}">${escapeText(box.tag)}</text>`,
+    ];
+  }
   const x = box.x + TAG_INSET;
   const y = box.y + TAG_INSET + 9;
   // **模様の上では下地を抜く**（`halo`）。符号は拾い読みするものなので、
@@ -379,6 +428,9 @@ function nodeText(
   plan: Plan | null = null,
   halo: string | null = null,
 ): string[] {
+  // **名前が空なら、何も書かない。** 停車駅案内図の ● のように、
+  // 名前を持たない印がある（駅名は上の行にある）。
+  if (box.label === '' && box.technology === null) return [];
   const cx = n(box.x + box.w / 2);
   const size = plan === null ? 15 : NAME_FONT;
   const subSize = plan === null ? 11 : SUB_FONT;
@@ -429,16 +481,9 @@ function nodeText(
   }
 
   if (plan.kind === 'outside') {
-    /**
-     * **丸い印からは、もう少し離す。**
-     *
-     * 丸は箱いっぱいに描かれるので、箱の縁から 13px では
-     * **文字の上端が丸の線に触れる**（2026-09-13。日本式の路線図で出た）。
-     * 実物の路線図は必ず離してある。
-     */
-    const clear = box.marker === 'circle' || box.marker === 'double' ? 5 : 0;
-    const step = (i: number): number =>
-      plan.above ? plan.y - clear - i * 12 : plan.y + clear + i * 12;
+    // **どこへ、どれだけ離して置くかは `src/names.ts` が決めてある。**
+    // ここは 1 行目の基準線から積むだけ。
+    const step = (i: number): number => (plan.above ? plan.y - i * 12 : plan.y + i * 12);
     const first = plan.above && box.technology !== null ? 1 : 0;
     const lines = [text(plan.x, step(first), box.label, size, style.text)];
     if (box.technology !== null) {
@@ -477,7 +522,7 @@ function renderEdge(
     // 記号が矢印の代わりで、両方出すと向きが二重に言われる。
     // **太さを書いていれば、それに従う**（`src/weight.ts`。路線図の路線）。
     // 書いていなければ、これまでどおり（配置図は太め、構成図は細め）。
-    `<path d="${path}" fill="none" stroke="${palette.edge.stroke}" stroke-width="${
+    `<path d="${path}" fill="none" stroke="${edge.color ?? palette.edge.stroke}" stroke-width="${
       edge.weight === 'normal'
         ? edge.pinned || plan
           ? STROKE_WIDTH.pinned

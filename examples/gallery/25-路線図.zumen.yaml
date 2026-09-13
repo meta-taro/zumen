@@ -3,7 +3,12 @@ kind: placement
 arrows: false
 title: 架空の鉄道 路線図（日本式・駅ナンバリング／水平・垂直・45 度）
 # 線の角度は水平・垂直・斜め 45 度のみ（日本の路線図の決まり）。
-# 色は使わない —— 白黒でも路線記号（H / S / L）で見分けられる（DESIGN.md §7）。
+# 色は路線の名前そのもの（DESIGN.md §7 の例外・src/palette.ts）。
+# 白黒でも読めるよう、色と駅ナンバリング（H / S / L）の両方で示す。
+palette:
+  H: "#0072bc"
+  S: "#e5171f"
+  L: "#00a04b"
 pins:
   chuo:
     appearance: primary
@@ -11,18 +16,21 @@ nodes:
   - id: nishi
     label: 西ヶ丘
     tag: H01
+    color: H
     marker: circle
     at: { x: 40, y: 240 }
     size: { w: 34, h: 34 }
   - id: sakura
     label: 桜台
     tag: H02
+    color: H
     marker: circle
     at: { x: 160, y: 240 }
     size: { w: 34, h: 34 }
   - id: chuo
     label: 中央
     tag: H03
+    color: H
     technology: 3 線乗換
     marker: double
     at: { x: 280, y: 235 }
@@ -30,48 +38,57 @@ nodes:
   - id: kawa
     label: 川手
     tag: H04
+    color: H
     marker: circle
     at: { x: 405, y: 240 }
     size: { w: 34, h: 34 }
   - id: higashi
     label: 東浜
     tag: H05
+    color: H
     marker: circle
     at: { x: 525, y: 240 }
     size: { w: 34, h: 34 }
   - id: kita1
     label: 北町
     tag: S02
+    color: S
     marker: circle
     at: { x: 285, y: 140 }
     size: { w: 34, h: 34 }
   - id: kita2
     label: 北の原
     tag: S01
+    color: S
     marker: circle
     at: { x: 385, y: 40 }
     size: { w: 34, h: 34 }
   - id: minami1
     label: 南口
     tag: S11
+    color: S
     marker: circle
     at: { x: 285, y: 350 }
     size: { w: 34, h: 34 }
   - id: minami2
     label: 港南
     tag: S12
-    marker: circle
-    at: { x: 285, y: 450 }
-    size: { w: 34, h: 34 }
+    technology: 環状線乗換
+    color: S
+    marker: double
+    at: { x: 280, y: 445 }
+    size: { w: 44, h: 44 }
   - id: kanjo_w
     label: 西環
     tag: L01
+    color: L
     marker: circle
     at: { x: 160, y: 450 }
     size: { w: 34, h: 34 }
   - id: kanjo_e
     label: 東環
     tag: L02
+    color: L
     marker: circle
     at: { x: 405, y: 450 }
     size: { w: 34, h: 34 }
@@ -79,36 +96,48 @@ edges:
   - from: nishi
     to: sakura
     weight: thick
+    color: H
   - from: sakura
     to: chuo
     weight: thick
+    color: H
   - from: chuo
     to: kawa
     weight: thick
+    color: H
   - from: kawa
     to: higashi
     weight: thick
+    color: H
   - from: kita2
     to: kita1
     weight: thick
+    color: S
   - from: kita1
     to: chuo
     weight: thick
+    color: S
   - from: chuo
     to: minami1
     weight: thick
+    color: S
   - from: minami1
     to: minami2
     weight: thick
+    color: S
   - from: minami2
     to: kanjo_w
     weight: thick
+    color: L
   - from: minami2
     to: kanjo_e
     weight: thick
+    color: L
   - from: kanjo_w
     to: sakura
     weight: thick
+    color: L
   - from: kanjo_e
     to: kawa
     weight: thick
+    color: L

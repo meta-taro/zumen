@@ -38,12 +38,13 @@ function edge(id: string, label: string | null, points: [number, number][]): Pla
     ends: null,
     line: 'solid' as const,
     weight: 'normal' as const,
+    color: null,
     points: points.map(([x, y]) => ({ x, y })),
   };
 }
 
 function box(id: string, x: number, y: number, w = 160, h = 60): Box {
-  return { id, label: id, x, y, w, h, group: null, type: 'server', appearance: null, technology: null, openings: [], tag: null, radius: null, marker: 'box', hatch: 'none', symbol: null, pinned: false };
+  return { id, label: id, x, y, w, h, group: null, type: 'server', appearance: null, technology: null, openings: [], tag: null, radius: null, marker: 'box', hatch: 'none', symbol: null, color: null, pinned: false };
 }
 
 describe('線に沿った中央へ置く', () => {

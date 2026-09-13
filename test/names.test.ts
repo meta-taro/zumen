@@ -13,6 +13,7 @@ import { describe, it } from 'node:test';
 
 import { layout } from '../src/layout.ts';
 import { crowdedNames, extentOf, joinedText, planNames } from '../src/names.ts';
+import { render } from '../src/render.ts';
 import { inspect } from '../src/tools.ts';
 
 async function plans(source: string) {
@@ -84,12 +85,17 @@ nodes:
     assert.deepEqual(crowdedNames(p), [], '空いているのに混んでいると言っている');
   });
 
-  it('**上下とも塞がっていたら、混んでいると記録する。消さない**', async () => {
+  it('**八方すべて塞がっていたら、混んでいると記録する。消さない**', async () => {
+    // 上・下・右を箱で塞ぐ（左は図の外）。**斜めも、上下の箱に当たる。**
     const { plans: p } = await plans(
       ROOM_ABOVE.replace(
         '    at: { x: 200, y: 0 }\n    size: { w: 100, h: 120 }',
         '    at: { x: 0, y: 96 }\n    size: { w: 300, h: 24 }',
-      ),
+      ).concat(`  - id: right
+    label: 右の部屋
+    at: { x: 40, y: 120 }
+    size: { w: 260, h: 26 }
+`),
     );
     const plan = p.get('thin')!;
     assert.equal(plan.kind, 'outside', '名前が消えた');
@@ -157,6 +163,10 @@ nodes:
     label: 下
     at: { x: 0, y: 126 }
     size: { w: 300, h: 120 }
+  - id: right
+    label: 右
+    at: { x: 40, y: 100 }
+    size: { w: 260, h: 26 }
 `);
     assert.deepEqual(out.crowdedNames, ['mid']);
   });
@@ -201,5 +211,110 @@ describe('見本 44 件は、どれも読める状態', () => {
       assert.deepEqual(out.hiddenLabels, [], `${name} で辺のラベルが絵に出ていない`);
       assert.deepEqual(out.crowdedNames, [], `${name} で名前が重なっている`);
     }
+  });
+});
+
+/**
+ * **名前は、線を避ける。**
+ *
+ * 日本式の路線図で出た（2026-09-13）。**駅名の上を路線が走っていた** ——
+ * 中央駅は上下に路線が抜けるので、真上・真下は空いていない。
+ * 実物の路線図は、こういう駅の名前を**横へ逃がしてある。**
+ *
+ * この文書は最初から「上下左右の 4 方向を順に試す」と書いてあったが、
+ * **実装は上下しか試していなかった**（文書が先に走っていた）。
+ */
+describe('名前は、線を避ける', () => {
+  const CROSS = `version: 1
+kind: placement
+arrows: false
+nodes:
+  - id: n
+    label: 北町
+    marker: circle
+    at: { x: 100, y: 0 }
+    size: { w: 34, h: 34 }
+  - id: c
+    label: 中央
+    tag: H03
+    marker: double
+    at: { x: 95, y: 200 }
+    size: { w: 44, h: 44 }
+  - id: s
+    label: 南口
+    marker: circle
+    at: { x: 100, y: 400 }
+    size: { w: 34, h: 34 }
+edges:
+  - from: n
+    to: c
+  - from: c
+    to: s
+`;
+
+  it('**縦に線が抜ける駅の名前は、横へ出す**', async () => {
+    const placed = await layout(CROSS);
+    const box = placed.boxes.find((b) => b.id === 'c')!;
+    const out = render(placed, 'light', 'safe', true);
+    const x = Number(out.match(/<text x="(\d+)"[^>]*>中央</)![1]);
+    const half = 14 * 2; // 「中央」の半分 ＋ 余裕
+    const line = box.x + box.w / 2;
+    assert.ok(Math.abs(x - line) > half, `名前が線の上にある（x=${x} 線=${line}）`);
+  });
+
+  it('線が無ければ、これまでどおり上下へ出す', async () => {
+    const placed = await layout(CROSS.replace(/edges:[\s\S]*$/, ''));
+    const box = placed.boxes.find((b) => b.id === 'c')!;
+    const out = render(placed, 'light', 'safe', true);
+    const x = Number(out.match(/<text x="(\d+)"[^>]*>中央</)![1]);
+    assert.equal(x, Math.round(box.x + box.w / 2), '線が無いのに横へ逃げた');
+  });
+
+  it('横へ出しても、丸には重ねない', async () => {
+    const placed = await layout(CROSS);
+    const box = placed.boxes.find((b) => b.id === 'c')!;
+    const out = render(placed, 'light', 'safe', true);
+    const x = Number(out.match(/<text x="(\d+)"[^>]*>中央</)![1]);
+    // 文字の中心から半分寄っても、丸の縁には入らない。
+    const near = x < box.x ? x + 14 : x - 14;
+    assert.ok(near < box.x || near > box.x + box.w, '名前が丸に重なった');
+  });
+});
+
+/**
+ * **印の中の符号は、印の真ん中。**
+ *
+ * 二重丸（乗換駅）で出た（2026-09-13）。符号を左上に寄せていたので、
+ * **内側の丸の弧が駅番号を横切っていた。**
+ * 実物の路線図の駅番号は、丸の中央にある。
+ */
+describe('印の中の符号', () => {
+  const STATION = `version: 1
+kind: placement
+nodes:
+  - id: c
+    label: 中央
+    tag: H03
+    marker: double
+    at: { x: 0, y: 0 }
+    size: { w: 44, h: 44 }
+`;
+
+  it('**丸の中央に置く**（内側の丸に食われない）', async () => {
+    const placed = await layout(STATION);
+    const box = placed.boxes.find((b) => b.id === 'c')!;
+    const out = render(placed, 'light', 'safe', true);
+    const found = out.match(/<text x="(\d+)" y="(\d+)"[^>]*>H03</)!;
+    assert.equal(found[1], String(Math.round(box.x + box.w / 2)), '符号が横にずれている');
+    assert.ok(Math.abs(Number(found[2]) - 4 - (box.y + box.h / 2)) <= 2, '符号が縦にずれている');
+    assert.match(out, /<text x="\d+" y="\d+" text-anchor="middle"[^>]*>H03</, '中央寄せになっていない');
+  });
+
+  it('印が無い箱の符号は、これまでどおり左上', async () => {
+    const placed = await layout(STATION.replace('    marker: double\n', ''));
+    const box = placed.boxes.find((b) => b.id === 'c')!;
+    const out = render(placed, 'light', 'safe', true);
+    const x = Number(out.match(/<text x="(\d+)"[^>]*>H03</)![1]);
+    assert.ok(x < box.x + box.w / 2, '左上に置かれていない');
   });
 });

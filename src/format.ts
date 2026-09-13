@@ -42,6 +42,8 @@ export interface Edge {
   line?: unknown;
   /** 線の太さ（`src/weight.ts`）。 */
   weight?: unknown;
+  /** 路線の色の鍵（`src/palette.ts`）。 */
+  color?: unknown;
 }
 
 /** 折り返しでの改行を止める。人が書いた行の形を機械が変えないため。 */
@@ -81,6 +83,8 @@ export class Diagram {
       if (line !== undefined && line !== null) edge.line = line;
       const weight = item.get('weight');
       if (weight !== undefined && weight !== null) edge.weight = weight;
+      const color = item.get('color');
+      if (color !== undefined && color !== null) edge.color = color;
       return edge;
     });
   }

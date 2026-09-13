@@ -462,6 +462,12 @@ const ja = {
       `エッジ ${edge} の line が "${word}" になっています（solid / dashed / dotted）。実線で描きます。`,
     weightUnknown: (edge: string, word: string) =>
       `エッジ ${edge} の weight が "${word}" になっています（thin / normal / thick）。ふつうの太さで描きます。`,
+    colorUnknown: (target: string, key: string) =>
+      `${target} の color が "${key}" ですが、palette にその鍵がありません。色は付きません。`,
+    colorFaint: (key: string, value: string) =>
+      `palette の "${key}"（${value}）が薄すぎます。白黒にすると線が消えます（非文字の下限は 3:1）。`,
+    colorWithoutCode: (target: string, key: string) =>
+      `${target} は色 "${key}" で路線を示していますが、tag にその記号がありません。色だけだと、白黒と色覚特性で読めなくなります（実物の路線図も G-09 のように記号を併記します）。`,
   },
 
   /** Mermaid への書き出し（`src/mermaid.ts`） */
@@ -822,6 +828,12 @@ const en: Catalog = {
       `Edge ${edge} has line "${word}" (solid / dashed / dotted). It is drawn solid.`,
     weightUnknown: (edge: string, word: string) =>
       `Edge ${edge} has weight "${word}" (thin / normal / thick). It is drawn at the normal width.`,
+    colorUnknown: (target: string, key: string) =>
+      `${target} has color "${key}", but palette has no such key. No colour is applied.`,
+    colorFaint: (key: string, value: string) =>
+      `palette entry "${key}" (${value}) is too faint. The line disappears in black and white (3:1 is the floor for non-text).`,
+    colorWithoutCode: (target: string, key: string) =>
+      `${target} identifies its line only by colour "${key}"; the tag does not carry that code. Colour alone fails in black and white and for colour vision deficiency (real transit maps write G-09).`,
   },
   mermaid: {
     geometryDroppedHeading:

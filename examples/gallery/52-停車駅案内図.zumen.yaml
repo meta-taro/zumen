@@ -1,0 +1,348 @@
+version: 1
+kind: placement
+arrows: false
+title: 架空電鉄 本線 停車駅案内（2026-09 改正）
+# ホームと車内に貼ってある「どの種別が、どこに停まるか」の表。
+# 行が種別、列が駅。●が停車、線がそのまま抜けているところが通過。
+#
+# 色は種別の名前そのもの（DESIGN.md §7 の例外・src/palette.ts）。
+# 色だけに頼らせない —— 種別名は各行の左に文字で出ている。
+palette:
+  kakueki: "#0072bc"
+  junkyu: "#009a5b"
+  kyuko: "#d95f02"
+  tokkyu: "#e5171f"
+nodes:
+  - id: corner
+    label: 種別 ＼ 停車駅
+    marker: none
+    at: { x: 0, y: 8 }
+    size: { w: 150, h: 24 }
+  - id: k01
+    label: 港町
+    tag: K01
+    marker: circle
+    at: { x: 170, y: 70 }
+    size: { w: 34, h: 34 }
+  - id: k02
+    label: 桜台
+    tag: K02
+    marker: circle
+    at: { x: 274, y: 70 }
+    size: { w: 34, h: 34 }
+  - id: k03
+    label: 中央
+    tag: K03
+    marker: circle
+    at: { x: 378, y: 70 }
+    size: { w: 34, h: 34 }
+  - id: k04
+    label: 川手
+    tag: K04
+    marker: circle
+    at: { x: 482, y: 70 }
+    size: { w: 34, h: 34 }
+  - id: k05
+    label: 東浜
+    tag: K05
+    marker: circle
+    at: { x: 586, y: 70 }
+    size: { w: 34, h: 34 }
+  - id: k06
+    label: 空港前
+    tag: K06
+    marker: circle
+    at: { x: 690, y: 70 }
+    size: { w: 34, h: 34 }
+  - id: k07
+    label: 学園前
+    tag: K07
+    marker: circle
+    at: { x: 794, y: 70 }
+    size: { w: 34, h: 34 }
+  - id: k08
+    label: みどり台
+    tag: K08
+    marker: circle
+    at: { x: 898, y: 70 }
+    size: { w: 34, h: 34 }
+  - id: k09
+    label: 海浜公園
+    tag: K09
+    marker: circle
+    at: { x: 1002, y: 70 }
+    size: { w: 34, h: 34 }
+  - id: kakueki
+    label: 各駅停車
+    marker: none
+    at: { x: 0, y: 150 }
+    size: { w: 150, h: 24 }
+  - id: kakueki_01
+    label: ""
+    marker: circle
+    hatch: solid
+    color: kakueki
+    at: { x: 177, y: 152 }
+    size: { w: 20, h: 20 }
+  - id: kakueki_02
+    label: ""
+    marker: circle
+    hatch: solid
+    color: kakueki
+    at: { x: 281, y: 152 }
+    size: { w: 20, h: 20 }
+  - id: kakueki_03
+    label: ""
+    marker: circle
+    hatch: solid
+    color: kakueki
+    at: { x: 385, y: 152 }
+    size: { w: 20, h: 20 }
+  - id: kakueki_04
+    label: ""
+    marker: circle
+    hatch: solid
+    color: kakueki
+    at: { x: 489, y: 152 }
+    size: { w: 20, h: 20 }
+  - id: kakueki_05
+    label: ""
+    marker: circle
+    hatch: solid
+    color: kakueki
+    at: { x: 593, y: 152 }
+    size: { w: 20, h: 20 }
+  - id: kakueki_06
+    label: ""
+    marker: circle
+    hatch: solid
+    color: kakueki
+    at: { x: 697, y: 152 }
+    size: { w: 20, h: 20 }
+  - id: kakueki_07
+    label: ""
+    marker: circle
+    hatch: solid
+    color: kakueki
+    at: { x: 801, y: 152 }
+    size: { w: 20, h: 20 }
+  - id: kakueki_08
+    label: ""
+    marker: circle
+    hatch: solid
+    color: kakueki
+    at: { x: 905, y: 152 }
+    size: { w: 20, h: 20 }
+  - id: kakueki_09
+    label: ""
+    marker: circle
+    hatch: solid
+    color: kakueki
+    at: { x: 1009, y: 152 }
+    size: { w: 20, h: 20 }
+  - id: junkyu
+    label: 準急
+    marker: none
+    at: { x: 0, y: 210 }
+    size: { w: 150, h: 24 }
+  - id: junkyu_01
+    label: ""
+    marker: circle
+    hatch: solid
+    color: junkyu
+    at: { x: 177, y: 212 }
+    size: { w: 20, h: 20 }
+  - id: junkyu_03
+    label: ""
+    marker: circle
+    hatch: solid
+    color: junkyu
+    at: { x: 385, y: 212 }
+    size: { w: 20, h: 20 }
+  - id: junkyu_05
+    label: ""
+    marker: circle
+    hatch: solid
+    color: junkyu
+    at: { x: 593, y: 212 }
+    size: { w: 20, h: 20 }
+  - id: junkyu_06
+    label: ""
+    marker: circle
+    hatch: solid
+    color: junkyu
+    at: { x: 697, y: 212 }
+    size: { w: 20, h: 20 }
+  - id: junkyu_07
+    label: ""
+    marker: circle
+    hatch: solid
+    color: junkyu
+    at: { x: 801, y: 212 }
+    size: { w: 20, h: 20 }
+  - id: junkyu_08
+    label: ""
+    marker: circle
+    hatch: solid
+    color: junkyu
+    at: { x: 905, y: 212 }
+    size: { w: 20, h: 20 }
+  - id: junkyu_09
+    label: ""
+    marker: circle
+    hatch: solid
+    color: junkyu
+    at: { x: 1009, y: 212 }
+    size: { w: 20, h: 20 }
+  - id: kyuko
+    label: 急行
+    marker: none
+    at: { x: 0, y: 270 }
+    size: { w: 150, h: 24 }
+  - id: kyuko_01
+    label: ""
+    marker: circle
+    hatch: solid
+    color: kyuko
+    at: { x: 177, y: 272 }
+    size: { w: 20, h: 20 }
+  - id: kyuko_03
+    label: ""
+    marker: circle
+    hatch: solid
+    color: kyuko
+    at: { x: 385, y: 272 }
+    size: { w: 20, h: 20 }
+  - id: kyuko_06
+    label: ""
+    marker: circle
+    hatch: solid
+    color: kyuko
+    at: { x: 697, y: 272 }
+    size: { w: 20, h: 20 }
+  - id: kyuko_09
+    label: ""
+    marker: circle
+    hatch: solid
+    color: kyuko
+    at: { x: 1009, y: 272 }
+    size: { w: 20, h: 20 }
+  - id: tokkyu
+    label: 特急
+    marker: none
+    at: { x: 0, y: 330 }
+    size: { w: 150, h: 24 }
+  - id: tokkyu_01
+    label: ""
+    marker: circle
+    hatch: solid
+    color: tokkyu
+    at: { x: 177, y: 332 }
+    size: { w: 20, h: 20 }
+  - id: tokkyu_06
+    label: ""
+    marker: circle
+    hatch: solid
+    color: tokkyu
+    at: { x: 697, y: 332 }
+    size: { w: 20, h: 20 }
+  - id: tokkyu_09
+    label: ""
+    marker: circle
+    hatch: solid
+    color: tokkyu
+    at: { x: 1009, y: 332 }
+    size: { w: 20, h: 20 }
+edges:
+  - from: k01
+    to: k02
+  - from: k02
+    to: k03
+  - from: k03
+    to: k04
+  - from: k04
+    to: k05
+  - from: k05
+    to: k06
+  - from: k06
+    to: k07
+  - from: k07
+    to: k08
+  - from: k08
+    to: k09
+  - from: kakueki_01
+    to: kakueki_02
+    weight: thick
+    color: kakueki
+  - from: kakueki_02
+    to: kakueki_03
+    weight: thick
+    color: kakueki
+  - from: kakueki_03
+    to: kakueki_04
+    weight: thick
+    color: kakueki
+  - from: kakueki_04
+    to: kakueki_05
+    weight: thick
+    color: kakueki
+  - from: kakueki_05
+    to: kakueki_06
+    weight: thick
+    color: kakueki
+  - from: kakueki_06
+    to: kakueki_07
+    weight: thick
+    color: kakueki
+  - from: kakueki_07
+    to: kakueki_08
+    weight: thick
+    color: kakueki
+  - from: kakueki_08
+    to: kakueki_09
+    weight: thick
+    color: kakueki
+  - from: junkyu_01
+    to: junkyu_03
+    weight: thick
+    color: junkyu
+  - from: junkyu_03
+    to: junkyu_05
+    weight: thick
+    color: junkyu
+  - from: junkyu_05
+    to: junkyu_06
+    weight: thick
+    color: junkyu
+  - from: junkyu_06
+    to: junkyu_07
+    weight: thick
+    color: junkyu
+  - from: junkyu_07
+    to: junkyu_08
+    weight: thick
+    color: junkyu
+  - from: junkyu_08
+    to: junkyu_09
+    weight: thick
+    color: junkyu
+  - from: kyuko_01
+    to: kyuko_03
+    weight: thick
+    color: kyuko
+  - from: kyuko_03
+    to: kyuko_06
+    weight: thick
+    color: kyuko
+  - from: kyuko_06
+    to: kyuko_09
+    weight: thick
+    color: kyuko
+  - from: tokkyu_01
+    to: tokkyu_06
+    weight: thick
+    color: tokkyu
+  - from: tokkyu_06
+    to: tokkyu_09
+    weight: thick
+    color: tokkyu

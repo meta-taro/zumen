@@ -316,7 +316,7 @@ export async function inspect(source: string): Promise<Inspection> {
     tooTangled: placed.edges.length > 0 && crossed > placed.edges.length,
     hiddenLabels: placed.edges.filter((e) => e.label !== null && !shown.has(e.id)).map((e) => e.id),
     crowdedNames:
-      kindOf(source) === 'placement' ? crowdedNames(planNames(placed.boxes, extentOf(placed.boxes))) : [],
+      kindOf(source) === 'placement' ? crowdedNames(planNames(placed.boxes, extentOf(placed.boxes), placed.edges)) : [],
     ...(() => {
       const seen = reviewOf(source);
       return { reviewed: seen.reviewed, reviewedAt: seen.at, reviewStale: seen.stale };

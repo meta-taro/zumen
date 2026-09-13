@@ -21,9 +21,12 @@
  *
  * ## 外へ出すときは、当たりを見る
  *
- * 上下左右の 4 方向を順に試し、**他の箱にも、先に置いた文字にも当たらない**
+ * 上下左右の 4 方向を順に試し、**他の箱にも、先に置いた文字にも、線にも当たらない**
  * 場所を選ぶ。どこも空いていなければ、**いちばん当たりの少ない所へ置いて、
  * 混んでいることを記録する**（`crowded`）。
+ *
+ * **線を避けるのは、路線図で要る。** 中央駅のように上下へ路線が抜ける駅は
+ * 真上も真下も空いていない —— 実物の路線図は、こういう駅名を横へ逃がしてある。
  *
  * **消さない。** 部屋の名前が消えるのは、重なるより悪い。
  * 辺のラベル（`src/edge-labels.ts`）は消してよいが、あれは
@@ -133,19 +136,102 @@ function shape(box: Box): 'inside' | 'joined' | 'aside' | 'along' | 'outside' {
   return 'outside';
 }
 
-/** 外へ出す文字が占める矩形。 */
-function patch(box: Box, rows: number, above: boolean): Rect {
-  const w = Math.max(
+/**
+ * 外へ出す先。**上下・左右・斜めの 8 方向。**
+ *
+ * 斜めは路線図で要る —— 上下左右へ路線が抜ける乗換駅は、
+ * 4 方向がすべて線で塞がっている。**実物の路線図も、そこは斜めに書いてある。**
+ */
+type Side =
+  | 'above'
+  | 'below'
+  | 'left'
+  | 'right'
+  | 'above-left'
+  | 'above-right'
+  | 'below-left'
+  | 'below-right';
+
+/**
+ * 丸からは、もう少し離す。
+ *
+ * 丸は箱いっぱいに描かれるので、箱の縁から詰めると
+ * **文字の端が丸の線に触れる**（2026-09-13。日本式の路線図で出た）。
+ */
+function clearOf(box: Box): number {
+  return box.marker === 'circle' || box.marker === 'double' ? 5 : 0;
+}
+
+/** 外へ出す文字の幅。 */
+function textWidth(box: Box): number {
+  return Math.max(
     labelWidth(box.label, NAME_FONT),
     box.technology === null ? 0 : labelWidth(box.technology, SUB_FONT),
   );
+}
+
+/** 文字の中心を、どこへ置くか（横方向）。 */
+function centerX(box: Box, side: Side): number {
+  const mid = box.x + box.w / 2;
+  const step = textWidth(box) / 2 + 6 + clearOf(box);
+  if (side === 'left' || side === 'above-left' || side === 'below-left') return mid - step - box.w / 2;
+  if (side === 'right' || side === 'above-right' || side === 'below-right') return mid + step + box.w / 2;
+  return mid;
+}
+
+/** 上へ積むか（1 行目の基準線から上へ伸ばすか）。 */
+function goesUp(side: Side): boolean {
+  return side === 'above' || side === 'above-left' || side === 'above-right';
+}
+
+/** 横だけへ出すか（箱の高さの真ん中へ揃える）。 */
+function sideways(side: Side): boolean {
+  return side === 'left' || side === 'right';
+}
+
+/** 外へ出す文字が占める矩形。 */
+function patch(box: Box, rows: number, side: Side): Rect {
+  const w = textWidth(box);
   const h = rows * 12 + 4;
-  return {
-    x: box.x + box.w / 2 - w / 2,
-    y: above ? box.y - 6 - h : box.y + box.h + 4,
-    w,
-    h,
-  };
+  const gap = clearOf(box);
+  const x = centerX(box, side) - w / 2;
+  if (sideways(side)) return { x, y: box.y + box.h / 2 - h / 2, w, h };
+  if (goesUp(side)) return { x, y: box.y - 6 - gap - h, w, h };
+  return { x, y: box.y + box.h + 4 + gap, w, h };
+}
+
+/**
+ * **線を、当たり判定の障害物にする。**
+ *
+ * 斜めの線があるので、外接矩形では大きく取りすぎる。
+ * **点列を細かく刻んで、小さな四角の列にする**（曲がりにも斜めにも効く）。
+ */
+export function edgeObstacles(edges: readonly EdgeShape[]): Rect[] {
+  const out: Rect[] = [];
+  const half = 4;
+  for (const edge of edges) {
+    for (let i = 1; i < edge.points.length; i += 1) {
+      const a = edge.points[i - 1]!;
+      const b = edge.points[i]!;
+      const span = Math.hypot(b.x - a.x, b.y - a.y);
+      const steps = Math.max(1, Math.ceil(span / 8));
+      for (let k = 0; k <= steps; k += 1) {
+        const t = k / steps;
+        out.push({
+          x: a.x + (b.x - a.x) * t - half,
+          y: a.y + (b.y - a.y) * t - half,
+          w: half * 2,
+          h: half * 2,
+        });
+      }
+    }
+  }
+  return out;
+}
+
+/** 線の形（`src/layout.ts` の `PlacedEdge` の、ここで要る分だけ）。 */
+export interface EdgeShape {
+  points: readonly { x: number; y: number }[];
 }
 
 function hits(a: Rect, b: Rect): number {
@@ -160,10 +246,15 @@ function hits(a: Rect, b: Rect): number {
  * **順番は大きい箱から。** 大きい部屋の名前を先に置く
  * （小さい箱の名前に押し出されると、広い部屋の名前が外へ行く）。
  */
-export function planNames(boxes: readonly Box[], frame: Rect | null): Map<string, Plan> {
+export function planNames(
+  boxes: readonly Box[],
+  frame: Rect | null,
+  edges: readonly EdgeShape[] = [],
+): Map<string, Plan> {
   const out = new Map<string, Plan>();
   const taken: Rect[] = [];
   const solid: Rect[] = boxes.map((b) => ({ x: b.x, y: b.y, w: b.w, h: b.h }));
+  const wires = edgeObstacles(edges);
   const order = [...boxes].sort((a, b) => b.w * b.h - a.w * a.h);
 
   for (const box of order) {
@@ -178,36 +269,62 @@ export function planNames(boxes: readonly Box[], frame: Rect | null): Map<string
     }
 
     const rows = box.technology === null ? 1 : 2;
-    // 上下を試す。**図の外へ出るほうは先に落とす**（y が負になると消える）。
-    const sides: boolean[] = [];
-    const roomAbove = frame === null ? Infinity : box.y - frame.y;
-    if (roomAbove >= rows * 12 + 6) sides.push(true);
-    sides.push(false);
+    // **上下を先に試す**（読み慣れた置き方）。横は、上下が塞がっているときだけ。
+    // 図の外へ出るほうは先に落とす（y が負になると消える）。
+    /**
+     * **左と上へは、はみ出せない。**
+     *
+     * 紙は右と下へなら広げられる（`src/render.ts` が文字の分だけ広げる）が、
+     * 左と上へ出た文字は座標が負になり、**viewBox に入らず消える。**
+     * 中身を全部ずらせば入るが、それは人が書いた座標を動かすことになる。
+     */
+    const roomAbove = frame === null || box.y - frame.y >= rows * 12 + 6;
+    const roomLeft = frame === null || box.x - frame.x >= textWidth(box) + box.w / 2 + 6;
+    // **読み慣れた順に試す。** 斜めは、上下左右が塞がっているときだけ。
+    const sides: Side[] = [];
+    if (roomAbove) sides.push('above');
+    sides.push('below', 'right');
+    if (roomLeft) sides.push('left');
+    if (roomAbove) sides.push('above-right');
+    sides.push('below-right');
+    if (roomLeft) {
+      if (roomAbove) sides.push('above-left');
+      sides.push('below-left');
+    }
 
-    let best: { above: boolean; cost: number } | null = null;
-    for (const above of sides) {
-      const spot = patch(box, rows, above);
+    let best: { side: Side; cost: number } | null = null;
+    for (const side of sides) {
+      const spot = patch(box, rows, side);
       // 自分の箱は当たりに数えない（外へ出しているので触れていて当然）。
       const cost =
         solid.reduce((sum, r) => sum + (r === undefined ? 0 : hits(spot, r)), 0) -
         hits(spot, { x: box.x, y: box.y, w: box.w, h: box.h }) +
-        taken.reduce((sum, r) => sum + hits(spot, r) * 2, 0);
-      if (best === null || cost < best.cost) best = { above, cost };
+        taken.reduce((sum, r) => sum + hits(spot, r) * 2, 0) +
+        wires.reduce((sum, r) => sum + hits(spot, r), 0);
+      if (best === null || cost < best.cost) best = { side, cost };
       if (cost === 0) break;
     }
 
     const chosen = best!;
-    const spot = patch(box, rows, chosen.above);
+    const spot = patch(box, rows, chosen.side);
     taken.push(spot);
-    out.set(box.id, {
-      kind: 'outside',
-      x: box.x + box.w / 2,
-      y: chosen.above ? box.y - 6 : box.y + box.h + 13,
-      above: chosen.above,
-      crowded: chosen.cost > 0,
-    });
+    out.set(box.id, { kind: 'outside', ...place(box, rows, chosen.side), crowded: chosen.cost > 0 });
   }
   return out;
+}
+
+/**
+ * 外へ出す文字の、1 行目の基準線と積む向き。
+ *
+ * **ここで余白まで決める**（`src/render.ts` は決まったとおりに描くだけ）。
+ */
+function place(box: Box, rows: number, side: Side): { x: number; y: number; above: boolean } {
+  const gap = clearOf(box);
+  const x = centerX(box, side);
+  // 横は、箱の高さの真ん中へ揃えて下へ積む。
+  if (sideways(side)) return { x, y: box.y + box.h / 2 - (rows - 1) * 6 + 4, above: false };
+  if (goesUp(side)) return { x, y: box.y - 6 - gap, above: true };
+  return { x, y: box.y + box.h + 13 + gap, above: false };
 }
 
 /** **混んでいる名前**（他の箱や文字に重なって置いたもの）。人へ出す。 */
