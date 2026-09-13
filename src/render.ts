@@ -542,7 +542,7 @@ function renderEdge(
 ): string {
   if (edge.points.length < 2) return '';
   // **通り道の丸め方は正本が決める**（`src/curve.ts`）。書かなければ折れ線。
-  const path = pathOf(edge.points, edge.curve);
+  const path = pathOf(edge.points, edge.curve, edge.close);
   const label =
     placedLabel === null
       ? ''
@@ -564,7 +564,12 @@ function renderEdge(
         : widthOf(edge.weight)
     }"${roundedOf(edge.weight) ? ' stroke-linejoin="round" stroke-linecap="round"' : ''}${
       dashOf(edge.line) === null ? '' : ` stroke-dasharray="${dashOf(edge.line)}"`
-    }${arrows && !hasEnds(edge.ends) ? ' marker-end="url(#arrow)"' : ''}/>`,
+    }${
+      // **閉じた輪に矢印は付けない**（`src/curve.ts` の `close`）。
+      // 矢印は「こちらへ向かう」意味だが、輪は出発点へ戻る ——
+      // 池の輪郭に矢印が付くと、水が一方向へ流れているように読める。
+      arrows && !edge.close && !hasEnds(edge.ends) ? ' marker-end="url(#arrow)"' : ''
+    }/>`,
     // 端の記号（ER の多重度・端子・接続点）。**向きは線から決める。**
     edge.points.length < 2
       ? ''

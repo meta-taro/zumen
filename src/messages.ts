@@ -350,6 +350,7 @@ const ja = {
       '    weight: <thin | normal（既定）| thick>        # 線の太さ（路線図の路線）',
       '    via: [{ x: <左>, y: <上> }, ...]              # 線の通り道。kind: placement でだけ効く',
       '    curve: <none（既定）| smooth>                 # 通り道を丸める（道路・河川・園路）',
+      '    close: <true なら輪を閉じる>                  # 池・トラック・外形の輪郭',
     ].join('\n'),
     /** **守らせたいこと。** 実測では毎回 pins を書いてきたので、明示する。 */
     rules: [
@@ -460,6 +461,10 @@ const ja = {
       `エッジ ${name} の via が点の並びになっていません（- { x: 100, y: 40 }）。通り道は使いません。`,
     viaIgnored: (name: string) =>
       `エッジ ${name} に via がありますが、構成図では効きません（線の通り道は機械が決めます）。`,
+    closeNotBoolean: (name: string) =>
+      `エッジ ${name} の close が true / false になっていません。輪は閉じません。`,
+    closeIgnored: (name: string) =>
+      `エッジ ${name} に close がありますが、構成図では効きません（線の通り道は機械が決めます）。`,
     writeUnknown: (id: string, word: string) =>
       `ノード "${id}" の write が "${word}" になっています（across / down）。横組みで描きます。`,
     writeIgnored: (id: string) =>
@@ -745,6 +750,7 @@ const en: Catalog = {
       '    weight: <thin | normal (default) | thick>      # line width (transit routes)',
       '    via: [{ x: <left>, y: <top> }, ...]            # waypoints; only with kind: placement',
       '    curve: <none (default) | smooth>               # round the waypoints (roads, rivers, paths)',
+      '    close: <true closes the loop>                  # pond, running track, outline',
     ].join('\n'),
     rules: [
       'Do not write pins. That section holds what a person decided by hand; anything you write there is dropped.',
@@ -840,6 +846,10 @@ const en: Catalog = {
       `Edge ${name} has a via that is not a list of points (- { x: 100, y: 40 }). The route is ignored.`,
     viaIgnored: (name: string) =>
       `Edge ${name} has via, but it has no effect on a structure diagram (the machine routes the line).`,
+    closeNotBoolean: (name: string) =>
+      `Edge ${name} has a close that is not true / false. The loop is left open.`,
+    closeIgnored: (name: string) =>
+      `Edge ${name} has close, but it has no effect on a structure diagram (the machine routes the line).`,
     writeUnknown: (id: string, word: string) =>
       `Node "${id}" has write "${word}" (across / down). It is set horizontally.`,
     writeIgnored: (id: string) =>

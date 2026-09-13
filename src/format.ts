@@ -46,6 +46,7 @@ export interface Edge {
   color?: unknown;
   via?: unknown;
   curve?: unknown;
+  close?: unknown;
 }
 
 /** 折り返しでの改行を止める。人が書いた行の形を機械が変えないため。 */
@@ -91,6 +92,8 @@ export class Diagram {
       if (via !== undefined && via !== null) edge.via = via.toJSON() as unknown;
       const curve = item.get('curve');
       if (curve !== undefined && curve !== null) edge.curve = curve;
+      const close = item.get('close');
+      if (close !== undefined && close !== null) edge.close = close;
       return edge;
     });
   }

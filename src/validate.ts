@@ -496,6 +496,14 @@ function checkEnds(doc: Document, add: Add, m: Messages, at: At): void {
     if (curve !== undefined && curve !== null && !CURVE_WORDS.has(String(curve))) {
       add('warning', 'curve-unknown', m.curveUnknown(name, String(curve)), at(item.get('curve', true)));
     }
+    const close = item.get('close');
+    if (close !== undefined && close !== null) {
+      if (typeof close !== 'boolean') {
+        add('warning', 'close-not-boolean', m.closeNotBoolean(name), at(item.get('close', true)));
+      } else if (!placement) {
+        add('warning', 'close-ignored', m.closeIgnored(name), at(item.get('close', true)));
+      }
+    }
     const via = item.get('via', true);
     if (via !== undefined && via !== null) {
       if (!placement) {

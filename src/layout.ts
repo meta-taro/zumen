@@ -120,6 +120,8 @@ export interface PlacedEdge {
   weight: Weight;
   /** **通り道の丸め方**（`src/curve.ts`）。道路の平面線形・河川・園路。 */
   curve: Curve;
+  /** **輪を閉じるか**（`src/curve.ts`）。池・トラック・外形。 */
+  close: boolean;
   /** **路線の色**（`src/palette.ts`）。`palette` に無ければ null。 */
   color: string | null;
 }
@@ -657,6 +659,8 @@ interface EdgeInfo {
   via: Point[];
   /** 丸め方（`src/curve.ts`）。 */
   curve: Curve;
+  /** 輪を閉じるか（`src/curve.ts`）。 */
+  close: boolean;
 }
 
 /** グループの表示名。無ければ id を使う。 */
@@ -704,6 +708,7 @@ function readEdges(diagram: ReturnType<typeof parse>): EdgeInfo[] {
       colorKey: edge.color,
       via: viaOf(edge.via),
       curve: curveOf(edge.curve),
+      close: edge.close === true,
     };
   });
 }
@@ -794,7 +799,10 @@ function routeEdges(
     if (edge.via.length > 0) {
       const first = edge.via[0]!;
       const last = edge.via[edge.via.length - 1]!;
-      return { ...edge, points: [clip(from, first), ...edge.via, clip(to, last)], pinned: false };
+      const points = [clip(from, first), ...edge.via, clip(to, last)];
+      // **輪を閉じる**（`close`）。最後から最初へ戻る —— 池・トラック・外形。
+      if (edge.close) points.push({ ...points[0]! });
+      return { ...edge, points, pinned: false };
     }
 
     // **図記号どうしの配線は直角に曲げる**（`src/symbol.ts`）。

@@ -181,3 +181,96 @@ describe('知らせる', () => {
     assert.match(spec().shape, /via:/);
   });
 });
+
+/**
+ * **輪を閉じる**（`edges[].close`）。
+ *
+ * 庭園の平面図で出た（2026-09-13）。池の輪郭を、輪に並べた点を 1 本の辺で
+ * 通して代用したが、**1 区間ぶん口が開いた。**
+ * 開いた池は池に見えない —— 輪郭が閉じていることが「面」の意味そのもの。
+ *
+ * **塗りは入れない。** 面の塗りは課題 5（自由形状）で、ここは輪郭だけ。
+ * 実物の庭園平面図も、池は輪郭と「池」の字で足りている。
+ */
+describe('輪を閉じる', () => {
+  const POND = `version: 1
+kind: placement
+arrows: false
+nodes:
+  - id: a
+    label: ""
+    marker: none
+    at: { x: 100, y: 20 }
+    size: { w: 4, h: 4 }
+  - id: b
+    label: ""
+    marker: none
+    at: { x: 60, y: 60 }
+    size: { w: 4, h: 4 }
+edges:
+  - from: a
+    to: b
+    curve: smooth
+    close: true
+    via:
+      - { x: 180, y: 60 }
+      - { x: 140, y: 140 }
+      - { x: 40, y: 140 }
+`;
+
+  it('**最後から最初へ戻る**（口が開かない）', async () => {
+    const placed = await layout(POND);
+    const points = placed.edges[0]!.points;
+    assert.deepEqual(points[points.length - 1], points[0], '輪が閉じていない');
+  });
+
+  it('**閉じた曲線は、継ぎ目でも滑らか**（角が立たない）', async () => {
+    const out = render(await layout(POND), 'light', 'safe', true);
+    const d = pathOfEdge(out);
+    assert.match(d, / Z$/, '道が閉じていない');
+    assert.ok(!d.includes(' L '), `継ぎ目に角が立った（${d}）`);
+  });
+
+  it('書かなければ、これまでどおり開いたまま', async () => {
+    const placed = await layout(POND.replace('    close: true\n', ''));
+    const points = placed.edges[0]!.points;
+    assert.notDeepEqual(points[points.length - 1], points[0]);
+  });
+
+  it('折れ線でも閉じる（`curve: none`）', async () => {
+    const out = render(await layout(POND.replace('curve: smooth', 'curve: none')), 'light', 'safe', true);
+    assert.match(pathOfEdge(out), / Z$/);
+  });
+
+  it('真偽でない値を警告する', () => {
+    const found = validate(POND.replace('close: true', 'close: はい'));
+    assert.ok(found.some((f) => f.code === 'close-not-boolean'));
+    assert.ok(found.every((f) => f.severity === 'warning'));
+  });
+
+  it('構成図では効かないことを知らせる', () => {
+    const found = validate(POND.replace('kind: placement\n', ''));
+    assert.ok(found.some((f) => f.code === 'close-ignored'));
+  });
+
+  /**
+   * **閉じた輪に矢印は付けない。**
+   *
+   * 矢印は「こちらへ向かう」という意味だが、**輪は出発点へ戻る。**
+   * 池の輪郭に矢印が付いていると、水が一方向へ流れているように読める。
+   */
+  it('**閉じた輪には、矢印を付けない**', async () => {
+    const out = render(await layout(POND.replace('arrows: false\n', '')), 'light', 'safe', true);
+    assert.ok(!out.includes('marker-end'), '輪に矢印が付いた');
+  });
+
+  it('閉じていない辺には、これまでどおり矢印が付く', async () => {
+    const out = render(
+      await layout(POND.replace('arrows: false\n', '').replace('    close: true\n', '')),
+      'light',
+      'safe',
+      true,
+    );
+    assert.match(out, /marker-end/, '矢印が消えた');
+  });
+});

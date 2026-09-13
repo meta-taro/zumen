@@ -68,22 +68,32 @@ function n(value: number): string {
  *
  * **2 点しかなければ直線。** 丸める角が無い。
  */
-export function pathOf(points: readonly Point[], curve: Curve): string {
+export function pathOf(points: readonly Point[], curve: Curve, closed = false): string {
   if (points.length < 2) return '';
   const [head, ...rest] = points;
   const start = `M ${n(head!.x)} ${n(head!.y)}`;
+  const end = closed ? ' Z' : '';
   if (curve === 'none' || points.length === 2) {
-    return `${start} ${rest.map((p) => `L ${n(p.x)} ${n(p.y)}`).join(' ')}`;
+    return `${start} ${rest.map((p) => `L ${n(p.x)} ${n(p.y)}`).join(' ')}${end}`;
   }
+  /**
+   * **閉じた輪は、継ぎ目でも滑らかにする。**
+   *
+   * 端の制御点を「自分自身」で代用すると、**繋ぎ目だけ角が立つ**
+   * （庭園の池で、輪の始まりに折れ目が出た）。
+   * 閉じているなら前後は輪の反対側にあるので、そちらを見る。
+   */
+  const at = (i: number): Point =>
+    closed ? points[(i + points.length) % points.length]! : points[Math.min(Math.max(i, 0), points.length - 1)]!;
   const parts: string[] = [start];
   for (let i = 0; i < points.length - 1; i += 1) {
-    const p0 = points[i === 0 ? 0 : i - 1]!;
+    const p0 = at(i - 1);
     const p1 = points[i]!;
     const p2 = points[i + 1]!;
-    const p3 = points[i + 2 < points.length ? i + 2 : i + 1]!;
+    const p3 = at(i + 2);
     const c1 = { x: p1.x + (p2.x - p0.x) / 6, y: p1.y + (p2.y - p0.y) / 6 };
     const c2 = { x: p2.x - (p3.x - p1.x) / 6, y: p2.y - (p3.y - p1.y) / 6 };
     parts.push(`C ${n(c1.x)} ${n(c1.y)}, ${n(c2.x)} ${n(c2.y)}, ${n(p2.x)} ${n(p2.y)}`);
   }
-  return parts.join(' ');
+  return `${parts.join(' ')}${end}`;
 }

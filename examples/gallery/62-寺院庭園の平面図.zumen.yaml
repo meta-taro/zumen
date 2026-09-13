@@ -1,0 +1,207 @@
+version: 1
+kind: placement
+arrows: false
+title: 架空寺院 方丈庭園 平面図（池泉回遊式・S=1:200）
+# 池の輪郭は閉じた曲線（close: true）。輪に並べた点を 1 本の辺で一周させる。
+# **塗りは入らない**（面の塗りは課題 5）。実物の庭園平面図も、
+# 池は輪郭と「池」の字で足りている。
+#
+# 園路は池の外を一定の距離で回る —— 池泉回遊式そのもの。
+# 池を横切らせると、実物なら橋が要る（交差は検査でも拾われる）。
+nodes:
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 641, y: 298 }
+    size: { w: 4, h: 4 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 639, y: 342 }
+    size: { w: 4, h: 4 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 586, y: 374 }
+    size: { w: 4, h: 4 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 529, y: 399 }
+    size: { w: 4, h: 4 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 457, y: 394 }
+    size: { w: 4, h: 4 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 405, y: 372 }
+    size: { w: 4, h: 4 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 340, y: 386 }
+    size: { w: 4, h: 4 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 235, y: 391 }
+    size: { w: 4, h: 4 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 209, y: 344 }
+    size: { w: 4, h: 4 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 263, y: 298 }
+    size: { w: 4, h: 4 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 284, y: 268 }
+    size: { w: 4, h: 4 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 296, y: 234 }
+    size: { w: 4, h: 4 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 340, y: 210 }
+    size: { w: 4, h: 4 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 392, y: 178 }
+    size: { w: 4, h: 4 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 471, y: 157 }
+    size: { w: 4, h: 4 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 529, y: 197 }
+    size: { w: 4, h: 4 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 525, y: 251 }
+    size: { w: 4, h: 4 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 564, y: 269 }
+    size: { w: 4, h: 4 }
+  - id: ike
+    label: "池（水面 EL±0）"
+    marker: none
+    at: { x: 370, y: 288 }
+    size: { w: 120, h: 24 }
+  - id: pa
+    label: "露地口"
+    marker: circle
+    at: { x: 580, y: 435 }
+    size: { w: 30, h: 30 }
+  - id: pb
+    label: "中門"
+    marker: circle
+    at: { x: 574, y: 141 }
+    size: { w: 30, h: 30 }
+  - id: sand
+    label: "白砂敷（枯山水）"
+    hatch: dots
+    at: { x: 60, y: 40 }
+    size: { w: 220, h: 110 }
+  - id: koke
+    label: "苔地"
+    hatch: cross
+    at: { x: 700, y: 470 }
+    size: { w: 180, h: 100 }
+  - id: t0
+    label: "松"
+    marker: circle
+    hatch: lines
+    at: { x: 118, y: 268 }
+    size: { w: 64, h: 64 }
+  - id: t1
+    label: "楓"
+    marker: circle
+    hatch: lines
+    at: { x: 732, y: 152 }
+    size: { w: 56, h: 56 }
+  - id: t2
+    label: "椿"
+    marker: circle
+    hatch: lines
+    at: { x: 124, y: 444 }
+    size: { w: 52, h: 52 }
+  - id: t3
+    label: "桜"
+    marker: circle
+    hatch: lines
+    at: { x: 402, y: 532 }
+    size: { w: 56, h: 56 }
+  - id: toro
+    label: "石灯籠"
+    marker: diamond
+    at: { x: 300, y: 140 }
+    size: { w: 26, h: 26 }
+  - id: chozu
+    label: "手水鉢"
+    marker: diamond
+    at: { x: 620, y: 120 }
+    size: { w: 26, h: 26 }
+  - id: shoin
+    label: "書院"
+    tag: S-1
+    technology: 縁側 3 間
+    at: { x: 760, y: 40 }
+    size: { w: 190, h: 110 }
+  - id: note
+    label: "池は輪郭のみ（面の塗りは未対応・課題 5）"
+    marker: none
+    at: { x: 60, y: 600 }
+    size: { w: 320, h: 26 }
+edges:
+  - from: p0
+    to: p17
+    curve: smooth
+    close: true
+    via:
+      - { x: 641, y: 344 }
+      - { x: 588, y: 376 }
+      - { x: 531, y: 401 }
+      - { x: 459, y: 396 }
+      - { x: 407, y: 374 }
+      - { x: 342, y: 388 }
+      - { x: 237, y: 393 }
+      - { x: 211, y: 346 }
+      - { x: 265, y: 300 }
+      - { x: 286, y: 270 }
+      - { x: 298, y: 236 }
+      - { x: 342, y: 212 }
+      - { x: 394, y: 180 }
+      - { x: 473, y: 159 }
+      - { x: 531, y: 199 }
+      - { x: 527, y: 253 }
+  - from: pa
+    to: pb
+    curve: smooth
+    line: dashed
+    via:
+      - { x: 467, y: 453 }
+      - { x: 361, y: 433 }
+      - { x: 214, y: 444 }
+      - { x: 110, y: 384 }
+      - { x: 160, y: 300 }
+      - { x: 190, y: 237 }
+      - { x: 246, y: 178 }
+      - { x: 345, y: 134 }
+      - { x: 478, y: 99 }
