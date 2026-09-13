@@ -38,6 +38,8 @@ import { radiusOf } from './range.ts';
 import { wallOf } from './wall.ts';
 import type { Wall } from './wall.ts';
 import { wrapOf, wrapOptions } from './wrap.ts';
+import { writeOf } from './write.ts';
+import type { Write } from './write.ts';
 import { kindOf, measureOf } from './kind.ts';
 import { separate } from './separate.ts';
 import { openingsOf } from './openings.ts';
@@ -84,6 +86,8 @@ export interface Box {
   marker: Marker;
   /** **ハッチング**（材料・区域の模様。`src/hatch.ts`）。既定は無地。 */
   hatch: Hatch;
+  /** **縦組みにするか**（`src/write.ts`）。既定は横組み。 */
+  write: Write;
   /** **電気・電子の図記号**（`src/symbol.ts`）。無ければ null。 */
   symbol: Symbol | null;
   /** **路線の色**（`src/palette.ts`）。`palette` に無ければ null。 */
@@ -561,6 +565,8 @@ interface NodeInfo {
   marker: Marker;
   /** 模様（`src/hatch.ts`）。 */
   hatch: Hatch;
+  /** 縦組みにするか（`src/write.ts`）。 */
+  write: Write;
   /** 図記号（`src/symbol.ts`）。 */
   symbol: Symbol | null;
   /** 色の鍵（`src/palette.ts`）。 */
@@ -598,6 +604,7 @@ function readNodes(diagram: ReturnType<typeof parse>): NodeInfo[] {
       radius?: unknown;
       marker?: unknown;
       hatch?: unknown;
+      write?: unknown;
       symbol?: unknown;
       color?: unknown;
       at?: unknown;
@@ -617,6 +624,7 @@ function readNodes(diagram: ReturnType<typeof parse>): NodeInfo[] {
       radius: radiusOf(node.radius),
       marker: markerOf(node.marker),
       hatch: hatchOf(node.hatch),
+      write: writeOf(node.write),
       symbol: symbolOf(node.symbol),
       color: node.color,
       at: asPoint(node.at),
@@ -946,6 +954,7 @@ function collect(
       radius: nodes.find((n) => n.id === child.id)?.radius ?? null,
       marker: nodes.find((n) => n.id === child.id)?.marker ?? 'box',
       hatch: nodes.find((n) => n.id === child.id)?.hatch ?? 'none',
+      write: nodes.find((n) => n.id === child.id)?.write ?? 'across',
       symbol: nodes.find((n) => n.id === child.id)?.symbol ?? null,
       color: null,
       openings: nodes.find((n) => n.id === child.id)?.openings ?? [],

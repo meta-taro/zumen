@@ -16,7 +16,8 @@
  * | `inside` | そのまま中へ | ふつうの部屋 |
  * | `joined` | 名前と副題を**1 行に繋いで**中へ | 通路・農道（背が低い） |
  * | `aside` | 名前は中へ、**副題を横に回して**添える | 駐車場の区画（`W1`／`車椅子 3,500`） |
- * | `along` | 帯に沿って**縦へ** | 用水路・廊下（横に入らない） |
+ * | `along` | 帯に沿って**縦へ**（寝かせる） | 用水路・廊下（横に入らない） |
+ * | `stack` | **字を 1 つずつ積む**（`write: down`） | 路線の駅名一覧 |
  * | `outside` | 箱の外へ | それ以外 |
  *
  * ## 外へ出すときは、当たりを見る
@@ -51,6 +52,7 @@ export type Plan =
   | { kind: 'joined'; text: string }
   | { kind: 'aside' }
   | { kind: 'along' }
+  | { kind: 'stack' }
   | { kind: 'outside'; x: number; y: number; above: boolean; crowded: boolean };
 
 /** 横に入るか。 */
@@ -70,7 +72,10 @@ export function goesOutside(box: Box): boolean {
 }
 
 /** 5 段のどれになるかを、当たり判定なしで決める。 */
-function shape(box: Box): 'inside' | 'joined' | 'aside' | 'along' | 'outside' {
+function shape(box: Box): 'inside' | 'joined' | 'aside' | 'along' | 'stack' | 'outside' {
+  // **縦組みは正本が書いたとおりにする**（`src/write.ts`）。
+  // 5 段の判断より先 —— 書いてあるものを機械が選び直さない。
+  if (box.write === 'down') return 'stack';
   // **図記号の文字は外へ出す**（`src/symbol.ts`）。
   // 実物の回路図も、部品名（R1）と値（10kΩ）は記号の脇に書いてある。
   if (box.symbol !== null) return 'outside';

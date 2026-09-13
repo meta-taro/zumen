@@ -41,6 +41,7 @@ import { LINES } from './line.ts';
 import { SYMBOLS } from './symbol.ts';
 import { WEIGHTS } from './weight.ts';
 import { HATCHES } from './hatch.ts';
+import { WRITES } from './write.ts';
 import { MARKERS } from './marker.ts';
 import { crowdedNames, extentOf, planNames } from './names.ts';
 import { OPENINGS, SIDES } from './openings.ts';
@@ -105,6 +106,8 @@ export function spec(): {
   markers: string[];
   /** 材料と区域の模様（`src/hatch.ts`）。**模様の名前だけ。材料の語は無い。** */
   hatches: string[];
+  /** 文字の組み方（`src/write.ts`）。**縦組みは、回すのとは別。** */
+  writes: string[];
   /** 辺の端の記号（`src/ends.ts`）。**形の名前だけ。意味の語は無い。** */
   ends: string[];
   /** 辺の線種（`src/line.ts`）。 */
@@ -144,6 +147,7 @@ export function spec(): {
     sides: [...SIDES],
     markers: [...MARKERS],
     hatches: [...HATCHES],
+    writes: [...WRITES],
     ends: [...ENDS],
     lines: [...LINES],
     symbols: [...SYMBOLS],

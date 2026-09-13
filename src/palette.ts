@@ -69,3 +69,17 @@ export function contrastOn(color: string, ground: string): number {
 
 /** 非文字の下限。これを割ると、線が地に沈んで見えない。 */
 export const FAINT = 3;
+
+/**
+ * **両方の地**（`src/tokens.ts` の `paper`）。
+ *
+ * zumen は同じ正本から**ライトとダークの両方**を書き出す。
+ * 片方の地だけで見ていると、もう片方で線が沈んでいることに気づけない
+ * （2026-09-13。のりかえ案内図の JR の灰色が、ダークで見えていなかった）。
+ */
+export const GROUNDS = ['#ffffff', '#0f0f13'] as const;
+
+/** どちらかの地で沈むか。 */
+export function faintOn(color: string): boolean {
+  return GROUNDS.some((ground) => contrastOn(color, ground) < FAINT);
+}

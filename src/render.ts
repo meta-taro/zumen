@@ -29,6 +29,7 @@ import type { Frame, Ink } from './dimensions.ts';
 import { hasGrid } from './grid.ts';
 import { drawEnd, hasEnds } from './ends.ts';
 import { drawHatch } from './hatch.ts';
+import { laysDown } from './write.ts';
 import { dashOf } from './line.ts';
 import { roundedOf, widthOf } from './weight.ts';
 import { drawMarker } from './marker.ts';
@@ -420,6 +421,12 @@ function subtitleOn(style: Look, palette: Palette): string {
  * **配置図の置き方は `src/names.ts` が決める**（5 段 ＋ 外へ出すときの当たり判定）。
  * ここは決まったとおりに描くだけ。
  */
+/** 縦に積んだときの、見た目の高さ。 */
+function stackHeight(body: string, font: number): number {
+  if (laysDown(body)) return font;
+  return ([...body].length - 1) * font * 1.06 + font;
+}
+
 function nodeText(
   box: Box,
   palette: Palette,
@@ -469,6 +476,29 @@ function nodeText(
       text(cx + 6, cy + 4, box.label, size, style.text),
       text(box.x + 12, cy, box.technology!, subSize, sub, turnAt(box.x + 12)),
     ];
+  }
+
+  /**
+   * **縦組み**（`src/write.ts`）。字を 1 つずつ上から積む。
+   *
+   * 副題は**右へ、小さく**（ふりがなの定位置）。
+   * **ラテン文字だけは寝かせる** —— 積むと読めない（JIS X 4051 の横倒し）。
+   * 寝かせる向きは**時計回り**で、実物の路線図のローマ字と同じ。
+   */
+  if (plan.kind === 'stack') {
+    const hasSub = box.technology !== null;
+    const total = size + (hasSub ? subSize + 2 : 0);
+    const left = box.x + box.w / 2 - total / 2;
+    const column = (body: string, colX: number, font: number, fill: string): string[] => {
+      if (laysDown(body)) {
+        const midY = box.y + stackHeight(box.label, size) / 2;
+        return [text(colX, midY, body, font, fill, ` transform="rotate(90 ${n(colX)} ${n(midY)})"`)];
+      }
+      return [...body].map((glyph, i) => text(colX, box.y + font + i * font * 1.06, glyph, font, fill));
+    };
+    const lines = column(box.label, left + size / 2, size, style.text);
+    if (hasSub) lines.push(...column(box.technology!, left + size + 2 + subSize / 2, subSize, sub));
+    return lines;
   }
 
   if (plan.kind === 'along') {

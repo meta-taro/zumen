@@ -326,6 +326,7 @@ const ja = {
       '    radius: <px>                       # 範囲の円（作業半径・警戒区域）',
       '    marker: <box（既定）| circle | double | none>  # 配置図での印。丸は駅・経穴・計器',
       '    hatch: <none（既定）| solid | dots | lines | cross>  # 材料と区域の模様',
+      '    write: <across（既定）| down>       # 縦組み。駅名を縦に積む（ラテン文字は寝る）',
       '    symbol: <SYMBOLS から>              # 電気・電子の図記号（IEC／JIS）',
       '    at:   { x: <左>, y: <上> }        # kind: placement でだけ効く',
       '    openings:                          # kind: placement でだけ効く（建具）',
@@ -358,6 +359,7 @@ const ja = {
       'type を増やさない。業界の専門性は形ではなく符号（tag）で表されている。柱は C1 であって円柱の絵ではない。',
       '横一列に伸びすぎたら wrap: true を書く。文字を大きくして直そうとしない（図が伸びて比がさらに下がる）。',
       '届く範囲は radius（範囲の円）で書く。クレーンの作業半径・消火器の警戒区域・影の離隔。物の形ではなく注記なので、type は増やさない。',
+      '縦に長い箱へ日本語を入れるなら write: down（字を 1 つずつ積む。ラテン文字だけは寝る）。路線の駅名一覧のように、駅の間隔を詰めたまま名前を並べたいときに使う。回す（along）のとは別物で、実物の路線図は積んである。',
       '配置図で丸い印を打つなら marker: circle（乗換駅などは double）。路線図の駅・経穴・計器はこれ。marker の値は形の名前だけで、消火器のような意味の語は無い（type も増やさない）。名前は印の外へ出るが、丸に入る短い文字（番号）は中に書く。',
       'UML のクラス図は ends と line で書く。汎化は実線＋triangle、実現は破線＋triangle、集約は diamond、コンポジションは solid-diamond、依存は破線＋arrow。端の記号が同じでも線種で意味が変わる（汎化と実現は線種でしか区別できない）。**属性と操作は描かない** —— コードに書いてあるものを図へ写すと、コードが変わった瞬間に図が嘘になる。',
       'ER 図の多重度は文字で書かず ends で書く（1 は bar、多は crow、0 以上は dot-crow）。データベースをやる人は端の形で読む。文字で書くと辺が増えるほど置き場が無くなって消える。ends の値は形の名前だけで、one-to-many のような意味の語は無い。',
@@ -450,6 +452,10 @@ const ja = {
       `ノード "${id}" の marker が "${word}" になっています（box / circle / double / none）。矩形で描きます。`,
     markerIgnored: (id: string) =>
       `ノード "${id}" に marker がありますが、構成図では効きません（形は type で決まります）。`,
+    writeUnknown: (id: string, word: string) =>
+      `ノード "${id}" の write が "${word}" になっています（across / down）。横組みで描きます。`,
+    writeIgnored: (id: string) =>
+      `ノード "${id}" に write がありますが、構成図では効きません（箱の大きさを文字から決めているためです）。`,
     hatchUnknown: (id: string, word: string) =>
       `ノード "${id}" の hatch が "${word}" になっています（none / solid / dots / lines / cross）。無地で描きます。`,
     symbolUnknown: (id: string, word: string) =>
@@ -465,7 +471,7 @@ const ja = {
     colorUnknown: (target: string, key: string) =>
       `${target} の color が "${key}" ですが、palette にその鍵がありません。色は付きません。`,
     colorFaint: (key: string, value: string) =>
-      `palette の "${key}"（${value}）が薄すぎます。白黒にすると線が消えます（非文字の下限は 3:1）。`,
+      `palette の "${key}"（${value}）が薄すぎます。地に沈んで線が消えます（非文字の下限は 3:1。ライトとダークの両方の地で見ています）。`,
     colorWithoutCode: (target: string, key: string) =>
       `${target} は色 "${key}" で路線を示していますが、tag にその記号がありません。色だけだと、白黒と色覚特性で読めなくなります（実物の路線図も G-09 のように記号を併記します）。`,
   },
@@ -707,6 +713,7 @@ const en: Catalog = {
       '    radius: <px>                         # range circle (crane reach, alarm zone)',
       '    marker: <box (default) | circle | double | none>  # how it is marked on a plan',
       '    hatch: <none (default) | solid | dots | lines | cross>  # material / zone pattern',
+      '    write: <across (default) | down>     # vertical setting: stack the glyphs (Latin is laid on its side)',
       '    symbol: <from SYMBOLS>               # electrical symbol (IEC / JIS)',
       '    at:   { x: <left>, y: <top> }       # only with kind: placement',
       '    openings:                            # only with kind: placement',
@@ -738,6 +745,7 @@ const en: Catalog = {
       'Do not add to type. Domain specificity is carried by the code (tag), not by shape. A column is C1, not a cylinder.',
       'If a diagram stretches into one long row, write wrap: true. Do not try to fix it by enlarging the text.',
       'Use radius for a reach or zone: crane working radius, fire-extinguisher coverage, shading offset. It is an annotation, not a shape, so type stays as it is.',
+      'For a tall narrow box holding Japanese, use write: down (glyphs are stacked one per line; Latin runs are laid on their side). It is what a transit line-guide needs: station names stay readable while the stops stay close together. It is not the same as rotating (along) — real transit charts stack.',
       'On a plan, use marker: circle for a round mark (double for an interchange): transit stations, acupuncture points, instruments. marker values are shape names only — there is no semantic value like an extinguisher, and type does not grow. The name is drawn outside the mark, except a short label (a number) which goes inside.',
       'A UML class diagram is written with ends and line: generalization is solid + triangle, realization is dashed + triangle, aggregation is diamond, composition is solid-diamond, dependency is dashed + arrow. The same end symbol means different things depending on the line style (generalization and realization differ only in that). Do NOT draw attributes and operations — copying what the code already says makes the diagram a lie the moment the code changes.',
       'Write ER cardinality with ends, not words (bar for one, crow for many, dot-crow for zero-or-more). Database people read the end shape. Words run out of room as edges multiply. ends values are shape names only, never a semantic value like one-to-many.',
@@ -816,6 +824,10 @@ const en: Catalog = {
       `Node "${id}" has marker "${word}" (box / circle / double / none). It is drawn as a rectangle.`,
     markerIgnored: (id: string) =>
       `Node "${id}" has a marker, but it has no effect on a structure diagram (shape comes from type).`,
+    writeUnknown: (id: string, word: string) =>
+      `Node "${id}" has write "${word}" (across / down). It is set horizontally.`,
+    writeIgnored: (id: string) =>
+      `Node "${id}" has write, but it has no effect on a structure diagram (box size is derived from the text there).`,
     hatchUnknown: (id: string, word: string) =>
       `Node "${id}" has hatch "${word}" (none / solid / dots / lines / cross). It is drawn plain.`,
     symbolUnknown: (id: string, word: string) =>
@@ -831,7 +843,7 @@ const en: Catalog = {
     colorUnknown: (target: string, key: string) =>
       `${target} has color "${key}", but palette has no such key. No colour is applied.`,
     colorFaint: (key: string, value: string) =>
-      `palette entry "${key}" (${value}) is too faint. The line disappears in black and white (3:1 is the floor for non-text).`,
+      `palette entry "${key}" (${value}) is too faint: the line sinks into the ground (3:1 is the floor for non-text; both the light and the dark ground are checked).`,
     colorWithoutCode: (target: string, key: string) =>
       `${target} identifies its line only by colour "${key}"; the tag does not carry that code. Colour alone fails in black and white and for colour vision deficiency (real transit maps write G-09).`,
   },

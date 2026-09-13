@@ -165,3 +165,39 @@ nodes:
     assert.match(out, /<circle [^>]*fill="#1c1c22" fill-opacity="0.82"/);
   });
 });
+
+/**
+ * **薄いかどうかは、両方の地で見る。**
+ *
+ * のりかえ案内図の JR の灰色で出た（2026-09-13）。白地では 7:1 あったが、
+ * **暗い地では 2:1 で、ダークの図では見えていなかった。**
+ * zumen は同じ正本から**ライトとダークの両方**を書き出すので、
+ * 片方の地だけで見ていると、もう片方が抜ける。
+ */
+describe('薄い色は、両方の地で見る', () => {
+  const one = (hex: string): string[] =>
+    validate(`version: 1
+kind: placement
+palette:
+  X: "${hex}"
+nodes:
+  - id: a
+    label: あ
+    color: X
+    at: { x: 0, y: 0 }
+    size: { w: 40, h: 20 }
+`).map((f) => f.code);
+
+  it('**暗い地で沈む色を知らせる**（白地では足りていても）', () => {
+    // 白地に 7.4:1、暗い地に 1.9:1。
+    assert.ok(one('#4a4a52').includes('color-faint'), '暗い地で沈む色を通した');
+  });
+
+  it('白地で沈む色も、これまでどおり知らせる', () => {
+    assert.ok(one('#fdfdfd').includes('color-faint'));
+  });
+
+  it('**両方で読める色は通す**', () => {
+    assert.deepEqual(one('#808080'), [], '両方で読める色を止めた');
+  });
+});

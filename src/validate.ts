@@ -20,11 +20,12 @@ import { KINDS as KIND_WORDS } from './kind.ts';
 import { MARKS, NORTHS } from './grid.ts';
 import { ENDS } from './ends.ts';
 import { LINES } from './line.ts';
-import { FAINT, contrastOn, paletteOf as routePalette } from './palette.ts';
+import { faintOn, paletteOf as routePalette } from './palette.ts';
 import { WEIGHTS } from './weight.ts';
 import { HATCHES } from './hatch.ts';
 import { SYMBOLS } from './symbol.ts';
 import { MARKERS } from './marker.ts';
+import { WRITES } from './write.ts';
 import { messages } from './messages.ts';
 import { OPENINGS, SIDES } from './openings.ts';
 
@@ -58,6 +59,7 @@ const OPENING_SIDES = new Set<string>(SIDES);
 const NORTH_WORDS = new Set<string>(NORTHS);
 const MARK_WORDS = new Set<string>(MARKS);
 const MARKER_WORDS = new Set<string>(MARKERS);
+const WRITE_WORDS = new Set<string>(WRITES);
 const HATCH_WORDS = new Set<string>(HATCHES);
 const SYMBOL_WORDS = new Set<string>(SYMBOLS);
 const END_WORDS = new Set<string>(ENDS);
@@ -334,6 +336,15 @@ function checkGeometry(doc: Document, add: Add, m: Messages, at: At): void {
       }
     }
 
+    const write = item.get('write');
+    if (write !== undefined && write !== null) {
+      if (!WRITE_WORDS.has(String(write))) {
+        add('warning', 'write-unknown', m.writeUnknown(id, String(write)), at(item.get('write', true)));
+      } else if (!placement) {
+        add('warning', 'write-ignored', m.writeIgnored(id), at(item.get('write', true)));
+      }
+    }
+
     const symbol = item.get('symbol');
     if (symbol !== undefined && symbol !== null && !SYMBOL_WORDS.has(String(symbol))) {
       add('warning', 'symbol-unknown', m.symbolUnknown(id, String(symbol)), at(item.get('symbol', true)));
@@ -446,7 +457,7 @@ function checkColors(doc: Document, add: Add, m: Messages, at: At): void {
   const table = routePalette(isMap(raw) ? raw.toJSON() : undefined);
 
   for (const [key, value] of Object.entries(table)) {
-    if (contrastOn(value, '#ffffff') < FAINT) {
+    if (faintOn(value)) {
       add('warning', 'color-faint', m.colorFaint(key, value), at(raw));
     }
   }
