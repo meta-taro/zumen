@@ -1,0 +1,193 @@
+version: 1
+kind: placement
+arrows: false
+title: サビキ仕掛け図（6 本針・全長 1.8m・堤防のアジ／サバ）
+# 釣具屋の袋や雑誌に載っている、あの仕掛け図。上が竿側、下が海底側。
+# **縦の順序と長さが中身**なので、箱と矢印に潰すと仕掛けにならない。
+# 幹糸から枝ス（ハリス）が枝分かれし、その先に針が付く。
+# 数字は号数と長さ —— 釣具屋で買うときに照合するのはここ。
+nodes:
+  - id: michi
+    label: "道糸　PE 1.0 号"
+    marker: none
+    at: { x: 190, y: 24 }
+    size: { w: 220, h: 26 }
+  - id: sw1
+    label: "サルカン #8"
+    marker: diamond
+    at: { x: 286, y: 70 }
+    size: { w: 28, h: 20 }
+  - id: j0
+    label: ""
+    marker: none
+    at: { x: 297, y: 107 }
+    size: { w: 6, h: 6 }
+  - id: h0
+    label: "針 1"
+    marker: circle
+    at: { x: 450, y: 97 }
+    size: { w: 96, h: 26 }
+  - id: hs0
+    label: "ハリス 1.5 号 10cm"
+    marker: none
+    at: { x: 556, y: 97 }
+    size: { w: 200, h: 26 }
+  - id: j1
+    label: ""
+    marker: none
+    at: { x: 297, y: 181 }
+    size: { w: 6, h: 6 }
+  - id: h1
+    label: "針 2"
+    marker: circle
+    at: { x: 450, y: 171 }
+    size: { w: 96, h: 26 }
+  - id: hs1
+    label: "ハリス 1.5 号 10cm"
+    marker: none
+    at: { x: 556, y: 171 }
+    size: { w: 200, h: 26 }
+  - id: j2
+    label: ""
+    marker: none
+    at: { x: 297, y: 255 }
+    size: { w: 6, h: 6 }
+  - id: h2
+    label: "針 3"
+    marker: circle
+    at: { x: 450, y: 245 }
+    size: { w: 96, h: 26 }
+  - id: hs2
+    label: "ハリス 1.5 号 10cm"
+    marker: none
+    at: { x: 556, y: 245 }
+    size: { w: 200, h: 26 }
+  - id: j3
+    label: ""
+    marker: none
+    at: { x: 297, y: 329 }
+    size: { w: 6, h: 6 }
+  - id: h3
+    label: "針 4"
+    marker: circle
+    at: { x: 450, y: 319 }
+    size: { w: 96, h: 26 }
+  - id: hs3
+    label: "ハリス 1.5 号 10cm"
+    marker: none
+    at: { x: 556, y: 319 }
+    size: { w: 200, h: 26 }
+  - id: j4
+    label: ""
+    marker: none
+    at: { x: 297, y: 403 }
+    size: { w: 6, h: 6 }
+  - id: h4
+    label: "針 5"
+    marker: circle
+    at: { x: 450, y: 393 }
+    size: { w: 96, h: 26 }
+  - id: hs4
+    label: "ハリス 1.5 号 10cm"
+    marker: none
+    at: { x: 556, y: 393 }
+    size: { w: 200, h: 26 }
+  - id: j5
+    label: ""
+    marker: none
+    at: { x: 297, y: 477 }
+    size: { w: 6, h: 6 }
+  - id: h5
+    label: "針 6"
+    marker: circle
+    at: { x: 450, y: 467 }
+    size: { w: 96, h: 26 }
+  - id: hs5
+    label: "ハリス 1.5 号 10cm"
+    marker: none
+    at: { x: 556, y: 467 }
+    size: { w: 200, h: 26 }
+  - id: sw2
+    label: "サルカン #8"
+    marker: diamond
+    at: { x: 286, y: 544 }
+    size: { w: 28, h: 20 }
+  - id: kago
+    label: "コマセカゴ M"
+    hatch: dots
+    at: { x: 244, y: 588 }
+    size: { w: 112, h: 40 }
+  - id: omori
+    label: "オモリ 8 号"
+    hatch: solid
+    at: { x: 254, y: 640 }
+    size: { w: 92, h: 32 }
+  - id: miki
+    label: "幹糸 フロロ 3 号"
+    marker: none
+    at: { x: 40, y: 110 }
+    size: { w: 180, h: 26 }
+  - id: eda
+    label: "枝間 30cm"
+    marker: none
+    at: { x: 40, y: 147 }
+    size: { w: 180, h: 26 }
+  - id: zen
+    label: "全長 1.8m"
+    marker: none
+    at: { x: 40, y: 524 }
+    size: { w: 180, h: 26 }
+  - id: hari
+    label: "針 サビキ 6 号（ハゲ皮）"
+    marker: none
+    at: { x: 450, y: 24 }
+    size: { w: 320, h: 26 }
+  - id: note
+    label: "狙い：アジ 15〜25cm／サバ。潮が速い日はオモリ 10 号、食いが渋い日はハリス 1.2 号へ。"
+    marker: none
+    at: { x: 40, y: 694 }
+    size: { w: 640, h: 26 }
+edges:
+  - from: sw1
+    to: j0
+    weight: thick
+  - from: j0
+    to: h0
+    line: dashed
+  - from: j0
+    to: j1
+    weight: thick
+  - from: j1
+    to: h1
+    line: dashed
+  - from: j1
+    to: j2
+    weight: thick
+  - from: j2
+    to: h2
+    line: dashed
+  - from: j2
+    to: j3
+    weight: thick
+  - from: j3
+    to: h3
+    line: dashed
+  - from: j3
+    to: j4
+    weight: thick
+  - from: j4
+    to: h4
+    line: dashed
+  - from: j4
+    to: j5
+    weight: thick
+  - from: j5
+    to: h5
+    line: dashed
+  - from: j5
+    to: sw2
+    weight: thick
+  - from: sw2
+    to: kago
+  - from: kago
+    to: omori

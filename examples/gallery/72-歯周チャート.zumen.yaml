@@ -1,0 +1,1288 @@
+version: 1
+kind: placement
+arrows: false
+title: 歯周精密検査チャート（6 点法・初診時／架空の症例）
+# 歯科医院で 1 歯 6 点を測って記録する用紙。専用ソフトか紙の様式で作られている。
+# 上が上顎（18〜28）、下が下顎（48〜38）。歯番は FDI 方式。
+# 各歯の 2 段は頬側と舌側で、1 段に近心・中央・遠心の 3 点。
+# **塗った升が BOP（プロービング時の出血）** —— 色ではなく塗りで示す（DESIGN.md §7）。
+# 欠損歯は升に × を入れる。動揺度は 0〜3、根分岐部は Ⅰ〜Ⅲ。
+nodes:
+  - id: u_num_h
+    label: "歯番"
+    hatch: solid
+    at: { x: 0, y: 74 }
+    size: { w: 130, h: 22 }
+  - id: u_n18
+    label: "18"
+    at: { x: 130, y: 74 }
+    size: { w: 72, h: 22 }
+  - id: u_n17
+    label: "17"
+    at: { x: 202, y: 74 }
+    size: { w: 72, h: 22 }
+  - id: u_n16
+    label: "16"
+    hatch: cross
+    at: { x: 274, y: 74 }
+    size: { w: 72, h: 22 }
+  - id: u_n15
+    label: "15"
+    at: { x: 346, y: 74 }
+    size: { w: 72, h: 22 }
+  - id: u_n14
+    label: "14"
+    at: { x: 418, y: 74 }
+    size: { w: 72, h: 22 }
+  - id: u_n13
+    label: "13"
+    at: { x: 490, y: 74 }
+    size: { w: 72, h: 22 }
+  - id: u_n12
+    label: "12"
+    at: { x: 562, y: 74 }
+    size: { w: 72, h: 22 }
+  - id: u_n11
+    label: "11"
+    at: { x: 634, y: 74 }
+    size: { w: 72, h: 22 }
+  - id: u_n21
+    label: "21"
+    at: { x: 706, y: 74 }
+    size: { w: 72, h: 22 }
+  - id: u_n22
+    label: "22"
+    at: { x: 778, y: 74 }
+    size: { w: 72, h: 22 }
+  - id: u_n23
+    label: "23"
+    at: { x: 850, y: 74 }
+    size: { w: 72, h: 22 }
+  - id: u_n24
+    label: "24"
+    at: { x: 922, y: 74 }
+    size: { w: 72, h: 22 }
+  - id: u_n25
+    label: "25"
+    at: { x: 994, y: 74 }
+    size: { w: 72, h: 22 }
+  - id: u_n26
+    label: "26"
+    at: { x: 1066, y: 74 }
+    size: { w: 72, h: 22 }
+  - id: u_n27
+    label: "27"
+    at: { x: 1138, y: 74 }
+    size: { w: 72, h: 22 }
+  - id: u_n28
+    label: "28"
+    at: { x: 1210, y: 74 }
+    size: { w: 72, h: 22 }
+  - id: u_b_h
+    label: "頬側 PD"
+    at: { x: 0, y: 96 }
+    size: { w: 130, h: 22 }
+  - id: u_b_18_0
+    label: "5"
+    at: { x: 130, y: 96 }
+    size: { w: 24, h: 22 }
+  - id: u_b_18_1
+    label: "5"
+    at: { x: 154, y: 96 }
+    size: { w: 24, h: 22 }
+  - id: u_b_18_2
+    label: "4"
+    at: { x: 178, y: 96 }
+    size: { w: 24, h: 22 }
+  - id: u_b_17_0
+    label: "4"
+    hatch: solid
+    at: { x: 202, y: 96 }
+    size: { w: 24, h: 22 }
+  - id: u_b_17_1
+    label: "4"
+    at: { x: 226, y: 96 }
+    size: { w: 24, h: 22 }
+  - id: u_b_17_2
+    label: "4"
+    hatch: solid
+    at: { x: 250, y: 96 }
+    size: { w: 24, h: 22 }
+  - id: u_b_16
+    label: ""
+    hatch: cross
+    at: { x: 274, y: 96 }
+    size: { w: 72, h: 22 }
+  - id: u_b_15_0
+    label: "3"
+    at: { x: 346, y: 96 }
+    size: { w: 24, h: 22 }
+  - id: u_b_15_1
+    label: "3"
+    at: { x: 370, y: 96 }
+    size: { w: 24, h: 22 }
+  - id: u_b_15_2
+    label: "2"
+    at: { x: 394, y: 96 }
+    size: { w: 24, h: 22 }
+  - id: u_b_14_0
+    label: "2"
+    at: { x: 418, y: 96 }
+    size: { w: 24, h: 22 }
+  - id: u_b_14_1
+    label: "2"
+    at: { x: 442, y: 96 }
+    size: { w: 24, h: 22 }
+  - id: u_b_14_2
+    label: "4"
+    hatch: solid
+    at: { x: 466, y: 96 }
+    size: { w: 24, h: 22 }
+  - id: u_b_13_0
+    label: "4"
+    hatch: solid
+    at: { x: 490, y: 96 }
+    size: { w: 24, h: 22 }
+  - id: u_b_13_1
+    label: "2"
+    at: { x: 514, y: 96 }
+    size: { w: 24, h: 22 }
+  - id: u_b_13_2
+    label: "5"
+    at: { x: 538, y: 96 }
+    size: { w: 24, h: 22 }
+  - id: u_b_12_0
+    label: "2"
+    at: { x: 562, y: 96 }
+    size: { w: 24, h: 22 }
+  - id: u_b_12_1
+    label: "4"
+    hatch: solid
+    at: { x: 586, y: 96 }
+    size: { w: 24, h: 22 }
+  - id: u_b_12_2
+    label: "2"
+    at: { x: 610, y: 96 }
+    size: { w: 24, h: 22 }
+  - id: u_b_11_0
+    label: "2"
+    at: { x: 634, y: 96 }
+    size: { w: 24, h: 22 }
+  - id: u_b_11_1
+    label: "2"
+    at: { x: 658, y: 96 }
+    size: { w: 24, h: 22 }
+  - id: u_b_11_2
+    label: "4"
+    at: { x: 682, y: 96 }
+    size: { w: 24, h: 22 }
+  - id: u_b_21_0
+    label: "3"
+    at: { x: 706, y: 96 }
+    size: { w: 24, h: 22 }
+  - id: u_b_21_1
+    label: "3"
+    at: { x: 730, y: 96 }
+    size: { w: 24, h: 22 }
+  - id: u_b_21_2
+    label: "2"
+    at: { x: 754, y: 96 }
+    size: { w: 24, h: 22 }
+  - id: u_b_22_0
+    label: "4"
+    hatch: solid
+    at: { x: 778, y: 96 }
+    size: { w: 24, h: 22 }
+  - id: u_b_22_1
+    label: "3"
+    at: { x: 802, y: 96 }
+    size: { w: 24, h: 22 }
+  - id: u_b_22_2
+    label: "4"
+    at: { x: 826, y: 96 }
+    size: { w: 24, h: 22 }
+  - id: u_b_23_0
+    label: "2"
+    at: { x: 850, y: 96 }
+    size: { w: 24, h: 22 }
+  - id: u_b_23_1
+    label: "2"
+    at: { x: 874, y: 96 }
+    size: { w: 24, h: 22 }
+  - id: u_b_23_2
+    label: "4"
+    hatch: solid
+    at: { x: 898, y: 96 }
+    size: { w: 24, h: 22 }
+  - id: u_b_24_0
+    label: "2"
+    at: { x: 922, y: 96 }
+    size: { w: 24, h: 22 }
+  - id: u_b_24_1
+    label: "3"
+    at: { x: 946, y: 96 }
+    size: { w: 24, h: 22 }
+  - id: u_b_24_2
+    label: "2"
+    at: { x: 970, y: 96 }
+    size: { w: 24, h: 22 }
+  - id: u_b_25_0
+    label: "4"
+    at: { x: 994, y: 96 }
+    size: { w: 24, h: 22 }
+  - id: u_b_25_1
+    label: "4"
+    hatch: solid
+    at: { x: 1018, y: 96 }
+    size: { w: 24, h: 22 }
+  - id: u_b_25_2
+    label: "2"
+    at: { x: 1042, y: 96 }
+    size: { w: 24, h: 22 }
+  - id: u_b_26_0
+    label: "5"
+    at: { x: 1066, y: 96 }
+    size: { w: 24, h: 22 }
+  - id: u_b_26_1
+    label: "5"
+    at: { x: 1090, y: 96 }
+    size: { w: 24, h: 22 }
+  - id: u_b_26_2
+    label: "5"
+    hatch: solid
+    at: { x: 1114, y: 96 }
+    size: { w: 24, h: 22 }
+  - id: u_b_27_0
+    label: "5"
+    hatch: solid
+    at: { x: 1138, y: 96 }
+    size: { w: 24, h: 22 }
+  - id: u_b_27_1
+    label: "4"
+    at: { x: 1162, y: 96 }
+    size: { w: 24, h: 22 }
+  - id: u_b_27_2
+    label: "7"
+    at: { x: 1186, y: 96 }
+    size: { w: 24, h: 22 }
+  - id: u_b_28_0
+    label: "4"
+    hatch: solid
+    at: { x: 1210, y: 96 }
+    size: { w: 24, h: 22 }
+  - id: u_b_28_1
+    label: "6"
+    hatch: solid
+    at: { x: 1234, y: 96 }
+    size: { w: 24, h: 22 }
+  - id: u_b_28_2
+    label: "5"
+    at: { x: 1258, y: 96 }
+    size: { w: 24, h: 22 }
+  - id: u_l_h
+    label: "舌側 PD"
+    at: { x: 0, y: 118 }
+    size: { w: 130, h: 22 }
+  - id: u_l_18_0
+    label: "5"
+    at: { x: 130, y: 118 }
+    size: { w: 24, h: 22 }
+  - id: u_l_18_1
+    label: "4"
+    hatch: solid
+    at: { x: 154, y: 118 }
+    size: { w: 24, h: 22 }
+  - id: u_l_18_2
+    label: "5"
+    hatch: solid
+    at: { x: 178, y: 118 }
+    size: { w: 24, h: 22 }
+  - id: u_l_17_0
+    label: "5"
+    hatch: solid
+    at: { x: 202, y: 118 }
+    size: { w: 24, h: 22 }
+  - id: u_l_17_1
+    label: "5"
+    hatch: solid
+    at: { x: 226, y: 118 }
+    size: { w: 24, h: 22 }
+  - id: u_l_17_2
+    label: "7"
+    hatch: solid
+    at: { x: 250, y: 118 }
+    size: { w: 24, h: 22 }
+  - id: u_l_16
+    label: ""
+    hatch: cross
+    at: { x: 274, y: 118 }
+    size: { w: 72, h: 22 }
+  - id: u_l_15_0
+    label: "4"
+    hatch: solid
+    at: { x: 346, y: 118 }
+    size: { w: 24, h: 22 }
+  - id: u_l_15_1
+    label: "3"
+    at: { x: 370, y: 118 }
+    size: { w: 24, h: 22 }
+  - id: u_l_15_2
+    label: "3"
+    at: { x: 394, y: 118 }
+    size: { w: 24, h: 22 }
+  - id: u_l_14_0
+    label: "5"
+    hatch: solid
+    at: { x: 418, y: 118 }
+    size: { w: 24, h: 22 }
+  - id: u_l_14_1
+    label: "3"
+    at: { x: 442, y: 118 }
+    size: { w: 24, h: 22 }
+  - id: u_l_14_2
+    label: "4"
+    at: { x: 466, y: 118 }
+    size: { w: 24, h: 22 }
+  - id: u_l_13_0
+    label: "2"
+    at: { x: 490, y: 118 }
+    size: { w: 24, h: 22 }
+  - id: u_l_13_1
+    label: "2"
+    at: { x: 514, y: 118 }
+    size: { w: 24, h: 22 }
+  - id: u_l_13_2
+    label: "3"
+    at: { x: 538, y: 118 }
+    size: { w: 24, h: 22 }
+  - id: u_l_12_0
+    label: "3"
+    at: { x: 562, y: 118 }
+    size: { w: 24, h: 22 }
+  - id: u_l_12_1
+    label: "5"
+    at: { x: 586, y: 118 }
+    size: { w: 24, h: 22 }
+  - id: u_l_12_2
+    label: "2"
+    at: { x: 610, y: 118 }
+    size: { w: 24, h: 22 }
+  - id: u_l_11_0
+    label: "5"
+    at: { x: 634, y: 118 }
+    size: { w: 24, h: 22 }
+  - id: u_l_11_1
+    label: "5"
+    hatch: solid
+    at: { x: 658, y: 118 }
+    size: { w: 24, h: 22 }
+  - id: u_l_11_2
+    label: "5"
+    at: { x: 682, y: 118 }
+    size: { w: 24, h: 22 }
+  - id: u_l_21_0
+    label: "3"
+    at: { x: 706, y: 118 }
+    size: { w: 24, h: 22 }
+  - id: u_l_21_1
+    label: "5"
+    hatch: solid
+    at: { x: 730, y: 118 }
+    size: { w: 24, h: 22 }
+  - id: u_l_21_2
+    label: "5"
+    hatch: solid
+    at: { x: 754, y: 118 }
+    size: { w: 24, h: 22 }
+  - id: u_l_22_0
+    label: "3"
+    at: { x: 778, y: 118 }
+    size: { w: 24, h: 22 }
+  - id: u_l_22_1
+    label: "3"
+    at: { x: 802, y: 118 }
+    size: { w: 24, h: 22 }
+  - id: u_l_22_2
+    label: "2"
+    at: { x: 826, y: 118 }
+    size: { w: 24, h: 22 }
+  - id: u_l_23_0
+    label: "4"
+    hatch: solid
+    at: { x: 850, y: 118 }
+    size: { w: 24, h: 22 }
+  - id: u_l_23_1
+    label: "2"
+    at: { x: 874, y: 118 }
+    size: { w: 24, h: 22 }
+  - id: u_l_23_2
+    label: "2"
+    at: { x: 898, y: 118 }
+    size: { w: 24, h: 22 }
+  - id: u_l_24_0
+    label: "3"
+    at: { x: 922, y: 118 }
+    size: { w: 24, h: 22 }
+  - id: u_l_24_1
+    label: "2"
+    at: { x: 946, y: 118 }
+    size: { w: 24, h: 22 }
+  - id: u_l_24_2
+    label: "5"
+    hatch: solid
+    at: { x: 970, y: 118 }
+    size: { w: 24, h: 22 }
+  - id: u_l_25_0
+    label: "3"
+    at: { x: 994, y: 118 }
+    size: { w: 24, h: 22 }
+  - id: u_l_25_1
+    label: "3"
+    at: { x: 1018, y: 118 }
+    size: { w: 24, h: 22 }
+  - id: u_l_25_2
+    label: "2"
+    at: { x: 1042, y: 118 }
+    size: { w: 24, h: 22 }
+  - id: u_l_26_0
+    label: "4"
+    hatch: solid
+    at: { x: 1066, y: 118 }
+    size: { w: 24, h: 22 }
+  - id: u_l_26_1
+    label: "6"
+    hatch: solid
+    at: { x: 1090, y: 118 }
+    size: { w: 24, h: 22 }
+  - id: u_l_26_2
+    label: "4"
+    at: { x: 1114, y: 118 }
+    size: { w: 24, h: 22 }
+  - id: u_l_27_0
+    label: "6"
+    hatch: solid
+    at: { x: 1138, y: 118 }
+    size: { w: 24, h: 22 }
+  - id: u_l_27_1
+    label: "5"
+    at: { x: 1162, y: 118 }
+    size: { w: 24, h: 22 }
+  - id: u_l_27_2
+    label: "7"
+    at: { x: 1186, y: 118 }
+    size: { w: 24, h: 22 }
+  - id: u_l_28_0
+    label: "4"
+    hatch: solid
+    at: { x: 1210, y: 118 }
+    size: { w: 24, h: 22 }
+  - id: u_l_28_1
+    label: "4"
+    hatch: solid
+    at: { x: 1234, y: 118 }
+    size: { w: 24, h: 22 }
+  - id: u_l_28_2
+    label: "7"
+    hatch: solid
+    at: { x: 1258, y: 118 }
+    size: { w: 24, h: 22 }
+  - id: u_mob_h
+    label: "動揺度"
+    at: { x: 0, y: 140 }
+    size: { w: 130, h: 22 }
+  - id: u_m18
+    label: "0"
+    at: { x: 130, y: 140 }
+    size: { w: 72, h: 22 }
+  - id: u_m17
+    label: "1"
+    at: { x: 202, y: 140 }
+    size: { w: 72, h: 22 }
+  - id: u_m16
+    label: ""
+    hatch: cross
+    at: { x: 274, y: 140 }
+    size: { w: 72, h: 22 }
+  - id: u_m15
+    label: "0"
+    at: { x: 346, y: 140 }
+    size: { w: 72, h: 22 }
+  - id: u_m14
+    label: "0"
+    at: { x: 418, y: 140 }
+    size: { w: 72, h: 22 }
+  - id: u_m13
+    label: "0"
+    at: { x: 490, y: 140 }
+    size: { w: 72, h: 22 }
+  - id: u_m12
+    label: "0"
+    at: { x: 562, y: 140 }
+    size: { w: 72, h: 22 }
+  - id: u_m11
+    label: "0"
+    at: { x: 634, y: 140 }
+    size: { w: 72, h: 22 }
+  - id: u_m21
+    label: "0"
+    at: { x: 706, y: 140 }
+    size: { w: 72, h: 22 }
+  - id: u_m22
+    label: "0"
+    at: { x: 778, y: 140 }
+    size: { w: 72, h: 22 }
+  - id: u_m23
+    label: "0"
+    at: { x: 850, y: 140 }
+    size: { w: 72, h: 22 }
+  - id: u_m24
+    label: "0"
+    at: { x: 922, y: 140 }
+    size: { w: 72, h: 22 }
+  - id: u_m25
+    label: "0"
+    at: { x: 994, y: 140 }
+    size: { w: 72, h: 22 }
+  - id: u_m26
+    label: "0"
+    at: { x: 1066, y: 140 }
+    size: { w: 72, h: 22 }
+  - id: u_m27
+    label: "1"
+    at: { x: 1138, y: 140 }
+    size: { w: 72, h: 22 }
+  - id: u_m28
+    label: "0"
+    at: { x: 1210, y: 140 }
+    size: { w: 72, h: 22 }
+  - id: u_fur_h
+    label: "根分岐部"
+    at: { x: 0, y: 162 }
+    size: { w: 130, h: 22 }
+  - id: u_f18
+    label: ""
+    at: { x: 130, y: 162 }
+    size: { w: 72, h: 22 }
+  - id: u_f17
+    label: "Ⅰ"
+    hatch: dots
+    at: { x: 202, y: 162 }
+    size: { w: 72, h: 22 }
+  - id: u_f16
+    label: ""
+    hatch: cross
+    at: { x: 274, y: 162 }
+    size: { w: 72, h: 22 }
+  - id: u_f15
+    label: ""
+    at: { x: 346, y: 162 }
+    size: { w: 72, h: 22 }
+  - id: u_f14
+    label: ""
+    at: { x: 418, y: 162 }
+    size: { w: 72, h: 22 }
+  - id: u_f13
+    label: ""
+    at: { x: 490, y: 162 }
+    size: { w: 72, h: 22 }
+  - id: u_f12
+    label: ""
+    at: { x: 562, y: 162 }
+    size: { w: 72, h: 22 }
+  - id: u_f11
+    label: ""
+    at: { x: 634, y: 162 }
+    size: { w: 72, h: 22 }
+  - id: u_f21
+    label: ""
+    at: { x: 706, y: 162 }
+    size: { w: 72, h: 22 }
+  - id: u_f22
+    label: ""
+    at: { x: 778, y: 162 }
+    size: { w: 72, h: 22 }
+  - id: u_f23
+    label: ""
+    at: { x: 850, y: 162 }
+    size: { w: 72, h: 22 }
+  - id: u_f24
+    label: ""
+    at: { x: 922, y: 162 }
+    size: { w: 72, h: 22 }
+  - id: u_f25
+    label: ""
+    at: { x: 994, y: 162 }
+    size: { w: 72, h: 22 }
+  - id: u_f26
+    label: "Ⅱ"
+    hatch: dots
+    at: { x: 1066, y: 162 }
+    size: { w: 72, h: 22 }
+  - id: u_f27
+    label: ""
+    at: { x: 1138, y: 162 }
+    size: { w: 72, h: 22 }
+  - id: u_f28
+    label: ""
+    at: { x: 1210, y: 162 }
+    size: { w: 72, h: 22 }
+  - id: mid
+    label: "—— 正中 ——"
+    marker: none
+    at: { x: 0, y: 194 }
+    size: { w: 1282, h: 22 }
+  - id: d_num_h
+    label: "歯番"
+    hatch: solid
+    at: { x: 0, y: 226 }
+    size: { w: 130, h: 22 }
+  - id: d_n48
+    label: "48"
+    at: { x: 130, y: 226 }
+    size: { w: 72, h: 22 }
+  - id: d_n47
+    label: "47"
+    at: { x: 202, y: 226 }
+    size: { w: 72, h: 22 }
+  - id: d_n46
+    label: "46"
+    hatch: cross
+    at: { x: 274, y: 226 }
+    size: { w: 72, h: 22 }
+  - id: d_n45
+    label: "45"
+    at: { x: 346, y: 226 }
+    size: { w: 72, h: 22 }
+  - id: d_n44
+    label: "44"
+    at: { x: 418, y: 226 }
+    size: { w: 72, h: 22 }
+  - id: d_n43
+    label: "43"
+    at: { x: 490, y: 226 }
+    size: { w: 72, h: 22 }
+  - id: d_n42
+    label: "42"
+    at: { x: 562, y: 226 }
+    size: { w: 72, h: 22 }
+  - id: d_n41
+    label: "41"
+    at: { x: 634, y: 226 }
+    size: { w: 72, h: 22 }
+  - id: d_n31
+    label: "31"
+    at: { x: 706, y: 226 }
+    size: { w: 72, h: 22 }
+  - id: d_n32
+    label: "32"
+    at: { x: 778, y: 226 }
+    size: { w: 72, h: 22 }
+  - id: d_n33
+    label: "33"
+    at: { x: 850, y: 226 }
+    size: { w: 72, h: 22 }
+  - id: d_n34
+    label: "34"
+    at: { x: 922, y: 226 }
+    size: { w: 72, h: 22 }
+  - id: d_n35
+    label: "35"
+    at: { x: 994, y: 226 }
+    size: { w: 72, h: 22 }
+  - id: d_n36
+    label: "36"
+    at: { x: 1066, y: 226 }
+    size: { w: 72, h: 22 }
+  - id: d_n37
+    label: "37"
+    at: { x: 1138, y: 226 }
+    size: { w: 72, h: 22 }
+  - id: d_n38
+    label: "38"
+    at: { x: 1210, y: 226 }
+    size: { w: 72, h: 22 }
+  - id: d_l_h
+    label: "舌側 PD"
+    at: { x: 0, y: 248 }
+    size: { w: 130, h: 22 }
+  - id: d_l_48_0
+    label: "5"
+    at: { x: 130, y: 248 }
+    size: { w: 24, h: 22 }
+  - id: d_l_48_1
+    label: "4"
+    hatch: solid
+    at: { x: 154, y: 248 }
+    size: { w: 24, h: 22 }
+  - id: d_l_48_2
+    label: "4"
+    hatch: solid
+    at: { x: 178, y: 248 }
+    size: { w: 24, h: 22 }
+  - id: d_l_47_0
+    label: "6"
+    hatch: solid
+    at: { x: 202, y: 248 }
+    size: { w: 24, h: 22 }
+  - id: d_l_47_1
+    label: "6"
+    hatch: solid
+    at: { x: 226, y: 248 }
+    size: { w: 24, h: 22 }
+  - id: d_l_47_2
+    label: "4"
+    at: { x: 250, y: 248 }
+    size: { w: 24, h: 22 }
+  - id: d_l_46
+    label: ""
+    hatch: cross
+    at: { x: 274, y: 248 }
+    size: { w: 72, h: 22 }
+  - id: d_l_45_0
+    label: "4"
+    at: { x: 346, y: 248 }
+    size: { w: 24, h: 22 }
+  - id: d_l_45_1
+    label: "5"
+    at: { x: 370, y: 248 }
+    size: { w: 24, h: 22 }
+  - id: d_l_45_2
+    label: "2"
+    at: { x: 394, y: 248 }
+    size: { w: 24, h: 22 }
+  - id: d_l_44_0
+    label: "3"
+    at: { x: 418, y: 248 }
+    size: { w: 24, h: 22 }
+  - id: d_l_44_1
+    label: "5"
+    at: { x: 442, y: 248 }
+    size: { w: 24, h: 22 }
+  - id: d_l_44_2
+    label: "3"
+    at: { x: 466, y: 248 }
+    size: { w: 24, h: 22 }
+  - id: d_l_43_0
+    label: "3"
+    at: { x: 490, y: 248 }
+    size: { w: 24, h: 22 }
+  - id: d_l_43_1
+    label: "3"
+    at: { x: 514, y: 248 }
+    size: { w: 24, h: 22 }
+  - id: d_l_43_2
+    label: "3"
+    at: { x: 538, y: 248 }
+    size: { w: 24, h: 22 }
+  - id: d_l_42_0
+    label: "2"
+    at: { x: 562, y: 248 }
+    size: { w: 24, h: 22 }
+  - id: d_l_42_1
+    label: "3"
+    at: { x: 586, y: 248 }
+    size: { w: 24, h: 22 }
+  - id: d_l_42_2
+    label: "5"
+    hatch: solid
+    at: { x: 610, y: 248 }
+    size: { w: 24, h: 22 }
+  - id: d_l_41_0
+    label: "2"
+    at: { x: 634, y: 248 }
+    size: { w: 24, h: 22 }
+  - id: d_l_41_1
+    label: "2"
+    at: { x: 658, y: 248 }
+    size: { w: 24, h: 22 }
+  - id: d_l_41_2
+    label: "2"
+    at: { x: 682, y: 248 }
+    size: { w: 24, h: 22 }
+  - id: d_l_31_0
+    label: "3"
+    at: { x: 706, y: 248 }
+    size: { w: 24, h: 22 }
+  - id: d_l_31_1
+    label: "2"
+    at: { x: 730, y: 248 }
+    size: { w: 24, h: 22 }
+  - id: d_l_31_2
+    label: "2"
+    at: { x: 754, y: 248 }
+    size: { w: 24, h: 22 }
+  - id: d_l_32_0
+    label: "3"
+    at: { x: 778, y: 248 }
+    size: { w: 24, h: 22 }
+  - id: d_l_32_1
+    label: "4"
+    hatch: solid
+    at: { x: 802, y: 248 }
+    size: { w: 24, h: 22 }
+  - id: d_l_32_2
+    label: "2"
+    at: { x: 826, y: 248 }
+    size: { w: 24, h: 22 }
+  - id: d_l_33_0
+    label: "4"
+    hatch: solid
+    at: { x: 850, y: 248 }
+    size: { w: 24, h: 22 }
+  - id: d_l_33_1
+    label: "2"
+    at: { x: 874, y: 248 }
+    size: { w: 24, h: 22 }
+  - id: d_l_33_2
+    label: "3"
+    at: { x: 898, y: 248 }
+    size: { w: 24, h: 22 }
+  - id: d_l_34_0
+    label: "4"
+    hatch: solid
+    at: { x: 922, y: 248 }
+    size: { w: 24, h: 22 }
+  - id: d_l_34_1
+    label: "2"
+    at: { x: 946, y: 248 }
+    size: { w: 24, h: 22 }
+  - id: d_l_34_2
+    label: "4"
+    hatch: solid
+    at: { x: 970, y: 248 }
+    size: { w: 24, h: 22 }
+  - id: d_l_35_0
+    label: "5"
+    hatch: solid
+    at: { x: 994, y: 248 }
+    size: { w: 24, h: 22 }
+  - id: d_l_35_1
+    label: "3"
+    at: { x: 1018, y: 248 }
+    size: { w: 24, h: 22 }
+  - id: d_l_35_2
+    label: "4"
+    hatch: solid
+    at: { x: 1042, y: 248 }
+    size: { w: 24, h: 22 }
+  - id: d_l_36_0
+    label: "4"
+    hatch: solid
+    at: { x: 1066, y: 248 }
+    size: { w: 24, h: 22 }
+  - id: d_l_36_1
+    label: "5"
+    at: { x: 1090, y: 248 }
+    size: { w: 24, h: 22 }
+  - id: d_l_36_2
+    label: "5"
+    hatch: solid
+    at: { x: 1114, y: 248 }
+    size: { w: 24, h: 22 }
+  - id: d_l_37_0
+    label: "5"
+    hatch: solid
+    at: { x: 1138, y: 248 }
+    size: { w: 24, h: 22 }
+  - id: d_l_37_1
+    label: "4"
+    at: { x: 1162, y: 248 }
+    size: { w: 24, h: 22 }
+  - id: d_l_37_2
+    label: "7"
+    hatch: solid
+    at: { x: 1186, y: 248 }
+    size: { w: 24, h: 22 }
+  - id: d_l_38_0
+    label: "7"
+    hatch: solid
+    at: { x: 1210, y: 248 }
+    size: { w: 24, h: 22 }
+  - id: d_l_38_1
+    label: "4"
+    hatch: solid
+    at: { x: 1234, y: 248 }
+    size: { w: 24, h: 22 }
+  - id: d_l_38_2
+    label: "6"
+    hatch: solid
+    at: { x: 1258, y: 248 }
+    size: { w: 24, h: 22 }
+  - id: d_b_h
+    label: "頬側 PD"
+    at: { x: 0, y: 270 }
+    size: { w: 130, h: 22 }
+  - id: d_b_48_0
+    label: "7"
+    hatch: solid
+    at: { x: 130, y: 270 }
+    size: { w: 24, h: 22 }
+  - id: d_b_48_1
+    label: "4"
+    at: { x: 154, y: 270 }
+    size: { w: 24, h: 22 }
+  - id: d_b_48_2
+    label: "5"
+    at: { x: 178, y: 270 }
+    size: { w: 24, h: 22 }
+  - id: d_b_47_0
+    label: "4"
+    at: { x: 202, y: 270 }
+    size: { w: 24, h: 22 }
+  - id: d_b_47_1
+    label: "5"
+    hatch: solid
+    at: { x: 226, y: 270 }
+    size: { w: 24, h: 22 }
+  - id: d_b_47_2
+    label: "4"
+    hatch: solid
+    at: { x: 250, y: 270 }
+    size: { w: 24, h: 22 }
+  - id: d_b_46
+    label: ""
+    hatch: cross
+    at: { x: 274, y: 270 }
+    size: { w: 72, h: 22 }
+  - id: d_b_45_0
+    label: "2"
+    at: { x: 346, y: 270 }
+    size: { w: 24, h: 22 }
+  - id: d_b_45_1
+    label: "4"
+    hatch: solid
+    at: { x: 370, y: 270 }
+    size: { w: 24, h: 22 }
+  - id: d_b_45_2
+    label: "4"
+    hatch: solid
+    at: { x: 394, y: 270 }
+    size: { w: 24, h: 22 }
+  - id: d_b_44_0
+    label: "2"
+    at: { x: 418, y: 270 }
+    size: { w: 24, h: 22 }
+  - id: d_b_44_1
+    label: "4"
+    at: { x: 442, y: 270 }
+    size: { w: 24, h: 22 }
+  - id: d_b_44_2
+    label: "2"
+    at: { x: 466, y: 270 }
+    size: { w: 24, h: 22 }
+  - id: d_b_43_0
+    label: "2"
+    at: { x: 490, y: 270 }
+    size: { w: 24, h: 22 }
+  - id: d_b_43_1
+    label: "3"
+    at: { x: 514, y: 270 }
+    size: { w: 24, h: 22 }
+  - id: d_b_43_2
+    label: "5"
+    at: { x: 538, y: 270 }
+    size: { w: 24, h: 22 }
+  - id: d_b_42_0
+    label: "2"
+    at: { x: 562, y: 270 }
+    size: { w: 24, h: 22 }
+  - id: d_b_42_1
+    label: "4"
+    hatch: solid
+    at: { x: 586, y: 270 }
+    size: { w: 24, h: 22 }
+  - id: d_b_42_2
+    label: "5"
+    hatch: solid
+    at: { x: 610, y: 270 }
+    size: { w: 24, h: 22 }
+  - id: d_b_41_0
+    label: "2"
+    at: { x: 634, y: 270 }
+    size: { w: 24, h: 22 }
+  - id: d_b_41_1
+    label: "3"
+    at: { x: 658, y: 270 }
+    size: { w: 24, h: 22 }
+  - id: d_b_41_2
+    label: "3"
+    at: { x: 682, y: 270 }
+    size: { w: 24, h: 22 }
+  - id: d_b_31_0
+    label: "3"
+    at: { x: 706, y: 270 }
+    size: { w: 24, h: 22 }
+  - id: d_b_31_1
+    label: "2"
+    at: { x: 730, y: 270 }
+    size: { w: 24, h: 22 }
+  - id: d_b_31_2
+    label: "5"
+    at: { x: 754, y: 270 }
+    size: { w: 24, h: 22 }
+  - id: d_b_32_0
+    label: "3"
+    at: { x: 778, y: 270 }
+    size: { w: 24, h: 22 }
+  - id: d_b_32_1
+    label: "3"
+    at: { x: 802, y: 270 }
+    size: { w: 24, h: 22 }
+  - id: d_b_32_2
+    label: "5"
+    at: { x: 826, y: 270 }
+    size: { w: 24, h: 22 }
+  - id: d_b_33_0
+    label: "3"
+    at: { x: 850, y: 270 }
+    size: { w: 24, h: 22 }
+  - id: d_b_33_1
+    label: "2"
+    at: { x: 874, y: 270 }
+    size: { w: 24, h: 22 }
+  - id: d_b_33_2
+    label: "2"
+    at: { x: 898, y: 270 }
+    size: { w: 24, h: 22 }
+  - id: d_b_34_0
+    label: "2"
+    at: { x: 922, y: 270 }
+    size: { w: 24, h: 22 }
+  - id: d_b_34_1
+    label: "2"
+    at: { x: 946, y: 270 }
+    size: { w: 24, h: 22 }
+  - id: d_b_34_2
+    label: "3"
+    at: { x: 970, y: 270 }
+    size: { w: 24, h: 22 }
+  - id: d_b_35_0
+    label: "2"
+    at: { x: 994, y: 270 }
+    size: { w: 24, h: 22 }
+  - id: d_b_35_1
+    label: "3"
+    at: { x: 1018, y: 270 }
+    size: { w: 24, h: 22 }
+  - id: d_b_35_2
+    label: "2"
+    at: { x: 1042, y: 270 }
+    size: { w: 24, h: 22 }
+  - id: d_b_36_0
+    label: "5"
+    at: { x: 1066, y: 270 }
+    size: { w: 24, h: 22 }
+  - id: d_b_36_1
+    label: "6"
+    at: { x: 1090, y: 270 }
+    size: { w: 24, h: 22 }
+  - id: d_b_36_2
+    label: "5"
+    at: { x: 1114, y: 270 }
+    size: { w: 24, h: 22 }
+  - id: d_b_37_0
+    label: "5"
+    at: { x: 1138, y: 270 }
+    size: { w: 24, h: 22 }
+  - id: d_b_37_1
+    label: "4"
+    at: { x: 1162, y: 270 }
+    size: { w: 24, h: 22 }
+  - id: d_b_37_2
+    label: "4"
+    at: { x: 1186, y: 270 }
+    size: { w: 24, h: 22 }
+  - id: d_b_38_0
+    label: "7"
+    at: { x: 1210, y: 270 }
+    size: { w: 24, h: 22 }
+  - id: d_b_38_1
+    label: "5"
+    at: { x: 1234, y: 270 }
+    size: { w: 24, h: 22 }
+  - id: d_b_38_2
+    label: "5"
+    at: { x: 1258, y: 270 }
+    size: { w: 24, h: 22 }
+  - id: d_mob_h
+    label: "動揺度"
+    at: { x: 0, y: 292 }
+    size: { w: 130, h: 22 }
+  - id: d_m48
+    label: "0"
+    at: { x: 130, y: 292 }
+    size: { w: 72, h: 22 }
+  - id: d_m47
+    label: "0"
+    at: { x: 202, y: 292 }
+    size: { w: 72, h: 22 }
+  - id: d_m46
+    label: ""
+    hatch: cross
+    at: { x: 274, y: 292 }
+    size: { w: 72, h: 22 }
+  - id: d_m45
+    label: "0"
+    at: { x: 346, y: 292 }
+    size: { w: 72, h: 22 }
+  - id: d_m44
+    label: "0"
+    at: { x: 418, y: 292 }
+    size: { w: 72, h: 22 }
+  - id: d_m43
+    label: "0"
+    at: { x: 490, y: 292 }
+    size: { w: 72, h: 22 }
+  - id: d_m42
+    label: "0"
+    at: { x: 562, y: 292 }
+    size: { w: 72, h: 22 }
+  - id: d_m41
+    label: "0"
+    at: { x: 634, y: 292 }
+    size: { w: 72, h: 22 }
+  - id: d_m31
+    label: "1"
+    at: { x: 706, y: 292 }
+    size: { w: 72, h: 22 }
+  - id: d_m32
+    label: "0"
+    at: { x: 778, y: 292 }
+    size: { w: 72, h: 22 }
+  - id: d_m33
+    label: "0"
+    at: { x: 850, y: 292 }
+    size: { w: 72, h: 22 }
+  - id: d_m34
+    label: "0"
+    at: { x: 922, y: 292 }
+    size: { w: 72, h: 22 }
+  - id: d_m35
+    label: "0"
+    at: { x: 994, y: 292 }
+    size: { w: 72, h: 22 }
+  - id: d_m36
+    label: "2"
+    hatch: lines
+    at: { x: 1066, y: 292 }
+    size: { w: 72, h: 22 }
+  - id: d_m37
+    label: "2"
+    hatch: lines
+    at: { x: 1138, y: 292 }
+    size: { w: 72, h: 22 }
+  - id: d_m38
+    label: "0"
+    at: { x: 1210, y: 292 }
+    size: { w: 72, h: 22 }
+  - id: d_fur_h
+    label: "根分岐部"
+    at: { x: 0, y: 314 }
+    size: { w: 130, h: 22 }
+  - id: d_f48
+    label: ""
+    at: { x: 130, y: 314 }
+    size: { w: 72, h: 22 }
+  - id: d_f47
+    label: "Ⅰ"
+    hatch: dots
+    at: { x: 202, y: 314 }
+    size: { w: 72, h: 22 }
+  - id: d_f46
+    label: ""
+    hatch: cross
+    at: { x: 274, y: 314 }
+    size: { w: 72, h: 22 }
+  - id: d_f45
+    label: ""
+    at: { x: 346, y: 314 }
+    size: { w: 72, h: 22 }
+  - id: d_f44
+    label: ""
+    at: { x: 418, y: 314 }
+    size: { w: 72, h: 22 }
+  - id: d_f43
+    label: ""
+    at: { x: 490, y: 314 }
+    size: { w: 72, h: 22 }
+  - id: d_f42
+    label: ""
+    at: { x: 562, y: 314 }
+    size: { w: 72, h: 22 }
+  - id: d_f41
+    label: ""
+    at: { x: 634, y: 314 }
+    size: { w: 72, h: 22 }
+  - id: d_f31
+    label: ""
+    at: { x: 706, y: 314 }
+    size: { w: 72, h: 22 }
+  - id: d_f32
+    label: ""
+    at: { x: 778, y: 314 }
+    size: { w: 72, h: 22 }
+  - id: d_f33
+    label: ""
+    at: { x: 850, y: 314 }
+    size: { w: 72, h: 22 }
+  - id: d_f34
+    label: ""
+    at: { x: 922, y: 314 }
+    size: { w: 72, h: 22 }
+  - id: d_f35
+    label: ""
+    at: { x: 994, y: 314 }
+    size: { w: 72, h: 22 }
+  - id: d_f36
+    label: "Ⅱ"
+    hatch: dots
+    at: { x: 1066, y: 314 }
+    size: { w: 72, h: 22 }
+  - id: d_f37
+    label: ""
+    at: { x: 1138, y: 314 }
+    size: { w: 72, h: 22 }
+  - id: d_f38
+    label: ""
+    at: { x: 1210, y: 314 }
+    size: { w: 72, h: 22 }
+  - id: hd
+    label: "初診 2026-09-14　患者 ID A-0142　検査者 歯科衛生士"
+    marker: none
+    at: { x: 0, y: 40 }
+    size: { w: 560, h: 26 }
+  - id: lg1
+    label: "4"
+    hatch: solid
+    at: { x: 0, y: 352 }
+    size: { w: 24, h: 22 }
+  - id: lg1n
+    label: "BOP あり（プロービング時の出血）"
+    marker: none
+    at: { x: 32, y: 352 }
+    size: { w: 300, h: 22 }
+  - id: lg2
+    label: ""
+    hatch: cross
+    at: { x: 340, y: 352 }
+    size: { w: 72, h: 22 }
+  - id: lg2n
+    label: "欠損歯"
+    marker: none
+    at: { x: 420, y: 352 }
+    size: { w: 120, h: 22 }
+  - id: lg3
+    label: ""
+    hatch: lines
+    at: { x: 540, y: 352 }
+    size: { w: 72, h: 22 }
+  - id: lg3n
+    label: "動揺度 2 以上"
+    marker: none
+    at: { x: 620, y: 352 }
+    size: { w: 160, h: 22 }
+  - id: note
+    label: "数値はプロービングデプス（mm）。各段の 3 升は近心・中央・遠心。"
+    marker: none
+    at: { x: 0, y: 382 }
+    size: { w: 520, h: 22 }
