@@ -13,6 +13,8 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
+import { placedFindings } from '../src/cli.ts';
+import { edgesUnderBoxes, layout } from '../src/layout.ts';
 import { hasError, validate } from '../src/validate.ts';
 
 /** 指摘の印だけを拾う。**文言が変わっても、これは変わらない。** */
@@ -234,5 +236,69 @@ describe('範囲の円を見る', () => {
 
   it('**構成図に書いても効かないことを知らせる**', () => {
     assert.ok(codes('version: 1\nnodes:\n  - id: a\n    radius: 100\n').includes('radius-ignored'));
+  });
+});
+
+/**
+ * **箱の下へ潜った線**（`edge-under-box`）。
+ *
+ * `arrows: false` のとき、辺は**箱より先に**描かれる。
+ * 停車駅案内図の「線の上に駅の印を置く」がそれで成り立っている。
+ *
+ * その代わり、**枠の中へ引いた線は、枠の塗りに隠れて消える。**
+ * 2026-09-14〜15 に 3 回踏んだ（見本 97 のカメラの視野、
+ * 見本 101 のスピーカーの指向、見本 111 の速度照査パターン）。
+ * **数の検査はどれも 0 のまま**で、ブラウザで開くまで気づかなかった。
+ */
+describe('箱の下へ潜った線', () => {
+  const UNDER = `version: 1
+kind: placement
+arrows: false
+nodes:
+  - id: room
+    label: 部屋
+    at: { x: 0, y: 0 }
+    size: { w: 400, h: 300 }
+  - id: a
+    label: ""
+    marker: none
+    at: { x: 60, y: 60 }
+    size: { w: 2, h: 2 }
+  - id: b
+    label: ""
+    marker: none
+    at: { x: 320, y: 240 }
+    size: { w: 2, h: 2 }
+edges:
+  - from: a
+    to: b
+`;
+
+  const under = async (text: string): Promise<string[]> =>
+    edgesUnderBoxes(await layout(text)).map(([edge]) => edge);
+
+  it('**塗った箱の中で閉じた線は、消えることを知らせる**', async () => {
+    assert.deepEqual(await under(UNDER), ['a>b'], '隠れる線を見逃した');
+  });
+
+  it('`arrows: true` なら線は箱の上に出るので、知らせない', async () => {
+    assert.deepEqual(await under(UNDER.replace('arrows: false', 'arrows: true')), []);
+  });
+
+  it('**印の無い箱は塗らない**ので、知らせない', async () => {
+    assert.deepEqual(
+      await under(UNDER.replace('    label: 部屋\n', '    label: 部屋\n    marker: none\n')),
+      [],
+    );
+  });
+
+  it('箱から出ている線は、隠れないので知らせない', async () => {
+    assert.deepEqual(await under(UNDER.replace('{ x: 320, y: 240 }', '{ x: 520, y: 240 }')), []);
+  });
+
+  it('検証器がその印を出す', async () => {
+    const found = await placedFindings(UNDER);
+    assert.ok(found.some((f) => f.code === 'edge-under-box'));
+    assert.ok(found.every((f) => f.severity === 'warning'));
   });
 });

@@ -564,6 +564,35 @@ export function straddles(placed: Placed): [string, string][] {
   });
 }
 
+/**
+ * **箱の塗りに隠れて消える辺**（`edge` の id と、それを隠す箱の id）。
+ *
+ * `arrows: false` のとき、辺は**箱より先に**描かれる（`src/render.ts`）。
+ * 停車駅案内図の「線の上に駅の印を置く」は、それで成り立っている。
+ *
+ * その代わり、**枠の中へ引いた線は、枠の塗りに隠れて消える。**
+ * 2026-09-14〜15 に 3 回踏んだ —— 見本 97 のカメラの視野、
+ * 見本 101 のスピーカーの指向、見本 111 の速度照査パターン。
+ * どれも**数の検査は 0 のまま**で、ブラウザで開くまで気づかなかった。
+ *
+ * **印の無い箱（`marker: none`）は塗らない**ので、隠さない。
+ * 通り道の足場に置く 2px の点も、これに当たる。
+ */
+export function edgesUnderBoxes(placed: Placed): [string, string][] {
+  if (placed.arrows) return [];
+  const opaque = placed.boxes.filter((box) => box.marker !== 'none');
+  const found: [string, string][] = [];
+  for (const edge of placed.edges) {
+    const cover = opaque.find((box) =>
+      edge.points.every(
+        (p) => p.x > box.x && p.x < box.x + box.w && p.y > box.y && p.y < box.y + box.h,
+      ),
+    );
+    if (cover !== undefined) found.push([edge.id, cover.id]);
+  }
+  return found;
+}
+
 /** 重なっている組を返す。合否ではなく観測値。 */
 export function overlaps(placed: Placed): [string, string][] {
   const found: [string, string][] = [];

@@ -476,6 +476,8 @@ const ja = {
       `エッジ ${name} の close が true / false になっていません。輪は閉じません。`,
     closeIgnored: (name: string) =>
       `エッジ ${name} に close がありますが、構成図では効きません（線の通り道は機械が決めます）。`,
+    edgeUnderBox: (edge: string, box: string) =>
+      `エッジ ${edge} は、箱 "${box}" の塗りに隠れて描かれません（arrows: false のとき、線は箱より先に描きます）。線を箱の上に出すなら arrows: true にしてください。`,
     alignUnknown: (id: string, word: string) =>
       `ノード "${id}" の align が "${word}" になっています（left / center / right）。中央で描きます。`,
     alignIgnored: (id: string) =>
@@ -892,6 +894,8 @@ const en: Catalog = {
       `Edge ${name} has a close that is not true / false. The loop is left open.`,
     closeIgnored: (name: string) =>
       `Edge ${name} has close, but it has no effect on a structure diagram (the machine routes the line).`,
+    edgeUnderBox: (edge: string, box: string) =>
+      `Edge ${edge} is hidden under the fill of box "${box}" (with arrows: false, lines are drawn before boxes). Set arrows: true to bring the line above the boxes.`,
     alignUnknown: (id: string, word: string) =>
       `Node "${id}" has align "${word}" (left / center / right). It is centred.`,
     alignIgnored: (id: string) =>

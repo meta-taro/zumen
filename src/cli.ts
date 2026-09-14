@@ -20,7 +20,7 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { toDrawio } from './drawio.ts';
 import { renderZumenBlocks, replaceZumenBlocks } from './embed.ts';
 import { mergeThreeWay } from './git-merge.ts';
-import { layout } from './layout.ts';
+import { edgesUnderBoxes, layout } from './layout.ts';
 import { PASS_LINE, measure, percent } from './measure.ts';
 import { merge } from './merge.ts';
 import type { Conflict } from './merge.ts';
@@ -94,7 +94,7 @@ export async function runValidate(paths: string[], read = readFileSync): Promise
  * ここで見るのは**文字どうしの重なり**だけ —— 交差は合否ではなく観測値なので出さない
  * （`src/layout.ts`。AI にも人にも自己採点させない）。
  */
-async function placedFindings(text: string): Promise<Finding[]> {
+export async function placedFindings(text: string): Promise<Finding[]> {
   if (kindOf(text) !== 'placement') return [];
   let placed;
   try {
@@ -122,6 +122,12 @@ async function placedFindings(text: string): Promise<Finding[]> {
       severity: 'warning' as const,
       code: 'tag-hidden',
       message: messages().validate.tagHidden(id),
+    })),
+    // **箱の塗りに隠れて消える線。** `arrows: false` は線を箱より先に描く。
+    ...edgesUnderBoxes(placed).map(([edge, box]) => ({
+      severity: 'warning' as const,
+      code: 'edge-under-box',
+      message: messages().validate.edgeUnderBox(edge, box),
     })),
   ];
 }
