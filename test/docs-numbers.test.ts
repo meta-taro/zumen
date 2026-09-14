@@ -42,3 +42,21 @@ describe('README の数', () => {
     assert.equal(Number(said[1]), checkCodes().size);
   });
 });
+
+/**
+ * **仕様に書いていない検査は、別の実装から見えない。**
+ *
+ * 仕様（`spec/zumen-format-v1.md`）は
+ * **別の実装が同じファイルを読み書きできる**ように書いてある文書。
+ * 検査の一覧に抜けがあると、その実装は同じ指摘を出せない。
+ *
+ * 2026-09-14 に測ったら、**58 件のうち 22 件が仕様に載っていなかった。**
+ */
+describe('仕様に、検査がぜんぶ載っている', () => {
+  it('**検査の印が、仕様の表に書いてある**', () => {
+    const spec = readFileSync(new URL('../spec/zumen-format-v1.md', import.meta.url), 'utf8');
+    const missing = [...checkCodes()].filter((code) => !spec.includes(`\`${code}\``)).sort();
+    assert.deepEqual(missing, []);
+  });
+});
+

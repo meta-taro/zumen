@@ -1,0 +1,274 @@
+version: 1
+kind: placement
+arrows: false
+scale: { mm: 1 }
+title: 養蜂の巣枠配置図（ラングストロス式・標準枠 10 枚）
+# 1 px = 1 mm。**どの枠に何が入っているか**の図。内検のたびに書き換える。
+#
+# ## 並べ替えてはいけない
+#
+# **中央が育児、外が貯蜜。** 蜂は真ん中を温めているので、
+# 枠を並べ替えると**育児が冷える。** 抜いて見たら、元の場所へ戻す。
+#
+# ## 隔王板がなぜ要るか
+#
+# **女王は通れず、働き蜂は通れる。** 継箱に卵が産まれないので、
+# 採蜜のときに幼虫を潰さずに済む。
+#
+# ## 王台は分蜂の合図
+#
+# 見つけたら**群の半分が出ていく準備**が始まっている。
+# 10 枚のうち 8 枚が埋まったら継箱を足す —— 混むと分蜂する。
+nodes:
+  - id: box
+    label: ""
+    marker: box
+    at: { x: 70, y: 150 }
+    size: { w: 460, h: 370 }
+  - id: box_n
+    label: "巣箱の中（内寸 460 × 370）"
+    marker: none
+    at: { x: 66, y: 116 }
+    size: { w: 300, h: 24 }
+  - id: f0
+    label: ""
+    hatch: solid
+    tag: 1
+    at: { x: 76, y: 158 }
+    size: { w: 42, h: 354 }
+  - id: f1
+    label: ""
+    hatch: solid
+    tag: 2
+    at: { x: 121, y: 158 }
+    size: { w: 42, h: 354 }
+  - id: f2
+    label: ""
+    hatch: dots
+    tag: 3
+    at: { x: 166, y: 158 }
+    size: { w: 42, h: 354 }
+  - id: f3
+    label: ""
+    hatch: lines
+    tag: 4
+    at: { x: 211, y: 158 }
+    size: { w: 42, h: 354 }
+  - id: f4
+    label: ""
+    hatch: lines
+    tag: 5
+    at: { x: 256, y: 158 }
+    size: { w: 42, h: 354 }
+  - id: f5
+    label: ""
+    hatch: lines
+    tag: 6
+    at: { x: 301, y: 158 }
+    size: { w: 42, h: 354 }
+  - id: f6
+    label: ""
+    hatch: lines
+    tag: 7
+    at: { x: 346, y: 158 }
+    size: { w: 42, h: 354 }
+  - id: f7
+    label: ""
+    hatch: dots
+    tag: 8
+    at: { x: 391, y: 158 }
+    size: { w: 42, h: 354 }
+  - id: f8
+    label: ""
+    hatch: solid
+    tag: 9
+    at: { x: 436, y: 158 }
+    size: { w: 42, h: 354 }
+  - id: f9
+    label: ""
+    hatch: none
+    tag: 10
+    at: { x: 481, y: 158 }
+    size: { w: 42, h: 354 }
+  - id: gate
+    label: "巣門（南〜東へ向ける）"
+    hatch: solid
+    at: { x: 70, y: 524 }
+    size: { w: 240, h: 26 }
+  - id: plan_n
+    label: "1 枚ずつ抜いて見る。中央が育児、外が貯蜜"
+    marker: none
+    at: { x: 70, y: 556 }
+    size: { w: 320, h: 24 }
+  - id: sec_n
+    label: "積み方（断面）"
+    marker: none
+    at: { x: 580, y: 116 }
+    size: { w: 240, h: 24 }
+  - id: roof
+    label: "屋根"
+    hatch: dots
+    at: { x: 580, y: 150 }
+    size: { w: 300, h: 40 }
+  - id: inner
+    label: "内蓋"
+    hatch: none
+    at: { x: 580, y: 190 }
+    size: { w: 300, h: 26 }
+  - id: super
+    label: "継箱（浅枠 10 枚・貯蜜専用）"
+    hatch: solid
+    at: { x: 580, y: 216 }
+    size: { w: 300, h: 160 }
+  - id: excl
+    label: "隔王板（女王は通れない）"
+    hatch: cross
+    at: { x: 580, y: 376 }
+    size: { w: 300, h: 20 }
+  - id: deep
+    label: "巣箱（標準枠 10 枚・育児）"
+    hatch: lines
+    at: { x: 580, y: 396 }
+    size: { w: 300, h: 242 }
+  - id: bottom
+    label: "底板（前へ傾ける）"
+    hatch: none
+    at: { x: 580, y: 638 }
+    size: { w: 300, h: 30 }
+  - id: sec_h
+    label: "合計 518mm（継箱 1 段のとき）"
+    marker: none
+    at: { x: 580, y: 676 }
+    size: { w: 300, h: 24 }
+  - id: tb_t
+    label: "内検の記録（1 群ぶん）"
+    marker: none
+    at: { x: 920, y: 60 }
+    size: { w: 400, h: 24 }
+  - id: th0
+    label: "枠"
+    hatch: solid
+    at: { x: 920, y: 92 }
+    size: { w: 60, h: 26 }
+  - id: th1
+    label: "中身"
+    hatch: solid
+    at: { x: 980, y: 92 }
+    size: { w: 110, h: 26 }
+  - id: th2
+    label: "見るところ"
+    hatch: solid
+    at: { x: 1090, y: 92 }
+    size: { w: 330, h: 26 }
+  - id: tc0_0
+    label: "1・2"
+    at: { x: 920, y: 118 }
+    size: { w: 60, h: 28 }
+  - id: tc0_1
+    label: "貯蜜"
+    at: { x: 980, y: 118 }
+    size: { w: 110, h: 28 }
+  - id: tc0_2
+    label: "蓋のかかった蜜が外側にあるか"
+    at: { x: 1090, y: 118 }
+    size: { w: 330, h: 28 }
+  - id: tc1_0
+    label: "3"
+    at: { x: 920, y: 146 }
+    size: { w: 60, h: 28 }
+  - id: tc1_1
+    label: "花粉"
+    at: { x: 980, y: 146 }
+    size: { w: 110, h: 28 }
+  - id: tc1_2
+    label: "色の違う花粉が帯になっているか"
+    at: { x: 1090, y: 146 }
+    size: { w: 330, h: 28 }
+  - id: tc2_0
+    label: "4〜7"
+    at: { x: 920, y: 174 }
+    size: { w: 60, h: 28 }
+  - id: tc2_1
+    label: "育児"
+    at: { x: 980, y: 174 }
+    size: { w: 110, h: 28 }
+  - id: tc2_2
+    label: "卵・幼虫・蛹が揃っているか（女王が居る印）"
+    at: { x: 1090, y: 174 }
+    size: { w: 330, h: 28 }
+  - id: tc3_0
+    label: "8"
+    at: { x: 920, y: 202 }
+    size: { w: 60, h: 28 }
+  - id: tc3_1
+    label: "花粉"
+    at: { x: 980, y: 202 }
+    size: { w: 110, h: 28 }
+  - id: tc3_2
+    label: "育児圏を挟んでいるか"
+    at: { x: 1090, y: 202 }
+    size: { w: 330, h: 28 }
+  - id: tc4_0
+    label: "9"
+    at: { x: 920, y: 230 }
+    size: { w: 60, h: 28 }
+  - id: tc4_1
+    label: "貯蜜"
+    at: { x: 980, y: 230 }
+    size: { w: 110, h: 28 }
+  - id: tc4_2
+    label: "足りなければ給餌"
+    at: { x: 1090, y: 230 }
+    size: { w: 330, h: 28 }
+  - id: tc5_0
+    label: "10"
+    at: { x: 920, y: 258 }
+    size: { w: 60, h: 28 }
+  - id: tc5_1
+    label: "空（巣礎）"
+    at: { x: 980, y: 258 }
+    size: { w: 110, h: 28 }
+  - id: tc5_2
+    label: "伸ばし始めているか。混んできた印"
+    at: { x: 1090, y: 258 }
+    size: { w: 330, h: 28 }
+  - id: r_t
+    label: "巣枠の並べ方と、内検の決まり"
+    marker: none
+    at: { x: 920, y: 302 }
+    size: { w: 400, h: 24 }
+  - id: n0
+    label: "・中央が育児、外が貯蜜。 蜂は真ん中を温めるので、並べ替えると育児が冷える。"
+    marker: none
+    at: { x: 920, y: 330 }
+    size: { w: 620, h: 24 }
+  - id: n1
+    label: "・隔王板は巣箱と継箱の間。 女王は通れず、働き蜂は通れる。"
+    marker: none
+    at: { x: 920, y: 356 }
+    size: { w: 620, h: 24 }
+  - id: n2
+    label: "・だから継箱に卵が産まれず、採蜜のときに幼虫を潰さない。"
+    marker: none
+    at: { x: 920, y: 382 }
+    size: { w: 620, h: 24 }
+  - id: n3
+    label: "・王台を見つけたら分蜂の準備。 放っておくと群の半分が出ていく。"
+    marker: none
+    at: { x: 920, y: 408 }
+    size: { w: 620, h: 24 }
+  - id: n4
+    label: "・内検は晴れて暖かい日の日中。働き蜂が外に出ている時間に開ける。"
+    marker: none
+    at: { x: 920, y: 434 }
+    size: { w: 620, h: 24 }
+  - id: n5
+    label: "・10 枚のうち 8 枚が埋まったら継箱を足す。混むと分蜂する。"
+    marker: none
+    at: { x: 920, y: 460 }
+    size: { w: 620, h: 24 }
+  - id: n6
+    label: "・巣門は南〜東へ。底板は前へ傾けて、雨水を溜めない。"
+    marker: none
+    at: { x: 920, y: 486 }
+    size: { w: 620, h: 24 }

@@ -1364,6 +1364,19 @@ Mermaid も draw.io も、落ちたものを先頭のコメントに列挙する
 
 | 印 | 何を見るか |
 |---|---|
+| `syntax` | **YAML として読めるか**（読めなければ止める） |
+| `not-mapping` | 文書の一番外側が対応表か（並びや文字列を受けない） |
+| `version-missing` | `version` があるか |
+| `version-unsupported` | `version` が 1 か |
+| `nodes-missing` | `nodes` があるか |
+| `nodes-not-sequence` | `nodes` が並びか |
+| `node-id-missing` | 各ノードに `id` があるか |
+| `node-id-duplicated` | `id` が文書内で一意か |
+| `node-group-unknown` | `group` が `groups` にある id か |
+| `edge-endpoint-missing` | 各辺に `from` と `to` があるか |
+| `edge-endpoint-unknown` | 辺の端が `nodes` にある id か |
+| `appearance-unknown` | `pins` の体裁が `primary` / `muted` か |
+| `pin-orphan` | **`pins` が指す要素が正本に無い**（消さずに知らせる。§3.4） |
 | `node-at-invalid` | `at` が `{ x: 数, y: 数 }` か |
 | `node-at-ignored` | **構成図に `at` を書いていないか**（置き場所は機械が決める） |
 | `node-size-invalid` | `size` が `{ w: 正の数, h: 正の数 }` か |
@@ -1382,7 +1395,16 @@ Mermaid も draw.io も、落ちたものを先頭のコメントに列挙する
 | `wall-needs-scale` | **壁の厚みはあるが縮尺が無い**（太さが変わらない） |
 | `radius-invalid` | `radius` が正の数か |
 | `radius-ignored` | **構成図に `radius` を書いていないか** |
-| `marker-unknown` | `box` / `circle` / `double` / `none` か |
+| `marker-unknown` | `box` / `circle` / `double` / `ellipse` / `diamond` / `bar` / `none` か |
+| `write-unknown` | `across` / `down` か |
+| `write-ignored` | **構成図に `write` を書いていないか** |
+| `grid-mark-unknown` | 通り芯の `mark` が `axis` / `level` / `tick` か |
+| `curve-unknown` | `none` / `smooth` か |
+| `close-not-boolean` | `close` が真偽値か |
+| `close-ignored` | **構成図に `close` を書いていないか** |
+| `via-invalid` | `via` が `{ x: 数, y: 数 }` の並びか |
+| `via-ignored` | **構成図に `via` を書いていないか** |
+| `vertical-unknown` | `none` / `stair` / `escalator` / `elevator` か（JIS Z 8210） |
 | `marker-ignored` | **構成図に `marker` を書いていないか** |
 | `hatch-unknown` | `none` / `solid` / `dots` / `lines` / `cross` か |
 | `symbol-unknown` | 図記号が `SYMBOLS` の語か |
