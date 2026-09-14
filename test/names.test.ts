@@ -65,7 +65,7 @@ nodes:
     size: { w: 100, h: 120 }
   - id: thin
     label: とても長い名前の細い部屋
-    at: { x: 0, y: 120 }
+    at: { x: 80, y: 120 }
     size: { w: 40, h: 26 }
   - id: below
     label: 下の部屋
@@ -153,7 +153,7 @@ kind: placement
 nodes:
   - id: mid
     label: とても長い名前の細い部屋
-    at: { x: 0, y: 100 }
+    at: { x: 80, y: 100 }
     size: { w: 40, h: 26 }
   - id: up
     label: 上
@@ -339,5 +339,42 @@ nodes:
     const out = render(placed, 'light', 'safe', true);
     const x = Number(out.match(/<text x="(\d+)"[^>]*>H03</)![1]);
     assert.ok(x < box.x + box.w / 2, '左上に置かれていない');
+  });
+});
+
+/**
+ * **紙の外へ出た名前も「混んでいる」に数える。**
+ *
+ * 舞台照明仕込図で出た（2026-09-14）。左端の「シーリング」が箱に入らず、
+ * 外へ出した先が**紙の左**だったので、文字が切れていた。
+ * それでも `crowdedNames` は空 —— **切れている文字を、検査が拾えていなかった。**
+ *
+ * 紙は右と下へなら広げられるが、**左と上へは広げられない**
+ * （人が書いた座標をそのまま出す保証があるので、全体をずらせない）。
+ * だから**知らせる**しかない。
+ */
+describe('紙の外へ出た名前', () => {
+  /** 左上の角にある細い箱。**ぶつかる相手はいないが、名前が紙の外へ出る。** */
+  const EDGE = `version: 1
+kind: placement
+nodes:
+  - id: a
+    label: とても長い名前
+    at: { x: 0, y: 0 }
+    size: { w: 40, h: 26 }
+  - id: b
+    label: 離れた箱
+    at: { x: 400, y: 400 }
+    size: { w: 60, h: 26 }
+`;
+
+  it('**左へはみ出した名前を知らせる**（重なる相手はいなくても）', async () => {
+    const out = await inspect(EDGE);
+    assert.deepEqual(out.crowdedNames, ['a'], '切れている名前を拾っていない');
+  });
+
+  it('紙に収まっていれば、これまでどおり何も言わない', async () => {
+    const out = await inspect(EDGE.replace('at: { x: 0, y: 0 }', 'at: { x: 200, y: 200 }'));
+    assert.deepEqual(out.crowdedNames, []);
   });
 });

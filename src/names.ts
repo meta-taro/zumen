@@ -313,7 +313,23 @@ export function planNames(
     const chosen = best!;
     const spot = patch(box, rows, chosen.side);
     taken.push(spot);
-    out.set(box.id, { kind: 'outside', ...place(box, rows, chosen.side), crowded: chosen.cost > 0 });
+    /**
+     * **紙の外へ出た名前も「混んでいる」に数える。**
+     *
+     * 紙は右と下へなら広げられるが、**左と上へは広げられない**
+     * （人が書いた座標をそのまま出す保証があるので、図ぜんたいをずらせない）。
+     * だから切れる。**切れている文字は、重なっている文字と同じく読めない** ——
+     * 拾わないと、書いた人は出ていると思ったままになる
+     * （2026-09-14。舞台照明仕込図の「シーリング」が左端で切れていた）。
+     */
+    // **紙の縁は 0**（`frame` は中身の外周であって紙ではない）。
+    // 中身の外周より少し外へ出るのは、ふつうに起きるし切れない。
+    const clipped = spot.x < 0 || spot.y < 0;
+    out.set(box.id, {
+      kind: 'outside',
+      ...place(box, rows, chosen.side),
+      crowded: chosen.cost > 0 || clipped,
+    });
   }
   return out;
 }
@@ -332,7 +348,14 @@ function place(box: Box, rows: number, side: Side): { x: number; y: number; abov
   return { x, y: box.y + box.h + 13 + gap, above: false };
 }
 
-/** **混んでいる名前**（他の箱や文字に重なって置いたもの）。人へ出す。 */
+/**
+ * **混んでいる名前** —— **置き場所が無くて、きれいに置けなかったもの。**
+ *
+ * 2 通りある。どちらも「読めない」という同じ結果になる。
+ *
+ * - 他の箱や文字に**重なって**置いた
+ * - 紙の**外へはみ出して**切れている（左と上へは紙を広げられない）
+ */
 export function crowdedNames(plans: Map<string, Plan>): string[] {
   return [...plans]
     .filter(([, plan]) => plan.kind === 'outside' && plan.crowded)

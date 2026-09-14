@@ -1,0 +1,778 @@
+version: 1
+kind: placement
+arrows: false
+title: 架空ホール 中ホール 舞台照明仕込図（Light Plot ＋ Channel Hookup）
+# 実物の仕込図は **図 1 枚では完結しない** —— 平面の Light Plot と、
+# チャンネル一覧（Channel Hookup）の 2 点で運用される。ここでも同じ形にした。
+#
+# 上が舞台奥（ホリゾント）、下が客席。縦の一点鎖線がセンターライン。
+# 器具の種類は **印と模様の組み合わせ**で示す（USITT の器具記号は持っていないため、
+# 凡例で対応を言う）。丸の中の数字が Ch。
+grid:
+  x:
+    - { id: "CL", at: 360, mark: tick }
+nodes:
+  - id: stage
+    label: ""
+    marker: box
+    at: { x: 40, y: 90 }
+    size: { w: 640, h: 300 }
+  - id: hori
+    label: "ホリゾント幕"
+    hatch: dots
+    at: { x: 60, y: 96 }
+    size: { w: 600, h: 22 }
+  - id: pros
+    label: "プロセニアム 開口 12.0m"
+    hatch: solid
+    at: { x: 40, y: 392 }
+    size: { w: 640, h: 26 }
+  - id: seat
+    label: "客席側"
+    marker: none
+    at: { x: 500, y: 480 }
+    size: { w: 180, h: 30 }
+  - id: b_3電
+    label: ""
+    marker: bar
+    at: { x: 60, y: 146 }
+    size: { w: 600, h: 8 }
+  - id: bl_3電
+    label: "3 電"
+    marker: none
+    at: { x: 0, y: 136 }
+    size: { w: 72, h: 28 }
+  - id: b_2電
+    label: ""
+    marker: bar
+    at: { x: 60, y: 210 }
+    size: { w: 600, h: 8 }
+  - id: bl_2電
+    label: "2 電"
+    marker: none
+    at: { x: 0, y: 200 }
+    size: { w: 72, h: 28 }
+  - id: b_1電
+    label: ""
+    marker: bar
+    at: { x: 60, y: 274 }
+    size: { w: 600, h: 8 }
+  - id: bl_1電
+    label: "1 電"
+    marker: none
+    at: { x: 0, y: 264 }
+    size: { w: 72, h: 28 }
+  - id: b_ceil
+    label: ""
+    marker: bar
+    at: { x: 60, y: 448 }
+    size: { w: 600, h: 6 }
+  - id: bl_ceil
+    label: "CL 天井"
+    marker: none
+    at: { x: 0, y: 438 }
+    size: { w: 72, h: 28 }
+  - id: f1
+    label: ""
+    marker: ellipse
+    hatch: dots
+    tag: 1
+    at: { x: 107, y: 137 }
+    size: { w: 26, h: 26 }
+  - id: f2
+    label: ""
+    marker: ellipse
+    hatch: dots
+    tag: 2
+    at: { x: 187, y: 137 }
+    size: { w: 26, h: 26 }
+  - id: f3
+    label: ""
+    marker: ellipse
+    hatch: dots
+    tag: 3
+    at: { x: 267, y: 137 }
+    size: { w: 26, h: 26 }
+  - id: f4
+    label: ""
+    marker: ellipse
+    hatch: dots
+    tag: 4
+    at: { x: 347, y: 137 }
+    size: { w: 26, h: 26 }
+  - id: f5
+    label: ""
+    marker: ellipse
+    hatch: dots
+    tag: 5
+    at: { x: 427, y: 137 }
+    size: { w: 26, h: 26 }
+  - id: f11
+    label: ""
+    marker: circle
+    hatch: cross
+    tag: 11
+    at: { x: 107, y: 201 }
+    size: { w: 26, h: 26 }
+  - id: f12
+    label: ""
+    marker: circle
+    hatch: cross
+    tag: 12
+    at: { x: 187, y: 201 }
+    size: { w: 26, h: 26 }
+  - id: f13
+    label: ""
+    marker: circle
+    hatch: cross
+    tag: 13
+    at: { x: 267, y: 201 }
+    size: { w: 26, h: 26 }
+  - id: f14
+    label: ""
+    marker: circle
+    hatch: cross
+    tag: 14
+    at: { x: 347, y: 201 }
+    size: { w: 26, h: 26 }
+  - id: f15
+    label: ""
+    marker: circle
+    hatch: cross
+    tag: 15
+    at: { x: 427, y: 201 }
+    size: { w: 26, h: 26 }
+  - id: f21
+    label: ""
+    marker: box
+    hatch: lines
+    tag: 21
+    at: { x: 107, y: 265 }
+    size: { w: 26, h: 26 }
+  - id: f22
+    label: ""
+    marker: box
+    hatch: lines
+    tag: 22
+    at: { x: 187, y: 265 }
+    size: { w: 26, h: 26 }
+  - id: f23
+    label: ""
+    marker: box
+    hatch: lines
+    tag: 23
+    at: { x: 267, y: 265 }
+    size: { w: 26, h: 26 }
+  - id: f24
+    label: ""
+    marker: box
+    hatch: lines
+    tag: 24
+    at: { x: 347, y: 265 }
+    size: { w: 26, h: 26 }
+  - id: f25
+    label: ""
+    marker: box
+    hatch: lines
+    tag: 25
+    at: { x: 427, y: 265 }
+    size: { w: 26, h: 26 }
+  - id: f31
+    label: ""
+    marker: box
+    hatch: lines
+    tag: 31
+    at: { x: 187, y: 439 }
+    size: { w: 26, h: 26 }
+  - id: f32
+    label: ""
+    marker: box
+    hatch: lines
+    tag: 32
+    at: { x: 347, y: 439 }
+    size: { w: 26, h: 26 }
+  - id: f33
+    label: ""
+    marker: box
+    hatch: lines
+    tag: 33
+    at: { x: 507, y: 439 }
+    size: { w: 26, h: 26 }
+  - id: f41
+    label: ""
+    marker: bar
+    hatch: solid
+    tag: 41
+    at: { x: 187, y: 97 }
+    size: { w: 26, h: 26 }
+  - id: f42
+    label: ""
+    marker: bar
+    hatch: solid
+    tag: 42
+    at: { x: 427, y: 97 }
+    size: { w: 26, h: 26 }
+  - id: ht
+    label: "Channel Hookup（チャンネル一覧）"
+    marker: none
+    at: { x: 720, y: 24 }
+    size: { w: 550, h: 24 }
+  - id: hh0
+    label: "Ch"
+    hatch: solid
+    at: { x: 720, y: 56 }
+    size: { w: 46, h: 26 }
+  - id: hh1
+    label: "器具"
+    hatch: solid
+    at: { x: 766, y: 56 }
+    size: { w: 96, h: 26 }
+  - id: hh2
+    label: "位置"
+    hatch: solid
+    at: { x: 862, y: 56 }
+    size: { w: 96, h: 26 }
+  - id: hh3
+    label: "回路"
+    hatch: solid
+    at: { x: 958, y: 56 }
+    size: { w: 56, h: 26 }
+  - id: hh4
+    label: "色"
+    hatch: solid
+    at: { x: 1014, y: 56 }
+    size: { w: 96, h: 26 }
+  - id: hh5
+    label: "フォーカス"
+    hatch: solid
+    at: { x: 1110, y: 56 }
+    size: { w: 160, h: 26 }
+  - id: hc0_0
+    label: "1"
+    at: { x: 720, y: 82 }
+    size: { w: 46, h: 26 }
+  - id: hc0_1
+    label: "パーライト"
+    at: { x: 766, y: 82 }
+    size: { w: 96, h: 26 }
+  - id: hc0_2
+    label: "3 電"
+    at: { x: 862, y: 82 }
+    size: { w: 96, h: 26 }
+  - id: hc0_3
+    label: "11"
+    at: { x: 958, y: 82 }
+    size: { w: 56, h: 26 }
+  - id: hc0_4
+    label: "#71 青"
+    at: { x: 1014, y: 82 }
+    size: { w: 96, h: 26 }
+  - id: hc0_5
+    label: "奥ホリゾント前"
+    at: { x: 1110, y: 82 }
+    size: { w: 160, h: 26 }
+  - id: hc1_0
+    label: "2"
+    at: { x: 720, y: 108 }
+    size: { w: 46, h: 26 }
+  - id: hc1_1
+    label: "パーライト"
+    at: { x: 766, y: 108 }
+    size: { w: 96, h: 26 }
+  - id: hc1_2
+    label: "3 電"
+    at: { x: 862, y: 108 }
+    size: { w: 96, h: 26 }
+  - id: hc1_3
+    label: "12"
+    at: { x: 958, y: 108 }
+    size: { w: 56, h: 26 }
+  - id: hc1_4
+    label: "#71 青"
+    at: { x: 1014, y: 108 }
+    size: { w: 96, h: 26 }
+  - id: hc1_5
+    label: "奥ホリゾント前"
+    at: { x: 1110, y: 108 }
+    size: { w: 160, h: 26 }
+  - id: hc2_0
+    label: "3"
+    at: { x: 720, y: 134 }
+    size: { w: 46, h: 26 }
+  - id: hc2_1
+    label: "パーライト"
+    at: { x: 766, y: 134 }
+    size: { w: 96, h: 26 }
+  - id: hc2_2
+    label: "3 電"
+    at: { x: 862, y: 134 }
+    size: { w: 96, h: 26 }
+  - id: hc2_3
+    label: "13"
+    at: { x: 958, y: 134 }
+    size: { w: 56, h: 26 }
+  - id: hc2_4
+    label: "#71 青"
+    at: { x: 1014, y: 134 }
+    size: { w: 96, h: 26 }
+  - id: hc2_5
+    label: "奥ホリゾント前"
+    at: { x: 1110, y: 134 }
+    size: { w: 160, h: 26 }
+  - id: hc3_0
+    label: "4"
+    at: { x: 720, y: 160 }
+    size: { w: 46, h: 26 }
+  - id: hc3_1
+    label: "パーライト"
+    at: { x: 766, y: 160 }
+    size: { w: 96, h: 26 }
+  - id: hc3_2
+    label: "3 電"
+    at: { x: 862, y: 160 }
+    size: { w: 96, h: 26 }
+  - id: hc3_3
+    label: "14"
+    at: { x: 958, y: 160 }
+    size: { w: 56, h: 26 }
+  - id: hc3_4
+    label: "#71 青"
+    at: { x: 1014, y: 160 }
+    size: { w: 96, h: 26 }
+  - id: hc3_5
+    label: "奥ホリゾント前"
+    at: { x: 1110, y: 160 }
+    size: { w: 160, h: 26 }
+  - id: hc4_0
+    label: "5"
+    at: { x: 720, y: 186 }
+    size: { w: 46, h: 26 }
+  - id: hc4_1
+    label: "パーライト"
+    at: { x: 766, y: 186 }
+    size: { w: 96, h: 26 }
+  - id: hc4_2
+    label: "3 電"
+    at: { x: 862, y: 186 }
+    size: { w: 96, h: 26 }
+  - id: hc4_3
+    label: "15"
+    at: { x: 958, y: 186 }
+    size: { w: 56, h: 26 }
+  - id: hc4_4
+    label: "#71 青"
+    at: { x: 1014, y: 186 }
+    size: { w: 96, h: 26 }
+  - id: hc4_5
+    label: "奥ホリゾント前"
+    at: { x: 1110, y: 186 }
+    size: { w: 160, h: 26 }
+  - id: hc5_0
+    label: "11"
+    at: { x: 720, y: 212 }
+    size: { w: 46, h: 26 }
+  - id: hc5_1
+    label: "フレネル"
+    at: { x: 766, y: 212 }
+    size: { w: 96, h: 26 }
+  - id: hc5_2
+    label: "2 電"
+    at: { x: 862, y: 212 }
+    size: { w: 96, h: 26 }
+  - id: hc5_3
+    label: "21"
+    at: { x: 958, y: 212 }
+    size: { w: 56, h: 26 }
+  - id: hc5_4
+    label: "#17 生成"
+    at: { x: 1014, y: 212 }
+    size: { w: 96, h: 26 }
+  - id: hc5_5
+    label: "中割り 地明かり"
+    at: { x: 1110, y: 212 }
+    size: { w: 160, h: 26 }
+  - id: hc6_0
+    label: "12"
+    at: { x: 720, y: 238 }
+    size: { w: 46, h: 26 }
+  - id: hc6_1
+    label: "フレネル"
+    at: { x: 766, y: 238 }
+    size: { w: 96, h: 26 }
+  - id: hc6_2
+    label: "2 電"
+    at: { x: 862, y: 238 }
+    size: { w: 96, h: 26 }
+  - id: hc6_3
+    label: "22"
+    at: { x: 958, y: 238 }
+    size: { w: 56, h: 26 }
+  - id: hc6_4
+    label: "#17 生成"
+    at: { x: 1014, y: 238 }
+    size: { w: 96, h: 26 }
+  - id: hc6_5
+    label: "中割り 地明かり"
+    at: { x: 1110, y: 238 }
+    size: { w: 160, h: 26 }
+  - id: hc7_0
+    label: "13"
+    at: { x: 720, y: 264 }
+    size: { w: 46, h: 26 }
+  - id: hc7_1
+    label: "フレネル"
+    at: { x: 766, y: 264 }
+    size: { w: 96, h: 26 }
+  - id: hc7_2
+    label: "2 電"
+    at: { x: 862, y: 264 }
+    size: { w: 96, h: 26 }
+  - id: hc7_3
+    label: "23"
+    at: { x: 958, y: 264 }
+    size: { w: 56, h: 26 }
+  - id: hc7_4
+    label: "#17 生成"
+    at: { x: 1014, y: 264 }
+    size: { w: 96, h: 26 }
+  - id: hc7_5
+    label: "中割り 地明かり"
+    at: { x: 1110, y: 264 }
+    size: { w: 160, h: 26 }
+  - id: hc8_0
+    label: "14"
+    at: { x: 720, y: 290 }
+    size: { w: 46, h: 26 }
+  - id: hc8_1
+    label: "フレネル"
+    at: { x: 766, y: 290 }
+    size: { w: 96, h: 26 }
+  - id: hc8_2
+    label: "2 電"
+    at: { x: 862, y: 290 }
+    size: { w: 96, h: 26 }
+  - id: hc8_3
+    label: "24"
+    at: { x: 958, y: 290 }
+    size: { w: 56, h: 26 }
+  - id: hc8_4
+    label: "#17 生成"
+    at: { x: 1014, y: 290 }
+    size: { w: 96, h: 26 }
+  - id: hc8_5
+    label: "中割り 地明かり"
+    at: { x: 1110, y: 290 }
+    size: { w: 160, h: 26 }
+  - id: hc9_0
+    label: "15"
+    at: { x: 720, y: 316 }
+    size: { w: 46, h: 26 }
+  - id: hc9_1
+    label: "フレネル"
+    at: { x: 766, y: 316 }
+    size: { w: 96, h: 26 }
+  - id: hc9_2
+    label: "2 電"
+    at: { x: 862, y: 316 }
+    size: { w: 96, h: 26 }
+  - id: hc9_3
+    label: "25"
+    at: { x: 958, y: 316 }
+    size: { w: 56, h: 26 }
+  - id: hc9_4
+    label: "#17 生成"
+    at: { x: 1014, y: 316 }
+    size: { w: 96, h: 26 }
+  - id: hc9_5
+    label: "中割り 地明かり"
+    at: { x: 1110, y: 316 }
+    size: { w: 160, h: 26 }
+  - id: hc10_0
+    label: "21"
+    at: { x: 720, y: 342 }
+    size: { w: 46, h: 26 }
+  - id: hc10_1
+    label: "エリプソ"
+    at: { x: 766, y: 342 }
+    size: { w: 96, h: 26 }
+  - id: hc10_2
+    label: "1 電"
+    at: { x: 862, y: 342 }
+    size: { w: 96, h: 26 }
+  - id: hc10_3
+    label: "31"
+    at: { x: 958, y: 342 }
+    size: { w: 56, h: 26 }
+  - id: hc10_4
+    label: "#00 無色"
+    at: { x: 1014, y: 342 }
+    size: { w: 96, h: 26 }
+  - id: hc10_5
+    label: "前明かり 上下"
+    at: { x: 1110, y: 342 }
+    size: { w: 160, h: 26 }
+  - id: hc11_0
+    label: "22"
+    at: { x: 720, y: 368 }
+    size: { w: 46, h: 26 }
+  - id: hc11_1
+    label: "エリプソ"
+    at: { x: 766, y: 368 }
+    size: { w: 96, h: 26 }
+  - id: hc11_2
+    label: "1 電"
+    at: { x: 862, y: 368 }
+    size: { w: 96, h: 26 }
+  - id: hc11_3
+    label: "32"
+    at: { x: 958, y: 368 }
+    size: { w: 56, h: 26 }
+  - id: hc11_4
+    label: "#00 無色"
+    at: { x: 1014, y: 368 }
+    size: { w: 96, h: 26 }
+  - id: hc11_5
+    label: "前明かり 上下"
+    at: { x: 1110, y: 368 }
+    size: { w: 160, h: 26 }
+  - id: hc12_0
+    label: "23"
+    at: { x: 720, y: 394 }
+    size: { w: 46, h: 26 }
+  - id: hc12_1
+    label: "エリプソ"
+    at: { x: 766, y: 394 }
+    size: { w: 96, h: 26 }
+  - id: hc12_2
+    label: "1 電"
+    at: { x: 862, y: 394 }
+    size: { w: 96, h: 26 }
+  - id: hc12_3
+    label: "33"
+    at: { x: 958, y: 394 }
+    size: { w: 56, h: 26 }
+  - id: hc12_4
+    label: "#00 無色"
+    at: { x: 1014, y: 394 }
+    size: { w: 96, h: 26 }
+  - id: hc12_5
+    label: "前明かり 上下"
+    at: { x: 1110, y: 394 }
+    size: { w: 160, h: 26 }
+  - id: hc13_0
+    label: "24"
+    at: { x: 720, y: 420 }
+    size: { w: 46, h: 26 }
+  - id: hc13_1
+    label: "エリプソ"
+    at: { x: 766, y: 420 }
+    size: { w: 96, h: 26 }
+  - id: hc13_2
+    label: "1 電"
+    at: { x: 862, y: 420 }
+    size: { w: 96, h: 26 }
+  - id: hc13_3
+    label: "34"
+    at: { x: 958, y: 420 }
+    size: { w: 56, h: 26 }
+  - id: hc13_4
+    label: "#00 無色"
+    at: { x: 1014, y: 420 }
+    size: { w: 96, h: 26 }
+  - id: hc13_5
+    label: "前明かり 上下"
+    at: { x: 1110, y: 420 }
+    size: { w: 160, h: 26 }
+  - id: hc14_0
+    label: "25"
+    at: { x: 720, y: 446 }
+    size: { w: 46, h: 26 }
+  - id: hc14_1
+    label: "エリプソ"
+    at: { x: 766, y: 446 }
+    size: { w: 96, h: 26 }
+  - id: hc14_2
+    label: "1 電"
+    at: { x: 862, y: 446 }
+    size: { w: 96, h: 26 }
+  - id: hc14_3
+    label: "35"
+    at: { x: 958, y: 446 }
+    size: { w: 56, h: 26 }
+  - id: hc14_4
+    label: "#00 無色"
+    at: { x: 1014, y: 446 }
+    size: { w: 96, h: 26 }
+  - id: hc14_5
+    label: "前明かり 上下"
+    at: { x: 1110, y: 446 }
+    size: { w: 160, h: 26 }
+  - id: hc15_0
+    label: "31"
+    at: { x: 720, y: 472 }
+    size: { w: 46, h: 26 }
+  - id: hc15_1
+    label: "エリプソ"
+    at: { x: 766, y: 472 }
+    size: { w: 96, h: 26 }
+  - id: hc15_2
+    label: "シーリング"
+    at: { x: 862, y: 472 }
+    size: { w: 96, h: 26 }
+  - id: hc15_3
+    label: "41"
+    at: { x: 958, y: 472 }
+    size: { w: 56, h: 26 }
+  - id: hc15_4
+    label: "#02 淡黄"
+    at: { x: 1014, y: 472 }
+    size: { w: 96, h: 26 }
+  - id: hc15_5
+    label: "センター人物"
+    at: { x: 1110, y: 472 }
+    size: { w: 160, h: 26 }
+  - id: hc16_0
+    label: "32"
+    at: { x: 720, y: 498 }
+    size: { w: 46, h: 26 }
+  - id: hc16_1
+    label: "エリプソ"
+    at: { x: 766, y: 498 }
+    size: { w: 96, h: 26 }
+  - id: hc16_2
+    label: "シーリング"
+    at: { x: 862, y: 498 }
+    size: { w: 96, h: 26 }
+  - id: hc16_3
+    label: "42"
+    at: { x: 958, y: 498 }
+    size: { w: 56, h: 26 }
+  - id: hc16_4
+    label: "#02 淡黄"
+    at: { x: 1014, y: 498 }
+    size: { w: 96, h: 26 }
+  - id: hc16_5
+    label: "センター人物"
+    at: { x: 1110, y: 498 }
+    size: { w: 160, h: 26 }
+  - id: hc17_0
+    label: "33"
+    at: { x: 720, y: 524 }
+    size: { w: 46, h: 26 }
+  - id: hc17_1
+    label: "エリプソ"
+    at: { x: 766, y: 524 }
+    size: { w: 96, h: 26 }
+  - id: hc17_2
+    label: "シーリング"
+    at: { x: 862, y: 524 }
+    size: { w: 96, h: 26 }
+  - id: hc17_3
+    label: "43"
+    at: { x: 958, y: 524 }
+    size: { w: 56, h: 26 }
+  - id: hc17_4
+    label: "#02 淡黄"
+    at: { x: 1014, y: 524 }
+    size: { w: 96, h: 26 }
+  - id: hc17_5
+    label: "センター人物"
+    at: { x: 1110, y: 524 }
+    size: { w: 160, h: 26 }
+  - id: hc18_0
+    label: "41"
+    at: { x: 720, y: 550 }
+    size: { w: 46, h: 26 }
+  - id: hc18_1
+    label: "ホリゾント"
+    at: { x: 766, y: 550 }
+    size: { w: 96, h: 26 }
+  - id: hc18_2
+    label: "ホリゾント"
+    at: { x: 862, y: 550 }
+    size: { w: 96, h: 26 }
+  - id: hc18_3
+    label: "51"
+    at: { x: 958, y: 550 }
+    size: { w: 56, h: 26 }
+  - id: hc18_4
+    label: "#79 濃青"
+    at: { x: 1014, y: 550 }
+    size: { w: 96, h: 26 }
+  - id: hc18_5
+    label: "ホリゾント全面"
+    at: { x: 1110, y: 550 }
+    size: { w: 160, h: 26 }
+  - id: hc19_0
+    label: "42"
+    at: { x: 720, y: 576 }
+    size: { w: 46, h: 26 }
+  - id: hc19_1
+    label: "ホリゾント"
+    at: { x: 766, y: 576 }
+    size: { w: 96, h: 26 }
+  - id: hc19_2
+    label: "ホリゾント"
+    at: { x: 862, y: 576 }
+    size: { w: 96, h: 26 }
+  - id: hc19_3
+    label: "52"
+    at: { x: 958, y: 576 }
+    size: { w: 56, h: 26 }
+  - id: hc19_4
+    label: "#79 濃青"
+    at: { x: 1014, y: 576 }
+    size: { w: 96, h: 26 }
+  - id: hc19_5
+    label: "ホリゾント全面"
+    at: { x: 1110, y: 576 }
+    size: { w: 160, h: 26 }
+  - id: lg_box
+    label: ""
+    marker: box
+    hatch: lines
+    at: { x: 720, y: 620 }
+    size: { w: 24, h: 24 }
+  - id: lgn_box
+    label: "エリプソ"
+    marker: none
+    at: { x: 748, y: 620 }
+    size: { w: 100, h: 24 }
+  - id: lg_circle
+    label: ""
+    marker: circle
+    hatch: cross
+    at: { x: 856, y: 620 }
+    size: { w: 24, h: 24 }
+  - id: lgn_circle
+    label: "フレネル"
+    marker: none
+    at: { x: 884, y: 620 }
+    size: { w: 100, h: 24 }
+  - id: lg_ellipse
+    label: ""
+    marker: ellipse
+    hatch: dots
+    at: { x: 992, y: 620 }
+    size: { w: 24, h: 24 }
+  - id: lgn_ellipse
+    label: "パーライト"
+    marker: none
+    at: { x: 1020, y: 620 }
+    size: { w: 100, h: 24 }
+  - id: lg_bar
+    label: ""
+    marker: bar
+    hatch: solid
+    at: { x: 1128, y: 620 }
+    size: { w: 24, h: 24 }
+  - id: lgn_bar
+    label: "ホリゾント"
+    marker: none
+    at: { x: 1156, y: 620 }
+    size: { w: 100, h: 24 }
+  - id: note
+    label: "丸の中の数字が Ch。色はカラーフィルター番号。器具記号は zumen の印と模様で代用している。"
+    marker: none
+    at: { x: 720, y: 652 }
+    size: { w: 640, h: 24 }
