@@ -27,7 +27,7 @@ import { join, relative, resolve } from 'node:path';
 import { toDrawio } from './drawio.ts';
 import { placeEdgeLabels } from './edge-labels.ts';
 import { getPins, parse } from './format.ts';
-import { crossings, groupEscapes, layout, overlaps, straddles } from './layout.ts';
+import { crossings, edgesUnderBoxes, groupEscapes, layout, overlaps, straddles } from './layout.ts';
 import { messages } from './messages.ts';
 import { PASS_LINE, measure } from './measure.ts';
 import { merge } from './merge.ts';
@@ -263,6 +263,14 @@ export interface Inspection {
    */
   overlappingText: [string, string][];
   /**
+   * **箱の塗りに隠れて消える辺**（辺の id と、隠す箱の id）。配置図だけ。
+   *
+   * `arrows: false` は辺を箱より先に描く。**枠の中へ引いた線は塗りに隠れて消える。**
+   * 2026-09-14〜15 に 3 回踏んだ（見本 97・101・111）。
+   * **どの数の観測値も 0 のまま**で、ブラウザで開くまで気づかなかった。
+   */
+  edgesUnderBoxes: [string, string][];
+  /**
    * **人がこの図を見たか。**
    *
    * `pins` は「人が**直した**」記録で、これは「人が**見た**」記録（仕様 §3.5）。
@@ -339,6 +347,7 @@ export async function inspect(source: string): Promise<Inspection> {
       adriftNames: [],
       hiddenTags: [],
       overlappingText: [],
+      edgesUnderBoxes: [],
       kind: 'structure',
       positionsInSource: false,
       reviewed: false,
@@ -387,6 +396,7 @@ export async function inspect(source: string): Promise<Inspection> {
         ? adriftNames(placed.boxes, planNames(placed.boxes, extentOf(placed.boxes), placed.edges))
         : [],
     hiddenTags: kindOf(source) === 'placement' ? hiddenTags(placed.boxes) : [],
+    edgesUnderBoxes: edgesUnderBoxes(placed),
     overlappingText:
       kindOf(source) === 'placement'
         ? overlappingText(placed.boxes, planNames(placed.boxes, extentOf(placed.boxes), placed.edges))

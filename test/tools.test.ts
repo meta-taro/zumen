@@ -437,6 +437,7 @@ describe('inspect の説明に、直すべき観測値が出ている', () => {
     'crowdedNames',
     'hiddenTags',
     'overlappingText',
+    'edgesUnderBoxes',
     'straddles',
     'adriftNames',
     'tooSmallToProject',
