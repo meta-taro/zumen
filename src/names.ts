@@ -447,8 +447,11 @@ export function tagFits(box: Box): boolean {
     box.marker === 'double' ||
     box.marker === 'ellipse' ||
     box.marker === 'diamond';
-  const room = round ? box.w - 4 : box.w - TAG_GAP;
-  return labelWidth(box.tag, TAG_FONT) <= room;
+  // **名前が無ければ、符号は名前の大きさで描く**（`src/render.ts`）。
+  // 物差しも合わせないと、「入る」と言って隣へはみ出す。
+  const alone = box.label === '' && box.technology === null;
+  const room = round || alone ? box.w - 4 : box.w - TAG_GAP;
+  return labelWidth(box.tag, alone ? NAME_FONT : TAG_FONT) <= room;
 }
 
 /**

@@ -109,3 +109,51 @@ describe('符号を描く', () => {
     assert.ok(!out.includes('><C1><'), '生の < が出ている');
   });
 });
+
+/**
+ * **名前の無い箱では、符号が中身そのもの。**
+ *
+ * 2026-09-15、見本 112（交通事故の現場見取図）を描いていて出た。
+ * 地点の丸に `tag: ①` と書いたら、**10px の薄い灰色**で描かれ、
+ * 丸の中でほとんど読めなかった。`label` に書き換えて避けたが、
+ * **避け方を知らないと同じ所で詰まる。**
+ *
+ * 見本を数えたら、**8 枚・78 個**が「名前が無く、符号だけ」の箱だった
+ * （舞台照明の器具番号、花火の筒場、ダンスの踊り手、定点の番号）。
+ * どれも**符号が図の主役**で、副題の色と大きさで描くものではない。
+ *
+ * **名前があるときは、これまでどおり隅に小さく。** 符号は副題であって、
+ * 名前の代わりではない（D22）。
+ */
+describe('名前の無い箱の符号', () => {
+  const ONLY_TAG = `version: 1
+kind: placement
+nodes:
+  - id: a
+    label: ""
+    tag: A
+    marker: circle
+    at: { x: 0, y: 0 }
+    size: { w: 30, h: 30 }
+`;
+
+  it('**名前が無ければ、符号を名前の大きさで描く**', async () => {
+    const out = await render(await layout(ONLY_TAG), 'light', 'safe', true);
+    const found = /<text[^>]*font-size="(\d+)"[^>]*fill="([^"]+)"[^>]*>A</.exec(out);
+    assert.ok(found !== null, '符号が描かれていない');
+    assert.equal(Number(found[1]), 12, '符号が副題の大きさのままになっている');
+  });
+
+  it('名前があれば、符号はこれまでどおり小さく', async () => {
+    const named = ONLY_TAG.replace('label: ""', 'label: 甲');
+    const out = await render(await layout(named), 'light', 'safe', true);
+    const found = /<text[^>]*font-size="(\d+)"[^>]*>A</.exec(out);
+    assert.equal(Number(found![1]), 10, '名前があるのに符号を大きくした');
+  });
+
+  it('**入らない符号は、やはり描かない**（物差しは大きさに合わせる）', async () => {
+    const long = ONLY_TAG.replace('tag: A', 'tag: ABCDEFGHIJ');
+    const out = await render(await layout(long), 'light', 'safe', true);
+    assert.ok(!out.includes('>ABCDEFGHIJ<'), '入らない符号を描いた');
+  });
+});

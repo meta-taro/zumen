@@ -487,16 +487,27 @@ function nodeTag(box: Box, palette: Palette, style: Look, halo: string | null = 
     box.marker === 'double' ||
     box.marker === 'ellipse' ||
     box.marker === 'diamond';
-  if (round) {
+  /**
+   * **名前が無ければ、符号が中身そのもの。**
+   *
+   * 符号は本来「名前の脇に添える小さな字」だが、名前が無い箱では
+   * **符号しか書いていない** —— 舞台照明の器具番号、花火の筒場、
+   * ダンスの踊り手、定点の番号。見本 8 枚・78 個がこの形だった。
+   * 副題の色と大きさで描くと、**図の主役がいちばん薄い字**になる（2026-09-15）。
+   */
+  const alone = box.label === '' && box.technology === null;
+  const font = alone ? NAME_FONT : 10;
+  const color = alone ? style.text : subtitleOn(style, palette);
+  if (round || alone) {
     const cx = box.x + box.w / 2;
-    const cy = box.y + box.h / 2 + 4;
+    const cy = box.y + box.h / 2 + (alone ? font / 3 : 4);
     const cover =
       halo === null
         ? ''
-        : `<rect x="${n(cx - labelWidth(box.tag, 10) / 2 - 2)}" y="${n(cy - 9)}" width="${n(labelWidth(box.tag, 10) + 4)}" height="12" fill="${halo}"/>`;
+        : `<rect x="${n(cx - labelWidth(box.tag, font) / 2 - 2)}" y="${n(cy - font + 1)}" width="${n(labelWidth(box.tag, font) + 4)}" height="${n(font + 2)}" fill="${halo}"/>`;
     return [
       cover +
-        `<text x="${n(cx)}" y="${n(cy)}" text-anchor="middle" font-family="${FONT}" font-size="10" fill="${subtitleOn(style, palette)}">${escapeText(box.tag)}</text>`,
+        `<text x="${n(cx)}" y="${n(cy)}" text-anchor="middle" font-family="${FONT}" font-size="${font}" fill="${color}">${escapeText(box.tag)}</text>`,
     ];
   }
   const x = box.x + TAG_INSET;
