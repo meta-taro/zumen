@@ -60,3 +60,18 @@ describe('仕様に、検査がぜんぶ載っている', () => {
   });
 });
 
+/**
+ * **日本語版の README の数も、実物と合っているか。**
+ *
+ * 英語版だけ直して日本語版を忘れる、が実際に起きた ——
+ * 2026-09-15 に測ったら、日本語版は**まだ「23 枚」**と書いてあった（実際は 107 枚）。
+ */
+describe('README.ja の数', () => {
+  it('**見本の枚数が合っている**', () => {
+    const readme = readFileSync(new URL('../README.ja.md', import.meta.url), 'utf8');
+    const said = readme.match(/\*\*(\d+) 枚を \[`examples\/gallery\/`\]/);
+    assert.ok(said !== null, 'README.ja に見本の枚数が書かれていない');
+    assert.equal(Number(said[1]), samples().length);
+  });
+});
+

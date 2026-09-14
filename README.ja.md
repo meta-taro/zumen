@@ -36,7 +36,7 @@
 | <img src="examples/gallery/22-避難経路図.svg" width="320"> | <img src="examples/gallery/23-厨房の動線.svg" width="320"> |
 | 避難経路図 | 厨房の区域と動線（HACCP） |
 
-**23 枚を [`examples/gallery/`](examples/gallery/) に置いてあります。**
+**107 枚を [`examples/gallery/`](examples/gallery/) に置いてあります。**
 [紹介のページ](https://meta-taro.github.io/zumen/)に全部並べてあり、業界で絞り込めます。
 
 **業界ごとの図形は 1 つも足していません。** `type` は 11 語のままです。
@@ -148,7 +148,7 @@ pnpm test        # 走るテスト
 pnpm build       # 取り込む側へ配る形に組み立てる（dist/）
 pnpm consume:check  # **別のところから import して呼べるか**を実際に確かめる
 pnpm version:set 0.2.0  # 版を 4 か所いっぺんに上げる（記録の「未リリース」も動かす）
-pnpm gui:check   # 画面の 8 操作を実際に動かして確かめる（Chrome が要る）
+pnpm gui:check   # 画面の 8 操作を実際に動かして確かめる（39 項目。Chrome が要る）
 pnpm validate <図のファイル> ...   # 形式に適合しているかを見る
 pnpm measure  <図のファイル> ...   # 「AI が 9 割描けたか」を測る
 pnpm svg      <図のファイル>       # SVG を書き出す（--dark 暗い地へ / --vivid 主役を強く）
@@ -301,7 +301,22 @@ pnpm measure <図のファイル> ...
 
 ## 未解決
 
-**ありません**（D1〜D12 が確定）。
+**技術的な決定は D1〜D30 まで記録してあり、未決は D3（「9 割」の測り方）だけです**
+（[`.claude/decisions.md`](.claude/decisions.md)）。
+
+**止まっているのは人の工程のほうです。**
+
+| | 何が要るか |
+|---|---|
+| 差し替えテストの判定（D25） | 実物を見て ○/△/× を付ける。**AI は代筆しない** |
+| `DESIGN.md` の見た目の方針 | 人が書く領域 |
+| リポジトリの `homepage` | 所有者アカウントでの設定 |
+| D26（3D は別の描き手）の拒否権 | 止めるなら言う |
+
+**測って分かっている限界も書いておきます。**
+自動レイアウトは**節が 30 を超えると、印刷でも字が読めません**
+（構造は壊れず、箱の重なりも囲みのはみ出しも 0 のまま）。
+そのときは図を分けるしかなく、**分ける仕組みはまだありません**（D30）。
 
 D2（保存形式）は決まりました。**正本は zumen 独自の YAML** で、仕様を実装から分離して
 [`spec/zumen-format-v1.md`](spec/zumen-format-v1.md) に置いてあります。
