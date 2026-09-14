@@ -799,6 +799,34 @@ function readEdges(diagram: ReturnType<typeof parse>): EdgeInfo[] {
 }
 
 /**
+ * **ほとんど同じ点を、1 つに畳む。**
+ *
+ * 自分自身への辺で閉じた形を描くと（見本 97・109）、
+ * 出口の点と入口の点が**同じ節の縁で 1 px ほど離れて並ぶ。**
+ * そのまま `curve: smooth` に渡すと、**2 点の向きから制御点が跳ね**、
+ * 輪の始まりに 8 px ほどの角が出る（2026-09-15。実物を見て見つけた）。
+ *
+ * ```
+ * C 251.7 219.3, 259.8 189.4, 260 181 C 260.2 172.6, 260.8 180, 261 179.8 Z
+ *                              ^^^^^^^ この 2 点が 1 px しか離れていない
+ * ```
+ *
+ * **人が書いた点は畳まない** —— 畳むのは 2.5 px 未満の隣り合わせだけで、
+ * これは「同じ場所」としか言えない距離。
+ */
+const SAME_POINT = 2.5;
+
+function merged(points: Point[]): Point[] {
+  const out: Point[] = [];
+  for (const point of points) {
+    const last = out[out.length - 1];
+    if (last !== undefined && Math.hypot(point.x - last.x, point.y - last.y) < SAME_POINT) continue;
+    out.push(point);
+  }
+  return out;
+}
+
+/**
  * 線の通り道を決める。
  *
  * **人が曲げた線は、その点列をそのまま通す。** 曲げ方は好みではなく
@@ -884,9 +912,18 @@ function routeEdges(
     if (edge.via.length > 0) {
       const first = edge.via[0]!;
       const last = edge.via[edge.via.length - 1]!;
-      const points = [clip(from, first), ...edge.via, clip(to, last)];
+      // **ほとんど同じ点は畳む**（`merged`）。自分自身への辺では、
+      // 出口と入口が同じ節の縁で 1 px ほど離れて並び、曲線が跳ねる。
+      const points = merged([clip(from, first), ...edge.via, clip(to, last)]);
       // **輪を閉じる**（`close`）。最後から最初へ戻る —— 池・トラック・外形。
-      if (edge.close) points.push({ ...points[0]! });
+      if (edge.close) {
+        // 自分自身への辺では、**出口と入口が同じ節の縁**に来る。
+        // 閉じる前に片方を落とさないと、輪の始まりで曲線が跳ねる。
+        const head = points[0]!;
+        const tail = points[points.length - 1]!;
+        if (points.length > 2 && Math.hypot(tail.x - head.x, tail.y - head.y) < SAME_POINT) points.pop();
+        points.push({ ...points[0]! });
+      }
       return { ...edge, points, pinned: false };
     }
 

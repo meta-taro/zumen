@@ -274,3 +274,59 @@ edges:
     assert.match(out, /marker-end/, '矢印が消えた');
   });
 });
+
+/**
+ * **輪の始まりで、曲線が跳ねない。**
+ *
+ * 自分自身への辺で閉じた形を描くと（見本 97・109）、
+ * **出口の点と入口の点が同じ節の縁で 1〜2 px 離れて並ぶ。**
+ * そのまま `curve: smooth` へ渡すと、2 点の向きから制御点が跳ね、
+ * **輪の始まりに 8 px ほどの角が出る**（2026-09-15。実物を見て見つけた）。
+ *
+ * ```
+ * C 251.7 219.3, 259.8 189.4, 260 181 C 260.2 172.6, 260.8 180, 261 179.8 Z
+ *                              ^^^^^^^ ここが 1.6 px しか離れていない
+ * ```
+ */
+describe('閉じた輪の始まり', () => {
+  const RING = `version: 1
+kind: placement
+arrows: false
+nodes:
+  - id: a
+    label: ""
+    marker: none
+    at: { x: 199, y: 199 }
+    size: { w: 2, h: 2 }
+edges:
+  - from: a
+    to: a
+    close: true
+    curve: smooth
+    ends: { from: none, to: none }
+    via:
+      - { x: 300, y: 160 }
+      - { x: 340, y: 250 }
+      - { x: 240, y: 300 }
+`;
+
+  it('**ほとんど同じ点を、2 つ並べない**', async () => {
+    const { layout } = await import('../src/layout.ts');
+    const placed = await layout(RING);
+    const points = placed.edges[0]!.points;
+    // 最後の 1 点は輪を閉じる写しなので、そこだけは最初と同じでよい。
+    const body = points.slice(0, -1);
+    for (let i = 1; i < body.length; i += 1) {
+      const gap = Math.hypot(body[i]!.x - body[i - 1]!.x, body[i]!.y - body[i - 1]!.y);
+      assert.ok(gap >= 2.5, `${i} 番目が ${gap.toFixed(2)} px しか離れていない`);
+    }
+    assert.deepEqual(points[points.length - 1], points[0], '輪が閉じていない');
+  });
+
+  it('**人が書いた点は畳まない**（離れていれば全部残る）', async () => {
+    const { layout } = await import('../src/layout.ts');
+    const placed = await layout(RING);
+    // 錨 1 ＋ 通り道 3 ＋ 閉じる写し 1。
+    assert.equal(placed.edges[0]!.points.length, 5);
+  });
+});
