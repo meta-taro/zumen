@@ -38,7 +38,7 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
-import { PROJECTION_FLOOR, SMALLEST_TEXT, projection } from '../src/projection.ts';
+import { PRINT_FLOOR, PROJECTION_FLOOR, SMALLEST_TEXT, projection } from '../src/projection.ts';
 import { inspect } from '../src/tools.ts';
 
 describe('下限の置き方', () => {
@@ -242,3 +242,69 @@ nodes:
     assert.equal(out.textRatio, out.smallestText / out.longestSide);
   });
 });
+
+/**
+ * **「投影には小さい」だけでは、直しようがない。**
+ *
+ * 2026-09-14 に測ったら、**見本 95 枚のうち 36 枚（38%）**が
+ * `tooSmallToProject` で真だった。路線図・査定図・仕込図 ——
+ * **分けようのない図ばかり。** 鳴りっぱなしの指摘は、読まれなくなる。
+ *
+ * ところがその 36 枚は**全部 A3 の下限は通っている。**
+ * 言うべきことは「小さすぎる」ではなく、
+ * **「これは印刷して読む図で、投影には向かない」**だった。
+ *
+ * 下限の出どころは `src/projection.ts` の表のとおり。
+ * A3 は JIS Z 8313 の最小文字高 2.5mm を A3 の短辺 297mm で割った 0.84%。
+ */
+describe('投影と印刷を、分けて言う', () => {
+  it('**A3 の下限は、投影より緩い**（投影を通れば印刷も通る）', () => {
+    assert.ok(PRINT_FLOOR < PROJECTION_FLOOR);
+    assert.equal(Math.round(PRINT_FLOOR * 10000) / 10000, 0.0084);
+  });
+
+  it('**投影には小さいが、印刷なら読める図**を、そう言う', () => {
+    // 1400 × 620 に 10px の字 —— 見本 92・93・95 あたりの形。
+    const out = projection(1400, 620, 10);
+    assert.equal(out.tooSmallToProject, true);
+    assert.equal(out.tooSmallToPrint, false, 'A3 なら読めるのに「読めない」と言っている');
+  });
+
+  it('**どちらも通らない図**は、両方とも真', () => {
+    const out = projection(4000, 2000, 8);
+    assert.equal(out.tooSmallToProject, true);
+    assert.equal(out.tooSmallToPrint, true);
+  });
+
+  it('小さい図は、どちらも通る', () => {
+    const out = projection(600, 400, 12);
+    assert.equal(out.tooSmallToProject, false);
+    assert.equal(out.tooSmallToPrint, false);
+  });
+
+  it('測れないときは、どちらも偽（数字を作らない）', () => {
+    const out = projection(0, 0, 10);
+    assert.equal(out.textRatio, null);
+    assert.equal(out.tooSmallToPrint, false);
+  });
+
+  it('検査から返る', async () => {
+    const out = await inspect(`version: 1\nnodes:\n  - id: a\n    label: あ\n`);
+    assert.equal(out.tooSmallToPrint, false);
+    assert.equal(typeof out.printFloor, 'number');
+  });
+});
+
+describe('見本は、少なくとも印刷では読める', () => {
+  it('**95 枚すべてが A3 の下限を通る**', async () => {
+    const { readdirSync, readFileSync } = await import('node:fs');
+    const dir = new URL('../examples/gallery/', import.meta.url);
+    const tooSmall: string[] = [];
+    for (const name of readdirSync(dir).filter((f) => f.endsWith('.zumen.yaml')).sort()) {
+      const out = await inspect(readFileSync(new URL(name, dir), 'utf8'));
+      if (out.tooSmallToPrint) tooSmall.push(`${name}: ${out.textRatio?.toFixed(4)}`);
+    }
+    assert.deepEqual(tooSmall, []);
+  });
+});
+

@@ -36,6 +36,26 @@
 export const PROJECTION_FLOOR = 0.015;
 
 /**
+ * **印刷（A3）で読める下限**（効く辺に対する比）。
+ *
+ * JIS Z 8313 の最小文字高 2.5mm ÷ A3 の短辺 297mm。
+ *
+ * ## なぜ 2 つ要るか
+ *
+ * 2026-09-14 に測ったら、**見本 95 枚のうち 36 枚（38%）**が
+ * 投影の下限を下回っていた。路線図・査定図・仕込図・積付図 ——
+ * **分けようのない図ばかり**で、指摘は毎回そのまま流されていた。
+ * **鳴りっぱなしの指摘は、読まれなくなる。**
+ *
+ * ところがその 36 枚は**全部この下限は通っている。**
+ * 言うべきことは「小さすぎる」ではなく、
+ * **「これは印刷して読む図で、投影には向かない」**だった。
+ *
+ * **どちらも下回ったときだけ、本当に直すところがある。**
+ */
+export const PRINT_FLOOR = 2.5 / 297;
+
+/**
  * 投影先の縦横比。**16:9**（会議室の投影機も、いまの画面もこれ）。
  *
  * ここを変えると「効く辺」が変わる。4:3 の投影機しか無い場では
@@ -112,18 +132,38 @@ export interface Projection {
   textRatio: number | null;
   /** 下限。**こちらが握ったままにせず、返す。** */
   projectionFloor: number;
+  /** 印刷（A3）の下限。 */
+  printFloor: number;
   /** 下回っているか。**真でも図は正しい。読みにくいだけ。** */
   tooSmallToProject: boolean;
+  /**
+   * **A3 に印刷しても読めないか。**
+   *
+   * `tooSmallToProject` だけが真なら、**その図は印刷して読むもの**で、
+   * 投影に向かないだけ（路線図・査定図・仕込図はこれ）。
+   * **両方が真のときだけ、本当に直すところがある。**
+   */
+  tooSmallToPrint: boolean;
 }
 
 export function projection(width: number, height: number, smallestText: number = SMALLEST_TEXT): Projection {
   // **長辺ではない。** 16:9 の画面に収めたとき、縮小率を決めるほうの辺。
   const longestSide = Math.max(height, width * SCREEN_RATIO);
-  const base = { smallestText, longestSide, projectionFloor: PROJECTION_FLOOR };
+  const base = {
+    smallestText,
+    longestSide,
+    projectionFloor: PROJECTION_FLOOR,
+    printFloor: PRINT_FLOOR,
+  };
   // 空の図では割れない。**数字を作らない。**
   if (longestSide <= 0) {
-    return { ...base, textRatio: null, tooSmallToProject: false };
+    return { ...base, textRatio: null, tooSmallToProject: false, tooSmallToPrint: false };
   }
   const textRatio = smallestText / longestSide;
-  return { ...base, textRatio, tooSmallToProject: textRatio < PROJECTION_FLOOR };
+  return {
+    ...base,
+    textRatio,
+    tooSmallToProject: textRatio < PROJECTION_FLOOR,
+    tooSmallToPrint: textRatio < PRINT_FLOOR,
+  };
 }

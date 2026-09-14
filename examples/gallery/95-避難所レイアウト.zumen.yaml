@@ -1,0 +1,379 @@
+version: 1
+kind: placement
+arrows: false
+north: up
+scale: { mm: 50 }
+title: 避難所レイアウト（体育館 30 × 20m・48 名・スフィア基準）
+# 1 px = 50 mm。**面積と間隔が図の中身**なので、縮尺を持たせてある。
+#
+# ## 「入れる人数」ではなく「居られる人数」
+#
+# スフィア基準は 1 人あたり **3.5 m² 以上**。詰めれば倍は入るが、
+# **詰めた避難所では健康被害が出る**（内閣府の運営ガイドラインが参照している国際基準）。
+#
+# ## 動線を分ける
+#
+# 受付・検温 → 一般スペース／発熱者ゾーン。
+# **発熱者と濃厚接触者は、通路も階段も分ける。**
+# 一般スペースを通らせない位置に置くこと。
+#
+# ## 数の根拠
+#
+# トイレは **20 人に 1 基、男女比 1 : 3**。水は **1 人 1 日 15 L**、
+# 蛇口 1 つにつき 250 人まで。通路は **1〜2m 以上**。
+#
+# 施設名は架空。
+nodes:
+  - id: gym
+    label: ""
+    marker: box
+    at: { x: 70, y: 120 }
+    size: { w: 600, h: 400 }
+  - id: gym_n
+    label: "体育館（30.0 × 20.0m ＝ 600m²）"
+    marker: none
+    at: { x: 76, y: 90 }
+    size: { w: 320, h: 24 }
+  - id: kA1
+    label: "2 名"
+    tag: A-1
+    at: { x: 80, y: 130 }
+    size: { w: 60, h: 60 }
+  - id: kA2
+    label: "2 名"
+    tag: A-2
+    at: { x: 140, y: 130 }
+    size: { w: 60, h: 60 }
+  - id: kA3
+    label: "2 名"
+    tag: A-3
+    at: { x: 200, y: 130 }
+    size: { w: 60, h: 60 }
+  - id: kA4
+    label: "2 名"
+    tag: A-4
+    at: { x: 260, y: 130 }
+    size: { w: 60, h: 60 }
+  - id: kA5
+    label: "2 名"
+    tag: A-5
+    at: { x: 320, y: 130 }
+    size: { w: 60, h: 60 }
+  - id: kA6
+    label: "2 名"
+    tag: A-6
+    at: { x: 380, y: 130 }
+    size: { w: 60, h: 60 }
+  - id: kA7
+    label: "2 名"
+    tag: A-7
+    at: { x: 440, y: 130 }
+    size: { w: 60, h: 60 }
+  - id: kA8
+    label: "2 名"
+    tag: A-8
+    at: { x: 500, y: 130 }
+    size: { w: 60, h: 60 }
+  - id: ai_A
+    label: "通路 2.0m"
+    hatch: dots
+    at: { x: 80, y: 190 }
+    size: { w: 480, h: 40 }
+  - id: kB1
+    label: "2 名"
+    tag: B-1
+    at: { x: 80, y: 230 }
+    size: { w: 60, h: 60 }
+  - id: kB2
+    label: "2 名"
+    tag: B-2
+    at: { x: 140, y: 230 }
+    size: { w: 60, h: 60 }
+  - id: kB3
+    label: "2 名"
+    tag: B-3
+    at: { x: 200, y: 230 }
+    size: { w: 60, h: 60 }
+  - id: kB4
+    label: "2 名"
+    tag: B-4
+    at: { x: 260, y: 230 }
+    size: { w: 60, h: 60 }
+  - id: kB5
+    label: "2 名"
+    tag: B-5
+    at: { x: 320, y: 230 }
+    size: { w: 60, h: 60 }
+  - id: kB6
+    label: "2 名"
+    tag: B-6
+    at: { x: 380, y: 230 }
+    size: { w: 60, h: 60 }
+  - id: kB7
+    label: "2 名"
+    tag: B-7
+    at: { x: 440, y: 230 }
+    size: { w: 60, h: 60 }
+  - id: kB8
+    label: "2 名"
+    tag: B-8
+    at: { x: 500, y: 230 }
+    size: { w: 60, h: 60 }
+  - id: ai_B
+    label: "通路 2.0m"
+    hatch: dots
+    at: { x: 80, y: 290 }
+    size: { w: 480, h: 40 }
+  - id: kC1
+    label: "2 名"
+    tag: C-1
+    at: { x: 80, y: 330 }
+    size: { w: 60, h: 60 }
+  - id: kC2
+    label: "2 名"
+    tag: C-2
+    at: { x: 140, y: 330 }
+    size: { w: 60, h: 60 }
+  - id: kC3
+    label: "2 名"
+    tag: C-3
+    at: { x: 200, y: 330 }
+    size: { w: 60, h: 60 }
+  - id: kC4
+    label: "2 名"
+    tag: C-4
+    at: { x: 260, y: 330 }
+    size: { w: 60, h: 60 }
+  - id: kC5
+    label: "2 名"
+    tag: C-5
+    at: { x: 320, y: 330 }
+    size: { w: 60, h: 60 }
+  - id: kC6
+    label: "2 名"
+    tag: C-6
+    at: { x: 380, y: 330 }
+    size: { w: 60, h: 60 }
+  - id: kC7
+    label: "2 名"
+    tag: C-7
+    at: { x: 440, y: 330 }
+    size: { w: 60, h: 60 }
+  - id: kC8
+    label: "2 名"
+    tag: C-8
+    at: { x: 500, y: 330 }
+    size: { w: 60, h: 60 }
+  - id: ai_C
+    label: "通路 2.0m"
+    hatch: dots
+    at: { x: 80, y: 390 }
+    size: { w: 480, h: 40 }
+  - id: haiyo
+    label: "要配慮者スペース"
+    hatch: lines
+    at: { x: 570, y: 130 }
+    size: { w: 90, h: 160 }
+  - id: haiyo_n
+    label: "出入口とトイレに近い側へ"
+    marker: none
+    at: { x: 480, y: 300 }
+    size: { w: 180, h: 24 }
+  - id: honbu
+    label: "運営本部"
+    hatch: solid
+    at: { x: 80, y: 450 }
+    size: { w: 110, h: 56 }
+  - id: bussi
+    label: "物資"
+    at: { x: 196, y: 450 }
+    size: { w: 100, h: 56 }
+  - id: jyunyu
+    label: "授乳・更衣"
+    at: { x: 302, y: 450 }
+    size: { w: 110, h: 56 }
+  - id: pet
+    label: "ペット同行"
+    hatch: cross
+    at: { x: 418, y: 450 }
+    size: { w: 110, h: 56 }
+  - id: kaigi
+    label: "静養"
+    at: { x: 534, y: 450 }
+    size: { w: 126, h: 56 }
+  - id: iri
+    label: "出入口"
+    hatch: solid
+    at: { x: 68, y: 530 }
+    size: { w: 90, h: 36 }
+  - id: uke
+    label: "受付・検温"
+    at: { x: 170, y: 530 }
+    size: { w: 120, h: 36 }
+  - id: netsu
+    label: "発熱者ゾーン（別室・専用動線）"
+    hatch: cross
+    at: { x: 302, y: 530 }
+    size: { w: 250, h: 36 }
+  - id: toile
+    label: "仮設トイレ 3 基（男 1・女 3 の比で計 4 基）"
+    at: { x: 564, y: 530 }
+    size: { w: 260, h: 36 }
+  - id: dosen
+    label: "受付から発熱者ゾーンへは、一般スペースを通らない別動線にする。"
+    marker: none
+    at: { x: 68, y: 576 }
+    size: { w: 540, h: 24 }
+  - id: tb_t
+    label: "スフィア基準と、この図"
+    marker: none
+    at: { x: 800, y: 60 }
+    size: { w: 320, h: 24 }
+  - id: th0
+    label: "項目"
+    hatch: solid
+    at: { x: 800, y: 92 }
+    size: { w: 150, h: 26 }
+  - id: th1
+    label: "基準"
+    hatch: solid
+    at: { x: 950, y: 92 }
+    size: { w: 230, h: 26 }
+  - id: th2
+    label: "この図"
+    hatch: solid
+    at: { x: 1180, y: 92 }
+    size: { w: 210, h: 26 }
+  - id: tc0_0
+    label: "1 人あたり面積"
+    at: { x: 800, y: 118 }
+    size: { w: 150, h: 28 }
+  - id: tc0_1
+    label: "3.5 m² 以上"
+    at: { x: 950, y: 118 }
+    size: { w: 230, h: 28 }
+  - id: tc0_2
+    label: "4.5 m²（3.0×3.0 に 2 名）"
+    at: { x: 1180, y: 118 }
+    size: { w: 210, h: 28 }
+  - id: tc1_0
+    label: "区画の大きさ"
+    at: { x: 800, y: 146 }
+    size: { w: 150, h: 28 }
+  - id: tc1_1
+    label: "—"
+    at: { x: 950, y: 146 }
+    size: { w: 230, h: 28 }
+  - id: tc1_2
+    label: "3.0 × 3.0m ＝ 9.0 m²"
+    at: { x: 1180, y: 146 }
+    size: { w: 210, h: 28 }
+  - id: tc2_0
+    label: "収容"
+    at: { x: 800, y: 174 }
+    size: { w: 150, h: 28 }
+  - id: tc2_1
+    label: "—"
+    at: { x: 950, y: 174 }
+    size: { w: 230, h: 28 }
+  - id: tc2_2
+    label: "24 区画 × 2 名 ＝ 48 名"
+    at: { x: 1180, y: 174 }
+    size: { w: 210, h: 28 }
+  - id: tc3_0
+    label: "トイレ"
+    at: { x: 800, y: 202 }
+    size: { w: 150, h: 28 }
+  - id: tc3_1
+    label: "20 人に 1 基"
+    at: { x: 950, y: 202 }
+    size: { w: 230, h: 28 }
+  - id: tc3_2
+    label: "48 名 → 3 基（＋予備 1）"
+    at: { x: 1180, y: 202 }
+    size: { w: 210, h: 28 }
+  - id: tc4_0
+    label: "トイレ男女比"
+    at: { x: 800, y: 230 }
+    size: { w: 150, h: 28 }
+  - id: tc4_1
+    label: "1 : 3"
+    at: { x: 950, y: 230 }
+    size: { w: 230, h: 28 }
+  - id: tc4_2
+    label: "男 1・女 3"
+    at: { x: 1180, y: 230 }
+    size: { w: 210, h: 28 }
+  - id: tc5_0
+    label: "水"
+    at: { x: 800, y: 258 }
+    size: { w: 150, h: 28 }
+  - id: tc5_1
+    label: "1 人 1 日 15 L"
+    at: { x: 950, y: 258 }
+    size: { w: 230, h: 28 }
+  - id: tc5_2
+    label: "48 名 → 720 L/日"
+    at: { x: 1180, y: 258 }
+    size: { w: 210, h: 28 }
+  - id: tc6_0
+    label: "蛇口"
+    at: { x: 800, y: 286 }
+    size: { w: 150, h: 28 }
+  - id: tc6_1
+    label: "250 人に 1 つ"
+    at: { x: 950, y: 286 }
+    size: { w: 230, h: 28 }
+  - id: tc6_2
+    label: "1 か所"
+    at: { x: 1180, y: 286 }
+    size: { w: 210, h: 28 }
+  - id: tc7_0
+    label: "通路幅"
+    at: { x: 800, y: 314 }
+    size: { w: 150, h: 28 }
+  - id: tc7_1
+    label: "1〜2m 以上"
+    at: { x: 950, y: 314 }
+    size: { w: 230, h: 28 }
+  - id: tc7_2
+    label: "2.0 m"
+    at: { x: 1180, y: 314 }
+    size: { w: 210, h: 28 }
+  - id: tc8_0
+    label: "人と人の間隔"
+    at: { x: 800, y: 342 }
+    size: { w: 150, h: 28 }
+  - id: tc8_1
+    label: "2m（最低 1m）"
+    at: { x: 950, y: 342 }
+    size: { w: 230, h: 28 }
+  - id: tc8_2
+    label: "パーティション ＋ 1.0m"
+    at: { x: 1180, y: 342 }
+    size: { w: 210, h: 28 }
+  - id: n0
+    label: "・パーティションは、座って口元より高いものにする（飛沫を止めるため）。"
+    marker: none
+    at: { x: 800, y: 384 }
+    size: { w: 590, h: 24 }
+  - id: n1
+    label: "・発熱者・濃厚接触者は、通路も階段も分ける。受付から直接入れる位置に置く。"
+    marker: none
+    at: { x: 800, y: 410 }
+    size: { w: 590, h: 24 }
+  - id: n2
+    label: "・要配慮者スペースは、出入口とトイレに近い側。移動が短いほど事故が減る。"
+    marker: none
+    at: { x: 800, y: 436 }
+    size: { w: 590, h: 24 }
+  - id: n3
+    label: "・ペット同行は別区画。ここで揉めると、避難所そのものが回らなくなる。"
+    marker: none
+    at: { x: 800, y: 462 }
+    size: { w: 590, h: 24 }
+  - id: n4
+    label: "・面積は「入れる人数」ではなく「居られる人数」。詰めると健康被害が出る。"
+    marker: none
+    at: { x: 800, y: 488 }
+    size: { w: 590, h: 24 }

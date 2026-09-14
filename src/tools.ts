@@ -48,7 +48,7 @@ import { MARKERS } from './marker.ts';
 import { crowdedNames, extentOf, hiddenTags, overlappingText, planNames } from './names.ts';
 import { OPENINGS, SIDES } from './openings.ts';
 import type { Kind } from './kind.ts';
-import { projection, smallestTextOf, PROJECTION_FLOOR, SMALLEST_TEXT } from './projection.ts';
+import { projection, smallestTextOf, PRINT_FLOOR, PROJECTION_FLOOR, SMALLEST_TEXT } from './projection.ts';
 import { render } from './render.ts';
 import { reviewOf } from './review.ts';
 import { APPEARANCE } from './tokens.ts';
@@ -272,6 +272,8 @@ export interface Inspection {
   textRatio: number | null;
   /** 投影で読める下限。**値をこちらが握ったままにしない。** */
   projectionFloor: number;
+  /** 印刷（A3）で読める下限。 */
+  printFloor: number;
   /**
    * **投影には小さすぎるか**（Issue #6）。
    *
@@ -280,6 +282,15 @@ export interface Inspection {
    * **図を分けるかどうかは意味の判断**なので、ここでは指摘だけする。
    */
   tooSmallToProject: boolean;
+  /**
+   * **A3 に印刷しても読めないか**（2026-09-14）。
+   *
+   * `tooSmallToProject` だけが真なら、**その図は印刷して読むもの**で、
+   * 投影に向かないだけ。路線図・査定図・仕込図・積付図はここに入る
+   * （見本 95 枚のうち 36 枚がこれ）。
+   * **両方が真のときだけ、本当に直すところがある。**
+   */
+  tooSmallToPrint: boolean;
 }
 
 /**
@@ -320,7 +331,9 @@ export async function inspect(source: string): Promise<Inspection> {
       longestSide: 0,
       textRatio: null,
       projectionFloor: PROJECTION_FLOOR,
+      printFloor: PRINT_FLOOR,
       tooSmallToProject: false,
+      tooSmallToPrint: false,
     };
   }
 
