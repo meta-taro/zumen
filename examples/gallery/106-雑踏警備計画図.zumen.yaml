@@ -1,0 +1,280 @@
+version: 1
+kind: placement
+arrows: true
+north: up
+scale: { mm: 500 }
+title: 雑踏警備計画図（花火大会・駅から会場まで／400 × 200m）
+# 1 px = 500 mm。**人の流れの図。** 見本 93（保安距離）の、人の側。
+#
+# ## 狭い場所へ、両方向から流し込まない
+#
+# 2001 年の明石花火大会歩道橋事故は、**狭い歩道橋に両方向の流れが入った**ことが
+# 原因のひとつだった。この計画では**往路と復路を分けて一方通行**にする。
+#
+# ## 数で決める
+#
+# 歩道橋は幅 6m。一方通行で 1.0 m/s、密度 2 人/m² なら **12 人/秒 ＝ 720 人/分**。
+# 駅から出てくるのは列車 1 本 1,000 人 ÷ 5 分 ＝ **200 人/分**。
+# **流せる量 > 入ってくる量**なので溜まらない。
+# 逆になったら、**手前で止める**（列車を待たせる）。
+#
+# ## 密度が意味を持つ
+#
+# 6〜7 人/m² で、人は自分の意思で動けなくなり、**群衆が流体のように振る舞う。**
+#
+# 場所は架空。
+nodes:
+  - id: stn
+    label: "駅"
+    hatch: solid
+    at: { x: 70, y: 250 }
+    size: { w: 90, h: 90 }
+  - id: plaza
+    label: "駅前広場"
+    hatch: dots
+    at: { x: 170, y: 230 }
+    size: { w: 150, h: 130 }
+  - id: bridge
+    label: "歩道橋 幅 6m"
+    hatch: cross
+    at: { x: 330, y: 250 }
+    size: { w: 150, h: 50 }
+  - id: road_go
+    label: "往路（会場へ・一方通行）"
+    hatch: lines
+    at: { x: 490, y: 214 }
+    size: { w: 270, h: 44 }
+  - id: road_back
+    label: "復路（駅へ・一方通行）"
+    hatch: lines
+    at: { x: 490, y: 292 }
+    size: { w: 270, h: 44 }
+  - id: venue
+    label: "会場（河川敷）"
+    hatch: dots
+    at: { x: 770, y: 200 }
+    size: { w: 160, h: 170 }
+  - id: park
+    label: "退避場所（公園）"
+    at: { x: 330, y: 380 }
+    size: { w: 190, h: 70 }
+  - id: honbu
+    label: "警備本部"
+    hatch: solid
+    at: { x: 600, y: 110 }
+    size: { w: 120, h: 44 }
+  - id: kyugo
+    label: "救護所"
+    at: { x: 740, y: 110 }
+    size: { w: 110, h: 44 }
+  - id: g1
+    label: ""
+    marker: circle
+    tag: G1
+    at: { x: 304, y: 330 }
+    size: { w: 26, h: 26 }
+  - id: g2
+    label: ""
+    marker: circle
+    tag: G2
+    at: { x: 320, y: 214 }
+    size: { w: 26, h: 26 }
+  - id: g3
+    label: ""
+    marker: circle
+    tag: G3
+    at: { x: 470, y: 196 }
+    size: { w: 26, h: 26 }
+  - id: g4
+    label: ""
+    marker: circle
+    tag: G4
+    at: { x: 486, y: 266 }
+    size: { w: 26, h: 26 }
+  - id: g5
+    label: ""
+    marker: circle
+    tag: G5
+    at: { x: 748, y: 196 }
+    size: { w: 26, h: 26 }
+  - id: g6
+    label: ""
+    marker: circle
+    tag: G6
+    at: { x: 478, y: 336 }
+    size: { w: 26, h: 26 }
+  - id: g7
+    label: ""
+    marker: circle
+    tag: G7
+    at: { x: 330, y: 364 }
+    size: { w: 26, h: 26 }
+  - id: g_n
+    label: "○＝警備員の立哨位置（7 名）。狭くなる所と、流れが分かれる所に置く"
+    marker: none
+    at: { x: 70, y: 466 }
+    size: { w: 520, h: 24 }
+  - id: tb_t
+    label: "群集密度と、そのとき起きること"
+    marker: none
+    at: { x: 980, y: 60 }
+    size: { w: 440, h: 24 }
+  - id: th0
+    label: "密度"
+    hatch: solid
+    at: { x: 980, y: 92 }
+    size: { w: 130, h: 26 }
+  - id: th1
+    label: "起きること"
+    hatch: solid
+    at: { x: 1110, y: 92 }
+    size: { w: 330, h: 26 }
+  - id: tc0_0
+    label: "1〜2 人/m²"
+    at: { x: 980, y: 118 }
+    size: { w: 130, h: 28 }
+  - id: tc0_1
+    label: "触れずに自由に動ける"
+    at: { x: 1110, y: 118 }
+    size: { w: 330, h: 28 }
+  - id: tc1_0
+    label: "3〜4 人/m²"
+    at: { x: 980, y: 146 }
+    size: { w: 130, h: 28 }
+  - id: tc1_1
+    label: "危険性は低い"
+    at: { x: 1110, y: 146 }
+    size: { w: 330, h: 28 }
+  - id: tc2_0
+    label: "5 人/m²"
+    at: { x: 980, y: 174 }
+    size: { w: 130, h: 28 }
+  - id: tc2_1
+    label: "個人の移動が制限される"
+    at: { x: 1110, y: 174 }
+    size: { w: 330, h: 28 }
+  - id: tc3_0
+    label: "6〜7 人/m²"
+    at: { x: 980, y: 202 }
+    size: { w: 130, h: 28 }
+  - id: tc3_1
+    label: "押し合い、自分の意思で動けない。流体のように振る舞う"
+    at: { x: 1110, y: 202 }
+    size: { w: 330, h: 28 }
+  - id: cap_t
+    label: "歩道橋が流せる量（この計画の根拠）"
+    marker: none
+    at: { x: 980, y: 246 }
+    size: { w: 440, h: 24 }
+  - id: ca0
+    label: "広さ"
+    hatch: solid
+    at: { x: 980, y: 274 }
+    size: { w: 130, h: 26 }
+  - id: cb0
+    label: "幅 6m × 長さ 40m ＝ 240 m²"
+    at: { x: 1110, y: 274 }
+    size: { w: 330, h: 26 }
+  - id: ca1
+    label: "上限の人数"
+    hatch: solid
+    at: { x: 980, y: 300 }
+    size: { w: 130, h: 26 }
+  - id: cb1
+    label: "4 人/m² なら 960 人まで"
+    at: { x: 1110, y: 300 }
+    size: { w: 330, h: 26 }
+  - id: ca2
+    label: "流す速さ"
+    hatch: solid
+    at: { x: 980, y: 326 }
+    size: { w: 130, h: 26 }
+  - id: cb2
+    label: "一方通行で 1.0 m/s"
+    at: { x: 1110, y: 326 }
+    size: { w: 330, h: 26 }
+  - id: ca3
+    label: "流量"
+    hatch: solid
+    at: { x: 980, y: 352 }
+    size: { w: 130, h: 26 }
+  - id: cb3
+    label: "6m × 1.0m/s × 2 人/m² ＝ 12 人/秒"
+    at: { x: 1110, y: 352 }
+    size: { w: 330, h: 26 }
+  - id: ca4
+    label: "1 分あたり"
+    hatch: solid
+    at: { x: 980, y: 378 }
+    size: { w: 130, h: 26 }
+  - id: cb4
+    label: "720 人/分"
+    at: { x: 1110, y: 378 }
+    size: { w: 330, h: 26 }
+  - id: ca5
+    label: "入ってくる量"
+    hatch: solid
+    at: { x: 980, y: 404 }
+    size: { w: 130, h: 26 }
+  - id: cb5
+    label: "列車 1 本 1,000 人 ÷ 5 分 ＝ 200 人/分"
+    at: { x: 1110, y: 404 }
+    size: { w: 330, h: 26 }
+  - id: ca6
+    label: "判定"
+    hatch: solid
+    at: { x: 980, y: 430 }
+    size: { w: 130, h: 26 }
+  - id: cb6
+    label: "流せる > 入ってくる。溜まらない"
+    at: { x: 1110, y: 430 }
+    size: { w: 330, h: 26 }
+  - id: n0
+    label: "・狭い場所へ、両方向から流し込まない。 往路と復路を分ける。"
+    marker: none
+    at: { x: 980, y: 472 }
+    size: { w: 640, h: 24 }
+  - id: n1
+    label: "・2001 年の明石花火大会歩道橋事故は、狭い歩道橋に両方向の流れが入った。"
+    marker: none
+    at: { x: 980, y: 498 }
+    size: { w: 640, h: 24 }
+  - id: n2
+    label: "・滞留を作らない。 立ち止まる理由（屋台・写真）を狭窄部の近くに置かない。"
+    marker: none
+    at: { x: 980, y: 524 }
+    size: { w: 640, h: 24 }
+  - id: n3
+    label: "・入ってくる量 ＜ 流せる量。逆になったら、手前で止める（列車を待たせる）。"
+    marker: none
+    at: { x: 980, y: 550 }
+    size: { w: 640, h: 24 }
+  - id: n4
+    label: "・警備員は狭くなる所と、流れが分かれる所に置く。見通せる位置に。"
+    marker: none
+    at: { x: 980, y: 576 }
+    size: { w: 640, h: 24 }
+  - id: n5
+    label: "・退避場所は経路の途中に取る。行き止まりへ逃がさない。"
+    marker: none
+    at: { x: 980, y: 602 }
+    size: { w: 640, h: 24 }
+  - id: n6
+    label: "・将棋倒しで先頭が支えられるのは平地で 7 人、階段では 4 人。"
+    marker: none
+    at: { x: 980, y: 628 }
+    size: { w: 640, h: 24 }
+edges:
+  - from: stn
+    to: plaza
+  - from: plaza
+    to: bridge
+  - from: bridge
+    to: road_go
+  - from: road_go
+    to: venue
+  - from: venue
+    to: road_back
+  - from: road_back
+    to: park
+    line: dashed
