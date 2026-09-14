@@ -45,7 +45,7 @@ import { WRITES } from './write.ts';
 import { CURVES } from './curve.ts';
 import { VERTICALS } from './floor.ts';
 import { MARKERS } from './marker.ts';
-import { crowdedNames, extentOf, planNames } from './names.ts';
+import { crowdedNames, extentOf, overlappingText, planNames } from './names.ts';
 import { OPENINGS, SIDES } from './openings.ts';
 import type { Kind } from './kind.ts';
 import { projection, smallestTextOf, PROJECTION_FLOOR, SMALLEST_TEXT } from './projection.ts';
@@ -232,6 +232,14 @@ export interface Inspection {
   /** **階の一覧**（`src/floor.ts`）。下から上へ。書かなければ空。 */
   floors: string[];
   /**
+   * **文字どうしが重なっている組**（配置図だけ）。合否ではなく観測値。
+   *
+   * `overlaps` は**箱**を数えるので、枠の中に節を入れた図では鳴りっぱなしになり、
+   * 誰も見なくなる。**文字の重なりは、ほぼ必ず間違い**なので分けて数える
+   * （2026-09-14。見本 86 で注記が枠の上に乗ったまま出ていた）。
+   */
+  overlappingText: [string, string][];
+  /**
    * **人がこの図を見たか。**
    *
    * `pins` は「人が**直した**」記録で、これは「人が**見た**」記録（仕様 §3.5）。
@@ -293,6 +301,7 @@ export async function inspect(source: string): Promise<Inspection> {
       hiddenLabels: [],
       crowdedNames: [],
       floors: [],
+      overlappingText: [],
       kind: 'structure',
       positionsInSource: false,
       reviewed: false,
@@ -333,6 +342,10 @@ export async function inspect(source: string): Promise<Inspection> {
     crowdedNames:
       kindOf(source) === 'placement' ? crowdedNames(planNames(placed.boxes, extentOf(placed.boxes), placed.edges)) : [],
     floors: placed.floors,
+    overlappingText:
+      kindOf(source) === 'placement'
+        ? overlappingText(placed.boxes, planNames(placed.boxes, extentOf(placed.boxes), placed.edges))
+        : [],
     ...(() => {
       const seen = reviewOf(source);
       return { reviewed: seen.reviewed, reviewedAt: seen.at, reviewStale: seen.stale };

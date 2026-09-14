@@ -382,3 +382,74 @@ nodes:
     assert.deepEqual(out.crowdedNames, []);
   });
 });
+
+/**
+ * **文字どうしが重なっていないか**（`overlappingText`）。
+ *
+ * 2026-09-14。見本 86（CRUD 管理画面）で、注記の箱を動かし忘れて
+ * **画面の枠の上に文が乗ったまま**出ていた。`crowdedNames` も `hiddenLabels` も
+ * `crossings` も 0 のまま —— **どれも見ていない所だった。**
+ *
+ * | 既にある観測値 | 見ているもの |
+ * |---|---|
+ * | `crowdedNames` | **外へ出した**名前の置き場所 |
+ * | `hiddenLabels` | **辺**のラベル |
+ * | `overlaps` | **箱**どうし（入れ子も数えるので、配置図では鳴りっぱなし） |
+ *
+ * 中に収まった文字どうしは、**誰も見ていなかった。**
+ * 箱の重なりは意図のことがある（枠の中に節を入れる）が、
+ * **文字の重なりは、ほぼ必ず間違い**なので、そこだけを数える。
+ */
+describe('文字どうしの重なり', () => {
+  const PILE = `version: 1
+kind: placement
+nodes:
+  - id: frame
+    label: ""
+    marker: box
+    at: { x: 0, y: 0 }
+    size: { w: 200, h: 100 }
+  - id: inner
+    label: 中の節
+    at: { x: 10, y: 10 }
+    size: { w: 180, h: 40 }
+  - id: note
+    label: 枠の上に乗ってしまった注記
+    marker: none
+    at: { x: 10, y: 10 }
+    size: { w: 300, h: 26 }
+`;
+
+  it('**重なった組を返す**（見本 86 で実際に起きた形）', async () => {
+    const out = await inspect(PILE);
+    assert.deepEqual(out.overlappingText, [['inner', 'note']]);
+  });
+
+  it('**箱が入れ子でも、文字が離れていれば何も言わない**', async () => {
+    const out = await inspect(PILE.replace('at: { x: 10, y: 10 }\n    size: { w: 300, h: 26 }', 'at: { x: 10, y: 60 }\n    size: { w: 300, h: 26 }'));
+    assert.deepEqual(out.overlappingText, [], '入れ子そのものを間違いと言ってはいけない');
+  });
+
+  it('文字の無い箱は数えない', async () => {
+    const out = await inspect(PILE.replace('label: 枠の上に乗ってしまった注記', 'label: ""'));
+    assert.deepEqual(out.overlappingText, []);
+  });
+
+  it('構成図では見ない（置き場所を機械が決めるので、必ず離れる）', async () => {
+    const out = await inspect(PILE.replace('kind: placement\n', ''));
+    assert.deepEqual(out.overlappingText, []);
+  });
+});
+
+describe('見本は、文字が重なっていない', () => {
+  it('**見本すべてで 0**', async () => {
+    const { readdirSync, readFileSync } = await import('node:fs');
+    const dir = new URL('../examples/gallery/', import.meta.url);
+    const piles: string[] = [];
+    for (const name of readdirSync(dir).filter((f) => f.endsWith('.zumen.yaml')).sort()) {
+      const out = await inspect(readFileSync(new URL(name, dir), 'utf8'));
+      for (const pair of out.overlappingText) piles.push(`${name}: ${pair[0]} × ${pair[1]}`);
+    }
+    assert.deepEqual(piles, []);
+  });
+});

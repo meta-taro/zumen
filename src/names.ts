@@ -363,6 +363,62 @@ export function crowdedNames(plans: Map<string, Plan>): string[] {
     .sort();
 }
 
+/**
+ * **その箱の文字が占める矩形。** 文字が無ければ null。
+ *
+ * 外へ出したものは置き場所が決まっている（`place`）ので、そこから起こす。
+ * 中に収まったものは箱の真ん中 —— ただし**幅は箱を超えない**（超えていれば
+ * `shape` が外へ出している）。
+ */
+export function textRectOf(box: Box, plan: Plan): Rect | null {
+  if (box.label === '') return null;
+  const rows = box.technology === null ? 1 : 2;
+  if (plan.kind === 'outside') {
+    const w = textWidth(box);
+    const h = rows * NAME_FONT;
+    return { x: plan.x - w / 2, y: plan.above ? plan.y - h : plan.y - NAME_FONT, w, h };
+  }
+  const text = plan.kind === 'joined' ? plan.text : box.label;
+  const w = Math.min(labelWidth(text, NAME_FONT), box.w);
+  const h = (plan.kind === 'joined' ? 1 : rows) * NAME_FONT;
+  return { x: box.x + box.w / 2 - w / 2, y: box.y + box.h / 2 - h / 2, w, h };
+}
+
+/**
+ * **文字どうしが重なっている組**（配置図だけ）。合否ではなく観測値。
+ *
+ * 2026-09-14。見本 86 で、注記の箱を動かし忘れて**枠の上に文が乗ったまま**
+ * 出ていた。`crowdedNames`・`hiddenLabels`・`crossings` はどれも 0 のまま
+ * —— **どれも見ていない所だった。**
+ *
+ * **箱の重なりは意図のことがある**（枠の中に節を入れる、盤の上に石を置く）。
+ * だから `overlaps` は配置図では鳴りっぱなしで、誰も見なくなる。
+ * **文字の重なりは、ほぼ必ず間違い**なので、そこだけを数える。
+ *
+ * **縦組み（`stack`）は数えない。** 字を 1 つずつ積むので、
+ * 横幅の見積もりがそのまま当てはまらない。
+ */
+export function overlappingText(boxes: readonly Box[], plans: Map<string, Plan>): [string, string][] {
+  const rects: [string, Rect][] = [];
+  for (const box of boxes) {
+    const plan = plans.get(box.id);
+    if (plan === undefined || plan.kind === 'stack') continue;
+    const rect = textRectOf(box, plan);
+    if (rect !== null) rects.push([box.id, rect]);
+  }
+
+  const found: [string, string][] = [];
+  for (let i = 0; i < rects.length; i += 1) {
+    for (let j = i + 1; j < rects.length; j += 1) {
+      const [aid, a] = rects[i]!;
+      const [bid, b] = rects[j]!;
+      const apart = a.x + a.w <= b.x || b.x + b.w <= a.x || a.y + a.h <= b.y || b.y + b.h <= a.y;
+      if (!apart) found.push([aid, bid]);
+    }
+  }
+  return found;
+}
+
 /** 箱ぜんたいが占める矩形。**外へ出す先が図の外にならないか**を見るのに使う。 */
 export function extentOf(boxes: readonly Box[]): Rect | null {
   if (boxes.length === 0) return null;

@@ -610,7 +610,7 @@ zumen には `label` と `technology` の 2 つしか無いので、**2 段ま�
 
 | 見る所 | 何を探すか |
 |---|---|
-| `inspect` の観測値 | `crossings` / `hiddenLabels` / `crowdedNames` が 0 でないもの |
+| `inspect` の観測値 | `crossings` / `hiddenLabels` / `crowdedNames` / `overlappingText` が 0 でないもの |
 | 見本を実物と並べる | **今まで「これでいい」と流した所**（線の太さ・間隔・文字の位置） |
 | 検証器の警告 | 出ているのに直していないもの |
 | 課題の一覧 | 小さく削れるもの（全部は無理でも、1 つ手前まで進める） |

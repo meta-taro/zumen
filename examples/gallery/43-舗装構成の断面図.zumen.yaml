@@ -2,6 +2,11 @@ version: 1
 kind: placement
 title: 車道 舗装構成断面図（N5 交通・TA=21cm 相当）
 # 1 px = 5 mm。断面なので y は深さ（下が深い）
+#
+# **表層と基層は 50 mm ＝ 10 px しかない。** 名前を層の中へ書くと、
+# 隣の層の名前とぶつかる（文字は 12 px ある）。縮尺を崩して層を厚く描けば
+# 名前は入るが、**縮尺が正しいことがこの図の中身**なので崩さない。
+# 実物の舗装構成図と同じく、**薄い層の名前は右の構成表で読む。**
 scale: { mm: 5 }
 grid:
   x:
@@ -14,14 +19,12 @@ grid:
     - { id: 掘削底 -1550, at: 310, mark: level }
 nodes:
   - id: hyoso
-    label: 表層
-    technology: 密粒度アスコン 13F t=50
+    label: ""
     hatch: solid
     at: { x: 0, y: 0 }
     size: { w: 400, h: 10 }
   - id: kiso
-    label: 基層
-    technology: 粗粒度アスコン 20 t=50
+    label: ""
     hatch: solid
     at: { x: 0, y: 10 }
     size: { w: 400, h: 10 }
@@ -43,3 +46,83 @@ nodes:
     hatch: lines
     at: { x: 0, y: 110 }
     size: { w: 400, h: 200 }
+  - id: t_h
+    label: 層
+    hatch: solid
+    at: { x: 440, y: 0 }
+    size: { w: 90, h: 24 }
+  - id: t_h2
+    label: 材料
+    hatch: solid
+    at: { x: 530, y: 0 }
+    size: { w: 230, h: 24 }
+  - id: t_h3
+    label: 厚さ
+    hatch: solid
+    at: { x: 760, y: 0 }
+    size: { w: 80, h: 24 }
+  - id: t_0a
+    label: 表層
+    at: { x: 440, y: 24 }
+    size: { w: 90, h: 24 }
+  - id: t_0b
+    label: 密粒度アスコン 13F
+    at: { x: 530, y: 24 }
+    size: { w: 230, h: 24 }
+  - id: t_0c
+    label: 50 mm
+    at: { x: 760, y: 24 }
+    size: { w: 80, h: 24 }
+  - id: t_1a
+    label: 基層
+    at: { x: 440, y: 48 }
+    size: { w: 90, h: 24 }
+  - id: t_1b
+    label: 粗粒度アスコン 20
+    at: { x: 530, y: 48 }
+    size: { w: 230, h: 24 }
+  - id: t_1c
+    label: 50 mm
+    at: { x: 760, y: 48 }
+    size: { w: 80, h: 24 }
+  - id: t_2a
+    label: 上層路盤
+    at: { x: 440, y: 72 }
+    size: { w: 90, h: 24 }
+  - id: t_2b
+    label: 粒度調整砕石 M-25
+    at: { x: 530, y: 72 }
+    size: { w: 230, h: 24 }
+  - id: t_2c
+    label: 150 mm
+    at: { x: 760, y: 72 }
+    size: { w: 80, h: 24 }
+  - id: t_3a
+    label: 下層路盤
+    at: { x: 440, y: 96 }
+    size: { w: 90, h: 24 }
+  - id: t_3b
+    label: クラッシャラン C-40
+    at: { x: 530, y: 96 }
+    size: { w: 230, h: 24 }
+  - id: t_3c
+    label: 300 mm
+    at: { x: 760, y: 96 }
+    size: { w: 80, h: 24 }
+  - id: t_4a
+    label: 路床
+    at: { x: 440, y: 120 }
+    size: { w: 90, h: 24 }
+  - id: t_4b
+    label: 設計 CBR 6
+    at: { x: 530, y: 120 }
+    size: { w: 230, h: 24 }
+  - id: t_4c
+    label: 1,000 mm
+    at: { x: 760, y: 120 }
+    size: { w: 80, h: 24 }
+  - id: t_note
+    label: 舗装厚 TA=21 cm 相当。表層・基層は薄いので、名前はこの表で読む。
+    marker: none
+    at: { x: 440, y: 152 }
+    size: { w: 400, h: 24 }
