@@ -468,6 +468,17 @@ function checkEdges(doc: Document, nodeIds: Set<string>, add: Add, m: Messages, 
       if (nodeIds.has(end)) continue;
       add('error', 'edge-endpoint-unknown', m.edgeEndpointUnknown(key, end), at(item));
     }
+    /**
+     * **自分自身への辺は、閉じた形を描くための書き方**（見本 97 の視野）。
+     *
+     * `via` を並べれば扇形も輪郭も引けるが、**書かないと長さ 0 の線**になり、
+     * 節の真ん中に矢印の粒が出るだけになる（2026-09-14 に実際に出た）。
+     */
+    if (String(from) === String(to)) {
+      const via = item.get('via');
+      const empty = via === undefined || via === null || (isSeq(via) && via.items.length === 0);
+      if (empty) add('warning', 'edge-self-open', m.edgeSelfOpen(String(from)), at(item));
+    }
   }
   return keys;
 }

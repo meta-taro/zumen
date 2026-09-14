@@ -264,3 +264,51 @@ edges:
     assert.ok(!out.includes('marker-end'), 'UML の関連に矢印が出ている');
   });
 });
+
+/**
+ * **自分自身への辺**（閉じた形を描くための書き方）。
+ *
+ * 2026-09-14。防犯カメラの視野（見本 97）を描くとき、
+ * **扇形を描く手段がない**と思っていたが、
+ * `from` と `to` を同じ節にして `via` を並べ、`close: true` にすると
+ * **閉じた形が引ける**と分かった（道具を足さずに描けた）。
+ *
+ * ただし `via` を書かないと、**長さ 0 の線に矢印だけが付く。**
+ * `M 130 120 L 130 120` —— 節の真ん中に黒い粒が出るだけで、
+ * **それを知らせるものが無かった。**
+ */
+describe('自分自身への辺', () => {
+  const SELF = `version: 1
+kind: placement
+nodes:
+  - id: a
+    label: あ
+    at: { x: 100, y: 100 }
+    size: { w: 60, h: 40 }
+edges:
+  - from: a
+    to: a
+`;
+
+  it('**通り道が無ければ知らせる**（長さ 0 の線になる）', async () => {
+    const { validate } = await import('../src/validate.ts');
+    const found = validate(SELF);
+    assert.ok(found.some((f) => f.code === 'edge-self-open'), found.map((f) => f.code).join(','));
+    assert.ok(found.every((f) => f.severity === 'warning'), '描ける図なので止めない');
+  });
+
+  it('**通り道があれば、閉じた形として通す**', async () => {
+    const { validate } = await import('../src/validate.ts');
+    const withVia = SELF.replace(
+      '    to: a\n',
+      '    to: a\n    close: true\n    via:\n      - { x: 40, y: 40 }\n      - { x: 200, y: 40 }\n',
+    );
+    assert.ok(!validate(withVia).some((f) => f.code === 'edge-self-open'));
+  });
+
+  it('ふつうの辺には出ない', async () => {
+    const { validate } = await import('../src/validate.ts');
+    const two = SELF.replace('  - id: a\n    label: あ', '  - id: b\n    label: い\n    at: { x: 300, y: 100 }\n    size: { w: 60, h: 40 }\n  - id: a\n    label: あ').replace('    to: a\n', '    to: b\n');
+    assert.ok(!validate(two).some((f) => f.code === 'edge-self-open'));
+  });
+});

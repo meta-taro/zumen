@@ -802,6 +802,31 @@ edges:
   「ここを通る」と書いたものを外したら、書いた意味が無い
 - **2 点しかなければ直線。** 丸める角が無い
 
+##### 閉じた形を描く（扇形・輪郭）
+
+**`from` と `to` を同じ節にして、`via` を並べ、`close: true`**（2026-09-14）。
+
+```yaml
+edges:
+  # from と to を同じ節にする
+  - from: cam
+    to: cam
+    close: true
+    line: dashed
+    ends: { from: none, to: none }
+    # 弧の上を刻んだ点
+    via:
+      - { x: 120, y: 180 }
+      - { x: 200, y: 150 }
+      - { x: 280, y: 180 }
+```
+
+カメラの視野・照明の照射・立入禁止の範囲のような、
+**節から広がる閉じた形**がこれで描ける（見本 97）。
+
+**`via` を書かない自分自身への辺は、長さ 0 の線**になり、
+節の真ん中に矢印の粒が出るだけになる（`edge-self-open` で知らせる）。
+
 ##### `via` と `pins.waypoints`
 
 **`nodes[].at` と `pins.position` の関係と同じ。**
@@ -1365,6 +1390,7 @@ Mermaid も draw.io も、落ちたものを先頭のコメントに列挙する
 | `ends-unknown` | 端の記号が `ENDS` の語か |
 | `line-unknown` | 線種が `solid` / `dashed` / `dotted` / `double` か |
 | `text-overlap` | **文字どうしが重なっていないか**（配置図。**置いてみないと分からない**） |
+| `edge-self-open` | **自分自身への辺に `via` があるか**（無いと長さ 0 の線になる） |
 | `tag-hidden` | **符号が印に入りきって描かれるか**（配置図。同上） |
 | `weight-unknown` | 太さが `thin` / `normal` / `thick` か |
 

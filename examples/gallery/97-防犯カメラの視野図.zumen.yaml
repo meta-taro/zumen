@@ -1,0 +1,466 @@
+version: 1
+kind: placement
+arrows: false
+north: up
+scale: { mm: 25 }
+title: 防犯カメラ配置・視野図（コンビニ 20 × 12m・DORI つき）
+# 1 px = 25 mm。**視野の扇形が図の中身。** どこが写り、どこが写らないか。
+#
+# ## 「写っている」と「誰か分かる」は別
+#
+# DORI（IEC/EN 62676-4）は **1m あたり何ピクセルで写るか**で段階を分ける。
+# 識別 250 / 認識 125 / 観察 62 / 検知 25 px/m。
+# **同じカメラでも、距離が伸びると段階が下がる。**
+#
+# 距離は 画素数 ÷（2 × 距離 × tan(画角/2)）から出る ——
+# **画角を広げるほど、識別できる距離は縮む。**
+#
+# ## 扇形は「向きと画角」、距離の段階は表
+#
+# 扇形が示すのは**どちらを向いて、どれだけ広く写るか**。
+# **その距離で誰と分かるかは、右の表**（DORI）で読む。
+# 同じ扇の中でも、遠いほど段階は下がる。
+#
+# 描き方は、**自分自身への辺に `via` を並べて `close: true`**（道具は足していない）。
+# 破線なのは、**視野は物ではない**から（実線は物の輪郭）。
+#
+# ## 視野どうしが交差しているのは、そのほうがよいから
+#
+# 重なりが無い置き方は、**その隙間が死角**になる。
+#
+# 店名・配置は架空。
+nodes:
+  - id: shop
+    label: ""
+    marker: box
+    at: { x: 60, y: 120 }
+    size: { w: 800, h: 480 }
+  - id: shop_n
+    label: "売場（20.0 × 12.0m）"
+    marker: none
+    at: { x: 68, y: 126 }
+    size: { w: 240, h: 22 }
+  - id: iri
+    label: "出入口"
+    hatch: solid
+    at: { x: 100, y: 568 }
+    size: { w: 120, h: 32 }
+  - id: reji
+    label: "レジ"
+    hatch: dots
+    at: { x: 120, y: 420 }
+    size: { w: 140, h: 60 }
+  - id: tana0
+    label: "棚（H1,500）"
+    hatch: lines
+    at: { x: 300, y: 210 }
+    size: { w: 300, h: 50 }
+  - id: tana1
+    label: "棚（H1,500）"
+    hatch: lines
+    at: { x: 300, y: 290 }
+    size: { w: 300, h: 50 }
+  - id: tana2
+    label: "棚（H1,500）"
+    hatch: lines
+    at: { x: 300, y: 370 }
+    size: { w: 300, h: 50 }
+  - id: back
+    label: "バックヤード"
+    hatch: cross
+    at: { x: 720, y: 140 }
+    size: { w: 132, h: 150 }
+  - id: wc
+    label: "トイレ"
+    hatch: dots
+    at: { x: 720, y: 310 }
+    size: { w: 132, h: 110 }
+  - id: drink
+    label: "飲料ケース"
+    hatch: lines
+    at: { x: 660, y: 450 }
+    size: { w: 192, h: 120 }
+  - id: C-1
+    label: ""
+    marker: circle
+    tag: C-1
+    at: { x: 199, y: 389 }
+    size: { w: 22, h: 22 }
+  - id: C-2
+    label: ""
+    marker: circle
+    tag: C-2
+    at: { x: 119, y: 539 }
+    size: { w: 22, h: 22 }
+  - id: C-3
+    label: ""
+    marker: circle
+    tag: C-3
+    at: { x: 449, y: 262 }
+    size: { w: 22, h: 22 }
+  - id: C-4
+    label: ""
+    marker: circle
+    tag: C-4
+    at: { x: 640, y: 300 }
+    size: { w: 22, h: 22 }
+  - id: C-5
+    label: ""
+    marker: circle
+    tag: C-5
+    at: { x: 609, y: 529 }
+    size: { w: 22, h: 22 }
+  - id: shikaku
+    label: "死角"
+    hatch: cross
+    at: { x: 300, y: 450 }
+    size: { w: 140, h: 60 }
+  - id: shikaku_n
+    label: "棚の裏。棚を H1,500 に抑えると消える"
+    marker: none
+    at: { x: 300, y: 516 }
+    size: { w: 300, h: 24 }
+  - id: tb_t
+    label: "カメラと、写る距離（DORI・IEC/EN 62676-4）"
+    marker: none
+    at: { x: 900, y: 60 }
+    size: { w: 470, h: 24 }
+  - id: th0
+    label: "番号"
+    hatch: solid
+    at: { x: 900, y: 92 }
+    size: { w: 66, h: 26 }
+  - id: th1
+    label: "画素・画角"
+    hatch: solid
+    at: { x: 966, y: 92 }
+    size: { w: 140, h: 26 }
+  - id: th2
+    label: "高さ"
+    hatch: solid
+    at: { x: 1106, y: 92 }
+    size: { w: 66, h: 26 }
+  - id: th3
+    label: "識別"
+    hatch: solid
+    at: { x: 1172, y: 92 }
+    size: { w: 80, h: 26 }
+  - id: th4
+    label: "認識"
+    hatch: solid
+    at: { x: 1252, y: 92 }
+    size: { w: 80, h: 26 }
+  - id: th5
+    label: "観察"
+    hatch: solid
+    at: { x: 1332, y: 92 }
+    size: { w: 80, h: 26 }
+  - id: th6
+    label: "用途"
+    hatch: solid
+    at: { x: 1412, y: 92 }
+    size: { w: 190, h: 26 }
+  - id: tc0_0
+    label: "C-1"
+    at: { x: 900, y: 118 }
+    size: { w: 66, h: 28 }
+  - id: tc0_1
+    label: "4MP・70°"
+    at: { x: 966, y: 118 }
+    size: { w: 140, h: 28 }
+  - id: tc0_2
+    label: "2.4m"
+    at: { x: 1106, y: 118 }
+    size: { w: 66, h: 28 }
+  - id: tc0_3
+    label: "7.3m"
+    at: { x: 1172, y: 118 }
+    size: { w: 80, h: 28 }
+  - id: tc0_4
+    label: "14.6m"
+    at: { x: 1252, y: 118 }
+    size: { w: 80, h: 28 }
+  - id: tc0_5
+    label: "29.5m"
+    at: { x: 1332, y: 118 }
+    size: { w: 80, h: 28 }
+  - id: tc0_6
+    label: "レジの手元と顔"
+    at: { x: 1412, y: 118 }
+    size: { w: 190, h: 28 }
+  - id: tc1_0
+    label: "C-2"
+    at: { x: 900, y: 146 }
+    size: { w: 66, h: 28 }
+  - id: tc1_1
+    label: "4MP・90°"
+    at: { x: 966, y: 146 }
+    size: { w: 140, h: 28 }
+  - id: tc1_2
+    label: "2.6m"
+    at: { x: 1106, y: 146 }
+    size: { w: 66, h: 28 }
+  - id: tc1_3
+    label: "5.1m"
+    at: { x: 1172, y: 146 }
+    size: { w: 80, h: 28 }
+  - id: tc1_4
+    label: "10.2m"
+    at: { x: 1252, y: 146 }
+    size: { w: 80, h: 28 }
+  - id: tc1_5
+    label: "20.6m"
+    at: { x: 1332, y: 146 }
+    size: { w: 80, h: 28 }
+  - id: tc1_6
+    label: "入店者の顔（内向き）"
+    at: { x: 1412, y: 146 }
+    size: { w: 190, h: 28 }
+  - id: tc2_0
+    label: "C-3"
+    at: { x: 900, y: 174 }
+    size: { w: 66, h: 28 }
+  - id: tc2_1
+    label: "2MP・100°"
+    at: { x: 966, y: 174 }
+    size: { w: 140, h: 28 }
+  - id: tc2_2
+    label: "2.8m"
+    at: { x: 1106, y: 174 }
+    size: { w: 66, h: 28 }
+  - id: tc2_3
+    label: "3.2m"
+    at: { x: 1172, y: 174 }
+    size: { w: 80, h: 28 }
+  - id: tc2_4
+    label: "6.4m"
+    at: { x: 1252, y: 174 }
+    size: { w: 80, h: 28 }
+  - id: tc2_5
+    label: "12.9m"
+    at: { x: 1332, y: 174 }
+    size: { w: 80, h: 28 }
+  - id: tc2_6
+    label: "売場ぜんたい"
+    at: { x: 1412, y: 174 }
+    size: { w: 190, h: 28 }
+  - id: tc3_0
+    label: "C-4"
+    at: { x: 900, y: 202 }
+    size: { w: 66, h: 28 }
+  - id: tc3_1
+    label: "2MP・70°"
+    at: { x: 966, y: 202 }
+    size: { w: 140, h: 28 }
+  - id: tc3_2
+    label: "2.6m"
+    at: { x: 1106, y: 202 }
+    size: { w: 66, h: 28 }
+  - id: tc3_3
+    label: "5.5m"
+    at: { x: 1172, y: 202 }
+    size: { w: 80, h: 28 }
+  - id: tc3_4
+    label: "11.0m"
+    at: { x: 1252, y: 202 }
+    size: { w: 80, h: 28 }
+  - id: tc3_5
+    label: "22.1m"
+    at: { x: 1332, y: 202 }
+    size: { w: 80, h: 28 }
+  - id: tc3_6
+    label: "バックヤードの出入り"
+    at: { x: 1412, y: 202 }
+    size: { w: 190, h: 28 }
+  - id: tc4_0
+    label: "C-5"
+    at: { x: 900, y: 230 }
+    size: { w: 66, h: 28 }
+  - id: tc4_1
+    label: "2MP・90°"
+    at: { x: 966, y: 230 }
+    size: { w: 140, h: 28 }
+  - id: tc4_2
+    label: "2.6m"
+    at: { x: 1106, y: 230 }
+    size: { w: 66, h: 28 }
+  - id: tc4_3
+    label: "3.8m"
+    at: { x: 1172, y: 230 }
+    size: { w: 80, h: 28 }
+  - id: tc4_4
+    label: "7.7m"
+    at: { x: 1252, y: 230 }
+    size: { w: 80, h: 28 }
+  - id: tc4_5
+    label: "15.5m"
+    at: { x: 1332, y: 230 }
+    size: { w: 80, h: 28 }
+  - id: tc4_6
+    label: "飲料前の滞留"
+    at: { x: 1412, y: 230 }
+    size: { w: 190, h: 28 }
+  - id: d_t
+    label: "DORI —— 1m あたり何ピクセルで写るか"
+    marker: none
+    at: { x: 900, y: 272 }
+    size: { w: 460, h: 24 }
+  - id: dh0
+    label: "段階"
+    hatch: solid
+    at: { x: 900, y: 300 }
+    size: { w: 170, h: 26 }
+  - id: dh1
+    label: "画素密度"
+    hatch: solid
+    at: { x: 1070, y: 300 }
+    size: { w: 110, h: 26 }
+  - id: dh2
+    label: "何が分かるか"
+    hatch: solid
+    at: { x: 1180, y: 300 }
+    size: { w: 280, h: 26 }
+  - id: dc0_0
+    label: "識別（Identify）"
+    at: { x: 900, y: 326 }
+    size: { w: 170, h: 26 }
+  - id: dc0_1
+    label: "250 px/m"
+    at: { x: 1070, y: 326 }
+    size: { w: 110, h: 26 }
+  - id: dc0_2
+    label: "その人が誰かを特定できる"
+    at: { x: 1180, y: 326 }
+    size: { w: 280, h: 26 }
+  - id: dc1_0
+    label: "認識（Recognise）"
+    at: { x: 900, y: 352 }
+    size: { w: 170, h: 26 }
+  - id: dc1_1
+    label: "125 px/m"
+    at: { x: 1070, y: 352 }
+    size: { w: 110, h: 26 }
+  - id: dc1_2
+    label: "前に見た人と同じだと言える"
+    at: { x: 1180, y: 352 }
+    size: { w: 280, h: 26 }
+  - id: dc2_0
+    label: "観察（Observe）"
+    at: { x: 900, y: 378 }
+    size: { w: 170, h: 26 }
+  - id: dc2_1
+    label: "62 px/m"
+    at: { x: 1070, y: 378 }
+    size: { w: 110, h: 26 }
+  - id: dc2_2
+    label: "服装などの特徴が分かる"
+    at: { x: 1180, y: 378 }
+    size: { w: 280, h: 26 }
+  - id: dc3_0
+    label: "検知（Detect）"
+    at: { x: 900, y: 404 }
+    size: { w: 170, h: 26 }
+  - id: dc3_1
+    label: "25 px/m"
+    at: { x: 1070, y: 404 }
+    size: { w: 110, h: 26 }
+  - id: dc3_2
+    label: "人か車かが分かる"
+    at: { x: 1180, y: 404 }
+    size: { w: 280, h: 26 }
+  - id: n0
+    label: "・距離は 画素数 ÷（2 × 距離 × tan(画角/2)）から出る。画角を広げるほど、識別できる距離は縮む。"
+    marker: none
+    at: { x: 900, y: 444 }
+    size: { w: 600, h: 24 }
+  - id: n1
+    label: "・出入口を外向きに撮らない。逆光で顔が飛ぶ。 内向きに置いて入店者を撮る。"
+    marker: none
+    at: { x: 900, y: 470 }
+    size: { w: 600, h: 24 }
+  - id: n2
+    label: "・設置は 2.4〜3.0m。低いと届いてしまい、高いと顔が上から潰れる。"
+    marker: none
+    at: { x: 900, y: 496 }
+    size: { w: 600, h: 24 }
+  - id: n3
+    label: "・トイレ・更衣室は撮らない。写り込む隣地や道路はマスクする。"
+    marker: none
+    at: { x: 900, y: 522 }
+    size: { w: 600, h: 24 }
+  - id: n4
+    label: "・死角は棚の高さで決まる。H1,500 に抑えると、棚の裏が消える。"
+    marker: none
+    at: { x: 900, y: 548 }
+    size: { w: 600, h: 24 }
+  - id: n5
+    label: "・録画の保存日数を決めてから台数を決める（台数 × 日数で容量が決まる）。"
+    marker: none
+    at: { x: 900, y: 574 }
+    size: { w: 600, h: 24 }
+edges:
+  - from: C-1
+    to: C-1
+    close: true
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 184, y: 109 }
+      - { x: 243, y: 109 }
+      - { x: 301, y: 122 }
+      - { x: 356, y: 147 }
+      - { x: 404, y: 181 }
+      - { x: 444, y: 225 }
+      - { x: 474, y: 276 }
+  - from: C-2
+    to: C-2
+    close: true
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 43, y: 365 }
+      - { x: 94, y: 349 }
+      - { x: 147, y: 346 }
+      - { x: 199, y: 358 }
+      - { x: 247, y: 382 }
+      - { x: 286, y: 418 }
+      - { x: 314, y: 463 }
+  - from: C-3
+    to: C-3
+    close: true
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 689, y: 492 }
+      - { x: 624, y: 550 }
+      - { x: 546, y: 587 }
+      - { x: 460, y: 600 }
+      - { x: 373, y: 587 }
+      - { x: 295, y: 550 }
+      - { x: 230, y: 492 }
+  - from: C-4
+    to: C-4
+    close: true
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 513, y: 352 }
+      - { x: 489, y: 310 }
+      - { x: 474, y: 263 }
+      - { x: 470, y: 215 }
+      - { x: 474, y: 166 }
+      - { x: 489, y: 119 }
+      - { x: 513, y: 77 }
+  - from: C-5
+    to: C-5
+    close: true
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 438, y: 624 }
+      - { x: 423, y: 574 }
+      - { x: 420, y: 522 }
+      - { x: 432, y: 471 }
+      - { x: 456, y: 425 }
+      - { x: 491, y: 386 }
+      - { x: 535, y: 358 }

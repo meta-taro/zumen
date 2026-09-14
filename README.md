@@ -35,7 +35,7 @@ Measured over 10 real AI round trips, **10/10 kept every human edit**.
 
 ## What it looks like
 
-96 example drawings, all generated from the YAML sources in
+97 example drawings, all generated from the YAML sources in
 [`examples/gallery/`](examples/gallery/):
 
 **[→ Browse the gallery](https://meta-taro.github.io/zumen/)**

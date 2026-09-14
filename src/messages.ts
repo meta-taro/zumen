@@ -353,6 +353,8 @@ const ja = {
       '    via: [{ x: <左>, y: <上> }, ...]              # 線の通り道。kind: placement でだけ効く',
       '    curve: <none（既定）| smooth>                 # 通り道を丸める（道路・河川・園路）',
       '    close: <true なら輪を閉じる>                  # 池・トラック・外形の輪郭',
+      '                                              # **from と to を同じ節にして via を並べると、',
+      '                                              # 扇形（カメラの視野・照明の照射）も描ける**',
       '    vertical: <none（既定）| stair | escalator | elevator>      # 階をまたぐ動線（JIS Z 8210）',
     ].join('\n'),
     /** **守らせたいこと。** 実測では毎回 pins を書いてきたので、明示する。 */
@@ -498,6 +500,8 @@ const ja = {
       `${target} の color が "${key}" ですが、palette にその鍵がありません。色は付きません。`,
     colorFaint: (key: string, value: string) =>
       `palette の "${key}"（${value}）が薄すぎます。地に沈んで線が消えます（非文字の下限は 3:1。ライトとダークの両方の地で見ています）。`,
+    edgeSelfOpen: (id: string) =>
+      `ノード "${id}" から自分自身への辺に via がありません。長さ 0 の線になり、節の真ん中に矢印の粒が出るだけになります。自分自身への辺は、via を並べて close: true にすると閉じた形（視野・範囲・輪郭）が描けます。`,
     tagHidden: (id: string) =>
       `ノード "${id}" の tag は、印に入りきらないので描かれません。印を大きくするか、符号を短くしてください（消してはいません。書いたのに出ない状態を知らせています）。`,
     textOverlap: (a: string, b: string) =>
@@ -770,6 +774,8 @@ const en: Catalog = {
       '    via: [{ x: <left>, y: <top> }, ...]            # waypoints; only with kind: placement',
       '    curve: <none (default) | smooth>               # round the waypoints (roads, rivers, paths)',
       '    close: <true closes the loop>                  # pond, running track, outline',
+      '                                              # **from and to on the same node, plus via,',
+      '                                              # draws a sector (a camera field of view)**',
       '    vertical: <none (default) | stair | escalator | elevator>   # level change (JIS Z 8210)',
     ].join('\n'),
     rules: [
@@ -900,6 +906,8 @@ const en: Catalog = {
       `${target} has color "${key}", but palette has no such key. No colour is applied.`,
     colorFaint: (key: string, value: string) =>
       `palette entry "${key}" (${value}) is too faint: the line sinks into the ground (3:1 is the floor for non-text; both the light and the dark ground are checked).`,
+    edgeSelfOpen: (id: string) =>
+      `The edge from node "${id}" to itself has no via points, so it draws a zero-length line — just an arrowhead at the node's centre. A self-edge with via points and close: true draws a closed shape (a field of view, a range, an outline).`,
     tagHidden: (id: string) =>
       `The tag on node "${id}" does not fit its marker and is not drawn. Make the marker bigger or shorten the tag.`,
     textOverlap: (a: string, b: string) =>
