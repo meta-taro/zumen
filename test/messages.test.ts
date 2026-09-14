@@ -233,3 +233,28 @@ describe('ロケールの決め方', () => {
     }
   });
 });
+
+/**
+ * **決まりの数が、日本語と英語で違っていた。**
+ *
+ * 2026-09-15。`zumen_spec` の `rules` が **ja 23 / en 19** で、
+ * **英語で読むエージェントには 4 つ足りなかった**（表の欄の幅、器の名前、
+ * 床の同じ場所、桁揃えの空白）。どれも 2026-09-14 に足したもので、
+ * **日本語側だけに足していた。**
+ *
+ * 鍵の抜けは `すべてのロケールが同じ鍵を持つ` が見ているが、
+ * **配列の中身の数は誰も見ていなかった。**
+ */
+describe('決まりの数が、ロケールで違わない', () => {
+  it('**`tools.rules` の数が同じ**', () => {
+    assert.equal(messages('en').tools.rules.length, messages('ja').tools.rules.length);
+  });
+
+  it('決まりは空でない', () => {
+    for (const locale of ['ja', 'en'] as const) {
+      for (const rule of messages(locale).tools.rules) {
+        assert.ok(rule.trim().length > 8, `${locale} に空に近い決まりがある`);
+      }
+    }
+  });
+});
