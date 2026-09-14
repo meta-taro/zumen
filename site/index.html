@@ -109,6 +109,15 @@
   @media (max-width: 760px) {
     .gallery { grid-template-columns: minmax(0, 1fr); }
     .gallery figure[data-wide] { grid-column: span 1; }
+    /* **狭い画面では、絞り込みを 1 行にして横へ流す。**
+       10 個を折り返すと 5 段になり、貼り付いたまま画面の 1/4 を占める。
+       左右は `.wrap` の余白ぶんはみ出させて、端まで流れるようにする。 */
+    .filters {
+      flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none;
+      margin-left: -24px; margin-right: -24px; padding-left: 24px; padding-right: 24px;
+    }
+    .filters::-webkit-scrollbar { display: none; }
+    .filters button { flex: 0 0 auto; }
   }
   .gallery figcaption { color: var(--fg-2); font-size: 13px; margin-top: 10px; }
   /* **種類の見出し。** 93 枚を 1 列に流すと、どこまでが何の図か分からない。
@@ -216,11 +225,11 @@
     ── <b>寸法が無い図では、何も建てられません。</b>
   </p>
   <div class="filters" role="group" aria-label="種類で絞り込む">
-    <button type="button" data-pick="all" aria-pressed="true">すべて <span class="n">93</span></button>
+    <button type="button" data-pick="all" aria-pressed="true">すべて <span class="n">94</span></button>
     <button type="button" data-pick="tetsudo" aria-pressed="false">鉄道・交通 <span class="n">18</span></button>
     <button type="button" data-pick="kenchiku" aria-pressed="false">建築・土木 <span class="n">14</span></button>
     <button type="button" data-pick="setsubi" aria-pressed="false">設備・電気 <span class="n">8</span></button>
-    <button type="button" data-pick="iryo" aria-pressed="false">医療・食品・農 <span class="n">9</span></button>
+    <button type="button" data-pick="iryo" aria-pressed="false">医療・食品・農 <span class="n">10</span></button>
     <button type="button" data-pick="tenpo" aria-pressed="false">店舗・物流 <span class="n">8</span></button>
     <button type="button" data-pick="gyomu" aria-pressed="false">業務・組織 <span class="n">12</span></button>
     <button type="button" data-pick="moyooshi" aria-pressed="false">催し・遊び <span class="n">7</span></button>
@@ -271,13 +280,14 @@
     <figure data-cat="setsubi"><picture><source srcset="gallery/10-給排水の系統-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1170" height="774" src="gallery/10-給排水の系統.svg" alt="住宅の給排水"></picture><figcaption>住宅の給排水</figcaption></figure>
     <figure data-cat="setsubi"><picture><source srcset="gallery/35-配水系統図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1225" height="683" src="gallery/35-配水系統図.svg" alt="配水系統図"></picture><figcaption>配水系統図（上水道）</figcaption></figure>
     <figure data-wide data-cat="setsubi"><picture><source srcset="gallery/44-人工衛星の系統図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="2012" height="837" src="gallery/44-人工衛星の系統図.svg" alt="人工衛星の系統図"></picture><figcaption>人工衛星の系統図（150kg 級）</figcaption></figure>
-    <h3 class="cat" data-cat="iryo">医療・食品・農<span class="n">9</span></h3>
+    <h3 class="cat" data-cat="iryo">医療・食品・農<span class="n">10</span></h3>
     <figure data-wide data-cat="iryo"><picture><source srcset="gallery/72-歯周チャート-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1306" height="428" src="gallery/72-歯周チャート.svg" alt="歯周精密検査チャート（6 点法）"></picture><figcaption>歯周精密検査チャート（32 歯 × 6 点）</figcaption></figure>
     <figure data-cat="iryo"><picture><source srcset="gallery/39-経絡と経穴-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="402" height="356" src="gallery/39-経絡と経穴.svg" alt="経絡と経穴の図"></picture><figcaption>経絡と経穴（鍼灸・WHO 標準）</figcaption></figure>
     <figure data-cat="iryo"><picture><source srcset="gallery/36-手術室の機器配置-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="646" height="566" src="gallery/36-手術室の機器配置.svg" alt="手術室の機器配置図"></picture><figcaption>手術室の機器配置（OR-3）</figcaption></figure>
     <figure data-cat="iryo"><picture><source srcset="gallery/09-患者の動線-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1229" height="952" src="gallery/09-患者の動線.svg" alt="外来の流れ"></picture><figcaption>外来の流れ</figcaption></figure>
     <figure data-cat="iryo"><picture><source srcset="gallery/23-厨房の動線-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="668" height="478" src="gallery/23-厨房の動線.svg" alt="給食厨房の区域と動線"></picture><figcaption>厨房の区域と動線（HACCP）</figcaption></figure>
     <figure data-cat="iryo"><picture><source srcset="gallery/40-弁当の盛付図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="586" height="506" src="gallery/40-弁当の盛付図.svg" alt="弁当の盛付指示書"></picture><figcaption>弁当の盛付指示書（中食）</figcaption></figure>
+    <figure data-wide data-cat="iryo"><picture><source srcset="gallery/94-ヘアカラーのブロッキング図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="2036" height="450" src="gallery/94-ヘアカラーのブロッキング図.svg" alt="ヘアカラーのブロッキングと塗布順"></picture><figcaption>ヘアカラーのブロッキング（塗る順が中身）</figcaption></figure>
     <figure data-wide data-cat="iryo"><picture><source srcset="gallery/92-防虫モニタリングの定点配置図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1424" height="684" src="gallery/92-防虫モニタリングの定点配置図.svg" alt="食品工場の防虫モニタリング定点配置図"></picture><figcaption>防虫モニタリングの定点配置図（定点は動かさない）</figcaption></figure>
     <figure data-cat="iryo"><picture><source srcset="gallery/91-リンゴ高密植栽培の樹形図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1124" height="664" src="gallery/91-リンゴ高密植栽培の樹形図.svg" alt="リンゴ高密植栽培の樹形図（トールスピンドル）"></picture><figcaption>リンゴ高密植栽培の樹形図（樹高・樹間・列間つき）</figcaption></figure>
     <figure data-cat="iryo"><picture><source srcset="gallery/73-サビキ仕掛け図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="794" height="744" src="gallery/73-サビキ仕掛け図.svg" alt="サビキ仕掛け図"></picture><figcaption>サビキ仕掛け図（6 本針）</figcaption></figure>

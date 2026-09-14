@@ -1,0 +1,327 @@
+version: 1
+kind: placement
+arrows: false
+title: ヘアカラー ブロッキングと塗布順（リタッチ・全頭 6 ブロック）
+# 美容室で使う指示図。**書く位置が頭の位置**そのもの（歯式・査定図と同じ型）。
+#
+# ## 順番が中身
+#
+# **染まりにくい所から塗る。** ネープ（襟足）は髪が硬く体温が届きにくいので
+# いちばん遅い。顔まわりと頭頂は体温で早く進むので、いちばん最後。
+# **全部を同じ仕上がりにするために、塗る時間をずらす。**
+#
+# ## 根元と既染部は別の薬
+#
+# 根元（新生毛）は 6%、既染部は 3% を最後の 10 分だけ。
+# **既染部に 6% を長く置くと、色が抜けて赤くなる。**
+#
+# ## スライスは横
+#
+# 斜めに取ると、次の列との境目が線になって出る。1 枚 5〜10 mm。
+nodes:
+  - id: cap1
+    label: "ブロッキング（頭を上から見て開いた図）"
+    marker: none
+    at: { x: 60, y: 44 }
+    size: { w: 360, h: 24 }
+  - id: front
+    label: "フロント（顔まわり）"
+    tag: 6
+    at: { x: 170, y: 86 }
+    size: { w: 220, h: 44 }
+  - id: top
+    label: "トップ（頭頂）"
+    tag: 5
+    at: { x: 170, y: 136 }
+    size: { w: 220, h: 54 }
+  - id: sideL
+    label: "左サイド"
+    tag: 4
+    at: { x: 60, y: 136 }
+    size: { w: 104, h: 110 }
+  - id: sideR
+    label: "右サイド"
+    tag: 3
+    at: { x: 396, y: 136 }
+    size: { w: 104, h: 110 }
+  - id: backU
+    label: "バック上"
+    tag: 2
+    at: { x: 170, y: 196 }
+    size: { w: 220, h: 54 }
+  - id: backL
+    label: "バック下（ネープ）"
+    tag: 1
+    hatch: dots
+    at: { x: 170, y: 256 }
+    size: { w: 220, h: 54 }
+  - id: ear_l
+    label: "← 耳"
+    marker: none
+    at: { x: 60, y: 252 }
+    size: { w: 104, h: 24 }
+  - id: ear_r
+    label: "耳 →"
+    marker: none
+    at: { x: 396, y: 252 }
+    size: { w: 104, h: 24 }
+  - id: center
+    label: "センターパート"
+    marker: none
+    at: { x: 170, y: 62 }
+    size: { w: 220, h: 22 }
+  - id: note1
+    label: "数字は塗る順。染まりにくい所から塗る。"
+    marker: none
+    at: { x: 60, y: 322 }
+    size: { w: 360, h: 24 }
+  - id: cap2
+    label: "スライス（横に薄く取る）"
+    marker: none
+    at: { x: 560, y: 44 }
+    size: { w: 300, h: 24 }
+  - id: head
+    label: ""
+    marker: ellipse
+    at: { x: 560, y: 90 }
+    size: { w: 200, h: 220 }
+  - id: sl0
+    label: ""
+    hatch: solid
+    at: { x: 576, y: 126 }
+    size: { w: 168, h: 4 }
+  - id: sl1
+    label: ""
+    hatch: solid
+    at: { x: 576, y: 154 }
+    size: { w: 168, h: 4 }
+  - id: sl2
+    label: ""
+    hatch: solid
+    at: { x: 576, y: 182 }
+    size: { w: 168, h: 4 }
+  - id: sl3
+    label: ""
+    hatch: solid
+    at: { x: 576, y: 210 }
+    size: { w: 168, h: 4 }
+  - id: sl4
+    label: ""
+    hatch: solid
+    at: { x: 576, y: 238 }
+    size: { w: 168, h: 4 }
+  - id: sl5
+    label: ""
+    hatch: solid
+    at: { x: 576, y: 266 }
+    size: { w: 168, h: 4 }
+  - id: sl_n
+    label: "1 枚 5〜10 mm。厚いと中まで薬が入らない"
+    marker: none
+    at: { x: 560, y: 322 }
+    size: { w: 300, h: 24 }
+  - id: root
+    label: "根元（新生毛）"
+    hatch: cross
+    at: { x: 770, y: 120 }
+    size: { w: 150, h: 26 }
+  - id: old
+    label: "既染部"
+    hatch: lines
+    at: { x: 770, y: 152 }
+    size: { w: 150, h: 26 }
+  - id: root_n
+    label: "根元は体温で早く進む。既染部は最後の 10 分だけ。"
+    marker: none
+    at: { x: 560, y: 350 }
+    size: { w: 400, h: 24 }
+  - id: tb_t
+    label: "塗布の順と、その理由"
+    marker: none
+    at: { x: 940, y: 44 }
+    size: { w: 300, h: 24 }
+  - id: th0
+    label: "順"
+    hatch: solid
+    at: { x: 940, y: 76 }
+    size: { w: 44, h: 26 }
+  - id: th1
+    label: "ブロック"
+    hatch: solid
+    at: { x: 984, y: 76 }
+    size: { w: 176, h: 26 }
+  - id: th2
+    label: "薬剤"
+    hatch: solid
+    at: { x: 1160, y: 76 }
+    size: { w: 150, h: 26 }
+  - id: th3
+    label: "置く時間"
+    hatch: solid
+    at: { x: 1310, y: 76 }
+    size: { w: 90, h: 26 }
+  - id: th4
+    label: "理由"
+    hatch: solid
+    at: { x: 1400, y: 76 }
+    size: { w: 300, h: 26 }
+  - id: tc0_0
+    label: "1"
+    at: { x: 940, y: 102 }
+    size: { w: 44, h: 30 }
+  - id: tc0_1
+    label: "バック下（ネープ）"
+    at: { x: 984, y: 102 }
+    size: { w: 176, h: 30 }
+  - id: tc0_2
+    label: "N-6 ＋ OX 6%"
+    at: { x: 1160, y: 102 }
+    size: { w: 150, h: 30 }
+  - id: tc0_3
+    label: "30 分"
+    at: { x: 1310, y: 102 }
+    size: { w: 90, h: 30 }
+  - id: tc0_4
+    label: "いちばん染まりにくい。髪が硬く、体温が届きにくい"
+    at: { x: 1400, y: 102 }
+    size: { w: 300, h: 30 }
+  - id: tc1_0
+    label: "2"
+    at: { x: 940, y: 132 }
+    size: { w: 44, h: 30 }
+  - id: tc1_1
+    label: "バック上"
+    at: { x: 984, y: 132 }
+    size: { w: 176, h: 30 }
+  - id: tc1_2
+    label: "N-6 ＋ OX 6%"
+    at: { x: 1160, y: 132 }
+    size: { w: 150, h: 30 }
+  - id: tc1_3
+    label: "28 分"
+    at: { x: 1310, y: 132 }
+    size: { w: 90, h: 30 }
+  - id: tc1_4
+    label: "バック下の次に染まりにくい"
+    at: { x: 1400, y: 132 }
+    size: { w: 300, h: 30 }
+  - id: tc2_0
+    label: "3"
+    at: { x: 940, y: 162 }
+    size: { w: 44, h: 30 }
+  - id: tc2_1
+    label: "右サイド"
+    at: { x: 984, y: 162 }
+    size: { w: 176, h: 30 }
+  - id: tc2_2
+    label: "N-6 ＋ OX 6%"
+    at: { x: 1160, y: 162 }
+    size: { w: 150, h: 30 }
+  - id: tc2_3
+    label: "25 分"
+    at: { x: 1310, y: 162 }
+    size: { w: 90, h: 30 }
+  - id: tc2_4
+    label: "耳上から分ける。耳の後ろは塗り残しやすい"
+    at: { x: 1400, y: 162 }
+    size: { w: 300, h: 30 }
+  - id: tc3_0
+    label: "4"
+    at: { x: 940, y: 192 }
+    size: { w: 44, h: 30 }
+  - id: tc3_1
+    label: "左サイド"
+    at: { x: 984, y: 192 }
+    size: { w: 176, h: 30 }
+  - id: tc3_2
+    label: "N-6 ＋ OX 6%"
+    at: { x: 1160, y: 192 }
+    size: { w: 150, h: 30 }
+  - id: tc3_3
+    label: "25 分"
+    at: { x: 1310, y: 192 }
+    size: { w: 90, h: 30 }
+  - id: tc3_4
+    label: "右と同時でよい"
+    at: { x: 1400, y: 192 }
+    size: { w: 300, h: 30 }
+  - id: tc4_0
+    label: "5"
+    at: { x: 940, y: 222 }
+    size: { w: 44, h: 30 }
+  - id: tc4_1
+    label: "トップ（頭頂）"
+    at: { x: 984, y: 222 }
+    size: { w: 176, h: 30 }
+  - id: tc4_2
+    label: "N-6 ＋ OX 6%"
+    at: { x: 1160, y: 222 }
+    size: { w: 150, h: 30 }
+  - id: tc4_3
+    label: "22 分"
+    at: { x: 1310, y: 222 }
+    size: { w: 90, h: 30 }
+  - id: tc4_4
+    label: "体温で早く進む。遅く塗って合わせる"
+    at: { x: 1400, y: 222 }
+    size: { w: 300, h: 30 }
+  - id: tc5_0
+    label: "6"
+    at: { x: 940, y: 252 }
+    size: { w: 44, h: 30 }
+  - id: tc5_1
+    label: "フロント（顔まわり）"
+    at: { x: 984, y: 252 }
+    size: { w: 176, h: 30 }
+  - id: tc5_2
+    label: "N-6 ＋ OX 6%"
+    at: { x: 1160, y: 252 }
+    size: { w: 150, h: 30 }
+  - id: tc5_3
+    label: "20 分"
+    at: { x: 1310, y: 252 }
+    size: { w: 90, h: 30 }
+  - id: tc5_4
+    label: "いちばん染まりやすい。最後に塗る"
+    at: { x: 1400, y: 252 }
+    size: { w: 300, h: 30 }
+  - id: tc6_0
+    label: "—"
+    at: { x: 940, y: 282 }
+    size: { w: 44, h: 30 }
+  - id: tc6_1
+    label: "既染部（毛先）"
+    at: { x: 984, y: 282 }
+    size: { w: 176, h: 30 }
+  - id: tc6_2
+    label: "N-6 ＋ OX 3%"
+    at: { x: 1160, y: 282 }
+    size: { w: 150, h: 30 }
+  - id: tc6_3
+    label: "10 分"
+    at: { x: 1310, y: 282 }
+    size: { w: 90, h: 30 }
+  - id: tc6_4
+    label: "先に塗ると染まりすぎる。残り 10 分で伸ばす"
+    at: { x: 1400, y: 282 }
+    size: { w: 300, h: 30 }
+  - id: n1
+    label: "塗る順は、染まりにくい順。 全部同じ時間で仕上げるために、時間差をつける。"
+    marker: none
+    at: { x: 940, y: 324 }
+    size: { w: 640, h: 24 }
+  - id: n2
+    label: "根元と既染部は別の薬。 既染部に 6% を長く置くと、色が抜けて赤くなる。"
+    marker: none
+    at: { x: 940, y: 350 }
+    size: { w: 640, h: 24 }
+  - id: n3
+    label: "ラップで包むと体温がこもって早く進む。時間を縮めるのではなく、ムラを減らすため。"
+    marker: none
+    at: { x: 940, y: 376 }
+    size: { w: 640, h: 24 }
+  - id: n4
+    label: "スライスは横。斜めに取ると、次の列との境目が線になって出る。"
+    marker: none
+    at: { x: 940, y: 402 }
+    size: { w: 640, h: 24 }
