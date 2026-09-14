@@ -157,3 +157,44 @@ nodes:
     assert.ok(!out.includes('>ABCDEFGHIJ<'), '入らない符号を描いた');
   });
 });
+
+/**
+ * **円柱の符号が、上面の楕円に重なっていた。**
+ *
+ * 2026-09-15、見本 21（テーブルの関係）を**ブラウザで開いて**出た。
+ * `products` `orders` `order_items` …の表名が、
+ * **円柱の上面の楕円に串刺しにされていた。**
+ *
+ * 名前のほうは `textShift()` で楕円の分だけ下げてあり、
+ * その関数のコメントにはこう書いてある ——
+ * 「**楕円に字がかかると読めない**」。**符号にだけ、それを掛けていなかった。**
+ *
+ * 見本 7 枚・15 個が同じ形だった（円柱と、積み重ね）。
+ */
+describe('円柱の符号', () => {
+  const DB = `version: 1
+nodes:
+  - id: t
+    label: 受注
+    type: database
+    tag: orders
+edges: []
+`;
+
+  it('**上面の楕円より下に置く**', async () => {
+    const placed = await layout(DB);
+    const out = await render(placed, 'light', 'safe', false);
+    const box = placed.boxes[0]!;
+    const found = /<text x="[\d.]+" y="([\d.]+)"[^>]*>orders</.exec(out);
+    assert.ok(found !== null, '符号が描かれていない');
+    // 上面の楕円は箱の上から 2×CAP（18px）の高さを占める。
+    assert.ok(Number(found[1]) >= box.y + 18, `符号が楕円に掛かっている（${found[1]}）`);
+  });
+
+  it('四角の箱は、いままでどおり隅のまま', async () => {
+    const placed = await layout(DB.replace('    type: database\n', ''));
+    const out = await render(placed, 'light', 'safe', false);
+    const found = /<text x="[\d.]+" y="([\d.]+)"[^>]*>orders</.exec(out);
+    assert.ok(Number(found![1]) < placed.boxes[0]!.y + 18, '四角の符号まで下がった');
+  });
+});

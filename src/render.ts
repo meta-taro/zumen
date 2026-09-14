@@ -482,7 +482,7 @@ function renderNode(
     // 本文だけ反転させて符号を置き去りにすると、符号が塗りに沈む
     // （2026-09-14。UI 構造図の「fixed」で出た）。書いたのに読めないのは、
     // 書いていないのと同じ。
-    ...nodeTag(box, palette, ink, halo),
+    ...nodeTag(box, palette, ink, halo, textShift(kind)),
     ...nodeText(box, palette, ink, textShift(kind), plan ? name : null, halo),
     '</g>',
   ].join('');
@@ -495,7 +495,13 @@ function renderNode(
  * 読み手は符号だけを拾って断面リストと突き合わせる。
  * **中央に混ぜると、その拾い読みができなくなる。**
  */
-function nodeTag(box: Box, palette: Palette, style: Look, halo: string | null = null): string[] {
+function nodeTag(
+  box: Box,
+  palette: Palette,
+  style: Look,
+  halo: string | null = null,
+  shift = 0,
+): string[] {
   if (box.tag === null) return [];
   // **符号も、入らないなら出さない。** 伏図の小梁は幅 20px しかない。
   // **判断は `src/names.ts` に置いてある** —— `inspect` と `validate` が
@@ -539,7 +545,15 @@ function nodeTag(box: Box, palette: Palette, style: Look, halo: string | null = 
     ];
   }
   const x = box.x + TAG_INSET;
-  const y = box.y + TAG_INSET + 9;
+  /**
+   * **上面の楕円の分だけ下げる**（`src/shapes.ts` の `textShift`）。
+   *
+   * 名前には掛けてあったのに、**符号にだけ掛けていなかった** ——
+   * 見本 21（テーブルの関係）で、表名が円柱の上面の楕円に
+   * 串刺しにされていた（2026-09-15。見本 7 枚・15 個）。
+   * `textShift` のコメントが言うとおり、**楕円に字がかかると読めない。**
+   */
+  const y = box.y + TAG_INSET + 9 + shift * 2;
   // **模様の上では下地を抜く**（`halo`）。符号は拾い読みするものなので、
   // 読めないと役に立たない。
   const patch =
