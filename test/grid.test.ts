@@ -500,3 +500,45 @@ nodes:
     assert.equal(new Set(vertical).size, vertical.length, '同じ位置に 2 本引いた');
   });
 });
+
+/**
+ * **レベルの名前が、画用紙の左で切れていた。**
+ *
+ * 2026-09-15。見本 42（擁壁の標準断面図）を開いたら、
+ * 左に並ぶ「天端 +3,000」「GL±0」「底版下 -350」が**ほとんど見えず、
+ * 矢印の先だけが画用紙の縁に残っていた。** 見本 43（舗装構成）も同じ。
+ *
+ * 余白の見積もりが `名前の字数 × 9 + 24` で、
+ * **矢印の位置（`MARGIN.code` ＋ 19）が入っていなかった。**
+ * 字幅も、全角を 9px として見ていた（実際は 10px）。
+ *
+ * **断面図でレベルが読めないなら、断面図ではない。**
+ */
+describe('レベルの名前が、画用紙に入る', () => {
+  const SECTION = `version: 1
+kind: placement
+scale: { mm: 10 }
+grid:
+  y:
+    - { id: "天端 +3,000", at: 0, mark: level }
+    - { id: GL±0, at: 300, mark: level }
+    - { id: "底版下 -350", at: 350, mark: level }
+nodes:
+  - id: w
+    label: 竪壁
+    at: { x: 0, y: 0 }
+    size: { w: 60, h: 300 }
+`;
+
+  it('**いちばん長いレベル名が、左の余白に収まる**', async () => {
+    const out = await render(await layout(SECTION), 'light', 'safe', true);
+    const width = Number(/viewBox="0 0 ([\d.]+) /.exec(out)![1]);
+    for (const m of out.matchAll(/<text x="(-?[\d.]+)"[^>]*text-anchor="end"[^>]*>([^<]*)<\/text>/g)) {
+      const right = Number(m[1]);
+      const text = m[2]!;
+      const size = [...text].reduce((a, c) => a + (c.charCodeAt(0) > 0x2000 ? 10 : 5.5), 0);
+      assert.ok(right - size >= 0, `${text} が左へはみ出している（${Math.round(right - size)}）`);
+      assert.ok(right <= width, `${text} が右へはみ出している`);
+    }
+  });
+});

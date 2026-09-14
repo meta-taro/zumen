@@ -36,6 +36,7 @@
  * 設備は物の形で、入れ始めると `type` が 30 語を超える。
  * 表題欄は図ではなく用紙の話で、貼り先（資料・Markdown）が持っている。
  */
+import { labelWidth } from './layout.ts';
 import type { Box } from './layout.ts';
 
 /** 基準線の印。 */
@@ -159,12 +160,25 @@ export function northOf(raw: unknown): North | null {
  */
 export const MARGIN = { near: 26, far: 50, code: 78, top: 46, right: 46 } as const;
 
+/** レベルの矢印と、その先に名前を書き始めるまでの距離（`src/dimensions.ts` と揃える）。 */
+const LEVEL_ARM = 19;
+
 export function marginFor(grid: Grid): { left: number; top: number; right: number; bottom: number } {
   if (!hasGrid(grid)) return { left: 0, top: 0, right: 0, bottom: 0 };
   // **レベルは値を脇に書く**ので、丸の符号より外へ張り出す（`GL±0` / `2FL+3,200`）。
+  //
+  // **2026-09-15 の訂正。** 見積もりが `字数 × 9 + 24` で、
+  // **矢印の位置（`MARGIN.code` ＋ 19）が入っていなかった。**
+  // そのため見本 42・43 の断面図で、左のレベル名が 50px ほど切れて
+  // **矢印の先だけが画用紙の縁に残っていた。**
+  // 断面図でレベルが読めないなら、それは断面図ではない。
   const level = grid.y.some((axis) => axis.mark === 'level');
   const widest = level
-    ? Math.max(...grid.y.filter((a) => a.mark === 'level').map((a) => a.id.length)) * 9 + 24
+    ? Math.max(
+        ...grid.y
+          .filter((a) => a.mark === 'level')
+          .map((a) => MARGIN.code + LEVEL_ARM + labelWidth(a.id, 10)),
+      )
     : 0;
   // **時間軸は名前だけ。** 丸も寸法も出ないので、余白は少なくて済む。
   const ticksX = grid.x.length > 0 && grid.x.every((axis) => axis.mark === 'tick');
