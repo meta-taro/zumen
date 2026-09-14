@@ -14,6 +14,7 @@
  */
 import type { Axis, Grid, North } from './grid.ts';
 import { MARGIN } from './grid.ts';
+import { lengthText } from './units.ts';
 
 export interface Frame {
   /** 図の中身の矩形（余白を足したあとの絶対座標）。 */
@@ -174,7 +175,8 @@ function segment(
   ink: Ink,
   axis: 'x' | 'y',
 ): string {
-  const value = Math.round(Math.abs(to - from) * mm);
+  // **単位は縮尺が決める**（`src/units.ts`）。土木の図をミリで書かない。
+  const value = lengthText(to - from, mm);
   const mid = (from + to) / 2;
   const horizontal = axis === 'x';
 

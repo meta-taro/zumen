@@ -36,6 +36,8 @@
  * （知らない縮尺で数値を出さないのは、寸法線と同じ）。
  */
 
+import { lengthText } from './units.ts';
+
 /** 範囲の円。書かなければ描かない。 */
 export function radiusOf(raw: unknown): number | null {
   if (typeof raw !== 'number' || !Number.isFinite(raw) || raw <= 0) return null;
@@ -61,7 +63,8 @@ export function ringOf(
     cx: box.x + box.w / 2,
     cy: box.y + box.h / 2,
     r: box.radius,
-    label: mm === null ? null : `R=${Math.round(box.radius * mm).toLocaleString('en-US')}`,
+    // **単位は縮尺が決める**（`src/units.ts`）。200 m の円に `R=200,000` と書かない。
+    label: mm === null ? null : `R=${lengthText(box.radius, mm)}`,
   };
 }
 

@@ -107,24 +107,34 @@ describe('通り芯を描く', () => {
 });
 
 describe('寸法線を描く', () => {
-  it('**芯どうしの寸法が、mm で出る**（180px × 20 = 3600）', async () => {
+  it('**芯どうしの寸法が、mm で出る**（180px × 20 = 3,600）', async () => {
     const out = await svg(PLAN);
-    assert.equal(out.match(/>3600</g)!.length, 2, '3600 が 2 つ出ていない');
+    assert.equal(out.match(/>3,600</g)!.length, 2, '3,600 が 2 つ出ていない');
   });
 
-  it('**総寸法も出る**（360px × 20 = 7200）', async () => {
-    assert.ok((await svg(PLAN)).includes('>7200<'));
+  it('**総寸法も出る**（360px × 20 = 7,200）', async () => {
+    assert.ok((await svg(PLAN)).includes('>7,200<'));
   });
 
   it('芯が 2 本なら、総寸法を重ねて書かない（同じ数字になる）', async () => {
     const out = await svg(PLAN);
-    assert.equal(out.match(/>6000</g)!.length, 1, '縦の 6000 が 2 段出ている');
+    assert.equal(out.match(/>6,000</g)!.length, 1, '縦の 6,000 が 2 段出ている');
+  });
+
+  /**
+   * **土木の図はメートルで書く**（`src/units.ts`）。
+   * ダムの平面図に `200000`、保安距離の円に `R=200,000` と出ていた（2026-09-14）。
+   */
+  it('**1 px が 100 mm 以上の図は m で書く**（土木・造成・保安距離）', async () => {
+    const out = await svg(PLAN.replace('scale: { mm: 20 }', 'scale: { mm: 250 }'));
+    assert.ok(out.includes('>45 m<'), '180px × 250 = 45 m が出ていない');
+    assert.ok(!out.includes('>45,000<'), 'ミリのまま書いている');
   });
 
   it('**縮尺が無ければ、寸法を出さない。** 知らない数値を書かない', async () => {
     const out = await svg(PLAN.replace('scale: { mm: 20 }\n', ''));
     assert.ok(out.includes('data-grid='), '通り芯まで消えた');
-    assert.ok(!out.includes('>3600<'), '縮尺が無いのに寸法が出た');
+    assert.ok(!out.includes('>3,600<'), '縮尺が無いのに寸法が出た');
   });
 
   it('方位記号が出る', async () => {

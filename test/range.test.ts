@@ -54,8 +54,10 @@ describe('半径を読む', () => {
     assert.equal(ring.r, 100);
   });
 
-  it('**縮尺があれば mm を書き添える**（100px × 250 = 25,000）', () => {
-    assert.equal(ringOf({ x: 0, y: 0, w: 0, h: 0, radius: 100 }, 250)!.label, 'R=25,000');
+  it('**縮尺があれば半径を書き添える**（100px × 250 = 25 m）', () => {
+    assert.equal(ringOf({ x: 0, y: 0, w: 0, h: 0, radius: 100 }, 250)!.label, 'R=25 m');
+    // 1 px が 100 mm 未満の図は、これまでどおりミリ（`src/units.ts`）。
+    assert.equal(ringOf({ x: 0, y: 0, w: 0, h: 0, radius: 100 }, 25)!.label, 'R=2,500');
   });
 
   it('**縮尺が無ければ数値を出さない**（寸法線と同じ）', () => {
@@ -71,7 +73,7 @@ describe('範囲を描く', () => {
   it('**作業半径の円が出る**', async () => {
     const out = await svg(SITE);
     assert.match(out, /<circle [^>]*r="100"/, '作業半径の円が描かれていない');
-    assert.ok(out.includes('>R=25,000<'), '半径の数値が出ていない');
+    assert.ok(out.includes('>R=25 m<'), '半径の数値が出ていない');
   });
 
   it('**破線で描く。** 実線だと「物がある」ことになる', async () => {
