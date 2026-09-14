@@ -19,6 +19,8 @@ import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
 import { toSvg } from '../src/embed.ts';
+import { layout } from '../src/layout.ts';
+import { render } from '../src/render.ts';
 import { exportAs } from '../src/tools.ts';
 import { DARK, TOKEN, paletteOf } from '../src/tokens.ts';
 
@@ -113,4 +115,42 @@ describe('SVG を書き出す', () => {
     const xml = await exportAs(SOURCE, 'drawio', { theme: 'dark' });
     assert.equal(xml.includes(DARK.bgApp), false);
   });
+});
+
+/**
+ * **地の色を、図そのものが持つ。**
+ *
+ * 2026-09-15。`-dark.svg` をブラウザで直に開いたら、
+ * **箱の外に書いた注記が 1 行も見えなかった。**
+ * 文字は `#f4f4f6`（明るい灰）で正しいのに、
+ * **図が地の色を持っていないので、白い紙の上では白い字**になっていた。
+ *
+ * 紹介ページは `<picture>` で暗い背景の上に置いているので気づかない。
+ * **README が案内している `--dark` の出力を、人がそのまま開くと読めない。**
+ */
+describe('図は、地の色を自分で持つ', () => {
+  const ANY = `version: 1
+kind: placement
+nodes:
+  - id: n
+    label: 注記
+    marker: none
+    at: { x: 0, y: 0 }
+    size: { w: 200, h: 24 }
+`;
+
+  for (const theme of ['light', 'dark'] as const) {
+    it(`**${theme} でも、いちばん下に地の色が敷いてある**`, async () => {
+      const out = await render(await layout(ANY), theme, 'safe', true);
+      const paper = /<rect data-paper="1" x="0" y="0" width="([\d.]+)" height="([\d.]+)" fill="([^"]+)"/.exec(
+        out,
+      );
+      assert.ok(paper !== null, '地の色が敷かれていない');
+      const width = Number(/viewBox="0 0 ([\d.]+) ([\d.]+)"/.exec(out)![1]);
+      const height = Number(/viewBox="0 0 ([\d.]+) ([\d.]+)"/.exec(out)![2]);
+      assert.equal(Number(paper[1]), width, '紙が図の幅と合っていない');
+      assert.equal(Number(paper[2]), height, '紙が図の高さと合っていない');
+      assert.equal(paper[3], theme === 'dark' ? '#0f0f13' : '#ffffff');
+    });
+  }
 });

@@ -137,6 +137,15 @@ export function render(
      */
     placed.title === null || placed.title === '' ? '' : `<title>${escapeText(placed.title)}</title>`,
     `<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="${palette.edge.stroke}"/></marker></defs>`,
+    /**
+     * **地の色は、図そのものが持つ。**
+     *
+     * 2026-09-15 まで敷いていなかった。`-dark.svg` をそのまま開くと、
+     * **箱の外に書いた注記が 1 行も見えなかった** ——
+     * 文字は明るい灰で正しいのに、**白い紙の上では白い字**になる。
+     * 紹介ページは暗い背景の上に置いているので気づかない（D33）。
+     */
+    `<rect data-paper="1" x="0" y="0" width="${size(paper.w)}" height="${size(paper.h)}" fill="${palette.paper}"/>`,
     // **階の枠は機械が描く**（`src/floor.ts`）。
     // 人が手で枠を置くと、箱を足したときに枠が合わなくなる。
     ...(plan ? floorBands(placed, palette) : []),
