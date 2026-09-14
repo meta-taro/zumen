@@ -157,6 +157,7 @@ nodes:
 | `marker` | | **印の描き方**（`box` / `circle` / `double` / `ellipse` / `diamond` / `bar` / `none`）。配置図でだけ効く（§3.0.6） |
 | `hatch` | | **材料と区域の模様**（`none` / `solid` / `dots` / `lines` / `cross`）。配置図でだけ効く（§3.0.7） |
 | `write` | | **縦組み**（`across` / `down`）。配置図でだけ効く（§3.0.14） |
+| `align` | | **文字の寄せ**（`left` / `center` / `right`）。配置図でだけ効く（§3.0.17） |
 | `symbol` | | **電気・電子の図記号**（IEC／JIS）。枠を描かず記号だけ（§3.0.10） |
 | `color` | | **`palette` の鍵**。枠の線と `hatch: solid` の塗りに乗る（§3.0.13） |
 | `floor` | | **どの階にあるか**（`floors` の名前）。**位置は変えない**（§3.0.16） |
@@ -988,6 +989,36 @@ edges:
 **実物の路線図は寝かせていない** —— 字が上を向いたまま積んである。
 駅の間隔を詰めても隣の駅名とぶつからないので、何十駅でも 1 枚に並ぶ。
 
+#### 3.0.17 文字の寄せ（`nodes[].align`）
+
+**配置図（`kind: placement`）でだけ効く。**
+
+```yaml
+  - id: note1
+    label: ・1 つの閉塞区間に入れる列車は 1 本だけ
+    marker: none
+    align: left
+    at: { x: 1090, y: 300 }
+    size: { w: 530, h: 24 }
+```
+
+| 値 | 寄せ先 | 何に使うか |
+|---|---|---|
+| `left` | 左端へ | **注記を何行も並べるとき**・表の見出し列 |
+| `center`（既定） | 中央 | 部屋名・駅名・ふつうの箱 |
+| `right` | 右端へ | 数量・寸法の列 |
+
+zumen の文字は長いあいだ**すべて中央寄せ**だった。箱の中の名前はそれでよく、
+部屋名も駅名も中央にある。**注記だけは違う** ——
+行の長さが揃わないので、中央に置くと**行ごとに左端がずれ**、箇条書きに見えない。
+
+- **枠のある箱では、線から少し内へ入れて書く**（6px）。
+  **印の無い箱（`marker: none`）では入れない** —— 枠が無いのだから、
+  書き手が置いた `at.x` がそのまま行頭であってほしい
+- **縦組み（`down`）・回した字（`along`）・箱の外へ出した名前では効かない。**
+  どれも「左」の指すものが変わる。分からない所では既定のまま
+- **既定は `center`。** 書かなければ、いままでと同じ絵が出る
+
 #### 3.1.2 建具（`openings`）
 
 **配置図（`kind: placement`）でだけ効く。** 間取り図を実物と並べたとき、
@@ -1424,6 +1455,8 @@ Mermaid も draw.io も、落ちたものを先頭のコメントに列挙する
 | `radius-invalid` | `radius` が正の数か |
 | `radius-ignored` | **構成図に `radius` を書いていないか** |
 | `marker-unknown` | `box` / `circle` / `double` / `ellipse` / `diamond` / `bar` / `none` か |
+| `align-unknown` | `left` / `center` / `right` か |
+| `align-ignored` | **構成図に `align` を書いていないか** |
 | `write-unknown` | `across` / `down` か |
 | `write-ignored` | **構成図に `write` を書いていないか** |
 | `grid-mark-unknown` | 通り芯の `mark` が `axis` / `level` / `tick` か |

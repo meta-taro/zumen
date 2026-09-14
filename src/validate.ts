@@ -27,6 +27,7 @@ import { WEIGHTS } from './weight.ts';
 import { HATCHES } from './hatch.ts';
 import { SYMBOLS } from './symbol.ts';
 import { MARKERS } from './marker.ts';
+import { ALIGNS } from './align.ts';
 import { WRITES } from './write.ts';
 import { messages } from './messages.ts';
 import { OPENINGS, SIDES } from './openings.ts';
@@ -62,6 +63,7 @@ const NORTH_WORDS = new Set<string>(NORTHS);
 const MARK_WORDS = new Set<string>(MARKS);
 const MARKER_WORDS = new Set<string>(MARKERS);
 const WRITE_WORDS = new Set<string>(WRITES);
+const ALIGN_WORDS = new Set<string>(ALIGNS);
 const HATCH_WORDS = new Set<string>(HATCHES);
 const SYMBOL_WORDS = new Set<string>(SYMBOLS);
 const END_WORDS = new Set<string>(ENDS);
@@ -373,6 +375,15 @@ function checkGeometry(doc: Document, add: Add, m: Messages, at: At): void {
         add('warning', 'write-unknown', m.writeUnknown(id, String(write)), at(item.get('write', true)));
       } else if (!placement) {
         add('warning', 'write-ignored', m.writeIgnored(id), at(item.get('write', true)));
+      }
+    }
+
+    const align = item.get('align');
+    if (align !== undefined && align !== null) {
+      if (!ALIGN_WORDS.has(String(align))) {
+        add('warning', 'align-unknown', m.alignUnknown(id, String(align)), at(item.get('align', true)));
+      } else if (!placement) {
+        add('warning', 'align-ignored', m.alignIgnored(id), at(item.get('align', true)));
       }
     }
 

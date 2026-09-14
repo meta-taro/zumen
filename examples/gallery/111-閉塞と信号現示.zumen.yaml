@@ -1,0 +1,402 @@
+version: 1
+kind: placement
+arrows: true
+title: 閉塞と信号現示（ATS-P の速度照査パターンつき）
+# **1 つの閉塞区間に入れる列車は 1 本だけ。** それが閉塞の意味。
+#
+# ## 現示は、先行列車から逆算して落ちていく
+#
+# 先行列車が居る閉塞の手前が**停止（赤 1）**、
+# その手前が**注意（黄 1）**、さらに手前が**減速（青 1 ＋ 黄 1）**、
+# その先が**進行（青 1）**。
+#
+# **警戒（黄 2）**は、閉塞が短いときや分岐の手前に入る。
+#
+# ## ATS-P はパターンで見る
+#
+# 停止信号の手前に**速度の上限の曲線**を引き、
+# **超えるとブレーキがかかる。** 運転士が気づかなくても止まる。
+# 見るのは停止信号だけでなく、曲線・分岐器・勾配の制限も同じ。
+#
+# 速度の目安は事業者と区間で違う。**現示の並び方は共通。**
+nodes:
+  - id: graph_n
+    label: "ATS-P の速度照査パターン（縦：速度 km/h　横：線路の位置）"
+    marker: none
+    align: left
+    at: { x: 140, y: 90 }
+    size: { w: 470, h: 24 }
+  - id: graph
+    label: ""
+    marker: box
+    at: { x: 140, y: 120 }
+    size: { w: 900, h: 190 }
+  - id: ax0
+    label: "0"
+    marker: none
+    at: { x: 94, y: 287 }
+    size: { w: 38, h: 22 }
+  - id: gla0
+    label: ""
+    marker: none
+    at: { x: 140, y: 297 }
+    size: { w: 2, h: 2 }
+  - id: glb0
+    label: ""
+    marker: none
+    at: { x: 1038, y: 297 }
+    size: { w: 2, h: 2 }
+  - id: ax60
+    label: "60"
+    marker: none
+    at: { x: 94, y: 204 }
+    size: { w: 38, h: 22 }
+  - id: gla60
+    label: ""
+    marker: none
+    at: { x: 140, y: 214 }
+    size: { w: 2, h: 2 }
+  - id: glb60
+    label: ""
+    marker: none
+    at: { x: 1038, y: 214 }
+    size: { w: 2, h: 2 }
+  - id: ax120
+    label: "120"
+    marker: none
+    at: { x: 94, y: 121 }
+    size: { w: 38, h: 22 }
+  - id: gla120
+    label: ""
+    marker: none
+    at: { x: 140, y: 131 }
+    size: { w: 2, h: 2 }
+  - id: glb120
+    label: ""
+    marker: none
+    at: { x: 1038, y: 131 }
+    size: { w: 2, h: 2 }
+  - id: track
+    label: ""
+    hatch: solid
+    at: { x: 140, y: 430 }
+    size: { w: 900, h: 6 }
+  - id: b_0
+    label: "第 5 閉塞"
+    at: { x: 140, y: 460 }
+    size: { w: 180, h: 30 }
+  - id: bd_0
+    label: ""
+    hatch: solid
+    at: { x: 140, y: 414 }
+    size: { w: 3, h: 36 }
+  - id: b_180
+    label: "第 4 閉塞"
+    at: { x: 320, y: 460 }
+    size: { w: 180, h: 30 }
+  - id: bd_180
+    label: ""
+    hatch: solid
+    at: { x: 320, y: 414 }
+    size: { w: 3, h: 36 }
+  - id: b_360
+    label: "第 3 閉塞"
+    at: { x: 500, y: 460 }
+    size: { w: 180, h: 30 }
+  - id: bd_360
+    label: ""
+    hatch: solid
+    at: { x: 500, y: 414 }
+    size: { w: 3, h: 36 }
+  - id: b_540
+    label: "第 2 閉塞"
+    at: { x: 680, y: 460 }
+    size: { w: 180, h: 30 }
+  - id: bd_540
+    label: ""
+    hatch: solid
+    at: { x: 680, y: 414 }
+    size: { w: 3, h: 36 }
+  - id: b_720
+    label: "第 1 閉塞"
+    at: { x: 860, y: 460 }
+    size: { w: 180, h: 30 }
+  - id: bd_720
+    label: ""
+    hatch: solid
+    at: { x: 860, y: 414 }
+    size: { w: 3, h: 36 }
+  - id: bd_end
+    label: ""
+    hatch: solid
+    at: { x: 1037, y: 414 }
+    size: { w: 3, h: 36 }
+  - id: s4
+    label: "進行"
+    tag: G
+    at: { x: 324, y: 338 }
+    size: { w: 96, h: 34 }
+  - id: s4_l
+    label: "青 1"
+    marker: none
+    at: { x: 324, y: 372 }
+    size: { w: 96, h: 24 }
+  - id: s3
+    label: "減速"
+    tag: YG
+    at: { x: 504, y: 338 }
+    size: { w: 96, h: 34 }
+  - id: s3_l
+    label: "青 1 ＋ 黄 1"
+    marker: none
+    at: { x: 504, y: 372 }
+    size: { w: 96, h: 24 }
+  - id: s2
+    label: "注意"
+    tag: Y
+    at: { x: 684, y: 338 }
+    size: { w: 96, h: 34 }
+  - id: s2_l
+    label: "黄 1"
+    marker: none
+    at: { x: 684, y: 372 }
+    size: { w: 96, h: 24 }
+  - id: s1
+    label: "停止"
+    tag: R
+    at: { x: 864, y: 338 }
+    size: { w: 96, h: 34 }
+  - id: s1_l
+    label: "赤 1"
+    marker: none
+    at: { x: 864, y: 372 }
+    size: { w: 96, h: 24 }
+  - id: train
+    label: "先行列車"
+    hatch: cross
+    at: { x: 892, y: 408 }
+    size: { w: 140, h: 32 }
+  - id: train_n
+    label: "この列車が居るから、手前の信号が順に落ちていく"
+    marker: none
+    at: { x: 700, y: 500 }
+    size: { w: 350, h: 24 }
+  - id: pat_a
+    label: ""
+    marker: none
+    at: { x: 141, y: 131 }
+    size: { w: 2, h: 2 }
+  - id: pat_e
+    label: ""
+    marker: none
+    at: { x: 857, y: 297 }
+    size: { w: 2, h: 2 }
+  - id: pat_n
+    label: "この線を超えるとブレーキがかかる"
+    marker: none
+    at: { x: 180, y: 258 }
+    size: { w: 300, h: 24 }
+  - id: dropa
+    label: ""
+    marker: none
+    at: { x: 861, y: 296 }
+    size: { w: 2, h: 2 }
+  - id: dropb
+    label: ""
+    marker: none
+    at: { x: 861, y: 336 }
+    size: { w: 2, h: 2 }
+  - id: tb_t
+    label: "現示（5 現示の例）"
+    marker: none
+    align: left
+    at: { x: 1090, y: 86 }
+    size: { w: 300, h: 24 }
+  - id: th0
+    label: "現示"
+    hatch: solid
+    at: { x: 1090, y: 116 }
+    size: { w: 96, h: 26 }
+  - id: th1
+    label: "灯"
+    hatch: solid
+    at: { x: 1186, y: 116 }
+    size: { w: 148, h: 26 }
+  - id: th2
+    label: "意味"
+    hatch: solid
+    at: { x: 1334, y: 116 }
+    size: { w: 240, h: 26 }
+  - id: th3
+    label: "速度の目安"
+    hatch: solid
+    at: { x: 1574, y: 116 }
+    size: { w: 140, h: 26 }
+  - id: tc0_0
+    label: "進行"
+    at: { x: 1090, y: 142 }
+    size: { w: 96, h: 28 }
+  - id: tc0_1
+    label: "青 1"
+    at: { x: 1186, y: 142 }
+    size: { w: 148, h: 28 }
+  - id: tc0_2
+    label: "そのまま進める"
+    at: { x: 1334, y: 142 }
+    size: { w: 240, h: 28 }
+  - id: tc0_3
+    label: "最高速度"
+    at: { x: 1574, y: 142 }
+    size: { w: 140, h: 28 }
+  - id: tc1_0
+    label: "減速"
+    at: { x: 1090, y: 170 }
+    size: { w: 96, h: 28 }
+  - id: tc1_1
+    label: "青 1 ＋ 黄 1"
+    at: { x: 1186, y: 170 }
+    size: { w: 148, h: 28 }
+  - id: tc1_2
+    label: "次が注意。落とし始める"
+    at: { x: 1334, y: 170 }
+    size: { w: 240, h: 28 }
+  - id: tc1_3
+    label: "75 km/h 程度"
+    at: { x: 1574, y: 170 }
+    size: { w: 140, h: 28 }
+  - id: tc2_0
+    label: "注意"
+    at: { x: 1090, y: 198 }
+    size: { w: 96, h: 28 }
+  - id: tc2_1
+    label: "黄 1"
+    at: { x: 1186, y: 198 }
+    size: { w: 148, h: 28 }
+  - id: tc2_2
+    label: "次が停止。落とす"
+    at: { x: 1334, y: 198 }
+    size: { w: 240, h: 28 }
+  - id: tc2_3
+    label: "45 km/h 程度"
+    at: { x: 1574, y: 198 }
+    size: { w: 140, h: 28 }
+  - id: tc3_0
+    label: "警戒"
+    at: { x: 1090, y: 226 }
+    size: { w: 96, h: 28 }
+  - id: tc3_1
+    label: "黄 2"
+    at: { x: 1186, y: 226 }
+    size: { w: 148, h: 28 }
+  - id: tc3_2
+    label: "すぐ先が停止"
+    at: { x: 1334, y: 226 }
+    size: { w: 240, h: 28 }
+  - id: tc3_3
+    label: "25 km/h 程度"
+    at: { x: 1574, y: 226 }
+    size: { w: 140, h: 28 }
+  - id: tc4_0
+    label: "停止"
+    at: { x: 1090, y: 254 }
+    size: { w: 96, h: 28 }
+  - id: tc4_1
+    label: "赤 1"
+    at: { x: 1186, y: 254 }
+    size: { w: 148, h: 28 }
+  - id: tc4_2
+    label: "ここを越えない"
+    at: { x: 1334, y: 254 }
+    size: { w: 240, h: 28 }
+  - id: tc4_3
+    label: "0"
+    at: { x: 1574, y: 254 }
+    size: { w: 140, h: 28 }
+  - id: r_t
+    label: "読み方"
+    marker: none
+    align: left
+    at: { x: 1090, y: 304 }
+    size: { w: 90, h: 24 }
+  - id: n0
+    label: "・1 つの閉塞区間に入れる列車は 1 本だけ。それが閉塞の意味。"
+    marker: none
+    align: left
+    at: { x: 1090, y: 332 }
+    size: { w: 560, h: 24 }
+  - id: n1
+    label: "・先行列車が居る閉塞の手前が停止。その手前が注意、"
+    marker: none
+    align: left
+    at: { x: 1090, y: 358 }
+    size: { w: 560, h: 24 }
+  - id: n2
+    label: "・さらに手前が減速、その先が進行。"
+    marker: none
+    align: left
+    at: { x: 1090, y: 384 }
+    size: { w: 560, h: 24 }
+  - id: n3
+    label: "・警戒（黄 2）は、閉塞が短いときや分岐の手前に使う。"
+    marker: none
+    align: left
+    at: { x: 1090, y: 410 }
+    size: { w: 560, h: 24 }
+  - id: n4
+    label: "・速度の目安は事業者と区間で違う。現示の並び方は共通。"
+    marker: none
+    align: left
+    at: { x: 1090, y: 436 }
+    size: { w: 560, h: 24 }
+  - id: n5
+    label: "・ATS-P は位置基準の速度照査。停止信号だけでなく、"
+    marker: none
+    align: left
+    at: { x: 1090, y: 462 }
+    size: { w: 560, h: 24 }
+  - id: n6
+    label: "・曲線・分岐器・勾配の制限も同じパターンで見る。"
+    marker: none
+    align: left
+    at: { x: 1090, y: 488 }
+    size: { w: 560, h: 24 }
+  - id: n7
+    label: "・パターンを超えるとブレーキ。運転士が気づかなくても止まる。"
+    marker: none
+    align: left
+    at: { x: 1090, y: 514 }
+    size: { w: 560, h: 24 }
+edges:
+  - from: gla0
+    to: glb0
+    line: dotted
+    ends: { from: none, to: none }
+  - from: gla60
+    to: glb60
+    line: dotted
+    ends: { from: none, to: none }
+  - from: gla120
+    to: glb120
+    line: dotted
+    ends: { from: none, to: none }
+  - from: pat_a
+    to: pat_e
+    curve: smooth
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 200, y: 140 }
+      - { x: 260, y: 147 }
+      - { x: 320, y: 155 }
+      - { x: 380, y: 163 }
+      - { x: 440, y: 172 }
+      - { x: 500, y: 181 }
+      - { x: 560, y: 191 }
+      - { x: 620, y: 203 }
+      - { x: 680, y: 215 }
+      - { x: 740, y: 231 }
+      - { x: 800, y: 251 }
+  - from: dropa
+    to: dropb
+    line: dotted
+    ends: { from: none, to: none }

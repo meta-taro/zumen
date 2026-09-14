@@ -33,6 +33,8 @@
  * 辺のラベル（`src/edge-labels.ts`）は消してよいが、あれは
  * 「どこへ繋がるか」が線で分かるから消せる。**名前は線では分からない。**
  */
+import { ALIGN_INSET } from './align.ts';
+import type { Align } from './align.ts';
 import type { Box } from './layout.ts';
 import { labelWidth } from './layout.ts';
 
@@ -381,7 +383,14 @@ export function textRectOf(box: Box, plan: Plan): Rect | null {
   const text = plan.kind === 'joined' ? plan.text : box.label;
   const w = Math.min(labelWidth(text, NAME_FONT), box.w);
   const h = (plan.kind === 'joined' ? 1 : rows) * NAME_FONT;
-  return { x: box.x + box.w / 2 - w / 2, y: box.y + box.h / 2 - h / 2, w, h };
+  // **寄せた文字は、寄せた先に居る**（`src/align.ts`）。
+  // ここを中央のままにすると、左寄せの注記どうしの重なりを見落とす。
+  const inset = box.marker === 'none' ? 0 : ALIGN_INSET;
+  const left =
+    plan.kind === 'stack' || plan.kind === 'along'
+      ? box.x + box.w / 2 - w / 2
+      : anchorLeft(box.align, box, inset, w);
+  return { x: left, y: box.y + box.h / 2 - h / 2, w, h };
 }
 
 /**
@@ -496,4 +505,11 @@ export function extentOf(boxes: readonly Box[]): Rect | null {
     w: Math.max(...boxes.map((b) => b.x + b.w)) - x,
     h: Math.max(...boxes.map((b) => b.y + b.h)) - y,
   };
+}
+
+/** 寄せたときの、文字の左端。 */
+function anchorLeft(align: Align, box: { x: number; w: number }, inset: number, w: number): number {
+  if (align === 'left') return box.x + inset;
+  if (align === 'right') return box.x + box.w - inset - w;
+  return box.x + box.w / 2 - w / 2;
 }

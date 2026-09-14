@@ -328,6 +328,7 @@ const ja = {
       '                                          # 丸は駅・経穴・計器。bar は帯（停車駅一覧）',
       '    hatch: <none（既定）| solid | dots | lines | cross>  # 材料と区域の模様',
       '    write: <across（既定）| down>       # 縦組み。駅名を縦に積む（ラテン文字は寝る）',
+      '    align: <left | center（既定）| right> # 文字の寄せ。注記を並べるときは left',
       '    floor: <floors の名前>               # どの階にあるか。位置は変えない',
       '    symbol: <SYMBOLS から>              # 電気・電子の図記号（IEC／JIS）',
       '    at:   { x: <左>, y: <上> }        # kind: placement でだけ効く',
@@ -475,6 +476,10 @@ const ja = {
       `エッジ ${name} の close が true / false になっていません。輪は閉じません。`,
     closeIgnored: (name: string) =>
       `エッジ ${name} に close がありますが、構成図では効きません（線の通り道は機械が決めます）。`,
+    alignUnknown: (id: string, word: string) =>
+      `ノード "${id}" の align が "${word}" になっています（left / center / right）。中央で描きます。`,
+    alignIgnored: (id: string) =>
+      `ノード "${id}" に align がありますが、構成図では効きません（箱の大きさを文字から決めているためです）。`,
     writeUnknown: (id: string, word: string) =>
       `ノード "${id}" の write が "${word}" になっています（across / down）。横組みで描きます。`,
     floorUnknown: (id: string, name: string) =>
@@ -758,6 +763,7 @@ const en: Catalog = {
       '                                          # circle for stations, acupoints, instruments; bar for a band',
       '    hatch: <none (default) | solid | dots | lines | cross>  # material / zone pattern',
       '    write: <across (default) | down>     # vertical setting: stack the glyphs (Latin is laid on its side)',
+      '    align: <left | center (default) | right> # which edge the label lines up on; use left for a run of notes',
       '    floor: <a name from floors>          # which floor; does not move the box',
       '    symbol: <from SYMBOLS>               # electrical symbol (IEC / JIS)',
       '    at:   { x: <left>, y: <top> }       # only with kind: placement',
@@ -886,6 +892,10 @@ const en: Catalog = {
       `Edge ${name} has a close that is not true / false. The loop is left open.`,
     closeIgnored: (name: string) =>
       `Edge ${name} has close, but it has no effect on a structure diagram (the machine routes the line).`,
+    alignUnknown: (id: string, word: string) =>
+      `Node "${id}" has align "${word}" (left / center / right). It is centred.`,
+    alignIgnored: (id: string) =>
+      `Node "${id}" has align, but it has no effect on a structure diagram (box size is derived from the text there).`,
     writeUnknown: (id: string, word: string) =>
       `Node "${id}" has write "${word}" (across / down). It is set horizontally.`,
     floorUnknown: (id: string, name: string) =>

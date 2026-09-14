@@ -31,6 +31,7 @@ import { drawEnd, hasEnds } from './ends.ts';
 import { drawHatch, drawHatchIn } from './hatch.ts';
 import type { Hatch } from './hatch.ts';
 import { pathOf } from './curve.ts';
+import { ALIGN_INSET, anchorOf } from './align.ts';
 import { laysDown } from './write.ts';
 import { DOUBLE_GAP, dashOf, doubled } from './line.ts';
 import { roundedOf, widthOf } from './weight.ts';
@@ -549,18 +550,39 @@ function nodeText(
   // **名前が空なら、何も書かない。** 停車駅案内図の ● のように、
   // 名前を持たない印がある（駅名は上の行にある）。
   if (box.label === '' && box.technology === null) return [];
-  const cx = n(box.x + box.w / 2);
+  // **文字の寄せ**（`src/align.ts`）。注記を箇条書きに見せるために要る。
+  // 効くのは**横組みで箱に収まった名前**だけ —— 縦組み・回した字・外へ出した名前では
+  // 「左」の指すものが変わるので、既定の中央のままにする。
+  const stays =
+    plan === null || plan.kind === 'stack' || plan.kind === 'along' || plan.kind === 'outside';
+  // 印の無い箱には枠が無い。**書き手が置いた x が、そのまま行頭**であってほしい。
+  const spot = anchorOf(
+    stays ? 'center' : box.align,
+    box,
+    box.marker === 'none' ? 0 : ALIGN_INSET,
+  );
+  const cx = n(spot.x);
+  const anchor = spot.anchor;
   const size = plan === null ? 15 : NAME_FONT;
   const subSize = plan === null ? 11 : SUB_FONT;
   const sub = subtitleOn(style, palette);
 
-  const text = (x: number, y: number, body: string, font: number, fill: string, turn = ''): string => {
-    const label = `<text x="${n(x)}" y="${n(y)}" text-anchor="middle" font-family="${FONT}" font-size="${font}" fill="${fill}"${turn}>${escapeText(body)}</text>`;
+  const text = (
+    x: number,
+    y: number,
+    body: string,
+    font: number,
+    fill: string,
+    turn = '',
+    at: 'start' | 'middle' | 'end' = anchor,
+  ): string => {
+    const label = `<text x="${n(x)}" y="${n(y)}" text-anchor="${at}" font-family="${FONT}" font-size="${font}" fill="${fill}"${turn}>${escapeText(body)}</text>`;
     if (halo === null) return label;
     // 文字の下地を抜く（模様を切る）。回っている文字にも同じ変換をかける。
     const w = labelWidth(body, font) + 6;
     const h = font + 3;
-    const patch = `<rect x="${n(x - w / 2)}" y="${n(y - font + 1)}" width="${n(w)}" height="${n(h)}" fill="${halo}"${turn}/>`;
+    const left = at === 'start' ? x - 3 : at === 'end' ? x - w + 3 : x - w / 2;
+    const patch = `<rect x="${n(left)}" y="${n(y - font + 1)}" width="${n(w)}" height="${n(h)}" fill="${halo}"${turn}/>`;
     return patch + label;
   };
 
