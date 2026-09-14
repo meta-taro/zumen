@@ -186,19 +186,37 @@ nodes:
   });
 });
 
+/**
+ * **交差が図の中身である見本。**
+ *
+ * `crossings` は「**合否ではなく観測値**」と決めてある（`src/layout.ts`）。
+ * 良し悪しは人が決めるもので、機械が 0 を要求してよい数ではない。
+ *
+ * それでもここで 0 を見張るのは、**意味の無い交差を見本に残さない**ため。
+ * 意味のある交差を持つ図だけは、**理由を書いて外す。**
+ * 理由が書けないものは外さない —— それが「自己採点させない」の線。
+ */
+const CROSSINGS_ARE_CONTENT: Record<string, string> = {
+  '71-列車運行図表.zumen.yaml':
+    '上りと下りのすれ違い。**交差する点が「どこで行き違うか」そのもの**で、消したら図にならない',
+};
+
 describe('見本 44 件は、どれも読める状態', () => {
   /**
-   * **3 つの観測値を、見本すべてで 0 に保つ。**
+   * **3 つの観測値を、見本すべてで見張る。**
    *
-   * | | 何が起きているか |
-   * |---|---|
-   * | `crossings` | 矢印が箱を突き抜けている |
-   * | `hiddenLabels` | **正本に書いたのに絵に出ていない**辺のラベル |
-   * | `crowdedNames` | 名前が他の箱に重なって出ている |
+   * | | 何が起きているか | 0 を要求するか |
+   * |---|---|---|
+   * | `hiddenLabels` | **正本に書いたのに絵に出ていない**辺のラベル | する |
+   * | `crowdedNames` | 名前が他の箱に重なって出ている | する |
+   * | `crossings` | **線どうしが交差している数** | **理由を書いた図だけ外す** |
    *
    * とくに `hiddenLabels` は、**書いたのに出ない**状態。
    * 見本は「こう書けばこう出る」を見せるものなので、ここがずれていると
    * **真似た人の図もずれる。**
+   *
+   * `crossings` の欄は、以前ここに「矢印が箱を突き抜けている」と書いてあった。
+   * **実装と違う**（数えているのは線どうしの交差）。2026-09-14 に直した。
    */
   it('交差・隠れたラベル・混んだ名前がすべて 0', async () => {
     const { readdirSync, readFileSync } = await import('node:fs');
@@ -207,7 +225,12 @@ describe('見本 44 件は、どれも読める状態', () => {
     assert.ok(files.length >= 44, `見本が ${files.length} 件しかない`);
     for (const name of files) {
       const out = await inspect(readFileSync(new URL(name, dir), 'utf8'));
-      assert.equal(out.crossings, 0, `${name} で矢印が箱を突き抜けている`);
+      const why = CROSSINGS_ARE_CONTENT[name];
+      if (why === undefined) {
+        assert.equal(out.crossings, 0, `${name} で線が交差している`);
+      } else {
+        assert.ok(out.crossings > 0, `${name} は交差が中身のはずなのに 0（${why}）`);
+      }
       assert.deepEqual(out.hiddenLabels, [], `${name} で辺のラベルが絵に出ていない`);
       assert.deepEqual(out.crowdedNames, [], `${name} で名前が重なっている`);
     }

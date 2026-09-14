@@ -1,0 +1,249 @@
+version: 1
+kind: placement
+arrows: false
+title: 架空電鉄 本線 列車運行図表（ダイヤグラム・平日朝 6:00〜9:00）
+# 縦が駅、横が時刻。**駅の間隔は営業キロに比例**させてある ——
+# だから線の傾きがそのまま速度になり、急行が普通を追い抜く様子が目で分かる。
+# 右下がりが下り（港町 → 海浜公園）、右上がりが上り。
+# 駅で水平になっている短い区間が停車時間。**空港前で 605 が 603 を待避する。**
+# 列車番号は線の端（起点側）に置く —— 実物のダイヤもそこに書く。
+grid:
+  x:
+    - { id: "6:00", at: 150, mark: tick }
+    - { id: "6:15", at: 213, mark: tick }
+    - { id: "6:30", at: 276, mark: tick }
+    - { id: "6:45", at: 339, mark: tick }
+    - { id: "7:00", at: 402, mark: tick }
+    - { id: "7:15", at: 465, mark: tick }
+    - { id: "7:30", at: 528, mark: tick }
+    - { id: "7:45", at: 591, mark: tick }
+    - { id: "8:00", at: 654, mark: tick }
+    - { id: "8:15", at: 717, mark: tick }
+    - { id: "8:30", at: 780, mark: tick }
+    - { id: "8:45", at: 843, mark: tick }
+    - { id: "9:00", at: 906, mark: tick }
+  y:
+    - { id: "港町 0.0", at: 70, mark: tick }
+    - { id: "桜台 2.4", at: 116, mark: tick }
+    - { id: "中央 5.1", at: 167, mark: tick }
+    - { id: "川手 7.8", at: 218, mark: tick }
+    - { id: "東浜 11.2", at: 283, mark: tick }
+    - { id: "空港前 14.0", at: 336, mark: tick }
+    - { id: "学園前 17.6", at: 404, mark: tick }
+    - { id: "みどり台 20.3", at: 456, mark: tick }
+    - { id: "海浜公園 23.5", at: 516, mark: tick }
+nodes:
+  - id: t601_a
+    label: ""
+    marker: none
+    at: { x: 198, y: 68 }
+    size: { w: 4, h: 4 }
+  - id: t601_b
+    label: ""
+    marker: none
+    at: { x: 359, y: 514 }
+    size: { w: 4, h: 4 }
+  - id: n601
+    label: "601"
+    marker: none
+    at: { x: 182, y: 46 }
+    size: { w: 36, h: 20 }
+  - id: t605_a
+    label: ""
+    marker: none
+    at: { x: 379, y: 68 }
+    size: { w: 4, h: 4 }
+  - id: t605_b
+    label: ""
+    marker: none
+    at: { x: 557, y: 514 }
+    size: { w: 4, h: 4 }
+  - id: n605
+    label: "605"
+    marker: none
+    at: { x: 363, y: 46 }
+    size: { w: 36, h: 20 }
+  - id: t603_a
+    label: ""
+    marker: none
+    at: { x: 421, y: 68 }
+    size: { w: 4, h: 4 }
+  - id: t603_b
+    label: ""
+    marker: none
+    at: { x: 525, y: 514 }
+    size: { w: 4, h: 4 }
+  - id: n603
+    label: "603"
+    marker: none
+    at: { x: 405, y: 46 }
+    size: { w: 36, h: 20 }
+  - id: t602_a
+    label: ""
+    marker: none
+    at: { x: 253, y: 514 }
+    size: { w: 4, h: 4 }
+  - id: t602_b
+    label: ""
+    marker: none
+    at: { x: 414, y: 68 }
+    size: { w: 4, h: 4 }
+  - id: n602
+    label: "602"
+    marker: none
+    at: { x: 237, y: 522 }
+    size: { w: 36, h: 20 }
+  - id: t604_a
+    label: ""
+    marker: none
+    at: { x: 476, y: 514 }
+    size: { w: 4, h: 4 }
+  - id: t604_b
+    label: ""
+    marker: none
+    at: { x: 580, y: 68 }
+    size: { w: 4, h: 4 }
+  - id: n604
+    label: "604"
+    marker: none
+    at: { x: 460, y: 522 }
+    size: { w: 36, h: 20 }
+  - id: t606_a
+    label: ""
+    marker: none
+    at: { x: 618, y: 514 }
+    size: { w: 4, h: 4 }
+  - id: t606_b
+    label: ""
+    marker: none
+    at: { x: 779, y: 68 }
+    size: { w: 4, h: 4 }
+  - id: n606
+    label: "606"
+    marker: none
+    at: { x: 602, y: 522 }
+    size: { w: 36, h: 20 }
+  - id: lg1
+    label: ""
+    marker: bar
+    at: { x: 150, y: 568 }
+    size: { w: 60, h: 3 }
+  - id: lgn1
+    label: "普通（各駅停車）"
+    marker: none
+    at: { x: 220, y: 556 }
+    size: { w: 180, h: 26 }
+  - id: lg2
+    label: ""
+    marker: bar
+    at: { x: 430, y: 566 }
+    size: { w: 60, h: 7 }
+  - id: lgn2
+    label: "急行"
+    marker: none
+    at: { x: 500, y: 556 }
+    size: { w: 120, h: 26 }
+  - id: note
+    label: "駅名の右は起点からの営業キロ。線の傾き＝表定速度。空港前の水平な段が待避。"
+    marker: none
+    at: { x: 150, y: 594 }
+    size: { w: 520, h: 26 }
+edges:
+  - from: t601_a
+    to: t601_b
+    weight: thin
+    via:
+      - { x: 214, y: 116 }
+      - { x: 218, y: 116 }
+      - { x: 233, y: 167 }
+      - { x: 237, y: 167 }
+      - { x: 252, y: 218 }
+      - { x: 257, y: 218 }
+      - { x: 276, y: 283 }
+      - { x: 280, y: 283 }
+      - { x: 296, y: 336 }
+      - { x: 300, y: 336 }
+      - { x: 320, y: 404 }
+      - { x: 324, y: 404 }
+      - { x: 339, y: 456 }
+      - { x: 343, y: 456 }
+  - from: t605_a
+    to: t605_b
+    weight: thin
+    via:
+      - { x: 394, y: 116 }
+      - { x: 399, y: 116 }
+      - { x: 414, y: 167 }
+      - { x: 418, y: 167 }
+      - { x: 433, y: 218 }
+      - { x: 437, y: 218 }
+      - { x: 456, y: 283 }
+      - { x: 461, y: 283 }
+      - { x: 476, y: 336 }
+      - { x: 497, y: 336 }
+      - { x: 517, y: 404 }
+      - { x: 522, y: 404 }
+      - { x: 537, y: 456 }
+      - { x: 541, y: 456 }
+  - from: t603_a
+    to: t603_b
+    weight: thick
+    via:
+      - { x: 433, y: 116 }
+      - { x: 444, y: 167 }
+      - { x: 448, y: 167 }
+      - { x: 459, y: 218 }
+      - { x: 473, y: 283 }
+      - { x: 484, y: 336 }
+      - { x: 488, y: 336 }
+      - { x: 503, y: 404 }
+      - { x: 514, y: 456 }
+  - from: t602_a
+    to: t602_b
+    weight: thin
+    via:
+      - { x: 273, y: 456 }
+      - { x: 277, y: 456 }
+      - { x: 292, y: 404 }
+      - { x: 296, y: 404 }
+      - { x: 317, y: 336 }
+      - { x: 321, y: 336 }
+      - { x: 336, y: 283 }
+      - { x: 341, y: 283 }
+      - { x: 360, y: 218 }
+      - { x: 364, y: 218 }
+      - { x: 379, y: 167 }
+      - { x: 383, y: 167 }
+      - { x: 398, y: 116 }
+      - { x: 403, y: 116 }
+  - from: t604_a
+    to: t604_b
+    weight: thick
+    via:
+      - { x: 491, y: 456 }
+      - { x: 502, y: 404 }
+      - { x: 516, y: 336 }
+      - { x: 520, y: 336 }
+      - { x: 532, y: 283 }
+      - { x: 546, y: 218 }
+      - { x: 557, y: 167 }
+      - { x: 561, y: 167 }
+      - { x: 572, y: 116 }
+  - from: t606_a
+    to: t606_b
+    weight: thin
+    via:
+      - { x: 638, y: 456 }
+      - { x: 643, y: 456 }
+      - { x: 658, y: 404 }
+      - { x: 662, y: 404 }
+      - { x: 682, y: 336 }
+      - { x: 686, y: 336 }
+      - { x: 702, y: 283 }
+      - { x: 706, y: 283 }
+      - { x: 725, y: 218 }
+      - { x: 729, y: 218 }
+      - { x: 744, y: 167 }
+      - { x: 749, y: 167 }
+      - { x: 764, y: 116 }
+      - { x: 768, y: 116 }

@@ -1,100 +1,143 @@
 version: 1
 kind: placement
 arrows: false
-title: 通勤電車 10 両編成図（架空）
-pins:
-  c1:
-    appearance: primary
-groups:
-  - id: set
-    label: A101 編成　定員 1,460 名　4M6T
+title: 架空電鉄 100 系 A101 編成（10 両・4M6T・定員 1,468 名）
+# 編成図は **1 列に並べる**。折り返すと連結が逆走して見える。
+# 上の菱形がパンタグラフ（M 車）、下の帯が設備。
+# 左右の矢印が編成の向き —— 実物の編成表も必ず方向を書く。
 nodes:
   - id: c1
-    label: クハ 100-1
+    label: "クハ 100-1"
     tag: 1 号車
-    technology: Tc・車椅子席
-    at: { x: 0, y: 0 }
-    size: { w: 84, h: 58 }
-    group: set
+    technology: Tc・定員 141
+    at: { x: 120, y: 90 }
+    size: { w: 100, h: 64 }
+  - id: s1
+    label: "車椅子"
+    hatch: dots
+    at: { x: 120, y: 158 }
+    size: { w: 100, h: 22 }
   - id: c2
-    label: モハ 100-1
+    label: "モハ 100-1"
     tag: 2 号車
     technology: M・定員 155
-    at: { x: 84, y: 0 }
-    size: { w: 84, h: 58 }
-    group: set
+    at: { x: 224, y: 90 }
+    size: { w: 100, h: 64 }
+  - id: p2
+    label: ""
+    marker: diamond
+    at: { x: 258, y: 64 }
+    size: { w: 32, h: 18 }
   - id: c3
-    label: モハ 101-1
+    label: "モハ 101-1"
     tag: 3 号車
     technology: M'・定員 155
-    at: { x: 168, y: 0 }
-    size: { w: 84, h: 58 }
-    group: set
+    at: { x: 328, y: 90 }
+    size: { w: 100, h: 64 }
+  - id: s3
+    label: "トイレ"
+    hatch: dots
+    at: { x: 328, y: 158 }
+    size: { w: 100, h: 22 }
   - id: c4
-    label: サハ 100-1
+    label: "サハ 100-1"
     tag: 4 号車
     technology: T・定員 155
-    at: { x: 252, y: 0 }
-    size: { w: 84, h: 58 }
-    group: set
+    at: { x: 432, y: 90 }
+    size: { w: 100, h: 64 }
   - id: c5
-    label: サハ 100-2
+    label: "サハ 100-2"
     tag: 5 号車
     technology: T・定員 155
-    at: { x: 336, y: 0 }
-    size: { w: 84, h: 58 }
-    group: set
+    at: { x: 536, y: 90 }
+    size: { w: 100, h: 64 }
+  - id: s5
+    label: "弱冷房"
+    hatch: dots
+    at: { x: 536, y: 158 }
+    size: { w: 100, h: 22 }
   - id: c6
-    label: サハ 100-3
+    label: "サハ 100-3"
     tag: 6 号車
-    technology: T・弱冷房車
-    at: { x: 0, y: 78 }
-    size: { w: 84, h: 58 }
-    group: set
+    technology: T・定員 155
+    at: { x: 640, y: 90 }
+    size: { w: 100, h: 64 }
   - id: c7
-    label: モハ 100-2
+    label: "モハ 100-2"
     tag: 7 号車
     technology: M・定員 155
-    at: { x: 84, y: 78 }
-    size: { w: 84, h: 58 }
-    group: set
+    at: { x: 744, y: 90 }
+    size: { w: 100, h: 64 }
+  - id: p7
+    label: ""
+    marker: diamond
+    at: { x: 778, y: 64 }
+    size: { w: 32, h: 18 }
   - id: c8
-    label: モハ 101-2
+    label: "モハ 101-2"
     tag: 8 号車
     technology: M'・定員 155
-    at: { x: 168, y: 78 }
-    size: { w: 84, h: 58 }
-    group: set
+    at: { x: 848, y: 90 }
+    size: { w: 100, h: 64 }
   - id: c9
-    label: サハ 100-4
+    label: "サハ 100-4"
     tag: 9 号車
-    technology: T・女性専用
-    at: { x: 252, y: 78 }
-    size: { w: 84, h: 58 }
-    group: set
+    technology: T・定員 155
+    at: { x: 952, y: 90 }
+    size: { w: 100, h: 64 }
+  - id: s9
+    label: "女性専用"
+    hatch: dots
+    at: { x: 952, y: 158 }
+    size: { w: 100, h: 22 }
   - id: c10
-    label: クハ 101-1
+    label: "クハ 101-1"
     tag: 10 号車
     technology: Tc'・定員 141
-    at: { x: 336, y: 78 }
-    size: { w: 84, h: 58 }
-    group: set
-edges:
-  - from: c1
-    to: c2
-  - from: c2
-    to: c3
-  - from: c3
-    to: c4
-  - from: c4
-    to: c5
-  - from: c5
-    to: c6
-  - from: c6
-    to: c7
-  - from: c7
-    to: c8
-  - from: c8
-    to: c9
-  - from: c9
-    to: c10
+    at: { x: 1056, y: 90 }
+    size: { w: 100, h: 64 }
+  - id: s10
+    label: "車椅子"
+    hatch: dots
+    at: { x: 1056, y: 158 }
+    size: { w: 100, h: 22 }
+  - id: dir_l
+    label: "← 港町"
+    marker: none
+    at: { x: 0, y: 108 }
+    size: { w: 110, h: 28 }
+  - id: dir_r
+    label: "海浜公園 →"
+    marker: none
+    at: { x: 1160, y: 108 }
+    size: { w: 120, h: 28 }
+  - id: head
+    label: "A101 編成　4M6T　定員 1,468 名　所属 海浜公園検車区"
+    marker: none
+    at: { x: 120, y: 26 }
+    size: { w: 520, h: 26 }
+  - id: lgp
+    label: ""
+    marker: diamond
+    at: { x: 120, y: 196 }
+    size: { w: 32, h: 18 }
+  - id: lgpn
+    label: "パンタグラフ（M 車）"
+    marker: none
+    at: { x: 160, y: 194 }
+    size: { w: 200, h: 24 }
+  - id: lgs
+    label: ""
+    hatch: dots
+    at: { x: 370, y: 196 }
+    size: { w: 32, h: 18 }
+  - id: lgsn
+    label: "設備（車椅子・トイレ・弱冷房・女性専用）"
+    marker: none
+    at: { x: 410, y: 194 }
+    size: { w: 360, h: 24 }
+  - id: note
+    label: "Tc＝制御車、M＝電動車、T＝付随車。ダッシュは 2 位側。運行図表は見本 71。"
+    marker: none
+    at: { x: 120, y: 226 }
+    size: { w: 540, h: 24 }
