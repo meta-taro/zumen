@@ -120,6 +120,10 @@ const EXPECTED: Record<string, { codes: string[]; why: string }> = {
     codes: ['color-faint'],
     why: '阪急マルーン・阪神の黄・谷町線の紫。**どれも実在の事業者の色**',
   },
+  '81-東京メトロ都心部の路線図.zumen.yaml': {
+    codes: ['color-faint'],
+    why: '日比谷線のシルバー・有楽町線のゴールド・南北線のエメラルドほか。**実在の案内色**',
+  },
 };
 
 describe('見本 23 件は、指摘 0 件のまま', () => {
