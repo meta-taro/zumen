@@ -133,3 +133,54 @@ nodes:
     assert.match(out, /<title>平面図<\/title>/);
   });
 });
+
+/**
+ * **別の箱の模様の上に載った文字も、下地を抜く。**
+ *
+ * 仕様は「模様の上に文字を重ねると読めないので、文字の下地を抜く」と書いてある。
+ * ところが抜いていたのは**自分の箱が持つ模様だけ**で、
+ * **別の箱の上に載った文字は模様に埋もれていた**（2026-09-15。実物を見て見つけた）。
+ *
+ * いちばんひどいのは塗り潰しの上 ——
+ * Bottom Navigation の帯（`solid`）の上に、同じ濃さの文字が出ていた（見本 87）。
+ */
+describe('模様の上に載った文字', () => {
+  const BAND = `version: 1
+kind: placement
+nodes:
+  - id: bar
+    label: ""
+    hatch: solid
+    at: { x: 0, y: 0 }
+    size: { w: 300, h: 40 }
+  - id: tab
+    label: ホーム
+    marker: none
+    at: { x: 20, y: 6 }
+    size: { w: 60, h: 28 }
+`;
+
+  it('**帯の上のタブ名に、下地が入る**', async () => {
+    const { layout } = await import('../src/layout.ts');
+    const { render } = await import('../src/render.ts');
+    const out = render(await layout(BAND), 'light', 'safe', true);
+    const node = out.match(/<g data-node="tab"[\s\S]*?<\/g>/)![0];
+    assert.match(node, /<rect [^>]*fill="#ffffff"/, '下地が抜かれていない');
+  });
+
+  it('**帯が無ければ、下地も入らない**（余計な白い板を出さない）', async () => {
+    const { layout } = await import('../src/layout.ts');
+    const { render } = await import('../src/render.ts');
+    const out = render(await layout(BAND.replace('    hatch: solid\n', '')), 'light', 'safe', true);
+    const node = out.match(/<g data-node="tab"[\s\S]*?<\/g>/)![0];
+    assert.ok(!/<rect /.test(node), '何も無いのに下地を抜いた');
+  });
+
+  it('文字が半分しかかかっていなければ、抜かない', async () => {
+    const { layout } = await import('../src/layout.ts');
+    const { render } = await import('../src/render.ts');
+    const out = render(await layout(BAND.replace('at: { x: 20, y: 6 }', 'at: { x: 270, y: 6 }')), 'light', 'safe', true);
+    const node = out.match(/<g data-node="tab"[\s\S]*?<\/g>/)![0];
+    assert.ok(!/<rect /.test(node));
+  });
+});

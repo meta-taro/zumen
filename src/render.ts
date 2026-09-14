@@ -29,13 +29,14 @@ import type { Frame, Ink } from './dimensions.ts';
 import { hasGrid } from './grid.ts';
 import { drawEnd, hasEnds } from './ends.ts';
 import { drawHatch, drawHatchIn } from './hatch.ts';
+import type { Hatch } from './hatch.ts';
 import { pathOf } from './curve.ts';
 import { laysDown } from './write.ts';
 import { DOUBLE_GAP, dashOf, doubled } from './line.ts';
 import { roundedOf, widthOf } from './weight.ts';
 import { drawMarker } from './marker.ts';
 import { drawSymbol } from './symbol.ts';
-import { NAME_FONT, SUB_FONT, planNames, tagFits } from './names.ts';
+import { NAME_FONT, SUB_FONT, planNames, tagFits, textRectOf } from './names.ts';
 import type { Plan } from './names.ts';
 import { drawRange, ringOf } from './range.ts';
 import { wallFits, wallWidth } from './wall.ts';
@@ -143,7 +144,9 @@ export function render(
     ...(plan && placed.arrows
       ? []
       : placed.edges.map((edge) => renderEdge(edge, labels.get(edge.id) ?? null, palette, plan, placed.arrows))),
-    ...stack(placed.boxes, plan).map((box) => renderNode(box, palette, plan, wall, names.get(box.id) ?? null)),
+    ...stack(placed.boxes, plan).map((box) =>
+      renderNode(box, palette, plan, wall, names.get(box.id) ?? null, onPattern(box, placed.boxes, names)),
+    ),
     // **向きのある矢印は、図の上に載せる注記。**
     //
     // 部屋の塗りは透けないので、下に置くと**隣どうしの矢印が完全に消える。**
@@ -310,12 +313,46 @@ function renderGroup(group: Box, palette: Palette, plan = false, wall: number | 
   ].join('');
 }
 
+/**
+ * **その文字が、他の箱の模様の上に載っているか。**
+ *
+ * 仕様は「模様の上に文字を重ねると読めないので、**文字の下地を抜く**」と書いてある。
+ * ところが抜いていたのは**自分の箱が持つ模様だけ**だった ——
+ * **別の箱の上に載った文字は、そのまま模様に埋もれていた**（2026-09-15。実物を見て見つけた）。
+ *
+ * いちばんひどいのは塗り潰しの上 ——
+ * Bottom Navigation の帯（`solid`）の上に、同じ濃さの文字が出ていた。
+ *
+ * 見るのは**その文字が丸ごと入っている箱**だけ。半分かかっている程度なら、
+ * 下地を抜くほうが逆に汚くなる。
+ */
+function onPattern(box: Box, boxes: readonly Box[], names: Map<string, Plan>): Hatch {
+  if (box.label === '') return 'none';
+  const plan = names.get(box.id);
+  if (plan === undefined) return 'none';
+  const rect = textRectOf(box, plan);
+  if (rect === null) return 'none';
+  let found: Box | null = null;
+  for (const other of boxes) {
+    if (other.id === box.id || other.hatch === 'none') continue;
+    const covers =
+      other.x <= rect.x &&
+      other.y <= rect.y &&
+      other.x + other.w >= rect.x + rect.w &&
+      other.y + other.h >= rect.y + rect.h;
+    // **いちばん内側の箱**を採る（区画の中の区画の上に文字が載ることがある）。
+    if (covers && (found === null || other.w * other.h < found.w * found.h)) found = other;
+  }
+  return found === null ? 'none' : found.hatch;
+}
+
 function renderNode(
   box: Box,
   palette: Palette,
   plan = false,
   wall: number | null = null,
   name: Plan | null = null,
+  under: Hatch = 'none',
 ): string {
   const style = lookOf(box.appearance, palette);
   const attributes = [
@@ -388,7 +425,14 @@ function renderNode(
    * 塗り潰し（`solid`）は抜かない —— 文字を地の色にしてあるので、
    * 抜くと文字が消える。
    */
-  const halo = plan && box.hatch !== 'none' && box.hatch !== 'solid' ? palette.paper : null;
+  //
+  // **別の箱の模様の上に載った文字も抜く**（`under`。2026-09-15）。
+  // 帯（`solid`）の上のタブ名が、同じ濃さで沈んでいた。
+  // こちらは塗り潰しでも抜く —— 文字の色は変えられないので、下地を白く抜く。
+  const halo =
+    plan && ((box.hatch !== 'none' && box.hatch !== 'solid') || under !== 'none')
+      ? palette.paper
+      : null;
 
   // **建具は壁に開く穴**（`src/openings.ts`）。壁を消してから記号を描く。
   const holes =
