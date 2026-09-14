@@ -1,0 +1,307 @@
+version: 1
+kind: placement
+arrows: true
+title: 生け花の構成図（生花正風体の三主枝／池坊）
+# **長さが比で決まる図。** 花器の大きさが変われば、全部変わる。
+#
+# ## 三主枝
+#
+# **真（しん）・副（そえ）・体（たい）** の三つの役枝で組む。
+# 古来、万物の基礎と考えられてきた**三才（天・地・人）**になぞらえたもので、
+# 飾りではなく**構造**。
+#
+# - **真** —— 花器の **2.5〜3.5 倍**。作品の芯。奥へ
+# - **副** —— 真の **2/3**。真の曲がりに沿い**後方**へ（奥行きを出す）
+# - **体** —— 真の **1/3**。**前方に低く**
+#
+# ## 2 つの図が要る
+#
+# **上から見ると不等辺三角形**、**手前から見ると奥側に真**。
+# 正面図だけでは奥行きが決まらないので、**平面図と組で描く。**
+#
+# ## 生ける順
+#
+# **真 → 副 → 体・控。** 順番を変えると、比で決まる寸法が決まらない。
+nodes:
+  - id: f_t
+    label: "正面から見る"
+    marker: none
+    align: left
+    at: { x: 80, y: 110 }
+    size: { w: 200, h: 24 }
+  - id: vase
+    label: ""
+    hatch: lines
+    at: { x: 270, y: 460 }
+    size: { w: 100, h: 80 }
+  - id: vase_n
+    label: "花器（高さ h）"
+    marker: none
+    align: left
+    at: { x: 274, y: 548 }
+    size: { w: 150, h: 22 }
+  - id: root
+    label: ""
+    marker: none
+    at: { x: 319, y: 457 }
+    size: { w: 2, h: 2 }
+  - id: shin
+    label: "真"
+    marker: circle
+    at: { x: 270, y: 166 }
+    size: { w: 44, h: 40 }
+  - id: soe
+    label: "副"
+    marker: circle
+    at: { x: 204, y: 296 }
+    size: { w: 44, h: 40 }
+  - id: tai
+    label: "体"
+    marker: circle
+    at: { x: 372, y: 382 }
+    size: { w: 44, h: 40 }
+  - id: shin_n
+    label: "真　花器の 2.5〜3.5 倍　奥へ"
+    marker: none
+    align: left
+    at: { x: 328, y: 172 }
+    size: { w: 260, h: 22 }
+  - id: soe_n
+    label: "副　真の 2/3　後方へ（奥行き）"
+    marker: none
+    align: left
+    at: { x: 60, y: 262 }
+    size: { w: 240, h: 22 }
+  - id: tai_n
+    label: "体　真の 1/3　前方に低く"
+    marker: none
+    align: left
+    at: { x: 424, y: 392 }
+    size: { w: 220, h: 22 }
+  - id: p_t
+    label: "上から見る（不等辺三角形になる）"
+    marker: none
+    align: left
+    at: { x: 660, y: 110 }
+    size: { w: 340, h: 24 }
+  - id: kenzan
+    label: ""
+    hatch: solid
+    at: { x: 812, y: 326 }
+    size: { w: 36, h: 12 }
+  - id: kenzan_n
+    label: "剣山"
+    marker: none
+    align: left
+    at: { x: 856, y: 322 }
+    size: { w: 60, h: 22 }
+  - id: bowl
+    label: ""
+    marker: circle
+    at: { x: 700, y: 200 }
+    size: { w: 260, h: 260 }
+  - id: proot
+    label: ""
+    marker: none
+    at: { x: 829, y: 331 }
+    size: { w: 2, h: 2 }
+  - id: pshin
+    label: "真"
+    marker: circle
+    at: { x: 810, y: 212 }
+    size: { w: 40, h: 36 }
+  - id: psoe
+    label: "副"
+    marker: circle
+    at: { x: 752, y: 266 }
+    size: { w: 40, h: 36 }
+  - id: ptai
+    label: "体"
+    marker: circle
+    at: { x: 888, y: 376 }
+    size: { w: 40, h: 36 }
+  - id: p_n
+    label: "手前から見て、奥側に真が来る"
+    marker: none
+    align: left
+    at: { x: 660, y: 470 }
+    size: { w: 300, h: 22 }
+  - id: p_n2
+    label: "3 本が等間隔・等長にならないようにする"
+    marker: none
+    align: left
+    at: { x: 660, y: 496 }
+    size: { w: 340, h: 22 }
+  - id: c_t
+    label: "三主枝（生花正風体）"
+    marker: none
+    align: left
+    at: { x: 1060, y: 40 }
+    size: { w: 300, h: 24 }
+  - id: th0
+    label: "役枝"
+    hatch: solid
+    at: { x: 1060, y: 70 }
+    size: { w: 90, h: 26 }
+  - id: th1
+    label: "長さの目安"
+    hatch: solid
+    at: { x: 1150, y: 70 }
+    size: { w: 190, h: 26 }
+  - id: th2
+    label: "向き"
+    hatch: solid
+    at: { x: 1340, y: 70 }
+    size: { w: 230, h: 26 }
+  - id: th3
+    label: "生ける順"
+    hatch: solid
+    at: { x: 1570, y: 70 }
+    size: { w: 100, h: 26 }
+  - id: tc0_0
+    label: "真"
+    at: { x: 1060, y: 96 }
+    size: { w: 90, h: 30 }
+  - id: tc0_1
+    label: "花器の 2.5〜3.5 倍"
+    at: { x: 1150, y: 96 }
+    size: { w: 190, h: 30 }
+  - id: tc0_2
+    label: "作品の芯。奥へ"
+    at: { x: 1340, y: 96 }
+    size: { w: 230, h: 30 }
+  - id: tc0_3
+    label: "1"
+    at: { x: 1570, y: 96 }
+    size: { w: 100, h: 30 }
+  - id: tc1_0
+    label: "副"
+    at: { x: 1060, y: 126 }
+    size: { w: 90, h: 30 }
+  - id: tc1_1
+    label: "真の 2/3"
+    at: { x: 1150, y: 126 }
+    size: { w: 190, h: 30 }
+  - id: tc1_2
+    label: "真の曲がりに沿い後方へ（奥行き）"
+    at: { x: 1340, y: 126 }
+    size: { w: 230, h: 30 }
+  - id: tc1_3
+    label: "2"
+    at: { x: 1570, y: 126 }
+    size: { w: 100, h: 30 }
+  - id: tc2_0
+    label: "体"
+    at: { x: 1060, y: 156 }
+    size: { w: 90, h: 30 }
+  - id: tc2_1
+    label: "真の 1/3"
+    at: { x: 1150, y: 156 }
+    size: { w: 190, h: 30 }
+  - id: tc2_2
+    label: "前方に低く"
+    at: { x: 1340, y: 156 }
+    size: { w: 230, h: 30 }
+  - id: tc2_3
+    label: "3"
+    at: { x: 1570, y: 156 }
+    size: { w: 100, h: 30 }
+  - id: c_n
+    label: "真 → 副 → 体・控 の順に生ける"
+    marker: none
+    align: left
+    at: { x: 1060, y: 194 }
+    size: { w: 340, h: 22 }
+  - id: r_t
+    label: "この図の決まり"
+    marker: none
+    align: left
+    at: { x: 1060, y: 230 }
+    size: { w: 200, h: 24 }
+  - id: rn0
+    label: "・三主枝は三才（天・地・人）になぞらえたもの。飾りではなく構造"
+    marker: none
+    align: left
+    at: { x: 1060, y: 258 }
+    size: { w: 560, h: 24 }
+  - id: rn1
+    label: "・上から見て不等辺三角形になるように置く。等間隔にしない"
+    marker: none
+    align: left
+    at: { x: 1060, y: 284 }
+    size: { w: 560, h: 24 }
+  - id: rn2
+    label: "・手前から見て、奥側に真が来る"
+    marker: none
+    align: left
+    at: { x: 1060, y: 310 }
+    size: { w: 560, h: 24 }
+  - id: rn3
+    label: "・長さは比で決まる。花器の大きさが変われば全部変わる"
+    marker: none
+    align: left
+    at: { x: 1060, y: 336 }
+    size: { w: 560, h: 24 }
+  - id: rn4
+    label: "・真 → 副 → 体・控 の順に生ける。順番を変えると寸法が決まらない"
+    marker: none
+    align: left
+    at: { x: 1060, y: 362 }
+    size: { w: 560, h: 24 }
+  - id: rn5
+    label: "・小原流の盛花は、口の広い浅い水盤に剣山を使う。客枝をほぼ 90 度に取る"
+    marker: none
+    align: left
+    at: { x: 1060, y: 388 }
+    size: { w: 560, h: 24 }
+  - id: rn6
+    label: "・流派で呼び名と角度が違う。図には流派を書く"
+    marker: none
+    align: left
+    at: { x: 1060, y: 414 }
+    size: { w: 560, h: 24 }
+  - id: leg
+    label: "太線 ＝ 役枝　　丸 ＝ 枝先　　斜線 ＝ 花器"
+    marker: none
+    align: left
+    at: { x: 1060, y: 452 }
+    size: { w: 560, h: 24 }
+edges:
+  - from: root
+    to: shin
+    weight: thick
+    curve: smooth
+    ends: { from: none, to: none }
+    via:
+      - { x: 340, y: 380 }
+      - { x: 310, y: 270 }
+  - from: root
+    to: soe
+    weight: thick
+    curve: smooth
+    ends: { from: none, to: none }
+    via:
+      - { x: 290, y: 400 }
+      - { x: 244, y: 340 }
+  - from: root
+    to: tai
+    weight: thick
+    curve: smooth
+    ends: { from: none, to: none }
+    via:
+      - { x: 356, y: 436 }
+  - from: proot
+    to: pshin
+    weight: thick
+    curve: smooth
+    ends: { from: none, to: none }
+  - from: proot
+    to: psoe
+    weight: thick
+    curve: smooth
+    ends: { from: none, to: none }
+  - from: proot
+    to: ptai
+    weight: thick
+    curve: smooth
+    ends: { from: none, to: none }
