@@ -296,3 +296,95 @@ nodes:
     assert.match(out, /<text [^>]*fill="#ffffff"[^>]*>1</, '塗りの上の文字が反転していない');
   });
 });
+
+/**
+ * **閉じた輪の中を塗る**（`edges[].hatch`。2026-09-15）。
+ *
+ * README が長く「まだ無いもの」に挙げていた**面の塗り**がこれ ——
+ * 「池の輪郭は描けるが、塗れない」。
+ *
+ * 閉じた形は `from` と `to` を同じ節にして `via` ＋ `close: true` で引ける
+ * と分かったので（見本 97）、**そこへ模様を入れるだけで塗れるようになった。**
+ *
+ * **閉じていない辺では効かない**（面が無いので塗りようがない）。
+ */
+describe('閉じた輪の中を塗る', () => {
+  const POND = `version: 1
+kind: placement
+arrows: false
+nodes:
+  - id: a
+    label: ""
+    marker: none
+    at: { x: 100, y: 100 }
+    size: { w: 8, h: 8 }
+edges:
+  - from: a
+    to: a
+    close: true
+    hatch: solid
+    ends: { from: none, to: none }
+    via:
+      - { x: 200, y: 60 }
+      - { x: 260, y: 140 }
+      - { x: 160, y: 200 }
+`;
+
+  it('**面が塗られる**', async () => {
+    const { layout } = await import('../src/layout.ts');
+    const { render } = await import('../src/render.ts');
+    const out = render(await layout(POND), 'light', 'safe', true);
+    assert.match(out, /<path d="M [^"]*" fill="#[0-9a-f]{6}" fill-opacity/, '面が塗られていない');
+  });
+
+  it('**輪郭は残る**（塗りだけにしない）', async () => {
+    const { layout } = await import('../src/layout.ts');
+    const { render } = await import('../src/render.ts');
+    const out = render(await layout(POND), 'light', 'safe', true);
+    assert.match(out, /<path d="M [^"]*" fill="none" stroke="/, '輪郭が消えた');
+  });
+
+  it('模様も入る（`lines` は輪で切り抜く）', async () => {
+    const { layout } = await import('../src/layout.ts');
+    const { render } = await import('../src/render.ts');
+    const out = render(await layout(POND.replace('hatch: solid', 'hatch: lines')), 'light', 'safe', true);
+    assert.match(out, /<clipPath id="face-[^"]*"><path d="M /, '輪で切り抜いていない');
+  });
+
+  it('**閉じていない辺では効かない**（面が無い）', async () => {
+    const { layout } = await import('../src/layout.ts');
+    const { render } = await import('../src/render.ts');
+    const out = render(await layout(POND.replace('    close: true\n', '')), 'light', 'safe', true);
+    assert.ok(!out.includes('fill-opacity'), '閉じていないのに塗った');
+  });
+
+  it('書かなければ、これまでどおり塗らない', async () => {
+    const { layout } = await import('../src/layout.ts');
+    const { render } = await import('../src/render.ts');
+    const out = render(await layout(POND.replace('    hatch: solid\n', '')), 'light', 'safe', true);
+    assert.ok(!out.includes('fill-opacity'));
+  });
+});
+
+describe('閉じていない辺の hatch を知らせる', () => {
+  it('**面が無いので、塗りようがない**', async () => {
+    const { validate } = await import('../src/validate.ts');
+    const found = validate(`version: 1
+kind: placement
+nodes:
+  - id: a
+    label: あ
+    at: { x: 0, y: 0 }
+    size: { w: 40, h: 20 }
+  - id: b
+    label: い
+    at: { x: 200, y: 0 }
+    size: { w: 40, h: 20 }
+edges:
+  - from: a
+    to: b
+    hatch: solid
+`);
+    assert.ok(found.some((f) => f.code === 'edge-hatch-ignored'), found.map((f) => f.code).join(','));
+  });
+});

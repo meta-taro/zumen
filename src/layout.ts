@@ -126,6 +126,13 @@ export interface PlacedEdge {
   curve: Curve;
   /** **輪を閉じるか**（`src/curve.ts`）。池・トラック・外形。 */
   close: boolean;
+  /**
+   * **閉じた輪の中の模様**（`src/hatch.ts`）。既定は無地。
+   *
+   * README が長く「まだ無いもの」に挙げていた**面の塗り**がこれ
+   * （「池の輪郭は描けるが、塗れない」）。2026-09-15。
+   */
+  hatch: Hatch;
   /** **階をまたぐ動線**（`src/floor.ts`）。階段・ES・EV。 */
   vertical: Vertical;
   /** **路線の色**（`src/palette.ts`）。`palette` に無ければ null。 */
@@ -728,6 +735,13 @@ interface EdgeInfo {
   curve: Curve;
   /** 輪を閉じるか（`src/curve.ts`）。 */
   close: boolean;
+  /**
+   * **閉じた輪の中の模様**（`src/hatch.ts`）。既定は無地。
+   *
+   * 池・敷地・区画のように、**輪郭ではなく面**を表す図で要る。
+   * **閉じていない辺では効かない**（面が無いので塗りようがない）。
+   */
+  hatch: Hatch;
   /** 階をまたぐ動線（`src/floor.ts`）。 */
   vertical: Vertical;
 }
@@ -778,6 +792,7 @@ function readEdges(diagram: ReturnType<typeof parse>): EdgeInfo[] {
       via: viaOf(edge.via),
       curve: curveOf(edge.curve),
       close: edge.close === true,
+      hatch: hatchOf(edge.hatch),
       vertical: verticalOf(edge.vertical),
     };
   });

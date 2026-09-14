@@ -145,6 +145,26 @@ export function drawHatch(
 }
 
 /**
+ * **閉じた輪の中を塗る**（`edges[].hatch`。2026-09-15）。
+ *
+ * 池・敷地・区画のように、**輪郭ではなく面**を表す図で要る。
+ * README が長く「まだ無いもの」に挙げていた**面の塗り**がこれ
+ * （「池の輪郭は描けるが、塗れない」）。
+ *
+ * やり方は矩形のときと同じ —— **外接矩形に模様を描いて、輪で切り抜く。**
+ * 輪は `close: true` の辺が引いた道そのものなので、
+ * **曲線でも折れ線でも同じように効く。**
+ */
+export function drawHatchIn(hatch: Hatch, path: string, box: Rect, stroke: string, id: string): string {
+  if (hatch === 'none' || box.w <= 2 || box.h <= 2) return '';
+  if (hatch === 'solid') return `<path d="${path}" fill="${stroke}" fill-opacity="0.82" stroke="none"/>`;
+  const body = drawHatch(hatch, box, stroke, 'box', id);
+  if (body === '') return '';
+  const name = `face-${slug(id)}`;
+  return `<clipPath id="${name}"><path d="${path}"/></clipPath><g clip-path="url(#${name})">${body}</g>`;
+}
+
+/**
  * **模様は印からはみ出さない。**
  *
  * 矩形はそのまま（切り抜きは要らない）。丸や菱形のときだけ、印の形で切る。

@@ -802,6 +802,27 @@ edges:
   「ここを通る」と書いたものを外したら、書いた意味が無い
 - **2 点しかなければ直線。** 丸める角が無い
 
+##### 閉じた輪の中を塗る（`edges[].hatch`）
+
+**閉じた辺には `hatch` が書ける**（2026-09-15）。池・敷地・区画のように、
+**輪郭ではなく面**を表す図で要る。値は節の `hatch` と同じ
+（`none`（既定）/ `solid` / `dots` / `lines` / `cross`）。
+
+```yaml
+edges:
+  - from: p0
+    to: p17
+    curve: smooth
+    close: true
+    hatch: dots
+    via:
+      - { x: 641, y: 344 }
+      - { x: 459, y: 396 }
+```
+
+**閉じていない辺では効かない**（面が無いので塗りようがない。`edge-hatch-ignored`）。
+塗りは**線より先に描く**ので、輪郭は模様の上に残る。
+
 ##### 閉じた形を描く（扇形・輪郭）
 
 **`from` と `to` を同じ節にして、`via` を並べ、`close: true`**（2026-09-14）。
@@ -1107,6 +1128,7 @@ edges:
 | `protocol` | | `label` が無いときに代わりに使う |
 | `ends` | | **端の記号**（`{ from, to }`。ER の多重度・UML の関係。§3.0.9） |
 | `line` | | **線種**（`solid` / `dashed` / `dotted` / `double`。§3.0.9） |
+| `hatch` | | **閉じた輪の中の模様**（`close: true` のときだけ効く） |
 | `weight` | | **太さ**（`thin` / `normal` / `thick`。§3.0.12） |
 | `via` | | **通り道**（`{ x, y }` の並び）。配置図でだけ効く（§3.0.15） |
 | `curve` | | **丸め方**（`none` / `smooth`）。§3.0.15 |
@@ -1413,6 +1435,7 @@ Mermaid も draw.io も、落ちたものを先頭のコメントに列挙する
 | `line-unknown` | 線種が `solid` / `dashed` / `dotted` / `double` か |
 | `text-overlap` | **文字どうしが重なっていないか**（配置図。**置いてみないと分からない**） |
 | `edge-self-open` | **自分自身への辺に `via` があるか**（無いと長さ 0 の線になる） |
+| `edge-hatch-ignored` | **閉じていない辺に `hatch` を書いていないか**（面が無い） |
 | `tag-hidden` | **符号が印に入りきって描かれるか**（配置図。同上） |
 | `weight-unknown` | 太さが `thin` / `normal` / `thick` か |
 

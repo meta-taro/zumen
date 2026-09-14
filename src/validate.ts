@@ -589,6 +589,20 @@ function checkEnds(doc: Document, add: Add, m: Messages, at: At): void {
         add('warning', 'close-ignored', m.closeIgnored(name), at(item.get('close', true)));
       }
     }
+    /**
+     * **閉じた輪の中の模様**（`edges[].hatch`）。
+     *
+     * 閉じていない辺には面が無いので、**書いても塗りようがない。**
+     * 黙って捨てると、書いた側は「効かない」理由が分からない。
+     */
+    const edgeHatch = item.get('hatch');
+    if (edgeHatch !== undefined && edgeHatch !== null && String(edgeHatch) !== 'none') {
+      if (!HATCHES.includes(String(edgeHatch) as (typeof HATCHES)[number])) {
+        add('warning', 'hatch-unknown', m.hatchUnknown(name, String(edgeHatch)), at(item.get('hatch', true)));
+      } else if (item.get('close') !== true) {
+        add('warning', 'edge-hatch-ignored', m.edgeHatchIgnored(name), at(item.get('hatch', true)));
+      }
+    }
     const via = item.get('via', true);
     if (via !== undefined && via !== null) {
       if (!placement) {

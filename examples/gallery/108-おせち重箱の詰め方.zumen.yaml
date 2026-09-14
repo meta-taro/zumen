@@ -1,0 +1,360 @@
+version: 1
+kind: placement
+arrows: false
+scale: { mm: 1 }
+title: おせち三段重の詰め方（6.5 寸・市松／段取り／升掛）
+# 1 px = 1 mm。**どこに何を詰めるか**の図。品数と型に決まりがある。
+#
+# ## 奇数で詰める
+#
+# **3・5・7。** 偶数は「割れる」「別れる」を連想させるので使わない。
+#
+# ## 隙間を残さない
+#
+# **固形のものから先に詰め**、隙間はカップ入り（栗きんとん・煮物）で埋める。
+# 詰まっていると崩れず、**味も移らない。**
+#
+# ## 描けない型がある
+#
+# 詰め方の型は 市松・段取り・升掛・七宝・末広の 5 つ。
+# **末広（扇）と七宝（円の重なり）は、面を塗った曲線**が要るので、
+# いまの zumen では描けない（README の「まだ無いもの」に書いてある）。
+# ここでは矩形で割れる 3 つを描いた。
+nodes:
+  - id: a_c
+    label: "一の重 —— 市松（9 品）"
+    marker: none
+    at: { x: 70, y: 114 }
+    size: { w: 235, h: 24 }
+  - id: a_s
+    label: "祝い肴・口取り"
+    marker: none
+    at: { x: 70, y: 140 }
+    size: { w: 255, h: 22 }
+  - id: a
+    label: ""
+    marker: box
+    at: { x: 70, y: 170 }
+    size: { w: 195, h: 195 }
+  - id: a0
+    label: "黒豆"
+    hatch: dots
+    at: { x: 70, y: 170 }
+    size: { w: 65, h: 65 }
+  - id: a1
+    label: "数の子"
+    hatch: none
+    at: { x: 135, y: 170 }
+    size: { w: 65, h: 65 }
+  - id: a2
+    label: "田作り"
+    hatch: lines
+    at: { x: 200, y: 170 }
+    size: { w: 65, h: 65 }
+  - id: a3
+    label: "かまぼこ"
+    hatch: none
+    at: { x: 70, y: 235 }
+    size: { w: 65, h: 65 }
+  - id: a4
+    label: "伊達巻"
+    hatch: dots
+    at: { x: 135, y: 235 }
+    size: { w: 65, h: 65 }
+  - id: a5
+    label: "栗きんとん"
+    hatch: solid
+    at: { x: 200, y: 235 }
+    size: { w: 65, h: 65 }
+  - id: a6
+    label: "昆布巻"
+    hatch: lines
+    at: { x: 70, y: 300 }
+    size: { w: 65, h: 65 }
+  - id: a7
+    label: "たたきごぼう"
+    hatch: none
+    at: { x: 135, y: 300 }
+    size: { w: 65, h: 65 }
+  - id: a8
+    label: "紅白なます"
+    hatch: dots
+    at: { x: 200, y: 300 }
+    size: { w: 65, h: 65 }
+  - id: b_c
+    label: "二の重 —— 段取り（5 品）"
+    marker: none
+    at: { x: 380, y: 114 }
+    size: { w: 235, h: 24 }
+  - id: b_s
+    label: "焼き物・酢の物"
+    marker: none
+    at: { x: 380, y: 140 }
+    size: { w: 255, h: 22 }
+  - id: b
+    label: ""
+    marker: box
+    at: { x: 380, y: 170 }
+    size: { w: 195, h: 195 }
+  - id: b0
+    label: "鰤の照り焼き"
+    hatch: lines
+    at: { x: 380, y: 170 }
+    size: { w: 195, h: 39 }
+  - id: b1
+    label: "海老の旨煮"
+    hatch: none
+    at: { x: 380, y: 209 }
+    size: { w: 195, h: 39 }
+  - id: b2
+    label: "鯛の焼き物"
+    hatch: lines
+    at: { x: 380, y: 248 }
+    size: { w: 195, h: 39 }
+  - id: b3
+    label: "酢だこ"
+    hatch: none
+    at: { x: 380, y: 287 }
+    size: { w: 195, h: 39 }
+  - id: b4
+    label: "菊花かぶ"
+    hatch: dots
+    at: { x: 380, y: 326 }
+    size: { w: 195, h: 39 }
+  - id: c_c
+    label: "三の重 —— 升掛（5 品）"
+    marker: none
+    at: { x: 690, y: 114 }
+    size: { w: 235, h: 24 }
+  - id: c_s
+    label: "煮物"
+    marker: none
+    at: { x: 690, y: 140 }
+    size: { w: 255, h: 22 }
+  - id: c
+    label: ""
+    marker: box
+    at: { x: 690, y: 170 }
+    size: { w: 195, h: 195 }
+  - id: c0
+    label: "里芋"
+    hatch: dots
+    at: { x: 690, y: 170 }
+    size: { w: 65, h: 195 }
+  - id: c1
+    label: "にんじん"
+    hatch: none
+    at: { x: 755, y: 170 }
+    size: { w: 65, h: 65 }
+  - id: c2
+    label: "ごぼう"
+    hatch: lines
+    at: { x: 755, y: 235 }
+    size: { w: 65, h: 65 }
+  - id: c3
+    label: "れんこん"
+    hatch: none
+    at: { x: 755, y: 300 }
+    size: { w: 65, h: 65 }
+  - id: c4
+    label: "しいたけ"
+    hatch: dots
+    at: { x: 820, y: 170 }
+    size: { w: 65, h: 195 }
+  - id: note_pat
+    label: "末広（扇）と七宝（円の重なり）は、面を塗った曲線が要るので、いまの zumen では描けない。"
+    marker: none
+    at: { x: 70, y: 385 }
+    size: { w: 700, h: 24 }
+  - id: tb_t
+    label: "品目と、その意味"
+    marker: none
+    at: { x: 1010, y: 60 }
+    size: { w: 400, h: 24 }
+  - id: th0
+    label: "重"
+    hatch: solid
+    at: { x: 1010, y: 92 }
+    size: { w: 100, h: 26 }
+  - id: th1
+    label: "品目"
+    hatch: solid
+    at: { x: 1110, y: 92 }
+    size: { w: 150, h: 26 }
+  - id: th2
+    label: "意味"
+    hatch: solid
+    at: { x: 1260, y: 92 }
+    size: { w: 330, h: 26 }
+  - id: tc0_0
+    label: "一の重"
+    at: { x: 1010, y: 118 }
+    size: { w: 100, h: 26 }
+  - id: tc0_1
+    label: "黒豆"
+    at: { x: 1110, y: 118 }
+    size: { w: 150, h: 26 }
+  - id: tc0_2
+    label: "まめに働き、まめに暮らす"
+    at: { x: 1260, y: 118 }
+    size: { w: 330, h: 26 }
+  - id: tc1_0
+    label: "一の重"
+    at: { x: 1010, y: 144 }
+    size: { w: 100, h: 26 }
+  - id: tc1_1
+    label: "数の子"
+    at: { x: 1110, y: 144 }
+    size: { w: 150, h: 26 }
+  - id: tc1_2
+    label: "子孫繁栄（卵の数）"
+    at: { x: 1260, y: 144 }
+    size: { w: 330, h: 26 }
+  - id: tc2_0
+    label: "一の重"
+    at: { x: 1010, y: 170 }
+    size: { w: 100, h: 26 }
+  - id: tc2_1
+    label: "田作り"
+    at: { x: 1110, y: 170 }
+    size: { w: 150, h: 26 }
+  - id: tc2_2
+    label: "豊作（片口鰯を田の肥料にした）"
+    at: { x: 1260, y: 170 }
+    size: { w: 330, h: 26 }
+  - id: tc3_0
+    label: "一の重"
+    at: { x: 1010, y: 196 }
+    size: { w: 100, h: 26 }
+  - id: tc3_1
+    label: "紅白かまぼこ"
+    at: { x: 1110, y: 196 }
+    size: { w: 150, h: 26 }
+  - id: tc3_2
+    label: "初日の出の形。紅は魔除け、白は清浄"
+    at: { x: 1260, y: 196 }
+    size: { w: 330, h: 26 }
+  - id: tc4_0
+    label: "一の重"
+    at: { x: 1010, y: 222 }
+    size: { w: 100, h: 26 }
+  - id: tc4_1
+    label: "伊達巻"
+    at: { x: 1110, y: 222 }
+    size: { w: 150, h: 26 }
+  - id: tc4_2
+    label: "巻物の形。学問が成るように"
+    at: { x: 1260, y: 222 }
+    size: { w: 330, h: 26 }
+  - id: tc5_0
+    label: "一の重"
+    at: { x: 1010, y: 248 }
+    size: { w: 100, h: 26 }
+  - id: tc5_1
+    label: "栗きんとん"
+    at: { x: 1110, y: 248 }
+    size: { w: 150, h: 26 }
+  - id: tc5_2
+    label: "金団＝金運"
+    at: { x: 1260, y: 248 }
+    size: { w: 330, h: 26 }
+  - id: tc6_0
+    label: "一の重"
+    at: { x: 1010, y: 274 }
+    size: { w: 100, h: 26 }
+  - id: tc6_1
+    label: "昆布巻"
+    at: { x: 1110, y: 274 }
+    size: { w: 150, h: 26 }
+  - id: tc6_2
+    label: "よろこぶ"
+    at: { x: 1260, y: 274 }
+    size: { w: 330, h: 26 }
+  - id: tc7_0
+    label: "二の重"
+    at: { x: 1010, y: 300 }
+    size: { w: 100, h: 26 }
+  - id: tc7_1
+    label: "海老"
+    at: { x: 1110, y: 300 }
+    size: { w: 150, h: 26 }
+  - id: tc7_2
+    label: "腰が曲がるまで長生き"
+    at: { x: 1260, y: 300 }
+    size: { w: 330, h: 26 }
+  - id: tc8_0
+    label: "二の重"
+    at: { x: 1010, y: 326 }
+    size: { w: 100, h: 26 }
+  - id: tc8_1
+    label: "鰤"
+    at: { x: 1110, y: 326 }
+    size: { w: 150, h: 26 }
+  - id: tc8_2
+    label: "出世魚"
+    at: { x: 1260, y: 326 }
+    size: { w: 330, h: 26 }
+  - id: tc9_0
+    label: "三の重"
+    at: { x: 1010, y: 352 }
+    size: { w: 100, h: 26 }
+  - id: tc9_1
+    label: "れんこん"
+    at: { x: 1110, y: 352 }
+    size: { w: 150, h: 26 }
+  - id: tc9_2
+    label: "穴から先が見通せる"
+    at: { x: 1260, y: 352 }
+    size: { w: 330, h: 26 }
+  - id: tc10_0
+    label: "三の重"
+    at: { x: 1010, y: 378 }
+    size: { w: 100, h: 26 }
+  - id: tc10_1
+    label: "里芋"
+    at: { x: 1110, y: 378 }
+    size: { w: 150, h: 26 }
+  - id: tc10_2
+    label: "小芋がたくさん付く"
+    at: { x: 1260, y: 378 }
+    size: { w: 330, h: 26 }
+  - id: r_t
+    label: "詰め方の決まり"
+    marker: none
+    at: { x: 1010, y: 420 }
+    size: { w: 300, h: 24 }
+  - id: n0
+    label: "・品数は 3・5・7 の奇数。 偶数は「割れる」「別れる」を連想させる。"
+    marker: none
+    at: { x: 1010, y: 448 }
+    size: { w: 600, h: 24 }
+  - id: n1
+    label: "・固形のものから先に詰める。 隙間はカップ入り（栗きんとん・煮物）で埋める。"
+    marker: none
+    at: { x: 1010, y: 474 }
+    size: { w: 600, h: 24 }
+  - id: n2
+    label: "・詰まっていると崩れず、味も移らない。 隙間を残さない。"
+    marker: none
+    at: { x: 1010, y: 500 }
+    size: { w: 600, h: 24 }
+  - id: n3
+    label: "・三段重は 一の重＝祝い肴・口取り、二の重＝焼き物・酢の物、三の重＝煮物。"
+    marker: none
+    at: { x: 1010, y: 526 }
+    size: { w: 600, h: 24 }
+  - id: n4
+    label: "・重ねるのは「めでたいことが積み重なるように」という縁起。"
+    marker: none
+    at: { x: 1010, y: 552 }
+    size: { w: 600, h: 24 }
+  - id: n5
+    label: "・詰め方の型は 市松・段取り・升掛・七宝・末広。末広と七宝は曲線が要る。"
+    marker: none
+    at: { x: 1010, y: 578 }
+    size: { w: 600, h: 24 }
+  - id: n6
+    label: "・仕切りと葉らんで、味と香りを分ける。"
+    marker: none
+    at: { x: 1010, y: 604 }
+    size: { w: 600, h: 24 }

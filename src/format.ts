@@ -47,6 +47,8 @@ export interface Edge {
   via?: unknown;
   curve?: unknown;
   close?: unknown;
+  /** 閉じた輪の中の模様（`src/hatch.ts`）。**閉じていない辺では効かない。** */
+  hatch?: unknown;
   vertical?: unknown;
 }
 
@@ -95,6 +97,8 @@ export class Diagram {
       if (curve !== undefined && curve !== null) edge.curve = curve;
       const close = item.get('close');
       if (close !== undefined && close !== null) edge.close = close;
+      const hatch = item.get('hatch');
+      if (hatch !== undefined && hatch !== null) edge.hatch = hatch;
       const vertical = item.get('vertical');
       if (vertical !== undefined && vertical !== null) edge.vertical = vertical;
       return edge;

@@ -28,7 +28,7 @@ import { drawDimensions, drawGrid, drawNorth } from './dimensions.ts';
 import type { Frame, Ink } from './dimensions.ts';
 import { hasGrid } from './grid.ts';
 import { drawEnd, hasEnds } from './ends.ts';
-import { drawHatch } from './hatch.ts';
+import { drawHatch, drawHatchIn } from './hatch.ts';
 import { pathOf } from './curve.ts';
 import { laysDown } from './write.ts';
 import { DOUBLE_GAP, dashOf, doubled } from './line.ts';
@@ -623,13 +623,23 @@ function renderEdge(
       // 池の輪郭に矢印が付くと、水が一方向へ流れているように読める。
       const head = arrows && !edge.close && !hasEnds(edge.ends) ? ' marker-end="url(#arrow)"' : '';
       const stroke = edge.color ?? palette.edge.stroke;
+      /**
+       * **閉じた輪の中を塗る**（`edges[].hatch`）。
+       *
+       * 線より先に描く —— 後から描くと、模様が輪郭に乗る。
+       */
+      const face =
+        edge.close && edge.hatch !== 'none' && edge.points.length > 2
+          ? drawHatchIn(edge.hatch, path, boundsOf(edge.points), edge.color ?? palette.edge.stroke, edge.id)
+          : '';
       // **二重線は、同じ道を 2 回描く**（`src/line.ts`）。
       // 太い線の上に地の色の細い線を重ねると、線が 2 本に見える。
       // 平行線を計算し直さないので、折れ線でも曲線でも同じやり方で効く。
       if (!doubled(edge.line)) {
-        return [`<path d="${path}" fill="none" stroke="${stroke}" stroke-width="${width}"${round}${dash}${head}/>`];
+        return [face, `<path d="${path}" fill="none" stroke="${stroke}" stroke-width="${width}"${round}${dash}${head}/>`];
       }
       return [
+        face,
         `<path d="${path}" fill="none" stroke="${stroke}" stroke-width="${n(width + DOUBLE_GAP * 2)}"${round}${head}/>`,
         `<path d="${path}" fill="none" stroke="${palette.paper}" stroke-width="${n(width)}"${round}/>`,
       ];
@@ -644,6 +654,15 @@ function renderEdge(
     label,
     '</g>',
   ].join('');
+}
+
+/** 点列の外接矩形（閉じた輪の中を塗るのに使う）。 */
+function boundsOf(points: { x: number; y: number }[]): { x: number; y: number; w: number; h: number } {
+  const xs = points.map((p) => p.x);
+  const ys = points.map((p) => p.y);
+  const x = Math.min(...xs);
+  const y = Math.min(...ys);
+  return { x, y, w: Math.max(...xs) - x, h: Math.max(...ys) - y };
 }
 
 /**
