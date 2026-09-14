@@ -215,10 +215,10 @@ const ja = {
     specDesc:
       '図の形式・書ける type と appearance の語・守る規則を返す。図を書く前にこれを読むこと。読まずに書くと当て推量になる。',
     listTitle: '図を探す',
-    listDesc: 'その下にある図（*.zumen.yaml）の道を返す。',
+    listDesc: 'その下にある図（*.zumen.yaml）の道を返す。**まず既にある図を見ること** —— 同じ図が既にあるなら、新しく作らずにそれを直す（id を変えると人の手直しが外れる）。返るのは道だけなので、中身は zumen_read で読む。',
     listDir: '探し始める場所',
     readTitle: '図を読む',
-    readDesc: '正本をそのまま返す。',
+    readDesc: '正本（*.zumen.yaml）をそのまま返す。**直す前に必ず読むこと** —— 中身を知らずに書き換えると、人が手で入れた pins や、知らないキーを落とす。書き換えるときは zumen_propose へ渡す（直接ファイルを書く口は開いていない）。',
     readPath: '図の道',
     pinsTitle: '人が手で決めたこと',
     pinsDesc:
@@ -651,10 +651,10 @@ const en: Catalog = {
     specDesc:
       'Returns the format, the type and appearance words you may use, and the rules to follow. Read this before writing a diagram. Writing without it is guesswork.',
     listTitle: 'Find diagrams',
-    listDesc: 'Returns the paths of diagrams (*.zumen.yaml) underneath.',
+    listDesc: 'Returns the paths of diagrams (*.zumen.yaml) underneath. **Look at what already exists first** — if the diagram is already there, edit it rather than creating a new one (changing ids detaches a person\'s edits). Only paths come back; read the contents with zumen_read.',
     listDir: 'Where to start looking',
     readTitle: 'Read a diagram',
-    readDesc: 'Returns the source of truth as it is.',
+    readDesc: 'Returns the source (*.zumen.yaml) verbatim. **Always read before changing it** — rewriting without knowing the contents drops the pins a person added and any keys you do not recognise. Pass changes through zumen_propose; there is no tool that writes a file directly.',
     readPath: 'Path to the diagram',
     pinsTitle: 'What a person decided by hand',
     pinsDesc:

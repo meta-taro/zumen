@@ -1,0 +1,125 @@
+/**
+ * **MCP サーバ**（`src/mcp.ts`）。**エージェントの入口。**
+ *
+ * ## なぜ要るか
+ *
+ * 2026-09-14 に気づいた —— **`src/mcp.ts` はどのテストからも読まれておらず、
+ * カバレッジの表にすら載っていなかった。**
+ * `pnpm coverage` が 98.6% と言っている横で、
+ * **エージェントが実際に叩く口だけが、一度も動かされていなかった。**
+ *
+ * 中身の判断は `src/tools.ts` にあり、そちらは測れている。
+ * ここで見たいのは**口の形** —— 道具が登録されているか、
+ * 呼んだら結果が返るか、開けていない口が開いていないか。
+ *
+ * ## やり方
+ *
+ * サーバを実際に立てて、**メモリ上の経路で**話す（外部プロセスもポートも使わない）。
+ */
+import assert from 'node:assert/strict';
+import { describe, it } from 'node:test';
+import { readFileSync } from 'node:fs';
+
+import { Client } from '@modelcontextprotocol/sdk/client/index.js';
+import { InMemoryTransport } from '@modelcontextprotocol/sdk/inMemory.js';
+
+import { buildServer } from '../src/mcp.ts';
+
+async function connect(): Promise<Client> {
+  const [clientSide, serverSide] = InMemoryTransport.createLinkedPair();
+  const client = new Client({ name: 'test', version: '0' });
+  await Promise.all([buildServer().connect(serverSide), client.connect(clientSide)]);
+  return client;
+}
+
+/** 返ってきた本文（道具はすべて文字列で返す）。 */
+function body(result: unknown): string {
+  const content = (result as { content: { type: string; text: string }[] }).content;
+  assert.ok(Array.isArray(content) && content.length > 0, '中身が空');
+  return content.map((part) => part.text).join('\n');
+}
+
+describe('MCP の口', () => {
+  it('**道具が並んでいる**（エージェントが最初に見るもの）', async () => {
+    const client = await connect();
+    const { tools } = await client.listTools();
+    const names = tools.map((tool) => tool.name).sort();
+    assert.deepEqual(names, [
+      'zumen_about',
+      'zumen_create',
+      'zumen_export',
+      'zumen_inspect',
+      'zumen_list',
+      'zumen_pins',
+      'zumen_propose',
+      'zumen_read',
+      'zumen_spec',
+    ]);
+    await client.close();
+  });
+
+  it('**どの道具にも説明がある**（名前だけでは使えない）', async () => {
+    const client = await connect();
+    const { tools } = await client.listTools();
+    for (const tool of tools) {
+      assert.ok((tool.description ?? '').length > 40, `${tool.name} の説明が短い`);
+    }
+    await client.close();
+  });
+
+  it('`zumen_spec` が書き方を返す', async () => {
+    const client = await connect();
+    const out = JSON.parse(body(await client.callTool({ name: 'zumen_spec', arguments: {} })));
+    assert.equal(out.version, 1);
+    assert.match(out.shape, /nodes:/);
+    assert.ok(out.rules.length > 10);
+    await client.close();
+  });
+
+  it('**`zumen_inspect` が、実物の見本を測れる**', async () => {
+    const client = await connect();
+    const source = readFileSync(new URL('../examples/gallery/25-路線図.zumen.yaml', import.meta.url), 'utf8');
+    const out = JSON.parse(body(await client.callTool({ name: 'zumen_inspect', arguments: { source } })));
+    assert.equal(out.readable, true);
+    assert.equal(out.kind, 'placement');
+    assert.ok(out.nodes > 0);
+    assert.deepEqual(out.overlappingText, []);
+    await client.close();
+  });
+
+  it('`zumen_export` が SVG を返す', async () => {
+    const client = await connect();
+    const out = body(
+      await client.callTool({
+        name: 'zumen_export',
+        arguments: { kind: 'svg', source: 'version: 1\nnodes:\n  - id: a\n    label: あ\n' },
+      }),
+    );
+    assert.match(out, /^<svg /);
+    await client.close();
+  });
+
+  it('**中身も道も無ければ、黙って空を返さない**', async () => {
+    const client = await connect();
+    const result = await client.callTool({ name: 'zumen_inspect', arguments: {} });
+    assert.equal((result as { isError?: boolean }).isError, true, 'エラーにせず通してしまった');
+    await client.close();
+  });
+
+  it('**開けていない口は、無い**（競合の決着・pins の書き換え）', async () => {
+    const client = await connect();
+    const { tools } = await client.listTools();
+    const names = tools.map((tool) => tool.name);
+    for (const forbidden of ['zumen_resolve', 'zumen_pin', 'zumen_write', 'zumen_review']) {
+      assert.ok(!names.includes(forbidden), `${forbidden} が開いている`);
+    }
+    await client.close();
+  });
+
+  it('`zumen_about` が、この道具の説明を返す', async () => {
+    const client = await connect();
+    const out = JSON.parse(body(await client.callTool({ name: 'zumen_about', arguments: {} })));
+    assert.ok(typeof out === 'object' && out !== null);
+    await client.close();
+  });
+});
