@@ -32,11 +32,11 @@ AI pass, nothing else matters.
 Concretely: what a person pins lives in a separate `pins:` block that the AI is not
 allowed to write. Regeneration rewrites `nodes:` and `edges:`; it cannot touch `pins:`.
 Measured over 10 real AI round trips, **10/10 kept every human edit** — and a pin
-survives a regeneration in **103/103 of the example drawings**, whatever their shape.
+survives a regeneration in **104/104 of the example drawings**, whatever their shape.
 
 ## What it looks like
 
-103 example drawings, all generated from the YAML sources in
+104 example drawings, all generated from the YAML sources in
 [`examples/gallery/`](examples/gallery/):
 
 **[→ Browse the gallery](https://meta-taro.github.io/zumen/)**

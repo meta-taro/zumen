@@ -1,0 +1,372 @@
+version: 1
+kind: placement
+arrows: false
+title: 牛枝肉の部分肉分割図（JMGA の 13 部位）
+# **書く位置が体の位置**（歯式・査定図・ヘアのブロッキングと同じ型）。
+#
+# ## 目分量では割らない
+#
+# **境目は骨の位置で決まっている。** 例えばリブロースとサーロインの境は
+# 最後肋骨のところ。**規格で決まっているから、どこで買っても同じものが届く。**
+#
+# ## ヒレはサーロインの中に描く
+#
+# **ヒレはサーロインの内側**（背骨の下）にある。
+# 側面図では重なるので、**サーロインの中へ入れて**描いた ——
+# 入れ子なので `straddles`（はみ出した重なり）にはならない。
+#
+# ## 歩留まりは書かない
+#
+# 個体と分割のしかたで変わる。**数字が独り歩きするので、この図には載せない。**
+nodes:
+  - id: cap
+    label: "枝肉（半丸・側面。左が頭、上が背）"
+    marker: none
+    at: { x: 70, y: 116 }
+    size: { w: 340, h: 24 }
+  - id: neck
+    label: "ネック"
+    hatch: none
+    at: { x: 70, y: 150 }
+    size: { w: 88, h: 90 }
+  - id: kata
+    label: "かた"
+    hatch: none
+    at: { x: 158, y: 150 }
+    size: { w: 120, h: 90 }
+  - id: kataro
+    label: "かたロース"
+    hatch: lines
+    at: { x: 278, y: 150 }
+    size: { w: 150, h: 90 }
+  - id: ribro
+    label: "リブロース"
+    hatch: lines
+    at: { x: 428, y: 150 }
+    size: { w: 140, h: 90 }
+  - id: sirloin
+    label: "サーロイン"
+    hatch: lines
+    at: { x: 568, y: 150 }
+    size: { w: 140, h: 90 }
+  - id: ranichi
+    label: "らんいち"
+    hatch: none
+    at: { x: 708, y: 150 }
+    size: { w: 130, h: 90 }
+  - id: sune_f
+    label: "すね"
+    hatch: none
+    at: { x: 70, y: 240 }
+    size: { w: 88, h: 90 }
+  - id: katabara
+    label: "かたばら"
+    hatch: dots
+    at: { x: 158, y: 240 }
+    size: { w: 190, h: 90 }
+  - id: tomobara
+    label: "ともばら"
+    hatch: dots
+    at: { x: 348, y: 240 }
+    size: { w: 220, h: 90 }
+  - id: uchimomo
+    label: "うちもも"
+    hatch: none
+    at: { x: 568, y: 240 }
+    size: { w: 140, h: 90 }
+  - id: sune_r
+    label: "すね"
+    hatch: none
+    at: { x: 708, y: 240 }
+    size: { w: 130, h: 90 }
+  - id: shintama
+    label: "しんたま"
+    at: { x: 568, y: 330 }
+    size: { w: 70, h: 70 }
+  - id: sotomomo
+    label: "そともも"
+    at: { x: 638, y: 330 }
+    size: { w: 200, h: 70 }
+  - id: hire
+    label: "ヒレ"
+    hatch: cross
+    at: { x: 568, y: 212 }
+    size: { w: 110, h: 28 }
+  - id: hire_n
+    label: "ヒレはサーロインの内側にある（背骨の下）"
+    marker: none
+    at: { x: 370, y: 406 }
+    size: { w: 320, h: 24 }
+  - id: head
+    label: "← 頭"
+    marker: none
+    at: { x: 10, y: 190 }
+    size: { w: 56, h: 24 }
+  - id: tail
+    label: "尻 →"
+    marker: none
+    at: { x: 842, y: 190 }
+    size: { w: 56, h: 24 }
+  - id: tb_t
+    label: "牛部分肉の 13 部位（JMGA の取引規格）"
+    marker: none
+    at: { x: 920, y: 60 }
+    size: { w: 440, h: 24 }
+  - id: th0
+    label: "部位"
+    hatch: solid
+    at: { x: 920, y: 92 }
+    size: { w: 130, h: 26 }
+  - id: th1
+    label: "大分類"
+    hatch: solid
+    at: { x: 1050, y: 92 }
+    size: { w: 110, h: 26 }
+  - id: th2
+    label: "肉質"
+    hatch: solid
+    at: { x: 1160, y: 92 }
+    size: { w: 180, h: 26 }
+  - id: th3
+    label: "向く料理"
+    hatch: solid
+    at: { x: 1340, y: 92 }
+    size: { w: 260, h: 26 }
+  - id: tc0_0
+    label: "ネック"
+    at: { x: 920, y: 118 }
+    size: { w: 130, h: 26 }
+  - id: tc0_1
+    label: "かた"
+    at: { x: 1050, y: 118 }
+    size: { w: 110, h: 26 }
+  - id: tc0_2
+    label: "筋が多い。よく動く"
+    at: { x: 1160, y: 118 }
+    size: { w: 180, h: 26 }
+  - id: tc0_3
+    label: "煮込み・挽き材"
+    at: { x: 1340, y: 118 }
+    size: { w: 260, h: 26 }
+  - id: tc1_0
+    label: "かた"
+    at: { x: 920, y: 144 }
+    size: { w: 130, h: 26 }
+  - id: tc1_1
+    label: "かた"
+    at: { x: 1050, y: 144 }
+    size: { w: 110, h: 26 }
+  - id: tc1_2
+    label: "赤身。うま味が濃い"
+    at: { x: 1160, y: 144 }
+    size: { w: 180, h: 26 }
+  - id: tc1_3
+    label: "煮込み・炒め"
+    at: { x: 1340, y: 144 }
+    size: { w: 260, h: 26 }
+  - id: tc2_0
+    label: "かたロース"
+    at: { x: 920, y: 170 }
+    size: { w: 130, h: 26 }
+  - id: tc2_1
+    label: "ロイン"
+    at: { x: 1050, y: 170 }
+    size: { w: 110, h: 26 }
+  - id: tc2_2
+    label: "ほどよく脂がある"
+    at: { x: 1160, y: 170 }
+    size: { w: 180, h: 26 }
+  - id: tc2_3
+    label: "すき焼き・しゃぶしゃぶ"
+    at: { x: 1340, y: 170 }
+    size: { w: 260, h: 26 }
+  - id: tc3_0
+    label: "かたばら"
+    at: { x: 920, y: 196 }
+    size: { w: 130, h: 26 }
+  - id: tc3_1
+    label: "ばら"
+    at: { x: 1050, y: 196 }
+    size: { w: 110, h: 26 }
+  - id: tc3_2
+    label: "脂と赤身が層になる"
+    at: { x: 1160, y: 196 }
+    size: { w: 180, h: 26 }
+  - id: tc3_3
+    label: "煮込み・カレー"
+    at: { x: 1340, y: 196 }
+    size: { w: 260, h: 26 }
+  - id: tc4_0
+    label: "リブロース"
+    at: { x: 920, y: 222 }
+    size: { w: 130, h: 26 }
+  - id: tc4_1
+    label: "ロイン"
+    at: { x: 1050, y: 222 }
+    size: { w: 110, h: 26 }
+  - id: tc4_2
+    label: "霜降りが入りやすい"
+    at: { x: 1160, y: 222 }
+    size: { w: 180, h: 26 }
+  - id: tc4_3
+    label: "ステーキ・ローストビーフ"
+    at: { x: 1340, y: 222 }
+    size: { w: 260, h: 26 }
+  - id: tc5_0
+    label: "サーロイン"
+    at: { x: 920, y: 248 }
+    size: { w: 130, h: 26 }
+  - id: tc5_1
+    label: "ロイン"
+    at: { x: 1050, y: 248 }
+    size: { w: 110, h: 26 }
+  - id: tc5_2
+    label: "きめが細かく柔らかい"
+    at: { x: 1160, y: 248 }
+    size: { w: 180, h: 26 }
+  - id: tc5_3
+    label: "ステーキ"
+    at: { x: 1340, y: 248 }
+    size: { w: 260, h: 26 }
+  - id: tc6_0
+    label: "ヒレ"
+    at: { x: 920, y: 274 }
+    size: { w: 130, h: 26 }
+  - id: tc6_1
+    label: "ロイン"
+    at: { x: 1050, y: 274 }
+    size: { w: 110, h: 26 }
+  - id: tc6_2
+    label: "いちばん柔らかい"
+    at: { x: 1160, y: 274 }
+    size: { w: 180, h: 26 }
+  - id: tc6_3
+    label: "ステーキ・カツ"
+    at: { x: 1340, y: 274 }
+    size: { w: 260, h: 26 }
+  - id: tc7_0
+    label: "ともばら"
+    at: { x: 920, y: 300 }
+    size: { w: 130, h: 26 }
+  - id: tc7_1
+    label: "ばら"
+    at: { x: 1050, y: 300 }
+    size: { w: 110, h: 26 }
+  - id: tc7_2
+    label: "脂が多く、こくがある"
+    at: { x: 1160, y: 300 }
+    size: { w: 180, h: 26 }
+  - id: tc7_3
+    label: "焼肉（カルビ）・煮込み"
+    at: { x: 1340, y: 300 }
+    size: { w: 260, h: 26 }
+  - id: tc8_0
+    label: "うちもも"
+    at: { x: 920, y: 326 }
+    size: { w: 130, h: 26 }
+  - id: tc8_1
+    label: "もも"
+    at: { x: 1050, y: 326 }
+    size: { w: 110, h: 26 }
+  - id: tc8_2
+    label: "赤身でいちばん大きい"
+    at: { x: 1160, y: 326 }
+    size: { w: 180, h: 26 }
+  - id: tc8_3
+    label: "ローストビーフ・焼肉"
+    at: { x: 1340, y: 326 }
+    size: { w: 260, h: 26 }
+  - id: tc9_0
+    label: "しんたま"
+    at: { x: 920, y: 352 }
+    size: { w: 130, h: 26 }
+  - id: tc9_1
+    label: "もも"
+    at: { x: 1050, y: 352 }
+    size: { w: 110, h: 26 }
+  - id: tc9_2
+    label: "きめが細かい赤身"
+    at: { x: 1160, y: 352 }
+    size: { w: 180, h: 26 }
+  - id: tc9_3
+    label: "ステーキ・たたき"
+    at: { x: 1340, y: 352 }
+    size: { w: 260, h: 26 }
+  - id: tc10_0
+    label: "らんいち"
+    at: { x: 920, y: 378 }
+    size: { w: 130, h: 26 }
+  - id: tc10_1
+    label: "もも"
+    at: { x: 1050, y: 378 }
+    size: { w: 110, h: 26 }
+  - id: tc10_2
+    label: "赤身だが柔らかい"
+    at: { x: 1160, y: 378 }
+    size: { w: 180, h: 26 }
+  - id: tc10_3
+    label: "ステーキ・ローストビーフ"
+    at: { x: 1340, y: 378 }
+    size: { w: 260, h: 26 }
+  - id: tc11_0
+    label: "そともも"
+    at: { x: 920, y: 404 }
+    size: { w: 130, h: 26 }
+  - id: tc11_1
+    label: "もも"
+    at: { x: 1050, y: 404 }
+    size: { w: 110, h: 26 }
+  - id: tc11_2
+    label: "よく動く。硬め"
+    at: { x: 1160, y: 404 }
+    size: { w: 180, h: 26 }
+  - id: tc11_3
+    label: "煮込み・薄切り"
+    at: { x: 1340, y: 404 }
+    size: { w: 260, h: 26 }
+  - id: tc12_0
+    label: "すね"
+    at: { x: 920, y: 430 }
+    size: { w: 130, h: 26 }
+  - id: tc12_1
+    label: "すね"
+    at: { x: 1050, y: 430 }
+    size: { w: 110, h: 26 }
+  - id: tc12_2
+    label: "筋が多く、ゼラチン質"
+    at: { x: 1160, y: 430 }
+    size: { w: 180, h: 26 }
+  - id: tc12_3
+    label: "煮込み・スープ"
+    at: { x: 1340, y: 430 }
+    size: { w: 260, h: 26 }
+  - id: n0
+    label: "・境目は骨の位置で決まっている（例：リブロースとサーロインの境は最後肋骨のところ）。"
+    marker: none
+    at: { x: 920, y: 472 }
+    size: { w: 640, h: 24 }
+  - id: n1
+    label: "・目分量では割らない。規格で決まっているから、どこで買っても同じものが届く。"
+    marker: none
+    at: { x: 920, y: 498 }
+    size: { w: 640, h: 24 }
+  - id: n2
+    label: "・ヒレはサーロインの内側（背骨の下）。図では重ねて描くしかない。"
+    marker: none
+    at: { x: 920, y: 524 }
+    size: { w: 640, h: 24 }
+  - id: n3
+    label: "・歩留まりは個体と分割のしかたで変わる。この図には書かない。"
+    marker: none
+    at: { x: 920, y: 550 }
+    size: { w: 640, h: 24 }
+  - id: n4
+    label: "・同じ「もも」でも、うちもも・しんたま・らんいち・そとももで硬さが違う。"
+    marker: none
+    at: { x: 920, y: 576 }
+    size: { w: 640, h: 24 }
+  - id: n5
+    label: "・硬い部位ほど動く部位。動く部位は筋が多く、煮込みに向く。"
+    marker: none
+    at: { x: 920, y: 602 }
+    size: { w: 640, h: 24 }
