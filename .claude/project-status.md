@@ -914,7 +914,7 @@
 - **Mermaid 書き出しの検証は手作業**（mermaid を依存に入れていないため）。
   記録は `experiments/d2/results/mermaid-validation.md`
 - **公開してよい（D17）。ただし急がない。**
-  `gh` の認証アカウント（`dokokade`）は `meta-taro/zumen` に対して
+  `gh` の認証アカウントは `meta-taro/zumen` に対して
   **push はできるが `admin` を持たない**ため、visibility を変えられない
   （API は権限不足を **404** で返す。存在しないのではない）。
   切り替えるなら**所有者アカウントのブラウザ**か、`gh auth switch` で所有者に切り替える。
