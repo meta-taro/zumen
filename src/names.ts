@@ -419,6 +419,38 @@ export function overlappingText(boxes: readonly Box[], plans: Map<string, Plan>)
   return found;
 }
 
+/** 符号の文字の大きさ（`src/render.ts` と揃える）。 */
+export const TAG_FONT = 10;
+/** 符号を箱の角から離す分（`src/layout.ts` の `TAG_INSET` と揃える）。 */
+const TAG_GAP = 8;
+
+/**
+ * **その箱に符号が入るか。**
+ *
+ * 入らない符号は描かない（伏図の小梁は幅 20px しかなく、`0×60` と切れて隣へはみ出した）。
+ * **丸の中の符号は真ん中**なので角の余白が要らず、矩形より少しだけ広く使える。
+ */
+export function tagFits(box: Box): boolean {
+  if (box.tag === null) return true;
+  const round = box.marker === 'circle' || box.marker === 'double' || box.marker === 'ellipse';
+  const room = round ? box.w - 4 : box.w - TAG_GAP;
+  return labelWidth(box.tag, TAG_FONT) <= room;
+}
+
+/**
+ * **書いたのに絵に出ない符号**（配置図だけ）。
+ *
+ * `hiddenLabels`（辺のラベル）と同じ扱い。**黙って落とすのが問題**で、
+ * 落とすこと自体は正しい。書いた側が気づけば、印を大きくするか符号を短くできる。
+ *
+ * 見本 92（防虫モニタリングの定点配置図）で、22px の印に `tag: LT-1` を書いたのに
+ * **番号が 1 つも出ていなかった。** 図としては「番号の無い丸が 14 個」で、
+ * 定点配置図として成立していない（2026-09-14）。
+ */
+export function hiddenTags(boxes: readonly Box[]): string[] {
+  return boxes.filter((box) => box.tag !== null && !tagFits(box)).map((box) => box.id);
+}
+
 /** 箱ぜんたいが占める矩形。**外へ出す先が図の外にならないか**を見るのに使う。 */
 export function extentOf(boxes: readonly Box[]): Rect | null {
   if (boxes.length === 0) return null;

@@ -372,3 +372,49 @@ nodes:
     assert.deepEqual(pinsOf('version: 1\nnodes:\n  - id: a\n'), {});
   });
 });
+
+/**
+ * **`shape` に書いていない語は、エージェントにとって存在しない。**
+ *
+ * `zumen_spec` はエージェントが最初に読むもので、**`shape` が書き方の見本**。
+ * 語彙の配列（`markers` など）を増やしても `shape` を直し忘れると、
+ * **足した語は誰にも使われない。**
+ *
+ * 2026-09-14 に実際に 2 か所ずれていた。
+ *
+ * - `line` に `double` を足したのに `shape` は `solid / dashed / dotted` のまま（D27）
+ * - `marker` の `ellipse` / `diamond` / `bar` が**一度も書かれていなかった**
+ *
+ * ここで見るのは**その欄の行**。文字列ぜんたいを探すと、
+ * `marker` の行にある `double` を `line` の語と数えてしまう（実際に見落とした）。
+ */
+describe('spec の見本と、語彙の一覧が食い違わない', () => {
+  const FIELDS = ['kinds', 'directions', 'markers', 'hatches', 'writes', 'curves', 'verticals', 'lines', 'weights', 'norths'] as const;
+  /** その欄が `shape` のどの行にあるか（欄の名前は単数形）。 */
+  const KEY: Record<string, string> = {
+    kinds: 'kind:',
+    directions: 'direction:',
+    markers: 'marker:',
+    hatches: 'hatch:',
+    writes: 'write:',
+    curves: 'curve:',
+    verticals: 'vertical:',
+    lines: 'line:',
+    weights: 'weight:',
+    norths: 'north:',
+  };
+
+  it('**閉じた語彙は、その欄の行に全部書いてある**', () => {
+    const found = spec();
+    const missing: string[] = [];
+    for (const field of FIELDS) {
+      const words = found[field] as readonly string[];
+      const row = found.shape.split('\n').find((line) => line.includes(KEY[field]!));
+      assert.ok(row !== undefined, `${field} の欄が shape に無い`);
+      for (const word of words) {
+        if (!row.includes(word)) missing.push(`${field}: ${word}`);
+      }
+    }
+    assert.deepEqual(missing, []);
+  });
+});

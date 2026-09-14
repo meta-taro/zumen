@@ -1,0 +1,505 @@
+version: 1
+kind: placement
+arrows: false
+north: up
+title: 食品工場 防虫モニタリング 定点配置図（HACCP / IPM）
+# 虫を殺す図ではなく、**どこで何匹捕れたかを毎月比べるための図**。
+#
+# ## 定点は動かさない
+#
+# **番号と位置が固定されていることが記法。** 置き場所を変えた瞬間、
+# 先月との比較ができなくなり、増えているのか減っているのかが言えなくなる。
+#
+# ## 中と外を分けて読む
+#
+# 外の定点に虫が居るのは当たり前。見るのは**外と中の差**と、**中の増え方**。
+# だから外の定点には措置値を置かない。
+#
+# ## 区画
+#
+# 汚染区（荷受・原料庫）→ 準清浄区（前処理）→ 清浄区（充填・包装）。
+# **虫は人と物と一緒に、この向きへ移動する。**
+nodes:
+  - id: cap
+    label: "平面図（ゾーニングと定点）"
+    marker: none
+    at: { x: 60, y: 44 }
+    size: { w: 320, h: 24 }
+  - id: z1
+    label: ""
+    hatch: cross
+    at: { x: 60, y: 80 }
+    size: { w: 300, h: 150 }
+  - id: z1_n
+    label: "荷受・原料庫（汚染区）"
+    marker: none
+    at: { x: 66, y: 84 }
+    size: { w: 220, h: 22 }
+  - id: z2
+    label: ""
+    hatch: lines
+    at: { x: 60, y: 230 }
+    size: { w: 300, h: 150 }
+  - id: z2_n
+    label: "前処理室（準清浄区）"
+    marker: none
+    at: { x: 66, y: 234 }
+    size: { w: 220, h: 22 }
+  - id: z3
+    label: ""
+    hatch: none
+    at: { x: 360, y: 80 }
+    size: { w: 340, h: 300 }
+  - id: z3_n
+    label: "充填・包装室（清浄区）"
+    marker: none
+    at: { x: 366, y: 84 }
+    size: { w: 220, h: 22 }
+  - id: z4
+    label: ""
+    hatch: dots
+    at: { x: 60, y: 380 }
+    size: { w: 640, h: 70 }
+  - id: z4_n
+    label: "外部（荷捌き場）"
+    marker: none
+    at: { x: 66, y: 384 }
+    size: { w: 220, h: 22 }
+  - id: door1
+    label: "搬入口"
+    hatch: solid
+    at: { x: 60, y: 368 }
+    size: { w: 80, h: 26 }
+  - id: door2
+    label: "前室"
+    hatch: dots
+    at: { x: 360, y: 230 }
+    size: { w: 60, h: 60 }
+  - id: line1
+    label: "充填ライン"
+    at: { x: 420, y: 120 }
+    size: { w: 250, h: 40 }
+  - id: line2
+    label: "包装ライン"
+    at: { x: 420, y: 200 }
+    size: { w: 250, h: 40 }
+  - id: line3
+    label: "製品保管"
+    at: { x: 420, y: 290 }
+    size: { w: 250, h: 40 }
+  - id: t_LT-1
+    label: ""
+    marker: circle
+    tag: LT-1
+    at: { x: 180, y: 100 }
+    size: { w: 34, h: 34 }
+  - id: t_LT-2
+    label: ""
+    marker: circle
+    tag: LT-2
+    at: { x: 470, y: 96 }
+    size: { w: 34, h: 34 }
+  - id: t_LT-3
+    label: ""
+    marker: circle
+    tag: LT-3
+    at: { x: 620, y: 96 }
+    size: { w: 34, h: 34 }
+  - id: t_LT-4
+    label: ""
+    marker: circle
+    tag: LT-4
+    at: { x: 180, y: 250 }
+    size: { w: 34, h: 34 }
+  - id: t_ST-1
+    label: ""
+    marker: diamond
+    tag: ST-1
+    at: { x: 70, y: 140 }
+    size: { w: 34, h: 34 }
+  - id: t_ST-2
+    label: ""
+    marker: diamond
+    tag: ST-2
+    at: { x: 330, y: 140 }
+    size: { w: 34, h: 34 }
+  - id: t_ST-3
+    label: ""
+    marker: diamond
+    tag: ST-3
+    at: { x: 70, y: 300 }
+    size: { w: 34, h: 34 }
+  - id: t_ST-4
+    label: ""
+    marker: diamond
+    tag: ST-4
+    at: { x: 330, y: 300 }
+    size: { w: 34, h: 34 }
+  - id: t_ST-5
+    label: ""
+    marker: diamond
+    tag: ST-5
+    at: { x: 370, y: 340 }
+    size: { w: 34, h: 34 }
+  - id: t_ST-6
+    label: ""
+    marker: diamond
+    tag: ST-6
+    at: { x: 670, y: 340 }
+    size: { w: 34, h: 34 }
+  - id: t_ST-7
+    label: ""
+    marker: diamond
+    tag: ST-7
+    at: { x: 110, y: 400 }
+    size: { w: 34, h: 34 }
+  - id: t_ST-8
+    label: ""
+    marker: diamond
+    tag: ST-8
+    at: { x: 600, y: 400 }
+    size: { w: 34, h: 34 }
+  - id: t_PT-1
+    label: "PT-1"
+    hatch: solid
+    at: { x: 250, y: 190 }
+    size: { w: 52, h: 24 }
+  - id: t_PT-2
+    label: "PT-2"
+    hatch: solid
+    at: { x: 540, y: 250 }
+    size: { w: 52, h: 24 }
+  - id: tb_t
+    label: "定点の記録（捕獲数）"
+    marker: none
+    at: { x: 740, y: 44 }
+    size: { w: 300, h: 24 }
+  - id: th0
+    label: "定点"
+    hatch: solid
+    at: { x: 740, y: 76 }
+    size: { w: 70, h: 26 }
+  - id: th1
+    label: "種類"
+    hatch: solid
+    at: { x: 810, y: 76 }
+    size: { w: 120, h: 26 }
+  - id: th2
+    label: "場所"
+    hatch: solid
+    at: { x: 930, y: 76 }
+    size: { w: 190, h: 26 }
+  - id: th3
+    label: "4月"
+    hatch: solid
+    at: { x: 1120, y: 76 }
+    size: { w: 60, h: 26 }
+  - id: th4
+    label: "5月"
+    hatch: solid
+    at: { x: 1180, y: 76 }
+    size: { w: 60, h: 26 }
+  - id: th5
+    label: "6月"
+    hatch: solid
+    at: { x: 1240, y: 76 }
+    size: { w: 60, h: 26 }
+  - id: th6
+    label: "措置値"
+    hatch: solid
+    at: { x: 1300, y: 76 }
+    size: { w: 80, h: 26 }
+  - id: tc0_0
+    label: "LT-1"
+    at: { x: 740, y: 102 }
+    size: { w: 70, h: 26 }
+  - id: tc0_1
+    label: "ライトトラップ"
+    at: { x: 810, y: 102 }
+    size: { w: 120, h: 26 }
+  - id: tc0_2
+    label: "原料庫 天井"
+    at: { x: 930, y: 102 }
+    size: { w: 190, h: 26 }
+  - id: tc0_3
+    label: "38"
+    at: { x: 1120, y: 102 }
+    size: { w: 60, h: 26 }
+  - id: tc0_4
+    label: "52"
+    at: { x: 1180, y: 102 }
+    size: { w: 60, h: 26 }
+  - id: tc0_5
+    label: "61"
+    at: { x: 1240, y: 102 }
+    size: { w: 60, h: 26 }
+  - id: tc0_6
+    label: "50"
+    at: { x: 1300, y: 102 }
+    size: { w: 80, h: 26 }
+  - id: tc1_0
+    label: "LT-2"
+    at: { x: 740, y: 128 }
+    size: { w: 70, h: 26 }
+  - id: tc1_1
+    label: "ライトトラップ"
+    at: { x: 810, y: 128 }
+    size: { w: 120, h: 26 }
+  - id: tc1_2
+    label: "充填室 入口側"
+    at: { x: 930, y: 128 }
+    size: { w: 190, h: 26 }
+  - id: tc1_3
+    label: "4"
+    at: { x: 1120, y: 128 }
+    size: { w: 60, h: 26 }
+  - id: tc1_4
+    label: "6"
+    at: { x: 1180, y: 128 }
+    size: { w: 60, h: 26 }
+  - id: tc1_5
+    label: "9"
+    at: { x: 1240, y: 128 }
+    size: { w: 60, h: 26 }
+  - id: tc1_6
+    label: "10"
+    at: { x: 1300, y: 128 }
+    size: { w: 80, h: 26 }
+  - id: tc2_0
+    label: "LT-3"
+    at: { x: 740, y: 154 }
+    size: { w: 70, h: 26 }
+  - id: tc2_1
+    label: "ライトトラップ"
+    at: { x: 810, y: 154 }
+    size: { w: 120, h: 26 }
+  - id: tc2_2
+    label: "包装室 奥"
+    at: { x: 930, y: 154 }
+    size: { w: 190, h: 26 }
+  - id: tc2_3
+    label: "2"
+    at: { x: 1120, y: 154 }
+    size: { w: 60, h: 26 }
+  - id: tc2_4
+    label: "3"
+    at: { x: 1180, y: 154 }
+    size: { w: 60, h: 26 }
+  - id: tc2_5
+    label: "2"
+    at: { x: 1240, y: 154 }
+    size: { w: 60, h: 26 }
+  - id: tc2_6
+    label: "10"
+    at: { x: 1300, y: 154 }
+    size: { w: 80, h: 26 }
+  - id: tc3_0
+    label: "LT-4"
+    at: { x: 740, y: 180 }
+    size: { w: 70, h: 26 }
+  - id: tc3_1
+    label: "ライトトラップ"
+    at: { x: 810, y: 180 }
+    size: { w: 120, h: 26 }
+  - id: tc3_2
+    label: "前処理室"
+    at: { x: 930, y: 180 }
+    size: { w: 190, h: 26 }
+  - id: tc3_3
+    label: "14"
+    at: { x: 1120, y: 180 }
+    size: { w: 60, h: 26 }
+  - id: tc3_4
+    label: "19"
+    at: { x: 1180, y: 180 }
+    size: { w: 60, h: 26 }
+  - id: tc3_5
+    label: "23"
+    at: { x: 1240, y: 180 }
+    size: { w: 60, h: 26 }
+  - id: tc3_6
+    label: "30"
+    at: { x: 1300, y: 180 }
+    size: { w: 80, h: 26 }
+  - id: tc4_0
+    label: "ST-1"
+    at: { x: 740, y: 206 }
+    size: { w: 70, h: 26 }
+  - id: tc4_1
+    label: "粘着トラップ"
+    at: { x: 810, y: 206 }
+    size: { w: 120, h: 26 }
+  - id: tc4_2
+    label: "原料庫 西壁"
+    at: { x: 930, y: 206 }
+    size: { w: 190, h: 26 }
+  - id: tc4_3
+    label: "6"
+    at: { x: 1120, y: 206 }
+    size: { w: 60, h: 26 }
+  - id: tc4_4
+    label: "9"
+    at: { x: 1180, y: 206 }
+    size: { w: 60, h: 26 }
+  - id: tc4_5
+    label: "11"
+    at: { x: 1240, y: 206 }
+    size: { w: 60, h: 26 }
+  - id: tc4_6
+    label: "15"
+    at: { x: 1300, y: 206 }
+    size: { w: 80, h: 26 }
+  - id: tc5_0
+    label: "ST-5"
+    at: { x: 740, y: 232 }
+    size: { w: 70, h: 26 }
+  - id: tc5_1
+    label: "粘着トラップ"
+    at: { x: 810, y: 232 }
+    size: { w: 120, h: 26 }
+  - id: tc5_2
+    label: "前室 外側"
+    at: { x: 930, y: 232 }
+    size: { w: 190, h: 26 }
+  - id: tc5_3
+    label: "21"
+    at: { x: 1120, y: 232 }
+    size: { w: 60, h: 26 }
+  - id: tc5_4
+    label: "34"
+    at: { x: 1180, y: 232 }
+    size: { w: 60, h: 26 }
+  - id: tc5_5
+    label: "47"
+    at: { x: 1240, y: 232 }
+    size: { w: 60, h: 26 }
+  - id: tc5_6
+    label: "30"
+    at: { x: 1300, y: 232 }
+    size: { w: 80, h: 26 }
+  - id: tc6_0
+    label: "ST-7"
+    at: { x: 740, y: 258 }
+    size: { w: 70, h: 26 }
+  - id: tc6_1
+    label: "粘着トラップ"
+    at: { x: 810, y: 258 }
+    size: { w: 120, h: 26 }
+  - id: tc6_2
+    label: "搬入口 外"
+    at: { x: 930, y: 258 }
+    size: { w: 190, h: 26 }
+  - id: tc6_3
+    label: "88"
+    at: { x: 1120, y: 258 }
+    size: { w: 60, h: 26 }
+  - id: tc6_4
+    label: "120"
+    at: { x: 1180, y: 258 }
+    size: { w: 60, h: 26 }
+  - id: tc6_5
+    label: "156"
+    at: { x: 1240, y: 258 }
+    size: { w: 60, h: 26 }
+  - id: tc6_6
+    label: "—"
+    at: { x: 1300, y: 258 }
+    size: { w: 80, h: 26 }
+  - id: tc7_0
+    label: "PT-1"
+    at: { x: 740, y: 284 }
+    size: { w: 70, h: 26 }
+  - id: tc7_1
+    label: "フェロモン"
+    at: { x: 810, y: 284 }
+    size: { w: 120, h: 26 }
+  - id: tc7_2
+    label: "前処理室 排水溝"
+    at: { x: 930, y: 284 }
+    size: { w: 190, h: 26 }
+  - id: tc7_3
+    label: "1"
+    at: { x: 1120, y: 284 }
+    size: { w: 60, h: 26 }
+  - id: tc7_4
+    label: "0"
+    at: { x: 1180, y: 284 }
+    size: { w: 60, h: 26 }
+  - id: tc7_5
+    label: "2"
+    at: { x: 1240, y: 284 }
+    size: { w: 60, h: 26 }
+  - id: tc7_6
+    label: "5"
+    at: { x: 1300, y: 284 }
+    size: { w: 80, h: 26 }
+  - id: tb_n
+    label: "ST-5 が 3 か月続けて措置値を超えている。前室の扉の閉まりと、外の照明を見る。"
+    marker: none
+    at: { x: 740, y: 318 }
+    size: { w: 640, h: 24 }
+  - id: lg_t
+    label: "定点の種類"
+    marker: none
+    at: { x: 740, y: 380 }
+    size: { w: 300, h: 24 }
+  - id: lm0
+    label: ""
+    marker: circle
+    at: { x: 748, y: 408 }
+    size: { w: 34, h: 34 }
+  - id: ld0
+    label: "ライトトラップ（LT）—— 紫外線で飛来虫を捕る"
+    marker: none
+    at: { x: 786, y: 408 }
+    size: { w: 420, h: 24 }
+  - id: lm1
+    label: ""
+    marker: diamond
+    at: { x: 748, y: 438 }
+    size: { w: 34, h: 34 }
+  - id: ld1
+    label: "粘着トラップ（ST）—— 歩行虫。壁沿いに置く"
+    marker: none
+    at: { x: 786, y: 438 }
+    size: { w: 420, h: 24 }
+  - id: lm2
+    label: "PT"
+    hatch: solid
+    at: { x: 740, y: 468 }
+    size: { w: 40, h: 24 }
+  - id: ld2
+    label: "フェロモントラップ（PT）—— 種を絞って捕る"
+    marker: none
+    at: { x: 786, y: 468 }
+    size: { w: 420, h: 24 }
+  - id: rl_t
+    label: "置き方の決まり（現場の理由つき）"
+    marker: none
+    at: { x: 740, y: 504 }
+    size: { w: 340, h: 24 }
+  - id: rl0
+    label: "・定点は動かさない。番号と位置が固定されているから、月どうしを比べられる"
+    marker: none
+    at: { x: 740, y: 532 }
+    size: { w: 660, h: 24 }
+  - id: rl1
+    label: "・ライトトラップを製品ラインの真上に置かない。捕まえた虫が落ちる"
+    marker: none
+    at: { x: 740, y: 558 }
+    size: { w: 660, h: 24 }
+  - id: rl2
+    label: "・ライトトラップを出入口から見える位置に置かない。外の虫を呼ぶ"
+    marker: none
+    at: { x: 740, y: 584 }
+    size: { w: 660, h: 24 }
+  - id: rl3
+    label: "・粘着トラップは壁沿い。歩行虫は壁に沿って動く"
+    marker: none
+    at: { x: 740, y: 610 }
+    size: { w: 660, h: 24 }
+  - id: rl4
+    label: "・外の定点（ST-7・ST-8）は措置値を持たない。外に虫が居るのは当たり前で、見るのは中との差"
+    marker: none
+    at: { x: 740, y: 636 }
+    size: { w: 660, h: 24 }

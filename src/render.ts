@@ -35,7 +35,7 @@ import { DOUBLE_GAP, dashOf, doubled } from './line.ts';
 import { roundedOf, widthOf } from './weight.ts';
 import { drawMarker } from './marker.ts';
 import { drawSymbol } from './symbol.ts';
-import { NAME_FONT, SUB_FONT, planNames } from './names.ts';
+import { NAME_FONT, SUB_FONT, planNames, tagFits } from './names.ts';
 import type { Plan } from './names.ts';
 import { drawRange, ringOf } from './range.ts';
 import { wallFits, wallWidth } from './wall.ts';
@@ -421,7 +421,9 @@ function renderNode(
 function nodeTag(box: Box, palette: Palette, style: Look, halo: string | null = null): string[] {
   if (box.tag === null) return [];
   // **符号も、入らないなら出さない。** 伏図の小梁は幅 20px しかない。
-  if (labelWidth(box.tag, 10) + TAG_INSET > box.w) return [];
+  // **判断は `src/names.ts` に置いてある** —— `inspect` と `validate` が
+  // 「出なかった符号」を知らせるので、ここと同じ物差しでないと嘘になる。
+  if (!tagFits(box)) return [];
   /**
    * **印の中の符号は、印の真ん中。**
    *

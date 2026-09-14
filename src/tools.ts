@@ -45,7 +45,7 @@ import { WRITES } from './write.ts';
 import { CURVES } from './curve.ts';
 import { VERTICALS } from './floor.ts';
 import { MARKERS } from './marker.ts';
-import { crowdedNames, extentOf, overlappingText, planNames } from './names.ts';
+import { crowdedNames, extentOf, hiddenTags, overlappingText, planNames } from './names.ts';
 import { OPENINGS, SIDES } from './openings.ts';
 import type { Kind } from './kind.ts';
 import { projection, smallestTextOf, PROJECTION_FLOOR, SMALLEST_TEXT } from './projection.ts';
@@ -232,6 +232,14 @@ export interface Inspection {
   /** **階の一覧**（`src/floor.ts`）。下から上へ。書かなければ空。 */
   floors: string[];
   /**
+   * **書いたのに絵に出ない符号**（配置図だけ）。
+   *
+   * `hiddenLabels`（辺のラベル）と同じ扱い。印が小さいと符号が入らない。
+   * **黙って落とすと、書いた側が気づけない** ——
+   * 印を大きくするか、符号を短くすれば出る（2026-09-14）。
+   */
+  hiddenTags: string[];
+  /**
    * **文字どうしが重なっている組**（配置図だけ）。合否ではなく観測値。
    *
    * `overlaps` は**箱**を数えるので、枠の中に節を入れた図では鳴りっぱなしになり、
@@ -301,6 +309,7 @@ export async function inspect(source: string): Promise<Inspection> {
       hiddenLabels: [],
       crowdedNames: [],
       floors: [],
+      hiddenTags: [],
       overlappingText: [],
       kind: 'structure',
       positionsInSource: false,
@@ -342,6 +351,7 @@ export async function inspect(source: string): Promise<Inspection> {
     crowdedNames:
       kindOf(source) === 'placement' ? crowdedNames(planNames(placed.boxes, extentOf(placed.boxes), placed.edges)) : [],
     floors: placed.floors,
+    hiddenTags: kindOf(source) === 'placement' ? hiddenTags(placed.boxes) : [],
     overlappingText:
       kindOf(source) === 'placement'
         ? overlappingText(placed.boxes, planNames(placed.boxes, extentOf(placed.boxes), placed.edges))

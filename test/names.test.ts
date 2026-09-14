@@ -453,3 +453,60 @@ describe('見本は、文字が重なっていない', () => {
     assert.deepEqual(piles, []);
   });
 });
+
+/**
+ * **入らない符号を、黙って落とさない**（`hiddenTags`）。
+ *
+ * 2026-09-14。防虫モニタリングの定点配置図（見本 92）で、
+ * 22px の印に `tag: LT-1` を書いたのに**番号が 1 つも出ていなかった。**
+ * 図としては「番号の無い丸が 14 個」で、**定点配置図として成立していない。**
+ *
+ * 落とすこと自体は正しい（伏図の小梁は幅 20px しかない）。
+ * **黙って落とすのが問題**で、`hiddenLabels` と同じ扱いにする ——
+ * 書いた側が気づけば、印を大きくするか符号を短くできる。
+ */
+describe('入らない符号', () => {
+  const DOTS = `version: 1
+kind: placement
+nodes:
+  - id: small
+    label: ""
+    marker: circle
+    tag: LT-1
+    at: { x: 40, y: 40 }
+    size: { w: 22, h: 22 }
+  - id: big
+    label: ""
+    marker: circle
+    tag: LT-2
+    at: { x: 140, y: 40 }
+    size: { w: 48, h: 48 }
+`;
+
+  it('**出ていない符号の id を返す**', async () => {
+    const out = await inspect(DOTS);
+    assert.deepEqual(out.hiddenTags, ['small']);
+  });
+
+  it('入る符号は返さない', async () => {
+    const out = await inspect(DOTS.replace('size: { w: 22, h: 22 }', 'size: { w: 34, h: 34 }'));
+    assert.deepEqual(out.hiddenTags, []);
+  });
+
+  it('構成図では見ない（符号は箱の大きさに合わせて置かれる）', async () => {
+    const out = await inspect(DOTS.replace('kind: placement\n', ''));
+    assert.deepEqual(out.hiddenTags, []);
+  });
+
+  it('**見本すべてで 0**', async () => {
+    const { readdirSync, readFileSync } = await import('node:fs');
+    const dir = new URL('../examples/gallery/', import.meta.url);
+    const gone: string[] = [];
+    for (const name of readdirSync(dir).filter((f) => f.endsWith('.zumen.yaml')).sort()) {
+      const out = await inspect(readFileSync(new URL(name, dir), 'utf8'));
+      for (const id of out.hiddenTags) gone.push(`${name}: ${id}`);
+    }
+    assert.deepEqual(gone, []);
+  });
+});
+

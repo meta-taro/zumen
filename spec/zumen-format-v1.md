@@ -1354,6 +1354,7 @@ Mermaid も draw.io も、落ちたものを先頭のコメントに列挙する
 | `ends-unknown` | 端の記号が `ENDS` の語か |
 | `line-unknown` | 線種が `solid` / `dashed` / `dotted` / `double` か |
 | `text-overlap` | **文字どうしが重なっていないか**（配置図。**置いてみないと分からない**） |
+| `tag-hidden` | **符号が印に入りきって描かれるか**（配置図。同上） |
 | `weight-unknown` | 太さが `thin` / `normal` / `thick` か |
 
 **どれも `error` にしない。** 弾くと、v1 の「捨てずに保つ」を壊す。

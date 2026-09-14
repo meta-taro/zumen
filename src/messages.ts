@@ -324,7 +324,8 @@ const ja = {
       '    group: <属する囲みの id。無所属なら書かない>',
       '    size: { w: <幅>, h: <高さ> }      # 構成図でも効く',
       '    radius: <px>                       # 範囲の円（作業半径・警戒区域）',
-      '    marker: <box（既定）| circle | double | none>  # 配置図での印。丸は駅・経穴・計器',
+      '    marker: <box（既定）| circle | double | ellipse | diamond | bar | none>  # 配置図での印',
+      '                                          # 丸は駅・経穴・計器。bar は帯（停車駅一覧）',
       '    hatch: <none（既定）| solid | dots | lines | cross>  # 材料と区域の模様',
       '    write: <across（既定）| down>       # 縦組み。駅名を縦に積む（ラテン文字は寝る）',
       '    floor: <floors の名前>               # どの階にあるか。位置は変えない',
@@ -347,12 +348,12 @@ const ja = {
       '    to: <ノードの id>',
       '    label: <省いてよい>',
       '    ends: { from: <ENDS から>, to: <ENDS から> }   # 端の記号（ER の多重度・UML の関係）',
-      '    line: <solid（既定）| dashed | dotted>        # 線種（UML の実現・依存、仮設）',
+      '    line: <solid（既定）| dashed | dotted | double>  # 線種（UML の実現・依存、仮設、婚姻）',
       '    weight: <thin | normal（既定）| thick>        # 線の太さ（路線図の路線）',
       '    via: [{ x: <左>, y: <上> }, ...]              # 線の通り道。kind: placement でだけ効く',
       '    curve: <none（既定）| smooth>                 # 通り道を丸める（道路・河川・園路）',
       '    close: <true なら輪を閉じる>                  # 池・トラック・外形の輪郭',
-      '    vertical: <stair | escalator | elevator>      # 階をまたぐ動線（JIS Z 8210）',
+      '    vertical: <none（既定）| stair | escalator | elevator>      # 階をまたぐ動線（JIS Z 8210）',
     ].join('\n'),
     /** **守らせたいこと。** 実測では毎回 pins を書いてきたので、明示する。 */
     rules: [
@@ -497,6 +498,8 @@ const ja = {
       `${target} の color が "${key}" ですが、palette にその鍵がありません。色は付きません。`,
     colorFaint: (key: string, value: string) =>
       `palette の "${key}"（${value}）が薄すぎます。地に沈んで線が消えます（非文字の下限は 3:1。ライトとダークの両方の地で見ています）。`,
+    tagHidden: (id: string) =>
+      `ノード "${id}" の tag は、印に入りきらないので描かれません。印を大きくするか、符号を短くしてください（消してはいません。書いたのに出ない状態を知らせています）。`,
     textOverlap: (a: string, b: string) =>
       `${a} と ${b} の文字が重なって描かれます。器の名前を器の真ん中に書くと、中の節の名前に乗ります（器の名前は端の欄へ出してください）。`,
     colorWithoutCode: (key: string) =>
@@ -738,7 +741,8 @@ const en: Catalog = {
       '    group: <id of the containing group. omit if none>',
       '    size: { w: <width>, h: <height> }   # applies to structure diagrams too',
       '    radius: <px>                         # range circle (crane reach, alarm zone)',
-      '    marker: <box (default) | circle | double | none>  # how it is marked on a plan',
+      '    marker: <box (default) | circle | double | ellipse | diamond | bar | none>  # how it is marked on a plan',
+      '                                          # circle for stations, acupoints, instruments; bar for a band',
       '    hatch: <none (default) | solid | dots | lines | cross>  # material / zone pattern',
       '    write: <across (default) | down>     # vertical setting: stack the glyphs (Latin is laid on its side)',
       '    floor: <a name from floors>          # which floor; does not move the box',
@@ -761,12 +765,12 @@ const en: Catalog = {
       '    to: <node id>',
       '    label: <optional>',
       '    ends: { from: <from ENDS>, to: <from ENDS> }   # end symbols (ER cardinality, UML)',
-      '    line: <solid (default) | dashed | dotted>      # line style (UML realization, temporary works)',
+      '    line: <solid (default) | dashed | dotted | double>  # line style (UML realization, temporary works, marriage)',
       '    weight: <thin | normal (default) | thick>      # line width (transit routes)',
       '    via: [{ x: <left>, y: <top> }, ...]            # waypoints; only with kind: placement',
       '    curve: <none (default) | smooth>               # round the waypoints (roads, rivers, paths)',
       '    close: <true closes the loop>                  # pond, running track, outline',
-      '    vertical: <stair | escalator | elevator>       # level change (JIS Z 8210)',
+      '    vertical: <none (default) | stair | escalator | elevator>   # level change (JIS Z 8210)',
     ].join('\n'),
     rules: [
       'Do not write pins. That section holds what a person decided by hand; anything you write there is dropped.',
@@ -896,6 +900,8 @@ const en: Catalog = {
       `${target} has color "${key}", but palette has no such key. No colour is applied.`,
     colorFaint: (key: string, value: string) =>
       `palette entry "${key}" (${value}) is too faint: the line sinks into the ground (3:1 is the floor for non-text; both the light and the dark ground are checked).`,
+    tagHidden: (id: string) =>
+      `The tag on node "${id}" does not fit its marker and is not drawn. Make the marker bigger or shorten the tag.`,
     textOverlap: (a: string, b: string) =>
       `The labels of ${a} and ${b} are drawn on top of each other. A container that holds children should not repeat its name in the middle — move it to an edge cell.`,
     colorWithoutCode: (key: string) =>
