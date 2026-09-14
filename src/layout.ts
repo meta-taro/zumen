@@ -504,6 +504,33 @@ export function groupEscapes(placed: Placed): string[] {
   return out;
 }
 
+/**
+ * **はみ出して重なっている組**（どちらも相手を含んでいない）。合否ではなく観測値。
+ *
+ * `overlaps` は**入れ子も数える**ので、配置図では鳴りっぱなしになる
+ * ―― 枠の中に節を入れる、区画の中に机を置く、盤の上に石を置く。
+ * **入れ子は意図であることがほとんど**で、見ても直すところが無い。
+ *
+ * **直すところがあるのは、どちらも相手を含んでいない重なり。**
+ * 冷蔵ケースと弁当什器が床の同じ場所を取っている、
+ * 消防車が立入禁止区域へはみ出している、注記が通路の上に乗っている ——
+ * 実際にこの形で**見本 10 枚に間違いが埋まっていた**（2026-09-14）。
+ *
+ * **ただし、わざと重ねる図もある。** 伏図の柱はスラブの上に立ち、
+ * 断面図の水抜管は壁を貫き、碁石は盤の線の上に置く。
+ * だから**合否ではなく観測値**にして、良し悪しは人が決める（`crossings` と同じ）。
+ */
+export function straddles(placed: Placed): [string, string][] {
+  const by = new Map(placed.boxes.map((box) => [box.id, box]));
+  return overlaps(placed).filter(([left, right]) => {
+    const a = by.get(left)!;
+    const b = by.get(right)!;
+    const inside = (x: Box, y: Box): boolean =>
+      x.x <= y.x && x.y <= y.y && x.x + x.w >= y.x + y.w && x.y + x.h >= y.y + y.h;
+    return !inside(a, b) && !inside(b, a);
+  });
+}
+
 /** 重なっている組を返す。合否ではなく観測値。 */
 export function overlaps(placed: Placed): [string, string][] {
   const found: [string, string][] = [];

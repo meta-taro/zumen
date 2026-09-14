@@ -510,3 +510,56 @@ nodes:
   });
 });
 
+/**
+ * **はみ出して重なっている箱**（`straddles`）。
+ *
+ * `overlaps` は**入れ子も数える**ので、配置図では鳴りっぱなしで誰も見なかった
+ * （見本ぜんたいで 400 組を超える）。**入れ子は意図であることがほとんど。**
+ *
+ * **直すところがあるのは、どちらも相手を含んでいない重なり。**
+ * 入れて回したら、**見本 10 枚に本物の間違いが埋まっていた**（2026-09-14）。
+ *
+ * | 図 | 何が起きていたか |
+ * |---|---|
+ * | 15 店舗 | **冷蔵ケースと弁当什器が、床の同じ場所を取っていた** |
+ * | 30 仮設 | 出入口が建物へ食い込み、**クレーンが車輌通路を塞いでいた** |
+ * | 93 花火 | **消防車が立入禁止区域へはみ出していた** |
+ * | 81 地下鉄 | 終点の行き先が 2 つ重なっていた |
+ * | 91・92・94・95 | 見出し・注記・定点が、他のものの上に乗っていた |
+ *
+ * `crossings` と同じ扱いにする —— **合否ではなく観測値**で、
+ * わざと重ねている図は理由を書いて外す。
+ */
+const LAYERED_ON_PURPOSE: Record<string, string> = {
+  '17-躯体の伏図.zumen.yaml': '**柱はスラブの上に立つ。** 伏図は重ねて描くもので、離したら嘘になる',
+  '42-擁壁の標準断面図.zumen.yaml': '**水抜管は竪壁と裏込を貫く。** 貫いていることが図の中身',
+  '54-のりかえ案内図.zumen.yaml': '目盛は帯の上に置く。**帯のどこかを指すための印**',
+  '61-道路の平面線形図.zumen.yaml': '終点の印が、左右の路肩線の上に来る。**線形の終わりを指す印**',
+  '66-囲碁の棋譜.zumen.yaml': '**碁石は盤の線の交点に置く。** 升の中ではない',
+  '70-リバーシの局面図.zumen.yaml': '目印（星）は升の角に置く。**4 つの升にまたがるのが正しい**',
+  '77-舞台照明仕込図.zumen.yaml': '**バトンは舞台の上を横切っている。** 吊ってあるので重なる',
+  '83-駅の配線略図.zumen.yaml': '停止位置の印は線の上に置く。**その線のどこで止まるか**を指す',
+  '91-リンゴ高密植栽培の樹形図.zumen.yaml':
+    '**ワイヤーは支柱・主幹・枝を横切って張る。** 横切っていることが棚の構造',
+  '92-防虫モニタリングの定点配置図.zumen.yaml':
+    '**粘着トラップは壁沿いに置く。** 区画の境の上に来るのが正しい置き方',
+};
+
+describe('箱が、はみ出して重なっていない', () => {
+  it('**わざと重ねている図のほかは 0**', async () => {
+    const { readdirSync, readFileSync } = await import('node:fs');
+    const dir = new URL('../examples/gallery/', import.meta.url);
+    const found: string[] = [];
+    for (const name of readdirSync(dir).filter((f) => f.endsWith('.zumen.yaml')).sort()) {
+      const out = await inspect(readFileSync(new URL(name, dir), 'utf8'));
+      const why = LAYERED_ON_PURPOSE[name];
+      if (why === undefined) {
+        for (const pair of out.straddles) found.push(`${name}: ${pair[0]} × ${pair[1]}`);
+      } else {
+        assert.ok(out.straddles.length > 0, `${name} は重なりが中身のはずなのに 0（${why}）`);
+      }
+    }
+    assert.deepEqual(found, []);
+  });
+});
+

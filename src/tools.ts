@@ -27,7 +27,7 @@ import { join, relative, resolve } from 'node:path';
 import { toDrawio } from './drawio.ts';
 import { placeEdgeLabels } from './edge-labels.ts';
 import { getPins, parse } from './format.ts';
-import { crossings, groupEscapes, layout, overlaps } from './layout.ts';
+import { crossings, groupEscapes, layout, overlaps, straddles } from './layout.ts';
 import { messages } from './messages.ts';
 import { PASS_LINE, measure } from './measure.ts';
 import { merge } from './merge.ts';
@@ -186,8 +186,16 @@ export interface Inspection {
   groups: number;
   /** 線どうしの交差。**多いと読めない。** */
   crossings: number;
-  /** 箱どうしの重なり。 */
+  /** 箱どうしの重なり。**入れ子も数える。** */
   overlaps: [string, string][];
+  /**
+   * **はみ出して重なっている組**（どちらも相手を含んでいない）。合否ではなく観測値。
+   *
+   * `overlaps` は入れ子も数えるので、配置図では鳴りっぱなしになる。
+   * **直すところがあるのは、こちら** —— 物どうしが床の同じ場所を取っている状態。
+   * ただし**わざと重ねる図もある**（伏図の柱、断面の水抜管、盤の上の石）。
+   */
+  straddles: [string, string][];
   /** 囲みからはみ出した要素。 */
   groupEscapes: string[];
   /** **人が置いたものどうしが重なっている組。** 動かしていない。 */
@@ -309,6 +317,7 @@ export async function inspect(source: string): Promise<Inspection> {
       groups: 0,
       crossings: 0,
       overlaps: [],
+      straddles: [],
       groupEscapes: [],
       collisions: [],
       width: 0,
@@ -352,6 +361,7 @@ export async function inspect(source: string): Promise<Inspection> {
     groups: placed.groups.length,
     crossings: crossed,
     overlaps: overlaps(placed),
+    straddles: straddles(placed),
     groupEscapes: groupEscapes(placed),
     collisions: placed.collisions,
     width: placed.width,

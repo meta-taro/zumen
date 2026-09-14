@@ -1,0 +1,328 @@
+version: 1
+kind: placement
+arrows: false
+title: オーケストラの配置（対向配置と現代配置・同じ編成で並べて比べる）
+# **同じ楽器を、どう並べるかだけの図。** それで音が変わる。
+#
+# ## 弦だけが動く
+#
+# 木管・金管・打楽器の位置は、どちらの配置でもほぼ同じ。
+# **動くのは第 2 Vn と Vc（と Cb の側）だけ。**
+#
+# ## なぜ分けるのか
+#
+# 対向配置は、**第 1 と第 2 の掛け合いが左右に分かれて聞こえる。**
+# 古典派はそう書かれているので、そのとおりに並べると書かれた形が出る。
+# 現代配置は両方の Vn が左に集まるので、**厚みと一体感**が出る。
+#
+# 弧に並べてあるのは飾りではない —— **指揮者から等距離**に置くため。
+nodes:
+  - id: a_c
+    label: "対向配置（古典配置）"
+    marker: none
+    at: { x: 150, y: 526 }
+    size: { w: 300, h: 24 }
+  - id: a_k
+    label: "指揮者"
+    hatch: solid
+    at: { x: 266, y: 456 }
+    size: { w: 68, h: 30 }
+  - id: a_s0
+    label: "第1 Vn"
+    at: { x: 131, y: 386 }
+    size: { w: 96, h: 40 }
+  - id: a_s1
+    label: "Vc"
+    at: { x: 184, y: 332 }
+    size: { w: 96, h: 40 }
+  - id: a_s2
+    label: "Va"
+    at: { x: 320, y: 332 }
+    size: { w: 96, h: 40 }
+  - id: a_s3
+    label: "第2 Vn"
+    at: { x: 372, y: 386 }
+    size: { w: 96, h: 40 }
+  - id: a_cb
+    label: "Cb"
+    hatch: dots
+    at: { x: 57, y: 428 }
+    size: { w: 80, h: 40 }
+  - id: a_Fl
+    label: "Fl"
+    at: { x: 213, y: 264 }
+    size: { w: 64, h: 34 }
+  - id: a_Ob
+    label: "Ob"
+    at: { x: 322, y: 264 }
+    size: { w: 64, h: 34 }
+  - id: a_Cl
+    label: "Cl"
+    at: { x: 201, y: 220 }
+    size: { w: 64, h: 34 }
+  - id: a_Fg
+    label: "Fg"
+    at: { x: 334, y: 220 }
+    size: { w: 64, h: 34 }
+  - id: a_Hr
+    label: "Hr"
+    hatch: lines
+    at: { x: 108, y: 287 }
+    size: { w: 60, h: 32 }
+  - id: a_Tp
+    label: "Tp"
+    hatch: lines
+    at: { x: 422, y: 271 }
+    size: { w: 60, h: 32 }
+  - id: a_Tb
+    label: "Tb"
+    hatch: lines
+    at: { x: 492, y: 280 }
+    size: { w: 60, h: 32 }
+  - id: a_Tu
+    label: "Tu"
+    hatch: lines
+    at: { x: 416, y: 201 }
+    size: { w: 60, h: 32 }
+  - id: a_timp
+    label: "Timp"
+    hatch: cross
+    at: { x: 264, y: 144 }
+    size: { w: 68, h: 32 }
+  - id: a_perc
+    label: "Perc"
+    hatch: cross
+    at: { x: 346, y: 148 }
+    size: { w: 68, h: 32 }
+  - id: a_hp
+    label: "Hp"
+    at: { x: 92, y: 232 }
+    size: { w: 48, h: 30 }
+  - id: b_c
+    label: "現代配置（ストコフスキー・シフト）"
+    marker: none
+    at: { x: 730, y: 526 }
+    size: { w: 300, h: 24 }
+  - id: b_k
+    label: "指揮者"
+    hatch: solid
+    at: { x: 846, y: 456 }
+    size: { w: 68, h: 30 }
+  - id: b_s0
+    label: "第1 Vn"
+    at: { x: 711, y: 386 }
+    size: { w: 96, h: 40 }
+  - id: b_s1
+    label: "第2 Vn"
+    at: { x: 764, y: 332 }
+    size: { w: 96, h: 40 }
+  - id: b_s2
+    label: "Va"
+    at: { x: 900, y: 332 }
+    size: { w: 96, h: 40 }
+  - id: b_s3
+    label: "Vc"
+    at: { x: 952, y: 386 }
+    size: { w: 96, h: 40 }
+  - id: b_cb
+    label: "Cb"
+    hatch: dots
+    at: { x: 1042, y: 428 }
+    size: { w: 80, h: 40 }
+  - id: b_Fl
+    label: "Fl"
+    at: { x: 793, y: 264 }
+    size: { w: 64, h: 34 }
+  - id: b_Ob
+    label: "Ob"
+    at: { x: 902, y: 264 }
+    size: { w: 64, h: 34 }
+  - id: b_Cl
+    label: "Cl"
+    at: { x: 781, y: 220 }
+    size: { w: 64, h: 34 }
+  - id: b_Fg
+    label: "Fg"
+    at: { x: 914, y: 220 }
+    size: { w: 64, h: 34 }
+  - id: b_Hr
+    label: "Hr"
+    hatch: lines
+    at: { x: 688, y: 287 }
+    size: { w: 60, h: 32 }
+  - id: b_Tp
+    label: "Tp"
+    hatch: lines
+    at: { x: 1002, y: 271 }
+    size: { w: 60, h: 32 }
+  - id: b_Tb
+    label: "Tb"
+    hatch: lines
+    at: { x: 1072, y: 280 }
+    size: { w: 60, h: 32 }
+  - id: b_Tu
+    label: "Tu"
+    hatch: lines
+    at: { x: 996, y: 201 }
+    size: { w: 60, h: 32 }
+  - id: b_timp
+    label: "Timp"
+    hatch: cross
+    at: { x: 844, y: 144 }
+    size: { w: 68, h: 32 }
+  - id: b_perc
+    label: "Perc"
+    hatch: cross
+    at: { x: 926, y: 148 }
+    size: { w: 68, h: 32 }
+  - id: b_hp
+    label: "Hp"
+    at: { x: 672, y: 232 }
+    size: { w: 48, h: 30 }
+  - id: t_a
+    label: "ステージ後方 ↑"
+    marker: none
+    at: { x: 60, y: 60 }
+    size: { w: 180, h: 24 }
+  - id: t_b
+    label: "ステージ後方 ↑"
+    marker: none
+    at: { x: 640, y: 60 }
+    size: { w: 180, h: 24 }
+  - id: aud
+    label: "客席 ↓"
+    marker: none
+    at: { x: 260, y: 578 }
+    size: { w: 80, h: 24 }
+  - id: aud2
+    label: "客席 ↓"
+    marker: none
+    at: { x: 840, y: 578 }
+    size: { w: 80, h: 24 }
+  - id: tb_t
+    label: "どこが動くか"
+    marker: none
+    at: { x: 1200, y: 60 }
+    size: { w: 300, h: 24 }
+  - id: th0
+    label: "席"
+    hatch: solid
+    at: { x: 1200, y: 92 }
+    size: { w: 110, h: 26 }
+  - id: th1
+    label: "対向配置"
+    hatch: solid
+    at: { x: 1310, y: 92 }
+    size: { w: 150, h: 26 }
+  - id: th2
+    label: "現代配置"
+    hatch: solid
+    at: { x: 1460, y: 92 }
+    size: { w: 150, h: 26 }
+  - id: tc0_0
+    label: "第 1 Vn"
+    at: { x: 1200, y: 118 }
+    size: { w: 110, h: 28 }
+  - id: tc0_1
+    label: "指揮者の左"
+    at: { x: 1310, y: 118 }
+    size: { w: 150, h: 28 }
+  - id: tc0_2
+    label: "指揮者の左"
+    at: { x: 1460, y: 118 }
+    size: { w: 150, h: 28 }
+  - id: tc1_0
+    label: "第 2 Vn"
+    at: { x: 1200, y: 146 }
+    size: { w: 110, h: 28 }
+  - id: tc1_1
+    label: "指揮者の右"
+    at: { x: 1310, y: 146 }
+    size: { w: 150, h: 28 }
+  - id: tc1_2
+    label: "第 1 Vn の右隣"
+    at: { x: 1460, y: 146 }
+    size: { w: 150, h: 28 }
+  - id: tc2_0
+    label: "Va"
+    at: { x: 1200, y: 174 }
+    size: { w: 110, h: 28 }
+  - id: tc2_1
+    label: "中央右"
+    at: { x: 1310, y: 174 }
+    size: { w: 150, h: 28 }
+  - id: tc2_2
+    label: "中央右"
+    at: { x: 1460, y: 174 }
+    size: { w: 150, h: 28 }
+  - id: tc3_0
+    label: "Vc"
+    at: { x: 1200, y: 202 }
+    size: { w: 110, h: 28 }
+  - id: tc3_1
+    label: "中央左"
+    at: { x: 1310, y: 202 }
+    size: { w: 150, h: 28 }
+  - id: tc3_2
+    label: "右端"
+    at: { x: 1460, y: 202 }
+    size: { w: 150, h: 28 }
+  - id: tc4_0
+    label: "Cb"
+    at: { x: 1200, y: 230 }
+    size: { w: 110, h: 28 }
+  - id: tc4_1
+    label: "左奥"
+    at: { x: 1310, y: 230 }
+    size: { w: 150, h: 28 }
+  - id: tc4_2
+    label: "右奥"
+    at: { x: 1460, y: 230 }
+    size: { w: 150, h: 28 }
+  - id: tc5_0
+    label: "木管・金管・打"
+    at: { x: 1200, y: 258 }
+    size: { w: 110, h: 28 }
+  - id: tc5_1
+    label: "同じ"
+    at: { x: 1310, y: 258 }
+    size: { w: 150, h: 28 }
+  - id: tc5_2
+    label: "同じ"
+    at: { x: 1460, y: 258 }
+    size: { w: 150, h: 28 }
+  - id: w_t
+    label: "なぜ分けるのか"
+    marker: none
+    at: { x: 1200, y: 302 }
+    size: { w: 300, h: 24 }
+  - id: w0
+    label: "・対向配置は、第 1 と第 2 の掛け合いが左右に分かれて聞こえる。"
+    marker: none
+    at: { x: 1200, y: 330 }
+    size: { w: 430, h: 24 }
+  - id: w1
+    label: "・ハイドン・モーツァルト・ベートーヴェンは、そう書かれている。"
+    marker: none
+    at: { x: 1200, y: 356 }
+    size: { w: 430, h: 24 }
+  - id: w2
+    label: "・現代配置は両方の Vn が左に集まるので、厚みと一体感が出る。"
+    marker: none
+    at: { x: 1200, y: 382 }
+    size: { w: 430, h: 24 }
+  - id: w3
+    label: "・マーラー・ショスタコーヴィチのような大編成はこちらが多い。"
+    marker: none
+    at: { x: 1200, y: 408 }
+    size: { w: 430, h: 24 }
+  - id: w4
+    label: "・同じ曲でも、指揮者が曲の年代に合わせて選ぶ。"
+    marker: none
+    at: { x: 1200, y: 434 }
+    size: { w: 430, h: 24 }
+  - id: w5
+    label: "・Cb の側が変わるので、低音の聞こえる向きも変わる。"
+    marker: none
+    at: { x: 1200, y: 460 }
+    size: { w: 430, h: 24 }
