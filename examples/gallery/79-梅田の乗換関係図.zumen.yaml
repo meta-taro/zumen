@@ -1,0 +1,119 @@
+version: 1
+kind: placement
+arrows: false
+title: 梅田の乗換関係図（同じ「梅田」に 7 つの駅／徒歩の所要）
+# 大阪・梅田は **同じ地名なのに駅が 7 つ**あり、しかも駅名が事業者ごとに違う。
+# 路線図では「乗換駅」の 1 点に見えるが、実際は地下街を歩く。
+# **この図の中身は「どれとどれが、何分でつながるか」** ——
+# 線の長さではなく、線に書いた分数が意味を持つ。
+#
+# 破線は改札を出て地下街を歩く区間。数字は改札から改札までの目安。
+# 駅名・路線・事業者は事実。図は zumen で描いたもので、どの事業者の図の写しでもない。
+palette:
+  JR: "#0072bc"
+  HK: "#8b0000"
+  HS: "#c9a227"
+  M: "#e5171f"
+  T: "#522886"
+  Y: "#0078ba"
+nodes:
+  - id: jr
+    label: "大阪"
+    technology: JR 京都線・神戸線・宝塚線・大阪環状線
+    color: JR
+    tag: JR
+    at: { x: 400, y: 246 }
+    size: { w: 290, h: 66 }
+  - id: hk
+    label: "大阪梅田（阪急）"
+    technology: 神戸線・宝塚線・京都線
+    color: HK
+    tag: HK
+    at: { x: 420, y: 110 }
+    size: { w: 170, h: 60 }
+  - id: hs
+    label: "大阪梅田（阪神）"
+    technology: 本線
+    color: HS
+    tag: HS
+    at: { x: 150, y: 250 }
+    size: { w: 170, h: 54 }
+  - id: m
+    label: "梅田（Osaka Metro）"
+    technology: 御堂筋線
+    color: M
+    tag: M
+    at: { x: 420, y: 400 }
+    size: { w: 180, h: 54 }
+  - id: t
+    label: "東梅田"
+    technology: 谷町線
+    color: T
+    tag: T
+    at: { x: 700, y: 400 }
+    size: { w: 140, h: 54 }
+  - id: y
+    label: "西梅田"
+    technology: 四つ橋線
+    color: Y
+    tag: Y
+    at: { x: 130, y: 400 }
+    size: { w: 140, h: 54 }
+  - id: k
+    label: "北新地"
+    technology: JR 東西線・学研都市線
+    color: JR
+    tag: JR
+    at: { x: 400, y: 560 }
+    size: { w: 170, h: 54 }
+  - id: note
+    label: "◯ の中は事業者の記号。駅名が違うので「乗換」と気づきにくいのが梅田の特徴。"
+    marker: none
+    at: { x: 150, y: 620 }
+    size: { w: 620, h: 26 }
+  - id: note2
+    label: "JR 大阪 ↔ 北新地は改札外。乗車券が通しにならない組み合わせがあるので注意。"
+    marker: none
+    at: { x: 150, y: 652 }
+    size: { w: 620, h: 26 }
+edges:
+  - from: hk
+    to: jr
+    label: "3 分"
+    line: dashed
+  - from: hs
+    to: jr
+    label: "5 分"
+    line: dashed
+  - from: hs
+    to: k
+    label: "5 分"
+    line: dashed
+  - from: jr
+    to: k
+    label: "10 分"
+    line: dashed
+  - from: jr
+    to: m
+    label: "4 分"
+    line: dashed
+  - from: m
+    to: t
+    label: "6 分"
+    line: dashed
+  - from: m
+    to: y
+    label: "8 分"
+    line: dashed
+  - from: hk
+    to: m
+    label: "4 分"
+    line: dashed
+  - from: hs
+    to: y
+    label: "5 分"
+    line: dashed
+  - from: t
+    to: k
+    label: "9 分"
+    line: dashed

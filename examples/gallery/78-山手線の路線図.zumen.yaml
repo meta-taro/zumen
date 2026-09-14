@@ -1,0 +1,289 @@
+version: 1
+kind: placement
+arrows: false
+title: JR 山手線 路線図（30 駅・環状・駅ナンバリング JY）
+# 環状線なので **輪を閉じて描く**（close: true）。順序は内回り（東京 → 神田 → …）。
+# 位置はおおよその方角に合わせてある（上野が北東、池袋が北西、品川が南）。
+#
+# 色は実在の路線色（うぐいす色 #9ACD32）。**この色は白地に対して 1.88:1 で、
+# zumen の下限 3:1 を割る**ので検証器が color-faint を出す —— それは正しい。
+# 実物も、白黒に落ちたら色では読めない。だから駅ナンバリング（JY01〜JY30）と
+# 駅名の両方が出ている。**色だけに頼っていないことが、実物でも守られている。**
+#
+# 駅名・乗換は事実。図そのものは zumen で描いたもので、どの事業者の図の写しでもない。
+palette:
+  JY: "#9acd32"
+nodes:
+  - id: s0
+    label: "東京"
+    marker: double
+    tag: JY01
+    color: JY
+    technology: 中央線・東海道線・新幹線
+    at: { x: 833, y: 453 }
+    size: { w: 34, h: 34 }
+  - id: s1
+    label: "神田"
+    marker: circle
+    tag: JY02
+    color: JY
+    at: { x: 830, y: 376 }
+    size: { w: 26, h: 26 }
+  - id: s2
+    label: "秋葉原"
+    marker: double
+    tag: JY03
+    color: JY
+    technology: 総武線・つくばEX・日比谷線
+    at: { x: 804, y: 294 }
+    size: { w: 34, h: 34 }
+  - id: s3
+    label: "御徒町"
+    marker: circle
+    tag: JY04
+    color: JY
+    at: { x: 774, y: 228 }
+    size: { w: 26, h: 26 }
+  - id: s4
+    label: "上野"
+    marker: double
+    tag: JY05
+    color: JY
+    technology: 宇都宮線・常磐線・新幹線
+    at: { x: 724, y: 163 }
+    size: { w: 34, h: 34 }
+  - id: s5
+    label: "鶯谷"
+    marker: circle
+    tag: JY06
+    color: JY
+    at: { x: 672, y: 119 }
+    size: { w: 26, h: 26 }
+  - id: s6
+    label: "日暮里"
+    marker: double
+    tag: JY07
+    color: JY
+    technology: 京成線・舎人ライナー
+    at: { x: 605, y: 82 }
+    size: { w: 34, h: 34 }
+  - id: s7
+    label: "西日暮里"
+    marker: circle
+    tag: JY08
+    color: JY
+    at: { x: 541, y: 69 }
+    size: { w: 26, h: 26 }
+  - id: s8
+    label: "田端"
+    marker: circle
+    tag: JY09
+    color: JY
+    at: { x: 473, y: 69 }
+    size: { w: 26, h: 26 }
+  - id: s9
+    label: "駒込"
+    marker: circle
+    tag: JY10
+    color: JY
+    at: { x: 405, y: 86 }
+    size: { w: 26, h: 26 }
+  - id: s10
+    label: "巣鴨"
+    marker: circle
+    tag: JY11
+    color: JY
+    at: { x: 342, y: 119 }
+    size: { w: 26, h: 26 }
+  - id: s11
+    label: "大塚"
+    marker: circle
+    tag: JY12
+    color: JY
+    at: { x: 286, y: 167 }
+    size: { w: 26, h: 26 }
+  - id: s12
+    label: "池袋"
+    marker: double
+    tag: JY13
+    color: JY
+    technology: 西武池袋線・東武東上線
+    at: { x: 236, y: 224 }
+    size: { w: 34, h: 34 }
+  - id: s13
+    label: "目白"
+    marker: circle
+    tag: JY14
+    color: JY
+    at: { x: 206, y: 298 }
+    size: { w: 26, h: 26 }
+  - id: s14
+    label: "高田馬場"
+    marker: double
+    tag: JY15
+    color: JY
+    technology: 西武新宿線・東西線
+    at: { x: 180, y: 372 }
+    size: { w: 34, h: 34 }
+  - id: s15
+    label: "新大久保"
+    marker: circle
+    tag: JY16
+    color: JY
+    at: { x: 177, y: 457 }
+    size: { w: 26, h: 26 }
+  - id: s16
+    label: "新宿"
+    marker: double
+    tag: JY17
+    color: JY
+    technology: 中央線・小田急線・京王線
+    at: { x: 180, y: 534 }
+    size: { w: 34, h: 34 }
+  - id: s17
+    label: "代々木"
+    marker: circle
+    tag: JY18
+    color: JY
+    at: { x: 206, y: 616 }
+    size: { w: 26, h: 26 }
+  - id: s18
+    label: "原宿"
+    marker: circle
+    tag: JY19
+    color: JY
+    at: { x: 240, y: 686 }
+    size: { w: 26, h: 26 }
+  - id: s19
+    label: "渋谷"
+    marker: double
+    tag: JY20
+    color: JY
+    technology: 東急線・京王井の頭線
+    at: { x: 282, y: 743 }
+    size: { w: 34, h: 34 }
+  - id: s20
+    label: "恵比寿"
+    marker: circle
+    tag: JY21
+    color: JY
+    at: { x: 342, y: 795 }
+    size: { w: 26, h: 26 }
+  - id: s21
+    label: "目黒"
+    marker: circle
+    tag: JY22
+    color: JY
+    at: { x: 405, y: 828 }
+    size: { w: 26, h: 26 }
+  - id: s22
+    label: "五反田"
+    marker: circle
+    tag: JY23
+    color: JY
+    at: { x: 473, y: 845 }
+    size: { w: 26, h: 26 }
+  - id: s23
+    label: "大崎"
+    marker: double
+    tag: JY24
+    color: JY
+    technology: 埼京線・りんかい線
+    at: { x: 537, y: 841 }
+    size: { w: 34, h: 34 }
+  - id: s24
+    label: "品川"
+    marker: double
+    tag: JY25
+    color: JY
+    technology: 東海道線・京急線・新幹線
+    at: { x: 605, y: 824 }
+    size: { w: 34, h: 34 }
+  - id: s25
+    label: "高輪ゲートウェイ"
+    marker: circle
+    tag: JY26
+    color: JY
+    at: { x: 672, y: 795 }
+    size: { w: 26, h: 26 }
+  - id: s26
+    label: "田町"
+    marker: circle
+    tag: JY27
+    color: JY
+    at: { x: 728, y: 747 }
+    size: { w: 26, h: 26 }
+  - id: s27
+    label: "浜松町"
+    marker: double
+    tag: JY28
+    color: JY
+    technology: 東京モノレール
+    at: { x: 770, y: 682 }
+    size: { w: 34, h: 34 }
+  - id: s28
+    label: "新橋"
+    marker: double
+    tag: JY29
+    color: JY
+    technology: ゆりかもめ・銀座線
+    at: { x: 804, y: 612 }
+    size: { w: 34, h: 34 }
+  - id: s29
+    label: "有楽町"
+    marker: circle
+    tag: JY30
+    color: JY
+    at: { x: 830, y: 538 }
+    size: { w: 26, h: 26 }
+  - id: mid
+    label: "山手線"
+    marker: none
+    at: { x: 450, y: 430 }
+    size: { w: 140, h: 30 }
+  - id: mid2
+    label: "30 駅・一周 34.5km・約 60 分"
+    marker: none
+    at: { x: 380, y: 464 }
+    size: { w: 280, h: 26 }
+  - id: note
+    label: "◎ は他線との乗換駅（主要駅のみ表記）。内回り＝東京から上野・池袋・新宿の順。"
+    marker: none
+    at: { x: 40, y: 950 }
+    size: { w: 620, h: 26 }
+edges:
+  - from: s0
+    to: s29
+    curve: smooth
+    close: true
+    weight: thick
+    color: JY
+    via:
+      - { x: 843, y: 389 }
+      - { x: 821, y: 311 }
+      - { x: 787, y: 241 }
+      - { x: 741, y: 180 }
+      - { x: 685, y: 132 }
+      - { x: 622, y: 99 }
+      - { x: 554, y: 82 }
+      - { x: 486, y: 82 }
+      - { x: 418, y: 99 }
+      - { x: 355, y: 132 }
+      - { x: 299, y: 180 }
+      - { x: 253, y: 241 }
+      - { x: 219, y: 311 }
+      - { x: 197, y: 389 }
+      - { x: 190, y: 470 }
+      - { x: 197, y: 551 }
+      - { x: 219, y: 629 }
+      - { x: 253, y: 699 }
+      - { x: 299, y: 760 }
+      - { x: 355, y: 808 }
+      - { x: 418, y: 841 }
+      - { x: 486, y: 858 }
+      - { x: 554, y: 858 }
+      - { x: 622, y: 841 }
+      - { x: 685, y: 808 }
+      - { x: 741, y: 760 }
+      - { x: 787, y: 699 }
+      - { x: 821, y: 629 }

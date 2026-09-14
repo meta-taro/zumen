@@ -101,6 +101,27 @@ describe('図ぜんたいの宣言を見る', () => {
   });
 });
 
+/**
+ * **警告が出るのが正しい見本。**
+ *
+ * 見本は原則 0 件。**理由を書いたものだけ外す。**
+ *
+ * ここに並ぶのは「実在の色を使ったら、こちらの下限を割った」図。
+ * **警告は正しい** —— 実物もその色だけでは白黒や暗い地で読めず、
+ * だから駅ナンバリングと駅名を併記している。
+ * 色を作り変えて警告を消すと、**路線の名前が別のものになる**（D24）。
+ */
+const EXPECTED: Record<string, { codes: string[]; why: string }> = {
+  '78-山手線の路線図.zumen.yaml': {
+    codes: ['color-faint'],
+    why: 'うぐいす色 #9ACD32 は白地に 1.88:1。**実在の色**なので変えない',
+  },
+  '79-梅田の乗換関係図.zumen.yaml': {
+    codes: ['color-faint'],
+    why: '阪急マルーン・阪神の黄・谷町線の紫。**どれも実在の事業者の色**',
+  },
+};
+
 describe('見本 23 件は、指摘 0 件のまま', () => {
   it('既にある図を、新しい検査が落とさない', async () => {
     const { readdirSync, readFileSync } = await import('node:fs');
@@ -109,7 +130,17 @@ describe('見本 23 件は、指摘 0 件のまま', () => {
     assert.ok(files.length >= 23, `見本が ${files.length} 件しかない`);
     for (const name of files) {
       const found = validate(readFileSync(new URL(name, dir), 'utf8'));
-      assert.deepEqual(found, [], `${name}: ${found.map((f) => f.code + ' ' + f.message).join(' / ')}`);
+      const allow = EXPECTED[name];
+      if (allow === undefined) {
+        assert.deepEqual(found, [], `${name}: ${found.map((f) => f.code + ' ' + f.message).join(' / ')}`);
+        continue;
+      }
+      // **外した図は、本当にその指摘が出ていること。** 出ていないなら記述が古い。
+      assert.ok(found.length > 0, `${name} は指摘が出るはずなのに 0 件（${allow.why}）`);
+      for (const one of found) {
+        assert.ok(allow.codes.includes(one.code), `${name} に想定外の指摘: ${one.code} ${one.message}`);
+        assert.equal(one.severity, 'warning', `${name} の ${one.code} が警告ではない`);
+      }
     }
   });
 });
