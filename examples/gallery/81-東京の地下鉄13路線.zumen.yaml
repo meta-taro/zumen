@@ -1,47 +1,56 @@
 version: 1
 kind: placement
 arrows: false
-title: 東京メトロ 9 路線 都心部 路線図（主要駅・模式）
-# **都心部の骨格だけ**を描いた模式図。全 180 駅ではなく、乗換と端点になる駅に絞ってある。
+title: 東京の地下鉄 13 路線 都心部 路線図（東京メトロ 9 ＋ 都営 4・主要駅）
+# **都心部の骨格だけ**を描いた模式図。全 285 駅ではなく、乗換と端点になる駅に絞ってある。
 # 位置はおおよその方角に合わせてあり、縮尺は持たない（実物の路線図と同じ）。
 # 線は折れ線（曲線にしない）—— 実物の路線図は直線で組む。
 #
 # 色は各路線の案内用の色（事実）。**このうち何本かは zumen の下限 3:1 を割る**ので
 # 検証器が color-faint を出す —— それは正しい。実物も色だけでは読めないので、
-# 路線記号（G・M・H…）と駅名を併記している。
+# 路線記号（G・M・A・I…）と駅名を併記している。
 #
 # 駅名・接続は事実。図は zumen で描いたもので、どの事業者の図の写しでもない。
 palette:
-  G: "#ff9500"
-  M: "#f62e36"
-  H: "#8f8f86"
-  T: "#009bbf"
-  C: "#00bb85"
+  G: "#f19a38"
+  M: "#e24340"
+  H: "#b5b5ad"
+  T: "#4499bb"
+  C: "#54b889"
   Y: "#c1a470"
   Z: "#8f76d6"
   N: "#00ac9b"
-  F: "#9c5e31"
+  F: "#93613a"
+  A: "#d04e3c"
+  I: "#2e6ab1"
+  S: "#b3c146"
+  E: "#b6275d"
 nodes:
   - id: s_池袋
     label: "池袋"
     marker: double
-    at: { x: 305, y: 95 }
-    size: { w: 30, h: 30 }
+    at: { x: 304, y: 94 }
+    size: { w: 32, h: 32 }
   - id: s_後楽園
     label: "後楽園"
     marker: double
-    at: { x: 587, y: 177 }
+    at: { x: 607, y: 152 }
+    size: { w: 26, h: 26 }
+  - id: s_春日
+    label: "春日"
+    marker: double
+    at: { x: 687, y: 177 }
     size: { w: 26, h: 26 }
   - id: s_飯田橋
     label: "飯田橋"
     marker: double
-    at: { x: 525, y: 235 }
-    size: { w: 30, h: 30 }
+    at: { x: 509, y: 234 }
+    size: { w: 32, h: 32 }
   - id: s_市ケ谷
     label: "市ケ谷"
     marker: double
-    at: { x: 457, y: 287 }
-    size: { w: 26, h: 26 }
+    at: { x: 454, y: 284 }
+    size: { w: 32, h: 32 }
   - id: s_四ツ谷
     label: "四ツ谷"
     marker: circle
@@ -49,9 +58,9 @@ nodes:
     size: { w: 22, h: 22 }
   - id: s_新宿
     label: "新宿"
-    marker: circle
-    at: { x: 149, y: 329 }
-    size: { w: 22, h: 22 }
+    marker: double
+    at: { x: 144, y: 324 }
+    size: { w: 32, h: 32 }
   - id: s_新宿三丁目
     label: "新宿三丁目"
     marker: double
@@ -67,16 +76,21 @@ nodes:
     marker: double
     at: { x: 67, y: 287 }
     size: { w: 26, h: 26 }
+  - id: s_都庁前
+    label: "都庁前"
+    marker: double
+    at: { x: 97, y: 382 }
+    size: { w: 26, h: 26 }
   - id: s_渋谷
     label: "渋谷"
     marker: double
-    at: { x: 205, y: 525 }
-    size: { w: 30, h: 30 }
+    at: { x: 204, y: 524 }
+    size: { w: 32, h: 32 }
   - id: s_表参道
     label: "表参道"
     marker: double
-    at: { x: 315, y: 440 }
-    size: { w: 30, h: 30 }
+    at: { x: 314, y: 439 }
+    size: { w: 32, h: 32 }
   - id: s_明治神宮前
     label: "明治神宮前"
     marker: double
@@ -95,23 +109,23 @@ nodes:
   - id: s_永田町
     label: "永田町"
     marker: double
-    at: { x: 530, y: 380 }
-    size: { w: 30, h: 30 }
+    at: { x: 529, y: 379 }
+    size: { w: 32, h: 32 }
   - id: s_霞ケ関
     label: "霞ケ関"
     marker: double
-    at: { x: 627, y: 457 }
+    at: { x: 642, y: 462 }
     size: { w: 26, h: 26 }
   - id: s_国会議事堂前
     label: "国会議事堂前"
     marker: double
-    at: { x: 507, y: 487 }
+    at: { x: 492, y: 492 }
     size: { w: 26, h: 26 }
   - id: s_六本木
     label: "六本木"
     marker: double
-    at: { x: 407, y: 492 }
-    size: { w: 26, h: 26 }
+    at: { x: 404, y: 489 }
+    size: { w: 32, h: 32 }
   - id: s_中目黒
     label: "中目黒"
     marker: circle
@@ -124,53 +138,78 @@ nodes:
     size: { w: 22, h: 22 }
   - id: s_目黒
     label: "目黒"
-    marker: circle
-    at: { x: 339, y: 609 }
-    size: { w: 22, h: 22 }
+    marker: double
+    at: { x: 337, y: 627 }
+    size: { w: 26, h: 26 }
   - id: s_白金高輪
     label: "白金高輪"
+    marker: double
+    at: { x: 427, y: 587 }
+    size: { w: 26, h: 26 }
+  - id: s_泉岳寺
+    label: "泉岳寺"
     marker: circle
-    at: { x: 429, y: 579 }
+    at: { x: 549, y: 629 }
     size: { w: 22, h: 22 }
+  - id: s_三田
+    label: "三田"
+    marker: double
+    at: { x: 627, y: 587 }
+    size: { w: 26, h: 26 }
+  - id: s_大門
+    label: "大門"
+    marker: double
+    at: { x: 687, y: 532 }
+    size: { w: 26, h: 26 }
   - id: s_銀座
     label: "銀座"
     marker: double
-    at: { x: 725, y: 435 }
-    size: { w: 30, h: 30 }
+    at: { x: 724, y: 434 }
+    size: { w: 32, h: 32 }
   - id: s_新橋
     label: "新橋"
-    marker: circle
-    at: { x: 659, y: 499 }
-    size: { w: 22, h: 22 }
+    marker: double
+    at: { x: 657, y: 492 }
+    size: { w: 26, h: 26 }
   - id: s_日本橋
     label: "日本橋"
     marker: double
-    at: { x: 807, y: 317 }
-    size: { w: 26, h: 26 }
+    at: { x: 844, y: 329 }
+    size: { w: 32, h: 32 }
   - id: s_大手町
     label: "大手町"
     marker: double
-    at: { x: 685, y: 275 }
-    size: { w: 30, h: 30 }
+    at: { x: 684, y: 274 }
+    size: { w: 32, h: 32 }
   - id: s_東京
     label: "東京"
     marker: circle
     at: { x: 759, y: 384 }
     size: { w: 22, h: 22 }
+  - id: s_神保町
+    label: "神保町"
+    marker: double
+    at: { x: 602, y: 277 }
+    size: { w: 26, h: 26 }
   - id: s_御茶ノ水
     label: "御茶ノ水"
     marker: double
-    at: { x: 607, y: 227 }
+    at: { x: 587, y: 202 }
     size: { w: 26, h: 26 }
   - id: s_秋葉原
     label: "秋葉原"
     marker: circle
-    at: { x: 699, y: 194 }
+    at: { x: 734, y: 169 }
     size: { w: 22, h: 22 }
   - id: s_上野
     label: "上野"
     marker: double
     at: { x: 787, y: 152 }
+    size: { w: 26, h: 26 }
+  - id: s_浅草
+    label: "浅草"
+    marker: double
+    at: { x: 887, y: 137 }
     size: { w: 26, h: 26 }
   - id: s_北千住
     label: "北千住"
@@ -185,18 +224,23 @@ nodes:
   - id: s_九段下
     label: "九段下"
     marker: double
-    at: { x: 577, y: 287 }
+    at: { x: 527, y: 287 }
     size: { w: 26, h: 26 }
   - id: s_押上
     label: "押上"
-    marker: circle
-    at: { x: 969, y: 239 }
-    size: { w: 22, h: 22 }
+    marker: double
+    at: { x: 987, y: 227 }
+    size: { w: 26, h: 26 }
   - id: s_錦糸町
     label: "錦糸町"
     marker: circle
-    at: { x: 899, y: 289 }
+    at: { x: 919, y: 289 }
     size: { w: 22, h: 22 }
+  - id: s_森下
+    label: "森下"
+    marker: double
+    at: { x: 947, y: 347 }
+    size: { w: 26, h: 26 }
   - id: s_豊洲
     label: "豊洲"
     marker: circle
@@ -204,155 +248,220 @@ nodes:
     size: { w: 22, h: 22 }
   - id: s_月島
     label: "月島"
-    marker: circle
-    at: { x: 839, y: 459 }
-    size: { w: 22, h: 22 }
+    marker: double
+    at: { x: 837, y: 457 }
+    size: { w: 26, h: 26 }
   - id: s_茅場町
     label: "茅場町"
     marker: circle
-    at: { x: 869, y: 364 }
+    at: { x: 889, y: 379 }
     size: { w: 22, h: 22 }
   - id: s_門前仲町
     label: "門前仲町"
-    marker: circle
-    at: { x: 919, y: 404 }
-    size: { w: 22, h: 22 }
+    marker: double
+    at: { x: 917, y: 402 }
+    size: { w: 26, h: 26 }
   - id: s_西船橋方面
     label: "西船橋方面"
     marker: none
-    at: { x: 958, y: 338 }
-    size: { w: 104, h: 24 }
+    at: { x: 984, y: 338 }
+    size: { w: 112, h: 24 }
   - id: s_和光市方面
     label: "和光市方面"
     marker: none
-    at: { x: 178, y: 43 }
-    size: { w: 104, h: 24 }
+    at: { x: 174, y: 43 }
+    size: { w: 112, h: 24 }
   - id: s_目黒方面
     label: "目黒方面"
     marker: none
-    at: { x: 298, y: 653 }
-    size: { w: 104, h: 24 }
+    at: { x: 294, y: 678 }
+    size: { w: 112, h: 24 }
   - id: s_代々木上原方面
     label: "代々木上原方面"
     marker: none
-    at: { x: 88, y: 458 }
-    size: { w: 104, h: 24 }
+    at: { x: 64, y: 458 }
+    size: { w: 112, h: 24 }
+  - id: s_西高島平方面
+    label: "西高島平方面"
+    marker: none
+    at: { x: 274, y: 48 }
+    size: { w: 112, h: 24 }
+  - id: s_本八幡方面
+    label: "本八幡方面"
+    marker: none
+    at: { x: 984, y: 398 }
+    size: { w: 112, h: 24 }
+  - id: s_光が丘方面
+    label: "光が丘方面"
+    marker: none
+    at: { x: 4, y: 418 }
+    size: { w: 112, h: 24 }
+  - id: s_西馬込方面
+    label: "西馬込方面"
+    marker: none
+    at: { x: 464, y: 688 }
+    size: { w: 112, h: 24 }
   - id: lg_G
     label: "G"
     hatch: solid
     color: G
-    at: { x: 60, y: 720 }
-    size: { w: 28, h: 24 }
+    at: { x: 40, y: 770 }
+    size: { w: 26, h: 22 }
   - id: lgn_G
     label: "銀座線"
     marker: none
-    at: { x: 94, y: 720 }
-    size: { w: 150, h: 24 }
+    at: { x: 72, y: 770 }
+    size: { w: 160, h: 22 }
   - id: lg_M
     label: "M"
     hatch: solid
     color: M
-    at: { x: 270, y: 720 }
-    size: { w: 28, h: 24 }
+    at: { x: 255, y: 770 }
+    size: { w: 26, h: 22 }
   - id: lgn_M
     label: "丸ノ内線"
     marker: none
-    at: { x: 304, y: 720 }
-    size: { w: 150, h: 24 }
+    at: { x: 287, y: 770 }
+    size: { w: 160, h: 22 }
   - id: lg_H
     label: "H"
     hatch: solid
     color: H
-    at: { x: 480, y: 720 }
-    size: { w: 28, h: 24 }
+    at: { x: 470, y: 770 }
+    size: { w: 26, h: 22 }
   - id: lgn_H
     label: "日比谷線"
     marker: none
-    at: { x: 514, y: 720 }
-    size: { w: 150, h: 24 }
+    at: { x: 502, y: 770 }
+    size: { w: 160, h: 22 }
   - id: lg_T
     label: "T"
     hatch: solid
     color: T
-    at: { x: 690, y: 720 }
-    size: { w: 28, h: 24 }
+    at: { x: 685, y: 770 }
+    size: { w: 26, h: 22 }
   - id: lgn_T
     label: "東西線"
     marker: none
-    at: { x: 724, y: 720 }
-    size: { w: 150, h: 24 }
+    at: { x: 717, y: 770 }
+    size: { w: 160, h: 22 }
   - id: lg_C
     label: "C"
     hatch: solid
     color: C
-    at: { x: 900, y: 720 }
-    size: { w: 28, h: 24 }
+    at: { x: 900, y: 770 }
+    size: { w: 26, h: 22 }
   - id: lgn_C
     label: "千代田線"
     marker: none
-    at: { x: 934, y: 720 }
-    size: { w: 150, h: 24 }
+    at: { x: 932, y: 770 }
+    size: { w: 160, h: 22 }
   - id: lg_Y
     label: "Y"
     hatch: solid
     color: Y
-    at: { x: 60, y: 754 }
-    size: { w: 28, h: 24 }
+    at: { x: 40, y: 802 }
+    size: { w: 26, h: 22 }
   - id: lgn_Y
     label: "有楽町線"
     marker: none
-    at: { x: 94, y: 754 }
-    size: { w: 150, h: 24 }
+    at: { x: 72, y: 802 }
+    size: { w: 160, h: 22 }
   - id: lg_Z
     label: "Z"
     hatch: solid
     color: Z
-    at: { x: 270, y: 754 }
-    size: { w: 28, h: 24 }
+    at: { x: 255, y: 802 }
+    size: { w: 26, h: 22 }
   - id: lgn_Z
     label: "半蔵門線"
     marker: none
-    at: { x: 304, y: 754 }
-    size: { w: 150, h: 24 }
+    at: { x: 287, y: 802 }
+    size: { w: 160, h: 22 }
   - id: lg_N
     label: "N"
     hatch: solid
     color: N
-    at: { x: 480, y: 754 }
-    size: { w: 28, h: 24 }
+    at: { x: 470, y: 802 }
+    size: { w: 26, h: 22 }
   - id: lgn_N
     label: "南北線"
     marker: none
-    at: { x: 514, y: 754 }
-    size: { w: 150, h: 24 }
+    at: { x: 502, y: 802 }
+    size: { w: 160, h: 22 }
   - id: lg_F
     label: "F"
     hatch: solid
     color: F
-    at: { x: 690, y: 754 }
-    size: { w: 28, h: 24 }
+    at: { x: 685, y: 802 }
+    size: { w: 26, h: 22 }
   - id: lgn_F
     label: "副都心線"
     marker: none
-    at: { x: 724, y: 754 }
-    size: { w: 150, h: 24 }
-  - id: note
-    label: "◎ は 2 路線以上の乗換駅。都営地下鉄と JR は描いていない（同じ手順で足せる）。"
+    at: { x: 717, y: 802 }
+    size: { w: 160, h: 22 }
+  - id: lg_A
+    label: "A"
+    hatch: solid
+    color: A
+    at: { x: 900, y: 802 }
+    size: { w: 26, h: 22 }
+  - id: lgn_A
+    label: "都営浅草線"
     marker: none
-    at: { x: 60, y: 796 }
-    size: { w: 680, h: 26 }
+    at: { x: 932, y: 802 }
+    size: { w: 160, h: 22 }
+  - id: lg_I
+    label: "I"
+    hatch: solid
+    color: I
+    at: { x: 40, y: 834 }
+    size: { w: 26, h: 22 }
+  - id: lgn_I
+    label: "都営三田線"
+    marker: none
+    at: { x: 72, y: 834 }
+    size: { w: 160, h: 22 }
+  - id: lg_S
+    label: "S"
+    hatch: solid
+    color: S
+    at: { x: 255, y: 834 }
+    size: { w: 26, h: 22 }
+  - id: lgn_S
+    label: "都営新宿線"
+    marker: none
+    at: { x: 287, y: 834 }
+    size: { w: 160, h: 22 }
+  - id: lg_E
+    label: "E"
+    hatch: solid
+    color: E
+    at: { x: 470, y: 834 }
+    size: { w: 26, h: 22 }
+  - id: lgn_E
+    label: "都営大江戸線"
+    marker: none
+    at: { x: 502, y: 834 }
+    size: { w: 160, h: 22 }
+  - id: note
+    label: "◎ は 2 路線以上の乗換駅。JR は描いていない（同じ手順で足せる）。"
+    marker: none
+    at: { x: 40, y: 874 }
+    size: { w: 620, h: 24 }
 edges:
   - from: s_渋谷
-    to: s_上野
+    to: s_浅草
     weight: thick
     color: G
     via:
       - { x: 330, y: 455 }
       - { x: 420, y: 410 }
       - { x: 455, y: 330 }
-      - { x: 670, y: 510 }
+      - { x: 670, y: 505 }
       - { x: 740, y: 450 }
-      - { x: 820, y: 330 }
+      - { x: 860, y: 345 }
+      - { x: 800, y: 165 }
   - from: s_中野坂上
     to: s_池袋
     weight: thick
@@ -361,12 +470,12 @@ edges:
       - { x: 160, y: 340 }
       - { x: 240, y: 340 }
       - { x: 410, y: 350 }
-      - { x: 520, y: 500 }
+      - { x: 505, y: 505 }
       - { x: 740, y: 450 }
       - { x: 770, y: 395 }
       - { x: 700, y: 290 }
-      - { x: 620, y: 240 }
-      - { x: 600, y: 190 }
+      - { x: 600, y: 215 }
+      - { x: 620, y: 165 }
   - from: s_中目黒
     to: s_北千住
     weight: thick
@@ -374,9 +483,9 @@ edges:
     via:
       - { x: 280, y: 590 }
       - { x: 420, y: 505 }
-      - { x: 640, y: 470 }
+      - { x: 655, y: 475 }
       - { x: 740, y: 450 }
-      - { x: 710, y: 205 }
+      - { x: 745, y: 180 }
       - { x: 800, y: 165 }
   - from: s_中野坂上
     to: s_西船橋方面
@@ -384,11 +493,11 @@ edges:
     color: T
     via:
       - { x: 210, y: 230 }
-      - { x: 540, y: 250 }
-      - { x: 590, y: 300 }
+      - { x: 525, y: 250 }
+      - { x: 540, y: 300 }
       - { x: 700, y: 290 }
-      - { x: 820, y: 330 }
-      - { x: 880, y: 375 }
+      - { x: 860, y: 345 }
+      - { x: 900, y: 390 }
       - { x: 930, y: 415 }
   - from: s_代々木上原方面
     to: s_綾瀬
@@ -397,10 +506,10 @@ edges:
     via:
       - { x: 240, y: 500 }
       - { x: 330, y: 455 }
-      - { x: 520, y: 500 }
-      - { x: 640, y: 470 }
+      - { x: 505, y: 505 }
+      - { x: 655, y: 475 }
       - { x: 700, y: 290 }
-      - { x: 620, y: 240 }
+      - { x: 600, y: 215 }
       - { x: 890, y: 95 }
   - from: s_和光市方面
     to: s_豊洲
@@ -408,7 +517,7 @@ edges:
     color: Y
     via:
       - { x: 320, y: 110 }
-      - { x: 540, y: 250 }
+      - { x: 525, y: 250 }
       - { x: 470, y: 300 }
       - { x: 545, y: 395 }
       - { x: 740, y: 450 }
@@ -421,20 +530,20 @@ edges:
       - { x: 330, y: 455 }
       - { x: 420, y: 410 }
       - { x: 545, y: 395 }
-      - { x: 590, y: 300 }
+      - { x: 540, y: 300 }
       - { x: 700, y: 290 }
-      - { x: 910, y: 300 }
+      - { x: 930, y: 300 }
   - from: s_目黒方面
     to: s_後楽園
     weight: thick
     color: N
     via:
-      - { x: 350, y: 620 }
-      - { x: 440, y: 590 }
+      - { x: 350, y: 640 }
+      - { x: 440, y: 600 }
       - { x: 420, y: 505 }
       - { x: 545, y: 395 }
       - { x: 470, y: 300 }
-      - { x: 540, y: 250 }
+      - { x: 525, y: 250 }
   - from: s_和光市方面
     to: s_渋谷
     weight: thick
@@ -443,3 +552,46 @@ edges:
       - { x: 320, y: 110 }
       - { x: 240, y: 340 }
       - { x: 240, y: 500 }
+  - from: s_西馬込方面
+    to: s_押上
+    weight: thick
+    color: A
+    via:
+      - { x: 560, y: 640 }
+      - { x: 640, y: 600 }
+      - { x: 700, y: 545 }
+      - { x: 670, y: 505 }
+      - { x: 860, y: 345 }
+      - { x: 900, y: 150 }
+  - from: s_目黒
+    to: s_西高島平方面
+    weight: thick
+    color: I
+    via:
+      - { x: 440, y: 600 }
+      - { x: 640, y: 600 }
+      - { x: 700, y: 290 }
+      - { x: 615, y: 290 }
+      - { x: 700, y: 190 }
+  - from: s_新宿
+    to: s_本八幡方面
+    weight: thick
+    color: S
+    via:
+      - { x: 470, y: 300 }
+      - { x: 615, y: 290 }
+      - { x: 960, y: 360 }
+  - from: s_光が丘方面
+    to: s_都庁前
+    weight: thick
+    color: E
+    via:
+      - { x: 110, y: 395 }
+      - { x: 160, y: 340 }
+      - { x: 420, y: 505 }
+      - { x: 700, y: 545 }
+      - { x: 850, y: 470 }
+      - { x: 930, y: 415 }
+      - { x: 960, y: 360 }
+      - { x: 700, y: 190 }
+      - { x: 525, y: 250 }
