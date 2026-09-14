@@ -1,0 +1,108 @@
+version: 1
+kind: structure
+direction: right
+wrap: true
+title: 閉鎖循環式陸上養殖の系統図（換水率 5%/日以下）
+# **水を捨てずに、直して戻す**図。置き場所は機械が決める（構成図）。
+#
+# ## 窒素をどう始末するか
+#
+# 魚が出すのはアンモニア。**そのままだと毒**なので、
+# 硝化細菌が **NH4⁺ → NO2⁻ → NO3⁻** と酸化して毒を弱める。
+# ただし硝酸は溜まる一方なので、**脱窒槽で N2 ガスにして空へ逃がす。**
+# ここまでやるから、換水率を 5%/日以下にできる。
+#
+# ## 順番に意味がある
+#
+# **固形物を先に取る。** 残したまま生物濾過へ送ると、
+# 濾材が詰まって硝化細菌が住めなくなる。
+# 脱炭酸は硝化のあと —— 硝化は CO2 を出し、CO2 が溜まると pH が下がる。
+#
+# 規模・魚種は架空。
+nodes:
+  - id: tank
+    label: 飼育槽 ×3
+    type: container
+    technology: 各 30m³・密度 40kg/m³
+  - id: drum
+    label: ドラムフィルタ
+    technology: 目開き 60μm・固形物
+  - id: settle
+    label: 沈殿槽
+    technology: 沈む固形物・汚泥抜き
+  - id: skim
+    label: 泡沫分離装置
+    technology: 溶存有機物・微細懸濁
+  - id: nitri
+    label: 硝化槽（好気）
+    type: storage
+    technology: NH4⁺ → NO2⁻ → NO3⁻
+  - id: denit
+    label: 脱窒槽（貧酸素）
+    type: storage
+    technology: NO3⁻ → N2 ガス
+  - id: co2
+    label: 脱炭酸塔
+    technology: CO2 を抜く（pH が下がるため）
+  - id: ph
+    label: pH・アルカリ度調整
+    technology: 重曹を足す。pH 7.0〜8.0
+  - id: uv
+    label: 紫外線殺菌
+    technology: 病原体を減らす
+  - id: heat
+    label: 熱交換
+    technology: 水温を一定に保つ
+  - id: o2
+    label: 酸素供給
+    technology: 溶存酸素 6 mg/L 以上
+  - id: pump
+    label: 循環ポンプ
+    technology: 系のぜんぶを回す
+  - id: make
+    label: 補給水
+    technology: 蒸発と汚泥で抜けた分（5%/日以下）
+  - id: sludge
+    label: 汚泥処理
+    technology: 系の外へ出す
+edges:
+  - from: tank
+    to: drum
+    label: 飼育水
+  - from: drum
+    to: settle
+    label: 逆洗水
+  - from: drum
+    to: skim
+  - from: skim
+    to: nitri
+  - from: nitri
+    to: denit
+    label: 硝酸
+  - from: denit
+    to: co2
+  - from: co2
+    to: ph
+  - from: ph
+    to: uv
+  - from: uv
+    to: heat
+  - from: heat
+    to: o2
+  - from: o2
+    to: pump
+  - from: pump
+    to: tank
+    label: 戻り
+  - from: settle
+    to: sludge
+    label: 汚泥
+    line: dashed
+  - from: skim
+    to: sludge
+    label: 泡
+    line: dashed
+  - from: make
+    to: pump
+    label: 補給
+    line: dashed

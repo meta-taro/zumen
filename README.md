@@ -32,11 +32,11 @@ AI pass, nothing else matters.
 Concretely: what a person pins lives in a separate `pins:` block that the AI is not
 allowed to write. Regeneration rewrites `nodes:` and `edges:`; it cannot touch `pins:`.
 Measured over 10 real AI round trips, **10/10 kept every human edit** — and a pin
-survives a regeneration in **102/102 of the example drawings**, whatever their shape.
+survives a regeneration in **103/103 of the example drawings**, whatever their shape.
 
 ## What it looks like
 
-102 example drawings, all generated from the YAML sources in
+103 example drawings, all generated from the YAML sources in
 [`examples/gallery/`](examples/gallery/):
 
 **[→ Browse the gallery](https://meta-taro.github.io/zumen/)**
@@ -103,6 +103,15 @@ This is **not finished software.** It is being built in the open, small step by 
 - An MCP server, so an agent can read the spec and write diagrams
 - A minimal desktop GUI (Tauri) limited to **eight operations** — enough to approve or
   reject what the AI changed, and no more
+
+**Measured limits**
+
+- Automatic layout holds its structure at any size — no overlapping boxes, nothing
+  escaping its group — but **crossings grow with the square of the node count**
+  (2 at 10 nodes, 22 at 40, 51 at 60), and **past ~30 nodes the text is too small
+  to read even on A3**. A real architecture of that size has to be split into
+  several drawings; `zumen_inspect` says so (`tooTangled`, `tooSmallToPrint`)
+  rather than pretending otherwise
 
 **Does not exist yet**
 
