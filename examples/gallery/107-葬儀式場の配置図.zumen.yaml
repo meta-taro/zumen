@@ -1,0 +1,253 @@
+version: 1
+kind: placement
+arrows: false
+scale: { mm: 20 }
+title: 葬儀式場の配置図（仏式・一般葬／12 × 14m）
+# 1 px = 20 mm。**席を決めることが、焼香の順を決めること。**
+#
+# ## 上座は祭壇に近い前列中央
+#
+# 故人との関係が深い人ほど前へ。**向かって右が親族席、左が一般席。**
+#
+# ## 供花も序列で並ぶ
+#
+# 贈り主の序列で、**祭壇に近いほうから**並べる。
+# 間違えると、その場で気づかれる。
+#
+# ## 地域と宗派で違う
+#
+# ここに描いたのは一般的な形。**迷ったら葬儀社と菩提寺に確認すること。**
+#
+# 式場は架空。
+nodes:
+  - id: hall
+    label: ""
+    marker: box
+    at: { x: 70, y: 140 }
+    size: { w: 600, h: 700 }
+  - id: hall_n
+    label: "式場（12.0 × 14.0m）"
+    marker: none
+    at: { x: 78, y: 146 }
+    size: { w: 220, h: 22 }
+  - id: altar
+    label: ""
+    hatch: dots
+    at: { x: 210, y: 174 }
+    size: { w: 320, h: 110 }
+  - id: altar_n
+    label: "祭壇"
+    marker: none
+    at: { x: 216, y: 178 }
+    size: { w: 80, h: 22 }
+  - id: kyouka_l
+    label: "供花（左）"
+    hatch: lines
+    at: { x: 90, y: 174 }
+    size: { w: 110, h: 110 }
+  - id: kyouka_r
+    label: "供花（右）"
+    hatch: lines
+    at: { x: 540, y: 174 }
+    size: { w: 110, h: 110 }
+  - id: so
+    label: "僧侶席"
+    at: { x: 540, y: 292 }
+    size: { w: 110, h: 70 }
+  - id: shoko
+    label: "焼香台"
+    hatch: solid
+    at: { x: 310, y: 316 }
+    size: { w: 120, h: 46 }
+  - id: z0
+    label: "親族席 前列"
+    technology: 喪主・遺族
+    at: { x: 400, y: 390 }
+    size: { w: 250, h: 60 }
+  - id: z1
+    label: "親族席 2 列"
+    technology: 遺族
+    at: { x: 400, y: 460 }
+    size: { w: 250, h: 60 }
+  - id: z2
+    label: "親族席 3 列"
+    technology: 親族
+    at: { x: 400, y: 530 }
+    size: { w: 250, h: 60 }
+  - id: z3
+    label: "親族席 4 列"
+    technology: 親族
+    at: { x: 400, y: 600 }
+    size: { w: 250, h: 60 }
+  - id: i0
+    label: "一般席 前列"
+    technology: 会社関係
+    at: { x: 90, y: 390 }
+    size: { w: 250, h: 60 }
+  - id: i1
+    label: "一般席 2 列"
+    technology: 友人
+    at: { x: 90, y: 460 }
+    size: { w: 250, h: 60 }
+  - id: i2
+    label: "一般席 3 列"
+    technology: 一般
+    at: { x: 90, y: 530 }
+    size: { w: 250, h: 60 }
+  - id: i3
+    label: "一般席 4 列"
+    technology: 一般
+    at: { x: 90, y: 600 }
+    size: { w: 250, h: 60 }
+  - id: uke
+    label: "受付"
+    hatch: solid
+    at: { x: 90, y: 692 }
+    size: { w: 150, h: 50 }
+  - id: iri
+    label: "出入口"
+    hatch: solid
+    at: { x: 500, y: 692 }
+    size: { w: 150, h: 50 }
+  - id: hikae
+    label: "遺族控室"
+    hatch: dots
+    at: { x: 90, y: 756 }
+    size: { w: 260, h: 60 }
+  - id: note_seat
+    label: "右が親族・左が一般"
+    marker: none
+    at: { x: 90, y: 326 }
+    size: { w: 212, h: 24 }
+  - id: tb_t
+    label: "席と、焼香の順"
+    marker: none
+    at: { x: 740, y: 60 }
+    size: { w: 400, h: 24 }
+  - id: th0
+    label: "席"
+    hatch: solid
+    at: { x: 740, y: 92 }
+    size: { w: 160, h: 26 }
+  - id: th1
+    label: "誰が"
+    hatch: solid
+    at: { x: 900, y: 92 }
+    size: { w: 220, h: 26 }
+  - id: th2
+    label: "焼香"
+    hatch: solid
+    at: { x: 1120, y: 92 }
+    size: { w: 80, h: 26 }
+  - id: tc0_0
+    label: "親族席 前列"
+    at: { x: 740, y: 118 }
+    size: { w: 160, h: 28 }
+  - id: tc0_1
+    label: "喪主・遺族（配偶者・子）"
+    at: { x: 900, y: 118 }
+    size: { w: 220, h: 28 }
+  - id: tc0_2
+    label: "1"
+    at: { x: 1120, y: 118 }
+    size: { w: 80, h: 28 }
+  - id: tc1_0
+    label: "親族席 2 列"
+    at: { x: 740, y: 146 }
+    size: { w: 160, h: 28 }
+  - id: tc1_1
+    label: "遺族（子・その配偶者）"
+    at: { x: 900, y: 146 }
+    size: { w: 220, h: 28 }
+  - id: tc1_2
+    label: "2"
+    at: { x: 1120, y: 146 }
+    size: { w: 80, h: 28 }
+  - id: tc2_0
+    label: "親族席 3〜4 列"
+    at: { x: 740, y: 174 }
+    size: { w: 160, h: 28 }
+  - id: tc2_1
+    label: "親族（兄弟姉妹・親等の近い順）"
+    at: { x: 900, y: 174 }
+    size: { w: 220, h: 28 }
+  - id: tc2_2
+    label: "3"
+    at: { x: 1120, y: 174 }
+    size: { w: 80, h: 28 }
+  - id: tc3_0
+    label: "一般席 前列"
+    at: { x: 740, y: 202 }
+    size: { w: 160, h: 28 }
+  - id: tc3_1
+    label: "会社関係（役職の順）"
+    at: { x: 900, y: 202 }
+    size: { w: 220, h: 28 }
+  - id: tc3_2
+    label: "4"
+    at: { x: 1120, y: 202 }
+    size: { w: 80, h: 28 }
+  - id: tc4_0
+    label: "一般席 2 列"
+    at: { x: 740, y: 230 }
+    size: { w: 160, h: 28 }
+  - id: tc4_1
+    label: "友人・知人"
+    at: { x: 900, y: 230 }
+    size: { w: 220, h: 28 }
+  - id: tc4_2
+    label: "5"
+    at: { x: 1120, y: 230 }
+    size: { w: 80, h: 28 }
+  - id: tc5_0
+    label: "一般席 3〜4 列"
+    at: { x: 740, y: 258 }
+    size: { w: 160, h: 28 }
+  - id: tc5_1
+    label: "一般の参列者"
+    at: { x: 900, y: 258 }
+    size: { w: 220, h: 28 }
+  - id: tc5_2
+    label: "6"
+    at: { x: 1120, y: 258 }
+    size: { w: 80, h: 28 }
+  - id: r_t
+    label: "決まりと、気をつけるところ"
+    marker: none
+    at: { x: 740, y: 302 }
+    size: { w: 400, h: 24 }
+  - id: n0
+    label: "・祭壇に近い前列中央が上座。 故人との関係が深い人ほど前へ。"
+    marker: none
+    at: { x: 740, y: 330 }
+    size: { w: 620, h: 24 }
+  - id: n1
+    label: "・向かって右が親族席、左が一般席（会社・友人・一般）。"
+    marker: none
+    at: { x: 740, y: 356 }
+    size: { w: 620, h: 24 }
+  - id: n2
+    label: "・焼香の順は席順に従う。 席を決めることが、順を決めること。"
+    marker: none
+    at: { x: 740, y: 382 }
+    size: { w: 620, h: 24 }
+  - id: n3
+    label: "・僧侶席は祭壇の脇。参列者の動線と交わらない位置に取る。"
+    marker: none
+    at: { x: 740, y: 408 }
+    size: { w: 620, h: 24 }
+  - id: n4
+    label: "・供花は贈り主の序列で、祭壇に近いほうから並べる。"
+    marker: none
+    at: { x: 740, y: 434 }
+    size: { w: 620, h: 24 }
+  - id: n5
+    label: "・受付と出入口は分ける。焼香の列が受付とぶつからないように。"
+    marker: none
+    at: { x: 740, y: 460 }
+    size: { w: 620, h: 24 }
+  - id: n6
+    label: "・地域と宗派で違う。 迷ったら葬儀社と菩提寺に確認する。"
+    marker: none
+    at: { x: 740, y: 486 }
+    size: { w: 620, h: 24 }
