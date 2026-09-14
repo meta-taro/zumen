@@ -184,3 +184,39 @@ nodes:
     assert.ok(!/<rect /.test(node));
   });
 });
+
+/**
+ * **文字を地の色にした箱では、下地を抜かない。**
+ *
+ * 塗り潰し（`solid`）の箱は、文字を地の色（白）にしている。
+ * そこへ下地（白い板）を敷くと、**白い板に白い字**になって消える。
+ *
+ * 2026-09-15、区画（`dots`）の中に置いた塗り潰しの箱で実際に踏んだ ——
+ * 「別の箱の模様の上でも下地を抜く」を入れた直後の回帰。
+ */
+describe('地の色にした文字と、下地', () => {
+  const ZONE = `version: 1
+kind: placement
+nodes:
+  - id: zone
+    label: ""
+    hatch: dots
+    at: { x: 0, y: 0 }
+    size: { w: 300, h: 200 }
+  - id: door
+    label: 搬入口
+    hatch: solid
+    at: { x: 20, y: 40 }
+    size: { w: 100, h: 30 }
+`;
+
+  it('**白い板に白い字にしない**', async () => {
+    const { layout } = await import('../src/layout.ts');
+    const { render } = await import('../src/render.ts');
+    const out = render(await layout(ZONE), 'light', 'safe', true);
+    const node = out.match(/<g data-node="door"[\s\S]*?<\/g>/)![0];
+    // 文字は地の色。**その直前に白い板があってはいけない。**
+    assert.match(node, /<text[^>]*fill="#ffffff"/, '塗りの上の文字が地の色になっていない');
+    assert.ok(!/<rect [^>]*fill="#ffffff"\/><text/.test(node), '白い板に白い字を書いている');
+  });
+});

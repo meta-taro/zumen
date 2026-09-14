@@ -429,8 +429,12 @@ function renderNode(
   // **別の箱の模様の上に載った文字も抜く**（`under`。2026-09-15）。
   // 帯（`solid`）の上のタブ名が、同じ濃さで沈んでいた。
   // こちらは塗り潰しでも抜く —— 文字の色は変えられないので、下地を白く抜く。
+  //
+  // **文字を地の色にした箱では抜かない。** 抜くと白い板に白い字になる
+  // （2026-09-15。区画の上に置いた塗り潰しの箱で踏んだ）。
+  const inverted = ink.text === palette.paper;
   const halo =
-    plan && ((box.hatch !== 'none' && box.hatch !== 'solid') || under !== 'none')
+    plan && !inverted && ((box.hatch !== 'none' && box.hatch !== 'solid') || under !== 'none')
       ? palette.paper
       : null;
 
@@ -475,7 +479,13 @@ function nodeTag(box: Box, palette: Palette, style: Look, halo: string | null = 
    * （2026-09-13）。実物の路線図の駅番号は丸の中央にある。
    * 矩形はこれまでどおり左上（伏図の部材符号は隅にある）。
    */
-  const round = box.marker === 'circle' || box.marker === 'double' || box.marker === 'ellipse';
+  // **菱形も真ん中へ。** 角に置くと、斜めの辺が文字を横切る
+  // （2026-09-15。防虫の定点配置図で `ST-2` が線に食われていた）。
+  const round =
+    box.marker === 'circle' ||
+    box.marker === 'double' ||
+    box.marker === 'ellipse' ||
+    box.marker === 'diamond';
   if (round) {
     const cx = box.x + box.w / 2;
     const cy = box.y + box.h / 2 + 4;

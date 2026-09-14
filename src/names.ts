@@ -432,7 +432,12 @@ const TAG_GAP = 8;
  */
 export function tagFits(box: Box): boolean {
   if (box.tag === null) return true;
-  const round = box.marker === 'circle' || box.marker === 'double' || box.marker === 'ellipse';
+  // **菱形も真ん中へ**（`src/render.ts` と揃える）。角に置くと斜めの辺が文字を横切る。
+  const round =
+    box.marker === 'circle' ||
+    box.marker === 'double' ||
+    box.marker === 'ellipse' ||
+    box.marker === 'diamond';
   const room = round ? box.w - 4 : box.w - TAG_GAP;
   return labelWidth(box.tag, TAG_FONT) <= room;
 }
