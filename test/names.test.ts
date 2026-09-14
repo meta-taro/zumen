@@ -12,7 +12,7 @@ import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
 import { layout } from '../src/layout.ts';
-import { crowdedNames, extentOf, joinedText, planNames } from '../src/names.ts';
+import { crowdedNames, extentOf, joinedText, planNames, textRectOf } from '../src/names.ts';
 import { render } from '../src/render.ts';
 import { inspect } from '../src/tools.ts';
 
@@ -642,3 +642,49 @@ nodes:
   });
 });
 
+
+/**
+ * **囲みの名前の場所へ、節の名前を置かない。**
+ *
+ * 2026-09-15、見本 49（アクティビティ図）を**ブラウザで開いて**出た。
+ * レーンの名前「受付（レーン）」に、開始の印の名前「開始」が乗り、
+ * **どちらも読めなくなっていた。** 「倉庫（レーン）」と「分岐」も同じ。
+ *
+ * 外へ出した名前は箱と辺を避けるようにしてあるが、
+ * **囲みの名前が占めている帯は、避ける相手に入っていなかった。**
+ */
+describe('囲みの名前を避ける', () => {
+  it('**囲みの見出しの帯に、節の名前を置かない**', async () => {
+    const source = `version: 1
+kind: placement
+groups:
+  - id: lane
+    label: 受付（レーン）
+nodes:
+  - id: s
+    label: 開始
+    marker: circle
+    group: lane
+    at: { x: 60, y: 0 }
+    size: { w: 26, h: 26 }
+  - id: t
+    label: 注文を受ける
+    group: lane
+    at: { x: 0, y: 60 }
+    size: { w: 150, h: 50 }
+`;
+    const placed = await layout(source);
+    const plans = planNames(placed.boxes, extentOf(placed.boxes), placed.edges, placed.groups);
+    const plan = plans.get('s')!;
+    assert.equal(plan.kind, 'outside', '前提が変わった（名前が外へ出ていない）');
+    const rect = textRectOf(placed.boxes.find((b) => b.id === 's')!, plan)!;
+    const group = placed.groups[0]!;
+    const band = { x: group.x, y: group.y, w: 160, h: 26 };
+    const hit =
+      rect.x < band.x + band.w &&
+      band.x < rect.x + rect.w &&
+      rect.y < band.y + band.h &&
+      band.y < rect.y + rect.h;
+    assert.ok(!hit, '囲みの名前の帯に、節の名前が乗っている');
+  });
+});

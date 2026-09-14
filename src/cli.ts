@@ -103,7 +103,7 @@ export async function placedFindings(text: string): Promise<Finding[]> {
     // 置けない図は、正本の指摘だけで足りる（描くときに同じ所で落ちる）。
     return [];
   }
-  const plans = planNames(placed.boxes, extentOf(placed.boxes), placed.edges);
+  const plans = planNames(placed.boxes, extentOf(placed.boxes), placed.edges, placed.groups);
   return [
     ...overlappingText(placed.boxes, plans).map(([a, b]) => ({
       severity: 'warning' as const,

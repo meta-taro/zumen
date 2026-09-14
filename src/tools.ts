@@ -389,17 +389,17 @@ export async function inspect(source: string): Promise<Inspection> {
     tooTangled: placed.edges.length > 0 && crossed > placed.edges.length,
     hiddenLabels: placed.edges.filter((e) => e.label !== null && !shown.has(e.id)).map((e) => e.id),
     crowdedNames:
-      kindOf(source) === 'placement' ? crowdedNames(planNames(placed.boxes, extentOf(placed.boxes), placed.edges)) : [],
+      kindOf(source) === 'placement' ? crowdedNames(planNames(placed.boxes, extentOf(placed.boxes), placed.edges, placed.groups)) : [],
     floors: placed.floors,
     adriftNames:
       kindOf(source) === 'placement'
-        ? adriftNames(placed.boxes, planNames(placed.boxes, extentOf(placed.boxes), placed.edges))
+        ? adriftNames(placed.boxes, planNames(placed.boxes, extentOf(placed.boxes), placed.edges, placed.groups))
         : [],
     hiddenTags: kindOf(source) === 'placement' ? hiddenTags(placed.boxes) : [],
     edgesUnderBoxes: edgesUnderBoxes(placed),
     overlappingText:
       kindOf(source) === 'placement'
-        ? overlappingText(placed.boxes, planNames(placed.boxes, extentOf(placed.boxes), placed.edges))
+        ? overlappingText(placed.boxes, planNames(placed.boxes, extentOf(placed.boxes), placed.edges, placed.groups))
         : [],
     ...(() => {
       const seen = reviewOf(source);

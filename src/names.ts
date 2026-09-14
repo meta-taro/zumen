@@ -40,6 +40,10 @@ import { labelWidth } from './layout.ts';
 
 /** 文字の大きさ（`src/render.ts` と揃える）。 */
 export const NAME_FONT = 12;
+/** 囲みの名前の字の大きさ（`src/render.ts` と揃える）。 */
+const GROUP_FONT = 13;
+/** 囲みの名前が占める帯の高さ（`src/layout.ts` の `fitGroups` の `TITLE` と揃える）。 */
+const GROUP_TITLE = 26;
 export const SUB_FONT = 10;
 
 export interface Rect {
@@ -257,10 +261,22 @@ export function planNames(
   boxes: readonly Box[],
   frame: Rect | null,
   edges: readonly EdgeShape[] = [],
+  groups: readonly Box[] = [],
 ): Map<string, Plan> {
   const out = new Map<string, Plan>();
   const taken: Rect[] = [];
-  const solid: Rect[] = boxes.map((b) => ({ x: b.x, y: b.y, w: b.w, h: b.h }));
+  /**
+   * **囲みの見出しの帯も、避ける相手に入れる。**
+   *
+   * 2026-09-15、見本 49（アクティビティ図）で
+   * レーンの名前「受付（レーン）」に開始の印の名前が乗り、
+   * **どちらも読めなくなっていた。**
+   * 箱と辺は避けていたが、**囲みの名前が占めている帯**は入っていなかった。
+   */
+  const titles: Rect[] = groups
+    .filter((g) => g.label !== '')
+    .map((g) => ({ x: g.x, y: g.y, w: labelWidth(g.label, GROUP_FONT) + 24, h: GROUP_TITLE }));
+  const solid: Rect[] = [...boxes.map((b) => ({ x: b.x, y: b.y, w: b.w, h: b.h })), ...titles];
   const wires = edgeObstacles(edges);
   const order = [...boxes].sort((a, b) => b.w * b.h - a.w * a.h);
 

@@ -118,7 +118,12 @@ export function render(
   // **配置図の文字の置き方は、図ぜんたいを見て決める**（`src/names.ts`）。
   // 1 つずつ決めると、外へ出した文字が他の箱に乗る。
   const names = plan
-    ? planNames(placed.boxes, placed.boxes.length > 0 ? frameOf(placed) : null, placed.edges)
+    ? planNames(
+        placed.boxes,
+        placed.boxes.length > 0 ? frameOf(placed) : null,
+        placed.edges,
+        placed.groups,
+      )
     : new Map<string, Plan>();
   const paper = paperFor(placed, names);
   // **置けなかったラベルは、ここに入ってこない**（重ねて出さない。Issue #3 の 3）。
