@@ -1,0 +1,370 @@
+version: 1
+kind: placement
+arrows: false
+title: ダンスのフォーメーション図（5 人・32 カウント／4 つの形）
+# **同じ舞台を、カウントごとに並べる図。** 動きは形の差で読む。
+#
+# ## 上手と下手は、客席から見た向き
+#
+# **上手＝客席から見て右、下手＝左。** 舞台に立つと左右が逆になる ——
+# 法廷の「右陪席」（見本 99）と同じ引っかけ。
+#
+# ## 位置はセンター基準
+#
+# センターを 0 として、上手側 +1 +2、下手側 −1 −2。
+# 現場でもこの数え方で指示する。
+#
+# ## ナナメが強い
+#
+# **上手奥から下手前への線が、客席からいちばん強く見える。**
+# 最後のカウントでそこへ乗せてある。
+nodes:
+  - id: a_c
+    label: "カウント 1 — 横一列（前）"
+    marker: none
+    at: { x: 70, y: 140 }
+    size: { w: 280, h: 24 }
+  - id: a
+    label: ""
+    marker: box
+    at: { x: 70, y: 170 }
+    size: { w: 280, h: 200 }
+  - id: a_ctr
+    label: ""
+    hatch: dots
+    at: { x: 209, y: 174 }
+    size: { w: 2, h: 86 }
+  - id: a_A
+    label: ""
+    marker: circle
+    tag: A
+    at: { x: 92, y: 330 }
+    size: { w: 28, h: 28 }
+  - id: a_B
+    label: ""
+    marker: circle
+    tag: B
+    at: { x: 144, y: 330 }
+    size: { w: 28, h: 28 }
+  - id: a_C
+    label: ""
+    marker: circle
+    tag: C
+    at: { x: 196, y: 330 }
+    size: { w: 28, h: 28 }
+  - id: a_D
+    label: ""
+    marker: circle
+    tag: D
+    at: { x: 248, y: 330 }
+    size: { w: 28, h: 28 }
+  - id: a_E
+    label: ""
+    marker: circle
+    tag: E
+    at: { x: 300, y: 330 }
+    size: { w: 28, h: 28 }
+  - id: a_sh
+    label: "下手"
+    marker: none
+    at: { x: 74, y: 372 }
+    size: { w: 40, h: 20 }
+  - id: a_km
+    label: "上手"
+    marker: none
+    at: { x: 306, y: 372 }
+    size: { w: 40, h: 20 }
+  - id: b_c
+    label: "カウント 9 — V 字"
+    marker: none
+    at: { x: 390, y: 140 }
+    size: { w: 280, h: 24 }
+  - id: b
+    label: ""
+    marker: box
+    at: { x: 390, y: 170 }
+    size: { w: 280, h: 200 }
+  - id: b_ctr
+    label: ""
+    hatch: dots
+    at: { x: 529, y: 174 }
+    size: { w: 2, h: 86 }
+  - id: b_A
+    label: ""
+    marker: circle
+    tag: A
+    at: { x: 412, y: 210 }
+    size: { w: 28, h: 28 }
+  - id: b_B
+    label: ""
+    marker: circle
+    tag: B
+    at: { x: 464, y: 270 }
+    size: { w: 28, h: 28 }
+  - id: b_C
+    label: ""
+    marker: circle
+    tag: C
+    at: { x: 516, y: 330 }
+    size: { w: 28, h: 28 }
+  - id: b_D
+    label: ""
+    marker: circle
+    tag: D
+    at: { x: 568, y: 270 }
+    size: { w: 28, h: 28 }
+  - id: b_E
+    label: ""
+    marker: circle
+    tag: E
+    at: { x: 620, y: 210 }
+    size: { w: 28, h: 28 }
+  - id: b_sh
+    label: "下手"
+    marker: none
+    at: { x: 394, y: 372 }
+    size: { w: 40, h: 20 }
+  - id: b_km
+    label: "上手"
+    marker: none
+    at: { x: 626, y: 372 }
+    size: { w: 40, h: 20 }
+  - id: c_c
+    label: "カウント 17 — 縦 2 列"
+    marker: none
+    at: { x: 710, y: 140 }
+    size: { w: 280, h: 24 }
+  - id: c
+    label: ""
+    marker: box
+    at: { x: 710, y: 170 }
+    size: { w: 280, h: 200 }
+  - id: c_ctr
+    label: ""
+    hatch: dots
+    at: { x: 849, y: 174 }
+    size: { w: 2, h: 86 }
+  - id: c_A
+    label: ""
+    marker: circle
+    tag: A
+    at: { x: 784, y: 210 }
+    size: { w: 28, h: 28 }
+  - id: c_B
+    label: ""
+    marker: circle
+    tag: B
+    at: { x: 784, y: 270 }
+    size: { w: 28, h: 28 }
+  - id: c_C
+    label: ""
+    marker: circle
+    tag: C
+    at: { x: 836, y: 330 }
+    size: { w: 28, h: 28 }
+  - id: c_D
+    label: ""
+    marker: circle
+    tag: D
+    at: { x: 888, y: 270 }
+    size: { w: 28, h: 28 }
+  - id: c_E
+    label: ""
+    marker: circle
+    tag: E
+    at: { x: 888, y: 210 }
+    size: { w: 28, h: 28 }
+  - id: c_sh
+    label: "下手"
+    marker: none
+    at: { x: 714, y: 372 }
+    size: { w: 40, h: 20 }
+  - id: c_km
+    label: "上手"
+    marker: none
+    at: { x: 946, y: 372 }
+    size: { w: 40, h: 20 }
+  - id: d_c
+    label: "カウント 25 — ナナメ（上手奥 → 下手前）"
+    marker: none
+    at: { x: 1030, y: 140 }
+    size: { w: 280, h: 24 }
+  - id: d
+    label: ""
+    marker: box
+    at: { x: 1030, y: 170 }
+    size: { w: 280, h: 200 }
+  - id: d_ctr
+    label: ""
+    hatch: dots
+    at: { x: 1169, y: 174 }
+    size: { w: 2, h: 86 }
+  - id: d_A
+    label: ""
+    marker: circle
+    tag: A
+    at: { x: 1052, y: 330 }
+    size: { w: 28, h: 28 }
+  - id: d_B
+    label: ""
+    marker: circle
+    tag: B
+    at: { x: 1104, y: 270 }
+    size: { w: 28, h: 28 }
+  - id: d_C
+    label: ""
+    marker: circle
+    tag: C
+    at: { x: 1156, y: 270 }
+    size: { w: 28, h: 28 }
+  - id: d_D
+    label: ""
+    marker: circle
+    tag: D
+    at: { x: 1208, y: 210 }
+    size: { w: 28, h: 28 }
+  - id: d_E
+    label: ""
+    marker: circle
+    tag: E
+    at: { x: 1260, y: 210 }
+    size: { w: 28, h: 28 }
+  - id: d_sh
+    label: "下手"
+    marker: none
+    at: { x: 1034, y: 372 }
+    size: { w: 40, h: 20 }
+  - id: d_km
+    label: "上手"
+    marker: none
+    at: { x: 1266, y: 372 }
+    size: { w: 40, h: 20 }
+  - id: front
+    label: "↓ 客席（前）"
+    marker: none
+    at: { x: 240, y: 410 }
+    size: { w: 130, h: 24 }
+  - id: kami_n
+    label: "上手＝客席から見て右。舞台に立つと左"
+    marker: none
+    at: { x: 430, y: 410 }
+    size: { w: 310, h: 24 }
+  - id: tb_t
+    label: "移動（誰が、どこへ）"
+    marker: none
+    at: { x: 70, y: 452 }
+    size: { w: 300, h: 24 }
+  - id: th0
+    label: "カウント"
+    hatch: solid
+    at: { x: 70, y: 480 }
+    size: { w: 110, h: 26 }
+  - id: th1
+    label: "形"
+    hatch: solid
+    at: { x: 180, y: 480 }
+    size: { w: 200, h: 26 }
+  - id: th2
+    label: "動く人"
+    hatch: solid
+    at: { x: 380, y: 480 }
+    size: { w: 230, h: 26 }
+  - id: th3
+    label: "狙い"
+    hatch: solid
+    at: { x: 610, y: 480 }
+    size: { w: 330, h: 26 }
+  - id: tc0_0
+    label: "1"
+    at: { x: 70, y: 506 }
+    size: { w: 110, h: 28 }
+  - id: tc0_1
+    label: "横一列（前）"
+    at: { x: 180, y: 506 }
+    size: { w: 200, h: 28 }
+  - id: tc0_2
+    label: "—"
+    at: { x: 380, y: 506 }
+    size: { w: 230, h: 28 }
+  - id: tc0_3
+    label: "顔と人数を見せる"
+    at: { x: 610, y: 506 }
+    size: { w: 330, h: 28 }
+  - id: tc1_0
+    label: "9"
+    at: { x: 70, y: 534 }
+    size: { w: 110, h: 28 }
+  - id: tc1_1
+    label: "V 字"
+    at: { x: 180, y: 534 }
+    size: { w: 200, h: 28 }
+  - id: tc1_2
+    label: "A・E が奥へ、B・D が半歩奥へ"
+    at: { x: 380, y: 534 }
+    size: { w: 230, h: 28 }
+  - id: tc1_3
+    label: "センターを立てる"
+    at: { x: 610, y: 534 }
+    size: { w: 330, h: 28 }
+  - id: tc2_0
+    label: "17"
+    at: { x: 70, y: 562 }
+    size: { w: 110, h: 28 }
+  - id: tc2_1
+    label: "縦 2 列"
+    at: { x: 180, y: 562 }
+    size: { w: 200, h: 28 }
+  - id: tc2_2
+    label: "A・E が内へ寄る"
+    at: { x: 380, y: 562 }
+    size: { w: 230, h: 28 }
+  - id: tc2_3
+    label: "奥行きを出す"
+    at: { x: 610, y: 562 }
+    size: { w: 330, h: 28 }
+  - id: tc3_0
+    label: "25"
+    at: { x: 70, y: 590 }
+    size: { w: 110, h: 28 }
+  - id: tc3_1
+    label: "ナナメ"
+    at: { x: 180, y: 590 }
+    size: { w: 200, h: 28 }
+  - id: tc3_2
+    label: "全員が上手奥 → 下手前の線へ"
+    at: { x: 380, y: 590 }
+    size: { w: 230, h: 28 }
+  - id: tc3_3
+    label: "いちばん強く見える線に乗せる"
+    at: { x: 610, y: 590 }
+    size: { w: 330, h: 28 }
+  - id: n0
+    label: "・上手＝客席から見て右、下手＝左。舞台に立つと左右が逆になる。"
+    marker: none
+    at: { x: 70, y: 636 }
+    size: { w: 418, h: 24 }
+  - id: n1
+    label: "・センターを 0 として、上手側 +1 +2、下手側 −1 −2 と番号を振る。"
+    marker: none
+    at: { x: 70, y: 662 }
+    size: { w: 444, h: 24 }
+  - id: n2
+    label: "・上手奥から下手前へのナナメの線が、いちばん強く見える。"
+    marker: none
+    at: { x: 70, y: 688 }
+    size: { w: 378, h: 24 }
+  - id: n3
+    label: "・移動は最短でなくてよい。客席からどう見えるかで決める。"
+    marker: none
+    at: { x: 70, y: 714 }
+    size: { w: 378, h: 24 }
+  - id: n4
+    label: "・奇数人数は十字やＶ字が組みやすい（センターが決まる）。"
+    marker: none
+    at: { x: 70, y: 740 }
+    size: { w: 378, h: 24 }
+  - id: n5
+    label: "・止まる形だけでなく、どのカウントで着くかを書く。"
+    marker: none
+    at: { x: 70, y: 766 }
+    size: { w: 338, h: 24 }
