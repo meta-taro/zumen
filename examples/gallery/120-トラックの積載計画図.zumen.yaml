@@ -1,0 +1,406 @@
+version: 1
+kind: placement
+arrows: true
+title: トラックの積載計画図（軸重の配分／架空の 3 軸車）
+scale: { mm: 20 }
+# **軸重は、荷の重さではなく「重さ × 軸からの距離」で決まる。**
+#
+# ## 同じ重さでも、置き場所で判定が変わる
+#
+# 前へ寄せすぎると**前軸が超える。**
+# 後ろへ寄せすぎると**後軸が超え、前輪が浮く**（ハンドルが効かなくなる）。
+#
+# **重い荷ほど軸の近くへ置く。**
+#
+# ## 空車の重心も計算に入れる
+#
+# 荷だけでは合わない。**空車重量とその重心**を先に置いてから、荷を足す。
+#
+# ## 一般的制限値
+#
+# 総重量 20 t、軸重 10 t、輪荷重 5 t、長さ 12 m、幅 2.5 m、
+# 高さ 3.8 m（指定道路は 4.1 m）。**1 つでも超えたら特殊車両**で、通行許可が要る。
+nodes:
+  - id: ground
+    label: ""
+    hatch: solid
+    at: { x: 40, y: 400 }
+    size: { w: 560, h: 4 }
+  - id: ground_n
+    label: "地面"
+    marker: none
+    align: left
+    at: { x: 40, y: 410 }
+    size: { w: 60, h: 22 }
+  - id: cab
+    label: "キャブ"
+    hatch: lines
+    at: { x: 20, y: 230 }
+    size: { w: 120, h: 90 }
+  - id: bed
+    label: ""
+    hatch: solid
+    at: { x: 140, y: 300 }
+    size: { w: 360, h: 20 }
+  - id: bed_n
+    label: "荷台 7.2 m"
+    marker: none
+    align: left
+    at: { x: 146, y: 324 }
+    size: { w: 140, h: 22 }
+  - id: a
+    label: "A"
+    hatch: dots
+    at: { x: 200, y: 220 }
+    size: { w: 100, h: 80 }
+  - id: b
+    label: "B"
+    hatch: dots
+    at: { x: 300, y: 240 }
+    size: { w: 80, h: 60 }
+  - id: c
+    label: "C"
+    hatch: dots
+    at: { x: 380, y: 250 }
+    size: { w: 60, h: 50 }
+  - id: w1
+    label: ""
+    marker: circle
+    at: { x: 82, y: 364 }
+    size: { w: 36, h: 36 }
+  - id: w2
+    label: ""
+    marker: circle
+    at: { x: 324, y: 364 }
+    size: { w: 36, h: 36 }
+  - id: w3
+    label: ""
+    marker: circle
+    at: { x: 390, y: 364 }
+    size: { w: 36, h: 36 }
+  - id: ax1
+    label: "前軸"
+    marker: none
+    align: left
+    at: { x: 72, y: 406 }
+    size: { w: 60, h: 22 }
+  - id: ax2
+    label: "後軸群（2 軸）"
+    marker: none
+    align: left
+    at: { x: 320, y: 406 }
+    size: { w: 140, h: 22 }
+  - id: h_a
+    label: ""
+    marker: none
+    at: { x: 39, y: 209 }
+    size: { w: 2, h: 2 }
+  - id: h_b
+    label: ""
+    marker: none
+    at: { x: 599, y: 209 }
+    size: { w: 2, h: 2 }
+  - id: h_n
+    label: "高さの制限 3.8 m（指定道路は 4.1 m）"
+    marker: none
+    align: left
+    at: { x: 40, y: 182 }
+    size: { w: 320, h: 22 }
+  - id: wb_a
+    label: ""
+    marker: none
+    at: { x: 99, y: 447 }
+    size: { w: 2, h: 2 }
+  - id: wb_b
+    label: ""
+    marker: none
+    at: { x: 374, y: 447 }
+    size: { w: 2, h: 2 }
+  - id: wb_n
+    label: "ホイールベース 5.5 m"
+    marker: none
+    align: left
+    at: { x: 160, y: 452 }
+    size: { w: 200, h: 22 }
+  - id: l_t
+    label: "一般的制限値（車両制限令）"
+    marker: none
+    align: left
+    at: { x: 660, y: 40 }
+    size: { w: 340, h: 24 }
+  - id: lk0
+    label: "車両総重量"
+    hatch: solid
+    at: { x: 660, y: 70 }
+    size: { w: 150, h: 28 }
+  - id: lv0
+    label: "20 t"
+    at: { x: 810, y: 70 }
+    size: { w: 330, h: 28 }
+  - id: lk1
+    label: "軸重"
+    hatch: solid
+    at: { x: 660, y: 98 }
+    size: { w: 150, h: 28 }
+  - id: lv1
+    label: "10 t"
+    at: { x: 810, y: 98 }
+    size: { w: 330, h: 28 }
+  - id: lk2
+    label: "輪荷重"
+    hatch: solid
+    at: { x: 660, y: 126 }
+    size: { w: 150, h: 28 }
+  - id: lv2
+    label: "5 t"
+    at: { x: 810, y: 126 }
+    size: { w: 330, h: 28 }
+  - id: lk3
+    label: "隣接軸重"
+    hatch: solid
+    at: { x: 660, y: 154 }
+    size: { w: 150, h: 28 }
+  - id: lv3
+    label: "18 t（軸距 1.8 m 未満）／ 20 t（1.8 m 以上）"
+    at: { x: 810, y: 154 }
+    size: { w: 330, h: 28 }
+  - id: lk4
+    label: "長さ"
+    hatch: solid
+    at: { x: 660, y: 182 }
+    size: { w: 150, h: 28 }
+  - id: lv4
+    label: "12 m"
+    at: { x: 810, y: 182 }
+    size: { w: 330, h: 28 }
+  - id: lk5
+    label: "幅"
+    hatch: solid
+    at: { x: 660, y: 210 }
+    size: { w: 150, h: 28 }
+  - id: lv5
+    label: "2.5 m"
+    at: { x: 810, y: 210 }
+    size: { w: 330, h: 28 }
+  - id: lk6
+    label: "高さ"
+    hatch: solid
+    at: { x: 660, y: 238 }
+    size: { w: 150, h: 28 }
+  - id: lv6
+    label: "3.8 m（指定道路は 4.1 m）"
+    at: { x: 810, y: 238 }
+    size: { w: 330, h: 28 }
+  - id: l_n
+    label: "1 つでも超えると特殊車両。通行許可が要る"
+    marker: none
+    align: left
+    at: { x: 660, y: 274 }
+    size: { w: 420, h: 22 }
+  - id: c_t
+    label: "軸重の配分（この積み方）"
+    marker: none
+    align: left
+    at: { x: 660, y: 310 }
+    size: { w: 340, h: 24 }
+  - id: ch0
+    label: ""
+    hatch: solid
+    at: { x: 660, y: 338 }
+    size: { w: 170, h: 26 }
+  - id: ch1
+    label: "前軸"
+    hatch: solid
+    at: { x: 830, y: 338 }
+    size: { w: 110, h: 26 }
+  - id: ch2
+    label: "後軸群"
+    hatch: solid
+    at: { x: 940, y: 338 }
+    size: { w: 130, h: 26 }
+  - id: ch3
+    label: "合計"
+    hatch: solid
+    at: { x: 1070, y: 338 }
+    size: { w: 110, h: 26 }
+  - id: cc0_0
+    label: "空車（重心 2.2 m）"
+    at: { x: 660, y: 364 }
+    size: { w: 170, h: 28 }
+  - id: cc0_1
+    label: "5.4 t"
+    at: { x: 830, y: 364 }
+    size: { w: 110, h: 28 }
+  - id: cc0_2
+    label: "3.6 t"
+    at: { x: 940, y: 364 }
+    size: { w: 130, h: 28 }
+  - id: cc0_3
+    label: "9.0 t"
+    at: { x: 1070, y: 364 }
+    size: { w: 110, h: 28 }
+  - id: cc1_0
+    label: "荷 11.0 t（重心 4.53 m）"
+    at: { x: 660, y: 392 }
+    size: { w: 170, h: 28 }
+  - id: cc1_1
+    label: "1.9 t"
+    at: { x: 830, y: 392 }
+    size: { w: 110, h: 28 }
+  - id: cc1_2
+    label: "9.1 t"
+    at: { x: 940, y: 392 }
+    size: { w: 130, h: 28 }
+  - id: cc1_3
+    label: "11.0 t"
+    at: { x: 1070, y: 392 }
+    size: { w: 110, h: 28 }
+  - id: cc2_0
+    label: "合計"
+    at: { x: 660, y: 420 }
+    size: { w: 170, h: 28 }
+  - id: cc2_1
+    label: "7.3 t"
+    at: { x: 830, y: 420 }
+    size: { w: 110, h: 28 }
+  - id: cc2_2
+    label: "12.7 t"
+    at: { x: 940, y: 420 }
+    size: { w: 130, h: 28 }
+  - id: cc2_3
+    label: "20.0 t"
+    at: { x: 1070, y: 420 }
+    size: { w: 110, h: 28 }
+  - id: cc3_0
+    label: "1 軸あたり"
+    at: { x: 660, y: 448 }
+    size: { w: 170, h: 28 }
+  - id: cc3_1
+    label: "7.3 t"
+    at: { x: 830, y: 448 }
+    size: { w: 110, h: 28 }
+  - id: cc3_2
+    label: "6.4 t"
+    at: { x: 940, y: 448 }
+    size: { w: 130, h: 28 }
+  - id: cc3_3
+    label: "—"
+    at: { x: 1070, y: 448 }
+    size: { w: 110, h: 28 }
+  - id: cc4_0
+    label: "判定"
+    at: { x: 660, y: 476 }
+    size: { w: 170, h: 28 }
+  - id: cc4_1
+    label: "10 t 以下 ○"
+    at: { x: 830, y: 476 }
+    size: { w: 110, h: 28 }
+  - id: cc4_2
+    label: "隣接軸重 18 t 以下 ○"
+    at: { x: 940, y: 476 }
+    size: { w: 130, h: 28 }
+  - id: cc4_3
+    label: "20 t ちょうど ○"
+    at: { x: 1070, y: 476 }
+    size: { w: 110, h: 28 }
+  - id: n_t
+    label: "荷の明細"
+    marker: none
+    align: left
+    at: { x: 660, y: 514 }
+    size: { w: 200, h: 24 }
+  - id: gk0
+    label: "A"
+    hatch: solid
+    at: { x: 660, y: 542 }
+    size: { w: 60, h: 26 }
+  - id: gw0
+    label: "4.0 t"
+    at: { x: 720, y: 542 }
+    size: { w: 90, h: 26 }
+  - id: gp0
+    label: "前軸から 2.0〜4.0 m（重心 3.0 m）"
+    at: { x: 810, y: 542 }
+    size: { w: 330, h: 26 }
+  - id: gk1
+    label: "B"
+    hatch: solid
+    at: { x: 660, y: 568 }
+    size: { w: 60, h: 26 }
+  - id: gw1
+    label: "4.0 t"
+    at: { x: 720, y: 568 }
+    size: { w: 90, h: 26 }
+  - id: gp1
+    label: "前軸から 4.0〜5.6 m（重心 4.8 m）"
+    at: { x: 810, y: 568 }
+    size: { w: 330, h: 26 }
+  - id: gk2
+    label: "C"
+    hatch: solid
+    at: { x: 660, y: 594 }
+    size: { w: 60, h: 26 }
+  - id: gw2
+    label: "3.0 t"
+    at: { x: 720, y: 594 }
+    size: { w: 90, h: 26 }
+  - id: gp2
+    label: "前軸から 5.6〜6.8 m（重心 6.2 m）"
+    at: { x: 810, y: 594 }
+    size: { w: 330, h: 26 }
+  - id: r_t
+    label: "この図の決まり"
+    marker: none
+    align: left
+    at: { x: 660, y: 638 }
+    size: { w: 200, h: 24 }
+  - id: rn0
+    label: "・軸重は、荷の重さではなく「重さ × 軸からの距離」で決まる"
+    marker: none
+    align: left
+    at: { x: 660, y: 666 }
+    size: { w: 520, h: 24 }
+  - id: rn1
+    label: "・前へ寄せすぎると前軸が超える。後ろへ寄せすぎると後軸が超え、前輪が浮く"
+    marker: none
+    align: left
+    at: { x: 660, y: 692 }
+    size: { w: 520, h: 24 }
+  - id: rn2
+    label: "・重い荷ほど軸の近くへ置く。同じ重さでも置き場所で判定が変わる"
+    marker: none
+    align: left
+    at: { x: 660, y: 718 }
+    size: { w: 520, h: 24 }
+  - id: rn3
+    label: "・左右の偏荷重も見る。輪荷重は 1 輪あたり 5 t"
+    marker: none
+    align: left
+    at: { x: 660, y: 744 }
+    size: { w: 520, h: 24 }
+  - id: rn4
+    label: "・荷台からのはみ出しと固縛は別の決まり。図と一緒に確かめる"
+    marker: none
+    align: left
+    at: { x: 660, y: 770 }
+    size: { w: 520, h: 24 }
+  - id: rn5
+    label: "・空車重量の重心も計算に入れる。荷だけでは合わない"
+    marker: none
+    align: left
+    at: { x: 660, y: 796 }
+    size: { w: 520, h: 24 }
+  - id: rn6
+    label: "・1 つでも一般的制限値を超えたら特殊車両。通行許可を取る"
+    marker: none
+    align: left
+    at: { x: 660, y: 822 }
+    size: { w: 520, h: 24 }
+edges:
+  - from: h_a
+    to: h_b
+    line: dashed
+    ends: { from: none, to: none }
+  - from: wb_a
+    to: wb_b
+    ends: { from: bar, to: bar }
