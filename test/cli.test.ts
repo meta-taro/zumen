@@ -23,51 +23,77 @@ const GOOD = 'version: 1\nnodes:\n  - id: a\n';
 const ORPHAN = 'version: 1\nnodes:\n  - id: a\npins:\n  zzz:\n    label: 手直し\n';
 const BROKEN = 'version: 1\nnodes:\n  - id: a\n  - id: a\n';
 
+/**
+ * **重なった文字は、正本だけを読んでも分からない。**
+ *
+ * `validate` は置いたあとの形を見ないので、
+ * 「書いたのに読めない」状態を**人が CLI で確かめられなかった**
+ * （`zumen_inspect` を叩けるエージェントだけが見えていた。2026-09-14）。
+ */
+const PILE = `version: 1
+kind: placement
+nodes:
+  - id: frame
+    label: ""
+    marker: box
+    at: { x: 0, y: 0 }
+    size: { w: 200, h: 100 }
+  - id: inner
+    label: 中の節
+    at: { x: 10, y: 10 }
+    size: { w: 180, h: 40 }
+  - id: note
+    label: 枠の上に乗ってしまった注記
+    marker: none
+    at: { x: 10, y: 10 }
+    size: { w: 300, h: 26 }
+`;
+
 describe('終了コード', () => {
-  it('引数が無ければ 2 で、使い方を出す', () => {
-    const result = runValidate([]);
+  it('引数が無ければ 2 で、使い方を出す', async () => {
+    const result = await runValidate([]);
     assert.equal(result.code, 2);
     assert.equal(result.lines.length, 1);
   });
 
-  it('読める図なら 0', () => {
-    assert.equal(runValidate(['a.yaml'], reader({ 'a.yaml': GOOD }) as never).code, 0);
+  it('読める図なら 0', async () => {
+    assert.equal((await runValidate(['a.yaml'], reader({ 'a.yaml': GOOD }) as never)).code, 0);
   });
 
-  it('**警告だけなら 0。** 迷子は人が解くもので、失敗ではない', () => {
-    const result = runValidate(['a.yaml'], reader({ 'a.yaml': ORPHAN }) as never);
+  it('**警告だけなら 0。** 迷子は人が解くもので、失敗ではない', async () => {
+    const result = await runValidate(['a.yaml'], reader({ 'a.yaml': ORPHAN }) as never);
     assert.equal(result.code, 0);
   });
 
-  it('読めない図があれば 1', () => {
-    assert.equal(runValidate(['a.yaml'], reader({ 'a.yaml': BROKEN }) as never).code, 1);
+  it('読めない図があれば 1', async () => {
+    assert.equal((await runValidate(['a.yaml'], reader({ 'a.yaml': BROKEN }) as never)).code, 1);
   });
 
-  it('読めないファイルがあれば 1（黙って 0 で終わらない）', () => {
-    assert.equal(runValidate(['無い.yaml'], reader({}) as never).code, 1);
+  it('読めないファイルがあれば 1（黙って 0 で終わらない）', async () => {
+    assert.equal((await runValidate(['無い.yaml'], reader({}) as never)).code, 1);
   });
 });
 
 describe('出す内容', () => {
-  it('迷子は、通したうえで必ず出す（黙って捨てない）', () => {
-    const result = runValidate(['a.yaml'], reader({ 'a.yaml': ORPHAN }) as never);
+  it('迷子は、通したうえで必ず出す（黙って捨てない）', async () => {
+    const result = await runValidate(['a.yaml'], reader({ 'a.yaml': ORPHAN }) as never);
     assert.ok(result.lines.some((line) => line.includes('zzz')));
   });
 
-  it('指摘の無い図は、行を増やさない（読む量を増やさない）', () => {
-    const result = runValidate(['a.yaml'], reader({ 'a.yaml': GOOD }) as never);
+  it('指摘の無い図は、行を増やさない（読む量を増やさない）', async () => {
+    const result = await runValidate(['a.yaml'], reader({ 'a.yaml': GOOD }) as never);
     assert.equal(result.lines.length, 1);
   });
 
-  it('複数を渡したら、まとめて見る（1 件目で止めない）', () => {
+  it('複数を渡したら、まとめて見る（1 件目で止めない）', async () => {
     const files = { 'a.yaml': BROKEN, 'b.yaml': BROKEN };
-    const result = runValidate(['a.yaml', 'b.yaml'], reader(files) as never);
+    const result = await runValidate(['a.yaml', 'b.yaml'], reader(files) as never);
     assert.ok(result.lines.some((line) => line.includes('a.yaml')));
     assert.ok(result.lines.some((line) => line.includes('b.yaml')));
   });
 
-  it('どこが悪いかに行番号が付く', () => {
-    const result = runValidate(['a.yaml'], reader({ 'a.yaml': BROKEN }) as never);
+  it('どこが悪いかに行番号が付く', async () => {
+    const result = await runValidate(['a.yaml'], reader({ 'a.yaml': BROKEN }) as never);
     assert.ok(result.lines.some((line) => /\b4: /.test(line)));
   });
 });
@@ -243,5 +269,29 @@ describe('提案を正本へ入れる（merge）', () => {
     const result = runMerge(['cur.yaml', 'pro.yaml'], read, write);
     assert.equal(result.code, 0);
     assert.ok(result.lines.some((line) => line.includes('a')));
+  });
+});
+
+describe('置いたあとの形も見る（配置図）', () => {
+  it('**文字どうしの重なりを、CLI でも知らせる**', async () => {
+    const result = await runValidate(['a.yaml'], reader({ 'a.yaml': PILE }) as never);
+    assert.equal(result.code, 0, '読める図なので止めない');
+    assert.ok(
+      result.lines.some((line) => line.includes('inner') && line.includes('note')),
+      result.lines.join('\n'),
+    );
+  });
+
+  it('重なっていなければ、これまでどおり何も言わない', async () => {
+    const clean = PILE.replace('at: { x: 10, y: 10 }\n    size: { w: 300, h: 26 }', 'at: { x: 10, y: 60 }\n    size: { w: 300, h: 26 }');
+    const result = await runValidate(['a.yaml'], reader({ 'a.yaml': clean }) as never);
+    assert.ok(result.lines.some((line) => line.includes('直すところはありませんでした')), result.lines.join('\n'));
+  });
+
+  it('構成図では見ない（置き場所を機械が決めるので、文字は重ならない）', async () => {
+    // 構成図に `at` や `marker` を書けば、それはそれで警告が出る。
+    // ここで見たいのは**重なりの指摘が出ないこと**だけ。
+    const result = await runValidate(['a.yaml'], reader({ 'a.yaml': PILE.replace('kind: placement\n', '') }) as never);
+    assert.ok(!result.lines.some((line) => line.includes('重なって')), result.lines.join('\n'));
   });
 });

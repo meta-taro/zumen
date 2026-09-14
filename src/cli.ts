@@ -29,6 +29,7 @@ import { render } from './render.ts';
 import { kindOf } from './kind.ts';
 import { messages } from './messages.ts';
 import { hasError, validate } from './validate.ts';
+import { extentOf, overlappingText, planNames } from './names.ts';
 import type { Finding } from './validate.ts';
 import { isEntry } from './entry.ts';
 
@@ -42,7 +43,7 @@ export interface RunResult {
  *
  * **画面へは書かない。** 戻り値にしておくと、そのままテストで読める。
  */
-export function runValidate(paths: string[], read = readFileSync): RunResult {
+export async function runValidate(paths: string[], read = readFileSync): Promise<RunResult> {
   const m = messages().cli;
   if (paths.length === 0) return { code: 2, lines: [m.usage] };
 
@@ -62,12 +63,20 @@ export function runValidate(paths: string[], read = readFileSync): RunResult {
     }
 
     const findings = validate(text);
-    if (findings.length === 0) continue;
+    // **置いたあとの形も見る**（配置図だけ。2026-09-14）。
+    //
+    // `validate` は正本だけを読むので、**「書いたのに読めない」状態が分からない。**
+    // 文字どうしの重なりは置いてみるまで決まらず、
+    // これまで `zumen_inspect` を叩けるエージェントにしか見えていなかった。
+    // **人が CLI で確かめられないのは、片手落ちだった。**
+    const laid = hasError(findings) ? [] : await placedFindings(text);
+    const all = [...findings, ...laid];
+    if (all.length === 0) continue;
 
     lines.push(m.fileHeading(path));
-    for (const finding of findings) lines.push(`  ${format(finding)}`);
-    if (hasError(findings)) unreadable += 1;
-    warnings += findings.filter((finding) => finding.severity === 'warning').length;
+    for (const finding of all) lines.push(`  ${format(finding)}`);
+    if (hasError(all)) unreadable += 1;
+    warnings += all.filter((finding) => finding.severity === 'warning').length;
   }
 
   if (unreadable > 0) {
@@ -76,6 +85,30 @@ export function runValidate(paths: string[], read = readFileSync): RunResult {
   }
   lines.push(warnings > 0 ? m.warningsOnly(warnings) : m.allClear(paths.length));
   return { code: 0, lines };
+}
+
+/**
+ * **置いてみないと分からない指摘**（配置図だけ）。
+ *
+ * 構成図では置き場所を機械が決めるので、重なりは起きない。
+ * ここで見るのは**文字どうしの重なり**だけ —— 交差は合否ではなく観測値なので出さない
+ * （`src/layout.ts`。AI にも人にも自己採点させない）。
+ */
+async function placedFindings(text: string): Promise<Finding[]> {
+  if (kindOf(text) !== 'placement') return [];
+  let placed;
+  try {
+    placed = await layout(text);
+  } catch {
+    // 置けない図は、正本の指摘だけで足りる（描くときに同じ所で落ちる）。
+    return [];
+  }
+  const plans = planNames(placed.boxes, extentOf(placed.boxes), placed.edges);
+  return overlappingText(placed.boxes, plans).map(([a, b]) => ({
+    severity: 'warning' as const,
+    code: 'text-overlap',
+    message: messages().validate.textOverlap(a, b),
+  }));
 }
 
 function format(finding: Finding): string {

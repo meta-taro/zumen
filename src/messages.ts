@@ -497,6 +497,8 @@ const ja = {
       `${target} の color が "${key}" ですが、palette にその鍵がありません。色は付きません。`,
     colorFaint: (key: string, value: string) =>
       `palette の "${key}"（${value}）が薄すぎます。地に沈んで線が消えます（非文字の下限は 3:1。ライトとダークの両方の地で見ています）。`,
+    textOverlap: (a: string, b: string) =>
+      `${a} と ${b} の文字が重なって描かれます。器の名前を器の真ん中に書くと、中の節の名前に乗ります（器の名前は端の欄へ出してください）。`,
     colorWithoutCode: (key: string) =>
       `色 "${key}" を使っていますが、その記号が図のどこにも文字として出ていません。色だけだと、白黒と色覚特性で読めなくなります。どこか 1 か所（凡例でも可）に "${key}" を文字で出してください。`,
   },
@@ -894,6 +896,8 @@ const en: Catalog = {
       `${target} has color "${key}", but palette has no such key. No colour is applied.`,
     colorFaint: (key: string, value: string) =>
       `palette entry "${key}" (${value}) is too faint: the line sinks into the ground (3:1 is the floor for non-text; both the light and the dark ground are checked).`,
+    textOverlap: (a: string, b: string) =>
+      `The labels of ${a} and ${b} are drawn on top of each other. A container that holds children should not repeat its name in the middle — move it to an edge cell.`,
     colorWithoutCode: (key: string) =>
       `Colour "${key}" carries meaning, but that code appears nowhere as text in the drawing. Colour alone fails in black and white and for colour vision deficiency. Write "${key}" as text somewhere — a legend entry is enough.`,
   },

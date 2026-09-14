@@ -1,0 +1,438 @@
+version: 1
+kind: placement
+arrows: false
+scale: { mm: 10 }
+title: リンゴ 高密植栽培の樹形図（トールスピンドル・樹高 3.2m／樹間 0.9m／列間 3.0m）
+# 1 px = 10 mm。**高さと間隔に意味がある図**なので、縮尺を持たせてある。
+#
+# ## 高密植は「小さい樹を密に植える」ではない
+#
+# **密に植えることで小さい樹をつくる。** 順序が逆だと、数年で枝が交差して光が入らない。
+# 10a あたり 300〜410 本、列間 3.0〜3.5m、樹間 0.8〜1.0m、樹高 3.0〜3.5m。
+#
+# ## 側枝は下へ誘引する
+#
+# 上向きの枝は伸び続けて実が付かない。**下垂させると伸びが止まり、花芽が付く。**
+# **角度が記法そのもの** —— この図で枝が下を向いているのは、絵の都合ではない。
+#
+# ## 側枝の更新
+#
+# **主幹の 1/3 を超えた側枝は切る。** 太らせると主幹と競合して樹形が崩れる。
+# 切り方は 2 つあり、図の上で区別する。
+#
+# - **切り返し**（枝の途中で切る）… 切った先から強い枝が出る
+# - **間引き**（枝の基部から切る）… 新しい枝は出ない。**更新はこちら**
+nodes:
+  - id: cap_s
+    label: "側面図（1 本ぶん・1 px = 10 mm）"
+    marker: none
+    at: { x: 60, y: 40 }
+    size: { w: 320, h: 24 }
+  - id: post
+    label: ""
+    hatch: solid
+    at: { x: 370, y: 80 }
+    size: { w: 10, h: 340 }
+  - id: post_n
+    label: "支柱"
+    marker: none
+    at: { x: 386, y: 82 }
+    size: { w: 70, h: 24 }
+  - id: w0
+    label: ""
+    hatch: solid
+    at: { x: 150, y: 338 }
+    size: { w: 260, h: 4 }
+  - id: wn0
+    label: "第 1 線 0.8m"
+    marker: none
+    at: { x: 60, y: 326 }
+    size: { w: 88, h: 26 }
+  - id: w1
+    label: ""
+    hatch: solid
+    at: { x: 150, y: 268 }
+    size: { w: 260, h: 4 }
+  - id: wn1
+    label: "第 2 線 1.5m"
+    marker: none
+    at: { x: 60, y: 256 }
+    size: { w: 88, h: 26 }
+  - id: w2
+    label: ""
+    hatch: solid
+    at: { x: 150, y: 198 }
+    size: { w: 260, h: 4 }
+  - id: wn2
+    label: "第 3 線 2.2m"
+    marker: none
+    at: { x: 60, y: 186 }
+    size: { w: 88, h: 26 }
+  - id: w3
+    label: ""
+    hatch: solid
+    at: { x: 150, y: 128 }
+    size: { w: 260, h: 4 }
+  - id: wn3
+    label: "第 4 線 2.9m"
+    marker: none
+    at: { x: 60, y: 116 }
+    size: { w: 88, h: 26 }
+  - id: trunk
+    label: ""
+    hatch: solid
+    at: { x: 300, y: 100 }
+    size: { w: 12, h: 320 }
+  - id: trunk_n
+    label: "主幹"
+    marker: none
+    at: { x: 316, y: 104 }
+    size: { w: 60, h: 24 }
+  - id: j0
+    label: ""
+    marker: none
+    at: { x: 301, y: 117 }
+    size: { w: 10, h: 6 }
+  - id: tl0
+    label: ""
+    marker: none
+    at: { x: 214, y: 142 }
+    size: { w: 8, h: 8 }
+  - id: tr0
+    label: ""
+    marker: none
+    at: { x: 390, y: 142 }
+    size: { w: 8, h: 8 }
+  - id: j1
+    label: ""
+    marker: none
+    at: { x: 301, y: 167 }
+    size: { w: 10, h: 6 }
+  - id: tl1
+    label: ""
+    marker: none
+    at: { x: 220, y: 192 }
+    size: { w: 8, h: 8 }
+  - id: tr1
+    label: ""
+    marker: none
+    at: { x: 384, y: 192 }
+    size: { w: 8, h: 8 }
+  - id: j2
+    label: ""
+    marker: none
+    at: { x: 301, y: 217 }
+    size: { w: 10, h: 6 }
+  - id: tl2
+    label: ""
+    marker: none
+    at: { x: 226, y: 242 }
+    size: { w: 8, h: 8 }
+  - id: tr2
+    label: ""
+    marker: none
+    at: { x: 378, y: 242 }
+    size: { w: 8, h: 8 }
+  - id: j3
+    label: ""
+    marker: none
+    at: { x: 301, y: 267 }
+    size: { w: 10, h: 6 }
+  - id: tl3
+    label: ""
+    marker: none
+    at: { x: 234, y: 292 }
+    size: { w: 8, h: 8 }
+  - id: tr3
+    label: ""
+    marker: none
+    at: { x: 370, y: 292 }
+    size: { w: 8, h: 8 }
+  - id: j4
+    label: ""
+    marker: none
+    at: { x: 301, y: 317 }
+    size: { w: 10, h: 6 }
+  - id: tl4
+    label: ""
+    marker: none
+    at: { x: 242, y: 342 }
+    size: { w: 8, h: 8 }
+  - id: tr4
+    label: ""
+    marker: none
+    at: { x: 362, y: 342 }
+    size: { w: 8, h: 8 }
+  - id: ground
+    label: ""
+    hatch: solid
+    at: { x: 60, y: 420 }
+    size: { w: 420, h: 6 }
+  - id: gl
+    label: "地面（GL±0）"
+    marker: none
+    at: { x: 60, y: 432 }
+    size: { w: 140, h: 24 }
+  - id: h_t
+    label: "樹高 3.2m"
+    marker: none
+    at: { x: 270, y: 60 }
+    size: { w: 120, h: 26 }
+  - id: h_b
+    label: "結果開始高 0.7m（下は作業のため空ける）"
+    marker: none
+    at: { x: 60, y: 452 }
+    size: { w: 300, h: 24 }
+  - id: cut1
+    label: "切"
+    hatch: solid
+    at: { x: 190, y: 206 }
+    size: { w: 26, h: 26 }
+  - id: cut2
+    label: "間"
+    hatch: solid
+    at: { x: 396, y: 256 }
+    size: { w: 26, h: 26 }
+  - id: cap_p
+    label: "平面図（3 列ぶん）"
+    marker: none
+    at: { x: 560, y: 40 }
+    size: { w: 300, h: 24 }
+  - id: row0
+    label: ""
+    hatch: lines
+    at: { x: 560, y: 90 }
+    size: { w: 28, h: 300 }
+  - id: tr0_0
+    label: ""
+    marker: circle
+    at: { x: 565, y: 96 }
+    size: { w: 18, h: 18 }
+  - id: tr0_1
+    label: ""
+    marker: circle
+    at: { x: 565, y: 138 }
+    size: { w: 18, h: 18 }
+  - id: tr0_2
+    label: ""
+    marker: circle
+    at: { x: 565, y: 180 }
+    size: { w: 18, h: 18 }
+  - id: tr0_3
+    label: ""
+    marker: circle
+    at: { x: 565, y: 222 }
+    size: { w: 18, h: 18 }
+  - id: tr0_4
+    label: ""
+    marker: circle
+    at: { x: 565, y: 264 }
+    size: { w: 18, h: 18 }
+  - id: tr0_5
+    label: ""
+    marker: circle
+    at: { x: 565, y: 306 }
+    size: { w: 18, h: 18 }
+  - id: tr0_6
+    label: ""
+    marker: circle
+    at: { x: 565, y: 348 }
+    size: { w: 18, h: 18 }
+  - id: aisle0
+    label: "作業通路"
+    hatch: dots
+    write: down
+    at: { x: 588, y: 90 }
+    size: { w: 82, h: 300 }
+  - id: row1
+    label: ""
+    hatch: lines
+    at: { x: 670, y: 90 }
+    size: { w: 28, h: 300 }
+  - id: tr1_0
+    label: ""
+    marker: circle
+    at: { x: 675, y: 96 }
+    size: { w: 18, h: 18 }
+  - id: tr1_1
+    label: ""
+    marker: circle
+    at: { x: 675, y: 138 }
+    size: { w: 18, h: 18 }
+  - id: tr1_2
+    label: ""
+    marker: circle
+    at: { x: 675, y: 180 }
+    size: { w: 18, h: 18 }
+  - id: tr1_3
+    label: ""
+    marker: circle
+    at: { x: 675, y: 222 }
+    size: { w: 18, h: 18 }
+  - id: tr1_4
+    label: ""
+    marker: circle
+    at: { x: 675, y: 264 }
+    size: { w: 18, h: 18 }
+  - id: tr1_5
+    label: ""
+    marker: circle
+    at: { x: 675, y: 306 }
+    size: { w: 18, h: 18 }
+  - id: tr1_6
+    label: ""
+    marker: circle
+    at: { x: 675, y: 348 }
+    size: { w: 18, h: 18 }
+  - id: aisle1
+    label: "作業通路"
+    hatch: dots
+    write: down
+    at: { x: 698, y: 90 }
+    size: { w: 82, h: 300 }
+  - id: row2
+    label: ""
+    hatch: lines
+    at: { x: 780, y: 90 }
+    size: { w: 28, h: 300 }
+  - id: tr2_0
+    label: ""
+    marker: circle
+    at: { x: 785, y: 96 }
+    size: { w: 18, h: 18 }
+  - id: tr2_1
+    label: ""
+    marker: circle
+    at: { x: 785, y: 138 }
+    size: { w: 18, h: 18 }
+  - id: tr2_2
+    label: ""
+    marker: circle
+    at: { x: 785, y: 180 }
+    size: { w: 18, h: 18 }
+  - id: tr2_3
+    label: ""
+    marker: circle
+    at: { x: 785, y: 222 }
+    size: { w: 18, h: 18 }
+  - id: tr2_4
+    label: ""
+    marker: circle
+    at: { x: 785, y: 264 }
+    size: { w: 18, h: 18 }
+  - id: tr2_5
+    label: ""
+    marker: circle
+    at: { x: 785, y: 306 }
+    size: { w: 18, h: 18 }
+  - id: tr2_6
+    label: ""
+    marker: circle
+    at: { x: 785, y: 348 }
+    size: { w: 18, h: 18 }
+  - id: p_row
+    label: "← 列間 3.0m →"
+    marker: none
+    at: { x: 588, y: 398 }
+    size: { w: 110, h: 24 }
+  - id: p_tree
+    label: "樹間 0.9m"
+    marker: none
+    at: { x: 710, y: 426 }
+    size: { w: 110, h: 24 }
+  - id: p_n
+    label: "10a あたり 300〜410 本（樹高 3.0〜3.5m）"
+    marker: none
+    at: { x: 560, y: 454 }
+    size: { w: 300, h: 24 }
+  - id: lg_t
+    label: "剪定の記号"
+    marker: none
+    at: { x: 60, y: 510 }
+    size: { w: 300, h: 24 }
+  - id: lg0
+    label: "切"
+    hatch: solid
+    at: { x: 60, y: 538 }
+    size: { w: 40, h: 26 }
+  - id: lg0d
+    label: "切り返し —— 枝の途中で切る。切った先から強い枝が出る"
+    marker: none
+    at: { x: 106, y: 538 }
+    size: { w: 420, h: 26 }
+  - id: lg1
+    label: "間"
+    hatch: solid
+    at: { x: 60, y: 568 }
+    size: { w: 40, h: 26 }
+  - id: lg1d
+    label: "間引き —— 枝の基部から切る。新しい枝は出ない。側枝の更新はこちら"
+    marker: none
+    at: { x: 106, y: 568 }
+    size: { w: 470, h: 26 }
+  - id: rl_t
+    label: "この樹形を保つための決まり"
+    marker: none
+    at: { x: 560, y: 510 }
+    size: { w: 320, h: 24 }
+  - id: rl0
+    label: "・側枝は下へ誘引する。上向きの枝は伸び続けて実が付かない"
+    marker: none
+    at: { x: 560, y: 538 }
+    size: { w: 540, h: 24 }
+  - id: rl1
+    label: "・主幹の 1/3 を超えた側枝は間引いて更新する（主幹と競合させない）"
+    marker: none
+    at: { x: 560, y: 564 }
+    size: { w: 540, h: 24 }
+  - id: rl2
+    label: "・主幹の先は切り返さない。強い枝が何本も出て樹形が崩れる"
+    marker: none
+    at: { x: 560, y: 590 }
+    size: { w: 540, h: 24 }
+  - id: rl3
+    label: "・密に植えて小さい樹をつくる。小さい樹を密に植えるのではない"
+    marker: none
+    at: { x: 560, y: 616 }
+    size: { w: 540, h: 24 }
+edges:
+  - from: j0
+    to: tl0
+    ends: { from: none, to: none }
+    weight: thick
+  - from: j0
+    to: tr0
+    ends: { from: none, to: none }
+    weight: thick
+  - from: j1
+    to: tl1
+    ends: { from: none, to: none }
+    weight: thick
+  - from: j1
+    to: tr1
+    ends: { from: none, to: none }
+    weight: thick
+  - from: j2
+    to: tl2
+    ends: { from: none, to: none }
+    weight: thick
+  - from: j2
+    to: tr2
+    ends: { from: none, to: none }
+    weight: thick
+  - from: j3
+    to: tl3
+    ends: { from: none, to: none }
+    weight: thick
+  - from: j3
+    to: tr3
+    ends: { from: none, to: none }
+    weight: thick
+  - from: j4
+    to: tl4
+    ends: { from: none, to: none }
+    weight: thick
+  - from: j4
+    to: tr4
+    ends: { from: none, to: none }
+    weight: thick
