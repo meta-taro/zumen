@@ -220,3 +220,40 @@ nodes:
     assert.ok(out.includes('>stop1<'), 'id も出なくなった');
   });
 });
+
+/**
+ * **塗り潰した箱では、符号も反転する。**
+ *
+ * UI 構造図の「fixed」で出た（2026-09-14）。`hatch: solid` の箱は
+ * 本文を地の色へ反転しているのに、**符号（`tag`）だけ元の色のまま**で、
+ * 塗りに沈んで読めなかった。
+ *
+ * 書いたのに読めないのは、書いていないのと同じ。
+ */
+describe('塗り潰した箱の符号', () => {
+  const SRC = `version: 1
+kind: placement
+nodes:
+  - id: b
+    label: Add to Cart
+    tag: fixed
+    hatch: solid
+    at: { x: 0, y: 0 }
+    size: { w: 200, h: 40 }
+`;
+
+  it('**符号も地の色へ反転する**（塗りに沈まない）', async () => {
+    const out = render(await layout(SRC), 'light', 'safe', true);
+    assert.match(out, /<text [^>]*fill="#ffffff"[^>]*>fixed</, '符号が塗りに沈んでいる');
+  });
+
+  it('本文は、これまでどおり反転する', async () => {
+    const out = render(await layout(SRC), 'light', 'safe', true);
+    assert.match(out, /<text [^>]*fill="#ffffff"[^>]*>Add to Cart</);
+  });
+
+  it('塗っていない箱の符号は、これまでどおり', async () => {
+    const out = render(await layout(SRC.replace('    hatch: solid\n', '')), 'light', 'safe', true);
+    assert.ok(!/<text [^>]*fill="#ffffff"[^>]*>fixed</.test(out), '塗っていないのに反転した');
+  });
+});

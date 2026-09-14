@@ -1,0 +1,270 @@
+version: 1
+kind: placement
+arrows: false
+title: EC 商品ページ UI 構造（Desktop 1440 / Mobile 390・レスポンシブ差分つき）
+# 完成デザインではなく **UI 構造の正本**。色も書体も装飾も持たない。
+# 表しているのは「何が・どこに・どの順で・PC と SP でどう変わるか」だけ。
+#
+# 右の表が主役 —— **絵を 2 枚並べるだけでは、何が変わるか言えない。**
+# レスポンシブは縮小ではなく構造の変化（横並び→縦並び、Nav→Drawer、下部固定）。
+nodes:
+  - id: d_cap
+    label: "Desktop 1440px"
+    marker: none
+    at: { x: 40, y: 56 }
+    size: { w: 240, h: 26 }
+  - id: d_frame
+    label: ""
+    marker: box
+    at: { x: 40, y: 90 }
+    size: { w: 520, h: 470 }
+  - id: d_head
+    label: "Header"
+    hatch: dots
+    at: { x: 48, y: 98 }
+    size: { w: 504, h: 44 }
+  - id: d_logo
+    label: "Logo"
+    marker: box
+    at: { x: 56, y: 106 }
+    size: { w: 70, h: 28 }
+  - id: d_nav
+    label: "Global Navigation（5）"
+    marker: box
+    at: { x: 136, y: 106 }
+    size: { w: 180, h: 28 }
+  - id: d_srch
+    label: "Search"
+    marker: box
+    at: { x: 326, y: 106 }
+    size: { w: 110, h: 28 }
+  - id: d_acct
+    label: "Account"
+    marker: box
+    at: { x: 446, y: 106 }
+    size: { w: 90, h: 28 }
+  - id: d_gal
+    label: "Gallery"
+    hatch: lines
+    at: { x: 48, y: 150 }
+    size: { w: 244, h: 208 }
+  - id: d_info
+    label: "Product Info"
+    marker: box
+    at: { x: 300, y: 150 }
+    size: { w: 252, h: 208 }
+  - id: d_name
+    label: "Product Name"
+    marker: box
+    at: { x: 310, y: 162 }
+    size: { w: 230, h: 26 }
+  - id: d_price
+    label: "¥12,800"
+    marker: box
+    at: { x: 310, y: 196 }
+    size: { w: 230, h: 26 }
+  - id: d_var
+    label: "Variations（色・サイズ）"
+    marker: box
+    at: { x: 310, y: 230 }
+    size: { w: 230, h: 44 }
+  - id: d_cart
+    label: "Add to Cart"
+    hatch: solid
+    at: { x: 310, y: 284 }
+    size: { w: 230, h: 36 }
+  - id: d_desc
+    label: "Description"
+    marker: box
+    at: { x: 48, y: 366 }
+    size: { w: 504, h: 74 }
+  - id: d_rev
+    label: "Reviews"
+    marker: box
+    at: { x: 48, y: 448 }
+    size: { w: 504, h: 100 }
+  - id: m_cap
+    label: "Mobile 390px"
+    marker: none
+    at: { x: 610, y: 56 }
+    size: { w: 200, h: 26 }
+  - id: m_frame
+    label: ""
+    marker: box
+    at: { x: 610, y: 90 }
+    size: { w: 230, h: 470 }
+  - id: m_head
+    label: "Header"
+    hatch: dots
+    at: { x: 618, y: 98 }
+    size: { w: 214, h: 36 }
+  - id: m_burger
+    label: "☰"
+    marker: box
+    at: { x: 624, y: 104 }
+    size: { w: 32, h: 24 }
+  - id: m_logo
+    label: "Logo"
+    marker: box
+    at: { x: 662, y: 104 }
+    size: { w: 80, h: 24 }
+  - id: m_acct
+    label: "Account"
+    marker: box
+    at: { x: 750, y: 104 }
+    size: { w: 76, h: 24 }
+  - id: m_gal
+    label: "Gallery"
+    hatch: lines
+    at: { x: 618, y: 142 }
+    size: { w: 214, h: 110 }
+  - id: m_name
+    label: "Product Name"
+    marker: box
+    at: { x: 618, y: 260 }
+    size: { w: 214, h: 26 }
+  - id: m_price
+    label: "¥12,800"
+    marker: box
+    at: { x: 618, y: 292 }
+    size: { w: 214, h: 26 }
+  - id: m_var
+    label: "Variations"
+    marker: box
+    at: { x: 618, y: 324 }
+    size: { w: 214, h: 40 }
+  - id: m_desc
+    label: "Description"
+    marker: box
+    at: { x: 618, y: 372 }
+    size: { w: 214, h: 62 }
+  - id: m_rev
+    label: "Reviews"
+    marker: box
+    at: { x: 618, y: 442 }
+    size: { w: 214, h: 62 }
+  - id: m_cart
+    label: "Add to Cart"
+    hatch: solid
+    tag: fixed
+    at: { x: 618, y: 512 }
+    size: { w: 214, h: 36 }
+  - id: t_title
+    label: "レスポンシブ差分（構造の変化）"
+    marker: none
+    at: { x: 900, y: 22 }
+    size: { w: 550, h: 26 }
+  - id: th0
+    label: "要素"
+    hatch: solid
+    at: { x: 900, y: 56 }
+    size: { w: 150, h: 32 }
+  - id: th1
+    label: "Desktop"
+    hatch: solid
+    at: { x: 1050, y: 56 }
+    size: { w: 190, h: 32 }
+  - id: th2
+    label: "Mobile"
+    hatch: solid
+    at: { x: 1240, y: 56 }
+    size: { w: 210, h: 32 }
+  - id: tc0_0
+    label: "Global Navigation"
+    at: { x: 900, y: 88 }
+    size: { w: 150, h: 32 }
+  - id: tc0_1
+    label: "横並び 5 項目"
+    at: { x: 1050, y: 88 }
+    size: { w: 190, h: 32 }
+  - id: tc0_2
+    label: "☰ → Drawer"
+    at: { x: 1240, y: 88 }
+    size: { w: 210, h: 32 }
+  - id: tc1_0
+    label: "Search"
+    at: { x: 900, y: 120 }
+    size: { w: 150, h: 32 }
+  - id: tc1_1
+    label: "Header 内に常設"
+    at: { x: 1050, y: 120 }
+    size: { w: 190, h: 32 }
+  - id: tc1_2
+    label: "Drawer の中へ"
+    at: { x: 1240, y: 120 }
+    size: { w: 210, h: 32 }
+  - id: tc2_0
+    label: "Gallery / Info"
+    at: { x: 900, y: 152 }
+    size: { w: 150, h: 32 }
+  - id: tc2_1
+    label: "横 2 カラム"
+    at: { x: 1050, y: 152 }
+    size: { w: 190, h: 32 }
+  - id: tc2_2
+    label: "縦 1 カラム"
+    at: { x: 1240, y: 152 }
+    size: { w: 210, h: 32 }
+  - id: tc3_0
+    label: "Add to Cart"
+    at: { x: 900, y: 184 }
+    size: { w: 150, h: 32 }
+  - id: tc3_1
+    label: "Info の中"
+    at: { x: 1050, y: 184 }
+    size: { w: 190, h: 32 }
+  - id: tc3_2
+    label: "画面下に fixed"
+    at: { x: 1240, y: 184 }
+    size: { w: 210, h: 32 }
+  - id: tc4_0
+    label: "Description"
+    at: { x: 900, y: 216 }
+    size: { w: 150, h: 32 }
+  - id: tc4_1
+    label: "本文そのまま"
+    at: { x: 1050, y: 216 }
+    size: { w: 190, h: 32 }
+  - id: tc4_2
+    label: "折りたたみ（続きを読む）"
+    at: { x: 1240, y: 216 }
+    size: { w: 210, h: 32 }
+  - id: tc5_0
+    label: "Reviews"
+    at: { x: 900, y: 248 }
+    size: { w: 150, h: 32 }
+  - id: tc5_1
+    label: "5 件 ＋ ページャ"
+    at: { x: 1050, y: 248 }
+    size: { w: 190, h: 32 }
+  - id: tc5_2
+    label: "3 件 ＋ もっと見る"
+    at: { x: 1240, y: 248 }
+    size: { w: 210, h: 32 }
+  - id: tc6_0
+    label: "Breadcrumb"
+    at: { x: 900, y: 280 }
+    size: { w: 150, h: 32 }
+  - id: tc6_1
+    label: "あり"
+    at: { x: 1050, y: 280 }
+    size: { w: 190, h: 32 }
+  - id: tc6_2
+    label: "非表示"
+    at: { x: 1240, y: 280 }
+    size: { w: 210, h: 32 }
+  - id: bp
+    label: "Breakpoint：>= 1024 は 2 カラム、768〜1023 は Gallery 縮小、< 768 は 1 カラム"
+    marker: none
+    at: { x: 900, y: 332 }
+    size: { w: 550, h: 26 }
+  - id: note
+    label: "この図は完成デザインではない。色・書体・余白は持たず、構造だけを持つ。"
+    marker: none
+    at: { x: 900, y: 362 }
+    size: { w: 550, h: 26 }
+  - id: comp
+    label: "Component：ProductPage ＞ Header / ProductGallery / ProductInfo（Name・Price・VariationSelector・AddCartButton）/ Description / ReviewList / Footer"
+    marker: none
+    at: { x: 40, y: 580 }
+    size: { w: 800, h: 26 }

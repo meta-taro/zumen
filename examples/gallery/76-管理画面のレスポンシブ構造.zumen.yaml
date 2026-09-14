@@ -1,0 +1,223 @@
+version: 1
+kind: placement
+arrows: false
+title: 管理画面 UI 構造（Desktop は Sidebar、Tablet は圧縮、Mobile は Drawer）
+# Breakpoint ごとに **同じ中身がどこへ行くか**を示す。
+# 3 枚並べるのが目的ではなく、右の表で「何がどう変わるか」を言うのが目的。
+nodes:
+  - id: d_c
+    label: "Desktop ≥ 1024"
+    marker: none
+    at: { x: 40, y: 60 }
+    size: { w: 420, h: 24 }
+  - id: d
+    label: ""
+    marker: box
+    at: { x: 40, y: 90 }
+    size: { w: 420, h: 300 }
+  - id: d_top
+    label: "Topbar（検索・通知・アカウント）"
+    hatch: dots
+    at: { x: 48, y: 98 }
+    size: { w: 404, h: 32 }
+  - id: d_side
+    label: "Sidebar（ナビ 8 項目・常時表示）"
+    hatch: lines
+    at: { x: 48, y: 138 }
+    size: { w: 140, h: 244 }
+  - id: d_main
+    label: "Main（一覧テーブル 20 行）"
+    marker: box
+    at: { x: 196, y: 138 }
+    size: { w: 256, h: 160 }
+  - id: d_pane
+    label: "詳細ペイン（右）"
+    marker: box
+    at: { x: 196, y: 306 }
+    size: { w: 256, h: 76 }
+  - id: t_c
+    label: "Tablet 768–1023"
+    marker: none
+    at: { x: 500, y: 60 }
+    size: { w: 250, h: 24 }
+  - id: t
+    label: ""
+    marker: box
+    at: { x: 500, y: 90 }
+    size: { w: 250, h: 300 }
+  - id: t_top
+    label: "Topbar"
+    hatch: dots
+    at: { x: 508, y: 98 }
+    size: { w: 234, h: 32 }
+  - id: t_side
+    label: "Sidebar（アイコンのみ）"
+    hatch: lines
+    at: { x: 508, y: 138 }
+    size: { w: 56, h: 244 }
+  - id: t_main
+    label: "Main（一覧 20 行）"
+    marker: box
+    at: { x: 572, y: 138 }
+    size: { w: 170, h: 160 }
+  - id: t_pane
+    label: "詳細は下へ"
+    marker: box
+    at: { x: 572, y: 306 }
+    size: { w: 170, h: 76 }
+  - id: m_c
+    label: "Mobile < 768"
+    marker: none
+    at: { x: 790, y: 60 }
+    size: { w: 200, h: 24 }
+  - id: m
+    label: ""
+    marker: box
+    at: { x: 790, y: 90 }
+    size: { w: 200, h: 300 }
+  - id: m_top
+    label: "☰  Topbar"
+    hatch: dots
+    at: { x: 798, y: 98 }
+    size: { w: 184, h: 32 }
+  - id: m_main
+    label: "Main（カード 20 件）"
+    marker: box
+    at: { x: 798, y: 138 }
+    size: { w: 184, h: 150 }
+  - id: m_pane
+    label: "詳細は別画面へ"
+    marker: box
+    at: { x: 798, y: 296 }
+    size: { w: 184, h: 44 }
+  - id: m_bottom
+    label: "Bottom Navigation（4）"
+    hatch: solid
+    at: { x: 798, y: 348 }
+    size: { w: 184, h: 34 }
+  - id: bt
+    label: "Breakpoint ごとの構造"
+    marker: none
+    at: { x: 1030, y: 22 }
+    size: { w: 600, h: 26 }
+  - id: bh0
+    label: "要素"
+    hatch: solid
+    at: { x: 1030, y: 56 }
+    size: { w: 130, h: 32 }
+  - id: bh1
+    label: "Desktop"
+    hatch: solid
+    at: { x: 1160, y: 56 }
+    size: { w: 150, h: 32 }
+  - id: bh2
+    label: "Tablet"
+    hatch: solid
+    at: { x: 1310, y: 56 }
+    size: { w: 150, h: 32 }
+  - id: bh3
+    label: "Mobile"
+    hatch: solid
+    at: { x: 1460, y: 56 }
+    size: { w: 170, h: 32 }
+  - id: bc0_0
+    label: "ナビ"
+    at: { x: 1030, y: 88 }
+    size: { w: 130, h: 32 }
+  - id: bc0_1
+    label: "Sidebar 常時"
+    at: { x: 1160, y: 88 }
+    size: { w: 150, h: 32 }
+  - id: bc0_2
+    label: "アイコンのみ"
+    at: { x: 1310, y: 88 }
+    size: { w: 150, h: 32 }
+  - id: bc0_3
+    label: "☰ → Drawer"
+    at: { x: 1460, y: 88 }
+    size: { w: 170, h: 32 }
+  - id: bc1_0
+    label: "一覧"
+    at: { x: 1030, y: 120 }
+    size: { w: 130, h: 32 }
+  - id: bc1_1
+    label: "テーブル 20 行"
+    at: { x: 1160, y: 120 }
+    size: { w: 150, h: 32 }
+  - id: bc1_2
+    label: "テーブル 20 行"
+    at: { x: 1310, y: 120 }
+    size: { w: 150, h: 32 }
+  - id: bc1_3
+    label: "カード 20 件"
+    at: { x: 1460, y: 120 }
+    size: { w: 170, h: 32 }
+  - id: bc2_0
+    label: "詳細"
+    at: { x: 1030, y: 152 }
+    size: { w: 130, h: 32 }
+  - id: bc2_1
+    label: "右ペイン"
+    at: { x: 1160, y: 152 }
+    size: { w: 150, h: 32 }
+  - id: bc2_2
+    label: "Main の下"
+    at: { x: 1310, y: 152 }
+    size: { w: 150, h: 32 }
+  - id: bc2_3
+    label: "別画面へ遷移"
+    at: { x: 1460, y: 152 }
+    size: { w: 170, h: 32 }
+  - id: bc3_0
+    label: "検索"
+    at: { x: 1030, y: 184 }
+    size: { w: 130, h: 32 }
+  - id: bc3_1
+    label: "Topbar 内"
+    at: { x: 1160, y: 184 }
+    size: { w: 150, h: 32 }
+  - id: bc3_2
+    label: "Topbar 内"
+    at: { x: 1310, y: 184 }
+    size: { w: 150, h: 32 }
+  - id: bc3_3
+    label: "Drawer の中"
+    at: { x: 1460, y: 184 }
+    size: { w: 170, h: 32 }
+  - id: bc4_0
+    label: "主要操作"
+    at: { x: 1030, y: 216 }
+    size: { w: 130, h: 32 }
+  - id: bc4_1
+    label: "Topbar 右"
+    at: { x: 1160, y: 216 }
+    size: { w: 150, h: 32 }
+  - id: bc4_2
+    label: "Topbar 右"
+    at: { x: 1310, y: 216 }
+    size: { w: 150, h: 32 }
+  - id: bc4_3
+    label: "Bottom Navigation"
+    at: { x: 1460, y: 216 }
+    size: { w: 170, h: 32 }
+  - id: bc5_0
+    label: "一括操作"
+    at: { x: 1030, y: 248 }
+    size: { w: 130, h: 32 }
+  - id: bc5_1
+    label: "行チェック"
+    at: { x: 1160, y: 248 }
+    size: { w: 150, h: 32 }
+  - id: bc5_2
+    label: "行チェック"
+    at: { x: 1310, y: 248 }
+    size: { w: 150, h: 32 }
+  - id: bc5_3
+    label: "非表示（詳細から）"
+    at: { x: 1460, y: 248 }
+    size: { w: 170, h: 32 }
+  - id: note
+    label: "Sidebar の中身は消えない。Mobile では Drawer と Bottom Navigation へ移る。"
+    marker: none
+    at: { x: 1030, y: 296 }
+    size: { w: 560, h: 26 }

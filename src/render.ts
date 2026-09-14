@@ -363,7 +363,11 @@ function renderNode(
     shape,
     pattern,
     holes,
-    ...nodeTag(box, palette, style, halo),
+    // **符号も、塗り潰した面の上では地の色にする**（`ink`）。
+    // 本文だけ反転させて符号を置き去りにすると、符号が塗りに沈む
+    // （2026-09-14。UI 構造図の「fixed」で出た）。書いたのに読めないのは、
+    // 書いていないのと同じ。
+    ...nodeTag(box, palette, ink, halo),
     ...nodeText(box, palette, ink, textShift(kind), plan ? name : null, halo),
     '</g>',
   ].join('');

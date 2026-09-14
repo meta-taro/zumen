@@ -1,0 +1,167 @@
+version: 1
+kind: placement
+title: 画面遷移図（ワイヤーフレームつき）— Login → Home → Product → Cart
+# 画面を**ただの箱にしない**。小型のワイヤーフレームのまま遷移でつなぐ。
+# 1 枚で「流れ」と「画面の構造」が同時に読める。
+# 破線の分岐は操作の結果（成功・失敗）。
+nodes:
+  - id: s1
+    label: ""
+    marker: box
+    at: { x: 40, y: 80 }
+    size: { w: 180, h: 190 }
+  - id: s1_t
+    label: "Login"
+    marker: none
+    at: { x: 40, y: 52 }
+    size: { w: 180, h: 24 }
+  - id: s1_r0
+    label: "Logo"
+    at: { x: 48, y: 88 }
+    size: { w: 164, h: 26 }
+  - id: s1_r1
+    label: "メール"
+    at: { x: 48, y: 120 }
+    size: { w: 164, h: 26 }
+  - id: s1_r2
+    label: "パスワード"
+    at: { x: 48, y: 152 }
+    size: { w: 164, h: 26 }
+  - id: s1_r3
+    label: "ログイン"
+    hatch: solid
+    at: { x: 48, y: 184 }
+    size: { w: 164, h: 30 }
+  - id: s1_r4
+    label: "パスワードを忘れた"
+    marker: none
+    at: { x: 48, y: 220 }
+    size: { w: 164, h: 22 }
+  - id: s2
+    label: ""
+    marker: box
+    at: { x: 320, y: 80 }
+    size: { w: 200, h: 230 }
+  - id: s2_t
+    label: "Home"
+    marker: none
+    at: { x: 320, y: 52 }
+    size: { w: 200, h: 24 }
+  - id: s2_r0
+    label: "Header"
+    hatch: dots
+    at: { x: 328, y: 88 }
+    size: { w: 184, h: 24 }
+  - id: s2_r1
+    label: "検索"
+    at: { x: 328, y: 118 }
+    size: { w: 184, h: 24 }
+  - id: s2_r2
+    label: "商品カード"
+    hatch: lines
+    at: { x: 328, y: 148 }
+    size: { w: 184, h: 52 }
+  - id: s2_r3
+    label: "商品カード"
+    hatch: lines
+    at: { x: 328, y: 206 }
+    size: { w: 184, h: 52 }
+  - id: s2_r4
+    label: "もっと見る"
+    marker: none
+    at: { x: 328, y: 264 }
+    size: { w: 184, h: 24 }
+  - id: s3
+    label: ""
+    marker: box
+    at: { x: 640, y: 80 }
+    size: { w: 200, h: 250 }
+  - id: s3_t
+    label: "Product"
+    marker: none
+    at: { x: 640, y: 52 }
+    size: { w: 200, h: 24 }
+  - id: s3_r0
+    label: "Header"
+    hatch: dots
+    at: { x: 648, y: 88 }
+    size: { w: 184, h: 24 }
+  - id: s3_r1
+    label: "画像"
+    hatch: lines
+    at: { x: 648, y: 118 }
+    size: { w: 184, h: 62 }
+  - id: s3_r2
+    label: "商品名 / ¥12,800"
+    at: { x: 648, y: 186 }
+    size: { w: 184, h: 30 }
+  - id: s3_r3
+    label: "Variations"
+    at: { x: 648, y: 222 }
+    size: { w: 184, h: 26 }
+  - id: s3_r4
+    label: "カートに入れる"
+    hatch: solid
+    at: { x: 648, y: 254 }
+    size: { w: 184, h: 30 }
+  - id: s4
+    label: ""
+    marker: box
+    at: { x: 960, y: 80 }
+    size: { w: 190, h: 190 }
+  - id: s4_t
+    label: "Cart"
+    marker: none
+    at: { x: 960, y: 52 }
+    size: { w: 190, h: 24 }
+  - id: s4_r0
+    label: "Header"
+    hatch: dots
+    at: { x: 968, y: 88 }
+    size: { w: 174, h: 24 }
+  - id: s4_r1
+    label: "明細 1 件"
+    at: { x: 968, y: 118 }
+    size: { w: 174, h: 34 }
+  - id: s4_r2
+    label: "合計 ¥12,800"
+    at: { x: 968, y: 158 }
+    size: { w: 174, h: 26 }
+  - id: s4_r3
+    label: "レジへ進む"
+    hatch: solid
+    at: { x: 968, y: 190 }
+    size: { w: 174, h: 30 }
+  - id: toast
+    label: "Toast「カートに追加しました」"
+    marker: box
+    at: { x: 640, y: 380 }
+    size: { w: 220, h: 40 }
+  - id: err
+    label: "Error Modal「在庫切れ」"
+    hatch: cross
+    at: { x: 960, y: 380 }
+    size: { w: 200, h: 40 }
+  - id: note
+    label: "実線＝画面遷移、破線＝操作の結果。ボタンは塗り潰し。"
+    marker: none
+    at: { x: 40, y: 440 }
+    size: { w: 460, h: 26 }
+edges:
+  - from: s1
+    to: s2
+    label: 成功
+  - from: s2
+    to: s3
+    label: カード
+  - from: s3
+    to: s4
+    label: 追加
+  - from: s3
+    to: toast
+    label: success
+    line: dashed
+  - from: s3
+    to: err
+    label: error
+    line: dashed
