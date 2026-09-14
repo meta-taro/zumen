@@ -589,3 +589,42 @@ nodes:
     }
   });
 });
+
+/**
+ * **時間の目盛りは、帯の下に敷く。**
+ *
+ * 2026-09-15、見本 64（施設の開館表）を**ブラウザで開いて**出た。
+ * **9:00 / 10:00 … の一点鎖線が「一般開放」「教室」の文字を串刺しにしていた。**
+ *
+ * 通り芯（`mark: code`）とレベル（`mark: level`）は**最前面**でよい ——
+ * 実物の図面でも一点鎖線は**建物を貫いて**見える。基準線だから、隠れたら使えない。
+ *
+ * **時間の目盛り（`mark: tick`）は別物。** 通り芯ではなく**目盛り**で、
+ * 実物の工程表・開放表でも**帯の下**にある。
+ */
+describe('目盛りと通り芯で、重ねる順が違う', () => {
+  const BASE = `version: 1
+kind: placement
+grid:
+  x:
+    - { id: "9:00", at: 100, mark: MARK }
+    - { id: "10:00", at: 300, mark: MARK }
+nodes:
+  - id: a
+    label: 一般開放
+    at: { x: 100, y: 60 }
+    size: { w: 200, h: 40 }
+`;
+
+  it('**時間の目盛りは、箱より先に描く**（文字を串刺しにしない）', async () => {
+    const out = await render(await layout(BASE.replaceAll('MARK', 'tick')), 'light', 'safe', true);
+    assert.ok(out.indexOf('data-grid="tick"') < out.indexOf('data-node'), '目盛りが箱の上に載っている');
+    assert.ok(!out.includes('data-grid="true"'), '目盛りだけの図に、空の通り芯の層が出ている');
+  });
+
+  it('通り芯は、いままでどおり最前面（建物を貫く）', async () => {
+    const out = await render(await layout(BASE.replaceAll('MARK', 'code')), 'light', 'safe', true);
+    assert.ok(out.indexOf('data-grid="true"') > out.indexOf('data-node'), '通り芯が箱の下へ潜った');
+    assert.ok(!out.includes('data-grid="tick"'), '通り芯だけの図に、空の目盛りの層が出ている');
+  });
+});

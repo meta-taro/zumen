@@ -146,6 +146,10 @@ export function render(
      * 紹介ページは暗い背景の上に置いているので気づかない（D33）。
      */
     `<rect data-paper="1" x="0" y="0" width="${size(paper.w)}" height="${size(paper.h)}" fill="${palette.paper}"/>`,
+    // **時間の目盛りは、帯の下に敷く**（`mark: tick`）。
+    // 通り芯は基準線なので最前面だが、目盛りは目盛りで、
+    // 上に載せると帯の中の文字を串刺しにする（2026-09-15。見本 64）。
+    ...(plan && hasGrid(placed.grid) ? [gridLayer(placed, palette, 'tick')].filter(Boolean) : []),
     // **階の枠は機械が描く**（`src/floor.ts`）。
     // 人が手で枠を置くと、箱を足したときに枠が合わなくなる。
     ...(plan ? floorBands(placed, palette) : []),
@@ -181,7 +185,9 @@ export function render(
     // スラブや部屋の下に入ると、外側の切れ端しか見えない。
     // 実物では一点鎖線が**建物を貫いて**見えている。基準線なので、
     // 隠れたら基準として使えない。
-    ...(plan && hasGrid(placed.grid) ? [gridLayer(placed, palette), dimensionLayer(placed, palette)] : []),
+    ...(plan && hasGrid(placed.grid)
+      ? [gridLayer(placed, palette, 'datum'), dimensionLayer(placed, palette)].filter(Boolean)
+      : []),
     '</svg>',
   ];
   return parts.join('\n');
@@ -210,10 +216,14 @@ function stack(boxes: Box[], plan: boolean): Box[] {
  * **下敷きにすると建物の中で消える**（箱の塗りは透けない）。
  * 基準線が隠れたら、基準として使えない。
  */
-function gridLayer(placed: Placed, palette: Palette): string {
+function gridLayer(placed: Placed, palette: Palette, only?: 'tick' | 'datum'): string {
   const frame = frameOf(placed);
   const ink = inkOf(palette);
-  return `<g data-grid="true">${drawGrid(placed.grid, frame, ink)}</g>`;
+  const body = drawGrid(placed.grid, frame, ink, only);
+  // **空の層は出さない。** 出すと「通り芯は箱より後ろ」を測る側が、
+  // 中身の無い層を先に見つけてしまう。
+  if (body === '') return '';
+  return `<g data-grid="${only === 'tick' ? 'tick' : 'true'}">${body}</g>`;
 }
 
 /** 寸法線と方位。**最前面**（数値が隠れると読めない）。 */

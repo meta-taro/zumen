@@ -49,7 +49,16 @@ function n(value: number): number {
  * 座標は**余白を足したあとのもの**（`src/layout.ts` でずらしてある）。
  * ここで余白を知る必要は無い。
  */
-export function drawGrid(grid: Grid, frame: Frame, ink: Ink): string {
+export function drawGrid(grid: Grid, frame: Frame, ink: Ink, only?: 'tick' | 'datum'): string {
+  /**
+   * **目盛りと通り芯で、重ねる順が違う**（`src/render.ts`）。
+   *
+   * 通り芯とレベルは**最前面** —— 実物でも一点鎖線は建物を貫いて見える。
+   * **時間の目盛りは帯の下。** 実物の工程表・開放表もそうなっており、
+   * 上に載せると「一般開放」「教室」の文字を串刺しにする（2026-09-15。見本 64）。
+   */
+  const wanted = (mark: string): boolean =>
+    only === undefined || (only === 'tick' ? mark === 'tick' : mark !== 'tick');
   const parts: string[] = [];
   const top = frame.y - MARGIN.top + CODE_R + 4;
   const bottom = frame.y + frame.h + MARGIN.code;
@@ -57,6 +66,7 @@ export function drawGrid(grid: Grid, frame: Frame, ink: Ink): string {
   const right = frame.x + frame.w + MARGIN.right - CODE_R - 4;
 
   for (const axis of grid.x) {
+    if (!wanted(axis.mark)) continue;
     const x = axis.at;
     if (axis.mark === 'tick') {
       // **時間軸。** 目盛りの線と、上に名前だけ（丸で囲むと通り芯に見える）。
@@ -71,6 +81,7 @@ export function drawGrid(grid: Grid, frame: Frame, ink: Ink): string {
     parts.push(code(x, bottom + CODE_R + 2, axis.id, ink));
   }
   for (const axis of grid.y) {
+    if (!wanted(axis.mark)) continue;
     const y = axis.at;
     if (axis.mark === 'tick') {
       /**
