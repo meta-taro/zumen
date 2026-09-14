@@ -62,6 +62,9 @@ import type { Intent, Palette, Theme } from './tokens.ts';
  */
 const FONT = 'sans-serif';
 
+/** 囲みの名前の字の大きさ。 */
+const GROUP_FONT = 13;
+
 /**
  * 座標と寸法を整数にする。
  *
@@ -239,6 +242,12 @@ function paperFor(placed: Placed, plans: Map<string, Plan>): { w: number; h: num
     w = Math.max(w, plan.x + half + 12);
     h = Math.max(h, (plan.above ? plan.y : plan.y + (rows - 1) * 12) + 12);
   }
+  // **囲みの名前も、囲みより長いことがある。**
+  // 見本 39（経絡と経穴）で「手の陽明大腸経　LI　20 穴　流注は手から顔へ」が
+  // 紙の 110px 外まで伸びていた（2026-09-15）。名前は囲みの左上から右へ書く。
+  for (const group of placed.groups) {
+    w = Math.max(w, group.x + 12 + labelWidth(group.label, GROUP_FONT) + 12);
+  }
   return { w, h };
 }
 
@@ -309,7 +318,7 @@ function renderGroup(group: Box, palette: Palette, plan = false, wall: number | 
   return [
     `<g data-group="${escapeAttr(group.id)}">`,
     rect,
-    `<text x="${n(group.x + 12)}" y="${n(group.y + 22)}" font-family="${FONT}" font-size="13" fill="${palette.group.text}">${escapeText(group.label)}</text>`,
+    `<text x="${n(group.x + 12)}" y="${n(group.y + 22)}" font-family="${FONT}" font-size="${GROUP_FONT}" fill="${palette.group.text}">${escapeText(group.label)}</text>`,
     '</g>',
   ].join('');
 }

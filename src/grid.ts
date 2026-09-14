@@ -163,6 +163,18 @@ export const MARGIN = { near: 26, far: 50, code: 78, top: 46, right: 46 } as con
 /** レベルの矢印と、その先に名前を書き始めるまでの距離（`src/dimensions.ts` と揃える）。 */
 const LEVEL_ARM = 19;
 
+/** 通り芯の符号を囲む丸の半径（`src/dimensions.ts` と揃える）。 */
+export const CODE_R = 12;
+
+/**
+ * **符号の丸が、紙の中に収まるのに要る余白。**
+ *
+ * 丸の中心は芯の先から `CODE_R + 2` 外側にあり、丸はさらに `CODE_R` 外へ広がる。
+ * ここを足していなかったので、**上に並ぶ符号がまるごと紙の外へ出ていた**
+ * （2026-09-15。見本 27・28・31 で X1〜X6 の丸が 1 つも描かれていなかった）。
+ */
+const CODE_MARGIN = MARGIN.code + CODE_R + 2 + CODE_R;
+
 export function marginFor(grid: Grid): { left: number; top: number; right: number; bottom: number } {
   if (!hasGrid(grid)) return { left: 0, top: 0, right: 0, bottom: 0 };
   // **レベルは値を脇に書く**ので、丸の符号より外へ張り出す（`GL±0` / `2FL+3,200`）。
@@ -184,10 +196,10 @@ export function marginFor(grid: Grid): { left: number; top: number; right: numbe
   const ticksX = grid.x.length > 0 && grid.x.every((axis) => axis.mark === 'tick');
   const ticksY = grid.y.length > 0 && grid.y.every((axis) => axis.mark === 'tick');
   return {
-    left: grid.y.length === 0 ? 0 : ticksY ? 56 : Math.max(MARGIN.code + 14, widest),
-    top: MARGIN.top,
-    right: Math.max(MARGIN.right, widest),
-    bottom: grid.x.length === 0 ? 0 : ticksX ? 12 : MARGIN.code + 14,
+    left: grid.y.length === 0 ? 0 : ticksY ? 56 : Math.max(CODE_MARGIN, widest),
+    top: MARGIN.top + CODE_R - 2,
+    right: Math.max(MARGIN.right + CODE_R - 2, widest),
+    bottom: grid.x.length === 0 ? 0 : ticksX ? 12 : CODE_MARGIN,
   };
 }
 

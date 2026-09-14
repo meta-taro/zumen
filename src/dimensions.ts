@@ -13,7 +13,7 @@
  * 実物の図面が通り芯を基準にしているのは、そこを一意にするため。
  */
 import type { Axis, Grid, North } from './grid.ts';
-import { MARGIN } from './grid.ts';
+import { CODE_R, MARGIN } from './grid.ts';
 import { lengthText } from './units.ts';
 
 export interface Frame {
@@ -38,7 +38,6 @@ export interface Ink {
 /** 一点鎖線。**通り芯の決まりごと**（実線でも破線でもない）。 */
 const CHAIN = '14 3 3 3';
 /** 符号を囲む丸の半径。 */
-const CODE_R = 12;
 
 function n(value: number): number {
   return Math.round(value);

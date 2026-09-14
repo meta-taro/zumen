@@ -413,20 +413,40 @@ export async function layout(text: string): Promise<Placed> {
    */
   const grid = gridOf(raw.grid);
   const margin = marginFor(grid);
-  if (margin.left > 0 || margin.top > 0) {
+  /**
+   * **ずらす量は「足りない分」だけ。**
+   *
+   * 決まった量だけずらしていたので、**囲み（`groups`）が中の箱より上と左へ
+   * 張り出す分**（名前を書く分）が余白を食い、
+   * **上に並ぶはずの通り芯符号が、まるごと紙の外へ出ていた**
+   * （2026-09-15。見本 27・28・31 で X1〜X6 の丸が 1 つも描かれていなかった）。
+   *
+   * **通り芯の符号は上下・左右の両方に出るのが図面の作法。**
+   * 足りない分だけずらせば、人が書いた座標を動かす量も最小になる。
+   */
+  const inner = { x: 0, y: 0 };
+  if (boxes.length > 0 || groups.length > 0) {
+    inner.x = Math.min(...[...boxes, ...groups].map((b) => b.x));
+    inner.y = Math.min(...[...boxes, ...groups].map((b) => b.y));
+  }
+  const shift = {
+    left: Math.max(0, margin.left - inner.x),
+    top: Math.max(0, margin.top - inner.y),
+  };
+  if (shift.left > 0 || shift.top > 0) {
     for (const box of [...boxes, ...groups]) {
-      box.x += margin.left;
-      box.y += margin.top;
+      box.x += shift.left;
+      box.y += shift.top;
     }
     for (const edge of edges) {
       for (const point of edge.points) {
-        point.x += margin.left;
-        point.y += margin.top;
+        point.x += shift.left;
+        point.y += shift.top;
       }
     }
     // **通り芯も一緒にずらす。** ここでずらしておけば、描く側は余白を知らずに済む。
-    for (const axis of grid.x) axis.at += margin.left;
-    for (const axis of grid.y) axis.at += margin.top;
+    for (const axis of grid.x) axis.at += shift.left;
+    for (const axis of grid.y) axis.at += shift.top;
   }
 
   /**
@@ -443,7 +463,7 @@ export async function layout(text: string): Promise<Placed> {
    * 負を使った図は、**図ぜんたいがずれる**（相対の位置関係は変わらない）。
    * 正本の値は動かさない。
    */
-  const edge = bounds(boxes, groups, edges);
+  const edge = bounds(boxes, groups, edges, grid);
   const slideX = edge.minX < 0 ? -edge.minX : 0;
   const slideY = edge.minY < 0 ? -edge.minY : 0;
   if (slideX > 0 || slideY > 0) {
@@ -461,7 +481,7 @@ export async function layout(text: string): Promise<Placed> {
     for (const axis of grid.y) axis.at += slideY;
   }
 
-  const size = extent(boxes, groups, edges);
+  const size = extent(boxes, groups, edges, grid);
   return {
     boxes,
     groups,
@@ -1174,6 +1194,7 @@ function bounds(
   boxes: Box[],
   groups: Box[],
   edges: PlacedEdge[] = [],
+  grid: Grid = { x: [], y: [] },
 ): { minX: number; minY: number; maxX: number; maxY: number } {
   const all = [...boxes, ...groups];
   // **辺の通り道も四隅に入れる。**
@@ -1187,18 +1208,35 @@ function bounds(
   const rings = all
     .filter((b) => b.radius !== null)
     .map((b) => ({ cx: b.x + b.w / 2, cy: b.y + b.h / 2, r: b.radius! }));
+  // **通り芯も四隅に入れる。** 芯は箱の外まで伸ばして引くもので、
+  // 目盛りの名前は芯の先に出る。見本 71（列車運行図表）では、
+  // **右端の時刻「9:00」が紙の 43px 外**にあって見えなかった（2026-09-15）。
+  const axesX = grid.x.map((axis) => axis.at);
+  const axesY = grid.y.map((axis) => axis.at);
   if (all.length === 0 && points.length === 0) return { minX: 0, minY: 0, maxX: 0, maxY: 0 };
-  const xs = [...all.map((b) => b.x), ...points.map((p) => p.x), ...rings.map((c) => c.cx - c.r)];
-  const ys = [...all.map((b) => b.y), ...points.map((p) => p.y), ...rings.map((c) => c.cy - c.r)];
+  const xs = [
+    ...all.map((b) => b.x),
+    ...points.map((p) => p.x),
+    ...rings.map((c) => c.cx - c.r),
+    ...axesX,
+  ];
+  const ys = [
+    ...all.map((b) => b.y),
+    ...points.map((p) => p.y),
+    ...rings.map((c) => c.cy - c.r),
+    ...axesY,
+  ];
   const rights = [
     ...all.map((b) => b.x + b.w),
     ...points.map((p) => p.x),
     ...rings.map((c) => c.cx + c.r),
+    ...axesX,
   ];
   const bottoms = [
     ...all.map((b) => b.y + b.h),
     ...points.map((p) => p.y),
     ...rings.map((c) => c.cy + c.r),
+    ...axesY,
   ];
   return {
     minX: Math.min(...xs),
@@ -1208,7 +1246,12 @@ function bounds(
   };
 }
 
-function extent(boxes: Box[], groups: Box[], edges: PlacedEdge[]): { width: number; height: number } {
-  const box = bounds(boxes, groups, edges);
+function extent(
+  boxes: Box[],
+  groups: Box[],
+  edges: PlacedEdge[],
+  grid: Grid,
+): { width: number; height: number } {
+  const box = bounds(boxes, groups, edges, grid);
   return { width: box.maxX + PAD, height: box.maxY + PAD };
 }

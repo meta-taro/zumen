@@ -542,3 +542,50 @@ nodes:
     }
   });
 });
+
+/**
+ * **囲みがあると、上の通り芯符号が画用紙の外へ落ちていた。**
+ *
+ * 2026-09-15。見本 27（圃場整備）・28（ダム）・31（座席図）を数えたら、
+ * **上に並ぶはずの X1〜X6 の丸が 1 つも描かれていなかった**（cy = −24、r = 12）。
+ * 左の Y1・Y2 も半分外に出ていた。
+ *
+ * 余白の分だけ「決まった量」ずらしていたが、
+ * **囲み（`groups`）は中の箱より上と左へ張り出す**（名前を書く分）。
+ * その張り出しが余白を食って、符号が紙の外へ出ていた。
+ *
+ * **通り芯の符号は上下・左右の両方に出るのが図面の作法。** 片方が消えていた。
+ */
+describe('囲みがあっても、通り芯の符号が紙に入る', () => {
+  const PLAN = `version: 1
+kind: placement
+scale: { mm: 50 }
+grid:
+  x:
+    - { id: X1, at: 0 }
+    - { id: X2, at: 200 }
+  y:
+    - { id: Y1, at: 0 }
+    - { id: Y2, at: 160 }
+groups:
+  - id: block
+    label: 第 1 工区
+nodes:
+  - id: a
+    label: 区画
+    group: block
+    at: { x: 0, y: 0 }
+    size: { w: 200, h: 160 }
+`;
+
+  it('**上と左の符号が、画用紙の中にある**', async () => {
+    const out = await render(await layout(PLAN), 'light', 'safe', true);
+    const found = [...out.matchAll(/<circle cx="(-?[\d.]+)" cy="(-?[\d.]+)" r="([\d.]+)"/g)];
+    assert.ok(found.length >= 4, `符号の丸が足りない（${found.length}）`);
+    for (const m of found) {
+      const [cx, cy, r] = [Number(m[1]), Number(m[2]), Number(m[3])];
+      assert.ok(cx - r >= 0, `符号が左へ出ている（${cx - r}）`);
+      assert.ok(cy - r >= 0, `符号が上へ出ている（${cy - r}）`);
+    }
+  });
+});
