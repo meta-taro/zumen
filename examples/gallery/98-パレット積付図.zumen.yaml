@@ -1,0 +1,447 @@
+version: 1
+kind: placement
+arrows: false
+scale: { mm: 5 }
+title: パレット積付図（T11・4 つの積み方を並べて比べる）
+# 1 px = 5 mm。**同じ箱を、どう並べるかだけの図。** それで荷崩れが変わる。
+#
+# ## 段ごとに向きを変えると強くなる
+#
+# ブロック積みは並べるだけなので速いが、**段の目地が縦に揃うので横の力に弱い。**
+# 段ごとに 90° 回す（交互列）か、段の中で向きを混ぜる（れんが）と、
+# 目地がずれて崩れにくくなる。
+#
+# ## 効率と安定は、ときどきぶつかる
+#
+# 風車（ピンホイール）積みはいちばん安定するが、**真ん中が空く**（88.7%）。
+# ①②③ が 100% なのは、**段ボールを T11 で割り切れる寸法で作ってある**から。
+# 寸法が合わない箱を無理に載せると、はみ出しになる。
+#
+# ## はみ出しは厳禁
+#
+# **わずかでも下段の圧縮強度が落ち、重心が外へ出る。**
+# 隙間は外へ逃がさず、内側へ寄せる。
+nodes:
+  - id: p1_c
+    label: "① ブロック積み（1 段目）"
+    marker: none
+    at: { x: 80, y: 70 }
+    size: { w: 300, h: 24 }
+  - id: p1
+    label: ""
+    marker: box
+    at: { x: 80, y: 100 }
+    size: { w: 220, h: 220 }
+  - id: p1_b0
+    label: ""
+    hatch: lines
+    at: { x: 80, y: 100 }
+    size: { w: 110, h: 55 }
+  - id: p1_b1
+    label: ""
+    hatch: lines
+    at: { x: 80, y: 155 }
+    size: { w: 110, h: 55 }
+  - id: p1_b2
+    label: ""
+    hatch: lines
+    at: { x: 80, y: 210 }
+    size: { w: 110, h: 55 }
+  - id: p1_b3
+    label: ""
+    hatch: lines
+    at: { x: 80, y: 265 }
+    size: { w: 110, h: 55 }
+  - id: p1_b4
+    label: ""
+    hatch: lines
+    at: { x: 190, y: 100 }
+    size: { w: 110, h: 55 }
+  - id: p1_b5
+    label: ""
+    hatch: lines
+    at: { x: 190, y: 155 }
+    size: { w: 110, h: 55 }
+  - id: p1_b6
+    label: ""
+    hatch: lines
+    at: { x: 190, y: 210 }
+    size: { w: 110, h: 55 }
+  - id: p1_b7
+    label: ""
+    hatch: lines
+    at: { x: 190, y: 265 }
+    size: { w: 110, h: 55 }
+  - id: p1_n
+    label: "8 個・積載効率 100%"
+    marker: none
+    at: { x: 80, y: 328 }
+    size: { w: 260, h: 24 }
+  - id: p2_c
+    label: "② 交互列積み（2 段目）"
+    marker: none
+    at: { x: 380, y: 70 }
+    size: { w: 300, h: 24 }
+  - id: p2
+    label: ""
+    marker: box
+    at: { x: 380, y: 100 }
+    size: { w: 220, h: 220 }
+  - id: p2_b0
+    label: ""
+    hatch: lines
+    at: { x: 380, y: 100 }
+    size: { w: 55, h: 110 }
+  - id: p2_b1
+    label: ""
+    hatch: lines
+    at: { x: 380, y: 210 }
+    size: { w: 55, h: 110 }
+  - id: p2_b2
+    label: ""
+    hatch: lines
+    at: { x: 435, y: 100 }
+    size: { w: 55, h: 110 }
+  - id: p2_b3
+    label: ""
+    hatch: lines
+    at: { x: 435, y: 210 }
+    size: { w: 55, h: 110 }
+  - id: p2_b4
+    label: ""
+    hatch: lines
+    at: { x: 490, y: 100 }
+    size: { w: 55, h: 110 }
+  - id: p2_b5
+    label: ""
+    hatch: lines
+    at: { x: 490, y: 210 }
+    size: { w: 55, h: 110 }
+  - id: p2_b6
+    label: ""
+    hatch: lines
+    at: { x: 545, y: 100 }
+    size: { w: 55, h: 110 }
+  - id: p2_b7
+    label: ""
+    hatch: lines
+    at: { x: 545, y: 210 }
+    size: { w: 55, h: 110 }
+  - id: p2_n
+    label: "8 個・100%。①の上に 90° 回して積む"
+    marker: none
+    at: { x: 380, y: 328 }
+    size: { w: 260, h: 24 }
+  - id: p3_c
+    label: "③ れんが積み（1 段の中で向きを混ぜる）"
+    marker: none
+    at: { x: 680, y: 70 }
+    size: { w: 300, h: 24 }
+  - id: p3
+    label: ""
+    marker: box
+    at: { x: 680, y: 100 }
+    size: { w: 220, h: 220 }
+  - id: p3_b0
+    label: ""
+    hatch: lines
+    at: { x: 680, y: 100 }
+    size: { w: 110, h: 55 }
+  - id: p3_b1
+    label: ""
+    hatch: lines
+    at: { x: 790, y: 100 }
+    size: { w: 110, h: 55 }
+  - id: p3_b2
+    label: ""
+    hatch: lines
+    at: { x: 680, y: 155 }
+    size: { w: 55, h: 110 }
+  - id: p3_b3
+    label: ""
+    hatch: lines
+    at: { x: 735, y: 155 }
+    size: { w: 55, h: 110 }
+  - id: p3_b4
+    label: ""
+    hatch: lines
+    at: { x: 790, y: 155 }
+    size: { w: 55, h: 110 }
+  - id: p3_b5
+    label: ""
+    hatch: lines
+    at: { x: 845, y: 155 }
+    size: { w: 55, h: 110 }
+  - id: p3_b6
+    label: ""
+    hatch: lines
+    at: { x: 680, y: 265 }
+    size: { w: 110, h: 55 }
+  - id: p3_b7
+    label: ""
+    hatch: lines
+    at: { x: 790, y: 265 }
+    size: { w: 110, h: 55 }
+  - id: p3_n
+    label: "8 個・100%。段の中で目地をずらす"
+    marker: none
+    at: { x: 680, y: 328 }
+    size: { w: 260, h: 24 }
+  - id: p4_c
+    label: "④ 風車（ピンホイール）積み"
+    marker: none
+    at: { x: 980, y: 70 }
+    size: { w: 250, h: 24 }
+  - id: p4
+    label: ""
+    marker: box
+    at: { x: 980, y: 100 }
+    size: { w: 220, h: 220 }
+  - id: p4_b0
+    label: ""
+    hatch: lines
+    at: { x: 980, y: 100 }
+    size: { w: 147, h: 73 }
+  - id: p4_b1
+    label: ""
+    hatch: lines
+    at: { x: 1127, y: 100 }
+    size: { w: 73, h: 147 }
+  - id: p4_b2
+    label: ""
+    hatch: lines
+    at: { x: 1053, y: 247 }
+    size: { w: 147, h: 73 }
+  - id: p4_b3
+    label: ""
+    hatch: lines
+    at: { x: 980, y: 173 }
+    size: { w: 73, h: 147 }
+  - id: p4_n
+    label: "4 個・88.7%。真ん中が空く"
+    marker: none
+    at: { x: 980, y: 328 }
+    size: { w: 260, h: 24 }
+  - id: carton1
+    label: "段ボール 550 × 275（①②③）"
+    marker: none
+    at: { x: 80, y: 392 }
+    size: { w: 300, h: 24 }
+  - id: carton2
+    label: "段ボール 735 × 365（④・長辺＋短辺＝1,100）"
+    marker: none
+    at: { x: 680, y: 392 }
+    size: { w: 360, h: 24 }
+  - id: hami
+    label: "はみ出し（オーバーハング）"
+    hatch: cross
+    at: { x: 80, y: 432 }
+    size: { w: 220, h: 44 }
+  - id: hami_n
+    label: "はみ出すと下段の圧縮強度が落ち、重心が外へ出る。隙間は内側へ寄せる。"
+    marker: none
+    at: { x: 310, y: 440 }
+    size: { w: 560, h: 24 }
+  - id: tb_t
+    label: "積み方の選び方"
+    marker: none
+    at: { x: 1260, y: 60 }
+    size: { w: 300, h: 24 }
+  - id: th0
+    label: "積み方"
+    hatch: solid
+    at: { x: 1260, y: 92 }
+    size: { w: 130, h: 26 }
+  - id: th1
+    label: "1 段"
+    hatch: solid
+    at: { x: 1390, y: 92 }
+    size: { w: 70, h: 26 }
+  - id: th2
+    label: "効率"
+    hatch: solid
+    at: { x: 1460, y: 92 }
+    size: { w: 80, h: 26 }
+  - id: th3
+    label: "横の力"
+    hatch: solid
+    at: { x: 1540, y: 92 }
+    size: { w: 110, h: 26 }
+  - id: th4
+    label: "取り出し"
+    hatch: solid
+    at: { x: 1650, y: 92 }
+    size: { w: 110, h: 26 }
+  - id: tc0_0
+    label: "① ブロック"
+    at: { x: 1260, y: 118 }
+    size: { w: 130, h: 28 }
+  - id: tc0_1
+    label: "8 個"
+    at: { x: 1390, y: 118 }
+    size: { w: 70, h: 28 }
+  - id: tc0_2
+    label: "100%"
+    at: { x: 1460, y: 118 }
+    size: { w: 80, h: 28 }
+  - id: tc0_3
+    label: "弱い"
+    at: { x: 1540, y: 118 }
+    size: { w: 110, h: 28 }
+  - id: tc0_4
+    label: "まとめて取れる"
+    at: { x: 1650, y: 118 }
+    size: { w: 110, h: 28 }
+  - id: tc1_0
+    label: "② 交互列"
+    at: { x: 1260, y: 146 }
+    size: { w: 130, h: 28 }
+  - id: tc1_1
+    label: "8 個"
+    at: { x: 1390, y: 146 }
+    size: { w: 70, h: 28 }
+  - id: tc1_2
+    label: "100%"
+    at: { x: 1460, y: 146 }
+    size: { w: 80, h: 28 }
+  - id: tc1_3
+    label: "強い"
+    at: { x: 1540, y: 146 }
+    size: { w: 110, h: 28 }
+  - id: tc1_4
+    label: "段ごとに向きが違う"
+    at: { x: 1650, y: 146 }
+    size: { w: 110, h: 28 }
+  - id: tc2_0
+    label: "③ れんが"
+    at: { x: 1260, y: 174 }
+    size: { w: 130, h: 28 }
+  - id: tc2_1
+    label: "8 個"
+    at: { x: 1390, y: 174 }
+    size: { w: 70, h: 28 }
+  - id: tc2_2
+    label: "100%"
+    at: { x: 1460, y: 174 }
+    size: { w: 80, h: 28 }
+  - id: tc2_3
+    label: "強い"
+    at: { x: 1540, y: 174 }
+    size: { w: 110, h: 28 }
+  - id: tc2_4
+    label: "向きが混ざる"
+    at: { x: 1650, y: 174 }
+    size: { w: 110, h: 28 }
+  - id: tc3_0
+    label: "④ 風車"
+    at: { x: 1260, y: 202 }
+    size: { w: 130, h: 28 }
+  - id: tc3_1
+    label: "4 個"
+    at: { x: 1390, y: 202 }
+    size: { w: 70, h: 28 }
+  - id: tc3_2
+    label: "88.7%"
+    at: { x: 1460, y: 202 }
+    size: { w: 80, h: 28 }
+  - id: tc3_3
+    label: "いちばん強い"
+    at: { x: 1540, y: 202 }
+    size: { w: 110, h: 28 }
+  - id: tc3_4
+    label: "四隅から取れる"
+    at: { x: 1650, y: 202 }
+    size: { w: 110, h: 28 }
+  - id: sp_t
+    label: "この積付の諸元"
+    marker: none
+    at: { x: 1260, y: 246 }
+    size: { w: 300, h: 24 }
+  - id: sa0
+    label: "パレット"
+    hatch: solid
+    at: { x: 1260, y: 274 }
+    size: { w: 130, h: 26 }
+  - id: sb0
+    label: "T11（1,100 × 1,100 × 144）"
+    at: { x: 1390, y: 274 }
+    size: { w: 330, h: 26 }
+  - id: sa1
+    label: "段ボール"
+    hatch: solid
+    at: { x: 1260, y: 300 }
+    size: { w: 130, h: 26 }
+  - id: sb1
+    label: "550 × 275 × 230"
+    at: { x: 1390, y: 300 }
+    size: { w: 330, h: 26 }
+  - id: sa2
+    label: "1 段"
+    hatch: solid
+    at: { x: 1260, y: 326 }
+    size: { w: 130, h: 26 }
+  - id: sb2
+    label: "8 個"
+    at: { x: 1390, y: 326 }
+    size: { w: 330, h: 26 }
+  - id: sa3
+    label: "段数"
+    hatch: solid
+    at: { x: 1260, y: 352 }
+    size: { w: 130, h: 26 }
+  - id: sb3
+    label: "5 段"
+    at: { x: 1390, y: 352 }
+    size: { w: 330, h: 26 }
+  - id: sa4
+    label: "総数"
+    hatch: solid
+    at: { x: 1260, y: 378 }
+    size: { w: 130, h: 26 }
+  - id: sb4
+    label: "40 個"
+    at: { x: 1390, y: 378 }
+    size: { w: 330, h: 26 }
+  - id: sa5
+    label: "積付高さ"
+    hatch: solid
+    at: { x: 1260, y: 404 }
+    size: { w: 130, h: 26 }
+  - id: sb5
+    label: "144 ＋ 230 × 5 ＝ 1,294"
+    at: { x: 1390, y: 404 }
+    size: { w: 330, h: 26 }
+  - id: sa6
+    label: "総重量"
+    hatch: solid
+    at: { x: 1260, y: 430 }
+    size: { w: 130, h: 26 }
+  - id: sb6
+    label: "パレット 25kg ＋ 12kg × 40 ＝ 505kg"
+    at: { x: 1390, y: 430 }
+    size: { w: 330, h: 26 }
+  - id: n0
+    label: "・段ごとに向きを変えると、横の力に強くなる（荷崩れしにくい）。"
+    marker: none
+    at: { x: 1260, y: 472 }
+    size: { w: 560, h: 24 }
+  - id: n1
+    label: "・ブロック積みは崩れやすいので、ストレッチフィルムや結束が要る。"
+    marker: none
+    at: { x: 1260, y: 498 }
+    size: { w: 560, h: 24 }
+  - id: n2
+    label: "・風車積みは強いが真ん中が空く。効率と安定のどちらを取るかの話。"
+    marker: none
+    at: { x: 1260, y: 524 }
+    size: { w: 560, h: 24 }
+  - id: n3
+    label: "・はみ出しは厳禁。わずかでも下段の圧縮強度が落ちる。"
+    marker: none
+    at: { x: 1260, y: 550 }
+    size: { w: 560, h: 24 }
+  - id: n4
+    label: "・積付高さはトラックの内寸とフォークの爪で決まる。効率だけでは決めない。"
+    marker: none
+    at: { x: 1260, y: 576 }
+    size: { w: 560, h: 24 }
