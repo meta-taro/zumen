@@ -118,6 +118,10 @@ This is **not finished software.** It is being built in the open, small step by 
 - Rich editing. That is not the goal; see [What this will not become](#what-this-will-not-become)
 - Web version, real-time collaboration, importing other formats
 - 3D — planned as a *separate renderer over the same source*, not a separate format
+- **Ribbon-like strokes and over/under crossings.** A taping chart and a knot chart both
+  need a stroke with width, and a way to break the strand that passes underneath.
+  Measured: the *contour* of a leg draws fine as a closed smooth curve; eight thick
+  lines laid over it do not read
 
 ## Try it
 
