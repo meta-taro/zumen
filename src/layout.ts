@@ -443,7 +443,7 @@ export async function layout(text: string): Promise<Placed> {
    * 負を使った図は、**図ぜんたいがずれる**（相対の位置関係は変わらない）。
    * 正本の値は動かさない。
    */
-  const edge = bounds(boxes, groups);
+  const edge = bounds(boxes, groups, edges);
   const slideX = edge.minX < 0 ? -edge.minX : 0;
   const slideY = edge.minY < 0 ? -edge.minY : 0;
   if (slideX > 0 || slideY > 0) {
@@ -461,7 +461,7 @@ export async function layout(text: string): Promise<Placed> {
     for (const axis of grid.y) axis.at += slideY;
   }
 
-  const size = extent(boxes, groups);
+  const size = extent(boxes, groups, edges);
   return {
     boxes,
     groups,
@@ -1170,18 +1170,31 @@ const PAD = 24;
  * 負の座標は間違いではない —— **本体より左に見出しの列を置く**のは、
  * 工程表・座席図・表のある図でふつうの書き方。
  */
-function bounds(boxes: Box[], groups: Box[]): { minX: number; minY: number; maxX: number; maxY: number } {
+function bounds(
+  boxes: Box[],
+  groups: Box[],
+  edges: PlacedEdge[] = [],
+): { minX: number; minY: number; maxX: number; maxY: number } {
   const all = [...boxes, ...groups];
-  if (all.length === 0) return { minX: 0, minY: 0, maxX: 0, maxY: 0 };
+  // **辺の通り道も四隅に入れる。**
+  // 池・グリーン・体の輪郭のように、`via` だけで描く形がある。
+  // 箱しか測っていなかったので、**囲む箱を置き忘れると絵が切れて消えていた**
+  // （2026-09-15。テーピングの図で足の輪郭を描こうとして踏んだ）。
+  const points = edges.flatMap((edge) => edge.points);
+  if (all.length === 0 && points.length === 0) return { minX: 0, minY: 0, maxX: 0, maxY: 0 };
+  const xs = [...all.map((b) => b.x), ...points.map((p) => p.x)];
+  const ys = [...all.map((b) => b.y), ...points.map((p) => p.y)];
+  const rights = [...all.map((b) => b.x + b.w), ...points.map((p) => p.x)];
+  const bottoms = [...all.map((b) => b.y + b.h), ...points.map((p) => p.y)];
   return {
-    minX: Math.min(...all.map((b) => b.x)),
-    minY: Math.min(...all.map((b) => b.y)),
-    maxX: Math.max(...all.map((b) => b.x + b.w)),
-    maxY: Math.max(...all.map((b) => b.y + b.h)),
+    minX: Math.min(...xs),
+    minY: Math.min(...ys),
+    maxX: Math.max(...rights),
+    maxY: Math.max(...bottoms),
   };
 }
 
-function extent(boxes: Box[], groups: Box[]): { width: number; height: number } {
-  const box = bounds(boxes, groups);
+function extent(boxes: Box[], groups: Box[], edges: PlacedEdge[]): { width: number; height: number } {
+  const box = bounds(boxes, groups, edges);
   return { width: box.maxX + PAD, height: box.maxY + PAD };
 }

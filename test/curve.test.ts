@@ -330,3 +330,57 @@ edges:
     assert.equal(placed.edges[0]!.points.length, 5);
   });
 });
+
+/**
+ * **画用紙の大きさを、辺の通り道も見て決める。**
+ *
+ * 2026-09-15、テーピングの図で足の輪郭を閉じた曲線で描こうとして出た。
+ * 節は輪郭の端に置いた 2px の点だけだったので、**画用紙がその点の大きさになり、
+ * 輪郭のほとんどが外へ落ちて消えた。**
+ *
+ * 四隅を測っているのは**箱だけ**だった。
+ * `via` で描く形（池・グリーン・体の輪郭）は、**箱で囲っておかないと切れる。**
+ * 負の座標へ回した通り道も同じで、まとめてずらす計算から漏れていた。
+ */
+describe('画用紙は、辺の通り道も入れて測る', () => {
+  const RING = `version: 1
+kind: placement
+arrows: true
+nodes:
+  - id: a
+    label: ""
+    marker: none
+    at: { x: 100, y: 100 }
+    size: { w: 2, h: 2 }
+  - id: b
+    label: ""
+    marker: none
+    at: { x: 120, y: 100 }
+    size: { w: 2, h: 2 }
+edges:
+  - from: a
+    to: b
+    curve: smooth
+    close: true
+    ends: { from: none, to: none }
+    via:
+      - { x: 400, y: 160 }
+      - { x: 380, y: 500 }
+      - { x: 120, y: 460 }
+`;
+
+  it('**輪郭が画用紙から外へ落ちない**', async () => {
+    const placed = await layout(RING);
+    assert.ok(placed.width >= 400, `幅が輪郭に足りない（${placed.width}）`);
+    assert.ok(placed.height >= 500, `高さが輪郭に足りない（${placed.height}）`);
+  });
+
+  it('負の座標へ回した通り道も、まとめてずらす計算に入る', async () => {
+    const placed = await layout(RING.replace('{ x: 120, y: 460 }', '{ x: -60, y: 460 }'));
+    for (const edge of placed.edges) {
+      for (const point of edge.points) {
+        assert.ok(point.x >= 0, `通り道が画用紙の外にある（x: ${point.x}）`);
+      }
+    }
+  });
+});
