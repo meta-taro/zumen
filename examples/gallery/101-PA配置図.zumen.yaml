@@ -1,0 +1,403 @@
+version: 1
+kind: placement
+arrows: false
+north: up
+scale: { mm: 100 }
+title: 野外ステージの PA 配置図（40 × 60m・ディレイタワー 2 段）
+# 1 px = 100 mm。**距離が時間になる図。**
+#
+# ## 離れたスピーカーは、遅らせて鳴らす
+#
+# 音は 1 秒に 340m ほどしか進まない。**30m 後ろのスピーカーをそのまま鳴らすと、
+# メインより 88 ms 早く届いて**、音が後ろから来ているように聞こえる。
+# だから遅らせる。
+#
+# 遅延（ms）＝ 距離差（m）÷ 音速（m/s）× 1000。**1 ms ≒ 34cm。**
+# 音速は気温で変わる —— **c ＝ 331.5 ＋ 0.6 × 気温（℃）。**
+#
+# ## 計算値に 5〜15 ms 足す
+#
+# ぴったり合わせるのではなく**少し遅らせる**と、
+# 先に届いたメインの方向から音が来ているように聞こえる（ハース効果）。
+#
+# 破線の扇は**スピーカーが届く範囲**（物ではないので破線）。
+#
+# 会場・曲目は架空。
+nodes:
+  - id: venue
+    label: ""
+    marker: box
+    at: { x: 80, y: 120 }
+    size: { w: 400, h: 600 }
+  - id: venue_n
+    label: "会場 40 × 60m"
+    marker: none
+    at: { x: 86, y: 126 }
+    size: { w: 130, h: 22 }
+  - id: stage
+    label: ""
+    hatch: dots
+    at: { x: 220, y: 120 }
+    size: { w: 120, h: 60 }
+  - id: stage_n
+    label: "ステージ"
+    marker: none
+    at: { x: 226, y: 124 }
+    size: { w: 90, h: 22 }
+  - id: mon0
+    label: ""
+    hatch: none
+    at: { x: 228, y: 165 }
+    size: { w: 24, h: 12 }
+  - id: mon1
+    label: ""
+    hatch: none
+    at: { x: 258, y: 165 }
+    size: { w: 24, h: 12 }
+  - id: mon2
+    label: ""
+    hatch: none
+    at: { x: 288, y: 165 }
+    size: { w: 24, h: 12 }
+  - id: mon3
+    label: ""
+    hatch: none
+    at: { x: 313, y: 165 }
+    size: { w: 24, h: 12 }
+  - id: mainL
+    label: "Main L"
+    hatch: solid
+    at: { x: 153, y: 176 }
+    size: { w: 64, h: 28 }
+  - id: mainR
+    label: "Main R"
+    hatch: solid
+    at: { x: 343, y: 176 }
+    size: { w: 64, h: 28 }
+  - id: subL
+    label: "Sub"
+    hatch: lines
+    at: { x: 224, y: 196 }
+    size: { w: 52, h: 28 }
+  - id: subR
+    label: "Sub"
+    hatch: lines
+    at: { x: 284, y: 196 }
+    size: { w: 52, h: 28 }
+  - id: d1L
+    label: "Delay 1"
+    hatch: lines
+    at: { x: 145, y: 406 }
+    size: { w: 70, h: 28 }
+  - id: d1R
+    label: "Delay 1"
+    hatch: lines
+    at: { x: 345, y: 406 }
+    size: { w: 70, h: 28 }
+  - id: d2L
+    label: "Delay 2"
+    hatch: lines
+    at: { x: 125, y: 656 }
+    size: { w: 70, h: 28 }
+  - id: d2R
+    label: "Delay 2"
+    hatch: lines
+    at: { x: 365, y: 656 }
+    size: { w: 70, h: 28 }
+  - id: snake
+    label: "ST ボックス"
+    at: { x: 350, y: 130 }
+    size: { w: 110, h: 40 }
+  - id: foh
+    label: "FOH 卓"
+    hatch: cross
+    at: { x: 250, y: 460 }
+    size: { w: 120, h: 50 }
+  - id: foh_n
+    label: "メインの軸が交わるところに置く"
+    marker: none
+    at: { x: 190, y: 518 }
+    size: { w: 280, h: 24 }
+  - id: snake_n
+    label: "マルチは通路沿いに養生する"
+    marker: none
+    at: { x: 90, y: 370 }
+    size: { w: 260, h: 24 }
+  - id: mon_n
+    label: "フロアモニター ×4（マイクの後ろへ向ける）"
+    marker: none
+    at: { x: 150, y: 330 }
+    size: { w: 300, h: 24 }
+  - id: tb_t
+    label: "スピーカーとディレイ（気温 15℃・音速 340.5 m/s）"
+    marker: none
+    at: { x: 560, y: 60 }
+    size: { w: 520, h: 24 }
+  - id: th0
+    label: "スピーカー"
+    hatch: solid
+    at: { x: 560, y: 92 }
+    size: { w: 130, h: 26 }
+  - id: th1
+    label: "位置"
+    hatch: solid
+    at: { x: 690, y: 92 }
+    size: { w: 110, h: 26 }
+  - id: th2
+    label: "距離差"
+    hatch: solid
+    at: { x: 800, y: 92 }
+    size: { w: 100, h: 26 }
+  - id: th3
+    label: "計算値"
+    hatch: solid
+    at: { x: 900, y: 92 }
+    size: { w: 110, h: 26 }
+  - id: th4
+    label: "設定値"
+    hatch: solid
+    at: { x: 1010, y: 92 }
+    size: { w: 110, h: 26 }
+  - id: th5
+    label: "指向角"
+    hatch: solid
+    at: { x: 1120, y: 92 }
+    size: { w: 100, h: 26 }
+  - id: tc0_0
+    label: "Main L / R"
+    at: { x: 560, y: 118 }
+    size: { w: 130, h: 28 }
+  - id: tc0_1
+    label: "ステージ脇"
+    at: { x: 690, y: 118 }
+    size: { w: 110, h: 28 }
+  - id: tc0_2
+    label: "0 m"
+    at: { x: 800, y: 118 }
+    size: { w: 100, h: 28 }
+  - id: tc0_3
+    label: "—"
+    at: { x: 900, y: 118 }
+    size: { w: 110, h: 28 }
+  - id: tc0_4
+    label: "0 ms"
+    at: { x: 1010, y: 118 }
+    size: { w: 110, h: 28 }
+  - id: tc0_5
+    label: "水平 90°"
+    at: { x: 1120, y: 118 }
+    size: { w: 100, h: 28 }
+  - id: tc1_0
+    label: "Sub"
+    at: { x: 560, y: 146 }
+    size: { w: 130, h: 28 }
+  - id: tc1_1
+    label: "ステージ前"
+    at: { x: 690, y: 146 }
+    size: { w: 110, h: 28 }
+  - id: tc1_2
+    label: "0 m"
+    at: { x: 800, y: 146 }
+    size: { w: 100, h: 28 }
+  - id: tc1_3
+    label: "—"
+    at: { x: 900, y: 146 }
+    size: { w: 110, h: 28 }
+  - id: tc1_4
+    label: "0 ms"
+    at: { x: 1010, y: 146 }
+    size: { w: 110, h: 28 }
+  - id: tc1_5
+    label: "無指向"
+    at: { x: 1120, y: 146 }
+    size: { w: 100, h: 28 }
+  - id: tc2_0
+    label: "Delay 1 L / R"
+    at: { x: 560, y: 174 }
+    size: { w: 130, h: 28 }
+  - id: tc2_1
+    label: "30m 地点"
+    at: { x: 690, y: 174 }
+    size: { w: 110, h: 28 }
+  - id: tc2_2
+    label: "30.0 m"
+    at: { x: 800, y: 174 }
+    size: { w: 100, h: 28 }
+  - id: tc2_3
+    label: "88.1 ms"
+    at: { x: 900, y: 174 }
+    size: { w: 110, h: 28 }
+  - id: tc2_4
+    label: "98 ms"
+    at: { x: 1010, y: 174 }
+    size: { w: 110, h: 28 }
+  - id: tc2_5
+    label: "水平 60°"
+    at: { x: 1120, y: 174 }
+    size: { w: 100, h: 28 }
+  - id: tc3_0
+    label: "Delay 2 L / R"
+    at: { x: 560, y: 202 }
+    size: { w: 130, h: 28 }
+  - id: tc3_1
+    label: "55m 地点"
+    at: { x: 690, y: 202 }
+    size: { w: 110, h: 28 }
+  - id: tc3_2
+    label: "55.0 m"
+    at: { x: 800, y: 202 }
+    size: { w: 100, h: 28 }
+  - id: tc3_3
+    label: "161.5 ms"
+    at: { x: 900, y: 202 }
+    size: { w: 110, h: 28 }
+  - id: tc3_4
+    label: "172 ms"
+    at: { x: 1010, y: 202 }
+    size: { w: 110, h: 28 }
+  - id: tc3_5
+    label: "水平 60°"
+    at: { x: 1120, y: 202 }
+    size: { w: 100, h: 28 }
+  - id: tc4_0
+    label: "フロアモニター"
+    at: { x: 560, y: 230 }
+    size: { w: 130, h: 28 }
+  - id: tc4_1
+    label: "ステージ上"
+    at: { x: 690, y: 230 }
+    size: { w: 110, h: 28 }
+  - id: tc4_2
+    label: "—"
+    at: { x: 800, y: 230 }
+    size: { w: 100, h: 28 }
+  - id: tc4_3
+    label: "—"
+    at: { x: 900, y: 230 }
+    size: { w: 110, h: 28 }
+  - id: tc4_4
+    label: "0 ms"
+    at: { x: 1010, y: 230 }
+    size: { w: 110, h: 28 }
+  - id: tc4_5
+    label: "—"
+    at: { x: 1120, y: 230 }
+    size: { w: 100, h: 28 }
+  - id: f_t
+    label: "ディレイの出し方"
+    marker: none
+    at: { x: 560, y: 274 }
+    size: { w: 300, h: 24 }
+  - id: n0
+    label: "・遅延（ms）＝ 距離差（m）÷ 音速（m/s）× 1000。1 ms ≒ 34cm。"
+    marker: none
+    at: { x: 560, y: 302 }
+    size: { w: 620, h: 24 }
+  - id: n1
+    label: "・音速は気温で変わる。c ＝ 331.5 ＋ 0.6 × 気温（℃）（15℃ で 340.5）。"
+    marker: none
+    at: { x: 560, y: 328 }
+    size: { w: 620, h: 24 }
+  - id: n2
+    label: "・計算値に +5〜15 ms 足す（ハース効果）。"
+    marker: none
+    at: { x: 560, y: 354 }
+    size: { w: 620, h: 24 }
+  - id: n3
+    label: "・足すと、音がメインの方向から来ているように聞こえる。足さないと定位が崩れる。"
+    marker: none
+    at: { x: 560, y: 380 }
+    size: { w: 620, h: 24 }
+  - id: n4
+    label: "・計算値は出発点。当日の気温と実際の聞こえで詰める。"
+    marker: none
+    at: { x: 560, y: 406 }
+    size: { w: 620, h: 24 }
+  - id: n5
+    label: "・FOH は客席の中、メインの軸が交わるところに置く。端では判断できない。"
+    marker: none
+    at: { x: 560, y: 432 }
+    size: { w: 620, h: 24 }
+  - id: n6
+    label: "・モニターはマイクの後ろへ向ける。マイクの正面に向けるとハウる。"
+    marker: none
+    at: { x: 560, y: 458 }
+    size: { w: 620, h: 24 }
+edges:
+  - from: mainL
+    to: mainL
+    close: true
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 425, y: 444 }
+      - { x: 339, y: 506 }
+      - { x: 238, y: 539 }
+      - { x: 131, y: 539 }
+      - { x: 30, y: 506 }
+      - { x: -55, y: 444 }
+  - from: mainR
+    to: mainR
+    close: true
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 615, y: 444 }
+      - { x: 529, y: 506 }
+      - { x: 428, y: 539 }
+      - { x: 321, y: 539 }
+      - { x: 220, y: 506 }
+      - { x: 134, y: 444 }
+  - from: d1L
+    to: d1L
+    close: true
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 300, y: 641 }
+      - { x: 254, y: 662 }
+      - { x: 205, y: 672 }
+      - { x: 154, y: 672 }
+      - { x: 105, y: 662 }
+      - { x: 60, y: 641 }
+  - from: d1R
+    to: d1R
+    close: true
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 500, y: 641 }
+      - { x: 454, y: 662 }
+      - { x: 405, y: 672 }
+      - { x: 354, y: 672 }
+      - { x: 305, y: 662 }
+      - { x: 260, y: 641 }
+  - from: d2L
+    to: d2L
+    close: true
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 215, y: 779 }
+      - { x: 193, y: 788 }
+      - { x: 171, y: 793 }
+      - { x: 148, y: 793 }
+      - { x: 126, y: 788 }
+      - { x: 105, y: 779 }
+  - from: d2R
+    to: d2R
+    close: true
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 455, y: 779 }
+      - { x: 433, y: 788 }
+      - { x: 411, y: 793 }
+      - { x: 388, y: 793 }
+      - { x: 366, y: 788 }
+      - { x: 345, y: 779 }
+  # ステージ袖から FOH までマルチ（スネーク）を這わせる。
+  # **客席を横切るので、通路に沿わせて養生する。**
+  - from: snake
+    to: foh
+    ends: { from: none, to: none }

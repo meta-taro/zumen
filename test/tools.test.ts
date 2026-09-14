@@ -418,3 +418,40 @@ describe('spec の見本と、語彙の一覧が食い違わない', () => {
     assert.deepEqual(missing, []);
   });
 });
+
+/**
+ * **説明に書いていない観測値は、エージェントにとって存在しない。**
+ *
+ * `zumen_spec` の見本で同じことが起きていた（`line: double` が載っていなかった）。
+ * `zumen_inspect` でも起きていた —— **`straddles` と `hiddenTags` を足したのに、
+ * 道具の説明に一言も書いていなかった**（2026-09-14）。
+ *
+ * 数（`nodes` `width`）は見れば分かるので求めない。
+ * **直し方があるもの**だけ、名前が説明に出ていることを見る。
+ */
+describe('inspect の説明に、直すべき観測値が出ている', () => {
+  /** 出ていたら直し方がある観測値。 */
+  const ACTIONABLE = [
+    'tooTangled',
+    'hiddenLabels',
+    'crowdedNames',
+    'hiddenTags',
+    'overlappingText',
+    'straddles',
+    'tooSmallToProject',
+    'tooSmallToPrint',
+    'positionsInSource',
+    'reviewed',
+  ];
+
+  it('**足した観測値を、説明に書き忘れていない**', async () => {
+    const { messages } = await import('../src/messages.ts');
+    const said = messages().mcp.inspectDesc;
+    assert.deepEqual(ACTIONABLE.filter((key) => !said.includes(key)), []);
+  });
+
+  it('検査が返す形に、その観測値がある（名前だけ書いて実装が無い、を防ぐ）', async () => {
+    const found = await inspect('version: 1\nnodes:\n  - id: a\n    label: あ\n');
+    assert.deepEqual(ACTIONABLE.filter((key) => !(key in found)), []);
+  });
+});
