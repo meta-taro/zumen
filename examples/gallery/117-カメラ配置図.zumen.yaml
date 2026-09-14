@@ -1,0 +1,357 @@
+version: 1
+kind: placement
+arrows: true
+title: Camera Plot（会話シーンのカメラ配置とイマジナリーライン）
+# **カメラをどこに置くかは、好みではなく決まりごと。**
+#
+# ## イマジナリーライン
+#
+# 話す二人を結ぶ**仮想の線**。人物や車の**進行方向**にも引く。
+#
+# **カメラは、線の片側 180 度の半円の中だけに置く**（180 度の原則）。
+# 越えて撮ると、**画面の左右が入れ替わって視線が合わなくなる。**
+#
+# ## 越えたいとき
+#
+# - **カットの切り替わりで越えない**
+# - **同じカットの中で、カメラが動いて越えるのはよい**（観客が移動を見ている）
+# - **人物が動けば、線は引き直される**
+# - **引きのニュートラルショットを 1 つ挟む**
+#
+# ## 寄る順番
+#
+# 最初のロングで位置関係を見せてから寄る。
+# **寄っても左右は変えない** —— A は画面の左、B は右を向き続ける。
+nodes:
+  - id: ok
+    label: ""
+    at: { x: 60, y: 320 }
+    size: { w: 860, h: 260 }
+  - id: ok_n
+    label: "この半円の中にだけカメラを置く（180 度の原則）"
+    marker: none
+    align: left
+    at: { x: 66, y: 552 }
+    size: { w: 400, h: 22 }
+  - id: ng_n
+    label: "ここへ置くと、画面の左右が入れ替わる"
+    marker: none
+    align: left
+    at: { x: 66, y: 84 }
+    size: { w: 340, h: 22 }
+  - id: mid
+    label: ""
+    marker: none
+    at: { x: 449, y: 313 }
+    size: { w: 2, h: 2 }
+  - id: table
+    label: "テーブル"
+    hatch: lines
+    at: { x: 380, y: 266 }
+    size: { w: 140, h: 80 }
+  - id: a
+    label: "A"
+    marker: circle
+    at: { x: 300, y: 290 }
+    size: { w: 48, h: 48 }
+  - id: b
+    label: "B"
+    marker: circle
+    at: { x: 552, y: 290 }
+    size: { w: 48, h: 48 }
+  - id: la
+    label: ""
+    marker: none
+    at: { x: 59, y: 319 }
+    size: { w: 2, h: 2 }
+  - id: lb
+    label: ""
+    marker: none
+    at: { x: 919, y: 319 }
+    size: { w: 2, h: 2 }
+  - id: line_n
+    label: "イマジナリーライン（A と B を結ぶ）"
+    marker: none
+    align: left
+    at: { x: 640, y: 290 }
+    size: { w: 300, h: 22 }
+  - id: c1
+    label: "C1"
+    marker: diamond
+    at: { x: 213, y: 523 }
+    size: { w: 34, h: 34 }
+  - id: c2
+    label: "C2"
+    marker: diamond
+    at: { x: 683, y: 443 }
+    size: { w: 34, h: 34 }
+  - id: c3
+    label: "C3"
+    marker: diamond
+    at: { x: 183, y: 443 }
+    size: { w: 34, h: 34 }
+  - id: c4
+    label: "C4"
+    marker: diamond
+    at: { x: 343, y: 503 }
+    size: { w: 34, h: 34 }
+  - id: c5c
+    label: ""
+    marker: none
+    at: { x: 439, y: 139 }
+    size: { w: 2, h: 2 }
+  - id: c5
+    label: "C5"
+    marker: diamond
+    at: { x: 423, y: 123 }
+    size: { w: 34, h: 34 }
+  - id: c5x
+    label: "✕ 線の反対側"
+    marker: none
+    align: left
+    at: { x: 466, y: 128 }
+    size: { w: 180, h: 22 }
+  - id: c_t
+    label: "カット表（会話シーン・2 人）"
+    marker: none
+    align: left
+    at: { x: 980, y: 40 }
+    size: { w: 340, h: 24 }
+  - id: th0
+    label: "カット"
+    hatch: solid
+    at: { x: 980, y: 70 }
+    size: { w: 70, h: 26 }
+  - id: th1
+    label: "カメラ"
+    hatch: solid
+    at: { x: 1050, y: 70 }
+    size: { w: 80, h: 26 }
+  - id: th2
+    label: "サイズ"
+    hatch: solid
+    at: { x: 1130, y: 70 }
+    size: { w: 120, h: 26 }
+  - id: th3
+    label: "内容"
+    hatch: solid
+    at: { x: 1250, y: 70 }
+    size: { w: 260, h: 26 }
+  - id: th4
+    label: "つながり"
+    hatch: solid
+    at: { x: 1510, y: 70 }
+    size: { w: 300, h: 26 }
+  - id: tc0_0
+    label: "1"
+    at: { x: 980, y: 96 }
+    size: { w: 70, h: 28 }
+  - id: tc0_1
+    label: "C1"
+    at: { x: 1050, y: 96 }
+    size: { w: 80, h: 28 }
+  - id: tc0_2
+    label: "ロング"
+    at: { x: 1130, y: 96 }
+    size: { w: 120, h: 28 }
+  - id: tc0_3
+    label: "二人と部屋を見せる"
+    at: { x: 1250, y: 96 }
+    size: { w: 260, h: 28 }
+  - id: tc0_4
+    label: "最初に位置関係を見せる"
+    at: { x: 1510, y: 96 }
+    size: { w: 300, h: 28 }
+  - id: tc1_0
+    label: "2"
+    at: { x: 980, y: 124 }
+    size: { w: 70, h: 28 }
+  - id: tc1_1
+    label: "C2"
+    at: { x: 1050, y: 124 }
+    size: { w: 80, h: 28 }
+  - id: tc1_2
+    label: "バスト"
+    at: { x: 1130, y: 124 }
+    size: { w: 120, h: 28 }
+  - id: tc1_3
+    label: "B 越しに A"
+    at: { x: 1250, y: 124 }
+    size: { w: 260, h: 28 }
+  - id: tc1_4
+    label: "A は画面の左を向く"
+    at: { x: 1510, y: 124 }
+    size: { w: 300, h: 28 }
+  - id: tc2_0
+    label: "3"
+    at: { x: 980, y: 152 }
+    size: { w: 70, h: 28 }
+  - id: tc2_1
+    label: "C3"
+    at: { x: 1050, y: 152 }
+    size: { w: 80, h: 28 }
+  - id: tc2_2
+    label: "バスト"
+    at: { x: 1130, y: 152 }
+    size: { w: 120, h: 28 }
+  - id: tc2_3
+    label: "A 越しに B"
+    at: { x: 1250, y: 152 }
+    size: { w: 260, h: 28 }
+  - id: tc2_4
+    label: "B は画面の右を向く"
+    at: { x: 1510, y: 152 }
+    size: { w: 300, h: 28 }
+  - id: tc3_0
+    label: "4"
+    at: { x: 980, y: 180 }
+    size: { w: 70, h: 28 }
+  - id: tc3_1
+    label: "C4"
+    at: { x: 1050, y: 180 }
+    size: { w: 80, h: 28 }
+  - id: tc3_2
+    label: "クローズアップ"
+    at: { x: 1130, y: 180 }
+    size: { w: 120, h: 28 }
+  - id: tc3_3
+    label: "A の手元"
+    at: { x: 1250, y: 180 }
+    size: { w: 260, h: 28 }
+  - id: tc3_4
+    label: "寄っても左右は変えない"
+    at: { x: 1510, y: 180 }
+    size: { w: 300, h: 28 }
+  - id: tc4_0
+    label: "5"
+    at: { x: 980, y: 208 }
+    size: { w: 70, h: 28 }
+  - id: tc4_1
+    label: "C1"
+    at: { x: 1050, y: 208 }
+    size: { w: 80, h: 28 }
+  - id: tc4_2
+    label: "ロング"
+    at: { x: 1130, y: 208 }
+    size: { w: 120, h: 28 }
+  - id: tc4_3
+    label: "ニュートラル（引き）"
+    at: { x: 1250, y: 208 }
+    size: { w: 260, h: 28 }
+  - id: tc4_4
+    label: "線を引き直すならここで挟む"
+    at: { x: 1510, y: 208 }
+    size: { w: 300, h: 28 }
+  - id: tc5_0
+    label: "✕"
+    at: { x: 980, y: 236 }
+    size: { w: 70, h: 28 }
+  - id: tc5_1
+    label: "C5"
+    at: { x: 1050, y: 236 }
+    size: { w: 80, h: 28 }
+  - id: tc5_2
+    label: "—"
+    at: { x: 1130, y: 236 }
+    size: { w: 120, h: 28 }
+  - id: tc5_3
+    label: "線の反対側から"
+    at: { x: 1250, y: 236 }
+    size: { w: 260, h: 28 }
+  - id: tc5_4
+    label: "A と B の左右が入れ替わる"
+    at: { x: 1510, y: 236 }
+    size: { w: 300, h: 28 }
+  - id: r_t
+    label: "この図の決まり"
+    marker: none
+    align: left
+    at: { x: 980, y: 290 }
+    size: { w: 200, h: 24 }
+  - id: rn0
+    label: "・イマジナリーラインは、話す二人を結ぶ線。人物や車の進行方向にも引く"
+    marker: none
+    align: left
+    at: { x: 980, y: 318 }
+    size: { w: 620, h: 24 }
+  - id: rn1
+    label: "・カメラは、線の片側 180 度の半円の中だけに置く"
+    marker: none
+    align: left
+    at: { x: 980, y: 344 }
+    size: { w: 620, h: 24 }
+  - id: rn2
+    label: "・カットの切り替わりで線を越えない。越えると画面の左右が入れ替わる"
+    marker: none
+    align: left
+    at: { x: 980, y: 370 }
+    size: { w: 620, h: 24 }
+  - id: rn3
+    label: "・同じカットの中で、カメラが動いて越えるのはよい（観客が移動を見ている）"
+    marker: none
+    align: left
+    at: { x: 980, y: 396 }
+    size: { w: 620, h: 24 }
+  - id: rn4
+    label: "・人物が動けば、線は引き直される"
+    marker: none
+    align: left
+    at: { x: 980, y: 422 }
+    size: { w: 620, h: 24 }
+  - id: rn5
+    label: "・どうしても越えたいときは、引きのニュートラルショットを 1 つ挟む"
+    marker: none
+    align: left
+    at: { x: 980, y: 448 }
+    size: { w: 620, h: 24 }
+  - id: rn6
+    label: "・最初のロングで位置関係を見せてから寄る"
+    marker: none
+    align: left
+    at: { x: 980, y: 474 }
+    size: { w: 620, h: 24 }
+  - id: rn7
+    label: "・視線の向きは画面の左右で決まる。A は左、B は右を向き続ける"
+    marker: none
+    align: left
+    at: { x: 980, y: 500 }
+    size: { w: 620, h: 24 }
+  - id: leg
+    label: "菱形 ＝ カメラ　　太線 ＝ カメラの向き　　網かけ ＝ 線の反対側の画角　　破線 ＝ イマジナリーライン"
+    marker: none
+    align: left
+    at: { x: 980, y: 538 }
+    size: { w: 620, h: 24 }
+edges:
+  - from: c1
+    to: mid
+    weight: thick
+  - from: c2
+    to: a
+    weight: thick
+  - from: c3
+    to: b
+    weight: thick
+  - from: c4
+    to: a
+    weight: thick
+  - from: c5c
+    to: c5c
+    close: true
+    curve: none
+    hatch: cross
+    ends: { from: none, to: none }
+    via:
+      - { x: 472, y: 253 }
+      - { x: 464, y: 255 }
+      - { x: 456, y: 256 }
+      - { x: 448, y: 257 }
+      - { x: 440, y: 258 }
+      - { x: 431, y: 257 }
+      - { x: 423, y: 256 }
+      - { x: 415, y: 255 }
+      - { x: 407, y: 253 }
+  - from: la
+    to: lb
+    line: dashed
+    ends: { from: none, to: none }
