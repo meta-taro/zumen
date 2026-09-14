@@ -1,5 +1,32 @@
 # Contributing to zumen
 
+> **English readers.** The rest of this document is in Japanese, because this project is
+> developed in Japanese and its records (decisions, roadmap, review sheets) are written
+> there. **Issues and pull requests in English are welcome** — we will reply in English.
+>
+> The short version:
+>
+> ```bash
+> pnpm install
+> pnpm test          # 944 tests, no network access
+> pnpm typecheck
+> pnpm coverage      # gate: 95 / 88 / 92 on src/**
+> pnpm gallery:check # every example SVG must match its YAML source
+> ```
+>
+> Four things are worth knowing before you send a change.
+>
+> 1. **`pins:` belongs to the human.** Nothing generated may write into it. That rule is
+>    the product, not a detail — see [`spec/zumen-format-v1.md`](spec/zumen-format-v1.md) §3.4
+> 2. **Tests come first, and failing tests are never deleted to make a build pass**
+> 3. **New vocabulary is resisted.** A value set is added only when a standard decides the
+>    words (IEC 60617, JIS Z 8210, JIS E 3012) — not because one drawing would look nicer
+> 4. **Commits are made by the AI; pushing is done by a human.** That is deliberate: no
+>    path exists that sends code outward without a person looking at it
+>
+> The format specification is written so another implementation could read and write the
+> same files. If you want to build one, that is an entirely welcome use of this repository.
+
 > **まだ土台を作っている段階です。** GUI は動きますが、
 > 形式もインタフェースも変わり得ます（[`.claude/decisions.md`](.claude/decisions.md)）。
 

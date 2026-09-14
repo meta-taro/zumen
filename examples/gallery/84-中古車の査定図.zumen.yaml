@@ -1,0 +1,284 @@
+version: 1
+kind: placement
+arrows: false
+title: 中古車 査定図（外板価値減点・展開図／架空の車両）
+# 査定士が車の周りを回りながら、**その場所に記号を書き込む**紙。
+# 中央が上から見た面、左右が側面、上下が前後。**書く位置が車体の位置**そのもの。
+#
+# 記号は JAAI（日本自動車査定協会）の基準に基づくもの。
+# A＝キズ、E＝エクボ、U＝凹凸・ズレ、W＝補修、S＝サビ、C＝腐食、
+# Y＝ワレ・ビス穴、X＝要交換、XX＝交換済み。数字 1〜3 が程度（3 が重い）。
+#
+# **外板の減点と修復歴は別の話。** 修復歴は骨格部位（ピラー・メンバー・フロア等）の
+# 修正・交換を指すので、下の欄で別に見る。
+nodes:
+  - id: bonnet
+    label: "ボンネット"
+    tag: W1
+    at: { x: 320, y: 190 }
+    size: { w: 240, h: 86 }
+  - id: roof
+    label: "ルーフ"
+    at: { x: 320, y: 284 }
+    size: { w: 240, h: 120 }
+  - id: trunk
+    label: "トランク"
+    tag: A1
+    at: { x: 320, y: 412 }
+    size: { w: 240, h: 86 }
+  - id: fbump
+    label: "フロントバンパー"
+    tag: A2
+    at: { x: 320, y: 92 }
+    size: { w: 240, h: 80 }
+  - id: rbump
+    label: "リアバンパー"
+    tag: A1
+    at: { x: 320, y: 506 }
+    size: { w: 240, h: 80 }
+  - id: lf
+    label: "左フロントフェンダー"
+    at: { x: 90, y: 190 }
+    size: { w: 210, h: 86 }
+  - id: lfd
+    label: "左フロントドア"
+    tag: A2
+    at: { x: 90, y: 284 }
+    size: { w: 210, h: 58 }
+  - id: lrd
+    label: "左リアドア"
+    at: { x: 90, y: 350 }
+    size: { w: 210, h: 54 }
+  - id: lq
+    label: "左クォーター"
+    tag: U1
+    at: { x: 90, y: 412 }
+    size: { w: 210, h: 86 }
+  - id: rf
+    label: "右フロントフェンダー"
+    tag: S1
+    at: { x: 580, y: 190 }
+    size: { w: 210, h: 86 }
+  - id: rfd
+    label: "右フロントドア"
+    at: { x: 580, y: 284 }
+    size: { w: 210, h: 58 }
+  - id: rrd
+    label: "右リアドア"
+    tag: XX
+    at: { x: 580, y: 350 }
+    size: { w: 210, h: 54 }
+  - id: rq
+    label: "右クォーター"
+    tag: W2
+    at: { x: 580, y: 412 }
+    size: { w: 210, h: 86 }
+  - id: fglass
+    label: "フロントガラス"
+    tag: Y1
+    at: { x: 598, y: 92 }
+    size: { w: 192, h: 60 }
+  - id: note_g
+    label: "ガラスのワレ・ビス穴も同じ記号で書く"
+    marker: none
+    at: { x: 598, y: 158 }
+    size: { w: 210, h: 24 }
+  - id: skl_t
+    label: "骨格部位（修復歴の判定）"
+    hatch: solid
+    at: { x: 90, y: 620 }
+    size: { w: 700, h: 26 }
+  - id: sk0
+    label: "ラジエータコアサポート"
+    at: { x: 90, y: 646 }
+    size: { w: 174, h: 26 }
+  - id: skm0
+    label: "—"
+    hatch: none
+    at: { x: 264, y: 646 }
+    size: { w: 60, h: 26 }
+  - id: sk1
+    label: "インサイドパネル"
+    at: { x: 324, y: 646 }
+    size: { w: 174, h: 26 }
+  - id: skm1
+    label: "—"
+    hatch: none
+    at: { x: 498, y: 646 }
+    size: { w: 60, h: 26 }
+  - id: sk2
+    label: "ピラー"
+    at: { x: 558, y: 646 }
+    size: { w: 174, h: 26 }
+  - id: skm2
+    label: "修正"
+    hatch: dots
+    at: { x: 732, y: 646 }
+    size: { w: 60, h: 26 }
+  - id: sk3
+    label: "ダッシュパネル"
+    at: { x: 90, y: 672 }
+    size: { w: 174, h: 26 }
+  - id: skm3
+    label: "—"
+    hatch: none
+    at: { x: 264, y: 672 }
+    size: { w: 60, h: 26 }
+  - id: sk4
+    label: "ルーフパネル"
+    at: { x: 324, y: 672 }
+    size: { w: 174, h: 26 }
+  - id: skm4
+    label: "—"
+    hatch: none
+    at: { x: 498, y: 672 }
+    size: { w: 60, h: 26 }
+  - id: sk5
+    label: "フロア"
+    at: { x: 558, y: 672 }
+    size: { w: 174, h: 26 }
+  - id: skm5
+    label: "—"
+    hatch: none
+    at: { x: 732, y: 672 }
+    size: { w: 60, h: 26 }
+  - id: sk6
+    label: "クロスメンバー"
+    at: { x: 90, y: 698 }
+    size: { w: 174, h: 26 }
+  - id: skm6
+    label: "—"
+    hatch: none
+    at: { x: 264, y: 698 }
+    size: { w: 60, h: 26 }
+  - id: sk7
+    label: "サイドメンバー"
+    at: { x: 324, y: 698 }
+    size: { w: 174, h: 26 }
+  - id: skm7
+    label: "—"
+    hatch: none
+    at: { x: 498, y: 698 }
+    size: { w: 60, h: 26 }
+  - id: sk8
+    label: "バックパネル"
+    at: { x: 558, y: 698 }
+    size: { w: 174, h: 26 }
+  - id: skm8
+    label: "—"
+    hatch: none
+    at: { x: 732, y: 698 }
+    size: { w: 60, h: 26 }
+  - id: res1
+    label: "修復歴"
+    hatch: solid
+    at: { x: 90, y: 740 }
+    size: { w: 120, h: 30 }
+  - id: res1v
+    label: "有（右リアピラー・クォーター修正跡）"
+    at: { x: 210, y: 740 }
+    size: { w: 340, h: 30 }
+  - id: res2
+    label: "総合評価点"
+    hatch: solid
+    at: { x: 560, y: 740 }
+    size: { w: 120, h: 30 }
+  - id: res2v
+    label: "3.5"
+    at: { x: 680, y: 740 }
+    size: { w: 110, h: 30 }
+  - id: lg0
+    label: "A"
+    hatch: solid
+    at: { x: 90, y: 786 }
+    size: { w: 34, h: 24 }
+  - id: lgn0
+    label: "キズ"
+    marker: none
+    at: { x: 128, y: 786 }
+    size: { w: 96, h: 24 }
+  - id: lg1
+    label: "E"
+    hatch: solid
+    at: { x: 230, y: 786 }
+    size: { w: 34, h: 24 }
+  - id: lgn1
+    label: "エクボ"
+    marker: none
+    at: { x: 268, y: 786 }
+    size: { w: 96, h: 24 }
+  - id: lg2
+    label: "U"
+    hatch: solid
+    at: { x: 370, y: 786 }
+    size: { w: 34, h: 24 }
+  - id: lgn2
+    label: "凹凸・ズレ"
+    marker: none
+    at: { x: 408, y: 786 }
+    size: { w: 96, h: 24 }
+  - id: lg3
+    label: "W"
+    hatch: solid
+    at: { x: 510, y: 786 }
+    size: { w: 34, h: 24 }
+  - id: lgn3
+    label: "補修"
+    marker: none
+    at: { x: 548, y: 786 }
+    size: { w: 96, h: 24 }
+  - id: lg4
+    label: "S"
+    hatch: solid
+    at: { x: 650, y: 786 }
+    size: { w: 34, h: 24 }
+  - id: lgn4
+    label: "サビ"
+    marker: none
+    at: { x: 688, y: 786 }
+    size: { w: 96, h: 24 }
+  - id: lg5
+    label: "C"
+    hatch: solid
+    at: { x: 90, y: 814 }
+    size: { w: 34, h: 24 }
+  - id: lgn5
+    label: "腐食"
+    marker: none
+    at: { x: 128, y: 814 }
+    size: { w: 96, h: 24 }
+  - id: lg6
+    label: "Y"
+    hatch: solid
+    at: { x: 230, y: 814 }
+    size: { w: 34, h: 24 }
+  - id: lgn6
+    label: "ワレ・ビス穴"
+    marker: none
+    at: { x: 268, y: 814 }
+    size: { w: 96, h: 24 }
+  - id: lg7
+    label: "X"
+    hatch: solid
+    at: { x: 370, y: 814 }
+    size: { w: 34, h: 24 }
+  - id: lgn7
+    label: "要交換"
+    marker: none
+    at: { x: 408, y: 814 }
+    size: { w: 96, h: 24 }
+  - id: lg8
+    label: "XX"
+    hatch: solid
+    at: { x: 510, y: 814 }
+    size: { w: 34, h: 24 }
+  - id: lgn8
+    label: "交換済み"
+    marker: none
+    at: { x: 548, y: 814 }
+    size: { w: 96, h: 24 }
+  - id: note
+    label: "数字 1〜3 が程度（3 が重い）。X・XX に程度は付かない。外板の減点と修復歴は別に見る。"
+    marker: none
+    at: { x: 90, y: 846 }
+    size: { w: 620, h: 24 }
