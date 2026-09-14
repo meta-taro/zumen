@@ -71,7 +71,13 @@
   p code, li code { background: var(--bg-subtle); padding: 1px 5px; border-radius: 4px; border: 1px solid var(--border); }
   /* **業界で絞り込む。** 見本が増えるほど、全部並べると自分に関係する 1 枚が沈む。
      JS が動かない環境では、すべて出たままになる（絞り込めないだけで、読めなくならない）。 */
-  .filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 22px; }
+  /* **93 枚あるので、絞り込みは上に貼り付く。**
+     下まで見に行った人が、選び直すために先頭へ戻らずに済む。 */
+  .filters {
+    display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 22px;
+    position: sticky; top: 0; z-index: 5;
+    background: var(--bg); padding: 10px 0 12px;
+  }
   .filters button {
     font: inherit; font-size: 13px; line-height: 1; padding: 9px 14px;
     color: var(--fg-2); background: var(--bg-subtle);
@@ -91,8 +97,12 @@
   .gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 22px; }
   .gallery figure { margin: 0; }
   .gallery figure[data-wide] { grid-column: span 2; }
+  /* **遅れて読み込む絵の場所は、`width` / `height` で先に空けてある**
+     （`scripts/gallery.mjs` が SVG から書く）。93 枚を lazy にしたとき、
+     大きさを書いていないと読み込むたびに下の図が飛んだ（実機で出た）。
+     `height: auto` を書かないと、書いた高さがそのまま出て絵が潰れる。 */
   .gallery img {
-    display: block; margin: 0 auto; max-width: 100%; max-height: 320px;
+    display: block; margin: 0 auto; max-width: 100%; max-height: 320px; height: auto;
     background: var(--paper); border: 1px solid var(--border); border-radius: 10px; padding: 16px;
     box-sizing: border-box;
   }
@@ -101,6 +111,19 @@
     .gallery figure[data-wide] { grid-column: span 1; }
   }
   .gallery figcaption { color: var(--fg-2); font-size: 13px; margin-top: 10px; }
+  /* **種類の見出し。** 93 枚を 1 列に流すと、どこまでが何の図か分からない。
+     見出しは段組みをぶち抜いて、区切りとして働く。 */
+  .gallery h3.cat {
+    grid-column: 1 / -1; margin: 26px 0 2px; scroll-margin-top: 70px; font-size: 14px; letter-spacing: .04em;
+    color: var(--fg-2); border-bottom: 1px solid var(--border); padding-bottom: 8px;
+    display: flex; align-items: baseline; gap: 10px;
+  }
+  .gallery h3.cat:first-child { margin-top: 0; }
+  /* **`display: flex` は `hidden` より強い。** これを書かないと、
+     絞り込んだときに中身の無い見出しだけが並ぶ（実機で出た）。 */
+  .gallery h3.cat[hidden] { display: none; }
+  .n { font-size: 12px; color: var(--fg-2); opacity: .75; font-weight: 400; }
+  .filters button .n { margin-left: 4px; }
   .gallery img { cursor: zoom-in; }
   /* **押すと全体に出す。** 縦長の図は、並べると小さくて読めない。 */
   dialog#zoom {
@@ -180,122 +203,133 @@
   <h2>作れる図</h2>
   <p style="margin:-8px 0 24px;color:var(--fg-2)">
     <b>サーバやネットワークだけではありません。</b>
-    工場の工程、病院の外来、住宅の電気設備と給排水、間取り、校舎、躯体の伏図、配管の系統、受変電、
-    避難経路、厨房の衛生区域、データセンターのラック、鉄道の路線図と車両編成、
-    工事工程表、総合仮設、ほ場整備、ダム、ホテルの基準階、座席図、駐車場の区画割、倉庫のロケーション、手術室の機器配置、鍼灸の経絡、弁当の盛付、露地（茶庭）、擁壁の標準断面、舗装構成、人工衛星、駅の構内図、計装ループ、配水系統、配送ルート、
-    店舗の売場、展示会の会場、組織図、テーブルの関係（ER）、UML のクラス図・状態遷移図・ユースケース図・アクティビティ図、電子回路、稟議 ——
+    路線図・停車駅案内・列車運行図表、間取りと躯体の伏図、配管の系統と受変電、
+    歯周チャート、釣りの仕掛け、舞台照明の仕込図、中古車の査定図、相続関係説明図、
+    コンテナ船の積付図、花火の保安距離 ——
     <b>「何がどこへ繋がるか」「どの順で流れるか」「何がどこにあるか」を表す図なら、
     同じ書き方で描けます。</b>
-    <br>下はすべて、<b>同じ 11 語の語彙</b>で書いたものです。業界ごとの図形は 1 つも足していません。
-    専門性は形ではなく<b>符号</b>（<code>C1</code> <code>G1</code> <code>2"-CS-101</code>
-    <code>LBS-1</code>）で表されているからです。
+    <br>下の <b>93 枚はすべて、同じ 11 語の語彙</b>で書いたものです。
+    業界ごとの図形は 1 つも足していません。専門性は形ではなく<b>符号</b>
+    （<code>C1</code> <code>G1</code> <code>2"-CS-101</code> <code>LBS-1</code>）で
+    表されているからです。
     <br><b>建築の図は、通り芯と寸法が入ります。</b>壁は塗り潰し、建具は開き勝手まで描きます
     ── <b>寸法が無い図では、何も建てられません。</b>
   </p>
-  <div class="filters" role="group" aria-label="業界で絞り込む">
-    <button type="button" data-pick="all" aria-pressed="true">すべて</button>
-    <button type="button" data-pick="chiku" aria-pressed="false">建築・設備</button>
-    <button type="button" data-pick="seizo" aria-pressed="false">製造・プラント</button>
-    <button type="button" data-pick="it" aria-pressed="false">IT・システム</button>
-    <button type="button" data-pick="tenpo" aria-pressed="false">店舗・物流</button>
-    <button type="button" data-pick="shoku" aria-pressed="false">医療・食品</button>
-    <button type="button" data-pick="infra" aria-pressed="false">社会インフラ</button>
-    <button type="button" data-pick="gyomu" aria-pressed="false">組織・業務</button>
+  <div class="filters" role="group" aria-label="種類で絞り込む">
+    <button type="button" data-pick="all" aria-pressed="true">すべて <span class="n">93</span></button>
+    <button type="button" data-pick="tetsudo" aria-pressed="false">鉄道・交通 <span class="n">18</span></button>
+    <button type="button" data-pick="kenchiku" aria-pressed="false">建築・土木 <span class="n">14</span></button>
+    <button type="button" data-pick="setsubi" aria-pressed="false">設備・電気 <span class="n">8</span></button>
+    <button type="button" data-pick="iryo" aria-pressed="false">医療・食品・農 <span class="n">9</span></button>
+    <button type="button" data-pick="tenpo" aria-pressed="false">店舗・物流 <span class="n">8</span></button>
+    <button type="button" data-pick="gyomu" aria-pressed="false">業務・組織 <span class="n">12</span></button>
+    <button type="button" data-pick="moyooshi" aria-pressed="false">催し・遊び <span class="n">7</span></button>
+    <button type="button" data-pick="ui" aria-pressed="false">UI・画面設計 <span class="n">7</span></button>
+    <button type="button" data-pick="it" aria-pressed="false">IT・ソフトウェア <span class="n">10</span></button>
   </div>
   <div class="gallery">
-    <figure data-wide data-cat="it"><picture><source srcset="gallery/02-クラウド構成-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/02-クラウド構成.svg" alt="クラウド構成"></picture><figcaption>クラウド構成</figcaption></figure>
-    <figure data-cat="chiku"><picture><source srcset="gallery/14-間取り-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/14-間取り.svg" alt="2LDK の間取り"></picture><figcaption>間取り（2LDK・1 階）</figcaption></figure>
-    <figure data-cat="tenpo"><picture><source srcset="gallery/15-店舗のレイアウト-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/15-店舗のレイアウト.svg" alt="コンビニの売場"></picture><figcaption>店舗のレイアウト</figcaption></figure>
-    <figure data-cat="chiku"><picture><source srcset="gallery/17-躯体の伏図-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/17-躯体の伏図.svg" alt="RC 造の床伏図"></picture><figcaption>躯体の伏図（RC 造・2 階床）</figcaption></figure>
-    <figure data-cat="gyomu"><picture><source srcset="gallery/41-露地の平面図-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/41-露地の平面図.svg" alt="露地（茶庭）の平面図"></picture><figcaption>露地（茶庭）の平面図・植栽図</figcaption></figure>
-    <figure data-cat="gyomu"><picture><source srcset="gallery/16-会場の配置-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/16-会場の配置.svg" alt="展示会の会場"></picture><figcaption>展示会の会場</figcaption></figure>
-    <figure data-cat="chiku"><picture><source srcset="gallery/24-校舎の平面図-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/24-校舎の平面図.svg" alt="小学校の校舎平面図"></picture><figcaption>校舎の平面図（小学校 3 階）</figcaption></figure>
-    <figure data-cat="tenpo"><picture><source srcset="gallery/34-倉庫のロケーション-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/34-倉庫のロケーション.svg" alt="物流倉庫のロケーション図"></picture><figcaption>倉庫のロケーション図</figcaption></figure>
-    <figure data-cat="chiku"><picture><source srcset="gallery/33-駐車場の区画割-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/33-駐車場の区画割.svg" alt="平面駐車場の区画割図"></picture><figcaption>駐車場の区画割（14 台）</figcaption></figure>
-    <figure data-cat="chiku"><picture><source srcset="gallery/32-ホテルの基準階-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/32-ホテルの基準階.svg" alt="ビジネスホテルの基準階"></picture><figcaption>ホテルの基準階（客室 12 室）</figcaption></figure>
-    <figure data-cat="gyomu"><picture><source srcset="gallery/31-座席図-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/31-座席図.svg" alt="小ホールの座席図"></picture><figcaption>座席図（60 席・車椅子 2）</figcaption></figure>
-    <figure data-cat="chiku"><picture><source srcset="gallery/51-工事工程表-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/51-工事工程表.svg" alt="工事工程表"></picture><figcaption>工事工程表（バーチャート）</figcaption></figure>
-    <figure data-cat="chiku"><picture><source srcset="gallery/30-総合仮設計画図-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/30-総合仮設計画図.svg" alt="総合仮設計画図"></picture><figcaption>総合仮設計画図（クレーンの作業半径つき）</figcaption></figure>
-    <figure data-cat="infra"><picture><source srcset="gallery/27-圃場整備の平面図-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/27-圃場整備の平面図.svg" alt="ほ場整備の平面図"></picture><figcaption>ほ場整備の平面図（30a 区画）</figcaption></figure>
-    <figure data-wide data-cat="infra"><picture><source srcset="gallery/45-駅の構内図-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/45-駅の構内図.svg" alt="駅の構内図"></picture><figcaption>駅の構内図（1F・B1F）</figcaption></figure>
-    <figure data-cat="infra"><picture><source srcset="gallery/43-舗装構成の断面図-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/43-舗装構成の断面図.svg" alt="舗装構成の断面図"></picture><figcaption>舗装構成の断面図（道路）</figcaption></figure>
-    <figure data-wide data-cat="it"><picture><source srcset="gallery/44-人工衛星の系統図-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/44-人工衛星の系統図.svg" alt="人工衛星の系統図"></picture><figcaption>人工衛星の系統図（150kg 級）</figcaption></figure>
-    <figure data-cat="infra"><picture><source srcset="gallery/42-擁壁の標準断面図-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/42-擁壁の標準断面図.svg" alt="L 型擁壁の標準断面図"></picture><figcaption>擁壁の標準断面図（断面）</figcaption></figure>
-    <figure data-cat="infra"><picture><source srcset="gallery/28-ダムの平面図-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/28-ダムの平面図.svg" alt="重力式コンクリートダムの平面図"></picture><figcaption>ダムの平面図（重力式）</figcaption></figure>
-    <figure data-wide data-cat="infra"><picture><source srcset="gallery/29-車両の編成図-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/29-車両の編成図.svg" alt="通勤電車の 10 両編成図"></picture><figcaption>車両の編成図（10 両）</figcaption></figure>
-    <figure data-cat="it"><picture><source srcset="gallery/26-データセンターのラック-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/26-データセンターのラック.svg" alt="サーバ室のラック配置"></picture><figcaption>データセンターのラック配置</figcaption></figure>
-    <figure data-wide data-cat="chiku"><picture><source srcset="gallery/93-花火大会の保安距離図-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/93-花火大会の保安距離図.svg" alt="花火大会の打揚配置・保安距離図"></picture><figcaption>花火大会の保安距離図（号数ごとの円）</figcaption></figure>
-    <figure data-wide data-cat="shoku"><picture><source srcset="gallery/92-防虫モニタリングの定点配置図-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/92-防虫モニタリングの定点配置図.svg" alt="食品工場の防虫モニタリング定点配置図"></picture><figcaption>防虫モニタリングの定点配置図（定点は動かさない）</figcaption></figure>
-    <figure data-wide data-cat="chiku"><picture><source srcset="gallery/91-リンゴ高密植栽培の樹形図-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/91-リンゴ高密植栽培の樹形図.svg" alt="リンゴ高密植栽培の樹形図（トールスピンドル）"></picture><figcaption>リンゴ高密植栽培の樹形図（樹高・樹間・列間つき）</figcaption></figure>
-    <figure data-wide data-cat="gyomu"><picture><source srcset="gallery/90-相続関係説明図-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/90-相続関係説明図.svg" alt="相続関係説明図（法務局へ出す書面）"></picture><figcaption>相続関係説明図（婚姻は二重線、親子は単線）</figcaption></figure>
-    <figure data-wide data-cat="gyomu"><picture><source srcset="gallery/89-コンテナ船の積付図-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/89-コンテナ船の積付図.svg" alt="コンテナ船の積付図（Bay 34・船尾から船首を見た断面）"></picture><figcaption>コンテナ船の積付図（Bay-Row-Tier がそのまま住所）</figcaption></figure>
-    <figure data-wide data-cat="it"><picture><source srcset="gallery/88-レスポンシブLPのUI構造-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/88-レスポンシブLPのUI構造.svg" alt="レスポンシブ LP の UI 構造（Desktop / Tablet / Mobile）"></picture><figcaption>レスポンシブ LP の UI 構造（節が消える・増える）</figcaption></figure>
-    <figure data-wide data-cat="it"><picture><source srcset="gallery/87-モバイルアプリのUI構造-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/87-モバイルアプリのUI構造.svg" alt="モバイルアプリの UI 構造（Bottom Navigation）"></picture><figcaption>モバイルアプリの UI 構造（Bottom Navigation）</figcaption></figure>
-    <figure data-wide data-cat="it"><picture><source srcset="gallery/86-CRUD管理画面の画面遷移-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/86-CRUD管理画面の画面遷移.svg" alt="CRUD 管理画面の画面遷移（一覧・作成・編集・削除確認）"></picture><figcaption>CRUD 管理画面の画面遷移（削除は確認を挟む）</figcaption></figure>
-    <figure data-wide data-cat="it"><picture><source srcset="gallery/85-Checkoutの画面遷移-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/85-Checkoutの画面遷移.svg" alt="Checkout の画面遷移（Cart → Address → Payment → Confirm → Complete）"></picture><figcaption>Checkout の画面遷移（5 段・エラーの戻り先つき）</figcaption></figure>
-    <figure data-wide data-cat="gyomu"><picture><source srcset="gallery/84-中古車の査定図-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/84-中古車の査定図.svg" alt="中古車の査定図（外板価値減点）"></picture><figcaption>中古車の査定図（展開図と減点記号）</figcaption></figure>
-    <figure data-wide data-cat="infra"><picture><source srcset="gallery/83-駅の配線略図-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/83-駅の配線略図.svg" alt="駅の配線略図（2 面 4 線）"></picture><figcaption>駅の配線略図（2 面 4 線・待避可能）</figcaption></figure>
-    <figure data-cat="infra"><picture><source srcset="gallery/82-多層ターミナルの乗換案内図-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/82-多層ターミナルの乗換案内図.svg" alt="多層ターミナルの乗換案内図（1F / B1 / B2）"></picture><figcaption>多層ターミナルの乗換案内（階と縦の動線）</figcaption></figure>
-    <figure data-wide data-cat="infra"><picture><source srcset="gallery/81-東京の地下鉄13路線-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/81-東京の地下鉄13路線.svg" alt="東京の地下鉄 13 路線 都心部の路線図"></picture><figcaption>東京の地下鉄 13 路線（メトロ 9 ＋ 都営 4）</figcaption></figure>
-    <figure data-wide data-cat="infra"><picture><source srcset="gallery/80-中央線快速の停車駅一覧-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/80-中央線快速の停車駅一覧.svg" alt="中央線快速の停車駅一覧"></picture><figcaption>中央線快速 停車駅一覧（平日／土休日）</figcaption></figure>
-    <figure data-cat="infra"><picture><source srcset="gallery/78-山手線の路線図-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/78-山手線の路線図.svg" alt="JR 山手線の路線図（環状・30 駅）"></picture><figcaption>山手線の路線図（環状・30 駅）</figcaption></figure>
-    <figure data-wide data-cat="infra"><picture><source srcset="gallery/79-梅田の乗換関係図-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/79-梅田の乗換関係図.svg" alt="梅田の乗換関係図（7 駅・徒歩の所要）"></picture><figcaption>梅田の乗換関係図（同じ梅田に 7 駅）</figcaption></figure>
-    <figure data-wide data-cat="gyomu"><picture><source srcset="gallery/77-舞台照明仕込図-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/77-舞台照明仕込図.svg" alt="舞台照明仕込図とチャンネル一覧"></picture><figcaption>舞台照明仕込図（図＋チャンネル一覧）</figcaption></figure>
-    <figure data-wide data-cat="it"><picture><source srcset="gallery/74-EC商品ページのUI構造-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/74-EC商品ページのUI構造.svg" alt="EC 商品ページの UI 構造（Desktop / Mobile）"></picture><figcaption>EC 商品ページの UI 構造（レスポンシブ差分）</figcaption></figure>
-    <figure data-wide data-cat="it"><picture><source srcset="gallery/75-画面遷移とワイヤーフレーム-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/75-画面遷移とワイヤーフレーム.svg" alt="ワイヤーフレームつきの画面遷移図"></picture><figcaption>画面遷移図（ワイヤーフレームつき）</figcaption></figure>
-    <figure data-wide data-cat="it"><picture><source srcset="gallery/76-管理画面のレスポンシブ構造-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/76-管理画面のレスポンシブ構造.svg" alt="管理画面のレスポンシブ構造"></picture><figcaption>管理画面（Sidebar → Drawer）</figcaption></figure>
-    <figure data-wide data-cat="shoku"><picture><source srcset="gallery/72-歯周チャート-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/72-歯周チャート.svg" alt="歯周精密検査チャート（6 点法）"></picture><figcaption>歯周精密検査チャート（32 歯 × 6 点）</figcaption></figure>
-    <figure data-cat="shoku"><picture><source srcset="gallery/73-サビキ仕掛け図-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/73-サビキ仕掛け図.svg" alt="サビキ仕掛け図"></picture><figcaption>サビキ仕掛け図（6 本針）</figcaption></figure>
-    <figure data-wide data-cat="infra"><picture><source srcset="gallery/71-列車運行図表-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/71-列車運行図表.svg" alt="列車運行図表（ダイヤグラム）"></picture><figcaption>列車運行図表（ダイヤグラム）</figcaption></figure>
-    <figure data-cat="gyomu"><picture><source srcset="gallery/70-リバーシの局面図-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/70-リバーシの局面図.svg" alt="リバーシの局面図（初期配置）"></picture><figcaption>リバーシの局面図（初期配置）</figcaption></figure>
-    <figure data-wide data-cat="gyomu"><picture><source srcset="gallery/66-囲碁の棋譜-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/66-囲碁の棋譜.svg" alt="囲碁の棋譜（19 路）"></picture><figcaption>囲碁の棋譜（19 路・布石）</figcaption></figure>
-    <figure data-cat="gyomu"><picture><source srcset="gallery/67-将棋の局面図-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/67-将棋の局面図.svg" alt="将棋の局面図（平手初形）"></picture><figcaption>将棋の局面図（平手初形）</figcaption></figure>
-    <figure data-cat="gyomu"><picture><source srcset="gallery/68-チェスの局面図-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/68-チェスの局面図.svg" alt="チェスの局面図（初期配置）"></picture><figcaption>チェスの局面図（初期配置）</figcaption></figure>
-    <figure data-cat="gyomu"><picture><source srcset="gallery/69-ビンゴカード-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/69-ビンゴカード.svg" alt="ビンゴカード"></picture><figcaption>ビンゴカード（5×5）</figcaption></figure>
-    <figure data-wide data-cat="infra"><picture><source srcset="gallery/63-フェリーの発着表-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/63-フェリーの発着表.svg" alt="フェリーの発着時刻表"></picture><figcaption>フェリーの発着表（航路つき）</figcaption></figure>
-    <figure data-wide data-cat="gyomu"><picture><source srcset="gallery/64-施設の開館表-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/64-施設の開館表.svg" alt="体育館の週間開放表"></picture><figcaption>施設の開館表（週間）</figcaption></figure>
-    <figure data-wide data-cat="gyomu"><picture><source srcset="gallery/65-ビンゴ大会の進行表-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/65-ビンゴ大会の進行表.svg" alt="ビンゴ大会の進行表と会場配置"></picture><figcaption>ビンゴ大会の進行表（主催側）</figcaption></figure>
-    <figure data-wide data-cat="chiku"><picture><source srcset="gallery/62-寺院庭園の平面図-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/62-寺院庭園の平面図.svg" alt="寺院庭園の平面図（池泉回遊式）"></picture><figcaption>寺院庭園の平面図（閉じた曲線）</figcaption></figure>
-    <figure data-wide data-cat="infra"><picture><source srcset="gallery/61-道路の平面線形図-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/61-道路の平面線形図.svg" alt="市道の平面線形図（曲線）"></picture><figcaption>道路の平面線形図（曲線）</figcaption></figure>
-    <figure data-wide data-cat="tenpo"><picture><source srcset="gallery/60-ドームの座席等級図-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/60-ドームの座席等級図.svg" alt="ドームの座席等級図（SS・S・A・B・立見）"></picture><figcaption>ドームの座席等級図（席種 5 区分）</figcaption></figure>
-    <figure data-wide data-cat="tenpo"><picture><source srcset="gallery/59-フードコートの配置図-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/59-フードコートの配置図.svg" alt="フードコートの店舗配置図"></picture><figcaption>フードコートの店舗配置図</figcaption></figure>
-    <figure data-wide data-cat="tenpo"><picture><source srcset="gallery/58-商店街の店舗案内図-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/58-商店街の店舗案内図.svg" alt="商店街の店舗案内図"></picture><figcaption>商店街の店舗案内図（業種は模様で）</figcaption></figure>
-    <figure data-cat="infra"><picture><source srcset="gallery/56-バスの時刻表-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/56-バスの時刻表.svg" alt="バス停の時刻表（平日・土曜・日祝）"></picture><figcaption>バスの時刻表（平日／土曜／日祝）</figcaption></figure>
-    <figure data-cat="gyomu"><picture><source srcset="gallery/55-学校の時間割-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/55-学校の時間割.svg" alt="中学校の週の時間割"></picture><figcaption>学校の時間割（週の表）</figcaption></figure>
-    <figure data-wide data-cat="infra"><picture><source srcset="gallery/57-登山のコースタイム図-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/57-登山のコースタイム図.svg" alt="登山のコースタイム図（標高の縦断図）"></picture><figcaption>登山のコースタイム図（標高の縦断)</figcaption></figure>
-    <figure data-wide data-cat="infra"><picture><source srcset="gallery/54-のりかえ案内図-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/54-のりかえ案内図.svg" alt="1 路線ののりかえ案内図（縦組みの駅名）"></picture><figcaption>のりかえ案内図（縦組みの駅名）</figcaption></figure>
-    <figure data-wide data-cat="infra"><picture><source srcset="gallery/52-停車駅案内図-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/52-停車駅案内図.svg" alt="どの種別がどの駅に停まるかの停車駅案内図"></picture><figcaption>停車駅案内図（帯が種別・白丸が停車）</figcaption></figure>
-    <figure data-cat="infra"><picture><source srcset="gallery/53-駅時刻表-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/53-駅時刻表.svg" alt="駅の時刻表（平日・土休日）"></picture><figcaption>駅の時刻表（平日／土休日）</figcaption></figure>
-    <figure data-cat="infra"><picture><source srcset="gallery/25-路線図-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/25-路線図.svg" alt="鉄道の路線図"></picture><figcaption>鉄道の路線図</figcaption></figure>
-    <figure data-cat="chiku"><picture><source srcset="gallery/22-避難経路図-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/22-避難経路図.svg" alt="3 階の避難経路"></picture><figcaption>避難経路図（3 階）</figcaption></figure>
-    <figure data-cat="shoku"><picture><source srcset="gallery/40-弁当の盛付図-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/40-弁当の盛付図.svg" alt="弁当の盛付指示書"></picture><figcaption>弁当の盛付指示書（中食）</figcaption></figure>
-    <figure data-cat="shoku"><picture><source srcset="gallery/39-経絡と経穴-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/39-経絡と経穴.svg" alt="経絡と経穴の図"></picture><figcaption>経絡と経穴（鍼灸・WHO 標準）</figcaption></figure>
-    <figure data-cat="shoku"><picture><source srcset="gallery/36-手術室の機器配置-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/36-手術室の機器配置.svg" alt="手術室の機器配置図"></picture><figcaption>手術室の機器配置（OR-3）</figcaption></figure>
-    <figure data-wide data-cat="seizo"><picture><source srcset="gallery/38-計装ループ図-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/38-計装ループ図.svg" alt="計装ループ図"></picture><figcaption>計装ループ図（TIC-101）</figcaption></figure>
-    <figure data-cat="infra"><picture><source srcset="gallery/35-配水系統図-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/35-配水系統図.svg" alt="配水系統図"></picture><figcaption>配水系統図（上水道）</figcaption></figure>
-    <figure data-cat="tenpo"><picture><source srcset="gallery/37-配送ルート-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/37-配送ルート.svg" alt="配送ルート図"></picture><figcaption>配送ルート（2t 車 3 台）</figcaption></figure>
-    <figure data-cat="shoku"><picture><source srcset="gallery/23-厨房の動線-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/23-厨房の動線.svg" alt="給食厨房の区域と動線"></picture><figcaption>厨房の区域と動線（HACCP）</figcaption></figure>
-    <figure data-cat="seizo"><picture><source srcset="gallery/18-配管の系統-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/18-配管の系統.svg" alt="冷却水の系統"></picture><figcaption>配管の系統（P&amp;ID）</figcaption></figure>
-    <figure data-wide data-cat="seizo"><picture><source srcset="gallery/19-受変電の結線-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/19-受変電の結線.svg" alt="受変電設備の単線結線図"></picture><figcaption>受変電の結線（単線結線図）</figcaption></figure>
-    <figure data-wide data-cat="seizo"><picture><source srcset="gallery/08-工場のライン-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/08-工場のライン.svg" alt="組立ラインと検査"></picture><figcaption>組立ラインと検査</figcaption></figure>
-    <figure data-cat="shoku"><picture><source srcset="gallery/09-患者の動線-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/09-患者の動線.svg" alt="外来の流れ"></picture><figcaption>外来の流れ</figcaption></figure>
-    <figure data-wide data-cat="gyomu"><picture><source srcset="gallery/05-業務の流れ-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/05-業務の流れ.svg" alt="受注から出荷まで"></picture><figcaption>受注から出荷まで</figcaption></figure>
-    <figure data-cat="chiku"><picture><source srcset="gallery/06-家の電気系統-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/06-家の電気系統.svg" alt="住宅の電気系統"></picture><figcaption>住宅の電気系統</figcaption></figure>
-    <figure data-cat="chiku"><picture><source srcset="gallery/10-給排水の系統-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/10-給排水の系統.svg" alt="住宅の給排水"></picture><figcaption>住宅の給排水</figcaption></figure>
-    <figure data-wide data-cat="tenpo"><picture><source srcset="gallery/12-在庫と発注-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/12-在庫と発注.svg" alt="店舗の在庫と発注"></picture><figcaption>店舗の在庫と発注</figcaption></figure>
-    <figure data-wide data-cat="gyomu"><picture><source srcset="gallery/11-取材から公開まで-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/11-取材から公開まで.svg" alt="記事ができるまで"></picture><figcaption>記事ができるまで</figcaption></figure>
-    <figure data-cat="gyomu"><picture><source srcset="gallery/13-学校の年間-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/13-学校の年間.svg" alt="入学までの流れ"></picture><figcaption>入学までの流れ</figcaption></figure>
-    <figure data-wide data-cat="gyomu"><picture><source srcset="gallery/07-承認の流れ-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/07-承認の流れ.svg" alt="稟議の流れ"></picture><figcaption>稟議の流れ</figcaption></figure>
-    <figure data-wide data-cat="gyomu"><picture><source srcset="gallery/20-組織図-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/20-組織図.svg" alt="会社の組織図"></picture><figcaption>組織図（2026 年度）</figcaption></figure>
-    <figure data-wide data-cat="it"><picture><source srcset="gallery/50-電子回路図-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/50-電子回路図.svg" alt="LED 点灯回路の電子回路図"></picture><figcaption>電子回路図（IEC／JIS 記号）</figcaption></figure>
-    <figure data-wide data-cat="it"><picture><source srcset="gallery/48-ユースケース図-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/48-ユースケース図.svg" alt="UML ユースケース図"></picture><figcaption>ユースケース図（UML）</figcaption></figure>
-    <figure data-cat="it"><picture><source srcset="gallery/49-アクティビティ図-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/49-アクティビティ図.svg" alt="UML アクティビティ図"></picture><figcaption>アクティビティ図（UML）</figcaption></figure>
-    <figure data-cat="it"><picture><source srcset="gallery/46-クラス図-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/46-クラス図.svg" alt="UML クラス図"></picture><figcaption>クラス図（UML）</figcaption></figure>
-    <figure data-wide data-cat="it"><picture><source srcset="gallery/47-状態遷移図-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/47-状態遷移図.svg" alt="UML 状態遷移図"></picture><figcaption>状態遷移図（UML）</figcaption></figure>
-    <figure data-cat="it"><picture><source srcset="gallery/21-テーブルの関係-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/21-テーブルの関係.svg" alt="受注管理の ER 図"></picture><figcaption>テーブルの関係（ER）</figcaption></figure>
-    <figure data-wide data-cat="it"><picture><source srcset="gallery/01-オンプレのサーバ構成-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/01-オンプレのサーバ構成.svg" alt="オンプレのサーバ構成"></picture><figcaption>オンプレのサーバ構成</figcaption></figure>
-    <figure data-wide data-cat="it"><picture><source srcset="gallery/03-データの流れ-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/03-データの流れ.svg" alt="データの流れ"></picture><figcaption>データの流れ</figcaption></figure>
-    <figure data-wide data-cat="it"><picture><source srcset="gallery/04-ネットワーク構成-dark.svg" media="(prefers-color-scheme: dark)"><img src="gallery/04-ネットワーク構成.svg" alt="ネットワーク構成"></picture><figcaption>ネットワーク構成</figcaption></figure>
+    <h3 class="cat" data-cat="tetsudo">鉄道・交通<span class="n">18</span></h3>
+    <figure data-cat="tetsudo"><picture><source srcset="gallery/25-路線図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="583" height="531" src="gallery/25-路線図.svg" alt="鉄道の路線図"></picture><figcaption>鉄道の路線図</figcaption></figure>
+    <figure data-cat="tetsudo"><picture><source srcset="gallery/78-山手線の路線図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1022" height="1000" src="gallery/78-山手線の路線図.svg" alt="JR 山手線の路線図（環状・30 駅）"></picture><figcaption>山手線の路線図（環状・30 駅）</figcaption></figure>
+    <figure data-cat="tetsudo"><picture><source srcset="gallery/81-東京の地下鉄13路線-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1120" height="922" src="gallery/81-東京の地下鉄13路線.svg" alt="東京の地下鉄 13 路線 都心部の路線図"></picture><figcaption>東京の地下鉄 13 路線（メトロ 9 ＋ 都営 4）</figcaption></figure>
+    <figure data-cat="tetsudo"><picture><source srcset="gallery/79-梅田の乗換関係図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="864" height="702" src="gallery/79-梅田の乗換関係図.svg" alt="梅田の乗換関係図（7 駅・徒歩の所要）"></picture><figcaption>梅田の乗換関係図（同じ梅田に 7 駅）</figcaption></figure>
+    <figure data-wide data-cat="tetsudo"><picture><source srcset="gallery/80-中央線快速の停車駅一覧-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1848" height="488" src="gallery/80-中央線快速の停車駅一覧.svg" alt="中央線快速の停車駅一覧"></picture><figcaption>中央線快速 停車駅一覧（平日／土休日）</figcaption></figure>
+    <figure data-wide data-cat="tetsudo"><picture><source srcset="gallery/52-停車駅案内図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1014" height="458" src="gallery/52-停車駅案内図.svg" alt="どの種別がどの駅に停まるかの停車駅案内図"></picture><figcaption>停車駅案内図（帯が種別・白丸が停車）</figcaption></figure>
+    <figure data-wide data-cat="tetsudo"><picture><source srcset="gallery/54-のりかえ案内図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1176" height="460" src="gallery/54-のりかえ案内図.svg" alt="1 路線ののりかえ案内図（縦組みの駅名）"></picture><figcaption>のりかえ案内図（縦組みの駅名）</figcaption></figure>
+    <figure data-cat="tetsudo"><picture><source srcset="gallery/53-駅時刻表-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="500" height="586" src="gallery/53-駅時刻表.svg" alt="駅の時刻表（平日・土休日）"></picture><figcaption>駅の時刻表（平日／土休日）</figcaption></figure>
+    <figure data-wide data-cat="tetsudo"><picture><source srcset="gallery/45-駅の構内図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="852" height="314" src="gallery/45-駅の構内図.svg" alt="駅の構内図"></picture><figcaption>駅の構内図（1F・B1F）</figcaption></figure>
+    <figure data-cat="tetsudo"><picture><source srcset="gallery/82-多層ターミナルの乗換案内図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="854" height="990" src="gallery/82-多層ターミナルの乗換案内図.svg" alt="多層ターミナルの乗換案内図（1F / B1 / B2）"></picture><figcaption>多層ターミナルの乗換案内（階と縦の動線）</figcaption></figure>
+    <figure data-wide data-cat="tetsudo"><picture><source srcset="gallery/83-駅の配線略図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1284" height="580" src="gallery/83-駅の配線略図.svg" alt="駅の配線略図（2 面 4 線）"></picture><figcaption>駅の配線略図（2 面 4 線・待避可能）</figcaption></figure>
+    <figure data-cat="tetsudo"><picture><source srcset="gallery/71-列車運行図表-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="909" height="702" src="gallery/71-列車運行図表.svg" alt="列車運行図表（ダイヤグラム）"></picture><figcaption>列車運行図表（ダイヤグラム）</figcaption></figure>
+    <figure data-wide data-cat="tetsudo"><picture><source srcset="gallery/29-車両の編成図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1304" height="274" src="gallery/29-車両の編成図.svg" alt="通勤電車の 10 両編成図"></picture><figcaption>車両の編成図（10 両）</figcaption></figure>
+    <figure data-cat="tetsudo"><picture><source srcset="gallery/56-バスの時刻表-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="844" height="472" src="gallery/56-バスの時刻表.svg" alt="バス停の時刻表（平日・土曜・日祝）"></picture><figcaption>バスの時刻表（平日／土曜／日祝）</figcaption></figure>
+    <figure data-cat="tetsudo"><picture><source srcset="gallery/63-フェリーの発着表-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="664" height="699" src="gallery/63-フェリーの発着表.svg" alt="フェリーの発着時刻表"></picture><figcaption>フェリーの発着表（航路つき）</figcaption></figure>
+    <figure data-cat="tetsudo"><picture><source srcset="gallery/57-登山のコースタイム図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="974" height="637" src="gallery/57-登山のコースタイム図.svg" alt="登山のコースタイム図（標高の縦断図）"></picture><figcaption>登山のコースタイム図（標高の縦断)</figcaption></figure>
+    <figure data-wide data-cat="tetsudo"><picture><source srcset="gallery/61-道路の平面線形図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1002" height="442" src="gallery/61-道路の平面線形図.svg" alt="市道の平面線形図（曲線）"></picture><figcaption>道路の平面線形図（曲線）</figcaption></figure>
+    <figure data-cat="tetsudo"><picture><source srcset="gallery/37-配送ルート-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1149" height="618" src="gallery/37-配送ルート.svg" alt="配送ルート図"></picture><figcaption>配送ルート（2t 車 3 台）</figcaption></figure>
+    <h3 class="cat" data-cat="kenchiku">建築・土木<span class="n">14</span></h3>
+    <figure data-cat="kenchiku"><picture><source srcset="gallery/14-間取り-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="646" height="726" src="gallery/14-間取り.svg" alt="2LDK の間取り"></picture><figcaption>間取り（2LDK・1 階）</figcaption></figure>
+    <figure data-cat="kenchiku"><picture><source srcset="gallery/24-校舎の平面図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1146" height="766" src="gallery/24-校舎の平面図.svg" alt="小学校の校舎平面図"></picture><figcaption>校舎の平面図（小学校 3 階）</figcaption></figure>
+    <figure data-cat="kenchiku"><picture><source srcset="gallery/32-ホテルの基準階-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1142" height="718" src="gallery/32-ホテルの基準階.svg" alt="ビジネスホテルの基準階"></picture><figcaption>ホテルの基準階（客室 12 室）</figcaption></figure>
+    <figure data-cat="kenchiku"><picture><source srcset="gallery/17-躯体の伏図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="622" height="562" src="gallery/17-躯体の伏図.svg" alt="RC 造の床伏図"></picture><figcaption>躯体の伏図（RC 造・2 階床）</figcaption></figure>
+    <figure data-cat="kenchiku"><picture><source srcset="gallery/22-避難経路図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="786" height="566" src="gallery/22-避難経路図.svg" alt="3 階の避難経路"></picture><figcaption>避難経路図（3 階）</figcaption></figure>
+    <figure data-cat="kenchiku"><picture><source srcset="gallery/33-駐車場の区画割-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="616" height="476" src="gallery/33-駐車場の区画割.svg" alt="平面駐車場の区画割図"></picture><figcaption>駐車場の区画割（14 台）</figcaption></figure>
+    <figure data-cat="kenchiku"><picture><source srcset="gallery/30-総合仮設計画図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="766" height="616" src="gallery/30-総合仮設計画図.svg" alt="総合仮設計画図"></picture><figcaption>総合仮設計画図（クレーンの作業半径つき）</figcaption></figure>
+    <figure data-cat="kenchiku"><picture><source srcset="gallery/51-工事工程表-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="460" height="314" src="gallery/51-工事工程表.svg" alt="工事工程表"></picture><figcaption>工事工程表（バーチャート）</figcaption></figure>
+    <figure data-cat="kenchiku"><picture><source srcset="gallery/42-擁壁の標準断面図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="734" height="532" src="gallery/42-擁壁の標準断面図.svg" alt="L 型擁壁の標準断面図"></picture><figcaption>擁壁の標準断面図（断面）</figcaption></figure>
+    <figure data-wide data-cat="kenchiku"><picture><source srcset="gallery/43-舗装構成の断面図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1074" height="472" src="gallery/43-舗装構成の断面図.svg" alt="舗装構成の断面図"></picture><figcaption>舗装構成の断面図（道路）</figcaption></figure>
+    <figure data-cat="kenchiku"><picture><source srcset="gallery/28-ダムの平面図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="562" height="562" src="gallery/28-ダムの平面図.svg" alt="重力式コンクリートダムの平面図"></picture><figcaption>ダムの平面図（重力式）</figcaption></figure>
+    <figure data-cat="kenchiku"><picture><source srcset="gallery/27-圃場整備の平面図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="922" height="682" src="gallery/27-圃場整備の平面図.svg" alt="ほ場整備の平面図"></picture><figcaption>ほ場整備の平面図（30a 区画）</figcaption></figure>
+    <figure data-cat="kenchiku"><picture><source srcset="gallery/62-寺院庭園の平面図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="974" height="650" src="gallery/62-寺院庭園の平面図.svg" alt="寺院庭園の平面図（池泉回遊式）"></picture><figcaption>寺院庭園の平面図（閉じた曲線）</figcaption></figure>
+    <figure data-cat="kenchiku"><picture><source srcset="gallery/41-露地の平面図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="806" height="646" src="gallery/41-露地の平面図.svg" alt="露地（茶庭）の平面図"></picture><figcaption>露地（茶庭）の平面図・植栽図</figcaption></figure>
+    <h3 class="cat" data-cat="setsubi">設備・電気<span class="n">8</span></h3>
+    <figure data-cat="setsubi"><picture><source srcset="gallery/18-配管の系統-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1201" height="715" src="gallery/18-配管の系統.svg" alt="冷却水の系統"></picture><figcaption>配管の系統（P&amp;ID）</figcaption></figure>
+    <figure data-wide data-cat="setsubi"><picture><source srcset="gallery/38-計装ループ図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1413" height="679" src="gallery/38-計装ループ図.svg" alt="計装ループ図"></picture><figcaption>計装ループ図（TIC-101）</figcaption></figure>
+    <figure data-wide data-cat="setsubi"><picture><source srcset="gallery/19-受変電の結線-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1480" height="583" src="gallery/19-受変電の結線.svg" alt="受変電設備の単線結線図"></picture><figcaption>受変電の結線（単線結線図）</figcaption></figure>
+    <figure data-wide data-cat="setsubi"><picture><source srcset="gallery/50-電子回路図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="624" height="319" src="gallery/50-電子回路図.svg" alt="LED 点灯回路の電子回路図"></picture><figcaption>電子回路図（IEC／JIS 記号）</figcaption></figure>
+    <figure data-cat="setsubi"><picture><source srcset="gallery/06-家の電気系統-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1024" height="904" src="gallery/06-家の電気系統.svg" alt="住宅の電気系統"></picture><figcaption>住宅の電気系統</figcaption></figure>
+    <figure data-cat="setsubi"><picture><source srcset="gallery/10-給排水の系統-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1170" height="774" src="gallery/10-給排水の系統.svg" alt="住宅の給排水"></picture><figcaption>住宅の給排水</figcaption></figure>
+    <figure data-cat="setsubi"><picture><source srcset="gallery/35-配水系統図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1225" height="683" src="gallery/35-配水系統図.svg" alt="配水系統図"></picture><figcaption>配水系統図（上水道）</figcaption></figure>
+    <figure data-wide data-cat="setsubi"><picture><source srcset="gallery/44-人工衛星の系統図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="2012" height="837" src="gallery/44-人工衛星の系統図.svg" alt="人工衛星の系統図"></picture><figcaption>人工衛星の系統図（150kg 級）</figcaption></figure>
+    <h3 class="cat" data-cat="iryo">医療・食品・農<span class="n">9</span></h3>
+    <figure data-wide data-cat="iryo"><picture><source srcset="gallery/72-歯周チャート-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1306" height="428" src="gallery/72-歯周チャート.svg" alt="歯周精密検査チャート（6 点法）"></picture><figcaption>歯周精密検査チャート（32 歯 × 6 点）</figcaption></figure>
+    <figure data-cat="iryo"><picture><source srcset="gallery/39-経絡と経穴-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="402" height="356" src="gallery/39-経絡と経穴.svg" alt="経絡と経穴の図"></picture><figcaption>経絡と経穴（鍼灸・WHO 標準）</figcaption></figure>
+    <figure data-cat="iryo"><picture><source srcset="gallery/36-手術室の機器配置-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="646" height="566" src="gallery/36-手術室の機器配置.svg" alt="手術室の機器配置図"></picture><figcaption>手術室の機器配置（OR-3）</figcaption></figure>
+    <figure data-cat="iryo"><picture><source srcset="gallery/09-患者の動線-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1229" height="952" src="gallery/09-患者の動線.svg" alt="外来の流れ"></picture><figcaption>外来の流れ</figcaption></figure>
+    <figure data-cat="iryo"><picture><source srcset="gallery/23-厨房の動線-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="668" height="478" src="gallery/23-厨房の動線.svg" alt="給食厨房の区域と動線"></picture><figcaption>厨房の区域と動線（HACCP）</figcaption></figure>
+    <figure data-cat="iryo"><picture><source srcset="gallery/40-弁当の盛付図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="586" height="506" src="gallery/40-弁当の盛付図.svg" alt="弁当の盛付指示書"></picture><figcaption>弁当の盛付指示書（中食）</figcaption></figure>
+    <figure data-wide data-cat="iryo"><picture><source srcset="gallery/92-防虫モニタリングの定点配置図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1424" height="684" src="gallery/92-防虫モニタリングの定点配置図.svg" alt="食品工場の防虫モニタリング定点配置図"></picture><figcaption>防虫モニタリングの定点配置図（定点は動かさない）</figcaption></figure>
+    <figure data-cat="iryo"><picture><source srcset="gallery/91-リンゴ高密植栽培の樹形図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1124" height="664" src="gallery/91-リンゴ高密植栽培の樹形図.svg" alt="リンゴ高密植栽培の樹形図（トールスピンドル）"></picture><figcaption>リンゴ高密植栽培の樹形図（樹高・樹間・列間つき）</figcaption></figure>
+    <figure data-cat="iryo"><picture><source srcset="gallery/73-サビキ仕掛け図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="794" height="744" src="gallery/73-サビキ仕掛け図.svg" alt="サビキ仕掛け図"></picture><figcaption>サビキ仕掛け図（6 本針）</figcaption></figure>
+    <h3 class="cat" data-cat="tenpo">店舗・物流<span class="n">8</span></h3>
+    <figure data-cat="tenpo"><picture><source srcset="gallery/15-店舗のレイアウト-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="828" height="468" src="gallery/15-店舗のレイアウト.svg" alt="コンビニの売場"></picture><figcaption>店舗のレイアウト</figcaption></figure>
+    <figure data-wide data-cat="tenpo"><picture><source srcset="gallery/58-商店街の店舗案内図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="978" height="448" src="gallery/58-商店街の店舗案内図.svg" alt="商店街の店舗案内図"></picture><figcaption>商店街の店舗案内図（業種は模様で）</figcaption></figure>
+    <figure data-cat="tenpo"><picture><source srcset="gallery/59-フードコートの配置図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="850" height="626" src="gallery/59-フードコートの配置図.svg" alt="フードコートの店舗配置図"></picture><figcaption>フードコートの店舗配置図</figcaption></figure>
+    <figure data-cat="tenpo"><picture><source srcset="gallery/60-ドームの座席等級図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1024" height="640" src="gallery/60-ドームの座席等級図.svg" alt="ドームの座席等級図（SS・S・A・B・立見）"></picture><figcaption>ドームの座席等級図（席種 5 区分）</figcaption></figure>
+    <figure data-cat="tenpo"><picture><source srcset="gallery/34-倉庫のロケーション-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="926" height="586" src="gallery/34-倉庫のロケーション.svg" alt="物流倉庫のロケーション図"></picture><figcaption>倉庫のロケーション図</figcaption></figure>
+    <figure data-wide data-cat="tenpo"><picture><source srcset="gallery/89-コンテナ船の積付図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1166" height="610" src="gallery/89-コンテナ船の積付図.svg" alt="コンテナ船の積付図（Bay 34・船尾から船首を見た断面）"></picture><figcaption>コンテナ船の積付図（Bay-Row-Tier がそのまま住所）</figcaption></figure>
+    <figure data-wide data-cat="tenpo"><picture><source srcset="gallery/12-在庫と発注-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1263" height="548" src="gallery/12-在庫と発注.svg" alt="店舗の在庫と発注"></picture><figcaption>店舗の在庫と発注</figcaption></figure>
+    <figure data-wide data-cat="tenpo"><picture><source srcset="gallery/08-工場のライン-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1528" height="737" src="gallery/08-工場のライン.svg" alt="組立ラインと検査"></picture><figcaption>組立ラインと検査</figcaption></figure>
+    <h3 class="cat" data-cat="gyomu">業務・組織<span class="n">12</span></h3>
+    <figure data-wide data-cat="gyomu"><picture><source srcset="gallery/20-組織図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1256" height="477" src="gallery/20-組織図.svg" alt="会社の組織図"></picture><figcaption>組織図（2026 年度）</figcaption></figure>
+    <figure data-wide data-cat="gyomu"><picture><source srcset="gallery/07-承認の流れ-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="918" height="480" src="gallery/07-承認の流れ.svg" alt="稟議の流れ"></picture><figcaption>稟議の流れ</figcaption></figure>
+    <figure data-wide data-cat="gyomu"><picture><source srcset="gallery/05-業務の流れ-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1550" height="591" src="gallery/05-業務の流れ.svg" alt="受注から出荷まで"></picture><figcaption>受注から出荷まで</figcaption></figure>
+    <figure data-wide data-cat="gyomu"><picture><source srcset="gallery/11-取材から公開まで-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1636" height="770" src="gallery/11-取材から公開まで.svg" alt="記事ができるまで"></picture><figcaption>記事ができるまで</figcaption></figure>
+    <figure data-cat="gyomu"><picture><source srcset="gallery/13-学校の年間-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="734" height="494" src="gallery/13-学校の年間.svg" alt="入学までの流れ"></picture><figcaption>入学までの流れ</figcaption></figure>
+    <figure data-cat="gyomu"><picture><source srcset="gallery/55-学校の時間割-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="748" height="418" src="gallery/55-学校の時間割.svg" alt="中学校の週の時間割"></picture><figcaption>学校の時間割（週の表）</figcaption></figure>
+    <figure data-cat="gyomu"><picture><source srcset="gallery/31-座席図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="466" height="576" src="gallery/31-座席図.svg" alt="小ホールの座席図"></picture><figcaption>座席図（60 席・車椅子 2）</figcaption></figure>
+    <figure data-cat="gyomu"><picture><source srcset="gallery/16-会場の配置-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="868" height="588" src="gallery/16-会場の配置.svg" alt="展示会の会場"></picture><figcaption>展示会の会場</figcaption></figure>
+    <figure data-wide data-cat="gyomu"><picture><source srcset="gallery/64-施設の開館表-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1180" height="414" src="gallery/64-施設の開館表.svg" alt="体育館の週間開放表"></picture><figcaption>施設の開館表（週間）</figcaption></figure>
+    <figure data-wide data-cat="gyomu"><picture><source srcset="gallery/65-ビンゴ大会の進行表-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1164" height="454" src="gallery/65-ビンゴ大会の進行表.svg" alt="ビンゴ大会の進行表と会場配置"></picture><figcaption>ビンゴ大会の進行表（主催側）</figcaption></figure>
+    <figure data-cat="gyomu"><picture><source srcset="gallery/84-中古車の査定図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1064" height="894" src="gallery/84-中古車の査定図.svg" alt="中古車の査定図（外板価値減点）"></picture><figcaption>中古車の査定図（展開図と減点記号）</figcaption></figure>
+    <figure data-cat="gyomu"><picture><source srcset="gallery/90-相続関係説明図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1114" height="772" src="gallery/90-相続関係説明図.svg" alt="相続関係説明図（法務局へ出す書面）"></picture><figcaption>相続関係説明図（婚姻は二重線、親子は単線）</figcaption></figure>
+    <h3 class="cat" data-cat="moyooshi">催し・遊び<span class="n">7</span></h3>
+    <figure data-cat="moyooshi"><picture><source srcset="gallery/77-舞台照明仕込図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1430" height="758" src="gallery/77-舞台照明仕込図.svg" alt="舞台照明仕込図とチャンネル一覧"></picture><figcaption>舞台照明仕込図（図＋チャンネル一覧）</figcaption></figure>
+    <figure data-wide data-cat="moyooshi"><picture><source srcset="gallery/93-花火大会の保安距離図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1504" height="624" src="gallery/93-花火大会の保安距離図.svg" alt="花火大会の打揚配置・保安距離図"></picture><figcaption>花火大会の保安距離図（号数ごとの円）</figcaption></figure>
+    <figure data-cat="moyooshi"><picture><source srcset="gallery/66-囲碁の棋譜-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="582" height="622" src="gallery/66-囲碁の棋譜.svg" alt="囲碁の棋譜（19 路）"></picture><figcaption>囲碁の棋譜（19 路・布石）</figcaption></figure>
+    <figure data-cat="moyooshi"><picture><source srcset="gallery/67-将棋の局面図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="562" height="606" src="gallery/67-将棋の局面図.svg" alt="将棋の局面図（平手初形）"></picture><figcaption>将棋の局面図（平手初形）</figcaption></figure>
+    <figure data-cat="moyooshi"><picture><source srcset="gallery/68-チェスの局面図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="510" height="570" src="gallery/68-チェスの局面図.svg" alt="チェスの局面図（初期配置）"></picture><figcaption>チェスの局面図（初期配置）</figcaption></figure>
+    <figure data-cat="moyooshi"><picture><source srcset="gallery/70-リバーシの局面図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="546" height="612" src="gallery/70-リバーシの局面図.svg" alt="リバーシの局面図（初期配置）"></picture><figcaption>リバーシの局面図（初期配置）</figcaption></figure>
+    <figure data-cat="moyooshi"><picture><source srcset="gallery/69-ビンゴカード-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="561" height="575" src="gallery/69-ビンゴカード.svg" alt="ビンゴカード"></picture><figcaption>ビンゴカード（5×5）</figcaption></figure>
+    <h3 class="cat" data-cat="ui">UI・画面設計<span class="n">7</span></h3>
+    <figure data-wide data-cat="ui"><picture><source srcset="gallery/74-EC商品ページのUI構造-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1474" height="658" src="gallery/74-EC商品ページのUI構造.svg" alt="EC 商品ページの UI 構造（Desktop / Mobile）"></picture><figcaption>EC 商品ページの UI 構造（レスポンシブ差分）</figcaption></figure>
+    <figure data-wide data-cat="ui"><picture><source srcset="gallery/76-管理画面のレスポンシブ構造-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1654" height="414" src="gallery/76-管理画面のレスポンシブ構造.svg" alt="管理画面のレスポンシブ構造"></picture><figcaption>管理画面（Sidebar → Drawer）</figcaption></figure>
+    <figure data-wide data-cat="ui"><picture><source srcset="gallery/88-レスポンシブLPのUI構造-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1684" height="486" src="gallery/88-レスポンシブLPのUI構造.svg" alt="レスポンシブ LP の UI 構造（Desktop / Tablet / Mobile）"></picture><figcaption>レスポンシブ LP の UI 構造（節が消える・増える）</figcaption></figure>
+    <figure data-cat="ui"><picture><source srcset="gallery/87-モバイルアプリのUI構造-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="944" height="584" src="gallery/87-モバイルアプリのUI構造.svg" alt="モバイルアプリの UI 構造（Bottom Navigation）"></picture><figcaption>モバイルアプリの UI 構造（Bottom Navigation）</figcaption></figure>
+    <figure data-wide data-cat="ui"><picture><source srcset="gallery/75-画面遷移とワイヤーフレーム-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1184" height="490" src="gallery/75-画面遷移とワイヤーフレーム.svg" alt="ワイヤーフレームつきの画面遷移図"></picture><figcaption>画面遷移図（ワイヤーフレームつき）</figcaption></figure>
+    <figure data-wide data-cat="ui"><picture><source srcset="gallery/85-Checkoutの画面遷移-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1194" height="480" src="gallery/85-Checkoutの画面遷移.svg" alt="Checkout の画面遷移（Cart → Address → Payment → Confirm → Complete）"></picture><figcaption>Checkout の画面遷移（5 段・エラーの戻り先つき）</figcaption></figure>
+    <figure data-cat="ui"><picture><source srcset="gallery/86-CRUD管理画面の画面遷移-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="964" height="676" src="gallery/86-CRUD管理画面の画面遷移.svg" alt="CRUD 管理画面の画面遷移（一覧・作成・編集・削除確認）"></picture><figcaption>CRUD 管理画面の画面遷移（削除は確認を挟む）</figcaption></figure>
+    <h3 class="cat" data-cat="it">IT・ソフトウェア<span class="n">10</span></h3>
+    <figure data-cat="it"><picture><source srcset="gallery/26-データセンターのラック-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="716" height="566" src="gallery/26-データセンターのラック.svg" alt="サーバ室のラック配置"></picture><figcaption>データセンターのラック配置</figcaption></figure>
+    <figure data-cat="it"><picture><source srcset="gallery/21-テーブルの関係-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="962" height="526" src="gallery/21-テーブルの関係.svg" alt="受注管理の ER 図"></picture><figcaption>テーブルの関係（ER）</figcaption></figure>
+    <figure data-cat="it"><picture><source srcset="gallery/46-クラス図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="974" height="689" src="gallery/46-クラス図.svg" alt="UML クラス図"></picture><figcaption>クラス図（UML）</figcaption></figure>
+    <figure data-wide data-cat="it"><picture><source srcset="gallery/47-状態遷移図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="932" height="374" src="gallery/47-状態遷移図.svg" alt="UML 状態遷移図"></picture><figcaption>状態遷移図（UML）</figcaption></figure>
+    <figure data-wide data-cat="it"><picture><source srcset="gallery/48-ユースケース図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="844" height="434" src="gallery/48-ユースケース図.svg" alt="UML ユースケース図"></picture><figcaption>ユースケース図（UML）</figcaption></figure>
+    <figure data-cat="it"><picture><source srcset="gallery/49-アクティビティ図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="460" height="532" src="gallery/49-アクティビティ図.svg" alt="UML アクティビティ図"></picture><figcaption>アクティビティ図（UML）</figcaption></figure>
+    <figure data-wide data-cat="it"><picture><source srcset="gallery/02-クラウド構成-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="921" height="451" src="gallery/02-クラウド構成.svg" alt="クラウド構成"></picture><figcaption>クラウド構成</figcaption></figure>
+    <figure data-wide data-cat="it"><picture><source srcset="gallery/01-オンプレのサーバ構成-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1098" height="528" src="gallery/01-オンプレのサーバ構成.svg" alt="オンプレのサーバ構成"></picture><figcaption>オンプレのサーバ構成</figcaption></figure>
+    <figure data-wide data-cat="it"><picture><source srcset="gallery/03-データの流れ-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1466" height="669" src="gallery/03-データの流れ.svg" alt="データの流れ"></picture><figcaption>データの流れ</figcaption></figure>
+    <figure data-wide data-cat="it"><picture><source srcset="gallery/04-ネットワーク構成-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1489" height="349" src="gallery/04-ネットワーク構成.svg" alt="ネットワーク構成"></picture><figcaption>ネットワーク構成</figcaption></figure>
   </div>
   <p class="note" style="margin-top:20px">
     4 枚とも、下のような文章から <b>そのまま出たもの</b>です。手で位置を直してはいません。
@@ -466,8 +500,13 @@ nodes:
     });
   }
 
-  // **業界で絞り込む。** 見本が 23 件を超え、全部並べると
+  // **種類で絞り込む。** 見本が 93 件になり、全部並べると
   // 自分に関係する 1 枚が沈む。**数を減らすのではなく、選べるようにする。**
+  //
+  // 2026-09-14 に分類と並びを直した。それまでは**足した順**に近く、
+  // 路線図が 3 か所に散っていた（25 / 45 / 52〜54 / 71 / 78〜83）。
+  // **同じものは同じ所に置く** —— 探すときは「鉄道の図」を探すのであって、
+  // 「78 番」を探すのではない。
   const filters = document.querySelector('.filters');
   if (filters) {
     filters.addEventListener('click', (event) => {
@@ -479,6 +518,10 @@ nodes:
       }
       for (const figure of document.querySelectorAll('.gallery figure')) {
         figure.hidden = pick !== 'all' && figure.dataset.cat !== pick;
+      }
+      // **見出しも一緒に隠す。** 残さないと、1 枚も無い区切りが並ぶ。
+      for (const heading of document.querySelectorAll('.gallery h3.cat')) {
+        heading.hidden = pick !== 'all' && heading.dataset.cat !== pick;
       }
     });
   }
