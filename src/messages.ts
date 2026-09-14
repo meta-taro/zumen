@@ -490,7 +490,7 @@ const ja = {
     endsUnknown: (edge: string, word: string) =>
       `エッジ ${edge} の ends が "${word}" になっています（ENDS の語のいずれか）。記号は描かれません。`,
     lineUnknown: (edge: string, word: string) =>
-      `エッジ ${edge} の line が "${word}" になっています（solid / dashed / dotted）。実線で描きます。`,
+      `エッジ ${edge} の line が "${word}" になっています（solid / dashed / dotted / double）。実線で描きます。`,
     weightUnknown: (edge: string, word: string) =>
       `エッジ ${edge} の weight が "${word}" になっています（thin / normal / thick）。ふつうの太さで描きます。`,
     colorUnknown: (target: string, key: string) =>
@@ -887,7 +887,7 @@ const en: Catalog = {
     endsUnknown: (edge: string, word: string) =>
       `Edge ${edge} has ends "${word}" (one of ENDS). No symbol is drawn.`,
     lineUnknown: (edge: string, word: string) =>
-      `Edge ${edge} has line "${word}" (solid / dashed / dotted). It is drawn solid.`,
+      `Edge ${edge} has line "${word}" (solid / dashed / dotted / double). It is drawn solid.`,
     weightUnknown: (edge: string, word: string) =>
       `Edge ${edge} has weight "${word}" (thin / normal / thick). It is drawn at the normal width.`,
     colorUnknown: (target: string, key: string) =>

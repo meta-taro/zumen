@@ -35,7 +35,7 @@ Measured over 10 real AI round trips, **10/10 kept every human edit**.
 
 ## What it looks like
 
-88 example drawings, all generated from the YAML sources in
+90 example drawings, all generated from the YAML sources in
 [`examples/gallery/`](examples/gallery/):
 
 **[→ Browse the gallery](https://meta-taro.github.io/zumen/)**
@@ -47,7 +47,7 @@ They are deliberately not all boxes and arrows. Among them:
 | Transit | Tokyo subway network (13 lines), Yamanote loop, train graph (time × distance), stopping-pattern charts, station track layout, platform timetables |
 | Architecture / civil | Floor plans with grid lines and dimensions, elevation sections, site plans with crane radii, road alignment with real curves |
 | Plant / electrical | P&ID-style loops, switchgear single-line, electronic circuits with IEC/JIS symbols |
-| Specialist | Periodontal charts (32 teeth × 6 sites), stage lighting plots with channel hookup, fishing rigs, go/shogi/chess boards |
+| Specialist | Periodontal charts (32 teeth × 6 sites), stage lighting plots with channel hookup, container ship bay plans (ISO 9711 slot addressing), Japanese inheritance-registration family charts, fishing rigs, go/shogi/chess boards |
 | Software / UI | UML, ER, network diagrams, and **UI structure specs** (desktop vs. mobile, with the structural diff spelled out) |
 
 The point of that range is a claim: **one rendering model and a small set of

@@ -31,7 +31,7 @@ import { drawEnd, hasEnds } from './ends.ts';
 import { drawHatch } from './hatch.ts';
 import { pathOf } from './curve.ts';
 import { laysDown } from './write.ts';
-import { dashOf } from './line.ts';
+import { DOUBLE_GAP, dashOf, doubled } from './line.ts';
 import { roundedOf, widthOf } from './weight.ts';
 import { drawMarker } from './marker.ts';
 import { drawSymbol } from './symbol.ts';
@@ -607,20 +607,31 @@ function renderEdge(
     // 記号が矢印の代わりで、両方出すと向きが二重に言われる。
     // **太さを書いていれば、それに従う**（`src/weight.ts`。路線図の路線）。
     // 書いていなければ、これまでどおり（配置図は太め、構成図は細め）。
-    `<path d="${path}" fill="none" stroke="${edge.color ?? palette.edge.stroke}" stroke-width="${
-      edge.weight === 'normal'
-        ? edge.pinned || plan
-          ? STROKE_WIDTH.pinned
-          : STROKE_WIDTH.auto
-        : widthOf(edge.weight)
-    }"${roundedOf(edge.weight) ? ' stroke-linejoin="round" stroke-linecap="round"' : ''}${
-      dashOf(edge.line) === null ? '' : ` stroke-dasharray="${dashOf(edge.line)}"`
-    }${
+    ...(() => {
+      const width =
+        edge.weight === 'normal'
+          ? edge.pinned || plan
+            ? STROKE_WIDTH.pinned
+            : STROKE_WIDTH.auto
+          : widthOf(edge.weight);
+      const round = roundedOf(edge.weight) ? ' stroke-linejoin="round" stroke-linecap="round"' : '';
+      const dash = dashOf(edge.line) === null ? '' : ` stroke-dasharray="${dashOf(edge.line)}"`;
       // **閉じた輪に矢印は付けない**（`src/curve.ts` の `close`）。
       // 矢印は「こちらへ向かう」意味だが、輪は出発点へ戻る ——
       // 池の輪郭に矢印が付くと、水が一方向へ流れているように読める。
-      arrows && !edge.close && !hasEnds(edge.ends) ? ' marker-end="url(#arrow)"' : ''
-    }/>`,
+      const head = arrows && !edge.close && !hasEnds(edge.ends) ? ' marker-end="url(#arrow)"' : '';
+      const stroke = edge.color ?? palette.edge.stroke;
+      // **二重線は、同じ道を 2 回描く**（`src/line.ts`）。
+      // 太い線の上に地の色の細い線を重ねると、線が 2 本に見える。
+      // 平行線を計算し直さないので、折れ線でも曲線でも同じやり方で効く。
+      if (!doubled(edge.line)) {
+        return [`<path d="${path}" fill="none" stroke="${stroke}" stroke-width="${width}"${round}${dash}${head}/>`];
+      }
+      return [
+        `<path d="${path}" fill="none" stroke="${stroke}" stroke-width="${n(width + DOUBLE_GAP * 2)}"${round}${head}/>`,
+        `<path d="${path}" fill="none" stroke="${palette.paper}" stroke-width="${n(width)}"${round}/>`,
+      ];
+    })(),
     // 端の記号（ER の多重度・端子・接続点）。**向きは線から決める。**
     edge.points.length < 2
       ? ''

@@ -209,8 +209,39 @@ edges:
     assert.ok(found.every((f) => f.severity === 'warning'));
   });
 
+  /**
+   * **二重線**（`line: double`）。
+   *
+   * 相続関係説明図・家系図で、**婚姻は二重線、親子は単線**と決まっている
+   * （法務局の記載例。見本 90）。太さや破線では代わりにならない ——
+   * **二重線であること自体が記法。**
+   *
+   * 描き方は「太い線の上に、地の色で細い線を重ねる」。
+   * 折れ線でも曲線でも同じやり方で効く（平行線を計算し直さない）。
+   */
+  it('**二重線で描く**（婚姻は二重線、親子は単線）', async () => {
+    const { lineOf, dashOf, doubled } = await import('../src/line.ts');
+    assert.equal(lineOf('double'), 'double');
+    assert.equal(dashOf('double'), null, '二重線は破線ではない');
+    assert.equal(doubled('double'), true);
+    assert.equal(doubled('solid'), false);
+    const out = render(await layout(UML.replace('line: dashed', 'line: double')));
+    const paths = out.match(/<path d="M [^"]*"/g) ?? [];
+    assert.ok(paths.length >= 2, `同じ道を 2 回描いていない（${paths.length}）`);
+  });
+
+  it('**内側の線は地の色**（線が 2 本に見える）', async () => {
+    const out = render(await layout(UML.replace('line: dashed', 'line: double')), 'light');
+    assert.match(out, /<path d="M [^"]*"[^>]*stroke="#ffffff"/, '内側が地の色で抜かれていない');
+  });
+
+  it('意味の語は受けない（`marriage` のような語を足さない）', async () => {
+    const { lineOf } = await import('../src/line.ts');
+    assert.equal(lineOf('marriage'), 'solid');
+  });
+
   it('spec が線種を返す', () => {
-    assert.deepEqual(spec().lines, ['solid', 'dashed', 'dotted']);
+    assert.deepEqual(spec().lines, ['solid', 'dashed', 'dotted', 'double']);
     assert.match(spec().shape, /line:/);
   });
 });

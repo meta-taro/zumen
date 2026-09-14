@@ -529,8 +529,14 @@ UML の関連線は**無向**なので、`ends: { to: none }` と書いて矢印
 | `solid`（既定） | 実線 | ふつうの関係 |
 | `dashed` | 破線 | UML の実現・依存、仮設・計画線 |
 | `dotted` | 点線 | 将来増設・撤去予定 |
+| `double` | 二重線 | **婚姻**（相続関係説明図・家系図）、区画の境 |
 
 **端の記号が同じでも、線種で意味が変わる。**
+
+`double` は**太さでも破線でも代わりにならない。** 相続関係説明図は
+**婚姻が二重線、親子が単線**と決まっていて（法務局の記載例）、
+読む側はそれで見分けている。描き方は「太い線の上に地の色の細い線を重ねる」ので、
+**下にあるものは隠れる**（実物の二重線も紙を占める）。
 
 | UML | 線 | 端 |
 |---|---|---|
@@ -1061,7 +1067,7 @@ edges:
 | `label` | | 線に添える文字。**置き場所が無ければ描かない**（§3.0 の規則） |
 | `protocol` | | `label` が無いときに代わりに使う |
 | `ends` | | **端の記号**（`{ from, to }`。ER の多重度・UML の関係。§3.0.9） |
-| `line` | | **線種**（`solid` / `dashed` / `dotted`。§3.0.9） |
+| `line` | | **線種**（`solid` / `dashed` / `dotted` / `double`。§3.0.9） |
 | `weight` | | **太さ**（`thin` / `normal` / `thick`。§3.0.12） |
 | `via` | | **通り道**（`{ x, y }` の並び）。配置図でだけ効く（§3.0.15） |
 | `curve` | | **丸め方**（`none` / `smooth`）。§3.0.15 |
@@ -1343,7 +1349,7 @@ Mermaid も draw.io も、落ちたものを先頭のコメントに列挙する
 | `symbol-unknown` | 図記号が `SYMBOLS` の語か |
 | `hatch-ignored` | **構成図に `hatch` を書いていないか** |
 | `ends-unknown` | 端の記号が `ENDS` の語か |
-| `line-unknown` | 線種が `solid` / `dashed` / `dotted` か |
+| `line-unknown` | 線種が `solid` / `dashed` / `dotted` / `double` か |
 | `weight-unknown` | 太さが `thin` / `normal` / `thick` か |
 
 **どれも `error` にしない。** 弾くと、v1 の「捨てずに保つ」を壊す。
