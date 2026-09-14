@@ -493,25 +493,50 @@ function checkColors(doc: Document, add: Add, m: Messages, at: At): void {
     }
   }
 
-  const seen = (item: YAMLMap, name: string, tag: string | null): void => {
+  /**
+   * **色だけに頼らせない。**
+   *
+   * 見るのは節ごとではなく**図ぜんたい**（2026-09-14 に変えた）。
+   * 前は「その節の `tag` が鍵で始まっているか」を節ごとに見ていて、穴が 2 つあった。
+   *
+   * 1. **`tag` が無い節では一度も鳴らなかった。** 符号がどこにも無いのがいちばん危ない
+   * 2. **`tag` が別の意味を持つ図で誤って鳴った。**
+   *    積付図の `tag` はリーファーと危険物の印で、揚地の符号ではない
+   *
+   * 実物の路線図も、駅ごとに色名を書いてはいない。**凡例に 1 回書いてある。**
+   * だから「その鍵が図のどこかに文字として出ているか」だけを見る。
+   */
+  const used = new Map<string, YAMLMap>();
+  const written: string[] = [];
+  const titleOf = doc.get('title');
+  if (titleOf !== undefined && titleOf !== null) written.push(String(titleOf));
+
+  const seen = (item: YAMLMap, name: string): void => {
     const key = item.get('color');
     if (key === undefined || key === null) return;
     if (table[String(key)] === undefined) {
       add('warning', 'color-unknown', m.colorUnknown(name, String(key)), at(item.get('color', true)));
       return;
     }
-    // **色だけに頼らせない。** 路線記号が図に文字として出ていること。
-    if (tag !== null && !tag.startsWith(String(key))) {
-      add('warning', 'color-without-code', m.colorWithoutCode(name, String(key)), at(item));
-    }
+    if (!used.has(String(key))) used.set(String(key), item);
   };
 
   for (const item of seqOf(doc, 'nodes')) {
-    const tag = item.get('tag');
-    seen(item, String(item.get('id')), tag === undefined || tag === null ? null : String(tag));
+    for (const field of ['label', 'tag', 'technology'] as const) {
+      const value = item.get(field);
+      if (value !== undefined && value !== null) written.push(String(value));
+    }
+    seen(item, String(item.get('id')));
   }
   for (const item of seqOf(doc, 'edges')) {
-    seen(item, `${String(item.get('from'))}>${String(item.get('to'))}`, null);
+    const label = item.get('label');
+    if (label !== undefined && label !== null) written.push(String(label));
+    seen(item, `${String(item.get('from'))}>${String(item.get('to'))}`);
+  }
+
+  for (const [key, item] of used) {
+    if (written.some((text) => text.includes(key))) continue;
+    add('warning', 'color-without-code', m.colorWithoutCode(key), at(item));
   }
 }
 

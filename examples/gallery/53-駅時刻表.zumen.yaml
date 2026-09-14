@@ -8,9 +8,9 @@ title: 架空電鉄 中央駅 時刻表（下り・海浜公園方面／2026-09 
 # 平日は青、土休日は赤 —— 実物の時刻表の決まり。
 # 色だけに頼らせない —— 見出しに「平日」「土休日」と文字で出ている。
 palette:
-  heijitsu: "#0072bc"
-  dokyu: "#e5171f"
-  kyuko: "#d95f02"
+  平日: "#0072bc"
+  土休日: "#e5171f"
+  急行: "#d95f02"
 nodes:
   - id: heijitsu_h
     label: "時"
@@ -19,7 +19,7 @@ nodes:
     size: { w: 44, h: 28 }
   - id: heijitsu_head
     label: "平日"
-    color: heijitsu
+    color: 平日
     hatch: solid
     at: { x: 44, y: 0 }
     size: { w: 132, h: 28 }
@@ -56,7 +56,7 @@ nodes:
     size: { w: 44, h: 26 }
   - id: heijitsu_07_32
     label: "32"
-    color: kyuko
+    color: 急行
     hatch: solid
     at: { x: 88, y: 80 }
     size: { w: 44, h: 26 }
@@ -128,7 +128,7 @@ nodes:
     size: { w: 44, h: 26 }
   - id: heijitsu_13_55
     label: "55"
-    color: kyuko
+    color: 急行
     hatch: solid
     at: { x: 88, y: 236 }
     size: { w: 44, h: 26 }
@@ -174,7 +174,7 @@ nodes:
     size: { w: 44, h: 26 }
   - id: heijitsu_17_50
     label: "50"
-    color: kyuko
+    color: 急行
     hatch: solid
     at: { x: 88, y: 340 }
     size: { w: 44, h: 26 }
@@ -247,7 +247,7 @@ nodes:
     size: { w: 44, h: 28 }
   - id: dokyu_head
     label: "土休日"
-    color: dokyu
+    color: 土休日
     hatch: solid
     at: { x: 344, y: 0 }
     size: { w: 132, h: 28 }
@@ -338,7 +338,7 @@ nodes:
     size: { w: 44, h: 26 }
   - id: dokyu_13_35
     label: "35"
-    color: kyuko
+    color: 急行
     hatch: solid
     at: { x: 344, y: 236 }
     size: { w: 44, h: 26 }
@@ -442,7 +442,7 @@ nodes:
     size: { w: 44, h: 26 }
   - id: legend_mark
     label: "急行"
-    color: kyuko
+    color: 急行
     hatch: solid
     at: { x: 0, y: 536 }
     size: { w: 44, h: 26 }

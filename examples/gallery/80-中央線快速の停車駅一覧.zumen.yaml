@@ -10,16 +10,16 @@ title: JR 中央線快速 停車駅一覧（東京〜高尾・種別 4 区分）
 # 色だけに頼らせないため、種別名を各帯の右に文字で出している。
 # 駅名・停車駅は事実。図は zumen で描いたもので、どの事業者の図の写しでもない。
 palette:
-  kaisoku: "#f15a22"
-  kaisoku_h: "#d95f02"
-  chuo: "#0072bc"
-  tsukin: "#009a5b"
-  line: "#f15a22"
+  快速（平日）: "#f15a22"
+  快速（土休日）: "#d95f02"
+  中央特快: "#0072bc"
+  通勤特快: "#009a5b"
+  中央線: "#f15a22"
 nodes:
   - id: band_kaisoku
     label: ""
     marker: bar
-    color: kaisoku
+    color: 快速（平日）
     at: { x: 160, y: 150 }
     size: { w: 1506, h: 26 }
   - id: kaisoku_0
@@ -150,7 +150,7 @@ nodes:
   - id: band_kaisoku_h
     label: ""
     marker: bar
-    color: kaisoku_h
+    color: 快速（土休日）
     at: { x: 160, y: 186 }
     size: { w: 1506, h: 26 }
   - id: kaisoku_h_0
@@ -266,7 +266,7 @@ nodes:
   - id: band_chuo
     label: ""
     marker: bar
-    color: chuo
+    color: 中央特快
     at: { x: 160, y: 222 }
     size: { w: 1506, h: 26 }
   - id: chuo_0
@@ -347,7 +347,7 @@ nodes:
   - id: band_tsukin
     label: ""
     marker: bar
-    color: tsukin
+    color: 通勤特快
     at: { x: 160, y: 258 }
     size: { w: 1506, h: 26 }
   - id: tsukin_0
@@ -403,7 +403,7 @@ nodes:
   - id: no0
     label: "JC01"
     hatch: solid
-    color: line
+    color: 中央線
     at: { x: 180, y: 304 }
     size: { w: 40, h: 20 }
   - id: nm0
@@ -415,7 +415,7 @@ nodes:
   - id: no1
     label: "JC02"
     hatch: solid
-    color: line
+    color: 中央線
     at: { x: 242, y: 304 }
     size: { w: 40, h: 20 }
   - id: nm1
@@ -427,7 +427,7 @@ nodes:
   - id: no2
     label: "JC03"
     hatch: solid
-    color: line
+    color: 中央線
     at: { x: 304, y: 304 }
     size: { w: 40, h: 20 }
   - id: nm2
@@ -439,7 +439,7 @@ nodes:
   - id: no3
     label: "JC04"
     hatch: solid
-    color: line
+    color: 中央線
     at: { x: 366, y: 304 }
     size: { w: 40, h: 20 }
   - id: nm3
@@ -451,7 +451,7 @@ nodes:
   - id: no4
     label: "JC05"
     hatch: solid
-    color: line
+    color: 中央線
     at: { x: 428, y: 304 }
     size: { w: 40, h: 20 }
   - id: nm4
@@ -463,7 +463,7 @@ nodes:
   - id: no5
     label: "JC06"
     hatch: solid
-    color: line
+    color: 中央線
     at: { x: 490, y: 304 }
     size: { w: 40, h: 20 }
   - id: nm5
@@ -475,7 +475,7 @@ nodes:
   - id: no6
     label: "JC07"
     hatch: solid
-    color: line
+    color: 中央線
     at: { x: 552, y: 304 }
     size: { w: 40, h: 20 }
   - id: nm6
@@ -487,7 +487,7 @@ nodes:
   - id: no7
     label: "JC08"
     hatch: solid
-    color: line
+    color: 中央線
     at: { x: 614, y: 304 }
     size: { w: 40, h: 20 }
   - id: nm7
@@ -499,7 +499,7 @@ nodes:
   - id: no8
     label: "JC09"
     hatch: solid
-    color: line
+    color: 中央線
     at: { x: 676, y: 304 }
     size: { w: 40, h: 20 }
   - id: nm8
@@ -511,7 +511,7 @@ nodes:
   - id: no9
     label: "JC10"
     hatch: solid
-    color: line
+    color: 中央線
     at: { x: 738, y: 304 }
     size: { w: 40, h: 20 }
   - id: nm9
@@ -523,7 +523,7 @@ nodes:
   - id: no10
     label: "JC11"
     hatch: solid
-    color: line
+    color: 中央線
     at: { x: 800, y: 304 }
     size: { w: 40, h: 20 }
   - id: nm10
@@ -535,7 +535,7 @@ nodes:
   - id: no11
     label: "JC12"
     hatch: solid
-    color: line
+    color: 中央線
     at: { x: 862, y: 304 }
     size: { w: 40, h: 20 }
   - id: nm11
@@ -547,7 +547,7 @@ nodes:
   - id: no12
     label: "JC13"
     hatch: solid
-    color: line
+    color: 中央線
     at: { x: 924, y: 304 }
     size: { w: 40, h: 20 }
   - id: nm12
@@ -559,7 +559,7 @@ nodes:
   - id: no13
     label: "JC14"
     hatch: solid
-    color: line
+    color: 中央線
     at: { x: 986, y: 304 }
     size: { w: 40, h: 20 }
   - id: nm13
@@ -571,7 +571,7 @@ nodes:
   - id: no14
     label: "JC15"
     hatch: solid
-    color: line
+    color: 中央線
     at: { x: 1048, y: 304 }
     size: { w: 40, h: 20 }
   - id: nm14
@@ -583,7 +583,7 @@ nodes:
   - id: no15
     label: "JC16"
     hatch: solid
-    color: line
+    color: 中央線
     at: { x: 1110, y: 304 }
     size: { w: 40, h: 20 }
   - id: nm15
@@ -595,7 +595,7 @@ nodes:
   - id: no16
     label: "JC17"
     hatch: solid
-    color: line
+    color: 中央線
     at: { x: 1172, y: 304 }
     size: { w: 40, h: 20 }
   - id: nm16
@@ -607,7 +607,7 @@ nodes:
   - id: no17
     label: "JC18"
     hatch: solid
-    color: line
+    color: 中央線
     at: { x: 1234, y: 304 }
     size: { w: 40, h: 20 }
   - id: nm17
@@ -619,7 +619,7 @@ nodes:
   - id: no18
     label: "JC19"
     hatch: solid
-    color: line
+    color: 中央線
     at: { x: 1296, y: 304 }
     size: { w: 40, h: 20 }
   - id: nm18
@@ -631,7 +631,7 @@ nodes:
   - id: no19
     label: "JC20"
     hatch: solid
-    color: line
+    color: 中央線
     at: { x: 1358, y: 304 }
     size: { w: 40, h: 20 }
   - id: nm19
@@ -643,7 +643,7 @@ nodes:
   - id: no20
     label: "JC21"
     hatch: solid
-    color: line
+    color: 中央線
     at: { x: 1420, y: 304 }
     size: { w: 40, h: 20 }
   - id: nm20
@@ -655,7 +655,7 @@ nodes:
   - id: no21
     label: "JC22"
     hatch: solid
-    color: line
+    color: 中央線
     at: { x: 1482, y: 304 }
     size: { w: 40, h: 20 }
   - id: nm21
@@ -667,7 +667,7 @@ nodes:
   - id: no22
     label: "JC23"
     hatch: solid
-    color: line
+    color: 中央線
     at: { x: 1544, y: 304 }
     size: { w: 40, h: 20 }
   - id: nm22
@@ -679,7 +679,7 @@ nodes:
   - id: no23
     label: "JC24"
     hatch: solid
-    color: line
+    color: 中央線
     at: { x: 1606, y: 304 }
     size: { w: 40, h: 20 }
   - id: nm23

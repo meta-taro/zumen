@@ -104,10 +104,27 @@ describe('路線の色を描く', () => {
   });
 });
 
+/**
+ * **色だけに頼らせない**（`color-without-code`）。
+ *
+ * 2026-09-14 に**見る場所を変えた。**
+ *
+ * 前は「その節の `tag` が鍵で始まっているか」を節ごとに見ていた。
+ * これには穴が 2 つあった。
+ *
+ * 1. **`tag` が無い節では、一度も鳴らなかった。**
+ *    符号がどこにも無いのがいちばん危ないのに、そこだけ素通りしていた
+ * 2. **`tag` が別の意味を持つ図で、誤って鳴った。**
+ *    積付図（見本 89）の `tag` はリーファーと危険物の印で、揚地の符号ではない。
+ *    それでも「tag に符号が無い」と 6 件鳴った
+ *
+ * **見るべきは節ではなく図ぜんたい。** 色が意味を持つなら、
+ * その符号が**図のどこかに文字として出ていればいい**（凡例でもよい）。
+ * 実物の路線図も、駅ごとに色名を書いてはいない。**凡例に 1 回書いてある。**
+ */
 describe('色だけに頼らせない', () => {
-  it('**色を使うなら、路線記号が図に出ていること**（`G-01` の `G`）', () => {
-    // `tag: 01` は YAML で数の `1` になる（書き戻しで落ちる）ので、A-01 を使う。
-    const found = validate(MAP.replace('tag: G-01', 'tag: A-01'));
+  it('**鍵が図のどこにも文字として出ていないと知らせる**', () => {
+    const found = validate(MAP.replace('tag: G-01', 'tag: A-01').replace('tag: G-16', 'tag: A-16'));
     assert.ok(
       found.some((f) => f.code === 'color-without-code'),
       '色だけで路線を示しているのに、知らせていない',
@@ -116,6 +133,25 @@ describe('色だけに頼らせない', () => {
 
   it('記号が出ていれば、何も言わない', () => {
     assert.ok(!validate(MAP).some((f) => f.code === 'color-without-code'));
+  });
+
+  it('**凡例に 1 回出ていれば足りる**（節ごとに書かせない）', () => {
+    const legend = MAP.replace('tag: G-01', 'tag: A-01').replace('tag: G-16', 'tag: A-16').replace(
+      'nodes:\n',
+      'nodes:\n  - id: legend\n    label: "G 銀座線"\n    marker: none\n',
+    );
+    assert.ok(!validate(legend).some((f) => f.code === 'color-without-code'), legend);
+  });
+
+  it('**`tag` が別の意味を持つ図で、誤って鳴らない**（積付図のリーファー印）', () => {
+    const stow = MAP.replace('tag: G-01', 'tag: R').replace('tag: G-16', 'tag: R');
+    const found = validate(stow.replace('  - id: a\n', '  - id: legend\n    label: "G 銀座線"\n    marker: none\n  - id: a\n'));
+    assert.ok(!found.some((f) => f.code === 'color-without-code'), found.map((f) => f.code).join(','));
+  });
+
+  it('使っていない色は問わない（palette に書いてあるだけ）', () => {
+    const spare = MAP.replace('palette:\n', 'palette:\n  Z: "#1f8ad0"\n');
+    assert.ok(!validate(spare).some((f) => f.code === 'color-without-code'));
   });
 
   it('**薄すぎる色を知らせる**（白黒に落とすと消える）', () => {
@@ -183,6 +219,7 @@ palette:
 nodes:
   - id: a
     label: あ
+    tag: X
     color: X
     at: { x: 0, y: 0 }
     size: { w: 40, h: 20 }

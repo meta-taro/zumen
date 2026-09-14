@@ -8,10 +8,10 @@ title: 市営バス 中央病院前（3 番のりば）時刻表　海浜公園�
 # 色は曜日区分そのもの（DESIGN.md §7 の例外・src/palette.ts）。
 # 色だけに頼らせない —— 見出しに「平日」「土曜」「日祝」と文字で出ている。
 palette:
-  heijitsu: "#606068"
-  doyo: "#0072bc"
-  nikkyu: "#e5171f"
-  kyuko: "#d95f02"
+  平日: "#606068"
+  土曜: "#0072bc"
+  日祝: "#e5171f"
+  急: "#d95f02"
 nodes:
   - id: heijitsu_h
     label: "時"
@@ -21,7 +21,7 @@ nodes:
   - id: heijitsu_head
     label: "平日"
     hatch: solid
-    color: heijitsu
+    color: 平日
     at: { x: 40, y: 0 }
     size: { w: 208, h: 26 }
   - id: heijitsu_06
@@ -36,7 +36,7 @@ nodes:
   - id: heijitsu_06_35
     label: "35"
     hatch: solid
-    color: kyuko
+    color: 急
     at: { x: 92, y: 26 }
     size: { w: 52, h: 24 }
   - id: heijitsu_07
@@ -51,7 +51,7 @@ nodes:
   - id: heijitsu_07_20
     label: "20"
     hatch: solid
-    color: kyuko
+    color: 急
     at: { x: 92, y: 50 }
     size: { w: 52, h: 24 }
   - id: heijitsu_07_40
@@ -74,7 +74,7 @@ nodes:
   - id: heijitsu_08_30
     label: "30"
     hatch: solid
-    color: kyuko
+    color: 急
     at: { x: 92, y: 74 }
     size: { w: 52, h: 24 }
   - id: heijitsu_08_50
@@ -164,7 +164,7 @@ nodes:
   - id: heijitsu_16_55
     label: "55"
     hatch: solid
-    color: kyuko
+    color: 急
     at: { x: 92, y: 266 }
     size: { w: 52, h: 24 }
   - id: heijitsu_17
@@ -236,7 +236,7 @@ nodes:
   - id: doyo_head
     label: "土曜"
     hatch: solid
-    color: doyo
+    color: 土曜
     at: { x: 326, y: 0 }
     size: { w: 208, h: 26 }
   - id: doyo_06
@@ -403,7 +403,7 @@ nodes:
   - id: nikkyu_head
     label: "日祝"
     hatch: solid
-    color: nikkyu
+    color: 日祝
     at: { x: 612, y: 0 }
     size: { w: 208, h: 26 }
   - id: nikkyu_06
@@ -553,7 +553,7 @@ nodes:
   - id: lg
     label: "急"
     hatch: solid
-    color: kyuko
+    color: 急
     at: { x: 0, y: 424 }
     size: { w: 52, h: 24 }
   - id: lgn

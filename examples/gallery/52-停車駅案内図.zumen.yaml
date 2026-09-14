@@ -10,17 +10,17 @@ title: 架空電鉄 本線 停車駅一覧（K01 港町 — K09 海浜公園）
 # 色は種別の名前そのもの（DESIGN.md §7 の例外・src/palette.ts）。
 # 色だけに頼らせない —— 種別名は各帯の右に文字で出ている。
 palette:
-  tokkyu: "#e5171f"
-  kyuko: "#d95f02"
-  junkyu: "#009a5b"
-  futsu: "#808080"
-  shisen: "#8f76d6"
-  line: "#0072bc"
+  特急: "#e5171f"
+  急行: "#d95f02"
+  準急: "#009a5b"
+  普通: "#808080"
+  みなと線: "#8f76d6"
+  本線: "#0072bc"
 nodes:
   - id: band_tokkyu
     label: ""
     marker: bar
-    color: tokkyu
+    color: 特急
     at: { x: 60, y: 170 }
     size: { w: 858, h: 26 }
   - id: tokkyu_01
@@ -51,7 +51,7 @@ nodes:
   - id: band_kyuko
     label: ""
     marker: bar
-    color: kyuko
+    color: 急行
     at: { x: 60, y: 204 }
     size: { w: 858, h: 26 }
   - id: kyuko_01
@@ -92,7 +92,7 @@ nodes:
   - id: band_junkyu
     label: ""
     marker: bar
-    color: junkyu
+    color: 準急
     at: { x: 60, y: 238 }
     size: { w: 858, h: 26 }
   - id: junkyu_01
@@ -143,7 +143,7 @@ nodes:
   - id: band_futsu
     label: ""
     marker: bar
-    color: futsu
+    color: 普通
     at: { x: 60, y: 272 }
     size: { w: 858, h: 26 }
   - id: futsu_01
@@ -200,7 +200,7 @@ nodes:
     label: "K01"
     marker: circle
     hatch: solid
-    color: line
+    color: 本線
     at: { x: 92, y: 314 }
     size: { w: 36, h: 36 }
   - id: nm0
@@ -213,7 +213,7 @@ nodes:
     label: "K02"
     marker: circle
     hatch: solid
-    color: line
+    color: 本線
     at: { x: 188, y: 314 }
     size: { w: 36, h: 36 }
   - id: nm1
@@ -226,7 +226,7 @@ nodes:
     label: "K03"
     marker: circle
     hatch: solid
-    color: line
+    color: 本線
     at: { x: 284, y: 314 }
     size: { w: 36, h: 36 }
   - id: nm2
@@ -239,7 +239,7 @@ nodes:
     label: "K04"
     marker: circle
     hatch: solid
-    color: line
+    color: 本線
     at: { x: 380, y: 314 }
     size: { w: 36, h: 36 }
   - id: nm3
@@ -252,7 +252,7 @@ nodes:
     label: "K05"
     marker: circle
     hatch: solid
-    color: line
+    color: 本線
     at: { x: 476, y: 314 }
     size: { w: 36, h: 36 }
   - id: nm4
@@ -265,7 +265,7 @@ nodes:
     label: "K06"
     marker: circle
     hatch: solid
-    color: line
+    color: 本線
     at: { x: 572, y: 314 }
     size: { w: 36, h: 36 }
   - id: nm5
@@ -278,7 +278,7 @@ nodes:
     label: "K07"
     marker: circle
     hatch: solid
-    color: line
+    color: 本線
     at: { x: 668, y: 314 }
     size: { w: 36, h: 36 }
   - id: nm6
@@ -291,7 +291,7 @@ nodes:
     label: "K08"
     marker: circle
     hatch: solid
-    color: line
+    color: 本線
     at: { x: 764, y: 314 }
     size: { w: 36, h: 36 }
   - id: nm7
@@ -304,7 +304,7 @@ nodes:
     label: "K09"
     marker: circle
     hatch: solid
-    color: line
+    color: 本線
     at: { x: 860, y: 314 }
     size: { w: 36, h: 36 }
   - id: nm8
@@ -316,7 +316,7 @@ nodes:
   - id: br_band
     label: ""
     marker: bar
-    color: shisen
+    color: みなと線
     at: { x: 289, y: 30 }
     size: { w: 26, h: 140 }
   - id: br0
