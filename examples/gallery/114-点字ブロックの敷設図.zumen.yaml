@@ -1,0 +1,385 @@
+version: 1
+kind: placement
+arrows: true
+title: 点字ブロックの敷設図（歩道・階段・横断歩道／JIS T 9251:2014）
+scale: { mm: 10 }
+# **足の裏と白杖だけで読む図面。** だから形が 2 種類しかない。
+#
+# ## 線状は「進め」、点状は「止まれ」
+#
+# **線状ブロック**は進行方向を指す。突起は棒状で、**進む向きへ並べる。**
+# **点状ブロック**は「ここで止まって考える」の合図 ——
+# 分岐、階段の上端・下端、横断歩道の手前、券売機の前。
+#
+# **点状を連続して敷かない。** どこもかしこも警告なら、警告にならない。
+#
+# ## 置かない所も決まっている
+#
+# **横断歩道の手前は、交差点部の両側 1 m に点状を置かない。**
+# **屈曲部の内角が 135 度以上なら、警告ブロックを置かない**（ゆるい曲がり）。
+#
+# ## 色は、見える人のためでもある
+#
+# 黄色で、周囲の舗装と輝度の差をつける。**弱視の人はこれを見て歩く。**
+nodes:
+  - id: hodo
+    label: ""
+    at: { x: 0, y: 330 }
+    size: { w: 1080, h: 200 }
+  - id: hodo_n
+    label: "歩道　有効幅員 2.0 m"
+    marker: none
+    align: left
+    at: { x: 20, y: 540 }
+    size: { w: 220, h: 22 }
+  - id: s1
+    label: ""
+    hatch: lines
+    at: { x: 60, y: 440 }
+    size: { w: 90, h: 30 }
+  - id: t1
+    label: ""
+    hatch: dots
+    at: { x: 150, y: 440 }
+    size: { w: 60, h: 30 }
+  - id: s2
+    label: ""
+    hatch: lines
+    at: { x: 210, y: 440 }
+    size: { w: 240, h: 30 }
+  - id: t2
+    label: ""
+    hatch: dots
+    at: { x: 450, y: 440 }
+    size: { w: 60, h: 30 }
+  - id: s3
+    label: ""
+    hatch: lines
+    at: { x: 510, y: 440 }
+    size: { w: 270, h: 30 }
+  - id: t3
+    label: ""
+    hatch: dots
+    at: { x: 780, y: 440 }
+    size: { w: 60, h: 30 }
+  - id: deiri
+    label: "建物出入口"
+    hatch: none
+    at: { x: 120, y: 180 }
+    size: { w: 180, h: 120 }
+  - id: deiri_g
+    label: ""
+    marker: none
+    at: { x: 150, y: 300 }
+    size: { w: 30, h: 30 }
+  - id: b1t
+    label: ""
+    hatch: dots
+    at: { x: 150, y: 330 }
+    size: { w: 30, h: 30 }
+  - id: b1
+    label: ""
+    hatch: lines
+    at: { x: 150, y: 360 }
+    size: { w: 30, h: 80 }
+  - id: deiri_n
+    label: "出入口の手前 30 cm に点状"
+    marker: none
+    align: left
+    at: { x: 120, y: 152 }
+    size: { w: 260, h: 22 }
+  - id: kaidan
+    label: "階段（上り）"
+    hatch: none
+    at: { x: 390, y: 150 }
+    size: { w: 180, h: 150 }
+  - id: k_step1
+    label: ""
+    hatch: solid
+    at: { x: 390, y: 282 }
+    size: { w: 180, h: 6 }
+  - id: k_step2
+    label: ""
+    hatch: solid
+    at: { x: 390, y: 258 }
+    size: { w: 180, h: 6 }
+  - id: k_step3
+    label: ""
+    hatch: solid
+    at: { x: 390, y: 234 }
+    size: { w: 180, h: 6 }
+  - id: b2t
+    label: ""
+    hatch: dots
+    at: { x: 390, y: 360 }
+    size: { w: 180, h: 60 }
+  - id: b2
+    label: ""
+    hatch: lines
+    at: { x: 450, y: 420 }
+    size: { w: 60, h: 20 }
+  - id: kaidan_n
+    label: "階段の先端から 30 cm 控えて、歩行方向に縦 2 枚"
+    marker: none
+    align: left
+    at: { x: 600, y: 180 }
+    size: { w: 400, h: 22 }
+  - id: kaidan_n2
+    label: "設置幅は昇降部の有効幅員"
+    marker: none
+    align: left
+    at: { x: 600, y: 206 }
+    size: { w: 400, h: 22 }
+  - id: oudan
+    label: ""
+    hatch: lines
+    at: { x: 900, y: 330 }
+    size: { w: 140, h: 200 }
+  - id: oudan_n
+    label: "横断歩道"
+    marker: none
+    align: left
+    at: { x: 900, y: 300 }
+    size: { w: 140, h: 24 }
+  - id: kuuhaku_n
+    label: "交差点部の両側 1 m は点状を置かない"
+    marker: none
+    align: left
+    at: { x: 540, y: 484 }
+    size: { w: 340, h: 22 }
+  - id: t1n
+    label: "分岐部"
+    marker: none
+    align: left
+    at: { x: 150, y: 484 }
+    size: { w: 80, h: 22 }
+  - id: t3n
+    label: "横断歩道の手前"
+    marker: none
+    align: left
+    at: { x: 700, y: 404 }
+    size: { w: 160, h: 22 }
+  - id: d_t
+    label: "突起の形と寸法（JIS T 9251:2014）"
+    marker: none
+    align: left
+    at: { x: 60, y: 600 }
+    size: { w: 340, h: 24 }
+  - id: d1
+    label: ""
+    hatch: dots
+    at: { x: 60, y: 634 }
+    size: { w: 120, h: 70 }
+  - id: d1n
+    label: "点状突起（警告）"
+    marker: none
+    align: left
+    at: { x: 192, y: 634 }
+    size: { w: 200, h: 22 }
+  - id: d1r0
+    label: "・上面の径 12 mm"
+    marker: none
+    align: left
+    at: { x: 192, y: 658 }
+    size: { w: 340, h: 22 }
+  - id: d1r1
+    label: "・下面の径 22 mm（上面 ＋ 10 mm）"
+    marker: none
+    align: left
+    at: { x: 192, y: 682 }
+    size: { w: 340, h: 22 }
+  - id: d1r2
+    label: "・高さ 5 mm　半球の頂を平らにした形"
+    marker: none
+    align: left
+    at: { x: 192, y: 706 }
+    size: { w: 340, h: 22 }
+  - id: d2
+    label: ""
+    hatch: lines
+    at: { x: 560, y: 634 }
+    size: { w: 120, h: 70 }
+  - id: d2n
+    label: "線状突起（誘導）"
+    marker: none
+    align: left
+    at: { x: 692, y: 634 }
+    size: { w: 200, h: 22 }
+  - id: d2r0
+    label: "・上面の幅 17 mm"
+    marker: none
+    align: left
+    at: { x: 692, y: 658 }
+    size: { w: 340, h: 22 }
+  - id: d2r1
+    label: "・長さ 270 mm 以上"
+    marker: none
+    align: left
+    at: { x: 692, y: 682 }
+    size: { w: 340, h: 22 }
+  - id: d2r2
+    label: "・高さ 5 mm　4 本以上を進行方向へ並べる"
+    marker: none
+    align: left
+    at: { x: 692, y: 706 }
+    size: { w: 340, h: 22 }
+  - id: c_t
+    label: "敷設の決まり"
+    marker: none
+    align: left
+    at: { x: 1160, y: 40 }
+    size: { w: 200, h: 24 }
+  - id: th0
+    label: "場所"
+    hatch: solid
+    at: { x: 1160, y: 70 }
+    size: { w: 210, h: 26 }
+  - id: th1
+    label: "置くもの"
+    hatch: solid
+    at: { x: 1370, y: 70 }
+    size: { w: 170, h: 26 }
+  - id: th2
+    label: "位置"
+    hatch: solid
+    at: { x: 1540, y: 70 }
+    size: { w: 300, h: 26 }
+  - id: tc0_0
+    label: "進む道すじ"
+    at: { x: 1160, y: 96 }
+    size: { w: 210, h: 28 }
+  - id: tc0_1
+    label: "線状"
+    at: { x: 1370, y: 96 }
+    size: { w: 170, h: 28 }
+  - id: tc0_2
+    label: "進行方向へ連続して敷く"
+    at: { x: 1540, y: 96 }
+    size: { w: 300, h: 28 }
+  - id: tc1_0
+    label: "分岐部"
+    at: { x: 1160, y: 124 }
+    size: { w: 210, h: 28 }
+  - id: tc1_1
+    label: "点状"
+    at: { x: 1370, y: 124 }
+    size: { w: 170, h: 28 }
+  - id: tc1_2
+    label: "曲がる所・分かれる所"
+    at: { x: 1540, y: 124 }
+    size: { w: 300, h: 28 }
+  - id: tc2_0
+    label: "階段の上端・下端"
+    at: { x: 1160, y: 152 }
+    size: { w: 210, h: 28 }
+  - id: tc2_1
+    label: "点状"
+    at: { x: 1370, y: 152 }
+    size: { w: 170, h: 28 }
+  - id: tc2_2
+    label: "先端から 30 cm 控えて 縦 2 枚"
+    at: { x: 1540, y: 152 }
+    size: { w: 300, h: 28 }
+  - id: tc3_0
+    label: "横断歩道の手前"
+    at: { x: 1160, y: 180 }
+    size: { w: 210, h: 28 }
+  - id: tc3_1
+    label: "点状"
+    at: { x: 1370, y: 180 }
+    size: { w: 170, h: 28 }
+  - id: tc3_2
+    label: "交差点部の両側 1 m には置かない"
+    at: { x: 1540, y: 180 }
+    size: { w: 300, h: 28 }
+  - id: tc4_0
+    label: "券売機・窓口の前"
+    at: { x: 1160, y: 208 }
+    size: { w: 210, h: 28 }
+  - id: tc4_1
+    label: "点状"
+    at: { x: 1370, y: 208 }
+    size: { w: 170, h: 28 }
+  - id: tc4_2
+    label: "手前 30 cm 程度"
+    at: { x: 1540, y: 208 }
+    size: { w: 300, h: 28 }
+  - id: tc5_0
+    label: "ホームの縁端"
+    at: { x: 1160, y: 236 }
+    size: { w: 210, h: 28 }
+  - id: tc5_1
+    label: "点状（内方線つき）"
+    at: { x: 1370, y: 236 }
+    size: { w: 170, h: 28 }
+  - id: tc5_2
+    label: "線路側が分かる形にする"
+    at: { x: 1540, y: 236 }
+    size: { w: 300, h: 28 }
+  - id: tc6_0
+    label: "屈曲部（内角 135°以上）"
+    at: { x: 1160, y: 264 }
+    size: { w: 210, h: 28 }
+  - id: tc6_1
+    label: "置かない"
+    at: { x: 1370, y: 264 }
+    size: { w: 170, h: 28 }
+  - id: tc6_2
+    label: "ゆるい曲がりに警告は要らない"
+    at: { x: 1540, y: 264 }
+    size: { w: 300, h: 28 }
+  - id: r_t
+    label: "この図の決まり"
+    marker: none
+    align: left
+    at: { x: 1160, y: 316 }
+    size: { w: 200, h: 24 }
+  - id: rn0
+    label: "・ブロックは 300 mm 角が標準。400 mm 角もある"
+    marker: none
+    align: left
+    at: { x: 1160, y: 344 }
+    size: { w: 520, h: 24 }
+  - id: rn1
+    label: "・ブロックどうしのすき間は 10 cm 以下が望ましい"
+    marker: none
+    align: left
+    at: { x: 1160, y: 370 }
+    size: { w: 520, h: 24 }
+  - id: rn2
+    label: "・色は黄色。周囲の舗装と輝度の差をつける（見える人も使う）"
+    marker: none
+    align: left
+    at: { x: 1160, y: 396 }
+    size: { w: 520, h: 24 }
+  - id: rn3
+    label: "・線状は進行方向を指す。向きを間違えると道が分からなくなる"
+    marker: none
+    align: left
+    at: { x: 1160, y: 422 }
+    size: { w: 520, h: 24 }
+  - id: rn4
+    label: "・点状は「ここで止まって考える」の合図。連続して敷かない"
+    marker: none
+    align: left
+    at: { x: 1160, y: 448 }
+    size: { w: 520, h: 24 }
+  - id: rn5
+    label: "・誘導経路は先に決める。遠回りな経路をブロックでなぞらない"
+    marker: none
+    align: left
+    at: { x: 1160, y: 474 }
+    size: { w: 520, h: 24 }
+  - id: rn6
+    label: "・敷いてから直すのは高い。図面の段階で経路を決めきる"
+    marker: none
+    align: left
+    at: { x: 1160, y: 500 }
+    size: { w: 520, h: 24 }
+  - id: leg
+    label: "寸法は JIS T 9251:2014 と自治体の整備ガイドラインによる。地域で細部が違う"
+    marker: none
+    align: left
+    at: { x: 1160, y: 538 }
+    size: { w: 560, h: 24 }
+edges: []
