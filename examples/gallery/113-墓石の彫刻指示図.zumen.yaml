@@ -1,0 +1,439 @@
+version: 1
+kind: placement
+arrows: true
+title: 墓石の彫刻指示図（和型三段・8 寸角／架空の家）
+scale: { mm: 3 }
+# **石材店が現場と工場へ出す指図。** どこに、何を、どの書体で、どう彫るか。
+#
+# ## 彫る場所は決まっている
+#
+# **棹石の正面**は家名か宗派の言葉。**右側面**は亡くなった人（戒名・没年月日・
+# 俗名・行年）、**左側面**は建てた人と建立年月。**家紋は水鉢**が多い。
+#
+# 人数が増えると棹石の側面では足りなくなるので、**墓誌（霊標）**へ移す。
+#
+# ## 朱入れ
+#
+# **存命の人の名は朱を入れる**（長寿を祈る）。**亡くなったら朱を抜く。**
+# 図面に「朱」と書いておかないと、彫ったあとで直せない。
+#
+# ## 追加彫刻は、既にあるものに合わせる
+#
+# 書体・字の高さ・彫り方を既存に合わせないと、同じ石の上で揃わない。
+# **だから図面に書体と字の高さを書く。**
+nodes:
+  - id: t_front
+    label: "正面立面（和型三段）"
+    marker: none
+    align: left
+    at: { x: 150, y: 40 }
+    size: { w: 240, h: 24 }
+  - id: sao
+    label: "丙山家之墓"
+    write: down
+    at: { x: 260, y: 180 }
+    size: { w: 81, h: 270 }
+  - id: sao_n
+    label: "棹石　8 寸角（242 mm）・高さ 810 mm"
+    marker: none
+    align: left
+    at: { x: 150, y: 150 }
+    size: { w: 320, h: 22 }
+  - id: jodai
+    label: ""
+    at: { x: 217, y: 450 }
+    size: { w: 167, h: 73 }
+  - id: chudai
+    label: ""
+    at: { x: 194, y: 523 }
+    size: { w: 213, h: 77 }
+  - id: shiba
+    label: ""
+    at: { x: 167, y: 600 }
+    size: { w: 267, h: 60 }
+  - id: mizu
+    label: ""
+    marker: box
+    at: { x: 270, y: 540 }
+    size: { w: 62, h: 44 }
+  - id: kamon
+    label: ""
+    marker: circle
+    at: { x: 288, y: 548 }
+    size: { w: 28, h: 28 }
+  - id: jodai_n
+    label: "上台"
+    marker: none
+    align: left
+    at: { x: 60, y: 470 }
+    size: { w: 70, h: 22 }
+  - id: chudai_n
+    label: "中台"
+    marker: none
+    align: left
+    at: { x: 60, y: 546 }
+    size: { w: 70, h: 22 }
+  - id: shiba_n
+    label: "芝台"
+    marker: none
+    align: left
+    at: { x: 60, y: 618 }
+    size: { w: 70, h: 22 }
+  - id: mizu_n
+    label: "水鉢（家紋）"
+    marker: none
+    align: left
+    at: { x: 60, y: 574 }
+    size: { w: 90, h: 22 }
+  - id: hana_l
+    label: "花立"
+    at: { x: 214, y: 548 }
+    size: { w: 44, h: 52 }
+  - id: hana_r
+    label: "花立"
+    at: { x: 344, y: 548 }
+    size: { w: 44, h: 52 }
+  - id: koro
+    label: "香炉"
+    at: { x: 258, y: 604 }
+    size: { w: 86, h: 40 }
+  - id: t_boshi
+    label: "墓誌（霊標）"
+    marker: none
+    align: left
+    at: { x: 500, y: 40 }
+    size: { w: 200, h: 24 }
+  - id: boshi
+    label: ""
+    at: { x: 500, y: 180 }
+    size: { w: 300, h: 420 }
+  - id: b_head
+    label: "戒名／俗名／没年月日／行年"
+    hatch: solid
+    at: { x: 504, y: 184 }
+    size: { w: 292, h: 26 }
+  - id: bk0
+    label: "清光院釋浄安居士"
+    at: { x: 504, y: 214 }
+    size: { w: 292, h: 24 }
+  - id: bz0
+    label: "丙山　太一　平成 28 年 3 月 9 日　行年 82"
+    marker: none
+    align: left
+    at: { x: 504, y: 238 }
+    size: { w: 292, h: 24 }
+  - id: bk1
+    label: "慈光院釋妙寿大姉"
+    at: { x: 504, y: 276 }
+    size: { w: 292, h: 24 }
+  - id: bz1
+    label: "丙山　ハル　令和 2 年 11 月 2 日　行年 84"
+    marker: none
+    align: left
+    at: { x: 504, y: 300 }
+    size: { w: 292, h: 24 }
+  - id: bk2
+    label: "（朱入れ）"
+    at: { x: 504, y: 338 }
+    size: { w: 292, h: 24 }
+  - id: bz2
+    label: "丙山　二郎　—　存命"
+    marker: none
+    align: left
+    at: { x: 504, y: 362 }
+    size: { w: 292, h: 24 }
+  - id: boshi_y
+    label: "以下 余白（追加彫刻の分）"
+    marker: none
+    align: left
+    at: { x: 504, y: 408 }
+    size: { w: 240, h: 22 }
+  - id: boshi_n
+    label: "存命の人は朱入れ（赤字）。亡くなったら朱を抜く"
+    marker: none
+    align: left
+    at: { x: 500, y: 608 }
+    size: { w: 340, h: 22 }
+  - id: t_side
+    label: "棹石の側面（展開）"
+    marker: none
+    align: left
+    at: { x: 840, y: 40 }
+    size: { w: 220, h: 24 }
+  - id: side_r
+    label: ""
+    at: { x: 840, y: 180 }
+    size: { w: 160, h: 300 }
+  - id: side_r_h
+    label: "右側面"
+    hatch: solid
+    at: { x: 844, y: 184 }
+    size: { w: 152, h: 24 }
+  - id: sr0
+    label: "清光院釋浄安居士"
+    marker: none
+    at: { x: 844, y: 214 }
+    size: { w: 152, h: 24 }
+  - id: sr1
+    label: "平成 28 年 3 月 9 日"
+    marker: none
+    at: { x: 844, y: 240 }
+    size: { w: 152, h: 24 }
+  - id: sr2
+    label: "俗名　丙山 太一"
+    marker: none
+    at: { x: 844, y: 266 }
+    size: { w: 152, h: 24 }
+  - id: sr3
+    label: "行年 82"
+    marker: none
+    at: { x: 844, y: 292 }
+    size: { w: 152, h: 24 }
+  - id: side_l
+    label: ""
+    at: { x: 1010, y: 180 }
+    size: { w: 160, h: 300 }
+  - id: side_l_h
+    label: "左側面"
+    hatch: solid
+    at: { x: 1014, y: 184 }
+    size: { w: 152, h: 24 }
+  - id: sl0
+    label: "令和 8 年 4 月 吉日"
+    marker: none
+    at: { x: 1014, y: 214 }
+    size: { w: 152, h: 24 }
+  - id: sl1
+    label: "建之"
+    marker: none
+    at: { x: 1014, y: 240 }
+    size: { w: 152, h: 24 }
+  - id: sl2
+    label: "丙山　二郎"
+    marker: none
+    at: { x: 1014, y: 266 }
+    size: { w: 152, h: 24 }
+  - id: side_n
+    label: "右＝亡くなった人／左＝建てた人と年月"
+    marker: none
+    align: left
+    at: { x: 840, y: 492 }
+    size: { w: 300, h: 22 }
+  - id: c_t
+    label: "彫刻の指示"
+    marker: none
+    align: left
+    at: { x: 1200, y: 40 }
+    size: { w: 200, h: 24 }
+  - id: th0
+    label: "部位"
+    hatch: solid
+    at: { x: 1200, y: 70 }
+    size: { w: 110, h: 26 }
+  - id: th1
+    label: "刻む文字"
+    hatch: solid
+    at: { x: 1310, y: 70 }
+    size: { w: 210, h: 26 }
+  - id: th2
+    label: "書体"
+    hatch: solid
+    at: { x: 1520, y: 70 }
+    size: { w: 90, h: 26 }
+  - id: th3
+    label: "彫り方"
+    hatch: solid
+    at: { x: 1610, y: 70 }
+    size: { w: 110, h: 26 }
+  - id: th4
+    label: "字の高さ"
+    hatch: solid
+    at: { x: 1720, y: 70 }
+    size: { w: 90, h: 26 }
+  - id: tc0_0
+    label: "棹石 正面"
+    at: { x: 1200, y: 96 }
+    size: { w: 110, h: 28 }
+  - id: tc0_1
+    label: "丙山家之墓"
+    at: { x: 1310, y: 96 }
+    size: { w: 210, h: 28 }
+  - id: tc0_2
+    label: "楷書"
+    at: { x: 1520, y: 96 }
+    size: { w: 90, h: 28 }
+  - id: tc0_3
+    label: "彫り込み"
+    at: { x: 1610, y: 96 }
+    size: { w: 110, h: 28 }
+  - id: tc0_4
+    label: "90 mm"
+    at: { x: 1720, y: 96 }
+    size: { w: 90, h: 28 }
+  - id: tc1_0
+    label: "水鉢 正面"
+    at: { x: 1200, y: 124 }
+    size: { w: 110, h: 28 }
+  - id: tc1_1
+    label: "丸に木瓜（家紋）"
+    at: { x: 1310, y: 124 }
+    size: { w: 210, h: 28 }
+  - id: tc1_2
+    label: "—"
+    at: { x: 1520, y: 124 }
+    size: { w: 90, h: 28 }
+  - id: tc1_3
+    label: "浮かし彫り"
+    at: { x: 1610, y: 124 }
+    size: { w: 110, h: 28 }
+  - id: tc1_4
+    label: "60 mm"
+    at: { x: 1720, y: 124 }
+    size: { w: 90, h: 28 }
+  - id: tc2_0
+    label: "棹石 右側面"
+    at: { x: 1200, y: 152 }
+    size: { w: 110, h: 28 }
+  - id: tc2_1
+    label: "戒名・没年月日・俗名・行年"
+    at: { x: 1310, y: 152 }
+    size: { w: 210, h: 28 }
+  - id: tc2_2
+    label: "楷書"
+    at: { x: 1520, y: 152 }
+    size: { w: 90, h: 28 }
+  - id: tc2_3
+    label: "彫り込み"
+    at: { x: 1610, y: 152 }
+    size: { w: 110, h: 28 }
+  - id: tc2_4
+    label: "24 mm"
+    at: { x: 1720, y: 152 }
+    size: { w: 90, h: 28 }
+  - id: tc3_0
+    label: "棹石 左側面"
+    at: { x: 1200, y: 180 }
+    size: { w: 110, h: 28 }
+  - id: tc3_1
+    label: "建立年月・建之・建立者"
+    at: { x: 1310, y: 180 }
+    size: { w: 210, h: 28 }
+  - id: tc3_2
+    label: "楷書"
+    at: { x: 1520, y: 180 }
+    size: { w: 90, h: 28 }
+  - id: tc3_3
+    label: "彫り込み"
+    at: { x: 1610, y: 180 }
+    size: { w: 110, h: 28 }
+  - id: tc3_4
+    label: "24 mm"
+    at: { x: 1720, y: 180 }
+    size: { w: 90, h: 28 }
+  - id: tc4_0
+    label: "墓誌"
+    at: { x: 1200, y: 208 }
+    size: { w: 110, h: 28 }
+  - id: tc4_1
+    label: "戒名・俗名・没年月日・行年"
+    at: { x: 1310, y: 208 }
+    size: { w: 210, h: 28 }
+  - id: tc4_2
+    label: "楷書"
+    at: { x: 1520, y: 208 }
+    size: { w: 90, h: 28 }
+  - id: tc4_3
+    label: "彫り込み"
+    at: { x: 1610, y: 208 }
+    size: { w: 110, h: 28 }
+  - id: tc4_4
+    label: "21 mm"
+    at: { x: 1720, y: 208 }
+    size: { w: 90, h: 28 }
+  - id: tc5_0
+    label: "墓誌（存命）"
+    at: { x: 1200, y: 236 }
+    size: { w: 110, h: 28 }
+  - id: tc5_1
+    label: "丙山　二郎"
+    at: { x: 1310, y: 236 }
+    size: { w: 210, h: 28 }
+  - id: tc5_2
+    label: "楷書"
+    at: { x: 1520, y: 236 }
+    size: { w: 90, h: 28 }
+  - id: tc5_3
+    label: "彫り込み ＋ 朱"
+    at: { x: 1610, y: 236 }
+    size: { w: 110, h: 28 }
+  - id: tc5_4
+    label: "21 mm"
+    at: { x: 1720, y: 236 }
+    size: { w: 90, h: 28 }
+  - id: r_t
+    label: "この図の決まり"
+    marker: none
+    align: left
+    at: { x: 1200, y: 288 }
+    size: { w: 200, h: 24 }
+  - id: rn0
+    label: "・正面は家名か宗派の言葉。「○○家之墓」「南無阿弥陀仏」など"
+    marker: none
+    align: left
+    at: { x: 1200, y: 316 }
+    size: { w: 500, h: 24 }
+  - id: rn1
+    label: "・家紋は水鉢が多い。玉垣や門柱へ刻むこともある"
+    marker: none
+    align: left
+    at: { x: 1200, y: 342 }
+    size: { w: 500, h: 24 }
+  - id: rn2
+    label: "・棹石の右側面＝亡くなった人、左側面＝建てた人と年月"
+    marker: none
+    align: left
+    at: { x: 1200, y: 368 }
+    size: { w: 500, h: 24 }
+  - id: rn3
+    label: "・人数が増えたら棹石では足りない。墓誌（霊標）へ移す"
+    marker: none
+    align: left
+    at: { x: 1200, y: 394 }
+    size: { w: 500, h: 24 }
+  - id: rn4
+    label: "・存命の人の名は朱入れ。亡くなったら朱を抜く"
+    marker: none
+    align: left
+    at: { x: 1200, y: 420 }
+    size: { w: 500, h: 24 }
+  - id: rn5
+    label: "・追加彫刻は、既にある書体と字の高さに合わせる"
+    marker: none
+    align: left
+    at: { x: 1200, y: 446 }
+    size: { w: 500, h: 24 }
+  - id: rn6
+    label: "・書体は楷書が最も多い。行書・草書・ゴシックもある"
+    marker: none
+    align: left
+    at: { x: 1200, y: 472 }
+    size: { w: 500, h: 24 }
+  - id: rn7
+    label: "・彫り方は彫り込み・平彫り・線彫り・ヤゲン彫り・浮かし彫り"
+    marker: none
+    align: left
+    at: { x: 1200, y: 498 }
+    size: { w: 500, h: 24 }
+  - id: rn8
+    label: "・法要の日から逆算して発注する。現場彫りか工場彫りかで日数が違う"
+    marker: none
+    align: left
+    at: { x: 1200, y: 524 }
+    size: { w: 500, h: 24 }
+  - id: leg
+    label: "寸法は 8 寸角・和型三段の一例。石種と地域で変わる"
+    marker: none
+    align: left
+    at: { x: 1200, y: 562 }
+    size: { w: 500, h: 24 }
+edges: []
