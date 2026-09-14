@@ -1,200 +1,204 @@
 version: 1
 kind: placement
 title: 多層ターミナルの乗換案内図（架空駅・1F / B1 / B2 と縦の動線）
-# **階層のある乗換を、2D で持てるところまで**やった図。
-# 上から 1F・B1・B2。**同じ x にあるものは、上下で同じ位置**にしてある ——
-# だから破線の縦動線（階段・ES・EV）が「どこで上下するか」を指せる。
+# **階が正本の言葉になった**（floors ＋ nodes[].floor）。
+# 階の枠と階名は**機械が描く** —— 箱を足しても枠がずれない。
+# 箱は 1 px も動かない（floor は「どの枠に属するか」を言うだけ）。
+#
+# 縦動線は edges[].vertical（stair / escalator / elevator。JIS Z 8210 の語）。
+# 同じ階どうしを結ぶと検証器が知らせる —— またがないものは縦動線ではない。
 #
 # 太い矢印が案内する経路：JR 中央改札 → ES → B1 中央通路 → 階段 → B2 南行ホーム。
+# **1 枚の中に、向きのある線と無い線が混ざる**ので、縦動線は ends で矢印を消してある。
 #
-# **1 枚の中に、向きのある線と無い線が混ざる。**
-# 縦動線は向きを持たないので ends で矢印を消してある ——
-# arrows は図ぜんたいの設定なので、混ざる図では辺ごとに言う。
+# 凡例と注記には floor を書いていない —— **階に属さないものは、どの枠にも入らない。**
 #
 # 実在の駅では描いていない。**各階の正確な配置が手元に無いため**（調べずに描かない）。
+floors:
+  - B2
+  - B1
+  - 1F
 nodes:
-  - id: f1_f
-    label: ""
-    marker: box
-    at: { x: 40, y: 60 }
-    size: { w: 820, h: 230 }
-  - id: f1_n
-    label: "1F　JR 改札階"
-    marker: none
-    at: { x: 40, y: 32 }
-    size: { w: 240, h: 24 }
-  - id: b1_f
-    label: ""
-    marker: box
-    at: { x: 40, y: 350 }
-    size: { w: 820, h: 230 }
-  - id: b1_n
-    label: "B1　連絡通路階"
-    marker: none
-    at: { x: 40, y: 322 }
-    size: { w: 240, h: 24 }
-  - id: b2_f
-    label: ""
-    marker: box
-    at: { x: 40, y: 640 }
-    size: { w: 820, h: 230 }
-  - id: b2_n
-    label: "B2　地下鉄ホーム階"
-    marker: none
-    at: { x: 40, y: 612 }
-    size: { w: 240, h: 24 }
   - id: jr_home
     label: "JR ホーム（1・2 番のりば）"
     hatch: lines
+    floor: 1F
     at: { x: 60, y: 76 }
     size: { w: 320, h: 40 }
   - id: jr_gate
     label: "JR 中央改札"
     hatch: solid
+    floor: 1F
     at: { x: 60, y: 134 }
     size: { w: 150, h: 40 }
   - id: jr_gate2
     label: "JR 南改札"
     marker: box
+    floor: 1F
     at: { x: 250, y: 134 }
     size: { w: 130, h: 40 }
   - id: f1_shop
     label: "駅ナカ店舗"
     hatch: dots
+    floor: 1F
     at: { x: 430, y: 76 }
     size: { w: 220, h: 98 }
   - id: f1_out
     label: "東口（地上）"
     marker: none
+    floor: 1F
     at: { x: 690, y: 76 }
     size: { w: 140, h: 40 }
   - id: b1_pass
     label: "B1 中央通路（幅 12m）"
     hatch: dots
+    floor: B1
     at: { x: 60, y: 380 }
     size: { w: 430, h: 44 }
   - id: b1_shop
     label: "地下街"
     hatch: dots
+    floor: B1
     at: { x: 540, y: 366 }
     size: { w: 280, h: 58 }
   - id: b1_wc
     label: "トイレ"
     marker: box
+    floor: B1
     at: { x: 540, y: 440 }
     size: { w: 120, h: 40 }
   - id: b1_info
     label: "案内所"
     marker: box
+    floor: B1
     at: { x: 690, y: 440 }
     size: { w: 120, h: 40 }
   - id: m_gate
     label: "地下鉄 北改札"
     hatch: solid
+    floor: B2
     at: { x: 60, y: 670 }
     size: { w: 160, h: 40 }
   - id: m_home_n
     label: "北行ホーム（3 番）"
     hatch: lines
+    floor: B2
     at: { x: 260, y: 656 }
     size: { w: 300, h: 40 }
   - id: m_home_s
     label: "南行ホーム（4 番）"
     hatch: lines
+    floor: B2
     at: { x: 260, y: 714 }
     size: { w: 300, h: 40 }
   - id: m_gate2
     label: "地下鉄 南改札"
     marker: box
+    floor: B2
     at: { x: 610, y: 670 }
     size: { w: 160, h: 40 }
   - id: es_1
     label: "ES"
     marker: circle
     hatch: cross
+    floor: 1F
     at: { x: 150, y: 230 }
     size: { w: 44, h: 44 }
   - id: es_b1
     label: "ES"
     marker: circle
     hatch: cross
+    floor: B1
     at: { x: 150, y: 520 }
     size: { w: 44, h: 44 }
   - id: es_b2
     label: "ES"
     marker: circle
     hatch: cross
+    floor: B2
     at: { x: 150, y: 810 }
     size: { w: 44, h: 44 }
   - id: st_1
     label: "ST"
     marker: circle
     hatch: cross
+    floor: 1F
     at: { x: 330, y: 230 }
     size: { w: 44, h: 44 }
   - id: st_b1
     label: "ST"
     marker: circle
     hatch: cross
+    floor: B1
     at: { x: 330, y: 520 }
     size: { w: 44, h: 44 }
   - id: st_b2
     label: "ST"
     marker: circle
     hatch: cross
+    floor: B2
     at: { x: 330, y: 810 }
     size: { w: 44, h: 44 }
   - id: ev_1
     label: "EV"
     marker: circle
     hatch: cross
+    floor: 1F
     at: { x: 470, y: 230 }
     size: { w: 44, h: 44 }
   - id: ev_b1
     label: "EV"
     marker: circle
     hatch: cross
+    floor: B1
     at: { x: 470, y: 520 }
     size: { w: 44, h: 44 }
   - id: ev_b2
     label: "EV"
     marker: circle
     hatch: cross
+    floor: B2
     at: { x: 470, y: 810 }
     size: { w: 44, h: 44 }
   - id: vn
     label: "ES＝エスカレーター　ST＝階段　EV＝エレベーター（破線が階をまたぐ動線）"
     marker: none
-    at: { x: 60, y: 900 }
+    at: { x: 60, y: 910 }
     size: { w: 560, h: 26 }
   - id: route
     label: "太い矢印＝案内する経路（JR 中央改札 → ES → B1 中央通路 → ST → B2 南行ホーム）"
     marker: none
-    at: { x: 60, y: 930 }
+    at: { x: 60, y: 940 }
     size: { w: 620, h: 26 }
 edges:
   - from: es_1
     to: es_b1
+    vertical: escalator
     line: dashed
     ends: { from: none, to: none }
   - from: es_b1
     to: es_b2
+    vertical: escalator
     line: dashed
     ends: { from: none, to: none }
   - from: st_1
     to: st_b1
+    vertical: stair
     line: dashed
     ends: { from: none, to: none }
   - from: st_b1
     to: st_b2
+    vertical: stair
     line: dashed
     ends: { from: none, to: none }
   - from: ev_1
     to: ev_b1
+    vertical: elevator
     line: dashed
     ends: { from: none, to: none }
   - from: ev_b1
     to: ev_b2
+    vertical: elevator
     line: dashed
     ends: { from: none, to: none }
   - from: jr_gate

@@ -47,6 +47,7 @@ export interface Edge {
   via?: unknown;
   curve?: unknown;
   close?: unknown;
+  vertical?: unknown;
 }
 
 /** 折り返しでの改行を止める。人が書いた行の形を機械が変えないため。 */
@@ -94,6 +95,8 @@ export class Diagram {
       if (curve !== undefined && curve !== null) edge.curve = curve;
       const close = item.get('close');
       if (close !== undefined && close !== null) edge.close = close;
+      const vertical = item.get('vertical');
+      if (vertical !== undefined && vertical !== null) edge.vertical = vertical;
       return edge;
     });
   }

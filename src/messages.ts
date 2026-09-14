@@ -327,6 +327,7 @@ const ja = {
       '    marker: <box（既定）| circle | double | none>  # 配置図での印。丸は駅・経穴・計器',
       '    hatch: <none（既定）| solid | dots | lines | cross>  # 材料と区域の模様',
       '    write: <across（既定）| down>       # 縦組み。駅名を縦に積む（ラテン文字は寝る）',
+      '    floor: <floors の名前>               # どの階にあるか。位置は変えない',
       '    symbol: <SYMBOLS から>              # 電気・電子の図記号（IEC／JIS）',
       '    at:   { x: <左>, y: <上> }        # kind: placement でだけ効く',
       '    openings:                          # kind: placement でだけ効く（建具）',
@@ -351,6 +352,7 @@ const ja = {
       '    via: [{ x: <左>, y: <上> }, ...]              # 線の通り道。kind: placement でだけ効く',
       '    curve: <none（既定）| smooth>                 # 通り道を丸める（道路・河川・園路）',
       '    close: <true なら輪を閉じる>                  # 池・トラック・外形の輪郭',
+      '    vertical: <stair | escalator | elevator>      # 階をまたぐ動線（JIS Z 8210）',
     ].join('\n'),
     /** **守らせたいこと。** 実測では毎回 pins を書いてきたので、明示する。 */
     rules: [
@@ -467,6 +469,14 @@ const ja = {
       `エッジ ${name} に close がありますが、構成図では効きません（線の通り道は機械が決めます）。`,
     writeUnknown: (id: string, word: string) =>
       `ノード "${id}" の write が "${word}" になっています（across / down）。横組みで描きます。`,
+    floorUnknown: (id: string, name: string) =>
+      `ノード "${id}" の floor が "${name}" ですが、floors の一覧にありません。階の枠は描かれません。`,
+    floorsMissing: (id: string) =>
+      `ノード "${id}" に floor がありますが、floors の一覧がありません（floors に下から順に並べてください）。`,
+    verticalUnknown: (name: string, word: string) =>
+      `エッジ ${name} の vertical が "${word}" になっています（stair / escalator / elevator）。縦動線として扱いません。`,
+    verticalSameFloor: (name: string) =>
+      `エッジ ${name} に vertical がありますが、両端が同じ階です。階をまたがないものは縦動線ではありません。`,
     appearanceInNodes: (id: string) =>
       `ノード "${id}" に appearance がありますが、体裁は人が pins に書くものです（nodes では効きません）。`,
     writeIgnored: (id: string) =>
@@ -729,6 +739,7 @@ const en: Catalog = {
       '    marker: <box (default) | circle | double | none>  # how it is marked on a plan',
       '    hatch: <none (default) | solid | dots | lines | cross>  # material / zone pattern',
       '    write: <across (default) | down>     # vertical setting: stack the glyphs (Latin is laid on its side)',
+      '    floor: <a name from floors>          # which floor; does not move the box',
       '    symbol: <from SYMBOLS>               # electrical symbol (IEC / JIS)',
       '    at:   { x: <left>, y: <top> }       # only with kind: placement',
       '    openings:                            # only with kind: placement',
@@ -753,6 +764,7 @@ const en: Catalog = {
       '    via: [{ x: <left>, y: <top> }, ...]            # waypoints; only with kind: placement',
       '    curve: <none (default) | smooth>               # round the waypoints (roads, rivers, paths)',
       '    close: <true closes the loop>                  # pond, running track, outline',
+      '    vertical: <stair | escalator | elevator>       # level change (JIS Z 8210)',
     ].join('\n'),
     rules: [
       'Do not write pins. That section holds what a person decided by hand; anything you write there is dropped.',
@@ -854,6 +866,14 @@ const en: Catalog = {
       `Edge ${name} has close, but it has no effect on a structure diagram (the machine routes the line).`,
     writeUnknown: (id: string, word: string) =>
       `Node "${id}" has write "${word}" (across / down). It is set horizontally.`,
+    floorUnknown: (id: string, name: string) =>
+      `Node "${id}" has floor "${name}", which is not listed in floors. No floor band is drawn.`,
+    floorsMissing: (id: string) =>
+      `Node "${id}" has a floor, but there is no floors list (list them bottom to top).`,
+    verticalUnknown: (name: string, word: string) =>
+      `Edge ${name} has vertical "${word}" (stair / escalator / elevator). It is not treated as a level change.`,
+    verticalSameFloor: (name: string) =>
+      `Edge ${name} has vertical, but both ends are on the same floor. That is not a level change.`,
     appearanceInNodes: (id: string) =>
       `Node "${id}" has appearance, but appearance belongs to pins (it has no effect under nodes).`,
     writeIgnored: (id: string) =>

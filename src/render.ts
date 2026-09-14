@@ -132,6 +132,9 @@ export function render(
      */
     placed.title === null || placed.title === '' ? '' : `<title>${escapeText(placed.title)}</title>`,
     `<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="${palette.edge.stroke}"/></marker></defs>`,
+    // **階の枠は機械が描く**（`src/floor.ts`）。
+    // 人が手で枠を置くと、箱を足したときに枠が合わなくなる。
+    ...(plan ? floorBands(placed, palette) : []),
     ...placed.groups.map((group) => renderGroup(group, palette, plan, outerWall)),
     // **向きの無い線は、図そのもの。箱の下に敷く**（`src/arrows.ts`）。
     //
@@ -233,6 +236,37 @@ function paperFor(placed: Placed, plans: Map<string, Plan>): { w: number; h: num
     h = Math.max(h, (plan.above ? plan.y : plan.y + (rows - 1) * 12) + 12);
   }
   return { w, h };
+}
+
+/**
+ * **階の枠**（`floors` ／ `nodes[].floor`）。
+ *
+ * その階の箱をぜんぶ囲む矩形と、階名を描く。
+ * **箱は 1 px も動かさない** —— 枠は「どこからどこまでが何階か」を言うだけ。
+ * 人が書いた座標がそのまま出ることは、この製品の保証（判定基準 3.1）。
+ *
+ * 書いていない階（`floors` に無い名前）の枠は描かない。**知らせるのは検証器の仕事。**
+ */
+function floorBands(placed: Placed, palette: Palette): string[] {
+  if (placed.floors.length === 0) return [];
+  const pad = 14;
+  const out: string[] = [];
+  for (const name of placed.floors) {
+    const boxes = placed.boxes.filter((box) => box.floor === name);
+    if (boxes.length === 0) continue;
+    const x = Math.min(...boxes.map((b) => b.x)) - pad;
+    const y = Math.min(...boxes.map((b) => b.y)) - pad;
+    const w = Math.max(...boxes.map((b) => b.x + b.w)) + pad - x;
+    const h = Math.max(...boxes.map((b) => b.y + b.h)) + pad - y;
+    out.push(
+      `<g data-floor="${escapeAttr(name)}">` +
+        `<rect data-floor-rect="1" x="${n(x)}" y="${n(y)}" width="${n(w)}" height="${n(h)}" ` +
+        `fill="none" stroke="${palette.group.stroke}"/>` +
+        `<text x="${n(x)}" y="${n(y - 6)}" font-family="${FONT}" font-size="12" fill="${palette.text.group}">${escapeText(name)}</text>` +
+        `</g>`,
+    );
+  }
+  return out;
 }
 
 function frameOf(placed: Placed): Frame {

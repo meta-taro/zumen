@@ -30,6 +30,8 @@ import type { Marker } from './marker.ts';
 import { endsOf } from './ends.ts';
 import { lineOf } from './line.ts';
 import { curveOf, viaOf } from './curve.ts';
+import { floorsOf, verticalOf } from './floor.ts';
+import type { Vertical } from './floor.ts';
 import type { Curve, Point } from './curve.ts';
 import { colorOf, paletteOf as routePalette } from './palette.ts';
 import { weightOf } from './weight.ts';
@@ -90,6 +92,8 @@ export interface Box {
   hatch: Hatch;
   /** **縦組みにするか**（`src/write.ts`）。既定は横組み。 */
   write: Write;
+  /** **どの階にあるか**（`src/floor.ts`）。書かなければ null。**位置は変えない。** */
+  floor: string | null;
   /** **電気・電子の図記号**（`src/symbol.ts`）。無ければ null。 */
   symbol: Symbol | null;
   /** **路線の色**（`src/palette.ts`）。`palette` に無ければ null。 */
@@ -122,6 +126,8 @@ export interface PlacedEdge {
   curve: Curve;
   /** **輪を閉じるか**（`src/curve.ts`）。池・トラック・外形。 */
   close: boolean;
+  /** **階をまたぐ動線**（`src/floor.ts`）。階段・ES・EV。 */
+  vertical: Vertical;
   /** **路線の色**（`src/palette.ts`）。`palette` に無ければ null。 */
   color: string | null;
 }
@@ -141,6 +147,8 @@ export interface Placed {
   collisions: [string, string][];
   /** **図の題**（`title`）。書かなければ null。**描かないが、SVG の中に入れる。** */
   title: string | null;
+  /** **階の一覧**（`src/floor.ts`）。下から上へ。書かなければ空。 */
+  floors: string[];
   /** **通り芯**（`src/grid.ts`）。書かなければ空。配置図でだけ描く。 */
   grid: Grid;
   /** 1 px が何 mm か。**書かなければ寸法の数値を出さない。** */
@@ -261,6 +269,7 @@ export async function layout(text: string): Promise<Placed> {
     direction?: unknown;
     wrap?: unknown;
     title?: unknown;
+    floors?: unknown;
     grid?: unknown;
     palette?: unknown;
     scale?: unknown;
@@ -426,6 +435,7 @@ export async function layout(text: string): Promise<Placed> {
     edges,
     collisions: locked,
     title: asText(raw.title),
+    floors: floorsOf(raw.floors),
     grid,
     mm: scaleOf(raw.scale),
     north: northOf(raw.north),
@@ -577,6 +587,8 @@ interface NodeInfo {
   hatch: Hatch;
   /** 縦組みにするか（`src/write.ts`）。 */
   write: Write;
+  /** どの階にあるか（`src/floor.ts`）。 */
+  floor: string | null;
   /** 図記号（`src/symbol.ts`）。 */
   symbol: Symbol | null;
   /** 色の鍵（`src/palette.ts`）。 */
@@ -615,6 +627,7 @@ function readNodes(diagram: ReturnType<typeof parse>): NodeInfo[] {
       marker?: unknown;
       hatch?: unknown;
       write?: unknown;
+      floor?: unknown;
       symbol?: unknown;
       color?: unknown;
       at?: unknown;
@@ -635,6 +648,7 @@ function readNodes(diagram: ReturnType<typeof parse>): NodeInfo[] {
       marker: markerOf(node.marker),
       hatch: hatchOf(node.hatch),
       write: writeOf(node.write),
+      floor: asText(node.floor),
       symbol: symbolOf(node.symbol),
       color: node.color,
       at: asPoint(node.at),
@@ -665,6 +679,8 @@ interface EdgeInfo {
   curve: Curve;
   /** 輪を閉じるか（`src/curve.ts`）。 */
   close: boolean;
+  /** 階をまたぐ動線（`src/floor.ts`）。 */
+  vertical: Vertical;
 }
 
 /** グループの表示名。無ければ id を使う。 */
@@ -713,6 +729,7 @@ function readEdges(diagram: ReturnType<typeof parse>): EdgeInfo[] {
       via: viaOf(edge.via),
       curve: curveOf(edge.curve),
       close: edge.close === true,
+      vertical: verticalOf(edge.vertical),
     };
   });
 }
@@ -985,6 +1002,7 @@ function collect(
       marker: nodes.find((n) => n.id === child.id)?.marker ?? 'box',
       hatch: nodes.find((n) => n.id === child.id)?.hatch ?? 'none',
       write: nodes.find((n) => n.id === child.id)?.write ?? 'across',
+      floor: nodes.find((n) => n.id === child.id)?.floor ?? null,
       symbol: nodes.find((n) => n.id === child.id)?.symbol ?? null,
       color: null,
       openings: nodes.find((n) => n.id === child.id)?.openings ?? [],

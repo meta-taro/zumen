@@ -43,6 +43,7 @@ import { WEIGHTS } from './weight.ts';
 import { HATCHES } from './hatch.ts';
 import { WRITES } from './write.ts';
 import { CURVES } from './curve.ts';
+import { VERTICALS } from './floor.ts';
 import { MARKERS } from './marker.ts';
 import { crowdedNames, extentOf, planNames } from './names.ts';
 import { OPENINGS, SIDES } from './openings.ts';
@@ -111,6 +112,8 @@ export function spec(): {
   writes: string[];
   /** 辺の丸め方（`src/curve.ts`）。**形の名前だけ。意味の語は無い。** */
   curves: string[];
+  /** 階をまたぐ動線（`src/floor.ts`）。**JIS Z 8210 の語。** */
+  verticals: string[];
   /** 辺の端の記号（`src/ends.ts`）。**形の名前だけ。意味の語は無い。** */
   ends: string[];
   /** 辺の線種（`src/line.ts`）。 */
@@ -152,6 +155,7 @@ export function spec(): {
     hatches: [...HATCHES],
     writes: [...WRITES],
     curves: [...CURVES],
+    verticals: [...VERTICALS],
     ends: [...ENDS],
     lines: [...LINES],
     symbols: [...SYMBOLS],
@@ -225,6 +229,8 @@ export interface Inspection {
    * 代わりにここへ返す。**箱を大きくするか、文字を短くすれば直る。**
    */
   crowdedNames: string[];
+  /** **階の一覧**（`src/floor.ts`）。下から上へ。書かなければ空。 */
+  floors: string[];
   /**
    * **人がこの図を見たか。**
    *
@@ -286,6 +292,7 @@ export async function inspect(source: string): Promise<Inspection> {
       tooTangled: false,
       hiddenLabels: [],
       crowdedNames: [],
+      floors: [],
       kind: 'structure',
       positionsInSource: false,
       reviewed: false,
@@ -325,6 +332,7 @@ export async function inspect(source: string): Promise<Inspection> {
     hiddenLabels: placed.edges.filter((e) => e.label !== null && !shown.has(e.id)).map((e) => e.id),
     crowdedNames:
       kindOf(source) === 'placement' ? crowdedNames(planNames(placed.boxes, extentOf(placed.boxes), placed.edges)) : [],
+    floors: placed.floors,
     ...(() => {
       const seen = reviewOf(source);
       return { reviewed: seen.reviewed, reviewedAt: seen.at, reviewStale: seen.stale };

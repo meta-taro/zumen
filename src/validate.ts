@@ -21,6 +21,7 @@ import { MARKS, NORTHS } from './grid.ts';
 import { ENDS } from './ends.ts';
 import { LINES } from './line.ts';
 import { CURVES, viaOf } from './curve.ts';
+import { VERTICALS, floorsOf } from './floor.ts';
 import { faintOn, paletteOf as routePalette } from './palette.ts';
 import { WEIGHTS } from './weight.ts';
 import { HATCHES } from './hatch.ts';
@@ -66,6 +67,7 @@ const SYMBOL_WORDS = new Set<string>(SYMBOLS);
 const END_WORDS = new Set<string>(ENDS);
 const LINE_WORDS = new Set<string>(LINES);
 const CURVE_WORDS = new Set<string>(CURVES);
+const VERTICAL_WORDS = new Set<string>(VERTICALS);
 const WEIGHT_WORDS = new Set<string>(WEIGHTS);
 
 /** `pins` の中で、位置や体裁ではなく人の決定を表す鍵。迷子の判定には関係しない。 */
@@ -345,6 +347,21 @@ function checkGeometry(doc: Document, add: Add, m: Messages, at: At): void {
      * 定めている語**なので「ここでは効かない」と言える。
      * 言わないと、書いた人は効いていると思ったままになる（見本 6 枚が実際そうだった）。
      */
+    /**
+     * **階**（`src/floor.ts`）。名前は正本が `floors` で決める。
+     * 一覧に無い階は枠が描かれないので、**黙って落とさずに言う。**
+     */
+    const floor = item.get('floor');
+    if (floor !== undefined && floor !== null) {
+      const raw = doc.get('floors', true);
+      const known = floorsOf(isSeq(raw) ? raw.toJSON() : undefined);
+      if (known.length === 0) {
+        add('warning', 'floors-missing', m.floorsMissing(id), at(item.get('floor', true)));
+      } else if (!known.includes(String(floor))) {
+        add('warning', 'floor-unknown', m.floorUnknown(id, String(floor)), at(item.get('floor', true)));
+      }
+    }
+
     const appearance = item.get('appearance');
     if (appearance !== undefined && appearance !== null) {
       add('warning', 'appearance-in-nodes', m.appearanceInNodes(id), at(item.get('appearance', true)));
@@ -498,6 +515,16 @@ function checkColors(doc: Document, add: Add, m: Messages, at: At): void {
   }
 }
 
+/** そのノードが何階にあるか。無ければ null。 */
+function floorOfNode(doc: Document, id: string): string | null {
+  for (const item of seqOf(doc, 'nodes')) {
+    if (String(item.get('id')) !== id) continue;
+    const floor = item.get('floor');
+    return floor === undefined || floor === null ? null : String(floor);
+  }
+  return null;
+}
+
 function checkEnds(doc: Document, add: Add, m: Messages, at: At): void {
   const placement = String(doc.get('kind') ?? '') === 'placement';
   for (const item of seqOf(doc, 'edges')) {
@@ -508,6 +535,16 @@ function checkEnds(doc: Document, add: Add, m: Messages, at: At): void {
     if (curve !== undefined && curve !== null && !CURVE_WORDS.has(String(curve))) {
       add('warning', 'curve-unknown', m.curveUnknown(name, String(curve)), at(item.get('curve', true)));
     }
+    /** **階をまたぐ動線**（`src/floor.ts`）。またがないものは縦動線ではない。 */
+    const vertical = item.get('vertical');
+    if (vertical !== undefined && vertical !== null) {
+      if (!VERTICAL_WORDS.has(String(vertical))) {
+        add('warning', 'vertical-unknown', m.verticalUnknown(name, String(vertical)), at(item.get('vertical', true)));
+      } else if (floorOfNode(doc, String(item.get('from'))) === floorOfNode(doc, String(item.get('to')))) {
+        add('warning', 'vertical-same-floor', m.verticalSameFloor(name), at(item.get('vertical', true)));
+      }
+    }
+
     const close = item.get('close');
     if (close !== undefined && close !== null) {
       if (typeof close !== 'boolean') {
