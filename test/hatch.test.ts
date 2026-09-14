@@ -257,3 +257,42 @@ nodes:
     assert.ok(!/<text [^>]*fill="#ffffff"[^>]*>fixed</.test(out), '塗っていないのに反転した');
   });
 });
+
+/**
+ * **外へ出した名前は、反転しない。**
+ *
+ * 配線略図の信号機で出た（2026-09-14）。`marker: circle` ＋ `hatch: solid` の丸に
+ * 長い名前を付けると、名前は**丸の外**へ出る。ところが塗り潰し用の反転が
+ * その名前にも効いて、**白い紙に白い字**で描かれていた。
+ *
+ * 反転してよいのは**塗った面の上に載る文字だけ。**
+ */
+describe('外へ出した名前は反転しない', () => {
+  const DOT = `version: 1
+kind: placement
+nodes:
+  - id: sig
+    label: 場内 下 1L
+    marker: circle
+    hatch: solid
+    at: { x: 100, y: 100 }
+    size: { w: 26, h: 26 }
+  - id: far
+    label: 離れた箱
+    at: { x: 400, y: 400 }
+    size: { w: 80, h: 26 }
+`;
+
+  it('**丸の外の名前は、地の色で描かない**', async () => {
+    const out = render(await layout(DOT), 'light', 'safe', true);
+    assert.ok(
+      !/<text [^>]*fill="#ffffff"[^>]*>場内 下 1L</.test(out),
+      '白い紙に白い字で書いた',
+    );
+  });
+
+  it('中に入る文字は、これまでどおり反転する', async () => {
+    const out = render(await layout(DOT.replace('label: 場内 下 1L', 'label: "1"')), 'light', 'safe', true);
+    assert.match(out, /<text [^>]*fill="#ffffff"[^>]*>1</, '塗りの上の文字が反転していない');
+  });
+});

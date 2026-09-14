@@ -372,8 +372,12 @@ function renderNode(
   // **塗り潰した面の上では、文字を地の色にする。**
   // 黒く塗ったアスコンの上に黒い文字を書くと読めない
   // （`DESIGN.md` §8 と同じ考え —— 地から遠いインクを選ぶ）。
+  // **反転してよいのは、塗った面の上に載る文字だけ。**
+  // 外へ出した名前は白い紙の上なので、反転すると**白い紙に白い字**になる
+  // （2026-09-14。配線略図の信号機で踏んだ）。
+  const outside = name !== null && name.kind === 'outside';
   const ink =
-    plan && box.hatch === 'solid' ? { ...style, text: palette.paper } : style;
+    plan && box.hatch === 'solid' && !outside ? { ...style, text: palette.paper } : style;
 
   /**
    * **模様の上の文字は、下地を抜く。**
