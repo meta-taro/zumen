@@ -1,0 +1,554 @@
+version: 1
+kind: placement
+arrows: false
+title: コンテナ船 積付図（Bay 34・40ft・船尾から船首を見た断面）
+# **線が 1 本も無い図。** セルの位置そのものが、コンテナの住所になっている。
+#
+# ## 住所は 6 桁（ISO 9711-1）
+#
+# `34` `03` `84` ＝ Bay 34 ／ Row 03 ／ Tier 84。
+#
+# - **Bay** … 船首から船尾へ。**40ft は偶数、20ft は奇数**（34 番の両隣が 33・35）
+# - **Row** … 船の中心から外へ。**中心が 00、左舷が偶数、右舷が奇数**
+# - **Tier** … 船倉は 02 から上へ 2 ずつ。**甲板上は 82 から**
+#
+# ## 向き
+#
+# 積付図は**船尾から船首を見る。** 船首を向いているので、
+# **左が左舷（偶数）、右が右舷（奇数）**になる。
+#
+# ## 色は揚地（POD）
+#
+# 色が記法そのもの（D24）。**同じ港のものが縦に固まっていないと、
+# 揚げるときに上のコンテナをどける手間が出る。**
+# 色だけに頼らせないため、セルの符号にも港のコードを入れてある。
+palette:
+  SIN: "#1f8ad0"
+  HKG: "#c2761f"
+  UKB: "#4f9d3a"
+nodes:
+  - id: rh
+    label: "Row"
+    marker: none
+    at: { x: 60, y: 58 }
+    size: { w: 64, h: 24 }
+  - id: r_06
+    label: "06"
+    hatch: solid
+    at: { x: 130, y: 58 }
+    size: { w: 64, h: 24 }
+  - id: r_04
+    label: "04"
+    hatch: solid
+    at: { x: 196, y: 58 }
+    size: { w: 64, h: 24 }
+  - id: r_02
+    label: "02"
+    hatch: solid
+    at: { x: 262, y: 58 }
+    size: { w: 64, h: 24 }
+  - id: r_00
+    label: "00"
+    hatch: solid
+    at: { x: 328, y: 58 }
+    size: { w: 64, h: 24 }
+  - id: r_01
+    label: "01"
+    hatch: solid
+    at: { x: 394, y: 58 }
+    size: { w: 64, h: 24 }
+  - id: r_03
+    label: "03"
+    hatch: solid
+    at: { x: 460, y: 58 }
+    size: { w: 64, h: 24 }
+  - id: r_05
+    label: "05"
+    hatch: solid
+    at: { x: 526, y: 58 }
+    size: { w: 64, h: 24 }
+  - id: side_p
+    label: "← 左舷（Port）"
+    marker: none
+    at: { x: 124, y: 30 }
+    size: { w: 180, h: 22 }
+  - id: side_s
+    label: "右舷（Starboard）→"
+    marker: none
+    at: { x: 348, y: 30 }
+    size: { w: 200, h: 22 }
+  - id: t_86
+    label: "86"
+    hatch: solid
+    at: { x: 60, y: 96 }
+    size: { w: 64, h: 36 }
+  - id: c86_0
+    label: "空"
+    hatch: none
+    at: { x: 130, y: 96 }
+    size: { w: 64, h: 36 }
+  - id: c86_1
+    label: "SIN 8.2"
+    color: SIN
+    at: { x: 196, y: 96 }
+    size: { w: 64, h: 36 }
+  - id: c86_2
+    label: "SIN 9.6"
+    color: SIN
+    at: { x: 262, y: 96 }
+    size: { w: 64, h: 36 }
+  - id: c86_3
+    label: "SIN 7.4"
+    color: SIN
+    at: { x: 328, y: 96 }
+    size: { w: 64, h: 36 }
+  - id: c86_4
+    label: "SIN 8.8"
+    color: SIN
+    at: { x: 394, y: 96 }
+    size: { w: 64, h: 36 }
+  - id: c86_5
+    label: "SIN 9.1"
+    color: SIN
+    at: { x: 460, y: 96 }
+    size: { w: 64, h: 36 }
+  - id: c86_6
+    label: "空"
+    hatch: none
+    at: { x: 526, y: 96 }
+    size: { w: 64, h: 36 }
+  - id: t_84
+    label: "84"
+    hatch: solid
+    at: { x: 60, y: 134 }
+    size: { w: 64, h: 36 }
+  - id: c84_0
+    label: "HKG 14.2"
+    color: HKG
+    at: { x: 130, y: 134 }
+    size: { w: 64, h: 36 }
+  - id: c84_1
+    label: "SIN 18.4"
+    color: SIN
+    tag: R
+    at: { x: 196, y: 134 }
+    size: { w: 64, h: 36 }
+  - id: c84_2
+    label: "SIN 19.0"
+    color: SIN
+    tag: R
+    at: { x: 262, y: 134 }
+    size: { w: 64, h: 36 }
+  - id: c84_3
+    label: "SIN 17.6"
+    color: SIN
+    tag: R
+    at: { x: 328, y: 134 }
+    size: { w: 64, h: 36 }
+  - id: c84_4
+    label: "SIN 18.2"
+    color: SIN
+    tag: R
+    at: { x: 394, y: 134 }
+    size: { w: 64, h: 36 }
+  - id: c84_5
+    label: "HKG 15.8"
+    color: HKG
+    at: { x: 460, y: 134 }
+    size: { w: 64, h: 36 }
+  - id: c84_6
+    label: "HKG 13.4"
+    color: HKG
+    at: { x: 526, y: 134 }
+    size: { w: 64, h: 36 }
+  - id: t_82
+    label: "82"
+    hatch: solid
+    at: { x: 60, y: 172 }
+    size: { w: 64, h: 36 }
+  - id: c82_0
+    label: "HKG 21.6"
+    color: HKG
+    at: { x: 130, y: 172 }
+    size: { w: 64, h: 36 }
+  - id: c82_1
+    label: "HKG 22.8"
+    color: HKG
+    at: { x: 196, y: 172 }
+    size: { w: 64, h: 36 }
+  - id: c82_2
+    label: "HKG 24.1"
+    color: HKG
+    at: { x: 262, y: 172 }
+    size: { w: 64, h: 36 }
+  - id: c82_3
+    label: "HKG 23.5"
+    color: HKG
+    at: { x: 328, y: 172 }
+    size: { w: 64, h: 36 }
+  - id: c82_4
+    label: "HKG 22.0"
+    color: HKG
+    at: { x: 394, y: 172 }
+    size: { w: 64, h: 36 }
+  - id: c82_5
+    label: "HKG 21.2"
+    color: HKG
+    at: { x: 460, y: 172 }
+    size: { w: 64, h: 36 }
+  - id: c82_6
+    label: "HKG 20.4"
+    color: HKG
+    at: { x: 526, y: 172 }
+    size: { w: 64, h: 36 }
+  - id: hatch
+    label: "ハッチカバー（ここから下が船倉）"
+    hatch: lines
+    at: { x: 60, y: 212 }
+    size: { w: 524, h: 26 }
+  - id: t_10
+    label: "10"
+    hatch: solid
+    at: { x: 60, y: 246 }
+    size: { w: 64, h: 36 }
+  - id: c10_0
+    label: "空"
+    hatch: none
+    at: { x: 130, y: 246 }
+    size: { w: 64, h: 36 }
+  - id: c10_1
+    label: "UKB 12.6"
+    color: UKB
+    at: { x: 196, y: 246 }
+    size: { w: 64, h: 36 }
+  - id: c10_2
+    label: "UKB 13.8"
+    color: UKB
+    at: { x: 262, y: 246 }
+    size: { w: 64, h: 36 }
+  - id: c10_3
+    label: "UKB 11.9"
+    color: UKB
+    at: { x: 328, y: 246 }
+    size: { w: 64, h: 36 }
+  - id: c10_4
+    label: "UKB 12.2"
+    color: UKB
+    at: { x: 394, y: 246 }
+    size: { w: 64, h: 36 }
+  - id: c10_5
+    label: "UKB 13.1"
+    color: UKB
+    at: { x: 460, y: 246 }
+    size: { w: 64, h: 36 }
+  - id: c10_6
+    label: "空"
+    hatch: none
+    at: { x: 526, y: 246 }
+    size: { w: 64, h: 36 }
+  - id: t_08
+    label: "08"
+    hatch: solid
+    at: { x: 60, y: 284 }
+    size: { w: 64, h: 36 }
+  - id: c08_0
+    label: "UKB 17.4"
+    color: UKB
+    at: { x: 130, y: 284 }
+    size: { w: 64, h: 36 }
+  - id: c08_1
+    label: "UKB 18.9"
+    color: UKB
+    at: { x: 196, y: 284 }
+    size: { w: 64, h: 36 }
+  - id: c08_2
+    label: "UKB 19.6"
+    color: UKB
+    at: { x: 262, y: 284 }
+    size: { w: 64, h: 36 }
+  - id: c08_3
+    label: "UKB 18.1"
+    color: UKB
+    at: { x: 328, y: 284 }
+    size: { w: 64, h: 36 }
+  - id: c08_4
+    label: "UKB 17.8"
+    color: UKB
+    at: { x: 394, y: 284 }
+    size: { w: 64, h: 36 }
+  - id: c08_5
+    label: "UKB 18.5"
+    color: UKB
+    at: { x: 460, y: 284 }
+    size: { w: 64, h: 36 }
+  - id: c08_6
+    label: "UKB 16.9"
+    color: UKB
+    at: { x: 526, y: 284 }
+    size: { w: 64, h: 36 }
+  - id: t_06
+    label: "06"
+    hatch: solid
+    at: { x: 60, y: 322 }
+    size: { w: 64, h: 36 }
+  - id: c06_0
+    label: "UKB 22.3"
+    color: UKB
+    at: { x: 130, y: 322 }
+    size: { w: 64, h: 36 }
+  - id: c06_1
+    label: "UKB 23.7"
+    color: UKB
+    at: { x: 196, y: 322 }
+    size: { w: 64, h: 36 }
+  - id: c06_2
+    label: "SIN 21.4"
+    color: SIN
+    tag: 3
+    at: { x: 262, y: 322 }
+    size: { w: 64, h: 36 }
+  - id: c06_3
+    label: "SIN 22.6"
+    color: SIN
+    tag: 3
+    at: { x: 328, y: 322 }
+    size: { w: 64, h: 36 }
+  - id: c06_4
+    label: "UKB 23.0"
+    color: UKB
+    at: { x: 394, y: 322 }
+    size: { w: 64, h: 36 }
+  - id: c06_5
+    label: "UKB 22.1"
+    color: UKB
+    at: { x: 460, y: 322 }
+    size: { w: 64, h: 36 }
+  - id: c06_6
+    label: "UKB 21.6"
+    color: UKB
+    at: { x: 526, y: 322 }
+    size: { w: 64, h: 36 }
+  - id: t_04
+    label: "04"
+    hatch: solid
+    at: { x: 60, y: 360 }
+    size: { w: 64, h: 36 }
+  - id: c04_0
+    label: "SIN 26.4"
+    color: SIN
+    at: { x: 130, y: 360 }
+    size: { w: 64, h: 36 }
+  - id: c04_1
+    label: "SIN 27.8"
+    color: SIN
+    at: { x: 196, y: 360 }
+    size: { w: 64, h: 36 }
+  - id: c04_2
+    label: "SIN 28.6"
+    color: SIN
+    at: { x: 262, y: 360 }
+    size: { w: 64, h: 36 }
+  - id: c04_3
+    label: "SIN 27.2"
+    color: SIN
+    at: { x: 328, y: 360 }
+    size: { w: 64, h: 36 }
+  - id: c04_4
+    label: "SIN 26.9"
+    color: SIN
+    at: { x: 394, y: 360 }
+    size: { w: 64, h: 36 }
+  - id: c04_5
+    label: "SIN 27.5"
+    color: SIN
+    at: { x: 460, y: 360 }
+    size: { w: 64, h: 36 }
+  - id: c04_6
+    label: "SIN 25.8"
+    color: SIN
+    at: { x: 526, y: 360 }
+    size: { w: 64, h: 36 }
+  - id: t_02
+    label: "02"
+    hatch: solid
+    at: { x: 60, y: 398 }
+    size: { w: 64, h: 36 }
+  - id: c02_0
+    label: "SIN 29.6"
+    color: SIN
+    at: { x: 130, y: 398 }
+    size: { w: 64, h: 36 }
+  - id: c02_1
+    label: "SIN 30.4"
+    color: SIN
+    at: { x: 196, y: 398 }
+    size: { w: 64, h: 36 }
+  - id: c02_2
+    label: "SIN 31.2"
+    color: SIN
+    at: { x: 262, y: 398 }
+    size: { w: 64, h: 36 }
+  - id: c02_3
+    label: "SIN 30.8"
+    color: SIN
+    at: { x: 328, y: 398 }
+    size: { w: 64, h: 36 }
+  - id: c02_4
+    label: "SIN 29.9"
+    color: SIN
+    at: { x: 394, y: 398 }
+    size: { w: 64, h: 36 }
+  - id: c02_5
+    label: "SIN 30.1"
+    color: SIN
+    at: { x: 460, y: 398 }
+    size: { w: 64, h: 36 }
+  - id: c02_6
+    label: "SIN 28.7"
+    color: SIN
+    at: { x: 526, y: 398 }
+    size: { w: 64, h: 36 }
+  - id: lg_t
+    label: "読み方"
+    marker: none
+    at: { x: 622, y: 58 }
+    size: { w: 300, h: 24 }
+  - id: a0
+    label: "34"
+    hatch: solid
+    at: { x: 622, y: 96 }
+    size: { w: 50, h: 26 }
+  - id: b0
+    label: "Bay"
+    at: { x: 672, y: 96 }
+    size: { w: 70, h: 26 }
+  - id: c0
+    label: "船首から船尾へ。40ft は偶数、20ft は奇数"
+    at: { x: 742, y: 96 }
+    size: { w: 330, h: 26 }
+  - id: a1
+    label: "03"
+    hatch: solid
+    at: { x: 622, y: 124 }
+    size: { w: 50, h: 26 }
+  - id: b1
+    label: "Row"
+    at: { x: 672, y: 124 }
+    size: { w: 70, h: 26 }
+  - id: c1
+    label: "中心が 00。左舷が偶数、右舷が奇数"
+    at: { x: 742, y: 124 }
+    size: { w: 330, h: 26 }
+  - id: a2
+    label: "84"
+    hatch: solid
+    at: { x: 622, y: 152 }
+    size: { w: 50, h: 26 }
+  - id: b2
+    label: "Tier"
+    at: { x: 672, y: 152 }
+    size: { w: 70, h: 26 }
+  - id: c2
+    label: "船倉は 02 から。甲板上は 82 から"
+    at: { x: 742, y: 152 }
+    size: { w: 330, h: 26 }
+  - id: addr
+    label: "この 3 つを並べて 340384。1 本の船で 1 つに決まる。"
+    marker: none
+    at: { x: 622, y: 184 }
+    size: { w: 460, h: 24 }
+  - id: lg2
+    label: "セルの中身"
+    marker: none
+    at: { x: 622, y: 220 }
+    size: { w: 300, h: 24 }
+  - id: lc0
+    label: "SIN"
+    color: SIN
+    at: { x: 622, y: 248 }
+    size: { w: 70, h: 26 }
+  - id: ld0
+    label: "シンガポール揚げ"
+    marker: none
+    at: { x: 692, y: 248 }
+    size: { w: 200, h: 26 }
+  - id: lc1
+    label: "HKG"
+    color: HKG
+    at: { x: 622, y: 276 }
+    size: { w: 70, h: 26 }
+  - id: ld1
+    label: "香港揚げ"
+    marker: none
+    at: { x: 692, y: 276 }
+    size: { w: 200, h: 26 }
+  - id: lc2
+    label: "UKB"
+    color: UKB
+    at: { x: 622, y: 304 }
+    size: { w: 70, h: 26 }
+  - id: ld2
+    label: "神戸揚げ"
+    marker: none
+    at: { x: 692, y: 304 }
+    size: { w: 200, h: 26 }
+  - id: mk0
+    label: "R"
+    hatch: solid
+    at: { x: 622, y: 332 }
+    size: { w: 50, h: 26 }
+  - id: md0
+    label: "リーファー（電源の要るもの）。甲板上に置く"
+    marker: none
+    at: { x: 672, y: 332 }
+    size: { w: 400, h: 26 }
+  - id: mk1
+    label: "3"
+    hatch: solid
+    at: { x: 622, y: 360 }
+    size: { w: 50, h: 26 }
+  - id: md1
+    label: "IMDG Class 3（引火性液体）。隔離の決まりがある"
+    marker: none
+    at: { x: 672, y: 360 }
+    size: { w: 400, h: 26 }
+  - id: mk2
+    label: "空"
+    hatch: none
+    at: { x: 622, y: 388 }
+    size: { w: 50, h: 26 }
+  - id: md2
+    label: "空きスロット"
+    marker: none
+    at: { x: 672, y: 388 }
+    size: { w: 400, h: 26 }
+  - id: num
+    label: "数字は総重量（t）。"
+    marker: none
+    at: { x: 622, y: 418 }
+    size: { w: 300, h: 24 }
+  - id: rule_t
+    label: "この積み方を決めている条件"
+    marker: none
+    at: { x: 622, y: 456 }
+    size: { w: 300, h: 24 }
+  - id: rl0
+    label: "・重いものを下に置く（上が重いと復原性が落ちる）"
+    marker: none
+    at: { x: 622, y: 484 }
+    size: { w: 520, h: 24 }
+  - id: rl1
+    label: "・先に揚げる港のものを上に置く。下に入れると、上を全部どけることになる"
+    marker: none
+    at: { x: 622, y: 510 }
+    size: { w: 520, h: 24 }
+  - id: rl2
+    label: "・リーファーは電源のある甲板上。船倉に置くと電源が届かない"
+    marker: none
+    at: { x: 622, y: 536 }
+    size: { w: 520, h: 24 }
+  - id: rl3
+    label: "・危険物は居住区・機関室から離す。同じ Class でも混載できない組がある"
+    marker: none
+    at: { x: 622, y: 562 }
+    size: { w: 520, h: 24 }
