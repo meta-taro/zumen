@@ -103,3 +103,36 @@ describe('範囲を描く', () => {
     assert.match(out, /<circle [^>]*r="400"/);
   });
 });
+
+/**
+ * **範囲の円も、画用紙の中に入れる。**
+ *
+ * 2026-09-15。見本 30（総合仮設計画図）の紹介文は
+ * 「**クレーンの作業半径つき**」なのに、**その円が画用紙の左と上で切れていた。**
+ * 四隅を測っていたのは箱だけで、`radius` の円は入っていなかった。
+ *
+ * 辺の通り道と同じ穴（`test/curve.test.ts`）。
+ * **描いてあるのに画用紙の外にある**ものが、まだ 2 種類あった。
+ */
+describe('画用紙は、範囲の円も入れて測る', () => {
+  const CRANE = `version: 1
+kind: placement
+nodes:
+  - id: crane
+    label: クレーン
+    radius: 250
+    at: { x: 300, y: 300 }
+    size: { w: 100, h: 60 }
+`;
+
+  it('**円が画用紙から外へ落ちない**', async () => {
+    const placed = await layout(CRANE);
+    const box = placed.boxes.find((b) => b.id === 'crane')!;
+    const cx = box.x + box.w / 2;
+    const cy = box.y + box.h / 2;
+    assert.ok(cx - 250 >= 0, `円の左が外にある（${cx - 250}）`);
+    assert.ok(cy - 250 >= 0, `円の上が外にある（${cy - 250}）`);
+    assert.ok(cx + 250 <= placed.width, `円の右が外にある（${cx + 250} > ${placed.width}）`);
+    assert.ok(cy + 250 <= placed.height, `円の下が外にある（${cy + 250} > ${placed.height}）`);
+  });
+});

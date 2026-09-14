@@ -1181,11 +1181,25 @@ function bounds(
   // 箱しか測っていなかったので、**囲む箱を置き忘れると絵が切れて消えていた**
   // （2026-09-15。テーピングの図で足の輪郭を描こうとして踏んだ）。
   const points = edges.flatMap((edge) => edge.points);
+  // **範囲の円も四隅に入れる**（`src/range.ts`）。
+  // 見本 30 の紹介文は「クレーンの作業半径つき」なのに、
+  // **その円が画用紙の左と上で切れていた**（2026-09-15）。
+  const rings = all
+    .filter((b) => b.radius !== null)
+    .map((b) => ({ cx: b.x + b.w / 2, cy: b.y + b.h / 2, r: b.radius! }));
   if (all.length === 0 && points.length === 0) return { minX: 0, minY: 0, maxX: 0, maxY: 0 };
-  const xs = [...all.map((b) => b.x), ...points.map((p) => p.x)];
-  const ys = [...all.map((b) => b.y), ...points.map((p) => p.y)];
-  const rights = [...all.map((b) => b.x + b.w), ...points.map((p) => p.x)];
-  const bottoms = [...all.map((b) => b.y + b.h), ...points.map((p) => p.y)];
+  const xs = [...all.map((b) => b.x), ...points.map((p) => p.x), ...rings.map((c) => c.cx - c.r)];
+  const ys = [...all.map((b) => b.y), ...points.map((p) => p.y), ...rings.map((c) => c.cy - c.r)];
+  const rights = [
+    ...all.map((b) => b.x + b.w),
+    ...points.map((p) => p.x),
+    ...rings.map((c) => c.cx + c.r),
+  ];
+  const bottoms = [
+    ...all.map((b) => b.y + b.h),
+    ...points.map((p) => p.y),
+    ...rings.map((c) => c.cy + c.r),
+  ];
   return {
     minX: Math.min(...xs),
     minY: Math.min(...ys),
