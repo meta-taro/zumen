@@ -1,0 +1,333 @@
+version: 1
+kind: placement
+arrows: false
+north: up
+scale: { mm: 300 }
+title: ドローン飛行計画図（太陽光発電所の点検・カテゴリー II）
+# 1 px = 300 mm。**飛ばす範囲と、人を入れない範囲の図。**
+#
+# ## 区分の分かれ目は「立入管理措置」
+#
+# 航空法のカテゴリー I / II / III は、機体の性能ではなく
+# **人が入らないようにできているか**で分かれる。
+# ロープ・看板・入口の補助者 —— それがあるからカテゴリー II で飛べる。
+#
+# ## 30m は第三者からの距離
+#
+# **第三者と、第三者の物件**から 30m。関係者は第三者ではない。
+# この図では公道側に 30m の帯を取って、そこへは入れない。
+#
+# ## 降ろす場所を 2 つ持つ
+#
+# 離発着点と**緊急着陸地点**は別に取る。帰れなくなったときに降ろす場所がいる。
+#
+# 場所は架空。**法令は改正されるので、飛ばす前に必ず最新を確認すること。**
+nodes:
+  - id: site
+    label: ""
+    marker: box
+    at: { x: 60, y: 150 }
+    size: { w: 500, h: 400 }
+  - id: site_n
+    label: "太陽光発電所（150 × 120m）"
+    marker: none
+    at: { x: 66, y: 156 }
+    size: { w: 240, h: 22 }
+  - id: buffer_n
+    label: "第三者から 30m（飛ばさない）"
+    marker: none
+    at: { x: 96, y: 222 }
+    size: { w: 252, h: 24 }
+  - id: road
+    label: "公道（第三者が通る）"
+    hatch: dots
+    at: { x: 60, y: 120 }
+    size: { w: 500, h: 28 }
+  - id: buffer
+    label: ""
+    hatch: cross
+    at: { x: 60, y: 150 }
+    size: { w: 500, h: 100 }
+  - id: area
+    label: ""
+    marker: box
+    hatch: none
+    at: { x: 93, y: 263 }
+    size: { w: 434, h: 260 }
+  - id: area_n
+    label: "飛行範囲（最高 60m）"
+    marker: none
+    at: { x: 99, y: 269 }
+    size: { w: 220, h: 22 }
+  - id: pv0
+    label: ""
+    hatch: lines
+    at: { x: 120, y: 301 }
+    size: { w: 80, h: 32 }
+  - id: pv1
+    label: ""
+    hatch: lines
+    at: { x: 253, y: 301 }
+    size: { w: 80, h: 32 }
+  - id: pv2
+    label: ""
+    hatch: lines
+    at: { x: 387, y: 301 }
+    size: { w: 80, h: 32 }
+  - id: pv3
+    label: ""
+    hatch: lines
+    at: { x: 120, y: 401 }
+    size: { w: 80, h: 32 }
+  - id: pv4
+    label: ""
+    hatch: lines
+    at: { x: 253, y: 401 }
+    size: { w: 80, h: 32 }
+  - id: pv5
+    label: ""
+    hatch: lines
+    at: { x: 387, y: 401 }
+    size: { w: 80, h: 32 }
+  - id: pv_n
+    label: "点検対象のアレイ（6 区画）"
+    marker: none
+    at: { x: 127, y: 470 }
+    size: { w: 240, h: 24 }
+  - id: home
+    label: "離発着点"
+    hatch: solid
+    at: { x: 70, y: 560 }
+    size: { w: 90, h: 36 }
+  - id: hojo1
+    label: "補助者 A（機付き）"
+    at: { x: 166, y: 563 }
+    size: { w: 130, h: 30 }
+  - id: hojo2
+    label: "補助者 B（見張り）"
+    at: { x: 380, y: 196 }
+    size: { w: 150, h: 30 }
+  - id: kinkyu
+    label: "緊急着陸地点"
+    hatch: dots
+    at: { x: 420, y: 560 }
+    size: { w: 130, h: 36 }
+  - id: kanri
+    label: "立入管理（ロープ・看板・入口に人）"
+    marker: none
+    at: { x: 93, y: 606 }
+    size: { w: 320, h: 24 }
+  - id: tb_t
+    label: "飛行計画（航空法・カテゴリー II）"
+    marker: none
+    at: { x: 640, y: 60 }
+    size: { w: 420, h: 24 }
+  - id: th0
+    label: "項目"
+    hatch: solid
+    at: { x: 640, y: 92 }
+    size: { w: 150, h: 26 }
+  - id: th1
+    label: "この飛行"
+    hatch: solid
+    at: { x: 790, y: 92 }
+    size: { w: 220, h: 26 }
+  - id: th2
+    label: "区分・根拠"
+    hatch: solid
+    at: { x: 1010, y: 92 }
+    size: { w: 260, h: 26 }
+  - id: tc0_0
+    label: "最高高度"
+    at: { x: 640, y: 118 }
+    size: { w: 150, h: 28 }
+  - id: tc0_1
+    label: "60 m"
+    at: { x: 790, y: 118 }
+    size: { w: 220, h: 28 }
+  - id: tc0_2
+    label: "150m 未満なので II-A ではない"
+    at: { x: 1010, y: 118 }
+    size: { w: 260, h: 28 }
+  - id: tc1_0
+    label: "第三者との距離"
+    at: { x: 640, y: 146 }
+    size: { w: 150, h: 28 }
+  - id: tc1_1
+    label: "30 m 以上を確保"
+    at: { x: 790, y: 146 }
+    size: { w: 220, h: 28 }
+  - id: tc1_2
+    label: "30m 未満なら特定飛行"
+    at: { x: 1010, y: 146 }
+    size: { w: 260, h: 28 }
+  - id: tc2_0
+    label: "立入管理措置"
+    at: { x: 640, y: 174 }
+    size: { w: 150, h: 28 }
+  - id: tc2_1
+    label: "ロープ・看板・入口に補助者"
+    at: { x: 790, y: 174 }
+    size: { w: 220, h: 28 }
+  - id: tc2_2
+    label: "これがあるのでカテゴリー II"
+    at: { x: 1010, y: 174 }
+    size: { w: 260, h: 28 }
+  - id: tc3_0
+    label: "目視"
+    at: { x: 640, y: 202 }
+    size: { w: 150, h: 28 }
+  - id: tc3_1
+    label: "常に目視内（補助者 2 名）"
+    at: { x: 790, y: 202 }
+    size: { w: 220, h: 28 }
+  - id: tc3_2
+    label: "目視外なら別の承認"
+    at: { x: 1010, y: 202 }
+    size: { w: 260, h: 28 }
+  - id: tc4_0
+    label: "時間帯"
+    at: { x: 640, y: 230 }
+    size: { w: 150, h: 28 }
+  - id: tc4_1
+    label: "日中のみ"
+    at: { x: 790, y: 230 }
+    size: { w: 220, h: 28 }
+  - id: tc4_2
+    label: "夜間なら特定飛行"
+    at: { x: 1010, y: 230 }
+    size: { w: 260, h: 28 }
+  - id: tc5_0
+    label: "DID"
+    at: { x: 640, y: 258 }
+    size: { w: 150, h: 28 }
+  - id: tc5_1
+    label: "対象外（工業専用地域）"
+    at: { x: 790, y: 258 }
+    size: { w: 220, h: 28 }
+  - id: tc5_2
+    label: "2026-07-01 から除外"
+    at: { x: 1010, y: 258 }
+    size: { w: 260, h: 28 }
+  - id: tc6_0
+    label: "飛行計画の通報"
+    at: { x: 640, y: 286 }
+    size: { w: 150, h: 28 }
+  - id: tc6_1
+    label: "通報済み（DIPS）"
+    at: { x: 790, y: 286 }
+    size: { w: 220, h: 28 }
+  - id: tc6_2
+    label: "カテゴリー II は義務"
+    at: { x: 1010, y: 286 }
+    size: { w: 260, h: 28 }
+  - id: tc7_0
+    label: "飛行日誌"
+    at: { x: 640, y: 314 }
+    size: { w: 150, h: 28 }
+  - id: tc7_1
+    label: "備付け・記録"
+    at: { x: 790, y: 314 }
+    size: { w: 220, h: 28 }
+  - id: tc7_2
+    label: "義務"
+    at: { x: 1010, y: 314 }
+    size: { w: 260, h: 28 }
+  - id: tc8_0
+    label: "中止条件"
+    at: { x: 640, y: 342 }
+    size: { w: 150, h: 28 }
+  - id: tc8_1
+    label: "風速 5m/s 以上・降雨"
+    at: { x: 790, y: 342 }
+    size: { w: 220, h: 28 }
+  - id: tc8_2
+    label: "機体の仕様に合わせる"
+    at: { x: 1010, y: 342 }
+    size: { w: 260, h: 28 }
+  - id: c_t
+    label: "カテゴリーの分かれ方"
+    marker: none
+    at: { x: 640, y: 386 }
+    size: { w: 300, h: 24 }
+  - id: ch0
+    label: "区分"
+    hatch: solid
+    at: { x: 640, y: 414 }
+    size: { w: 150, h: 26 }
+  - id: ch1
+    label: "何が違うか"
+    hatch: solid
+    at: { x: 790, y: 414 }
+    size: { w: 220, h: 26 }
+  - id: ch2
+    label: "要るもの"
+    hatch: solid
+    at: { x: 1010, y: 414 }
+    size: { w: 260, h: 26 }
+  - id: cc0_0
+    label: "カテゴリー I"
+    at: { x: 640, y: 440 }
+    size: { w: 150, h: 26 }
+  - id: cc0_1
+    label: "特定飛行に当たらない"
+    at: { x: 790, y: 440 }
+    size: { w: 220, h: 26 }
+  - id: cc0_2
+    label: "許可も承認も要らない"
+    at: { x: 1010, y: 440 }
+    size: { w: 260, h: 26 }
+  - id: cc1_0
+    label: "カテゴリー II"
+    at: { x: 640, y: 466 }
+    size: { w: 150, h: 26 }
+  - id: cc1_1
+    label: "特定飛行だが、立入管理措置がある"
+    at: { x: 790, y: 466 }
+    size: { w: 220, h: 26 }
+  - id: cc1_2
+    label: "資格と機体で要否が決まる"
+    at: { x: 1010, y: 466 }
+    size: { w: 260, h: 26 }
+  - id: cc2_0
+    label: "カテゴリー III"
+    at: { x: 640, y: 492 }
+    size: { w: 150, h: 26 }
+  - id: cc2_1
+    label: "立入管理措置なし・目視外"
+    at: { x: 790, y: 492 }
+    size: { w: 220, h: 26 }
+  - id: cc2_2
+    label: "一等資格＋第一種型式認証"
+    at: { x: 1010, y: 492 }
+    size: { w: 260, h: 26 }
+  - id: n0
+    label: "・立入管理措置があるかどうかが、区分の分かれ目。 人が入らないようにできているか。"
+    marker: none
+    at: { x: 640, y: 534 }
+    size: { w: 620, h: 24 }
+  - id: n1
+    label: "・30m は「第三者と第三者の物件」からの距離。自分の関係者は第三者ではない。"
+    marker: none
+    at: { x: 640, y: 560 }
+    size: { w: 620, h: 24 }
+  - id: n2
+    label: "・離発着点と緊急着陸地点は別に取る。帰れなくなったときに降ろす場所。"
+    marker: none
+    at: { x: 640, y: 586 }
+    size: { w: 620, h: 24 }
+  - id: n3
+    label: "・補助者は機の近くと、人が入ってくる側の両方に置く。"
+    marker: none
+    at: { x: 640, y: 612 }
+    size: { w: 620, h: 24 }
+  - id: n4
+    label: "・風速の中止条件は機体の仕様から決める。計画に書いておく。"
+    marker: none
+    at: { x: 640, y: 638 }
+    size: { w: 620, h: 24 }
+  - id: n5
+    label: "・飛行計画の通報と飛行日誌は、飛ぶ前と後の義務。"
+    marker: none
+    at: { x: 640, y: 664 }
+    size: { w: 620, h: 24 }
