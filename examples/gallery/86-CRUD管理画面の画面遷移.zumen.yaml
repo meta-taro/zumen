@@ -1,0 +1,162 @@
+version: 1
+kind: placement
+title: CRUD 管理画面の画面遷移（一覧 → 作成 / 編集 / 削除確認）
+# 管理画面の型。**一覧が中心**で、そこから作成・編集・削除へ出て、必ず戻る。
+# 破線＝操作の結果。削除は**確認を挟んでからでないと消えない**。
+nodes:
+  - id: l
+    label: ""
+    marker: box
+    at: { x: 60, y: 110 }
+    size: { w: 240, h: 202 }
+  - id: l_t
+    label: "一覧"
+    marker: none
+    at: { x: 60, y: 82 }
+    size: { w: 240, h: 24 }
+  - id: l_r0
+    label: "検索 / 絞り込み"
+    at: { x: 68, y: 118 }
+    size: { w: 224, h: 26 }
+  - id: l_r1
+    label: "新規作成"
+    hatch: solid
+    at: { x: 68, y: 150 }
+    size: { w: 224, h: 28 }
+  - id: l_r2
+    label: "行 1  編集 削除"
+    at: { x: 68, y: 184 }
+    size: { w: 224, h: 26 }
+  - id: l_r3
+    label: "行 2  編集 削除"
+    at: { x: 68, y: 216 }
+    size: { w: 224, h: 26 }
+  - id: l_r4
+    label: "行 3  編集 削除"
+    at: { x: 68, y: 248 }
+    size: { w: 224, h: 26 }
+  - id: l_r5
+    label: "ページャ"
+    marker: none
+    at: { x: 68, y: 280 }
+    size: { w: 224, h: 24 }
+  - id: c
+    label: ""
+    marker: box
+    at: { x: 400, y: 90 }
+    size: { w: 220, h: 170 }
+  - id: c_t
+    label: "作成"
+    marker: none
+    at: { x: 400, y: 62 }
+    size: { w: 220, h: 24 }
+  - id: c_r0
+    label: "入力フォーム"
+    at: { x: 408, y: 98 }
+    size: { w: 204, h: 60 }
+  - id: c_r1
+    label: "必須 3 項目"
+    marker: none
+    at: { x: 408, y: 164 }
+    size: { w: 204, h: 24 }
+  - id: c_r2
+    label: "保存"
+    hatch: solid
+    at: { x: 408, y: 194 }
+    size: { w: 204, h: 28 }
+  - id: c_r3
+    label: "キャンセル"
+    at: { x: 408, y: 228 }
+    size: { w: 204, h: 24 }
+  - id: e
+    label: ""
+    marker: box
+    at: { x: 400, y: 330 }
+    size: { w: 220, h: 170 }
+  - id: e_t
+    label: "編集"
+    marker: none
+    at: { x: 400, y: 302 }
+    size: { w: 220, h: 24 }
+  - id: e_r0
+    label: "入力フォーム（既存値）"
+    at: { x: 408, y: 338 }
+    size: { w: 204, h: 60 }
+  - id: e_r1
+    label: "更新日時"
+    marker: none
+    at: { x: 408, y: 404 }
+    size: { w: 204, h: 24 }
+  - id: e_r2
+    label: "保存"
+    hatch: solid
+    at: { x: 408, y: 434 }
+    size: { w: 204, h: 28 }
+  - id: e_r3
+    label: "キャンセル"
+    at: { x: 408, y: 468 }
+    size: { w: 204, h: 24 }
+  - id: d
+    label: ""
+    marker: box
+    at: { x: 60, y: 470 }
+    size: { w: 260, h: 140 }
+  - id: d_t
+    label: "削除確認"
+    marker: none
+    at: { x: 60, y: 442 }
+    size: { w: 260, h: 24 }
+  - id: d_r0
+    label: "この 1 件を削除しますか"
+    at: { x: 68, y: 478 }
+    size: { w: 244, h: 30 }
+  - id: d_r1
+    label: "元に戻せません"
+    hatch: dots
+    at: { x: 68, y: 514 }
+    size: { w: 244, h: 24 }
+  - id: d_r2
+    label: "削除する"
+    hatch: solid
+    at: { x: 68, y: 544 }
+    size: { w: 244, h: 28 }
+  - id: d_r3
+    label: "やめる"
+    at: { x: 68, y: 578 }
+    size: { w: 244, h: 24 }
+  - id: toast
+    label: "Toast「保存しました」"
+    marker: box
+    at: { x: 720, y: 330 }
+    size: { w: 220, h: 36 }
+  - id: note
+    label: "削除は確認を挟む。保存・削除のあとは必ず一覧へ戻る（作りっぱなしにしない）。"
+    marker: none
+    at: { x: 60, y: 626 }
+    size: { w: 560, h: 26 }
+edges:
+  - from: l
+    to: c
+    label: "新規作成"
+  - from: l
+    to: e
+    label: "編集"
+  - from: l
+    to: d
+    label: "削除"
+  - from: c
+    to: toast
+    label: "保存"
+    line: dashed
+  - from: e
+    to: toast
+    label: "保存"
+    line: dashed
+  - from: d
+    to: l
+    label: "削除して戻る"
+    line: dashed
+  - from: toast
+    to: l
+    label: "一覧へ"
+    line: dashed

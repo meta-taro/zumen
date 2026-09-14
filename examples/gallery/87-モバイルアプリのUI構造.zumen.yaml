@@ -1,0 +1,151 @@
+version: 1
+kind: placement
+arrows: false
+title: モバイルアプリの UI 構造（Bottom Navigation・5 タブ）
+# 完成デザインではなく **UI 構造の正本**（UI 方針 §0）。
+# **Bottom Navigation は画面ではなく「常にある枠」**なので、
+# どのタブでも下に居座る —— そこが Web の画面遷移と違うところ。
+#
+# 左が「いま選んでいるタブ」の画面、右がタブごとの中身。
+# 投稿タブだけはモーダルで、**タブを切り替えずに**上から出る（よくある型）。
+nodes:
+  - id: phone
+    label: ""
+    marker: box
+    at: { x: 80, y: 90 }
+    size: { w: 300, h: 470 }
+  - id: phone_c
+    label: "Mobile 390px（ホームを選択中）"
+    marker: none
+    at: { x: 80, y: 62 }
+    size: { w: 300, h: 24 }
+  - id: st
+    label: "ステータスバー"
+    hatch: dots
+    at: { x: 88, y: 98 }
+    size: { w: 284, h: 20 }
+  - id: hd
+    label: "ヘッダー（タイトル・検索）"
+    hatch: dots
+    at: { x: 88, y: 124 }
+    size: { w: 284, h: 34 }
+  - id: card0
+    label: "おすすめ カード"
+    hatch: lines
+    at: { x: 88, y: 166 }
+    size: { w: 284, h: 58 }
+  - id: card1
+    label: "おすすめ カード"
+    hatch: lines
+    at: { x: 88, y: 230 }
+    size: { w: 284, h: 58 }
+  - id: card2
+    label: "おすすめ カード"
+    hatch: lines
+    at: { x: 88, y: 294 }
+    size: { w: 284, h: 58 }
+  - id: card3
+    label: "（無限スクロール）"
+    marker: none
+    at: { x: 88, y: 358 }
+    size: { w: 284, h: 26 }
+  - id: bn
+    label: ""
+    hatch: solid
+    at: { x: 88, y: 508 }
+    size: { w: 280, h: 44 }
+  - id: tab_home
+    label: "ホーム"
+    marker: none
+    at: { x: 88, y: 508 }
+    size: { w: 56, h: 44 }
+  - id: tab_search
+    label: "さがす"
+    marker: none
+    at: { x: 144, y: 508 }
+    size: { w: 56, h: 44 }
+  - id: tab_post
+    label: "投稿"
+    marker: none
+    at: { x: 200, y: 508 }
+    size: { w: 56, h: 44 }
+  - id: tab_bell
+    label: "通知"
+    marker: none
+    at: { x: 256, y: 508 }
+    size: { w: 56, h: 44 }
+  - id: tab_me
+    label: "マイ"
+    marker: none
+    at: { x: 312, y: 508 }
+    size: { w: 56, h: 44 }
+  - id: tt
+    label: "タブごとの中身"
+    marker: none
+    at: { x: 440, y: 62 }
+    size: { w: 300, h: 24 }
+  - id: ct0
+    label: "ホーム"
+    hatch: solid
+    at: { x: 440, y: 90 }
+    size: { w: 96, h: 44 }
+  - id: cv0
+    label: "おすすめ一覧・無限スクロール"
+    at: { x: 536, y: 90 }
+    size: { w: 344, h: 44 }
+  - id: ct1
+    label: "さがす"
+    hatch: solid
+    at: { x: 440, y: 144 }
+    size: { w: 96, h: 44 }
+  - id: cv1
+    label: "検索・カテゴリ・履歴"
+    at: { x: 536, y: 144 }
+    size: { w: 344, h: 44 }
+  - id: ct2
+    label: "投稿"
+    hatch: solid
+    at: { x: 440, y: 198 }
+    size: { w: 96, h: 44 }
+  - id: cv2
+    label: "モーダルで開く（タブは切り替えない）"
+    at: { x: 536, y: 198 }
+    size: { w: 344, h: 44 }
+  - id: ct3
+    label: "通知"
+    hatch: solid
+    at: { x: 440, y: 252 }
+    size: { w: 96, h: 44 }
+  - id: cv3
+    label: "お知らせ・バッジ数字"
+    at: { x: 536, y: 252 }
+    size: { w: 344, h: 44 }
+  - id: ct4
+    label: "マイ"
+    hatch: solid
+    at: { x: 440, y: 306 }
+    size: { w: 96, h: 44 }
+  - id: cv4
+    label: "プロフィール・設定・ログアウト"
+    at: { x: 536, y: 306 }
+    size: { w: 344, h: 44 }
+  - id: modal
+    label: "投稿モーダル（下から出る・タブは残る）"
+    hatch: cross
+    at: { x: 440, y: 390 }
+    size: { w: 440, h: 44 }
+  - id: rule1
+    label: "Bottom Navigation は 5 個まで。6 個以上は「その他」へ畳む"
+    marker: none
+    at: { x: 440, y: 456 }
+    size: { w: 480, h: 26 }
+  - id: rule2
+    label: "タブを切り替えても、各タブのスクロール位置と履歴は保つ"
+    marker: none
+    at: { x: 440, y: 486 }
+    size: { w: 480, h: 26 }
+  - id: rule3
+    label: "バッジは通知タブだけ。ホームには出さない（戻る理由にならない）"
+    marker: none
+    at: { x: 440, y: 516 }
+    size: { w: 480, h: 26 }

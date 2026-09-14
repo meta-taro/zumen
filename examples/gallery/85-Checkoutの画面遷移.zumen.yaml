@@ -1,0 +1,168 @@
+version: 1
+kind: placement
+title: Checkout の画面遷移（カート → 住所 → 支払い → 確認 → 完了）
+# 完成デザインではなく **UI 構造の正本**。買い物かごから完了までの 5 画面と、
+# 途中で分かれる道（在庫切れ・決済失敗）を 1 枚に。
+# 実線＝進む、破線＝操作の結果。**戻れる／戻れないが読めることが要点。**
+nodes:
+  - id: c1
+    label: ""
+    marker: box
+    at: { x: 60, y: 90 }
+    size: { w: 190, h: 114 }
+  - id: c1_t
+    label: "1 カート"
+    marker: none
+    at: { x: 60, y: 62 }
+    size: { w: 190, h: 24 }
+  - id: c1_r0
+    label: "商品 2 点"
+    at: { x: 68, y: 98 }
+    size: { w: 174, h: 30 }
+  - id: c1_r1
+    label: "小計 ¥24,600"
+    at: { x: 68, y: 134 }
+    size: { w: 174, h: 26 }
+  - id: c1_r2
+    label: "レジへ進む"
+    hatch: solid
+    at: { x: 68, y: 166 }
+    size: { w: 174, h: 30 }
+  - id: c2
+    label: ""
+    marker: box
+    at: { x: 290, y: 90 }
+    size: { w: 190, h: 158 }
+  - id: c2_t
+    label: "2 お届け先"
+    marker: none
+    at: { x: 290, y: 62 }
+    size: { w: 190, h: 24 }
+  - id: c2_r0
+    label: "ステップ 2 / 5"
+    hatch: dots
+    at: { x: 298, y: 98 }
+    size: { w: 174, h: 22 }
+  - id: c2_r1
+    label: "氏名 / 住所"
+    at: { x: 298, y: 126 }
+    size: { w: 174, h: 46 }
+  - id: c2_r2
+    label: "配送日時"
+    at: { x: 298, y: 178 }
+    size: { w: 174, h: 26 }
+  - id: c2_r3
+    label: "次へ"
+    hatch: solid
+    at: { x: 298, y: 210 }
+    size: { w: 174, h: 30 }
+  - id: c3
+    label: ""
+    marker: box
+    at: { x: 520, y: 90 }
+    size: { w: 190, h: 152 }
+  - id: c3_t
+    label: "3 支払い"
+    marker: none
+    at: { x: 520, y: 62 }
+    size: { w: 190, h: 24 }
+  - id: c3_r0
+    label: "ステップ 3 / 5"
+    hatch: dots
+    at: { x: 528, y: 98 }
+    size: { w: 174, h: 22 }
+  - id: c3_r1
+    label: "カード / 代引 / コンビニ"
+    at: { x: 528, y: 126 }
+    size: { w: 174, h: 40 }
+  - id: c3_r2
+    label: "ポイント利用"
+    at: { x: 528, y: 172 }
+    size: { w: 174, h: 26 }
+  - id: c3_r3
+    label: "次へ"
+    hatch: solid
+    at: { x: 528, y: 204 }
+    size: { w: 174, h: 30 }
+  - id: c4
+    label: ""
+    marker: box
+    at: { x: 750, y: 90 }
+    size: { w: 190, h: 128 }
+  - id: c4_t
+    label: "4 確認"
+    marker: none
+    at: { x: 750, y: 62 }
+    size: { w: 190, h: 24 }
+  - id: c4_r0
+    label: "ステップ 4 / 5"
+    hatch: dots
+    at: { x: 758, y: 98 }
+    size: { w: 174, h: 22 }
+  - id: c4_r1
+    label: "明細・住所・支払い"
+    at: { x: 758, y: 126 }
+    size: { w: 174, h: 46 }
+  - id: c4_r2
+    label: "注文を確定する"
+    hatch: solid
+    at: { x: 758, y: 178 }
+    size: { w: 174, h: 32 }
+  - id: c5
+    label: ""
+    marker: box
+    at: { x: 980, y: 90 }
+    size: { w: 190, h: 112 }
+  - id: c5_t
+    label: "5 完了"
+    marker: none
+    at: { x: 980, y: 62 }
+    size: { w: 190, h: 24 }
+  - id: c5_r0
+    label: "注文番号 A-0142"
+    at: { x: 988, y: 98 }
+    size: { w: 174, h: 30 }
+  - id: c5_r1
+    label: "お届け予定 9/17"
+    at: { x: 988, y: 134 }
+    size: { w: 174, h: 26 }
+  - id: c5_r2
+    label: "注文履歴へ"
+    at: { x: 988, y: 166 }
+    size: { w: 174, h: 28 }
+  - id: err_stock
+    label: "在庫切れ → カートへ戻る"
+    hatch: cross
+    at: { x: 60, y: 360 }
+    size: { w: 240, h: 40 }
+  - id: err_pay
+    label: "決済失敗 → 支払い方法を選び直す"
+    hatch: cross
+    at: { x: 520, y: 360 }
+    size: { w: 280, h: 40 }
+  - id: note
+    label: "ステップ表示は 2〜4 にだけ出る。完了後は戻れない（履歴から見る）。"
+    marker: none
+    at: { x: 60, y: 430 }
+    size: { w: 520, h: 26 }
+edges:
+  - from: c1
+    to: c2
+    label: "レジへ"
+  - from: c2
+    to: c3
+    label: "次へ"
+  - from: c3
+    to: c4
+    label: "次へ"
+  - from: c4
+    to: c5
+    label: "確定"
+  - from: c4
+    to: err_stock
+    label: "在庫切れ"
+    line: dashed
+  - from: c4
+    to: err_pay
+    label: "決済失敗"
+    line: dashed

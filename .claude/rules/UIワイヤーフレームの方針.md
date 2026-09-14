@@ -122,10 +122,10 @@ zumen の強みは、ネットワーク図・建築・舞台照明・釣りの�
 | EC 商品ページ | Desktop / Mobile 比較 | **見本 74** |
 | 画面遷移＋ワイヤーフレーム | Login → Home → Detail | **見本 75** |
 | 管理画面 | Desktop は Sidebar、Mobile は Drawer | **見本 76** |
-| Checkout Flow | Cart → Address → Payment → Confirm → Complete | まだ |
-| CRUD Admin | List → Create → Edit → Delete Confirmation | まだ |
-| Mobile App | Bottom Navigation を持つ | まだ |
-| Responsive LP | Desktop / Tablet / Mobile で Section 構造が変わる | まだ |
+| Checkout Flow | Cart → Address → Payment → Confirm → Complete | **見本 85** |
+| CRUD Admin | List → Create → Edit → Delete Confirmation | **見本 86** |
+| Mobile App | Bottom Navigation を持つ | **見本 87** |
+| Responsive LP | Desktop / Tablet / Mobile で Section 構造が変わる | **見本 88** |
 
 ---
 
@@ -144,3 +144,19 @@ Screen / Component / Layout / Relationship / Flow / Responsive behavior は残�
 **完成形を AI が直接出せる時代だからこそ、完成形そのものではなく
 「なぜその画面がその構造なのか」「何と何がどう関係するのか」を、
 機械可読かつ人間にも視覚的に読める形で保持する。**
+
+---
+
+## 12. 作ってみて分かったこと（2026-09-14）
+
+**7 件すべてが、道具を足さずに描けた。** §9 のとおり、UI だけを別世界にしていない。
+
+分かったのは 2 つ。
+
+1. **器の名前を器の真ん中に書くと、中身の名前に乗る。**
+   Header・Product Info のような**中身を持つ箱**は、名前を中央へ置くと
+   子の名前とぶつかる。器の名前は**端の欄へ出す**（見本 74 を直した）。
+2. **それを、どの検査も見ていなかった。**
+   `crowdedNames` は外へ出した名前、`hiddenLabels` は辺のラベル、
+   `overlaps` は箱 —— **中に収まった文字どうしは誰も見ていなかった。**
+   `overlappingText` を足して、見本 3 枚の実害を見つけた。

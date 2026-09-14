@@ -1,0 +1,277 @@
+version: 1
+kind: placement
+arrows: false
+title: LP の UI 構造（Desktop / Tablet / Mobile で Section 構造が変わる）
+# 完成デザインではなく **UI 構造の正本**（UI 方針 §0）。
+# 右の表が主役 —— **絵を 3 枚並べるだけでは、何が変わるか言えない**（UI 方針 §2）。
+# レスポンシブは縮小ではなく、**節そのものが消えたり増えたりする**こと。
+nodes:
+  - id: d_c
+    label: "Desktop 1440px"
+    marker: none
+    at: { x: 60, y: 62 }
+    size: { w: 340, h: 24 }
+  - id: d
+    label: ""
+    marker: box
+    at: { x: 60, y: 90 }
+    size: { w: 340, h: 372 }
+  - id: d_s0
+    label: "Hero（見出し＋申込ボタン）"
+    hatch: lines
+    at: { x: 68, y: 98 }
+    size: { w: 324, h: 54 }
+  - id: d_s1
+    label: "実績 3 カラム"
+    at: { x: 68, y: 158 }
+    size: { w: 324, h: 44 }
+  - id: d_s2
+    label: "機能 3 カラム"
+    at: { x: 68, y: 208 }
+    size: { w: 324, h: 44 }
+  - id: d_s3
+    label: "料金表（4 プラン横並び）"
+    at: { x: 68, y: 258 }
+    size: { w: 324, h: 54 }
+  - id: d_s4
+    label: "導入事例 カルーセル"
+    at: { x: 68, y: 318 }
+    size: { w: 324, h: 44 }
+  - id: d_s5
+    label: "FAQ アコーディオン"
+    at: { x: 68, y: 368 }
+    size: { w: 324, h: 40 }
+  - id: d_s6
+    label: "フッター（サイトマップ 4 列）"
+    hatch: dots
+    at: { x: 68, y: 414 }
+    size: { w: 324, h: 40 }
+  - id: t_c
+    label: "Tablet 768px"
+    marker: none
+    at: { x: 440, y: 62 }
+    size: { w: 250, h: 24 }
+  - id: t
+    label: ""
+    marker: box
+    at: { x: 440, y: 90 }
+    size: { w: 250, h: 340 }
+  - id: t_s0
+    label: "Hero"
+    hatch: lines
+    at: { x: 448, y: 98 }
+    size: { w: 234, h: 48 }
+  - id: t_s1
+    label: "実績 3 カラム"
+    at: { x: 448, y: 152 }
+    size: { w: 234, h: 40 }
+  - id: t_s2
+    label: "機能 2 カラム"
+    at: { x: 448, y: 198 }
+    size: { w: 234, h: 40 }
+  - id: t_s3
+    label: "料金表（2 × 2）"
+    at: { x: 448, y: 244 }
+    size: { w: 234, h: 48 }
+  - id: t_s4
+    label: "導入事例 カルーセル"
+    at: { x: 448, y: 298 }
+    size: { w: 234, h: 40 }
+  - id: t_s5
+    label: "FAQ アコーディオン"
+    at: { x: 448, y: 344 }
+    size: { w: 234, h: 36 }
+  - id: t_s6
+    label: "フッター（2 列）"
+    hatch: dots
+    at: { x: 448, y: 386 }
+    size: { w: 234, h: 36 }
+  - id: m_c
+    label: "Mobile 390px"
+    marker: none
+    at: { x: 730, y: 62 }
+    size: { w: 210, h: 24 }
+  - id: m
+    label: ""
+    marker: box
+    at: { x: 730, y: 90 }
+    size: { w: 210, h: 286 }
+  - id: m_s0
+    label: "Hero（縦積み）"
+    hatch: lines
+    at: { x: 738, y: 98 }
+    size: { w: 194, h: 44 }
+  - id: m_s1
+    label: "機能 1 カラム"
+    at: { x: 738, y: 148 }
+    size: { w: 194, h: 40 }
+  - id: m_s2
+    label: "料金表（スワイプ）"
+    at: { x: 738, y: 194 }
+    size: { w: 194, h: 48 }
+  - id: m_s3
+    label: "FAQ アコーディオン"
+    at: { x: 738, y: 248 }
+    size: { w: 194, h: 36 }
+  - id: m_s4
+    label: "フッター（畳み）"
+    hatch: dots
+    at: { x: 738, y: 290 }
+    size: { w: 194, h: 36 }
+  - id: m_s5
+    label: "申込ボタン（下部固定）"
+    hatch: solid
+    at: { x: 738, y: 332 }
+    size: { w: 194, h: 36 }
+  - id: bt
+    label: "Section 構造の差分"
+    marker: none
+    at: { x: 1000, y: 24 }
+    size: { w: 300, h: 24 }
+  - id: bh0
+    label: "節"
+    hatch: solid
+    at: { x: 1000, y: 56 }
+    size: { w: 130, h: 30 }
+  - id: bh1
+    label: "Desktop"
+    hatch: solid
+    at: { x: 1130, y: 56 }
+    size: { w: 170, h: 30 }
+  - id: bh2
+    label: "Tablet"
+    hatch: solid
+    at: { x: 1300, y: 56 }
+    size: { w: 150, h: 30 }
+  - id: bh3
+    label: "Mobile"
+    hatch: solid
+    at: { x: 1450, y: 56 }
+    size: { w: 210, h: 30 }
+  - id: bc0_0
+    label: "Hero"
+    at: { x: 1000, y: 86 }
+    size: { w: 130, h: 30 }
+  - id: bc0_1
+    label: "横 2 分割"
+    at: { x: 1130, y: 86 }
+    size: { w: 170, h: 30 }
+  - id: bc0_2
+    label: "縦積み"
+    at: { x: 1300, y: 86 }
+    size: { w: 150, h: 30 }
+  - id: bc0_3
+    label: "縦積み"
+    at: { x: 1450, y: 86 }
+    size: { w: 210, h: 30 }
+  - id: bc1_0
+    label: "実績"
+    at: { x: 1000, y: 116 }
+    size: { w: 130, h: 30 }
+  - id: bc1_1
+    label: "3 カラム"
+    at: { x: 1130, y: 116 }
+    size: { w: 170, h: 30 }
+  - id: bc1_2
+    label: "3 カラム"
+    at: { x: 1300, y: 116 }
+    size: { w: 150, h: 30 }
+  - id: bc1_3
+    label: "非表示"
+    at: { x: 1450, y: 116 }
+    size: { w: 210, h: 30 }
+  - id: bc2_0
+    label: "機能"
+    at: { x: 1000, y: 146 }
+    size: { w: 130, h: 30 }
+  - id: bc2_1
+    label: "3 カラム"
+    at: { x: 1130, y: 146 }
+    size: { w: 170, h: 30 }
+  - id: bc2_2
+    label: "2 カラム"
+    at: { x: 1300, y: 146 }
+    size: { w: 150, h: 30 }
+  - id: bc2_3
+    label: "1 カラム"
+    at: { x: 1450, y: 146 }
+    size: { w: 210, h: 30 }
+  - id: bc3_0
+    label: "料金表"
+    at: { x: 1000, y: 176 }
+    size: { w: 130, h: 30 }
+  - id: bc3_1
+    label: "4 プラン横並び"
+    at: { x: 1130, y: 176 }
+    size: { w: 170, h: 30 }
+  - id: bc3_2
+    label: "2 × 2"
+    at: { x: 1300, y: 176 }
+    size: { w: 150, h: 30 }
+  - id: bc3_3
+    label: "1 プランずつスワイプ"
+    at: { x: 1450, y: 176 }
+    size: { w: 210, h: 30 }
+  - id: bc4_0
+    label: "導入事例"
+    at: { x: 1000, y: 206 }
+    size: { w: 130, h: 30 }
+  - id: bc4_1
+    label: "カルーセル"
+    at: { x: 1130, y: 206 }
+    size: { w: 170, h: 30 }
+  - id: bc4_2
+    label: "カルーセル"
+    at: { x: 1300, y: 206 }
+    size: { w: 150, h: 30 }
+  - id: bc4_3
+    label: "非表示"
+    at: { x: 1450, y: 206 }
+    size: { w: 210, h: 30 }
+  - id: bc5_0
+    label: "申込ボタン"
+    at: { x: 1000, y: 236 }
+    size: { w: 130, h: 30 }
+  - id: bc5_1
+    label: "Hero の中"
+    at: { x: 1130, y: 236 }
+    size: { w: 170, h: 30 }
+  - id: bc5_2
+    label: "Hero の中"
+    at: { x: 1300, y: 236 }
+    size: { w: 150, h: 30 }
+  - id: bc5_3
+    label: "下部に固定で追加"
+    at: { x: 1450, y: 236 }
+    size: { w: 210, h: 30 }
+  - id: bc6_0
+    label: "フッター"
+    at: { x: 1000, y: 266 }
+    size: { w: 130, h: 30 }
+  - id: bc6_1
+    label: "サイトマップ 4 列"
+    at: { x: 1130, y: 266 }
+    size: { w: 170, h: 30 }
+  - id: bc6_2
+    label: "2 列"
+    at: { x: 1300, y: 266 }
+    size: { w: 150, h: 30 }
+  - id: bc6_3
+    label: "リンクを畳む"
+    at: { x: 1450, y: 266 }
+    size: { w: 210, h: 30 }
+  - id: bp
+    label: "Breakpoint：>= 1200 ／ 768〜1199 ／ < 768"
+    marker: none
+    at: { x: 1000, y: 316 }
+    size: { w: 420, h: 26 }
+  - id: note1
+    label: "**消える節がある**のがレスポンシブ LP の要点。縮小では済まない。"
+    marker: none
+    at: { x: 1000, y: 346 }
+    size: { w: 520, h: 26 }
+  - id: note2
+    label: "Mobile だけ申込ボタンが増える（スクロールが長く Hero が見えなくなるため）。"
+    marker: none
+    at: { x: 1000, y: 376 }
+    size: { w: 560, h: 26 }
