@@ -1,0 +1,451 @@
+version: 1
+kind: placement
+arrows: false
+title: リバーシ 初期配置（黒番・着手可能点 4 つ）
+# 「オセロ」は登録商標なので、一般名の「リバーシ」で描いている。
+# 盤は 8×8 のマス、石はマスの中央。盤の 4 点は線の交点（実物の盤と同じ位置）。
+# 着手可能点は小さな丸 —— 実物の対局では盤に印は無いが、解説図では示す。
+nodes:
+  - id: sq0_0
+    label: ""
+    at: { x: 58, y: 58 }
+    size: { w: 58, h: 58 }
+  - id: sq0_1
+    label: ""
+    at: { x: 116, y: 58 }
+    size: { w: 58, h: 58 }
+  - id: sq0_2
+    label: ""
+    at: { x: 174, y: 58 }
+    size: { w: 58, h: 58 }
+  - id: sq0_3
+    label: ""
+    at: { x: 232, y: 58 }
+    size: { w: 58, h: 58 }
+  - id: sq0_4
+    label: ""
+    at: { x: 290, y: 58 }
+    size: { w: 58, h: 58 }
+  - id: sq0_5
+    label: ""
+    at: { x: 348, y: 58 }
+    size: { w: 58, h: 58 }
+  - id: sq0_6
+    label: ""
+    at: { x: 406, y: 58 }
+    size: { w: 58, h: 58 }
+  - id: sq0_7
+    label: ""
+    at: { x: 464, y: 58 }
+    size: { w: 58, h: 58 }
+  - id: sq1_0
+    label: ""
+    at: { x: 58, y: 116 }
+    size: { w: 58, h: 58 }
+  - id: sq1_1
+    label: ""
+    at: { x: 116, y: 116 }
+    size: { w: 58, h: 58 }
+  - id: sq1_2
+    label: ""
+    at: { x: 174, y: 116 }
+    size: { w: 58, h: 58 }
+  - id: sq1_3
+    label: ""
+    at: { x: 232, y: 116 }
+    size: { w: 58, h: 58 }
+  - id: sq1_4
+    label: ""
+    at: { x: 290, y: 116 }
+    size: { w: 58, h: 58 }
+  - id: sq1_5
+    label: ""
+    at: { x: 348, y: 116 }
+    size: { w: 58, h: 58 }
+  - id: sq1_6
+    label: ""
+    at: { x: 406, y: 116 }
+    size: { w: 58, h: 58 }
+  - id: sq1_7
+    label: ""
+    at: { x: 464, y: 116 }
+    size: { w: 58, h: 58 }
+  - id: sq2_0
+    label: ""
+    at: { x: 58, y: 174 }
+    size: { w: 58, h: 58 }
+  - id: sq2_1
+    label: ""
+    at: { x: 116, y: 174 }
+    size: { w: 58, h: 58 }
+  - id: sq2_2
+    label: ""
+    at: { x: 174, y: 174 }
+    size: { w: 58, h: 58 }
+  - id: sq2_3
+    label: ""
+    at: { x: 232, y: 174 }
+    size: { w: 58, h: 58 }
+  - id: sq2_4
+    label: ""
+    at: { x: 290, y: 174 }
+    size: { w: 58, h: 58 }
+  - id: sq2_5
+    label: ""
+    at: { x: 348, y: 174 }
+    size: { w: 58, h: 58 }
+  - id: sq2_6
+    label: ""
+    at: { x: 406, y: 174 }
+    size: { w: 58, h: 58 }
+  - id: sq2_7
+    label: ""
+    at: { x: 464, y: 174 }
+    size: { w: 58, h: 58 }
+  - id: sq3_0
+    label: ""
+    at: { x: 58, y: 232 }
+    size: { w: 58, h: 58 }
+  - id: sq3_1
+    label: ""
+    at: { x: 116, y: 232 }
+    size: { w: 58, h: 58 }
+  - id: sq3_2
+    label: ""
+    at: { x: 174, y: 232 }
+    size: { w: 58, h: 58 }
+  - id: sq3_3
+    label: ""
+    at: { x: 232, y: 232 }
+    size: { w: 58, h: 58 }
+  - id: sq3_4
+    label: ""
+    at: { x: 290, y: 232 }
+    size: { w: 58, h: 58 }
+  - id: sq3_5
+    label: ""
+    at: { x: 348, y: 232 }
+    size: { w: 58, h: 58 }
+  - id: sq3_6
+    label: ""
+    at: { x: 406, y: 232 }
+    size: { w: 58, h: 58 }
+  - id: sq3_7
+    label: ""
+    at: { x: 464, y: 232 }
+    size: { w: 58, h: 58 }
+  - id: sq4_0
+    label: ""
+    at: { x: 58, y: 290 }
+    size: { w: 58, h: 58 }
+  - id: sq4_1
+    label: ""
+    at: { x: 116, y: 290 }
+    size: { w: 58, h: 58 }
+  - id: sq4_2
+    label: ""
+    at: { x: 174, y: 290 }
+    size: { w: 58, h: 58 }
+  - id: sq4_3
+    label: ""
+    at: { x: 232, y: 290 }
+    size: { w: 58, h: 58 }
+  - id: sq4_4
+    label: ""
+    at: { x: 290, y: 290 }
+    size: { w: 58, h: 58 }
+  - id: sq4_5
+    label: ""
+    at: { x: 348, y: 290 }
+    size: { w: 58, h: 58 }
+  - id: sq4_6
+    label: ""
+    at: { x: 406, y: 290 }
+    size: { w: 58, h: 58 }
+  - id: sq4_7
+    label: ""
+    at: { x: 464, y: 290 }
+    size: { w: 58, h: 58 }
+  - id: sq5_0
+    label: ""
+    at: { x: 58, y: 348 }
+    size: { w: 58, h: 58 }
+  - id: sq5_1
+    label: ""
+    at: { x: 116, y: 348 }
+    size: { w: 58, h: 58 }
+  - id: sq5_2
+    label: ""
+    at: { x: 174, y: 348 }
+    size: { w: 58, h: 58 }
+  - id: sq5_3
+    label: ""
+    at: { x: 232, y: 348 }
+    size: { w: 58, h: 58 }
+  - id: sq5_4
+    label: ""
+    at: { x: 290, y: 348 }
+    size: { w: 58, h: 58 }
+  - id: sq5_5
+    label: ""
+    at: { x: 348, y: 348 }
+    size: { w: 58, h: 58 }
+  - id: sq5_6
+    label: ""
+    at: { x: 406, y: 348 }
+    size: { w: 58, h: 58 }
+  - id: sq5_7
+    label: ""
+    at: { x: 464, y: 348 }
+    size: { w: 58, h: 58 }
+  - id: sq6_0
+    label: ""
+    at: { x: 58, y: 406 }
+    size: { w: 58, h: 58 }
+  - id: sq6_1
+    label: ""
+    at: { x: 116, y: 406 }
+    size: { w: 58, h: 58 }
+  - id: sq6_2
+    label: ""
+    at: { x: 174, y: 406 }
+    size: { w: 58, h: 58 }
+  - id: sq6_3
+    label: ""
+    at: { x: 232, y: 406 }
+    size: { w: 58, h: 58 }
+  - id: sq6_4
+    label: ""
+    at: { x: 290, y: 406 }
+    size: { w: 58, h: 58 }
+  - id: sq6_5
+    label: ""
+    at: { x: 348, y: 406 }
+    size: { w: 58, h: 58 }
+  - id: sq6_6
+    label: ""
+    at: { x: 406, y: 406 }
+    size: { w: 58, h: 58 }
+  - id: sq6_7
+    label: ""
+    at: { x: 464, y: 406 }
+    size: { w: 58, h: 58 }
+  - id: sq7_0
+    label: ""
+    at: { x: 58, y: 464 }
+    size: { w: 58, h: 58 }
+  - id: sq7_1
+    label: ""
+    at: { x: 116, y: 464 }
+    size: { w: 58, h: 58 }
+  - id: sq7_2
+    label: ""
+    at: { x: 174, y: 464 }
+    size: { w: 58, h: 58 }
+  - id: sq7_3
+    label: ""
+    at: { x: 232, y: 464 }
+    size: { w: 58, h: 58 }
+  - id: sq7_4
+    label: ""
+    at: { x: 290, y: 464 }
+    size: { w: 58, h: 58 }
+  - id: sq7_5
+    label: ""
+    at: { x: 348, y: 464 }
+    size: { w: 58, h: 58 }
+  - id: sq7_6
+    label: ""
+    at: { x: 406, y: 464 }
+    size: { w: 58, h: 58 }
+  - id: sq7_7
+    label: ""
+    at: { x: 464, y: 464 }
+    size: { w: 58, h: 58 }
+  - id: dot2_2
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 170, y: 170 }
+    size: { w: 8, h: 8 }
+  - id: dot6_2
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 402, y: 170 }
+    size: { w: 8, h: 8 }
+  - id: dot2_6
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 170, y: 402 }
+    size: { w: 8, h: 8 }
+  - id: dot6_6
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 402, y: 402 }
+    size: { w: 8, h: 8 }
+  - id: b3_4
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 239, y: 297 }
+    size: { w: 44, h: 44 }
+  - id: b4_3
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 297, y: 239 }
+    size: { w: 44, h: 44 }
+  - id: w3_3
+    label: ""
+    marker: circle
+    at: { x: 239, y: 239 }
+    size: { w: 44, h: 44 }
+  - id: w4_4
+    label: ""
+    marker: circle
+    at: { x: 297, y: 297 }
+    size: { w: 44, h: 44 }
+  - id: n0
+    label: ""
+    marker: circle
+    hatch: dots
+    at: { x: 254, y: 196 }
+    size: { w: 14, h: 14 }
+  - id: n1
+    label: ""
+    marker: circle
+    hatch: dots
+    at: { x: 196, y: 254 }
+    size: { w: 14, h: 14 }
+  - id: n2
+    label: ""
+    marker: circle
+    hatch: dots
+    at: { x: 370, y: 312 }
+    size: { w: 14, h: 14 }
+  - id: n3
+    label: ""
+    marker: circle
+    hatch: dots
+    at: { x: 312, y: 370 }
+    size: { w: 14, h: 14 }
+  - id: f0
+    label: "a"
+    marker: none
+    at: { x: 58, y: 30 }
+    size: { w: 58, h: 24 }
+  - id: f1
+    label: "b"
+    marker: none
+    at: { x: 116, y: 30 }
+    size: { w: 58, h: 24 }
+  - id: f2
+    label: "c"
+    marker: none
+    at: { x: 174, y: 30 }
+    size: { w: 58, h: 24 }
+  - id: f3
+    label: "d"
+    marker: none
+    at: { x: 232, y: 30 }
+    size: { w: 58, h: 24 }
+  - id: f4
+    label: "e"
+    marker: none
+    at: { x: 290, y: 30 }
+    size: { w: 58, h: 24 }
+  - id: f5
+    label: "f"
+    marker: none
+    at: { x: 348, y: 30 }
+    size: { w: 58, h: 24 }
+  - id: f6
+    label: "g"
+    marker: none
+    at: { x: 406, y: 30 }
+    size: { w: 58, h: 24 }
+  - id: f7
+    label: "h"
+    marker: none
+    at: { x: 464, y: 30 }
+    size: { w: 58, h: 24 }
+  - id: r0
+    label: "1"
+    marker: none
+    at: { x: 28, y: 58 }
+    size: { w: 26, h: 58 }
+  - id: r1
+    label: "2"
+    marker: none
+    at: { x: 28, y: 116 }
+    size: { w: 26, h: 58 }
+  - id: r2
+    label: "3"
+    marker: none
+    at: { x: 28, y: 174 }
+    size: { w: 26, h: 58 }
+  - id: r3
+    label: "4"
+    marker: none
+    at: { x: 28, y: 232 }
+    size: { w: 26, h: 58 }
+  - id: r4
+    label: "5"
+    marker: none
+    at: { x: 28, y: 290 }
+    size: { w: 26, h: 58 }
+  - id: r5
+    label: "6"
+    marker: none
+    at: { x: 28, y: 348 }
+    size: { w: 26, h: 58 }
+  - id: r6
+    label: "7"
+    marker: none
+    at: { x: 28, y: 406 }
+    size: { w: 26, h: 58 }
+  - id: r7
+    label: "8"
+    marker: none
+    at: { x: 28, y: 464 }
+    size: { w: 26, h: 58 }
+  - id: turn
+    label: "黒番（黒 2 ・ 白 2）"
+    marker: none
+    at: { x: 58, y: 532 }
+    size: { w: 240, h: 26 }
+  - id: legend_b
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 328, y: 535 }
+    size: { w: 20, h: 20 }
+  - id: legend_bn
+    label: "黒石"
+    marker: none
+    at: { x: 352, y: 532 }
+    size: { w: 70, h: 26 }
+  - id: legend_w
+    label: ""
+    marker: circle
+    at: { x: 428, y: 535 }
+    size: { w: 20, h: 20 }
+  - id: legend_wn
+    label: "白石"
+    marker: none
+    at: { x: 452, y: 532 }
+    size: { w: 70, h: 26 }
+  - id: legend_n
+    label: ""
+    marker: circle
+    hatch: dots
+    at: { x: 88, y: 567 }
+    size: { w: 14, h: 14 }
+  - id: legend_nn
+    label: "着手可能点（d3・c4・f5・e6）"
+    marker: none
+    at: { x: 108, y: 562 }
+    size: { w: 300, h: 26 }
