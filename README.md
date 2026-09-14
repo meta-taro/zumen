@@ -1,326 +1,162 @@
-# zumen（図面）
+*日本語版は [README.ja.md](README.ja.md) にあります（詳しい版）。*
 
-**AI に構成図を描かせる、テキスト正本のデスクトップ作図ツール。**
-勝負するのは 1 枚目ではなく **2 枚目以降**――「構成が変わったので図を直す」場面です。
+# zumen
 
-> **いまは測る段階を終えて、土台を作っている途中です。GUI はまだありません。**
-> 動くのは、正本の読み書き・自動レイアウト・SVG 描画・Mermaid 書き出し・
-> draw.io 書き出し・Markdown への埋め込み・形式の検証・Git のマージドライバ・
-> 「9 割」の計測、そして**承認のための最小 GUI（第 1 段階）**まで。
->
-> GUI は `pnpm app` でデスクトップアプリとして立ちます。
-> **殻が無くても `pnpm dev` でブラウザで動きます。**
-> 操作は 8 つに限ってあります（[`docs/specs/005-承認のための最小GUI.md`](docs/specs/005-承認のための最小GUI.md)）。
-> **編集機能をそろえることが目的ではありません。**
->
-> 方向性は [`PRD.md`](PRD.md)、進め方は [`.claude/roadmap.md`](.claude/roadmap.md)、
-> 決定と理由は [`.claude/decisions.md`](.claude/decisions.md)、
-> 保存形式の仕様は [`spec/zumen-format-v1.md`](spec/zumen-format-v1.md) にあります。
+**A desktop diagram tool whose source of truth is plain text, built so that AI can draw
+and a human can correct — and the correction survives the next regeneration.**
 
-## 作れる図
+The hard part is not the first diagram. It is the second one, and the tenth:
+*"the architecture changed, so the diagram has to change."*
 
-**サーバやネットワークだけではありません。**
-工場のライン、病院の外来、住宅の電気と給排水、間取り、躯体の伏図、配管の系統、受変電、
-避難経路、厨房の衛生区域、店舗の売場、組織図、テーブルの関係、稟議 ——
-**「何がどこへ繋がるか」「どの順で流れるか」「何がどこにあるか」を表す図なら、
-同じ書き方で描けます。**
+```
+the system changes
+  → updating the diagram is tedious
+  → nobody updates it
+  → the diagram becomes a lie
+  → nobody looks at diagrams any more
+```
+
+Existing drawing tools are finished products for drawing the *first* diagram.
+zumen does not compete there. It competes on the diagram that has to keep up.
+
+## The one line that has to work
+
+```text
+ask in prose → a diagram appears → a human fixes one thing
+            → ask again → the human's fix is still there
+```
+
+**That last step is the whole product.** If a human's edit does not survive the next
+AI pass, nothing else matters.
+
+Concretely: what a person pins lives in a separate `pins:` block that the AI is not
+allowed to write. Regeneration rewrites `nodes:` and `edges:`; it cannot touch `pins:`.
+Measured over 10 real AI round trips, **10/10 kept every human edit**.
+
+## What it looks like
+
+83 example drawings, all generated from the YAML sources in
+[`examples/gallery/`](examples/gallery/):
+
+**[→ Browse the gallery](https://meta-taro.github.io/zumen/)**
+
+They are deliberately not all boxes and arrows. Among them:
 
 | | |
 |---|---|
-| <img src="examples/gallery/02-クラウド構成.svg" width="320"> | <img src="examples/gallery/14-間取り.svg" width="240"> |
-| クラウド構成 | 間取り（2LDK・1 階） |
-| <img src="examples/gallery/17-躯体の伏図.svg" width="240"> | <img src="examples/gallery/18-配管の系統.svg" width="320"> |
-| 躯体の伏図（RC 造） | 配管の系統（P&ID） |
-| <img src="examples/gallery/22-避難経路図.svg" width="320"> | <img src="examples/gallery/23-厨房の動線.svg" width="320"> |
-| 避難経路図 | 厨房の区域と動線（HACCP） |
+| Transit | Tokyo subway network (13 lines), Yamanote loop, train graph (time × distance), stopping-pattern charts, station track layout, platform timetables |
+| Architecture / civil | Floor plans with grid lines and dimensions, elevation sections, site plans with crane radii, road alignment with real curves |
+| Plant / electrical | P&ID-style loops, switchgear single-line, electronic circuits with IEC/JIS symbols |
+| Specialist | Periodontal charts (32 teeth × 6 sites), stage lighting plots with channel hookup, fishing rigs, go/shogi/chess boards |
+| Software / UI | UML, ER, network diagrams, and **UI structure specs** (desktop vs. mobile, with the structural diff spelled out) |
 
-**23 枚を [`examples/gallery/`](examples/gallery/) に置いてあります。**
-[紹介のページ](https://meta-taro.github.io/zumen/)に全部並べてあり、業界で絞り込めます。
+The point of that range is a claim: **one rendering model and a small set of
+primitives, not a per-industry engine.** No new primitive was added for most of
+those drawings.
 
-**業界ごとの図形は 1 つも足していません。** `type` は 11 語のままです。
-専門性は形ではなく**符号**で表されているからです ——
-`C1`（柱）`G1`（大梁）`2"-CS-101`（配管のライン番号）`LBS-1`（高圧開閉器）。
-一級建築士が図面で見ているのは部材の形ではなく、**符号と断面リストの対応**です。
-符号は `tag` に書きます。
+## The format
 
-**描いてある構成は例のために組んだもの**で、実在のものではありません。
-
-```bash
-node src/cli.ts svg examples/gallery/08-工場のライン.zumen.yaml out.svg
-node src/cli.ts svg examples/gallery/08-工場のライン.zumen.yaml out-dark.svg --dark
-```
-
-**`type` は形になります。** 円柱はデータベース、六角形はキャッシュ、雲は外の世界。
-**色ではなく形で意味を持たせる**ので、白黒で印刷しても、縮小しても見分けが付きます。
-
-### 配置図（`kind: placement`）
-
-間取り・伏図・売場・避難経路のように、**何がどこにあるか**が内容の図です。
+One YAML file is the source of truth. It is designed to be read and written by both
+people and machines, and to survive `git diff`.
 
 ```yaml
 version: 1
 kind: placement
+title: Ward office, 2F
+scale: { mm: 25 }
+# pins is the human-only channel. The AI must never write here.
+pins:
+  reception:
+    position: { x: 240, y: 120 }
 nodes:
-  - id: ldk
-    label: LDK
-    technology: 16 畳
-    at: { x: 40, y: 40 }
-    size: { w: 320, h: 280 }
+  - id: reception
+    label: Reception
+    at: { x: 240, y: 120 }
+    size: { w: 200, h: 120 }
     openings:
-      - { kind: window, side: top, at: 0.25, width: 90 }
-      - { kind: door, side: bottom, at: 0.83, width: 70 }
+      - { kind: door, side: bottom, at: 0.5, width: 90 }
+  - id: waiting
+    label: Waiting area
+    at: { x: 240, y: 260 }
+    size: { w: 200, h: 140 }
+edges:
+  - from: reception
+    to: waiting
 ```
 
-- **置き場所は書いた座標のまま。** 機械が並べ直しません
-- **角は四角で、壁は隣どうしで共有します**（角丸だと壁に見えません）
-- **建具を描きます** —— 片開き戸・両開き戸・引き戸・窓・開口の 5 種
-- **通り芯・寸法線・方位記号を描きます**（`grid` / `scale` / `north`）
+The full specification is [`spec/zumen-format-v1.md`](spec/zumen-format-v1.md).
+It is written so that **another implementation could read and write the same files** —
+the spec is deliberately separate from this implementation.
 
-```yaml
-# 1 px = 15 mm。間仕切 105・外壁 180
-scale: { mm: 15 }
-wall: { mm: 105, outer: 180 }
-north: up
-grid:
-  x:
-    - { id: X1, at: 40 }
-    - { id: X2, at: 240 }
-  y:
-    - { id: Y1, at: 40 }
-    - { id: Y2, at: 320 }
-```
+## Status — honestly
 
-**壁は塗り潰します。** 1 本線では、部屋を分ける境界線には見えても、
-厚みのある壁には見えません。1/100 前後の図では実物もそう描かれています。
+This is **not finished software.** It is being built in the open, small step by small step.
 
-**寸法が無い図では、何も建てられません。**
-一点鎖線が建物を貫いて外まで伸び、両端に符号が丸で付きます。
-寸法は「芯どうし」と「総寸法」の 2 段で、通り芯からしか出しません
-（部屋の箱から出すと、壁の厚みをどちらに数えるかで値が変わり、現場で食い違います）。
+**Works today**
 
-**`scale` が無ければ数値を出しません。** 知らない縮尺で数値を書くより、
-出さないほうがましだからです。
+- Reading and writing the source, automatic layout, SVG output (light/dark)
+- Export to Mermaid, draw.io XML, and embedding into Markdown
+- A validator (55 checks) that explains, in the writer's terms, what will not be drawn
+- A Git merge driver so two people editing the same diagram merge structurally
+- An MCP server, so an agent can read the spec and write diagrams
+- A minimal desktop GUI (Tauri) limited to **eight operations** — enough to approve or
+  reject what the AI changed, and no more
 
-**設備（浴槽・便器）・通り芯・寸法線は入れません。** 建具は壁に開く穴なので
-壁の話の続きで済みますが、設備は物の形で、入れ始めると `type` が 30 語を超えます。
+**Does not exist yet**
 
----
+- Rich editing. That is not the goal; see [What this will not become](#what-this-will-not-become)
+- Web version, real-time collaboration, importing other formats
+- Filled free-form shapes (a pond outline draws; it does not fill)
+- 3D — planned as a *separate renderer over the same source*, not a separate format
 
-## なぜ作るか
+## Try it
 
-サーバー構成図・ネットワーク構成図・クラウド構成図を描かされている人がいます。
-図を描くのが仕事の人ではありません。**説明できる絵が欲しいだけ**です。
-
-そして構成は変わります。変わるたびに図形を動かし直すのが苦痛で、
-**たいてい図は古いまま放置されます。**
-
-```
-構成が変わった
-  → 図を直すのが面倒
-  → 直さない
-  → 図が嘘になる
-  → 誰も図を見なくなる
-```
-
-**この製品が向き合うのは、白紙から描く面倒ではなく、更新されないまま腐ることです。**
-既存の作図ソフトは 1 枚目を描く道具として完成しており、そこを競っても勝ち目はありません。
-
-## 最初に成立させる 1 本の線
-
-```text
-文章で頼む → 図が出る → 人が 1 か所だけ直す → もう一度文章で頼む → 直した分が壊れない
-```
-
-**最後の「壊れない」が唯一の勝負どころです。**
-ここが成立しないなら、他が全部できてもこれを使う理由がありません。
-
-## いま動くもの
+Requires Node 22.18+ and [pnpm](https://pnpm.io/).
 
 ```bash
 pnpm install
-pnpm app         # デスクトップアプリとして立てる（Tauri。Rust が要る）
-pnpm dev         # 画面だけをブラウザで立てる（http://localhost:5173）
-                 #   5173 が埋まっていたら pnpm exec vite --port 5180
-                 #   （そのとき pnpm app は繋がらない。docs/install.md）
-pnpm test        # 走るテスト
-pnpm build       # 取り込む側へ配る形に組み立てる（dist/）
-pnpm consume:check  # **別のところから import して呼べるか**を実際に確かめる
-pnpm version:set 0.2.0  # 版を 4 か所いっぺんに上げる（記録の「未リリース」も動かす）
-pnpm gui:check   # 画面の 8 操作を実際に動かして確かめる（Chrome が要る）
-pnpm validate <図のファイル> ...   # 形式に適合しているかを見る
-pnpm measure  <図のファイル> ...   # 「AI が 9 割描けたか」を測る
-pnpm svg      <図のファイル>       # SVG を書き出す（--dark 暗い地へ / --vivid 主役を強く）
-pnpm mermaid  <図のファイル>       # Mermaid を書き出す（翌日 読める）
-pnpm drawio   <図のファイル>       # draw.io の XML へ書き出す（翌日 編集できる）
-pnpm embed    <Markdown>          # 囲みを図へ差し替える
-pnpm merge    <正本> <提案>        # AI の提案を正本へ入れる（競合は適用しない）
+pnpm dev                      # the GUI in a browser (http://localhost:5173)
+pnpm app                      # the desktop app (Tauri; needs Rust)
+
+pnpm svg examples/gallery/25-路線図.zumen.yaml out.svg
+pnpm validate examples/gallery/14-間取り.zumen.yaml
+pnpm mermaid examples/gallery/04-ネットワーク構成.zumen.yaml
 ```
 
-### エージェントに描かせる（MCP）
-
-**これが第一の口です。**サーバ構成を把握しているエージェントに、直接図を描かせます。
-
-```json
-{ "mcpServers": { "zumen": { "command": "node", "args": ["<zumen の場所>/src/mcp.ts"] } } }
-```
-
-**まず `zumen_about` を 1 回。** 何をする道具か・**どの口が開いていないか**・版ごとに何が変わったかを返します。
-**試して断られる往復が減ります。**
-
-開いている口は 9 つ。`zumen_spec`（形式を教える）／`zumen_create`（**ゼロから作る。既にあれば失敗**）／
-`zumen_propose`（**提案の `pins` は読まない**）／`zumen_inspect`（交差・重なり・**置けずに消えたラベル**・**投影で読める大きさか**・**人が見たか**・「9 割」を返す）ほか。
-
-**開けていない口**があります — **競合の決着**・`pins` の書き換え・**「見た」印の書き込み**・既存ファイルの無条件な上書き。
-開けた瞬間、**AI が自分の提案を自分で承認できてしまう**からです（D18）。
-
-別の機械で使う手順は [`docs/install.md`](docs/install.md)。
-
-**単体で完結します。**姉妹プロジェクト（md-business）への依存はありません。
-
-### 取り込んで使う（library）
+To let an agent draw, run the MCP server:
 
 ```bash
-pnpm add github:meta-taro/zumen
+pnpm mcp
 ```
 
-```ts
-import { toSvg } from 'zumen';
+It exposes `zumen_spec` (read this first), `zumen_propose`, `zumen_export`,
+`zumen_inspect` and others. **There is no tool that writes the source directly** —
+an agent proposes, and a human applies.
 
-const svg = await toSvg(source);                        // 図 1 枚を SVG に
-const dark = await toSvg(source, { theme: 'dark' });    // 暗い地へ貼るとき
-const vivid = await toSvg(source, { intent: 'vivid' }); // 遠くから見せるとき
-```
+## What this will not become
 
-検査は `zumen/tools` の `inspect`（交差・重なり・置けずに消えたラベル・「9 割」）。
+- **Not a Figma replacement.** For UI it stores *structure*, not visual design
+- **Not a general drawing program.** Selection, drag, resize and undo exist only as far
+  as a human needs them to approve what the AI changed
+- **Not an "AI makes a pretty diagram" tool.** A diagram nobody argues with is a diagram
+  nobody read. Keeping the human in the loop is the point, not a limitation
 
-**`dist` を配ります。** Node は `node_modules` の中の TypeScript を受け付けないため
-（`ERR_UNSUPPORTED_NODE_MODULES_TYPE_STRIPPING`）、`pnpm build` で組み立てたものを指しています。
-**実際に取り込んで呼べるかは CI で毎回確かめています**（`pnpm consume:check`）。
-口の一覧と、MCP でどこまで開けるかは
-[`docs/specs/008-CLIとMCPの口.md`](docs/specs/008-CLIとMCPの口.md)。
-
-`pnpm validate` は、読めない図を**行番号つきで**指摘します。
-**迷子の手直し**（`pins` の鍵がどの要素も指していない状態）は警告として出しますが、
-**失敗にはしません。** 迷子は人が競合として解くもので、文書の壊れではないからです。
-
-**AI が書いた指定も見ます。** `at: { x: "ひだり" }`、構成図に書いた `at` や建具、
-`wrap: "true"`（文字列）—— どれも描画側は黙って無視するので、
-**知らせないと「効かない」理由が分かりません。** これらも警告で、止めません。
-
-表示は日本語と英語です。`ZUMEN_LOCALE=en` で切り替わります。
-
-### Git のマージドライバ（任意）
-
-図の正本は行単位でマージすると、**中身がぶつかっていないのに衝突します**
-（2 人が別々のノードを動かした、別々のノードを足した、など。同じ行に書くため）。
-構造でマージすると解けます。
-
-```bash
-git config merge.zumen.name   "zumen structural merge"
-git config merge.zumen.driver "node $(pwd)/src/cli.ts merge-driver %O %A %B"
-```
-
-`.gitattributes` はこのリポジトリに入っているので、設定はこの 1 回だけです。
-
-- **設定しなくても壊れません。** Git の既定の行単位マージへ落ちるだけです
-- **本当にぶつかっているものは、ぶつかったままにします。**
-  2 人が同じノードを別の場所へ動かしたときは衝突します。
-  黙って片方を採ると、人の直しが消えたことに誰も気づきません
-
-実測は [`experiments/d2/results/git-conflict.md`](experiments/d2/results/git-conflict.md)
-（`pnpm d2:conflict` で再生成できます）。
-
-## 何を作らないか
-
-- **図形の網羅を追いません。** `type` は 11 語のまま（うち形が変わるのは 6 つ）。
-  **業界を増やしても、ここは増やしません。** 専門性は形ではなく符号（`tag`）で
-  表されているからです。語彙が増えるほど、同じものを違う語で書く人が増え、
-  差分が読めなくなります
-- **設備の形を持ちません。** 浴槽・便器・ポンプ・バルブ、電気の設備記号は入れません。
-  建具は壁に開く穴なので壁の話の続きで済みますが、設備は物の形で、
-  入れ始めると `type` が 30 語を超えます
-- **リアルタイム共同編集をやりません。** Local-first と両立させる設計コストが本体価値を食う
-- **Web 版を先に作りません。** デスクトップ版であることが最初の判断そのもの（D1）
-- **他形式のインポートを最初に作りません。** 入口を広げると、出力品質が
-  他所のデータ品質に引きずられ、勝負どころが測れなくなる
-- **縮尺の仕組みを持ちません。** 配置図（`kind: placement`）は描けますが、
-  寸法の単位は形式が持ちません。題に「1 マス = 910mm」と書けば足ります。
-  単位系・丸め・累積誤差を引き受けるのは作図ソフトの仕事です
-  （[#4](https://github.com/meta-taro/zumen/issues/4)。**当初「やらない」としていた判断は、
-  2026-09-11 に人が覆しました**）
-
-## 「9 割」をどう測るか
-
-「AI が 9 割描き、人が 1 割直す」は、**測れないと守れません。**
-機能が増えるほど「使える」ようには見えますが、人が図形を並べ直しているなら、
-それは高機能な作図ソフトであって、この製品ではありません。
-
-```bash
-pnpm measure <図のファイル> ...
-```
-
-**人の手直しは `pins` にしか書かれない**ので（AI は `pins` を書きません）、
-正本 1 つを見れば、人がどれだけ手を入れたかが分かります。別のログは取りません。
-
-### 100% には 2 通りある
-
-**手直しが 0 件の図は必ず 100% になります。** これには 2 つの意味があります。
+## Documents
 
 | | |
 |---|---|
-| **人が見て、直すところが無かった** | 本物の 100% |
-| **誰も見ていない** | **この製品の失敗そのもの** |
+| [`PRD.md`](PRD.md) | what this product is for, and what it refuses to do |
+| [`spec/zumen-format-v1.md`](spec/zumen-format-v1.md) | the file format |
+| [`DESIGN.md`](DESIGN.md) | visual decisions (written by a human, not by the AI) |
+| [`CHANGELOG.md`](CHANGELOG.md) | what changed, in terms of behaviour |
+| [`CONTRIBUTING.md`](CONTRIBUTING.md) | how to work on this |
+| [`README.ja.md`](README.ja.md) | the longer Japanese version |
 
-手直しの量だけでは区別できないので、**人が「見た」と印を付ける場所**を正本に持っています
-（`review`。[仕様 §3.5](spec/zumen-format-v1.md)）。`pnpm measure` は分けて言います。
+## Name
 
-```
-うち 1 件はまだ誰も見ていません。この 100% は「AI が上手い」ではなく
-「まだ誰も確かめていない」という意味です。
-```
+*Zumen* (図面) is the ordinary Japanese word for a drawing — the kind a builder,
+an electrician or a signal engineer works from. Not an illustration. A document.
 
-**この印を書けるのは GUI だけです。** CLI にも MCP にも口を開けていません。
-開けた瞬間、**AI が自分の絵を自分で承認できる**ためです（D18）。
-図の意味が変われば印は自動的に外れ、もう一度見てもらう段になります。
+## Licence
 
-| 指標 | 合格 |
-|---|---|
-| 自力率（1 − 人が触った要素 ÷ 全要素） | 90% 以上 |
-| 配置の自力率（1 − 人が幾何を決めた要素 ÷ 全要素） | 90% 以上 |
-
-**1 枚目は必ず 100% です**（まだ誰も直していないので `pins` が空）。
-成績として読まれないよう、そのときは `pnpm measure` が
-「まだ人の手直しがありません」と断ります。
-
-定義は [`docs/specs/003-9割の定義.md`](docs/specs/003-9割の定義.md)、
-現状値は [`experiments/s3/results/baseline.md`](experiments/s3/results/baseline.md)。
-**現状は S1 の往復 8 回中 3 回が合格ラインを割っています。**
-指標を甘くして通すことはしません。
-
-## 未解決
-
-**ありません**（D1〜D12 が確定）。
-
-D2（保存形式）は決まりました。**正本は zumen 独自の YAML** で、仕様を実装から分離して
-[`spec/zumen-format-v1.md`](spec/zumen-format-v1.md) に置いてあります。
-Mermaid への書き出しを持つので、この製品が終わっても図は読めます。
-
-D1（既存の作図 OSS を部品として組み込まない）の判断と理由は
-[`.claude/decisions.md`](.claude/decisions.md) にあります。
-
-## 名前について
-
-**zumen＝図面。図面は「更新され続けるもの」**で、この製品が向き合う課題に語がそのまま重なります。
-経緯は [`PRD.md`](PRD.md) §7。
-
-## ライセンス
-
-MIT（[`LICENSE`](LICENSE)）。
-
-依存ライブラリのライセンスは [`LICENSES.md`](LICENSES.md) にあります。
-`elkjs` が EPL-2.0 OR GPL-3.0-or-later なので、**未改変のまま依存として使います**（D6）。
-
-**クラウド各社の公式アイコンは同梱していません。**
-各社とも改変を禁じており、第三者の作図ツールへの同梱を明示的に許可した文が
-どこにもないためです（D7。調査は
-[`docs/specs/006-図形とアイコンのライセンス.md`](docs/specs/006-図形とアイコンのライセンス.md)）。
+[MIT](LICENSE). Third-party notices are in [`LICENSES.md`](LICENSES.md).
