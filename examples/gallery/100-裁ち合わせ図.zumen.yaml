@@ -1,0 +1,264 @@
+version: 1
+kind: placement
+arrows: false
+scale: { mm: 3 }
+title: 裁ち合わせ図（ブラウス・布幅 110cm・用尺 1.30m）
+# 1 px = 3 mm。**布の上のどこに型紙を置くか**だけの図。
+# 布は二つ折り（わ）にしてあるので、描いてある幅は 110 ÷ 2 ＝ 55cm。
+#
+# ## 回してはいけない
+#
+# **地の目線は耳と平行**でなければならない。型紙を 90° 回すと、
+# 布の伸び方が変わって**着たときに歪む。** だから隙間が空いても回さない。
+#
+# ## 「わ」に置くもの
+#
+# 前身頃・後ろ身頃は**中心線を折り山にぴったり載せる。**
+# ずらすと左右の幅が違う服になる。
+#
+# ## 余りは捨てない
+#
+# 当て布・試し縫い・柄合わせのやり直しに使う。
+#
+# 寸法は例。実物はサイズと型で変わる。
+nodes:
+  - id: cloth
+    label: ""
+    hatch: dots
+    at: { x: 90, y: 120 }
+    size: { w: 183, h: 433 }
+  - id: cloth_n
+    label: "布（二つ折り・幅 55.0cm ＝ 110cm の半分）"
+    marker: none
+    at: { x: 60, y: 64 }
+    size: { w: 320, h: 24 }
+  - id: wa
+    label: "わ（折り山）"
+    marker: none
+    at: { x: 4, y: 300 }
+    size: { w: 82, h: 24 }
+  - id: mimi
+    label: "耳"
+    marker: none
+    at: { x: 281, y: 300 }
+    size: { w: 40, h: 24 }
+  - id: yojaku
+    label: "用尺 1.30m"
+    marker: none
+    at: { x: 281, y: 513 }
+    size: { w: 96, h: 24 }
+  - id: mae
+    label: "前身頃"
+    tag: F
+    technology: わに置く／地の目 ↕
+    hatch: lines
+    at: { x: 90, y: 120 }
+    size: { w: 100, h: 200 }
+  - id: ushiro
+    label: "後ろ身頃"
+    tag: B
+    technology: わに置く／地の目 ↕
+    hatch: lines
+    at: { x: 90, y: 327 }
+    size: { w: 107, h: 207 }
+  - id: sode
+    label: "袖"
+    tag: S
+    technology: 2 枚／地の目 ↕
+    hatch: lines
+    at: { x: 200, y: 120 }
+    size: { w: 70, h: 150 }
+  - id: eri
+    label: "衿"
+    tag: C
+    technology: 2 枚／地の目 ↕
+    hatch: lines
+    at: { x: 200, y: 277 }
+    size: { w: 70, h: 30 }
+  - id: mikaeshi
+    label: "見返し"
+    tag: FF
+    technology: 2 枚／地の目 ↕
+    hatch: lines
+    at: { x: 200, y: 313 }
+    size: { w: 43, h: 87 }
+  - id: aki
+    label: "余り"
+    hatch: none
+    at: { x: 200, y: 406 }
+    size: { w: 70, h: 120 }
+  - id: aki_n
+    label: "この余りは、当て布や試し縫いに使う"
+    marker: none
+    at: { x: 60, y: 565 }
+    size: { w: 320, h: 24 }
+  - id: tb_t
+    label: "裁ち合わせ（布幅 110cm・用尺 1.30m）"
+    marker: none
+    at: { x: 400, y: 60 }
+    size: { w: 420, h: 24 }
+  - id: th0
+    label: "部位"
+    hatch: solid
+    at: { x: 400, y: 92 }
+    size: { w: 120, h: 26 }
+  - id: th1
+    label: "符号"
+    hatch: solid
+    at: { x: 520, y: 92 }
+    size: { w: 70, h: 26 }
+  - id: th2
+    label: "枚数"
+    hatch: solid
+    at: { x: 590, y: 92 }
+    size: { w: 80, h: 26 }
+  - id: th3
+    label: "置き方"
+    hatch: solid
+    at: { x: 670, y: 92 }
+    size: { w: 170, h: 26 }
+  - id: th4
+    label: "縫い代"
+    hatch: solid
+    at: { x: 840, y: 92 }
+    size: { w: 150, h: 26 }
+  - id: tc0_0
+    label: "前身頃"
+    at: { x: 400, y: 118 }
+    size: { w: 120, h: 28 }
+  - id: tc0_1
+    label: "F"
+    at: { x: 520, y: 118 }
+    size: { w: 70, h: 28 }
+  - id: tc0_2
+    label: "2（わ）"
+    at: { x: 590, y: 118 }
+    size: { w: 80, h: 28 }
+  - id: tc0_3
+    label: "わに中心を合わせる"
+    at: { x: 670, y: 118 }
+    size: { w: 170, h: 28 }
+  - id: tc0_4
+    label: "肩・脇 1.0／裾 4.0"
+    at: { x: 840, y: 118 }
+    size: { w: 150, h: 28 }
+  - id: tc1_0
+    label: "後ろ身頃"
+    at: { x: 400, y: 146 }
+    size: { w: 120, h: 28 }
+  - id: tc1_1
+    label: "B"
+    at: { x: 520, y: 146 }
+    size: { w: 70, h: 28 }
+  - id: tc1_2
+    label: "2（わ）"
+    at: { x: 590, y: 146 }
+    size: { w: 80, h: 28 }
+  - id: tc1_3
+    label: "わに中心を合わせる"
+    at: { x: 670, y: 146 }
+    size: { w: 170, h: 28 }
+  - id: tc1_4
+    label: "肩・脇 1.0／裾 4.0"
+    at: { x: 840, y: 146 }
+    size: { w: 150, h: 28 }
+  - id: tc2_0
+    label: "袖"
+    at: { x: 400, y: 174 }
+    size: { w: 120, h: 28 }
+  - id: tc2_1
+    label: "S"
+    at: { x: 520, y: 174 }
+    size: { w: 70, h: 28 }
+  - id: tc2_2
+    label: "2"
+    at: { x: 590, y: 174 }
+    size: { w: 80, h: 28 }
+  - id: tc2_3
+    label: "地の目は袖山に通す"
+    at: { x: 670, y: 174 }
+    size: { w: 170, h: 28 }
+  - id: tc2_4
+    label: "袖下 1.0／袖口 2.5"
+    at: { x: 840, y: 174 }
+    size: { w: 150, h: 28 }
+  - id: tc3_0
+    label: "衿"
+    at: { x: 400, y: 202 }
+    size: { w: 120, h: 28 }
+  - id: tc3_1
+    label: "C"
+    at: { x: 520, y: 202 }
+    size: { w: 70, h: 28 }
+  - id: tc3_2
+    label: "2"
+    at: { x: 590, y: 202 }
+    size: { w: 80, h: 28 }
+  - id: tc3_3
+    label: "地の目 ↕。回さない"
+    at: { x: 670, y: 202 }
+    size: { w: 170, h: 28 }
+  - id: tc3_4
+    label: "周囲 1.0"
+    at: { x: 840, y: 202 }
+    size: { w: 150, h: 28 }
+  - id: tc4_0
+    label: "見返し"
+    at: { x: 400, y: 230 }
+    size: { w: 120, h: 28 }
+  - id: tc4_1
+    label: "FF"
+    at: { x: 520, y: 230 }
+    size: { w: 70, h: 28 }
+  - id: tc4_2
+    label: "2"
+    at: { x: 590, y: 230 }
+    size: { w: 80, h: 28 }
+  - id: tc4_3
+    label: "前身頃と同じ向き"
+    at: { x: 670, y: 230 }
+    size: { w: 170, h: 28 }
+  - id: tc4_4
+    label: "周囲 1.0"
+    at: { x: 840, y: 230 }
+    size: { w: 150, h: 28 }
+  - id: r_t
+    label: "置き方の決まり"
+    marker: none
+    at: { x: 400, y: 274 }
+    size: { w: 300, h: 24 }
+  - id: n0
+    label: "・地の目線は耳と平行。 2 か所で耳からの距離を測って確かめる。"
+    marker: none
+    at: { x: 400, y: 302 }
+    size: { w: 600, h: 24 }
+  - id: n1
+    label: "・型紙を回さない。 回すと伸び方が変わり、着たときに歪む。"
+    marker: none
+    at: { x: 400, y: 328 }
+    size: { w: 600, h: 24 }
+  - id: n2
+    label: "・型紙は同じ向きに並べる。毛並みのある布・一方向の柄では必ず。"
+    marker: none
+    at: { x: 400, y: 354 }
+    size: { w: 600, h: 24 }
+  - id: n3
+    label: "・布幅が足りないときは一部を逆向きに差し込むが、毛並みがあると使えない。"
+    marker: none
+    at: { x: 400, y: 380 }
+    size: { w: 600, h: 24 }
+  - id: n4
+    label: "・ストライプは前中心と後ろ中心で、ボーダーは腰と裾で合わせる。"
+    marker: none
+    at: { x: 400, y: 406 }
+    size: { w: 600, h: 24 }
+  - id: n5
+    label: "・「わ」に置く型紙は、中心線を折り山にぴったり載せる（ずらすと左右が違う）。"
+    marker: none
+    at: { x: 400, y: 432 }
+    size: { w: 600, h: 24 }
+  - id: n6
+    label: "・用尺は、いちばん下に来る型紙の端 ＋ 端の始末で決める。"
+    marker: none
+    at: { x: 400, y: 458 }
+    size: { w: 600, h: 24 }
