@@ -45,7 +45,7 @@ import { WRITES } from './write.ts';
 import { CURVES } from './curve.ts';
 import { VERTICALS } from './floor.ts';
 import { MARKERS } from './marker.ts';
-import { crowdedNames, extentOf, hiddenTags, overlappingText, planNames } from './names.ts';
+import { adriftNames, crowdedNames, extentOf, hiddenTags, overlappingText, planNames } from './names.ts';
 import { OPENINGS, SIDES } from './openings.ts';
 import type { Kind } from './kind.ts';
 import { projection, smallestTextOf, PRINT_FLOOR, PROJECTION_FLOOR, SMALLEST_TEXT } from './projection.ts';
@@ -240,6 +240,13 @@ export interface Inspection {
   /** **階の一覧**（`src/floor.ts`）。下から上へ。書かなければ空。 */
   floors: string[];
   /**
+   * **広い箱から出ていった名前**（配置図だけ）。
+   *
+   * 小さい印では外へ出すのが正しいが、**表の欄のような広い箱**で外へ出ると、
+   * 値が欄から離れて**行が空に見える。** 欄を広げるか、文字を短くすれば直る。
+   */
+  adriftNames: string[];
+  /**
    * **書いたのに絵に出ない符号**（配置図だけ）。
    *
    * `hiddenLabels`（辺のラベル）と同じ扱い。印が小さいと符号が入らない。
@@ -329,6 +336,7 @@ export async function inspect(source: string): Promise<Inspection> {
       hiddenLabels: [],
       crowdedNames: [],
       floors: [],
+      adriftNames: [],
       hiddenTags: [],
       overlappingText: [],
       kind: 'structure',
@@ -374,6 +382,10 @@ export async function inspect(source: string): Promise<Inspection> {
     crowdedNames:
       kindOf(source) === 'placement' ? crowdedNames(planNames(placed.boxes, extentOf(placed.boxes), placed.edges)) : [],
     floors: placed.floors,
+    adriftNames:
+      kindOf(source) === 'placement'
+        ? adriftNames(placed.boxes, planNames(placed.boxes, extentOf(placed.boxes), placed.edges))
+        : [],
     hiddenTags: kindOf(source) === 'placement' ? hiddenTags(placed.boxes) : [],
     overlappingText:
       kindOf(source) === 'placement'

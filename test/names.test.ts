@@ -571,3 +571,58 @@ describe('箱が、はみ出して重なっていない', () => {
   });
 });
 
+/**
+ * **広い箱から出ていった名前**（`adriftNames`）。
+ *
+ * 名前が入らなければ外へ出す —— 小さい印ではそれが正しい
+ * （駅の丸・回路の記号・伏図の小梁）。
+ *
+ * **広い箱では話が違う。** 表の欄が 330px あって名前が入らないなら、
+ * 文字は欄の外へ飛び、**行が空に見える。**
+ * `crowdedNames` は当たらなければ何も言わない ——
+ * 当たっていないことが問題ではなく、**欄と値が離れたこと**が問題。
+ *
+ * 2026-09-15。**実物をブラウザで見て見つけた**（数の検査はすべて 0 だった）。
+ */
+describe('広い箱から出ていった名前', () => {
+  const CELL = `version: 1
+kind: placement
+nodes:
+  - id: wide
+    label: とても長い値がここに入っていて欄の幅にはどうしても収まらないので外へ出ていく
+    at: { x: 0, y: 0 }
+    size: { w: 330, h: 28 }
+  - id: mark
+    label: 名前が外に出る小さな印
+    marker: circle
+    at: { x: 0, y: 200 }
+    size: { w: 34, h: 34 }
+`;
+
+  it('**幅のある箱から出たら知らせる**', async () => {
+    const out = await inspect(CELL);
+    assert.deepEqual(out.adriftNames, ['wide']);
+  });
+
+  it('**小さい印は知らせない**（外へ出すのが正しい）', async () => {
+    const out = await inspect(CELL.replace(/  - id: wide\n(?:.*\n){3}/, ''));
+    assert.deepEqual(out.adriftNames, []);
+  });
+
+  it('入る値なら何も言わない', async () => {
+    const out = await inspect(CELL.replace('とても長い値がここに入っていて欄の幅にはどうしても収まらないので外へ出ていく', '短い値'));
+    assert.deepEqual(out.adriftNames, []);
+  });
+
+  it('**見本すべてで 0**', async () => {
+    const { readdirSync, readFileSync } = await import('node:fs');
+    const dir = new URL('../examples/gallery/', import.meta.url);
+    const adrift: string[] = [];
+    for (const name of readdirSync(dir).filter((f) => f.endsWith('.zumen.yaml')).sort()) {
+      const out = await inspect(readFileSync(new URL(name, dir), 'utf8'));
+      for (const id of out.adriftNames) adrift.push(`${name}: ${id}`);
+    }
+    assert.deepEqual(adrift, []);
+  });
+});
+

@@ -451,6 +451,35 @@ export function hiddenTags(boxes: readonly Box[]): string[] {
   return boxes.filter((box) => box.tag !== null && !tagFits(box)).map((box) => box.id);
 }
 
+/**
+ * **広い箱から出ていった名前**（`adriftNames`）。
+ *
+ * 名前が箱に入らなければ外へ出す。**小さい印ではそれが正しい**
+ * —— 駅の丸、回路の記号、伏図の小梁。外に書くのが実物の作法。
+ *
+ * **広い箱では話が違う。** 表の欄が 330px あって名前が入らないなら、
+ * その文字は欄の外へ飛び、**行が空に見える**（2026-09-15。実物を見て見つけた）。
+ * `crowdedNames` は当たらなければ何も言わない —— 当たっていないのが問題ではなく、
+ * **欄と値が離れてしまったこと**が問題。
+ *
+ * 見るのは**枠のある広い箱だけ**。図記号（`symbol`）は名前を外へ出すのが決まりなので外す。
+ */
+const WIDE_ENOUGH = 200;
+
+export function adriftNames(boxes: readonly Box[], plans: Map<string, Plan>): string[] {
+  return boxes
+    .filter(
+      (box) =>
+        box.label !== '' &&
+        box.w >= WIDE_ENOUGH &&
+        box.marker === 'box' &&
+        box.symbol === null &&
+        plans.get(box.id)?.kind === 'outside',
+    )
+    .map((box) => box.id)
+    .sort();
+}
+
 /** 箱ぜんたいが占める矩形。**外へ出す先が図の外にならないか**を見るのに使う。 */
 export function extentOf(boxes: readonly Box[]): Rect | null {
   if (boxes.length === 0) return null;

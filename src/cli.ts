@@ -29,7 +29,7 @@ import { render } from './render.ts';
 import { kindOf } from './kind.ts';
 import { messages } from './messages.ts';
 import { hasError, validate } from './validate.ts';
-import { extentOf, hiddenTags, overlappingText, planNames } from './names.ts';
+import { adriftNames, extentOf, hiddenTags, overlappingText, planNames } from './names.ts';
 import type { Finding } from './validate.ts';
 import { isEntry } from './entry.ts';
 
@@ -109,6 +109,12 @@ async function placedFindings(text: string): Promise<Finding[]> {
       severity: 'warning' as const,
       code: 'text-overlap',
       message: messages().validate.textOverlap(a, b),
+    })),
+    // **広い箱から出ていった名前。** 表の欄が空に見える。
+    ...adriftNames(placed.boxes, plans).map((id) => ({
+      severity: 'warning' as const,
+      code: 'name-adrift',
+      message: messages().validate.nameAdrift(id),
     })),
     // **書いたのに出ない符号。** 印が小さいと入らないので落としている。
     // 落とすのは正しいが、**黙って落とすと書いた側が気づけない。**
