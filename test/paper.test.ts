@@ -161,6 +161,93 @@ describe('見本の中身が、画用紙の中に収まっている', () => {
     assert.deepEqual(over, [], '文字どうしが重なっている');
   });
 
+  /**
+   * **通り芯が、文字を串刺しにしていない**（2026-09-15）。
+   *
+   * 天井伏図（見本 136）を実物で見て見つけた ——
+   * 「点検口 450 角」と「LGS @303」を**一点鎖線が横切っていた。**
+   * 数えたら **136 枚のうち 30 枚・80 か所**が同じ形で、
+   * 「手洗い」「理科室」「蹴上 160・踏面 280」まで貫かれていた。
+   *
+   * **どの検査も 0 のままだった。** `crossings` は辺どうし、`overlaps` は箱どうし、
+   * `overlappingText` は文字どうし —— **線が文字を横切る**を誰も見ていなかった。
+   *
+   * 直したのは描く側（`src/dimensions.ts` の `chain`）。
+   * **芯は文字のところで切れる** —— 実物の図面と同じで、壁と部屋は貫いたまま。
+   *
+   * **時間の目盛り（`data-grid="tick"`）は見ない。** あれは帯の下に敷いてあり、
+   * 塗りが隠す（線が上に出ていた頃の顛末は `drawGrid` にある）。
+   */
+  it('**通り芯が文字を横切っていない**', () => {
+    const over: string[] = [];
+    for (const sheet of sheets()) {
+      const datum = [...sheet.body.matchAll(/<g data-grid="true">([\s\S]*?)<\/g>/g)]
+        .map((m) => m[1]!)
+        .join('');
+      if (datum === '') continue;
+      const chains = [
+        ...datum.matchAll(
+          /<line x1="(-?[\d.]+)" y1="(-?[\d.]+)" x2="(-?[\d.]+)" y2="(-?[\d.]+)"[^>]*stroke-dasharray="14 3 3 3"/g,
+        ),
+      ].map((m) => ({ x1: Number(m[1]), y1: Number(m[2]), x2: Number(m[3]), y2: Number(m[4]) }));
+      // **下地を敷いてある文字は、線が切れている**（寸法の数値・符号の丸）。
+      const plates = [
+        ...sheet.body.matchAll(
+          /<rect x="(-?[\d.]+)" y="(-?[\d.]+)" width="([\d.]+)" height="([\d.]+)" fill="#[0-9a-fA-F]+"\/>/g,
+        ),
+      ].map((m) => ({ x: Number(m[1]), y: Number(m[2]), w: Number(m[3]), h: Number(m[4]) }));
+      const rings = [
+        ...sheet.body.matchAll(/<circle cx="(-?[\d.]+)" cy="(-?[\d.]+)" r="([\d.]+)" fill="#[0-9a-fA-F]+" stroke=/g),
+      ].map((m) => ({
+        x: Number(m[1]) - Number(m[3]),
+        y: Number(m[2]) - Number(m[3]),
+        w: Number(m[3]) * 2,
+        h: Number(m[3]) * 2,
+      }));
+      const covers = [...plates, ...rings];
+      for (const m of sheet.body.matchAll(/<text x="(-?[\d.]+)" y="(-?[\d.]+)"([^>]*)>([^<]*)<\/text>/g)) {
+        if (m[3]!.includes('rotate') || m[4]!.trim() === '') continue;
+        const font = Number(/font-size="([\d.]+)"/.exec(m[3]!)?.[1] ?? 12);
+        const anchor = /text-anchor="(\w+)"/.exec(m[3]!)?.[1] ?? 'start';
+        const w = widthOf(m[4]!, font);
+        const x = Number(m[1]);
+        const y = Number(m[2]);
+        const box = {
+          x: anchor === 'middle' ? x - w / 2 : anchor === 'end' ? x - w : x,
+          y: y - font,
+          w,
+          h: font,
+        };
+        const covered = covers.some(
+          (c) =>
+            c.x <= box.x + 1 &&
+            c.y <= box.y + 2 &&
+            c.x + c.w >= box.x + box.w - 1 &&
+            c.y + c.h >= box.y + box.h - 2,
+        );
+        if (covered) continue;
+        for (const c of chains) {
+          const vertical = Math.abs(c.x1 - c.x2) < 0.5;
+          const hit = vertical
+            ? c.x1 > box.x + 1 &&
+              c.x1 < box.x + box.w - 1 &&
+              Math.min(c.y1, c.y2) < box.y + box.h - 1 &&
+              Math.max(c.y1, c.y2) > box.y + 1
+            : Math.abs(c.y1 - c.y2) < 0.5 &&
+              c.y1 > box.y + 1 &&
+              c.y1 < box.y + box.h - 1 &&
+              Math.min(c.x1, c.x2) < box.x + box.w - 1 &&
+              Math.max(c.x1, c.x2) > box.x + 1;
+          if (hit) {
+            over.push(`${sheet.name}: ${JSON.stringify(m[4]).slice(0, 34)}`);
+            break;
+          }
+        }
+      }
+    }
+    assert.deepEqual(over, [], '通り芯が文字を横切っている');
+  });
+
   it('**線が紙からはみ出していない**', () => {
     const over: string[] = [];
     for (const sheet of sheets()) {

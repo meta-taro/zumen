@@ -14,6 +14,7 @@
  */
 import type { Axis, Grid, North } from './grid.ts';
 import { CODE_R, MARGIN } from './grid.ts';
+import type { Rect } from './names.ts';
 import { lengthText } from './units.ts';
 
 export interface Frame {
@@ -37,6 +38,8 @@ export interface Ink {
 
 /** 一点鎖線。**通り芯の決まりごと**（実線でも破線でもない）。 */
 const CHAIN = '14 3 3 3';
+/** 文字の手前で芯を切る幅。 */
+const TEXT_GAP = 3;
 /** 符号を囲む丸の半径。 */
 
 function n(value: number): number {
@@ -49,7 +52,14 @@ function n(value: number): number {
  * 座標は**余白を足したあとのもの**（`src/layout.ts` でずらしてある）。
  * ここで余白を知る必要は無い。
  */
-export function drawGrid(grid: Grid, frame: Frame, ink: Ink, only?: 'tick' | 'datum'): string {
+export function drawGrid(
+  grid: Grid,
+  frame: Frame,
+  ink: Ink,
+  only?: 'tick' | 'datum',
+  /** **芯を切る場所**（文字が占めている矩形）。`chain` を見よ。 */
+  avoid: readonly Rect[] = [],
+): string {
   /**
    * **目盛りと通り芯で、重ねる順が違う**（`src/render.ts`）。
    *
@@ -70,13 +80,14 @@ export function drawGrid(grid: Grid, frame: Frame, ink: Ink, only?: 'tick' | 'da
     const x = axis.at;
     if (axis.mark === 'tick') {
       // **時間軸。** 目盛りの線と、上に名前だけ（丸で囲むと通り芯に見える）。
+      // 目盛りは帯の下に敷くので、文字で切らない（塗りが隠す）。
       parts.push(line(x, frame.y - 10, x, frame.y + frame.h, ink.stroke, CHAIN));
       parts.push(
         `<text x="${n(x)}" y="${n(frame.y - 16)}" text-anchor="middle" font-family="${ink.font}" font-size="11" fill="${ink.text}">${axis.id}</text>`,
       );
       continue;
     }
-    parts.push(line(x, top, x, bottom, ink.stroke, CHAIN));
+    parts.push(chain(top, bottom, x, true, ink, avoid));
     parts.push(code(x, top - CODE_R - 2, axis.id, ink));
     parts.push(code(x, bottom + CODE_R + 2, axis.id, ink));
   }
@@ -98,7 +109,7 @@ export function drawGrid(grid: Grid, frame: Frame, ink: Ink, only?: 'tick' | 'da
       );
       continue;
     }
-    parts.push(line(left, y, right, y, ink.stroke, CHAIN));
+    parts.push(chain(left, right, y, false, ink, avoid));
     if (axis.mark === 'level') {
       // **高さの基準線**（断面図・立面図）。丸ではなく三角と値。
       parts.push(level(left - 4, y, axis.id, ink, 'left'));
@@ -238,6 +249,62 @@ function code(x: number, y: number, id: string, ink: Ink): string {
     `<circle cx="${n(x)}" cy="${n(y)}" r="${CODE_R}" fill="${ink.paper}" stroke="${ink.stroke}"/>` +
     `<text x="${n(x)}" y="${n(y + 4)}" text-anchor="middle" font-family="${ink.font}" font-size="11" fill="${ink.text}">${id}</text>`
   );
+}
+
+/**
+ * 通り芯を 1 本引く。**文字のところで切る。**
+ *
+ * 2026-09-15。天井伏図（見本 136）を実物で見て気づいた ——
+ * 「点検口 450 角」「LGS @303」を**一点鎖線が串刺しにしていた。**
+ * 数えたら **136 枚のうち 30 枚**が同じ形で、
+ * 「手洗い」「理科室」「蹴上 160・踏面 280」まで貫かれていた。
+ * **どの検査も 0 のままだった**（交差は辺どうし、重なりは箱どうししか見ていない）。
+ *
+ * 実物の図面では、**芯は文字を避けるか、文字のところで切れている。**
+ * 芯が基準線であることと、名前が読めることは両立する ——
+ * 寸法の数値は既にそうしていた（下地の板で線を切っている）。
+ *
+ * **芯を下敷きにする案は採らない。** 箱の塗りは透けないので、
+ * 建物の中で芯が丸ごと消える（`src/render.ts` の層の順にその顛末が書いてある）。
+ * ここで切るのは**文字の矩形だけ**で、壁も部屋も貫いたまま。
+ *
+ * 切った結果**何も残らないなら、切らずに引く。**
+ * 芯が 1 本消えるのは、文字が読みにくいより悪い。
+ */
+function chain(
+  from: number,
+  to: number,
+  at: number,
+  vertical: boolean,
+  ink: Ink,
+  avoid: readonly Rect[],
+): string {
+  const holes: [number, number][] = [];
+  for (const rect of avoid) {
+    const near = vertical ? rect.x : rect.y;
+    const far = vertical ? rect.x + rect.w : rect.y + rect.h;
+    if (at <= near || at >= far) continue;
+    const head = (vertical ? rect.y : rect.x) - TEXT_GAP;
+    const tail = (vertical ? rect.y + rect.h : rect.x + rect.w) + TEXT_GAP;
+    if (tail <= from || head >= to) continue;
+    holes.push([Math.max(head, from), Math.min(tail, to)]);
+  }
+  holes.sort((a, b) => a[0] - b[0]);
+  const spans: [number, number][] = [];
+  let edge = from;
+  for (const [head, tail] of holes) {
+    if (head > edge) spans.push([edge, head]);
+    edge = Math.max(edge, tail);
+  }
+  if (edge < to) spans.push([edge, to]);
+  if (spans.length === 0) spans.push([from, to]);
+  return spans
+    .map(([head, tail]) =>
+      vertical
+        ? line(at, head, at, tail, ink.stroke, CHAIN)
+        : line(head, at, tail, at, ink.stroke, CHAIN),
+    )
+    .join('');
 }
 
 function line(

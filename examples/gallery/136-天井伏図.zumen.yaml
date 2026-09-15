@@ -1,0 +1,229 @@
+version: 1
+kind: placement
+arrows: false
+title: 天井伏図（事務室・システム天井 600 角／架空）
+# **見上げるものを、見下ろして描く。** それが「伏図」。
+# 天井を下から見上げた形をそのまま描くと左右が反転するので、
+# **床を見下ろすのと同じ向き**で描き、天井を透かして見た形にする。
+#
+# ## 描く時期が決まっている
+#
+# **天井スラブのコンクリートを打つ前に描く。**
+# 吊りボルトを留めるインサートを、打設前にスラブへ仕込むため。
+# **打ってしまえば入れられない**（見本 134 の配筋図と同じで、打設前が最後の時）。
+#
+# ## 照明は 1 : 2 : 1
+#
+# **壁から器具まで：器具どうし：器具から壁 ＝ 1 : 2 : 1** に置く。
+# 端が暗くなるのを防ぐ決め方で、
+# 7,200 なら 1,800 / 3,600 / 1,800。5,400 なら 900 / 1,800 / 1,800 / 900。
+# **天井板の目地か芯に合わせる** —— 割付を崩すと、板を切ることになる。
+#
+# ## 離隔
+#
+# | | |
+# |---|---|
+# | 煙感知器 ← 空調の吹出口 | **1,500 以上** |
+# | 煙感知器 ← 壁 | **600 以上** |
+# | スプリンクラー | 散水の障害が無いこと |
+#
+# ## 記号
+#
+# `CH` ＝ 天井高（`CH=2,600`）／`FL` ＝ 仕上げ床／
+# `LGS` ＝ 軽量形鋼の下地／`PB` ＝ プラスターボード
+#
+# 1 px ＝ 15 mm。寸法・器具はすべて架空。
+scale: { mm: 15 }
+# 通り芯は**天井の伏図の中だけ**。views で囲っておかないと、
+# 芯が紙の端まで伸びて、注記と仕様表の文字を貫く。
+views:
+  - id: plan
+    at: { x: 60, y: 60 }
+    size: { w: 480, h: 360 }
+    grid:
+      x:
+        - { id: X1, at: 60 }
+        - { id: X2, at: 180 }
+        - { id: X3, at: 420 }
+        - { id: X4, at: 540 }
+      y:
+        - { id: Y1, at: 60 }
+        - { id: Y2, at: 120 }
+        - { id: Y3, at: 240 }
+        - { id: Y4, at: 360 }
+        - { id: Y5, at: 420 }
+nodes:
+  - id: ceil
+    label: ""
+    at: { x: 60, y: 60 }
+    size: { w: 480, h: 360 }
+  - id: l1
+    label: ""
+    hatch: solid
+    at: { x: 160, y: 80 }
+    size: { w: 40, h: 80 }
+  - id: l2
+    label: ""
+    hatch: solid
+    at: { x: 400, y: 80 }
+    size: { w: 40, h: 80 }
+  - id: l3
+    label: ""
+    hatch: solid
+    at: { x: 160, y: 200 }
+    size: { w: 40, h: 80 }
+  - id: l4
+    label: ""
+    hatch: solid
+    at: { x: 400, y: 200 }
+    size: { w: 40, h: 80 }
+  - id: l5
+    label: ""
+    hatch: solid
+    at: { x: 160, y: 320 }
+    size: { w: 40, h: 80 }
+  - id: l6
+    label: ""
+    hatch: solid
+    at: { x: 400, y: 320 }
+    size: { w: 40, h: 80 }
+  - id: ln
+    label: 照明 埋込 600×1200　6 台
+    marker: none
+    align: left
+    at: { x: 200, y: 66 }
+    size: { w: 200, h: 20 }
+  - id: a1
+    label: ""
+    marker: diamond
+    at: { x: 285, y: 105 }
+    size: { w: 30, h: 30 }
+  - id: a2
+    label: ""
+    marker: diamond
+    at: { x: 285, y: 345 }
+    size: { w: 30, h: 30 }
+  - id: an
+    label: 空調 吹出口
+    marker: none
+    align: left
+    at: { x: 318, y: 126 }
+    size: { w: 80, h: 20 }
+  - id: m1
+    label: ""
+    hatch: lines
+    at: { x: 240, y: 370 }
+    size: { w: 30, h: 30 }
+  - id: mn
+    label: 点検口 450 角
+    marker: none
+    align: left
+    at: { x: 274, y: 376 }
+    size: { w: 110, h: 20 }
+  - id: d1
+    label: ""
+    marker: circle
+    at: { x: 109, y: 169 }
+    size: { w: 22, h: 22 }
+  - id: d2
+    label: ""
+    marker: circle
+    at: { x: 469, y: 289 }
+    size: { w: 22, h: 22 }
+  - id: dn
+    label: 煙感知器
+    marker: none
+    align: left
+    at: { x: 66, y: 196 }
+    size: { w: 80, h: 20 }
+  - id: s1
+    label: ""
+    marker: circle
+    at: { x: 232, y: 172 }
+    size: { w: 16, h: 16 }
+  - id: s2
+    label: ""
+    marker: circle
+    at: { x: 352, y: 172 }
+    size: { w: 16, h: 16 }
+  - id: s3
+    label: ""
+    marker: circle
+    at: { x: 232, y: 292 }
+    size: { w: 16, h: 16 }
+  - id: s4
+    label: ""
+    marker: circle
+    at: { x: 352, y: 292 }
+    size: { w: 16, h: 16 }
+  - id: sn
+    label: スプリンクラー
+    marker: none
+    align: left
+    at: { x: 250, y: 312 }
+    size: { w: 110, h: 20 }
+  - id: st
+    label: 天井の仕様
+    hatch: solid
+    at: { x: 610, y: 60 }
+    size: { w: 280, h: 26 }
+  - id: sp0k
+    label: 天井高
+    at: { x: 610, y: 86 }
+    size: { w: 110, h: 24 }
+  - id: sp0v
+    label: "CH=2,600"
+    align: right
+    at: { x: 720, y: 86 }
+    size: { w: 170, h: 24 }
+  - id: sp1k
+    label: 下地
+    at: { x: 610, y: 110 }
+    size: { w: 110, h: 24 }
+  - id: sp1v
+    label: LGS @303
+    align: right
+    at: { x: 720, y: 110 }
+    size: { w: 170, h: 24 }
+  - id: sp2k
+    label: 仕上げ
+    at: { x: 610, y: 134 }
+    size: { w: 110, h: 24 }
+  - id: sp2v
+    label: PB t9.5 ＋ 岩綿吸音板
+    align: right
+    at: { x: 720, y: 134 }
+    size: { w: 170, h: 24 }
+  - id: sp3k
+    label: 割付
+    at: { x: 610, y: 158 }
+    size: { w: 110, h: 24 }
+  - id: sp3v
+    label: 600 角
+    align: right
+    at: { x: 720, y: 158 }
+    size: { w: 170, h: 24 }
+  - id: n0
+    label: ・スラブの打設前に描く。吊りボルトのインサートを、打つ前に仕込むため
+    marker: none
+    align: left
+    at: { x: 72, y: 560 }
+    size: { w: 520, h: 22 }
+  - id: n1
+    label: "・照明は壁から 1 : 2 : 1。7,200 なら 1,800 / 3,600 / 1,800"
+    marker: none
+    align: left
+    at: { x: 72, y: 582 }
+    size: { w: 520, h: 22 }
+  - id: n2
+    label: ・器具は天井板の目地か芯に合わせる。割付を崩すと板を切ることになる
+    marker: none
+    align: left
+    at: { x: 72, y: 604 }
+    size: { w: 520, h: 22 }
+  - id: n3
+    label: ・煙感知器は吹出口から 1,500 以上、壁から 600 以上離す
+    marker: none
+    align: left
+    at: { x: 72, y: 626 }
+    size: { w: 520, h: 22 }

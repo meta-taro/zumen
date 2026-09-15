@@ -38,7 +38,7 @@ import { roundedOf, widthOf } from './weight.ts';
 import { drawMarker } from './marker.ts';
 import { drawSymbol } from './symbol.ts';
 import { NAME_FONT, SUB_FONT, planNames, tagFits, textRectOf } from './names.ts';
-import type { Plan } from './names.ts';
+import type { Plan, Rect } from './names.ts';
 import { drawRange, ringOf } from './range.ts';
 import { wallFits, wallWidth } from './wall.ts';
 import { drawOpenings } from './openings.ts';
@@ -136,31 +136,17 @@ export function render(
   const labels = new Map(
     placeEdgeLabels(placed.edges, placed.boxes, placed.groups).map((label) => [label.id, label]),
   );
-  const parts = [
-    `<svg xmlns="http://www.w3.org/2000/svg" width="${size(paper.w)}" height="${size(paper.h)}" viewBox="0 0 ${size(paper.w)} ${size(paper.h)}">`,
-    /**
-     * **図の題は、絵の中には描かないが SVG の中には入れる。**
-     *
-     * SVG を 1 枚だけ人へ渡す使い方（チャットへ投げる）が実際にある。
-     * `<title>` は表示されないので図の見た目は変わらないが、
-     * **絵を見られない人と機械には、何の図かが届く**（読み上げ・貼り先の説明）。
-     * いちばん最初の子に置く —— 読み上げの順がそこで決まる。
-     */
-    placed.title === null || placed.title === '' ? '' : `<title>${escapeText(placed.title)}</title>`,
-    `<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="${palette.edge.stroke}"/></marker></defs>`,
-    /**
-     * **地の色は、図そのものが持つ。**
-     *
-     * 2026-09-15 まで敷いていなかった。`-dark.svg` をそのまま開くと、
-     * **箱の外に書いた注記が 1 行も見えなかった** ——
-     * 文字は明るい灰で正しいのに、**白い紙の上では白い字**になる。
-     * 紹介ページは暗い背景の上に置いているので気づかない（D33）。
-     */
-    `<rect data-paper="1" x="0" y="0" width="${size(paper.w)}" height="${size(paper.h)}" fill="${palette.paper}"/>`,
+  /**
+   * **通り芯より下に描くもの。**
+   *
+   * ここを 1 つにまとめてあるのは、**描いた結果から文字の矩形を起こす**ため
+   * （`wordRects`）。組み立て順そのものは前と同じ。
+   */
+  const under = [
     // **時間の目盛りは、帯の下に敷く**（`mark: tick`）。
     // 通り芯は基準線なので最前面だが、目盛りは目盛りで、
     // 上に載せると帯の中の文字を串刺しにする（2026-09-15。見本 64）。
-    ...(plan && drawsDatum(placed) ? [gridLayer(placed, palette, 'tick')].filter(Boolean) : []),
+    ...(plan && drawsDatum(placed) ? [gridLayer(placed, palette, 'tick', [])].filter(Boolean) : []),
     // **階の枠は機械が描く**（`src/floor.ts`）。
     // 人が手で枠を置くと、箱を足したときに枠が合わなくなる。
     ...(plan ? floorBands(placed, palette) : []),
@@ -190,6 +176,29 @@ export function render(
     // 箱の下に敷くと、クレーンの作業半径が資材置場の塗りで切れる。
     // 寸法より上に出すと、破線の円が数値を横切る。
     ...(plan ? placed.boxes.map((box) => renderRange(box, placed.mm, palette)) : []),
+  ];
+  const parts = [
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${size(paper.w)}" height="${size(paper.h)}" viewBox="0 0 ${size(paper.w)} ${size(paper.h)}">`,
+    /**
+     * **図の題は、絵の中には描かないが SVG の中には入れる。**
+     *
+     * SVG を 1 枚だけ人へ渡す使い方（チャットへ投げる）が実際にある。
+     * `<title>` は表示されないので図の見た目は変わらないが、
+     * **絵を見られない人と機械には、何の図かが届く**（読み上げ・貼り先の説明）。
+     * いちばん最初の子に置く —— 読み上げの順がそこで決まる。
+     */
+    placed.title === null || placed.title === '' ? '' : `<title>${escapeText(placed.title)}</title>`,
+    `<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="${palette.edge.stroke}"/></marker></defs>`,
+    /**
+     * **地の色は、図そのものが持つ。**
+     *
+     * 2026-09-15 まで敷いていなかった。`-dark.svg` をそのまま開くと、
+     * **箱の外に書いた注記が 1 行も見えなかった** ——
+     * 文字は明るい灰で正しいのに、**白い紙の上では白い字**になる。
+     * 紹介ページは暗い背景の上に置いているので気づかない（D33）。
+     */
+    `<rect data-paper="1" x="0" y="0" width="${size(paper.w)}" height="${size(paper.h)}" fill="${palette.paper}"/>`,
+    ...under,
     // **通り芯・寸法・方位は最前面。**
     //
     // 一度、通り芯を下敷きにした。**建物の中で消えた** —— 箱の塗りは透けないので、
@@ -197,7 +206,7 @@ export function render(
     // 実物では一点鎖線が**建物を貫いて**見えている。基準線なので、
     // 隠れたら基準として使えない。
     ...(plan && drawsDatum(placed)
-      ? [gridLayer(placed, palette, 'datum'), dimensionLayer(placed, palette)].filter(Boolean)
+      ? [gridLayer(placed, palette, 'datum', wordRects(under.join(''))), dimensionLayer(placed, palette)].filter(Boolean)
       : []),
     // **作図の円と弧**（`src/construct.ts`。D36）。
     //
@@ -301,14 +310,52 @@ function drawsDatum(placed: Placed): boolean {
   return hasGrid(placed.grid) || placed.views.length > 0;
 }
 
-function gridLayer(placed: Placed, palette: Palette, only?: 'tick' | 'datum'): string {
+/**
+ * **通り芯が切れる場所** —— 下に描いた文字が占めている矩形。
+ *
+ * ## なぜ正本ではなく、描いた結果を読むのか
+ *
+ * 文字を置いているのは `renderNode`・`renderGroup`・`drawRange`・`floorBands` で、
+ * 位置の決め方はそれぞれ違う（符号は箱の隅、名前は真ん中、範囲の注記は円の脇）。
+ * **同じ幾何を 2 か所に書かない** —— 起こし直すと必ずずれる。
+ * `<text>` を数えれば、どこが置いたかに関わらず全部入る。
+ *
+ * 回した文字（`rotate`）は当たり判定が合わないので見ない。
+ */
+function wordRects(svg: string): Rect[] {
+  const out: Rect[] = [];
+  for (const found of svg.matchAll(/<text x="(-?[\d.]+)" y="(-?[\d.]+)"([^>]*)>([^<]*)<\/text>/g)) {
+    const style = found[3] ?? '';
+    const text = found[4] ?? '';
+    if (style.includes('rotate') || text.trim() === '') continue;
+    const font = Number(/font-size="([\d.]+)"/.exec(style)?.[1] ?? NAME_FONT);
+    const anchor = /text-anchor="(\w+)"/.exec(style)?.[1] ?? 'start';
+    const w = labelWidth(text, font);
+    const x = Number(found[1]);
+    const y = Number(found[2]);
+    out.push({
+      x: anchor === 'middle' ? x - w / 2 : anchor === 'end' ? x - w : x,
+      y: y - font,
+      w,
+      h: font,
+    });
+  }
+  return out;
+}
+
+function gridLayer(
+  placed: Placed,
+  palette: Palette,
+  only: 'tick' | 'datum' | undefined,
+  avoid: readonly Rect[],
+): string {
   const frame = frameOf(placed);
   const ink = inkOf(palette);
   // **図が 2 つ以上あれば、芯はその図の中だけを走る**（D35）。
   // 紙ぜんたいを貫くと、隣の図を串刺しにする。
   const body =
-    drawGrid(placed.grid, frame, ink, only) +
-    placed.views.map((view) => drawGrid(view.grid, view, ink, only)).join('');
+    drawGrid(placed.grid, frame, ink, only, avoid) +
+    placed.views.map((view) => drawGrid(view.grid, view, ink, only, avoid)).join('');
   // **空の層は出さない。** 出すと「通り芯は箱より後ろ」を測る側が、
   // 中身の無い層を先に見つけてしまう。
   if (body === '') return '';
