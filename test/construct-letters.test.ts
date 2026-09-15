@@ -18,7 +18,10 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
-import { build } from '../src/construct.ts';
+import { readFileSync } from 'node:fs';
+
+import { build, inkBounds } from '../src/construct.ts';
+import { parse } from '../src/format.ts';
 import type { Stroke } from '../src/construct.ts';
 
 const PHI = (1 + Math.sqrt(5)) / 2;
@@ -178,3 +181,59 @@ describe('**R を変えると、全部が比を保ったまま動く**', () => {
     assert.equal(Math.round(widthOf(twice.strokes) / one), 2);
   });
 });
+
+describe('**見本 128 —— 座標を 1 つも書かない正本**', () => {
+  const source = readFileSync(new URL('../examples/gallery/128-ロゴの作図.zumen.yaml', import.meta.url), 'utf8');
+
+  it('正本に `at:` の座標が、与える点以外に無い', () => {
+    // **与える点だけが `at:` を持つ。** しかもその中身は式（R / shoulder）で、数ではない。
+    const numbers = [...source.matchAll(/at: \{ x: ([^,]+), y: ([^}]+) \}/g)];
+    assert.ok(numbers.length > 0, 'at: が 1 つも無いのは、取り出し方が壊れている');
+    for (const [, x, y] of numbers) {
+      assert.equal(/^-?\d+(\.\d+)?$/.test(x!.trim()) && /^-?\d+(\.\d+)?$/.test(y!.trim()), false, `数の座標がある: ${x} ${y}`);
+    }
+  });
+
+  it('**横組の外寸 2527.308 × 218.034 が、その正本から出る**', () => {
+    const got = build(parse(source).doc.toJS() as Parameters<typeof build>[0]);
+    assert.deepEqual(got.troubles, []);
+    const ink = inkBounds(got.strokes)!;
+    assert.equal(Math.round((ink.right - ink.left) * 1000) / 1000, 2527.308);
+    assert.equal(Math.round(heightOf(got.strokes) * 1000) / 1000, 218.034);
+  });
+
+  it('弧が 29 本（字 10 個ぶん）', () => {
+    const got = build(parse(source).doc.toJS() as Parameters<typeof build>[0]);
+    assert.equal(got.strokes.length, 29);
+  });
+
+  it('**見本 122 より 1 桁小さい**（コンパスで作れる図は、正本も小さい）', () => {
+    const old = readFileSync(new URL('../examples/gallery/122-円だけで作る動物のマーク.zumen.yaml', import.meta.url), 'utf8');
+    assert.ok(source.length * 10 < old.length, `${source.length} バイト / ${old.length} バイト`);
+  });
+});
+
+/** 上下の端（端の玉は数えない）。 */
+function heightOf(strokes: readonly Stroke[]): number {
+  let lo = Infinity;
+  let hi = -Infinity;
+  for (const one of strokes) {
+    const pad = one.weight / 2;
+    const add = (y: number): void => {
+      lo = Math.min(lo, y - pad);
+      hi = Math.max(hi, y + pad);
+    };
+    if (one.shape === 'circle' || Math.abs(one.a1 - one.a0) >= 360) {
+      add(one.cy - one.r);
+      add(one.cy + one.r);
+      continue;
+    }
+    const at = (deg: number): void => add(one.cy + one.r * Math.sin((deg * Math.PI) / 180));
+    at(one.a0);
+    at(one.a1);
+    const a = Math.min(one.a0, one.a1);
+    const b = Math.max(one.a0, one.a1);
+    for (const axis of [-270, -90, 90, 270, 450]) if (axis > a && axis < b) at(axis);
+  }
+  return hi - lo;
+}

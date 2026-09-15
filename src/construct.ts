@@ -273,6 +273,16 @@ export interface Source {
   let?: unknown;
   lengths?: unknown;
   /**
+   * **名前を付けた手順のかたまり**（字・部品）。
+   *
+   * 同じ形を何度も置く図（語・並び・繰り返し模様）で要る。
+   * 中の名前はそのかたまりの中だけのもので、置くときに `as` が前に付く。
+   *
+   * **送り幅は書かない。** `after` で繋ぐと、**置いたものの外接から機械が出す** ——
+   * 書かせると、形を直したときに数字が置き去りになる。
+   */
+  define?: unknown;
+  /**
    * **書いた順に評価する列。** 点と円と線を混ぜて書ける。
    *
    * YAML の写像は順を持たないので、**点・円・線を節ごとに分けると
@@ -298,8 +308,13 @@ const asMap = (raw: unknown): [string, unknown][] =>
  * 落ちたところは `troubles` に積んで、**残りは描く** ——
  * 1 か所つまずいて図が丸ごと消えるほうが分かりにくい。
  */
-export function build(raw: Source, pinned: ReadonlyMap<string, number> = new Map()): Built {
-  const lengths = new Map<string, number>();
+export function build(
+  raw: Source,
+  pinned: ReadonlyMap<string, number> = new Map(),
+  /** 外から渡す長さ（かたまりを置くときに、図ぜんたいの比を共有する）。 */
+  shared: ReadonlyMap<string, number> = new Map(),
+): Built {
+  const lengths = new Map<string, number>(shared);
   const points = new Map<string, Point>();
   const circles = new Map<string, { cx: number; cy: number; r: number }>();
   const lines = new Map<string, [Point, Point]>();
@@ -340,7 +355,15 @@ export function build(raw: Source, pinned: ReadonlyMap<string, number> = new Map
     }
   }
 
-  // 2. 点・円・線。**書いた順に評価する**（前のものしか引けない）。
+  // 2. かたまりの定義。**まだ描かない**（`place` で置いたときに描く）。
+  const shapes = new Map<string, Source>();
+  for (const [name, body] of asMap(raw.define)) {
+    if (body !== null && typeof body === 'object') shapes.set(name, body as Source);
+  }
+  /** 置いたかたまりの右端（`after` で次を繋ぐのに使う）。 */
+  const rightOf = new Map<string, number>();
+
+  // 3. 点・円・線。**書いた順に評価する**（前のものしか引けない）。
   const steps = [
     ...asList(raw.points).map((one) => ['point', one] as const),
     ...asList(raw.circles).map((one) => ['circle', one] as const),
@@ -349,6 +372,15 @@ export function build(raw: Source, pinned: ReadonlyMap<string, number> = new Map
   // **円と点は混ざる**（点が円を要り、円が点を要る）ので、書かれた順に 1 本の列にする。
   const ordered = orderOf(raw);
   for (const [kind, item] of ordered.length > 0 ? ordered : steps) {
+    // **かたまりを置く。** ここだけが入れ子になる。
+    if (item.place !== undefined) {
+      try {
+        placeShape(item);
+      } catch (error) {
+        note(error);
+      }
+      continue;
+    }
     const id = item.id === undefined || item.id === null ? '' : String(item.id);
     if (id === '') continue;
     try {
@@ -368,8 +400,14 @@ export function build(raw: Source, pinned: ReadonlyMap<string, number> = new Map
       note(error);
     }
   }
-  // 4. 円をそのまま描く指定（`circles[].draw: true`）。
-  for (const item of asList(raw.circles)) {
+  /**
+   * 4. 円をそのまま描く指定（`draw: true`）。
+   *
+   * **`steps` の中の円も見る。** 点と円は混ぜて書けるようにしてあるので、
+   * `circles` の節しか見ないと、**書いたのに描かれない**
+   * （2026-09-15。`a` の真円が丸ごと消えて `ı` になった）。
+   */
+  for (const item of [...ordered.filter(([kind]) => kind === 'circle').map(([, one]) => one), ...asList(raw.circles)]) {
     if (item.draw !== true) continue;
     const found = circles.get(String(item.id));
     if (found === undefined) continue;
@@ -382,6 +420,47 @@ export function build(raw: Source, pinned: ReadonlyMap<string, number> = new Map
   }
 
   return { lengths, points, circles, strokes, troubles };
+
+  /**
+   * かたまりを 1 つ置く。
+   *
+   * **中身は自分の名前空間で組む**（点も円もそのかたまりの中だけ）。
+   * 組んだあと**ずらして**、外からは `as.名前` で引けるようにする。
+   *
+   * 長さ（`lengths`）だけは共有する —— 比は図ぜんたいで 1 つ。
+   */
+  function placeShape(item: Record<string, unknown>): void {
+    const name = String(item.place);
+    const body = shapes.get(name);
+    if (body === undefined) throw new Error(m.unknownShape(name));
+    const as = item.as === undefined || item.as === null ? name : String(item.as);
+
+    // **原点で 1 度組む。** 送り幅は、組んでみないと分からない。
+    const inner = build({ ...body, let: undefined, lengths: undefined }, new Map(), lengths);
+    for (const trouble of inner.troubles) troubles.push(`${as}: ${trouble}`);
+
+    const ink = inkBounds(inner.strokes);
+    let dx = 0;
+    let dy = 0;
+    if (item.after !== undefined) {
+      const right = rightOf.get(String(item.after));
+      if (right === undefined) throw new Error(m.unknownShape(String(item.after)));
+      const gap = item.gap === undefined ? 0 : num(item.gap);
+      dx = right + gap - (ink?.left ?? 0);
+      dy = item.at !== undefined && item.at !== null ? num((item.at as Record<string, unknown>).y ?? 0) : 0;
+    } else if (item.at !== undefined && item.at !== null) {
+      const box = item.at as Record<string, unknown>;
+      dx = num(box.x ?? 0);
+      dy = num(box.y ?? 0);
+    }
+
+    for (const [key, point] of inner.points) points.set(`${as}.${key}`, { x: point.x + dx, y: point.y + dy });
+    for (const [key, circle] of inner.circles) {
+      circles.set(`${as}.${key}`, { ...circle, cx: circle.cx + dx, cy: circle.cy + dy });
+    }
+    for (const one of inner.strokes) strokes.push({ ...one, cx: one.cx + dx, cy: one.cy + dy });
+    rightOf.set(as, (ink?.right ?? 0) + dx);
+  }
 
   function safe(run: () => number, fallback: number): number {
     try {
@@ -514,9 +593,42 @@ function orderOf(raw: Source): (readonly ['point' | 'circle' | 'line', Record<st
   for (const one of steps) {
     if (one === null || typeof one !== 'object') continue;
     const item = one as Record<string, unknown>;
-    if (item.center !== undefined) out.push(['circle', item] as const);
+    // **かたまりを置く手順**は、点でも円でも線でもない（`build` が拾う）。
+    if (item.place !== undefined) out.push(['point', item] as const);
+    else if (item.center !== undefined) out.push(['circle', item] as const);
     else if (item.through !== undefined || item.y !== undefined || item.x !== undefined) out.push(['line', item] as const);
     else out.push(['point', item] as const);
   }
   return out;
+}
+
+/**
+ * 描いたものの左右の端（**端の玉は数えない**）。
+ *
+ * **送り幅はここから出す。** 公表されている確定値も玉を含まない外接なので、
+ * ここを合わせておくと、実物の数字とそのまま突き合わせられる。
+ */
+export function inkBounds(strokes: readonly Stroke[]): { left: number; right: number } | null {
+  if (strokes.length === 0) return null;
+  let left = Infinity;
+  let right = -Infinity;
+  for (const one of strokes) {
+    const pad = one.weight / 2;
+    const add = (x: number): void => {
+      left = Math.min(left, x - pad);
+      right = Math.max(right, x + pad);
+    };
+    if (one.shape === 'circle' || Math.abs(one.a1 - one.a0) >= 360) {
+      add(one.cx - one.r);
+      add(one.cx + one.r);
+      continue;
+    }
+    const at = (deg: number): void => add(one.cx + one.r * Math.cos((deg * Math.PI) / 180));
+    at(one.a0);
+    at(one.a1);
+    const lo = Math.min(one.a0, one.a1);
+    const hi = Math.max(one.a0, one.a1);
+    for (const axis of [-360, -180, 0, 180, 360, 540]) if (axis > lo && axis < hi) at(axis);
+  }
+  return { left, right };
 }

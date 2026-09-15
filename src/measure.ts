@@ -71,6 +71,15 @@ export interface Measurement {
 export function measure(text: string): Measurement {
   const diagram = parse(text);
   const pins = getPins(diagram);
+  /**
+   * **作図は数えるものが違う**（D36 / 仕様 `docs/specs/003-9割の定義.md`）。
+   *
+   * 座標を持たない図なので「置き場所を人が決めた割合」という問いが成立しない。
+   * 数えるのは**定数**で、向きは同じ —— **人が pin した数が少ないほど、AI が自力。**
+   *
+   * **横に並べない。** `kind` で読み分けてもらう。
+   */
+  if (kindOf(text) === 'construction') return constants(text, diagram, pins);
   const elements = diagram.nodeIds().length + diagram.edges().length;
 
   // 迷子の pin（どの要素も指していない）は数えない。**居ない要素の手直しは、
@@ -125,4 +134,42 @@ function hasAny(pin: Pin, keys: readonly (keyof Pin)[]): boolean {
 /** 百分率を小数 1 桁で。**基準線として記録するので、丸め方を固定する。** */
 export function percent(value: number): string {
   return `${(Math.round(value * 1000) / 10).toFixed(1)}%`;
+}
+
+/**
+ * 作図の「9 割」（D36）。**定数のうち、人が pin した割合を引く。**
+ *
+ * `structure` / `placement` の数え方は 1 つも変えていない ——
+ * **過去の数字と地続きにする**ため（仕様 003）。
+ */
+function constants(
+  text: string,
+  diagram: ReturnType<typeof parse>,
+  pins: Record<string, unknown>,
+): Measurement {
+  const body = diagram.doc.toJS() as { let?: unknown; lengths?: unknown };
+  const names = new Set<string>();
+  for (const part of [body.let, body.lengths]) {
+    if (part === null || typeof part !== 'object' || Array.isArray(part)) continue;
+    for (const name of Object.keys(part as Record<string, unknown>)) names.add(name);
+  }
+  // **迷子の pin は数えない**（居ない定数の手直しは、率を押し上げるだけ）。
+  const touched = Object.entries(pins).filter(
+    ([key, pin]) => names.has(key) && pin !== null && typeof pin === 'object' && 'value' in (pin as object),
+  ).length;
+
+  const seen = reviewOf(text);
+  const autonomy = ratio(names.size, touched);
+  return {
+    kind: 'construction',
+    reviewed: seen.reviewed,
+    reviewStale: seen.stale,
+    elements: names.size,
+    touched,
+    // **置き場所は数えない。** 作図に座標は無い。
+    placed: 0,
+    autonomy,
+    layoutAutonomy: 1,
+    pass: autonomy >= PASS_LINE,
+  };
 }

@@ -331,12 +331,21 @@ function checkConstruction(doc: Document, add: Add, m: Messages, at: At): void {
   }
 
   // **描くものが 1 つも無ければ、絵にならない。**
-  const arcs = doc.get('arcs', true);
-  const circles = doc.get('circles', true);
-  const drawn =
-    (isSeq(arcs) && arcs.items.length > 0) ||
-    (isSeq(circles) && circles.items.some((one) => isMap(one) && one.get('draw') === true));
-  if (!drawn) add('warning', 'construction-nothing-drawn', m.constructionNothingDrawn, 1);
+  // かたまり（`define`）の中も見る —— 字は全部そちらにある。
+  const draws = (node: unknown): boolean => {
+    if (!isMap(node)) return false;
+    const arcs = node.get('arcs', true);
+    const circles = node.get('circles', true);
+    return (
+      (isSeq(arcs) && arcs.items.length > 0) ||
+      (isSeq(circles) && circles.items.some((one) => isMap(one) && one.get('draw') === true))
+    );
+  };
+  const define = doc.get('define', true);
+  const inShapes = isMap(define) && define.items.some((pair) => draws(pair.value));
+  if (!draws(doc) && !inShapes) {
+    add('warning', 'construction-nothing-drawn', m.constructionNothingDrawn, 1);
+  }
 }
 
 /**

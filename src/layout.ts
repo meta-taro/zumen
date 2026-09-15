@@ -1361,7 +1361,12 @@ function strokeBounds(
     maxX = Math.max(maxX, x + pad);
     maxY = Math.max(maxY, y + pad);
   };
-  for (const one of strokes) {
+  // **跡（trace）は紙を広げない。**
+  //
+  // 作図の跡は、半径 1,794 の円が字の何倍もの大きさで走る。
+  // 紙に入れると**字が豆粒**になる —— 実物の作図プレートも、跡は紙からはみ出している。
+  const solid = strokes.filter((one) => !one.trace);
+  for (const one of solid.length > 0 ? solid : strokes) {
     const pad = one.weight / 2 + (one.shape === 'arc' && one.terminal !== null ? one.terminal : 0);
     if (one.shape === 'circle') {
       add(one.cx, one.cy, one.r + pad);

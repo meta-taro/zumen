@@ -612,6 +612,8 @@ const ja = {
     takeUnknown: (id: string, word: string) =>
       `"${id}" の take が "${word}" になっています（upper / lower / left / right / first / second）。`,
     unknownCircle: (name: string) => `円 "${name}" がありません。先に circles で決めてください。`,
+    unknownShape: (name: string) =>
+      `かたまり "${name}" がありません。define で決めるか、after に置いたものの名前（as）を書いてください。`,
     circleNeedsCenter: (id: string) => `円 "${id}" に center がありません。`,
     duplicate: (id: string) => `"${id}" が 2 回出てきます。名前は 1 つの意味しか持てません。`,
     pinPosition: (id: string) =>
@@ -1120,6 +1122,8 @@ const en: Catalog = {
     takeUnknown: (id: string, word: string) =>
       `The take on "${id}" is "${word}" (upper / lower / left / right / first / second).`,
     unknownCircle: (name: string) => `There is no circle "${name}". Decide it first under circles.`,
+    unknownShape: (name: string) =>
+      `There is no shape "${name}". Define it under define, or give after the name (as) of something already placed.`,
     circleNeedsCenter: (id: string) => `Circle "${id}" has no center.`,
     duplicate: (id: string) => `"${id}" appears twice. A name can only mean one thing.`,
     pinPosition: (id: string) =>

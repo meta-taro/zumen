@@ -1,0 +1,314 @@
+version: 1
+kind: construction
+title: ロゴの作図（murmuraura ／ 円と比だけ・座標を書かない）
+# **この正本に座標は 1 つも無い。** 与えてあるのは R・H・φ の 3 つだけで、
+# 残りは全部そこから出る（仕様 §3.6 / D36）。
+#
+# ## 直線が 1 本も無い
+#
+# 縦の棒も**半径 R·φ⁶ ＝ 1794.427 の円の一部**で、わずかにふくらんでいる。
+# 曲率をこれ以上上げると古代文字に見えるので、**直線に見えるぎりぎりまで寄せたうえで、
+# 直線ではない**という位置に置いてある。
+#
+# ## 字の作り
+#
+# | | |
+# |---|---|
+# | a | 真円（半径 R）と、縦棒 1 本 |
+# | u | ふところ（半径 R の下半分）と、縦棒 2 本 |
+# | m | 肩 2 つ（半径 R/φ の上半分）と、縦棒 3 本 |
+# | r | 肩 1 つ（180〜350 度で切る）と、縦棒 1 本 |
+#
+# ## 送り幅を書いていない
+#
+# `after` で繋ぐと、**置いた字の外接から機械が出す。**
+# 書かせると、形を直したときに数字が置き去りになる。
+# 結果は横組の外寸 **2527.308 × 218.034**（実物の確定値と一致。test/construct-letters.test.ts）。
+#
+# ## 薄い円は「コンパスの跡」
+#
+# 作図図では跡を消さない —— 消すと、どう作ったかが読めなくなる。
+# **跡は紙を広げない**（半径 1794 の円は字の何倍もあるので、入れると字が豆粒になる）。
+#
+# 姉妹プロジェクトの確定したロゴ。公開してよいことを確認済み。
+let:
+  R: 100
+  H: 200
+  phi: golden
+lengths:
+  stem: R * phi ^ 6
+  shoulder: R / phi
+  weight: H / phi ^ 5
+  gap: H / phi ^ 3
+define:
+  # a ── 真円と縦棒 1 本
+  a:
+    steps:
+      - id: bC
+        at: { x: R, y: R }
+      - id: b
+        center: bC
+        r: R
+        draw: true
+        weight: weight
+      - id: tc
+        at: { x: 2 * R + stem, y: R }
+      - id: to
+        center: tc
+        r: stem
+      - id: ta
+        y: 0
+      - id: tb
+        y: H
+      - id: tpa
+        intersect:
+          - to
+          - ta
+        take: left
+      - id: tpb
+        intersect:
+          - to
+          - tb
+        take: left
+    arcs:
+      - of: to
+        from: tpa
+        to: tpb
+        weight: weight
+        cap: round
+  # u ── ふところ（下半分）と縦棒 2 本
+  u:
+    steps:
+      - id: bC
+        at: { x: R, y: R }
+      - id: b
+        center: bC
+        r: R
+      - id: lc
+        at: { x: 0 - stem, y: R }
+      - id: lo
+        center: lc
+        r: stem
+      - id: la
+        y: 0
+      - id: lb
+        y: R
+      - id: lpa
+        intersect:
+          - lo
+          - la
+        take: right
+      - id: lpb
+        intersect:
+          - lo
+          - lb
+        take: right
+      - id: gc
+        at: { x: 2 * R + stem, y: R }
+      - id: go
+        center: gc
+        r: stem
+      - id: ga
+        y: 0
+      - id: gb
+        y: R
+      - id: gpa
+        intersect:
+          - go
+          - ga
+        take: left
+      - id: gpb
+        intersect:
+          - go
+          - gb
+        take: left
+    arcs:
+      - of: b
+        from: 180
+        to: 0
+        weight: weight
+        cap: round
+      - of: lo
+        from: lpa
+        to: lpb
+        weight: weight
+        cap: round
+      - of: go
+        from: gpa
+        to: gpb
+        weight: weight
+        cap: round
+  # m ── 肩 2 つ（上半分）と縦棒 3 本
+  m:
+    steps:
+      - id: h1C
+        at: { x: shoulder, y: shoulder }
+      - id: h1
+        center: h1C
+        r: shoulder
+      - id: h2C
+        at: { x: 3 * shoulder, y: shoulder }
+      - id: h2
+        center: h2C
+        r: shoulder
+      - id: pc
+        at: { x: 0 - stem, y: shoulder }
+      - id: po
+        center: pc
+        r: stem
+      - id: pa
+        y: shoulder
+      - id: pb
+        y: H
+      - id: ppa
+        intersect:
+          - po
+          - pa
+        take: right
+      - id: ppb
+        intersect:
+          - po
+          - pb
+        take: right
+      - id: qc
+        at: { x: 2 * shoulder - stem, y: shoulder }
+      - id: qo
+        center: qc
+        r: stem
+      - id: qa
+        y: shoulder
+      - id: qb
+        y: H
+      - id: qpa
+        intersect:
+          - qo
+          - qa
+        take: right
+      - id: qpb
+        intersect:
+          - qo
+          - qb
+        take: right
+      - id: sc
+        at: { x: 4 * shoulder + stem, y: shoulder }
+      - id: so
+        center: sc
+        r: stem
+      - id: sa
+        y: shoulder
+      - id: sb
+        y: H
+      - id: spa
+        intersect:
+          - so
+          - sa
+        take: left
+      - id: spb
+        intersect:
+          - so
+          - sb
+        take: left
+    arcs:
+      - of: h1
+        from: 180
+        to: 360
+        weight: weight
+        cap: round
+      - of: h2
+        from: 180
+        to: 360
+        weight: weight
+        cap: round
+      - of: po
+        from: ppa
+        to: ppb
+        weight: weight
+        cap: round
+      - of: qo
+        from: qpa
+        to: qpb
+        weight: weight
+        cap: round
+      - of: so
+        from: spa
+        to: spb
+        weight: weight
+        cap: round
+  # r ── 肩 1 つ（350 度で切る）と縦棒 1 本
+  r:
+    steps:
+      - id: h1C
+        at: { x: shoulder, y: shoulder }
+      - id: h1
+        center: h1C
+        r: shoulder
+      - id: pc
+        at: { x: 0 - stem, y: shoulder }
+      - id: po
+        center: pc
+        r: stem
+      - id: pa
+        y: shoulder
+      - id: pb
+        y: H
+      - id: ppa
+        intersect:
+          - po
+          - pa
+        take: right
+      - id: ppb
+        intersect:
+          - po
+          - pb
+        take: right
+    arcs:
+      - of: h1
+        from: 180
+        to: 350
+        weight: weight
+        cap: round
+      - of: po
+        from: ppa
+        to: ppb
+        weight: weight
+        cap: round
+# 字を送りながら置く。**送り幅は書かない** —— 置いた字の外接から機械が出す。
+steps:
+  - place: m
+    as: g0
+  - place: u
+    as: g1
+    after: g0
+    gap: gap
+  - place: r
+    as: g2
+    after: g1
+    gap: gap
+  - place: m
+    as: g3
+    after: g2
+    gap: gap
+  - place: u
+    as: g4
+    after: g3
+    gap: gap
+  - place: r
+    as: g5
+    after: g4
+    gap: gap
+  - place: a
+    as: g6
+    after: g5
+    gap: gap
+  - place: u
+    as: g7
+    after: g6
+    gap: gap
+  - place: r
+    as: g8
+    after: g7
+    gap: gap
+  - place: a
+    as: g9
+    after: g8
+    gap: gap
