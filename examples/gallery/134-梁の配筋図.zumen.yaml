@@ -1,0 +1,365 @@
+version: 1
+kind: placement
+arrows: false
+title: 梁の配筋図（G1・断面と側面／架空）
+# **検査で見るのはこの図。** コンクリートを打つ前に、鉄筋が図のとおりかを確かめる。
+# 打ってしまえば中は見えないので、**打設前がやり直せる最後の時**になる。
+#
+# ## 記号
+#
+# | | |
+# |---|---|
+# | `D22` | 鉄筋の径（異形鉄筋 22 mm） |
+# | `4-D22` | **D22 が 4 本** |
+# | `@200` | 配置の間隔 200 mm |
+# | `40d` | 径の 40 倍（D22 なら 880 mm）。定着と重ね継手の長さ |
+#
+# ## かぶり厚さは、主筋からではない
+#
+# **コンクリート表面から、いちばん外側の鉄筋の表面まで。**
+# 梁ではあばら筋が外側にあるので、**あばら筋の外面から測る。**
+# 主筋から測ると、あばら筋の径のぶん足りなくなる。
+#
+# ## 端部でピッチを詰める
+#
+# せん断力は端部で大きいので、あばら筋は**端を詰めて中央を空ける**（@100 / @200）。
+# 一定間隔で並べると、いちばん要る所が足りない。
+#
+# ## 縮尺が 2 つある
+#
+# **断面は 1 px ＝ 4 mm、側面は 1 px ＝ 20 mm。**
+# 同じ梁でも、断面は鉄筋の並びを、側面は長さ方向の配置を見せるので、
+# **要る細かさが違う**（views。D35）。
+views:
+  - id: sec
+    title: 断面図（1 px ＝ 4 mm）
+    at: { x: 90, y: 140 }
+    size: { w: 100, h: 175 }
+    scale: { mm: 4 }
+    grid:
+      x:
+        - { id: X1, at: 90 }
+        - { id: X2, at: 190 }
+      y:
+        - { id: Y1, at: 140 }
+        - { id: Y2, at: 315 }
+  - id: side
+    title: 側面図（1 px ＝ 20 mm）
+    at: { x: 330, y: 185 }
+    size: { w: 300, h: 35 }
+    scale: { mm: 20 }
+    grid:
+      x:
+        - { id: A, at: 330 }
+        - { id: B, at: 480 }
+        - { id: C, at: 630 }
+nodes:
+  - id: t
+    label: 梁 G1　B×D ＝ 400 × 700　上端 4-D22　下端 3-D22　あばら筋 D10@200（端部 @100）
+    hatch: solid
+    at: { x: 90, y: 60 }
+    size: { w: 700, h: 26 }
+  - id: t2
+    label: かぶり厚さ 40（あばら筋の外面から）　定着 40d ＝ 880　重ね継手 40d ＝ 880
+    at: { x: 90, y: 86 }
+    size: { w: 700, h: 24 }
+  - id: sec
+    label: ""
+    at: { x: 90, y: 140 }
+    size: { w: 100, h: 175 }
+  - id: stp
+    label: ""
+    at: { x: 100, y: 150 }
+    size: { w: 80, h: 155 }
+  - id: stpn
+    label: あばら筋 D10
+    marker: none
+    align: left
+    at: { x: 196, y: 220 }
+    size: { w: 120, h: 20 }
+  - id: top0
+    label: ""
+    marker: circle
+    at: { x: 106, y: 156 }
+    size: { w: 9, h: 9 }
+  - id: top1
+    label: ""
+    marker: circle
+    at: { x: 128, y: 156 }
+    size: { w: 9, h: 9 }
+  - id: top2
+    label: ""
+    marker: circle
+    at: { x: 150, y: 156 }
+    size: { w: 9, h: 9 }
+  - id: top3
+    label: ""
+    marker: circle
+    at: { x: 172, y: 156 }
+    size: { w: 9, h: 9 }
+  - id: bot0
+    label: ""
+    marker: circle
+    at: { x: 112, y: 290 }
+    size: { w: 9, h: 9 }
+  - id: bot1
+    label: ""
+    marker: circle
+    at: { x: 140, y: 290 }
+    size: { w: 9, h: 9 }
+  - id: bot2
+    label: ""
+    marker: circle
+    at: { x: 168, y: 290 }
+    size: { w: 9, h: 9 }
+  - id: topn
+    label: 上端 4-D22
+    marker: none
+    align: left
+    at: { x: 196, y: 152 }
+    size: { w: 120, h: 20 }
+  - id: botn
+    label: 下端 3-D22
+    marker: none
+    align: left
+    at: { x: 196, y: 286 }
+    size: { w: 120, h: 20 }
+  - id: kaburi
+    label: かぶり 40
+    marker: none
+    align: left
+    at: { x: 196, y: 186 }
+    size: { w: 120, h: 20 }
+  - id: beam
+    label: ""
+    at: { x: 330, y: 185 }
+    size: { w: 300, h: 35 }
+  - id: s334
+    label: ""
+    marker: bar
+    at: { x: 334, y: 189 }
+    size: { w: 2, h: 27 }
+  - id: s339
+    label: ""
+    marker: bar
+    at: { x: 339, y: 189 }
+    size: { w: 2, h: 27 }
+  - id: s344
+    label: ""
+    marker: bar
+    at: { x: 344, y: 189 }
+    size: { w: 2, h: 27 }
+  - id: s349
+    label: ""
+    marker: bar
+    at: { x: 349, y: 189 }
+    size: { w: 2, h: 27 }
+  - id: s354
+    label: ""
+    marker: bar
+    at: { x: 354, y: 189 }
+    size: { w: 2, h: 27 }
+  - id: s359
+    label: ""
+    marker: bar
+    at: { x: 359, y: 189 }
+    size: { w: 2, h: 27 }
+  - id: s364
+    label: ""
+    marker: bar
+    at: { x: 364, y: 189 }
+    size: { w: 2, h: 27 }
+  - id: s369
+    label: ""
+    marker: bar
+    at: { x: 369, y: 189 }
+    size: { w: 2, h: 27 }
+  - id: s374
+    label: ""
+    marker: bar
+    at: { x: 374, y: 189 }
+    size: { w: 2, h: 27 }
+  - id: s379
+    label: ""
+    marker: bar
+    at: { x: 379, y: 189 }
+    size: { w: 2, h: 27 }
+  - id: s390
+    label: ""
+    marker: bar
+    at: { x: 390, y: 189 }
+    size: { w: 2, h: 27 }
+  - id: s400
+    label: ""
+    marker: bar
+    at: { x: 400, y: 189 }
+    size: { w: 2, h: 27 }
+  - id: s410
+    label: ""
+    marker: bar
+    at: { x: 410, y: 189 }
+    size: { w: 2, h: 27 }
+  - id: s420
+    label: ""
+    marker: bar
+    at: { x: 420, y: 189 }
+    size: { w: 2, h: 27 }
+  - id: s430
+    label: ""
+    marker: bar
+    at: { x: 430, y: 189 }
+    size: { w: 2, h: 27 }
+  - id: s440
+    label: ""
+    marker: bar
+    at: { x: 440, y: 189 }
+    size: { w: 2, h: 27 }
+  - id: s450
+    label: ""
+    marker: bar
+    at: { x: 450, y: 189 }
+    size: { w: 2, h: 27 }
+  - id: s460
+    label: ""
+    marker: bar
+    at: { x: 460, y: 189 }
+    size: { w: 2, h: 27 }
+  - id: s470
+    label: ""
+    marker: bar
+    at: { x: 470, y: 189 }
+    size: { w: 2, h: 27 }
+  - id: s480
+    label: ""
+    marker: bar
+    at: { x: 480, y: 189 }
+    size: { w: 2, h: 27 }
+  - id: s490
+    label: ""
+    marker: bar
+    at: { x: 490, y: 189 }
+    size: { w: 2, h: 27 }
+  - id: s500
+    label: ""
+    marker: bar
+    at: { x: 500, y: 189 }
+    size: { w: 2, h: 27 }
+  - id: s510
+    label: ""
+    marker: bar
+    at: { x: 510, y: 189 }
+    size: { w: 2, h: 27 }
+  - id: s520
+    label: ""
+    marker: bar
+    at: { x: 520, y: 189 }
+    size: { w: 2, h: 27 }
+  - id: s530
+    label: ""
+    marker: bar
+    at: { x: 530, y: 189 }
+    size: { w: 2, h: 27 }
+  - id: s540
+    label: ""
+    marker: bar
+    at: { x: 540, y: 189 }
+    size: { w: 2, h: 27 }
+  - id: s550
+    label: ""
+    marker: bar
+    at: { x: 550, y: 189 }
+    size: { w: 2, h: 27 }
+  - id: s560
+    label: ""
+    marker: bar
+    at: { x: 560, y: 189 }
+    size: { w: 2, h: 27 }
+  - id: s580
+    label: ""
+    marker: bar
+    at: { x: 580, y: 189 }
+    size: { w: 2, h: 27 }
+  - id: s585
+    label: ""
+    marker: bar
+    at: { x: 585, y: 189 }
+    size: { w: 2, h: 27 }
+  - id: s590
+    label: ""
+    marker: bar
+    at: { x: 590, y: 189 }
+    size: { w: 2, h: 27 }
+  - id: s595
+    label: ""
+    marker: bar
+    at: { x: 595, y: 189 }
+    size: { w: 2, h: 27 }
+  - id: s600
+    label: ""
+    marker: bar
+    at: { x: 600, y: 189 }
+    size: { w: 2, h: 27 }
+  - id: s605
+    label: ""
+    marker: bar
+    at: { x: 605, y: 189 }
+    size: { w: 2, h: 27 }
+  - id: s610
+    label: ""
+    marker: bar
+    at: { x: 610, y: 189 }
+    size: { w: 2, h: 27 }
+  - id: s615
+    label: ""
+    marker: bar
+    at: { x: 615, y: 189 }
+    size: { w: 2, h: 27 }
+  - id: s620
+    label: ""
+    marker: bar
+    at: { x: 620, y: 189 }
+    size: { w: 2, h: 27 }
+  - id: s625
+    label: ""
+    marker: bar
+    at: { x: 625, y: 189 }
+    size: { w: 2, h: 27 }
+  - id: pit1
+    label: "@100"
+    marker: none
+    at: { x: 330, y: 224 }
+    size: { w: 50, h: 18 }
+  - id: pit2
+    label: "@200"
+    marker: none
+    at: { x: 440, y: 224 }
+    size: { w: 60, h: 18 }
+  - id: pit3
+    label: "@100"
+    marker: none
+    at: { x: 580, y: 224 }
+    size: { w: 50, h: 18 }
+  - id: n0
+    label: ・かぶり厚さは、コンクリート表面からいちばん外側の鉄筋の表面まで。梁ではあばら筋の外面
+    marker: none
+    align: left
+    at: { x: 90, y: 510 }
+    size: { w: 700, h: 22 }
+  - id: n1
+    label: ・あばら筋は端部で詰める（@100）。せん断力は端で大きく、中央では小さい
+    marker: none
+    align: left
+    at: { x: 90, y: 532 }
+    size: { w: 700, h: 22 }
+  - id: n2
+    label: ・40d は径の 40 倍。D22 なら 880 mm。定着と重ね継手で使う
+    marker: none
+    align: left
+    at: { x: 90, y: 554 }
+    size: { w: 700, h: 22 }
+  - id: n3
+    label: ・断面と側面で縮尺が違う。同じ梁でも、見せたいものが違えば細かさも違う
+    marker: none
+    align: left
+    at: { x: 90, y: 576 }
+    size: { w: 700, h: 22 }
