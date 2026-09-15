@@ -112,6 +112,26 @@ describe('**通しで測らない**', () => {
     assert.match(svg, /data-view="b1"[^>]*>B1 階平面図</);
   });
 
+  it('**芯が無くても、図の名前は出る**（名前は寸法の付属品ではない）', async () => {
+    // 目盛りを使わない図（コンパスの作図図・見本 127）。**芯も縮尺も無い。**
+    const bare = [
+      'version: 1',
+      'kind: placement',
+      'views:',
+      '  - id: step',
+      '    title: 手順',
+      '    at: { x: 0, y: 0 }',
+      '    size: { w: 200, h: 120 }',
+      'nodes:',
+      '  - id: a',
+      '    label: あ',
+      '    at: { x: 10, y: 10 }',
+      '    size: { w: 100, h: 60 }',
+      '',
+    ].join('\n');
+    assert.match(await svgOf(bare), /data-view="step"[^>]*>手順</);
+  });
+
   it('名前を書かない図には、名前を描かない', async () => {
     const svg = await svgOf(TWO_FLOORS.replace('    title: 1 階平面図\n', ''));
     assert.equal(/data-view="f1"/.test(svg), false);
@@ -185,6 +205,18 @@ describe('黙らない', () => {
     assert.ok(findings.some((f) => f.code === 'views-ignored'));
   });
 
+  it('**目盛りを使わない図では、芯が無くても言わない**（コンパスの作図図）', () => {
+    const noScale = TWO_FLOORS.replace(/    scale: \{ mm: 20 \}\n/g, '').replace(
+      /    grid:\n      x:\n(?:        - .*\n)+/g,
+      '',
+    );
+    assert.equal(
+      validate(noScale).some((f) => f.code === 'views-no-grid'),
+      false,
+      validate(noScale).map((f) => f.code).join(' '),
+    );
+  });
+
   it('**1 つの図に芯が無いのは、間違いではない**（実物の一般配置図がそう）', () => {
     // 上の図に芯があれば、下の図は縦に揃えるだけでよい。**そこを言わない。**
     const one = TWO_FLOORS.replace(/  - id: b1\n(?:.*\n)*?      x:\n(?:        - .*\n)+/, '  - id: b1\n    title: B1 階平面図\n    at: { x: 600, y: 40 }\n    size: { w: 300, h: 200 }\n');
@@ -192,7 +224,8 @@ describe('黙らない', () => {
   });
 
   it('**どの図にも芯が無ければ知らせる**（寸法系を書き忘れた形）', () => {
-    const none = TWO_FLOORS.replace(/    scale: \{ mm: 20 \}\n    grid:\n      x:\n(?:        - .*\n)+/g, '');
+    // **縮尺は残す。** 縮尺があるのに芯が無い ＝ 書き忘れ。
+    const none = TWO_FLOORS.replace(/    grid:\n      x:\n(?:        - .*\n)+/g, '');
     assert.ok(
       validate(none).some((f) => f.code === 'views-no-grid'),
       validate(none).map((f) => f.code).join(' '),

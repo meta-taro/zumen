@@ -159,7 +159,7 @@ export function render(
     // **時間の目盛りは、帯の下に敷く**（`mark: tick`）。
     // 通り芯は基準線なので最前面だが、目盛りは目盛りで、
     // 上に載せると帯の中の文字を串刺しにする（2026-09-15。見本 64）。
-    ...(plan && drawsGrid(placed) ? [gridLayer(placed, palette, 'tick')].filter(Boolean) : []),
+    ...(plan && drawsDatum(placed) ? [gridLayer(placed, palette, 'tick')].filter(Boolean) : []),
     // **階の枠は機械が描く**（`src/floor.ts`）。
     // 人が手で枠を置くと、箱を足したときに枠が合わなくなる。
     ...(plan ? floorBands(placed, palette) : []),
@@ -195,7 +195,7 @@ export function render(
     // スラブや部屋の下に入ると、外側の切れ端しか見えない。
     // 実物では一点鎖線が**建物を貫いて**見えている。基準線なので、
     // 隠れたら基準として使えない。
-    ...(plan && drawsGrid(placed)
+    ...(plan && drawsDatum(placed)
       ? [gridLayer(placed, palette, 'datum'), dimensionLayer(placed, palette)].filter(Boolean)
       : []),
     '</svg>',
@@ -227,13 +227,17 @@ function stack(boxes: Box[], plan: boolean): Box[] {
  * 基準線が隠れたら、基準として使えない。
  */
 /**
- * 基準線を描く図か。
+ * 基準線か、図の名前を描く図か（D35）。
  *
- * **図ごとの寸法系（D35）を見落とさない。** 紙ぜんたいの `grid` が空でも、
- * `views` の中に芯があれば描く —— 各階平面図や一般配置図はその形になる。
+ * **紙ぜんたいの `grid` が空でも描く。** `views` の中に芯があれば通り芯と寸法、
+ * 芯が無くても**図の名前**は出る。
+ *
+ * **2026-09-15 の直し。** 芯があるかどうかだけで決めていたので、
+ * コンパスの作図図（見本 127。目盛りを使わないことが中身）では
+ * **図の名前が 1 つも描かれなかった。** 名前は寸法の付属品ではない。
  */
-function drawsGrid(placed: Placed): boolean {
-  return hasGrid(placed.grid) || placed.views.some((view) => hasGrid(view.grid));
+function drawsDatum(placed: Placed): boolean {
+  return hasGrid(placed.grid) || placed.views.length > 0;
 }
 
 function gridLayer(placed: Placed, palette: Palette, only?: 'tick' | 'datum'): string {

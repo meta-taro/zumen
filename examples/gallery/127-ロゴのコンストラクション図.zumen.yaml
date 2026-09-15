@@ -1,0 +1,316 @@
+version: 1
+kind: placement
+arrows: false
+title: ロゴのコンストラクション図（コンパスと定規だけで作る／架空のマーク）
+# **この図に描いてある形は、すべてコンパスと定規だけで作れる。**
+# 分度器も物差しの目盛りも使わない —— 使うのは「円を描く」と「2 点を結ぶ」の 2 つだけ。
+#
+# ## なぜロゴを作図するのか
+#
+# ブランドの手引書には、ロゴの**コンストラクション図（作図図）**が載る。
+# 「どう見えるか」ではなく「**どう作られているか**」を渡すためで、
+# 作図図があれば、拡大しても刷り直しても同じ形が再現できる。
+# 黄金比のグリッドは、その定番のひとつ。
+#
+# ## 黄金比は、目分量ではなく作図で出る
+#
+# φ ＝（1 ＋ √5）/ 2。**√5 は直角三角形から出る** —— 辺が 1 と 1/2 なら斜辺は √5 / 2。
+# だから定規とコンパスだけで、線分を黄金比に分けられる（手順 1〜6）。
+#
+# ## 破線の円は「コンパスの跡」
+#
+# 実線がマークの形、**破線はそれを出すために回したコンパス**。
+# 作図図では跡を消さない —— 消すと、どう作ったかが読めなくなる。
+#
+# 座標は 1 px に丸めてある。**比の出どころは下の表にある。**
+# 架空のマークで、実在の商標を写したものではない。
+views:
+  - id: build
+    title: 手順　線分を黄金比に分ける
+    at: { x: 60, y: 210 }
+    size: { w: 660, h: 280 }
+  - id: mark
+    title: 組み立て　φ の階段と黄金角
+    at: { x: 790, y: 210 }
+    size: { w: 400, h: 280 }
+nodes:
+  - id: s1
+    label: 1　線分 AB を引く。与えられたものはこれだけ（長さを 1 とする）
+    marker: none
+    align: left
+    at: { x: 60, y: 92 }
+    size: { w: 660, h: 20 }
+  - id: s2
+    label: 2　B を中心に円を描き、AB を切った 2 点から同じ半径の円 → 交点 H
+    marker: none
+    align: left
+    at: { x: 60, y: 112 }
+    size: { w: 660, h: 20 }
+  - id: s3
+    label: 3　B と H を結ぶ。これが AB への垂線（分度器を使わない）
+    marker: none
+    align: left
+    at: { x: 60, y: 132 }
+    size: { w: 660, h: 20 }
+  - id: s4
+    label: 4　垂線上に BC ＝ AB / 2 を取る。すると AC ＝ √5 / 2
+    marker: none
+    align: left
+    at: { x: 60, y: 152 }
+    size: { w: 660, h: 20 }
+  - id: s5
+    label: 5　C を中心に半径 BC の円 → AC 上に D。AD ＝（√5 − 1）/ 2
+    marker: none
+    align: left
+    at: { x: 60, y: 172 }
+    size: { w: 660, h: 20 }
+  - id: s6
+    label: "6　A を中心に半径 AD の円 → AB 上に E。ここで AB : AE ＝ φ : 1"
+    marker: none
+    align: left
+    at: { x: 60, y: 192 }
+    size: { w: 660, h: 20 }
+  - id: c_b
+    label: ""
+    marker: none
+    radius: 45
+    at: { x: 409, y: 419 }
+    size: { w: 2, h: 2 }
+  - id: c_f
+    label: ""
+    marker: none
+    radius: 70
+    at: { x: 364, y: 419 }
+    size: { w: 2, h: 2 }
+  - id: c_g
+    label: ""
+    marker: none
+    radius: 70
+    at: { x: 454, y: 419 }
+    size: { w: 2, h: 2 }
+  - id: c_c
+    label: ""
+    marker: none
+    radius: 150.0
+    at: { x: 409, y: 269 }
+    size: { w: 2, h: 2 }
+  - id: c_a
+    label: ""
+    marker: none
+    radius: 185.41
+    at: { x: 109, y: 419 }
+    size: { w: 2, h: 2 }
+  - id: p_a
+    label: ""
+    marker: circle
+    tag: A
+    at: { x: 100, y: 410 }
+    size: { w: 20, h: 20 }
+  - id: p_b
+    label: ""
+    marker: circle
+    tag: B
+    at: { x: 400, y: 410 }
+    size: { w: 20, h: 20 }
+  - id: p_c
+    label: ""
+    marker: circle
+    tag: C
+    at: { x: 400, y: 260 }
+    size: { w: 20, h: 20 }
+  - id: p_d
+    label: ""
+    marker: circle
+    tag: D
+    at: { x: 266, y: 327 }
+    size: { w: 20, h: 20 }
+  - id: p_e
+    label: ""
+    marker: circle
+    tag: E
+    at: { x: 285, y: 410 }
+    size: { w: 20, h: 20 }
+  - id: p_h
+    label: ""
+    marker: circle
+    tag: H
+    at: { x: 400, y: 356 }
+    size: { w: 20, h: 20 }
+  - id: lab_ae
+    label: AE ＝ 1 / φ
+    marker: none
+    at: { x: 116, y: 436 }
+    size: { w: 173, h: 20 }
+  - id: lab_eb
+    label: EB ＝ 1 / φ²
+    marker: none
+    at: { x: 301, y: 436 }
+    size: { w: 103, h: 20 }
+  - id: r0
+    label: ""
+    marker: none
+    radius: 120.0
+    at: { x: 984, y: 364 }
+    size: { w: 2, h: 2 }
+  - id: r1
+    label: ""
+    marker: none
+    radius: 74.16
+    at: { x: 984, y: 364 }
+    size: { w: 2, h: 2 }
+  - id: r2
+    label: ""
+    marker: none
+    radius: 45.84
+    at: { x: 984, y: 364 }
+    size: { w: 2, h: 2 }
+  - id: r3
+    label: ""
+    marker: none
+    radius: 28.33
+    at: { x: 984, y: 364 }
+    size: { w: 2, h: 2 }
+  - id: m0
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 1031, y: 337 }
+    size: { w: 57, h: 57 }
+  - id: m1
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 902, y: 387 }
+    size: { w: 57, h: 57 }
+  - id: m2
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 963, y: 263 }
+    size: { w: 57, h: 57 }
+  - id: m3
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 1002, y: 396 }
+    size: { w: 57, h: 57 }
+  - id: m4
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 884, y: 324 }
+    size: { w: 57, h: 57 }
+  - id: mn1
+    label: 小円 5 個　半径 ＝ R / φ³　中心は R / φ の円周上
+    marker: none
+    align: left
+    at: { x: 790, y: 212 }
+    size: { w: 400, h: 20 }
+  - id: mn2
+    label: 置く角は 黄金角 360° / φ² ＝ 137.508° ずつ
+    marker: none
+    align: left
+    at: { x: 790, y: 232 }
+    size: { w: 400, h: 20 }
+  - id: t_t
+    label: φ の階段（決めるのは R ひとつ）
+    hatch: solid
+    at: { x: 60, y: 530 }
+    size: { w: 340, h: 26 }
+  - id: t0k
+    label: R
+    at: { x: 60, y: 556 }
+    size: { w: 110, h: 24 }
+  - id: t0u
+    label: 外の円
+    at: { x: 170, y: 556 }
+    size: { w: 230, h: 24 }
+  - id: t1k
+    label: R / φ
+    at: { x: 60, y: 580 }
+    size: { w: 110, h: 24 }
+  - id: t1u
+    label: 小円の中心が乗る円
+    at: { x: 170, y: 580 }
+    size: { w: 250, h: 24 }
+  - id: t2k
+    label: R / φ²
+    at: { x: 60, y: 604 }
+    size: { w: 110, h: 24 }
+  - id: t2u
+    label: —
+    at: { x: 170, y: 604 }
+    size: { w: 230, h: 24 }
+  - id: t3k
+    label: R / φ³
+    at: { x: 60, y: 628 }
+    size: { w: 110, h: 24 }
+  - id: t3u
+    label: 小円の半径
+    at: { x: 170, y: 628 }
+    size: { w: 230, h: 24 }
+  - id: g_t
+    label: 手引書に載せる下限
+    hatch: solid
+    at: { x: 430, y: 530 }
+    size: { w: 340, h: 26 }
+  - id: g0k
+    label: アイソレーション（余白）
+    at: { x: 430, y: 556 }
+    size: { w: 190, h: 24 }
+  - id: g0v
+    label: 高さの 1 / 3 以上
+    align: right
+    at: { x: 620, y: 556 }
+    size: { w: 150, h: 24 }
+  - id: g1k
+    label: 最小サイズ（画面）
+    at: { x: 430, y: 580 }
+    size: { w: 250, h: 24 }
+  - id: g1v
+    label: 幅 80 px
+    align: right
+    at: { x: 680, y: 580 }
+    size: { w: 90, h: 24 }
+  - id: g2k
+    label: 最小サイズ（印刷）
+    at: { x: 430, y: 604 }
+    size: { w: 250, h: 24 }
+  - id: g2v
+    label: 幅 17 mm
+    align: right
+    at: { x: 680, y: 604 }
+    size: { w: 90, h: 24 }
+  - id: n0
+    label: ・破線の円はコンパスの跡。作図図では消さない —— 消すと、どう作ったかが読めなくなる
+    marker: none
+    align: left
+    at: { x: 800, y: 556 }
+    size: { w: 500, h: 22 }
+  - id: n1
+    label: ・分度器を使わない。137.508° も、φ が出ていれば円と直線だけで取れる
+    marker: none
+    align: left
+    at: { x: 800, y: 578 }
+    size: { w: 500, h: 22 }
+  - id: n2
+    label: ・R を変えれば全部が比を保ったまま動く。決めるのは R ひとつ
+    marker: none
+    align: left
+    at: { x: 800, y: 600 }
+    size: { w: 500, h: 22 }
+  - id: n3
+    label: ・色を持たせていない。白黒で刷っても、形と比はそのまま残る
+    marker: none
+    align: left
+    at: { x: 800, y: 622 }
+    size: { w: 500, h: 22 }
+edges:
+  - from: p_a
+    to: p_b
+  - from: p_b
+    to: p_h
+  - from: p_a
+    to: p_c
+  - from: p_a
+    to: p_e

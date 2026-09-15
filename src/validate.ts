@@ -358,9 +358,15 @@ function checkViews(doc: Document, add: Add, m: Messages, at: At): void {
    * **甲板の平面図は上の側面図と縦に揃えてある**ので、肋骨番号は
    * いちばん下の図と側面図にしか書かない。
    *
-   * **どの図にも 1 本も無いときだけ言う。** それは寸法系を書き忘れた形。
+   * **縮尺を書いている図だけを見る。** 縮尺がどこにも無ければ、
+   * その図は寸法を出す気が無い —— コンパスの作図図（見本 127）は
+   * 目盛りを使わないことが中身なので、**寸法が無いのは正しい。**
+   * 書き忘れだけを拾う（2026-09-15。次の見本で鳴って気づいた）。
    */
-  if (seen.size > 0 && withGrid === 0) {
+  const scaled =
+    doc.get('scale', true) !== undefined ||
+    views.items.some((item) => isMap(item) && item.get('scale', true) !== undefined);
+  if (seen.size > 0 && withGrid === 0 && scaled) {
     add('warning', 'views-no-grid', m.viewsNoGrid, at(views));
   }
 }
