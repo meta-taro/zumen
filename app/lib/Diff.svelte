@@ -11,15 +11,39 @@ import type { Session } from './state.svelte.ts';
 
   interface Props {
     session: Session;
+    /** エージェントが添えた一言（D34）。人の提案には無い。 */
+    note?: string | null;
+    /**
+     * 人が答えたことを、線の向こうへ返す（D34）。
+     *
+     * **ここを通らない限り、エージェントは `applied` を見ない。**
+     * エージェント側に、この呼び出しへ届く道は無い。
+     */
+    onDecided?: (choice: 'applied' | 'discarded') => void;
   }
-  const { session }: Props = $props();
+  const { session, note = null, onDecided }: Props = $props();
   const m = messages().app;
+
+  async function apply(): Promise<void> {
+    await session.applyPending();
+    onDecided?.('applied');
+  }
+
+  function discard(): void {
+    session.discardPending();
+    onDecided?.('discarded');
+  }
 
   const sign = { same: ' ', added: '+', removed: '-' } as const;
 </script>
 
 <section aria-label={m.diffHeading}>
   <h2>{m.diffHeading}</h2>
+
+  <!-- **誰が何のために出した提案か。** 差分だけでは、何を直したのかが読めない。 -->
+  {#if note !== null && note !== ''}
+    <p class="from"><strong>{m.liveFrom}</strong>{note}</p>
+  {/if}
 
   {#if session.diff.length === 0}
     <p class="quiet">{m.noChange}</p>
@@ -35,8 +59,8 @@ import type { Session } from './state.svelte.ts';
   {/if}
 
   <div class="choose">
-    <button class="primary" onclick={() => session.applyPending()}>{m.apply}</button>
-    <button onclick={() => session.discardPending()}>{m.discard}</button>
+    <button class="primary" onclick={apply}>{m.apply}</button>
+    <button onclick={discard}>{m.discard}</button>
   </div>
 </section>
 
@@ -46,6 +70,17 @@ import type { Session } from './state.svelte.ts';
     color: var(--text-secondary);
     font-weight: 500;
     margin: 0 0 var(--space-3);
+  }
+  .from {
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    margin: 0 0 var(--space-3);
+  }
+  .from strong {
+    display: block;
+    font-size: var(--text-xs);
+    color: var(--text-tertiary);
+    font-weight: 500;
   }
   .quiet {
     color: var(--text-tertiary);

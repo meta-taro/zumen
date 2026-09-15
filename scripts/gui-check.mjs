@@ -20,6 +20,9 @@ import { spawn } from 'node:child_process';
 import { existsSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
+import { createHub, serve } from '../src/live/server.ts';
+import { LIVE_PORT } from '../src/live/protocol.ts';
+
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const PORT = 5178;
 const CDP = 9223;
@@ -81,13 +84,22 @@ async function run() {
     { stdio: 'ignore' },
   );
 
+  // **線も自分で立てる**（D34）。画面が繋ぎにいく先が無いと、9 が試せない。
+  let line = null;
+  try {
+    line = await serve(LIVE_PORT, createHub());
+  } catch (error) {
+    check('9 線 — 立てられる', false, `${LIVE_PORT} 番が空いていない: ${error}`);
+  }
+
   try {
     await waitFor(`http://localhost:${PORT}/`);
     await waitFor(`http://localhost:${CDP}/json/version`);
-    await walk();
+    await walk(line);
   } finally {
     chrome.kill();
     vite.kill();
+    if (line !== null) await line.close();
   }
 
   const bad = results.filter((r) => !r.ok);
@@ -107,7 +119,7 @@ async function waitFor(url) {
   throw new Error(`起動しませんでした: ${url}`);
 }
 
-async function walk() {
+async function walk(line) {
   const { evaluate, errors, close } = await connect();
 
   /**
@@ -347,8 +359,70 @@ async function walk() {
     (await evaluate('window.zumen.review.stale')) === true,
   );
 
+  // 9 線 —— エージェントと繋がる（D34）
+  //
+  // **ここがこの版の勝負どころ。** 提案が画面に降りて、差分が出て、
+  // 人が押したことだけが線の向こうへ返ること。
+  // **押す口が線の向こうに無いこと**は `test/live-hub.test.ts` が形で見ている。
+  if (line !== null) {
+    const hub = line.hub;
+
+    // **画面側では測れない。** 繋がったかどうかを知っているのは線のほう。
+    const connected = await untilHere(() => hub.status.screens === 1, 15000);
+    check('9 線 — 画面が繋ぎにいっている', connected, `${hub.status.screens} 件`);
+    // 画面が「いま何を映しているか」を伝えているか。**ディスクではなく画面。**
+    const seen = hub.status.screen;
+    check(
+      '9 線 — **保存前の手直しごと伝わっている**',
+      seen !== null && seen.source.includes('web01:') && seen.source.includes('position'),
+      seen === null ? '何も伝わっていない' : `${seen.source.length} 文字`,
+    );
+    check('9 線 — 画面に「繋がっています」と出る', (await evaluate(`document.querySelector('.live.on') !== null`)) === true);
+
+    // **指す** —— 選ぶだけで、図は変わらない。
+    const textBefore = await evaluate('window.zumen.text');
+    hub.point(['mariadb'], 'これのことです');
+    check('9 線 — 指すと画面で選ばれる', await until(`window.zumen.selected === 'mariadb'`), '');
+    check('9 線 — **指しても図は変わらない**', (await evaluate('window.zumen.text')) === textBefore);
+
+    // **提案** —— 画面に出るだけ。正本は変わらない。
+    const proposal = (await evaluate('window.zumen.text')).replace('nodes:', 'nodes:\n  - id: cache\n    label: キャッシュ');
+    const put = hub.offer(proposal, { note: 'キャッシュを足しました' });
+    check('9 線 — 提案が画面へ降りる', await until('window.zumen.pending !== null'), put.ok ? '' : put.reason);
+    check('9 線 — **降りても正本は変わらない**', (await evaluate('window.zumen.text')) === textBefore);
+    check('9 線 — 誰が何のために出したかが読める', (await evaluate(`document.body.innerText.includes('キャッシュを足しました')`)) === true);
+    check('9 線 — 差分が出る', (await evaluate('window.zumen.diff.length')) > 0);
+
+    // **人が押すまで、線の向こうは何も知らない。**
+    const before = await hub.decision(put.ok ? put.id : '', 900);
+    check('9 線 — **押すまで applied にならない**', before === 'timeout', String(before));
+
+    // 人が押した。
+    const waiting = hub.decision(put.ok ? put.id : '', 8000);
+    await evaluate(`[...document.querySelectorAll('button')].find((b) => b.textContent.trim() === '正本へ入れる').click()`);
+    check('9 線 — 人が押したことが線の向こうへ返る', (await waiting) === 'applied');
+    check('9 線 — 押したら正本が変わる', await until(`window.zumen.text.includes('cache')`), '');
+
+    // やめたときも、黙らずに返る。
+    const put2 = hub.offer(proposal.replace('キャッシュ', 'ふたつめ'), { note: 'もう 1 つ' });
+    await until('window.zumen.pending !== null');
+    const waiting2 = hub.decision(put2.ok ? put2.id : '', 8000);
+    await evaluate(`[...document.querySelectorAll('button')].find((b) => b.textContent.trim() === 'やめる').click()`);
+    check('9 線 — **やめたことも返る**（黙って待たせない）', (await waiting2) === 'discarded');
+  }
+
   check('例外が出ていない', errors.length === 0, errors.join(' | '));
   close();
+}
+
+/** こちら側（node）で条件が満たされるまで待つ。**固定の待ち時間にしない。** */
+async function untilHere(ready, limit = 10000) {
+  const deadline = Date.now() + limit;
+  for (;;) {
+    if (ready()) return true;
+    if (Date.now() > deadline) return false;
+    await sleep(100);
+  }
 }
 
 /** CDP を素の WebSocket で叩く。**依存を足さない。** */

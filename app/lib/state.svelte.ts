@@ -25,6 +25,13 @@ export class Session {
   text = $state('');
   /** 開いているファイルの名前。保存先が分からないときは null。 */
   name = $state<string | null>(null);
+  /**
+   * 開いている図の道。**殻（Tauri）の中でだけ分かる。**
+   *
+   * ブラウザで開いたときは名前しか無い。エージェントへ
+   * 「どの図を映しているか」を伝えるのに要る（D34）。
+   */
+  path = $state<string | null>(null);
   /** 保存していない変更があるか。 */
   dirty = $state(false);
 

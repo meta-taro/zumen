@@ -50,6 +50,11 @@ describe('MCP の口', () => {
       'zumen_export',
       'zumen_inspect',
       'zumen_list',
+      // 画面と繋ぐ線（D34）。**提案を採用する口は、ここに無い。**
+      'zumen_live_point',
+      'zumen_live_propose',
+      'zumen_live_read',
+      'zumen_live_status',
       'zumen_pins',
       'zumen_propose',
       'zumen_read',
@@ -113,6 +118,29 @@ describe('MCP の口', () => {
     for (const forbidden of ['zumen_resolve', 'zumen_pin', 'zumen_write', 'zumen_review']) {
       assert.ok(!names.includes(forbidden), `${forbidden} が開いている`);
     }
+    // 線を引いたときが、いちばんこの穴が開きやすい（D34）。
+    for (const forbidden of ['zumen_live_apply', 'zumen_live_accept', 'zumen_live_write', 'zumen_live_review']) {
+      assert.ok(!names.includes(forbidden), `${forbidden} が開いている`);
+    }
+    await client.close();
+  });
+
+  it('**線が繋がっていなければ、黙って別のことをしない**（D34）', async () => {
+    const client = await connect();
+    const out = JSON.parse(body(await client.callTool({ name: 'zumen_live_status', arguments: {} })));
+    assert.equal(out.screens, 0, '誰も繋いでいないのに繋がっていると言った');
+
+    // 画面が無いのに提案を出したら、**ファイルへ書きに行かず断る。**
+    const put = JSON.parse(
+      body(
+        await client.callTool({
+          name: 'zumen_live_propose',
+          arguments: { source: 'version: 1\nnodes:\n  - id: a\n    label: あ\n' },
+        }),
+      ),
+    );
+    assert.equal(put.ok, false);
+    assert.match(put.reason, /繋がっていません/);
     await client.close();
   });
 

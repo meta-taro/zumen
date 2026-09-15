@@ -153,6 +153,23 @@ It exposes `zumen_spec` (read this first), `zumen_propose`, `zumen_export`,
 `zumen_inspect` and others. **There is no tool that writes the source directly** —
 an agent proposes, and a human applies.
 
+With the server running, it also **links to the open desktop window**, so you can
+adjust a diagram by talking: the agent reads what is actually on screen (including
+unsaved hand edits), puts a proposal **on that screen**, and waits. You see the diff
+and press apply — or don't, and say "no, like this."
+
+```
+zumen_live_status    is a window connected, and what is it showing?
+zumen_live_read      the source as the screen has it — newer than the disk
+zumen_live_propose   put a proposal on the screen; optionally wait for the answer
+zumen_live_point     "this box" — selects it, changes nothing
+```
+
+**The source of truth does not change.** A proposal is a diff on screen until a person
+presses apply, and **there is no way across the link to press it**: `applied` comes back
+only when a human did, and `timeout` means "hasn't looked yet", not "rejected". The link
+binds to 127.0.0.1 only and added no dependencies.
+
 ## What this will not become
 
 - **Not a Figma replacement.** For UI it stores *structure*, not visual design

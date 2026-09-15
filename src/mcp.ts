@@ -45,6 +45,11 @@ import {
   read,
   spec,
 } from './tools.ts';
+import { createHub, serve } from './live/server.ts';
+import type { LiveServer } from './live/server.ts';
+import { LIVE_PORT } from './live/protocol.ts';
+import { MAX_WAIT_S, offer, point, read as liveRead, status as liveStatus } from './live/tools.ts';
+import type { Hub } from './live/hub.ts';
 
 /** 返り値はすべて JSON の文字列にする。**エージェントが読んで判断するため。** */
 function json(value: unknown): { content: { type: 'text'; text: string }[] } {
@@ -56,7 +61,7 @@ function text(value: string): { content: { type: 'text'; text: string }[] } {
   return { content: [{ type: 'text', text: value }] };
 }
 
-export function buildServer(): McpServer {
+export function buildServer(hub: Hub = createHub()): McpServer {
   const server = new McpServer({ name: 'zumen', version: '0.0.0' });
   const m = messages().mcp;
 
@@ -188,6 +193,55 @@ export function buildServer(): McpServer {
       text(await exportAs(bodyOf(source, path), kind, { theme, intent })),
   );
 
+  // --- 画面と繋ぐ（D34）------------------------------------------------------
+  //
+  // **これまでは、エージェントが見ていたのはディスクだった。**
+  // 人が画面で箱を動かしても、保存するまで見えない。提案を入れても、
+  // 開いている画面は古い図を映したままだった。ここを通すと、**見るのは画面**になる。
+  //
+  // **承認の線は動かさない。** 提案は画面に出るだけで、正本には入らない。
+  // 入れるのは人が押したとき。**ここに押す口は無い。**
+
+  server.registerTool(
+    'zumen_live_status',
+    { title: m.liveStatusTitle, description: m.liveStatusDesc, inputSchema: {} },
+    () => json(liveStatus(hub)),
+  );
+
+  server.registerTool(
+    'zumen_live_read',
+    { title: m.liveReadTitle, description: m.liveReadDesc, inputSchema: {} },
+    () => json(liveRead(hub)),
+  );
+
+  server.registerTool(
+    'zumen_live_propose',
+    {
+      title: m.liveProposeTitle,
+      description: m.liveProposeDesc,
+      inputSchema: {
+        source: z.string().describe(m.liveProposeSource),
+        path: z.string().optional().describe(m.liveProposePath),
+        note: z.string().optional().describe(m.liveProposeNote),
+        wait: z.number().min(1).max(MAX_WAIT_S).optional().describe(m.liveProposeWait),
+      },
+    },
+    async ({ source, path, note, wait }) => json(await offer(hub, source, { path, note, wait })),
+  );
+
+  server.registerTool(
+    'zumen_live_point',
+    {
+      title: m.livePointTitle,
+      description: m.livePointDesc,
+      inputSchema: {
+        ids: z.array(z.string()).min(1).describe(m.livePointIds),
+        note: z.string().optional().describe(m.livePointNote),
+      },
+    },
+    ({ ids, note }) => json(point(hub, ids, note)),
+  );
+
   return server;
 }
 
@@ -198,7 +252,26 @@ function bodyOf(source: string | undefined, path: string | undefined): string {
   throw new Error(messages().mcp.needSourceOrPath);
 }
 
+/**
+ * 画面と繋ぐ線を開く。**開けなくても MCP は立てる。**
+ *
+ * 既に別の zumen MCP が立っていると番号が埋まっている。そこで落とすと、
+ * **図を読む口まで一緒に死ぬ。** 線が無いことは `zumen_live_status` が
+ * `screens: 0` で言うので、黙って進んでも取り違えは起きない。
+ */
+async function openLine(hub: Hub): Promise<LiveServer | null> {
+  try {
+    return await serve(LIVE_PORT, hub);
+  } catch (error) {
+    // 握り潰さない。stdout は MCP の通り道なので、**stderr へ出す。**
+    process.stderr.write(`${messages().mcp.liveOffOn}: ${String(error)}\n`);
+    return null;
+  }
+}
+
 // 直接叩かれたときだけ立てる。import しても副作用が出ないようにしておく。
 if (isEntry(import.meta.url, process.argv[1])) {
-  await buildServer().connect(new StdioServerTransport());
+  const hub = createHub();
+  await openLine(hub);
+  await buildServer(hub).connect(new StdioServerTransport());
 }

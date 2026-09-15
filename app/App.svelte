@@ -18,10 +18,22 @@
   import Conflicts from './lib/Conflicts.svelte';
   import Diff from './lib/Diff.svelte';
   import { openDiagram, openProposal, saveDiagram } from './lib/files.ts';
+  import { Live } from './lib/live.svelte.ts';
   import { Session } from './lib/state.svelte.ts';
 
   const m = messages().app;
   const session = new Session();
+  /**
+   * エージェントと繋がる線（D34）。
+   *
+   * **降りてくるのは提案であって、正本ではない。** 画面には差分が出るだけで、
+   * 「正本へ入れる」を押すのは人。**線の向こうに、押す口は無い。**
+   */
+  const live = new Live(session);
+  $effect(() => {
+    live.start();
+    return () => live.stop();
+  });
   let handle = $state<unknown>(null);
   let trouble = $state<string | null>(null);
   let dropping = $state(false);
@@ -58,6 +70,7 @@
   async function openSample(): Promise<void> {
     trouble = null;
     handle = null;
+    session.path = null;
     await session.load(sample, '本番構成.zumen.yaml');
   }
 
@@ -67,6 +80,8 @@
       const opened = await openDiagram();
       if (opened === null) return;
       handle = opened.handle;
+      // 殻の中では、道がそのまま手掛かりになる。**エージェントへ渡すのはこれ。**
+      session.path = typeof opened.handle === 'string' ? opened.handle : null;
       await session.load(opened.text, opened.name);
     } catch (error) {
       trouble = describe(error);
@@ -78,6 +93,7 @@
     try {
       saveState = 'saving';
       handle = await saveDiagram(session.text, session.name ?? 'diagram.zumen.yaml', handle);
+      session.path = typeof handle === 'string' ? handle : null;
       session.dirty = false;
       saveState = 'saved';
     } catch (error) {
@@ -106,6 +122,23 @@
   $effect(() => {
     void session.text;
     scheduleSave();
+  });
+
+  /**
+   * 映しているものをエージェントへ伝える（D34）。
+   *
+   * **保存前の手直しごと渡す。** ディスクを読ませると、人がさっき動かした分が
+   * 見えず、エージェントはそれを壊す提案を書く。
+   */
+  $effect(() => {
+    void session.text;
+    void session.name;
+    void session.path;
+    void session.selected;
+    void session.dirty;
+    void session.conflicts.length;
+    void live.state;
+    void live.tell();
   });
 
   /**
@@ -198,6 +231,7 @@
     trouble = null;
     try {
       handle = null;
+      session.path = null;
       await session.load(await file.text(), file.name);
     } catch (error) {
       trouble = describe(error);
@@ -265,6 +299,19 @@
         {session.review.reviewed ? m.reviewed : session.review.stale ? m.reviewStale : m.review}
       </button>
       <span class="gap"></span>
+      <!--
+        **繋がっていないことを黙らない。**
+        線が切れたまま話しかけられると、人はエージェントが無視していると思う。
+      -->
+      <span
+        class="live"
+        class:on={live.state === 'on'}
+        title={live.state === 'on' ? m.liveOnHint : m.liveOffHint}
+      >
+        <span class="dot" aria-hidden="true"></span>
+        {live.state === 'on' ? m.liveOn : live.state === 'connecting' ? m.liveConnecting : m.liveOff}
+      </span>
+      <span class="gap"></span>
       <button onclick={open}>{m.open}</button>
       <button onclick={save} disabled={session.text === ''}>{m.save}</button>
       <button onclick={propose} disabled={session.text === ''}>{m.readProposal}</button>
@@ -315,7 +362,11 @@
       {/if}
 
       {#if session.pending !== null}
-        <Diff {session} />
+        <!--
+          **人が答えたことだけを、線の向こうへ返す。**
+          ここを通らない限り、エージェントは `applied` を見ない。
+        -->
+        <Diff {session} note={live.note} onDecided={(choice) => live.answered(choice)} />
       {:else}
         <Conflicts {session} />
 
@@ -405,6 +456,29 @@
     display: flex;
     align-items: center;
     gap: var(--space-2);
+  }
+  /** 線の状態。**押せない**（見るだけ）ので、ボタンの形にしない。 */
+  .live {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-xs);
+    color: var(--text-tertiary);
+    white-space: nowrap;
+  }
+  .live.on {
+    color: var(--text-secondary);
+  }
+  .live .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--text-tertiary);
+    opacity: 0.45;
+  }
+  .live.on .dot {
+    background: var(--accent, currentColor);
+    opacity: 1;
   }
   .gap {
     width: var(--space-4);

@@ -71,6 +71,14 @@ const ja = {
     fit: '全体',
     fitHint: '図ぜんぶが見える大きさにする（F）',
 
+    /** エージェントと繋がる線（D34）。**繋がっていないことを黙らない。** */
+    liveOn: 'エージェントと繋がっています',
+    liveOff: 'エージェントと繋がっていません',
+    liveConnecting: 'エージェントを探しています…',
+    liveOnHint: 'エージェントが出した提案が、この画面に出ます。入れるかどうかは人が決めます。',
+    liveOffHint: 'MCP サーバ（pnpm mcp）が立っていません。立てると、話しながら図を直せます。',
+    liveFrom: 'エージェントから',
+
     conflictsHeading: '競合',
     noConflicts: '食い違いはありません。',
     takeMine: '自分の指定を採る',
@@ -248,6 +256,40 @@ const ja = {
     exportIntent:
       '主役をどれくらい強く出すか（svg にだけ効く）。省略すると safe（淡く添える）。遠くから見せる場では vivid（塗り潰す）。どちらでも白黒で読めることは保たれる。',
     needSourceOrPath: 'source か path のどちらかが要ります',
+
+    // --- 画面と繋ぐ（D34）。**承認の線は動かさない。** ---
+    liveStatusTitle: '画面と繋がっているか',
+    liveStatusDesc:
+      'デスクトップアプリが線の向こうに居るか、いま何を映しているかを返す。**zumen_live_* を使う前にこれを見ること。**繋がっていなければ、提案はファイルへ入れる口（zumen_propose）を使う。screens が 0 なら、人はこの画面を見ていない。',
+    liveReadTitle: '画面が映している図を読む',
+    liveReadDesc:
+      '**ディスクではなく画面を読む。**人がさっき動かして、まだ保存していない手直しがここに入っている。zumen_read はディスクを読むので、その手直しが見えない。直す前にこれを読むこと。',
+    liveProposeTitle: '提案を画面へ出す',
+    liveProposeDesc:
+      '提案を**画面に出すだけ**。正本には入らない。人が「正本へ入れる」を押すまで何も起きない。**あなたに押す口は無い。**wait を渡すと、人が答えるまで待って結果を返す（applied＝人が入れた／discarded＝人がやめた／timeout＝まだ見ていない／gone＝画面が消えた）。**timeout は断られたという意味ではない。**形式に適合しない提案は画面に出さない。',
+    liveProposeSource: '提案（図の全文）',
+    liveProposePath: '画面が開いているはずの図の道。渡すと、その図を開いている画面にだけ出す',
+    liveProposeNote: '人へ添える一言（「幅を揃えました」など）。画面に出る',
+    liveProposeWait: '人の答えを待つ秒数（最大 300）。省略すると待たずに返る',
+    livePointTitle: 'この要素のことだと指す',
+    livePointDesc:
+      '画面でその要素を選ぶ。**選ぶだけで、図は何も変わらない。**「どれの話か」を言葉で説明する代わりに使う。',
+    livePointIds: '指す要素の id',
+    livePointNote: '添える一言',
+    liveNoScreen:
+      'デスクトップアプリが繋がっていません。アプリを立ち上げる（pnpm app）か、ファイルへ入れる口（zumen_propose）を使ってください。',
+    liveNothingOpen: '画面は繋がっていますが、図を開いていません。',
+    liveOtherDiagram: (asked: string, showing: string | null) =>
+      showing === null
+        ? `画面は ${asked} を開いていません。`
+        : `画面が開いているのは ${showing} です（${asked} ではありません）。`,
+    liveOffOn: '線を開けませんでした',
+    liveWaitingHuman: '画面に出しました。**人が押すまで、正本は変わりません。**',
+    liveApplied: '人が正本へ入れました。',
+    liveDiscarded: '人はこの提案を採りませんでした。**別の案を出すか、何が違うのかを聞いてください。**',
+    liveTimeout:
+      'まだ人は答えていません。**断られたわけではありません。**提案は画面に残っています。',
+    liveGone: '画面が消えました。人はこの提案を見ていません。',
   },
 
   /**
@@ -274,6 +316,7 @@ const ja = {
       '**人が直す往復を残すことが目的**。全自動で出るだけの図は、誰も理解しないまま貼られる。',
       '正本はテキスト（`*.zumen.yaml`）。仕様は実装から分離してあるので、この製品が終わっても図は読める。',
       '人の手直しは `pins` にしか書かれない。**正本 1 つを見れば、人がどれだけ手を入れたかが分かる。**',
+      '**画面と線で繋がる**（`zumen_live_status` で確かめる）。繋がっていれば、提案は画面に出て、人がその場で採るかどうかを決める —— 「そうじゃなくてこう」の往復ができる。ファイルへ先に書く `zumen_propose` は、繋がっていないときの口。',
     ],
     closed: [
       {
@@ -291,6 +334,10 @@ const ja = {
       {
         what: '既存ファイルの無条件な上書き',
         why: '`zumen_create` は既にあれば失敗する。直すなら `zumen_propose` を通すこと。',
+      },
+      {
+        what: '画面へ出した提案を、自分で採ること',
+        why: '線の向こうに「正本へ入れる」を押す口は無い。`zumen_live_propose` が返す applied は、人が押したときだけ。timeout は「まだ見ていない」であって、断られたではない。',
       },
     ],
     notDoing: [
@@ -567,6 +614,13 @@ const en: Catalog = {
     fit: 'Fit',
     fitHint: 'Size it so the whole diagram is visible (F)',
 
+    liveOn: 'Connected to the agent',
+    liveOff: 'Not connected to an agent',
+    liveConnecting: 'Looking for an agent…',
+    liveOnHint: 'Proposals from the agent appear on this screen. Whether they go in is your call.',
+    liveOffHint: 'The MCP server (pnpm mcp) is not running. Start it to adjust the diagram by talking.',
+    liveFrom: 'From the agent',
+
     conflictsHeading: 'Conflicts',
     noConflicts: 'No disagreements.',
     takeMine: 'Keep mine',
@@ -700,6 +754,39 @@ const en: Catalog = {
     exportIntent:
       'How strongly to show the main element (svg only). safe unless given (a quiet tint). Use vivid for a room viewed from a distance. Either way the diagram stays readable in black and white.',
     needSourceOrPath: 'Either source or path is required',
+
+    liveStatusTitle: 'Is the app connected?',
+    liveStatusDesc:
+      'Reports whether the desktop app is on the other end of the live link and what it is showing. **Check this before using any zumen_live_* tool.** If nothing is connected, use zumen_propose (which writes the file) instead. screens = 0 means no human is looking at this screen.',
+    liveReadTitle: 'Read what the screen is showing',
+    liveReadDesc:
+      '**Reads the screen, not the disk.** Edits the person just made but has not saved live here; zumen_read would not see them. Read this before changing anything.',
+    liveProposeTitle: 'Put a proposal on the screen',
+    liveProposeDesc:
+      'Puts a proposal **on the screen only**. It does not enter the source of truth; nothing happens until the person presses "apply". **You have no way to press it.** With wait, this blocks until the person answers (applied = they took it / discarded = they rejected it / timeout = they have not looked yet / gone = the screen went away). **timeout does not mean rejected.** A proposal that fails validation is never shown.',
+    liveProposeSource: 'The proposal (the whole diagram)',
+    liveProposePath: 'Path the screen should have open. Given, the proposal goes only to a screen showing that diagram',
+    liveProposeNote: 'One line for the person ("evened out the widths"). It appears on screen',
+    liveProposeWait: 'Seconds to wait for the person to answer (max 300). Returns at once if omitted',
+    livePointTitle: 'Point at an element',
+    livePointDesc:
+      'Selects that element on screen. **Selecting only; the diagram does not change.** Use it instead of describing in words which thing you mean.',
+    livePointIds: 'Ids of the elements to point at',
+    livePointNote: 'One line to go with it',
+    liveNoScreen:
+      'The desktop app is not connected. Start it (pnpm app), or use zumen_propose, which writes the file.',
+    liveNothingOpen: 'The app is connected but has no diagram open.',
+    liveOtherDiagram: (asked: string, showing: string | null) =>
+      showing === null
+        ? `The screen does not have ${asked} open.`
+        : `The screen has ${showing} open, not ${asked}.`,
+    liveOffOn: 'Could not open the live link',
+    liveWaitingHuman: 'It is on the screen. **Nothing changes until the person presses apply.**',
+    liveApplied: 'The person applied it to the source of truth.',
+    liveDiscarded: 'The person did not take this proposal. **Offer a different one, or ask what is wrong with it.**',
+    liveTimeout:
+      'The person has not answered yet. **This is not a rejection.** The proposal is still on screen.',
+    liveGone: 'The screen went away. The person never saw this proposal.',
   },
 
   kind: {
@@ -719,6 +806,7 @@ const en: Catalog = {
       '**Keeping the human in the loop is the point.** A diagram nobody argued with is a diagram nobody understood.',
       'The source of truth is text (`*.zumen.yaml`), and the format is specified apart from this implementation, so the diagrams outlive the tool.',
       'Hand edits land only in `pins`, so one file tells you how much a person touched.',
+      '**It links to the open window** (check with `zumen_live_status`). When linked, a proposal appears on screen and the person decides there and then — the "no, like this" round trip. `zumen_propose`, which writes the file first, is the unlinked path.',
     ],
     closed: [
       {
@@ -736,6 +824,10 @@ const en: Catalog = {
       {
         what: 'Overwriting an existing file',
         why: '`zumen_create` fails if the file exists. Change it through `zumen_propose`.',
+      },
+      {
+        what: 'Accepting your own proposal on the screen',
+        why: 'There is no way across the link to press apply. The applied that `zumen_live_propose` returns only comes from a person pressing it. timeout means "has not looked yet", not rejected.',
       },
     ],
     notDoing: [
