@@ -1,0 +1,277 @@
+version: 1
+kind: placement
+arrows: false
+title: 法定相続情報一覧図（被相続人 甲野太郎 法定相続情報／架空）
+# **法務局が認証文を付けて交付する、公的な証明書。**
+# これがあると、相続手続きの申請先ごとに戸籍謄本を出さずに済む。
+#
+# ## 「相続関係説明図」とは別のもの
+#
+# | | 法定相続情報一覧図 | 相続関係説明図 |
+# |---|---|---|
+# | 何か | **法務局が認証する証明書** | 申請内容を説明する図 |
+# | 証明力 | **ある** | **無い** |
+# | 数次相続 | 個別の相続だけ | 全部書くことがある |
+#
+# ## 用紙の決まり
+#
+# **A4 縦。長期保存に耐える丈夫な白紙。**
+# **用紙の下から 5 cm には、法務局の認証文が入る** —— ここには何も書かない。
+# 1 px ＝ 0.5 mm なので、下の帯 100 px がその 5 cm。
+#
+# ## 線の決まり
+#
+# **配偶者と被相続人は二重線、子は単線。** 戸籍の記載どおりに書く。
+# **相続放棄した人も書く**（相続しないことになった人を落とさない）。
+#
+# ## 器の名前を器の真ん中に書かない
+#
+# 人の欄は中に何行も入るので、枠の名前を中央に置くと中身に乗る（D29）。
+# **枠は名前を持たず、氏名は中の 1 行目として置く。**
+#
+# 出どころ —— 法務局「法定相続情報証明制度の具体的な手続について」ほか。
+# 氏名・日付・地番はすべて架空。
+scale: { mm: 0.5 }
+nodes:
+  - id: head
+    label: 被相続人 甲野太郎 法定相続情報
+    hatch: solid
+    at: { x: 40, y: 40 }
+    size: { w: 340, h: 30 }
+  - id: bo
+    label: ""
+    at: { x: 40, y: 100 }
+    size: { w: 190, h: 120 }
+  - id: bot0
+    label: 被相続人　甲野太郎
+    marker: none
+    align: left
+    at: { x: 46, y: 106 }
+    size: { w: 178, h: 18 }
+  - id: bot1
+    label: 最後の住所
+    marker: none
+    align: left
+    at: { x: 46, y: 124 }
+    size: { w: 178, h: 15 }
+  - id: bot2
+    label: 　○○市○○町1-2-3
+    marker: none
+    align: left
+    at: { x: 46, y: 139 }
+    size: { w: 178, h: 15 }
+  - id: bot3
+    label: 最後の本籍
+    marker: none
+    align: left
+    at: { x: 46, y: 154 }
+    size: { w: 178, h: 15 }
+  - id: bot4
+    label: 　○○市○○町1-2
+    marker: none
+    align: left
+    at: { x: 46, y: 169 }
+    size: { w: 178, h: 15 }
+  - id: bot5
+    label: 出生 S2.4.1
+    marker: none
+    align: left
+    at: { x: 46, y: 184 }
+    size: { w: 178, h: 15 }
+  - id: bot6
+    label: 死亡 R7.6.8
+    marker: none
+    align: left
+    at: { x: 46, y: 199 }
+    size: { w: 178, h: 15 }
+  - id: sp
+    label: ""
+    at: { x: 248, y: 100 }
+    size: { w: 132, h: 75 }
+  - id: spt0
+    label: 甲野花子
+    marker: none
+    align: left
+    at: { x: 254, y: 106 }
+    size: { w: 120, h: 18 }
+  - id: spt1
+    label: 続柄　妻
+    marker: none
+    align: left
+    at: { x: 254, y: 124 }
+    size: { w: 120, h: 15 }
+  - id: spt2
+    label: 住所　同上
+    marker: none
+    align: left
+    at: { x: 254, y: 139 }
+    size: { w: 120, h: 15 }
+  - id: spt3
+    label: 出生 S6.9.12
+    marker: none
+    align: left
+    at: { x: 254, y: 154 }
+    size: { w: 120, h: 15 }
+  - id: c1
+    label: ""
+    at: { x: 40, y: 258 }
+    size: { w: 108, h: 75 }
+  - id: c1t0
+    label: 甲野一郎
+    marker: none
+    align: left
+    at: { x: 46, y: 264 }
+    size: { w: 96, h: 18 }
+  - id: c1t1
+    label: 続柄　長男
+    marker: none
+    align: left
+    at: { x: 46, y: 282 }
+    size: { w: 96, h: 15 }
+  - id: c1t2
+    label: 出生 S32.1.5
+    marker: none
+    align: left
+    at: { x: 46, y: 297 }
+    size: { w: 96, h: 15 }
+  - id: c1t3
+    label: （申出人）
+    marker: none
+    align: left
+    at: { x: 46, y: 312 }
+    size: { w: 96, h: 15 }
+  - id: c2
+    label: ""
+    at: { x: 156, y: 258 }
+    size: { w: 108, h: 60 }
+  - id: c2t0
+    label: 甲野二郎
+    marker: none
+    align: left
+    at: { x: 162, y: 264 }
+    size: { w: 96, h: 18 }
+  - id: c2t1
+    label: 続柄　二男
+    marker: none
+    align: left
+    at: { x: 162, y: 282 }
+    size: { w: 96, h: 15 }
+  - id: c2t2
+    label: 出生 S34.8.20
+    marker: none
+    align: left
+    at: { x: 162, y: 297 }
+    size: { w: 96, h: 15 }
+  - id: c3
+    label: ""
+    at: { x: 272, y: 258 }
+    size: { w: 108, h: 75 }
+  - id: c3t0
+    label: 乙野三子
+    marker: none
+    align: left
+    at: { x: 278, y: 264 }
+    size: { w: 96, h: 18 }
+  - id: c3t1
+    label: 続柄　長女
+    marker: none
+    align: left
+    at: { x: 278, y: 282 }
+    size: { w: 96, h: 15 }
+  - id: c3t2
+    label: 出生 S37.3.3
+    marker: none
+    align: left
+    at: { x: 278, y: 297 }
+    size: { w: 96, h: 15 }
+  - id: c3t3
+    label: （相続放棄）
+    marker: none
+    align: left
+    at: { x: 278, y: 312 }
+    size: { w: 96, h: 15 }
+  - id: n1
+    label: ・相続放棄した人も、戸籍から分かる相続人として書く
+    marker: none
+    align: left
+    at: { x: 40, y: 350 }
+    size: { w: 340, h: 18 }
+  - id: n2
+    label: ・配偶者は二重線、子は単線で結ぶ
+    marker: none
+    align: left
+    at: { x: 40, y: 368 }
+    size: { w: 340, h: 18 }
+  - id: n3
+    label: ・相続人の住所は任意。ここでは書いていない
+    marker: none
+    align: left
+    at: { x: 40, y: 386 }
+    size: { w: 340, h: 18 }
+  - id: maker
+    label: ""
+    at: { x: 40, y: 414 }
+    size: { w: 340, h: 62 }
+  - id: makert0
+    label: 作成者
+    marker: none
+    align: left
+    at: { x: 46, y: 420 }
+    size: { w: 328, h: 18 }
+  - id: makert1
+    label: 住所　○○市○○町3-1　氏名　甲野一郎
+    marker: none
+    align: left
+    at: { x: 46, y: 438 }
+    size: { w: 328, h: 16 }
+  - id: makert2
+    label: 令和 7 年 9 月 15 日 作成
+    marker: none
+    align: left
+    at: { x: 46, y: 454 }
+    size: { w: 328, h: 16 }
+  - id: band
+    label: ""
+    hatch: lines
+    at: { x: 40, y: 490 }
+    size: { w: 340, h: 100 }
+  - id: bn1
+    label: 用紙の下から 5 cm
+    marker: none
+    align: center
+    at: { x: 40, y: 524 }
+    size: { w: 340, h: 18 }
+  - id: bn2
+    label: 法務局の認証文が入る。何も書かない
+    marker: none
+    align: center
+    at: { x: 40, y: 542 }
+    size: { w: 340, h: 18 }
+# **実物の一覧図は、線を斜めに引かない。**
+# 夫婦の二重線から縦に落とし、横棒で分けて、また縦に落とす。
+# 通り道（via）を書いて、その形にする。
+edges:
+  - from: bo
+    to: sp
+    line: double
+    curve: none
+    via:
+      - { x: 239, y: 138 }
+  - from: bo
+    to: c1
+    curve: none
+    via:
+      - { x: 135, y: 242 }
+      - { x: 94, y: 242 }
+  - from: bo
+    to: c2
+    curve: none
+    via:
+      - { x: 135, y: 242 }
+      - { x: 210, y: 242 }
+  - from: bo
+    to: c3
+    curve: none
+    via:
+      - { x: 135, y: 242 }
+      - { x: 326, y: 242 }

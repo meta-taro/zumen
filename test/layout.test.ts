@@ -10,7 +10,7 @@ import { readFileSync } from 'node:fs';
 import { describe, it } from 'node:test';
 
 import { parse, serialize, setPin } from '../src/format.ts';
-import { groupEscapes, layout, overlaps } from '../src/layout.ts';
+import { crossings, groupEscapes, layout, overlaps } from '../src/layout.ts';
 
 const R0 = readFileSync(new URL('fixtures/r0.zumen.yaml', import.meta.url), 'utf8');
 
@@ -175,3 +175,73 @@ describe('重なりを解く（Issue 015）', () => {
 async function overlapPairs(text: string): Promise<[string, string][]> {
   return overlaps(await layout(text));
 }
+
+describe('**T 字は交差ではない**（2026-09-15）', () => {
+  /** 横棒 1 本から、縦を 2 本落とす（家系図・系統図・組織図の書き方）。 */
+  const BAR = `version: 1
+kind: placement
+arrows: false
+nodes:
+  - id: top
+    label: 親
+    at: { x: 100, y: 0 }
+    size: { w: 100, h: 40 }
+  - id: a
+    label: 子 1
+    at: { x: 0, y: 120 }
+    size: { w: 80, h: 40 }
+  - id: b
+    label: 子 2
+    at: { x: 220, y: 120 }
+    size: { w: 80, h: 40 }
+edges:
+  - from: top
+    to: a
+    curve: none
+    via:
+      - { x: 150, y: 80 }
+      - { x: 40, y: 80 }
+  - from: top
+    to: b
+    curve: none
+    via:
+      - { x: 150, y: 80 }
+      - { x: 260, y: 80 }
+`;
+
+  it('**落とし口が横棒の上にあっても、交差と数えない**', async () => {
+    assert.equal(crossings(await layout(BAR)), 0);
+  });
+
+  it('本当に跨いでいれば数える', async () => {
+    const crossed = `version: 1
+kind: placement
+arrows: false
+nodes:
+  - id: a
+    label: あ
+    at: { x: 0, y: 0 }
+    size: { w: 40, h: 40 }
+  - id: b
+    label: い
+    at: { x: 200, y: 200 }
+    size: { w: 40, h: 40 }
+  - id: c
+    label: う
+    at: { x: 200, y: 0 }
+    size: { w: 40, h: 40 }
+  - id: d
+    label: え
+    at: { x: 0, y: 200 }
+    size: { w: 40, h: 40 }
+edges:
+  - from: a
+    to: b
+    curve: none
+  - from: c
+    to: d
+    curve: none
+`;
+    assert.equal(crossings(await layout(crossed)), 1);
+  });
+});
