@@ -148,7 +148,8 @@ pnpm test        # 走るテスト
 pnpm build       # 取り込む側へ配る形に組み立てる（dist/）
 pnpm consume:check  # **別のところから import して呼べるか**を実際に確かめる
 pnpm version:set 0.2.0  # 版を 4 か所いっぺんに上げる（記録の「未リリース」も動かす）
-pnpm gui:check   # 画面の 8 操作を実際に動かして確かめる（39 項目。Chrome が要る）
+pnpm gui:check   # 画面の 8 操作を実際に動かして確かめる（46 項目。Chrome が要る）
+pnpm qa:verify   # **人が画面を見た証跡**を読み返す（git-qa。qa/README.md）
 pnpm validate <図のファイル> ...   # 形式に適合しているかを見る
 pnpm measure  <図のファイル> ...   # 「AI が 9 割描けたか」を測る
 pnpm svg      <図のファイル>       # SVG を書き出す（--dark 暗い地へ / --vivid 主役を強く）

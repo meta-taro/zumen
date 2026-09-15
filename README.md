@@ -103,6 +103,9 @@ This is **not finished software.** It is being built in the open, small step by 
 - An MCP server, so an agent can read the spec and write diagrams
 - A minimal desktop GUI (Tauri) limited to **eight operations** — enough to approve or
   reject what the AI changed, and no more
+- A headless check that drives those eight operations for real (46 assertions), and a
+  separate gate (`pnpm qa:verify`) that reads back **git-qa** evidence and refuses to
+  pass when no human has actually looked at the app
 
 **Measured limits**
 
@@ -131,6 +134,9 @@ Requires Node 22.18+ and [pnpm](https://pnpm.io/).
 pnpm install
 pnpm dev                      # the GUI in a browser (http://localhost:5173)
 pnpm app                      # the desktop app (Tauri; needs Rust)
+
+pnpm gui:check                # drive the eight operations for real (needs Chrome)
+pnpm qa:verify                # read back human verification evidence (see qa/README.md)
 
 pnpm svg examples/gallery/25-路線図.zumen.yaml out.svg
 pnpm validate examples/gallery/14-間取り.zumen.yaml
