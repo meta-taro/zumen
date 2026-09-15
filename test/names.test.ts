@@ -630,6 +630,22 @@ nodes:
     assert.deepEqual(out.adriftNames, ['wide']);
   });
 
+  /**
+   * **枠の無い注記でも同じ**（2026-09-15 に広げた）。
+   *
+   * 舞台転換図（見本 137）を書いていて出た。500px の欄へ 548px の文を入れたら、
+   * **文字が 500px 右へ飛んで紙が 550px 広がった。**
+   * 検証器は「直すところはありませんでした」と言った。
+   *
+   * **枠が無いぶん、こちらのほうが悪い。** 枠があれば空の欄が見えるが、
+   * 枠が無ければ**どこにあるはずだったのかも分からない。**
+   * 広げたら**見本 11 枚**が同じ形で埋まっていた（どれも偶然、無害な所へ落ちていた）。
+   */
+  it('**枠の無い注記でも知らせる**', async () => {
+    const out = await inspect(CELL.replace('    at: { x: 0, y: 0 }', '    marker: none\n    at: { x: 0, y: 0 }'));
+    assert.deepEqual(out.adriftNames, ['wide']);
+  });
+
   it('**小さい印は知らせない**（外へ出すのが正しい）', async () => {
     const out = await inspect(CELL.replace(/  - id: wide\n(?:.*\n){3}/, ''));
     assert.deepEqual(out.adriftNames, []);

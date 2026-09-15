@@ -497,7 +497,20 @@ export function hiddenTags(boxes: readonly Box[]): string[] {
  * `crowdedNames` は当たらなければ何も言わない —— 当たっていないのが問題ではなく、
  * **欄と値が離れてしまったこと**が問題。
  *
- * 見るのは**枠のある広い箱だけ**。図記号（`symbol`）は名前を外へ出すのが決まりなので外す。
+ * 見るのは**広い箱だけ**。図記号（`symbol`）は名前を外へ出すのが決まりなので外す。
+ *
+ * ## 枠の無い注記も見る（2026-09-15 に広げた）
+ *
+ * はじめは `marker: box`（枠のある箱）だけを見ていた。
+ * **`marker: none` の注記で同じことが起きる** —— 舞台転換図（見本 137）で、
+ * 500px の欄へ 548px の文が入らず、**文字が 500px 右へ飛んで紙が 550px 広がった。**
+ * 検証器は「直すところはありませんでした」と言った。
+ *
+ * 枠が無いぶん**こちらのほうが悪い。** 枠があれば空の欄が見えるが、
+ * 枠が無ければ**どこにあるはずだったのかも分からない。**
+ * 見本 11 枚が同じ形で埋まっていた（どれも偶然、無害な所へ落ちていた）。
+ *
+ * 小さい印を外すのは `WIDE_ENOUGH` が既にやっている（駅の丸は 34px）。
  */
 const WIDE_ENOUGH = 200;
 
@@ -507,7 +520,7 @@ export function adriftNames(boxes: readonly Box[], plans: Map<string, Plan>): st
       (box) =>
         box.label !== '' &&
         box.w >= WIDE_ENOUGH &&
-        box.marker === 'box' &&
+        (box.marker === 'box' || box.marker === 'none') &&
         box.symbol === null &&
         plans.get(box.id)?.kind === 'outside',
     )
