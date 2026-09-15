@@ -38,9 +38,25 @@ export interface Point {
 
 export type Cap = 'round' | 'butt';
 
-/** 描くもの。**円と弧しか無い。** */
+/**
+ * 描くもの。**円・弧・線分。**
+ *
+ * 線分を足したのは、**「定規とコンパス」の定規のほう**が無かったため
+ * （2026-09-15。家紋の割り出し図で当たった —— 六つ割で出した 6 点を
+ * 結べないと、亀甲にならない）。`lines` は交点を出すためのもので、描かない。
+ */
 export type Stroke =
   | { shape: 'circle'; cx: number; cy: number; r: number; weight: number; trace: boolean }
+  | {
+      shape: 'segment';
+      x0: number;
+      y0: number;
+      x1: number;
+      y1: number;
+      weight: number;
+      cap: Cap;
+      trace: boolean;
+    }
   | {
       shape: 'arc';
       cx: number;
@@ -294,6 +310,8 @@ export interface Source {
   circles?: unknown;
   lines?: unknown;
   arcs?: unknown;
+  /** 描く線分（2 点を結ぶ）。 */
+  segments?: unknown;
 }
 
 const asList = (raw: unknown): Record<string, unknown>[] =>
@@ -400,8 +418,28 @@ export function build(
       note(error);
     }
   }
+  // 4. 線分。**定規で引く分。**（`lines` は交点を出すためのもので、描かない）
+  for (const item of asList(raw.segments)) {
+    try {
+      const a = pointOf(item.from);
+      const b = pointOf(item.to);
+      strokes.push({
+        shape: 'segment',
+        x0: a.x,
+        y0: a.y,
+        x1: b.x,
+        y1: b.y,
+        weight: item.weight === undefined ? 1 : num(item.weight),
+        cap: item.cap === 'butt' ? 'butt' : 'round',
+        trace: item.trace === true,
+      });
+    } catch (error) {
+      note(error);
+    }
+  }
+
   /**
-   * 4. 円をそのまま描く指定（`draw: true`）。
+   * 5. 円をそのまま描く指定（`draw: true`）。
    *
    * **`steps` の中の円も見る。** 点と円は混ぜて書けるようにしてあるので、
    * `circles` の節しか見ないと、**書いたのに描かれない**
@@ -458,7 +496,13 @@ export function build(
     for (const [key, circle] of inner.circles) {
       circles.set(`${as}.${key}`, { ...circle, cx: circle.cx + dx, cy: circle.cy + dy });
     }
-    for (const one of inner.strokes) strokes.push({ ...one, cx: one.cx + dx, cy: one.cy + dy });
+    for (const one of inner.strokes) {
+      strokes.push(
+        one.shape === 'segment'
+          ? { ...one, x0: one.x0 + dx, y0: one.y0 + dy, x1: one.x1 + dx, y1: one.y1 + dy }
+          : { ...one, cx: one.cx + dx, cy: one.cy + dy },
+      );
+    }
     rightOf.set(as, (ink?.right ?? 0) + dx);
   }
 
@@ -618,6 +662,11 @@ export function inkBounds(strokes: readonly Stroke[]): { left: number; right: nu
       left = Math.min(left, x - pad);
       right = Math.max(right, x + pad);
     };
+    if (one.shape === 'segment') {
+      add(one.x0);
+      add(one.x1);
+      continue;
+    }
     if (one.shape === 'circle' || Math.abs(one.a1 - one.a0) >= 360) {
       add(one.cx - one.r);
       add(one.cx + one.r);

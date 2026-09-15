@@ -1316,7 +1316,11 @@ function construct(raw: Record<string, unknown>, pins: Record<string, unknown>):
   // **負の座標を紙の中へ入れる。** 作図の原点は左上とは限らない。
   const dx = box === null ? 0 : Math.max(0, PAD - box.minX);
   const dy = box === null ? 0 : Math.max(0, PAD - box.minY);
-  const strokes = built.strokes.map((one) => ({ ...one, cx: one.cx + dx, cy: one.cy + dy }));
+  const strokes = built.strokes.map((one) =>
+    one.shape === 'segment'
+      ? { ...one, x0: one.x0 + dx, y0: one.y0 + dy, x1: one.x1 + dx, y1: one.y1 + dy }
+      : { ...one, cx: one.cx + dx, cy: one.cy + dy },
+  );
   const moved = strokeBounds(strokes);
   return {
     boxes: [],
@@ -1368,6 +1372,11 @@ function strokeBounds(
   const solid = strokes.filter((one) => !one.trace);
   for (const one of solid.length > 0 ? solid : strokes) {
     const pad = one.weight / 2 + (one.shape === 'arc' && one.terminal !== null ? one.terminal : 0);
+    if (one.shape === 'segment') {
+      add(one.x0, one.y0, pad);
+      add(one.x1, one.y1, pad);
+      continue;
+    }
     if (one.shape === 'circle') {
       add(one.cx, one.cy, one.r + pad);
       continue;

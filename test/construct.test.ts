@@ -240,3 +240,79 @@ describe('角', () => {
     assert.equal(angleOf(c, { x: 0, y: -1 }), 270);
   });
 });
+
+describe('線分（定規で引く分）', () => {
+  it('2 点を結ぶ', () => {
+    const got = build({
+      steps: [
+        { id: 'A', at: { x: 0, y: 0 } },
+        { id: 'B', at: { x: 10, y: 20 } },
+      ],
+      segments: [{ from: 'A', to: 'B', weight: 2 }],
+    });
+    assert.deepEqual(got.troubles, []);
+    const [line] = got.strokes;
+    assert.equal(line?.shape, 'segment');
+    assert.deepEqual(
+      line?.shape === 'segment' ? [line.x0, line.y0, line.x1, line.y1] : [],
+      [0, 0, 10, 20],
+    );
+  });
+
+  it('**居ない点を結ぼうとしたら言う**', () => {
+    const got = build({
+      steps: [{ id: 'A', at: { x: 0, y: 0 } }],
+      segments: [{ from: 'A', to: '居ない' }],
+    });
+    assert.equal(got.strokes.length, 0);
+    assert.match(got.troubles.join(' '), /居ない/);
+  });
+});
+
+describe('かたまりを置く（define / place）', () => {
+  const SHAPE = {
+    steps: [{ id: 'O', at: { x: 0, y: 0 } }, { id: 'c', center: 'O', r: 'r' }],
+    circles: [{ id: 'c', center: 'O', r: 'r', draw: true, weight: 2 }],
+  };
+
+  it('**送り幅を書かない。置いたものの外接から機械が出す**', () => {
+    const got = build({
+      let: { r: 10 },
+      lengths: { gap: 6 },
+      define: { dot: SHAPE },
+      steps: [
+        { place: 'dot', as: 'a' },
+        { place: 'dot', as: 'b', after: 'a', gap: 'gap' },
+      ],
+    });
+    assert.deepEqual(got.troubles, []);
+    // 直径 20（＋線の太さ 2）＋ 字間 6 だけ離れる。
+    const centres = got.strokes.map((one) => (one.shape === 'circle' ? one.cx : 0));
+    assert.equal(centres.length, 2);
+    assert.equal(Math.round(centres[1]! - centres[0]!), 28);
+  });
+
+  it('中の名前は、外から `as.名前` で引ける', () => {
+    const got = build({
+      let: { r: 10 },
+      define: { dot: SHAPE },
+      steps: [{ place: 'dot', as: 'a', at: { x: 100, y: 0 } }],
+    });
+    assert.equal(got.points.get('a.O')?.x, 100);
+    assert.equal(got.circles.get('a.c')?.cx, 100);
+  });
+
+  it('**長さは共有する**（比は図ぜんたいで 1 つ）', () => {
+    const got = build({
+      let: { r: 7 },
+      define: { dot: SHAPE },
+      steps: [{ place: 'dot', as: 'a' }],
+    });
+    assert.equal(got.circles.get('a.c')?.r, 7);
+  });
+
+  it('知らないかたまりは言う', () => {
+    const got = build({ define: {}, steps: [{ place: '居ない', as: 'a' }] });
+    assert.match(got.troubles.join(' '), /かたまり/);
+  });
+});

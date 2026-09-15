@@ -332,18 +332,29 @@ function checkConstruction(doc: Document, add: Add, m: Messages, at: At): void {
 
   // **描くものが 1 つも無ければ、絵にならない。**
   // かたまり（`define`）の中も見る —— 字は全部そちらにある。
-  const draws = (node: unknown): boolean => {
-    if (!isMap(node)) return false;
-    const arcs = node.get('arcs', true);
-    const circles = node.get('circles', true);
-    return (
-      (isSeq(arcs) && arcs.items.length > 0) ||
-      (isSeq(circles) && circles.items.some((one) => isMap(one) && one.get('draw') === true))
-    );
+  /**
+   * 描くものがあるか。
+   *
+   * **`get` は Document と Map の両方にある**が、`isMap` は Document に真を返さない。
+   * 最初ここで `isMap(doc)` を通していて、**最上位を丸ごと見落としていた**
+   * （2026-09-15。見本 129 が「描くものがありません」と言われ続けた）。
+   */
+  const draws = (get: (key: string) => unknown): boolean => {
+    const drawn = (key: string): boolean => {
+      const seq = get(key);
+      if (!isSeq(seq)) return false;
+      // 弧と線分は、あるだけで描く。円は `draw: true` が要る。
+      if (key === 'arcs' || key === 'segments') return seq.items.length > 0;
+      return seq.items.some((one) => isMap(one) && one.get('draw') === true);
+    };
+    // **`steps` の中の円も見る。** 点と円は混ぜて書けるようにしてある。
+    return drawn('arcs') || drawn('segments') || drawn('circles') || drawn('steps');
   };
   const define = doc.get('define', true);
-  const inShapes = isMap(define) && define.items.some((pair) => draws(pair.value));
-  if (!draws(doc) && !inShapes) {
+  const inShapes =
+    isMap(define) &&
+    define.items.some((pair) => isMap(pair.value) && draws((key) => (pair.value as YAMLMap).get(key, true)));
+  if (!draws((key) => doc.get(key, true)) && !inShapes) {
     add('warning', 'construction-nothing-drawn', m.constructionNothingDrawn, 1);
   }
 }

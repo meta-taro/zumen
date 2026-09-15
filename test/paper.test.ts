@@ -76,7 +76,15 @@ describe('見本の中身が、画用紙の中に収まっている', () => {
   it('**符号の丸が紙からはみ出していない**', () => {
     const over: string[] = [];
     for (const sheet of sheets()) {
-      for (const m of sheet.body.matchAll(/<circle cx="(-?[\d.]+)" cy="(-?[\d.]+)" r="([\d.]+)"/g)) {
+      /**
+       * **作図の跡（`data-trace`）だけは、紙から出てよい**（D36。2026-09-15）。
+       *
+       * 分廻しを回した跡や、半径 1,794 の大円は**字や紋の何倍もある。**
+       * 紙に入れると主役が豆粒になるので、実物の作図プレートも跡は紙から出ている。
+       * **「描いたのに切れた」ではなく、「切れることを決めてある」もの。**
+       */
+      const body = sheet.body.replace(/<g data-trace="1"[\s\S]*?<\/g>/g, '');
+      for (const m of body.matchAll(/<circle cx="(-?[\d.]+)" cy="(-?[\d.]+)" r="([\d.]+)"/g)) {
         const cx = Number(m[1]);
         const cy = Number(m[2]);
         const r = Number(m[3]);

@@ -1393,6 +1393,11 @@ arcs:
     to: 180
     weight: weight
     cap: round
+# 定規で引く分（lines は交点を出すためのもので、描かない）
+segments:
+  - from: O
+    to: P
+    weight: weight
 ```
 
 | 節 | 何を書くか |
@@ -1401,6 +1406,8 @@ arcs:
 | `lengths` | 式で出す長さ。`+ - * / ^`・括弧・`distance(A, B)` |
 | `steps` | 点・円・線。**書いた順に評価する** |
 | `arcs` | 描く弧。`circles[].draw: true` で円をそのまま描いてもよい |
+| `segments` | **描く線分**（`from` と `to` で 2 点を結ぶ）。定規で引く分 |
+| `define` / `place` | **同じかたまりを何度も置く**（字・部品・繰り返し模様） |
 
 **ソルバではない。**各手順は前の手順の結果だけから決まる（表計算と同じ）。
 だから「解けなかった」は起きず、起きるのは**交点が無い**ことだけ。
@@ -1422,6 +1429,31 @@ pins:
 **`pins.position` を書いたら、黙って無視せずに断る**（`pin-position-in-construction`）。
 黙って消えるのが唯一の本当の事故で、
 **利用者から見ると D5 が壊れたのと区別が付かない。**
+
+#### 同じかたまりを何度も置く（`define` / `place`）
+
+```yaml
+define:
+  u:
+    steps:
+      - id: O
+        at: { x: R, y: R }
+    arcs:
+      - of: O
+        weight: weight
+steps:
+  - place: u
+    as: g0
+  - place: u
+    as: g1
+    after: g0
+    gap: gap
+```
+
+- かたまりの中の名前は**その中だけのもの**。外からは `as.名前` で引く
+- **長さ（`lengths`）だけ共有する** —— 比は図ぜんたいで 1 つ
+- **送り幅は書かない。** `after` で繋ぐと、**置いたものの外接から機械が出す**
+  —— 書かせると、形を直したときに数字が置き去りになる
 
 ## 4. 体裁（`appearance`）## 4. 体裁（`appearance`）
 

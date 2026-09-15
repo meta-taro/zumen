@@ -234,6 +234,12 @@ function strokeLayer(placed: Placed, palette: Palette): string {
 function drawStroke(one: Stroke, ink: string): string {
   const n = (value: number): number => Math.round(value * 1000) / 1000;
   const skin = `fill="none" stroke="${ink}" stroke-width="${n(one.weight)}"`;
+  if (one.shape === 'segment') {
+    return (
+      `<line x1="${n(one.x0)}" y1="${n(one.y0)}" x2="${n(one.x1)}" y2="${n(one.y1)}" ` +
+      `${skin} stroke-linecap="${one.cap}"/>`
+    );
+  }
   if (one.shape === 'circle') {
     return `<circle cx="${n(one.cx)}" cy="${n(one.cy)}" r="${n(one.r)}" ${skin}/>`;
   }

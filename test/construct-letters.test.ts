@@ -100,6 +100,11 @@ function widthOf(strokes: readonly Stroke[]): number {
   let hi = -Infinity;
   for (const one of strokes) {
     const pad = one.weight / 2;
+    if (one.shape === 'segment') {
+      lo = Math.min(lo, one.x0 - pad, one.x1 - pad);
+      hi = Math.max(hi, one.x0 + pad, one.x1 + pad);
+      continue;
+    }
     if (one.shape === 'circle') {
       lo = Math.min(lo, one.cx - one.r - pad);
       hi = Math.max(hi, one.cx + one.r + pad);
@@ -153,7 +158,8 @@ describe('**実在のロゴの送り幅が、正本から出る**', () => {
   it('**縦棒は直線ではない**（半径 1794.427 の円の一部）', () => {
     const got = letter('a');
     const arc = got.strokes.find((one) => one.shape === 'arc');
-    assert.equal(Math.round(arc!.r * 1000) / 1000, 1794.427);
+    assert.equal(arc?.shape, 'arc');
+    assert.equal(Math.round((arc as { r: number }).r * 1000) / 1000, 1794.427);
   });
 
   it('線の太さが `H/φ⁵` で出る', () => {
@@ -223,6 +229,11 @@ function heightOf(strokes: readonly Stroke[]): number {
       lo = Math.min(lo, y - pad);
       hi = Math.max(hi, y + pad);
     };
+    if (one.shape === 'segment') {
+      add(one.y0);
+      add(one.y1);
+      continue;
+    }
     if (one.shape === 'circle' || Math.abs(one.a1 - one.a0) >= 360) {
       add(one.cy - one.r);
       add(one.cy + one.r);
