@@ -44,6 +44,26 @@ export class Session {
   panY = $state(0);
 
   /**
+   * 画面（canvas）の大きさ。`Canvas.svelte` が測って渡す。
+   *
+   * **図を画面に収めるのに要る。** 開いた直後に等倍・原点のままだと、
+   * 少し大きい図は**切れたまま出る** —— 最初に見る画面がそれになる。
+   */
+  view = $state({ w: 0, h: 0 });
+
+  /**
+   * 人が拡大・移動したか。
+   *
+   * **人が動かしたあとに、勝手に収め直さない。** 窓の大きさが変わったときの
+   * 収め直しは、まだ人が触っていないときだけにする（手直しを壊さないのと同じ考え）。
+   */
+  #touched = false;
+
+  /** 最後に測った大きさ。**比べるためだけ**なので、リアクティブにしない。 */
+  #lastW = 0;
+  #lastH = 0;
+
+  /**
    * 戻る／進むのための控え。**正本のテキストをそのまま積む。**
    *
    * D11 では「Undo は作らない。正本が Git にあるので二重管理になる」と決めていた。
@@ -113,7 +133,10 @@ export class Session {
     this.pending = null;
     this.conflicts = [];
     this.selected = null;
+    // **別の図を開いたら、また収める。** 前の図の見え方を持ち越さない。
+    this.#touched = false;
     await this.refresh();
+    this.fit();
   }
 
   /** 正本から、描くものと指摘を作り直す。 */
@@ -236,16 +259,58 @@ export class Session {
   /** 見る（D11 の操作 2）。**編集ではなく閲覧。** */
   zoomBy(factor: number): void {
     this.zoom = Math.min(4, Math.max(0.2, this.zoom * factor));
+    this.#touched = true;
   }
 
   panBy(dx: number, dy: number): void {
     this.panX += dx;
     this.panY += dy;
+    this.#touched = true;
   }
 
+  /** 等倍に戻す。**人が明示的に押したときだけ。** */
   resetView(): void {
     this.zoom = 1;
     this.panX = 0;
     this.panY = 0;
+    this.#touched = true;
+  }
+
+  /**
+   * 画面の大きさを受け取る（`Canvas.svelte` から）。
+   *
+   * **まだ人が触っていなければ、そのたびに収め直す。**
+   * 窓を広げたのに図が隅に寄ったまま、ということが起きない。
+   */
+  setView(w: number, h: number): void {
+    // **同じ大きさなら何もしない。** 収め直すと図の見え方が変わり、
+    // それがまた測り直しを呼ぶ —— 1px 未満のゆらぎで回り続ける。
+    if (Math.abs(w - this.#lastW) < 1 && Math.abs(h - this.#lastH) < 1) return;
+    this.#lastW = w;
+    this.#lastH = h;
+    this.view = { w, h };
+    if (!this.#touched) this.fit();
+  }
+
+  /**
+   * 図ぜんぶが見える大きさにする（D11 の操作 2「見る」）。
+   *
+   * **拡大はしない。** 小さい図を引き伸ばすと、線の太さの意味が変わる
+   * （人の指定は太さで示している。`DESIGN.md` §2.3）。
+   */
+  fit(): void {
+    const placed = this.placed;
+    if (placed === null || this.view.w === 0 || this.view.h === 0) return;
+    const PAD = 24;
+    const scale = Math.min(
+      (this.view.w - PAD * 2) / placed.width,
+      (this.view.h - PAD * 2) / placed.height,
+      1,
+    );
+    this.zoom = Math.min(4, Math.max(0.2, scale));
+    this.panX = (this.view.w - placed.width * this.zoom) / 2;
+    this.panY = (this.view.h - placed.height * this.zoom) / 2;
+    // **収めたら「触っていない」に戻す。** 窓の大きさが変わったら、また収める。
+    this.#touched = false;
   }
 }

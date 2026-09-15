@@ -25,6 +25,20 @@
   let handle = $state<unknown>(null);
   let trouble = $state<string | null>(null);
   let dropping = $state(false);
+  /**
+   * 図を描く箱の大きさ。**`bind:clientWidth` で測る。**
+   *
+   * `ResizeObserver` を `<svg>` に掛ける手は採らない —— **最初の 1 回が鳴らない**
+   * （実測。箱は 640×534 あるのに 0 回）。`bind:this` を見る `$effect` も、
+   * **束縛の代入では走り直さなかった**（同じく実測）。
+   *
+   * ここで測った大きさを渡すと、**開いた図が画面に収まる**（`Session.fit`）。
+   */
+  let canvasW = $state(0);
+  let canvasH = $state(0);
+  $effect(() => {
+    session.setView(canvasW, canvasH);
+  });
   /** 自動保存の見え方。**黙って保存しない。** */
   let saveState = $state<'idle' | 'saving' | 'saved'>('idle');
   let saveTimer: ReturnType<typeof setTimeout> | undefined;
@@ -102,8 +116,39 @@
    */
   function onKey(event: KeyboardEvent): void {
     const meta = event.metaKey || event.ctrlKey;
-    if (!meta) return;
     const key = event.key.toLowerCase();
+
+    /**
+     * **見る操作は、修飾キー無しで効かせる**（D11 の操作 2）。
+     *
+     * 図を見ているあいだは文字を打たないので、`f` / `0` / `+` / `-` を
+     * そのまま使える。**編集（戻る・保存）だけが修飾キー付き。**
+     * 文字を打つ所に居るときは何もしない。
+     */
+    if (!meta && !typing(event.target)) {
+      if (key === 'f') {
+        event.preventDefault();
+        session.fit();
+        return;
+      }
+      if (key === '0') {
+        event.preventDefault();
+        session.resetView();
+        return;
+      }
+      if (key === '+' || key === ';' || key === '=') {
+        event.preventDefault();
+        session.zoomBy(1.2);
+        return;
+      }
+      if (key === '-') {
+        event.preventDefault();
+        session.zoomBy(1 / 1.2);
+        return;
+      }
+    }
+
+    if (!meta) return;
 
     if (key === 'z' && !event.shiftKey) {
       event.preventDefault();
@@ -119,6 +164,13 @@
       event.preventDefault();
       void save();
     }
+  }
+
+  /** 文字を打つ所に居るか。**居るときは 1 文字のショートカットを効かせない。** */
+  function typing(target: EventTarget | null): boolean {
+    if (!(target instanceof HTMLElement)) return false;
+    const tag = target.tagName.toLowerCase();
+    return tag === 'input' || tag === 'textarea' || target.isContentEditable;
   }
 
   async function propose(): Promise<void> {
@@ -226,11 +278,18 @@
       <button onclick={() => session.zoomBy(1.2)} disabled={session.placed === null} title={m.zoomIn}>
         ＋
       </button>
+      <!--
+        **図ぜんぶを見せる。** 開いた直後は自動で収めているが、
+        拡大して見たあと**元の全体へ戻る道**が要る（等倍に戻すのとは別）。
+      -->
+      <button class="fit" onclick={() => session.fit()} disabled={session.placed === null} title={m.fitHint}>
+        {m.fit}
+      </button>
     </div>
   </header>
 
   <main>
-    <div class="canvas">
+    <div class="canvas" bind:clientWidth={canvasW} bind:clientHeight={canvasH}>
       {#if session.placed !== null}
         <Canvas {session} placed={session.placed} />
       {:else if session.broken}

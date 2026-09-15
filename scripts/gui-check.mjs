@@ -142,6 +142,46 @@ async function walk() {
   check('1 開く — 囲みが描かれる', (await evaluate(`document.querySelectorAll('rect[stroke-dasharray]').length`)) === 1);
   check('1 開く — 線が描かれる', (await evaluate(`document.querySelectorAll('path[marker-end]').length`)) === 8);
 
+  // 1 開く — **画面に収まっているか**
+  //
+  // 開いた直後に等倍・原点のままだと、少し大きい図は**切れたまま出る**。
+  // 最初に見る画面がそれになるので、**開いたら収める**（2026-09-15）。
+  const fits = await evaluate(`(() => {
+    const s = window.zumen;
+    if (s.placed === null || s.view.w === 0) return 'view が測れていない';
+    const w = s.placed.width * s.zoom, h = s.placed.height * s.zoom;
+    if (s.panX < -0.5 || s.panY < -0.5) return '左か上へはみ出している';
+    if (s.panX + w > s.view.w + 0.5) return '右へはみ出している';
+    if (s.panY + h > s.view.h + 0.5) return '下へはみ出している';
+    return 'ok';
+  })()`);
+  check('1 開く — **図ぜんぶが画面に入っている**', fits === 'ok', fits);
+  check('1 開く — 引き伸ばさない（等倍を超えない）', (await evaluate(`window.zumen.zoom <= 1`)) === true);
+
+  // 2 見る — 全体へ戻せる
+  await evaluate(`window.zumen.zoomBy(2); window.zumen.panBy(400, 300)`);
+  const lost = await evaluate(`window.zumen.panX > 100`);
+  await evaluate(`window.zumen.fit()`);
+  const back = await evaluate(`(() => {
+    const s = window.zumen;
+    const w = s.placed.width * s.zoom, h = s.placed.height * s.zoom;
+    return s.panX >= -0.5 && s.panY >= -0.5 && s.panX + w <= s.view.w + 0.5 && s.panY + h <= s.view.h + 0.5;
+  })()`);
+  check('2 見る — 拡大して動かしたあと、全体へ戻せる', lost === true && back === true);
+
+  // 2 見る — **鍵で見る操作ができる**
+  const press = (key) =>
+    evaluate(`window.dispatchEvent(new KeyboardEvent('keydown', { key: ${q(key)}, bubbles: true, cancelable: true }))`);
+  await evaluate(`window.zumen.resetView()`);
+  await press('+');
+  check('2 見る — ＋ で広がる', Math.abs((await evaluate(`window.zumen.zoom`)) - 1.2) < 0.001);
+  await press('-');
+  check('2 見る — − で縮む', Math.abs((await evaluate(`window.zumen.zoom`)) - 1) < 0.001);
+  await press('f');
+  check('2 見る — F で全体', (await evaluate(`window.zumen.zoom < 1`)) === true);
+  await press('0');
+  check('2 見る — 0 で等倍', (await evaluate(`window.zumen.zoom === 1`)) === true);
+
   // 8 印
   const pinned = await evaluate(`getComputedStyle(document.querySelector('g.node[aria-label="MariaDB"] rect')).strokeWidth`);
   const auto = await evaluate(`getComputedStyle(document.querySelector('g.node[aria-label="Web 01"] rect')).strokeWidth`);
