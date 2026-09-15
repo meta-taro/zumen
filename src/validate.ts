@@ -112,6 +112,7 @@ export function validate(text: string): Finding[] {
   checkGridAndScale(doc, add, m, at);
   checkViews(doc, add, m, at);
   checkConstruction(doc, add, m, at);
+  checkSharedIds(doc, add, m, at);
   checkEnds(doc, add, m, at);
   checkColors(doc, add, m, at);
   const edgeKeys = checkEdges(doc, nodeIds, add, m, at);
@@ -302,6 +303,31 @@ function checkGridAndScale(doc: Document, add: Add, m: Messages, at: At): void {
   // **芯が 2 本以上あってはじめて寸法が引ける。** 1 本では長さが無い。
   if (axes >= 2 && !hasScale && !onlyTicks) {
     add('warning', 'scale-missing', m.scaleMissing, at(grid));
+  }
+}
+
+/**
+ * **同じ id を、節と囲みで使っていないか**（2026-09-15）。
+ *
+ * 見本 21（テーブルの関係）で、囲み `zaiko`（在庫）と節 `zaiko`（在庫）が
+ * 同じ id を持っていた。結果、**囲みが二重に描かれ、名前が同じ場所に 2 回出ていた。**
+ *
+ * **絵の上では完全に重なるので、目で見ても分からない。**
+ * 数の検査も、囲みどうしの重なりを見ていないので鳴らなかった。
+ * 見つかったのは、書き出した SVG の文字を総当たりで比べたとき。
+ */
+function checkSharedIds(doc: Document, add: Add, m: Messages, at: At): void {
+  const groups = new Set<string>();
+  for (const item of seqOf(doc, 'groups')) {
+    const id = item.get('id');
+    if (id !== undefined && id !== null) groups.add(String(id));
+  }
+  if (groups.size === 0) return;
+  for (const item of seqOf(doc, 'nodes')) {
+    const id = String(item.get('id') ?? '');
+    if (id !== '' && groups.has(id)) {
+      add('warning', 'id-shared-with-group', m.idSharedWithGroup(id), at(item));
+    }
   }
 }
 

@@ -1638,6 +1638,7 @@ Mermaid も draw.io も、落ちたものを先頭のコメントに列挙する
 | `views-no-grid` | **どの図にも通り芯が無いか**（寸法も符号も出ない） |
 | `pin-position-in-construction` | **作図で位置を pin していないか**（位置は手順が決める。**明示で断る**） |
 | `construction-nothing-drawn` | 作図に描くものがあるか（`arcs` か `circles[].draw`） |
+| `id-shared-with-group` | **同じ id を囲みと節で使っていないか**（囲みが二重に描かれる） |
 | `wall-invalid` | `wall.mm` が正の数か |
 | `wall-needs-scale` | **壁の厚みはあるが縮尺が無い**（太さが変わらない） |
 | `radius-invalid` | `radius` が正の数か |

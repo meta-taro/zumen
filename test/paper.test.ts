@@ -96,6 +96,71 @@ describe('見本の中身が、画用紙の中に収まっている', () => {
     assert.deepEqual(over, [], '紙の外に符号の丸がある');
   });
 
+  /**
+   * **紙の上で、文字どうしが重なっていない**（2026-09-15）。
+   *
+   * ## なぜ SVG を見るのか
+   *
+   * `overlappingText`（`src/names.ts`）は**節の文字どうし**しか見ていない。
+   * 通り芯の符号・レベル名・寸法の数値・範囲の注記・図の名前は、
+   * どれも描く側（`src/dimensions.ts` / `src/render.ts`）が置いているので、
+   * **観測値からは丸ごと抜けている。**
+   *
+   * 課題 14 に「毎回手で避けるようになったら検査を足す」と書いてあり、
+   * **2 周続けて手で避けた**ので足した（見本 129〜131 の組み直し）。
+   *
+   * **同じ幾何を 2 か所に書かない。** 描いた結果を数えれば、
+   * どこが置いたかに関わらず全部入る —— 実装がずれようがない。
+   *
+   * ## 出てきたもの（131 枚で 4 組）
+   *
+   * | 見本 | 何が重なっていたか |
+   * |---|---|
+   * | 21 テーブルの関係 | **囲みと節が同じ id** で、囲みの名前が同じ場所に 2 回（`id-shared-with-group` を足した） |
+   * | 31 座席図 | 囲みの名前が長く、**通り芯の符号 Y1** に届いていた |
+   * | 39 経絡と経穴 | **囲みの名前 2 つ**が横に並んでぶつかっていた |
+   * | 93 花火大会の保安距離図 | 中州の名前が、**範囲の円の注記 `R=120 m`** にぶつかっていた |
+   *
+   * **どれも数の検査は 0 のままだった。**
+   */
+  it('**文字どうしが重なっていない**（符号・寸法・図の名前も含めて）', () => {
+    const over: string[] = [];
+    for (const sheet of sheets()) {
+      const rects: { x: number; y: number; w: number; h: number; t: string }[] = [];
+      for (const m of sheet.body.matchAll(/<text x="(-?[\d.]+)" y="(-?[\d.]+)"([^>]*)>([^<]*)<\/text>/g)) {
+        // 回した文字は、この当たり判定では測れない（`src/write.ts`）。
+        if (m[3]!.includes('rotate') || m[4]!.trim() === '') continue;
+        const font = Number(/font-size="([\d.]+)"/.exec(m[3]!)?.[1] ?? 12);
+        const anchor = /text-anchor="(\w+)"/.exec(m[3]!)?.[1] ?? 'start';
+        const w = widthOf(m[4]!, font);
+        const x = Number(m[1]);
+        const y = Number(m[2]);
+        rects.push({
+          x: anchor === 'middle' ? x - w / 2 : anchor === 'end' ? x - w : x,
+          y: y - font,
+          w,
+          h: font,
+          t: m[4]!,
+        });
+      }
+      for (let i = 0; i < rects.length; i += 1) {
+        for (let j = i + 1; j < rects.length; j += 1) {
+          const a = rects[i]!;
+          const b = rects[j]!;
+          // **2px 触れているだけは見ない。** 下地の板が抜いてあるので読める。
+          const gap = 2;
+          const apart =
+            a.x + a.w <= b.x + gap ||
+            b.x + b.w <= a.x + gap ||
+            a.y + a.h <= b.y + gap ||
+            b.y + b.h <= a.y + gap;
+          if (!apart) over.push(`${sheet.name}: ${JSON.stringify(a.t)} × ${JSON.stringify(b.t)}`);
+        }
+      }
+    }
+    assert.deepEqual(over, [], '文字どうしが重なっている');
+  });
+
   it('**線が紙からはみ出していない**', () => {
     const over: string[] = [];
     for (const sheet of sheets()) {
