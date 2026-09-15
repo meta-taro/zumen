@@ -12,7 +12,7 @@
  * ここで失敗にすると、id が改名された図が CI で落ちるだけになり、
  * **人が競合として解く経路を潰してしまう。**
  */
-import { LineCounter, isMap, isSeq, parseDocument } from 'yaml';
+import { LineCounter, isMap, isScalar, isSeq, parseDocument } from 'yaml';
 import type { Document, Node, YAMLMap } from 'yaml';
 
 import { DIRECTIONS as DIRECTION_WORDS } from './direction.ts';
@@ -113,6 +113,7 @@ export function validate(text: string): Finding[] {
   checkViews(doc, add, m, at);
   checkConstruction(doc, add, m, at);
   checkSharedIds(doc, add, m, at);
+  checkNumberText(doc, add, m, at);
   checkEnds(doc, add, m, at);
   checkColors(doc, add, m, at);
   const edgeKeys = checkEdges(doc, nodeIds, add, m, at);
@@ -304,6 +305,39 @@ function checkGridAndScale(doc: Document, add: Add, m: Messages, at: At): void {
   if (axes >= 2 && !hasScale && !onlyTicks) {
     add('warning', 'scale-missing', m.scaleMissing, at(grid));
   }
+}
+
+/**
+ * **文字として書いたはずの値が、数として読まれていないか**（2026-09-15）。
+ *
+ * 見本 132（クレーン揚重計画図）の定格総荷重表で踏んだ。
+ *
+ * ```yaml
+ * label: 32.0   # → YAML は数として読む → 絵には「32」と出る
+ * ```
+ *
+ * **`.0` が黙って消える。** 表の値・寸法・版番号・電話番号のように、
+ * **書いたとおりに出したい文字**でこれが起きると、
+ * 書き手は「書いたのに違う」としか分からない。
+ *
+ * 見るのは**書いた字と、読んだ値を戻した字が違うか**だけ。
+ * `label: 32` はどちらも `32` なので鳴らない —— **消えたときだけ言う。**
+ */
+function checkNumberText(doc: Document, add: Add, m: Messages, at: At): void {
+  const look = (item: YAMLMap, key: string, id: string): void => {
+    const node = item.get(key, true);
+    if (!isScalar(node) || typeof node.value !== 'number') return;
+    const written = typeof node.source === 'string' ? node.source : '';
+    if (written === '' || written === String(node.value)) return;
+    add('warning', 'number-text-changed', m.numberTextChanged(id, key, written, String(node.value)), at(node));
+  };
+  for (const part of ['nodes', 'edges'] as const) {
+    for (const item of seqOf(doc, part)) {
+      const id = String(item.get('id') ?? item.get('from') ?? '');
+      for (const key of ['label', 'technology', 'tag', 'title']) look(item, key, id);
+    }
+  }
+  for (const item of seqOf(doc, 'groups')) look(item, 'label', String(item.get('id') ?? ''));
 }
 
 /**

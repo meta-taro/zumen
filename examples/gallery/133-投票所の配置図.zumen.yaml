@@ -1,0 +1,199 @@
+version: 1
+kind: placement
+title: 投票所の配置図（衆議院総選挙・体育館／架空）
+# **投票所がややこしいのは、衆議院総選挙で投票が 3 つあるから。**
+# 小選挙区・比例代表・最高裁判所裁判官国民審査。
+# **交付 → 記載 → 投函を 3 回繰り返す**ので、動線を折り返させると必ず混ざる。
+#
+# ## だから一方通行にする
+#
+# 入口から出口まで、**戻らない・交わらない**ように並べる。
+# 用紙を取り違えたまま投函すると、**その票は無効になる。**
+#
+# ## 置く人
+#
+# | | |
+# |---|---|
+# | 投票管理者 | 1 名。投票所の責任者 |
+# | 投票立会人 | **2 人以上 5 人以下**（期日前は 2 人）。**投票箱が見える位置に座る** |
+# | 事務従事者 | 受付・名簿対照・用紙交付 |
+#
+# **立会人は「見ている」ことが仕事**なので、席の位置そのものが要件になる。
+#
+# 1 px ＝ 50 mm。出どころ —— 総務省・各市の投票の流れ図ほか。配置と人数は架空。
+scale: { mm: 50 }
+arrows: true
+nodes:
+  - id: hall
+    label: ""
+    hatch: none
+    at: { x: 40, y: 80 }
+    size: { w: 800, h: 440 }
+  - id: hallname
+    label: 体育館　18.0 m × 11.0 m
+    marker: none
+    align: left
+    at: { x: 40, y: 56 }
+    size: { w: 300, h: 22 }
+  - id: inn
+    label: 入口
+    hatch: dots
+    at: { x: 40, y: 200 }
+    size: { w: 70, h: 60 }
+  - id: uketsuke
+    label: 受付
+    technology: 入場券を受け取る
+    at: { x: 128, y: 200 }
+    size: { w: 104, h: 60 }
+  - id: meibo
+    label: 名簿対照係
+    technology: 選挙人名簿と照合
+    at: { x: 240, y: 200 }
+    size: { w: 100, h: 60 }
+  - id: k1
+    label: 1　小選挙区
+    hatch: solid
+    at: { x: 380, y: 110 }
+    size: { w: 100, h: 44 }
+  - id: kf1
+    label: 用紙交付係
+    at: { x: 380, y: 154 }
+    size: { w: 100, h: 46 }
+  - id: kd1
+    label: 記載台
+    technology: 4 台
+    at: { x: 490, y: 110 }
+    size: { w: 110, h: 90 }
+  - id: kb1
+    label: ""
+    tag: "1"
+    marker: double
+    at: { x: 605, y: 115 }
+    size: { w: 90, h: 90 }
+  - id: kbn1
+    label: 投票箱
+    marker: none
+    at: { x: 600, y: 207 }
+    size: { w: 100, h: 20 }
+  - id: k2
+    label: 2　比例代表
+    hatch: solid
+    at: { x: 380, y: 250 }
+    size: { w: 100, h: 44 }
+  - id: kf2
+    label: 用紙交付係
+    at: { x: 380, y: 294 }
+    size: { w: 100, h: 46 }
+  - id: kd2
+    label: 記載台
+    technology: 4 台
+    at: { x: 490, y: 250 }
+    size: { w: 110, h: 90 }
+  - id: kb2
+    label: ""
+    tag: "2"
+    marker: double
+    at: { x: 605, y: 255 }
+    size: { w: 90, h: 90 }
+  - id: kbn2
+    label: 投票箱
+    marker: none
+    at: { x: 600, y: 347 }
+    size: { w: 100, h: 20 }
+  - id: k3
+    label: 3　国民審査
+    hatch: solid
+    at: { x: 380, y: 390 }
+    size: { w: 100, h: 44 }
+  - id: kf3
+    label: 用紙交付係
+    at: { x: 380, y: 434 }
+    size: { w: 100, h: 46 }
+  - id: kd3
+    label: 記載台
+    technology: 4 台
+    at: { x: 490, y: 390 }
+    size: { w: 110, h: 90 }
+  - id: kb3
+    label: ""
+    tag: "3"
+    marker: double
+    at: { x: 605, y: 395 }
+    size: { w: 90, h: 90 }
+  - id: kbn3
+    label: 投票箱
+    marker: none
+    at: { x: 600, y: 487 }
+    size: { w: 100, h: 20 }
+  - id: kanri
+    label: 投票管理者
+    at: { x: 712, y: 150 }
+    size: { w: 110, h: 56 }
+  - id: tachiai
+    label: 立会人 3 名
+    technology: 投票箱が見える位置
+    at: { x: 712, y: 300 }
+    size: { w: 110, h: 56 }
+  - id: wheel
+    label: 車椅子用記載台
+    technology: 高さ 700・幅 900
+    at: { x: 130, y: 400 }
+    size: { w: 140, h: 60 }
+  - id: braille
+    label: 点字投票の用紙
+    at: { x: 130, y: 300 }
+    size: { w: 140, h: 60 }
+  - id: out
+    label: 出口
+    hatch: dots
+    at: { x: 712, y: 400 }
+    size: { w: 60, h: 60 }
+  - id: n0
+    label: ・衆議院総選挙は投票が 3 つ。交付 → 記載 → 投函を 3 回繰り返す
+    marker: none
+    align: left
+    at: { x: 40, y: 540 }
+    size: { w: 720, h: 22 }
+  - id: n1
+    label: ・動線は一方通行。戻らせると、次の用紙と取り違えたまま投函される
+    marker: none
+    align: left
+    at: { x: 40, y: 562 }
+    size: { w: 720, h: 22 }
+  - id: n2
+    label: ・立会人は 2 人以上 5 人以下（期日前は 2 人）。投票箱が見える位置に座る
+    marker: none
+    align: left
+    at: { x: 40, y: 584 }
+    size: { w: 720, h: 22 }
+  - id: n3
+    label: ・車椅子用の記載台と点字投票の用紙は、入口に近い側へ置く
+    marker: none
+    align: left
+    at: { x: 40, y: 606 }
+    size: { w: 720, h: 22 }
+edges:
+  - from: inn
+    to: uketsuke
+  - from: uketsuke
+    to: meibo
+  - from: meibo
+    to: kf1
+  - from: kf1
+    to: kd1
+  - from: kd1
+    to: kb1
+  - from: kf2
+    to: kd2
+  - from: kd2
+    to: kb2
+  - from: kf3
+    to: kd3
+  - from: kd3
+    to: kb3
+  - from: kb1
+    to: kf2
+  - from: kb2
+    to: kf3
+  - from: kb3
+    to: out

@@ -32,11 +32,11 @@ AI pass, nothing else matters.
 Concretely: what a person pins lives in a separate `pins:` block that the AI is not
 allowed to write. Regeneration rewrites `nodes:` and `edges:`; it cannot touch `pins:`.
 Measured over 10 real AI round trips, **10/10 kept every human edit** — and a pin
-survives a regeneration in **132/132 of the example drawings**, whatever their shape.
+survives a regeneration in **133/133 of the example drawings**, whatever their shape.
 
 ## What it looks like
 
-132 example drawings, all generated from the YAML sources in
+133 example drawings, all generated from the YAML sources in
 [`examples/gallery/`](examples/gallery/):
 
 **[→ Browse the gallery](https://meta-taro.github.io/zumen/)**
@@ -97,7 +97,7 @@ This is **not finished software.** It is being built in the open, small step by 
 
 - Reading and writing the source, automatic layout, SVG output (light/dark)
 - Export to Mermaid, draw.io XML, and embedding into Markdown
-- A validator (72 checks) that explains, in the writer's terms, what will not be drawn —
+- A validator (73 checks) that explains, in the writer's terms, what will not be drawn —
   including one that lays the drawing out and reports labels that would collide
 - A Git merge driver so two people editing the same diagram merge structurally
 - An MCP server, so an agent can read the spec and write diagrams

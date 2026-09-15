@@ -518,6 +518,8 @@ const ja = {
       `この図では位置を直せません（"${id}" の pins.position）。位置は作図の手順が決めています。**直すのは let の定数です**（R など）。定数を 1 つ直すと、図全体が比を保ったまま動きます。`,
     constructionNothingDrawn:
       '描くものがありません。arcs を書くか、circles に draw: true を付けてください（点と円は決まっていても、描く指定が無ければ絵に出ません）。',
+    numberTextChanged: (id: string, key: string, written: string, got: string) =>
+      `"${id}" の ${key} に ${written} と書いてありますが、**数として読まれて ${got} になります**（絵には ${got} と出ます）。書いたとおりに出すには "${written}" と引用符で囲んでください。`,
     idSharedWithGroup: (id: string) =>
       `"${id}" を囲みと節の両方で使っています。**囲みが二重に描かれ、名前が同じ場所に 2 回出ます**（重なるので目で見ても分かりません）。どちらかの id を変えてください。`,
     scaleInvalid: (found: string) =>
@@ -1033,6 +1035,8 @@ const en: Catalog = {
       `Position cannot be edited in this drawing (pins.position on "${id}"). The construction steps decide it. **Edit the constants under let** (R and so on) — change one and the whole drawing moves while keeping its ratios.`,
     constructionNothingDrawn:
       'Nothing is drawn. Add arcs, or draw: true on a circle (points and circles can be decided without appearing).',
+    numberTextChanged: (id: string, key: string, written: string, got: string) =>
+      `The ${key} on "${id}" is written as ${written} but **is read as a number and becomes ${got}** (the drawing shows ${got}). Quote it as "${written}" to keep what you wrote.`,
     idSharedWithGroup: (id: string) =>
       `"${id}" is used both as a group and as a node. **The container is drawn twice and its name appears twice in the same spot** — they overlap exactly, so you cannot see it. Change one of the ids.`,
     scaleInvalid: (found: string) =>

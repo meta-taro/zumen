@@ -245,3 +245,30 @@ nodes:
     assert.deepEqual(found, [], '仕様が定めていない鍵まで言い始めた');
   });
 });
+
+describe('**書いたはずの文字が、数になって消えていないか**（2026-09-15）', () => {
+  const one = (label: string): string =>
+    `version: 1\nkind: placement\nnodes:\n  - id: a\n    label: ${label}\n    at: { x: 0, y: 0 }\n    size: { w: 60, h: 30 }\n`;
+
+  it('**`32.0` は `32` になるので言う**（`.0` が黙って消える）', () => {
+    const found = validate(one('32.0'));
+    assert.ok(found.some((f) => f.code === 'number-text-changed'), found.map((f) => f.code).join(' '));
+    assert.match(found.find((f) => f.code === 'number-text-changed')!.message, /32\.0/);
+  });
+
+  it('`32` は何も変わらないので言わない', () => {
+    assert.equal(validate(one('32')).some((f) => f.code === 'number-text-changed'), false);
+  });
+
+  it('引用符で囲んであれば言わない', () => {
+    assert.equal(validate(one('"32.0"')).some((f) => f.code === 'number-text-changed'), false);
+  });
+
+  it('**`1.10` も言う**（版番号でよく書く形）', () => {
+    assert.ok(validate(one('1.10')).some((f) => f.code === 'number-text-changed'));
+  });
+
+  it('文字はもちろん言わない', () => {
+    assert.equal(validate(one('事務室')).some((f) => f.code === 'number-text-changed'), false);
+  });
+});
