@@ -1,14 +1,53 @@
 version: 1
 kind: placement
 title: 駅 構内図（1F 改札階・B1F ホーム階）
-# 1 px = 100 mm。scale は書かない —— 1 枚に 2 つの図があるので、
-# 通しで測ると「2 階を合わせた全長」という意味のない数字が出る（課題 3）。
-# scale が無いと壁の厚みも効かないので、wall も書かない。
-groups:
+# 1 px = 100 mm。
+#
+# **2026-09-15 に直した。** それまで scale を書いていなかった ——
+# 1 枚に 2 つの図があるのに寸法系が 1 組しかなく、通しで測ると
+# **「2 階を合わせた全長 36m＋36m」という意味のない数字**が出たため。
+# 通り芯も 2 階分を貫いた。scale が無いので壁の厚みも効かなかった。
+#
+# **views（D35）で図ごとの寸法系を持てるようになった**ので、
+# 階を囲み（groups）ではなく図（views）にして、寸法と通り芯を入れ直した。
+# 通り芯の符号 X1〜X4・Y1〜Y5 は**両方の階で同じ**（同じ建物の芯なので当然）。
+# それでも寸法は図ごとに測られる —— そこが views の役目。
+scale: { mm: 100 }
+wall: { mm: 150, outer: 250 }
+views:
   - id: f1
-    label: 1F 改札階　GL±0　36m×20m
+    title: 1F 改札階（GL±0）
+    at: { x: 0, y: 0 }
+    size: { w: 360, h: 200 }
+    scale: { mm: 100 }
+    grid:
+      x:
+        - { id: X1, at: 0 }
+        - { id: X2, at: 110 }
+        - { id: X3, at: 250 }
+        - { id: X4, at: 360 }
+      y:
+        - { id: Y1, at: 0 }
+        - { id: Y2, at: 60 }
+        - { id: Y3, at: 140 }
+        - { id: Y4, at: 200 }
   - id: b1
-    label: B1F ホーム階　GL−6,000　36m×26m
+    title: B1F ホーム階（GL−6,000）
+    at: { x: 700, y: 0 }
+    size: { w: 360, h: 260 }
+    scale: { mm: 100 }
+    grid:
+      x:
+        - { id: X1, at: 700 }
+        - { id: X2, at: 810 }
+        - { id: X3, at: 950 }
+        - { id: X4, at: 1060 }
+      y:
+        - { id: Y1, at: 0 }
+        - { id: Y2, at: 60 }
+        - { id: Y3, at: 140 }
+        - { id: Y4, at: 200 }
+        - { id: Y5, at: 260 }
 pins:
   kaisatsu:
     appearance: primary
@@ -19,7 +58,6 @@ nodes:
     technology: 有効 4,000
     at: { x: 0, y: 0 }
     size: { w: 110, h: 60 }
-    group: f1
     openings:
       - { kind: double, side: top, at: 0.5, width: 40 }
   - id: kaisatsu
@@ -28,14 +66,12 @@ nodes:
     technology: 自動改札 6 通路
     at: { x: 110, y: 0 }
     size: { w: 140, h: 60 }
-    group: f1
   - id: minamiguchi
     label: 南口
     tag: E-2
     technology: 有効 4,000
     at: { x: 250, y: 0 }
     size: { w: 110, h: 60 }
-    group: f1
     openings:
       - { kind: double, side: top, at: 0.5, width: 40 }
   - id: concourse
@@ -43,19 +79,16 @@ nodes:
     technology: 有効 6,000・みどりの窓口
     at: { x: 0, y: 60 }
     size: { w: 250, h: 80 }
-    group: f1
   - id: wc1
     label: 便所
     at: { x: 250, y: 60 }
     size: { w: 110, h: 80 }
-    group: f1
   - id: kaidan1
     label: 階段
     tag: S-1
     technology: B1F へ
     at: { x: 0, y: 140 }
     size: { w: 120, h: 60 }
-    group: f1
     openings:
       - { kind: open, side: top, at: 0.5, width: 50 }
   - id: ev1
@@ -64,56 +97,48 @@ nodes:
     technology: B1F へ・11 人乗
     at: { x: 120, y: 140 }
     size: { w: 100, h: 60 }
-    group: f1
   - id: esc1
     label: エスカレータ
     tag: ESC-1
     technology: 上り・B1F へ
     at: { x: 220, y: 140 }
     size: { w: 140, h: 60 }
-    group: f1
   - id: kaidan2
     label: 階段
     tag: S-1
     technology: 1F へ
-    at: { x: 460, y: 140 }
+    at: { x: 700, y: 140 }
     size: { w: 120, h: 60 }
-    group: b1
     openings:
       - { kind: open, side: top, at: 0.5, width: 50 }
   - id: ev2
     label: EV
     tag: EV-1
     technology: 1F へ・11 人乗
-    at: { x: 580, y: 140 }
+    at: { x: 820, y: 140 }
     size: { w: 100, h: 60 }
-    group: b1
   - id: esc2
     label: エスカレータ
     tag: ESC-1
     technology: 下り・1F へ
-    at: { x: 680, y: 140 }
+    at: { x: 920, y: 140 }
     size: { w: 140, h: 60 }
-    group: b1
   - id: home1
     label: 1・2 番線
     tag: P-1
     technology: 島式・有効長 200m
-    at: { x: 460, y: 60 }
+    at: { x: 700, y: 60 }
     size: { w: 360, h: 80 }
-    group: b1
   - id: track_n
     label: 下り線
     technology: 軌道中心 間隔 4,000
-    at: { x: 460, y: 0 }
+    at: { x: 700, y: 0 }
     size: { w: 360, h: 60 }
-    group: b1
   - id: track_s
     label: 上り線
     technology: 軌道中心 間隔 4,000
-    at: { x: 460, y: 200 }
+    at: { x: 700, y: 200 }
     size: { w: 360, h: 60 }
-    group: b1
 edges:
   - from: kitaguchi
     to: kaisatsu

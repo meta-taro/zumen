@@ -1,0 +1,434 @@
+version: 1
+kind: placement
+arrows: false
+title: 一般配置図（499 総トン型 内航貨物船／架空の船）
+# General Arrangement（GA）。**造船で最初に描かれ、最後まで参照される 1 枚。**
+#
+# 実物の GA は「甲板ごとの平面図を縦に積み、いちばん上に側面図を置く」形をしている。
+# **1 枚の紙に図が 5 つ 6 つ載る**ので、寸法系は図ごとに要る（D35。views）。
+#
+# 横の基準は**肋骨番号（フレームナンバー）**。FR.0 を船尾垂線 A.P. に置き、
+# 船首へ向かって増やす —— **番号の向きは造船所で違う**ので、図に断る必要がある。
+# 肋骨心距（フレームスペース）はこの船で 600 mm（1 万トン級でも 600〜800 mm）。
+#
+# 縦の基準は**レベル**（基線 B.L. からの高さ）。側面図では通り芯ではなくこちらを使う。
+#
+# 区画の記号は JIS F 0053（造船－船舶一般配置図記号）に、隔壁・甲板設備・階段・
+# ハッチとカバー・衛生設備など 9 分類が定められている。
+#
+# 1 px = 60 mm。ただし**操舵室の詳細だけ 1 px = 30 mm**（実物の GA も詳細は倍尺で置く）。
+scale: { mm: 60 }
+views:
+  - id: profile
+    title: 側面図（Profile）
+    at: { x: 60, y: 40 }
+    size: { w: 1033, h: 210 }
+    scale: { mm: 60 }
+    grid:
+      x:
+        - { id: FR.0, at: 100 }
+        - { id: FR.20, at: 300 }
+        - { id: FR.40, at: 500 }
+        - { id: FR.60, at: 700 }
+        - { id: FR.80, at: 900 }
+        - { id: FR.95, at: 1050 }
+      y:
+        - { id: "航海船橋甲板 10,400", at: 70, mark: level }
+        - { id: "上甲板 5,200", at: 156, mark: level }
+        - { id: "満載喫水 4,000", at: 176, mark: level }
+        - { id: "基線 B.L.±0", at: 243, mark: level }
+  # **側面図の右端にもレベル名が出る**（符号は左右の両方に出るのが図面の作法）。
+  # 最初は側面図の真横へ置いていて、**その名前がこの図に乗っていた** ——
+  # 数の検査は 0 のままで、ブラウザで開くまで気づかなかった。高さをずらして逃がす。
+  - id: bridge
+    title: 航海船橋甲板（詳細　1 px ＝ 30 mm）
+    at: { x: 1160, y: 420 }
+    size: { w: 420, h: 190 }
+    scale: { mm: 30 }
+    grid:
+      x:
+        - { id: FR.6, at: 1160 }
+        - { id: FR.12, at: 1340 }
+        - { id: FR.18, at: 1520 }
+  # **上甲板には肋骨番号を書かない。** 上の側面図と縦に揃えてあるので、
+  # 実物の一般配置図でも番号は側面図といちばん下の図にしか入らない。
+  - id: upper
+    title: 上甲板（Upper Deck）
+    at: { x: 60, y: 420 }
+    size: { w: 1033, h: 167 }
+  - id: tanktop
+    title: 二重底・タンク配置（Tank Top）
+    at: { x: 60, y: 660 }
+    size: { w: 1033, h: 167 }
+    scale: { mm: 60 }
+    grid:
+      x:
+        - { id: FR.0, at: 100 }
+        - { id: FR.40, at: 500 }
+        - { id: FR.80, at: 900 }
+        - { id: FR.95, at: 1050 }
+nodes:
+  # --- 側面図 -------------------------------------------------------------
+  - id: p_hull
+    label: ""
+    marker: none
+    at: { x: 60, y: 156 }
+    size: { w: 1, h: 1 }
+  - id: p_hold1
+    label: 第 1 貨物倉
+    tag: No.1 C.H.
+    at: { x: 620, y: 156 }
+    size: { w: 230, h: 87 }
+  - id: p_hold2
+    label: 第 2 貨物倉
+    tag: No.2 C.H.
+    at: { x: 390, y: 156 }
+    size: { w: 230, h: 87 }
+  - id: p_engine
+    label: 機関室
+    tag: E/R
+    hatch: lines
+    at: { x: 180, y: 156 }
+    size: { w: 210, h: 87 }
+  - id: p_apt
+    label: 船尾タンク
+    tag: A.P.T.
+    hatch: dots
+    at: { x: 80, y: 156 }
+    size: { w: 100, h: 87 }
+  - id: p_fpt
+    label: 船首タンク
+    tag: F.P.T.
+    hatch: dots
+    at: { x: 850, y: 156 }
+    size: { w: 130, h: 87 }
+  - id: p_bulb
+    label: 球状船首
+    technology: Bulbous bow
+    at: { x: 980, y: 190 }
+    size: { w: 113, h: 53 }
+  - id: p_house
+    label: 居住区
+    at: { x: 180, y: 113 }
+    size: { w: 180, h: 43 }
+  - id: p_boat
+    label: 端艇甲板
+    technology: 救命艇・膨張式いかだ
+    at: { x: 180, y: 70 }
+    size: { w: 180, h: 43 }
+  - id: p_wheel
+    label: 操舵室
+    tag: W/H
+    at: { x: 205, y: 34 }
+    size: { w: 130, h: 36 }
+  - id: p_funnel
+    label: 煙突
+    at: { x: 150, y: 70 }
+    size: { w: 30, h: 86 }
+  - id: p_mast
+    label: マスト
+    write: down
+    at: { x: 860, y: 96 }
+    size: { w: 26, h: 60 }
+  - id: p_rudder
+    label: 舵
+    write: down
+    at: { x: 58, y: 196 }
+    size: { w: 20, h: 47 }
+  - id: p_prop
+    label: ""
+    marker: circle
+    tag: P
+    at: { x: 88, y: 205 }
+    size: { w: 34, h: 34 }
+  # --- 航海船橋甲板（詳細。1 px ＝ 30 mm） --------------------------------
+  - id: b_wheel
+    label: 操舵室
+    tag: W/H
+    technology: 前面窓 傾斜 15°
+    at: { x: 1160, y: 420 }
+    size: { w: 360, h: 110 }
+  - id: b_console
+    label: 操舵スタンド
+    at: { x: 1290, y: 430 }
+    size: { w: 100, h: 34 }
+  - id: b_radar
+    label: ""
+    marker: circle
+    at: { x: 1220, y: 434 }
+    size: { w: 30, h: 30 }
+  - id: b_radar_n
+    label: レーダー
+    marker: none
+    at: { x: 1188, y: 468 }
+    size: { w: 94, h: 18 }
+  - id: b_gyro
+    label: ""
+    marker: circle
+    at: { x: 1430, y: 434 }
+    size: { w: 30, h: 30 }
+  - id: b_gyro_n
+    label: ジャイロコンパス
+    marker: none
+    at: { x: 1384, y: 468 }
+    size: { w: 122, h: 18 }
+  - id: b_chart
+    label: 海図台
+    at: { x: 1400, y: 492 }
+    size: { w: 110, h: 36 }
+  - id: b_stair
+    label: 階段
+    vertical: stair
+    at: { x: 1160, y: 530 }
+    size: { w: 90, h: 50 }
+  - id: b_capt
+    label: 船長室
+    at: { x: 1250, y: 530 }
+    size: { w: 150, h: 50 }
+  - id: b_wc
+    label: 便所
+    at: { x: 1400, y: 530 }
+    size: { w: 110, h: 50 }
+  # --- 上甲板 -------------------------------------------------------------
+  - id: u_apt
+    label: 操舵機室
+    tag: S/G
+    at: { x: 62, y: 460 }
+    size: { w: 118, h: 87 }
+  - id: u_house
+    label: 居住区・賄室
+    technology: 定員 5 名
+    at: { x: 180, y: 440 }
+    size: { w: 130, h: 127 }
+  - id: u_casing
+    label: 機関室囲壁
+    tag: E/R Csg.
+    hatch: lines
+    at: { x: 310, y: 440 }
+    size: { w: 80, h: 127 }
+  - id: u_hatch2
+    label: 第 2 ハッチ
+    tag: No.2 H.C.
+    technology: 鋼製折畳式
+    at: { x: 400, y: 445 }
+    size: { w: 220, h: 117 }
+  - id: u_hatch1
+    label: 第 1 ハッチ
+    tag: No.1 H.C.
+    technology: 鋼製折畳式
+    at: { x: 630, y: 445 }
+    size: { w: 220, h: 117 }
+  - id: u_fore
+    label: ""
+    at: { x: 900, y: 460 }
+    size: { w: 150, h: 87 }
+  - id: u_fore_name
+    label: 船首楼・錨鎖庫
+    marker: none
+    at: { x: 900, y: 524 }
+    size: { w: 150, h: 21 }
+  - id: u_windlass
+    label: 揚錨機
+    technology: Windlass
+    at: { x: 930, y: 462 }
+    size: { w: 90, h: 32 }
+  - id: u_bol1
+    label: ボラード
+    marker: circle
+    at: { x: 430, y: 423 }
+    size: { w: 22, h: 22 }
+  - id: u_bol2
+    label: ""
+    marker: circle
+    at: { x: 700, y: 423 }
+    size: { w: 22, h: 22 }
+  - id: u_bol3
+    label: ""
+    marker: circle
+    at: { x: 430, y: 563 }
+    size: { w: 22, h: 22 }
+  - id: u_bol4
+    label: ""
+    marker: circle
+    at: { x: 700, y: 563 }
+    size: { w: 22, h: 22 }
+  - id: u_winch
+    label: 係船ウインチ
+    at: { x: 890, y: 550 }
+    size: { w: 110, h: 30 }
+  # --- 二重底・タンク配置 -------------------------------------------------
+  - id: t_apt
+    label: 船尾タンク
+    technology: 清水
+    tag: F.W.T.
+    hatch: dots
+    at: { x: 62, y: 700 }
+    size: { w: 118, h: 87 }
+  - id: t_er
+    label: 機関室
+    tag: E/R
+    hatch: lines
+    at: { x: 180, y: 700 }
+    size: { w: 210, h: 87 }
+  - id: t_fo
+    label: 燃料油タンク
+    tag: F.O.T.
+    hatch: solid
+    at: { x: 180, y: 660 }
+    size: { w: 210, h: 40 }
+  - id: t_wb2
+    label: 第 2 バラストタンク
+    tag: W.B.T.(2)
+    hatch: dots
+    at: { x: 390, y: 660 }
+    size: { w: 230, h: 40 }
+  - id: t_hold2
+    label: 第 2 貨物倉
+    tag: No.2 C.H.
+    at: { x: 390, y: 700 }
+    size: { w: 230, h: 87 }
+  - id: t_wb1
+    label: 第 1 バラストタンク
+    tag: W.B.T.(1)
+    hatch: dots
+    at: { x: 620, y: 660 }
+    size: { w: 230, h: 40 }
+  - id: t_hold1
+    label: 第 1 貨物倉
+    tag: No.1 C.H.
+    at: { x: 620, y: 700 }
+    size: { w: 230, h: 87 }
+  - id: t_fpt
+    label: 船首タンク
+    tag: F.P.T.
+    hatch: dots
+    at: { x: 850, y: 700 }
+    size: { w: 200, h: 87 }
+  # --- 主要目と注記 -------------------------------------------------------
+  - id: spec_t
+    label: 主要目（Principal Particulars）
+    hatch: solid
+    at: { x: 1160, y: 760 }
+    size: { w: 440, h: 26 }
+  - id: spec1
+    label: 全長 L.O.A.
+    at: { x: 1160, y: 786 }
+    size: { w: 140, h: 24 }
+  - id: spec1v
+    label: 62.00 m
+    align: right
+    at: { x: 1300, y: 786 }
+    size: { w: 80, h: 24 }
+  - id: spec1b
+    label: 垂線間長 L.p.p.
+    at: { x: 1380, y: 786 }
+    size: { w: 140, h: 24 }
+  - id: spec1bv
+    label: 57.00 m
+    align: right
+    at: { x: 1520, y: 786 }
+    size: { w: 80, h: 24 }
+  - id: spec2
+    label: 型幅 B
+    at: { x: 1160, y: 810 }
+    size: { w: 140, h: 24 }
+  - id: spec2v
+    label: 10.00 m
+    align: right
+    at: { x: 1300, y: 810 }
+    size: { w: 80, h: 24 }
+  - id: spec2b
+    label: 型深さ D
+    at: { x: 1380, y: 810 }
+    size: { w: 140, h: 24 }
+  - id: spec2bv
+    label: 5.20 m
+    align: right
+    at: { x: 1520, y: 810 }
+    size: { w: 80, h: 24 }
+  - id: spec3
+    label: 満載喫水 d
+    at: { x: 1160, y: 834 }
+    size: { w: 140, h: 24 }
+  - id: spec3v
+    label: 4.00 m
+    align: right
+    at: { x: 1300, y: 834 }
+    size: { w: 80, h: 24 }
+  - id: spec3b
+    label: 総トン数 G.T.
+    at: { x: 1380, y: 834 }
+    size: { w: 140, h: 24 }
+  - id: spec3bv
+    label: 499 t
+    align: right
+    at: { x: 1520, y: 834 }
+    size: { w: 80, h: 24 }
+  - id: spec4
+    label: 肋骨心距
+    at: { x: 1160, y: 858 }
+    size: { w: 140, h: 24 }
+  - id: spec4v
+    label: 600 mm
+    align: right
+    at: { x: 1300, y: 858 }
+    size: { w: 80, h: 24 }
+  - id: spec4b
+    label: 航行区域
+    at: { x: 1380, y: 858 }
+    size: { w: 140, h: 24 }
+  - id: spec4bv
+    label: 沿海区域
+    align: right
+    at: { x: 1520, y: 858 }
+    size: { w: 80, h: 24 }
+  - id: note1
+    label: ・肋骨番号は A.P. を FR.0 とし、船首へ向かって増える（向きは造船所で異なる）
+    marker: none
+    align: left
+    at: { x: 1160, y: 890 }
+    size: { w: 520, h: 22 }
+  - id: note2
+    label: ・区画の記号は JIS F 0053（造船－船舶一般配置図記号）による
+    marker: none
+    align: left
+    at: { x: 1160, y: 912 }
+    size: { w: 520, h: 22 }
+  - id: note3
+    label: ・模様は 網掛＝液体タンク、斜線＝機関区域、塗り＝燃料油タンク
+    marker: none
+    align: left
+    at: { x: 1160, y: 934 }
+    size: { w: 520, h: 22 }
+  - id: note4
+    label: ・縦の基準は基線 B.L. からのレベル、横の基準は肋骨番号
+    marker: none
+    align: left
+    at: { x: 1160, y: 956 }
+    size: { w: 520, h: 22 }
+  - id: note5
+    label: ・船尾の丸印 P は 4 翼プロペラ（φ2,800）。その後方が舵
+    marker: none
+    align: left
+    at: { x: 1160, y: 978 }
+    size: { w: 520, h: 22 }
+  - id: note6
+    label: ・操舵室の前面窓を傾けるのは、夜間の室内灯の映り込みを避けるため
+    marker: none
+    align: left
+    at: { x: 1160, y: 1000 }
+    size: { w: 520, h: 22 }
+edges:
+  # 船体の外形（側面）。**閉じた輪を via で引く**（仕様 §3.0.15）。
+  - from: p_hull
+    to: p_hull
+    close: true
+    curve: none
+    via:
+      - { x: 60, y: 156 }
+      - { x: 60, y: 226 }
+      - { x: 96, y: 243 }
+      - { x: 980, y: 243 }
+      - { x: 1046, y: 226 }
+      - { x: 1093, y: 176 }
+      - { x: 1093, y: 156 }

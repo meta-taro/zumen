@@ -19,6 +19,8 @@ import type { ElkExtendedEdge, ElkNode } from 'elkjs/lib/elk-api.js';
 import { asText, getPins, parse } from './format.ts';
 import { directionOf, elkDirection } from './direction.ts';
 import { gridOf, marginFor, northOf, scaleOf } from './grid.ts';
+import { allAxes, slideViews, viewBounds, viewsOf } from './views.ts';
+import type { View } from './views.ts';
 import type { Grid, North } from './grid.ts';
 import { arrowsOf } from './arrows.ts';
 import { hatchOf } from './hatch.ts';
@@ -162,6 +164,13 @@ export interface Placed {
   floors: string[];
   /** **通り芯**（`src/grid.ts`）。書かなければ空。配置図でだけ描く。 */
   grid: Grid;
+  /**
+   * **1 枚の紙に置いた、2 つ以上の図**（`src/views.ts`。D35）。
+   *
+   * 各階平面図・船の一般配置図・三面図・展開図。
+   * **書かなければ空**で、これまでどおり紙ぜんたいで 1 つの図。
+   */
+  views: View[];
   /** 1 px が何 mm か。**書かなければ寸法の数値を出さない。** */
   mm: number | null;
   /** 方位。書かなければ描かない。 */
@@ -304,6 +313,7 @@ export async function layout(text: string): Promise<Placed> {
     title?: unknown;
     floors?: unknown;
     grid?: unknown;
+    views?: unknown;
     palette?: unknown;
     scale?: unknown;
     north?: unknown;
@@ -412,7 +422,13 @@ export async function layout(text: string): Promise<Placed> {
    * 人が「40 と書いたのに 118 にある」と読むことになる。
    */
   const grid = gridOf(raw.grid);
-  const margin = marginFor(grid);
+  /**
+   * **図ごとの寸法系**（D35）。余白と紙の大きさは**全部の芯をまとめて**測るが、
+   * 描くのは図ごと（`src/render.ts`）。まとめないと、
+   * 外側の図の符号と寸法が紙からはみ出す。
+   */
+  const views = viewsOf(raw.views);
+  const margin = marginFor(allAxes(views, grid));
   /**
    * **ずらす量は「足りない分」だけ。**
    *
@@ -447,6 +463,7 @@ export async function layout(text: string): Promise<Placed> {
     // **通り芯も一緒にずらす。** ここでずらしておけば、描く側は余白を知らずに済む。
     for (const axis of grid.x) axis.at += shift.left;
     for (const axis of grid.y) axis.at += shift.top;
+    slideViews(views, shift.left, shift.top);
   }
 
   /**
@@ -479,9 +496,10 @@ export async function layout(text: string): Promise<Placed> {
     }
     for (const axis of grid.x) axis.at += slideX;
     for (const axis of grid.y) axis.at += slideY;
+    slideViews(views, slideX, slideY);
   }
 
-  const size = extent(boxes, groups, edges, grid);
+  const size = extent(boxes, groups, edges, allAxes(views, grid), views);
   return {
     boxes,
     groups,
@@ -490,6 +508,7 @@ export async function layout(text: string): Promise<Placed> {
     title: asText(raw.title),
     floors: floorsOf(raw.floors),
     grid,
+    views,
     mm: scaleOf(raw.scale),
     north: northOf(raw.north),
     wall: wallOf(raw.wall),
@@ -1251,7 +1270,13 @@ function extent(
   groups: Box[],
   edges: PlacedEdge[],
   grid: Grid,
+  views: readonly View[] = [],
 ): { width: number; height: number } {
   const box = bounds(boxes, groups, edges, grid);
-  return { width: box.maxX + PAD, height: box.maxY + PAD };
+  // **図の枠も紙に入れる**（D35）。節を 1 つも置いていない図があり得る
+  // （名前と寸法だけの枠）ので、箱からは出てこない。
+  const frames = viewBounds(views);
+  const maxX = frames === null ? box.maxX : Math.max(box.maxX, frames.maxX);
+  const maxY = frames === null ? box.maxY : Math.max(box.maxY, frames.maxY);
+  return { width: maxX + PAD, height: maxY + PAD };
 }

@@ -26,7 +26,7 @@
  */
 import { drawDimensions, drawGrid, drawNorth } from './dimensions.ts';
 import type { Frame, Ink } from './dimensions.ts';
-import { hasGrid } from './grid.ts';
+import { CODE_R, MARGIN, hasGrid } from './grid.ts';
 import { drawEnd, hasEnds } from './ends.ts';
 import { drawHatch, drawHatchIn } from './hatch.ts';
 import type { Hatch } from './hatch.ts';
@@ -47,6 +47,8 @@ import { placeEdgeLabels } from './edge-labels.ts';
 import type { EdgeLabel } from './edge-labels.ts';
 import { TAG_INSET, labelWidth } from './layout.ts';
 import type { Box, Placed, PlacedEdge } from './layout.ts';
+import { hasAxes } from './views.ts';
+import type { View } from './views.ts';
 import type { Look } from './tokens.ts';
 import { STROKE_WIDTH, lookOf, paletteOf } from './tokens.ts';
 import type { Intent, Palette, Theme } from './tokens.ts';
@@ -157,7 +159,7 @@ export function render(
     // **時間の目盛りは、帯の下に敷く**（`mark: tick`）。
     // 通り芯は基準線なので最前面だが、目盛りは目盛りで、
     // 上に載せると帯の中の文字を串刺しにする（2026-09-15。見本 64）。
-    ...(plan && hasGrid(placed.grid) ? [gridLayer(placed, palette, 'tick')].filter(Boolean) : []),
+    ...(plan && drawsGrid(placed) ? [gridLayer(placed, palette, 'tick')].filter(Boolean) : []),
     // **階の枠は機械が描く**（`src/floor.ts`）。
     // 人が手で枠を置くと、箱を足したときに枠が合わなくなる。
     ...(plan ? floorBands(placed, palette) : []),
@@ -193,7 +195,7 @@ export function render(
     // スラブや部屋の下に入ると、外側の切れ端しか見えない。
     // 実物では一点鎖線が**建物を貫いて**見えている。基準線なので、
     // 隠れたら基準として使えない。
-    ...(plan && hasGrid(placed.grid)
+    ...(plan && drawsGrid(placed)
       ? [gridLayer(placed, palette, 'datum'), dimensionLayer(placed, palette)].filter(Boolean)
       : []),
     '</svg>',
@@ -224,10 +226,24 @@ function stack(boxes: Box[], plan: boolean): Box[] {
  * **下敷きにすると建物の中で消える**（箱の塗りは透けない）。
  * 基準線が隠れたら、基準として使えない。
  */
+/**
+ * 基準線を描く図か。
+ *
+ * **図ごとの寸法系（D35）を見落とさない。** 紙ぜんたいの `grid` が空でも、
+ * `views` の中に芯があれば描く —— 各階平面図や一般配置図はその形になる。
+ */
+function drawsGrid(placed: Placed): boolean {
+  return hasGrid(placed.grid) || placed.views.some((view) => hasGrid(view.grid));
+}
+
 function gridLayer(placed: Placed, palette: Palette, only?: 'tick' | 'datum'): string {
   const frame = frameOf(placed);
   const ink = inkOf(palette);
-  const body = drawGrid(placed.grid, frame, ink, only);
+  // **図が 2 つ以上あれば、芯はその図の中だけを走る**（D35）。
+  // 紙ぜんたいを貫くと、隣の図を串刺しにする。
+  const body =
+    drawGrid(placed.grid, frame, ink, only) +
+    placed.views.map((view) => drawGrid(view.grid, view, ink, only)).join('');
   // **空の層は出さない。** 出すと「通り芯は箱より後ろ」を測る側が、
   // 中身の無い層を先に見つけてしまう。
   if (body === '') return '';
@@ -239,13 +255,51 @@ function dimensionLayer(placed: Placed, palette: Palette): string {
   const frame = frameOf(placed);
   const ink = inkOf(palette);
   const north = placed.north === null ? '' : drawNorth(placed.north, frame, ink);
+  /**
+   * **寸法は図ごとに測る**（D35）。
+   *
+   * 1 組しか持っていなかったので、1 枚に 2 つの図を置くと**通しで測っていた** ——
+   * 見本 45（駅の構内図）で「**2 階を合わせた全長 82,000**」という
+   * 意味のない数字が出た。図ごとに測れば、その図の中の寸法しか出ない。
+   *
+   * 縮尺も図ごと。**書いていない図は、紙ぜんたいの `scale` を使う。**
+   */
+  const perView = placed.views
+    .map((view) => drawDimensions(view.grid, view, view.mm ?? placed.mm, ink) + viewTitle(view, ink))
+    .join('');
   return (
     '<g data-dimensions="true">' +
     drawDimensions(placed.grid, frame, placed.mm, ink) +
+    perView +
     north +
     '</g>'
   );
 }
+
+/**
+ * 図の名前（「上甲板」「1 階平面図」）。**書かなければ描かない。**
+ *
+ * 実物の各階平面図・一般配置図は、**どの図かを図ごとに書く。**
+ * 書かないと、並んだ 2 枚のどちらが何階なのか読めない。
+ *
+ * 置くのは図の下、**寸法と符号より外側**（重ねると数値に乗る）。
+ */
+function viewTitle(view: View, ink: Ink): string {
+  if (view.title === null || view.title === '') return '';
+  const x = Math.round(view.x + view.w / 2);
+  // **芯の無い図は、下に符号も寸法も出ない。** 同じだけ空けると離れすぎて、
+  // どの図の名前か分からなくなる。
+  const y = Math.round(view.y + view.h + (hasAxes(view) ? VIEW_TITLE_GAP : 22));
+  return `<text x="${x}" y="${y}" text-anchor="middle" font-family="${ink.font}" font-size="13" font-weight="600" fill="${ink.text}" data-view="${view.id}">${escapeText(view.title)}</text>`;
+}
+
+/**
+ * 図の名前を、図の下どれだけ外に置くか。
+ *
+ * **芯の符号（丸）と、2 段の寸法より外。** 内側へ入れると、
+ * 総寸法の数値と同じ場所を取る。
+ */
+const VIEW_TITLE_GAP = MARGIN.code + CODE_R + 26;
 
 /** 図の中身が占める矩形。通り芯の長さと、寸法線を置く位置がここから決まる。 */
 /**

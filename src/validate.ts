@@ -110,6 +110,7 @@ export function validate(text: string): Finding[] {
   checkDeclarations(doc, add, m, at);
   checkGeometry(doc, add, m, at);
   checkGridAndScale(doc, add, m, at);
+  checkViews(doc, add, m, at);
   checkEnds(doc, add, m, at);
   checkColors(doc, add, m, at);
   const edgeKeys = checkEdges(doc, nodeIds, add, m, at);
@@ -298,6 +299,69 @@ function checkGridAndScale(doc: Document, add: Add, m: Messages, at: At): void {
   // **芯が 2 本以上あってはじめて寸法が引ける。** 1 本では長さが無い。
   if (axes >= 2 && !hasScale && !onlyTicks) {
     add('warning', 'scale-missing', m.scaleMissing, at(grid));
+  }
+}
+
+/**
+ * **1 枚に複数の図**（`views`。D35）。
+ *
+ * 落ちたことを黙らない —— 形が揃っていない図は描かれないので、
+ * **書いたのに出ない**という、いちばん分かりにくい壊れ方をする。
+ */
+function checkViews(doc: Document, add: Add, m: Messages, at: At): void {
+  const views = doc.get('views', true);
+  if (views === undefined || views === null) return;
+  if (!isSeq(views)) {
+    add('warning', 'views-invalid', m.viewsInvalid, at(views));
+    return;
+  }
+  if (String(doc.get('kind') ?? '') !== 'placement') {
+    add('warning', 'views-ignored', m.viewsIgnored, at(views));
+    return;
+  }
+
+  const seen = new Set<string>();
+  let withGrid = 0;
+  let position = 0;
+  for (const item of views.items) {
+    position += 1;
+    const id = isMap(item) ? item.get('id') : undefined;
+    const name = id === undefined || id === null ? '' : String(id);
+    if (name === '') {
+      add('warning', 'view-id-missing', m.viewIdMissing(position), at(item));
+      continue;
+    }
+    if (seen.has(name)) add('warning', 'view-id-duplicate', m.viewIdDuplicate(name), at(item));
+    seen.add(name);
+
+    const box = isMap(item) ? item.get('at', true) : undefined;
+    const size = isMap(item) ? item.get('size', true) : undefined;
+    const placed =
+      isMap(box) && isNumber(box.get('x')) && isNumber(box.get('y'));
+    const sized =
+      isMap(size) && isPositive(size.get('w')) && isPositive(size.get('h'));
+    // **枠が無ければ、どこへ何を描くか決められない。** 勝手に決めない。
+    if (!placed || !sized) {
+      add('warning', 'view-frame-missing', m.viewFrameMissing(name), at(item));
+      continue;
+    }
+
+    if (isMap(item) && item.get('grid', true) !== undefined && item.get('grid', true) !== null) {
+      withGrid += 1;
+    }
+  }
+
+  /**
+   * **芯を 1 本も持たない図の集まり。**
+   *
+   * 1 つの図に芯が無いのは間違いではない —— 実物の一般配置図でも、
+   * **甲板の平面図は上の側面図と縦に揃えてある**ので、肋骨番号は
+   * いちばん下の図と側面図にしか書かない。
+   *
+   * **どの図にも 1 本も無いときだけ言う。** それは寸法系を書き忘れた形。
+   */
+  if (seen.size > 0 && withGrid === 0) {
+    add('warning', 'views-no-grid', m.viewsNoGrid, at(views));
   }
 }
 

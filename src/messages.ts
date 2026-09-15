@@ -414,6 +414,7 @@ const ja = {
       'kind: placement（配置図）では、置き場所を自分で書く。機械は並べ直さない。間取り・伏図・売場・避難経路はこちら。nodes[].at と nodes[].size の両方を書くこと。大きさを書かないと、便所と 16 畳の LDK が同じ箱で出る。',
       '建築の図（間取り・伏図・平面詳細図）を描くなら、grid（通り芯）と scale を必ず書く。寸法の数値が出ない図は、現場では使えない。通り芯は壁や柱の芯に置き、符号は X1 / Y1 のように付ける。',
       '断面図・立面図も kind: placement で描く（測り方は同じ。y を高さとして読む）。横の基準線は mark: level にして、id に GL±0 や 2FL+3,200 と書く。方位は書かない。',
+      '**1 枚に図を 2 つ以上置くなら views を書く**（各階平面図・船の一般配置図・三面図・展開図）。views が無いと grid と scale が図ぜんたいに 1 組しかないので、**通しで測って意味のない数字が出る**（2 階を合わせた全長 82,000）。通り芯も隣の図を串刺しにする。views には id・at・size を必ず書き、その図だけの grid と scale を持たせる。title を書くと図の名前が下に出る（どちらが何階か読めない図にしない）。**節は views に属さない** —— 座標で置く図なので、どの図の中かは座標が決めている。\n\n（図どうしで寸法が通っているかは、まだ機械が見ていない。三面図で正面図と側面図の高さを揃えるのは、いまは書き手の責任。）',
       '配置図では部屋や棚が接しているのが普通で、隙間を空けない。壁は隣どうしで共有する。',
       '**注記を何行も並べるなら align: left を書く。** 文字は既定で箱の中央へ置かれるので、行の長さが違うと行頭が揃わず、箇条書きが階段状になる（実物を見るまで気づかない。数の検査は「読めるか」しか見ていない）。**箱の幅を文字に合わせて揃えようとしない** —— 幅の見積もりは行ごとに ±20px ずれる（D32）。',
       '**表の欄は、値が入る幅にする。** 幅のある箱で名前が入りきらないと、文字が欄の外へ出て行が空に見える（zumen_inspect の adriftNames と validate の name-adrift が知らせる）。',
@@ -499,6 +500,17 @@ const ja = {
       `通り芯の ${position} 番目の mark が "${word}" になっています（code / level）。丸の符号で描きます。`,
     scaleMissing:
       '通り芯はありますが scale がありません。寸法の数値は出ません（scale: { mm: 20 } で 1px = 20mm）。',
+    viewsInvalid: 'views が一覧になっていません。1 枚に複数の図を置くには - id: … を並べます。',
+    viewsIgnored:
+      'views（1 枚に複数の図）がありますが、構成図では描かれません（kind: placement で描かれます）。',
+    viewIdMissing: (position: number) =>
+      `views の ${position} 番目に id がありません。この図は描かれません。`,
+    viewIdDuplicate: (id: string) =>
+      `views に同じ id が 2 つあります（"${id}"）。どちらの寸法かが読めません。`,
+    viewFrameMissing: (id: string) =>
+      `views の "${id}" に at と size がありません（at: { x, y } / size: { w, h }）。どこへ描くか決められないので、この図は描かれません。`,
+    viewsNoGrid:
+      'views はありますが、どの図にも grid がありません。名前は出ますが、寸法も通り芯も描かれません。',
     scaleInvalid: (found: string) =>
       `scale.mm が ${found} になっています。正の数を書きます（1px が何 mm か）。寸法の数値は出ません。`,
     northUnknown: (word: string) =>
@@ -897,6 +909,7 @@ const en: Catalog = {
       'With kind: placement you place things yourself; the machine does not lay them out. Floor plans, framing plans, store layouts and escape routes are placement. Write both nodes[].at and nodes[].size. Without sizes, a toilet and a 16-mat living room come out the same box.',
       'For an architectural drawing, always write grid and scale. A drawing with no dimension figures cannot be used on site. Put the grid lines on the centre of walls and columns, and code them X1 / Y1.',
       'Sections and elevations also use kind: placement (the measure is the same; read y as height). Mark the horizontal reference lines with mark: level and write the id as GL±0 or 2FL+3,200. Do not write north.',
+      'To put two or more drawings on one sheet, write views (floor-by-floor plans, a ship general arrangement, a three-view drawing, an unfolded room). Without views there is only one grid and one scale for the whole sheet, so dimensions are measured straight through both drawings and meaningless figures come out (an "overall length" spanning two floors), and grid lines skewer the neighbouring drawing. Every view needs id, at and size, plus its own grid and scale; a title is drawn under it so a reader can tell which floor is which. Nodes do NOT belong to a view — this is a coordinate drawing, so which drawing a node is in is decided by where it is.\n\n(Whether dimensions agree between drawings is not checked yet. In a three-view drawing, keeping the front and side heights equal is the writer\'s job for now.)',
       'In a placement diagram rooms and shelves normally touch. Do not leave gaps; neighbours share a wall.',
       'When you line up several notes, write align: left. Text is centred in its box by default, so lines of different length do not share a left edge and the list comes out as a staircase. Do NOT try to fix it by matching each box width to its text — the width estimate is off by up to 20px per line.',
       'Make a table cell wide enough for its value. If a name does not fit a wide box, the text is drawn outside the cell and the row looks empty (zumen_inspect reports it as adriftNames, validate as name-adrift).',
@@ -969,6 +982,16 @@ const en: Catalog = {
       `Axis ${position} of grid has mark "${word}" (code / level). It is drawn as a circled code.`,
     scaleMissing:
       'There is a grid but no scale, so no dimension figures are drawn (scale: { mm: 20 } means 1px = 20mm).',
+    viewsInvalid: 'views is not a list. To put several drawings on one sheet, list them as - id: ….',
+    viewsIgnored:
+      'There is a views block (several drawings on one sheet) but it is not drawn in an architecture diagram (use kind: placement).',
+    viewIdMissing: (position: number) => `views entry ${position} has no id, so that drawing is not drawn.`,
+    viewIdDuplicate: (id: string) =>
+      `Two views share the id "${id}", so it cannot be told which drawing a dimension belongs to.`,
+    viewFrameMissing: (id: string) =>
+      `View "${id}" has no at and size (at: { x, y } / size: { w, h }). There is no way to tell where to draw it, so it is not drawn.`,
+    viewsNoGrid:
+      'There are views but not one of them has a grid, so names are drawn but no dimensions or grid lines are.',
     scaleInvalid: (found: string) =>
       `scale.mm is ${found}. Write a positive number (how many mm one pixel is). No dimension figures are drawn.`,
     northUnknown: (word: string) =>
