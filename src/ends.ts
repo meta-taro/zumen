@@ -110,7 +110,18 @@ export function drawEnd(
   /** 地の色。**中抜きの記号を塗るのに使う**（線が透けると意味が変わる）。 */
   paper = '#ffffff',
 ): string {
-  if (kind === 'none' || kind === 'arrow') return '';
+  /**
+   * **`arrow` もここで描く**（2026-09-15）。
+   *
+   * もとは SVG の `marker-end` に任せていたが、**`ends` を書くと
+   * その `marker-end` が外れる**（`src/render.ts`。「端の記号を書いたら
+   * 既定の矢印は出さない」）ので、**`ends: { to: arrow }` と書くと
+   * 矢印が 1 つも出なかった。** 書いたのに出ない、いちばん悪い形。
+   *
+   * そもそも `marker-end` は**終わりにしか付かない**ので、
+   * `from: arrow`（型紙の地の目線のように両端へ付ける）は表せない。
+   */
+  if (kind === 'none') return '';
 
   const dx = tip.x - back.x;
   const dy = tip.y - back.y;
@@ -155,6 +166,15 @@ export function drawEnd(
         `<line x1="${n(apex.x)}" y1="${n(apex.y)}" x2="${n(tip.x + px * side * 5)}" y2="${n(tip.y + py * side * 5)}" stroke="${stroke}" stroke-width="1.2"/>`,
       );
     }
+  }
+
+  if (kind === 'arrow') {
+    // **塗った三角。** 既定の矢印（`marker-end`）と同じ見え方に揃える。
+    const back2 = { x: tip.x + ux * 10, y: tip.y + uy * 10 };
+    parts.push(
+      `<path d="M ${n(tip.x)} ${n(tip.y)} L ${n(back2.x + px * 4)} ${n(back2.y + py * 4)} ` +
+        `L ${n(back2.x - px * 4)} ${n(back2.y - py * 4)} Z" fill="${stroke}" stroke="none"/>`,
+    );
   }
 
   if (kind === 'triangle') {

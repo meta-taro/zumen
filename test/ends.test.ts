@@ -61,9 +61,11 @@ describe('端の記号を描く', () => {
   const tip = { x: 100, y: 100 };
   const back = { x: 0, y: 100 };
 
-  it('無しと矢印は、ここでは描かない（矢印は marker-end が出す）', () => {
+  it('無しは描かない。**矢印はここで描く**（2026-09-15 に変えた）', () => {
     assert.equal(drawEnd('none', tip, back, '#111'), '');
-    assert.equal(drawEnd('arrow', tip, back, '#111'), '');
+    // `marker-end` に任せていたが、**`ends` を書くとそれが外れる**ので
+    // 矢印が 1 つも出なかった。そもそも `marker-end` は終わりにしか付かない。
+    assert.notEqual(drawEnd('arrow', tip, back, '#111'), '');
   });
 
   it('棒は 1 本（ER の「1」）', () => {
@@ -310,5 +312,36 @@ edges:
     const { validate } = await import('../src/validate.ts');
     const two = SELF.replace('  - id: a\n    label: あ', '  - id: b\n    label: い\n    at: { x: 300, y: 100 }\n    size: { w: 60, h: 40 }\n  - id: a\n    label: あ').replace('    to: a\n', '    to: b\n');
     assert.ok(!validate(two).some((f) => f.code === 'edge-self-open'));
+  });
+});
+
+describe('**`arrow` を書いたら、矢印が出る**（2026-09-15）', () => {
+  /**
+   * もとは SVG の `marker-end` に任せていたが、**`ends` を書くと
+   * その `marker-end` が外れる**ので、`ends: { to: arrow }` と書くと
+   * **矢印が 1 つも出なかった。** 書いたのに出ない、いちばん悪い形。
+   *
+   * そもそも `marker-end` は終わりにしか付かないので、
+   * `from: arrow`（型紙の地の目線のように両端へ付ける）は表せない。
+   */
+  const tip = { x: 100, y: 100 };
+  const back = { x: 100, y: 0 };
+
+  it('片側に書けば、そちらへ出る', () => {
+    const got = drawEnd('arrow', tip, back, '#000');
+    assert.notEqual(got, '', '矢印が出ていない');
+    assert.match(got, /fill="#000"/);
+  });
+
+  it('**両端へ書ける**（marker-end では表せない）', () => {
+    const to = drawEnd('arrow', tip, back, '#000');
+    const from = drawEnd('arrow', back, tip, '#000');
+    assert.notEqual(to, '');
+    assert.notEqual(from, '');
+    assert.notEqual(to, from, '向きが同じになっている');
+  });
+
+  it('`none` は何も出さない', () => {
+    assert.equal(drawEnd('none', tip, back, '#000'), '');
   });
 });

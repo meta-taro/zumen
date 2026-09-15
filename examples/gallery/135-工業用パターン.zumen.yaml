@@ -1,0 +1,259 @@
+version: 1
+kind: placement
+arrows: true
+title: 工業用パターン（半袖シャツ・前身頃／後ろ身頃／袖・架空）
+# **型紙は「切る前の指示書」。** 布は切ったら戻せないので、
+# 置き方・向き・枚数を、切る前に全部決めてある。
+#
+# ## 記号
+#
+# | | |
+# |---|---|
+# | **地の目線** | **矢印。** 布の縦地と平行に置く。斜めに置くと、着たときに捻れる |
+# | **わ** | 一辺が点線で「わ」。**布を二つ折りした折山**に合わせて裁つ |
+# | **合印（ノッチ）** | 縁の `V` か `｜`。縫い代の端から **3 mm** の切り込みを入れる |
+# | **裁断枚数** | 「表地 ×2」＝ **左右対称に 1 枚ずつ、計 2 枚** |
+#
+# ## 工業用パターンは縫い代つき
+#
+# 家庭用の型紙は出来上がり線で、縫い代を自分で足す。
+# **工業用は縫い代が入った形**で配られるので、
+# **生地にチャコで線を書かない** —— そのぶん速く、ぶれない。
+#
+# 1 px ＝ 5 mm。寸法・縫い代はすべて架空。
+scale: { mm: 5 }
+nodes:
+  - id: t
+    label: 半袖シャツ　S サイズ　工業用パターン（縫い代つき）
+    hatch: solid
+    at: { x: 40, y: 40 }
+    size: { w: 700, h: 26 }
+  - id: back
+    label: ""
+    at: { x: 40, y: 100 }
+    size: { w: 150, h: 240 }
+  - id: backn
+    label: 後ろ身頃
+    marker: none
+    align: left
+    at: { x: 46, y: 108 }
+    size: { w: 138, h: 20 }
+  - id: backc
+    label: 表地 ×1（わ）
+    marker: none
+    align: left
+    at: { x: 46, y: 128 }
+    size: { w: 138, h: 18 }
+  - id: wa0
+    label: ""
+    marker: none
+    at: { x: 32, y: 104 }
+    size: { w: 4, h: 4 }
+  - id: wa2
+    label: ""
+    marker: none
+    at: { x: 32, y: 334 }
+    size: { w: 4, h: 4 }
+  - id: wa1
+    label: わ
+    marker: none
+    at: { x: 4, y: 210 }
+    size: { w: 28, h: 20 }
+  - id: bg0
+    label: ""
+    marker: none
+    at: { x: 112, y: 150 }
+    size: { w: 4, h: 4 }
+  - id: bg1
+    label: ""
+    marker: none
+    at: { x: 112, y: 300 }
+    size: { w: 4, h: 4 }
+  - id: bgn
+    label: 地の目
+    marker: none
+    align: left
+    at: { x: 120, y: 216 }
+    size: { w: 60, h: 18 }
+  - id: bn200
+    label: ""
+    marker: bar
+    at: { x: 186, y: 200 }
+    size: { w: 8, h: 4 }
+  - id: bn260
+    label: ""
+    marker: bar
+    at: { x: 186, y: 260 }
+    size: { w: 8, h: 4 }
+  - id: front
+    label: ""
+    at: { x: 230, y: 100 }
+    size: { w: 150, h: 240 }
+  - id: frontn
+    label: 前身頃
+    marker: none
+    align: left
+    at: { x: 236, y: 108 }
+    size: { w: 138, h: 20 }
+  - id: frontc
+    label: 表地 ×2
+    marker: none
+    align: left
+    at: { x: 236, y: 128 }
+    size: { w: 138, h: 18 }
+  - id: fg0
+    label: ""
+    marker: none
+    at: { x: 302, y: 150 }
+    size: { w: 4, h: 4 }
+  - id: fg1
+    label: ""
+    marker: none
+    at: { x: 302, y: 300 }
+    size: { w: 4, h: 4 }
+  - id: fgn
+    label: 地の目
+    marker: none
+    align: left
+    at: { x: 310, y: 216 }
+    size: { w: 60, h: 18 }
+  - id: fn200
+    label: ""
+    marker: bar
+    at: { x: 226, y: 200 }
+    size: { w: 8, h: 4 }
+  - id: fn260
+    label: ""
+    marker: bar
+    at: { x: 226, y: 260 }
+    size: { w: 8, h: 4 }
+  - id: mikaeshi
+    label: 見返し
+    hatch: dots
+    at: { x: 236, y: 150 }
+    size: { w: 60, h: 40 }
+  - id: sleeve
+    label: ""
+    at: { x: 420, y: 130 }
+    size: { w: 160, h: 130 }
+  - id: sleeven
+    label: 袖
+    marker: none
+    align: left
+    at: { x: 426, y: 138 }
+    size: { w: 148, h: 20 }
+  - id: sleevec
+    label: 表地 ×2
+    marker: none
+    align: left
+    at: { x: 426, y: 158 }
+    size: { w: 148, h: 18 }
+  - id: sg0
+    label: ""
+    marker: none
+    at: { x: 498, y: 170 }
+    size: { w: 4, h: 4 }
+  - id: sg1
+    label: ""
+    marker: none
+    at: { x: 498, y: 240 }
+    size: { w: 4, h: 4 }
+  - id: sgn
+    label: 地の目
+    marker: none
+    align: left
+    at: { x: 506, y: 200 }
+    size: { w: 60, h: 18 }
+  - id: sn
+    label: ""
+    marker: bar
+    at: { x: 416, y: 180 }
+    size: { w: 8, h: 4 }
+  - id: st
+    label: 縫い代（cm）
+    hatch: solid
+    at: { x: 620, y: 100 }
+    size: { w: 190, h: 26 }
+  - id: sa0k
+    label: 肩
+    at: { x: 620, y: 126 }
+    size: { w: 120, h: 24 }
+  - id: sa0v
+    label: "1.0"
+    align: right
+    at: { x: 740, y: 126 }
+    size: { w: 70, h: 24 }
+  - id: sa1k
+    label: 脇
+    at: { x: 620, y: 150 }
+    size: { w: 120, h: 24 }
+  - id: sa1v
+    label: "1.0"
+    align: right
+    at: { x: 740, y: 150 }
+    size: { w: 70, h: 24 }
+  - id: sa2k
+    label: 袖ぐり
+    at: { x: 620, y: 174 }
+    size: { w: 120, h: 24 }
+  - id: sa2v
+    label: "1.0"
+    align: right
+    at: { x: 740, y: 174 }
+    size: { w: 70, h: 24 }
+  - id: sa3k
+    label: 袖口
+    at: { x: 620, y: 198 }
+    size: { w: 120, h: 24 }
+  - id: sa3v
+    label: "3.0"
+    align: right
+    at: { x: 740, y: 198 }
+    size: { w: 70, h: 24 }
+  - id: sa4k
+    label: 裾
+    at: { x: 620, y: 222 }
+    size: { w: 120, h: 24 }
+  - id: sa4v
+    label: "3.0"
+    align: right
+    at: { x: 740, y: 222 }
+    size: { w: 70, h: 24 }
+  - id: n0
+    label: ・地の目線は布の縦地と平行に置く。斜めに置くと、洗ったあとに捻れる
+    marker: none
+    align: left
+    at: { x: 40, y: 400 }
+    size: { w: 700, h: 22 }
+  - id: n1
+    label: ・「わ」の辺は折山。切り開かない（後ろ身頃は 1 枚で左右がつながる）
+    marker: none
+    align: left
+    at: { x: 40, y: 422 }
+    size: { w: 700, h: 22 }
+  - id: n2
+    label: ・合印は縫い代の端から 3 mm の切り込み。深く入れると縫い代から出る
+    marker: none
+    align: left
+    at: { x: 40, y: 444 }
+    size: { w: 700, h: 22 }
+  - id: n3
+    label: ・工業用は縫い代つき。生地にチャコで出来上がり線を書かない
+    marker: none
+    align: left
+    at: { x: 40, y: 466 }
+    size: { w: 700, h: 22 }
+edges:
+  - from: wa0
+    to: wa2
+    line: dashed
+    ends: { from: none, to: none }
+  - from: bg0
+    to: bg1
+    ends: { from: arrow, to: arrow }
+  - from: fg0
+    to: fg1
+    ends: { from: arrow, to: arrow }
+  - from: sg0
+    to: sg1
+    ends: { from: arrow, to: arrow }
