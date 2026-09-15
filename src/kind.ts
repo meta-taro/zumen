@@ -50,7 +50,14 @@ import { messages } from './messages.ts';
  * | `structure` | 構成図。**何がどこへ繋がるか**が内容。置き場所は機械が決める |
  * | `placement` | 配置図。**どこに在るか**が内容。置き場所は人が決める |
  */
-export const KINDS = ['structure', 'placement'] as const;
+/**
+ * **3 つ目を足すのは、測り方が 3 つ目になるときだけ**（この文書の上のほう）。
+ *
+ * `construction`（作図。D36）はそこに当たる —— **座標を持たない**ので、
+ * 「置き場所を人が決めた割合」という問いが成立しない。
+ * 測るのは「**人が pin した定数の数**」（仕様 003）。
+ */
+export const KINDS = ['structure', 'placement', 'construction'] as const;
 export type Kind = (typeof KINDS)[number];
 
 /** 書いていなければ構成図。**いままでの図が、いままでどおり測られる。** */
@@ -77,6 +84,9 @@ export interface Ruler {
 
 export function measureOf(kind: Kind): Ruler {
   const m = messages().kind;
+  if (kind === 'construction') {
+    return { label: m.construction, positionsInSource: true, why: m.constructionWhy };
+  }
   if (kind === 'placement') {
     return { label: m.placement, positionsInSource: true, why: m.placementWhy };
   }

@@ -111,6 +111,7 @@ export function validate(text: string): Finding[] {
   checkGeometry(doc, add, m, at);
   checkGridAndScale(doc, add, m, at);
   checkViews(doc, add, m, at);
+  checkConstruction(doc, add, m, at);
   checkEnds(doc, add, m, at);
   checkColors(doc, add, m, at);
   const edgeKeys = checkEdges(doc, nodeIds, add, m, at);
@@ -159,6 +160,8 @@ function checkVersion(doc: Document, add: Add, m: Messages, at: At): void {
 function checkNodes(doc: Document, add: Add, m: Messages, at: At): Set<string> | undefined {
   const node = doc.get('nodes', true);
   if (node === undefined || node === null) {
+    // **作図には節が無い**（D36）。あるのは円と弧だけ。
+    if (String(doc.get('kind') ?? '') === 'construction') return new Set();
     add('error', 'nodes-missing', m.nodesMissing, 1);
     return undefined;
   }
@@ -300,6 +303,40 @@ function checkGridAndScale(doc: Document, add: Add, m: Messages, at: At): void {
   if (axes >= 2 && !hasScale && !onlyTicks) {
     add('warning', 'scale-missing', m.scaleMissing, at(grid));
   }
+}
+
+/**
+ * **作図**（`kind: construction`。D36）。
+ *
+ * ## いちばん大事な検査 —— **位置の pin を黙殺しない**
+ *
+ * この図では位置を手順が決めるので、`pins.position` は効かない。
+ * **黙って消えるのが唯一の本当の事故**（姉妹側オーナーの条件。2026-09-15）——
+ * 人が箱を動かして、次の生成で何も言わずに戻るのは、
+ * 利用者から見ると **D5 が壊れたのと区別が付かない。**
+ *
+ * だから**上書きでも黙殺でもなく、明示で断る。**
+ * 何を代わりに直せばよいか（＝`let` の定数）まで言う。
+ */
+function checkConstruction(doc: Document, add: Add, m: Messages, at: At): void {
+  if (String(doc.get('kind') ?? '') !== 'construction') return;
+
+  const pins = doc.get('pins', true);
+  if (isMap(pins)) {
+    for (const pair of pins.items) {
+      const value = pair.value;
+      if (!isMap(value) || value.get('position', true) === undefined) continue;
+      add('warning', 'pin-position-in-construction', m.pinPositionInConstruction(String(pair.key)), at(value));
+    }
+  }
+
+  // **描くものが 1 つも無ければ、絵にならない。**
+  const arcs = doc.get('arcs', true);
+  const circles = doc.get('circles', true);
+  const drawn =
+    (isSeq(arcs) && arcs.items.length > 0) ||
+    (isSeq(circles) && circles.items.some((one) => isMap(one) && one.get('draw') === true));
+  if (!drawn) add('warning', 'construction-nothing-drawn', m.constructionNothingDrawn, 1);
 }
 
 /**

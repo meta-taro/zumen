@@ -20,6 +20,8 @@ import { asText, getPins, parse } from './format.ts';
 import { directionOf, elkDirection } from './direction.ts';
 import { gridOf, marginFor, northOf, scaleOf } from './grid.ts';
 import { allAxes, slideViews, viewBounds, viewsOf } from './views.ts';
+import { build } from './construct.ts';
+import type { Source as ConstructSource, Stroke } from './construct.ts';
 import type { View } from './views.ts';
 import type { Grid, North } from './grid.ts';
 import { arrowsOf } from './arrows.ts';
@@ -171,6 +173,15 @@ export interface Placed {
    * **書かなければ空**で、これまでどおり紙ぜんたいで 1 つの図。
    */
   views: View[];
+  /**
+   * **作図の結果**（`src/construct.ts`。D36）。**円と弧だけ。**
+   *
+   * `kind: construction` のときだけ入る。**書かなければ空**。
+   * 座標は正本に無く、**手順から解いたもの**。
+   */
+  strokes: Stroke[];
+  /** **解けなかったところ**（作図）。黙って落とさない。 */
+  troubles: string[];
   /** 1 px が何 mm か。**書かなければ寸法の数値を出さない。** */
   mm: number | null;
   /** 方位。書かなければ描かない。 */
@@ -300,6 +311,10 @@ const LAYOUT_OPTIONS = {
 export async function layout(text: string): Promise<Placed> {
   const diagram = parse(text);
   const pins = getPins(diagram);
+  // **作図は並べない**（D36）。座標は手順から解くので、自動配置を通さない。
+  if (String((diagram.doc.toJS() as { kind?: unknown }).kind ?? '') === 'construction') {
+    return construct(diagram.doc.toJS() as Record<string, unknown>, pins);
+  }
   const nodes = readNodes(diagram);
   const groupIds = diagram.groupIds();
 
@@ -509,6 +524,9 @@ export async function layout(text: string): Promise<Placed> {
     floors: floorsOf(raw.floors),
     grid,
     views,
+    // **作図でない図には、円と弧は無い。**
+    strokes: [],
+    troubles: [],
     mm: scaleOf(raw.scale),
     north: northOf(raw.north),
     wall: wallOf(raw.wall),
@@ -1279,4 +1297,93 @@ function extent(
   const maxX = frames === null ? box.maxX : Math.max(box.maxX, frames.maxX);
   const maxY = frames === null ? box.maxY : Math.max(box.maxY, frames.maxY);
   return { width: maxX + PAD, height: maxY + PAD };
+}
+
+/**
+ * 作図を絵にする（D36）。**自動配置を通さない。**
+ *
+ * 人が pin できるのは**定数**（`pins.<名前>.value`）。位置ではない ——
+ * 位置は手順が決めるので、`pins.position` は**検証器が明示で断る**。
+ */
+function construct(raw: Record<string, unknown>, pins: Record<string, unknown>): Placed {
+  const held = new Map<string, number>();
+  for (const [name, pin] of Object.entries(pins)) {
+    const value = (pin as { value?: unknown }).value;
+    if (typeof value === 'number' && Number.isFinite(value)) held.set(name, value);
+  }
+  const built = build(raw as ConstructSource, held);
+  const box = strokeBounds(built.strokes);
+  // **負の座標を紙の中へ入れる。** 作図の原点は左上とは限らない。
+  const dx = box === null ? 0 : Math.max(0, PAD - box.minX);
+  const dy = box === null ? 0 : Math.max(0, PAD - box.minY);
+  const strokes = built.strokes.map((one) => ({ ...one, cx: one.cx + dx, cy: one.cy + dy }));
+  const moved = strokeBounds(strokes);
+  return {
+    boxes: [],
+    groups: [],
+    edges: [],
+    collisions: [],
+    title: asText(raw.title),
+    floors: [],
+    grid: { x: [], y: [] },
+    views: [],
+    strokes,
+    troubles: built.troubles,
+    mm: null,
+    north: null,
+    wall: null,
+    arrows: false,
+    width: moved === null ? PAD * 2 : moved.maxX + PAD,
+    height: moved === null ? PAD * 2 : moved.maxY + PAD,
+  };
+}
+
+/**
+ * 円と弧が占める四隅。**線の太さと端の玉も入れる**（切れるため）。
+ *
+ * **弧を円で外接しない。** 縦棒は半径 1,794 の円の一部で、
+ * 描かれているのはその 200 ほどの弧でしかない。円で取ると
+ * **紙が 7,473 × 3,685 になった**（実測。2026-09-15）。
+ *
+ * 弧の四隅は、**両端の点**と、**弧が跨いだ軸の向き**（0°/90°/180°/270°）で決まる。
+ */
+function strokeBounds(
+  strokes: readonly Stroke[],
+): { minX: number; minY: number; maxX: number; maxY: number } | null {
+  if (strokes.length === 0) return null;
+  let minX = Infinity;
+  let minY = Infinity;
+  let maxX = -Infinity;
+  let maxY = -Infinity;
+  const add = (x: number, y: number, pad: number): void => {
+    minX = Math.min(minX, x - pad);
+    minY = Math.min(minY, y - pad);
+    maxX = Math.max(maxX, x + pad);
+    maxY = Math.max(maxY, y + pad);
+  };
+  for (const one of strokes) {
+    const pad = one.weight / 2 + (one.shape === 'arc' && one.terminal !== null ? one.terminal : 0);
+    if (one.shape === 'circle') {
+      add(one.cx, one.cy, one.r + pad);
+      continue;
+    }
+    const span = Math.abs(one.a1 - one.a0);
+    if (span >= 360) {
+      add(one.cx, one.cy, one.r + pad);
+      continue;
+    }
+    const lo = Math.min(one.a0, one.a1);
+    const hi = Math.max(one.a0, one.a1);
+    const at = (deg: number): void => {
+      const rad = (deg * Math.PI) / 180;
+      add(one.cx + one.r * Math.cos(rad), one.cy + one.r * Math.sin(rad), pad);
+    };
+    at(one.a0);
+    at(one.a1);
+    // **跨いだ軸だけを足す。** 0°=右 / 90°=下 / 180°=左 / 270°=上。
+    for (const axis of [0, 90, 180, 270, 360, 450, 540, 630]) {
+      if (axis > lo && axis < hi) at(axis);
+    }
+  }
+  return { minX, minY, maxX, maxY };
 }

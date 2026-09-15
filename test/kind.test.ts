@@ -48,8 +48,10 @@ describe('図の種類', () => {
     assert.equal(kindOf('version: 1\nkind: 立面図\nnodes:\n  - id: a\n'), 'structure');
   });
 
-  it('**種類は 2 つだけ**（増やすのは、測り方が増えるときだけ）', () => {
-    assert.deepEqual([...KINDS], ['structure', 'placement']);
+  it('**増やすのは、測り方が増えるときだけ**', () => {
+    // 3 つ目（construction。D36）は**座標を持たない**ので、
+    // 「置き場所を人が決めた割合」という問いが成立しない ＝ 測り方が別。
+    assert.deepEqual([...KINDS], ['structure', 'placement', 'construction']);
   });
 });
 
@@ -60,6 +62,11 @@ describe('**種類が決めるのは、置き場所の出どころ**', () => {
 
   it('**配置図は、正本に書いてある**', () => {
     assert.equal(measureOf('placement').positionsInSource, true);
+  });
+
+  it('**作図も、機械は並べ直さない**（位置は手順が決める）', () => {
+    assert.equal(measureOf('construction').positionsInSource, true);
+    assert.match(measureOf('construction').why, /座標を持たない/);
   });
 
   it('**物差しは、どちらも同じ向き**（2026-09-11 に考え直した）', async () => {

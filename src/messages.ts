@@ -306,6 +306,9 @@ const ja = {
     placement: '正本に書かれた配置',
     placementWhy:
       'どこに在るかが内容なので、置き場所は正本（nodes[].at）に書く。機械は並べ直さない。AI が at へ書き、人が直すときは pins が勝つ。',
+    construction: '定数の自力率',
+    constructionWhy:
+      '座標を持たない図。位置は作図の手順が決めるので、「置き場所を人が決めた割合」という問いが成立しない。数えるのは人が pin した定数の数で、向きは同じ（少ないほど AI が自力）。',
   },
 
   about: {
@@ -358,7 +361,7 @@ const ja = {
     shape: [
       'version: 1',
       'title: <図の題>',
-      'kind: <structure（既定。構成図）| placement（配置図）>',
+      'kind: <structure（既定。構成図）| placement（配置図）| construction（作図。座標を書かない。仕様 §3.6）>',
       'direction: <right（既定。横へ流す）| down（縦へ流す）>',
       'wrap: <true なら長い鎖を折り返す。既定は折り返さない>',
       'groups:            # 囲み（VPC・サブネット・階・区域）。省いてよい',
@@ -511,6 +514,10 @@ const ja = {
       `views の "${id}" に at と size がありません（at: { x, y } / size: { w, h }）。どこへ描くか決められないので、この図は描かれません。`,
     viewsNoGrid:
       'views はありますが、どの図にも grid がありません。名前は出ますが、寸法も通り芯も描かれません。',
+    pinPositionInConstruction: (id: string) =>
+      `この図では位置を直せません（"${id}" の pins.position）。位置は作図の手順が決めています。**直すのは let の定数です**（R など）。定数を 1 つ直すと、図全体が比を保ったまま動きます。`,
+    constructionNothingDrawn:
+      '描くものがありません。arcs を書くか、circles に draw: true を付けてください（点と円は決まっていても、描く指定が無ければ絵に出ません）。',
     scaleInvalid: (found: string) =>
       `scale.mm が ${found} になっています。正の数を書きます（1px が何 mm か）。寸法の数値は出ません。`,
     northUnknown: (word: string) =>
@@ -588,6 +595,29 @@ const ja = {
   },
 
   /** Mermaid への書き出し（`src/mermaid.ts`） */
+  /** **作図**（`src/construct.ts`。D36）。 */
+  construct: {
+    exprUnreadable: (text: string) => `式が読めません: ${text}`,
+    exprLeftover: (text: string) => `式の後ろに余りがあります: ${text}`,
+    parenMissing: '括弧が閉じていません。',
+    dividedByZero: '0 で割っています。',
+    distanceNeedsTwo: 'distance は 2 つの点を取ります（distance(A, B)）。',
+    unknownName: (name: string) =>
+      `"${name}" が分かりません。**作図は前から順に評価する**ので、先に決めた名前しか引けません。`,
+    unknownPoint: (name: string) => `点 "${name}" がありません。先に points で決めてください。`,
+    noMeeting: (a: string, b: string) =>
+      `"${a}" と "${b}" は交わりません（離れているか、片方がもう片方の中にあります）。この点は決まりません。`,
+    takeMissing: (id: string) =>
+      `"${id}" にどちらの交点を採るかがありません（take: upper / lower / left / right / first / second）。**機械に推測させません** —— 次の生成で反対を採ると、図が裏返ります。`,
+    takeUnknown: (id: string, word: string) =>
+      `"${id}" の take が "${word}" になっています（upper / lower / left / right / first / second）。`,
+    unknownCircle: (name: string) => `円 "${name}" がありません。先に circles で決めてください。`,
+    circleNeedsCenter: (id: string) => `円 "${id}" に center がありません。`,
+    duplicate: (id: string) => `"${id}" が 2 回出てきます。名前は 1 つの意味しか持てません。`,
+    pinPosition: (id: string) =>
+      `この図では位置を直せません（"${id}" の pins.position）。位置は手順が決めています。**直すのは let の定数です**（R など）。`,
+  },
+
   mermaid: {
     /**
      * 手直しが落ちることの断り書き。**書き出したものを人が貼る前に読む場所**なので、
@@ -808,6 +838,9 @@ const en: Catalog = {
     placement: 'Placed in the source',
     placementWhy:
       'Where things sit is the content, so positions live in the source (nodes[].at). The machine does not re-arrange them. The AI writes at; a person overrides with pins.',
+    construction: 'Constant autonomy',
+    constructionWhy:
+      'A drawing with no coordinates. The steps decide position, so "what share of placement a person decided" is not a question here. What is counted is how many constants a person pinned, in the same direction (fewer means the AI did more).',
   },
 
   about: {
@@ -854,7 +887,7 @@ const en: Catalog = {
     shape: [
       'version: 1',
       'title: <diagram title>',
-      'kind: <structure (default) | placement>',
+      'kind: <structure (default) | placement | construction (a drawing with no coordinates; spec §3.6)>',
       'direction: <right (default, flows sideways) | down>',
       'wrap: <true wraps a long chain. off by default>',
       'groups:            # containers (VPC, subnet, floor, zone). optional',
@@ -992,6 +1025,10 @@ const en: Catalog = {
       `View "${id}" has no at and size (at: { x, y } / size: { w, h }). There is no way to tell where to draw it, so it is not drawn.`,
     viewsNoGrid:
       'There are views but not one of them has a grid, so names are drawn but no dimensions or grid lines are.',
+    pinPositionInConstruction: (id: string) =>
+      `Position cannot be edited in this drawing (pins.position on "${id}"). The construction steps decide it. **Edit the constants under let** (R and so on) — change one and the whole drawing moves while keeping its ratios.`,
+    constructionNothingDrawn:
+      'Nothing is drawn. Add arcs, or draw: true on a circle (points and circles can be decided without appearing).',
     scaleInvalid: (found: string) =>
       `scale.mm is ${found}. Write a positive number (how many mm one pixel is). No dimension figures are drawn.`,
     northUnknown: (word: string) =>
@@ -1067,6 +1104,28 @@ const en: Catalog = {
     colorWithoutCode: (key: string) =>
       `Colour "${key}" carries meaning, but that code appears nowhere as text in the drawing. Colour alone fails in black and white and for colour vision deficiency. Write "${key}" as text somewhere — a legend entry is enough.`,
   },
+  construct: {
+    exprUnreadable: (text: string) => `Cannot read the expression: ${text}`,
+    exprLeftover: (text: string) => `Leftover after the expression: ${text}`,
+    parenMissing: 'A bracket is not closed.',
+    dividedByZero: 'Division by zero.',
+    distanceNeedsTwo: 'distance takes two points: distance(A, B).',
+    unknownName: (name: string) =>
+      `"${name}" is unknown. **A construction is evaluated in order**, so only names decided earlier can be used.`,
+    unknownPoint: (name: string) => `There is no point "${name}". Decide it first under points.`,
+    noMeeting: (a: string, b: string) =>
+      `"${a}" and "${b}" do not meet (too far apart, or one is inside the other), so this point is undecided.`,
+    takeMissing: (id: string) =>
+      `"${id}" does not say which of the two intersections to take (take: upper / lower / left / right / first / second). **The machine will not guess** — take the other one and the drawing flips.`,
+    takeUnknown: (id: string, word: string) =>
+      `The take on "${id}" is "${word}" (upper / lower / left / right / first / second).`,
+    unknownCircle: (name: string) => `There is no circle "${name}". Decide it first under circles.`,
+    circleNeedsCenter: (id: string) => `Circle "${id}" has no center.`,
+    duplicate: (id: string) => `"${id}" appears twice. A name can only mean one thing.`,
+    pinPosition: (id: string) =>
+      `Position cannot be edited in this drawing (pins.position on "${id}"). The steps decide it. **Edit the constants under let** (R and so on).`,
+  },
+
   mermaid: {
     geometryDroppedHeading:
       'NOTE: Mermaid has nowhere to put positions, sizes, or edge waypoints.',

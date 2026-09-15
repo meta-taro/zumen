@@ -249,7 +249,7 @@ describe('spec が、AI の書ける場所をすべて載せている', () => {
 
   it('図の種類（kind）が載っている。**これが無いと配置図に入れない**', () => {
     assert.match(template(), /kind:/);
-    assert.deepEqual(spec().kinds, ['structure', 'placement']);
+    assert.deepEqual(spec().kinds, ['structure', 'placement', 'construction']);
   });
 
   it('置き場所（at）と大きさ（size）が載っている', () => {

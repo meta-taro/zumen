@@ -49,6 +49,7 @@ import { TAG_INSET, labelWidth } from './layout.ts';
 import type { Box, Placed, PlacedEdge } from './layout.ts';
 import { hasAxes } from './views.ts';
 import type { View } from './views.ts';
+import type { Stroke } from './construct.ts';
 import type { Look } from './tokens.ts';
 import { STROKE_WIDTH, lookOf, paletteOf } from './tokens.ts';
 import type { Intent, Palette, Theme } from './tokens.ts';
@@ -198,9 +199,63 @@ export function render(
     ...(plan && drawsDatum(placed)
       ? [gridLayer(placed, palette, 'datum'), dimensionLayer(placed, palette)].filter(Boolean)
       : []),
+    // **作図の円と弧**（`src/construct.ts`。D36）。
+    //
+    // 跡（`trace`）を先に敷いて、形を上に描く。
+    // **作図図では跡を消さない** —— 消すと、どう作ったかが読めなくなる。
+    ...(placed.strokes.length > 0 ? [strokeLayer(placed, palette)] : []),
     '</svg>',
   ];
   return parts.join('\n');
+}
+
+/**
+ * 作図を描く（D36）。**円と弧しか無い。**
+ *
+ * ## なぜ折れ線にしないか
+ *
+ * `via` で刻むと**点の数だけ正本が太る**（見本 122 は 2,516 点で 80 KB）。
+ * SVG には円弧の命令（`A`）があるので、**弧のまま出す。**
+ * 拡大しても折れない。
+ */
+function strokeLayer(placed: Placed, palette: Palette): string {
+  const ink = palette.node.stroke;
+  const trace: string[] = [];
+  const body: string[] = [];
+  for (const one of placed.strokes) {
+    (one.trace ? trace : body).push(drawStroke(one, ink));
+  }
+  return (
+    `<g data-trace="1" opacity="0.28">${trace.join('')}</g>` +
+    `<g data-construction="1">${body.join('')}</g>`
+  );
+}
+
+function drawStroke(one: Stroke, ink: string): string {
+  const n = (value: number): number => Math.round(value * 1000) / 1000;
+  const skin = `fill="none" stroke="${ink}" stroke-width="${n(one.weight)}"`;
+  if (one.shape === 'circle') {
+    return `<circle cx="${n(one.cx)}" cy="${n(one.cy)}" r="${n(one.r)}" ${skin}/>`;
+  }
+  const at = (deg: number): [number, number] => {
+    const rad = (deg * Math.PI) / 180;
+    return [one.cx + one.r * Math.cos(rad), one.cy + one.r * Math.sin(rad)];
+  };
+  const [x0, y0] = at(one.a0);
+  const [x1, y1] = at(one.a1);
+  const span = Math.abs(one.a1 - one.a0);
+  // **360 度は弧で描けない**（始点と終点が同じ）。円で出す。
+  if (span >= 360) return `<circle cx="${n(one.cx)}" cy="${n(one.cy)}" r="${n(one.r)}" ${skin}/>`;
+  const large = span > 180 ? 1 : 0;
+  const sweep = one.a1 > one.a0 ? 1 : 0;
+  const path =
+    `<path d="M${n(x0)} ${n(y0)}A${n(one.r)} ${n(one.r)} 0 ${large} ${sweep} ${n(x1)} ${n(y1)}" ` +
+    `${skin} stroke-linecap="${one.cap}"/>`;
+  if (one.terminal === null) return path;
+  // **端の玉。** 実物のロゴがそうしている（丸い終端を、線より少し太らせる）。
+  const ball = ([x, y]: [number, number]): string =>
+    `<circle cx="${n(x)}" cy="${n(y)}" r="${n(one.terminal!)}" fill="${ink}"/>`;
+  return path + ball([x0, y0]) + ball([x1, y1]);
 }
 
 /**
