@@ -26,6 +26,8 @@ import { describe, it } from 'node:test';
 
 import { placeEdgeLabels } from '../src/edge-labels.ts';
 import type { Box, PlacedEdge } from '../src/layout.ts';
+import { layout } from '../src/layout.ts';
+import { render } from '../src/render.ts';
 
 function edge(id: string, label: string | null, points: [number, number][]): PlacedEdge {
   const [from = id, to = id] = id.split('>');
@@ -209,5 +211,52 @@ describe('落としたラベルを知らせる', () => {
 
     assert.equal(out.hiddenLabels.length, labelled - drawn);
     for (const id of out.hiddenLabels) assert.match(id, /^\w+>\w+$/);
+  });
+});
+
+/**
+ * **辺のラベルが、自分の線に串刺しにされていた。**
+ *
+ * 2026-09-15、見本 85（Checkout の画面遷移）を**ブラウザで開いて**出た。
+ * 「在庫切れ」「決済失敗」に、そのラベルが乗っている破線が**そのまま通っていた。**
+ *
+ * 見本ぜんぶを数えたら **53 件**。斜めの辺でとくに起きる ——
+ * ラベルは線の真ん中に置くので、**線と同じ場所を取る。**
+ *
+ * 箱の中の文字は模様の上で下地を抜いている（`halo`）。
+ * **辺のラベルにだけ、それが無かった。**
+ */
+describe('辺のラベルの下地', () => {
+  const DIAGONAL = `version: 1
+kind: placement
+arrows: true
+nodes:
+  - id: a
+    label: A
+    at: { x: 0, y: 0 }
+    size: { w: 80, h: 40 }
+  - id: b
+    label: B
+    at: { x: 300, y: 260 }
+    size: { w: 80, h: 40 }
+edges:
+  - from: a
+    to: b
+    label: 在庫切れ
+`;
+
+  it('**ラベルの下に、地の色の板を敷く**', async () => {
+    const out = await render(await layout(DIAGONAL), 'light', 'safe', true);
+    const found = /<rect data-edge-label="1"[^>]*fill="#ffffff"\/><text[^>]*>在庫切れ<\/text>/.exec(out);
+    assert.ok(found !== null, '辺のラベルの下地が敷かれていない');
+  });
+
+  it('板はラベルより少しだけ大きい（線を消しすぎない）', async () => {
+    const out = await render(await layout(DIAGONAL), 'light', 'safe', true);
+    const m = /<rect data-edge-label="1" x="(-?[\d.]+)" y="(-?[\d.]+)" width="([\d.]+)" height="([\d.]+)"/.exec(out);
+    assert.ok(m !== null);
+    const w = Number(m[3]);
+    assert.ok(w > 40 && w < 70, `板の幅が妥当でない（${w}）`);
+    assert.equal(Number(m[4]), 14);
   });
 });

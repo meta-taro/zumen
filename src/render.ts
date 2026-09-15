@@ -65,6 +65,9 @@ const FONT = 'sans-serif';
 /** 囲みの名前の字の大きさ。 */
 const GROUP_FONT = 13;
 
+/** 辺のラベルの字の大きさ。 */
+const EDGE_FONT = 11;
+
 /**
  * 座標と寸法を整数にする。
  *
@@ -741,10 +744,21 @@ function renderEdge(
   if (edge.points.length < 2) return '';
   // **通り道の丸め方は正本が決める**（`src/curve.ts`）。書かなければ折れ線。
   const path = pathOf(edge.points, edge.curve, edge.close);
+  /**
+   * **辺のラベルの下に、地の色の板を敷く。**
+   *
+   * ラベルは線の真ん中に置くので、**線と同じ場所を取る** ——
+   * とくに斜めの辺で、ラベルがそのまま串刺しにされていた。
+   * 見本ぜんぶで **53 件**あった（2026-09-15。見本 85 を開いて気づいた）。
+   *
+   * 箱の中の文字は模様の上で下地を抜いている（`halo`）。
+   * **辺のラベルにだけ、それが無かった。**
+   */
   const label =
     placedLabel === null
       ? ''
-      : `<text x="${n(placedLabel.x)}" y="${n(placedLabel.y)}" text-anchor="middle" font-family="${FONT}" font-size="11" fill="${palette.text.edge}">${escapeText(placedLabel.text)}</text>`;
+      : `<rect data-edge-label="1" x="${n(placedLabel.x - labelWidth(placedLabel.text, EDGE_FONT) / 2 - 3)}" y="${n(placedLabel.y - 11)}" width="${n(labelWidth(placedLabel.text, EDGE_FONT) + 6)}" height="14" fill="${palette.paper}"/>` +
+        `<text x="${n(placedLabel.x)}" y="${n(placedLabel.y)}" text-anchor="middle" font-family="${FONT}" font-size="${EDGE_FONT}" fill="${palette.text.edge}">${escapeText(placedLabel.text)}</text>`;
   return [
     `<g data-edge="${escapeAttr(edge.id)}" data-pinned="${edge.pinned}">`,
     // **配置図の動線は太く。** 壁を塗り潰したあと、細い線では動線が
