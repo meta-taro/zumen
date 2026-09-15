@@ -1,0 +1,301 @@
+version: 1
+kind: placement
+arrows: false
+title: クレーン揚重計画図（架空の 50 t 級ラフター・作業半径 10 m）
+# **吊れるかどうかは、荷の重さだけでは決まらない。**
+# 同じクレーンでも、**腕を伸ばすほど吊れなくなる。**
+# だから揚重計画では、**作業半径とブーム長の組**で定格総荷重を引く。
+#
+# ## 定格総荷重に何が入っているか
+#
+# **フックと玉掛けワイヤの質量を含む。** ブームから下が全部入る。
+# だから「定格総荷重 17.0 t」の位置で吊り具が 0.8 t なら、
+# **荷は 16.2 t まで**。ここを取り違えると、表の数字だけ見て吊れると思う。
+#
+# ## 表の読み方
+#
+# **縦が作業半径、横がブーム長。** 作業半径は**ブームのたわみを含んだ値**で、
+# 空荷のときの半径ではない。値はすべて**アウトリガー最大張出し**のとき。
+#
+# **太線（この図では斜線）で囲まれた所は「強度域」。**
+# ブームや本体の強度で決まっていて、**超えるとブームが壊れる。**
+# それ以外は**安定度**で決まっていて、**超えると転倒する。**
+# **壊れ方が違うので、同じ「超過」でも意味が違う。**
+#
+# 1 px ＝ 100 mm。機種・数値はすべて架空。
+scale: { mm: 100 }
+north: up
+nodes:
+  - id: plantitle
+    label: 平面（アウトリガー最大張出し）
+    marker: none
+    at: { x: 60, y: 90 }
+    size: { w: 400, h: 22 }
+  - id: r180
+    label: ""
+    marker: none
+    radius: 180
+    at: { x: 259, y: 289 }
+    size: { w: 2, h: 2 }
+  - id: r100
+    label: ""
+    marker: none
+    radius: 100
+    at: { x: 259, y: 289 }
+    size: { w: 2, h: 2 }
+  - id: r140
+    label: ""
+    marker: none
+    radius: 140
+    at: { x: 259, y: 289 }
+    size: { w: 2, h: 2 }
+  - id: body
+    label: クレーン
+    at: { x: 230, y: 240 }
+    size: { w: 60, h: 100 }
+  - id: ogA
+    label: ""
+    marker: bar
+    at: { x: 165, y: 230 }
+    size: { w: 60, h: 12 }
+  - id: ogB
+    label: ""
+    marker: bar
+    at: { x: 295, y: 230 }
+    size: { w: 60, h: 12 }
+  - id: ogC
+    label: ""
+    marker: bar
+    at: { x: 165, y: 338 }
+    size: { w: 60, h: 12 }
+  - id: ogD
+    label: ""
+    marker: bar
+    at: { x: 295, y: 338 }
+    size: { w: 60, h: 12 }
+  - id: ogname
+    label: アウトリガー 最大張出し 左右 6.2 m
+    marker: none
+    at: { x: 130, y: 356 }
+    size: { w: 260, h: 20 }
+  - id: load
+    label: 荷 12.0 t
+    hatch: solid
+    at: { x: 330, y: 272 }
+    size: { w: 70, h: 36 }
+  - id: setpos
+    label: 据付位置
+    at: { x: 370, y: 190 }
+    size: { w: 70, h: 34 }
+  - id: yard
+    label: 仮置場
+    at: { x: 80, y: 272 }
+    size: { w: 70, h: 36 }
+  - id: tt
+    label: 定格総荷重表（アウトリガー最大張出し／単位 t）
+    hatch: solid
+    at: { x: 500, y: 90 }
+    size: { w: 420, h: 26 }
+  - id: h0
+    label: 作業半径
+    at: { x: 500, y: 116 }
+    size: { w: 120, h: 24 }
+  - id: h1
+    label: 13.8 m
+    at: { x: 620, y: 116 }
+    size: { w: 100, h: 24 }
+  - id: h2
+    label: 21.5 m
+    at: { x: 720, y: 116 }
+    size: { w: 100, h: 24 }
+  - id: h3
+    label: 29.1 m
+    at: { x: 820, y: 116 }
+    size: { w: 100, h: 24 }
+  - id: r0h
+    label: 3.0 m
+    at: { x: 500, y: 140 }
+    size: { w: 120, h: 24 }
+  - id: r0c0
+    label: "55.1"
+    align: right
+    at: { x: 620, y: 140 }
+    size: { w: 100, h: 24 }
+  - id: r0c1
+    label: —
+    align: right
+    hatch: lines
+    at: { x: 720, y: 140 }
+    size: { w: 100, h: 24 }
+  - id: r0c2
+    label: —
+    align: right
+    at: { x: 820, y: 140 }
+    size: { w: 100, h: 24 }
+  - id: r1h
+    label: 6.0 m
+    at: { x: 500, y: 164 }
+    size: { w: 120, h: 24 }
+  - id: r1c0
+    label: "32.0"
+    align: right
+    at: { x: 620, y: 164 }
+    size: { w: 100, h: 24 }
+  - id: r1c1
+    label: "28.5"
+    align: right
+    hatch: lines
+    at: { x: 720, y: 164 }
+    size: { w: 100, h: 24 }
+  - id: r1c2
+    label: —
+    align: right
+    hatch: lines
+    at: { x: 820, y: 164 }
+    size: { w: 100, h: 24 }
+  - id: r2h
+    label: 10.0 m
+    at: { x: 500, y: 188 }
+    size: { w: 120, h: 24 }
+  - id: r2c0
+    label: "17.4"
+    align: right
+    at: { x: 620, y: 188 }
+    size: { w: 100, h: 24 }
+  - id: r2c1
+    label: "17.0"
+    align: right
+    at: { x: 720, y: 188 }
+    size: { w: 100, h: 24 }
+  - id: r2c2
+    label: "16.2"
+    align: right
+    at: { x: 820, y: 188 }
+    size: { w: 100, h: 24 }
+  - id: r3h
+    label: 14.0 m
+    at: { x: 500, y: 212 }
+    size: { w: 120, h: 24 }
+  - id: r3c0
+    label: —
+    align: right
+    at: { x: 620, y: 212 }
+    size: { w: 100, h: 24 }
+  - id: r3c1
+    label: "10.8"
+    align: right
+    at: { x: 720, y: 212 }
+    size: { w: 100, h: 24 }
+  - id: r3c2
+    label: "10.4"
+    align: right
+    at: { x: 820, y: 212 }
+    size: { w: 100, h: 24 }
+  - id: r4h
+    label: 18.0 m
+    at: { x: 500, y: 236 }
+    size: { w: 120, h: 24 }
+  - id: r4c0
+    label: —
+    align: right
+    at: { x: 620, y: 236 }
+    size: { w: 100, h: 24 }
+  - id: r4c1
+    label: "7.2"
+    align: right
+    at: { x: 720, y: 236 }
+    size: { w: 100, h: 24 }
+  - id: r4c2
+    label: "7.0"
+    align: right
+    at: { x: 820, y: 236 }
+    size: { w: 100, h: 24 }
+  - id: legend
+    label: 斜線 ＝ 強度域。ほかは安定度
+    marker: none
+    align: left
+    at: { x: 500, y: 268 }
+    size: { w: 420, h: 20 }
+  - id: ct
+    label: この揚重の計算
+    hatch: solid
+    at: { x: 500, y: 300 }
+    size: { w: 420, h: 26 }
+  - id: c0k
+    label: 荷の質量
+    at: { x: 500, y: 326 }
+    size: { w: 300, h: 24 }
+  - id: c0v
+    label: 12.0 t
+    align: right
+    at: { x: 800, y: 326 }
+    size: { w: 120, h: 24 }
+  - id: c1k
+    label: フック
+    at: { x: 500, y: 350 }
+    size: { w: 300, h: 24 }
+  - id: c1v
+    label: 0.5 t
+    align: right
+    at: { x: 800, y: 350 }
+    size: { w: 120, h: 24 }
+  - id: c2k
+    label: 玉掛けワイヤ
+    at: { x: 500, y: 374 }
+    size: { w: 300, h: 24 }
+  - id: c2v
+    label: 0.3 t
+    align: right
+    at: { x: 800, y: 374 }
+    size: { w: 120, h: 24 }
+  - id: c3k
+    label: 総重量
+    at: { x: 500, y: 398 }
+    size: { w: 300, h: 24 }
+  - id: c3v
+    label: 12.8 t
+    align: right
+    at: { x: 800, y: 398 }
+    size: { w: 120, h: 24 }
+  - id: c4k
+    label: 定格総荷重（半径 10.0 m・ブーム 21.5 m）
+    at: { x: 500, y: 422 }
+    size: { w: 300, h: 24 }
+  - id: c4v
+    label: 17.0 t
+    align: right
+    at: { x: 800, y: 422 }
+    size: { w: 120, h: 24 }
+  - id: c5k
+    label: 定格総荷重に対する率
+    at: { x: 500, y: 446 }
+    size: { w: 300, h: 24 }
+  - id: c5v
+    label: 75.3 %
+    align: right
+    at: { x: 800, y: 446 }
+    size: { w: 120, h: 24 }
+  - id: n0
+    label: ・定格総荷重はフックと玉掛けワイヤを含む。荷そのものは 17.0 − 0.8 ＝ 16.2 t まで
+    marker: none
+    align: left
+    at: { x: 60, y: 540 }
+    size: { w: 860, h: 22 }
+  - id: n1
+    label: ・作業半径はブームのたわみを含んだ値。空荷のときの半径ではない
+    marker: none
+    align: left
+    at: { x: 60, y: 562 }
+    size: { w: 860, h: 22 }
+  - id: n2
+    label: ・値はアウトリガー最大張出しのとき。張出しを詰めたら別の表になる
+    marker: none
+    align: left
+    at: { x: 60, y: 584 }
+    size: { w: 860, h: 22 }
+  - id: n3
+    label: ・腕を伸ばすほど吊れなくなる。半径 10 m で 17.0 t、18 m で 7.2 t
+    marker: none
+    align: left
+    at: { x: 60, y: 606 }
+    size: { w: 860, h: 22 }
