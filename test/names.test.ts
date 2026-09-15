@@ -692,3 +692,37 @@ nodes:
     assert.ok(!hit, '囲みの名前の帯に、節の名前が乗っている');
   });
 });
+
+/**
+ * **細い箱で、回した副題が名前を横切っていた。**
+ *
+ * 2026-09-15、見本 26（データセンターのラック）を**ブラウザで開いて**出た。
+ * 「A 列」「B 列」の上を、回した副題「42Ux6・6.0kW/ラック」が**串刺しにしていた。**
+ *
+ * 副題は箱の左端から 12px の所に立てていたが、
+ * **名前は箱の中央**にあるので、幅 50px の箱では**両方が同じ場所を取る。**
+ *
+ * 左に副題の帯を確保し、**名前は残りの幅の中央**へ置く。
+ */
+describe('回した副題と、名前の場所', () => {
+  const RACK = `version: 1
+kind: placement
+nodes:
+  - id: a
+    label: A 列
+    technology: 42Ux6・6.0kW/ラック
+    at: { x: 0, y: 0 }
+    size: { w: 50, h: 280 }
+`;
+
+  it('**副題の帯と、名前が重ならない**', async () => {
+    const placed = await layout(RACK);
+    const out = await render(placed, 'light', 'safe', true);
+    const sub = /<text x="([\d.]+)"[^>]*font-size="10"[^>]*transform="rotate/.exec(out);
+    const name = /<text x="([\d.]+)"[^>]*font-size="12"[^>]*>A 列</.exec(out);
+    assert.ok(sub !== null && name !== null, '前提が変わった（aside になっていない）');
+    const subRight = Number(sub[1]) + 5; // 回した文字の太さの半分
+    const nameLeft = Number(name[1]) - 36 / 2; // 「A 列」の見た目の幅の半分
+    assert.ok(subRight <= nameLeft, `副題が名前へ食い込んでいる（${subRight} > ${nameLeft}）`);
+  });
+});

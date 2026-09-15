@@ -663,9 +663,20 @@ function nodeText(
   if (plan.kind === 'joined') return [text(cx, cy + 4, plan.text, size, style.text)];
 
   if (plan.kind === 'aside') {
+    /**
+     * **左に副題の帯を取り、名前は残りの幅の中央へ。**
+     *
+     * 副題を「箱の左から 12px」に立てていたが、**名前は箱の中央**にあるので、
+     * 幅 50px の箱では両方が同じ場所を取っていた ——
+     * 見本 26（データセンターのラック）で、回した副題が
+     * 「A 列」を**串刺しにしていた**（2026-09-15）。
+     */
+    const strip = subSize + 4;
+    const subX = box.x + subSize / 2 + 2;
+    const nameX = box.x + strip + (box.w - strip) / 2;
     return [
-      text(cx + 6, cy + 4, box.label, size, style.text),
-      text(box.x + 12, cy, box.technology!, subSize, sub, turnAt(box.x + 12)),
+      text(nameX, cy + 4, box.label, size, style.text),
+      text(subX, cy, box.technology!, subSize, sub, turnAt(subX)),
     ];
   }
 

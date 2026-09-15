@@ -131,7 +131,9 @@ function shape(box: Box): 'inside' | 'joined' | 'aside' | 'along' | 'stack' | 'o
   }
   if (
     box.technology !== null &&
-    wide(box, box.label, NAME_FONT) &&
+    // **左に副題の帯を取ったうえで、名前が入るか。**
+    // 全幅で測っていたので、細い箱では回した副題が名前を横切っていた（見本 26）。
+    labelWidth(box.label, NAME_FONT) + 6 <= box.w - (SUB_FONT + 4) &&
     labelWidth(box.technology, SUB_FONT) + 8 <= box.h &&
     box.w >= 30
   ) {
