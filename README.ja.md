@@ -36,7 +36,7 @@
 | <img src="examples/gallery/22-避難経路図.svg" width="320"> | <img src="examples/gallery/23-厨房の動線.svg" width="320"> |
 | 避難経路図 | 厨房の区域と動線（HACCP） |
 
-**122 枚を [`examples/gallery/`](examples/gallery/) に置いてあります。**
+**123 枚を [`examples/gallery/`](examples/gallery/) に置いてあります。**
 [紹介のページ](https://meta-taro.github.io/zumen/)に全部並べてあり、業界で絞り込めます。
 
 **業界ごとの図形は 1 つも足していません。** `type` は 11 語のままです。
