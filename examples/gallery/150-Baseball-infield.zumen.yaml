@@ -1,0 +1,223 @@
+version: 1
+kind: placement
+arrows: false
+title: "Baseball infield — layout (schematic)"
+scale: { in: 6 }
+# **Every distance starts at the apex of home plate.**
+#
+# Bases are 90 ft apart, measured apex-to-far-corner; the rubber is 60 ft 6 in
+# from the same apex; home to second is 127 ft 3 3/8 in because the infield is
+# a square stood on its corner.
+#
+# **The infield is fixed, the outfield is not** —— 400 ft to centre and 325 ft
+# down the lines are minimums, and every park past that is its own shape.
+#
+# Figures follow the published dimensions; the drawing is schematic.
+nodes:
+  - id: home
+    label: ""
+    marker: diamond
+    at: { x: 372, y: 592 }
+    size: { w: 16, h: 16 }
+  - id: first
+    label: "1B"
+    at: { x: 494.28, y: 459.72 }
+    size: { w: 26, h: 26 }
+  - id: second
+    label: "2B"
+    at: { x: 367, y: 332.44 }
+    size: { w: 26, h: 26 }
+  - id: third
+    label: "3B"
+    at: { x: 239.72, y: 459.72 }
+    size: { w: 26, h: 26 }
+  - id: mound
+    label: ""
+    marker: circle
+    radius: 18
+    at: { x: 371, y: 470 }
+    size: { w: 18, h: 18 }
+  - id: plate
+    label: "HOME"
+    marker: none
+    at: { x: 345, y: 620 }
+    size: { w: 70, h: 20 }
+  - id: rub
+    label: "rubber"
+    marker: none
+    at: { x: 394, y: 470 }
+    size: { w: 80, h: 18 }
+  - id: f1
+    label: ""
+    marker: none
+    at: { x: 610, y: 370 }
+    size: { w: 2, h: 2 }
+  - id: f3
+    label: ""
+    marker: none
+    at: { x: 150, y: 370 }
+    size: { w: 2, h: 2 }
+  - id: d1
+    label: "90'-0\""
+    marker: none
+    align: left
+    at: { x: 457.64, y: 510.36 }
+    size: { w: 90, h: 18 }
+  - id: d2
+    label: "90'-0\""
+    marker: none
+    align: left
+    at: { x: 246.36, y: 510.36 }
+    size: { w: 90, h: 18 }
+  - id: d3
+    label: "60'-6\" to the rubber"
+    marker: none
+    align: left
+    at: { x: 396, y: 532 }
+    size: { w: 220, h: 18 }
+  - id: d4
+    label: "foul line"
+    marker: none
+    align: left
+    at: { x: 570, y: 404 }
+    size: { w: 90, h: 18 }
+  - id: h120
+    label: "INFIELD  (MLB / NCAA / high school)"
+    hatch: solid
+    at: { x: 680, y: 120 }
+    size: { w: 420, h: 22 }
+  - id: a142
+    label: "Bases"
+    at: { x: 680, y: 142 }
+    size: { w: 200, h: 22 }
+  - id: b142
+    label: "90'-0\" apart"
+    align: left
+    at: { x: 880, y: 142 }
+    size: { w: 220, h: 22 }
+  - id: a164
+    label: "Measured"
+    at: { x: 680, y: 164 }
+    size: { w: 200, h: 22 }
+  - id: b164
+    label: "apex of home to the far corner"
+    align: left
+    at: { x: 880, y: 164 }
+    size: { w: 220, h: 22 }
+  - id: a186
+    label: "Pitching distance"
+    at: { x: 680, y: 186 }
+    size: { w: 200, h: 22 }
+  - id: b186
+    label: "60'-6\""
+    align: left
+    at: { x: 880, y: 186 }
+    size: { w: 220, h: 22 }
+  - id: a208
+    label: "Measured"
+    at: { x: 680, y: 208 }
+    size: { w: 200, h: 22 }
+  - id: b208
+    label: "front of the rubber to the apex"
+    align: left
+    at: { x: 880, y: 208 }
+    size: { w: 220, h: 22 }
+  - id: a230
+    label: "Mound"
+    at: { x: 680, y: 230 }
+    size: { w: 200, h: 22 }
+  - id: b230
+    label: "18'-0\" circle, 10 in high"
+    align: left
+    at: { x: 880, y: 230 }
+    size: { w: 220, h: 22 }
+  - id: a252
+    label: "Home to second"
+    at: { x: 680, y: 252 }
+    size: { w: 200, h: 22 }
+  - id: b252
+    label: "127'-3 3/8\""
+    align: left
+    at: { x: 880, y: 252 }
+    size: { w: 220, h: 22 }
+  - id: h288
+    label: "OUTFIELD  (MLB minimum)"
+    hatch: solid
+    at: { x: 680, y: 288 }
+    size: { w: 420, h: 22 }
+  - id: a310
+    label: "Centre field"
+    at: { x: 680, y: 310 }
+    size: { w: 200, h: 22 }
+  - id: b310
+    label: "400'-0\""
+    align: left
+    at: { x: 880, y: 310 }
+    size: { w: 220, h: 22 }
+  - id: a332
+    label: "Left and right"
+    at: { x: 680, y: 332 }
+    size: { w: 200, h: 22 }
+  - id: b332
+    label: "325'-0\""
+    align: left
+    at: { x: 880, y: 332 }
+    size: { w: 220, h: 22 }
+  - id: a354
+    label: "Not drawn here"
+    at: { x: 680, y: 354 }
+    size: { w: 200, h: 22 }
+  - id: b354
+    label: "the infield is what is fixed"
+    align: left
+    at: { x: 880, y: 354 }
+    size: { w: 220, h: 22 }
+  - id: n1
+    label: "The infield is the same at every level above little league; the outfield is where parks differ."
+    marker: none
+    align: left
+    at: { x: 60, y: 670 }
+    size: { w: 760, h: 18 }
+  - id: n2
+    label: "Every distance starts at the apex of home plate, which is why the apex is the origin of the layout."
+    marker: none
+    align: left
+    at: { x: 60, y: 692 }
+    size: { w: 760, h: 18 }
+  - id: n3
+    label: "The mound is a circle and a height at once: 18 ft across, 10 in above the plate."
+    marker: none
+    align: left
+    at: { x: 60, y: 714 }
+    size: { w: 760, h: 18 }
+  - id: n4
+    label: "Field and figures follow the published dimensions; the drawing is schematic."
+    marker: none
+    align: left
+    at: { x: 60, y: 736 }
+    size: { w: 760, h: 18 }
+edges:
+  - from: home
+    to: first
+    ends: { from: none, to: none }
+  - from: first
+    to: second
+    ends: { from: none, to: none }
+  - from: second
+    to: third
+    ends: { from: none, to: none }
+  - from: third
+    to: home
+    ends: { from: none, to: none }
+  - from: home
+    to: f1
+    line: dashed
+    ends: { from: none, to: none }
+  - from: home
+    to: f3
+    line: dashed
+    ends: { from: none, to: none }
+  - from: home
+    to: second
+    line: dotted
+    ends: { from: none, to: none }
