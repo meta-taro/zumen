@@ -331,7 +331,12 @@ function stack(boxes: Box[], plan: boolean): Box[] {
  * **図の名前が 1 つも描かれなかった。** 名前は寸法の付属品ではない。
  */
 function drawsDatum(placed: Placed): boolean {
-  return hasGrid(placed.grid) || placed.views.length > 0;
+  // **方位は通り芯の連れではない。**
+  //
+  // 敷地の見取図・避難経路図・現場検証の図は、通り芯を引かずに方位だけ要る。
+  // 方位記号は寸法と同じ層に乗っているので、**層ごと描かないと黙って消えていた**
+  // （2026-09-16。見本 156 を描いていて当たった）。
+  return hasGrid(placed.grid) || placed.views.length > 0 || placed.north !== null;
 }
 
 /**

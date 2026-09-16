@@ -68,6 +68,7 @@ export const CAPTIONS_EN = {
   '22-避難経路図': 'Escape routes, third floor',
   '148-Egress-plan': 'Egress plan: three lengths answering three questions',
   '119-消火器と消火栓の配置図': 'Extinguishers and hose reels, measured two different ways',
+  '156-Metes-and-bounds-plat': 'A deed describes land as a walk, not a picture',
   '155-Lane-closure-plan': 'A lane closure is mostly road, not work',
   '154-Fire-alarm-plan': 'Fire alarm devices: spacing is a circle, not a square',
   '145-Sprinkler-layout': 'Sprinkler layout: area per head and spacing, decided together',

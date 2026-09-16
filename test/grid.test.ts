@@ -139,6 +139,28 @@ describe('寸法線を描く', () => {
     assert.ok(!out.includes('>3,600<'), '縮尺が無いのに寸法が出た');
   });
 
+  /**
+   * **通り芯の無い配置図にも、方位は要る。**
+   *
+   * 2026-09-16 に見本 156（境界の図）を描いていて当たった。
+   * `north: up` と書いたのに何も出ず、**理由は「通り芯が無いから」だった** ——
+   * 方位記号は寸法と同じ層に乗っていて、その層ごと描いていなかった。
+   * 敷地の見取図・避難経路図・現場の見取図は、**通り芯を引かずに方位だけ要る。**
+   * 書いたのに出ないのは、`hiddenTags` と同じ種類の黙った取りこぼし。
+   */
+  it('**通り芯が無くても、方位は出る**（書いたのに出ない状態を作らない）', async () => {
+    const bare = `version: 1
+kind: placement
+north: up
+nodes:
+  - id: a
+    label: 敷地
+    at: { x: 40, y: 40 }
+    size: { w: 120, h: 80 }
+`;
+    assert.ok((await svg(bare)).includes('>N<'), '通り芯が無いと方位が消える');
+  });
+
   it('方位記号が出る', async () => {
     assert.ok((await svg(PLAN)).includes('>N<'));
     assert.ok(!(await svg(PLAN.replace('north: up\n', ''))).includes('>N<'));

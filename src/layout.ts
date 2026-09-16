@@ -18,7 +18,7 @@ import type { ElkExtendedEdge, ElkNode } from 'elkjs/lib/elk-api.js';
 
 import { asText, getPins, parse } from './format.ts';
 import { directionOf, elkDirection } from './direction.ts';
-import { gridOf, marginFor, northOf, scaleOf } from './grid.ts';
+import { MARGIN, gridOf, marginFor, northOf, scaleOf } from './grid.ts';
 import { allAxes, slideViews, viewBounds, viewsOf } from './views.ts';
 import { build } from './construct.ts';
 import type { Source as ConstructSource, Stroke } from './construct.ts';
@@ -445,7 +445,18 @@ export async function layout(text: string): Promise<Placed> {
    * 外側の図の符号と寸法が紙からはみ出す。
    */
   const views = viewsOf(raw.views);
-  const margin = marginFor(allAxes(views, grid));
+  /**
+   * **方位記号は右上の余白に置かれる**（`src/dimensions.ts` の `drawNorth`）。
+   *
+   * 通り芯が無い図では余白が 0 なので、**方位だけ書いた図では紙の外へ出る**
+   * （2026-09-16。見本 112 で「N」が画用紙からはみ出していた）。要る分だけ広げる。
+   */
+  const north = northOf(raw.north);
+  const base = marginFor(allAxes(views, grid));
+  const margin =
+    north === null
+      ? base
+      : { ...base, top: Math.max(base.top, MARGIN.top), right: Math.max(base.right, MARGIN.right) };
   /**
    * **ずらす量は「足りない分」だけ。**
    *
@@ -532,7 +543,7 @@ export async function layout(text: string): Promise<Placed> {
     troubles: [],
     mm: scale?.mm ?? null,
     feet: scale?.feet ?? false,
-    north: northOf(raw.north),
+    north,
     wall: wallOf(raw.wall),
     arrows: arrowsOf(raw.arrows),
     width: size.width + margin.right,
