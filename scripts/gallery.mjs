@@ -12,12 +12,23 @@ import { readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 import { CATEGORIES } from './gallery-categories.mjs';
+import { CAPTIONS_EN, GROUPS_EN } from './gallery-en.mjs';
 import { kindOf } from '../src/kind.ts';
 import { layout } from '../src/layout.ts';
 import { render } from '../src/render.ts';
 
 const DIR = 'examples/gallery';
-const PAGE = 'site/index.html';
+/**
+ * **同じ一覧を、2 つの言語のページへ組み立てる**（2026-09-16）。
+ *
+ * 並びと分類は 1 つ（`gallery-categories.mjs`）。**英語はそこへ混ぜず**、
+ * 名前で引く辞書（`gallery-en.mjs`）に分けてある —— 混ぜると、
+ * どちらの言語を直しているのか読みながら分からなくなる。
+ */
+const PAGES = [
+  { path: 'site/index.html', locale: 'ja', prefix: 'gallery/', all: 'すべて' },
+  { path: 'site/en/index.html', locale: 'en', prefix: '../gallery/', all: 'All' },
+];
 /** **横長の図は 2 列ぶち抜き。** 縦横比がこれ以上なら幅を倍もらう。 */
 const WIDE = 1.9;
 const check = process.argv.includes('--check');
@@ -54,21 +65,26 @@ for (const file of readdirSync(DIR).filter((f) => f.endsWith('.zumen.yaml')).sor
  * **並びと分類は `scripts/gallery-categories.mjs` が正本。**
  * 大きさは SVG から読む。
  */
-function pageParts() {
+function pageParts(page) {
+  const en = page.locale === 'en';
   const listed = new Set();
   const figures = [];
   const buttons = [
-    `    <button type="button" data-pick="all" aria-pressed="true">すべて <span class="n">${
+    `    <button type="button" data-pick="all" aria-pressed="true">${page.all} <span class="n">${
       CATEGORIES.reduce((sum, group) => sum + group.items.length, 0)
     }</span></button>`,
   ];
 
   for (const group of CATEGORIES) {
     buttons.push(
-      `    <button type="button" data-pick="${group.key}" aria-pressed="false">${group.label} <span class="n">${group.items.length}</span></button>`,
+      `    <button type="button" data-pick="${group.key}" aria-pressed="false">${
+        en ? GROUPS_EN[group.key] : group.label
+      } <span class="n">${group.items.length}</span></button>`,
     );
     figures.push(
-      `    <h3 class="cat" data-cat="${group.key}">${group.label}<span class="n">${group.items.length}</span></h3>`,
+      `    <h3 class="cat" data-cat="${group.key}">${
+        en ? GROUPS_EN[group.key] : group.label
+      }<span class="n">${group.items.length}</span></h3>`,
     );
     for (const item of group.items) {
       listed.add(item.name);
@@ -77,11 +93,16 @@ function pageParts() {
       if (size === null) throw new Error(`${item.name}.svg に大きさがありません`);
       const [w, h] = [Number(size[1]), Number(size[2])];
       const wide = w / h >= WIDE ? ' data-wide' : '';
+      // **英語のページには英語の説明。** 足し忘れは `test/gallery-en.test.ts` が落とす。
+      const words = en ? CAPTIONS_EN[item.name] : null;
+      if (en && words === undefined) throw new Error(`${item.name} の英語がありません`);
       figures.push(
         `    <figure${wide} data-cat="${group.key}"><picture>` +
-          `<source srcset="gallery/${item.name}-dark.svg" media="(prefers-color-scheme: dark)">` +
-          `<img loading="lazy" decoding="async" width="${w}" height="${h}" src="gallery/${item.name}.svg" alt="${item.alt}">` +
-          `</picture><figcaption>${item.caption}</figcaption></figure>`,
+          `<source srcset="${page.prefix}${item.name}-dark.svg" media="(prefers-color-scheme: dark)">` +
+          `<img loading="lazy" decoding="async" width="${w}" height="${h}" src="${page.prefix}${item.name}.svg" alt="${
+            en ? words : item.alt
+          }">` +
+          `</picture><figcaption>${en ? words : item.caption}</figcaption></figure>`,
       );
     }
   }
@@ -94,13 +115,16 @@ function pageParts() {
   return { filters: buttons.join('\n'), gallery: figures.join('\n'), missing };
 }
 
-const parts = pageParts();
-const page = readFileSync(PAGE, 'utf8');
-const rebuilt = page
-  .replace(/(<div class="filters"[^>]*>\n)[\s\S]*?(\n  <\/div>)/, `$1${parts.filters}$2`)
-  .replace(/(<div class="gallery">\n)[\s\S]*?(\n  <\/div>)/, `$1${parts.gallery}$2`);
-if (!check) writeFileSync(PAGE, rebuilt);
-else if (rebuilt !== page) stale.push(PAGE);
+let parts;
+for (const target of PAGES) {
+  parts = pageParts(target);
+  const page = readFileSync(target.path, 'utf8');
+  const rebuilt = page
+    .replace(/(<div class="filters"[^>]*>\n)[\s\S]*?(\n  <\/div>)/, `$1${parts.filters}$2`)
+    .replace(/(<div class="gallery">\n)[\s\S]*?(\n  <\/div>)/, `$1${parts.gallery}$2`);
+  if (!check) writeFileSync(target.path, rebuilt);
+  else if (rebuilt !== page) stale.push(target.path);
+}
 
 if (parts.missing.length > 0) {
   console.log(`紹介ページに出していない見本が ${parts.missing.length} 件あります（scripts/gallery-categories.mjs に足してください）。`);

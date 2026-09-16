@@ -64,7 +64,10 @@ describe('DL ページ', () => {
     for (const file of ['site/hero-en.svg', 'site/hero-en-dark.svg']) {
       assert.ok(existsSync(file), `${file} が無い（参照だけ足してある）`);
     }
-    assert.ok(!/gallery\/02-/.test(en), '英語のページが日本語の図を見出しにしている');
+    // **見るのは見出しの図だけ。** 一覧には日本語の図が 151 枚並ぶ（それは中身）。
+    const hero = /<figure class="hero">[\s\S]*?<\/figure>/.exec(en)?.[0] ?? '';
+    assert.ok(hero.includes('hero-en.svg'), '見出しが英語の図になっていない');
+    assert.ok(!/gallery\//.test(hero), '見出しに一覧の図を使っている');
   });
 
   it('言語の宣言が正しい', () => {
