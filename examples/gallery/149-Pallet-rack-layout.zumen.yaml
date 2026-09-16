@@ -1,0 +1,210 @@
+version: 1
+kind: placement
+arrows: false
+title: "Pallet rack layout — aisle widths (fictional)"
+scale: { in: 2 }
+grid:
+  x:
+    - { id: A, at: 72 }
+    - { id: B, at: 360 }
+  y:
+    - { id: 1, at: 78 }
+    - { id: 2, at: 123 }
+    - { id: 3, at: 195 }
+# **The truck decides the aisle, and the aisle decides the building.**
+#
+# Aisle width is not a preference: head length + load length + 12 in to
+# manoeuvre + 6 in of pallet overhang. Narrow it and you gain pallet positions
+# per square foot —— and you pay for a more expensive truck.
+#
+# **日本語の見本 34（倉庫のロケーション）と対。** あちらは番地の付け方、
+# こちらは寸法の決まり方。
+#
+# Building, racks and equipment are fictional.
+nodes:
+  - id: bldg
+    label: ""
+    at: { x: 60, y: 60 }
+    size: { w: 384, h: 216 }
+  - id: rkA1
+    label: ""
+    hatch: lines
+    at: { x: 72, y: 78 }
+    size: { w: 288, h: 21 }
+  - id: rkB1
+    label: ""
+    hatch: lines
+    at: { x: 72, y: 102 }
+    size: { w: 288, h: 21 }
+  - id: rkA2
+    label: ""
+    hatch: lines
+    at: { x: 72, y: 195 }
+    size: { w: 288, h: 21 }
+  - id: rkB2
+    label: ""
+    hatch: lines
+    at: { x: 72, y: 219 }
+    size: { w: 288, h: 21 }
+  - id: aisle
+    label: ""
+    hatch: dots
+    at: { x: 72, y: 123 }
+    size: { w: 288, h: 72 }
+  - id: p1
+    label: ""
+    hatch: solid
+    at: { x: 169, y: 79 }
+    size: { w: 20, h: 19 }
+  - id: p2
+    label: ""
+    hatch: solid
+    at: { x: 193, y: 79 }
+    size: { w: 20, h: 19 }
+  - id: lb
+    label: "one bay 8'-0\"  =  two 40 in pallets"
+    marker: none
+    align: left
+    at: { x: 138, y: 54 }
+    size: { w: 260, h: 18 }
+  - id: la
+    label: "aisle 12'-0\"  (sit-down counterbalance)"
+    marker: none
+    align: left
+    at: { x: 90, y: 150 }
+    size: { w: 320, h: 18 }
+  - id: lf
+    label: "6 in flue"
+    marker: none
+    align: left
+    at: { x: 370, y: 95 }
+    size: { w: 110, h: 18 }
+  - id: h60
+    label: "AISLE  (the truck decides)"
+    hatch: solid
+    at: { x: 514, y: 60 }
+    size: { w: 420, h: 22 }
+  - id: a82
+    label: "Sit-down counterbalance"
+    at: { x: 514, y: 82 }
+    size: { w: 200, h: 22 }
+  - id: b82
+    label: "12'-0\" to 13'-0\""
+    align: left
+    at: { x: 714, y: 82 }
+    size: { w: 220, h: 22 }
+  - id: a104
+    label: "Reach truck"
+    at: { x: 514, y: 104 }
+    size: { w: 200, h: 22 }
+  - id: b104
+    label: "8'-6\" to 9'-0\""
+    align: left
+    at: { x: 714, y: 104 }
+    size: { w: 220, h: 22 }
+  - id: a126
+    label: "Swing-mast"
+    at: { x: 514, y: 126 }
+    size: { w: 200, h: 22 }
+  - id: b126
+    label: "6'-0\" to 7'-0\""
+    align: left
+    at: { x: 714, y: 126 }
+    size: { w: 220, h: 22 }
+  - id: a148
+    label: "Turret, very narrow"
+    at: { x: 514, y: 148 }
+    size: { w: 200, h: 22 }
+  - id: b148
+    label: "5'-0\" to 6'-0\""
+    align: left
+    at: { x: 714, y: 148 }
+    size: { w: 220, h: 22 }
+  - id: h184
+    label: "RACK"
+    hatch: solid
+    at: { x: 514, y: 184 }
+    size: { w: 420, h: 22 }
+  - id: a206
+    label: "GMA pallet"
+    at: { x: 514, y: 206 }
+    size: { w: 200, h: 22 }
+  - id: b206
+    label: "48 in deep x 40 in wide"
+    align: left
+    at: { x: 714, y: 206 }
+    size: { w: 220, h: 22 }
+  - id: a228
+    label: "Upright depth"
+    at: { x: 514, y: 228 }
+    size: { w: 200, h: 22 }
+  - id: b228
+    label: "42 in  (3 in overhang)"
+    align: left
+    at: { x: 714, y: 228 }
+    size: { w: 220, h: 22 }
+  - id: a250
+    label: "Beam"
+    at: { x: 514, y: 250 }
+    size: { w: 200, h: 22 }
+  - id: b250
+    label: "96 in = two pallets a level"
+    align: left
+    at: { x: 714, y: 250 }
+    size: { w: 220, h: 22 }
+  - id: a272
+    label: "Flue, back to back"
+    at: { x: 514, y: 272 }
+    size: { w: 200, h: 22 }
+  - id: b272
+    label: "6 in"
+    align: left
+    at: { x: 714, y: 272 }
+    size: { w: 220, h: 22 }
+  - id: h308
+    label: "THE TRADE"
+    hatch: solid
+    at: { x: 514, y: 308 }
+    size: { w: 420, h: 22 }
+  - id: a330
+    label: "Narrow it"
+    at: { x: 514, y: 330 }
+    size: { w: 200, h: 22 }
+  - id: b330
+    label: "more pallet positions per sq ft"
+    align: left
+    at: { x: 714, y: 330 }
+    size: { w: 220, h: 22 }
+  - id: a352
+    label: "Narrow it"
+    at: { x: 514, y: 352 }
+    size: { w: 200, h: 22 }
+  - id: b352
+    label: "a costlier truck, and guidance"
+    align: left
+    at: { x: 714, y: 352 }
+    size: { w: 220, h: 22 }
+  - id: n1
+    label: "Aisle width is not a preference: head length + load + 12 in to manoeuvre + 6 in of overhang."
+    marker: none
+    align: left
+    at: { x: 60, y: 396 }
+    size: { w: 780, h: 18 }
+  - id: n2
+    label: "The pallet is 48 in deep on a 42 in upright, so 3 in hangs over the beam front and back."
+    marker: none
+    align: left
+    at: { x: 60, y: 418 }
+    size: { w: 780, h: 18 }
+  - id: n3
+    label: "One bay is filled in and one aisle dimensioned; repeating them would cover the drawing in figures."
+    marker: none
+    align: left
+    at: { x: 60, y: 440 }
+    size: { w: 780, h: 18 }
+  - id: n4
+    label: "Building, racks and equipment are fictional."
+    marker: none
+    align: left
+    at: { x: 60, y: 462 }
+    size: { w: 780, h: 18 }
