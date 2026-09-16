@@ -524,7 +524,9 @@ const ja = {
     idSharedWithGroup: (id: string) =>
       `"${id}" を囲みと節の両方で使っています。**囲みが二重に描かれ、名前が同じ場所に 2 回出ます**（重なるので目で見ても分かりません）。どちらかの id を変えてください。`,
     scaleInvalid: (found: string) =>
-      `scale.mm が ${found} になっています。正の数を書きます（1px が何 mm か）。寸法の数値は出ません。`,
+      `scale.mm が ${found} になっています。正の数を書きます（1px が何 mm か）。インチで描くなら scale.in を書きます。寸法の数値は出ません。`,
+    scaleTwoUnits:
+      'scale に mm と in の両方が書いてあります。mm のほうを採ります（寸法はミリで出ます）。フィートとインチで書きたいなら mm を消してください。',
     northUnknown: (word: string) =>
       `north が "${word}" になっています（up / right / down / left）。方位記号は描かれません。`,
     wallInvalid: (found: string) =>
@@ -1042,7 +1044,9 @@ const en: Catalog = {
     idSharedWithGroup: (id: string) =>
       `"${id}" is used both as a group and as a node. **The container is drawn twice and its name appears twice in the same spot** — they overlap exactly, so you cannot see it. Change one of the ids.`,
     scaleInvalid: (found: string) =>
-      `scale.mm is ${found}. Write a positive number (how many mm one pixel is). No dimension figures are drawn.`,
+      `scale.mm is ${found}. Write a positive number (how many mm one pixel is), or scale.in to draw in inches. No dimension figures are drawn.`,
+    scaleTwoUnits:
+      'scale has both mm and in. mm wins, so the dimensions come out in millimetres. Drop mm if you want feet and inches.',
     northUnknown: (word: string) =>
       `north is "${word}" (up / right / down / left). No north arrow is drawn.`,
     wallInvalid: (found: string) =>

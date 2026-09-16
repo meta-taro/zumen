@@ -184,6 +184,8 @@ export interface Placed {
   troubles: string[];
   /** 1 px が何 mm か。**書かなければ寸法の数値を出さない。** */
   mm: number | null;
+  /** **寸法をフィートとインチで書くか**（`scale: { in: … }`）。 */
+  feet: boolean;
   /** 方位。書かなければ描かない。 */
   north: North | null;
   /** **壁の厚み**（`src/wall.ts`）。書かなければこれまでどおりの線の太さ。 */
@@ -515,6 +517,7 @@ export async function layout(text: string): Promise<Placed> {
   }
 
   const size = extent(boxes, groups, edges, allAxes(views, grid), views);
+  const scale = scaleOf(raw.scale);
   return {
     boxes,
     groups,
@@ -527,7 +530,8 @@ export async function layout(text: string): Promise<Placed> {
     // **作図でない図には、円と弧は無い。**
     strokes: [],
     troubles: [],
-    mm: scaleOf(raw.scale),
+    mm: scale?.mm ?? null,
+    feet: scale?.feet ?? false,
     north: northOf(raw.north),
     wall: wallOf(raw.wall),
     arrows: arrowsOf(raw.arrows),
@@ -1352,6 +1356,7 @@ function construct(raw: Record<string, unknown>, pins: Record<string, unknown>):
     strokes,
     troubles: built.troubles,
     mm: null,
+    feet: false,
     north: null,
     wall: null,
     arrows: false,

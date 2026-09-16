@@ -1,3 +1,5 @@
+import { INCH } from './units.ts';
+
 /**
  * **壁の厚み**（2026-09-12）。
  *
@@ -44,10 +46,15 @@ export const NO_WALL: Wall | null = null;
 
 export function wallOf(raw: unknown): Wall | null {
   if (raw === null || typeof raw !== 'object') return null;
-  const { mm, outer } = raw as Record<string, unknown>;
-  if (typeof mm !== 'number' || !Number.isFinite(mm) || mm <= 0) return null;
-  const thick = typeof outer === 'number' && Number.isFinite(outer) && outer > 0 ? outer : mm * 1.5;
-  return { mm, outer: thick };
+  const { mm, in: inches, outer } = raw as Record<string, unknown>;
+  // **インチで書ける**（2026-09-16）。壁を 4 インチと書く国で、
+  // 101.6 と書かせるのは筋が悪い。中ではミリに直して持つ。
+  const unit = typeof mm === 'number' && Number.isFinite(mm) && mm > 0 ? 1 : INCH;
+  const thin = unit === 1 ? mm : inches;
+  if (typeof thin !== 'number' || !Number.isFinite(thin) || thin <= 0) return null;
+  const thick =
+    typeof outer === 'number' && Number.isFinite(outer) && outer > 0 ? outer * unit : thin * unit * 1.5;
+  return { mm: thin * unit, outer: thick };
 }
 
 /**

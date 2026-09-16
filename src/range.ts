@@ -57,6 +57,8 @@ export interface Ring {
 export function ringOf(
   box: { x: number; y: number; w: number; h: number; radius: number | null },
   mm: number | null,
+  /** **フィートとインチで書くか**（2026-09-16）。 */
+  feet = false,
 ): Ring | null {
   if (box.radius === null) return null;
   return {
@@ -64,7 +66,7 @@ export function ringOf(
     cy: box.y + box.h / 2,
     r: box.radius,
     // **単位は縮尺が決める**（`src/units.ts`）。200 m の円に `R=200,000` と書かない。
-    label: mm === null ? null : `R=${lengthText(box.radius, mm)}`,
+    label: mm === null ? null : `R=${lengthText(box.radius, mm, feet)}`,
   };
 }
 

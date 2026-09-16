@@ -175,7 +175,7 @@ export function render(
     //
     // 箱の下に敷くと、クレーンの作業半径が資材置場の塗りで切れる。
     // 寸法より上に出すと、破線の円が数値を横切る。
-    ...(plan ? placed.boxes.map((box) => renderRange(box, placed.mm, palette)) : []),
+    ...(plan ? placed.boxes.map((box) => renderRange(box, placed.mm, palette, placed.feet)) : []),
     // **節の文字は、いちばん最後**（`renderNode` の `part`）。
     //
     // 辺も範囲の円も箱より上に描くので、文字を箱と同じ層に置くと
@@ -401,11 +401,15 @@ function dimensionLayer(placed: Placed, palette: Palette): string {
    * 縮尺も図ごと。**書いていない図は、紙ぜんたいの `scale` を使う。**
    */
   const perView = placed.views
-    .map((view) => drawDimensions(view.grid, view, view.mm ?? placed.mm, ink) + viewTitle(view, ink))
+    .map(
+      (view) =>
+        drawDimensions(view.grid, view, view.mm ?? placed.mm, ink, view.mm === null ? placed.feet : view.feet) +
+        viewTitle(view, ink),
+    )
     .join('');
   return (
     '<g data-dimensions="true">' +
-    drawDimensions(placed.grid, frame, placed.mm, ink) +
+    drawDimensions(placed.grid, frame, placed.mm, ink, placed.feet) +
     perView +
     north +
     '</g>'
@@ -516,8 +520,8 @@ function inkOf(palette: Palette): Ink {
 }
 
 /** 範囲を示す円（`src/range.ts`）。書かなければ何も出さない。 */
-function renderRange(box: Box, mm: number | null, palette: Palette): string {
-  const ring = ringOf(box, mm);
+function renderRange(box: Box, mm: number | null, palette: Palette, feet = false): string {
+  const ring = ringOf(box, mm, feet);
   if (ring === null) return '';
   return `<g data-range="${escapeAttr(box.id)}">${drawRange(ring, palette.edge.stroke, palette.text.group, FONT)}</g>`;
 }

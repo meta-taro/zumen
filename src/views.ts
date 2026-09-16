@@ -59,6 +59,8 @@ export interface View {
    * 全体図 1/200 の横に、詳細図 1/20 を置く。
    */
   mm: number | null;
+  /** **この図だけフィートで書くか**（`scale: { in: … }`）。 */
+  feet: boolean;
 }
 
 export const NO_VIEWS: readonly View[] = [];
@@ -90,6 +92,7 @@ function viewOf(raw: unknown): View | null {
   // **矩形が無ければ、どこに何を描くか決められない。** 勝手に決めない。
   if (at === null || size === null || size.a <= 0 || size.b <= 0) return null;
 
+  const scale = scaleOf(body.scale);
   return {
     id,
     title: body.title === undefined || body.title === null ? null : String(body.title),
@@ -98,7 +101,8 @@ function viewOf(raw: unknown): View | null {
     w: size.a,
     h: size.b,
     grid: gridOf(body.grid),
-    mm: scaleOf(body.scale),
+    mm: scale?.mm ?? null,
+    feet: scale?.feet ?? false,
   };
 }
 

@@ -128,7 +128,14 @@ export function drawGrid(
  * 知らない縮尺で数値を出すより、出さないほうがよい。
  * 現場では、**寸法が間違っていることの害が、無いことより大きい。**
  */
-export function drawDimensions(grid: Grid, frame: Frame, mm: number | null, ink: Ink): string {
+export function drawDimensions(
+  grid: Grid,
+  frame: Frame,
+  mm: number | null,
+  ink: Ink,
+  /** **フィートとインチで書くか**（`scale: { in: … }`。2026-09-16）。 */
+  feet = false,
+): string {
   if (mm === null) return '';
   const parts: string[] = [];
 
@@ -140,17 +147,17 @@ export function drawDimensions(grid: Grid, frame: Frame, mm: number | null, ink:
   // 下側 —— 横方向の寸法。
   if (spanX.length >= 2) {
     const near = frame.y + frame.h + MARGIN.near;
-    parts.push(chainOf(spanX, near, mm, ink, 'x'));
+    parts.push(chainOf(spanX, near, mm, ink, 'x', feet));
     // **芯が 2 本なら、総寸法は芯どうしの寸法と同じ。** 同じ数字を 2 段書かない。
     if (spanX.length > 2) {
-      parts.push(totalOf(spanX, frame.y + frame.h + MARGIN.far, mm, ink, 'x'));
+      parts.push(totalOf(spanX, frame.y + frame.h + MARGIN.far, mm, ink, 'x', feet));
     }
   }
   // 左側 —— 縦方向の寸法。
   if (spanY.length >= 2) {
-    parts.push(chainOf(spanY, frame.x - MARGIN.near, mm, ink, 'y'));
+    parts.push(chainOf(spanY, frame.x - MARGIN.near, mm, ink, 'y', feet));
     if (spanY.length > 2) {
-      parts.push(totalOf(spanY, frame.x - MARGIN.far, mm, ink, 'y'));
+      parts.push(totalOf(spanY, frame.x - MARGIN.far, mm, ink, 'y', feet));
     }
   }
   return parts.join('');
@@ -163,10 +170,11 @@ function chainOf(
   mm: number,
   ink: Ink,
   axis: 'x' | 'y',
+  feet: boolean,
 ): string {
   const parts: string[] = [];
   for (let i = 0; i + 1 < axes.length; i += 1) {
-    parts.push(segment(axes[i]!.at, axes[i + 1]!.at, at, mm, ink, axis));
+    parts.push(segment(axes[i]!.at, axes[i + 1]!.at, at, mm, ink, axis, feet));
   }
   return parts.join('');
 }
@@ -178,8 +186,9 @@ function totalOf(
   mm: number,
   ink: Ink,
   axis: 'x' | 'y',
+  feet: boolean,
 ): string {
-  return segment(axes[0]!.at, axes[axes.length - 1]!.at, at, mm, ink, axis);
+  return segment(axes[0]!.at, axes[axes.length - 1]!.at, at, mm, ink, axis, feet);
 }
 
 /**
@@ -195,9 +204,11 @@ function segment(
   mm: number,
   ink: Ink,
   axis: 'x' | 'y',
+  feet: boolean,
 ): string {
   // **単位は縮尺が決める**（`src/units.ts`）。土木の図をミリで書かない。
-  const value = lengthText(to - from, mm);
+  // **国も縮尺が決める** —— `scale: { in: … }` ならフィートとインチ。
+  const value = lengthText(to - from, mm, feet);
   const mid = (from + to) / 2;
   const horizontal = axis === 'x';
 

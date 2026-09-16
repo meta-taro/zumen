@@ -37,6 +37,7 @@
  * 表題欄は図ではなく用紙の話で、貼り先（資料・Markdown）が持っている。
  */
 import { labelWidth } from './layout.ts';
+import { INCH } from './units.ts';
 import type { Box } from './layout.ts';
 
 /** 基準線の印。 */
@@ -137,11 +138,32 @@ export function hasGrid(grid: Grid): boolean {
  * 書かなければ寸法の数値を出さない。**知らない値を出すより出さないほうがよい。**
  * 現場の図面で寸法が間違っていることの害は、寸法が無いことより大きい。
  */
-export function scaleOf(raw: unknown): number | null {
+export interface Scale {
+  /** 1 px が何 mm か。**中では必ずミリで持つ。** */
+  mm: number;
+  /** 寸法をフィートとインチで書くか（`scale: { in: … }` と書いたとき）。 */
+  feet: boolean;
+}
+
+/**
+ * 縮尺を読む。**単位もここで決まる。**
+ *
+ * | 書き方 | 1 px | 寸法 |
+ * |---|---|---|
+ * | `scale: { mm: 40 }` | 40 mm | `14,000` |
+ * | `scale: { in: 1.5 }` | 1.5 インチ | `46'-0"` |
+ *
+ * **両方書いてあったらミリを採る。** 黙って混ぜるより、片方を無視して
+ * 検証器に言わせるほうが、書いた側が気づける（`scale-both-units`）。
+ */
+export function scaleOf(raw: unknown): Scale | null {
   if (raw === null || typeof raw !== 'object') return null;
-  const { mm } = raw as Record<string, unknown>;
-  if (typeof mm !== 'number' || !Number.isFinite(mm) || mm <= 0) return null;
-  return mm;
+  const { mm, in: inches } = raw as Record<string, unknown>;
+  if (typeof mm === 'number' && Number.isFinite(mm) && mm > 0) return { mm, feet: false };
+  if (typeof inches === 'number' && Number.isFinite(inches) && inches > 0) {
+    return { mm: inches * INCH, feet: true };
+  }
+  return null;
 }
 
 /** 方位。**書かなければ描かない。** */

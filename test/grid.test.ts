@@ -59,7 +59,9 @@ describe('通り芯を読む', () => {
 
 describe('縮尺を読む', () => {
   it('`scale: { mm: 20 }` で 1px が 20mm', () => {
-    assert.equal(scaleOf({ mm: 20 }), 20);
+    // **2026-09-16 に形が変わった** —— 縮尺が単位も決めるようになったため
+    // （`scale: { in: … }` でフィート表記。`test/imperial.test.ts`）。
+    assert.deepEqual(scaleOf({ mm: 20 }), { mm: 20, feet: false });
   });
 
   it('**書かなければ null。** 知らない縮尺で数値を出さない', () => {

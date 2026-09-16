@@ -247,10 +247,16 @@ function checkGridAndScale(doc: Document, add: Add, m: Messages, at: At): void {
   let hasScale = false;
   if (scale !== undefined && scale !== null) {
     const mm = isMap(scale) ? scale.get('mm') : undefined;
-    if (typeof mm === 'number' && Number.isFinite(mm) && mm > 0) {
+    // **インチでも書ける**（2026-09-16）。`scale: { in: 1.5 }` なら寸法はフィート表記。
+    const inches = isMap(scale) ? scale.get('in') : undefined;
+    if (isPositive(mm) || isPositive(inches)) {
       hasScale = true;
+      // **両方書いてあったら mm を採る**（`src/grid.ts`）。黙って片方を捨てない。
+      if (isPositive(mm) && isPositive(inches)) {
+        add('warning', 'scale-two-units', m.scaleTwoUnits, at(scale));
+      }
     } else {
-      add('warning', 'scale-invalid', m.scaleInvalid(String(mm)), at(scale));
+      add('warning', 'scale-invalid', m.scaleInvalid(String(mm ?? inches)), at(scale));
     }
   }
 
@@ -258,8 +264,9 @@ function checkGridAndScale(doc: Document, add: Add, m: Messages, at: At): void {
   const wall = doc.get('wall', true);
   if (wall !== undefined && wall !== null) {
     const mm = isMap(wall) ? wall.get('mm') : undefined;
-    if (!isPositive(mm)) {
-      add('warning', 'wall-invalid', m.wallInvalid(String(mm)), at(wall));
+    const inches = isMap(wall) ? wall.get('in') : undefined;
+    if (!isPositive(mm) && !isPositive(inches)) {
+      add('warning', 'wall-invalid', m.wallInvalid(String(mm ?? inches)), at(wall));
     } else if (!hasScale) {
       add('warning', 'wall-needs-scale', m.wallNeedsScale, at(wall));
     }
