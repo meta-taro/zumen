@@ -12,7 +12,7 @@ import { describe, it } from 'node:test';
 // @ts-expect-error 組み立て用のスクリプトは型を持たない（下で形を言う）
 import { CATEGORIES } from '../scripts/gallery-categories.mjs';
 // @ts-expect-error 同上
-import { CAPTIONS_EN, GROUPS_EN } from '../scripts/gallery-en.mjs';
+import { CAPTIONS_EN, GROUPS_EN, ORDER_EN } from '../scripts/gallery-en.mjs';
 
 /** `.mjs` は型を持たないので、ここで形だけ言う。 */
 interface Item {
@@ -56,5 +56,46 @@ describe('見本の英語', () => {
     const page = readFileSync('site/en/index.html', 'utf8');
     const figures = page.match(/<figure[^>]*data-cat=/g) ?? [];
     assert.equal(figures.length, names.length, '英語のページの枚数が合っていない');
+  });
+});
+
+/**
+ * **英語のページは、英語で書いた図から見せる**（2026-09-16）。
+ *
+ * 並びの正本は 1 つ（`gallery-categories.mjs`）だが、
+ * **どちらの言語のページでも同じ順に出すと、英語のページは日本の路線図から始まる。**
+ * 図の中の文字が日本語のままなので、初めて見た人はそこで読むのをやめる。
+ *
+ * 分類の順を英語だけ差し替え、分類の中では**名前が英字の見本を先に**出す
+ * （英字の名前は、図の中も英語で書いたもの）。**見本は 1 枚も落とさない。**
+ */
+describe('英語のページの並び', () => {
+  it('**分類の順が、英語だけ違う**（建築から始まり、日本の鉄道は最後）', () => {
+    const order = ORDER_EN as string[];
+    assert.equal(order[0], 'kenchiku');
+    assert.equal(order[order.length - 1], 'tetsudo');
+  });
+
+  it('**分類を 1 つも落としていない**', () => {
+    const order = [...(ORDER_EN as string[])].sort();
+    assert.deepEqual(order, groups.map((g) => g.key).sort());
+  });
+
+  it('**英語のページは、英字の名前の見本から始まる**', async () => {
+    const { readFileSync } = await import('node:fs');
+    const page = readFileSync('site/en/index.html', 'utf8');
+    const first = /<img loading="lazy"[^>]*src="\.\.\/gallery\/([^"]+)\.svg"/.exec(page);
+    assert.ok(first !== null, '英語のページに見本が 1 枚も無い');
+    assert.ok(
+      !/[ぁ-んァ-ヶ一-龠]/.test(first[1]!),
+      `英語のページが日本語の見本から始まっている: ${first[1]}`,
+    );
+  });
+
+  it('**日本語のページの並びは変わっていない**（路線図から始まる）', async () => {
+    const { readFileSync } = await import('node:fs');
+    const page = readFileSync('site/index.html', 'utf8');
+    const first = /<img loading="lazy"[^>]*src="gallery\/([^"]+)\.svg"/.exec(page);
+    assert.equal(first?.[1], '25-路線図');
   });
 });

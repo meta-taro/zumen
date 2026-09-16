@@ -12,7 +12,7 @@ import { readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 import { CATEGORIES } from './gallery-categories.mjs';
-import { CAPTIONS_EN, GROUPS_EN } from './gallery-en.mjs';
+import { CAPTIONS_EN, GROUPS_EN, ORDER_EN, englishFirst } from './gallery-en.mjs';
 import { kindOf } from '../src/kind.ts';
 import { layout } from '../src/layout.ts';
 import { render } from '../src/render.ts';
@@ -75,7 +75,13 @@ function pageParts(page) {
     }</span></button>`,
   ];
 
-  for (const group of CATEGORIES) {
+  // **英語のページだけ、分類の順を差し替える**（`gallery-en.mjs` の `ORDER_EN`）。
+  const order = en
+    ? ORDER_EN.map((key) => CATEGORIES.find((group) => group.key === key))
+    : CATEGORIES;
+  if (order.some((group) => group === undefined)) throw new Error('ORDER_EN に無い分類があります');
+
+  for (const group of order) {
     buttons.push(
       `    <button type="button" data-pick="${group.key}" aria-pressed="false">${
         en ? GROUPS_EN[group.key] : group.label
@@ -86,7 +92,7 @@ function pageParts(page) {
         en ? GROUPS_EN[group.key] : group.label
       }<span class="n">${group.items.length}</span></h3>`,
     );
-    for (const item of group.items) {
+    for (const item of en ? englishFirst(group.items) : group.items) {
       listed.add(item.name);
       const svg = readFileSync(join(DIR, `${item.name}.svg`), 'utf8');
       const size = svg.match(/<svg[^>]*width="(\d+)" height="(\d+)"/);

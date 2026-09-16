@@ -27,6 +27,37 @@ export const GROUPS_EN = {
   it: 'IT and software',
 };
 
+/**
+ * **英語のページだけの分類の順**（2026-09-16）。
+ *
+ * 並びの正本は `gallery-categories.mjs` だが、そのまま出すと
+ * **英語のページが日本の路線図から始まる。** 図の中の文字が日本語のままなので、
+ * 初めて見た人はそこで読むのをやめる。英語で書いた見本が多い建築から始め、
+ * 日本の鉄道は最後に置く。**見本は 1 枚も落とさない**（数は両方のページで同じ）。
+ */
+export const ORDER_EN = [
+  'kenchiku',
+  'setsubi',
+  'iryo',
+  'tenpo',
+  'moyooshi',
+  'gyomu',
+  'ui',
+  'it',
+  'tetsudo',
+];
+
+/**
+ * **分類の中では、英字の名前の見本を先に。**
+ *
+ * 英字の名前は、**図の中も英語で書いた見本**（`140-Exterior-wall-platform-framing`）。
+ * 並べ替えは安定 —— 同じ側どうしの順は正本のまま。
+ */
+export function englishFirst(items) {
+  const latin = (item) => !/[\u3040-\u30ff\u4e00-\u9fff]/.test(item.name);
+  return [...items.filter(latin), ...items.filter((item) => !latin(item))];
+}
+
 /** 名前 → 英語の 1 行。**alt にもこれを使う**（飾りを入れない）。 */
 export const CAPTIONS_EN = {
   // 鉄道・交通
