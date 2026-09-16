@@ -1,0 +1,657 @@
+version: 1
+kind: placement
+arrows: false
+title: "Panel schedule — LP-1 (fictional)"
+# **The schedule is shaped like the panel.**
+#
+# Odd circuits run down the left, even down the right, exactly as the breakers
+# sit in the enclosure. **Phase alternates every row**, so a two-pole breaker
+# picks up A and B and balances itself.
+#
+# A printed copy lives inside the panel door — **NEC 408.4(A)** asks for a
+# circuit directory in which every circuit is distinguishable from every other.
+# The VA figures here are connected load; **demand factors (NEC Article 220)**
+# are applied before sizing the feeder.
+#
+# **日本語の見本 19（受変電の結線）と対**。あちらは単線結線で系統を、
+# こちらは回路表で分岐を書く。
+#
+# Circuits, loads and the panel are fictional.
+nodes:
+  - id: title
+    label: "PANEL  LP-1"
+    hatch: solid
+    at: { x: 60, y: 60 }
+    size: { w: 200, h: 30 }
+  - id: v1
+    label: "120/240 V  1Ø 3W"
+    at: { x: 260, y: 60 }
+    size: { w: 200, h: 30 }
+  - id: v2
+    label: "MAIN  200 A"
+    at: { x: 460, y: 60 }
+    size: { w: 160, h: 30 }
+  - id: v3
+    label: "30 CKT  ·  NEMA 1"
+    at: { x: 620, y: 60 }
+    size: { w: 152, h: 30 }
+  - id: h1
+    label: "DESCRIPTION"
+    hatch: solid
+    at: { x: 60, y: 130 }
+    size: { w: 210, h: 22 }
+  - id: h2
+    label: "VA"
+    hatch: solid
+    at: { x: 270, y: 130 }
+    size: { w: 58, h: 22 }
+  - id: h3
+    label: "TRIP"
+    hatch: solid
+    at: { x: 328, y: 130 }
+    size: { w: 52, h: 22 }
+  - id: h4
+    label: "CKT"
+    hatch: solid
+    at: { x: 380, y: 130 }
+    size: { w: 36, h: 22 }
+  - id: h5
+    label: "CKT"
+    hatch: solid
+    at: { x: 416, y: 130 }
+    size: { w: 36, h: 22 }
+  - id: h6
+    label: "TRIP"
+    hatch: solid
+    at: { x: 452, y: 130 }
+    size: { w: 52, h: 22 }
+  - id: h7
+    label: "VA"
+    hatch: solid
+    at: { x: 504, y: 130 }
+    size: { w: 58, h: 22 }
+  - id: h8
+    label: "DESCRIPTION"
+    hatch: solid
+    at: { x: 562, y: 130 }
+    size: { w: 210, h: 22 }
+  - id: l1d
+    label: "Kitchen small appliance"
+    align: left
+    at: { x: 60, y: 152 }
+    size: { w: 210, h: 22 }
+  - id: l1v
+    label: "1500"
+    at: { x: 270, y: 152 }
+    size: { w: 58, h: 22 }
+  - id: l1t
+    label: "20/1"
+    at: { x: 328, y: 152 }
+    size: { w: 52, h: 22 }
+  - id: l1c
+    label: "1"
+    hatch: dots
+    at: { x: 380, y: 152 }
+    size: { w: 36, h: 22 }
+  - id: r2c
+    label: "2"
+    hatch: dots
+    at: { x: 416, y: 152 }
+    size: { w: 36, h: 22 }
+  - id: r2t
+    label: "20/1"
+    at: { x: 452, y: 152 }
+    size: { w: 52, h: 22 }
+  - id: r2v
+    label: "800"
+    at: { x: 504, y: 152 }
+    size: { w: 58, h: 22 }
+  - id: r2d
+    label: "Refrigerator"
+    align: left
+    at: { x: 562, y: 152 }
+    size: { w: 210, h: 22 }
+  - id: l3d
+    label: "Kitchen small appliance"
+    align: left
+    at: { x: 60, y: 174 }
+    size: { w: 210, h: 22 }
+  - id: l3v
+    label: "1500"
+    at: { x: 270, y: 174 }
+    size: { w: 58, h: 22 }
+  - id: l3t
+    label: "20/1"
+    at: { x: 328, y: 174 }
+    size: { w: 52, h: 22 }
+  - id: l3c
+    label: "3"
+    hatch: dots
+    at: { x: 380, y: 174 }
+    size: { w: 36, h: 22 }
+  - id: r4c
+    label: "4"
+    hatch: dots
+    at: { x: 416, y: 174 }
+    size: { w: 36, h: 22 }
+  - id: r4t
+    label: "20/1"
+    at: { x: 452, y: 174 }
+    size: { w: 52, h: 22 }
+  - id: r4v
+    label: "1200"
+    at: { x: 504, y: 174 }
+    size: { w: 58, h: 22 }
+  - id: r4d
+    label: "Dishwasher"
+    align: left
+    at: { x: 562, y: 174 }
+    size: { w: 210, h: 22 }
+  - id: l5d
+    label: "Laundry receptacles"
+    align: left
+    at: { x: 60, y: 196 }
+    size: { w: 210, h: 22 }
+  - id: l5v
+    label: "1500"
+    at: { x: 270, y: 196 }
+    size: { w: 58, h: 22 }
+  - id: l5t
+    label: "20/1"
+    at: { x: 328, y: 196 }
+    size: { w: 52, h: 22 }
+  - id: l5c
+    label: "5"
+    hatch: dots
+    at: { x: 380, y: 196 }
+    size: { w: 36, h: 22 }
+  - id: r6c
+    label: "6"
+    hatch: dots
+    at: { x: 416, y: 196 }
+    size: { w: 36, h: 22 }
+  - id: r6t
+    label: "20/1"
+    at: { x: 452, y: 196 }
+    size: { w: 52, h: 22 }
+  - id: r6v
+    label: "900"
+    at: { x: 504, y: 196 }
+    size: { w: 58, h: 22 }
+  - id: r6d
+    label: "Disposal"
+    align: left
+    at: { x: 562, y: 196 }
+    size: { w: 210, h: 22 }
+  - id: l7d
+    label: "Bath receptacles  GFCI"
+    align: left
+    at: { x: 60, y: 218 }
+    size: { w: 210, h: 22 }
+  - id: l7v
+    label: "1000"
+    at: { x: 270, y: 218 }
+    size: { w: 58, h: 22 }
+  - id: l7t
+    label: "20/1"
+    at: { x: 328, y: 218 }
+    size: { w: 52, h: 22 }
+  - id: l7c
+    label: "7"
+    hatch: dots
+    at: { x: 380, y: 218 }
+    size: { w: 36, h: 22 }
+  - id: r8c
+    label: "8"
+    hatch: dots
+    at: { x: 416, y: 218 }
+    size: { w: 36, h: 22 }
+  - id: r8t
+    label: "20/1"
+    at: { x: 452, y: 218 }
+    size: { w: 52, h: 22 }
+  - id: r8v
+    label: "1500"
+    at: { x: 504, y: 218 }
+    size: { w: 58, h: 22 }
+  - id: r8d
+    label: "Microwave"
+    align: left
+    at: { x: 562, y: 218 }
+    size: { w: 210, h: 22 }
+  - id: l9d
+    label: "Living / dining lighting"
+    align: left
+    at: { x: 60, y: 240 }
+    size: { w: 210, h: 22 }
+  - id: l9v
+    label: "720"
+    at: { x: 270, y: 240 }
+    size: { w: 58, h: 22 }
+  - id: l9t
+    label: "15/1"
+    at: { x: 328, y: 240 }
+    size: { w: 52, h: 22 }
+  - id: l9c
+    label: "9"
+    hatch: dots
+    at: { x: 380, y: 240 }
+    size: { w: 36, h: 22 }
+  - id: r10c
+    label: "10"
+    hatch: dots
+    at: { x: 416, y: 240 }
+    size: { w: 36, h: 22 }
+  - id: r10t
+    label: "15/1"
+    at: { x: 452, y: 240 }
+    size: { w: 52, h: 22 }
+  - id: r10v
+    label: "660"
+    at: { x: 504, y: 240 }
+    size: { w: 58, h: 22 }
+  - id: r10d
+    label: "Kitchen + hall lighting"
+    align: left
+    at: { x: 562, y: 240 }
+    size: { w: 210, h: 22 }
+  - id: l11d
+    label: "Bedroom 1 + 2"
+    align: left
+    at: { x: 60, y: 262 }
+    size: { w: 210, h: 22 }
+  - id: l11v
+    label: "900"
+    at: { x: 270, y: 262 }
+    size: { w: 58, h: 22 }
+  - id: l11t
+    label: "15/1"
+    at: { x: 328, y: 262 }
+    size: { w: 52, h: 22 }
+  - id: l11c
+    label: "11"
+    hatch: dots
+    at: { x: 380, y: 262 }
+    size: { w: 36, h: 22 }
+  - id: r12c
+    label: "12"
+    hatch: dots
+    at: { x: 416, y: 262 }
+    size: { w: 36, h: 22 }
+  - id: r12t
+    label: "15/1"
+    at: { x: 452, y: 262 }
+    size: { w: 52, h: 22 }
+  - id: r12v
+    label: "800"
+    at: { x: 504, y: 262 }
+    size: { w: 58, h: 22 }
+  - id: r12d
+    label: "Bedroom 3 + office"
+    align: left
+    at: { x: 562, y: 262 }
+    size: { w: 210, h: 22 }
+  - id: l13d
+    label: "Range"
+    align: left
+    at: { x: 60, y: 284 }
+    size: { w: 210, h: 22 }
+  - id: l13v
+    label: "6000"
+    at: { x: 270, y: 284 }
+    size: { w: 58, h: 22 }
+  - id: l13t
+    label: "50/2"
+    at: { x: 328, y: 284 }
+    size: { w: 52, h: 22 }
+  - id: l13c
+    label: "13"
+    hatch: dots
+    at: { x: 380, y: 284 }
+    size: { w: 36, h: 22 }
+  - id: r14c
+    label: "14"
+    hatch: dots
+    at: { x: 416, y: 284 }
+    size: { w: 36, h: 22 }
+  - id: r14t
+    label: "30/2"
+    at: { x: 452, y: 284 }
+    size: { w: 52, h: 22 }
+  - id: r14v
+    label: "5000"
+    at: { x: 504, y: 284 }
+    size: { w: 58, h: 22 }
+  - id: r14d
+    label: "Dryer"
+    align: left
+    at: { x: 562, y: 284 }
+    size: { w: 210, h: 22 }
+  - id: l15d
+    label: ""
+    align: left
+    at: { x: 60, y: 306 }
+    size: { w: 210, h: 22 }
+  - id: l15v
+    label: "6000"
+    at: { x: 270, y: 306 }
+    size: { w: 58, h: 22 }
+  - id: l15t
+    label: ""
+    at: { x: 328, y: 306 }
+    size: { w: 52, h: 22 }
+  - id: l15c
+    label: "15"
+    hatch: dots
+    at: { x: 380, y: 306 }
+    size: { w: 36, h: 22 }
+  - id: r16c
+    label: "16"
+    hatch: dots
+    at: { x: 416, y: 306 }
+    size: { w: 36, h: 22 }
+  - id: r16t
+    label: ""
+    at: { x: 452, y: 306 }
+    size: { w: 52, h: 22 }
+  - id: r16v
+    label: "5000"
+    at: { x: 504, y: 306 }
+    size: { w: 58, h: 22 }
+  - id: r16d
+    label: ""
+    align: left
+    at: { x: 562, y: 306 }
+    size: { w: 210, h: 22 }
+  - id: l17d
+    label: "Water heater"
+    align: left
+    at: { x: 60, y: 328 }
+    size: { w: 210, h: 22 }
+  - id: l17v
+    label: "4500"
+    at: { x: 270, y: 328 }
+    size: { w: 58, h: 22 }
+  - id: l17t
+    label: "30/2"
+    at: { x: 328, y: 328 }
+    size: { w: 52, h: 22 }
+  - id: l17c
+    label: "17"
+    hatch: dots
+    at: { x: 380, y: 328 }
+    size: { w: 36, h: 22 }
+  - id: r18c
+    label: "18"
+    hatch: dots
+    at: { x: 416, y: 328 }
+    size: { w: 36, h: 22 }
+  - id: r18t
+    label: "30/2"
+    at: { x: 452, y: 328 }
+    size: { w: 52, h: 22 }
+  - id: r18v
+    label: "3600"
+    at: { x: 504, y: 328 }
+    size: { w: 58, h: 22 }
+  - id: r18d
+    label: "Air handler"
+    align: left
+    at: { x: 562, y: 328 }
+    size: { w: 210, h: 22 }
+  - id: l19d
+    label: ""
+    align: left
+    at: { x: 60, y: 350 }
+    size: { w: 210, h: 22 }
+  - id: l19v
+    label: "4500"
+    at: { x: 270, y: 350 }
+    size: { w: 58, h: 22 }
+  - id: l19t
+    label: ""
+    at: { x: 328, y: 350 }
+    size: { w: 52, h: 22 }
+  - id: l19c
+    label: "19"
+    hatch: dots
+    at: { x: 380, y: 350 }
+    size: { w: 36, h: 22 }
+  - id: r20c
+    label: "20"
+    hatch: dots
+    at: { x: 416, y: 350 }
+    size: { w: 36, h: 22 }
+  - id: r20t
+    label: ""
+    at: { x: 452, y: 350 }
+    size: { w: 52, h: 22 }
+  - id: r20v
+    label: "3600"
+    at: { x: 504, y: 350 }
+    size: { w: 58, h: 22 }
+  - id: r20d
+    label: ""
+    align: left
+    at: { x: 562, y: 350 }
+    size: { w: 210, h: 22 }
+  - id: l21d
+    label: "Exterior + garage"
+    align: left
+    at: { x: 60, y: 372 }
+    size: { w: 210, h: 22 }
+  - id: l21v
+    label: "600"
+    at: { x: 270, y: 372 }
+    size: { w: 58, h: 22 }
+  - id: l21t
+    label: "20/1"
+    at: { x: 328, y: 372 }
+    size: { w: 52, h: 22 }
+  - id: l21c
+    label: "21"
+    hatch: dots
+    at: { x: 380, y: 372 }
+    size: { w: 36, h: 22 }
+  - id: r22c
+    label: "22"
+    hatch: dots
+    at: { x: 416, y: 372 }
+    size: { w: 36, h: 22 }
+  - id: r22t
+    label: "40/2"
+    at: { x: 452, y: 372 }
+    size: { w: 52, h: 22 }
+  - id: r22v
+    label: "4800"
+    at: { x: 504, y: 372 }
+    size: { w: 58, h: 22 }
+  - id: r22d
+    label: "Condenser"
+    align: left
+    at: { x: 562, y: 372 }
+    size: { w: 210, h: 22 }
+  - id: l23d
+    label: "Smoke / CO  (dedicated)"
+    align: left
+    at: { x: 60, y: 394 }
+    size: { w: 210, h: 22 }
+  - id: l23v
+    label: "200"
+    at: { x: 270, y: 394 }
+    size: { w: 58, h: 22 }
+  - id: l23t
+    label: "15/1"
+    at: { x: 328, y: 394 }
+    size: { w: 52, h: 22 }
+  - id: l23c
+    label: "23"
+    hatch: dots
+    at: { x: 380, y: 394 }
+    size: { w: 36, h: 22 }
+  - id: r24c
+    label: "24"
+    hatch: dots
+    at: { x: 416, y: 394 }
+    size: { w: 36, h: 22 }
+  - id: r24t
+    label: ""
+    at: { x: 452, y: 394 }
+    size: { w: 52, h: 22 }
+  - id: r24v
+    label: "4800"
+    at: { x: 504, y: 394 }
+    size: { w: 58, h: 22 }
+  - id: r24d
+    label: ""
+    align: left
+    at: { x: 562, y: 394 }
+    size: { w: 210, h: 22 }
+  - id: l25d
+    label: "SPARE"
+    align: left
+    at: { x: 60, y: 416 }
+    size: { w: 210, h: 22 }
+  - id: l25v
+    label: "—"
+    at: { x: 270, y: 416 }
+    size: { w: 58, h: 22 }
+  - id: l25t
+    label: "20/1"
+    at: { x: 328, y: 416 }
+    size: { w: 52, h: 22 }
+  - id: l25c
+    label: "25"
+    hatch: dots
+    at: { x: 380, y: 416 }
+    size: { w: 36, h: 22 }
+  - id: r26c
+    label: "26"
+    hatch: dots
+    at: { x: 416, y: 416 }
+    size: { w: 36, h: 22 }
+  - id: r26t
+    label: "20/1"
+    at: { x: 452, y: 416 }
+    size: { w: 52, h: 22 }
+  - id: r26v
+    label: "600"
+    at: { x: 504, y: 416 }
+    size: { w: 58, h: 22 }
+  - id: r26d
+    label: "Sump pump"
+    align: left
+    at: { x: 562, y: 416 }
+    size: { w: 210, h: 22 }
+  - id: l27d
+    label: "SPACE"
+    align: left
+    at: { x: 60, y: 438 }
+    size: { w: 210, h: 22 }
+  - id: l27v
+    label: "—"
+    at: { x: 270, y: 438 }
+    size: { w: 58, h: 22 }
+  - id: l27t
+    label: ""
+    at: { x: 328, y: 438 }
+    size: { w: 52, h: 22 }
+  - id: l27c
+    label: "27"
+    hatch: dots
+    at: { x: 380, y: 438 }
+    size: { w: 36, h: 22 }
+  - id: r28c
+    label: "28"
+    hatch: dots
+    at: { x: 416, y: 438 }
+    size: { w: 36, h: 22 }
+  - id: r28t
+    label: "20/1"
+    at: { x: 452, y: 438 }
+    size: { w: 52, h: 22 }
+  - id: r28v
+    label: "—"
+    at: { x: 504, y: 438 }
+    size: { w: 58, h: 22 }
+  - id: r28d
+    label: "SPARE"
+    align: left
+    at: { x: 562, y: 438 }
+    size: { w: 210, h: 22 }
+  - id: l29d
+    label: "SPACE"
+    align: left
+    at: { x: 60, y: 460 }
+    size: { w: 210, h: 22 }
+  - id: l29v
+    label: "—"
+    at: { x: 270, y: 460 }
+    size: { w: 58, h: 22 }
+  - id: l29t
+    label: ""
+    at: { x: 328, y: 460 }
+    size: { w: 52, h: 22 }
+  - id: l29c
+    label: "29"
+    hatch: dots
+    at: { x: 380, y: 460 }
+    size: { w: 36, h: 22 }
+  - id: r30c
+    label: "30"
+    hatch: dots
+    at: { x: 416, y: 460 }
+    size: { w: 36, h: 22 }
+  - id: r30t
+    label: ""
+    at: { x: 452, y: 460 }
+    size: { w: 52, h: 22 }
+  - id: r30v
+    label: "—"
+    at: { x: 504, y: 460 }
+    size: { w: 58, h: 22 }
+  - id: r30d
+    label: "SPACE"
+    align: left
+    at: { x: 562, y: 460 }
+    size: { w: 210, h: 22 }
+  - id: tA
+    label: "Phase A  31,180 VA"
+    hatch: lines
+    at: { x: 60, y: 482 }
+    size: { w: 356, h: 22 }
+  - id: tB
+    label: "Phase B  31,000 VA"
+    hatch: lines
+    at: { x: 416, y: 482 }
+    size: { w: 356, h: 22 }
+  - id: n1
+    label: "Odd circuits are the left column, even the right — the schedule mirrors the panel itself."
+    marker: none
+    align: left
+    at: { x: 60, y: 528 }
+    size: { w: 712, h: 20 }
+  - id: n2
+    label: "Phase alternates every row, so a two-pole breaker lands on A and B and balances itself."
+    marker: none
+    align: left
+    at: { x: 60, y: 550 }
+    size: { w: 712, h: 20 }
+  - id: n3
+    label: "A copy lives inside the panel door: NEC 408.4(A) wants every circuit distinguishable from the rest."
+    marker: none
+    align: left
+    at: { x: 60, y: 572 }
+    size: { w: 712, h: 20 }
+  - id: n4
+    label: "VA figures are connected load. Demand factors (NEC Article 220) come before sizing the feeder."
+    marker: none
+    align: left
+    at: { x: 60, y: 594 }
+    size: { w: 712, h: 20 }
+  - id: n5
+    label: "Circuits, loads and the panel are fictional."
+    marker: none
+    align: left
+    at: { x: 60, y: 616 }
+    size: { w: 712, h: 20 }

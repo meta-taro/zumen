@@ -63,6 +63,7 @@ export const CATEGORIES = [
       { name: '18-配管の系統', alt: '冷却水の系統', caption: '配管の系統（P&amp;ID）' },
       { name: '38-計装ループ図', alt: '計装ループ図', caption: '計装ループ図（TIC-101）' },
       { name: '19-受変電の結線', alt: '受変電設備の単線結線図', caption: '受変電の結線（単線結線図）' },
+      { name: '142-Panel-schedule', alt: '分電盤の回路表（120/240V 単相 3 線・英語／架空）', caption: '分電盤の回路表（表の形が、盤の形）' },
       { name: '50-電子回路図', alt: 'LED 点灯回路の電子回路図', caption: '電子回路図（IEC／JIS 記号）' },
       { name: '06-家の電気系統', alt: '住宅の電気系統', caption: '住宅の電気系統' },
       { name: '10-給排水の系統', alt: '住宅の給排水', caption: '住宅の給排水' },

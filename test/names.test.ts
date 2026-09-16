@@ -647,6 +647,40 @@ nodes:
    * 枠が無ければ**どこにあるはずだったのかも分からない。**
    * 広げたら**見本 11 枚**が同じ形で埋まっていた（どれも偶然、無害な所へ落ちていた）。
    */
+  /**
+   * **枠が無ければ、細くても見る**（2026-09-16 に 200px → 40px へ下げた）。
+   *
+   * 200px のままで**2 回続けて取り逃がした** —— 外壁の軸組（見本 140）の
+   * 152px の欄と、分電盤の回路表（見本 142）の見出し。どちらも文字が外へ飛んでいた。
+   * **枠の無い箱は、箱そのものが文字の置き場所**なので、
+   * 「小さい印だから外へ出す」という言い分が立たない。
+   */
+  it('**枠が無ければ、細い箱でも知らせる**', async () => {
+    const narrow = `version: 1
+kind: placement
+nodes:
+  - id: note
+    label: この文は 60px の箱には入りません
+    marker: none
+    at: { x: 0, y: 0 }
+    size: { w: 60, h: 20 }
+`;
+    assert.deepEqual((await inspect(narrow)).adriftNames, ['note']);
+  });
+
+  it('**場所を指すだけの点は、細ければ知らせない**（測点の印は 8px）', async () => {
+    const dot = `version: 1
+kind: placement
+nodes:
+  - id: sta
+    label: No.1
+    marker: none
+    at: { x: 0, y: 0 }
+    size: { w: 8, h: 8 }
+`;
+    assert.deepEqual((await inspect(dot)).adriftNames, []);
+  });
+
   it('**枠の無い注記でも知らせる**', async () => {
     const out = await inspect(CELL.replace('    at: { x: 0, y: 0 }', '    marker: none\n    at: { x: 0, y: 0 }'));
     assert.deepEqual(out.adriftNames, ['wide']);

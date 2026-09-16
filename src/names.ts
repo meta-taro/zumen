@@ -510,16 +510,28 @@ export function hiddenTags(boxes: readonly Box[]): string[] {
  * 枠が無ければ**どこにあるはずだったのかも分からない。**
  * 見本 11 枚が同じ形で埋まっていた（どれも偶然、無害な所へ落ちていた）。
  *
- * 小さい印を外すのは `WIDE_ENOUGH` が既にやっている（駅の丸は 34px）。
+ * ## 枠が無ければ、もっと細くても見る（2026-09-16 に下げた）
+ *
+ * **枠の無い箱は、箱そのものが文字の置き場所。** 脇に置く印が無いので、
+ * 「小さい印だから名前は外へ出す」という言い分が立たない。
+ *
+ * 200px のままで**2 回続けて取り逃がした** ——
+ * 外壁の軸組（見本 140）の 152px の欄と、分電盤の回路表（見本 142）の見出し。
+ * どちらも文字が箱の外へ飛んでいた。
+ *
+ * **下限は 40px。** これより細い `marker: none` は
+ * 「その場所を指すための点」で（測点の印は 8px）、名前が外へ出るのが正しい。
  */
 const WIDE_ENOUGH = 200;
+/** 枠の無い注記で見る下限。**これより細いのは、場所を指す点。** */
+const WIDE_ENOUGH_BARE = 40;
 
 export function adriftNames(boxes: readonly Box[], plans: Map<string, Plan>): string[] {
   return boxes
     .filter(
       (box) =>
         box.label !== '' &&
-        box.w >= WIDE_ENOUGH &&
+        box.w >= (box.marker === 'none' ? WIDE_ENOUGH_BARE : WIDE_ENOUGH) &&
         (box.marker === 'box' || box.marker === 'none') &&
         box.symbol === null &&
         plans.get(box.id)?.kind === 'outside',
