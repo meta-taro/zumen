@@ -575,6 +575,10 @@ const LAYERED_ON_PURPOSE: Record<string, string> = {
     '**浮子は浮子綱の上、沈子は沈子綱の上に付く。** 網地の縁に半分かかるのが、付いている形',
   '135-工業用パターン.zumen.yaml':
     '**合印は型紙の縁に入れる切り込み。** 縁に半分かかるのが、入っている形',
+  '145-Sprinkler-layout.zumen.yaml':
+    '**ヘッドは枝管に付き、枝管はクロスメインに付く。** 繋がっている所が重なるのが、配管の図',
+  '144-Accessible-toilet-room.zumen.yaml':
+    '**有効床面どうしは重なってよい**（ADA）。便器の前の 60x56 と洗面の 30x48 は、重なったまま両方成り立つ',
   '143-Roof-framing-plan.zumen.yaml':
     '**垂木は棟木に取り付く。** 平面では線どうしが交わるのが、取り付いている形',
   '139-矩計図.zumen.yaml':

@@ -1,0 +1,193 @@
+version: 1
+kind: placement
+arrows: false
+title: "Sprinkler layout — light hazard (fictional)"
+scale: { in: 1.5 }
+grid:
+  x:
+    - { id: A, at: 60 }
+    - { id: B, at: 108 }
+    - { id: C, at: 396 }
+    - { id: D, at: 444 }
+  y:
+    - { id: 1, at: 60 }
+    - { id: 2, at: 108 }
+    - { id: 3, at: 300 }
+    - { id: 4, at: 348 }
+# **Spacing is two numbers at once** —— the floor area one head is responsible
+# for, and how far apart heads may sit. Light hazard allows **225 sq ft** and
+# **15 ft**; this grid uses 12 x 12 ft, so each head carries 144 sq ft.
+#
+# **The wall rule follows from the spacing:** no more than half of it, here
+# 7 ft 6 in. Widen the grid and the heads move away from the walls as well.
+#
+# **日本語の見本 136（天井伏図）・119（消火器と消火栓）と対。**
+#
+# Figures follow NFPA 13 for light hazard. The room and the layout are fictional.
+nodes:
+  - id: room
+    label: ""
+    at: { x: 60, y: 60 }
+    size: { w: 384, h: 288 }
+  - id: main
+    label: ""
+    hatch: solid
+    at: { x: 106, y: 108 }
+    size: { w: 4, h: 192 }
+  - id: br0
+    label: ""
+    hatch: solid
+    at: { x: 108, y: 106.5 }
+    size: { w: 288, h: 3 }
+  - id: br1
+    label: ""
+    hatch: solid
+    at: { x: 108, y: 202.5 }
+    size: { w: 288, h: 3 }
+  - id: br2
+    label: ""
+    hatch: solid
+    at: { x: 108, y: 298.5 }
+    size: { w: 288, h: 3 }
+  - id: cover
+    label: ""
+    hatch: lines
+    at: { x: 156, y: 156 }
+    size: { w: 96, h: 96 }
+  - id: s1
+    label: ""
+    tag: ""
+    marker: circle
+    at: { x: 101, y: 101 }
+    size: { w: 14, h: 14 }
+  - id: s2
+    label: ""
+    tag: ""
+    marker: circle
+    at: { x: 197, y: 101 }
+    size: { w: 14, h: 14 }
+  - id: s3
+    label: ""
+    tag: ""
+    marker: circle
+    at: { x: 293, y: 101 }
+    size: { w: 14, h: 14 }
+  - id: s4
+    label: ""
+    tag: ""
+    marker: circle
+    at: { x: 389, y: 101 }
+    size: { w: 14, h: 14 }
+  - id: s5
+    label: ""
+    tag: ""
+    marker: circle
+    at: { x: 101, y: 197 }
+    size: { w: 14, h: 14 }
+  - id: s6
+    label: ""
+    tag: ""
+    marker: circle
+    at: { x: 197, y: 197 }
+    size: { w: 14, h: 14 }
+  - id: s7
+    label: ""
+    tag: ""
+    marker: circle
+    at: { x: 293, y: 197 }
+    size: { w: 14, h: 14 }
+  - id: s8
+    label: ""
+    tag: ""
+    marker: circle
+    at: { x: 389, y: 197 }
+    size: { w: 14, h: 14 }
+  - id: s9
+    label: ""
+    tag: ""
+    marker: circle
+    at: { x: 101, y: 293 }
+    size: { w: 14, h: 14 }
+  - id: s10
+    label: ""
+    tag: ""
+    marker: circle
+    at: { x: 197, y: 293 }
+    size: { w: 14, h: 14 }
+  - id: s11
+    label: ""
+    tag: ""
+    marker: circle
+    at: { x: 293, y: 293 }
+    size: { w: 14, h: 14 }
+  - id: s12
+    label: ""
+    tag: ""
+    marker: circle
+    at: { x: 389, y: 293 }
+    size: { w: 14, h: 14 }
+  - id: riser
+    label: ""
+    marker: double
+    at: { x: 99, y: 99 }
+    size: { w: 18, h: 18 }
+  - id: m1
+    label: "Light hazard: 225 sq ft max per sprinkler, 15 ft max spacing"
+    marker: none
+    align: left
+    at: { x: 500, y: 62 }
+    size: { w: 460, h: 18 }
+  - id: m2
+    label: "This grid is 12 ft x 12 ft = 144 sq ft a head"
+    marker: none
+    align: left
+    at: { x: 500, y: 90 }
+    size: { w: 460, h: 18 }
+  - id: m3
+    label: "6 ft from the walls — half the spacing is the limit (7 ft 6 in)"
+    marker: none
+    align: left
+    at: { x: 500, y: 118 }
+    size: { w: 460, h: 18 }
+  - id: m4
+    label: "4 in minimum from a wall, so a head never sits in the corner"
+    marker: none
+    align: left
+    at: { x: 500, y: 146 }
+    size: { w: 460, h: 18 }
+  - id: m5
+    label: "Deflector 1 in to 12 in below the ceiling (standard spray)"
+    marker: none
+    align: left
+    at: { x: 500, y: 174 }
+    size: { w: 460, h: 18 }
+  - id: m6
+    label: "Hatched: the area one head is responsible for"
+    marker: none
+    align: left
+    at: { x: 500, y: 202 }
+    size: { w: 460, h: 18 }
+  - id: m7
+    label: "Double circle: riser and cross main"
+    marker: none
+    align: left
+    at: { x: 500, y: 230 }
+    size: { w: 460, h: 18 }
+  - id: n1
+    label: "Spacing is two numbers at once: the area a head covers, and how far apart heads may sit."
+    marker: none
+    align: left
+    at: { x: 60, y: 420 }
+    size: { w: 700, h: 18 }
+  - id: n2
+    label: "The wall limit is half the spacing, so widening the grid moves the heads off the walls too."
+    marker: none
+    align: left
+    at: { x: 60, y: 442 }
+    size: { w: 700, h: 18 }
+  - id: n3
+    label: "Figures follow NFPA 13 for light hazard. The room and the layout are fictional."
+    marker: none
+    align: left
+    at: { x: 60, y: 464 }
+    size: { w: 700, h: 18 }

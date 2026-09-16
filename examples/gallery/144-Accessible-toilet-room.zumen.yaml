@@ -1,0 +1,166 @@
+version: 1
+kind: placement
+arrows: false
+title: "Accessible single-user toilet room (fictional)"
+scale: { in: 0.25 }
+wall: { in: 2, outer: 3 }
+grid:
+  x:
+    - { id: A, at: 60 }
+    - { id: B, at: 444 }
+  y:
+    - { id: 1, at: 60 }
+    - { id: 2, at: 396 }
+# **The drawing is made of clearances, not of fixtures.**
+#
+# What makes this room work is the empty space: a 60 in turning circle, a
+# 60 x 56 in clear floor space at the water closet, and 30 x 48 in at the
+# lavatory. **The fixtures are what is left over.**
+#
+# Dimensions follow the 2010 ADA Standards (604 / 609 / 305 / 304).
+# The room and the fixtures are fictional.
+nodes:
+  - id: rm
+    label: ""
+    at: { x: 60, y: 60 }
+    size: { w: 384, h: 336 }
+    openings:
+      - { kind: door, side: bottom, at: 0.78, width: 144 }
+  - id: clear
+    label: ""
+    hatch: lines
+    at: { x: 66, y: 66 }
+    size: { w: 240, h: 224 }
+  - id: wc
+    label: ""
+    marker: ellipse
+    at: { x: 88, y: 82 }
+    size: { w: 88, h: 120 }
+  - id: gbSide
+    label: ""
+    hatch: solid
+    at: { x: 66, y: 82 }
+    size: { w: 5, h: 168 }
+  - id: gbRear
+    label: ""
+    hatch: solid
+    at: { x: 72, y: 66 }
+    size: { w: 144, h: 5 }
+  - id: lav
+    label: ""
+    hatch: dots
+    at: { x: 342, y: 310 }
+    size: { w: 96, h: 80 }
+  - id: lavClear
+    label: ""
+    hatch: lines
+    at: { x: 246, y: 270 }
+    size: { w: 192, h: 120 }
+  - id: turn
+    label: ""
+    marker: none
+    radius: 120
+    at: { x: 250, y: 226 }
+    size: { w: 4, h: 4 }
+  - id: m1
+    label: "Water closet centerline 16-18 in from the side wall (604.2)"
+    marker: none
+    align: left
+    at: { x: 508, y: 62 }
+    size: { w: 520, h: 18 }
+  - id: m2
+    label: "Clear floor space 60 in x 56 in, any approach (604.3.1)"
+    marker: none
+    align: left
+    at: { x: 508, y: 90 }
+    size: { w: 520, h: 18 }
+  - id: m3
+    label: "Side grab bar 42 in min (604.5.1)"
+    marker: none
+    align: left
+    at: { x: 508, y: 118 }
+    size: { w: 520, h: 18 }
+  - id: m4
+    label: "Rear grab bar 36 in min (604.5.2)"
+    marker: none
+    align: left
+    at: { x: 508, y: 146 }
+    size: { w: 520, h: 18 }
+  - id: m5
+    label: "Grab bars 33-36 in above the floor (609.4)"
+    marker: none
+    align: left
+    at: { x: 508, y: 174 }
+    size: { w: 520, h: 18 }
+  - id: m6
+    label: "Lavatory rim 34 in max, knee 27 in (606.3)"
+    marker: none
+    align: left
+    at: { x: 508, y: 202 }
+    size: { w: 520, h: 18 }
+  - id: m7
+    label: "Clear floor at the lavatory 30 in x 48 in (305.3)"
+    marker: none
+    align: left
+    at: { x: 508, y: 230 }
+    size: { w: 520, h: 18 }
+  - id: m8
+    label: "Turning space: a 60 in circle (304.3.1)"
+    marker: none
+    align: left
+    at: { x: 508, y: 258 }
+    size: { w: 520, h: 18 }
+  - id: m9
+    label: "Door: 36 in x 48 in maneuvering space outside (404.2.4)"
+    marker: none
+    align: left
+    at: { x: 508, y: 286 }
+    size: { w: 520, h: 18 }
+  - id: m10
+    label: "and it may not swing into any fixture clearance"
+    marker: none
+    align: left
+    at: { x: 508, y: 310 }
+    size: { w: 520, h: 18 }
+  - id: lwc
+    label: "WC"
+    marker: none
+    align: left
+    at: { x: 104, y: 124 }
+    size: { w: 50, h: 18 }
+  - id: llav
+    label: "LAV"
+    marker: none
+    align: left
+    at: { x: 364, y: 348 }
+    size: { w: 60, h: 18 }
+  - id: lclear
+    label: "60 x 56 clear"
+    marker: none
+    align: left
+    at: { x: 84, y: 252 }
+    size: { w: 150, h: 18 }
+  - id: lturn
+    label: "60 in turning circle"
+    marker: none
+    align: left
+    at: { x: 64, y: 410 }
+    size: { w: 200, h: 18 }
+  - id: n1
+    label: "A single-user room like this is about as small as it gets while every clearance still fits."
+    marker: none
+    align: left
+    at: { x: 60, y: 468 }
+    size: { w: 760, h: 18 }
+  - id: n2
+    label: "Clearances may overlap: the turning circle can run under the lavatory where the knee clearance allows it."
+    marker: none
+    align: left
+    at: { x: 60, y: 490 }
+    size: { w: 760, h: 18 }
+  - id: n3
+    label: "Dimensions follow the 2010 ADA Standards. The room and the fixtures are fictional."
+    marker: none
+    align: left
+    at: { x: 60, y: 512 }
+    size: { w: 760, h: 18 }
