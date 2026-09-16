@@ -40,6 +40,7 @@ export const CATEGORIES = [
       { name: '139-矩計図', alt: '木造軸組の矩計図（平屋の外壁まわり／架空）', caption: '矩計図（7 つの高さが、ここで決まる）' },
       { name: '140-Exterior-wall-platform-framing', alt: '木造外壁の軸組（platform framing・英語／架空）', caption: '外壁の軸組（英語圏の同じ主題。大工が建てる順に積む）' },
       { name: '143-Roof-framing-plan', alt: '寄棟の小屋伏図（垂木・隅木・棟木／英語・架空）', caption: '小屋伏図（平面では、垂木は線）' },
+      { name: '151-Deck-framing-plan', alt: 'デッキの伏図（根太・梁・束・基礎／英語・架空）', caption: 'デッキの伏図（力の通り道を、7 つの部材でつなぐ）' },
       { name: '144-Accessible-toilet-room', alt: '車椅子対応の便所（ADA・回転空間と有効床面／英語・架空）', caption: '車椅子対応の便所（図は器具ではなく、空きでできている）' },
       { name: '141-Two-story-house-plan', alt: '2 階建て住宅の平面図（1F・2F・吹き抜け／英語・架空）', caption: '2 階建ての平面図（英語・フィート寸法・吹き抜け）' },
       { name: '95-避難所レイアウト', alt: '避難所レイアウト（体育館・スフィア基準）', caption: '避難所レイアウト（1 人 3.5m² とトイレの数）' },
