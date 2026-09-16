@@ -1,0 +1,274 @@
+version: 1
+kind: placement
+arrows: false
+title: Exterior wall framing, platform framing (fictional)
+# **Built in the order a framer builds it** — the same wall as 見本 139
+# （矩計図）, but in the other building culture.
+#
+# ## What goes on the drawing
+#
+# Sill plate (pressure treated) on anchor bolts, bottom plate, studs at 16 in
+# o.c., the rough opening (king stud, jack stud, header, cripples, rough sill),
+# the double top plate, then the skin: sheathing, WRB, rainscreen battens, siding.
+#
+# **The skin is drawn part way across on purpose** —— that is how a wall looks
+# while it is being built, and it keeps the framing visible behind it.
+#
+# ## The code numbers on the sheet
+#
+# | | |
+# |---|---|
+# | Anchor bolts | 1/2 in dia, 7 in embedment, **6 ft o.c. max**, 2 per plate (IRC R403.1.6) |
+# | Studs | 2x6 at **16 in o.c.** |
+#
+# **日本語の同じ主題は見本 139（矩計図）。** 同じ「壁の作り方」を、
+# 尺貫法と通り芯で書くか、フィートと o.c. で書くかの違いとして並べてある。
+#
+# 1 px ＝ 8 mm。寸法・建物はすべて架空。
+scale: { mm: 8 }
+grid:
+  x:
+    - { id: A, at: 60 }
+    - { id: B, at: 670 }
+  y:
+    - { id: "T.O. plate", at: 60, mark: level }
+    - { id: "Floor line", at: 365, mark: level }
+nodes:
+  - id: found
+    label: ""
+    hatch: dots
+    at: { x: 52.5, y: 369.75 }
+    size: { w: 625, h: 50 }
+  - id: sill
+    label: ""
+    hatch: lines
+    at: { x: 60, y: 365 }
+    size: { w: 610, h: 4.75 }
+  - id: ab0
+    label: ""
+    hatch: solid
+    at: { x: 97.5, y: 357.5 }
+    size: { w: 1.5, h: 11.25 }
+  - id: ab1
+    label: ""
+    hatch: solid
+    at: { x: 285, y: 357.5 }
+    size: { w: 1.5, h: 11.25 }
+  - id: ab2
+    label: ""
+    hatch: solid
+    at: { x: 472.5, y: 357.5 }
+    size: { w: 1.5, h: 11.25 }
+  - id: ab3
+    label: ""
+    hatch: solid
+    at: { x: 660, y: 357.5 }
+    size: { w: 1.5, h: 11.25 }
+  - id: nfound
+    label: "Concrete foundation"
+    marker: none
+    align: left
+    at: { x: 85, y: 389.75 }
+    size: { w: 175, h: 18 }
+  - id: nsill
+    label: "Sill plate 2x6 (PT), anchor bolts"
+    marker: none
+    align: left
+    at: { x: 685, y: 387.5 }
+    size: { w: 250, h: 18 }
+  - id: bot
+    label: ""
+    hatch: lines
+    at: { x: 60, y: 360.25 }
+    size: { w: 610, h: 4.75 }
+  - id: st0
+    label: ""
+    hatch: lines
+    at: { x: 60, y: 69.5 }
+    size: { w: 4.75, h: 290.75 }
+  - id: st1
+    label: ""
+    hatch: lines
+    at: { x: 110.75, y: 69.5 }
+    size: { w: 4.75, h: 290.75 }
+  - id: st2
+    label: ""
+    hatch: lines
+    at: { x: 161.5, y: 69.5 }
+    size: { w: 4.75, h: 290.75 }
+  - id: st3
+    label: ""
+    hatch: lines
+    at: { x: 212.25, y: 69.5 }
+    size: { w: 4.75, h: 290.75 }
+  - id: st4
+    label: ""
+    hatch: lines
+    at: { x: 263, y: 69.5 }
+    size: { w: 4.75, h: 290.75 }
+  - id: st5
+    label: ""
+    hatch: lines
+    at: { x: 313.75, y: 69.5 }
+    size: { w: 4.75, h: 290.75 }
+  - id: st6
+    label: ""
+    hatch: lines
+    at: { x: 364.5, y: 69.5 }
+    size: { w: 4.75, h: 290.75 }
+  - id: st7
+    label: ""
+    hatch: lines
+    at: { x: 415.25, y: 69.5 }
+    size: { w: 4.75, h: 290.75 }
+  - id: st8
+    label: ""
+    hatch: lines
+    at: { x: 466, y: 69.5 }
+    size: { w: 4.75, h: 290.75 }
+  - id: st9
+    label: ""
+    hatch: lines
+    at: { x: 516.75, y: 69.5 }
+    size: { w: 4.75, h: 290.75 }
+  - id: st10
+    label: ""
+    hatch: lines
+    at: { x: 567.5, y: 69.5 }
+    size: { w: 4.75, h: 290.75 }
+  - id: st11
+    label: ""
+    hatch: lines
+    at: { x: 618.25, y: 69.5 }
+    size: { w: 4.75, h: 290.75 }
+  - id: stEnd
+    label: ""
+    hatch: lines
+    at: { x: 665.25, y: 69.5 }
+    size: { w: 4.75, h: 290.75 }
+  - id: nstud
+    label: "Studs 2x6 at 16 in o.c."
+    marker: none
+    align: left
+    at: { x: 685, y: 137.5 }
+    size: { w: 225, h: 18 }
+  - id: nbot
+    label: "Bottom plate 2x6"
+    marker: none
+    align: left
+    at: { x: 685, y: 350 }
+    size: { w: 200, h: 18 }
+  - id: kingL
+    label: ""
+    hatch: lines
+    at: { x: 279.25, y: 69.5 }
+    size: { w: 4.75, h: 290.75 }
+  - id: kingR
+    label: ""
+    hatch: lines
+    at: { x: 446, y: 69.5 }
+    size: { w: 4.75, h: 290.75 }
+  - id: jackL
+    label: ""
+    hatch: lines
+    at: { x: 284, y: 95.25 }
+    size: { w: 4.75, h: 265 }
+  - id: jackR
+    label: ""
+    hatch: lines
+    at: { x: 441.25, y: 95.25 }
+    size: { w: 4.75, h: 265 }
+  - id: header
+    label: ""
+    hatch: cross
+    at: { x: 284, y: 65.87 }
+    size: { w: 162, h: 29.38 }
+  - id: rsill
+    label: ""
+    hatch: lines
+    at: { x: 288.75, y: 247.75 }
+    size: { w: 152.5, h: 4.75 }
+  - id: crip1
+    label: ""
+    hatch: lines
+    at: { x: 313.75, y: 252.5 }
+    size: { w: 4.75, h: 107.75 }
+  - id: crip2
+    label: ""
+    hatch: lines
+    at: { x: 376.25, y: 252.5 }
+    size: { w: 4.75, h: 107.75 }
+  - id: nhead
+    label: "Header 2-2x10"
+    marker: none
+    align: left
+    at: { x: 452.5, y: 72.75 }
+    size: { w: 150, h: 18 }
+  - id: nking
+    label: "King stud, jack stud"
+    marker: none
+    align: left
+    at: { x: 111.25, y: 147.75 }
+    size: { w: 187.5, h: 18 }
+  - id: nro
+    label: "Rough opening 1,220 x 1,220"
+    marker: none
+    align: left
+    at: { x: 296.25, y: 262.75 }
+    size: { w: 237.5, h: 18 }
+  - id: tp1
+    label: ""
+    hatch: lines
+    at: { x: 60, y: 60 }
+    size: { w: 610, h: 4.75 }
+  - id: tp2
+    label: ""
+    hatch: lines
+    at: { x: 60, y: 64.75 }
+    size: { w: 610, h: 4.75 }
+  - id: ntp
+    label: "Double top plate 2x6"
+    marker: none
+    align: left
+    at: { x: 685, y: 67.5 }
+    size: { w: 212.5, h: 18 }
+  - id: sheath
+    label: ""
+    hatch: dots
+    at: { x: 58.62, y: 58.62 }
+    size: { w: 280.6, h: 311.13 }
+  - id: nsh
+    label: "Sheathing 11 mm OSB"
+    marker: none
+    align: left
+    at: { x: 685, y: 195 }
+    size: { w: 225, h: 18 }
+  - id: siding
+    label: ""
+    hatch: lines
+    at: { x: 52.5, y: 52.5 }
+    size: { w: 134.2, h: 317.25 }
+  - id: nwrb
+    label: "WRB, then 19 mm rainscreen battens"
+    marker: none
+    align: left
+    at: { x: 685, y: 245 }
+    size: { w: 325, h: 18 }
+  - id: nsid
+    label: "Siding, lapped over the battens"
+    marker: none
+    align: left
+    at: { x: 685, y: 295 }
+    size: { w: 325, h: 18 }
+  - id: n1
+    label: "Built in the order a framer builds it, plate to skin."
+    marker: none
+    align: left
+    at: { x: 60, y: 477.5 }
+    size: { w: 650, h: 18 }
+  - id: n2
+    label: "Anchor bolts 1/2 in dia, 7 in embedment, 6 ft o.c. max, 2 per plate (IRC R403.1.6)."
+    marker: none
+    align: left
+    at: { x: 60, y: 505 }
+    size: { w: 650, h: 18 }

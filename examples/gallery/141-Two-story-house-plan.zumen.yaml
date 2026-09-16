@@ -1,0 +1,211 @@
+version: 1
+kind: placement
+title: "Two-story house, first and second floor (fictional)"
+# **A US floor plan, dimensioned in feet and inches.**
+#
+# `scale: { in: 1.5 }` makes 1 px = 1.5 in, and **the dimensions come out as
+# `20'-0"` / `44'-0"`** —— the unit follows the scale, not the locale.
+# Walls are 4 in inside and 8 in outside (`wall: { in: 4, outer: 8 }`).
+#
+# ## OPEN TO BELOW
+#
+# The hatched rooms on the first floor (FOYER and GREAT ROOM) are two storeys
+# tall. **The same area on the second floor is marked OPEN TO BELOW** and lines
+# up with them —— that pair is how a two-storey volume is written on a set of
+# plans. `views`（D35）で 2 面を 1 枚に置き、通り芯を両方へ同じ位置で付けてある。
+#
+# Stairs follow IRC R311.7: 36 in min clear width, 7 3/4 in max riser,
+# 10 in min tread, 6 ft 8 in min headroom.
+#
+# 1 px ＝ 1.5 in。寸法・間取りはすべて架空。
+# 1 px = 1.5 in. House 44'-0" x 28'-0" (fictional).
+scale: { in: 1.5 }
+wall: { in: 4, outer: 8 }
+north: up
+views:
+  - id: f1
+    title: FIRST FLOOR
+    at: { x: 60, y: 60 }
+    size: { w: 352, h: 224 }
+    grid:
+      x:
+        - { id: X1, at: 60 }
+        - { id: X2, at: 220 }
+        - { id: X3, at: 308 }
+        - { id: X4, at: 412 }
+      y:
+        - { id: Y1, at: 60 }
+        - { id: Y2, at: 148 }
+        - { id: Y3, at: 220 }
+        - { id: Y4, at: 284 }
+  - id: f2
+    title: SECOND FLOOR
+    at: { x: 680, y: 60 }
+    size: { w: 352, h: 224 }
+    grid:
+      x:
+        - { id: X1, at: 680 }
+        - { id: X2, at: 840 }
+        - { id: X3, at: 928 }
+        - { id: X4, at: 1032 }
+      y:
+        - { id: Y1, at: 60 }
+        - { id: Y2, at: 148 }
+        - { id: Y3, at: 220 }
+        - { id: Y4, at: 284 }
+nodes:
+  - id: garage
+    label: "GARAGE"
+    technology: "20'-0\" x 20'-0\" (2 cars)"
+    at: { x: 60, y: 60 }
+    size: { w: 160, h: 160 }
+    openings:
+      - { kind: open, side: top, at: 0.5, width: 112 }
+      - { kind: door, side: bottom, at: 0.25, width: 22 }
+  - id: mud
+    label: "MUDROOM"
+    at: { x: 60, y: 220 }
+    size: { w: 64, h: 64 }
+    openings:
+      - { kind: door, side: bottom, at: 0.5, width: 22 }
+  - id: pwd
+    label: "POWDER"
+    at: { x: 124, y: 220 }
+    size: { w: 40, h: 64 }
+    openings:
+      - { kind: door, side: top, at: 0.5, width: 18 }
+  - id: util
+    label: "UTILITY"
+    at: { x: 164, y: 220 }
+    size: { w: 56, h: 64 }
+    openings:
+      - { kind: door, side: top, at: 0.5, width: 20 }
+  - id: foyer
+    label: "FOYER"
+    hatch: lines
+    at: { x: 220, y: 60 }
+    size: { w: 48, h: 88 }
+    openings:
+      - { kind: door, side: top, at: 0.5, width: 24 }
+  - id: stair1
+    label: "STAIR"
+    technology: "UP 16R"
+    at: { x: 268, y: 60 }
+    size: { w: 40, h: 88 }
+  - id: dining
+    label: "DINING"
+    technology: "13'-0\" x 11'-0\""
+    at: { x: 308, y: 60 }
+    size: { w: 104, h: 88 }
+    openings:
+      - { kind: window, side: top, at: 0.5, width: 48 }
+  - id: great
+    label: "GREAT ROOM"
+    technology: "two-story"
+    hatch: lines
+    at: { x: 220, y: 148 }
+    size: { w: 88, h: 136 }
+    openings:
+      - { kind: window, side: bottom, at: 0.5, width: 56 }
+  - id: kitchen
+    label: "KITCHEN"
+    technology: "13'-0\" x 9'-0\""
+    at: { x: 308, y: 148 }
+    size: { w: 104, h: 72 }
+    openings:
+      - { kind: window, side: right, at: 0.5, width: 36 }
+  - id: pantry
+    label: "PANTRY"
+    at: { x: 308, y: 220 }
+    size: { w: 104, h: 64 }
+    openings:
+      - { kind: door, side: left, at: 0.5, width: 20 }
+  - id: bed2
+    label: "BEDROOM 2"
+    at: { x: 680, y: 60 }
+    size: { w: 88, h: 88 }
+    openings:
+      - { kind: window, side: top, at: 0.5, width: 40 }
+  - id: bed3
+    label: "BEDROOM 3"
+    at: { x: 768, y: 60 }
+    size: { w: 72, h: 88 }
+    openings:
+      - { kind: window, side: top, at: 0.5, width: 36 }
+  - id: bath2
+    label: "BATH"
+    at: { x: 680, y: 148 }
+    size: { w: 56, h: 72 }
+    openings:
+      - { kind: door, side: right, at: 0.5, width: 18 }
+  - id: hall
+    label: "HALL"
+    at: { x: 736, y: 148 }
+    size: { w: 104, h: 72 }
+  - id: laundry
+    label: "LAUNDRY"
+    at: { x: 680, y: 220 }
+    size: { w: 88, h: 64 }
+    openings:
+      - { kind: door, side: top, at: 0.5, width: 20 }
+  - id: linen
+    label: "LINEN"
+    at: { x: 768, y: 220 }
+    size: { w: 72, h: 64 }
+    openings:
+      - { kind: door, side: top, at: 0.5, width: 20 }
+  - id: stair2
+    label: "STAIR"
+    technology: "DN 16R"
+    at: { x: 888, y: 60 }
+    size: { w: 40, h: 88 }
+  - id: primary
+    label: "PRIMARY"
+    technology: "13'-0\" x 11'-0\""
+    at: { x: 928, y: 60 }
+    size: { w: 104, h: 88 }
+    openings:
+      - { kind: window, side: top, at: 0.5, width: 48 }
+  - id: pbath
+    label: "BATH"
+    technology: "primary"
+    at: { x: 928, y: 148 }
+    size: { w: 104, h: 72 }
+    openings:
+      - { kind: door, side: left, at: 0.5, width: 18 }
+  - id: wic
+    label: "WIC"
+    at: { x: 928, y: 220 }
+    size: { w: 104, h: 64 }
+    openings:
+      - { kind: door, side: top, at: 0.5, width: 20 }
+  - id: open1
+    label: "OPEN"
+    technology: "to below"
+    hatch: lines
+    at: { x: 840, y: 60 }
+    size: { w: 48, h: 88 }
+  - id: open2
+    label: "OPEN TO BELOW"
+    technology: "great room"
+    hatch: lines
+    at: { x: 840, y: 148 }
+    size: { w: 88, h: 136 }
+  - id: n1
+    label: "The hatched rooms are two storeys tall. On the second floor the same area is marked OPEN TO BELOW."
+    marker: none
+    align: left
+    at: { x: 60, y: 420 }
+    size: { w: 700, h: 20 }
+  - id: n2
+    label: "Stairs: 36 in min clear width, 7 3/4 in max riser, 10 in min tread, 6 ft 8 in min headroom (IRC R311.7)."
+    marker: none
+    align: left
+    at: { x: 60, y: 442 }
+    size: { w: 700, h: 20 }
+  - id: n3
+    label: "Walls 4 in inside, 8 in outside. Ceiling 9 ft at the first floor, 8 ft at the second."
+    marker: none
+    align: left
+    at: { x: 60, y: 464 }
+    size: { w: 700, h: 20 }

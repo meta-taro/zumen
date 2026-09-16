@@ -25,10 +25,23 @@ import { describe, it } from 'node:test';
 
 const DIR = 'examples/gallery';
 
-/** `src/layout.ts` の `labelWidth` と同じ物差し。 */
+/**
+ * `src/layout.ts` の `labelWidth` と同じ物差し。
+ *
+ * **SVG の中の字は逃がしてある**（`&quot;` `&amp;`）。
+ * 逃がしたままの姿で数えると、`"` 1 文字が 6 文字ぶんになり、
+ * **実際より広い矩形**ができる —— 2026-09-16、フィート表記の
+ * `13'-0" x 11'-0"` が、隣の字と重なっていると誤って言われた。
+ */
 function widthOf(text: string, font: number): number {
+  const plain = text
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&amp;/g, '&');
   let units = 0;
-  for (const ch of text) units += /[ -~｡-ﾟ]/.test(ch) ? 1 : 2;
+  for (const ch of plain) units += /[ -~｡-ﾟ]/.test(ch) ? 1 : 2;
   return units * font * 0.55;
 }
 

@@ -40,6 +40,17 @@ export interface Ink {
 const CHAIN = '14 3 3 3';
 /** 文字の手前で芯を切る幅。 */
 const TEXT_GAP = 3;
+/**
+ * **文字の上下に足す見込み。**
+ *
+ * 2026-09-16。矩計図（見本 139）を実物で見て見つけた ——
+ * レベルの線が「柱 105 角 ＠910」の**ベースラインのすぐ下**を通り、
+ * `＠` や `9` の下に出る部分を横切って、**串刺しに見えていた。**
+ * 矩形（ベースラインから字の高さ）には入っていないので、判定は素通りする。
+ *
+ * **字は矩形より下へ出る**（descender）。そのぶんを足してから見る。
+ */
+const TEXT_EDGE = 4;
 /** 符号を囲む丸の半径。 */
 
 function n(value: number): number {
@@ -292,8 +303,8 @@ function chain(
 ): string {
   const holes: [number, number][] = [];
   for (const rect of avoid) {
-    const near = vertical ? rect.x : rect.y;
-    const far = vertical ? rect.x + rect.w : rect.y + rect.h;
+    const near = (vertical ? rect.x : rect.y) - TEXT_EDGE;
+    const far = (vertical ? rect.x + rect.w : rect.y + rect.h) + TEXT_EDGE;
     if (at <= near || at >= far) continue;
     const head = (vertical ? rect.y : rect.x) - TEXT_GAP;
     const tail = (vertical ? rect.y + rect.h : rect.x + rect.w) + TEXT_GAP;

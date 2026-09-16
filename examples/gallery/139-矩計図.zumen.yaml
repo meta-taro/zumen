@@ -1,0 +1,370 @@
+version: 1
+kind: placement
+arrows: false
+title: 矩計図（木造軸組・平屋の外壁まわり／架空）
+# **矩計図（かなばかりず）は、建物を垂直に切って基礎から軒まで通しで見る図。**
+# 縮尺は 1/50〜1/20（住宅は 1/30 が多い）。
+#
+# ## この図で 7 つの高さが決まる
+#
+# 基礎の深さ／立上り／土台上端／1FL／2FL／軒桁の高さ／最高高さ ——
+# **施工の基準はここで決まる。** だから `mark: level` で書く。
+#
+# ## 外壁は順番で書く
+#
+# **外装仕上げ → 通気層 → 構造用面材 → 断熱材 → 内装下地 → 内装仕上げ。**
+# 縮尺 1/30 では層ごとに線を引けないので、**厚みは表で言う**（実物もそうする）。
+#
+# ## 法令が寸法を決めている
+#
+# | | |
+# |---|---|
+# | 令 22 条 | 最下階の木造の居室の床は、直下の地面から**床上面まで 450 以上** |
+# | 令 22 条 | 床下換気は**壁の長さ 5 m 以下ごとに 300 cm² 以上**（ねずみの侵入を防ぐ） |
+# | 令 21 条 | 居室の**天井高 2,100 以上** |
+# | 告示 1347 号 | 基礎の**立上りは地盤面から 300 以上** |
+#
+# 1 px ＝ 10 mm。寸法・仕様はすべて架空。
+scale: { mm: 10 }
+grid:
+  y:
+    - { id: "最高高さ GL+4,200", at: 60, mark: level }
+    - { id: "軒高 GL+3,045", at: 175.5, mark: level }
+    - { id: "天井 GL+2,945", at: 185.5, mark: level }
+    - { id: "1FL GL+545", at: 425.5, mark: level }
+    - { id: "基礎天端 GL+400", at: 440, mark: level }
+    - { id: "GL±0", at: 480, mark: level }
+    - { id: "根入れ GL-300", at: 510, mark: level }
+nodes:
+  - id: ftg
+    label: ""
+    hatch: dots
+    at: { x: 64, y: 510 }
+    size: { w: 140, h: 15 }
+  - id: fwall
+    label: ""
+    hatch: dots
+    at: { x: 107, y: 440 }
+    size: { w: 12, h: 70 }
+  - id: soil
+    label: ""
+    hatch: lines
+    at: { x: 24, y: 480 }
+    size: { w: 340, h: 6 }
+  - id: dpc
+    label: ""
+    hatch: dots
+    at: { x: 119, y: 504 }
+    size: { w: 181, h: 6 }
+  - id: dodai
+    label: ""
+    hatch: cross
+    at: { x: 107, y: 429.5 }
+    size: { w: 10.5, h: 10.5 }
+  - id: slab
+    label: ""
+    hatch: lines
+    at: { x: 117.5, y: 425.5 }
+    size: { w: 182.5, h: 4 }
+  - id: ohbiki
+    label: ""
+    hatch: cross
+    at: { x: 174, y: 429.5 }
+    size: { w: 9, h: 9 }
+  - id: post
+    label: ""
+    hatch: cross
+    at: { x: 111, y: 175.5 }
+    size: { w: 10.5, h: 254 }
+  - id: skin
+    label: ""
+    hatch: lines
+    at: { x: 104, y: 171.5 }
+    size: { w: 7, h: 268.5 }
+  - id: board
+    label: ""
+    hatch: dots
+    at: { x: 121.5, y: 175.5 }
+    size: { w: 1.5, h: 14 }
+  - id: keta
+    label: ""
+    hatch: cross
+    at: { x: 111, y: 175.5 }
+    size: { w: 10.5, h: 10.5 }
+  - id: ceil
+    label: ""
+    hatch: dots
+    at: { x: 123, y: 185.5 }
+    size: { w: 177, h: 1.2 }
+  - id: re1
+    label: ""
+    marker: none
+    at: { x: 44, y: 160 }
+    size: { w: 2, h: 2 }
+  - id: re2
+    label: ""
+    marker: none
+    at: { x: 300, y: 79.6 }
+    size: { w: 2, h: 2 }
+  - id: rf1
+    label: ""
+    marker: none
+    at: { x: 44, y: 172 }
+    size: { w: 2, h: 2 }
+  - id: rf2
+    label: ""
+    marker: none
+    at: { x: 300, y: 91.6 }
+    size: { w: 2, h: 2 }
+  - id: gable
+    label: ""
+    hatch: lines
+    at: { x: 44, y: 172 }
+    size: { w: 6, h: 12 }
+  - id: m1
+    label: "屋根：ガルバリウム鋼板 0.35 ／ ルーフィング ／ 野地板 12"
+    marker: none
+    align: left
+    at: { x: 322, y: 90 }
+    size: { w: 420, h: 18 }
+  - id: m2
+    label: "垂木 45×105 ＠455"
+    marker: none
+    align: left
+    at: { x: 322, y: 124 }
+    size: { w: 200, h: 18 }
+  - id: m3
+    label: "軒桁 105×105"
+    marker: none
+    align: left
+    at: { x: 322, y: 174 }
+    size: { w: 160, h: 18 }
+  - id: m4
+    label: "天井：石膏ボード 9.5 ＋ クロス"
+    marker: none
+    align: left
+    at: { x: 322, y: 190 }
+    size: { w: 260, h: 18 }
+  - id: m5
+    label: "柱 105 角 ＠910"
+    marker: none
+    align: left
+    at: { x: 322, y: 310 }
+    size: { w: 180, h: 18 }
+  - id: m6
+    label: "床：フローリング 15 ＋ 構造用合板 24（根太レス）"
+    marker: none
+    align: left
+    at: { x: 322, y: 420 }
+    size: { w: 360, h: 18 }
+  - id: m7
+    label: "土台 105 角（ヒノキ）／ アンカーボルト M12"
+    marker: none
+    align: left
+    at: { x: 322, y: 437 }
+    size: { w: 340, h: 18 }
+  - id: m8
+    label: "べた基礎 底盤 t150 ／ 立上り 幅 120"
+    marker: none
+    align: left
+    at: { x: 322, y: 496 }
+    size: { w: 300, h: 18 }
+  - id: m9
+    label: "軒の出 600"
+    marker: none
+    align: left
+    at: { x: 50, y: 134 }
+    size: { w: 100, h: 18 }
+  - id: h60
+    label: "外壁の層（外から内へ）"
+    hatch: solid
+    at: { x: 700, y: 60 }
+    size: { w: 520, h: 22 }
+  - id: k82
+    label: "外装仕上げ"
+    at: { x: 700, y: 82 }
+    size: { w: 190, h: 22 }
+  - id: v82
+    label: "窯業系サイディング 16"
+    align: left
+    at: { x: 890, y: 82 }
+    size: { w: 330, h: 22 }
+  - id: k104
+    label: "通気層"
+    at: { x: 700, y: 104 }
+    size: { w: 190, h: 22 }
+  - id: v104
+    label: "胴縁 18（縦胴縁）"
+    align: left
+    at: { x: 890, y: 104 }
+    size: { w: 330, h: 22 }
+  - id: k126
+    label: "防水"
+    at: { x: 700, y: 126 }
+    size: { w: 190, h: 22 }
+  - id: v126
+    label: "透湿防水シート"
+    align: left
+    at: { x: 890, y: 126 }
+    size: { w: 330, h: 22 }
+  - id: k148
+    label: "構造用面材"
+    at: { x: 700, y: 148 }
+    size: { w: 190, h: 22 }
+  - id: v148
+    label: "構造用合板 9"
+    align: left
+    at: { x: 890, y: 148 }
+    size: { w: 330, h: 22 }
+  - id: k170
+    label: "軸組"
+    at: { x: 700, y: 170 }
+    size: { w: 190, h: 22 }
+  - id: v170
+    label: "柱 105 角 ＠910"
+    align: left
+    at: { x: 890, y: 170 }
+    size: { w: 330, h: 22 }
+  - id: k192
+    label: "断熱材"
+    at: { x: 700, y: 192 }
+    size: { w: 190, h: 22 }
+  - id: v192
+    label: "高性能グラスウール 105"
+    align: left
+    at: { x: 890, y: 192 }
+    size: { w: 330, h: 22 }
+  - id: k214
+    label: "内装下地"
+    at: { x: 700, y: 214 }
+    size: { w: 190, h: 22 }
+  - id: v214
+    label: "石膏ボード 12.5"
+    align: left
+    at: { x: 890, y: 214 }
+    size: { w: 330, h: 22 }
+  - id: k236
+    label: "内装仕上げ"
+    at: { x: 700, y: 236 }
+    size: { w: 190, h: 22 }
+  - id: v236
+    label: "ビニルクロス"
+    align: left
+    at: { x: 890, y: 236 }
+    size: { w: 330, h: 22 }
+  - id: h272
+    label: "法令が決めている寸法"
+    hatch: solid
+    at: { x: 700, y: 272 }
+    size: { w: 520, h: 22 }
+  - id: k294
+    label: "令 22 条"
+    at: { x: 700, y: 294 }
+    size: { w: 190, h: 22 }
+  - id: v294
+    label: "床上面は直下の地面から 450 以上"
+    align: left
+    at: { x: 890, y: 294 }
+    size: { w: 330, h: 22 }
+  - id: k316
+    label: "令 22 条"
+    at: { x: 700, y: 316 }
+    size: { w: 190, h: 22 }
+  - id: v316
+    label: "床下換気 壁 5 m 以下ごと 300 cm² 以上"
+    align: left
+    at: { x: 890, y: 316 }
+    size: { w: 330, h: 22 }
+  - id: k338
+    label: "令 21 条"
+    at: { x: 700, y: 338 }
+    size: { w: 190, h: 22 }
+  - id: v338
+    label: "居室の天井高 2,100 以上"
+    align: left
+    at: { x: 890, y: 338 }
+    size: { w: 330, h: 22 }
+  - id: k360
+    label: "告示 1347 号"
+    at: { x: 700, y: 360 }
+    size: { w: 190, h: 22 }
+  - id: v360
+    label: "基礎の立上りは地盤面から 300 以上"
+    align: left
+    at: { x: 890, y: 360 }
+    size: { w: 330, h: 22 }
+  - id: h396
+    label: "この図で決まる 7 つの高さ"
+    hatch: solid
+    at: { x: 700, y: 396 }
+    size: { w: 520, h: 22 }
+  - id: k418
+    label: "基礎"
+    at: { x: 700, y: 418 }
+    size: { w: 190, h: 22 }
+  - id: v418
+    label: "根入れ GL-300 ／ 天端 GL+400"
+    align: left
+    at: { x: 890, y: 418 }
+    size: { w: 330, h: 22 }
+  - id: k440
+    label: "土台"
+    at: { x: 700, y: 440 }
+    size: { w: 190, h: 22 }
+  - id: v440
+    label: "上端 GL+505"
+    align: left
+    at: { x: 890, y: 440 }
+    size: { w: 330, h: 22 }
+  - id: k462
+    label: "床"
+    at: { x: 700, y: 462 }
+    size: { w: 190, h: 22 }
+  - id: v462
+    label: "1FL GL+545（地面から 545 ≧ 450）"
+    align: left
+    at: { x: 890, y: 462 }
+    size: { w: 330, h: 22 }
+  - id: k484
+    label: "軒"
+    at: { x: 700, y: 484 }
+    size: { w: 190, h: 22 }
+  - id: v484
+    label: "軒高 GL+3,045 ／ 天井 GL+2,945"
+    align: left
+    at: { x: 890, y: 484 }
+    size: { w: 330, h: 22 }
+  - id: k506
+    label: "最高"
+    at: { x: 700, y: 506 }
+    size: { w: 190, h: 22 }
+  - id: v506
+    label: "GL+4,200（勾配 3.5/10、軒の出 600）"
+    align: left
+    at: { x: 890, y: 506 }
+    size: { w: 330, h: 22 }
+  - id: n1
+    label: "・矩計図は「建物を垂直に切って、基礎から軒まで通しで見る」図。縮尺は 1/50〜1/20"
+    marker: none
+    align: left
+    at: { x: 60, y: 600 }
+    size: { w: 620, h: 18 }
+  - id: n2
+    label: "・外壁は外装仕上げ → 通気層 → 構造用面材 → 断熱材 → 内装下地 → 内装仕上げの順に書く"
+    marker: none
+    align: left
+    at: { x: 60, y: 622 }
+    size: { w: 620, h: 18 }
+  - id: n3
+    label: "・寸法・仕様はすべて架空。実際の設計は地域・工法・性能で変わる"
+    marker: none
+    align: left
+    at: { x: 60, y: 644 }
+    size: { w: 620, h: 18 }
+edges:
+  - from: re1
+    to: re2
+    ends: { from: none, to: none }
+  - from: rf1
+    to: rf2
+    ends: { from: none, to: none }
