@@ -1,0 +1,479 @@
+version: 1
+kind: placement
+arrows: false
+title: "Wildland fire IAP map (fictional)"
+north: up
+views:
+  - id: map
+    title: "Operational period 2  -  0600 to 1800  (fictional)"
+    at: { x: 104, y: 140 }
+    size: { w: 452, h: 284 }
+    grid:
+      x:
+        - { id: "W 121°12'", at: 120, mark: tick }
+        - { id: "W 121°10'", at: 280, mark: tick }
+        - { id: "W 121°08'", at: 440, mark: tick }
+      y:
+        - { id: "N 44°06'", at: 180, mark: tick }
+        - { id: "N 44°05'", at: 300, mark: tick }
+# **A fire map is not a picture of the fire.**
+#
+# It is where the day is assigned and **where the way out is written**. So the
+# line that is not finished is drawn as not finished - solid where it holds,
+# dashed where it does not. A map that shows only completed line tells a crew
+# the fire is caught.
+#
+# **LCES is not a poster.** Lookouts, communications, escape routes and safety
+# zones are on this sheet, or they do not exist. Divisions are lettered round
+# the fire from the anchor point, so a name on the radio is a place on the map.
+#
+# Every map product carries **STANDL-SGD** - scale, title, author, north arrow,
+# date, legend, source, grid, datum. IAP maps are drawn at 1:24,000 and carried
+# in a pocket.
+#
+# The fire, the divisions and the points are fictional.
+nodes:
+  - id: conta
+    label: ""
+    marker: none
+    at: { x: 355, y: 337 }
+    size: { w: 2, h: 2 }
+  - id: contb
+    label: ""
+    marker: none
+    at: { x: 127, y: 261 }
+    size: { w: 2, h: 2 }
+  - id: opena
+    label: ""
+    marker: none
+    at: { x: 127, y: 261 }
+    size: { w: 2, h: 2 }
+  - id: openb
+    label: ""
+    marker: none
+    at: { x: 355, y: 337 }
+    size: { w: 2, h: 2 }
+  - id: dpa
+    label: ""
+    tag: "A/B"
+    marker: circle
+    at: { x: 134, y: 216 }
+    size: { w: 24, h: 24 }
+  - id: dpb
+    label: ""
+    tag: "B/Z"
+    marker: circle
+    at: { x: 358, y: 176 }
+    size: { w: 24, h: 24 }
+  - id: h1
+    label: ""
+    tag: "H-1"
+    marker: circle
+    at: { x: 287, y: 237 }
+    size: { w: 26, h: 26 }
+  - id: sz
+    label: ""
+    tag: "SZ"
+    marker: box
+    at: { x: 185, y: 377 }
+    size: { w: 30, h: 30 }
+  - id: lo
+    label: ""
+    tag: "LO"
+    marker: diamond
+    at: { x: 96, y: 182 }
+    size: { w: 28, h: 28 }
+  - id: dp1
+    label: ""
+    tag: "DP1"
+    marker: box
+    at: { x: 85, y: 361 }
+    size: { w: 30, h: 30 }
+  - id: dp2
+    label: ""
+    tag: "DP2"
+    marker: box
+    at: { x: 315, y: 377 }
+    size: { w: 30, h: 30 }
+  - id: icp
+    label: ""
+    tag: "ICP"
+    marker: diamond
+    at: { x: 455, y: 377 }
+    size: { w: 30, h: 30 }
+  - id: anchor
+    label: ""
+    tag: "AP"
+    marker: double
+    at: { x: 137, y: 317 }
+    size: { w: 26, h: 26 }
+  - id: rd0
+    label: ""
+    marker: none
+    at: { x: 59, y: 375 }
+    size: { w: 2, h: 2 }
+  - id: la
+    label: "DIV A"
+    marker: none
+    align: left
+    at: { x: 170, y: 268 }
+    size: { w: 70, h: 18 }
+  - id: lb
+    label: "DIV B"
+    marker: none
+    align: left
+    at: { x: 282, y: 206 }
+    size: { w: 70, h: 18 }
+  - id: lz
+    label: "DIV Z"
+    marker: none
+    align: left
+    at: { x: 372, y: 272 }
+    size: { w: 70, h: 18 }
+  - id: lhead
+    label: "head"
+    marker: none
+    align: left
+    at: { x: 406, y: 168 }
+    size: { w: 60, h: 18 }
+  - id: lheel
+    label: "heel / anchor point"
+    marker: none
+    align: left
+    at: { x: 170, y: 318 }
+    size: { w: 140, h: 18 }
+  - id: lesc
+    label: "escape route"
+    marker: none
+    align: left
+    at: { x: 196, y: 352 }
+    size: { w: 110, h: 18 }
+  - id: lroad
+    label: "access road"
+    marker: none
+    align: left
+    at: { x: 56, y: 398 }
+    size: { w: 110, h: 18 }
+  - id: h60
+    label: "THIS MAP IS A SAFETY DOCUMENT"
+    hatch: solid
+    at: { x: 620, y: 60 }
+    size: { w: 440, h: 22 }
+  - id: a82
+    label: "L"
+    at: { x: 620, y: 82 }
+    size: { w: 150, h: 22 }
+  - id: b82
+    label: "lookouts - LO on the map"
+    align: left
+    at: { x: 770, y: 82 }
+    size: { w: 290, h: 22 }
+  - id: a104
+    label: "C"
+    at: { x: 620, y: 104 }
+    size: { w: 150, h: 22 }
+  - id: b104
+    label: "communications - who talks to whom"
+    align: left
+    at: { x: 770, y: 104 }
+    size: { w: 290, h: 22 }
+  - id: a126
+    label: "E"
+    at: { x: 620, y: 126 }
+    size: { w: 150, h: 22 }
+  - id: b126
+    label: "escape routes - drawn, not described"
+    align: left
+    at: { x: 770, y: 126 }
+    size: { w: 290, h: 22 }
+  - id: a148
+    label: "S"
+    at: { x: 620, y: 148 }
+    size: { w: 150, h: 22 }
+  - id: b148
+    label: "safety zones - SZ, sized and reachable"
+    align: left
+    at: { x: 770, y: 148 }
+    size: { w: 290, h: 22 }
+  - id: a170
+    label: "Every division"
+    at: { x: 620, y: 170 }
+    size: { w: 150, h: 22 }
+  - id: b170
+    label: "has to have all four"
+    align: left
+    at: { x: 770, y: 170 }
+    size: { w: 290, h: 22 }
+  - id: h206
+    label: "LINES"
+    hatch: solid
+    at: { x: 620, y: 206 }
+    size: { w: 440, h: 22 }
+  - id: a228
+    label: "Solid"
+    at: { x: 620, y: 228 }
+    size: { w: 150, h: 22 }
+  - id: b228
+    label: "line completed and holding"
+    align: left
+    at: { x: 770, y: 228 }
+    size: { w: 290, h: 22 }
+  - id: a250
+    label: "Dashed"
+    at: { x: 620, y: 250 }
+    size: { w: 150, h: 22 }
+  - id: b250
+    label: "line not completed"
+    align: left
+    at: { x: 770, y: 250 }
+    size: { w: 290, h: 22 }
+  - id: a272
+    label: "Why it matters"
+    at: { x: 620, y: 272 }
+    size: { w: 150, h: 22 }
+  - id: b272
+    label: "a map showing only finished line"
+    align: left
+    at: { x: 770, y: 272 }
+    size: { w: 290, h: 22 }
+  - id: a294
+    label: ""
+    at: { x: 620, y: 294 }
+    size: { w: 150, h: 22 }
+  - id: b294
+    label: "tells a crew the fire is caught"
+    align: left
+    at: { x: 770, y: 294 }
+    size: { w: 290, h: 22 }
+  - id: h330
+    label: "POINTS"
+    hatch: solid
+    at: { x: 620, y: 330 }
+    size: { w: 440, h: 22 }
+  - id: a352
+    label: "AP"
+    at: { x: 620, y: 352 }
+    size: { w: 150, h: 22 }
+  - id: b352
+    label: "anchor point - work starts here"
+    align: left
+    at: { x: 770, y: 352 }
+    size: { w: 290, h: 22 }
+  - id: a374
+    label: "DP1, DP2"
+    at: { x: 620, y: 374 }
+    size: { w: 150, h: 22 }
+  - id: b374
+    label: "drop points, numbered on the road"
+    align: left
+    at: { x: 770, y: 374 }
+    size: { w: 290, h: 22 }
+  - id: a396
+    label: "H-1"
+    at: { x: 620, y: 396 }
+    size: { w: 150, h: 22 }
+  - id: b396
+    label: "helispot"
+    align: left
+    at: { x: 770, y: 396 }
+    size: { w: 290, h: 22 }
+  - id: a418
+    label: "SZ"
+    at: { x: 620, y: 418 }
+    size: { w: 150, h: 22 }
+  - id: b418
+    label: "safety zone"
+    align: left
+    at: { x: 770, y: 418 }
+    size: { w: 290, h: 22 }
+  - id: a440
+    label: "LO"
+    at: { x: 620, y: 440 }
+    size: { w: 150, h: 22 }
+  - id: b440
+    label: "lookout"
+    align: left
+    at: { x: 770, y: 440 }
+    size: { w: 290, h: 22 }
+  - id: a462
+    label: "ICP"
+    at: { x: 620, y: 462 }
+    size: { w: 150, h: 22 }
+  - id: b462
+    label: "incident command post"
+    align: left
+    at: { x: 770, y: 462 }
+    size: { w: 290, h: 22 }
+  - id: h498
+    label: "DIVISIONS"
+    hatch: solid
+    at: { x: 620, y: 498 }
+    size: { w: 440, h: 22 }
+  - id: a520
+    label: "Lettered"
+    at: { x: 620, y: 520 }
+    size: { w: 150, h: 22 }
+  - id: b520
+    label: "round the fire from the anchor"
+    align: left
+    at: { x: 770, y: 520 }
+    size: { w: 290, h: 22 }
+  - id: a542
+    label: "Breaks"
+    at: { x: 620, y: 542 }
+    size: { w: 150, h: 22 }
+  - id: b542
+    label: "marked on the line, A/B and B/Z"
+    align: left
+    at: { x: 770, y: 542 }
+    size: { w: 290, h: 22 }
+  - id: a564
+    label: "Z"
+    at: { x: 620, y: 564 }
+    size: { w: 150, h: 22 }
+  - id: b564
+    label: "the far side, counted the other way"
+    align: left
+    at: { x: 770, y: 564 }
+    size: { w: 290, h: 22 }
+  - id: a586
+    label: "A division is"
+    at: { x: 620, y: 586 }
+    size: { w: 150, h: 22 }
+  - id: b586
+    label: "a piece of line with one boss"
+    align: left
+    at: { x: 770, y: 586 }
+    size: { w: 290, h: 22 }
+  - id: h622
+    label: "WHAT EVERY MAP CARRIES  (STANDL-SGD)"
+    hatch: solid
+    at: { x: 620, y: 622 }
+    size: { w: 440, h: 22 }
+  - id: a644
+    label: "S T A N D L"
+    at: { x: 620, y: 644 }
+    size: { w: 150, h: 22 }
+  - id: b644
+    label: "scale, title, author, north arrow,"
+    align: left
+    at: { x: 770, y: 644 }
+    size: { w: 290, h: 22 }
+  - id: a666
+    label: ""
+    at: { x: 620, y: 666 }
+    size: { w: 150, h: 22 }
+  - id: b666
+    label: "date, legend"
+    align: left
+    at: { x: 770, y: 666 }
+    size: { w: 290, h: 22 }
+  - id: a688
+    label: "S G D"
+    at: { x: 620, y: 688 }
+    size: { w: 150, h: 22 }
+  - id: b688
+    label: "source, grid, datum"
+    align: left
+    at: { x: 770, y: 688 }
+    size: { w: 290, h: 22 }
+  - id: a710
+    label: "Scale"
+    at: { x: 620, y: 710 }
+    size: { w: 150, h: 22 }
+  - id: b710
+    label: "1:24,000 - it is carried in a pocket"
+    align: left
+    at: { x: 770, y: 710 }
+    size: { w: 290, h: 22 }
+  - id: a732
+    label: "Datum"
+    at: { x: 620, y: 732 }
+    size: { w: 150, h: 22 }
+  - id: b732
+    label: "because a GPS needs to agree"
+    align: left
+    at: { x: 770, y: 732 }
+    size: { w: 290, h: 22 }
+  - id: n1
+    label: "A fire map is not a picture of the fire."
+    marker: none
+    align: left
+    at: { x: 60, y: 560 }
+    size: { w: 540, h: 18 }
+  - id: n2
+    label: "It is where the day is assigned and where the way out is written."
+    marker: none
+    align: left
+    at: { x: 60, y: 582 }
+    size: { w: 540, h: 18 }
+  - id: n3
+    label: "So unfinished line is drawn unfinished: solid holds, dashed does not."
+    marker: none
+    align: left
+    at: { x: 60, y: 604 }
+    size: { w: 540, h: 18 }
+  - id: n4
+    label: "LCES is on this sheet, or it does not exist."
+    marker: none
+    align: left
+    at: { x: 60, y: 626 }
+    size: { w: 540, h: 18 }
+  - id: n5
+    label: "Divisions are lettered round the fire from the anchor point,"
+    marker: none
+    align: left
+    at: { x: 60, y: 648 }
+    size: { w: 540, h: 18 }
+  - id: n6
+    label: "so a name on the radio is a place on the map."
+    marker: none
+    align: left
+    at: { x: 60, y: 670 }
+    size: { w: 540, h: 18 }
+  - id: n7
+    label: "The fire, the divisions and the points are fictional."
+    marker: none
+    align: left
+    at: { x: 60, y: 692 }
+    size: { w: 540, h: 18 }
+edges:
+  - from: conta
+    to: contb
+    curve: smooth
+    via:
+      - { x: 300, y: 348 }
+      - { x: 242, y: 348 }
+      - { x: 190, y: 342 }
+      - { x: 150, y: 330 }
+      - { x: 150, y: 330 }
+      - { x: 130, y: 300 }
+  - from: opena
+    to: openb
+    curve: smooth
+    line: dashed
+    via:
+      - { x: 146, y: 228 }
+      - { x: 180, y: 200 }
+      - { x: 224, y: 182 }
+      - { x: 272, y: 172 }
+      - { x: 322, y: 174 }
+      - { x: 370, y: 188 }
+      - { x: 406, y: 214 }
+      - { x: 426, y: 250 }
+      - { x: 424, y: 288 }
+      - { x: 398, y: 318 }
+  - from: rd0
+    to: dp1
+  - from: dp1
+    to: sz
+  - from: sz
+    to: dp2
+  - from: dp2
+    to: icp
+  - from: dpa
+    to: sz
+    line: dashed
+  - from: dpb
+    to: dp2
+    line: dashed
