@@ -49,6 +49,25 @@ nodes:
     size: { w: 300, h: 26 }
 `;
 
+/**
+ * **A3 に印刷しても字が読めない紙**（`tooSmallToPrint`）。
+ *
+ * 2026-09-16 に見本 155 を描いていて当たった。`pnpm validate` は
+ * **「直すところはありませんでした」と言い**、`node --test` の側だけが
+ * 「A3 の下限を割っている」と言った。**同じ図を、道具が別々に採点していた。**
+ *
+ * この下限だけは `zumen_inspect` からしか見えておらず、
+ * **人が CLI で確かめられなかった**（`overlappingText` を足したときと同じ穴）。
+ */
+const TALL = `version: 1
+kind: placement
+grid:
+  x:
+    - { id: A, at: 0 }
+    - { id: B, at: 100 }
+nodes:
+${Array.from({ length: 40 }, (_, i) => `  - id: n${i}\n    label: "節"\n    at: { x: 0, y: ${i * 40} }\n    size: { w: 100, h: 30 }\n`).join('')}`;
+
 describe('終了コード', () => {
   it('引数が無ければ 2 で、使い方を出す', async () => {
     const result = await runValidate([]);
@@ -71,6 +90,25 @@ describe('終了コード', () => {
 
   it('読めないファイルがあれば 1（黙って 0 で終わらない）', async () => {
     assert.equal((await runValidate(['無い.yaml'], reader({}) as never)).code, 1);
+  });
+});
+
+describe('印刷して読めるか', () => {
+  it('**A3 の下限を割る紙は、そう言う**（数の検査だけが知っている状態にしない）', async () => {
+    const result = await runValidate(['a.yaml'], reader({ 'a.yaml': TALL }) as never);
+    assert.ok(
+      result.lines.some((line) => line.includes('A3')),
+      `A3 の下限を割っているのに何も言っていない: ${result.lines.join(' / ')}`,
+    );
+  });
+
+  it('**警告であって失敗ではない**（印刷して読む図を止めない）', async () => {
+    assert.equal((await runValidate(['a.yaml'], reader({ 'a.yaml': TALL }) as never)).code, 0);
+  });
+
+  it('下限を通る図には、何も言わない', async () => {
+    const result = await runValidate(['a.yaml'], reader({ 'a.yaml': GOOD }) as never);
+    assert.ok(!result.lines.some((line) => line.includes('A3')));
   });
 });
 

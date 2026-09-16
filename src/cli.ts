@@ -31,6 +31,7 @@ import { kindOf } from './kind.ts';
 import { messages } from './messages.ts';
 import { hasError, validate } from './validate.ts';
 import { adriftNames, extentOf, hiddenTags, overlappingText, planNames } from './names.ts';
+import { projection, smallestTextOf } from './projection.ts';
 import type { Finding } from './validate.ts';
 import { isEntry } from './entry.ts';
 
@@ -96,7 +97,6 @@ export async function runValidate(paths: string[], read = readFileSync): Promise
  * （`src/layout.ts`。AI にも人にも自己採点させない）。
  */
 export async function placedFindings(text: string): Promise<Finding[]> {
-  if (kindOf(text) !== 'placement') return [];
   let placed;
   try {
     placed = await layout(text);
@@ -104,8 +104,34 @@ export async function placedFindings(text: string): Promise<Finding[]> {
     // 置けない図は、正本の指摘だけで足りる（描くときに同じ所で落ちる）。
     return [];
   }
+  const plan = kindOf(text) === 'placement';
+
+  // **A3 に印刷しても読めない紙**（2026-09-16。見本 155 を描いていて当たった）。
+  //
+  // この下限は `zumen_inspect` からしか見えておらず、`pnpm validate` は
+  // 同じ図に「直すところはありませんでした」と言っていた。
+  // **数の検査だけが知っている指摘は、人には無いのと同じ。**
+  //
+  // 投影の下限（`tooSmallToProject`）は出さない。**路線図・仕込図・積付図は
+  // 印刷して読む図**で、鳴りっぱなしの指摘は読まれなくなる（`src/projection.ts`）。
+  const paper = projection(placed.width, placed.height, smallestTextOf(placed, plan));
+  const size: Finding[] = paper.tooSmallToPrint
+    ? [
+        {
+          severity: 'warning' as const,
+          code: 'too-small-to-print',
+          message: messages().validate.tooSmallToPrint(
+            (paper.textRatio ?? 0).toFixed(4),
+            paper.printFloor.toFixed(4),
+          ),
+        },
+      ]
+    : [];
+
+  if (!plan) return size;
   const plans = planNames(placed.boxes, extentOf(placed.boxes), placed.edges, placed.groups);
   return [
+    ...size,
     ...overlappingText(placed.boxes, plans).map(([a, b]) => ({
       severity: 'warning' as const,
       code: 'text-overlap',
