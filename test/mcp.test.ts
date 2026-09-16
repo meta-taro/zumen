@@ -59,6 +59,9 @@ describe('MCP の口', () => {
       'zumen_propose',
       'zumen_read',
       'zumen_spec',
+      // **図が育つところを 1 本にする**（2026-09-16）。画面録画が要らないので、
+      // 画面の前に人が居ないときでも作れる。
+      'zumen_timelapse',
     ]);
     await client.close();
   });

@@ -11,10 +11,22 @@
   "packageManager": "pnpm@11.1.1",
   "//exports": "外から呼ぶ口。姉妹プロジェクト（md-business）が囲みを図にするために import する（#240）。指すのは dist で、src ではない。Node は node_modules の中の TypeScript を受け付けないため（実測）。開けるのは書き出しと検査までで、正本への書き込みは CLI / MCP を通す。",
   "exports": {
-    ".": { "types": "./dist/embed.d.ts", "default": "./dist/embed.js" },
-    "./about": { "types": "./dist/about.d.ts", "default": "./dist/about.js" },
-    "./tools": { "types": "./dist/tools.d.ts", "default": "./dist/tools.js" },
-    "./format": { "types": "./dist/format.d.ts", "default": "./dist/format.js" }
+    ".": {
+      "types": "./dist/embed.d.ts",
+      "default": "./dist/embed.js"
+    },
+    "./about": {
+      "types": "./dist/about.d.ts",
+      "default": "./dist/about.js"
+    },
+    "./tools": {
+      "types": "./dist/tools.d.ts",
+      "default": "./dist/tools.js"
+    },
+    "./format": {
+      "types": "./dist/format.d.ts",
+      "default": "./dist/format.js"
+    }
   },
   "//files": "取り込む側へ配るもの。実験・テスト・殻は入れない。仕様（spec）は入れる。",
   "files": [
@@ -30,9 +42,9 @@
     "app": "tauri dev",
     "app:build": "tauri build",
     "build": "tsc -p tsconfig.build.json",
+    "build:app": "vite build",
     "consume:check": "node scripts/consume-check.mjs",
     "coverage": "node --test --experimental-test-coverage --test-coverage-include=src/**/*.ts --test-coverage-lines=95 --test-coverage-branches=88 --test-coverage-functions=92 \"test/**/*.test.ts\"",
-    "build:app": "vite build",
     "d2:conflict": "node experiments/d2/git-conflict.ts",
     "dev": "vite",
     "drawio": "node src/cli.ts drawio",
@@ -54,9 +66,10 @@
     "svg": "node src/cli.ts svg",
     "tauri": "tauri",
     "test": "node --test \"test/**/*.test.ts\" \"experiments/**/*.test.ts\"",
+    "timelapse": "node src/cli.ts timelapse",
     "typecheck": "tsc --noEmit",
-    "version:set": "node scripts/version.mjs",
-    "validate": "node src/cli.ts validate"
+    "validate": "node src/cli.ts validate",
+    "version:set": "node scripts/version.mjs"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.30.0",

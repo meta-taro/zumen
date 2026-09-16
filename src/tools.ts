@@ -50,6 +50,8 @@ import { OPENINGS, SIDES } from './openings.ts';
 import type { Kind } from './kind.ts';
 import { projection, smallestTextOf, PRINT_FLOOR, PROJECTION_FLOOR, SMALLEST_TEXT } from './projection.ts';
 import { render } from './render.ts';
+import { timelapse } from './timelapse.ts';
+import type { Timelapse, TimelapseOptions } from './timelapse.ts';
 import { reviewOf } from './review.ts';
 import { APPEARANCE } from './tokens.ts';
 import type { Intent, Theme } from './tokens.ts';
@@ -492,6 +494,23 @@ export async function exportAs(
   const placed = await layout(source);
   if (kind === 'drawio') return toDrawio(placed, titleOf(source));
   return render(placed, options.theme, options.intent, kindOf(source) === 'placement');
+}
+
+/**
+ * **図が育つところを 1 本にする**（D34 の隣。2026-09-16）。
+ *
+ * これまで、この絵を作るには**画面録画**が要った ——
+ * 画面の前に人が座っていないと作れない。**リモートで作れない機能は、無いのと同じ。**
+ *
+ * ここでは段（正本の並び）から、動く SVG と、紙を揃えた連番を作る。
+ * **符号化器は同梱しない**（ベースルール §1・§12）。mp4 が要るなら、
+ * 手元の道具で作る手順を文字で返す。
+ */
+export async function filmOf(
+  steps: readonly string[],
+  options: TimelapseOptions = {},
+): Promise<Timelapse> {
+  return timelapse(steps, options);
 }
 
 function titleOf(source: string): string {

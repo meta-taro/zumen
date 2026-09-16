@@ -162,6 +162,8 @@ and press apply — or don't, and say "no, like this."
 zumen_live_status    is a window connected, and what is it showing?
 zumen_live_read      the source as the screen has it — newer than the disk
 zumen_live_propose   put a proposal on the screen; optionally wait for the answer
+zumen_timelapse      film the drawing growing: one animated SVG plus numbered frames
+                     (no screen recording, so it also works on a machine you are not sitting at)
 zumen_live_point     "this box" — selects it, changes nothing
 ```
 

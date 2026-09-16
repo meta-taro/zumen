@@ -26,6 +26,7 @@ import { merge } from './merge.ts';
 import type { Conflict } from './merge.ts';
 import { toMermaid } from './mermaid.ts';
 import { render } from './render.ts';
+import { timelapse } from './timelapse.ts';
 import { kindOf } from './kind.ts';
 import { messages } from './messages.ts';
 import { hasError, validate } from './validate.ts';
@@ -294,6 +295,40 @@ export async function runSvg(paths: string[], read = readFileSync, write = write
   );
 }
 
+/**
+ * **図が育つところを 1 本にする**（`pnpm timelapse <段のファイル…> [--out 置き場] [--hold 秒]`）。
+ *
+ * 出すのは動く SVG 1 枚と、紙を揃えた連番の SVG。
+ * **mp4 は作らない** —— 符号化器は同梱しないので、作り方を文字で返す。
+ */
+export async function runTimelapse(
+  paths: string[],
+  read = readFileSync,
+  write = writeFileSync,
+): Promise<RunResult> {
+  const m = messages().cli;
+  const out = valueOf(paths, '--out') ?? '.';
+  const hold = Number(valueOf(paths, '--hold') ?? '2');
+  const files = paths.filter((part) => !part.startsWith('--')).filter((part) => part !== String(hold) && part !== out);
+  if (files.length < 2) return { lines: [m.usageTimelapse], code: 1 };
+  const steps = files.map((file) => String(read(file, 'utf8')));
+  const film = await timelapse(steps, { hold, out });
+  write(`${out}/timelapse.svg`, film.svg);
+  film.frames.forEach((frame, index) => {
+    write(`${out}/step-${String(index + 1).padStart(3, '0')}.svg`, frame);
+  });
+  return {
+    lines: [m.timelapseWrote(files.length, film.seconds, `${out}/timelapse.svg`), film.recipe],
+    code: 0,
+  };
+}
+
+/** `--out dir` のような、旗のうしろの値。 */
+function valueOf(parts: string[], flag: string): string | null {
+  const at = parts.indexOf(flag);
+  return at < 0 || at + 1 >= parts.length ? null : (parts[at + 1] ?? null);
+}
+
 export async function runMermaid(paths: string[], read = readFileSync, write = writeFileSync): Promise<RunResult> {
   return convert(paths, messages().cli.usageMermaid, '.mmd', (text) => toMermaid(text), read, write);
 }
@@ -372,6 +407,7 @@ export async function run(argv: string[]): Promise<RunResult> {
   if (command === 'measure') return runMeasure(rest);
   if (command === 'svg') return runSvg(rest);
   if (command === 'mermaid') return runMermaid(rest);
+  if (command === 'timelapse') return runTimelapse(rest);
   if (command === 'embed') return runEmbed(rest);
   if (command === 'merge') return runMerge(rest);
   const m = messages().cli;
@@ -379,6 +415,7 @@ export async function run(argv: string[]): Promise<RunResult> {
     m.usage,
     m.usageMeasure,
     m.usageSvg,
+    m.usageTimelapse,
     m.usageMermaid,
     m.usageDrawio,
     m.usageEmbed,

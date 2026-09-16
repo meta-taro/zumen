@@ -35,9 +35,12 @@ import { z } from 'zod';
 import { about } from './about.ts';
 import { isEntry } from './entry.ts';
 import { messages } from './messages.ts';
+import { mkdirSync, writeFileSync } from 'node:fs';
+
 import {
   create,
   exportAs,
+  filmOf,
   inspect,
   list,
   pinsOf,
@@ -191,6 +194,47 @@ export function buildServer(hub: Hub = createHub()): McpServer {
     },
     async ({ kind, source, path, theme, intent }) =>
       text(await exportAs(bodyOf(source, path), kind, { theme, intent })),
+  );
+
+  /**
+   * **図が育つところを 1 本にする**（2026-09-16）。
+   *
+   * これまでこの絵を作るには画面録画が要り、**画面の前に人が座っている**必要があった。
+   * リモートでは作れない。ここを通すと、**段を渡すだけで作れる。**
+   *
+   * 書くのは、動く SVG 1 枚と、紙を揃えた連番の SVG。
+   * **符号化器は同梱しない** —— mp4 が要るなら、その作り方を文字で返す。
+   */
+  server.registerTool(
+    'zumen_timelapse',
+    {
+      title: m.timelapseTitle,
+      description: m.timelapseDesc,
+      inputSchema: {
+        sources: z.array(z.string()).optional().describe(m.timelapseSources),
+        paths: z.array(z.string()).optional().describe(m.timelapsePaths),
+        out: z.string().describe(m.timelapseOut),
+        hold: z.number().optional().describe(m.timelapseHold),
+        theme: z.enum(['light', 'dark']).optional(),
+      },
+    },
+    async ({ sources, paths, out, hold, theme }) => {
+      const steps = sources ?? (paths ?? []).map((path) => read(path));
+      const film = await filmOf(steps, { hold, theme, out });
+      mkdirSync(out, { recursive: true });
+      writeFileSync(`${out}/timelapse.svg`, film.svg, 'utf8');
+      film.frames.forEach((frame, index) => {
+        writeFileSync(`${out}/step-${String(index + 1).padStart(3, '0')}.svg`, frame, 'utf8');
+      });
+      return json({
+        wrote: `${out}/timelapse.svg`,
+        steps: film.frames.length,
+        seconds: film.seconds,
+        width: film.width,
+        height: film.height,
+        recipe: film.recipe,
+      });
+    },
   );
 
   // --- 画面と繋ぐ（D34）------------------------------------------------------

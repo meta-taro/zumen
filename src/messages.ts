@@ -132,6 +132,10 @@ const ja = {
     usageDrawio: '使い方: pnpm drawio <図のファイル> [書き出し先]',
     usageMeasure: '使い方: pnpm measure <図のファイル> ...',
     usageSvg: '使い方: pnpm svg <図のファイル> [書き出し先] [--dark] [--vivid]',
+    usageTimelapse:
+      '使い方: pnpm timelapse <段のファイル…> [--out 置き場] [--hold 1 段の秒数]（2 段以上）',
+    timelapseWrote: (steps: number, seconds: number, path: string) =>
+      `${steps} 段 ${seconds} 秒のタイムラプスを ${path} へ書きました（連番の SVG も同じ場所）。`,
     usageMermaid: '使い方: pnpm mermaid <図のファイル> [書き出し先]',
     usageEmbed: '使い方: pnpm embed <Markdown のファイル> [書き出し先]',
     usageMerge: '使い方: pnpm merge <正本> <提案>',
@@ -248,6 +252,13 @@ const ja = {
       '既にある図へ提案を入れる。提案の pins は読まないので、人の手直しは壊れない。人の指定と食い違うところは適用せず、競合として返す。競合を決めるのは人であって、あなたではない。',
     proposePath: '変える図の道',
     proposeSource: '提案（図の全文）',
+    timelapseTitle: '図が育つところを 1 本にする',
+    timelapseDesc:
+      '段（正本の並び）から、動く SVG 1 枚と、紙を揃えた連番の SVG を書き出す。画面録画が要らないので、リモートでも作れる。**符号化器は同梱しない** —— mp4 が要るときの作り方は返り値の recipe に入る。',
+    timelapseSources: '段の正本そのもの（2 段以上）。paths とどちらか。',
+    timelapsePaths: '段のファイルの道（2 段以上）。sources とどちらか。',
+    timelapseOut: '書き出す場所（無ければ作る）。timelapse.svg と step-001.svg… が並ぶ。',
+    timelapseHold: '1 段を映す秒数（既定 2）。',
     exportTitle: '書き出す',
     exportDesc:
       'svg（見せる）／mermaid（翌日読める）／drawio（翌日編集できる）へ書き出す。落ちるものは、それぞれの書き出しが自分で断る。',
@@ -448,6 +459,14 @@ const ja = {
   },
 
   /** 形式の検証（`src/validate.ts`） */
+  timelapse: {
+    needTwo: '段が 1 つしかありません。タイムラプスは、図が育つところを見せるものなので、2 段以上要ります。',
+    noPaper: '紙の大きさが読めませんでした。',
+    stepBroken: (step: number, why: string) =>
+      `${step} 段目が読めません（${why}）。黙って飛ばすと、出来上がった動画から段が 1 つ消えたことに誰も気づけないので、ここで止めます。`,
+    recipeHead: 'mp4 が要るなら、手元の道具で作れます（zumen は符号化器を同梱しません）。',
+    recipeTail: '  H は絵の高さ。webm なら -c:v libvpx-vp9 -crf 36 -b:v 0 に替えてください。',
+  },
   validate: {
     notMapping: '文書の最上位が写像になっていません。version: 1 から始まる形にします。',
     versionMissing: 'version がありません。v1 の文書は version: 1 から始めます。',
@@ -719,6 +738,10 @@ const en: Catalog = {
     usageDrawio: 'Usage: pnpm drawio <diagram file> [output path]',
     usageMeasure: 'Usage: pnpm measure <diagram file> ...',
     usageSvg: 'Usage: pnpm svg <diagram file> [output path] [--dark] [--vivid]',
+    usageTimelapse:
+      'Usage: pnpm timelapse <step files…> [--out dir] [--hold seconds per step] (two or more steps)',
+    timelapseWrote: (steps: number, seconds: number, path: string) =>
+      `Wrote a ${seconds}s timelapse of ${steps} steps to ${path} (numbered SVGs are beside it).`,
     usageMermaid: 'Usage: pnpm mermaid <diagram file> [output path]',
     usageEmbed: 'Usage: pnpm embed <markdown file> [output path]',
     usageMerge: 'Usage: pnpm merge <source of truth> <proposal>',
@@ -797,6 +820,13 @@ const en: Catalog = {
       'Applies a proposal to an existing diagram. The pins in your proposal are not read, so hand edits survive. Anything that disagrees with a hand edit is not applied and comes back as a conflict. Conflicts are decided by a person, not by you.',
     proposePath: 'Path to the diagram to change',
     proposeSource: 'The proposal (the whole diagram)',
+    timelapseTitle: 'Film the drawing growing',
+    timelapseDesc:
+      'Writes one animated SVG plus numbered SVGs (all padded to the same paper) from a list of steps. No screen recording, so it works remotely. **No encoder is bundled** — the returned recipe shows how to make an mp4 with the tools you already have.',
+    timelapseSources: 'The step sources themselves (two or more). Either this or paths.',
+    timelapsePaths: 'Paths to the step files (two or more). Either this or sources.',
+    timelapseOut: 'Where to write (created if missing). timelapse.svg and step-001.svg… land there.',
+    timelapseHold: 'Seconds each step stays on screen (2 unless given).',
     exportTitle: 'Export',
     exportDesc:
       'Exports to svg (to show), mermaid (readable tomorrow) or drawio (editable tomorrow). Each exporter states what it could not carry.',
@@ -980,6 +1010,15 @@ const en: Catalog = {
     invalidProposal: 'The proposal does not conform to the format',
   },
 
+  timelapse: {
+    needTwo:
+      'Only one step. A timelapse shows a drawing growing, so it needs two or more steps.',
+    noPaper: 'Could not read the paper size.',
+    stepBroken: (step: number, why: string) =>
+      `Step ${step} could not be read (${why}). Skipping it silently would drop a step from the finished film without anyone noticing, so this stops here.`,
+    recipeHead: 'If you need mp4, build it with the tools you already have (zumen ships no encoder).',
+    recipeTail: '  H is the height of the drawing. For webm use -c:v libvpx-vp9 -crf 36 -b:v 0.',
+  },
   validate: {
     notMapping: 'The top level of the document is not a mapping. It should start with version: 1.',
     versionMissing: 'version is missing. A v1 document starts with version: 1.',
