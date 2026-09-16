@@ -1,0 +1,66 @@
+# **英語のページの見出しの図**（`site/en/`。2026-09-16）。
+# 見本 02 と同じ構成で、語だけ英語にしたもの。
+# **日本語のページに日本語の図、英語のページに英語の図**を出すため。
+version: 1
+wrap: true
+title: Cloud architecture
+pins:
+  db:
+    appearance: primary
+groups:
+  - id: pub
+    label: Public subnet
+  - id: pri
+    label: Private subnet
+  - id: mgd
+    label: Managed
+nodes:
+  - id: net
+    type: internet
+    label: Internet
+  - id: lb
+    type: load-balancer
+    label: Load balancer
+    group: pub
+  - id: web1
+    type: container
+    label: web-1
+    technology: node 22
+    group: pri
+  - id: web2
+    type: container
+    label: web-2
+    technology: node 22
+    group: pri
+  - id: kv
+    type: cache
+    label: Redis
+    technology: 7.2
+    group: mgd
+  - id: db
+    type: database
+    label: PostgreSQL
+    technology: 16
+    group: mgd
+  - id: bkt
+    type: storage
+    label: Object storage
+    group: mgd
+edges:
+  - from: net
+    to: lb
+    label: 443
+  - from: lb
+    to: web1
+  - from: lb
+    to: web2
+  - from: web1
+    to: kv
+    label: sessions
+  - from: web1
+    to: db
+  - from: web2
+    to: db
+  - from: web1
+    to: bkt
+    label: uploads

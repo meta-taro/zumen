@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>zumen — the AI draws it, you fix one thing, and your fix survives</title>
+<!--
+  **同じ見た目・同じ動きを 2 か所に書かない**（2026-09-16）。
+  CSS と JS は日本語のページと共有する。文だけがここにある。
+-->
+<link rel="icon" type="image/svg+xml" href="../icon.svg">
+<link rel="apple-touch-icon" href="../icon-180.png">
+<meta name="theme-color" content="#23232b">
+<meta name="description" content="Stop dragging shapes every time the architecture changes. A diagram editor whose source of truth is text. It competes on the second drawing, not the first.">
+<link rel="stylesheet" href="../style.css">
+<link rel="alternate" hreflang="ja" href="https://meta-taro.github.io/zumen/">
+<link rel="alternate" hreflang="en" href="https://meta-taro.github.io/zumen/en/">
+<link rel="alternate" hreflang="x-default" href="https://meta-taro.github.io/zumen/">
+</head>
+<body>
+
+<div class="wrap">
+
+<header>
+  <div class="mark">
+    <img src="../icon.svg" alt="">
+    <b>zumen</b>
+    <nav class="lang" aria-label="Language">
+      <a href="../" hreflang="ja" lang="ja">日本語</a><span aria-current="true">English</span>
+    </nav>
+  </div>
+
+  <h1>The architecture changed.<br><span class="quiet">The diagram did not.</span></h1>
+
+  <p class="lede">
+    An AI draws the diagram; you move one box.<br>
+    <b>That move survives the next generation.</b>
+  </p>
+
+  <div class="cta">
+    <a class="btn primary" href="https://github.com/meta-taro/zumen/releases">Download</a>
+    <a class="btn" href="https://github.com/meta-taro/zumen">GitHub</a>
+    <span class="note">mac / Windows · MIT</span>
+  </div>
+</header>
+
+<figure class="hero">
+  <picture>
+    <source srcset="../hero-en-dark.svg" media="(prefers-color-scheme: dark)">
+    <img src="../hero-en.svg" alt="A cloud architecture diagram">
+  </picture>
+  <figcaption>
+    Drawn straight from the text below. <b>Nobody chose the placement or the routing.</b>
+  </figcaption>
+</figure>
+
+<section>
+  <h2>Why diagrams rot</h2>
+  <p class="problem">
+    The architecture changes → <b>updating the diagram is a chore</b> → nobody updates it →
+    <b>the diagram is now a lie</b> → nobody looks at diagrams any more.
+  </p>
+  <p>
+    Existing drawing tools are finished products for drawing the first version. There is no point
+    competing there. <b>zumen is aimed at the rot, not at the blank page.</b>
+  </p>
+</section>
+
+<section>
+  <h2>What it can draw</h2>
+  <p style="margin:-8px 0 24px;color:var(--fg-2)">
+    <b>Not only servers and networks.</b> Transit maps and train timetables, floor plans and
+    framing plans, piping and switchgear, periodontal charts, fishing rigs, theatrical lighting
+    plots, vehicle damage reports, container stowage, fireworks safety distances —
+    <b>if a drawing says “what connects to what”, “in which order”, or “what is where”,
+    the same notation covers it.</b>
+    <br>The samples below all come from <b>the same eleven words of vocabulary</b>. No
+    industry-specific shape packs were added: the expertise lives in the <b>tags</b>
+    (<code>C1</code> <code>G1</code> <code>2"-CS-101</code> <code>LBS-1</code>), not in the shapes.
+    <br><b>Architectural drawings carry grid lines and dimensions.</b> Walls have thickness and
+    doors show their swing — <b>you cannot build anything from a drawing without dimensions.</b>
+    <br>Dimensions come out in millimetres, metres, or <b>feet and inches</b> — whichever the
+    drawing's own scale asks for.
+  </p>
+
+  <div class="gallery">
+    <figure><picture><source srcset="../gallery/24-校舎の平面図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" src="../gallery/24-校舎の平面図.svg" alt="School floor plan"></picture><figcaption>School floor plan (walls, door swings, grid lines, dimensions)</figcaption></figure>
+    <figure><picture><source srcset="../gallery/77-舞台照明仕込図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" src="../gallery/77-舞台照明仕込図.svg" alt="Theatrical lighting plot"></picture><figcaption>Theatrical lighting plot (with the channel schedule)</figcaption></figure>
+    <figure><picture><source srcset="../gallery/38-計装ループ図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" src="../gallery/38-計装ループ図.svg" alt="Instrument loop diagram"></picture><figcaption>Instrument loop diagram (ISA tags)</figcaption></figure>
+    <figure><picture><source srcset="../gallery/50-電子回路図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" src="../gallery/50-電子回路図.svg" alt="Electronic circuit"></picture><figcaption>Electronic circuit (IEC symbols)</figcaption></figure>
+    <figure><picture><source srcset="../gallery/89-コンテナ船の積付図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" src="../gallery/89-コンテナ船の積付図.svg" alt="Container stowage plan"></picture><figcaption>Container stowage plan (bay / row / tier)</figcaption></figure>
+    <figure><picture><source srcset="../gallery/72-歯周チャート-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" src="../gallery/72-歯周チャート.svg" alt="Periodontal chart"></picture><figcaption>Periodontal chart (six points per tooth)</figcaption></figure>
+    <figure><picture><source srcset="../gallery/138-ロープ高所作業の作業計画図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" src="../gallery/138-ロープ高所作業の作業計画図.svg" alt="Rope access work plan"></picture><figcaption>Rope access work plan (the law says which items the drawing must carry)</figcaption></figure>
+    <figure><picture><source srcset="../gallery/134-梁の配筋図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" src="../gallery/134-梁の配筋図.svg" alt="Beam reinforcement drawing"></picture><figcaption>Beam reinforcement (two scales on one sheet)</figcaption></figure>
+    <figure><picture><source srcset="../gallery/73-サビキ仕掛け図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" src="../gallery/73-サビキ仕掛け図.svg" alt="Fishing rig diagram"></picture><figcaption>Fishing rig (line, weight and hook sizes in order)</figcaption></figure>
+    <figure><picture><source srcset="../gallery/128-ロゴの作図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" src="../gallery/128-ロゴの作図.svg" alt="Logo construction from a compass and ratios"></picture><figcaption>A real logo, reproduced with <b>no coordinates in the source</b> — circles and ratios only</figcaption></figure>
+  </div>
+
+  <p class="note" style="margin-top:20px">
+    <b>138 samples in total.</b> The full gallery is on the
+    <a href="../">Japanese page</a> — the drawings speak for themselves, the captions do not yet.
+  </p>
+</section>
+
+<section>
+  <h2>The source of truth is readable text</h2>
+  <pre><code>version: 1
+title: On-premise server layout
+
+nodes:
+  - id: httpd
+    type: server
+    label: Apache httpd
+    technology: 2.4 / mod_php
+  - id: db
+    type: database
+    label: MariaDB
+
+edges:
+  - from: httpd
+    to: db</code></pre>
+  <p>
+    <b>Git shows the diff.</b> Review tells you who added what.
+    <code>type</code> becomes a shape, so <b>it still reads in black and white and at small
+    sizes</b> — a cylinder is a database, a hexagon is a cache, a cloud is the outside world.
+  </p>
+
+  <h3 style="font-size:17px;margin:32px 0 12px">A floor plan is the same text</h3>
+  <pre><code>version: 1
+kind: placement
+<span class="c"># 1 px = 1.5 in. Studs 4", exterior 8"</span>
+scale: { in: 1.5 }
+wall: { in: 4, outer: 8 }
+north: up
+grid:
+  x:
+    - { id: X1, at: 60 }
+    - { id: X2, at: 220 }
+  y:
+    - { id: Y1, at: 60 }
+    - { id: Y2, at: 284 }
+
+nodes:
+  - id: great
+    label: GREAT ROOM
+    technology: two-story
+    at: { x: 220, y: 148 }
+    size: { w: 88, h: 136 }
+    openings:
+      - { kind: window, side: bottom, at: 0.5, width: 56 }
+      - { kind: door, side: top, at: 0.5, width: 24 }</code></pre>
+  <p>
+    <b>Dimensions are measured from the grid lines only.</b> Measured from the rooms they would
+    change depending on which side of the wall you count, and <b>the site would disagree with the
+    drawing</b> — real drawings use grid lines to make that single-valued.
+    <br><b>No <code>scale</code>, no figures.</b> Writing numbers at a scale you do not know is
+    worse than writing none.
+    <br><b>The scale also chooses the units:</b> <code>{ mm: 40 }</code> gives
+    <code>14,000</code>, <code>{ in: 1.5 }</code> gives <code>46'-0"</code>.
+  </p>
+</section>
+
+<section>
+  <h2>Watch one grow</h2>
+  <figure class="hero">
+    <img src="../timelapse-en.svg" alt="A two-storey house plan assembling itself in five steps, from the shell to the two-storey volumes" loading="lazy">
+    <figcaption>
+      <b>zumen made this of itself</b>, from the source of each step (<code>pnpm timelapse</code>).
+      No screen recording — <b>an animated SVG, 143 KB</b>, 12 KB over the wire.
+    </figcaption>
+  </figure>
+</section>
+
+<section>
+  <h2>It competes on the second drawing</h2>
+  <div class="flow">
+    <div><b>1. Ask in words</b><span>An AI that knows your architecture draws it</span></div>
+    <div><b>2. A diagram appears</b><span>Placement and routing are automatic. You choose nothing</span></div>
+    <div class="hit"><b>3. You fix one thing</b><span>Move the box that bothers you. That is all</span></div>
+    <div class="hit"><b>4. The architecture changes</b><span>Ask again. <b>The box you moved stays put</b></span></div>
+  </div>
+  <p style="margin-top:28px">
+    A human's edit is written only to <code>pins</code> in the source, and <b>the AI cannot write
+    there</b>. The tool closes that door, so it does not depend on policy or a note in the prompt.
+    Tried ten times with a real AI: <b>the edit survived all ten.</b>
+  </p>
+</section>
+
+<section>
+  <h2>Let an agent draw it directly</h2>
+  <pre><code>{ "mcpServers": { "zumen": {
+    "command": "node",
+    "args": ["&lt;path to zumen&gt;/src/mcp.ts"] } } }</code></pre>
+  <p>
+    Thirteen MCP tools. <b>An agent that already knows your architecture can draw it.</b>
+    Call <code>zumen_inspect</code> afterwards and you get crossing edges, overlapping boxes,
+    <b>labels that were dropped because they did not fit</b>, <b>whether it is legible on a
+    projector</b>, and <b>whether a human has looked at it yet</b>.
+  </p>
+  <p>
+    <code>zumen_timelapse</code> films a drawing growing — <b>no screen recording</b>, so it also
+    works on a machine nobody is sitting at.
+  </p>
+  <p>
+    <b>Some doors are deliberately shut</b> — resolving conflicts, writing <code>pins</code>, and
+    marking a drawing as reviewed. Open them and <b>the AI could approve its own drawing.</b>
+  </p>
+</section>
+
+<section>
+  <h2>What it will not do</h2>
+  <div class="cols">
+    <div>
+      <ul>
+        <li><b>It does not chase a shape library.</b> The vocabulary stays small</li>
+        <li><b>It does not place things for you in scaled drawings.</b> Where something sits is the author's decision when dimensions carry meaning</li>
+      </ul>
+    </div>
+    <div>
+      <ul>
+        <li><b>It ships no vendor logos.</b> An AWS icon reads as “this runs on AWS”, which makes it useless for your own hardware</li>
+        <li><b>It does not finish without you.</b> Keeping the human in the loop is the point, not a limitation</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Try it</h2>
+  <div class="warn">
+    <b>This is alpha.</b> The builds are unsigned, so your machine will warn you
+    (macOS says “damaged”, Windows says “protected your PC”).
+    <b>Do not make it your daily tool yet.</b> A plain executable you can drop anywhere ships too.
+  </div>
+  <p style="margin-top:24px">
+    <a class="btn primary" href="https://github.com/meta-taro/zumen/releases">Releases</a>
+    <a class="btn" href="https://github.com/meta-taro/zumen/blob/develop/docs/install.md">How to install</a>
+  </p>
+  <p class="note">
+    With Rust installed, <code>pnpm app</code> runs it from source. The MCP server alone needs only
+    Node — no shell required.
+  </p>
+</section>
+
+<footer>
+  <div class="wrap" style="padding:0">
+    <p>
+      <b>zumen (図面)</b> — the Japanese word for a working drawing: something that keeps being
+      updated. That is exactly the problem this tool is aimed at.
+    </p>
+    <p>
+      MIT · <a href="https://github.com/meta-taro/zumen">github.com/meta-taro/zumen</a> ·
+      <a href="https://github.com/meta-taro/zumen/blob/develop/PRD.md">Direction</a> ·
+      <a href="https://github.com/meta-taro/zumen/blob/develop/CHANGELOG.md">Changelog</a>
+    </p>
+  </div>
+</footer>
+
+</div>
+
+<dialog id="zoom" aria-label="Enlarge">
+  <img alt="">
+  <p>Click again or press Esc to close</p>
+</dialog>
+
+<script src="../page.js"></script>
+</body>
+</html>
