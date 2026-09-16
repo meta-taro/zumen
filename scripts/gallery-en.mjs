@@ -68,6 +68,7 @@ export const CAPTIONS_EN = {
   '22-避難経路図': 'Escape routes, third floor',
   '148-Egress-plan': 'Egress plan: three lengths answering three questions',
   '119-消火器と消火栓の配置図': 'Extinguishers and hose reels, measured two different ways',
+  '154-Fire-alarm-plan': 'Fire alarm devices: spacing is a circle, not a square',
   '145-Sprinkler-layout': 'Sprinkler layout: area per head and spacing, decided together',
   '33-駐車場の区画割': 'Parking layout, fourteen bays',
   '152-Septic-site-plan': 'Septic site plan: a plan decided by how fast water leaves the soil',
