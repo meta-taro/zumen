@@ -51,6 +51,7 @@ export const CATEGORIES = [
       { name: '154-Fire-alarm-plan', alt: '自動火災報知の機器配置（NFPA 72／英語・架空）', caption: '火災報知の配置（間隔は四角ではなく円）' },
       { name: '155-Lane-closure-plan', alt: '車線規制の交通誘導計画（MUTCD／英語・架空）', caption: '車線規制（ほとんどが道路で、作業ではない）' },
       { name: '156-Metes-and-bounds-plat', alt: '境界の図（metes and bounds／英語・架空）', caption: '境界の図（土地を絵ではなく「歩き方」で書く）' },
+      { name: '157-Drill-chart', alt: 'マーチングバンドのドリルチャート（8 to 5／英語・架空）', caption: 'ドリルチャート（寸法を書かない。競技場が物差し）' },
       { name: '33-駐車場の区画割', alt: '平面駐車場の区画割図', caption: '駐車場の区画割（14 台）' },
       { name: '153-Parking-striping', alt: '駐車場の区画線（ADA の寸法／英語・架空）', caption: '駐車場の区画線（通路は余った舗装ではない）' },
       { name: '147-Site-plan-setbacks', alt: '敷地図（セットバックと建てられる範囲／英語・架空）', caption: '敷地図（建てられる範囲は、敷地から庭を引いた残り）' },
