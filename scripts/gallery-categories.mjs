@@ -88,6 +88,7 @@ export const CATEGORIES = [
     key: 'iryo',
     label: '医療・食品・農',
     items: [
+      { name: '158-Cattle-handling-facility', alt: '牛の取扱い施設（曲がった追い込み路／英語・架空）', caption: '牛の取扱い施設（寸法が、牛のすることから決まる）' },
       { name: '72-歯周チャート', alt: '歯周精密検査チャート（6 点法）', caption: '歯周精密検査チャート（32 歯 × 6 点）' },
       { name: '146-Restorative-chart', alt: '歯の修復記録（Universal numbering／英語・架空）', caption: '歯の修復記録（1 本の番号で歯が決まる）' },
       { name: '39-経絡と経穴', alt: '経絡と経穴の図', caption: '経絡と経穴（鍼灸・WHO 標準）' },

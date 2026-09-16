@@ -99,6 +99,7 @@ export const CAPTIONS_EN = {
   '22-避難経路図': 'Escape routes, third floor',
   '148-Egress-plan': 'Egress plan: three lengths answering three questions',
   '119-消火器と消火栓の配置図': 'Extinguishers and hose reels, measured two different ways',
+  '158-Cattle-handling-facility': 'Every dimension comes from what cattle will not do',
   '157-Drill-chart': 'No dimensions on it - the field is the ruler',
   '156-Metes-and-bounds-plat': 'A deed describes land as a walk, not a picture',
   '155-Lane-closure-plan': 'A lane closure is mostly road, not work',
