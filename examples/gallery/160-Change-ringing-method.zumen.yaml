@@ -1,0 +1,756 @@
+version: 1
+kind: placement
+arrows: false
+title: "Plain Bob Minor - the work of one lead"
+# **A method is not a tune. It is a path through a grid.**
+#
+# Six bells strike once each, in order: that is a row. In the next row every
+# bell moves **one place, or stays** - never two, because a bell cannot jump.
+# What a method does is say which bells stay, change by change.
+#
+# Plain Bob Minor writes that as **-16-16-16,12**: X means every pair swaps,
+# 16 means the 1st and 6th stay, 12 means the 1st and 2nd stay. Twelve changes
+# make a lead; **five leads bring the bells back to rounds** (60 changes).
+#
+# **Nobody reads the numbers while ringing.** They ring the line - the shape
+# drawn through the grid - and the numbers are the proof that the line is right.
+# That is why the diagram carries both on the same grid.
+nodes:
+  - id: c0_0
+    label: "1"
+    marker: none
+    at: { x: 150, y: 130 }
+    size: { w: 30, h: 22 }
+  - id: c0_1
+    label: "2"
+    marker: none
+    at: { x: 180, y: 130 }
+    size: { w: 30, h: 22 }
+  - id: c0_2
+    label: "3"
+    marker: none
+    at: { x: 210, y: 130 }
+    size: { w: 30, h: 22 }
+  - id: c0_3
+    label: "4"
+    marker: none
+    at: { x: 240, y: 130 }
+    size: { w: 30, h: 22 }
+  - id: c0_4
+    label: "5"
+    marker: none
+    at: { x: 270, y: 130 }
+    size: { w: 30, h: 22 }
+  - id: c0_5
+    label: "6"
+    marker: none
+    at: { x: 300, y: 130 }
+    size: { w: 30, h: 22 }
+  - id: n0
+    label: "rounds"
+    marker: none
+    align: left
+    at: { x: 344, y: 132 }
+    size: { w: 90, h: 18 }
+  - id: c1_0
+    label: "2"
+    marker: none
+    at: { x: 150, y: 152 }
+    size: { w: 30, h: 22 }
+  - id: c1_1
+    label: "1"
+    marker: none
+    at: { x: 180, y: 152 }
+    size: { w: 30, h: 22 }
+  - id: c1_2
+    label: "4"
+    marker: none
+    at: { x: 210, y: 152 }
+    size: { w: 30, h: 22 }
+  - id: c1_3
+    label: "3"
+    marker: none
+    at: { x: 240, y: 152 }
+    size: { w: 30, h: 22 }
+  - id: c1_4
+    label: "6"
+    marker: none
+    at: { x: 270, y: 152 }
+    size: { w: 30, h: 22 }
+  - id: c1_5
+    label: "5"
+    marker: none
+    at: { x: 300, y: 152 }
+    size: { w: 30, h: 22 }
+  - id: n1
+    label: "-"
+    marker: none
+    align: left
+    at: { x: 344, y: 154 }
+    size: { w: 90, h: 18 }
+  - id: c2_0
+    label: "2"
+    marker: none
+    at: { x: 150, y: 174 }
+    size: { w: 30, h: 22 }
+  - id: c2_1
+    label: "4"
+    marker: none
+    at: { x: 180, y: 174 }
+    size: { w: 30, h: 22 }
+  - id: c2_2
+    label: "1"
+    marker: none
+    at: { x: 210, y: 174 }
+    size: { w: 30, h: 22 }
+  - id: c2_3
+    label: "6"
+    marker: none
+    at: { x: 240, y: 174 }
+    size: { w: 30, h: 22 }
+  - id: c2_4
+    label: "3"
+    marker: none
+    at: { x: 270, y: 174 }
+    size: { w: 30, h: 22 }
+  - id: c2_5
+    label: "5"
+    marker: none
+    at: { x: 300, y: 174 }
+    size: { w: 30, h: 22 }
+  - id: n2
+    label: "16"
+    marker: none
+    align: left
+    at: { x: 344, y: 176 }
+    size: { w: 90, h: 18 }
+  - id: c3_0
+    label: "4"
+    marker: none
+    at: { x: 150, y: 196 }
+    size: { w: 30, h: 22 }
+  - id: c3_1
+    label: "2"
+    marker: none
+    at: { x: 180, y: 196 }
+    size: { w: 30, h: 22 }
+  - id: c3_2
+    label: "6"
+    marker: none
+    at: { x: 210, y: 196 }
+    size: { w: 30, h: 22 }
+  - id: c3_3
+    label: "1"
+    marker: none
+    at: { x: 240, y: 196 }
+    size: { w: 30, h: 22 }
+  - id: c3_4
+    label: "5"
+    marker: none
+    at: { x: 270, y: 196 }
+    size: { w: 30, h: 22 }
+  - id: c3_5
+    label: "3"
+    marker: none
+    at: { x: 300, y: 196 }
+    size: { w: 30, h: 22 }
+  - id: n3
+    label: "-"
+    marker: none
+    align: left
+    at: { x: 344, y: 198 }
+    size: { w: 90, h: 18 }
+  - id: c4_0
+    label: "4"
+    marker: none
+    at: { x: 150, y: 218 }
+    size: { w: 30, h: 22 }
+  - id: c4_1
+    label: "6"
+    marker: none
+    at: { x: 180, y: 218 }
+    size: { w: 30, h: 22 }
+  - id: c4_2
+    label: "2"
+    marker: none
+    at: { x: 210, y: 218 }
+    size: { w: 30, h: 22 }
+  - id: c4_3
+    label: "5"
+    marker: none
+    at: { x: 240, y: 218 }
+    size: { w: 30, h: 22 }
+  - id: c4_4
+    label: "1"
+    marker: none
+    at: { x: 270, y: 218 }
+    size: { w: 30, h: 22 }
+  - id: c4_5
+    label: "3"
+    marker: none
+    at: { x: 300, y: 218 }
+    size: { w: 30, h: 22 }
+  - id: n4
+    label: "16"
+    marker: none
+    align: left
+    at: { x: 344, y: 220 }
+    size: { w: 90, h: 18 }
+  - id: c5_0
+    label: "6"
+    marker: none
+    at: { x: 150, y: 240 }
+    size: { w: 30, h: 22 }
+  - id: c5_1
+    label: "4"
+    marker: none
+    at: { x: 180, y: 240 }
+    size: { w: 30, h: 22 }
+  - id: c5_2
+    label: "5"
+    marker: none
+    at: { x: 210, y: 240 }
+    size: { w: 30, h: 22 }
+  - id: c5_3
+    label: "2"
+    marker: none
+    at: { x: 240, y: 240 }
+    size: { w: 30, h: 22 }
+  - id: c5_4
+    label: "3"
+    marker: none
+    at: { x: 270, y: 240 }
+    size: { w: 30, h: 22 }
+  - id: c5_5
+    label: "1"
+    marker: none
+    at: { x: 300, y: 240 }
+    size: { w: 30, h: 22 }
+  - id: n5
+    label: "-"
+    marker: none
+    align: left
+    at: { x: 344, y: 242 }
+    size: { w: 90, h: 18 }
+  - id: c6_0
+    label: "6"
+    marker: none
+    at: { x: 150, y: 262 }
+    size: { w: 30, h: 22 }
+  - id: c6_1
+    label: "5"
+    marker: none
+    at: { x: 180, y: 262 }
+    size: { w: 30, h: 22 }
+  - id: c6_2
+    label: "4"
+    marker: none
+    at: { x: 210, y: 262 }
+    size: { w: 30, h: 22 }
+  - id: c6_3
+    label: "3"
+    marker: none
+    at: { x: 240, y: 262 }
+    size: { w: 30, h: 22 }
+  - id: c6_4
+    label: "2"
+    marker: none
+    at: { x: 270, y: 262 }
+    size: { w: 30, h: 22 }
+  - id: c6_5
+    label: "1"
+    marker: none
+    at: { x: 300, y: 262 }
+    size: { w: 30, h: 22 }
+  - id: n6
+    label: "16"
+    marker: none
+    align: left
+    at: { x: 344, y: 264 }
+    size: { w: 90, h: 18 }
+  - id: c7_0
+    label: "5"
+    marker: none
+    at: { x: 150, y: 284 }
+    size: { w: 30, h: 22 }
+  - id: c7_1
+    label: "6"
+    marker: none
+    at: { x: 180, y: 284 }
+    size: { w: 30, h: 22 }
+  - id: c7_2
+    label: "3"
+    marker: none
+    at: { x: 210, y: 284 }
+    size: { w: 30, h: 22 }
+  - id: c7_3
+    label: "4"
+    marker: none
+    at: { x: 240, y: 284 }
+    size: { w: 30, h: 22 }
+  - id: c7_4
+    label: "1"
+    marker: none
+    at: { x: 270, y: 284 }
+    size: { w: 30, h: 22 }
+  - id: c7_5
+    label: "2"
+    marker: none
+    at: { x: 300, y: 284 }
+    size: { w: 30, h: 22 }
+  - id: n7
+    label: "-"
+    marker: none
+    align: left
+    at: { x: 344, y: 286 }
+    size: { w: 90, h: 18 }
+  - id: c8_0
+    label: "5"
+    marker: none
+    at: { x: 150, y: 306 }
+    size: { w: 30, h: 22 }
+  - id: c8_1
+    label: "3"
+    marker: none
+    at: { x: 180, y: 306 }
+    size: { w: 30, h: 22 }
+  - id: c8_2
+    label: "6"
+    marker: none
+    at: { x: 210, y: 306 }
+    size: { w: 30, h: 22 }
+  - id: c8_3
+    label: "1"
+    marker: none
+    at: { x: 240, y: 306 }
+    size: { w: 30, h: 22 }
+  - id: c8_4
+    label: "4"
+    marker: none
+    at: { x: 270, y: 306 }
+    size: { w: 30, h: 22 }
+  - id: c8_5
+    label: "2"
+    marker: none
+    at: { x: 300, y: 306 }
+    size: { w: 30, h: 22 }
+  - id: n8
+    label: "16"
+    marker: none
+    align: left
+    at: { x: 344, y: 308 }
+    size: { w: 90, h: 18 }
+  - id: c9_0
+    label: "3"
+    marker: none
+    at: { x: 150, y: 328 }
+    size: { w: 30, h: 22 }
+  - id: c9_1
+    label: "5"
+    marker: none
+    at: { x: 180, y: 328 }
+    size: { w: 30, h: 22 }
+  - id: c9_2
+    label: "1"
+    marker: none
+    at: { x: 210, y: 328 }
+    size: { w: 30, h: 22 }
+  - id: c9_3
+    label: "6"
+    marker: none
+    at: { x: 240, y: 328 }
+    size: { w: 30, h: 22 }
+  - id: c9_4
+    label: "2"
+    marker: none
+    at: { x: 270, y: 328 }
+    size: { w: 30, h: 22 }
+  - id: c9_5
+    label: "4"
+    marker: none
+    at: { x: 300, y: 328 }
+    size: { w: 30, h: 22 }
+  - id: n9
+    label: "-"
+    marker: none
+    align: left
+    at: { x: 344, y: 330 }
+    size: { w: 90, h: 18 }
+  - id: c10_0
+    label: "3"
+    marker: none
+    at: { x: 150, y: 350 }
+    size: { w: 30, h: 22 }
+  - id: c10_1
+    label: "1"
+    marker: none
+    at: { x: 180, y: 350 }
+    size: { w: 30, h: 22 }
+  - id: c10_2
+    label: "5"
+    marker: none
+    at: { x: 210, y: 350 }
+    size: { w: 30, h: 22 }
+  - id: c10_3
+    label: "2"
+    marker: none
+    at: { x: 240, y: 350 }
+    size: { w: 30, h: 22 }
+  - id: c10_4
+    label: "6"
+    marker: none
+    at: { x: 270, y: 350 }
+    size: { w: 30, h: 22 }
+  - id: c10_5
+    label: "4"
+    marker: none
+    at: { x: 300, y: 350 }
+    size: { w: 30, h: 22 }
+  - id: n10
+    label: "16"
+    marker: none
+    align: left
+    at: { x: 344, y: 352 }
+    size: { w: 90, h: 18 }
+  - id: c11_0
+    label: "1"
+    marker: none
+    at: { x: 150, y: 372 }
+    size: { w: 30, h: 22 }
+  - id: c11_1
+    label: "3"
+    marker: none
+    at: { x: 180, y: 372 }
+    size: { w: 30, h: 22 }
+  - id: c11_2
+    label: "2"
+    marker: none
+    at: { x: 210, y: 372 }
+    size: { w: 30, h: 22 }
+  - id: c11_3
+    label: "5"
+    marker: none
+    at: { x: 240, y: 372 }
+    size: { w: 30, h: 22 }
+  - id: c11_4
+    label: "4"
+    marker: none
+    at: { x: 270, y: 372 }
+    size: { w: 30, h: 22 }
+  - id: c11_5
+    label: "6"
+    marker: none
+    at: { x: 300, y: 372 }
+    size: { w: 30, h: 22 }
+  - id: n11
+    label: "-"
+    marker: none
+    align: left
+    at: { x: 344, y: 374 }
+    size: { w: 90, h: 18 }
+  - id: c12_0
+    label: "1"
+    marker: none
+    at: { x: 150, y: 394 }
+    size: { w: 30, h: 22 }
+  - id: c12_1
+    label: "3"
+    marker: none
+    at: { x: 180, y: 394 }
+    size: { w: 30, h: 22 }
+  - id: c12_2
+    label: "5"
+    marker: none
+    at: { x: 210, y: 394 }
+    size: { w: 30, h: 22 }
+  - id: c12_3
+    label: "2"
+    marker: none
+    at: { x: 240, y: 394 }
+    size: { w: 30, h: 22 }
+  - id: c12_4
+    label: "6"
+    marker: none
+    at: { x: 270, y: 394 }
+    size: { w: 30, h: 22 }
+  - id: c12_5
+    label: "4"
+    marker: none
+    at: { x: 300, y: 394 }
+    size: { w: 30, h: 22 }
+  - id: n12
+    label: "12    lead head"
+    marker: none
+    align: left
+    at: { x: 344, y: 396 }
+    size: { w: 140, h: 18 }
+  - id: hd
+    label: "one row: the striking order"
+    marker: none
+    align: left
+    at: { x: 148, y: 78 }
+    size: { w: 190, h: 18 }
+  - id: hd2
+    label: "change"
+    marker: none
+    align: left
+    at: { x: 344, y: 100 }
+    size: { w: 90, h: 18 }
+  - id: blue0
+    label: ""
+    marker: none
+    at: { x: 194, y: 140 }
+    size: { w: 2, h: 2 }
+  - id: blue1
+    label: ""
+    marker: none
+    at: { x: 254, y: 404 }
+    size: { w: 2, h: 2 }
+  - id: treble0
+    label: ""
+    marker: none
+    at: { x: 164, y: 140 }
+    size: { w: 2, h: 2 }
+  - id: treble1
+    label: ""
+    marker: none
+    at: { x: 164, y: 404 }
+    size: { w: 2, h: 2 }
+  - id: k1
+    label: "2  the line a ringer learns  (solid)"
+    marker: none
+    align: left
+    at: { x: 148, y: 432 }
+    size: { w: 300, h: 18 }
+  - id: k2
+    label: "1  the treble, plain hunting  (dashed)"
+    marker: none
+    align: left
+    at: { x: 148, y: 454 }
+    size: { w: 300, h: 18 }
+  - id: h60
+    label: "WHAT A ROW IS"
+    hatch: solid
+    at: { x: 620, y: 60 }
+    size: { w: 440, h: 22 }
+  - id: a82
+    label: "One row"
+    at: { x: 620, y: 82 }
+    size: { w: 160, h: 22 }
+  - id: b82
+    label: "the order the six bells strike, once each"
+    align: left
+    at: { x: 780, y: 82 }
+    size: { w: 280, h: 22 }
+  - id: a104
+    label: "The next row"
+    at: { x: 620, y: 104 }
+    size: { w: 160, h: 22 }
+  - id: b104
+    label: "every bell moves one place, or stays"
+    align: left
+    at: { x: 780, y: 104 }
+    size: { w: 280, h: 22 }
+  - id: a126
+    label: "Never"
+    at: { x: 620, y: 126 }
+    size: { w: 160, h: 22 }
+  - id: b126
+    label: "two places at once - a bell cannot jump"
+    align: left
+    at: { x: 780, y: 126 }
+    size: { w: 280, h: 22 }
+  - id: a148
+    label: "So a method is"
+    at: { x: 620, y: 148 }
+    size: { w: 160, h: 22 }
+  - id: b148
+    label: "a path through a grid, not a tune"
+    align: left
+    at: { x: 780, y: 148 }
+    size: { w: 280, h: 22 }
+  - id: h184
+    label: "PLACE NOTATION  ( -16-16-16,12 )"
+    hatch: solid
+    at: { x: 620, y: 184 }
+    size: { w: 440, h: 22 }
+  - id: a206
+    label: "X"
+    at: { x: 620, y: 206 }
+    size: { w: 160, h: 22 }
+  - id: b206
+    label: "every pair swaps"
+    align: left
+    at: { x: 780, y: 206 }
+    size: { w: 280, h: 22 }
+  - id: a228
+    label: "16"
+    at: { x: 620, y: 228 }
+    size: { w: 160, h: 22 }
+  - id: b228
+    label: "1st and 6th stay, the rest swap"
+    align: left
+    at: { x: 780, y: 228 }
+    size: { w: 280, h: 22 }
+  - id: a250
+    label: "12"
+    at: { x: 620, y: 250 }
+    size: { w: 160, h: 22 }
+  - id: b250
+    label: "1st and 2nd stay, the rest swap"
+    align: left
+    at: { x: 780, y: 250 }
+    size: { w: 280, h: 22 }
+  - id: a272
+    label: "One lead"
+    at: { x: 620, y: 272 }
+    size: { w: 160, h: 22 }
+  - id: b272
+    label: "12 changes, then the lead head"
+    align: left
+    at: { x: 780, y: 272 }
+    size: { w: 280, h: 22 }
+  - id: h308
+    label: "THE WORK"
+    hatch: solid
+    at: { x: 620, y: 308 }
+    size: { w: 440, h: 22 }
+  - id: a330
+    label: "Plain hunt"
+    at: { x: 620, y: 330 }
+    size: { w: 160, h: 22 }
+  - id: b330
+    label: "out to the back and in to the front"
+    align: left
+    at: { x: 780, y: 330 }
+    size: { w: 280, h: 22 }
+  - id: a352
+    label: "Over the treble"
+    at: { x: 620, y: 352 }
+    size: { w: 160, h: 22 }
+  - id: b352
+    label: "one bell makes seconds place"
+    align: left
+    at: { x: 780, y: 352 }
+    size: { w: 280, h: 22 }
+  - id: a374
+    label: "Which means"
+    at: { x: 620, y: 374 }
+    size: { w: 160, h: 22 }
+  - id: b374
+    label: "3-4 and 5-6 dodge that change"
+    align: left
+    at: { x: 780, y: 374 }
+    size: { w: 280, h: 22 }
+  - id: a396
+    label: "Plain course"
+    at: { x: 620, y: 396 }
+    size: { w: 160, h: 22 }
+  - id: b396
+    label: "5 leads, 60 changes, back to rounds"
+    align: left
+    at: { x: 780, y: 396 }
+    size: { w: 280, h: 22 }
+  - id: h432
+    label: "WHY DRAW IT AT ALL"
+    hatch: solid
+    at: { x: 620, y: 432 }
+    size: { w: 440, h: 22 }
+  - id: a454
+    label: "Nobody reads"
+    at: { x: 620, y: 454 }
+    size: { w: 160, h: 22 }
+  - id: b454
+    label: "the numbers while ringing"
+    align: left
+    at: { x: 780, y: 454 }
+    size: { w: 280, h: 22 }
+  - id: a476
+    label: "They ring"
+    at: { x: 620, y: 476 }
+    size: { w: 160, h: 22 }
+  - id: b476
+    label: "the line - the shape is memorised"
+    align: left
+    at: { x: 780, y: 476 }
+    size: { w: 280, h: 22 }
+  - id: a498
+    label: "The numbers"
+    at: { x: 620, y: 498 }
+    size: { w: 160, h: 22 }
+  - id: b498
+    label: "are the proof that the line is right"
+    align: left
+    at: { x: 780, y: 498 }
+    size: { w: 280, h: 22 }
+  - id: a520
+    label: "So the diagram"
+    at: { x: 620, y: 520 }
+    size: { w: 160, h: 22 }
+  - id: b520
+    label: "carries both, on the same grid"
+    align: left
+    at: { x: 780, y: 520 }
+    size: { w: 280, h: 22 }
+  - id: t1
+    label: "A method is not a tune. It is a path through a grid."
+    marker: none
+    align: left
+    at: { x: 60, y: 520 }
+    size: { w: 540, h: 18 }
+  - id: t2
+    label: "Every bell moves one place a row, or stays. It cannot jump."
+    marker: none
+    align: left
+    at: { x: 60, y: 542 }
+    size: { w: 540, h: 18 }
+  - id: t3
+    label: "Nobody reads the numbers while ringing - they ring the line."
+    marker: none
+    align: left
+    at: { x: 60, y: 564 }
+    size: { w: 540, h: 18 }
+  - id: t4
+    label: "The numbers are the proof that the line is right."
+    marker: none
+    align: left
+    at: { x: 60, y: 586 }
+    size: { w: 540, h: 18 }
+  - id: t5
+    label: "This is one lead of Plain Bob Minor; five leads come back to rounds."
+    marker: none
+    align: left
+    at: { x: 60, y: 608 }
+    size: { w: 540, h: 18 }
+edges:
+  - from: blue0
+    to: blue1
+    curve: smooth
+    via:
+      - { x: 165, y: 163 }
+      - { x: 165, y: 185 }
+      - { x: 195, y: 207 }
+      - { x: 225, y: 229 }
+      - { x: 255, y: 251 }
+      - { x: 285, y: 273 }
+      - { x: 315, y: 295 }
+      - { x: 315, y: 317 }
+      - { x: 285, y: 339 }
+      - { x: 255, y: 361 }
+      - { x: 225, y: 383 }
+  - from: treble0
+    to: treble1
+    curve: smooth
+    line: dashed
+    via:
+      - { x: 195, y: 163 }
+      - { x: 225, y: 185 }
+      - { x: 255, y: 207 }
+      - { x: 285, y: 229 }
+      - { x: 315, y: 251 }
+      - { x: 315, y: 273 }
+      - { x: 285, y: 295 }
+      - { x: 255, y: 317 }
+      - { x: 225, y: 339 }
+      - { x: 195, y: 361 }
+      - { x: 165, y: 383 }

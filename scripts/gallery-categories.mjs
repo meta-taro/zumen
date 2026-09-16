@@ -169,6 +169,7 @@ export const CATEGORIES = [
     key: 'moyooshi',
     label: '催し・遊び',
     items: [
+      { name: '160-Change-ringing-method', alt: '転座鳴鐘の方法図（Plain Bob Minor の 1 リード／英語）', caption: '鐘の方法図（曲ではなく、格子の中の道）' },
       { name: '96-オーケストラの配置図', alt: 'オーケストラの配置（対向配置と現代配置）', caption: 'オーケストラの配置（対向と現代を並べる）' },
       { name: '110-ダンスのフォーメーション図', alt: 'ダンスのフォーメーション図（5 人・4 つの形）', caption: 'ダンスのフォーメーション図（ナナメがいちばん強い）' },
       { name: '77-舞台照明仕込図', alt: '舞台照明仕込図とチャンネル一覧', caption: '舞台照明仕込図（図＋チャンネル一覧）' },
