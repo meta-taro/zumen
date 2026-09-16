@@ -124,6 +124,7 @@ export const CAPTIONS_EN = {
   '60-ドームの座席等級図': 'Stadium seating by price band',
   '150-Baseball-infield': 'Baseball infield: every distance starts at the apex of home plate',
   '97-防犯カメラの視野図': 'Camera coverage, out to the distance a face still reads',
+  '153-Parking-striping': 'Parking striping: the access aisle is not spare tarmac',
   '34-倉庫のロケーション': 'Warehouse location addressing',
   '149-Pallet-rack-layout': 'Pallet rack: the truck decides the aisle',
   '116-引越しの搬入経路図': 'Moving route: the drawing that says whether it fits',
