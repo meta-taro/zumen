@@ -526,7 +526,22 @@ const WIDE_ENOUGH = 200;
 /** 枠の無い注記で見る下限。**これより細いのは、場所を指す点。** */
 const WIDE_ENOUGH_BARE = 40;
 
-export function adriftNames(boxes: readonly Box[], plans: Map<string, Plan>): string[] {
+/**
+ * **どれだけ足りないか**（`id` と、測った名前の幅と箱の幅）。
+ *
+ * 「箱を広げるか、文字を短くしてください」だけでは、**何 px 足りないのか分からない。**
+ * 広げると隣にぶつかり、縮めるとまた飛び出す —— 同じ注記を 4 回直したことがある
+ * （2026-09-16。見本 161）。**測った数字は道具の側が持っている。**
+ */
+export interface Adrift {
+  id: string;
+  /** 名前を描くのに要る幅（余白 6px を含む）。 */
+  needs: number;
+  /** 箱の幅。 */
+  has: number;
+}
+
+export function adriftDetails(boxes: readonly Box[], plans: Map<string, Plan>): Adrift[] {
   return boxes
     .filter(
       (box) =>
@@ -536,8 +551,16 @@ export function adriftNames(boxes: readonly Box[], plans: Map<string, Plan>): st
         box.symbol === null &&
         plans.get(box.id)?.kind === 'outside',
     )
-    .map((box) => box.id)
-    .sort();
+    .map((box) => ({
+      id: box.id,
+      needs: Math.ceil(labelWidth(box.label, NAME_FONT) + 6),
+      has: Math.round(box.w),
+    }))
+    .sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
+}
+
+export function adriftNames(boxes: readonly Box[], plans: Map<string, Plan>): string[] {
+  return adriftDetails(boxes, plans).map((found) => found.id);
 }
 
 /** 箱ぜんたいが占める矩形。**外へ出す先が図の外にならないか**を見るのに使う。 */

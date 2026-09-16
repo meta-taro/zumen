@@ -93,6 +93,34 @@ describe('終了コード', () => {
   });
 });
 
+/**
+ * **「箱を広げるか、文字を短くしてください」だけでは、何 px 足りないのか分からない。**
+ *
+ * 2026-09-16 に見本 161（織りの組織図）を描いていて、**同じ注記で 4 回直した** ——
+ * 広げると隣の文字にぶつかり、縮めるとまた飛び出す。
+ * **測った数字は道具の側が持っている**のに、人へ渡していなかった。
+ */
+describe('入りきらない名前は、どれだけ足りないかを言う', () => {
+  const NARROW = `version: 1
+kind: placement
+nodes:
+  - id: note
+    label: "この注記は、箱の幅にまったく入りきらない長さです"
+    marker: none
+    align: left
+    at: { x: 0, y: 0 }
+    size: { w: 60, h: 18 }
+`;
+
+  it('**名前の幅と箱の幅を、両方とも数字で出す**', async () => {
+    const result = await runValidate(['a.yaml'], reader({ 'a.yaml': NARROW }) as never);
+    const line = result.lines.find((text) => text.includes('note'));
+    assert.ok(line !== undefined, `指摘が出ていない: ${result.lines.join(' / ')}`);
+    assert.match(line, /60/, `箱の幅（60px）が入っていない: ${line}`);
+    assert.match(line, /\d{3}\s*px/, `名前の幅が入っていない: ${line}`);
+  });
+});
+
 describe('印刷して読めるか', () => {
   it('**A3 の下限を割る紙は、そう言う**（数の検査だけが知っている状態にしない）', async () => {
     const result = await runValidate(['a.yaml'], reader({ 'a.yaml': TALL }) as never);

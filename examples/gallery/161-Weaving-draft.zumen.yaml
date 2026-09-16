@@ -1,0 +1,1440 @@
+version: 1
+kind: placement
+arrows: false
+title: "Weaving draft - 2/2 twill on four shafts"
+# **Three small grids decide the fourth.**
+#
+# A draft has four parts: **threading** (which shaft each warp end passes
+# through), **tie-up** (which shafts each treadle lifts), **treadling** (the
+# order the treadles are pressed) and the **drawdown** - the cloth.
+#
+# **Nobody draws the drawdown.** It is worked out: take a pick, read its
+# treadle, the tie-up says which shafts lift, the threading says which ends
+# are on those shafts, and those ends are on top. Fill those squares.
+#
+# So a draft is an instruction and the cloth is its output. Change one grid and
+# the cloth changes - the same threading treadled 1 2 3 4 3 2 zigzags instead.
+# **That is why weavers exchange drafts rather than swatches**, and why the loom
+# is the ancestor of the programmed machine.
+#
+# The drawdown on this sheet was computed from the other three.
+nodes:
+  - id: thrf
+    label: ""
+    at: { x: 140, y: 120 }
+    size: { w: 256, h: 64 }
+  - id: thrv1
+    label: ""
+    at: { x: 155.5, y: 120 }
+    size: { w: 1, h: 64 }
+  - id: thrv2
+    label: ""
+    at: { x: 171.5, y: 120 }
+    size: { w: 1, h: 64 }
+  - id: thrv3
+    label: ""
+    at: { x: 187.5, y: 120 }
+    size: { w: 1, h: 64 }
+  - id: thrv4
+    label: ""
+    at: { x: 203.5, y: 120 }
+    size: { w: 1, h: 64 }
+  - id: thrv5
+    label: ""
+    at: { x: 219.5, y: 120 }
+    size: { w: 1, h: 64 }
+  - id: thrv6
+    label: ""
+    at: { x: 235.5, y: 120 }
+    size: { w: 1, h: 64 }
+  - id: thrv7
+    label: ""
+    at: { x: 251.5, y: 120 }
+    size: { w: 1, h: 64 }
+  - id: thrv8
+    label: ""
+    at: { x: 267.5, y: 120 }
+    size: { w: 1, h: 64 }
+  - id: thrv9
+    label: ""
+    at: { x: 283.5, y: 120 }
+    size: { w: 1, h: 64 }
+  - id: thrv10
+    label: ""
+    at: { x: 299.5, y: 120 }
+    size: { w: 1, h: 64 }
+  - id: thrv11
+    label: ""
+    at: { x: 315.5, y: 120 }
+    size: { w: 1, h: 64 }
+  - id: thrv12
+    label: ""
+    at: { x: 331.5, y: 120 }
+    size: { w: 1, h: 64 }
+  - id: thrv13
+    label: ""
+    at: { x: 347.5, y: 120 }
+    size: { w: 1, h: 64 }
+  - id: thrv14
+    label: ""
+    at: { x: 363.5, y: 120 }
+    size: { w: 1, h: 64 }
+  - id: thrv15
+    label: ""
+    at: { x: 379.5, y: 120 }
+    size: { w: 1, h: 64 }
+  - id: thrh1
+    label: ""
+    at: { x: 140, y: 135.5 }
+    size: { w: 256, h: 1 }
+  - id: thrh2
+    label: ""
+    at: { x: 140, y: 151.5 }
+    size: { w: 256, h: 1 }
+  - id: thrh3
+    label: ""
+    at: { x: 140, y: 167.5 }
+    size: { w: 256, h: 1 }
+  - id: t0
+    label: ""
+    hatch: solid
+    at: { x: 140, y: 168 }
+    size: { w: 16, h: 16 }
+  - id: t1
+    label: ""
+    hatch: solid
+    at: { x: 156, y: 152 }
+    size: { w: 16, h: 16 }
+  - id: t2
+    label: ""
+    hatch: solid
+    at: { x: 172, y: 136 }
+    size: { w: 16, h: 16 }
+  - id: t3
+    label: ""
+    hatch: solid
+    at: { x: 188, y: 120 }
+    size: { w: 16, h: 16 }
+  - id: t4
+    label: ""
+    hatch: solid
+    at: { x: 204, y: 168 }
+    size: { w: 16, h: 16 }
+  - id: t5
+    label: ""
+    hatch: solid
+    at: { x: 220, y: 152 }
+    size: { w: 16, h: 16 }
+  - id: t6
+    label: ""
+    hatch: solid
+    at: { x: 236, y: 136 }
+    size: { w: 16, h: 16 }
+  - id: t7
+    label: ""
+    hatch: solid
+    at: { x: 252, y: 120 }
+    size: { w: 16, h: 16 }
+  - id: t8
+    label: ""
+    hatch: solid
+    at: { x: 268, y: 168 }
+    size: { w: 16, h: 16 }
+  - id: t9
+    label: ""
+    hatch: solid
+    at: { x: 284, y: 152 }
+    size: { w: 16, h: 16 }
+  - id: t10
+    label: ""
+    hatch: solid
+    at: { x: 300, y: 136 }
+    size: { w: 16, h: 16 }
+  - id: t11
+    label: ""
+    hatch: solid
+    at: { x: 316, y: 120 }
+    size: { w: 16, h: 16 }
+  - id: t12
+    label: ""
+    hatch: solid
+    at: { x: 332, y: 168 }
+    size: { w: 16, h: 16 }
+  - id: t13
+    label: ""
+    hatch: solid
+    at: { x: 348, y: 152 }
+    size: { w: 16, h: 16 }
+  - id: t14
+    label: ""
+    hatch: solid
+    at: { x: 364, y: 136 }
+    size: { w: 16, h: 16 }
+  - id: t15
+    label: ""
+    hatch: solid
+    at: { x: 380, y: 120 }
+    size: { w: 16, h: 16 }
+  - id: tief
+    label: ""
+    at: { x: 412, y: 120 }
+    size: { w: 64, h: 64 }
+  - id: tiev1
+    label: ""
+    at: { x: 427.5, y: 120 }
+    size: { w: 1, h: 64 }
+  - id: tiev2
+    label: ""
+    at: { x: 443.5, y: 120 }
+    size: { w: 1, h: 64 }
+  - id: tiev3
+    label: ""
+    at: { x: 459.5, y: 120 }
+    size: { w: 1, h: 64 }
+  - id: tieh1
+    label: ""
+    at: { x: 412, y: 135.5 }
+    size: { w: 64, h: 1 }
+  - id: tieh2
+    label: ""
+    at: { x: 412, y: 151.5 }
+    size: { w: 64, h: 1 }
+  - id: tieh3
+    label: ""
+    at: { x: 412, y: 167.5 }
+    size: { w: 64, h: 1 }
+  - id: u0_1
+    label: ""
+    hatch: solid
+    at: { x: 412, y: 168 }
+    size: { w: 16, h: 16 }
+  - id: u0_2
+    label: ""
+    hatch: solid
+    at: { x: 412, y: 152 }
+    size: { w: 16, h: 16 }
+  - id: u1_2
+    label: ""
+    hatch: solid
+    at: { x: 428, y: 152 }
+    size: { w: 16, h: 16 }
+  - id: u1_3
+    label: ""
+    hatch: solid
+    at: { x: 428, y: 136 }
+    size: { w: 16, h: 16 }
+  - id: u2_3
+    label: ""
+    hatch: solid
+    at: { x: 444, y: 136 }
+    size: { w: 16, h: 16 }
+  - id: u2_4
+    label: ""
+    hatch: solid
+    at: { x: 444, y: 120 }
+    size: { w: 16, h: 16 }
+  - id: u3_4
+    label: ""
+    hatch: solid
+    at: { x: 460, y: 120 }
+    size: { w: 16, h: 16 }
+  - id: u3_1
+    label: ""
+    hatch: solid
+    at: { x: 460, y: 168 }
+    size: { w: 16, h: 16 }
+  - id: trdf
+    label: ""
+    at: { x: 412, y: 200 }
+    size: { w: 64, h: 256 }
+  - id: trdv1
+    label: ""
+    at: { x: 427.5, y: 200 }
+    size: { w: 1, h: 256 }
+  - id: trdv2
+    label: ""
+    at: { x: 443.5, y: 200 }
+    size: { w: 1, h: 256 }
+  - id: trdv3
+    label: ""
+    at: { x: 459.5, y: 200 }
+    size: { w: 1, h: 256 }
+  - id: trdh1
+    label: ""
+    at: { x: 412, y: 215.5 }
+    size: { w: 64, h: 1 }
+  - id: trdh2
+    label: ""
+    at: { x: 412, y: 231.5 }
+    size: { w: 64, h: 1 }
+  - id: trdh3
+    label: ""
+    at: { x: 412, y: 247.5 }
+    size: { w: 64, h: 1 }
+  - id: trdh4
+    label: ""
+    at: { x: 412, y: 263.5 }
+    size: { w: 64, h: 1 }
+  - id: trdh5
+    label: ""
+    at: { x: 412, y: 279.5 }
+    size: { w: 64, h: 1 }
+  - id: trdh6
+    label: ""
+    at: { x: 412, y: 295.5 }
+    size: { w: 64, h: 1 }
+  - id: trdh7
+    label: ""
+    at: { x: 412, y: 311.5 }
+    size: { w: 64, h: 1 }
+  - id: trdh8
+    label: ""
+    at: { x: 412, y: 327.5 }
+    size: { w: 64, h: 1 }
+  - id: trdh9
+    label: ""
+    at: { x: 412, y: 343.5 }
+    size: { w: 64, h: 1 }
+  - id: trdh10
+    label: ""
+    at: { x: 412, y: 359.5 }
+    size: { w: 64, h: 1 }
+  - id: trdh11
+    label: ""
+    at: { x: 412, y: 375.5 }
+    size: { w: 64, h: 1 }
+  - id: trdh12
+    label: ""
+    at: { x: 412, y: 391.5 }
+    size: { w: 64, h: 1 }
+  - id: trdh13
+    label: ""
+    at: { x: 412, y: 407.5 }
+    size: { w: 64, h: 1 }
+  - id: trdh14
+    label: ""
+    at: { x: 412, y: 423.5 }
+    size: { w: 64, h: 1 }
+  - id: trdh15
+    label: ""
+    at: { x: 412, y: 439.5 }
+    size: { w: 64, h: 1 }
+  - id: p0
+    label: ""
+    hatch: solid
+    at: { x: 412, y: 200 }
+    size: { w: 16, h: 16 }
+  - id: p1
+    label: ""
+    hatch: solid
+    at: { x: 428, y: 216 }
+    size: { w: 16, h: 16 }
+  - id: p2
+    label: ""
+    hatch: solid
+    at: { x: 444, y: 232 }
+    size: { w: 16, h: 16 }
+  - id: p3
+    label: ""
+    hatch: solid
+    at: { x: 460, y: 248 }
+    size: { w: 16, h: 16 }
+  - id: p4
+    label: ""
+    hatch: solid
+    at: { x: 412, y: 264 }
+    size: { w: 16, h: 16 }
+  - id: p5
+    label: ""
+    hatch: solid
+    at: { x: 428, y: 280 }
+    size: { w: 16, h: 16 }
+  - id: p6
+    label: ""
+    hatch: solid
+    at: { x: 444, y: 296 }
+    size: { w: 16, h: 16 }
+  - id: p7
+    label: ""
+    hatch: solid
+    at: { x: 460, y: 312 }
+    size: { w: 16, h: 16 }
+  - id: p8
+    label: ""
+    hatch: solid
+    at: { x: 412, y: 328 }
+    size: { w: 16, h: 16 }
+  - id: p9
+    label: ""
+    hatch: solid
+    at: { x: 428, y: 344 }
+    size: { w: 16, h: 16 }
+  - id: p10
+    label: ""
+    hatch: solid
+    at: { x: 444, y: 360 }
+    size: { w: 16, h: 16 }
+  - id: p11
+    label: ""
+    hatch: solid
+    at: { x: 460, y: 376 }
+    size: { w: 16, h: 16 }
+  - id: p12
+    label: ""
+    hatch: solid
+    at: { x: 412, y: 392 }
+    size: { w: 16, h: 16 }
+  - id: p13
+    label: ""
+    hatch: solid
+    at: { x: 428, y: 408 }
+    size: { w: 16, h: 16 }
+  - id: p14
+    label: ""
+    hatch: solid
+    at: { x: 444, y: 424 }
+    size: { w: 16, h: 16 }
+  - id: p15
+    label: ""
+    hatch: solid
+    at: { x: 460, y: 440 }
+    size: { w: 16, h: 16 }
+  - id: clothf
+    label: ""
+    at: { x: 140, y: 200 }
+    size: { w: 256, h: 256 }
+  - id: clothv1
+    label: ""
+    at: { x: 155.5, y: 200 }
+    size: { w: 1, h: 256 }
+  - id: clothv2
+    label: ""
+    at: { x: 171.5, y: 200 }
+    size: { w: 1, h: 256 }
+  - id: clothv3
+    label: ""
+    at: { x: 187.5, y: 200 }
+    size: { w: 1, h: 256 }
+  - id: clothv4
+    label: ""
+    at: { x: 203.5, y: 200 }
+    size: { w: 1, h: 256 }
+  - id: clothv5
+    label: ""
+    at: { x: 219.5, y: 200 }
+    size: { w: 1, h: 256 }
+  - id: clothv6
+    label: ""
+    at: { x: 235.5, y: 200 }
+    size: { w: 1, h: 256 }
+  - id: clothv7
+    label: ""
+    at: { x: 251.5, y: 200 }
+    size: { w: 1, h: 256 }
+  - id: clothv8
+    label: ""
+    at: { x: 267.5, y: 200 }
+    size: { w: 1, h: 256 }
+  - id: clothv9
+    label: ""
+    at: { x: 283.5, y: 200 }
+    size: { w: 1, h: 256 }
+  - id: clothv10
+    label: ""
+    at: { x: 299.5, y: 200 }
+    size: { w: 1, h: 256 }
+  - id: clothv11
+    label: ""
+    at: { x: 315.5, y: 200 }
+    size: { w: 1, h: 256 }
+  - id: clothv12
+    label: ""
+    at: { x: 331.5, y: 200 }
+    size: { w: 1, h: 256 }
+  - id: clothv13
+    label: ""
+    at: { x: 347.5, y: 200 }
+    size: { w: 1, h: 256 }
+  - id: clothv14
+    label: ""
+    at: { x: 363.5, y: 200 }
+    size: { w: 1, h: 256 }
+  - id: clothv15
+    label: ""
+    at: { x: 379.5, y: 200 }
+    size: { w: 1, h: 256 }
+  - id: clothh1
+    label: ""
+    at: { x: 140, y: 215.5 }
+    size: { w: 256, h: 1 }
+  - id: clothh2
+    label: ""
+    at: { x: 140, y: 231.5 }
+    size: { w: 256, h: 1 }
+  - id: clothh3
+    label: ""
+    at: { x: 140, y: 247.5 }
+    size: { w: 256, h: 1 }
+  - id: clothh4
+    label: ""
+    at: { x: 140, y: 263.5 }
+    size: { w: 256, h: 1 }
+  - id: clothh5
+    label: ""
+    at: { x: 140, y: 279.5 }
+    size: { w: 256, h: 1 }
+  - id: clothh6
+    label: ""
+    at: { x: 140, y: 295.5 }
+    size: { w: 256, h: 1 }
+  - id: clothh7
+    label: ""
+    at: { x: 140, y: 311.5 }
+    size: { w: 256, h: 1 }
+  - id: clothh8
+    label: ""
+    at: { x: 140, y: 327.5 }
+    size: { w: 256, h: 1 }
+  - id: clothh9
+    label: ""
+    at: { x: 140, y: 343.5 }
+    size: { w: 256, h: 1 }
+  - id: clothh10
+    label: ""
+    at: { x: 140, y: 359.5 }
+    size: { w: 256, h: 1 }
+  - id: clothh11
+    label: ""
+    at: { x: 140, y: 375.5 }
+    size: { w: 256, h: 1 }
+  - id: clothh12
+    label: ""
+    at: { x: 140, y: 391.5 }
+    size: { w: 256, h: 1 }
+  - id: clothh13
+    label: ""
+    at: { x: 140, y: 407.5 }
+    size: { w: 256, h: 1 }
+  - id: clothh14
+    label: ""
+    at: { x: 140, y: 423.5 }
+    size: { w: 256, h: 1 }
+  - id: clothh15
+    label: ""
+    at: { x: 140, y: 439.5 }
+    size: { w: 256, h: 1 }
+  - id: d0_0
+    label: ""
+    hatch: solid
+    at: { x: 140, y: 200 }
+    size: { w: 16, h: 16 }
+  - id: d0_1
+    label: ""
+    hatch: solid
+    at: { x: 156, y: 200 }
+    size: { w: 16, h: 16 }
+  - id: d0_4
+    label: ""
+    hatch: solid
+    at: { x: 204, y: 200 }
+    size: { w: 16, h: 16 }
+  - id: d0_5
+    label: ""
+    hatch: solid
+    at: { x: 220, y: 200 }
+    size: { w: 16, h: 16 }
+  - id: d0_8
+    label: ""
+    hatch: solid
+    at: { x: 268, y: 200 }
+    size: { w: 16, h: 16 }
+  - id: d0_9
+    label: ""
+    hatch: solid
+    at: { x: 284, y: 200 }
+    size: { w: 16, h: 16 }
+  - id: d0_12
+    label: ""
+    hatch: solid
+    at: { x: 332, y: 200 }
+    size: { w: 16, h: 16 }
+  - id: d0_13
+    label: ""
+    hatch: solid
+    at: { x: 348, y: 200 }
+    size: { w: 16, h: 16 }
+  - id: d1_1
+    label: ""
+    hatch: solid
+    at: { x: 156, y: 216 }
+    size: { w: 16, h: 16 }
+  - id: d1_2
+    label: ""
+    hatch: solid
+    at: { x: 172, y: 216 }
+    size: { w: 16, h: 16 }
+  - id: d1_5
+    label: ""
+    hatch: solid
+    at: { x: 220, y: 216 }
+    size: { w: 16, h: 16 }
+  - id: d1_6
+    label: ""
+    hatch: solid
+    at: { x: 236, y: 216 }
+    size: { w: 16, h: 16 }
+  - id: d1_9
+    label: ""
+    hatch: solid
+    at: { x: 284, y: 216 }
+    size: { w: 16, h: 16 }
+  - id: d1_10
+    label: ""
+    hatch: solid
+    at: { x: 300, y: 216 }
+    size: { w: 16, h: 16 }
+  - id: d1_13
+    label: ""
+    hatch: solid
+    at: { x: 348, y: 216 }
+    size: { w: 16, h: 16 }
+  - id: d1_14
+    label: ""
+    hatch: solid
+    at: { x: 364, y: 216 }
+    size: { w: 16, h: 16 }
+  - id: d2_2
+    label: ""
+    hatch: solid
+    at: { x: 172, y: 232 }
+    size: { w: 16, h: 16 }
+  - id: d2_3
+    label: ""
+    hatch: solid
+    at: { x: 188, y: 232 }
+    size: { w: 16, h: 16 }
+  - id: d2_6
+    label: ""
+    hatch: solid
+    at: { x: 236, y: 232 }
+    size: { w: 16, h: 16 }
+  - id: d2_7
+    label: ""
+    hatch: solid
+    at: { x: 252, y: 232 }
+    size: { w: 16, h: 16 }
+  - id: d2_10
+    label: ""
+    hatch: solid
+    at: { x: 300, y: 232 }
+    size: { w: 16, h: 16 }
+  - id: d2_11
+    label: ""
+    hatch: solid
+    at: { x: 316, y: 232 }
+    size: { w: 16, h: 16 }
+  - id: d2_14
+    label: ""
+    hatch: solid
+    at: { x: 364, y: 232 }
+    size: { w: 16, h: 16 }
+  - id: d2_15
+    label: ""
+    hatch: solid
+    at: { x: 380, y: 232 }
+    size: { w: 16, h: 16 }
+  - id: d3_0
+    label: ""
+    hatch: solid
+    at: { x: 140, y: 248 }
+    size: { w: 16, h: 16 }
+  - id: d3_3
+    label: ""
+    hatch: solid
+    at: { x: 188, y: 248 }
+    size: { w: 16, h: 16 }
+  - id: d3_4
+    label: ""
+    hatch: solid
+    at: { x: 204, y: 248 }
+    size: { w: 16, h: 16 }
+  - id: d3_7
+    label: ""
+    hatch: solid
+    at: { x: 252, y: 248 }
+    size: { w: 16, h: 16 }
+  - id: d3_8
+    label: ""
+    hatch: solid
+    at: { x: 268, y: 248 }
+    size: { w: 16, h: 16 }
+  - id: d3_11
+    label: ""
+    hatch: solid
+    at: { x: 316, y: 248 }
+    size: { w: 16, h: 16 }
+  - id: d3_12
+    label: ""
+    hatch: solid
+    at: { x: 332, y: 248 }
+    size: { w: 16, h: 16 }
+  - id: d3_15
+    label: ""
+    hatch: solid
+    at: { x: 380, y: 248 }
+    size: { w: 16, h: 16 }
+  - id: d4_0
+    label: ""
+    hatch: solid
+    at: { x: 140, y: 264 }
+    size: { w: 16, h: 16 }
+  - id: d4_1
+    label: ""
+    hatch: solid
+    at: { x: 156, y: 264 }
+    size: { w: 16, h: 16 }
+  - id: d4_4
+    label: ""
+    hatch: solid
+    at: { x: 204, y: 264 }
+    size: { w: 16, h: 16 }
+  - id: d4_5
+    label: ""
+    hatch: solid
+    at: { x: 220, y: 264 }
+    size: { w: 16, h: 16 }
+  - id: d4_8
+    label: ""
+    hatch: solid
+    at: { x: 268, y: 264 }
+    size: { w: 16, h: 16 }
+  - id: d4_9
+    label: ""
+    hatch: solid
+    at: { x: 284, y: 264 }
+    size: { w: 16, h: 16 }
+  - id: d4_12
+    label: ""
+    hatch: solid
+    at: { x: 332, y: 264 }
+    size: { w: 16, h: 16 }
+  - id: d4_13
+    label: ""
+    hatch: solid
+    at: { x: 348, y: 264 }
+    size: { w: 16, h: 16 }
+  - id: d5_1
+    label: ""
+    hatch: solid
+    at: { x: 156, y: 280 }
+    size: { w: 16, h: 16 }
+  - id: d5_2
+    label: ""
+    hatch: solid
+    at: { x: 172, y: 280 }
+    size: { w: 16, h: 16 }
+  - id: d5_5
+    label: ""
+    hatch: solid
+    at: { x: 220, y: 280 }
+    size: { w: 16, h: 16 }
+  - id: d5_6
+    label: ""
+    hatch: solid
+    at: { x: 236, y: 280 }
+    size: { w: 16, h: 16 }
+  - id: d5_9
+    label: ""
+    hatch: solid
+    at: { x: 284, y: 280 }
+    size: { w: 16, h: 16 }
+  - id: d5_10
+    label: ""
+    hatch: solid
+    at: { x: 300, y: 280 }
+    size: { w: 16, h: 16 }
+  - id: d5_13
+    label: ""
+    hatch: solid
+    at: { x: 348, y: 280 }
+    size: { w: 16, h: 16 }
+  - id: d5_14
+    label: ""
+    hatch: solid
+    at: { x: 364, y: 280 }
+    size: { w: 16, h: 16 }
+  - id: d6_2
+    label: ""
+    hatch: solid
+    at: { x: 172, y: 296 }
+    size: { w: 16, h: 16 }
+  - id: d6_3
+    label: ""
+    hatch: solid
+    at: { x: 188, y: 296 }
+    size: { w: 16, h: 16 }
+  - id: d6_6
+    label: ""
+    hatch: solid
+    at: { x: 236, y: 296 }
+    size: { w: 16, h: 16 }
+  - id: d6_7
+    label: ""
+    hatch: solid
+    at: { x: 252, y: 296 }
+    size: { w: 16, h: 16 }
+  - id: d6_10
+    label: ""
+    hatch: solid
+    at: { x: 300, y: 296 }
+    size: { w: 16, h: 16 }
+  - id: d6_11
+    label: ""
+    hatch: solid
+    at: { x: 316, y: 296 }
+    size: { w: 16, h: 16 }
+  - id: d6_14
+    label: ""
+    hatch: solid
+    at: { x: 364, y: 296 }
+    size: { w: 16, h: 16 }
+  - id: d6_15
+    label: ""
+    hatch: solid
+    at: { x: 380, y: 296 }
+    size: { w: 16, h: 16 }
+  - id: d7_0
+    label: ""
+    hatch: solid
+    at: { x: 140, y: 312 }
+    size: { w: 16, h: 16 }
+  - id: d7_3
+    label: ""
+    hatch: solid
+    at: { x: 188, y: 312 }
+    size: { w: 16, h: 16 }
+  - id: d7_4
+    label: ""
+    hatch: solid
+    at: { x: 204, y: 312 }
+    size: { w: 16, h: 16 }
+  - id: d7_7
+    label: ""
+    hatch: solid
+    at: { x: 252, y: 312 }
+    size: { w: 16, h: 16 }
+  - id: d7_8
+    label: ""
+    hatch: solid
+    at: { x: 268, y: 312 }
+    size: { w: 16, h: 16 }
+  - id: d7_11
+    label: ""
+    hatch: solid
+    at: { x: 316, y: 312 }
+    size: { w: 16, h: 16 }
+  - id: d7_12
+    label: ""
+    hatch: solid
+    at: { x: 332, y: 312 }
+    size: { w: 16, h: 16 }
+  - id: d7_15
+    label: ""
+    hatch: solid
+    at: { x: 380, y: 312 }
+    size: { w: 16, h: 16 }
+  - id: d8_0
+    label: ""
+    hatch: solid
+    at: { x: 140, y: 328 }
+    size: { w: 16, h: 16 }
+  - id: d8_1
+    label: ""
+    hatch: solid
+    at: { x: 156, y: 328 }
+    size: { w: 16, h: 16 }
+  - id: d8_4
+    label: ""
+    hatch: solid
+    at: { x: 204, y: 328 }
+    size: { w: 16, h: 16 }
+  - id: d8_5
+    label: ""
+    hatch: solid
+    at: { x: 220, y: 328 }
+    size: { w: 16, h: 16 }
+  - id: d8_8
+    label: ""
+    hatch: solid
+    at: { x: 268, y: 328 }
+    size: { w: 16, h: 16 }
+  - id: d8_9
+    label: ""
+    hatch: solid
+    at: { x: 284, y: 328 }
+    size: { w: 16, h: 16 }
+  - id: d8_12
+    label: ""
+    hatch: solid
+    at: { x: 332, y: 328 }
+    size: { w: 16, h: 16 }
+  - id: d8_13
+    label: ""
+    hatch: solid
+    at: { x: 348, y: 328 }
+    size: { w: 16, h: 16 }
+  - id: d9_1
+    label: ""
+    hatch: solid
+    at: { x: 156, y: 344 }
+    size: { w: 16, h: 16 }
+  - id: d9_2
+    label: ""
+    hatch: solid
+    at: { x: 172, y: 344 }
+    size: { w: 16, h: 16 }
+  - id: d9_5
+    label: ""
+    hatch: solid
+    at: { x: 220, y: 344 }
+    size: { w: 16, h: 16 }
+  - id: d9_6
+    label: ""
+    hatch: solid
+    at: { x: 236, y: 344 }
+    size: { w: 16, h: 16 }
+  - id: d9_9
+    label: ""
+    hatch: solid
+    at: { x: 284, y: 344 }
+    size: { w: 16, h: 16 }
+  - id: d9_10
+    label: ""
+    hatch: solid
+    at: { x: 300, y: 344 }
+    size: { w: 16, h: 16 }
+  - id: d9_13
+    label: ""
+    hatch: solid
+    at: { x: 348, y: 344 }
+    size: { w: 16, h: 16 }
+  - id: d9_14
+    label: ""
+    hatch: solid
+    at: { x: 364, y: 344 }
+    size: { w: 16, h: 16 }
+  - id: d10_2
+    label: ""
+    hatch: solid
+    at: { x: 172, y: 360 }
+    size: { w: 16, h: 16 }
+  - id: d10_3
+    label: ""
+    hatch: solid
+    at: { x: 188, y: 360 }
+    size: { w: 16, h: 16 }
+  - id: d10_6
+    label: ""
+    hatch: solid
+    at: { x: 236, y: 360 }
+    size: { w: 16, h: 16 }
+  - id: d10_7
+    label: ""
+    hatch: solid
+    at: { x: 252, y: 360 }
+    size: { w: 16, h: 16 }
+  - id: d10_10
+    label: ""
+    hatch: solid
+    at: { x: 300, y: 360 }
+    size: { w: 16, h: 16 }
+  - id: d10_11
+    label: ""
+    hatch: solid
+    at: { x: 316, y: 360 }
+    size: { w: 16, h: 16 }
+  - id: d10_14
+    label: ""
+    hatch: solid
+    at: { x: 364, y: 360 }
+    size: { w: 16, h: 16 }
+  - id: d10_15
+    label: ""
+    hatch: solid
+    at: { x: 380, y: 360 }
+    size: { w: 16, h: 16 }
+  - id: d11_0
+    label: ""
+    hatch: solid
+    at: { x: 140, y: 376 }
+    size: { w: 16, h: 16 }
+  - id: d11_3
+    label: ""
+    hatch: solid
+    at: { x: 188, y: 376 }
+    size: { w: 16, h: 16 }
+  - id: d11_4
+    label: ""
+    hatch: solid
+    at: { x: 204, y: 376 }
+    size: { w: 16, h: 16 }
+  - id: d11_7
+    label: ""
+    hatch: solid
+    at: { x: 252, y: 376 }
+    size: { w: 16, h: 16 }
+  - id: d11_8
+    label: ""
+    hatch: solid
+    at: { x: 268, y: 376 }
+    size: { w: 16, h: 16 }
+  - id: d11_11
+    label: ""
+    hatch: solid
+    at: { x: 316, y: 376 }
+    size: { w: 16, h: 16 }
+  - id: d11_12
+    label: ""
+    hatch: solid
+    at: { x: 332, y: 376 }
+    size: { w: 16, h: 16 }
+  - id: d11_15
+    label: ""
+    hatch: solid
+    at: { x: 380, y: 376 }
+    size: { w: 16, h: 16 }
+  - id: d12_0
+    label: ""
+    hatch: solid
+    at: { x: 140, y: 392 }
+    size: { w: 16, h: 16 }
+  - id: d12_1
+    label: ""
+    hatch: solid
+    at: { x: 156, y: 392 }
+    size: { w: 16, h: 16 }
+  - id: d12_4
+    label: ""
+    hatch: solid
+    at: { x: 204, y: 392 }
+    size: { w: 16, h: 16 }
+  - id: d12_5
+    label: ""
+    hatch: solid
+    at: { x: 220, y: 392 }
+    size: { w: 16, h: 16 }
+  - id: d12_8
+    label: ""
+    hatch: solid
+    at: { x: 268, y: 392 }
+    size: { w: 16, h: 16 }
+  - id: d12_9
+    label: ""
+    hatch: solid
+    at: { x: 284, y: 392 }
+    size: { w: 16, h: 16 }
+  - id: d12_12
+    label: ""
+    hatch: solid
+    at: { x: 332, y: 392 }
+    size: { w: 16, h: 16 }
+  - id: d12_13
+    label: ""
+    hatch: solid
+    at: { x: 348, y: 392 }
+    size: { w: 16, h: 16 }
+  - id: d13_1
+    label: ""
+    hatch: solid
+    at: { x: 156, y: 408 }
+    size: { w: 16, h: 16 }
+  - id: d13_2
+    label: ""
+    hatch: solid
+    at: { x: 172, y: 408 }
+    size: { w: 16, h: 16 }
+  - id: d13_5
+    label: ""
+    hatch: solid
+    at: { x: 220, y: 408 }
+    size: { w: 16, h: 16 }
+  - id: d13_6
+    label: ""
+    hatch: solid
+    at: { x: 236, y: 408 }
+    size: { w: 16, h: 16 }
+  - id: d13_9
+    label: ""
+    hatch: solid
+    at: { x: 284, y: 408 }
+    size: { w: 16, h: 16 }
+  - id: d13_10
+    label: ""
+    hatch: solid
+    at: { x: 300, y: 408 }
+    size: { w: 16, h: 16 }
+  - id: d13_13
+    label: ""
+    hatch: solid
+    at: { x: 348, y: 408 }
+    size: { w: 16, h: 16 }
+  - id: d13_14
+    label: ""
+    hatch: solid
+    at: { x: 364, y: 408 }
+    size: { w: 16, h: 16 }
+  - id: d14_2
+    label: ""
+    hatch: solid
+    at: { x: 172, y: 424 }
+    size: { w: 16, h: 16 }
+  - id: d14_3
+    label: ""
+    hatch: solid
+    at: { x: 188, y: 424 }
+    size: { w: 16, h: 16 }
+  - id: d14_6
+    label: ""
+    hatch: solid
+    at: { x: 236, y: 424 }
+    size: { w: 16, h: 16 }
+  - id: d14_7
+    label: ""
+    hatch: solid
+    at: { x: 252, y: 424 }
+    size: { w: 16, h: 16 }
+  - id: d14_10
+    label: ""
+    hatch: solid
+    at: { x: 300, y: 424 }
+    size: { w: 16, h: 16 }
+  - id: d14_11
+    label: ""
+    hatch: solid
+    at: { x: 316, y: 424 }
+    size: { w: 16, h: 16 }
+  - id: d14_14
+    label: ""
+    hatch: solid
+    at: { x: 364, y: 424 }
+    size: { w: 16, h: 16 }
+  - id: d14_15
+    label: ""
+    hatch: solid
+    at: { x: 380, y: 424 }
+    size: { w: 16, h: 16 }
+  - id: d15_0
+    label: ""
+    hatch: solid
+    at: { x: 140, y: 440 }
+    size: { w: 16, h: 16 }
+  - id: d15_3
+    label: ""
+    hatch: solid
+    at: { x: 188, y: 440 }
+    size: { w: 16, h: 16 }
+  - id: d15_4
+    label: ""
+    hatch: solid
+    at: { x: 204, y: 440 }
+    size: { w: 16, h: 16 }
+  - id: d15_7
+    label: ""
+    hatch: solid
+    at: { x: 252, y: 440 }
+    size: { w: 16, h: 16 }
+  - id: d15_8
+    label: ""
+    hatch: solid
+    at: { x: 268, y: 440 }
+    size: { w: 16, h: 16 }
+  - id: d15_11
+    label: ""
+    hatch: solid
+    at: { x: 316, y: 440 }
+    size: { w: 16, h: 16 }
+  - id: d15_12
+    label: ""
+    hatch: solid
+    at: { x: 332, y: 440 }
+    size: { w: 16, h: 16 }
+  - id: d15_15
+    label: ""
+    hatch: solid
+    at: { x: 380, y: 440 }
+    size: { w: 16, h: 16 }
+  - id: l1
+    label: "THREADING  -  which shaft each warp end goes on"
+    marker: none
+    align: left
+    at: { x: 140, y: 74 }
+    size: { w: 340, h: 18 }
+  - id: l2
+    label: "TIE-UP"
+    marker: none
+    align: left
+    at: { x: 412, y: 94 }
+    size: { w: 120, h: 18 }
+  - id: l3
+    label: "TREADLING"
+    marker: none
+    align: left
+    at: { x: 412, y: 464 }
+    size: { w: 120, h: 18 }
+  - id: l4
+    label: "DRAWDOWN  -  the cloth, computed"
+    marker: none
+    align: left
+    at: { x: 140, y: 464 }
+    size: { w: 260, h: 18 }
+  - id: l5
+    label: "not drawn by hand"
+    marker: none
+    align: left
+    at: { x: 140, y: 484 }
+    size: { w: 260, h: 18 }
+  - id: sh1
+    label: "1"
+    marker: none
+    align: left
+    at: { x: 122, y: 169 }
+    size: { w: 14, h: 18 }
+  - id: sh2
+    label: "2"
+    marker: none
+    align: left
+    at: { x: 122, y: 153 }
+    size: { w: 14, h: 18 }
+  - id: sh3
+    label: "3"
+    marker: none
+    align: left
+    at: { x: 122, y: 137 }
+    size: { w: 14, h: 18 }
+  - id: sh4
+    label: "4"
+    marker: none
+    align: left
+    at: { x: 122, y: 121 }
+    size: { w: 14, h: 18 }
+  - id: tn1
+    label: "1"
+    marker: none
+    align: left
+    at: { x: 417, y: 106 }
+    size: { w: 14, h: 18 }
+  - id: tn2
+    label: "2"
+    marker: none
+    align: left
+    at: { x: 433, y: 106 }
+    size: { w: 14, h: 18 }
+  - id: tn3
+    label: "3"
+    marker: none
+    align: left
+    at: { x: 449, y: 106 }
+    size: { w: 14, h: 18 }
+  - id: tn4
+    label: "4"
+    marker: none
+    align: left
+    at: { x: 465, y: 106 }
+    size: { w: 14, h: 18 }
+  - id: h60
+    label: "FOUR GRIDS, AND ONE OF THEM IS THE ANSWER"
+    hatch: solid
+    at: { x: 620, y: 60 }
+    size: { w: 440, h: 22 }
+  - id: a82
+    label: "Threading"
+    at: { x: 620, y: 82 }
+    size: { w: 150, h: 22 }
+  - id: b82
+    label: "which shaft each warp end passes"
+    align: left
+    at: { x: 770, y: 82 }
+    size: { w: 290, h: 22 }
+  - id: a104
+    label: "Tie-up"
+    at: { x: 620, y: 104 }
+    size: { w: 150, h: 22 }
+  - id: b104
+    label: "which shafts each treadle lifts"
+    align: left
+    at: { x: 770, y: 104 }
+    size: { w: 290, h: 22 }
+  - id: a126
+    label: "Treadling"
+    at: { x: 620, y: 126 }
+    size: { w: 150, h: 22 }
+  - id: b126
+    label: "the order the treadles are pressed"
+    align: left
+    at: { x: 770, y: 126 }
+    size: { w: 290, h: 22 }
+  - id: a148
+    label: "Drawdown"
+    at: { x: 620, y: 148 }
+    size: { w: 150, h: 22 }
+  - id: b148
+    label: "what the cloth then does"
+    align: left
+    at: { x: 770, y: 148 }
+    size: { w: 290, h: 22 }
+  - id: a170
+    label: "The fourth"
+    at: { x: 620, y: 170 }
+    size: { w: 150, h: 22 }
+  - id: b170
+    label: "is not drawn - it is worked out"
+    align: left
+    at: { x: 770, y: 170 }
+    size: { w: 290, h: 22 }
+  - id: h206
+    label: "HOW A SQUARE IS FILLED IN"
+    hatch: solid
+    at: { x: 620, y: 206 }
+    size: { w: 440, h: 22 }
+  - id: a228
+    label: "Take a pick"
+    at: { x: 620, y: 228 }
+    size: { w: 150, h: 22 }
+  - id: b228
+    label: "read the treadle from the treadling"
+    align: left
+    at: { x: 770, y: 228 }
+    size: { w: 290, h: 22 }
+  - id: a250
+    label: "Go up"
+    at: { x: 620, y: 250 }
+    size: { w: 150, h: 22 }
+  - id: b250
+    label: "the tie-up says which shafts lift"
+    align: left
+    at: { x: 770, y: 250 }
+    size: { w: 290, h: 22 }
+  - id: a272
+    label: "Look across"
+    at: { x: 620, y: 272 }
+    size: { w: 150, h: 22 }
+  - id: b272
+    label: "the threading says which ends are on them"
+    align: left
+    at: { x: 770, y: 272 }
+    size: { w: 290, h: 22 }
+  - id: a294
+    label: "Those ends"
+    at: { x: 620, y: 294 }
+    size: { w: 150, h: 22 }
+  - id: b294
+    label: "are on top, so their squares are filled"
+    align: left
+    at: { x: 770, y: 294 }
+    size: { w: 290, h: 22 }
+  - id: h330
+    label: "THIS DRAFT  (2/2 twill, 4 shafts)"
+    hatch: solid
+    at: { x: 620, y: 330 }
+    size: { w: 440, h: 22 }
+  - id: a352
+    label: "Threading"
+    at: { x: 620, y: 352 }
+    size: { w: 150, h: 22 }
+  - id: b352
+    label: "1 2 3 4, straight draw"
+    align: left
+    at: { x: 770, y: 352 }
+    size: { w: 290, h: 22 }
+  - id: a374
+    label: "Tie-up"
+    at: { x: 620, y: 374 }
+    size: { w: 150, h: 22 }
+  - id: b374
+    label: "1+2, 2+3, 3+4, 4+1"
+    align: left
+    at: { x: 770, y: 374 }
+    size: { w: 290, h: 22 }
+  - id: a396
+    label: "Treadling"
+    at: { x: 620, y: 396 }
+    size: { w: 150, h: 22 }
+  - id: b396
+    label: "1 2 3 4, so the line runs one way"
+    align: left
+    at: { x: 770, y: 396 }
+    size: { w: 290, h: 22 }
+  - id: a418
+    label: "Over two, under two"
+    at: { x: 620, y: 418 }
+    size: { w: 150, h: 22 }
+  - id: b418
+    label: "a balanced cloth, diagonal line"
+    align: left
+    at: { x: 770, y: 418 }
+    size: { w: 290, h: 22 }
+  - id: h454
+    label: "CHANGE ONE GRID, GET ANOTHER CLOTH"
+    hatch: solid
+    at: { x: 620, y: 454 }
+    size: { w: 440, h: 22 }
+  - id: a476
+    label: "Same threading"
+    at: { x: 620, y: 476 }
+    size: { w: 150, h: 22 }
+  - id: b476
+    label: "1 2 3 4 3 2 gives a point twill"
+    align: left
+    at: { x: 770, y: 476 }
+    size: { w: 290, h: 22 }
+  - id: a498
+    label: "Same tie-up"
+    at: { x: 620, y: 498 }
+    size: { w: 150, h: 22 }
+  - id: b498
+    label: "treadle 1 2 3 4 3 2 and it zigzags"
+    align: left
+    at: { x: 770, y: 498 }
+    size: { w: 290, h: 22 }
+  - id: a520
+    label: "Which is why"
+    at: { x: 620, y: 520 }
+    size: { w: 150, h: 22 }
+  - id: b520
+    label: "a draft is written, not the cloth"
+    align: left
+    at: { x: 770, y: 520 }
+    size: { w: 290, h: 22 }
+  - id: a542
+    label: "And why"
+    at: { x: 620, y: 542 }
+    size: { w: 150, h: 22 }
+  - id: b542
+    label: "looms were the first programmed machines"
+    align: left
+    at: { x: 770, y: 542 }
+    size: { w: 290, h: 22 }
+  - id: n1
+    label: "A draft is not a picture of cloth. It is the instruction."
+    marker: none
+    align: left
+    at: { x: 60, y: 560 }
+    size: { w: 540, h: 18 }
+  - id: n2
+    label: "Three small grids decide the fourth: threading, tie-up, treadling."
+    marker: none
+    align: left
+    at: { x: 60, y: 582 }
+    size: { w: 540, h: 18 }
+  - id: n3
+    label: "So weavers exchange drafts, not swatches - a draft can be run again."
+    marker: none
+    align: left
+    at: { x: 60, y: 604 }
+    size: { w: 540, h: 18 }
+  - id: n4
+    label: "The drawdown here was computed from the other three, not drawn by hand."
+    marker: none
+    align: left
+    at: { x: 60, y: 626 }
+    size: { w: 540, h: 18 }
