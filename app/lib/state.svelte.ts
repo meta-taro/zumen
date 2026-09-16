@@ -11,6 +11,7 @@ import type { DiffLine } from '../../src/diff.ts';
 import { reviewOf, setReviewed } from '../../src/review.ts';
 import type { Review } from '../../src/review.ts';
 import { getPins, parse, serialize, setPin } from '../../src/format.ts';
+import { kindOf } from '../../src/kind.ts';
 import { layout } from '../../src/layout.ts';
 import type { Placed } from '../../src/layout.ts';
 import { measure } from '../../src/measure.ts';
@@ -154,6 +155,17 @@ export class Session {
       return;
     }
     this.placed = await layout(this.text);
+  }
+
+  /**
+   * **平面図として描くか**（`kind: placement`）。
+   *
+   * 2026-09-16。画面と書き出しで**別の絵**が出ていた —— 模様も副題も壁の厚みも
+   * 建具も、画面には無かった。**人が承認するのは画面のほう**なので、
+   * 見ていないものを承認させていたことになる。
+   */
+  get plan(): boolean {
+    return this.text !== '' && kindOf(this.text) === 'placement';
   }
 
   /** 人がこの図を見たか（仕様 §3.5）。 */

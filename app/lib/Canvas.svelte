@@ -8,6 +8,9 @@
   描くのは中核の `Placed` から。**色は `src/tokens.ts` の 1 か所から取る。**
 -->
 <script lang="ts">
+  import { drawHatch } from '../../src/hatch.ts';
+  import { drawOpenings } from '../../src/openings.ts';
+  import { wallWidth } from '../../src/wall.ts';
   import type { Box, Placed } from '../../src/layout.ts';
   import { messages } from '../../src/messages.ts';
   import { EDGE, GROUP, STROKE_WIDTH, TEXT, lookOf } from '../../src/tokens.ts';
@@ -18,6 +21,26 @@
     placed: Placed;
   }
   const { session, placed }: Props = $props();
+
+  /**
+   * **平面図として描くか。**
+   *
+   * 2026-09-16。画面と書き出しで**別の絵**が出ていた ——
+   * 模様（`hatch`）も副題（`technology`）も壁の厚みも建具も、画面には無かった。
+   * **人が承認するのは画面のほう**なので、見ていないものを承認させていた。
+   *
+   * 描き方は `src/hatch.ts` / `src/openings.ts` / `src/wall.ts` を**そのまま呼ぶ**。
+   * ここで描き直すと、また 2 つの絵に分かれる。
+   */
+  const plan = $derived(session.plan);
+  const wall = $derived(plan ? wallWidth(placed.wall, placed.mm) : null);
+  const outerWall = $derived(plan ? wallWidth(placed.wall, placed.mm, true) : null);
+
+  /** その箱の枠の太さ。**壁の厚みは「人が置いた印」より優先する。** */
+  function edge(box: Box): number {
+    const thick = box.marker === 'box' && box.w > 34 && box.h > 34 ? wall : null;
+    return thick ?? (box.pinned ? STROKE_WIDTH.pinned : STROKE_WIDTH.auto);
+  }
 
   /**
    * 競合している要素の id。
@@ -118,7 +141,11 @@
       <g>
         <rect
           x={group.x} y={group.y} width={group.w} height={group.h}
-          rx="8" fill={GROUP.fill} stroke={GROUP.stroke} stroke-dasharray="6 4"
+          rx={plan ? 0 : 8}
+          fill={GROUP.fill}
+          stroke={GROUP.stroke}
+          stroke-width={plan ? (outerWall ?? 1) : 1}
+          stroke-dasharray={plan ? 'none' : '6 4'}
         />
         <text x={group.x + 12} y={group.y + 22} font-size="13" fill={TEXT.group}>{group.label}</text>
       </g>
@@ -156,13 +183,35 @@
       >
         <rect
           x={pos.x} y={pos.y} width={box.w} height={box.h}
-          rx="6" fill={look.fill} stroke={look.stroke}
-          stroke-width={box.pinned ? STROKE_WIDTH.pinned : STROKE_WIDTH.auto}
+          rx={plan ? 0 : 6} fill={look.fill} stroke={look.stroke}
+          stroke-width={edge(box)}
         />
+        {#if plan && box.hatch !== 'none'}
+          <!-- **材料と区域の模様**（`src/hatch.ts`）。書き出しと同じものを呼ぶ。 -->
+          {@html drawHatch(box.hatch, { ...box, x: pos.x, y: pos.y }, look.stroke, box.marker, box.id)}
+        {/if}
+        {#if plan && box.openings.length > 0}
+          <!-- **建具は壁に開く穴**（`src/openings.ts`）。開き勝手まで出る。 -->
+          {@html drawOpenings(
+            { ...box, x: pos.x, y: pos.y },
+            box.openings,
+            look.stroke,
+            look.fill,
+            edge(box),
+          )}
+        {/if}
         <text
-          x={pos.x + box.w / 2} y={pos.y + box.h / 2 + 5}
+          x={pos.x + box.w / 2}
+          y={pos.y + box.h / 2 + (box.technology === null ? 5 : -1)}
           text-anchor="middle" font-size="14" fill={TEXT.node}
         >{box.label}</text>
+        {#if box.technology !== null}
+          <!-- **副題**（`technology`）。書き出しには出ていて、画面には無かった。 -->
+          <text
+            x={pos.x + box.w / 2} y={pos.y + box.h / 2 + 13}
+            text-anchor="middle" font-size="11" fill={TEXT.edge}
+          >{box.technology}</text>
+        {/if}
         {#if inConflict.has(box.id)}
           <!--
             競合の印（`DESIGN.md` §2.4）。**枠の外に添える。**
