@@ -39,6 +39,7 @@ export const CATEGORIES = [
       { name: '136-天井伏図', alt: '事務室の天井伏図（システム天井 600 角／架空）', caption: '天井伏図（見上げるものを、見下ろして描く）' },
       { name: '139-矩計図', alt: '木造軸組の矩計図（平屋の外壁まわり／架空）', caption: '矩計図（7 つの高さが、ここで決まる）' },
       { name: '140-Exterior-wall-platform-framing', alt: '木造外壁の軸組（platform framing・英語／架空）', caption: '外壁の軸組（英語圏の同じ主題。大工が建てる順に積む）' },
+      { name: '143-Roof-framing-plan', alt: '寄棟の小屋伏図（垂木・隅木・棟木／英語・架空）', caption: '小屋伏図（平面では、垂木は線）' },
       { name: '141-Two-story-house-plan', alt: '2 階建て住宅の平面図（1F・2F・吹き抜け／英語・架空）', caption: '2 階建ての平面図（英語・フィート寸法・吹き抜け）' },
       { name: '95-避難所レイアウト', alt: '避難所レイアウト（体育館・スフィア基準）', caption: '避難所レイアウト（1 人 3.5m² とトイレの数）' },
       { name: '22-避難経路図', alt: '3 階の避難経路', caption: '避難経路図（3 階）' },
