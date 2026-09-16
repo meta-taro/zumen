@@ -86,6 +86,12 @@ edges:
     to: reikyaku
   - from: kanetsu
     to: hoon
+    # **急速冷却を通らない経路。** まっすぐ下ろすと、線が「急速冷却」の名前を
+    # 串刺しにする（2026-09-16。実物を見て見つけた）。区域の中は通したまま、
+    # 文字の右へ逃がす。
+    via:
+      - { x: 268, y: 200 }
+      - { x: 268, y: 350 }
   - from: reikyaku
     to: moritsuke
     label: 一方通行

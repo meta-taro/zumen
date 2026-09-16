@@ -164,7 +164,8 @@ nodes:
     const { layout } = await import('../src/layout.ts');
     const { render } = await import('../src/render.ts');
     const out = render(await layout(BAND), 'light', 'safe', true);
-    const node = out.match(/<g data-node="tab"[\s\S]*?<\/g>/)![0];
+    // **文字は最後の層に居る**（`data-name`。2026-09-16。線が名前を横切っていた直し）。
+    const node = out.match(/<g data-name="tab"[\s\S]*?<\/g>/)![0];
     assert.match(node, /<rect [^>]*fill="#ffffff"/, '下地が抜かれていない');
   });
 
@@ -214,7 +215,7 @@ nodes:
     const { layout } = await import('../src/layout.ts');
     const { render } = await import('../src/render.ts');
     const out = render(await layout(ZONE), 'light', 'safe', true);
-    const node = out.match(/<g data-node="door"[\s\S]*?<\/g>/)![0];
+    const node = out.match(/<g data-name="door"[\s\S]*?<\/g>/)![0];
     // 文字は地の色。**その直前に白い板があってはいけない。**
     assert.match(node, /<text[^>]*fill="#ffffff"/, '塗りの上の文字が地の色になっていない');
     assert.ok(!/<rect [^>]*fill="#ffffff"\/><text/.test(node), '白い板に白い字を書いている');

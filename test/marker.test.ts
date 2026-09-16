@@ -77,7 +77,9 @@ describe('印を描く', () => {
     const body = part.slice(0, part.indexOf('</g>'));
     assert.ok(!body.includes('<circle'), '枠なしなのに丸が出た');
     assert.ok(!body.includes('<rect'), '枠なしなのに矩形が出た');
-    assert.ok(body.includes('>西ヶ丘<'), '名前まで消えた');
+    // **名前は最後の層に居る**（`data-name`。2026-09-16。線が名前を横切っていた直し）。
+    const words = out.slice(out.indexOf('data-name="a"'));
+    assert.ok(words.slice(0, words.indexOf('</g>')).includes('>西ヶ丘<'), '名前まで消えた');
   });
 
   it('**丸の大きさは箱の短いほうの半分**（正本に半径を書かせない）', async () => {

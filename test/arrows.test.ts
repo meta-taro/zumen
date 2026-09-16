@@ -79,6 +79,26 @@ describe('向きの無い線', () => {
     assert.ok(out.lastIndexOf('data-edge=') > out.lastIndexOf('data-node='));
     assert.ok(out.includes('marker-end'));
   });
+
+  /**
+   * **名前は、線より上。**（2026-09-16）
+   *
+   * 矢印を箱の上に出すのは正しい —— 下に敷くと部屋の塗りで矢印が消える。
+   * ところが**文字も箱と同じ層に居た**ので、矢印が名前の上に塗られていた。
+   * 厨房の動線で「急速冷却」を、画面遷移で「削除確認」を、線が貫いていた
+   * （`crossings` は辺どうし、`overlaps` は箱どうし、`overlappingText` は
+   * 文字どうし —— **どれも見ていない所だった**）。
+   *
+   * **実物の図面では、文字がいちばん上にある。** 線は文字を避けるか、切れる。
+   */
+  it('**名前は、矢印より後に描く**（線に塗り潰されない）', async () => {
+    const out = await svg(LINE.replace('arrows: false\n', ''));
+    assert.ok(out.includes('<g data-name='), '名前の層が無い');
+    assert.ok(
+      out.lastIndexOf('<g data-edge=') < out.indexOf('<g data-name='),
+      '矢印が名前の上に来ている',
+    );
+  });
 });
 
 describe('箱に入らない文字は、外へ出す', () => {

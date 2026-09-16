@@ -176,7 +176,33 @@ export function render(
     // 箱の下に敷くと、クレーンの作業半径が資材置場の塗りで切れる。
     // 寸法より上に出すと、破線の円が数値を横切る。
     ...(plan ? placed.boxes.map((box) => renderRange(box, placed.mm, palette)) : []),
+    // **節の文字は、いちばん最後**（`renderNode` の `part`）。
+    //
+    // 辺も範囲の円も箱より上に描くので、文字を箱と同じ層に置くと
+    // **線が名前を横切る。** 実物の図面では、文字がいちばん上にある。
+    ...stack(placed.boxes, plan)
+      .map((box) =>
+        renderNode(
+          box,
+          palette,
+          plan,
+          wall,
+          names.get(box.id) ?? null,
+          onPattern(box, placed.boxes, names),
+          'text',
+        ),
+      )
+      .filter(Boolean),
   ];
+  /**
+   * **寸法と図の名前を、先に組み立てておく。**
+   *
+   * 出す順は前と同じ（通り芯 → 寸法）。**先に作るのは、そこにある文字を数えるため**
+   * —— 図の名前（`viewTitle`）は寸法の層に居るので、`under` を見るだけでは
+   * 拾えず、通り芯が図の名前を横切っていた（2026-09-16。見本 138 で踏んだ）。
+   */
+  const marks = plan && drawsDatum(placed) ? dimensionLayer(placed, palette) : '';
+  const avoid = plan && drawsDatum(placed) ? wordRects(under.join('') + marks) : [];
   const parts = [
     `<svg xmlns="http://www.w3.org/2000/svg" width="${size(paper.w)}" height="${size(paper.h)}" viewBox="0 0 ${size(paper.w)} ${size(paper.h)}">`,
     /**
@@ -205,9 +231,7 @@ export function render(
     // スラブや部屋の下に入ると、外側の切れ端しか見えない。
     // 実物では一点鎖線が**建物を貫いて**見えている。基準線なので、
     // 隠れたら基準として使えない。
-    ...(plan && drawsDatum(placed)
-      ? [gridLayer(placed, palette, 'datum', wordRects(under.join(''))), dimensionLayer(placed, palette)].filter(Boolean)
-      : []),
+    ...(plan && drawsDatum(placed) ? [gridLayer(placed, palette, 'datum', avoid), marks].filter(Boolean) : []),
     // **作図の円と弧**（`src/construct.ts`。D36）。
     //
     // 跡（`trace`）を先に敷いて、形を上に描く。
@@ -549,6 +573,21 @@ function onPattern(box: Box, boxes: readonly Box[], names: Map<string, Plan>): H
   return found === null ? 'none' : found.hatch;
 }
 
+/**
+ * **節を描く。** `part` で「形」と「文字」を分けて出す。
+ *
+ * ## なぜ分けるのか（2026-09-16）
+ *
+ * `arrows: true` の辺は**箱より上**に描く（下に敷くと、部屋の塗りで矢印が消える）。
+ * ところが文字も箱と同じ層に居たので、**辺が名前を横切っていた。**
+ * 数えたら **137 枚で 42 か所** —— 厨房の動線で「急速冷却」を、
+ * 画面遷移で「削除確認」を、乗換図で「御堂筋線」を、線がそのまま貫いていた。
+ * `crossings` は辺どうし、`overlaps` は箱どうし、`overlappingText` は文字どうし
+ * —— **どれも見ていない所だった。**
+ *
+ * **実物の図面では、文字がいちばん上にある。** 線は文字を避けるか、切れる。
+ * だから文字だけを最後に描く。形の層は前と同じ順（`data-node` もそこに残る）。
+ */
 function renderNode(
   box: Box,
   palette: Palette,
@@ -556,6 +595,7 @@ function renderNode(
   wall: number | null = null,
   name: Plan | null = null,
   under: Hatch = 'none',
+  part: 'body' | 'text' = 'body',
 ): string {
   const style = lookOf(box.appearance, palette);
   const attributes = [
@@ -647,19 +687,20 @@ function renderNode(
       ? drawOpenings(box, box.openings, style.stroke, style.fill, paint.strokeWidth)
       : '';
 
-  return [
-    `<g ${attributes} data-shape="${kind}">`,
-    shape,
-    pattern,
-    holes,
+  if (part === 'text') {
     // **符号も、塗り潰した面の上では地の色にする**（`ink`）。
     // 本文だけ反転させて符号を置き去りにすると、符号が塗りに沈む
     // （2026-09-14。UI 構造図の「fixed」で出た）。書いたのに読めないのは、
     // 書いていないのと同じ。
-    ...nodeTag(box, palette, ink, halo, textShift(kind)),
-    ...nodeText(box, palette, ink, textShift(kind), plan ? name : null, halo),
-    '</g>',
-  ].join('');
+    const words = [
+      ...nodeTag(box, palette, ink, halo, textShift(kind)),
+      ...nodeText(box, palette, ink, textShift(kind), plan ? name : null, halo),
+    ];
+    // **空の層は出さない。** 名前も符号も無い箱のほうが多い（印・部材）。
+    if (words.length === 0) return '';
+    return [`<g data-name="${escapeAttr(box.id)}">`, ...words, '</g>'].join('');
+  }
+  return [`<g ${attributes} data-shape="${kind}">`, shape, pattern, holes, '</g>'].join('');
 }
 
 /**
