@@ -575,6 +575,8 @@ const LAYERED_ON_PURPOSE: Record<string, string> = {
     '**浮子は浮子綱の上、沈子は沈子綱の上に付く。** 網地の縁に半分かかるのが、付いている形',
   '135-工業用パターン.zumen.yaml':
     '**合印は型紙の縁に入れる切り込み。** 縁に半分かかるのが、入っている形',
+  '148-Egress-plan.zumen.yaml':
+    '**距離の注記は、その経路の上に置く。** 部屋や廊下の上に乗るのが、どこを測ったかを言う形',
   '147-Site-plan-setbacks.zumen.yaml':
     '**建物は敷地の中に建つ。** 建てられる範囲・家・車庫・通路は、どれも敷地の上に重ねて描くもの',
   '145-Sprinkler-layout.zumen.yaml':
