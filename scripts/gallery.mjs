@@ -121,13 +121,25 @@ function pageParts(page) {
   return { filters: buttons.join('\n'), gallery: figures.join('\n'), missing };
 }
 
+/** **英字の名前の見本＝図の中も英語で書いたもの**（`gallery-en.mjs` の `englishFirst` と同じ見方）。 */
+const sources = readdirSync(DIR)
+  .filter((f) => f.endsWith('.zumen.yaml'))
+  .map((f) => f.replace('.zumen.yaml', ''));
+const counted = {
+  total: sources.length,
+  english: sources.filter((name) => !/[\u3040-\u30ff\u4e00-\u9fff]/.test(name)).length,
+};
+
 let parts;
 for (const target of PAGES) {
   parts = pageParts(target);
   const page = readFileSync(target.path, 'utf8');
   const rebuilt = page
     .replace(/(<div class="filters"[^>]*>\n)[\s\S]*?(\n  <\/div>)/, `$1${parts.filters}$2`)
-    .replace(/(<div class="gallery">\n)[\s\S]*?(\n  <\/div>)/, `$1${parts.gallery}$2`);
+    .replace(/(<div class="gallery">\n)[\s\S]*?(\n  <\/div>)/, `$1${parts.gallery}$2`)
+    // **「何枚が英語か」は数えて入れる。** 手で書いた数は、見本が増えた日にずれる。
+    .replace(/(<span data-count="english">)\d*(<\/span>)/, `$1${counted.english}$2`)
+    .replace(/(<span data-count="total">)\d*(<\/span>)/, `$1${counted.total}$2`);
   if (!check) writeFileSync(target.path, rebuilt);
   else if (rebuilt !== page) stale.push(target.path);
 }

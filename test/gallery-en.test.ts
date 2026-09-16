@@ -99,3 +99,31 @@ describe('英語のページの並び', () => {
     assert.equal(first?.[1], '25-路線図');
   });
 });
+
+/**
+ * **「ほとんどは日本語です」を、数字で言う**（2026-09-16）。
+ *
+ * 英語のページには「Most of the drawings are lettered in Japanese」と書いてあった。
+ * **書いた日は正しかった。** その後で英語の見本が 23 枚まで増え、
+ * 並びも英語の図から始まるようになったのに、**文はそのままだった。**
+ *
+ * 数えられるものを手で書くと必ずずれるので、`scripts/gallery.mjs` が数えて入れる。
+ * ここはその数字が正本（`examples/gallery/`）と合っているかだけを見る。
+ */
+describe('英語のページの「何枚が英語か」', () => {
+  it('**ページに書いてある数が、実際の枚数と合っている**', async () => {
+    const { readdirSync, readFileSync } = await import('node:fs');
+    const files = readdirSync('examples/gallery')
+      .filter((name) => name.endsWith('.zumen.yaml'))
+      .map((name) => name.replace('.zumen.yaml', ''));
+    const english = files.filter((name) => !/[ぁ-んァ-ヶ一-龠]/.test(name)).length;
+
+    const page = readFileSync('site/en/index.html', 'utf8');
+    const said = /<span data-count="english">(\d+)<\/span>/.exec(page);
+    const total = /<span data-count="total">(\d+)<\/span>/.exec(page);
+    assert.ok(said !== null, '英語の枚数が書かれていない');
+    assert.ok(total !== null, '全体の枚数が書かれていない');
+    assert.equal(Number(said[1]), english);
+    assert.equal(Number(total[1]), files.length);
+  });
+});

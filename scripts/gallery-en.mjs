@@ -100,6 +100,7 @@ export const CAPTIONS_EN = {
   '148-Egress-plan': 'Egress plan: three lengths answering three questions',
   '119-消火器と消火栓の配置図': 'Extinguishers and hose reels, measured two different ways',
   '158-Cattle-handling-facility': 'Every dimension comes from what cattle will not do',
+  '162-Cabin-LOPA': 'The seat count is not what fits - it is what the exits allow',
   '161-Weaving-draft': 'Three small grids decide the fourth - the cloth is computed',
   '160-Change-ringing-method': 'A method is not a tune - it is a path through a grid',
   '159-Fire-IAP-map': 'Not a picture of the fire - the way out is written on it',
