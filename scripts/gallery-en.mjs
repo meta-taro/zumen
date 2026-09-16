@@ -70,6 +70,7 @@ export const CAPTIONS_EN = {
   '119-消火器と消火栓の配置図': 'Extinguishers and hose reels, measured two different ways',
   '145-Sprinkler-layout': 'Sprinkler layout: area per head and spacing, decided together',
   '33-駐車場の区画割': 'Parking layout, fourteen bays',
+  '152-Septic-site-plan': 'Septic site plan: a plan decided by how fast water leaves the soil',
   '147-Site-plan-setbacks': 'Site plan: the envelope is the lot with the yards taken out',
   '30-総合仮設計画図': 'Site logistics plan with the crane radius',
   '138-ロープ高所作業の作業計画図': 'Rope access work plan — the law says what the drawing must carry',
