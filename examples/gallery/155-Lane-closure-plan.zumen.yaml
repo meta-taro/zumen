@@ -1,0 +1,539 @@
+version: 1
+kind: placement
+arrows: false
+title: "Lane closure plan (temporary traffic control, fictional)"
+# **Most of a lane closure is road, not work.**
+#
+# To take one lane for 500 ft at 45 mph, the plan needs 1,050 ft of advance
+# warning, a 540 ft taper and a 360 ft buffer in front of it - about half a mile
+# of road for 500 ft of work. The plan above says that in words; the strip below
+# says it in length.
+#
+# **The buffer is drawn empty on purpose.** It is not spare room: it is the
+# distance a driver needs to stop. Park a truck in it and it is no longer a
+# buffer, it is the back of the queue.
+#
+# Taper length is L = W x S at 45 mph and over (offset width x speed), and
+# L = W x S squared / 60 below that. The difference is not a rounding: at
+# 30 mph a 12 ft offset needs 180 ft, at 45 mph it needs 540 ft.
+#
+# Source - MUTCD Part 6 (tapers, sign spacing, device spacing).
+# Speeds, widths and lengths are fictional; the road authority decides them.
+views:
+  - id: plan
+    title: "Lane closure (not to scale)"
+    at: { x: 60, y: 60 }
+    size: { w: 600, h: 620 }
+  - id: strip
+    title: "The same closure, to scale along its length (1 px = 5 ft)"
+    at: { x: 760, y: 910 }
+    size: { w: 540, h: 100 }
+    scale: { in: 60 }
+    grid:
+      x:
+        - { id: "1", at: 760 }
+        - { id: "2", at: 830 }
+        - { id: "3", at: 900 }
+        - { id: "4", at: 970 }
+        - { id: "5", at: 1078 }
+        - { id: "6", at: 1150 }
+        - { id: "7", at: 1250 }
+        - { id: "8", at: 1270 }
+nodes:
+  - id: road
+    label: ""
+    at: { x: 200, y: 76 }
+    size: { w: 116, h: 576 }
+  - id: lane
+    label: ""
+    hatch: lines
+    at: { x: 256, y: 76 }
+    size: { w: 2, h: 576 }
+  - id: down
+    label: ""
+    hatch: dots
+    at: { x: 258, y: 76 }
+    size: { w: 58, h: 40 }
+  - id: work
+    label: ""
+    hatch: lines
+    at: { x: 258, y: 116 }
+    size: { w: 58, h: 100 }
+  - id: buf
+    label: ""
+    at: { x: 258, y: 216 }
+    size: { w: 58, h: 80 }
+  - id: cone0
+    label: ""
+    marker: circle
+    at: { x: 304, y: 404 }
+    size: { w: 12, h: 12 }
+  - id: cone1
+    label: ""
+    marker: circle
+    at: { x: 296.33, y: 386 }
+    size: { w: 12, h: 12 }
+  - id: cone2
+    label: ""
+    marker: circle
+    at: { x: 288.67, y: 368 }
+    size: { w: 12, h: 12 }
+  - id: cone3
+    label: ""
+    marker: circle
+    at: { x: 281, y: 350 }
+    size: { w: 12, h: 12 }
+  - id: cone4
+    label: ""
+    marker: circle
+    at: { x: 273.33, y: 332 }
+    size: { w: 12, h: 12 }
+  - id: cone5
+    label: ""
+    marker: circle
+    at: { x: 265.67, y: 314 }
+    size: { w: 12, h: 12 }
+  - id: cone6
+    label: ""
+    marker: circle
+    at: { x: 258, y: 296 }
+    size: { w: 12, h: 12 }
+  - id: s1
+    label: ""
+    tag: "W4-2"
+    marker: diamond
+    at: { x: 338, y: 430 }
+    size: { w: 54, h: 54 }
+  - id: s1t
+    label: "MERGE  (right lane ends)"
+    marker: none
+    align: left
+    at: { x: 400, y: 448 }
+    size: { w: 220, h: 18 }
+  - id: s2
+    label: ""
+    tag: "W20-5"
+    marker: diamond
+    at: { x: 338, y: 502 }
+    size: { w: 54, h: 54 }
+  - id: s2t
+    label: "RIGHT LANE CLOSED AHEAD"
+    marker: none
+    align: left
+    at: { x: 400, y: 520 }
+    size: { w: 220, h: 18 }
+  - id: s3
+    label: ""
+    tag: "W20-1"
+    marker: diamond
+    at: { x: 338, y: 574 }
+    size: { w: 54, h: 54 }
+  - id: s3t
+    label: "ROAD WORK AHEAD"
+    marker: none
+    align: left
+    at: { x: 400, y: 592 }
+    size: { w: 220, h: 18 }
+  - id: s4
+    label: ""
+    tag: "G20-2"
+    marker: diamond
+    at: { x: 338, y: 80 }
+    size: { w: 54, h: 54 }
+  - id: s4t
+    label: "END ROAD WORK"
+    marker: none
+    align: left
+    at: { x: 400, y: 98 }
+    size: { w: 220, h: 18 }
+  - id: cdown
+    label: "DOWNSTREAM  100'-0\""
+    marker: none
+    align: left
+    at: { x: 60, y: 87 }
+    size: { w: 132, h: 18 }
+  - id: cwork
+    label: "WORK AREA  500'-0\""
+    marker: none
+    align: left
+    at: { x: 60, y: 157 }
+    size: { w: 132, h: 18 }
+  - id: cbuf
+    label: "BUFFER  360'-0\""
+    marker: none
+    align: left
+    at: { x: 60, y: 247 }
+    size: { w: 132, h: 18 }
+  - id: ctap
+    label: "TAPER  L = 540'-0\""
+    marker: none
+    align: left
+    at: { x: 60, y: 347 }
+    size: { w: 132, h: 18 }
+  - id: cc
+    label: "C  350'-0\""
+    marker: none
+    align: left
+    at: { x: 60, y: 448 }
+    size: { w: 132, h: 18 }
+  - id: cb
+    label: "B  350'-0\""
+    marker: none
+    align: left
+    at: { x: 60, y: 520 }
+    size: { w: 132, h: 18 }
+  - id: ca
+    label: "A  350'-0\""
+    marker: none
+    align: left
+    at: { x: 60, y: 592 }
+    size: { w: 132, h: 18 }
+  - id: flow
+    label: "traffic runs up ↑"
+    marker: none
+    align: left
+    at: { x: 60, y: 622 }
+    size: { w: 132, h: 18 }
+  - id: nts
+    label: "NOT TO SCALE"
+    marker: none
+    align: left
+    at: { x: 204, y: 658 }
+    size: { w: 160, h: 18 }
+  - id: bA
+    label: ""
+    at: { x: 760, y: 940 }
+    size: { w: 70, h: 34 }
+  - id: bB
+    label: ""
+    at: { x: 830, y: 940 }
+    size: { w: 70, h: 34 }
+  - id: bC
+    label: ""
+    at: { x: 900, y: 940 }
+    size: { w: 70, h: 34 }
+  - id: bT
+    label: ""
+    hatch: dots
+    at: { x: 970, y: 940 }
+    size: { w: 108, h: 34 }
+  - id: bBuf
+    label: ""
+    at: { x: 1078, y: 940 }
+    size: { w: 72, h: 34 }
+  - id: bW
+    label: ""
+    hatch: lines
+    at: { x: 1150, y: 940 }
+    size: { w: 100, h: 34 }
+  - id: bD
+    label: ""
+    hatch: dots
+    at: { x: 1250, y: 940 }
+    size: { w: 20, h: 34 }
+  - id: bl1
+    label: "advance warning  1,050 ft"
+    marker: none
+    align: left
+    at: { x: 760, y: 980 }
+    size: { w: 260, h: 18 }
+  - id: bl2
+    label: "taper"
+    marker: none
+    align: left
+    at: { x: 974, y: 918 }
+    size: { w: 80, h: 18 }
+  - id: bl3
+    label: "work  500 ft"
+    marker: none
+    align: left
+    at: { x: 1116, y: 980 }
+    size: { w: 140, h: 18 }
+  - id: h60
+    label: "TAPERS  (MUTCD Part 6)"
+    hatch: solid
+    at: { x: 760, y: 60 }
+    size: { w: 430, h: 22 }
+  - id: a82
+    label: "45 mph and over"
+    at: { x: 760, y: 82 }
+    size: { w: 200, h: 22 }
+  - id: b82
+    label: "L = W x S"
+    align: left
+    at: { x: 960, y: 82 }
+    size: { w: 230, h: 22 }
+  - id: a104
+    label: "40 mph and under"
+    at: { x: 760, y: 104 }
+    size: { w: 200, h: 22 }
+  - id: b104
+    label: "L = W x S squared / 60"
+    align: left
+    at: { x: 960, y: 104 }
+    size: { w: 230, h: 22 }
+  - id: a126
+    label: "Here"
+    at: { x: 760, y: 126 }
+    size: { w: 200, h: 22 }
+  - id: b126
+    label: "12 ft offset x 45 mph = 540 ft"
+    align: left
+    at: { x: 960, y: 126 }
+    size: { w: 230, h: 22 }
+  - id: a148
+    label: "Merging taper"
+    at: { x: 760, y: 148 }
+    size: { w: 200, h: 22 }
+  - id: b148
+    label: "L"
+    align: left
+    at: { x: 960, y: 148 }
+    size: { w: 230, h: 22 }
+  - id: a170
+    label: "Shifting taper"
+    at: { x: 760, y: 170 }
+    size: { w: 200, h: 22 }
+  - id: b170
+    label: "half of L"
+    align: left
+    at: { x: 960, y: 170 }
+    size: { w: 230, h: 22 }
+  - id: a192
+    label: "Shoulder taper"
+    at: { x: 760, y: 192 }
+    size: { w: 200, h: 22 }
+  - id: b192
+    label: "a third of L"
+    align: left
+    at: { x: 960, y: 192 }
+    size: { w: 230, h: 22 }
+  - id: a214
+    label: "Downstream taper"
+    at: { x: 760, y: 214 }
+    size: { w: 200, h: 22 }
+  - id: b214
+    label: "100 ft per lane"
+    align: left
+    at: { x: 960, y: 214 }
+    size: { w: 230, h: 22 }
+  - id: h250
+    label: "SPACING"
+    hatch: solid
+    at: { x: 760, y: 250 }
+    size: { w: 430, h: 22 }
+  - id: a272
+    label: "Advance signs"
+    at: { x: 760, y: 272 }
+    size: { w: 200, h: 22 }
+  - id: b272
+    label: "350 ft apart on an urban arterial"
+    align: left
+    at: { x: 960, y: 272 }
+    size: { w: 230, h: 22 }
+  - id: a294
+    label: "Cones in the taper"
+    at: { x: 760, y: 294 }
+    size: { w: 200, h: 22 }
+  - id: b294
+    label: "not over the speed in feet: 45 ft"
+    align: left
+    at: { x: 960, y: 294 }
+    size: { w: 230, h: 22 }
+  - id: a316
+    label: "Cones on the tangent"
+    at: { x: 760, y: 316 }
+    size: { w: 200, h: 22 }
+  - id: b316
+    label: "twice that"
+    align: left
+    at: { x: 960, y: 316 }
+    size: { w: 230, h: 22 }
+  - id: h352
+    label: "THE EMPTY PART IS THE DESIGN"
+    hatch: solid
+    at: { x: 760, y: 352 }
+    size: { w: 430, h: 22 }
+  - id: a374
+    label: "Buffer"
+    at: { x: 760, y: 374 }
+    size: { w: 200, h: 22 }
+  - id: b374
+    label: "no workers, no equipment"
+    align: left
+    at: { x: 960, y: 374 }
+    size: { w: 230, h: 22 }
+  - id: a396
+    label: "How long"
+    at: { x: 760, y: 396 }
+    size: { w: 200, h: 22 }
+  - id: b396
+    label: "the stopping sight distance"
+    align: left
+    at: { x: 960, y: 396 }
+    size: { w: 230, h: 22 }
+  - id: a418
+    label: "At 45 mph"
+    at: { x: 760, y: 418 }
+    size: { w: 200, h: 22 }
+  - id: b418
+    label: "360 ft"
+    align: left
+    at: { x: 960, y: 418 }
+    size: { w: 230, h: 22 }
+  - id: a440
+    label: "If a truck parks there"
+    at: { x: 760, y: 440 }
+    size: { w: 200, h: 22 }
+  - id: b440
+    label: "it has stopped being a buffer"
+    align: left
+    at: { x: 960, y: 440 }
+    size: { w: 230, h: 22 }
+  - id: h476
+    label: "WHAT THE STRIP SHOWS"
+    hatch: solid
+    at: { x: 760, y: 476 }
+    size: { w: 430, h: 22 }
+  - id: a498
+    label: "Whole closure"
+    at: { x: 760, y: 498 }
+    size: { w: 200, h: 22 }
+  - id: b498
+    label: "2,550 ft, almost half a mile"
+    align: left
+    at: { x: 960, y: 498 }
+    size: { w: 230, h: 22 }
+  - id: a520
+    label: "Work area"
+    at: { x: 760, y: 520 }
+    size: { w: 200, h: 22 }
+  - id: b520
+    label: "500 ft of it"
+    align: left
+    at: { x: 960, y: 520 }
+    size: { w: 230, h: 22 }
+  - id: a542
+    label: "So"
+    at: { x: 760, y: 542 }
+    size: { w: 200, h: 22 }
+  - id: b542
+    label: "a lane closure is mostly road"
+    align: left
+    at: { x: 960, y: 542 }
+    size: { w: 230, h: 22 }
+  - id: h578
+    label: "TAPER LENGTH FOR A 12 FT OFFSET"
+    hatch: solid
+    at: { x: 760, y: 578 }
+    size: { w: 430, h: 22 }
+  - id: a600
+    label: "30 mph"
+    at: { x: 760, y: 600 }
+    size: { w: 200, h: 22 }
+  - id: b600
+    label: "180 ft"
+    align: left
+    at: { x: 960, y: 600 }
+    size: { w: 230, h: 22 }
+  - id: a622
+    label: "40 mph"
+    at: { x: 760, y: 622 }
+    size: { w: 200, h: 22 }
+  - id: b622
+    label: "320 ft"
+    align: left
+    at: { x: 960, y: 622 }
+    size: { w: 230, h: 22 }
+  - id: a644
+    label: "45 mph"
+    at: { x: 760, y: 644 }
+    size: { w: 200, h: 22 }
+  - id: b644
+    label: "540 ft"
+    align: left
+    at: { x: 960, y: 644 }
+    size: { w: 230, h: 22 }
+  - id: a666
+    label: "55 mph"
+    at: { x: 760, y: 666 }
+    size: { w: 200, h: 22 }
+  - id: b666
+    label: "660 ft"
+    align: left
+    at: { x: 960, y: 666 }
+    size: { w: 230, h: 22 }
+  - id: a688
+    label: "40 to 45 mph"
+    at: { x: 760, y: 688 }
+    size: { w: 200, h: 22 }
+  - id: b688
+    label: "the formula changes, so +220 ft"
+    align: left
+    at: { x: 960, y: 688 }
+    size: { w: 230, h: 22 }
+  - id: h724
+    label: "THE SIGNS ON THIS PLAN"
+    hatch: solid
+    at: { x: 760, y: 724 }
+    size: { w: 430, h: 22 }
+  - id: a746
+    label: "W20-1"
+    at: { x: 760, y: 746 }
+    size: { w: 200, h: 22 }
+  - id: b746
+    label: "ROAD WORK AHEAD"
+    align: left
+    at: { x: 960, y: 746 }
+    size: { w: 230, h: 22 }
+  - id: a768
+    label: "W20-5"
+    at: { x: 760, y: 768 }
+    size: { w: 200, h: 22 }
+  - id: b768
+    label: "RIGHT LANE CLOSED AHEAD"
+    align: left
+    at: { x: 960, y: 768 }
+    size: { w: 230, h: 22 }
+  - id: a790
+    label: "W4-2"
+    at: { x: 760, y: 790 }
+    size: { w: 200, h: 22 }
+  - id: b790
+    label: "merge symbol"
+    align: left
+    at: { x: 960, y: 790 }
+    size: { w: 230, h: 22 }
+  - id: a812
+    label: "G20-2"
+    at: { x: 760, y: 812 }
+    size: { w: 200, h: 22 }
+  - id: b812
+    label: "END ROAD WORK"
+    align: left
+    at: { x: 960, y: 812 }
+    size: { w: 230, h: 22 }
+  - id: n1
+    label: "A lane closure is mostly road, not work: 2,550 ft of it to work on 500 ft."
+    marker: none
+    align: left
+    at: { x: 60, y: 740 }
+    size: { w: 690, h: 18 }
+  - id: n2
+    label: "The buffer is drawn empty on purpose - it is the room a driver needs to stop."
+    marker: none
+    align: left
+    at: { x: 60, y: 762 }
+    size: { w: 690, h: 18 }
+  - id: n3
+    label: "The plan is not to scale; the strip beside it is, along its length only."
+    marker: none
+    align: left
+    at: { x: 60, y: 784 }
+    size: { w: 690, h: 18 }
+  - id: n4
+    label: "Speeds, widths and lengths are fictional; the road authority decides them."
+    marker: none
+    align: left
+    at: { x: 60, y: 806 }
+    size: { w: 690, h: 18 }

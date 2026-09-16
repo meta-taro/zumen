@@ -49,6 +49,7 @@ export const CATEGORIES = [
       { name: '119-消火器と消火栓の配置図', alt: '消火器と屋内消火栓の配置図（歩行距離と水平距離）', caption: '消火器と消火栓の配置図（測り方が 2 つ載る）' },
       { name: '145-Sprinkler-layout', alt: 'スプリンクラーの配置（軽危険用途・NFPA 13／英語・架空）', caption: 'スプリンクラーの配置（面積と間隔、2 つ同時に決まる）' },
       { name: '154-Fire-alarm-plan', alt: '自動火災報知の機器配置（NFPA 72／英語・架空）', caption: '火災報知の配置（間隔は四角ではなく円）' },
+      { name: '155-Lane-closure-plan', alt: '車線規制の交通誘導計画（MUTCD／英語・架空）', caption: '車線規制（ほとんどが道路で、作業ではない）' },
       { name: '33-駐車場の区画割', alt: '平面駐車場の区画割図', caption: '駐車場の区画割（14 台）' },
       { name: '153-Parking-striping', alt: '駐車場の区画線（ADA の寸法／英語・架空）', caption: '駐車場の区画線（通路は余った舗装ではない）' },
       { name: '147-Site-plan-setbacks', alt: '敷地図（セットバックと建てられる範囲／英語・架空）', caption: '敷地図（建てられる範囲は、敷地から庭を引いた残り）' },
