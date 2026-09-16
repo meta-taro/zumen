@@ -80,6 +80,7 @@ export const CATEGORIES = [
     label: '医療・食品・農',
     items: [
       { name: '72-歯周チャート', alt: '歯周精密検査チャート（6 点法）', caption: '歯周精密検査チャート（32 歯 × 6 点）' },
+      { name: '146-Restorative-chart', alt: '歯の修復記録（Universal numbering／英語・架空）', caption: '歯の修復記録（1 本の番号で歯が決まる）' },
       { name: '39-経絡と経穴', alt: '経絡と経穴の図', caption: '経絡と経穴（鍼灸・WHO 標準）' },
       { name: '36-手術室の機器配置', alt: '手術室の機器配置図', caption: '手術室の機器配置（OR-3）' },
       { name: '09-患者の動線', alt: '外来の流れ', caption: '外来の流れ' },
