@@ -74,6 +74,7 @@ export const CATEGORIES = [
     key: 'setsubi',
     label: '設備・電気',
     items: [
+      { name: '163-Residential-duct-layout', alt: '住宅のダクト配置図（Manual D の摩擦率／英語・架空）', caption: 'ダクトの配置（部屋ではなく、圧力の予算で太さが決まる）' },
       { name: '18-配管の系統', alt: '冷却水の系統', caption: '配管の系統（P&amp;ID）' },
       { name: '38-計装ループ図', alt: '計装ループ図', caption: '計装ループ図（TIC-101）' },
       { name: '19-受変電の結線', alt: '受変電設備の単線結線図', caption: '受変電の結線（単線結線図）' },

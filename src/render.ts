@@ -351,6 +351,80 @@ function drawsDatum(placed: Placed): boolean {
  *
  * 回した文字（`rotate`）は当たり判定が合わないので見ない。
  */
+/**
+ * **紙の上で重なっている文字の組**（描いた結果を数える）。
+ *
+ * `overlappingText`（`src/names.ts`）は**節の名前どうし**しか見ていない。
+ * 符号（`tag`）・通り芯の符号・寸法の数値・範囲の注記・図の名前は、
+ * どれも描く側が置いているので、**観測値からは丸ごと抜けている** ——
+ * 廊下の名前 `HALL` に機械の符号 `AHU` が乗って「HAHLU」と出ても 0 のままだった
+ * （2026-09-17。見本 163）。
+ *
+ * **同じ幾何を 2 か所に書かない。** 描いた `<text>` を数えれば、
+ * どこが置いたかに関わらず全部入る。回した文字は当たり判定が合わないので見ない。
+ *
+ * 2px 触れているだけは数えない（下地の板が抜いてあるので読める）。
+ */
+/** 紙に出た文字ひとつ。**どの節のものか分かるときは id も持つ。** */
+export interface Word {
+  text: string;
+  /** 節の名前・符号なら、その節の id（`<g data-name>`）。寸法や図の名前は null。 */
+  id: string | null;
+}
+
+export function overlappingInk(svg: string): [Word, Word][] {
+  const words: { rect: Rect; word: Word }[] = [];
+  const groups: (string | null)[] = [];
+  const token = /<g\b([^>]*)>|<\/g>|<text x="(-?[\d.]+)" y="(-?[\d.]+)"([^>]*)>([^<]*)<\/text>/g;
+  for (const found of svg.matchAll(token)) {
+    if (found[0].startsWith('</g')) {
+      groups.pop();
+      continue;
+    }
+    if (found[0].startsWith('<g')) {
+      groups.push(/data-name="([^"]*)"/.exec(found[1] ?? '')?.[1] ?? null);
+      continue;
+    }
+    const style = found[4] ?? '';
+    const text = unescapeText(found[5] ?? '');
+    if (style.includes('rotate') || text.trim() === '') continue;
+    const font = Number(/font-size="([\d.]+)"/.exec(style)?.[1] ?? NAME_FONT);
+    const anchor = /text-anchor="(\w+)"/.exec(style)?.[1] ?? 'start';
+    const w = labelWidth(text, font);
+    const x = Number(found[2]);
+    const y = Number(found[3]);
+    const left = anchor === 'middle' ? x - w / 2 : anchor === 'end' ? x - w : x;
+    const id = [...groups].reverse().find((name) => name !== null) ?? null;
+    words.push({ rect: { x: left, y: y - font, w, h: font }, word: { text, id } });
+  }
+
+  const found: [Word, Word][] = [];
+  const gap = 2;
+  for (let i = 0; i < words.length; i += 1) {
+    for (let j = i + 1; j < words.length; j += 1) {
+      const a = words[i]!.rect;
+      const b = words[j]!.rect;
+      const apart =
+        a.x + a.w <= b.x + gap ||
+        b.x + b.w <= a.x + gap ||
+        a.y + a.h <= b.y + gap ||
+        b.y + b.h <= a.y + gap;
+      if (!apart) found.push([words[i]!.word, words[j]!.word]);
+    }
+  }
+  return found;
+}
+
+/** 書き出すときに逃がした記号を戻す（幅を測るため）。 */
+function unescapeText(text: string): string {
+  return text
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&amp;/g, '&');
+}
+
 function wordRects(svg: string): Rect[] {
   const out: Rect[] = [];
   for (const found of svg.matchAll(/<text x="(-?[\d.]+)" y="(-?[\d.]+)"([^>]*)>([^<]*)<\/text>/g)) {

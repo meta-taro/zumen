@@ -23,6 +23,8 @@ import assert from 'node:assert/strict';
 import { readdirSync, readFileSync } from 'node:fs';
 import { describe, it } from 'node:test';
 
+import { overlappingInk } from '../src/render.ts';
+
 const DIR = 'examples/gallery';
 
 /**
@@ -135,62 +137,24 @@ describe('見本の中身が、画用紙の中に収まっている', () => {
    * | 93 花火大会の保安距離図 | 中州の名前が、**範囲の円の注記 `R=120 m`** にぶつかっていた |
    *
    * **どれも数の検査は 0 のままだった。**
+   *
+   * ## 判定は `src/render.ts` へ移した（2026-09-17）
+   *
+   * ここにあった当たり判定は、**テストの中にしか無かった。**
+   * 自分の図を描く人は `pnpm validate` しか持っていないので、
+   * 符号と名前が重なって「HAHLU」と出ても、**誰も言ってくれなかった**（見本 163）。
+   * `overlappingInk` を product 側に置き、検証とここで**同じ関数**を呼ぶ。
    */
   it('**文字どうしが重なっていない**（符号・寸法・図の名前も含めて）', () => {
     const over: string[] = [];
     for (const sheet of sheets()) {
-      const rects: { x: number; y: number; w: number; h: number; t: string }[] = [];
-      for (const m of sheet.body.matchAll(/<text x="(-?[\d.]+)" y="(-?[\d.]+)"([^>]*)>([^<]*)<\/text>/g)) {
-        // 回した文字は、この当たり判定では測れない（`src/write.ts`）。
-        if (m[3]!.includes('rotate') || m[4]!.trim() === '') continue;
-        const font = Number(/font-size="([\d.]+)"/.exec(m[3]!)?.[1] ?? 12);
-        const anchor = /text-anchor="(\w+)"/.exec(m[3]!)?.[1] ?? 'start';
-        const w = widthOf(m[4]!, font);
-        const x = Number(m[1]);
-        const y = Number(m[2]);
-        rects.push({
-          x: anchor === 'middle' ? x - w / 2 : anchor === 'end' ? x - w : x,
-          y: y - font,
-          w,
-          h: font,
-          t: m[4]!,
-        });
-      }
-      for (let i = 0; i < rects.length; i += 1) {
-        for (let j = i + 1; j < rects.length; j += 1) {
-          const a = rects[i]!;
-          const b = rects[j]!;
-          // **2px 触れているだけは見ない。** 下地の板が抜いてあるので読める。
-          const gap = 2;
-          const apart =
-            a.x + a.w <= b.x + gap ||
-            b.x + b.w <= a.x + gap ||
-            a.y + a.h <= b.y + gap ||
-            b.y + b.h <= a.y + gap;
-          if (!apart) over.push(`${sheet.name}: ${JSON.stringify(a.t)} × ${JSON.stringify(b.t)}`);
-        }
+      for (const [a, b] of overlappingInk(sheet.body)) {
+        over.push(`${sheet.name}: ${JSON.stringify(a.text)} × ${JSON.stringify(b.text)}`);
       }
     }
-    assert.deepEqual(over, [], '文字どうしが重なっている');
+    assert.deepEqual(over, []);
   });
 
-  /**
-   * **通り芯が、文字を串刺しにしていない**（2026-09-15）。
-   *
-   * 天井伏図（見本 136）を実物で見て見つけた ——
-   * 「点検口 450 角」と「LGS @303」を**一点鎖線が横切っていた。**
-   * 数えたら **136 枚のうち 30 枚・80 か所**が同じ形で、
-   * 「手洗い」「理科室」「蹴上 160・踏面 280」まで貫かれていた。
-   *
-   * **どの検査も 0 のままだった。** `crossings` は辺どうし、`overlaps` は箱どうし、
-   * `overlappingText` は文字どうし —— **線が文字を横切る**を誰も見ていなかった。
-   *
-   * 直したのは描く側（`src/dimensions.ts` の `chain`）。
-   * **芯は文字のところで切れる** —— 実物の図面と同じで、壁と部屋は貫いたまま。
-   *
-   * **時間の目盛り（`data-grid="tick"`）は見ない。** あれは帯の下に敷いてあり、
-   * 塗りが隠す（線が上に出ていた頃の顛末は `drawGrid` にある）。
-   */
   it('**通り芯が文字を横切っていない**', () => {
     const over: string[] = [];
     for (const sheet of sheets()) {

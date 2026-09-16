@@ -121,6 +121,45 @@ nodes:
   });
 });
 
+/**
+ * **符号（`tag`）と名前が重なっても、検証は黙っていた**（2026-09-17）。
+ *
+ * 見本 163（ダクトの配置図）を描いていて、廊下の名前 `HALL` の上に
+ * 機械の符号 `AHU` が乗り、**紙には「HAHLU」と出た。**
+ * `overlappingText` は**節の名前どうし**しか見ていないので、0 のまま。
+ *
+ * 紙の上で数える検査は**テストの中にだけ**あり（`test/paper.test.ts`）、
+ * **自分の図を描く人には無いのと同じだった。** 同じ関数を検証からも呼ぶ。
+ */
+describe('紙の上の文字の重なりを、検証が言う', () => {
+  const PILED_TAG = `version: 1
+kind: placement
+nodes:
+  - id: hall
+    label: "HALL"
+    at: { x: 0, y: 0 }
+    size: { w: 200, h: 80 }
+  - id: ahu
+    label: ""
+    tag: "AHU"
+    at: { x: 70, y: 30 }
+    size: { w: 60, h: 24 }
+`;
+
+  it('**符号と名前が重なっていたら、両方の文字を出す**', async () => {
+    const result = await runValidate(['a.yaml'], reader({ 'a.yaml': PILED_TAG }) as never);
+    const line = result.lines.find((text) => text.includes('AHU'));
+    assert.ok(line !== undefined, `重なりを言っていない: ${result.lines.join(' / ')}`);
+    assert.match(line, /HALL/);
+  });
+
+  it('**重なっていない図には、何も言わない**', async () => {
+    const apart = PILED_TAG.replace('{ x: 70, y: 30 }', '{ x: 400, y: 300 }');
+    const result = await runValidate(['a.yaml'], reader({ 'a.yaml': apart }) as never);
+    assert.ok(!result.lines.some((text) => text.includes('AHU')), result.lines.join(' / '));
+  });
+});
+
 describe('印刷して読めるか', () => {
   it('**A3 の下限を割る紙は、そう言う**（数の検査だけが知っている状態にしない）', async () => {
     const result = await runValidate(['a.yaml'], reader({ 'a.yaml': TALL }) as never);

@@ -616,6 +616,8 @@ const ja = {
       `ノード "${id}" の tag は、印に入りきらないので描かれません。印を大きくするか、符号を短くしてください（消してはいません。書いたのに出ない状態を知らせています）。`,
     tooSmallToPrint: (ratio: string, floor: string) =>
       `この図は A3 に印刷しても字が読めません（いちばん小さい字 ÷ 長辺 ＝ ${ratio}。下限は ${floor}）。**文字を大きくしないでください** —— 図が伸びて比がさらに下がります。紙を小さくするか（表や注記を詰める）、図を分けてください。`,
+    inkOverlap: (a: string, b: string) =>
+      `紙の上で ${a} と ${b} の文字が重なって描かれます。名前どうしだけでなく、符号・寸法の数値・通り芯の符号・図の名前も同じ場所を取ります。どちらかをずらしてください。`,
     textOverlap: (a: string, b: string) =>
       `${a} と ${b} の文字が重なって描かれます。器の名前を器の真ん中に書くと、中の節の名前に乗ります（器の名前は端の欄へ出してください）。`,
     colorWithoutCode: (key: string) =>
@@ -1158,6 +1160,8 @@ const en: Catalog = {
       `The tag on node "${id}" does not fit its marker and is not drawn. Make the marker bigger or shorten the tag.`,
     tooSmallToPrint: (ratio: string, floor: string) =>
       `This drawing is too small to read even printed on A3 (smallest text / longest side = ${ratio}; the floor is ${floor}). **Do not enlarge the text** — that grows the drawing and lowers the ratio further. Make the sheet smaller (tighten the tables and notes) or split the drawing.`,
+    inkOverlap: (a: string, b: string) =>
+      `On the sheet, ${a} and ${b} are drawn on top of each other. It is not only names: tags, dimension values, grid codes and view titles take room too. Move one of them.`,
     textOverlap: (a: string, b: string) =>
       `The labels of ${a} and ${b} are drawn on top of each other. A container that holds children should not repeat its name in the middle — move it to an edge cell.`,
     colorWithoutCode: (key: string) =>

@@ -25,12 +25,12 @@ import { PASS_LINE, measure, percent } from './measure.ts';
 import { merge } from './merge.ts';
 import type { Conflict } from './merge.ts';
 import { toMermaid } from './mermaid.ts';
-import { render } from './render.ts';
+import { overlappingInk, render } from './render.ts';
 import { timelapse } from './timelapse.ts';
 import { kindOf } from './kind.ts';
 import { messages } from './messages.ts';
 import { hasError, validate } from './validate.ts';
-import { adriftDetails, extentOf, hiddenTags, overlappingText, planNames } from './names.ts';
+import { adriftDetails, extentOf, hiddenTags, planNames } from './names.ts';
 import { projection, smallestTextOf } from './projection.ts';
 import type { Finding } from './validate.ts';
 import { isEntry } from './entry.ts';
@@ -130,13 +130,24 @@ export async function placedFindings(text: string): Promise<Finding[]> {
 
   if (!plan) return size;
   const plans = planNames(placed.boxes, extentOf(placed.boxes), placed.edges, placed.groups);
+  /**
+   * **紙の上で数える**（2026-09-17）。
+   *
+   * `overlappingText` は節の名前どうししか見ない。符号・寸法の数値・通り芯の符号・
+   * 図の名前は描く側が置いているので、**そこで重なっても 0 のまま**だった。
+   * 描いた結果を数える検査は**テストの中にだけ**あり、
+   * 自分の図を描く人には無いのと同じだった（`test/paper.test.ts` と同じ関数を呼ぶ）。
+   */
+  const said = (word: { text: string; id: string | null }): string =>
+    word.id === null ? JSON.stringify(word.text) : `${JSON.stringify(word.text)}（${word.id}）`;
+  const ink = overlappingInk(render(placed, 'light', 'safe', true)).map(([a, b]) => ({
+    severity: 'warning' as const,
+    code: 'text-overlap',
+    message: messages().validate.inkOverlap(said(a), said(b)),
+  }));
   return [
     ...size,
-    ...overlappingText(placed.boxes, plans).map(([a, b]) => ({
-      severity: 'warning' as const,
-      code: 'text-overlap',
-      message: messages().validate.textOverlap(a, b),
-    })),
+    ...ink,
     // **広い箱から出ていった名前。** 表の欄が空に見える。
     ...adriftDetails(placed.boxes, plans).map((found) => ({
       severity: 'warning' as const,

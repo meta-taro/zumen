@@ -1,0 +1,474 @@
+version: 1
+kind: placement
+arrows: true
+title: "Residential duct layout (fictional)"
+scale: { in: 1 }
+# **A duct is not sized by the room. It is sized by a pressure budget.**
+#
+# Take what the blower is rated to produce, subtract the things that are not
+# duct - coil, filter, registers, damper - and what is left is the budget.
+# Divide it by the longest run, fittings included, and that is the **friction
+# rate**: one number that every duct in the house is then sized against.
+#
+# **The rooms only decide how the air is split.** A room that is 30 percent of
+# the load gets 30 percent of the air, whatever its floor area.
+#
+# Two things get forgotten. **Fittings are most of the length** (an elbow can be
+# 15 to 35 ft of equivalent length), and **the air has to get back**: a closed
+# door with no undercut or transfer grille pressurises the room and chokes the
+# supply it was sized for.
+#
+# 1 px = 1 in. Loads, sizes and the house are fictional.
+nodes:
+  - id: shell
+    label: ""
+    at: { x: 80, y: 140 }
+    size: { w: 480, h: 360 }
+  - id: living
+    label: "LIVING"
+    align: left
+    at: { x: 80, y: 140 }
+    size: { w: 240, h: 216 }
+  - id: kitchen
+    label: "KITCHEN / DINING"
+    align: left
+    at: { x: 320, y: 140 }
+    size: { w: 240, h: 144 }
+  - id: hall
+    label: ""
+    align: left
+    at: { x: 320, y: 284 }
+    size: { w: 144, h: 72 }
+  - id: bath
+    label: "BATH"
+    align: left
+    at: { x: 464, y: 284 }
+    size: { w: 96, h: 72 }
+  - id: bed1
+    label: "BEDROOM 1"
+    align: left
+    at: { x: 80, y: 356 }
+    size: { w: 168, h: 144 }
+  - id: bed2
+    label: "BEDROOM 2"
+    align: left
+    at: { x: 248, y: 356 }
+    size: { w: 156, h: 144 }
+  - id: bed3
+    label: "BEDROOM 3"
+    align: left
+    at: { x: 404, y: 356 }
+    size: { w: 156, h: 144 }
+  - id: ahu
+    label: ""
+    tag: "AHU"
+    marker: box
+    at: { x: 326, y: 291.2 }
+    size: { w: 36, h: 55.2 }
+  - id: trunk
+    label: ""
+    hatch: lines
+    at: { x: 362, y: 314 }
+    size: { w: 96, h: 12 }
+  - id: r1
+    label: ""
+    tag: "240"
+    marker: box
+    at: { x: 115, y: 179 }
+    size: { w: 26, h: 18 }
+  - id: r2
+    label: ""
+    tag: "160"
+    marker: box
+    at: { x: 427, y: 179 }
+    size: { w: 26, h: 18 }
+  - id: r3
+    label: ""
+    tag: "40"
+    marker: box
+    at: { x: 499, y: 293 }
+    size: { w: 26, h: 18 }
+  - id: r4
+    label: ""
+    tag: "80"
+    marker: box
+    at: { x: 115, y: 443 }
+    size: { w: 26, h: 18 }
+  - id: r5
+    label: ""
+    tag: "120"
+    marker: box
+    at: { x: 283, y: 443 }
+    size: { w: 26, h: 18 }
+  - id: r6
+    label: ""
+    tag: "160"
+    marker: box
+    at: { x: 451, y: 443 }
+    size: { w: 26, h: 18 }
+  - id: ret
+    label: ""
+    tag: "RA"
+    marker: double
+    at: { x: 418, y: 334.4 }
+    size: { w: 32, h: 20 }
+  - id: l_door
+    label: "supply trunk 14 in down the hall, one branch and one register a room"
+    marker: none
+    align: left
+    at: { x: 104, y: 516.8 }
+    size: { w: 520, h: 18 }
+  - id: l_trunk
+    label: "RA is the one central return; each closed room needs an undercut or grille"
+    marker: none
+    align: left
+    at: { x: 104, y: 536 }
+    size: { w: 520, h: 18 }
+  - id: h60
+    label: "ROOM BY ROOM  (cooling, fictional)"
+    hatch: solid
+    at: { x: 640, y: 60 }
+    size: { w: 480, h: 22 }
+  - id: a82
+    label: "Room"
+    align: left
+    at: { x: 640, y: 82 }
+    size: { w: 150, h: 22 }
+  - id: b82
+    label: "Btuh"
+    at: { x: 790, y: 82 }
+    size: { w: 90, h: 22 }
+  - id: c82
+    label: "Share"
+    at: { x: 880, y: 82 }
+    size: { w: 80, h: 22 }
+  - id: d82
+    label: "cfm   duct"
+    at: { x: 960, y: 82 }
+    size: { w: 160, h: 22 }
+  - id: a104
+    label: "Living"
+    align: left
+    at: { x: 640, y: 104 }
+    size: { w: 150, h: 22 }
+  - id: b104
+    label: "7,200"
+    at: { x: 790, y: 104 }
+    size: { w: 90, h: 22 }
+  - id: c104
+    label: "30%"
+    at: { x: 880, y: 104 }
+    size: { w: 80, h: 22 }
+  - id: d104
+    label: "240   9 in"
+    at: { x: 960, y: 104 }
+    size: { w: 160, h: 22 }
+  - id: a126
+    label: "Kitchen / dining"
+    align: left
+    at: { x: 640, y: 126 }
+    size: { w: 150, h: 22 }
+  - id: b126
+    label: "4,800"
+    at: { x: 790, y: 126 }
+    size: { w: 90, h: 22 }
+  - id: c126
+    label: "20%"
+    at: { x: 880, y: 126 }
+    size: { w: 80, h: 22 }
+  - id: d126
+    label: "160   7 in"
+    at: { x: 960, y: 126 }
+    size: { w: 160, h: 22 }
+  - id: a148
+    label: "Bedroom 3"
+    align: left
+    at: { x: 640, y: 148 }
+    size: { w: 150, h: 22 }
+  - id: b148
+    label: "4,800"
+    at: { x: 790, y: 148 }
+    size: { w: 90, h: 22 }
+  - id: c148
+    label: "20%"
+    at: { x: 880, y: 148 }
+    size: { w: 80, h: 22 }
+  - id: d148
+    label: "160   7 in"
+    at: { x: 960, y: 148 }
+    size: { w: 160, h: 22 }
+  - id: a170
+    label: "Bedroom 2"
+    align: left
+    at: { x: 640, y: 170 }
+    size: { w: 150, h: 22 }
+  - id: b170
+    label: "3,600"
+    at: { x: 790, y: 170 }
+    size: { w: 90, h: 22 }
+  - id: c170
+    label: "15%"
+    at: { x: 880, y: 170 }
+    size: { w: 80, h: 22 }
+  - id: d170
+    label: "120   7 in"
+    at: { x: 960, y: 170 }
+    size: { w: 160, h: 22 }
+  - id: a192
+    label: "Bedroom 1"
+    align: left
+    at: { x: 640, y: 192 }
+    size: { w: 150, h: 22 }
+  - id: b192
+    label: "2,400"
+    at: { x: 790, y: 192 }
+    size: { w: 90, h: 22 }
+  - id: c192
+    label: "10%"
+    at: { x: 880, y: 192 }
+    size: { w: 80, h: 22 }
+  - id: d192
+    label: "80   6 in"
+    at: { x: 960, y: 192 }
+    size: { w: 160, h: 22 }
+  - id: a214
+    label: "Bath"
+    align: left
+    at: { x: 640, y: 214 }
+    size: { w: 150, h: 22 }
+  - id: b214
+    label: "1,200"
+    at: { x: 790, y: 214 }
+    size: { w: 90, h: 22 }
+  - id: c214
+    label: "5%"
+    at: { x: 880, y: 214 }
+    size: { w: 80, h: 22 }
+  - id: d214
+    label: "40   5 in"
+    at: { x: 960, y: 214 }
+    size: { w: 160, h: 22 }
+  - id: a236
+    label: "Total"
+    align: left
+    at: { x: 640, y: 236 }
+    size: { w: 150, h: 22 }
+  - id: b236
+    label: "24,000"
+    at: { x: 790, y: 236 }
+    size: { w: 90, h: 22 }
+  - id: c236
+    label: "100%"
+    at: { x: 880, y: 236 }
+    size: { w: 80, h: 22 }
+  - id: d236
+    label: "800   14 in"
+    at: { x: 960, y: 236 }
+    size: { w: 160, h: 22 }
+  - id: h272
+    label: "WHERE THE cfm COMES FROM"
+    hatch: solid
+    at: { x: 640, y: 272 }
+    size: { w: 480, h: 22 }
+  - id: a294
+    label: "Two tons"
+    at: { x: 640, y: 294 }
+    size: { w: 190, h: 22 }
+  - id: b294
+    label: "24,000 Btuh, about 400 cfm a ton"
+    align: left
+    at: { x: 830, y: 294 }
+    size: { w: 290, h: 22 }
+  - id: a316
+    label: "So the fan moves"
+    at: { x: 640, y: 316 }
+    size: { w: 190, h: 22 }
+  - id: b316
+    label: "800 cfm"
+    align: left
+    at: { x: 830, y: 316 }
+    size: { w: 290, h: 22 }
+  - id: a338
+    label: "Each room gets"
+    at: { x: 640, y: 338 }
+    size: { w: 190, h: 22 }
+  - id: b338
+    label: "its share of the load, not its floor"
+    align: left
+    at: { x: 830, y: 338 }
+    size: { w: 290, h: 22 }
+  - id: a360
+    label: "Living 30 percent"
+    at: { x: 640, y: 360 }
+    size: { w: 190, h: 22 }
+  - id: b360
+    label: "30 percent of 800 = 240 cfm"
+    align: left
+    at: { x: 830, y: 360 }
+    size: { w: 290, h: 22 }
+  - id: h396
+    label: "THE DUCT IS SIZED BY A PRESSURE BUDGET"
+    hatch: solid
+    at: { x: 640, y: 396 }
+    size: { w: 480, h: 22 }
+  - id: a418
+    label: "Blower, rated"
+    at: { x: 640, y: 418 }
+    size: { w: 190, h: 22 }
+  - id: b418
+    label: "0.50 in wg"
+    align: left
+    at: { x: 830, y: 418 }
+    size: { w: 290, h: 22 }
+  - id: a440
+    label: "Take out coil 0.15"
+    at: { x: 640, y: 440 }
+    size: { w: 190, h: 22 }
+  - id: b440
+    label: "filter 0.10, registers 0.06, damper 0.03"
+    align: left
+    at: { x: 830, y: 440 }
+    size: { w: 290, h: 22 }
+  - id: a462
+    label: "What is left"
+    at: { x: 640, y: 462 }
+    size: { w: 190, h: 22 }
+  - id: b462
+    label: "0.16 in wg - that is the budget"
+    align: left
+    at: { x: 830, y: 462 }
+    size: { w: 290, h: 22 }
+  - id: a484
+    label: "Longest run"
+    at: { x: 640, y: 484 }
+    size: { w: 190, h: 22 }
+  - id: b484
+    label: "120 ft measured, 80 ft of fittings"
+    align: left
+    at: { x: 830, y: 484 }
+    size: { w: 290, h: 22 }
+  - id: a506
+    label: "Total effective length"
+    at: { x: 640, y: 506 }
+    size: { w: 190, h: 22 }
+  - id: b506
+    label: "200 ft"
+    align: left
+    at: { x: 830, y: 506 }
+    size: { w: 290, h: 22 }
+  - id: a528
+    label: "Friction rate"
+    at: { x: 640, y: 528 }
+    size: { w: 190, h: 22 }
+  - id: b528
+    label: "0.16 x 100 / 200 = 0.08 per 100 ft"
+    align: left
+    at: { x: 830, y: 528 }
+    size: { w: 290, h: 22 }
+  - id: a550
+    label: "Every duct"
+    at: { x: 640, y: 550 }
+    size: { w: 190, h: 22 }
+  - id: b550
+    label: "is sized against that one number"
+    align: left
+    at: { x: 830, y: 550 }
+    size: { w: 290, h: 22 }
+  - id: h586
+    label: "TWO THINGS THAT GET FORGOTTEN"
+    hatch: solid
+    at: { x: 640, y: 586 }
+    size: { w: 480, h: 22 }
+  - id: a608
+    label: "Fittings"
+    at: { x: 640, y: 608 }
+    size: { w: 190, h: 22 }
+  - id: b608
+    label: "an elbow can be 15 to 35 ft of length"
+    align: left
+    at: { x: 830, y: 608 }
+    size: { w: 290, h: 22 }
+  - id: a630
+    label: "The way back"
+    at: { x: 640, y: 630 }
+    size: { w: 190, h: 22 }
+  - id: b630
+    label: "air that goes in has to get out"
+    align: left
+    at: { x: 830, y: 630 }
+    size: { w: 290, h: 22 }
+  - id: a652
+    label: "A closed door"
+    at: { x: 640, y: 652 }
+    size: { w: 190, h: 22 }
+  - id: b652
+    label: "without an undercut or a grille"
+    align: left
+    at: { x: 830, y: 652 }
+    size: { w: 290, h: 22 }
+  - id: a674
+    label: ""
+    at: { x: 640, y: 674 }
+    size: { w: 190, h: 22 }
+  - id: b674
+    label: "pressurises the room and chokes the supply"
+    align: left
+    at: { x: 830, y: 674 }
+    size: { w: 290, h: 22 }
+  - id: n1
+    label: "A duct is not sized by the room. It is sized by a pressure budget."
+    marker: none
+    align: left
+    at: { x: 60, y: 590 }
+    size: { w: 560, h: 18 }
+  - id: n2
+    label: "What the blower has left over, divided by the longest run, is the friction rate."
+    marker: none
+    align: left
+    at: { x: 60, y: 612 }
+    size: { w: 560, h: 18 }
+  - id: n3
+    label: "Fittings are most of that run: an elbow can be 15 to 35 ft of equivalent length."
+    marker: none
+    align: left
+    at: { x: 60, y: 634 }
+    size: { w: 560, h: 18 }
+  - id: n4
+    label: "And the air has to get back. A closed door with no way out chokes its own supply."
+    marker: none
+    align: left
+    at: { x: 60, y: 656 }
+    size: { w: 560, h: 18 }
+  - id: n5
+    label: "Loads, sizes and the house are fictional."
+    marker: none
+    align: left
+    at: { x: 60, y: 678 }
+    size: { w: 560, h: 18 }
+edges:
+  - from: trunk
+    to: r1
+    via:
+      - { x: 128, y: 320 }
+  - from: trunk
+    to: r2
+    via:
+      - { x: 440, y: 320 }
+  - from: trunk
+    to: r3
+    via:
+      - { x: 512, y: 320 }
+  - from: trunk
+    to: r4
+    via:
+      - { x: 128, y: 320 }
+  - from: trunk
+    to: r5
+    via:
+      - { x: 296, y: 320 }
+  - from: trunk
+    to: r6
+    via:
+      - { x: 464, y: 320 }
+  - from: ret
+    to: ahu
