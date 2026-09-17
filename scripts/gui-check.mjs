@@ -369,6 +369,12 @@ async function walk(line) {
 
     // **画面側では測れない。** 繋がったかどうかを知っているのは線のほう。
     const connected = await untilHere(() => hub.status.screens === 1, 15000);
+    // **他の画面が繋がっていると、提案はそちらへ行く**（新しいほうへ出す）。
+    // 人がアプリを開いたまま回すと、**ここから先が理由の分からない形で落ちる**
+    // （2026-09-17。実演のときに開いたままだった殻へ、提案が渡っていた）。
+    if (hub.status.screens > 1) {
+      console.log(`  ！ 画面が ${hub.status.screens} 件繋がっています。zumen のアプリを閉じてから回してください。`);
+    }
     check('9 線 — 画面が繋ぎにいっている', connected, `${hub.status.screens} 件`);
     // 画面が「いま何を映しているか」を伝えているか。**ディスクではなく画面。**
     const seen = hub.status.screen;
@@ -399,7 +405,10 @@ async function walk(line) {
 
     // 人が押した。
     const waiting = hub.decision(put.ok ? put.id : '', 8000);
-    await evaluate(`[...document.querySelectorAll('button')].find((b) => b.textContent.trim() === '正本へ入れる').click()`);
+    // **文言で押さない。** 画面の言語は `navigator.language` で変わり、
+    // CI の機械は英語で出る —— 日本語の文言を探して**押す物が無い**と落ちていた
+    // （2026-09-15 から 5 回。2026-09-17 に直した）。
+    await evaluate(`document.querySelector('[data-act="apply"]').click()`);
     check('9 線 — 人が押したことが線の向こうへ返る', (await waiting) === 'applied');
     check('9 線 — 押したら正本が変わる', await until(`window.zumen.text.includes('cache')`), '');
 
@@ -407,7 +416,7 @@ async function walk(line) {
     const put2 = hub.offer(proposal.replace('キャッシュ', 'ふたつめ'), { note: 'もう 1 つ' });
     await until('window.zumen.pending !== null');
     const waiting2 = hub.decision(put2.ok ? put2.id : '', 8000);
-    await evaluate(`[...document.querySelectorAll('button')].find((b) => b.textContent.trim() === 'やめる').click()`);
+    await evaluate(`document.querySelector('[data-act="discard"]').click()`);
     check('9 線 — **やめたことも返る**（黙って待たせない）', (await waiting2) === 'discarded');
   }
 

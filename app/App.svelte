@@ -59,6 +59,9 @@
   // **自動で 8 操作を通して確かめるため**（人に手作業を頼まないため）。
   if (import.meta.env.DEV) {
     (globalThis as unknown as { zumen?: unknown }).zumen = session;
+    // **線の状態も出す。** 押した結果が線の向こうへ返ったかは、
+    // 画面の見た目からは分からない（`scripts/gui-check.mjs`）。
+    (globalThis as unknown as { zumenLive?: unknown }).zumenLive = live;
   }
 
   /**

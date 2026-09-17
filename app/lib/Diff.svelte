@@ -23,15 +23,25 @@ import type { Session } from './state.svelte.ts';
   }
   const { session, note = null, onDecided }: Props = $props();
   const m = messages().app;
+  /**
+   * **答えを返す口は、最初に手元へ取っておく**（2026-09-17）。
+   *
+   * 「正本へ入れる」は `applyPending` を待つが、**その await の間にこの節が消える**
+   * （`pending` が null になった時点で画面から外れる）。
+   * 外れたあとに props を読むと `undefined` で、**黙って何も返らなかった** ——
+   * エージェント側は人が押したことを知らないまま待ち続ける。
+   * 「やめる」は同期なので外れる前に返っており、**片方だけ壊れていた。**
+   */
+  const decided = onDecided;
 
   async function apply(): Promise<void> {
     await session.applyPending();
-    onDecided?.('applied');
+    decided?.('applied');
   }
 
   function discard(): void {
     session.discardPending();
-    onDecided?.('discarded');
+    decided?.('discarded');
   }
 
   const sign = { same: ' ', added: '+', removed: '-' } as const;
@@ -58,9 +68,15 @@ import type { Session } from './state.svelte.ts';
     </p>
   {/if}
 
+  <!--
+    **`data-act` は検査の取っ手**（2026-09-17）。
+    `scripts/gui-check.mjs` は文言で押していたので、
+    **画面が英語で出た CI では押す物が見つからず落ちていた。**
+    文言は言語で変わる。取っ手は変わらない。
+  -->
   <div class="choose">
-    <button class="primary" onclick={apply}>{m.apply}</button>
-    <button onclick={discard}>{m.discard}</button>
+    <button class="primary" data-act="apply" onclick={apply}>{m.apply}</button>
+    <button data-act="discard" onclick={discard}>{m.discard}</button>
   </div>
 </section>
 
