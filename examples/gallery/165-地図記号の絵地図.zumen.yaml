@@ -1,0 +1,413 @@
+version: 1
+kind: placement
+arrows: false
+title: 地図記号の絵地図（小学校の社会科／架空の町）
+north: up
+# **地図記号は絵ではなく、決まりごと。**
+#
+# だから**同じ形でも、○で囲むだけで別の意味**になる ——
+# 文（小中学校）を○で囲むと高等学校、×（交番）を○で囲むと警察署、
+# ○（町村役場）を二重にすると市役所。**見分けをつけるための決まり**で、
+# 形そのものが変わるわけではない。
+#
+# 記号のもとは 2 つある。**文字からできたもの**（文・〒・卍・×）と、
+# **道具や作物の形からできたもの**（消防署のさすまた、田の刈り株、畑のふた葉、
+# 果樹園の実、茶畑の茶の実）。
+#
+# **記号は増えたり減ったりする。** 1997 年に電子基準点、2002 年に図書館と博物館、
+# 2006 年に老人ホームと風車、2019 年に自然災害伝承碑。
+# **老人ホームと風車は、全国の小中学生 12 万件の応募から生まれた。**
+#
+# この図では、**文字の記号はそのまま書き、鳥居は線を組んで作った**
+# （zumen に地図記号を足していない。いまの道具で組めるかを見るため）。
+#
+# 町と施設の場所は架空。記号は国土地理院のもの。
+nodes:
+  - id: town
+    label: ""
+    at: { x: 60, y: 150 }
+    size: { w: 640, h: 420 }
+  - id: river
+    label: ""
+    hatch: lines
+    at: { x: 60, y: 400 }
+    size: { w: 640, h: 26 }
+  - id: road1
+    label: ""
+    hatch: dots
+    at: { x: 290, y: 150 }
+    size: { w: 16, h: 420 }
+  - id: road2
+    label: ""
+    hatch: dots
+    at: { x: 60, y: 280 }
+    size: { w: 640, h: 14 }
+  - id: ta
+    label: ""
+    hatch: lines
+    at: { x: 80, y: 450 }
+    size: { w: 180, h: 100 }
+  - id: hatake
+    label: ""
+    at: { x: 280, y: 450 }
+    size: { w: 140, h: 100 }
+  - id: kaju
+    label: ""
+    hatch: dots
+    at: { x: 440, y: 450 }
+    size: { w: 100, h: 100 }
+  - id: cha
+    label: ""
+    hatch: cross
+    at: { x: 560, y: 450 }
+    size: { w: 120, h: 100 }
+  - id: l_ta
+    label: "田"
+    marker: none
+    align: left
+    at: { x: 148, y: 544 }
+    size: { w: 40, h: 18 }
+  - id: l_hatake
+    label: "畑"
+    marker: none
+    align: left
+    at: { x: 342, y: 544 }
+    size: { w: 40, h: 18 }
+  - id: l_kaju
+    label: "果樹園"
+    marker: none
+    align: left
+    at: { x: 460, y: 544 }
+    size: { w: 80, h: 18 }
+  - id: l_cha
+    label: "茶畑"
+    marker: none
+    align: left
+    at: { x: 598, y: 544 }
+    size: { w: 60, h: 18 }
+  - id: l_river
+    label: "川"
+    marker: none
+    align: left
+    at: { x: 70, y: 406 }
+    size: { w: 40, h: 18 }
+  - id: school
+    label: "文"
+    marker: none
+    at: { x: 127, y: 200 }
+    size: { w: 26, h: 20 }
+  - id: n_school
+    label: "小中学校"
+    marker: none
+    align: left
+    at: { x: 160, y: 202 }
+    size: { w: 90, h: 18 }
+  - id: high
+    label: ""
+    tag: "文"
+    marker: circle
+    at: { x: 125, y: 315 }
+    size: { w: 30, h: 30 }
+  - id: n_high
+    label: "高等学校"
+    marker: none
+    align: left
+    at: { x: 162, y: 322 }
+    size: { w: 90, h: 18 }
+  - id: post
+    label: ""
+    tag: "〒"
+    marker: circle
+    at: { x: 345, y: 195 }
+    size: { w: 30, h: 30 }
+  - id: n_post
+    label: "郵便局"
+    marker: none
+    align: left
+    at: { x: 382, y: 202 }
+    size: { w: 80, h: 18 }
+  - id: temple
+    label: "卍"
+    marker: none
+    at: { x: 477, y: 200 }
+    size: { w: 26, h: 20 }
+  - id: n_temple
+    label: "寺"
+    marker: none
+    align: left
+    at: { x: 510, y: 202 }
+    size: { w: 50, h: 18 }
+  - id: koban
+    label: "×"
+    marker: none
+    at: { x: 347, y: 320 }
+    size: { w: 26, h: 20 }
+  - id: n_koban
+    label: "交番"
+    marker: none
+    align: left
+    at: { x: 378, y: 322 }
+    size: { w: 60, h: 18 }
+  - id: police
+    label: ""
+    tag: "×"
+    marker: circle
+    at: { x: 475, y: 315 }
+    size: { w: 30, h: 30 }
+  - id: n_police
+    label: "警察署"
+    marker: none
+    align: left
+    at: { x: 512, y: 322 }
+    size: { w: 70, h: 18 }
+  - id: city
+    label: ""
+    marker: double
+    at: { x: 586, y: 196 }
+    size: { w: 28, h: 28 }
+  - id: n_city
+    label: "市役所"
+    marker: none
+    align: left
+    at: { x: 620, y: 202 }
+    size: { w: 70, h: 18 }
+  - id: town_office
+    label: ""
+    marker: circle
+    at: { x: 586, y: 316 }
+    size: { w: 28, h: 28 }
+  - id: n_town
+    label: "町村役場"
+    marker: none
+    align: left
+    at: { x: 620, y: 322 }
+    size: { w: 90, h: 18 }
+  - id: torii_top
+    label: ""
+    hatch: solid
+    at: { x: 214, y: 316 }
+    size: { w: 32, h: 3 }
+  - id: torii_2nd
+    label: ""
+    hatch: solid
+    at: { x: 218, y: 324 }
+    size: { w: 24, h: 2 }
+  - id: torii_l
+    label: ""
+    hatch: solid
+    at: { x: 221, y: 324 }
+    size: { w: 3, h: 20 }
+  - id: torii_r
+    label: ""
+    hatch: solid
+    at: { x: 236, y: 324 }
+    size: { w: 3, h: 20 }
+  - id: n_shrine
+    label: "神社"
+    marker: none
+    align: left
+    at: { x: 250, y: 322 }
+    size: { w: 50, h: 18 }
+  - id: h60
+    label: "文字からできた記号"
+    hatch: solid
+    at: { x: 760, y: 60 }
+    size: { w: 460, h: 22 }
+  - id: a82
+    label: "文（小中学校）"
+    at: { x: 760, y: 82 }
+    size: { w: 140, h: 22 }
+  - id: b82
+    label: "学問をあらわす漢字"
+    align: left
+    at: { x: 900, y: 82 }
+    size: { w: 320, h: 22 }
+  - id: a104
+    label: "〒（郵便局）"
+    at: { x: 760, y: 104 }
+    size: { w: 140, h: 22 }
+  - id: b104
+    label: "逓信省の「テ」から"
+    align: left
+    at: { x: 900, y: 104 }
+    size: { w: 320, h: 22 }
+  - id: a126
+    label: "卍（寺）"
+    at: { x: 760, y: 126 }
+    size: { w: 140, h: 22 }
+  - id: b126
+    label: "仏教のしるし"
+    align: left
+    at: { x: 900, y: 126 }
+    size: { w: 320, h: 22 }
+  - id: a148
+    label: "×（交番）"
+    at: { x: 760, y: 148 }
+    size: { w: 140, h: 22 }
+  - id: b148
+    label: "警棒を交差させた形"
+    align: left
+    at: { x: 900, y: 148 }
+    size: { w: 320, h: 22 }
+  - id: h184
+    label: "○で囲むと、上のほうになる"
+    hatch: solid
+    at: { x: 760, y: 184 }
+    size: { w: 460, h: 22 }
+  - id: a206
+    label: "文 → ○の中に文"
+    at: { x: 760, y: 206 }
+    size: { w: 140, h: 22 }
+  - id: b206
+    label: "小中学校 → 高等学校"
+    align: left
+    at: { x: 900, y: 206 }
+    size: { w: 320, h: 22 }
+  - id: a228
+    label: "× → ○の中に×"
+    at: { x: 760, y: 228 }
+    size: { w: 140, h: 22 }
+  - id: b228
+    label: "交番 → 警察署"
+    align: left
+    at: { x: 900, y: 228 }
+    size: { w: 320, h: 22 }
+  - id: a250
+    label: "○ → ◎"
+    at: { x: 760, y: 250 }
+    size: { w: 140, h: 22 }
+  - id: b250
+    label: "町村役場 → 市役所"
+    align: left
+    at: { x: 900, y: 250 }
+    size: { w: 320, h: 22 }
+  - id: a272
+    label: "なぜ"
+    at: { x: 760, y: 272 }
+    size: { w: 140, h: 22 }
+  - id: b272
+    label: "見分けをつけるため。形は同じ"
+    align: left
+    at: { x: 900, y: 272 }
+    size: { w: 320, h: 22 }
+  - id: h308
+    label: "作物の形からできた記号"
+    hatch: solid
+    at: { x: 760, y: 308 }
+    size: { w: 460, h: 22 }
+  - id: a330
+    label: "田"
+    at: { x: 760, y: 330 }
+    size: { w: 140, h: 22 }
+  - id: b330
+    label: "刈ったあとの株"
+    align: left
+    at: { x: 900, y: 330 }
+    size: { w: 320, h: 22 }
+  - id: a352
+    label: "畑"
+    at: { x: 760, y: 352 }
+    size: { w: 140, h: 22 }
+  - id: b352
+    label: "ふた葉が出た形"
+    align: left
+    at: { x: 900, y: 352 }
+    size: { w: 320, h: 22 }
+  - id: a374
+    label: "果樹園"
+    at: { x: 760, y: 374 }
+    size: { w: 140, h: 22 }
+  - id: b374
+    label: "実を横から見た形"
+    align: left
+    at: { x: 900, y: 374 }
+    size: { w: 320, h: 22 }
+  - id: a396
+    label: "茶畑"
+    at: { x: 760, y: 396 }
+    size: { w: 140, h: 22 }
+  - id: b396
+    label: "茶の実を切った形"
+    align: left
+    at: { x: 900, y: 396 }
+    size: { w: 320, h: 22 }
+  - id: h432
+    label: "あとから増えた記号"
+    hatch: solid
+    at: { x: 760, y: 432 }
+    size: { w: 460, h: 22 }
+  - id: a454
+    label: "1997 年"
+    at: { x: 760, y: 454 }
+    size: { w: 140, h: 22 }
+  - id: b454
+    label: "電子基準点"
+    align: left
+    at: { x: 900, y: 454 }
+    size: { w: 320, h: 22 }
+  - id: a476
+    label: "2002 年"
+    at: { x: 760, y: 476 }
+    size: { w: 140, h: 22 }
+  - id: b476
+    label: "図書館・博物館"
+    align: left
+    at: { x: 900, y: 476 }
+    size: { w: 320, h: 22 }
+  - id: a498
+    label: "2006 年"
+    at: { x: 760, y: 498 }
+    size: { w: 140, h: 22 }
+  - id: b498
+    label: "老人ホーム・風車"
+    align: left
+    at: { x: 900, y: 498 }
+    size: { w: 320, h: 22 }
+  - id: a520
+    label: "だれが考えたか"
+    at: { x: 760, y: 520 }
+    size: { w: 140, h: 22 }
+  - id: b520
+    label: "全国の小中学生 12 万件の応募から"
+    align: left
+    at: { x: 900, y: 520 }
+    size: { w: 320, h: 22 }
+  - id: a542
+    label: "2019 年"
+    at: { x: 760, y: 542 }
+    size: { w: 140, h: 22 }
+  - id: b542
+    label: "自然災害伝承碑"
+    align: left
+    at: { x: 900, y: 542 }
+    size: { w: 320, h: 22 }
+  - id: z1
+    label: "地図記号は絵ではなく、決まりごとです。だから同じ形でも、○で囲むだけで別の意味になります。"
+    marker: none
+    align: left
+    at: { x: 60, y: 630 }
+    size: { w: 660, h: 18 }
+  - id: z2
+    label: "文字からできた記号（文・〒・卍・×）と、道具や作物の形からできた記号があります。"
+    marker: none
+    align: left
+    at: { x: 60, y: 652 }
+    size: { w: 660, h: 18 }
+  - id: z3
+    label: "この図では、文字の記号はそのまま書き、神社の鳥居は線を組んで作りました（記号を足していません）。"
+    marker: none
+    align: left
+    at: { x: 60, y: 674 }
+    size: { w: 660, h: 18 }
+  - id: z4
+    label: "記号は増えたり減ったりします。老人ホームと風車は、小中学生の応募から生まれました。"
+    marker: none
+    align: left
+    at: { x: 60, y: 696 }
+    size: { w: 660, h: 18 }
+  - id: z5
+    label: "町と施設の場所は架空です。記号は国土地理院のものです。"
+    marker: none
+    align: left
+    at: { x: 60, y: 718 }
+    size: { w: 660, h: 18 }

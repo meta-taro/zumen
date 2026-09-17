@@ -100,6 +100,7 @@ export const CAPTIONS_EN = {
   '148-Egress-plan': 'Egress plan: three lengths answering three questions',
   '119-消火器と消火栓の配置図': 'Extinguishers and hose reels, measured two different ways',
   '158-Cattle-handling-facility': 'Every dimension comes from what cattle will not do',
+  '165-地図記号の絵地図': 'Japanese map symbols: a circle around a sign makes it the senior one',
   '164-小学校の回路図': 'The circuit diagram taught at primary school: series and parallel',
   '163-Residential-duct-layout': 'Ducts are sized by a pressure budget, not by the room',
   '162-Cabin-LOPA': 'The seat count is not what fits - it is what the exits allow',
