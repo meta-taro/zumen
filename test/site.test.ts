@@ -75,3 +75,54 @@ describe('DL ページ', () => {
     assert.match(en, /<html lang="en">/);
   });
 });
+
+/**
+ * **SNS に貼ったときに出るカード**（OGP / Twitter card。2026-09-17）。
+ *
+ * X へ出す直前に見たら、**どちらのページにも 1 つも入っていなかった。**
+ * リンクだけが貼られ、**何の道具かは誰にも分からない**まま流れる。
+ *
+ * 絵は `pnpm og` が作る（`site/og.png` / `site/en/og.png`）。
+ * ここで見るのは**書いてあるか**と、**絶対 URL になっているか** ——
+ * 相対のままだと、取りに来た機械が絵を見つけられない。
+ */
+describe('SNS のカード', () => {
+  const SITE = 'https://meta-taro.github.io/zumen/';
+
+  it('**どちらのページにも入っている**', () => {
+    for (const [name, page] of [['ja', ja], ['en', en]] as const) {
+      assert.match(page, /property="og:title"/, `${name} に og:title が無い`);
+      assert.match(page, /property="og:description"/, `${name} に og:description が無い`);
+      assert.match(page, /property="og:image"/, `${name} に og:image が無い`);
+      assert.match(page, /property="og:url"/, `${name} に og:url が無い`);
+      assert.match(page, /name="twitter:card" content="summary_large_image"/, `${name} に大きいカードの指定が無い`);
+    }
+  });
+
+  it('**絵と行き先は絶対 URL**（相対だと機械が取りに来られない）', () => {
+    for (const [name, page] of [['ja', ja], ['en', en]] as const) {
+      for (const key of ['og:image', 'og:url'] as const) {
+        const said = new RegExp(`property="${key}" content="([^"]+)"`).exec(page);
+        assert.ok(said !== null, `${name} に ${key} が無い`);
+        assert.ok(said[1]!.startsWith(SITE), `${name} の ${key} が絶対 URL でない: ${said[1]}`);
+      }
+    }
+  });
+
+  it('**英語のページは英語のカードを出す**（言語も宣言する）', () => {
+    assert.match(en, /og:image" content="[^"]*\/en\/og\.png"/);
+    assert.match(ja, /og:image" content="[^"]*zumen\/og\.png"/);
+    assert.match(ja, /property="og:locale" content="ja_JP"/);
+    assert.match(en, /property="og:locale" content="en_US"/);
+  });
+
+  it('**絵が実際にある**（参照だけ足して置き忘れない。ベースルール §23）', () => {
+    for (const path of ['site/og.png', 'site/en/og.png']) {
+      const png = readFileSync(path);
+      assert.equal(png.subarray(1, 4).toString(), 'PNG', `${path} が PNG でない`);
+      // 1,200×630 を 2 倍で描く（`scripts/og.mjs`）。
+      assert.equal(png.readUInt32BE(16), 2400, `${path} の幅が違う`);
+      assert.equal(png.readUInt32BE(20), 1260, `${path} の高さが違う`);
+    }
+  });
+});
