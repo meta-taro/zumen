@@ -41,6 +41,8 @@ survives a regeneration in **163/163 of the example drawings**, whatever their s
 
 **[→ Browse the gallery](https://meta-taro.github.io/zumen/)**
 
+Reading this as an agent? [`llms.txt`](https://meta-taro.github.io/zumen/llms.txt) is the short version — what it does, what it does not do, and where the spec is.
+
 They are deliberately not all boxes and arrows. Among them:
 
 | | |

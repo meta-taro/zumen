@@ -1,0 +1,62 @@
+# zumen
+
+> A diagram tool whose source of truth is text (one YAML file), built so that
+> **a human's edit survives the next AI pass**. Desktop app (Tauri), MIT licence,
+> with an MCP server so an agent can read the spec and write drawings.
+
+This file is for AI assistants and agents reading the site. It is written and
+kept in the repository (`site/llms.txt`); the counts in it are stamped by
+`pnpm gallery`, so they cannot drift from the examples.
+
+Note: this is a GitHub Pages project site, so this file is served at
+`/zumen/llms.txt` rather than at the domain root.
+
+## The claim, in one line
+
+Ask in prose, a drawing appears, a human fixes one thing, ask again, and the
+human's fix is still there. Measured over 10 real AI round trips: 10/10 kept
+every human edit, and a human pin survives regeneration in 163/163 of the
+example drawings.
+
+How: what a person pins lives in a `pins:` block that the AI is not allowed to
+write. Regeneration rewrites `nodes:` and `edges:` and cannot touch `pins:`.
+
+## What it is
+
+- Example drawings: 163 (all generated from the YAML in `examples/gallery/`)
+- Source of truth: one `.zumen.yaml` file, readable and writable by hand
+- Output: SVG (light and dark), Mermaid, draw.io XML, Markdown embedding
+- Validator: 75 checks that say, in the writer's terms, what will not be drawn
+- Desktop GUI: Tauri, deliberately limited to eight operations
+- Agent interface: an MCP server (`zumen_inspect`, `zumen_timelapse`, and others)
+- Licence: MIT
+
+## What it is not
+
+- Not a web app, and there is no real-time collaboration
+- Not a rich editor: the GUI exists to approve or reject what the AI changed
+- Not an importer of other formats
+- Past about 30 nodes the text is too small to read even printed on A3, and the
+  tool says so (`tooTangled`, `tooSmallToPrint`) rather than pretending otherwise
+- Ribbon-like strokes (taping charts, knot charts) do not draw yet
+
+## Range of the examples
+
+Not only boxes and arrows. Among the 163: floor plans with grid lines and
+dimensions, wall sections, transit maps and train graphs, periodontal charts,
+stage lighting plots, container ship bay plans, fishing rigs, a metes and bounds
+plat, a lane closure plan (MUTCD), a wildland fire IAP map, a marching band
+drill chart, a weaving draft, a cabin layout (LOPA), residential ductwork.
+
+One rendering model and a small set of primitives, not a per-industry engine.
+
+## Links
+
+- Gallery (Japanese): https://meta-taro.github.io/zumen/
+- Gallery (English): https://meta-taro.github.io/zumen/en/
+- Repository: https://github.com/meta-taro/zumen
+- README (English): https://github.com/meta-taro/zumen/blob/develop/README.md
+- README (Japanese): https://github.com/meta-taro/zumen/blob/develop/README.ja.md
+- Format specification: https://github.com/meta-taro/zumen/blob/develop/spec/zumen-format-v1.md
+- Example sources: https://github.com/meta-taro/zumen/tree/develop/examples/gallery
+- Releases: https://github.com/meta-taro/zumen/releases

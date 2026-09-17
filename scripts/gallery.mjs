@@ -130,6 +130,27 @@ const counted = {
   english: sources.filter((name) => !/[\u3040-\u30ff\u4e00-\u9fff]/.test(name)).length,
 };
 
+/**
+ * **枚数は、書いてあるところ全部を書き換える**（2026-09-17）。
+ *
+ * カードの説明・構造化データ（JSON-LD）・`llms.txt` にも枚数が入っている。
+ * **手で直す場所が増えるほど、どこかが古くなる** —— 見つけるのは人に見せたあと。
+ */
+const STAMPED = ['site/index.html', 'site/en/index.html', 'site/llms.txt', 'scripts/og.mjs'];
+for (const path of STAMPED) {
+  const was = readFileSync(path, 'utf8');
+  const now = was
+    .replace(/見本 \d+ 枚/g, `見本 ${counted.total} 枚`)
+    .replace(/\d+ example drawings/g, `${counted.total} example drawings`)
+    .replace(/\d+ of the example drawings/g, `${counted.total} of the example drawings`)
+    .replace(/(Example drawings: )\d+/g, `$1${counted.total}`)
+    .replace(/\d+\/\d+ of the example drawings/g, `${counted.total}/${counted.total} of the example drawings`)
+    .replace(/Among the \d+:/g, `Among the ${counted.total}:`);
+  if (now === was) continue;
+  if (!check) writeFileSync(path, now);
+  else stale.push(path);
+}
+
 let parts;
 for (const target of PAGES) {
   parts = pageParts(target);

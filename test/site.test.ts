@@ -126,3 +126,96 @@ describe('SNS のカード', () => {
     }
   });
 });
+
+/**
+ * **探して見つかること、AI に読まれたときに正しく答えられること**（2026-09-17）。
+ *
+ * オーナーの「SEO / AIEO も意識して」から。見たのは 4 つ。
+ *
+ * | | |
+ * |---|---|
+ * | `canonical` | 同じ内容が 2 つの URL に見えないようにする |
+ * | 構造化データ（JSON-LD）| 機械が「これは何か」を推測しないで済む |
+ * | `llms.txt` | **AI 向けの短い正本**（できること・できないこと・行き先）|
+ * | `sitemap.xml` | 2 枚しか無いが、言語の対応も併せて言う |
+ *
+ * **robots.txt は置けない。** GitHub Pages のプロジェクトページなので、
+ * 読まれるのは `meta-taro.github.io/robots.txt`（別のリポジトリのもの）。
+ * だからページ側に `<meta name="robots">` を書く。
+ *
+ * **数字はここで突き合わせる。** 枚数はカードの説明・JSON-LD・`llms.txt` の
+ * 3 か所に出るので、`pnpm gallery` が全部を書き換える。
+ */
+describe('探して見つかること（SEO / AIEO）', () => {
+  it('**canonical があり、og:url と同じ**', () => {
+    for (const [name, page] of [['ja', ja], ['en', en]] as const) {
+      const canon = /<link rel="canonical" href="([^"]+)">/.exec(page);
+      const url = /property="og:url" content="([^"]+)"/.exec(page);
+      assert.ok(canon !== null, `${name} に canonical が無い`);
+      assert.equal(canon[1], url?.[1], `${name} の canonical と og:url が食い違っている`);
+    }
+  });
+
+  it('**機械に読ませてよいと書いてある**（robots.txt が置けないため）', () => {
+    for (const [name, page] of [['ja', ja], ['en', en]] as const) {
+      assert.match(page, /<meta name="robots" content="index,follow/, `${name} に robots の指定が無い`);
+    }
+  });
+
+  it('**構造化データが JSON として読め、ページと食い違っていない**', () => {
+    for (const [name, page] of [['ja', ja], ['en', en]] as const) {
+      const block = /<script type="application\/ld\+json">([\s\S]*?)<\/script>/.exec(page);
+      assert.ok(block !== null, `${name} に JSON-LD が無い`);
+      const data = JSON.parse(block[1]!) as { '@graph': { '@type': string; url: string; image?: string }[] };
+      const app = data['@graph'].find((item) => item['@type'] === 'SoftwareApplication');
+      assert.ok(app !== undefined, `${name} に SoftwareApplication が無い`);
+      const canon = /<link rel="canonical" href="([^"]+)">/.exec(page)?.[1];
+      assert.equal(app.url, canon, `${name} の JSON-LD の url が canonical と違う`);
+      const image = /property="og:image" content="([^"]+)"/.exec(page)?.[1];
+      assert.equal(app.image, image, `${name} の JSON-LD の絵が og:image と違う`);
+    }
+  });
+
+  it('**llms.txt がある**（AI 向けの短い正本。行き先が揃っている）', () => {
+    const llms = readFileSync('site/llms.txt', 'utf8');
+    for (const must of [
+      'https://github.com/meta-taro/zumen',
+      'https://meta-taro.github.io/zumen/en/',
+      'spec/zumen-format-v1.md',
+      'Example drawings:',
+    ]) {
+      assert.ok(llms.includes(must), `llms.txt に ${must} が無い`);
+    }
+    // **できないことも書く。** できることだけ書いた紹介は、読んだ側が確かめに来たときに崩れる。
+    assert.match(llms, /## What it is not/);
+  });
+
+  it('**ページから llms.txt と sitemap へ行ける**', () => {
+    for (const [name, page] of [['ja', ja], ['en', en]] as const) {
+      assert.match(page, /llms\.txt/, `${name} から llms.txt へ行けない`);
+      assert.match(page, /sitemap\.xml/, `${name} から sitemap へ行けない`);
+    }
+  });
+
+  it('**sitemap に 2 枚とも載っていて、言語の対応も言っている**', () => {
+    const map = readFileSync('site/sitemap.xml', 'utf8');
+    assert.match(map, /<loc>https:\/\/meta-taro\.github\.io\/zumen\/<\/loc>/);
+    assert.match(map, /<loc>https:\/\/meta-taro\.github\.io\/zumen\/en\/<\/loc>/);
+    assert.match(map, /hreflang="x-default"/);
+  });
+
+  it('**枚数が、書いてあるところ全部で合っている**', async () => {
+    const { readdirSync } = await import('node:fs');
+    const total = readdirSync('examples/gallery').filter((name) => name.endsWith('.zumen.yaml')).length;
+    const llms = readFileSync('site/llms.txt', 'utf8');
+    for (const [name, text] of [['ja', ja], ['en', en], ['llms.txt', llms]] as const) {
+      for (const found of text.matchAll(/見本 (\d+) 枚/g)) {
+        assert.equal(Number(found[1]), total, `${name} の「見本 N 枚」が古い`);
+      }
+      for (const found of text.matchAll(/(\d+) example drawings/g)) {
+        assert.equal(Number(found[1]), total, `${name} の「N example drawings」が古い`);
+      }
+    }
+    assert.match(llms, new RegExp(`Example drawings: ${total}`));
+  });
+});
