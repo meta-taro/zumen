@@ -111,7 +111,14 @@ export function releases(markdown: string): Release[] {
     }
   }
 
-  return out;
+  /**
+   * **中身の無い欄は、版ではない**（2026-09-17）。
+   *
+   * 版を切った直後の「未リリース」は**空なのが正しい状態**。
+   * それを 1 件として返すと、`zumen_about` を読んだエージェントの目に
+   * **「いちばん新しい版には何も無い」**と映る。空の欄は数えない。
+   */
+  return out.filter((release) => release.notes.length > 0);
 }
 
 /** package.json の在り処。`src/` からも `dist/` からも 1 つ上。 */

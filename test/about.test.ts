@@ -35,8 +35,24 @@ describe('版ごとの変更を読む', () => {
     assert.ok(parsed.length > 0);
   });
 
+  /**
+   * **新しいものが先**（エージェントは上から読む）。
+   *
+   * 以前は「先頭は必ず未リリース」と書いていたが、**版を切った直後は空**なので
+   * 先頭に来ない（空の欄は数えない）。見るべきは**並び**のほう。
+   */
   it('**新しいものが先**（エージェントは上から読む）', () => {
-    assert.equal(parsed[0]?.unreleased, true);
+    const shipped = parsed.filter((release) => !release.unreleased);
+    const numbers = shipped.map((release) => release.version.split('.').map(Number));
+    for (let i = 1; i < numbers.length; i += 1) {
+      const [a, b] = [numbers[i - 1]!, numbers[i]!];
+      assert.ok(
+        a[0]! > b[0]! || (a[0] === b[0] && (a[1]! > b[1]! || (a[1] === b[1] && a[2]! > b[2]!))),
+        `${shipped[i - 1]!.version} より ${shipped[i]!.version} が先に来ている`,
+      );
+    }
+    // 未リリースに中身があるときは、それがいちばん上。
+    if (parsed.some((release) => release.unreleased)) assert.equal(parsed[0]?.unreleased, true);
   });
 
   it('版と日付が取れる', () => {
@@ -51,9 +67,22 @@ describe('版ごとの変更を読む', () => {
     }
   });
 
+  /**
+   * **版を切った直後の「未リリース」は空**（2026-09-17。0.2.0 のとき）。
+   *
+   * 欄そのものは残す（次に何が来るかを書く場所）が、
+   * **空の欄を「版」として返すと、読んだエージェントには
+   * 「いちばん新しい版には何も無い」と映る。**
+   */
+  it('**空の欄は版として数えない**（切った直後の「未リリース」）', () => {
+    const empty = releases('## 未リリース\n\n## 0.2.0 — 2026-09-17\n\n### 直しました\n\n- 直した\n');
+    assert.deepEqual(empty.map((r) => r.version), ['0.2.0']);
+  });
+
   it('見出しごとにまとまっている', () => {
     const shipped = parsed.find((r) => !r.unreleased)!;
-    assert.ok(shipped.notes.some((note) => note.startsWith('検査する')));
+    // `### 直しました` の下の 1 件なら `直しました: …` として返る。
+    assert.ok(shipped.notes.some((note) => /^[^:]+: /.test(note)), shipped.notes[0]);
   });
 
   it('**囲みや余談を拾わない**（記録の前置きを版の中身にしない）', () => {
