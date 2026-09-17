@@ -1,0 +1,410 @@
+version: 1
+kind: placement
+arrows: false
+title: マンションの販売図面（3LDK・架空）
+scale: { mm: 20 }
+wall: { mm: 120, outer: 180 }
+north: up
+# **同じ部屋でも、目的が変われば別の図になる。**
+#
+# 見本 14 は**平面詳細図** —— 作るための図で、通り芯と実寸が入っている。
+# こちらは**販売図面** —— **決めるための図**で、買う人が見る。
+# だから寸法は書かず、**帖数と面積**で言い、**家具を描く**（置けるかを見せるため）。
+#
+# 決まりごとがある。**1 帖は 1.62 m² 以上**（不動産の表示規約 第 18 条）。
+# **LDK と名乗れるのは、居室 2 部屋以上なら 10 帖以上**（1 部屋なら 8 帖以上）。
+# 面積は**壁芯** —— 壁の真ん中で測るので、部屋を足した広さより大きく出る。
+#
+# **そして、描かれないものがある。** 天井の高さ、窓の高さと形、梁の出っ張り、
+# 下がり天井の下端。**間取り図は、何が描いていないかを知って読む図。**
+#
+# 1 px = 20 mm。帖数はこの図の面積から計算した。間取り・面積・物件は架空。
+nodes:
+  - id: unit
+    label: ""
+    at: { x: 80, y: 150 }
+    size: { w: 500, h: 400 }
+  - id: genkan
+    label: "玄関"
+    at: { x: 80, y: 150 }
+    size: { w: 90, h: 120 }
+  - id: sic
+    label: "SIC"
+    at: { x: 80, y: 270 }
+    size: { w: 90, h: 60 }
+  - id: hall
+    label: "廊下"
+    at: { x: 170, y: 150 }
+    size: { w: 70, h: 230 }
+  - id: yo3
+    label: "洋室 3"
+    technology: "4.7 帖"
+    at: { x: 240, y: 150 }
+    size: { w: 130, h: 145 }
+  - id: yo2
+    label: "洋室 2"
+    technology: "4.8 帖"
+    at: { x: 370, y: 150 }
+    size: { w: 135, h: 145 }
+  - id: wic
+    label: "WIC"
+    at: { x: 505, y: 150 }
+    size: { w: 75, h: 80 }
+  - id: wc
+    label: "WC"
+    at: { x: 505, y: 230 }
+    size: { w: 75, h: 75 }
+  - id: senmen
+    label: "洗面室"
+    at: { x: 240, y: 295 }
+    size: { w: 90, h: 85 }
+  - id: ub
+    label: "UB 1620"
+    at: { x: 330, y: 295 }
+    size: { w: 100, h: 85 }
+  - id: yo1
+    label: "洋室 1"
+    technology: "5.7 帖"
+    at: { x: 430, y: 305 }
+    size: { w: 150, h: 155 }
+  - id: ldk
+    label: "LDK"
+    technology: "14.7 帖"
+    at: { x: 80, y: 380 }
+    size: { w: 350, h: 170 }
+  - id: balcony
+    label: "バルコニー"
+    hatch: dots
+    at: { x: 80, y: 550 }
+    size: { w: 400, h: 77.5 }
+  - id: sofa
+    label: ""
+    marker: none
+    hatch: lines
+    at: { x: 92.5, y: 500 }
+    size: { w: 105, h: 42.5 }
+  - id: table
+    label: ""
+    marker: none
+    hatch: lines
+    at: { x: 290, y: 405 }
+    size: { w: 75, h: 42.5 }
+  - id: bed1
+    label: ""
+    marker: none
+    hatch: lines
+    at: { x: 437.5, y: 312.5 }
+    size: { w: 50, h: 100 }
+  - id: bed2
+    label: ""
+    marker: none
+    hatch: lines
+    at: { x: 247.5, y: 157.5 }
+    size: { w: 50, h: 100 }
+  - id: desk
+    label: ""
+    marker: none
+    hatch: lines
+    at: { x: 385, y: 157.5 }
+    size: { w: 60, h: 30 }
+  - id: ps
+    label: ""
+    tag: "PS"
+    at: { x: 545, y: 305 }
+    size: { w: 35, h: 45 }
+  - id: mb
+    label: ""
+    tag: "MB"
+    at: { x: 545, y: 350 }
+    size: { w: 35, h: 30 }
+  - id: r
+    label: ""
+    tag: "R"
+    at: { x: 390, y: 405 }
+    size: { w: 35, h: 35 }
+  - id: w
+    label: ""
+    tag: "W"
+    at: { x: 240, y: 350 }
+    size: { w: 30, h: 30 }
+  - id: l_alcove
+    label: "アルコーブ（玄関前の引っ込み）"
+    marker: none
+    align: left
+    at: { x: 74, y: 120 }
+    size: { w: 300, h: 18 }
+  - id: sagari
+    label: ""
+    marker: none
+    hatch: dots
+    at: { x: 80, y: 380 }
+    size: { w: 350, h: 20 }
+  - id: l_sagari
+    label: "下がり天井（梁）"
+    marker: none
+    align: left
+    at: { x: 90, y: 381 }
+    size: { w: 150, h: 18 }
+  - id: l_bal
+    label: "バルコニー 12.40 m²（専有面積に入らない）"
+    marker: none
+    align: left
+    at: { x: 90, y: 635 }
+    size: { w: 340, h: 18 }
+  - id: h60
+    label: "この図の数字"
+    hatch: solid
+    at: { x: 670, y: 60 }
+    size: { w: 440, h: 22 }
+  - id: a82
+    label: "専有面積"
+    at: { x: 670, y: 82 }
+    size: { w: 150, h: 22 }
+  - id: b82
+    label: "78.52 m²（壁芯）"
+    align: left
+    at: { x: 820, y: 82 }
+    size: { w: 290, h: 22 }
+  - id: a104
+    label: "バルコニー"
+    at: { x: 670, y: 104 }
+    size: { w: 150, h: 22 }
+  - id: b104
+    label: "12.40 m²（専有面積に入らない）"
+    align: left
+    at: { x: 820, y: 104 }
+    size: { w: 290, h: 22 }
+  - id: a126
+    label: "帖数"
+    at: { x: 670, y: 126 }
+    size: { w: 150, h: 22 }
+  - id: b126
+    label: "面積 ÷ 1.62 で出しています"
+    align: left
+    at: { x: 820, y: 126 }
+    size: { w: 290, h: 22 }
+  - id: a148
+    label: "1 帖"
+    at: { x: 670, y: 148 }
+    size: { w: 150, h: 22 }
+  - id: b148
+    label: "1.62 m² 以上（表示規約 第 18 条）"
+    align: left
+    at: { x: 820, y: 148 }
+    size: { w: 290, h: 22 }
+  - id: a170
+    label: "LDK と名乗れる"
+    at: { x: 670, y: 170 }
+    size: { w: 150, h: 22 }
+  - id: b170
+    label: "居室 2 部屋以上なら 10 帖以上"
+    align: left
+    at: { x: 820, y: 170 }
+    size: { w: 290, h: 22 }
+  - id: a192
+    label: ""
+    at: { x: 670, y: 192 }
+    size: { w: 150, h: 22 }
+  - id: b192
+    label: "居室 1 部屋なら 8 帖以上"
+    align: left
+    at: { x: 820, y: 192 }
+    size: { w: 290, h: 22 }
+  - id: h228
+    label: "略号"
+    hatch: solid
+    at: { x: 670, y: 228 }
+    size: { w: 440, h: 22 }
+  - id: a250
+    label: "PS"
+    at: { x: 670, y: 250 }
+    size: { w: 150, h: 22 }
+  - id: b250
+    label: "パイプスペース（配管）"
+    align: left
+    at: { x: 820, y: 250 }
+    size: { w: 290, h: 22 }
+  - id: a272
+    label: "MB"
+    at: { x: 670, y: 272 }
+    size: { w: 150, h: 22 }
+  - id: b272
+    label: "メーターボックス"
+    align: left
+    at: { x: 820, y: 272 }
+    size: { w: 290, h: 22 }
+  - id: a294
+    label: "WIC"
+    at: { x: 670, y: 294 }
+    size: { w: 150, h: 22 }
+  - id: b294
+    label: "ウォークインクローゼット"
+    align: left
+    at: { x: 820, y: 294 }
+    size: { w: 290, h: 22 }
+  - id: a316
+    label: "SIC"
+    at: { x: 670, y: 316 }
+    size: { w: 150, h: 22 }
+  - id: b316
+    label: "シューズインクローゼット"
+    align: left
+    at: { x: 820, y: 316 }
+    size: { w: 290, h: 22 }
+  - id: a338
+    label: "UB"
+    at: { x: 670, y: 338 }
+    size: { w: 150, h: 22 }
+  - id: b338
+    label: "ユニットバス（1620＝1.6×2.0 m）"
+    align: left
+    at: { x: 820, y: 338 }
+    size: { w: 290, h: 22 }
+  - id: a360
+    label: "W"
+    at: { x: 670, y: 360 }
+    size: { w: 150, h: 22 }
+  - id: b360
+    label: "洗濯機置き場"
+    align: left
+    at: { x: 820, y: 360 }
+    size: { w: 290, h: 22 }
+  - id: a382
+    label: "R"
+    at: { x: 670, y: 382 }
+    size: { w: 150, h: 22 }
+  - id: b382
+    label: "冷蔵庫置き場"
+    align: left
+    at: { x: 820, y: 382 }
+    size: { w: 290, h: 22 }
+  - id: a404
+    label: "S"
+    at: { x: 670, y: 404 }
+    size: { w: 150, h: 22 }
+  - id: b404
+    label: "サービスルーム（納戸）"
+    align: left
+    at: { x: 820, y: 404 }
+    size: { w: 290, h: 22 }
+  - id: h440
+    label: "販売図面と、平面詳細図のちがい"
+    hatch: solid
+    at: { x: 670, y: 440 }
+    size: { w: 440, h: 22 }
+  - id: a462
+    label: "販売図面"
+    at: { x: 670, y: 462 }
+    size: { w: 150, h: 22 }
+  - id: b462
+    label: "決めるための図。買う人が見る"
+    align: left
+    at: { x: 820, y: 462 }
+    size: { w: 290, h: 22 }
+  - id: a484
+    label: "平面詳細図"
+    at: { x: 670, y: 484 }
+    size: { w: 150, h: 22 }
+  - id: b484
+    label: "作るための図。大工と現場が見る（見本 14）"
+    align: left
+    at: { x: 820, y: 484 }
+    size: { w: 290, h: 22 }
+  - id: a506
+    label: "寸法"
+    at: { x: 670, y: 506 }
+    size: { w: 150, h: 22 }
+  - id: b506
+    label: "販売図面は書かない。帖数と面積で言う"
+    align: left
+    at: { x: 820, y: 506 }
+    size: { w: 290, h: 22 }
+  - id: a528
+    label: "家具"
+    at: { x: 670, y: 528 }
+    size: { w: 150, h: 22 }
+  - id: b528
+    label: "販売図面は描く。置けるかを見せるため"
+    align: left
+    at: { x: 820, y: 528 }
+    size: { w: 290, h: 22 }
+  - id: h564
+    label: "この図に出ていないもの"
+    hatch: solid
+    at: { x: 670, y: 564 }
+    size: { w: 440, h: 22 }
+  - id: a586
+    label: "天井の高さ"
+    at: { x: 670, y: 586 }
+    size: { w: 150, h: 22 }
+  - id: b586
+    label: "部屋ごとに違うことがある"
+    align: left
+    at: { x: 820, y: 586 }
+    size: { w: 290, h: 22 }
+  - id: a608
+    label: "窓の高さと形"
+    at: { x: 670, y: 608 }
+    size: { w: 150, h: 22 }
+  - id: b608
+    label: "同じ幅でも見え方が変わる"
+    align: left
+    at: { x: 820, y: 608 }
+    size: { w: 290, h: 22 }
+  - id: a630
+    label: "梁の出っ張り"
+    at: { x: 670, y: 630 }
+    size: { w: 150, h: 22 }
+  - id: b630
+    label: "下がり天井の下端の高さ"
+    align: left
+    at: { x: 820, y: 630 }
+    size: { w: 290, h: 22 }
+  - id: a652
+    label: "壁の厚み"
+    at: { x: 670, y: 652 }
+    size: { w: 150, h: 22 }
+  - id: b652
+    label: "壁芯なので、内法はこれより小さい"
+    align: left
+    at: { x: 820, y: 652 }
+    size: { w: 290, h: 22 }
+  - id: a674
+    label: "つまり"
+    at: { x: 670, y: 674 }
+    size: { w: 150, h: 22 }
+  - id: b674
+    label: "間取り図は、何が描いていないかを知って読む"
+    align: left
+    at: { x: 820, y: 674 }
+    size: { w: 290, h: 22 }
+  - id: n1
+    label: "販売図面は「作るための図」ではなく「決めるための図」です。だから寸法ではなく帖数と面積で書きます。"
+    marker: none
+    align: left
+    at: { x: 60, y: 697.5 }
+    size: { w: 700, h: 18 }
+  - id: n2
+    label: "帖数はこの図の面積から計算しました。1 帖は 1.62 m² 以上と決まっています（表示規約）。"
+    marker: none
+    align: left
+    at: { x: 60, y: 719.5 }
+    size: { w: 700, h: 18 }
+  - id: n3
+    label: "専有面積は壁芯 —— 壁の真ん中で測るので、部屋を足した広さ（内法）より大きく出ます。"
+    marker: none
+    align: left
+    at: { x: 60, y: 741.5 }
+    size: { w: 700, h: 18 }
+  - id: n4
+    label: "家具は「置けるかどうか」を見せるためのもので、付いてくるものでも、寸法の保証でもありません。"
+    marker: none
+    align: left
+    at: { x: 60, y: 763.5 }
+    size: { w: 700, h: 18 }
+  - id: n5
+    label: "間取り・面積・物件はすべて架空です。"
+    marker: none
+    align: left
+    at: { x: 60, y: 785.5 }
+    size: { w: 700, h: 18 }
