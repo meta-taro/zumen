@@ -50,8 +50,16 @@ edges:
 `;
 
 describe('記号を読む', () => {
-  it('**13 で止めている**（際限なく増やさない）', () => {
-    assert.equal(SYMBOLS.length, 13);
+  /**
+   * **際限なく増やさない。**
+   *
+   * 13 で止めていたところへ、2026-09-17 に `cell`（乾電池 1 個）を足して 14。
+   * **足した理由は「描けないと図が嘘になる」から** —— `battery` を 2 つ並べると
+   * 紙の上では電池 4 個に見え、直列と並列を教える図が成り立たない（見本 164）。
+   * **「あると便利」では足さない。**
+   */
+  it('**14 で止めている**（際限なく増やさない）', () => {
+    assert.equal(SYMBOLS.length, 14);
     assert.ok(SYMBOLS.includes('resistor'));
   });
 
@@ -160,6 +168,35 @@ describe('図に載せる', () => {
     assert.ok(found.every((f) => f.severity === 'warning'));
   });
 
+  /**
+   * **乾電池 1 個**（`cell`。2026-09-17）。
+   *
+   * `battery` は長短の組を 2 つ描く（JIS の電池）。
+   * **小学校の理科では、乾電池 1 個を長短 1 組で描き、2 個つなぐと 2 組になる** ——
+   * `battery` を 2 つ並べると、紙の上では 4 組に見えて**電池 4 個の回路**になる。
+   * 直列と並列を見せる図でそれをやると、図が教えている当のものが嘘になる。
+   *
+   * 長いほうが＋極。**線の長さそのものが情報**なので、等間隔にはしない。
+   */
+  it('**乾電池 1 個は、長短 1 組**（`battery` は 2 組）', () => {
+    // **縦線だけを数える**（横線は端子へ伸ばす足で、記号の中身ではない）。
+    const bars = (drawn: string): number[] =>
+      [...drawn.matchAll(/<line x1="(-?[\d.]+)" y1="(-?[\d.]+)" x2="(-?[\d.]+)" y2="(-?[\d.]+)"/g)]
+        .filter(([, x1, , x2]) => x1 === x2)
+        .map(([, , y1, , y2]) => Math.abs(Number(y2) - Number(y1)));
+    assert.equal(bars(drawSymbol('cell', BOX, PAINT)).length, 2, '1 組になっていない');
+    assert.equal(bars(drawSymbol('battery', BOX, PAINT)).length, 4);
+  });
+
+  it('**長いほうが＋極**（線の長さが情報）', () => {
+    const drawn = drawSymbol('cell', BOX, PAINT);
+    const bars = [...drawn.matchAll(/<line x1="(-?[\d.]+)" y1="(-?[\d.]+)" x2="(-?[\d.]+)" y2="(-?[\d.]+)"/g)]
+      .filter(([, x1, , x2]) => x1 === x2)
+      .map(([, , y1, , y2]) => Math.abs(Number(y2) - Number(y1)));
+    assert.equal(bars.length, 2);
+    assert.ok(bars[0]! > bars[1]!, `長短が付いていない: ${bars.join(' / ')}`);
+  });
+
   it('spec が記号の語を返す', () => {
     assert.deepEqual(spec().symbols, [
       'resistor',
@@ -175,6 +212,7 @@ describe('図に載せる', () => {
       'switch',
       'fuse',
       'lamp',
+      'cell',
     ]);
     assert.match(spec().shape, /symbol:/);
   });

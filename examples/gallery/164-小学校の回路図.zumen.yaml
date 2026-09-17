@@ -1,0 +1,381 @@
+version: 1
+kind: placement
+arrows: false
+title: 小学校の回路図（直列つなぎと並列つなぎ）
+# **回路は「わ」。** かん電池の＋から出て、ぐるっと回って−へもどる道が
+# 1 本つながっていないと、豆電球は光らない。
+#
+# 記号は 3 つで足りる —— **かん電池**（長いほうが＋きょく）、**豆電球**（丸の中にバツ）、
+# **スイッチ**（切れている形）。3 年で「電気の通り道」、4 年で「電流のはたらき」
+# として直列つなぎと並列つなぎを習う。
+#
+# **ちがいは明るさだけではない。** 豆電球を 1 こ外したとき、
+# 直列なら両方消え、並列ならもう 1 こは光ったままになる。
+#
+# 記号は小学校の教科書の書き方（`symbol: cell`）。
+# JIS の `battery` は長短 2 組なので、2 こ並べると紙の上では 4 こに見える。
+nodes:
+  - id: t1
+    label: "① かん電池 1 こ"
+    marker: none
+    align: left
+    at: { x: 70, y: 84 }
+    size: { w: 320, h: 18 }
+  - id: c1
+    label: "かん電池"
+    symbol: cell
+    at: { x: 70, y: 170 }
+    size: { w: 44, h: 80 }
+  - id: s1
+    label: "スイッチ"
+    symbol: switch
+    at: { x: 140, y: 130 }
+    size: { w: 70, h: 36 }
+  - id: l1
+    label: "豆電球"
+    symbol: lamp
+    at: { x: 260, y: 174 }
+    size: { w: 40, h: 40 }
+  - id: t2
+    label: "② 直列つなぎ　かん電池 2 こ"
+    marker: none
+    align: left
+    at: { x: 420, y: 84 }
+    size: { w: 320, h: 18 }
+  - id: c2a
+    label: "かん電池"
+    symbol: cell
+    at: { x: 420, y: 150 }
+    size: { w: 44, h: 70 }
+  - id: c2b
+    label: "かん電池"
+    symbol: cell
+    at: { x: 420, y: 230 }
+    size: { w: 44, h: 70 }
+  - id: s2
+    label: "スイッチ"
+    symbol: switch
+    at: { x: 490, y: 130 }
+    size: { w: 70, h: 36 }
+  - id: l2
+    label: "豆電球"
+    symbol: lamp
+    at: { x: 610, y: 174 }
+    size: { w: 40, h: 40 }
+  - id: t3
+    label: "③ 並列つなぎ　かん電池 2 こ"
+    marker: none
+    align: left
+    at: { x: 70, y: 354 }
+    size: { w: 320, h: 18 }
+  - id: c3a
+    label: "かん電池"
+    symbol: cell
+    at: { x: 70, y: 440 }
+    size: { w: 44, h: 80 }
+  - id: c3b
+    label: "かん電池"
+    symbol: cell
+    at: { x: 130, y: 440 }
+    size: { w: 44, h: 80 }
+  - id: s3
+    label: "スイッチ"
+    symbol: switch
+    at: { x: 210, y: 400 }
+    size: { w: 70, h: 36 }
+  - id: l3
+    label: "豆電球"
+    symbol: lamp
+    at: { x: 320, y: 444 }
+    size: { w: 40, h: 40 }
+  - id: t4
+    label: "④ 豆電球 2 こ　直列"
+    marker: none
+    align: left
+    at: { x: 420, y: 354 }
+    size: { w: 320, h: 18 }
+  - id: c4
+    label: "かん電池"
+    symbol: cell
+    at: { x: 420, y: 440 }
+    size: { w: 44, h: 80 }
+  - id: l4a
+    label: "豆電球"
+    symbol: lamp
+    at: { x: 530, y: 444 }
+    size: { w: 40, h: 40 }
+  - id: l4b
+    label: "豆電球"
+    symbol: lamp
+    at: { x: 620, y: 444 }
+    size: { w: 40, h: 40 }
+  - id: n_ser
+    label: "1 こ外すと、もう 1 こも消える"
+    marker: none
+    align: left
+    at: { x: 480, y: 596 }
+    size: { w: 300, h: 18 }
+  - id: t5
+    label: "⑤ 豆電球 2 こ　並列"
+    marker: none
+    align: left
+    at: { x: 70, y: 624 }
+    size: { w: 320, h: 18 }
+  - id: c5
+    label: "かん電池"
+    symbol: cell
+    at: { x: 70, y: 710 }
+    size: { w: 44, h: 80 }
+  - id: l5a
+    label: "豆電球"
+    symbol: lamp
+    at: { x: 220, y: 674 }
+    size: { w: 40, h: 40 }
+  - id: l5b
+    label: "豆電球"
+    symbol: lamp
+    at: { x: 220, y: 770 }
+    size: { w: 40, h: 40 }
+  - id: n_par
+    label: "1 こ外しても、もう 1 こは光る"
+    marker: none
+    align: left
+    at: { x: 130, y: 866 }
+    size: { w: 300, h: 18 }
+  - id: h60
+    label: "つかう記号"
+    hatch: solid
+    at: { x: 800, y: 60 }
+    size: { w: 420, h: 22 }
+  - id: a82
+    label: "かん電池"
+    at: { x: 800, y: 82 }
+    size: { w: 150, h: 22 }
+  - id: b82
+    label: "長いほうが＋きょく"
+    align: left
+    at: { x: 950, y: 82 }
+    size: { w: 270, h: 22 }
+  - id: a104
+    label: "豆電球"
+    at: { x: 800, y: 104 }
+    size: { w: 150, h: 22 }
+  - id: b104
+    label: "丸の中にバツ"
+    align: left
+    at: { x: 950, y: 104 }
+    size: { w: 270, h: 22 }
+  - id: a126
+    label: "スイッチ"
+    at: { x: 800, y: 126 }
+    size: { w: 150, h: 22 }
+  - id: b126
+    label: "切れている形が「切」"
+    align: left
+    at: { x: 950, y: 126 }
+    size: { w: 270, h: 22 }
+  - id: a148
+    label: "どう線"
+    at: { x: 800, y: 148 }
+    size: { w: 150, h: 22 }
+  - id: b148
+    label: "まっすぐな線。回りみちは直角"
+    align: left
+    at: { x: 950, y: 148 }
+    size: { w: 270, h: 22 }
+  - id: h184
+    label: "つなぎ方で、何がちがうか"
+    hatch: solid
+    at: { x: 800, y: 184 }
+    size: { w: 420, h: 22 }
+  - id: a206
+    label: "かん電池 直列"
+    at: { x: 800, y: 206 }
+    size: { w: 150, h: 22 }
+  - id: b206
+    label: "明るい。電池は早くなくなる"
+    align: left
+    at: { x: 950, y: 206 }
+    size: { w: 270, h: 22 }
+  - id: a228
+    label: "かん電池 並列"
+    at: { x: 800, y: 228 }
+    size: { w: 150, h: 22 }
+  - id: b228
+    label: "明るさは 1 こ分。長くもつ"
+    align: left
+    at: { x: 950, y: 228 }
+    size: { w: 270, h: 22 }
+  - id: a250
+    label: "豆電球 直列"
+    at: { x: 800, y: 250 }
+    size: { w: 150, h: 22 }
+  - id: b250
+    label: "うすい。1 こ外すと両方消える"
+    align: left
+    at: { x: 950, y: 250 }
+    size: { w: 270, h: 22 }
+  - id: a272
+    label: "豆電球 並列"
+    at: { x: 800, y: 272 }
+    size: { w: 150, h: 22 }
+  - id: b272
+    label: "明るい。1 こ外しても光る"
+    align: left
+    at: { x: 950, y: 272 }
+    size: { w: 270, h: 22 }
+  - id: h308
+    label: "どこで習うか"
+    hatch: solid
+    at: { x: 800, y: 308 }
+    size: { w: 420, h: 22 }
+  - id: a330
+    label: "3 年"
+    at: { x: 800, y: 330 }
+    size: { w: 150, h: 22 }
+  - id: b330
+    label: "電気の通り道（わのようにつなぐ）"
+    align: left
+    at: { x: 950, y: 330 }
+    size: { w: 270, h: 22 }
+  - id: a352
+    label: "4 年"
+    at: { x: 800, y: 352 }
+    size: { w: 150, h: 22 }
+  - id: b352
+    label: "電流のはたらき（直列・並列）"
+    align: left
+    at: { x: 950, y: 352 }
+    size: { w: 270, h: 22 }
+  - id: a374
+    label: "4 年"
+    at: { x: 800, y: 374 }
+    size: { w: 150, h: 22 }
+  - id: b374
+    label: "モーター・けん流計も出てくる"
+    align: left
+    at: { x: 950, y: 374 }
+    size: { w: 270, h: 22 }
+  - id: h410
+    label: "わになっていないと、光らない"
+    hatch: solid
+    at: { x: 800, y: 410 }
+    size: { w: 420, h: 22 }
+  - id: a432
+    label: "回路"
+    at: { x: 800, y: 432 }
+    size: { w: 150, h: 22 }
+  - id: b432
+    label: "ぐるっと 1 本の輪"
+    align: left
+    at: { x: 950, y: 432 }
+    size: { w: 270, h: 22 }
+  - id: a454
+    label: "どこか切れていたら"
+    at: { x: 800, y: 454 }
+    size: { w: 150, h: 22 }
+  - id: b454
+    label: "電気は通らない"
+    align: left
+    at: { x: 950, y: 454 }
+    size: { w: 270, h: 22 }
+  - id: a476
+    label: "スイッチ"
+    at: { x: 800, y: 476 }
+    size: { w: 150, h: 22 }
+  - id: b476
+    label: "その輪を、わざと切る道具"
+    align: left
+    at: { x: 950, y: 476 }
+    size: { w: 270, h: 22 }
+  - id: z1
+    label: "回路は「わ」。かん電池の＋から出て、ぐるっと回って−へもどる道が 1 本つながっていないと光りません。"
+    marker: none
+    align: left
+    at: { x: 60, y: 920 }
+    size: { w: 700, h: 18 }
+  - id: z2
+    label: "記号は 3 つだけ覚えれば足ります —— かん電池（長いほうが＋）、豆電球（丸にバツ）、スイッチ。"
+    marker: none
+    align: left
+    at: { x: 60, y: 942 }
+    size: { w: 700, h: 18 }
+  - id: z3
+    label: "直列と並列のちがいは、明るさだけではありません。1 こ外したときに何が起きるかがちがいます。"
+    marker: none
+    align: left
+    at: { x: 60, y: 964 }
+    size: { w: 700, h: 18 }
+  - id: z4
+    label: "この図の記号は、小学校の理科の教科書と同じ書き方です（JIS の電池は長短 2 組なので、ここでは使いません）。"
+    marker: none
+    align: left
+    at: { x: 60, y: 986 }
+    size: { w: 700, h: 18 }
+edges:
+  - from: c1
+    to: s1
+  - from: s1
+    to: l1
+  - from: l1
+    to: c1
+    via:
+      - { x: 332, y: 194 }
+      - { x: 332, y: 310 }
+      - { x: 92, y: 310 }
+  - from: c2b
+    to: c2a
+  - from: c2a
+    to: s2
+  - from: s2
+    to: l2
+  - from: l2
+    to: c2b
+    via:
+      - { x: 682, y: 194 }
+      - { x: 682, y: 340 }
+      - { x: 442, y: 340 }
+  - from: c3a
+    to: s3
+  - from: c3b
+    to: s3
+  - from: s3
+    to: l3
+  - from: l3
+    to: c3a
+    via:
+      - { x: 390, y: 464 }
+      - { x: 390, y: 600 }
+      - { x: 92, y: 600 }
+  - from: l3
+    to: c3b
+    via:
+      - { x: 370, y: 464 }
+      - { x: 370, y: 570 }
+      - { x: 152, y: 570 }
+  - from: c4
+    to: l4a
+  - from: l4a
+    to: l4b
+  - from: l4b
+    to: c4
+    via:
+      - { x: 692, y: 464 }
+      - { x: 692, y: 580 }
+      - { x: 442, y: 580 }
+  - from: c5
+    to: l5a
+  - from: c5
+    to: l5b
+  - from: l5a
+    to: c5
+    via:
+      - { x: 320, y: 694 }
+      - { x: 320, y: 850 }
+      - { x: 92, y: 850 }
+  - from: l5b
+    to: c5
+    via:
+      - { x: 300, y: 790 }
+      - { x: 300, y: 830 }
+      - { x: 92, y: 830 }

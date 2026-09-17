@@ -72,6 +72,13 @@ export const SYMBOLS = [
   'switch',
   'fuse',
   'lamp',
+  /**
+   * **乾電池 1 個**（小学校の理科の書き方）。長いほうが＋極。
+   *
+   * `battery` は長短の組を 2 つ描く（JIS の電池）。それを 2 つ並べると
+   * **紙の上では電池 4 個**に見え、直列と並列を教える図が嘘になる。
+   */
+  'cell',
 ] as const;
 export type Symbol = (typeof SYMBOLS)[number];
 
@@ -223,6 +230,12 @@ export function drawSymbol(symbol: Symbol, box: Rect, paint: Paint): string {
         );
       }
     }
+    return parts.join('');
+  }
+
+  if (symbol === 'cell') {
+    // 乾電池 1 個。**長い線が＋、短くて太い線が−。** 長さそのものが情報。
+    parts.push(line(-3, -10, -3, 10), line(3, -5, 3, 5));
     return parts.join('');
   }
 

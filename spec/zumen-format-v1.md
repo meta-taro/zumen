@@ -618,12 +618,16 @@ zumen が描くのは**関係**。属性はコードが正本で、図はそれ�
     size: { w: 80, h: 40 }
 ```
 
-描ける記号は 13。**IEC／JIS の形**（抵抗は長方形。ジグザグの ANSI 形は採らない）。
+描ける記号は 14。**IEC／JIS の形**（抵抗は長方形。ジグザグの ANSI 形は採らない）。
 
 ```
 resistor / variable-resistor / capacitor / polarized-capacitor / inductor
-diode / led / battery / source / ground / switch / fuse / lamp
+diode / led / battery / source / ground / switch / fuse / lamp / cell
 ```
+
+- `battery` は**長短の組を 2 つ**（JIS の電池）、`cell` は**乾電池 1 個**（長短 1 組）。
+  小学校の理科の回路図は `cell` を使う —— `battery` を 2 つ並べると、
+  **紙の上では電池 4 個**に見えて、直列と並列を教える図が嘘になる
 
 - **枠は描かず、記号だけを描く。** 抵抗に枠は無い
   （枠があると「箱の中に部品がある」ように見える）
