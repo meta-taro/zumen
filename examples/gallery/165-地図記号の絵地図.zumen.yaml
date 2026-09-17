@@ -1,6 +1,6 @@
 version: 1
 kind: placement
-arrows: false
+arrows: true
 title: 地図記号の絵地図（小学校の社会科／架空の町）
 north: up
 # **地図記号は絵ではなく、決まりごと。**
@@ -18,8 +18,14 @@ north: up
 # 2006 年に老人ホームと風車、2019 年に自然災害伝承碑。
 # **老人ホームと風車は、全国の小中学生 12 万件の応募から生まれた。**
 #
-# この図では、**文字の記号はそのまま書き、鳥居は線を組んで作った**
-# （zumen に地図記号を足していない。いまの道具で組めるかを見るため）。
+# この図では、**zumen に地図記号を 1 つも足していない。**
+# 文字の記号（文・〒・卍・×）はその文字をそのまま書き、
+# **鳥居は細い箱 4 本、田は短い縦線 2 本 1 組、畑は V 字の線、果樹園は丸、
+# 茶畑は黒い丸 3 つ**を組んで作った —— いまの道具で組めるかを見るため。
+#
+# **区画を模様（hatch）で塗るのはやめた**（2026-09-18）。
+# 模様は「そこが何か」を言うが、**記号は「何を見て覚えるか」そのもの** ——
+# いちばん覚えられている畑のふた葉が、白い四角になっていた。
 #
 # 町と施設の場所は架空。記号は国土地理院のもの。
 nodes:
@@ -44,7 +50,6 @@ nodes:
     size: { w: 640, h: 14 }
   - id: ta
     label: ""
-    hatch: lines
     at: { x: 80, y: 450 }
     size: { w: 180, h: 100 }
   - id: hatake
@@ -53,14 +58,148 @@ nodes:
     size: { w: 140, h: 100 }
   - id: kaju
     label: ""
-    hatch: dots
     at: { x: 440, y: 450 }
     size: { w: 100, h: 100 }
   - id: cha
     label: ""
-    hatch: cross
     at: { x: 560, y: 450 }
     size: { w: 120, h: 100 }
+  - id: ta60_330
+    label: ""
+    hatch: solid
+    at: { x: 120, y: 480 }
+    size: { w: 3, h: 14 }
+  - id: ta60b_330
+    label: ""
+    hatch: solid
+    at: { x: 128, y: 480 }
+    size: { w: 3, h: 14 }
+  - id: ta120_330
+    label: ""
+    hatch: solid
+    at: { x: 180, y: 480 }
+    size: { w: 3, h: 14 }
+  - id: ta120b_330
+    label: ""
+    hatch: solid
+    at: { x: 188, y: 480 }
+    size: { w: 3, h: 14 }
+  - id: ta60_362
+    label: ""
+    hatch: solid
+    at: { x: 120, y: 512 }
+    size: { w: 3, h: 14 }
+  - id: ta60b_362
+    label: ""
+    hatch: solid
+    at: { x: 128, y: 512 }
+    size: { w: 3, h: 14 }
+  - id: ta120_362
+    label: ""
+    hatch: solid
+    at: { x: 180, y: 512 }
+    size: { w: 3, h: 14 }
+  - id: ta120b_362
+    label: ""
+    hatch: solid
+    at: { x: 188, y: 512 }
+    size: { w: 3, h: 14 }
+  - id: k400_326
+    label: ""
+    marker: circle
+    at: { x: 460, y: 476 }
+    size: { w: 14, h: 14 }
+  - id: k440_326
+    label: ""
+    marker: circle
+    at: { x: 500, y: 476 }
+    size: { w: 14, h: 14 }
+  - id: k400_366
+    label: ""
+    marker: circle
+    at: { x: 460, y: 516 }
+    size: { w: 14, h: 14 }
+  - id: k440_366
+    label: ""
+    marker: circle
+    at: { x: 500, y: 516 }
+    size: { w: 14, h: 14 }
+  - id: c530_330
+    label: ""
+    hatch: solid
+    marker: circle
+    at: { x: 590, y: 480 }
+    size: { w: 8, h: 8 }
+  - id: c550_330
+    label: ""
+    hatch: solid
+    marker: circle
+    at: { x: 610, y: 480 }
+    size: { w: 8, h: 8 }
+  - id: c540_352
+    label: ""
+    hatch: solid
+    marker: circle
+    at: { x: 600, y: 502 }
+    size: { w: 8, h: 8 }
+  - id: c590_330
+    label: ""
+    hatch: solid
+    marker: circle
+    at: { x: 650, y: 480 }
+    size: { w: 8, h: 8 }
+  - id: c610_330
+    label: ""
+    hatch: solid
+    marker: circle
+    at: { x: 670, y: 480 }
+    size: { w: 8, h: 8 }
+  - id: c600_352
+    label: ""
+    hatch: solid
+    marker: circle
+    at: { x: 660, y: 502 }
+    size: { w: 8, h: 8 }
+  - id: v250_330a
+    label: ""
+    marker: none
+    at: { x: 299, y: 479 }
+    size: { w: 2, h: 2 }
+  - id: v250_330b
+    label: ""
+    marker: none
+    at: { x: 317, y: 479 }
+    size: { w: 2, h: 2 }
+  - id: v290_330a
+    label: ""
+    marker: none
+    at: { x: 339, y: 479 }
+    size: { w: 2, h: 2 }
+  - id: v290_330b
+    label: ""
+    marker: none
+    at: { x: 357, y: 479 }
+    size: { w: 2, h: 2 }
+  - id: v250_370a
+    label: ""
+    marker: none
+    at: { x: 299, y: 519 }
+    size: { w: 2, h: 2 }
+  - id: v250_370b
+    label: ""
+    marker: none
+    at: { x: 317, y: 519 }
+    size: { w: 2, h: 2 }
+  - id: v290_370a
+    label: ""
+    marker: none
+    at: { x: 339, y: 519 }
+    size: { w: 2, h: 2 }
+  - id: v290_370b
+    label: ""
+    marker: none
+    at: { x: 357, y: 519 }
+    size: { w: 2, h: 2 }
   - id: l_ta
     label: "田"
     marker: none
@@ -394,11 +533,11 @@ nodes:
     at: { x: 60, y: 652 }
     size: { w: 660, h: 18 }
   - id: z3
-    label: "この図では、文字の記号はそのまま書き、神社の鳥居は線を組んで作りました（記号を足していません）。"
+    label: "この図では記号を足していません。文字はそのまま書き、鳥居・田・畑・果樹園・茶畑は線と丸で組みました。"
     marker: none
     align: left
     at: { x: 60, y: 674 }
-    size: { w: 660, h: 18 }
+    size: { w: 700, h: 18 }
   - id: z4
     label: "記号は増えたり減ったりします。老人ホームと風車は、小中学生の応募から生まれました。"
     marker: none
@@ -411,3 +550,24 @@ nodes:
     align: left
     at: { x: 60, y: 718 }
     size: { w: 660, h: 18 }
+edges:
+  - from: v250_330a
+    to: v250_330b
+    ends: { from: none, to: none }
+    via:
+      - { x: 309, y: 492 }
+  - from: v290_330a
+    to: v290_330b
+    ends: { from: none, to: none }
+    via:
+      - { x: 349, y: 492 }
+  - from: v250_370a
+    to: v250_370b
+    ends: { from: none, to: none }
+    via:
+      - { x: 309, y: 532 }
+  - from: v290_370a
+    to: v290_370b
+    ends: { from: none, to: none }
+    via:
+      - { x: 349, y: 532 }
