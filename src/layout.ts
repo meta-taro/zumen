@@ -715,20 +715,43 @@ export function overlaps(placed: Placed): [string, string][] {
  * 同じ点から出ている線どうしは数えない（扇形に広がるのは交差ではない）。
  */
 export function crossings(placed: Placed): number {
-  const segments: [P, P][] = [];
+  return countCrossings(placed).count;
+}
+
+/**
+ * **どの 2 本が交わっているか**（2026-09-19）。
+ *
+ * `straddles` も `overlappingText` も `edgesUnderBoxes` も組を返すのに、
+ * ここだけが数だった。「2 本交わっています」では、**どれとどれかを自分で探すしかない。**
+ * 同じ 2 本が何か所で交わっても、組は 1 つだけ返す（探すのに要るのは場所ではなく相手）。
+ */
+export function crossingEdges(placed: Placed): [string, string][] {
+  return countCrossings(placed).pairs;
+}
+
+function countCrossings(placed: Placed): { count: number; pairs: [string, string][] } {
+  const segments: { seg: [P, P]; id: string }[] = [];
   for (const edge of placed.edges) {
     for (let i = 0; i + 1 < edge.points.length; i += 1) {
-      segments.push([edge.points[i]!, edge.points[i + 1]!]);
+      segments.push({ seg: [edge.points[i]!, edge.points[i + 1]!], id: edge.id });
     }
   }
 
   let count = 0;
+  const seen = new Set<string>();
+  const pairs: [string, string][] = [];
   for (let i = 0; i < segments.length; i += 1) {
     for (let j = i + 1; j < segments.length; j += 1) {
-      if (intersects(segments[i]!, segments[j]!)) count += 1;
+      if (!intersects(segments[i]!.seg, segments[j]!.seg)) continue;
+      count += 1;
+      const [a, b] = [segments[i]!.id, segments[j]!.id].sort() as [string, string];
+      const key = `${a}\u0000${b}`;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      pairs.push([a, b]);
     }
   }
-  return count;
+  return { count, pairs };
 }
 
 interface P {

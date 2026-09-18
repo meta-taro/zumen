@@ -106,6 +106,7 @@ export const CAPTIONS_EN = {
   '169-麻雀の配牌': 'Mahjong: the dice decide where the wall is opened, not luck',
   '168-ダイヤモンドシステム': 'Billiards: the diamonds on the rails are a ruler, not decoration',
   '167-ダーツボードの割り付け': 'A dartboard: the numbers are arranged to punish a miss',
+  '195-学校の机と椅子': 'School desks and chairs are sized by height, not by year, and the pair must match',
   '194-点字の6点': 'Braille has only six dots, so \u201ca\u201d and \u201c1\u201d are the same shape until a number sign says otherwise',
   '193-カードの版面': 'A trading card layout: the back must look the same upside down, or the face is readable from the table',
   '192-サッカーボールの形': 'A football is a truncated icosahedron: the 12 degrees missing at every vertex are what make it a sphere',

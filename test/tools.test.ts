@@ -17,6 +17,7 @@ import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
 import { getPins, parse } from '../src/format.ts';
+import { messages } from '../src/messages.ts';
 import { create, exportAs, inspect, list, pinsOf, propose, spec } from '../src/tools.ts';
 import type { Io } from '../src/tools.ts';
 
@@ -551,5 +552,66 @@ nodes:
     const out = await pngOf(SMALL, {}, fake, () => Buffer.from('PNG-DUMMY'));
     assert.equal(out.image, Buffer.from('PNG-DUMMY').toString('base64'));
     assert.match(out.note, /png/);
+  });
+});
+
+/**
+ * **どの 2 本が交わっているかを返す**（2026-09-19。見本 195 で当たった）。
+ *
+ * `straddles` も `overlappingText` も `edgesUnderBoxes` も**組**を返すのに、
+ * `crossings` だけが**数**だった。「2 本交わっています」と言われても、
+ * どれとどれかは自分で探すしかない —— 直近の周で 3 回これに往復をとられた。
+ *
+ * 数はそのまま残す（テストも見本の登録も数で見ている）。**組を足す。**
+ */
+describe('交差は、どの 2 本かを返す', () => {
+  const CROSS = `version: 1
+kind: placement
+arrows: true
+nodes:
+  - id: a
+    label: ""
+    marker: none
+    at: { x: 40, y: 40 }
+    size: { w: 2, h: 2 }
+  - id: b
+    label: ""
+    marker: none
+    at: { x: 240, y: 240 }
+    size: { w: 2, h: 2 }
+  - id: c
+    label: ""
+    marker: none
+    at: { x: 240, y: 40 }
+    size: { w: 2, h: 2 }
+  - id: d
+    label: ""
+    marker: none
+    at: { x: 40, y: 240 }
+    size: { w: 2, h: 2 }
+edges:
+  - from: a
+    to: b
+    ends: { from: none, to: none }
+  - from: c
+    to: d
+    ends: { from: none, to: none }
+`;
+
+  it('**交わっている 2 本の id が返る**', async () => {
+    const out = await inspect(CROSS);
+    assert.equal(out.crossings, 1, '数が合っていない');
+    // 辺の id は from>to（`エッジ p0>p1` と同じ呼び方）。
+    assert.deepEqual(out.crossingEdges, [['a>b', 'c>d']]);
+  });
+
+  it('交わっていなければ空', async () => {
+    const out = await inspect(CROSS.replace('{ x: 240, y: 40 }', '{ x: 600, y: 40 }').replace('{ x: 40, y: 240 }', '{ x: 600, y: 240 }'));
+    assert.equal(out.crossings, 0);
+    assert.deepEqual(out.crossingEdges, []);
+  });
+
+  it('**inspect の説明に crossingEdges が出ている**（あるのに気づかれない口を作らない）', () => {
+    assert.match(messages().mcp.inspectDesc, /crossingEdges/);
   });
 });

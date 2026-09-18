@@ -29,7 +29,7 @@ import { join, relative, resolve } from 'node:path';
 import { toDrawio } from './drawio.ts';
 import { placeEdgeLabels } from './edge-labels.ts';
 import { getPins, parse } from './format.ts';
-import { crossings, edgesUnderBoxes, groupEscapes, layout, overlaps, straddles } from './layout.ts';
+import { crossingEdges, crossings, edgesUnderBoxes, groupEscapes, layout, overlaps, straddles } from './layout.ts';
 import { messages } from './messages.ts';
 import { PASS_LINE, measure } from './measure.ts';
 import { merge } from './merge.ts';
@@ -193,6 +193,8 @@ export interface Inspection {
   groups: number;
   /** 線どうしの交差。**多いと読めない。** */
   crossings: number;
+  /** **交わっている辺の組。** 数だけでは、どれとどれかを探せない（2026-09-19）。 */
+  crossingEdges: [string, string][];
   /** 箱どうしの重なり。**入れ子も数える。** */
   overlaps: [string, string][];
   /**
@@ -340,6 +342,7 @@ export async function inspect(source: string): Promise<Inspection> {
       crossings: 0,
       overlaps: [],
       straddles: [],
+      crossingEdges: [],
       groupEscapes: [],
       collisions: [],
       width: 0,
@@ -386,6 +389,7 @@ export async function inspect(source: string): Promise<Inspection> {
     crossings: crossed,
     overlaps: overlaps(placed),
     straddles: straddles(placed),
+    crossingEdges: crossingEdges(placed),
     groupEscapes: groupEscapes(placed),
     collisions: placed.collisions,
     width: placed.width,

@@ -1,0 +1,936 @@
+version: 1
+kind: placement
+arrows: true
+title: 学校の机と椅子（JIS S 1021:2011）
+scale: { mm: 5 }
+# **大きさは学年ではなく、身長で決まる。**
+#
+# そして**机と椅子は同じ号数で組む** —— 片方だけ替えると「差尺」（机面 − 座面）が狂う。
+# 差尺は 1 号 230mm、6 号 320mm。**号数が上がるほど広がるが、同じ比率ではない。**
+#
+# 2011 年の改正で 5.5 号（身長 150〜160cm）が足された。
+nodes:
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 119, y: 599 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 759, y: 599 }
+    size: { w: 2, h: 2 }
+  - id: a_top
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 160, y: 494 }
+    size: { w: 120, h: 4.8 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 167, y: 497.8 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 167, y: 598 }
+    size: { w: 2, h: 2 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 271, y: 497.8 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 271, y: 598 }
+    size: { w: 2, h: 2 }
+  - id: a_seat
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 292, y: 540 }
+    size: { w: 80, h: 4.8 }
+  - id: a_back
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 367.2, y: 472 }
+    size: { w: 4.8, h: 68 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 297, y: 543.8 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 297, y: 598 }
+    size: { w: 2, h: 2 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 365, y: 543.8 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 365, y: 598 }
+    size: { w: 2, h: 2 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 133, y: 598 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 133, y: 493 }
+    size: { w: 2, h: 2 }
+  - id: a_d
+    label: "机 530"
+    marker: none
+    align: right
+    at: { x: 26, y: 538 }
+    size: { w: 100, h: 18 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 397, y: 598 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 397, y: 539 }
+    size: { w: 2, h: 2 }
+  - id: a_s
+    label: "座面 300"
+    marker: none
+    align: left
+    at: { x: 406, y: 561 }
+    size: { w: 96, h: 18 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 280.2, y: 539 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 280.2, y: 493 }
+    size: { w: 2, h: 2 }
+  - id: a_g
+    label: "差尺 230"
+    marker: none
+    align: left
+    at: { x: 226, y: 504.8 }
+    size: { w: 140, h: 18 }
+  - id: a_n
+    label: "1 号"
+    marker: none
+    align: center
+    at: { x: 160, y: 618 }
+    size: { w: 212, h: 20 }
+  - id: a_h
+    label: "身長 100〜110cm"
+    marker: none
+    align: center
+    at: { x: 160, y: 640 }
+    size: { w: 212, h: 18 }
+  - id: b_top
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 460, y: 432 }
+    size: { w: 120, h: 4.8 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 467, y: 435.8 }
+    size: { w: 2, h: 2 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 467, y: 598 }
+    size: { w: 2, h: 2 }
+  - id: p18
+    label: ""
+    marker: none
+    at: { x: 571, y: 435.8 }
+    size: { w: 2, h: 2 }
+  - id: p19
+    label: ""
+    marker: none
+    at: { x: 571, y: 598 }
+    size: { w: 2, h: 2 }
+  - id: b_seat
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 592, y: 496 }
+    size: { w: 80, h: 4.8 }
+  - id: b_back
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 667.2, y: 428 }
+    size: { w: 4.8, h: 68 }
+  - id: p20
+    label: ""
+    marker: none
+    at: { x: 597, y: 499.8 }
+    size: { w: 2, h: 2 }
+  - id: p21
+    label: ""
+    marker: none
+    at: { x: 597, y: 598 }
+    size: { w: 2, h: 2 }
+  - id: p22
+    label: ""
+    marker: none
+    at: { x: 665, y: 499.8 }
+    size: { w: 2, h: 2 }
+  - id: p23
+    label: ""
+    marker: none
+    at: { x: 665, y: 598 }
+    size: { w: 2, h: 2 }
+  - id: p24
+    label: ""
+    marker: none
+    at: { x: 745, y: 598 }
+    size: { w: 2, h: 2 }
+  - id: p25
+    label: ""
+    marker: none
+    at: { x: 745, y: 431 }
+    size: { w: 2, h: 2 }
+  - id: b_d
+    label: "机 840"
+    marker: none
+    align: left
+    at: { x: 754, y: 507 }
+    size: { w: 100, h: 18 }
+  - id: p26
+    label: ""
+    marker: none
+    at: { x: 697, y: 598 }
+    size: { w: 2, h: 2 }
+  - id: p27
+    label: ""
+    marker: none
+    at: { x: 697, y: 495 }
+    size: { w: 2, h: 2 }
+  - id: b_s
+    label: "座面 520"
+    marker: none
+    align: left
+    at: { x: 706, y: 539 }
+    size: { w: 96, h: 18 }
+  - id: p28
+    label: ""
+    marker: none
+    at: { x: 580.2, y: 495 }
+    size: { w: 2, h: 2 }
+  - id: p29
+    label: ""
+    marker: none
+    at: { x: 580.2, y: 431 }
+    size: { w: 2, h: 2 }
+  - id: b_g
+    label: "差尺 320"
+    marker: none
+    align: left
+    at: { x: 526, y: 442.8 }
+    size: { w: 140, h: 18 }
+  - id: b_n
+    label: "6 号"
+    marker: none
+    align: center
+    at: { x: 460, y: 618 }
+    size: { w: 212, h: 20 }
+  - id: b_h
+    label: "身長 160 以上cm"
+    marker: none
+    align: center
+    at: { x: 460, y: 640 }
+    size: { w: 212, h: 18 }
+  - id: t1
+    label: "① 大きさは身長で決まる（JIS S 1021:2011・mm）"
+    marker: none
+    align: left
+    at: { x: 120, y: 362 }
+    size: { w: 620, h: 20 }
+  - id: t1b
+    label: "　机と椅子は同じ号数で組む。片方だけ替えると差尺が狂う。"
+    marker: none
+    align: left
+    at: { x: 120, y: 384 }
+    size: { w: 620, h: 18 }
+  - id: p30
+    label: ""
+    marker: none
+    at: { x: 149, y: 1171 }
+    size: { w: 2, h: 2 }
+  - id: p31
+    label: ""
+    marker: none
+    at: { x: 791, y: 1171 }
+    size: { w: 2, h: 2 }
+  - id: p32
+    label: ""
+    marker: none
+    at: { x: 149, y: 1115 }
+    size: { w: 2, h: 2 }
+  - id: p33
+    label: ""
+    marker: none
+    at: { x: 791, y: 1115 }
+    size: { w: 2, h: 2 }
+  - id: g200
+    label: "200"
+    marker: none
+    align: right
+    at: { x: 72, y: 1107 }
+    size: { w: 70, h: 18 }
+  - id: p34
+    label: ""
+    marker: none
+    at: { x: 149, y: 1059 }
+    size: { w: 2, h: 2 }
+  - id: p35
+    label: ""
+    marker: none
+    at: { x: 791, y: 1059 }
+    size: { w: 2, h: 2 }
+  - id: g400
+    label: "400"
+    marker: none
+    align: right
+    at: { x: 72, y: 1051 }
+    size: { w: 70, h: 18 }
+  - id: p36
+    label: ""
+    marker: none
+    at: { x: 149, y: 1003 }
+    size: { w: 2, h: 2 }
+  - id: p37
+    label: ""
+    marker: none
+    at: { x: 791, y: 1003 }
+    size: { w: 2, h: 2 }
+  - id: g600
+    label: "600"
+    marker: none
+    align: right
+    at: { x: 72, y: 995 }
+    size: { w: 70, h: 18 }
+  - id: p38
+    label: ""
+    marker: none
+    at: { x: 149, y: 947 }
+    size: { w: 2, h: 2 }
+  - id: p39
+    label: ""
+    marker: none
+    at: { x: 791, y: 947 }
+    size: { w: 2, h: 2 }
+  - id: g800
+    label: "800"
+    marker: none
+    align: right
+    at: { x: 72, y: 939 }
+    size: { w: 70, h: 18 }
+  - id: p40
+    label: ""
+    marker: none
+    at: { x: 189, y: 1022.6 }
+    size: { w: 2, h: 2 }
+  - id: p41
+    label: ""
+    marker: none
+    at: { x: 791, y: 935.8 }
+    size: { w: 2, h: 2 }
+  - id: p42
+    label: ""
+    marker: none
+    at: { x: 189, y: 1087 }
+    size: { w: 2, h: 2 }
+  - id: p43
+    label: ""
+    marker: none
+    at: { x: 791, y: 1025.4 }
+    size: { w: 2, h: 2 }
+  - id: sz0
+    label: "1 号"
+    marker: none
+    align: center
+    at: { x: 190, y: 1182 }
+    size: { w: 86, h: 18 }
+  - id: hh0
+    label: "100〜110"
+    marker: none
+    align: center
+    at: { x: 190, y: 1202 }
+    size: { w: 86, h: 16 }
+  - id: gg0
+    label: "230"
+    marker: none
+    align: center
+    at: { x: 190, y: 1047.8 }
+    size: { w: 86, h: 16 }
+  - id: sz1
+    label: "2 号"
+    marker: none
+    align: center
+    at: { x: 276, y: 1182 }
+    size: { w: 86, h: 18 }
+  - id: hh1
+    label: "110〜120"
+    marker: none
+    align: center
+    at: { x: 276, y: 1202 }
+    size: { w: 86, h: 16 }
+  - id: gg1
+    label: "250"
+    marker: none
+    align: center
+    at: { x: 276, y: 1036.6 }
+    size: { w: 86, h: 16 }
+  - id: sz2
+    label: "3 号"
+    marker: none
+    align: center
+    at: { x: 362, y: 1182 }
+    size: { w: 86, h: 18 }
+  - id: hh2
+    label: "120〜130"
+    marker: none
+    align: center
+    at: { x: 362, y: 1202 }
+    size: { w: 86, h: 16 }
+  - id: gg2
+    label: "260"
+    marker: none
+    align: center
+    at: { x: 362, y: 1021.2 }
+    size: { w: 86, h: 16 }
+  - id: sz3
+    label: "4 号"
+    marker: none
+    align: center
+    at: { x: 448, y: 1182 }
+    size: { w: 86, h: 18 }
+  - id: hh3
+    label: "130〜140"
+    marker: none
+    align: center
+    at: { x: 448, y: 1202 }
+    size: { w: 86, h: 16 }
+  - id: gg3
+    label: "270"
+    marker: none
+    align: center
+    at: { x: 448, y: 1005.8 }
+    size: { w: 86, h: 16 }
+  - id: sz4
+    label: "5 号"
+    marker: none
+    align: center
+    at: { x: 534, y: 1182 }
+    size: { w: 86, h: 18 }
+  - id: hh4
+    label: "140〜150"
+    marker: none
+    align: center
+    at: { x: 534, y: 1202 }
+    size: { w: 86, h: 16 }
+  - id: gg4
+    label: "300"
+    marker: none
+    align: center
+    at: { x: 534, y: 993.2 }
+    size: { w: 86, h: 16 }
+  - id: sz5
+    label: "5.5 号"
+    marker: none
+    align: center
+    at: { x: 620, y: 1182 }
+    size: { w: 86, h: 18 }
+  - id: hh5
+    label: "150〜160"
+    marker: none
+    align: center
+    at: { x: 620, y: 1202 }
+    size: { w: 86, h: 16 }
+  - id: gg5
+    label: "310"
+    marker: none
+    align: center
+    at: { x: 620, y: 983.4 }
+    size: { w: 86, h: 16 }
+  - id: sz6
+    label: "6 号"
+    marker: none
+    align: center
+    at: { x: 706, y: 1182 }
+    size: { w: 86, h: 18 }
+  - id: hh6
+    label: "160 以上"
+    marker: none
+    align: center
+    at: { x: 706, y: 1202 }
+    size: { w: 86, h: 16 }
+  - id: gg6
+    label: "320"
+    marker: none
+    align: center
+    at: { x: 706, y: 973.6 }
+    size: { w: 86, h: 16 }
+  - id: lab_d
+    label: "机面の高さ"
+    marker: none
+    align: left
+    at: { x: 802, y: 927.8 }
+    size: { w: 180, h: 18 }
+  - id: lab_s
+    label: "座面の高さ"
+    marker: none
+    align: left
+    at: { x: 802, y: 1017.4 }
+    size: { w: 180, h: 18 }
+  - id: lab_g
+    label: "この差が「差尺」"
+    marker: none
+    align: left
+    at: { x: 802, y: 972.6 }
+    size: { w: 180, h: 18 }
+  - id: t2
+    label: "② 号数が上がると、差尺も広がる"
+    marker: none
+    align: left
+    at: { x: 120, y: 856 }
+    size: { w: 560, h: 20 }
+  - id: t2b
+    label: "　1 号 230 → 6 号 320mm。同じ比率ではない。"
+    marker: none
+    align: left
+    at: { x: 120, y: 878 }
+    size: { w: 560, h: 18 }
+  - id: t2c
+    label: "身長 cm"
+    marker: none
+    align: right
+    at: { x: 72, y: 1202 }
+    size: { w: 70, h: 16 }
+  - id: h190
+    label: "机面の高さ（JIS S 1021:2011・mm）"
+    hatch: solid
+    at: { x: 880, y: 190 }
+    size: { w: 470, h: 24 }
+  - id: x214
+    label: "1 号"
+    at: { x: 880, y: 214 }
+    size: { w: 200, h: 24 }
+  - id: y214
+    label: "530　（身長 100〜110cm）"
+    align: left
+    at: { x: 1080, y: 214 }
+    size: { w: 270, h: 24 }
+  - id: x238
+    label: "2 号"
+    at: { x: 880, y: 238 }
+    size: { w: 200, h: 24 }
+  - id: y238
+    label: "580　（身長 110〜120cm）"
+    align: left
+    at: { x: 1080, y: 238 }
+    size: { w: 270, h: 24 }
+  - id: x262
+    label: "3 号"
+    at: { x: 880, y: 262 }
+    size: { w: 200, h: 24 }
+  - id: y262
+    label: "640　（身長 120〜130cm）"
+    align: left
+    at: { x: 1080, y: 262 }
+    size: { w: 270, h: 24 }
+  - id: x286
+    label: "4 号"
+    at: { x: 880, y: 286 }
+    size: { w: 200, h: 24 }
+  - id: y286
+    label: "700　（身長 130〜140cm）"
+    align: left
+    at: { x: 1080, y: 286 }
+    size: { w: 270, h: 24 }
+  - id: x310
+    label: "5 号"
+    at: { x: 880, y: 310 }
+    size: { w: 200, h: 24 }
+  - id: y310
+    label: "760　（身長 140〜150cm）"
+    align: left
+    at: { x: 1080, y: 310 }
+    size: { w: 270, h: 24 }
+  - id: x334
+    label: "5.5 号"
+    at: { x: 880, y: 334 }
+    size: { w: 200, h: 24 }
+  - id: y334
+    label: "800　（身長 150〜160cm）"
+    align: left
+    at: { x: 1080, y: 334 }
+    size: { w: 270, h: 24 }
+  - id: x358
+    label: "6 号"
+    at: { x: 880, y: 358 }
+    size: { w: 200, h: 24 }
+  - id: y358
+    label: "840　（身長 160 以上cm）"
+    align: left
+    at: { x: 1080, y: 358 }
+    size: { w: 270, h: 24 }
+  - id: h400
+    label: "椅子の座面の高さ（mm）"
+    hatch: solid
+    at: { x: 880, y: 400 }
+    size: { w: 470, h: 24 }
+  - id: x424
+    label: "1 号"
+    at: { x: 880, y: 424 }
+    size: { w: 200, h: 24 }
+  - id: y424
+    label: "300　差尺 230"
+    align: left
+    at: { x: 1080, y: 424 }
+    size: { w: 270, h: 24 }
+  - id: x448
+    label: "2 号"
+    at: { x: 880, y: 448 }
+    size: { w: 200, h: 24 }
+  - id: y448
+    label: "330　差尺 250"
+    align: left
+    at: { x: 1080, y: 448 }
+    size: { w: 270, h: 24 }
+  - id: x472
+    label: "3 号"
+    at: { x: 880, y: 472 }
+    size: { w: 200, h: 24 }
+  - id: y472
+    label: "380　差尺 260"
+    align: left
+    at: { x: 1080, y: 472 }
+    size: { w: 270, h: 24 }
+  - id: x496
+    label: "4 号"
+    at: { x: 880, y: 496 }
+    size: { w: 200, h: 24 }
+  - id: y496
+    label: "430　差尺 270"
+    align: left
+    at: { x: 1080, y: 496 }
+    size: { w: 270, h: 24 }
+  - id: x520
+    label: "5 号"
+    at: { x: 880, y: 520 }
+    size: { w: 200, h: 24 }
+  - id: y520
+    label: "460　差尺 300"
+    align: left
+    at: { x: 1080, y: 520 }
+    size: { w: 270, h: 24 }
+  - id: x544
+    label: "5.5 号"
+    at: { x: 880, y: 544 }
+    size: { w: 200, h: 24 }
+  - id: y544
+    label: "490　差尺 310"
+    align: left
+    at: { x: 1080, y: 544 }
+    size: { w: 270, h: 24 }
+  - id: x568
+    label: "6 号"
+    at: { x: 880, y: 568 }
+    size: { w: 200, h: 24 }
+  - id: y568
+    label: "520　差尺 320"
+    align: left
+    at: { x: 1080, y: 568 }
+    size: { w: 270, h: 24 }
+  - id: h610
+    label: "決まりごと"
+    hatch: solid
+    at: { x: 880, y: 610 }
+    size: { w: 470, h: 24 }
+  - id: x634
+    label: "選び方"
+    at: { x: 880, y: 634 }
+    size: { w: 200, h: 24 }
+  - id: y634
+    label: "身長で号数を選ぶ（学年ではない）"
+    align: left
+    at: { x: 1080, y: 634 }
+    size: { w: 270, h: 24 }
+  - id: x658
+    label: "組み合わせ"
+    at: { x: 880, y: 658 }
+    size: { w: 200, h: 24 }
+  - id: y658
+    label: "机と椅子は同じ号数"
+    align: left
+    at: { x: 1080, y: 658 }
+    size: { w: 270, h: 24 }
+  - id: x682
+    label: "差尺"
+    at: { x: 880, y: 682 }
+    size: { w: 200, h: 24 }
+  - id: y682
+    label: "机面 − 座面。1 号 230 → 6 号 320"
+    align: left
+    at: { x: 1080, y: 682 }
+    size: { w: 270, h: 24 }
+  - id: x706
+    label: "5.5 号"
+    at: { x: 880, y: 706 }
+    size: { w: 200, h: 24 }
+  - id: y706
+    label: "2011 年の改正で足された"
+    align: left
+    at: { x: 1080, y: 706 }
+    size: { w: 270, h: 24 }
+  - id: x730
+    label: "高さ調整"
+    at: { x: 880, y: 730 }
+    size: { w: 200, h: 24 }
+  - id: y730
+    label: "調整式の椅子も規格に入った"
+    align: left
+    at: { x: 1080, y: 730 }
+    size: { w: 270, h: 24 }
+  - id: x754
+    label: "足"
+    at: { x: 880, y: 754 }
+    size: { w: 200, h: 24 }
+  - id: y754
+    label: "床に足の裏がつくこと"
+    align: left
+    at: { x: 1080, y: 754 }
+    size: { w: 270, h: 24 }
+  - id: h796
+    label: "この図に出ていないもの"
+    hatch: solid
+    at: { x: 880, y: 796 }
+    size: { w: 470, h: 24 }
+  - id: x820
+    label: "天板の大きさ"
+    at: { x: 880, y: 820 }
+    size: { w: 200, h: 24 }
+  - id: y820
+    label: "幅・奥行きは別に決まっている"
+    align: left
+    at: { x: 1080, y: 820 }
+    size: { w: 270, h: 24 }
+  - id: x844
+    label: "事務用"
+    at: { x: 880, y: 844 }
+    size: { w: 200, h: 24 }
+  - id: y844
+    label: "JIS S 1011（机の高さ 700 が目安）"
+    align: left
+    at: { x: 1080, y: 844 }
+    size: { w: 270, h: 24 }
+  - id: x868
+    label: "傾斜天板"
+    at: { x: 880, y: 868 }
+    size: { w: 200, h: 24 }
+  - id: y868
+    label: "製図台・図書机は別"
+    align: left
+    at: { x: 1080, y: 868 }
+    size: { w: 270, h: 24 }
+  - id: x892
+    label: "体格の個人差"
+    at: { x: 880, y: 892 }
+    size: { w: 200, h: 24 }
+  - id: y892
+    label: "同じ身長でも座高は違う"
+    align: left
+    at: { x: 1080, y: 892 }
+    size: { w: 270, h: 24 }
+  - id: n1
+    label: "学校の机と椅子の寸法です（JIS S 1021:2011）。大きさは学年ではなく、身長で決まります。"
+    marker: none
+    align: left
+    at: { x: 120, y: 1250 }
+    size: { w: 1000, h: 18 }
+  - id: n2
+    label: "机と椅子は同じ号数で組みます。 片方だけ替えると「差尺」が狂い、姿勢が崩れます。"
+    marker: none
+    align: left
+    at: { x: 120, y: 1272 }
+    size: { w: 1000, h: 18 }
+  - id: n3
+    label: "差尺は、机面の高さから座面の高さを引いたものです。1 号で 230mm、6 号で 320mm。"
+    marker: none
+    align: left
+    at: { x: 120, y: 1294 }
+    size: { w: 1000, h: 18 }
+  - id: n4
+    label: "号数が上がるほど差尺も広がりますが、同じ比率では増えません（身長と座高の伸び方が違うため）。"
+    marker: none
+    align: left
+    at: { x: 120, y: 1316 }
+    size: { w: 1000, h: 18 }
+  - id: n5
+    label: "2011 年の改正で 5.5 号（身長 150〜160cm）が足され、高さ調整式の椅子も規格に入りました。"
+    marker: none
+    align: left
+    at: { x: 120, y: 1338 }
+    size: { w: 1000, h: 18 }
+  - id: n6
+    label: "選ぶときの目安は、足の裏が床につくことと、机に手を置いたとき肩が上がらないことです。"
+    marker: none
+    align: left
+    at: { x: 120, y: 1360 }
+    size: { w: 1000, h: 18 }
+  - id: n7
+    label: "身長の欄は参考値です。同じ身長でも座高は違います。"
+    marker: none
+    align: left
+    at: { x: 120, y: 1382 }
+    size: { w: 1000, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p2
+    to: p3
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p4
+    to: p5
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p6
+    to: p7
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p8
+    to: p9
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p10
+    to: p11
+    curve: none
+    ends: { from: arrow, to: arrow }
+  - from: p12
+    to: p13
+    curve: none
+    ends: { from: arrow, to: arrow }
+  - from: p14
+    to: p15
+    curve: none
+    ends: { from: arrow, to: arrow }
+  - from: p16
+    to: p17
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p18
+    to: p19
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p20
+    to: p21
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p22
+    to: p23
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p24
+    to: p25
+    curve: none
+    ends: { from: arrow, to: arrow }
+  - from: p26
+    to: p27
+    curve: none
+    ends: { from: arrow, to: arrow }
+  - from: p28
+    to: p29
+    curve: none
+    ends: { from: arrow, to: arrow }
+  - from: p30
+    to: p31
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p32
+    to: p33
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }
+  - from: p34
+    to: p35
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }
+  - from: p36
+    to: p37
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }
+  - from: p38
+    to: p39
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }
+  - from: p40
+    to: p41
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 276, y: 1023.6 }
+      - { x: 276, y: 1009.6 }
+      - { x: 362, y: 1009.6 }
+      - { x: 362, y: 992.8 }
+      - { x: 448, y: 992.8 }
+      - { x: 448, y: 976 }
+      - { x: 534, y: 976 }
+      - { x: 534, y: 959.2 }
+      - { x: 620, y: 959.2 }
+      - { x: 620, y: 948 }
+      - { x: 706, y: 948 }
+      - { x: 706, y: 936.8 }
+  - from: p42
+    to: p43
+    curve: none
+    line: dashed
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 276, y: 1088 }
+      - { x: 276, y: 1079.6 }
+      - { x: 362, y: 1079.6 }
+      - { x: 362, y: 1065.6 }
+      - { x: 448, y: 1065.6 }
+      - { x: 448, y: 1051.6 }
+      - { x: 534, y: 1051.6 }
+      - { x: 534, y: 1043.2 }
+      - { x: 620, y: 1043.2 }
+      - { x: 620, y: 1034.8 }
+      - { x: 706, y: 1034.8 }
+      - { x: 706, y: 1026.4 }
