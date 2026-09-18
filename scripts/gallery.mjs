@@ -14,7 +14,7 @@ import { join } from 'node:path';
 import { CATEGORIES } from './gallery-categories.mjs';
 import { CAPTIONS_EN, GROUPS_EN, ORDER_EN, englishFirst } from './gallery-en.mjs';
 import { kindOf } from '../src/kind.ts';
-import { layout } from '../src/layout.ts';
+import { crossings, layout } from '../src/layout.ts';
 import { render } from '../src/render.ts';
 
 const DIR = 'examples/gallery';
@@ -34,10 +34,21 @@ const WIDE = 1.9;
 const check = process.argv.includes('--check');
 
 const stale = [];
+/**
+ * **ページに書く数は、ここで数える**（2026-09-18）。
+ *
+ * 「4 枚とも、手で位置を直していません」と書いたまま見本が 178 枚になり、
+ * **そのうち 152 枚は座標を正本に書いている**——という嘘が半年ぶんたまっていた。
+ * 手で書いた数は、見本が増えた日にずれる（`english` / `total` と同じ扱いにする）。
+ */
+const tally = { auto: 0, placed: 0, crossing: 0 };
 for (const file of readdirSync(DIR).filter((f) => f.endsWith('.zumen.yaml')).sort()) {
   const text = readFileSync(join(DIR, file), 'utf8');
   const placed = await layout(text);
   const plan = kindOf(text) === 'placement';
+  if (plan) tally.placed += 1;
+  else tally.auto += 1;
+  if (crossings(placed) > 0) tally.crossing += 1;
   for (const theme of ['light', 'dark']) {
     const out = join(DIR, `${file.replace('.zumen.yaml', '')}${theme === 'dark' ? '-dark' : ''}.svg`);
     const svg = render(placed, theme, 'safe', plan);
@@ -128,6 +139,7 @@ const sources = readdirSync(DIR)
 const counted = {
   total: sources.length,
   english: sources.filter((name) => !/[\u3040-\u30ff\u4e00-\u9fff]/.test(name)).length,
+  ...tally,
 };
 
 /**
@@ -160,7 +172,10 @@ for (const target of PAGES) {
     .replace(/(<div class="gallery">\n)[\s\S]*?(\n  <\/div>)/, `$1${parts.gallery}$2`)
     // **「何枚が英語か」は数えて入れる。** 手で書いた数は、見本が増えた日にずれる。
     .replace(/(<span data-count="english">)\d*(<\/span>)/, `$1${counted.english}$2`)
-    .replace(/(<span data-count="total">)\d*(<\/span>)/, `$1${counted.total}$2`);
+    .replace(/(<span data-count="total">)\d*(<\/span>)/, `$1${counted.total}$2`)
+    .replace(/(<span data-count="auto">)\d*(<\/span>)/, `$1${counted.auto}$2`)
+    .replace(/(<span data-count="placed">)\d*(<\/span>)/, `$1${counted.placed}$2`)
+    .replace(/(<span data-count="crossing">)\d*(<\/span>)/, `$1${counted.crossing}$2`);
   if (!check) writeFileSync(target.path, rebuilt);
   else if (rebuilt !== page) stale.push(target.path);
 }

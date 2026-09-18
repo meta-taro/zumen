@@ -126,7 +126,8 @@
     <img src="gallery/02-クラウド構成.svg" alt="クラウド構成の図">
   </picture>
   <figcaption>
-    下の文章から、そのまま出たものです。<b>並びも線の引き方も、人は決めていません。</b>
+    この 1 枚は<b>位置を書かない文章</b>から出ています —— 並びも線の引き方も、機械が決めました。
+    （<b>位置を書く図</b>もあります。間取りや仕込図は、どこにあるかが図の中身だからです。）
   </figcaption>
 </figure>
 
@@ -360,8 +361,16 @@
     <figure data-wide data-cat="it"><picture><source srcset="gallery/04-ネットワーク構成-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1489" height="349" src="gallery/04-ネットワーク構成.svg" alt="ネットワーク構成"></picture><figcaption>ネットワーク構成</figcaption></figure>
   </div>
   <p class="note" style="margin-top:20px">
-    4 枚とも、下のような文章から <b>そのまま出たもの</b>です。手で位置を直してはいません。
-    交差 0・箱の重なり 0・消えたラベル 0。
+    <b>図には 2 通りあります。</b>
+    <b>位置を書かない図</b>（構成図。系統図・組織図・クラス図など <span data-count="auto">26</span> 枚）は、
+    文章だけから出ます —— 並びと線の引き方は機械が決めます。
+    <b>位置を書く図</b>（配置図。間取り・仕込図・積付図など <span data-count="placed">152</span> 枚）は、
+    座標を正本に書きます —— <b>どこにあるかが図の中身</b>だからです。
+    どちらも<b>書くのは絵ではなく文章</b>なので、次の生成で同じものが出ます。
+    <br>
+    消えたラベル 0・箱からはみ出した名前 0。線の交差も 0 です
+    （<b>交差が中身の図</b> —— 運行図表・地下鉄の立体交差・ノモグラムなど
+    <span data-count="crossing">15</span> 枚を除く）。
     <br>
     <b>描いてある構成は例のために組んだもの</b>で、実在のものではありません。
     正本は <a href="https://github.com/meta-taro/zumen/tree/develop/examples/gallery">examples/gallery/</a>
