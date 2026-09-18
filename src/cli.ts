@@ -30,7 +30,7 @@ import { timelapse } from './timelapse.ts';
 import { kindOf } from './kind.ts';
 import { messages } from './messages.ts';
 import { hasError, validate } from './validate.ts';
-import { adriftDetails, extentOf, hiddenTags, planNames } from './names.ts';
+import { adriftDetails, crowdedNames, extentOf, hiddenTags, planNames } from './names.ts';
 import { projection, smallestTextOf } from './projection.ts';
 import type { Finding } from './validate.ts';
 import { isEntry } from './entry.ts';
@@ -149,6 +149,18 @@ export async function placedFindings(text: string): Promise<Finding[]> {
     ...size,
     ...ink,
     // **広い箱から出ていった名前。** 表の欄が空に見える。
+    /**
+     * **入りきらず、外にも空きが無かった名前**（`crowdedNames`）。
+     *
+     * 何かの上に重なって出ている。文字の上なら `overlappingInk` が拾うが、
+     * **箱の塗りの上に乗っただけなら拾えない。**
+     * これも `zumen_inspect` からしか見えていなかった（2026-09-18。3 回目の同じ穴）。
+     */
+    ...crowdedNames(plans).map((id) => ({
+      severity: 'warning' as const,
+      code: 'name-crowded',
+      message: messages().validate.nameCrowded(id),
+    })),
     ...adriftDetails(placed.boxes, plans).map((found) => ({
       severity: 'warning' as const,
       code: 'name-adrift',

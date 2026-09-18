@@ -114,7 +114,8 @@ nodes:
 
   it('**名前の幅と箱の幅を、両方とも数字で出す**', async () => {
     const result = await runValidate(['a.yaml'], reader({ 'a.yaml': NARROW }) as never);
-    const line = result.lines.find((text) => text.includes('note'));
+    // **同じ節に複数の指摘が出る**（行き先が無い／外へ出ている）。px を言う行を見る。
+    const line = result.lines.find((text) => text.includes('note') && text.includes('px'));
     assert.ok(line !== undefined, `指摘が出ていない: ${result.lines.join(' / ')}`);
     assert.match(line, /60/, `箱の幅（60px）が入っていない: ${line}`);
     assert.match(line, /\d{3}\s*px/, `名前の幅が入っていない: ${line}`);
@@ -157,6 +158,42 @@ nodes:
     const apart = PILED_TAG.replace('{ x: 70, y: 30 }', '{ x: 400, y: 300 }');
     const result = await runValidate(['a.yaml'], reader({ 'a.yaml': apart }) as never);
     assert.ok(!result.lines.some((text) => text.includes('AHU')), result.lines.join(' / '));
+  });
+});
+
+/**
+ * **名前が他の箱に重なって出ている**（`crowdedNames`。2026-09-18）。
+ *
+ * 箱に入りきらず、外へ出した先も空いていないと、名前は**何かの上に重なって**出る。
+ * これも `zumen_inspect` からしか見えず、**`pnpm validate` は黙っていた** ——
+ * A3 の下限・紙の上の文字の重なりと**同じ形の穴**（3 回目）。
+ *
+ * 文字の上に乗ったなら `overlappingInk` が拾うが、**箱の塗りの上に乗っただけなら拾えない。**
+ */
+describe('入りきらない名前の、行き先が無い', () => {
+  // 紙の左上に置いた細い箱。名前は外へ出るが、**左と上へは紙を広げられない**ので切れる。
+  const CROWDED = `version: 1
+kind: placement
+nodes:
+  - id: pin
+    label: "この名前は箱に入らず、外へ出した先も空いていない"
+    marker: none
+    at: { x: 0, y: 0 }
+    size: { w: 30, h: 18 }
+`;
+
+  it('**行き先が無い名前を、検証も言う**', async () => {
+    const result = await runValidate(['a.yaml'], reader({ 'a.yaml': CROWDED }) as never);
+    assert.ok(
+      result.lines.some((line) => line.includes('pin') && line.includes('切れ')),
+      `言っていない: ${result.lines.join(' / ')}`,
+    );
+  });
+
+  it('**入る図には言わない**', async () => {
+    const roomy = CROWDED.replace('size: { w: 30, h: 18 }', 'size: { w: 420, h: 18 }');
+    const result = await runValidate(['a.yaml'], reader({ 'a.yaml': roomy }) as never);
+    assert.ok(!result.lines.some((line) => line.includes('pin')), result.lines.join(' / '));
   });
 });
 

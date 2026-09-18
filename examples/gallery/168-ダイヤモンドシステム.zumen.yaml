@@ -1,0 +1,540 @@
+version: 1
+kind: placement
+arrows: true
+title: ビリヤードのダイヤモンドシステム（スリークッション）
+scale: { mm: 5 }
+# **台のふちのダイヤは飾りではない。目盛りである。**
+#
+# 長い辺を **8 等分**（ダイヤ 7 個）、短い辺を **4 等分**（3 個）。
+# この目盛りに数字を当てて、**A − B ＝ C** で道筋を決める。
+#
+# | | |
+# |---|---|
+# | A | 手玉の位置（左の目盛り。1 1/2 から **1/2 きざみ**）|
+# | B | 狙う点（右のクッション。**1 きざみ**）|
+# | C | 到達点（左の目盛り。**1 きざみ**）|
+#
+# **同じダイヤに 2 通りの数字が付いている**のが肝。この図の例は **4 − 1 ＝ 3**。
+#
+# **ただし、ぴったりではない。** 入射角と反射角は等しくならず、
+# 球の位置と撞き方（撞点・速さ・ヒネリ）でずれる。
+# **数字は当たりを付けるためのもので、当てるのは腕。**
+#
+# 1 px ＝ 5 mm。台はキャロムの内寸 2,840 × 1,420 mm。
+# 出どころ —— ダイヤモンドシステムの解説（Polster & Ross）。球と撞き方は架空。
+nodes:
+  - id: table
+    label: ""
+    hatch: dots
+    at: { x: 122, y: 92 }
+    size: { w: 320, h: 604 }
+  - id: bed
+    label: ""
+    at: { x: 140, y: 110 }
+    size: { w: 284, h: 568 }
+  - id: dl1
+    label: ""
+    marker: diamond
+    hatch: solid
+    at: { x: 117, y: 602 }
+    size: { w: 10, h: 10 }
+  - id: dr1
+    label: ""
+    marker: diamond
+    hatch: solid
+    at: { x: 437, y: 602 }
+    size: { w: 10, h: 10 }
+  - id: dl2
+    label: ""
+    marker: diamond
+    hatch: solid
+    at: { x: 117, y: 531 }
+    size: { w: 10, h: 10 }
+  - id: dr2
+    label: ""
+    marker: diamond
+    hatch: solid
+    at: { x: 437, y: 531 }
+    size: { w: 10, h: 10 }
+  - id: dl3
+    label: ""
+    marker: diamond
+    hatch: solid
+    at: { x: 117, y: 460 }
+    size: { w: 10, h: 10 }
+  - id: dr3
+    label: ""
+    marker: diamond
+    hatch: solid
+    at: { x: 437, y: 460 }
+    size: { w: 10, h: 10 }
+  - id: dl4
+    label: ""
+    marker: diamond
+    hatch: solid
+    at: { x: 117, y: 389 }
+    size: { w: 10, h: 10 }
+  - id: dr4
+    label: ""
+    marker: diamond
+    hatch: solid
+    at: { x: 437, y: 389 }
+    size: { w: 10, h: 10 }
+  - id: dl5
+    label: ""
+    marker: diamond
+    hatch: solid
+    at: { x: 117, y: 318 }
+    size: { w: 10, h: 10 }
+  - id: dr5
+    label: ""
+    marker: diamond
+    hatch: solid
+    at: { x: 437, y: 318 }
+    size: { w: 10, h: 10 }
+  - id: dl6
+    label: ""
+    marker: diamond
+    hatch: solid
+    at: { x: 117, y: 247 }
+    size: { w: 10, h: 10 }
+  - id: dr6
+    label: ""
+    marker: diamond
+    hatch: solid
+    at: { x: 437, y: 247 }
+    size: { w: 10, h: 10 }
+  - id: dl7
+    label: ""
+    marker: diamond
+    hatch: solid
+    at: { x: 117, y: 176 }
+    size: { w: 10, h: 10 }
+  - id: dr7
+    label: ""
+    marker: diamond
+    hatch: solid
+    at: { x: 437, y: 176 }
+    size: { w: 10, h: 10 }
+  - id: db1
+    label: ""
+    marker: diamond
+    hatch: solid
+    at: { x: 206, y: 691 }
+    size: { w: 10, h: 10 }
+  - id: dt1
+    label: ""
+    marker: diamond
+    hatch: solid
+    at: { x: 206, y: 87 }
+    size: { w: 10, h: 10 }
+  - id: db2
+    label: ""
+    marker: diamond
+    hatch: solid
+    at: { x: 277, y: 691 }
+    size: { w: 10, h: 10 }
+  - id: dt2
+    label: ""
+    marker: diamond
+    hatch: solid
+    at: { x: 277, y: 87 }
+    size: { w: 10, h: 10 }
+  - id: db3
+    label: ""
+    marker: diamond
+    hatch: solid
+    at: { x: 348, y: 691 }
+    size: { w: 10, h: 10 }
+  - id: dt3
+    label: ""
+    marker: diamond
+    hatch: solid
+    at: { x: 348, y: 87 }
+    size: { w: 10, h: 10 }
+  - id: hA
+    label: "A 手玉"
+    marker: none
+    align: left
+    at: { x: 22, y: 64 }
+    size: { w: 70, h: 18 }
+  - id: hC
+    label: "C 到達"
+    marker: none
+    align: left
+    at: { x: 84, y: 64 }
+    size: { w: 60, h: 18 }
+  - id: hB
+    label: "B 狙う"
+    marker: none
+    align: left
+    at: { x: 458, y: 64 }
+    size: { w: 70, h: 18 }
+  - id: an1
+    label: "1 1/2"
+    marker: none
+    align: right
+    at: { x: 22, y: 598 }
+    size: { w: 66, h: 18 }
+  - id: cn1
+    label: "1"
+    marker: none
+    align: right
+    at: { x: 84, y: 598 }
+    size: { w: 30, h: 18 }
+  - id: bn1
+    label: "1"
+    marker: none
+    align: left
+    at: { x: 458, y: 598 }
+    size: { w: 30, h: 18 }
+  - id: an2
+    label: "2"
+    marker: none
+    align: right
+    at: { x: 22, y: 527 }
+    size: { w: 66, h: 18 }
+  - id: cn2
+    label: "2"
+    marker: none
+    align: right
+    at: { x: 84, y: 527 }
+    size: { w: 30, h: 18 }
+  - id: bn2
+    label: "2"
+    marker: none
+    align: left
+    at: { x: 458, y: 527 }
+    size: { w: 30, h: 18 }
+  - id: an3
+    label: "2 1/2"
+    marker: none
+    align: right
+    at: { x: 22, y: 456 }
+    size: { w: 66, h: 18 }
+  - id: cn3
+    label: "3"
+    marker: none
+    align: right
+    at: { x: 84, y: 456 }
+    size: { w: 30, h: 18 }
+  - id: bn3
+    label: "3"
+    marker: none
+    align: left
+    at: { x: 458, y: 456 }
+    size: { w: 30, h: 18 }
+  - id: an4
+    label: "3"
+    marker: none
+    align: right
+    at: { x: 22, y: 385 }
+    size: { w: 66, h: 18 }
+  - id: cn4
+    label: "4"
+    marker: none
+    align: right
+    at: { x: 84, y: 385 }
+    size: { w: 30, h: 18 }
+  - id: bn4
+    label: "4"
+    marker: none
+    align: left
+    at: { x: 458, y: 385 }
+    size: { w: 30, h: 18 }
+  - id: an5
+    label: "3 1/2"
+    marker: none
+    align: right
+    at: { x: 22, y: 314 }
+    size: { w: 66, h: 18 }
+  - id: cn5
+    label: "5"
+    marker: none
+    align: right
+    at: { x: 84, y: 314 }
+    size: { w: 30, h: 18 }
+  - id: bn5
+    label: "5"
+    marker: none
+    align: left
+    at: { x: 458, y: 314 }
+    size: { w: 30, h: 18 }
+  - id: an6
+    label: "4"
+    marker: none
+    align: right
+    at: { x: 22, y: 243 }
+    size: { w: 66, h: 18 }
+  - id: cn6
+    label: "6"
+    marker: none
+    align: right
+    at: { x: 84, y: 243 }
+    size: { w: 30, h: 18 }
+  - id: bn6
+    label: "6"
+    marker: none
+    align: left
+    at: { x: 458, y: 243 }
+    size: { w: 30, h: 18 }
+  - id: an7
+    label: "4 1/2"
+    marker: none
+    align: right
+    at: { x: 22, y: 172 }
+    size: { w: 66, h: 18 }
+  - id: cn7
+    label: "7"
+    marker: none
+    align: right
+    at: { x: 84, y: 172 }
+    size: { w: 30, h: 18 }
+  - id: bn7
+    label: "7"
+    marker: none
+    align: left
+    at: { x: 458, y: 172 }
+    size: { w: 30, h: 18 }
+  - id: cue
+    label: ""
+    tag: "A"
+    marker: circle
+    at: { x: 129, y: 241 }
+    size: { w: 22, h: 22 }
+  - id: goal
+    label: ""
+    tag: "C"
+    marker: circle
+    hatch: solid
+    at: { x: 129, y: 454 }
+    size: { w: 22, h: 22 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 423, y: 606 }
+    size: { w: 2, h: 2 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 339, y: 677 }
+    size: { w: 2, h: 2 }
+  - id: l_ex
+    label: "A 4 − B 1 ＝ C 3"
+    marker: none
+    align: left
+    at: { x: 458, y: 712 }
+    size: { w: 220, h: 18 }
+  - id: h60
+    label: "ダイヤの割り付け"
+    hatch: solid
+    at: { x: 574, y: 60 }
+    size: { w: 460, h: 22 }
+  - id: a82
+    label: "長い辺"
+    at: { x: 574, y: 82 }
+    size: { w: 150, h: 22 }
+  - id: b82
+    label: "8 等分（ダイヤ 7 個）"
+    align: left
+    at: { x: 724, y: 82 }
+    size: { w: 310, h: 22 }
+  - id: a104
+    label: "短い辺"
+    at: { x: 574, y: 104 }
+    size: { w: 150, h: 22 }
+  - id: b104
+    label: "4 等分（ダイヤ 3 個）"
+    align: left
+    at: { x: 724, y: 104 }
+    size: { w: 310, h: 22 }
+  - id: a126
+    label: "台の内寸"
+    at: { x: 574, y: 126 }
+    size: { w: 150, h: 22 }
+  - id: b126
+    label: "2,840 × 1,420 mm（キャロム）"
+    align: left
+    at: { x: 724, y: 126 }
+    size: { w: 310, h: 22 }
+  - id: a148
+    label: "この図"
+    at: { x: 574, y: 148 }
+    size: { w: 150, h: 22 }
+  - id: b148
+    label: "1 px ＝ 5 mm。台を縦に置いています"
+    align: left
+    at: { x: 724, y: 148 }
+    size: { w: 310, h: 22 }
+  - id: h184
+    label: "3 つの数字と、引き算"
+    hatch: solid
+    at: { x: 574, y: 184 }
+    size: { w: 460, h: 22 }
+  - id: a206
+    label: "A"
+    at: { x: 574, y: 206 }
+    size: { w: 150, h: 22 }
+  - id: b206
+    label: "手玉の位置（左。1 1/2 から 1/2 きざみ）"
+    align: left
+    at: { x: 724, y: 206 }
+    size: { w: 310, h: 22 }
+  - id: a228
+    label: "B"
+    at: { x: 574, y: 228 }
+    size: { w: 150, h: 22 }
+  - id: b228
+    label: "狙う点（右のクッション。1 から 1 きざみ）"
+    align: left
+    at: { x: 724, y: 228 }
+    size: { w: 310, h: 22 }
+  - id: a250
+    label: "C"
+    at: { x: 574, y: 250 }
+    size: { w: 150, h: 22 }
+  - id: b250
+    label: "到達点（左の目盛り。1 から 1 きざみ）"
+    align: left
+    at: { x: 724, y: 250 }
+    size: { w: 310, h: 22 }
+  - id: a272
+    label: "決まりごと"
+    at: { x: 574, y: 272 }
+    size: { w: 150, h: 22 }
+  - id: b272
+    label: "A − B ＝ C"
+    align: left
+    at: { x: 724, y: 272 }
+    size: { w: 310, h: 22 }
+  - id: a294
+    label: "この図の例"
+    at: { x: 574, y: 294 }
+    size: { w: 150, h: 22 }
+  - id: b294
+    label: "4 − 1 ＝ 3"
+    align: left
+    at: { x: 724, y: 294 }
+    size: { w: 310, h: 22 }
+  - id: h330
+    label: "使うとき"
+    hatch: solid
+    at: { x: 574, y: 330 }
+    size: { w: 460, h: 22 }
+  - id: a352
+    label: "両方クッションの上"
+    at: { x: 574, y: 352 }
+    size: { w: 150, h: 22 }
+  - id: b352
+    label: "A と C が読めるので B ＝ A − C"
+    align: left
+    at: { x: 724, y: 352 }
+    size: { w: 310, h: 22 }
+  - id: a374
+    label: "手玉が台の真ん中"
+    at: { x: 574, y: 374 }
+    size: { w: 150, h: 22 }
+  - id: b374
+    label: "線を振って、A − B が C になる組を探す"
+    align: left
+    at: { x: 724, y: 374 }
+    size: { w: 310, h: 22 }
+  - id: a396
+    label: "的玉が真ん中"
+    at: { x: 574, y: 396 }
+    size: { w: 150, h: 22 }
+  - id: b396
+    label: "この数字だけでは決まらない"
+    align: left
+    at: { x: 724, y: 396 }
+    size: { w: 310, h: 22 }
+  - id: a418
+    label: ""
+    at: { x: 574, y: 418 }
+    size: { w: 150, h: 22 }
+  - id: b418
+    label: "角度の見当は、経験で補う"
+    align: left
+    at: { x: 724, y: 418 }
+    size: { w: 310, h: 22 }
+  - id: h454
+    label: "これは「目安」です"
+    hatch: solid
+    at: { x: 574, y: 454 }
+    size: { w: 460, h: 22 }
+  - id: a476
+    label: "A − B ＝ C"
+    at: { x: 574, y: 476 }
+    size: { w: 150, h: 22 }
+  - id: b476
+    label: "ぴったりではなく、近いだけ"
+    align: left
+    at: { x: 724, y: 476 }
+    size: { w: 310, h: 22 }
+  - id: a498
+    label: "ずれる理由"
+    at: { x: 574, y: 498 }
+    size: { w: 150, h: 22 }
+  - id: b498
+    label: "球の位置と、撞き方（撞点・速さ・ヒネリ）"
+    align: left
+    at: { x: 724, y: 498 }
+    size: { w: 310, h: 22 }
+  - id: a520
+    label: "入射角と反射角"
+    at: { x: 574, y: 520 }
+    size: { w: 150, h: 22 }
+  - id: b520
+    label: "等しくならない。だから計算式にできない"
+    align: left
+    at: { x: 724, y: 520 }
+    size: { w: 310, h: 22 }
+  - id: a542
+    label: "結局"
+    at: { x: 574, y: 542 }
+    size: { w: 150, h: 22 }
+  - id: b542
+    label: "数字は当たりを付けるもので、当てるのは腕"
+    align: left
+    at: { x: 724, y: 542 }
+    size: { w: 310, h: 22 }
+  - id: z1
+    label: "台のふちに埋まっているダイヤは飾りではありません。長い辺を 8 等分、短い辺を 4 等分する目盛りです。"
+    marker: none
+    align: left
+    at: { x: 60, y: 768 }
+    size: { w: 700, h: 18 }
+  - id: z2
+    label: "手玉の位置 A から、狙う点 B を引くと、到達点 C になる —— これがダイヤモンドシステムです。"
+    marker: none
+    align: left
+    at: { x: 60, y: 790 }
+    size: { w: 700, h: 18 }
+  - id: z3
+    label: "同じダイヤに 2 通りの数字が付いているのがこの図の肝で、A は 1/2 きざみ、C は 1 きざみです。"
+    marker: none
+    align: left
+    at: { x: 60, y: 812 }
+    size: { w: 700, h: 18 }
+  - id: z4
+    label: "ただし A − B ＝ C はぴったりではありません。入射角と反射角が等しくならないので、目安です。"
+    marker: none
+    align: left
+    at: { x: 60, y: 834 }
+    size: { w: 700, h: 18 }
+  - id: z5
+    label: "線は A・B・C を通る道筋を模式的に描いたものです。球・撞き方・台は架空です。"
+    marker: none
+    align: left
+    at: { x: 60, y: 856 }
+    size: { w: 700, h: 18 }
+edges:
+  - from: cue
+    to: p1
+    ends: { from: none, to: none }
+  - from: p1
+    to: p2
+    ends: { from: none, to: none }
+  - from: p2
+    to: goal
+    ends: { from: none, to: arrow }

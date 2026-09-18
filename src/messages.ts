@@ -610,6 +610,8 @@ const ja = {
       `ノード "${id}" から自分自身への辺に via がありません。長さ 0 の線になり、節の真ん中に矢印の粒が出るだけになります。自分自身への辺は、via を並べて close: true にすると閉じた形（視野・範囲・輪郭）が描けます。`,
     edgeHatchIgnored: (edge: string) =>
       `エッジ ${edge} に hatch がありますが、close: true でないので効きません。閉じていない辺には面が無く、塗りようがありません。`,
+    nameCrowded: (id: string) =>
+      `ノード "${id}" の名前は箱に入りきらず、外へ出した先も空いていません（**他の要素に重なる**か、**紙の縁で切れます**）。箱を大きくするか、文字を短くしてください（消してはいません —— 名前が消えるのは、重なるより悪いためです）。`,
     nameAdrift: (id: string, needs: number, has: number) =>
       `ノード "${id}" は幅のある箱ですが、名前が入りきらず外へ出ています（名前に ${needs}px 要るところ、箱は ${has}px。${needs - has}px 足りません）。表の欄なら、値が欄から離れて行が空に見えます。箱を広げるか、文字を短くしてください。`,
     tagHidden: (id: string) =>
@@ -1154,6 +1156,8 @@ const en: Catalog = {
       `The edge from node "${id}" to itself has no via points, so it draws a zero-length line — just an arrowhead at the node's centre. A self-edge with via points and close: true draws a closed shape (a field of view, a range, an outline).`,
     edgeHatchIgnored: (edge: string) =>
       `Edge ${edge} has a hatch, but without close: true there is no face to fill, so it does nothing.`,
+    nameCrowded: (id: string) =>
+      `The name on node "${id}" does not fit its box and there is no free room outside either: it either lands on something else or is cut off at the edge of the sheet. Make the box bigger or shorten the text. It is NOT dropped: losing a name is worse than an overlap.`,
     nameAdrift: (id: string, needs: number, has: number) =>
       `Node "${id}" is a wide box whose name did not fit, so it is drawn outside: the name needs ${needs}px and the box is ${has}px, so it is ${needs - has}px short. In a table that leaves the row looking empty. Widen the box or shorten the text.`,
     tagHidden: (id: string) =>
