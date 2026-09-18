@@ -179,10 +179,10 @@ export async function placedFindings(text: string): Promise<Finding[]> {
    */
   const said = (word: { text: string; id: string | null }): string =>
     word.id === null ? JSON.stringify(word.text) : `${JSON.stringify(word.text)}（${word.id}）`;
-  const ink = overlappingInk(render(placed, 'light', 'safe', true)).map(([a, b]) => ({
+  const ink = overlappingInk(render(placed, 'light', 'safe', true)).map(([a, b, by]) => ({
     severity: 'warning' as const,
     code: 'text-overlap',
-    message: messages().validate.inkOverlap(said(a), said(b)),
+    message: messages().validate.inkOverlap(said(a), said(b), by.x, by.y),
   }));
   return [
     ...size,

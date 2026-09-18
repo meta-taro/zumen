@@ -195,6 +195,22 @@ nodes:
     assert.match(line, /上の図/);
   });
 
+  /**
+   * **どれだけずらせば離れるかを、px で言う**（2026-09-19）。
+   *
+   * 「重なっています」までは言っていたが、**どれだけ動かせばよいかは言っていなかった。**
+   * PDCA の 4 周で 8 回この指摘を受け、そのたびに座標を当て推量で動かした
+   * （見本 190〜193）。`name-adrift` と A3 の警告に px を足したときと同じ話。
+   *
+   * **横と縦の両方**を出す —— どちらへ逃がすかは描く側が決める。
+   */
+  it('**どれだけずらせば離れるかを px で言う**', async () => {
+    const result = await runValidate(['a.yaml'], reader({ 'a.yaml': PILED_TAG }) as never);
+    const line = result.lines.find((text) => text.includes('AHU'))!;
+    assert.match(line, /横に \d+px/, line);
+    assert.match(line, /縦に \d+px/, line);
+  });
+
   it('**重なっていない図には、何も言わない**', async () => {
     const apart = PILED_TAG.replace('{ x: 70, y: 30 }', '{ x: 400, y: 300 }');
     const result = await runValidate(['a.yaml'], reader({ 'a.yaml': apart }) as never);

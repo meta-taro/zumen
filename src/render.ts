@@ -393,7 +393,13 @@ export interface Word {
   id: string | null;
 }
 
-export function overlappingInk(svg: string): [Word, Word][] {
+/** 重なっている量（px）。**どちらへ何 px 逃がせばよいか**を、描く側に渡す。 */
+export interface Overlap {
+  x: number;
+  y: number;
+}
+
+export function overlappingInk(svg: string): [Word, Word, Overlap][] {
   const words: { rect: Rect; word: Word }[] = [];
   const groups: (string | null)[] = [];
   const token = /<g\b([^>]*)>|<\/g>|<text x="(-?[\d.]+)" y="(-?[\d.]+)"([^>]*)>([^<]*)<\/text>/g;
@@ -419,7 +425,7 @@ export function overlappingInk(svg: string): [Word, Word][] {
     words.push({ rect: { x: left, y: y - font, w, h: font }, word: { text, id } });
   }
 
-  const found: [Word, Word][] = [];
+  const found: [Word, Word, Overlap][] = [];
   const gap = 2;
   for (let i = 0; i < words.length; i += 1) {
     for (let j = i + 1; j < words.length; j += 1) {
@@ -430,7 +436,11 @@ export function overlappingInk(svg: string): [Word, Word][] {
         b.x + b.w <= a.x + gap ||
         a.y + a.h <= b.y + gap ||
         b.y + b.h <= a.y + gap;
-      if (!apart) found.push([words[i]!.word, words[j]!.word]);
+      if (apart) continue;
+      // **どれだけずらせば離れるか。** 重なっている幅 ＋ 空ける分。
+      const x = Math.ceil(Math.min(a.x + a.w - b.x, b.x + b.w - a.x)) + gap;
+      const y = Math.ceil(Math.min(a.y + a.h - b.y, b.y + b.h - a.y)) + gap;
+      found.push([words[i]!.word, words[j]!.word, { x, y }]);
     }
   }
   return found;
