@@ -1,0 +1,1594 @@
+version: 1
+kind: placement
+arrows: true
+title: クロスワードの盤面図（5×5 の日本式と、15×15 のアメリカ式）
+# **クロスワードは、語より先に盤面が決まる。**
+# 黒マスの形が語の長さと本数を決め、そこへ入る語が探される ——
+# だから「盤面図」は、絵ではなく**図面**として先に描かれる。
+#
+# ①は 5×5 の日本式（カタカナ）。**語も交差もすべて成り立っている**
+# （交差する字が一致していることを、作るときに機械で確かめた）。
+# 二重のマスを読む順に並べるとキーワードになる（日本の雑誌の形）。
+#
+# ②は 15×15 のアメリカ式の**盤面だけ**。語は入れていない。
+# 180 度回して同じ／すべての語が 3 文字以上／すべてのマスがヨコとタテの
+# 両方の語に入る／白マスが分断されない／黒マス 16% 以下／語数 78 以下 ——
+# この 6 つを満たす配置を探した。表の数字は、この盤面から数えた。
+#
+# 番号の振り方は左上から行の順。語の始まるマスにだけ付ける。
+nodes:
+  - id: t_big
+    label: "② 15×15（アメリカ式）の盤面"
+    marker: none
+    align: left
+    at: { x: 60, y: 138 }
+    size: { w: 340, h: 20 }
+  - id: t_big2
+    label: "語は入れていない —— 盤面は語より先に決まる"
+    marker: none
+    align: left
+    at: { x: 60, y: 160 }
+    size: { w: 380, h: 18 }
+  - id: b_1_1
+    label: " "
+    tag: "1"
+    at: { x: 60, y: 196 }
+    size: { w: 26, h: 26 }
+  - id: b_1_2
+    label: " "
+    tag: "2"
+    at: { x: 86, y: 196 }
+    size: { w: 26, h: 26 }
+  - id: b_1_3
+    label: " "
+    tag: "3"
+    at: { x: 112, y: 196 }
+    size: { w: 26, h: 26 }
+  - id: b_1_4
+    label: ""
+    hatch: solid
+    at: { x: 138, y: 196 }
+    size: { w: 26, h: 26 }
+  - id: b_1_5
+    label: " "
+    tag: "4"
+    at: { x: 164, y: 196 }
+    size: { w: 26, h: 26 }
+  - id: b_1_6
+    label: " "
+    tag: "5"
+    at: { x: 190, y: 196 }
+    size: { w: 26, h: 26 }
+  - id: b_1_7
+    label: " "
+    tag: "6"
+    at: { x: 216, y: 196 }
+    size: { w: 26, h: 26 }
+  - id: b_1_8
+    label: " "
+    tag: "7"
+    at: { x: 242, y: 196 }
+    size: { w: 26, h: 26 }
+  - id: b_1_9
+    label: " "
+    tag: "8"
+    at: { x: 268, y: 196 }
+    size: { w: 26, h: 26 }
+  - id: b_1_10
+    label: " "
+    tag: "9"
+    at: { x: 294, y: 196 }
+    size: { w: 26, h: 26 }
+  - id: b_1_11
+    label: " "
+    tag: "10"
+    at: { x: 320, y: 196 }
+    size: { w: 26, h: 26 }
+  - id: b_1_12
+    label: ""
+    hatch: solid
+    at: { x: 346, y: 196 }
+    size: { w: 26, h: 26 }
+  - id: b_1_13
+    label: " "
+    tag: "11"
+    at: { x: 372, y: 196 }
+    size: { w: 26, h: 26 }
+  - id: b_1_14
+    label: " "
+    tag: "12"
+    at: { x: 398, y: 196 }
+    size: { w: 26, h: 26 }
+  - id: b_1_15
+    label: " "
+    tag: "13"
+    at: { x: 424, y: 196 }
+    size: { w: 26, h: 26 }
+  - id: b_2_1
+    label: " "
+    tag: "14"
+    at: { x: 60, y: 222 }
+    size: { w: 26, h: 26 }
+  - id: b_2_2
+    label: " "
+    at: { x: 86, y: 222 }
+    size: { w: 26, h: 26 }
+  - id: b_2_3
+    label: " "
+    at: { x: 112, y: 222 }
+    size: { w: 26, h: 26 }
+  - id: b_2_4
+    label: ""
+    hatch: solid
+    at: { x: 138, y: 222 }
+    size: { w: 26, h: 26 }
+  - id: b_2_5
+    label: " "
+    tag: "15"
+    at: { x: 164, y: 222 }
+    size: { w: 26, h: 26 }
+  - id: b_2_6
+    label: " "
+    at: { x: 190, y: 222 }
+    size: { w: 26, h: 26 }
+  - id: b_2_7
+    label: " "
+    at: { x: 216, y: 222 }
+    size: { w: 26, h: 26 }
+  - id: b_2_8
+    label: " "
+    at: { x: 242, y: 222 }
+    size: { w: 26, h: 26 }
+  - id: b_2_9
+    label: " "
+    at: { x: 268, y: 222 }
+    size: { w: 26, h: 26 }
+  - id: b_2_10
+    label: " "
+    at: { x: 294, y: 222 }
+    size: { w: 26, h: 26 }
+  - id: b_2_11
+    label: " "
+    at: { x: 320, y: 222 }
+    size: { w: 26, h: 26 }
+  - id: b_2_12
+    label: ""
+    hatch: solid
+    at: { x: 346, y: 222 }
+    size: { w: 26, h: 26 }
+  - id: b_2_13
+    label: " "
+    tag: "16"
+    at: { x: 372, y: 222 }
+    size: { w: 26, h: 26 }
+  - id: b_2_14
+    label: " "
+    at: { x: 398, y: 222 }
+    size: { w: 26, h: 26 }
+  - id: b_2_15
+    label: " "
+    at: { x: 424, y: 222 }
+    size: { w: 26, h: 26 }
+  - id: b_3_1
+    label: " "
+    tag: "17"
+    at: { x: 60, y: 248 }
+    size: { w: 26, h: 26 }
+  - id: b_3_2
+    label: " "
+    at: { x: 86, y: 248 }
+    size: { w: 26, h: 26 }
+  - id: b_3_3
+    label: " "
+    at: { x: 112, y: 248 }
+    size: { w: 26, h: 26 }
+  - id: b_3_4
+    label: ""
+    hatch: solid
+    at: { x: 138, y: 248 }
+    size: { w: 26, h: 26 }
+  - id: b_3_5
+    label: " "
+    tag: "18"
+    at: { x: 164, y: 248 }
+    size: { w: 26, h: 26 }
+  - id: b_3_6
+    label: " "
+    at: { x: 190, y: 248 }
+    size: { w: 26, h: 26 }
+  - id: b_3_7
+    label: " "
+    at: { x: 216, y: 248 }
+    size: { w: 26, h: 26 }
+  - id: b_3_8
+    label: " "
+    at: { x: 242, y: 248 }
+    size: { w: 26, h: 26 }
+  - id: b_3_9
+    label: " "
+    at: { x: 268, y: 248 }
+    size: { w: 26, h: 26 }
+  - id: b_3_10
+    label: " "
+    at: { x: 294, y: 248 }
+    size: { w: 26, h: 26 }
+  - id: b_3_11
+    label: " "
+    at: { x: 320, y: 248 }
+    size: { w: 26, h: 26 }
+  - id: b_3_12
+    label: ""
+    hatch: solid
+    at: { x: 346, y: 248 }
+    size: { w: 26, h: 26 }
+  - id: b_3_13
+    label: " "
+    tag: "19"
+    at: { x: 372, y: 248 }
+    size: { w: 26, h: 26 }
+  - id: b_3_14
+    label: " "
+    at: { x: 398, y: 248 }
+    size: { w: 26, h: 26 }
+  - id: b_3_15
+    label: " "
+    at: { x: 424, y: 248 }
+    size: { w: 26, h: 26 }
+  - id: b_4_1
+    label: " "
+    tag: "20"
+    at: { x: 60, y: 274 }
+    size: { w: 26, h: 26 }
+  - id: b_4_2
+    label: " "
+    at: { x: 86, y: 274 }
+    size: { w: 26, h: 26 }
+  - id: b_4_3
+    label: " "
+    at: { x: 112, y: 274 }
+    size: { w: 26, h: 26 }
+  - id: b_4_4
+    label: " "
+    tag: "21"
+    at: { x: 138, y: 274 }
+    size: { w: 26, h: 26 }
+  - id: b_4_5
+    label: " "
+    at: { x: 164, y: 274 }
+    size: { w: 26, h: 26 }
+  - id: b_4_6
+    label: ""
+    hatch: solid
+    at: { x: 190, y: 274 }
+    size: { w: 26, h: 26 }
+  - id: b_4_7
+    label: " "
+    tag: "22"
+    at: { x: 216, y: 274 }
+    size: { w: 26, h: 26 }
+  - id: b_4_8
+    label: " "
+    at: { x: 242, y: 274 }
+    size: { w: 26, h: 26 }
+  - id: b_4_9
+    label: " "
+    at: { x: 268, y: 274 }
+    size: { w: 26, h: 26 }
+  - id: b_4_10
+    label: " "
+    at: { x: 294, y: 274 }
+    size: { w: 26, h: 26 }
+  - id: b_4_11
+    label: " "
+    at: { x: 320, y: 274 }
+    size: { w: 26, h: 26 }
+  - id: b_4_12
+    label: " "
+    tag: "23"
+    at: { x: 346, y: 274 }
+    size: { w: 26, h: 26 }
+  - id: b_4_13
+    label: " "
+    at: { x: 372, y: 274 }
+    size: { w: 26, h: 26 }
+  - id: b_4_14
+    label: " "
+    at: { x: 398, y: 274 }
+    size: { w: 26, h: 26 }
+  - id: b_4_15
+    label: " "
+    at: { x: 424, y: 274 }
+    size: { w: 26, h: 26 }
+  - id: b_5_1
+    label: " "
+    tag: "24"
+    at: { x: 60, y: 300 }
+    size: { w: 26, h: 26 }
+  - id: b_5_2
+    label: " "
+    at: { x: 86, y: 300 }
+    size: { w: 26, h: 26 }
+  - id: b_5_3
+    label: " "
+    at: { x: 112, y: 300 }
+    size: { w: 26, h: 26 }
+  - id: b_5_4
+    label: " "
+    at: { x: 138, y: 300 }
+    size: { w: 26, h: 26 }
+  - id: b_5_5
+    label: " "
+    at: { x: 164, y: 300 }
+    size: { w: 26, h: 26 }
+  - id: b_5_6
+    label: ""
+    hatch: solid
+    at: { x: 190, y: 300 }
+    size: { w: 26, h: 26 }
+  - id: b_5_7
+    label: ""
+    hatch: solid
+    at: { x: 216, y: 300 }
+    size: { w: 26, h: 26 }
+  - id: b_5_8
+    label: " "
+    tag: "25"
+    at: { x: 242, y: 300 }
+    size: { w: 26, h: 26 }
+  - id: b_5_9
+    label: " "
+    at: { x: 268, y: 300 }
+    size: { w: 26, h: 26 }
+  - id: b_5_10
+    label: " "
+    at: { x: 294, y: 300 }
+    size: { w: 26, h: 26 }
+  - id: b_5_11
+    label: " "
+    at: { x: 320, y: 300 }
+    size: { w: 26, h: 26 }
+  - id: b_5_12
+    label: " "
+    at: { x: 346, y: 300 }
+    size: { w: 26, h: 26 }
+  - id: b_5_13
+    label: " "
+    at: { x: 372, y: 300 }
+    size: { w: 26, h: 26 }
+  - id: b_5_14
+    label: " "
+    at: { x: 398, y: 300 }
+    size: { w: 26, h: 26 }
+  - id: b_5_15
+    label: " "
+    at: { x: 424, y: 300 }
+    size: { w: 26, h: 26 }
+  - id: b_6_1
+    label: " "
+    tag: "26"
+    at: { x: 60, y: 326 }
+    size: { w: 26, h: 26 }
+  - id: b_6_2
+    label: " "
+    at: { x: 86, y: 326 }
+    size: { w: 26, h: 26 }
+  - id: b_6_3
+    label: " "
+    at: { x: 112, y: 326 }
+    size: { w: 26, h: 26 }
+  - id: b_6_4
+    label: " "
+    at: { x: 138, y: 326 }
+    size: { w: 26, h: 26 }
+  - id: b_6_5
+    label: " "
+    at: { x: 164, y: 326 }
+    size: { w: 26, h: 26 }
+  - id: b_6_6
+    label: " "
+    tag: "27"
+    at: { x: 190, y: 326 }
+    size: { w: 26, h: 26 }
+  - id: b_6_7
+    label: " "
+    tag: "28"
+    at: { x: 216, y: 326 }
+    size: { w: 26, h: 26 }
+  - id: b_6_8
+    label: ""
+    hatch: solid
+    at: { x: 242, y: 326 }
+    size: { w: 26, h: 26 }
+  - id: b_6_9
+    label: " "
+    tag: "29"
+    at: { x: 268, y: 326 }
+    size: { w: 26, h: 26 }
+  - id: b_6_10
+    label: " "
+    at: { x: 294, y: 326 }
+    size: { w: 26, h: 26 }
+  - id: b_6_11
+    label: " "
+    at: { x: 320, y: 326 }
+    size: { w: 26, h: 26 }
+  - id: b_6_12
+    label: " "
+    at: { x: 346, y: 326 }
+    size: { w: 26, h: 26 }
+  - id: b_6_13
+    label: " "
+    at: { x: 372, y: 326 }
+    size: { w: 26, h: 26 }
+  - id: b_6_14
+    label: " "
+    at: { x: 398, y: 326 }
+    size: { w: 26, h: 26 }
+  - id: b_6_15
+    label: " "
+    at: { x: 424, y: 326 }
+    size: { w: 26, h: 26 }
+  - id: b_7_1
+    label: ""
+    hatch: solid
+    at: { x: 60, y: 352 }
+    size: { w: 26, h: 26 }
+  - id: b_7_2
+    label: ""
+    hatch: solid
+    at: { x: 86, y: 352 }
+    size: { w: 26, h: 26 }
+  - id: b_7_3
+    label: ""
+    hatch: solid
+    at: { x: 112, y: 352 }
+    size: { w: 26, h: 26 }
+  - id: b_7_4
+    label: " "
+    tag: "30"
+    at: { x: 138, y: 352 }
+    size: { w: 26, h: 26 }
+  - id: b_7_5
+    label: " "
+    at: { x: 164, y: 352 }
+    size: { w: 26, h: 26 }
+  - id: b_7_6
+    label: " "
+    at: { x: 190, y: 352 }
+    size: { w: 26, h: 26 }
+  - id: b_7_7
+    label: " "
+    at: { x: 216, y: 352 }
+    size: { w: 26, h: 26 }
+  - id: b_7_8
+    label: " "
+    tag: "31"
+    at: { x: 242, y: 352 }
+    size: { w: 26, h: 26 }
+  - id: b_7_9
+    label: ""
+    hatch: solid
+    at: { x: 268, y: 352 }
+    size: { w: 26, h: 26 }
+  - id: b_7_10
+    label: ""
+    hatch: solid
+    at: { x: 294, y: 352 }
+    size: { w: 26, h: 26 }
+  - id: b_7_11
+    label: ""
+    hatch: solid
+    at: { x: 320, y: 352 }
+    size: { w: 26, h: 26 }
+  - id: b_7_12
+    label: " "
+    tag: "32"
+    at: { x: 346, y: 352 }
+    size: { w: 26, h: 26 }
+  - id: b_7_13
+    label: " "
+    at: { x: 372, y: 352 }
+    size: { w: 26, h: 26 }
+  - id: b_7_14
+    label: " "
+    at: { x: 398, y: 352 }
+    size: { w: 26, h: 26 }
+  - id: b_7_15
+    label: " "
+    at: { x: 424, y: 352 }
+    size: { w: 26, h: 26 }
+  - id: b_8_1
+    label: " "
+    tag: "33"
+    at: { x: 60, y: 378 }
+    size: { w: 26, h: 26 }
+  - id: b_8_2
+    label: " "
+    tag: "34"
+    at: { x: 86, y: 378 }
+    size: { w: 26, h: 26 }
+  - id: b_8_3
+    label: " "
+    tag: "35"
+    at: { x: 112, y: 378 }
+    size: { w: 26, h: 26 }
+  - id: b_8_4
+    label: ""
+    hatch: solid
+    at: { x: 138, y: 378 }
+    size: { w: 26, h: 26 }
+  - id: b_8_5
+    label: " "
+    tag: "36"
+    at: { x: 164, y: 378 }
+    size: { w: 26, h: 26 }
+  - id: b_8_6
+    label: " "
+    at: { x: 190, y: 378 }
+    size: { w: 26, h: 26 }
+  - id: b_8_7
+    label: " "
+    at: { x: 216, y: 378 }
+    size: { w: 26, h: 26 }
+  - id: b_8_8
+    label: " "
+    at: { x: 242, y: 378 }
+    size: { w: 26, h: 26 }
+  - id: b_8_9
+    label: " "
+    tag: "37"
+    at: { x: 268, y: 378 }
+    size: { w: 26, h: 26 }
+  - id: b_8_10
+    label: " "
+    tag: "38"
+    at: { x: 294, y: 378 }
+    size: { w: 26, h: 26 }
+  - id: b_8_11
+    label: " "
+    tag: "39"
+    at: { x: 320, y: 378 }
+    size: { w: 26, h: 26 }
+  - id: b_8_12
+    label: ""
+    hatch: solid
+    at: { x: 346, y: 378 }
+    size: { w: 26, h: 26 }
+  - id: b_8_13
+    label: " "
+    tag: "40"
+    at: { x: 372, y: 378 }
+    size: { w: 26, h: 26 }
+  - id: b_8_14
+    label: " "
+    at: { x: 398, y: 378 }
+    size: { w: 26, h: 26 }
+  - id: b_8_15
+    label: " "
+    at: { x: 424, y: 378 }
+    size: { w: 26, h: 26 }
+  - id: b_9_1
+    label: " "
+    tag: "41"
+    at: { x: 60, y: 404 }
+    size: { w: 26, h: 26 }
+  - id: b_9_2
+    label: " "
+    at: { x: 86, y: 404 }
+    size: { w: 26, h: 26 }
+  - id: b_9_3
+    label: " "
+    at: { x: 112, y: 404 }
+    size: { w: 26, h: 26 }
+  - id: b_9_4
+    label: " "
+    tag: "42"
+    at: { x: 138, y: 404 }
+    size: { w: 26, h: 26 }
+  - id: b_9_5
+    label: ""
+    hatch: solid
+    at: { x: 164, y: 404 }
+    size: { w: 26, h: 26 }
+  - id: b_9_6
+    label: ""
+    hatch: solid
+    at: { x: 190, y: 404 }
+    size: { w: 26, h: 26 }
+  - id: b_9_7
+    label: ""
+    hatch: solid
+    at: { x: 216, y: 404 }
+    size: { w: 26, h: 26 }
+  - id: b_9_8
+    label: " "
+    tag: "43"
+    at: { x: 242, y: 404 }
+    size: { w: 26, h: 26 }
+  - id: b_9_9
+    label: " "
+    at: { x: 268, y: 404 }
+    size: { w: 26, h: 26 }
+  - id: b_9_10
+    label: " "
+    at: { x: 294, y: 404 }
+    size: { w: 26, h: 26 }
+  - id: b_9_11
+    label: " "
+    at: { x: 320, y: 404 }
+    size: { w: 26, h: 26 }
+  - id: b_9_12
+    label: " "
+    tag: "44"
+    at: { x: 346, y: 404 }
+    size: { w: 26, h: 26 }
+  - id: b_9_13
+    label: ""
+    hatch: solid
+    at: { x: 372, y: 404 }
+    size: { w: 26, h: 26 }
+  - id: b_9_14
+    label: ""
+    hatch: solid
+    at: { x: 398, y: 404 }
+    size: { w: 26, h: 26 }
+  - id: b_9_15
+    label: ""
+    hatch: solid
+    at: { x: 424, y: 404 }
+    size: { w: 26, h: 26 }
+  - id: b_10_1
+    label: " "
+    tag: "45"
+    at: { x: 60, y: 430 }
+    size: { w: 26, h: 26 }
+  - id: b_10_2
+    label: " "
+    at: { x: 86, y: 430 }
+    size: { w: 26, h: 26 }
+  - id: b_10_3
+    label: " "
+    at: { x: 112, y: 430 }
+    size: { w: 26, h: 26 }
+  - id: b_10_4
+    label: " "
+    at: { x: 138, y: 430 }
+    size: { w: 26, h: 26 }
+  - id: b_10_5
+    label: " "
+    tag: "46"
+    at: { x: 164, y: 430 }
+    size: { w: 26, h: 26 }
+  - id: b_10_6
+    label: " "
+    tag: "47"
+    at: { x: 190, y: 430 }
+    size: { w: 26, h: 26 }
+  - id: b_10_7
+    label: " "
+    tag: "48"
+    at: { x: 216, y: 430 }
+    size: { w: 26, h: 26 }
+  - id: b_10_8
+    label: ""
+    hatch: solid
+    at: { x: 242, y: 430 }
+    size: { w: 26, h: 26 }
+  - id: b_10_9
+    label: " "
+    tag: "49"
+    at: { x: 268, y: 430 }
+    size: { w: 26, h: 26 }
+  - id: b_10_10
+    label: " "
+    at: { x: 294, y: 430 }
+    size: { w: 26, h: 26 }
+  - id: b_10_11
+    label: " "
+    at: { x: 320, y: 430 }
+    size: { w: 26, h: 26 }
+  - id: b_10_12
+    label: " "
+    at: { x: 346, y: 430 }
+    size: { w: 26, h: 26 }
+  - id: b_10_13
+    label: " "
+    tag: "50"
+    at: { x: 372, y: 430 }
+    size: { w: 26, h: 26 }
+  - id: b_10_14
+    label: " "
+    tag: "51"
+    at: { x: 398, y: 430 }
+    size: { w: 26, h: 26 }
+  - id: b_10_15
+    label: " "
+    tag: "52"
+    at: { x: 424, y: 430 }
+    size: { w: 26, h: 26 }
+  - id: b_11_1
+    label: " "
+    tag: "53"
+    at: { x: 60, y: 456 }
+    size: { w: 26, h: 26 }
+  - id: b_11_2
+    label: " "
+    at: { x: 86, y: 456 }
+    size: { w: 26, h: 26 }
+  - id: b_11_3
+    label: " "
+    at: { x: 112, y: 456 }
+    size: { w: 26, h: 26 }
+  - id: b_11_4
+    label: " "
+    at: { x: 138, y: 456 }
+    size: { w: 26, h: 26 }
+  - id: b_11_5
+    label: " "
+    at: { x: 164, y: 456 }
+    size: { w: 26, h: 26 }
+  - id: b_11_6
+    label: " "
+    at: { x: 190, y: 456 }
+    size: { w: 26, h: 26 }
+  - id: b_11_7
+    label: " "
+    at: { x: 216, y: 456 }
+    size: { w: 26, h: 26 }
+  - id: b_11_8
+    label: " "
+    tag: "54"
+    at: { x: 242, y: 456 }
+    size: { w: 26, h: 26 }
+  - id: b_11_9
+    label: ""
+    hatch: solid
+    at: { x: 268, y: 456 }
+    size: { w: 26, h: 26 }
+  - id: b_11_10
+    label: ""
+    hatch: solid
+    at: { x: 294, y: 456 }
+    size: { w: 26, h: 26 }
+  - id: b_11_11
+    label: " "
+    tag: "55"
+    at: { x: 320, y: 456 }
+    size: { w: 26, h: 26 }
+  - id: b_11_12
+    label: " "
+    at: { x: 346, y: 456 }
+    size: { w: 26, h: 26 }
+  - id: b_11_13
+    label: " "
+    at: { x: 372, y: 456 }
+    size: { w: 26, h: 26 }
+  - id: b_11_14
+    label: " "
+    at: { x: 398, y: 456 }
+    size: { w: 26, h: 26 }
+  - id: b_11_15
+    label: " "
+    at: { x: 424, y: 456 }
+    size: { w: 26, h: 26 }
+  - id: b_12_1
+    label: " "
+    tag: "56"
+    at: { x: 60, y: 482 }
+    size: { w: 26, h: 26 }
+  - id: b_12_2
+    label: " "
+    at: { x: 86, y: 482 }
+    size: { w: 26, h: 26 }
+  - id: b_12_3
+    label: " "
+    at: { x: 112, y: 482 }
+    size: { w: 26, h: 26 }
+  - id: b_12_4
+    label: " "
+    at: { x: 138, y: 482 }
+    size: { w: 26, h: 26 }
+  - id: b_12_5
+    label: " "
+    at: { x: 164, y: 482 }
+    size: { w: 26, h: 26 }
+  - id: b_12_6
+    label: " "
+    at: { x: 190, y: 482 }
+    size: { w: 26, h: 26 }
+  - id: b_12_7
+    label: " "
+    at: { x: 216, y: 482 }
+    size: { w: 26, h: 26 }
+  - id: b_12_8
+    label: " "
+    at: { x: 242, y: 482 }
+    size: { w: 26, h: 26 }
+  - id: b_12_9
+    label: " "
+    tag: "57"
+    at: { x: 268, y: 482 }
+    size: { w: 26, h: 26 }
+  - id: b_12_10
+    label: ""
+    hatch: solid
+    at: { x: 294, y: 482 }
+    size: { w: 26, h: 26 }
+  - id: b_12_11
+    label: " "
+    tag: "58"
+    at: { x: 320, y: 482 }
+    size: { w: 26, h: 26 }
+  - id: b_12_12
+    label: " "
+    at: { x: 346, y: 482 }
+    size: { w: 26, h: 26 }
+  - id: b_12_13
+    label: " "
+    at: { x: 372, y: 482 }
+    size: { w: 26, h: 26 }
+  - id: b_12_14
+    label: " "
+    at: { x: 398, y: 482 }
+    size: { w: 26, h: 26 }
+  - id: b_12_15
+    label: " "
+    at: { x: 424, y: 482 }
+    size: { w: 26, h: 26 }
+  - id: b_13_1
+    label: " "
+    tag: "59"
+    at: { x: 60, y: 508 }
+    size: { w: 26, h: 26 }
+  - id: b_13_2
+    label: " "
+    at: { x: 86, y: 508 }
+    size: { w: 26, h: 26 }
+  - id: b_13_3
+    label: " "
+    at: { x: 112, y: 508 }
+    size: { w: 26, h: 26 }
+  - id: b_13_4
+    label: ""
+    hatch: solid
+    at: { x: 138, y: 508 }
+    size: { w: 26, h: 26 }
+  - id: b_13_5
+    label: " "
+    tag: "60"
+    at: { x: 164, y: 508 }
+    size: { w: 26, h: 26 }
+  - id: b_13_6
+    label: " "
+    at: { x: 190, y: 508 }
+    size: { w: 26, h: 26 }
+  - id: b_13_7
+    label: " "
+    at: { x: 216, y: 508 }
+    size: { w: 26, h: 26 }
+  - id: b_13_8
+    label: " "
+    at: { x: 242, y: 508 }
+    size: { w: 26, h: 26 }
+  - id: b_13_9
+    label: " "
+    at: { x: 268, y: 508 }
+    size: { w: 26, h: 26 }
+  - id: b_13_10
+    label: " "
+    tag: "61"
+    at: { x: 294, y: 508 }
+    size: { w: 26, h: 26 }
+  - id: b_13_11
+    label: " "
+    at: { x: 320, y: 508 }
+    size: { w: 26, h: 26 }
+  - id: b_13_12
+    label: ""
+    hatch: solid
+    at: { x: 346, y: 508 }
+    size: { w: 26, h: 26 }
+  - id: b_13_13
+    label: " "
+    tag: "62"
+    at: { x: 372, y: 508 }
+    size: { w: 26, h: 26 }
+  - id: b_13_14
+    label: " "
+    at: { x: 398, y: 508 }
+    size: { w: 26, h: 26 }
+  - id: b_13_15
+    label: " "
+    at: { x: 424, y: 508 }
+    size: { w: 26, h: 26 }
+  - id: b_14_1
+    label: " "
+    tag: "63"
+    at: { x: 60, y: 534 }
+    size: { w: 26, h: 26 }
+  - id: b_14_2
+    label: " "
+    at: { x: 86, y: 534 }
+    size: { w: 26, h: 26 }
+  - id: b_14_3
+    label: " "
+    at: { x: 112, y: 534 }
+    size: { w: 26, h: 26 }
+  - id: b_14_4
+    label: ""
+    hatch: solid
+    at: { x: 138, y: 534 }
+    size: { w: 26, h: 26 }
+  - id: b_14_5
+    label: " "
+    tag: "64"
+    at: { x: 164, y: 534 }
+    size: { w: 26, h: 26 }
+  - id: b_14_6
+    label: " "
+    at: { x: 190, y: 534 }
+    size: { w: 26, h: 26 }
+  - id: b_14_7
+    label: " "
+    at: { x: 216, y: 534 }
+    size: { w: 26, h: 26 }
+  - id: b_14_8
+    label: " "
+    at: { x: 242, y: 534 }
+    size: { w: 26, h: 26 }
+  - id: b_14_9
+    label: " "
+    at: { x: 268, y: 534 }
+    size: { w: 26, h: 26 }
+  - id: b_14_10
+    label: " "
+    at: { x: 294, y: 534 }
+    size: { w: 26, h: 26 }
+  - id: b_14_11
+    label: " "
+    at: { x: 320, y: 534 }
+    size: { w: 26, h: 26 }
+  - id: b_14_12
+    label: ""
+    hatch: solid
+    at: { x: 346, y: 534 }
+    size: { w: 26, h: 26 }
+  - id: b_14_13
+    label: " "
+    tag: "65"
+    at: { x: 372, y: 534 }
+    size: { w: 26, h: 26 }
+  - id: b_14_14
+    label: " "
+    at: { x: 398, y: 534 }
+    size: { w: 26, h: 26 }
+  - id: b_14_15
+    label: " "
+    at: { x: 424, y: 534 }
+    size: { w: 26, h: 26 }
+  - id: b_15_1
+    label: " "
+    tag: "66"
+    at: { x: 60, y: 560 }
+    size: { w: 26, h: 26 }
+  - id: b_15_2
+    label: " "
+    at: { x: 86, y: 560 }
+    size: { w: 26, h: 26 }
+  - id: b_15_3
+    label: " "
+    at: { x: 112, y: 560 }
+    size: { w: 26, h: 26 }
+  - id: b_15_4
+    label: ""
+    hatch: solid
+    at: { x: 138, y: 560 }
+    size: { w: 26, h: 26 }
+  - id: b_15_5
+    label: " "
+    tag: "67"
+    at: { x: 164, y: 560 }
+    size: { w: 26, h: 26 }
+  - id: b_15_6
+    label: " "
+    at: { x: 190, y: 560 }
+    size: { w: 26, h: 26 }
+  - id: b_15_7
+    label: " "
+    at: { x: 216, y: 560 }
+    size: { w: 26, h: 26 }
+  - id: b_15_8
+    label: " "
+    at: { x: 242, y: 560 }
+    size: { w: 26, h: 26 }
+  - id: b_15_9
+    label: " "
+    at: { x: 268, y: 560 }
+    size: { w: 26, h: 26 }
+  - id: b_15_10
+    label: " "
+    at: { x: 294, y: 560 }
+    size: { w: 26, h: 26 }
+  - id: b_15_11
+    label: " "
+    at: { x: 320, y: 560 }
+    size: { w: 26, h: 26 }
+  - id: b_15_12
+    label: ""
+    hatch: solid
+    at: { x: 346, y: 560 }
+    size: { w: 26, h: 26 }
+  - id: b_15_13
+    label: " "
+    tag: "68"
+    at: { x: 372, y: 560 }
+    size: { w: 26, h: 26 }
+  - id: b_15_14
+    label: " "
+    at: { x: 398, y: 560 }
+    size: { w: 26, h: 26 }
+  - id: b_15_15
+    label: " "
+    at: { x: 424, y: 560 }
+    size: { w: 26, h: 26 }
+  - id: t_mini
+    label: "① 5×5（日本式・カタカナ）の答え"
+    marker: none
+    align: left
+    at: { x: 500, y: 138 }
+    size: { w: 320, h: 20 }
+  - id: t_mini2
+    label: "二重のマスを読む順に並べるとキーワード"
+    marker: none
+    align: left
+    at: { x: 500, y: 160 }
+    size: { w: 320, h: 18 }
+  - id: a_1_1
+    label: "ア"
+    tag: "1"
+    at: { x: 500, y: 196 }
+    size: { w: 46, h: 46 }
+  - id: a_1_2
+    label: "ヒ"
+    tag: "2"
+    at: { x: 546, y: 196 }
+    size: { w: 46, h: 46 }
+  - id: a_1_3
+    label: "ル"
+    at: { x: 592, y: 196 }
+    size: { w: 46, h: 46 }
+  - id: a_1_4
+    label: ""
+    hatch: solid
+    at: { x: 638, y: 196 }
+    size: { w: 46, h: 46 }
+  - id: a_1_5
+    label: "イ"
+    tag: "3"
+    at: { x: 684, y: 196 }
+    size: { w: 46, h: 46 }
+  - id: a_2_1
+    label: "シ"
+    tag: "4"
+    at: { x: 500, y: 242 }
+    size: { w: 46, h: 46 }
+  - id: a_2_2
+    label: "マ"
+    at: { x: 546, y: 242 }
+    size: { w: 46, h: 46 }
+  - id: a_2_3
+    label: ""
+    hatch: solid
+    at: { x: 592, y: 242 }
+    size: { w: 46, h: 46 }
+  - id: a_2_4
+    label: "ナ"
+    tag: "5"
+    at: { x: 638, y: 242 }
+    size: { w: 46, h: 46 }
+  - id: a_2_5
+    label: "カ"
+    at: { x: 684, y: 242 }
+    size: { w: 46, h: 46 }
+  - id: a_3_1
+    label: ""
+    hatch: solid
+    at: { x: 500, y: 288 }
+    size: { w: 46, h: 46 }
+  - id: a_3_2
+    label: "ワ"
+    tag: "6"
+    at: { x: 546, y: 288 }
+    size: { w: 46, h: 46 }
+  - id: a_3_3
+    label: "カ"
+    at: { x: 592, y: 288 }
+    size: { w: 46, h: 46 }
+  - id: a_3_4
+    label: "メ"
+    at: { x: 638, y: 288 }
+    size: { w: 46, h: 46 }
+  - id: a_3_5
+    label: ""
+    hatch: solid
+    at: { x: 684, y: 288 }
+    size: { w: 46, h: 46 }
+  - id: a_4_1
+    label: "ク"
+    tag: "7"
+    at: { x: 500, y: 334 }
+    size: { w: 46, h: 46 }
+  - id: a_4_2
+    label: "リ"
+    at: { x: 546, y: 334 }
+    size: { w: 46, h: 46 }
+  - id: a_4_3
+    label: ""
+    hatch: solid
+    at: { x: 592, y: 334 }
+    size: { w: 46, h: 46 }
+  - id: a_4_4
+    label: "ク"
+    tag: "8"
+    at: { x: 638, y: 334 }
+    size: { w: 46, h: 46 }
+  - id: a_4_5
+    label: "サ"
+    tag: "9"
+    at: { x: 684, y: 334 }
+    size: { w: 46, h: 46 }
+  - id: a_5_1
+    label: "チ"
+    at: { x: 500, y: 380 }
+    size: { w: 46, h: 46 }
+  - id: a_5_2
+    label: ""
+    hatch: solid
+    at: { x: 546, y: 380 }
+    size: { w: 46, h: 46 }
+  - id: a_5_3
+    label: "ク"
+    tag: "10"
+    at: { x: 592, y: 380 }
+    size: { w: 46, h: 46 }
+  - id: a_5_4
+    label: "ジ"
+    at: { x: 638, y: 380 }
+    size: { w: 46, h: 46 }
+  - id: a_5_5
+    label: "ラ"
+    at: { x: 684, y: 380 }
+    size: { w: 46, h: 46 }
+  - id: k0
+    label: ""
+    marker: none
+    at: { x: 504, y: 200 }
+    size: { w: 2, h: 2 }
+  - id: k1
+    label: ""
+    marker: none
+    at: { x: 504, y: 246 }
+    size: { w: 2, h: 2 }
+  - id: k2
+    label: ""
+    marker: none
+    at: { x: 688, y: 246 }
+    size: { w: 2, h: 2 }
+  - id: c_a
+    label: "ヨコのカギ"
+    marker: none
+    align: left
+    at: { x: 790, y: 196 }
+    size: { w: 120, h: 20 }
+  - id: ca1
+    label: "1　水辺でガーガー"
+    marker: none
+    align: left
+    at: { x: 790, y: 220 }
+    size: { w: 300, h: 18 }
+  - id: ca4
+    label: "4　まわりが海"
+    marker: none
+    align: left
+    at: { x: 790, y: 242 }
+    size: { w: 300, h: 18 }
+  - id: ca5
+    label: "5　外の反対"
+    marker: none
+    align: left
+    at: { x: 790, y: 264 }
+    size: { w: 300, h: 18 }
+  - id: ca6
+    label: "6　みそ汁に入る海藻"
+    marker: none
+    align: left
+    at: { x: 790, y: 286 }
+    size: { w: 300, h: 18 }
+  - id: ca7
+    label: "7　いがの中の実"
+    marker: none
+    align: left
+    at: { x: 790, y: 308 }
+    size: { w: 300, h: 18 }
+  - id: ca8
+    label: "8　庭に生える"
+    marker: none
+    align: left
+    at: { x: 790, y: 330 }
+    size: { w: 300, h: 18 }
+  - id: ca10
+    label: "10　海でいちばん大きい"
+    marker: none
+    align: left
+    at: { x: 790, y: 352 }
+    size: { w: 300, h: 18 }
+  - id: c_d
+    label: "タテのカギ"
+    marker: none
+    align: left
+    at: { x: 790, y: 388 }
+    size: { w: 120, h: 20 }
+  - id: cd1
+    label: "1　歩くのに使う"
+    marker: none
+    align: left
+    at: { x: 790, y: 412 }
+    size: { w: 300, h: 18 }
+  - id: cd2
+    label: "2　太陽を向く花"
+    marker: none
+    align: left
+    at: { x: 790, y: 434 }
+    size: { w: 300, h: 18 }
+  - id: cd3
+    label: "3　足が 10 本"
+    marker: none
+    align: left
+    at: { x: 790, y: 456 }
+    size: { w: 300, h: 18 }
+  - id: cd5
+    label: "5　塩に弱い"
+    marker: none
+    align: left
+    at: { x: 790, y: 478 }
+    size: { w: 300, h: 18 }
+  - id: cd7
+    label: "7　ものを食べるところ"
+    marker: none
+    align: left
+    at: { x: 790, y: 500 }
+    size: { w: 300, h: 18 }
+  - id: cd9
+    label: "9　料理をのせる"
+    marker: none
+    align: left
+    at: { x: 790, y: 522 }
+    size: { w: 300, h: 18 }
+  - id: h60_640
+    label: "この 2 枚の数字（盤面から数えた）"
+    hatch: solid
+    at: { x: 60, y: 640 }
+    size: { w: 470, h: 22 }
+  - id: x60_662
+    label: "5×5"
+    at: { x: 60, y: 662 }
+    size: { w: 160, h: 22 }
+  - id: y60_662
+    label: "黒 6 マス・語 13・番号 10 個"
+    align: left
+    at: { x: 220, y: 662 }
+    size: { w: 310, h: 22 }
+  - id: x60_684
+    label: "15×15"
+    at: { x: 60, y: 684 }
+    size: { w: 160, h: 22 }
+  - id: y60_684
+    label: "黒 34 マス（15.1%）・語 72"
+    align: left
+    at: { x: 220, y: 684 }
+    size: { w: 310, h: 22 }
+  - id: x60_706
+    label: "語の長さ"
+    at: { x: 60, y: 706 }
+    size: { w: 160, h: 22 }
+  - id: y60_706
+    label: "15×15 は 3〜9 文字。2 文字は作らない"
+    align: left
+    at: { x: 220, y: 706 }
+    size: { w: 310, h: 22 }
+  - id: x60_728
+    label: "① のキーワード"
+    at: { x: 60, y: 728 }
+    size: { w: 160, h: 22 }
+  - id: y60_728
+    label: "アシカ（二重のマスを読む順に）"
+    align: left
+    at: { x: 220, y: 728 }
+    size: { w: 310, h: 22 }
+  - id: h60_764
+    label: "盤面の決まり（アメリカ式）"
+    hatch: solid
+    at: { x: 60, y: 764 }
+    size: { w: 470, h: 22 }
+  - id: x60_786
+    label: "対称"
+    at: { x: 60, y: 786 }
+    size: { w: 160, h: 22 }
+  - id: y60_786
+    label: "180 度回して同じ形になる"
+    align: left
+    at: { x: 220, y: 786 }
+    size: { w: 310, h: 22 }
+  - id: x60_808
+    label: "3 文字以上"
+    at: { x: 60, y: 808 }
+    size: { w: 160, h: 22 }
+  - id: y60_808
+    label: "2 文字の語を作らない"
+    align: left
+    at: { x: 220, y: 808 }
+    size: { w: 310, h: 22 }
+  - id: x60_830
+    label: "全交差"
+    at: { x: 60, y: 830 }
+    size: { w: 160, h: 22 }
+  - id: y60_830
+    label: "すべてのマスがヨコとタテの両方に入る"
+    align: left
+    at: { x: 220, y: 830 }
+    size: { w: 310, h: 22 }
+  - id: x60_852
+    label: "分断しない"
+    at: { x: 60, y: 852 }
+    size: { w: 160, h: 22 }
+  - id: y60_852
+    label: "黒マスで盤面を 2 つに切らない"
+    align: left
+    at: { x: 220, y: 852 }
+    size: { w: 310, h: 22 }
+  - id: x60_874
+    label: "黒マス"
+    at: { x: 60, y: 874 }
+    size: { w: 160, h: 22 }
+  - id: y60_874
+    label: "16% 以下が目安（15×15 なら 36 マス）"
+    align: left
+    at: { x: 220, y: 874 }
+    size: { w: 310, h: 22 }
+  - id: x60_896
+    label: "語数"
+    at: { x: 60, y: 896 }
+    size: { w: 160, h: 22 }
+  - id: y60_896
+    label: "平日の 15×15 は 78 語以下"
+    align: left
+    at: { x: 220, y: 896 }
+    size: { w: 310, h: 22 }
+  - id: h60_932
+    label: "盤面の決まり（日本式）"
+    hatch: solid
+    at: { x: 60, y: 932 }
+    size: { w: 470, h: 22 }
+  - id: x60_954
+    label: "四隅"
+    at: { x: 60, y: 954 }
+    size: { w: 160, h: 22 }
+  - id: y60_954
+    label: "黒マスを置かない"
+    align: left
+    at: { x: 220, y: 954 }
+    size: { w: 310, h: 22 }
+  - id: x60_976
+    label: "連続"
+    at: { x: 60, y: 976 }
+    size: { w: 160, h: 22 }
+  - id: y60_976
+    label: "黒マスを上下・左右に並べない"
+    align: left
+    at: { x: 220, y: 976 }
+    size: { w: 310, h: 22 }
+  - id: x60_998
+    label: "分断しない"
+    at: { x: 60, y: 998 }
+    size: { w: 160, h: 22 }
+  - id: y60_998
+    label: "同じ。白マスはひとつながり"
+    align: left
+    at: { x: 220, y: 998 }
+    size: { w: 310, h: 22 }
+  - id: x60_1020
+    label: "交差"
+    at: { x: 60, y: 1020 }
+    size: { w: 160, h: 22 }
+  - id: y60_1020
+    label: "アメリカ式ほど絡ませない"
+    align: left
+    at: { x: 220, y: 1020 }
+    size: { w: 310, h: 22 }
+  - id: x60_1042
+    label: "対称"
+    at: { x: 60, y: 1042 }
+    size: { w: 160, h: 22 }
+  - id: y60_1042
+    label: "好ましいが、必須ではない"
+    align: left
+    at: { x: 220, y: 1042 }
+    size: { w: 310, h: 22 }
+  - id: x60_1064
+    label: "二重マス"
+    at: { x: 60, y: 1064 }
+    size: { w: 160, h: 22 }
+  - id: y60_1064
+    label: "答えから 1 字ずつ拾ってキーワードに"
+    align: left
+    at: { x: 220, y: 1064 }
+    size: { w: 310, h: 22 }
+  - id: h560_640
+    label: "カタカナの数え方"
+    hatch: solid
+    at: { x: 560, y: 640 }
+    size: { w: 470, h: 22 }
+  - id: x560_662
+    label: "小さい字"
+    at: { x: 560, y: 662 }
+    size: { w: 160, h: 22 }
+  - id: y560_662
+    label: "ャ・ュ・ョ・ッ も 1 マス"
+    align: left
+    at: { x: 720, y: 662 }
+    size: { w: 310, h: 22 }
+  - id: x560_684
+    label: "拗音"
+    at: { x: 560, y: 684 }
+    size: { w: 160, h: 22 }
+  - id: y560_684
+    label: "キャ は 2 マス（キ と ャ）"
+    align: left
+    at: { x: 720, y: 684 }
+    size: { w: 310, h: 22 }
+  - id: x560_706
+    label: "濁点・半濁点"
+    at: { x: 560, y: 706 }
+    size: { w: 160, h: 22 }
+  - id: y560_706
+    label: "ハ と バ と パ は別の字"
+    align: left
+    at: { x: 720, y: 706 }
+    size: { w: 310, h: 22 }
+  - id: x560_728
+    label: "長音"
+    at: { x: 560, y: 728 }
+    size: { w: 160, h: 22 }
+  - id: y560_728
+    label: "ー は 1 マス。向きは問わない"
+    align: left
+    at: { x: 720, y: 728 }
+    size: { w: 310, h: 22 }
+  - id: x560_750
+    label: "同じ語"
+    at: { x: 560, y: 750 }
+    size: { w: 160, h: 22 }
+  - id: y560_750
+    label: "1 枚に 2 回は使わない"
+    align: left
+    at: { x: 720, y: 750 }
+    size: { w: 310, h: 22 }
+  - id: h560_786
+    label: "英国式（cryptic）とのちがい"
+    hatch: solid
+    at: { x: 560, y: 786 }
+    size: { w: 470, h: 22 }
+  - id: x560_808
+    label: "絡み"
+    at: { x: 560, y: 808 }
+    size: { w: 160, h: 22 }
+  - id: y560_808
+    label: "半分のマスしか交差しない（格子模様）"
+    align: left
+    at: { x: 720, y: 808 }
+    size: { w: 310, h: 22 }
+  - id: x560_830
+    label: "カギ"
+    at: { x: 560, y: 830 }
+    size: { w: 160, h: 22 }
+  - id: y560_830
+    label: "言葉遊び。定義と仕掛けの二重構造"
+    align: left
+    at: { x: 720, y: 830 }
+    size: { w: 310, h: 22 }
+  - id: x560_852
+    label: "黒マス"
+    at: { x: 560, y: 852 }
+    size: { w: 160, h: 22 }
+  - id: y560_852
+    label: "対称。連続の決まりはアメリカ式と別"
+    align: left
+    at: { x: 720, y: 852 }
+    size: { w: 310, h: 22 }
+  - id: h560_888
+    label: "番号の振り方"
+    hatch: solid
+    at: { x: 560, y: 888 }
+    size: { w: 470, h: 22 }
+  - id: x560_910
+    label: "順"
+    at: { x: 560, y: 910 }
+    size: { w: 160, h: 22 }
+  - id: y560_910
+    label: "左上から行の順に数える"
+    align: left
+    at: { x: 720, y: 910 }
+    size: { w: 310, h: 22 }
+  - id: x560_932
+    label: "付けるマス"
+    at: { x: 560, y: 932 }
+    size: { w: 160, h: 22 }
+  - id: y560_932
+    label: "語の始まるマスだけ"
+    align: left
+    at: { x: 720, y: 932 }
+    size: { w: 310, h: 22 }
+  - id: x560_954
+    label: "ヨコとタテ"
+    at: { x: 560, y: 954 }
+    size: { w: 160, h: 22 }
+  - id: y560_954
+    label: "同じマスから始まれば同じ番号"
+    align: left
+    at: { x: 720, y: 954 }
+    size: { w: 310, h: 22 }
+  - id: n1
+    label: "クロスワードは、絵ではなく盤面の図です。語より先に、黒マスの形が決まります。"
+    marker: none
+    align: left
+    at: { x: 560, y: 1006 }
+    size: { w: 560, h: 18 }
+  - id: n2
+    label: "黒マスの形が語の長さと本数を決め、そこへ入る語が探されます。"
+    marker: none
+    align: left
+    at: { x: 560, y: 1028 }
+    size: { w: 560, h: 18 }
+  - id: n3
+    label: "①は交差する字がすべて合っています（作るときに機械で確かめました）。"
+    marker: none
+    align: left
+    at: { x: 560, y: 1050 }
+    size: { w: 560, h: 18 }
+  - id: n4
+    label: "②は盤面だけなので解けません。作る人はここから始めます。"
+    marker: none
+    align: left
+    at: { x: 560, y: 1072 }
+    size: { w: 560, h: 18 }
+edges:
+  - from: k0
+    to: k0
+    close: true
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 505, y: 201 }
+      - { x: 541, y: 201 }
+      - { x: 541, y: 237 }
+      - { x: 505, y: 237 }
+  - from: k1
+    to: k1
+    close: true
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 505, y: 247 }
+      - { x: 541, y: 247 }
+      - { x: 541, y: 283 }
+      - { x: 505, y: 283 }
+  - from: k2
+    to: k2
+    close: true
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 689, y: 247 }
+      - { x: 725, y: 247 }
+      - { x: 725, y: 283 }
+      - { x: 689, y: 283 }

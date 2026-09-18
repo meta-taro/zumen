@@ -100,6 +100,7 @@ export const CAPTIONS_EN = {
   '148-Egress-plan': 'Egress plan: three lengths answering three questions',
   '119-消火器と消火栓の配置図': 'Extinguishers and hose reels, measured two different ways',
   '158-Cattle-handling-facility': 'Every dimension comes from what cattle will not do',
+  '171-クロスワードの盤面図': 'A crossword is a grid before it is words: the black squares decide the lengths',
   '170-レゴのモザイク割り付け図': 'A brick mosaic chart: the colour IS the instruction, so every cell also carries a code',
   '169-麻雀の配牌': 'Mahjong: the dice decide where the wall is opened, not luck',
   '168-ダイヤモンドシステム': 'Billiards: the diamonds on the rails are a ruler, not decoration',
