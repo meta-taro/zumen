@@ -553,6 +553,22 @@ const WIDE_ENOUGH = 200;
 const WIDE_ENOUGH_BARE = 40;
 
 /**
+ * **幅ではなく形で見分ける**（2026-09-18）。
+ *
+ * 上の 120px の試みが失敗したのは、**幅だけで表の欄と小さい印を分けようとした**から。
+ * 見るべきは形で、**表の欄は横長で背が低い**（150×22）。
+ * クレーンの印や駅の丸は、そうなっていない。
+ *
+ * 送電線路の縦断面図（見本 174）を描いていて、
+ * **150px の欄から名前が 400px 先の図の上へ着地した**のに黙っていた。
+ * この形で数え直すと、見本 173 枚で新たに鳴るのは 3 件だけで、
+ * どれも**欄からはみ出した表の値**だった（積載計画図と積付図の注記）。
+ */
+function isStrip(box: Box): boolean {
+  return box.w >= 3 * box.h && box.w >= 80;
+}
+
+/**
  * **どれだけ足りないか**（`id` と、測った名前の幅と箱の幅）。
  *
  * 「箱を広げるか、文字を短くしてください」だけでは、**何 px 足りないのか分からない。**
@@ -572,7 +588,7 @@ export function adriftDetails(boxes: readonly Box[], plans: Map<string, Plan>): 
     .filter(
       (box) =>
         box.label !== '' &&
-        box.w >= (box.marker === 'none' ? WIDE_ENOUGH_BARE : WIDE_ENOUGH) &&
+        (box.w >= (box.marker === 'none' ? WIDE_ENOUGH_BARE : WIDE_ENOUGH) || isStrip(box)) &&
         (box.marker === 'box' || box.marker === 'none') &&
         box.symbol === null &&
         plans.get(box.id)?.kind === 'outside',

@@ -1,0 +1,1018 @@
+version: 1
+kind: placement
+arrows: false
+title: 送電線路の縦断面図（275kV・架空）
+# **プロフィール図。** 送電線が地面からどれだけ離れているかを見る図。
+#
+# **縦横で縮尺が違う**（横 1:5,000／縦 1:1,000）。縦を強調しないと、
+# 130m の起伏が 1,150m の中で潰れて読めない —— だから \`scale\` は書かない
+# （1 つしか持てない縮尺を書くと、もう片方が嘘になる）。
+# 同じ理由で**斜めの寸法線を引かない**。長さは数字で書く。
+#
+# 弛度は D ＝ WS² ÷ 8T（W 電線の重量・S 径間・T 水平張力）。
+# **径間が延びると二乗で増える。** いちばん垂れるのは最高気温・無風のときで、
+# そのときに最低地上高を満たすように鉄塔の高さを決める。
+#
+# 最低地上高は解釈 87 条。160kV を超える分は 10kV ごとに 12cm を足す。
+# この図の弛度・地上高は、W・T・径間から計算した（手で書いていない）。
+nodes:
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 69, y: 443 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 56, y: 443 }
+    size: { w: 2, h: 2 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 65, y: 319 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 43, y: 325 }
+    size: { w: 2, h: 2 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 74, y: 325 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 39, y: 337 }
+    size: { w: 2, h: 2 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 74, y: 337 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 43, y: 349 }
+    size: { w: 2, h: 2 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 74, y: 349 }
+    size: { w: 2, h: 2 }
+  - id: t_No.12
+    label: "No.12"
+    marker: none
+    align: center
+    at: { x: 36, y: 454 }
+    size: { w: 68, h: 18 }
+  - id: ty_No.12
+    label: "耐張　H=62m"
+    marker: none
+    align: center
+    at: { x: 18, y: 472 }
+    size: { w: 104, h: 16 }
+  - id: el_No.12
+    label: "GL+118m"
+    marker: none
+    align: center
+    at: { x: 24, y: 490 }
+    size: { w: 92, h: 16 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 309.3, y: 437 }
+    size: { w: 2, h: 2 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 318.3, y: 297 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 296.3, y: 303 }
+    size: { w: 2, h: 2 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 327.3, y: 303 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 292.3, y: 315 }
+    size: { w: 2, h: 2 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 327.3, y: 315 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 296.3, y: 327 }
+    size: { w: 2, h: 2 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 327.3, y: 327 }
+    size: { w: 2, h: 2 }
+  - id: t_No.13
+    label: "No.13"
+    marker: none
+    align: center
+    at: { x: 289.3, y: 448 }
+    size: { w: 68, h: 18 }
+  - id: ty_No.13
+    label: "懸垂　H=70m"
+    marker: none
+    align: center
+    at: { x: 271.3, y: 466 }
+    size: { w: 104, h: 16 }
+  - id: el_No.13
+    label: "GL+121m"
+    marker: none
+    align: center
+    at: { x: 277.3, y: 484 }
+    size: { w: 92, h: 16 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 589.3, y: 387 }
+    size: { w: 2, h: 2 }
+  - id: p18
+    label: ""
+    marker: none
+    at: { x: 598.3, y: 271 }
+    size: { w: 2, h: 2 }
+  - id: p19
+    label: ""
+    marker: none
+    at: { x: 576.3, y: 277 }
+    size: { w: 2, h: 2 }
+  - id: p20
+    label: ""
+    marker: none
+    at: { x: 607.3, y: 277 }
+    size: { w: 2, h: 2 }
+  - id: p21
+    label: ""
+    marker: none
+    at: { x: 572.3, y: 289 }
+    size: { w: 2, h: 2 }
+  - id: p22
+    label: ""
+    marker: none
+    at: { x: 607.3, y: 289 }
+    size: { w: 2, h: 2 }
+  - id: p23
+    label: ""
+    marker: none
+    at: { x: 576.3, y: 301 }
+    size: { w: 2, h: 2 }
+  - id: p24
+    label: ""
+    marker: none
+    at: { x: 607.3, y: 301 }
+    size: { w: 2, h: 2 }
+  - id: t_No.14
+    label: "No.14"
+    marker: none
+    align: center
+    at: { x: 569.3, y: 398 }
+    size: { w: 68, h: 18 }
+  - id: ty_No.14
+    label: "懸垂　H=58m"
+    marker: none
+    align: center
+    at: { x: 551.3, y: 416 }
+    size: { w: 104, h: 16 }
+  - id: el_No.14
+    label: "GL+146m"
+    marker: none
+    align: center
+    at: { x: 557.3, y: 434 }
+    size: { w: 92, h: 16 }
+  - id: p25
+    label: ""
+    marker: none
+    at: { x: 822.7, y: 447 }
+    size: { w: 2, h: 2 }
+  - id: p26
+    label: ""
+    marker: none
+    at: { x: 831.7, y: 315 }
+    size: { w: 2, h: 2 }
+  - id: p27
+    label: ""
+    marker: none
+    at: { x: 809.7, y: 321 }
+    size: { w: 2, h: 2 }
+  - id: p28
+    label: ""
+    marker: none
+    at: { x: 840.7, y: 321 }
+    size: { w: 2, h: 2 }
+  - id: p29
+    label: ""
+    marker: none
+    at: { x: 805.7, y: 333 }
+    size: { w: 2, h: 2 }
+  - id: p30
+    label: ""
+    marker: none
+    at: { x: 840.7, y: 333 }
+    size: { w: 2, h: 2 }
+  - id: p31
+    label: ""
+    marker: none
+    at: { x: 809.7, y: 345 }
+    size: { w: 2, h: 2 }
+  - id: p32
+    label: ""
+    marker: none
+    at: { x: 840.7, y: 345 }
+    size: { w: 2, h: 2 }
+  - id: t_No.15
+    label: "No.15"
+    marker: none
+    align: center
+    at: { x: 802.7, y: 458 }
+    size: { w: 68, h: 18 }
+  - id: ty_No.15
+    label: "耐張　H=66m"
+    marker: none
+    align: center
+    at: { x: 784.7, y: 476 }
+    size: { w: 104, h: 16 }
+  - id: el_No.15
+    label: "GL+116m"
+    marker: none
+    align: center
+    at: { x: 790.7, y: 494 }
+    size: { w: 92, h: 16 }
+  - id: p33
+    label: ""
+    marker: none
+    at: { x: 69, y: 331 }
+    size: { w: 2, h: 2 }
+  - id: s0
+    label: "径間 380m　弛度 11.1m"
+    marker: none
+    align: center
+    at: { x: 80, y: 280 }
+    size: { w: 180, h: 18 }
+  - id: p34
+    label: ""
+    marker: none
+    at: { x: 81.7, y: 334.1 }
+    size: { w: 2, h: 2 }
+  - id: g0
+    label: "地上高 55.9m"
+    marker: none
+    align: center
+    at: { x: 30.7, y: 420.9 }
+    size: { w: 104, h: 16 }
+  - id: p35
+    label: ""
+    marker: none
+    at: { x: 322.3, y: 309 }
+    size: { w: 2, h: 2 }
+  - id: s1
+    label: "径間 420m　弛度 13.6m"
+    marker: none
+    align: center
+    at: { x: 333.3, y: 258 }
+    size: { w: 180, h: 18 }
+  - id: p36
+    label: ""
+    marker: none
+    at: { x: 448.3, y: 324.2 }
+    size: { w: 2, h: 2 }
+  - id: g1
+    label: "地上高 13.6m"
+    marker: none
+    align: center
+    at: { x: 397.3, y: 326.3 }
+    size: { w: 104, h: 16 }
+  - id: p37
+    label: ""
+    marker: none
+    at: { x: 602.3, y: 283 }
+    size: { w: 2, h: 2 }
+  - id: s2
+    label: "径間 350m　弛度 9.4m"
+    marker: none
+    align: center
+    at: { x: 613.3, y: 232 }
+    size: { w: 180, h: 18 }
+  - id: p38
+    label: ""
+    marker: none
+    at: { x: 602.3, y: 283 }
+    size: { w: 2, h: 2 }
+  - id: g2
+    label: "地上高 52m"
+    marker: none
+    align: center
+    at: { x: 551.3, y: 362 }
+    size: { w: 104, h: 16 }
+  - id: p39
+    label: ""
+    marker: none
+    at: { x: 69, y: 430.1 }
+    size: { w: 2, h: 2 }
+  - id: need
+    label: "最低地上高 6.44m（山地等）"
+    marker: none
+    align: left
+    at: { x: 510, y: 530 }
+    size: { w: 200, h: 18 }
+  - id: datum
+    label: "標高 60m"
+    marker: none
+    align: right
+    at: { x: -6, y: 532 }
+    size: { w: 68, h: 18 }
+  - id: p40
+    label: ""
+    marker: none
+    at: { x: 61, y: 559 }
+    size: { w: 2, h: 2 }
+  - id: h70
+    label: "この図の数字（図から計算した）"
+    hatch: solid
+    at: { x: 1026.7, y: 70 }
+    size: { w: 470, h: 22 }
+  - id: a92
+    label: "使用電圧"
+    at: { x: 1026.7, y: 92 }
+    size: { w: 150, h: 22 }
+  - id: b92
+    label: "275kV"
+    align: left
+    at: { x: 1176.7, y: 92 }
+    size: { w: 320, h: 22 }
+  - id: a114
+    label: "弛度の式"
+    at: { x: 1026.7, y: 114 }
+    size: { w: 150, h: 22 }
+  - id: b114
+    label: "D ＝ WS² ÷ 8T"
+    align: left
+    at: { x: 1176.7, y: 114 }
+    size: { w: 320, h: 22 }
+  - id: a136
+    label: "電線の重量 W"
+    at: { x: 1026.7, y: 136 }
+    size: { w: 150, h: 22 }
+  - id: b136
+    label: "15.4 N/m"
+    align: left
+    at: { x: 1176.7, y: 136 }
+    size: { w: 320, h: 22 }
+  - id: a158
+    label: "水平張力 T"
+    at: { x: 1026.7, y: 158 }
+    size: { w: 150, h: 22 }
+  - id: b158
+    label: "25 kN"
+    align: left
+    at: { x: 1176.7, y: 158 }
+    size: { w: 320, h: 22 }
+  - id: a180
+    label: "No.12〜No.13"
+    at: { x: 1026.7, y: 180 }
+    size: { w: 150, h: 22 }
+  - id: b180
+    label: "径間 380m　弛度 11.1m　地上高 55.9m"
+    align: left
+    at: { x: 1176.7, y: 180 }
+    size: { w: 320, h: 22 }
+  - id: a202
+    label: "No.13〜No.14"
+    at: { x: 1026.7, y: 202 }
+    size: { w: 150, h: 22 }
+  - id: b202
+    label: "径間 420m　弛度 13.6m　地上高 13.6m"
+    align: left
+    at: { x: 1176.7, y: 202 }
+    size: { w: 320, h: 22 }
+  - id: a224
+    label: "No.14〜No.15"
+    at: { x: 1026.7, y: 224 }
+    size: { w: 150, h: 22 }
+  - id: b224
+    label: "径間 350m　弛度 9.4m　地上高 52m"
+    align: left
+    at: { x: 1176.7, y: 224 }
+    size: { w: 320, h: 22 }
+  - id: h260
+    label: "最低地上高（解釈 87 条）"
+    hatch: solid
+    at: { x: 1026.7, y: 260 }
+    size: { w: 470, h: 22 }
+  - id: a282
+    label: "35kV 以下"
+    at: { x: 1026.7, y: 282 }
+    size: { w: 150, h: 22 }
+  - id: b282
+    label: "5m（道路横断 6m・鉄道横断 5.5m）"
+    align: left
+    at: { x: 1176.7, y: 282 }
+    size: { w: 320, h: 22 }
+  - id: a304
+    label: "35kV 超〜160kV"
+    at: { x: 1026.7, y: 304 }
+    size: { w: 150, h: 22 }
+  - id: b304
+    label: "6m（山地等で人が立ち入らない所 5m）"
+    align: left
+    at: { x: 1176.7, y: 304 }
+    size: { w: 320, h: 22 }
+  - id: a326
+    label: "160kV 超"
+    at: { x: 1026.7, y: 326 }
+    size: { w: 150, h: 22 }
+  - id: b326
+    label: "10kV ごとに 12cm を足す"
+    align: left
+    at: { x: 1176.7, y: 326 }
+    size: { w: 320, h: 22 }
+  - id: a348
+    label: "この線路（275kV）"
+    at: { x: 1026.7, y: 348 }
+    size: { w: 150, h: 22 }
+  - id: b348
+    label: "5m ＋ 12×0.12m ＝ 6.44m（山地等）"
+    align: left
+    at: { x: 1176.7, y: 348 }
+    size: { w: 320, h: 22 }
+  - id: h384
+    label: "縦断面図の決まり"
+    hatch: solid
+    at: { x: 1026.7, y: 384 }
+    size: { w: 470, h: 22 }
+  - id: a406
+    label: "縦横で縮尺が違う"
+    at: { x: 1026.7, y: 406 }
+    size: { w: 150, h: 22 }
+  - id: b406
+    label: "横 1:5,000／縦 1:1,000。縦を強調して読む"
+    align: left
+    at: { x: 1176.7, y: 406 }
+    size: { w: 320, h: 22 }
+  - id: a428
+    label: "寸法線を引かない"
+    at: { x: 1026.7, y: 428 }
+    size: { w: 150, h: 22 }
+  - id: b428
+    label: "長さは数字で書く（斜めの寸法が嘘になる）"
+    align: left
+    at: { x: 1176.7, y: 428 }
+    size: { w: 320, h: 22 }
+  - id: a450
+    label: "弛度は最大で見る"
+    at: { x: 1026.7, y: 450 }
+    size: { w: 150, h: 22 }
+  - id: b450
+    label: "最高気温・無風。電線が伸びて、いちばん垂れる"
+    align: left
+    at: { x: 1176.7, y: 450 }
+    size: { w: 320, h: 22 }
+  - id: a472
+    label: "地上高"
+    at: { x: 1026.7, y: 472 }
+    size: { w: 150, h: 22 }
+  - id: b472
+    label: "いちばん近い点で測る。径間の真ん中とは限らない"
+    align: left
+    at: { x: 1176.7, y: 472 }
+    size: { w: 320, h: 22 }
+  - id: h508
+    label: "鉄塔の型"
+    hatch: solid
+    at: { x: 1026.7, y: 508 }
+    size: { w: 470, h: 22 }
+  - id: a530
+    label: "懸垂型"
+    at: { x: 1026.7, y: 530 }
+    size: { w: 150, h: 22 }
+  - id: b530
+    label: "直線部。がいしが吊り下がる"
+    align: left
+    at: { x: 1176.7, y: 530 }
+    size: { w: 320, h: 22 }
+  - id: a552
+    label: "耐張型"
+    at: { x: 1026.7, y: 552 }
+    size: { w: 150, h: 22 }
+  - id: b552
+    label: "角度・引留め。電線を引き留める"
+    align: left
+    at: { x: 1176.7, y: 552 }
+    size: { w: 320, h: 22 }
+  - id: a574
+    label: "径間"
+    at: { x: 1026.7, y: 574 }
+    size: { w: 150, h: 22 }
+  - id: b574
+    label: "300〜500m が経済的"
+    align: left
+    at: { x: 1176.7, y: 574 }
+    size: { w: 320, h: 22 }
+  - id: a596
+    label: "この図"
+    at: { x: 1026.7, y: 596 }
+    size: { w: 150, h: 22 }
+  - id: b596
+    label: "2 回線・3 段の腕金（いちばん下の相で描いた）"
+    align: left
+    at: { x: 1176.7, y: 596 }
+    size: { w: 320, h: 22 }
+  - id: n1
+    label: "縦断面図（プロフィール）は、送電線が地面からどれだけ離れているかを見る図です。"
+    marker: none
+    align: left
+    at: { x: 70, y: 700 }
+    size: { w: 760, h: 18 }
+  - id: n2
+    label: "電線はたるみます。たるみ（弛度）は D ＝ WS² ÷ 8T で、径間が延びると二乗で増えます。"
+    marker: none
+    align: left
+    at: { x: 70, y: 722 }
+    size: { w: 760, h: 18 }
+  - id: n3
+    label: "いちばん垂れるのは最高気温・無風のとき。そのときで最低地上高を満たすように、鉄塔の高さを決めます。"
+    marker: none
+    align: left
+    at: { x: 70, y: 744 }
+    size: { w: 760, h: 18 }
+  - id: n4
+    label: "この線路は 275kV なので、山地等で 6.44m 必要です（解釈 87 条）。"
+    marker: none
+    align: left
+    at: { x: 70, y: 766 }
+    size: { w: 760, h: 18 }
+  - id: n5
+    label: "縦断面図は縦横で縮尺が違うので、斜めの寸法線を引きません。長さは数字で書きます。"
+    marker: none
+    align: left
+    at: { x: 70, y: 788 }
+    size: { w: 760, h: 18 }
+  - id: n6
+    label: "線路・地形・鉄塔番号はすべて架空です。"
+    marker: none
+    align: left
+    at: { x: 70, y: 810 }
+    size: { w: 760, h: 18 }
+edges:
+  - from: p0
+    to: p0
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 70, y: 444 }
+      - { x: 123.3, y: 456 }
+      - { x: 183.3, y: 482 }
+      - { x: 243.3, y: 472 }
+      - { x: 296.7, y: 448 }
+      - { x: 323.3, y: 438 }
+      - { x: 376.7, y: 400 }
+      - { x: 416.7, y: 368 }
+      - { x: 450, y: 352 }
+      - { x: 483.3, y: 360 }
+      - { x: 523.3, y: 376 }
+      - { x: 563.3, y: 384 }
+      - { x: 603.3, y: 388 }
+      - { x: 656.7, y: 416 }
+      - { x: 710, y: 440 }
+      - { x: 770, y: 456 }
+      - { x: 836.7, y: 448 }
+  - from: p1
+    to: p1
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 57, y: 444 }
+      - { x: 66, y: 320 }
+      - { x: 74, y: 320 }
+      - { x: 83, y: 444 }
+  - from: p2
+    to: p2
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 66, y: 320 }
+      - { x: 74, y: 320 }
+  - from: p3
+    to: p3
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 44, y: 326 }
+      - { x: 65, y: 326 }
+  - from: p4
+    to: p4
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 75, y: 326 }
+      - { x: 96, y: 326 }
+  - from: p5
+    to: p5
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 40, y: 338 }
+      - { x: 65, y: 338 }
+  - from: p6
+    to: p6
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 75, y: 338 }
+      - { x: 100, y: 338 }
+  - from: p7
+    to: p7
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 44, y: 350 }
+      - { x: 65, y: 350 }
+  - from: p8
+    to: p8
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 75, y: 350 }
+      - { x: 96, y: 350 }
+  - from: p9
+    to: p9
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 310.3, y: 438 }
+      - { x: 319.3, y: 298 }
+      - { x: 327.3, y: 298 }
+      - { x: 336.3, y: 438 }
+  - from: p10
+    to: p10
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 319.3, y: 298 }
+      - { x: 327.3, y: 298 }
+  - from: p11
+    to: p11
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 297.3, y: 304 }
+      - { x: 318.3, y: 304 }
+  - from: p12
+    to: p12
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 328.3, y: 304 }
+      - { x: 349.3, y: 304 }
+  - from: p13
+    to: p13
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 293.3, y: 316 }
+      - { x: 318.3, y: 316 }
+  - from: p14
+    to: p14
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 328.3, y: 316 }
+      - { x: 353.3, y: 316 }
+  - from: p15
+    to: p15
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 297.3, y: 328 }
+      - { x: 318.3, y: 328 }
+  - from: p16
+    to: p16
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 328.3, y: 328 }
+      - { x: 349.3, y: 328 }
+  - from: p17
+    to: p17
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 590.3, y: 388 }
+      - { x: 599.3, y: 272 }
+      - { x: 607.3, y: 272 }
+      - { x: 616.3, y: 388 }
+  - from: p18
+    to: p18
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 599.3, y: 272 }
+      - { x: 607.3, y: 272 }
+  - from: p19
+    to: p19
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 577.3, y: 278 }
+      - { x: 598.3, y: 278 }
+  - from: p20
+    to: p20
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 608.3, y: 278 }
+      - { x: 629.3, y: 278 }
+  - from: p21
+    to: p21
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 573.3, y: 290 }
+      - { x: 598.3, y: 290 }
+  - from: p22
+    to: p22
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 608.3, y: 290 }
+      - { x: 633.3, y: 290 }
+  - from: p23
+    to: p23
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 577.3, y: 302 }
+      - { x: 598.3, y: 302 }
+  - from: p24
+    to: p24
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 608.3, y: 302 }
+      - { x: 629.3, y: 302 }
+  - from: p25
+    to: p25
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 823.7, y: 448 }
+      - { x: 832.7, y: 316 }
+      - { x: 840.7, y: 316 }
+      - { x: 849.7, y: 448 }
+  - from: p26
+    to: p26
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 832.7, y: 316 }
+      - { x: 840.7, y: 316 }
+  - from: p27
+    to: p27
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 810.7, y: 322 }
+      - { x: 831.7, y: 322 }
+  - from: p28
+    to: p28
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 841.7, y: 322 }
+      - { x: 862.7, y: 322 }
+  - from: p29
+    to: p29
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 806.7, y: 334 }
+      - { x: 831.7, y: 334 }
+  - from: p30
+    to: p30
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 841.7, y: 334 }
+      - { x: 866.7, y: 334 }
+  - from: p31
+    to: p31
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 810.7, y: 346 }
+      - { x: 831.7, y: 346 }
+  - from: p32
+    to: p32
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 841.7, y: 346 }
+      - { x: 862.7, y: 346 }
+  - from: p33
+    to: p33
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 70, y: 332 }
+      - { x: 76.3, y: 333.6 }
+      - { x: 82.7, y: 335.1 }
+      - { x: 89, y: 336.5 }
+      - { x: 95.3, y: 337.8 }
+      - { x: 101.7, y: 339 }
+      - { x: 108, y: 340 }
+      - { x: 114.3, y: 341 }
+      - { x: 120.7, y: 341.8 }
+      - { x: 127, y: 342.6 }
+      - { x: 133.3, y: 343.2 }
+      - { x: 139.7, y: 343.7 }
+      - { x: 146, y: 344.1 }
+      - { x: 152.3, y: 344.4 }
+      - { x: 158.7, y: 344.5 }
+      - { x: 165, y: 344.6 }
+      - { x: 171.3, y: 344.5 }
+      - { x: 177.7, y: 344.4 }
+      - { x: 184, y: 344.1 }
+      - { x: 190.3, y: 343.7 }
+      - { x: 196.7, y: 343.2 }
+      - { x: 203, y: 342.6 }
+      - { x: 209.3, y: 341.9 }
+      - { x: 215.7, y: 341.1 }
+      - { x: 222, y: 340.1 }
+      - { x: 228.3, y: 339.1 }
+      - { x: 234.7, y: 337.9 }
+      - { x: 241, y: 336.7 }
+      - { x: 247.3, y: 335.3 }
+      - { x: 253.7, y: 333.8 }
+      - { x: 260, y: 332.2 }
+      - { x: 266.3, y: 330.5 }
+      - { x: 272.7, y: 328.6 }
+      - { x: 279, y: 326.7 }
+      - { x: 285.3, y: 324.6 }
+      - { x: 291.7, y: 322.5 }
+      - { x: 298, y: 320.2 }
+      - { x: 304.3, y: 317.8 }
+      - { x: 310.7, y: 315.3 }
+      - { x: 317, y: 312.7 }
+      - { x: 323.3, y: 310 }
+  - from: p34
+    to: p34
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 82.7, y: 335.1 }
+      - { x: 82.7, y: 446.9 }
+  - from: p35
+    to: p35
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 323.3, y: 310 }
+      - { x: 330.3, y: 312 }
+      - { x: 337.3, y: 313.9 }
+      - { x: 344.3, y: 315.6 }
+      - { x: 351.3, y: 317.2 }
+      - { x: 358.3, y: 318.6 }
+      - { x: 365.3, y: 320 }
+      - { x: 372.3, y: 321.1 }
+      - { x: 379.3, y: 322.2 }
+      - { x: 386.3, y: 323.1 }
+      - { x: 393.3, y: 323.9 }
+      - { x: 400.3, y: 324.5 }
+      - { x: 407.3, y: 325 }
+      - { x: 414.3, y: 325.4 }
+      - { x: 421.3, y: 325.6 }
+      - { x: 428.3, y: 325.7 }
+      - { x: 435.3, y: 325.7 }
+      - { x: 442.3, y: 325.5 }
+      - { x: 449.3, y: 325.2 }
+      - { x: 456.3, y: 324.7 }
+      - { x: 463.3, y: 324.2 }
+      - { x: 470.3, y: 323.4 }
+      - { x: 477.3, y: 322.6 }
+      - { x: 484.3, y: 321.6 }
+      - { x: 491.3, y: 320.5 }
+      - { x: 498.3, y: 319.2 }
+      - { x: 505.3, y: 317.8 }
+      - { x: 512.3, y: 316.3 }
+      - { x: 519.3, y: 314.6 }
+      - { x: 526.3, y: 312.8 }
+      - { x: 533.3, y: 310.9 }
+      - { x: 540.3, y: 308.8 }
+      - { x: 547.3, y: 306.6 }
+      - { x: 554.3, y: 304.2 }
+      - { x: 561.3, y: 301.8 }
+      - { x: 568.3, y: 299.1 }
+      - { x: 575.3, y: 296.4 }
+      - { x: 582.3, y: 293.5 }
+      - { x: 589.3, y: 290.5 }
+      - { x: 596.3, y: 287.3 }
+      - { x: 603.3, y: 284 }
+  - from: p36
+    to: p36
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 449.3, y: 325.2 }
+      - { x: 449.3, y: 352.3 }
+  - from: p37
+    to: p37
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 603.3, y: 284 }
+      - { x: 609.2, y: 286.9 }
+      - { x: 615, y: 289.8 }
+      - { x: 620.8, y: 292.5 }
+      - { x: 626.7, y: 295.2 }
+      - { x: 632.5, y: 297.8 }
+      - { x: 638.3, y: 300.2 }
+      - { x: 644.2, y: 302.6 }
+      - { x: 650, y: 304.9 }
+      - { x: 655.8, y: 307.1 }
+      - { x: 661.7, y: 309.1 }
+      - { x: 667.5, y: 311.1 }
+      - { x: 673.3, y: 313 }
+      - { x: 679.2, y: 314.9 }
+      - { x: 685, y: 316.6 }
+      - { x: 690.8, y: 318.2 }
+      - { x: 696.7, y: 319.7 }
+      - { x: 702.5, y: 321.1 }
+      - { x: 708.3, y: 322.5 }
+      - { x: 714.2, y: 323.7 }
+      - { x: 720, y: 324.9 }
+      - { x: 725.8, y: 325.9 }
+      - { x: 731.7, y: 326.9 }
+      - { x: 737.5, y: 327.7 }
+      - { x: 743.3, y: 328.5 }
+      - { x: 749.2, y: 329.2 }
+      - { x: 755, y: 329.8 }
+      - { x: 760.8, y: 330.3 }
+      - { x: 766.7, y: 330.6 }
+      - { x: 772.5, y: 330.9 }
+      - { x: 778.3, y: 331.1 }
+      - { x: 784.2, y: 331.3 }
+      - { x: 790, y: 331.3 }
+      - { x: 795.8, y: 331.2 }
+      - { x: 801.7, y: 331 }
+      - { x: 807.5, y: 330.8 }
+      - { x: 813.3, y: 330.4 }
+      - { x: 819.2, y: 329.9 }
+      - { x: 825, y: 329.4 }
+      - { x: 830.8, y: 328.7 }
+      - { x: 836.7, y: 328 }
+  - from: p38
+    to: p38
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 603.3, y: 284 }
+      - { x: 603.3, y: 388 }
+  - from: p39
+    to: p39
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 70, y: 431.1 }
+      - { x: 123.3, y: 443.1 }
+      - { x: 183.3, y: 469.1 }
+      - { x: 243.3, y: 459.1 }
+      - { x: 296.7, y: 435.1 }
+      - { x: 323.3, y: 425.1 }
+      - { x: 376.7, y: 387.1 }
+      - { x: 416.7, y: 355.1 }
+      - { x: 450, y: 339.1 }
+      - { x: 483.3, y: 347.1 }
+      - { x: 523.3, y: 363.1 }
+      - { x: 563.3, y: 371.1 }
+      - { x: 603.3, y: 375.1 }
+      - { x: 656.7, y: 403.1 }
+      - { x: 710, y: 427.1 }
+      - { x: 770, y: 443.1 }
+      - { x: 836.7, y: 435.1 }
+  - from: p40
+    to: p40
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 62, y: 560 }
+      - { x: 844.7, y: 560 }

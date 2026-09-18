@@ -77,6 +77,7 @@ export const CATEGORIES = [
     key: 'setsubi',
     label: '設備・電気',
     items: [
+      { name: '174-送電線路の縦断面図', alt: '送電線路の縦断面図（275kV・弛度と地上高／架空）', caption: '送電線路の縦断面図（電線は垂れる。垂れても届かない高さを決める）' },
       { name: '163-Residential-duct-layout', alt: '住宅のダクト配置図（Manual D の摩擦率／英語・架空）', caption: 'ダクトの配置（部屋ではなく、圧力の予算で太さが決まる）' },
       { name: '18-配管の系統', alt: '冷却水の系統', caption: '配管の系統（P&amp;ID）' },
       { name: '38-計装ループ図', alt: '計装ループ図', caption: '計装ループ図（TIC-101）' },
