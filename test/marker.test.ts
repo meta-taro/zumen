@@ -324,3 +324,69 @@ nodes:
     assert.ok(baseline - (box.y + box.h) <= 14, '矩形まで離してしまった');
   });
 });
+
+/**
+ * **外壁と間仕切を描き分ける**（`wall.outer`）。
+ *
+ * 2026-09-18。販売図面のグレースケール版（見本 173）を実物と並べて、
+ * 最後に残った差がこれだった —— **外壁も間仕切も同じ太さ**で出ていた。
+ *
+ * `wall: { mm, outer }` の `outer` は書けたのに、**囲み（`groups`）にしか効いていなかった。**
+ * 平面図の外形は囲みではなく、**ふつうの箱**で描く（部屋を包む 1 つの箱）。
+ *
+ * ## 何を外壁と見るか
+ *
+ * **他の箱を包んでいて、どれにも包まれていない箱。** それが建物の外形。
+ * 見本 173 枚で数えると、この形に当たるのは
+ * **`wall` を書いた 19 枚のうち 3 枚**（144・166・173）で、
+ * どれも「部屋を包む建物の外形」だった（別の意味で使っている図は無い）。
+ */
+describe('外壁と間仕切', () => {
+  const plan = `version: 1
+kind: placement
+scale: { mm: 20 }
+wall: { mm: 100, outer: 200 }
+nodes:
+  - id: unit
+    label: ""
+    at: { x: 0, y: 0 }
+    size: { w: 400, h: 300 }
+  - id: a
+    label: 居間
+    at: { x: 0, y: 0 }
+    size: { w: 200, h: 300 }
+  - id: b
+    label: 寝室
+    at: { x: 200, y: 0 }
+    size: { w: 200, h: 300 }
+`;
+
+  const strokeOf = (svg: string, id: string): number => {
+    const found = svg.match(new RegExp(`data-node="${id}"[^>]*>\\s*<rect [^>]*stroke-width="([\\d.]+)"`));
+    return Number(found?.[1] ?? 0);
+  };
+
+  it('**外形の箱は、外壁の太さで描く**', async () => {
+    const out = render(await layout(plan), 'light', 'safe', true);
+    // 1px = 20mm なので、外壁 200mm = 10px、間仕切 100mm = 5px。
+    assert.equal(strokeOf(out, 'unit'), 10);
+  });
+
+  it('**中の部屋は、間仕切の太さのまま**', async () => {
+    const out = render(await layout(plan), 'light', 'safe', true);
+    assert.equal(strokeOf(out, 'a'), 5);
+    assert.equal(strokeOf(out, 'b'), 5);
+  });
+
+  it('**包んでいない箱は、外壁にしない**（並んでいるだけの箱）', async () => {
+    const flat = plan.replace(/  - id: unit\n    label: ""\n    at: \{ x: 0, y: 0 \}\n    size: \{ w: 400, h: 300 \}\n/, '');
+    const out = render(await layout(flat), 'light', 'safe', true);
+    assert.equal(strokeOf(out, 'a'), 5);
+  });
+
+  it('`wall` を書いていない図は、これまでどおり', async () => {
+    const bare = plan.replace('wall: { mm: 100, outer: 200 }\n', '');
+    const out = render(await layout(bare), 'light', 'safe', true);
+    assert.ok(strokeOf(out, 'unit') < 3, '壁を書いていないのに太くした');
+  });
+});

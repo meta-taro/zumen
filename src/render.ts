@@ -122,6 +122,19 @@ export function render(
   // **壁の厚みは平面図だけの話。** 構成図の箱は壁ではない。
   const wall = plan ? wallWidth(placed.wall, placed.mm) : null;
   const outerWall = plan ? wallWidth(placed.wall, placed.mm, true) : null;
+  /**
+   * **外壁の箱**（2026-09-18）。
+   *
+   * `wall.outer` は書けたのに**囲み（`groups`）にしか効いていなかった。**
+   * 平面図の外形は囲みではなく、**ふつうの箱**で描く（部屋を包む 1 つの箱）。
+   * そこを間仕切と同じ太さで描いていたので、
+   * **外壁と間仕切の区別が図から消えていた**（販売図面を実物と並べて気づいた）。
+   *
+   * 見るのは形だけ —— **他の箱を包んでいて、どれにも包まれていない箱。**
+   * 見本 173 枚で数えると、`wall` を書いた 19 枚のうち当たるのは 3 枚で、
+   * どれも「部屋を包む建物の外形」だった（別の意味で使っている図は無い）。
+   */
+  const outerIds = plan ? outermost(placed.boxes) : new Set<string>();
   // **配置図の文字の置き方は、図ぜんたいを見て決める**（`src/names.ts`）。
   // 1 つずつ決めると、外へ出した文字が他の箱に乗る。
   const names = plan
@@ -160,7 +173,14 @@ export function render(
       ? []
       : placed.edges.map((edge) => renderEdge(edge, labels.get(edge.id) ?? null, palette, plan, placed.arrows))),
     ...stack(placed.boxes, plan).map((box) =>
-      renderNode(box, palette, plan, wall, names.get(box.id) ?? null, onPattern(box, placed.boxes, names)),
+      renderNode(
+        box,
+        palette,
+        plan,
+        outerIds.has(box.id) ? (outerWall ?? wall) : wall,
+        names.get(box.id) ?? null,
+        onPattern(box, placed.boxes, names),
+      ),
     ),
     // **向きのある矢印は、図の上に載せる注記。**
     //
@@ -1059,6 +1079,29 @@ function nodeText(
     ...stacked(cy - 4 - half),
     text(cx, cy + 11 + half, box.technology, subSize, sub),
   ];
+}
+
+/**
+ * **他の箱を包んでいて、どれにも包まれていない箱**（＝建物の外形）。
+ *
+ * 平面図でだけ使う。**同じ大きさの箱は「包んでいる」と見ない**
+ * （重ねて置いた 2 枚の板が、互いを外壁にし合う）。
+ */
+function outermost(boxes: readonly Box[]): Set<string> {
+  const rooms = boxes.filter((box) => box.marker === 'box');
+  const holds = (outer: Box, inner: Box): boolean =>
+    inner.x >= outer.x &&
+    inner.y >= outer.y &&
+    inner.x + inner.w <= outer.x + outer.w &&
+    inner.y + inner.h <= outer.y + outer.h &&
+    !(inner.x === outer.x && inner.y === outer.y && inner.w === outer.w && inner.h === outer.h);
+  const out = new Set<string>();
+  for (const box of rooms) {
+    if (!rooms.some((other) => holds(box, other))) continue;
+    if (rooms.some((other) => holds(other, box))) continue;
+    out.add(box.id);
+  }
+  return out;
 }
 
 function renderEdge(
