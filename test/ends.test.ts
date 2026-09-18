@@ -243,7 +243,7 @@ edges:
   });
 
   it('spec が線種を返す', () => {
-    assert.deepEqual(spec().lines, ['solid', 'dashed', 'dotted', 'double']);
+    assert.deepEqual(spec().lines, ['solid', 'dashed', 'dotted', 'double', 'chain']);
     assert.match(spec().shape, /line:/);
   });
 });

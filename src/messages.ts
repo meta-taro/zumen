@@ -427,7 +427,7 @@ const ja = {
       '    to: <ノードの id>',
       '    label: <省いてよい>',
       '    ends: { from: <ENDS から>, to: <ENDS から> }   # 端の記号（ER の多重度・UML の関係）',
-      '    line: <solid（既定）| dashed | dotted | double>  # 線種（UML の実現・依存、仮設、婚姻）',
+      '    line: <solid（既定）| dashed | dotted | double | chain>  # 線種（UML の実現・依存、仮設、婚姻、**中心線**）',
       '    weight: <thin | normal（既定）| thick>        # 線の太さ（路線図の路線）',
       '    via: [{ x: <左>, y: <上> }, ...]              # 線の通り道。kind: placement でだけ効く',
       '    curve: <none（既定）| smooth>                 # 通り道を丸める（道路・河川・園路）',
@@ -621,7 +621,7 @@ const ja = {
     endsUnknown: (edge: string, word: string) =>
       `エッジ ${edge} の ends が "${word}" になっています（ENDS の語のいずれか）。記号は描かれません。`,
     lineUnknown: (edge: string, word: string) =>
-      `エッジ ${edge} の line が "${word}" になっています（solid / dashed / dotted / double）。実線で描きます。`,
+      `エッジ ${edge} の line が "${word}" になっています（solid / dashed / dotted / double / chain）。実線で描きます。**chain は一点鎖線** —— 中心線・対称軸・光軸・基準線・切断線はこれです。`,
     weightUnknown: (edge: string, word: string) =>
       `エッジ ${edge} の weight が "${word}" になっています（thin / normal / thick）。ふつうの太さで描きます。`,
     colorUnknown: (target: string, key: string) =>
@@ -1024,7 +1024,7 @@ const en: Catalog = {
       '    to: <node id>',
       '    label: <optional>',
       '    ends: { from: <from ENDS>, to: <from ENDS> }   # end symbols (ER cardinality, UML)',
-      '    line: <solid (default) | dashed | dotted | double>  # line style (UML realization, temporary works, marriage)',
+      '    line: <solid (default) | dashed | dotted | double | chain>  # line style (UML realization, temporary works, marriage, **centre line**)',
       '    weight: <thin | normal (default) | thick>      # line width (transit routes)',
       '    via: [{ x: <left>, y: <top> }, ...]            # waypoints; only with kind: placement',
       '    curve: <none (default) | smooth>               # round the waypoints (roads, rivers, paths)',
@@ -1204,7 +1204,7 @@ const en: Catalog = {
     endsUnknown: (edge: string, word: string) =>
       `Edge ${edge} has ends "${word}" (one of ENDS). No symbol is drawn.`,
     lineUnknown: (edge: string, word: string) =>
-      `Edge ${edge} has line "${word}" (solid / dashed / dotted / double). It is drawn solid.`,
+      `Edge ${edge} has line "${word}" (solid / dashed / dotted / double / chain). It is drawn solid. **chain is the drafting centre line** — use it for axes of symmetry, optical axes, datum lines and cutting planes.`,
     weightUnknown: (edge: string, word: string) =>
       `Edge ${edge} has weight "${word}" (thin / normal / thick). It is drawn at the normal width.`,
     colorUnknown: (target: string, key: string) =>

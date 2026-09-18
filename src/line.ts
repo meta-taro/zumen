@@ -35,17 +35,33 @@
  * 意味の語は足さない。** 足すのは線の形の名前だけ。
  */
 
-export const LINES = ['solid', 'dashed', 'dotted', 'double'] as const;
+/**
+ * ## 一点鎖線（`chain`）
+ *
+ * **中心線・対称軸・光軸・基準線・切断線は一点鎖線**と、製図で決まっている
+ * （JIS Z 8312 の細い一点鎖線）。実線でも破線でもない ——
+ * **線種そのものが「これは実体ではなく基準だ」と言っている。**
+ *
+ * これは**通り芯（`grid`）だけが持っていて、人が引く線には無かった**
+ * （2026-09-19。見本 191 の光軸で当たった）。
+ * 点線で代用すると、点線は「見えない輪郭」の意味を持つので、読む側には別の意味に見える。
+ * 刻みは通り芯と同じ —— **1 枚の紙で基準線の見た目が割れないように。**
+ */
+export const LINES = ['solid', 'dashed', 'dotted', 'double', 'chain'] as const;
 export type Line = (typeof LINES)[number];
 
 export function lineOf(raw: unknown): Line {
   return LINES.includes(raw as Line) ? (raw as Line) : 'solid';
 }
 
+/** **一点鎖線の刻み。** 通り芯（`src/dimensions.ts`）と同じ値を使う。 */
+export const CHAIN = '14 3 3 3';
+
 /** SVG の `stroke-dasharray`。実線なら null。 */
 export function dashOf(line: Line): string | null {
   if (line === 'dashed') return '7 4';
   if (line === 'dotted') return '2 3';
+  if (line === 'chain') return CHAIN;
   return null;
 }
 

@@ -106,6 +106,7 @@ export const CAPTIONS_EN = {
   '169-麻雀の配牌': 'Mahjong: the dice decide where the wall is opened, not luck',
   '168-ダイヤモンドシステム': 'Billiards: the diamonds on the rails are a ruler, not decoration',
   '167-ダーツボードの割り付け': 'A dartboard: the numbers are arranged to punish a miss',
+  '191-凸レンズの作図': 'Ray tracing through a convex lens: there are only three lines to draw, and two of them fix the image',
   '190-中綴じの面付け': 'Saddle-stitch imposition: facing page numbers always add up to the page count plus one',
   '189-点字ブロック': 'Tactile paving: only two kinds, and one line tells you which side the platform is on',
   '188-裁判員裁判の法廷': 'A lay-judge courtroom: the prosecution sits on the bench\u2019s right, so on the plan it is on the left',
