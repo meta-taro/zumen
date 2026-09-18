@@ -838,6 +838,20 @@ function checkEnds(doc: Document, add: Add, m: Messages, at: At): void {
       }
     }
 
+    /**
+     * **辺に `fill` は無い**（2026-09-19。見本 192 を描いていて踏んだ）。
+     *
+     * 面の色は `nodes[].fill`、線の色は `color`。
+     * **閉じた輪の中を塗るのは `hatch` で、その色は `color`。**
+     * 「面を塗るのだから fill だろう」と書くと、これまでは
+     * **何も言われないまま、塗られない図が出ていた** ——
+     * 描かれないものを名指しする、というこの道具の約束の反対。
+     */
+    const edgeFill = item.get('fill', true);
+    if (edgeFill !== undefined && edgeFill !== null) {
+      add('warning', 'edge-fill-ignored', m.edgeFillIgnored(name), at(edgeFill));
+    }
+
     const close = item.get('close');
     if (close !== undefined && close !== null) {
       if (typeof close !== 'boolean') {

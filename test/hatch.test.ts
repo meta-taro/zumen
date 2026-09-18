@@ -388,3 +388,60 @@ edges:
     assert.ok(found.some((f) => f.code === 'edge-hatch-ignored'), found.map((f) => f.code).join(','));
   });
 });
+
+/**
+ * **辺に `fill` は無い。** 黙って落とさない（2026-09-19。見本 192 で踏んだ）。
+ *
+ * 面の色は `nodes[].fill`、線の色は `color`。
+ * **閉じた輪（`close: true`）の中を塗るのは `hatch` で、その色は `color`。**
+ * ところが「面を塗るのだから fill だろう」と辺へ書くと、
+ * **何も言われないまま、塗られない図が出る** —— zumen がいちばん嫌う壊れ方
+ * （描かれないものを名指しする、という約束の反対）。
+ */
+describe('辺に fill は効かない', () => {
+  const RING = `version: 1
+kind: placement
+arrows: true
+palette:
+  面: "#3f6f8f"
+nodes:
+  - id: a
+    label: ""
+    marker: none
+    at: { x: 40, y: 40 }
+    size: { w: 2, h: 2 }
+edges:
+  - from: a
+    to: a
+    close: true
+    hatch: solid
+    fill: 面
+    ends: { from: none, to: none }
+    via:
+      - { x: 60, y: 60 }
+      - { x: 200, y: 60 }
+      - { x: 200, y: 200 }
+`;
+
+  it('**辺の fill を知らせる**（黙って落とさない）', () => {
+    const found = validate(RING);
+    assert.ok(
+      found.some((f) => f.code === 'edge-fill-ignored'),
+      `何も言っていない: ${JSON.stringify(found.map((f) => f.code))}`,
+    );
+  });
+
+  it('**どう書けばよいかを言う**（color と hatch）', () => {
+    const said = validate(RING).find((f) => f.code === 'edge-fill-ignored')!.message;
+    assert.match(said, /color/);
+    assert.match(said, /hatch/);
+  });
+
+  it('warning であって、図は出る', () => {
+    assert.ok(validate(RING).every((f) => f.severity === 'warning'));
+  });
+
+  it('color で書いてあれば、何も言わない', () => {
+    assert.ok(!validate(RING.replace('fill: 面', 'color: 面')).some((f) => f.code === 'edge-fill-ignored'));
+  });
+});

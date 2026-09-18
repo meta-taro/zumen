@@ -1,0 +1,519 @@
+version: 1
+kind: placement
+arrows: true
+title: サッカーボールの形（切頂二十面体）
+# **頂点に集まる角は 348°。360° に 12° 足りない。**
+#
+# その 12° が、平面を球にする。頂点は 60 個なので 12 × 60 ＝ 720°
+# —— ちょうど球ひとつ分。
+#
+# ② は五角形のまわりに六角形を 5 枚置いた図。平面では**すきまが 5 つ開く**。
+# 開いていることが中身なので、閉じて描いたら嘘になる。
+nodes:
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 299, y: 469 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 299, y: 469 }
+    size: { w: 2, h: 2 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 299, y: 469 }
+    size: { w: 2, h: 2 }
+  - id: p1t
+    label: "五角形\n108°"
+    marker: none
+    align: center
+    at: { x: 324, y: 374 }
+    size: { w: 92, h: 40 }
+  - id: h1t
+    label: "六角形\n120°"
+    marker: none
+    align: center
+    at: { x: 330, y: 496 }
+    size: { w: 92, h: 40 }
+  - id: h2t
+    label: "六角形\n120°"
+    marker: none
+    align: center
+    at: { x: 176, y: 496 }
+    size: { w: 92, h: 40 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 299, y: 469 }
+    size: { w: 2, h: 2 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 274.1, y: 351.6 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 299, y: 469 }
+    size: { w: 2, h: 2 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 299, y: 349 }
+    size: { w: 2, h: 2 }
+  - id: gap
+    label: "← ここが 12° 開く"
+    marker: none
+    align: center
+    at: { x: 292, y: 330 }
+    size: { w: 200, h: 18 }
+  - id: t1
+    label: "① 頂点のまわりは 348°"
+    marker: none
+    align: left
+    at: { x: 140, y: 140 }
+    size: { w: 320, h: 20 }
+  - id: t1b
+    label: "　360° に 12° 足りない。その分だけ折れる。"
+    marker: none
+    align: left
+    at: { x: 140, y: 162 }
+    size: { w: 320, h: 18 }
+  - id: t1c
+    label: "108 ＋ 120 ＋ 120 ＝ 348"
+    marker: none
+    align: center
+    at: { x: 140, y: 620 }
+    size: { w: 320, h: 18 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 659, y: 409.5 }
+    size: { w: 2, h: 2 }
+  - id: pct
+    label: "五角形"
+    marker: none
+    align: center
+    at: { x: 614, y: 461 }
+    size: { w: 92, h: 18 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 659, y: 409.5 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 715.6, y: 450.6 }
+    size: { w: 2, h: 2 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 694, y: 517.2 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 624, y: 517.2 }
+    size: { w: 2, h: 2 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 602.4, y: 450.6 }
+    size: { w: 2, h: 2 }
+  - id: t2
+    label: "② 五角形は、六角形 5 枚に囲まれる"
+    marker: none
+    align: left
+    at: { x: 480, y: 210 }
+    size: { w: 360, h: 20 }
+  - id: t2b
+    label: "　五角形どうしは、どこでも接しない。"
+    marker: none
+    align: left
+    at: { x: 480, y: 232 }
+    size: { w: 360, h: 18 }
+  - id: t2c
+    label: "平面に置くと、すきまが 5 つ開く（各 12°）"
+    marker: none
+    align: center
+    at: { x: 460, y: 690 }
+    size: { w: 400, h: 18 }
+  - id: t2d
+    label: "—— これを閉じたものが、ボール"
+    marker: none
+    align: center
+    at: { x: 460, y: 710 }
+    size: { w: 400, h: 18 }
+  - id: h190
+    label: "切頂二十面体（サッカーボール）"
+    hatch: solid
+    at: { x: 880, y: 190 }
+    size: { w: 470, h: 24 }
+  - id: x214
+    label: "正五角形"
+    at: { x: 880, y: 214 }
+    size: { w: 200, h: 24 }
+  - id: y214
+    label: "12 面"
+    align: left
+    at: { x: 1080, y: 214 }
+    size: { w: 270, h: 24 }
+  - id: x238
+    label: "正六角形"
+    at: { x: 880, y: 238 }
+    size: { w: 200, h: 24 }
+  - id: y238
+    label: "20 面"
+    align: left
+    at: { x: 1080, y: 238 }
+    size: { w: 270, h: 24 }
+  - id: x262
+    label: "面 F"
+    at: { x: 880, y: 262 }
+    size: { w: 200, h: 24 }
+  - id: y262
+    label: "32"
+    align: left
+    at: { x: 1080, y: 262 }
+    size: { w: 270, h: 24 }
+  - id: x286
+    label: "頂点 V"
+    at: { x: 880, y: 286 }
+    size: { w: 200, h: 24 }
+  - id: y286
+    label: "60"
+    align: left
+    at: { x: 1080, y: 286 }
+    size: { w: 270, h: 24 }
+  - id: x310
+    label: "辺 E"
+    at: { x: 880, y: 310 }
+    size: { w: 200, h: 24 }
+  - id: y310
+    label: "90"
+    align: left
+    at: { x: 1080, y: 310 }
+    size: { w: 270, h: 24 }
+  - id: x334
+    label: "オイラーの定理"
+    at: { x: 880, y: 334 }
+    size: { w: 200, h: 24 }
+  - id: y334
+    label: "V − E ＋ F ＝ 60 − 90 ＋ 32 ＝ 2"
+    align: left
+    at: { x: 1080, y: 334 }
+    size: { w: 270, h: 24 }
+  - id: h376
+    label: "なぜ球になるか"
+    hatch: solid
+    at: { x: 880, y: 376 }
+    size: { w: 470, h: 24 }
+  - id: x400
+    label: "頂点に集まる面"
+    at: { x: 880, y: 400 }
+    size: { w: 200, h: 24 }
+  - id: y400
+    label: "五角形 1 ＋ 六角形 2"
+    align: left
+    at: { x: 1080, y: 400 }
+    size: { w: 270, h: 24 }
+  - id: x424
+    label: "角の和"
+    at: { x: 880, y: 424 }
+    size: { w: 200, h: 24 }
+  - id: y424
+    label: "108 ＋ 120 ＋ 120 ＝ 348°"
+    align: left
+    at: { x: 1080, y: 424 }
+    size: { w: 270, h: 24 }
+  - id: x448
+    label: "足りない角"
+    at: { x: 880, y: 448 }
+    size: { w: 200, h: 24 }
+  - id: y448
+    label: "360 − 348 ＝ 12°"
+    align: left
+    at: { x: 1080, y: 448 }
+    size: { w: 270, h: 24 }
+  - id: x472
+    label: "頂点の数"
+    at: { x: 880, y: 472 }
+    size: { w: 200, h: 24 }
+  - id: y472
+    label: "60"
+    align: left
+    at: { x: 1080, y: 472 }
+    size: { w: 270, h: 24 }
+  - id: x496
+    label: "合計"
+    at: { x: 880, y: 496 }
+    size: { w: 200, h: 24 }
+  - id: y496
+    label: "12° × 60 ＝ 720°（＝ 球ひとつ分）"
+    align: left
+    at: { x: 1080, y: 496 }
+    size: { w: 270, h: 24 }
+  - id: x520
+    label: "決まりごと"
+    at: { x: 880, y: 520 }
+    size: { w: 200, h: 24 }
+  - id: y520
+    label: "五角形どうしは接しない"
+    align: left
+    at: { x: 1080, y: 520 }
+    size: { w: 270, h: 24 }
+  - id: h562
+    label: "5 号球（FIFA の規格）"
+    hatch: solid
+    at: { x: 880, y: 562 }
+    size: { w: 470, h: 24 }
+  - id: x586
+    label: "外周"
+    at: { x: 880, y: 586 }
+    size: { w: 200, h: 24 }
+  - id: y586
+    label: "68 〜 70cm"
+    align: left
+    at: { x: 1080, y: 586 }
+    size: { w: 270, h: 24 }
+  - id: x610
+    label: "重さ"
+    at: { x: 880, y: 610 }
+    size: { w: 200, h: 24 }
+  - id: y610
+    label: "410 〜 450g（試合開始時）"
+    align: left
+    at: { x: 1080, y: 610 }
+    size: { w: 270, h: 24 }
+  - id: x634
+    label: "空気圧"
+    at: { x: 880, y: 634 }
+    size: { w: 200, h: 24 }
+  - id: y634
+    label: "0.6 〜 1.1 気圧"
+    align: left
+    at: { x: 1080, y: 634 }
+    size: { w: 270, h: 24 }
+  - id: x658
+    label: "白と黒"
+    at: { x: 880, y: 658 }
+    size: { w: 200, h: 24 }
+  - id: y658
+    label: "白黒テレビで回転が見えるように"
+    align: left
+    at: { x: 1080, y: 658 }
+    size: { w: 270, h: 24 }
+  - id: x682
+    label: "いまの球"
+    at: { x: 880, y: 682 }
+    size: { w: 200, h: 24 }
+  - id: y682
+    label: "32 枚とは限らない（貼り合わせが主流）"
+    align: left
+    at: { x: 1080, y: 682 }
+    size: { w: 270, h: 24 }
+  - id: h724
+    label: "この図に出ていないもの"
+    hatch: solid
+    at: { x: 880, y: 724 }
+    size: { w: 470, h: 24 }
+  - id: x748
+    label: "球にした形"
+    at: { x: 880, y: 748 }
+    size: { w: 200, h: 24 }
+  - id: y748
+    label: "面は平らでなくなる（膨らむ）"
+    align: left
+    at: { x: 1080, y: 748 }
+    size: { w: 270, h: 24 }
+  - id: x772
+    label: "縫い代"
+    at: { x: 880, y: 772 }
+    size: { w: 200, h: 24 }
+  - id: y772
+    label: "貼り合わせ・熱圧着の代"
+    align: left
+    at: { x: 1080, y: 772 }
+    size: { w: 270, h: 24 }
+  - id: x796
+    label: "空気入れの穴"
+    at: { x: 880, y: 796 }
+    size: { w: 200, h: 24 }
+  - id: y796
+    label: "バルブの位置"
+    align: left
+    at: { x: 1080, y: 796 }
+    size: { w: 270, h: 24 }
+  - id: x820
+    label: "展開図"
+    at: { x: 880, y: 820 }
+    size: { w: 200, h: 24 }
+  - id: y820
+    label: "32 面すべての並べ方"
+    align: left
+    at: { x: 1080, y: 820 }
+    size: { w: 270, h: 24 }
+  - id: n1
+    label: "サッカーボールの形（切頂二十面体）です。正五角形 12 面と正六角形 20 面でできています。"
+    marker: none
+    align: left
+    at: { x: 140, y: 760 }
+    size: { w: 720, h: 18 }
+  - id: n2
+    label: "どの頂点にも、五角形 1 枚と六角形 2 枚が集まります。その角の和は 108 ＋ 120 ＋ 120 ＝ 348° です。"
+    marker: none
+    align: left
+    at: { x: 140, y: 782 }
+    size: { w: 720, h: 18 }
+  - id: n3
+    label: "360° に 12° 足りません。 平面なら 360° でぴったり閉じますが、足りないぶんだけ紙が折れます。"
+    marker: none
+    align: left
+    at: { x: 140, y: 804 }
+    size: { w: 720, h: 18 }
+  - id: n4
+    label: "だから ② のように平面に並べると、すきまが 5 つ開きます。それを閉じたものがボールです。"
+    marker: none
+    align: left
+    at: { x: 140, y: 826 }
+    size: { w: 720, h: 18 }
+  - id: n5
+    label: "足りない角は 1 頂点あたり 12°、頂点は 60 個。12 × 60 ＝ 720° で、これはちょうど球ひとつ分です。"
+    marker: none
+    align: left
+    at: { x: 140, y: 848 }
+    size: { w: 720, h: 18 }
+  - id: n6
+    label: "面 32・頂点 60・辺 90 なので、V − E ＋ F ＝ 2（オイラーの多面体定理）が成り立ちます。"
+    marker: none
+    align: left
+    at: { x: 140, y: 870 }
+    size: { w: 720, h: 18 }
+  - id: n7
+    label: "五角形どうしは、どこでも接しません。 必ず六角形に囲まれています。"
+    marker: none
+    align: left
+    at: { x: 140, y: 892 }
+    size: { w: 720, h: 18 }
+edges:
+  - from: p0
+    to: p0
+    curve: none
+    close: true
+    hatch: lines
+    ends: { from: none, to: none }
+    via:
+      - { x: 300, y: 470 }
+      - { x: 300, y: 400 }
+      - { x: 366.6, y: 378.4 }
+      - { x: 407.7, y: 435 }
+      - { x: 366.6, y: 491.6 }
+  - from: p1
+    to: p1
+    curve: none
+    close: true
+    ends: { from: none, to: none }
+    via:
+      - { x: 300, y: 470 }
+      - { x: 366.6, y: 491.6 }
+      - { x: 381.1, y: 560.1 }
+      - { x: 329.1, y: 606.9 }
+      - { x: 262.5, y: 585.3 }
+      - { x: 248, y: 516.8 }
+  - from: p2
+    to: p2
+    curve: none
+    close: true
+    ends: { from: none, to: none }
+    via:
+      - { x: 300, y: 470 }
+      - { x: 248, y: 516.8 }
+      - { x: 181.4, y: 495.2 }
+      - { x: 166.9, y: 426.7 }
+      - { x: 218.9, y: 379.9 }
+      - { x: 285.4, y: 401.5 }
+  - from: p3
+    to: p4
+    curve: none
+    line: chain
+    ends: { from: none, to: none }
+  - from: p5
+    to: p6
+    curve: none
+    line: chain
+    ends: { from: none, to: none }
+  - from: p7
+    to: p7
+    curve: none
+    close: true
+    hatch: lines
+    ends: { from: none, to: none }
+    via:
+      - { x: 660, y: 410.5 }
+      - { x: 716.6, y: 451.6 }
+      - { x: 695, y: 518.2 }
+      - { x: 625, y: 518.2 }
+      - { x: 603.4, y: 451.6 }
+  - from: p8
+    to: p8
+    curve: none
+    close: true
+    ends: { from: none, to: none }
+    via:
+      - { x: 660, y: 410.5 }
+      - { x: 667.3, y: 340.8 }
+      - { x: 731.3, y: 312.4 }
+      - { x: 787.9, y: 353.5 }
+      - { x: 780.6, y: 423.1 }
+      - { x: 716.6, y: 451.6 }
+  - from: p9
+    to: p9
+    curve: none
+    close: true
+    ends: { from: none, to: none }
+    via:
+      - { x: 716.6, y: 451.6 }
+      - { x: 785.1, y: 437 }
+      - { x: 831.9, y: 489.1 }
+      - { x: 810.3, y: 555.6 }
+      - { x: 741.8, y: 570.2 }
+      - { x: 695, y: 518.2 }
+  - from: p10
+    to: p10
+    curve: none
+    close: true
+    ends: { from: none, to: none }
+    via:
+      - { x: 695, y: 518.2 }
+      - { x: 730, y: 578.8 }
+      - { x: 695, y: 639.4 }
+      - { x: 625, y: 639.4 }
+      - { x: 590, y: 578.8 }
+      - { x: 625, y: 518.2 }
+  - from: p11
+    to: p11
+    curve: none
+    close: true
+    ends: { from: none, to: none }
+    via:
+      - { x: 625, y: 518.2 }
+      - { x: 578.2, y: 570.2 }
+      - { x: 509.7, y: 555.6 }
+      - { x: 488.1, y: 489.1 }
+      - { x: 534.9, y: 437 }
+      - { x: 603.4, y: 451.6 }
+  - from: p12
+    to: p12
+    curve: none
+    close: true
+    ends: { from: none, to: none }
+    via:
+      - { x: 603.4, y: 451.6 }
+      - { x: 539.4, y: 423.1 }
+      - { x: 532.1, y: 353.5 }
+      - { x: 588.7, y: 312.4 }
+      - { x: 652.7, y: 340.8 }
+      - { x: 660, y: 410.5 }
