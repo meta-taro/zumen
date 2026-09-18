@@ -1060,7 +1060,14 @@ function routeEdges(
       const last = edge.via[edge.via.length - 1]!;
       // **ほとんど同じ点は畳む**（`merged`）。自分自身への辺では、
       // 出口と入口が同じ節の縁で 1 px ほど離れて並び、曲線が跳ねる。
-      const points = merged([clip(from, first), ...edge.via, clip(to, last)]);
+      // **自分自身への辺で `close` を書かなければ、戻り線を引かない。**
+      // 閉じた形（池・視野・外形）にも、開いた折れ線（等圧線・地形・縫い代）にも
+      // 同じ書き方を使う。**閉じるかどうかは `close` が言う** —— 2026-09-19。
+      // ここを戻していたため、見本 10 枚に**正本が書いていない線 123 本**が出ていた。
+      const open = edge.from === edge.to && edge.close !== true;
+      const points = merged(
+        open ? [clip(from, first), ...edge.via] : [clip(from, first), ...edge.via, clip(to, last)],
+      );
       // **輪を閉じる**（`close`）。最後から最初へ戻る —— 池・トラック・外形。
       if (edge.close) {
         // 自分自身への辺では、**出口と入口が同じ節の縁**に来る。

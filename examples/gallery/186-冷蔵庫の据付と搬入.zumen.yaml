@@ -1,0 +1,747 @@
+version: 1
+kind: placement
+arrows: true
+title: 冷蔵庫の据付と搬入（放熱スペースは機種で違う）
+scale: { mm: 5 }
+palette:
+  放熱: "#8f6f3f"
+  前: "#3f6f8f"
+# **「何センチ空ける」の一般解は無い。**
+#
+# 同じメーカーでも、3 ドア以上は上 50mm・左右 5mm・**背面 不要**、
+# 2 ドアは上 300mm・左右 20mm・背面 70mm、1 ドアは上 100mm・左右 20mm・背面 100mm。
+# だから ① は 3 台を並べた —— **違いそのものが中身**。
+#
+# もう 1 つは ③。搬入は「狭いほう ＋100mm」で足りると思われがちだが、
+# **角だけは対角で決まる**。幅 785mm の廊下どうしの角に、対角 979mm は入らない。
+# 傾けた本体を破線で重ねてあるのは、**壁に当たることを見せるため**（交差は中身）。
+#
+# CROSSINGS_ARE_CONTENT: 角で傾けた本体が壁に当たることを示す図。交差が結論。
+nodes:
+  - id: d3_gap
+    label: ""
+    marker: none
+    fill: 放熱
+    hatch: solid
+    at: { x: 110, y: 143.4 }
+    size: { w: 137, h: 10 }
+  - id: d3_l0
+    label: ""
+    at: { x: 110, y: 153.4 }
+    size: { w: 137, h: 201.6 }
+  - id: d3_h0
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 235, y: 193.7 }
+    size: { w: 3, h: 44 }
+  - id: d3_l1
+    label: ""
+    at: { x: 110, y: 355 }
+    size: { w: 137, h: 84.3 }
+  - id: d3_h1
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 235, y: 371.9 }
+    size: { w: 3, h: 44 }
+  - id: d3_l2
+    label: ""
+    at: { x: 110, y: 439.3 }
+    size: { w: 137, h: 80.7 }
+  - id: d3_h2
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 235, y: 455.5 }
+    size: { w: 3, h: 44 }
+  - id: d3_n
+    label: "3 ドア以上　幅 685mm"
+    marker: none
+    align: center
+    at: { x: 70, y: 117.4 }
+    size: { w: 217, h: 18 }
+  - id: d3_t
+    label: "上 50"
+    marker: none
+    align: left
+    at: { x: 253, y: 139.4 }
+    size: { w: 90, h: 18 }
+  - id: d3_s
+    label: "左右 5　背面 不要"
+    marker: none
+    align: center
+    at: { x: 70, y: 530 }
+    size: { w: 217, h: 18 }
+  - id: d2_gap
+    label: ""
+    marker: none
+    fill: 放熱
+    hatch: solid
+    at: { x: 343, y: 140 }
+    size: { w: 120, h: 60 }
+  - id: d2_l0
+    label: ""
+    at: { x: 343, y: 200 }
+    size: { w: 120, h: 208 }
+  - id: d2_h0
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 451, y: 241.6 }
+    size: { w: 3, h: 44 }
+  - id: d2_l1
+    label: ""
+    at: { x: 343, y: 408 }
+    size: { w: 120, h: 112 }
+  - id: d2_h1
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 451, y: 430.4 }
+    size: { w: 3, h: 44 }
+  - id: d2_n
+    label: "2 ドア　幅 600mm"
+    marker: none
+    align: center
+    at: { x: 303, y: 114 }
+    size: { w: 200, h: 18 }
+  - id: d2_t
+    label: "上 300"
+    marker: none
+    align: left
+    at: { x: 469, y: 161 }
+    size: { w: 90, h: 18 }
+  - id: d2_s
+    label: "左右 20　背面 70"
+    marker: none
+    align: center
+    at: { x: 303, y: 530 }
+    size: { w: 200, h: 18 }
+  - id: d1_gap
+    label: ""
+    marker: none
+    fill: 放熱
+    hatch: solid
+    at: { x: 559, y: 274 }
+    size: { w: 96, h: 20 }
+  - id: d1_l0
+    label: ""
+    at: { x: 559, y: 294 }
+    size: { w: 96, h: 226 }
+  - id: d1_h0
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 643, y: 339.2 }
+    size: { w: 3, h: 44 }
+  - id: d1_n
+    label: "1 ドア　幅 480mm"
+    marker: none
+    align: center
+    at: { x: 519, y: 248 }
+    size: { w: 176, h: 18 }
+  - id: d1_t
+    label: "上 100"
+    marker: none
+    align: left
+    at: { x: 661, y: 275 }
+    size: { w: 90, h: 18 }
+  - id: d1_s
+    label: "左右 20　背面 100"
+    marker: none
+    align: center
+    at: { x: 519, y: 530 }
+    size: { w: 176, h: 18 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 79, y: 519 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 690, y: 519 }
+    size: { w: 2, h: 2 }
+  - id: e_t
+    label: "① 上に空ける寸法は、機種でまるで違う（単位 mm）"
+    marker: none
+    align: left
+    at: { x: 110, y: 70 }
+    size: { w: 560, h: 20 }
+  - id: e_u
+    label: "　同じメーカーの製品でも、上は 50 と 300、背面は 0 と 100。"
+    marker: none
+    align: left
+    at: { x: 110, y: 92 }
+    size: { w: 560, h: 18 }
+  - id: wall_back
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 110, y: 692 }
+    size: { w: 257, h: 8 }
+  - id: wall_left
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 161, y: 700 }
+    size: { w: 8, h: 279.8 }
+  - id: gap_l
+    label: ""
+    marker: none
+    fill: 放熱
+    hatch: solid
+    at: { x: 169, y: 700 }
+    size: { w: 1, h: 139.8 }
+  - id: gap_r
+    label: ""
+    marker: none
+    fill: 放熱
+    hatch: solid
+    at: { x: 307, y: 700 }
+    size: { w: 1, h: 139.8 }
+  - id: front
+    label: ""
+    marker: none
+    fill: 前
+    at: { x: 170, y: 839.8 }
+    size: { w: 137, h: 120 }
+  - id: plan
+    label: "冷蔵庫"
+    at: { x: 170, y: 700 }
+    size: { w: 137, h: 139.8 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 234.4, y: 841.3 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 171.5, y: 904.2 }
+    size: { w: 2, h: 2 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 240.6, y: 841.3 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 303.5, y: 904.2 }
+    size: { w: 2, h: 2 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 171, y: 841.3 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 171, y: 901.8 }
+    size: { w: 2, h: 2 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 304, y: 841.3 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 304, y: 901.8 }
+    size: { w: 2, h: 2 }
+  - id: p_t
+    label: "② 平面 — 3 ドア以上の例（背面は壁づけ可）"
+    marker: none
+    align: left
+    at: { x: 110, y: 640 }
+    size: { w: 560, h: 20 }
+  - id: p_g
+    label: "← 左右 5mm（この縮尺ではほぼ線の太さ）"
+    marker: none
+    align: left
+    at: { x: 315, y: 741.9 }
+    size: { w: 300, h: 18 }
+  - id: p_b
+    label: "← 背面は 0mm。壁にぴったり付けられる"
+    marker: none
+    align: left
+    at: { x: 315, y: 708 }
+    size: { w: 300, h: 18 }
+  - id: p_f
+    label: "引き出し 600mm"
+    marker: none
+    align: center
+    at: { x: 172, y: 937.8 }
+    size: { w: 133, h: 18 }
+  - id: p_f2
+    label: "扉を開けて、中のケースを引き出す分"
+    marker: none
+    align: left
+    at: { x: 315, y: 937.8 }
+    size: { w: 300, h: 18 }
+  - id: p_d
+    label: "観音開き。左右それぞれ 90°"
+    marker: none
+    align: left
+    at: { x: 315, y: 821.8 }
+    size: { w: 300, h: 18 }
+  - id: p_w
+    label: "本体 685 × 699mm"
+    marker: none
+    align: center
+    at: { x: 172, y: 971.8 }
+    size: { w: 133, h: 18 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 829, y: 359 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 1249, y: 169 }
+    size: { w: 2, h: 2 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 829, y: 516 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 1406, y: 169 }
+    size: { w: 2, h: 2 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 829, y: 359 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 829, y: 516 }
+    size: { w: 2, h: 2 }
+  - id: c_e
+    label: "玄関の開口\n785mm 以上"
+    marker: none
+    align: right
+    at: { x: 660, y: 418.5 }
+    size: { w: 160, h: 40 }
+  - id: m1
+    label: ""
+    at: { x: 860, y: 370 }
+    size: { w: 139.8, h: 137 }
+  - id: m2
+    label: ""
+    at: { x: 1060, y: 370 }
+    size: { w: 139.8, h: 137 }
+  - id: c_m1
+    label: "横にして運ぶ"
+    marker: none
+    align: center
+    at: { x: 863, y: 429.5 }
+    size: { w: 133.8, h: 18 }
+  - id: c_m2
+    label: "奥行 699 が進む向き"
+    marker: none
+    align: center
+    at: { x: 1063, y: 429.5 }
+    size: { w: 133.8, h: 18 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 1328.5, y: 535.4 }
+    size: { w: 2, h: 2 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 1328.5, y: 535.4 }
+    size: { w: 2, h: 2 }
+  - id: p18
+    label: ""
+    marker: none
+    at: { x: 1328.5, y: 535.4 }
+    size: { w: 2, h: 2 }
+  - id: p19
+    label: ""
+    marker: none
+    at: { x: 1326.5, y: 339.6 }
+    size: { w: 2, h: 2 }
+  - id: c_diag
+    label: "対角 979mm"
+    marker: none
+    align: center
+    at: { x: 1228.5, y: 429.5 }
+    size: { w: 200, h: 18 }
+  - id: c_over
+    label: "対角 979 − 廊下 785 ＝ 194mm はみ出す"
+    marker: none
+    align: center
+    at: { x: 960, y: 255 }
+    size: { w: 360, h: 18 }
+  - id: c_t
+    label: "③ 搬入経路 — 角は「幅」ではなく「対角」で決まる"
+    marker: none
+    align: left
+    at: { x: 800, y: 110 }
+    size: { w: 620, h: 20 }
+  - id: c_u
+    label: "　幅 785mm の廊下どうしの角では、対角 979mm が入らない。壁に当たる。"
+    marker: none
+    align: left
+    at: { x: 800, y: 132 }
+    size: { w: 620, h: 18 }
+  - id: c_w
+    label: "廊下の幅 785mm（狭いほう 685 ＋ 100）"
+    marker: none
+    align: center
+    at: { x: 860, y: 527 }
+    size: { w: 340, h: 18 }
+  - id: c_v
+    label: "この先へ曲がる"
+    marker: none
+    align: left
+    at: { x: 1258, y: 180 }
+    size: { w: 150, h: 18 }
+  - id: h620
+    label: "放熱スペース（あるメーカーの例・mm）"
+    hatch: solid
+    at: { x: 800, y: 620 }
+    size: { w: 470, h: 24 }
+  - id: a644
+    label: "3 ドア以上"
+    at: { x: 800, y: 644 }
+    size: { w: 170, h: 24 }
+  - id: b644
+    label: "上 50／左右 5／背面 不要"
+    align: left
+    at: { x: 970, y: 644 }
+    size: { w: 300, h: 24 }
+  - id: a668
+    label: "2 ドア"
+    at: { x: 800, y: 668 }
+    size: { w: 170, h: 24 }
+  - id: b668
+    label: "上 300／左右 20／背面 70"
+    align: left
+    at: { x: 970, y: 668 }
+    size: { w: 300, h: 24 }
+  - id: a692
+    label: "1 ドア"
+    at: { x: 800, y: 692 }
+    size: { w: 170, h: 24 }
+  - id: b692
+    label: "上 100／左右 20／背面 100"
+    align: left
+    at: { x: 970, y: 692 }
+    size: { w: 300, h: 24 }
+  - id: a716
+    label: "一般の目安"
+    at: { x: 800, y: 716 }
+    size: { w: 170, h: 24 }
+  - id: b716
+    label: "左右 10〜100／上 50〜100"
+    align: left
+    at: { x: 970, y: 716 }
+    size: { w: 300, h: 24 }
+  - id: a740
+    label: "確かめ方"
+    at: { x: 800, y: 740 }
+    size: { w: 170, h: 24 }
+  - id: b740
+    label: "買う機種の取扱説明書を見る"
+    align: left
+    at: { x: 970, y: 740 }
+    size: { w: 300, h: 24 }
+  - id: h782
+    label: "搬入に必要な幅（mm）"
+    hatch: solid
+    at: { x: 800, y: 782 }
+    size: { w: 470, h: 24 }
+  - id: a806
+    label: "測るところ"
+    at: { x: 800, y: 806 }
+    size: { w: 170, h: 24 }
+  - id: b806
+    label: "幅と奥行の、狭いほう"
+    align: left
+    at: { x: 970, y: 806 }
+    size: { w: 300, h: 24 }
+  - id: a830
+    label: "直進"
+    at: { x: 800, y: 830 }
+    size: { w: 170, h: 24 }
+  - id: b830
+    label: "狭いほう ＋60 ＝ 745"
+    align: left
+    at: { x: 970, y: 830 }
+    size: { w: 300, h: 24 }
+  - id: a854
+    label: "玄関・EV・廊下"
+    at: { x: 800, y: 854 }
+    size: { w: 170, h: 24 }
+  - id: b854
+    label: "狭いほう ＋100 ＝ 785"
+    align: left
+    at: { x: 970, y: 854 }
+    size: { w: 300, h: 24 }
+  - id: a878
+    label: "階段"
+    at: { x: 800, y: 878 }
+    size: { w: 170, h: 24 }
+  - id: b878
+    label: "狭いほう ＋200 ＝ 885"
+    align: left
+    at: { x: 970, y: 878 }
+    size: { w: 300, h: 24 }
+  - id: a902
+    label: "角を曲がる"
+    at: { x: 800, y: 902 }
+    size: { w: 170, h: 24 }
+  - id: b902
+    label: "対角 979（幅では足りない）"
+    align: left
+    at: { x: 970, y: 902 }
+    size: { w: 300, h: 24 }
+  - id: a926
+    label: "この機種"
+    at: { x: 800, y: 926 }
+    size: { w: 170, h: 24 }
+  - id: b926
+    label: "685 × 699 → 狭いほう 685"
+    align: left
+    at: { x: 970, y: 926 }
+    size: { w: 300, h: 24 }
+  - id: h968
+    label: "扉と前の空き"
+    hatch: solid
+    at: { x: 800, y: 968 }
+    size: { w: 470, h: 24 }
+  - id: a992
+    label: "開く向き"
+    at: { x: 800, y: 992 }
+    size: { w: 170, h: 24 }
+  - id: b992
+    label: "右開き・左開き・観音開きがある"
+    align: left
+    at: { x: 970, y: 992 }
+    size: { w: 300, h: 24 }
+  - id: a1016
+    label: "90° 開く"
+    at: { x: 800, y: 1016 }
+    size: { w: 170, h: 24 }
+  - id: b1016
+    label: "本体の幅の左右に ＋10mm ずつ"
+    align: left
+    at: { x: 970, y: 1016 }
+    size: { w: 300, h: 24 }
+  - id: a1040
+    label: "前の空き"
+    at: { x: 800, y: 1040 }
+    size: { w: 170, h: 24 }
+  - id: b1040
+    label: "扉を開けてケースを引き出す分（600mm 前後）"
+    align: left
+    at: { x: 970, y: 1040 }
+    size: { w: 300, h: 24 }
+  - id: h1082
+    label: "この図に出ていないもの"
+    hatch: solid
+    at: { x: 800, y: 1082 }
+    size: { w: 470, h: 24 }
+  - id: a1106
+    label: "電源"
+    at: { x: 800, y: 1106 }
+    size: { w: 170, h: 24 }
+  - id: b1106
+    label: "コンセントの位置と高さ"
+    align: left
+    at: { x: 970, y: 1106 }
+    size: { w: 300, h: 24 }
+  - id: a1130
+    label: "アース"
+    at: { x: 800, y: 1130 }
+    size: { w: 170, h: 24 }
+  - id: b1130
+    label: "据付時につなぐ"
+    align: left
+    at: { x: 970, y: 1130 }
+    size: { w: 300, h: 24 }
+  - id: a1154
+    label: "製氷の給水"
+    at: { x: 800, y: 1154 }
+    size: { w: 170, h: 24 }
+  - id: b1154
+    label: "水道につなぐ機種がある"
+    align: left
+    at: { x: 970, y: 1154 }
+    size: { w: 300, h: 24 }
+  - id: a1178
+    label: "床"
+    at: { x: 800, y: 1178 }
+    size: { w: 170, h: 24 }
+  - id: b1178
+    label: "キャスターの跡・耐荷重"
+    align: left
+    at: { x: 970, y: 1178 }
+    size: { w: 300, h: 24 }
+  - id: a1202
+    label: "寸法"
+    at: { x: 800, y: 1202 }
+    size: { w: 170, h: 24 }
+  - id: b1202
+    label: "すべて例。機種で変わる"
+    align: left
+    at: { x: 970, y: 1202 }
+    size: { w: 300, h: 24 }
+  - id: n1
+    label: "冷蔵庫のまわりに空ける放熱スペースは、機種でまるで違います。"
+    marker: none
+    align: left
+    at: { x: 110, y: 1020 }
+    size: { w: 660, h: 18 }
+  - id: n2
+    label: "同じメーカーでも、3 ドア以上は上 50mm・左右 5mm・背面は不要。"
+    marker: none
+    align: left
+    at: { x: 110, y: 1042 }
+    size: { w: 660, h: 18 }
+  - id: n3
+    label: "1 ドアは上 100mm・左右 20mm・背面 100mm です。"
+    marker: none
+    align: left
+    at: { x: 110, y: 1064 }
+    size: { w: 660, h: 18 }
+  - id: n4
+    label: "「何センチ空ける」という一般解はありません。買う機種の取扱説明書で確かめます。"
+    marker: none
+    align: left
+    at: { x: 110, y: 1086 }
+    size: { w: 660, h: 18 }
+  - id: n5
+    label: "搬入は、幅と奥行の狭いほうに足して考えます —— 直進 ＋60mm、玄関や廊下 ＋100mm、階段 ＋200mm。"
+    marker: none
+    align: left
+    at: { x: 110, y: 1108 }
+    size: { w: 660, h: 18 }
+  - id: n6
+    label: "ただし角だけは別で、対角 979mm が入るかで決まります。"
+    marker: none
+    align: left
+    at: { x: 110, y: 1130 }
+    size: { w: 660, h: 18 }
+  - id: n7
+    label: "寸法は例です。実際の機種の値ではありません。"
+    marker: none
+    align: left
+    at: { x: 110, y: 1152 }
+    size: { w: 660, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p2
+    to: p3
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 235.4, y: 844.1 }
+      - { x: 234.9, y: 848.3 }
+      - { x: 234.2, y: 852.6 }
+      - { x: 233.3, y: 856.8 }
+      - { x: 232, y: 860.9 }
+      - { x: 230.5, y: 864.9 }
+      - { x: 228.7, y: 868.8 }
+      - { x: 226.7, y: 872.6 }
+      - { x: 224.5, y: 876.2 }
+      - { x: 222, y: 879.7 }
+      - { x: 219.2, y: 883 }
+      - { x: 216.3, y: 886.1 }
+      - { x: 213.2, y: 889 }
+      - { x: 209.9, y: 891.8 }
+      - { x: 206.4, y: 894.3 }
+      - { x: 202.8, y: 896.5 }
+      - { x: 199, y: 898.5 }
+      - { x: 195.1, y: 900.3 }
+      - { x: 191.1, y: 901.8 }
+      - { x: 187, y: 903.1 }
+      - { x: 182.8, y: 904 }
+      - { x: 178.5, y: 904.7 }
+      - { x: 174.3, y: 905.2 }
+  - from: p4
+    to: p5
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 241.6, y: 844.1 }
+      - { x: 242.1, y: 848.3 }
+      - { x: 242.8, y: 852.6 }
+      - { x: 243.7, y: 856.8 }
+      - { x: 245, y: 860.9 }
+      - { x: 246.5, y: 864.9 }
+      - { x: 248.3, y: 868.8 }
+      - { x: 250.3, y: 872.6 }
+      - { x: 252.5, y: 876.2 }
+      - { x: 255, y: 879.7 }
+      - { x: 257.8, y: 883 }
+      - { x: 260.7, y: 886.1 }
+      - { x: 263.8, y: 889 }
+      - { x: 267.1, y: 891.8 }
+      - { x: 270.6, y: 894.3 }
+      - { x: 274.3, y: 896.5 }
+      - { x: 278, y: 898.5 }
+      - { x: 281.9, y: 900.3 }
+      - { x: 285.9, y: 901.8 }
+      - { x: 290, y: 903.1 }
+      - { x: 294.2, y: 904 }
+      - { x: 298.5, y: 904.7 }
+      - { x: 302.7, y: 905.2 }
+  - from: p6
+    to: p7
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p8
+    to: p9
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p10
+    to: p11
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 1250, y: 360 }
+  - from: p12
+    to: p13
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 1407, y: 517 }
+  - from: p14
+    to: p15
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p16
+    to: p17
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 1426.4, y: 439.5 }
+      - { x: 1327.5, y: 340.6 }
+      - { x: 1230.6, y: 437.5 }
+  - from: p18
+    to: p19
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
