@@ -238,9 +238,17 @@ function checkDeclarations(doc: Document, add: Add, m: Messages, at: At): void {
 function checkGridAndScale(doc: Document, add: Add, m: Messages, at: At): void {
   const placement = String(doc.get('kind') ?? '') === 'placement';
 
+  /**
+   * 方位（`src/grid.ts`）。**語だけでも、置き場所つきでも書ける**（2026-09-18）。
+   * 見るのは向きの語で、置き場所は数でなければ紙の右上へ戻る（捨てても図は出る）。
+   */
+  const northNode = doc.get('north', true);
   const north = doc.get('north');
-  if (north !== undefined && north !== null && !NORTH_WORDS.has(String(north))) {
-    add('warning', 'north-unknown', m.northUnknown(String(north)), at(doc.get('north', true)));
+  if (north !== undefined && north !== null) {
+    const face = isMap(northNode) ? northNode.get('face') : north;
+    if (face === undefined || face === null || !NORTH_WORDS.has(String(face))) {
+      add('warning', 'north-unknown', m.northUnknown(String(face ?? north)), at(northNode));
+    }
   }
 
   const scale = doc.get('scale', true);

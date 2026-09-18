@@ -12,7 +12,7 @@
  * 壁の厚みをどちらに数えるかで値が変わり、**現場で食い違う**。
  * 実物の図面が通り芯を基準にしているのは、そこを一意にするため。
  */
-import type { Axis, Grid, North } from './grid.ts';
+import type { Axis, Grid, NorthMark } from './grid.ts';
 import { CODE_R, MARGIN } from './grid.ts';
 import type { Rect } from './names.ts';
 import { lengthText } from './units.ts';
@@ -346,10 +346,11 @@ function line(
  *
  * 実物では円の中に矢印と「N」。**向きだけが情報**なので、装飾は足さない。
  */
-export function drawNorth(north: North, frame: Frame, ink: Ink): string {
-  const cx = frame.x + frame.w + MARGIN.right / 2 - 6;
-  const cy = frame.y - MARGIN.top / 2;
-  const angle = { up: 0, right: 90, down: 180, left: 270 }[north];
+export function drawNorth(north: NorthMark, frame: Frame, ink: Ink): string {
+  // **置き場所が書いてあれば、そこへ。** 書いていなければ紙の右上（これまでどおり）。
+  const cx = north.at === null ? frame.x + frame.w + MARGIN.right / 2 - 6 : north.at.x;
+  const cy = north.at === null ? frame.y - MARGIN.top / 2 : north.at.y;
+  const angle = { up: 0, right: 90, down: 180, left: 270 }[north.face];
   return (
     `<g transform="rotate(${angle} ${n(cx)} ${n(cy)})">` +
     `<path d="M ${n(cx)} ${n(cy - 13)} L ${n(cx + 5)} ${n(cy + 9)} L ${n(cx)} ${n(cy + 4)} L ${n(cx - 5)} ${n(cy + 9)} Z" fill="${ink.stroke}"/>` +

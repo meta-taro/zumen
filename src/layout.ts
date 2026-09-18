@@ -23,7 +23,7 @@ import { allAxes, slideViews, viewBounds, viewsOf } from './views.ts';
 import { build } from './construct.ts';
 import type { Source as ConstructSource, Stroke } from './construct.ts';
 import type { View } from './views.ts';
-import type { Grid, North } from './grid.ts';
+import type { Grid, NorthMark } from './grid.ts';
 import { arrowsOf } from './arrows.ts';
 import { hatchOf } from './hatch.ts';
 import { legsOf, symbolOf } from './symbol.ts';
@@ -194,7 +194,7 @@ export interface Placed {
   /** **寸法をフィートとインチで書くか**（`scale: { in: … }`）。 */
   feet: boolean;
   /** 方位。書かなければ描かない。 */
-  north: North | null;
+  north: NorthMark | null;
   /** **壁の厚み**（`src/wall.ts`）。書かなければこれまでどおりの線の太さ。 */
   wall: Wall | null;
   /** **線に向きがあるか**（`src/arrows.ts`）。既定は真。 */

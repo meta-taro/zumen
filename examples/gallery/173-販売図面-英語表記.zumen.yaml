@@ -4,7 +4,7 @@ arrows: true
 title: 販売図面（英語表記・グレースケール／架空）
 scale: { mm: 20 }
 wall: { mm: 100, outer: 150 }
-north: up
+north: { face: up, at: { x: 734, y: 574 } }
 # **同じ間取りでも、売り場が違えば別の図になる。**
 #
 # 見本 166 は色で用途を分けた版（買う人の下見）。こちらは**無彩色の英語表記**で、
@@ -36,6 +36,11 @@ nodes:
     size: { w: 140, h: 130 }
     openings:
       - { kind: open, side: bottom, at: 0.5, width: 70 }
+  - id: alc
+    label: "Alcove"
+    color: Wall
+    at: { x: 210, y: 164 }
+    size: { w: 80, h: 50 }
   - id: ent
     label: "Entrance"
     color: Wall
@@ -135,6 +140,11 @@ nodes:
     openings:
       - { kind: door, side: top, at: 0.14, width: 32 }
       - { kind: slide, side: bottom, at: 0.6, width: 90 }
+  - id: bay
+    label: ""
+    color: Wall
+    at: { x: 700, y: 464 }
+    size: { w: 20, h: 100 }
   - id: bal
     label: "Balcony"
     color: Wall
@@ -335,25 +345,25 @@ nodes:
   - id: s37
     label: ""
     marker: none
-    at: { x: 69, y: 197 }
+    at: { x: 69, y: 151 }
     size: { w: 2, h: 2 }
   - id: t1
     label: "TYPE  A"
     marker: none
     align: left
-    at: { x: 70, y: 130 }
+    at: { x: 70, y: 86 }
     size: { w: 200, h: 22 }
   - id: t2
     label: "3BED　100.80㎡ (30.49T)"
     marker: none
     align: left
-    at: { x: 70, y: 156 }
+    at: { x: 70, y: 112 }
     size: { w: 300, h: 18 }
   - id: t3
     label: "Balcony 20.16㎡　Ceiling H=2,500"
     marker: none
     align: left
-    at: { x: 70, y: 176 }
+    at: { x: 70, y: 132 }
     size: { w: 300, h: 18 }
   - id: l_r
     label: "R"
@@ -367,6 +377,12 @@ nodes:
     align: left
     at: { x: 706, y: 295 }
     size: { w: 64, h: 18 }
+  - id: l_bay
+    label: "Bay"
+    marker: none
+    align: left
+    at: { x: 724, y: 509 }
+    size: { w: 40, h: 18 }
   - id: l_bal
     label: "Balcony 20.16㎡"
     marker: none
@@ -1144,5 +1160,5 @@ edges:
     color: Fixture
     ends: { from: none, to: none }
     via:
-      - { x: 70, y: 198 }
-      - { x: 330, y: 198 }
+      - { x: 70, y: 152 }
+      - { x: 330, y: 152 }

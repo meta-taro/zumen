@@ -170,8 +170,28 @@ export function scaleOf(raw: unknown): Scale | null {
 export const NORTHS = ['up', 'right', 'down', 'left'] as const;
 export type North = (typeof NORTHS)[number];
 
-export function northOf(raw: unknown): North | null {
-  return NORTHS.includes(raw as North) ? (raw as North) : null;
+/**
+ * **方位の印**（向きと、置き場所）。
+ *
+ * 置き場所は書かなくてよい（既定は紙の右上）。
+ * **書けるようにしたのは、図が紙の一部しか使っていない紙があるため**
+ * —— 右半分が表の紙では、右上の印が図から遠く離れて浮く（2026-09-18）。
+ * 実物の販売図面は、**必ず図のそば**に小さく置いてある。
+ */
+export interface NorthMark {
+  face: North;
+  /** 紙の座標。**書かなければ紙の右上**（これまでどおり）。 */
+  at: { x: number; y: number } | null;
+}
+
+export function northOf(raw: unknown): NorthMark | null {
+  if (NORTHS.includes(raw as North)) return { face: raw as North, at: null };
+  if (raw === null || typeof raw !== 'object') return null;
+  const map = raw as { face?: unknown; at?: unknown };
+  if (!NORTHS.includes(map.face as North)) return null;
+  const at = map.at as { x?: unknown; y?: unknown } | undefined;
+  const has = at !== null && typeof at === 'object' && typeof at?.x === 'number' && typeof at?.y === 'number';
+  return { face: map.face as North, at: has ? { x: Number(at!.x), y: Number(at!.y) } : null };
 }
 
 /**

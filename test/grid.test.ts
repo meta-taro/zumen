@@ -16,6 +16,7 @@ import { describe, it } from 'node:test';
 import { gridOf, hasGrid, northOf, scaleOf } from '../src/grid.ts';
 import { layout } from '../src/layout.ts';
 import { render } from '../src/render.ts';
+import { validate } from '../src/validate.ts';
 
 const PLAN = `version: 1
 kind: placement
@@ -72,9 +73,21 @@ describe('縮尺を読む', () => {
   });
 
   it('方位は決まった 4 語だけ', () => {
-    assert.equal(northOf('up'), 'up');
+    // **語だけで書ける**（置き場所は紙の右上のまま）。
+    assert.deepEqual(northOf('up'), { face: 'up', at: null });
     assert.equal(northOf('naname'), null);
     assert.equal(northOf(undefined), null);
+  });
+
+  it('**置き場所を足して書ける**（向きは同じ 4 語）', () => {
+    assert.deepEqual(northOf({ face: 'left', at: { x: 10, y: 20 } }), {
+      face: 'left',
+      at: { x: 10, y: 20 },
+    });
+    // 向きが語でなければ、方位そのものを採らない（知らせるのは検証器）。
+    assert.equal(northOf({ face: 'naname', at: { x: 10, y: 20 } }), null);
+    // 置き場所が数でなければ、紙の右上へ戻す（黙って捨てない値ではない）。
+    assert.deepEqual(northOf({ face: 'up', at: { x: '10', y: 20 } }), { face: 'up', at: null });
   });
 });
 
@@ -650,5 +663,56 @@ nodes:
     const out = await render(await layout(BASE.replaceAll('MARK', 'code')), 'light', 'safe', true);
     assert.ok(out.indexOf('data-grid="true"') > out.indexOf('data-node'), '通り芯が箱の下へ潜った');
     assert.ok(!out.includes('data-grid="tick"'), '通り芯だけの図に、空の目盛りの層が出ている');
+  });
+});
+
+/**
+ * **方位の置き場所**（`north.at`）。
+ *
+ * 2026-09-18。販売図面のグレースケール版（見本 173）を実物と並べて気づいた。
+ *
+ * 方位の印は**紙の右上**に置かれる。図が紙いっぱいならそれでよいが、
+ * **右半分が表**の紙では、印が図から遠く離れて浮く ——
+ * 実物の販売図面は、**必ず図のそば**に小さく置いてある。
+ *
+ * だから置き場所を**正本が選べる**ようにした。書かなければ、これまでどおり紙の右上。
+ */
+describe('方位の置き場所', () => {
+  const sheet = (north: string): string => `version: 1
+kind: placement
+north: ${north}
+nodes:
+  - id: room
+    label: 部屋
+    at: { x: 0, y: 0 }
+    size: { w: 200, h: 200 }
+  - id: table
+    label: 表
+    at: { x: 600, y: 0 }
+    size: { w: 300, h: 200 }
+`;
+
+  it('書かなければ、これまでどおり紙の右上', async () => {
+    const out = render(await layout(sheet('up')), 'light', 'safe', true);
+    const found = out.match(/<text [^>]*x="([\d.]+)"[^>]*>N</);
+    assert.ok(found, out);
+    assert.ok(Number(found[1]) > 600, `右上に置いていない: ${found[1]}`);
+  });
+
+  it('**座標を書けば、そこへ置く**（図のそばへ寄せられる）', async () => {
+    const out = render(await layout(sheet('{ face: up, at: { x: 230, y: 40 } }')), 'light', 'safe', true);
+    const found = out.match(/<text [^>]*x="([\d.]+)" y="([\d.]+)"[^>]*>N</);
+    assert.ok(found, out);
+    assert.equal(Number(found[1]), 230);
+    assert.ok(Math.abs(Number(found[2]) - 62) < 4, `y がずれている: ${found[2]}`);
+  });
+
+  it('向きも同じように効く', async () => {
+    const out = render(await layout(sheet('{ face: left, at: { x: 230, y: 40 } }')), 'light', 'safe', true);
+    assert.match(out, /rotate\(270 230 40\)/);
+  });
+
+  it('知らない向きは、これまでどおり知らせる', () => {
+    assert.ok(validate(sheet('{ face: ななめ, at: { x: 10, y: 10 } }')).some((f) => f.code === 'north-unknown'));
   });
 });
