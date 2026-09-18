@@ -613,6 +613,8 @@ const ja = {
       `${target} の color が "${key}" ですが、palette にその鍵がありません。色は付きません。`,
     colorFaint: (key: string, value: string) =>
       `palette の "${key}"（${value}）が薄すぎます。地に沈んで線が消えます（非文字の下限は 3:1。ライトとダークの両方の地で見ています）。`,
+    colorNotHex: (key: string, value: string) =>
+      `palette の "${key}" の色 "${value}" が読めません。**#rrggbb（6 桁）**で書いてください。3 桁（#a33）も色名（red）も受けません —— 貼り先で解釈が割れるためです。この鍵は色が付かないまま残ります。`,
     edgeSelfOpen: (id: string) =>
       `ノード "${id}" から自分自身への辺に via がありません。長さ 0 の線になり、節の真ん中に矢印の粒が出るだけになります。自分自身への辺は、via を並べて close: true にすると閉じた形（視野・範囲・輪郭）が描けます。`,
     edgeHatchIgnored: (edge: string) =>
@@ -1166,6 +1168,8 @@ const en: Catalog = {
       `${target} has color "${key}", but palette has no such key. No colour is applied.`,
     colorFaint: (key: string, value: string) =>
       `palette entry "${key}" (${value}) is too faint: the line sinks into the ground (3:1 is the floor for non-text; both the light and the dark ground are checked).`,
+    colorNotHex: (key: string, value: string) =>
+      `palette entry "${key}" has the colour "${value}", which cannot be read. Write it as **#rrggbb** (six digits). Three digits (#a33) and colour names (red) are not accepted — they are interpreted differently wherever the drawing is pasted. The key stays, with no colour.`,
     edgeSelfOpen: (id: string) =>
       `The edge from node "${id}" to itself has no via points, so it draws a zero-length line — just an arrowhead at the node's centre. A self-edge with via points and close: true draws a closed shape (a field of view, a range, an outline).`,
     edgeHatchIgnored: (edge: string) =>

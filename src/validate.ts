@@ -712,6 +712,24 @@ function checkColors(doc: Document, add: Add, m: Messages, at: At): void {
   const table = routePalette(isMap(raw) ? raw.toJSON() : undefined);
 
   /**
+   * **読めない色は、値を名指しする**（2026-09-19）。
+   *
+   * `paletteOf` は `#rrggbb` でない値を黙って落とす（`src/palette.ts`）。
+   * 落ちた鍵を使うと、これまでは「**palette にその鍵がありません**」と言っていた ——
+   * 鍵はある。読めなかったのは**値**のほう。**嘘の指摘は、直す先を間違えさせる。**
+   */
+  const declared = new Set<string>();
+  if (isMap(raw)) {
+    for (const entry of raw.items) {
+      const key = String(entry.key?.toString() ?? '');
+      declared.add(key);
+      if (table[key] !== undefined) continue;
+      const value = entry.value?.toString() ?? '';
+      add('warning', 'color-not-hex', m.colorNotHex(key, value), at(entry.value ?? raw));
+    }
+  }
+
+  /**
    * **面だけに使う鍵には、線の下限を当てない**（2026-09-18）。
    *
    * `color-faint` は「**地に沈んで線が消える**」ことを言う検査で、
@@ -759,7 +777,10 @@ function checkColors(doc: Document, add: Add, m: Messages, at: At): void {
     const key = item.get(field);
     if (key === undefined || key === null) return;
     if (table[String(key)] === undefined) {
-      add('warning', 'color-unknown', m.colorUnknown(name, String(key)), at(item.get(field, true)));
+      // 鍵はあるが値が読めなかったときは、palette 側で 1 度だけ言う（color-not-hex）
+      if (!declared.has(String(key))) {
+        add('warning', 'color-unknown', m.colorUnknown(name, String(key)), at(item.get(field, true)));
+      }
       return;
     }
     if (!used.has(String(key))) used.set(String(key), item);

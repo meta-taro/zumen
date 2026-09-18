@@ -163,6 +163,24 @@ describe('色だけに頼らせない', () => {
     assert.ok(validate(MAP.replace('color: G\n    marker', 'color: Z\n    marker')).some((f) => f.code === 'color-unknown'));
   });
 
+  /**
+   * **読めない色は、値を名指しで知らせる。**
+   *
+   * 2026-09-19。見本 187（木取り図）を作っていて踏んだ ——
+   * `palette` に `#a33` と書いたら「**palette にその鍵がありません**」と言われた。
+   * 鍵はある。**読めなかったのは値のほう。** 嘘の指摘に 1 往復とられた。
+   *
+   * 3 桁も色名も受けないのは決めごと（`src/palette.ts`）。
+   * **受けないなら、受けないと言う。**
+   */
+  it('**`#rrggbb` でない色は、鍵ではなく値を名指しする**', () => {
+    const found = validate(MAP.replace('#f39700', '#f97'));
+    assert.ok(found.some((f) => f.code === 'color-not-hex'), '読めない色を知らせていない');
+    const said = found.find((f) => f.code === 'color-not-hex')!.message;
+    assert.ok(said.includes('#f97'), `値を名指ししていない（${said}）`);
+    assert.ok(!found.some((f) => f.code === 'color-unknown'), '鍵が無いと嘘を言っている');
+  });
+
   it('どれも warning（読めない図ではない）', () => {
     const found = validate(MAP.replace('tag: G-01', 'tag: A-01').replace('#f39700', '#fdfdfd'));
     assert.ok(found.every((f) => f.severity === 'warning'));
