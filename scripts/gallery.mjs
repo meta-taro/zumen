@@ -180,6 +180,31 @@ for (const target of PAGES) {
   else if (rebuilt !== page) stale.push(target.path);
 }
 
+/**
+ * **同梱の見本の目次**（`examples/gallery/index.json`）。
+ *
+ * MCP の `zumen_examples` がこれを読む —— **入れた人のエージェントに、
+ * どんな図面があるかを渡すため**（D39 と同じ筋。`src/examples.ts`）。
+ * 正本は `gallery-categories.mjs` と `gallery-en.mjs` なので、ここで写すだけ。
+ */
+const index = {
+  count: readdirSync(DIR).filter((f) => f.endsWith('.zumen.yaml')).length,
+  categories: CATEGORIES.map((group) => ({
+    key: group.key,
+    label: group.label,
+    labelEn: GROUPS_EN[group.key] ?? group.label,
+    items: group.items.map((item) => ({
+      name: item.name,
+      caption: item.caption,
+      captionEn: CAPTIONS_EN[item.name] ?? '',
+    })),
+  })),
+};
+const indexPath = join(DIR, 'index.json');
+const indexText = `${JSON.stringify(index, null, 2)}\n`;
+if (!check) writeFileSync(indexPath, indexText);
+else if (readFileSync(indexPath, 'utf8') !== indexText) stale.push(indexPath);
+
 if (parts.missing.length > 0) {
   console.log(`紹介ページに出していない見本が ${parts.missing.length} 件あります（scripts/gallery-categories.mjs に足してください）。`);
   for (const name of parts.missing) console.log(`  ${name}`);

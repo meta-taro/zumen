@@ -151,9 +151,15 @@ To let an agent draw, run the MCP server:
 pnpm mcp
 ```
 
-It exposes `zumen_spec` (read this first), `zumen_propose`, `zumen_export`,
+It exposes `zumen_spec` (read this first), **`zumen_examples`** (the catalogue and
+sources of the 189 bundled examples), `zumen_propose`, `zumen_export`,
 `zumen_inspect` and others. **There is no tool that writes the source directly** —
 an agent proposes, and a human applies.
+
+`zumen_spec` hands over the *syntax*. **What to draw** comes from `zumen_examples`:
+how a periodontal chart, a plywood cutting diagram, a lighting plot, a used-car
+appraisal chart, a timber joint or tactile paving is actually put together. Each
+one-liner states what that drawing must get right, not its title.
 
 With the server running, it also **links to the open desktop window**, so you can
 adjust a diagram by talking: the agent reads what is actually on screen (including

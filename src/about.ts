@@ -22,6 +22,7 @@
  *
  * ここに数字を書かない。**記録と実体がずれる**（テストで見張る）。
  */
+import { fileURLToPath } from 'node:url';
 import { readFileSync } from 'node:fs';
 
 import { messages } from './messages.ts';
@@ -121,9 +122,14 @@ export function releases(markdown: string): Release[] {
   return out.filter((release) => release.notes.length > 0);
 }
 
-/** package.json の在り処。`src/` からも `dist/` からも 1 つ上。 */
+/**
+ * package.json の在り処。`src/` からも `dist/` からも 1 つ上。
+ *
+ * **`.pathname` ではなく `fileURLToPath`。** 入れた場所の名前に日本語や空白が
+ * 入っていると、URL のままでは開けない（2026-09-19。`src/examples.ts` で踏んだ）。
+ */
 function root(name: string): string {
-  return new URL(`../${name}`, import.meta.url).pathname;
+  return fileURLToPath(new URL(`../${name}`, import.meta.url));
 }
 
 export async function about(): Promise<About> {

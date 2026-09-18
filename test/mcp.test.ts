@@ -47,6 +47,7 @@ describe('MCP の口', () => {
     assert.deepEqual(names, [
       'zumen_about',
       'zumen_create',
+      'zumen_examples',
       'zumen_export',
       'zumen_inspect',
       'zumen_list',
