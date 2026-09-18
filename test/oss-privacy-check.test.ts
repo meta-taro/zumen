@@ -296,3 +296,42 @@ describe('ファイル名をメールと読み違えない（2026-09-07）', () 
     assert.equal(check(dir, base).ok, false);
   });
 });
+
+/**
+ * **画面からマージした commit の committer**（`GitHub` の web-flow の識別子）。
+ *
+ * 2026-09-18、`develop → main` の PR を初めて通した日に落ちた。
+ * 画面（GitHub の Merge ボタン）で作られる commit は、
+ * **author は本人の noreply だが、committer は GitHub 自身**になる。
+ *
+ * これは個人のアドレスではなく、**GitHub の web-flow の識別子**。
+ * `noreply@anthropic.com` を 1 アドレスだけ許したのと同じ理由で、ここも通す。
+ * 許すのは**このアドレス 1 個だけ**で、`github.com` ドメイン全体ではない。
+ */
+describe('画面からマージした commit', () => {
+  const merged = (committerEmail: string): { dir: string; base: string } => {
+    const { dir, base } = repoWith('ふつうの commit');
+    const git = (...args: string[]) => execFileSync('git', args, { cwd: dir, encoding: 'utf8' });
+    writeFileSync(join(dir, 'a.txt'), '最初\nもう一行\n');
+    git('add', '-A');
+    execFileSync('git', ['commit', '--quiet', '-m', 'Merge pull request #10 from meta-taro/develop'], {
+      cwd: dir,
+      encoding: 'utf8',
+      env: { ...process.env, GIT_COMMITTER_NAME: 'GitHub', GIT_COMMITTER_EMAIL: committerEmail },
+    });
+    return { dir, base };
+  };
+
+  it('**committer が GitHub 自身なら通す**（個人のアドレスではない）', () => {
+    const { dir, base } = merged(at('noreply', 'github.com'));
+    const { ok, out } = check(dir, base);
+    assert.equal(ok, true, out);
+  });
+
+  it('同じドメインでも別のアドレスは止める（穴を 1 アドレスに閉じる）', () => {
+    const { dir, base } = merged(at('someone', 'github.com'));
+    const { ok, out } = check(dir, base);
+    assert.equal(ok, false, out);
+    assert.match(out, /author-email/);
+  });
+});

@@ -1,0 +1,929 @@
+version: 1
+kind: placement
+arrows: true
+title: 靴のサイズの図（JIS S 5037・足長とワイズから足囲を読む）
+# **靴のサイズは、靴ではなく足の寸法**（足入れサイズ）。
+# 足長はかかとからいちばん長い指まで、足囲は親指と小指の付け根の一周。
+#
+# JIS S 5037 では、**ワイズが 1 段上がると足囲 ＋6mm**（足幅 ＋2mm）、
+# **足長が 0.5cm 増えると、同じワイズで足囲 ＋3mm**。
+# だから「25.0cm の EE」と「25.5cm の E」は足囲が近い。
+#
+# 表の数字は、足長 24.0cm の E ＝ 237mm を起点に、この 2 つの刻みから計算した。
+nodes:
+  - id: e0
+    label: ""
+    marker: none
+    at: { x: 109, y: 113 }
+    size: { w: 2, h: 2 }
+  - id: gm210
+    label: "210"
+    marker: none
+    align: center
+    at: { x: 90, y: 94 }
+    size: { w: 40, h: 16 }
+  - id: e1
+    label: ""
+    marker: none
+    at: { x: 167.8, y: 113 }
+    size: { w: 2, h: 2 }
+  - id: gm220
+    label: "220"
+    marker: none
+    align: center
+    at: { x: 148.8, y: 94 }
+    size: { w: 40, h: 16 }
+  - id: e2
+    label: ""
+    marker: none
+    at: { x: 226.5, y: 113 }
+    size: { w: 2, h: 2 }
+  - id: gm230
+    label: "230"
+    marker: none
+    align: center
+    at: { x: 207.5, y: 94 }
+    size: { w: 40, h: 16 }
+  - id: e3
+    label: ""
+    marker: none
+    at: { x: 285.3, y: 113 }
+    size: { w: 2, h: 2 }
+  - id: gm240
+    label: "240"
+    marker: none
+    align: center
+    at: { x: 266.3, y: 94 }
+    size: { w: 40, h: 16 }
+  - id: e4
+    label: ""
+    marker: none
+    at: { x: 344, y: 113 }
+    size: { w: 2, h: 2 }
+  - id: gm250
+    label: "250"
+    marker: none
+    align: center
+    at: { x: 325, y: 94 }
+    size: { w: 40, h: 16 }
+  - id: e5
+    label: ""
+    marker: none
+    at: { x: 402.8, y: 113 }
+    size: { w: 2, h: 2 }
+  - id: gm260
+    label: "260"
+    marker: none
+    align: center
+    at: { x: 383.8, y: 94 }
+    size: { w: 40, h: 16 }
+  - id: e6
+    label: ""
+    marker: none
+    at: { x: 461.5, y: 113 }
+    size: { w: 2, h: 2 }
+  - id: gm270
+    label: "270"
+    marker: none
+    align: center
+    at: { x: 442.5, y: 94 }
+    size: { w: 40, h: 16 }
+  - id: e7
+    label: ""
+    marker: none
+    at: { x: 520.3, y: 113 }
+    size: { w: 2, h: 2 }
+  - id: gm280
+    label: "280"
+    marker: none
+    align: center
+    at: { x: 501.3, y: 94 }
+    size: { w: 40, h: 16 }
+  - id: e8
+    label: ""
+    marker: none
+    at: { x: 579, y: 113 }
+    size: { w: 2, h: 2 }
+  - id: gm290
+    label: "290"
+    marker: none
+    align: center
+    at: { x: 560, y: 94 }
+    size: { w: 40, h: 16 }
+  - id: g_x
+    label: "足囲（mm）"
+    marker: none
+    align: right
+    at: { x: 488, y: 68 }
+    size: { w: 100, h: 18 }
+  - id: e9
+    label: ""
+    marker: none
+    at: { x: 103, y: 119 }
+    size: { w: 2, h: 2 }
+  - id: gl24
+    label: "24.0"
+    marker: none
+    align: right
+    at: { x: 54, y: 111 }
+    size: { w: 46, h: 16 }
+  - id: e10
+    label: ""
+    marker: none
+    at: { x: 103, y: 169 }
+    size: { w: 2, h: 2 }
+  - id: gl24.5
+    label: "24.5"
+    marker: none
+    align: right
+    at: { x: 54, y: 161 }
+    size: { w: 46, h: 16 }
+  - id: e11
+    label: ""
+    marker: none
+    at: { x: 103, y: 219 }
+    size: { w: 2, h: 2 }
+  - id: gl25
+    label: "25.0"
+    marker: none
+    align: right
+    at: { x: 54, y: 211 }
+    size: { w: 46, h: 16 }
+  - id: e12
+    label: ""
+    marker: none
+    at: { x: 103, y: 269 }
+    size: { w: 2, h: 2 }
+  - id: gl25.5
+    label: "25.5"
+    marker: none
+    align: right
+    at: { x: 54, y: 261 }
+    size: { w: 46, h: 16 }
+  - id: e13
+    label: ""
+    marker: none
+    at: { x: 103, y: 319 }
+    size: { w: 2, h: 2 }
+  - id: gl26
+    label: "26.0"
+    marker: none
+    align: right
+    at: { x: 54, y: 311 }
+    size: { w: 46, h: 16 }
+  - id: e14
+    label: ""
+    marker: none
+    at: { x: 103, y: 369 }
+    size: { w: 2, h: 2 }
+  - id: gl26.5
+    label: "26.5"
+    marker: none
+    align: right
+    at: { x: 54, y: 361 }
+    size: { w: 46, h: 16 }
+  - id: e15
+    label: ""
+    marker: none
+    at: { x: 103, y: 419 }
+    size: { w: 2, h: 2 }
+  - id: gl27
+    label: "27.0"
+    marker: none
+    align: right
+    at: { x: 54, y: 411 }
+    size: { w: 46, h: 16 }
+  - id: g_y
+    label: "足長（cm）"
+    marker: none
+    align: right
+    at: { x: 0, y: 68 }
+    size: { w: 104, h: 18 }
+  - id: e16
+    label: ""
+    marker: none
+    at: { x: 126.6, y: 119 }
+    size: { w: 2, h: 2 }
+  - id: w_A
+    label: "A"
+    marker: none
+    align: center
+    at: { x: 220.4, y: 428 }
+    size: { w: 26, h: 16 }
+  - id: e17
+    label: ""
+    marker: none
+    at: { x: 161.9, y: 119 }
+    size: { w: 2, h: 2 }
+  - id: w_B
+    label: "B"
+    marker: none
+    align: center
+    at: { x: 255.6, y: 428 }
+    size: { w: 26, h: 16 }
+  - id: e18
+    label: ""
+    marker: none
+    at: { x: 197.1, y: 119 }
+    size: { w: 2, h: 2 }
+  - id: w_C
+    label: "C"
+    marker: none
+    align: center
+    at: { x: 290.9, y: 428 }
+    size: { w: 26, h: 16 }
+  - id: e19
+    label: ""
+    marker: none
+    at: { x: 232.4, y: 119 }
+    size: { w: 2, h: 2 }
+  - id: w_D
+    label: "D"
+    marker: none
+    align: center
+    at: { x: 326.1, y: 428 }
+    size: { w: 26, h: 16 }
+  - id: e20
+    label: ""
+    marker: none
+    at: { x: 267.6, y: 119 }
+    size: { w: 2, h: 2 }
+  - id: w_E
+    label: "E"
+    marker: none
+    align: center
+    at: { x: 361.4, y: 428 }
+    size: { w: 26, h: 16 }
+  - id: e21
+    label: ""
+    marker: none
+    at: { x: 302.9, y: 119 }
+    size: { w: 2, h: 2 }
+  - id: w_EE
+    label: "EE"
+    marker: none
+    align: center
+    at: { x: 396.6, y: 428 }
+    size: { w: 26, h: 16 }
+  - id: e22
+    label: ""
+    marker: none
+    at: { x: 338.1, y: 119 }
+    size: { w: 2, h: 2 }
+  - id: w_EEE
+    label: "EEE"
+    marker: none
+    align: center
+    at: { x: 431.9, y: 428 }
+    size: { w: 26, h: 16 }
+  - id: e23
+    label: ""
+    marker: none
+    at: { x: 373.4, y: 119 }
+    size: { w: 2, h: 2 }
+  - id: w_EEEE
+    label: "EEEE"
+    marker: none
+    align: center
+    at: { x: 467.1, y: 428 }
+    size: { w: 26, h: 16 }
+  - id: e24
+    label: ""
+    marker: none
+    at: { x: 408.6, y: 119 }
+    size: { w: 2, h: 2 }
+  - id: w_F
+    label: "F"
+    marker: none
+    align: center
+    at: { x: 502.4, y: 428 }
+    size: { w: 26, h: 16 }
+  - id: e25
+    label: ""
+    marker: none
+    at: { x: 443.9, y: 119 }
+    size: { w: 2, h: 2 }
+  - id: w_G
+    label: "G"
+    marker: none
+    align: center
+    at: { x: 537.6, y: 428 }
+    size: { w: 26, h: 16 }
+  - id: g_t
+    label: "足長とワイズから足囲を読む（JIS S 5037・男子）"
+    marker: none
+    align: left
+    at: { x: 110, y: 68 }
+    size: { w: 350, h: 20 }
+  - id: e26
+    label: ""
+    marker: none
+    at: { x: 338.1, y: 219 }
+    size: { w: 2, h: 2 }
+  - id: g_same
+    label: "25.0 の EE と 26.0 の E は、足囲が同じ 249mm"
+    marker: none
+    align: left
+    at: { x: 110, y: 454 }
+    size: { w: 360, h: 18 }
+  - id: e27
+    label: ""
+    marker: none
+    at: { x: 729, y: 194 }
+    size: { w: 2, h: 2 }
+  - id: e28
+    label: ""
+    marker: none
+    at: { x: 716.4, y: 145.4 }
+    size: { w: 2, h: 2 }
+  - id: e29
+    label: ""
+    marker: none
+    at: { x: 954, y: 145.4 }
+    size: { w: 2, h: 2 }
+  - id: e30
+    label: ""
+    marker: none
+    at: { x: 716.4, y: 239 }
+    size: { w: 2, h: 2 }
+  - id: f_len
+    label: "足長（かかと〜いちばん長い指）"
+    marker: none
+    align: left
+    at: { x: 700, y: 247.6 }
+    size: { w: 300, h: 18 }
+  - id: e31
+    label: ""
+    marker: none
+    at: { x: 896.4, y: 154.4 }
+    size: { w: 2, h: 2 }
+  - id: f_gir
+    label: "足囲（親指と小指の付け根の一周）"
+    marker: none
+    align: left
+    at: { x: 710, y: 123 }
+    size: { w: 300, h: 18 }
+  - id: f_t
+    label: "足の測り方"
+    marker: none
+    align: left
+    at: { x: 716, y: 99.6 }
+    size: { w: 220, h: 20 }
+  - id: h70
+    label: "JIS のサイズ（男子・足囲 mm）"
+    hatch: solid
+    at: { x: 1050, y: 70 }
+    size: { w: 460, h: 22 }
+  - id: a92
+    label: "足長 ＼ ワイズ"
+    at: { x: 1050, y: 92 }
+    size: { w: 150, h: 22 }
+  - id: b92
+    label: "D　E　EE　EEE"
+    align: left
+    at: { x: 1200, y: 92 }
+    size: { w: 310, h: 22 }
+  - id: a114
+    label: "24.0cm"
+    at: { x: 1050, y: 114 }
+    size: { w: 150, h: 22 }
+  - id: b114
+    label: "231　237　243　249"
+    align: left
+    at: { x: 1200, y: 114 }
+    size: { w: 310, h: 22 }
+  - id: a136
+    label: "24.5cm"
+    at: { x: 1050, y: 136 }
+    size: { w: 150, h: 22 }
+  - id: b136
+    label: "234　240　246　252"
+    align: left
+    at: { x: 1200, y: 136 }
+    size: { w: 310, h: 22 }
+  - id: a158
+    label: "25.0cm"
+    at: { x: 1050, y: 158 }
+    size: { w: 150, h: 22 }
+  - id: b158
+    label: "237　243　249　255"
+    align: left
+    at: { x: 1200, y: 158 }
+    size: { w: 310, h: 22 }
+  - id: a180
+    label: "25.5cm"
+    at: { x: 1050, y: 180 }
+    size: { w: 150, h: 22 }
+  - id: b180
+    label: "240　246　252　258"
+    align: left
+    at: { x: 1200, y: 180 }
+    size: { w: 310, h: 22 }
+  - id: a202
+    label: "26.0cm"
+    at: { x: 1050, y: 202 }
+    size: { w: 150, h: 22 }
+  - id: b202
+    label: "243　249　255　261"
+    align: left
+    at: { x: 1200, y: 202 }
+    size: { w: 310, h: 22 }
+  - id: h238
+    label: "サイズの決まり（JIS S 5037）"
+    hatch: solid
+    at: { x: 1050, y: 238 }
+    size: { w: 460, h: 22 }
+  - id: a260
+    label: "サイズ"
+    at: { x: 1050, y: 260 }
+    size: { w: 150, h: 22 }
+  - id: b260
+    label: "靴ではなく足の寸法（足入れサイズ）"
+    align: left
+    at: { x: 1200, y: 260 }
+    size: { w: 310, h: 22 }
+  - id: a282
+    label: "足長"
+    at: { x: 1050, y: 282 }
+    size: { w: 150, h: 22 }
+  - id: b282
+    label: "0.5cm 刻み。男子は 20.0〜30.0cm"
+    align: left
+    at: { x: 1200, y: 282 }
+    size: { w: 310, h: 22 }
+  - id: a304
+    label: "ワイズ 1 段"
+    at: { x: 1050, y: 304 }
+    size: { w: 150, h: 22 }
+  - id: b304
+    label: "足囲 ＋6mm（足幅は ＋2mm）"
+    align: left
+    at: { x: 1200, y: 304 }
+    size: { w: 310, h: 22 }
+  - id: a326
+    label: "足長 ＋0.5cm"
+    at: { x: 1050, y: 326 }
+    size: { w: 150, h: 22 }
+  - id: b326
+    label: "同じワイズで足囲 ＋3mm"
+    align: left
+    at: { x: 1200, y: 326 }
+    size: { w: 310, h: 22 }
+  - id: a348
+    label: "ワイズの並び"
+    at: { x: 1050, y: 348 }
+    size: { w: 150, h: 22 }
+  - id: b348
+    label: "A・B・C・D・E・EE・EEE・EEEE・F・G"
+    align: left
+    at: { x: 1200, y: 348 }
+    size: { w: 310, h: 22 }
+  - id: a370
+    label: "男女の違い"
+    at: { x: 1050, y: 370 }
+    size: { w: 150, h: 22 }
+  - id: b370
+    label: "女子は EEEE まで、男子は G まで"
+    align: left
+    at: { x: 1200, y: 370 }
+    size: { w: 310, h: 22 }
+  - id: h406
+    label: "この図の読み方"
+    hatch: solid
+    at: { x: 1050, y: 406 }
+    size: { w: 460, h: 22 }
+  - id: a428
+    label: "斜めの線"
+    at: { x: 1050, y: 428 }
+    size: { w: 150, h: 22 }
+  - id: b428
+    label: "同じワイズ（A〜G）。足長が増えると右へずれる"
+    align: left
+    at: { x: 1200, y: 428 }
+    size: { w: 310, h: 22 }
+  - id: a450
+    label: "縦の位置"
+    at: { x: 1050, y: 450 }
+    size: { w: 150, h: 22 }
+  - id: b450
+    label: "足囲。同じ縦線上なら、足囲は同じ"
+    align: left
+    at: { x: 1200, y: 450 }
+    size: { w: 310, h: 22 }
+  - id: a472
+    label: "読み方"
+    at: { x: 1050, y: 472 }
+    size: { w: 150, h: 22 }
+  - id: b472
+    label: "足長の行とワイズの線が交わる所が、その人の足囲"
+    align: left
+    at: { x: 1200, y: 472 }
+    size: { w: 310, h: 22 }
+  - id: a494
+    label: "近いサイズ"
+    at: { x: 1050, y: 494 }
+    size: { w: 150, h: 22 }
+  - id: b494
+    label: "25.0 の EE と 26.0 の E は、どちらも 249mm"
+    align: left
+    at: { x: 1200, y: 494 }
+    size: { w: 310, h: 22 }
+  - id: h530
+    label: "この図に出ていないもの"
+    hatch: solid
+    at: { x: 1050, y: 530 }
+    size: { w: 460, h: 22 }
+  - id: a552
+    label: "木型（ラスト）"
+    at: { x: 1050, y: 552 }
+    size: { w: 150, h: 22 }
+  - id: b552
+    label: "靴の形はここから起こす。型が違えば合わない"
+    align: left
+    at: { x: 1200, y: 552 }
+    size: { w: 310, h: 22 }
+  - id: a574
+    label: "甲の高さ"
+    at: { x: 1050, y: 574 }
+    size: { w: 150, h: 22 }
+  - id: b574
+    label: "足囲だけでは決まらない。実際は履いて決める"
+    align: left
+    at: { x: 1200, y: 574 }
+    size: { w: 310, h: 22 }
+  - id: a596
+    label: "海外サイズ"
+    at: { x: 1050, y: 596 }
+    size: { w: 150, h: 22 }
+  - id: b596
+    label: "US・UK・EU は刻みも起点も違う"
+    align: left
+    at: { x: 1200, y: 596 }
+    size: { w: 310, h: 22 }
+  - id: a618
+    label: "左右の差"
+    at: { x: 1050, y: 618 }
+    size: { w: 150, h: 22 }
+  - id: b618
+    label: "人の足は左右で違う。大きいほうに合わせる"
+    align: left
+    at: { x: 1200, y: 618 }
+    size: { w: 310, h: 22 }
+  - id: n1
+    label: "靴のサイズは、靴の寸法ではなく足の寸法です（足入れサイズ）。"
+    marker: none
+    align: left
+    at: { x: 90, y: 670 }
+    size: { w: 820, h: 18 }
+  - id: n2
+    label: "足長はかかとからいちばん長い指まで、足囲は親指と小指の付け根の一周です。"
+    marker: none
+    align: left
+    at: { x: 90, y: 692 }
+    size: { w: 820, h: 18 }
+  - id: n3
+    label: "ワイズが 1 段上がると足囲は 6mm 増えます。足長が 0.5cm 増えても、同じワイズで足囲は 3mm 増えます。"
+    marker: none
+    align: left
+    at: { x: 90, y: 714 }
+    size: { w: 820, h: 18 }
+  - id: n4
+    label: "つまり「25.0cm の EE」と「26.0cm の E」は、足囲がどちらも 249mm です。"
+    marker: none
+    align: left
+    at: { x: 90, y: 736 }
+    size: { w: 820, h: 18 }
+  - id: n5
+    label: "数字は JIS S 5037 の刻み（ワイズ 1 段 6mm・足長 0.5cm で 3mm）から計算しました。"
+    marker: none
+    align: left
+    at: { x: 90, y: 758 }
+    size: { w: 820, h: 18 }
+edges:
+  - from: e0
+    to: e0
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 110, y: 114 }
+      - { x: 110, y: 420 }
+  - from: e1
+    to: e1
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 168.8, y: 114 }
+      - { x: 168.8, y: 420 }
+  - from: e2
+    to: e2
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 227.5, y: 114 }
+      - { x: 227.5, y: 420 }
+  - from: e3
+    to: e3
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 286.3, y: 114 }
+      - { x: 286.3, y: 420 }
+  - from: e4
+    to: e4
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 345, y: 114 }
+      - { x: 345, y: 420 }
+  - from: e5
+    to: e5
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 403.8, y: 114 }
+      - { x: 403.8, y: 420 }
+  - from: e6
+    to: e6
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 462.5, y: 114 }
+      - { x: 462.5, y: 420 }
+  - from: e7
+    to: e7
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 521.3, y: 114 }
+      - { x: 521.3, y: 420 }
+  - from: e8
+    to: e8
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 580, y: 114 }
+      - { x: 580, y: 420 }
+  - from: e9
+    to: e9
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 104, y: 120 }
+      - { x: 580, y: 120 }
+  - from: e10
+    to: e10
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 104, y: 170 }
+      - { x: 580, y: 170 }
+  - from: e11
+    to: e11
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 104, y: 220 }
+      - { x: 580, y: 220 }
+  - from: e12
+    to: e12
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 104, y: 270 }
+      - { x: 580, y: 270 }
+  - from: e13
+    to: e13
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 104, y: 320 }
+      - { x: 580, y: 320 }
+  - from: e14
+    to: e14
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 104, y: 370 }
+      - { x: 580, y: 370 }
+  - from: e15
+    to: e15
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 104, y: 420 }
+      - { x: 580, y: 420 }
+  - from: e16
+    to: e16
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 127.6, y: 120 }
+      - { x: 145.3, y: 170 }
+      - { x: 162.9, y: 220 }
+      - { x: 180.5, y: 270 }
+      - { x: 198.1, y: 320 }
+      - { x: 215.8, y: 370 }
+      - { x: 233.4, y: 420 }
+  - from: e17
+    to: e17
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 162.9, y: 120 }
+      - { x: 180.5, y: 170 }
+      - { x: 198.1, y: 220 }
+      - { x: 215.8, y: 270 }
+      - { x: 233.4, y: 320 }
+      - { x: 251, y: 370 }
+      - { x: 268.6, y: 420 }
+  - from: e18
+    to: e18
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 198.1, y: 120 }
+      - { x: 215.8, y: 170 }
+      - { x: 233.4, y: 220 }
+      - { x: 251, y: 270 }
+      - { x: 268.6, y: 320 }
+      - { x: 286.3, y: 370 }
+      - { x: 303.9, y: 420 }
+  - from: e19
+    to: e19
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 233.4, y: 120 }
+      - { x: 251, y: 170 }
+      - { x: 268.6, y: 220 }
+      - { x: 286.3, y: 270 }
+      - { x: 303.9, y: 320 }
+      - { x: 321.5, y: 370 }
+      - { x: 339.1, y: 420 }
+  - from: e20
+    to: e20
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 268.6, y: 120 }
+      - { x: 286.3, y: 170 }
+      - { x: 303.9, y: 220 }
+      - { x: 321.5, y: 270 }
+      - { x: 339.1, y: 320 }
+      - { x: 356.8, y: 370 }
+      - { x: 374.4, y: 420 }
+  - from: e21
+    to: e21
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 303.9, y: 120 }
+      - { x: 321.5, y: 170 }
+      - { x: 339.1, y: 220 }
+      - { x: 356.8, y: 270 }
+      - { x: 374.4, y: 320 }
+      - { x: 392, y: 370 }
+      - { x: 409.6, y: 420 }
+  - from: e22
+    to: e22
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 339.1, y: 120 }
+      - { x: 356.8, y: 170 }
+      - { x: 374.4, y: 220 }
+      - { x: 392, y: 270 }
+      - { x: 409.6, y: 320 }
+      - { x: 427.3, y: 370 }
+      - { x: 444.9, y: 420 }
+  - from: e23
+    to: e23
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 374.4, y: 120 }
+      - { x: 392, y: 170 }
+      - { x: 409.6, y: 220 }
+      - { x: 427.3, y: 270 }
+      - { x: 444.9, y: 320 }
+      - { x: 462.5, y: 370 }
+      - { x: 480.1, y: 420 }
+  - from: e24
+    to: e24
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 409.6, y: 120 }
+      - { x: 427.3, y: 170 }
+      - { x: 444.9, y: 220 }
+      - { x: 462.5, y: 270 }
+      - { x: 480.1, y: 320 }
+      - { x: 497.8, y: 370 }
+      - { x: 515.4, y: 420 }
+  - from: e25
+    to: e25
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 444.9, y: 120 }
+      - { x: 462.5, y: 170 }
+      - { x: 480.1, y: 220 }
+      - { x: 497.8, y: 270 }
+      - { x: 515.4, y: 320 }
+      - { x: 533, y: 370 }
+      - { x: 550.6, y: 420 }
+  - from: e26
+    to: e26
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 339.1, y: 220 }
+      - { x: 339.1, y: 320 }
+  - from: e27
+    to: e27
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 730, y: 195 }
+      - { x: 737.2, y: 182.4 }
+      - { x: 748, y: 171.6 }
+      - { x: 764.2, y: 165.3 }
+      - { x: 784, y: 160.8 }
+      - { x: 806.5, y: 158.1 }
+      - { x: 829, y: 156.3 }
+      - { x: 847, y: 155.4 }
+      - { x: 865, y: 154.5 }
+      - { x: 883, y: 155.4 }
+      - { x: 897.4, y: 157.2 }
+      - { x: 910, y: 159.9 }
+      - { x: 920.8, y: 163.5 }
+      - { x: 931.6, y: 168.9 }
+      - { x: 938.8, y: 175.2 }
+      - { x: 945.1, y: 182.4 }
+      - { x: 948.7, y: 189.6 }
+      - { x: 951.4, y: 196.8 }
+      - { x: 951.4, y: 204 }
+      - { x: 946.9, y: 211.2 }
+      - { x: 940.6, y: 216.6 }
+      - { x: 928, y: 222 }
+      - { x: 913.6, y: 225.6 }
+      - { x: 895.6, y: 229.2 }
+      - { x: 877.6, y: 231 }
+      - { x: 857.8, y: 232.8 }
+      - { x: 838, y: 232.8 }
+      - { x: 820, y: 231 }
+      - { x: 802, y: 229.2 }
+      - { x: 785.8, y: 225.6 }
+      - { x: 770.5, y: 220.2 }
+      - { x: 757, y: 213.9 }
+      - { x: 746.2, y: 207.6 }
+      - { x: 737.2, y: 201.3 }
+      - { x: 730, y: 195 }
+  - from: e28
+    to: e28
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 717.4, y: 146.4 }
+      - { x: 717.4, y: 243.6 }
+  - from: e29
+    to: e29
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 955, y: 146.4 }
+      - { x: 955, y: 243.6 }
+  - from: e30
+    to: e30
+    curve: none
+    ends: { from: arrow, to: arrow }
+    via:
+      - { x: 717.4, y: 240 }
+      - { x: 955, y: 240 }
+  - from: e31
+    to: e31
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 897.4, y: 155.4 }
+      - { x: 892, y: 231 }
