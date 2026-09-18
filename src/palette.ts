@@ -79,6 +79,17 @@ export const FAINT = 3;
  */
 export const GROUNDS = ['#ffffff', '#0f0f13'] as const;
 
+/**
+ * **面の色の薄さ**（`nodes[].fill`）。
+ *
+ * 線の色と面の色は別のもの。**線は地の上に乗るが、面は地を染める。**
+ * 不透明で塗ると、ライトかダークのどちらかで必ず文字が潰れる ——
+ * **地の上へ薄く敷けば、どちらの地でも上の文字が読める。**
+ *
+ * 0.16。実物の販売図面の淡い色分けと同じ濃さ（2026-09-18 に見比べた）。
+ */
+export const TINT = 0.16;
+
 /** どちらかの地で沈むか。 */
 export function faintOn(color: string): boolean {
   return GROUNDS.some((ground) => contrastOn(color, ground) < FAINT);

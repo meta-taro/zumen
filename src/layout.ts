@@ -106,6 +106,13 @@ export interface Box {
   symbol: Symbol | null;
   /** **路線の色**（`src/palette.ts`）。`palette` に無ければ null。 */
   color: string | null;
+  /**
+   * **面の色**（`src/palette.ts`）。`palette` に無ければ null。
+   *
+   * `color`（線）とは別。**枠を染めずに、面だけを薄く敷く。**
+   * 淡い色を `color` に書くと、枠（＝壁）まで淡くなって消えるため。
+   */
+  tint: string | null;
   /** 人が置いた場所か。 */
   pinned: boolean;
 }
@@ -429,7 +436,9 @@ export async function layout(text: string): Promise<Placed> {
     line.color = colorOf(rawEdges[index]?.colorKey, routes);
   }
   for (const box of boxes) {
-    box.color = colorOf(nodes.find((n) => n.id === box.id)?.color, routes);
+    const node = nodes.find((n) => n.id === box.id);
+    box.color = colorOf(node?.color, routes);
+    box.tint = colorOf(node?.fill, routes);
   }
   /**
    * **通り芯と寸法線の分だけ、外側へ空ける**（`src/grid.ts`）。
@@ -772,8 +781,10 @@ interface NodeInfo {
   floor: string | null;
   /** 図記号（`src/symbol.ts`）。 */
   symbol: Symbol | null;
-  /** 色の鍵（`src/palette.ts`）。 */
+  /** 線の色の鍵（`src/palette.ts`）。 */
   color: unknown;
+  /** 面の色の鍵（`src/palette.ts`）。 */
+  fill: unknown;
   /**
    * **AI が書いた置き場所**（仕様 §3.1。配置図で使う）。
    *
@@ -812,6 +823,7 @@ function readNodes(diagram: ReturnType<typeof parse>): NodeInfo[] {
       floor?: unknown;
       symbol?: unknown;
       color?: unknown;
+      fill?: unknown;
       at?: unknown;
       size?: unknown;
       openings?: unknown;
@@ -834,6 +846,7 @@ function readNodes(diagram: ReturnType<typeof parse>): NodeInfo[] {
       floor: asText(node.floor),
       symbol: symbolOf(node.symbol),
       color: node.color,
+      fill: node.fill,
       at: asPoint(node.at),
       size: asSize(node.size),
       openings: openingsOf(node.openings),
@@ -1234,6 +1247,7 @@ function collect(
       floor: nodes.find((n) => n.id === child.id)?.floor ?? null,
       symbol: nodes.find((n) => n.id === child.id)?.symbol ?? null,
       color: null,
+      tint: null,
       openings: nodes.find((n) => n.id === child.id)?.openings ?? [],
       pinned: false,
     };

@@ -449,6 +449,7 @@ const ja = {
       '知らないキーは捨てずに保つ。',
       '桁を揃える空白を入れない。流れ形式の並び（[{ ... }, { ... }]）も書かない。読んで書き戻すと詰められ、人が触っていない行に差分が出る（validate が round-trip-changed で落とす）。',
       '色コードを書かない。体裁は appearances の語で書く。',
+      '**色が記法そのものである図だけ、palette に色を書く**（路線の色・配管の識別色・工区の色分け）。線に乗せるなら nodes/edges の color、面に敷くなら nodes[].fill。**この 2 つは別物** —— color は枠の線に乗るので、淡い色を書くと壁まで消える。fill は面だけを薄く敷くので、ライトでもダークでも上の文字が読める。どちらも **鍵を図のどこかに文字として出す**こと（凡例に 1 回でよい。色を落とすと読めない図にしない）。',
     ],
     mustEndWith: (suffix: string) =>
       `名前は ${suffix} で終わること（マージドライバが効かなくなる）`,
@@ -1008,6 +1009,7 @@ const en: Catalog = {
       'The order of nodes carries meaning. It is the order a person reads. Do not reorder without a reason.',
       'Keep keys you do not recognise.',
       'Do not write colour codes. Express appearance with the words in appearances.',
+      'Write colours in palette ONLY where colour is the notation itself (transit line colours, pipe identification colours, zone colour-coding). Put it on lines with color (nodes/edges), on areas with fill (nodes). They are NOT the same: color paints the frame, so a pale value makes the walls vanish; fill tints the face only, laid thinly over the ground so the text on it stays readable in both light and dark. Either way the key must appear somewhere as text (once in a legend is enough) — never let colour alone carry the meaning.',
     ],
     mustEndWith: (suffix: string) => `The name must end with ${suffix} (the merge driver keys off it)`,
     alreadyExists: 'It already exists. Use propose to change an existing diagram.',

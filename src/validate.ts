@@ -703,7 +703,27 @@ function checkColors(doc: Document, add: Add, m: Messages, at: At): void {
   const raw = doc.get('palette', true);
   const table = routePalette(isMap(raw) ? raw.toJSON() : undefined);
 
+  /**
+   * **面だけに使う鍵には、線の下限を当てない**（2026-09-18）。
+   *
+   * `color-faint` は「**地に沈んで線が消える**」ことを言う検査で、
+   * 下限 3:1 は `DESIGN.md` §7 の**非文字（線・枠）**の下限。
+   * `fill`（面の色）は地を置き換えず、**薄く敷く**もので、
+   * 淡いことがそのまま仕様 —— ここに 3:1 を当てると、
+   * 販売図面の淡い色分けが、全部この警告で埋まる。
+   */
+  const onLines = new Set<string>();
+  for (const item of [...seqOf(doc, 'nodes'), ...seqOf(doc, 'edges')]) {
+    const key = item.get('color');
+    if (key !== undefined && key !== null) onLines.add(String(key));
+  }
+  const tints = new Set<string>();
+  for (const item of seqOf(doc, 'nodes')) {
+    const key = item.get('fill');
+    if (key !== undefined && key !== null) tints.add(String(key));
+  }
   for (const [key, value] of Object.entries(table)) {
+    if (tints.has(key) && !onLines.has(key)) continue;
     if (faintOn(value)) {
       add('warning', 'color-faint', m.colorFaint(key, value), at(raw));
     }
@@ -727,11 +747,11 @@ function checkColors(doc: Document, add: Add, m: Messages, at: At): void {
   const titleOf = doc.get('title');
   if (titleOf !== undefined && titleOf !== null) written.push(String(titleOf));
 
-  const seen = (item: YAMLMap, name: string): void => {
-    const key = item.get('color');
+  const seen = (item: YAMLMap, name: string, field: 'color' | 'fill' = 'color'): void => {
+    const key = item.get(field);
     if (key === undefined || key === null) return;
     if (table[String(key)] === undefined) {
-      add('warning', 'color-unknown', m.colorUnknown(name, String(key)), at(item.get('color', true)));
+      add('warning', 'color-unknown', m.colorUnknown(name, String(key)), at(item.get(field, true)));
       return;
     }
     if (!used.has(String(key))) used.set(String(key), item);
@@ -743,6 +763,9 @@ function checkColors(doc: Document, add: Add, m: Messages, at: At): void {
       if (value !== undefined && value !== null) written.push(String(value));
     }
     seen(item, String(item.get('id')));
+    // **面の色も同じ扱い。** 鍵に無ければ色が付かないし、
+    // 色だけで示していれば、それは色を落とした瞬間に読めなくなる。
+    seen(item, String(item.get('id')), 'fill');
   }
   for (const item of seqOf(doc, 'edges')) {
     const label = item.get('label');

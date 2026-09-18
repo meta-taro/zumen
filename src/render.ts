@@ -28,7 +28,8 @@ import { drawDimensions, drawGrid, drawNorth } from './dimensions.ts';
 import type { Frame, Ink } from './dimensions.ts';
 import { CODE_R, MARGIN, hasGrid } from './grid.ts';
 import { drawEnd, hasEnds } from './ends.ts';
-import { drawHatch, drawHatchIn } from './hatch.ts';
+import { drawHatch, drawHatchIn, drawTint } from './hatch.ts';
+import { TINT } from './palette.ts';
 import type { Hatch } from './hatch.ts';
 import { pathOf } from './curve.ts';
 import { ALIGN_INSET, anchorOf } from './align.ts';
@@ -732,6 +733,11 @@ function renderNode(
   // ●そのものが種別の色をしている（枠だけ色を付けても読めない）。
   const pattern = plan ? drawHatch(box.hatch, box, box.color ?? style.stroke, box.marker, box.id) : '';
 
+  // **面の色**（`nodes[].fill`。`src/palette.ts`）。**枠も文字も染めずに、面だけ。**
+  // 地の上へ薄く敷くので、ライトでは淡く、ダークでは沈んで出る ——
+  // どちらの地でも、上に載る文字がそのまま読める。
+  const tint = box.tint === null ? '' : drawTint(box, box.tint, TINT, box.marker);
+
   // **塗り潰した面の上では、文字を地の色にする。**
   // 黒く塗ったアスコンの上に黒い文字を書くと読めない
   // （`DESIGN.md` §8 と同じ考え —— 地から遠いインクを選ぶ）。
@@ -783,7 +789,7 @@ function renderNode(
     if (words.length === 0) return '';
     return [`<g data-name="${escapeAttr(box.id)}">`, ...words, '</g>'].join('');
   }
-  return [`<g ${attributes} data-shape="${kind}">`, shape, pattern, holes, '</g>'].join('');
+  return [`<g ${attributes} data-shape="${kind}">`, shape, tint, pattern, holes, '</g>'].join('');
 }
 
 /**

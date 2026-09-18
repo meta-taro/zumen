@@ -238,3 +238,84 @@ nodes:
     assert.deepEqual(one('#808080'), [], '両方で読める色を止めた');
   });
 });
+
+/**
+ * **面の色**（`fill`）。
+ *
+ * オーナーの指摘（2026-09-18）。
+ *
+ * > **色味もそうです。ダークライトだけしかできないと思われると損です。**
+ *
+ * ここまでの色は**線の色**だった（路線・系統）。実物の販売図面・工程表・
+ * 区画図は、**面を淡く染め分ける** —— 線の色とは別のものが要る。
+ *
+ * ## なぜ `color` を流用しないか
+ *
+ * `color` は枠の線に乗る。淡い色を `color` に書くと、
+ * **枠（＝壁）まで淡くなって消える。** 壁が消えた間取り図は間取り図ではない。
+ *
+ * ## なぜ淡く敷くのか（`TINT`）
+ *
+ * 面は**地を置き換えない。地の上へ薄く敷く。**
+ * こうすると、同じ正本から出るライトでは淡い色、ダークでは沈んだ色になり、
+ * **どちらでも上の文字が読める**（色を不透明で塗ると、片方で必ず潰れる）。
+ * だから `color-faint`（非文字の下限 3:1）は、**面だけに使う鍵には当てない。**
+ */
+describe('面の色（fill）', () => {
+  const ROOM = `version: 1
+kind: placement
+palette:
+  LDK: "#e8a33d"
+nodes:
+  - id: legend
+    label: "LDK は暖色"
+    marker: none
+    at: { x: 0, y: 200 }
+    size: { w: 120, h: 20 }
+  - id: ldk
+    label: LDK
+    fill: LDK
+    at: { x: 0, y: 0 }
+    size: { w: 120, h: 80 }
+`;
+
+  it('**面がその色になる**（淡く敷く）', async () => {
+    const out = render(await layout(ROOM), 'light', 'safe', true);
+    assert.match(out, /fill="#e8a33d" fill-opacity="0\.1[0-9]"/);
+  });
+
+  it('**枠の線は染めない**（壁まで淡くすると、壁が消える）', async () => {
+    const out = render(await layout(ROOM), 'light', 'safe', true);
+    assert.ok(!/stroke="#e8a33d"/.test(out), '枠まで面の色にした');
+  });
+
+  it('**文字も染めない**', async () => {
+    const out = render(await layout(ROOM), 'light', 'safe', true);
+    assert.ok(!/<text[^>]*fill="#e8a33d"/.test(out));
+  });
+
+  it('鍵に無ければ、色を付けない（知らせる）', () => {
+    assert.ok(validate(ROOM.replace('fill: LDK', 'fill: Z')).some((f) => f.code === 'color-unknown'));
+  });
+
+  it('**面の色も、鍵が文字として出ていること**（色だけに頼らせない）', () => {
+    const found = validate(ROOM.replace('    label: "LDK は暖色"', '    label: "凡例"').replace('    label: LDK\n', '    label: 居間\n'));
+    assert.ok(found.some((f) => f.code === 'color-without-code'), found.map((f) => f.code).join(','));
+  });
+
+  it('**面だけに使う鍵は、3:1 を割っても知らせない**（線ではないので沈まない）', () => {
+    const pale = ROOM.replace('#e8a33d', '#fbe6c8');
+    assert.ok(!validate(pale).some((f) => f.code === 'color-faint'), '面の色に線の下限を当てた');
+  });
+
+  it('同じ鍵を線にも使っていれば、これまでどおり知らせる', () => {
+    const pale = ROOM.replace('#e8a33d', '#fbe6c8').replace('    fill: LDK\n', '    fill: LDK\n    color: LDK\n');
+    assert.ok(validate(pale).some((f) => f.code === 'color-faint'));
+  });
+
+  it('ダークでも、面の上の文字は地の色にならない（淡い面に白文字を書かない）', async () => {
+    const out = render(await layout(ROOM), 'dark', 'safe', true);
+    assert.match(out, /fill="#e8a33d" fill-opacity="0\.1[0-9]"/);
+    assert.ok(!/<text[^>]*fill="#0f0f13"/.test(out), 'ダークで文字を地の色にした');
+  });
+});

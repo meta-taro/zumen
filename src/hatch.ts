@@ -93,6 +93,15 @@ function slug(id: string): string {
   return id.replace(/[^A-Za-z0-9_-]/g, '_');
 }
 
+/**
+ * **面の色**（`nodes[].fill`）。枠も模様も描かず、**面だけ**を薄く敷く。
+ * 印の形（丸・菱形）に沿わせるので、`faceOf` をここから使う。
+ */
+export function drawTint(box: Rect, color: string, opacity: number, marker: Marker = 'box'): string {
+  if (box.w <= 2 || box.h <= 2) return '';
+  return faceOf(marker, box, `fill="${color}" fill-opacity="${opacity}" stroke="none"`);
+}
+
 export function drawHatch(
   hatch: Hatch,
   box: Rect,
