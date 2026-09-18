@@ -640,11 +640,21 @@ export function groupEscapes(placed: Placed): string[] {
  * 断面図の水抜管は壁を貫き、碁石は盤の線の上に置く。
  * だから**合否ではなく観測値**にして、良し悪しは人が決める（`crossings` と同じ）。
  */
+/** 何も描かない小さな節（折れ線の足場）。`edgesUnderBoxes` が塗らないのと同じ筋。 */
+function anchorOnly(box: Box): boolean {
+  return box.marker === 'none' && box.label === '' && box.w <= 4 && box.h <= 4;
+}
+
 export function straddles(placed: Placed): [string, string][] {
   const by = new Map(placed.boxes.map((box) => [box.id, box]));
   return overlaps(placed).filter(([left, right]) => {
     const a = by.get(left)!;
     const b = by.get(right)!;
+    // **線の錨は、箱ではない**（2026-09-19）。折れ線や自分自身への辺の端に置く
+    // 2px・`marker: none`・名前なしの節は**何も描かない** —— 通り道の足場であって、
+    // 床の場所を取る物ではない。数えていたせいで **27 組・8 枚**が嘘の観測値になり、
+    // 見本 61 は**その組しか無いのに**「わざと重ねている」へ登録されていた。
+    if (anchorOnly(a) || anchorOnly(b)) return false;
     const inside = (x: Box, y: Box): boolean =>
       x.x <= y.x && x.y <= y.y && x.x + x.w >= y.x + y.w && x.y + x.h >= y.y + y.h;
     return !inside(a, b) && !inside(b, a);

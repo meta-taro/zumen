@@ -1,0 +1,514 @@
+version: 1
+kind: placement
+arrows: true
+title: 裁判員裁判の法廷（平面）
+scale: { mm: 16.7 }
+palette:
+  出入口: "#8f6f3f"
+# **誰もが見たことがあるのに、左右がどちらか言えない図。**
+#
+# 検察官は**裁判官から見て右**。平面図は上が法壇なので、**図では左**に来る。
+# 明文の規則ではなく**慣行**で、逆のこともある（勾留中の被告人が使う扉の位置など）。
+# だから席の名前の下に、**両方の見え方**を書いた。
+#
+# 法壇が**アーク型**なのは、端の裁判員も証言台の声を聞き取りやすくするため、
+# そして 9 人が互いの顔を見て話せるようにするため。高さ **35cm**（従来より 10cm 低い）。
+nodes:
+  - id: room
+    label: ""
+    at: { x: 130, y: 210 }
+    size: { w: 660, h: 780 }
+  - id: s0
+    label: "裁判員"
+    at: { x: 183.7, y: 315.7 }
+    size: { w: 52.8, h: 36 }
+  - id: s1
+    label: "裁判員"
+    at: { x: 243.3, y: 290.7 }
+    size: { w: 52.8, h: 36 }
+  - id: s2
+    label: "裁判員"
+    at: { x: 305.4, y: 272.6 }
+    size: { w: 52.8, h: 36 }
+  - id: s3
+    label: "右陪席"
+    at: { x: 369.1, y: 261.7 }
+    size: { w: 52.8, h: 36 }
+  - id: s4
+    label: "裁判長"
+    hatch: solid
+    at: { x: 433.6, y: 258 }
+    size: { w: 52.8, h: 36 }
+  - id: s5
+    label: "左陪席"
+    at: { x: 498.1, y: 261.7 }
+    size: { w: 52.8, h: 36 }
+  - id: s6
+    label: "裁判員"
+    at: { x: 561.8, y: 272.6 }
+    size: { w: 52.8, h: 36 }
+  - id: s7
+    label: "裁判員"
+    at: { x: 623.9, y: 290.7 }
+    size: { w: 52.8, h: 36 }
+  - id: s8
+    label: "裁判員"
+    at: { x: 683.5, y: 315.7 }
+    size: { w: 52.8, h: 36 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 190.8, y: 380.5 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 727.2, y: 380.5 }
+    size: { w: 2, h: 2 }
+  - id: bench
+    label: "法壇（アーク型・高さ 35cm）"
+    marker: none
+    align: center
+    at: { x: 320, y: 381 }
+    size: { w: 280, h: 18 }
+  - id: koho
+    label: "補充裁判員"
+    at: { x: 145, y: 372 }
+    size: { w: 78, h: 54 }
+  - id: koho2
+    label: "補充裁判員"
+    at: { x: 697, y: 372 }
+    size: { w: 78, h: 54 }
+  - id: shoki
+    label: "裁判所書記官"
+    at: { x: 406, y: 408 }
+    size: { w: 108, h: 54 }
+  - id: sokki
+    label: "速記官"
+    at: { x: 286, y: 414 }
+    size: { w: 84, h: 42 }
+  - id: teiri
+    label: "廷吏"
+    at: { x: 550, y: 414 }
+    size: { w: 84, h: 42 }
+  - id: dai
+    label: "証言台"
+    at: { x: 433, y: 516 }
+    size: { w: 54, h: 48 }
+  - id: kensatsu
+    label: "検察官\n裁判官から見て右\n（傍聴席から見て左）"
+    at: { x: 172, y: 468 }
+    size: { w: 150, h: 90 }
+  - id: bengo
+    label: "弁護人\n裁判官から見て左\n（傍聴席から見て右）"
+    at: { x: 598, y: 468 }
+    size: { w: 150, h: 90 }
+  - id: hikoku
+    label: "被告人"
+    at: { x: 598, y: 576 }
+    size: { w: 150, h: 48 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 138, y: 671 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 411, y: 671 }
+    size: { w: 2, h: 2 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 507, y: 671 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 780, y: 671 }
+    size: { w: 2, h: 2 }
+  - id: bar
+    label: "バー（柵）—— この内側が法廷、外側が傍聴席"
+    marker: none
+    align: center
+    at: { x: 130, y: 679.2 }
+    size: { w: 660, h: 18 }
+  - id: bo0
+    label: "傍聴席"
+    at: { x: 250, y: 720 }
+    size: { w: 420, h: 28.8 }
+  - id: bo1
+    label: ""
+    at: { x: 250, y: 763.2 }
+    size: { w: 420, h: 28.8 }
+  - id: bo2
+    label: ""
+    at: { x: 250, y: 806.4 }
+    size: { w: 420, h: 28.8 }
+  - id: bo3
+    label: ""
+    at: { x: 250, y: 849.6 }
+    size: { w: 420, h: 28.8 }
+  - id: bo4
+    label: ""
+    at: { x: 250, y: 892.8 }
+    size: { w: 420, h: 28.8 }
+  - id: bo5
+    label: ""
+    at: { x: 250, y: 936 }
+    size: { w: 420, h: 28.8 }
+  - id: d_j
+    label: "裁判官の出入口"
+    fill: 出入口
+    at: { x: 394, y: 182.4 }
+    size: { w: 132, h: 27.6 }
+  - id: d_k
+    label: ""
+    fill: 出入口
+    at: { x: 112, y: 588 }
+    size: { w: 18, h: 48 }
+  - id: d_k2
+    label: "← 当事者の出入口（検察官側）"
+    marker: none
+    align: left
+    at: { x: 130, y: 642 }
+    size: { w: 252, h: 18 }
+  - id: d_b
+    label: ""
+    fill: 出入口
+    at: { x: 790, y: 588 }
+    size: { w: 18, h: 48 }
+  - id: d_b2
+    label: "当事者の出入口（弁護人側）→"
+    marker: none
+    align: right
+    at: { x: 538, y: 642 }
+    size: { w: 252, h: 18 }
+  - id: d_h
+    label: "傍聴人の出入口"
+    fill: 出入口
+    at: { x: 394, y: 990 }
+    size: { w: 132, h: 27.6 }
+  - id: t1
+    label: "裁判員裁判の法廷（平面・傍聴席から見た向き）"
+    marker: none
+    align: left
+    at: { x: 130, y: 134 }
+    size: { w: 520, h: 20 }
+  - id: t2
+    label: "　上が法壇。図の左＝裁判官から見て右。ここが入れ替わって覚えられている。"
+    marker: none
+    align: left
+    at: { x: 130, y: 156 }
+    size: { w: 520, h: 18 }
+  - id: h170
+    label: "法壇の 9 席（中央から外へ）"
+    hatch: solid
+    at: { x: 880, y: 170 }
+    size: { w: 490, h: 24 }
+  - id: x194
+    label: "中央"
+    at: { x: 880, y: 194 }
+    size: { w: 180, h: 24 }
+  - id: y194
+    label: "裁判長"
+    align: left
+    at: { x: 1060, y: 194 }
+    size: { w: 310, h: 24 }
+  - id: x218
+    label: "その右"
+    at: { x: 880, y: 218 }
+    size: { w: 180, h: 24 }
+  - id: y218
+    label: "右陪席裁判官（裁判長から見て右）"
+    align: left
+    at: { x: 1060, y: 218 }
+    size: { w: 310, h: 24 }
+  - id: x242
+    label: "その左"
+    at: { x: 880, y: 242 }
+    size: { w: 180, h: 24 }
+  - id: y242
+    label: "左陪席裁判官"
+    align: left
+    at: { x: 1060, y: 242 }
+    size: { w: 310, h: 24 }
+  - id: x266
+    label: "両外側"
+    at: { x: 880, y: 266 }
+    size: { w: 180, h: 24 }
+  - id: y266
+    label: "裁判員 6 人（3 人ずつ）"
+    align: left
+    at: { x: 1060, y: 266 }
+    size: { w: 310, h: 24 }
+  - id: x290
+    label: "法壇の外"
+    at: { x: 880, y: 290 }
+    size: { w: 180, h: 24 }
+  - id: y290
+    label: "補充裁判員"
+    align: left
+    at: { x: 1060, y: 290 }
+    size: { w: 310, h: 24 }
+  - id: h332
+    label: "法壇そのもの"
+    hatch: solid
+    at: { x: 880, y: 332 }
+    size: { w: 490, h: 24 }
+  - id: x356
+    label: "形"
+    at: { x: 880, y: 356 }
+    size: { w: 180, h: 24 }
+  - id: y356
+    label: "アーク型（弧を描く）"
+    align: left
+    at: { x: 1060, y: 356 }
+    size: { w: 310, h: 24 }
+  - id: x380
+    label: "なぜ"
+    at: { x: 880, y: 380 }
+    size: { w: 180, h: 24 }
+  - id: y380
+    label: "端の裁判員も証言台の声が聞き取りやすい"
+    align: left
+    at: { x: 1060, y: 380 }
+    size: { w: 310, h: 24 }
+  - id: x404
+    label: "もう 1 つ"
+    at: { x: 880, y: 404 }
+    size: { w: 180, h: 24 }
+  - id: y404
+    label: "9 人が互いの顔を見て話せる"
+    align: left
+    at: { x: 1060, y: 404 }
+    size: { w: 310, h: 24 }
+  - id: x428
+    label: "高さ"
+    at: { x: 880, y: 428 }
+    size: { w: 180, h: 24 }
+  - id: y428
+    label: "35cm（従来の法壇より 10cm 低い）"
+    align: left
+    at: { x: 1060, y: 428 }
+    size: { w: 310, h: 24 }
+  - id: x452
+    label: "なぜ"
+    at: { x: 880, y: 452 }
+    size: { w: 180, h: 24 }
+  - id: y452
+    label: "被告人への圧迫感を減らすため"
+    align: left
+    at: { x: 1060, y: 452 }
+    size: { w: 310, h: 24 }
+  - id: h494
+    label: "左右（いちばん間違えられる所）"
+    hatch: solid
+    at: { x: 880, y: 494 }
+    size: { w: 490, h: 24 }
+  - id: x518
+    label: "検察官"
+    at: { x: 880, y: 518 }
+    size: { w: 180, h: 24 }
+  - id: y518
+    label: "裁判官から見て右 ＝ 傍聴席から見て左"
+    align: left
+    at: { x: 1060, y: 518 }
+    size: { w: 310, h: 24 }
+  - id: x542
+    label: "弁護人・被告人"
+    at: { x: 880, y: 542 }
+    size: { w: 180, h: 24 }
+  - id: y542
+    label: "裁判官から見て左 ＝ 傍聴席から見て右"
+    align: left
+    at: { x: 1060, y: 542 }
+    size: { w: 310, h: 24 }
+  - id: x566
+    label: "根拠"
+    at: { x: 880, y: 566 }
+    size: { w: 180, h: 24 }
+  - id: y566
+    label: "明文の規則ではなく慣行"
+    align: left
+    at: { x: 1060, y: 566 }
+    size: { w: 310, h: 24 }
+  - id: x590
+    label: "例外"
+    at: { x: 880, y: 590 }
+    size: { w: 180, h: 24 }
+  - id: y590
+    label: "逆のこともある（被告人が使う扉の位置など）"
+    align: left
+    at: { x: 1060, y: 590 }
+    size: { w: 310, h: 24 }
+  - id: x614
+    label: "控訴審"
+    at: { x: 880, y: 614 }
+    size: { w: 180, h: 24 }
+  - id: y614
+    label: "一審と同じ（被告人だけが控訴しても）"
+    align: left
+    at: { x: 1060, y: 614 }
+    size: { w: 310, h: 24 }
+  - id: h656
+    label: "画面"
+    hatch: solid
+    at: { x: 880, y: 656 }
+    size: { w: 490, h: 24 }
+  - id: x680
+    label: "法廷の両脇"
+    at: { x: 880, y: 680 }
+    size: { w: 180, h: 24 }
+  - id: y680
+    label: "65 型の大型ディスプレイ"
+    align: left
+    at: { x: 1060, y: 680 }
+    size: { w: 310, h: 24 }
+  - id: x704
+    label: "法壇の上"
+    at: { x: 880, y: 704 }
+    size: { w: 180, h: 24 }
+  - id: y704
+    label: "15 型の小型モニター"
+    align: left
+    at: { x: 1060, y: 704 }
+    size: { w: 310, h: 24 }
+  - id: x728
+    label: "証言台"
+    at: { x: 880, y: 728 }
+    size: { w: 180, h: 24 }
+  - id: y728
+    label: "タッチペンで書ける液晶タブレット"
+    align: left
+    at: { x: 1060, y: 728 }
+    size: { w: 310, h: 24 }
+  - id: h770
+    label: "この図に出ていないもの"
+    hatch: solid
+    at: { x: 880, y: 770 }
+    size: { w: 490, h: 24 }
+  - id: x794
+    label: "遮へい措置"
+    at: { x: 880, y: 794 }
+    size: { w: 180, h: 24 }
+  - id: y794
+    label: "証人と被告人の間の衝立・ビデオリンク"
+    align: left
+    at: { x: 1060, y: 794 }
+    size: { w: 310, h: 24 }
+  - id: x818
+    label: "評議室"
+    at: { x: 880, y: 818 }
+    size: { w: 180, h: 24 }
+  - id: y818
+    label: "法廷の外。ここでは描いていない"
+    align: left
+    at: { x: 1060, y: 818 }
+    size: { w: 310, h: 24 }
+  - id: x842
+    label: "寸法"
+    at: { x: 880, y: 842 }
+    size: { w: 180, h: 24 }
+  - id: y842
+    label: "法廷の広さと席の大きさは例"
+    align: left
+    at: { x: 1060, y: 842 }
+    size: { w: 310, h: 24 }
+  - id: x866
+    label: "民事"
+    at: { x: 880, y: 866 }
+    size: { w: 180, h: 24 }
+  - id: y866
+    label: "当事者席の並びが別（対席）"
+    align: left
+    at: { x: 1060, y: 866 }
+    size: { w: 310, h: 24 }
+  - id: n1
+    label: "裁判員裁判の法廷を、傍聴席から見た向きで描いた平面図です。"
+    marker: none
+    align: left
+    at: { x: 130, y: 1060 }
+    size: { w: 1240, h: 18 }
+  - id: n2
+    label: "検察官は、裁判官から見て右に座ります。平面図では上が法壇なので、図では左になります。"
+    marker: none
+    align: left
+    at: { x: 130, y: 1082 }
+    size: { w: 1240, h: 18 }
+  - id: n3
+    label: "これは明文の規則ではなく慣行で、逆のこともあります（勾留中の被告人が使う扉の位置などによります）。"
+    marker: none
+    align: left
+    at: { x: 130, y: 1104 }
+    size: { w: 1240, h: 18 }
+  - id: n4
+    label: "法壇はアーク型です。端に座る裁判員も証言台の声を聞き取りやすくし、9 人が互いの顔を見て話せるようにするためです。"
+    marker: none
+    align: left
+    at: { x: 130, y: 1126 }
+    size: { w: 1240, h: 18 }
+  - id: n5
+    label: "高さは 35cm で、従来の法壇より 10cm 低くしてあります。被告人への圧迫感を減らすためです。"
+    marker: none
+    align: left
+    at: { x: 130, y: 1148 }
+    size: { w: 1240, h: 18 }
+  - id: n6
+    label: "バー（柵）から先が法廷で、その外側が傍聴席です。"
+    marker: none
+    align: left
+    at: { x: 130, y: 1170 }
+    size: { w: 1240, h: 18 }
+  - id: n7
+    label: "法廷の広さ・席の大きさ・扉の位置は例です。実物は裁判所ごとに違います。"
+    marker: none
+    align: left
+    at: { x: 130, y: 1192 }
+    size: { w: 1240, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 208.2, y: 372.4 }
+      - { x: 224.9, y: 363.9 }
+      - { x: 241.8, y: 356 }
+      - { x: 259.1, y: 348.7 }
+      - { x: 276.5, y: 341.9 }
+      - { x: 294.2, y: 335.9 }
+      - { x: 312.1, y: 330.4 }
+      - { x: 330.2, y: 325.5 }
+      - { x: 348.5, y: 321.3 }
+      - { x: 366.9, y: 317.7 }
+      - { x: 385.3, y: 314.8 }
+      - { x: 403.9, y: 312.5 }
+      - { x: 422.6, y: 310.9 }
+      - { x: 441.3, y: 309.9 }
+      - { x: 460, y: 309.6 }
+      - { x: 478.7, y: 309.9 }
+      - { x: 497.4, y: 310.9 }
+      - { x: 516.1, y: 312.5 }
+      - { x: 534.7, y: 314.8 }
+      - { x: 553.1, y: 317.7 }
+      - { x: 571.5, y: 321.3 }
+      - { x: 589.8, y: 325.5 }
+      - { x: 607.9, y: 330.4 }
+      - { x: 625.8, y: 335.9 }
+      - { x: 643.5, y: 341.9 }
+      - { x: 660.9, y: 348.7 }
+      - { x: 678.2, y: 356 }
+      - { x: 695.1, y: 363.9 }
+      - { x: 711.8, y: 372.4 }
+  - from: p2
+    to: p3
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p4
+    to: p5
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }

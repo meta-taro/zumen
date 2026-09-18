@@ -11,7 +11,7 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
-import { layout } from '../src/layout.ts';
+import { layout, straddles } from '../src/layout.ts';
 import { crowdedNames, extentOf, joinedText, planNames, textRectOf } from '../src/names.ts';
 import { render } from '../src/render.ts';
 import { inspect } from '../src/tools.ts';
@@ -574,7 +574,6 @@ const LAYERED_ON_PURPOSE: Record<string, string> = {
   '17-躯体の伏図.zumen.yaml': '**柱はスラブの上に立つ。** 伏図は重ねて描くもので、離したら嘘になる',
   '42-擁壁の標準断面図.zumen.yaml': '**水抜管は竪壁と裏込を貫く。** 貫いていることが図の中身',
   '54-のりかえ案内図.zumen.yaml': '目盛は帯の上に置く。**帯のどこかを指すための印**',
-  '61-道路の平面線形図.zumen.yaml': '終点の印が、左右の路肩線の上に来る。**線形の終わりを指す印**',
   '66-囲碁の棋譜.zumen.yaml': '**碁石は盤の線の交点に置く。** 升の中ではない',
   '70-リバーシの局面図.zumen.yaml': '目印（星）は升の角に置く。**4 つの升にまたがるのが正しい**',
   '77-舞台照明仕込図.zumen.yaml': '**バトンは舞台の上を横切っている。** 吊ってあるので重なる',
@@ -644,6 +643,56 @@ const LAYERED_ON_PURPOSE: Record<string, string> = {
   '134-梁の配筋図.zumen.yaml':
     '**鉄筋はコンクリートの中にある。** 主筋はあばら筋の内側、あばら筋は梁の断面の中。接していないと配筋図でなくなる',
 };
+
+/**
+ * **線の錨は、箱ではない。**
+ *
+ * 自分自身への辺や折れ線の端に置く **2px・`marker: none`・名前なし**の節は、
+ * 何も描かない。**通り道の足場**であって、床の場所を取る物ではない。
+ *
+ * それを `straddles` が「はみ出して重なっている」と数えていた。
+ * 測ったら **27 組・8 枚**（2026-09-19）。しかも見本 61（道路の平面線形図）は
+ * **その組しか無いのに**「わざと重ねている」へ登録されていて、
+ * 書いてある理由（終点の印が路肩線に乗る）は**実物と違っていた。**
+ *
+ * **嘘の観測値は、嘘の理由を生む。**
+ */
+describe('線の錨は、箱として数えない', () => {
+  const ANCHORED = `version: 1
+kind: placement
+arrows: true
+nodes:
+  - id: room
+    label: "部屋"
+    at: { x: 100, y: 100 }
+    size: { w: 200, h: 200 }
+  - id: a
+    label: ""
+    marker: none
+    at: { x: 99, y: 150 }
+    size: { w: 2, h: 2 }
+  - id: b
+    label: ""
+    marker: none
+    at: { x: 399, y: 150 }
+    size: { w: 2, h: 2 }
+edges:
+  - from: a
+    to: b
+    curve: none
+    ends: { from: none, to: none }
+`;
+
+  it('**何も描かない 2px の節は、はみ出しの相手にしない**', async () => {
+    const out = straddles(await layout(ANCHORED));
+    assert.deepEqual(out, [], `錨をはみ出しに数えている（${JSON.stringify(out)}）`);
+  });
+
+  it('**名前のある小さい箱は、これまでどおり数える**（印そのものを隠さない）', async () => {
+    const out = straddles(await layout(ANCHORED.replace('  - id: a\n    label: ""', '  - id: a\n    label: "杭"')));
+    assert.ok(out.length > 0, '名前のある箱まで見逃している');
+  });
+});
 
 describe('箱が、はみ出して重なっていない', () => {
   it('**わざと重ねている図のほかは 0**', async () => {

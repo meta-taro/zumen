@@ -106,6 +106,7 @@ export const CAPTIONS_EN = {
   '169-麻雀の配牌': 'Mahjong: the dice decide where the wall is opened, not luck',
   '168-ダイヤモンドシステム': 'Billiards: the diamonds on the rails are a ruler, not decoration',
   '167-ダーツボードの割り付け': 'A dartboard: the numbers are arranged to punish a miss',
+  '188-裁判員裁判の法廷': 'A lay-judge courtroom: the prosecution sits on the bench\u2019s right, so on the plan it is on the left',
   '187-合板の木取り図': 'A plywood cutting diagram: enough area is not the same as a way to cut it',
   '186-冷蔵庫の据付と搬入': 'Fitting a refrigerator: clearances differ by model, and a corner turns on the diagonal',
   '185-地上天気図の読み方': 'A surface chart: the barbs tell you which way the front is moving',
