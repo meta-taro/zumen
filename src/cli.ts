@@ -120,9 +120,20 @@ export async function placedFindings(text: string): Promise<Finding[]> {
         {
           severity: 'warning' as const,
           code: 'too-small-to-print',
+          /**
+           * **直せる形で言う**（2026-09-18）。
+           *
+           * 比だけを返していたので、**何を詰めればよいかが分からなかった** ——
+           * いちばん小さい字が何 px なのかも、長辺が何 px なのかも図から読めず、
+           * 直す側は当て推量で紙を縮めることになる（宮殿の続き間で 3 回やり直した）。
+           * **収まる長辺（`need`）まで出す。**
+           */
           message: messages().validate.tooSmallToPrint(
             (paper.textRatio ?? 0).toFixed(4),
             paper.printFloor.toFixed(4),
+            paper.smallestText,
+            Math.round(paper.longestSide),
+            Math.floor(paper.smallestText / paper.printFloor),
           ),
         },
       ]

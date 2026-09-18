@@ -1,0 +1,610 @@
+version: 1
+kind: placement
+arrows: true
+title: 宮殿の儀礼動線図（アンフィラードと、身分ごとの到達範囲）
+# **宮殿の続き間は、飾りではなく手続き。**
+#
+# 扉を一直線に並べる（アンフィラード）。軸線に立つと奥まで見通せる。
+# 部屋は奥へ行くほど小さくなる —— 待つ人が減るため。
+# 案内人は、その人の**身分が許すいちばん奥の部屋まで**通す。
+# 同格以上の客には、主人が**奥から迎えに出る**（出てくる距離が敬意の量）。
+#
+# 並びは英国バロック（ハンプトン・コート、ウィリアム 3 世の続き間）。
+# **寸法は入れていない** —— これは順序と到達範囲の図で、造るための図ではない
+# （だから \`scale\` も通り芯も書かない）。
+nodes:
+  - id: stair
+    label: ""
+    at: { x: 60, y: 202 }
+    size: { w: 84, h: 172 }
+    openings:
+      - { kind: door, side: right, at: 0.5, width: 24 }
+  - id: stair_ja
+    label: "1　大階段"
+    marker: none
+    align: center
+    at: { x: 36, y: 128 }
+    size: { w: 132, h: 18 }
+  - id: stair_en
+    label: "King’s Staircase"
+    marker: none
+    align: center
+    at: { x: 30, y: 146 }
+    size: { w: 144, h: 16 }
+  - id: guard
+    label: ""
+    at: { x: 144, y: 209 }
+    size: { w: 132, h: 158 }
+    openings:
+      - { kind: door, side: left, at: 0.5, width: 24 }
+      - { kind: door, side: right, at: 0.5, width: 24 }
+  - id: guard_ja
+    label: "2　衛兵の間"
+    marker: none
+    align: center
+    at: { x: 120, y: 162 }
+    size: { w: 180, h: 18 }
+  - id: guard_en
+    label: "Guard Chamber"
+    marker: none
+    align: center
+    at: { x: 114, y: 180 }
+    size: { w: 192, h: 16 }
+  - id: pres
+    label: ""
+    at: { x: 276, y: 214 }
+    size: { w: 123, h: 148 }
+    openings:
+      - { kind: door, side: left, at: 0.5, width: 24 }
+      - { kind: door, side: right, at: 0.5, width: 24 }
+  - id: pres_ja
+    label: "3　謁見の間"
+    marker: none
+    align: center
+    at: { x: 252, y: 128 }
+    size: { w: 171, h: 18 }
+  - id: pres_en
+    label: "Presence Chamber"
+    marker: none
+    align: center
+    at: { x: 246, y: 146 }
+    size: { w: 183, h: 16 }
+  - id: eat
+    label: ""
+    at: { x: 399, y: 220 }
+    size: { w: 111, h: 137 }
+    openings:
+      - { kind: door, side: left, at: 0.5, width: 24 }
+      - { kind: door, side: right, at: 0.5, width: 24 }
+  - id: eat_ja
+    label: "4　食事の間"
+    marker: none
+    align: center
+    at: { x: 375, y: 162 }
+    size: { w: 159, h: 18 }
+  - id: eat_en
+    label: "Eating Room"
+    marker: none
+    align: center
+    at: { x: 369, y: 180 }
+    size: { w: 171, h: 16 }
+  - id: privy
+    label: ""
+    at: { x: 510, y: 224 }
+    size: { w: 104, h: 128 }
+    openings:
+      - { kind: door, side: left, at: 0.5, width: 24 }
+      - { kind: door, side: right, at: 0.5, width: 24 }
+  - id: privy_ja
+    label: "5　枢密の間"
+    marker: none
+    align: center
+    at: { x: 486, y: 128 }
+    size: { w: 152, h: 18 }
+  - id: privy_en
+    label: "Privy Chamber"
+    marker: none
+    align: center
+    at: { x: 480, y: 146 }
+    size: { w: 164, h: 16 }
+  - id: with
+    label: ""
+    at: { x: 614, y: 229 }
+    size: { w: 95, h: 118 }
+    openings:
+      - { kind: door, side: left, at: 0.5, width: 24 }
+      - { kind: door, side: right, at: 0.5, width: 24 }
+  - id: with_ja
+    label: "6　退きの間"
+    marker: none
+    align: center
+    at: { x: 590, y: 162 }
+    size: { w: 143, h: 18 }
+  - id: with_en
+    label: "Withdrawing Room"
+    marker: none
+    align: center
+    at: { x: 584, y: 180 }
+    size: { w: 155, h: 16 }
+  - id: great
+    label: ""
+    at: { x: 709, y: 234 }
+    size: { w: 88, h: 109 }
+    openings:
+      - { kind: door, side: left, at: 0.5, width: 24 }
+      - { kind: door, side: right, at: 0.5, width: 24 }
+  - id: great_ja
+    label: "7　大寝室"
+    marker: none
+    align: center
+    at: { x: 685, y: 128 }
+    size: { w: 136, h: 18 }
+  - id: great_en
+    label: "Great Bedchamber"
+    marker: none
+    align: center
+    at: { x: 679, y: 146 }
+    size: { w: 148, h: 16 }
+  - id: little
+    label: ""
+    at: { x: 797, y: 240 }
+    size: { w: 76, h: 97 }
+    openings:
+      - { kind: door, side: left, at: 0.49, width: 24 }
+      - { kind: door, side: right, at: 0.49, width: 24 }
+  - id: little_ja
+    label: "8　小寝室"
+    marker: none
+    align: center
+    at: { x: 773, y: 162 }
+    size: { w: 124, h: 18 }
+  - id: little_en
+    label: "Little Bedchamber"
+    marker: none
+    align: center
+    at: { x: 767, y: 180 }
+    size: { w: 136, h: 16 }
+  - id: closet
+    label: ""
+    at: { x: 873, y: 246 }
+    size: { w: 65, h: 84 }
+    openings:
+      - { kind: door, side: left, at: 0.5, width: 24 }
+  - id: closet_ja
+    label: "9　書斎"
+    marker: none
+    align: center
+    at: { x: 849, y: 128 }
+    size: { w: 113, h: 18 }
+  - id: closet_en
+    label: "King’s Closet"
+    marker: none
+    align: center
+    at: { x: 843, y: 146 }
+    size: { w: 125, h: 16 }
+  - id: ax1
+    label: ""
+    marker: none
+    at: { x: 14, y: 287 }
+    size: { w: 2, h: 2 }
+  - id: ax2
+    label: ""
+    marker: none
+    at: { x: 982, y: 287 }
+    size: { w: 2, h: 2 }
+  - id: ax_l
+    label: "扉の軸線（アンフィラード）"
+    marker: none
+    align: left
+    at: { x: 988, y: 262 }
+    size: { w: 210, h: 18 }
+  - id: r_head
+    label: "身分ごとの「ここまで」（案内人は、その人の身分が許すいちばん奥の部屋まで通す）"
+    marker: none
+    align: left
+    at: { x: 60, y: 390 }
+    size: { w: 700, h: 20 }
+  - id: b0
+    label: ""
+    marker: none
+    hatch: lines
+    at: { x: 60, y: 416 }
+    size: { w: 216, h: 16 }
+  - id: bl0
+    label: "身なりの整った者"
+    marker: none
+    align: left
+    at: { x: 284, y: 415 }
+    size: { w: 210, h: 18 }
+  - id: b1
+    label: ""
+    marker: none
+    hatch: lines
+    at: { x: 60, y: 438 }
+    size: { w: 339, h: 16 }
+  - id: bl1
+    label: "廷臣"
+    marker: none
+    align: left
+    at: { x: 407, y: 437 }
+    size: { w: 210, h: 18 }
+  - id: b2
+    label: ""
+    marker: none
+    hatch: lines
+    at: { x: 60, y: 460 }
+    size: { w: 450, h: 16 }
+  - id: bl2
+    label: "公開の食事を見る者"
+    marker: none
+    align: left
+    at: { x: 518, y: 459 }
+    size: { w: 210, h: 18 }
+  - id: b3
+    label: ""
+    marker: none
+    hatch: lines
+    at: { x: 60, y: 482 }
+    size: { w: 554, h: 16 }
+  - id: bl3
+    label: "大使・要人"
+    marker: none
+    align: left
+    at: { x: 622, y: 481 }
+    size: { w: 210, h: 18 }
+  - id: b4
+    label: ""
+    marker: none
+    hatch: lines
+    at: { x: 60, y: 504 }
+    size: { w: 649, h: 16 }
+  - id: bl4
+    label: "枢密顧問官・宮内長官"
+    marker: none
+    align: left
+    at: { x: 717, y: 503 }
+    size: { w: 210, h: 18 }
+  - id: b5
+    label: ""
+    marker: none
+    hatch: lines
+    at: { x: 60, y: 526 }
+    size: { w: 737, h: 16 }
+  - id: bl5
+    label: "着衣の儀に立つ者"
+    marker: none
+    align: left
+    at: { x: 805, y: 525 }
+    size: { w: 210, h: 18 }
+  - id: b6
+    label: ""
+    marker: none
+    hatch: lines
+    at: { x: 60, y: 548 }
+    size: { w: 813, h: 16 }
+  - id: bl6
+    label: "側近"
+    marker: none
+    align: left
+    at: { x: 881, y: 547 }
+    size: { w: 210, h: 18 }
+  - id: b7
+    label: ""
+    marker: none
+    hatch: lines
+    at: { x: 60, y: 570 }
+    size: { w: 878, h: 16 }
+  - id: bl7
+    label: "王ひとり（と、ごくわずか）"
+    marker: none
+    align: left
+    at: { x: 946, y: 569 }
+    size: { w: 210, h: 18 }
+  - id: m1
+    label: ""
+    marker: none
+    at: { x: 753, y: 90 }
+    size: { w: 2, h: 2 }
+  - id: m2
+    label: ""
+    marker: none
+    at: { x: 184, y: 90 }
+    size: { w: 2, h: 2 }
+  - id: h60_662
+    label: "部屋の役割（英国バロックの続き間）"
+    hatch: solid
+    at: { x: 60, y: 662 }
+    size: { w: 500, h: 22 }
+  - id: x60_684
+    label: "衛兵の間"
+    at: { x: 60, y: 684 }
+    size: { w: 170, h: 22 }
+  - id: y60_684
+    label: "廷臣が待つ。衛兵が身なりを検める"
+    align: left
+    at: { x: 230, y: 684 }
+    size: { w: 330, h: 22 }
+  - id: x60_706
+    label: "謁見の間"
+    at: { x: 60, y: 706 }
+    size: { w: 170, h: 22 }
+  - id: y60_706
+    label: "公式の玉座の間。天蓋の下に玉座を置く"
+    align: left
+    at: { x: 230, y: 706 }
+    size: { w: 330, h: 22 }
+  - id: x60_728
+    label: "食事の間"
+    at: { x: 60, y: 728 }
+    size: { w: 170, h: 22 }
+  - id: y60_728
+    label: "王が人前で食事をする"
+    align: left
+    at: { x: 230, y: 728 }
+    size: { w: 330, h: 22 }
+  - id: x60_750
+    label: "枢密の間"
+    at: { x: 60, y: 750 }
+    size: { w: 170, h: 22 }
+  - id: y60_750
+    label: "儀礼の中心。大使や要人を迎える"
+    align: left
+    at: { x: 230, y: 750 }
+    size: { w: 330, h: 22 }
+  - id: x60_772
+    label: "退きの間"
+    at: { x: 60, y: 772 }
+    size: { w: 170, h: 22 }
+  - id: y60_772
+    label: "枢密顧問官らが、より private に会う"
+    align: left
+    at: { x: 230, y: 772 }
+    size: { w: 330, h: 22 }
+  - id: x60_794
+    label: "大寝室"
+    at: { x: 60, y: 794 }
+    size: { w: 170, h: 22 }
+  - id: y60_794
+    label: "寝る所ではない。 朝の着衣・夜の脱衣の儀"
+    align: left
+    at: { x: 230, y: 794 }
+    size: { w: 330, h: 22 }
+  - id: x60_816
+    label: "小寝室"
+    at: { x: 60, y: 816 }
+    size: { w: 170, h: 22 }
+  - id: y60_816
+    label: "実際に寝る部屋。側近だけ"
+    align: left
+    at: { x: 230, y: 816 }
+    size: { w: 330, h: 22 }
+  - id: x60_838
+    label: "書斎"
+    at: { x: 60, y: 838 }
+    size: { w: 170, h: 22 }
+  - id: y60_838
+    label: "私的に執務する。ごくわずかしか入れない"
+    align: left
+    at: { x: 230, y: 838 }
+    size: { w: 330, h: 22 }
+  - id: h60_874
+    label: "この図が言っていること"
+    hatch: solid
+    at: { x: 60, y: 874 }
+    size: { w: 500, h: 22 }
+  - id: x60_896
+    label: "一列に並ぶ"
+    at: { x: 60, y: 896 }
+    size: { w: 170, h: 22 }
+  - id: y60_896
+    label: "扉が一直線。いちばん奥まで見通せる"
+    align: left
+    at: { x: 230, y: 896 }
+    size: { w: 330, h: 22 }
+  - id: x60_918
+    label: "奥ほど小さい"
+    at: { x: 60, y: 918 }
+    size: { w: 170, h: 22 }
+  - id: y60_918
+    label: "待つ人が減るので、部屋も小さくなる"
+    align: left
+    at: { x: 230, y: 918 }
+    size: { w: 330, h: 22 }
+  - id: x60_940
+    label: "距離が身分"
+    at: { x: 60, y: 940 }
+    size: { w: 170, h: 22 }
+  - id: y60_940
+    label: "どこまで通されるかが、その人の身分"
+    align: left
+    at: { x: 230, y: 940 }
+    size: { w: 330, h: 22 }
+  - id: x60_962
+    label: "迎えに出る"
+    at: { x: 60, y: 962 }
+    size: { w: 170, h: 22 }
+  - id: y60_962
+    label: "同格以上の客には、主人が奥から出てくる"
+    align: left
+    at: { x: 230, y: 962 }
+    size: { w: 330, h: 22 }
+  - id: x60_984
+    label: "通り抜けない"
+    at: { x: 60, y: 984 }
+    size: { w: 170, h: 22 }
+  - id: y60_984
+    label: "廊下が無い。次の間へは部屋を抜けて進む"
+    align: left
+    at: { x: 230, y: 984 }
+    size: { w: 330, h: 22 }
+  - id: h600_662
+    label: "ヴェルサイユの「惑星の間」（7 室）"
+    hatch: solid
+    at: { x: 600, y: 662 }
+    size: { w: 500, h: 22 }
+  - id: x600_684
+    label: "並び"
+    at: { x: 600, y: 684 }
+    size: { w: 170, h: 22 }
+  - id: y600_684
+    label: "ディアナ／マルス／メルクリウス／アポロン"
+    align: left
+    at: { x: 770, y: 684 }
+    size: { w: 330, h: 22 }
+  - id: x600_706
+    label: ""
+    at: { x: 600, y: 706 }
+    size: { w: 170, h: 22 }
+  - id: y600_706
+    label: "ユピテル／サトゥルヌス／ウェヌス"
+    align: left
+    at: { x: 770, y: 706 }
+    size: { w: 330, h: 22 }
+  - id: x600_728
+    label: "中心"
+    at: { x: 600, y: 728 }
+    size: { w: 170, h: 22 }
+  - id: y600_728
+    label: "アポロン（太陽）の間が玉座の間"
+    align: left
+    at: { x: 770, y: 728 }
+    size: { w: 330, h: 22 }
+  - id: x600_750
+    label: "夜会の役割"
+    at: { x: 600, y: 750 }
+    size: { w: 170, h: 22 }
+  - id: y600_750
+    label: "ウェヌス＝食卓、ディアナ＝ビリヤード"
+    align: left
+    at: { x: 770, y: 750 }
+    size: { w: 330, h: 22 }
+  - id: x600_772
+    label: ""
+    at: { x: 600, y: 772 }
+    size: { w: 170, h: 22 }
+  - id: y600_772
+    label: "マルス＝舞踏、メルクリウス＝カード"
+    align: left
+    at: { x: 770, y: 772 }
+    size: { w: 330, h: 22 }
+  - id: x600_794
+    label: ""
+    at: { x: 600, y: 794 }
+    size: { w: 170, h: 22 }
+  - id: y600_794
+    label: "アポロン＝音楽"
+    align: left
+    at: { x: 770, y: 794 }
+    size: { w: 330, h: 22 }
+  - id: x600_816
+    label: "置かれる階"
+    at: { x: 600, y: 816 }
+    size: { w: 170, h: 22 }
+  - id: y600_816
+    label: "piano nobile（主階）。イタリアの宮殿に倣った"
+    align: left
+    at: { x: 770, y: 816 }
+    size: { w: 330, h: 22 }
+  - id: h600_852
+    label: "言葉"
+    hatch: solid
+    at: { x: 600, y: 852 }
+    size: { w: 500, h: 22 }
+  - id: x600_874
+    label: "アンフィラード"
+    at: { x: 600, y: 874 }
+    size: { w: 170, h: 22 }
+  - id: y600_874
+    label: "扉を一直線に並べた続き間（enfilade）"
+    align: left
+    at: { x: 770, y: 874 }
+    size: { w: 330, h: 22 }
+  - id: x600_896
+    label: "見通し"
+    at: { x: 600, y: 896 }
+    size: { w: 170, h: 22 }
+  - id: y600_896
+    label: "その軸線に立つと、奥まで一望できる"
+    align: left
+    at: { x: 770, y: 896 }
+    size: { w: 330, h: 22 }
+  - id: x600_918
+    label: "いちばん長い例"
+    at: { x: 600, y: 918 }
+    size: { w: 170, h: 22 }
+  - id: y600_918
+    label: "ロンドン National Gallery の 15 室"
+    align: left
+    at: { x: 770, y: 918 }
+    size: { w: 330, h: 22 }
+  - id: h600_954
+    label: "この図に出ていないもの"
+    hatch: solid
+    at: { x: 600, y: 954 }
+    size: { w: 500, h: 22 }
+  - id: x600_976
+    label: "寸法"
+    at: { x: 600, y: 976 }
+    size: { w: 170, h: 22 }
+  - id: y600_976
+    label: "実在の宮殿の寸法ではない。順序と到達範囲の図"
+    align: left
+    at: { x: 770, y: 976 }
+    size: { w: 330, h: 22 }
+  - id: x600_998
+    label: "裏の通路"
+    at: { x: 600, y: 998 }
+    size: { w: 170, h: 22 }
+  - id: y600_998
+    label: "使用人の階段と通路は、この列の裏にある"
+    align: left
+    at: { x: 770, y: 998 }
+    size: { w: 330, h: 22 }
+  - id: x600_1020
+    label: "王妃の続き間"
+    at: { x: 600, y: 1020 }
+    size: { w: 170, h: 22 }
+  - id: y600_1020
+    label: "同じ形の列が、もう 1 本ある"
+    align: left
+    at: { x: 770, y: 1020 }
+    size: { w: 330, h: 22 }
+  - id: n1
+    label: "宮殿の続き間は、飾りではなく手続きです。扉を一直線に並べ、奥へ行くほど部屋を小さくします。"
+    marker: none
+    align: left
+    at: { x: 60, y: 1072 }
+    size: { w: 1000, h: 18 }
+  - id: n2
+    label: "案内人は、その人の身分が許すいちばん奥の部屋まで通します。どこで止まるかが、身分そのものです。"
+    marker: none
+    align: left
+    at: { x: 60, y: 1094 }
+    size: { w: 1000, h: 18 }
+  - id: n3
+    label: "同格以上の客には、主人のほうが奥から迎えに出ます。出てくる距離が、敬意の量になります。"
+    marker: none
+    align: left
+    at: { x: 60, y: 1116 }
+    size: { w: 1000, h: 18 }
+  - id: n4
+    label: "大寝室は寝る部屋ではありません。朝に服を着て、夜に脱ぐところを見せるための部屋です。"
+    marker: none
+    align: left
+    at: { x: 60, y: 1138 }
+    size: { w: 1000, h: 18 }
+  - id: n5
+    label: "部屋の並びは英国バロック（ハンプトン・コート）。寸法は入れていません。"
+    marker: none
+    align: left
+    at: { x: 60, y: 1160 }
+    size: { w: 1000, h: 18 }
+edges:
+  - from: ax1
+    to: ax2
+    line: dashed
+    ends: { from: none, to: none }
+  - from: m1
+    to: m2
+    label: "同格以上の客は、主人が奥から迎えに出る"
+    ends: { from: none, to: arrow }

@@ -617,8 +617,8 @@ const ja = {
       `ノード "${id}" は幅のある箱ですが、名前が入りきらず外へ出ています（名前に ${needs}px 要るところ、箱は ${has}px。${needs - has}px 足りません）。表の欄なら、値が欄から離れて行が空に見えます。箱を広げるか、文字を短くしてください。`,
     tagHidden: (id: string) =>
       `ノード "${id}" の tag は、印に入りきらないので描かれません。印を大きくするか、符号を短くしてください（消してはいません。書いたのに出ない状態を知らせています）。`,
-    tooSmallToPrint: (ratio: string, floor: string) =>
-      `この図は A3 に印刷しても字が読めません（いちばん小さい字 ÷ 長辺 ＝ ${ratio}。下限は ${floor}）。**文字を大きくしないでください** —— 図が伸びて比がさらに下がります。紙を小さくするか（表や注記を詰める）、図を分けてください。`,
+    tooSmallToPrint: (ratio: string, floor: string, smallest: number, longest: number, need: number) =>
+      `この図は A3 に印刷しても字が読めません（いちばん小さい字 ${smallest}px ÷ 長辺 ${longest}px ＝ ${ratio}。下限は ${floor}）。**あと ${Math.max(1, Math.ceil(longest - need))}px 詰めてください** —— 長辺が ${need}px 以下なら収まります。**文字を大きくしないでください**（図が伸びて比がさらに下がります）。表や注記を詰めるか、図を分けてください。`,
     inkOverlap: (a: string, b: string) =>
       `紙の上で ${a} と ${b} の文字が重なって描かれます。名前どうしだけでなく、符号・寸法の数値・通り芯の符号・図の名前も同じ場所を取ります。どちらかをずらしてください。`,
     textOverlap: (a: string, b: string) =>
@@ -1164,8 +1164,8 @@ const en: Catalog = {
       `Node "${id}" is a wide box whose name did not fit, so it is drawn outside: the name needs ${needs}px and the box is ${has}px, so it is ${needs - has}px short. In a table that leaves the row looking empty. Widen the box or shorten the text.`,
     tagHidden: (id: string) =>
       `The tag on node "${id}" does not fit its marker and is not drawn. Make the marker bigger or shorten the tag.`,
-    tooSmallToPrint: (ratio: string, floor: string) =>
-      `This drawing is too small to read even printed on A3 (smallest text / longest side = ${ratio}; the floor is ${floor}). **Do not enlarge the text** — that grows the drawing and lowers the ratio further. Make the sheet smaller (tighten the tables and notes) or split the drawing.`,
+    tooSmallToPrint: (ratio: string, floor: string, smallest: number, longest: number, need: number) =>
+      `This drawing is too small to read even printed on A3 (smallest text ${smallest}px / longest side ${longest}px = ${ratio}; the floor is ${floor}). **Take ${Math.max(1, Math.ceil(longest - need))}px off** — a longest side of ${need}px or less fits. **Do not enlarge the text** (that grows the drawing and lowers the ratio further). Tighten the tables and notes, or split the drawing.`,
     inkOverlap: (a: string, b: string) =>
       `On the sheet, ${a} and ${b} are drawn on top of each other. It is not only names: tags, dimension values, grid codes and view titles take room too. Move one of them.`,
     textOverlap: (a: string, b: string) =>

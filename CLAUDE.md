@@ -132,7 +132,17 @@ bash .github/scripts/oss-privacy-check.sh
 | `main` | **本番。** `develop → main` の PR が通ると、紹介ページ（GitHub Pages）が配られる |
 
 **push しただけでは世に出ない。** 出すのは `develop → main` の PR。
-**PR を出すのも通すのも人**（AI からは提案しない）。
+
+| | 誰 |
+|---|---|
+| commit | AI |
+| `develop` へ push | 人 |
+| **`develop → main` の PR を作る** | **AI**（「LP を更新したい」と言われたとき）|
+| **その PR を通す** | **人**。通った時点で公開 |
+| 版（`pnpm version:set` ＋ タグ `v*`）| 人。**`main` で打つ** |
+
+**AI から push は提案しない**（ベースルール §6）。PR は push とは別で、
+**通すかどうかを人が決める場所**が残っているから成り立つ。
 
 ### git pull の 3 タイミング
 

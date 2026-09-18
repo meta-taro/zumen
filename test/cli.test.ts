@@ -210,6 +210,24 @@ describe('印刷して読めるか', () => {
     assert.equal((await runValidate(['a.yaml'], reader({ 'a.yaml': TALL }) as never)).code, 0);
   });
 
+  /**
+   * **直せる形で言う**（2026-09-18）。
+   *
+   * 比だけでは、**何を詰めればよいかが分からない。**
+   * いちばん小さい字が何 px で、長辺が何 px で、**いくつ以下なら収まるのか** ——
+   * そこまで出ていないと、直す側は当て推量で紙を縮めることになる
+   * （宮殿の続き間の見本で、3 回やり直した）。
+   * `name-adrift` に px を足したときと同じ話。
+   */
+  it('**いちばん小さい字・長辺・収まる長辺を、px で言う**', async () => {
+    const result = await runValidate(['a.yaml'], reader({ 'a.yaml': TALL }) as never);
+    const line = result.lines.find((l) => l.includes('A3')) ?? '';
+    assert.match(line, /いちばん小さい字 \d+px/, line);
+    assert.match(line, /長辺 \d+px/, line);
+    assert.match(line, /長辺が \d+px 以下なら収まります/, line);
+    assert.match(line, /あと \d+px 詰めてください/, line);
+  });
+
   it('下限を通る図には、何も言わない', async () => {
     const result = await runValidate(['a.yaml'], reader({ 'a.yaml': GOOD }) as never);
     assert.ok(!result.lines.some((line) => line.includes('A3')));
