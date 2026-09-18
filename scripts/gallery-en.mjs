@@ -106,6 +106,7 @@ export const CAPTIONS_EN = {
   '169-麻雀の配牌': 'Mahjong: the dice decide where the wall is opened, not luck',
   '168-ダイヤモンドシステム': 'Billiards: the diamonds on the rails are a ruler, not decoration',
   '167-ダーツボードの割り付け': 'A dartboard: the numbers are arranged to punish a miss',
+  '181-伽藍配置の移り変わり': 'Temple layouts through time: the pagoda drifts away from the centre',
   '180-継手と仕口': 'Japanese timber joints: pulled harder, they tighten; each post has a name',
   '179-革靴の型紙': 'A shoe pattern comes off the last: tape it, draw on it, peel it flat',
   '178-靴のサイズの図': 'Shoe sizing as a nomogram: 25.0 EE and 26.0 E are the same girth',
