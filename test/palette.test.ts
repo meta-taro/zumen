@@ -319,3 +319,77 @@ nodes:
     assert.ok(!/<text[^>]*fill="#0f0f13"/.test(out), 'ダークで文字を地の色にした');
   });
 });
+
+/**
+ * **面をその色で塗り潰す**（`fill` ＋ `hatch: solid`）。
+ *
+ * モザイクの割り付け図（見本 170）で要った。**あそこは面が中身そのもの**で、
+ * 薄く敷いたのでは色が読めない。かといって `color` に書くと**枠まで染まる** ——
+ * 1 マスずつの区切り線が消えて、どこで切れているか分からなくなる。
+ *
+ * `hatch: solid`（塗り潰し）と組み合わせたときだけ、**面をしっかり塗る**。
+ * 語を足していない —— **すでにある 2 つの語の組み合わせ**で言えている。
+ */
+describe('面を塗り潰す（fill ＋ hatch: solid）', () => {
+  const CELL = `version: 1
+kind: placement
+palette:
+  R: "#c91a09"
+  W: "#ffffff"
+nodes:
+  - id: legend
+    label: "R 赤 ／ W 白"
+    marker: none
+    at: { x: 0, y: 100 }
+    size: { w: 160, h: 20 }
+  - id: c1
+    label: R
+    fill: R
+    hatch: solid
+    at: { x: 0, y: 0 }
+    size: { w: 26, h: 26 }
+  - id: c2
+    label: W
+    fill: W
+    hatch: solid
+    at: { x: 26, y: 0 }
+    size: { w: 26, h: 26 }
+`;
+
+  it('**面がその色で塗り潰される**（薄く敷かない）', async () => {
+    const out = render(await layout(CELL), 'light', 'safe', true);
+    assert.match(out, /fill="#c91a09" fill-opacity="0\.82"/);
+    assert.ok(!/fill="#c91a09" fill-opacity="0\.16"/.test(out), '塗り潰しの上に、さらに薄く敷いた');
+  });
+
+  it('**枠は墨のまま**（マスの区切りが消えない）', async () => {
+    const out = render(await layout(CELL), 'light', 'safe', true);
+    assert.ok(!/stroke="#c91a09"/.test(out), '枠まで面の色にした');
+  });
+
+  /**
+   * **塗りの上の文字は、その塗りの明るさで決める。**
+   *
+   * 塗り潰しの上では文字を地の色にしていた（黒いアスコンの上の黒い字を避けるため）。
+   * **色が入ると、それが裏目に出る** —— 白いマスの上で、文字まで白くなる。
+   * 見るべきは「塗り潰しかどうか」ではなく、**その塗りから遠いインクはどちらか**。
+   */
+  it('**濃い塗りの上では、地の色の文字**（黒の上の黒を避ける）', async () => {
+    const out = render(await layout(CELL), 'light', 'safe', true);
+    const red = out.slice(out.indexOf('data-name="c1"'), out.indexOf('data-name="c2"'));
+    assert.match(red, /<text[^>]*fill="#ffffff"/);
+  });
+
+  it('**淡い塗りの上では、墨の文字**（白の上の白を避ける）', async () => {
+    const out = render(await layout(CELL), 'light', 'safe', true);
+    const white = out.slice(out.indexOf('data-name="c2"'));
+    assert.match(white, /<text[^>]*fill="#1c1c22"/);
+    assert.ok(!/data-name="c2"[\s\S]{0,400}?<text[^>]*fill="#ffffff"/.test(out), '白い塗りに白い字を書いた');
+  });
+
+  it('色を書かない塗り潰しは、これまでどおり地の色の文字', async () => {
+    const plain = CELL.replace(/    fill: [RW]\n/g, '');
+    const out = render(await layout(plain), 'light', 'safe', true);
+    assert.match(out, /<text[^>]*fill="#ffffff"/);
+  });
+});

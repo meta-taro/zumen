@@ -29,7 +29,7 @@ import type { Frame, Ink } from './dimensions.ts';
 import { CODE_R, MARGIN, hasGrid } from './grid.ts';
 import { drawEnd, hasEnds } from './ends.ts';
 import { drawHatch, drawHatchIn, drawTint } from './hatch.ts';
-import { TINT } from './palette.ts';
+import { contrastOn, TINT } from './palette.ts';
 import type { Hatch } from './hatch.ts';
 import { pathOf } from './curve.ts';
 import { ALIGN_INSET, anchorOf } from './align.ts';
@@ -731,12 +731,18 @@ function renderNode(
   // **建具より先。** 建具は穴なので、模様の上に開ける。
   // **塗りにも路線の色を乗せる**（`src/palette.ts`）。停車駅案内図の ● は、
   // ●そのものが種別の色をしている（枠だけ色を付けても読めない）。
-  const pattern = plan ? drawHatch(box.hatch, box, box.color ?? style.stroke, box.marker, box.id) : '';
+  // **模様にも面の色が乗る。** `fill` ＋ `hatch: solid` は
+  // 「**この面をその色で塗り潰す**」——モザイクの割り付け図のように、
+  // 面が中身そのものである図で要る（薄く敷いたのでは色が読めない）。
+  const face = box.tint ?? box.color ?? style.stroke;
+  const pattern = plan ? drawHatch(box.hatch, box, face, box.marker, box.id) : '';
 
   // **面の色**（`nodes[].fill`。`src/palette.ts`）。**枠も文字も染めずに、面だけ。**
   // 地の上へ薄く敷くので、ライトでは淡く、ダークでは沈んで出る ——
   // どちらの地でも、上に載る文字がそのまま読める。
-  const tint = box.tint === null ? '' : drawTint(box, box.tint, TINT, box.marker);
+  //
+  // **塗り潰しと重ねない。** 塗り潰しは既にその色で塗ってある。
+  const tint = box.tint === null || box.hatch === 'solid' ? '' : drawTint(box, box.tint, TINT, box.marker);
 
   // **塗り潰した面の上では、文字を地の色にする。**
   // 黒く塗ったアスコンの上に黒い文字を書くと読めない
@@ -744,9 +750,14 @@ function renderNode(
   // **反転してよいのは、塗った面の上に載る文字だけ。**
   // 外へ出した名前は白い紙の上なので、反転すると**白い紙に白い字**になる
   // （2026-09-14。配線略図の信号機で踏んだ）。
+  // **見るのは「塗り潰しかどうか」ではなく、その塗りから遠いインクはどちらか。**
+  // 色が入るまでは地の色で足りていた（塗り潰しは墨だったので）。
+  // **色の面が来ると裏目に出る** —— 白いマスの上で、文字まで白くなる（2026-09-18）。
   const outside = name !== null && name.kind === 'outside';
   const ink =
-    plan && box.hatch === 'solid' && !outside ? { ...style, text: palette.paper } : style;
+    plan && box.hatch === 'solid' && !outside
+      ? { ...style, text: contrastOn(style.text, face) < contrastOn(palette.paper, face) ? palette.paper : style.text }
+      : style;
 
   /**
    * **模様の上の文字は、下地を抜く。**
