@@ -207,6 +207,7 @@ const ja = {
     lossPinned:
       '人が置いた位置と、自動配置の区別。draw.io は全要素が座標を持つため、形式に区別が無い。',
     lossAppearance: '体裁の「意味の語」（primary / muted）。色に変換されるので語は残らない。',
+    lossDouble: '二重線（line: double）。draw.io の辺に二重線の型が無いので、実線で出る —— **相続関係説明図の婚姻は、ここで親子と同じ線になる。**（破線・点線・一点鎖線は刻みとして出る）',
     lossComments: '正本のコメントと並び順。',
     lossLocked: '競合を解いたときの記録（locked）。',
     lossRoundTrip: '正本は .zumen.yaml の側。ここで編集しても zumen へは戻せない。',
@@ -828,6 +829,7 @@ const en: Catalog = {
     lossPinned:
       'The distinction between hand-placed and auto-laid-out elements. Everything in draw.io carries coordinates, so the format has no such distinction.',
     lossAppearance: 'Appearance words (primary / muted). They become colors, so the word is gone.',
+    lossDouble: 'The double line (line: double). draw.io edges have no double-line style, so it comes out solid — **in a family-register chart, a marriage becomes indistinguishable from a parent link.** (dashed, dotted and chain do survive, as dash patterns.)',
     lossComments: 'Comments and ordering from the source of truth.',
     lossLocked: 'The record of resolved conflicts (locked).',
     lossRoundTrip: 'The source of truth stays in .zumen.yaml. Edits made here cannot come back.',

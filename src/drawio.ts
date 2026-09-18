@@ -25,6 +25,7 @@
  *
  * 書き出しであって取り込みではない（PRD §4）。**正本は `.zumen.yaml` の側。**
  */
+import type { Line } from './line.ts';
 import type { Box, Placed, PlacedEdge } from './layout.ts';
 import { messages } from './messages.ts';
 import { drawioStyleOf, shapeOf } from './shapes.ts';
@@ -63,7 +64,7 @@ export function toDrawio(placed: Placed, title = 'zumen'): string {
 /** 落ちるものの一覧。**先頭に置く。** 末尾だと読まれない。 */
 function losses(hasPinned: boolean): string {
   const m = messages().drawio;
-  const lines = [m.lossPinned, m.lossAppearance, m.lossComments, m.lossLocked, m.lossRoundTrip];
+  const lines = [m.lossPinned, m.lossAppearance, m.lossDouble, m.lossComments, m.lossLocked, m.lossRoundTrip];
   const body = [
     m.lossHeading,
     ...lines.map((line) => `  - ${line}`),
@@ -144,10 +145,26 @@ function labelOf(box: Box): string {
     .replaceAll('\n', '<br>');
 }
 
+/**
+ * **線種を draw.io の刻みへ**（2026-09-19）。
+ *
+ * ここまで**線種はぜんぶ落ちていた** —— 破線も点線も一点鎖線も実線で出ていた。
+ * 落ちるだけでは済まない：相続関係説明図は**婚姻が二重線、親子が単線**と決まっていて、
+ * 二重線が単線になった図は、**情報が失われたのではなく、別のことを言っている。**
+ *
+ * 二重線だけは draw.io の辺に型が無いので出せない。**出せないと注記に書く。**
+ */
+function dashStyle(line: Line): string {
+  if (line === 'dashed') return 'dashed=1;';
+  if (line === 'dotted') return 'dashed=1;dashPattern=1 3;';
+  if (line === 'chain') return 'dashed=1;dashPattern=12 3 2 3;';
+  return '';
+}
+
 function edge(placedEdge: PlacedEdge): string {
   // 両端は箱の縁の点。draw.io は source / target から自分で引くので、中間だけ渡す。
   const waypoints = placedEdge.points.slice(1, -1);
-  const style = 'edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;';
+  const style = `edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;${dashStyle(placedEdge.line)}`;
   const value = placedEdge.label === null ? '' : ` value="${escapeXml(placedEdge.label)}"`;
   const open = placedEdge.pinned
     ? `        <object${value} zumenPinned="1" id="${escapeXml(placedEdge.id)}">`
