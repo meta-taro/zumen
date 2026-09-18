@@ -457,3 +457,75 @@ describe('inspect の説明に、直すべき観測値が出ている', () => {
     assert.deepEqual(ACTIONABLE.filter((key) => !(key in found)), []);
   });
 });
+
+/**
+ * **調べてから描く、を道具の側に置く**（2026-09-18）。
+ *
+ * オーナーの問い。
+ *
+ * > そもそも zumen さえ入れればエージェントはこのレベルがサクッとできちゃうんですか？
+ * > **あなたがメモリにノウハウ溜め込んでいるだけではなくて？**
+ *
+ * 数えたら、半分は道具に入っていて（規則 26・観測値 35）、
+ * **半分は入っていなかった。**「実在の専門図面を先に調べる」は
+ * `.claude/rules/専門図面の調査と実装方針.md` —— **このリポジトリの中だけ**にあり、
+ * 他の人のエージェントは見ない。これが無いと、
+ * 自分の記憶から「○○らしい絵」を描いて終わる。
+ *
+ * **道具が言えることは、道具が言う。**
+ */
+describe('調べてから描く', () => {
+  it('**実在の図面を調べてから描く**ことを、規則が言う', () => {
+    assert.ok(
+      spec().rules.some((rule) => rule.includes('調べ')),
+      '「調べてから描く」が規則に無い（他の人のエージェントには伝わらない）',
+    );
+  });
+
+  it('**描いたものを見る**ことを、規則が言う', () => {
+    assert.ok(
+      spec().rules.some((rule) => rule.includes('見る') || rule.includes('png')),
+      '「描いたら見る」が規則に無い',
+    );
+  });
+});
+
+/**
+ * **エージェントが、自分の描いた図を見られるようにする**（2026-09-18）。
+ *
+ * `zumen_export` は SVG を**文字で**返していた。文字は読めても**絵は見えない** ——
+ * だから「名前が扉の弧に乗っている」「扇の半径が読めない」に気づけるのは、
+ * 人が画面を開いたときだけだった。**リモートでは誰も開かない。**
+ *
+ * png を足す。Chrome があれば画像そのもの（base64）を返し、
+ * **無ければ、無いと言う**（黙って落とさない。`scripts/icon.mjs` と同じ筋）。
+ */
+describe('図を絵で返す（png）', () => {
+  const SMALL = `version: 1
+kind: placement
+nodes:
+  - id: a
+    label: 部屋
+    at: { x: 0, y: 0 }
+    size: { w: 120, h: 80 }
+`;
+
+  it('**png を求められる**（書き出しの種類に入っている）', () => {
+    assert.ok(spec().exports.includes('png'), `png が無い: ${spec().exports.join(',')}`);
+  });
+
+  it('**Chrome が無ければ、無いと言う**（黙って落とさない）', async () => {
+    const { pngOf } = await import('../src/tools.ts');
+    const out = await pngOf(SMALL, {}, () => null);
+    assert.equal(out.image, null);
+    assert.match(out.note, /Chrome/);
+  });
+
+  it('**Chrome があれば、画像の中身を返す**', async () => {
+    const { pngOf } = await import('../src/tools.ts');
+    const fake = (): string => 'ダミーの Chrome';
+    const out = await pngOf(SMALL, {}, fake, () => Buffer.from('PNG-DUMMY'));
+    assert.equal(out.image, Buffer.from('PNG-DUMMY').toString('base64'));
+    assert.match(out.note, /png/);
+  });
+});

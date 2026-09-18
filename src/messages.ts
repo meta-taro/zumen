@@ -261,7 +261,7 @@ const ja = {
     timelapseHold: '1 段を映す秒数（既定 2）。',
     exportTitle: '書き出す',
     exportDesc:
-      'svg（見せる）／mermaid（翌日読める）／drawio（翌日編集できる）へ書き出す。落ちるものは、それぞれの書き出しが自分で断る。',
+      'svg（見せる）／**png（自分で見る）**／mermaid（翌日読める）／drawio（翌日編集できる）へ書き出す。落ちるものは、それぞれの書き出しが自分で断る。**png は絵そのものを返す** —— 描いたら必ず 1 枚は png で見ること（数の検査は「読めるか」しか見ていない）。Chrome が要る（無ければ、無いと言う）。',
     exportTheme:
       '貼り先の地の色（svg にだけ効く）。省略するとライト。暗い地へ貼るときだけ dark を渡すこと。',
     exportIntent:
@@ -449,8 +449,14 @@ const ja = {
       '知らないキーは捨てずに保つ。',
       '桁を揃える空白を入れない。流れ形式の並び（[{ ... }, { ... }]）も書かない。読んで書き戻すと詰められ、人が触っていない行に差分が出る（validate が round-trip-changed で落とす）。',
       '色コードを書かない。体裁は appearances の語で書く。',
+      '**その図面が実在するかを、描く前に調べること。** 「○○らしい絵」を記憶から描かない —— 歯科なら歯のイラストではなく歯式と歯周チャート、釣りなら魚の絵ではなく仕掛け図、舞台なら舞台の絵ではなく照明仕込図。実物が何を載せているか（誰が・何の作業に使い・何が節で・何が線で・座標と寸法に意味があるか・業界固有の記号があるか）まで調べてから描くこと。日本語だけでなく英語の専門語でも探すこと。**調べずに描いた図は、その業界の人が見た瞬間に分かる。**',
+      '**描いたら、絵にして見ること。** 数の検査（zumen_inspect / validate）は「読めるか」しか見ていない —— 名前が扉の弧に乗る、線が設備を横切る、扇の半径が読めない、といったことは**実物を見るまで分からない**。svg を書き出して開くか、png（Chrome があれば画像で返る）で見ること。**1 枚も見ずに完成と言わないこと。**',
       '**色が記法そのものである図だけ、palette に色を書く**（路線の色・配管の識別色・工区の色分け）。線に乗せるなら nodes/edges の color、面に敷くなら nodes[].fill。**この 2 つは別物** —— color は枠の線に乗るので、淡い色を書くと壁まで消える。fill は面だけを薄く敷くので、ライトでもダークでも上の文字が読める。どちらも **鍵を図のどこかに文字として出す**こと（凡例に 1 回でよい。色を落とすと読めない図にしない）。',
     ],
+    noChrome:
+      'Chrome が見つからないので、絵にできませんでした。svg で書き出して開くか、CHROME_PATH に Chrome の場所を渡してください（符号化器は同梱しません）。',
+    pngMade: '図を png にしました（2 倍の大きさ）。**絵を見てから直すこと。**',
+    pngFailed: 'png にできませんでした。svg で書き出して開いてください。',
     mustEndWith: (suffix: string) =>
       `名前は ${suffix} で終わること（マージドライバが効かなくなる）`,
     alreadyExists: '既にあります。既存の図を変えるなら propose を使ってください',
@@ -836,7 +842,7 @@ const en: Catalog = {
     timelapseHold: 'Seconds each step stays on screen (2 unless given).',
     exportTitle: 'Export',
     exportDesc:
-      'Exports to svg (to show), mermaid (readable tomorrow) or drawio (editable tomorrow). Each exporter states what it could not carry.',
+      'Exports to svg (to show), **png (to look at yourself)**, mermaid (readable tomorrow) or drawio (editable tomorrow). Each exporter states what it could not carry. **png comes back as the picture itself** — always look at one before calling a drawing done (the numeric checks only tell you whether it is readable). It needs Chrome, and says so when Chrome is missing.',
     exportTheme:
       'The background the diagram will be pasted onto (svg only). Light unless given. Pass dark only when the destination is dark.',
     exportIntent:
@@ -1009,8 +1015,14 @@ const en: Catalog = {
       'The order of nodes carries meaning. It is the order a person reads. Do not reorder without a reason.',
       'Keep keys you do not recognise.',
       'Do not write colour codes. Express appearance with the words in appearances.',
+      '**Before drawing, find out whether the drawing actually exists in the trade.** Never draw "something that looks like the field" from memory: for dentistry it is a tooth chart and a periodontal chart, not a picture of teeth; for fishing it is a rig diagram, not a fish; for theatre it is a lighting plot, not a stage. Research what the real sheet carries (who uses it, for which task, what is a node, what is a line, whether coordinates and dimensions carry meaning, which symbols the trade has) before you draw. Search in the trade\'s own language as well as your own. **A drawing made without that research is obvious to anyone in the field.**',
+      '**Once drawn, look at it as a picture.** The numeric checks (zumen_inspect / validate) only tell you whether it is readable — a name landing on a door swing, a line crossing a fixture, a radius you cannot read: none of that shows up until you look. Export the svg and open it, or use png (returned as an image when Chrome is present). **Never call a drawing finished without having looked at one.**',
       'Write colours in palette ONLY where colour is the notation itself (transit line colours, pipe identification colours, zone colour-coding). Put it on lines with color (nodes/edges), on areas with fill (nodes). They are NOT the same: color paints the frame, so a pale value makes the walls vanish; fill tints the face only, laid thinly over the ground so the text on it stays readable in both light and dark. Either way the key must appear somewhere as text (once in a legend is enough) — never let colour alone carry the meaning.',
     ],
+    noChrome:
+      'Chrome was not found, so the drawing could not be rendered. Export svg and open it, or pass the path to Chrome in CHROME_PATH (no encoder is bundled).',
+    pngMade: 'Rendered the drawing to png (at 2x). **Look at it before you fix anything.**',
+    pngFailed: 'Could not render to png. Export svg and open it instead.',
     mustEndWith: (suffix: string) => `The name must end with ${suffix} (the merge driver keys off it)`,
     alreadyExists: 'It already exists. Use propose to change an existing diagram.',
     notFound: 'It does not exist. Use create to make a new one.',
