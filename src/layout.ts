@@ -226,6 +226,12 @@ export const TAG_INSET = 8;
  * （Issue 007 §3.1）。ここは「入らないよりはまし」を狙う見積もり。
  */
 export function labelWidth(label: string, font = LABEL_FONT): number {
+  // **2 行以上の名前は、いちばん長い行で測る**（2026-09-18）。
+  // 実物の図面は部屋の名前を積む（`Shoes-in / Closet`）——
+  // つないだ長さで測ると、入る名前まで「入らない」と言うことになる。
+  if (label.includes('\n')) {
+    return Math.max(...label.split('\n').map((line) => labelWidth(line, font)));
+  }
   let units = 0;
   for (const ch of label) {
     // 半角の範囲（ASCII と半角カナ）は 1、それ以外は 2。

@@ -137,7 +137,11 @@ function vertex(box: Box, style: string): string {
 function labelOf(box: Box): string {
   return [box.tag, box.label, box.technology]
     .filter((part) => part !== null && part !== '')
-    .join('<br>');
+    // **名前の中の改行も、そのまま行にする**（2026-09-18）。
+    // 部屋名を 2 行で書いた図（`Shoes-in / Closet`）が、
+    // ここで 1 行に詰まって出ていた。
+    .join('<br>')
+    .replaceAll('\n', '<br>');
 }
 
 function edge(placedEdge: PlacedEdge): string {

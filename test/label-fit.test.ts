@@ -22,6 +22,8 @@ import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
 import { labelWidth, layout } from '../src/layout.ts';
+import { render } from '../src/render.ts';
+import { validate } from '../src/validate.ts';
 
 /** 報告に出てきた実物。 */
 const REPORTED = [
@@ -151,5 +153,60 @@ describe('technology を描く（Issue #3 の 4）', () => {
     const { readFileSync } = await import('node:fs');
     const source = readFileSync(new URL('../examples/本番構成.zumen.yaml', import.meta.url), 'utf8');
     assert.match(render(await layout(source)), /Apache/);
+  });
+});
+
+/**
+ * **名前を 2 行で書く**（`label` の中の改行）。
+ *
+ * オーナーの指摘（2026-09-18）。
+ *
+ * > 販売図のグレースケールのかっこいいバージョン…
+ * > **洗練さとかエレガント、品位。そう人は感じるのです。**
+ *
+ * 実物の高級版の図面は、**部屋の名前を 2 行に積む**。
+ * `Shoes-in Closet` `Walk-in Closet` `Dressing Room` ——
+ * 横に伸ばすと部屋からはみ出す名前を、**折って収める**。
+ *
+ * これまでは 1 行しか描けなかったので、
+ * 小さい部屋の名前は**外へ飛ぶ**（`name-crowded`）か、略語に潰すしかなかった。
+ */
+describe('名前の改行', () => {
+  const two = `version: 1
+kind: placement
+nodes:
+  - id: sic
+    label: "Shoes-in\\nCloset"
+    at: { x: 0, y: 0 }
+    size: { w: 80, h: 50 }
+`;
+
+  it('**幅は、いちばん長い行で測る**（つないだ長さではない）', () => {
+    assert.equal(labelWidth('Shoes-in\nCloset', 12), labelWidth('Shoes-in', 12));
+  });
+
+  it('**行ごとに描く**（1 本の <text> に改行を入れても、SVG では折れない）', async () => {
+    const out = render(await layout(two), 'light', 'safe', true);
+    assert.match(out, /<text[^>]*>Shoes-in<\/text>/);
+    assert.match(out, /<text[^>]*>Closet<\/text>/);
+  });
+
+  it('**箱の中に収まる**（外へ飛ばさない）', () => {
+    assert.ok(!validate(two).some((f) => f.code === 'name-crowded'), validate(two).map((f) => f.code).join(','));
+  });
+
+  /**
+   * **積めるのは、箱の中に収めた名前だけ。**
+   *
+   * 高さが足りなければ、これまでどおり**外へ出す** ——
+   * 外へ出した名前は 1 行に戻す（外の置き場は `src/names.ts` が
+   * 1〜2 行ぶんで計算しているので、勝手に積むと隣の箱へ食い込む）。
+   */
+  it('**高さが足りなければ、外へ出して 1 行に戻す**（枠を突き抜けさせない）', async () => {
+    const low = two.replace('h: 50', 'h: 18');
+    const out = render(await layout(low), 'light', 'safe', true);
+    const hit = out.match(/<text [^>]*y="([\d.]+)"[^>]*>Shoes-in Closet</);
+    assert.ok(hit, `1 行に戻していない: ${out}`);
+    assert.ok(Number(hit[1]) > 18, `箱の中に押し込んでいる: ${hit[1]}`);
   });
 });

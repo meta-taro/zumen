@@ -935,6 +935,17 @@ function nodeText(
   const subSize = plan === null ? 11 : SUB_FONT;
   const sub = subtitleOn(style, palette);
 
+  /**
+   * **2 行以上の名前**（`label` の中の改行。2026-09-18）。
+   *
+   * SVG の `<text>` は改行で折れない。**行ごとに 1 本ずつ描く。**
+   * 実物の高級版の図面が部屋の名前を積んでいるのは、
+   * 横へ伸ばすと部屋からはみ出すため（`Shoes-in / Closet`）。
+   *
+   * **積めるのは、箱の中に収めた名前だけ。** 縦組み・回した字・繋いだ字では
+   * 行の意味が変わるので、そこでは空白に潰す（`flat`）。
+   */
+  const flat = (body: string): string => body.replace(/\n/g, ' ');
   const text = (
     x: number,
     y: number,
@@ -957,9 +968,9 @@ function nodeText(
   // 構成図は、箱の大きさを文字から決めてある。必ず入るので選ばない。
   if (plan === null) {
     const mid = box.y + box.h / 2 + shift;
-    if (box.technology === null) return [text(cx, mid + 5, box.label, size, style.text)];
+    if (box.technology === null) return [text(cx, mid + 5, flat(box.label), size, style.text)];
     return [
-      text(cx, mid - 2, box.label, size, style.text),
+      text(cx, mid - 2, flat(box.label), size, style.text),
       text(cx, mid + 16, box.technology, subSize, sub),
     ];
   }
@@ -970,7 +981,7 @@ function nodeText(
   const cy = box.y + crown + (box.h - crown) / 2;
   const turnAt = (x: number): string => ` transform="rotate(-90 ${n(x)} ${n(cy)})"`;
 
-  if (plan.kind === 'joined') return [text(cx, cy + 4, plan.text, size, style.text)];
+  if (plan.kind === 'joined') return [text(cx, cy + 4, flat(plan.text), size, style.text)];
 
   if (plan.kind === 'aside') {
     /**
@@ -985,7 +996,7 @@ function nodeText(
     const subX = box.x + subSize / 2 + 2;
     const nameX = box.x + strip + (box.w - strip) / 2;
     return [
-      text(nameX, cy + 4, box.label, size, style.text),
+      text(nameX, cy + 4, flat(box.label), size, style.text),
       text(subX, cy, box.technology!, subSize, sub, turnAt(subX)),
     ];
   }
@@ -1008,13 +1019,13 @@ function nodeText(
       }
       return [...body].map((glyph, i) => text(colX, box.y + font + i * font * 1.06, glyph, font, fill));
     };
-    const lines = column(box.label, left + size / 2, size, style.text);
+    const lines = column(flat(box.label), left + size / 2, size, style.text);
     if (hasSub) lines.push(...column(box.technology!, left + size + 2 + subSize / 2, subSize, sub));
     return lines;
   }
 
   if (plan.kind === 'along') {
-    const lines = [text(cx, cy, box.label, size, style.text, turnAt(cx))];
+    const lines = [text(cx, cy, flat(box.label), size, style.text, turnAt(cx))];
     if (box.technology !== null && labelWidth(box.technology, subSize) + 8 <= box.h && box.w >= 26) {
       const sx = box.x + box.w / 2 + 11;
       lines.push(text(sx, cy, box.technology, subSize, sub, turnAt(sx)));
@@ -1027,17 +1038,26 @@ function nodeText(
     // ここは 1 行目の基準線から積むだけ。
     const step = (i: number): number => (plan.above ? plan.y - i * 12 : plan.y + i * 12);
     const first = plan.above && box.technology !== null ? 1 : 0;
-    const lines = [text(plan.x, step(first), box.label, size, style.text)];
+    const lines = [text(plan.x, step(first), flat(box.label), size, style.text)];
     if (box.technology !== null) {
       lines.push(text(plan.x, step(plan.above ? 0 : 1), box.technology, subSize, sub));
     }
     return lines;
   }
 
-  if (box.technology === null) return [text(cx, cy + 4, box.label, size, style.text)];
+  // **名前を行ごとに積む。** 1 行なら、これまでと同じ位置に同じものが出る。
+  const lines = box.label.split('\n');
+  const step = size + 2;
+  const top = (base: number): number => base - ((lines.length - 1) * step) / 2;
+  const stacked = (base: number): string[] =>
+    lines.map((line, i) => text(cx, top(base) + i * step, line, size, style.text));
+
+  if (box.technology === null) return stacked(cy + 4);
+  // 名前の塊と副題で、上下の真ん中を分け合う（1 行なら、これまでと同じ位置）。
+  const half = ((lines.length - 1) * step) / 2;
   return [
-    text(cx, cy - 4, box.label, size, style.text),
-    text(cx, cy + 11, box.technology, subSize, sub),
+    ...stacked(cy - 4 - half),
+    text(cx, cy + 11 + half, box.technology, subSize, sub),
   ];
 }
 

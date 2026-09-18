@@ -106,6 +106,7 @@ export const CAPTIONS_EN = {
   '169-麻雀の配牌': 'Mahjong: the dice decide where the wall is opened, not luck',
   '168-ダイヤモンドシステム': 'Billiards: the diamonds on the rails are a ruler, not decoration',
   '167-ダーツボードの割り付け': 'A dartboard: the numbers are arranged to punish a miss',
+  '173-販売図面-英語表記': 'The greyscale version of the same trade: walls as mass, no loose furniture',
   '166-マンションの販売図面': 'An estate agent floor plan: made to decide with, not to build from',
   '165-地図記号の絵地図': 'Japanese map symbols: a circle around a sign makes it the senior one',
   '164-小学校の回路図': 'The circuit diagram taught at primary school: series and parallel',

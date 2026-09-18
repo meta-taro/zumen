@@ -185,5 +185,7 @@ function labelOf(node: NodeInfo): string {
  */
 function quote(value: unknown): string {
   // **数字で書かれた値がここへ来る**（`label: 8080`）。Issue #5 と同じ理由。
-  return `"${(asText(value) ?? '').replace(/"/g, '&quot;')}"`;
+  // **名前の改行はここでは空白に潰す**（2026-09-18）——
+  // Mermaid の記法は 1 行で、生の改行を入れると図ごと出なくなる。
+  return `"${(asText(value) ?? '').replace(/\n/g, ' ').replace(/"/g, '&quot;')}"`;
 }

@@ -1,0 +1,1148 @@
+version: 1
+kind: placement
+arrows: true
+title: 販売図面（英語表記・グレースケール／架空）
+scale: { mm: 20 }
+wall: { mm: 100, outer: 150 }
+north: up
+# **同じ間取りでも、売り場が違えば別の図になる。**
+#
+# 見本 166 は色で用途を分けた版（買う人の下見）。こちらは**無彩色の英語表記**で、
+# 高級賃貸のリーシング図面・海外向けの資料に使われる形。
+#
+# 効いているのは 4 つ。
+# **壁を面で見せる**（太さ 2 段：外壁 150mm・間仕切 100mm）、
+# **部屋は白のまま**（面を敷くのは Living だけ）、
+# **家具を描かない**（置き家具は買う人が決める。描くと間取りの話でなくなる）、
+# **面積を㎡・帖（J）・坪（T）の 3 つで言う**。
+#
+# 色は無彩色 2 つだけ。線に \`color\`（Wall・Fixture）、面に \`fill\`（Living）。
+# 1 px = 20 mm。間取り・面積・物件は架空。
+palette:
+  Wall: "#6b6b72"
+  Fixture: "#8f8f97"
+  Living: "#8f8f97"
+nodes:
+  - id: unit
+    label: ""
+    color: Wall
+    at: { x: 70, y: 214 }
+    size: { w: 630, h: 400 }
+  - id: kit
+    label: "Kitchen"
+    technology: "7.28㎡ (4.5J)"
+    color: Wall
+    at: { x: 70, y: 214 }
+    size: { w: 140, h: 130 }
+    openings:
+      - { kind: open, side: bottom, at: 0.5, width: 70 }
+  - id: ent
+    label: "Entrance"
+    color: Wall
+    at: { x: 210, y: 214 }
+    size: { w: 80, h: 80 }
+    openings:
+      - { kind: door, side: top, at: 0.5, width: 34 }
+      - { kind: door, side: right, at: 0.6, width: 30 }
+  - id: sic
+    label: "Shoes-in\nCloset"
+    color: Wall
+    at: { x: 210, y: 294 }
+    size: { w: 80, h: 50 }
+    openings:
+      - { kind: slide, side: right, at: 0.5, width: 30 }
+  - id: cor
+    label: "Corridor"
+    color: Wall
+    at: { x: 290, y: 214 }
+    size: { w: 210, h: 70 }
+  - id: pan
+    label: "Sto."
+    color: Wall
+    at: { x: 290, y: 284 }
+    size: { w: 50, h: 60 }
+    openings:
+      - { kind: slide, side: top, at: 0.5, width: 28 }
+  - id: lav
+    label: "Lav."
+    color: Wall
+    at: { x: 340, y: 284 }
+    size: { w: 70, h: 50 }
+    openings:
+      - { kind: door, side: top, at: 0.5, width: 26 }
+  - id: dre
+    label: "Dressing"
+    color: Wall
+    at: { x: 340, y: 334 }
+    size: { w: 70, h: 60 }
+    openings:
+      - { kind: door, side: top, at: 0.5, width: 26 }
+  - id: bath
+    label: "Bath Room\n1822"
+    color: Wall
+    at: { x: 410, y: 284 }
+    size: { w: 90, h: 110 }
+    openings:
+      - { kind: slide, side: left, at: 0.75, width: 30 }
+  - id: sto
+    label: "Sto."
+    color: Wall
+    at: { x: 500, y: 214 }
+    size: { w: 60, h: 70 }
+    openings:
+      - { kind: slide, side: left, at: 0.5, width: 28 }
+  - id: wic
+    label: "Walk-in\nCloset"
+    color: Wall
+    at: { x: 500, y: 284 }
+    size: { w: 60, h: 110 }
+    openings:
+      - { kind: door, side: bottom, at: 0.5, width: 26 }
+  - id: bed2
+    label: "Bedroom"
+    technology: "10.08㎡ (6.2J)"
+    color: Wall
+    at: { x: 560, y: 214 }
+    size: { w: 140, h: 180 }
+    openings:
+      - { kind: door, side: left, at: 0.2, width: 32 }
+      - { kind: window, side: right, at: 0.5, width: 90 }
+  - id: ldk
+    label: "Living Dining\nRoom"
+    technology: "29.16㎡ (18J)"
+    color: Wall
+    fill: Living
+    at: { x: 70, y: 344 }
+    size: { w: 270, h: 270 }
+    openings:
+      - { kind: double, side: bottom, at: 0.28, width: 110 }
+      - { kind: double, side: bottom, at: 0.72, width: 110 }
+  - id: bed1
+    label: "Bedroom"
+    technology: "14.08㎡ (8.7J)"
+    color: Wall
+    at: { x: 340, y: 394 }
+    size: { w: 160, h: 220 }
+    openings:
+      - { kind: door, side: left, at: 0.2, width: 32 }
+      - { kind: slide, side: bottom, at: 0.5, width: 80 }
+  - id: mbed
+    label: "Master\nBedroom"
+    technology: "17.60㎡ (10.9J)"
+    color: Wall
+    at: { x: 500, y: 394 }
+    size: { w: 200, h: 220 }
+    openings:
+      - { kind: door, side: top, at: 0.14, width: 32 }
+      - { kind: slide, side: bottom, at: 0.6, width: 90 }
+  - id: bal
+    label: "Balcony"
+    color: Wall
+    at: { x: 70, y: 614 }
+    size: { w: 630, h: 80 }
+  - id: s0
+    label: ""
+    marker: none
+    at: { x: 74, y: 219 }
+    size: { w: 2, h: 2 }
+  - id: s1
+    label: ""
+    marker: none
+    at: { x: 86.5, y: 225 }
+    size: { w: 2, h: 2 }
+  - id: s2
+    label: ""
+    marker: none
+    at: { x: 169, y: 228 }
+    size: { w: 2, h: 2 }
+  - id: s3
+    label: ""
+    marker: none
+    at: { x: 189, y: 228 }
+    size: { w: 2, h: 2 }
+  - id: s4
+    label: ""
+    marker: none
+    at: { x: 179, y: 240.5 }
+    size: { w: 2, h: 2 }
+  - id: s5
+    label: ""
+    marker: none
+    at: { x: 74, y: 308 }
+    size: { w: 2, h: 2 }
+  - id: s6
+    label: ""
+    marker: none
+    at: { x: 71.5, y: 258 }
+    size: { w: 2, h: 2 }
+  - id: s7
+    label: ""
+    marker: none
+    at: { x: 211, y: 288 }
+    size: { w: 2, h: 2 }
+  - id: s8
+    label: ""
+    marker: none
+    at: { x: 75, y: 253 }
+    size: { w: 2, h: 2 }
+  - id: s9
+    label: ""
+    marker: none
+    at: { x: 423.5, y: 288 }
+    size: { w: 2, h: 2 }
+  - id: s10
+    label: ""
+    marker: none
+    at: { x: 416.5, y: 350.5 }
+    size: { w: 2, h: 2 }
+  - id: s11
+    label: ""
+    marker: none
+    at: { x: 343, y: 337 }
+    size: { w: 2, h: 2 }
+  - id: s12
+    label: ""
+    marker: none
+    at: { x: 381.5, y: 347.5 }
+    size: { w: 2, h: 2 }
+  - id: s13
+    label: ""
+    marker: none
+    at: { x: 343, y: 372 }
+    size: { w: 2, h: 2 }
+  - id: s14
+    label: ""
+    marker: none
+    at: { x: 364, y: 381.5 }
+    size: { w: 2, h: 2 }
+  - id: s15
+    label: ""
+    marker: none
+    at: { x: 395.5, y: 299 }
+    size: { w: 2, h: 2 }
+  - id: s16
+    label: ""
+    marker: none
+    at: { x: 383.6, y: 309 }
+    size: { w: 2, h: 2 }
+  - id: s17
+    label: ""
+    marker: none
+    at: { x: 214, y: 296 }
+    size: { w: 2, h: 2 }
+  - id: s18
+    label: ""
+    marker: none
+    at: { x: 214, y: 302 }
+    size: { w: 2, h: 2 }
+  - id: s19
+    label: ""
+    marker: none
+    at: { x: 504, y: 288 }
+    size: { w: 2, h: 2 }
+  - id: s20
+    label: ""
+    marker: none
+    at: { x: 504, y: 306 }
+    size: { w: 2, h: 2 }
+  - id: s21
+    label: ""
+    marker: none
+    at: { x: 294, y: 287 }
+    size: { w: 2, h: 2 }
+  - id: s22
+    label: ""
+    marker: none
+    at: { x: 294, y: 300 }
+    size: { w: 2, h: 2 }
+  - id: s23
+    label: ""
+    marker: none
+    at: { x: 504, y: 217 }
+    size: { w: 2, h: 2 }
+  - id: s24
+    label: ""
+    marker: none
+    at: { x: 504, y: 230 }
+    size: { w: 2, h: 2 }
+  - id: s25
+    label: ""
+    marker: none
+    at: { x: 566.5, y: 219 }
+    size: { w: 2, h: 2 }
+  - id: s26
+    label: ""
+    marker: none
+    at: { x: 566.5, y: 236 }
+    size: { w: 2, h: 2 }
+  - id: s27
+    label: ""
+    marker: none
+    at: { x: 506.5, y: 398 }
+    size: { w: 2, h: 2 }
+  - id: s28
+    label: ""
+    marker: none
+    at: { x: 506.5, y: 415 }
+    size: { w: 2, h: 2 }
+  - id: s29
+    label: ""
+    marker: none
+    at: { x: 75, y: 620.5 }
+    size: { w: 2, h: 2 }
+  - id: s30
+    label: ""
+    marker: none
+    at: { x: 75, y: 630.5 }
+    size: { w: 2, h: 2 }
+  - id: s31
+    label: ""
+    marker: none
+    at: { x: 75, y: 640.5 }
+    size: { w: 2, h: 2 }
+  - id: s32
+    label: ""
+    marker: none
+    at: { x: 75, y: 650.5 }
+    size: { w: 2, h: 2 }
+  - id: s33
+    label: ""
+    marker: none
+    at: { x: 75, y: 660.5 }
+    size: { w: 2, h: 2 }
+  - id: s34
+    label: ""
+    marker: none
+    at: { x: 75, y: 670.5 }
+    size: { w: 2, h: 2 }
+  - id: s35
+    label: ""
+    marker: none
+    at: { x: 75, y: 680.5 }
+    size: { w: 2, h: 2 }
+  - id: s36
+    label: ""
+    marker: none
+    at: { x: 649, y: 623 }
+    size: { w: 2, h: 2 }
+  - id: ac1
+    label: ""
+    marker: none
+    color: Fixture
+    hatch: dots
+    at: { x: 700, y: 244 }
+    size: { w: 15, h: 45 }
+  - id: s37
+    label: ""
+    marker: none
+    at: { x: 69, y: 197 }
+    size: { w: 2, h: 2 }
+  - id: t1
+    label: "TYPE  A"
+    marker: none
+    align: left
+    at: { x: 70, y: 130 }
+    size: { w: 200, h: 22 }
+  - id: t2
+    label: "3BED　100.80㎡ (30.49T)"
+    marker: none
+    align: left
+    at: { x: 70, y: 156 }
+    size: { w: 300, h: 18 }
+  - id: t3
+    label: "Balcony 20.16㎡　Ceiling H=2,500"
+    marker: none
+    align: left
+    at: { x: 70, y: 176 }
+    size: { w: 300, h: 18 }
+  - id: l_r
+    label: "R"
+    marker: none
+    align: left
+    at: { x: 79, y: 317 }
+    size: { w: 24, h: 18 }
+  - id: l_ac
+    label: "AC Space"
+    marker: none
+    align: left
+    at: { x: 706, y: 295 }
+    size: { w: 64, h: 18 }
+  - id: l_bal
+    label: "Balcony 20.16㎡"
+    marker: none
+    align: left
+    at: { x: 80, y: 701 }
+    size: { w: 200, h: 18 }
+  - id: h90
+    label: "この図の数字"
+    fill: Fixture
+    hatch: solid
+    at: { x: 780, y: 90 }
+    size: { w: 400, h: 22 }
+  - id: a112
+    label: "専有面積"
+    at: { x: 780, y: 112 }
+    size: { w: 150, h: 22 }
+  - id: b112
+    label: "100.80㎡（壁芯）"
+    align: left
+    at: { x: 930, y: 112 }
+    size: { w: 250, h: 22 }
+  - id: a134
+    label: "坪"
+    at: { x: 780, y: 134 }
+    size: { w: 150, h: 22 }
+  - id: b134
+    label: "30.49T（㎡ ÷ 3.30578）"
+    align: left
+    at: { x: 930, y: 134 }
+    size: { w: 250, h: 22 }
+  - id: a156
+    label: "バルコニー"
+    at: { x: 780, y: 156 }
+    size: { w: 150, h: 22 }
+  - id: b156
+    label: "20.16㎡（専有面積に入らない）"
+    align: left
+    at: { x: 930, y: 156 }
+    size: { w: 250, h: 22 }
+  - id: a178
+    label: "帖（J）"
+    at: { x: 780, y: 178 }
+    size: { w: 150, h: 22 }
+  - id: b178
+    label: "㎡ ÷ 1.62。表示規約の下限"
+    align: left
+    at: { x: 930, y: 178 }
+    size: { w: 250, h: 22 }
+  - id: a200
+    label: "1822"
+    at: { x: 780, y: 200 }
+    size: { w: 150, h: 22 }
+  - id: b200
+    label: "浴室の内寸 1.8×2.2 m"
+    align: left
+    at: { x: 930, y: 200 }
+    size: { w: 250, h: 22 }
+  - id: h236
+    label: "線と面の描き分け"
+    fill: Fixture
+    hatch: solid
+    at: { x: 780, y: 236 }
+    size: { w: 400, h: 22 }
+  - id: a258
+    label: "Wall"
+    at: { x: 780, y: 258 }
+    size: { w: 150, h: 22 }
+  - id: b258
+    label: "壁。外壁 150mm／間仕切 100mm"
+    align: left
+    at: { x: 930, y: 258 }
+    size: { w: 250, h: 22 }
+  - id: a280
+    label: "Fixture"
+    at: { x: 780, y: 280 }
+    size: { w: 150, h: 22 }
+  - id: b280
+    label: "設備と造り付け。壁より細い線"
+    align: left
+    at: { x: 930, y: 280 }
+    size: { w: 250, h: 22 }
+  - id: a302
+    label: "Living"
+    at: { x: 780, y: 302 }
+    size: { w: 150, h: 22 }
+  - id: b302
+    label: "面を淡く敷いた部屋。地の上に薄く乗る"
+    align: left
+    at: { x: 930, y: 302 }
+    size: { w: 250, h: 22 }
+  - id: a324
+    label: "家具"
+    at: { x: 780, y: 324 }
+    size: { w: 150, h: 22 }
+  - id: b324
+    label: "描かない。置き家具は買う人が決める"
+    align: left
+    at: { x: 930, y: 324 }
+    size: { w: 250, h: 22 }
+  - id: h360
+    label: "略号"
+    fill: Fixture
+    hatch: solid
+    at: { x: 780, y: 360 }
+    size: { w: 400, h: 22 }
+  - id: a382
+    label: "Sto."
+    at: { x: 780, y: 382 }
+    size: { w: 150, h: 22 }
+  - id: b382
+    label: "Storage（物入）"
+    align: left
+    at: { x: 930, y: 382 }
+    size: { w: 250, h: 22 }
+  - id: a404
+    label: "Clo."
+    at: { x: 780, y: 404 }
+    size: { w: 150, h: 22 }
+  - id: b404
+    label: "Closet"
+    align: left
+    at: { x: 930, y: 404 }
+    size: { w: 250, h: 22 }
+  - id: a426
+    label: "Lav."
+    at: { x: 780, y: 426 }
+    size: { w: 150, h: 22 }
+  - id: b426
+    label: "Lavatory（便所）"
+    align: left
+    at: { x: 930, y: 426 }
+    size: { w: 250, h: 22 }
+  - id: a448
+    label: "W/D"
+    at: { x: 780, y: 448 }
+    size: { w: 150, h: 22 }
+  - id: b448
+    label: "洗濯機・乾燥機"
+    align: left
+    at: { x: 930, y: 448 }
+    size: { w: 250, h: 22 }
+  - id: a470
+    label: "R"
+    at: { x: 780, y: 470 }
+    size: { w: 150, h: 22 }
+  - id: b470
+    label: "冷蔵庫置き場"
+    align: left
+    at: { x: 930, y: 470 }
+    size: { w: 250, h: 22 }
+  - id: a492
+    label: "AC"
+    at: { x: 780, y: 492 }
+    size: { w: 150, h: 22 }
+  - id: b492
+    label: "エアコンの台"
+    align: left
+    at: { x: 930, y: 492 }
+    size: { w: 250, h: 22 }
+  - id: a514
+    label: "Ceiling H"
+    at: { x: 780, y: 514 }
+    size: { w: 150, h: 22 }
+  - id: b514
+    label: "天井の高さ"
+    align: left
+    at: { x: 930, y: 514 }
+    size: { w: 250, h: 22 }
+  - id: a536
+    label: "T"
+    at: { x: 780, y: 536 }
+    size: { w: 150, h: 22 }
+  - id: b536
+    label: "坪"
+    align: left
+    at: { x: 930, y: 536 }
+    size: { w: 250, h: 22 }
+  - id: a558
+    label: "J"
+    at: { x: 780, y: 558 }
+    size: { w: 150, h: 22 }
+  - id: b558
+    label: "帖"
+    align: left
+    at: { x: 930, y: 558 }
+    size: { w: 250, h: 22 }
+  - id: h594
+    label: "この版と、色をつけた版のちがい"
+    fill: Fixture
+    hatch: solid
+    at: { x: 780, y: 594 }
+    size: { w: 400, h: 22 }
+  - id: a616
+    label: "色"
+    at: { x: 780, y: 616 }
+    size: { w: 150, h: 22 }
+  - id: b616
+    label: "無彩色。面は Living だけ"
+    align: left
+    at: { x: 930, y: 616 }
+    size: { w: 250, h: 22 }
+  - id: a638
+    label: "文字"
+    at: { x: 780, y: 638 }
+    size: { w: 150, h: 22 }
+  - id: b638
+    label: "英語。㎡ と帖と坪を併記"
+    align: left
+    at: { x: 930, y: 638 }
+    size: { w: 250, h: 22 }
+  - id: a660
+    label: "家具"
+    at: { x: 780, y: 660 }
+    size: { w: 150, h: 22 }
+  - id: b660
+    label: "描かない（色つきの版は描く）"
+    align: left
+    at: { x: 930, y: 660 }
+    size: { w: 250, h: 22 }
+  - id: a682
+    label: "読む人"
+    at: { x: 780, y: 682 }
+    size: { w: 150, h: 22 }
+  - id: b682
+    label: "決める前の人と、海外の借り手"
+    align: left
+    at: { x: 930, y: 682 }
+    size: { w: 250, h: 22 }
+  - id: a704
+    label: "見本 166"
+    at: { x: 780, y: 704 }
+    size: { w: 150, h: 22 }
+  - id: b704
+    label: "色で用途を分けた版。売り場が違う"
+    align: left
+    at: { x: 930, y: 704 }
+    size: { w: 250, h: 22 }
+  - id: h740
+    label: "この図に出ていないもの"
+    fill: Fixture
+    hatch: solid
+    at: { x: 780, y: 740 }
+    size: { w: 400, h: 22 }
+  - id: a762
+    label: "寸法"
+    at: { x: 780, y: 762 }
+    size: { w: 150, h: 22 }
+  - id: b762
+    label: "販売図面は書かない。面積で言う"
+    align: left
+    at: { x: 930, y: 762 }
+    size: { w: 250, h: 22 }
+  - id: a784
+    label: "天井高の差"
+    at: { x: 780, y: 784 }
+    size: { w: 150, h: 22 }
+  - id: b784
+    label: "下がり天井の位置と高さ"
+    align: left
+    at: { x: 930, y: 784 }
+    size: { w: 250, h: 22 }
+  - id: a806
+    label: "窓の高さ"
+    at: { x: 780, y: 806 }
+    size: { w: 150, h: 22 }
+  - id: b806
+    label: "同じ幅でも見え方が変わる"
+    align: left
+    at: { x: 930, y: 806 }
+    size: { w: 250, h: 22 }
+  - id: n1
+    label: "これは英語表記のグレースケール版です。壁を面で見せ、部屋は白のまま置きます。"
+    marker: none
+    align: left
+    at: { x: 70, y: 758 }
+    size: { w: 660, h: 18 }
+  - id: n2
+    label: "家具を描きません。描くと「そこに置ける」という話になり、間取りの話でなくなります。"
+    marker: none
+    align: left
+    at: { x: 70, y: 780 }
+    size: { w: 660, h: 18 }
+  - id: n3
+    label: "面積は㎡・帖（J）・坪（T）の 3 つで言います。買う人と借りる人で、使う単位が違うためです。"
+    marker: none
+    align: left
+    at: { x: 70, y: 802 }
+    size: { w: 660, h: 18 }
+  - id: n4
+    label: "間取り・面積・物件はすべて架空です。"
+    marker: none
+    align: left
+    at: { x: 70, y: 824 }
+    size: { w: 660, h: 18 }
+edges:
+  - from: s0
+    to: s0
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 75, y: 220 }
+      - { x: 205, y: 220 }
+      - { x: 205, y: 250 }
+      - { x: 75, y: 250 }
+  - from: s1
+    to: s1
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 87.5, y: 226 }
+      - { x: 122.5, y: 226 }
+      - { x: 122.5, y: 244 }
+      - { x: 87.5, y: 244 }
+  - from: s2
+    to: s2
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 170, y: 229 }
+      - { x: 169.5, y: 231.2 }
+      - { x: 168.1, y: 232.9 }
+      - { x: 166.1, y: 233.9 }
+      - { x: 163.9, y: 233.9 }
+      - { x: 161.9, y: 232.9 }
+      - { x: 160.5, y: 231.2 }
+      - { x: 160, y: 229 }
+      - { x: 160.5, y: 226.8 }
+      - { x: 161.9, y: 225.1 }
+      - { x: 163.9, y: 224.1 }
+      - { x: 166.1, y: 224.1 }
+      - { x: 168.1, y: 225.1 }
+      - { x: 169.5, y: 226.8 }
+  - from: s3
+    to: s3
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 190, y: 229 }
+      - { x: 189.5, y: 231.2 }
+      - { x: 188.1, y: 232.9 }
+      - { x: 186.1, y: 233.9 }
+      - { x: 183.9, y: 233.9 }
+      - { x: 181.9, y: 232.9 }
+      - { x: 180.5, y: 231.2 }
+      - { x: 180, y: 229 }
+      - { x: 180.5, y: 226.8 }
+      - { x: 181.9, y: 225.1 }
+      - { x: 183.9, y: 224.1 }
+      - { x: 186.1, y: 224.1 }
+      - { x: 188.1, y: 225.1 }
+      - { x: 189.5, y: 226.8 }
+  - from: s4
+    to: s4
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 180, y: 241.5 }
+      - { x: 179.5, y: 243.7 }
+      - { x: 178.1, y: 245.4 }
+      - { x: 176.1, y: 246.4 }
+      - { x: 173.9, y: 246.4 }
+      - { x: 171.9, y: 245.4 }
+      - { x: 170.5, y: 243.7 }
+      - { x: 170, y: 241.5 }
+      - { x: 170.5, y: 239.3 }
+      - { x: 171.9, y: 237.6 }
+      - { x: 173.9, y: 236.6 }
+      - { x: 176.1, y: 236.6 }
+      - { x: 178.1, y: 237.6 }
+      - { x: 179.5, y: 239.3 }
+  - from: s5
+    to: s5
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 75, y: 309 }
+      - { x: 110, y: 309 }
+      - { x: 110, y: 340 }
+      - { x: 75, y: 340 }
+  - from: s6
+    to: s6
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 72.5, y: 259 }
+      - { x: 87.5, y: 259 }
+      - { x: 87.5, y: 299 }
+      - { x: 72.5, y: 299 }
+  - from: s7
+    to: s7
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 212, y: 289 }
+      - { x: 288, y: 289 }
+      - { x: 288, y: 293 }
+      - { x: 212, y: 293 }
+  - from: s8
+    to: s8
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 76, y: 254 }
+      - { x: 204, y: 254 }
+      - { x: 204, y: 257 }
+      - { x: 76, y: 257 }
+  - from: s9
+    to: s9
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 424.5, y: 289 }
+      - { x: 485.5, y: 289 }
+      - { x: 492.5, y: 296 }
+      - { x: 492.5, y: 317 }
+      - { x: 485.5, y: 324 }
+      - { x: 424.5, y: 324 }
+      - { x: 417.5, y: 317 }
+      - { x: 417.5, y: 296 }
+  - from: s10
+    to: s10
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 417.5, y: 351.5 }
+      - { x: 492.5, y: 351.5 }
+      - { x: 492.5, y: 389 }
+      - { x: 417.5, y: 389 }
+  - from: s11
+    to: s11
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 344, y: 338 }
+      - { x: 406, y: 338 }
+      - { x: 406, y: 359 }
+      - { x: 344, y: 359 }
+  - from: s12
+    to: s12
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 382.5, y: 348.5 }
+      - { x: 381.8, y: 351.8 }
+      - { x: 379.7, y: 354.4 }
+      - { x: 376.7, y: 355.8 }
+      - { x: 373.3, y: 355.8 }
+      - { x: 370.3, y: 354.4 }
+      - { x: 368.2, y: 351.8 }
+      - { x: 367.5, y: 348.5 }
+      - { x: 368.2, y: 345.2 }
+      - { x: 370.3, y: 342.6 }
+      - { x: 373.3, y: 341.2 }
+      - { x: 376.7, y: 341.2 }
+      - { x: 379.7, y: 342.6 }
+      - { x: 381.8, y: 345.2 }
+  - from: s13
+    to: s13
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 344, y: 373 }
+      - { x: 375, y: 373 }
+      - { x: 375, y: 392 }
+      - { x: 344, y: 392 }
+  - from: s14
+    to: s14
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 365, y: 382.5 }
+      - { x: 364.5, y: 384.9 }
+      - { x: 362.9, y: 386.8 }
+      - { x: 360.7, y: 387.9 }
+      - { x: 358.3, y: 387.9 }
+      - { x: 356.1, y: 386.8 }
+      - { x: 354.5, y: 384.9 }
+      - { x: 354, y: 382.5 }
+      - { x: 354.5, y: 380.1 }
+      - { x: 356.1, y: 378.2 }
+      - { x: 358.3, y: 377.1 }
+      - { x: 360.7, y: 377.1 }
+      - { x: 362.9, y: 378.2 }
+      - { x: 364.5, y: 380.1 }
+  - from: s15
+    to: s15
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 396.5, y: 300 }
+      - { x: 395.9, y: 302.8 }
+      - { x: 394.1, y: 305.1 }
+      - { x: 391.4, y: 306.3 }
+      - { x: 388.6, y: 306.3 }
+      - { x: 385.9, y: 305.1 }
+      - { x: 384.1, y: 302.8 }
+      - { x: 383.5, y: 300 }
+      - { x: 384.1, y: 297.2 }
+      - { x: 385.9, y: 294.9 }
+      - { x: 388.6, y: 293.7 }
+      - { x: 391.4, y: 293.7 }
+      - { x: 394.1, y: 294.9 }
+      - { x: 395.9, y: 297.2 }
+  - from: s16
+    to: s16
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 384.6, y: 310 }
+      - { x: 395.4, y: 310 }
+      - { x: 399, y: 313.6 }
+      - { x: 399, y: 327.4 }
+      - { x: 395.4, y: 331 }
+      - { x: 384.6, y: 331 }
+      - { x: 381, y: 327.4 }
+      - { x: 381, y: 313.6 }
+  - from: s17
+    to: s17
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 215, y: 297 }
+      - { x: 285, y: 297 }
+      - { x: 285, y: 299.5 }
+      - { x: 215, y: 299.5 }
+  - from: s18
+    to: s18
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 215, y: 303 }
+      - { x: 285, y: 303 }
+      - { x: 285, y: 305.5 }
+      - { x: 215, y: 305.5 }
+  - from: s19
+    to: s19
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 505, y: 289 }
+      - { x: 555, y: 289 }
+      - { x: 555, y: 304 }
+      - { x: 505, y: 304 }
+  - from: s20
+    to: s20
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 505, y: 307 }
+      - { x: 555, y: 307 }
+      - { x: 555, y: 309.5 }
+      - { x: 505, y: 309.5 }
+  - from: s21
+    to: s21
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 295, y: 288 }
+      - { x: 335, y: 288 }
+      - { x: 335, y: 298 }
+      - { x: 295, y: 298 }
+  - from: s22
+    to: s22
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 295, y: 301 }
+      - { x: 335, y: 301 }
+      - { x: 335, y: 303.5 }
+      - { x: 295, y: 303.5 }
+  - from: s23
+    to: s23
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 505, y: 218 }
+      - { x: 555, y: 218 }
+      - { x: 555, y: 228 }
+      - { x: 505, y: 228 }
+  - from: s24
+    to: s24
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 505, y: 231 }
+      - { x: 555, y: 231 }
+      - { x: 555, y: 233.5 }
+      - { x: 505, y: 233.5 }
+  - from: s25
+    to: s25
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 567.5, y: 220 }
+      - { x: 632.5, y: 220 }
+      - { x: 632.5, y: 235 }
+      - { x: 567.5, y: 235 }
+  - from: s26
+    to: s26
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 567.5, y: 237 }
+      - { x: 632.5, y: 237 }
+      - { x: 632.5, y: 239.5 }
+      - { x: 567.5, y: 239.5 }
+  - from: s27
+    to: s27
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 507.5, y: 399 }
+      - { x: 572.5, y: 399 }
+      - { x: 572.5, y: 414 }
+      - { x: 507.5, y: 414 }
+  - from: s28
+    to: s28
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 507.5, y: 416 }
+      - { x: 572.5, y: 416 }
+      - { x: 572.5, y: 418.5 }
+      - { x: 507.5, y: 418.5 }
+  - from: s29
+    to: s29
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 76, y: 621.5 }
+      - { x: 644, y: 621.5 }
+      - { x: 644, y: 621.8 }
+      - { x: 76, y: 621.8 }
+  - from: s30
+    to: s30
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 76, y: 631.5 }
+      - { x: 644, y: 631.5 }
+      - { x: 644, y: 631.8 }
+      - { x: 76, y: 631.8 }
+  - from: s31
+    to: s31
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 76, y: 641.5 }
+      - { x: 644, y: 641.5 }
+      - { x: 644, y: 641.8 }
+      - { x: 76, y: 641.8 }
+  - from: s32
+    to: s32
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 76, y: 651.5 }
+      - { x: 644, y: 651.5 }
+      - { x: 644, y: 651.8 }
+      - { x: 76, y: 651.8 }
+  - from: s33
+    to: s33
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 76, y: 661.5 }
+      - { x: 644, y: 661.5 }
+      - { x: 644, y: 661.8 }
+      - { x: 76, y: 661.8 }
+  - from: s34
+    to: s34
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 76, y: 671.5 }
+      - { x: 644, y: 671.5 }
+      - { x: 644, y: 671.8 }
+      - { x: 76, y: 671.8 }
+  - from: s35
+    to: s35
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 76, y: 681.5 }
+      - { x: 644, y: 681.5 }
+      - { x: 644, y: 681.8 }
+      - { x: 76, y: 681.8 }
+  - from: s36
+    to: s36
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 650, y: 624 }
+      - { x: 690, y: 624 }
+      - { x: 690, y: 646.5 }
+      - { x: 650, y: 646.5 }
+  - from: s37
+    to: s37
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 70, y: 198 }
+      - { x: 330, y: 198 }

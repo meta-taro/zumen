@@ -66,6 +66,20 @@ function wide(box: Box, text: string, font: number): boolean {
   return labelWidth(text, font) + 6 <= box.w;
 }
 
+/**
+ * **縦に入るか**（2 行以上の名前。2026-09-18）。
+ *
+ * 名前を積めるのは、**積んだ分の高さが箱にあるとき**だけ。
+ * 足りないまま積むと、行が枠を突き抜ける ——
+ * **そのときは、これまでどおり外へ出す**（重ねて潰すより読める）。
+ */
+function tall(box: Box): boolean {
+  const rows = box.label.split('\n').length;
+  if (rows === 1) return true;
+  const sub = box.technology === null ? 0 : SUB_FONT + 2;
+  return rows * (NAME_FONT + 2) + sub + 4 <= box.h;
+}
+
 /** 名前と副題を繋いだもの。 */
 export function joinedText(box: Box): string {
   return box.technology === null ? box.label : `${box.label}　${box.technology}`;
@@ -117,10 +131,11 @@ function shape(box: Box): 'inside' | 'joined' | 'aside' | 'along' | 'stack' | 'o
   // 枠なし（`none`）は「枠を描かない注記」。**文字は箱の場所に置く** ——
   // 枠が無いのに「枠の外」へ出しても意味が無い（座席図の列名 A〜F がこれ）。
   // 以降の段（入るか／繋ぐか／回すか）は矩形と同じに見る。
-  if (box.technology === null && wide(box, box.label, NAME_FONT)) return 'inside';
+  if (box.technology === null && wide(box, box.label, NAME_FONT) && tall(box)) return 'inside';
   if (
     box.technology !== null &&
     box.h >= 34 &&
+    tall(box) &&
     wide(box, box.label, NAME_FONT) &&
     wide(box, box.technology, SUB_FONT)
   ) {
