@@ -228,6 +228,21 @@ describe('印刷して読めるか', () => {
     assert.match(line, /あと \d+px 詰めてください/, line);
   });
 
+  /**
+   * **どこを詰めるかまで言う**（2026-09-19）。
+   *
+   * 「あと 89px 詰めてください」まで出るようになったが、**どこを詰めるかは分からない。**
+   * 長辺が縦なのか横なのか、その端にいるのが何なのか —— 図を目で探すしかなかった。
+   * PDCA の直近 5 周のうち **4 周**で、ここに 3〜4 往復とられた
+   * （見本 186・187・189）。**端にいる 2 つを名指しする。**
+   */
+  it('**長辺がどちらの向きで、その端に何がいるかを言う**', async () => {
+    const result = await runValidate(['a.yaml'], reader({ 'a.yaml': TALL }) as never);
+    const line = result.lines.find((l) => l.includes('A3')) ?? '';
+    assert.match(line, /長辺は(縦|横)で/, line);
+    assert.match(line, /端は "[^"]+" と "[^"]+"/, line);
+  });
+
   it('下限を通る図には、何も言わない', async () => {
     const result = await runValidate(['a.yaml'], reader({ 'a.yaml': GOOD }) as never);
     assert.ok(!result.lines.some((line) => line.includes('A3')));

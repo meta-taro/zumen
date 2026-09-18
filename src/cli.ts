@@ -90,6 +90,30 @@ export async function runValidate(paths: string[], read = readFileSync): Promise
 }
 
 /**
+ * **長辺の両端にいる要素**（`too-small-to-print` に添える）。
+ *
+ * 「あと 89px 詰めてください」までは出ていたが、**どこを詰めるかは出ていなかった。**
+ * 長辺が縦か横かも、その端に何がいるかも、図を目で探すしかない ——
+ * PDCA の直近 5 周のうち 4 周で、ここに 3〜4 往復とられた（2026-09-19）。
+ */
+function endsOfLongSide(
+  placed: { boxes: { id: string; x: number; y: number; w: number; h: number }[] },
+  vertical: boolean,
+): [string, string] {
+  if (placed.boxes.length === 0) return ['', ''];
+  const low = (b: { x: number; y: number }): number => (vertical ? b.y : b.x);
+  const high = (b: { x: number; y: number; w: number; h: number }): number =>
+    vertical ? b.y + b.h : b.x + b.w;
+  let head = placed.boxes[0]!;
+  let tail = placed.boxes[0]!;
+  for (const box of placed.boxes) {
+    if (low(box) < low(head)) head = box;
+    if (high(box) > high(tail)) tail = box;
+  }
+  return [head.id, tail.id];
+}
+
+/**
  * **置いてみないと分からない指摘**（配置図だけ）。
  *
  * 構成図では置き場所を機械が決めるので、重なりは起きない。
@@ -134,6 +158,10 @@ export async function placedFindings(text: string): Promise<Finding[]> {
             paper.smallestText,
             Math.round(paper.longestSide),
             Math.floor(paper.smallestText / paper.printFloor),
+            placed.height >= placed.width
+              ? messages().validate.alongVertical
+              : messages().validate.alongHorizontal,
+            ...endsOfLongSide(placed, placed.height >= placed.width),
           ),
         },
       ]
