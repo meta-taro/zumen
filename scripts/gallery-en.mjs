@@ -100,6 +100,7 @@ export const CAPTIONS_EN = {
   '148-Egress-plan': 'Egress plan: three lengths answering three questions',
   '119-消火器と消火栓の配置図': 'Extinguishers and hose reels, measured two different ways',
   '158-Cattle-handling-facility': 'Every dimension comes from what cattle will not do',
+  '167-ダーツボードの割り付け': 'A dartboard: the numbers are arranged to punish a miss',
   '166-マンションの販売図面': 'An estate agent floor plan: made to decide with, not to build from',
   '165-地図記号の絵地図': 'Japanese map symbols: a circle around a sign makes it the senior one',
   '164-小学校の回路図': 'The circuit diagram taught at primary school: series and parallel',

@@ -1,0 +1,706 @@
+version: 1
+kind: placement
+arrows: true
+title: ダーツボードの割り付け（WDF の寸法）
+scale: { mm: 1 }
+# **数字はでたらめに並んでいない。**
+#
+# 時計回りに 20・1・18・4・13・6・10・15・2・17・3・19・7・16・8・11・14・9・12・5。
+# **高い数字のとなりは、低い数字**になっている —— 20 の両どなりは 1 と 5、
+# 19 の両どなりは 3 と 7。**狙って外すと損をするように並べてある。**
+#
+# 環は 2 つだけ。**内側がトリプル（3 倍）、外側がダブル（2 倍）**で、
+# 幅はどちらも内のり 8 mm。真ん中は外ブル 25 と内ブル 50。
+#
+# だから 1 投の最高は **トリプル 20 ＝ 60**、3 本で **180**、
+# 1 回で上がれる最高は **170**（トリプル 20・トリプル 20・内ブル）。
+#
+# 1 px ＝ 1 mm。寸法は WDF の規則（盤 451 mm、中心からダブルの外まで 170 mm、
+# トリプルの内まで 107 mm、内ブル 12.7 mm、外ブル 31.75 mm）。
+nodes:
+  - id: board
+    label: ""
+    marker: circle
+    at: { x: 74.5, y: 94.5 }
+    size: { w: 451, h: 451 }
+  - id: dbl_out
+    label: ""
+    marker: circle
+    at: { x: 130, y: 150 }
+    size: { w: 340, h: 340 }
+  - id: dbl_in
+    label: ""
+    marker: circle
+    at: { x: 138, y: 158 }
+    size: { w: 324, h: 324 }
+  - id: trb_out
+    label: ""
+    marker: circle
+    at: { x: 185, y: 205 }
+    size: { w: 230, h: 230 }
+  - id: trb_in
+    label: ""
+    marker: circle
+    at: { x: 193, y: 213 }
+    size: { w: 214, h: 214 }
+  - id: bull25
+    label: ""
+    marker: circle
+    at: { x: 284.1, y: 304.1 }
+    size: { w: 31.8, h: 31.8 }
+  - id: bull50
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 293.7, y: 313.7 }
+    size: { w: 12.7, h: 12.7 }
+  - id: w0a
+    label: ""
+    marker: none
+    at: { x: 301.5, y: 303.3 }
+    size: { w: 2, h: 2 }
+  - id: w0b
+    label: ""
+    marker: none
+    at: { x: 325.6, y: 151.1 }
+    size: { w: 2, h: 2 }
+  - id: w1a
+    label: ""
+    marker: none
+    at: { x: 306.2, y: 304.8 }
+    size: { w: 2, h: 2 }
+  - id: w1b
+    label: ""
+    marker: none
+    at: { x: 376.2, y: 167.5 }
+    size: { w: 2, h: 2 }
+  - id: w2a
+    label: ""
+    marker: none
+    at: { x: 310.2, y: 307.8 }
+    size: { w: 2, h: 2 }
+  - id: w2b
+    label: ""
+    marker: none
+    at: { x: 419.2, y: 198.8 }
+    size: { w: 2, h: 2 }
+  - id: w3a
+    label: ""
+    marker: none
+    at: { x: 313.2, y: 311.8 }
+    size: { w: 2, h: 2 }
+  - id: w3b
+    label: ""
+    marker: none
+    at: { x: 450.5, y: 241.8 }
+    size: { w: 2, h: 2 }
+  - id: w4a
+    label: ""
+    marker: none
+    at: { x: 314.7, y: 316.5 }
+    size: { w: 2, h: 2 }
+  - id: w4b
+    label: ""
+    marker: none
+    at: { x: 466.9, y: 292.4 }
+    size: { w: 2, h: 2 }
+  - id: w5a
+    label: ""
+    marker: none
+    at: { x: 314.7, y: 321.5 }
+    size: { w: 2, h: 2 }
+  - id: w5b
+    label: ""
+    marker: none
+    at: { x: 466.9, y: 345.6 }
+    size: { w: 2, h: 2 }
+  - id: w6a
+    label: ""
+    marker: none
+    at: { x: 313.2, y: 326.2 }
+    size: { w: 2, h: 2 }
+  - id: w6b
+    label: ""
+    marker: none
+    at: { x: 450.5, y: 396.2 }
+    size: { w: 2, h: 2 }
+  - id: w7a
+    label: ""
+    marker: none
+    at: { x: 310.2, y: 330.2 }
+    size: { w: 2, h: 2 }
+  - id: w7b
+    label: ""
+    marker: none
+    at: { x: 419.2, y: 439.2 }
+    size: { w: 2, h: 2 }
+  - id: w8a
+    label: ""
+    marker: none
+    at: { x: 306.2, y: 333.2 }
+    size: { w: 2, h: 2 }
+  - id: w8b
+    label: ""
+    marker: none
+    at: { x: 376.2, y: 470.5 }
+    size: { w: 2, h: 2 }
+  - id: w9a
+    label: ""
+    marker: none
+    at: { x: 301.5, y: 334.7 }
+    size: { w: 2, h: 2 }
+  - id: w9b
+    label: ""
+    marker: none
+    at: { x: 325.6, y: 486.9 }
+    size: { w: 2, h: 2 }
+  - id: w10a
+    label: ""
+    marker: none
+    at: { x: 296.5, y: 334.7 }
+    size: { w: 2, h: 2 }
+  - id: w10b
+    label: ""
+    marker: none
+    at: { x: 272.4, y: 486.9 }
+    size: { w: 2, h: 2 }
+  - id: w11a
+    label: ""
+    marker: none
+    at: { x: 291.8, y: 333.2 }
+    size: { w: 2, h: 2 }
+  - id: w11b
+    label: ""
+    marker: none
+    at: { x: 221.8, y: 470.5 }
+    size: { w: 2, h: 2 }
+  - id: w12a
+    label: ""
+    marker: none
+    at: { x: 287.8, y: 330.2 }
+    size: { w: 2, h: 2 }
+  - id: w12b
+    label: ""
+    marker: none
+    at: { x: 178.8, y: 439.2 }
+    size: { w: 2, h: 2 }
+  - id: w13a
+    label: ""
+    marker: none
+    at: { x: 284.8, y: 326.2 }
+    size: { w: 2, h: 2 }
+  - id: w13b
+    label: ""
+    marker: none
+    at: { x: 147.5, y: 396.2 }
+    size: { w: 2, h: 2 }
+  - id: w14a
+    label: ""
+    marker: none
+    at: { x: 283.3, y: 321.5 }
+    size: { w: 2, h: 2 }
+  - id: w14b
+    label: ""
+    marker: none
+    at: { x: 131.1, y: 345.6 }
+    size: { w: 2, h: 2 }
+  - id: w15a
+    label: ""
+    marker: none
+    at: { x: 283.3, y: 316.5 }
+    size: { w: 2, h: 2 }
+  - id: w15b
+    label: ""
+    marker: none
+    at: { x: 131.1, y: 292.4 }
+    size: { w: 2, h: 2 }
+  - id: w16a
+    label: ""
+    marker: none
+    at: { x: 284.8, y: 311.8 }
+    size: { w: 2, h: 2 }
+  - id: w16b
+    label: ""
+    marker: none
+    at: { x: 147.5, y: 241.8 }
+    size: { w: 2, h: 2 }
+  - id: w17a
+    label: ""
+    marker: none
+    at: { x: 287.8, y: 307.8 }
+    size: { w: 2, h: 2 }
+  - id: w17b
+    label: ""
+    marker: none
+    at: { x: 178.8, y: 198.8 }
+    size: { w: 2, h: 2 }
+  - id: w18a
+    label: ""
+    marker: none
+    at: { x: 291.8, y: 304.8 }
+    size: { w: 2, h: 2 }
+  - id: w18b
+    label: ""
+    marker: none
+    at: { x: 221.8, y: 167.5 }
+    size: { w: 2, h: 2 }
+  - id: w19a
+    label: ""
+    marker: none
+    at: { x: 296.5, y: 303.3 }
+    size: { w: 2, h: 2 }
+  - id: w19b
+    label: ""
+    marker: none
+    at: { x: 272.4, y: 151.1 }
+    size: { w: 2, h: 2 }
+  - id: n20
+    label: "20"
+    marker: none
+    align: center
+    at: { x: 286, y: 101.5 }
+    size: { w: 28, h: 18 }
+  - id: n1
+    label: "1"
+    marker: none
+    align: center
+    at: { x: 350.7, y: 111.8 }
+    size: { w: 28, h: 18 }
+  - id: n18
+    label: "18"
+    marker: none
+    align: center
+    at: { x: 409.1, y: 141.5 }
+    size: { w: 28, h: 18 }
+  - id: n4
+    label: "4"
+    marker: none
+    align: center
+    at: { x: 455.5, y: 187.9 }
+    size: { w: 28, h: 18 }
+  - id: n13
+    label: "13"
+    marker: none
+    align: center
+    at: { x: 485.2, y: 246.3 }
+    size: { w: 28, h: 18 }
+  - id: n6
+    label: "6"
+    marker: none
+    align: center
+    at: { x: 495.5, y: 311 }
+    size: { w: 28, h: 18 }
+  - id: n10
+    label: "10"
+    marker: none
+    align: center
+    at: { x: 485.2, y: 375.7 }
+    size: { w: 28, h: 18 }
+  - id: n15
+    label: "15"
+    marker: none
+    align: center
+    at: { x: 455.5, y: 434.1 }
+    size: { w: 28, h: 18 }
+  - id: n2
+    label: "2"
+    marker: none
+    align: center
+    at: { x: 409.1, y: 480.5 }
+    size: { w: 28, h: 18 }
+  - id: n17
+    label: "17"
+    marker: none
+    align: center
+    at: { x: 350.7, y: 510.2 }
+    size: { w: 28, h: 18 }
+  - id: n3
+    label: "3"
+    marker: none
+    align: center
+    at: { x: 286, y: 520.5 }
+    size: { w: 28, h: 18 }
+  - id: n19
+    label: "19"
+    marker: none
+    align: center
+    at: { x: 221.3, y: 510.2 }
+    size: { w: 28, h: 18 }
+  - id: n7
+    label: "7"
+    marker: none
+    align: center
+    at: { x: 162.9, y: 480.5 }
+    size: { w: 28, h: 18 }
+  - id: n16
+    label: "16"
+    marker: none
+    align: center
+    at: { x: 116.5, y: 434.1 }
+    size: { w: 28, h: 18 }
+  - id: n8
+    label: "8"
+    marker: none
+    align: center
+    at: { x: 86.8, y: 375.7 }
+    size: { w: 28, h: 18 }
+  - id: n11
+    label: "11"
+    marker: none
+    align: center
+    at: { x: 76.5, y: 311 }
+    size: { w: 28, h: 18 }
+  - id: n14
+    label: "14"
+    marker: none
+    align: center
+    at: { x: 86.8, y: 246.3 }
+    size: { w: 28, h: 18 }
+  - id: n9
+    label: "9"
+    marker: none
+    align: center
+    at: { x: 116.5, y: 187.9 }
+    size: { w: 28, h: 18 }
+  - id: n12
+    label: "12"
+    marker: none
+    align: center
+    at: { x: 162.9, y: 141.5 }
+    size: { w: 28, h: 18 }
+  - id: n5
+    label: "5"
+    marker: none
+    align: center
+    at: { x: 221.3, y: 111.8 }
+    size: { w: 28, h: 18 }
+  - id: l_t20
+    label: "トリプル 20 ＝ 60（1 投の最高）"
+    marker: none
+    align: left
+    at: { x: 541.5, y: 177 }
+    size: { w: 280, h: 18 }
+  - id: l_d
+    label: "ダブルの環（外側）—— 上がりはここ"
+    marker: none
+    align: left
+    at: { x: 541.5, y: 304 }
+    size: { w: 300, h: 18 }
+  - id: l_b
+    label: "内ブル 50・外ブル 25"
+    marker: none
+    align: left
+    at: { x: 541.5, y: 360 }
+    size: { w: 240, h: 18 }
+  - id: h60
+    label: "数字の並び（時計回り）"
+    hatch: solid
+    at: { x: 760, y: 60 }
+    size: { w: 440, h: 22 }
+  - id: a82
+    label: "20 から"
+    at: { x: 760, y: 82 }
+    size: { w: 190, h: 22 }
+  - id: b82
+    label: "20・1・18・4・13・6・10・15・2・17"
+    align: left
+    at: { x: 950, y: 82 }
+    size: { w: 250, h: 22 }
+  - id: a104
+    label: "つづき"
+    at: { x: 760, y: 104 }
+    size: { w: 190, h: 22 }
+  - id: b104
+    label: "3・19・7・16・8・11・14・9・12・5"
+    align: left
+    at: { x: 950, y: 104 }
+    size: { w: 250, h: 22 }
+  - id: a126
+    label: "20 の両どなり"
+    at: { x: 760, y: 126 }
+    size: { w: 190, h: 22 }
+  - id: b126
+    label: "1 と 5"
+    align: left
+    at: { x: 950, y: 126 }
+    size: { w: 250, h: 22 }
+  - id: a148
+    label: "19 の両どなり"
+    at: { x: 760, y: 148 }
+    size: { w: 190, h: 22 }
+  - id: b148
+    label: "3 と 7"
+    align: left
+    at: { x: 950, y: 148 }
+    size: { w: 250, h: 22 }
+  - id: a170
+    label: "つまり"
+    at: { x: 760, y: 170 }
+    size: { w: 190, h: 22 }
+  - id: b170
+    label: "高い数字のとなりは、低い数字"
+    align: left
+    at: { x: 950, y: 170 }
+    size: { w: 250, h: 22 }
+  - id: a192
+    label: "なぜ"
+    at: { x: 760, y: 192 }
+    size: { w: 190, h: 22 }
+  - id: b192
+    label: "外したときに損をするように並べてある"
+    align: left
+    at: { x: 950, y: 192 }
+    size: { w: 250, h: 22 }
+  - id: h228
+    label: "点の入り方"
+    hatch: solid
+    at: { x: 760, y: 228 }
+    size: { w: 440, h: 22 }
+  - id: a250
+    label: "シングル"
+    at: { x: 760, y: 250 }
+    size: { w: 190, h: 22 }
+  - id: b250
+    label: "その数字のまま"
+    align: left
+    at: { x: 950, y: 250 }
+    size: { w: 250, h: 22 }
+  - id: a272
+    label: "トリプル（内側の環）"
+    at: { x: 760, y: 272 }
+    size: { w: 190, h: 22 }
+  - id: b272
+    label: "3 倍。20 なら 60"
+    align: left
+    at: { x: 950, y: 272 }
+    size: { w: 250, h: 22 }
+  - id: a294
+    label: "ダブル（外側の環）"
+    at: { x: 760, y: 294 }
+    size: { w: 190, h: 22 }
+  - id: b294
+    label: "2 倍。20 なら 40"
+    align: left
+    at: { x: 950, y: 294 }
+    size: { w: 250, h: 22 }
+  - id: a316
+    label: "外ブル"
+    at: { x: 760, y: 316 }
+    size: { w: 190, h: 22 }
+  - id: b316
+    label: "25"
+    align: left
+    at: { x: 950, y: 316 }
+    size: { w: 250, h: 22 }
+  - id: a338
+    label: "内ブル"
+    at: { x: 760, y: 338 }
+    size: { w: 190, h: 22 }
+  - id: b338
+    label: "50"
+    align: left
+    at: { x: 950, y: 338 }
+    size: { w: 250, h: 22 }
+  - id: a360
+    label: "3 本の最高"
+    at: { x: 760, y: 360 }
+    size: { w: 190, h: 22 }
+  - id: b360
+    label: "180（トリプル 20 が 3 本）"
+    align: left
+    at: { x: 950, y: 360 }
+    size: { w: 250, h: 22 }
+  - id: a382
+    label: "1 回で上がれる最高"
+    at: { x: 760, y: 382 }
+    size: { w: 190, h: 22 }
+  - id: b382
+    label: "170（T20・T20・内ブル）"
+    align: left
+    at: { x: 950, y: 382 }
+    size: { w: 250, h: 22 }
+  - id: h418
+    label: "寸法（WDF）"
+    hatch: solid
+    at: { x: 760, y: 418 }
+    size: { w: 440, h: 22 }
+  - id: a440
+    label: "盤の直径"
+    at: { x: 760, y: 440 }
+    size: { w: 190, h: 22 }
+  - id: b440
+    label: "451 mm"
+    align: left
+    at: { x: 950, y: 440 }
+    size: { w: 250, h: 22 }
+  - id: a462
+    label: "中心からダブルの外まで"
+    at: { x: 760, y: 462 }
+    size: { w: 190, h: 22 }
+  - id: b462
+    label: "170 mm"
+    align: left
+    at: { x: 950, y: 462 }
+    size: { w: 250, h: 22 }
+  - id: a484
+    label: "中心からトリプルの内まで"
+    at: { x: 760, y: 484 }
+    size: { w: 190, h: 22 }
+  - id: b484
+    label: "107 mm"
+    align: left
+    at: { x: 950, y: 484 }
+    size: { w: 250, h: 22 }
+  - id: a506
+    label: "ダブルとトリプルの幅"
+    at: { x: 760, y: 506 }
+    size: { w: 190, h: 22 }
+  - id: b506
+    label: "内のりで 8 mm"
+    align: left
+    at: { x: 950, y: 506 }
+    size: { w: 250, h: 22 }
+  - id: a528
+    label: "内ブル"
+    at: { x: 760, y: 528 }
+    size: { w: 190, h: 22 }
+  - id: b528
+    label: "直径 12.7 mm"
+    align: left
+    at: { x: 950, y: 528 }
+    size: { w: 250, h: 22 }
+  - id: a550
+    label: "外ブル"
+    at: { x: 760, y: 550 }
+    size: { w: 190, h: 22 }
+  - id: b550
+    label: "直径 31.75 mm"
+    align: left
+    at: { x: 950, y: 550 }
+    size: { w: 250, h: 22 }
+  - id: h586
+    label: "置き方（WDF）"
+    hatch: solid
+    at: { x: 760, y: 586 }
+    size: { w: 440, h: 22 }
+  - id: a608
+    label: "ブルの高さ"
+    at: { x: 760, y: 608 }
+    size: { w: 190, h: 22 }
+  - id: b608
+    label: "床から 1.73 m"
+    align: left
+    at: { x: 950, y: 608 }
+    size: { w: 250, h: 22 }
+  - id: a630
+    label: "投げる距離"
+    at: { x: 760, y: 630 }
+    size: { w: 190, h: 22 }
+  - id: b630
+    label: "2.37 m（オッチェの後ろから）"
+    align: left
+    at: { x: 950, y: 630 }
+    size: { w: 250, h: 22 }
+  - id: a652
+    label: "対角"
+    at: { x: 760, y: 652 }
+    size: { w: 190, h: 22 }
+  - id: b652
+    label: "2.93 m（ブルの中心まで）"
+    align: left
+    at: { x: 950, y: 652 }
+    size: { w: 250, h: 22 }
+  - id: a674
+    label: "オッチェ"
+    at: { x: 760, y: 674 }
+    size: { w: 190, h: 22 }
+  - id: b674
+    label: "高さ 25 mm・長さ 915 mm"
+    align: left
+    at: { x: 950, y: 674 }
+    size: { w: 250, h: 22 }
+  - id: z1
+    label: "数字はでたらめに並んでいません。高い数字のとなりは低い数字 —— 外すと損をする並びです。"
+    marker: none
+    align: left
+    at: { x: 60, y: 605.5 }
+    size: { w: 680, h: 18 }
+  - id: z2
+    label: "20 の両どなりは 1 と 5。狙って外すと 60 点が 3 点や 15 点になります。"
+    marker: none
+    align: left
+    at: { x: 60, y: 627.5 }
+    size: { w: 660, h: 18 }
+  - id: z3
+    label: "環は 2 つだけ —— 内側がトリプル（3 倍）、外側がダブル（2 倍）。幅はどちらも内のり 8 mm。"
+    marker: none
+    align: left
+    at: { x: 60, y: 649.5 }
+    size: { w: 660, h: 18 }
+  - id: z4
+    label: "この図は 1 px ＝ 1 mm で、寸法は WDF の規則のとおりです（盤 451 mm、ダブルの外まで 170 mm）。"
+    marker: none
+    align: left
+    at: { x: 60, y: 671.5 }
+    size: { w: 660, h: 18 }
+edges:
+  - from: w0a
+    to: w0b
+    ends: { from: none, to: none }
+  - from: w1a
+    to: w1b
+    ends: { from: none, to: none }
+  - from: w2a
+    to: w2b
+    ends: { from: none, to: none }
+  - from: w3a
+    to: w3b
+    ends: { from: none, to: none }
+  - from: w4a
+    to: w4b
+    ends: { from: none, to: none }
+  - from: w5a
+    to: w5b
+    ends: { from: none, to: none }
+  - from: w6a
+    to: w6b
+    ends: { from: none, to: none }
+  - from: w7a
+    to: w7b
+    ends: { from: none, to: none }
+  - from: w8a
+    to: w8b
+    ends: { from: none, to: none }
+  - from: w9a
+    to: w9b
+    ends: { from: none, to: none }
+  - from: w10a
+    to: w10b
+    ends: { from: none, to: none }
+  - from: w11a
+    to: w11b
+    ends: { from: none, to: none }
+  - from: w12a
+    to: w12b
+    ends: { from: none, to: none }
+  - from: w13a
+    to: w13b
+    ends: { from: none, to: none }
+  - from: w14a
+    to: w14b
+    ends: { from: none, to: none }
+  - from: w15a
+    to: w15b
+    ends: { from: none, to: none }
+  - from: w16a
+    to: w16b
+    ends: { from: none, to: none }
+  - from: w17a
+    to: w17b
+    ends: { from: none, to: none }
+  - from: w18a
+    to: w18b
+    ends: { from: none, to: none }
+  - from: w19a
+    to: w19b
+    ends: { from: none, to: none }
