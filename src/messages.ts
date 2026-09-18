@@ -241,6 +241,8 @@ const ja = {
       '一行は題名ではなく**その図の決まりごと**（「販売図面（作るための図ではなく、決めるための図）」）。' +
       '引数なしなら分類と枚数だけ返す。query（「型紙」「歯」「ホーム」など和英どちらでも）で絞る。' +
       'name を渡すと**その見本の正本（YAML）そのもの**が返るので、**真似て書ける**。' +
+      '**道具の名前でも引ける**（query に views / hatch / chain / openings など）—— ' +
+      '書き方は zumen_spec にあるが、**効いている実物**は見本の中にしかない。' +
       '**汎用のネットワーク図・フローチャートを量産しないこと** —— 既存の作図ソフトが得意な所を足しても、表現力の証明にならない。',
     examplesQuery: '絞り込む語（名前と一行に当たる。和英どちらでもよい）',
     examplesName: '正本を読みたい見本の名前（目次の name をそのまま）',
@@ -855,6 +857,7 @@ const en: Catalog = {
       'a timber joint, tactile paving. Each one-liner states **what that drawing must get right**, not its title. ' +
       'With no arguments you get the categories and counts. Narrow with query (Japanese or English). ' +
       'Pass name to get **that example’s YAML source**, so you can copy how it is written. ' +
+      'You can also query by feature (views, hatch, chain, openings…) — the syntax is in zumen_spec, but a **working example** only exists here. ' +
       '**Do not churn out generic network diagrams and flowcharts** — adding what existing tools already do proves nothing.',
     examplesQuery: 'Filter (matches the name and the one-liner, in either language)',
     examplesName: 'Name of the example whose source you want (use the name from the catalogue)',

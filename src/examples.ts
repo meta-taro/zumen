@@ -30,6 +30,8 @@ export interface Example {
   /** その図の決まりごとを一行で。**題名ではない。** */
   caption: string;
   captionEn: string;
+  /** **その見本が使っている道具**（`views` `scale` `hatch` など）。機能から実物を引くため。 */
+  uses: string[];
 }
 
 export interface Category {
@@ -88,7 +90,7 @@ export function search(book: Catalogue, query: string): Category[] {
     .map((group) => ({
       ...group,
       items: group.items.filter((item) =>
-        `${item.name} ${item.caption} ${item.captionEn}`.toLowerCase().includes(needle),
+        `${item.name} ${item.caption} ${item.captionEn} ${item.uses.join(' ')}`.toLowerCase().includes(needle),
       ),
     }))
     .filter((group) => group.items.length > 0);

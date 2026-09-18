@@ -187,6 +187,27 @@ for (const target of PAGES) {
  * どんな図面があるかを渡すため**（D39 と同じ筋。`src/examples.ts`）。
  * 正本は `gallery-categories.mjs` と `gallery-en.mjs` なので、ここで写すだけ。
  */
+/**
+ * **その見本が使っている道具**（`zumen_examples` の目次に載る）。
+ *
+ * 入れた人のエージェントがいちばん知りたいのは、しばしば題材ではなく
+ * **「views を 2 つ使って縮尺を分けた見本はどれか」**のほう ——
+ * 書き方は `zumen_spec` にあるが、**効いている実物**は見本の中にしかない。
+ */
+const USES = [
+  ['views', /^views:/m], ['scale', /^\s*scale: \{/m], ['grid', /^\s*grid:/m],
+  ['north', /^north:/m], ['wall', /^wall:/m], ['floors', /^floors:/m],
+  ['palette', /^palette:/m], ['fill', /^\s+fill: /m], ['color', /^\s+color: /m],
+  ['hatch', /^\s+hatch: /m], ['marker', /^\s+marker: (?!none)/m], ['symbol', /^\s+symbol: /m],
+  ['tag', /^\s+tag: /m], ['technology', /^\s+technology: /m], ['openings', /^\s+openings:/m],
+  ['radius', /^\s+radius: /m], ['via', /^\s+via:/m], ['close', /^\s+close: true/m],
+  ['curve', /^\s+curve: smooth/m], ['line', /^\s+line: (?!solid)/m], ['chain', /^\s+line: chain/m],
+  ['double', /^\s+line: double/m], ['weight', /^\s+weight: /m], ['ends', /^\s+ends:/m],
+  ['align', /^\s+align: /m], ['wrap', /^wrap: true/m], ['groups', /^groups:/m],
+  ['vertical', /^\s+vertical: /m], ['pins', /^pins:/m],
+];
+const usesOf = (text) => USES.filter(([, re]) => re.test(text)).map(([name]) => name);
+
 const index = {
   count: readdirSync(DIR).filter((f) => f.endsWith('.zumen.yaml')).length,
   categories: CATEGORIES.map((group) => ({
@@ -197,6 +218,7 @@ const index = {
       name: item.name,
       caption: item.caption,
       captionEn: CAPTIONS_EN[item.name] ?? '',
+      uses: usesOf(readFileSync(join(DIR, `${item.name}.zumen.yaml`), 'utf8')),
     })),
   })),
 };

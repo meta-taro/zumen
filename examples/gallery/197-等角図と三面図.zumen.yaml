@@ -1,0 +1,696 @@
+version: 1
+kind: placement
+arrows: true
+title: 等角図・三面図・斜投影
+# **等角図は、3 方向を同じ物差しで測れる。** だから「等角」。
+#
+# 軸のあいだは 120°、2 本は水平から 30°。ただし**円は楕円になる**。
+#
+# 第三角法（日本・JIS）は「**見た側へ置く**」—— 上から見た図は上、右から見た図は右。
+# 斜投影は正面を実寸のまま描き、**奥行きを 1/2 に縮める**（実寸だと太って見える）。
+nodes:
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 399, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 485.6, y: 549 }
+    size: { w: 2, h: 2 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 312.4, y: 549 }
+    size: { w: 2, h: 2 }
+  - id: cube
+    label: "立方体"
+    marker: none
+    align: center
+    at: { x: 340, y: 340 }
+    size: { w: 120, h: 18 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 169, y: 479 }
+    size: { w: 2, h: 2 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 169, y: 401 }
+    size: { w: 2, h: 2 }
+  - id: axZ
+    label: "Z"
+    marker: none
+    align: center
+    at: { x: 150, y: 371 }
+    size: { w: 40, h: 18 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 169, y: 479 }
+    size: { w: 2, h: 2 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 236.5, y: 518 }
+    size: { w: 2, h: 2 }
+  - id: axX
+    label: "X"
+    marker: none
+    align: center
+    at: { x: 236.6, y: 521 }
+    size: { w: 40, h: 18 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 169, y: 479 }
+    size: { w: 2, h: 2 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 101.5, y: 518 }
+    size: { w: 2, h: 2 }
+  - id: axY
+    label: "Y"
+    marker: none
+    align: center
+    at: { x: 63.4, y: 521 }
+    size: { w: 40, h: 18 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 169, y: 479 }
+    size: { w: 2, h: 2 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 277, y: 479 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 208.8, y: 502 }
+    size: { w: 2, h: 2 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 169, y: 433 }
+    size: { w: 2, h: 2 }
+  - id: a120
+    label: "120°"
+    marker: none
+    align: left
+    at: { x: 224, y: 434 }
+    size: { w: 80, h: 18 }
+  - id: a30
+    label: "水平から 30°"
+    marker: none
+    align: left
+    at: { x: 188, y: 496 }
+    size: { w: 160, h: 18 }
+  - id: t1
+    label: "① 等角図 —— 3 方向を同じ物差しで測れる"
+    marker: none
+    align: left
+    at: { x: 150, y: 282 }
+    size: { w: 440, h: 20 }
+  - id: t1b
+    label: "　軸のあいだは 120°。2 本は水平から 30°。だから「等角」。"
+    marker: none
+    align: left
+    at: { x: 150, y: 304 }
+    size: { w: 440, h: 18 }
+  - id: t1c
+    label: "円は楕円になる（正円は描けない）"
+    marker: none
+    align: left
+    at: { x: 150, y: 648 }
+    size: { w: 420, h: 18 }
+  - id: v_top
+    label: ""
+    at: { x: 620, y: 300 }
+    size: { w: 90, h: 90 }
+  - id: v_top_n
+    label: "平面図"
+    marker: none
+    align: center
+    at: { x: 610, y: 398 }
+    size: { w: 110, h: 18 }
+  - id: v_front
+    label: ""
+    at: { x: 620, y: 442 }
+    size: { w: 90, h: 90 }
+  - id: v_front_n
+    label: "正面図"
+    marker: none
+    align: center
+    at: { x: 610, y: 540 }
+    size: { w: 110, h: 18 }
+  - id: v_right
+    label: ""
+    at: { x: 740, y: 442 }
+    size: { w: 90, h: 90 }
+  - id: v_right_n
+    label: "右側面図"
+    marker: none
+    align: center
+    at: { x: 730, y: 540 }
+    size: { w: 110, h: 18 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 713, y: 299 }
+    size: { w: 2, h: 2 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 839, y: 299 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 713, y: 389 }
+    size: { w: 2, h: 2 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 839, y: 389 }
+    size: { w: 2, h: 2 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 619, y: 393 }
+    size: { w: 2, h: 2 }
+  - id: p18
+    label: ""
+    marker: none
+    at: { x: 619, y: 541 }
+    size: { w: 2, h: 2 }
+  - id: p19
+    label: ""
+    marker: none
+    at: { x: 709, y: 393 }
+    size: { w: 2, h: 2 }
+  - id: p20
+    label: ""
+    marker: none
+    at: { x: 709, y: 541 }
+    size: { w: 2, h: 2 }
+  - id: t2
+    label: "② 第三角法（日本・JIS）"
+    marker: none
+    align: left
+    at: { x: 590, y: 214 }
+    size: { w: 270, h: 20 }
+  - id: t2b
+    label: "　見た側へ置く。上は上、右は右。"
+    marker: none
+    align: left
+    at: { x: 590, y: 236 }
+    size: { w: 270, h: 18 }
+  - id: t2c
+    label: "第一角法（欧州）は、反対側へ置く"
+    marker: none
+    align: left
+    at: { x: 590, y: 596 }
+    size: { w: 270, h: 18 }
+  - id: p21
+    label: ""
+    marker: none
+    at: { x: 229, y: 839 }
+    size: { w: 2, h: 2 }
+  - id: p22
+    label: ""
+    marker: none
+    at: { x: 229, y: 839 }
+    size: { w: 2, h: 2 }
+  - id: p23
+    label: ""
+    marker: none
+    at: { x: 329, y: 839 }
+    size: { w: 2, h: 2 }
+  - id: cab_t
+    label: "キャビネット図"
+    marker: none
+    align: center
+    at: { x: 190, y: 956 }
+    size: { w: 240, h: 18 }
+  - id: cab_s
+    label: "奥行きを 1/2 にする"
+    marker: none
+    align: center
+    at: { x: 190, y: 976 }
+    size: { w: 240, h: 16 }
+  - id: p24
+    label: ""
+    marker: none
+    at: { x: 529, y: 839 }
+    size: { w: 2, h: 2 }
+  - id: p25
+    label: ""
+    marker: none
+    at: { x: 529, y: 839 }
+    size: { w: 2, h: 2 }
+  - id: p26
+    label: ""
+    marker: none
+    at: { x: 629, y: 839 }
+    size: { w: 2, h: 2 }
+  - id: cav_t
+    label: "キャバリエ図"
+    marker: none
+    align: center
+    at: { x: 490, y: 956 }
+    size: { w: 240, h: 18 }
+  - id: cav_s
+    label: "奥行きも実寸 → 太って見える"
+    marker: none
+    align: center
+    at: { x: 490, y: 976 }
+    size: { w: 240, h: 16 }
+  - id: t3
+    label: "③ 斜投影 —— 正面は実寸のまま"
+    marker: none
+    align: left
+    at: { x: 150, y: 756 }
+    size: { w: 520, h: 20 }
+  - id: t3b
+    label: "　奥行きは 45°。実寸のままだと、目で見た形より太る。"
+    marker: none
+    align: left
+    at: { x: 150, y: 778 }
+    size: { w: 520, h: 18 }
+  - id: h190
+    label: "等角図（アイソメ）"
+    hatch: solid
+    at: { x: 880, y: 190 }
+    size: { w: 470, h: 24 }
+  - id: x214
+    label: "軸のあいだ"
+    at: { x: 880, y: 214 }
+    size: { w: 210, h: 24 }
+  - id: y214
+    label: "120°（3 本とも）"
+    align: left
+    at: { x: 1090, y: 214 }
+    size: { w: 260, h: 24 }
+  - id: x238
+    label: "水平からの角"
+    at: { x: 880, y: 238 }
+    size: { w: 210, h: 24 }
+  - id: y238
+    label: "30°（2 本）"
+    align: left
+    at: { x: 1090, y: 238 }
+    size: { w: 260, h: 24 }
+  - id: x262
+    label: "測れる向き"
+    at: { x: 880, y: 262 }
+    size: { w: 210, h: 24 }
+  - id: y262
+    label: "X・Y・Z とも同じ物差し"
+    align: left
+    at: { x: 1090, y: 262 }
+    size: { w: 260, h: 24 }
+  - id: x286
+    label: "円"
+    at: { x: 880, y: 286 }
+    size: { w: 210, h: 24 }
+  - id: y286
+    label: "楕円になる（正円は描けない）"
+    align: left
+    at: { x: 1090, y: 286 }
+    size: { w: 260, h: 24 }
+  - id: x310
+    label: "等角投影図"
+    at: { x: 880, y: 310 }
+    size: { w: 210, h: 24 }
+  - id: y310
+    label: "本当は 0.816 倍に縮む"
+    align: left
+    at: { x: 1090, y: 310 }
+    size: { w: 260, h: 24 }
+  - id: x334
+    label: "等角図"
+    at: { x: 880, y: 334 }
+    size: { w: 210, h: 24 }
+  - id: y334
+    label: "縮めずに 1:1 で描く（ふつうこちら）"
+    align: left
+    at: { x: 1090, y: 334 }
+    size: { w: 260, h: 24 }
+  - id: h376
+    label: "第三角法（JIS・日本／米国）"
+    hatch: solid
+    at: { x: 880, y: 376 }
+    size: { w: 470, h: 24 }
+  - id: x400
+    label: "考え方"
+    at: { x: 880, y: 400 }
+    size: { w: 210, h: 24 }
+  - id: y400
+    label: "見た側へ置く"
+    align: left
+    at: { x: 1090, y: 400 }
+    size: { w: 260, h: 24 }
+  - id: x424
+    label: "平面図"
+    at: { x: 880, y: 424 }
+    size: { w: 210, h: 24 }
+  - id: y424
+    label: "正面図の上"
+    align: left
+    at: { x: 1090, y: 424 }
+    size: { w: 260, h: 24 }
+  - id: x448
+    label: "右側面図"
+    at: { x: 880, y: 448 }
+    size: { w: 210, h: 24 }
+  - id: y448
+    label: "正面図の右"
+    align: left
+    at: { x: 1090, y: 448 }
+    size: { w: 260, h: 24 }
+  - id: x472
+    label: "下面図"
+    at: { x: 880, y: 472 }
+    size: { w: 210, h: 24 }
+  - id: y472
+    label: "正面図の下"
+    align: left
+    at: { x: 1090, y: 472 }
+    size: { w: 260, h: 24 }
+  - id: x496
+    label: "第一角法"
+    at: { x: 880, y: 496 }
+    size: { w: 210, h: 24 }
+  - id: y496
+    label: "欧州。反対側へ置く"
+    align: left
+    at: { x: 1090, y: 496 }
+    size: { w: 260, h: 24 }
+  - id: x520
+    label: "見分け"
+    at: { x: 880, y: 520 }
+    size: { w: 210, h: 24 }
+  - id: y520
+    label: "図面の記号で示す"
+    align: left
+    at: { x: 1090, y: 520 }
+    size: { w: 260, h: 24 }
+  - id: h562
+    label: "斜投影"
+    hatch: solid
+    at: { x: 880, y: 562 }
+    size: { w: 470, h: 24 }
+  - id: x586
+    label: "正面"
+    at: { x: 880, y: 586 }
+    size: { w: 210, h: 24 }
+  - id: y586
+    label: "実寸のまま（形がゆがまない）"
+    align: left
+    at: { x: 1090, y: 586 }
+    size: { w: 260, h: 24 }
+  - id: x610
+    label: "奥行きの角"
+    at: { x: 880, y: 610 }
+    size: { w: 210, h: 24 }
+  - id: y610
+    label: "45° が多い"
+    align: left
+    at: { x: 1090, y: 610 }
+    size: { w: 260, h: 24 }
+  - id: x634
+    label: "キャビネット図"
+    at: { x: 880, y: 634 }
+    size: { w: 210, h: 24 }
+  - id: y634
+    label: "奥行き 1/2。目で見た形に近い"
+    align: left
+    at: { x: 1090, y: 634 }
+    size: { w: 260, h: 24 }
+  - id: x658
+    label: "キャバリエ図"
+    at: { x: 880, y: 658 }
+    size: { w: 210, h: 24 }
+  - id: y658
+    label: "奥行き実寸。太って見える"
+    align: left
+    at: { x: 1090, y: 658 }
+    size: { w: 260, h: 24 }
+  - id: x682
+    label: "使い所"
+    at: { x: 880, y: 682 }
+    size: { w: 210, h: 24 }
+  - id: y682
+    label: "正面の形が大事なとき"
+    align: left
+    at: { x: 1090, y: 682 }
+    size: { w: 260, h: 24 }
+  - id: h724
+    label: "この図に出ていないもの"
+    hatch: solid
+    at: { x: 880, y: 724 }
+    size: { w: 470, h: 24 }
+  - id: x748
+    label: "二等角・不等角"
+    at: { x: 880, y: 748 }
+    size: { w: 210, h: 24 }
+  - id: y748
+    label: "軸の角度が等しくない投影"
+    align: left
+    at: { x: 1090, y: 748 }
+    size: { w: 260, h: 24 }
+  - id: x772
+    label: "透視図"
+    at: { x: 880, y: 772 }
+    size: { w: 210, h: 24 }
+  - id: y772
+    label: "遠くが小さくなる（消失点）"
+    align: left
+    at: { x: 1090, y: 772 }
+    size: { w: 260, h: 24 }
+  - id: x796
+    label: "断面"
+    at: { x: 880, y: 796 }
+    size: { w: 210, h: 24 }
+  - id: y796
+    label: "切って中を見せる描き方"
+    align: left
+    at: { x: 1090, y: 796 }
+    size: { w: 260, h: 24 }
+  - id: x820
+    label: "展開図"
+    at: { x: 880, y: 820 }
+    size: { w: 210, h: 24 }
+  - id: y820
+    label: "面を平面へ開いたもの"
+    align: left
+    at: { x: 1090, y: 820 }
+    size: { w: 260, h: 24 }
+  - id: n1
+    label: "立体を平面の紙に描く 3 つのやり方です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1090 }
+    size: { w: 1000, h: 18 }
+  - id: n2
+    label: "等角図は、3 軸のあいだを 120° にします（水平から 30° が 2 本）。3 方向とも同じ物差しで測れるのが利点です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1112 }
+    size: { w: 1000, h: 18 }
+  - id: n3
+    label: "ただし円は楕円になります。正円が要る面は、この描き方では出せません。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1134 }
+    size: { w: 1000, h: 18 }
+  - id: n4
+    label: "第三角法（日本・JIS）は「見た側へ置く」—— 上から見た図は上に、右から見た図は右に置きます。欧州の第一角法は反対側です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1156 }
+    size: { w: 1000, h: 18 }
+  - id: n5
+    label: "斜投影は正面を実寸のまま描き、奥行きだけを 45° で足します。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1178 }
+    size: { w: 1000, h: 18 }
+  - id: n6
+    label: "奥行きを実寸のまま描くと太って見えるので、1/2 に縮めた「キャビネット図」が使われます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1200 }
+    size: { w: 1000, h: 18 }
+  - id: n7
+    label: "等角図は本当は 0.816 倍に縮みますが、ふつうは縮めずに描きます（それを「等角図」と呼び分けます）。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1222 }
+    size: { w: 1000, h: 18 }
+edges:
+  - from: p0
+    to: p0
+    curve: none
+    close: true
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 400, y: 400 }
+      - { x: 486.6, y: 450 }
+      - { x: 400, y: 500 }
+      - { x: 313.4, y: 450 }
+  - from: p1
+    to: p1
+    curve: none
+    close: true
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 486.6, y: 550 }
+      - { x: 400, y: 600 }
+      - { x: 400, y: 500 }
+      - { x: 486.6, y: 450 }
+  - from: p2
+    to: p2
+    curve: none
+    close: true
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 313.4, y: 550 }
+      - { x: 400, y: 600 }
+      - { x: 400, y: 500 }
+      - { x: 313.4, y: 450 }
+  - from: p3
+    to: p4
+    curve: none
+    weight: thick
+    ends: { from: none, to: arrow }
+  - from: p5
+    to: p6
+    curve: none
+    weight: thick
+    ends: { from: none, to: arrow }
+  - from: p7
+    to: p8
+    curve: none
+    weight: thick
+    ends: { from: none, to: arrow }
+  - from: p9
+    to: p10
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }
+  - from: p11
+    to: p12
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }
+    via:
+      - { x: 212.5, y: 497.6 }
+      - { x: 214.4, y: 491.9 }
+      - { x: 215.6, y: 486 }
+      - { x: 216, y: 480 }
+      - { x: 215.6, y: 474 }
+      - { x: 214.4, y: 468.1 }
+      - { x: 212.5, y: 462.4 }
+      - { x: 209.8, y: 457 }
+      - { x: 206.5, y: 452 }
+      - { x: 202.5, y: 447.5 }
+      - { x: 198, y: 443.5 }
+      - { x: 193, y: 440.2 }
+      - { x: 187.6, y: 437.5 }
+      - { x: 181.9, y: 435.6 }
+      - { x: 176, y: 434.4 }
+  - from: p13
+    to: p14
+    curve: none
+    line: chain
+    ends: { from: none, to: none }
+  - from: p15
+    to: p16
+    curve: none
+    line: chain
+    ends: { from: none, to: none }
+  - from: p17
+    to: p18
+    curve: none
+    line: chain
+    ends: { from: none, to: none }
+  - from: p19
+    to: p20
+    curve: none
+    line: chain
+    ends: { from: none, to: none }
+  - from: p21
+    to: p21
+    curve: none
+    close: true
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 230, y: 840 }
+      - { x: 330, y: 840 }
+      - { x: 330, y: 940 }
+      - { x: 230, y: 940 }
+  - from: p22
+    to: p22
+    curve: none
+    close: true
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 230, y: 840 }
+      - { x: 265.4, y: 804.6 }
+      - { x: 365.4, y: 804.6 }
+      - { x: 330, y: 840 }
+  - from: p23
+    to: p23
+    curve: none
+    close: true
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 330, y: 840 }
+      - { x: 365.4, y: 804.6 }
+      - { x: 365.4, y: 904.6 }
+      - { x: 330, y: 940 }
+  - from: p24
+    to: p24
+    curve: none
+    close: true
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 530, y: 840 }
+      - { x: 630, y: 840 }
+      - { x: 630, y: 940 }
+      - { x: 530, y: 940 }
+  - from: p25
+    to: p25
+    curve: none
+    close: true
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 530, y: 840 }
+      - { x: 600.7, y: 769.3 }
+      - { x: 700.7, y: 769.3 }
+      - { x: 630, y: 840 }
+  - from: p26
+    to: p26
+    curve: none
+    close: true
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 630, y: 840 }
+      - { x: 700.7, y: 769.3 }
+      - { x: 700.7, y: 869.3 }
+      - { x: 630, y: 940 }

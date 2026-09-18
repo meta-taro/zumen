@@ -106,6 +106,7 @@ export const CAPTIONS_EN = {
   '169-麻雀の配牌': 'Mahjong: the dice decide where the wall is opened, not luck',
   '168-ダイヤモンドシステム': 'Billiards: the diamonds on the rails are a ruler, not decoration',
   '167-ダーツボードの割り付け': 'A dartboard: the numbers are arranged to punish a miss',
+  '197-等角図と三面図': 'Isometric, third-angle and oblique: one scale serves all three axes, but circles become ellipses',
   '196-勾配の書き方': 'Slope notation: roofs in sun, ramps in fractions, roads in percent, railways in per mille \u2014 degrees are the minority',
   '195-学校の机と椅子': 'School desks and chairs are sized by height, not by year, and the pair must match',
   '194-点字の6点': 'Braille has only six dots, so \u201ca\u201d and \u201c1\u201d are the same shape until a number sign says otherwise',

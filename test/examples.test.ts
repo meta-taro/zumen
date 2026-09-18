@@ -56,6 +56,37 @@ describe('同梱の見本の目次', () => {
   });
 });
 
+/**
+ * **「この機能を使っている見本」を引けるようにする**（2026-09-19）。
+ *
+ * 目次は題材でしか引けなかった。だが入れた人のエージェントがいちばん知りたいのは、
+ * しばしば**「views を 2 つ使って縮尺を分けた見本はどれか」**のほうである ——
+ * 書き方は `zumen_spec` に書いてあるが、**効いている実物**は見本の中にしかない。
+ */
+describe('使っている道具で引く', () => {
+  it('**見本ごとに、使っている道具が並んでいる**', () => {
+    const items = catalogue()!.categories.flatMap((g) => g.items);
+    assert.ok(items.every((i) => Array.isArray(i.uses)), 'uses が無い見本がある');
+    assert.ok(items.some((i) => i.uses.includes('views')), 'views を使った見本が拾えていない');
+  });
+
+  it('**道具の名前で引ける**（query が uses にも当たる）', () => {
+    const found = search(catalogue()!, 'views').flatMap((g) => g.items.map((i) => i.name));
+    assert.ok(found.length >= 5, `views で ${found.length} 件しか出ない`);
+  });
+
+  it('**縮尺を分けた見本が引ける**（1 枚に 2 つの scale）', () => {
+    const items = catalogue()!.categories.flatMap((g) => g.items);
+    const twoScales = items.filter((i) => i.uses.includes('views') && i.uses.includes('scale'));
+    assert.ok(twoScales.length > 0, '縮尺を図ごとに分けた見本が拾えない');
+  });
+
+  it('使っていない道具は並べない', () => {
+    const items = catalogue()!.categories.flatMap((g) => g.items);
+    assert.ok(items.some((i) => !i.uses.includes('views')), 'ぜんぶの見本に views が付いている');
+  });
+});
+
 describe('見本を絞る', () => {
   it('**和語で引ける**', () => {
     const found = search(catalogue()!, '型紙').flatMap((g) => g.items.map((i) => i.name));
