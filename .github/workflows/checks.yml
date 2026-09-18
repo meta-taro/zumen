@@ -7,12 +7,13 @@ name: checks
 #
 # 個人情報の検査は別の workflow（`oss-privacy-check.yml`）。
 
+# **既定は `develop`**（ふだんの push 先）。`main` は本番で、
+# `develop → main` の PR が通ったときに更新される —— その PR でも回す。
 on:
   pull_request:
   push:
     branches:
       - main
-      - master
       - develop
 
 permissions:

@@ -6,6 +6,17 @@ name: pages
 # **図は実物**（`examples/gallery/` で描いたものを写している）で、
 # 絵として作ったものではない。**出せない図を載せない**ため。
 #
+# ## 配るのは `main` から（2026-09-18）
+#
+# **これは本番の配布物**なので、`main` からだけ配る。
+# 既定ブランチは `develop`（ふだんの push 先）で、
+# **`develop → main` の PR が通ったときに世に出る** —— 他のリポジトリと同じ運用。
+#
+# 以前は `develop` から配っていた。**push した瞬間に公開される**ので、
+# 「出す」判断と「直す」作業が同じ操作になっていた（オーナーの指摘）。
+#
+# 開発中の見た目を確かめたいときは `workflow_dispatch` で手で回す。
+#
 # ## 人の作業が 1 回だけ要る
 #
 # Settings → Pages → Source を **GitHub Actions** にすること。
@@ -15,7 +26,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - develop
+      - main
     paths:
       - 'site/**'
       - 'examples/gallery/**'

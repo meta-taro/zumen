@@ -124,6 +124,16 @@ bash .github/scripts/oss-privacy-check.sh
 1. `.claude/project-status.md` に進捗を記録（テストが無い状態で「完了」と書かない）
 2. 完了した Issue は `gh issue close <番号> --comment "..."`
 
+### ブランチ（2026-09-18）
+
+| | |
+|---|---|
+| `develop` | **既定ブランチ。ふだんの push 先。** CI（checks）と、殻の検証用ビルド（release）が回る |
+| `main` | **本番。** `develop → main` の PR が通ると、紹介ページ（GitHub Pages）が配られる |
+
+**push しただけでは世に出ない。** 出すのは `develop → main` の PR。
+**PR を出すのも通すのも人**（AI からは提案しない）。
+
 ### git pull の 3 タイミング
 
 1. **セッション開始時**: `git pull --ff-only`
