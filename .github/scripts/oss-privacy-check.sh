@@ -22,7 +22,11 @@
 #     出力は「場所（file:line / commit）＋ 規則 ID ＋ マスク済み文字列」に限る。
 set -uo pipefail
 
-ALLOWED_AUTHOR_RE="${OSS_ALLOWED_AUTHOR_EMAIL_REGEX:-@users\.noreply\.github\.com$}"
+# 画面（GitHub の Merge ボタン）で作られる commit は、author は本人の noreply だが、
+# **committer は GitHub 自身**（`GitHub <noreply@github.com>`）になる。
+# これは個人のアドレスではなく web-flow の識別子なので、**このアドレス 1 個だけ**通す
+# （`github.com` ドメイン全体ではない。2026-09-18、初めて PR を通した日に落ちた）。
+ALLOWED_AUTHOR_RE="${OSS_ALLOWED_AUTHOR_EMAIL_REGEX:-(@users\.noreply\.github\.com|^noreply@github\.com)$}"
 # noreply@anthropic.com は AI エージェントの Co-Authored-By 用の no-reply アドレスで、
 # 個人ではない（§32 が止めたいのは実在の個人の名前とメール）。
 # ドメイン全体ではなく、このアドレス 1 個だけを許可する。
