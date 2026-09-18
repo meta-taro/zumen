@@ -101,6 +101,8 @@ describe('正本を読む', () => {
 
 describe('目次は、正本と同じものを写している', () => {
   it('**一行は scripts/gallery-categories.mjs のまま**（二重管理にしない）', async () => {
+    // scripts/ は素の JS（型宣言を持たない）。ここだけ素通しする。
+    // @ts-expect-error -- 型宣言の無い .mjs を、テストのためだけに読む
     const { CATEGORIES } = (await import('../scripts/gallery-categories.mjs')) as {
       CATEGORIES: { key: string; label: string; items: { name: string; caption: string }[] }[];
     };

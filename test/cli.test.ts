@@ -154,6 +154,47 @@ nodes:
     assert.match(line, /HALL/);
   });
 
+  /**
+   * **図の名前（`views[].title`）も、紙の上の文字。**
+   *
+   * 規則には「views を置いたら図の下に 130px 空ける。**数の検査は鳴らない**」と
+   * 書いてあった（見本 129〜134 で 3 枚続けて踏んだときの記述）。
+   * **いまは鳴る。** 2026-09-19 に見本 190 を描いていて、
+   * 注記が図の名前に乗ったのを検証器が言った ——
+   * **古い記述は、動いている検査を信じさせなくする**（ベースルール §10）。
+   *
+   * 鳴ることをここで留めておく。留めておかないと、また記述だけが古くなる。
+   */
+  it('**図の名前に注記が乗ったら、そう言う**（views[].title も紙の上の文字）', async () => {
+    const VIEWED = `version: 1
+kind: placement
+arrows: true
+views:
+  - id: a
+    title: 上の図
+    at: { x: 40, y: 40 }
+    size: { w: 200, h: 100 }
+    grid:
+      x:
+        - { id: X1, at: 60 }
+        - { id: X2, at: 220 }
+nodes:
+  - id: box
+    label: "中身"
+    at: { x: 60, y: 60 }
+    size: { w: 160, h: 60 }
+  - id: sita
+    label: "すぐ下に置いた注記"
+    marker: none
+    at: { x: 40, y: 250 }
+    size: { w: 220, h: 18 }
+`;
+    const result = await runValidate(['a.yaml'], reader({ 'a.yaml': VIEWED }) as never);
+    const line = result.lines.find((text) => text.includes('すぐ下に置いた注記'));
+    assert.ok(line !== undefined, `図の名前との重なりを言っていない: ${result.lines.join(' / ')}`);
+    assert.match(line, /上の図/);
+  });
+
   it('**重なっていない図には、何も言わない**', async () => {
     const apart = PILED_TAG.replace('{ x: 70, y: 30 }', '{ x: 400, y: 300 }');
     const result = await runValidate(['a.yaml'], reader({ 'a.yaml': apart }) as never);
