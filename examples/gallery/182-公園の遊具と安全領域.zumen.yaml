@@ -1,0 +1,383 @@
+version: 1
+kind: placement
+arrows: true
+title: 公園の遊具と安全領域（架空の配置）
+scale: { mm: 25 }
+# **落下高さが、安全領域を決める。**
+#
+# 落下高さ 600mm 以下なら安全領域 1,500mm、超えるなら 1,800mm。
+# 測るのは**遊具の外形から全方向**へ。すべり台の出口は勢いがあるので、もっと広く取る。
+#
+# **安全領域どうしは重なってよい。** ただし
+# **遊具そのものが、他の遊具の安全領域に入ってはいけない** —— この図はそれを機械で確かめた。
+#
+# 安全領域の中は、コンクリートやアスファルトにできない（砂・ウッドチップ・ゴムなど）。
+# 1 px ＝ 25mm。公園の形・配置は架空。
+palette:
+  安全領域: "#3f6b8f"
+nodes:
+  - id: site
+    label: ""
+    at: { x: 90, y: 210 }
+    size: { w: 680, h: 480 }
+  - id: z_slide
+    label: ""
+    marker: none
+    fill: 安全領域
+    at: { x: 122, y: 234 }
+    size: { w: 272, h: 200 }
+  - id: e0
+    label: ""
+    marker: none
+    at: { x: 121, y: 233 }
+    size: { w: 2, h: 2 }
+  - id: z_swing
+    label: ""
+    marker: none
+    fill: 安全領域
+    at: { x: 378, y: 230 }
+    size: { w: 280, h: 248 }
+  - id: e1
+    label: ""
+    marker: none
+    at: { x: 377, y: 229 }
+    size: { w: 2, h: 2 }
+  - id: z_bar
+    label: ""
+    marker: none
+    fill: 安全領域
+    at: { x: 418, y: 490 }
+    size: { w: 240, h: 184 }
+  - id: e2
+    label: ""
+    marker: none
+    at: { x: 417, y: 489 }
+    size: { w: 2, h: 2 }
+  - id: slide
+    label: "すべり台"
+    technology: "落下高さ 1500mm"
+    at: { x: 194, y: 306 }
+    size: { w: 128, h: 48 }
+  - id: swing
+    label: "ブランコ"
+    technology: "落下高さ 1600mm"
+    at: { x: 450, y: 330 }
+    size: { w: 136, h: 48 }
+  - id: bar
+    label: "鉄棒"
+    technology: "落下高さ 1200mm"
+    at: { x: 490, y: 562 }
+    size: { w: 96, h: 40 }
+  - id: sand
+    label: "砂場"
+    at: { x: 162, y: 514 }
+    size: { w: 160, h: 120 }
+  - id: e3
+    label: ""
+    marker: none
+    at: { x: 430, y: 486 }
+    size: { w: 2, h: 2 }
+  - id: road
+    label: "園路"
+    marker: none
+    align: left
+    at: { x: 322, y: 490 }
+    size: { w: 64, h: 18 }
+  - id: bench0
+    label: "ベンチ"
+    at: { x: 170, y: 642 }
+    size: { w: 64, h: 16 }
+  - id: bench1
+    label: "ベンチ"
+    at: { x: 290, y: 650 }
+    size: { w: 64, h: 16 }
+  - id: zl0
+    label: "安全領域 1800mm"
+    marker: none
+    align: right
+    at: { x: 228, y: 240 }
+    size: { w: 160, h: 18 }
+  - id: zl1
+    label: "安全領域 1800mm"
+    marker: none
+    align: right
+    at: { x: 492, y: 236 }
+    size: { w: 160, h: 18 }
+  - id: zl2
+    label: "安全領域 1800mm"
+    marker: none
+    align: right
+    at: { x: 492, y: 496 }
+    size: { w: 160, h: 18 }
+  - id: slide_x
+    label: "出口側 2000mm"
+    marker: none
+    align: left
+    at: { x: 224, y: 402 }
+    size: { w: 150, h: 18 }
+  - id: swing_x
+    label: "振れる向きへ 2500mm"
+    marker: none
+    align: left
+    at: { x: 442, y: 290 }
+    size: { w: 180, h: 18 }
+  - id: h80
+    label: "安全領域（落下高さで決まる）"
+    hatch: solid
+    at: { x: 830, y: 80 }
+    size: { w: 460, h: 22 }
+  - id: a102
+    label: "落下高さ 600mm 以下"
+    at: { x: 830, y: 102 }
+    size: { w: 160, h: 22 }
+  - id: b102
+    label: "安全領域 1,500mm"
+    align: left
+    at: { x: 990, y: 102 }
+    size: { w: 300, h: 22 }
+  - id: a124
+    label: "600mm を超える"
+    at: { x: 830, y: 124 }
+    size: { w: 160, h: 22 }
+  - id: b124
+    label: "安全領域 1,800mm"
+    align: left
+    at: { x: 990, y: 124 }
+    size: { w: 300, h: 22 }
+  - id: a146
+    label: "年齢制限エリア"
+    at: { x: 830, y: 146 }
+    size: { w: 160, h: 22 }
+  - id: b146
+    label: "幼児用は 1,200 / 1,500mm"
+    align: left
+    at: { x: 990, y: 146 }
+    size: { w: 300, h: 22 }
+  - id: a168
+    label: "すべり台の出口"
+    at: { x: 830, y: 168 }
+    size: { w: 160, h: 22 }
+  - id: b168
+    label: "勢いがあるので 2,000mm ほど"
+    align: left
+    at: { x: 990, y: 168 }
+    size: { w: 300, h: 22 }
+  - id: a190
+    label: "どこから測るか"
+    at: { x: 830, y: 190 }
+    size: { w: 160, h: 22 }
+  - id: b190
+    label: "遊具の外形から全方向へ"
+    align: left
+    at: { x: 990, y: 190 }
+    size: { w: 300, h: 22 }
+  - id: h226
+    label: "この図の遊具"
+    hatch: solid
+    at: { x: 830, y: 226 }
+    size: { w: 460, h: 22 }
+  - id: a248
+    label: "すべり台"
+    at: { x: 830, y: 248 }
+    size: { w: 160, h: 22 }
+  - id: b248
+    label: "落下高さ 1500mm → 安全領域 1800mm"
+    align: left
+    at: { x: 990, y: 248 }
+    size: { w: 300, h: 22 }
+  - id: a270
+    label: "ブランコ"
+    at: { x: 830, y: 270 }
+    size: { w: 160, h: 22 }
+  - id: b270
+    label: "落下高さ 1600mm → 安全領域 1800mm"
+    align: left
+    at: { x: 990, y: 270 }
+    size: { w: 300, h: 22 }
+  - id: a292
+    label: "鉄棒"
+    at: { x: 830, y: 292 }
+    size: { w: 160, h: 22 }
+  - id: b292
+    label: "落下高さ 1200mm → 安全領域 1800mm"
+    align: left
+    at: { x: 990, y: 292 }
+    size: { w: 300, h: 22 }
+  - id: a314
+    label: "砂場"
+    at: { x: 830, y: 314 }
+    size: { w: 160, h: 22 }
+  - id: b314
+    label: "落下高さ無し（安全領域は要らない）"
+    align: left
+    at: { x: 990, y: 314 }
+    size: { w: 300, h: 22 }
+  - id: a336
+    label: "確かめた"
+    at: { x: 830, y: 336 }
+    size: { w: 160, h: 22 }
+  - id: b336
+    label: "遊具もベンチも、安全領域の外にある"
+    align: left
+    at: { x: 990, y: 336 }
+    size: { w: 300, h: 22 }
+  - id: h372
+    label: "重なってよいもの・いけないもの"
+    hatch: solid
+    at: { x: 830, y: 372 }
+    size: { w: 460, h: 22 }
+  - id: a394
+    label: "安全領域どうし"
+    at: { x: 830, y: 394 }
+    size: { w: 160, h: 22 }
+  - id: b394
+    label: "重なってよい"
+    align: left
+    at: { x: 990, y: 394 }
+    size: { w: 300, h: 22 }
+  - id: a416
+    label: "遊具と他の安全領域"
+    at: { x: 830, y: 416 }
+    size: { w: 160, h: 22 }
+  - id: b416
+    label: "入ってはいけない"
+    align: left
+    at: { x: 990, y: 416 }
+    size: { w: 300, h: 22 }
+  - id: a438
+    label: "保護面"
+    at: { x: 830, y: 438 }
+    size: { w: 160, h: 22 }
+  - id: b438
+    label: "コンクリート不可。砂・ゴムなど"
+    align: left
+    at: { x: 990, y: 438 }
+    size: { w: 300, h: 22 }
+  - id: a460
+    label: "落下高さの上限"
+    at: { x: 830, y: 460 }
+    size: { w: 160, h: 22 }
+  - id: b460
+    label: "幼児用 2,000mm／児童用 3,000mm"
+    align: left
+    at: { x: 990, y: 460 }
+    size: { w: 300, h: 22 }
+  - id: h496
+    label: "開口の寸法（挟まり・すり抜け）"
+    hatch: solid
+    at: { x: 830, y: 496 }
+    size: { w: 460, h: 22 }
+  - id: a518
+    label: "胴が入らない"
+    at: { x: 830, y: 518 }
+    size: { w: 160, h: 22 }
+  - id: b518
+    label: "100×157mm の器具が入ってはいけない"
+    align: left
+    at: { x: 990, y: 518 }
+    size: { w: 300, h: 22 }
+  - id: a540
+    label: "頭が抜ける"
+    at: { x: 830, y: 540 }
+    size: { w: 160, h: 22 }
+  - id: b540
+    label: "Φ230mm の器具が通り抜けられること"
+    align: left
+    at: { x: 990, y: 540 }
+    size: { w: 300, h: 22 }
+  - id: a562
+    label: "指が挟まらない"
+    at: { x: 830, y: 562 }
+    size: { w: 160, h: 22 }
+  - id: b562
+    label: "Φ8〜25mm の穴・隙間を作らない"
+    align: left
+    at: { x: 990, y: 562 }
+    size: { w: 300, h: 22 }
+  - id: a584
+    label: "柵の隙間"
+    at: { x: 830, y: 584 }
+    size: { w: 160, h: 22 }
+  - id: b584
+    label: "100mm 未満"
+    align: left
+    at: { x: 990, y: 584 }
+    size: { w: 300, h: 22 }
+  - id: n1
+    label: "遊具のまわりには安全領域を取ります。落下高さが 600mm を超えるなら 1,800mm、以下なら 1,500mm です。"
+    marker: none
+    align: left
+    at: { x: 90, y: 760 }
+    size: { w: 880, h: 18 }
+  - id: n2
+    label: "測るのは遊具の外形から全方向へ。すべり台の出口は勢いがあるので、もっと広く取ります。"
+    marker: none
+    align: left
+    at: { x: 90, y: 782 }
+    size: { w: 880, h: 18 }
+  - id: n3
+    label: "安全領域どうしは重なってかまいません。 ただし遊具そのものが、他の遊具の安全領域に入ってはいけません。"
+    marker: none
+    align: left
+    at: { x: 90, y: 804 }
+    size: { w: 880, h: 18 }
+  - id: n4
+    label: "この図では、遊具がほかの安全領域に入っていないことを機械で確かめています。"
+    marker: none
+    align: left
+    at: { x: 90, y: 826 }
+    size: { w: 880, h: 18 }
+  - id: n5
+    label: "安全領域の中は、コンクリートやアスファルトにできません。砂・ウッドチップ・ゴムなどにします。"
+    marker: none
+    align: left
+    at: { x: 90, y: 848 }
+    size: { w: 880, h: 18 }
+  - id: n6
+    label: "公園の形・配置は架空です。"
+    marker: none
+    align: left
+    at: { x: 90, y: 870 }
+    size: { w: 880, h: 18 }
+edges:
+  - from: e0
+    to: e0
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 122, y: 234 }
+      - { x: 394, y: 234 }
+      - { x: 394, y: 434 }
+      - { x: 122, y: 434 }
+      - { x: 122, y: 234 }
+  - from: e1
+    to: e1
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 378, y: 230 }
+      - { x: 658, y: 230 }
+      - { x: 658, y: 478 }
+      - { x: 378, y: 478 }
+      - { x: 378, y: 230 }
+  - from: e2
+    to: e2
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 418, y: 490 }
+      - { x: 658, y: 490 }
+      - { x: 658, y: 674 }
+      - { x: 418, y: 674 }
+      - { x: 418, y: 490 }
+  - from: e3
+    to: e3
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 90, y: 486 }
+      - { x: 770, y: 486 }
