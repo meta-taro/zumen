@@ -106,6 +106,45 @@ describe('overlaps', () => {
   });
 });
 
+/**
+ * **丸は四角ではない**（2026-09-19）。
+ *
+ * 輪の上に丸を並べると（花火の星、盤上の石、円卓の席）、
+ * 丸どうしは離れているのに**外接四角の四隅だけが重なる。**
+ * 割物花火の断面（見本 212）で、割薬の円と、その外を囲む星 36 個が
+ * **3mm 離れているのに 36 組すべて重なりとして数えられていた。**
+ */
+describe('丸どうしは、中心の距離で見る', () => {
+  const ROUND = (marker: string) => `version: 1
+kind: placement
+arrows: true
+nodes:
+  - id: big
+    label: ""
+    marker: ${marker}
+    at: { x: 50, y: 50 }
+    size: { w: 100, h: 100 }
+  - id: small
+    label: ""
+    marker: ${marker}
+    at: { x: 140, y: 140 }
+    size: { w: 40, h: 40 }
+`;
+
+  it('**四角が重なっても、丸が離れていれば数えない**', async () => {
+    assert.deepEqual(overlaps(await layout(ROUND('circle'))), []);
+  });
+
+  it('四角で描いてあれば、これまでどおり数える', async () => {
+    assert.deepEqual(overlaps(await layout(ROUND('box'))), [['big', 'small']]);
+  });
+
+  it('**丸どうしでも、本当に重なっていれば数える**', async () => {
+    const near = ROUND('circle').replace('{ x: 140, y: 140 }', '{ x: 120, y: 120 }');
+    assert.deepEqual(overlaps(await layout(near)), [['big', 'small']]);
+  });
+});
+
 describe('重なりを解く（Issue 015）', () => {
   /** 人が `to` の真上へ `id` を動かした状況。 */
   async function stackOn(id: string, to: string): Promise<Awaited<ReturnType<typeof layout>>> {

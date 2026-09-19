@@ -691,6 +691,36 @@ export function edgesUnderBoxes(placed: Placed): [string, string][] {
 }
 
 /** 重なっている組を返す。合否ではなく観測値。 */
+/**
+ * **丸い節**（`marker: circle` / `ellipse` で、幅と高さが同じもの）。
+ *
+ * 丸の外接四角は、**四隅が実物より外へ出ている。**
+ * 輪の上に丸を並べると（花火の星、盤上の石、円卓の席）、
+ * 丸どうしは離れているのに四角だけが重なる。
+ */
+function roundOf(box: Box): { cx: number; cy: number; r: number } | null {
+  if (box.marker !== 'circle' && box.marker !== 'ellipse') return null;
+  if (Math.abs(box.w - box.h) > 0.5) return null;
+  return { cx: box.x + box.w / 2, cy: box.y + box.h / 2, r: box.w / 2 };
+}
+
+/**
+ * **紙の上で場所を取り合っているか。**
+ *
+ * 基本は外接四角どうし。ただし**丸は四角ではない**（2026-09-19）——
+ * 丸どうしのときは中心の距離で見る。
+ * 割物花火の断面（見本 212）で、割薬の円と、その外を囲む星 36 個が
+ * **3mm 離れているのに 36 組すべて重なりとして数えられた。**
+ * 四隅の分だけ、丸は四角より小さい。
+ */
+function hits(a: Box, b: Box): boolean {
+  const apart = a.x + a.w <= b.x || b.x + b.w <= a.x || a.y + a.h <= b.y || b.y + b.h <= a.y;
+  if (apart) return false;
+  const [ra, rb] = [roundOf(a), roundOf(b)];
+  if (ra === null || rb === null) return true;
+  return Math.hypot(ra.cx - rb.cx, ra.cy - rb.cy) < ra.r + rb.r;
+}
+
 export function overlaps(placed: Placed): [string, string][] {
   const found: [string, string][] = [];
   const boxes = placed.boxes;
@@ -698,9 +728,7 @@ export function overlaps(placed: Placed): [string, string][] {
     for (let j = i + 1; j < boxes.length; j += 1) {
       const a = boxes[i]!;
       const b = boxes[j]!;
-      const apart =
-        a.x + a.w <= b.x || b.x + b.w <= a.x || a.y + a.h <= b.y || b.y + b.h <= a.y;
-      if (!apart) found.push([a.id, b.id]);
+      if (hits(a, b)) found.push([a.id, b.id]);
     }
   }
   return found;
