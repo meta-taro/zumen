@@ -1,0 +1,895 @@
+version: 1
+kind: placement
+arrows: true
+title: 災害時のトイレ —— 必要な数は「回数」で決まる
+palette:
+  G: "#e0e0e0"
+# **1 人 1 日 5 回。** 水の量ではなく、回数で数える
+# （内閣府「避難所におけるトイレの確保・管理ガイドライン」）。
+#
+# **4 人家族の 1 週間で 140 回分。** 1 回ごとに 1 袋出て、
+# ゴミの収集が止まっていれば、それは家に置くことになる。
+#
+# 避難所は発災当初 50 人に 1 基、長期化したら 20 人に 1 基。
+# **女性用と男性用の比は 3 対 1。**
+#
+# **数が足りないと、人は水を飲むのをやめる。** トイレの数は、健康の数。
+nodes:
+  - id: t1
+    label: "① 携帯トイレは「回数」で数える"
+    marker: none
+    align: left
+    at: { x: 150, y: 200 }
+    size: { w: 560, h: 20 }
+  - id: f
+    label: "必要な数 ＝ 5 回 × 人数 × 日数"
+    at: { x: 170, y: 232 }
+    size: { w: 380, h: 36 }
+  - id: h0
+    label: "人数"
+    hatch: solid
+    at: { x: 170, y: 292 }
+    size: { w: 90, h: 28 }
+  - id: h1
+    label: "3 日分"
+    hatch: solid
+    at: { x: 260, y: 292 }
+    size: { w: 120, h: 28 }
+  - id: h2
+    label: "7 日分"
+    hatch: solid
+    at: { x: 380, y: 292 }
+    size: { w: 120, h: 28 }
+  - id: h3
+    label: "14 日分"
+    hatch: solid
+    at: { x: 500, y: 292 }
+    size: { w: 120, h: 28 }
+  - id: r1_0
+    label: "1 人"
+    at: { x: 170, y: 320 }
+    size: { w: 90, h: 28 }
+  - id: r1_1
+    label: "15 回分"
+    at: { x: 260, y: 320 }
+    size: { w: 120, h: 28 }
+  - id: r1_2
+    label: "35 回分"
+    at: { x: 380, y: 320 }
+    size: { w: 120, h: 28 }
+  - id: r1_3
+    label: "70 回分"
+    at: { x: 500, y: 320 }
+    size: { w: 120, h: 28 }
+  - id: r2_0
+    label: "2 人"
+    at: { x: 170, y: 348 }
+    size: { w: 90, h: 28 }
+  - id: r2_1
+    label: "30 回分"
+    at: { x: 260, y: 348 }
+    size: { w: 120, h: 28 }
+  - id: r2_2
+    label: "70 回分"
+    at: { x: 380, y: 348 }
+    size: { w: 120, h: 28 }
+  - id: r2_3
+    label: "140 回分"
+    at: { x: 500, y: 348 }
+    size: { w: 120, h: 28 }
+  - id: r3_0
+    label: "3 人"
+    at: { x: 170, y: 376 }
+    size: { w: 90, h: 28 }
+  - id: r3_1
+    label: "45 回分"
+    at: { x: 260, y: 376 }
+    size: { w: 120, h: 28 }
+  - id: r3_2
+    label: "105 回分"
+    at: { x: 380, y: 376 }
+    size: { w: 120, h: 28 }
+  - id: r3_3
+    label: "210 回分"
+    at: { x: 500, y: 376 }
+    size: { w: 120, h: 28 }
+  - id: r4_0
+    label: "4 人"
+    at: { x: 170, y: 404 }
+    size: { w: 90, h: 28 }
+  - id: r4_1
+    label: "60 回分"
+    fill: G
+    hatch: solid
+    at: { x: 260, y: 404 }
+    size: { w: 120, h: 28 }
+  - id: r4_2
+    label: "140 回分"
+    fill: G
+    hatch: solid
+    at: { x: 380, y: 404 }
+    size: { w: 120, h: 28 }
+  - id: r4_3
+    label: "280 回分"
+    fill: G
+    hatch: solid
+    at: { x: 500, y: 404 }
+    size: { w: 120, h: 28 }
+  - id: r5_0
+    label: "5 人"
+    at: { x: 170, y: 432 }
+    size: { w: 90, h: 28 }
+  - id: r5_1
+    label: "75 回分"
+    at: { x: 260, y: 432 }
+    size: { w: 120, h: 28 }
+  - id: r5_2
+    label: "175 回分"
+    at: { x: 380, y: 432 }
+    size: { w: 120, h: 28 }
+  - id: r5_3
+    label: "350 回分"
+    at: { x: 500, y: 432 }
+    size: { w: 120, h: 28 }
+  - id: n1
+    label: "1 人 1 日 5 回は、内閣府ガイドラインが備蓄計画に使う数。"
+    marker: none
+    align: left
+    at: { x: 170, y: 470 }
+    size: { w: 460, h: 18 }
+  - id: n2
+    label: "断水すると、水洗トイレは流せません。"
+    marker: none
+    align: left
+    at: { x: 170, y: 492 }
+    size: { w: 460, h: 18 }
+  - id: n3
+    label: "便器に袋をかぶせて使い、1 回ごとに 1 袋出ます。"
+    marker: none
+    align: left
+    at: { x: 170, y: 514 }
+    size: { w: 460, h: 18 }
+  - id: t2
+    label: "② 避難所は、避難者の数で基数が決まる"
+    marker: none
+    align: left
+    at: { x: 760, y: 200 }
+    size: { w: 480, h: 20 }
+  - id: t0_0
+    label: "いつ"
+    hatch: solid
+    at: { x: 760, y: 232 }
+    size: { w: 180, h: 30 }
+  - id: t0_1
+    label: "何人に 1 基"
+    hatch: solid
+    at: { x: 940, y: 232 }
+    size: { w: 120, h: 30 }
+  - id: t0_2
+    label: "避難者 400 人なら"
+    hatch: solid
+    at: { x: 1060, y: 232 }
+    size: { w: 180, h: 30 }
+  - id: t1_0
+    label: "発災当初"
+    at: { x: 760, y: 262 }
+    size: { w: 180, h: 30 }
+  - id: t1_1
+    label: "50 人"
+    at: { x: 940, y: 262 }
+    size: { w: 120, h: 30 }
+  - id: t1_2
+    label: "8 基"
+    at: { x: 1060, y: 262 }
+    size: { w: 180, h: 30 }
+  - id: t2_0
+    label: "避難が長期化"
+    at: { x: 760, y: 292 }
+    size: { w: 180, h: 30 }
+  - id: t2_1
+    label: "20 人"
+    at: { x: 940, y: 292 }
+    size: { w: 120, h: 30 }
+  - id: t2_2
+    label: "20 基"
+    at: { x: 1060, y: 292 }
+    size: { w: 180, h: 30 }
+  - id: n4
+    label: "女性用と男性用の比は 3 対 1。"
+    marker: none
+    align: left
+    at: { x: 760, y: 334 }
+    size: { w: 480, h: 18 }
+  - id: n5
+    label: "20 基なら 女性 15 基・男性 5 基。"
+    marker: none
+    align: left
+    at: { x: 760, y: 356 }
+    size: { w: 480, h: 18 }
+  - id: n6
+    label: "女性のほうが時間がかかり、列ができるため。"
+    marker: none
+    align: left
+    at: { x: 760, y: 378 }
+    size: { w: 480, h: 18 }
+  - id: n7
+    label: "数が足りないと、人は水を飲むのをやめます。"
+    marker: none
+    align: left
+    at: { x: 760, y: 410 }
+    size: { w: 480, h: 18 }
+  - id: n8
+    label: "そこから脱水・エコノミークラス症候群が起きます。"
+    marker: none
+    align: left
+    at: { x: 760, y: 432 }
+    size: { w: 480, h: 18 }
+  - id: n9
+    label: "トイレの数は、健康の数です。"
+    marker: none
+    align: left
+    at: { x: 760, y: 454 }
+    size: { w: 480, h: 18 }
+  - id: t3
+    label: "③ 4 人家族の 1 週間 ＝ 140 回分（1 つが 1 袋）"
+    marker: none
+    align: left
+    at: { x: 150, y: 600 }
+    size: { w: 1090, h: 20 }
+  - id: d0
+    label: "1 日目"
+    marker: none
+    align: right
+    at: { x: 150, y: 637 }
+    size: { w: 96, h: 18 }
+  - id: b0_0
+    label: ""
+    at: { x: 260, y: 636 }
+    size: { w: 18, h: 18 }
+  - id: b0_1
+    label: ""
+    at: { x: 282, y: 636 }
+    size: { w: 18, h: 18 }
+  - id: b0_2
+    label: ""
+    at: { x: 304, y: 636 }
+    size: { w: 18, h: 18 }
+  - id: b0_3
+    label: ""
+    at: { x: 326, y: 636 }
+    size: { w: 18, h: 18 }
+  - id: b0_4
+    label: ""
+    at: { x: 348, y: 636 }
+    size: { w: 18, h: 18 }
+  - id: b0_5
+    label: ""
+    at: { x: 370, y: 636 }
+    size: { w: 18, h: 18 }
+  - id: b0_6
+    label: ""
+    at: { x: 392, y: 636 }
+    size: { w: 18, h: 18 }
+  - id: b0_7
+    label: ""
+    at: { x: 414, y: 636 }
+    size: { w: 18, h: 18 }
+  - id: b0_8
+    label: ""
+    at: { x: 436, y: 636 }
+    size: { w: 18, h: 18 }
+  - id: b0_9
+    label: ""
+    at: { x: 458, y: 636 }
+    size: { w: 18, h: 18 }
+  - id: b0_10
+    label: ""
+    at: { x: 480, y: 636 }
+    size: { w: 18, h: 18 }
+  - id: b0_11
+    label: ""
+    at: { x: 502, y: 636 }
+    size: { w: 18, h: 18 }
+  - id: b0_12
+    label: ""
+    at: { x: 524, y: 636 }
+    size: { w: 18, h: 18 }
+  - id: b0_13
+    label: ""
+    at: { x: 546, y: 636 }
+    size: { w: 18, h: 18 }
+  - id: b0_14
+    label: ""
+    at: { x: 568, y: 636 }
+    size: { w: 18, h: 18 }
+  - id: b0_15
+    label: ""
+    at: { x: 590, y: 636 }
+    size: { w: 18, h: 18 }
+  - id: b0_16
+    label: ""
+    at: { x: 612, y: 636 }
+    size: { w: 18, h: 18 }
+  - id: b0_17
+    label: ""
+    at: { x: 634, y: 636 }
+    size: { w: 18, h: 18 }
+  - id: b0_18
+    label: ""
+    at: { x: 656, y: 636 }
+    size: { w: 18, h: 18 }
+  - id: b0_19
+    label: ""
+    at: { x: 678, y: 636 }
+    size: { w: 18, h: 18 }
+  - id: d1
+    label: "2 日目"
+    marker: none
+    align: right
+    at: { x: 150, y: 659 }
+    size: { w: 96, h: 18 }
+  - id: b1_0
+    label: ""
+    at: { x: 260, y: 658 }
+    size: { w: 18, h: 18 }
+  - id: b1_1
+    label: ""
+    at: { x: 282, y: 658 }
+    size: { w: 18, h: 18 }
+  - id: b1_2
+    label: ""
+    at: { x: 304, y: 658 }
+    size: { w: 18, h: 18 }
+  - id: b1_3
+    label: ""
+    at: { x: 326, y: 658 }
+    size: { w: 18, h: 18 }
+  - id: b1_4
+    label: ""
+    at: { x: 348, y: 658 }
+    size: { w: 18, h: 18 }
+  - id: b1_5
+    label: ""
+    at: { x: 370, y: 658 }
+    size: { w: 18, h: 18 }
+  - id: b1_6
+    label: ""
+    at: { x: 392, y: 658 }
+    size: { w: 18, h: 18 }
+  - id: b1_7
+    label: ""
+    at: { x: 414, y: 658 }
+    size: { w: 18, h: 18 }
+  - id: b1_8
+    label: ""
+    at: { x: 436, y: 658 }
+    size: { w: 18, h: 18 }
+  - id: b1_9
+    label: ""
+    at: { x: 458, y: 658 }
+    size: { w: 18, h: 18 }
+  - id: b1_10
+    label: ""
+    at: { x: 480, y: 658 }
+    size: { w: 18, h: 18 }
+  - id: b1_11
+    label: ""
+    at: { x: 502, y: 658 }
+    size: { w: 18, h: 18 }
+  - id: b1_12
+    label: ""
+    at: { x: 524, y: 658 }
+    size: { w: 18, h: 18 }
+  - id: b1_13
+    label: ""
+    at: { x: 546, y: 658 }
+    size: { w: 18, h: 18 }
+  - id: b1_14
+    label: ""
+    at: { x: 568, y: 658 }
+    size: { w: 18, h: 18 }
+  - id: b1_15
+    label: ""
+    at: { x: 590, y: 658 }
+    size: { w: 18, h: 18 }
+  - id: b1_16
+    label: ""
+    at: { x: 612, y: 658 }
+    size: { w: 18, h: 18 }
+  - id: b1_17
+    label: ""
+    at: { x: 634, y: 658 }
+    size: { w: 18, h: 18 }
+  - id: b1_18
+    label: ""
+    at: { x: 656, y: 658 }
+    size: { w: 18, h: 18 }
+  - id: b1_19
+    label: ""
+    at: { x: 678, y: 658 }
+    size: { w: 18, h: 18 }
+  - id: d2
+    label: "3 日目"
+    marker: none
+    align: right
+    at: { x: 150, y: 681 }
+    size: { w: 96, h: 18 }
+  - id: b2_0
+    label: ""
+    at: { x: 260, y: 680 }
+    size: { w: 18, h: 18 }
+  - id: b2_1
+    label: ""
+    at: { x: 282, y: 680 }
+    size: { w: 18, h: 18 }
+  - id: b2_2
+    label: ""
+    at: { x: 304, y: 680 }
+    size: { w: 18, h: 18 }
+  - id: b2_3
+    label: ""
+    at: { x: 326, y: 680 }
+    size: { w: 18, h: 18 }
+  - id: b2_4
+    label: ""
+    at: { x: 348, y: 680 }
+    size: { w: 18, h: 18 }
+  - id: b2_5
+    label: ""
+    at: { x: 370, y: 680 }
+    size: { w: 18, h: 18 }
+  - id: b2_6
+    label: ""
+    at: { x: 392, y: 680 }
+    size: { w: 18, h: 18 }
+  - id: b2_7
+    label: ""
+    at: { x: 414, y: 680 }
+    size: { w: 18, h: 18 }
+  - id: b2_8
+    label: ""
+    at: { x: 436, y: 680 }
+    size: { w: 18, h: 18 }
+  - id: b2_9
+    label: ""
+    at: { x: 458, y: 680 }
+    size: { w: 18, h: 18 }
+  - id: b2_10
+    label: ""
+    at: { x: 480, y: 680 }
+    size: { w: 18, h: 18 }
+  - id: b2_11
+    label: ""
+    at: { x: 502, y: 680 }
+    size: { w: 18, h: 18 }
+  - id: b2_12
+    label: ""
+    at: { x: 524, y: 680 }
+    size: { w: 18, h: 18 }
+  - id: b2_13
+    label: ""
+    at: { x: 546, y: 680 }
+    size: { w: 18, h: 18 }
+  - id: b2_14
+    label: ""
+    at: { x: 568, y: 680 }
+    size: { w: 18, h: 18 }
+  - id: b2_15
+    label: ""
+    at: { x: 590, y: 680 }
+    size: { w: 18, h: 18 }
+  - id: b2_16
+    label: ""
+    at: { x: 612, y: 680 }
+    size: { w: 18, h: 18 }
+  - id: b2_17
+    label: ""
+    at: { x: 634, y: 680 }
+    size: { w: 18, h: 18 }
+  - id: b2_18
+    label: ""
+    at: { x: 656, y: 680 }
+    size: { w: 18, h: 18 }
+  - id: b2_19
+    label: ""
+    at: { x: 678, y: 680 }
+    size: { w: 18, h: 18 }
+  - id: d3
+    label: "4 日目"
+    marker: none
+    align: right
+    at: { x: 150, y: 703 }
+    size: { w: 96, h: 18 }
+  - id: b3_0
+    label: ""
+    at: { x: 260, y: 702 }
+    size: { w: 18, h: 18 }
+  - id: b3_1
+    label: ""
+    at: { x: 282, y: 702 }
+    size: { w: 18, h: 18 }
+  - id: b3_2
+    label: ""
+    at: { x: 304, y: 702 }
+    size: { w: 18, h: 18 }
+  - id: b3_3
+    label: ""
+    at: { x: 326, y: 702 }
+    size: { w: 18, h: 18 }
+  - id: b3_4
+    label: ""
+    at: { x: 348, y: 702 }
+    size: { w: 18, h: 18 }
+  - id: b3_5
+    label: ""
+    at: { x: 370, y: 702 }
+    size: { w: 18, h: 18 }
+  - id: b3_6
+    label: ""
+    at: { x: 392, y: 702 }
+    size: { w: 18, h: 18 }
+  - id: b3_7
+    label: ""
+    at: { x: 414, y: 702 }
+    size: { w: 18, h: 18 }
+  - id: b3_8
+    label: ""
+    at: { x: 436, y: 702 }
+    size: { w: 18, h: 18 }
+  - id: b3_9
+    label: ""
+    at: { x: 458, y: 702 }
+    size: { w: 18, h: 18 }
+  - id: b3_10
+    label: ""
+    at: { x: 480, y: 702 }
+    size: { w: 18, h: 18 }
+  - id: b3_11
+    label: ""
+    at: { x: 502, y: 702 }
+    size: { w: 18, h: 18 }
+  - id: b3_12
+    label: ""
+    at: { x: 524, y: 702 }
+    size: { w: 18, h: 18 }
+  - id: b3_13
+    label: ""
+    at: { x: 546, y: 702 }
+    size: { w: 18, h: 18 }
+  - id: b3_14
+    label: ""
+    at: { x: 568, y: 702 }
+    size: { w: 18, h: 18 }
+  - id: b3_15
+    label: ""
+    at: { x: 590, y: 702 }
+    size: { w: 18, h: 18 }
+  - id: b3_16
+    label: ""
+    at: { x: 612, y: 702 }
+    size: { w: 18, h: 18 }
+  - id: b3_17
+    label: ""
+    at: { x: 634, y: 702 }
+    size: { w: 18, h: 18 }
+  - id: b3_18
+    label: ""
+    at: { x: 656, y: 702 }
+    size: { w: 18, h: 18 }
+  - id: b3_19
+    label: ""
+    at: { x: 678, y: 702 }
+    size: { w: 18, h: 18 }
+  - id: d4
+    label: "5 日目"
+    marker: none
+    align: right
+    at: { x: 150, y: 725 }
+    size: { w: 96, h: 18 }
+  - id: b4_0
+    label: ""
+    at: { x: 260, y: 724 }
+    size: { w: 18, h: 18 }
+  - id: b4_1
+    label: ""
+    at: { x: 282, y: 724 }
+    size: { w: 18, h: 18 }
+  - id: b4_2
+    label: ""
+    at: { x: 304, y: 724 }
+    size: { w: 18, h: 18 }
+  - id: b4_3
+    label: ""
+    at: { x: 326, y: 724 }
+    size: { w: 18, h: 18 }
+  - id: b4_4
+    label: ""
+    at: { x: 348, y: 724 }
+    size: { w: 18, h: 18 }
+  - id: b4_5
+    label: ""
+    at: { x: 370, y: 724 }
+    size: { w: 18, h: 18 }
+  - id: b4_6
+    label: ""
+    at: { x: 392, y: 724 }
+    size: { w: 18, h: 18 }
+  - id: b4_7
+    label: ""
+    at: { x: 414, y: 724 }
+    size: { w: 18, h: 18 }
+  - id: b4_8
+    label: ""
+    at: { x: 436, y: 724 }
+    size: { w: 18, h: 18 }
+  - id: b4_9
+    label: ""
+    at: { x: 458, y: 724 }
+    size: { w: 18, h: 18 }
+  - id: b4_10
+    label: ""
+    at: { x: 480, y: 724 }
+    size: { w: 18, h: 18 }
+  - id: b4_11
+    label: ""
+    at: { x: 502, y: 724 }
+    size: { w: 18, h: 18 }
+  - id: b4_12
+    label: ""
+    at: { x: 524, y: 724 }
+    size: { w: 18, h: 18 }
+  - id: b4_13
+    label: ""
+    at: { x: 546, y: 724 }
+    size: { w: 18, h: 18 }
+  - id: b4_14
+    label: ""
+    at: { x: 568, y: 724 }
+    size: { w: 18, h: 18 }
+  - id: b4_15
+    label: ""
+    at: { x: 590, y: 724 }
+    size: { w: 18, h: 18 }
+  - id: b4_16
+    label: ""
+    at: { x: 612, y: 724 }
+    size: { w: 18, h: 18 }
+  - id: b4_17
+    label: ""
+    at: { x: 634, y: 724 }
+    size: { w: 18, h: 18 }
+  - id: b4_18
+    label: ""
+    at: { x: 656, y: 724 }
+    size: { w: 18, h: 18 }
+  - id: b4_19
+    label: ""
+    at: { x: 678, y: 724 }
+    size: { w: 18, h: 18 }
+  - id: d5
+    label: "6 日目"
+    marker: none
+    align: right
+    at: { x: 150, y: 747 }
+    size: { w: 96, h: 18 }
+  - id: b5_0
+    label: ""
+    at: { x: 260, y: 746 }
+    size: { w: 18, h: 18 }
+  - id: b5_1
+    label: ""
+    at: { x: 282, y: 746 }
+    size: { w: 18, h: 18 }
+  - id: b5_2
+    label: ""
+    at: { x: 304, y: 746 }
+    size: { w: 18, h: 18 }
+  - id: b5_3
+    label: ""
+    at: { x: 326, y: 746 }
+    size: { w: 18, h: 18 }
+  - id: b5_4
+    label: ""
+    at: { x: 348, y: 746 }
+    size: { w: 18, h: 18 }
+  - id: b5_5
+    label: ""
+    at: { x: 370, y: 746 }
+    size: { w: 18, h: 18 }
+  - id: b5_6
+    label: ""
+    at: { x: 392, y: 746 }
+    size: { w: 18, h: 18 }
+  - id: b5_7
+    label: ""
+    at: { x: 414, y: 746 }
+    size: { w: 18, h: 18 }
+  - id: b5_8
+    label: ""
+    at: { x: 436, y: 746 }
+    size: { w: 18, h: 18 }
+  - id: b5_9
+    label: ""
+    at: { x: 458, y: 746 }
+    size: { w: 18, h: 18 }
+  - id: b5_10
+    label: ""
+    at: { x: 480, y: 746 }
+    size: { w: 18, h: 18 }
+  - id: b5_11
+    label: ""
+    at: { x: 502, y: 746 }
+    size: { w: 18, h: 18 }
+  - id: b5_12
+    label: ""
+    at: { x: 524, y: 746 }
+    size: { w: 18, h: 18 }
+  - id: b5_13
+    label: ""
+    at: { x: 546, y: 746 }
+    size: { w: 18, h: 18 }
+  - id: b5_14
+    label: ""
+    at: { x: 568, y: 746 }
+    size: { w: 18, h: 18 }
+  - id: b5_15
+    label: ""
+    at: { x: 590, y: 746 }
+    size: { w: 18, h: 18 }
+  - id: b5_16
+    label: ""
+    at: { x: 612, y: 746 }
+    size: { w: 18, h: 18 }
+  - id: b5_17
+    label: ""
+    at: { x: 634, y: 746 }
+    size: { w: 18, h: 18 }
+  - id: b5_18
+    label: ""
+    at: { x: 656, y: 746 }
+    size: { w: 18, h: 18 }
+  - id: b5_19
+    label: ""
+    at: { x: 678, y: 746 }
+    size: { w: 18, h: 18 }
+  - id: d6
+    label: "7 日目"
+    marker: none
+    align: right
+    at: { x: 150, y: 769 }
+    size: { w: 96, h: 18 }
+  - id: b6_0
+    label: ""
+    at: { x: 260, y: 768 }
+    size: { w: 18, h: 18 }
+  - id: b6_1
+    label: ""
+    at: { x: 282, y: 768 }
+    size: { w: 18, h: 18 }
+  - id: b6_2
+    label: ""
+    at: { x: 304, y: 768 }
+    size: { w: 18, h: 18 }
+  - id: b6_3
+    label: ""
+    at: { x: 326, y: 768 }
+    size: { w: 18, h: 18 }
+  - id: b6_4
+    label: ""
+    at: { x: 348, y: 768 }
+    size: { w: 18, h: 18 }
+  - id: b6_5
+    label: ""
+    at: { x: 370, y: 768 }
+    size: { w: 18, h: 18 }
+  - id: b6_6
+    label: ""
+    at: { x: 392, y: 768 }
+    size: { w: 18, h: 18 }
+  - id: b6_7
+    label: ""
+    at: { x: 414, y: 768 }
+    size: { w: 18, h: 18 }
+  - id: b6_8
+    label: ""
+    at: { x: 436, y: 768 }
+    size: { w: 18, h: 18 }
+  - id: b6_9
+    label: ""
+    at: { x: 458, y: 768 }
+    size: { w: 18, h: 18 }
+  - id: b6_10
+    label: ""
+    at: { x: 480, y: 768 }
+    size: { w: 18, h: 18 }
+  - id: b6_11
+    label: ""
+    at: { x: 502, y: 768 }
+    size: { w: 18, h: 18 }
+  - id: b6_12
+    label: ""
+    at: { x: 524, y: 768 }
+    size: { w: 18, h: 18 }
+  - id: b6_13
+    label: ""
+    at: { x: 546, y: 768 }
+    size: { w: 18, h: 18 }
+  - id: b6_14
+    label: ""
+    at: { x: 568, y: 768 }
+    size: { w: 18, h: 18 }
+  - id: b6_15
+    label: ""
+    at: { x: 590, y: 768 }
+    size: { w: 18, h: 18 }
+  - id: b6_16
+    label: ""
+    at: { x: 612, y: 768 }
+    size: { w: 18, h: 18 }
+  - id: b6_17
+    label: ""
+    at: { x: 634, y: 768 }
+    size: { w: 18, h: 18 }
+  - id: b6_18
+    label: ""
+    at: { x: 656, y: 768 }
+    size: { w: 18, h: 18 }
+  - id: b6_19
+    label: ""
+    at: { x: 678, y: 768 }
+    size: { w: 18, h: 18 }
+  - id: n10
+    label: "1 日 20 袋 × 7 日 ＝ 140 袋。"
+    marker: none
+    align: left
+    at: { x: 260, y: 800 }
+    size: { w: 460, h: 18 }
+  - id: n11
+    label: "ゴミの収集が止まっていれば、これは家に置くことになります。"
+    marker: none
+    align: left
+    at: { x: 260, y: 822 }
+    size: { w: 560, h: 18 }
+  - id: r1
+    label: "災害時のトイレは、水の量ではなく「回数」で考えます。 1 人 1 日 5 回 —— これが内閣府のガイドラインが備蓄計画に使う数です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 890 }
+    size: { w: 1090, h: 18 }
+  - id: r2
+    label: "4 人家族の 1 週間で 140 回分（③）。買い置きの箱 1 つでは足りません。並べてみると、量が分かります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 914 }
+    size: { w: 1090, h: 18 }
+  - id: r3
+    label: "断水すると水洗は流せません。 便器に袋をかぶせて使い、1 回ごとに 1 袋出ます —— 出た袋は、捨てられるまで家に置きます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 938 }
+    size: { w: 1090, h: 18 }
+  - id: r4
+    label: "避難所の基数は、避難者の数で決まります（②）。発災当初は 50 人に 1 基、長期化したら 20 人に 1 基。"
+    marker: none
+    align: left
+    at: { x: 150, y: 962 }
+    size: { w: 1090, h: 18 }
+  - id: r5
+    label: "女性用と男性用の比は 3 対 1。 女性のほうが時間がかかり、列ができるからです。"
+    marker: none
+    align: left
+    at: { x: 150, y: 986 }
+    size: { w: 1090, h: 18 }
+  - id: r6
+    label: "数が足りないと、人は水を飲むのをやめます。 そこから脱水とエコノミークラス症候群が起きます —— トイレの数は、健康の数です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1010 }
+    size: { w: 1090, h: 18 }
+  - id: r7
+    label: "食べ物と水の備蓄は言われますが、出るほうは数えられていないことが多い。数えれば、足りるかどうかがその場で分かります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1034 }
+    size: { w: 1090, h: 18 }
+edges:
