@@ -106,6 +106,7 @@ export const CAPTIONS_EN = {
   '169-麻雀の配牌': 'Mahjong: the dice decide where the wall is opened, not luck',
   '168-ダイヤモンドシステム': 'Billiards: the diamonds on the rails are a ruler, not decoration',
   '167-ダーツボードの割り付け': 'A dartboard: the numbers are arranged to punish a miss',
+  '217-上部式フィルターの断面': 'Aquarium filter in section: it does not remove the poison, it turns it into a weaker one — and the water must meet the mechanical media before the biological',
   '216-日本の硬貨6種': 'Japanese coins: the order by size is not the order by value, so the hand reads the hole first, then the reeding, and only then the size',
   '215-NANDフラッシュの階層': 'NAND flash: reads and writes go by the page, erases only by the block — every other property of an SSD follows from that mismatch',
   '214-日影規制と等時間日影図': 'Shadow-hour zoning: the iso-shadow lines here were computed, not sketched — the inner line clears its limit but the outer one does not',

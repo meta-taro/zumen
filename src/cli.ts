@@ -114,6 +114,47 @@ function endsOfLongSide(
 }
 
 /**
+ * **長辺の向きで、いちばん空いている帯**（2026-09-19）。
+ *
+ * 「あと N px 詰めてください」まで言えるようになったが、
+ * **どこを詰めればよいかは、まだ当て推量だった** ——
+ * 1 枚の見本で 3 往復したことが今日 4 回あった。
+ * 中身が 1 つも無い帯を見つけて、その場所と幅を返す。
+ * **節の間の空きは、たいてい意図ではなく余り。**
+ */
+/** 空いている帯を、文言へ渡す 4 つの文字にする（無ければ空文字 4 つ）。 */
+function gapWords(
+  gap: { at: number; to: number } | null,
+  vertical: boolean,
+): [string, string, string, string] {
+  if (gap === null) return ['', '', '', ''];
+  return [
+    vertical ? 'y' : 'x',
+    String(Math.round(gap.at)),
+    String(Math.round(gap.to)),
+    String(Math.round(gap.to - gap.at)),
+  ];
+}
+
+function widestGap(
+  placed: { boxes: { x: number; y: number; w: number; h: number }[] },
+  vertical: boolean,
+): { at: number; to: number } | null {
+  if (placed.boxes.length < 2) return null;
+  const span = placed.boxes
+    .map((b) => (vertical ? { a: b.y, b: b.y + b.h } : { a: b.x, b: b.x + b.w }))
+    .sort((x, y) => x.a - y.a);
+  let edge = span[0]!.b;
+  let best: { at: number; to: number } | null = null;
+  for (const s of span) {
+    if (s.a > edge && (best === null || s.a - edge > best.to - best.at)) best = { at: edge, to: s.a };
+    edge = Math.max(edge, s.b);
+  }
+  // **20px 未満は、行と行のあいだ**。詰めても効かないし、詰めると読めなくなる。
+  return best !== null && best.to - best.at >= 20 ? best : null;
+}
+
+/**
  * **置いてみないと分からない指摘**（配置図だけ）。
  *
  * 構成図では置き場所を機械が決めるので、重なりは起きない。
@@ -162,6 +203,7 @@ export async function placedFindings(text: string): Promise<Finding[]> {
               ? messages().validate.alongVertical
               : messages().validate.alongHorizontal,
             ...endsOfLongSide(placed, placed.height >= placed.width),
+            ...gapWords(widestGap(placed, placed.height >= placed.width), placed.height >= placed.width),
           ),
         },
       ]

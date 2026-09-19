@@ -415,3 +415,36 @@ edges:
     assert.equal(hasError(validate(`${FLOW}    at: { x: 1, y: 2 }\n`)), false);
   });
 });
+
+/**
+ * **どこを詰めればよいかまで言う**（2026-09-19）。
+ *
+ * 「あと N px 詰めてください」までは言えていたが、
+ * **どこを詰めるかは当て推量**だった —— 1 枚の見本で 3 往復したことが今日 4 回あった。
+ * 長辺の向きで**中身が 1 つも無い帯**を見つけて、その場所と幅を返す。
+ */
+describe('印刷で読めない紙に、空いている帯を教える', () => {
+  const FAR = (y: number): string => `version: 1
+kind: placement
+nodes:
+  - id: a
+    label: "上"
+    at: { x: 10, y: 10 }
+    size: { w: 200, h: 40 }
+  - id: b
+    label: "下"
+    at: { x: 10, y: ${y} }
+    size: { w: 200, h: 40 }
+`;
+
+  it('**空いている帯の場所と幅を言う**', async () => {
+    const found = await placedFindings(FAR(1500));
+    const said = found.find((f) => f.code === 'too-small-to-print')!;
+    assert.match(said.message, /いちばん空いているのは y 50〜1500 の 1450px/);
+  });
+
+  it('収まっている紙には、何も言わない', async () => {
+    const found = await placedFindings(FAR(80));
+    assert.ok(!found.some((f) => f.code === 'too-small-to-print'));
+  });
+});

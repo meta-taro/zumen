@@ -1,0 +1,393 @@
+version: 1
+kind: placement
+arrows: true
+title: 上部式フィルターの断面と、硝化のしくみ
+# **ろ過装置は、汚れを消す機械ではない。**
+#
+# ゴミをこし取り（物理）、溶けた毒を弱いものへ変える（生物）装置。
+# **水が先に当たるのが物理ろ材、後が生物ろ材** —— 逆だと生物ろ材が目詰まりする。
+#
+# アンモニア →（ニトロソモナス）→ 亜硝酸 →（ニトロバクター）→ 硝酸。
+# **硝酸はろ過では減らない。** 水換えか、水草に吸わせるかの 2 つだけ。
+nodes:
+  - id: t1
+    label: "① 上部式フィルターの断面（模式）"
+    marker: none
+    align: left
+    at: { x: 150, y: 200 }
+    size: { w: 500, h: 20 }
+  - id: tank
+    label: ""
+    at: { x: 170, y: 430 }
+    size: { w: 470, h: 250 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 173, y: 451 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 635, y: 451 }
+    size: { w: 2, h: 2 }
+  - id: wl
+    label: "水位"
+    marker: none
+    align: left
+    at: { x: 250, y: 434 }
+    size: { w: 70, h: 18 }
+  - id: sand
+    label: ""
+    hatch: dots
+    at: { x: 174, y: 646 }
+    size: { w: 462, h: 30 }
+  - id: sand_n
+    label: "底床"
+    marker: none
+    align: left
+    at: { x: 180, y: 653 }
+    size: { w: 80, h: 18 }
+  - id: sou
+    label: ""
+    at: { x: 240, y: 284 }
+    size: { w: 340, h: 146 }
+  - id: spray
+    label: ""
+    hatch: lines
+    at: { x: 250, y: 294 }
+    size: { w: 90, h: 16 }
+  - id: wool
+    label: ""
+    hatch: lines
+    at: { x: 250, y: 316 }
+    size: { w: 320, h: 26 }
+  - id: media
+    label: ""
+    hatch: dots
+    at: { x: 250, y: 342 }
+    size: { w: 320, h: 68 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 249, y: 415 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 569, y: 415 }
+    size: { w: 2, h: 2 }
+  - id: pump
+    label: ""
+    hatch: lines
+    at: { x: 196, y: 470 }
+    size: { w: 30, h: 44 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 210, y: 469 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 245, y: 301 }
+    size: { w: 2, h: 2 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 559, y: 419 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 559, y: 469 }
+    size: { w: 2, h: 2 }
+  - id: s1
+    label: "1"
+    marker: circle
+    at: { x: 200, y: 379 }
+    size: { w: 22, h: 22 }
+  - id: s2
+    label: "2"
+    marker: circle
+    at: { x: 349, y: 291 }
+    size: { w: 22, h: 22 }
+  - id: s3
+    label: "3"
+    marker: circle
+    at: { x: 529, y: 318 }
+    size: { w: 22, h: 22 }
+  - id: s4
+    label: "4"
+    marker: circle
+    at: { x: 529, y: 365 }
+    size: { w: 22, h: 22 }
+  - id: s5
+    label: "5"
+    marker: circle
+    at: { x: 577, y: 475 }
+    size: { w: 22, h: 22 }
+  - id: lg1
+    label: "1　水中ポンプが、水槽の水を汲み上げる"
+    marker: none
+    align: left
+    at: { x: 150, y: 700 }
+    size: { w: 480, h: 18 }
+  - id: lg2
+    label: "2　散水パイプから、ウールマットの上へ落ちる"
+    marker: none
+    align: left
+    at: { x: 150, y: 722 }
+    size: { w: 480, h: 18 }
+  - id: lg3
+    label: "3　ウールマット（物理）—— ゴミをこし取る"
+    marker: none
+    align: left
+    at: { x: 150, y: 744 }
+    size: { w: 480, h: 18 }
+  - id: lg4
+    label: "4　ろ材（生物）—— バクテリアが毒を変える"
+    marker: none
+    align: left
+    at: { x: 150, y: 766 }
+    size: { w: 480, h: 18 }
+  - id: lg5
+    label: "5　底のスリットから、水槽へ戻る"
+    marker: none
+    align: left
+    at: { x: 150, y: 788 }
+    size: { w: 480, h: 18 }
+  - id: lg_n
+    label: "ろ過槽の寸法は機種による（この図は模式）。"
+    marker: none
+    align: left
+    at: { x: 150, y: 816 }
+    size: { w: 480, h: 18 }
+  - id: t2
+    label: "② 水が当たる順は、決まっている"
+    marker: none
+    align: left
+    at: { x: 690, y: 200 }
+    size: { w: 540, h: 20 }
+  - id: m0_0
+    label: "何ろ過か"
+    hatch: solid
+    at: { x: 690, y: 232 }
+    size: { w: 110, h: 30 }
+  - id: m0_1
+    label: "何を使うか"
+    hatch: solid
+    at: { x: 800, y: 232 }
+    size: { w: 150, h: 30 }
+  - id: m0_2
+    label: "何をするか"
+    hatch: solid
+    at: { x: 950, y: 232 }
+    size: { w: 280, h: 30 }
+  - id: m1_0
+    label: "物理"
+    align: left
+    at: { x: 690, y: 262 }
+    size: { w: 110, h: 40 }
+  - id: m1_1
+    label: "ウールマット"
+    align: left
+    at: { x: 800, y: 262 }
+    size: { w: 150, h: 40 }
+  - id: m1_2
+    label: "ゴミ・フンをこし取る。目詰まりする"
+    align: left
+    at: { x: 950, y: 262 }
+    size: { w: 280, h: 40 }
+  - id: m2_0
+    label: "生物"
+    align: left
+    at: { x: 690, y: 302 }
+    size: { w: 110, h: 40 }
+  - id: m2_1
+    label: "リング・ボール\n（多孔質）"
+    align: left
+    at: { x: 800, y: 302 }
+    size: { w: 150, h: 40 }
+  - id: m2_2
+    label: "バクテリアが毒を変える。表面積が命"
+    align: left
+    at: { x: 950, y: 302 }
+    size: { w: 280, h: 40 }
+  - id: m3_0
+    label: "化学"
+    align: left
+    at: { x: 690, y: 342 }
+    size: { w: 110, h: 40 }
+  - id: m3_1
+    label: "活性炭・ゼオライト"
+    align: left
+    at: { x: 800, y: 342 }
+    size: { w: 150, h: 40 }
+  - id: m3_2
+    label: "溶けた汚れや色を吸着する。効き目は切れる"
+    align: left
+    at: { x: 950, y: 342 }
+    size: { w: 280, h: 40 }
+  - id: m_n1
+    label: "物理が先、生物が後。 逆にすると、ゴミが生物ろ材に詰まって"
+    marker: none
+    align: left
+    at: { x: 690, y: 394 }
+    size: { w: 540, h: 18 }
+  - id: m_n2
+    label: "水が通らなくなり、バクテリアの棲む場所が死にます。"
+    marker: none
+    align: left
+    at: { x: 690, y: 416 }
+    size: { w: 540, h: 18 }
+  - id: m_n3
+    label: "外部式は機種によって水の向き（上から下／下から上）が違うので、"
+    marker: none
+    align: left
+    at: { x: 690, y: 438 }
+    size: { w: 540, h: 18 }
+  - id: m_n4
+    label: "ろ材を入れる順も変わります —— 入口側に物理ろ材を置きます。"
+    marker: none
+    align: left
+    at: { x: 690, y: 460 }
+    size: { w: 540, h: 18 }
+  - id: t3
+    label: "③ ろ過は、毒を消していない —— 弱いものへ変えているだけ"
+    marker: none
+    align: left
+    at: { x: 690, y: 490 }
+    size: { w: 540, h: 20 }
+  - id: nh
+    label: "アンモニア\nNH₃ / NH₄⁺"
+    at: { x: 690, y: 526 }
+    size: { w: 200, h: 48 }
+  - id: nh_n
+    label: "強い毒"
+    marker: none
+    align: left
+    at: { x: 900, y: 541 }
+    size: { w: 90, h: 18 }
+  - id: no2
+    label: "亜硝酸\nNO₂⁻"
+    at: { x: 690, y: 618 }
+    size: { w: 200, h: 48 }
+  - id: no2_n
+    label: "やや弱い"
+    marker: none
+    align: left
+    at: { x: 900, y: 633 }
+    size: { w: 90, h: 18 }
+  - id: no3
+    label: "硝酸\nNO₃⁻"
+    at: { x: 690, y: 710 }
+    size: { w: 200, h: 48 }
+  - id: no3_n
+    label: "弱い"
+    marker: none
+    align: left
+    at: { x: 900, y: 725 }
+    size: { w: 90, h: 18 }
+  - id: c_n1
+    label: "硝酸はろ過では減りません。 出す手は 2 つだけ ——"
+    marker: none
+    align: left
+    at: { x: 690, y: 802 }
+    size: { w: 540, h: 18 }
+  - id: c_n2
+    label: "水換えと、水草に吸わせること。"
+    marker: none
+    align: left
+    at: { x: 690, y: 824 }
+    size: { w: 540, h: 18 }
+  - id: c_n3
+    label: "硝化菌は酸素を使います（好気性）。だから水を流し続けます。"
+    marker: none
+    align: left
+    at: { x: 690, y: 846 }
+    size: { w: 540, h: 18 }
+  - id: c_n4
+    label: "生物ろ材を水道水でごしごし洗うと、バクテリアが落ちます。"
+    marker: none
+    align: left
+    at: { x: 690, y: 868 }
+    size: { w: 540, h: 18 }
+  - id: c_n5
+    label: "飼育水で軽くすすぐ。ウールは別で、目詰まりしたら洗うか換えます。"
+    marker: none
+    align: left
+    at: { x: 690, y: 890 }
+    size: { w: 540, h: 18 }
+  - id: r1
+    label: "ろ過装置は、汚れを消す機械ではありません。 ゴミをこし取り（物理）、溶けた毒を弱いものへ変える（生物）装置です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 930 }
+    size: { w: 1080, h: 18 }
+  - id: r2
+    label: "水が先に当たるのが物理ろ材、後が生物ろ材。 順が逆だと、ゴミが生物ろ材に詰まって水が通らなくなります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 954 }
+    size: { w: 1080, h: 18 }
+  - id: r3
+    label: "生物ろ過の正体はバクテリアです。 アンモニア →（ニトロソモナス）→ 亜硝酸 →（ニトロバクター）→ 硝酸 の 2 段。"
+    marker: none
+    align: left
+    at: { x: 150, y: 978 }
+    size: { w: 1080, h: 18 }
+  - id: r4
+    label: "だから新しい水槽はすぐには効きません。 バクテリアが増えるまで、アンモニアと亜硝酸が先に溜まります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1002 }
+    size: { w: 1080, h: 18 }
+  - id: r5
+    label: "硝酸はろ過では減りません。 水換えで出すか、水草に吸わせるかの 2 つだけです —— ここがろ過の限界です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1026 }
+    size: { w: 1080, h: 18 }
+  - id: r6
+    label: "掃除のしかたが逆になります。 ウールはゴミの塊なので洗う。生物ろ材はバクテリアの塊なので、洗いすぎない。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1050 }
+    size: { w: 1080, h: 18 }
+  - id: r7
+    label: "硝化菌は酸素を使うので、止水では死にます。 停電でポンプが止まったら、ろ材を水槽へ戻すのはそのためです。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1074 }
+    size: { w: 1080, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p2
+    to: p3
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }
+  - from: p4
+    to: p5
+    curve: none
+    ends: { from: none, to: arrow }
+    weight: thick
+    via:
+      - { x: 211, y: 302 }
+  - from: p6
+    to: p7
+    curve: none
+    ends: { from: none, to: arrow }
+    weight: thick
+  - from: nh
+    to: no2
+    curve: none
+    label: "ニトロソモナス"
+  - from: no2
+    to: no3
+    curve: none
+    label: "ニトロバクター"

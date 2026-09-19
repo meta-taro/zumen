@@ -661,8 +661,17 @@ const ja = {
       axis: string,
       head: string,
       tail: string,
+      /**
+       * **いちばん空いている帯**（無ければ 4 つとも空文字）。
+       * **どこを詰めればよいか**を名指しする。文字で受けるのは、
+       * 文言表の検査が「引数が出力に現れること」を見るため（`test/messages.test.ts`）。
+       */
+      gapAxis: string,
+      gapAt: string,
+      gapTo: string,
+      gapWide: string,
     ) =>
-      `この図は A3 に印刷しても字が読めません（いちばん小さい字 ${smallest}px ÷ 長辺 ${longest}px ＝ ${ratio}。下限は ${floor}）。**あと ${Math.max(1, Math.ceil(longest - need))}px 詰めてください** —— 長辺が ${need}px 以下なら収まります。**長辺は${axis}で、端は "${head}" と "${tail}" です。**この 2 つの間を詰めてください。**文字を大きくしないでください**（図が伸びて比がさらに下がります）。表や注記を詰めるか、図を分けてください。`,
+      `この図は A3 に印刷しても字が読めません（いちばん小さい字 ${smallest}px ÷ 長辺 ${longest}px ＝ ${ratio}。下限は ${floor}）。**あと ${Math.max(1, Math.ceil(longest - need))}px 詰めてください** —— 長辺が ${need}px 以下なら収まります。**長辺は${axis}で、端は "${head}" と "${tail}" です。**この 2 つの間を詰めてください。**文字を大きくしないでください**（図が伸びて比がさらに下がります）。表や注記を詰めるか、図を分けてください。${gapAxis === '' ? '' : `**いちばん空いているのは ${gapAxis} ${gapAt}〜${gapTo} の ${gapWide}px** です —— ここに中身がありません。`}`,
     inkOverlap: (a: string, b: string, x: number, y: number) =>
       `紙の上で ${a} と ${b} の文字が重なって描かれます。名前どうしだけでなく、符号・寸法の数値・通り芯の符号・図の名前も同じ場所を取ります。**横に ${x}px か、縦に ${y}px** ずらせば離れます（どちらへ逃がすかは、図の都合で決めてください）。`,
     textOverlap: (a: string, b: string) =>
@@ -1257,8 +1266,12 @@ const en: Catalog = {
       axis: string,
       head: string,
       tail: string,
+      gapAxis: string,
+      gapAt: string,
+      gapTo: string,
+      gapWide: string,
     ) =>
-      `This drawing is too small to read even printed on A3 (smallest text ${smallest}px / longest side ${longest}px = ${ratio}; the floor is ${floor}). **Take ${Math.max(1, Math.ceil(longest - need))}px off** — a longest side of ${need}px or less fits. **The long side runs ${axis}, between "${head}" and "${tail}".** Close the gap between those two. **Do not enlarge the text** (that grows the drawing and lowers the ratio further). Tighten the tables and notes, or split the drawing.`,
+      `This drawing is too small to read even printed on A3 (smallest text ${smallest}px / longest side ${longest}px = ${ratio}; the floor is ${floor}). **Take ${Math.max(1, Math.ceil(longest - need))}px off** — a longest side of ${need}px or less fits. **The long side runs ${axis}, between "${head}" and "${tail}".** Close the gap between those two. **Do not enlarge the text** (that grows the drawing and lowers the ratio further). Tighten the tables and notes, or split the drawing.${gapAxis === '' ? '' : ` **The widest empty band is ${gapAxis} ${gapAt}-${gapTo}, ${gapWide}px wide** with nothing in it.`}`,
     inkOverlap: (a: string, b: string, x: number, y: number) =>
       `On the sheet, ${a} and ${b} are drawn on top of each other. It is not only names: tags, dimension values, grid codes and view titles take room too. **Moving one ${x}px sideways or ${y}px vertically** clears it — which way is yours to choose.`,
     textOverlap: (a: string, b: string) =>
