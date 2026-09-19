@@ -1,0 +1,573 @@
+version: 1
+kind: placement
+arrows: true
+title: 建蔽率・容積率と、前面道路
+scale: { mm: 80 }
+# **指定が 200% でも、前面道路が 4m なら 160% しか使えない。**
+#
+# 建蔽率は「広さ」（建築面積 ÷ 敷地面積）、容積率は「量」（延べ面積 ÷ 敷地面積）。
+# そして**前面道路の幅員が 12m 未満なら、幅員 × 0.4（住居系）と指定の小さいほう**が上限
+# （法 52 条 2 項）。**道路の幅が、建物の大きさを決めている。**
+nodes:
+  - id: lot
+    label: ""
+    at: { x: 190, y: 340 }
+    size: { w: 250, h: 125 }
+  - id: bld
+    label: ""
+    hatch: lines
+    at: { x: 190, y: 340 }
+    size: { w: 250, h: 75 }
+  - id: lot_n
+    label: "敷地 20 × 10 ＝ 200m²"
+    marker: none
+    align: center
+    at: { x: 190, y: 475 }
+    size: { w: 250, h: 18 }
+  - id: bld_n
+    label: "建築面積 20 × 6 ＝ 120m²"
+    marker: none
+    align: left
+    at: { x: 200, y: 368.5 }
+    size: { w: 230, h: 18 }
+  - id: ken
+    label: "建蔽率 ＝ 120 ÷ 200 ＝ 60%"
+    marker: none
+    align: center
+    at: { x: 130, y: 495 }
+    size: { w: 370, h: 18 }
+  - id: road
+    label: ""
+    marker: none
+    hatch: dots
+    at: { x: 190, y: 521 }
+    size: { w: 250, h: 50 }
+  - id: road_n
+    label: "前面道路 4m"
+    marker: none
+    align: center
+    at: { x: 190, y: 537 }
+    size: { w: 250, h: 18 }
+  - id: t1
+    label: "① 建蔽率 —— 上から見た面積の割合"
+    marker: none
+    align: left
+    at: { x: 180, y: 244 }
+    size: { w: 460, h: 20 }
+  - id: t1b
+    label: "　建築面積 ÷ 敷地面積。建てられる「広さ」の上限。"
+    marker: none
+    align: left
+    at: { x: 180, y: 266 }
+    size: { w: 460, h: 18 }
+  - id: f0
+    label: ""
+    at: { x: 190, y: 942.5 }
+    size: { w: 250, h: 37.5 }
+  - id: f0n
+    label: "1 階 120m²"
+    marker: none
+    align: left
+    at: { x: 200, y: 952.3 }
+    size: { w: 160, h: 18 }
+  - id: f1
+    label: ""
+    at: { x: 190, y: 905 }
+    size: { w: 250, h: 37.5 }
+  - id: f1n
+    label: "2 階 120m²"
+    marker: none
+    align: left
+    at: { x: 200, y: 914.8 }
+    size: { w: 160, h: 18 }
+  - id: f2
+    label: ""
+    at: { x: 190, y: 867.5 }
+    size: { w: 250, h: 37.5 }
+  - id: f2n
+    label: "3 階 120m²"
+    marker: none
+    align: left
+    at: { x: 200, y: 877.3 }
+    size: { w: 160, h: 18 }
+  - id: f3
+    label: ""
+    at: { x: 190, y: 830 }
+    size: { w: 250, h: 37.5 }
+  - id: f3n
+    label: "4 階 120m²"
+    marker: none
+    align: left
+    at: { x: 200, y: 839.8 }
+    size: { w: 160, h: 18 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 169, y: 979 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 459, y: 979 }
+    size: { w: 2, h: 2 }
+  - id: sum
+    label: "延べ面積 ＝ 120 × 4 ＝ 480m²"
+    marker: none
+    align: left
+    at: { x: 456, y: 896 }
+    size: { w: 280, h: 18 }
+  - id: you
+    label: "容積率 ＝ 240%"
+    marker: none
+    align: left
+    at: { x: 456, y: 916 }
+    size: { w: 280, h: 18 }
+  - id: you2
+    label: "→ ③ の 160% を超えている"
+    marker: none
+    align: left
+    at: { x: 456, y: 936 }
+    size: { w: 300, h: 18 }
+  - id: you3
+    label: "この 4 階建ては建てられない"
+    marker: none
+    align: left
+    at: { x: 456, y: 956 }
+    size: { w: 320, h: 18 }
+  - id: you4
+    label: "建てられるのは 延べ 320m² まで"
+    marker: none
+    align: left
+    at: { x: 456, y: 976 }
+    size: { w: 320, h: 18 }
+  - id: t2
+    label: "② 容積率 —— 積み上げた床の合計"
+    marker: none
+    align: left
+    at: { x: 180, y: 734 }
+    size: { w: 380, h: 20 }
+  - id: t2b
+    label: "　延べ面積 ÷ 敷地面積。建てられる「量」。"
+    marker: none
+    align: left
+    at: { x: 180, y: 756 }
+    size: { w: 380, h: 18 }
+  - id: bar0
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 620, y: 400 }
+    size: { w: 128, h: 26 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 779, y: 393 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 779, y: 431 }
+    size: { w: 2, h: 2 }
+  - id: bl0
+    label: "4m"
+    marker: none
+    align: right
+    at: { x: 524, y: 404 }
+    size: { w: 86, h: 18 }
+  - id: bv0
+    label: "160%"
+    marker: none
+    align: left
+    at: { x: 792, y: 404 }
+    size: { w: 118, h: 18 }
+  - id: bar1
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 620, y: 456 }
+    size: { w: 160, h: 26 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 779, y: 449 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 779, y: 487 }
+    size: { w: 2, h: 2 }
+  - id: bl1
+    label: "6m"
+    marker: none
+    align: right
+    at: { x: 524, y: 460 }
+    size: { w: 86, h: 18 }
+  - id: bv1
+    label: "200%（頭打ち）"
+    marker: none
+    align: left
+    at: { x: 792, y: 460 }
+    size: { w: 118, h: 18 }
+  - id: bar2
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 620, y: 512 }
+    size: { w: 160, h: 26 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 779, y: 505 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 779, y: 543 }
+    size: { w: 2, h: 2 }
+  - id: bl2
+    label: "8m"
+    marker: none
+    align: right
+    at: { x: 524, y: 516 }
+    size: { w: 86, h: 18 }
+  - id: bv2
+    label: "200%（頭打ち）"
+    marker: none
+    align: left
+    at: { x: 792, y: 516 }
+    size: { w: 118, h: 18 }
+  - id: bar3
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 620, y: 568 }
+    size: { w: 160, h: 26 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 779, y: 561 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 779, y: 599 }
+    size: { w: 2, h: 2 }
+  - id: bl3
+    label: "12m 以上"
+    marker: none
+    align: right
+    at: { x: 524, y: 572 }
+    size: { w: 86, h: 18 }
+  - id: bv3
+    label: "200%（頭打ち）"
+    marker: none
+    align: left
+    at: { x: 792, y: 572 }
+    size: { w: 118, h: 18 }
+  - id: c_cap
+    label: "破線 ＝ 指定 200%"
+    marker: none
+    align: center
+    at: { x: 620, y: 370 }
+    size: { w: 280, h: 18 }
+  - id: t3
+    label: "③ 前面道路が上限を決める"
+    marker: none
+    align: left
+    at: { x: 520, y: 304 }
+    size: { w: 340, h: 20 }
+  - id: t3b
+    label: "　幅員 × 0.4（住居系）と指定の小さいほう。"
+    marker: none
+    align: left
+    at: { x: 520, y: 326 }
+    size: { w: 340, h: 18 }
+  - id: c_now
+    label: "4m 道路 → 160%（延べ 320m²）"
+    marker: none
+    align: left
+    at: { x: 524, y: 640 }
+    size: { w: 380, h: 18 }
+  - id: c_lost
+    label: "指定なら 400m²。80m² 減る。"
+    marker: none
+    align: left
+    at: { x: 524, y: 660 }
+    size: { w: 380, h: 18 }
+  - id: h200
+    label: "2 つの率"
+    hatch: solid
+    at: { x: 920, y: 200 }
+    size: { w: 410, h: 24 }
+  - id: x224
+    label: "建蔽率"
+    at: { x: 920, y: 224 }
+    size: { w: 185, h: 24 }
+  - id: y224
+    label: "建築面積 ÷ 敷地面積"
+    align: left
+    at: { x: 1105, y: 224 }
+    size: { w: 225, h: 24 }
+  - id: x248
+    label: "何を決めるか"
+    at: { x: 920, y: 248 }
+    size: { w: 185, h: 24 }
+  - id: y248
+    label: "建てられる「広さ」"
+    align: left
+    at: { x: 1105, y: 248 }
+    size: { w: 225, h: 24 }
+  - id: x272
+    label: "容積率"
+    at: { x: 920, y: 272 }
+    size: { w: 185, h: 24 }
+  - id: y272
+    label: "延べ面積 ÷ 敷地面積"
+    align: left
+    at: { x: 1105, y: 272 }
+    size: { w: 225, h: 24 }
+  - id: x296
+    label: "何を決めるか"
+    at: { x: 920, y: 296 }
+    size: { w: 185, h: 24 }
+  - id: y296
+    label: "建てられる「量」"
+    align: left
+    at: { x: 1105, y: 296 }
+    size: { w: 225, h: 24 }
+  - id: x320
+    label: "建築面積"
+    at: { x: 920, y: 320 }
+    size: { w: 185, h: 24 }
+  - id: y320
+    label: "上から見た外周"
+    align: left
+    at: { x: 1105, y: 320 }
+    size: { w: 225, h: 24 }
+  - id: x344
+    label: "延べ面積"
+    at: { x: 920, y: 344 }
+    size: { w: 185, h: 24 }
+  - id: y344
+    label: "各階の床面積の合計"
+    align: left
+    at: { x: 1105, y: 344 }
+    size: { w: 225, h: 24 }
+  - id: h386
+    label: "前面道路による容積率の制限"
+    hatch: solid
+    at: { x: 920, y: 386 }
+    size: { w: 410, h: 24 }
+  - id: x410
+    label: "いつ効くか"
+    at: { x: 920, y: 410 }
+    size: { w: 185, h: 24 }
+  - id: y410
+    label: "前面道路の幅員が 12m 未満"
+    align: left
+    at: { x: 1105, y: 410 }
+    size: { w: 225, h: 24 }
+  - id: x434
+    label: "住居系"
+    at: { x: 920, y: 434 }
+    size: { w: 185, h: 24 }
+  - id: y434
+    label: "幅員（m）× 0.4"
+    align: left
+    at: { x: 1105, y: 434 }
+    size: { w: 225, h: 24 }
+  - id: x458
+    label: "それ以外"
+    at: { x: 920, y: 458 }
+    size: { w: 185, h: 24 }
+  - id: y458
+    label: "幅員（m）× 0.6"
+    align: left
+    at: { x: 1105, y: 458 }
+    size: { w: 225, h: 24 }
+  - id: x482
+    label: "どちらを採るか"
+    at: { x: 920, y: 482 }
+    size: { w: 185, h: 24 }
+  - id: y482
+    label: "指定容積率と、小さいほう"
+    align: left
+    at: { x: 1105, y: 482 }
+    size: { w: 225, h: 24 }
+  - id: x506
+    label: "2 本以上の道路"
+    at: { x: 920, y: 506 }
+    size: { w: 185, h: 24 }
+  - id: y506
+    label: "いちばん広い道路で計算"
+    align: left
+    at: { x: 1105, y: 506 }
+    size: { w: 225, h: 24 }
+  - id: x530
+    label: "法"
+    at: { x: 920, y: 530 }
+    size: { w: 185, h: 24 }
+  - id: y530
+    label: "52 条 2 項"
+    align: left
+    at: { x: 1105, y: 530 }
+    size: { w: 225, h: 24 }
+  - id: h572
+    label: "緩和（主なもの）"
+    hatch: solid
+    at: { x: 920, y: 572 }
+    size: { w: 410, h: 24 }
+  - id: x596
+    label: "角地"
+    at: { x: 920, y: 596 }
+    size: { w: 185, h: 24 }
+  - id: y596
+    label: "建蔽率 ＋10%"
+    align: left
+    at: { x: 1105, y: 596 }
+    size: { w: 225, h: 24 }
+  - id: x620
+    label: "防火地域の耐火建築物"
+    at: { x: 920, y: 620 }
+    size: { w: 185, h: 24 }
+  - id: y620
+    label: "建蔽率 ＋10%"
+    align: left
+    at: { x: 1105, y: 620 }
+    size: { w: 225, h: 24 }
+  - id: x644
+    label: "地下室"
+    at: { x: 920, y: 644 }
+    size: { w: 185, h: 24 }
+  - id: y644
+    label: "住宅部分の 1/3 まで入れない"
+    align: left
+    at: { x: 1105, y: 644 }
+    size: { w: 225, h: 24 }
+  - id: x668
+    label: "車庫"
+    at: { x: 920, y: 668 }
+    size: { w: 185, h: 24 }
+  - id: y668
+    label: "延べ面積の 1/5 まで"
+    align: left
+    at: { x: 1105, y: 668 }
+    size: { w: 225, h: 24 }
+  - id: x692
+    label: "共用廊下・階段"
+    at: { x: 920, y: 692 }
+    size: { w: 185, h: 24 }
+  - id: y692
+    label: "共同住宅では入れない"
+    align: left
+    at: { x: 1105, y: 692 }
+    size: { w: 225, h: 24 }
+  - id: h734
+    label: "この図に出ていないもの"
+    hatch: solid
+    at: { x: 920, y: 734 }
+    size: { w: 410, h: 24 }
+  - id: x758
+    label: "斜線制限"
+    at: { x: 920, y: 758 }
+    size: { w: 185, h: 24 }
+  - id: y758
+    label: "高さは別に決まる（見本 202）"
+    align: left
+    at: { x: 1105, y: 758 }
+    size: { w: 225, h: 24 }
+  - id: x782
+    label: "日影規制"
+    at: { x: 920, y: 782 }
+    size: { w: 185, h: 24 }
+  - id: y782
+    label: "冬至日の日影の時間"
+    align: left
+    at: { x: 1105, y: 782 }
+    size: { w: 225, h: 24 }
+  - id: x806
+    label: "セットバック"
+    at: { x: 920, y: 806 }
+    size: { w: 185, h: 24 }
+  - id: y806
+    label: "2 項道路は道路中心から 2m"
+    align: left
+    at: { x: 1105, y: 806 }
+    size: { w: 225, h: 24 }
+  - id: x830
+    label: "用途制限"
+    at: { x: 920, y: 830 }
+    size: { w: 185, h: 24 }
+  - id: y830
+    label: "建てられる用途そのもの"
+    align: left
+    at: { x: 1105, y: 830 }
+    size: { w: 225, h: 24 }
+  - id: n1
+    label: "敷地にどれだけ建てられるかを決める 2 つの率です。"
+    marker: none
+    align: left
+    at: { x: 180, y: 1200 }
+    size: { w: 1000, h: 18 }
+  - id: n2
+    label: "建蔽率は「広さ」の上限 —— 建築面積 ÷ 敷地面積。上から見た面積の割合です。"
+    marker: none
+    align: left
+    at: { x: 180, y: 1222 }
+    size: { w: 1000, h: 18 }
+  - id: n3
+    label: "容積率は「量」の上限 —— 延べ面積（各階の床の合計）÷ 敷地面積。"
+    marker: none
+    align: left
+    at: { x: 180, y: 1244 }
+    size: { w: 1000, h: 18 }
+  - id: n4
+    label: "そして、指定された容積率がそのまま使えるとは限りません。"
+    marker: none
+    align: left
+    at: { x: 180, y: 1266 }
+    size: { w: 1000, h: 18 }
+  - id: n5
+    label: "前面道路の幅員が 12m 未満なら、幅員 × 0.4（住居系）と、指定の小さいほうが上限です（法 52 条 2 項）。"
+    marker: none
+    align: left
+    at: { x: 180, y: 1288 }
+    size: { w: 1000, h: 18 }
+  - id: n6
+    label: "この敷地は指定 200% ですが、前面道路が 4m なので 160% —— 延べ 320m² までです。"
+    marker: none
+    align: left
+    at: { x: 180, y: 1310 }
+    size: { w: 1000, h: 18 }
+  - id: n7
+    label: "80m² 建てられません。 道路の幅が、建物の大きさを決めています。"
+    marker: none
+    align: left
+    at: { x: 180, y: 1332 }
+    size: { w: 1000, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p2
+    to: p3
+    curve: none
+    line: chain
+    ends: { from: none, to: none }
+  - from: p4
+    to: p5
+    curve: none
+    line: chain
+    ends: { from: none, to: none }
+  - from: p6
+    to: p7
+    curve: none
+    line: chain
+    ends: { from: none, to: none }
+  - from: p8
+    to: p9
+    curve: none
+    line: chain
+    ends: { from: none, to: none }
