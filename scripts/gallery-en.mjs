@@ -106,6 +106,7 @@ export const CAPTIONS_EN = {
   '169-麻雀の配牌': 'Mahjong: the dice decide where the wall is opened, not luck',
   '168-ダイヤモンドシステム': 'Billiards: the diamonds on the rails are a ruler, not decoration',
   '167-ダーツボードの割り付け': 'A dartboard: the numbers are arranged to punish a miss',
+  '204-ギターのフレット位置': 'Guitar frets are a geometric series, and the saddle must still be moved back to play in tune',
   '203-壁量計算と4分割法': 'Japanese timber wall-quantity check: enough shear wall still fails if it sits on one side',
   '202-斜線制限': 'Japanese setback planes: the shape of a house is decided by slanting lines, not by the plot',
   '201-椅子の製作図': 'A chair drawn for making: four tenons meet in the back leg, and they must be set at different heights',

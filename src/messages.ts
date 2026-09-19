@@ -702,6 +702,8 @@ const ja = {
      * 手直しが落ちることの断り書き。**書き出したものを人が貼る前に読む場所**なので、
      * 落ちた事実と、正本がどちらかを、この 2 行で言い切る。
      */
+    lossPlacement:
+      'この正本は**配置図**です。どこに何があるかが中身ですが、**Mermaid には位置と大きさの器がありません** —— 以下は位置を失った箱の一覧で、元の図とは別のものです。図として使うなら SVG か draw.io で書き出してください。',
     geometryDroppedHeading: '【注意】Mermaid には位置・大きさ・線の曲げ方を書く場所が無い。',
     geometryDroppedDetail: '次の手直しは、この書き出しでは失われている。正本は .zumen.yaml の側。',
   },
@@ -1283,6 +1285,8 @@ const en: Catalog = {
   },
 
   mermaid: {
+    lossPlacement:
+      'This source is a **placement drawing**: what matters is where things are, and **Mermaid has no place for positions or sizes**. What follows is a list of boxes with the geometry gone — it is not the same drawing. Export to SVG or draw.io if you need the drawing itself.',
     geometryDroppedHeading:
       'NOTE: Mermaid has nowhere to put positions, sizes, or edge waypoints.',
     geometryDroppedDetail:

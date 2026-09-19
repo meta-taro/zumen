@@ -164,3 +164,47 @@ describe('書き出し先で、同じ正本から同じ図が出る', () => {
     assert.match(out, /a\["あ"\]/);
   });
 });
+
+/**
+ * **配置図を Mermaid へ出すと、位置が丸ごと落ちる**（2026-09-19）。
+ *
+ * 間取り・仕込図・木取り図は、**どこに何があるか**が中身で、
+ * Mermaid にはその器が無い。出てくるのは**位置を失った箱の一覧**で、
+ * 「落ちる」では済まず **別のもの**になる。
+ *
+ * draw.io には「落ちるもの」の注記があるのに、ここには無かった。
+ * **黙って落とすのは、この道具がいちばん嫌う壊れ方。**
+ */
+describe('配置図を Mermaid へ出すとき', () => {
+  const PLAN = `version: 1
+kind: placement
+nodes:
+  - id: a
+    label: "居間"
+    at: { x: 0, y: 0 }
+    size: { w: 200, h: 120 }
+  - id: b
+    label: "台所"
+    at: { x: 220, y: 0 }
+    size: { w: 140, h: 120 }
+`;
+
+  const out0 = (text: string): string => toMermaid(text);
+
+  it('**位置が落ちることを注記で言う**', () => {
+    const out = out0(PLAN);
+    assert.match(out, /%%.*配置図/);
+    assert.match(out, /位置|座標/);
+  });
+
+  it('**注記は Mermaid のコメント行**（構文を壊さない）', () => {
+    for (const line of out0(PLAN).split('\n')) {
+      if (line.includes('配置図')) assert.match(line, /^%%/);
+    }
+  });
+
+  it('構成図には、その注記を出さない', () => {
+    const out = out0(PLAN.replace('kind: placement', 'kind: structure'));
+    assert.ok(!out.includes('配置図'), out.split('\n').slice(0, 3).join(' / '));
+  });
+});
