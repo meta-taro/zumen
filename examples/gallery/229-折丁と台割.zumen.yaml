@@ -1,0 +1,501 @@
+version: 1
+kind: placement
+arrows: true
+title: 折丁と台割 —— 背標は階段に並ぶ
+# **本は、ページを 1 枚ずつ重ねたものではない。**
+# 全紙 1 枚に 16 ページを刷って、折って、束ねたもの。
+# だから**総ページ数は折丁の倍数**になる（192 ＝ 16 × 12）。
+#
+# **背標は、重ねたとき階段に並ぶ。** 折ごとに印の位置を少しずつ下げてあるので、
+# **1 折でも入れ違うと段が崩れる** —— 本を開かなくても、背を見るだけで分かる。
+#
+# **検査を絵にした仕掛け。** 数えるのではなく、形が合っているかを見る。
+nodes:
+  - id: t1
+    label: "① 全紙 1 枚を折ると、16 ページになる"
+    marker: none
+    align: left
+    at: { x: 150, y: 200 }
+    size: { w: 560, h: 20 }
+  - id: p000
+    label: ""
+    at: { x: 180, y: 250 }
+    size: { w: 90, h: 62 }
+  - id: p001
+    label: ""
+    at: { x: 180, y: 312 }
+    size: { w: 90, h: 62 }
+  - id: p010
+    label: ""
+    at: { x: 270, y: 250 }
+    size: { w: 90, h: 62 }
+  - id: p011
+    label: ""
+    at: { x: 270, y: 312 }
+    size: { w: 90, h: 62 }
+  - id: p020
+    label: ""
+    at: { x: 360, y: 250 }
+    size: { w: 90, h: 62 }
+  - id: p021
+    label: ""
+    at: { x: 360, y: 312 }
+    size: { w: 90, h: 62 }
+  - id: p030
+    label: ""
+    at: { x: 450, y: 250 }
+    size: { w: 90, h: 62 }
+  - id: p031
+    label: ""
+    at: { x: 450, y: 312 }
+    size: { w: 90, h: 62 }
+  - id: sn0
+    label: "表（8 ページ）"
+    marker: none
+    align: left
+    at: { x: 554, y: 303 }
+    size: { w: 160, h: 18 }
+  - id: p100
+    label: ""
+    at: { x: 180, y: 404 }
+    size: { w: 90, h: 62 }
+  - id: p101
+    label: ""
+    at: { x: 180, y: 466 }
+    size: { w: 90, h: 62 }
+  - id: p110
+    label: ""
+    at: { x: 270, y: 404 }
+    size: { w: 90, h: 62 }
+  - id: p111
+    label: ""
+    at: { x: 270, y: 466 }
+    size: { w: 90, h: 62 }
+  - id: p120
+    label: ""
+    at: { x: 360, y: 404 }
+    size: { w: 90, h: 62 }
+  - id: p121
+    label: ""
+    at: { x: 360, y: 466 }
+    size: { w: 90, h: 62 }
+  - id: p130
+    label: ""
+    at: { x: 450, y: 404 }
+    size: { w: 90, h: 62 }
+  - id: p131
+    label: ""
+    at: { x: 450, y: 466 }
+    size: { w: 90, h: 62 }
+  - id: sn1
+    label: "裏（8 ページ）"
+    marker: none
+    align: left
+    at: { x: 554, y: 457 }
+    size: { w: 160, h: 18 }
+  - id: n1
+    label: "折ったときページ順になるように並べる（面付け）。"
+    marker: none
+    align: left
+    at: { x: 150, y: 550 }
+    size: { w: 560, h: 18 }
+  - id: n2
+    label: "縦組みは右開き、横組みは左開き。並べ方が変わる。"
+    marker: none
+    align: left
+    at: { x: 150, y: 572 }
+    size: { w: 560, h: 18 }
+  - id: n3
+    label: "折丁は 16 ページ折りが基準。8 折り・32 折りもある。"
+    marker: none
+    align: left
+    at: { x: 150, y: 594 }
+    size: { w: 560, h: 18 }
+  - id: t2
+    label: "② 背標は、重ねると階段になる"
+    marker: none
+    align: left
+    at: { x: 760, y: 200 }
+    size: { w: 480, h: 20 }
+  - id: ok0
+    label: ""
+    at: { x: 790, y: 250 }
+    size: { w: 26, h: 170 }
+  - id: okm0
+    label: ""
+    hatch: solid
+    at: { x: 793, y: 270 }
+    size: { w: 20, h: 9 }
+  - id: ok1
+    label: ""
+    at: { x: 816, y: 250 }
+    size: { w: 26, h: 170 }
+  - id: okm1
+    label: ""
+    hatch: solid
+    at: { x: 819, y: 281 }
+    size: { w: 20, h: 9 }
+  - id: ok2
+    label: ""
+    at: { x: 842, y: 250 }
+    size: { w: 26, h: 170 }
+  - id: okm2
+    label: ""
+    hatch: solid
+    at: { x: 845, y: 292 }
+    size: { w: 20, h: 9 }
+  - id: ok3
+    label: ""
+    at: { x: 868, y: 250 }
+    size: { w: 26, h: 170 }
+  - id: okm3
+    label: ""
+    hatch: solid
+    at: { x: 871, y: 303 }
+    size: { w: 20, h: 9 }
+  - id: ok4
+    label: ""
+    at: { x: 894, y: 250 }
+    size: { w: 26, h: 170 }
+  - id: okm4
+    label: ""
+    hatch: solid
+    at: { x: 897, y: 314 }
+    size: { w: 20, h: 9 }
+  - id: ok5
+    label: ""
+    at: { x: 920, y: 250 }
+    size: { w: 26, h: 170 }
+  - id: okm5
+    label: ""
+    hatch: solid
+    at: { x: 923, y: 325 }
+    size: { w: 20, h: 9 }
+  - id: ok6
+    label: ""
+    at: { x: 946, y: 250 }
+    size: { w: 26, h: 170 }
+  - id: okm6
+    label: ""
+    hatch: solid
+    at: { x: 949, y: 336 }
+    size: { w: 20, h: 9 }
+  - id: ok7
+    label: ""
+    at: { x: 972, y: 250 }
+    size: { w: 26, h: 170 }
+  - id: okm7
+    label: ""
+    hatch: solid
+    at: { x: 975, y: 347 }
+    size: { w: 20, h: 9 }
+  - id: ok8
+    label: ""
+    at: { x: 998, y: 250 }
+    size: { w: 26, h: 170 }
+  - id: okm8
+    label: ""
+    hatch: solid
+    at: { x: 1001, y: 358 }
+    size: { w: 20, h: 9 }
+  - id: ok9
+    label: ""
+    at: { x: 1024, y: 250 }
+    size: { w: 26, h: 170 }
+  - id: okm9
+    label: ""
+    hatch: solid
+    at: { x: 1027, y: 369 }
+    size: { w: 20, h: 9 }
+  - id: ok10
+    label: ""
+    at: { x: 1050, y: 250 }
+    size: { w: 26, h: 170 }
+  - id: okm10
+    label: ""
+    hatch: solid
+    at: { x: 1053, y: 380 }
+    size: { w: 20, h: 9 }
+  - id: ok11
+    label: ""
+    at: { x: 1076, y: 250 }
+    size: { w: 26, h: 170 }
+  - id: okm11
+    label: ""
+    hatch: solid
+    at: { x: 1079, y: 391 }
+    size: { w: 20, h: 9 }
+  - id: ok_n
+    label: "正しい順（階段がそろう）"
+    marker: none
+    align: left
+    at: { x: 790, y: 430 }
+    size: { w: 320, h: 18 }
+  - id: ng0
+    label: ""
+    at: { x: 790, y: 490 }
+    size: { w: 26, h: 170 }
+  - id: ngm0
+    label: ""
+    hatch: solid
+    at: { x: 793, y: 510 }
+    size: { w: 20, h: 9 }
+  - id: ng1
+    label: ""
+    at: { x: 816, y: 490 }
+    size: { w: 26, h: 170 }
+  - id: ngm1
+    label: ""
+    hatch: solid
+    at: { x: 819, y: 521 }
+    size: { w: 20, h: 9 }
+  - id: ng2
+    label: ""
+    at: { x: 842, y: 490 }
+    size: { w: 26, h: 170 }
+  - id: ngm2
+    label: ""
+    hatch: solid
+    at: { x: 845, y: 532 }
+    size: { w: 20, h: 9 }
+  - id: ng3
+    label: ""
+    at: { x: 868, y: 490 }
+    size: { w: 26, h: 170 }
+  - id: ngm3
+    label: ""
+    hatch: solid
+    at: { x: 871, y: 543 }
+    size: { w: 20, h: 9 }
+  - id: ng4
+    label: ""
+    at: { x: 894, y: 490 }
+    size: { w: 26, h: 170 }
+  - id: ngm4
+    label: ""
+    hatch: solid
+    at: { x: 897, y: 565 }
+    size: { w: 20, h: 9 }
+  - id: ng5
+    label: ""
+    at: { x: 920, y: 490 }
+    size: { w: 26, h: 170 }
+  - id: ngm5
+    label: ""
+    hatch: solid
+    at: { x: 923, y: 554 }
+    size: { w: 20, h: 9 }
+  - id: ng6
+    label: ""
+    at: { x: 946, y: 490 }
+    size: { w: 26, h: 170 }
+  - id: ngm6
+    label: ""
+    hatch: solid
+    at: { x: 949, y: 576 }
+    size: { w: 20, h: 9 }
+  - id: ng7
+    label: ""
+    at: { x: 972, y: 490 }
+    size: { w: 26, h: 170 }
+  - id: ngm7
+    label: ""
+    hatch: solid
+    at: { x: 975, y: 587 }
+    size: { w: 20, h: 9 }
+  - id: ng8
+    label: ""
+    at: { x: 998, y: 490 }
+    size: { w: 26, h: 170 }
+  - id: ngm8
+    label: ""
+    hatch: solid
+    at: { x: 1001, y: 598 }
+    size: { w: 20, h: 9 }
+  - id: ng9
+    label: ""
+    at: { x: 1024, y: 490 }
+    size: { w: 26, h: 170 }
+  - id: ngm9
+    label: ""
+    hatch: solid
+    at: { x: 1027, y: 609 }
+    size: { w: 20, h: 9 }
+  - id: ng10
+    label: ""
+    at: { x: 1050, y: 490 }
+    size: { w: 26, h: 170 }
+  - id: ngm10
+    label: ""
+    hatch: solid
+    at: { x: 1053, y: 620 }
+    size: { w: 20, h: 9 }
+  - id: ng11
+    label: ""
+    at: { x: 1076, y: 490 }
+    size: { w: 26, h: 170 }
+  - id: ngm11
+    label: ""
+    hatch: solid
+    at: { x: 1079, y: 631 }
+    size: { w: 20, h: 9 }
+  - id: ng_n
+    label: "5 折と 6 折が入れ違い（段が崩れる）"
+    marker: none
+    align: left
+    at: { x: 790, y: 670 }
+    size: { w: 340, h: 18 }
+  - id: n4
+    label: "背丁 —— 書名と折数。背標 —— 折の順を確かめる印。"
+    marker: none
+    align: left
+    at: { x: 760, y: 700 }
+    size: { w: 480, h: 18 }
+  - id: n5
+    label: "本を開かなくても、背を見るだけで分かる。"
+    marker: none
+    align: left
+    at: { x: 760, y: 722 }
+    size: { w: 480, h: 18 }
+  - id: t3
+    label: "③ 台割 —— 総ページを折丁で割る"
+    marker: none
+    align: left
+    at: { x: 150, y: 640 }
+    size: { w: 560, h: 20 }
+  - id: d0_0
+    label: "折"
+    hatch: solid
+    at: { x: 170, y: 672 }
+    size: { w: 90, h: 26 }
+  - id: d0_1
+    label: "ページ"
+    hatch: solid
+    at: { x: 260, y: 672 }
+    size: { w: 130, h: 26 }
+  - id: d0_2
+    label: "中身"
+    hatch: solid
+    at: { x: 390, y: 672 }
+    size: { w: 260, h: 26 }
+  - id: d1_0
+    label: "1 折"
+    at: { x: 170, y: 698 }
+    size: { w: 90, h: 26 }
+  - id: d1_1
+    label: "1 〜 16"
+    at: { x: 260, y: 698 }
+    size: { w: 130, h: 26 }
+  - id: d1_2
+    label: "扉・目次・第 1 章"
+    at: { x: 390, y: 698 }
+    size: { w: 260, h: 26 }
+  - id: d2_0
+    label: "2 折"
+    at: { x: 170, y: 724 }
+    size: { w: 90, h: 26 }
+  - id: d2_1
+    label: "17 〜 32"
+    at: { x: 260, y: 724 }
+    size: { w: 130, h: 26 }
+  - id: d2_2
+    label: "第 1 章"
+    at: { x: 390, y: 724 }
+    size: { w: 260, h: 26 }
+  - id: d3_0
+    label: "3 折"
+    at: { x: 170, y: 750 }
+    size: { w: 90, h: 26 }
+  - id: d3_1
+    label: "33 〜 48"
+    at: { x: 260, y: 750 }
+    size: { w: 130, h: 26 }
+  - id: d3_2
+    label: "第 2 章"
+    at: { x: 390, y: 750 }
+    size: { w: 260, h: 26 }
+  - id: d4_0
+    label: "…"
+    at: { x: 170, y: 776 }
+    size: { w: 90, h: 26 }
+  - id: d4_1
+    label: "…"
+    at: { x: 260, y: 776 }
+    size: { w: 130, h: 26 }
+  - id: d4_2
+    label: "…"
+    at: { x: 390, y: 776 }
+    size: { w: 260, h: 26 }
+  - id: d5_0
+    label: "12 折"
+    at: { x: 170, y: 802 }
+    size: { w: 90, h: 26 }
+  - id: d5_1
+    label: "177 〜 192"
+    at: { x: 260, y: 802 }
+    size: { w: 130, h: 26 }
+  - id: d5_2
+    label: "第 8 章・奥付"
+    at: { x: 390, y: 802 }
+    size: { w: 260, h: 26 }
+  - id: n6
+    label: "16 ページ折り × 12 折 ＝ 192 ページ。"
+    marker: none
+    align: left
+    at: { x: 170, y: 838 }
+    size: { w: 460, h: 18 }
+  - id: n7
+    label: "総ページは折丁の倍数にする。"
+    marker: none
+    align: left
+    at: { x: 170, y: 860 }
+    size: { w: 460, h: 18 }
+  - id: n8
+    label: "半端は白ページで埋めるか、8 折り・4 折りを混ぜる。"
+    marker: none
+    align: left
+    at: { x: 170, y: 882 }
+    size: { w: 460, h: 18 }
+  - id: r1
+    label: "本は、ページを 1 枚ずつ作って重ねたものではありません。 全紙 1 枚に 16 ページを刷って、折って、束ねたものです。"
+    marker: none
+    align: left
+    at: { x: 150, y: 900 }
+    size: { w: 1090, h: 18 }
+  - id: r2
+    label: "だから面付けが要ります（①）—— 折ったときにページ順になるように並べる。縦組みは右開き、横組みは左開きで、並べ方が変わります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 924 }
+    size: { w: 1090, h: 18 }
+  - id: r3
+    label: "総ページ数は折丁の倍数になります（③）。192 ページは 16 × 12。半端が出たら白ページで埋めるか、8 折り・4 折りを混ぜます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 948 }
+    size: { w: 1090, h: 18 }
+  - id: r4
+    label: "背標は、重ねたとき階段に並びます（②）。折ごとに印の位置を少しずつ下げてあるので、束ねると斜めの段になります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 972 }
+    size: { w: 1090, h: 18 }
+  - id: r5
+    label: "1 折でも入れ違うと、段が崩れます。 本を開かなくても、背を見るだけで順番の間違いが分かります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 996 }
+    size: { w: 1090, h: 18 }
+  - id: r6
+    label: "これは検査を絵にした仕掛けです。 数えるのではなく、形が合っているかを見る —— 速くて、見落としにくい。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1020 }
+    size: { w: 1090, h: 18 }
+  - id: r7
+    label: "中綴じの面付け（見本 190）は折丁 1 つの話で、こちらは折丁を何枚重ねるかの話です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1044 }
+    size: { w: 1090, h: 18 }
+edges:

@@ -106,6 +106,8 @@ export const CAPTIONS_EN = {
   '169-麻雀の配牌': 'Mahjong: the dice decide where the wall is opened, not luck',
   '168-ダイヤモンドシステム': 'Billiards: the diamonds on the rails are a ruler, not decoration',
   '167-ダーツボードの割り付け': 'A dartboard: the numbers are arranged to punish a miss',
+  '229-折丁と台割': 'Signatures and the page plan: collation marks step down the spine, so one signature out of order breaks the staircase — an inspection turned into a shape',
+  '228-STARTトリアージ': 'START triage: four things to look at, three separate roads to red, and only two treatments allowed on the spot — because stopping costs the people behind',
   '227-三角定規と分度器': 'Two set squares come as a pair because two of them make ten angles in 15-degree steps, where one alone makes only four',
   '226-用途地域13種類': 'Thirteen zoning districts: the name alone fixes nothing — coverage and floor-area ratios are chosen from a list, and the same 200m² lot can hold eight times the floor area',
   '225-災害時のトイレ': 'Disaster toilets are counted in uses, not litres: five per person per day, so a family of four needs 140 bags for a week — and the bags stay in the house',
