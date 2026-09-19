@@ -448,3 +448,40 @@ nodes:
     assert.ok(!found.some((f) => f.code === 'too-small-to-print'));
   });
 });
+
+/**
+ * **`\n` で折り返すと落ちる、という状態だった**（2026-09-20）。
+ *
+ * 名前が箱に入らないときの知らせは「**`\n` で折り返してください**」と言う（146 周目）。
+ * ところが `yaml` は、**40 文字を超える二重引用符の文字列に改行が入っていると、
+ * 複数行に割って書き戻す。** すると `round-trip-changed` が鳴り、
+ * **言われたとおりにした図が「読めない」扱いになっていた。**
+ *
+ * 保育園の避難計画（見本 222）を描いていて踏んだ。
+ */
+describe('長い名前を `\\n` で折り返しても、書き戻しで行が変わらない', () => {
+  const ONE = (label: string): string => `version: 1
+kind: placement
+nodes:
+  - id: a
+    label: ${JSON.stringify(label)}
+    at: { x: 10, y: 10 }
+    size: { w: 300, h: 40 }
+`;
+
+  it('**40 文字を超える名前でも、`\\n` は 1 行のまま**', () => {
+    const long = '配置基準は児童福祉施設の設備及び運営に関する基準。\nこの施設は全体で常時 2 人以上を置く。';
+    assert.ok(
+      !validate(ONE(long)).some((f) => f.code === 'round-trip-changed'),
+      validate(ONE(long)).map((f) => f.code).join(','),
+    );
+  });
+
+  it('短い名前は、これまでどおり', () => {
+    assert.ok(!validate(ONE('上\n下')).some((f) => f.code === 'round-trip-changed'));
+  });
+
+  it('改行の無い長い名前も、これまでどおり', () => {
+    assert.ok(!validate(ONE('あ'.repeat(120))).some((f) => f.code === 'round-trip-changed'));
+  });
+});

@@ -1,0 +1,530 @@
+version: 1
+kind: placement
+arrows: true
+title: 平屋の保育園から、隣の建物への避難計画
+scale: { mm: 100 }
+palette:
+  G: "#e0e0e0"
+views:
+  - id: plan
+    title: ① 配置（1px ＝ 100mm）
+    at: { x: 150, y: 230 }
+    size: { w: 560, h: 300 }
+    scale: { mm: 100 }
+  - id: sec
+    title: ② 断面（1px ＝ 50mm）
+    at: { x: 150, y: 630 }
+    size: { w: 560, h: 270 }
+    scale: { mm: 50 }
+# **上が無い施設は、避難先を「作れない」。** 借りる約束を先にしておくしかない。
+#
+# 平屋の保育園が、20m 先の 3 階建てへ避難する計画。
+# 園児 30 人のうち 15 人は抱っこ・おんぶが要る（0〜2 歳）。
+#
+# **受け入れ側が 3 人出ると、外にいる時間が半分になる** ——
+# これは園だけでは決められない数で、だから計画の半分は隣の建物の話になる。
+#
+# 浸水想定区域の保育所・学校・高齢者施設・病院などは、
+# 避難確保計画の作成と**年 1 回以上の訓練**が義務（水防法 15 条の 3）。
+nodes:
+  - id: t1
+    label: "① 20m 先に、上のある建物がある"
+    marker: none
+    align: left
+    at: { x: 150, y: 200 }
+    size: { w: 560, h: 20 }
+  - id: en
+    label: ""
+    at: { x: 170, y: 330 }
+    size: { w: 150, h: 100 }
+  - id: to
+    label: ""
+    at: { x: 520, y: 330 }
+    size: { w: 120, h: 100 }
+  - id: road
+    label: ""
+    marker: none
+    hatch: dots
+    at: { x: 320, y: 310 }
+    size: { w: 200, h: 140 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 309, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 533, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 319, y: 449 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 519, y: 449 }
+    size: { w: 2, h: 2 }
+  - id: d20
+    label: "20m"
+    marker: none
+    align: center
+    at: { x: 320, y: 454 }
+    size: { w: 200, h: 18 }
+  - id: en_n
+    label: "保育園（平屋）"
+    marker: none
+    align: center
+    at: { x: 170, y: 370 }
+    size: { w: 150, h: 18 }
+  - id: en_n2
+    label: "園児 30 人"
+    marker: none
+    align: center
+    at: { x: 170, y: 392 }
+    size: { w: 150, h: 18 }
+  - id: to_n
+    label: "隣の建物"
+    marker: none
+    align: center
+    at: { x: 520, y: 364 }
+    size: { w: 120, h: 18 }
+  - id: to_n2
+    label: "3 階建て"
+    marker: none
+    align: center
+    at: { x: 520, y: 386 }
+    size: { w: 120, h: 18 }
+  - id: road_n
+    label: "道路（冠水）"
+    marker: none
+    align: center
+    at: { x: 320, y: 286 }
+    size: { w: 200, h: 18 }
+  - id: t2
+    label: "② 平屋には、上が無い（1px ＝ 50mm）"
+    marker: none
+    align: left
+    at: { x: 150, y: 600 }
+    size: { w: 560, h: 20 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 159, y: 849 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 699, y: 849 }
+    size: { w: 2, h: 2 }
+  - id: sec_en
+    label: ""
+    at: { x: 200, y: 770 }
+    size: { w: 200, h: 80 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 189, y: 769 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 409, y: 769 }
+    size: { w: 2, h: 2 }
+  - id: sec_to
+    label: ""
+    at: { x: 480, y: 670 }
+    size: { w: 160, h: 180 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 479, y: 789 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 639, y: 789 }
+    size: { w: 2, h: 2 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 479, y: 729 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 639, y: 729 }
+    size: { w: 2, h: 2 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 159, y: 839 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 699, y: 839 }
+    size: { w: 2, h: 2 }
+  - id: w05
+    label: "0.5m（大人の膝・1 階の床の高さ）"
+    marker: none
+    align: left
+    at: { x: 160, y: 860 }
+    size: { w: 380, h: 18 }
+  - id: sec_a
+    label: "上が無い"
+    marker: none
+    align: center
+    at: { x: 200, y: 790 }
+    size: { w: 200, h: 18 }
+  - id: sec_b
+    label: "3 階"
+    marker: none
+    align: left
+    at: { x: 490, y: 690 }
+    size: { w: 100, h: 18 }
+  - id: sec_c
+    label: "ここへ上がる"
+    marker: none
+    align: left
+    at: { x: 490, y: 710 }
+    size: { w: 140, h: 18 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 409, y: 789 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 469, y: 709 }
+    size: { w: 2, h: 2 }
+  - id: t3
+    label: "③ 何人を、何往復で運ぶか"
+    marker: none
+    align: left
+    at: { x: 760, y: 200 }
+    size: { w: 480, h: 20 }
+  - id: h0_0
+    label: "年齢"
+    hatch: solid
+    at: { x: 760, y: 232 }
+    size: { w: 110, h: 28 }
+  - id: h0_1
+    label: "園児"
+    hatch: solid
+    at: { x: 870, y: 232 }
+    size: { w: 90, h: 28 }
+  - id: h0_2
+    label: "保育士（最低基準）"
+    hatch: solid
+    at: { x: 960, y: 232 }
+    size: { w: 130, h: 28 }
+  - id: h0_3
+    label: "運び方"
+    hatch: solid
+    at: { x: 1090, y: 232 }
+    size: { w: 150, h: 28 }
+  - id: h1_0
+    label: "0 歳"
+    at: { x: 760, y: 260 }
+    size: { w: 110, h: 28 }
+  - id: h1_1
+    label: "3 人"
+    at: { x: 870, y: 260 }
+    size: { w: 90, h: 28 }
+  - id: h1_2
+    label: "3 対 1 → 1 人"
+    at: { x: 960, y: 260 }
+    size: { w: 130, h: 28 }
+  - id: h1_3
+    label: "抱っこ・おんぶ"
+    at: { x: 1090, y: 260 }
+    size: { w: 150, h: 28 }
+  - id: h2_0
+    label: "1 歳"
+    at: { x: 760, y: 288 }
+    size: { w: 110, h: 28 }
+  - id: h2_1
+    label: "6 人"
+    at: { x: 870, y: 288 }
+    size: { w: 90, h: 28 }
+  - id: h2_2
+    label: "6 対 1 → 1 人"
+    at: { x: 960, y: 288 }
+    size: { w: 130, h: 28 }
+  - id: h2_3
+    label: "抱っこ・おんぶ"
+    at: { x: 1090, y: 288 }
+    size: { w: 150, h: 28 }
+  - id: h3_0
+    label: "2 歳"
+    at: { x: 760, y: 316 }
+    size: { w: 110, h: 28 }
+  - id: h3_1
+    label: "6 人"
+    at: { x: 870, y: 316 }
+    size: { w: 90, h: 28 }
+  - id: h3_2
+    label: "6 対 1 → 1 人"
+    at: { x: 960, y: 316 }
+    size: { w: 130, h: 28 }
+  - id: h3_3
+    label: "抱っこ・おんぶ"
+    at: { x: 1090, y: 316 }
+    size: { w: 150, h: 28 }
+  - id: h4_0
+    label: "3 歳"
+    at: { x: 760, y: 344 }
+    size: { w: 110, h: 28 }
+  - id: h4_1
+    label: "5 人"
+    at: { x: 870, y: 344 }
+    size: { w: 90, h: 28 }
+  - id: h4_2
+    label: "15 対 1 → 1 人"
+    at: { x: 960, y: 344 }
+    size: { w: 130, h: 28 }
+  - id: h4_3
+    label: "手をつないで歩く"
+    at: { x: 1090, y: 344 }
+    size: { w: 150, h: 28 }
+  - id: h5_0
+    label: "4・5 歳"
+    at: { x: 760, y: 372 }
+    size: { w: 110, h: 28 }
+  - id: h5_1
+    label: "10 人"
+    at: { x: 870, y: 372 }
+    size: { w: 90, h: 28 }
+  - id: h5_2
+    label: "25 対 1 → 1 人"
+    at: { x: 960, y: 372 }
+    size: { w: 130, h: 28 }
+  - id: h5_3
+    label: "手をつないで歩く"
+    at: { x: 1090, y: 372 }
+    size: { w: 150, h: 28 }
+  - id: h6_0
+    label: "合計"
+    fill: G
+    hatch: solid
+    at: { x: 760, y: 400 }
+    size: { w: 110, h: 28 }
+  - id: h6_1
+    label: "30 人"
+    fill: G
+    hatch: solid
+    at: { x: 870, y: 400 }
+    size: { w: 90, h: 28 }
+  - id: h6_2
+    label: "5 人"
+    fill: G
+    hatch: solid
+    at: { x: 960, y: 400 }
+    size: { w: 130, h: 28 }
+  - id: h6_3
+    label: "抱っこ 15 ／ 歩く 15"
+    fill: G
+    hatch: solid
+    at: { x: 1090, y: 400 }
+    size: { w: 150, h: 28 }
+  - id: h_n
+    label: "配置基準は児童福祉施設の設備及び運営に関する基準。"
+    marker: none
+    align: left
+    at: { x: 760, y: 438 }
+    size: { w: 480, h: 18 }
+  - id: h_n0
+    label: "施設全体で常時 2 人以上。"
+    marker: none
+    align: left
+    at: { x: 760, y: 460 }
+    size: { w: 480, h: 18 }
+  - id: h_n2
+    label: "水の中では、手を引けるのは大人 1 人につき 2 人まで（この図の置き方）。"
+    marker: none
+    align: left
+    at: { x: 760, y: 482 }
+    size: { w: 480, h: 18 }
+  - id: h_n3
+    label: "片道 20m、歩く速さ 0.5 m/s（膝下の水。この図の置き方）→ 往復 80 秒。"
+    marker: none
+    align: left
+    at: { x: 760, y: 504 }
+    size: { w: 480, h: 18 }
+  - id: c0
+    label: ""
+    at: { x: 760, y: 542 }
+    size: { w: 480, h: 76 }
+  - id: c0n
+    label: "自分たちだけ"
+    marker: none
+    align: left
+    at: { x: 772, y: 550 }
+    size: { w: 210, h: 18 }
+  - id: c0a
+    label: "大人 5 人 ／ 引き渡し 40 秒"
+    marker: none
+    align: left
+    at: { x: 772, y: 572 }
+    size: { w: 210, h: 18 }
+  - id: c0t
+    label: "5 往復 ・ 約 10 分"
+    marker: none
+    align: right
+    at: { x: 1000, y: 566 }
+    size: { w: 228, h: 18 }
+  - id: c1
+    label: ""
+    at: { x: 760, y: 634 }
+    size: { w: 480, h: 76 }
+  - id: c1n
+    label: "隣が 3 人出てくれたら"
+    marker: none
+    align: left
+    at: { x: 772, y: 642 }
+    size: { w: 210, h: 18 }
+  - id: c1a
+    label: "大人 8 人 ／ 引き渡し 15 秒"
+    marker: none
+    align: left
+    at: { x: 772, y: 664 }
+    size: { w: 210, h: 18 }
+  - id: c1t
+    label: "3 往復 ・ 約 5 分"
+    marker: none
+    align: right
+    at: { x: 1000, y: 658 }
+    size: { w: 228, h: 18 }
+  - id: c_n
+    label: "10 分が 5 分になる。"
+    marker: none
+    align: left
+    at: { x: 760, y: 732 }
+    size: { w: 480, h: 18 }
+  - id: c_n2
+    label: "受け入れ側が何人出るかは、園だけでは決められない。"
+    marker: none
+    align: left
+    at: { x: 760, y: 754 }
+    size: { w: 480, h: 18 }
+  - id: t4
+    label: "④ 計画に書くこと（水防法 15 条の 3 ／ 土砂災害防止法 8 条の 2）"
+    marker: none
+    align: left
+    at: { x: 150, y: 966 }
+    size: { w: 1090, h: 20 }
+  - id: pl1
+    label: "① 防災体制 —— 誰が、どの情報で、いつ動き出すと決めるか"
+    marker: none
+    align: left
+    at: { x: 150, y: 998 }
+    size: { w: 1090, h: 18 }
+  - id: pl2
+    label: "② 避難の誘導 —— どこへ、どの道で、誰が誰を運ぶか"
+    marker: none
+    align: left
+    at: { x: 150, y: 1022 }
+    size: { w: 1090, h: 18 }
+  - id: pl3
+    label: "③ 避難の確保を図るための施設の準備 —— 名簿・連絡先・鍵・雨具・備品"
+    marker: none
+    align: left
+    at: { x: 150, y: 1046 }
+    size: { w: 1090, h: 18 }
+  - id: pl4
+    label: "④ 防災教育および訓練 —— 原則、年 1 回以上。 実施したら市町村長へ報告する"
+    marker: none
+    align: left
+    at: { x: 150, y: 1070 }
+    size: { w: 1090, h: 18 }
+  - id: p_n
+    label: "浸水想定区域や土砂災害警戒区域にある保育所・学校・高齢者施設・病院などは、作成が義務。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1100 }
+    size: { w: 1090, h: 18 }
+  - id: r1
+    label: "上が無い施設は、避難先を「作れません」。 平屋の園が自前で 3 階を建てることはできない —— 借りる約束を先にしておくしかない。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1146 }
+    size: { w: 1090, h: 18 }
+  - id: r2
+    label: "だから計画の半分は、隣の建物の話になります。 どの階まで上がるか、鍵は誰が開けるか、受け入れ側は何人出るか。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1170 }
+    size: { w: 1090, h: 18 }
+  - id: r3
+    label: "受け入れ側が 3 人出ると、外にいる時間が半分になります（③）—— これは園だけでは決められない数です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1194 }
+    size: { w: 1090, h: 18 }
+  - id: r4
+    label: "0.5m は 1 階の床の高さで、大人の膝です（②・見本 221）。そこまで来てから乳児を抱えて何往復もするのは、もう間に合っていません。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1218 }
+    size: { w: 1090, h: 18 }
+  - id: r5
+    label: "歩行の限界は水深だけでは決まりません。 流れの速さとの組み合わせで決まります —— 同じ膝下でも、流れがあれば歩けません。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1242 }
+    size: { w: 1090, h: 18 }
+  - id: r6
+    label: "訓練は年 1 回以上が義務です（④）。場所を借りて実際に歩くと、鍵・段差・雨具・抱え方が、その日に分かります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1266 }
+    size: { w: 1090, h: 18 }
+  - id: r7
+    label: "図に書けるのは、距離と人数と往復数までです。 隣が出てきてくれるかどうかは、図の外で決まっています。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1290 }
+    size: { w: 1090, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    weight: thick
+    ends: { from: none, to: arrow }
+  - from: p2
+    to: p3
+    curve: none
+    ends: { from: arrow, to: arrow }
+  - from: p4
+    to: p5
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p6
+    to: p7
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 300, y: 746 }
+  - from: p8
+    to: p9
+    curve: none
+    ends: { from: none, to: none }
+  - from: p10
+    to: p11
+    curve: none
+    ends: { from: none, to: none }
+  - from: p12
+    to: p13
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p14
+    to: p15
+    curve: none
+    weight: thick
+    ends: { from: none, to: arrow }

@@ -29,6 +29,7 @@ import { SYMBOLS } from './symbol.ts';
 import { MARKERS } from './marker.ts';
 import { ALIGNS } from './align.ts';
 import { WRITES } from './write.ts';
+import { TO_STRING_OPTIONS } from './format.ts';
 import { messages } from './messages.ts';
 import { OPENINGS, SIDES } from './openings.ts';
 
@@ -1060,7 +1061,7 @@ function checkPins(
  * **既に CRLF で clone 済みの手元は、それでは救われない。**
  */
 function checkRoundTrip(doc: Document, text: string, add: Add, m: Messages): void {
-  const back = doc.toString({ lineWidth: 0 });
+  const back = doc.toString(TO_STRING_OPTIONS);
   if (normalizeEol(back) === normalizeEol(text)) return;
   add('error', 'round-trip-changed', m.roundTripChanged, firstDifferingLine(text, back));
 }
