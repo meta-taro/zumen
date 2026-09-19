@@ -759,7 +759,15 @@ function renderNode(
     strokeWidth:
       (box.marker === 'box' && wallFits(wall, box) ? wall : null) ??
       (box.pinned ? STROKE_WIDTH.pinned : STROKE_WIDTH.auto),
-    dash: style.dash,
+    /**
+     * **枠の線種は、正本が選ぶ**（2026-09-19）。
+     *
+     * 敷地境界線は一点鎖線、仕上がりの内側の安全領域は破線、
+     * 点字の「出ていない点」は点線の丸 —— どれも実物の図面がそう描く。
+     * 書いても効かず、**見本 194 で 57 個が黙って落ちていた。**
+     * 書いていなければ、これまでどおり（人が置いた印の破線）。
+     */
+    dash: dashOf(box.line) ?? style.dash,
   };
 
   // **平面図は角を四角に。** 角丸だと、隣の部屋と壁を共有して見えない。

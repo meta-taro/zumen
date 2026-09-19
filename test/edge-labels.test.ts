@@ -50,7 +50,7 @@ function edge(id: string, label: string | null, points: [number, number][]): Pla
 }
 
 function box(id: string, x: number, y: number, w = 160, h = 60): Box {
-  return { id, label: id, x, y, w, h, group: null, type: 'server', appearance: null, technology: null, openings: [], tag: null, radius: null, marker: 'box', hatch: 'none',
+  return { id, label: id, x, y, w, h, group: null, type: 'server', appearance: null, technology: null, openings: [], tag: null, radius: null, marker: 'box', line: 'solid', hatch: 'none',
   write: 'across' as const, align: 'center' as const,
   floor: null, symbol: null, color: null, tint: null, pinned: false };
 }

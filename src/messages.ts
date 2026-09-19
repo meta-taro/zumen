@@ -667,6 +667,8 @@ const ja = {
       `紙の上で ${a} と ${b} の文字が重なって描かれます。名前どうしだけでなく、符号・寸法の数値・通り芯の符号・図の名前も同じ場所を取ります。**横に ${x}px か、縦に ${y}px** ずらせば離れます（どちらへ逃がすかは、図の都合で決めてください）。`,
     textOverlap: (a: string, b: string) =>
       `${a} と ${b} の文字が重なって描かれます。器の名前を器の真ん中に書くと、中の節の名前に乗ります（器の名前は端の欄へ出してください）。`,
+    nodeEdgeKeyIgnored: (id: string, key: string) =>
+      `ノード "${id}" に \`${key}\` を書いていますが、**これは辺（edges）の語**です。節に書いても黙って落ちます。枠の線種なら \`line\`（実線・破線・点線・一点鎖線）、面の模様なら \`hatch\`、線の色なら \`color\` を使ってください。**枠の太さを変える語は、いまはありません** —— 太さで示したいなら、線種を変えるか \`hatch\` で面を示してください。`,
     viewTitleCovered: (view: string, box: string, grow: number) =>
       `図 "${view}" の名前が、"${box}" の上に乗って描かれます。**図の名前は、その図の下辺のすぐ下**に置かれるので、\`size\` に書いた高さより中身が下へ出ていると重なります。**この図の \`size.h\` を ${grow}px 増やすか、中身を上へ詰めてください。**`,
     colorWithoutCode: (key: string) =>
@@ -1259,6 +1261,8 @@ const en: Catalog = {
       `On the sheet, ${a} and ${b} are drawn on top of each other. It is not only names: tags, dimension values, grid codes and view titles take room too. **Moving one ${x}px sideways or ${y}px vertically** clears it — which way is yours to choose.`,
     textOverlap: (a: string, b: string) =>
       `The labels of ${a} and ${b} are drawn on top of each other. A container that holds children should not repeat its name in the middle — move it to an edge cell.`,
+    nodeEdgeKeyIgnored: (id: string, key: string) =>
+      `Node "${id}" carries \`${key}\`, but **that word belongs to edges**. On a node it is dropped in silence. Use \`line\` for the outline's line type (solid / dashed / dotted / chain), \`hatch\` for a fill pattern, \`color\` for the stroke colour. **There is no word for outline thickness yet** — change the line type, or show the area with \`hatch\`.`,
     viewTitleCovered: (view: string, box: string, grow: number) =>
       `The title of view "${view}" is drawn on top of "${box}". **A view title sits just below the view's bottom edge**, so anything that reaches past the height you wrote in \`size\` ends up underneath it. **Grow this view's \`size.h\` by ${grow}px, or move its contents up.**`,
     colorWithoutCode: (key: string) =>

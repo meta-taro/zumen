@@ -106,6 +106,7 @@ export const CAPTIONS_EN = {
   '169-麻雀の配牌': 'Mahjong: the dice decide where the wall is opened, not luck',
   '168-ダイヤモンドシステム': 'Billiards: the diamonds on the rails are a ruler, not decoration',
   '167-ダーツボードの割り付け': 'A dartboard: the numbers are arranged to punish a miss',
+  '214-日影規制と等時間日影図': 'Shadow-hour zoning: the iso-shadow lines here were computed, not sketched — the inner line clears its limit but the outer one does not',
   '213-血球計算盤の目盛り': 'Haemocytometer grid: the 0.100mm depth is what turns an area into a volume, so one 1mm square holds exactly 0.1 microlitres',
   '212-割物花火の断面': 'Aerial shell in section: the stars keep their relative positions as they fly, so how they are packed is the shape you see',
   '211-N値計算と接合金物': 'Hold-down selection (N-value method): the stronger a shear wall is, the harder it pulls its end post out of the ground',

@@ -1828,6 +1828,7 @@ Mermaid も draw.io も、落ちたものを先頭のコメントに列挙する
 | `marker-unknown` | `box` / `circle` / `double` / `ellipse` / `diamond` / `bar` / `none` か |
 | `edge-under-box` | **`arrows: false` で、箱の塗りに隠れる線を引いていないか** |
 | `view-title-covered` | **`views[].title` が、下辺からはみ出した中身の上に乗っていないか** |
+| `node-edge-key-ignored` | **辺だけの語（`weight` / `curve` / `ends` / `via` / `close`）を節に書いていないか** |
 | `align-unknown` | `left` / `center` / `right` か |
 | `align-ignored` | **構成図に `align` を書いていないか** |
 | `write-unknown` | `across` / `down` か |

@@ -36,7 +36,7 @@ survives a regeneration in **210/210 of the example drawings**, whatever their s
 
 ## What it looks like
 
-213 example drawings, all generated from the YAML sources in
+214 example drawings, all generated from the YAML sources in
 [`examples/gallery/`](examples/gallery/):
 
 **[→ Browse the gallery](https://meta-taro.github.io/zumen/)**
@@ -99,7 +99,7 @@ This is **not finished software.** It is being built in the open, small step by 
 
 - Reading and writing the source, automatic layout, SVG output (light/dark)
 - Export to Mermaid, draw.io XML, and embedding into Markdown
-- A validator (80 checks) that explains, in the writer's terms, what will not be drawn —
+- A validator (81 checks) that explains, in the writer's terms, what will not be drawn —
   including one that lays the drawing out and reports labels that would collide
 - A Git merge driver so two people editing the same diagram merge structurally
 - An MCP server, so an agent can read the spec and write diagrams

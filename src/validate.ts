@@ -583,6 +583,30 @@ function checkGeometry(doc: Document, add: Add, m: Messages, at: At): void {
     }
 
     /**
+     * **枠の線種**（`src/line.ts`。2026-09-19 から節にも効く）。
+     * 敷地境界線は一点鎖線、安全領域は破線、点字の「出ていない点」は点線。
+     */
+    const nodeLine = item.get('line');
+    if (nodeLine !== undefined && nodeLine !== null && !LINE_WORDS.has(String(nodeLine))) {
+      add('warning', 'line-unknown', m.lineUnknown(id, String(nodeLine)), at(item.get('line', true)));
+    }
+
+    /**
+     * **辺だけの語を、節に書いていないか**（2026-09-19）。
+     *
+     * `edges[].fill` の裏返し。`weight` / `curve` / `ends` / `via` / `close` は
+     * **辺のもの**で、節に書いても黙って落ちる。
+     * 敷地境界線を太くしようとして `weight: thick` と書き、
+     * **何も言われないまま細い線が出た**（見本 214 を描いていて踏んだ）。
+     */
+    for (const key of ['weight', 'curve', 'ends', 'via', 'close'] as const) {
+      const wrote = item.get(key, true);
+      if (wrote !== undefined && wrote !== null) {
+        add('warning', 'node-edge-key-ignored', m.nodeEdgeKeyIgnored(id, key), at(wrote));
+      }
+    }
+
+    /**
      * **体裁は人のもの**（`pins`。仕様 §4）。
      *
      * 知らない鍵は捨てずに保つのが仕様だが、**`appearance` は別の場所で

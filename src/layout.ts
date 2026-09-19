@@ -94,6 +94,15 @@ export interface Box {
   radius: number | null;
   /** **配置図での印の描き方**（`src/marker.ts`）。既定は矩形。 */
   marker: Marker;
+  /**
+   * **枠の線種**（`src/line.ts`）。既定は実線。
+   *
+   * 辺だけの語だと思われていたが、**枠にも要る**（2026-09-19）——
+   * 敷地境界線は一点鎖線、仕上がりの内側の安全領域は破線、
+   * 点字の「出ていない点」は点線の丸。
+   * 書いても効かず、**見本 194 で 57 個が黙って落ちていた。**
+   */
+  line: Line;
   /** **ハッチング**（材料・区域の模様。`src/hatch.ts`）。既定は無地。 */
   hatch: Hatch;
   /** **縦組みにするか**（`src/write.ts`）。既定は横組み。 */
@@ -838,6 +847,8 @@ interface NodeInfo {
   radius: number | null;
   /** 印の描き方（`src/marker.ts`）。 */
   marker: Marker;
+  /** 枠の線種（`src/line.ts`）。 */
+  line: Line;
   /** 模様（`src/hatch.ts`）。 */
   hatch: Hatch;
   /** 縦組みにするか（`src/write.ts`）。 */
@@ -884,6 +895,7 @@ function readNodes(diagram: ReturnType<typeof parse>): NodeInfo[] {
       tag?: unknown;
       radius?: unknown;
       marker?: unknown;
+  line?: unknown;
       hatch?: unknown;
       write?: unknown;
       align?: unknown;
@@ -907,6 +919,7 @@ function readNodes(diagram: ReturnType<typeof parse>): NodeInfo[] {
       tag: asText(node.tag),
       radius: radiusOf(node.radius),
       marker: markerOf(node.marker),
+      line: lineOf(node.line),
       hatch: hatchOf(node.hatch),
       write: writeOf(node.write),
       align: alignOf(node.align),
@@ -1315,6 +1328,7 @@ function collect(
       tag: nodes.find((n) => n.id === child.id)?.tag ?? null,
       radius: nodes.find((n) => n.id === child.id)?.radius ?? null,
       marker: nodes.find((n) => n.id === child.id)?.marker ?? 'box',
+      line: nodes.find((n) => n.id === child.id)?.line ?? 'solid',
       hatch: nodes.find((n) => n.id === child.id)?.hatch ?? 'none',
       write: nodes.find((n) => n.id === child.id)?.write ?? 'across',
       align: nodes.find((n) => n.id === child.id)?.align ?? 'center',
