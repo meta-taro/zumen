@@ -667,6 +667,8 @@ const ja = {
       `紙の上で ${a} と ${b} の文字が重なって描かれます。名前どうしだけでなく、符号・寸法の数値・通り芯の符号・図の名前も同じ場所を取ります。**横に ${x}px か、縦に ${y}px** ずらせば離れます（どちらへ逃がすかは、図の都合で決めてください）。`,
     textOverlap: (a: string, b: string) =>
       `${a} と ${b} の文字が重なって描かれます。器の名前を器の真ん中に書くと、中の節の名前に乗ります（器の名前は端の欄へ出してください）。`,
+    edgeNodeKeyIgnored: (name: string, key: string) =>
+      `辺 "${name}" に \`${key}\` を書いていますが、**これは節（nodes）の語**です。辺に書いても黙って落ちます。辺は 2 点を結ぶ線なので、置き場所も大きさも印も持ちません。通り道を曲げたいなら \`via\`、線の見た目なら \`line\` / \`weight\` / \`color\`、端の形なら \`ends\` を使ってください。`,
     nodeEdgeKeyIgnored: (id: string, key: string) =>
       `ノード "${id}" に \`${key}\` を書いていますが、**これは辺（edges）の語**です。節に書いても黙って落ちます。枠の線種なら \`line\`（実線・破線・点線・一点鎖線）、面の模様なら \`hatch\`、線の色なら \`color\` を使ってください。**枠の太さを変える語は、いまはありません** —— 太さで示したいなら、線種を変えるか \`hatch\` で面を示してください。`,
     viewTitleCovered: (view: string, box: string, grow: number) =>
@@ -1261,6 +1263,8 @@ const en: Catalog = {
       `On the sheet, ${a} and ${b} are drawn on top of each other. It is not only names: tags, dimension values, grid codes and view titles take room too. **Moving one ${x}px sideways or ${y}px vertically** clears it — which way is yours to choose.`,
     textOverlap: (a: string, b: string) =>
       `The labels of ${a} and ${b} are drawn on top of each other. A container that holds children should not repeat its name in the middle — move it to an edge cell.`,
+    edgeNodeKeyIgnored: (name: string, key: string) =>
+      `Edge "${name}" carries \`${key}\`, but **that word belongs to nodes**. On an edge it is dropped in silence: an edge joins two points, so it has no position, no size and no marker. Bend its route with \`via\`, style the line with \`line\` / \`weight\` / \`color\`, shape its ends with \`ends\`.`,
     nodeEdgeKeyIgnored: (id: string, key: string) =>
       `Node "${id}" carries \`${key}\`, but **that word belongs to edges**. On a node it is dropped in silence. Use \`line\` for the outline's line type (solid / dashed / dotted / chain), \`hatch\` for a fill pattern, \`color\` for the stroke colour. **There is no word for outline thickness yet** — change the line type, or show the area with \`hatch\`.`,
     viewTitleCovered: (view: string, box: string, grow: number) =>

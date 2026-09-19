@@ -359,3 +359,59 @@ nodes:
     assert.ok(!found.some((f) => f.code === 'view-title-covered'));
   });
 });
+
+/**
+ * **語を、置ける側へ置く**（2026-09-19）。
+ *
+ * `edges[].fill` の穴と同じ形が、ほかにもあった。
+ * 辺だけの語（`weight` ほか）を節に書いても、
+ * 節だけの語（`at` ほか）を辺に書いても、**黙って落ちていた。**
+ * 測ったら、前者は**見本 3 枚で 59 個**あった（`line` を足す前）。
+ */
+describe('置けない側へ書いた語を、名指しする', () => {
+  const FLOW = `version: 1
+kind: placement
+nodes:
+  - id: a
+    label: "A"
+    at: { x: 10, y: 10 }
+    size: { w: 60, h: 30 }
+  - id: b
+    label: "B"
+    at: { x: 150, y: 10 }
+    size: { w: 60, h: 30 }
+edges:
+  - from: a
+    to: b
+`;
+
+  it('**節に `weight` を書いたら知らせる**（枠の太さの語は無い）', () => {
+    const out = validate(FLOW.replace('    label: "A"\n', '    label: "A"\n    weight: thick\n'));
+    assert.ok(out.some((f) => f.code === 'node-edge-key-ignored'), out.map((f) => f.code).join(','));
+  });
+
+  it('節に `line` を書くのは**効く**ので、何も言わない', () => {
+    const out = validate(FLOW.replace('    label: "A"\n', '    label: "A"\n    line: chain\n'));
+    assert.ok(!out.some((f) => f.code === 'node-edge-key-ignored'));
+    assert.ok(!out.some((f) => f.code === 'line-unknown'));
+  });
+
+  it('節の `line` が知らない語なら、これまでどおり知らせる', () => {
+    const out = validate(FLOW.replace('    label: "A"\n', '    label: "A"\n    line: もやもや\n'));
+    assert.ok(out.some((f) => f.code === 'line-unknown'), out.map((f) => f.code).join(','));
+  });
+
+  it('**辺に `at` を書いたら知らせる**（辺は場所を持たない）', () => {
+    const out = validate(`${FLOW}    at: { x: 1, y: 2 }\n`);
+    assert.ok(out.some((f) => f.code === 'edge-node-key-ignored'), out.map((f) => f.code).join(','));
+  });
+
+  it('辺に `via` を書くのは**効く**ので、何も言わない', () => {
+    const out = validate(`${FLOW}    via:\n      - { x: 100, y: 80 }\n`);
+    assert.ok(!out.some((f) => f.code === 'edge-node-key-ignored'));
+  });
+
+  it('どちらも warning。**読めない文書ではない**', () => {
+    assert.equal(hasError(validate(`${FLOW}    at: { x: 1, y: 2 }\n`)), false);
+  });
+});

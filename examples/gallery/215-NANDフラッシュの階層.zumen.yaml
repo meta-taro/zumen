@@ -1,0 +1,773 @@
+version: 1
+kind: placement
+arrows: true
+title: NAND フラッシュの階層と、ページ／ブロック
+# **読み書きはページ単位、消去はブロック単位。**
+#
+# この食い違いから、SSD のほとんどの性質が出てくる ——
+# 上書きができない、ガベージコレクションが要る、
+# ホストが頼んでいない書き込みが起きる（ライトアンプリフィケーション）。
+nodes:
+  - id: t1
+    label: "① パッケージ → ダイ → プレーン → ブロック → ページ"
+    marker: none
+    align: left
+    at: { x: 130, y: 200 }
+    size: { w: 680, h: 20 }
+  - id: lv0
+    label: "パッケージ"
+    marker: none
+    align: right
+    at: { x: 54, y: 258 }
+    size: { w: 96, h: 18 }
+  - id: bx0
+    label: ""
+    at: { x: 160, y: 244 }
+    size: { w: 320, h: 46 }
+  - id: bx0_0
+    label: ""
+    hatch: lines
+    at: { x: 168, y: 252 }
+    size: { w: 148, h: 30 }
+  - id: bx0_1
+    label: ""
+    hatch: lines
+    at: { x: 324, y: 252 }
+    size: { w: 148, h: 30 }
+  - id: wy0
+    label: "ダイを 1〜数個。外から見える部品はこれ。"
+    marker: none
+    align: left
+    at: { x: 500, y: 258 }
+    size: { w: 320, h: 18 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 167, y: 281 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 159, y: 307 }
+    size: { w: 2, h: 2 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 315, y: 281 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 479, y: 307 }
+    size: { w: 2, h: 2 }
+  - id: lv1
+    label: "ダイ"
+    marker: none
+    align: right
+    at: { x: 54, y: 322 }
+    size: { w: 96, h: 18 }
+  - id: bx1
+    label: ""
+    at: { x: 160, y: 308 }
+    size: { w: 320, h: 46 }
+  - id: bx1_0
+    label: ""
+    hatch: lines
+    at: { x: 168, y: 316 }
+    size: { w: 148, h: 30 }
+  - id: bx1_1
+    label: ""
+    hatch: lines
+    at: { x: 324, y: 316 }
+    size: { w: 148, h: 30 }
+  - id: wy1
+    label: "独立に命令を実行できる最小単位。"
+    marker: none
+    align: left
+    at: { x: 500, y: 322 }
+    size: { w: 320, h: 18 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 167, y: 345 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 159, y: 371 }
+    size: { w: 2, h: 2 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 315, y: 345 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 479, y: 371 }
+    size: { w: 2, h: 2 }
+  - id: lv2
+    label: "プレーン"
+    marker: none
+    align: right
+    at: { x: 54, y: 386 }
+    size: { w: 96, h: 18 }
+  - id: bx2
+    label: ""
+    at: { x: 160, y: 372 }
+    size: { w: 320, h: 46 }
+  - id: bx2_0
+    label: ""
+    hatch: lines
+    at: { x: 168, y: 380 }
+    size: { w: 70, h: 30 }
+  - id: bx2_1
+    label: ""
+    hatch: lines
+    at: { x: 246, y: 380 }
+    size: { w: 70, h: 30 }
+  - id: bx2_2
+    label: ""
+    hatch: lines
+    at: { x: 324, y: 380 }
+    size: { w: 70, h: 30 }
+  - id: bx2_3
+    label: ""
+    hatch: lines
+    at: { x: 402, y: 380 }
+    size: { w: 70, h: 30 }
+  - id: wy2
+    label: "ブロックの集まり。並列に動く。"
+    marker: none
+    align: left
+    at: { x: 500, y: 386 }
+    size: { w: 320, h: 18 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 167, y: 409 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 159, y: 435 }
+    size: { w: 2, h: 2 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 237, y: 409 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 479, y: 435 }
+    size: { w: 2, h: 2 }
+  - id: lv3
+    label: "ブロック"
+    marker: none
+    align: right
+    at: { x: 54, y: 450 }
+    size: { w: 96, h: 18 }
+  - id: bx3
+    label: ""
+    at: { x: 160, y: 436 }
+    size: { w: 320, h: 46 }
+  - id: bx3_0
+    label: ""
+    hatch: lines
+    at: { x: 168, y: 444 }
+    size: { w: 31, h: 30 }
+  - id: bx3_1
+    label: ""
+    hatch: lines
+    at: { x: 207, y: 444 }
+    size: { w: 31, h: 30 }
+  - id: bx3_2
+    label: ""
+    hatch: lines
+    at: { x: 246, y: 444 }
+    size: { w: 31, h: 30 }
+  - id: bx3_3
+    label: ""
+    hatch: lines
+    at: { x: 285, y: 444 }
+    size: { w: 31, h: 30 }
+  - id: bx3_4
+    label: ""
+    hatch: lines
+    at: { x: 324, y: 444 }
+    size: { w: 31, h: 30 }
+  - id: bx3_5
+    label: ""
+    hatch: lines
+    at: { x: 363, y: 444 }
+    size: { w: 31, h: 30 }
+  - id: bx3_6
+    label: ""
+    hatch: lines
+    at: { x: 402, y: 444 }
+    size: { w: 31, h: 30 }
+  - id: bx3_7
+    label: ""
+    hatch: lines
+    at: { x: 441, y: 444 }
+    size: { w: 31, h: 30 }
+  - id: wy3
+    label: "消去の最小単位。4〜8MB ＝ 数百ページ。"
+    marker: none
+    align: left
+    at: { x: 500, y: 450 }
+    size: { w: 320, h: 18 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 167, y: 473 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 159, y: 499 }
+    size: { w: 2, h: 2 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 198, y: 473 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 479, y: 499 }
+    size: { w: 2, h: 2 }
+  - id: lv4
+    label: "ページ"
+    marker: none
+    align: right
+    at: { x: 54, y: 514 }
+    size: { w: 96, h: 18 }
+  - id: bx4
+    label: "ページ"
+    at: { x: 160, y: 500 }
+    size: { w: 320, h: 46 }
+  - id: wy4
+    label: "読み書きの最小単位。4〜16KB。"
+    marker: none
+    align: left
+    at: { x: 500, y: 514 }
+    size: { w: 320, h: 18 }
+  - id: lv_n
+    label: "点線は「この 1 つを開くと、下の段になる」。"
+    marker: none
+    align: left
+    at: { x: 160, y: 574 }
+    size: { w: 400, h: 18 }
+  - id: t2
+    label: "② 操作ごとに、動かせる単位が違う"
+    marker: none
+    align: left
+    at: { x: 860, y: 200 }
+    size: { w: 380, h: 20 }
+  - id: o0_0
+    label: "操作"
+    hatch: solid
+    at: { x: 860, y: 232 }
+    size: { w: 120, h: 26 }
+  - id: o0_1
+    label: "単位"
+    hatch: solid
+    at: { x: 980, y: 232 }
+    size: { w: 130, h: 26 }
+  - id: o0_2
+    label: "大きさ"
+    hatch: solid
+    at: { x: 1110, y: 232 }
+    size: { w: 130, h: 26 }
+  - id: o1_0
+    label: "読み出し"
+    at: { x: 860, y: 258 }
+    size: { w: 120, h: 26 }
+  - id: o1_1
+    label: "ページ"
+    at: { x: 980, y: 258 }
+    size: { w: 130, h: 26 }
+  - id: o1_2
+    label: "4〜16KB"
+    at: { x: 1110, y: 258 }
+    size: { w: 130, h: 26 }
+  - id: o2_0
+    label: "書き込み"
+    at: { x: 860, y: 284 }
+    size: { w: 120, h: 26 }
+  - id: o2_1
+    label: "ページ"
+    at: { x: 980, y: 284 }
+    size: { w: 130, h: 26 }
+  - id: o2_2
+    label: "4〜16KB"
+    at: { x: 1110, y: 284 }
+    size: { w: 130, h: 26 }
+  - id: o3_0
+    label: "消去"
+    at: { x: 860, y: 310 }
+    size: { w: 120, h: 26 }
+  - id: o3_1
+    label: "ブロック"
+    at: { x: 980, y: 310 }
+    size: { w: 130, h: 26 }
+  - id: o3_2
+    label: "4〜8MB"
+    at: { x: 1110, y: 310 }
+    size: { w: 130, h: 26 }
+  - id: o_n1
+    label: "上書きができない。 書いたページを書き直すには、"
+    marker: none
+    align: left
+    at: { x: 860, y: 348 }
+    size: { w: 380, h: 18 }
+  - id: o_n2
+    label: "そのページを含むブロックごと消すしかない。"
+    marker: none
+    align: left
+    at: { x: 860, y: 370 }
+    size: { w: 380, h: 18 }
+  - id: o_n3
+    label: "だから書き換えは「別の空きページに書いて、"
+    marker: none
+    align: left
+    at: { x: 860, y: 392 }
+    size: { w: 380, h: 18 }
+  - id: o_n4
+    label: "元のページを無効にする」という形になる。"
+    marker: none
+    align: left
+    at: { x: 860, y: 414 }
+    size: { w: 380, h: 18 }
+  - id: t3
+    label: "③ 3 ページ書き換えると、8 ページ書かれる"
+    marker: none
+    align: left
+    at: { x: 130, y: 640 }
+    size: { w: 1100, h: 20 }
+  - id: pn0
+    label: "1. 書き換える前"
+    marker: none
+    align: left
+    at: { x: 150, y: 676 }
+    size: { w: 280, h: 18 }
+  - id: bl0A
+    label: "A"
+    marker: none
+    align: right
+    at: { x: 124, y: 706 }
+    size: { w: 22, h: 18 }
+  - id: c0A0
+    label: "有"
+    hatch: lines
+    at: { x: 150, y: 700 }
+    size: { w: 34, h: 30 }
+  - id: c0A1
+    label: "有"
+    hatch: lines
+    at: { x: 184, y: 700 }
+    size: { w: 34, h: 30 }
+  - id: c0A2
+    label: "有"
+    hatch: lines
+    at: { x: 218, y: 700 }
+    size: { w: 34, h: 30 }
+  - id: c0A3
+    label: "有"
+    hatch: lines
+    at: { x: 252, y: 700 }
+    size: { w: 34, h: 30 }
+  - id: c0A4
+    label: "有"
+    hatch: lines
+    at: { x: 286, y: 700 }
+    size: { w: 34, h: 30 }
+  - id: c0A5
+    label: "有"
+    hatch: lines
+    at: { x: 320, y: 700 }
+    size: { w: 34, h: 30 }
+  - id: c0A6
+    label: "有"
+    hatch: lines
+    at: { x: 354, y: 700 }
+    size: { w: 34, h: 30 }
+  - id: c0A7
+    label: "有"
+    hatch: lines
+    at: { x: 388, y: 700 }
+    size: { w: 34, h: 30 }
+  - id: bl0B
+    label: "B"
+    marker: none
+    align: right
+    at: { x: 124, y: 754 }
+    size: { w: 22, h: 18 }
+  - id: c0B0
+    label: "空"
+    at: { x: 150, y: 748 }
+    size: { w: 34, h: 30 }
+  - id: c0B1
+    label: "空"
+    at: { x: 184, y: 748 }
+    size: { w: 34, h: 30 }
+  - id: c0B2
+    label: "空"
+    at: { x: 218, y: 748 }
+    size: { w: 34, h: 30 }
+  - id: c0B3
+    label: "空"
+    at: { x: 252, y: 748 }
+    size: { w: 34, h: 30 }
+  - id: c0B4
+    label: "空"
+    at: { x: 286, y: 748 }
+    size: { w: 34, h: 30 }
+  - id: c0B5
+    label: "空"
+    at: { x: 320, y: 748 }
+    size: { w: 34, h: 30 }
+  - id: c0B6
+    label: "空"
+    at: { x: 354, y: 748 }
+    size: { w: 34, h: 30 }
+  - id: c0B7
+    label: "空"
+    at: { x: 388, y: 748 }
+    size: { w: 34, h: 30 }
+  - id: pn1
+    label: "2. 2・5・7 を書き換えた"
+    marker: none
+    align: left
+    at: { x: 530, y: 676 }
+    size: { w: 280, h: 18 }
+  - id: bl1A
+    label: "A"
+    marker: none
+    align: right
+    at: { x: 504, y: 706 }
+    size: { w: 22, h: 18 }
+  - id: c1A0
+    label: "有"
+    hatch: lines
+    at: { x: 530, y: 700 }
+    size: { w: 34, h: 30 }
+  - id: c1A1
+    label: "無"
+    hatch: dots
+    at: { x: 564, y: 700 }
+    size: { w: 34, h: 30 }
+  - id: c1A2
+    label: "有"
+    hatch: lines
+    at: { x: 598, y: 700 }
+    size: { w: 34, h: 30 }
+  - id: c1A3
+    label: "有"
+    hatch: lines
+    at: { x: 632, y: 700 }
+    size: { w: 34, h: 30 }
+  - id: c1A4
+    label: "無"
+    hatch: dots
+    at: { x: 666, y: 700 }
+    size: { w: 34, h: 30 }
+  - id: c1A5
+    label: "有"
+    hatch: lines
+    at: { x: 700, y: 700 }
+    size: { w: 34, h: 30 }
+  - id: c1A6
+    label: "無"
+    hatch: dots
+    at: { x: 734, y: 700 }
+    size: { w: 34, h: 30 }
+  - id: c1A7
+    label: "有"
+    hatch: lines
+    at: { x: 768, y: 700 }
+    size: { w: 34, h: 30 }
+  - id: bl1B
+    label: "B"
+    marker: none
+    align: right
+    at: { x: 504, y: 754 }
+    size: { w: 22, h: 18 }
+  - id: c1B0
+    label: "有"
+    hatch: lines
+    at: { x: 530, y: 748 }
+    size: { w: 34, h: 30 }
+  - id: c1B1
+    label: "有"
+    hatch: lines
+    at: { x: 564, y: 748 }
+    size: { w: 34, h: 30 }
+  - id: c1B2
+    label: "有"
+    hatch: lines
+    at: { x: 598, y: 748 }
+    size: { w: 34, h: 30 }
+  - id: c1B3
+    label: "空"
+    at: { x: 632, y: 748 }
+    size: { w: 34, h: 30 }
+  - id: c1B4
+    label: "空"
+    at: { x: 666, y: 748 }
+    size: { w: 34, h: 30 }
+  - id: c1B5
+    label: "空"
+    at: { x: 700, y: 748 }
+    size: { w: 34, h: 30 }
+  - id: c1B6
+    label: "空"
+    at: { x: 734, y: 748 }
+    size: { w: 34, h: 30 }
+  - id: c1B7
+    label: "空"
+    at: { x: 768, y: 748 }
+    size: { w: 34, h: 30 }
+  - id: pn2
+    label: "3. A を消せるようにした"
+    marker: none
+    align: left
+    at: { x: 910, y: 676 }
+    size: { w: 280, h: 18 }
+  - id: bl2A
+    label: "A"
+    marker: none
+    align: right
+    at: { x: 884, y: 706 }
+    size: { w: 22, h: 18 }
+  - id: c2A0
+    label: "空"
+    at: { x: 910, y: 700 }
+    size: { w: 34, h: 30 }
+  - id: c2A1
+    label: "空"
+    at: { x: 944, y: 700 }
+    size: { w: 34, h: 30 }
+  - id: c2A2
+    label: "空"
+    at: { x: 978, y: 700 }
+    size: { w: 34, h: 30 }
+  - id: c2A3
+    label: "空"
+    at: { x: 1012, y: 700 }
+    size: { w: 34, h: 30 }
+  - id: c2A4
+    label: "空"
+    at: { x: 1046, y: 700 }
+    size: { w: 34, h: 30 }
+  - id: c2A5
+    label: "空"
+    at: { x: 1080, y: 700 }
+    size: { w: 34, h: 30 }
+  - id: c2A6
+    label: "空"
+    at: { x: 1114, y: 700 }
+    size: { w: 34, h: 30 }
+  - id: c2A7
+    label: "空"
+    at: { x: 1148, y: 700 }
+    size: { w: 34, h: 30 }
+  - id: bl2B
+    label: "B"
+    marker: none
+    align: right
+    at: { x: 884, y: 754 }
+    size: { w: 22, h: 18 }
+  - id: c2B0
+    label: "有"
+    hatch: lines
+    at: { x: 910, y: 748 }
+    size: { w: 34, h: 30 }
+  - id: c2B1
+    label: "有"
+    hatch: lines
+    at: { x: 944, y: 748 }
+    size: { w: 34, h: 30 }
+  - id: c2B2
+    label: "有"
+    hatch: lines
+    at: { x: 978, y: 748 }
+    size: { w: 34, h: 30 }
+  - id: c2B3
+    label: "有"
+    hatch: lines
+    at: { x: 1012, y: 748 }
+    size: { w: 34, h: 30 }
+  - id: c2B4
+    label: "有"
+    hatch: lines
+    at: { x: 1046, y: 748 }
+    size: { w: 34, h: 30 }
+  - id: c2B5
+    label: "有"
+    hatch: lines
+    at: { x: 1080, y: 748 }
+    size: { w: 34, h: 30 }
+  - id: c2B6
+    label: "有"
+    hatch: lines
+    at: { x: 1114, y: 748 }
+    size: { w: 34, h: 30 }
+  - id: c2B7
+    label: "有"
+    hatch: lines
+    at: { x: 1148, y: 748 }
+    size: { w: 34, h: 30 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 431, y: 729 }
+    size: { w: 2, h: 2 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 495, y: 729 }
+    size: { w: 2, h: 2 }
+  - id: p18
+    label: ""
+    marker: none
+    at: { x: 811, y: 729 }
+    size: { w: 2, h: 2 }
+  - id: p19
+    label: ""
+    marker: none
+    at: { x: 875, y: 729 }
+    size: { w: 2, h: 2 }
+  - id: ar1
+    label: "新しい内容は B の空きへ。"
+    marker: none
+    align: center
+    at: { x: 440, y: 790 }
+    size: { w: 260, h: 18 }
+  - id: ar1b
+    label: "A の 3 ページは無効になる。"
+    marker: none
+    align: center
+    at: { x: 440, y: 812 }
+    size: { w: 260, h: 18 }
+  - id: ar2
+    label: "A の有効 5 ページを B へ写し、"
+    marker: none
+    align: center
+    at: { x: 820, y: 790 }
+    size: { w: 260, h: 18 }
+  - id: ar2b
+    label: "それから A をブロックごと消す。"
+    marker: none
+    align: center
+    at: { x: 820, y: 812 }
+    size: { w: 260, h: 18 }
+  - id: leg
+    label: "有 ＝ 有効（斜線）　無 ＝ 無効（点）　空 ＝ 空き"
+    marker: none
+    align: left
+    at: { x: 150, y: 850 }
+    size: { w: 420, h: 18 }
+  - id: waf
+    label: "ホストが書いたのは 3 ページ。SSD が書いたのは 3 ＋ 5 ＝ 8 ページ　→　2.7 倍"
+    at: { x: 620, y: 844 }
+    size: { w: 610, h: 30 }
+  - id: r1
+    label: "読み書きはページ単位、消去はブロック単位。 この食い違いが、SSD のほとんどの性質を決めています。"
+    marker: none
+    align: left
+    at: { x: 130, y: 900 }
+    size: { w: 1100, h: 18 }
+  - id: r2
+    label: "上書きができません。 書き換えは「別の空きページに書いて、元のページを無効にする」しかありません。"
+    marker: none
+    align: left
+    at: { x: 130, y: 924 }
+    size: { w: 1100, h: 18 }
+  - id: r3
+    label: "無効なページは、そのままでは再利用できません —— 消去はブロック単位だからです。"
+    marker: none
+    align: left
+    at: { x: 130, y: 948 }
+    size: { w: 1100, h: 18 }
+  - id: r4
+    label: "だからガベージコレクションが要ります（③）。無効の多いブロックを選び、残った有効ページを別のブロックへ写してから消します。"
+    marker: none
+    align: left
+    at: { x: 130, y: 972 }
+    size: { w: 1100, h: 18 }
+  - id: r5
+    label: "その「写し」は、ホストが頼んでいない書き込みです。 ③ では 3 ページ頼んで 8 ページ書かれました（2.7 倍）。"
+    marker: none
+    align: left
+    at: { x: 130, y: 996 }
+    size: { w: 1100, h: 18 }
+  - id: r6
+    label: "これをライトアンプリフィケーション（WAF ＝ SSD が書いた量 ÷ ホストが書いた量）と呼びます。1.0 が下限です。"
+    marker: none
+    align: left
+    at: { x: 130, y: 1020 }
+    size: { w: 1100, h: 18 }
+  - id: r7
+    label: "空きが減るほど不利になります。 有効ページの割合が高いブロックしか残っていなければ、写す量が増えるからです。"
+    marker: none
+    align: left
+    at: { x: 130, y: 1044 }
+    size: { w: 1100, h: 18 }
+  - id: r8
+    label: "ダイは「独立に命令を実行できる最小単位」です（①）—— 並列に動かせる数が、そのまま速さの上限になります。"
+    marker: none
+    align: left
+    at: { x: 130, y: 1068 }
+    size: { w: 1100, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }
+  - from: p2
+    to: p3
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }
+  - from: p4
+    to: p5
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }
+  - from: p6
+    to: p7
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }
+  - from: p8
+    to: p9
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }
+  - from: p10
+    to: p11
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }
+  - from: p12
+    to: p13
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }
+  - from: p14
+    to: p15
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }
+  - from: p16
+    to: p17
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p18
+    to: p19
+    curve: none
+    ends: { from: none, to: arrow }

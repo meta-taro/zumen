@@ -883,6 +883,25 @@ function checkColors(doc: Document, add: Add, m: Messages, at: At): void {
   }
 }
 
+/**
+ * **節だけの語**（辺に書いても落ちる）。
+ *
+ * 辺は 2 点を結ぶ線なので、置き場所も大きさも印も持たない。
+ */
+const NODE_ONLY_KEYS = [
+  'at',
+  'size',
+  'marker',
+  'align',
+  'tag',
+  'radius',
+  'technology',
+  'write',
+  'symbol',
+  'openings',
+  'floor',
+] as const;
+
 /** そのノードが何階にあるか。無ければ null。 */
 function floorOfNode(doc: Document, id: string): string | null {
   for (const item of seqOf(doc, 'nodes')) {
@@ -925,6 +944,20 @@ function checkEnds(doc: Document, add: Add, m: Messages, at: At): void {
     const edgeFill = item.get('fill', true);
     if (edgeFill !== undefined && edgeFill !== null) {
       add('warning', 'edge-fill-ignored', m.edgeFillIgnored(name), at(edgeFill));
+    }
+
+    /**
+     * **節だけの語を、辺に書いていないか**（2026-09-19）。
+     *
+     * `node-edge-key-ignored` の裏返し。辺は 2 点を結ぶ線なので、
+     * 置き場所も大きさも印も持たない。書いても黙って落ちる。
+     * **片側だけ塞ぐと、もう片側で同じことが起きる。**
+     */
+    for (const key of NODE_ONLY_KEYS) {
+      const wrote = item.get(key, true);
+      if (wrote !== undefined && wrote !== null) {
+        add('warning', 'edge-node-key-ignored', m.edgeNodeKeyIgnored(name, key), at(wrote));
+      }
     }
 
     const close = item.get('close');
