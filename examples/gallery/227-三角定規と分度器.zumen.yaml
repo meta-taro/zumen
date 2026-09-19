@@ -1,0 +1,806 @@
+version: 1
+kind: placement
+arrows: true
+title: 三角定規 2 枚と、分度器
+# **三角定規が 2 枚 1 組なのは、2 枚あると作れる角が増えるから。**
+#
+# 1 枚では 30・45・60・90 の 4 つだけ。
+# 2 枚を足し引きすると **15° きざみで 10 通り**になる。
+# 15° で足りるのは、それが 90 も 60 も 45 も 30 も割り切る幅だから（最大公約数）。
+#
+# **平行線が引けるのは、1 枚を押さえて滑らせるから。**
+# 分度器は目盛りが 2 通り振ってあり、**0 が左右の両方にある。**
+nodes:
+  - id: t1
+    label: "① 三角定規は 2 枚 1 組"
+    marker: none
+    align: left
+    at: { x: 150, y: 200 }
+    size: { w: 560, h: 20 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 189, y: 419 }
+    size: { w: 2, h: 2 }
+  - id: a1
+    label: "45°"
+    marker: none
+    align: left
+    at: { x: 300, y: 396 }
+    size: { w: 44, h: 18 }
+  - id: a2
+    label: "45°"
+    marker: none
+    align: left
+    at: { x: 196, y: 258 }
+    size: { w: 44, h: 18 }
+  - id: a3
+    label: "90°"
+    marker: none
+    align: left
+    at: { x: 196, y: 396 }
+    size: { w: 44, h: 18 }
+  - id: n1
+    label: "45°・45°・90°"
+    marker: none
+    align: center
+    at: { x: 180, y: 440 }
+    size: { w: 200, h: 18 }
+  - id: n1b
+    label: "辺の比 1 : 1 : √2"
+    marker: none
+    align: center
+    at: { x: 180, y: 462 }
+    size: { w: 200, h: 18 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 439, y: 419 }
+    size: { w: 2, h: 2 }
+  - id: b1
+    label: "30°"
+    marker: none
+    align: left
+    at: { x: 552, y: 396 }
+    size: { w: 44, h: 18 }
+  - id: b2
+    label: "60°"
+    marker: none
+    align: left
+    at: { x: 446, y: 330 }
+    size: { w: 44, h: 18 }
+  - id: b3
+    label: "90°"
+    marker: none
+    align: left
+    at: { x: 446, y: 396 }
+    size: { w: 44, h: 18 }
+  - id: n2
+    label: "30°・60°・90°"
+    marker: none
+    align: center
+    at: { x: 430, y: 440 }
+    size: { w: 200, h: 18 }
+  - id: n2b
+    label: "辺の比 1 : 2 : √3"
+    marker: none
+    align: center
+    at: { x: 430, y: 462 }
+    size: { w: 200, h: 18 }
+  - id: n3
+    label: "直角がどちらにもある。 2 枚とも直角三角形。"
+    marker: none
+    align: left
+    at: { x: 150, y: 496 }
+    size: { w: 560, h: 18 }
+  - id: t2
+    label: "② 2 枚を合わせると、15° きざみで作れる"
+    marker: none
+    align: left
+    at: { x: 760, y: 200 }
+    size: { w: 480, h: 20 }
+  - id: mh0
+    label: "作れる角"
+    hatch: solid
+    at: { x: 760, y: 232 }
+    size: { w: 130, h: 26 }
+  - id: mh1
+    label: "作り方"
+    hatch: solid
+    at: { x: 890, y: 232 }
+    size: { w: 250, h: 26 }
+  - id: m0a
+    label: "15°"
+    at: { x: 760, y: 258 }
+    size: { w: 130, h: 26 }
+  - id: m0b
+    label: "45° − 30°"
+    at: { x: 890, y: 258 }
+    size: { w: 250, h: 26 }
+  - id: m1a
+    label: "30°"
+    at: { x: 760, y: 284 }
+    size: { w: 130, h: 26 }
+  - id: m1b
+    label: "30°（そのまま）"
+    at: { x: 890, y: 284 }
+    size: { w: 250, h: 26 }
+  - id: m2a
+    label: "45°"
+    at: { x: 760, y: 310 }
+    size: { w: 130, h: 26 }
+  - id: m2b
+    label: "45°（そのまま）"
+    at: { x: 890, y: 310 }
+    size: { w: 250, h: 26 }
+  - id: m3a
+    label: "60°"
+    at: { x: 760, y: 336 }
+    size: { w: 130, h: 26 }
+  - id: m3b
+    label: "60°（そのまま）"
+    at: { x: 890, y: 336 }
+    size: { w: 250, h: 26 }
+  - id: m4a
+    label: "75°"
+    at: { x: 760, y: 362 }
+    size: { w: 130, h: 26 }
+  - id: m4b
+    label: "45° ＋ 30°"
+    at: { x: 890, y: 362 }
+    size: { w: 250, h: 26 }
+  - id: m5a
+    label: "90°"
+    at: { x: 760, y: 388 }
+    size: { w: 130, h: 26 }
+  - id: m5b
+    label: "90°（そのまま）"
+    at: { x: 890, y: 388 }
+    size: { w: 250, h: 26 }
+  - id: m6a
+    label: "105°"
+    at: { x: 760, y: 414 }
+    size: { w: 130, h: 26 }
+  - id: m6b
+    label: "45° ＋ 60°"
+    at: { x: 890, y: 414 }
+    size: { w: 250, h: 26 }
+  - id: m7a
+    label: "120°"
+    at: { x: 760, y: 440 }
+    size: { w: 130, h: 26 }
+  - id: m7b
+    label: "90° ＋ 30°"
+    at: { x: 890, y: 440 }
+    size: { w: 250, h: 26 }
+  - id: m8a
+    label: "135°"
+    at: { x: 760, y: 466 }
+    size: { w: 130, h: 26 }
+  - id: m8b
+    label: "90° ＋ 45°"
+    at: { x: 890, y: 466 }
+    size: { w: 250, h: 26 }
+  - id: m9a
+    label: "150°"
+    at: { x: 760, y: 492 }
+    size: { w: 130, h: 26 }
+  - id: m9b
+    label: "90° ＋ 60°"
+    at: { x: 890, y: 492 }
+    size: { w: 250, h: 26 }
+  - id: n4
+    label: "165° は 15° の裏側（180° − 15°）。"
+    marker: none
+    align: left
+    at: { x: 760, y: 528 }
+    size: { w: 480, h: 18 }
+  - id: n5
+    label: "1 枚では 30・45・60・90 の 4 つだけ。"
+    marker: none
+    align: left
+    at: { x: 760, y: 550 }
+    size: { w: 480, h: 18 }
+  - id: n6
+    label: "2 枚あると 10 通りに増える —— だから 2 枚 1 組。"
+    marker: none
+    align: left
+    at: { x: 760, y: 572 }
+    size: { w: 480, h: 18 }
+  - id: t3
+    label: "③ 平行線は、1 枚を押さえて滑らせる"
+    marker: none
+    align: left
+    at: { x: 150, y: 560 }
+    size: { w: 560, h: 20 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 179, y: 699 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 539, y: 699 }
+    size: { w: 2, h: 2 }
+  - id: rule_n
+    label: "押さえる 1 枚"
+    marker: none
+    align: left
+    at: { x: 180, y: 706 }
+    size: { w: 160, h: 18 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 209, y: 699 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 329, y: 699 }
+    size: { w: 2, h: 2 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 209, y: 619 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 389, y: 699 }
+    size: { w: 2, h: 2 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 329, y: 619 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 509, y: 699 }
+    size: { w: 2, h: 2 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 249, y: 679 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 329, y: 679 }
+    size: { w: 2, h: 2 }
+  - id: n7
+    label: "下の 1 枚は動かさない（定規の代わり）。"
+    marker: none
+    align: left
+    at: { x: 150, y: 736 }
+    size: { w: 560, h: 18 }
+  - id: n8
+    label: "上の 1 枚を辺に沿って横へ滑らせると、角度は変わらない。"
+    marker: none
+    align: left
+    at: { x: 150, y: 758 }
+    size: { w: 560, h: 18 }
+  - id: n9
+    label: "だから斜辺に沿って引いた線は、かならず平行になる。"
+    marker: none
+    align: left
+    at: { x: 150, y: 780 }
+    size: { w: 560, h: 18 }
+  - id: t4
+    label: "④ 分度器は、目盛りが 2 通り振ってある"
+    marker: none
+    align: left
+    at: { x: 760, y: 640 }
+    size: { w: 480, h: 20 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 889, y: 849 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 1109, y: 849 }
+    size: { w: 2, h: 2 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 889, y: 849 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 1109, y: 849 }
+    size: { w: 2, h: 2 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 889, y: 849 }
+    size: { w: 2, h: 2 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 905, y: 849 }
+    size: { w: 2, h: 2 }
+  - id: p18
+    label: ""
+    marker: none
+    at: { x: 890.7, y: 829.9 }
+    size: { w: 2, h: 2 }
+  - id: p19
+    label: ""
+    marker: none
+    at: { x: 898.5, y: 831.3 }
+    size: { w: 2, h: 2 }
+  - id: p20
+    label: ""
+    marker: none
+    at: { x: 895.6, y: 811.4 }
+    size: { w: 2, h: 2 }
+  - id: p21
+    label: ""
+    marker: none
+    at: { x: 903.2, y: 814.1 }
+    size: { w: 2, h: 2 }
+  - id: p22
+    label: ""
+    marker: none
+    at: { x: 903.7, y: 794 }
+    size: { w: 2, h: 2 }
+  - id: p23
+    label: ""
+    marker: none
+    at: { x: 917.6, y: 802 }
+    size: { w: 2, h: 2 }
+  - id: p24
+    label: ""
+    marker: none
+    at: { x: 914.7, y: 778.3 }
+    size: { w: 2, h: 2 }
+  - id: p25
+    label: ""
+    marker: none
+    at: { x: 920.9, y: 783.4 }
+    size: { w: 2, h: 2 }
+  - id: p26
+    label: ""
+    marker: none
+    at: { x: 928.3, y: 764.7 }
+    size: { w: 2, h: 2 }
+  - id: p27
+    label: ""
+    marker: none
+    at: { x: 933.4, y: 770.9 }
+    size: { w: 2, h: 2 }
+  - id: p28
+    label: ""
+    marker: none
+    at: { x: 944, y: 753.7 }
+    size: { w: 2, h: 2 }
+  - id: p29
+    label: ""
+    marker: none
+    at: { x: 952, y: 767.6 }
+    size: { w: 2, h: 2 }
+  - id: p30
+    label: ""
+    marker: none
+    at: { x: 961.4, y: 745.6 }
+    size: { w: 2, h: 2 }
+  - id: p31
+    label: ""
+    marker: none
+    at: { x: 964.1, y: 753.2 }
+    size: { w: 2, h: 2 }
+  - id: p32
+    label: ""
+    marker: none
+    at: { x: 979.9, y: 740.7 }
+    size: { w: 2, h: 2 }
+  - id: p33
+    label: ""
+    marker: none
+    at: { x: 981.3, y: 748.5 }
+    size: { w: 2, h: 2 }
+  - id: p34
+    label: ""
+    marker: none
+    at: { x: 999, y: 739 }
+    size: { w: 2, h: 2 }
+  - id: p35
+    label: ""
+    marker: none
+    at: { x: 999, y: 755 }
+    size: { w: 2, h: 2 }
+  - id: p36
+    label: ""
+    marker: none
+    at: { x: 1018.1, y: 740.7 }
+    size: { w: 2, h: 2 }
+  - id: p37
+    label: ""
+    marker: none
+    at: { x: 1016.7, y: 748.5 }
+    size: { w: 2, h: 2 }
+  - id: p38
+    label: ""
+    marker: none
+    at: { x: 1036.6, y: 745.6 }
+    size: { w: 2, h: 2 }
+  - id: p39
+    label: ""
+    marker: none
+    at: { x: 1033.9, y: 753.2 }
+    size: { w: 2, h: 2 }
+  - id: p40
+    label: ""
+    marker: none
+    at: { x: 1054, y: 753.7 }
+    size: { w: 2, h: 2 }
+  - id: p41
+    label: ""
+    marker: none
+    at: { x: 1046, y: 767.6 }
+    size: { w: 2, h: 2 }
+  - id: p42
+    label: ""
+    marker: none
+    at: { x: 1069.7, y: 764.7 }
+    size: { w: 2, h: 2 }
+  - id: p43
+    label: ""
+    marker: none
+    at: { x: 1064.6, y: 770.9 }
+    size: { w: 2, h: 2 }
+  - id: p44
+    label: ""
+    marker: none
+    at: { x: 1083.3, y: 778.3 }
+    size: { w: 2, h: 2 }
+  - id: p45
+    label: ""
+    marker: none
+    at: { x: 1077.1, y: 783.4 }
+    size: { w: 2, h: 2 }
+  - id: p46
+    label: ""
+    marker: none
+    at: { x: 1094.3, y: 794 }
+    size: { w: 2, h: 2 }
+  - id: p47
+    label: ""
+    marker: none
+    at: { x: 1080.4, y: 802 }
+    size: { w: 2, h: 2 }
+  - id: p48
+    label: ""
+    marker: none
+    at: { x: 1102.4, y: 811.4 }
+    size: { w: 2, h: 2 }
+  - id: p49
+    label: ""
+    marker: none
+    at: { x: 1094.8, y: 814.1 }
+    size: { w: 2, h: 2 }
+  - id: p50
+    label: ""
+    marker: none
+    at: { x: 1107.3, y: 829.9 }
+    size: { w: 2, h: 2 }
+  - id: p51
+    label: ""
+    marker: none
+    at: { x: 1099.5, y: 831.3 }
+    size: { w: 2, h: 2 }
+  - id: p52
+    label: ""
+    marker: none
+    at: { x: 1109, y: 849 }
+    size: { w: 2, h: 2 }
+  - id: p53
+    label: ""
+    marker: none
+    at: { x: 1093, y: 849 }
+    size: { w: 2, h: 2 }
+  - id: o0
+    label: "0"
+    marker: none
+    align: center
+    at: { x: 900, y: 841 }
+    size: { w: 32, h: 18 }
+  - id: i0
+    label: "180"
+    marker: none
+    align: center
+    at: { x: 938, y: 841 }
+    size: { w: 32, h: 18 }
+  - id: o60
+    label: "60"
+    marker: none
+    align: center
+    at: { x: 942, y: 768.3 }
+    size: { w: 32, h: 18 }
+  - id: i60
+    label: "120"
+    marker: none
+    align: center
+    at: { x: 961, y: 801.2 }
+    size: { w: 32, h: 18 }
+  - id: o120
+    label: "120"
+    marker: none
+    align: center
+    at: { x: 1026, y: 768.3 }
+    size: { w: 32, h: 18 }
+  - id: i120
+    label: "60"
+    marker: none
+    align: center
+    at: { x: 1007, y: 801.2 }
+    size: { w: 32, h: 18 }
+  - id: o180
+    label: "180"
+    marker: none
+    align: center
+    at: { x: 1068, y: 841 }
+    size: { w: 32, h: 18 }
+  - id: i180
+    label: "0"
+    marker: none
+    align: center
+    at: { x: 1030, y: 841 }
+    size: { w: 32, h: 18 }
+  - id: ctr
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 996, y: 846 }
+    size: { w: 8, h: 8 }
+  - id: n10
+    label: "中心を角の頂点に、0 の線を辺に合わせる。"
+    marker: none
+    align: left
+    at: { x: 760, y: 870 }
+    size: { w: 480, h: 18 }
+  - id: n11
+    label: "0 は左右の両方にある。 内と外で向きが逆。"
+    marker: none
+    align: left
+    at: { x: 760, y: 892 }
+    size: { w: 480, h: 18 }
+  - id: n12
+    label: "どちらの辺から測っても読めるように振ってあり、"
+    marker: none
+    align: left
+    at: { x: 760, y: 914 }
+    size: { w: 480, h: 18 }
+  - id: n13
+    label: "そのぶん読み違えやすい（30° と 150° を取り違える）。"
+    marker: none
+    align: left
+    at: { x: 760, y: 936 }
+    size: { w: 480, h: 18 }
+  - id: r1
+    label: "三角定規が 2 枚 1 組なのは、2 枚あると作れる角が増えるからです。1 枚では 30・45・60・90 の 4 つだけ。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1000 }
+    size: { w: 1090, h: 18 }
+  - id: r2
+    label: "2 枚を足し引きすると、15° きざみで 10 通りになります（②）—— 15 は 45 − 30、75 は 45 ＋ 30。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1024 }
+    size: { w: 1090, h: 18 }
+  - id: r3
+    label: "15° きざみで足りるのは、それが 90 も 60 も 45 も 30 も割り切る幅だからです。最大公約数が 15。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1048 }
+    size: { w: 1090, h: 18 }
+  - id: r4
+    label: "平行線が引けるのは、1 枚を押さえて滑らせるからです（③）。角度が変わらないまま動くので、線は必ず平行になります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1072 }
+    size: { w: 1090, h: 18 }
+  - id: r5
+    label: "分度器は目盛りが 2 通り振ってあります（④）。どちらの辺から測っても読めるようにするためです。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1096 }
+    size: { w: 1090, h: 18 }
+  - id: r6
+    label: "その代わり 0 が左右の両方にあり、30° と 150° を取り違えます。中心を頂点に、0 の線を辺に——これだけが読み方です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1120 }
+    size: { w: 1090, h: 18 }
+  - id: r7
+    label: "コンパスと定規の作図（見本 209）は目盛りを使いませんが、こちらは目盛りと角度を使う道具です。役割が違います。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1144 }
+    size: { w: 1090, h: 18 }
+edges:
+  - from: p0
+    to: p0
+    curve: none
+    close: true
+    ends: { from: none, to: none }
+    via:
+      - { x: 190, y: 420 }
+      - { x: 370, y: 420 }
+      - { x: 190, y: 240 }
+  - from: p1
+    to: p1
+    curve: none
+    close: true
+    ends: { from: none, to: none }
+    via:
+      - { x: 440, y: 420 }
+      - { x: 620, y: 420 }
+      - { x: 440, y: 316 }
+  - from: p2
+    to: p3
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p4
+    to: p4
+    curve: none
+    close: true
+    ends: { from: none, to: none }
+    via:
+      - { x: 210, y: 700 }
+      - { x: 390, y: 700 }
+      - { x: 210, y: 620 }
+  - from: p5
+    to: p5
+    curve: none
+    close: true
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 330, y: 700 }
+      - { x: 510, y: 700 }
+      - { x: 330, y: 620 }
+  - from: p6
+    to: p7
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }
+  - from: p8
+    to: p9
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }
+  - from: p10
+    to: p11
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p12
+    to: p13
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 890.3, y: 841.4 }
+      - { x: 891.4, y: 832.8 }
+      - { x: 893, y: 824.3 }
+      - { x: 895.4, y: 816 }
+      - { x: 898.4, y: 807.9 }
+      - { x: 902, y: 800.1 }
+      - { x: 906.2, y: 792.5 }
+      - { x: 911, y: 785.3 }
+      - { x: 916.4, y: 778.6 }
+      - { x: 922.2, y: 772.2 }
+      - { x: 928.6, y: 766.4 }
+      - { x: 935.3, y: 761 }
+      - { x: 942.5, y: 756.2 }
+      - { x: 950.1, y: 752 }
+      - { x: 957.9, y: 748.4 }
+      - { x: 966, y: 745.4 }
+      - { x: 974.3, y: 743 }
+      - { x: 982.8, y: 741.4 }
+      - { x: 991.4, y: 740.3 }
+      - { x: 1000, y: 740 }
+      - { x: 1008.6, y: 740.3 }
+      - { x: 1017.2, y: 741.4 }
+      - { x: 1025.7, y: 743 }
+      - { x: 1034, y: 745.4 }
+      - { x: 1042.1, y: 748.4 }
+      - { x: 1049.9, y: 752 }
+      - { x: 1057.5, y: 756.2 }
+      - { x: 1064.7, y: 761 }
+      - { x: 1071.4, y: 766.4 }
+      - { x: 1077.8, y: 772.2 }
+      - { x: 1083.6, y: 778.6 }
+      - { x: 1089, y: 785.3 }
+      - { x: 1093.8, y: 792.5 }
+      - { x: 1098, y: 800.1 }
+      - { x: 1101.6, y: 807.9 }
+      - { x: 1104.6, y: 816 }
+      - { x: 1107, y: 824.3 }
+      - { x: 1108.6, y: 832.8 }
+      - { x: 1109.7, y: 841.4 }
+  - from: p14
+    to: p15
+    curve: none
+    ends: { from: none, to: none }
+  - from: p16
+    to: p17
+    curve: none
+    ends: { from: none, to: none }
+  - from: p18
+    to: p19
+    curve: none
+    ends: { from: none, to: none }
+  - from: p20
+    to: p21
+    curve: none
+    ends: { from: none, to: none }
+  - from: p22
+    to: p23
+    curve: none
+    ends: { from: none, to: none }
+  - from: p24
+    to: p25
+    curve: none
+    ends: { from: none, to: none }
+  - from: p26
+    to: p27
+    curve: none
+    ends: { from: none, to: none }
+  - from: p28
+    to: p29
+    curve: none
+    ends: { from: none, to: none }
+  - from: p30
+    to: p31
+    curve: none
+    ends: { from: none, to: none }
+  - from: p32
+    to: p33
+    curve: none
+    ends: { from: none, to: none }
+  - from: p34
+    to: p35
+    curve: none
+    ends: { from: none, to: none }
+  - from: p36
+    to: p37
+    curve: none
+    ends: { from: none, to: none }
+  - from: p38
+    to: p39
+    curve: none
+    ends: { from: none, to: none }
+  - from: p40
+    to: p41
+    curve: none
+    ends: { from: none, to: none }
+  - from: p42
+    to: p43
+    curve: none
+    ends: { from: none, to: none }
+  - from: p44
+    to: p45
+    curve: none
+    ends: { from: none, to: none }
+  - from: p46
+    to: p47
+    curve: none
+    ends: { from: none, to: none }
+  - from: p48
+    to: p49
+    curve: none
+    ends: { from: none, to: none }
+  - from: p50
+    to: p51
+    curve: none
+    ends: { from: none, to: none }
+  - from: p52
+    to: p53
+    curve: none
+    ends: { from: none, to: none }
