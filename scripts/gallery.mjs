@@ -209,6 +209,15 @@ const USES = [
 const usesOf = (text) => USES.filter(([, re]) => re.test(text)).map(([name]) => name);
 /** **配置図か構成図か。** まねる相手を選ぶとき、題材より先に効く。 */
 const kindOfText = (text) => (/^kind:\s*placement\b/m.test(text) ? 'placement' : 'structure');
+/**
+ * **1 枚に、いくつ違う縮尺があるか。**
+ *
+ * `uses` に views と scale があるだけでは、**同じ縮尺の views**（各階平面図）と
+ * **縮尺を分けた views**（詳細図と全体図）が区別できない。
+ * 「1 枚に 2 つの縮尺」を目次から引けるようにするための数。
+ */
+const scalesOf = (text) =>
+  new Set([...text.matchAll(/^\s*scale: \{[^}]*\}/gm)].map((m) => m[0].trim().replace(/\s+/g, ''))).size;
 
 const index = {
   count: readdirSync(DIR).filter((f) => f.endsWith('.zumen.yaml')).length,
@@ -221,6 +230,7 @@ const index = {
       caption: item.caption,
       captionEn: CAPTIONS_EN[item.name] ?? '',
       kind: kindOfText(readFileSync(join(DIR, `${item.name}.zumen.yaml`), 'utf8')),
+      scales: scalesOf(readFileSync(join(DIR, `${item.name}.zumen.yaml`), 'utf8')),
       uses: usesOf(readFileSync(join(DIR, `${item.name}.zumen.yaml`), 'utf8')),
     })),
   })),

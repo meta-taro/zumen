@@ -32,6 +32,8 @@ export interface Example {
   captionEn: string;
   /** **配置図（座標を自分で書く）か、構成図（機械が並べる）か。** まねる前に知りたい。 */
   kind: 'placement' | 'structure';
+  /** **1 枚にいくつ違う縮尺があるか。** 2 以上なら「詳細図と全体図」を分けた見本。 */
+  scales: number;
   /** **その見本が使っている道具**（`views` `scale` `hatch` など）。機能から実物を引くため。 */
   uses: string[];
 }

@@ -100,10 +100,24 @@ describe('使っている道具で引く', () => {
     assert.ok(found.length >= 5, `views で ${found.length} 件しか出ない`);
   });
 
+  /**
+   * **「1 枚に 2 つの縮尺」を、目次から本当に引けるか**（2026-09-19）。
+   *
+   * `uses` に views と scale があるだけでは、**同じ縮尺の views** と区別がつかない。
+   * 口上に「views を 2 つ使って縮尺を分けた見本はどれか、が引ける」と書いた以上、
+   * **引けるようにしておく。**
+   */
   it('**縮尺を分けた見本が引ける**（1 枚に 2 つの scale）', () => {
     const items = catalogue()!.categories.flatMap((g) => g.items);
-    const twoScales = items.filter((i) => i.uses.includes('views') && i.uses.includes('scale'));
-    assert.ok(twoScales.length > 0, '縮尺を図ごとに分けた見本が拾えない');
+    const twoScales = items.filter((i) => i.scales >= 2);
+    assert.ok(twoScales.length >= 5, `2 縮尺の見本が ${twoScales.length} 件しか拾えない`);
+    assert.ok(twoScales.every((i) => i.uses.includes('views')), '縮尺が 2 つあるのに views を使っていない見本がある');
+  });
+
+  it('**縮尺が 1 つの見本は 1、無い見本は 0**', () => {
+    const items = catalogue()!.categories.flatMap((g) => g.items);
+    assert.ok(items.some((i) => i.scales === 1));
+    assert.ok(items.some((i) => i.scales === 0));
   });
 
   it('使っていない道具は並べない', () => {
