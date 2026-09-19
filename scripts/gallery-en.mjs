@@ -106,6 +106,7 @@ export const CAPTIONS_EN = {
   '169-麻雀の配牌': 'Mahjong: the dice decide where the wall is opened, not luck',
   '168-ダイヤモンドシステム': 'Billiards: the diamonds on the rails are a ruler, not decoration',
   '167-ダーツボードの割り付け': 'A dartboard: the numbers are arranged to punish a miss',
+  '224-罹災証明の住家被害認定': 'Damage certification: a hazard map measures from the ground, this measures from the floor — so the same water gives two different numbers, and 0.1m changes the category',
   '223-海図の読み方': 'A nautical chart carries three datums at once: depths from the lowest water, clearances from the highest, and light heights from the mean — each taken at its worst case',
   '222-平屋の保育園の避難計画': 'A single-storey nursery has no upstairs, so the plan is half about the building next door — and three people coming out to help halves the time the children spend outside',
   '221-避難行動の判定と浸水深': 'Deciding whether to leave: five questions answered once, in advance — and flood-depth bands read as floors of your own house, not as metres',
