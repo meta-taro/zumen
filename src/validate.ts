@@ -113,6 +113,7 @@ export function validate(text: string): Finding[] {
   checkViews(doc, add, m, at);
   checkConstruction(doc, add, m, at);
   checkSharedIds(doc, add, m, at);
+  checkLabelMarkdown(doc, add, m, at);
   checkNumberText(doc, add, m, at);
   checkEnds(doc, add, m, at);
   checkColors(doc, add, m, at);
@@ -365,6 +366,23 @@ function checkNumberText(doc: Document, add: Add, m: Messages, at: At): void {
  * 数の検査も、囲みどうしの重なりを見ていないので鳴らなかった。
  * 見つかったのは、書き出した SVG の文字を総当たりで比べたとき。
  */
+/**
+ * **名前の中の `**` は、そのまま絵に出る**（2026-09-19）。
+ *
+ * zumen の名前は**素のテキスト**で、Markdown ではない。
+ * ところが正本のコメントも CHANGELOG も Markdown なので、
+ * **強調の印をそのまま名前へ持ち込む**ことが起きる（見本 193 と 200 で 2 回やった）。
+ * 絵を見れば気づくが、**表のセルは 1 行が短く、見落とす。**
+ */
+function checkLabelMarkdown(doc: Document, add: Add, m: Messages, at: At): void {
+  for (const item of seqOf(doc, 'nodes')) {
+    const label = item.get('label');
+    if (typeof label !== 'string' || !label.includes('**')) continue;
+    const id = String(item.get('id') ?? '');
+    add('warning', 'label-markdown', m.labelMarkdown(id), at(item.get('label', true)));
+  }
+}
+
 function checkSharedIds(doc: Document, add: Add, m: Messages, at: At): void {
   const groups = new Set<string>();
   for (const item of seqOf(doc, 'groups')) {

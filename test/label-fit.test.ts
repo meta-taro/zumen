@@ -210,3 +210,50 @@ nodes:
     assert.ok(Number(hit[1]) > 18, `箱の中に押し込んでいる: ${hit[1]}`);
   });
 });
+
+/**
+ * **名前の中の `**` は、そのまま絵に出る**（2026-09-19）。
+ *
+ * zumen の名前は**素のテキスト**で、Markdown ではない。
+ * ところが正本のコメントや CHANGELOG は Markdown で書くので、
+ * **強調の印をそのまま名前へ持ち込んでしまう** ——
+ * 見本 193 と 200 で 2 回やった（どちらも表のセル）。
+ *
+ * 絵を見れば気づくが、**表のセルは 1 行が短いので見落とす。**
+ * 黙って `**` の付いた図を出さない。
+ */
+describe('名前に Markdown の印を残さない', () => {
+  const STARS = `version: 1
+kind: placement
+nodes:
+  - id: a
+    label: "**留め**に切る"
+    at: { x: 0, y: 0 }
+    size: { w: 200, h: 40 }
+`;
+
+  it('**名前に ** があれば知らせる**', () => {
+    const found = validate(STARS);
+    assert.ok(
+      found.some((f) => f.code === 'label-markdown'),
+      `何も言っていない: ${JSON.stringify(found.map((f) => f.code))}`,
+    );
+  });
+
+  it('**どう直すかを言う**（素のテキストであること）', () => {
+    const said = validate(STARS).find((f) => f.code === 'label-markdown')!.message;
+    assert.match(said, /そのまま|素のテキスト/);
+  });
+
+  it('warning であって、図は出る', () => {
+    assert.ok(validate(STARS).every((f) => f.severity === 'warning'));
+  });
+
+  it('印が無ければ、何も言わない', () => {
+    assert.ok(!validate(STARS.replace('**留め**', '留め')).some((f) => f.code === 'label-markdown'));
+  });
+
+  it('**掛け算の * ひとつでは鳴らない**（寸法に使う）', () => {
+    assert.ok(!validate(STARS.replace('"**留め**に切る"', '"300 * 2"')).some((f) => f.code === 'label-markdown'));
+  });
+});

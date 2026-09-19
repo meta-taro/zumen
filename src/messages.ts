@@ -632,6 +632,8 @@ const ja = {
       `${target} の color が "${key}" ですが、palette にその鍵がありません。色は付きません。`,
     colorFaint: (key: string, value: string) =>
       `palette の "${key}"（${value}）が薄すぎます。地に沈んで線が消えます（非文字の下限は 3:1。ライトとダークの両方の地で見ています）。`,
+    labelMarkdown: (id: string) =>
+      `ノード "${id || '(id なし)'}" の名前に ** が入っています。**zumen の名前は素のテキスト**で、Markdown ではありません —— ** は強調にならず、**そのまま絵に出ます**。正本のコメントや変更の記録は Markdown なので、そこから持ち込みやすいところです。`,
     colorNotHex: (key: string, value: string) =>
       `palette の "${key}" の色 "${value}" が読めません。**#rrggbb（6 桁）**で書いてください。3 桁（#a33）も色名（red）も受けません —— 貼り先で解釈が割れるためです。この鍵は色が付かないまま残ります。`,
     edgeSelfOpen: (id: string) =>
@@ -1220,6 +1222,8 @@ const en: Catalog = {
       `${target} has color "${key}", but palette has no such key. No colour is applied.`,
     colorFaint: (key: string, value: string) =>
       `palette entry "${key}" (${value}) is too faint: the line sinks into the ground (3:1 is the floor for non-text; both the light and the dark ground are checked).`,
+    labelMarkdown: (id: string) =>
+      `Node "${id || '(no id)'}" has ** in its label. **Labels are plain text**, not Markdown — the asterisks are not emphasis, they are **drawn as they are**. They creep in from the Markdown used in source comments and changelogs.`,
     colorNotHex: (key: string, value: string) =>
       `palette entry "${key}" has the colour "${value}", which cannot be read. Write it as **#rrggbb** (six digits). Three digits (#a33) and colour names (red) are not accepted — they are interpreted differently wherever the drawing is pasted. The key stays, with no colour.`,
     edgeSelfOpen: (id: string) =>

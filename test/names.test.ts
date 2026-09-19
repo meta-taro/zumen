@@ -702,6 +702,27 @@ edges:
   });
 });
 
+/**
+ * **見本に Markdown の印を残さない**（2026-09-19）。
+ *
+ * 名前は素のテキストなので、`**` はそのまま絵に出る。
+ * 見本 193・200 で 2 回やり、**既にあった見本 88 にも残っていた**。
+ * 検査（`label-markdown`）を足したので、見本ぜんぶでも留めておく。
+ */
+describe('見本の名前に、Markdown の印が無い', () => {
+  it('**`**` の付いた名前が 1 つも無い**', async () => {
+    const { readdirSync, readFileSync } = await import('node:fs');
+    const dir = new URL('../examples/gallery/', import.meta.url);
+    const found: string[] = [];
+    for (const name of readdirSync(dir).filter((f) => f.endsWith('.zumen.yaml')).sort()) {
+      for (const line of readFileSync(new URL(name, dir), 'utf8').split('\n')) {
+        if (/^\s*label: ".*\*\*/.test(line)) found.push(`${name}: ${line.trim()}`);
+      }
+    }
+    assert.deepEqual(found, []);
+  });
+});
+
 describe('箱が、はみ出して重なっていない', () => {
   it('**わざと重ねている図のほかは 0**', async () => {
     const { readdirSync, readFileSync } = await import('node:fs');
