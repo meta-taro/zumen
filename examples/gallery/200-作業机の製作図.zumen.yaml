@@ -1,0 +1,557 @@
+version: 1
+kind: placement
+arrows: true
+title: 作業机の製作図（仕口と、天板の留め方）
+scale: { mm: 5 }
+views:
+  - id: three
+    title: ① 三面図（1px ＝ 5mm）
+    at: { x: 130, y: 290 }
+    size: { w: 450, h: 374 }
+    scale: { mm: 5 }
+    grid:
+      x:
+        - { id: X1, at: 160 }
+        - { id: X2, at: 400 }
+      y:
+        - { id: Y1, at: 490 }
+        - { id: Y2, at: 634 }
+  - id: detail
+    title: ②③ 詳細（1px ＝ 1mm）
+    at: { x: 585, y: 340 }
+    size: { w: 330, h: 500 }
+    scale: { mm: 1 }
+# **規格の表ではなく、作るための図。**
+#
+# 肝は 2 つ。**ほぞ先は留め（45°）に切る** —— 脚の隣り合う 2 面から入るほぞが、
+# 脚の中でぶつかるから。そして **天板は固定しない** ——
+# 木は幅方向に伸縮するので、止めると割れる（駒止めを溝に差して逃がす）。
+#
+# ほぞ厚は**材厚の 1/3**が定石で、**ノミの寸法に丸める**（t25 → 9）。
+# 1 枚に縮尺が 2 つ（三面図 1px＝5mm／詳細 1px＝0.5mm）。
+nodes:
+  - id: p_top
+    label: ""
+    at: { x: 160, y: 330 }
+    size: { w: 240, h: 120 }
+  - id: p_leg50_50
+    label: ""
+    hatch: lines
+    at: { x: 170, y: 340 }
+    size: { w: 12, h: 12 }
+  - id: p_leg1090_50
+    label: ""
+    hatch: lines
+    at: { x: 378, y: 340 }
+    size: { w: 12, h: 12 }
+  - id: p_leg50_490
+    label: ""
+    hatch: lines
+    at: { x: 170, y: 428 }
+    size: { w: 12, h: 12 }
+  - id: p_leg1090_490
+    label: ""
+    hatch: lines
+    at: { x: 378, y: 428 }
+    size: { w: 12, h: 12 }
+  - id: p_n
+    label: "平面図"
+    marker: none
+    align: center
+    at: { x: 160, y: 458 }
+    size: { w: 240, h: 18 }
+  - id: f_top
+    label: ""
+    at: { x: 160, y: 490 }
+    size: { w: 240, h: 6 }
+  - id: f_leg50
+    label: ""
+    at: { x: 170, y: 496 }
+    size: { w: 12, h: 138 }
+  - id: f_leg1090
+    label: ""
+    at: { x: 378, y: 496 }
+    size: { w: 12, h: 138 }
+  - id: f_rail
+    label: ""
+    at: { x: 182, y: 496 }
+    size: { w: 196, h: 16 }
+  - id: f_n
+    label: "正面図"
+    marker: none
+    align: center
+    at: { x: 160, y: 642 }
+    size: { w: 240, h: 18 }
+  - id: r_top
+    label: ""
+    at: { x: 440, y: 490 }
+    size: { w: 120, h: 6 }
+  - id: r_leg50
+    label: ""
+    at: { x: 450, y: 496 }
+    size: { w: 12, h: 138 }
+  - id: r_leg490
+    label: ""
+    at: { x: 538, y: 496 }
+    size: { w: 12, h: 138 }
+  - id: r_rail
+    label: ""
+    at: { x: 462, y: 496 }
+    size: { w: 76, h: 16 }
+  - id: r_n
+    label: "右側面図"
+    marker: none
+    align: center
+    at: { x: 440, y: 642 }
+    size: { w: 120, h: 18 }
+  - id: t1
+    label: "① 三面図（第三角法・1px ＝ 5mm）"
+    marker: none
+    align: left
+    at: { x: 150, y: 180 }
+    size: { w: 470, h: 20 }
+  - id: t1b
+    label: "　1200 × 600 × H720。天板 t30／脚 60 角／幕板 t25×80"
+    marker: none
+    align: left
+    at: { x: 150, y: 202 }
+    size: { w: 420, h: 18 }
+  - id: b_leg
+    label: ""
+    hatch: lines
+    at: { x: 610, y: 380 }
+    size: { w: 60, h: 180 }
+  - id: b_rail
+    label: ""
+    hatch: dots
+    at: { x: 670, y: 420 }
+    size: { w: 150, h: 80 }
+  - id: b_hozo
+    label: ""
+    at: { x: 645, y: 430 }
+    size: { w: 25, h: 60 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 644, y: 429 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 669, y: 429 }
+    size: { w: 2, h: 2 }
+  - id: b_h1
+    label: "ほぞ厚 9"
+    marker: none
+    align: left
+    at: { x: 822, y: 424 }
+    size: { w: 150, h: 18 }
+  - id: b_h2
+    label: "ほぞ長さ 25"
+    marker: none
+    align: left
+    at: { x: 822, y: 446 }
+    size: { w: 150, h: 18 }
+  - id: b_h3
+    label: "肩 10（上下）"
+    marker: none
+    align: left
+    at: { x: 822, y: 468 }
+    size: { w: 150, h: 18 }
+  - id: t2
+    label: "② 仕口 —— 脚と幕板"
+    marker: none
+    align: left
+    at: { x: 600, y: 288 }
+    size: { w: 340, h: 20 }
+  - id: t2b
+    label: "　ほぞ先は留め（45°）に切る。"
+    marker: none
+    align: left
+    at: { x: 600, y: 310 }
+    size: { w: 340, h: 18 }
+  - id: m_leg
+    label: ""
+    at: { x: 610, y: 560 }
+    size: { w: 60, h: 60 }
+  - id: m_h1
+    label: ""
+    hatch: dots
+    at: { x: 610, y: 578 }
+    size: { w: 18, h: 9 }
+  - id: m_h2
+    label: ""
+    hatch: dots
+    at: { x: 628, y: 560 }
+    size: { w: 9, h: 18 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 627, y: 577 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 636, y: 586 }
+    size: { w: 2, h: 2 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 634, y: 577 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 627, y: 584 }
+    size: { w: 2, h: 2 }
+  - id: m_n
+    label: "脚を上から見る"
+    marker: none
+    align: center
+    at: { x: 560, y: 638 }
+    size: { w: 160, h: 18 }
+  - id: m_c
+    label: "← 45° に切る"
+    marker: none
+    align: left
+    at: { x: 684, y: 580 }
+    size: { w: 150, h: 18 }
+  - id: c_top
+    label: ""
+    hatch: solid
+    at: { x: 610, y: 740 }
+    size: { w: 200, h: 30 }
+  - id: c_rail
+    label: ""
+    hatch: dots
+    at: { x: 670, y: 770 }
+    size: { w: 25, h: 90 }
+  - id: c_groove
+    label: ""
+    at: { x: 670, y: 786 }
+    size: { w: 25, h: 8 }
+  - id: c_koma
+    label: ""
+    at: { x: 695, y: 780 }
+    size: { w: 30, h: 20 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 687, y: 739 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 687, y: 779 }
+    size: { w: 2, h: 2 }
+  - id: c_k
+    label: "駒止め（ボタン）"
+    marker: none
+    align: left
+    at: { x: 740, y: 778 }
+    size: { w: 190, h: 18 }
+  - id: c_k2
+    label: "溝に差す"
+    marker: none
+    align: left
+    at: { x: 740, y: 798 }
+    size: { w: 190, h: 18 }
+  - id: c_k3
+    label: "天板は動ける"
+    marker: none
+    align: left
+    at: { x: 740, y: 818 }
+    size: { w: 190, h: 18 }
+  - id: t3
+    label: "③ 天板は固定しない"
+    marker: none
+    align: left
+    at: { x: 600, y: 670 }
+    size: { w: 340, h: 20 }
+  - id: t3b
+    label: "　木は幅方向に伸縮する。止めると割れる。"
+    marker: none
+    align: left
+    at: { x: 600, y: 692 }
+    size: { w: 340, h: 18 }
+  - id: h190
+    label: "部材表（木取り）"
+    hatch: solid
+    at: { x: 980, y: 190 }
+    size: { w: 420, h: 24 }
+  - id: x214
+    label: "天板"
+    at: { x: 980, y: 214 }
+    size: { w: 170, h: 24 }
+  - id: y214
+    label: "1200 × 600 × t30　1 枚"
+    align: left
+    at: { x: 1150, y: 214 }
+    size: { w: 250, h: 24 }
+  - id: x238
+    label: "脚"
+    at: { x: 980, y: 238 }
+    size: { w: 170, h: 24 }
+  - id: y238
+    label: "60 × 60 × 690　4 本"
+    align: left
+    at: { x: 1150, y: 238 }
+    size: { w: 250, h: 24 }
+  - id: x262
+    label: "幕板（長手）"
+    at: { x: 980, y: 262 }
+    size: { w: 170, h: 24 }
+  - id: y262
+    label: "1030 × 80 × t25　2 枚"
+    align: left
+    at: { x: 1150, y: 262 }
+    size: { w: 250, h: 24 }
+  - id: x286
+    label: "幕板（短手）"
+    at: { x: 980, y: 286 }
+    size: { w: 170, h: 24 }
+  - id: y286
+    label: "430 × 80 × t25　2 枚"
+    align: left
+    at: { x: 1150, y: 286 }
+    size: { w: 250, h: 24 }
+  - id: x310
+    label: "駒止め"
+    at: { x: 980, y: 310 }
+    size: { w: 170, h: 24 }
+  - id: y310
+    label: "40 × 25 × t20　8 個"
+    align: left
+    at: { x: 1150, y: 310 }
+    size: { w: 250, h: 24 }
+  - id: x334
+    label: "仕上がり"
+    at: { x: 980, y: 334 }
+    size: { w: 170, h: 24 }
+  - id: y334
+    label: "W1200 × D600 × H720"
+    align: left
+    at: { x: 1150, y: 334 }
+    size: { w: 250, h: 24 }
+  - id: h376
+    label: "仕口の定石（目安）"
+    hatch: solid
+    at: { x: 980, y: 376 }
+    size: { w: 420, h: 24 }
+  - id: x400
+    label: "ほぞ厚"
+    at: { x: 980, y: 400 }
+    size: { w: 170, h: 24 }
+  - id: y400
+    label: "材厚の 1/3（t25 → 9）"
+    align: left
+    at: { x: 1150, y: 400 }
+    size: { w: 250, h: 24 }
+  - id: x424
+    label: "丸め方"
+    at: { x: 980, y: 424 }
+    size: { w: 170, h: 24 }
+  - id: y424
+    label: "ノミの寸法（6・9・12…）へ"
+    align: left
+    at: { x: 1150, y: 424 }
+    size: { w: 250, h: 24 }
+  - id: x448
+    label: "ほぞ長さ"
+    at: { x: 980, y: 448 }
+    size: { w: 170, h: 24 }
+  - id: y448
+    label: "相手材の 1/3 〜 1/2（60 → 25）"
+    align: left
+    at: { x: 1150, y: 448 }
+    size: { w: 250, h: 24 }
+  - id: x472
+    label: "肩"
+    at: { x: 980, y: 472 }
+    size: { w: 170, h: 24 }
+  - id: y472
+    label: "上下に 10 ずつ残す"
+    align: left
+    at: { x: 1150, y: 472 }
+    size: { w: 250, h: 24 }
+  - id: x496
+    label: "ほぞ先"
+    at: { x: 980, y: 496 }
+    size: { w: 170, h: 24 }
+  - id: y496
+    label: "**留め（45°）に切る**"
+    align: left
+    at: { x: 1150, y: 496 }
+    size: { w: 250, h: 24 }
+  - id: x520
+    label: "幅が広いとき"
+    at: { x: 980, y: 520 }
+    size: { w: 170, h: 24 }
+  - id: y520
+    label: "二枚ほぞにして、間を残す"
+    align: left
+    at: { x: 1150, y: 520 }
+    size: { w: 250, h: 24 }
+  - id: h562
+    label: "木が動く、という前提"
+    hatch: solid
+    at: { x: 980, y: 562 }
+    size: { w: 420, h: 24 }
+  - id: x586
+    label: "伸縮する向き"
+    at: { x: 980, y: 586 }
+    size: { w: 170, h: 24 }
+  - id: y586
+    label: "幅方向（長さ方向はほとんど動かない）"
+    align: left
+    at: { x: 1150, y: 586 }
+    size: { w: 250, h: 24 }
+  - id: x610
+    label: "だから"
+    at: { x: 980, y: 610 }
+    size: { w: 170, h: 24 }
+  - id: y610
+    label: "天板は幕板に固定しない"
+    align: left
+    at: { x: 1150, y: 610 }
+    size: { w: 250, h: 24 }
+  - id: x634
+    label: "留め方"
+    at: { x: 980, y: 634 }
+    size: { w: 170, h: 24 }
+  - id: y634
+    label: "駒止め・長穴・吸い付き桟"
+    align: left
+    at: { x: 1150, y: 634 }
+    size: { w: 250, h: 24 }
+  - id: x658
+    label: "木表"
+    at: { x: 980, y: 658 }
+    size: { w: 170, h: 24 }
+  - id: y658
+    label: "乾くと木表側へ凹む"
+    align: left
+    at: { x: 1150, y: 658 }
+    size: { w: 250, h: 24 }
+  - id: x682
+    label: "含水率"
+    at: { x: 980, y: 682 }
+    size: { w: 170, h: 24 }
+  - id: y682
+    label: "室内用は 8 〜 12%"
+    align: left
+    at: { x: 1150, y: 682 }
+    size: { w: 250, h: 24 }
+  - id: x706
+    label: "やってはいけない"
+    at: { x: 980, y: 706 }
+    size: { w: 170, h: 24 }
+  - id: y706
+    label: "天板を幕板へ直接ビス留め"
+    align: left
+    at: { x: 1150, y: 706 }
+    size: { w: 250, h: 24 }
+  - id: h748
+    label: "この図に出ていないもの"
+    hatch: solid
+    at: { x: 980, y: 748 }
+    size: { w: 420, h: 24 }
+  - id: x772
+    label: "面取り"
+    at: { x: 980, y: 772 }
+    size: { w: 170, h: 24 }
+  - id: y772
+    label: "角の糸面・丸面"
+    align: left
+    at: { x: 1150, y: 772 }
+    size: { w: 250, h: 24 }
+  - id: x796
+    label: "仕上げ"
+    at: { x: 980, y: 796 }
+    size: { w: 170, h: 24 }
+  - id: y796
+    label: "オイル・ウレタン・蜜蝋"
+    align: left
+    at: { x: 1150, y: 796 }
+    size: { w: 250, h: 24 }
+  - id: x820
+    label: "組立順"
+    at: { x: 980, y: 820 }
+    size: { w: 170, h: 24 }
+  - id: y820
+    label: "接着の段取りとクランプ"
+    align: left
+    at: { x: 1150, y: 820 }
+    size: { w: 250, h: 24 }
+  - id: x844
+    label: "公差"
+    at: { x: 980, y: 844 }
+    size: { w: 170, h: 24 }
+  - id: y844
+    label: "ほぞは現物合わせで詰める"
+    align: left
+    at: { x: 1150, y: 844 }
+    size: { w: 250, h: 24 }
+  - id: n1
+    label: "作業机の製作図です。規格の表ではなく、作るための図です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 960 }
+    size: { w: 1000, h: 18 }
+  - id: n2
+    label: "ほぞ厚は材厚の 1/3 が定石です（幕板 t25 なら 9mm）。ノミの寸法に丸めます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 982 }
+    size: { w: 1000, h: 18 }
+  - id: n3
+    label: "肝は 2 つあります。1 つめ —— ほぞ先は留め（45°）に切ります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1004 }
+    size: { w: 1000, h: 18 }
+  - id: n4
+    label: "脚の隣り合う 2 面から入るほぞが、脚の中でぶつかるからです。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1026 }
+    size: { w: 1000, h: 18 }
+  - id: n5
+    label: "2 つめ —— 天板は固定しません。 木は幅方向に伸縮するので、止めると割れます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1048 }
+    size: { w: 1000, h: 18 }
+  - id: n6
+    label: "駒止め（ボタン）を幕板の溝に差し、天板側だけへビスを打ちます。天板は幅方向に動けます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1070 }
+    size: { w: 1000, h: 18 }
+  - id: n7
+    label: "寸法は一例です。樹種・含水率・使い方で変わります。ほぞは最後に現物合わせで詰めます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1092 }
+    size: { w: 1000, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p2
+    to: p3
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p4
+    to: p5
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p6
+    to: p7
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
