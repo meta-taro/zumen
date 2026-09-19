@@ -445,3 +445,43 @@ edges:
     assert.ok(!validate(RING.replace('fill: 面', 'color: 面')).some((f) => f.code === 'edge-fill-ignored'));
   });
 });
+
+/**
+ * **模様が、面の途中で切れていた**（2026-09-19）。
+ *
+ * 要素数の上限に当たったとき `break` が**内側のくり返ししか抜けていなかった**ので、
+ * 残りの行は 1 つも描かれず、**箱の上だけが埋まった面**が出ていた。
+ * 測ったら**見本 9 枚**がそうなっており、
+ * **ビリヤード台の羅紗（見本 168）は 20% しか点がなかった** ——
+ * 上と左の縁だけに点が入り、下と右の縁は無地だった。誰も気づいていなかった。
+ *
+ * **半分だけ模様が入った面は、無地より悪い** —— 材料が途中で変わって見える。
+ */
+describe('広い面でも、模様は端まで届く', () => {
+  /** 描かれた点の y の最大。**下の縁まで届いているか。** */
+  const lowest = (svg: string): number =>
+    Math.max(...[...svg.matchAll(/<circle cx="\d+" cy="(\d+)"/g)].map((m) => Number(m[1])));
+  const drawn = (svg: string): number => (svg.match(/<circle /g) ?? []).length;
+
+  const WIDE = { x: 0, y: 0, w: 600, h: 600 };
+
+  it('**上限を超える広さでも、下の縁まで点が届く**', () => {
+    const svg = drawHatch('dots', WIDE, '#000', 'box', 'a');
+    assert.ok(lowest(svg) > WIDE.h * 0.9, `いちばん下の点が ${lowest(svg)}（下の縁は ${WIDE.h}）`);
+  });
+
+  it('要素数の上限は守る（間隔のほうを広げる）', () => {
+    assert.ok(drawn(drawHatch('dots', WIDE, '#000', 'box', 'a')) <= 480);
+  });
+
+  it('狭い面は、これまでどおりの細かさ', () => {
+    const small = { x: 0, y: 0, w: 90, h: 90 };
+    assert.equal(drawn(drawHatch('dots', small, '#000', 'box', 'a')), 100);
+  });
+
+  it('**斜線も端まで届く**（同じ形の穴）', () => {
+    const svg = drawHatch('lines', { x: 0, y: 0, w: 2000, h: 2000 }, '#000', 'box', 'a');
+    const ys = [...svg.matchAll(/y2="(-?\d+)"/g)].map((m) => Number(m[1]));
+    assert.ok(Math.max(...ys) > 1800, `いちばん下の斜線が ${Math.max(...ys)}`);
+  });
+});

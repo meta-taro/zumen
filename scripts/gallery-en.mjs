@@ -106,6 +106,7 @@ export const CAPTIONS_EN = {
   '169-麻雀の配牌': 'Mahjong: the dice decide where the wall is opened, not luck',
   '168-ダイヤモンドシステム': 'Billiards: the diamonds on the rails are a ruler, not decoration',
   '167-ダーツボードの割り付け': 'A dartboard: the numbers are arranged to punish a miss',
+  '219-算数数学の問題図': 'Figures in maths problems: the marks carry the meaning — equal ticks, right-angle squares, parallel chevrons — and only the given values are written on the figure',
   '218-窯詰めの棚組み': 'Kiln loading: three posts per shelf, because three points always lie in one plane — and bisque and glaze firings are packed in opposite ways',
   '217-上部式フィルターの断面': 'Aquarium filter in section: it does not remove the poison, it turns it into a weaker one — and the water must meet the mechanical media before the biological',
   '216-日本の硬貨6種': 'Japanese coins: the order by size is not the order by value, so the hand reads the hole first, then the reeding, and only then the size',

@@ -36,7 +36,7 @@
 | <img src="examples/gallery/22-避難経路図.svg" width="320"> | <img src="examples/gallery/23-厨房の動線.svg" width="320"> |
 | 避難経路図 | 厨房の区域と動線（HACCP） |
 
-**218 枚を [`examples/gallery/`](examples/gallery/) に置いてあります。**
+**219 枚を [`examples/gallery/`](examples/gallery/) に置いてあります。**
 [紹介のページ](https://meta-taro.github.io/zumen/)に全部並べてあり、業界で絞り込めます。
 
 **業界ごとの図形は 1 つも足していません。** `type` は 11 語のままです。
@@ -170,7 +170,7 @@ pnpm merge    <正本> <提案>        # AI の提案を正本へ入れる（競
 **まず `zumen_about` を 1 回。** 何をする道具か・**どの口が開いていないか**・版ごとに何が変わったかを返します。
 **試して断られる往復が減ります。**
 
-開いている口は 15 個。`zumen_spec`（形式を教える）／**`zumen_examples`（同梱の見本 218 枚の目次と正本を返す）**／
+開いている口は 15 個。`zumen_spec`（形式を教える）／**`zumen_examples`（同梱の見本 219 枚の目次と正本を返す）**／
 `zumen_create`（**ゼロから作る。既にあれば失敗**）／
 `zumen_propose`（**提案の `pins` は読まない**）／`zumen_inspect`（交差・重なり・**置けずに消えたラベル**・**投影で読める大きさか**・**人が見たか**・「9 割」を返す）ほか。
 
