@@ -311,7 +311,8 @@ describe('spec が、通り芯と縮尺を載せている', () => {
    * ここに無い決まりは、他の人のエージェントには無いのと同じ。
    */
   it('**規則が、縮尺を図ごとに変えられると言っている**（詳細図と全体図）', () => {
-    const rule = spec().rules.find((r) => r.includes('views'));
+    // **views の規則そのもの**を選ぶ（views の語は他の規則にも出る）。
+    const rule = spec().rules.find((r) => r.includes('1 枚に図を 2 つ以上置くなら views'));
     assert.ok(rule !== undefined, 'views の規則が無い');
     assert.ok(
       rule.includes('縮尺') || rule.includes('1/20'),
@@ -564,6 +565,27 @@ nodes:
  *
  * 数はそのまま残す（テストも見本の登録も数で見ている）。**組を足す。**
  */
+/**
+ * **書き方を読んだ人が、実物へ辿り着けるか**（2026-09-19）。
+ *
+ * `zumen_about` → `zumen_spec` → 書く、という順に読まれる。
+ * ところが `zumen_spec` は**どこにも `zumen_examples` を案内していなかった** ——
+ * 198 枚の実物が同梱されているのに、**書き方だけ読んで書き始める**ことになる。
+ *
+ * D39 と同じ形：**あるのに気づかれない口は、無いのと同じ。**
+ */
+describe('spec から、実物へ辿り着ける', () => {
+  it('**規則が zumen_examples を案内している**', () => {
+    const said = spec().rules.join('\n');
+    assert.ok(said.includes('zumen_examples'), `実物への案内が無い:\n${said.slice(0, 300)}`);
+  });
+
+  it('**「何を描くか」は実物にある、と言っている**', () => {
+    const rule = spec().rules.find((r) => r.includes('zumen_examples'))!;
+    assert.match(rule, /見本|実物/);
+  });
+});
+
 describe('交差は、どの 2 本かを返す', () => {
   const CROSS = `version: 1
 kind: placement
