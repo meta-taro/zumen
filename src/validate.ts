@@ -376,10 +376,13 @@ function checkNumberText(doc: Document, add: Add, m: Messages, at: At): void {
  */
 function checkLabelMarkdown(doc: Document, add: Add, m: Messages, at: At): void {
   for (const item of seqOf(doc, 'nodes')) {
-    const label = item.get('label');
-    if (typeof label !== 'string' || !label.includes('**')) continue;
-    const id = String(item.get('id') ?? '');
-    add('warning', 'label-markdown', m.labelMarkdown(id), at(item.get('label', true)));
+    // **名前だけではない。** 符号（tag）も版（technology）も、そのまま絵に出る。
+    for (const field of ['label', 'tag', 'technology'] as const) {
+      const text = item.get(field);
+      if (typeof text !== 'string' || !text.includes('**')) continue;
+      const id = String(item.get('id') ?? '');
+      add('warning', 'label-markdown', m.labelMarkdown(id), at(item.get(field, true)));
+    }
   }
 }
 

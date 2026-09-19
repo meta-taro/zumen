@@ -253,6 +253,13 @@ nodes:
     assert.ok(!validate(STARS.replace('**留め**', '留め')).some((f) => f.code === 'label-markdown'));
   });
 
+  it('**符号（tag）と版（technology）も見る**', () => {
+    const TAG = STARS.replace('label: "**留め**に切る"', 'label: "節"\n    tag: "**A**-1"');
+    assert.ok(validate(TAG).some((f) => f.code === 'label-markdown'), JSON.stringify(validate(TAG).map((f) => f.code)));
+    const TECH = STARS.replace('label: "**留め**に切る"', 'label: "節"\n    technology: "**PostgreSQL**"');
+    assert.ok(validate(TECH).some((f) => f.code === 'label-markdown'));
+  });
+
   it('**掛け算の * ひとつでは鳴らない**（寸法に使う）', () => {
     assert.ok(!validate(STARS.replace('"**留め**に切る"', '"300 * 2"')).some((f) => f.code === 'label-markdown'));
   });
