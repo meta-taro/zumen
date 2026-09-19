@@ -106,6 +106,7 @@ export const CAPTIONS_EN = {
   '169-麻雀の配牌': 'Mahjong: the dice decide where the wall is opened, not luck',
   '168-ダイヤモンドシステム': 'Billiards: the diamonds on the rails are a ruler, not decoration',
   '167-ダーツボードの割り付け': 'A dartboard: the numbers are arranged to punish a miss',
+  '201-椅子の製作図': 'A chair drawn for making: four tenons meet in the back leg, and they must be set at different heights',
   '200-作業机の製作図': 'A bench built for making: tenons mitred where they meet, and a top that is never screwed down',
   '199-日本銀行券の識別マーク': 'Banknote tactile marks: the shape is identical, and only its position tells the denomination',
   '198-ミツバチの巣房': 'Honeycomb cells: for a given area the hexagon has the shortest wall of any shape that tiles',
