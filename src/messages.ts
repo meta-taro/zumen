@@ -667,6 +667,8 @@ const ja = {
       `紙の上で ${a} と ${b} の文字が重なって描かれます。名前どうしだけでなく、符号・寸法の数値・通り芯の符号・図の名前も同じ場所を取ります。**横に ${x}px か、縦に ${y}px** ずらせば離れます（どちらへ逃がすかは、図の都合で決めてください）。`,
     textOverlap: (a: string, b: string) =>
       `${a} と ${b} の文字が重なって描かれます。器の名前を器の真ん中に書くと、中の節の名前に乗ります（器の名前は端の欄へ出してください）。`,
+    viewTitleCovered: (view: string, box: string, grow: number) =>
+      `図 "${view}" の名前が、"${box}" の上に乗って描かれます。**図の名前は、その図の下辺のすぐ下**に置かれるので、\`size\` に書いた高さより中身が下へ出ていると重なります。**この図の \`size.h\` を ${grow}px 増やすか、中身を上へ詰めてください。**`,
     colorWithoutCode: (key: string) =>
       `色 "${key}" を使っていますが、その記号が図のどこにも文字として出ていません。色だけだと、白黒と色覚特性で読めなくなります。どこか 1 か所（凡例でも可）に "${key}" を文字で出してください。`,
   },
@@ -1257,6 +1259,8 @@ const en: Catalog = {
       `On the sheet, ${a} and ${b} are drawn on top of each other. It is not only names: tags, dimension values, grid codes and view titles take room too. **Moving one ${x}px sideways or ${y}px vertically** clears it — which way is yours to choose.`,
     textOverlap: (a: string, b: string) =>
       `The labels of ${a} and ${b} are drawn on top of each other. A container that holds children should not repeat its name in the middle — move it to an edge cell.`,
+    viewTitleCovered: (view: string, box: string, grow: number) =>
+      `The title of view "${view}" is drawn on top of "${box}". **A view title sits just below the view's bottom edge**, so anything that reaches past the height you wrote in \`size\` ends up underneath it. **Grow this view's \`size.h\` by ${grow}px, or move its contents up.**`,
     colorWithoutCode: (key: string) =>
       `Colour "${key}" carries meaning, but that code appears nowhere as text in the drawing. Colour alone fails in black and white and for colour vision deficiency. Write "${key}" as text somewhere — a legend entry is enough.`,
   },

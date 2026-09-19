@@ -25,7 +25,7 @@ import { PASS_LINE, measure, percent } from './measure.ts';
 import { merge } from './merge.ts';
 import type { Conflict } from './merge.ts';
 import { toMermaid } from './mermaid.ts';
-import { overlappingInk, render } from './render.ts';
+import { overlappingInk, render, viewTitleBox } from './render.ts';
 import { timelapse } from './timelapse.ts';
 import { kindOf } from './kind.ts';
 import { messages } from './messages.ts';
@@ -218,7 +218,46 @@ export async function placedFindings(text: string): Promise<Finding[]> {
       code: 'edge-under-box',
       message: messages().validate.edgeUnderBox(edge, box),
     })),
+    /**
+     * **図の名前が、中身の上に乗っている**（2026-09-19）。
+     *
+     * `views[].title` は**図の下辺のすぐ下**に描かれる。だから
+     * `size` に書いた高さより中身が下へ出ていると、**名前がその上に乗る。**
+     *
+     * `overlappingInk` は文字どうししか見ないので、
+     * **名前が箱の上に乗っただけでは拾えなかった** ——
+     * 血球計算盤（見本 213）を描いていて、断面図の名前が計算盤の箱に
+     * 重なっているのを**ブラウザで開いて初めて見つけた。**
+     */
+    ...viewTitlesCovered(placed),
   ];
+}
+
+/** 図の名前が、描かれた箱の上に乗っている組。 */
+function viewTitlesCovered(placed: Awaited<ReturnType<typeof layout>>): Finding[] {
+  const found: Finding[] = [];
+  for (const view of placed.views) {
+    const band = viewTitleBox(view);
+    if (band === null) continue;
+    for (const box of placed.boxes) {
+      // **何も描かない節は乗られても見えない**（`marker: none`）。
+      // 名前のある節は文字なので、文字どうしの重なりとして `overlappingInk` が拾う。
+      if (box.marker === 'none') continue;
+      const hit =
+        box.x < band.x + band.w &&
+        band.x < box.x + box.w &&
+        box.y < band.y + band.h &&
+        band.y < box.y + box.h;
+      if (!hit) continue;
+      found.push({
+        severity: 'warning',
+        code: 'view-title-covered',
+        message: messages().validate.viewTitleCovered(view.id, box.id, Math.ceil(box.y + box.h - band.y + 6)),
+      });
+      break;
+    }
+  }
+  return found;
 }
 
 function format(finding: Finding): string {

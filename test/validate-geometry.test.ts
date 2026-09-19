@@ -302,3 +302,60 @@ edges:
     assert.ok(found.every((f) => f.severity === 'warning'));
   });
 });
+
+/**
+ * **図の名前が、中身の上に乗る**（2026-09-19）。
+ *
+ * `views[].title` は図の**下辺のすぐ下**に描かれる。だから `size` に書いた高さより
+ * 中身が下へ出ていると、名前がその上に乗る。
+ *
+ * `overlappingInk` は**文字どうし**しか見ないので、
+ * 名前が箱の上に乗っただけでは拾えなかった ——
+ * 血球計算盤（見本 213）の断面図で踏み、**ブラウザで開いて初めて見つけた。**
+ */
+describe('図の名前が、中身の上に乗っていないか', () => {
+  /** 図の高さは 100 だが、中身は 200 まで伸びている。 */
+  const OVER = (h: number): string => `version: 1
+kind: placement
+arrows: true
+views:
+  - id: dan
+    title: ② 断面
+    at: { x: 100, y: 100 }
+    size: { w: 300, h: ${h} }
+nodes:
+  - id: base
+    label: ""
+    at: { x: 110, y: 110 }
+    size: { w: 280, h: 190 }
+`;
+
+  it('**中身が下辺から出ていたら知らせる**', async () => {
+    const found = await placedFindings(OVER(100));
+    assert.ok(
+      found.some((f) => f.code === 'view-title-covered'),
+      found.map((f) => f.code).join(','),
+    );
+  });
+
+  it('何 px 増やせばよいかまで言う', async () => {
+    const found = await placedFindings(OVER(100));
+    const said = found.find((f) => f.code === 'view-title-covered')!;
+    assert.match(said.message, /size\.h` を \d+px 増やす/);
+  });
+
+  it('中身が収まっていれば、何も言わない', async () => {
+    const found = await placedFindings(OVER(220));
+    assert.ok(!found.some((f) => f.code === 'view-title-covered'));
+  });
+
+  it('名前を書いていない図は、そもそも乗るものが無い', async () => {
+    const found = await placedFindings(OVER(100).replace('    title: ② 断面\n', ''));
+    assert.ok(!found.some((f) => f.code === 'view-title-covered'));
+  });
+
+  it('**何も描かない節（marker: none）には乗られても見えない**ので、知らせない', async () => {
+    const found = await placedFindings(OVER(100).replace('    label: ""\n', '    label: ""\n    marker: none\n'));
+    assert.ok(!found.some((f) => f.code === 'view-title-covered'));
+  });
+});
