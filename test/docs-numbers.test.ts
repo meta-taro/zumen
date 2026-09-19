@@ -27,6 +27,58 @@ function samples(): string[] {
   return readdirSync(dir).filter((f) => f.endsWith('.zumen.yaml'));
 }
 
+/**
+ * **数を書いてある場所は、README だけではなかった**（2026-09-19）。
+ *
+ * 見本の枚数は 13 か所に書いてあるのに、**守られていたのは README.md の 2 行だけ**だった。
+ * 残り 11 か所は手で直していて、実際に古くなっていた ——
+ * README.ja.md の「開いている口は 14 個」は、口が 15 個になってからしばらくそのままだった。
+ *
+ * **手で直す場所は、いつか必ずずれる。** 書いてある場所を全部、機械に数えさせる。
+ */
+const QUOTES = [
+  ['README.ja.md', /\*\*(\d+) 枚を \[`examples\/gallery\/`\]/, 'samples'],
+  ['README.ja.md', /同梱の見本 (\d+) 枚の目次と正本を返す/, 'samples'],
+  ['README.ja.md', /開いている口は (\d+) 個/, 'doors'],
+  ['README.md', /(\d+) example drawings, all generated/, 'samples'],
+  ['README.md', /A validator \((\d+) checks\)/, 'checks'],
+  ['scripts/og.mjs', /見本 (\d+) 枚 ／ テキスト正本/, 'samples'],
+  ['scripts/og.mjs', /(\d+) example drawings &middot; diagrams as text/, 'samples'],
+  ['site/index.html', /テキスト正本の作図ツール。見本 (\d+) 枚・MIT。/, 'samples'],
+  ['site/index.html', /見本 (\d+) 枚、検査 \d+ 項目/, 'samples'],
+  ['site/index.html', /見本 \d+ 枚、検査 (\d+) 項目/, 'checks'],
+  ['site/index.html', /描かれないものを名指しする検査 (\d+) 項目/, 'checks'],
+  ['site/index.html', /その直しが次の生成で壊れない図。見本 (\d+) 枚。/, 'samples'],
+  ['site/en/index.html', /(\d+) example drawings, \d+ checks, MCP server included/, 'samples'],
+  ['site/en/index.html', /\d+ example drawings, (\d+) checks, MCP server included/, 'checks'],
+  ['site/en/index.html', /(\d+) checks that name what will not be drawn/, 'checks'],
+  ['site/en/index.html', /your fix survives\. (\d+) example drawings\./, 'samples'],
+] as const;
+
+describe('数を書いてある場所は、どこも実物と合っている', () => {
+  it('**13 か所以上ある。README だけ見ていると、残りが古くなる**', async () => {
+    const { DOORS } = await import('../src/about.ts');
+    const truth: Record<string, number> = {
+      samples: samples().length,
+      checks: checkCodes().size,
+      doors: DOORS.length,
+    };
+    const wrong: string[] = [];
+    for (const [file, re, what] of QUOTES) {
+      const text = readFileSync(new URL(`../${file}`, import.meta.url), 'utf8');
+      const said = re.exec(text);
+      if (said === null) {
+        wrong.push(`${file}: 「${what}」を書いた場所が見つからない（${re}）`);
+        continue;
+      }
+      if (Number(said[1]) !== truth[what]) {
+        wrong.push(`${file}: ${what} が ${said[1]}、実物は ${truth[what]}`);
+      }
+    }
+    assert.deepEqual(wrong, []);
+  });
+});
+
 describe('README の数', () => {
   const readme = readFileSync(new URL('../README.md', import.meta.url), 'utf8');
 
