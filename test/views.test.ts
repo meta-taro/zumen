@@ -239,3 +239,53 @@ describe('黙らない', () => {
     assert.equal(validate(plain).some((f) => f.code.startsWith('view')), false);
   });
 });
+
+/**
+ * **縮尺を図ごとに宣言した views には、鳴らさない**（2026-09-19）。
+ *
+ * `views-no-grid` は「寸法も通り芯も描かれません」と言う。事実ではあるが、
+ * **views が無駄だ、と読める** —— 実際それで見本 189 に要らない通り芯を足しかけた。
+ *
+ * `views[].scale` は**絵に出なくても正本に残る**（読む側と別の実装へ
+ * 「この範囲は 1px が何 mm か」を伝える）。1 枚に縮尺が 2 つある図では、それ自体が中身。
+ * **grid が無いことを責めるのは、grid も scale も無いときだけ。**
+ */
+describe('views の警告は、縮尺だけの図を責めない', () => {
+  const VIEWS = `version: 1
+kind: placement
+arrows: true
+views:
+  - id: a
+    title: 詳細
+    at: { x: 40, y: 40 }
+    size: { w: 200, h: 120 }
+SCALE
+nodes:
+  - id: n
+    label: "中身"
+    at: { x: 60, y: 60 }
+    size: { w: 120, h: 60 }
+`;
+
+  it('**縮尺が 1 つしか無ければ、これまでどおり知らせる**（書き忘れ）', () => {
+    const found = validate(`scale: { mm: 10 }\n${VIEWS.replace('SCALE\n', '')}`);
+    assert.ok(found.some((f) => f.code === 'views-no-grid'), JSON.stringify(found.map((f) => f.code)));
+  });
+
+  it('**縮尺が図ごとに違えば、鳴らさない**', () => {
+    const TWO = `scale: { mm: 10 }\n${VIEWS.replace('SCALE', '    scale: { mm: 0.5 }')}`.replace(
+      'nodes:',
+      `  - id: b
+    title: 全体
+    at: { x: 300, y: 40 }
+    size: { w: 200, h: 120 }
+    scale: { mm: 10 }
+nodes:`,
+    );
+    const found = validate(TWO);
+    assert.ok(
+      !found.some((f) => f.code === 'views-no-grid'),
+      `縮尺を宣言しているのに責めている: ${JSON.stringify(found.map((f) => f.code))}`,
+    );
+  });
+});

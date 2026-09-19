@@ -1,0 +1,668 @@
+version: 1
+kind: placement
+arrows: true
+title: 斜線制限（建築基準法 56 条）
+scale: { mm: 100 }
+views:
+  - id: low
+    title: ①② 道路斜線と北側斜線（1px ＝ 0.1m）
+    at: { x: 140, y: 380 }
+    size: { w: 560, h: 790 }
+    scale: { mm: 100 }
+  - id: high
+    title: ③ 隣地斜線（1px ＝ 0.25m）
+    at: { x: 710, y: 410 }
+    size: { w: 290, h: 560 }
+    scale: { mm: 250 }
+# **家の形は、敷地の形ではなく「斜めの線」で決まる。**
+#
+# 道路斜線の起点は、**自分の敷地ではなく「道路の反対側の境界」**。
+# 北側斜線は、**北隣の日当たりを守る** —— 街で見る「北側だけ斜めに切った屋根」はこれ。
+# 隣地斜線は 20m（住居系）まではまっすぐ立てられる。
+#
+# 低層住居専用と田園住居には隣地斜線が無く、代わりに**絶対高さ 10 か 12m**で頭を押さえる。
+nodes:
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 199, y: 679 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 389, y: 679 }
+    size: { w: 2, h: 2 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 199, y: 679 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 379, y: 454 }
+    size: { w: 2, h: 2 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 199, y: 679 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 199, y: 679 }
+    size: { w: 2, h: 2 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 259, y: 679 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 199, y: 687 }
+    size: { w: 2, h: 2 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 259, y: 687 }
+    size: { w: 2, h: 2 }
+  - id: a_w
+    label: "道路 6m"
+    marker: none
+    align: center
+    at: { x: 160, y: 694 }
+    size: { w: 140, h: 18 }
+  - id: a_g
+    label: "勾配 1.25"
+    marker: none
+    align: left
+    at: { x: 330, y: 530 }
+    size: { w: 160, h: 18 }
+  - id: a_c
+    label: "← 斜線に切られる"
+    marker: none
+    align: left
+    at: { x: 374, y: 590 }
+    size: { w: 200, h: 18 }
+  - id: a_o
+    label: "起点＝道路の反対側の境界"
+    marker: none
+    align: center
+    at: { x: 170, y: 716 }
+    size: { w: 200, h: 18 }
+  - id: t1
+    label: "① 道路斜線 —— 起点は「道路の反対側」"
+    marker: none
+    align: left
+    at: { x: 160, y: 420 }
+    size: { w: 480, h: 20 }
+  - id: t1b
+    label: "　住居系は勾配 1.25、それ以外は 1.5。自分の敷地の外から引く。"
+    marker: none
+    align: left
+    at: { x: 160, y: 442 }
+    size: { w: 480, h: 18 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 159, y: 679 }
+    size: { w: 2, h: 2 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 159, y: 659 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 159, y: 679 }
+    size: { w: 2, h: 2 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 399, y: 379 }
+    size: { w: 2, h: 2 }
+  - id: a_sb
+    label: "後退させると起点も向こうへ"
+    marker: none
+    align: left
+    at: { x: 170, y: 668 }
+    size: { w: 200, h: 18 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 199, y: 1089 }
+    size: { w: 2, h: 2 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 319, y: 1089 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 199, y: 1039 }
+    size: { w: 2, h: 2 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 309, y: 901.5 }
+    size: { w: 2, h: 2 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 199, y: 1089 }
+    size: { w: 2, h: 2 }
+  - id: p18
+    label: ""
+    marker: none
+    at: { x: 199, y: 1039 }
+    size: { w: 2, h: 2 }
+  - id: p19
+    label: ""
+    marker: none
+    at: { x: 209, y: 1089 }
+    size: { w: 2, h: 2 }
+  - id: p20
+    label: ""
+    marker: none
+    at: { x: 199, y: 949 }
+    size: { w: 2, h: 2 }
+  - id: p21
+    label: ""
+    marker: none
+    at: { x: 199, y: 1107 }
+    size: { w: 2, h: 2 }
+  - id: b_k
+    label: "北側の隣地境界"
+    marker: none
+    align: right
+    at: { x: 10, y: 960 }
+    size: { w: 180, h: 18 }
+  - id: b_h
+    label: "立ち上がり 5m"
+    marker: none
+    align: left
+    at: { x: 208, y: 1065 }
+    size: { w: 170, h: 18 }
+  - id: b_g
+    label: "勾配 1.25"
+    marker: none
+    align: left
+    at: { x: 260, y: 960 }
+    size: { w: 160, h: 18 }
+  - id: b_c
+    label: "← ここが切られる"
+    marker: none
+    align: left
+    at: { x: 304, y: 1014 }
+    size: { w: 200, h: 18 }
+  - id: t2
+    label: "② 北側斜線 —— 北の家の日当たりを守る"
+    marker: none
+    align: left
+    at: { x: 160, y: 890 }
+    size: { w: 480, h: 20 }
+  - id: t2b
+    label: "　低層は 5m、中高層は 10m から。街で見る「斜めに切った屋根」はこれ。"
+    marker: none
+    align: left
+    at: { x: 160, y: 912 }
+    size: { w: 480, h: 18 }
+  - id: b_n
+    label: "（北）"
+    marker: none
+    align: center
+    at: { x: 130, y: 1108 }
+    size: { w: 60, h: 18 }
+  - id: b_s
+    label: "（南）"
+    marker: none
+    align: center
+    at: { x: 310, y: 1108 }
+    size: { w: 60, h: 18 }
+  - id: p22
+    label: ""
+    marker: none
+    at: { x: 759, y: 859 }
+    size: { w: 2, h: 2 }
+  - id: p23
+    label: ""
+    marker: none
+    at: { x: 835, y: 859 }
+    size: { w: 2, h: 2 }
+  - id: p24
+    label: ""
+    marker: none
+    at: { x: 759, y: 779 }
+    size: { w: 2, h: 2 }
+  - id: p25
+    label: ""
+    marker: none
+    at: { x: 831, y: 689 }
+    size: { w: 2, h: 2 }
+  - id: p26
+    label: ""
+    marker: none
+    at: { x: 759, y: 859 }
+    size: { w: 2, h: 2 }
+  - id: p27
+    label: ""
+    marker: none
+    at: { x: 759, y: 779 }
+    size: { w: 2, h: 2 }
+  - id: p28
+    label: ""
+    marker: none
+    at: { x: 767, y: 859 }
+    size: { w: 2, h: 2 }
+  - id: p29
+    label: ""
+    marker: none
+    at: { x: 759, y: 723 }
+    size: { w: 2, h: 2 }
+  - id: p30
+    label: ""
+    marker: none
+    at: { x: 759, y: 877 }
+    size: { w: 2, h: 2 }
+  - id: c_k
+    label: "隣地境界"
+    marker: none
+    align: right
+    at: { x: 620, y: 740 }
+    size: { w: 130, h: 18 }
+  - id: c_h
+    label: "立ち上がり 20m"
+    marker: none
+    align: left
+    at: { x: 768, y: 820 }
+    size: { w: 190, h: 18 }
+  - id: c_g
+    label: "勾配 1.25"
+    marker: none
+    align: left
+    at: { x: 796, y: 736 }
+    size: { w: 160, h: 18 }
+  - id: t3
+    label: "③ 隣地斜線"
+    marker: none
+    align: left
+    at: { x: 700, y: 430 }
+    size: { w: 300, h: 20 }
+  - id: t3b
+    label: "　20m まではまっすぐ立てられる"
+    marker: none
+    align: left
+    at: { x: 700, y: 452 }
+    size: { w: 300, h: 18 }
+  - id: t3c
+    label: "　住居系 20m から 1.25"
+    marker: none
+    align: left
+    at: { x: 700, y: 474 }
+    size: { w: 300, h: 18 }
+  - id: t3d
+    label: "　商業・工業系 31m から 2.5"
+    marker: none
+    align: left
+    at: { x: 700, y: 494 }
+    size: { w: 300, h: 18 }
+  - id: c_low
+    label: "低層住居専用・田園住居には無い"
+    marker: none
+    align: left
+    at: { x: 700, y: 900 }
+    size: { w: 300, h: 18 }
+  - id: c_low2
+    label: "（代わりに絶対高さ 10 か 12m）"
+    marker: none
+    align: left
+    at: { x: 700, y: 920 }
+    size: { w: 300, h: 18 }
+  - id: h190
+    label: "道路斜線（法 56 条 1 項 1 号）"
+    hatch: solid
+    at: { x: 1020, y: 190 }
+    size: { w: 420, h: 24 }
+  - id: x214
+    label: "起点"
+    at: { x: 1020, y: 214 }
+    size: { w: 180, h: 24 }
+  - id: y214
+    label: "前面道路の反対側の境界線"
+    align: left
+    at: { x: 1200, y: 214 }
+    size: { w: 240, h: 24 }
+  - id: x238
+    label: "住居系の勾配"
+    at: { x: 1020, y: 238 }
+    size: { w: 180, h: 24 }
+  - id: y238
+    label: "1.25"
+    align: left
+    at: { x: 1200, y: 238 }
+    size: { w: 240, h: 24 }
+  - id: x262
+    label: "商業・工業系"
+    at: { x: 1020, y: 262 }
+    size: { w: 180, h: 24 }
+  - id: y262
+    label: "1.5"
+    align: left
+    at: { x: 1200, y: 262 }
+    size: { w: 240, h: 24 }
+  - id: x286
+    label: "適用距離"
+    at: { x: 1020, y: 286 }
+    size: { w: 180, h: 24 }
+  - id: y286
+    label: "容積率で 20 〜 50m"
+    align: left
+    at: { x: 1200, y: 286 }
+    size: { w: 240, h: 24 }
+  - id: x310
+    label: "緩和"
+    at: { x: 1020, y: 310 }
+    size: { w: 180, h: 24 }
+  - id: y310
+    label: "建物を後退させた分、起点も後退"
+    align: left
+    at: { x: 1200, y: 310 }
+    size: { w: 240, h: 24 }
+  - id: x334
+    label: "適用地域"
+    at: { x: 1020, y: 334 }
+    size: { w: 180, h: 24 }
+  - id: y334
+    label: "すべての用途地域"
+    align: left
+    at: { x: 1200, y: 334 }
+    size: { w: 240, h: 24 }
+  - id: h376
+    label: "隣地斜線（同 2 号）"
+    hatch: solid
+    at: { x: 1020, y: 376 }
+    size: { w: 420, h: 24 }
+  - id: x400
+    label: "住居系"
+    at: { x: 1020, y: 400 }
+    size: { w: 180, h: 24 }
+  - id: y400
+    label: "20m から 1.25"
+    align: left
+    at: { x: 1200, y: 400 }
+    size: { w: 240, h: 24 }
+  - id: x424
+    label: "商業・工業系"
+    at: { x: 1020, y: 424 }
+    size: { w: 180, h: 24 }
+  - id: y424
+    label: "31m から 2.5"
+    align: left
+    at: { x: 1200, y: 424 }
+    size: { w: 240, h: 24 }
+  - id: x448
+    label: "適用しない"
+    at: { x: 1020, y: 448 }
+    size: { w: 180, h: 24 }
+  - id: y448
+    label: "低層住居専用・田園住居"
+    align: left
+    at: { x: 1200, y: 448 }
+    size: { w: 240, h: 24 }
+  - id: x472
+    label: "その代わり"
+    at: { x: 1020, y: 472 }
+    size: { w: 180, h: 24 }
+  - id: y472
+    label: "絶対高さ 10m または 12m"
+    align: left
+    at: { x: 1200, y: 472 }
+    size: { w: 240, h: 24 }
+  - id: h514
+    label: "北側斜線（同 3 号）"
+    hatch: solid
+    at: { x: 1020, y: 514 }
+    size: { w: 420, h: 24 }
+  - id: x538
+    label: "低層住居専用・田園住居"
+    at: { x: 1020, y: 538 }
+    size: { w: 180, h: 24 }
+  - id: y538
+    label: "5m から 1.25"
+    align: left
+    at: { x: 1200, y: 538 }
+    size: { w: 240, h: 24 }
+  - id: x562
+    label: "中高層住居専用"
+    at: { x: 1020, y: 562 }
+    size: { w: 180, h: 24 }
+  - id: y562
+    label: "10m から 1.25"
+    align: left
+    at: { x: 1200, y: 562 }
+    size: { w: 240, h: 24 }
+  - id: x586
+    label: "方向"
+    at: { x: 1020, y: 586 }
+    size: { w: 180, h: 24 }
+  - id: y586
+    label: "真北（磁北ではない）"
+    align: left
+    at: { x: 1200, y: 586 }
+    size: { w: 240, h: 24 }
+  - id: x610
+    label: "適用しない"
+    at: { x: 1020, y: 610 }
+    size: { w: 180, h: 24 }
+  - id: y610
+    label: "住居系のこの 5 地域以外"
+    align: left
+    at: { x: 1200, y: 610 }
+    size: { w: 240, h: 24 }
+  - id: x634
+    label: "中高層の例外"
+    at: { x: 1020, y: 634 }
+    size: { w: 180, h: 24 }
+  - id: y634
+    label: "日影規制の区域では適用しない"
+    align: left
+    at: { x: 1200, y: 634 }
+    size: { w: 240, h: 24 }
+  - id: h676
+    label: "この図に出ていないもの"
+    hatch: solid
+    at: { x: 1020, y: 676 }
+    size: { w: 420, h: 24 }
+  - id: x700
+    label: "日影規制"
+    at: { x: 1020, y: 700 }
+    size: { w: 180, h: 24 }
+  - id: y700
+    label: "冬至日の日影の時間で決まる別の規制"
+    align: left
+    at: { x: 1200, y: 700 }
+    size: { w: 240, h: 24 }
+  - id: x724
+    label: "天空率"
+    at: { x: 1020, y: 724 }
+    size: { w: 180, h: 24 }
+  - id: y724
+    label: "斜線を満たさなくても通る道"
+    align: left
+    at: { x: 1200, y: 724 }
+    size: { w: 240, h: 24 }
+  - id: x748
+    label: "高度地区"
+    at: { x: 1020, y: 748 }
+    size: { w: 180, h: 24 }
+  - id: y748
+    label: "自治体が別に定める"
+    align: left
+    at: { x: 1200, y: 748 }
+    size: { w: 240, h: 24 }
+  - id: x772
+    label: "詳細"
+    at: { x: 1020, y: 772 }
+    size: { w: 180, h: 24 }
+  - id: y772
+    label: "法 56 条と別表第 3"
+    align: left
+    at: { x: 1200, y: 772 }
+    size: { w: 240, h: 24 }
+  - id: n1
+    label: "建物の高さを決める斜線制限です（建築基準法 56 条）。家の形は、敷地の形ではなく「斜めの線」で決まります。"
+    marker: none
+    align: left
+    at: { x: 160, y: 1230 }
+    size: { w: 1100, h: 18 }
+  - id: n2
+    label: "道路斜線の起点は、自分の敷地ではなく「道路の反対側の境界」です。住居系は勾配 1.25、商業・工業系は 1.5。"
+    marker: none
+    align: left
+    at: { x: 160, y: 1252 }
+    size: { w: 1100, h: 18 }
+  - id: n3
+    label: "建物を道路から後退させると、起点も同じだけ向こうへ動きます（セットバック緩和）。後退した分、高く建てられます。"
+    marker: none
+    align: left
+    at: { x: 160, y: 1274 }
+    size: { w: 1100, h: 18 }
+  - id: n4
+    label: "北側斜線は、北隣の家の日当たりを守るものです。低層住居専用なら北側境界の 5m から 1.25。"
+    marker: none
+    align: left
+    at: { x: 160, y: 1296 }
+    size: { w: 1100, h: 18 }
+  - id: n5
+    label: "街でよく見る「北側だけ斜めに切った屋根」は、これです。"
+    marker: none
+    align: left
+    at: { x: 160, y: 1318 }
+    size: { w: 1100, h: 18 }
+  - id: n6
+    label: "隣地斜線は住居系で 20m、商業・工業系で 31m から立ち上がります。20m までは、まっすぐ立てられます。"
+    marker: none
+    align: left
+    at: { x: 160, y: 1340 }
+    size: { w: 1100, h: 18 }
+  - id: n7
+    label: "低層住居専用・田園住居には隣地斜線がありません。代わりに絶対高さ 10m または 12mで頭を押さえます。"
+    marker: none
+    align: left
+    at: { x: 160, y: 1362 }
+    size: { w: 1100, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p2
+    to: p3
+    curve: none
+    weight: thick
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p4
+    to: p5
+    curve: none
+    weight: thick
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p6
+    to: p6
+    curve: none
+    close: true
+    hatch: lines
+    ends: { from: none, to: none }
+    via:
+      - { x: 260, y: 680 }
+      - { x: 360, y: 680 }
+      - { x: 360, y: 580 }
+      - { x: 280, y: 580 }
+      - { x: 260, y: 605 }
+  - from: p7
+    to: p8
+    curve: none
+    ends: { from: arrow, to: arrow }
+  - from: p9
+    to: p10
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }
+  - from: p11
+    to: p12
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }
+  - from: p13
+    to: p14
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p15
+    to: p16
+    curve: none
+    weight: thick
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p17
+    to: p18
+    curve: none
+    weight: thick
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p19
+    to: p19
+    curve: none
+    close: true
+    hatch: lines
+    ends: { from: none, to: none }
+    via:
+      - { x: 210, y: 1090 }
+      - { x: 290, y: 1090 }
+      - { x: 290, y: 1010 }
+      - { x: 224, y: 1010 }
+      - { x: 210, y: 1027.5 }
+  - from: p20
+    to: p21
+    curve: none
+    line: chain
+    ends: { from: none, to: none }
+  - from: p22
+    to: p23
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p24
+    to: p25
+    curve: none
+    weight: thick
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p26
+    to: p27
+    curve: none
+    weight: thick
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p28
+    to: p28
+    curve: none
+    close: true
+    hatch: lines
+    ends: { from: none, to: none }
+    via:
+      - { x: 768, y: 860 }
+      - { x: 824, y: 860 }
+      - { x: 824, y: 748 }
+      - { x: 785.6, y: 748 }
+      - { x: 768, y: 770 }
+  - from: p29
+    to: p30
+    curve: none
+    line: chain
+    ends: { from: none, to: none }

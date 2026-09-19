@@ -559,7 +559,7 @@ const ja = {
     viewFrameMissing: (id: string) =>
       `views の "${id}" に at と size がありません（at: { x, y } / size: { w, h }）。どこへ描くか決められないので、この図は描かれません。`,
     viewsNoGrid:
-      'views はありますが、どの図にも grid がありません。名前は出ますが、寸法も通り芯も描かれません。',
+      'views はありますが、どの図にも grid がありません。名前は出ますが、**寸法も通り芯も描かれません** —— 出したいなら、その図の grid を書いてください。ただし**縮尺を図ごとに変えているなら、それだけで意味があります**（views[].scale は絵に出なくても正本に残り、読む側と別の実装へ「この範囲は 1px が何 mm か」を伝えます）。',
     pinPositionInConstruction: (id: string) =>
       `この図では位置を直せません（"${id}" の pins.position）。位置は作図の手順が決めています。**直すのは let の定数です**（R など）。定数を 1 つ直すと、図全体が比を保ったまま動きます。`,
     constructionNothingDrawn:
@@ -1149,7 +1149,7 @@ const en: Catalog = {
     viewFrameMissing: (id: string) =>
       `View "${id}" has no at and size (at: { x, y } / size: { w, h }). There is no way to tell where to draw it, so it is not drawn.`,
     viewsNoGrid:
-      'There are views but not one of them has a grid, so names are drawn but no dimensions or grid lines are.',
+      'There are views but not one of them has a grid, so names are drawn but **no dimensions or grid lines**. Add a grid to the view if you want them. Note that **declaring a different scale per view is worthwhile on its own**: views[].scale stays in the source even when nothing is drawn from it, telling a reader (and another implementation) how many mm one pixel is in that region.',
     pinPositionInConstruction: (id: string) =>
       `Position cannot be edited in this drawing (pins.position on "${id}"). The construction steps decide it. **Edit the constants under let** (R and so on) — change one and the whole drawing moves while keeping its ratios.`,
     constructionNothingDrawn:

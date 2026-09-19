@@ -516,7 +516,24 @@ function checkViews(doc: Document, add: Add, m: Messages, at: At): void {
   const scaled =
     doc.get('scale', true) !== undefined ||
     views.items.some((item) => isMap(item) && item.get('scale', true) !== undefined);
-  if (seen.size > 0 && withGrid === 0 && scaled) {
+  /**
+   * **図ごとに縮尺を宣言しているなら、責めない**（2026-09-19）。
+   *
+   * `views[].scale` は**絵に出なくても正本に残る** ——
+   * 読む側と別の実装へ「この範囲は 1px が何 mm か」を伝える。
+   * 1 枚に縮尺が 2 つある図（詳細図と全体図）では、それ自体が中身なので、
+   * **grid が無いことは書き忘れではない。**
+   *
+   * 線引きは**縮尺が図ごとに違うかどうか** —— 2 つ以上の違う縮尺が並んでいれば、
+   * 書き手は縮尺のために views を使っている。同じ縮尺しか無いなら、
+   * これまでどおり「縮尺があるのに芯が無い ＝ 書き忘れ」（2026-09-15 の決定）。
+   */
+  const scales = new Set(
+    views.items
+      .filter((item) => isMap(item) && item.get('scale', true) !== undefined)
+      .map((item) => JSON.stringify((item as YAMLMap).get('scale'))),
+  );
+  if (seen.size > 0 && withGrid === 0 && scaled && scales.size < 2) {
     add('warning', 'views-no-grid', m.viewsNoGrid, at(views));
   }
 }

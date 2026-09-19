@@ -574,6 +574,27 @@ nodes:
  *
  * D39 と同じ形：**あるのに気づかれない口は、無いのと同じ。**
  */
+/**
+ * **縮尺だけを図ごとに宣言した views は、間違いではない**（2026-09-19）。
+ *
+ * `views-no-grid` は「名前は出ますが、寸法も通り芯も描かれません」と言う。
+ * 事実ではあるが、**views が無駄だ、と読める** ——
+ * 実際それで見本 189 に、要らない通り芯を足しかけた。
+ *
+ * `views[].scale` は、**描かれなくても正本に残る**（読む側と別の実装へ伝わる）。
+ * 1 枚に縮尺が 2 つある図では、それ自体が意味を持つ。
+ */
+describe('views の警告が、縮尺だけの図を否定しない', () => {
+  it('**scale だけを持つ views でも、その値は残ると言っている**', () => {
+    const said = messages().validate.viewsNoGrid;
+    assert.match(said, /縮尺|scale/);
+  });
+
+  it('寸法を出すには grid が要る、とも言っている', () => {
+    assert.match(messages().validate.viewsNoGrid, /grid/);
+  });
+});
+
 describe('spec から、実物へ辿り着ける', () => {
   it('**規則が zumen_examples を案内している**', () => {
     const said = spec().rules.join('\n');
