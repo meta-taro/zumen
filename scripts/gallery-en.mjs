@@ -106,6 +106,7 @@ export const CAPTIONS_EN = {
   '169-麻雀の配牌': 'Mahjong: the dice decide where the wall is opened, not luck',
   '168-ダイヤモンドシステム': 'Billiards: the diamonds on the rails are a ruler, not decoration',
   '167-ダーツボードの割り付け': 'A dartboard: the numbers are arranged to punish a miss',
+  '209-コンパスと定規の作図': 'Ruler-and-compass constructions: no scale is used, because equal compass openings make equal lengths',
   '208-建蔽率と容積率': 'Floor-area ratio in Japan: a narrow street caps it below the zoned figure, so the road sizes the building',
   '207-ウェハのダイ取り': 'Die-per-wafer: squares in a circle, so the bigger the die the larger the share thrown away',
   '206-ピアノのアクション': 'A piano action: the jack lets go just before the string, so nothing is pushing the hammer at impact',
