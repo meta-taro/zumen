@@ -63,6 +63,31 @@ describe('同梱の見本の目次', () => {
  * しばしば**「views を 2 つ使って縮尺を分けた見本はどれか」**のほうである ——
  * 書き方は `zumen_spec` に書いてあるが、**効いている実物**は見本の中にしかない。
  */
+/**
+ * **配置図か構成図かは、まねる前に知りたい**（2026-09-19）。
+ *
+ * `kind: placement` は**座標を自分で書く図**、`structure` は**機械が並べる図**。
+ * まねる相手を選ぶとき、これは一行の題材より先に効く情報なのに、目次に無かった。
+ */
+describe('目次に、図の種類が載っている', () => {
+  it('**見本ごとに kind がある**', () => {
+    const items = catalogue()!.categories.flatMap((g) => g.items);
+    assert.ok(items.every((i) => i.kind === 'placement' || i.kind === 'structure'), 'kind が無い見本がある');
+  });
+
+  it('**両方の種類が揃っている**', () => {
+    const items = catalogue()!.categories.flatMap((g) => g.items);
+    assert.ok(items.some((i) => i.kind === 'placement'));
+    assert.ok(items.some((i) => i.kind === 'structure'));
+  });
+
+  it('**種類でも引ける**', () => {
+    const found = search(catalogue()!, 'placement').flatMap((g) => g.items);
+    assert.ok(found.length > 50, `placement で ${found.length} 件しか出ない`);
+    assert.ok(found.every((i) => i.kind === 'placement'));
+  });
+});
+
 describe('使っている道具で引く', () => {
   it('**見本ごとに、使っている道具が並んでいる**', () => {
     const items = catalogue()!.categories.flatMap((g) => g.items);

@@ -207,6 +207,8 @@ const USES = [
   ['vertical', /^\s+vertical: /m], ['pins', /^pins:/m],
 ];
 const usesOf = (text) => USES.filter(([, re]) => re.test(text)).map(([name]) => name);
+/** **配置図か構成図か。** まねる相手を選ぶとき、題材より先に効く。 */
+const kindOfText = (text) => (/^kind:\s*placement\b/m.test(text) ? 'placement' : 'structure');
 
 const index = {
   count: readdirSync(DIR).filter((f) => f.endsWith('.zumen.yaml')).length,
@@ -218,6 +220,7 @@ const index = {
       name: item.name,
       caption: item.caption,
       captionEn: CAPTIONS_EN[item.name] ?? '',
+      kind: kindOfText(readFileSync(join(DIR, `${item.name}.zumen.yaml`), 'utf8')),
       uses: usesOf(readFileSync(join(DIR, `${item.name}.zumen.yaml`), 'utf8')),
     })),
   })),

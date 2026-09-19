@@ -30,6 +30,8 @@ export interface Example {
   /** その図の決まりごとを一行で。**題名ではない。** */
   caption: string;
   captionEn: string;
+  /** **配置図（座標を自分で書く）か、構成図（機械が並べる）か。** まねる前に知りたい。 */
+  kind: 'placement' | 'structure';
   /** **その見本が使っている道具**（`views` `scale` `hatch` など）。機能から実物を引くため。 */
   uses: string[];
 }
@@ -90,7 +92,7 @@ export function search(book: Catalogue, query: string): Category[] {
     .map((group) => ({
       ...group,
       items: group.items.filter((item) =>
-        `${item.name} ${item.caption} ${item.captionEn} ${item.uses.join(' ')}`.toLowerCase().includes(needle),
+        `${item.name} ${item.caption} ${item.captionEn} ${item.kind} ${item.uses.join(' ')}`.toLowerCase().includes(needle),
       ),
     }))
     .filter((group) => group.items.length > 0);

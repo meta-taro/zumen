@@ -1,0 +1,260 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1324" height="1254" viewBox="0 0 1324 1254">
+<title>壁量計算と 4 分割法（木造 2 階建て）</title>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#63636e"/></marker></defs>
+<rect data-paper="1" x="0" y="0" width="1324" height="1254" fill="#ffffff"/>
+<g data-node="a_f" data-pinned="false" data-shape="rect"><rect x="200" y="350" width="229" height="171" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="b_f" data-pinned="false" data-shape="rect"><rect x="200" y="740" width="229" height="171" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="c_f" data-pinned="false" data-shape="rect"><rect x="560" y="740" width="229" height="171" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="n1" data-pinned="false" data-shape="rect"></g>
+<g data-node="n2" data-pinned="false" data-shape="rect"></g>
+<g data-node="n3" data-pinned="false" data-shape="rect"></g>
+<g data-node="n4" data-pinned="false" data-shape="rect"></g>
+<g data-node="n5" data-pinned="false" data-shape="rect"></g>
+<g data-node="n6" data-pinned="false" data-shape="rect"></g>
+<g data-node="n7" data-pinned="false" data-shape="rect"></g>
+<g data-node="h190" data-pinned="false" data-shape="rect"><rect x="880" y="190" width="420" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/><rect x="880" y="190" width="420" height="24" fill="#1c1c22" fill-opacity="0.82"/></g>
+<g data-node="h376" data-pinned="false" data-shape="rect"><rect x="880" y="376" width="420" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/><rect x="880" y="376" width="420" height="24" fill="#1c1c22" fill-opacity="0.82"/></g>
+<g data-node="h490" data-pinned="false" data-shape="rect"><rect x="880" y="490" width="420" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/><rect x="880" y="490" width="420" height="24" fill="#1c1c22" fill-opacity="0.82"/></g>
+<g data-node="h652" data-pinned="false" data-shape="rect"><rect x="880" y="652" width="420" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/><rect x="880" y="652" width="420" height="24" fill="#1c1c22" fill-opacity="0.82"/></g>
+<g data-node="t1" data-pinned="false" data-shape="rect"></g>
+<g data-node="b_q1" data-pinned="false" data-shape="rect"><rect x="201" y="741" width="227" height="42" fill="#3f6f8f" fill-opacity="0.16" stroke="none"/></g>
+<g data-node="b_q2" data-pinned="false" data-shape="rect"><rect x="201" y="868" width="227" height="42" fill="#3f6f8f" fill-opacity="0.16" stroke="none"/></g>
+<g data-node="c_q1" data-pinned="false" data-shape="rect"><rect x="561" y="741" width="227" height="42" fill="#3f6f8f" fill-opacity="0.16" stroke="none"/></g>
+<g data-node="c_q2" data-pinned="false" data-shape="rect"><rect x="561" y="868" width="227" height="42" fill="#3f6f8f" fill-opacity="0.16" stroke="none"/></g>
+<g data-node="t1b" data-pinned="false" data-shape="rect"></g>
+<g data-node="a_x" data-pinned="false" data-shape="rect"></g>
+<g data-node="t2" data-pinned="false" data-shape="rect"></g>
+<g data-node="t3" data-pinned="false" data-shape="rect"></g>
+<g data-node="b_1" data-pinned="false" data-shape="rect"></g>
+<g data-node="b_2" data-pinned="false" data-shape="rect"></g>
+<g data-node="b_r" data-pinned="false" data-shape="rect"></g>
+<g data-node="c_1" data-pinned="false" data-shape="rect"></g>
+<g data-node="c_2" data-pinned="false" data-shape="rect"></g>
+<g data-node="c_r" data-pinned="false" data-shape="rect"></g>
+<g data-node="t2a" data-pinned="false" data-shape="rect"></g>
+<g data-node="t2b" data-pinned="false" data-shape="rect"></g>
+<g data-node="t3b" data-pinned="false" data-shape="rect"></g>
+<g data-node="y214" data-pinned="false" data-shape="rect"><rect x="1070" y="214" width="230" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="y238" data-pinned="false" data-shape="rect"><rect x="1070" y="238" width="230" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="y262" data-pinned="false" data-shape="rect"><rect x="1070" y="262" width="230" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="y286" data-pinned="false" data-shape="rect"><rect x="1070" y="286" width="230" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="y310" data-pinned="false" data-shape="rect"><rect x="1070" y="310" width="230" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="y334" data-pinned="false" data-shape="rect"><rect x="1070" y="334" width="230" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="y400" data-pinned="false" data-shape="rect"><rect x="1070" y="400" width="230" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="y424" data-pinned="false" data-shape="rect"><rect x="1070" y="424" width="230" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="y448" data-pinned="false" data-shape="rect"><rect x="1070" y="448" width="230" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="y514" data-pinned="false" data-shape="rect"><rect x="1070" y="514" width="230" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="y538" data-pinned="false" data-shape="rect"><rect x="1070" y="538" width="230" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="y562" data-pinned="false" data-shape="rect"><rect x="1070" y="562" width="230" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="y586" data-pinned="false" data-shape="rect"><rect x="1070" y="586" width="230" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="y610" data-pinned="false" data-shape="rect"><rect x="1070" y="610" width="230" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="y676" data-pinned="false" data-shape="rect"><rect x="1070" y="676" width="230" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="y700" data-pinned="false" data-shape="rect"><rect x="1070" y="700" width="230" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="y724" data-pinned="false" data-shape="rect"><rect x="1070" y="724" width="230" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="y748" data-pinned="false" data-shape="rect"><rect x="1070" y="748" width="230" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="y772" data-pinned="false" data-shape="rect"><rect x="1070" y="772" width="230" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="y796" data-pinned="false" data-shape="rect"><rect x="1070" y="796" width="230" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="x214" data-pinned="false" data-shape="rect"><rect x="880" y="214" width="190" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="x238" data-pinned="false" data-shape="rect"><rect x="880" y="238" width="190" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="x262" data-pinned="false" data-shape="rect"><rect x="880" y="262" width="190" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="x286" data-pinned="false" data-shape="rect"><rect x="880" y="286" width="190" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="x310" data-pinned="false" data-shape="rect"><rect x="880" y="310" width="190" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="x334" data-pinned="false" data-shape="rect"><rect x="880" y="334" width="190" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="x400" data-pinned="false" data-shape="rect"><rect x="880" y="400" width="190" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="x424" data-pinned="false" data-shape="rect"><rect x="880" y="424" width="190" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="x448" data-pinned="false" data-shape="rect"><rect x="880" y="448" width="190" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="x514" data-pinned="false" data-shape="rect"><rect x="880" y="514" width="190" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="x538" data-pinned="false" data-shape="rect"><rect x="880" y="538" width="190" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="x562" data-pinned="false" data-shape="rect"><rect x="880" y="562" width="190" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="x586" data-pinned="false" data-shape="rect"><rect x="880" y="586" width="190" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="x610" data-pinned="false" data-shape="rect"><rect x="880" y="610" width="190" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="x676" data-pinned="false" data-shape="rect"><rect x="880" y="676" width="190" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="x700" data-pinned="false" data-shape="rect"><rect x="880" y="700" width="190" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="x724" data-pinned="false" data-shape="rect"><rect x="880" y="724" width="190" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="x748" data-pinned="false" data-shape="rect"><rect x="880" y="748" width="190" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="x772" data-pinned="false" data-shape="rect"><rect x="880" y="772" width="190" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="x796" data-pinned="false" data-shape="rect"><rect x="880" y="796" width="190" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="a_n" data-pinned="false" data-shape="rect"></g>
+<g data-node="b_n" data-pinned="false" data-shape="rect"></g>
+<g data-node="c_n" data-pinned="false" data-shape="rect"></g>
+<g data-node="a_l0" data-pinned="false" data-shape="rect"></g>
+<g data-node="a_l1" data-pinned="false" data-shape="rect"></g>
+<g data-node="a_l2" data-pinned="false" data-shape="rect"></g>
+<g data-node="a_w2" data-pinned="false" data-shape="rect"><rect x="329" y="496" width="71" height="6" fill="#1c1c22" fill-opacity="0.82"/></g>
+<g data-node="b_w2" data-pinned="false" data-shape="rect"><rect x="329" y="886" width="71" height="6" fill="#1c1c22" fill-opacity="0.82"/></g>
+<g data-node="c_w2" data-pinned="false" data-shape="rect"><rect x="689" y="834" width="71" height="6" fill="#1c1c22" fill-opacity="0.82"/></g>
+<g data-node="a_w0" data-pinned="false" data-shape="rect"><rect x="229" y="370" width="57" height="6" fill="#1c1c22" fill-opacity="0.82"/></g>
+<g data-node="b_w0" data-pinned="false" data-shape="rect"><rect x="229" y="760" width="57" height="6" fill="#1c1c22" fill-opacity="0.82"/></g>
+<g data-node="c_w0" data-pinned="false" data-shape="rect"><rect x="589" y="760" width="57" height="6" fill="#1c1c22" fill-opacity="0.82"/></g>
+<g data-node="a_w1" data-pinned="false" data-shape="rect"><rect x="286" y="433" width="43" height="6" fill="#1c1c22" fill-opacity="0.82"/></g>
+<g data-node="b_w1" data-pinned="false" data-shape="rect"><rect x="286" y="823" width="43" height="6" fill="#1c1c22" fill-opacity="0.82"/></g>
+<g data-node="c_w1" data-pinned="false" data-shape="rect"><rect x="646" y="823" width="43" height="6" fill="#1c1c22" fill-opacity="0.82"/></g>
+<g data-node="p0" data-pinned="false" data-shape="rect"></g>
+<g data-node="p1" data-pinned="false" data-shape="rect"></g>
+<g data-node="p2" data-pinned="false" data-shape="rect"></g>
+<g data-node="p3" data-pinned="false" data-shape="rect"></g>
+<g data-edge="p0&gt;p1" data-pinned="false"><path d="M 184 741 L 184 781.9" fill="none" stroke="#63636e" stroke-width="2"/><path d="M 184 782 L 188 772 L 180 772 Z" fill="#63636e" stroke="none"/><path d="M 184 741 L 180 751 L 188 751 Z" fill="#63636e" stroke="none"/></g>
+<g data-edge="p2&gt;p3" data-pinned="false"><path d="M 184 869.6 L 184 910.4" fill="none" stroke="#63636e" stroke-width="2"/><path d="M 184 910 L 188 900 L 180 900 Z" fill="#63636e" stroke="none"/><path d="M 184 870 L 180 880 L 188 880 Z" fill="#63636e" stroke="none"/></g>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<g data-name="n1"><text x="160" y="1093" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">木造 2 階建ての壁量計算と4 分割法です（施行令 46 条／告示 1352 号）。</text></g>
+<g data-name="n2"><text x="160" y="1115" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">必要壁量は 2 つ出します —— 地震力は床面積 × 係数、風圧力は見付面積 × 50。大きいほうを満たします。</text></g>
+<g data-name="n3"><text x="160" y="1137" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">存在壁量は「長さ × 壁倍率」です。同じ長さでも、筋かい片側 2.0 と たすき掛け 4.0 では 2 倍違います。</text></g>
+<g data-name="n4"><text x="160" y="1159" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">壁はあればいいのではありません。 足りていても、片側へ寄っていれば通りません。</text></g>
+<g data-name="n5"><text x="160" y="1181" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">4 分割法は、各方向で建物を 4 つに割り、両端の 1/4（側端部分）の充足率を比べます。</text></g>
+<g data-name="n6"><text x="160" y="1203" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">小さいほう ÷ 大きいほう ≧ 0.5（壁率比）。両側とも充足率 1.0 を超えていれば、それで通ります。</text></g>
+<g data-name="n7"><text x="160" y="1225" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">数値は一例です。実際は柱の引き抜き（N 値計算）と金物も要ります。</text></g>
+<g data-name="h190"><text x="1090" y="206" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#ffffff">必要壁量（cm/m²・地震力）</text></g>
+<g data-name="h376"><text x="1090" y="392" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#ffffff">もう 1 つの必要壁量（風圧力）</text></g>
+<g data-name="h490"><text x="1090" y="506" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#ffffff">壁倍率（存在壁量 ＝ 長さ × 倍率）</text></g>
+<g data-name="h652"><text x="1090" y="668" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#ffffff">4 分割法（告示 1352 号）</text></g>
+<g data-name="t1"><text x="160" y="268" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">① 壁量 —— 長さ × 倍率で数える</text></g>
+<g data-name="t1b"><text x="160" y="289" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">　必要 48 × 29 ＝ 1392cm ＝ 13.9m。存在 15m。</text></g>
+<g data-name="a_x"><text x="200" y="568" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">← X 方向の耐力壁（この向きの力を受ける）</text></g>
+<g data-name="t2"><text x="160" y="636" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">② 4 分割法</text></g>
+<g data-name="t3"><text x="520" y="658" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">③ 壁の合計が同じでも</text></g>
+<g data-name="b_1"><text x="200" y="958" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">上 1/4：存在 5m ÷ 必要 3.5m ＝ 充足率 1.4</text></g>
+<g data-name="b_2"><text x="200" y="978" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">下 1/4：存在 6.3m ÷ 必要 3.5m ＝ 充足率 1.8</text></g>
+<g data-name="b_r"><text x="200" y="1000" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">壁率比 0.8 ≧ 0.5 → 通る</text></g>
+<g data-name="c_1"><text x="560" y="958" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">上 1/4：充足率 1.4</text></g>
+<g data-name="c_2"><text x="560" y="978" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">下 1/4：充足率 0</text></g>
+<g data-name="c_r"><text x="560" y="1000" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">壁率比 0 → 通らない</text></g>
+<g data-name="t2a"><text x="160" y="657" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">　足りていても、偏っていれば通らない</text></g>
+<g data-name="t2b"><text x="160" y="679" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">　小さいほう ÷ 大きいほう ≧ 0.5</text></g>
+<g data-name="t3b"><text x="520" y="679" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">　片側へ寄せると、ねじれる。</text></g>
+<g data-name="y214"><text x="1076" y="230" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">11</text></g>
+<g data-name="y238"><text x="1076" y="254" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">29</text></g>
+<g data-name="y262"><text x="1076" y="278" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">15</text></g>
+<g data-name="y286"><text x="1076" y="302" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">15</text></g>
+<g data-name="y310"><text x="1076" y="326" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">33</text></g>
+<g data-name="y334"><text x="1076" y="350" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">21</text></g>
+<g data-name="y400"><text x="1076" y="416" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">見付面積（風を受ける面）</text></g>
+<g data-name="y424"><text x="1076" y="440" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">50 cm/m²</text></g>
+<g data-name="y448"><text x="1076" y="464" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">地震力と風圧力の大きいほう</text></g>
+<g data-name="y514"><text x="1076" y="530" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">2.0</text></g>
+<g data-name="y538"><text x="1076" y="554" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">4.0</text></g>
+<g data-name="y562"><text x="1076" y="578" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">2.5</text></g>
+<g data-name="y586"><text x="1076" y="602" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">5.0</text></g>
+<g data-name="y610"><text x="1076" y="626" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">倍率で 2 倍以上変わる</text></g>
+<g data-name="y676"><text x="1076" y="692" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">壁の釣り合い（偏っていないか）</text></g>
+<g data-name="y700"><text x="1076" y="716" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">各方向で、両端の 1/4</text></g>
+<g data-name="y724"><text x="1076" y="740" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">その区画の 存在 ÷ 必要</text></g>
+<g data-name="y748"><text x="1076" y="764" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">両側とも充足率 1.0 超</text></g>
+<g data-name="y772"><text x="1076" y="788" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">壁率比（小 ÷ 大）≧ 0.5</text></g>
+<g data-name="y796"><text x="1076" y="812" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">偏心率 ≦ 0.3 を計算する</text></g>
+<g data-name="x214"><text x="975" y="230" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1c1c22">平屋（軽い屋根）</text></g>
+<g data-name="x238"><text x="975" y="254" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1c1c22">2 階建ての 1 階</text></g>
+<g data-name="x262"><text x="975" y="278" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1c1c22">2 階建ての 2 階</text></g>
+<g data-name="x286"><text x="975" y="302" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1c1c22">平屋（重い屋根）</text></g>
+<g data-name="x310"><text x="975" y="326" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1c1c22">2 階建ての 1 階（重い）</text></g>
+<g data-name="x334"><text x="975" y="350" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1c1c22">2 階建ての 2 階（重い）</text></g>
+<g data-name="x400"><text x="975" y="416" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1c1c22">何で決まるか</text></g>
+<g data-name="x424"><text x="975" y="440" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1c1c22">一般の地域</text></g>
+<g data-name="x448"><text x="975" y="464" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1c1c22">どちらを採るか</text></g>
+<g data-name="x514"><text x="975" y="530" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1c1c22">筋かい 45×90 片側</text></g>
+<g data-name="x538"><text x="975" y="554" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1c1c22">同 たすき掛け</text></g>
+<g data-name="x562"><text x="975" y="578" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1c1c22">構造用合板（大壁）</text></g>
+<g data-name="x586"><text x="975" y="602" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1c1c22">上限</text></g>
+<g data-name="x610"><text x="975" y="626" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1c1c22">つまり</text></g>
+<g data-name="x676"><text x="975" y="692" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1c1c22">何を見るか</text></g>
+<g data-name="x700"><text x="975" y="716" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1c1c22">側端部分</text></g>
+<g data-name="x724"><text x="975" y="740" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1c1c22">充足率</text></g>
+<g data-name="x748"><text x="975" y="764" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1c1c22">通る条件 1</text></g>
+<g data-name="x772"><text x="975" y="788" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1c1c22">通る条件 2</text></g>
+<g data-name="x796"><text x="975" y="812" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1c1c22">代わりの道</text></g>
+<g data-name="a_n"><text x="314" y="544" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1c1c22">1 階平面（8 × 6m ＝ 48m²）</text></g>
+<g data-name="b_n"><text x="314" y="934" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1c1c22">側端部分は、上下の 1/4</text></g>
+<g data-name="c_n"><text x="674" y="934" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1c1c22">下 1/4 に壁が無い</text></g>
+<g data-name="a_l0"><text x="443" y="377" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">2m × 2.5 ＝ 5m</text></g>
+<g data-name="a_l1"><text x="443" y="440" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">1.5m × 2.5 ＝ 3.8m</text></g>
+<g data-name="a_l2"><text x="443" y="503" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">2.5m × 2.5 ＝ 6.3m</text></g>
+</svg>
