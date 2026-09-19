@@ -643,9 +643,9 @@ const ja = {
     edgeHatchIgnored: (edge: string) =>
       `エッジ ${edge} に hatch がありますが、close: true でないので効きません。閉じていない辺には面が無く、塗りようがありません。`,
     nameCrowded: (id: string) =>
-      `ノード "${id}" の名前は箱に入りきらず、外へ出した先も空いていません（**他の要素に重なる**か、**紙の縁で切れます**）。箱を大きくするか、文字を短くしてください（消してはいません —— 名前が消えるのは、重なるより悪いためです）。`,
+      `ノード "${id}" の名前は箱に入りきらず、外へ出した先も空いていません（**他の要素に重なる**か、**紙の縁で切れます**）。箱を大きくするか、名前を **\`\\n\`** で折り返すか、文字を短くしてください（消してはいません —— 名前が消えるのは、重なるより悪いためです）。`,
     nameAdrift: (id: string, needs: number, has: number) =>
-      `ノード "${id}" は幅のある箱ですが、名前が入りきらず外へ出ています（名前に ${needs}px 要るところ、箱は ${has}px。${needs - has}px 足りません）。表の欄なら、値が欄から離れて行が空に見えます。箱を広げるか、文字を短くしてください。`,
+      `ノード "${id}" は幅のある箱ですが、名前が入りきらず外へ出ています（名前に ${needs}px 要るところ、箱は ${has}px。${needs - has}px 足りません）。表の欄なら、値が欄から離れて行が空に見えます。箱を広げるか、名前を **\`\\n\`** で折り返すか（いちばん長い行で測ります）、文字を短くしてください。`,
     tagHidden: (id: string) =>
       `ノード "${id}" の tag は、印に入りきらないので描かれません。印を大きくするか、符号を短くしてください（消してはいません。書いたのに出ない状態を知らせています）。`,
     /** 長辺の向き（`tooSmallToPrint` に渡す語）。 */
@@ -1241,9 +1241,9 @@ const en: Catalog = {
     edgeHatchIgnored: (edge: string) =>
       `Edge ${edge} has a hatch, but without close: true there is no face to fill, so it does nothing.`,
     nameCrowded: (id: string) =>
-      `The name on node "${id}" does not fit its box and there is no free room outside either: it either lands on something else or is cut off at the edge of the sheet. Make the box bigger or shorten the text. It is NOT dropped: losing a name is worse than an overlap.`,
+      `The name on node "${id}" does not fit its box and there is no free room outside either: it either lands on something else or is cut off at the edge of the sheet. Make the box bigger, break the name with **\`\\n\`**, or shorten the text. It is NOT dropped: losing a name is worse than an overlap.`,
     nameAdrift: (id: string, needs: number, has: number) =>
-      `Node "${id}" is a wide box whose name did not fit, so it is drawn outside: the name needs ${needs}px and the box is ${has}px, so it is ${needs - has}px short. In a table that leaves the row looking empty. Widen the box or shorten the text.`,
+      `Node "${id}" is a wide box whose name did not fit, so it is drawn outside: the name needs ${needs}px and the box is ${has}px, so it is ${needs - has}px short. In a table that leaves the row looking empty. Widen the box, break the name with **\`\\n\`** (it is measured by its longest line), or shorten the text.`,
     tagHidden: (id: string) =>
       `The tag on node "${id}" does not fit its marker and is not drawn. Make the marker bigger or shorten the tag.`,
     alongVertical: 'vertically',
