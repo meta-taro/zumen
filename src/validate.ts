@@ -22,7 +22,7 @@ import { ENDS } from './ends.ts';
 import { LINES } from './line.ts';
 import { CURVES, viaOf } from './curve.ts';
 import { VERTICALS, floorsOf } from './floor.ts';
-import { faintOn, paletteOf as routePalette } from './palette.ts';
+import { achromatic, faintOn, paletteOf as routePalette } from './palette.ts';
 import { WEIGHTS } from './weight.ts';
 import { HATCHES } from './hatch.ts';
 import { SYMBOLS } from './symbol.ts';
@@ -842,6 +842,19 @@ function checkColors(doc: Document, add: Add, m: Messages, at: At): void {
 
   for (const [key, item] of used) {
     if (written.some((text) => text.includes(key))) continue;
+    /**
+     * **下敷きの灰色には、凡例を求めない**（2026-09-19）。
+     *
+     * この検査は「色を落としたら読めなくなる」ことを防ぐためのもの。
+     * **無彩色はどちらでも落ちない** —— 白黒で刷ってもその灰色のまま出るし、
+     * 色覚特性でも他の人と同じに見える。
+     *
+     * ただし**線の色に使っているなら今までどおり言う。** 線の色は
+     * 「どれがどれか」を運んでいて、読む人が色 → 意味を引く必要があるから。
+     * 面（`fill`）だけに使った無彩色は、表の 1 行を淡く敷くような**強調**で、
+     * それ自体は何の意味も運んでいない（見本 211 の表で要った）。
+     */
+    if (tints.has(key) && !onLines.has(key) && achromatic(table[key]!)) continue;
     add('warning', 'color-without-code', m.colorWithoutCode(key), at(item));
   }
 }

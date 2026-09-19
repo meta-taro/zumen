@@ -94,3 +94,16 @@ export const TINT = 0.16;
 export function faintOn(color: string): boolean {
   return GROUNDS.some((ground) => contrastOn(color, ground) < FAINT);
 }
+
+/**
+ * **無彩色か**（R ＝ G ＝ B）。
+ *
+ * `color-without-code` は「色を落としたら読めなくなる」ことを防ぐ検査だが、
+ * 灰色はどちらでも落ちない —— **白黒で刷ってもその灰色のまま出るし、
+ * 色覚特性でも他の人と同じに見える。**
+ * だから、下敷き（`fill`）に使った灰色にまで凡例の文字を求める理由がない。
+ */
+export function achromatic(hex: string): boolean {
+  const [r, g, b] = [1, 3, 5].map((i) => hex.slice(i, i + 2).toLowerCase());
+  return r === g && g === b;
+}

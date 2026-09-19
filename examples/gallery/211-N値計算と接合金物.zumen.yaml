@@ -1,0 +1,677 @@
+version: 1
+kind: placement
+arrows: true
+title: N 値計算と接合金物
+palette:
+  G: "#e0e0e0"
+# **壁を強くするほど、その端の柱は抜けようとする。**
+#
+# 耐力壁は地震で回転し、端の柱を持ち上げる。その力を N 値として数で出し、
+# 告示 1460 号の（い）〜（ぬ）から金物を選ぶ。**感覚では選べない。**
+# 壁量計算（見本 203）と 2 つで 1 組。
+nodes:
+  - id: t1
+    label: "① 地震で、耐力壁の端の柱は引き抜かれる"
+    marker: none
+    align: left
+    at: { x: 180, y: 190 }
+    size: { w: 460, h: 20 }
+  - id: t1b
+    label: "壁が強いほど、端の柱を持ち上げる力も大きい。"
+    marker: none
+    align: left
+    at: { x: 180, y: 212 }
+    size: { w: 460, h: 18 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 189, y: 251 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 299, y: 251 }
+    size: { w: 2, h: 2 }
+  - id: f_n
+    label: "地震の力"
+    marker: none
+    align: left
+    at: { x: 306, y: 244 }
+    size: { w: 110, h: 18 }
+  - id: beam
+    label: ""
+    at: { x: 190, y: 272 }
+    size: { w: 400, h: 18 }
+  - id: colL
+    label: ""
+    at: { x: 206, y: 290 }
+    size: { w: 18, h: 190 }
+  - id: colR
+    label: ""
+    at: { x: 556, y: 290 }
+    size: { w: 18, h: 190 }
+  - id: dodai
+    label: ""
+    at: { x: 190, y: 480 }
+    size: { w: 400, h: 18 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 223, y: 477 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 555, y: 291 }
+    size: { w: 2, h: 2 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 159, y: 501 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 619, y: 501 }
+    size: { w: 2, h: 2 }
+  - id: beam_n
+    label: "横架材"
+    marker: none
+    align: right
+    at: { x: 80, y: 273 }
+    size: { w: 104, h: 18 }
+  - id: dodai_n
+    label: "土台"
+    marker: none
+    align: right
+    at: { x: 80, y: 481 }
+    size: { w: 104, h: 18 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 223, y: 339 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 257, y: 339 }
+    size: { w: 2, h: 2 }
+  - id: col_n
+    label: "柱"
+    marker: none
+    align: left
+    at: { x: 262, y: 331 }
+    size: { w: 60, h: 18 }
+  - id: brace_n
+    label: "筋かい（引張）"
+    marker: none
+    align: left
+    at: { x: 250, y: 302 }
+    size: { w: 150, h: 18 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 195, y: 475 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 195, y: 385 }
+    size: { w: 2, h: 2 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 583, y: 385 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 583, y: 475 }
+    size: { w: 2, h: 2 }
+  - id: up_n
+    label: "引き抜かれる"
+    marker: none
+    align: right
+    at: { x: 76, y: 422 }
+    size: { w: 112, h: 18 }
+  - id: dn_n
+    label: "押し込まれる"
+    marker: none
+    align: left
+    at: { x: 592, y: 422 }
+    size: { w: 112, h: 18 }
+  - id: both
+    label: "地震は両方向に来る。両端の柱をそれぞれ検討する。"
+    marker: none
+    align: left
+    at: { x: 180, y: 534 }
+    size: { w: 460, h: 18 }
+  - id: t2
+    label: "② 柱の位置で、係数が変わる"
+    marker: none
+    align: left
+    at: { x: 690, y: 190 }
+    size: { w: 370, h: 20 }
+  - id: t2b
+    label: "出隅（建物の外角）か、それ以外か。"
+    marker: none
+    align: left
+    at: { x: 690, y: 212 }
+    size: { w: 370, h: 18 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 719, y: 289 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 869, y: 289 }
+    size: { w: 2, h: 2 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 869, y: 429 }
+    size: { w: 2, h: 2 }
+  - id: kd0
+    label: ""
+    marker: circle
+    at: { x: 712, y: 282 }
+    size: { w: 16, h: 16 }
+  - id: kd1
+    label: ""
+    marker: circle
+    at: { x: 1012, y: 282 }
+    size: { w: 16, h: 16 }
+  - id: kd2
+    label: ""
+    marker: circle
+    at: { x: 712, y: 422 }
+    size: { w: 16, h: 16 }
+  - id: kd3
+    label: ""
+    marker: circle
+    at: { x: 1012, y: 422 }
+    size: { w: 16, h: 16 }
+  - id: sn
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 862, y: 282 }
+    size: { w: 16, h: 16 }
+  - id: kd_n
+    label: "出隅（4 か所）"
+    marker: none
+    align: right
+    at: { x: 592, y: 282 }
+    size: { w: 114, h: 18 }
+  - id: sn_n
+    label: "その他（壁の途中）"
+    marker: none
+    align: left
+    at: { x: 890, y: 252 }
+    size: { w: 170, h: 18 }
+  - id: plan_n
+    label: "平面（1 階）"
+    marker: none
+    align: center
+    at: { x: 720, y: 444 }
+    size: { w: 300, h: 18 }
+  - id: t3
+    label: "③ B と L は、位置と階で決まる"
+    marker: none
+    align: left
+    at: { x: 690, y: 480 }
+    size: { w: 370, h: 20 }
+  - id: bl0_0
+    label: "柱の位置"
+    hatch: solid
+    at: { x: 690, y: 508 }
+    size: { w: 100, h: 24 }
+  - id: bl0_1
+    label: "B"
+    hatch: solid
+    at: { x: 790, y: 508 }
+    size: { w: 60, h: 24 }
+  - id: bl0_2
+    label: "L（最上階）"
+    hatch: solid
+    at: { x: 850, y: 508 }
+    size: { w: 105, h: 24 }
+  - id: bl0_3
+    label: "L（1 階）"
+    hatch: solid
+    at: { x: 955, y: 508 }
+    size: { w: 105, h: 24 }
+  - id: bl1_0
+    label: "出隅"
+    at: { x: 690, y: 532 }
+    size: { w: 100, h: 24 }
+  - id: bl1_1
+    label: "0.8"
+    at: { x: 790, y: 532 }
+    size: { w: 60, h: 24 }
+  - id: bl1_2
+    label: "0.4"
+    at: { x: 850, y: 532 }
+    size: { w: 105, h: 24 }
+  - id: bl1_3
+    label: "1.0"
+    at: { x: 955, y: 532 }
+    size: { w: 105, h: 24 }
+  - id: bl2_0
+    label: "その他"
+    at: { x: 690, y: 556 }
+    size: { w: 100, h: 24 }
+  - id: bl2_1
+    label: "0.5"
+    at: { x: 790, y: 556 }
+    size: { w: 60, h: 24 }
+  - id: bl2_2
+    label: "0.6"
+    at: { x: 850, y: 556 }
+    size: { w: 105, h: 24 }
+  - id: bl2_3
+    label: "1.6"
+    at: { x: 955, y: 556 }
+    size: { w: 105, h: 24 }
+  - id: bl_n
+    label: "L は上に載る重さ。下の階ほど大きく、柱を押さえる。"
+    marker: none
+    align: left
+    at: { x: 690, y: 588 }
+    size: { w: 370, h: 18 }
+  - id: t4
+    label: "④ 式 —— 両側の壁倍率の差から出す"
+    marker: none
+    align: left
+    at: { x: 180, y: 580 }
+    size: { w: 460, h: 20 }
+  - id: f1_n
+    label: "平屋の柱／2 階建の 2 階の柱"
+    marker: none
+    align: left
+    at: { x: 180, y: 608 }
+    size: { w: 460, h: 18 }
+  - id: f1
+    label: "N ＝ A₁ × B₁ − L"
+    at: { x: 180, y: 630 }
+    size: { w: 460, h: 32 }
+  - id: f2_n
+    label: "2 階建の 1 階の柱（上に 2 階がある）"
+    marker: none
+    align: left
+    at: { x: 180, y: 672 }
+    size: { w: 460, h: 18 }
+  - id: f2
+    label: "N ＝ A₁ × B₁ ＋ A₂ × B₂ − L"
+    at: { x: 180, y: 694 }
+    size: { w: 460, h: 32 }
+  - id: a1
+    label: "A … その柱の両側の壁倍率の差（筋かいは補正値を足す）"
+    marker: none
+    align: left
+    at: { x: 180, y: 738 }
+    size: { w: 460, h: 18 }
+  - id: a2
+    label: "B … 周辺部材による押さえ（③ の表）"
+    marker: none
+    align: left
+    at: { x: 180, y: 759 }
+    size: { w: 460, h: 18 }
+  - id: a3
+    label: "L … 鉛直荷重による押さえ（③ の表）"
+    marker: none
+    align: left
+    at: { x: 180, y: 780 }
+    size: { w: 460, h: 18 }
+  - id: a4
+    label: "添字の 1 は当該階、2 はその上の階。"
+    marker: none
+    align: left
+    at: { x: 180, y: 801 }
+    size: { w: 460, h: 18 }
+  - id: t5
+    label: "⑤ 例 —— 2 階建の 1 階・出隅の柱"
+    marker: none
+    align: left
+    at: { x: 690, y: 620 }
+    size: { w: 370, h: 20 }
+  - id: e1
+    label: "A₁ ＝ 2.5（片側だけ 2.5 倍の壁）　B₁ ＝ 0.8"
+    marker: none
+    align: left
+    at: { x: 690, y: 648 }
+    size: { w: 370, h: 18 }
+  - id: e2
+    label: "A₂ ＝ 1.5（2 階も片側だけ）　　　B₂ ＝ 0.8"
+    marker: none
+    align: left
+    at: { x: 690, y: 669 }
+    size: { w: 370, h: 18 }
+  - id: e3
+    label: "L ＝ 1.0（出隅・1 階）"
+    marker: none
+    align: left
+    at: { x: 690, y: 690 }
+    size: { w: 370, h: 18 }
+  - id: ex
+    label: "N ＝ 2.5×0.8 ＋ 1.5×0.8 − 1.0 ＝ 2.2"
+    at: { x: 690, y: 718 }
+    size: { w: 370, h: 32 }
+  - id: e_r
+    label: "2.2 は 1.8 を超え 2.8 以下 → ⑥ の（と）"
+    marker: none
+    align: left
+    at: { x: 690, y: 758 }
+    size: { w: 370, h: 18 }
+  - id: e_r2
+    label: "15kN 引き寄せ金物（ホールダウン）を使う。"
+    marker: none
+    align: left
+    at: { x: 690, y: 780 }
+    size: { w: 370, h: 18 }
+  - id: e_r3
+    label: "感覚で「羽子板ボルトで足りる」とすると 2 段足りない。"
+    marker: none
+    align: left
+    at: { x: 690, y: 808 }
+    size: { w: 370, h: 18 }
+  - id: t6
+    label: "⑥ N 値で、接合方法が決まる（告示 1460 号）"
+    marker: none
+    align: left
+    at: { x: 180, y: 852 }
+    size: { w: 880, h: 20 }
+  - id: hw0_0
+    label: "記号"
+    hatch: solid
+    at: { x: 180, y: 880 }
+    size: { w: 70, h: 24 }
+  - id: hw0_1
+    label: "N 値"
+    hatch: solid
+    at: { x: 250, y: 880 }
+    size: { w: 110, h: 24 }
+  - id: hw0_2
+    label: "必要耐力"
+    hatch: solid
+    at: { x: 360, y: 880 }
+    size: { w: 100, h: 24 }
+  - id: hw0_3
+    label: "接合方法"
+    hatch: solid
+    at: { x: 460, y: 880 }
+    size: { w: 600, h: 24 }
+  - id: hw1_0
+    label: "い"
+    at: { x: 180, y: 904 }
+    size: { w: 70, h: 24 }
+  - id: hw1_1
+    label: "0.00 以下"
+    at: { x: 250, y: 904 }
+    size: { w: 110, h: 24 }
+  - id: hw1_2
+    label: "0 kN"
+    at: { x: 360, y: 904 }
+    size: { w: 100, h: 24 }
+  - id: hw1_3
+    label: "短ほぞ差し、かすがい打ち"
+    align: left
+    at: { x: 460, y: 904 }
+    size: { w: 600, h: 24 }
+  - id: hw2_0
+    label: "ろ"
+    at: { x: 180, y: 928 }
+    size: { w: 70, h: 24 }
+  - id: hw2_1
+    label: "0.65 以下"
+    at: { x: 250, y: 928 }
+    size: { w: 110, h: 24 }
+  - id: hw2_2
+    label: "3.4 kN"
+    at: { x: 360, y: 928 }
+    size: { w: 100, h: 24 }
+  - id: hw2_3
+    label: "長ほぞ差し込み栓、かど金物 CP・L"
+    align: left
+    at: { x: 460, y: 928 }
+    size: { w: 600, h: 24 }
+  - id: hw3_0
+    label: "は"
+    at: { x: 180, y: 952 }
+    size: { w: 70, h: 24 }
+  - id: hw3_1
+    label: "1.00 以下"
+    at: { x: 250, y: 952 }
+    size: { w: 110, h: 24 }
+  - id: hw3_2
+    label: "5.1 kN"
+    at: { x: 360, y: 952 }
+    size: { w: 100, h: 24 }
+  - id: hw3_3
+    label: "かど金物 CP・T、山形プレート VP"
+    align: left
+    at: { x: 460, y: 952 }
+    size: { w: 600, h: 24 }
+  - id: hw4_0
+    label: "に"
+    at: { x: 180, y: 976 }
+    size: { w: 70, h: 24 }
+  - id: hw4_1
+    label: "1.40 以下"
+    at: { x: 250, y: 976 }
+    size: { w: 110, h: 24 }
+  - id: hw4_2
+    label: "7.5 kN"
+    at: { x: 360, y: 976 }
+    size: { w: 100, h: 24 }
+  - id: hw4_3
+    label: "羽子板ボルト、短ざく金物"
+    align: left
+    at: { x: 460, y: 976 }
+    size: { w: 600, h: 24 }
+  - id: hw5_0
+    label: "ほ"
+    at: { x: 180, y: 1000 }
+    size: { w: 70, h: 24 }
+  - id: hw5_1
+    label: "1.60 以下"
+    at: { x: 250, y: 1000 }
+    size: { w: 110, h: 24 }
+  - id: hw5_2
+    label: "8.5 kN"
+    at: { x: 360, y: 1000 }
+    size: { w: 100, h: 24 }
+  - id: hw5_3
+    label: "羽子板ボルト＋スクリュー釘、短ざく金物＋スクリュー釘"
+    align: left
+    at: { x: 460, y: 1000 }
+    size: { w: 600, h: 24 }
+  - id: hw6_0
+    label: "へ"
+    at: { x: 180, y: 1024 }
+    size: { w: 70, h: 24 }
+  - id: hw6_1
+    label: "1.80 以下"
+    at: { x: 250, y: 1024 }
+    size: { w: 110, h: 24 }
+  - id: hw6_2
+    label: "10.0 kN"
+    at: { x: 360, y: 1024 }
+    size: { w: 100, h: 24 }
+  - id: hw6_3
+    label: "引き寄せ金物（ホールダウン）10kN"
+    align: left
+    at: { x: 460, y: 1024 }
+    size: { w: 600, h: 24 }
+  - id: hw7_0
+    label: "と"
+    fill: G
+    hatch: solid
+    at: { x: 180, y: 1048 }
+    size: { w: 70, h: 24 }
+  - id: hw7_1
+    label: "2.80 以下"
+    fill: G
+    hatch: solid
+    at: { x: 250, y: 1048 }
+    size: { w: 110, h: 24 }
+  - id: hw7_2
+    label: "15.0 kN"
+    fill: G
+    hatch: solid
+    at: { x: 360, y: 1048 }
+    size: { w: 100, h: 24 }
+  - id: hw7_3
+    label: "引き寄せ金物 15kN　←　⑤ の例はここ"
+    align: left
+    fill: G
+    hatch: solid
+    at: { x: 460, y: 1048 }
+    size: { w: 600, h: 24 }
+  - id: hw8_0
+    label: "ち"
+    at: { x: 180, y: 1072 }
+    size: { w: 70, h: 24 }
+  - id: hw8_1
+    label: "3.70 以下"
+    at: { x: 250, y: 1072 }
+    size: { w: 110, h: 24 }
+  - id: hw8_2
+    label: "20.0 kN"
+    at: { x: 360, y: 1072 }
+    size: { w: 100, h: 24 }
+  - id: hw8_3
+    label: "引き寄せ金物 20kN"
+    align: left
+    at: { x: 460, y: 1072 }
+    size: { w: 600, h: 24 }
+  - id: hw9_0
+    label: "り"
+    at: { x: 180, y: 1096 }
+    size: { w: 70, h: 24 }
+  - id: hw9_1
+    label: "4.70 以下"
+    at: { x: 250, y: 1096 }
+    size: { w: 110, h: 24 }
+  - id: hw9_2
+    label: "25.0 kN"
+    at: { x: 360, y: 1096 }
+    size: { w: 100, h: 24 }
+  - id: hw9_3
+    label: "引き寄せ金物 25kN"
+    align: left
+    at: { x: 460, y: 1096 }
+    size: { w: 600, h: 24 }
+  - id: hw10_0
+    label: "ぬ"
+    at: { x: 180, y: 1120 }
+    size: { w: 70, h: 24 }
+  - id: hw10_1
+    label: "5.60 以下"
+    at: { x: 250, y: 1120 }
+    size: { w: 110, h: 24 }
+  - id: hw10_2
+    label: "30.0 kN"
+    at: { x: 360, y: 1120 }
+    size: { w: 100, h: 24 }
+  - id: hw10_3
+    label: "引き寄せ金物 15kN × 2"
+    align: left
+    at: { x: 460, y: 1120 }
+    size: { w: 600, h: 24 }
+  - id: hw_n
+    label: "N が 5.6 を超えたら、この表では選べない —— 構造計算で確かめる。"
+    marker: none
+    align: left
+    at: { x: 180, y: 1152 }
+    size: { w: 880, h: 18 }
+  - id: r1
+    label: "壁量を満たしても、柱が抜けたら壁は効きません。 N 値計算は、その柱 1 本ごとの引き抜き力を数で出す方法です。"
+    marker: none
+    align: left
+    at: { x: 180, y: 1186 }
+    size: { w: 880, h: 18 }
+  - id: r2
+    label: "A は「両側の壁倍率の差」。 片側にだけ強い壁が付く柱ほど大きくなります。両側同じなら差は 0 で、N も小さい。"
+    marker: none
+    align: left
+    at: { x: 180, y: 1209 }
+    size: { w: 880, h: 18 }
+  - id: r3
+    label: "B は 0.8 と 0.5。 出隅の柱は、横架材が片方向にしか伸びていないので押さえが弱く、係数が大きくなります。"
+    marker: none
+    align: left
+    at: { x: 180, y: 1232 }
+    size: { w: 880, h: 18 }
+  - id: r4
+    label: "L は上に載る重さ。 1 階の柱は 2 階の重さで押さえられるので、最上階（0.4 / 0.6）より大きい（1.0 / 1.6）。"
+    marker: none
+    align: left
+    at: { x: 180, y: 1255 }
+    size: { w: 880, h: 18 }
+  - id: r5
+    label: "選ぶのは金物そのものではなく、記号です。 告示の（い）〜（ぬ）に当てはめ、その耐力以上の金物を使います。"
+    marker: none
+    align: left
+    at: { x: 180, y: 1278 }
+    size: { w: 880, h: 18 }
+  - id: r6
+    label: "階高が高いと不利になります。 横架材上端間が 3.2m を超えるときは A×B に H/2.7 を掛けます（令和 7 年改正）。"
+    marker: none
+    align: left
+    at: { x: 180, y: 1301 }
+    size: { w: 880, h: 18 }
+  - id: r7
+    label: "壁量計算（見本 203）で壁の量を決め、ここで柱の金物を決める。2 つで 1 組です。"
+    marker: none
+    align: left
+    at: { x: 180, y: 1324 }
+    size: { w: 880, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    ends: { from: none, to: arrow }
+    weight: thick
+  - from: p2
+    to: p3
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p4
+    to: p5
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p6
+    to: p7
+    curve: none
+    ends: { from: none, to: none }
+  - from: p8
+    to: p9
+    curve: none
+    ends: { from: none, to: arrow }
+    weight: thick
+  - from: p10
+    to: p11
+    curve: none
+    ends: { from: none, to: arrow }
+    weight: thick
+  - from: p12
+    to: p12
+    curve: none
+    close: true
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 720, y: 290 }
+      - { x: 1020, y: 290 }
+      - { x: 1020, y: 430 }
+      - { x: 720, y: 430 }
+  - from: p13
+    to: p14
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }

@@ -143,6 +143,48 @@ describe('色だけに頼らせない', () => {
     assert.ok(!validate(legend).some((f) => f.code === 'color-without-code'), legend);
   });
 
+  /**
+   * **下敷きの灰色には、凡例を求めない**（2026-09-19）。
+   *
+   * 見本 211 の表で、例に当たる 1 行を淡く敷こうとしたら
+   * 「"G" を文字で出せ」と言われた。灰色は白黒に落としても色覚特性でも
+   * 失われないので、求める理由がない。**ただし線の色に使ったら今までどおり言う。**
+   */
+  const GREY = `version: 1
+kind: flow
+arrows: true
+palette:
+  G: "#808080"
+nodes:
+  - id: a
+    label: "見出し"
+  - id: b
+    label: "この行だけ淡く敷く"
+    fill: G
+    hatch: solid
+edges:
+  - from: a
+    to: b
+`;
+
+  it('**面だけに使った無彩色は、凡例を求めない**', () => {
+    const found = validate(GREY);
+    assert.ok(
+      !found.some((f) => f.code === 'color-without-code'),
+      found.map((f) => `${f.code}: ${f.message}`).join('\n'),
+    );
+  });
+
+  it('同じ灰色でも、**線の色に使ったら今までどおり言う**', () => {
+    const found = validate(GREY.replace('    fill: G\n', '    color: G\n'));
+    assert.ok(found.some((f) => f.code === 'color-without-code'), '線の色は意味を運ぶので、凡例が要る');
+  });
+
+  it('無彩色でない面は、これまでどおり凡例を求める', () => {
+    const found = validate(GREY.replace('#808080', '#8a6d3b'));
+    assert.ok(found.some((f) => f.code === 'color-without-code'), '有彩色は白黒で落ちる');
+  });
+
   it('**`tag` が別の意味を持つ図で、誤って鳴らない**（積付図のリーファー印）', () => {
     const stow = MAP.replace('tag: G-01', 'tag: R').replace('tag: G-16', 'tag: R');
     const found = validate(stow.replace('  - id: a\n', '  - id: legend\n    label: "G 銀座線"\n    marker: none\n  - id: a\n'));

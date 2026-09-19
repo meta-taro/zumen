@@ -106,6 +106,7 @@ export const CAPTIONS_EN = {
   '169-麻雀の配牌': 'Mahjong: the dice decide where the wall is opened, not luck',
   '168-ダイヤモンドシステム': 'Billiards: the diamonds on the rails are a ruler, not decoration',
   '167-ダーツボードの割り付け': 'A dartboard: the numbers are arranged to punish a miss',
+  '211-N値計算と接合金物': 'Hold-down selection (N-value method): the stronger a shear wall is, the harder it pulls its end post out of the ground',
   '210-楽譜の寸法': 'Music engraving: the staff space is the unit for every measurement, and the stem is 3.5 of them',
   '209-コンパスと定規の作図': 'Ruler-and-compass constructions: no scale is used, because equal compass openings make equal lengths',
   '208-建蔽率と容積率': 'Floor-area ratio in Japan: a narrow street caps it below the zoned figure, so the road sizes the building',
