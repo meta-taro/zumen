@@ -701,6 +701,8 @@ const ja = {
      */
     lineTooShort: (edge: string, line: string, length: string, need: string) =>
       `エッジ ${edge} の line: ${line} は、描かれる長さが ${length}px しかありません（刻みが 1 周するのに ${need}px 要ります）。実線と見分けがつきません —— 伸ばすか、line: solid にしてください。`,
+    endsTooLong: (edge: string, length: string, need: string) =>
+      `エッジ ${edge} は ${length}px しかないのに、端の記号が ${need}px 要ります。線は 1px も見えず、記号だけが描かれます —— 節を離すか、ends: { to: none } にしてください。`,
     alignUnknown: (id: string, word: string) =>
       `ノード "${id}" の align が "${word}" になっています（left / center / right）。中央で描きます。`,
     alignIgnored: (id: string) =>
@@ -1353,6 +1355,8 @@ const en: Catalog = {
       `Edge ${edge} is hidden under the fill of box "${box}" (with arrows: false, lines are drawn before boxes). Set arrows: true to bring the line above the boxes.`,
     lineTooShort: (edge: string, line: string, length: string, need: string) =>
       `Edge ${edge} is drawn only ${length}px long, but line: ${line} needs ${need}px for one full dash cycle. It will look solid — make it longer, or use line: solid.`,
+    endsTooLong: (edge: string, length: string, need: string) =>
+      `Edge ${edge} is only ${length}px long, but its end symbols take ${need}px. No line shows at all, only the symbol — move the nodes apart, or use ends: { to: none }.`,
     alignUnknown: (id: string, word: string) =>
       `Node "${id}" has align "${word}" (left / center / right). It is centred.`,
     alignIgnored: (id: string) =>

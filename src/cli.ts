@@ -20,6 +20,8 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { toDrawio } from './drawio.ts';
 import { tooThinForPattern } from './hatch.ts';
 import { patternPeriod } from './line.ts';
+import { endRoom, hasEnds } from './ends.ts';
+import { widthOf } from './weight.ts';
 import { renderZumenBlocks, replaceZumenBlocks } from './embed.ts';
 import { mergeThreeWay } from './git-merge.ts';
 import { crossingPlaces, edgesUnderBoxes, layout, straddlePlaces, straddles } from './layout.ts';
@@ -243,7 +245,44 @@ export async function placedFindings(text: string): Promise<Finding[]> {
     ];
   });
 
-  if (!plan) return [...size, ...short];
+  /**
+   * **線より矢じりのほうが長い辺**（2026-09-20）。
+   *
+   * 既定の矢印は `marker-end`（`markerWidth: 6`）なので、**長さは線の太さの 6 倍** ——
+   * weight: normal なら 12px ある。`ends` の記号も同じで、鳥の足は 12px、菱形は 14px。
+   * 線がそれより短いと、**描かれるのは記号だけ**で、線は 1px も見えない。
+   * 見本 133（受付 → 名簿）は 8px の辺で、箱と箱の間に三角が 1 つ挟まっているだけだった。
+   * 見本 39（経絡）は 10px で、矢じりが帯を突き抜けて出ていた。
+   */
+  const heads: Finding[] = placed.edges.flatMap((edge) => {
+    if (edge.close) return [];
+    const need = hasEnds(edge.ends)
+      ? endRoom(edge.ends!.from) + endRoom(edge.ends!.to)
+      : placed.arrows
+        ? 6 * widthOf(edge.weight)
+        : 0;
+    if (need === 0) return [];
+    let length = 0;
+    for (let i = 1; i < edge.points.length; i += 1) {
+      const a = edge.points[i - 1]!;
+      const b = edge.points[i]!;
+      length += Math.hypot(b.x - a.x, b.y - a.y);
+    }
+    if (length === 0 || length >= need) return [];
+    return [
+      {
+        severity: 'warning' as const,
+        code: 'ends-too-long',
+        message: messages().validate.endsTooLong(
+          `${edge.from} → ${edge.to}`,
+          String(Math.round(length)),
+          String(Math.round(need)),
+        ),
+      },
+    ];
+  });
+
+  if (!plan) return [...size, ...short, ...heads];
   const plans = planNames(placed.boxes, extentOf(placed.boxes), placed.edges, placed.groups);
   /**
    * **紙の上で数える**（2026-09-17）。
@@ -263,6 +302,7 @@ export async function placedFindings(text: string): Promise<Finding[]> {
   return [
     ...size,
     ...short,
+    ...heads,
     ...ink,
     // **広い箱から出ていった名前。** 表の欄が空に見える。
     /**

@@ -87,6 +87,25 @@ export function hasEnds(ends: Ends | null): boolean {
   return ends !== null;
 }
 
+/**
+ * **その記号が線から食う長さ**（px。端から内側へ）。
+ *
+ * `drawEnd` が実際に置いている座標と同じ数（丸は中心 5・半径 4 で 9、
+ * 鳥の足は 12、丸つきはその 11 の先へ続く）。
+ * **線がこれより短いと、描かれるのは記号だけ**になる。
+ */
+export function endRoom(kind: End): number {
+  if (kind === 'none') return 0;
+  if (kind === 'bar') return 2;
+  if (kind === 'dot') return 9;
+  if (kind === 'dot-bar') return 13;
+  if (kind === 'dot-crow') return 23;
+  if (kind === 'crow') return 12;
+  if (kind === 'arrow') return 10;
+  if (kind === 'triangle') return 12;
+  return 14; // diamond / solid-diamond
+}
+
 export interface Point {
   x: number;
   y: number;

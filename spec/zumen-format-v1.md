@@ -1836,6 +1836,7 @@ Mermaid も draw.io も、落ちたものを先頭のコメントに列挙する
 | `view-title-covered` | **`views[].title` が、下辺からはみ出した中身の上に乗っていないか** |
 | `hatch-too-thin` | **模様を頼んだのに、面が細すぎて 1 つも描かれないか**（無地と見分けがつかない） |
 | `line-too-short` | **破線・点線・一点鎖線が短すぎて、刻みが 1 回も出そろわないか**（実線と見分けがつかない） |
+| `ends-too-long` | **端の記号（矢じり・鳥の足・菱形）のほうが線より長いか**（線が 1px も見えず、記号だけが描かれる） |
 | `node-edge-key-ignored` | **辺だけの語（`weight` / `curve` / `ends` / `via` / `close`）を節に書いていないか** |
 | `edge-node-key-ignored` | **節だけの語（`at` / `size` / `marker` / `tag` ほか）を辺に書いていないか** |
 | `align-unknown` | `left` / `center` / `right` か |
