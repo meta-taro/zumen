@@ -462,7 +462,7 @@ const ja = {
       '    group: <属する囲みの id。無所属なら書かない>',
       '    size: { w: <幅>, h: <高さ> }      # 構成図でも効く',
       '    radius: <px>                       # 範囲の円（作業半径・警戒区域）',
-      '    marker: <box（既定）| circle | double | ellipse | diamond | bar | none>  # 配置図での印',
+      '    marker: <box（既定）| circle | double | ellipse | diamond | triangle | bar | none>  # 配置図での印',
       '                                          # 丸は駅・経穴・計器。bar は帯（停車駅一覧）',
       '    hatch: <none（既定）| solid | dots | lines | cross>  # 材料と区域の模様',
       '    write: <across（既定）| down>       # 縦組み。駅名を縦に積む（ラテン文字は寝る）',
@@ -641,8 +641,16 @@ const ja = {
       `ノード "${id}" の radius が正の数になっていません。範囲の円は描かれません。`,
     radiusIgnored: (id: string) =>
       `ノード "${id}" に radius がありますが、構成図では描かれません（kind: placement で描かれます）。`,
-    markerUnknown: (id: string, word: string) =>
-      `ノード "${id}" の marker が "${word}" になっています（box / circle / double / none）。矩形で描きます。`,
+    /**
+     * **使える形を、全部出す**（2026-09-20）。
+     *
+     * この文言は `box / circle / double / none` の 4 つしか出しておらず、
+     * **ellipse・diamond・bar は、あることすら言っていなかった** ——
+     * `line-unknown` は同じ穴を 2026-09-19 に塞いでいる（`test/line.test.ts`）。
+     * 当てずっぽうを繰り返させないために、**受け取った一覧をそのまま出す。**
+     */
+    markerUnknown: (id: string, word: string, words: string) =>
+      `ノード "${id}" の marker が "${word}" になっています（${words}）。矩形で描きます。`,
     markerIgnored: (id: string) =>
       `ノード "${id}" に marker がありますが、構成図では効きません（形は type で決まります）。`,
     curveUnknown: (name: string, word: string) =>
@@ -1128,7 +1136,7 @@ const en: Catalog = {
       '    group: <id of the containing group. omit if none>',
       '    size: { w: <width>, h: <height> }   # applies to structure diagrams too',
       '    radius: <px>                         # range circle (crane reach, alarm zone)',
-      '    marker: <box (default) | circle | double | ellipse | diamond | bar | none>  # how it is marked on a plan',
+      '    marker: <box (default) | circle | double | ellipse | diamond | triangle | bar | none>  # how it is marked on a plan',
       '                                          # circle for stations, acupoints, instruments; bar for a band',
       '    hatch: <none (default) | solid | dots | lines | cross>  # material / zone pattern',
       '    write: <across (default) | down>     # vertical setting: stack the glyphs (Latin is laid on its side)',
@@ -1293,8 +1301,8 @@ const en: Catalog = {
       `Node "${id}" has a radius that is not a positive number. The range circle is not drawn.`,
     radiusIgnored: (id: string) =>
       `Node "${id}" has a radius, but range circles are not drawn on a structure diagram. Use kind: placement.`,
-    markerUnknown: (id: string, word: string) =>
-      `Node "${id}" has marker "${word}" (box / circle / double / none). It is drawn as a rectangle.`,
+    markerUnknown: (id: string, word: string, words: string) =>
+      `Node "${id}" has marker "${word}" (${words}). It is drawn as a rectangle.`,
     markerIgnored: (id: string) =>
       `Node "${id}" has a marker, but it has no effect on a structure diagram (shape comes from type).`,
     curveUnknown: (name: string, word: string) =>

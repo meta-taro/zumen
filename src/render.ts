@@ -890,7 +890,9 @@ function nodeTag(
     box.marker === 'circle' ||
     box.marker === 'double' ||
     box.marker === 'ellipse' ||
-    box.marker === 'diamond';
+    box.marker === 'diamond' ||
+    // **三角も、四隅が実物より外へ出ている**（菱形と同じ理由。2026-09-20）。
+    box.marker === 'triangle';
   /**
    * **名前が無ければ、符号が中身そのもの。**
    *

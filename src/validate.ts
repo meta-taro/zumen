@@ -632,7 +632,7 @@ function checkGeometry(doc: Document, add: Add, m: Messages, at: At): void {
     const marker = item.get('marker');
     if (marker !== undefined && marker !== null) {
       if (!MARKER_WORDS.has(String(marker))) {
-        add('warning', 'marker-unknown', m.markerUnknown(id, String(marker)), at(item.get('marker', true)));
+        add('warning', 'marker-unknown', m.markerUnknown(id, String(marker), MARKERS.join(' / ')), at(item.get('marker', true)));
       } else if (!placement) {
         add('warning', 'marker-ignored', m.markerIgnored(id), at(item.get('marker', true)));
       } else {

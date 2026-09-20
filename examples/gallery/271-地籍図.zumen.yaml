@@ -1,0 +1,494 @@
+version: 1
+kind: placement
+arrows: true
+title: 地籍図（線ではなく、点の座標でできている）
+# **地籍図は「絵」ではなく、点の座標の集まり。** 筆界点を平面直角座標系の (X, Y) で持ち、
+# **線はその点を結んだ結果** —— だから図から測るのではなく、**座標から面積が計算で出る。**
+#
+# **面積は、測るのではなく計算する（座標法）。**
+# 4 点 (0.00, 0.00) (18.20, 0.00) (20.50, 14.60) (1.80, 13.10) なら、
+# Σ（x_i × y_i+1 − x_i+1 × y_i）＝ 507.99、**÷ 2 で 254.00m²。**
+# **同じ点を使えば、誰が計算しても同じ面積になる** ——
+# 登記簿の地積が地籍調査で変わるのは**測り方が変わったから**で、土地が増えたわけではない。
+#
+# **流れは 準備 → 一筆地調査 → 地籍測量 → 閲覧 → 認証 → 登記所送付。**
+# **立会いが 2 番目に来るのが、この調査の性格** ——
+# 測ってから所有者に見せるのではなく、**所有者が立ち会って境界を確認してから測る。**
+# 認証された成果は登記所へ送られ、**地籍図は不動産登記法 14 条の地図**として備え付けられる。
+#
+# **公図と地籍図は別のもの。** 公図は地籍調査に基づかない「地図に準ずる図面」で、
+# 精度は地籍図のほうが高い —— **現地と合わない図面が、今も登記所にある。**
+#
+# **筆界は、話し合いでは動かせない。** 筆界は公法上の境界で、当事者の合意では動かない
+# （動かすには分筆・合筆の登記が要る）。所有権界は私法上の境界で、合意で動かせる。
+# **一筆地調査の立会いは、合意を作る場ではなく、もとからある筆界を確認する場。**
+nodes:
+  - id: t1
+    label: "① 地籍図 —— 筆ごとに、境界の点と地番を載せる"
+    marker: none
+    align: left
+    at: { x: 150, y: 150 }
+    size: { w: 700, h: 20 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 259, y: 499 }
+    size: { w: 2, h: 2 }
+  - id: lotA
+    label: "1234-5\n宅地\n254.00m²"
+    marker: none
+    align: center
+    at: { x: 311.4, y: 396.8 }
+    size: { w: 120, h: 54 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 484.5, y: 338.4 }
+    size: { w: 2, h: 2 }
+  - id: lotB
+    label: "1234-6\n宅地"
+    marker: none
+    align: center
+    at: { x: 493.4, y: 396.8 }
+    size: { w: 120, h: 36 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 278.8, y: 354.9 }
+    size: { w: 2, h: 2 }
+  - id: lotC
+    label: "1233-1\n畑"
+    marker: none
+    align: center
+    at: { x: 398.7, y: 270.6 }
+    size: { w: 120, h: 36 }
+  - id: k0_0
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 256, y: 496 }
+    size: { w: 8, h: 8 }
+  - id: k18.2_0
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 456.2, y: 496 }
+    size: { w: 8, h: 8 }
+  - id: k20.5_14.6
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 481.5, y: 335.4 }
+    size: { w: 8, h: 8 }
+  - id: k1.8_13.1
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 275.8, y: 351.9 }
+    size: { w: 8, h: 8 }
+  - id: k34_0
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 630, y: 496 }
+    size: { w: 8, h: 8 }
+  - id: k34_16.4
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 630, y: 315.6 }
+    size: { w: 8, h: 8 }
+  - id: k34_26
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 630, y: 210 }
+    size: { w: 8, h: 8 }
+  - id: k0_26
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 256, y: 210 }
+    size: { w: 8, h: 8 }
+  - id: konten
+    label: ""
+    marker: triangle
+    at: { x: 207, y: 271 }
+    size: { w: 18, h: 18 }
+  - id: kn
+    label: "△ 図根点（測量の基準）"
+    marker: none
+    align: right
+    at: { x: -34, y: 271 }
+    size: { w: 240, h: 18 }
+  - id: pn
+    label: "● 筆界点"
+    marker: none
+    align: left
+    at: { x: 650, y: 491 }
+    size: { w: 160, h: 18 }
+  - id: lotn
+    label: "地番・地目・面積"
+    marker: none
+    align: left
+    at: { x: 650, y: 466 }
+    size: { w: 170, h: 18 }
+  - id: road
+    label: "市道 1234 号線"
+    marker: none
+    align: left
+    at: { x: 264, y: 516 }
+    size: { w: 200, h: 18 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 259, y: 507 }
+    size: { w: 2, h: 2 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 633, y: 507 }
+    size: { w: 2, h: 2 }
+  - id: scale
+    label: "縮尺 1:500（地籍図は 1:250 〜 1:5,000）"
+    marker: none
+    align: left
+    at: { x: 150, y: 544 }
+    size: { w: 400, h: 18 }
+  - id: north
+    label: "↑ 北"
+    marker: none
+    align: center
+    at: { x: 594, y: 174 }
+    size: { w: 60, h: 18 }
+  - id: why1
+    label: "地籍図は「絵」ではなく、点の座標の集まり。\n筆界点は平面直角座標系の (X, Y) で持っていて、線はその点を結んだ結果 ——\nだから、図から測るのではなく座標から面積が計算で出る。\n公図（地籍調査に基づかない地図）との違いは、そこ。"
+    at: { x: 150, y: 580 }
+    size: { w: 700, h: 92 }
+  - id: t2
+    label: "② 面積は、測るのではなく計算する（座標法）"
+    marker: none
+    align: left
+    at: { x: 150, y: 690 }
+    size: { w: 700, h: 20 }
+  - id: h150_720
+    label: "1234-5 の筆界点（単位 m）"
+    hatch: solid
+    at: { x: 150, y: 720 }
+    size: { w: 700, h: 24 }
+  - id: x150_744
+    label: "点 1"
+    at: { x: 150, y: 744 }
+    size: { w: 300, h: 24 }
+  - id: y150_744
+    label: "x ＝ 0.00 ／ y ＝ 0.00"
+    align: left
+    at: { x: 450, y: 744 }
+    size: { w: 400, h: 24 }
+  - id: x150_768
+    label: "点 2"
+    at: { x: 150, y: 768 }
+    size: { w: 300, h: 24 }
+  - id: y150_768
+    label: "x ＝ 18.20 ／ y ＝ 0.00"
+    align: left
+    at: { x: 450, y: 768 }
+    size: { w: 400, h: 24 }
+  - id: x150_792
+    label: "点 3"
+    at: { x: 150, y: 792 }
+    size: { w: 300, h: 24 }
+  - id: y150_792
+    label: "x ＝ 20.50 ／ y ＝ 14.60"
+    align: left
+    at: { x: 450, y: 792 }
+    size: { w: 400, h: 24 }
+  - id: x150_816
+    label: "点 4"
+    at: { x: 150, y: 816 }
+    size: { w: 300, h: 24 }
+  - id: y150_816
+    label: "x ＝ 1.80 ／ y ＝ 13.10"
+    align: left
+    at: { x: 450, y: 816 }
+    size: { w: 400, h: 24 }
+  - id: h150_850
+    label: "Σ（x_i × y_i+1 − x_i+1 × y_i）÷ 2"
+    hatch: solid
+    at: { x: 150, y: 850 }
+    size: { w: 700, h: 24 }
+  - id: x150_874
+    label: "合計"
+    at: { x: 150, y: 874 }
+    size: { w: 300, h: 24 }
+  - id: y150_874
+    label: "507.99"
+    align: left
+    at: { x: 450, y: 874 }
+    size: { w: 400, h: 24 }
+  - id: x150_898
+    label: "面積"
+    at: { x: 150, y: 898 }
+    size: { w: 300, h: 24 }
+  - id: y150_898
+    label: "507.99 ÷ 2 ＝ 254.00m²"
+    align: left
+    at: { x: 450, y: 898 }
+    size: { w: 400, h: 24 }
+  - id: why2
+    label: "同じ点を使えば、誰が計算しても同じ面積になる。\n巻尺で測った面積は測る人によって変わるが、座標からの計算は 1 つに決まる ——\n登記簿の地積が地籍調査で変わるのは、測り方が変わったからであって、\n土地が増えたり減ったりしたわけではない。"
+    at: { x: 150, y: 936 }
+    size: { w: 700, h: 92 }
+  - id: t3
+    label: "③ 成果が登記所へ届くまで"
+    marker: none
+    align: left
+    at: { x: 890, y: 150 }
+    size: { w: 450, h: 20 }
+  - id: h890_186
+    label: "地籍調査の流れ"
+    hatch: solid
+    at: { x: 890, y: 186 }
+    size: { w: 450, h: 24 }
+  - id: x890_210
+    label: "1 準備"
+    at: { x: 890, y: 210 }
+    size: { w: 150, h: 24 }
+  - id: y890_210
+    label: "実施計画をつくり、説明会を開く"
+    align: left
+    at: { x: 1040, y: 210 }
+    size: { w: 300, h: 24 }
+  - id: x890_234
+    label: "2 一筆地調査"
+    at: { x: 890, y: 234 }
+    size: { w: 150, h: 24 }
+  - id: y890_234
+    label: "現地で、所有者立会いのもと"
+    align: left
+    at: { x: 1040, y: 234 }
+    size: { w: 300, h: 24 }
+  - id: x890_258
+    label: ""
+    at: { x: 890, y: 258 }
+    size: { w: 150, h: 24 }
+  - id: y890_258
+    label: "所有者・地番・地目・境界を確認"
+    align: left
+    at: { x: 1040, y: 258 }
+    size: { w: 300, h: 24 }
+  - id: x890_282
+    label: "3 地籍測量"
+    at: { x: 890, y: 282 }
+    size: { w: 150, h: 24 }
+  - id: y890_282
+    label: "図根点を設置し、筆界を測る"
+    align: left
+    at: { x: 1040, y: 282 }
+    size: { w: 300, h: 24 }
+  - id: x890_306
+    label: ""
+    at: { x: 890, y: 306 }
+    size: { w: 150, h: 24 }
+  - id: y890_306
+    label: "地籍図を作り、面積を計算する"
+    align: left
+    at: { x: 1040, y: 306 }
+    size: { w: 300, h: 24 }
+  - id: x890_330
+    label: "4 閲覧"
+    at: { x: 890, y: 330 }
+    size: { w: 150, h: 24 }
+  - id: y890_330
+    label: "地籍簿と地籍図の案を見てもらう"
+    align: left
+    at: { x: 1040, y: 330 }
+    size: { w: 300, h: 24 }
+  - id: x890_354
+    label: "5 認証"
+    at: { x: 890, y: 354 }
+    size: { w: 150, h: 24 }
+  - id: y890_354
+    label: "県知事・国の検査を受ける"
+    align: left
+    at: { x: 1040, y: 354 }
+    size: { w: 300, h: 24 }
+  - id: x890_378
+    label: "6 登記所送付"
+    at: { x: 890, y: 378 }
+    size: { w: 150, h: 24 }
+  - id: y890_378
+    label: "登記簿が書き改められる"
+    align: left
+    at: { x: 1040, y: 378 }
+    size: { w: 300, h: 24 }
+  - id: why3
+    label: "立会いが 2 番目に来るのが、この調査の性格。\n測ってから所有者に見せるのではなく、\n所有者が立ち会って境界を確認してから測る\n—— 測量の前に人の合意がある。"
+    at: { x: 890, y: 416 }
+    size: { w: 450, h: 92 }
+  - id: t4
+    label: "④ 公図と地籍図は別のもの"
+    marker: none
+    align: left
+    at: { x: 890, y: 526 }
+    size: { w: 450, h: 20 }
+  - id: h890_556
+    label: "登記所に備わる地図"
+    hatch: solid
+    at: { x: 890, y: 556 }
+    size: { w: 450, h: 24 }
+  - id: x890_580
+    label: "地籍図"
+    at: { x: 890, y: 580 }
+    size: { w: 110, h: 24 }
+  - id: y890_580
+    label: "地籍調査の成果。不動産登記法 14 条の地図"
+    align: left
+    at: { x: 1000, y: 580 }
+    size: { w: 340, h: 24 }
+  - id: x890_604
+    label: "公図"
+    at: { x: 890, y: 604 }
+    size: { w: 110, h: 24 }
+  - id: y890_604
+    label: "地籍調査に基づかない地図（地図に準ずる図面）"
+    align: left
+    at: { x: 1000, y: 604 }
+    size: { w: 340, h: 24 }
+  - id: x890_628
+    label: "精度"
+    at: { x: 890, y: 628 }
+    size: { w: 110, h: 24 }
+  - id: y890_628
+    label: "地籍図のほうが高い"
+    align: left
+    at: { x: 1000, y: 628 }
+    size: { w: 340, h: 24 }
+  - id: why4
+    label: "「公図があるから境界は分かる」とは限らない。\n地籍調査が済んでいない地域の図面は、\n明治の地租改正までさかのぼるものもある ——\n現地と合わない図面が、今も登記所にある。"
+    at: { x: 890, y: 666 }
+    size: { w: 450, h: 92 }
+  - id: t5
+    label: "⑤ 筆界は、話し合いでは動かせない"
+    marker: none
+    align: left
+    at: { x: 890, y: 776 }
+    size: { w: 450, h: 20 }
+  - id: h890_806
+    label: "2 つの境界"
+    hatch: solid
+    at: { x: 890, y: 806 }
+    size: { w: 450, h: 24 }
+  - id: x890_830
+    label: "筆界"
+    at: { x: 890, y: 830 }
+    size: { w: 170, h: 24 }
+  - id: y890_830
+    label: "公法上の境界。登記されたときに決まる"
+    align: left
+    at: { x: 1060, y: 830 }
+    size: { w: 280, h: 24 }
+  - id: x890_854
+    label: ""
+    at: { x: 890, y: 854 }
+    size: { w: 170, h: 24 }
+  - id: y890_854
+    label: "当事者の合意では動かせない"
+    align: left
+    at: { x: 1060, y: 854 }
+    size: { w: 280, h: 24 }
+  - id: x890_878
+    label: "所有権界"
+    at: { x: 890, y: 878 }
+    size: { w: 170, h: 24 }
+  - id: y890_878
+    label: "私法上の境界。合意で動かせる"
+    align: left
+    at: { x: 1060, y: 878 }
+    size: { w: 280, h: 24 }
+  - id: why5
+    label: "隣どうしで「ここを境にしよう」と決めても、筆界は動かない。\n動かすには分筆・合筆という登記が要る ——\n一筆地調査の立会いは、合意を作る場ではなく、\nもとからある筆界を確認する場。"
+    at: { x: 890, y: 916 }
+    size: { w: 450, h: 92 }
+  - id: r1
+    label: "地籍図は「絵」ではなく、点の座標の集まりです（①）。筆界点を平面直角座標系の (X, Y) で持ち、線はその点を結んだ結果です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1042 }
+    size: { w: 1190, h: 18 }
+  - id: r2
+    label: "面積は、測るのではなく計算します（②）。同じ点を使えば、誰が計算しても同じ面積になります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1066 }
+    size: { w: 1190, h: 18 }
+  - id: r3
+    label: "登記簿の地積が地籍調査で変わるのは、測り方が変わったからです。 土地が増えたり減ったりしたわけではありません。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1090 }
+    size: { w: 1190, h: 18 }
+  - id: r4
+    label: "立会いが 2 番目に来るのが、この調査の性格です（③）。測ってから見せるのではなく、所有者が立ち会って境界を確認してから測ります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1114 }
+    size: { w: 1190, h: 18 }
+  - id: r5
+    label: "公図と地籍図は別のものです（④）。地籍図は不動産登記法 14 条の地図で、公図は地図に準ずる図面です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1138 }
+    size: { w: 1190, h: 18 }
+  - id: r6
+    label: "筆界は、話し合いでは動かせません（⑤）。隣どうしで決めても動かず、動かすには分筆・合筆の登記が要ります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1162 }
+    size: { w: 1190, h: 18 }
+  - id: r7
+    label: "立会いは合意を作る場ではなく、もとからある筆界を確認する場です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1186 }
+    size: { w: 1190, h: 18 }
+edges:
+  - from: p0
+    to: p0
+    curve: none
+    close: true
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 260, y: 500 }
+      - { x: 460.2, y: 500 }
+      - { x: 485.5, y: 339.4 }
+      - { x: 279.8, y: 355.9 }
+  - from: p1
+    to: p1
+    curve: none
+    close: true
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 485.5, y: 339.4 }
+      - { x: 460.2, y: 500 }
+      - { x: 634, y: 500 }
+      - { x: 634, y: 319.6 }
+  - from: p2
+    to: p2
+    curve: none
+    close: true
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 279.8, y: 355.9 }
+      - { x: 485.5, y: 339.4 }
+      - { x: 634, y: 319.6 }
+      - { x: 634, y: 214 }
+      - { x: 260, y: 214 }
+  - from: p3
+    to: p4
+    curve: none
+    line: chain
+    ends: { from: none, to: none }
