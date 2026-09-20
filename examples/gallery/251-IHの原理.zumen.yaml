@@ -1,0 +1,486 @@
+version: 1
+kind: placement
+arrows: true
+title: IH クッキングヒーターの原理（熱くなるのは鍋底 0.05mm）
+# **熱は鍋の中で生まれる。** コイルが作る磁力線が鍋底を突き抜け、
+# 鍋の中に渦電流が流れ、**鍋自身の電気抵抗**で発熱する。
+# ガラスも空気も温めていない —— トッププレートが熱いのは、鍋から伝わったから。
+#
+# **電流は表面のごく薄い層にしか流れない**（表皮効果）。
+# δ ＝ √( ρ ／ π f μ )。20kHz の鉄で **0.050mm** ——
+# 紙より薄い層だけが働いている。
+#
+# **鉄が効くのは、層が薄いぶん抵抗が高いから。**
+# 同じ 20kHz で、鉄の表面抵抗（1.99 mΩ）はアルミ（0.046 mΩ）の **43 倍**。
+# アルミと銅は「電気を通しすぎて熱が出ない」。
+#
+# **オールメタルは周波数を上げて埋めるが、√f でしか増えない。**
+# 20kHz → 90kHz でアルミの抵抗は 2.1 倍にしかならず、火力は 80〜90% に落ちる。
+#
+# 見分けるのは材質ではなく**鍋底**。ステンレスでも 18-8／18-10 は磁石がつかない。
+nodes:
+  - id: t1
+    label: "① 断面 —— 熱は鍋の中で生まれる"
+    marker: none
+    align: left
+    at: { x: 150, y: 150 }
+    size: { w: 560, h: 20 }
+  - id: pot
+    label: ""
+    at: { x: 230, y: 204 }
+    size: { w: 400, h: 96 }
+  - id: bottom
+    label: ""
+    hatch: solid
+    at: { x: 230, y: 282 }
+    size: { w: 400, h: 18 }
+  - id: potN
+    label: "鍋（鉄・磁性ステンレス）"
+    marker: none
+    align: center
+    at: { x: 300, y: 212 }
+    size: { w: 260, h: 18 }
+  - id: botN
+    label: "鍋底で熱が生まれる"
+    marker: none
+    align: right
+    at: { x: -30, y: 284 }
+    size: { w: 220, h: 18 }
+  - id: glass
+    label: ""
+    hatch: lines
+    at: { x: 200, y: 312 }
+    size: { w: 460, h: 16 }
+  - id: glN
+    label: "トッププレート（ガラス）"
+    marker: none
+    align: right
+    at: { x: -30, y: 312 }
+    size: { w: 220, h: 18 }
+  - id: c-10
+    label: ""
+    marker: circle
+    at: { x: 375, y: 344 }
+    size: { w: 22, h: 22 }
+  - id: c10
+    label: ""
+    marker: circle
+    at: { x: 463, y: 344 }
+    size: { w: 22, h: 22 }
+  - id: c-11
+    label: ""
+    marker: circle
+    at: { x: 341, y: 344 }
+    size: { w: 22, h: 22 }
+  - id: c11
+    label: ""
+    marker: circle
+    at: { x: 497, y: 344 }
+    size: { w: 22, h: 22 }
+  - id: c-12
+    label: ""
+    marker: circle
+    at: { x: 307, y: 344 }
+    size: { w: 22, h: 22 }
+  - id: c12
+    label: ""
+    marker: circle
+    at: { x: 531, y: 344 }
+    size: { w: 22, h: 22 }
+  - id: c-13
+    label: ""
+    marker: circle
+    at: { x: 273, y: 344 }
+    size: { w: 22, h: 22 }
+  - id: c13
+    label: ""
+    marker: circle
+    at: { x: 565, y: 344 }
+    size: { w: 22, h: 22 }
+  - id: c-14
+    label: ""
+    marker: circle
+    at: { x: 239, y: 344 }
+    size: { w: 22, h: 22 }
+  - id: c14
+    label: ""
+    marker: circle
+    at: { x: 599, y: 344 }
+    size: { w: 22, h: 22 }
+  - id: coilN
+    label: "コイル（渦巻きに巻いた銅線）"
+    marker: none
+    align: right
+    at: { x: -30, y: 346 }
+    size: { w: 220, h: 18 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 301, y: 311 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 405, y: 311 }
+    size: { w: 2, h: 2 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 279, y: 311 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 427, y: 311 }
+    size: { w: 2, h: 2 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 453, y: 311 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 557, y: 311 }
+    size: { w: 2, h: 2 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 431, y: 311 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 579, y: 311 }
+    size: { w: 2, h: 2 }
+  - id: fluxN
+    label: "磁力線が鍋底を突き抜ける"
+    marker: none
+    align: center
+    at: { x: 230, y: 396 }
+    size: { w: 400, h: 18 }
+  - id: inv
+    label: "インバータ（20〜90kHz の交流を作る）"
+    at: { x: 230, y: 430 }
+    size: { w: 400, h: 40 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 429, y: 429 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 429, y: 387 }
+    size: { w: 2, h: 2 }
+  - id: why1
+    label: "磁力線が鍋底を通ると、鍋の中に渦電流が流れる。\nその電流が鍋自身の電気抵抗を通るので、鍋が発熱する。\nガラスも空気も温めない —— 熱は鍋の中で生まれる。"
+    at: { x: 150, y: 500 }
+    size: { w: 560, h: 80 }
+  - id: t2
+    label: "② 電流は、表面のごく薄い層にしか流れない"
+    marker: none
+    align: left
+    at: { x: 780, y: 150 }
+    size: { w: 460, h: 20 }
+  - id: h186
+    label: "20kHz のときの表皮深さと、表面の抵抗"
+    hatch: solid
+    at: { x: 780, y: 186 }
+    size: { w: 460, h: 24 }
+  - id: x210
+    label: "鉄"
+    at: { x: 780, y: 210 }
+    size: { w: 210, h: 24 }
+  - id: y210
+    label: "0.050mm ／ 1.99 mΩ"
+    align: left
+    at: { x: 990, y: 210 }
+    size: { w: 250, h: 24 }
+  - id: x234
+    label: "磁性ステンレス（SUS430）"
+    at: { x: 780, y: 234 }
+    size: { w: 210, h: 24 }
+  - id: y234
+    label: "0.123mm ／ 4.87 mΩ"
+    align: left
+    at: { x: 990, y: 234 }
+    size: { w: 250, h: 24 }
+  - id: x258
+    label: "アルミ"
+    at: { x: 780, y: 258 }
+    size: { w: 210, h: 24 }
+  - id: y258
+    label: "0.579mm ／ 0.046 mΩ"
+    align: left
+    at: { x: 990, y: 258 }
+    size: { w: 250, h: 24 }
+  - id: x282
+    label: "銅"
+    at: { x: 780, y: 282 }
+    size: { w: 210, h: 24 }
+  - id: y282
+    label: "0.461mm ／ 0.036 mΩ"
+    align: left
+    at: { x: 990, y: 282 }
+    size: { w: 250, h: 24 }
+  - id: why2
+    label: "δ ＝ √( ρ ／ π f μ )。鉄は透磁率が大きいので層が薄くなり、\nそのぶん抵抗が上がる。同じ 20kHz で、鉄はアルミの 43 倍。\nアルミと銅は「電気を通しすぎて熱が出ない」。"
+    at: { x: 780, y: 320 }
+    size: { w: 460, h: 80 }
+  - id: t3
+    label: "③ オールメタルは、周波数を上げて足りなさを埋める"
+    marker: none
+    align: left
+    at: { x: 780, y: 416 }
+    size: { w: 460, h: 20 }
+  - id: h446
+    label: "アルミの表面抵抗（周波数を上げると）"
+    hatch: solid
+    at: { x: 780, y: 446 }
+    size: { w: 460, h: 24 }
+  - id: x470
+    label: "20kHz"
+    at: { x: 780, y: 470 }
+    size: { w: 210, h: 24 }
+  - id: y470
+    label: "0.046 mΩ"
+    align: left
+    at: { x: 990, y: 470 }
+    size: { w: 250, h: 24 }
+  - id: x494
+    label: "60kHz"
+    at: { x: 780, y: 494 }
+    size: { w: 210, h: 24 }
+  - id: y494
+    label: "0.079 mΩ"
+    align: left
+    at: { x: 990, y: 494 }
+    size: { w: 250, h: 24 }
+  - id: x518
+    label: "90kHz"
+    at: { x: 780, y: 518 }
+    size: { w: 210, h: 24 }
+  - id: y518
+    label: "0.097 mΩ"
+    align: left
+    at: { x: 990, y: 518 }
+    size: { w: 250, h: 24 }
+  - id: why3
+    label: "√f でしか増えない。 周波数を 4.5 倍にしても抵抗は 2.1 倍。\n鉄の 20kHz にはまだ 20 倍の差があるので、\nオールメタルでもアルミ・銅の火力は 80〜90% に落ちる。"
+    at: { x: 780, y: 556 }
+    size: { w: 460, h: 80 }
+  - id: t4
+    label: "④ 使える鍋の見分け方"
+    marker: none
+    align: left
+    at: { x: 780, y: 652 }
+    size: { w: 460, h: 20 }
+  - id: h682
+    label: "鍋底で決まる"
+    hatch: solid
+    at: { x: 780, y: 682 }
+    size: { w: 460, h: 24 }
+  - id: x706
+    label: "磁石がつく"
+    at: { x: 780, y: 706 }
+    size: { w: 140, h: 24 }
+  - id: y706
+    label: "鉄・ホーロー・磁性ステンレス（18-0 など）"
+    align: left
+    at: { x: 920, y: 706 }
+    size: { w: 320, h: 24 }
+  - id: x730
+    label: "磁石がつかない"
+    at: { x: 780, y: 730 }
+    size: { w: 140, h: 24 }
+  - id: y730
+    label: "アルミ・銅・18-8／18-10 ステンレス"
+    align: left
+    at: { x: 920, y: 730 }
+    size: { w: 320, h: 24 }
+  - id: x754
+    label: "印"
+    at: { x: 780, y: 754 }
+    size: { w: 140, h: 24 }
+  - id: y754
+    label: "SG マークの「SG IH」「SG CH・IH」"
+    align: left
+    at: { x: 920, y: 754 }
+    size: { w: 320, h: 24 }
+  - id: x778
+    label: "底の形"
+    at: { x: 780, y: 778 }
+    size: { w: 140, h: 24 }
+  - id: y778
+    label: "平らで、直径 12cm 以上（反っていると効かない）"
+    align: left
+    at: { x: 920, y: 778 }
+    size: { w: 320, h: 24 }
+  - id: why4
+    label: "見るのは材質ではなく鍋底。 ステンレスでも、\n18-8／18-10 は磁石がつかないので、ふつうの IH では使えない。\n多層鍋は、底にだけ磁性の板をはさんである。"
+    at: { x: 780, y: 816 }
+    size: { w: 460, h: 80 }
+  - id: r1
+    label: "熱は鍋の中で生まれます（①）。コイルが作る磁力線が鍋底を突き抜け、鍋の中に渦電流が流れ、鍋自身の抵抗で発熱します。"
+    marker: none
+    align: left
+    at: { x: 150, y: 908 }
+    size: { w: 1090, h: 18 }
+  - id: r2
+    label: "ガラスも空気も温めていません。 トッププレートが熱いのは、鍋から伝わったからです。"
+    marker: none
+    align: left
+    at: { x: 150, y: 932 }
+    size: { w: 1090, h: 18 }
+  - id: r3
+    label: "電流は表面のごく薄い層にしか流れません（②）。20kHz の鉄で 0.05mm —— 紙より薄い層だけが働いています。"
+    marker: none
+    align: left
+    at: { x: 150, y: 956 }
+    size: { w: 1090, h: 18 }
+  - id: r4
+    label: "鉄が効くのは、層が薄いぶん抵抗が高いからです。 同じ 20kHz で、鉄の表面抵抗はアルミの 43 倍あります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 980 }
+    size: { w: 1090, h: 18 }
+  - id: r5
+    label: "アルミと銅は、電気を通しすぎて熱が出ません。 抵抗が小さいので、渦電流が流れてもジュール熱になりません。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1004 }
+    size: { w: 1090, h: 18 }
+  - id: r6
+    label: "オールメタルは周波数を上げて埋めますが、√f でしか増えません（③）。4.5 倍にしても抵抗は 2.1 倍で、火力は 80〜90% に落ちます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1028 }
+    size: { w: 1090, h: 18 }
+  - id: r7
+    label: "見分けるのは材質ではなく鍋底です（④）。ステンレスでも 18-8／18-10 は磁石がつかず、ふつうの IH では使えません。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1052 }
+    size: { w: 1090, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 302.4, y: 305.2 }
+      - { x: 303.8, y: 298.5 }
+      - { x: 306, y: 292.1 }
+      - { x: 309, y: 286 }
+      - { x: 312.7, y: 280.3 }
+      - { x: 317.2, y: 275.2 }
+      - { x: 322.3, y: 270.7 }
+      - { x: 328, y: 267 }
+      - { x: 334.1, y: 264 }
+      - { x: 340.5, y: 261.8 }
+      - { x: 347.2, y: 260.4 }
+      - { x: 354, y: 260 }
+      - { x: 360.8, y: 260.4 }
+      - { x: 367.5, y: 261.8 }
+      - { x: 373.9, y: 264 }
+      - { x: 380, y: 267 }
+      - { x: 385.7, y: 270.7 }
+      - { x: 390.8, y: 275.2 }
+      - { x: 395.3, y: 280.3 }
+      - { x: 399, y: 286 }
+      - { x: 402, y: 292.1 }
+      - { x: 404.2, y: 298.5 }
+      - { x: 405.6, y: 305.2 }
+  - from: p2
+    to: p3
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 280.6, y: 302.3 }
+      - { x: 282.5, y: 292.8 }
+      - { x: 285.6, y: 283.7 }
+      - { x: 289.9, y: 275 }
+      - { x: 295.3, y: 267 }
+      - { x: 301.7, y: 259.7 }
+      - { x: 309, y: 253.3 }
+      - { x: 317, y: 247.9 }
+      - { x: 325.7, y: 243.6 }
+      - { x: 334.8, y: 240.5 }
+      - { x: 344.3, y: 238.6 }
+      - { x: 354, y: 238 }
+      - { x: 363.7, y: 238.6 }
+      - { x: 373.2, y: 240.5 }
+      - { x: 382.3, y: 243.6 }
+      - { x: 391, y: 247.9 }
+      - { x: 399, y: 253.3 }
+      - { x: 406.3, y: 259.7 }
+      - { x: 412.7, y: 267 }
+      - { x: 418.1, y: 275 }
+      - { x: 422.4, y: 283.7 }
+      - { x: 425.5, y: 292.8 }
+      - { x: 427.4, y: 302.3 }
+  - from: p4
+    to: p5
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 454.4, y: 305.2 }
+      - { x: 455.8, y: 298.5 }
+      - { x: 458, y: 292.1 }
+      - { x: 461, y: 286 }
+      - { x: 464.7, y: 280.3 }
+      - { x: 469.2, y: 275.2 }
+      - { x: 474.3, y: 270.7 }
+      - { x: 480, y: 267 }
+      - { x: 486.1, y: 264 }
+      - { x: 492.5, y: 261.8 }
+      - { x: 499.2, y: 260.4 }
+      - { x: 506, y: 260 }
+      - { x: 512.8, y: 260.4 }
+      - { x: 519.5, y: 261.8 }
+      - { x: 525.9, y: 264 }
+      - { x: 532, y: 267 }
+      - { x: 537.7, y: 270.7 }
+      - { x: 542.8, y: 275.2 }
+      - { x: 547.3, y: 280.3 }
+      - { x: 551, y: 286 }
+      - { x: 554, y: 292.1 }
+      - { x: 556.2, y: 298.5 }
+      - { x: 557.6, y: 305.2 }
+  - from: p6
+    to: p7
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 432.6, y: 302.3 }
+      - { x: 434.5, y: 292.8 }
+      - { x: 437.6, y: 283.7 }
+      - { x: 441.9, y: 275 }
+      - { x: 447.3, y: 267 }
+      - { x: 453.7, y: 259.7 }
+      - { x: 461, y: 253.3 }
+      - { x: 469, y: 247.9 }
+      - { x: 477.7, y: 243.6 }
+      - { x: 486.8, y: 240.5 }
+      - { x: 496.3, y: 238.6 }
+      - { x: 506, y: 238 }
+      - { x: 515.7, y: 238.6 }
+      - { x: 525.2, y: 240.5 }
+      - { x: 534.3, y: 243.6 }
+      - { x: 543, y: 247.9 }
+      - { x: 551, y: 253.3 }
+      - { x: 558.3, y: 259.7 }
+      - { x: 564.7, y: 267 }
+      - { x: 570.1, y: 275 }
+      - { x: 574.4, y: 283.7 }
+      - { x: 577.5, y: 292.8 }
+      - { x: 579.4, y: 302.3 }
+  - from: p8
+    to: p9
+    curve: none
+    ends: { from: none, to: arrow }

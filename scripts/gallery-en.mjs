@@ -112,6 +112,7 @@ export const CAPTIONS_EN = {
   '169-麻雀の配牌': 'Mahjong: the dice decide where the wall is opened, not luck',
   '168-ダイヤモンドシステム': 'Billiards: the diamonds on the rails are a ruler, not decoration',
   '167-ダーツボードの割り付け': 'A dartboard: the numbers are arranged to punish a miss',
+  '251-IHの原理': 'Induction heats only the outer 0.05mm of the pan, and that thin skin is why iron works and aluminium does not: at 20kHz iron\'s surface resistance is 43 times aluminium\'s',
   '250-ドラム式洗濯機の構造': 'The same drum has to stay under 1G to wash and reach 335G to spin, which is why it hangs on springs behind a concrete weight rather than being bolted to the machine',
   '249-棚板のたわみ': 'A shelf sags with the cube of its span, so doubling the span sags it eight times — and gluing a 40mm rail under the front edge does more than upgrading the board',
   '248-電子レンジの構造': 'Hot and cold spots sit 6.1cm apart because that is half of the 12.2cm wavelength, which no cabinet design can remove — so the food is moved instead',
