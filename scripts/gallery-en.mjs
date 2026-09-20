@@ -118,6 +118,7 @@ export const CAPTIONS_EN = {
   '261-電源タップの定格': 'Chaining power strips does not add up: the wall socket caps the whole chain at 15A, the flex gauge caps it lower still (0.75sq means 7A), and the 20A branch breaker trips after the 15A strip has already overheated',
   '262-木工の組み手': 'Dovetail slope is the limit before the corner grain snaps (1:6 in softwood, 1:8 in hardwood), a tenon is one third of the stock, and a 600mm top moves 9mm across the grain — so the joint that fails is usually the one that was not allowed to move',
   '263-加湿器の方式': 'Every humidifier needs the same 627Wh to evaporate a litre — the four types differ only in where that heat comes from, which is why the evaporative one is cheap on the meter and cools the room instead',
+  '264-配光曲線と照度計算': 'The lumens on the box describe the fitting, not the desk: a polar candela plot is the only document that connects them, and at 2.5m a spot that gives 400lx underneath gives 110lx just 1.4m to the side',
   '259-家具の転倒防止': 'Mass cancels out of the tipping condition, so how easily furniture falls depends only on its depth and the height of its centre of gravity — a shallow tall bookcase goes over at a shindo 5+',
   '258-液晶テレビの層': 'An LCD makes no light of its own — it only blocks it, which is why its black is whatever light failed to be blocked, and why only a tenth of the backlight ever reaches your eye',
   '257-換気扇の風量と静圧': 'The airflow on the box is the free-delivery figure; what you actually get is where the fan curve meets the duct resistance, and a long bent duct can cut it to 43 percent',

@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>配光曲線と照度計算（lm は器具の話、lx は机の上の話） — zumen example 264</title>
+<link rel="icon" type="image/svg+xml" href="../../../icon.svg">
+<meta name="theme-color" content="#23232b">
+<meta name="description" content="The lumens on the box describe the fitting, not the desk: a polar candela plot is the only document that connects them, and at 2.5m a spot that gives 400lx underneath gives 110lx just 1.4m to the side">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="zumen">
+<meta property="og:locale" content="en_US">
+<meta property="og:url" content="https://meta-taro.github.io/zumen/en/g/264/">
+<meta property="og:title" content="配光曲線と照度計算（lm は器具の話、lx は机の上の話） — zumen example 264">
+<meta property="og:description" content="The lumens on the box describe the fitting, not the desk: a polar candela plot is the only document that connects them, and at 2.5m a spot that gives 400lx underneath gives 110lx just 1.4m to the side">
+<meta property="og:image" content="https://meta-taro.github.io/zumen/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="配光曲線と照度計算（lm は器具の話、lx は机の上の話） — zumen example 264">
+<meta name="twitter:description" content="The lumens on the box describe the fitting, not the desk: a polar candela plot is the only document that connects them, and at 2.5m a spot that gives 400lx underneath gives 110lx just 1.4m to the side">
+<meta name="twitter:image" content="https://meta-taro.github.io/zumen/og.png">
+<link rel="stylesheet" href="../../../style.css">
+<link rel="canonical" href="https://meta-taro.github.io/zumen/en/g/264/">
+<link rel="alternate" hreflang="en" href="https://meta-taro.github.io/zumen/en/g/264/">
+<link rel="alternate" hreflang="ja" href="https://meta-taro.github.io/zumen/g/264/">
+<link rel="alternate" hreflang="x-default" href="https://meta-taro.github.io/zumen/g/264/">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="alternate" type="text/markdown" href="https://meta-taro.github.io/zumen/llms.txt" title="llms.txt">
+<link rel="sitemap" type="application/xml" href="https://meta-taro.github.io/zumen/sitemap.xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": "配光曲線と照度計算（lm は器具の話、lx は机の上の話）",
+  "description": "The lumens on the box describe the fitting, not the desk: a polar candela plot is the only document that connects them, and at 2.5m a spot that gives 400lx underneath gives 110lx just 1.4m to the side",
+  "url": "https://meta-taro.github.io/zumen/en/g/264/",
+  "image": "https://meta-taro.github.io/zumen/gallery/264-%E9%85%8D%E5%85%89%E6%9B%B2%E7%B7%9A%E3%81%A8%E7%85%A7%E5%BA%A6%E8%A8%88%E7%AE%97.svg",
+  "inLanguage": "en",
+  "license": "https://opensource.org/licenses/MIT",
+  "isPartOf": {
+    "@type": "CollectionPage",
+    "name": "Appliances and furniture",
+    "url": "https://meta-taro.github.io/zumen/en/c/kaden/"
+  },
+  "encodingFormat": "text/yaml",
+  "isAccessibleForFree": true
+}
+</script>
+</head>
+<body class="sub">
+<header class="bar">
+  <a class="home" href="../../../">zumen</a>
+  <nav><a href="../../c/kaden/">Appliances and furniture</a></nav>
+</header>
+<main>
+<article>
+  <p class="crumb">Appliances and furniture</p>
+  <h1>配光曲線と照度計算（lm は器具の話、lx は机の上の話）</h1>
+  <p class="lead">The lumens on the box describe the fitting, not the desk: a polar candela plot is the only document that connects them, and at 2.5m a spot that gives 400lx underneath gives 110lx just 1.4m to the side</p>
+  <figure>
+    <img src="../../../gallery/264-%E9%85%8D%E5%85%89%E6%9B%B2%E7%B7%9A%E3%81%A8%E7%85%A7%E5%BA%A6%E8%A8%88%E7%AE%97.svg" alt="照明器具の配光曲線（集光と拡散を下向きの極座標で重ねた図）と、光束・光度・照度・輝度の違い、逐点法 E＝I cosθ/R²、光束法 E＝FNUM/A、JIS の推奨照度" loading="lazy">
+  </figure>
+  <p class="made">This drawing comes from one YAML file. No shape was moved by hand.</p>
+  <h2>What the source says</h2>
+  <p><strong>配光曲線は、方向ごとの光度（cd）を、下向きに開いた極座標で読む図。</strong>同じ「40W 相当」でも、<strong>集光は真下 2,500cd・60° で 39cd</strong>、<strong>拡散は真下 1,000cd・60° でも 500cd</strong> —— 全部足した量（lm）が同じでも、机の上の明るさは別物になる。</p>
+  <p><strong>単位が 4 つあるのは、測る場所が違うから。</strong> 光束 lm は器具から出ていく総量、光度 cd はある向きへの強さ、照度 lx は面が受け取った量、輝度 cd/m² は目に見えるまぶしさ。<strong>買うときに見るのは lm、設計で要るのは lx</strong> —— 配光曲線は、その 2 つをつなぐ唯一の資料。</p>
+  <p><strong>逐点法。</strong> `E ＝ I × cosθ ÷ R²` —— 高さ 2.5m の集光器具なら、真下 400lx が <strong>1.4m 横へずれただけで 110lx</strong>（4 分の 1）。落ちる原因は、距離の 2 乗と、斜めに当たる cos の 2 つ。</p>
+  <p><strong>光束法。</strong> `E ＝ F × N × U × M ÷ A` —— 5,000lm のシーリング 1 台で 12 畳（20m²）なら<strong>120lx</strong>。U（照明率）と M（保守率）で、<strong>出した光の半分は着く前に消える。</strong></p>
+  <p><strong>要る明るさは、部屋ではなく作業で決まる</strong>（JIS Z 9110 ／ Z 9125）。事務室 750lx・会議室 500lx に対して、<strong>居間の全般は 50lx</strong> —— 団らん 200lx、読書 500lx。<strong>手元だけ 500lx にして部屋は暗いままにする</strong>のがタスク・アンビエントで、1 灯で部屋ぜんぶを明るくする方法では、この差を作れない。</p>
+  <h2>Source (YAML)</h2>
+  <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/264-%E9%85%8D%E5%85%89%E6%9B%B2%E7%B7%9A%E3%81%A8%E7%85%A7%E5%BA%A6%E8%A8%88%E7%AE%97.zumen.yaml"><code>examples/gallery/264-配光曲線と照度計算.zumen.yaml</code></a></p>
+  <h2>More in this field</h2>
+  <ul class="near"><li><a href="../186/">Fitting a refrigerator: clearances differ by model, and a corner turns on the diagonal</a></li><li><a href="../200/">A bench built for making: tenons mitred where they meet, and a top that is never screwed down</a></li><li><a href="../201/">A chair drawn for making: four tenons meet in the back leg, and they must be set at different heights</a></li><li><a href="../246/">A fridge does not make cold, it pumps heat out — and it throws away more than it took, because the compressor's electricity comes out as heat too</a></li><li><a href="../247/">Heating and cooling swap the roles of the indoor and outdoor coils, and the only part that changes is one valve — which is also why a heat pump briefly runs cooling in the middle of heating, to melt its own frost</a></li><li><a href="../248/">Hot and cold spots sit 6.1cm apart because that is half of the 12.2cm wavelength, which no cabinet design can remove — so the food is moved instead</a></li><li><a href="../249/">A shelf sags with the cube of its span, so doubling the span sags it eight times — and gluing a 40mm rail under the front edge does more than upgrading the board</a></li><li><a href="../250/">The same drum has to stay under 1G to wash and reach 335G to spin, which is why it hangs on springs behind a concrete weight rather than being bolted to the machine</a></li></ul>
+</article>
+</main>
+<footer class="foot">
+  <p><a href="https://github.com/meta-taro/zumen">GitHub</a> · MIT · <a href="https://meta-taro.github.io/zumen/g/264/">日本語</a></p>
+</footer>
+</body>
+</html>

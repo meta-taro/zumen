@@ -1,0 +1,290 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1344" height="1236" viewBox="0 0 1344 1236">
+<title>配光曲線と照度計算（lm は器具の話、lx は机の上の話）</title>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a0a0ab"/></marker></defs>
+<rect data-paper="1" x="0" y="0" width="1344" height="1236" fill="#0f0f13"/>
+<g data-node="why1" data-pinned="false" data-shape="rect"><rect x="150" y="420" width="700" height="92" fill="#22222a" stroke="#ffffff" stroke-width="1"/></g>
+<g data-node="why2" data-pinned="false" data-shape="rect"><rect x="150" y="694" width="700" height="92" fill="#22222a" stroke="#ffffff" stroke-width="1"/></g>
+<g data-node="why3" data-pinned="false" data-shape="rect"><rect x="150" y="944" width="700" height="92" fill="#22222a" stroke="#ffffff" stroke-width="1"/></g>
+<g data-node="why4" data-pinned="false" data-shape="rect"><rect x="890" y="430" width="430" height="110" fill="#22222a" stroke="#ffffff" stroke-width="1"/></g>
+<g data-node="why5" data-pinned="false" data-shape="rect"><rect x="890" y="852" width="430" height="110" fill="#22222a" stroke="#ffffff" stroke-width="1"/></g>
+<g data-node="r1" data-pinned="false" data-shape="rect"></g>
+<g data-node="r2" data-pinned="false" data-shape="rect"></g>
+<g data-node="r3" data-pinned="false" data-shape="rect"></g>
+<g data-node="r4" data-pinned="false" data-shape="rect"></g>
+<g data-node="r5" data-pinned="false" data-shape="rect"></g>
+<g data-node="r6" data-pinned="false" data-shape="rect"></g>
+<g data-node="r7" data-pinned="false" data-shape="rect"></g>
+<g data-node="h150_560" data-pinned="false" data-shape="rect"><rect x="150" y="560" width="700" height="24" fill="#22222a" stroke="#ffffff" stroke-width="1"/><rect x="150" y="560" width="700" height="24" fill="#ffffff" fill-opacity="0.82"/></g>
+<g data-node="h150_834" data-pinned="false" data-shape="rect"><rect x="150" y="834" width="700" height="24" fill="#22222a" stroke="#ffffff" stroke-width="1"/><rect x="150" y="834" width="700" height="24" fill="#ffffff" fill-opacity="0.82"/></g>
+<g data-node="t1" data-pinned="false" data-shape="rect"></g>
+<g data-node="t2" data-pinned="false" data-shape="rect"></g>
+<g data-node="t3" data-pinned="false" data-shape="rect"></g>
+<g data-node="y150_584" data-pinned="false" data-shape="rect"><rect x="350" y="584" width="500" height="24" fill="#22222a" stroke="#ffffff" stroke-width="1"/></g>
+<g data-node="y150_608" data-pinned="false" data-shape="rect"><rect x="350" y="608" width="500" height="24" fill="#22222a" stroke="#ffffff" stroke-width="1"/></g>
+<g data-node="y150_632" data-pinned="false" data-shape="rect"><rect x="350" y="632" width="500" height="24" fill="#22222a" stroke="#ffffff" stroke-width="1"/></g>
+<g data-node="y150_656" data-pinned="false" data-shape="rect"><rect x="350" y="656" width="500" height="24" fill="#22222a" stroke="#ffffff" stroke-width="1"/></g>
+<g data-node="h890_186" data-pinned="false" data-shape="rect"><rect x="890" y="186" width="430" height="24" fill="#22222a" stroke="#ffffff" stroke-width="1"/><rect x="890" y="186" width="430" height="24" fill="#ffffff" fill-opacity="0.82"/></g>
+<g data-node="h890_344" data-pinned="false" data-shape="rect"><rect x="890" y="344" width="430" height="24" fill="#22222a" stroke="#ffffff" stroke-width="1"/><rect x="890" y="344" width="430" height="24" fill="#ffffff" fill-opacity="0.82"/></g>
+<g data-node="h890_588" data-pinned="false" data-shape="rect"><rect x="890" y="588" width="430" height="24" fill="#22222a" stroke="#ffffff" stroke-width="1"/><rect x="890" y="588" width="430" height="24" fill="#ffffff" fill-opacity="0.82"/></g>
+<g data-node="h890_742" data-pinned="false" data-shape="rect"><rect x="890" y="742" width="430" height="24" fill="#22222a" stroke="#ffffff" stroke-width="1"/><rect x="890" y="742" width="430" height="24" fill="#ffffff" fill-opacity="0.82"/></g>
+<g data-node="y150_858" data-pinned="false" data-shape="rect"><rect x="470" y="858" width="380" height="24" fill="#22222a" stroke="#ffffff" stroke-width="1"/></g>
+<g data-node="y150_882" data-pinned="false" data-shape="rect"><rect x="470" y="882" width="380" height="24" fill="#22222a" stroke="#ffffff" stroke-width="1"/></g>
+<g data-node="y150_906" data-pinned="false" data-shape="rect"><rect x="470" y="906" width="380" height="24" fill="#22222a" stroke="#ffffff" stroke-width="1"/></g>
+<g data-node="t4" data-pinned="false" data-shape="rect"></g>
+<g data-node="t5" data-pinned="false" data-shape="rect"></g>
+<g data-node="x150_858" data-pinned="false" data-shape="rect"><rect x="150" y="858" width="320" height="24" fill="#22222a" stroke="#ffffff" stroke-width="1"/></g>
+<g data-node="x150_882" data-pinned="false" data-shape="rect"><rect x="150" y="882" width="320" height="24" fill="#22222a" stroke="#ffffff" stroke-width="1"/></g>
+<g data-node="x150_906" data-pinned="false" data-shape="rect"><rect x="150" y="906" width="320" height="24" fill="#22222a" stroke="#ffffff" stroke-width="1"/></g>
+<g data-node="lw" data-pinned="false" data-shape="rect"></g>
+<g data-node="lc" data-pinned="false" data-shape="rect"></g>
+<g data-node="y890_210" data-pinned="false" data-shape="rect"><rect x="1080" y="210" width="240" height="24" fill="#22222a" stroke="#ffffff" stroke-width="1"/></g>
+<g data-node="y890_234" data-pinned="false" data-shape="rect"><rect x="1080" y="234" width="240" height="24" fill="#22222a" stroke="#ffffff" stroke-width="1"/></g>
+<g data-node="y890_258" data-pinned="false" data-shape="rect"><rect x="1080" y="258" width="240" height="24" fill="#22222a" stroke="#ffffff" stroke-width="1"/></g>
+<g data-node="y890_282" data-pinned="false" data-shape="rect"><rect x="1080" y="282" width="240" height="24" fill="#22222a" stroke="#ffffff" stroke-width="1"/></g>
+<g data-node="y890_306" data-pinned="false" data-shape="rect"><rect x="1080" y="306" width="240" height="24" fill="#22222a" stroke="#ffffff" stroke-width="1"/></g>
+<g data-node="y890_368" data-pinned="false" data-shape="rect"><rect x="1080" y="368" width="240" height="24" fill="#22222a" stroke="#ffffff" stroke-width="1"/></g>
+<g data-node="y890_392" data-pinned="false" data-shape="rect"><rect x="1080" y="392" width="240" height="24" fill="#22222a" stroke="#ffffff" stroke-width="1"/></g>
+<g data-node="x890_612" data-pinned="false" data-shape="rect"><rect x="890" y="612" width="230" height="24" fill="#22222a" stroke="#ffffff" stroke-width="1"/></g>
+<g data-node="x890_636" data-pinned="false" data-shape="rect"><rect x="890" y="636" width="230" height="24" fill="#22222a" stroke="#ffffff" stroke-width="1"/></g>
+<g data-node="x890_660" data-pinned="false" data-shape="rect"><rect x="890" y="660" width="230" height="24" fill="#22222a" stroke="#ffffff" stroke-width="1"/></g>
+<g data-node="x890_684" data-pinned="false" data-shape="rect"><rect x="890" y="684" width="230" height="24" fill="#22222a" stroke="#ffffff" stroke-width="1"/></g>
+<g data-node="x890_708" data-pinned="false" data-shape="rect"><rect x="890" y="708" width="230" height="24" fill="#22222a" stroke="#ffffff" stroke-width="1"/></g>
+<g data-node="x890_766" data-pinned="false" data-shape="rect"><rect x="890" y="766" width="230" height="24" fill="#22222a" stroke="#ffffff" stroke-width="1"/></g>
+<g data-node="x890_790" data-pinned="false" data-shape="rect"><rect x="890" y="790" width="230" height="24" fill="#22222a" stroke="#ffffff" stroke-width="1"/></g>
+<g data-node="x890_814" data-pinned="false" data-shape="rect"><rect x="890" y="814" width="230" height="24" fill="#22222a" stroke="#ffffff" stroke-width="1"/></g>
+<g data-node="x150_584" data-pinned="false" data-shape="rect"><rect x="150" y="584" width="200" height="24" fill="#22222a" stroke="#ffffff" stroke-width="1"/></g>
+<g data-node="x150_608" data-pinned="false" data-shape="rect"><rect x="150" y="608" width="200" height="24" fill="#22222a" stroke="#ffffff" stroke-width="1"/></g>
+<g data-node="x150_632" data-pinned="false" data-shape="rect"><rect x="150" y="632" width="200" height="24" fill="#22222a" stroke="#ffffff" stroke-width="1"/></g>
+<g data-node="x150_656" data-pinned="false" data-shape="rect"><rect x="150" y="656" width="200" height="24" fill="#22222a" stroke="#ffffff" stroke-width="1"/></g>
+<g data-node="y890_612" data-pinned="false" data-shape="rect"><rect x="1120" y="612" width="200" height="24" fill="#22222a" stroke="#ffffff" stroke-width="1"/></g>
+<g data-node="y890_636" data-pinned="false" data-shape="rect"><rect x="1120" y="636" width="200" height="24" fill="#22222a" stroke="#ffffff" stroke-width="1"/></g>
+<g data-node="y890_660" data-pinned="false" data-shape="rect"><rect x="1120" y="660" width="200" height="24" fill="#22222a" stroke="#ffffff" stroke-width="1"/></g>
+<g data-node="y890_684" data-pinned="false" data-shape="rect"><rect x="1120" y="684" width="200" height="24" fill="#22222a" stroke="#ffffff" stroke-width="1"/></g>
+<g data-node="y890_708" data-pinned="false" data-shape="rect"><rect x="1120" y="708" width="200" height="24" fill="#22222a" stroke="#ffffff" stroke-width="1"/></g>
+<g data-node="y890_766" data-pinned="false" data-shape="rect"><rect x="1120" y="766" width="200" height="24" fill="#22222a" stroke="#ffffff" stroke-width="1"/></g>
+<g data-node="y890_790" data-pinned="false" data-shape="rect"><rect x="1120" y="790" width="200" height="24" fill="#22222a" stroke="#ffffff" stroke-width="1"/></g>
+<g data-node="y890_814" data-pinned="false" data-shape="rect"><rect x="1120" y="814" width="200" height="24" fill="#22222a" stroke="#ffffff" stroke-width="1"/></g>
+<g data-node="x890_210" data-pinned="false" data-shape="rect"><rect x="890" y="210" width="190" height="24" fill="#22222a" stroke="#ffffff" stroke-width="1"/></g>
+<g data-node="x890_234" data-pinned="false" data-shape="rect"><rect x="890" y="234" width="190" height="24" fill="#22222a" stroke="#ffffff" stroke-width="1"/></g>
+<g data-node="x890_258" data-pinned="false" data-shape="rect"><rect x="890" y="258" width="190" height="24" fill="#22222a" stroke="#ffffff" stroke-width="1"/></g>
+<g data-node="x890_282" data-pinned="false" data-shape="rect"><rect x="890" y="282" width="190" height="24" fill="#22222a" stroke="#ffffff" stroke-width="1"/></g>
+<g data-node="x890_306" data-pinned="false" data-shape="rect"><rect x="890" y="306" width="190" height="24" fill="#22222a" stroke="#ffffff" stroke-width="1"/></g>
+<g data-node="x890_368" data-pinned="false" data-shape="rect"><rect x="890" y="368" width="190" height="24" fill="#22222a" stroke="#ffffff" stroke-width="1"/></g>
+<g data-node="x890_392" data-pinned="false" data-shape="rect"><rect x="890" y="392" width="190" height="24" fill="#22222a" stroke="#ffffff" stroke-width="1"/></g>
+<g data-node="sc" data-pinned="false" data-shape="rect"></g>
+<g data-node="a0" data-pinned="false" data-shape="rect"></g>
+<g data-node="a90" data-pinned="false" data-shape="rect"></g>
+<g data-node="org" data-pinned="false" data-shape="rect"></g>
+<g data-node="a30" data-pinned="false" data-shape="rect"></g>
+<g data-node="a60" data-pinned="false" data-shape="rect"></g>
+<g data-node="p0" data-pinned="false" data-shape="rect"></g>
+<g data-node="p1" data-pinned="false" data-shape="rect"></g>
+<g data-node="p2" data-pinned="false" data-shape="rect"></g>
+<g data-node="p3" data-pinned="false" data-shape="rect"></g>
+<g data-node="p4" data-pinned="false" data-shape="rect"></g>
+<g data-node="p5" data-pinned="false" data-shape="rect"></g>
+<g data-node="p6" data-pinned="false" data-shape="rect"></g>
+<g data-node="p7" data-pinned="false" data-shape="rect"></g>
+<g data-node="p8" data-pinned="false" data-shape="rect"></g>
+<g data-node="p9" data-pinned="false" data-shape="rect"></g>
+<g data-node="p10" data-pinned="false" data-shape="rect"></g>
+<g data-node="p11" data-pinned="false" data-shape="rect"></g>
+<g data-node="p12" data-pinned="false" data-shape="rect"></g>
+<g data-node="p13" data-pinned="false" data-shape="rect"></g>
+<g data-node="p14" data-pinned="false" data-shape="rect"></g>
+<g data-node="p15" data-pinned="false" data-shape="rect"></g>
+<g data-node="p16" data-pinned="false" data-shape="rect"></g>
+<g data-node="p17" data-pinned="false" data-shape="rect"></g>
+<g data-node="p18" data-pinned="false" data-shape="rect"></g>
+<g data-node="p19" data-pinned="false" data-shape="rect"></g>
+<g data-node="p20" data-pinned="false" data-shape="rect"></g>
+<g data-node="p21" data-pinned="false" data-shape="rect"></g>
+<g data-node="p22" data-pinned="false" data-shape="rect"></g>
+<g data-node="p23" data-pinned="false" data-shape="rect"></g>
+<g data-edge="p0&gt;p1" data-pinned="false"><path d="M 424 231 L 424.2 234.9 L 424.9 239.7 L 425.9 244.5 L 427.4 249.2 L 429.2 253.7 L 431.5 258 L 434.1 262.1 L 437.1 266 L 440.4 269.6 L 444 272.9 L 447.9 275.9 L 452 278.5 L 456.3 280.8 L 460.8 282.6 L 465.5 284.1 L 470.3 285.1 L 475.1 285.8 L 480 286 L 484.9 285.8 L 489.7 285.1 L 494.5 284.1 L 499.2 282.6 L 503.7 280.8 L 508 278.5 L 512.1 275.9 L 516 272.9 L 519.6 269.6 L 522.9 266 L 525.9 262.1 L 528.5 258 L 530.8 253.7 L 532.6 249.2 L 534.1 244.5 L 535.1 239.7 L 535.8 234.9 L 536 231" fill="none" stroke="#a0a0ab" stroke-width="2" stroke-dasharray="2 3"/></g>
+<g data-edge="p2&gt;p3" data-pinned="false"><path d="M 368 231 L 368.4 239.8 L 369.7 249.4 L 371.8 259 L 374.8 268.3 L 378.5 277.3 L 383 286 L 388.3 294.2 L 394.2 302 L 400.8 309.2 L 408 315.8 L 415.8 321.7 L 424 327 L 432.7 331.5 L 441.7 335.2 L 451 338.2 L 460.6 340.3 L 470.2 341.6 L 480 342 L 489.8 341.6 L 499.4 340.3 L 509 338.2 L 518.3 335.2 L 527.3 331.5 L 536 327 L 544.2 321.7 L 552 315.8 L 559.2 309.2 L 565.8 302 L 571.7 294.2 L 577 286 L 581.5 277.3 L 585.2 268.3 L 588.2 259 L 590.3 249.4 L 591.6 239.8 L 592 231" fill="none" stroke="#a0a0ab" stroke-width="2" stroke-dasharray="2 3"/></g>
+<g data-edge="p4&gt;p5" data-pinned="false"><path d="M 340 231 L 340.5 242.2 L 342.1 254.3 L 344.8 266.2 L 348.4 277.9 L 353.1 289.2 L 358.8 300 L 365.3 310.3 L 372.8 320 L 381 329 L 390 337.2 L 399.7 344.7 L 410 351.2 L 420.8 356.9 L 432.1 361.6 L 443.8 365.2 L 455.7 367.9 L 467.8 369.5 L 480 370 L 492.2 369.5 L 504.3 367.9 L 516.2 365.2 L 527.9 361.6 L 539.2 356.9 L 550 351.2 L 560.3 344.7 L 570 337.2 L 579 329 L 587.2 320 L 594.7 310.3 L 601.2 300 L 606.9 289.2 L 611.6 277.9 L 615.2 266.2 L 617.9 254.3 L 619.5 242.2 L 620 231" fill="none" stroke="#a0a0ab" stroke-width="2" stroke-dasharray="2 3"/></g>
+<g data-edge="p6&gt;p7" data-pinned="false"><path d="M 479 230 L 341 230" fill="none" stroke="#a0a0ab" stroke-width="2" stroke-dasharray="2 3"/></g>
+<g data-edge="p8&gt;p9" data-pinned="false"><path d="M 479 230.6 L 359.8 299.4" fill="none" stroke="#a0a0ab" stroke-width="2" stroke-dasharray="2 3"/></g>
+<g data-edge="p10&gt;p11" data-pinned="false"><path d="M 479.4 231 L 410.6 350.2" fill="none" stroke="#a0a0ab" stroke-width="2" stroke-dasharray="2 3"/></g>
+<g data-edge="p12&gt;p13" data-pinned="false"><path d="M 480 231 L 480 369" fill="none" stroke="#a0a0ab" stroke-width="2" stroke-dasharray="2 3"/></g>
+<g data-edge="p14&gt;p15" data-pinned="false"><path d="M 480.6 231 L 549.4 350.2" fill="none" stroke="#a0a0ab" stroke-width="2" stroke-dasharray="2 3"/></g>
+<g data-edge="p16&gt;p17" data-pinned="false"><path d="M 481 230.6 L 600.2 299.4" fill="none" stroke="#a0a0ab" stroke-width="2" stroke-dasharray="2 3"/></g>
+<g data-edge="p18&gt;p19" data-pinned="false"><path d="M 481 230 L 619 230" fill="none" stroke="#a0a0ab" stroke-width="2" stroke-dasharray="2 3"/></g>
+<g data-edge="p20&gt;p21" data-pinned="false"><path d="M 480 230 L 475.9 232.9 L 472.4 236.3 L 467.6 242.4 L 461.8 251.7 L 455.7 264.6 L 450.5 281.1 L 447.2 300.3 L 447 320.6 L 450.6 339.8 L 457.8 355.8 L 468.1 366.3 L 480 370 L 491.9 366.3 L 502.2 355.8 L 509.4 339.8 L 513 320.6 L 512.8 300.3 L 509.5 281.1 L 504.3 264.6 L 498.2 251.7 L 492.4 242.4 L 487.6 236.3 L 484.1 232.9 L 481.9 231.1" fill="none" stroke="#a0a0ab" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/></g>
+<g data-edge="p22&gt;p23" data-pinned="false"><path d="M 479 230.1 L 475.1 230.4 L 470.4 231.7 L 466 233.8 L 462 236.6 L 458.6 240 L 455.8 244 L 453.7 248.4 L 452.4 253.1 L 452 258 L 452.4 262.9 L 453.7 267.6 L 455.8 272 L 458.6 276 L 462 279.4 L 466 282.2 L 470.4 284.3 L 475.1 285.6 L 480 286 L 484.9 285.6 L 489.6 284.3 L 494 282.2 L 498 279.4 L 501.4 276 L 504.2 272 L 506.3 267.6 L 507.6 262.9 L 508 258 L 507.6 253.1 L 506.3 248.4 L 504.2 244 L 501.4 240 L 498 236.6 L 494 233.8 L 489.6 231.7 L 484.9 230.4 L 481 230.1" fill="none" stroke="#a0a0ab" stroke-width="2" stroke-dasharray="7 4"/></g>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<g data-name="why1"><text x="500" y="449" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f4f4f6">同じ「40W 相当」でも、光をどこへ配るかが違う。</text><text x="500" y="463" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f4f4f6">集光は真下に 2,500cd 集め、60° では 39cd しか出さない ——</text><text x="500" y="477" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f4f4f6">拡散は真下 1,000cd で、60° でも 500cd 出す。</text><text x="500" y="491" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f4f4f6">全部足した量（lm）が同じでも、机の上の明るさは別物になる。</text></g>
+<g data-name="why2"><text x="500" y="723" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f4f4f6">カタログの lm は器具の話で、机の上の話ではない。</text><text x="500" y="737" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f4f4f6">同じ lm でも、配光と距離で lx は何倍も変わる ——</text><text x="500" y="751" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f4f4f6">買うときに見るのは lm、設計で要るのは lx。</text><text x="500" y="765" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f4f4f6">配光曲線は、その 2 つをつなぐ唯一の資料。</text></g>
+<g data-name="why3"><text x="500" y="973" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f4f4f6">落ちる原因は 2 つある。 距離が伸びて 2 乗で薄まるのと、</text><text x="500" y="987" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f4f4f6">斜めから当たって面が受け取る量が cos で減るのと。</text><text x="500" y="1001" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f4f4f6">集光の器具を高い天井に付けると、真下だけが明るい輪になる ——</text><text x="500" y="1015" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f4f4f6">1.4m 横へずれただけで 4 分の 1 になる。</text></g>
+<g data-name="why4"><text x="1105" y="461" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f4f4f6">出した光の半分は、部屋に着く前に消える。</text><text x="1105" y="475" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f4f4f6">U（照明率）は壁と天井が返す割合で、</text><text x="1105" y="489" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f4f4f6">黒い壁だと落ちる。M（保守率）は</text><text x="1105" y="503" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f4f4f6">汚れと劣化 —— 新品の数字で設計すると、</text><text x="1105" y="517" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f4f4f6">3 年後には足りない。</text></g>
+<g data-name="why5"><text x="1105" y="883" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f4f4f6">居間の全般照度は 50lx —— 事務室の 15 分の 1。</text><text x="1105" y="897" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f4f4f6">家を事務室の明るさにすると、まぶしくて休めない。</text><text x="1105" y="911" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f4f4f6">手元だけ 500lx にして、部屋は暗いままにするのが</text><text x="1105" y="925" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f4f4f6">タスク・アンビエント —— 1 灯で部屋ぜんぶを</text><text x="1105" y="939" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f4f4f6">明るくする方法では、この差を作れない。</text></g>
+<g data-name="r1"><text x="150" y="1063" text-anchor="start" font-family="sans-serif" font-size="12" fill="#f4f4f6">配光曲線は、方向ごとの光度を極座標で読む図です（①）。集光は真下 2,500cd、60° で 39cd —— 拡散は真下 1,000cd、60° でも 500cd です。</text></g>
+<g data-name="r2"><text x="150" y="1087" text-anchor="start" font-family="sans-serif" font-size="12" fill="#f4f4f6">全部足した量（lm）が同じでも、机の上の明るさは別物になります。</text></g>
+<g data-name="r3"><text x="150" y="1111" text-anchor="start" font-family="sans-serif" font-size="12" fill="#f4f4f6">単位が 4 つあるのは、測る場所が違うからです（②）。買うときに見るのは lm、設計で要るのは lx です。</text></g>
+<g data-name="r4"><text x="150" y="1135" text-anchor="start" font-family="sans-serif" font-size="12" fill="#f4f4f6">1 点の明るさは、距離の 2 乗で落ちます（③）。高さ 2.5m の集光器具で、真下 400lx が 1.4m 横で 110lx になります。</text></g>
+<g data-name="r5"><text x="150" y="1159" text-anchor="start" font-family="sans-serif" font-size="12" fill="#f4f4f6">部屋の平均は光束法で出します（④）。5,000lm のシーリング 1 台で 12 畳なら 120lx —— 出した光の半分は着く前に消えます。</text></g>
+<g data-name="r6"><text x="150" y="1183" text-anchor="start" font-family="sans-serif" font-size="12" fill="#f4f4f6">要る明るさは、部屋ではなく作業で決まります（⑤）。事務室 750lx に対して、居間の全般は 50lx です。</text></g>
+<g data-name="r7"><text x="150" y="1207" text-anchor="start" font-family="sans-serif" font-size="12" fill="#f4f4f6">手元だけ 500lx にして、部屋は暗いままにする —— 1 灯で部屋ぜんぶを明るくする方法では、この差を作れません。</text></g>
+<g data-name="h150_560"><text x="500" y="576" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#0f0f13">どこで測るか</text></g>
+<g data-name="h150_834"><text x="500" y="850" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#0f0f13">E ＝ I × cosθ ÷ R²（集光の器具・高さ 2.5m）</text></g>
+<g data-name="t1"><text x="150" y="164" text-anchor="start" font-family="sans-serif" font-size="12" fill="#f4f4f6">① 配光曲線 —— 下向きに開いた極座標で、方向ごとの光度を読む</text></g>
+<g data-name="t2"><text x="150" y="544" text-anchor="start" font-family="sans-serif" font-size="12" fill="#f4f4f6">② 単位が 4 つあるのは、測る場所が違うから</text></g>
+<g data-name="t3"><text x="150" y="818" text-anchor="start" font-family="sans-serif" font-size="12" fill="#f4f4f6">③ 逐点法 —— 1 点の明るさは、距離の 2 乗で落ちる</text></g>
+<g data-name="y150_584"><text x="356" y="600" text-anchor="start" font-family="sans-serif" font-size="12" fill="#f4f4f6">器具から出ていく光の総量</text></g>
+<g data-name="y150_608"><text x="356" y="624" text-anchor="start" font-family="sans-serif" font-size="12" fill="#f4f4f6">そのうち、ある向きへ出ていく強さ</text></g>
+<g data-name="y150_632"><text x="356" y="648" text-anchor="start" font-family="sans-serif" font-size="12" fill="#f4f4f6">照らされた面が受け取った量（lm/m²）</text></g>
+<g data-name="y150_656"><text x="356" y="672" text-anchor="start" font-family="sans-serif" font-size="12" fill="#f4f4f6">人の目に、どれだけまぶしく見えるか</text></g>
+<g data-name="h890_186"><text x="1105" y="202" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#0f0f13">E ＝ F × N × U × M ÷ A</text></g>
+<g data-name="h890_344"><text x="1105" y="360" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#0f0f13">12 畳（20m²）の居間で</text></g>
+<g data-name="h890_588"><text x="1105" y="604" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#0f0f13">推奨照度（JIS Z 9110 ／ Z 9125）</text></g>
+<g data-name="h890_742"><text x="1105" y="758" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#0f0f13">同じ「居間」でも</text></g>
+<g data-name="y150_858"><text x="476" y="874" text-anchor="start" font-family="sans-serif" font-size="12" fill="#f4f4f6">2,500 ÷ 6.25 ＝ 400 lx</text></g>
+<g data-name="y150_882"><text x="476" y="898" text-anchor="start" font-family="sans-serif" font-size="12" fill="#f4f4f6">1,055 × 0.866 ÷ 8.33 ＝ 110 lx</text></g>
+<g data-name="y150_906"><text x="476" y="922" text-anchor="start" font-family="sans-serif" font-size="12" fill="#f4f4f6">39 × 0.5 ÷ 25 ＝ 0.8 lx</text></g>
+<g data-name="t4"><text x="890" y="164" text-anchor="start" font-family="sans-serif" font-size="12" fill="#f4f4f6">④ 光束法 —— 部屋の平均を出す</text></g>
+<g data-name="t5"><text x="890" y="572" text-anchor="start" font-family="sans-serif" font-size="12" fill="#f4f4f6">⑤ 要る明るさは、部屋ではなく作業で決まる</text></g>
+<g data-name="x150_858"><text x="310" y="874" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f4f4f6">真下（0°・R ＝ 2.5m）</text></g>
+<g data-name="x150_882"><text x="310" y="898" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f4f4f6">30° ずれ（真下から 1.44m）</text></g>
+<g data-name="x150_906"><text x="310" y="922" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f4f4f6">60° ずれ（真下から 4.33m）</text></g>
+<g data-name="lw"><text x="370" y="335" text-anchor="end" font-family="sans-serif" font-size="12" fill="#f4f4f6">拡散（ベースライト）</text><text x="370" y="349" text-anchor="end" font-family="sans-serif" font-size="12" fill="#f4f4f6">真下 1,000cd</text></g>
+<g data-name="lc"><text x="542" y="395" text-anchor="start" font-family="sans-serif" font-size="12" fill="#f4f4f6">集光（スポット）</text><text x="542" y="409" text-anchor="start" font-family="sans-serif" font-size="12" fill="#f4f4f6">真下 2,500cd</text></g>
+<g data-name="y890_210"><text x="1086" y="226" text-anchor="start" font-family="sans-serif" font-size="12" fill="#f4f4f6">器具 1 台の光束 lm</text></g>
+<g data-name="y890_234"><text x="1086" y="250" text-anchor="start" font-family="sans-serif" font-size="12" fill="#f4f4f6">台数</text></g>
+<g data-name="y890_258"><text x="1086" y="274" text-anchor="start" font-family="sans-serif" font-size="12" fill="#f4f4f6">照明率（部屋が返す割合）</text></g>
+<g data-name="y890_282"><text x="1086" y="298" text-anchor="start" font-family="sans-serif" font-size="12" fill="#f4f4f6">保守率（汚れと劣化）</text></g>
+<g data-name="y890_306"><text x="1086" y="322" text-anchor="start" font-family="sans-serif" font-size="12" fill="#f4f4f6">床面積 m²</text></g>
+<g data-name="y890_368"><text x="1086" y="384" text-anchor="start" font-family="sans-serif" font-size="12" fill="#f4f4f6">U ＝ 0.6 ／ M ＝ 0.8</text></g>
+<g data-name="y890_392"><text x="1086" y="408" text-anchor="start" font-family="sans-serif" font-size="12" fill="#f4f4f6">＝ 120 lx</text></g>
+<g data-name="x890_612"><text x="1005" y="628" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f4f4f6">事務室・設計製図室</text></g>
+<g data-name="x890_636"><text x="1005" y="652" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f4f4f6">会議室</text></g>
+<g data-name="x890_660"><text x="1005" y="676" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f4f4f6">受付</text></g>
+<g data-name="x890_684"><text x="1005" y="700" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f4f4f6">階段</text></g>
+<g data-name="x890_708"><text x="1005" y="724" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f4f4f6">廊下</text></g>
+<g data-name="x890_766"><text x="1005" y="782" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f4f4f6">全般（部屋ぜんぶ）</text></g>
+<g data-name="x890_790"><text x="1005" y="806" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f4f4f6">団らん</text></g>
+<g data-name="x890_814"><text x="1005" y="830" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f4f4f6">読書</text></g>
+<g data-name="x150_584"><text x="250" y="600" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f4f4f6">光束 lm（ルーメン）</text></g>
+<g data-name="x150_608"><text x="250" y="624" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f4f4f6">光度 cd（カンデラ）</text></g>
+<g data-name="x150_632"><text x="250" y="648" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f4f4f6">照度 lx（ルクス）</text></g>
+<g data-name="x150_656"><text x="250" y="672" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f4f4f6">輝度 cd/m²</text></g>
+<g data-name="y890_612"><text x="1126" y="628" text-anchor="start" font-family="sans-serif" font-size="12" fill="#f4f4f6">750 lx</text></g>
+<g data-name="y890_636"><text x="1126" y="652" text-anchor="start" font-family="sans-serif" font-size="12" fill="#f4f4f6">500 lx</text></g>
+<g data-name="y890_660"><text x="1126" y="676" text-anchor="start" font-family="sans-serif" font-size="12" fill="#f4f4f6">300 lx</text></g>
+<g data-name="y890_684"><text x="1126" y="700" text-anchor="start" font-family="sans-serif" font-size="12" fill="#f4f4f6">150 lx</text></g>
+<g data-name="y890_708"><text x="1126" y="724" text-anchor="start" font-family="sans-serif" font-size="12" fill="#f4f4f6">100 lx</text></g>
+<g data-name="y890_766"><text x="1126" y="782" text-anchor="start" font-family="sans-serif" font-size="12" fill="#f4f4f6">50 lx</text></g>
+<g data-name="y890_790"><text x="1126" y="806" text-anchor="start" font-family="sans-serif" font-size="12" fill="#f4f4f6">200 lx</text></g>
+<g data-name="y890_814"><text x="1126" y="830" text-anchor="start" font-family="sans-serif" font-size="12" fill="#f4f4f6">500 lx</text></g>
+<g data-name="x890_210"><text x="985" y="226" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f4f4f6">F</text></g>
+<g data-name="x890_234"><text x="985" y="250" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f4f4f6">N</text></g>
+<g data-name="x890_258"><text x="985" y="274" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f4f4f6">U</text></g>
+<g data-name="x890_282"><text x="985" y="298" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f4f4f6">M</text></g>
+<g data-name="x890_306"><text x="985" y="322" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f4f4f6">A</text></g>
+<g data-name="x890_368"><text x="985" y="384" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f4f4f6">5,000lm のシーリング 1 台</text></g>
+<g data-name="x890_392"><text x="985" y="408" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f4f4f6">5,000 × 0.6 × 0.8 ÷ 20</text></g>
+<g data-name="sc"><text x="380" y="213" text-anchor="end" font-family="sans-serif" font-size="12" fill="#f4f4f6">目盛りは 1,000 / 2,000 / 2,500cd</text></g>
+<g data-name="a0"><text x="480" y="395" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#f4f4f6">0°（真下）</text></g>
+<g data-name="a90"><text x="626" y="231" text-anchor="start" font-family="sans-serif" font-size="12" fill="#f4f4f6">90°（真横）</text></g>
+<g data-name="org"><text x="462" y="235" text-anchor="end" font-family="sans-serif" font-size="12" fill="#f4f4f6">器具はここ</text></g>
+<g data-name="a30"><text x="572" y="361" text-anchor="start" font-family="sans-serif" font-size="12" fill="#f4f4f6">30°</text></g>
+<g data-name="a60"><text x="608" y="303" text-anchor="start" font-family="sans-serif" font-size="12" fill="#f4f4f6">60°</text></g>
+</svg>
