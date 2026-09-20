@@ -870,6 +870,8 @@ const ja = {
       `この図は A3 に印刷しても字が読めません（いちばん小さい字 ${smallest}px ÷ 長辺 ${longest}px ＝ ${ratio}。下限は ${floor}）。**構成図では置き場所を機械が決めるので、節を動かしても縮みません。** いま**長辺の向きに ${ranks} 段**並んでいて、1 段およそ ${perRank}px です。長辺が ${need}px 以下なら収まるので、**${fits} 段まで減らしてください** —— 節をまとめるか、図を 2 枚に分けるかのどちらかです。`,
     inkOverlap: (a: string, b: string, x: number, y: number) =>
       `紙の上で ${a} と ${b} の文字が重なって描かれます。名前どうしだけでなく、符号・寸法の数値・通り芯の符号・図の名前も同じ場所を取ります。**横に ${x}px か、縦に ${y}px** ずらせば離れます（どちらへ逃がすかは、図の都合で決めてください）。`,
+    lineOverText: (edge: string, box: string, text: string, px: number) =>
+      `辺 ${edge} が、枠の無い注記 ${box} の「${text}」を ${px}px ぶん横切っています。**箱の中の字なら枠が「これは中身だ」と言いますが、注記には枠がありません** —— 線は取り消し線にしか見えません。注記をずらすか、線をその手前で止めてください（寸法の数字を自分の寸法線に乗せるのは正しい置き方なので、短い交差は数えていません）。`,
     textOverlap: (a: string, b: string) =>
       `${a} と ${b} の文字が重なって描かれます。器の名前を器の真ん中に書くと、中の節の名前に乗ります（器の名前は端の欄へ出してください）。`,
     edgeNodeKeyIgnored: (name: string, key: string) =>
@@ -1563,6 +1565,8 @@ const en: Catalog = {
       `This drawing is unreadable even printed on A3 (smallest text ${smallest}px over longest side ${longest}px = ${ratio}; the floor is ${floor}). **On a structure diagram the machine decides the positions, so moving nodes will not shrink it.** It is ${ranks} ranks across the long side at about ${perRank}px each; the longest side has to come down to ${need}px, so **cut it to ${fits} ranks** — merge nodes, or split the drawing in two.`,
     inkOverlap: (a: string, b: string, x: number, y: number) =>
       `On the sheet, ${a} and ${b} are drawn on top of each other. It is not only names: tags, dimension values, grid codes and view titles take room too. **Moving one ${x}px sideways or ${y}px vertically** clears it — which way is yours to choose.`,
+    lineOverText: (edge: string, box: string, text: string, px: number) =>
+      `Edge ${edge} runs ${px}px through "${text}" in the unboxed note ${box}. **Text inside a box has a frame saying it is contents; a bare note has none** — the line reads as a strike-through. Move the note, or stop the line short of it. (Short crossings are not counted: a dimension value sitting on its own dimension line is placed correctly.)`,
     textOverlap: (a: string, b: string) =>
       `The labels of ${a} and ${b} are drawn on top of each other. A container that holds children should not repeat its name in the middle — move it to an edge cell.`,
     edgeNodeKeyIgnored: (name: string, key: string) =>

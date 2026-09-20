@@ -400,6 +400,30 @@ export interface Overlap {
 }
 
 export function overlappingInk(svg: string): [Word, Word, Overlap][] {
+  const words = inkWords(svg);
+  const found: [Word, Word, Overlap][] = [];
+  const gap = 2;
+  for (let i = 0; i < words.length; i += 1) {
+    for (let j = i + 1; j < words.length; j += 1) {
+      const a = words[i]!.rect;
+      const b = words[j]!.rect;
+      const apart =
+        a.x + a.w <= b.x + gap ||
+        b.x + b.w <= a.x + gap ||
+        a.y + a.h <= b.y + gap ||
+        b.y + b.h <= a.y + gap;
+      if (apart) continue;
+      // **どれだけずらせば離れるか。** 重なっている幅 ＋ 空ける分。
+      const x = Math.ceil(Math.min(a.x + a.w - b.x, b.x + b.w - a.x)) + gap;
+      const y = Math.ceil(Math.min(a.y + a.h - b.y, b.y + b.h - a.y)) + gap;
+      found.push([words[i]!.word, words[j]!.word, { x, y }]);
+    }
+  }
+  return found;
+}
+
+/** 紙に出た文字を、矩形つきで全部拾う。**回した文字は当たり判定が合わないので見ない。** */
+export function inkWords(svg: string): { rect: Rect; word: Word }[] {
   const words: { rect: Rect; word: Word }[] = [];
   const groups: (string | null)[] = [];
   const token = /<g\b([^>]*)>|<\/g>|<text x="(-?[\d.]+)" y="(-?[\d.]+)"([^>]*)>([^<]*)<\/text>/g;
@@ -424,26 +448,74 @@ export function overlappingInk(svg: string): [Word, Word, Overlap][] {
     const id = [...groups].reverse().find((name) => name !== null) ?? null;
     words.push({ rect: { x: left, y: y - font, w, h: font }, word: { text, id } });
   }
+  return words;
+}
 
-  const found: [Word, Word, Overlap][] = [];
-  const gap = 2;
-  for (let i = 0; i < words.length; i += 1) {
-    for (let j = i + 1; j < words.length; j += 1) {
-      const a = words[i]!.rect;
-      const b = words[j]!.rect;
-      const apart =
-        a.x + a.w <= b.x + gap ||
-        b.x + b.w <= a.x + gap ||
-        a.y + a.h <= b.y + gap ||
-        b.y + b.h <= a.y + gap;
-      if (apart) continue;
-      // **どれだけずらせば離れるか。** 重なっている幅 ＋ 空ける分。
-      const x = Math.ceil(Math.min(a.x + a.w - b.x, b.x + b.w - a.x)) + gap;
-      const y = Math.ceil(Math.min(a.y + a.h - b.y, b.y + b.h - a.y)) + gap;
-      found.push([words[i]!.word, words[j]!.word, { x, y }]);
+/**
+ * **線が、枠の無い注記の字を端から端まで横切っている**（2026-09-21。課題 20）。
+ *
+ * 罹災証明の被害認定（見本 224）で、基礎の寸法線が
+ * 「床は地面より 0.4m 高い（この図の前提）」を **264px ぶん串刺し**にしていた。
+ * 箱の中の字なら枠が「これは中身だ」と言うが、**枠の無い注記には枠が無い** ——
+ * 線は取り消し線にしか見えない。
+ *
+ * **短い交差は数えない。** 測ったら 4px 以上で数えると見本 319 枚中 54 枚、
+ * 寸法の数字が自分の寸法線に乗っているだけのものまで入る（それは正しい置き方）。
+ * **40px 以上**にすると 10 枚 12 本まで落ち、残ったのは全部直すべきものだった。
+ */
+export function linesOverText(
+  svg: string,
+  placed: Placed,
+): { edge: string; box: string; text: string; px: number }[] {
+  const notes = placed.boxes.filter((box) => box.marker === 'none');
+  const words = inkWords(svg)
+    .map((found) => {
+      const cx = found.rect.x + found.rect.w / 2;
+      const cy = found.rect.y + found.rect.h / 2;
+      const box = notes.find((b) => cx > b.x && cx < b.x + b.w && cy > b.y && cy < b.y + b.h);
+      return box === undefined ? null : { rect: found.rect, text: found.word.text, box: box.id };
+    })
+    .filter((found) => found !== null);
+
+  const found: { edge: string; box: string; text: string; px: number }[] = [];
+  for (const edge of placed.edges) {
+    for (let i = 0; i + 1 < edge.points.length; i += 1) {
+      for (const word of words) {
+        // **自分が刺さっている注記は数えない。** 辺の端はそこに着くのが正しい。
+        if (edge.from === word.box || edge.to === word.box) continue;
+        const px = insideLength(edge.points[i]!, edge.points[i + 1]!, word.rect);
+        if (px >= 40) {
+          found.push({ edge: edge.id, box: word.box, text: word.text, px: Math.round(px) });
+        }
+      }
     }
   }
   return found;
+}
+
+/** 線分が矩形の中を通る長さ（Liang–Barsky）。 */
+function insideLength(a: { x: number; y: number }, b: { x: number; y: number }, rect: Rect): number {
+  let t0 = 0;
+  let t1 = 1;
+  const dx = b.x - a.x;
+  const dy = b.y - a.y;
+  const p = [-dx, dx, -dy, dy];
+  const q = [a.x - rect.x, rect.x + rect.w - a.x, a.y - rect.y, rect.y + rect.h - a.y];
+  for (let i = 0; i < 4; i += 1) {
+    if (p[i] === 0) {
+      if (q[i]! < 0) return 0;
+      continue;
+    }
+    const t = q[i]! / p[i]!;
+    if (p[i]! < 0) {
+      if (t > t1) return 0;
+      if (t > t0) t0 = t;
+    } else {
+      if (t < t0) return 0;
+      if (t < t1) t1 = t;
+    }
+  }
+  return Math.max(0, t1 - t0) * Math.hypot(dx, dy);
 }
 
 /** 書き出すときに逃がした記号を戻す（幅を測るため）。 */

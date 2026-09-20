@@ -1860,6 +1860,7 @@ Mermaid も draw.io も、落ちたものを先頭のコメントに列挙する
 | `ends-unknown` | 端の記号が `ENDS` の語か |
 | `line-unknown` | 線種が `solid` / `dashed` / `dotted` / `double` か |
 | `text-overlap` | **文字どうしが重なっていないか**（配置図。**置いてみないと分からない**） |
+| `line-over-text` | **線が、枠の無い注記の字を横切っていないか**（配置図。40px 以上。箱の中の字と違って、注記には枠が無いので取り消し線に見える） |
 | `edge-self-open` | **自分自身への辺に `via` があるか**（無いと長さ 0 の線になる） |
 | `edge-hatch-ignored` | **閉じていない辺に `hatch` を書いていないか**（面が無い） |
 | `label-markdown` | **名前に `**` が入っていないか**（節・辺のラベル・図の名前すべて。Markdown ではないので、そのまま絵に出る） |

@@ -29,7 +29,7 @@ import { PASS_LINE, measure, percent } from './measure.ts';
 import { merge } from './merge.ts';
 import type { Conflict } from './merge.ts';
 import { toMermaid } from './mermaid.ts';
-import { overlappingInk, render, viewTitleBox } from './render.ts';
+import { linesOverText, overlappingInk, render, viewTitleBox } from './render.ts';
 import { timelapse } from './timelapse.ts';
 import { inspect } from './tools.ts';
 import { kindOf } from './kind.ts';
@@ -394,7 +394,17 @@ export async function placedFindings(text: string): Promise<Finding[]> {
    */
   const said = (word: { text: string; id: string | null }): string =>
     word.id === null ? JSON.stringify(word.text) : `${JSON.stringify(word.text)}（${word.id}）`;
-  const ink = overlappingInk(render(placed, 'light', 'safe', true)).map(([a, b, by]) => ({
+  const drawn = render(placed, 'light', 'safe', true);
+  /**
+   * **線が、枠の無い注記の字を横切っている**（2026-09-21。課題 20）。
+   * `overlappingInk` は文字どうししか見ない —— 線は数に入っていなかった。
+   */
+  const struck = linesOverText(drawn, placed).map((found) => ({
+    severity: 'warning' as const,
+    code: 'line-over-text',
+    message: messages().validate.lineOverText(found.edge, found.box, found.text, found.px),
+  }));
+  const ink = overlappingInk(drawn).map(([a, b, by]) => ({
     severity: 'warning' as const,
     code: 'text-overlap',
     message: messages().validate.inkOverlap(said(a), said(b), by.x, by.y),
@@ -405,6 +415,7 @@ export async function placedFindings(text: string): Promise<Finding[]> {
     ...heads,
     ...tall,
     ...ink,
+    ...struck,
     // **広い箱から出ていった名前。** 表の欄が空に見える。
     /**
      * **入りきらず、外にも空きが無かった名前**（`crowdedNames`）。
