@@ -670,6 +670,24 @@ describe('観測値を見せる（inspect）', () => {
  * **閉じたはずの穴が、半分開いたままだった。**
  */
 describe('inspect が、検査と同じものを見る', () => {
+  /**
+   * **どれだけ足りないかまで言う**（2026-09-20）。
+   *
+   * id だけを出していたので、**箱をいくつ広げればよいかが当て推量**だった。
+   */
+  it('**名前が箱から離れているとき、要る幅と今の幅を言う**', async () => {
+    const wide = [
+      'version: 1', 'kind: placement', 'nodes:',
+      '  - id: cell', '    label: "これは欄の幅にまったく入りきらない長い値です"',
+      '    at: { x: 0, y: 0 }', '    size: { w: 120, h: 24 }',
+      '  - id: far', '    label: 遠く', '    at: { x: 0, y: 200 }', '    size: { w: 60, h: 24 }',
+      '',
+    ].join('\n');
+    const result = await runInspect(['a.yaml'], reader({ 'a.yaml': wide }) as never);
+    const said = result.lines.join('\n');
+    assert.match(said, /cell（要 \d+px ／ 今 120px）/, said);
+  });
+
   it('**絵に出ていない辺のラベルを言う**', async () => {
     const hidden = [
       'version: 1', 'kind: placement', 'arrows: true', 'nodes:',

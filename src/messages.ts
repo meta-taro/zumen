@@ -160,6 +160,13 @@ const ja = {
     inspectUnderBoxes: (count: number, pairs: string) => `  **箱に隠れた辺 ${count}**（${pairs}）`,
     inspectHiddenLabels: (count: number, ids: string) => `  **絵に出ていない辺のラベル ${count}**（${ids}）`,
     inspectCrowded: (count: number, ids: string) => `  **外へ出す先も無い名前 ${count}**（${ids}）`,
+    /**
+     * **どれだけ足りないかまで言う**（2026-09-20）。
+     *
+     * id だけを出していたので、**箱をいくつ広げればよいかは当て推量**だった ——
+     * 表の欄が離れるたびに 2〜3 往復していた（このセッションで 6 回）。
+     */
+    adriftWidth: (id: string, needs: string, has: string) => `${id}（要 ${needs}px ／ 今 ${has}px）`,
     inspectAdrift: (count: number, ids: string) => `  名前が箱から離れている ${count}（${ids}）`,
     inspectHiddenTags: (count: number, ids: string) => `  印に入らなかった符号 ${count}（${ids}）`,
     inspectPaper: (smallest: number, longest: number, ratio: string) =>
@@ -887,6 +894,7 @@ const en: Catalog = {
     inspectUnderBoxes: (count: number, pairs: string) => `  **${count} edges buried under boxes** (${pairs})`,
     inspectHiddenLabels: (count: number, ids: string) => `  **${count} edge labels never drawn** (${ids})`,
     inspectCrowded: (count: number, ids: string) => `  **${count} names with nowhere to go** (${ids})`,
+    adriftWidth: (id: string, needs: string, has: string) => `${id} (needs ${needs}px, has ${has}px)`,
     inspectAdrift: (count: number, ids: string) => `  ${count} names drifting away from their box (${ids})`,
     inspectHiddenTags: (count: number, ids: string) => `  ${count} tags that did not fit their marker (${ids})`,
     inspectPaper: (smallest: number, longest: number, ratio: string) =>

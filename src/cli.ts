@@ -493,7 +493,14 @@ export async function runInspect(paths: string[], read = readFileSync): Promise<
       lines.push(m.inspectCrowded(seen.crowdedNames.length, names(seen.crowdedNames)));
     }
     if (seen.adriftNames.length > 0) {
-      lines.push(m.inspectAdrift(seen.adriftNames.length, names(seen.adriftNames)));
+      // **どれだけ足りないかまで出す。** id だけでは、箱をいくつ広げるかが分からない。
+      const detail =
+        kindOf(text) === 'placement'
+          ? adriftDetails(placed.boxes, planNames(placed.boxes, extentOf(placed.boxes), placed.edges, placed.groups)).map(
+              (found) => m.adriftWidth(found.id, String(Math.ceil(found.needs)), String(Math.round(found.has))),
+            )
+          : seen.adriftNames;
+      lines.push(m.inspectAdrift(seen.adriftNames.length, names(detail)));
     }
     if (seen.hiddenTags.length > 0) {
       lines.push(m.inspectHiddenTags(seen.hiddenTags.length, names(seen.hiddenTags)));

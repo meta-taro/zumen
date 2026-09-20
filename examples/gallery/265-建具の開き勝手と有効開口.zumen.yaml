@@ -1,0 +1,585 @@
+version: 1
+kind: placement
+arrows: true
+title: 建具の開き勝手と有効開口（弧 1 本が、部屋の使い方を決める）
+# **建具表の開閉記号は、V の先が吊元（丁番の側）。**
+# 記号が言っているのは「どちら向きに開くか」ではなく**「どこが動かないか」** ——
+# 吊元が壁のどちら側かで、家具を置ける壁も、スイッチを付けられる壁も、
+# 隣の扉とぶつかるかどうかも決まる。**平面図の 1 本の弧が、その部屋の使い方を決めている。**
+#
+# **有効開口は、枠の寸法ではない。** 180° 開かない扉は、**開いた扉自身が開口を狭める** ——
+# 戸当たり間の内法 780 の開き戸は、扉厚 33 を引いて **747 しか通れない。**
+# 車椅子に要る 800 に届かせるには、内法を **833 以上**にする必要がある。
+# **引き戸なら、内法がそのまま有効開口。**
+#
+# **開き戸は、床も使う。** 扉幅 750 の開き戸は、半径 750 の 4 分円 ——
+# **0.44m²（約 0.3 畳）が、物を置けない床**になる。引き戸が狭い部屋で選ばれるのは、
+# 有効開口だけでなくこの床のため（代わりに引き込む側の壁 1 枚が使えなくなる）。
+#
+# **通れる幅は、法令と体で決まる。** 廊下の有効幅員は伝い歩きで 780 以上
+# （突出部 750 以上）、車椅子で 850 以上（突出部 800 以上）。
+# 出入口は直進なら 800 以上、**出てすぐ曲がるなら 800〜900** ——
+# 車椅子は直角に曲がれないので、**扉の先の形で答えが変わる。**
+#
+# **開き勝手は、好みでは決めない。** 便所・洗面が外開きなのは、
+# **中で人が倒れると内開きが開かなくなる**から。劇場・映画館・集会場の客用の屋外出口は、
+# **内開きにしてはならない**（建築基準法施行令 125 条 2 項）——
+# 避難する人が押し寄せると、扉を引く空間が人で埋まる。
+nodes:
+  - id: t1
+    label: "① 建具表の開閉記号 —— V の先が吊元（丁番の側）"
+    marker: none
+    align: left
+    at: { x: 150, y: 150 }
+    size: { w: 700, h: 20 }
+  - id: f200
+    label: ""
+    at: { x: 200, y: 196 }
+    size: { w: 120, h: 90 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 319, y: 195 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 319, y: 285 }
+    size: { w: 2, h: 2 }
+  - id: n200
+    label: "左吊元（左開き）"
+    marker: none
+    align: center
+    at: { x: 180, y: 294 }
+    size: { w: 160, h: 18 }
+  - id: f400
+    label: ""
+    at: { x: 400, y: 196 }
+    size: { w: 120, h: 90 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 399, y: 195 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 399, y: 285 }
+    size: { w: 2, h: 2 }
+  - id: n400
+    label: "右吊元（右開き）"
+    marker: none
+    align: center
+    at: { x: 380, y: 294 }
+    size: { w: 160, h: 18 }
+  - id: hz
+    label: "吊元"
+    marker: none
+    align: right
+    at: { x: 120, y: 232 }
+    size: { w: 70, h: 18 }
+  - id: hz2
+    label: "吊元"
+    marker: none
+    align: left
+    at: { x: 530, y: 232 }
+    size: { w: 70, h: 18 }
+  - id: sl1
+    label: ""
+    at: { x: 620, y: 196 }
+    size: { w: 130, h: 44 }
+  - id: sl2
+    label: ""
+    at: { x: 620, y: 240 }
+    size: { w: 130, h: 46 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 639, y: 217 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 729, y: 217 }
+    size: { w: 2, h: 2 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 729, y: 262 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 639, y: 262 }
+    size: { w: 2, h: 2 }
+  - id: sln
+    label: "引き違い（矢印は動く向き）"
+    marker: none
+    align: center
+    at: { x: 570, y: 294 }
+    size: { w: 230, h: 18 }
+  - id: why1
+    label: "記号は「どちら向きに開くか」ではなく「どこが動かないか」を言っている。\n吊元が壁のどちら側かで、開けた扉が塞ぐ場所が決まる ——\n家具を置ける壁、スイッチを付けられる壁、隣の扉とぶつかるかどうかは、\n全部ここで決まる。平面図の 1 本の弧が、その部屋の使い方を決めている。"
+    at: { x: 150, y: 330 }
+    size: { w: 700, h: 92 }
+  - id: t2
+    label: "② 有効開口は、枠の寸法ではない"
+    marker: none
+    align: left
+    at: { x: 150, y: 440 }
+    size: { w: 700, h: 20 }
+  - id: waku
+    label: ""
+    hatch: lines
+    at: { x: 260, y: 486 }
+    size: { w: 300, h: 20 }
+  - id: waku2
+    label: ""
+    hatch: lines
+    at: { x: 260, y: 606 }
+    size: { w: 300, h: 20 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 259, y: 505 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 259, y: 605 }
+    size: { w: 2, h: 2 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 559, y: 505 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 559, y: 605 }
+    size: { w: 2, h: 2 }
+  - id: tobira
+    label: ""
+    hatch: solid
+    at: { x: 268, y: 510 }
+    size: { w: 26, h: 92 }
+  - id: td
+    label: "扉厚 33"
+    marker: none
+    align: right
+    at: { x: 130, y: 546 }
+    size: { w: 120, h: 18 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 299, y: 555 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 559, y: 555 }
+    size: { w: 2, h: 2 }
+  - id: yuko
+    label: "有効開口 747"
+    marker: none
+    align: center
+    at: { x: 300, y: 532 }
+    size: { w: 260, h: 18 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 259, y: 635 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 559, y: 635 }
+    size: { w: 2, h: 2 }
+  - id: uchi
+    label: "戸当たり間の内法 780"
+    marker: none
+    align: center
+    at: { x: 260, y: 642 }
+    size: { w: 300, h: 18 }
+  - id: h620_486
+    label: "引くもの"
+    hatch: solid
+    at: { x: 620, y: 486 }
+    size: { w: 230, h: 24 }
+  - id: x620_510
+    label: "内法"
+    at: { x: 620, y: 510 }
+    size: { w: 130, h: 24 }
+  - id: y620_510
+    label: "780"
+    align: left
+    at: { x: 750, y: 510 }
+    size: { w: 100, h: 24 }
+  - id: x620_534
+    label: "扉厚"
+    at: { x: 620, y: 534 }
+    size: { w: 130, h: 24 }
+  - id: y620_534
+    label: "− 33"
+    align: left
+    at: { x: 750, y: 534 }
+    size: { w: 100, h: 24 }
+  - id: x620_558
+    label: "有効開口"
+    at: { x: 620, y: 558 }
+    size: { w: 130, h: 24 }
+  - id: y620_558
+    label: "747"
+    align: left
+    at: { x: 750, y: 558 }
+    size: { w: 100, h: 24 }
+  - id: h620_596
+    label: "引き戸なら"
+    hatch: solid
+    at: { x: 620, y: 596 }
+    size: { w: 230, h: 24 }
+  - id: x620_620
+    label: "内法"
+    at: { x: 620, y: 620 }
+    size: { w: 130, h: 24 }
+  - id: y620_620
+    label: "780"
+    align: left
+    at: { x: 750, y: 620 }
+    size: { w: 100, h: 24 }
+  - id: x620_644
+    label: "引くもの"
+    at: { x: 620, y: 644 }
+    size: { w: 130, h: 24 }
+  - id: y620_644
+    label: "なし"
+    align: left
+    at: { x: 750, y: 644 }
+    size: { w: 100, h: 24 }
+  - id: x620_668
+    label: "有効開口"
+    at: { x: 620, y: 668 }
+    size: { w: 130, h: 24 }
+  - id: y620_668
+    label: "780"
+    align: left
+    at: { x: 750, y: 668 }
+    size: { w: 100, h: 24 }
+  - id: why2
+    label: "180° 開かない扉は、開いた扉自身が開口を狭める。\n枠の内法 780 の開き戸は、実際には 747 しか通れない ——\n車椅子に要る 800 には、枠を 833 以上にしないと届かない。\n同じ壁の穴でも、引き戸なら内法がそのまま有効開口になる。"
+    at: { x: 150, y: 710 }
+    size: { w: 700, h: 92 }
+  - id: t3
+    label: "③ 開き戸は、床も使う"
+    marker: none
+    align: left
+    at: { x: 150, y: 820 }
+    size: { w: 700, h: 20 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 299, y: 859 }
+    size: { w: 2, h: 2 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 299, y: 989 }
+    size: { w: 2, h: 2 }
+  - id: p18
+    label: ""
+    marker: none
+    at: { x: 299, y: 859 }
+    size: { w: 2, h: 2 }
+  - id: p19
+    label: ""
+    marker: none
+    at: { x: 429, y: 859 }
+    size: { w: 2, h: 2 }
+  - id: p20
+    label: ""
+    marker: none
+    at: { x: 428.9, y: 861.5 }
+    size: { w: 2, h: 2 }
+  - id: p21
+    label: ""
+    marker: none
+    at: { x: 301.5, y: 988.9 }
+    size: { w: 2, h: 2 }
+  - id: rad
+    label: "扉幅 750"
+    marker: none
+    align: right
+    at: { x: 150, y: 915 }
+    size: { w: 140, h: 18 }
+  - id: ar
+    label: "この 4 分円 0.44m² は、\n物を置けない床"
+    marker: none
+    align: left
+    at: { x: 340, y: 900 }
+    size: { w: 220, h: 36 }
+  - id: hg
+    label: "吊元"
+    marker: none
+    align: right
+    at: { x: 254, y: 852 }
+    size: { w: 40, h: 18 }
+  - id: h620_850
+    label: "開くのに要る床"
+    hatch: solid
+    at: { x: 620, y: 850 }
+    size: { w: 230, h: 24 }
+  - id: x620_874
+    label: "開き戸 750"
+    at: { x: 620, y: 874 }
+    size: { w: 140, h: 24 }
+  - id: y620_874
+    label: "0.44 m²"
+    align: left
+    at: { x: 760, y: 874 }
+    size: { w: 90, h: 24 }
+  - id: x620_898
+    label: "引き戸"
+    at: { x: 620, y: 898 }
+    size: { w: 140, h: 24 }
+  - id: y620_898
+    label: "0 m²"
+    align: left
+    at: { x: 760, y: 898 }
+    size: { w: 90, h: 24 }
+  - id: x620_922
+    label: "折れ戸"
+    at: { x: 620, y: 922 }
+    size: { w: 140, h: 24 }
+  - id: y620_922
+    label: "約 0.11 m²"
+    align: left
+    at: { x: 760, y: 922 }
+    size: { w: 90, h: 24 }
+  - id: why3
+    label: "開き戸は、扉の幅を半径にした 4 分円ぶんの床を占める。\n0.44m² は 0.3 畳 —— 洗面所や便所では、そこに人が立てない。\n引き戸が狭い部屋で選ばれるのは、有効開口だけでなくこの床のため。\n代わりに、引き込む側の壁 1 枚ぶんが使えなくなる。"
+    at: { x: 150, y: 1020 }
+    size: { w: 700, h: 92 }
+  - id: t4
+    label: "④ 通れる幅は、法令と体で決まる"
+    marker: none
+    align: left
+    at: { x: 890, y: 150 }
+    size: { w: 440, h: 20 }
+  - id: h890_186
+    label: "廊下の有効幅員"
+    hatch: solid
+    at: { x: 890, y: 186 }
+    size: { w: 440, h: 24 }
+  - id: x890_210
+    label: "伝い歩き"
+    at: { x: 890, y: 210 }
+    size: { w: 150, h: 24 }
+  - id: y890_210
+    label: "780 以上（突出部 750 以上）"
+    align: left
+    at: { x: 1040, y: 210 }
+    size: { w: 290, h: 24 }
+  - id: x890_234
+    label: "車椅子"
+    at: { x: 890, y: 234 }
+    size: { w: 150, h: 24 }
+  - id: y890_234
+    label: "850 以上（突出部 800 以上）"
+    align: left
+    at: { x: 1040, y: 234 }
+    size: { w: 290, h: 24 }
+  - id: h890_268
+    label: "出入口の有効開口"
+    hatch: solid
+    at: { x: 890, y: 268 }
+    size: { w: 440, h: 24 }
+  - id: x890_292
+    label: "車椅子が直進"
+    at: { x: 890, y: 292 }
+    size: { w: 150, h: 24 }
+  - id: y890_292
+    label: "800 以上"
+    align: left
+    at: { x: 1040, y: 292 }
+    size: { w: 290, h: 24 }
+  - id: x890_316
+    label: "出てすぐ曲がる"
+    at: { x: 890, y: 316 }
+    size: { w: 150, h: 24 }
+  - id: y890_316
+    label: "800 〜 900"
+    align: left
+    at: { x: 1040, y: 316 }
+    size: { w: 290, h: 24 }
+  - id: why4
+    label: "曲がるほうが、広さを要る。 車椅子は直角に曲がれない ——\n扉を出てすぐ左右へ曲がる間取りでは、\n直進なら足りる 800 でも通れないことがある。\n同じ寸法でも、扉の先の形で答えが変わる。"
+    at: { x: 890, y: 354 }
+    size: { w: 440, h: 92 }
+  - id: t5
+    label: "⑤ 開き勝手は、好みでは決めない"
+    marker: none
+    align: left
+    at: { x: 890, y: 464 }
+    size: { w: 440, h: 20 }
+  - id: h890_494
+    label: "決め方"
+    hatch: solid
+    at: { x: 890, y: 494 }
+    size: { w: 440, h: 24 }
+  - id: x890_518
+    label: "居室"
+    at: { x: 890, y: 518 }
+    size: { w: 200, h: 24 }
+  - id: y890_518
+    label: "壁側に吊元。扉が部屋を塞がない"
+    align: left
+    at: { x: 1090, y: 518 }
+    size: { w: 240, h: 24 }
+  - id: x890_542
+    label: "便所・洗面"
+    at: { x: 890, y: 542 }
+    size: { w: 200, h: 24 }
+  - id: y890_542
+    label: "外開き。中で倒れると開かない"
+    align: left
+    at: { x: 1090, y: 542 }
+    size: { w: 240, h: 24 }
+  - id: x890_566
+    label: "玄関（日本）"
+    at: { x: 890, y: 566 }
+    size: { w: 200, h: 24 }
+  - id: y890_566
+    label: "外開き。たたきに靴がある"
+    align: left
+    at: { x: 1090, y: 566 }
+    size: { w: 240, h: 24 }
+  - id: x890_590
+    label: "劇場の客用出口"
+    at: { x: 890, y: 590 }
+    size: { w: 200, h: 24 }
+  - id: y890_590
+    label: "内開きにできない（令 125 条 2 項）"
+    align: left
+    at: { x: 1090, y: 590 }
+    size: { w: 240, h: 24 }
+  - id: why5
+    label: "内開きは、人が詰まると開かなくなる。\n避難する人が扉に押し寄せると、扉を引く空間が\n人で埋まる —— だから客用の屋外出口は\n法で内開きを禁じている。\n便所を外開きにするのも、同じ理屈の小さい版。"
+    at: { x: 890, y: 628 }
+    size: { w: 440, h: 110 }
+  - id: r1
+    label: "建具表の開閉記号は、V の先が吊元（丁番の側）です（①）。「どこが動かないか」を言っています。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1130 }
+    size: { w: 1180, h: 18 }
+  - id: r2
+    label: "平面図の 1 本の弧が、その部屋の使い方を決めます。 家具を置ける壁も、スイッチを付けられる壁も、吊元で決まります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1154 }
+    size: { w: 1180, h: 18 }
+  - id: r3
+    label: "有効開口は、枠の寸法ではありません（②）。内法 780 の開き戸は、扉厚 33 を引いて 747 しか通れません。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1178 }
+    size: { w: 1180, h: 18 }
+  - id: r4
+    label: "車椅子に要る 800 には、枠を 833 以上にしないと届きません。 引き戸なら内法がそのまま有効開口です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1202 }
+    size: { w: 1180, h: 18 }
+  - id: r5
+    label: "開き戸は、床も使います（③）。扉幅 750 なら 4 分円 0.44m²（0.3 畳）が、物を置けない床になります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1226 }
+    size: { w: 1180, h: 18 }
+  - id: r6
+    label: "通れる幅は、法令と体で決まります（④）。廊下は車椅子で 850 以上、出入口は直進 800・曲がるなら 800〜900 です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1250 }
+    size: { w: 1180, h: 18 }
+  - id: r7
+    label: "開き勝手は好みでは決めません（⑤）。便所が外開きなのは、中で倒れると内開きが開かなくなるからです。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1274 }
+    size: { w: 1180, h: 18 }
+  - id: r8
+    label: "劇場の客用出口は、内開きにできません（令 125 条 2 項）—— 人が詰まると、扉を引く空間が人で埋まります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1298 }
+    size: { w: 1180, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 200, y: 241 }
+  - from: p2
+    to: p3
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 520, y: 241 }
+  - from: p4
+    to: p5
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p6
+    to: p7
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p8
+    to: p9
+    curve: none
+    line: chain
+    ends: { from: none, to: none }
+  - from: p10
+    to: p11
+    curve: none
+    line: chain
+    ends: { from: none, to: none }
+  - from: p12
+    to: p13
+    curve: none
+    ends: { from: arrow, to: arrow }
+  - from: p14
+    to: p15
+    curve: none
+    ends: { from: arrow, to: arrow }
+  - from: p16
+    to: p17
+    curve: none
+    ends: { from: none, to: none }
+  - from: p18
+    to: p19
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p20
+    to: p21
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 429.4, y: 872.7 }
+      - { x: 427.5, y: 885.4 }
+      - { x: 424.4, y: 897.7 }
+      - { x: 420.1, y: 909.7 }
+      - { x: 414.6, y: 921.3 }
+      - { x: 408.1, y: 932.2 }
+      - { x: 400.5, y: 942.5 }
+      - { x: 391.9, y: 951.9 }
+      - { x: 382.5, y: 960.5 }
+      - { x: 372.2, y: 968.1 }
+      - { x: 361.3, y: 974.6 }
+      - { x: 349.7, y: 980.1 }
+      - { x: 337.7, y: 984.4 }
+      - { x: 325.4, y: 987.5 }
+      - { x: 312.7, y: 989.4 }
