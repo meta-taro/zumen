@@ -405,6 +405,7 @@ export async function runInspect(paths: string[], read = readFileSync): Promise<
   if (paths.length === 0) return { code: 2, lines: [m.usageInspect] };
 
   const lines: string[] = [];
+  let gated = false;
   for (const path of paths) {
     let text: string;
     try {
@@ -429,6 +430,7 @@ export async function runInspect(paths: string[], read = readFileSync): Promise<
       seen.hiddenLabels.length === 0 && seen.crowdedNames.length === 0 &&
       seen.adriftNames.length === 0 && seen.hiddenTags.length === 0;
     if (quiet) lines.push(m.inspectClean);
+    if (crossed.length > 0 || over.length > 0) gated = true;
     if (crossed.length > 0) lines.push(m.inspectCrossings(seen.crossings, crossed.length, spots(crossed)));
     if (over.length > 0) lines.push(m.inspectStraddles(over.length, pairs(over)));
     if (seen.overlappingText.length > 0) {
@@ -462,6 +464,8 @@ export async function runInspect(paths: string[], read = readFileSync): Promise<
     else if (seen.tooSmallToProject) lines.push(m.inspectProject);
   }
   lines.push(m.inspectNote);
+  // **止めないが、放っておくとテストが落ちる**ことだけは言う。
+  if (gated) lines.push(m.inspectGate);
   return { code: 0, lines };
 }
 

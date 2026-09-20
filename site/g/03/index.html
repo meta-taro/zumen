@@ -60,7 +60,10 @@
     <img src="../../gallery/03-%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E6%B5%81%E3%82%8C.svg" alt="データの流れ" loading="lazy">
   </figure>
   <p class="made">この図は、下の 1 枚の YAML から描かれています。手で図形を動かしてはいません。</p>
-  
+  <h2>正本に書いてある決まりごと</h2>
+  <p><strong>データフロー図で数えるのは、箱ではなく「入口」。</strong>外部 API と手上げの CSV —— <strong>入口が 2 つある時点で、形の違う 2 種類が入ってくる。</strong></p>
+  <p>新しいワーカーができても、旧バッチが止まるまでは両方が同じ集約先へ書く。<strong>移行中の期間こそ、図が要る。</strong> 片方だけ描くと、二重書き込みが見えない。</p>
+  <p>キューは「そこに溜まる」ので、<strong>詰まったときに何が起きるか</strong>を図から読む。入る速さと出る速さが釣り合わない所が、いつも事故になる。</p>
   <h2>正本（YAML）</h2>
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/03-%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E6%B5%81%E3%82%8C.zumen.yaml"><code>examples/gallery/03-データの流れ.zumen.yaml</code></a></p>
   <h2>同じ分野の見本</h2>

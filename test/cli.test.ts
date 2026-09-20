@@ -669,6 +669,37 @@ describe('inspect が、検査と同じものを見る', () => {
     assert.equal(result.code, 0, '止めない');
   });
 
+  /**
+   * **止めないが、放っておくと落ちる**（2026-09-20）。
+   *
+   * `inspect` は観測値なので 0 を返す。ところが**見本として登録すると**、
+   * `test/names.test.ts` が交差とまたぎを 0 だと決めているので落ちる。
+   * 洗濯機（見本 250）で、**inspect が 8 件出したのを読んだまま登録して落とした。**
+   */
+  it('**交差やまたぎがあるときは、テストで落ちることを言う**', async () => {
+    const CROSS2 = [
+      'version: 1', 'kind: placement', 'arrows: true', 'nodes:',
+      '  - id: a', '    label: ""', '    marker: none', '    at: { x: 0, y: 100 }', '    size: { w: 2, h: 2 }',
+      '  - id: b', '    label: ""', '    marker: none', '    at: { x: 200, y: 100 }', '    size: { w: 2, h: 2 }',
+      '  - id: c', '    label: ""', '    marker: none', '    at: { x: 100, y: 0 }', '    size: { w: 2, h: 2 }',
+      '  - id: d', '    label: ""', '    marker: none', '    at: { x: 100, y: 200 }', '    size: { w: 2, h: 2 }',
+      'edges:',
+      '  - from: a', '    to: b', '    curve: none',
+      '  - from: c', '    to: d', '    curve: none',
+      '',
+    ].join('\n');
+    const result = await runInspect(['a.yaml'], reader({ 'a.yaml': CROSS2 }) as never);
+    const said = result.lines.join('\n');
+    assert.match(said, /テストが落ちます/, said);
+    assert.equal(result.code, 0, 'それでも止めない');
+  });
+
+  it('何も無ければ、落ちる話はしない', async () => {
+    const one = 'version: 1\nkind: placement\nnodes:\n  - id: a\n    label: 居間\n    at: { x: 0, y: 0 }\n    size: { w: 200, h: 120 }\n';
+    const result = await runInspect(['a.yaml'], reader({ 'a.yaml': one }) as never);
+    assert.ok(!result.lines.some((line) => line.includes('テストが落ちます')), result.lines.join('\n'));
+  });
+
   it('何も無ければ「全部出ています」と言う（黙らない）', async () => {
     const one = 'version: 1\nkind: placement\nnodes:\n  - id: a\n    label: 居間\n    at: { x: 0, y: 0 }\n    size: { w: 200, h: 120 }\n';
     const result = await runInspect(['a.yaml'], reader({ 'a.yaml': one }) as never);

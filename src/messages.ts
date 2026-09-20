@@ -168,6 +168,16 @@ const ja = {
     inspectProject: '  投影には小さすぎます（印刷して読む図なら、これでよい）。',
     inspectNote:
       'これは合否ではなく**観測値**です。交差もまたぎも、中身がそうなら正しい —— 止めません。',
+    /**
+     * **止めないが、放っておくと落ちる**（2026-09-20）。
+     *
+     * `pnpm inspect` は観測値なので 0 を返す。ところが**見本として登録すると**、
+     * `test/names.test.ts` が交差とまたぎを 0 だと決めているので落ちる
+     * （理由を書いて表へ入れれば通る）。
+     * 洗濯機（見本 250）で、**inspect が 8 件出したのを読んだまま登録して落とした。**
+     */
+    inspectGate:
+      '見本として `examples/gallery/` へ置くなら、**交差とまたぎは 0 にするか、`test/names.test.ts` の表へ理由を書いて入れてください。** そのままだとテストが落ちます。',
     measured: (path: string, autonomy: string, layout: string) =>
       `${path} — 自力率 ${autonomy} / 配置の自力率 ${layout}`,
     measurePassed: (count: number, line: string) => `${count} 件すべてが合格ライン ${line} に届いています。`,
@@ -865,6 +875,8 @@ const en: Catalog = {
     inspectProject: '  Too small to project (fine if this drawing is meant to be printed).',
     inspectNote:
       'These are **observations, not a verdict**. Crossings and straddles are right when the subject crosses — nothing is stopped here.',
+    inspectGate:
+      'To ship this as a gallery sample, **bring crossings and straddles to zero, or add it to the table in `test/names.test.ts` with the reason.** Left as is, the test fails.',
     measured: (path: string, autonomy: string, layout: string) =>
       `${path} — autonomy ${autonomy} / layout autonomy ${layout}`,
     measurePassed: (count: number, line: string) => `All ${count} diagram(s) meet the ${line} line.`,

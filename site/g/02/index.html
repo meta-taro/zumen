@@ -60,7 +60,10 @@
     <img src="../../gallery/02-%E3%82%AF%E3%83%A9%E3%82%A6%E3%83%89%E6%A7%8B%E6%88%90.svg" alt="クラウド構成" loading="lazy">
   </figure>
   <p class="made">この図は、下の 1 枚の YAML から描かれています。手で図形を動かしてはいません。</p>
-  
+  <h2>正本に書いてある決まりごと</h2>
+  <p><strong>クラウド構成図で意味があるのは、箱の名前ではなく「サブネットの線」。</strong>公開サブネットに置けるのは、外から叩かれてよいものだけ。<strong>web が非公開側の DB を見に行く向きは片道</strong>で、逆は無い。</p>
+  <p>自分で面倒を見るもの（web）と、預けるもの（PostgreSQL・オブジェクト保管）では、<strong>止まったときに自分でできることが違う。</strong> 群を分けるのは、そこを見せるため。</p>
+  <p>実体は冗長でも、図では 1 つ。<strong>冗長を描くと、経路の本数が倍になって読めなくなる。</strong>冗長は別の図（系統図）で描く。</p>
   <h2>正本（YAML）</h2>
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/02-%E3%82%AF%E3%83%A9%E3%82%A6%E3%83%89%E6%A7%8B%E6%88%90.zumen.yaml"><code>examples/gallery/02-クラウド構成.zumen.yaml</code></a></p>
   <h2>同じ分野の見本</h2>
