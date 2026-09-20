@@ -1,0 +1,340 @@
+version: 1
+kind: placement
+arrows: true
+scale: { mm: 1.5 }
+title: 郵便物の規格（「定形」は封筒の名前ではなく、4 つの条件の呼び名）
+# **定形郵便物は、4 つの条件を全部満たしたもの。**
+# **長辺 14〜23.5cm・短辺 9〜12cm・厚さ 1cm 以下・重さ 50g 以下**で **110 円**。
+# **どれか 1 つでも外れたら定形外**になり、料金の表そのものが変わる。
+#
+# **下限は、はがきと共通の 14 × 9cm。**
+# 定形のいちばん小さい大きさは、はがきのいちばん小さい大きさと同じ。
+#
+# **厚さ 1cm が、機械を通るかどうかの線。**
+# 定形外は**規格内**（長辺 34cm・短辺 25cm・厚さ 1cm・重さ 1kg 以下。**140〜750 円**）と
+# **規格外**（長辺 60cm・厚さ 3cm・重さ 4kg 以下。**260〜1,750 円**）に分かれ、
+# **同じ重さでも厚さが 1cm を超えるだけで、高いほうの表に移る。**
+#
+# **はがきには下限の重さがある。**
+# 長辺 14〜15.4cm・短辺 9〜10.7cm・**重さ 2〜6g** で **85 円** ——
+# 2g より軽いと薄すぎて機械で扱えない。
+# **上限だけでなく下限が書いてある**のは、郵便の規格では珍しい。
+#
+# 料金は 2024 年 10 月の改定後の額。
+nodes:
+  - id: t1
+    label: "① 大きさを、同じ縮尺で並べる（1px ＝ 1.5mm。どれも上限の大きさ）"
+    marker: none
+    align: left
+    at: { x: 140, y: 150 }
+    size: { w: 660, h: 20 }
+  - id: hagaki
+    label: ""
+    at: { x: 240, y: 448.7 }
+    size: { w: 102.7, h: 71.3 }
+  - id: hagakin
+    label: "はがき\n最大 15.4 × 10.7cm"
+    marker: none
+    align: center
+    at: { x: 201.3, y: 532 }
+    size: { w: 180, h: 36 }
+  - id: teikei
+    label: ""
+    at: { x: 420, y: 440 }
+    size: { w: 156.7, h: 80 }
+  - id: teikein
+    label: "定形\n最大 23.5 × 12cm"
+    marker: none
+    align: center
+    at: { x: 408.3, y: 532 }
+    size: { w: 180, h: 36 }
+  - id: kikaku
+    label: ""
+    hatch: dots
+    at: { x: 620, y: 353.3 }
+    size: { w: 226.7, h: 166.7 }
+  - id: kikakun
+    label: "定形外（規格内）\n最大 34 × 25cm"
+    marker: none
+    align: center
+    at: { x: 643.3, y: 532 }
+    size: { w: 180, h: 36 }
+  - id: saishou
+    label: ""
+    line: dashed
+    at: { x: 420, y: 460 }
+    size: { w: 93.3, h: 60 }
+  - id: saishoun
+    label: "破線は共通の最小 14 × 9cm"
+    marker: none
+    align: right
+    at: { x: 140, y: 380 }
+    size: { w: 260, h: 18 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 405, y: 387 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 427, y: 467 }
+    size: { w: 2, h: 2 }
+  - id: cap1
+    label: "定形のいちばん小さい大きさは、はがきと同じ。 下限は共通で 14 × 9cm。"
+    marker: none
+    align: center
+    at: { x: 140, y: 576 }
+    size: { w: 660, h: 18 }
+  - id: t2
+    label: "② 厚さで分かれる —— 大きさが同じでも、1cm を超えたら定形外"
+    marker: none
+    align: left
+    at: { x: 140, y: 616 }
+    size: { w: 660, h: 20 }
+  - id: th1
+    label: ""
+    hatch: solid
+    at: { x: 220, y: 680 }
+    size: { w: 300, h: 7 }
+  - id: th1n
+    label: "厚さ 1cm まで —— 定形・定形外（規格内）"
+    marker: none
+    align: center
+    at: { x: 220, y: 694 }
+    size: { w: 300, h: 18 }
+  - id: th2
+    label: ""
+    hatch: solid
+    at: { x: 580, y: 667 }
+    size: { w: 200, h: 20 }
+  - id: th2n
+    label: "厚さ 3cm まで —— 規格外"
+    marker: none
+    align: center
+    at: { x: 560, y: 694 }
+    size: { w: 240, h: 18 }
+  - id: cap2
+    label: "厚さは、機械を通るかどうかの線。 区分機に入る厚みを超えると、人が手で扱う区分へ移る。"
+    marker: none
+    align: center
+    at: { x: 140, y: 722 }
+    size: { w: 660, h: 18 }
+  - id: t3
+    label: "③ 定形郵便物"
+    marker: none
+    align: left
+    at: { x: 860, y: 150 }
+    size: { w: 420, h: 20 }
+  - id: h860_186
+    label: "この 4 つを全部満たす"
+    hatch: solid
+    at: { x: 860, y: 186 }
+    size: { w: 420, h: 24 }
+  - id: x860_210
+    label: "長辺"
+    at: { x: 860, y: 210 }
+    size: { w: 130, h: 24 }
+  - id: y860_210
+    label: "14 〜 23.5cm"
+    align: left
+    at: { x: 990, y: 210 }
+    size: { w: 290, h: 24 }
+  - id: x860_234
+    label: "短辺"
+    at: { x: 860, y: 234 }
+    size: { w: 130, h: 24 }
+  - id: y860_234
+    label: "9 〜 12cm"
+    align: left
+    at: { x: 990, y: 234 }
+    size: { w: 290, h: 24 }
+  - id: x860_258
+    label: "厚さ"
+    at: { x: 860, y: 258 }
+    size: { w: 130, h: 24 }
+  - id: y860_258
+    label: "1cm 以下"
+    align: left
+    at: { x: 990, y: 258 }
+    size: { w: 290, h: 24 }
+  - id: x860_282
+    label: "重さ"
+    at: { x: 860, y: 282 }
+    size: { w: 130, h: 24 }
+  - id: y860_282
+    label: "50g 以下"
+    align: left
+    at: { x: 990, y: 282 }
+    size: { w: 290, h: 24 }
+  - id: x860_306
+    label: "料金"
+    at: { x: 860, y: 306 }
+    size: { w: 130, h: 24 }
+  - id: y860_306
+    label: "110 円"
+    align: left
+    at: { x: 990, y: 306 }
+    size: { w: 290, h: 24 }
+  - id: why3
+    label: "1 つでも外れたら定形外。\n「定形」は封筒の名前ではなく、\n4 つの条件の呼び名 ——\n中身を足して 50g を超えた時点で料金が変わる。"
+    at: { x: 860, y: 344 }
+    size: { w: 420, h: 74 }
+  - id: t4
+    label: "④ 定形外郵便物"
+    marker: none
+    align: left
+    at: { x: 860, y: 436 }
+    size: { w: 420, h: 20 }
+  - id: h860_466
+    label: "規格内と規格外"
+    hatch: solid
+    at: { x: 860, y: 466 }
+    size: { w: 420, h: 24 }
+  - id: x860_490
+    label: "規格内・長辺"
+    at: { x: 860, y: 490 }
+    size: { w: 130, h: 24 }
+  - id: y860_490
+    label: "34cm 以下"
+    align: left
+    at: { x: 990, y: 490 }
+    size: { w: 290, h: 24 }
+  - id: x860_514
+    label: "規格内・短辺"
+    at: { x: 860, y: 514 }
+    size: { w: 130, h: 24 }
+  - id: y860_514
+    label: "25cm 以下"
+    align: left
+    at: { x: 990, y: 514 }
+    size: { w: 290, h: 24 }
+  - id: x860_538
+    label: "規格内・厚さ"
+    at: { x: 860, y: 538 }
+    size: { w: 130, h: 24 }
+  - id: y860_538
+    label: "1cm 以下"
+    align: left
+    at: { x: 990, y: 538 }
+    size: { w: 290, h: 24 }
+  - id: x860_562
+    label: "規格内・重さ"
+    at: { x: 860, y: 562 }
+    size: { w: 130, h: 24 }
+  - id: y860_562
+    label: "1kg 以下"
+    align: left
+    at: { x: 990, y: 562 }
+    size: { w: 290, h: 24 }
+  - id: x860_586
+    label: "規格外・長辺"
+    at: { x: 860, y: 586 }
+    size: { w: 130, h: 24 }
+  - id: y860_586
+    label: "60cm 以下"
+    align: left
+    at: { x: 990, y: 586 }
+    size: { w: 290, h: 24 }
+  - id: x860_610
+    label: "規格外・厚さ"
+    at: { x: 860, y: 610 }
+    size: { w: 130, h: 24 }
+  - id: y860_610
+    label: "3cm 以下"
+    align: left
+    at: { x: 990, y: 610 }
+    size: { w: 290, h: 24 }
+  - id: x860_634
+    label: "規格外・重さ"
+    at: { x: 860, y: 634 }
+    size: { w: 130, h: 24 }
+  - id: y860_634
+    label: "4kg 以下"
+    align: left
+    at: { x: 990, y: 634 }
+    size: { w: 290, h: 24 }
+  - id: why4
+    label: "規格内と規格外で、料金の段が別。\n規格内は 140 〜 750 円、規格外は 260 〜 1,750 円 ——\n同じ重さでも、厚さ 1cm を超えるだけで\n高いほうの表に移る。"
+    at: { x: 860, y: 672 }
+    size: { w: 420, h: 74 }
+  - id: t5
+    label: "⑤ はがき"
+    marker: none
+    align: left
+    at: { x: 860, y: 764 }
+    size: { w: 420, h: 20 }
+  - id: h860_794
+    label: "定形より狭い"
+    hatch: solid
+    at: { x: 860, y: 794 }
+    size: { w: 420, h: 24 }
+  - id: x860_818
+    label: "長辺"
+    at: { x: 860, y: 818 }
+    size: { w: 130, h: 24 }
+  - id: y860_818
+    label: "14 〜 15.4cm"
+    align: left
+    at: { x: 990, y: 818 }
+    size: { w: 290, h: 24 }
+  - id: x860_842
+    label: "短辺"
+    at: { x: 860, y: 842 }
+    size: { w: 130, h: 24 }
+  - id: y860_842
+    label: "9 〜 10.7cm"
+    align: left
+    at: { x: 990, y: 842 }
+    size: { w: 290, h: 24 }
+  - id: x860_866
+    label: "重さ"
+    at: { x: 860, y: 866 }
+    size: { w: 130, h: 24 }
+  - id: y860_866
+    label: "2 〜 6g"
+    align: left
+    at: { x: 990, y: 866 }
+    size: { w: 290, h: 24 }
+  - id: x860_890
+    label: "料金"
+    at: { x: 860, y: 890 }
+    size: { w: 130, h: 24 }
+  - id: y860_890
+    label: "85 円"
+    align: left
+    at: { x: 990, y: 890 }
+    size: { w: 290, h: 24 }
+  - id: why5
+    label: "はがきには、下限の重さがある。\n2g より軽いと薄すぎて機械で扱えない ——\n上限だけでなく下限が書いてあるのは、\n郵便の規格では珍しい。"
+    at: { x: 860, y: 928 }
+    size: { w: 420, h: 74 }
+  - id: r1
+    label: "「定形」は封筒の名前ではなく、4 つの条件の呼び名です（③）。長辺・短辺・厚さ・重さのどれか 1 つでも外れたら定形外です。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1020 }
+    size: { w: 1140, h: 18 }
+  - id: r2
+    label: "下限は共通で 14 × 9cm です（①）。定形のいちばん小さい大きさは、はがきと同じです。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1044 }
+    size: { w: 1140, h: 18 }
+  - id: r3
+    label: "厚さ 1cm が、機械を通るかどうかの線です（②）。超えると規格外になり、料金の表そのものが変わります。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1068 }
+    size: { w: 1140, h: 18 }
+  - id: r4
+    label: "はがきには下限の重さがあります（⑤）。2g より軽いと薄すぎて扱えないので、2 〜 6g と決まっています。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1092 }
+    size: { w: 1140, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    ends: { from: none, to: arrow }

@@ -319,6 +319,29 @@ export async function placedFindings(text: string): Promise<Finding[]> {
     ];
   });
 
+  /**
+   * **折り返した名前が、箱からはみ出す**（2026-09-21。配置図だけ）。
+   *
+   * 名前は箱の上下の真ん中から積むので（`src/render.ts`）、
+   * 行が増えると上下へはみ出す。**幅は `name-adrift` が見ていたが、高さは誰も見ていなかった。**
+   * 構成図では箱の高さを機械が決めるので、見るのは配置図だけ。
+   */
+  const tall: Finding[] = !plan
+    ? []
+    : placed.boxes.flatMap((box) => {
+        const lines = typeof box.label === 'string' ? box.label.split('\n').length : 1;
+        if (lines < 2) return [];
+        const need = lines * 14 + (box.technology === null ? 0 : 13);
+        if (need <= box.h) return [];
+        return [
+          {
+            severity: 'warning' as const,
+            code: 'label-too-tall',
+            message: messages().validate.labelTooTall(box.id, lines, need, Math.round(box.h)),
+          },
+        ];
+      });
+
   if (!plan) return [...size, ...short, ...heads];
   const plans = planNames(placed.boxes, extentOf(placed.boxes), placed.edges, placed.groups);
   /**
@@ -340,6 +363,7 @@ export async function placedFindings(text: string): Promise<Finding[]> {
     ...size,
     ...short,
     ...heads,
+    ...tall,
     ...ink,
     // **広い箱から出ていった名前。** 表の欄が空に見える。
     /**

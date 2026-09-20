@@ -819,6 +819,16 @@ const ja = {
       `"${id}" の名前に **"${found}"** が入っています —— 日本語の字のすぐ隣に、小文字の英単語がくっついています。下書きの英語を日本語へ直し忘れた形（「前framing」のような、**無い言葉**）か、語の順が入れ替わった形（「160 以上cm」＝「160cm 以上」）です。**そのまま絵に出ます。** 日本語に直すか、あいだに空きを入れてください。単位（mm・cm・kg）や「PoE の」のように空きがある書き方は当たりません。`,
     circleNotSquare: (id: string, marker: string, w: number, h: number, d: number) =>
       `ノード "${id}" は \`marker: ${marker}\`（丸）ですが、\`size\` が ${w}×${h} で正方形ではありません。**丸は短いほうが直径になる**ので、描かれるのは**直径 ${d} の丸**で、長いほうの ${Math.max(w, h)} は消えます。ところが名前の置き場所と重なりの判定は ${w}×${h} のほうを見るので、**丸の横に空きが残ります**。横長・縦長の丸が欲しいなら \`marker: ellipse\`（w と h の両方を使います）、丸でよいなら \`size\` を正方形にしてください。`,
+    /**
+     * **折り返した名前が、箱からはみ出す**（2026-09-21）。
+     *
+     * 名前は箱の**上下の真ん中**から積むので、行が増えると上下へはみ出す
+     * （`src/render.ts`）。**幅は `name-adrift` が見ていたが、高さは誰も見ていなかった。**
+     * 見本 297 を描いていて自分で踏んだ —— 2 行の名前を高さ 18px の箱に入れ、
+     * 2 行目が下の図にかぶった。
+     */
+    labelTooTall: (id: string, lines: number, need: number, has: number) =>
+      `ノード "${id}" の名前は ${lines} 行ありますが、箱の高さが ${has}px しかありません（${need}px 要ります）。名前は箱の上下の真ん中から積むので、**足りない分は上下へはみ出して**、まわりの図に重なります。\`size.h\` を ${need}px 以上にするか、行を減らしてください。`,
     hatchTooThin: (id: string, hatch: string, side: number) =>
       `ノード "${id}" に \`hatch: ${hatch}\` を書いていますが、**面の短いほうが ${side}px しかないので、模様は 1 つも描かれません**（無地と見分けがつきません）。点は間隔 9px で置くので半間隔に満たない面には乗らず、斜線・格子は面で切り取られるので細いほど切れ端が短くなります。**線のつもりなら \`hatch\` を外して \`line\` で線種を指定**し、模様で材料を示したいなら**短いほうを 9px 以上**にしてください。`,
     colorWithoutCode: (key: string) =>
@@ -1479,6 +1489,8 @@ const en: Catalog = {
       `The label of "${id}" contains **"${found}"** — a lowercase English word glued straight onto Japanese text. That is usually a draft term left untranslated (an invented word), or two parts in the wrong order. **It is drawn exactly as written.** Translate it, or put a space between the scripts. Units (mm, cm, kg) and spaced forms like "PoE の" are not flagged.`,
     circleNotSquare: (id: string, marker: string, w: number, h: number, d: number) =>
       `Node "${id}" is \`marker: ${marker}\` (a circle), but its \`size\` is ${w}x${h}, not square. **A circle takes the shorter side as its diameter**, so what gets drawn is a **${d} circle** and the ${Math.max(w, h)} you wrote is gone. Label placement and overlap still measure the ${w}x${h} box, so **empty room is left beside the circle**. Use \`marker: ellipse\` for an oval (it uses both w and h), or make \`size\` square.`,
+    labelTooTall: (id: string, lines: number, need: number, has: number) =>
+      `Node "${id}" has a ${lines}-line name but the box is only ${has}px tall (it needs ${need}px). Lines are stacked from the middle of the box, so **the overflow spills above and below** onto whatever is there. Raise \`size.h\` to ${need}px or use fewer lines.`,
     hatchTooThin: (id: string, hatch: string, side: number) =>
       `Node "${id}" carries \`hatch: ${hatch}\`, but **its short side is only ${side}px, so not one mark is drawn** — it comes out indistinguishable from plain. Dots sit on a 9px pitch, so a face narrower than half that holds none; diagonals and cross-hatch are clipped to the face, so the thinner it is the shorter the stubs. **If you meant a line, drop \`hatch\` and set \`line\` instead**; if the pattern is meant to name a material, make the short side 9px or more.`,
     colorWithoutCode: (key: string) =>
