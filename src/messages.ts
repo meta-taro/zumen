@@ -178,6 +178,13 @@ const ja = {
     inspectStraddles: (count: number, pairs: string) => `  **またぎ ${count}**（${pairs}）`,
     inspectOverlaps: (count: number, pairs: string) => `  **文字の重なり ${count}**（${pairs}）`,
     inspectUnderBoxes: (count: number, pairs: string) => `  **箱に隠れた辺 ${count}**（${pairs}）`,
+    /**
+     * **どのラベルが消えたかを、文字で言う**（2026-09-20）。
+     *
+     * 辺の id だけでは、**どの言葉を短くすればよいか**が分からない
+     * （`lot>kaisyu` と言われても、書いた文字を探しに戻ることになる）。
+     */
+    hiddenLabelText: (edge: string, text: string) => `${edge}「${text}」`,
     inspectHiddenLabels: (count: number, ids: string) => `  **絵に出ていない辺のラベル ${count}**（${ids}）`,
     inspectCrowded: (count: number, ids: string) => `  **外へ出す先も無い名前 ${count}**（${ids}）`,
     /**
@@ -925,6 +932,7 @@ const en: Catalog = {
     inspectStraddles: (count: number, pairs: string) => `  **${count} straddles** (${pairs})`,
     inspectOverlaps: (count: number, pairs: string) => `  **${count} text overlaps** (${pairs})`,
     inspectUnderBoxes: (count: number, pairs: string) => `  **${count} edges buried under boxes** (${pairs})`,
+    hiddenLabelText: (edge: string, text: string) => `${edge} "${text}"`,
     inspectHiddenLabels: (count: number, ids: string) => `  **${count} edge labels never drawn** (${ids})`,
     inspectCrowded: (count: number, ids: string) => `  **${count} names with nowhere to go** (${ids})`,
     adriftWidth: (id: string, needs: string, has: string) => `${id} (needs ${needs}px, has ${has}px)`,

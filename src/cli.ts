@@ -506,7 +506,12 @@ export async function runInspect(paths: string[], read = readFileSync): Promise<
      * この口は交差とまたぎしか出していなかった。**閉じたはずの穴が半分開いていた。**
      */
     if (seen.hiddenLabels.length > 0) {
-      lines.push(m.inspectHiddenLabels(seen.hiddenLabels.length, names(seen.hiddenLabels)));
+      // **どの言葉が消えたかまで出す。** id だけでは、書いた文字を探しに戻ることになる。
+      const said = seen.hiddenLabels.map((id) => {
+        const edge = placed.edges.find((e) => e.id === id);
+        return edge?.label == null ? id : m.hiddenLabelText(`${edge.from} → ${edge.to}`, edge.label);
+      });
+      lines.push(m.inspectHiddenLabels(seen.hiddenLabels.length, names(said)));
     }
     if (seen.crowdedNames.length > 0) {
       lines.push(m.inspectCrowded(seen.crowdedNames.length, names(seen.crowdedNames)));

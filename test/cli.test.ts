@@ -754,6 +754,8 @@ describe('inspect が、検査と同じものを見る', () => {
     const result = await runInspect(['a.yaml'], reader({ 'a.yaml': hidden }) as never);
     const said = result.lines.join('\n');
     assert.match(said, /絵に出ていない辺のラベル/, said);
+    // **どの言葉が消えたかまで言う**（id だけでは、書いた文字を探しに戻ることになる）。
+    assert.match(said, /「とても長いラベル」/, said);
     assert.equal(result.code, 0, '止めない');
   });
 
