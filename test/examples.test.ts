@@ -275,3 +275,57 @@ describe('見本どうしの参照', () => {
     assert.deepEqual(broken, []);
   });
 });
+
+/**
+ * **道具を足したら、それを使った見本も足す**（2026-09-21）。
+ *
+ * `spec().rules` は「その書き方が効いている実物を先に見られる」と言っているが、
+ * **実物が 1 枚も無い語**があった。数えたら `ends` の
+ * `dot` / `dot-bar` / `dot-crow` が **0 枚**（見本 304 枚のうち）。
+ *
+ * 道具だけあって実物が無い語は、**書いてもよいのか分からない語**になる。
+ */
+describe('閉じた語彙と、それを使った見本', () => {
+  /** **まだ実物が無い語と、その理由。** 空にするのが目標。 */
+  const NO_SAMPLE_YET: Record<string, string> = {
+    'ends: dot':
+      '**丸 1 つは、鳥の足記法では単独で使わない**（0 以上は dot-crow、0 または 1 は dot-bar）。接続点としての使い道（単線結線図のバスの分岐など）は、まだ描いていない',
+  };
+
+  it('**どの値も、どこかの見本で使われている**', async () => {
+    const { MARKERS } = await import('../src/marker.ts');
+    const { HATCHES } = await import('../src/hatch.ts');
+    const { LINES } = await import('../src/line.ts');
+    const { ENDS } = await import('../src/ends.ts');
+    const dir = new URL('../examples/gallery/', import.meta.url);
+    const texts = readdirSync(dir)
+      .filter((f) => f.endsWith('.zumen.yaml'))
+      .map((f) => readFileSync(new URL(f, dir), 'utf8'));
+    const unused: string[] = [];
+    const census = (key: string, words: readonly string[], pattern: (w: string) => RegExp): void => {
+      for (const word of words) {
+        if (texts.some((t) => pattern(word).test(t))) continue;
+        unused.push(`${key}: ${word}`);
+      }
+    };
+    // **`\b` では足りない** —— `to: dot` の正規表現が `to: dot-crow` にも当たる。
+    const only = (w: string): string => `${w}(?![\\w-])`;
+    census('marker', MARKERS, (w) => new RegExp(`marker:\\s*${only(w)}`));
+    census('hatch', HATCHES, (w) => new RegExp(`hatch:\\s*${only(w)}`));
+    census('line', LINES, (w) => new RegExp(`line:\\s*${only(w)}`));
+    census('ends', ENDS, (w) => new RegExp(`(?:from|to):\\s*${only(w)}`));
+    assert.deepEqual(unused.filter((u) => NO_SAMPLE_YET[u] === undefined), []);
+  });
+
+  it('**理由を書いた語は、本当にまだ使われていない**（消し忘れを残さない）', async () => {
+    const dir = new URL('../examples/gallery/', import.meta.url);
+    const texts = readdirSync(dir)
+      .filter((f) => f.endsWith('.zumen.yaml'))
+      .map((f) => readFileSync(new URL(f, dir), 'utf8'));
+    for (const key of Object.keys(NO_SAMPLE_YET)) {
+      const word = key.split(': ')[1]!;
+      const used = texts.some((t) => new RegExp(`(?:from|to):\\s*${word}(?![\\w-])`).test(t));
+      assert.ok(!used, `${key} は使われている —— 表から消すこと`);
+    }
+  });
+});
