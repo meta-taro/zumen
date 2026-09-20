@@ -98,10 +98,12 @@ function pageParts(page) {
         en ? GROUPS_EN[group.key] : group.label
       } <span class="n">${group.items.length}</span></button>`,
     );
+    // **分野ごとのページへの入口**（2026-09-20。`scripts/pages.mjs`）。
+    // 見出しから辿れないと、せっかく作った URL に誰も行き着かない。
     figures.push(
-      `    <h3 class="cat" data-cat="${group.key}">${
+      `    <h3 class="cat" data-cat="${group.key}"><a href="${en ? '' : ''}c/${group.key}/">${
         en ? GROUPS_EN[group.key] : group.label
-      }<span class="n">${group.items.length}</span></h3>`,
+      }</a><span class="n">${group.items.length}</span></h3>`,
     );
     for (const item of en ? englishFirst(group.items) : group.items) {
       listed.add(item.name);

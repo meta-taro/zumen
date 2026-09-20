@@ -16,6 +16,9 @@
 
 /** 分類の見出し。 */
 export const GROUPS_EN = {
+  bosai: 'Disaster and emergency',
+  manabi: 'Learning and geometry',
+  ongaku: 'Instruments and acoustics',
   tetsudo: 'Transit and transport',
   kenchiku: 'Building and civil',
   setsubi: 'Services and electrical',
@@ -37,6 +40,9 @@ export const GROUPS_EN = {
  */
 export const ORDER_EN = [
   'kenchiku',
+  'bosai',
+  'manabi',
+  'ongaku',
   'setsubi',
   'iryo',
   'tenpo',
