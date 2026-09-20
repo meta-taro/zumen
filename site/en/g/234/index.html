@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>プロトコルのヘッダは、32 ビット幅で読む — zumen example 234</title>
+<link rel="icon" type="image/svg+xml" href="../../../icon.svg">
+<meta name="theme-color" content="#23232b">
+<meta name="description" content="Protocol headers are drawn 32 bits wide because that is the unit they are read in: the width of a field is its bit count, and nothing that does not divide into 32 ever appears">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="zumen">
+<meta property="og:locale" content="en_US">
+<meta property="og:url" content="https://meta-taro.github.io/zumen/en/g/234/">
+<meta property="og:title" content="プロトコルのヘッダは、32 ビット幅で読む — zumen example 234">
+<meta property="og:description" content="Protocol headers are drawn 32 bits wide because that is the unit they are read in: the width of a field is its bit count, and nothing that does not divide into 32 ever appears">
+<meta property="og:image" content="https://meta-taro.github.io/zumen/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="プロトコルのヘッダは、32 ビット幅で読む — zumen example 234">
+<meta name="twitter:description" content="Protocol headers are drawn 32 bits wide because that is the unit they are read in: the width of a field is its bit count, and nothing that does not divide into 32 ever appears">
+<meta name="twitter:image" content="https://meta-taro.github.io/zumen/og.png">
+<link rel="stylesheet" href="../../../style.css">
+<link rel="canonical" href="https://meta-taro.github.io/zumen/en/g/234/">
+<link rel="alternate" hreflang="en" href="https://meta-taro.github.io/zumen/en/g/234/">
+<link rel="alternate" hreflang="ja" href="https://meta-taro.github.io/zumen/g/234/">
+<link rel="alternate" hreflang="x-default" href="https://meta-taro.github.io/zumen/g/234/">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="alternate" type="text/markdown" href="https://meta-taro.github.io/zumen/llms.txt" title="llms.txt">
+<link rel="sitemap" type="application/xml" href="https://meta-taro.github.io/zumen/sitemap.xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": "プロトコルのヘッダは、32 ビット幅で読む",
+  "description": "Protocol headers are drawn 32 bits wide because that is the unit they are read in: the width of a field is its bit count, and nothing that does not divide into 32 ever appears",
+  "url": "https://meta-taro.github.io/zumen/en/g/234/",
+  "image": "https://meta-taro.github.io/zumen/gallery/234-%E3%83%97%E3%83%AD%E3%83%88%E3%82%B3%E3%83%AB%E3%81%AE%E3%83%98%E3%83%83%E3%83%80.svg",
+  "inLanguage": "en",
+  "license": "https://opensource.org/licenses/MIT",
+  "isPartOf": {
+    "@type": "CollectionPage",
+    "name": "IT and software",
+    "url": "https://meta-taro.github.io/zumen/en/c/it/"
+  },
+  "encodingFormat": "text/yaml",
+  "isAccessibleForFree": true
+}
+</script>
+</head>
+<body class="sub">
+<header class="bar">
+  <a class="home" href="../../../">zumen</a>
+  <nav><a href="../../c/it/">IT and software</a></nav>
+</header>
+<main>
+<article>
+  <p class="crumb">IT and software</p>
+  <h1>プロトコルのヘッダは、32 ビット幅で読む</h1>
+  <p class="lead">Protocol headers are drawn 32 bits wide because that is the unit they are read in: the width of a field is its bit count, and nothing that does not divide into 32 ever appears</p>
+  <figure>
+    <img src="../../../gallery/234-%E3%83%97%E3%83%AD%E3%83%88%E3%82%B3%E3%83%AB%E3%81%AE%E3%83%98%E3%83%83%E3%83%80.svg" alt="IPv4 と TCP のヘッダを 32 ビット幅で・Ethernet フレームの入れ子と MSS 1460" loading="lazy">
+  </figure>
+  <p class="made">This drawing comes from one YAML file. No shape was moved by hand.</p>
+  <h2>What the source says</h2>
+  <p><strong>幅がビットの数そのもの。</strong> RFC の図が 32 ビット幅なのは、その単位で読むから。</p>
+  <p>4 ＋ 4 ＋ 6 ＋ 2 ＋ 16 ＝ 32、16 ＋ 3 ＋ 13 ＝ 32 ——<strong>32 で割り切れない並びは出てこない。</strong> 行がそろうように決めてある。</p>
+  <p><strong>IHL と Data Offset があるから、うしろにオプションを足せる</strong>（ヘッダの長さを、ヘッダ自身が持っている）。</p>
+  <p>入れ子にすると <strong>MTU 1500 から IP 20 ＋ TCP 20 を引いた 1460 が MSS</strong>。Ethernet の 14 ＋ 4 バイトは MTU の外。</p>
+  <h2>Source (YAML)</h2>
+  <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/234-%E3%83%97%E3%83%AD%E3%83%88%E3%82%B3%E3%83%AB%E3%81%AE%E3%83%98%E3%83%83%E3%83%80.zumen.yaml"><code>examples/gallery/234-プロトコルのヘッダ.zumen.yaml</code></a></p>
+  <h2>More in this field</h2>
+  <ul class="near"><li><a href="../01/">On-premise server layout</a></li><li><a href="../02/">Cloud architecture</a></li><li><a href="../03/">Data flow</a></li><li><a href="../04/">Network layout</a></li><li><a href="../21/">Entity relationships</a></li><li><a href="../26/">Data centre rack elevation</a></li><li><a href="../46/">Class diagram (UML)</a></li><li><a href="../47/">State machine (UML)</a></li></ul>
+</article>
+</main>
+<footer class="foot">
+  <p><a href="https://github.com/meta-taro/zumen">GitHub</a> · MIT · <a href="https://meta-taro.github.io/zumen/g/234/">日本語</a></p>
+</footer>
+</body>
+</html>

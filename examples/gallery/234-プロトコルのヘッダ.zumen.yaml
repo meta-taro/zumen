@@ -1,0 +1,486 @@
+version: 1
+kind: placement
+arrows: true
+title: プロトコルのヘッダは、32 ビット幅で読む
+# **幅がビットの数そのもの。** RFC の図が 32 ビット幅なのは、その単位で読むから。
+#
+# 4 ＋ 4 ＋ 6 ＋ 2 ＋ 16 ＝ 32、16 ＋ 3 ＋ 13 ＝ 32 ——
+# **32 で割り切れない並びは出てこない。** 行がそろうように決めてある。
+#
+# **IHL と Data Offset があるから、うしろにオプションを足せる**
+# （ヘッダの長さを、ヘッダ自身が持っている）。
+#
+# 入れ子にすると **MTU 1500 から IP 20 ＋ TCP 20 を引いた 1460 が MSS**。
+# Ethernet の 14 ＋ 4 バイトは MTU の外。
+nodes:
+  - id: ipt
+    label: "① IPv4 ヘッダ（ビットの数を、幅で描く）"
+    marker: none
+    align: left
+    at: { x: 170, y: 248 }
+    size: { w: 768, h: 20 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 169, y: 285 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 169, y: 299 }
+    size: { w: 2, h: 2 }
+  - id: ipb0
+    label: "0"
+    marker: none
+    align: center
+    at: { x: 150, y: 268 }
+    size: { w: 40, h: 18 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 361, y: 285 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 361, y: 299 }
+    size: { w: 2, h: 2 }
+  - id: ipb8
+    label: "8"
+    marker: none
+    align: center
+    at: { x: 342, y: 268 }
+    size: { w: 40, h: 18 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 553, y: 285 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 553, y: 299 }
+    size: { w: 2, h: 2 }
+  - id: ipb16
+    label: "16"
+    marker: none
+    align: center
+    at: { x: 534, y: 268 }
+    size: { w: 40, h: 18 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 745, y: 285 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 745, y: 299 }
+    size: { w: 2, h: 2 }
+  - id: ipb24
+    label: "24"
+    marker: none
+    align: center
+    at: { x: 726, y: 268 }
+    size: { w: 40, h: 18 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 937, y: 285 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 937, y: 299 }
+    size: { w: 2, h: 2 }
+  - id: ipb31
+    label: "31"
+    marker: none
+    align: center
+    at: { x: 918, y: 268 }
+    size: { w: 40, h: 18 }
+  - id: ip_0_0
+    label: "Version 4"
+    at: { x: 170, y: 300 }
+    size: { w: 96, h: 34 }
+  - id: ip_0_1
+    label: "IHL 4"
+    at: { x: 266, y: 300 }
+    size: { w: 96, h: 34 }
+  - id: ip_0_2
+    label: "DSCP 6"
+    at: { x: 362, y: 300 }
+    size: { w: 144, h: 34 }
+  - id: ip_0_3
+    label: "ECN 2"
+    at: { x: 506, y: 300 }
+    size: { w: 48, h: 34 }
+  - id: ip_0_4
+    label: "Total Length 16"
+    at: { x: 554, y: 300 }
+    size: { w: 384, h: 34 }
+  - id: ip_1_0
+    label: "Identification 16"
+    at: { x: 170, y: 334 }
+    size: { w: 384, h: 34 }
+  - id: ip_1_1
+    label: "Flags 3"
+    at: { x: 554, y: 334 }
+    size: { w: 72, h: 34 }
+  - id: ip_1_2
+    label: "Fragment Offset 13"
+    at: { x: 626, y: 334 }
+    size: { w: 312, h: 34 }
+  - id: ip_2_0
+    label: "TTL 8"
+    at: { x: 170, y: 368 }
+    size: { w: 192, h: 34 }
+  - id: ip_2_1
+    label: "Protocol 8"
+    at: { x: 362, y: 368 }
+    size: { w: 192, h: 34 }
+  - id: ip_2_2
+    label: "Header Checksum 16"
+    at: { x: 554, y: 368 }
+    size: { w: 384, h: 34 }
+  - id: ip_3_0
+    label: "Source Address 32"
+    at: { x: 170, y: 402 }
+    size: { w: 768, h: 34 }
+  - id: ip_4_0
+    label: "Destination Address 32"
+    at: { x: 170, y: 436 }
+    size: { w: 768, h: 34 }
+  - id: ipn
+    label: "20 バイト（オプション無し）"
+    marker: none
+    align: left
+    at: { x: 952, y: 308 }
+    size: { w: 220, h: 18 }
+  - id: tcpt
+    label: "② TCP ヘッダ"
+    marker: none
+    align: left
+    at: { x: 170, y: 528 }
+    size: { w: 768, h: 20 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 169, y: 565 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 169, y: 579 }
+    size: { w: 2, h: 2 }
+  - id: tcpb0
+    label: "0"
+    marker: none
+    align: center
+    at: { x: 150, y: 548 }
+    size: { w: 40, h: 18 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 361, y: 565 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 361, y: 579 }
+    size: { w: 2, h: 2 }
+  - id: tcpb8
+    label: "8"
+    marker: none
+    align: center
+    at: { x: 342, y: 548 }
+    size: { w: 40, h: 18 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 553, y: 565 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 553, y: 579 }
+    size: { w: 2, h: 2 }
+  - id: tcpb16
+    label: "16"
+    marker: none
+    align: center
+    at: { x: 534, y: 548 }
+    size: { w: 40, h: 18 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 745, y: 565 }
+    size: { w: 2, h: 2 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 745, y: 579 }
+    size: { w: 2, h: 2 }
+  - id: tcpb24
+    label: "24"
+    marker: none
+    align: center
+    at: { x: 726, y: 548 }
+    size: { w: 40, h: 18 }
+  - id: p18
+    label: ""
+    marker: none
+    at: { x: 937, y: 565 }
+    size: { w: 2, h: 2 }
+  - id: p19
+    label: ""
+    marker: none
+    at: { x: 937, y: 579 }
+    size: { w: 2, h: 2 }
+  - id: tcpb31
+    label: "31"
+    marker: none
+    align: center
+    at: { x: 918, y: 548 }
+    size: { w: 40, h: 18 }
+  - id: tcp_0_0
+    label: "Source Port 16"
+    at: { x: 170, y: 580 }
+    size: { w: 384, h: 34 }
+  - id: tcp_0_1
+    label: "Destination Port 16"
+    at: { x: 554, y: 580 }
+    size: { w: 384, h: 34 }
+  - id: tcp_1_0
+    label: "Sequence Number 32"
+    at: { x: 170, y: 614 }
+    size: { w: 768, h: 34 }
+  - id: tcp_2_0
+    label: "Acknowledgment Number 32"
+    at: { x: 170, y: 648 }
+    size: { w: 768, h: 34 }
+  - id: tcp_3_0
+    label: "Data Offset 4"
+    at: { x: 170, y: 682 }
+    size: { w: 96, h: 34 }
+  - id: tcp_3_1
+    label: "Rsvd 4"
+    at: { x: 266, y: 682 }
+    size: { w: 96, h: 34 }
+  - id: tcp_3_2
+    label: "Flags 8"
+    at: { x: 362, y: 682 }
+    size: { w: 192, h: 34 }
+  - id: tcp_3_3
+    label: "Window 16"
+    at: { x: 554, y: 682 }
+    size: { w: 384, h: 34 }
+  - id: tcp_4_0
+    label: "Checksum 16"
+    at: { x: 170, y: 716 }
+    size: { w: 384, h: 34 }
+  - id: tcp_4_1
+    label: "Urgent Pointer 16"
+    at: { x: 554, y: 716 }
+    size: { w: 384, h: 34 }
+  - id: tcpn
+    label: "20 バイト（オプション無し）"
+    marker: none
+    align: left
+    at: { x: 952, y: 588 }
+    size: { w: 220, h: 18 }
+  - id: tcpf
+    label: "Flags ＝ CWR / ECE / URG / ACK / PSH / RST / SYN / FIN の 8 ビット"
+    marker: none
+    align: left
+    at: { x: 170, y: 762 }
+    size: { w: 700, h: 18 }
+  - id: tcpf2
+    label: "Data Offset があるから、うしろにオプションを足せる（だから可変長）。"
+    marker: none
+    align: left
+    at: { x: 170, y: 784 }
+    size: { w: 700, h: 18 }
+  - id: t3
+    label: "③ 入れ子にすると、データに使えるのは 1460 バイト"
+    marker: none
+    align: left
+    at: { x: 170, y: 836 }
+    size: { w: 900, h: 20 }
+  - id: fr0
+    label: "宛先 MAC 6"
+    at: { x: 170, y: 870 }
+    size: { w: 72, h: 36 }
+  - id: fr1
+    label: "送信元 6"
+    at: { x: 242, y: 870 }
+    size: { w: 72, h: 36 }
+  - id: fr2
+    label: "2"
+    at: { x: 314, y: 870 }
+    size: { w: 24, h: 36 }
+  - id: fr3
+    label: "ペイロード 46〜1500"
+    hatch: dots
+    at: { x: 338, y: 870 }
+    size: { w: 552, h: 36 }
+  - id: fr4
+    label: "FCS 4"
+    at: { x: 890, y: 870 }
+    size: { w: 48, h: 36 }
+  - id: pl0
+    label: "IP 20"
+    at: { x: 338, y: 930 }
+    size: { w: 240, h: 36 }
+  - id: pl1
+    label: "TCP 20"
+    at: { x: 578, y: 930 }
+    size: { w: 240, h: 36 }
+  - id: pl2
+    label: "データ 1460"
+    hatch: lines
+    at: { x: 818, y: 930 }
+    size: { w: 360, h: 36 }
+  - id: p20
+    label: ""
+    marker: none
+    at: { x: 337, y: 905 }
+    size: { w: 2, h: 2 }
+  - id: p21
+    label: ""
+    marker: none
+    at: { x: 337, y: 929 }
+    size: { w: 2, h: 2 }
+  - id: p22
+    label: ""
+    marker: none
+    at: { x: 889, y: 905 }
+    size: { w: 2, h: 2 }
+  - id: p23
+    label: ""
+    marker: none
+    at: { x: 1177, y: 929 }
+    size: { w: 2, h: 2 }
+  - id: e0
+    label: "真ん中の 2 バイトの欄は「型」（EtherType）—— 中身が IP か何かを示す。"
+    marker: none
+    align: left
+    at: { x: 170, y: 982 }
+    size: { w: 900, h: 18 }
+  - id: e1
+    label: "MTU 1500 のうち、IP 20 ＋ TCP 20 ＝ 40 バイトがヘッダ。"
+    marker: none
+    align: left
+    at: { x: 170, y: 1004 }
+    size: { w: 900, h: 18 }
+  - id: e2
+    label: "残る 1460 が MSS（1 回で運べるデータ）。"
+    marker: none
+    align: left
+    at: { x: 170, y: 1026 }
+    size: { w: 900, h: 18 }
+  - id: e3
+    label: "Ethernet の 14 ＋ 4 バイトは MTU の外（1500 はペイロードの上限）。"
+    marker: none
+    align: left
+    at: { x: 170, y: 1048 }
+    size: { w: 900, h: 18 }
+  - id: e4
+    label: "下の帯は、データの幅を縮めて描いてある —— 実際のヘッダ 40 バイトは 1500 の 2.7%。"
+    marker: none
+    align: left
+    at: { x: 170, y: 1070 }
+    size: { w: 900, h: 18 }
+  - id: r1
+    label: "ヘッダの図は、かならず 32 ビット幅で描かれます。 RFC の図がその形をしているのは、その単位で読むからです。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1100 }
+    size: { w: 1000, h: 18 }
+  - id: r2
+    label: "幅がビットの数そのものです（①②）。Version が 4 ビット、Total Length が 16 ビット —— 図を測れば、桁が分かります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1124 }
+    size: { w: 1000, h: 18 }
+  - id: r3
+    label: "32 で割り切れない並びは出てきません。 4 ＋ 4 ＋ 6 ＋ 2 ＋ 16 ＝ 32、16 ＋ 3 ＋ 13 ＝ 32。行がそろうように決めてあります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1148 }
+    size: { w: 1000, h: 18 }
+  - id: r4
+    label: "IHL と Data Offset があるから、うしろにオプションを足せます。 ヘッダの長さを、ヘッダ自身が持っている。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1172 }
+    size: { w: 1000, h: 18 }
+  - id: r5
+    label: "入れ子にすると、データに使えるのは 1460 バイト（③）。MTU 1500 から IP 20 ＋ TCP 20 を引いた残りが MSS です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1196 }
+    size: { w: 1000, h: 18 }
+  - id: r6
+    label: "Ethernet の 14 ＋ 4 バイトは MTU の外です。1500 は「ペイロードの上限」で、フレーム全体の長さではありません。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1220 }
+    size: { w: 1000, h: 18 }
+  - id: r7
+    label: "この図は PowerPoint でいちばん描かれている図の 1 つです。ビットの並びは規格そのものなので、手で図形を動かす理由がありません。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1244 }
+    size: { w: 1000, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    ends: { from: none, to: none }
+  - from: p2
+    to: p3
+    curve: none
+    ends: { from: none, to: none }
+  - from: p4
+    to: p5
+    curve: none
+    ends: { from: none, to: none }
+  - from: p6
+    to: p7
+    curve: none
+    ends: { from: none, to: none }
+  - from: p8
+    to: p9
+    curve: none
+    ends: { from: none, to: none }
+  - from: p10
+    to: p11
+    curve: none
+    ends: { from: none, to: none }
+  - from: p12
+    to: p13
+    curve: none
+    ends: { from: none, to: none }
+  - from: p14
+    to: p15
+    curve: none
+    ends: { from: none, to: none }
+  - from: p16
+    to: p17
+    curve: none
+    ends: { from: none, to: none }
+  - from: p18
+    to: p19
+    curve: none
+    ends: { from: none, to: none }
+  - from: p20
+    to: p21
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }
+  - from: p22
+    to: p23
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }

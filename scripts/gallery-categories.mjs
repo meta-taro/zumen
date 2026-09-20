@@ -294,6 +294,7 @@ export const CATEGORIES = [
     key: 'it',
     label: 'IT・ソフトウェア',
     items: [
+      { name: '234-プロトコルのヘッダ', alt: 'IPv4 と TCP のヘッダを 32 ビット幅で・Ethernet フレームの入れ子と MSS 1460', caption: 'ヘッダ（幅がビットの数そのもの。32 で割り切れる）' },
       { name: '26-データセンターのラック', alt: 'サーバ室のラック配置', caption: 'データセンターのラック配置' },
       { name: '21-テーブルの関係', alt: '受注管理の ER 図', caption: 'テーブルの関係（ER）' },
       { name: '46-クラス図', alt: 'UML クラス図', caption: 'クラス図（UML）' },
