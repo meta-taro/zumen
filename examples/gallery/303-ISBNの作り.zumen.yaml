@@ -1,0 +1,580 @@
+version: 1
+kind: placement
+arrows: true
+title: ISBN の作り（桁数が動くのは、真ん中の 2 つだけ）
+# **ISBN-13 は 5 つの部分でできている。**
+# **接頭記号**（978 か 979。3 桁）／ **国・地域・言語**（日本は 4。1 桁）／
+# **出版者記号** ／ **書名記号** ／ **チェックディジット**（1 桁）。
+#
+# **桁数が動くのは、真ん中の 2 つだけ。**
+# 出版者記号が短いほど書名記号を長く取れるので、
+# **たくさん本を出す出版者ほど、短い番号を持つ。** 合計は必ず 13 桁。
+#
+# **チェックディジットは、1 と 3 の重み付き和から出す。**
+# 左から 1・3・1・3… を掛けて 12 個の積を足し、10 で割った余りを 10 から引く
+# （**余りが 0 のときだけ答えは 0**。10 ではない）。
+#
+# 例（978-0-306-40615-7）—— 9+21+8+0+3+0+6+12+0+18+1+15 ＝ **93**。
+# 93 ÷ 10 の余りは **3**。10 − 3 ＝ **7** で、いちばん右の桁と合う。
+#
+# **重みが 1 と 3 なのは、隣どうしの入れ替えを見つけるため。**
+# 同じ重みだと 12 と 21 の区別がつかない ——
+# 重みが違えば、入れ替えたときに積の合計が変わる。
+#
+# **それでも完全ではない。** 隣り合う 2 桁の**差が 5**のときだけ、
+# 入れ替えても合計が変わらない（重みの差 2 × 差 5 ＝ 10 で、10 の倍数だから余りが動かない）。
+# **「検査を通った」は「正しい」ではない。**
+nodes:
+  - id: t1
+    label: "① 13 桁の割り付け（例：978-0-306-40615-7）"
+    marker: none
+    align: left
+    at: { x: 140, y: 150 }
+    size: { w: 660, h: 20 }
+  - id: d0
+    label: "9"
+    at: { x: 260, y: 240 }
+    size: { w: 38, h: 54 }
+  - id: d1
+    label: "7"
+    at: { x: 301, y: 240 }
+    size: { w: 38, h: 54 }
+  - id: d2
+    label: "8"
+    at: { x: 342, y: 240 }
+    size: { w: 38, h: 54 }
+  - id: d3
+    label: "0"
+    at: { x: 383, y: 240 }
+    size: { w: 38, h: 54 }
+  - id: d4
+    label: "3"
+    at: { x: 424, y: 240 }
+    size: { w: 38, h: 54 }
+  - id: d5
+    label: "0"
+    at: { x: 465, y: 240 }
+    size: { w: 38, h: 54 }
+  - id: d6
+    label: "6"
+    at: { x: 506, y: 240 }
+    size: { w: 38, h: 54 }
+  - id: d7
+    label: "4"
+    at: { x: 547, y: 240 }
+    size: { w: 38, h: 54 }
+  - id: d8
+    label: "0"
+    at: { x: 588, y: 240 }
+    size: { w: 38, h: 54 }
+  - id: d9
+    label: "6"
+    at: { x: 629, y: 240 }
+    size: { w: 38, h: 54 }
+  - id: d10
+    label: "1"
+    at: { x: 670, y: 240 }
+    size: { w: 38, h: 54 }
+  - id: d11
+    label: "5"
+    at: { x: 711, y: 240 }
+    size: { w: 38, h: 54 }
+  - id: d12
+    label: "7"
+    hatch: solid
+    at: { x: 752, y: 240 }
+    size: { w: 38, h: 54 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 259, y: 293 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 379, y: 293 }
+    size: { w: 2, h: 2 }
+  - id: pren
+    label: "接頭記号 978 か 979"
+    marker: none
+    align: center
+    at: { x: 210, y: 306 }
+    size: { w: 220, h: 18 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 382, y: 319 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 420, y: 319 }
+    size: { w: 2, h: 2 }
+  - id: kunin
+    label: "国 0"
+    marker: none
+    align: center
+    at: { x: 292, y: 332 }
+    size: { w: 220, h: 18 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 423, y: 345 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 543, y: 345 }
+    size: { w: 2, h: 2 }
+  - id: shan
+    label: "出版者 306"
+    marker: none
+    align: center
+    at: { x: 374, y: 358 }
+    size: { w: 220, h: 18 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 546, y: 371 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 748, y: 371 }
+    size: { w: 2, h: 2 }
+  - id: shon
+    label: "書名 40615"
+    marker: none
+    align: center
+    at: { x: 538, y: 384 }
+    size: { w: 220, h: 18 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 751, y: 397 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 789, y: 397 }
+    size: { w: 2, h: 2 }
+  - id: cdn
+    label: "チェックディジット 7"
+    marker: none
+    align: center
+    at: { x: 686, y: 410 }
+    size: { w: 170, h: 18 }
+  - id: cap1
+    label: "出版者と書名の桁数は一定ではない。\n大きい出版者ほど出版者記号が短く、そのぶん書名記号が長い —— 合わせて 13 桁。"
+    marker: none
+    align: center
+    at: { x: 140, y: 436 }
+    size: { w: 660, h: 36 }
+  - id: t2
+    label: "② チェックディジットの出し方 —— 重みは 1 と 3 の繰り返し"
+    marker: none
+    align: left
+    at: { x: 140, y: 480 }
+    size: { w: 660, h: 20 }
+  - id: r1h
+    label: "数字"
+    hatch: solid
+    at: { x: 150, y: 520 }
+    size: { w: 106, h: 30 }
+  - id: r10
+    label: "9"
+    at: { x: 260, y: 520 }
+    size: { w: 38, h: 30 }
+  - id: r11
+    label: "7"
+    at: { x: 301, y: 520 }
+    size: { w: 38, h: 30 }
+  - id: r12
+    label: "8"
+    at: { x: 342, y: 520 }
+    size: { w: 38, h: 30 }
+  - id: r13
+    label: "0"
+    at: { x: 383, y: 520 }
+    size: { w: 38, h: 30 }
+  - id: r14
+    label: "3"
+    at: { x: 424, y: 520 }
+    size: { w: 38, h: 30 }
+  - id: r15
+    label: "0"
+    at: { x: 465, y: 520 }
+    size: { w: 38, h: 30 }
+  - id: r16
+    label: "6"
+    at: { x: 506, y: 520 }
+    size: { w: 38, h: 30 }
+  - id: r17
+    label: "4"
+    at: { x: 547, y: 520 }
+    size: { w: 38, h: 30 }
+  - id: r18
+    label: "0"
+    at: { x: 588, y: 520 }
+    size: { w: 38, h: 30 }
+  - id: r19
+    label: "6"
+    at: { x: 629, y: 520 }
+    size: { w: 38, h: 30 }
+  - id: r110
+    label: "1"
+    at: { x: 670, y: 520 }
+    size: { w: 38, h: 30 }
+  - id: r111
+    label: "5"
+    at: { x: 711, y: 520 }
+    size: { w: 38, h: 30 }
+  - id: r2h
+    label: "重み"
+    hatch: solid
+    at: { x: 150, y: 550 }
+    size: { w: 106, h: 30 }
+  - id: r20
+    label: "1"
+    at: { x: 260, y: 550 }
+    size: { w: 38, h: 30 }
+  - id: r21
+    label: "3"
+    at: { x: 301, y: 550 }
+    size: { w: 38, h: 30 }
+  - id: r22
+    label: "1"
+    at: { x: 342, y: 550 }
+    size: { w: 38, h: 30 }
+  - id: r23
+    label: "3"
+    at: { x: 383, y: 550 }
+    size: { w: 38, h: 30 }
+  - id: r24
+    label: "1"
+    at: { x: 424, y: 550 }
+    size: { w: 38, h: 30 }
+  - id: r25
+    label: "3"
+    at: { x: 465, y: 550 }
+    size: { w: 38, h: 30 }
+  - id: r26
+    label: "1"
+    at: { x: 506, y: 550 }
+    size: { w: 38, h: 30 }
+  - id: r27
+    label: "3"
+    at: { x: 547, y: 550 }
+    size: { w: 38, h: 30 }
+  - id: r28
+    label: "1"
+    at: { x: 588, y: 550 }
+    size: { w: 38, h: 30 }
+  - id: r29
+    label: "3"
+    at: { x: 629, y: 550 }
+    size: { w: 38, h: 30 }
+  - id: r210
+    label: "1"
+    at: { x: 670, y: 550 }
+    size: { w: 38, h: 30 }
+  - id: r211
+    label: "3"
+    at: { x: 711, y: 550 }
+    size: { w: 38, h: 30 }
+  - id: r3h
+    label: "積"
+    hatch: solid
+    at: { x: 150, y: 580 }
+    size: { w: 106, h: 30 }
+  - id: r30
+    label: "9"
+    at: { x: 260, y: 580 }
+    size: { w: 38, h: 30 }
+  - id: r31
+    label: "21"
+    at: { x: 301, y: 580 }
+    size: { w: 38, h: 30 }
+  - id: r32
+    label: "8"
+    at: { x: 342, y: 580 }
+    size: { w: 38, h: 30 }
+  - id: r33
+    label: "0"
+    at: { x: 383, y: 580 }
+    size: { w: 38, h: 30 }
+  - id: r34
+    label: "3"
+    at: { x: 424, y: 580 }
+    size: { w: 38, h: 30 }
+  - id: r35
+    label: "0"
+    at: { x: 465, y: 580 }
+    size: { w: 38, h: 30 }
+  - id: r36
+    label: "6"
+    at: { x: 506, y: 580 }
+    size: { w: 38, h: 30 }
+  - id: r37
+    label: "12"
+    at: { x: 547, y: 580 }
+    size: { w: 38, h: 30 }
+  - id: r38
+    label: "0"
+    at: { x: 588, y: 580 }
+    size: { w: 38, h: 30 }
+  - id: r39
+    label: "18"
+    at: { x: 629, y: 580 }
+    size: { w: 38, h: 30 }
+  - id: r310
+    label: "1"
+    at: { x: 670, y: 580 }
+    size: { w: 38, h: 30 }
+  - id: r311
+    label: "15"
+    at: { x: 711, y: 580 }
+    size: { w: 38, h: 30 }
+  - id: sum
+    label: "積の合計 ＝ 93"
+    marker: none
+    align: left
+    at: { x: 260, y: 620 }
+    size: { w: 300, h: 18 }
+  - id: mod
+    label: "93 ÷ 10 の余り ＝ 3"
+    marker: none
+    align: left
+    at: { x: 260, y: 642 }
+    size: { w: 300, h: 18 }
+  - id: ans
+    label: "10 − 3 ＝ 7 ←── いちばん右の桁"
+    marker: none
+    align: left
+    at: { x: 260, y: 664 }
+    size: { w: 400, h: 18 }
+  - id: cap2
+    label: "余りが 0 のときだけ、答えは 0（10 ではない）。1 桁に収める約束。"
+    marker: none
+    align: center
+    at: { x: 140, y: 696 }
+    size: { w: 660, h: 18 }
+  - id: t3
+    label: "③ 5 つの部分"
+    marker: none
+    align: left
+    at: { x: 860, y: 150 }
+    size: { w: 420, h: 20 }
+  - id: h860_186
+    label: "左から"
+    hatch: solid
+    at: { x: 860, y: 186 }
+    size: { w: 420, h: 24 }
+  - id: x860_210
+    label: "接頭記号"
+    at: { x: 860, y: 210 }
+    size: { w: 150, h: 24 }
+  - id: y860_210
+    label: "978 か 979（3 桁）"
+    align: left
+    at: { x: 1010, y: 210 }
+    size: { w: 270, h: 24 }
+  - id: x860_234
+    label: "国・地域・言語"
+    at: { x: 860, y: 234 }
+    size: { w: 150, h: 24 }
+  - id: y860_234
+    label: "日本は 4（1 桁）"
+    align: left
+    at: { x: 1010, y: 234 }
+    size: { w: 270, h: 24 }
+  - id: x860_258
+    label: "出版者記号"
+    at: { x: 860, y: 258 }
+    size: { w: 150, h: 24 }
+  - id: y860_258
+    label: "桁数は一定でない"
+    align: left
+    at: { x: 1010, y: 258 }
+    size: { w: 270, h: 24 }
+  - id: x860_282
+    label: "書名記号"
+    at: { x: 860, y: 282 }
+    size: { w: 150, h: 24 }
+  - id: y860_282
+    label: "桁数は一定でない"
+    align: left
+    at: { x: 1010, y: 282 }
+    size: { w: 270, h: 24 }
+  - id: x860_306
+    label: "チェックディジット"
+    at: { x: 860, y: 306 }
+    size: { w: 150, h: 24 }
+  - id: y860_306
+    label: "1 桁"
+    align: left
+    at: { x: 1010, y: 306 }
+    size: { w: 270, h: 24 }
+  - id: why3
+    label: "桁数が動くのは、真ん中の 2 つだけ。\n出版者記号が短いほど書名記号が長く取れる ——\nたくさん本を出す出版者ほど、短い番号を持つ。\n合計は必ず 13 桁。"
+    at: { x: 860, y: 344 }
+    size: { w: 420, h: 74 }
+  - id: t4
+    label: "④ 計算の手順"
+    marker: none
+    align: left
+    at: { x: 860, y: 436 }
+    size: { w: 420, h: 20 }
+  - id: h860_466
+    label: "4 つだけ"
+    hatch: solid
+    at: { x: 860, y: 466 }
+    size: { w: 420, h: 24 }
+  - id: x860_490
+    label: "1"
+    at: { x: 860, y: 490 }
+    size: { w: 150, h: 24 }
+  - id: y860_490
+    label: "左から 1・3・1・3… を掛ける"
+    align: left
+    at: { x: 1010, y: 490 }
+    size: { w: 270, h: 24 }
+  - id: x860_514
+    label: "2"
+    at: { x: 860, y: 514 }
+    size: { w: 150, h: 24 }
+  - id: y860_514
+    label: "12 個の積を足す"
+    align: left
+    at: { x: 1010, y: 514 }
+    size: { w: 270, h: 24 }
+  - id: x860_538
+    label: "3"
+    at: { x: 860, y: 538 }
+    size: { w: 150, h: 24 }
+  - id: y860_538
+    label: "10 で割った余りを出す"
+    align: left
+    at: { x: 1010, y: 538 }
+    size: { w: 270, h: 24 }
+  - id: x860_562
+    label: "4"
+    at: { x: 860, y: 562 }
+    size: { w: 150, h: 24 }
+  - id: y860_562
+    label: "10 から引く（余りが 0 なら 0）"
+    align: left
+    at: { x: 1010, y: 562 }
+    size: { w: 270, h: 24 }
+  - id: why4
+    label: "重みが 1 と 3 なのは、隣どうしの入れ替えを見つけるため。\n同じ重みだと 12 と 21 の区別がつかない ——\n重みが違えば、積の合計が変わる。"
+    at: { x: 860, y: 600 }
+    size: { w: 420, h: 74 }
+  - id: t5
+    label: "⑤ 何を見つけられるか"
+    marker: none
+    align: left
+    at: { x: 860, y: 692 }
+    size: { w: 420, h: 20 }
+  - id: h860_722
+    label: "チェックディジットの守備範囲"
+    hatch: solid
+    at: { x: 860, y: 722 }
+    size: { w: 420, h: 24 }
+  - id: x860_746
+    label: "1 桁の打ち間違い"
+    at: { x: 860, y: 746 }
+    size: { w: 150, h: 24 }
+  - id: y860_746
+    label: "必ず見つかる"
+    align: left
+    at: { x: 1010, y: 746 }
+    size: { w: 270, h: 24 }
+  - id: x860_770
+    label: "隣どうしの入れ替え"
+    at: { x: 860, y: 770 }
+    size: { w: 150, h: 24 }
+  - id: y860_770
+    label: "差が 5 のときだけ見逃す"
+    align: left
+    at: { x: 1010, y: 770 }
+    size: { w: 270, h: 24 }
+  - id: x860_794
+    label: "2 桁以上の誤り"
+    at: { x: 860, y: 794 }
+    size: { w: 150, h: 24 }
+  - id: y860_794
+    label: "見つからないことがある"
+    align: left
+    at: { x: 1010, y: 794 }
+    size: { w: 270, h: 24 }
+  - id: why5
+    label: "完全ではない。 隣り合う 2 桁の差が 5 だと、\n入れ替えても積の合計が変わらない\n（重みの差 2 × 差 5 ＝ 10）——\n「検査を通った」は「正しい」ではない。"
+    at: { x: 860, y: 832 }
+    size: { w: 420, h: 92 }
+  - id: r1
+    label: "13 桁は 5 つの部分でできています（①③）。接頭記号・国・出版者・書名・チェックディジットです。"
+    marker: none
+    align: left
+    at: { x: 140, y: 942 }
+    size: { w: 1140, h: 18 }
+  - id: r2
+    label: "桁数が動くのは真ん中の 2 つだけです。 たくさん本を出す出版者ほど短い番号を持ち、そのぶん書名記号を長く取れます。"
+    marker: none
+    align: left
+    at: { x: 140, y: 966 }
+    size: { w: 1140, h: 18 }
+  - id: r3
+    label: "チェックディジットは 1・3 の重み付き和から出します（②④）。合計 93、余り 3、10 − 3 ＝ 7。"
+    marker: none
+    align: left
+    at: { x: 140, y: 990 }
+    size: { w: 1140, h: 18 }
+  - id: r4
+    label: "重みが 1 と 3 なのは、隣どうしの入れ替えを見つけるためです。 同じ重みだと 12 と 21 の区別がつきません。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1014 }
+    size: { w: 1140, h: 18 }
+  - id: r5
+    label: "それでも完全ではありません（⑤）。隣り合う 2 桁の差が 5 のときだけ、入れ替えても合計が変わりません。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1038 }
+    size: { w: 1140, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 260, y: 302 }
+      - { x: 380, y: 302 }
+  - from: p2
+    to: p3
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 383, y: 328 }
+      - { x: 421, y: 328 }
+  - from: p4
+    to: p5
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 424, y: 354 }
+      - { x: 544, y: 354 }
+  - from: p6
+    to: p7
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 547, y: 380 }
+      - { x: 749, y: 380 }
+  - from: p8
+    to: p9
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 752, y: 406 }
+      - { x: 790, y: 406 }

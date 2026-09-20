@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ISBN の作り（桁数が動くのは、真ん中の 2 つだけ） — zumen の見本 303</title>
+<link rel="icon" type="image/svg+xml" href="../../icon.svg">
+<meta name="theme-color" content="#23232b">
+<meta name="description" content="ISBN の作り（桁数が動くのは、真ん中の 2 つだけ）">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="zumen">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:url" content="https://meta-taro.github.io/zumen/g/303/">
+<meta property="og:title" content="ISBN の作り（桁数が動くのは、真ん中の 2 つだけ） — zumen の見本 303">
+<meta property="og:description" content="ISBN の作り（桁数が動くのは、真ん中の 2 つだけ）">
+<meta property="og:image" content="https://meta-taro.github.io/zumen/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ISBN の作り（桁数が動くのは、真ん中の 2 つだけ） — zumen の見本 303">
+<meta name="twitter:description" content="ISBN の作り（桁数が動くのは、真ん中の 2 つだけ）">
+<meta name="twitter:image" content="https://meta-taro.github.io/zumen/og.png">
+<link rel="stylesheet" href="../../style.css">
+<link rel="canonical" href="https://meta-taro.github.io/zumen/g/303/">
+<link rel="alternate" hreflang="ja" href="https://meta-taro.github.io/zumen/g/303/">
+<link rel="alternate" hreflang="en" href="https://meta-taro.github.io/zumen/en/g/303/">
+<link rel="alternate" hreflang="x-default" href="https://meta-taro.github.io/zumen/g/303/">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="alternate" type="text/markdown" href="https://meta-taro.github.io/zumen/llms.txt" title="llms.txt">
+<link rel="sitemap" type="application/xml" href="https://meta-taro.github.io/zumen/sitemap.xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": "ISBN の作り（桁数が動くのは、真ん中の 2 つだけ）",
+  "description": "ISBN の作り（桁数が動くのは、真ん中の 2 つだけ）",
+  "url": "https://meta-taro.github.io/zumen/g/303/",
+  "image": "https://meta-taro.github.io/zumen/gallery/303-ISBN%E3%81%AE%E4%BD%9C%E3%82%8A.svg",
+  "inLanguage": "ja",
+  "license": "https://opensource.org/licenses/MIT",
+  "isPartOf": {
+    "@type": "CollectionPage",
+    "name": "学び・図学",
+    "url": "https://meta-taro.github.io/zumen/c/manabi/"
+  },
+  "encodingFormat": "text/yaml",
+  "isAccessibleForFree": true
+}
+</script>
+</head>
+<body class="sub">
+<header class="bar">
+  <a class="home" href="../../">zumen</a>
+  <nav><a href="../../c/manabi/">学び・図学</a></nav>
+</header>
+<main>
+<article>
+  <p class="crumb">学び・図学</p>
+  <h1>ISBN の作り（桁数が動くのは、真ん中の 2 つだけ）</h1>
+  <p class="lead">ISBN の作り（桁数が動くのは、真ん中の 2 つだけ）</p>
+  <figure>
+    <img src="../../gallery/303-ISBN%E3%81%AE%E4%BD%9C%E3%82%8A.svg" alt="ISBN-13（978-0-306-40615-7）の 13 桁を 1 桁ずつ箱に並べ、接頭記号・国・出版者・書名・チェックディジットの 5 つの区切りを下の括弧で示した図と、1・3 の重みを掛けて積を足し（93）、10 で割った余り（3）を 10 から引いて 7 を出す計算の表、守備範囲の表" loading="lazy">
+  </figure>
+  <p class="made">この図は、下の 1 枚の YAML から描かれています。手で図形を動かしてはいません。</p>
+  <h2>正本に書いてある決まりごと</h2>
+  <p><strong>ISBN-13 は 5 つの部分でできている。</strong><strong>接頭記号</strong>（978 か 979。3 桁）／ <strong>国・地域・言語</strong>（日本は 4。1 桁）／<strong>出版者記号</strong> ／ <strong>書名記号</strong> ／ <strong>チェックディジット</strong>（1 桁）。</p>
+  <p><strong>桁数が動くのは、真ん中の 2 つだけ。</strong>出版者記号が短いほど書名記号を長く取れるので、<strong>たくさん本を出す出版者ほど、短い番号を持つ。</strong> 合計は必ず 13 桁。</p>
+  <p><strong>チェックディジットは、1 と 3 の重み付き和から出す。</strong>左から 1・3・1・3… を掛けて 12 個の積を足し、10 で割った余りを 10 から引く（<strong>余りが 0 のときだけ答えは 0</strong>。10 ではない）。</p>
+  <p>例（978-0-306-40615-7）—— 9+21+8+0+3+0+6+12+0+18+1+15 ＝ <strong>93</strong>。93 ÷ 10 の余りは <strong>3</strong>。10 − 3 ＝ <strong>7</strong> で、いちばん右の桁と合う。</p>
+  <p><strong>重みが 1 と 3 なのは、隣どうしの入れ替えを見つけるため。</strong>同じ重みだと 12 と 21 の区別がつかない ——重みが違えば、入れ替えたときに積の合計が変わる。</p>
+  <p><strong>それでも完全ではない。</strong> 隣り合う 2 桁の<strong>差が 5</strong>のときだけ、入れ替えても合計が変わらない（重みの差 2 × 差 5 ＝ 10 で、10 の倍数だから余りが動かない）。<strong>「検査を通った」は「正しい」ではない。</strong></p>
+  <h2>正本（YAML）</h2>
+  <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/303-ISBN%E3%81%AE%E4%BD%9C%E3%82%8A.zumen.yaml"><code>examples/gallery/303-ISBNの作り.zumen.yaml</code></a></p>
+  <h2>同じ分野の見本</h2>
+  <ul class="near"><li><a href="../191/">凸レンズ（引く線は 3 本。2 本で像が決まる）</a></li><li><a href="../192/">サッカーボール（頂点の角は 348°。足りない 12° が球にする）</a></li><li><a href="../194/">点字（6 点しかない。「あ」と「1」は同じ形）</a></li><li><a href="../196/">勾配（度で書く図面のほうが少ない）</a></li><li><a href="../197/">等角図（3 方向を同じ物差しで測れる。円は楕円になる）</a></li><li><a href="../198/">巣房（同じ面積を囲むのに、六角は壁がいちばん短い）</a></li><li><a href="../209/">作図（目盛りは使わない。同じ開きが等しい長さを作る）</a></li><li><a href="../219/">問題図（数を並べる場所ではない。印が意味を運ぶ）</a></li></ul>
+</article>
+</main>
+<footer class="foot">
+  <p><a href="https://github.com/meta-taro/zumen">GitHub</a> · MIT · <a href="https://meta-taro.github.io/zumen/en/g/303/">English</a></p>
+</footer>
+</body>
+</html>
