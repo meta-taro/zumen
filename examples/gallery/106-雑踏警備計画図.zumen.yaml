@@ -274,14 +274,17 @@ nodes:
 edges:
   - from: stn
     to: plaza
+    ends: { from: none, to: arrow }
   - from: plaza
     to: bridge
+    ends: { from: none, to: arrow }
   - from: bridge
     to: road_go
   - from: road_go
     to: venue
   - from: venue
     to: road_back
+    ends: { from: none, to: arrow }
   - from: road_back
     to: park
     line: dashed

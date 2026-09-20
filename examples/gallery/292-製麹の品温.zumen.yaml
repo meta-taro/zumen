@@ -1,0 +1,577 @@
+version: 1
+kind: placement
+arrows: true
+title: 製麹の品温（時計ではなく、温度で次へ進む）
+# **製麹は、2 日かけて品温を登らせる作業。**
+# 引込（蒸米を麹室へ入れる。約 35℃）→ 種切り・床もみ（麹菌をふる。約 32℃）→
+# **切り返し**（床もみから 10〜12 時間。32〜34℃）→ **盛**（12〜14 時間。約 35℃）→
+# **仲仕事**（盛から 6〜8 時間。35〜37℃）→ **仕舞仕事**（さらに 4〜6 時間。38〜40℃）→
+# **出麹**（さらに 8〜12 時間。**最高 40〜43℃**）。
+#
+# **全体でおよそ 48 時間**だが、蔵と麹の種類で **30〜50 時間**の幅がある ——
+# **時計ではなく品温で次へ進む**ので、図の横軸は目安でしかない。
+#
+# **手を 3 回入れる理由。** 菌糸が増えるほど麹は自分で発熱する。
+# 放っておくと中心が熱く外が冷たくなるので、
+# **切り返し・仲仕事・仕舞仕事**でほぐし、広げ、温度と湿気を揃え、酸素を入れる。
+# **発熱は止められないので、手を入れる回数で温度を作る** —— 登り方そのものが麹の設計図。
+#
+# **菌糸が米のどこまで入るかで、味が変わる。**
+# **総破精**（そうはぜ）は米粒ぜんたいに菌糸が入り、酵素の力が強く**濃醇でコクのある味**。
+# **突き破精**（つきはぜ）は点々と深く入り、酵素の力は中くらいで**すっきりと上品な味**。
+#
+# **麹は原料ではなく、道具に近い。** 総米のおよそ **20%** を麹米に回す
+# （特定名称酒では**こうじ米 15% 以上**と決まっている。清酒の製法品質表示基準）。
+# 残りは掛米で、蒸すだけ。
+#
+# **見本 287（日本酒の三段仕込み）と対。** あちらは仕込みの並び、こちらはその前の 2 日間。
+nodes:
+  - id: t1
+    label: "① 製麹の品温 —— 横が経過時間、縦が麹の品温。2 日かけて、登って止める"
+    marker: none
+    align: left
+    at: { x: 140, y: 150 }
+    size: { w: 660, h: 20 }
+  - id: plot
+    label: ""
+    at: { x: 250, y: 250 }
+    size: { w: 480, h: 320 }
+  - id: gx0
+    label: "0"
+    marker: none
+    align: center
+    at: { x: 244, y: 582 }
+    size: { w: 60, h: 18 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 381, y: 249 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 381, y: 569 }
+    size: { w: 2, h: 2 }
+  - id: gx12
+    label: "12"
+    marker: none
+    align: center
+    at: { x: 352, y: 582 }
+    size: { w: 60, h: 18 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 489, y: 249 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 489, y: 569 }
+    size: { w: 2, h: 2 }
+  - id: gx24
+    label: "24"
+    marker: none
+    align: center
+    at: { x: 460, y: 582 }
+    size: { w: 60, h: 18 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 597, y: 249 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 597, y: 569 }
+    size: { w: 2, h: 2 }
+  - id: gx36
+    label: "36"
+    marker: none
+    align: center
+    at: { x: 568, y: 582 }
+    size: { w: 60, h: 18 }
+  - id: gx48
+    label: "48"
+    marker: none
+    align: center
+    at: { x: 676, y: 582 }
+    size: { w: 60, h: 18 }
+  - id: gy30
+    label: "30"
+    marker: none
+    align: right
+    at: { x: 186, y: 561 }
+    size: { w: 54, h: 18 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 249, y: 489 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 729, y: 489 }
+    size: { w: 2, h: 2 }
+  - id: gy34
+    label: "34"
+    marker: none
+    align: right
+    at: { x: 186, y: 481 }
+    size: { w: 54, h: 18 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 249, y: 409 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 729, y: 409 }
+    size: { w: 2, h: 2 }
+  - id: gy38
+    label: "38"
+    marker: none
+    align: right
+    at: { x: 186, y: 401 }
+    size: { w: 54, h: 18 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 249, y: 329 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 729, y: 329 }
+    size: { w: 2, h: 2 }
+  - id: gy42
+    label: "42"
+    marker: none
+    align: right
+    at: { x: 186, y: 321 }
+    size: { w: 54, h: 18 }
+  - id: gy46
+    label: "46"
+    marker: none
+    align: right
+    at: { x: 186, y: 241 }
+    size: { w: 54, h: 18 }
+  - id: ax
+    label: "経過時間（時間）"
+    marker: none
+    align: center
+    at: { x: 250, y: 608 }
+    size: { w: 480, h: 18 }
+  - id: ay
+    label: "品温（℃）"
+    marker: none
+    align: right
+    at: { x: 120, y: 210 }
+    size: { w: 120, h: 18 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 273, y: 469 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 633, y: 329 }
+    size: { w: 2, h: 2 }
+  - id: k0
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 268, y: 464 }
+    size: { w: 12, h: 12 }
+  - id: k0n
+    label: "引込"
+    marker: none
+    align: left
+    at: { x: 286, y: 436 }
+    size: { w: 140, h: 18 }
+  - id: k1
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 295, y: 524 }
+    size: { w: 12, h: 12 }
+  - id: k1n
+    label: "種切り・床もみ"
+    marker: none
+    align: left
+    at: { x: 313, y: 542 }
+    size: { w: 140, h: 18 }
+  - id: k2
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 367, y: 504 }
+    size: { w: 12, h: 12 }
+  - id: k2n
+    label: "切り返し"
+    marker: none
+    align: right
+    at: { x: 273, y: 476 }
+    size: { w: 140, h: 18 }
+  - id: k3
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 385, y: 464 }
+    size: { w: 12, h: 12 }
+  - id: k3n
+    label: "盛"
+    marker: none
+    align: left
+    at: { x: 403, y: 498 }
+    size: { w: 140, h: 18 }
+  - id: k4
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 448, y: 444 }
+    size: { w: 12, h: 12 }
+  - id: k4n
+    label: "仲仕事"
+    marker: none
+    align: right
+    at: { x: 354, y: 414 }
+    size: { w: 140, h: 18 }
+  - id: k5
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 493, y: 384 }
+    size: { w: 12, h: 12 }
+  - id: k5n
+    label: "仕舞仕事"
+    marker: none
+    align: left
+    at: { x: 511, y: 404 }
+    size: { w: 140, h: 18 }
+  - id: k6
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 628, y: 324 }
+    size: { w: 12, h: 12 }
+  - id: k6n
+    label: "出麹"
+    marker: none
+    align: right
+    at: { x: 534, y: 298 }
+    size: { w: 140, h: 18 }
+  - id: cap1
+    label: "登りきった所で止める。 40〜43℃ を超えると麹菌が弱り、下げすぎると酵素が出ない。"
+    marker: none
+    align: center
+    at: { x: 140, y: 638 }
+    size: { w: 660, h: 18 }
+  - id: t2
+    label: "② 破精 —— 菌糸が米のどこまで入るか"
+    marker: none
+    align: left
+    at: { x: 140, y: 680 }
+    size: { w: 660, h: 20 }
+  - id: soo
+    label: ""
+    marker: ellipse
+    at: { x: 206, y: 724 }
+    size: { w: 108, h: 68 }
+  - id: soi
+    label: ""
+    marker: ellipse
+    hatch: lines
+    at: { x: 220, y: 734 }
+    size: { w: 80, h: 48 }
+  - id: son
+    label: "総破精（そうはぜ）"
+    marker: none
+    align: center
+    at: { x: 170, y: 802 }
+    size: { w: 180, h: 18 }
+  - id: soc
+    label: "米粒ぜんたいに菌糸が入る"
+    marker: none
+    align: center
+    at: { x: 170, y: 820 }
+    size: { w: 180, h: 18 }
+  - id: tsuo
+    label: ""
+    marker: ellipse
+    at: { x: 506, y: 724 }
+    size: { w: 108, h: 68 }
+  - id: tsui1
+    label: ""
+    marker: ellipse
+    hatch: lines
+    at: { x: 526, y: 736 }
+    size: { w: 26, h: 44 }
+  - id: tsui2
+    label: ""
+    marker: ellipse
+    hatch: lines
+    at: { x: 568, y: 736 }
+    size: { w: 26, h: 44 }
+  - id: tsun
+    label: "突き破精（つきはぜ）"
+    marker: none
+    align: center
+    at: { x: 470, y: 802 }
+    size: { w: 180, h: 18 }
+  - id: tsuc
+    label: "点々と、深く入る"
+    marker: none
+    align: center
+    at: { x: 470, y: 820 }
+    size: { w: 180, h: 18 }
+  - id: cap2
+    label: "酵素の力が変わり、味が変わる。 総破精は濃醇でコクが出て、突き破精はすっきりする。"
+    marker: none
+    align: center
+    at: { x: 140, y: 846 }
+    size: { w: 660, h: 18 }
+  - id: t3
+    label: "③ 工程と品温"
+    marker: none
+    align: left
+    at: { x: 820, y: 150 }
+    size: { w: 450, h: 20 }
+  - id: h820_186
+    label: "引込から出麹まで"
+    hatch: solid
+    at: { x: 820, y: 186 }
+    size: { w: 450, h: 24 }
+  - id: x820_210
+    label: "引込"
+    at: { x: 820, y: 210 }
+    size: { w: 160, h: 24 }
+  - id: y820_210
+    label: "0 時間 ／ 約 35℃"
+    align: left
+    at: { x: 980, y: 210 }
+    size: { w: 290, h: 24 }
+  - id: x820_234
+    label: "種切り・床もみ"
+    at: { x: 820, y: 234 }
+    size: { w: 160, h: 24 }
+  - id: y820_234
+    label: "数時間後 ／ 約 32℃"
+    align: left
+    at: { x: 980, y: 234 }
+    size: { w: 290, h: 24 }
+  - id: x820_258
+    label: "切り返し"
+    at: { x: 820, y: 258 }
+    size: { w: 160, h: 24 }
+  - id: y820_258
+    label: "10〜12 時間 ／ 32〜34℃"
+    align: left
+    at: { x: 980, y: 258 }
+    size: { w: 290, h: 24 }
+  - id: x820_282
+    label: "盛"
+    at: { x: 820, y: 282 }
+    size: { w: 160, h: 24 }
+  - id: y820_282
+    label: "12〜14 時間 ／ 約 35℃"
+    align: left
+    at: { x: 980, y: 282 }
+    size: { w: 290, h: 24 }
+  - id: x820_306
+    label: "仲仕事"
+    at: { x: 820, y: 306 }
+    size: { w: 160, h: 24 }
+  - id: y820_306
+    label: "盛から 6〜8 時間 ／ 35〜37℃"
+    align: left
+    at: { x: 980, y: 306 }
+    size: { w: 290, h: 24 }
+  - id: x820_330
+    label: "仕舞仕事"
+    at: { x: 820, y: 330 }
+    size: { w: 160, h: 24 }
+  - id: y820_330
+    label: "さらに 4〜6 時間 ／ 38〜40℃"
+    align: left
+    at: { x: 980, y: 330 }
+    size: { w: 290, h: 24 }
+  - id: x820_354
+    label: "出麹"
+    at: { x: 820, y: 354 }
+    size: { w: 160, h: 24 }
+  - id: y820_354
+    label: "さらに 8〜12 時間 ／ 40〜43℃"
+    align: left
+    at: { x: 980, y: 354 }
+    size: { w: 290, h: 24 }
+  - id: why3
+    label: "全体でおよそ 48 時間。\nただし蔵と麹の種類で 30〜50 時間の幅がある ——\n時計ではなく品温で次へ進むので、\n図の横軸は目安でしかない。"
+    at: { x: 820, y: 392 }
+    size: { w: 450, h: 74 }
+  - id: t4
+    label: "④ どれだけ作るか"
+    marker: none
+    align: left
+    at: { x: 820, y: 484 }
+    size: { w: 450, h: 20 }
+  - id: h820_514
+    label: "麹歩合"
+    hatch: solid
+    at: { x: 820, y: 514 }
+    size: { w: 450, h: 24 }
+  - id: x820_538
+    label: "ふつう"
+    at: { x: 820, y: 538 }
+    size: { w: 160, h: 24 }
+  - id: y820_538
+    label: "総米のおよそ 20%"
+    align: left
+    at: { x: 980, y: 538 }
+    size: { w: 290, h: 24 }
+  - id: x820_562
+    label: "特定名称酒"
+    at: { x: 820, y: 562 }
+    size: { w: 160, h: 24 }
+  - id: y820_562
+    label: "こうじ米 15% 以上"
+    align: left
+    at: { x: 980, y: 562 }
+    size: { w: 290, h: 24 }
+  - id: x820_586
+    label: "残りの米"
+    at: { x: 820, y: 586 }
+    size: { w: 160, h: 24 }
+  - id: y820_586
+    label: "掛米（蒸すだけ）"
+    align: left
+    at: { x: 980, y: 586 }
+    size: { w: 290, h: 24 }
+  - id: why4
+    label: "麹は原料ではなく、道具に近い。\n米のデンプンを糖に変える酵素を作らせるための米で、\n5 分の 1 を道具に回している ——\n減らすと糖が足りず、増やすと雑味が出る。"
+    at: { x: 820, y: 624 }
+    size: { w: 450, h: 92 }
+  - id: t5
+    label: "⑤ なぜ手を 3 回入れるか"
+    marker: none
+    align: left
+    at: { x: 820, y: 734 }
+    size: { w: 450, h: 20 }
+  - id: h820_764
+    label: "切り返し・仲仕事・仕舞仕事"
+    hatch: solid
+    at: { x: 820, y: 764 }
+    size: { w: 450, h: 24 }
+  - id: x820_788
+    label: "放っておくと"
+    at: { x: 820, y: 788 }
+    size: { w: 160, h: 24 }
+  - id: y820_788
+    label: "中心が熱く、外が冷たくなる"
+    align: left
+    at: { x: 980, y: 788 }
+    size: { w: 290, h: 24 }
+  - id: x820_812
+    label: "ほぐす"
+    at: { x: 820, y: 812 }
+    size: { w: 160, h: 24 }
+  - id: y820_812
+    label: "温度と湿気を揃える"
+    align: left
+    at: { x: 980, y: 812 }
+    size: { w: 290, h: 24 }
+  - id: x820_836
+    label: "広げる"
+    at: { x: 820, y: 836 }
+    size: { w: 160, h: 24 }
+  - id: y820_836
+    label: "酸素を入れ、水を逃がす"
+    align: left
+    at: { x: 980, y: 836 }
+    size: { w: 290, h: 24 }
+  - id: x820_860
+    label: "最後"
+    at: { x: 820, y: 860 }
+    size: { w: 160, h: 24 }
+  - id: y820_860
+    label: "登りきった所で出す"
+    align: left
+    at: { x: 980, y: 860 }
+    size: { w: 290, h: 24 }
+  - id: why5
+    label: "菌糸が増えるほど、自分で熱くなる。\n発熱は止められないので、\n手を入れる回数で温度を作る ——\n登り方そのものが、麹の設計図。"
+    at: { x: 820, y: 898 }
+    size: { w: 450, h: 74 }
+  - id: r1
+    label: "製麹は、2 日かけて品温を登らせる作業です（①③）。引込の 35℃ から、出麹の 40〜43℃ まで。"
+    marker: none
+    align: left
+    at: { x: 140, y: 990 }
+    size: { w: 1130, h: 18 }
+  - id: r2
+    label: "時計ではなく品温で次へ進みます。 蔵と麹の種類で 30〜50 時間の幅があるので、横軸は目安でしかありません。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1014 }
+    size: { w: 1130, h: 18 }
+  - id: r3
+    label: "手を 3 回入れます（⑤）。切り返し・仲仕事・仕舞仕事 —— 菌糸が増えるほど自分で熱くなるので、ほぐして温度を作ります。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1038 }
+    size: { w: 1130, h: 18 }
+  - id: r4
+    label: "菌糸がどこまで入るかで、味が変わります（②）。総破精は濃醇でコク、突き破精はすっきり。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1062 }
+    size: { w: 1130, h: 18 }
+  - id: r5
+    label: "麹は原料ではなく道具に近いものです（④）。総米のおよそ 20% を、酵素を作らせるために回しています。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1086 }
+    size: { w: 1130, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }
+  - from: p2
+    to: p3
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }
+  - from: p4
+    to: p5
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }
+  - from: p6
+    to: p7
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }
+  - from: p8
+    to: p9
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }
+  - from: p10
+    to: p11
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }
+  - from: p12
+    to: p13
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 301, y: 530 }
+      - { x: 373, y: 510 }
+      - { x: 391, y: 470 }
+      - { x: 454, y: 450 }
+      - { x: 499, y: 390 }
