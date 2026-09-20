@@ -1,0 +1,67 @@
+version: 1
+direction: down
+wrap: false
+title: 本が読者に届くまで（売れ残りが、逆向きに戻ってくる）
+# **本の流通がほかの商品と違うのは、売れ残りが戻ってくるから。**
+# 書店は本を**買い取っていない** —— **委託販売**なので、売れなければ取次へ返し、
+# 取次は出版社へ返す。**モノが右へ行き、返品が左へ戻る二重の流れ**が、この図の中身。
+#
+# **1909 年、実業之日本社が雑誌で返品制を採ってうまくいき、業界全体へ広がった。**
+# 書店から見れば、**在庫を抱える危険を負わずに棚を作れる**ということ。
+#
+# **1953 年に再販売価格維持制度ができ、書籍と雑誌は定価販売が基本になった。**
+# 値引きで競争しない代わりに、**流通の効率化が進みにくい**という指摘が付いて回る。
+#
+# **取次は、ただの問屋ではない。**
+# 書店からの代金回収を繰り延べ、出版社へは委託販売の代金を**見込みで先に払う** ——
+# **実質的に金融の役目**を担っている。だから「取次が倒れると出版社が資金繰りで倒れる」
+# という言われ方をする。
+#
+# **いまは直取引が増えている。** 講談社とアマゾンジャパン、KADOKAWA など、
+# 大手が取次を通さない取引を始めている ——
+# 図の真ん中を飛ばす線が太くなっていく、ということ。
+nodes:
+  - id: shuppan
+    type: generic
+    label: 出版社
+    technology: 作って、取次へ預ける
+  - id: toritsugi
+    type: generic
+    label: 取次
+    technology: 問屋であり、金融でもある
+  - id: shoten
+    type: generic
+    label: 書店
+    technology: 買い取っていない（委託）
+  - id: net
+    type: generic
+    label: ネット書店
+    technology: 直取引が増えている
+  - id: dokusha
+    type: generic
+    label: 読者
+    technology: 定価で買う
+  - id: henpin
+    type: storage
+    label: 返品
+    technology: 取次を通って出版社へ戻る
+edges:
+  - from: shuppan
+    to: toritsugi
+    label: 委託
+  - from: toritsugi
+    to: shoten
+    label: 配本
+  - from: shoten
+    to: dokusha
+    label: 定価で売る（再販制度）
+  - from: shuppan
+    to: net
+    line: dashed
+    label: 直取引
+  - from: net
+    to: dokusha
+  - from: shoten
+    to: henpin
+    line: dashed
+    label: 売れなければ
