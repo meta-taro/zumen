@@ -1,0 +1,1243 @@
+version: 1
+kind: placement
+arrows: true
+scale: { mm: 196 }
+title: 400m トラックの割り付け（1 レーンだけが 400m）
+# **「1 周 400m」は、1 レーンの計測線の話。**
+# 内側ラインから **30cm** 内側を回ったときに 400.00m になるよう作ってある ——
+# 選手はラインを踏まずに、いちばん内側を走る。
+#
+# **数の組み立て。** 直走路 **84.39m × 2 ＝ 168.78m**、
+# 曲走路は半径 36.50m ＋ 計測線 0.30m ＝ **36.80m** の円で **2π × 36.80 ＝ 231.22m** ——
+# 合わせて **400.00m**。**半径 36.50m そのものを回ると、400m には足りない。**
+#
+# **レーン幅は 1.220m ± 0.01**（2010 年 4 月 1 日以降に造るトラック）。
+# 計測線は 1 レーンが内側ラインから 30cm、**2 レーン以降は 20cm。**
+#
+# **外側のレーンは、同じ 1 周でも長い。**
+# 1 レーン 400.00m ／ 2 レーン 407.04m ／ 3 レーン 414.70m ／ 8 レーン 453.03m ——
+# **3 レーンから先は 1 レーンにつき 7.67m ずつ増える**（2π × 1.22 ＝ レーン幅の円周ぶん）。
+# 2 レーンだけ 7.04m と違うのは、計測線が 30cm ではなく 20cm だから。
+#
+# **ずらすのは、曲走路のぶんだけ。** 直走路はどのレーンも 84.39m で同じなので、
+# 差が出るのは曲走路だけ —— **100m のスタートが一直線なのは、曲走路を通らないから。**
+# ずらす量は「走る距離を同じにする」ためであって、有利不利の調整ではない。
+nodes:
+  - id: t1
+    label: "① 400m トラック —— 1 レーンだけが 400m で、外側は全部長い"
+    marker: none
+    align: left
+    at: { x: 150, y: 150 }
+    size: { w: 900, h: 20 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 384.9, y: 248.8 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 815.3, y: 248.8 }
+    size: { w: 2, h: 2 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 384.9, y: 621.1 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 815.3, y: 621.1 }
+    size: { w: 2, h: 2 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 384.9, y: 621.1 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 384.9, y: 248.8 }
+    size: { w: 2, h: 2 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 815.3, y: 248.8 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 815.3, y: 621.1 }
+    size: { w: 2, h: 2 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 384.9, y: 242.6 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 815.3, y: 242.6 }
+    size: { w: 2, h: 2 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 384.9, y: 627.3 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 815.3, y: 627.3 }
+    size: { w: 2, h: 2 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 384.9, y: 627.3 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 384.9, y: 242.6 }
+    size: { w: 2, h: 2 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 815.3, y: 242.6 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 815.3, y: 627.3 }
+    size: { w: 2, h: 2 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 384.9, y: 236.3 }
+    size: { w: 2, h: 2 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 815.3, y: 236.3 }
+    size: { w: 2, h: 2 }
+  - id: p18
+    label: ""
+    marker: none
+    at: { x: 384.9, y: 633.5 }
+    size: { w: 2, h: 2 }
+  - id: p19
+    label: ""
+    marker: none
+    at: { x: 815.3, y: 633.5 }
+    size: { w: 2, h: 2 }
+  - id: p20
+    label: ""
+    marker: none
+    at: { x: 384.9, y: 633.5 }
+    size: { w: 2, h: 2 }
+  - id: p21
+    label: ""
+    marker: none
+    at: { x: 384.9, y: 236.3 }
+    size: { w: 2, h: 2 }
+  - id: p22
+    label: ""
+    marker: none
+    at: { x: 815.3, y: 236.3 }
+    size: { w: 2, h: 2 }
+  - id: p23
+    label: ""
+    marker: none
+    at: { x: 815.3, y: 633.5 }
+    size: { w: 2, h: 2 }
+  - id: p24
+    label: ""
+    marker: none
+    at: { x: 384.9, y: 230.1 }
+    size: { w: 2, h: 2 }
+  - id: p25
+    label: ""
+    marker: none
+    at: { x: 815.3, y: 230.1 }
+    size: { w: 2, h: 2 }
+  - id: p26
+    label: ""
+    marker: none
+    at: { x: 384.9, y: 639.7 }
+    size: { w: 2, h: 2 }
+  - id: p27
+    label: ""
+    marker: none
+    at: { x: 815.3, y: 639.7 }
+    size: { w: 2, h: 2 }
+  - id: p28
+    label: ""
+    marker: none
+    at: { x: 384.9, y: 639.7 }
+    size: { w: 2, h: 2 }
+  - id: p29
+    label: ""
+    marker: none
+    at: { x: 384.9, y: 230.1 }
+    size: { w: 2, h: 2 }
+  - id: p30
+    label: ""
+    marker: none
+    at: { x: 815.3, y: 230.1 }
+    size: { w: 2, h: 2 }
+  - id: p31
+    label: ""
+    marker: none
+    at: { x: 815.3, y: 639.7 }
+    size: { w: 2, h: 2 }
+  - id: p32
+    label: ""
+    marker: none
+    at: { x: 384.9, y: 223.9 }
+    size: { w: 2, h: 2 }
+  - id: p33
+    label: ""
+    marker: none
+    at: { x: 815.3, y: 223.9 }
+    size: { w: 2, h: 2 }
+  - id: p34
+    label: ""
+    marker: none
+    at: { x: 384.9, y: 646 }
+    size: { w: 2, h: 2 }
+  - id: p35
+    label: ""
+    marker: none
+    at: { x: 815.3, y: 646 }
+    size: { w: 2, h: 2 }
+  - id: p36
+    label: ""
+    marker: none
+    at: { x: 384.9, y: 646 }
+    size: { w: 2, h: 2 }
+  - id: p37
+    label: ""
+    marker: none
+    at: { x: 384.9, y: 223.9 }
+    size: { w: 2, h: 2 }
+  - id: p38
+    label: ""
+    marker: none
+    at: { x: 815.3, y: 223.9 }
+    size: { w: 2, h: 2 }
+  - id: p39
+    label: ""
+    marker: none
+    at: { x: 815.3, y: 646 }
+    size: { w: 2, h: 2 }
+  - id: p40
+    label: ""
+    marker: none
+    at: { x: 384.9, y: 217.7 }
+    size: { w: 2, h: 2 }
+  - id: p41
+    label: ""
+    marker: none
+    at: { x: 815.3, y: 217.7 }
+    size: { w: 2, h: 2 }
+  - id: p42
+    label: ""
+    marker: none
+    at: { x: 384.9, y: 652.2 }
+    size: { w: 2, h: 2 }
+  - id: p43
+    label: ""
+    marker: none
+    at: { x: 815.3, y: 652.2 }
+    size: { w: 2, h: 2 }
+  - id: p44
+    label: ""
+    marker: none
+    at: { x: 384.9, y: 652.2 }
+    size: { w: 2, h: 2 }
+  - id: p45
+    label: ""
+    marker: none
+    at: { x: 384.9, y: 217.7 }
+    size: { w: 2, h: 2 }
+  - id: p46
+    label: ""
+    marker: none
+    at: { x: 815.3, y: 217.7 }
+    size: { w: 2, h: 2 }
+  - id: p47
+    label: ""
+    marker: none
+    at: { x: 815.3, y: 652.2 }
+    size: { w: 2, h: 2 }
+  - id: p48
+    label: ""
+    marker: none
+    at: { x: 384.9, y: 211.4 }
+    size: { w: 2, h: 2 }
+  - id: p49
+    label: ""
+    marker: none
+    at: { x: 815.3, y: 211.4 }
+    size: { w: 2, h: 2 }
+  - id: p50
+    label: ""
+    marker: none
+    at: { x: 384.9, y: 658.4 }
+    size: { w: 2, h: 2 }
+  - id: p51
+    label: ""
+    marker: none
+    at: { x: 815.3, y: 658.4 }
+    size: { w: 2, h: 2 }
+  - id: p52
+    label: ""
+    marker: none
+    at: { x: 384.9, y: 658.4 }
+    size: { w: 2, h: 2 }
+  - id: p53
+    label: ""
+    marker: none
+    at: { x: 384.9, y: 211.4 }
+    size: { w: 2, h: 2 }
+  - id: p54
+    label: ""
+    marker: none
+    at: { x: 815.3, y: 211.4 }
+    size: { w: 2, h: 2 }
+  - id: p55
+    label: ""
+    marker: none
+    at: { x: 815.3, y: 658.4 }
+    size: { w: 2, h: 2 }
+  - id: p56
+    label: ""
+    marker: none
+    at: { x: 384.9, y: 205.2 }
+    size: { w: 2, h: 2 }
+  - id: p57
+    label: ""
+    marker: none
+    at: { x: 815.3, y: 205.2 }
+    size: { w: 2, h: 2 }
+  - id: p58
+    label: ""
+    marker: none
+    at: { x: 384.9, y: 664.6 }
+    size: { w: 2, h: 2 }
+  - id: p59
+    label: ""
+    marker: none
+    at: { x: 815.3, y: 664.6 }
+    size: { w: 2, h: 2 }
+  - id: p60
+    label: ""
+    marker: none
+    at: { x: 384.9, y: 664.6 }
+    size: { w: 2, h: 2 }
+  - id: p61
+    label: ""
+    marker: none
+    at: { x: 384.9, y: 205.2 }
+    size: { w: 2, h: 2 }
+  - id: p62
+    label: ""
+    marker: none
+    at: { x: 815.3, y: 205.2 }
+    size: { w: 2, h: 2 }
+  - id: p63
+    label: ""
+    marker: none
+    at: { x: 815.3, y: 664.6 }
+    size: { w: 2, h: 2 }
+  - id: p64
+    label: ""
+    marker: none
+    at: { x: 384.9, y: 199 }
+    size: { w: 2, h: 2 }
+  - id: p65
+    label: ""
+    marker: none
+    at: { x: 815.3, y: 199 }
+    size: { w: 2, h: 2 }
+  - id: p66
+    label: ""
+    marker: none
+    at: { x: 384.9, y: 670.9 }
+    size: { w: 2, h: 2 }
+  - id: p67
+    label: ""
+    marker: none
+    at: { x: 815.3, y: 670.9 }
+    size: { w: 2, h: 2 }
+  - id: p68
+    label: ""
+    marker: none
+    at: { x: 384.9, y: 670.9 }
+    size: { w: 2, h: 2 }
+  - id: p69
+    label: ""
+    marker: none
+    at: { x: 384.9, y: 199 }
+    size: { w: 2, h: 2 }
+  - id: p70
+    label: ""
+    marker: none
+    at: { x: 815.3, y: 199 }
+    size: { w: 2, h: 2 }
+  - id: p71
+    label: ""
+    marker: none
+    at: { x: 815.3, y: 670.9 }
+    size: { w: 2, h: 2 }
+  - id: p72
+    label: ""
+    marker: none
+    at: { x: 384.9, y: 710.9 }
+    size: { w: 2, h: 2 }
+  - id: p73
+    label: ""
+    marker: none
+    at: { x: 815.3, y: 710.9 }
+    size: { w: 2, h: 2 }
+  - id: dst
+    label: "直走路 84.39m"
+    marker: none
+    align: center
+    at: { x: 385.9, y: 717.9 }
+    size: { w: 430.4, h: 18 }
+  - id: p74
+    label: ""
+    marker: none
+    at: { x: 384.9, y: 434.9 }
+    size: { w: 2, h: 2 }
+  - id: p75
+    label: ""
+    marker: none
+    at: { x: 198.8, y: 434.9 }
+    size: { w: 2, h: 2 }
+  - id: drr
+    label: "曲走路の半径 36.50m"
+    marker: none
+    align: center
+    at: { x: 199.8, y: 441.9 }
+    size: { w: 186.1, h: 18 }
+  - id: cen
+    label: "中心"
+    marker: none
+    align: center
+    at: { x: 355.9, y: 413.9 }
+    size: { w: 60, h: 18 }
+  - id: meas
+    label: "1 レーンの計測線は内側ラインから 30cm（2 レーン以降は 20cm）"
+    marker: none
+    align: center
+    at: { x: 150, y: 735.9 }
+    size: { w: 900, h: 18 }
+  - id: st1
+    label: "1 レーンの\nスタート"
+    marker: none
+    align: right
+    at: { x: -86, y: 395.9 }
+    size: { w: 220, h: 36 }
+  - id: st8
+    label: "8 レーンは\n53.03m 手前"
+    marker: none
+    align: right
+    at: { x: -86, y: 455.9 }
+    size: { w: 220, h: 36 }
+  - id: mark1
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 379.9, y: 616.1 }
+    size: { w: 12, h: 12 }
+  - id: mark8
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 379.9, y: 665.9 }
+    size: { w: 12, h: 12 }
+  - id: why1
+    label: "「1 周 400m」は、1 レーンの計測線の話。\n内側ラインから 30cm 内側を回ったときに 400.00m になるよう作ってある ——\n選手はラインを踏まずに、いちばん内側を走る。\n外側のレーンは同じ 1 周でも長いので、スタートを前へずらす。"
+    at: { x: 150, y: 767.9 }
+    size: { w: 900, h: 92 }
+  - id: t2
+    label: "② 400m にするための数"
+    marker: none
+    align: left
+    at: { x: 1100, y: 150 }
+    size: { w: 380, h: 20 }
+  - id: h1100_186
+    label: "組み立て"
+    hatch: solid
+    at: { x: 1100, y: 186 }
+    size: { w: 380, h: 24 }
+  - id: x1100_210
+    label: "直走路 × 2"
+    at: { x: 1100, y: 210 }
+    size: { w: 220, h: 24 }
+  - id: y1100_210
+    label: "168.78m"
+    align: left
+    at: { x: 1320, y: 210 }
+    size: { w: 160, h: 24 }
+  - id: x1100_234
+    label: "曲走路（半径 36.80m）"
+    at: { x: 1100, y: 234 }
+    size: { w: 220, h: 24 }
+  - id: y1100_234
+    label: "2π × 36.80 ＝ 231.22m"
+    align: left
+    at: { x: 1320, y: 234 }
+    size: { w: 160, h: 24 }
+  - id: x1100_258
+    label: "合わせて"
+    at: { x: 1100, y: 258 }
+    size: { w: 220, h: 24 }
+  - id: y1100_258
+    label: "400.00m"
+    align: left
+    at: { x: 1320, y: 258 }
+    size: { w: 160, h: 24 }
+  - id: h1100_292
+    label: "決まっている寸法"
+    hatch: solid
+    at: { x: 1100, y: 292 }
+    size: { w: 380, h: 24 }
+  - id: x1100_316
+    label: "レーン幅"
+    at: { x: 1100, y: 316 }
+    size: { w: 220, h: 24 }
+  - id: y1100_316
+    label: "1.220m ± 0.01"
+    align: left
+    at: { x: 1320, y: 316 }
+    size: { w: 160, h: 24 }
+  - id: x1100_340
+    label: "1 レーンの計測線"
+    at: { x: 1100, y: 340 }
+    size: { w: 220, h: 24 }
+  - id: y1100_340
+    label: "内側ラインから 30cm"
+    align: left
+    at: { x: 1320, y: 340 }
+    size: { w: 160, h: 24 }
+  - id: x1100_364
+    label: "2 レーン以降"
+    at: { x: 1100, y: 364 }
+    size: { w: 220, h: 24 }
+  - id: y1100_364
+    label: "内側ラインから 20cm"
+    align: left
+    at: { x: 1320, y: 364 }
+    size: { w: 160, h: 24 }
+  - id: why2
+    label: "半径は 36.50m だが、計算に使うのは 36.80m。\n計測線の 30cm を足した円が、ちょうど 400m になる ——\n内側ラインそのものを回ると、400m には足りない。"
+    at: { x: 1100, y: 402 }
+    size: { w: 380, h: 74 }
+  - id: t3
+    label: "③ レーンごとの周長とずらし"
+    marker: none
+    align: left
+    at: { x: 1100, y: 494 }
+    size: { w: 380, h: 20 }
+  - id: h1100_524
+    label: "周長 ／ 1 レーンとの差"
+    hatch: solid
+    at: { x: 1100, y: 524 }
+    size: { w: 380, h: 24 }
+  - id: x1100_548
+    label: "1 レーン"
+    at: { x: 1100, y: 548 }
+    size: { w: 130, h: 24 }
+  - id: y1100_548
+    label: "400.00m ／ ±0"
+    align: left
+    at: { x: 1230, y: 548 }
+    size: { w: 250, h: 24 }
+  - id: x1100_572
+    label: "2 レーン"
+    at: { x: 1100, y: 572 }
+    size: { w: 130, h: 24 }
+  - id: y1100_572
+    label: "407.04m ／ 7.04m"
+    align: left
+    at: { x: 1230, y: 572 }
+    size: { w: 250, h: 24 }
+  - id: x1100_596
+    label: "3 レーン"
+    at: { x: 1100, y: 596 }
+    size: { w: 130, h: 24 }
+  - id: y1100_596
+    label: "414.70m ／ 14.70m"
+    align: left
+    at: { x: 1230, y: 596 }
+    size: { w: 250, h: 24 }
+  - id: x1100_620
+    label: "4 レーン"
+    at: { x: 1100, y: 620 }
+    size: { w: 130, h: 24 }
+  - id: y1100_620
+    label: "422.37m ／ 22.37m"
+    align: left
+    at: { x: 1230, y: 620 }
+    size: { w: 250, h: 24 }
+  - id: x1100_644
+    label: "6 レーン"
+    at: { x: 1100, y: 644 }
+    size: { w: 130, h: 24 }
+  - id: y1100_644
+    label: "437.70m ／ 37.70m"
+    align: left
+    at: { x: 1230, y: 644 }
+    size: { w: 250, h: 24 }
+  - id: x1100_668
+    label: "8 レーン"
+    at: { x: 1100, y: 668 }
+    size: { w: 130, h: 24 }
+  - id: y1100_668
+    label: "453.03m ／ 53.03m"
+    align: left
+    at: { x: 1230, y: 668 }
+    size: { w: 250, h: 24 }
+  - id: why3
+    label: "3 レーンから先は、1 レーンにつき\n7.67m ずつ増える。\n2π × 1.22 ＝ レーン幅の円周ぶんそのもの。\n2 レーンだけ 7.04m と違うのは、\n計測線が 30cm ではなく 20cm だから。"
+    at: { x: 1100, y: 706 }
+    size: { w: 380, h: 92 }
+  - id: t4
+    label: "④ ずらすのは、曲走路のぶんだけ"
+    marker: none
+    align: left
+    at: { x: 1100, y: 816 }
+    size: { w: 380, h: 20 }
+  - id: h1100_846
+    label: "なぜ直走路は関係ないか"
+    hatch: solid
+    at: { x: 1100, y: 846 }
+    size: { w: 380, h: 24 }
+  - id: x1100_870
+    label: "直走路"
+    at: { x: 1100, y: 870 }
+    size: { w: 190, h: 24 }
+  - id: y1100_870
+    label: "どのレーンも 84.39m で同じ"
+    align: left
+    at: { x: 1290, y: 870 }
+    size: { w: 190, h: 24 }
+  - id: x1100_894
+    label: "曲走路"
+    at: { x: 1100, y: 894 }
+    size: { w: 190, h: 24 }
+  - id: y1100_894
+    label: "外側ほど半径が大きい"
+    align: left
+    at: { x: 1290, y: 894 }
+    size: { w: 190, h: 24 }
+  - id: x1100_918
+    label: "差の出どころ"
+    at: { x: 1100, y: 918 }
+    size: { w: 190, h: 24 }
+  - id: y1100_918
+    label: "曲走路だけ"
+    align: left
+    at: { x: 1290, y: 918 }
+    size: { w: 190, h: 24 }
+  - id: why4
+    label: "直線だけの競走なら、スタートはそろう。\n100m に曲走路が無いので、スタートは一直線 ——\n200m 以上で斜めに並ぶのは、曲走路を通るから。\nずらす量は「走る距離を同じにする」ため。"
+    at: { x: 1100, y: 956 }
+    size: { w: 380, h: 92 }
+  - id: r1
+    label: "「1 周 400m」は、1 レーンの計測線の話です（①）。内側ラインから 30cm 内側を回ると 400.00m になります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1066 }
+    size: { w: 1330, h: 18 }
+  - id: r2
+    label: "半径は 36.50m ですが、計算に使うのは 36.80m です（②）。計測線の 30cm を足した円が、ちょうど 400m になります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1090 }
+    size: { w: 1330, h: 18 }
+  - id: r3
+    label: "直走路 84.39m × 2 ＝ 168.78m、曲走路 2π × 36.80 ＝ 231.22m —— 合わせて 400.00m です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1114 }
+    size: { w: 1330, h: 18 }
+  - id: r4
+    label: "3 レーンから先は、1 レーンにつき 7.67m ずつ増えます（③）。2π × 1.22 で、レーン幅の円周ぶんそのものです。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1138 }
+    size: { w: 1330, h: 18 }
+  - id: r5
+    label: "2 レーンだけ 7.04m と違うのは、計測線が 30cm ではなく 20cm だからです。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1162 }
+    size: { w: 1330, h: 18 }
+  - id: r6
+    label: "ずらすのは、曲走路のぶんだけです（④）。直走路はどのレーンも 84.39m で同じです。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1186 }
+    size: { w: 1330, h: 18 }
+  - id: r7
+    label: "100m のスタートが一直線なのは、曲走路を通らないからです。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1210 }
+    size: { w: 1330, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p2
+    to: p3
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p4
+    to: p5
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 359.4, y: 620.2 }
+      - { x: 333.5, y: 614.5 }
+      - { x: 308.6, y: 605.3 }
+      - { x: 285.3, y: 592.5 }
+      - { x: 264, y: 576.6 }
+      - { x: 245.2, y: 557.8 }
+      - { x: 229.3, y: 536.6 }
+      - { x: 216.6, y: 513.3 }
+      - { x: 207.3, y: 488.4 }
+      - { x: 201.7, y: 462.4 }
+      - { x: 199.8, y: 435.9 }
+      - { x: 201.7, y: 409.4 }
+      - { x: 207.3, y: 383.5 }
+      - { x: 216.6, y: 358.6 }
+      - { x: 229.3, y: 335.3 }
+      - { x: 245.2, y: 314 }
+      - { x: 264, y: 295.2 }
+      - { x: 285.3, y: 279.3 }
+      - { x: 308.6, y: 266.6 }
+      - { x: 333.5, y: 257.3 }
+      - { x: 359.4, y: 251.7 }
+  - from: p6
+    to: p7
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 842.8, y: 251.7 }
+      - { x: 868.8, y: 257.3 }
+      - { x: 893.6, y: 266.6 }
+      - { x: 917, y: 279.3 }
+      - { x: 938.2, y: 295.2 }
+      - { x: 957, y: 314 }
+      - { x: 972.9, y: 335.3 }
+      - { x: 985.6, y: 358.6 }
+      - { x: 994.9, y: 383.5 }
+      - { x: 1000.6, y: 409.4 }
+      - { x: 1002.5, y: 435.9 }
+      - { x: 1000.6, y: 462.4 }
+      - { x: 994.9, y: 488.4 }
+      - { x: 985.6, y: 513.3 }
+      - { x: 972.9, y: 536.6 }
+      - { x: 957, y: 557.8 }
+      - { x: 938.2, y: 576.6 }
+      - { x: 917, y: 592.5 }
+      - { x: 893.6, y: 605.3 }
+      - { x: 868.8, y: 614.5 }
+      - { x: 842.8, y: 620.2 }
+  - from: p8
+    to: p9
+    curve: none
+    ends: { from: none, to: none }
+  - from: p10
+    to: p11
+    curve: none
+    ends: { from: none, to: none }
+  - from: p12
+    to: p13
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 358.5, y: 626.3 }
+      - { x: 331.7, y: 620.5 }
+      - { x: 306, y: 610.9 }
+      - { x: 281.9, y: 597.8 }
+      - { x: 259.9, y: 581.3 }
+      - { x: 240.5, y: 561.9 }
+      - { x: 224.1, y: 539.9 }
+      - { x: 210.9, y: 515.8 }
+      - { x: 201.3, y: 490.1 }
+      - { x: 195.5, y: 463.3 }
+      - { x: 193.6, y: 435.9 }
+      - { x: 195.5, y: 408.5 }
+      - { x: 201.3, y: 381.7 }
+      - { x: 210.9, y: 356 }
+      - { x: 224.1, y: 331.9 }
+      - { x: 240.5, y: 309.9 }
+      - { x: 259.9, y: 290.5 }
+      - { x: 281.9, y: 274.1 }
+      - { x: 306, y: 260.9 }
+      - { x: 331.7, y: 251.3 }
+      - { x: 358.5, y: 245.5 }
+  - from: p14
+    to: p15
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 843.7, y: 245.5 }
+      - { x: 870.5, y: 251.3 }
+      - { x: 896.2, y: 260.9 }
+      - { x: 920.3, y: 274.1 }
+      - { x: 942.3, y: 290.5 }
+      - { x: 961.7, y: 309.9 }
+      - { x: 978.1, y: 331.9 }
+      - { x: 991.3, y: 356 }
+      - { x: 1000.9, y: 381.7 }
+      - { x: 1006.7, y: 408.5 }
+      - { x: 1008.7, y: 435.9 }
+      - { x: 1006.7, y: 463.3 }
+      - { x: 1000.9, y: 490.1 }
+      - { x: 991.3, y: 515.8 }
+      - { x: 978.1, y: 539.9 }
+      - { x: 961.7, y: 561.9 }
+      - { x: 942.3, y: 581.3 }
+      - { x: 920.3, y: 597.8 }
+      - { x: 896.2, y: 610.9 }
+      - { x: 870.5, y: 620.5 }
+      - { x: 843.7, y: 626.3 }
+  - from: p16
+    to: p17
+    curve: none
+    ends: { from: none, to: none }
+  - from: p18
+    to: p19
+    curve: none
+    ends: { from: none, to: none }
+  - from: p20
+    to: p21
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 357.7, y: 632.5 }
+      - { x: 330, y: 626.5 }
+      - { x: 303.4, y: 616.6 }
+      - { x: 278.6, y: 603 }
+      - { x: 255.9, y: 586 }
+      - { x: 235.8, y: 566 }
+      - { x: 218.9, y: 543.3 }
+      - { x: 205.3, y: 518.4 }
+      - { x: 195.4, y: 491.9 }
+      - { x: 189.4, y: 464.2 }
+      - { x: 187.3, y: 435.9 }
+      - { x: 189.4, y: 407.7 }
+      - { x: 195.4, y: 380 }
+      - { x: 205.3, y: 353.4 }
+      - { x: 218.9, y: 328.6 }
+      - { x: 235.8, y: 305.9 }
+      - { x: 255.9, y: 285.8 }
+      - { x: 278.6, y: 268.9 }
+      - { x: 303.4, y: 255.3 }
+      - { x: 330, y: 245.4 }
+      - { x: 357.7, y: 239.4 }
+  - from: p22
+    to: p23
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 844.6, y: 239.4 }
+      - { x: 872.3, y: 245.4 }
+      - { x: 898.8, y: 255.3 }
+      - { x: 923.7, y: 268.9 }
+      - { x: 946.4, y: 285.8 }
+      - { x: 966.4, y: 305.9 }
+      - { x: 983.4, y: 328.6 }
+      - { x: 997, y: 353.4 }
+      - { x: 1006.9, y: 380 }
+      - { x: 1012.9, y: 407.7 }
+      - { x: 1014.9, y: 435.9 }
+      - { x: 1012.9, y: 464.2 }
+      - { x: 1006.9, y: 491.9 }
+      - { x: 997, y: 518.4 }
+      - { x: 983.4, y: 543.3 }
+      - { x: 966.4, y: 566 }
+      - { x: 946.4, y: 586 }
+      - { x: 923.7, y: 603 }
+      - { x: 898.8, y: 616.6 }
+      - { x: 872.3, y: 626.5 }
+      - { x: 844.6, y: 632.5 }
+  - from: p24
+    to: p25
+    curve: none
+    ends: { from: none, to: none }
+  - from: p26
+    to: p27
+    curve: none
+    ends: { from: none, to: none }
+  - from: p28
+    to: p29
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 356.8, y: 638.7 }
+      - { x: 328.2, y: 632.4 }
+      - { x: 300.8, y: 622.2 }
+      - { x: 275.2, y: 608.2 }
+      - { x: 251.8, y: 590.7 }
+      - { x: 231.1, y: 570.1 }
+      - { x: 213.6, y: 546.7 }
+      - { x: 199.6, y: 521 }
+      - { x: 189.4, y: 493.6 }
+      - { x: 183.2, y: 465.1 }
+      - { x: 181.1, y: 435.9 }
+      - { x: 183.2, y: 406.8 }
+      - { x: 189.4, y: 378.2 }
+      - { x: 199.6, y: 350.8 }
+      - { x: 213.6, y: 325.2 }
+      - { x: 231.1, y: 301.8 }
+      - { x: 251.8, y: 281.1 }
+      - { x: 275.2, y: 263.6 }
+      - { x: 300.8, y: 249.6 }
+      - { x: 328.2, y: 239.4 }
+      - { x: 356.8, y: 233.2 }
+  - from: p30
+    to: p31
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 845.5, y: 233.2 }
+      - { x: 874, y: 239.4 }
+      - { x: 901.4, y: 249.6 }
+      - { x: 927, y: 263.6 }
+      - { x: 950.4, y: 281.1 }
+      - { x: 971.1, y: 301.8 }
+      - { x: 988.6, y: 325.2 }
+      - { x: 1002.6, y: 350.8 }
+      - { x: 1012.8, y: 378.2 }
+      - { x: 1019, y: 406.8 }
+      - { x: 1021.1, y: 435.9 }
+      - { x: 1019, y: 465.1 }
+      - { x: 1012.8, y: 493.6 }
+      - { x: 1002.6, y: 521 }
+      - { x: 988.6, y: 546.7 }
+      - { x: 971.1, y: 570.1 }
+      - { x: 950.4, y: 590.7 }
+      - { x: 927, y: 608.2 }
+      - { x: 901.4, y: 622.2 }
+      - { x: 874, y: 632.4 }
+      - { x: 845.5, y: 638.7 }
+  - from: p32
+    to: p33
+    curve: none
+    ends: { from: none, to: none }
+  - from: p34
+    to: p35
+    curve: none
+    ends: { from: none, to: none }
+  - from: p36
+    to: p37
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 355.9, y: 644.8 }
+      - { x: 326.5, y: 638.4 }
+      - { x: 298.3, y: 627.9 }
+      - { x: 271.8, y: 613.5 }
+      - { x: 247.7, y: 595.4 }
+      - { x: 226.4, y: 574.1 }
+      - { x: 208.4, y: 550 }
+      - { x: 194, y: 523.6 }
+      - { x: 183.4, y: 495.4 }
+      - { x: 177, y: 466 }
+      - { x: 174.9, y: 435.9 }
+      - { x: 177, y: 405.9 }
+      - { x: 183.4, y: 376.5 }
+      - { x: 194, y: 348.3 }
+      - { x: 208.4, y: 321.8 }
+      - { x: 226.4, y: 297.7 }
+      - { x: 247.7, y: 276.4 }
+      - { x: 271.8, y: 258.4 }
+      - { x: 298.3, y: 244 }
+      - { x: 326.5, y: 233.4 }
+      - { x: 355.9, y: 227 }
+  - from: p38
+    to: p39
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 846.3, y: 227 }
+      - { x: 875.8, y: 233.4 }
+      - { x: 904, y: 244 }
+      - { x: 930.4, y: 258.4 }
+      - { x: 954.5, y: 276.4 }
+      - { x: 975.8, y: 297.7 }
+      - { x: 993.9, y: 321.8 }
+      - { x: 1008.3, y: 348.3 }
+      - { x: 1018.8, y: 376.5 }
+      - { x: 1025.2, y: 405.9 }
+      - { x: 1027.4, y: 435.9 }
+      - { x: 1025.2, y: 466 }
+      - { x: 1018.8, y: 495.4 }
+      - { x: 1008.3, y: 523.6 }
+      - { x: 993.9, y: 550 }
+      - { x: 975.8, y: 574.1 }
+      - { x: 954.5, y: 595.4 }
+      - { x: 930.4, y: 613.5 }
+      - { x: 904, y: 627.9 }
+      - { x: 875.8, y: 638.4 }
+      - { x: 846.3, y: 644.8 }
+  - from: p40
+    to: p41
+    curve: none
+    ends: { from: none, to: none }
+  - from: p42
+    to: p43
+    curve: none
+    ends: { from: none, to: none }
+  - from: p44
+    to: p45
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 355, y: 651 }
+      - { x: 324.7, y: 644.4 }
+      - { x: 295.7, y: 633.6 }
+      - { x: 268.5, y: 618.7 }
+      - { x: 243.7, y: 600.1 }
+      - { x: 221.7, y: 578.2 }
+      - { x: 203.2, y: 553.4 }
+      - { x: 188.3, y: 526.2 }
+      - { x: 177.5, y: 497.1 }
+      - { x: 170.9, y: 466.8 }
+      - { x: 168.7, y: 435.9 }
+      - { x: 170.9, y: 405 }
+      - { x: 177.5, y: 374.7 }
+      - { x: 188.3, y: 345.7 }
+      - { x: 203.2, y: 318.5 }
+      - { x: 221.7, y: 293.7 }
+      - { x: 243.7, y: 271.7 }
+      - { x: 268.5, y: 253.2 }
+      - { x: 295.7, y: 238.3 }
+      - { x: 324.7, y: 227.5 }
+      - { x: 355, y: 220.9 }
+  - from: p46
+    to: p47
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 847.2, y: 220.9 }
+      - { x: 877.5, y: 227.5 }
+      - { x: 906.6, y: 238.3 }
+      - { x: 933.8, y: 253.2 }
+      - { x: 958.6, y: 271.7 }
+      - { x: 980.5, y: 293.7 }
+      - { x: 999.1, y: 318.5 }
+      - { x: 1013.9, y: 345.7 }
+      - { x: 1024.8, y: 374.7 }
+      - { x: 1031.4, y: 405 }
+      - { x: 1033.6, y: 435.9 }
+      - { x: 1031.4, y: 466.8 }
+      - { x: 1024.8, y: 497.1 }
+      - { x: 1013.9, y: 526.2 }
+      - { x: 999.1, y: 553.4 }
+      - { x: 980.5, y: 578.2 }
+      - { x: 958.6, y: 600.1 }
+      - { x: 933.8, y: 618.7 }
+      - { x: 906.6, y: 633.6 }
+      - { x: 877.5, y: 644.4 }
+      - { x: 847.2, y: 651 }
+  - from: p48
+    to: p49
+    curve: none
+    ends: { from: none, to: none }
+  - from: p50
+    to: p51
+    curve: none
+    ends: { from: none, to: none }
+  - from: p52
+    to: p53
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 354.1, y: 657.1 }
+      - { x: 323, y: 650.4 }
+      - { x: 293.1, y: 639.2 }
+      - { x: 265.1, y: 623.9 }
+      - { x: 239.6, y: 604.8 }
+      - { x: 217, y: 582.3 }
+      - { x: 197.9, y: 556.7 }
+      - { x: 182.6, y: 528.8 }
+      - { x: 171.5, y: 498.9 }
+      - { x: 164.7, y: 467.7 }
+      - { x: 162.4, y: 435.9 }
+      - { x: 164.7, y: 404.1 }
+      - { x: 171.5, y: 373 }
+      - { x: 182.6, y: 343.1 }
+      - { x: 197.9, y: 315.1 }
+      - { x: 217, y: 289.6 }
+      - { x: 239.6, y: 267 }
+      - { x: 265.1, y: 247.9 }
+      - { x: 293.1, y: 232.6 }
+      - { x: 323, y: 221.5 }
+      - { x: 354.1, y: 214.7 }
+  - from: p54
+    to: p55
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 848.1, y: 214.7 }
+      - { x: 879.3, y: 221.5 }
+      - { x: 909.2, y: 232.6 }
+      - { x: 937.1, y: 247.9 }
+      - { x: 962.7, y: 267 }
+      - { x: 985.2, y: 289.6 }
+      - { x: 1004.3, y: 315.1 }
+      - { x: 1019.6, y: 343.1 }
+      - { x: 1030.7, y: 373 }
+      - { x: 1037.5, y: 404.1 }
+      - { x: 1039.8, y: 435.9 }
+      - { x: 1037.5, y: 467.7 }
+      - { x: 1030.7, y: 498.9 }
+      - { x: 1019.6, y: 528.8 }
+      - { x: 1004.3, y: 556.7 }
+      - { x: 985.2, y: 582.3 }
+      - { x: 962.7, y: 604.8 }
+      - { x: 937.1, y: 623.9 }
+      - { x: 909.2, y: 639.2 }
+      - { x: 879.3, y: 650.4 }
+      - { x: 848.1, y: 657.1 }
+  - from: p56
+    to: p57
+    curve: none
+    ends: { from: none, to: none }
+  - from: p58
+    to: p59
+    curve: none
+    ends: { from: none, to: none }
+  - from: p60
+    to: p61
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 353.2, y: 663.3 }
+      - { x: 321.2, y: 656.3 }
+      - { x: 290.5, y: 644.9 }
+      - { x: 261.7, y: 629.2 }
+      - { x: 235.5, y: 609.5 }
+      - { x: 212.3, y: 586.4 }
+      - { x: 192.7, y: 560.1 }
+      - { x: 177, y: 531.3 }
+      - { x: 165.5, y: 500.6 }
+      - { x: 158.6, y: 468.6 }
+      - { x: 156.2, y: 435.9 }
+      - { x: 158.6, y: 403.2 }
+      - { x: 165.5, y: 371.2 }
+      - { x: 177, y: 340.5 }
+      - { x: 192.7, y: 311.7 }
+      - { x: 212.3, y: 285.5 }
+      - { x: 235.5, y: 262.3 }
+      - { x: 261.7, y: 242.7 }
+      - { x: 290.5, y: 227 }
+      - { x: 321.2, y: 215.5 }
+      - { x: 353.2, y: 208.6 }
+  - from: p62
+    to: p63
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 849, y: 208.6 }
+      - { x: 881, y: 215.5 }
+      - { x: 911.7, y: 227 }
+      - { x: 940.5, y: 242.7 }
+      - { x: 966.7, y: 262.3 }
+      - { x: 989.9, y: 285.5 }
+      - { x: 1009.6, y: 311.7 }
+      - { x: 1025.3, y: 340.5 }
+      - { x: 1036.7, y: 371.2 }
+      - { x: 1043.7, y: 403.2 }
+      - { x: 1046, y: 435.9 }
+      - { x: 1043.7, y: 468.6 }
+      - { x: 1036.7, y: 500.6 }
+      - { x: 1025.3, y: 531.3 }
+      - { x: 1009.6, y: 560.1 }
+      - { x: 989.9, y: 586.4 }
+      - { x: 966.7, y: 609.5 }
+      - { x: 940.5, y: 629.2 }
+      - { x: 911.7, y: 644.9 }
+      - { x: 881, y: 656.3 }
+      - { x: 849, y: 663.3 }
+  - from: p64
+    to: p65
+    curve: none
+    ends: { from: none, to: none }
+  - from: p66
+    to: p67
+    curve: none
+    ends: { from: none, to: none }
+  - from: p68
+    to: p69
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 352.4, y: 669.5 }
+      - { x: 319.5, y: 662.3 }
+      - { x: 287.9, y: 650.5 }
+      - { x: 258.4, y: 634.4 }
+      - { x: 231.4, y: 614.2 }
+      - { x: 207.6, y: 590.4 }
+      - { x: 187.5, y: 563.5 }
+      - { x: 171.3, y: 533.9 }
+      - { x: 159.6, y: 502.4 }
+      - { x: 152.4, y: 469.5 }
+      - { x: 150, y: 435.9 }
+      - { x: 152.4, y: 402.4 }
+      - { x: 159.6, y: 369.5 }
+      - { x: 171.3, y: 337.9 }
+      - { x: 187.5, y: 308.4 }
+      - { x: 207.6, y: 281.4 }
+      - { x: 231.4, y: 257.6 }
+      - { x: 258.4, y: 237.5 }
+      - { x: 287.9, y: 221.3 }
+      - { x: 319.5, y: 209.6 }
+      - { x: 352.4, y: 202.4 }
+  - from: p70
+    to: p71
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 849.9, y: 202.4 }
+      - { x: 882.8, y: 209.6 }
+      - { x: 914.3, y: 221.3 }
+      - { x: 943.9, y: 237.5 }
+      - { x: 970.8, y: 257.6 }
+      - { x: 994.6, y: 281.4 }
+      - { x: 1014.8, y: 308.4 }
+      - { x: 1030.9, y: 337.9 }
+      - { x: 1042.7, y: 369.5 }
+      - { x: 1049.8, y: 402.4 }
+      - { x: 1052.2, y: 435.9 }
+      - { x: 1049.8, y: 469.5 }
+      - { x: 1042.7, y: 502.4 }
+      - { x: 1030.9, y: 533.9 }
+      - { x: 1014.8, y: 563.5 }
+      - { x: 994.6, y: 590.4 }
+      - { x: 970.8, y: 614.2 }
+      - { x: 943.9, y: 634.4 }
+      - { x: 914.3, y: 650.5 }
+      - { x: 882.8, y: 662.3 }
+      - { x: 849.9, y: 669.5 }
+  - from: p72
+    to: p73
+    curve: none
+    ends: { from: arrow, to: arrow }
+  - from: p74
+    to: p75
+    curve: none
+    ends: { from: arrow, to: arrow }
