@@ -138,6 +138,7 @@ export const CAPTIONS_EN = {
   '281-ネイルの指示図': 'Ten nails are not ten copies of one design: a little finger is 6-7mm across where a thumb is 12-16mm, so the same motif simply does not fit, and tip numbers run backwards — the smaller the number, the wider the nail',
   '282-ランドルト環': 'Visual acuity 1.0 is an angle, not a size: the gap must subtend one minute of arc and the whole ring five, which is why a chart for 5m and one for 3m print rings of different sizes',
   '283-中継の決まり': 'Two kinds of handover measured in opposite ways: ekiden fixes a single line and allows hundreds of metres around it to prepare, while a relay fixes a 30m zone and disqualifies anything outside it',
+  '284-三審制': 'Three instances does not mean the same three courts: a small civil claim starting at a summary court is appealed to a district court and goes no further than a high court, while a criminal case from the same summary court goes to the high court and then the supreme court',
   '259-家具の転倒防止': 'Mass cancels out of the tipping condition, so how easily furniture falls depends only on its depth and the height of its centre of gravity — a shallow tall bookcase goes over at a shindo 5+',
   '258-液晶テレビの層': 'An LCD makes no light of its own — it only blocks it, which is why its black is whatever light failed to be blocked, and why only a tenth of the backlight ever reaches your eye',
   '257-換気扇の風量と静圧': 'The airflow on the box is the free-delivery figure; what you actually get is where the fan curve meets the duct resistance, and a long bent duct can cut it to 43 percent',
