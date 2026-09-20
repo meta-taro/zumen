@@ -16,7 +16,9 @@ function checkCodes(): Set<string> {
   const found = new Set<string>();
   for (const file of ['src/validate.ts', 'src/cli.ts']) {
     const text = readFileSync(new URL(`../${file}`, import.meta.url), 'utf8');
-    for (const m of text.matchAll(/add\('(?:warning|error)', '([a-z-]+)'/g)) found.add(m[1]!);
+    // **改行をまたいでも数える。** 引数を折り返した呼び出しを数え落として、
+    // 検査を 1 つ足した日に「実物は 83」と言われた（2026-09-20）。
+    for (const m of text.matchAll(/add\(\s*'(?:warning|error)',\s*'([a-z-]+)'/g)) found.add(m[1]!);
     for (const m of text.matchAll(/code: '([a-z-]+)'/g)) found.add(m[1]!);
   }
   return found;

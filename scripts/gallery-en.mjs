@@ -112,6 +112,7 @@ export const CAPTIONS_EN = {
   '169-麻雀の配牌': 'Mahjong: the dice decide where the wall is opened, not luck',
   '168-ダイヤモンドシステム': 'Billiards: the diamonds on the rails are a ruler, not decoration',
   '167-ダーツボードの割り付け': 'A dartboard: the numbers are arranged to punish a miss',
+  '244-エレベーターの構造': 'The counterweight is not there to cancel the weight but to halve the difference: car plus half the rated load, so the motor only ever lifts half the rated load in either direction',
   '243-はめあい': 'The same 30mm turns into a running fit or a permanent one depending on two letters: H7/g6 leaves 7 to 41 microns of clearance, H7/p6 always bites by at least 1 micron',
   '242-溶接記号': 'A welding symbol is read together with its arrow: below the reference line means the arrow side, above it means the other side, so the same symbol welds the opposite face if the arrow moves',
   '241-データセンターの電力系統': '2N does not mean doubling: it means two paths that never join before the equipment, because one shared point is a single point of failure — and the UPS is not a power source, just the bridge over the 10 seconds the generator needs',

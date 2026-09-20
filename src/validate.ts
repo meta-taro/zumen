@@ -580,6 +580,30 @@ function checkGeometry(doc: Document, add: Add, m: Messages, at: At): void {
         add('warning', 'marker-unknown', m.markerUnknown(id, String(marker)), at(item.get('marker', true)));
       } else if (!placement) {
         add('warning', 'marker-ignored', m.markerIgnored(id), at(item.get('marker', true)));
+      } else {
+        /**
+         * **丸に長方形の `size` を書いても、短いほうしか描かれない**（2026-09-20）。
+         *
+         * `circle` と `double` は半径を `min(w, h) / 2` で描く（`src/marker.ts`）。
+         * だから `size: { w: 80, h: 34 }` と書いても**直径 34 の丸**が出る ——
+         * 書いた 80 は消える。ところが名前の置き場所も重なりの判定も
+         * **書いた 80 のほうを見る**ので、丸の横に空きが残る。
+         *
+         * 測ったら**見本 8 枚・42 節**がこうなっていた
+         * （フェリーの発着表の港名は 80×34。描かれるのは 34 の丸）。
+         * **横長の丸が欲しいなら `ellipse`** があり、そちらは w と h の両方を使う。
+         */
+        const round = String(marker) === 'circle' || String(marker) === 'double';
+        const w = isMap(size) ? Number(size.get('w')) : NaN;
+        const h = isMap(size) ? Number(size.get('h')) : NaN;
+        if (round && Number.isFinite(w) && Number.isFinite(h) && Math.abs(w - h) > 1) {
+          add(
+            'warning',
+            'circle-not-square',
+            m.circleNotSquare(id, String(marker), Math.round(w), Math.round(h), Math.round(Math.min(w, h))),
+            at(size),
+          );
+        }
       }
     }
 

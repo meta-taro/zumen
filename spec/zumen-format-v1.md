@@ -1828,6 +1828,7 @@ Mermaid も draw.io も、落ちたものを先頭のコメントに列挙する
 | `radius-invalid` | `radius` が正の数か |
 | `radius-ignored` | **構成図に `radius` を書いていないか** |
 | `marker-unknown` | `box` / `circle` / `double` / `ellipse` / `diamond` / `bar` / `none` か |
+| `circle-not-square` | **丸（`circle` / `double`）に長方形の `size` を書いていないか**（短いほうしか描かれない。横長が要るなら `ellipse`） |
 | `edge-under-box` | **`arrows: false` で、箱の塗りに隠れる線を引いていないか** |
 | `view-title-covered` | **`views[].title` が、下辺からはみ出した中身の上に乗っていないか** |
 | `hatch-too-thin` | **模様を頼んだのに、面が細すぎて 1 つも描かれないか**（無地と見分けがつかない） |

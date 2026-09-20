@@ -697,6 +697,8 @@ const ja = {
       `ノード "${id}" に \`${key}\` を書いていますが、**これは辺（edges）の語**です。節に書いても黙って落ちます。枠の線種なら \`line\`（実線・破線・点線・一点鎖線）、面の模様なら \`hatch\`、線の色なら \`color\` を使ってください。**枠の太さを変える語は、いまはありません** —— 太さで示したいなら、線種を変えるか \`hatch\` で面を示してください。`,
     viewTitleCovered: (view: string, box: string, grow: number) =>
       `図 "${view}" の名前が、"${box}" の上に乗って描かれます。**図の名前は、その図の下辺のすぐ下**に置かれるので、\`size\` に書いた高さより中身が下へ出ていると重なります。**この図の \`size.h\` を ${grow}px 増やすか、中身を上へ詰めてください。**`,
+    circleNotSquare: (id: string, marker: string, w: number, h: number, d: number) =>
+      `ノード "${id}" は \`marker: ${marker}\`（丸）ですが、\`size\` が ${w}×${h} で正方形ではありません。**丸は短いほうが直径になる**ので、描かれるのは**直径 ${d} の丸**で、長いほうの ${Math.max(w, h)} は消えます。ところが名前の置き場所と重なりの判定は ${w}×${h} のほうを見るので、**丸の横に空きが残ります**。横長・縦長の丸が欲しいなら \`marker: ellipse\`（w と h の両方を使います）、丸でよいなら \`size\` を正方形にしてください。`,
     hatchTooThin: (id: string, hatch: string, side: number) =>
       `ノード "${id}" に \`hatch: ${hatch}\` を書いていますが、**面の短いほうが ${side}px しかないので、模様は 1 つも描かれません**（無地と見分けがつきません）。点は間隔 9px で置くので半間隔に満たない面には乗らず、斜線・格子は面で切り取られるので細いほど切れ端が短くなります。**線のつもりなら \`hatch\` を外して \`line\` で線種を指定**し、模様で材料を示したいなら**短いほうを 9px 以上**にしてください。`,
     colorWithoutCode: (key: string) =>
@@ -1314,6 +1316,8 @@ const en: Catalog = {
       `Node "${id}" carries \`${key}\`, but **that word belongs to edges**. On a node it is dropped in silence. Use \`line\` for the outline's line type (solid / dashed / dotted / chain), \`hatch\` for a fill pattern, \`color\` for the stroke colour. **There is no word for outline thickness yet** — change the line type, or show the area with \`hatch\`.`,
     viewTitleCovered: (view: string, box: string, grow: number) =>
       `The title of view "${view}" is drawn on top of "${box}". **A view title sits just below the view's bottom edge**, so anything that reaches past the height you wrote in \`size\` ends up underneath it. **Grow this view's \`size.h\` by ${grow}px, or move its contents up.**`,
+    circleNotSquare: (id: string, marker: string, w: number, h: number, d: number) =>
+      `Node "${id}" is \`marker: ${marker}\` (a circle), but its \`size\` is ${w}x${h}, not square. **A circle takes the shorter side as its diameter**, so what gets drawn is a **${d} circle** and the ${Math.max(w, h)} you wrote is gone. Label placement and overlap still measure the ${w}x${h} box, so **empty room is left beside the circle**. Use \`marker: ellipse\` for an oval (it uses both w and h), or make \`size\` square.`,
     hatchTooThin: (id: string, hatch: string, side: number) =>
       `Node "${id}" carries \`hatch: ${hatch}\`, but **its short side is only ${side}px, so not one mark is drawn** — it comes out indistinguishable from plain. Dots sit on a 9px pitch, so a face narrower than half that holds none; diagonals and cross-hatch are clipped to the face, so the thinner it is the shorter the stubs. **If you meant a line, drop \`hatch\` and set \`line\` instead**; if the pattern is meant to name a material, make the short side 9px or more.`,
     colorWithoutCode: (key: string) =>

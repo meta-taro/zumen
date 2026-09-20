@@ -485,3 +485,49 @@ nodes:
     assert.ok(!validate(ONE('あ'.repeat(120))).some((f) => f.code === 'round-trip-changed'));
   });
 });
+
+/**
+ * **丸に長方形の `size`**（2026-09-20）。
+ *
+ * `circle` と `double` は半径を `min(w, h) / 2` で描く。だから
+ * `size: { w: 80, h: 34 }` と書いても**直径 34 の丸**が出て、書いた 80 は消える。
+ * ところが**名前の置き場所と重なりの判定は 80 のほうを見る**ので、丸の横に空きが残る。
+ *
+ * 測ったら**見本 8 枚・42 節**がこうだった（フェリーの発着表の港名は 80×34）。
+ * 横長の丸が要るなら `ellipse` があり、そちらは w と h の両方を使う。
+ */
+describe('丸に長方形の size', () => {
+  const one = (marker: string, w: number, h: number) =>
+    codes(`${PLACEMENT}  - id: a\n    label: "港"\n    marker: ${marker}\n    at: { x: 0, y: 0 }\n    size: { w: ${w}, h: ${h} }\n`);
+
+  it('**circle が正方形でなければ知らせる**', () => {
+    assert.deepEqual(one('circle', 80, 34), ['circle-not-square']);
+  });
+
+  it('double も同じ（半径の決め方が同じ）', () => {
+    assert.deepEqual(one('double', 32, 20), ['circle-not-square']);
+  });
+
+  it('正方形なら言わない', () => {
+    assert.deepEqual(one('circle', 34, 34), []);
+  });
+
+  it('1px までの差は言わない（計算の端数）', () => {
+    assert.deepEqual(one('circle', 34, 34.5), []);
+  });
+
+  it('**ellipse は言わない。** w と h の両方を使う印だから', () => {
+    assert.deepEqual(one('ellipse', 80, 34), []);
+  });
+
+  it('四角なら関係ない', () => {
+    assert.deepEqual(one('box', 80, 34), []);
+  });
+
+  it('どう直すかまで言う（ellipse か、正方形か）', () => {
+    const found = validate(`${PLACEMENT}  - id: a\n    label: "港"\n    marker: circle\n    at: { x: 0, y: 0 }\n    size: { w: 80, h: 34 }\n`);
+    const said = found.find((f) => f.code === 'circle-not-square')!;
+    assert.match(said.message, /直径 34/);
+    assert.match(said.message, /ellipse/);
+  });
+});

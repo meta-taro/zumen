@@ -1,0 +1,690 @@
+version: 1
+kind: placement
+arrows: true
+title: ロープ式エレベーターの構造（機械室あり）
+# **釣合おもりは、重さを消すためではなく、差を半分にするためにある。**
+#
+# 釣合おもり ＝ **かご自重 ＋ 定格積載の半分**。
+# かご 1,000kg・定格 1,300kg なら 1,650kg で、
+# 空でも満載でも差は 650kg —— **モーターは定格積載の半分ぶんでよい。**
+#
+# **止め方は階段になっている。** 定格速度の 1.3 倍を超える前に調速機が動力を切り、
+# 1.4 倍を超える前に非常止めがレールを掴み、それでも届いたら緩衝器が受ける
+# （建設省告示第 1423 号）。
+#
+# **オーバーヘッドとピットは空きではない。** 上に綱車とそらせ車、下に緩衝器が入る。
+#
+# 2009 年 9 月 28 日から、**戸開走行保護装置**と**地震時管制運転装置**が義務
+# （令第 129 条の 10 第 3 項第 1 号・第 2 号。平成 20 年政令第 290 号）。
+nodes:
+  - id: t1
+    label: "① 昇降路の縦断面（機械室あり・1:1 ローピング）"
+    marker: none
+    align: left
+    at: { x: 150, y: 150 }
+    size: { w: 560, h: 20 }
+  - id: mr
+    label: ""
+    at: { x: 160, y: 176 }
+    size: { w: 460, h: 72 }
+  - id: mrN
+    label: "機械室"
+    marker: none
+    align: center
+    at: { x: 160, y: 182 }
+    size: { w: 90, h: 18 }
+  - id: hw
+    label: ""
+    at: { x: 180, y: 250 }
+    size: { w: 420, h: 630 }
+  - id: tr
+    label: ""
+    marker: circle
+    at: { x: 278, y: 180 }
+    size: { w: 64, h: 64 }
+  - id: df
+    label: ""
+    marker: circle
+    at: { x: 448, y: 202 }
+    size: { w: 44, h: 44 }
+  - id: gv
+    label: ""
+    marker: circle
+    at: { x: 540, y: 186 }
+    size: { w: 34, h: 34 }
+  - id: gvN
+    label: "調速機"
+    marker: none
+    align: center
+    at: { x: 528, y: 224 }
+    size: { w: 60, h: 18 }
+  - id: trN
+    label: "巻上機の綱車"
+    marker: none
+    align: right
+    at: { x: 166, y: 203 }
+    size: { w: 104, h: 18 }
+  - id: dfN
+    label: "そらせ車"
+    marker: none
+    align: center
+    at: { x: 424, y: 182 }
+    size: { w: 92, h: 18 }
+  - id: car
+    label: ""
+    at: { x: 198, y: 390 }
+    size: { w: 160, h: 170 }
+  - id: carN
+    label: "かご"
+    marker: none
+    align: center
+    at: { x: 196, y: 455 }
+    size: { w: 164, h: 18 }
+  - id: carN2
+    label: "（かご枠 ＋ かご室）"
+    marker: none
+    align: center
+    at: { x: 196, y: 479 }
+    size: { w: 164, h: 18 }
+  - id: cwt
+    label: ""
+    hatch: lines
+    at: { x: 462, y: 520 }
+    size: { w: 60, h: 180 }
+  - id: cwtN
+    label: "釣合おもり"
+    marker: none
+    align: left
+    at: { x: 610, y: 601 }
+    size: { w: 110, h: 18 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 277, y: 389 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 277, y: 211 }
+    size: { w: 2, h: 2 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 277, y: 211 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 341, y: 211 }
+    size: { w: 2, h: 2 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 341, y: 211 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 447, y: 223 }
+    size: { w: 2, h: 2 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 447, y: 223 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 491, y: 223 }
+    size: { w: 2, h: 2 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 491, y: 223 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 491, y: 519 }
+    size: { w: 2, h: 2 }
+  - id: ropeN
+    label: "主索（2 本以上）"
+    marker: none
+    align: left
+    at: { x: 288, y: 300 }
+    size: { w: 128, h: 18 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 185, y: 259 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 185, y: 869 }
+    size: { w: 2, h: 2 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 369, y: 259 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 369, y: 869 }
+    size: { w: 2, h: 2 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 451, y: 259 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 451, y: 869 }
+    size: { w: 2, h: 2 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 531, y: 259 }
+    size: { w: 2, h: 2 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 531, y: 869 }
+    size: { w: 2, h: 2 }
+  - id: railN
+    label: "ガイドレール（かご用・おもり用）"
+    marker: none
+    align: left
+    at: { x: 186, y: 888 }
+    size: { w: 300, h: 18 }
+  - id: p18
+    label: ""
+    marker: none
+    at: { x: 95, y: 359 }
+    size: { w: 2, h: 2 }
+  - id: p19
+    label: ""
+    marker: none
+    at: { x: 179, y: 359 }
+    size: { w: 2, h: 2 }
+  - id: p20
+    label: ""
+    marker: none
+    at: { x: 599, y: 359 }
+    size: { w: 2, h: 2 }
+  - id: p21
+    label: ""
+    marker: none
+    at: { x: 639, y: 359 }
+    size: { w: 2, h: 2 }
+  - id: f360
+    label: "3F"
+    marker: none
+    align: right
+    at: { x: 50, y: 351 }
+    size: { w: 40, h: 18 }
+  - id: d360
+    label: ""
+    hatch: solid
+    at: { x: 174, y: 300 }
+    size: { w: 12, h: 60 }
+  - id: p22
+    label: ""
+    marker: none
+    at: { x: 95, y: 559 }
+    size: { w: 2, h: 2 }
+  - id: p23
+    label: ""
+    marker: none
+    at: { x: 179, y: 559 }
+    size: { w: 2, h: 2 }
+  - id: p24
+    label: ""
+    marker: none
+    at: { x: 599, y: 559 }
+    size: { w: 2, h: 2 }
+  - id: p25
+    label: ""
+    marker: none
+    at: { x: 639, y: 559 }
+    size: { w: 2, h: 2 }
+  - id: f560
+    label: "2F"
+    marker: none
+    align: right
+    at: { x: 50, y: 551 }
+    size: { w: 40, h: 18 }
+  - id: d560
+    label: ""
+    hatch: solid
+    at: { x: 174, y: 500 }
+    size: { w: 12, h: 60 }
+  - id: p26
+    label: ""
+    marker: none
+    at: { x: 95, y: 759 }
+    size: { w: 2, h: 2 }
+  - id: p27
+    label: ""
+    marker: none
+    at: { x: 179, y: 759 }
+    size: { w: 2, h: 2 }
+  - id: p28
+    label: ""
+    marker: none
+    at: { x: 599, y: 759 }
+    size: { w: 2, h: 2 }
+  - id: p29
+    label: ""
+    marker: none
+    at: { x: 639, y: 759 }
+    size: { w: 2, h: 2 }
+  - id: f760
+    label: "1F"
+    marker: none
+    align: right
+    at: { x: 50, y: 751 }
+    size: { w: 40, h: 18 }
+  - id: d760
+    label: ""
+    hatch: solid
+    at: { x: 174, y: 700 }
+    size: { w: 12, h: 60 }
+  - id: doorN
+    label: "乗場の戸"
+    marker: none
+    align: right
+    at: { x: 48, y: 490 }
+    size: { w: 128, h: 18 }
+  - id: p30
+    label: ""
+    marker: none
+    at: { x: 661, y: 759 }
+    size: { w: 2, h: 2 }
+  - id: p31
+    label: ""
+    marker: none
+    at: { x: 661, y: 879 }
+    size: { w: 2, h: 2 }
+  - id: pitN
+    label: "ピット"
+    marker: none
+    align: left
+    at: { x: 670, y: 794 }
+    size: { w: 140, h: 18 }
+  - id: pitN2
+    label: "（1F の床から下）"
+    marker: none
+    align: left
+    at: { x: 670, y: 816 }
+    size: { w: 160, h: 18 }
+  - id: bf1
+    label: ""
+    hatch: dots
+    at: { x: 256, y: 846 }
+    size: { w: 44, h: 34 }
+  - id: bf2
+    label: ""
+    hatch: dots
+    at: { x: 472, y: 846 }
+    size: { w: 40, h: 34 }
+  - id: bfN
+    label: "緩衝器（かご用・おもり用）"
+    marker: none
+    align: left
+    at: { x: 186, y: 910 }
+    size: { w: 260, h: 18 }
+  - id: p32
+    label: ""
+    marker: none
+    at: { x: 661, y: 359 }
+    size: { w: 2, h: 2 }
+  - id: p33
+    label: ""
+    marker: none
+    at: { x: 661, y: 249 }
+    size: { w: 2, h: 2 }
+  - id: ohN
+    label: "オーバーヘッド"
+    marker: none
+    align: left
+    at: { x: 670, y: 290 }
+    size: { w: 140, h: 18 }
+  - id: ohN2
+    label: "（最上階の床から上）"
+    marker: none
+    align: left
+    at: { x: 670, y: 312 }
+    size: { w: 160, h: 18 }
+  - id: t2
+    label: "② 釣合おもり ＝ かご自重 ＋ 定格積載の半分"
+    marker: none
+    align: left
+    at: { x: 800, y: 150 }
+    size: { w: 440, h: 20 }
+  - id: h186
+    label: "かご 1,000kg ／ 定格積載 1,300kg のとき"
+    hatch: solid
+    at: { x: 800, y: 186 }
+    size: { w: 440, h: 24 }
+  - id: x210
+    label: "釣合おもり"
+    at: { x: 800, y: 210 }
+    size: { w: 200, h: 24 }
+  - id: y210
+    label: "1,000 ＋ 1,300 ÷ 2 ＝ 1,650kg"
+    align: left
+    at: { x: 1000, y: 210 }
+    size: { w: 240, h: 24 }
+  - id: x234
+    label: "かごが空"
+    at: { x: 800, y: 234 }
+    size: { w: 200, h: 24 }
+  - id: y234
+    label: "おもり側が 650kg 重い"
+    align: left
+    at: { x: 1000, y: 234 }
+    size: { w: 240, h: 24 }
+  - id: x258
+    label: "半分（650kg）積む"
+    at: { x: 800, y: 258 }
+    size: { w: 200, h: 24 }
+  - id: y258
+    label: "つり合う（差 0）"
+    align: left
+    at: { x: 1000, y: 258 }
+    size: { w: 240, h: 24 }
+  - id: x282
+    label: "満載（1,300kg）"
+    at: { x: 800, y: 282 }
+    size: { w: 200, h: 24 }
+  - id: y282
+    label: "かご側が 650kg 重い"
+    align: left
+    at: { x: 1000, y: 282 }
+    size: { w: 240, h: 24 }
+  - id: why2
+    label: "どちらへ振れても差は 650kg まで —— 定格積載のちょうど半分。\nモーターは 2,300kg ではなく、650kg ぶんあればよい。\n空のかごを下ろすときと満載で下るときは、\n荷のほうがモーターを回す（回生）。"
+    at: { x: 800, y: 320 }
+    size: { w: 440, h: 102 }
+  - id: t3
+    label: "③ ローピング —— 1:1 と 2:1"
+    marker: none
+    align: left
+    at: { x: 800, y: 416 }
+    size: { w: 440, h: 20 }
+  - id: h446
+    label: "同じ荷を、どう吊るか"
+    hatch: solid
+    at: { x: 800, y: 446 }
+    size: { w: 440, h: 24 }
+  - id: x470
+    label: "1:1"
+    at: { x: 800, y: 470 }
+    size: { w: 110, h: 24 }
+  - id: y470
+    label: "ロープの速さ ＝ かごの速さ／張力 ＝ 荷重"
+    align: left
+    at: { x: 910, y: 470 }
+    size: { w: 330, h: 24 }
+  - id: x494
+    label: "2:1"
+    at: { x: 800, y: 494 }
+    size: { w: 110, h: 24 }
+  - id: y494
+    label: "ロープの速さ ＝ かごの 2 倍／張力 ＝ 荷重の半分"
+    align: left
+    at: { x: 910, y: 494 }
+    size: { w: 330, h: 24 }
+  - id: why3
+    label: "2:1 は、動滑車と同じ。\n張力が半分になるぶん、ロープを 2 倍の速さで巻く。\n小さい巻上機で大きな荷を運べるので、機械室レスでよく使う。"
+    at: { x: 800, y: 532 }
+    size: { w: 440, h: 78 }
+  - id: t4
+    label: "④ 速度が上がったときの、止め方の階段"
+    marker: none
+    align: left
+    at: { x: 800, y: 604 }
+    size: { w: 440, h: 20 }
+  - id: h634
+    label: "どこで、何が効くか"
+    hatch: solid
+    at: { x: 800, y: 634 }
+    size: { w: 440, h: 24 }
+  - id: x658
+    label: "定格速度"
+    at: { x: 800, y: 658 }
+    size: { w: 160, h: 24 }
+  - id: y658
+    label: "ふだんのブレーキで止める"
+    align: left
+    at: { x: 960, y: 658 }
+    size: { w: 280, h: 24 }
+  - id: x682
+    label: "1.3 倍を超える前"
+    at: { x: 800, y: 682 }
+    size: { w: 160, h: 24 }
+  - id: y682
+    label: "調速機が動力を自動的に切る"
+    align: left
+    at: { x: 960, y: 682 }
+    size: { w: 280, h: 24 }
+  - id: x706
+    label: "1.4 倍を超える前"
+    at: { x: 800, y: 706 }
+    size: { w: 160, h: 24 }
+  - id: y706
+    label: "非常止めがレールをくさびで掴む"
+    align: left
+    at: { x: 960, y: 706 }
+    size: { w: 280, h: 24 }
+  - id: x730
+    label: "それでも届いたら"
+    at: { x: 800, y: 730 }
+    size: { w: 160, h: 24 }
+  - id: y730
+    label: "ピットの緩衝器が受ける"
+    align: left
+    at: { x: 960, y: 730 }
+    size: { w: 280, h: 24 }
+  - id: why4
+    label: "倍率は定格速度に対するもの（建設省告示第 1423 号）。\n同じ速度計で 2 段に分けてある ——\nまず動力を切り、それでも落ちるなら掴む。"
+    at: { x: 800, y: 768 }
+    size: { w: 440, h: 78 }
+  - id: t5
+    label: "⑤ 2009 年 9 月 28 日から義務になった 2 つ"
+    marker: none
+    align: left
+    at: { x: 800, y: 840 }
+    size: { w: 440, h: 20 }
+  - id: h870
+    label: "建築基準法施行令 第 129 条の 10 第 3 項"
+    hatch: solid
+    at: { x: 800, y: 870 }
+    size: { w: 440, h: 24 }
+  - id: x894
+    label: "第 1 号　戸開走行保護装置"
+    at: { x: 800, y: 894 }
+    size: { w: 180, h: 24 }
+  - id: y894
+    label: "戸が開いたまま動いたら止める"
+    align: left
+    at: { x: 980, y: 894 }
+    size: { w: 260, h: 24 }
+  - id: x918
+    label: "第 2 号　地震時管制運転"
+    at: { x: 800, y: 918 }
+    size: { w: 180, h: 24 }
+  - id: y918
+    label: "揺れを感じたら最寄り階へ寄せて戸を開く"
+    align: left
+    at: { x: 980, y: 918 }
+    size: { w: 260, h: 24 }
+  - id: why5
+    label: "平成 20 年政令第 290 号。\n戸が閉じる前に動く事故が起きたあとに足された。\nブレーキを二重にして、片方が効かなくても止める。"
+    at: { x: 800, y: 956 }
+    size: { w: 440, h: 78 }
+  - id: r1
+    label: "釣合おもりは、重さを消すためではなく、差を半分にするためにあります（②）。かご自重 ＋ 定格積載の半分に決まっているのは、そのためです。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1042 }
+    size: { w: 1090, h: 18 }
+  - id: r2
+    label: "だからモーターは、定格積載の半分ぶんでよい。 満載で 2,300kg 吊っていても、持ち上げているのは 650kg です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1066 }
+    size: { w: 1090, h: 18 }
+  - id: r3
+    label: "空で下りるときと、満載で下るときは、荷のほうがモーターを回します（回生）。エレベーターが止まる寸前に音が変わるのは、これです。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1090 }
+    size: { w: 1090, h: 18 }
+  - id: r4
+    label: "2:1 ローピングは動滑車です（③）。張力が半分になるかわり、ロープを 2 倍の速さで巻きます。機械室レスが成り立つのはこの取り引きです。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1114 }
+    size: { w: 1090, h: 18 }
+  - id: r5
+    label: "止め方は 1 つではなく、階段になっています（④）。1.3 倍で動力を切り、1.4 倍までに非常止めが掴み、最後に緩衝器が受けます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1138 }
+    size: { w: 1090, h: 18 }
+  - id: r6
+    label: "オーバーヘッドとピットは、空きではなく装置の場所です（①）。上には綱車とそらせ車、下には緩衝器と張り車が要ります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1162 }
+    size: { w: 1090, h: 18 }
+  - id: r7
+    label: "2009 年に 2 つ足されました（⑤）。戸開走行保護装置と地震時管制運転装置 —— どちらも、起きた事故のあとに書かれた条文です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1186 }
+    size: { w: 1090, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p2
+    to: p3
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 278.4, y: 207 }
+      - { x: 279.6, y: 202.1 }
+      - { x: 281.5, y: 197.5 }
+      - { x: 284.1, y: 193.2 }
+      - { x: 287.4, y: 189.4 }
+      - { x: 291.2, y: 186.1 }
+      - { x: 295.5, y: 183.5 }
+      - { x: 300.1, y: 181.6 }
+      - { x: 305, y: 180.4 }
+      - { x: 310, y: 180 }
+      - { x: 315, y: 180.4 }
+      - { x: 319.9, y: 181.6 }
+      - { x: 324.5, y: 183.5 }
+      - { x: 328.8, y: 186.1 }
+      - { x: 332.6, y: 189.4 }
+      - { x: 335.9, y: 193.2 }
+      - { x: 338.5, y: 197.5 }
+      - { x: 340.4, y: 202.1 }
+      - { x: 341.6, y: 207 }
+  - from: p4
+    to: p5
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p6
+    to: p7
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 448.4, y: 219.7 }
+      - { x: 449.7, y: 215.6 }
+      - { x: 451.7, y: 211.8 }
+      - { x: 454.4, y: 208.4 }
+      - { x: 457.8, y: 205.7 }
+      - { x: 461.6, y: 203.7 }
+      - { x: 465.7, y: 202.4 }
+      - { x: 470, y: 202 }
+      - { x: 474.3, y: 202.4 }
+      - { x: 478.4, y: 203.7 }
+      - { x: 482.2, y: 205.7 }
+      - { x: 485.6, y: 208.4 }
+      - { x: 488.3, y: 211.8 }
+      - { x: 490.3, y: 215.6 }
+      - { x: 491.6, y: 219.7 }
+  - from: p8
+    to: p9
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p10
+    to: p11
+    curve: none
+    line: chain
+    ends: { from: none, to: none }
+  - from: p12
+    to: p13
+    curve: none
+    line: chain
+    ends: { from: none, to: none }
+  - from: p14
+    to: p15
+    curve: none
+    line: chain
+    ends: { from: none, to: none }
+  - from: p16
+    to: p17
+    curve: none
+    line: chain
+    ends: { from: none, to: none }
+  - from: p18
+    to: p19
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p20
+    to: p21
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p22
+    to: p23
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p24
+    to: p25
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p26
+    to: p27
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p28
+    to: p29
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p30
+    to: p31
+    curve: none
+    ends: { from: arrow, to: arrow }
+  - from: p32
+    to: p33
+    curve: none
+    ends: { from: arrow, to: arrow }
