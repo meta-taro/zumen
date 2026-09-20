@@ -1,0 +1,508 @@
+version: 1
+kind: placement
+arrows: true
+scale: { mm: 5 }
+title: 茶室の四畳半と八炉（畳が部屋を決める）
+# **四畳半は 9 尺 4 寸 5 分（約 2,865mm）の正方形。**
+# 畳 4 枚が半畳を囲んで風車に回る形で、これ以上でも以下でもない。
+# 畳 1 枚は**京間で 6 尺 3 寸 × 3 尺 1 寸 5 分**（約 1,910 × 955mm）。
+#
+# **畳が部屋を決める。** 柱間を 6 尺 5 寸と定め、柱を 4 寸とすると、
+# 2 間（12 尺 6 寸）に 2 枚敷ける畳の長辺が **6 尺 3 寸**になる ——
+# 部屋の大きさから畳を割り付けるのではなく、**畳の寸法が先にある。**
+#
+# **畳の名前は、場所ではなく役目。**
+# 点前畳（道具畳）・貴人畳・客畳・炉畳・踏込畳・通い畳 ——
+# 同じ 1 枚が、点前畳であり炉畳でもある。**誰が何をするかで呼び分ける。**
+#
+# **炉をどこへ切るかで、点前が変わる。**
+# 点前畳の中に切るのが**入炉**（向切・隅炉）、外に切るのが**出炉**（四畳半切・台目切）。
+# これに**本勝手**（客が亭主の右手側）と**逆勝手**（左手側）があり、
+# 4 通り × 2 で**八炉の法**という。
+#
+# **逆勝手は、同じ点前の鏡写しではない。** 湯を汲む手・体の向き・道具の置き場所が
+# 炉との位置関係で決まるので、左右が入れ替わると**手順そのものが変わる。**
+#
+# **炉は 1 尺 4 寸角**（約 424mm）、炉縁の高さは 2 寸 2 分（約 67mm）。
+# にじり口は幅 2 尺〜2 尺 1 寸、高さ 2 尺 2 寸〜2 尺 3 寸 ——
+# 刀を差したままでは入れない大きさで、**くぐるために頭を下げる。**
+nodes:
+  - id: t1
+    label: "① 四畳半（本勝手・四畳半切）—— 畳 1 枚が 6 尺 3 寸 × 3 尺 1 寸 5 分（京間）"
+    marker: none
+    align: left
+    at: { x: 140, y: 150 }
+    size: { w: 700, h: 20 }
+  - id: toko
+    label: "床の間"
+    hatch: lines
+    at: { x: 310, y: 220 }
+    size: { w: 273, h: 130 }
+  - id: room
+    label: ""
+    at: { x: 310, y: 350 }
+    size: { w: 409, h: 409 }
+  - id: kyaku1
+    label: "客畳"
+    at: { x: 310, y: 350 }
+    size: { w: 273, h: 136 }
+  - id: kinin
+    label: "貴人畳"
+    at: { x: 583, y: 350 }
+    size: { w: 136, h: 273 }
+  - id: kayoi
+    label: "通い畳"
+    at: { x: 446, y: 623 }
+    size: { w: 273, h: 136 }
+  - id: temae
+    label: "点前畳"
+    at: { x: 310, y: 486 }
+    size: { w: 136, h: 273 }
+  - id: han
+    label: "半畳"
+    at: { x: 446, y: 486 }
+    size: { w: 136, h: 136 }
+  - id: ro
+    label: "炉"
+    hatch: cross
+    at: { x: 446, y: 562 }
+    size: { w: 61, h: 61 }
+  - id: nijiri
+    label: "にじり口"
+    marker: none
+    align: left
+    at: { x: 739, y: 689 }
+    size: { w: 150, h: 18 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 734, y: 696 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 720, y: 718 }
+    size: { w: 2, h: 2 }
+  - id: sadou
+    label: "茶道口"
+    marker: none
+    align: right
+    at: { x: 130, y: 653 }
+    size: { w: 150, h: 18 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 295, y: 664 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 307, y: 664 }
+    size: { w: 2, h: 2 }
+  - id: kyuji
+    label: "給仕口"
+    marker: none
+    align: right
+    at: { x: 130, y: 456 }
+    size: { w: 150, h: 18 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 295, y: 467 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 307, y: 467 }
+    size: { w: 2, h: 2 }
+  - id: cap1
+    label: "四畳半は 9 尺 4 寸 5 分（約 2,865mm）の正方形 —— 畳 4 枚が半畳を囲んで風車に回る。"
+    marker: none
+    align: center
+    at: { x: 140, y: 799 }
+    size: { w: 700, h: 18 }
+  - id: t2
+    label: "② 炉の切り方 —— 入炉と出炉、それぞれ本勝手と逆勝手で八炉"
+    marker: none
+    align: left
+    at: { x: 140, y: 849 }
+    size: { w: 700, h: 20 }
+  - id: am
+    label: ""
+    at: { x: 200, y: 889 }
+    size: { w: 60, h: 120 }
+  - id: ar
+    label: ""
+    hatch: cross
+    at: { x: 264, y: 975 }
+    size: { w: 26, h: 26 }
+  - id: an
+    label: "四畳半切"
+    marker: none
+    align: center
+    at: { x: 153, y: 1019 }
+    size: { w: 154, h: 18 }
+  - id: ak
+    label: "出炉"
+    marker: none
+    align: center
+    at: { x: 153, y: 1037 }
+    size: { w: 154, h: 18 }
+  - id: ac
+    label: "半畳の隅へ"
+    marker: none
+    align: center
+    at: { x: 153, y: 1055 }
+    size: { w: 154, h: 18 }
+  - id: bm
+    label: ""
+    at: { x: 370, y: 889 }
+    size: { w: 60, h: 90 }
+  - id: br
+    label: ""
+    hatch: cross
+    at: { x: 434, y: 945 }
+    size: { w: 26, h: 26 }
+  - id: bn
+    label: "台目切"
+    marker: none
+    align: center
+    at: { x: 323, y: 989 }
+    size: { w: 154, h: 18 }
+  - id: bk
+    label: "出炉"
+    marker: none
+    align: center
+    at: { x: 323, y: 1007 }
+    size: { w: 154, h: 18 }
+  - id: bc
+    label: "台目畳（4 分の 3）"
+    marker: none
+    align: center
+    at: { x: 323, y: 1025 }
+    size: { w: 154, h: 18 }
+  - id: cm
+    label: ""
+    at: { x: 540, y: 889 }
+    size: { w: 60, h: 120 }
+  - id: cr
+    label: ""
+    hatch: cross
+    at: { x: 568, y: 895 }
+    size: { w: 26, h: 26 }
+  - id: cn
+    label: "向切"
+    marker: none
+    align: center
+    at: { x: 493, y: 1019 }
+    size: { w: 154, h: 18 }
+  - id: ck
+    label: "入炉"
+    marker: none
+    align: center
+    at: { x: 493, y: 1037 }
+    size: { w: 154, h: 18 }
+  - id: cc
+    label: "向こう側の隅へ"
+    marker: none
+    align: center
+    at: { x: 493, y: 1055 }
+    size: { w: 154, h: 18 }
+  - id: dm
+    label: ""
+    at: { x: 710, y: 889 }
+    size: { w: 60, h: 120 }
+  - id: dr
+    label: ""
+    hatch: cross
+    at: { x: 716, y: 895 }
+    size: { w: 26, h: 26 }
+  - id: dn
+    label: "隅炉"
+    marker: none
+    align: center
+    at: { x: 663, y: 1019 }
+    size: { w: 154, h: 18 }
+  - id: dk
+    label: "入炉"
+    marker: none
+    align: center
+    at: { x: 663, y: 1037 }
+    size: { w: 154, h: 18 }
+  - id: dc
+    label: "壁側の隅へ"
+    marker: none
+    align: center
+    at: { x: 663, y: 1055 }
+    size: { w: 154, h: 18 }
+  - id: cap2
+    label: "どの図も、亭主は畳の手前（下）に座り、客は右手側にいる（本勝手）。左右を裏返すと逆勝手になり、合わせて八炉。"
+    marker: none
+    align: center
+    at: { x: 140, y: 1085 }
+    size: { w: 760, h: 18 }
+  - id: t3
+    label: "③ 畳の名前"
+    marker: none
+    align: left
+    at: { x: 900, y: 150 }
+    size: { w: 430, h: 20 }
+  - id: h900_186
+    label: "四畳半の畳"
+    hatch: solid
+    at: { x: 900, y: 186 }
+    size: { w: 430, h: 24 }
+  - id: x900_210
+    label: "点前畳"
+    at: { x: 900, y: 210 }
+    size: { w: 110, h: 24 }
+  - id: y900_210
+    label: "亭主が点前をする畳（道具畳）"
+    align: left
+    at: { x: 1010, y: 210 }
+    size: { w: 320, h: 24 }
+  - id: x900_234
+    label: "貴人畳"
+    at: { x: 900, y: 234 }
+    size: { w: 110, h: 24 }
+  - id: y900_234
+    label: "正客が座る畳"
+    align: left
+    at: { x: 1010, y: 234 }
+    size: { w: 320, h: 24 }
+  - id: x900_258
+    label: "客畳"
+    at: { x: 900, y: 258 }
+    size: { w: 110, h: 24 }
+  - id: y900_258
+    label: "正客以外の客が座る畳"
+    align: left
+    at: { x: 1010, y: 258 }
+    size: { w: 320, h: 24 }
+  - id: x900_282
+    label: "炉畳"
+    at: { x: 900, y: 282 }
+    size: { w: 110, h: 24 }
+  - id: y900_282
+    label: "炉を切ってある畳"
+    align: left
+    at: { x: 1010, y: 282 }
+    size: { w: 320, h: 24 }
+  - id: x900_306
+    label: "踏込畳"
+    at: { x: 900, y: 306 }
+    size: { w: 110, h: 24 }
+  - id: y900_306
+    label: "茶道口から踏み込む畳"
+    align: left
+    at: { x: 1010, y: 306 }
+    size: { w: 320, h: 24 }
+  - id: x900_330
+    label: "通い畳"
+    at: { x: 900, y: 330 }
+    size: { w: 110, h: 24 }
+  - id: y900_330
+    label: "客が茶を取りに通う畳"
+    align: left
+    at: { x: 1010, y: 330 }
+    size: { w: 320, h: 24 }
+  - id: x900_354
+    label: "半畳"
+    at: { x: 900, y: 354 }
+    size: { w: 110, h: 24 }
+  - id: y900_354
+    label: "四畳半の中央にある半分の畳"
+    align: left
+    at: { x: 1010, y: 354 }
+    size: { w: 320, h: 24 }
+  - id: why3
+    label: "名前は場所ではなく、役目。\n同じ畳が、点前畳であり炉畳でもある ——\n誰が何をするかで呼び分けるので、\n図では畳の位置ではなく名前が要る。"
+    at: { x: 900, y: 392 }
+    size: { w: 430, h: 74 }
+  - id: t4
+    label: "④ 八炉の法"
+    marker: none
+    align: left
+    at: { x: 900, y: 484 }
+    size: { w: 430, h: 20 }
+  - id: h900_514
+    label: "炉をどこへ切るか"
+    hatch: solid
+    at: { x: 900, y: 514 }
+    size: { w: 430, h: 24 }
+  - id: x900_538
+    label: "入炉"
+    at: { x: 900, y: 538 }
+    size: { w: 110, h: 24 }
+  - id: y900_538
+    label: "点前畳の中に切る（向切・隅炉）"
+    align: left
+    at: { x: 1010, y: 538 }
+    size: { w: 320, h: 24 }
+  - id: x900_562
+    label: "出炉"
+    at: { x: 900, y: 562 }
+    size: { w: 110, h: 24 }
+  - id: y900_562
+    label: "点前畳の外に切る（四畳半切・台目切）"
+    align: left
+    at: { x: 1010, y: 562 }
+    size: { w: 320, h: 24 }
+  - id: x900_586
+    label: "本勝手"
+    at: { x: 900, y: 586 }
+    size: { w: 110, h: 24 }
+  - id: y900_586
+    label: "客が亭主の右手側"
+    align: left
+    at: { x: 1010, y: 586 }
+    size: { w: 320, h: 24 }
+  - id: x900_610
+    label: "逆勝手"
+    at: { x: 900, y: 610 }
+    size: { w: 110, h: 24 }
+  - id: y900_610
+    label: "客が亭主の左手側（左右が裏返る）"
+    align: left
+    at: { x: 1010, y: 610 }
+    size: { w: 320, h: 24 }
+  - id: x900_634
+    label: "八炉"
+    at: { x: 900, y: 634 }
+    size: { w: 110, h: 24 }
+  - id: y900_634
+    label: "4 通り × 本勝手・逆勝手 ＝ 8"
+    align: left
+    at: { x: 1010, y: 634 }
+    size: { w: 320, h: 24 }
+  - id: why4
+    label: "炉の位置が、点前の手順を決める。\n湯を汲む手・体の向き・道具の置き場所が\n炉との位置関係で決まるので、\n逆勝手は、同じ点前の左右反転ではない。"
+    at: { x: 900, y: 672 }
+    size: { w: 430, h: 74 }
+  - id: t5
+    label: "⑤ 寸法"
+    marker: none
+    align: left
+    at: { x: 900, y: 764 }
+    size: { w: 430, h: 20 }
+  - id: h900_794
+    label: "尺と mm"
+    hatch: solid
+    at: { x: 900, y: 794 }
+    size: { w: 430, h: 24 }
+  - id: x900_818
+    label: "畳（京間）"
+    at: { x: 900, y: 818 }
+    size: { w: 150, h: 24 }
+  - id: y900_818
+    label: "6 尺 3 寸 × 3 尺 1 寸 5 分"
+    align: left
+    at: { x: 1050, y: 818 }
+    size: { w: 280, h: 24 }
+  - id: x900_842
+    label: "四畳半"
+    at: { x: 900, y: 842 }
+    size: { w: 150, h: 24 }
+  - id: y900_842
+    label: "9 尺 4 寸 5 分 角（約 2,865）"
+    align: left
+    at: { x: 1050, y: 842 }
+    size: { w: 280, h: 24 }
+  - id: x900_866
+    label: "炉"
+    at: { x: 900, y: 866 }
+    size: { w: 150, h: 24 }
+  - id: y900_866
+    label: "1 尺 4 寸 角（約 424 角）"
+    align: left
+    at: { x: 1050, y: 866 }
+    size: { w: 280, h: 24 }
+  - id: x900_890
+    label: "炉縁の高さ"
+    at: { x: 900, y: 890 }
+    size: { w: 150, h: 24 }
+  - id: y900_890
+    label: "2 寸 2 分（約 67）"
+    align: left
+    at: { x: 1050, y: 890 }
+    size: { w: 280, h: 24 }
+  - id: x900_914
+    label: "にじり口の幅"
+    at: { x: 900, y: 914 }
+    size: { w: 150, h: 24 }
+  - id: y900_914
+    label: "2 尺〜2 尺 1 寸（約 610〜636）"
+    align: left
+    at: { x: 1050, y: 914 }
+    size: { w: 280, h: 24 }
+  - id: x900_938
+    label: "にじり口の高さ"
+    at: { x: 900, y: 938 }
+    size: { w: 150, h: 24 }
+  - id: y900_938
+    label: "2 尺 2〜3 寸（約 667〜697）"
+    align: left
+    at: { x: 1050, y: 938 }
+    size: { w: 280, h: 24 }
+  - id: x900_962
+    label: "柱間"
+    at: { x: 900, y: 962 }
+    size: { w: 150, h: 24 }
+  - id: y900_962
+    label: "6 尺 5 寸（柱 4 寸を含む）"
+    align: left
+    at: { x: 1050, y: 962 }
+    size: { w: 280, h: 24 }
+  - id: why5
+    label: "畳の寸法が先にあり、柱間が後。\n柱間 6 尺 5 寸から柱 4 寸を引いた残りに\n畳 2 枚が入るように 6 尺 3 寸が決まった ——\n部屋が畳を決めるのではなく、畳が部屋を決める。"
+    at: { x: 900, y: 1000 }
+    size: { w: 430, h: 74 }
+  - id: r1
+    label: "四畳半は 9 尺 4 寸 5 分の正方形です（①）。畳 4 枚が半畳を囲んで風車に回り、それ以上でも以下でもありません。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1129 }
+    size: { w: 1190, h: 18 }
+  - id: r2
+    label: "畳の名前は場所ではなく役目です（③）。同じ 1 枚が、点前畳であり炉畳でもあります。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1153 }
+    size: { w: 1190, h: 18 }
+  - id: r3
+    label: "炉の切り方は 4 通り（②④）。点前畳の中に切れば入炉（向切・隅炉）、外に切れば出炉（四畳半切・台目切）です。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1177 }
+    size: { w: 1190, h: 18 }
+  - id: r4
+    label: "本勝手と逆勝手で左右が裏返り、合わせて八炉になります。 逆勝手は、同じ点前の鏡写しではありません。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1201 }
+    size: { w: 1190, h: 18 }
+  - id: r5
+    label: "炉は 1 尺 4 寸角（⑤）。畳の短辺 3 尺 1 寸 5 分のおよそ半分弱で、畳の目に合わせて切ります。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1225 }
+    size: { w: 1190, h: 18 }
+  - id: r6
+    label: "畳が部屋を決めます。 柱間 6 尺 5 寸から柱 4 寸を引いた残りに畳 2 枚 —— だから 6 尺 3 寸です。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1249 }
+    size: { w: 1190, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p2
+    to: p3
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p4
+    to: p5
+    curve: none
+    ends: { from: none, to: arrow }
