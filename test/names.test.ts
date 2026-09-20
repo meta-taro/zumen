@@ -1051,3 +1051,40 @@ describe('名前が箱から離れているときの言い方', () => {
     }
   });
 });
+
+/**
+ * **足りない px が負になっていた**（2026-09-21）。
+ *
+ * 幅は足りているのに名前が外へ出ることがある（行が増えて**高さ**が足りないとき）。
+ * そのとき「**-88px 足りません**」と出ていた ——
+ * 数として意味がないうえ、**直す場所（幅）を間違って指している。**
+ */
+describe('幅は足りているのに外へ出たとき', () => {
+  const two = [
+    'version: 1', 'kind: placement', 'nodes:',
+    '  - id: a', '    label: "2 行の\\n名前"',
+    '    at: { x: 0, y: 0 }', '    size: { w: 280, h: 24 }', '',
+  ].join('\n');
+
+  it('**「幅は足りています」と言い、高さを指す**', async () => {
+    const { placedFindings } = await import('../src/cli.ts');
+    const found = await placedFindings(two);
+    const said = found.find((f) => f.code === 'name-adrift');
+    assert.ok(said !== undefined, found.map((f) => f.code).join(','));
+    assert.match(said.message, /幅は足りています/, said.message);
+    assert.match(said.message, /高さ/, said.message);
+  });
+
+  it('**負の px を出さない**', async () => {
+    const { placedFindings } = await import('../src/cli.ts');
+    const found = await placedFindings(two);
+    const said = found.find((f) => f.code === 'name-adrift')!;
+    assert.ok(!/-\d+px 足りません/.test(said.message), said.message);
+  });
+
+  it('高さも同時に名指しする（label-too-tall）', async () => {
+    const { placedFindings } = await import('../src/cli.ts');
+    const found = await placedFindings(two);
+    assert.ok(found.some((f) => f.code === 'label-too-tall'), found.map((f) => f.code).join(','));
+  });
+});

@@ -235,15 +235,15 @@ describe('一覧と実物', () => {
 describe('英語の説明の長さ', () => {
   it('**どれも 40 字以上ある**（題名の言い直しにしない）', () => {
     const thin = Object.entries(CAPTIONS_EN)
-      .filter(([, text]) => text.length < 40)
-      .map(([name, text]) => `${name}: ${text}`);
+      .filter(([, text]) => String(text).length < 40)
+      .map(([name, text]) => `${name}: ${String(text)}`);
     assert.deepEqual(thin, [], '英語の説明が短すぎる');
   });
 
   it('**長すぎもしない**（400 字を超えない）', () => {
     const fat = Object.entries(CAPTIONS_EN)
-      .filter(([, text]) => text.length > 400)
-      .map(([name, text]) => `${name}: ${text.length}`);
+      .filter(([, text]) => String(text).length > 400)
+      .map(([name, text]) => `${name}: ${String(text).length}`);
     assert.deepEqual(fat, []);
   });
 });
