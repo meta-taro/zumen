@@ -1,0 +1,80 @@
+version: 1
+direction: down
+wrap: false
+title: 電気の引き込み（家に来ているのは 100V ではない）
+# **家に来ているのは「100V」ではなく、「単相 3 線式 200/100V」。**
+# 3 本のうち**外側 2 本のあいだが 200V**、**中性線と外側 1 本のあいだが 100V**。
+# **1980 年代以降の一般家庭はこれが主流**で、エアコンや IH の 200V は
+# 別に引いてきているのではなく、**もともと来ている 200V を使っている**だけ。
+#
+# **配電線は 6.6kV。** 配電用変電所から出た高圧配電線（**6.6kV の三相 3 線式**）が
+# 電柱を通り、**柱上変圧器**で低圧に落ちて家へ入る。
+# 20kV・30kV 級の配電線路や、11.4kV の三相 4 線式もある。
+#
+# **50kVA を境に、引き込みの形が変わる。**
+# **50kVA を超え 2,000kVA 以下**なら**高圧引込** ——
+# 電力会社の柱上変圧器ではなく、**需要家が自分で変圧器を持つ**
+# （店やビルの屋上・敷地にあるキュービクルがそれ）。
+# **「大きい建物にキュービクルがある」のは、契約の大きさが境を越えているから。**
+#
+# **低圧にも種類がある。**
+# **単相 3 線式 200/100V**（一般家庭）／**三相 3 線式 200V**（動力。モーター）／
+# **単相 2 線式 100V**（古い引き込み）／**三相 4 線式 415/240V**。
+# **同じ「低圧」でも、来ている線の本数と電圧の組み合わせが違う。**
+nodes:
+  - id: hensho
+    type: generic
+    label: 配電用変電所
+    technology: ここで高圧配電の電圧にする
+  - id: koatsu
+    type: generic
+    label: 高圧配電線
+    technology: 6.6kV の三相 3 線式
+  - id: wakare
+    type: generic
+    label: 契約の大きさで分かれる
+    technology: 境は 50kVA
+  - id: chujo
+    type: generic
+    label: 柱上変圧器
+    technology: 電力会社が持つ
+  - id: cubicle
+    type: generic
+    label: 需要家の変圧器（キュービクル）
+    technology: 50kVA 超〜2,000kVA 以下
+  - id: tanso3
+    type: generic
+    label: 単相 3 線式 200/100V
+    technology: 外側どうしが 200V、中性線とは 100V
+  - id: sanso
+    type: generic
+    label: 三相 3 線式 200V
+    technology: 動力（モーター）
+  - id: ie
+    type: storage
+    label: 家・店・工場
+edges:
+  - from: hensho
+    to: koatsu
+  - from: koatsu
+    to: wakare
+  - from: wakare
+    to: chujo
+    label: 50kVA 以下
+  - from: wakare
+    to: cubicle
+    label: 50kVA を超える
+  - from: chujo
+    to: tanso3
+  - from: chujo
+    to: sanso
+  - from: cubicle
+    to: tanso3
+    line: dashed
+  - from: cubicle
+    to: sanso
+    line: dashed
+  - from: tanso3
+    to: ie
+  - from: sanso
+    to: ie
