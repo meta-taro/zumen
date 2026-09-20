@@ -19,6 +19,7 @@ import { readFileSync, writeFileSync } from 'node:fs';
 
 import { toDrawio } from './drawio.ts';
 import { tooThinForPattern } from './hatch.ts';
+import { patternPeriod } from './line.ts';
 import { renderZumenBlocks, replaceZumenBlocks } from './embed.ts';
 import { mergeThreeWay } from './git-merge.ts';
 import { crossingPlaces, edgesUnderBoxes, layout, straddles } from './layout.ts';
@@ -211,7 +212,38 @@ export async function placedFindings(text: string): Promise<Finding[]> {
       ]
     : [];
 
-  if (!plan) return size;
+  /**
+   * **刻みが 1 回も出そろわない線**（2026-09-20）。
+   *
+   * 破線も一点鎖線も、**線種そのものが意味**を持つ（`src/line.ts`）。
+   * 刻みが 1 周しない長さだと、描かれるのは 1 本の短い実線で、**意味が消える。**
+   * 測ったら見本 2 枚が実際にそうだった —— どちらも中心線・見えない線のつもりで引いたもの。
+   */
+  const short: Finding[] = placed.edges.flatMap((edge) => {
+    const need = patternPeriod(edge.line);
+    if (need === 0) return [];
+    let length = 0;
+    for (let i = 1; i < edge.points.length; i += 1) {
+      const a = edge.points[i - 1]!;
+      const b = edge.points[i]!;
+      length += Math.hypot(b.x - a.x, b.y - a.y);
+    }
+    if (length === 0 || length >= need) return [];
+    return [
+      {
+        severity: 'warning' as const,
+        code: 'line-too-short',
+        message: messages().validate.lineTooShort(
+          `${edge.from} → ${edge.to}`,
+          edge.line,
+          String(Math.round(length)),
+          String(need),
+        ),
+      },
+    ];
+  });
+
+  if (!plan) return [...size, ...short];
   const plans = planNames(placed.boxes, extentOf(placed.boxes), placed.edges, placed.groups);
   /**
    * **紙の上で数える**（2026-09-17）。
@@ -230,6 +262,7 @@ export async function placedFindings(text: string): Promise<Finding[]> {
   }));
   return [
     ...size,
+    ...short,
     ...ink,
     // **広い箱から出ていった名前。** 表の欄が空に見える。
     /**

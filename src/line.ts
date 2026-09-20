@@ -65,6 +65,19 @@ export function dashOf(line: Line): string | null {
   return null;
 }
 
+/**
+ * **刻みが 1 周する長さ**（実線なら 0）。
+ *
+ * これより短い線は、**刻みが 1 回も出そろわないので実線と見分けがつかない。**
+ * 一点鎖線は 23px 要る —— 16px の中心線は「14 3」までしか描かれず、
+ * ただの短い実線に見える（2026-09-20。見本 238 の板金で当たった）。
+ */
+export function patternPeriod(line: Line): number {
+  const dash = dashOf(line);
+  if (dash === null) return 0;
+  return dash.split(' ').reduce((sum, part) => sum + Number(part), 0);
+}
+
 /** **同じ道を 2 回描くか**（二重線）。 */
 export function doubled(line: Line): boolean {
   return line === 'double';

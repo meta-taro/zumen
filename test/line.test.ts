@@ -13,10 +13,11 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
-import { LINES, dashOf, lineOf } from '../src/line.ts';
+import { LINES, dashOf, lineOf, patternPeriod } from '../src/line.ts';
 import { layout } from '../src/layout.ts';
 import { render } from '../src/render.ts';
 import { validate } from '../src/validate.ts';
+import { placedFindings } from '../src/cli.ts';
 
 const AXIS = `version: 1
 kind: placement
@@ -96,5 +97,50 @@ describe('知らせる', () => {
       (f) => f.code === 'line-unknown',
     )!.message;
     for (const word of LINES) assert.ok(said.includes(word), `${word} が出ていない: ${said}`);
+  });
+});
+
+/**
+ * **刻みが 1 回も出そろわない線**（2026-09-20）。
+ *
+ * 線種そのものが意味なので、**実線に見えた時点で意味が消える。**
+ * 見本 262（木工の組み手）を描いたあとに測ったら、**見本 2 枚が実際にそうだった** ——
+ * 見本 200 の 7px の破線と、見本 238 の 16px の一点鎖線。どちらも直した。
+ */
+describe('短すぎて刻みが出ない線', () => {
+  const two = (line: string, x2: number): string =>
+    'version: 1\nkind: placement\nnodes:\n' +
+    '  - id: a\n    label: ""\n    marker: none\n    at: { x: 0, y: 0 }\n    size: { w: 2, h: 2 }\n' +
+    `  - id: b\n    label: ""\n    marker: none\n    at: { x: ${x2}, y: 0 }\n    size: { w: 2, h: 2 }\n` +
+    `edges:\n  - from: a\n    to: b\n    line: ${line}\n    ends: { from: none, to: none }\n`;
+
+  it('刻みが 1 周する長さを数える', () => {
+    assert.equal(patternPeriod('dashed'), 11);
+    assert.equal(patternPeriod('dotted'), 5);
+    assert.equal(patternPeriod('chain'), 23);
+    assert.equal(patternPeriod('solid'), 0, '実線に刻みは無い');
+    assert.equal(patternPeriod('double'), 0);
+  });
+
+  it('**一点鎖線が短すぎると名指しする**', async () => {
+    const found = await placedFindings(two('chain', 16));
+    const said = found.filter((f) => f.code === 'line-too-short');
+    assert.equal(said.length, 1, found.map((f) => f.code).join(','));
+    assert.match(said[0]!.message, /23px/);
+  });
+
+  it('1 周ぶん引いてあれば言わない', async () => {
+    const found = await placedFindings(two('chain', 200));
+    assert.ok(!found.some((f) => f.code === 'line-too-short'));
+  });
+
+  it('実線には言わない（刻みが無いので、短くても嘘にならない）', async () => {
+    const found = await placedFindings(two('solid', 6));
+    assert.ok(!found.some((f) => f.code === 'line-too-short'));
+  });
+
+  it('**破線のほうが早く出そろう**（7 4 なので 11px）', async () => {
+    assert.ok((await placedFindings(two('dashed', 9))).some((f) => f.code === 'line-too-short'));
+    assert.ok(!(await placedFindings(two('dashed', 60))).some((f) => f.code === 'line-too-short'));
   });
 });

@@ -639,6 +639,15 @@ const ja = {
       `エッジ ${name} に close がありますが、構成図では効きません（線の通り道は機械が決めます）。`,
     edgeUnderBox: (edge: string, box: string) =>
       `エッジ ${edge} は、箱 "${box}" の塗りに隠れて描かれません（arrows: false のとき、線は箱より先に描きます）。線を箱の上に出すなら arrows: true にしてください。`,
+    /**
+     * **刻みが 1 回も出そろわない線**（2026-09-20）。
+     *
+     * `line-unknown` は知らない語を拾うが、**正しい語を書いて、それでも
+     * 実線に見える**場合は誰も見ていなかった。中心線も破線も、線種そのものが意味なので、
+     * 実線に見えた時点で意味が消える。**書いた人は、出てきた図からは気づけない。**
+     */
+    lineTooShort: (edge: string, line: string, length: string, need: string) =>
+      `エッジ ${edge} の line: ${line} は、描かれる長さが ${length}px しかありません（刻みが 1 周するのに ${need}px 要ります）。実線と見分けがつきません —— 伸ばすか、line: solid にしてください。`,
     alignUnknown: (id: string, word: string) =>
       `ノード "${id}" の align が "${word}" になっています（left / center / right）。中央で描きます。`,
     alignIgnored: (id: string) =>
@@ -1279,6 +1288,8 @@ const en: Catalog = {
       `Edge ${name} has close, but it has no effect on a structure diagram (the machine routes the line).`,
     edgeUnderBox: (edge: string, box: string) =>
       `Edge ${edge} is hidden under the fill of box "${box}" (with arrows: false, lines are drawn before boxes). Set arrows: true to bring the line above the boxes.`,
+    lineTooShort: (edge: string, line: string, length: string, need: string) =>
+      `Edge ${edge} is drawn only ${length}px long, but line: ${line} needs ${need}px for one full dash cycle. It will look solid — make it longer, or use line: solid.`,
     alignUnknown: (id: string, word: string) =>
       `Node "${id}" has align "${word}" (left / center / right). It is centred.`,
     alignIgnored: (id: string) =>

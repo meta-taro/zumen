@@ -1,0 +1,738 @@
+version: 1
+kind: placement
+arrows: true
+title: 木工の組み手（蟻の勾配・ほぞの 3 分の 1・木の動き）
+# **蟻組の勾配は、欠けない角度の限界。** 針葉樹は **1:6（9.5°）**、
+# 広葉樹は **1:8（7.1°）** —— かたい木ほどゆるくする。
+# **角度を立てるほど、テールの角が「短い木口」になって欠ける**から。迷ったら 1:7。
+#
+# **勾配があるかどうかで役目が変わる。** 蟻組は引っぱっても抜けず、
+# あられ組は接着剤が切れたら抜ける。**引き出しの前板だけが蟻組なのは、
+# そこだけ毎日引っぱられるから** —— 奥板があられ組なのは手抜きではない。
+#
+# **ほぞは材厚の 3 分の 1。**（30mm の材なら 10mm。）厚くしても強くならない ——
+# ほぞを厚くすると受ける穴が広がり、**折れるのはほぞではなく穴の側**になる。
+#
+# **木は幅方向にしか動かない。** 接線 10 ／ 放射 5 ／ 繊維 0.5〜1、
+# 含水率 1% あたり幅の 0.2〜0.4%。**幅 600mm の天板は含水率 5% で 9mm 動く。**
+# 固定すると力が逃げ場を失い、板が割れるか framing が裂ける。
+#
+# **反る向きは、挽く前から決まっている。** 木表は接線方向で木裏（放射方向）の
+# 2 倍縮むので、**乾くと木表が凹・木裏が凸になる。**
+# 板の反りは不良品ではなく、丸太のどこから取ったかの結果。
+nodes:
+  - id: t1
+    label: "① 蟻組の勾配 —— 数字は「欠けない角度」の限界"
+    marker: none
+    align: left
+    at: { x: 150, y: 150 }
+    size: { w: 640, h: 20 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 269, y: 195 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 329, y: 195 }
+    size: { w: 2, h: 2 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 269, y: 195 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 269, y: 305 }
+    size: { w: 2, h: 2 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 250.7, y: 319 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 269, y: 319 }
+    size: { w: 2, h: 2 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 569, y: 195 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 629, y: 195 }
+    size: { w: 2, h: 2 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 569, y: 195 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 569, y: 305 }
+    size: { w: 2, h: 2 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 555.3, y: 319 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 569, y: 319 }
+    size: { w: 2, h: 2 }
+  - id: n6
+    label: "針葉樹（やわらかい木）\n1 : 6 ＝ 9.5°"
+    marker: none
+    align: center
+    at: { x: 210, y: 332 }
+    size: { w: 180, h: 40 }
+  - id: n8
+    label: "広葉樹（かたい木）\n1 : 8 ＝ 7.1°"
+    marker: none
+    align: center
+    at: { x: 510, y: 332 }
+    size: { w: 180, h: 40 }
+  - id: h6
+    label: "高さ 6 に\n振れ 1"
+    marker: none
+    align: left
+    at: { x: 380, y: 226 }
+    size: { w: 110, h: 40 }
+  - id: h8
+    label: "高さ 8 に\n振れ 1"
+    marker: none
+    align: left
+    at: { x: 680, y: 226 }
+    size: { w: 110, h: 40 }
+  - id: why1
+    label: "かたい木ほど、勾配をゆるくする。\n角度を立てるほど、テールの角が「短い木口」になって欠ける ——\nかたい木ほど、そこが脆い。迷ったら 1:7。"
+    at: { x: 150, y: 382 }
+    size: { w: 640, h: 74 }
+  - id: t2
+    label: "② 勾配があるかどうかで、役目が変わる"
+    marker: none
+    align: left
+    at: { x: 150, y: 482 }
+    size: { w: 640, h: 20 }
+  - id: h150_512
+    label: "箱の角の組み手"
+    hatch: solid
+    at: { x: 150, y: 512 }
+    size: { w: 640, h: 24 }
+  - id: x150_536
+    label: "蟻組（あり）"
+    at: { x: 150, y: 536 }
+    size: { w: 170, h: 24 }
+  - id: y150_536
+    label: "勾配がある。引っぱっても抜けない"
+    align: left
+    at: { x: 320, y: 536 }
+    size: { w: 470, h: 24 }
+  - id: x150_560
+    label: "あられ組"
+    at: { x: 150, y: 560 }
+    size: { w: 170, h: 24 }
+  - id: y150_560
+    label: "勾配が無い。接着剤が切れたら抜ける"
+    align: left
+    at: { x: 320, y: 560 }
+    size: { w: 470, h: 24 }
+  - id: x150_584
+    label: "留め（45°）"
+    at: { x: 150, y: 584 }
+    size: { w: 170, h: 24 }
+  - id: y150_584
+    label: "木口が見えない。接着面は木口で弱い"
+    align: left
+    at: { x: 320, y: 584 }
+    size: { w: 470, h: 24 }
+  - id: why2
+    label: "引き出しの前板が蟻組なのは、そこだけ毎日引っぱられるから。\n奥板は引かれないのであられ組でよい —— 同じ引き出しで\n組み手が違うのは、手を抜いたのではなく、かかる力が違うから。"
+    at: { x: 150, y: 622 }
+    size: { w: 640, h: 74 }
+  - id: t3
+    label: "③ ほぞは、材厚の 3 分の 1"
+    marker: none
+    align: left
+    at: { x: 830, y: 150 }
+    size: { w: 430, h: 20 }
+  - id: zai
+    label: ""
+    hatch: lines
+    at: { x: 830, y: 240 }
+    size: { w: 250, h: 90 }
+  - id: hozo
+    label: ""
+    hatch: solid
+    at: { x: 1080, y: 270 }
+    size: { w: 110, h: 30 }
+  - id: lz
+    label: "材厚 30mm"
+    marker: none
+    align: center
+    at: { x: 830, y: 336 }
+    size: { w: 250, h: 18 }
+  - id: lh
+    label: "ほぞ厚 10mm"
+    marker: none
+    align: center
+    at: { x: 1085, y: 336 }
+    size: { w: 155, h: 18 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 1134, y: 217 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 1134, y: 269 }
+    size: { w: 2, h: 2 }
+  - id: lh2
+    label: "30 ÷ 3 ＝ 10mm"
+    marker: none
+    align: right
+    at: { x: 1000, y: 196 }
+    size: { w: 260, h: 18 }
+  - id: h830_366
+    label: "材厚とほぞ厚"
+    hatch: solid
+    at: { x: 830, y: 366 }
+    size: { w: 430, h: 24 }
+  - id: x830_390
+    label: "18mm（薄板）"
+    at: { x: 830, y: 390 }
+    size: { w: 240, h: 24 }
+  - id: y830_390
+    label: "6mm"
+    align: left
+    at: { x: 1070, y: 390 }
+    size: { w: 190, h: 24 }
+  - id: x830_414
+    label: "24mm"
+    at: { x: 830, y: 414 }
+    size: { w: 240, h: 24 }
+  - id: y830_414
+    label: "8mm"
+    align: left
+    at: { x: 1070, y: 414 }
+    size: { w: 190, h: 24 }
+  - id: x830_438
+    label: "30mm（家具の脚）"
+    at: { x: 830, y: 438 }
+    size: { w: 240, h: 24 }
+  - id: y830_438
+    label: "10mm"
+    align: left
+    at: { x: 1070, y: 438 }
+    size: { w: 190, h: 24 }
+  - id: x830_462
+    label: "45mm（framing）"
+    at: { x: 830, y: 462 }
+    size: { w: 240, h: 24 }
+  - id: y830_462
+    label: "15mm"
+    align: left
+    at: { x: 1070, y: 462 }
+    size: { w: 190, h: 24 }
+  - id: why3
+    label: "厚くしても強くならない。\nほぞを厚くすると受ける穴が広がり、\n穴の左右に残る肉が薄くなる ——\n折れるのは、ほぞではなく穴のほう。"
+    at: { x: 830, y: 500 }
+    size: { w: 430, h: 92 }
+  - id: t4
+    label: "④ 木は、幅方向にしか動かない"
+    marker: none
+    align: left
+    at: { x: 830, y: 610 }
+    size: { w: 430, h: 20 }
+  - id: h830_640
+    label: "方向ごとの収縮の比"
+    hatch: solid
+    at: { x: 830, y: 640 }
+    size: { w: 430, h: 24 }
+  - id: x830_664
+    label: "接線（板目の幅）"
+    at: { x: 830, y: 664 }
+    size: { w: 230, h: 24 }
+  - id: y830_664
+    label: "10"
+    align: left
+    at: { x: 1060, y: 664 }
+    size: { w: 200, h: 24 }
+  - id: x830_688
+    label: "放射（柾目の幅）"
+    at: { x: 830, y: 688 }
+    size: { w: 230, h: 24 }
+  - id: y830_688
+    label: "5"
+    align: left
+    at: { x: 1060, y: 688 }
+    size: { w: 200, h: 24 }
+  - id: x830_712
+    label: "繊維（長さ）"
+    at: { x: 830, y: 712 }
+    size: { w: 230, h: 24 }
+  - id: y830_712
+    label: "0.5 〜 1"
+    align: left
+    at: { x: 1060, y: 712 }
+    size: { w: 200, h: 24 }
+  - id: h830_746
+    label: "幅 600mm の天板で"
+    hatch: solid
+    at: { x: 830, y: 746 }
+    size: { w: 430, h: 24 }
+  - id: x830_770
+    label: "含水率 1% あたり"
+    at: { x: 830, y: 770 }
+    size: { w: 230, h: 24 }
+  - id: y830_770
+    label: "幅の 0.2 〜 0.4%"
+    align: left
+    at: { x: 1060, y: 770 }
+    size: { w: 200, h: 24 }
+  - id: x830_794
+    label: "冬から夏で ＋5%"
+    at: { x: 830, y: 794 }
+    size: { w: 230, h: 24 }
+  - id: y830_794
+    label: "600 × 0.3% × 5"
+    align: left
+    at: { x: 1060, y: 794 }
+    size: { w: 200, h: 24 }
+  - id: x830_818
+    label: "動く量"
+    at: { x: 830, y: 818 }
+    size: { w: 230, h: 24 }
+  - id: y830_818
+    label: "＝ 9mm"
+    align: left
+    at: { x: 1060, y: 818 }
+    size: { w: 200, h: 24 }
+  - id: h830_852
+    label: "だから、留める側で逃がす"
+    hatch: solid
+    at: { x: 830, y: 852 }
+    size: { w: 430, h: 24 }
+  - id: x830_876
+    label: "駒止め・8 の字金具"
+    at: { x: 830, y: 876 }
+    size: { w: 230, h: 24 }
+  - id: y830_876
+    label: "長穴で滑らせる"
+    align: left
+    at: { x: 1060, y: 876 }
+    size: { w: 200, h: 24 }
+  - id: x830_900
+    label: "吸い付き桟"
+    at: { x: 830, y: 900 }
+    size: { w: 230, h: 24 }
+  - id: y830_900
+    label: "蟻桟が溝を滑る"
+    align: left
+    at: { x: 1060, y: 900 }
+    size: { w: 200, h: 24 }
+  - id: x830_924
+    label: "framing の鏡板"
+    at: { x: 830, y: 924 }
+    size: { w: 230, h: 24 }
+  - id: y830_924
+    label: "framing に接着しない"
+    align: left
+    at: { x: 1060, y: 924 }
+    size: { w: 200, h: 24 }
+  - id: why4
+    label: "長さ方向はほぼ動かない。\nだから、動く向きどうしを直交させて固めると割れる。\n天板を framing にぴったり留めると、幅方向 9mm ぶんの\n力が逃げ場を失う —— 家具が壊れる原因の多くは、\n接合の強度ではなくこの 9mm。"
+    at: { x: 830, y: 962 }
+    size: { w: 430, h: 110 }
+  - id: t5
+    label: "⑤ 反る向きは、丸太のどこから挽いたかで決まる"
+    marker: none
+    align: left
+    at: { x: 150, y: 718 }
+    size: { w: 640, h: 20 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 385, y: 867 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 317.9, y: 875 }
+    size: { w: 2, h: 2 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 260.1, y: 875 }
+    size: { w: 2, h: 2 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 341.4, y: 879.5 }
+    size: { w: 2, h: 2 }
+  - id: p18
+    label: ""
+    marker: none
+    at: { x: 236.6, y: 879.5 }
+    size: { w: 2, h: 2 }
+  - id: p19
+    label: ""
+    marker: none
+    at: { x: 365, y: 884 }
+    size: { w: 2, h: 2 }
+  - id: p20
+    label: ""
+    marker: none
+    at: { x: 213, y: 884 }
+    size: { w: 2, h: 2 }
+  - id: ita
+    label: ""
+    hatch: solid
+    at: { x: 240, y: 798 }
+    size: { w: 100, h: 26 }
+  - id: omote
+    label: "木表（外側）"
+    marker: none
+    align: center
+    at: { x: 220, y: 778 }
+    size: { w: 140, h: 18 }
+  - id: ura
+    label: "木裏（芯側）"
+    marker: none
+    align: center
+    at: { x: 220, y: 827 }
+    size: { w: 140, h: 18 }
+  - id: shin
+    label: "芯"
+    marker: none
+    align: center
+    at: { x: 278, y: 859 }
+    size: { w: 24, h: 18 }
+  - id: cap1
+    label: "丸太の断面"
+    marker: none
+    align: center
+    at: { x: 194, y: 974 }
+    size: { w: 192, h: 18 }
+  - id: p21
+    label: ""
+    marker: none
+    at: { x: 589, y: 827 }
+    size: { w: 2, h: 2 }
+  - id: p22
+    label: ""
+    marker: none
+    at: { x: 769, y: 827 }
+    size: { w: 2, h: 2 }
+  - id: p23
+    label: ""
+    marker: none
+    at: { x: 589, y: 853 }
+    size: { w: 2, h: 2 }
+  - id: p24
+    label: ""
+    marker: none
+    at: { x: 769, y: 853 }
+    size: { w: 2, h: 2 }
+  - id: w1
+    label: "木表が凹"
+    marker: none
+    align: center
+    at: { x: 590, y: 802 }
+    size: { w: 180, h: 18 }
+  - id: w2
+    label: "木裏が凸"
+    marker: none
+    align: center
+    at: { x: 590, y: 882 }
+    size: { w: 180, h: 18 }
+  - id: cap2
+    label: "乾くと、こう反る"
+    marker: none
+    align: center
+    at: { x: 590, y: 914 }
+    size: { w: 180, h: 18 }
+  - id: h150_1006
+    label: "なぜ木表が凹になるか"
+    hatch: solid
+    at: { x: 150, y: 1006 }
+    size: { w: 640, h: 24 }
+  - id: x150_1030
+    label: "木表は接線方向"
+    at: { x: 150, y: 1030 }
+    size: { w: 300, h: 24 }
+  - id: y150_1030
+    label: "放射の 2 倍縮む（10 対 5）"
+    align: left
+    at: { x: 450, y: 1030 }
+    size: { w: 340, h: 24 }
+  - id: x150_1054
+    label: "木裏は放射方向"
+    at: { x: 150, y: 1054 }
+    size: { w: 300, h: 24 }
+  - id: y150_1054
+    label: "縮みが小さい"
+    align: left
+    at: { x: 450, y: 1054 }
+    size: { w: 340, h: 24 }
+  - id: x150_1078
+    label: "差の行き先"
+    at: { x: 150, y: 1078 }
+    size: { w: 300, h: 24 }
+  - id: y150_1078
+    label: "よく縮む木表が引いて、凹になる"
+    align: left
+    at: { x: 450, y: 1078 }
+    size: { w: 340, h: 24 }
+  - id: why5
+    label: "どちら向きに反るかは、挽く前から決まっている。\n板の反りは不良品ではなく、丸太のどこから取ったかの結果 ——\n同じ向きに揃えて並べると、全部同じ側へ反って隙間が開く。"
+    at: { x: 150, y: 1116 }
+    size: { w: 640, h: 74 }
+  - id: r1
+    label: "蟻組の勾配は、欠けない角度の限界です（①）。針葉樹 1:6（9.5°）、広葉樹 1:8（7.1°）—— かたい木ほどゆるくします。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1208 }
+    size: { w: 1110, h: 18 }
+  - id: r2
+    label: "角度を立てるほど、テールの角が「短い木口」になって欠けます。 迷ったら 1:7。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1232 }
+    size: { w: 1110, h: 18 }
+  - id: r3
+    label: "勾配があるかどうかで、役目が変わります（②）。蟻組は引っぱっても抜けず、あられ組は接着剤が切れたら抜けます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1256 }
+    size: { w: 1110, h: 18 }
+  - id: r4
+    label: "引き出しの前板だけが蟻組なのは、そこだけ毎日引っぱられるからです。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1280 }
+    size: { w: 1110, h: 18 }
+  - id: r5
+    label: "ほぞは材厚の 3 分の 1 です（③）。厚くしても強くならず、折れるのは穴の側になります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1304 }
+    size: { w: 1110, h: 18 }
+  - id: r6
+    label: "木は幅方向にしか動きません（④）。接線 10 に対して、長さ方向は 0.5〜1 です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1328 }
+    size: { w: 1110, h: 18 }
+  - id: r7
+    label: "幅 600mm の天板は、含水率 5% で 9mm 動きます。 固定すると、その力が逃げ場を失って板が割れます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1352 }
+    size: { w: 1110, h: 18 }
+  - id: r8
+    label: "反る向きは、丸太のどこから挽いたかで決まります（⑤）。木表は接線方向で木裏の 2 倍縮むので、木表が凹になります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1376 }
+    size: { w: 1110, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 251.7, y: 306 }
+      - { x: 348.3, y: 306 }
+  - from: p2
+    to: p3
+    curve: none
+    line: chain
+    ends: { from: none, to: none }
+  - from: p4
+    to: p5
+    curve: none
+    ends: { from: arrow, to: arrow }
+  - from: p6
+    to: p7
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 556.3, y: 306 }
+      - { x: 643.8, y: 306 }
+  - from: p8
+    to: p9
+    curve: none
+    line: chain
+    ends: { from: none, to: none }
+  - from: p10
+    to: p11
+    curve: none
+    ends: { from: arrow, to: arrow }
+  - from: p12
+    to: p13
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p14
+    to: p14
+    curve: none
+    close: true
+    ends: { from: none, to: none }
+    via:
+      - { x: 386, y: 868 }
+      - { x: 385.2, y: 880.5 }
+      - { x: 382.7, y: 892.8 }
+      - { x: 378.7, y: 904.7 }
+      - { x: 373.1, y: 916 }
+      - { x: 366.2, y: 926.4 }
+      - { x: 357.9, y: 935.9 }
+      - { x: 348.4, y: 944.2 }
+      - { x: 338, y: 951.1 }
+      - { x: 326.7, y: 956.7 }
+      - { x: 314.8, y: 960.7 }
+      - { x: 302.5, y: 963.2 }
+      - { x: 290, y: 964 }
+      - { x: 277.5, y: 963.2 }
+      - { x: 265.2, y: 960.7 }
+      - { x: 253.3, y: 956.7 }
+      - { x: 242, y: 951.1 }
+      - { x: 231.6, y: 944.2 }
+      - { x: 222.1, y: 935.9 }
+      - { x: 213.8, y: 926.4 }
+      - { x: 206.9, y: 916 }
+      - { x: 201.3, y: 904.7 }
+      - { x: 197.3, y: 892.8 }
+      - { x: 194.8, y: 880.5 }
+      - { x: 194, y: 868 }
+      - { x: 194.8, y: 855.5 }
+      - { x: 197.3, y: 843.2 }
+      - { x: 201.3, y: 831.3 }
+      - { x: 206.9, y: 820 }
+      - { x: 213.8, y: 809.6 }
+      - { x: 222.1, y: 800.1 }
+      - { x: 231.6, y: 791.8 }
+      - { x: 242, y: 784.9 }
+      - { x: 253.3, y: 779.3 }
+      - { x: 265.2, y: 775.3 }
+      - { x: 277.5, y: 772.8 }
+      - { x: 290, y: 772 }
+      - { x: 302.5, y: 772.8 }
+      - { x: 314.8, y: 775.3 }
+      - { x: 326.7, y: 779.3 }
+      - { x: 338, y: 784.9 }
+      - { x: 348.4, y: 791.8 }
+      - { x: 357.9, y: 800.1 }
+      - { x: 366.2, y: 809.6 }
+      - { x: 373.1, y: 820 }
+      - { x: 378.7, y: 831.3 }
+      - { x: 382.7, y: 843.2 }
+      - { x: 385.2, y: 855.5 }
+  - from: p15
+    to: p16
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 318.6, y: 877 }
+      - { x: 317.4, y: 880.2 }
+      - { x: 315.8, y: 883.3 }
+      - { x: 313.9, y: 886.1 }
+      - { x: 311.7, y: 888.8 }
+      - { x: 309.1, y: 891.1 }
+      - { x: 306.3, y: 893.2 }
+      - { x: 303.3, y: 894.9 }
+      - { x: 300.2, y: 896.2 }
+      - { x: 296.9, y: 897.2 }
+      - { x: 293.4, y: 897.8 }
+      - { x: 290, y: 898 }
+      - { x: 286.6, y: 897.8 }
+      - { x: 283.1, y: 897.2 }
+      - { x: 279.8, y: 896.2 }
+      - { x: 276.7, y: 894.9 }
+      - { x: 273.7, y: 893.2 }
+      - { x: 270.9, y: 891.1 }
+      - { x: 268.3, y: 888.8 }
+      - { x: 266.1, y: 886.1 }
+      - { x: 264.2, y: 883.3 }
+      - { x: 262.6, y: 880.2 }
+      - { x: 261.4, y: 877 }
+  - from: p17
+    to: p18
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 341.5, y: 884.1 }
+      - { x: 339.3, y: 890 }
+      - { x: 336.5, y: 895.5 }
+      - { x: 333, y: 900.6 }
+      - { x: 329, y: 905.4 }
+      - { x: 324.4, y: 909.6 }
+      - { x: 319.4, y: 913.3 }
+      - { x: 314, y: 916.4 }
+      - { x: 308.3, y: 918.8 }
+      - { x: 302.3, y: 920.6 }
+      - { x: 296.2, y: 921.6 }
+      - { x: 290, y: 922 }
+      - { x: 283.8, y: 921.6 }
+      - { x: 277.7, y: 920.6 }
+      - { x: 271.7, y: 918.8 }
+      - { x: 266, y: 916.4 }
+      - { x: 260.6, y: 913.3 }
+      - { x: 255.6, y: 909.6 }
+      - { x: 251, y: 905.4 }
+      - { x: 247, y: 900.6 }
+      - { x: 243.5, y: 895.5 }
+      - { x: 240.7, y: 890 }
+      - { x: 238.5, y: 884.1 }
+  - from: p19
+    to: p20
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 364.4, y: 891.3 }
+      - { x: 361.3, y: 899.7 }
+      - { x: 357.1, y: 907.7 }
+      - { x: 352.1, y: 915.2 }
+      - { x: 346.3, y: 922 }
+      - { x: 339.7, y: 928.1 }
+      - { x: 332.5, y: 933.4 }
+      - { x: 324.7, y: 937.9 }
+      - { x: 316.4, y: 941.4 }
+      - { x: 307.8, y: 943.9 }
+      - { x: 299, y: 945.5 }
+      - { x: 290, y: 946 }
+      - { x: 281, y: 945.5 }
+      - { x: 272.2, y: 943.9 }
+      - { x: 263.6, y: 941.4 }
+      - { x: 255.3, y: 937.9 }
+      - { x: 247.5, y: 933.4 }
+      - { x: 240.3, y: 928.1 }
+      - { x: 233.7, y: 922 }
+      - { x: 227.9, y: 915.2 }
+      - { x: 222.9, y: 907.7 }
+      - { x: 218.7, y: 899.7 }
+      - { x: 215.6, y: 891.3 }
+  - from: p21
+    to: p22
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 640, y: 850 }
+      - { x: 720, y: 850 }
+  - from: p23
+    to: p24
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 640, y: 876 }
+      - { x: 720, y: 876 }
