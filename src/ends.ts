@@ -115,6 +115,11 @@ function n(value: number): number {
   return Math.round(value);
 }
 
+/** 半径のように 1px 未満が効く数は、小数 1 桁まで残す。 */
+function n2(value: number): number {
+  return Math.round(value * 10) / 10;
+}
+
 /**
  * 端の記号を 1 つ描く。
  *
@@ -128,6 +133,14 @@ export function drawEnd(
   stroke: string,
   /** 地の色。**中抜きの記号を塗るのに使う**（線が透けると意味が変わる）。 */
   paper = '#ffffff',
+  /**
+   * **この記号に使ってよい長さ**（px。既定は制限なし）。
+   *
+   * 短い辺では、記号のほうが線より長くなる（2026-09-21）。
+   * そのまま描くと**隣の箱の中まで食い込む**ので、収まるように縮める。
+   * 縮めても線は見えない —— それは `ends-too-long` が別に知らせる。
+   */
+  room = Infinity,
 ): string {
   /**
    * **`arrow` もここで描く**（2026-09-15）。
@@ -154,20 +167,22 @@ export function drawEnd(
 
   const parts: string[] = [];
   const dotted = kind === 'dot' || kind === 'dot-bar' || kind === 'dot-crow';
+  // **収まらなければ縮める。** 形は変えず、長さと幅を同じ割合で詰める。
+  const k = Math.min(1, room / endRoom(kind));
   // 丸は端から少し内側。棒と鳥の足はその内側へ続く。
-  const gap = dotted ? 11 : 0;
+  const gap = dotted ? 11 * k : 0;
 
   if (dotted) {
     parts.push(
-      `<circle cx="${n(tip.x + ux * 5)}" cy="${n(tip.y + uy * 5)}" r="4" fill="none" stroke="${stroke}" stroke-width="1.2"/>`,
+      `<circle cx="${n(tip.x + ux * 5 * k)}" cy="${n(tip.y + uy * 5 * k)}" r="${n2(4 * k)}" fill="none" stroke="${stroke}" stroke-width="1.2"/>`,
     );
   }
 
   if (kind === 'bar' || kind === 'dot-bar') {
     // 棒 1 本。**線に直交**して引く。
-    const at = { x: tip.x + ux * (gap + 2), y: tip.y + uy * (gap + 2) };
+    const at = { x: tip.x + ux * (gap + 2 * k), y: tip.y + uy * (gap + 2 * k) };
     parts.push(
-      `<line x1="${n(at.x + px * 5)}" y1="${n(at.y + py * 5)}" x2="${n(at.x - px * 5)}" y2="${n(at.y - py * 5)}" stroke="${stroke}" stroke-width="1.2"/>`,
+      `<line x1="${n(at.x + px * 5 * k)}" y1="${n(at.y + py * 5 * k)}" x2="${n(at.x - px * 5 * k)}" y2="${n(at.y - py * 5 * k)}" stroke="${stroke}" stroke-width="1.2"/>`,
     );
   }
 
@@ -179,41 +194,41 @@ export function drawEnd(
      * それでは矢印に見えてしまい、**向きを言っているように読まれる。**
      * 実物は、束ねた側が線、広がった側が実体（2026-09-12 に直した）。
      */
-    const apex = { x: tip.x + ux * (gap + 12), y: tip.y + uy * (gap + 12) };
+    const apex = { x: tip.x + ux * (gap + 12 * k), y: tip.y + uy * (gap + 12 * k) };
     for (const side of [-1, 0, 1]) {
       parts.push(
-        `<line x1="${n(apex.x)}" y1="${n(apex.y)}" x2="${n(tip.x + px * side * 5)}" y2="${n(tip.y + py * side * 5)}" stroke="${stroke}" stroke-width="1.2"/>`,
+        `<line x1="${n(apex.x)}" y1="${n(apex.y)}" x2="${n(tip.x + px * side * 5 * k)}" y2="${n(tip.y + py * side * 5 * k)}" stroke="${stroke}" stroke-width="1.2"/>`,
       );
     }
   }
 
   if (kind === 'arrow') {
     // **塗った三角。** 既定の矢印（`marker-end`）と同じ見え方に揃える。
-    const back2 = { x: tip.x + ux * 10, y: tip.y + uy * 10 };
+    const back2 = { x: tip.x + ux * 10 * k, y: tip.y + uy * 10 * k };
     parts.push(
-      `<path d="M ${n(tip.x)} ${n(tip.y)} L ${n(back2.x + px * 4)} ${n(back2.y + py * 4)} ` +
-        `L ${n(back2.x - px * 4)} ${n(back2.y - py * 4)} Z" fill="${stroke}" stroke="none"/>`,
+      `<path d="M ${n(tip.x)} ${n(tip.y)} L ${n(back2.x + px * 4 * k)} ${n(back2.y + py * 4 * k)} ` +
+        `L ${n(back2.x - px * 4 * k)} ${n(back2.y - py * 4 * k)} Z" fill="${stroke}" stroke="none"/>`,
     );
   }
 
   if (kind === 'triangle') {
     // **中抜きの三角**（UML の汎化・実現）。**地の色で塗る** ——
     // 線が三角の中を通って見えると、汎化ではなく「単なる矢印」に見える。
-    const back2 = { x: tip.x + ux * 12, y: tip.y + uy * 12 };
+    const back2 = { x: tip.x + ux * 12 * k, y: tip.y + uy * 12 * k };
     parts.push(
-      `<path d="M ${n(tip.x)} ${n(tip.y)} L ${n(back2.x + px * 6)} ${n(back2.y + py * 6)} ` +
-        `L ${n(back2.x - px * 6)} ${n(back2.y - py * 6)} Z" fill="${paper}" stroke="${stroke}" stroke-width="1.2"/>`,
+      `<path d="M ${n(tip.x)} ${n(tip.y)} L ${n(back2.x + px * 6 * k)} ${n(back2.y + py * 6 * k)} ` +
+        `L ${n(back2.x - px * 6 * k)} ${n(back2.y - py * 6 * k)} Z" fill="${paper}" stroke="${stroke}" stroke-width="1.2"/>`,
     );
   }
 
   if (kind === 'diamond' || kind === 'solid-diamond') {
     // 菱形（UML の集約・コンポジション）。**塗りの有無で意味が変わる。**
-    const mid = { x: tip.x + ux * 7, y: tip.y + uy * 7 };
-    const far = { x: tip.x + ux * 14, y: tip.y + uy * 14 };
+    const mid = { x: tip.x + ux * 7 * k, y: tip.y + uy * 7 * k };
+    const far = { x: tip.x + ux * 14 * k, y: tip.y + uy * 14 * k };
     const fill = kind === 'solid-diamond' ? stroke : paper;
     parts.push(
-      `<path d="M ${n(tip.x)} ${n(tip.y)} L ${n(mid.x + px * 5)} ${n(mid.y + py * 5)} ` +
-        `L ${n(far.x)} ${n(far.y)} L ${n(mid.x - px * 5)} ${n(mid.y - py * 5)} Z" ` +
+      `<path d="M ${n(tip.x)} ${n(tip.y)} L ${n(mid.x + px * 5 * k)} ${n(mid.y + py * 5 * k)} ` +
+        `L ${n(far.x)} ${n(far.y)} L ${n(mid.x - px * 5 * k)} ${n(mid.y - py * 5 * k)} Z" ` +
         `fill="${fill}" stroke="${stroke}" stroke-width="1.2"/>`,
     );
   }

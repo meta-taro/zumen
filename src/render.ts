@@ -235,7 +235,7 @@ export function render(
      * いちばん最初の子に置く —— 読み上げの順がそこで決まる。
      */
     placed.title === null || placed.title === '' ? '' : `<title>${escapeText(placed.title)}</title>`,
-    `<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="${palette.edge.stroke}"/></marker></defs>`,
+    `<defs>${arrowMarkers(placed, plan, palette).join('')}</defs>`,
     /**
      * **地の色は、図そのものが持つ。**
      *
@@ -1141,6 +1141,73 @@ function outermost(boxes: readonly Box[]): Set<string> {
   return out;
 }
 
+/**
+ * **辺の線の太さ**（px）。
+ *
+ * `weight: normal` だけ図の種類で変わる —— 配置図と、人が留めた辺は 2px、
+ * 構成図の機械が引いた辺は 1px。**矢じりの長さはこの 6 倍**になるので、
+ * 検査（`ends-too-long`）と描く側で数え方を揃える。
+ */
+export function edgeStrokeWidth(edge: PlacedEdge, plan: boolean): number {
+  if (edge.weight !== 'normal') return widthOf(edge.weight);
+  return edge.pinned || plan ? STROKE_WIDTH.pinned : STROKE_WIDTH.auto;
+}
+
+/** この図が使う矢じりの `<marker>` を、重複なく並べる。 */
+function arrowMarkers(
+  placed: { edges: PlacedEdge[]; arrows: boolean },
+  plan: boolean,
+  palette: Palette,
+): string[] {
+  const scales = new Set<number>([6]);
+  if (placed.arrows) {
+    for (const edge of placed.edges) {
+      if (edge.close || hasEnds(edge.ends)) continue;
+      scales.add(headScaleOf(edge, edgeStrokeWidth(edge, plan)));
+    }
+  }
+  return [...scales].sort((a, b) => a - b).map((scale) => arrowMarker(scale, palette.edge.stroke));
+}
+
+/**
+ * **矢じりを、線からはみ出させない**（2026-09-21）。
+ *
+ * 既定の矢印は `marker-end` で、`markerUnits` の既定が `strokeWidth` なので
+ * **矢じりの長さは線の太さの 6 倍** —— `weight: thick` なら 30px ある。
+ * 隣り合った部屋どうしを繋ぐ辺は 5〜10px しかなく、
+ * **矢じりが隣の箱の中まで食い込んでいた**（見本 115・133 を拡大して見つけた）。
+ *
+ * 線より長いときは、**線の長さちょうどまで縮める。**
+ * 縮めても線は見えない（`ends-too-long` が別に知らせる）が、
+ * **少なくとも、隣の部屋を突き破らない。**
+ *
+ * 返すのは `markerWidth`（線の太さ何個ぶんか）。6 なら既定のまま。
+ */
+export function headScaleOf(edge: PlacedEdge, stroke: number): number {
+  let length = 0;
+  for (let i = 1; i < edge.points.length; i += 1) {
+    const a = edge.points[i - 1]!;
+    const b = edge.points[i]!;
+    length += Math.hypot(b.x - a.x, b.y - a.y);
+  }
+  if (stroke <= 0 || length === 0) return 6;
+  return Math.min(6, Math.round((length / stroke) * 10) / 10);
+}
+
+/** 矢じりの `<marker>` を 1 つ。`scale` は線の太さ何個ぶんか。 */
+function arrowMarker(scale: number, fill: string): string {
+  return (
+    `<marker id="${arrowId(scale)}" viewBox="0 0 10 10" refX="9" refY="5" ` +
+    `markerWidth="${scale}" markerHeight="${scale}" orient="auto">` +
+    `<path d="M 0 0 L 10 5 L 0 10 z" fill="${fill}"/></marker>`
+  );
+}
+
+/** 矢じりの id。**小数点は id に使えないので、10 倍した整数で書く。** */
+function arrowId(scale: number): string {
+  return scale === 6 ? 'arrow' : `arrow-${Math.round(scale * 10)}`;
+}
+
 function renderEdge(
   edge: PlacedEdge,
   placedLabel: EdgeLabel | null,
@@ -1176,18 +1243,16 @@ function renderEdge(
     // **太さを書いていれば、それに従う**（`src/weight.ts`。路線図の路線）。
     // 書いていなければ、これまでどおり（配置図は太め、構成図は細め）。
     ...(() => {
-      const width =
-        edge.weight === 'normal'
-          ? edge.pinned || plan
-            ? STROKE_WIDTH.pinned
-            : STROKE_WIDTH.auto
-          : widthOf(edge.weight);
+      const width = edgeStrokeWidth(edge, plan);
       const round = roundedOf(edge.weight) ? ' stroke-linejoin="round" stroke-linecap="round"' : '';
       const dash = dashOf(edge.line) === null ? '' : ` stroke-dasharray="${dashOf(edge.line)}"`;
       // **閉じた輪に矢印は付けない**（`src/curve.ts` の `close`）。
       // 矢印は「こちらへ向かう」意味だが、輪は出発点へ戻る ——
       // 池の輪郭に矢印が付くと、水が一方向へ流れているように読める。
-      const head = arrows && !edge.close && !hasEnds(edge.ends) ? ' marker-end="url(#arrow)"' : '';
+      const head =
+        arrows && !edge.close && !hasEnds(edge.ends)
+          ? ` marker-end="url(#${arrowId(headScaleOf(edge, width))})"`
+          : '';
       const stroke = edge.color ?? palette.edge.stroke;
       /**
        * **閉じた輪の中を塗る**（`edges[].hatch`）。
@@ -1210,16 +1275,53 @@ function renderEdge(
         `<path d="${path}" fill="none" stroke="${palette.paper}" stroke-width="${n(width)}"${round}/>`,
       ];
     })(),
-    // 端の記号（ER の多重度・端子・接続点）。**向きは線から決める。**
+    /**
+     * 端の記号（ER の多重度・端子・接続点）。**向きは線から決める。**
+     *
+     * **両端に記号を置くなら、線を半分ずつ分け合う**（2026-09-21）。
+     * 寸法線のように短い辺では、10〜14px の記号が 2 つで線を食い尽くし、
+     * **隣の箱の中まではみ出していた**（見本 262 の 12px の辺）。
+     */
     edge.points.length < 2
       ? ''
-      : drawEnd(edge.ends?.to ?? 'none', edge.points[edge.points.length - 1]!, edge.points[edge.points.length - 2]!, palette.edge.stroke, palette.paper),
+      : drawEnd(
+          edge.ends?.to ?? 'none',
+          edge.points[edge.points.length - 1]!,
+          edge.points[edge.points.length - 2]!,
+          palette.edge.stroke,
+          palette.paper,
+          roomForEnds(edge),
+        ),
     edge.points.length < 2
       ? ''
-      : drawEnd(edge.ends?.from ?? 'none', edge.points[0]!, edge.points[1]!, palette.edge.stroke, palette.paper),
+      : drawEnd(
+          edge.ends?.from ?? 'none',
+          edge.points[0]!,
+          edge.points[1]!,
+          palette.edge.stroke,
+          palette.paper,
+          roomForEnds(edge),
+        ),
     label,
     '</g>',
   ].join('');
+}
+
+/**
+ * **片方の端の記号が使ってよい長さ。**
+ *
+ * 両端に記号があれば線を半分ずつ、片方だけなら全部。
+ * 記号がもともと収まるときは `endRoom` のほうが小さいので、何も変わらない。
+ */
+function roomForEnds(edge: PlacedEdge): number {
+  let length = 0;
+  for (let i = 1; i < edge.points.length; i += 1) {
+    const a = edge.points[i - 1]!;
+    const b = edge.points[i]!;
+    length += Math.hypot(b.x - a.x, b.y - a.y);
+  }
+  const both = (edge.ends?.from ?? 'none') !== 'none' && (edge.ends?.to ?? 'none') !== 'none';
+  return both ? length / 2 : length;
 }
 
 /** 点列の外接矩形（閉じた輪の中を塗るのに使う）。 */

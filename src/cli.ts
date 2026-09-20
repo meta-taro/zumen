@@ -256,10 +256,14 @@ export async function placedFindings(text: string): Promise<Finding[]> {
    */
   const heads: Finding[] = placed.edges.flatMap((edge) => {
     if (edge.close) return [];
+    // **太さは描く側と同じ数え方で**（`src/render.ts`）。
+    // weight: normal の線は、配置図と人が留めた辺だけ 2px、構成図では 1px。
+    const stroke =
+      edge.weight === 'normal' ? (edge.pinned || plan ? 2 : 1) : widthOf(edge.weight);
     const need = hasEnds(edge.ends)
       ? endRoom(edge.ends!.from) + endRoom(edge.ends!.to)
       : placed.arrows
-        ? 6 * widthOf(edge.weight)
+        ? 6 * stroke
         : 0;
     if (need === 0) return [];
     let length = 0;
