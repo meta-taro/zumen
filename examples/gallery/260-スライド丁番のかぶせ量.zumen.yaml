@@ -1,0 +1,327 @@
+version: 1
+kind: placement
+arrows: true
+title: スライド丁番のかぶせ量（扉の幅は、丁番を決めてから出す）
+# **扉の幅は、丁番を決めてからでないと出せない。** かぶせ量がそのまま寸法に入る。
+#
+# **側板 1 枚を、左右の扉で分け合う。**
+# 18 ＋ 0（全かぶせ ＋ インセット）か、**9 ＋ 9（半かぶせ 2 枚）**か。
+# 中央の仕切りに 2 枚つくなら半かぶせが定番 ——
+# 片方を全かぶせにすると、もう片方が側板に載れない。
+#
+# 本体の外幅 800・側板 18・扉どうしの隙間 3 なら、
+# **全かぶせ 2 枚で 398.5mm、インセット 2 枚で 380.5mm。**
+# 扉 1 枚で 18mm 違い、見た目も納まりも別物になる。
+#
+# **カップは 35mm、掘り込みは 12mm 前後。** 厚み 18mm の扉なら残るのは 6mm で、
+# 深すぎると表へ抜ける（専用のビットがあるのは、深さを止めるため）。
+#
+# **付けてから左右・前後・上下の 3 方向に動かせる。**
+# 木は動くので、作ったあとに合わせられることが、この金物の値打ち。
+nodes:
+  - id: t1
+    label: "① 水平断面（上から見る）—— 扉が側板にどれだけかぶるか"
+    marker: none
+    align: left
+    at: { x: 150, y: 150 }
+    size: { w: 640, h: 20 }
+  - id: as
+    label: ""
+    hatch: lines
+    at: { x: 200, y: 240 }
+    size: { w: 22, h: 70 }
+  - id: ab
+    label: ""
+    at: { x: 222, y: 240 }
+    size: { w: 168, h: 14 }
+  - id: ad
+    label: ""
+    hatch: solid
+    at: { x: 200, y: 320 }
+    size: { w: 190, h: 14 }
+  - id: an
+    label: "全かぶせ"
+    marker: none
+    align: center
+    at: { x: 194, y: 212 }
+    size: { w: 202, h: 18 }
+  - id: ac
+    label: "側板をまるごと覆う（18mm 前後）"
+    marker: none
+    align: center
+    at: { x: 186, y: 366 }
+    size: { w: 218, h: 18 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 199, y: 349 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 221, y: 349 }
+    size: { w: 2, h: 2 }
+  - id: bs
+    label: ""
+    hatch: lines
+    at: { x: 420, y: 240 }
+    size: { w: 22, h: 70 }
+  - id: bb
+    label: ""
+    at: { x: 442, y: 240 }
+    size: { w: 168, h: 14 }
+  - id: bd
+    label: ""
+    hatch: solid
+    at: { x: 431, y: 320 }
+    size: { w: 179, h: 14 }
+  - id: bn
+    label: "半かぶせ"
+    marker: none
+    align: center
+    at: { x: 414, y: 212 }
+    size: { w: 202, h: 18 }
+  - id: bc
+    label: "その半分（9mm 前後）"
+    marker: none
+    align: center
+    at: { x: 406, y: 366 }
+    size: { w: 218, h: 18 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 430, y: 349 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 441, y: 349 }
+    size: { w: 2, h: 2 }
+  - id: cs
+    label: ""
+    hatch: lines
+    at: { x: 640, y: 240 }
+    size: { w: 22, h: 70 }
+  - id: cb
+    label: ""
+    at: { x: 662, y: 240 }
+    size: { w: 168, h: 14 }
+  - id: cd
+    label: ""
+    hatch: solid
+    at: { x: 662, y: 320 }
+    size: { w: 168, h: 14 }
+  - id: cn
+    label: "インセット"
+    marker: none
+    align: center
+    at: { x: 634, y: 212 }
+    size: { w: 202, h: 18 }
+  - id: cc
+    label: "側板の内側へ納まる（0mm）"
+    marker: none
+    align: center
+    at: { x: 626, y: 366 }
+    size: { w: 218, h: 18 }
+  - id: sideN
+    label: "側板 18mm"
+    marker: none
+    align: right
+    at: { x: 40, y: 268 }
+    size: { w: 140, h: 18 }
+  - id: doorN
+    label: "扉"
+    marker: none
+    align: right
+    at: { x: 40, y: 320 }
+    size: { w: 140, h: 18 }
+  - id: why1
+    label: "側板 1 枚を、左右の扉で分け合う。 18 ＋ 0（全かぶせ ＋ インセット）か、\n9 ＋ 9（半かぶせ 2 枚）か。中央の仕切りに 2 枚つくなら、半かぶせが定番。"
+    at: { x: 150, y: 420 }
+    size: { w: 640, h: 54 }
+  - id: t2
+    label: "② 扉の幅は、かぶせ量から逆に出す"
+    marker: none
+    align: left
+    at: { x: 150, y: 500 }
+    size: { w: 640, h: 20 }
+  - id: h534
+    label: "本体の外幅 800mm・側板 18mm・扉どうしの隙間 3mm"
+    hatch: solid
+    at: { x: 200, y: 534 }
+    size: { w: 590, h: 24 }
+  - id: x558
+    label: "全かぶせ 2 枚"
+    at: { x: 200, y: 558 }
+    size: { w: 260, h: 24 }
+  - id: y558
+    label: "(800 − 3) ÷ 2 ＝ 398.5mm"
+    align: left
+    at: { x: 460, y: 558 }
+    size: { w: 330, h: 24 }
+  - id: x582
+    label: "インセット 2 枚"
+    at: { x: 200, y: 582 }
+    size: { w: 260, h: 24 }
+  - id: y582
+    label: "内法 764 → (764 − 3) ÷ 2 ＝ 380.5mm"
+    align: left
+    at: { x: 460, y: 582 }
+    size: { w: 330, h: 24 }
+  - id: x606
+    label: "差"
+    at: { x: 200, y: 606 }
+    size: { w: 260, h: 24 }
+  - id: y606
+    label: "1 枚あたり 18mm。見た目も納まりも別物"
+    align: left
+    at: { x: 460, y: 606 }
+    size: { w: 330, h: 24 }
+  - id: why2
+    label: "丁番を決めてからでないと、扉の幅が出ない。\nインセットは四周にも隙間が要る（ふつう 2〜3mm ずつ）ので、\n扉が小さくなるぶん、中身の有効寸法も変わる。"
+    at: { x: 200, y: 644 }
+    size: { w: 590, h: 80 }
+  - id: t3
+    label: "③ カップは 35mm"
+    marker: none
+    align: left
+    at: { x: 850, y: 150 }
+    size: { w: 390, h: 20 }
+  - id: h186
+    label: "扉側の加工"
+    hatch: solid
+    at: { x: 850, y: 186 }
+    size: { w: 390, h: 24 }
+  - id: x210
+    label: "カップ径"
+    at: { x: 850, y: 210 }
+    size: { w: 190, h: 24 }
+  - id: y210
+    label: "35mm（いちばん多い）"
+    align: left
+    at: { x: 1040, y: 210 }
+    size: { w: 200, h: 24 }
+  - id: x234
+    label: "掘り込み深さ"
+    at: { x: 850, y: 234 }
+    size: { w: 190, h: 24 }
+  - id: y234
+    label: "11〜13mm"
+    align: left
+    at: { x: 1040, y: 234 }
+    size: { w: 200, h: 24 }
+  - id: x258
+    label: "扉の厚み"
+    at: { x: 850, y: 258 }
+    size: { w: 190, h: 24 }
+  - id: y258
+    label: "18〜25mm"
+    align: left
+    at: { x: 1040, y: 258 }
+    size: { w: 200, h: 24 }
+  - id: x282
+    label: "端からの距離"
+    at: { x: 850, y: 282 }
+    size: { w: 190, h: 24 }
+  - id: y282
+    label: "3〜6mm（丁番で決まる）"
+    align: left
+    at: { x: 1040, y: 282 }
+    size: { w: 200, h: 24 }
+  - id: why3
+    label: "35mm の穴を、厚み 18mm の扉に 12mm 掘る。\n残るのは 6mm —— 座ぐりが深すぎると、表へ抜ける。\n専用のビットがあるのは、深さを止めるため。"
+    at: { x: 850, y: 320 }
+    size: { w: 390, h: 80 }
+  - id: t4
+    label: "④ 付けてから、3 方向に動かせる"
+    marker: none
+    align: left
+    at: { x: 850, y: 416 }
+    size: { w: 390, h: 20 }
+  - id: h446
+    label: "ねじの役目"
+    hatch: solid
+    at: { x: 850, y: 446 }
+    size: { w: 390, h: 24 }
+  - id: x470
+    label: "左右"
+    at: { x: 850, y: 470 }
+    size: { w: 130, h: 24 }
+  - id: y470
+    label: "かぶせ量を増減（隙間をそろえる）"
+    align: left
+    at: { x: 980, y: 470 }
+    size: { w: 260, h: 24 }
+  - id: x494
+    label: "前後"
+    at: { x: 850, y: 494 }
+    size: { w: 130, h: 24 }
+  - id: y494
+    label: "扉と本体の面を合わせる"
+    align: left
+    at: { x: 980, y: 494 }
+    size: { w: 260, h: 24 }
+  - id: x518
+    label: "上下"
+    at: { x: 850, y: 518 }
+    size: { w: 130, h: 24 }
+  - id: y518
+    label: "座金の位置で高さを合わせる"
+    align: left
+    at: { x: 980, y: 518 }
+    size: { w: 260, h: 24 }
+  - id: why4
+    label: "作ったあとに合わせられることが、この金物の値打ち。\n木は動くので、切ったときの寸法のままでは\nいずれ隙間が揃わなくなる。"
+    at: { x: 850, y: 556 }
+    size: { w: 390, h: 80 }
+  - id: r1
+    label: "扉の幅は、丁番を決めてからでないと出せません（①②）。かぶせ量がそのまま寸法に入るからです。"
+    marker: none
+    align: left
+    at: { x: 150, y: 740 }
+    size: { w: 1090, h: 18 }
+  - id: r2
+    label: "側板 1 枚を、左右の扉で分け合います。 18 ＋ 0（全かぶせ ＋ インセット）か、9 ＋ 9（半かぶせ 2 枚）か。"
+    marker: none
+    align: left
+    at: { x: 150, y: 764 }
+    size: { w: 1090, h: 18 }
+  - id: r3
+    label: "中央の仕切りに 2 枚つくなら、半かぶせが定番です。 片方を全かぶせにすると、もう片方が側板に載れません。"
+    marker: none
+    align: left
+    at: { x: 150, y: 788 }
+    size: { w: 1090, h: 18 }
+  - id: r4
+    label: "全かぶせとインセットでは、扉 1 枚で 18mm 違います（②）。見た目も納まりも別物になります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 812 }
+    size: { w: 1090, h: 18 }
+  - id: r5
+    label: "カップは 35mm、掘り込みは 12mm 前後（③）。厚み 18mm の扉なら、残るのは 6mm です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 836 }
+    size: { w: 1090, h: 18 }
+  - id: r6
+    label: "座ぐりが深すぎると、表へ抜けます。 専用のビットがあるのは、深さを止めるためです。"
+    marker: none
+    align: left
+    at: { x: 150, y: 860 }
+    size: { w: 1090, h: 18 }
+  - id: r7
+    label: "付けてから 3 方向に動かせます（④）。木は動くので、作ったあとに合わせられることが、この金物の値打ちです。"
+    marker: none
+    align: left
+    at: { x: 150, y: 884 }
+    size: { w: 1090, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    ends: { from: arrow, to: arrow }
+  - from: p2
+    to: p3
+    curve: none
+    ends: { from: arrow, to: arrow }

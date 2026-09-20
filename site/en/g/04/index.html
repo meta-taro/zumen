@@ -61,7 +61,9 @@
   </figure>
   <p class="made">This drawing comes from one YAML file. No shape was moved by hand.</p>
   <h2>What the source says</h2>
-  <p>無線は破線、有線は実線（線種で区別する。色は使わない）。</p>
+  <p>無線は破線、有線は実線（線種で区別する。色は使わない）。<strong>構成図で意味があるのは、箱ではなく VLAN の線。</strong>事務所（VLAN10）と DMZ（VLAN20）を分けてあるので、<strong>公開 Web が乗っ取られても、事務 PC へは直接行けない。</strong></p>
+  <p>外・DMZ・内の 3 方向を持つ。<strong>どの向きの通信を許すか</strong>が設定の中身で、図はその向きを描くために要る。</p>
+  <p>来客に貸すなら別の VLAN を切る。<strong>同じ AP でも、どの VLAN に載せるかで意味が変わる。</strong></p>
   <h2>Source (YAML)</h2>
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/04-%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%E6%A7%8B%E6%88%90.zumen.yaml"><code>examples/gallery/04-ネットワーク構成.zumen.yaml</code></a></p>
   <h2>More in this field</h2>
