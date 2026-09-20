@@ -376,21 +376,44 @@ function checkNumberText(doc: Document, add: Add, m: Messages, at: At): void {
  * 絵を見れば気づくが、**表のセルは 1 行が短く、見落とす。**
  */
 function checkLabelMarkdown(doc: Document, add: Add, m: Messages, at: At): void {
-  for (const item of seqOf(doc, 'nodes')) {
-    // **名前だけではない。** 符号（tag）も版（technology）も、そのまま絵に出る。
-    for (const field of ['label', 'tag', 'technology'] as const) {
+  /**
+   * **節だけを見ていた**（2026-09-20 に直した）。
+   *
+   * 絵に出る文字は節の名前だけではない —— **辺のラベルも、図（views）の名前も出る。**
+   * ところがこの検査は `nodes` しか回っていなかったので、
+   * `edges[].label: "**強く**"` は素通りしていた。
+   * いまの見本に該当は 0 件だが、**穴が開いていることは確かめた**
+   * （辺のラベルと図の名前に `**` を入れて、何も言われなかった）。
+   */
+  const scan = (item: YAMLMap, who: string, fields: readonly string[]): void => {
+    for (const field of fields) {
       const text = item.get(field);
       if (typeof text !== 'string') continue;
-      const id = String(item.get('id') ?? '');
       if (text.includes('**')) {
-        add('warning', 'label-markdown', m.labelMarkdown(id), at(item.get(field, true)));
+        add('warning', 'label-markdown', m.labelMarkdown(who), at(item.get(field, true)));
       }
       const glued = GLUED.exec(text);
       if (glued !== null) {
-        add('warning', 'label-glued-word', m.labelGluedWord(id, glued[0]), at(item.get(field, true)));
+        add('warning', 'label-glued-word', m.labelGluedWord(who, glued[0]), at(item.get(field, true)));
       }
     }
+  };
+
+  // **名前だけではない。** 符号（tag）も版（technology）も、そのまま絵に出る。
+  for (const item of seqOf(doc, 'nodes')) {
+    scan(item, String(item.get('id') ?? ''), ['label', 'tag', 'technology']);
   }
+  for (const item of seqOf(doc, 'edges')) {
+    scan(item, edgeNameOf(item), ['label']);
+  }
+  for (const item of seqOf(doc, 'views')) {
+    scan(item, String(item.get('id') ?? ''), ['title']);
+  }
+}
+
+/** 辺には id が無いので「from → to」で呼ぶ（ほかの検査と同じ呼び方）。 */
+function edgeNameOf(item: YAMLMap): string {
+  return `${String(item.get('from') ?? '?')} → ${String(item.get('to') ?? '?')}`;
 }
 
 /**

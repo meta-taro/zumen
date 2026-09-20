@@ -663,7 +663,7 @@ const ja = {
     colorFaint: (key: string, value: string) =>
       `palette の "${key}"（${value}）が薄すぎます。地に沈んで線が消えます（非文字の下限は 3:1。ライトとダークの両方の地で見ています）。`,
     labelMarkdown: (id: string) =>
-      `ノード "${id || '(id なし)'}" の名前に ** が入っています。**zumen の名前は素のテキスト**で、Markdown ではありません —— ** は強調にならず、**そのまま絵に出ます**。正本のコメントや変更の記録は Markdown なので、そこから持ち込みやすいところです。`,
+      `"${id || '(id なし)'}" の名前に ** が入っています（節でも、辺のラベルでも、図の名前でも同じ）。**zumen の名前は素のテキスト**で、Markdown ではありません —— ** は強調にならず、**そのまま絵に出ます**。正本のコメントや変更の記録は Markdown なので、そこから持ち込みやすいところです。`,
     colorNotHex: (key: string, value: string) =>
       `palette の "${key}" の色 "${value}" が読めません。**#rrggbb（6 桁）**で書いてください。3 桁（#a33）も色名（red）も受けません —— 貼り先で解釈が割れるためです。この鍵は色が付かないまま残ります。`,
     edgeSelfOpen: (id: string) =>
@@ -713,7 +713,7 @@ const ja = {
     viewTitleCovered: (view: string, box: string, grow: number) =>
       `図 "${view}" の名前が、"${box}" の上に乗って描かれます。**図の名前は、その図の下辺のすぐ下**に置かれるので、\`size\` に書いた高さより中身が下へ出ていると重なります。**この図の \`size.h\` を ${grow}px 増やすか、中身を上へ詰めてください。**`,
     labelGluedWord: (id: string, found: string) =>
-      `ノード "${id}" の名前に **"${found}"** が入っています —— 日本語の字のすぐ隣に、小文字の英単語がくっついています。下書きの英語を日本語へ直し忘れた形（「前framing」のような、**無い言葉**）か、語の順が入れ替わった形（「160 以上cm」＝「160cm 以上」）です。**そのまま絵に出ます。** 日本語に直すか、あいだに空きを入れてください。単位（mm・cm・kg）や「PoE の」のように空きがある書き方は当たりません。`,
+      `"${id}" の名前に **"${found}"** が入っています —— 日本語の字のすぐ隣に、小文字の英単語がくっついています。下書きの英語を日本語へ直し忘れた形（「前framing」のような、**無い言葉**）か、語の順が入れ替わった形（「160 以上cm」＝「160cm 以上」）です。**そのまま絵に出ます。** 日本語に直すか、あいだに空きを入れてください。単位（mm・cm・kg）や「PoE の」のように空きがある書き方は当たりません。`,
     circleNotSquare: (id: string, marker: string, w: number, h: number, d: number) =>
       `ノード "${id}" は \`marker: ${marker}\`（丸）ですが、\`size\` が ${w}×${h} で正方形ではありません。**丸は短いほうが直径になる**ので、描かれるのは**直径 ${d} の丸**で、長いほうの ${Math.max(w, h)} は消えます。ところが名前の置き場所と重なりの判定は ${w}×${h} のほうを見るので、**丸の横に空きが残ります**。横長・縦長の丸が欲しいなら \`marker: ellipse\`（w と h の両方を使います）、丸でよいなら \`size\` を正方形にしてください。`,
     hatchTooThin: (id: string, hatch: string, side: number) =>
@@ -1298,7 +1298,7 @@ const en: Catalog = {
     colorFaint: (key: string, value: string) =>
       `palette entry "${key}" (${value}) is too faint: the line sinks into the ground (3:1 is the floor for non-text; both the light and the dark ground are checked).`,
     labelMarkdown: (id: string) =>
-      `Node "${id || '(no id)'}" has ** in its label. **Labels are plain text**, not Markdown — the asterisks are not emphasis, they are **drawn as they are**. They creep in from the Markdown used in source comments and changelogs.`,
+      `"${id || '(no id)'}" has ** in its label (nodes, edge labels and view titles alike). **Labels are plain text**, not Markdown — the asterisks are not emphasis, they are **drawn as they are**. They creep in from the Markdown used in source comments and changelogs.`,
     colorNotHex: (key: string, value: string) =>
       `palette entry "${key}" has the colour "${value}", which cannot be read. Write it as **#rrggbb** (six digits). Three digits (#a33) and colour names (red) are not accepted — they are interpreted differently wherever the drawing is pasted. The key stays, with no colour.`,
     edgeSelfOpen: (id: string) =>
@@ -1341,7 +1341,7 @@ const en: Catalog = {
     viewTitleCovered: (view: string, box: string, grow: number) =>
       `The title of view "${view}" is drawn on top of "${box}". **A view title sits just below the view's bottom edge**, so anything that reaches past the height you wrote in \`size\` ends up underneath it. **Grow this view's \`size.h\` by ${grow}px, or move its contents up.**`,
     labelGluedWord: (id: string, found: string) =>
-      `The label of node "${id}" contains **"${found}"** — a lowercase English word glued straight onto Japanese text. That is usually a draft term left untranslated (an invented word), or two parts in the wrong order. **It is drawn exactly as written.** Translate it, or put a space between the scripts. Units (mm, cm, kg) and spaced forms like "PoE の" are not flagged.`,
+      `The label of "${id}" contains **"${found}"** — a lowercase English word glued straight onto Japanese text. That is usually a draft term left untranslated (an invented word), or two parts in the wrong order. **It is drawn exactly as written.** Translate it, or put a space between the scripts. Units (mm, cm, kg) and spaced forms like "PoE の" are not flagged.`,
     circleNotSquare: (id: string, marker: string, w: number, h: number, d: number) =>
       `Node "${id}" is \`marker: ${marker}\` (a circle), but its \`size\` is ${w}x${h}, not square. **A circle takes the shorter side as its diameter**, so what gets drawn is a **${d} circle** and the ${Math.max(w, h)} you wrote is gone. Label placement and overlap still measure the ${w}x${h} box, so **empty room is left beside the circle**. Use \`marker: ellipse\` for an oval (it uses both w and h), or make \`size\` square.`,
     hatchTooThin: (id: string, hatch: string, side: number) =>

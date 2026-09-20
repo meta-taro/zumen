@@ -586,3 +586,49 @@ describe('日本語にくっついた英単語', () => {
     assert.match(found.find((f) => f.code === 'label-glued-word')!.message, /前framing|framing/);
   });
 });
+
+/**
+ * **`**` の検査が、節しか見ていなかった**（2026-09-20）。
+ *
+ * 絵に出る文字は節の名前だけではない —— **辺のラベルも、図（views）の名前も出る。**
+ * ところが `checkLabelMarkdown` は `nodes` しか回っていなかった。
+ * いまの見本に該当は 0 件だが、**穴が開いていることは確かめた**
+ * （辺のラベルと図の名前に `**` を入れて、何も言われなかった）。
+ */
+describe('`**` は、絵に出る文字を全部見る', () => {
+  const EDGE = [
+    'version: 1', 'kind: placement', 'arrows: true', 'nodes:',
+    '  - id: a', '    label: あ', '    at: { x: 10, y: 10 }', '    size: { w: 40, h: 40 }',
+    '  - id: b', '    label: い', '    at: { x: 100, y: 10 }', '    size: { w: 40, h: 40 }',
+    'edges:', '  - from: a', '    to: b', '    label: "**強く**"', '    curve: none', '',
+  ].join('\n');
+
+  const VIEW = [
+    'version: 1', 'kind: placement', 'arrows: true',
+    'views:', '  - id: v', '    title: "** 断面 **"', '    at: { x: 0, y: 0 }', '    size: { w: 200, h: 100 }',
+    'nodes:', '  - id: a', '    label: あ', '    at: { x: 10, y: 10 }', '    size: { w: 40, h: 40 }', '',
+  ].join('\n');
+
+  it('**辺のラベルも見る**', () => {
+    assert.deepEqual(codes(EDGE), ['label-markdown']);
+  });
+
+  it('**図の名前も見る**', () => {
+    assert.deepEqual(codes(VIEW), ['label-markdown']);
+  });
+
+  it('辺は「from → to」で呼ぶ（辺に id は無い）', () => {
+    const said = validate(EDGE).find((f) => f.code === 'label-markdown')!;
+    assert.match(said.message, /a → b/);
+  });
+
+  it('「ノード」とは言わない（辺や図にも出る言葉なので）', () => {
+    const said = validate(EDGE).find((f) => f.code === 'label-markdown')!;
+    assert.ok(!said.message.startsWith('ノード'), said.message);
+  });
+
+  it('日本語にくっついた英単語も、辺のラベルで見る', () => {
+    const glued = EDGE.replace('"**強く**"', '"前framing で留める"');
+    assert.deepEqual(codes(glued), ['label-glued-word']);
+  });
+});
