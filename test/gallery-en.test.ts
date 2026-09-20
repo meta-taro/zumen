@@ -85,6 +85,20 @@ describe('見本の代替テキスト', () => {
     assert.deepEqual(empty, []);
   });
 
+  /**
+   * **20 字未満の alt は、題名を言い直しているだけ**（2026-09-20）。
+   *
+   * 「クラス図（UML）」の alt が「UML クラス図」では、**見えない人には何も増えない。**
+   * alt には「何が描いてあるか」—— 要素と、その関係を書く。
+   * 測ったら 94 枚が 20 字未満だったので、3 周かけて全部書き直した。
+   */
+  it('**alt が 20 字以上ある**（題名の言い直しにしない）', () => {
+    const thin = items
+      .filter((item) => (item.alt ?? '').length < 20)
+      .map((item) => `${item.name}: ${item.alt}`);
+    assert.deepEqual(thin, [], 'alt が短すぎる（図の中身を書く）');
+  });
+
   it('**alt が caption の繰り返しになっていない**', () => {
     const same = items
       .filter((item) => (item.alt ?? '').trim() === (item.caption ?? '').trim())
