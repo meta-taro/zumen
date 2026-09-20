@@ -244,3 +244,34 @@ describe('見本の説明', () => {
     assert.deepEqual(undated, [], '規格番号はあるのに、いつの版か書いていない見本');
   });
 });
+
+/**
+ * **「見本 NNN と対」が、切れていないか**（2026-09-21）。
+ *
+ * 説明の中で別の見本を指すことがよくある（いま 47 か所）。
+ * **番号を間違えても、誰も気づかない** —— 絵は出るし、テストも通る。
+ * 番号だけは機械に見させる。
+ *
+ * 名前まで見ようとすると誤検出になる。
+ * 「見本 95（1 人 3.5m² のスフィア基準）」のように、
+ * **括弧の中は名前ではなく中身の説明**であることが多い（測って 13 件中 2 件）。
+ */
+describe('見本どうしの参照', () => {
+  it('**指している見本が実在する**', () => {
+    const dir = new URL('../examples/gallery/', import.meta.url);
+    const files = readdirSync(dir).filter((f) => f.endsWith('.zumen.yaml'));
+    const have = new Set(files.map((f) => f.split('-')[0]!));
+    const broken: string[] = [];
+    let refs = 0;
+    for (const file of files) {
+      const text = readFileSync(new URL(file, dir), 'utf8');
+      for (const found of text.matchAll(/見本\s?(\d{1,3})/g)) {
+        refs += 1;
+        const num = found[1]!;
+        if (!have.has(num) && !have.has(num.padStart(2, '0'))) broken.push(`${file} → 見本 ${num}`);
+      }
+    }
+    assert.ok(refs >= 40, `参照が ${refs} 件しか見つからない（数え方が壊れた？）`);
+    assert.deepEqual(broken, []);
+  });
+});

@@ -1,0 +1,490 @@
+version: 1
+kind: placement
+arrows: true
+north: up
+scale: { mm: 16 }
+title: 土俵（数はどれも、体の大きさから出ている）
+# **勝負俵は直径 4.55m（15 尺）、16 俵で組む。**
+# その外側、**一辺 6.7m（22 尺）の正方形**に土を盛ったものが土俵で、
+# **地面から俵の上まで 60cm。** 落ちれば土俵下 —— 高さそのものが勝負の一部。
+#
+# **徳俵だけが、外へ出ている。** 東西南北に 1 俵ずつ、俵 1 本ぶん外へずらしてあり、
+# **そこに足がかかっても残れる。**
+#
+# **俵の数は決まっている。** 勝負俵 16・徳俵 4・角俵は各辺 7 で計 28・
+# あげ俵は四隅に 1 ずつで 4・踏み俵は東西南に 3 ずつと北に 1 で計 10・
+# 水桶俵は南西と南東に計 4。
+#
+# **蛇の目は、判定の道具。** 勝負俵のまわりに円く撒いた砂で、
+# **足が出たかどうかを足跡で見る。**
+#
+# **仕切り線は幅 6cm・長さ 90cm が 2 本、間隔 70cm。**
+#
+# **四色の房は、方角の目印。** 吊り屋根から下がる 4 本で、
+# **青房＝東・青龍、赤房＝南・朱雀、白房＝西・白虎、黒房＝北・玄武。**
+# 房は長さ 2.3m・太さ 70cm・重さ 25kg。水引幕は紫。
+#
+# 図は方角で描いた（上が北）。正面は南側。
+nodes:
+  - id: t1
+    label: "① 土俵の平面（上が北）—— 一辺 6.7m の土の台に、直径 4.55m の円"
+    marker: none
+    align: left
+    at: { x: 140, y: 150 }
+    size: { w: 660, h: 20 }
+  - id: dohyo
+    label: ""
+    at: { x: 300, y: 300 }
+    size: { w: 419, h: 419 }
+  - id: janome
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 342.5, y: 342.5 }
+    size: { w: 334, h: 334 }
+  - id: tawara
+    label: ""
+    marker: circle
+    at: { x: 367.5, y: 367.5 }
+    size: { w: 284, h: 284 }
+  - id: toku0
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 498.5, y: 356.5 }
+    size: { w: 22, h: 22 }
+  - id: toku1
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 498.5, y: 640.5 }
+    size: { w: 22, h: 22 }
+  - id: toku2
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 356.5, y: 498.5 }
+    size: { w: 22, h: 22 }
+  - id: toku3
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 640.5, y: 498.5 }
+    size: { w: 22, h: 22 }
+  - id: shikiri1
+    label: ""
+    hatch: solid
+    at: { x: 481.5, y: 485.5 }
+    size: { w: 56, h: 4 }
+  - id: shikiri2
+    label: ""
+    hatch: solid
+    at: { x: 481.5, y: 529.5 }
+    size: { w: 56, h: 4 }
+  - id: kuro
+    label: ""
+    hatch: solid
+    at: { x: 500.5, y: 269 }
+    size: { w: 18, h: 18 }
+  - id: kuron
+    label: "黒房（北）"
+    marker: none
+    align: center
+    at: { x: 300, y: 238 }
+    size: { w: 419, h: 18 }
+  - id: aka
+    label: ""
+    hatch: solid
+    at: { x: 500.5, y: 732 }
+    size: { w: 18, h: 18 }
+  - id: akan
+    label: "赤房（南）—— 正面はこちら"
+    marker: none
+    align: center
+    at: { x: 300, y: 755 }
+    size: { w: 419, h: 18 }
+  - id: shiro
+    label: ""
+    hatch: solid
+    at: { x: 269, y: 500.5 }
+    size: { w: 18, h: 18 }
+  - id: shiron
+    label: "白房（西）"
+    marker: none
+    align: right
+    at: { x: 160, y: 500.5 }
+    size: { w: 100, h: 18 }
+  - id: ao
+    label: ""
+    hatch: solid
+    at: { x: 732, y: 500.5 }
+    size: { w: 18, h: 18 }
+  - id: aon
+    label: "青房（東）"
+    marker: none
+    align: left
+    at: { x: 755, y: 500.5 }
+    size: { w: 100, h: 18 }
+  - id: n_tawara
+    label: "勝負俵（16 俵）"
+    marker: none
+    align: right
+    at: { x: 130, y: 360 }
+    size: { w: 150, h: 18 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 285, y: 367 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 396.5, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: n_janome
+    label: "蛇の目（砂）"
+    marker: none
+    align: right
+    at: { x: 130, y: 400 }
+    size: { w: 150, h: 18 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 285, y: 407 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 353.5, y: 429 }
+    size: { w: 2, h: 2 }
+  - id: n_toku
+    label: "徳俵"
+    marker: none
+    align: right
+    at: { x: 130, y: 560 }
+    size: { w: 150, h: 18 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 285, y: 567 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 360.5, y: 502.5 }
+    size: { w: 2, h: 2 }
+  - id: n_shikiri
+    label: "仕切り線"
+    marker: none
+    align: right
+    at: { x: 130, y: 600 }
+    size: { w: 150, h: 18 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 285, y: 607 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 476.5, y: 518.5 }
+    size: { w: 2, h: 2 }
+  - id: cap1
+    label: "蛇の目は、判定の道具。 勝負俵のまわりに撒いた砂で、足が出たかどうかを足跡で見る。"
+    marker: none
+    align: center
+    at: { x: 140, y: 785 }
+    size: { w: 660, h: 18 }
+  - id: t2
+    label: "② 土俵は、台である"
+    marker: none
+    align: left
+    at: { x: 140, y: 829 }
+    size: { w: 660, h: 20 }
+  - id: ground
+    label: ""
+    hatch: lines
+    at: { x: 200, y: 907 }
+    size: { w: 560, h: 20 }
+  - id: mound
+    label: ""
+    hatch: dots
+    at: { x: 320, y: 869 }
+    size: { w: 320, h: 38 }
+  - id: h1
+    label: "60cm"
+    marker: none
+    align: left
+    at: { x: 660, y: 879 }
+    size: { w: 90, h: 18 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 655, y: 868 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 655, y: 906 }
+    size: { w: 2, h: 2 }
+  - id: h2
+    label: "一辺 6.7m（22 尺）"
+    marker: none
+    align: center
+    at: { x: 320, y: 931 }
+    size: { w: 320, h: 18 }
+  - id: cap2
+    label: "地面から俵の上まで 60cm。 落ちれば土俵下 —— 高さそのものが勝負の一部。"
+    marker: none
+    align: center
+    at: { x: 140, y: 957 }
+    size: { w: 660, h: 18 }
+  - id: t3
+    label: "③ 俵の数"
+    marker: none
+    align: left
+    at: { x: 860, y: 150 }
+    size: { w: 420, h: 20 }
+  - id: h860_186
+    label: "何俵で組むか"
+    hatch: solid
+    at: { x: 860, y: 186 }
+    size: { w: 420, h: 24 }
+  - id: x860_210
+    label: "勝負俵"
+    at: { x: 860, y: 210 }
+    size: { w: 150, h: 24 }
+  - id: y860_210
+    label: "16 俵（直径 4.55m）"
+    align: left
+    at: { x: 1010, y: 210 }
+    size: { w: 270, h: 24 }
+  - id: x860_234
+    label: "徳俵"
+    at: { x: 860, y: 234 }
+    size: { w: 150, h: 24 }
+  - id: y860_234
+    label: "東西南北に 1 俵ずつ、計 4 俵"
+    align: left
+    at: { x: 1010, y: 234 }
+    size: { w: 270, h: 24 }
+  - id: x860_258
+    label: "角俵"
+    at: { x: 860, y: 258 }
+    size: { w: 150, h: 24 }
+  - id: y860_258
+    label: "各辺 7 俵、計 28 俵"
+    align: left
+    at: { x: 1010, y: 258 }
+    size: { w: 270, h: 24 }
+  - id: x860_282
+    label: "あげ俵"
+    at: { x: 860, y: 282 }
+    size: { w: 150, h: 24 }
+  - id: y860_282
+    label: "四隅に 1 俵ずつ、計 4 俵"
+    align: left
+    at: { x: 1010, y: 282 }
+    size: { w: 270, h: 24 }
+  - id: x860_306
+    label: "踏み俵"
+    at: { x: 860, y: 306 }
+    size: { w: 150, h: 24 }
+  - id: y860_306
+    label: "東・西・南に 3 俵、北に 1 俵"
+    align: left
+    at: { x: 1010, y: 306 }
+    size: { w: 270, h: 24 }
+  - id: x860_330
+    label: "水桶俵"
+    at: { x: 860, y: 330 }
+    size: { w: 150, h: 24 }
+  - id: y860_330
+    label: "南西・南東に計 4 俵"
+    align: left
+    at: { x: 1010, y: 330 }
+    size: { w: 270, h: 24 }
+  - id: why3
+    label: "徳俵だけが、外へ出ている。\n俵 1 本ぶん外へずらしてあるので、\nそこに足がかかっても残れる ——\nもとは雨水を掻き出すための隙間だった。"
+    at: { x: 860, y: 368 }
+    size: { w: 420, h: 74 }
+  - id: t4
+    label: "④ 寸法"
+    marker: none
+    align: left
+    at: { x: 860, y: 460 }
+    size: { w: 420, h: 20 }
+  - id: h860_490
+    label: "尺と m"
+    hatch: solid
+    at: { x: 860, y: 490 }
+    size: { w: 420, h: 24 }
+  - id: x860_514
+    label: "勝負俵の直径"
+    at: { x: 860, y: 514 }
+    size: { w: 150, h: 24 }
+  - id: y860_514
+    label: "4.55m（15 尺）"
+    align: left
+    at: { x: 1010, y: 514 }
+    size: { w: 270, h: 24 }
+  - id: x860_538
+    label: "土俵の一辺"
+    at: { x: 860, y: 538 }
+    size: { w: 150, h: 24 }
+  - id: y860_538
+    label: "6.7m（22 尺）"
+    align: left
+    at: { x: 1010, y: 538 }
+    size: { w: 270, h: 24 }
+  - id: x860_562
+    label: "高さ"
+    at: { x: 860, y: 562 }
+    size: { w: 150, h: 24 }
+  - id: y860_562
+    label: "地面から俵の上まで 60cm"
+    align: left
+    at: { x: 1010, y: 562 }
+    size: { w: 270, h: 24 }
+  - id: x860_586
+    label: "仕切り線"
+    at: { x: 860, y: 586 }
+    size: { w: 150, h: 24 }
+  - id: y860_586
+    label: "幅 6cm・長さ 90cm"
+    align: left
+    at: { x: 1010, y: 586 }
+    size: { w: 270, h: 24 }
+  - id: x860_610
+    label: "仕切り線の間隔"
+    at: { x: 860, y: 610 }
+    size: { w: 150, h: 24 }
+  - id: y860_610
+    label: "70cm"
+    align: left
+    at: { x: 1010, y: 610 }
+    size: { w: 270, h: 24 }
+  - id: x860_634
+    label: "房"
+    at: { x: 860, y: 634 }
+    size: { w: 150, h: 24 }
+  - id: y860_634
+    label: "長さ 2.3m・太さ 70cm・25kg"
+    align: left
+    at: { x: 1010, y: 634 }
+    size: { w: 270, h: 24 }
+  - id: why4
+    label: "15 尺は、二人ぶんの間合い。\n仕切り線の間隔 70cm は、\n立ち合いで手が届かない距離 ——\n土俵の数はどれも、体の大きさから出ている。"
+    at: { x: 860, y: 672 }
+    size: { w: 420, h: 74 }
+  - id: t5
+    label: "⑤ 四色の房"
+    marker: none
+    align: left
+    at: { x: 860, y: 764 }
+    size: { w: 420, h: 20 }
+  - id: h860_794
+    label: "方角と四神"
+    hatch: solid
+    at: { x: 860, y: 794 }
+    size: { w: 420, h: 24 }
+  - id: x860_818
+    label: "青房"
+    at: { x: 860, y: 818 }
+    size: { w: 150, h: 24 }
+  - id: y860_818
+    label: "東・青龍"
+    align: left
+    at: { x: 1010, y: 818 }
+    size: { w: 270, h: 24 }
+  - id: x860_842
+    label: "赤房"
+    at: { x: 860, y: 842 }
+    size: { w: 150, h: 24 }
+  - id: y860_842
+    label: "南・朱雀"
+    align: left
+    at: { x: 1010, y: 842 }
+    size: { w: 270, h: 24 }
+  - id: x860_866
+    label: "白房"
+    at: { x: 860, y: 866 }
+    size: { w: 150, h: 24 }
+  - id: y860_866
+    label: "西・白虎"
+    align: left
+    at: { x: 1010, y: 866 }
+    size: { w: 270, h: 24 }
+  - id: x860_890
+    label: "黒房"
+    at: { x: 860, y: 890 }
+    size: { w: 150, h: 24 }
+  - id: y860_890
+    label: "北・玄武"
+    align: left
+    at: { x: 1010, y: 890 }
+    size: { w: 270, h: 24 }
+  - id: x860_914
+    label: "水引幕"
+    at: { x: 860, y: 914 }
+    size: { w: 150, h: 24 }
+  - id: y860_914
+    label: "紫"
+    align: left
+    at: { x: 1010, y: 914 }
+    size: { w: 270, h: 24 }
+  - id: why5
+    label: "房は、柱の代わり。\n四本柱があった時代の名残で、\n四神と方角をそのまま色で持っている ——\n飾りではなく、方角の目印。"
+    at: { x: 860, y: 952 }
+    size: { w: 420, h: 74 }
+  - id: r1
+    label: "勝負俵は直径 4.55m（15 尺）、16 俵で組みます（①③）。土俵は一辺 6.7m（22 尺）の土の台です。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1044 }
+    size: { w: 1140, h: 18 }
+  - id: r2
+    label: "徳俵だけが外へ出ています（③）。東西南北に 1 俵ずつ、俵 1 本ぶん外へずらしてあります。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1068 }
+    size: { w: 1140, h: 18 }
+  - id: r3
+    label: "蛇の目は判定の道具です（①）。勝負俵のまわりに撒いた砂で、足が出たかどうかを足跡で見ます。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1092 }
+    size: { w: 1140, h: 18 }
+  - id: r4
+    label: "地面から俵の上まで 60cm あります（②）。落ちれば土俵下 —— 高さそのものが勝負の一部です。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1116 }
+    size: { w: 1140, h: 18 }
+  - id: r5
+    label: "四色の房は方角の目印です（⑤）。青＝東・青龍、赤＝南・朱雀、白＝西・白虎、黒＝北・玄武。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1140 }
+    size: { w: 1140, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p2
+    to: p3
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p4
+    to: p5
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p6
+    to: p7
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p8
+    to: p9
+    curve: none
+    ends: { from: arrow, to: arrow }
