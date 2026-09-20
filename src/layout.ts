@@ -671,6 +671,28 @@ export function straddles(placed: Placed): [string, string][] {
 }
 
 /**
+ * **またぎの、重なっている大きさ**（2026-09-20）。
+ *
+ * `straddles` は組しか返さないので、**どちらへ何 px 動かせば解けるかが分からない。**
+ * 狭いほうの辺を詰めれば解けるので、**幅と高さの小さいほうが動かす量**になる。
+ */
+export function straddlePlaces(placed: Placed): { a: string; b: string; by: { x: number; y: number } }[] {
+  const by = new Map(placed.boxes.map((box) => [box.id, box]));
+  return straddles(placed).map(([left, right]) => {
+    const a = by.get(left)!;
+    const b = by.get(right)!;
+    return {
+      a: left,
+      b: right,
+      by: {
+        x: Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x),
+        y: Math.min(a.y + a.h, b.y + b.h) - Math.max(a.y, b.y),
+      },
+    };
+  });
+}
+
+/**
  * **箱の塗りに隠れて消える辺**（`edge` の id と、それを隠す箱の id）。
  *
  * `arrows: false` のとき、辺は**箱より先に**描かれる（`src/render.ts`）。

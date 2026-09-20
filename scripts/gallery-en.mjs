@@ -120,6 +120,7 @@ export const CAPTIONS_EN = {
   '263-加湿器の方式': 'Every humidifier needs the same 627Wh to evaporate a litre — the four types differ only in where that heat comes from, which is why the evaporative one is cheap on the meter and cools the room instead',
   '264-配光曲線と照度計算': 'The lumens on the box describe the fitting, not the desk: a polar candela plot is the only document that connects them, and at 2.5m a spot that gives 400lx underneath gives 110lx just 1.4m to the side',
   '265-建具の開き勝手と有効開口': 'The single arc on a floor plan decides how the room can be used: a 780mm frame only gives 747mm of clear opening once the leaf is in the way, and the door sweeps 0.44m² of floor that nothing else can occupy',
+  '266-足関節のテーピング': 'Ankle taping stops one direction only — inversion — and leaves the up-and-down movement alone; the order matters because each strip pins down the ends of the last, so tape that peels is usually tape applied in the wrong order',
   '259-家具の転倒防止': 'Mass cancels out of the tipping condition, so how easily furniture falls depends only on its depth and the height of its centre of gravity — a shallow tall bookcase goes over at a shindo 5+',
   '258-液晶テレビの層': 'An LCD makes no light of its own — it only blocks it, which is why its black is whatever light failed to be blocked, and why only a tenth of the backlight ever reaches your eye',
   '257-換気扇の風量と静圧': 'The airflow on the box is the free-delivery figure; what you actually get is where the fan curve meets the duct resistance, and a long bent duct can cut it to 43 percent',

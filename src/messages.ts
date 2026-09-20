@@ -155,6 +155,8 @@ const ja = {
     inspectClean: '  交差 0 ／ またぎ 0 ／ 文字の重なり 0 ／ 隠れた辺 0 ／ 名前も符号も全部出ています',
     inspectCrossings: (count: number, groups: number, pairs: string) =>
       `  **交差 ${count}**（${groups} 組。同じ 2 本が何か所で交わっても 1 組）\n    ${pairs}`,
+    /** **どれだけ重なっているか**（2026-09-20）。狭いほうを詰めれば解ける。 */
+    straddleBy: (a: string, b: string, x: string, y: string) => `${a}↔${b}（横 ${x}px ／ 縦 ${y}px 重なる）`,
     inspectStraddles: (count: number, pairs: string) => `  **またぎ ${count}**（${pairs}）`,
     inspectOverlaps: (count: number, pairs: string) => `  **文字の重なり ${count}**（${pairs}）`,
     inspectUnderBoxes: (count: number, pairs: string) => `  **箱に隠れた辺 ${count}**（${pairs}）`,
@@ -889,6 +891,7 @@ const en: Catalog = {
     inspectClean: '  0 crossings / 0 straddles / 0 text overlaps / 0 buried edges / every name and tag is drawn',
     inspectCrossings: (count: number, groups: number, pairs: string) =>
       `  **${count} crossings** (${groups} pairs; two lines that cross more than once count as one pair)\n    ${pairs}`,
+    straddleBy: (a: string, b: string, x: string, y: string) => `${a}<->${b} (overlap ${x}px wide, ${y}px tall)`,
     inspectStraddles: (count: number, pairs: string) => `  **${count} straddles** (${pairs})`,
     inspectOverlaps: (count: number, pairs: string) => `  **${count} text overlaps** (${pairs})`,
     inspectUnderBoxes: (count: number, pairs: string) => `  **${count} edges buried under boxes** (${pairs})`,

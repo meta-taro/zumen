@@ -670,6 +670,18 @@ describe('観測値を見せる（inspect）', () => {
  * **閉じたはずの穴が、半分開いたままだった。**
  */
 describe('inspect が、検査と同じものを見る', () => {
+  it('**またぎは、どれだけ重なっているかまで言う**', async () => {
+    const over = [
+      'version: 1', 'kind: placement', 'nodes:',
+      '  - id: a', '    label: あ', '    at: { x: 0, y: 0 }', '    size: { w: 100, h: 60 }',
+      '  - id: b', '    label: い', '    at: { x: 92, y: 40 }', '    size: { w: 100, h: 60 }',
+      '',
+    ].join('\n');
+    const result = await runInspect(['a.yaml'], reader({ 'a.yaml': over }) as never);
+    const said = result.lines.join('\n');
+    assert.match(said, /a↔b（横 8px ／ 縦 20px 重なる）/, said);
+  });
+
   /**
    * **どれだけ足りないかまで言う**（2026-09-20）。
    *

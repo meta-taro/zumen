@@ -22,7 +22,7 @@ import { tooThinForPattern } from './hatch.ts';
 import { patternPeriod } from './line.ts';
 import { renderZumenBlocks, replaceZumenBlocks } from './embed.ts';
 import { mergeThreeWay } from './git-merge.ts';
-import { crossingPlaces, edgesUnderBoxes, layout, straddles } from './layout.ts';
+import { crossingPlaces, edgesUnderBoxes, layout, straddlePlaces, straddles } from './layout.ts';
 import { PASS_LINE, measure, percent } from './measure.ts';
 import { merge } from './merge.ts';
 import type { Conflict } from './merge.ts';
@@ -473,7 +473,13 @@ export async function runInspect(paths: string[], read = readFileSync): Promise<
     if (quiet) lines.push(m.inspectClean);
     if (crossed.length > 0 || over.length > 0) gated = true;
     if (crossed.length > 0) lines.push(m.inspectCrossings(seen.crossings, crossed.length, spots(crossed)));
-    if (over.length > 0) lines.push(m.inspectStraddles(over.length, pairs(over)));
+    if (over.length > 0) {
+      // **どれだけ重なっているかまで出す。** 組だけでは、何 px 動かすかが分からない。
+      const said = straddlePlaces(placed).map((found) =>
+        m.straddleBy(found.a, found.b, String(Math.ceil(found.by.x)), String(Math.ceil(found.by.y))),
+      );
+      lines.push(m.inspectStraddles(over.length, names(said, 6)));
+    }
     if (seen.overlappingText.length > 0) {
       lines.push(m.inspectOverlaps(seen.overlappingText.length, pairs(seen.overlappingText)));
     }
