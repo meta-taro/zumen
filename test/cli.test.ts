@@ -706,3 +706,45 @@ describe('inspect が、検査と同じものを見る', () => {
     assert.ok(result.lines.some((line) => line.includes('全部出ています')), result.lines.join('\n'));
   });
 });
+
+/**
+ * **読めない図に、観測値は無い**（2026-09-20）。
+ *
+ * 前は指摘を並べたあと、最後に「これは合否ではなく観測値です」まで足していた ——
+ * **観測値を 1 つも出していないのに。** 読めない図は、まず読めるようにする話。
+ * あわせて、長辺が `1448.6107034668482px` と出ていたのを 1px きざみにした。
+ */
+describe('inspect が読めない図を渡されたとき', () => {
+  const BAD = 'version: 1\nnodes:\n  - id: a\n  - id: a\n';
+
+  it('**指摘だけ出して、締めの「合否ではなく観測値です」は出さない**', async () => {
+    const result = await runInspect(['a.yaml'], reader({ 'a.yaml': BAD }) as never);
+    const said = result.lines.join('\n');
+    assert.ok(!said.includes('合否ではなく'), said);
+  });
+
+  it('読めなかったことを言う（黙って空で返さない）', async () => {
+    const result = await runInspect(['a.yaml'], reader({ 'a.yaml': BAD }) as never);
+    assert.match(result.lines.join('\n'), /読めませんでした/);
+  });
+
+  it('**それでも止めない**（inspect は合否ではない）', async () => {
+    const result = await runInspect(['a.yaml'], reader({ 'a.yaml': BAD }) as never);
+    assert.equal(result.code, 0);
+  });
+
+  it('読める図が混ざっていれば、観測値の話はする', async () => {
+    const ok = 'version: 1\nkind: placement\nnodes:\n  - id: a\n    label: 居間\n    at: { x: 0, y: 0 }\n    size: { w: 200, h: 120 }\n';
+    const result = await runInspect(['a.yaml', 'b.yaml'], reader({ 'a.yaml': BAD, 'b.yaml': ok }) as never);
+    const said = result.lines.join('\n');
+    assert.match(said, /合否ではなく/);
+    assert.match(said, /読めませんでした/);
+  });
+
+  it('**長辺は 1px きざみで出す**', async () => {
+    const ok = 'version: 1\nkind: placement\nnodes:\n  - id: a\n    label: 居間\n    at: { x: 0, y: 0 }\n    size: { w: 200.4, h: 120.7 }\n';
+    const result = await runInspect(['a.yaml'], reader({ 'a.yaml': ok }) as never);
+    const said = result.lines.join('\n');
+    assert.ok(!/長辺 \d+\.\d/.test(said), said);
+  });
+});

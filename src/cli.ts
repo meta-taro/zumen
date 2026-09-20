@@ -406,6 +406,7 @@ export async function runInspect(paths: string[], read = readFileSync): Promise<
 
   const lines: string[] = [];
   let gated = false;
+  let unreadable = 0;
   for (const path of paths) {
     let text: string;
     try {
@@ -416,7 +417,14 @@ export async function runInspect(paths: string[], read = readFileSync): Promise<
     const seen = await inspect(text);
     lines.push(m.inspected(path));
     if (!seen.readable) {
+      /**
+       * **読めない図に、観測値は無い**（2026-09-20）。
+       *
+       * 前は指摘を並べたあと、最後に「これは合否ではなく観測値です」まで足していた ——
+       * **観測値を 1 つも出していないのに。** 読めない図は、まず読めるようにする話。
+       */
       lines.push(...seen.findings.map(format));
+      unreadable += 1;
       continue;
     }
     lines.push(m.inspectCounts(seen.nodes, seen.edges));
@@ -458,14 +466,17 @@ export async function runInspect(paths: string[], read = readFileSync): Promise<
       lines.push(m.inspectHiddenTags(seen.hiddenTags.length, names(seen.hiddenTags)));
     }
 
+    // **長さは 1px きざみで足りる。** 1448.6107034668482 は読む人を困らせるだけ。
     const ratio = seen.textRatio === null ? '—' : seen.textRatio.toFixed(4);
-    lines.push(m.inspectPaper(seen.smallestText, seen.longestSide, ratio));
+    lines.push(m.inspectPaper(seen.smallestText, Math.round(seen.longestSide), ratio));
     if (seen.tooSmallToPrint) lines.push(m.inspectPrint);
     else if (seen.tooSmallToProject) lines.push(m.inspectProject);
   }
-  lines.push(m.inspectNote);
+  // **読めなかった図しか無いなら、観測値の話はしない。**
+  if (unreadable < paths.length) lines.push(m.inspectNote);
   // **止めないが、放っておくとテストが落ちる**ことだけは言う。
   if (gated) lines.push(m.inspectGate);
+  if (unreadable > 0) lines.push(m.inspectUnreadable(unreadable));
   return { code: 0, lines };
 }
 

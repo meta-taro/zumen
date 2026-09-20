@@ -176,6 +176,8 @@ const ja = {
      * （理由を書いて表へ入れれば通る）。
      * 洗濯機（見本 250）で、**inspect が 8 件出したのを読んだまま登録して落とした。**
      */
+    inspectUnreadable: (count: number) =>
+      `**${count} 件は読めませんでした。** 観測値は出していません —— 上の指摘を直してから、もう一度見てください。`,
     inspectGate:
       '見本として `examples/gallery/` へ置くなら、**交差とまたぎは 0 にするか、`test/names.test.ts` の表へ理由を書いて入れてください。** そのままだとテストが落ちます。',
     measured: (path: string, autonomy: string, layout: string) =>
@@ -876,6 +878,8 @@ const en: Catalog = {
     inspectProject: '  Too small to project (fine if this drawing is meant to be printed).',
     inspectNote:
       'These are **observations, not a verdict**. Crossings and straddles are right when the subject crosses — nothing is stopped here.',
+    inspectUnreadable: (count: number) =>
+      `**${count} could not be read.** No observations were produced — fix what is listed above, then look again.`,
     inspectGate:
       'To ship this as a gallery sample, **bring crossings and straddles to zero, or add it to the table in `test/names.test.ts` with the reason.** Left as is, the test fails.',
     measured: (path: string, autonomy: string, layout: string) =>
