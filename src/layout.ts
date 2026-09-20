@@ -763,10 +763,22 @@ export function crossings(placed: Placed): number {
  * 同じ 2 本が何か所で交わっても、組は 1 つだけ返す（探すのに要るのは場所ではなく相手）。
  */
 export function crossingEdges(placed: Placed): [string, string][] {
-  return countCrossings(placed).pairs;
+  return countCrossings(placed).pairs.map(([a, b]) => [a, b] as [string, string]);
 }
 
-function countCrossings(placed: Placed): { count: number; pairs: [string, string][] } {
+/**
+ * **交わっている場所まで返す**（2026-09-20）。
+ *
+ * 組だけでは足りない。`path()` で引いた折れ線の id は `p16>p17` のような
+ * **書き手が付けていない名前**なので、「どの 2 本か」を言われても図の中で探せない。
+ * **紙の上の座標**が分かれば、その場所を見て直せる
+ * （エスカレーターの引出線を直すとき、自分で台本を書いて座標を出した）。
+ */
+export function crossingPlaces(placed: Placed): { a: string; b: string; at: P }[] {
+  return countCrossings(placed).pairs.map(([a, b, at]) => ({ a, b, at }));
+}
+
+function countCrossings(placed: Placed): { count: number; pairs: [string, string, P][] } {
   const segments: { seg: [P, P]; id: string }[] = [];
   for (const edge of placed.edges) {
     for (let i = 0; i + 1 < edge.points.length; i += 1) {
@@ -776,7 +788,7 @@ function countCrossings(placed: Placed): { count: number; pairs: [string, string
 
   let count = 0;
   const seen = new Set<string>();
-  const pairs: [string, string][] = [];
+  const pairs: [string, string, P][] = [];
   for (let i = 0; i < segments.length; i += 1) {
     for (let j = i + 1; j < segments.length; j += 1) {
       if (!intersects(segments[i]!.seg, segments[j]!.seg)) continue;
@@ -785,7 +797,7 @@ function countCrossings(placed: Placed): { count: number; pairs: [string, string
       const key = `${a}\u0000${b}`;
       if (seen.has(key)) continue;
       seen.add(key);
-      pairs.push([a, b]);
+      pairs.push([a, b, meetOf(segments[i]!.seg, segments[j]!.seg)]);
     }
   }
   return { count, pairs };
@@ -794,6 +806,17 @@ function countCrossings(placed: Placed): { count: number; pairs: [string, string
 interface P {
   x: number;
   y: number;
+}
+
+/**
+ * **2 本が交わる点。** `intersects` が真のときだけ呼ぶので、平行は来ない。
+ */
+function meetOf([a, b]: [P, P], [c, d]: [P, P]): P {
+  const r = { x: b.x - a.x, y: b.y - a.y };
+  const sg = { x: d.x - c.x, y: d.y - c.y };
+  const den = r.x * sg.y - r.y * sg.x;
+  const t = ((c.x - a.x) * sg.y - (c.y - a.y) * sg.x) / den;
+  return { x: Math.round(a.x + r.x * t), y: Math.round(a.y + r.y * t) };
 }
 
 /**

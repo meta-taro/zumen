@@ -21,7 +21,7 @@ import { toDrawio } from './drawio.ts';
 import { tooThinForPattern } from './hatch.ts';
 import { renderZumenBlocks, replaceZumenBlocks } from './embed.ts';
 import { mergeThreeWay } from './git-merge.ts';
-import { crossingEdges, edgesUnderBoxes, layout, straddles } from './layout.ts';
+import { crossingPlaces, edgesUnderBoxes, layout, straddles } from './layout.ts';
 import { PASS_LINE, measure, percent } from './measure.ts';
 import { merge } from './merge.ts';
 import type { Conflict } from './merge.ts';
@@ -421,13 +421,13 @@ export async function runInspect(paths: string[], read = readFileSync): Promise<
     lines.push(m.inspectCounts(seen.nodes, seen.edges));
 
     const placed = await layout(text);
-    const crossed = crossingEdges(placed);
+    const crossed = crossingPlaces(placed);
     const over = straddles(placed);
     const quiet =
       crossed.length === 0 && over.length === 0 &&
       seen.overlappingText.length === 0 && seen.edgesUnderBoxes.length === 0;
     if (quiet) lines.push(m.inspectClean);
-    if (crossed.length > 0) lines.push(m.inspectCrossings(seen.crossings, pairs(crossed)));
+    if (crossed.length > 0) lines.push(m.inspectCrossings(seen.crossings, spots(crossed)));
     if (over.length > 0) lines.push(m.inspectStraddles(over.length, pairs(over)));
     if (seen.overlappingText.length > 0) {
       lines.push(m.inspectOverlaps(seen.overlappingText.length, pairs(seen.overlappingText)));
@@ -443,6 +443,17 @@ export async function runInspect(paths: string[], read = readFileSync): Promise<
   }
   lines.push(m.inspectNote);
   return { code: 0, lines };
+}
+
+/**
+ * 交差を「a↔b (x, y)」の形にする。**場所まで言う**（2026-09-20）。
+ *
+ * `path()` で引いた折れ線の id は書き手が付けた名前ではないので、
+ * 組だけ言われても図の中で探せない。**紙の上の座標が要る。**
+ */
+function spots(list: { a: string; b: string; at: { x: number; y: number } }[], limit = 6): string {
+  const head = list.slice(0, limit).map((c) => `${c.a}↔${c.b} (${c.at.x}, ${c.at.y})`).join(', ');
+  return list.length <= limit ? head : `${head}, …`;
 }
 
 /** 組を「a↔b, c↔d」の形にする。**多いときは先頭だけ**（探すのに要るのは相手）。 */

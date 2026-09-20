@@ -1,0 +1,887 @@
+version: 1
+kind: placement
+arrows: true
+title: エスカレーターの構造（トラスの側面図）
+# **踏面はいつも水平。** 階段になったり平らになったりするのは、
+# **前輪と後輪が別のレールを走り、その間隔が変わる**から。
+# 2 本が揃う区間が乗降口の「水平部」で、そこで段差が消える。
+#
+# **勾配 30° なら、斜め長は揚程のちょうど 2 倍**（sin30° ＝ 0.5）。
+# 水平長は 1.73 倍。踏面 400mm なら蹴上は 400 × tan30° ＝ 231mm で、
+# 家の階段より 3cm 高い段が 0.5m/s で動いている。
+#
+# 建築基準法施行令 第 129 条の 12 —— 勾配 30° 以下、
+# **手すりは踏段と同一方向・同一速度**、踏段の幅 1.1m 以下、
+# 手すり上端部の中心まで 25cm 以下、積載荷重 P ＝ 2,600A。
+#
+# **第六号「地震で脱落しないこと」は、東日本大震災のあとに足された。**
+# トラスは上下階の梁に掛けてあるだけなので、揺れると外れた。
+nodes:
+  - id: t1
+    label: "① トラスの側面図（勾配 30°・揚程 3.5m の例）"
+    marker: none
+    align: left
+    at: { x: 150, y: 150 }
+    size: { w: 560, h: 20 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 169, y: 619 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 261, y: 619 }
+    size: { w: 2, h: 2 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 261, y: 619 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 607, y: 419 }
+    size: { w: 2, h: 2 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 607, y: 419 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 699, y: 419 }
+    size: { w: 2, h: 2 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 169, y: 705 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 699, y: 505 }
+    size: { w: 2, h: 2 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 169, y: 619 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 169, y: 705 }
+    size: { w: 2, h: 2 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 699, y: 419 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 699, y: 505 }
+    size: { w: 2, h: 2 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 177, y: 675 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 691, y: 475 }
+    size: { w: 2, h: 2 }
+  - id: retN
+    label: "帰りの踏段（トラスの中を戻る）"
+    marker: none
+    align: left
+    at: { x: 430, y: 640 }
+    size: { w: 300, h: 18 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 427, y: 648 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 399, y: 595 }
+    size: { w: 2, h: 2 }
+  - id: sp_u
+    label: ""
+    marker: circle
+    at: { x: 634, y: 438 }
+    size: { w: 48, h: 48 }
+  - id: sp_d
+    label: ""
+    marker: circle
+    at: { x: 188, y: 638 }
+    size: { w: 48, h: 48 }
+  - id: mot
+    label: ""
+    hatch: lines
+    at: { x: 576, y: 434 }
+    size: { w: 46, h: 34 }
+  - id: motN
+    label: "駆動機"
+    marker: none
+    align: right
+    at: { x: 330, y: 468 }
+    size: { w: 100, h: 18 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 435, y: 476 }
+    size: { w: 2, h: 2 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 581, y: 447 }
+    size: { w: 2, h: 2 }
+  - id: spuN
+    label: "駆動側"
+    marker: none
+    align: left
+    at: { x: 704, y: 504 }
+    size: { w: 76, h: 18 }
+  - id: p18
+    label: ""
+    marker: none
+    at: { x: 701, y: 512 }
+    size: { w: 2, h: 2 }
+  - id: p19
+    label: ""
+    marker: none
+    at: { x: 669, y: 481 }
+    size: { w: 2, h: 2 }
+  - id: spdN
+    label: "従動側（張り装置）"
+    marker: none
+    align: left
+    at: { x: 176, y: 720 }
+    size: { w: 170, h: 18 }
+  - id: p20
+    label: ""
+    marker: none
+    at: { x: 239, y: 717 }
+    size: { w: 2, h: 2 }
+  - id: p21
+    label: ""
+    marker: none
+    at: { x: 215, y: 685 }
+    size: { w: 2, h: 2 }
+  - id: p22
+    label: ""
+    marker: none
+    at: { x: 195, y: 515 }
+    size: { w: 2, h: 2 }
+  - id: p23
+    label: ""
+    marker: none
+    at: { x: 673, y: 315 }
+    size: { w: 2, h: 2 }
+  - id: p24
+    label: ""
+    marker: none
+    at: { x: 165, y: 545 }
+    size: { w: 2, h: 2 }
+  - id: p25
+    label: ""
+    marker: none
+    at: { x: 195, y: 515 }
+    size: { w: 2, h: 2 }
+  - id: p26
+    label: ""
+    marker: none
+    at: { x: 165, y: 545 }
+    size: { w: 2, h: 2 }
+  - id: p27
+    label: ""
+    marker: none
+    at: { x: 165, y: 585 }
+    size: { w: 2, h: 2 }
+  - id: p28
+    label: ""
+    marker: none
+    at: { x: 673, y: 315 }
+    size: { w: 2, h: 2 }
+  - id: p29
+    label: ""
+    marker: none
+    at: { x: 703, y: 345 }
+    size: { w: 2, h: 2 }
+  - id: p30
+    label: ""
+    marker: none
+    at: { x: 703, y: 345 }
+    size: { w: 2, h: 2 }
+  - id: p31
+    label: ""
+    marker: none
+    at: { x: 703, y: 385 }
+    size: { w: 2, h: 2 }
+  - id: hrN
+    label: "移動手すり（踏段と同じ向き・同じ速さ）"
+    marker: none
+    align: center
+    at: { x: 250, y: 268 }
+    size: { w: 340, h: 18 }
+  - id: cmb
+    label: ""
+    hatch: solid
+    at: { x: 228, y: 610 }
+    size: { w: 34, h: 10 }
+  - id: cmt
+    label: ""
+    hatch: solid
+    at: { x: 608, y: 410 }
+    size: { w: 34, h: 10 }
+  - id: cmN
+    label: "コムプレート"
+    marker: none
+    align: left
+    at: { x: 40, y: 720 }
+    size: { w: 120, h: 18 }
+  - id: p32
+    label: ""
+    marker: none
+    at: { x: 99, y: 717 }
+    size: { w: 2, h: 2 }
+  - id: p33
+    label: ""
+    marker: none
+    at: { x: 245, y: 625 }
+    size: { w: 2, h: 2 }
+  - id: p34
+    label: ""
+    marker: none
+    at: { x: 169, y: 499 }
+    size: { w: 2, h: 2 }
+  - id: p35
+    label: ""
+    marker: none
+    at: { x: 261, y: 499 }
+    size: { w: 2, h: 2 }
+  - id: flatN
+    label: "水平部（乗降口では踏段が平ら）"
+    marker: none
+    align: left
+    at: { x: 56, y: 468 }
+    size: { w: 250, h: 18 }
+  - id: p36
+    label: ""
+    marker: none
+    at: { x: 743, y: 419 }
+    size: { w: 2, h: 2 }
+  - id: p37
+    label: ""
+    marker: none
+    at: { x: 743, y: 619 }
+    size: { w: 2, h: 2 }
+  - id: hN
+    label: "H"
+    marker: none
+    align: left
+    at: { x: 750, y: 476 }
+    size: { w: 26, h: 18 }
+  - id: p38
+    label: ""
+    marker: none
+    at: { x: 261, y: 745 }
+    size: { w: 2, h: 2 }
+  - id: p39
+    label: ""
+    marker: none
+    at: { x: 607, y: 745 }
+    size: { w: 2, h: 2 }
+  - id: runN
+    label: "揚程 H に対して　水平長 ＝ H ÷ tan30° ＝ 1.73H　／　斜め長 ＝ H ÷ sin30° ＝ 2H"
+    marker: none
+    align: center
+    at: { x: 150, y: 752 }
+    size: { w: 640, h: 18 }
+  - id: fl_d
+    label: ""
+    hatch: lines
+    at: { x: 90, y: 620 }
+    size: { w: 80, h: 30 }
+  - id: fl_u
+    label: ""
+    hatch: lines
+    at: { x: 700, y: 420 }
+    size: { w: 80, h: 30 }
+  - id: trussN
+    label: "トラス（上下の階の梁に掛ける）"
+    marker: none
+    align: left
+    at: { x: 376, y: 720 }
+    size: { w: 300, h: 18 }
+  - id: t2
+    label: "② 踏面はいつも水平（車輪の位置は模式）"
+    marker: none
+    align: left
+    at: { x: 150, y: 776 }
+    size: { w: 630, h: 20 }
+  - id: st0
+    label: ""
+    at: { x: 180, y: 988 }
+    size: { w: 110, h: 10 }
+  - id: p40
+    label: ""
+    marker: none
+    at: { x: 179, y: 997 }
+    size: { w: 2, h: 2 }
+  - id: p41
+    label: ""
+    marker: none
+    at: { x: 179, y: 1031 }
+    size: { w: 2, h: 2 }
+  - id: p42
+    label: ""
+    marker: none
+    at: { x: 197, y: 1031 }
+    size: { w: 2, h: 2 }
+  - id: p43
+    label: ""
+    marker: none
+    at: { x: 197, y: 1038 }
+    size: { w: 2, h: 2 }
+  - id: ra0
+    label: ""
+    marker: circle
+    at: { x: 189, y: 1039 }
+    size: { w: 18, h: 18 }
+  - id: p44
+    label: ""
+    marker: none
+    at: { x: 261, y: 1031 }
+    size: { w: 2, h: 2 }
+  - id: p45
+    label: ""
+    marker: none
+    at: { x: 261, y: 1118 }
+    size: { w: 2, h: 2 }
+  - id: rb0
+    label: ""
+    marker: circle
+    at: { x: 253, y: 1119 }
+    size: { w: 18, h: 18 }
+  - id: st1
+    label: ""
+    at: { x: 290, y: 924 }
+    size: { w: 110, h: 10 }
+  - id: p46
+    label: ""
+    marker: none
+    at: { x: 289, y: 933 }
+    size: { w: 2, h: 2 }
+  - id: p47
+    label: ""
+    marker: none
+    at: { x: 289, y: 967 }
+    size: { w: 2, h: 2 }
+  - id: p48
+    label: ""
+    marker: none
+    at: { x: 307, y: 967 }
+    size: { w: 2, h: 2 }
+  - id: p49
+    label: ""
+    marker: none
+    at: { x: 307, y: 974 }
+    size: { w: 2, h: 2 }
+  - id: ra1
+    label: ""
+    marker: circle
+    at: { x: 299, y: 975 }
+    size: { w: 18, h: 18 }
+  - id: p50
+    label: ""
+    marker: none
+    at: { x: 371, y: 967 }
+    size: { w: 2, h: 2 }
+  - id: p51
+    label: ""
+    marker: none
+    at: { x: 371, y: 1054 }
+    size: { w: 2, h: 2 }
+  - id: rb1
+    label: ""
+    marker: circle
+    at: { x: 363, y: 1055 }
+    size: { w: 18, h: 18 }
+  - id: st2
+    label: ""
+    at: { x: 400, y: 860 }
+    size: { w: 110, h: 10 }
+  - id: p52
+    label: ""
+    marker: none
+    at: { x: 399, y: 869 }
+    size: { w: 2, h: 2 }
+  - id: p53
+    label: ""
+    marker: none
+    at: { x: 399, y: 903 }
+    size: { w: 2, h: 2 }
+  - id: p54
+    label: ""
+    marker: none
+    at: { x: 417, y: 903 }
+    size: { w: 2, h: 2 }
+  - id: p55
+    label: ""
+    marker: none
+    at: { x: 417, y: 910 }
+    size: { w: 2, h: 2 }
+  - id: ra2
+    label: ""
+    marker: circle
+    at: { x: 409, y: 911 }
+    size: { w: 18, h: 18 }
+  - id: p56
+    label: ""
+    marker: none
+    at: { x: 481, y: 903 }
+    size: { w: 2, h: 2 }
+  - id: p57
+    label: ""
+    marker: none
+    at: { x: 481, y: 990 }
+    size: { w: 2, h: 2 }
+  - id: rb2
+    label: ""
+    marker: circle
+    at: { x: 473, y: 991 }
+    size: { w: 18, h: 18 }
+  - id: p58
+    label: ""
+    marker: none
+    at: { x: 157, y: 1070.3 }
+    size: { w: 2, h: 2 }
+  - id: p59
+    label: ""
+    marker: none
+    at: { x: 487, y: 878.3 }
+    size: { w: 2, h: 2 }
+  - id: p60
+    label: ""
+    marker: none
+    at: { x: 221, y: 1150.3 }
+    size: { w: 2, h: 2 }
+  - id: p61
+    label: ""
+    marker: none
+    at: { x: 551, y: 958.3 }
+    size: { w: 2, h: 2 }
+  - id: r1N
+    label: "前輪のレール（踏段チェーン側）"
+    marker: none
+    align: left
+    at: { x: 560, y: 902 }
+    size: { w: 240, h: 18 }
+  - id: r2N
+    label: "後輪のレール"
+    marker: none
+    align: left
+    at: { x: 560, y: 988 }
+    size: { w: 240, h: 18 }
+  - id: flat2
+    label: "2 本のレールの上下の間隔が、踏面の傾きを決める。間隔が保たれているあいだは"
+    marker: none
+    align: left
+    at: { x: 150, y: 1152 }
+    size: { w: 630, h: 18 }
+  - id: flat3
+    label: "踏面が水平のまま持ち上がって階段になり、乗降口で 2 本が揃うと段差が消える。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1174 }
+    size: { w: 630, h: 18 }
+  - id: t3
+    label: "③ 踏面が 400mm だと、蹴上は勾配で決まる"
+    marker: none
+    align: left
+    at: { x: 800, y: 150 }
+    size: { w: 440, h: 20 }
+  - id: h186
+    label: "踏面 400mm のとき"
+    hatch: solid
+    at: { x: 800, y: 186 }
+    size: { w: 440, h: 24 }
+  - id: x210
+    label: "勾配 30°"
+    at: { x: 800, y: 210 }
+    size: { w: 150, h: 24 }
+  - id: y210
+    label: "蹴上 ＝ 400 × tan30° ＝ 231mm"
+    align: left
+    at: { x: 950, y: 210 }
+    size: { w: 290, h: 24 }
+  - id: x234
+    label: "勾配 35°"
+    at: { x: 800, y: 234 }
+    size: { w: 150, h: 24 }
+  - id: y234
+    label: "蹴上 ＝ 400 × tan35° ＝ 280mm"
+    align: left
+    at: { x: 950, y: 234 }
+    size: { w: 290, h: 24 }
+  - id: why3
+    label: "家の階段は蹴上 200mm 前後。\n30° のエスカレーターは、それより 3cm 高い段を\n0.5m/s で動かしている。"
+    at: { x: 800, y: 272 }
+    size: { w: 440, h: 80 }
+  - id: t4
+    label: "④ 建築基準法施行令 第 129 条の 12（エスカレーターの構造）"
+    marker: none
+    align: left
+    at: { x: 800, y: 368 }
+    size: { w: 440, h: 20 }
+  - id: h398
+    label: "第 1 項"
+    hatch: solid
+    at: { x: 800, y: 398 }
+    size: { w: 440, h: 24 }
+  - id: x422
+    label: "一"
+    at: { x: 800, y: 422 }
+    size: { w: 70, h: 24 }
+  - id: y422
+    label: "人や物が挟まれず、障害物に衝突しないこと"
+    align: left
+    at: { x: 870, y: 422 }
+    size: { w: 370, h: 24 }
+  - id: x446
+    label: "二"
+    at: { x: 800, y: 446 }
+    size: { w: 70, h: 24 }
+  - id: y446
+    label: "勾配は 30° 以下"
+    align: left
+    at: { x: 870, y: 446 }
+    size: { w: 370, h: 24 }
+  - id: x470
+    label: "三"
+    at: { x: 800, y: 470 }
+    size: { w: 70, h: 24 }
+  - id: y470
+    label: "手すりは踏段と同一方向・同一速度で連動"
+    align: left
+    at: { x: 870, y: 470 }
+    size: { w: 370, h: 24 }
+  - id: x494
+    label: "四"
+    at: { x: 800, y: 494 }
+    size: { w: 70, h: 24 }
+  - id: y494
+    label: "踏段の幅 1.1m 以下／手すり中心まで 25cm 以下"
+    align: left
+    at: { x: 870, y: 494 }
+    size: { w: 370, h: 24 }
+  - id: x518
+    label: "五"
+    at: { x: 800, y: 518 }
+    size: { w: 70, h: 24 }
+  - id: y518
+    label: "踏段の定格速度は 50m/分以下の範囲で、勾配に応じて"
+    align: left
+    at: { x: 870, y: 518 }
+    size: { w: 370, h: 24 }
+  - id: x542
+    label: "六"
+    at: { x: 800, y: 542 }
+    size: { w: 70, h: 24 }
+  - id: y542
+    label: "地震で脱落しない構造であること"
+    align: left
+    at: { x: 870, y: 542 }
+    size: { w: 370, h: 24 }
+  - id: why4
+    label: "積載荷重は P ＝ 2,600A（P は N、A は踏段面の水平投影面積 m²）。\n第六号は、東日本大震災でエスカレーターが\n建物から脱落したあとに足された。"
+    at: { x: 800, y: 580 }
+    size: { w: 440, h: 80 }
+  - id: t5
+    label: "⑤ 1 時間に何人運べるか（速度 30m/分・2 人乗り）"
+    marker: none
+    align: left
+    at: { x: 800, y: 676 }
+    size: { w: 440, h: 20 }
+  - id: h706
+    label: "計算"
+    hatch: solid
+    at: { x: 800, y: 706 }
+    size: { w: 440, h: 24 }
+  - id: x730
+    label: "1 分に通る踏段"
+    at: { x: 800, y: 730 }
+    size: { w: 220, h: 24 }
+  - id: y730
+    label: "30m ÷ 0.4m ＝ 75 段"
+    align: left
+    at: { x: 1020, y: 730 }
+    size: { w: 220, h: 24 }
+  - id: x754
+    label: "1 分に乗れる人"
+    at: { x: 800, y: 754 }
+    size: { w: 220, h: 24 }
+  - id: y754
+    label: "75 × 2 ＝ 150 人"
+    align: left
+    at: { x: 1020, y: 754 }
+    size: { w: 220, h: 24 }
+  - id: x778
+    label: "1 時間"
+    at: { x: 800, y: 778 }
+    size: { w: 220, h: 24 }
+  - id: y778
+    label: "150 × 60 ＝ 9,000 人"
+    align: left
+    at: { x: 1020, y: 778 }
+    size: { w: 220, h: 24 }
+  - id: why5
+    label: "これは理論値。全段に 2 人ずつ立つことはないので、\n実際は半分以下になる。\n速さより、踏面と人の詰まり方が効く。"
+    at: { x: 800, y: 816 }
+    size: { w: 440, h: 80 }
+  - id: r1
+    label: "踏面はいつも水平です（②）。階段になったり平らになったりするのは、前輪と後輪が別のレールを走り、その間隔が変わるからです。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1212 }
+    size: { w: 1090, h: 18 }
+  - id: r2
+    label: "だから乗降口では段差が消えます。 2 本のレールが揃う区間が「水平部」で、ここで乗り降りします（①）。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1236 }
+    size: { w: 1090, h: 18 }
+  - id: r3
+    label: "手すりは踏段と同じ速さで動かなければなりません（令第 129 条の 12 第 1 項第三号）。ずれると、体だけが置いていかれます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1260 }
+    size: { w: 1090, h: 18 }
+  - id: r4
+    label: "勾配 30° なら、斜め長は揚程のちょうど 2 倍です（①）。sin30° ＝ 0.5 だからで、水平長は 1.73 倍。階をまたぐと床が大きく要ります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1284 }
+    size: { w: 1090, h: 18 }
+  - id: r5
+    label: "踏面 400mm・勾配 30° の蹴上は 231mm（③）。家の階段より 3cm 高い段が、0.5m/s で動いています。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1308 }
+    size: { w: 1090, h: 18 }
+  - id: r6
+    label: "運べる数は、速さでは決まりません（⑤）。1 分に通るのは 75 段で、そこに何人乗るかのほうが効きます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1332 }
+    size: { w: 1090, h: 18 }
+  - id: r7
+    label: "乗降口のコムプレートは、踏段の溝に櫛を差し込んでいます（①）。靴や荷物が乗り上げないように、溝と櫛をかみ合わせて段差を消しています。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1356 }
+    size: { w: 1090, h: 18 }
+  - id: r8
+    label: "「地震で脱落しないこと」は 2011 年のあとに足された条文です（④第六号）。トラスは梁に掛けてあるだけなので、揺れると外れました。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1380 }
+    size: { w: 1090, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p2
+    to: p3
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 262, y: 586.7 }
+      - { x: 319.7, y: 586.7 }
+      - { x: 319.7, y: 553.3 }
+      - { x: 377.3, y: 553.3 }
+      - { x: 377.3, y: 520 }
+      - { x: 435, y: 520 }
+      - { x: 435, y: 486.7 }
+      - { x: 492.7, y: 486.7 }
+      - { x: 492.7, y: 453.3 }
+      - { x: 550.3, y: 453.3 }
+      - { x: 550.3, y: 420 }
+  - from: p4
+    to: p5
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p6
+    to: p7
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 262, y: 706 }
+      - { x: 608, y: 506 }
+  - from: p8
+    to: p9
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p10
+    to: p11
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p12
+    to: p13
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 262, y: 676 }
+      - { x: 608, y: 476 }
+  - from: p14
+    to: p15
+    curve: none
+    ends: { from: none, to: none }
+  - from: p16
+    to: p17
+    curve: none
+    ends: { from: none, to: none }
+  - from: p18
+    to: p19
+    curve: none
+    ends: { from: none, to: none }
+  - from: p20
+    to: p21
+    curve: none
+    ends: { from: none, to: none }
+  - from: p22
+    to: p23
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 262, y: 516 }
+      - { x: 608, y: 316 }
+  - from: p24
+    to: p25
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 166.3, y: 542.1 }
+      - { x: 167, y: 538.2 }
+      - { x: 168.3, y: 534.5 }
+      - { x: 170, y: 531 }
+      - { x: 172.2, y: 527.7 }
+      - { x: 174.8, y: 524.8 }
+      - { x: 177.7, y: 522.2 }
+      - { x: 181, y: 520 }
+      - { x: 184.5, y: 518.3 }
+      - { x: 188.2, y: 517 }
+      - { x: 192.1, y: 516.3 }
+  - from: p26
+    to: p27
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p28
+    to: p29
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 677.9, y: 316.3 }
+      - { x: 681.8, y: 317 }
+      - { x: 685.5, y: 318.3 }
+      - { x: 689, y: 320 }
+      - { x: 692.3, y: 322.2 }
+      - { x: 695.2, y: 324.8 }
+      - { x: 697.8, y: 327.7 }
+      - { x: 700, y: 331 }
+      - { x: 701.7, y: 334.5 }
+      - { x: 703, y: 338.2 }
+      - { x: 703.7, y: 342.1 }
+  - from: p30
+    to: p31
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p32
+    to: p33
+    curve: none
+    ends: { from: none, to: none }
+  - from: p34
+    to: p35
+    curve: none
+    ends: { from: arrow, to: arrow }
+  - from: p36
+    to: p37
+    curve: none
+    ends: { from: arrow, to: arrow }
+  - from: p38
+    to: p39
+    curve: none
+    ends: { from: arrow, to: arrow }
+  - from: p40
+    to: p41
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p42
+    to: p43
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p44
+    to: p45
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p46
+    to: p47
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p48
+    to: p49
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p50
+    to: p51
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p52
+    to: p53
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p54
+    to: p55
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p56
+    to: p57
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p58
+    to: p59
+    curve: none
+    line: chain
+    ends: { from: none, to: none }
+  - from: p60
+    to: p61
+    curve: none
+    line: chain
+    ends: { from: none, to: none }

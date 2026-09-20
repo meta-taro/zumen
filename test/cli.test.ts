@@ -580,6 +580,20 @@ describe('観測値を見せる（inspect）', () => {
     assert.match(said, /↔/, `どの 2 本かを言っていない\n${said}`);
   });
 
+  /**
+   * **組だけでは探せない**（2026-09-20）。
+   *
+   * `path()` で引いた折れ線の id は `p16>p17` のように書き手が付けた名前ではない。
+   * 「その 2 本です」と言われても、図の中で見つけられない。**紙の上の座標が要る。**
+   */
+  it('**交わっている場所（座標）まで言う**', async () => {
+    const result = await runInspect(['a.yaml'], reader({ 'a.yaml': CROSS }) as never);
+    const said = result.lines.join('\n');
+    assert.match(said, /\(\d+, \d+\)/, `場所を言っていない\n${said}`);
+    // 0,0 と 200,200 ／ 200,0 と 0,200 が交わるのは真ん中（錨は 2px の箱なので 1px ずれる）
+    assert.match(said, /\(10[01], 10[01]\)/, said);
+  });
+
   it('**止めない。** 観測値であって合否ではない', async () => {
     const result = await runInspect(['a.yaml'], reader({ 'a.yaml': CROSS }) as never);
     assert.equal(result.code, 0);
