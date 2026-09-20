@@ -60,7 +60,11 @@
     <img src="../../gallery/44-%E4%BA%BA%E5%B7%A5%E8%A1%9B%E6%98%9F%E3%81%AE%E7%B3%BB%E7%B5%B1%E5%9B%B3.svg" alt="人工衛星の系統図" loading="lazy">
   </figure>
   <p class="made">この図は、下の 1 枚の YAML から描かれています。手で図形を動かしてはいません。</p>
-  
+  <h2>正本に書いてある決まりごと</h2>
+  <p><strong>衛星の系統図は、ミッション系とバス系に分かれる。</strong>バス系は「衛星を生かす側」（電源・姿勢・通信・熱）で、ミッション系は「何をしに行ったか」。<strong>バス系はどの衛星でもほぼ同じ形になる。</strong></p>
+  <p>いつも同じ地方時に赤道を通るので、日照と日陰の割合が毎周ほぼ一定になる。<strong>日陰の間はバッテリだけで持たせる</strong>ので、パドルの発生電力は「使う分 ＋ 日照の間に充電する分」で決める。</p>
+  <p>X 帯は観測データを落とす太い回線、S 帯は指令と状態監視の細い回線。<strong>S 帯が生きていれば、X 帯が死んでも衛星は救える。</strong></p>
+  <p>スタートラッカと慣性基準装置が測り、リアクションホイールとスラスタが回す。ホイールは反動で回すので推進剤が要らないが、<strong>溜まった回転はスラスタで逃がす。</strong></p>
   <h2>正本（YAML）</h2>
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/44-%E4%BA%BA%E5%B7%A5%E8%A1%9B%E6%98%9F%E3%81%AE%E7%B3%BB%E7%B5%B1%E5%9B%B3.zumen.yaml"><code>examples/gallery/44-人工衛星の系統図.zumen.yaml</code></a></p>
   <h2>同じ分野の見本</h2>

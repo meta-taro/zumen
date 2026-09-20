@@ -1,0 +1,422 @@
+version: 1
+kind: placement
+arrows: true
+title: はめあい（JIS B 0401 ＝ ISO 286・φ30 の例）
+# **同じ φ30 でも、記号で役目が変わる。** H7/g6 は回り、H7/p6 は二度と外れない。
+#
+# **大文字が穴、小文字が軸。** 文字が「基準の線からどちら側へどれだけ離すか」、
+# 数字（IT 等級）が「公差の幅」を決める。**H は下の許容差が 0。**
+#
+# 数は引き算で出る —— 最大すきま ＝ 穴の上 − 軸の下、
+# 最大しまり ＝ 軸の上 − 穴の下。
+# φ30 の H7/p6 なら **しまり 1〜35μm** で、いちばん都合が良くても必ず食い込む。
+#
+# **穴を基準にするのは、穴のほうが作りにくいから。**
+# 穴は工具（ドリル・リーマ）の寸法に引きずられるが、軸は旋盤で削り分けられる。
+#
+# 数値は「18 を超え 30 以下」の欄（単位 μm）。
+nodes:
+  - id: t1
+    label: "① φ30 H7/g6 の読み方"
+    marker: none
+    align: left
+    at: { x: 150, y: 150 }
+    size: { w: 560, h: 20 }
+  - id: rd
+    label: "φ30　H7　/　g6"
+    at: { x: 210, y: 186 }
+    size: { w: 300, h: 46 }
+  - id: rl1
+    label: "φ30 —— 基準になる寸法（穴も軸もここから測る）"
+    marker: none
+    align: left
+    at: { x: 150, y: 244 }
+    size: { w: 560, h: 18 }
+  - id: rl2
+    label: "大文字 H —— 穴。小文字 g —— 軸"
+    marker: none
+    align: left
+    at: { x: 150, y: 268 }
+    size: { w: 560, h: 18 }
+  - id: rl3
+    label: "文字 —— 基準の線からどちら側へ、どれだけ離すか"
+    marker: none
+    align: left
+    at: { x: 150, y: 292 }
+    size: { w: 560, h: 18 }
+  - id: rl4
+    label: "数字 7・6 —— 公差の幅（IT 等級。数が小さいほど狭い）"
+    marker: none
+    align: left
+    at: { x: 150, y: 316 }
+    size: { w: 560, h: 18 }
+  - id: hr
+    label: "H は「下の許容差が 0」。穴を基準にして、軸の記号で役目を決める（穴基準）。"
+    at: { x: 150, y: 348 }
+    size: { w: 560, h: 30 }
+  - id: t2
+    label: "② 同じ φ30 で、記号だけを変えたとき（18 を超え 30 以下・単位 μm）"
+    marker: none
+    align: left
+    at: { x: 150, y: 396 }
+    size: { w: 640, h: 20 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 429, y: 439 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 429, y: 807 }
+    size: { w: 2, h: 2 }
+  - id: zero
+    label: "基準の線（0）"
+    marker: none
+    align: center
+    at: { x: 330, y: 422 }
+    size: { w: 196, h: 18 }
+  - id: hole
+    label: ""
+    hatch: lines
+    at: { x: 430, y: 452 }
+    size: { w: 67.2, h: 22 }
+  - id: holeN
+    label: "穴 H7"
+    marker: none
+    align: right
+    at: { x: 190, y: 454 }
+    size: { w: 96, h: 18 }
+  - id: holeV
+    label: "+21 / 0"
+    marker: none
+    align: left
+    at: { x: 507.2, y: 454 }
+    size: { w: 130, h: 18 }
+  - id: s0
+    label: ""
+    hatch: dots
+    at: { x: 298.8, y: 502 }
+    size: { w: 67.2, h: 22 }
+  - id: n0
+    label: "軸 f7"
+    marker: none
+    align: right
+    at: { x: 190, y: 504 }
+    size: { w: 96, h: 18 }
+  - id: v0
+    label: "-20 / -41　すきまばめ"
+    marker: none
+    align: left
+    at: { x: 440, y: 504 }
+    size: { w: 230, h: 18 }
+  - id: s1
+    label: ""
+    hatch: dots
+    at: { x: 366, y: 552 }
+    size: { w: 41.6, h: 22 }
+  - id: n1
+    label: "軸 g6"
+    marker: none
+    align: right
+    at: { x: 190, y: 554 }
+    size: { w: 96, h: 18 }
+  - id: v1
+    label: "-7 / -20　すきまばめ"
+    marker: none
+    align: left
+    at: { x: 440, y: 554 }
+    size: { w: 230, h: 18 }
+  - id: s2
+    label: ""
+    hatch: dots
+    at: { x: 388.4, y: 602 }
+    size: { w: 41.6, h: 22 }
+  - id: n2
+    label: "軸 h6"
+    marker: none
+    align: right
+    at: { x: 190, y: 604 }
+    size: { w: 96, h: 18 }
+  - id: v2
+    label: "0 / -13　すきまばめ"
+    marker: none
+    align: left
+    at: { x: 440, y: 604 }
+    size: { w: 230, h: 18 }
+  - id: s3
+    label: ""
+    hatch: dots
+    at: { x: 436.4, y: 652 }
+    size: { w: 41.6, h: 22 }
+  - id: n3
+    label: "軸 k6"
+    marker: none
+    align: right
+    at: { x: 190, y: 654 }
+    size: { w: 96, h: 18 }
+  - id: v3
+    label: "+15 / +2　中間ばめ"
+    marker: none
+    align: left
+    at: { x: 488, y: 654 }
+    size: { w: 230, h: 18 }
+  - id: s4
+    label: ""
+    hatch: dots
+    at: { x: 478, y: 702 }
+    size: { w: 41.6, h: 22 }
+  - id: n4
+    label: "軸 n6"
+    marker: none
+    align: right
+    at: { x: 190, y: 704 }
+    size: { w: 96, h: 18 }
+  - id: v4
+    label: "+28 / +15　中間ばめ"
+    marker: none
+    align: left
+    at: { x: 529.6, y: 704 }
+    size: { w: 230, h: 18 }
+  - id: s5
+    label: ""
+    hatch: dots
+    at: { x: 500.4, y: 752 }
+    size: { w: 41.6, h: 22 }
+  - id: n5
+    label: "軸 p6"
+    marker: none
+    align: right
+    at: { x: 190, y: 754 }
+    size: { w: 96, h: 18 }
+  - id: v5
+    label: "+35 / +22　しまりばめ"
+    marker: none
+    align: left
+    at: { x: 552, y: 754 }
+    size: { w: 230, h: 18 }
+  - id: unit
+    label: "目盛りは μm（1μm ＝ 0.001mm）"
+    marker: none
+    align: left
+    at: { x: 190, y: 814 }
+    size: { w: 420, h: 18 }
+  - id: t3
+    label: "③ 何 μm 空くか、何 μm 食い込むか（φ30）"
+    marker: none
+    align: left
+    at: { x: 800, y: 150 }
+    size: { w: 440, h: 20 }
+  - id: h186
+    label: "穴 H7 と組んだとき"
+    hatch: solid
+    at: { x: 800, y: 186 }
+    size: { w: 440, h: 24 }
+  - id: x210
+    label: "H7 / f7"
+    at: { x: 800, y: 210 }
+    size: { w: 120, h: 24 }
+  - id: y210
+    label: "すきま 20 〜 62"
+    align: left
+    at: { x: 920, y: 210 }
+    size: { w: 320, h: 24 }
+  - id: x234
+    label: "H7 / g6"
+    at: { x: 800, y: 234 }
+    size: { w: 120, h: 24 }
+  - id: y234
+    label: "すきま 7 〜 41"
+    align: left
+    at: { x: 920, y: 234 }
+    size: { w: 320, h: 24 }
+  - id: x258
+    label: "H7 / h6"
+    at: { x: 800, y: 258 }
+    size: { w: 120, h: 24 }
+  - id: y258
+    label: "すきま 0 〜 34"
+    align: left
+    at: { x: 920, y: 258 }
+    size: { w: 320, h: 24 }
+  - id: x282
+    label: "H7 / k6"
+    at: { x: 800, y: 282 }
+    size: { w: 120, h: 24 }
+  - id: y282
+    label: "しまり 15 〜 すきま 19"
+    align: left
+    at: { x: 920, y: 282 }
+    size: { w: 320, h: 24 }
+  - id: x306
+    label: "H7 / n6"
+    at: { x: 800, y: 306 }
+    size: { w: 120, h: 24 }
+  - id: y306
+    label: "しまり 28 〜 すきま 6"
+    align: left
+    at: { x: 920, y: 306 }
+    size: { w: 320, h: 24 }
+  - id: x330
+    label: "H7 / p6"
+    at: { x: 800, y: 330 }
+    size: { w: 120, h: 24 }
+  - id: y330
+    label: "しまり 1 〜 35"
+    align: left
+    at: { x: 920, y: 330 }
+    size: { w: 320, h: 24 }
+  - id: calc
+    label: "最大すきま ＝ 穴の上 − 軸の下。\n最大しまり ＝ 軸の上 − 穴の下。\nH7/p6 なら 35 − 0 ＝ 35、22 − 21 ＝ 1 —— 必ず食い込む。"
+    at: { x: 800, y: 368 }
+    size: { w: 440, h: 80 }
+  - id: t4
+    label: "④ 選び方 —— 動かすのか、止めるのか"
+    marker: none
+    align: left
+    at: { x: 800, y: 470 }
+    size: { w: 440, h: 20 }
+  - id: h500
+    label: "使い分け"
+    hatch: solid
+    at: { x: 800, y: 500 }
+    size: { w: 440, h: 24 }
+  - id: x524
+    label: "f7"
+    at: { x: 800, y: 524 }
+    size: { w: 120, h: 24 }
+  - id: y524
+    label: "油が入る。回す所"
+    align: left
+    at: { x: 920, y: 524 }
+    size: { w: 320, h: 24 }
+  - id: x548
+    label: "g6"
+    at: { x: 800, y: 548 }
+    size: { w: 120, h: 24 }
+  - id: y548
+    label: "ほとんど動かないが、抜ける"
+    align: left
+    at: { x: 920, y: 548 }
+    size: { w: 320, h: 24 }
+  - id: x572
+    label: "h6"
+    at: { x: 800, y: 572 }
+    size: { w: 120, h: 24 }
+  - id: y572
+    label: "手で入る。位置は出ない"
+    align: left
+    at: { x: 920, y: 572 }
+    size: { w: 320, h: 24 }
+  - id: x596
+    label: "k6"
+    at: { x: 800, y: 596 }
+    size: { w: 120, h: 24 }
+  - id: y596
+    label: "木槌で入る。位置が出る"
+    align: left
+    at: { x: 920, y: 596 }
+    size: { w: 320, h: 24 }
+  - id: x620
+    label: "n6"
+    at: { x: 800, y: 620 }
+    size: { w: 120, h: 24 }
+  - id: y620
+    label: "圧入。外すのに工具が要る"
+    align: left
+    at: { x: 920, y: 620 }
+    size: { w: 320, h: 24 }
+  - id: x644
+    label: "p6"
+    at: { x: 800, y: 644 }
+    size: { w: 120, h: 24 }
+  - id: y644
+    label: "圧入して、外さない"
+    align: left
+    at: { x: 920, y: 644 }
+    size: { w: 320, h: 24 }
+  - id: pick
+    label: "すきまが要るなら、軸を細くする（f・g・h）。\n食い込ませるなら、軸を太くする（p 以降）。\nk・n はその境目で、すきまにもしまりにもなる。"
+    at: { x: 800, y: 682 }
+    size: { w: 440, h: 80 }
+  - id: t5
+    label: "⑤ 穴を基準にするのは、穴のほうが作りにくいから"
+    marker: none
+    align: left
+    at: { x: 150, y: 862 }
+    size: { w: 560, h: 20 }
+  - id: h892
+    label: "どちらを基準にするか"
+    hatch: solid
+    at: { x: 150, y: 892 }
+    size: { w: 560, h: 24 }
+  - id: x916
+    label: "穴基準（H7）"
+    at: { x: 150, y: 916 }
+    size: { w: 200, h: 24 }
+  - id: y916
+    label: "穴を 1 種類で通し、軸を削り分ける"
+    align: left
+    at: { x: 350, y: 916 }
+    size: { w: 360, h: 24 }
+  - id: x940
+    label: "軸基準（h6）"
+    at: { x: 150, y: 940 }
+    size: { w: 200, h: 24 }
+  - id: y940
+    label: "軸を 1 種類で通し、穴を作り分ける"
+    align: left
+    at: { x: 350, y: 940 }
+    size: { w: 360, h: 24 }
+  - id: why
+    label: "穴は工具（ドリル・リーマ）の寸法に引きずられるが、軸は旋盤で削り分けられる。\nだから穴を先に決めて、軸で合わせるのがふつう（穴基準）。\n引き抜き材をそのまま軸に使うときだけ、軸基準にする。"
+    at: { x: 150, y: 978 }
+    size: { w: 560, h: 80 }
+  - id: r1
+    label: "同じ φ30 でも、記号で役目が変わります（②）。H7/g6 は回る、H7/p6 は二度と外れない。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1084 }
+    size: { w: 1090, h: 18 }
+  - id: r2
+    label: "大文字が穴、小文字が軸です（①）。文字が「基準の線からどちら側へどれだけ離すか」、数字が「幅」を決めます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1108 }
+    size: { w: 1090, h: 18 }
+  - id: r3
+    label: "H は下の許容差が 0。 だから穴は必ず呼び寸法以上になり、軸の記号だけで、すきまかしまりかが決まります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1132 }
+    size: { w: 1090, h: 18 }
+  - id: r4
+    label: "数は引き算で出ます（③）。最大すきま ＝ 穴の上 − 軸の下、最大しまり ＝ 軸の上 − 穴の下。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1156 }
+    size: { w: 1090, h: 18 }
+  - id: r5
+    label: "H7/p6 は、いちばん都合が良くても 1μm 食い込みます。 入らないのではなく、入れたら外れない。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1180 }
+    size: { w: 1090, h: 18 }
+  - id: r6
+    label: "k6 と n6 は境目です。 同じ組み合わせでも、できあがり次第ですきまにもしまりにもなります（中間ばめ）。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1204 }
+    size: { w: 1090, h: 18 }
+  - id: r7
+    label: "穴を基準にするのは、穴のほうが作りにくいからです（⑤）。軸は旋盤で削り分けられます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1228 }
+    size: { w: 1090, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    line: chain
+    ends: { from: none, to: none }

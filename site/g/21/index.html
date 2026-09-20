@@ -60,7 +60,11 @@
     <img src="../../gallery/21-%E3%83%86%E3%83%BC%E3%83%96%E3%83%AB%E3%81%AE%E9%96%A2%E4%BF%82.svg" alt="受注管理の ER 図" loading="lazy">
   </figure>
   <p class="made">この図は、下の 1 枚の YAML から描かれています。手で図形を動かしてはいません。</p>
-  
+  <h2>正本に書いてある決まりごと</h2>
+  <p><strong>鳥の足（crow's foot）は、線の端の形が「何個つながるか」を言う。</strong>線そのものではなく、<strong>端</strong>を読む図。</p>
+  <p>| 端の形 | 意味 ||---|---|| 三またの足 | 多（0 個以上、または 1 個以上） || 縦棒 1 本 | ちょうど 1 || 丸 | 0 でもよい |</p>
+  <p>受注 1 件に明細は何行でも付く。<strong>同じ表に入れると、受注の日付が行の数だけ重複する。</strong>表を分ける理由は、たいていこの「個数の違い」にある。</p>
+  <p>商品は 1 つでも、価格は時期で変わる。<strong>過去の受注は、そのときの価格で残す。</strong></p>
   <h2>正本（YAML）</h2>
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/21-%E3%83%86%E3%83%BC%E3%83%96%E3%83%AB%E3%81%AE%E9%96%A2%E4%BF%82.zumen.yaml"><code>examples/gallery/21-テーブルの関係.zumen.yaml</code></a></p>
   <h2>同じ分野の見本</h2>
