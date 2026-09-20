@@ -151,7 +151,16 @@ const ja = {
     mergedClean2: '食い違いはありません。',
     /** 「9 割」の測り方は `docs/specs/003-9割の定義.md`。 */
     inspected: (path: string) => `${path}`,
-    inspectCounts: (nodes: number, edges: number) => `  節 ${nodes} ／ 辺 ${edges}`,
+    /**
+     * **どちらの図かを、最初に言う**（2026-09-20）。
+     *
+     * 配置図（自分で置く）と構成図（機械が並べる）では、直し方がまるで違う ——
+     * またぎも交差も、配置図なら自分で動かして消すが、構成図では**書き手に動かす手段が無い。**
+     * ところがこの口は、どちらなのかを言っていなかった（`kind:` を grep するしかなかった）。
+     */
+    inspectCounts: (nodes: number, edges: number, kind: string) => `  節 ${nodes} ／ 辺 ${edges} ／ ${kind}`,
+    inspectPlan: '配置図（置き場所は自分で書く）',
+    inspectStructure: '構成図（機械が並べる）',
     inspectClean: '  交差 0 ／ またぎ 0 ／ 文字の重なり 0 ／ 隠れた辺 0 ／ 名前も符号も全部出ています',
     inspectCrossings: (count: number, groups: number, pairs: string) =>
       `  **交差 ${count}**（${groups} 組。同じ 2 本が何か所で交わっても 1 組）\n    ${pairs}`,
@@ -905,7 +914,9 @@ const en: Catalog = {
     conflictSuppressed: (ai: string) => `proposal ${ai}. The person chose their own placement, so this is not asked again.`,
     mergedClean2: 'No disagreements.',
     inspected: (path: string) => `${path}`,
-    inspectCounts: (nodes: number, edges: number) => `  ${nodes} nodes / ${edges} edges`,
+    inspectCounts: (nodes: number, edges: number, kind: string) => `  ${nodes} nodes / ${edges} edges / ${kind}`,
+    inspectPlan: 'placement (you write the positions)',
+    inspectStructure: 'structure (the machine lays it out)',
     inspectClean: '  0 crossings / 0 straddles / 0 text overlaps / 0 buried edges / every name and tag is drawn',
     inspectCrossings: (count: number, groups: number, pairs: string) =>
       `  **${count} crossings** (${groups} pairs; two lines that cross more than once count as one pair)\n    ${pairs}`,

@@ -460,7 +460,7 @@ export async function runInspect(paths: string[], read = readFileSync): Promise<
       unreadable += 1;
       continue;
     }
-    lines.push(m.inspectCounts(seen.nodes, seen.edges));
+    lines.push(m.inspectCounts(seen.nodes, seen.edges, kindOf(text) === 'placement' ? m.inspectPlan : m.inspectStructure));
 
     /**
      * **警告の件数も出す**（2026-09-20）。

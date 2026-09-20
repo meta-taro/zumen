@@ -697,6 +697,21 @@ describe('inspect が、検査と同じものを見る', () => {
     assert.doesNotMatch(result.lines.join('\n'), /警告/);
   });
 
+  /**
+   * **どちらの図かを、最初に言う**（2026-09-20）。
+   *
+   * 配置図と構成図では直し方が違う —— またぎも交差も、配置図なら自分で動かして消すが、
+   * **構成図では書き手に動かす手段が無い。** どちらなのかを `kind:` の grep で確かめていた。
+   */
+  it('**配置図か構成図かを言う**', async () => {
+    const plan = 'version: 1\nkind: placement\nnodes:\n  - id: a\n    label: あ\n    at: { x: 0, y: 0 }\n    size: { w: 80, h: 40 }\n';
+    const built = 'version: 1\nnodes:\n  - id: a\n    label: あ\n  - id: b\n    label: い\nedges:\n  - from: a\n    to: b\n';
+    const one = await runInspect(['a.yaml'], reader({ 'a.yaml': plan }) as never);
+    assert.match(one.lines.join('\n'), /配置図/, one.lines.join('\n'));
+    const two = await runInspect(['b.yaml'], reader({ 'b.yaml': built }) as never);
+    assert.match(two.lines.join('\n'), /構成図/, two.lines.join('\n'));
+  });
+
   it('**またぎは、どれだけ重なっているかまで言う**', async () => {
     const over = [
       'version: 1', 'kind: placement', 'nodes:',
