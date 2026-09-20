@@ -233,9 +233,9 @@ describe('一覧と実物', () => {
  * 英語ページでは、この文が alt にも説明にも使われる。
  */
 describe('英語の説明の長さ', () => {
-  it('**どれも 30 字以上ある**（題名の言い直しにしない）', () => {
+  it('**どれも 40 字以上ある**（題名の言い直しにしない）', () => {
     const thin = Object.entries(CAPTIONS_EN)
-      .filter(([, text]) => text.length < 30)
+      .filter(([, text]) => text.length < 40)
       .map(([name, text]) => `${name}: ${text}`);
     assert.deepEqual(thin, [], '英語の説明が短すぎる');
   });
