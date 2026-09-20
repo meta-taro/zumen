@@ -32,7 +32,8 @@
  * | `double` | 二重丸 | 路線図の乗換駅 |
  * | `ellipse` | 楕円 | UML のユースケース |
  * | `diamond` | 菱形 | UML の判断（分岐）・フローチャートの条件 |
- * | `triangle` | 三角 | 測量の基準点（三角点・図根点）、方位、警告の記号 |
+ * | `triangle` | 三角（上向き） | 測量の基準点（三角点・図根点）、方位、警告の記号 |
+ * | `triangle-down` | 三角（下向き） | **向きが意味を持つ三角。** TOPS 図の「下向きストランド」 |
  * | `bar` | 太い帯 | UML のフォーク／ジョイン |
  * | `none` | 枠を描かない | 折れ点・注記だけの場所 |
  *
@@ -49,6 +50,7 @@ export const MARKERS = [
   'ellipse',
   'diamond',
   'triangle',
+  'triangle-down',
   'bar',
   'none',
 ] as const;
@@ -101,6 +103,21 @@ export function drawMarker(marker: Marker, box: Frame, paint: Paint): string {
     return (
       `<path d="M ${n(cx)} ${n(box.y)} L ${n(box.x + box.w)} ${n(cy)} ` +
       `L ${n(cx)} ${n(box.y + box.h)} L ${n(box.x)} ${n(cy)} Z" ${skin}/>`
+    );
+  }
+
+  if (marker === 'triangle-down') {
+    /**
+     * **下向きの三角**（2026-09-21）。
+     *
+     * 三角は向きそのものが意味になることがある。たんぱく質の TOPS 図は
+     * **上向き三角＝手前へ向かうストランド、下向き三角＝奥へ向かうストランド**で、
+     * 形は同じで向きだけが違う（見本 291）。
+     * **回す道具は持たない**（正本に角度を書かせない）ので、形の名前で持つ。
+     */
+    return (
+      `<path d="M ${n(box.x)} ${n(box.y)} L ${n(box.x + box.w)} ${n(box.y)} ` +
+      `L ${n(cx)} ${n(box.y + box.h)} Z" ${skin}/>`
     );
   }
 

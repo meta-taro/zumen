@@ -160,7 +160,7 @@ nodes:
 | `technology` | | 副題（版・役割・広さ）。箱の中に小さく描く |
 | `group` | | 属する `groups` の `id` |
 | `radius` | | **範囲の円**（作業半径・警戒区域）。配置図でだけ描く（§3.0.5） |
-| `marker` | | **印の描き方**（`box` / `circle` / `double` / `ellipse` / `diamond` / `triangle` / `bar` / `none`）。配置図でだけ効く（§3.0.6） |
+| `marker` | | **印の描き方**（`box` / `circle` / `double` / `ellipse` / `diamond` / `triangle` / `triangle-down` / `bar` / `none`）。配置図でだけ効く（§3.0.6） |
 | `hatch` | | **材料と区域の模様**（`none` / `solid` / `dots` / `lines` / `cross`）。配置図でだけ効く（§3.0.7） |
 | `line` | | **枠の線種**（`solid` / `dashed` / `dotted` / `chain`）。敷地境界線は一点鎖線、想定線・安全領域は破線 |
 | | | **`label` は `\n` で折り返せます。** 幅はいちばん長い行で測ります（注記を 2 行に分けるのに、節を 2 つ作る必要はありません） |
@@ -488,7 +488,8 @@ zumen が出す図は 1/100 前後の粗さなので、**塗り潰しのほう�
 | `double` | 二重丸 | 路線図の乗換駅 |
 | `ellipse` | 楕円 | UML のユースケース |
 | `diamond` | 菱形 | UML の判断（分岐） |
-| `triangle` | 三角 | 測量の基準点（三角点・図根点）、方位、警告の記号 |
+| `triangle` | 三角（上向き） | 測量の基準点（三角点・図根点）、方位、警告の記号 |
+| `triangle-down` | 三角（下向き） | **向きが意味を持つ三角。** TOPS 図の「下向きストランド」 |
 | `bar` | 太い帯 | UML のフォーク／ジョイン |
 | `none` | 枠を描かない | 折れ点・注記だけの場所 |
 

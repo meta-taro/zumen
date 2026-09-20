@@ -1,0 +1,639 @@
+version: 1
+kind: placement
+arrows: true
+title: たんぱく質のトポロジー図（TOPS）—— 長さを捨てて、畳み方だけを残す
+# **TOPS 図は、たんぱく質の畳み方を 2 次元に落とした図。**
+# **ヘリックスは丸、ストランドは三角**で描き、
+# 二次構造の並び（N 末端から C 末端へ）・シートの上での相対の位置・
+# おおよその向きだけを残す。
+#
+# **線がどこに入るかで、向きが決まる。**
+# **記号の中心まで引いた線は「上（手前）につながる」、縁で止めた線は「下（奥）」。**
+# N 側が縁で C 側が中心なら**上向き**（三角も上向きに描く）、
+# N 側が中心で C 側が縁なら**下向き**（三角も下向き）。
+#
+# **長さは描かない。** 残基が何個あるか、ループが何残基かは出ない ——
+# だから**大きさの違うたんぱく質が、同じ TOPS 図になる。**
+# 図そのものを鍵にして、畳み方を検索できる。
+#
+# **ロスマンフォールド。** 6 本の平行ストランドが、シートの上では
+# **321456 の順**に並ぶ（左から β3・β2・β1・β4・β5・β6）。
+# β-α-β-α-β の単位が 2 つで、**α / β / α の三層サンドイッチ**。
+# **β3 から β4 へ、シートの反対側へ渡る**（crossover）のがこの畳み方の印で、
+# 順に並べるだけではこの形にならない。
+#
+# いちばんよく保たれるのは**最初の β-α-β**（Gly-x-Gly が急な折り返しを許す）で、
+# そこが **FAD・NAD(P) の ADP の燐酸**に触れる。
+nodes:
+  - id: t1
+    label: "① ロスマンフォールドの TOPS 図 —— シートの上では 3・2・1・4・5・6 の順に並ぶ"
+    marker: none
+    align: left
+    at: { x: 140, y: 150 }
+    size: { w: 660, h: 20 }
+  - id: s_b3
+    label: ""
+    marker: triangle
+    at: { x: 220, y: 330 }
+    size: { w: 44, h: 44 }
+  - id: s_b2
+    label: ""
+    marker: triangle
+    at: { x: 320, y: 330 }
+    size: { w: 44, h: 44 }
+  - id: s_b1
+    label: ""
+    marker: triangle
+    at: { x: 420, y: 330 }
+    size: { w: 44, h: 44 }
+  - id: s_b4
+    label: ""
+    marker: triangle
+    at: { x: 520, y: 330 }
+    size: { w: 44, h: 44 }
+  - id: s_b5
+    label: ""
+    marker: triangle
+    at: { x: 620, y: 330 }
+    size: { w: 44, h: 44 }
+  - id: s_b6
+    label: ""
+    marker: triangle
+    at: { x: 720, y: 330 }
+    size: { w: 44, h: 44 }
+  - id: n_b3
+    label: "β3"
+    marker: none
+    align: center
+    at: { x: 220, y: 382 }
+    size: { w: 44, h: 18 }
+  - id: n_b2
+    label: "β2"
+    marker: none
+    align: center
+    at: { x: 320, y: 382 }
+    size: { w: 44, h: 18 }
+  - id: n_b1
+    label: "β1"
+    marker: none
+    align: center
+    at: { x: 420, y: 382 }
+    size: { w: 44, h: 18 }
+  - id: n_b4
+    label: "β4"
+    marker: none
+    align: center
+    at: { x: 520, y: 304 }
+    size: { w: 44, h: 18 }
+  - id: n_b5
+    label: "β5"
+    marker: none
+    align: center
+    at: { x: 620, y: 304 }
+    size: { w: 44, h: 18 }
+  - id: n_b6
+    label: "β6"
+    marker: none
+    align: center
+    at: { x: 720, y: 304 }
+    size: { w: 44, h: 18 }
+  - id: h_a
+    label: ""
+    marker: circle
+    at: { x: 370, y: 220 }
+    size: { w: 44, h: 44 }
+  - id: h_an
+    label: "αA"
+    marker: none
+    align: center
+    at: { x: 352, y: 196 }
+    size: { w: 80, h: 18 }
+  - id: h_b
+    label: ""
+    marker: circle
+    at: { x: 270, y: 220 }
+    size: { w: 44, h: 44 }
+  - id: h_bn
+    label: "αB"
+    marker: none
+    align: center
+    at: { x: 252, y: 196 }
+    size: { w: 80, h: 18 }
+  - id: h_c
+    label: ""
+    marker: circle
+    at: { x: 570, y: 440 }
+    size: { w: 44, h: 44 }
+  - id: h_cn
+    label: "αC"
+    marker: none
+    align: center
+    at: { x: 552, y: 490 }
+    size: { w: 80, h: 18 }
+  - id: h_d
+    label: ""
+    marker: circle
+    at: { x: 670, y: 440 }
+    size: { w: 44, h: 44 }
+  - id: h_dn
+    label: "αD"
+    marker: none
+    align: center
+    at: { x: 652, y: 490 }
+    size: { w: 80, h: 18 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 441, y: 459 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 441, y: 373 }
+    size: { w: 2, h: 2 }
+  - id: nterm
+    label: "N 末端"
+    marker: none
+    align: center
+    at: { x: 392, y: 464 }
+    size: { w: 100, h: 18 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 441, y: 358 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 391, y: 263 }
+    size: { w: 2, h: 2 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 381, y: 263 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 341, y: 329 }
+    size: { w: 2, h: 2 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 341, y: 358 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 291, y: 263 }
+    size: { w: 2, h: 2 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 281, y: 263 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 241, y: 329 }
+    size: { w: 2, h: 2 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 241, y: 358 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 541, y: 373 }
+    size: { w: 2, h: 2 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 541, y: 358 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 591, y: 439 }
+    size: { w: 2, h: 2 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 601, y: 439 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 641, y: 373 }
+    size: { w: 2, h: 2 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 641, y: 358 }
+    size: { w: 2, h: 2 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 691, y: 439 }
+    size: { w: 2, h: 2 }
+  - id: p18
+    label: ""
+    marker: none
+    at: { x: 701, y: 439 }
+    size: { w: 2, h: 2 }
+  - id: p19
+    label: ""
+    marker: none
+    at: { x: 741, y: 373 }
+    size: { w: 2, h: 2 }
+  - id: p20
+    label: ""
+    marker: none
+    at: { x: 741, y: 358 }
+    size: { w: 2, h: 2 }
+  - id: p21
+    label: ""
+    marker: none
+    at: { x: 741, y: 269 }
+    size: { w: 2, h: 2 }
+  - id: cterm
+    label: "C 末端"
+    marker: none
+    align: center
+    at: { x: 692, y: 248 }
+    size: { w: 100, h: 18 }
+  - id: cross
+    label: "渡り（crossover）—— β3 から、シートの反対側の β4 へ"
+    marker: none
+    align: center
+    at: { x: 140, y: 546 }
+    size: { w: 660, h: 18 }
+  - id: cap1
+    label: "長さは描かない。 残基の数もループの長さも出ない —— 出すのは並びと向きだけ。"
+    marker: none
+    align: center
+    at: { x: 140, y: 574 }
+    size: { w: 660, h: 18 }
+  - id: t2
+    label: "② 記号の読み方 —— 線がどこに入るかで、上か下かが決まる"
+    marker: none
+    align: left
+    at: { x: 140, y: 620 }
+    size: { w: 660, h: 20 }
+  - id: g1
+    label: ""
+    marker: triangle
+    at: { x: 170, y: 680 }
+    size: { w: 44, h: 44 }
+  - id: p22
+    label: ""
+    marker: none
+    at: { x: 191, y: 723 }
+    size: { w: 2, h: 2 }
+  - id: p23
+    label: ""
+    marker: none
+    at: { x: 191, y: 753 }
+    size: { w: 2, h: 2 }
+  - id: p24
+    label: ""
+    marker: none
+    at: { x: 191, y: 708 }
+    size: { w: 2, h: 2 }
+  - id: p25
+    label: ""
+    marker: none
+    at: { x: 191, y: 649 }
+    size: { w: 2, h: 2 }
+  - id: g1n
+    label: "上向き（手前へ）\nN 側が縁、C 側が中心"
+    marker: none
+    align: center
+    at: { x: 130, y: 762 }
+    size: { w: 190, h: 36 }
+  - id: g2
+    label: ""
+    marker: triangle-down
+    at: { x: 370, y: 680 }
+    size: { w: 44, h: 44 }
+  - id: p26
+    label: ""
+    marker: none
+    at: { x: 391, y: 649 }
+    size: { w: 2, h: 2 }
+  - id: p27
+    label: ""
+    marker: none
+    at: { x: 391, y: 694 }
+    size: { w: 2, h: 2 }
+  - id: p28
+    label: ""
+    marker: none
+    at: { x: 391, y: 723 }
+    size: { w: 2, h: 2 }
+  - id: p29
+    label: ""
+    marker: none
+    at: { x: 391, y: 753 }
+    size: { w: 2, h: 2 }
+  - id: g2n
+    label: "下向き（奥へ）\nN 側が中心、C 側が縁"
+    marker: none
+    align: center
+    at: { x: 330, y: 762 }
+    size: { w: 190, h: 36 }
+  - id: g3
+    label: ""
+    marker: circle
+    at: { x: 570, y: 680 }
+    size: { w: 44, h: 44 }
+  - id: g3n
+    label: "ヘリックスは丸\n向きは問わない"
+    marker: none
+    align: center
+    at: { x: 530, y: 762 }
+    size: { w: 190, h: 36 }
+  - id: t3
+    label: "③ TOPS が残すもの・捨てるもの"
+    marker: none
+    align: left
+    at: { x: 820, y: 150 }
+    size: { w: 450, h: 20 }
+  - id: h820_186
+    label: "2 次元に落とすときの取捨"
+    hatch: solid
+    at: { x: 820, y: 186 }
+    size: { w: 450, h: 24 }
+  - id: x820_210
+    label: "残す"
+    at: { x: 820, y: 210 }
+    size: { w: 150, h: 24 }
+  - id: y820_210
+    label: "二次構造の並び（N から C へ）"
+    align: left
+    at: { x: 970, y: 210 }
+    size: { w: 300, h: 24 }
+  - id: x820_234
+    label: "残す"
+    at: { x: 820, y: 234 }
+    size: { w: 150, h: 24 }
+  - id: y820_234
+    label: "シートの上での相対の位置"
+    align: left
+    at: { x: 970, y: 234 }
+    size: { w: 300, h: 24 }
+  - id: x820_258
+    label: "残す"
+    at: { x: 820, y: 258 }
+    size: { w: 150, h: 24 }
+  - id: y820_258
+    label: "おおよその向き（上か下か）"
+    align: left
+    at: { x: 970, y: 258 }
+    size: { w: 300, h: 24 }
+  - id: x820_282
+    label: "捨てる"
+    at: { x: 820, y: 282 }
+    size: { w: 150, h: 24 }
+  - id: y820_282
+    label: "残基の数・SSE の長さ"
+    align: left
+    at: { x: 970, y: 282 }
+    size: { w: 300, h: 24 }
+  - id: x820_306
+    label: "捨てる"
+    at: { x: 820, y: 306 }
+    size: { w: 150, h: 24 }
+  - id: y820_306
+    label: "ループの長さ"
+    align: left
+    at: { x: 970, y: 306 }
+    size: { w: 300, h: 24 }
+  - id: x820_330
+    label: "捨てる"
+    at: { x: 820, y: 330 }
+    size: { w: 150, h: 24 }
+  - id: y820_330
+    label: "実際の座標"
+    align: left
+    at: { x: 970, y: 330 }
+    size: { w: 300, h: 24 }
+  - id: why3
+    label: "長さを捨てると、畳み方だけが残る。\n同じ折りたたみの別のたんぱく質どうしは、\n残基数が違っても同じ TOPS 図になる ——\nだから図そのものを鍵にして検索できる。"
+    at: { x: 820, y: 368 }
+    size: { w: 450, h: 74 }
+  - id: t4
+    label: "④ ロスマンフォールド"
+    marker: none
+    align: left
+    at: { x: 820, y: 460 }
+    size: { w: 450, h: 20 }
+  - id: h820_490
+    label: "何が決まっているか"
+    hatch: solid
+    at: { x: 820, y: 490 }
+    size: { w: 450, h: 24 }
+  - id: x820_514
+    label: "シートの順"
+    at: { x: 820, y: 514 }
+    size: { w: 150, h: 24 }
+  - id: y820_514
+    label: "321456（左から）"
+    align: left
+    at: { x: 970, y: 514 }
+    size: { w: 300, h: 24 }
+  - id: x820_538
+    label: "向き"
+    at: { x: 820, y: 538 }
+    size: { w: 150, h: 24 }
+  - id: y820_538
+    label: "6 本とも平行"
+    align: left
+    at: { x: 970, y: 538 }
+    size: { w: 300, h: 24 }
+  - id: x820_562
+    label: "単位"
+    at: { x: 820, y: 562 }
+    size: { w: 150, h: 24 }
+  - id: y820_562
+    label: "β-α-β-α-β が 2 つ"
+    align: left
+    at: { x: 970, y: 562 }
+    size: { w: 300, h: 24 }
+  - id: x820_586
+    label: "層"
+    at: { x: 820, y: 586 }
+    size: { w: 150, h: 24 }
+  - id: y820_586
+    label: "α / β / α の三層サンドイッチ"
+    align: left
+    at: { x: 970, y: 586 }
+    size: { w: 300, h: 24 }
+  - id: x820_610
+    label: "よく保たれる所"
+    at: { x: 820, y: 610 }
+    size: { w: 150, h: 24 }
+  - id: y820_610
+    label: "最初の β-α-β（Gly-x-Gly）"
+    align: left
+    at: { x: 970, y: 610 }
+    size: { w: 300, h: 24 }
+  - id: x820_634
+    label: "つなぐ相手"
+    at: { x: 820, y: 634 }
+    size: { w: 150, h: 24 }
+  - id: y820_634
+    label: "FAD・NAD(P) の ADP の燐酸"
+    align: left
+    at: { x: 970, y: 634 }
+    size: { w: 300, h: 24 }
+  - id: why4
+    label: "並びが飛ぶのが、この畳み方の印。\n1 → 2 → 3 と左へ寄せたあと、\n4 でシートの反対側へ渡る（crossover）——\n順に並べるだけでは、この形にならない。"
+    at: { x: 820, y: 672 }
+    size: { w: 450, h: 74 }
+  - id: t5
+    label: "⑤ どこで使う図か"
+    marker: none
+    align: left
+    at: { x: 820, y: 764 }
+    size: { w: 450, h: 20 }
+  - id: h820_794
+    label: "使いみち"
+    hatch: solid
+    at: { x: 820, y: 794 }
+    size: { w: 450, h: 24 }
+  - id: x820_818
+    label: "畳み方の比較"
+    at: { x: 820, y: 818 }
+    size: { w: 150, h: 24 }
+  - id: y820_818
+    label: "別のたんぱく質どうしを同じ土俵に"
+    align: left
+    at: { x: 970, y: 818 }
+    size: { w: 300, h: 24 }
+  - id: x820_842
+    label: "モチーフ探し"
+    at: { x: 820, y: 842 }
+    size: { w: 150, h: 24 }
+  - id: y820_842
+    label: "図の部分一致で検索する"
+    align: left
+    at: { x: 970, y: 842 }
+    size: { w: 300, h: 24 }
+  - id: x820_866
+    label: "分類"
+    at: { x: 820, y: 866 }
+    size: { w: 150, h: 24 }
+  - id: y820_866
+    label: "CATH・SCOP の折りたたみの説明"
+    align: left
+    at: { x: 970, y: 866 }
+    size: { w: 300, h: 24 }
+  - id: x820_890
+    label: "設計"
+    at: { x: 820, y: 890 }
+    size: { w: 150, h: 24 }
+  - id: y820_890
+    label: "作りたい畳み方を先に描く"
+    align: left
+    at: { x: 970, y: 890 }
+    size: { w: 300, h: 24 }
+  - id: why5
+    label: "立体を見なくても、畳み方は比べられる。\n3 次元の重ね合わせは計算が要るが、\nTOPS 図は並びと向きの文字列に近い ——\n図が検索の鍵になる。"
+    at: { x: 820, y: 928 }
+    size: { w: 450, h: 74 }
+  - id: r1
+    label: "TOPS 図は、たんぱく質の畳み方を 2 次元に落とした図です（①③）。ヘリックスは丸、ストランドは三角で描きます。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1020 }
+    size: { w: 1130, h: 18 }
+  - id: r2
+    label: "線がどこに入るかで、上か下かが決まります（②）。中心まで引けば上（手前）、縁で止めれば下（奥）です。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1044 }
+    size: { w: 1130, h: 18 }
+  - id: r3
+    label: "長さは描きません。 残基数もループの長さも出ないので、大きさの違うたんぱく質が同じ図になります。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1068 }
+    size: { w: 1130, h: 18 }
+  - id: r4
+    label: "ロスマンフォールドは、シートの順が 321456 です（④）。β3 から β4 へシートの反対側へ渡るのが、この畳み方の印です。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1092 }
+    size: { w: 1130, h: 18 }
+  - id: r5
+    label: "立体を見なくても畳み方を比べられます（⑤）。3 次元の重ね合わせと違い、図そのものを検索の鍵にできます。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1116 }
+    size: { w: 1130, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    ends: { from: none, to: none }
+  - from: p2
+    to: p3
+    curve: none
+    ends: { from: none, to: none }
+  - from: p4
+    to: p5
+    curve: none
+    ends: { from: none, to: none }
+  - from: p6
+    to: p7
+    curve: none
+    ends: { from: none, to: none }
+  - from: p8
+    to: p9
+    curve: none
+    ends: { from: none, to: none }
+  - from: p10
+    to: p11
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 242, y: 540 }
+      - { x: 542, y: 540 }
+  - from: p12
+    to: p13
+    curve: none
+    ends: { from: none, to: none }
+  - from: p14
+    to: p15
+    curve: none
+    ends: { from: none, to: none }
+  - from: p16
+    to: p17
+    curve: none
+    ends: { from: none, to: none }
+  - from: p18
+    to: p19
+    curve: none
+    ends: { from: none, to: none }
+  - from: p20
+    to: p21
+    curve: none
+    ends: { from: none, to: none }
+  - from: p22
+    to: p23
+    curve: none
+    ends: { from: none, to: none }
+  - from: p24
+    to: p25
+    curve: none
+    ends: { from: none, to: none }
+  - from: p26
+    to: p27
+    curve: none
+    ends: { from: none, to: none }
+  - from: p28
+    to: p29
+    curve: none
+    ends: { from: none, to: none }
