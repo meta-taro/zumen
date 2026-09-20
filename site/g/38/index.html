@@ -60,7 +60,11 @@
     <img src="../../gallery/38-%E8%A8%88%E8%A3%85%E3%83%AB%E3%83%BC%E3%83%97%E5%9B%B3.svg" alt="計装ループ図" loading="lazy">
   </figure>
   <p class="made">この図は、下の 1 枚の YAML から描かれています。手で図形を動かしてはいません。</p>
-  
+  <h2>正本に書いてある決まりごと</h2>
+  <p><strong>ループ図は、1 つの制御ループだけを描く。</strong>P&amp;ID がプラント全体なら、ループ図は<strong>その中の 1 本を最後まで</strong>追う図。</p>
+  <p>変量の文字（T ＝ 温度）＋機能の文字（I ＝ 指示、C ＝ 調節）＋個別番号。<strong>JIS Z 8204</strong> は、これを直径 10mm の丸の中へ、上に文字記号・下に個別番号と決めている。</p>
+  <p>0mA を「測定値ゼロ」に使わない。<strong>0 は断線</strong>。下限を 4mA にしてあるので、線が切れたことと、値が下がったことを区別できる。</p>
+  <p>同じ発信器から取ると、<strong>それが壊れたときに両方とも効かない。</strong>温度スイッチが独立して測温しているのは、そのため。</p>
   <h2>正本（YAML）</h2>
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/38-%E8%A8%88%E8%A3%85%E3%83%AB%E3%83%BC%E3%83%97%E5%9B%B3.zumen.yaml"><code>examples/gallery/38-計装ループ図.zumen.yaml</code></a></p>
   <h2>同じ分野の見本</h2>

@@ -112,6 +112,7 @@ export const CAPTIONS_EN = {
   '169-麻雀の配牌': 'Mahjong: the dice decide where the wall is opened, not luck',
   '168-ダイヤモンドシステム': 'Billiards: the diamonds on the rails are a ruler, not decoration',
   '167-ダーツボードの割り付け': 'A dartboard: the numbers are arranged to punish a miss',
+  '241-データセンターの電力系統': '2N does not mean doubling: it means two paths that never join before the equipment, because one shared point is a single point of failure — and the UPS is not a power source, just the bridge over the 10 seconds the generator needs',
   '240-地の目とバイアス': 'Cloth stretches on the 45 degree bias because nothing stretches: the woven square shears into a rhombus, so at a 120 degree cell the length gains 22.5 percent while the width loses 29.3 percent — it narrows more than it lengthens',
   '239-縫い方の番号': 'Stitches are specified by number, not by name: 301 rather than "lockstitch" — three digits for the stitch, five for the seam, and the two standards are separate because thread and cloth are decided separately',
   '238-板金の展開図': 'A flat pattern is not the sum of the outside dimensions: the outside stretches when you bend it, and the amount subtracted is each shop measured value, not a standard',

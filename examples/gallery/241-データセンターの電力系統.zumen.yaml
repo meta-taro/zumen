@@ -1,0 +1,606 @@
+version: 1
+kind: placement
+arrows: true
+title: データセンターの電力系統（単線結線図・2N）
+# **2N とは、二重にすることではない。**
+# 受電からサーバーの口まで、**2 本の道が一度も交わらない**こと。
+# 1 か所でも合流していれば、そこが単一障害点になる。
+#
+# **UPS は長時間の電源ではない。** 電池が持つのは 5〜15 分で、
+# 仕事は**発電機が立ち上がるまでの 10 秒を埋めること**
+# （NFPA 110 の Type 10 ＝ 10 秒以内）。
+#
+# **Tier III と IV の差は時間ではない。** III は止めずに保守でき、
+# IV は 1 か所壊れても止まらない。
+#
+# **PUE は比**（ISO/IEC 30134-2）。全施設の電力 ÷ IT 機器の電力。
+# 2025 年の加重平均は 1.54 ＝ IT が使えるのは全体の 65%。
+nodes:
+  - id: t1
+    label: "① 受電からサーバーの口まで（単線結線図・2N）　　Ｇ ＝ 非常用発電機"
+    marker: none
+    align: left
+    at: { x: 150, y: 148 }
+    size: { w: 620, h: 20 }
+  - id: a0
+    label: "受変電\n特別高圧 → 低圧"
+    at: { x: 200, y: 268 }
+    size: { w: 190, h: 52 }
+  - id: a1
+    label: "ATS\n商用と発電機を切り替える"
+    at: { x: 200, y: 338 }
+    size: { w: 190, h: 52 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 294, y: 319 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 294, y: 337 }
+    size: { w: 2, h: 2 }
+  - id: a2
+    label: "UPS\n（無瞬断で引き継ぐ）"
+    at: { x: 200, y: 408 }
+    size: { w: 190, h: 52 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 294, y: 389 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 294, y: 407 }
+    size: { w: 2, h: 2 }
+  - id: a3
+    label: "PDU\n低圧へ落とし、分ける"
+    at: { x: 200, y: 478 }
+    size: { w: 190, h: 52 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 294, y: 459 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 294, y: 477 }
+    size: { w: 2, h: 2 }
+  - id: a4
+    label: "RPP ／ バスウェイ\n列ごとに配る"
+    at: { x: 200, y: 548 }
+    size: { w: 190, h: 52 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 294, y: 529 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 294, y: 547 }
+    size: { w: 2, h: 2 }
+  - id: a5
+    label: "ラック PDU\nラックの中で配る"
+    at: { x: 200, y: 618 }
+    size: { w: 190, h: 52 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 294, y: 599 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 294, y: 617 }
+    size: { w: 2, h: 2 }
+  - id: b0
+    label: "受変電\n特別高圧 → 低圧"
+    at: { x: 470, y: 268 }
+    size: { w: 190, h: 52 }
+  - id: b1
+    label: "ATS\n商用と発電機を切り替える"
+    at: { x: 470, y: 338 }
+    size: { w: 190, h: 52 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 564, y: 319 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 564, y: 337 }
+    size: { w: 2, h: 2 }
+  - id: b2
+    label: "UPS\n（無瞬断で引き継ぐ）"
+    at: { x: 470, y: 408 }
+    size: { w: 190, h: 52 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 564, y: 389 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 564, y: 407 }
+    size: { w: 2, h: 2 }
+  - id: b3
+    label: "PDU\n低圧へ落とし、分ける"
+    at: { x: 470, y: 478 }
+    size: { w: 190, h: 52 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 564, y: 459 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 564, y: 477 }
+    size: { w: 2, h: 2 }
+  - id: b4
+    label: "RPP ／ バスウェイ\n列ごとに配る"
+    at: { x: 470, y: 548 }
+    size: { w: 190, h: 52 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 564, y: 529 }
+    size: { w: 2, h: 2 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 564, y: 547 }
+    size: { w: 2, h: 2 }
+  - id: b5
+    label: "ラック PDU\nラックの中で配る"
+    at: { x: 470, y: 618 }
+    size: { w: 190, h: 52 }
+  - id: p18
+    label: ""
+    marker: none
+    at: { x: 564, y: 599 }
+    size: { w: 2, h: 2 }
+  - id: p19
+    label: ""
+    marker: none
+    at: { x: 564, y: 617 }
+    size: { w: 2, h: 2 }
+  - id: ha
+    label: "Ａ 系"
+    marker: none
+    align: center
+    at: { x: 200, y: 186 }
+    size: { w: 190, h: 18 }
+  - id: hb
+    label: "Ｂ 系"
+    marker: none
+    align: center
+    at: { x: 470, y: 186 }
+    size: { w: 190, h: 18 }
+  - id: au
+    label: "商用"
+    at: { x: 196, y: 222 }
+    size: { w: 84, h: 34 }
+  - id: ag
+    label: "Ｇ"
+    marker: circle
+    at: { x: 344, y: 216 }
+    size: { w: 46, h: 46 }
+  - id: p20
+    label: ""
+    marker: none
+    at: { x: 237, y: 255 }
+    size: { w: 2, h: 2 }
+  - id: p21
+    label: ""
+    marker: none
+    at: { x: 237, y: 267 }
+    size: { w: 2, h: 2 }
+  - id: p22
+    label: ""
+    marker: none
+    at: { x: 366, y: 261 }
+    size: { w: 2, h: 2 }
+  - id: p23
+    label: ""
+    marker: none
+    at: { x: 366, y: 267 }
+    size: { w: 2, h: 2 }
+  - id: bu
+    label: "商用"
+    at: { x: 466, y: 222 }
+    size: { w: 84, h: 34 }
+  - id: bg
+    label: "Ｇ"
+    marker: circle
+    at: { x: 614, y: 216 }
+    size: { w: 46, h: 46 }
+  - id: p24
+    label: ""
+    marker: none
+    at: { x: 507, y: 255 }
+    size: { w: 2, h: 2 }
+  - id: p25
+    label: ""
+    marker: none
+    at: { x: 507, y: 267 }
+    size: { w: 2, h: 2 }
+  - id: p26
+    label: ""
+    marker: none
+    at: { x: 636, y: 261 }
+    size: { w: 2, h: 2 }
+  - id: p27
+    label: ""
+    marker: none
+    at: { x: 636, y: 267 }
+    size: { w: 2, h: 2 }
+  - id: srv
+    label: "サーバー（2 電源）"
+    at: { x: 200, y: 696 }
+    size: { w: 460, h: 48 }
+  - id: p28
+    label: ""
+    marker: none
+    at: { x: 294, y: 669 }
+    size: { w: 2, h: 2 }
+  - id: p29
+    label: ""
+    marker: none
+    at: { x: 294, y: 695 }
+    size: { w: 2, h: 2 }
+  - id: p30
+    label: ""
+    marker: none
+    at: { x: 564, y: 669 }
+    size: { w: 2, h: 2 }
+  - id: p31
+    label: ""
+    marker: none
+    at: { x: 564, y: 695 }
+    size: { w: 2, h: 2 }
+  - id: sts
+    label: "STS\n1 電源の機器だけ、ここで両系から取る"
+    line: dashed
+    at: { x: 200, y: 764 }
+    size: { w: 460, h: 50 }
+  - id: p32
+    label: ""
+    marker: none
+    at: { x: 294, y: 743 }
+    size: { w: 2, h: 2 }
+  - id: p33
+    label: ""
+    marker: none
+    at: { x: 294, y: 763 }
+    size: { w: 2, h: 2 }
+  - id: p34
+    label: ""
+    marker: none
+    at: { x: 564, y: 743 }
+    size: { w: 2, h: 2 }
+  - id: p35
+    label: ""
+    marker: none
+    at: { x: 564, y: 763 }
+    size: { w: 2, h: 2 }
+  - id: nocross
+    label: "2N とは、ここまで 2 本の道が一度も交わらないこと。\n1 か所でも合流していれば、そこが単一障害点になる。"
+    at: { x: 200, y: 832 }
+    size: { w: 460, h: 56 }
+  - id: t2
+    label: "② 数え方（N は、足りるだけの容量）"
+    marker: none
+    align: left
+    at: { x: 760, y: 190 }
+    size: { w: 480, h: 20 }
+  - id: h226
+    label: "冗長の構成"
+    hatch: solid
+    at: { x: 760, y: 226 }
+    size: { w: 480, h: 24 }
+  - id: x250
+    label: "N"
+    at: { x: 760, y: 250 }
+    size: { w: 130, h: 24 }
+  - id: y250
+    label: "足りるだけ。1 つ壊れたら止まる"
+    align: left
+    at: { x: 890, y: 250 }
+    size: { w: 350, h: 24 }
+  - id: x274
+    label: "N＋1"
+    at: { x: 760, y: 274 }
+    size: { w: 130, h: 24 }
+  - id: y274
+    label: "予備が 1 つ。1 つ壊れても足りる"
+    align: left
+    at: { x: 890, y: 274 }
+    size: { w: 350, h: 24 }
+  - id: x298
+    label: "2N"
+    at: { x: 760, y: 298 }
+    size: { w: 130, h: 24 }
+  - id: y298
+    label: "同じものが 2 系統。道が分かれている"
+    align: left
+    at: { x: 890, y: 298 }
+    size: { w: 350, h: 24 }
+  - id: x322
+    label: "2N＋1"
+    at: { x: 760, y: 322 }
+    size: { w: 130, h: 24 }
+  - id: y322
+    label: "2 系統それぞれに予備がある"
+    align: left
+    at: { x: 890, y: 322 }
+    size: { w: 350, h: 24 }
+  - id: h362
+    label: "Tier（Uptime Institute）"
+    hatch: solid
+    at: { x: 760, y: 362 }
+    size: { w: 480, h: 24 }
+  - id: x386
+    label: "Tier I"
+    at: { x: 760, y: 386 }
+    size: { w: 130, h: 24 }
+  - id: y386
+    label: "99.671%　年 28.8 時間まで"
+    align: left
+    at: { x: 890, y: 386 }
+    size: { w: 350, h: 24 }
+  - id: x410
+    label: "Tier II"
+    at: { x: 760, y: 410 }
+    size: { w: 130, h: 24 }
+  - id: y410
+    label: "99.741%　年 22 時間まで"
+    align: left
+    at: { x: 890, y: 410 }
+    size: { w: 350, h: 24 }
+  - id: x434
+    label: "Tier III"
+    at: { x: 760, y: 434 }
+    size: { w: 130, h: 24 }
+  - id: y434
+    label: "99.982%　年 1.6 時間まで。止めずに保守できる"
+    align: left
+    at: { x: 890, y: 434 }
+    size: { w: 350, h: 24 }
+  - id: x458
+    label: "Tier IV"
+    at: { x: 760, y: 458 }
+    size: { w: 130, h: 24 }
+  - id: y458
+    label: "99.995%　年 26.3 分まで。1 か所壊れても止まらない"
+    align: left
+    at: { x: 890, y: 458 }
+    size: { w: 350, h: 24 }
+  - id: tier
+    label: "Tier III と IV の差は、時間ではなく「壊れたとき」。\nIII は保守で止めなくてよい。\nIV は壊れても止まらない（2N または 2N＋1）。"
+    at: { x: 760, y: 494 }
+    size: { w: 480, h: 80 }
+  - id: t3
+    label: "③ 停電してからの階段"
+    marker: none
+    align: left
+    at: { x: 760, y: 602 }
+    size: { w: 480, h: 20 }
+  - id: h632
+    label: "引き継ぐ順番"
+    hatch: solid
+    at: { x: 760, y: 632 }
+    size: { w: 480, h: 24 }
+  - id: x656
+    label: "0 秒"
+    at: { x: 760, y: 656 }
+    size: { w: 130, h: 24 }
+  - id: y656
+    label: "UPS が引き継ぐ（瞬断なし）"
+    align: left
+    at: { x: 890, y: 656 }
+    size: { w: 350, h: 24 }
+  - id: x680
+    label: "10 秒以内"
+    at: { x: 760, y: 680 }
+    size: { w: 130, h: 24 }
+  - id: y680
+    label: "発電機が定格負荷を受けられる"
+    align: left
+    at: { x: 890, y: 680 }
+    size: { w: 350, h: 24 }
+  - id: x704
+    label: "5〜15 分"
+    at: { x: 760, y: 704 }
+    size: { w: 130, h: 24 }
+  - id: y704
+    label: "UPS の電池が持つのは、ここまで"
+    align: left
+    at: { x: 890, y: 704 }
+    size: { w: 350, h: 24 }
+  - id: x728
+    label: "時間〜日"
+    at: { x: 760, y: 728 }
+    size: { w: 130, h: 24 }
+  - id: y728
+    label: "発電機の燃料で持たせる"
+    align: left
+    at: { x: 890, y: 728 }
+    size: { w: 350, h: 24 }
+  - id: ups
+    label: "UPS は長時間の電源ではない。発電機が立ち上がるまでの橋。\nNFPA 110 の Type 10 が「10 秒以内」、\nClass が燃料の持ち時間（Class 48 なら 48 時間）。"
+    at: { x: 760, y: 764 }
+    size: { w: 480, h: 80 }
+  - id: t4
+    label: "④ PUE ── 全施設の電力 ÷ IT 機器の電力（ISO/IEC 30134-2）"
+    marker: none
+    align: left
+    at: { x: 760, y: 868 }
+    size: { w: 480, h: 20 }
+  - id: h898
+    label: "PUE の意味"
+    hatch: solid
+    at: { x: 760, y: 898 }
+    size: { w: 480, h: 24 }
+  - id: x922
+    label: "1.00"
+    at: { x: 760, y: 922 }
+    size: { w: 200, h: 24 }
+  - id: y922
+    label: "下限。IT 以外に 1W も使わない（不可能）"
+    align: left
+    at: { x: 960, y: 922 }
+    size: { w: 280, h: 24 }
+  - id: x946
+    label: "1.10"
+    at: { x: 760, y: 946 }
+    size: { w: 200, h: 24 }
+  - id: y946
+    label: "IT が全体の 91%"
+    align: left
+    at: { x: 960, y: 946 }
+    size: { w: 280, h: 24 }
+  - id: x970
+    label: "1.54"
+    at: { x: 760, y: 970 }
+    size: { w: 200, h: 24 }
+  - id: y970
+    label: "IT が全体の 65%（2025 年の加重平均）"
+    align: left
+    at: { x: 960, y: 970 }
+    size: { w: 280, h: 24 }
+  - id: x994
+    label: "2.50"
+    at: { x: 760, y: 994 }
+    size: { w: 200, h: 24 }
+  - id: y994
+    label: "IT が全体の 40%（2007 年の平均）"
+    align: left
+    at: { x: 960, y: 994 }
+    size: { w: 280, h: 24 }
+  - id: pue
+    label: "PUE が 1 を超えた分は、冷却と、変圧・整流の損失。\n2014 年に 1.65 まで下がって以降は、ほとんど動いていない。"
+    at: { x: 760, y: 1030 }
+    size: { w: 480, h: 56 }
+  - id: r1
+    label: "2N とは、二重にすることではありません（①）。受電から機器の口まで、2 本の道が一度も交わらないことです。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1118 }
+    size: { w: 1090, h: 18 }
+  - id: r2
+    label: "1 か所でも合流していれば、そこが単一障害点です。 図は、合流していないことを見せるために描きます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1142 }
+    size: { w: 1090, h: 18 }
+  - id: r3
+    label: "1 電源しかない機器だけが STS を要ります。 2 電源の機器は、A 系と B 系から直接取れます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1166 }
+    size: { w: 1090, h: 18 }
+  - id: r4
+    label: "UPS は長時間の電源ではありません（③）。電池が持つのは 5〜15 分で、仕事は「発電機が立ち上がるまでの 10 秒を埋めること」です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1190 }
+    size: { w: 1090, h: 18 }
+  - id: r5
+    label: "Tier III と Tier IV の差は、時間ではありません（②）。III は止めずに保守でき、IV は 1 か所壊れても止まりません。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1214 }
+    size: { w: 1090, h: 18 }
+  - id: r6
+    label: "PUE は比です（④）。1.54 なら、IT が使えるのは全体の 65%。残りは冷却と変換の損失です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1238 }
+    size: { w: 1090, h: 18 }
+  - id: r7
+    label: "PUE は 2014 年からほとんど下がっていません。 建物と冷却の作り直しが要るので、運用の工夫では届かないところまで来ています。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1262 }
+    size: { w: 1090, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p2
+    to: p3
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p4
+    to: p5
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p6
+    to: p7
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p8
+    to: p9
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p10
+    to: p11
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p12
+    to: p13
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p14
+    to: p15
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p16
+    to: p17
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p18
+    to: p19
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p20
+    to: p21
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p22
+    to: p23
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p24
+    to: p25
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p26
+    to: p27
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p28
+    to: p29
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p30
+    to: p31
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p32
+    to: p33
+    curve: none
+    line: dashed
+    ends: { from: none, to: arrow }
+  - from: p34
+    to: p35
+    curve: none
+    line: dashed
+    ends: { from: none, to: arrow }
