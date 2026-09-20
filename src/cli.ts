@@ -462,6 +462,19 @@ export async function runInspect(paths: string[], read = readFileSync): Promise<
     }
     lines.push(m.inspectCounts(seen.nodes, seen.edges));
 
+    /**
+     * **警告の件数も出す**（2026-09-20）。
+     *
+     * 「登録の前に `pnpm inspect` で 0 にする」手順を作ったのに、
+     * **この口は検査の警告を 1 件も出していなかった** —— 見本 268 を登録したあとで、
+     * 描かれていない `hatch: dots` を `pnpm validate` が見つけた。
+     * 中身までは出さない（`validate` の仕事）。**在ることだけを知らせる。**
+     */
+    const warnings = [...validate(text), ...(await placedFindings(text))].filter(
+      (finding) => finding.severity === 'warning',
+    );
+    if (warnings.length > 0) lines.push(m.inspectWarnings(String(warnings.length)));
+
     const placed = await layout(text);
     const crossed = crossingPlaces(placed);
     const over = straddles(placed);

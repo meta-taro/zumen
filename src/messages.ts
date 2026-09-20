@@ -157,6 +157,15 @@ const ja = {
       `  **交差 ${count}**（${groups} 組。同じ 2 本が何か所で交わっても 1 組）\n    ${pairs}`,
     /** **どれだけ重なっているか**（2026-09-20）。狭いほうを詰めれば解ける。 */
     straddleBy: (a: string, b: string, x: string, y: string) => `${a}↔${b}（横 ${x}px ／ 縦 ${y}px 重なる）`,
+    /**
+     * **観測値の口が、警告を見ていなかった**（2026-09-20）。
+     *
+     * 登録の前に `pnpm inspect` で 0 にする手順を作ったのに、
+     * **`inspect` は検査の警告を 1 件も出していなかった** ——
+     * 見本 268 を登録したあとで、`hatch: dots` が描かれていない節を
+     * `pnpm validate` が見つけた。**手順が見ている口に、警告が出ていないと意味がない。**
+     */
+    inspectWarnings: (count: string) => `  **警告 ${count} 件**（中身は \`pnpm validate\` で出ます）`,
     inspectStraddles: (count: number, pairs: string) => `  **またぎ ${count}**（${pairs}）`,
     inspectOverlaps: (count: number, pairs: string) => `  **文字の重なり ${count}**（${pairs}）`,
     inspectUnderBoxes: (count: number, pairs: string) => `  **箱に隠れた辺 ${count}**（${pairs}）`,
@@ -892,6 +901,7 @@ const en: Catalog = {
     inspectCrossings: (count: number, groups: number, pairs: string) =>
       `  **${count} crossings** (${groups} pairs; two lines that cross more than once count as one pair)\n    ${pairs}`,
     straddleBy: (a: string, b: string, x: string, y: string) => `${a}<->${b} (overlap ${x}px wide, ${y}px tall)`,
+    inspectWarnings: (count: string) => `  **${count} warning(s)** (run \`pnpm validate\` to see them)`,
     inspectStraddles: (count: number, pairs: string) => `  **${count} straddles** (${pairs})`,
     inspectOverlaps: (count: number, pairs: string) => `  **${count} text overlaps** (${pairs})`,
     inspectUnderBoxes: (count: number, pairs: string) => `  **${count} edges buried under boxes** (${pairs})`,

@@ -670,6 +670,33 @@ describe('観測値を見せる（inspect）', () => {
  * **閉じたはずの穴が、半分開いたままだった。**
  */
 describe('inspect が、検査と同じものを見る', () => {
+  /**
+   * **観測値の口が、警告を見ていなかった**（2026-09-20）。
+   *
+   * 「登録の前に inspect で 0 にする」手順を作ったのに、`inspect` は
+   * 検査の警告を 1 件も出していなかった —— 見本 268 を登録したあとで、
+   * 描かれていない `hatch: dots` を `pnpm validate` が見つけた。
+   */
+  it('**警告があることを言う**（中身は validate の仕事）', async () => {
+    const thin = [
+      'version: 1', 'kind: placement', 'nodes:',
+      '  - id: rule', '    label: ""', '    hatch: dots', '    at: { x: 0, y: 0 }', '    size: { w: 2, h: 90 }',
+      '',
+    ].join('\n');
+    const result = await runInspect(['a.yaml'], reader({ 'a.yaml': thin }) as never);
+    assert.match(result.lines.join('\n'), /警告 1 件/, result.lines.join('\n'));
+  });
+
+  it('**警告が無ければ、その行は出さない**', async () => {
+    const clean = [
+      'version: 1', 'kind: placement', 'nodes:',
+      '  - id: a', '    label: あ', '    at: { x: 0, y: 0 }', '    size: { w: 120, h: 60 }',
+      '',
+    ].join('\n');
+    const result = await runInspect(['a.yaml'], reader({ 'a.yaml': clean }) as never);
+    assert.doesNotMatch(result.lines.join('\n'), /警告/);
+  });
+
   it('**またぎは、どれだけ重なっているかまで言う**', async () => {
     const over = [
       'version: 1', 'kind: placement', 'nodes:',
