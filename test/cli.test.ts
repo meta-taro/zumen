@@ -879,3 +879,45 @@ describe('inspect が出す警告の種類', () => {
     assert.ok(!result.lines.some((line) => line.includes('警告')), result.lines.join('\n'));
   });
 });
+
+/**
+ * **構成図には、別の言い方が要る**（2026-09-21）。
+ *
+ * `too-small-to-print` は「長辺の端の 2 つの間を詰めてください」と言っていたが、
+ * **構成図では置き場所を機械が決める**ので、詰めようがない。
+ * 動かせるのは**節の数と、鎖の深さ**だけ。
+ * 見本 287（日本酒）を描くとき、この言い方が無くて 4 回やり直した ——
+ * 20 節で 1928 × 2361 になり、`wrap` も `direction` も効かず、
+ * **効いたのは節を減らすことだけ**だった。
+ */
+describe('構成図が紙に収まらないとき', () => {
+  /** n 個の節を 1 本の鎖でつなぐ（＝鎖の深さが n）。 */
+  const chain = (n: number): string => {
+    const nodes = Array.from({ length: n }, (_, i) =>
+      `  - id: n${i}\n    label: 工程 ${i}\n    technology: 短い副題をここへ\n`,
+    ).join('');
+    const edges = Array.from({ length: n - 1 }, (_, i) => `  - from: n${i}\n    to: n${i + 1}\n`).join('');
+    return `version: 1\ndirection: down\nnodes:\n${nodes}edges:\n${edges}`;
+  };
+
+  it('**何段あって、何段まで減らせばよいかを言う**', async () => {
+    const result = await runInspect(['a.yaml'], reader({ 'a.yaml': chain(24) }) as never);
+    const found = await (await import('../src/cli.ts')).placedFindings(chain(24));
+    const said = found.find((f) => f.code === 'too-small-to-print');
+    assert.ok(said !== undefined, found.map((f) => f.code).join(','));
+    assert.match(said.message, /鎖がいちばん深い所は 24 段/, said.message);
+    assert.match(said.message, /段まで減らしてください/, said.message);
+    assert.equal(result.code, 0, '止めない');
+  });
+
+  it('**「端の 2 つを詰めろ」とは言わない**（構成図では動かせない）', async () => {
+    const found = await (await import('../src/cli.ts')).placedFindings(chain(24));
+    const said = found.find((f) => f.code === 'too-small-to-print');
+    assert.ok(!said.message.includes('この 2 つの間を詰めてください'), said.message);
+  });
+
+  it('短い鎖には言わない', async () => {
+    const found = await (await import('../src/cli.ts')).placedFindings(chain(4));
+    assert.ok(!found.some((f) => f.code === 'too-small-to-print'));
+  });
+});

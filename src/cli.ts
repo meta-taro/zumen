@@ -185,7 +185,40 @@ export async function placedFindings(text: string): Promise<Finding[]> {
   // 投影の下限（`tooSmallToProject`）は出さない。**路線図・仕込図・積付図は
   // 印刷して読む図**で、鳴りっぱなしの指摘は読まれなくなる（`src/projection.ts`）。
   const paper = projection(placed.width, placed.height, smallestTextOf(placed, plan));
-  const size: Finding[] = paper.tooSmallToPrint
+  /**
+   * **鎖がいちばん深い所は何段か**（構成図だけ。2026-09-21）。
+   *
+   * 機械が並べる図では、同じ段の節が同じ座標に並ぶ。
+   * **段の数がそのまま紙の長さ**になるので、別の座標の数を数えれば足りる。
+   */
+  const ranksOf = (): number => {
+    const down = new Set(placed.boxes.map((box) => Math.round(box.y))).size;
+    const across = new Set(placed.boxes.map((box) => Math.round(box.x))).size;
+    // 横へ並べた図は x が段になる。**長辺の向きで決める**（`direction` は置いた後には残らない）。
+    return placed.width >= placed.height ? across : down;
+  };
+  const size: Finding[] = paper.tooSmallToPrint && !plan
+    ? [
+        {
+          severity: 'warning' as const,
+          code: 'too-small-to-print',
+          message: ((): string => {
+            const ranks = Math.max(1, ranksOf());
+            const per = Math.round(paper.longestSide / ranks);
+            return messages().validate.tooSmallToPrintStructure(
+              (paper.textRatio ?? 0).toFixed(4),
+              paper.printFloor.toFixed(4),
+              paper.smallestText,
+              Math.round(paper.longestSide),
+              Math.floor(paper.smallestText / paper.printFloor),
+              ranks,
+              per,
+              Math.max(1, Math.floor(Math.floor(paper.smallestText / paper.printFloor) / Math.max(1, per))),
+            );
+          })(),
+        },
+      ]
+    : paper.tooSmallToPrint
     ? [
         {
           severity: 'warning' as const,

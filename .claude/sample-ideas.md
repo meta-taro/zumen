@@ -3067,3 +3067,14 @@ TOPS 図は**線が記号の中心まで入るか、縁で止まるか**が意�
   **ほとんどが誤検出**（風速 15m、風量 40m³、ケーブル長 100m…）。この軸では測れない
 
 **出なかったことも記録に残す。** 次に同じ所を掘らないため。
+
+### 語彙を 1 つ足したら、`spec` の見本も直す（2026-09-21）
+
+18 周目に `marker: triangle-down` を足したとき、
+**MCP の `zumen_spec` が返す見本の 1 行を直し忘れた**（`src/messages.ts` の `shape`）。
+`test/tools.test.ts` の「閉じた語彙は、その欄の行に全部書いてある」が拾った。
+
+足す所は 6 つ ——
+`src/marker.ts`（一覧と描画）／`src/hatch.ts`（切り抜き）／`src/names.ts`・`src/render.ts`（丸め）／
+**`src/messages.ts` の `shape`（ja と en の 2 か所）**／`spec/zumen-format-v1.md`。
+**テストが無ければ、MCP から見える語彙だけが古いまま残っていた。**

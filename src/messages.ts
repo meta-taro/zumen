@@ -479,7 +479,7 @@ const ja = {
       '    group: <属する囲みの id。無所属なら書かない>',
       '    size: { w: <幅>, h: <高さ> }      # 構成図でも効く',
       '    radius: <px>                       # 範囲の円（作業半径・警戒区域）',
-      '    marker: <box（既定）| circle | double | ellipse | diamond | triangle | bar | none>  # 配置図での印',
+      '    marker: <box（既定）| circle | double | ellipse | diamond | triangle | triangle-down | bar | none>  # 配置図での印',
       '                                          # 丸は駅・経穴・計器。bar は帯（停車駅一覧）',
       '    hatch: <none（既定）| solid | dots | lines | cross>  # 材料と区域の模様',
       '    write: <across（既定）| down>       # 縦組み。駅名を縦に積む（ラテン文字は寝る）',
@@ -778,6 +778,25 @@ const ja = {
       gapWide: string,
     ) =>
       `この図は A3 に印刷しても字が読めません（いちばん小さい字 ${smallest}px ÷ 長辺 ${longest}px ＝ ${ratio}。下限は ${floor}）。**あと ${Math.max(1, Math.ceil(longest - need))}px 詰めてください** —— 長辺が ${need}px 以下なら収まります。**長辺は${axis}で、端は "${head}" と "${tail}" です。**この 2 つの間を詰めてください。**文字を大きくしないでください**（図が伸びて比がさらに下がります）。表や注記を詰めるか、図を分けてください。${gapAxis === '' ? '' : `**いちばん空いているのは ${gapAxis} ${gapAt}〜${gapTo} の ${gapWide}px** です —— ここに中身がありません。`}`,
+    /**
+     * **構成図には、別の言い方が要る**（2026-09-21）。
+     *
+     * `tooSmallToPrint` は「長辺の端の 2 つの間を詰めてください」と言うが、
+     * **構成図では置き場所を機械が決める**ので、詰めようがない。
+     * 動かせるのは**節の数と、鎖の深さ**だけ —— そこを名指しする
+     * （見本 287 を描くとき、この言い方が無くて 4 回やり直した）。
+     */
+    tooSmallToPrintStructure: (
+      ratio: string,
+      floor: string,
+      smallest: number,
+      longest: number,
+      need: number,
+      ranks: number,
+      perRank: number,
+      fits: number,
+    ) =>
+      `この図は A3 に印刷しても字が読めません（いちばん小さい字 ${smallest}px ÷ 長辺 ${longest}px ＝ ${ratio}。下限は ${floor}）。**構成図では置き場所を機械が決めるので、節を動かしても縮みません。** いま**鎖がいちばん深い所は ${ranks} 段**で、1 段およそ ${perRank}px です。長辺が ${need}px 以下なら収まるので、**${fits} 段まで減らしてください** —— 節をまとめるか、図を 2 枚に分けるかのどちらかです。`,
     inkOverlap: (a: string, b: string, x: number, y: number) =>
       `紙の上で ${a} と ${b} の文字が重なって描かれます。名前どうしだけでなく、符号・寸法の数値・通り芯の符号・図の名前も同じ場所を取ります。**横に ${x}px か、縦に ${y}px** ずらせば離れます（どちらへ逃がすかは、図の都合で決めてください）。`,
     textOverlap: (a: string, b: string) =>
@@ -1170,7 +1189,7 @@ const en: Catalog = {
       '    group: <id of the containing group. omit if none>',
       '    size: { w: <width>, h: <height> }   # applies to structure diagrams too',
       '    radius: <px>                         # range circle (crane reach, alarm zone)',
-      '    marker: <box (default) | circle | double | ellipse | diamond | triangle | bar | none>  # how it is marked on a plan',
+      '    marker: <box (default) | circle | double | ellipse | diamond | triangle | triangle-down | bar | none>  # how it is marked on a plan',
       '                                          # circle for stations, acupoints, instruments; bar for a band',
       '    hatch: <none (default) | solid | dots | lines | cross>  # material / zone pattern',
       '    write: <across (default) | down>     # vertical setting: stack the glyphs (Latin is laid on its side)',
@@ -1426,6 +1445,17 @@ const en: Catalog = {
       gapWide: string,
     ) =>
       `This drawing is too small to read even printed on A3 (smallest text ${smallest}px / longest side ${longest}px = ${ratio}; the floor is ${floor}). **Take ${Math.max(1, Math.ceil(longest - need))}px off** — a longest side of ${need}px or less fits. **The long side runs ${axis}, between "${head}" and "${tail}".** Close the gap between those two. **Do not enlarge the text** (that grows the drawing and lowers the ratio further). Tighten the tables and notes, or split the drawing.${gapAxis === '' ? '' : ` **The widest empty band is ${gapAxis} ${gapAt}-${gapTo}, ${gapWide}px wide** with nothing in it.`}`,
+    tooSmallToPrintStructure: (
+      ratio: string,
+      floor: string,
+      smallest: number,
+      longest: number,
+      need: number,
+      ranks: number,
+      perRank: number,
+      fits: number,
+    ) =>
+      `This drawing is unreadable even printed on A3 (smallest text ${smallest}px over longest side ${longest}px = ${ratio}; the floor is ${floor}). **On a structure diagram the machine decides the positions, so moving nodes will not shrink it.** The longest chain is ${ranks} ranks deep at about ${perRank}px each; the longest side has to come down to ${need}px, so **cut it to ${fits} ranks** — merge nodes, or split the drawing in two.`,
     inkOverlap: (a: string, b: string, x: number, y: number) =>
       `On the sheet, ${a} and ${b} are drawn on top of each other. It is not only names: tags, dimension values, grid codes and view titles take room too. **Moving one ${x}px sideways or ${y}px vertically** clears it — which way is yours to choose.`,
     textOverlap: (a: string, b: string) =>

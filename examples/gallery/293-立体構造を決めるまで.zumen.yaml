@@ -1,0 +1,107 @@
+version: 1
+direction: down
+wrap: false
+title: たんぱく質の立体構造を決めるまで（位相は、回折には写らない）
+# **回折で測れるのは強度だけで、位相は写らない。** これが位相問題。
+# 強度だけでは電子密度マップを作れないので、**位相はよそから持ってくる**しかない ——
+# **分子置換（MR）**は似た既知構造から、**SAD／MAD** は異常分散から、
+# **同形置換（MIR／SIR）** は重原子を入れた結晶との差から。
+# いまは**単波長の SAD** がいちばん多く使われ、
+# 硫黄など**もともと入っている原子**だけで位相を出す native SAD もある。
+#
+# **クライオ電顕の単粒子解析には、位相問題が無い。** 像そのものを撮るから。
+# 代わりに**同じ分子を大量に撮って平均する** —— 2D 分類でゴミを捨て、
+# 初期モデルを作り、3D 分類で状態を分け、精密化する。
+# 分解能は **FSC = 0.143** を基準に言う（half-map どうしの相関）。
+# **柔らかい所と硬い所で分解能が違う**ので、1 枚のマップの中でも一様ではない。
+#
+# **どちらの道も、最後は同じ所へ出る。** マップに主鎖を通してモデルを作り、精密化し、検証する。
+#
+# **検証は、合わせただけでは通らない。**
+# **R** は観測強度とモデルの計算値の食い違い（低いほど良い）。
+# **R-free** は**精密化に使わずに取り分けた反射**で同じ式を計算したもので、
+# **Brünger が 1992 年に Nature で導入した。**
+# R と R-free の差が大きければ、**モデルにパラメータを入れすぎている。**
+# 良い高分子のモデルは分解能 2.5Å で **R ≒ 0.2**、でたらめなモデルなら **0.6** くらいになる。
+#
+# **見本 290（ラマチャンドランプロット）・291（トポロジー図）と対。**
+# あちらは出来上がった構造を読む図、こちらはそこへ至る道。
+nodes:
+  - id: seisei
+    type: generic
+    label: 精製した試料
+    technology: 純度と量がすべての前提
+  - id: kessho
+    type: generic
+    label: 結晶化
+    technology: X 線の道
+  - id: cryo
+    type: generic
+    label: 氷に閉じ込める
+    technology: クライオ電顕の道
+  - id: kaisetsu
+    type: generic
+    label: 回折を測る
+    technology: 測れるのは強度だけ
+  - id: satsuei
+    type: generic
+    label: たくさん撮る
+    technology: 同じ分子を何万個も
+  - id: isou
+    type: generic
+    label: 位相を決める
+    technology: MR ／ SAD・MAD ／ MIR
+  - id: bunrui
+    type: generic
+    label: 2D 分類・3D 分類
+    technology: ゴミを捨て、状態を分ける
+  - id: map
+    type: database
+    label: マップ
+    technology: 電子密度／クーロンポテンシャル
+  - id: model
+    type: generic
+    label: モデルを作る
+    technology: マップに主鎖を通す
+  - id: seimitsu
+    type: generic
+    label: 精密化
+    technology: 合うように動かす
+  - id: kensho
+    type: generic
+    label: 検証
+    technology: 通らなければ精密化へ戻す
+  - id: touroku
+    type: storage
+    label: PDB へ登録
+    technology: 検証報告書が付く
+edges:
+  - from: seisei
+    to: kessho
+  - from: seisei
+    to: cryo
+  - from: kessho
+    to: kaisetsu
+  - from: cryo
+    to: satsuei
+  - from: kaisetsu
+    to: isou
+    label: 位相が無い
+  - from: satsuei
+    to: bunrui
+    label: 位相問題は無い
+  - from: isou
+    to: map
+  - from: bunrui
+    to: map
+    label: FSC 0.143 で分解能
+  - from: map
+    to: model
+  - from: model
+    to: seimitsu
+  - from: seimitsu
+    to: kensho
+    label: R-free・ラマチャンドラン・clash
+  - from: kensho
+    to: touroku
+    label: 通れば
