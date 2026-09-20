@@ -114,6 +114,8 @@ export const CAPTIONS_EN = {
   '169-麻雀の配牌': 'Mahjong: the dice decide where the wall is opened, not luck',
   '168-ダイヤモンドシステム': 'Billiards: the diamonds on the rails are a ruler, not decoration',
   '167-ダーツボードの割り付け': 'A dartboard: the numbers are arranged to punish a miss',
+  '259-家具の転倒防止': 'Mass cancels out of the tipping condition, so how easily furniture falls depends only on its depth and the height of its centre of gravity — a shallow tall bookcase goes over at a shindo 5+',
+  '258-液晶テレビの層': 'An LCD makes no light of its own — it only blocks it, which is why its black is whatever light failed to be blocked, and why only a tenth of the backlight ever reaches your eye',
   '257-換気扇の風量と静圧': 'The airflow on the box is the free-delivery figure; what you actually get is where the fan curve meets the duct resistance, and a long bent duct can cut it to 43 percent',
   '256-食洗機の水の道': 'A dishwasher does not use less water, it uses the same water many times: 10 litres pumped around twenty times is 200 litres of water hitting the dishes',
   '255-炊飯器の温度と圧力': 'Boiling water refuses to go past 100C, so a pressure cooker adds exactly one part — a valve — to lift that ceiling to about 105C',

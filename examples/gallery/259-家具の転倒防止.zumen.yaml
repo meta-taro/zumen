@@ -1,0 +1,353 @@
+version: 1
+kind: placement
+arrows: true
+title: 家具の転倒防止（倒れやすさに、重さは関係ない）
+# **倒れ始める条件に、重さは入らない。**
+# m·a·h ＞ m·g·(d/2) の両辺から m が消えるので、
+# **a / g ＝ (奥行 ÷ 2) ÷ 重心の高さ** —— 奥行と重心の高さだけで決まる。
+# **浅くて高い家具ほど、小さな揺れで倒れる。**
+#
+# 奥行 300mm・高さ 1,800 の本棚なら、中身が均等（重心 900mm）で **163 gal**。
+# **震度 5 強（250〜400 gal）で、もう届く。**
+# 重い本を下へ寄せれば重心 620mm で 237 gal まで粘るが、
+# **震度 6 強（600〜1,000 gal）には届かない** —— 中身の置き方は固定の代わりにならない。
+#
+# **留める先は壁板ではなく下地。** 石膏ボードにビスを打っても地震では抜ける。
+# **間柱の間隔は 455mm**（尺モジュール）が基本で、下地センサーで探して、
+# そこへ届く長さのビスを使う。金具は家具 1 点につき両端に 2 個以上。
+#
+# **上下に分かれた家具は、まず互いを連結する。** 上だけ留めると、下がずれて前へ出る。
+nodes:
+  - id: t1
+    label: "① 倒れ始める条件は、てこで決まる"
+    marker: none
+    align: left
+    at: { x: 150, y: 150 }
+    size: { w: 620, h: 20 }
+  - id: fur
+    label: ""
+    at: { x: 330, y: 200 }
+    size: { w: 120, h: 300 }
+  - id: furN
+    label: "本棚"
+    marker: none
+    align: center
+    at: { x: 350, y: 212 }
+    size: { w: 80, h: 18 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 269, y: 499 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 569, y: 499 }
+    size: { w: 2, h: 2 }
+  - id: g
+    label: ""
+    marker: circle
+    at: { x: 381, y: 341 }
+    size: { w: 18, h: 18 }
+  - id: gN
+    label: "重心"
+    marker: none
+    align: left
+    at: { x: 466, y: 341 }
+    size: { w: 80, h: 18 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 461, y: 349 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 399, y: 349 }
+    size: { w: 2, h: 2 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 239, y: 349 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 329, y: 349 }
+    size: { w: 2, h: 2 }
+  - id: aN
+    label: "地震の横揺れ m·a"
+    marker: none
+    align: right
+    at: { x: 30, y: 326 }
+    size: { w: 200, h: 18 }
+  - id: piv
+    label: ""
+    marker: circle
+    at: { x: 452, y: 502 }
+    size: { w: 10, h: 10 }
+  - id: pivN
+    label: "支点（前の角）"
+    marker: none
+    align: left
+    at: { x: 470, y: 494 }
+    size: { w: 160, h: 18 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 329, y: 529 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 449, y: 529 }
+    size: { w: 2, h: 2 }
+  - id: dN
+    label: "奥行 d"
+    marker: none
+    align: center
+    at: { x: 330, y: 536 }
+    size: { w: 120, h: 18 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 289, y: 499 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 289, y: 349 }
+    size: { w: 2, h: 2 }
+  - id: hN
+    label: "重心の高さ h"
+    marker: none
+    align: right
+    at: { x: 84, y: 400 }
+    size: { w: 200, h: 18 }
+  - id: eq
+    label: "倒れ始めるのは　m·a·h ＞ m·g·(d/2)　のとき。両辺の m が消えるので、\n重さは関係ない。 a / g ＝ (d ÷ 2) ÷ h —— 奥行と重心の高さだけで決まる。"
+    at: { x: 150, y: 580 }
+    size: { w: 620, h: 54 }
+  - id: t2
+    label: "② 奥行 300mm の本棚（高さ 1,800）で、中身を入れ替える"
+    marker: none
+    align: left
+    at: { x: 150, y: 660 }
+    size: { w: 620, h: 20 }
+  - id: h694
+    label: "3 段（300 / 900 / 1,500mm）に何を置くか"
+    hatch: solid
+    at: { x: 200, y: 694 }
+    size: { w: 560, h: 24 }
+  - id: x718
+    label: "均等　20 / 20 / 20 kg"
+    at: { x: 200, y: 718 }
+    size: { w: 240, h: 24 }
+  - id: y718
+    label: "重心 900mm → 163 gal で倒れ始める"
+    align: left
+    at: { x: 440, y: 718 }
+    size: { w: 320, h: 24 }
+  - id: x742
+    label: "下へ寄せる　36 / 16 / 8"
+    at: { x: 200, y: 742 }
+    size: { w: 240, h: 24 }
+  - id: y742
+    label: "重心 620mm → 237 gal"
+    align: left
+    at: { x: 440, y: 742 }
+    size: { w: 320, h: 24 }
+  - id: x766
+    label: "上が重い　8 / 16 / 36"
+    at: { x: 200, y: 766 }
+    size: { w: 240, h: 24 }
+  - id: y766
+    label: "重心 1,180mm → 125 gal"
+    align: left
+    at: { x: 440, y: 766 }
+    size: { w: 320, h: 24 }
+  - id: why2
+    label: "重い本を下へ入れるだけで、1.5 倍粘る。\n震度 5 強がだいたい 250〜400 gal、震度 6 強で 600〜1,000 gal ——\nどのみち固定しないと足りない。"
+    at: { x: 200, y: 804 }
+    size: { w: 560, h: 80 }
+  - id: t3
+    label: "③ 留める先は、壁板ではなく下地"
+    marker: none
+    align: left
+    at: { x: 820, y: 150 }
+    size: { w: 420, h: 20 }
+  - id: wall
+    label: ""
+    at: { x: 850, y: 210 }
+    size: { w: 340, h: 130 }
+  - id: wallN
+    label: "壁（石膏ボード）"
+    marker: none
+    align: left
+    at: { x: 850, y: 184 }
+    size: { w: 220, h: 18 }
+  - id: stud40
+    label: ""
+    hatch: lines
+    at: { x: 890, y: 210 }
+    size: { w: 24, h: 130 }
+  - id: stud155
+    label: ""
+    hatch: lines
+    at: { x: 1005, y: 210 }
+    size: { w: 24, h: 130 }
+  - id: stud270
+    label: ""
+    hatch: lines
+    at: { x: 1120, y: 210 }
+    size: { w: 24, h: 130 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 901, y: 379 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 1016, y: 379 }
+    size: { w: 2, h: 2 }
+  - id: pitchN
+    label: "間柱の間隔 455mm（尺モジュール）"
+    marker: none
+    align: center
+    at: { x: 810, y: 386 }
+    size: { w: 420, h: 18 }
+  - id: ng
+    label: ""
+    marker: circle
+    at: { x: 945, y: 250 }
+    size: { w: 24, h: 24 }
+  - id: ngN
+    label: "ここはボードだけ。効かない"
+    marker: none
+    align: center
+    at: { x: 780, y: 342 }
+    size: { w: 480, h: 18 }
+  - id: why3
+    label: "石膏ボードにビスを打っても、地震では抜ける。\n下地センサーで間柱を探し、そこへ届く長さのビスを使う。\n金具は家具 1 点につき両端に 2 個以上。"
+    at: { x: 820, y: 416 }
+    size: { w: 420, h: 80 }
+  - id: t4
+    label: "④ 留めたつもりになりやすい所"
+    marker: none
+    align: left
+    at: { x: 820, y: 516 }
+    size: { w: 420, h: 20 }
+  - id: h546
+    label: "効かない留め方"
+    hatch: solid
+    at: { x: 820, y: 546 }
+    size: { w: 420, h: 24 }
+  - id: x570
+    label: "上下に分かれた家具"
+    at: { x: 820, y: 570 }
+    size: { w: 170, h: 24 }
+  - id: y570
+    label: "上だけ留めると、下がずれて前へ出る"
+    align: left
+    at: { x: 990, y: 570 }
+    size: { w: 250, h: 24 }
+  - id: x594
+    label: "金具 1 個"
+    at: { x: 820, y: 594 }
+    size: { w: 170, h: 24 }
+  - id: y594
+    label: "片側だけだと、そこを軸に回る"
+    align: left
+    at: { x: 990, y: 594 }
+    size: { w: 250, h: 24 }
+  - id: x618
+    label: "短いビス"
+    at: { x: 820, y: 618 }
+    size: { w: 170, h: 24 }
+  - id: y618
+    label: "下地まで届かず、ボードごと抜ける"
+    align: left
+    at: { x: 990, y: 618 }
+    size: { w: 250, h: 24 }
+  - id: x642
+    label: "突っ張り棒だけ"
+    at: { x: 820, y: 642 }
+    size: { w: 170, h: 24 }
+  - id: y642
+    label: "天井が弱いと、天井を壊して外れる"
+    align: left
+    at: { x: 990, y: 642 }
+    size: { w: 250, h: 24 }
+  - id: why4
+    label: "上下の家具は、まず互いを連結する。 そのうえで上を壁へ。\nどちらか片方だけを留めると、留めていない側が動いて、\n結局まとまって倒れる。"
+    at: { x: 820, y: 680 }
+    size: { w: 420, h: 80 }
+  - id: r1
+    label: "倒れ始める条件に、重さは入りません（①）。両辺の m が消えるので、奥行と重心の高さだけで決まります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 900 }
+    size: { w: 1090, h: 18 }
+  - id: r2
+    label: "a / g ＝ (奥行 ÷ 2) ÷ 重心の高さ。 浅くて高い家具ほど、小さな揺れで倒れます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 924 }
+    size: { w: 1090, h: 18 }
+  - id: r3
+    label: "奥行 300mm・重心 900mm の本棚は 163 gal で倒れ始めます（②）。震度 5 強で、もう届きます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 948 }
+    size: { w: 1090, h: 18 }
+  - id: r4
+    label: "重い本を下へ入れるだけで 237 gal まで粘ります。 1.5 倍ですが、震度 6 強には届きません。"
+    marker: none
+    align: left
+    at: { x: 150, y: 972 }
+    size: { w: 1090, h: 18 }
+  - id: r5
+    label: "だから、どのみち固定が要ります。 中身の置き方は、固定の代わりにはなりません。"
+    marker: none
+    align: left
+    at: { x: 150, y: 996 }
+    size: { w: 1090, h: 18 }
+  - id: r6
+    label: "留める先は壁板ではなく下地です（③）。石膏ボードにビスを打っても、地震では抜けます。間柱の間隔は 455mm が基本です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1020 }
+    size: { w: 1090, h: 18 }
+  - id: r7
+    label: "上下に分かれた家具は、まず互いを連結します（④）。上だけ留めると、下がずれて前へ出ます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1044 }
+    size: { w: 1090, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p2
+    to: p3
+    curve: none
+    ends: { from: none, to: none }
+  - from: p4
+    to: p5
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p6
+    to: p7
+    curve: none
+    ends: { from: arrow, to: arrow }
+  - from: p8
+    to: p9
+    curve: none
+    ends: { from: arrow, to: arrow }
+  - from: p10
+    to: p11
+    curve: none
+    ends: { from: arrow, to: arrow }

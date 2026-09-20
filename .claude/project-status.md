@@ -408,7 +408,28 @@ repo に置くには重い。いまは全ページが共通の `og.png` を指�
 
 **1391 件通過。** 見本 221 枚 ／ 検査 82 項目 ／ MCP の口 15。
 
-### 既知の穴 —— **2026-09-20 に埋め終わった（29 → 0）**
+### 既知の穴（新しく見つけた）—— **説明が短い見本が 30 枚**
+
+説明の「有無」は 0 になったが、**長さを測ったら 120 字未満が 35 枚あった**（2026-09-20）。
+短いものは、`/g/<番号>/` のページに載る文章もそのまま短い ——
+いちばん短いのは 12 字（`# 1 px = 25 mm` だけ）。
+
+**5 枚ずつ厚くしていく**（35 → 30）。数え直すには：
+
+```bash
+node --experimental-strip-types -e "
+import { readdirSync, readFileSync } from 'node:fs';
+let n = 0;
+for (const f of readdirSync('examples/gallery').filter(x => x.endsWith('.zumen.yaml'))) {
+  const body = readFileSync('examples/gallery/' + f, 'utf8')
+    .split('\n').filter(l => l.startsWith('# ')).map(l => l.slice(2)).join('');
+  if (body.replace(/\*\*/g, '').length < 120) n++;
+}
+console.log(n);
+"
+```
+
+### 埋め終わった穴 —— **2026-09-20（29 → 0）**
 
 **初期の見本に、説明が 1 行も無い。** 01〜51 の汎用寄りのもの
 （サーバ構成・業務の流れ・組織図・状態遷移図…）が中心で、
