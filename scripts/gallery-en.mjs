@@ -135,6 +135,8 @@ export const CAPTIONS_EN = {
   '278-ロープ結索の選び方': 'Knots are chosen by the job they do — joining two ropes, tying to an object, or stopping an end — and every knot is the weakest point of the rope, taking it down to 40-80% of its rated strength',
   '279-400mトラックの割り付け': 'Only lane one is 400m, and it is measured 30cm inside the kerb line; every lane outside it is longer by the circumference of one lane width, which is why the staggered starts exist at all',
   '280-墓地の区画図': 'The plot number is not an address but a route — block, section, row, number — because a cemetery keeps adding plots for decades and a flat numbering would have to be redone each time; and what is bought is the right to use, not the land',
+  '281-ネイルの指示図': 'Ten nails are not ten copies of one design: a little finger is 6-7mm across where a thumb is 12-16mm, so the same motif simply does not fit, and tip numbers run backwards — the smaller the number, the wider the nail',
+  '282-ランドルト環': 'Visual acuity 1.0 is an angle, not a size: the gap must subtend one minute of arc and the whole ring five, which is why a chart for 5m and one for 3m print rings of different sizes',
   '259-家具の転倒防止': 'Mass cancels out of the tipping condition, so how easily furniture falls depends only on its depth and the height of its centre of gravity — a shallow tall bookcase goes over at a shindo 5+',
   '258-液晶テレビの層': 'An LCD makes no light of its own — it only blocks it, which is why its black is whatever light failed to be blocked, and why only a tenth of the backlight ever reaches your eye',
   '257-換気扇の風量と静圧': 'The airflow on the box is the free-delivery figure; what you actually get is where the fan curve meets the duct resistance, and a long bent duct can cut it to 43 percent',

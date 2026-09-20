@@ -656,6 +656,15 @@ const ja = {
       'wall（壁の厚み）はありますが scale がありません。mm を px にできないので、壁の太さは変わりません。',
     radiusInvalid: (id: string) =>
       `ノード "${id}" の radius が正の数になっていません。範囲の円は描かれません。`,
+    /**
+     * **角の丸みのつもりで書いた radius**（2026-09-20）。
+     *
+     * `radius` は**範囲の円**（作業半径・警戒区域）。CSS の `border-radius` と同じ名前なので、
+     * **角を丸くするつもりで小さい値を書くと、節の中に点線の丸が出る。**
+     * 手元の 24 節に、節より小さい円は 1 つも無かった。
+     */
+    radiusTooSmall: (id: string, drawn: string, size: string) =>
+      `ノード "${id}" の radius が ${drawn} で、節そのもの（${size}px）より小さい円になります。radius は**範囲の円**（作業半径・警戒区域）で、**角の丸みではありません** —— 角を丸くする書き方はありません。範囲を示したいなら節より大きい値を、そうでなければ radius を外してください。`,
     radiusIgnored: (id: string) =>
       `ノード "${id}" に radius がありますが、構成図では描かれません（kind: placement で描かれます）。`,
     /**
@@ -1320,6 +1329,8 @@ const en: Catalog = {
       'wall is present but scale is not, so mm cannot be turned into pixels and the wall thickness is unchanged.',
     radiusInvalid: (id: string) =>
       `Node "${id}" has a radius that is not a positive number. The range circle is not drawn.`,
+    radiusTooSmall: (id: string, drawn: string, size: string) =>
+      `Node "${id}" has radius ${drawn}, smaller than the node itself (${size}px). radius draws a **range circle** (a working radius, a keep-out zone) — it is **not corner rounding**, and there is no corner rounding. Use a value larger than the node, or drop radius.`,
     radiusIgnored: (id: string) =>
       `Node "${id}" has a radius, but range circles are not drawn on a structure diagram. Use kind: placement.`,
     markerUnknown: (id: string, word: string, words: string) =>

@@ -1827,6 +1827,7 @@ Mermaid も draw.io も、落ちたものを先頭のコメントに列挙する
 | `wall-invalid` | `wall.mm` が正の数か |
 | `wall-needs-scale` | **壁の厚みはあるが縮尺が無い**（太さが変わらない） |
 | `radius-invalid` | `radius` が正の数か |
+| `radius-too-small` | **`radius` が節より小さい円になっていないか**（`radius` は範囲の円で、角の丸みではない） |
 | `radius-ignored` | **構成図に `radius` を書いていないか** |
 | `marker-unknown` | `box` / `circle` / `double` / `ellipse` / `diamond` / `bar` / `none` か |
 | `circle-not-square` | **丸（`circle` / `double`）に長方形の `size` を書いていないか**（短いほうしか描かれない。横長が要るなら `ellipse`） |

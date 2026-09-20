@@ -626,6 +626,26 @@ function checkGeometry(doc: Document, add: Add, m: Messages, at: At): void {
         add('warning', 'radius-invalid', m.radiusInvalid(id), at(radius));
       } else if (!placement) {
         add('warning', 'radius-ignored', m.radiusIgnored(id), at(radius));
+      } else if (isMap(size) && isPositive(size.get('w')) && isPositive(size.get('h'))) {
+        /**
+         * **節より小さい「範囲の円」**（2026-09-20）。
+         *
+         * `radius` は**範囲の円**（作業半径・警戒区域）で、**角の丸みではない。**
+         * CSS の `border-radius` のつもりで小さい値を書くと、
+         * **節の中に点線の丸が出るだけ**で、書いた人には飾りに見える。
+         * 見本 281 を描いていて自分で踏んだ ——
+         * 手元の 24 節を測ると**節より小さい円は 1 つも無かった**ので、noise にならない。
+         */
+        const half = Math.min(Number(size.get('w')), Number(size.get('h'))) / 2;
+        const drawn = Number(item.get('radius'));
+        if (drawn <= half) {
+          add(
+            'warning',
+            'radius-too-small',
+            m.radiusTooSmall(id, String(drawn), String(Math.round(half * 2))),
+            at(radius),
+          );
+        }
       }
     }
 

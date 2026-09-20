@@ -23,14 +23,14 @@
 <meta property="og:locale:alternate" content="en_US">
 <meta property="og:url" content="https://meta-taro.github.io/zumen/">
 <meta property="og:title" content="zumen — AI が描き、人が直し、その直しが壊れない図">
-<meta property="og:description" content="構成が変わるたびに図形を動かし直すのをやめる。テキスト正本の作図ツール。見本 280 枚・MIT。">
+<meta property="og:description" content="構成が変わるたびに図形を動かし直すのをやめる。テキスト正本の作図ツール。見本 282 枚・MIT。">
 <meta property="og:image" content="https://meta-taro.github.io/zumen/og.png">
 <meta property="og:image:width" content="2400">
 <meta property="og:image:height" content="1260">
 <meta property="og:image:alt" content="歯周チャートと路線図。どちらも zumen が YAML から描いたもの。">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="zumen — AI が描き、人が直し、その直しが壊れない図">
-<meta name="twitter:description" content="構成が変わるたびに図形を動かし直すのをやめる。テキスト正本の作図ツール。見本 280 枚・MIT。">
+<meta name="twitter:description" content="構成が変わるたびに図形を動かし直すのをやめる。テキスト正本の作図ツール。見本 282 枚・MIT。">
 <meta name="twitter:image" content="https://meta-taro.github.io/zumen/og.png">
 <link rel="stylesheet" href="style.css">
 <link rel="alternate" hreflang="ja" href="https://meta-taro.github.io/zumen/">
@@ -54,7 +54,7 @@
         "ja",
         "en"
       ],
-      "description": "テキスト（YAML 1 枚）を正本にする作図ツール。AI が図を描き直しても、人が手で直した所（pins）は消えない。見本 280 枚、検査 87 項目、MCP サーバー同梱。",
+      "description": "テキスト（YAML 1 枚）を正本にする作図ツール。AI が図を描き直しても、人が手で直した所（pins）は消えない。見本 282 枚、検査 88 項目、MCP サーバー同梱。",
       "license": "https://opensource.org/licenses/MIT",
       "isAccessibleForFree": true,
       "offers": {
@@ -75,7 +75,7 @@
         "人の手直し（pins）は再生成で壊れない",
         "正本は 1 枚の YAML（人も AI も読み書きできる）",
         "SVG・Mermaid・draw.io・Markdown 埋め込みへ書き出し",
-        "描かれないものを名指しする検査 87 項目",
+        "描かれないものを名指しする検査 88 項目",
         "MCP サーバー（エージェントが仕様を読んで描ける）",
         "Git のマージドライバ（同じ図を 2 人で直しても構造で解ける）"
       ]
@@ -85,7 +85,7 @@
       "name": "zumen",
       "url": "https://meta-taro.github.io/zumen/",
       "inLanguage": "ja",
-      "description": "AI が描き、人が直し、その直しが次の生成で壊れない図。見本 280 枚。"
+      "description": "AI が描き、人が直し、その直しが次の生成で壊れない図。見本 282 枚。"
     }
   ]
 }
@@ -160,7 +160,7 @@
     ── <b>寸法が無い図では、何も建てられません。</b>
   </p>
   <div class="filters" role="group" aria-label="種類で絞り込む">
-    <button type="button" data-pick="all" aria-pressed="true">すべて <span class="n">280</span></button>
+    <button type="button" data-pick="all" aria-pressed="true">すべて <span class="n">282</span></button>
     <button type="button" data-pick="tetsudo" aria-pressed="false">鉄道・交通 <span class="n">21</span></button>
     <button type="button" data-pick="kenchiku" aria-pressed="false">建築・土木 <span class="n">60</span></button>
     <button type="button" data-pick="bosai" aria-pressed="false">防災・災害 <span class="n">21</span></button>
@@ -168,10 +168,10 @@
     <button type="button" data-pick="ongaku" aria-pressed="false">楽器・音響 <span class="n">4</span></button>
     <button type="button" data-pick="kaden" aria-pressed="false">家電・家具 <span class="n">23</span></button>
     <button type="button" data-pick="setsubi" aria-pressed="false">設備・電気 <span class="n">17</span></button>
-    <button type="button" data-pick="iryo" aria-pressed="false">医療・食品・農 <span class="n">29</span></button>
+    <button type="button" data-pick="iryo" aria-pressed="false">医療・食品・農 <span class="n">30</span></button>
     <button type="button" data-pick="tenpo" aria-pressed="false">店舗・物流 <span class="n">17</span></button>
     <button type="button" data-pick="gyomu" aria-pressed="false">業務・組織 <span class="n">27</span></button>
-    <button type="button" data-pick="moyooshi" aria-pressed="false">催し・遊び <span class="n">27</span></button>
+    <button type="button" data-pick="moyooshi" aria-pressed="false">催し・遊び <span class="n">28</span></button>
     <button type="button" data-pick="ui" aria-pressed="false">UI・画面設計 <span class="n">7</span></button>
     <button type="button" data-pick="it" aria-pressed="false">IT・ソフトウェア <span class="n">15</span></button>
   </div>
@@ -341,7 +341,8 @@
     <figure data-wide data-cat="setsubi"><picture><source srcset="gallery/103-陸上養殖の循環系統図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1618" height="420" src="gallery/103-陸上養殖の循環系統図.svg" alt="閉鎖循環式陸上養殖の系統図。水槽から物理ろ過・生物ろ過・脱窒・殺菌を通って戻る水の道"></picture><figcaption>陸上養殖の循環系統図（水を捨てずに直す）</figcaption></figure>
     <figure data-cat="setsubi"><picture><source srcset="gallery/35-配水系統図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1235" height="683" src="gallery/35-配水系統図.svg" alt="上水道の配水系統図。浄水場から配水池・配水幹線・給水区域までの系統と、区域ごとの標高"></picture><figcaption>配水系統図（上水道）</figcaption></figure>
     <figure data-wide data-cat="setsubi"><picture><source srcset="gallery/44-人工衛星の系統図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="2012" height="857" src="gallery/44-人工衛星の系統図.svg" alt="150kg 級人工衛星の系統図。電源・通信・姿勢制御・データ処理・ミッション機器のつながり"></picture><figcaption>人工衛星の系統図（150kg 級）</figcaption></figure>
-    <h3 class="cat" data-cat="iryo"><a href="c/iryo/">医療・食品・農</a><span class="n">29</span></h3>
+    <h3 class="cat" data-cat="iryo"><a href="c/iryo/">医療・食品・農</a><span class="n">30</span></h3>
+    <figure data-cat="iryo"><picture><source srcset="gallery/282-ランドルト環-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1364" height="1338" src="gallery/282-ランドルト環.svg" alt="視力 1.0 のランドルト環を拡大して外径 7.5mm・線の太さ 1.5mm・切れ目 1.5mm を寸法で示した図と、視力 0.1 から 2.0 までの環を実寸で並べた段、視角 1 分の理論値と JIS の丸め、距離を縮めて測る計算"></picture><figcaption>ランドルト環（1.0 は大きさではなく、角度の約束）</figcaption></figure>
     <figure data-wide data-cat="iryo"><picture><source srcset="gallery/277-食品トレーサビリティ-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1384" height="264" src="gallery/277-食品トレーサビリティ.svg" alt="生産者から集荷・製造・卸・小売・消費者までの流れに、製造でロット番号を振ること、ロットの大きさが回収の範囲を決めることを重ねた構成図"></picture><figcaption>食品トレーサビリティ（1 段ずつの記録が、鎖になる）</figcaption></figure>
     <figure data-cat="iryo"><picture><source srcset="gallery/276-ケーキのデコレーション指示図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1364" height="1252" src="gallery/276-ケーキのデコレーション指示図.svg" alt="6 号（直径 18cm）のホールケーキを上から見た割り付け図。8 等分の切る線といちごを置く位置、プレート、直径の寸法と、号数・直径・面積・人数の対応、等分ごとの中心角と外周の長さ"></picture><figcaption>ケーキのデコレーション（飾りの数は、切る数で決まる）</figcaption></figure>
     <figure data-cat="iryo"><picture><source srcset="gallery/275-寿司桶の盛付指示図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1364" height="1210" src="gallery/275-寿司桶の盛付指示図.svg" alt="寿司桶を中心から放射に割った盛付指示図。奥に細巻きを積む山、手前に握りを流す川（山水盛り）、流す向き、盛り付けの 3 つの型、握り 1 貫のシャリとネタの重さ、指示図に書く 5 項目"></picture><figcaption>寿司桶の盛付（器の形が、並べ方を決める）</figcaption></figure>
@@ -417,7 +418,8 @@
     <figure data-wide data-cat="gyomu"><picture><source srcset="gallery/128-ロゴの作図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="2576" height="267" src="gallery/128-ロゴの作図.svg" alt="ロゴの作図（murmuraura。円と比だけ・座標を書かない正本から）"></picture><figcaption>ロゴの作図（**正本に座標が 1 つも無い**。5.4 KB）</figcaption></figure>
     <figure data-wide data-cat="gyomu"><picture><source srcset="gallery/127-ロゴのコンストラクション図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1470" height="676" src="gallery/127-ロゴのコンストラクション図.svg" alt="ロゴのコンストラクション図（黄金比の作図・φ の階段・手引書の下限）"></picture><figcaption>ロゴのコンストラクション図（コンパスと定規だけで作れる）</figcaption></figure>
     <figure data-cat="gyomu"><picture><source srcset="gallery/124-和欧混植の寸法図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1602" height="1046" src="gallery/124-和欧混植の寸法図.svg" alt="和文と欧文を混ぜるときの寸法図（仮想ボディとベースライン）"></picture><figcaption>和欧混植の寸法図（基準が違うものを並べている）</figcaption></figure>
-    <h3 class="cat" data-cat="moyooshi"><a href="c/moyooshi/">催し・遊び</a><span class="n">27</span></h3>
+    <h3 class="cat" data-cat="moyooshi"><a href="c/moyooshi/">催し・遊び</a><span class="n">28</span></h3>
+    <figure data-cat="moyooshi"><picture><source srcset="gallery/281-ネイルの指示図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1364" height="1022" src="gallery/281-ネイルの指示図.svg" alt="左右 10 本の爪を幅の違いが分かるように並べ、指ごとのチップ番号を入れた指示図。チップ番号と横幅の対応、サイズが合わないときに起きること、指示図に載せる項目"></picture><figcaption>ネイルの指示図（10 本は、同じデザインの 10 個ではない）</figcaption></figure>
     <figure data-cat="moyooshi"><picture><source srcset="gallery/279-400mトラックの割り付け-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1590" height="1252" src="gallery/279-400mトラックの割り付け.svg" alt="400m トラックを上から見た図。8 レーンと曲走路の半径 36.50m・直走路 84.39m の寸法、1 レーンと 8 レーンのスタート位置、レーンごとの周長と 1 レーンとの差、計測線の取り方"></picture><figcaption>400m トラック（1 レーンだけが 400m）</figcaption></figure>
     <figure data-cat="moyooshi"><picture><source srcset="gallery/270-ヘアカットの展開図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1374" height="1170" src="gallery/270-ヘアカットの展開図.svg" alt="ヘアカットの展開図。頭の断面にパネルを 0 度・45 度・90 度・135 度で引き出した 4 つの図と、セクションとスライスの分け方、角度と仕上がりの対応、固定ガイドと移動ガイドの違い"></picture><figcaption>ヘアカットの展開図（何 mm ではなく、何度で引き出したか）</figcaption></figure>
     <figure data-cat="moyooshi"><picture><source srcset="gallery/172-宮殿の儀礼動線図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1222" height="1202" src="gallery/172-宮殿の儀礼動線図.svg" alt="宮殿の儀礼動線図（アンフィラードと、身分ごとの到達範囲）"></picture><figcaption>宮殿の続き間（どこまで通されるかが、身分そのもの）</figcaption></figure>
@@ -474,7 +476,7 @@
     <b>図には 2 通りあります。</b>
     <b>位置を書かない図</b>（構成図。系統図・組織図・クラス図など <span data-count="auto">28</span> 枚）は、
     文章だけから出ます —— 並びと線の引き方は機械が決めます。
-    <b>位置を書く図</b>（配置図。間取り・仕込図・積付図など <span data-count="placed">252</span> 枚）は、
+    <b>位置を書く図</b>（配置図。間取り・仕込図・積付図など <span data-count="placed">254</span> 枚）は、
     座標を正本に書きます —— <b>どこにあるかが図の中身</b>だからです。
     どちらも<b>書くのは絵ではなく文章</b>なので、次の生成で同じものが出ます。
     <br>

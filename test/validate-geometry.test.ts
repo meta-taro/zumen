@@ -237,6 +237,25 @@ describe('範囲の円を見る', () => {
   it('**構成図に書いても効かないことを知らせる**', () => {
     assert.ok(codes('version: 1\nnodes:\n  - id: a\n    radius: 100\n').includes('radius-ignored'));
   });
+
+  /**
+   * **角の丸みのつもりで書いた radius**（2026-09-20）。
+   *
+   * `radius` は範囲の円（作業半径・警戒区域）で、**角の丸みではない。**
+   * CSS の `border-radius` と同じ名前なので、小さい値を書くと
+   * **節の中に点線の丸が出るだけ**になり、書いた人には飾りに見える。
+   * 見本 281 を描いていて自分で踏んだ ——
+   * 手元の 24 節に、節より小さい円は 1 つも無かった（noise にならない）。
+   */
+  it('**節より小さい「範囲の円」を知らせる**', () => {
+    const small = 'version: 1\nkind: placement\nnodes:\n  - id: a\n    label: あ\n    radius: 18\n    at: { x: 0, y: 0 }\n    size: { w: 60, h: 86 }\n';
+    assert.ok(codes(small).includes('radius-too-small'), codes(small).join(','));
+  });
+
+  it('節より大きい円は、言わない（作業半径・警戒区域）', () => {
+    const wide = 'version: 1\nkind: placement\nnodes:\n  - id: a\n    label: あ\n    radius: 250\n    at: { x: 0, y: 0 }\n    size: { w: 60, h: 86 }\n';
+    assert.ok(!codes(wide).includes('radius-too-small'));
+  });
 });
 
 /**
