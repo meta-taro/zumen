@@ -18,6 +18,7 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 
 import { toDrawio } from './drawio.ts';
+import { tooThinForPattern } from './hatch.ts';
 import { renderZumenBlocks, replaceZumenBlocks } from './embed.ts';
 import { mergeThreeWay } from './git-merge.ts';
 import { edgesUnderBoxes, layout } from './layout.ts';
@@ -272,6 +273,21 @@ export async function placedFindings(text: string): Promise<Finding[]> {
      * 重なっているのを**ブラウザで開いて初めて見つけた。**
      */
     ...viewTitlesCovered(placed),
+    /**
+     * **模様を頼んだのに、面が細すぎて 1 つも描かれない**（2026-09-20）。
+     *
+     * `hatch-unknown` は知らない語を拾い、`hatch-ignored` は配置図でない図を拾うが、
+     * **正しい語を正しい図に書いて、それでも何も出ない**場合は誰も見ていなかった。
+     * 測ったら**見本 4 枚・9 節**がそうで、どれも「線のつもりで細い箱に模様を書いた」もの。
+     * 出てくる図は無地と区別がつかないので、**書いた人は気づけない。**
+     */
+    ...placed.boxes
+      .filter((box) => box.hatch !== 'none' && tooThinForPattern(box.hatch, box))
+      .map((box) => ({
+        severity: 'warning' as const,
+        code: 'hatch-too-thin',
+        message: messages().validate.hatchTooThin(box.id, box.hatch, Math.round(Math.min(box.w, box.h))),
+      })),
   ];
 }
 

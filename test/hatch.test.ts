@@ -15,7 +15,8 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
-import { HATCHES, drawHatch, hatchOf } from '../src/hatch.ts';
+import { placedFindings } from '../src/cli.ts';
+import { HATCHES, drawHatch, drawTint, hatchOf, tooThinForPattern } from '../src/hatch.ts';
 import { layout } from '../src/layout.ts';
 import { render } from '../src/render.ts';
 import { spec } from '../src/tools.ts';
@@ -483,5 +484,61 @@ describe('広い面でも、模様は端まで届く', () => {
     const svg = drawHatch('lines', { x: 0, y: 0, w: 2000, h: 2000 }, '#000', 'box', 'a');
     const ys = [...svg.matchAll(/y2="(-?\d+)"/g)].map((m) => Number(m[1]));
     assert.ok(Math.max(...ys) > 1800, `いちばん下の斜線が ${Math.max(...ys)}`);
+  });
+});
+
+/**
+ * **細い面**（2026-09-20）。
+ *
+ * 模様の下限（2px）は**点や斜線を置く余地**の話だったのに、
+ * `solid` と `fill` まで同じ下限で断っていた。測ったら
+ * **見本 10 枚・67 節**が「`hatch: solid` と書いたのに面が塗られていない」状態で、
+ * 屋根伏図の垂木 44 本がそれだった。
+ *
+ * 置く余地が本当に無いとき（点・斜線）は描かないままでよいが、
+ * **黙って無地になるのが良くない** —— 検査が名指しする。
+ */
+describe('細い面', () => {
+  const thin = { x: 0, y: 0, w: 2, h: 112 };
+
+  it('**塗り潰しは、幅 2px でも塗る**', () => {
+    assert.match(drawHatch('solid', thin, '#000'), /<rect [^>]*fill-opacity="0.82"/);
+  });
+
+  it('面の色も、幅 2px で敷く', () => {
+    assert.match(drawTint(thin, '#c00', 0.2), /<rect [^>]*fill="#c00"/);
+  });
+
+  it('幅 0 は描かない', () => {
+    assert.equal(drawHatch('solid', { x: 0, y: 0, w: 0, h: 100 }, '#000'), '');
+    assert.equal(drawTint({ x: 0, y: 0, w: 0, h: 100 }, '#c00', 0.2), '');
+  });
+
+  it('**点は置く余地が無いので、描かない**', () => {
+    assert.equal(drawHatch('dots', thin, '#000', 'box', 'a'), '');
+    assert.ok(tooThinForPattern('dots', thin));
+  });
+
+  it('斜線も、短辺 3px を切ると描かない（切れ端が点に見える）', () => {
+    assert.equal(drawHatch('lines', { x: 0, y: 0, w: 600, h: 1 }, '#000', 'box', 'a'), '');
+    assert.ok(!tooThinForPattern('lines', { x: 0, y: 0, w: 600, h: 4 }), '4px は描く');
+  });
+
+  it('**描かれないことを、検査が名指しする**', async () => {
+    const found = await placedFindings(
+      'version: 1\nkind: placement\nnodes:\n' +
+        '  - id: rule\n    label: ""\n    hatch: dots\n    at: { x: 0, y: 0 }\n    size: { w: 2, h: 90 }\n',
+    );
+    const said = found.filter((f) => f.code === 'hatch-too-thin');
+    assert.equal(said.length, 1, found.map((f) => f.code).join(','));
+    assert.match(said[0]!.message, /2px しかない/);
+  });
+
+  it('余地のある面なら言わない', async () => {
+    const found = await placedFindings(
+      'version: 1\nkind: placement\nnodes:\n' +
+        '  - id: area\n    label: ""\n    hatch: dots\n    at: { x: 0, y: 0 }\n    size: { w: 90, h: 90 }\n',
+    );
+    assert.ok(!found.some((f) => f.code === 'hatch-too-thin'));
   });
 });

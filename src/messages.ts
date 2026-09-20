@@ -683,6 +683,8 @@ const ja = {
       `ノード "${id}" に \`${key}\` を書いていますが、**これは辺（edges）の語**です。節に書いても黙って落ちます。枠の線種なら \`line\`（実線・破線・点線・一点鎖線）、面の模様なら \`hatch\`、線の色なら \`color\` を使ってください。**枠の太さを変える語は、いまはありません** —— 太さで示したいなら、線種を変えるか \`hatch\` で面を示してください。`,
     viewTitleCovered: (view: string, box: string, grow: number) =>
       `図 "${view}" の名前が、"${box}" の上に乗って描かれます。**図の名前は、その図の下辺のすぐ下**に置かれるので、\`size\` に書いた高さより中身が下へ出ていると重なります。**この図の \`size.h\` を ${grow}px 増やすか、中身を上へ詰めてください。**`,
+    hatchTooThin: (id: string, hatch: string, side: number) =>
+      `ノード "${id}" に \`hatch: ${hatch}\` を書いていますが、**面の短いほうが ${side}px しかないので、模様は 1 つも描かれません**（無地と見分けがつきません）。点は間隔 9px で置くので半間隔に満たない面には乗らず、斜線・格子は面で切り取られるので細いほど切れ端が短くなります。**線のつもりなら \`hatch\` を外して \`line\` で線種を指定**し、模様で材料を示したいなら**短いほうを 9px 以上**にしてください。`,
     colorWithoutCode: (key: string) =>
       `色 "${key}" を使っていますが、その記号が図のどこにも文字として出ていません。色だけだと、白黒と色覚特性で読めなくなります。どこか 1 か所（凡例でも可）に "${key}" を文字で出してください。`,
   },
@@ -1284,6 +1286,8 @@ const en: Catalog = {
       `Node "${id}" carries \`${key}\`, but **that word belongs to edges**. On a node it is dropped in silence. Use \`line\` for the outline's line type (solid / dashed / dotted / chain), \`hatch\` for a fill pattern, \`color\` for the stroke colour. **There is no word for outline thickness yet** — change the line type, or show the area with \`hatch\`.`,
     viewTitleCovered: (view: string, box: string, grow: number) =>
       `The title of view "${view}" is drawn on top of "${box}". **A view title sits just below the view's bottom edge**, so anything that reaches past the height you wrote in \`size\` ends up underneath it. **Grow this view's \`size.h\` by ${grow}px, or move its contents up.**`,
+    hatchTooThin: (id: string, hatch: string, side: number) =>
+      `Node "${id}" carries \`hatch: ${hatch}\`, but **its short side is only ${side}px, so not one mark is drawn** — it comes out indistinguishable from plain. Dots sit on a 9px pitch, so a face narrower than half that holds none; diagonals and cross-hatch are clipped to the face, so the thinner it is the shorter the stubs. **If you meant a line, drop \`hatch\` and set \`line\` instead**; if the pattern is meant to name a material, make the short side 9px or more.`,
     colorWithoutCode: (key: string) =>
       `Colour "${key}" carries meaning, but that code appears nowhere as text in the drawing. Colour alone fails in black and white and for colour vision deficiency. Write "${key}" as text somewhere — a legend entry is enough.`,
   },

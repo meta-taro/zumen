@@ -1830,6 +1830,7 @@ Mermaid も draw.io も、落ちたものを先頭のコメントに列挙する
 | `marker-unknown` | `box` / `circle` / `double` / `ellipse` / `diamond` / `bar` / `none` か |
 | `edge-under-box` | **`arrows: false` で、箱の塗りに隠れる線を引いていないか** |
 | `view-title-covered` | **`views[].title` が、下辺からはみ出した中身の上に乗っていないか** |
+| `hatch-too-thin` | **模様を頼んだのに、面が細すぎて 1 つも描かれないか**（無地と見分けがつかない） |
 | `node-edge-key-ignored` | **辺だけの語（`weight` / `curve` / `ends` / `via` / `close`）を節に書いていないか** |
 | `edge-node-key-ignored` | **節だけの語（`at` / `size` / `marker` / `tag` ほか）を辺に書いていないか** |
 | `align-unknown` | `left` / `center` / `right` か |

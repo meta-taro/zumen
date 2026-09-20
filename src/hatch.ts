@@ -98,8 +98,31 @@ function slug(id: string): string {
  * 印の形（丸・菱形）に沿わせるので、`faceOf` をここから使う。
  */
 export function drawTint(box: Rect, color: string, opacity: number, marker: Marker = 'box'): string {
-  if (box.w <= 2 || box.h <= 2) return '';
+  // **細い面にも敷く**（2026-09-20）。塗り潰しと同じ理由 ——
+  // 下限は模様を置く余地の話で、面の色には要らない。
+  // いまの見本に該当は無いが、**片方だけ描けるほうが罠になる。**
+  if (box.w <= 0 || box.h <= 0) return '';
   return faceOf(marker, box, `fill="${color}" fill-opacity="${opacity}" stroke="none"`);
+}
+
+/**
+ * **点・斜線・格子が読めない面**（2026-09-20）。
+ *
+ * - **点**は `STEP` 間隔で置くので、**短辺が半間隔に満たない面には 1 つも乗らない。**
+ * - **斜線・格子**は箱で切り取るので、短辺が細いほど**切れ端が短くなる。**
+ *   3px を切ると、線ではなく点の列に見える（＝模様として読めない）。
+ *
+ * 描かれないこと自体は正しいが、**黙って無地になるのが良くない** ——
+ * 書いた人は模様を頼んだのに、無地と見分けがつかない図が出る。
+ * 測ったら**見本 4 枚・10 節**が該当した（線のつもりで細い箱に模様を書いたもの）。
+ *
+ * `drawHatch` と検査の両方がここを見る。**判定を 2 か所に書かない。**
+ */
+export function tooThinForPattern(hatch: Hatch, box: Rect): boolean {
+  const min = Math.min(box.w, box.h);
+  if (hatch === 'dots') return min <= STEP / 2;
+  if (hatch === 'lines' || hatch === 'cross') return min < 3;
+  return false;
 }
 
 export function drawHatch(
@@ -109,12 +132,24 @@ export function drawHatch(
   marker: Marker = 'box',
   id = '',
 ): string {
-  if (hatch === 'none' || box.w <= 2 || box.h <= 2) return '';
+  if (hatch === 'none' || box.w <= 0 || box.h <= 0) return '';
 
   if (hatch === 'solid') {
-    // 塗り潰し。**枠は別に描かれているので、ここは面だけ。**
+    /**
+     * 塗り潰し。**枠は別に描かれているので、ここは面だけ。**
+     *
+     * **細い面にも塗る**（2026-09-20）。前は 2px 以下の面を模様ごと断っていたが、
+     * その下限は**点や斜線を置く余地**の話で、塗り潰しには要らない ——
+     * 幅 2px の垂木は塗れる。測ったら**見本 10 枚・67 節**が
+     * 「`hatch: solid` と書いたのに面が塗られていない」状態だった
+     * （屋根伏図の垂木 44 本、車線規制図の車線、冷蔵庫の放熱スペース）。
+     */
     return faceOf(marker, box, `fill="${stroke}" fill-opacity="0.82"`);
   }
+
+  // **点・斜線・格子は、置く余地が要る。**
+  // 余地が無いときは 1 つも描かない —— そのことは検査（`hatch-too-thin`）が言う。
+  if (tooThinForPattern(hatch, box)) return '';
 
   const parts: string[] = [];
 
