@@ -1,0 +1,397 @@
+version: 1
+kind: placement
+arrows: true
+title: 冷蔵庫の中身（冷凍サイクルと、庫内の風の道）
+# **冷蔵庫は冷やしていない。庫内の熱を汲み出して、外へ捨てている。**
+# 背面が温かいのはそのため。捨てる熱は、取った熱 ＋ 圧縮機が使った電気。
+#
+# 回すのは 4 つだけ —— **圧縮機・凝縮器・キャピラリチューブ・蒸発器**。
+# 家庭用は膨張弁ではなく**細い管でしぼる**。
+#
+# **蒸発器は 1 つしかない。** 冷凍室の裏で冷やし、ファンで各室へ配り、
+# ダンパで冷蔵室へ行く量を変える。霜取りヒーターが要るのは、
+# 庫内の水分がいちばん冷たい所（蒸発器）へ集まるから。
+#
+# **冷媒は 3 代で替わった。** R12（ODP 1.0 / GWP 10,900）→
+# R134a（0 / 1,430）→ **R600a（0 / 3）** —— 温暖化の重さは 3,600 分の 1。
+# かわりに**燃える冷媒（A3）に戻った**ので、量を 150g 前後に抑えている。
+#
+# **真空断熱材は、ウレタン 63mm ぶんの断熱を 14mm で作る**（U ＝ 0.38 W/m²K）。
+# 外形が同じでも内容積が違うのは、壁の厚みの差。
+nodes:
+  - id: t1
+    label: "① 冷凍サイクル —— 熱は消えない。外へ運び出すだけ"
+    marker: none
+    align: left
+    at: { x: 150, y: 150 }
+    size: { w: 620, h: 20 }
+  - id: comp
+    label: "圧縮機\n（コンプレッサ）"
+    at: { x: 210, y: 400 }
+    size: { w: 170, h: 68 }
+  - id: cond
+    label: "凝縮器\n（背面・側面で放熱）"
+    hatch: lines
+    at: { x: 210, y: 230 }
+    size: { w: 180, h: 68 }
+  - id: cap
+    label: "キャピラリチューブ\n（細い管でしぼる）"
+    at: { x: 560, y: 230 }
+    size: { w: 180, h: 68 }
+  - id: evap
+    label: "蒸発器\n（冷凍室の裏）"
+    hatch: dots
+    at: { x: 560, y: 400 }
+    size: { w: 170, h: 68 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 294, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 294, y: 297 }
+    size: { w: 2, h: 2 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 389, y: 263 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 559, y: 263 }
+    size: { w: 2, h: 2 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 649, y: 297 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 649, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 559, y: 433 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 379, y: 433 }
+    size: { w: 2, h: 2 }
+  - id: sideO
+    label: "外（機械室・背面）"
+    marker: none
+    align: center
+    at: { x: 210, y: 200 }
+    size: { w: 180, h: 18 }
+  - id: sideI
+    label: "蒸発器から先が庫内"
+    marker: none
+    align: center
+    at: { x: 560, y: 474 }
+    size: { w: 200, h: 18 }
+  - id: h500
+    label: "冷媒が受ける 4 つのこと"
+    hatch: solid
+    at: { x: 210, y: 500 }
+    size: { w: 530, h: 24 }
+  - id: x524
+    label: "圧縮機 → 凝縮器"
+    at: { x: 210, y: 524 }
+    size: { w: 230, h: 24 }
+  - id: y524
+    label: "低圧の気体を、高圧の高温な気体へ"
+    align: left
+    at: { x: 440, y: 524 }
+    size: { w: 300, h: 24 }
+  - id: x548
+    label: "凝縮器 → キャピラリ"
+    at: { x: 210, y: 548 }
+    size: { w: 230, h: 24 }
+  - id: y548
+    label: "高圧のまま熱を捨てて、液になる"
+    align: left
+    at: { x: 440, y: 548 }
+    size: { w: 300, h: 24 }
+  - id: x572
+    label: "キャピラリ → 蒸発器"
+    at: { x: 210, y: 572 }
+    size: { w: 230, h: 24 }
+  - id: y572
+    label: "しぼって低圧へ。冷たい霧になる"
+    align: left
+    at: { x: 440, y: 572 }
+    size: { w: 300, h: 24 }
+  - id: x596
+    label: "蒸発器 → 圧縮機"
+    at: { x: 210, y: 596 }
+    size: { w: 230, h: 24 }
+  - id: y596
+    label: "庫内の熱を吸って、気体に戻る"
+    align: left
+    at: { x: 440, y: 596 }
+    size: { w: 300, h: 24 }
+  - id: heat
+    label: "外へ捨てる熱 ＝ 庫内から取った熱 ＋ 圧縮機が使った電気。\nだから裏は必ず温かい。"
+    at: { x: 210, y: 634 }
+    size: { w: 530, h: 54 }
+  - id: t2
+    label: "② 庫内の風の道（ファン式）"
+    marker: none
+    align: left
+    at: { x: 810, y: 150 }
+    size: { w: 430, h: 20 }
+  - id: cab
+    label: ""
+    at: { x: 866, y: 200 }
+    size: { w: 320, h: 292 }
+  - id: rm210
+    label: "冷蔵室　約 3℃"
+    at: { x: 874, y: 210 }
+    size: { w: 214, h: 96 }
+  - id: rm310
+    label: "野菜室　約 6℃"
+    at: { x: 874, y: 310 }
+    size: { w: 214, h: 72 }
+  - id: rm386
+    label: "冷凍室　約 −18℃"
+    at: { x: 874, y: 386 }
+    size: { w: 214, h: 96 }
+  - id: evap2
+    label: "蒸発器"
+    hatch: dots
+    at: { x: 1088, y: 414 }
+    size: { w: 88, h: 60 }
+  - id: fan
+    label: ""
+    marker: circle
+    at: { x: 1116, y: 350 }
+    size: { w: 32, h: 32 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 1131, y: 349 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 1087, y: 257 }
+    size: { w: 2, h: 2 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 1131, y: 345 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 1087, y: 345 }
+    size: { w: 2, h: 2 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 873, y: 289 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 873, y: 467 }
+    size: { w: 2, h: 2 }
+  - id: fanN
+    label: "ファン"
+    marker: none
+    align: left
+    at: { x: 1196, y: 358 }
+    size: { w: 90, h: 18 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 1193, y: 365 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 1149, y: 365 }
+    size: { w: 2, h: 2 }
+  - id: dmpN
+    label: "ダンパで冷蔵室へ行く量を決める"
+    marker: none
+    align: left
+    at: { x: 810, y: 504 }
+    size: { w: 380, h: 18 }
+  - id: retN
+    label: "戻りは左側を下って冷凍室へ"
+    marker: none
+    align: left
+    at: { x: 810, y: 526 }
+    size: { w: 380, h: 18 }
+  - id: one
+    label: "蒸発器は 1 つ。冷やす所は 1 か所で、あとは風で配っている。\n霜取りヒーターが要るのは、庫内の水分が\nいちばん冷たい所へ集まるから。"
+    at: { x: 810, y: 554 }
+    size: { w: 430, h: 76 }
+  - id: t3
+    label: "③ 冷媒は 3 代で替わった"
+    marker: none
+    align: left
+    at: { x: 810, y: 650 }
+    size: { w: 430, h: 20 }
+  - id: h680
+    label: "オゾン破壊（ODP）と温暖化（GWP）"
+    hatch: solid
+    at: { x: 810, y: 680 }
+    size: { w: 430, h: 24 }
+  - id: x704
+    label: "R12"
+    at: { x: 810, y: 704 }
+    size: { w: 110, h: 24 }
+  - id: y704
+    label: "ODP 1.0 ／ GWP 10,900 ／ A1（不燃）"
+    align: left
+    at: { x: 920, y: 704 }
+    size: { w: 320, h: 24 }
+  - id: x728
+    label: "R134a"
+    at: { x: 810, y: 728 }
+    size: { w: 110, h: 24 }
+  - id: y728
+    label: "ODP 0 ／ GWP 1,430 ／ A1（不燃）"
+    align: left
+    at: { x: 920, y: 728 }
+    size: { w: 320, h: 24 }
+  - id: x752
+    label: "R600a"
+    at: { x: 810, y: 752 }
+    size: { w: 110, h: 24 }
+  - id: y752
+    label: "ODP 0 ／ GWP 3 ／ A3（可燃）"
+    align: left
+    at: { x: 920, y: 752 }
+    size: { w: 320, h: 24 }
+  - id: why3
+    label: "R12 から R600a で、温暖化の重さは 3,600 分の 1。\nかわりに燃える冷媒に戻ったので、量を 150g 前後に抑え、\n背面に「火気厳禁」が貼ってある。"
+    at: { x: 810, y: 790 }
+    size: { w: 430, h: 80 }
+  - id: t4
+    label: "④ 壁が薄いほど、庫内が広い"
+    marker: none
+    align: left
+    at: { x: 810, y: 886 }
+    size: { w: 430, h: 20 }
+  - id: h916
+    label: "同じ断熱（U ＝ 0.38 W/m²K）に要る厚み"
+    hatch: solid
+    at: { x: 810, y: 916 }
+    size: { w: 430, h: 24 }
+  - id: x940
+    label: "ウレタンフォーム"
+    at: { x: 810, y: 940 }
+    size: { w: 180, h: 24 }
+  - id: y940
+    label: "λ ≒ 0.024 W/mK → 63mm"
+    align: left
+    at: { x: 990, y: 940 }
+    size: { w: 250, h: 24 }
+  - id: x964
+    label: "真空断熱材（VIP）"
+    at: { x: 810, y: 964 }
+    size: { w: 180, h: 24 }
+  - id: y964
+    label: "λ ≒ 0.0055 W/mK → 14mm"
+    align: left
+    at: { x: 990, y: 964 }
+    size: { w: 250, h: 24 }
+  - id: why4
+    label: "壁で 5cm 稼げれば、そのぶん庫内が広くなる。\n外形が同じでも内容積が違うのは、ここ。"
+    at: { x: 810, y: 1002 }
+    size: { w: 430, h: 54 }
+  - id: r1
+    label: "冷蔵庫は冷やしていません（①）。庫内の熱を汲み出して、背面と側面から外へ捨てています。だから裏は温かい。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1068 }
+    size: { w: 1090, h: 18 }
+  - id: r2
+    label: "外へ捨てる熱は、取った熱より多くなります。 圧縮機が使った電気も熱になって出るからです。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1092 }
+    size: { w: 1090, h: 18 }
+  - id: r3
+    label: "四つの部品だけで回ります（①）。圧縮機で押し、凝縮器で捨て、キャピラリでしぼり、蒸発器で吸う。家庭用は膨張弁ではなく細い管です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1116 }
+    size: { w: 1090, h: 18 }
+  - id: r4
+    label: "蒸発器は 1 つしかありません（②）。冷凍室の裏で冷やし、ファンで各室へ配り、ダンパで冷蔵室へ行く量を変えています。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1140 }
+    size: { w: 1090, h: 18 }
+  - id: r5
+    label: "霜取りヒーターが要るのは、水分がいちばん冷たい所へ集まるからです。 蒸発器に霜が付くと、風が通らなくなります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1164 }
+    size: { w: 1090, h: 18 }
+  - id: r6
+    label: "冷媒は 3 代で替わりました（③）。R12 の GWP 10,900 から R600a の 3 へ —— 3,600 分の 1 です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1188 }
+    size: { w: 1090, h: 18 }
+  - id: r7
+    label: "かわりに燃える冷媒に戻りました。 だから量を 150g 前後に抑え、背面に「火気厳禁」が貼ってあります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1212 }
+    size: { w: 1090, h: 18 }
+  - id: r8
+    label: "真空断熱材は、同じ断熱を 14mm で作ります（④）。ウレタンなら 63mm。外形が同じでも内容積が違うのは、壁の厚みの差です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1236 }
+    size: { w: 1090, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p2
+    to: p3
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p4
+    to: p5
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p6
+    to: p7
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p8
+    to: p9
+    curve: none
+    ends: { from: none, to: arrow }
+    via:
+      - { x: 1132, y: 258 }
+  - from: p10
+    to: p11
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p12
+    to: p13
+    curve: none
+    ends: { from: none, to: arrow }
+    via:
+      - { x: 846, y: 290 }
+      - { x: 846, y: 468 }
+  - from: p14
+    to: p15
+    curve: none
+    ends: { from: none, to: none }

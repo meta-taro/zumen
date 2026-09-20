@@ -112,6 +112,7 @@ export const CAPTIONS_EN = {
   '169-麻雀の配牌': 'Mahjong: the dice decide where the wall is opened, not luck',
   '168-ダイヤモンドシステム': 'Billiards: the diamonds on the rails are a ruler, not decoration',
   '167-ダーツボードの割り付け': 'A dartboard: the numbers are arranged to punish a miss',
+  '246-冷蔵庫の中身': 'A fridge does not make cold, it pumps heat out — and it throws away more than it took, because the compressor\'s electricity comes out as heat too',
   '245-エスカレーターの構造': 'The tread is always horizontal: the staircase appears because the front and rear rollers run on separate rails, and where those two rails come together the steps flatten out at the landing',
   '244-エレベーターの構造': 'The counterweight is not there to cancel the weight but to halve the difference: car plus half the rated load, so the motor only ever lifts half the rated load in either direction',
   '243-はめあい': 'The same 30mm turns into a running fit or a permanent one depending on two letters: H7/g6 leaves 7 to 41 microns of clearance, H7/p6 always bites by at least 1 micron',
