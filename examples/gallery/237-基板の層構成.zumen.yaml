@@ -1,0 +1,272 @@
+version: 1
+kind: placement
+arrows: true
+title: 基板の層を増やすのは、GND を近づけるため
+scale: { mm: 0.004 }
+# **層を増やすのは、配線を通すためだけではない。**
+# GND を信号の真下に近づけて、**線を細くするため**。
+#
+# 同じ 50Ω が、2 層（GND まで 1.53mm）では約 2.85mm、
+# 4 層（GND まで 0.2mm）では約 0.33mm —— **8.5 倍の差**。
+# 2 層で 3mm の線は、部品の足の間隔（2.54mm）より太くて引けない。
+#
+# **特性インピーダンスは線幅だけでは決まらない** —— GND までの厚み h とセット。
+# 板厚 1.6mm は同じでも、どこに GND を置くかで線幅が変わる。
+#
+# 線幅は目安式から解いた（h ＝ 1.53mm で 2.85mm は、
+# 実務で言われる 2.9〜3.1mm と一致する）。
+nodes:
+  - id: t1
+    label: "① 4 層の断面（1px ＝ 0.004mm・板厚 1.6mm）"
+    marker: none
+    align: left
+    at: { x: 30, y: 200 }
+    size: { w: 660, h: 20 }
+  - id: l0
+    label: ""
+    hatch: solid
+    at: { x: 340, y: 260 }
+    size: { w: 360, h: 9 }
+  - id: ln0
+    label: "L1 銅箔 35µm（1oz）"
+    marker: none
+    align: right
+    at: { x: 30, y: 255.5 }
+    size: { w: 270, h: 18 }
+  - id: l1
+    label: ""
+    at: { x: 340, y: 269 }
+    size: { w: 360, h: 50 }
+  - id: ln1
+    label: "プリプレグ 0.2mm"
+    marker: none
+    align: right
+    at: { x: 30, y: 285 }
+    size: { w: 270, h: 18 }
+  - id: l2
+    label: ""
+    hatch: solid
+    at: { x: 340, y: 319 }
+    size: { w: 360, h: 9 }
+  - id: ln2
+    label: "L2 GND 35µm"
+    marker: none
+    align: right
+    at: { x: 30, y: 314.5 }
+    size: { w: 270, h: 18 }
+  - id: l3
+    label: ""
+    hatch: dots
+    at: { x: 340, y: 328 }
+    size: { w: 360, h: 265 }
+  - id: ln3
+    label: "コア 1.06mm"
+    marker: none
+    align: right
+    at: { x: 30, y: 451.5 }
+    size: { w: 270, h: 18 }
+  - id: l4
+    label: ""
+    hatch: solid
+    at: { x: 340, y: 593 }
+    size: { w: 360, h: 9 }
+  - id: ln4
+    label: "L3 電源 35µm"
+    marker: none
+    align: right
+    at: { x: 30, y: 588.5 }
+    size: { w: 270, h: 18 }
+  - id: l5
+    label: ""
+    at: { x: 340, y: 602 }
+    size: { w: 360, h: 50 }
+  - id: ln5
+    label: "プリプレグ 0.2mm"
+    marker: none
+    align: right
+    at: { x: 30, y: 618 }
+    size: { w: 270, h: 18 }
+  - id: l6
+    label: ""
+    hatch: solid
+    at: { x: 340, y: 652 }
+    size: { w: 360, h: 9 }
+  - id: ln6
+    label: "L4 銅箔 35µm"
+    marker: none
+    align: right
+    at: { x: 30, y: 647.5 }
+    size: { w: 270, h: 18 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 315, y: 259 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 315, y: 660 }
+    size: { w: 2, h: 2 }
+  - id: tot
+    label: "板厚 1.6mm"
+    marker: none
+    align: right
+    at: { x: 30, y: 230 }
+    size: { w: 270, h: 18 }
+  - id: s_n
+    label: "GND は、信号の真下に置く。"
+    marker: none
+    align: left
+    at: { x: 30, y: 681 }
+    size: { w: 660, h: 18 }
+  - id: s_n2
+    label: "1 層目の信号から GND までが 0.2mm しかない。"
+    marker: none
+    align: left
+    at: { x: 30, y: 703 }
+    size: { w: 660, h: 18 }
+  - id: t2
+    label: "② 50Ω にするのに要る線幅（1px ＝ 0.02mm・実寸）"
+    marker: none
+    align: left
+    at: { x: 760, y: 200 }
+    size: { w: 480, h: 20 }
+  - id: cw260
+    label: "2 層（GND まで 1.53mm）"
+    marker: none
+    align: left
+    at: { x: 790, y: 234 }
+    size: { w: 420, h: 18 }
+  - id: cb260
+    label: ""
+    hatch: lines
+    at: { x: 790, y: 260 }
+    size: { w: 142.6, h: 26 }
+  - id: cn260
+    label: "線幅 2.85mm"
+    marker: none
+    align: left
+    at: { x: 946.6, y: 264 }
+    size: { w: 200, h: 18 }
+  - id: cw380
+    label: "4 層（GND まで 0.2mm）"
+    marker: none
+    align: left
+    at: { x: 790, y: 354 }
+    size: { w: 420, h: 18 }
+  - id: cb380
+    label: ""
+    hatch: lines
+    at: { x: 790, y: 380 }
+    size: { w: 16.7, h: 26 }
+  - id: cn380
+    label: "線幅 0.33mm"
+    marker: none
+    align: left
+    at: { x: 820.7, y: 384 }
+    size: { w: 200, h: 18 }
+  - id: c_n
+    label: "同じ 50Ω が、8.5 倍細くなる。"
+    marker: none
+    align: left
+    at: { x: 790, y: 440 }
+    size: { w: 440, h: 18 }
+  - id: c_n2
+    label: "GND が近いほど、細い線で同じインピーダンスになる。"
+    marker: none
+    align: left
+    at: { x: 790, y: 462 }
+    size: { w: 440, h: 18 }
+  - id: c_n3
+    label: "だから高速の基板は、層を増やして GND を近づける。"
+    marker: none
+    align: left
+    at: { x: 790, y: 484 }
+    size: { w: 440, h: 18 }
+  - id: c_n4
+    label: "配線を通すためだけに増やしているのではない。"
+    marker: none
+    align: left
+    at: { x: 790, y: 506 }
+    size: { w: 440, h: 18 }
+  - id: t3
+    label: "③ 目安式（マイクロストリップ）"
+    marker: none
+    align: left
+    at: { x: 760, y: 560 }
+    size: { w: 480, h: 20 }
+  - id: f
+    label: "Z₀ ≒ 87 / √(εr ＋ 1.41) × ln( 5.98h / (0.8w ＋ t) )"
+    at: { x: 790, y: 592 }
+    size: { w: 450, h: 40 }
+  - id: fn1
+    label: "h … 信号から GND までの厚み　w … 線幅　t … 銅箔の厚み"
+    marker: none
+    align: left
+    at: { x: 790, y: 646 }
+    size: { w: 450, h: 18 }
+  - id: fn2
+    label: "εr … 誘電率（FR-4 で 4.3 くらい）"
+    marker: none
+    align: left
+    at: { x: 790, y: 668 }
+    size: { w: 450, h: 18 }
+  - id: fn4
+    label: "h ＝ 1.53mm で w ＝ 2.85mm、h ＝ 0.2mm で w ＝ 0.33mm。"
+    marker: none
+    align: left
+    at: { x: 790, y: 712 }
+    size: { w: 450, h: 18 }
+  - id: fn5
+    label: "h が 1/8 になると、w もおよそ 1/8 になる。"
+    marker: none
+    align: left
+    at: { x: 790, y: 734 }
+    size: { w: 450, h: 18 }
+  - id: r1
+    label: "層を増やすのは、配線を通すためだけではありません。 GND を信号の真下に近づけて、線を細くするためです。"
+    marker: none
+    align: left
+    at: { x: 30, y: 820 }
+    size: { w: 1210, h: 18 }
+  - id: r2
+    label: "同じ 50Ω が、2 層では 2.85mm、4 層では 0.33mm（②）—— 8.5 倍の差です。"
+    marker: none
+    align: left
+    at: { x: 30, y: 844 }
+    size: { w: 1210, h: 18 }
+  - id: r3
+    label: "2 層で 3mm の線は、まず引けません。 部品の足の間隔（2.54mm）より太いからです。だから高速の信号は 2 層では通せません。"
+    marker: none
+    align: left
+    at: { x: 30, y: 868 }
+    size: { w: 1210, h: 18 }
+  - id: r4
+    label: "特性インピーダンスは、線幅だけでは決まりません（③）。GND までの厚み h とセットで決まります。"
+    marker: none
+    align: left
+    at: { x: 30, y: 892 }
+    size: { w: 1210, h: 18 }
+  - id: r5
+    label: "h が 1/8 になると、w もおよそ 1/8 になります。 板厚 1.6mm は同じでも、どこに GND を置くかで線幅が変わります。"
+    marker: none
+    align: left
+    at: { x: 30, y: 916 }
+    size: { w: 1210, h: 18 }
+  - id: r6
+    label: "銅箔 35µm は「1 オンス」です。1 平方フィートに 1 オンスの銅を伸ばした厚み —— ここにもヤード・ポンドが残っています。"
+    marker: none
+    align: left
+    at: { x: 30, y: 940 }
+    size: { w: 1210, h: 18 }
+  - id: r7
+    label: "スタックアップは、基板の設計でいちばん最初に決めるものです。あとから変えると、引いた線の幅が全部合わなくなります。"
+    marker: none
+    align: left
+    at: { x: 30, y: 964 }
+    size: { w: 1210, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    ends: { from: arrow, to: arrow }
