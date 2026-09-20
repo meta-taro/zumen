@@ -223,3 +223,27 @@ describe('一覧と実物', () => {
     assert.deepEqual(twice, []);
   });
 });
+
+/**
+ * **英語ページの説明にも、同じ下限を当てる**（2026-09-21）。
+ *
+ * 日本語の alt は 20 字の下限を入れて全部書き直したのに、
+ * **英語側は「Data flow」「Transit map」のまま**だった ——
+ * 測ったら **9 字から 350 字まで**ばらつき、**19 件が 20 字未満。**
+ * 英語ページでは、この文が alt にも説明にも使われる。
+ */
+describe('英語の説明の長さ', () => {
+  it('**どれも 20 字以上ある**（題名の言い直しにしない）', () => {
+    const thin = Object.entries(CAPTIONS_EN)
+      .filter(([, text]) => text.length < 20)
+      .map(([name, text]) => `${name}: ${text}`);
+    assert.deepEqual(thin, [], '英語の説明が短すぎる');
+  });
+
+  it('**長すぎもしない**（400 字を超えない）', () => {
+    const fat = Object.entries(CAPTIONS_EN)
+      .filter(([, text]) => text.length > 400)
+      .map(([name, text]) => `${name}: ${text.length}`);
+    assert.deepEqual(fat, []);
+  });
+});

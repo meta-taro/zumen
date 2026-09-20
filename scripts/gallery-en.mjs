@@ -69,7 +69,7 @@ export function englishFirst(items) {
 /** 名前 → 英語の 1 行。**alt にもこれを使う**（飾りを入れない）。 */
 export const CAPTIONS_EN = {
   // 鉄道・交通
-  '25-路線図': 'Transit map',
+  '25-路線図': 'A transit map of six lines told apart by colour and letter code, with interchange stations marked by a double circle rather than by name',
   '78-山手線の路線図': "Tokyo's loop line (30 stations)",
   '81-東京の地下鉄13路線': 'Tokyo subway, 13 lines on one map',
   '79-梅田の乗換関係図': 'Seven stations all called Umeda, and the walk between them',
@@ -83,7 +83,7 @@ export const CAPTIONS_EN = {
   '71-列車運行図表': 'Train graph: time against distance',
   '111-閉塞と信号現示': 'Block sections and signal aspects, counted back from the train ahead',
   '29-車両の編成図': 'Train formation, ten cars',
-  '56-バスの時刻表': 'Bus stop timetable',
+  '56-バスの時刻表': 'A bus stop timetable in three columns — weekday, Saturday, Sunday and holiday — with the departure minutes listed under each hour',
   '63-フェリーの発着表': 'Ferry sailings, with the routes',
   '57-登山のコースタイム図': 'Hiking times against elevation',
   '102-ドローンの飛行計画図': 'Drone flight plan and the area kept clear of people',
@@ -91,7 +91,7 @@ export const CAPTIONS_EN = {
   '37-配送ルート': 'Delivery rounds for three vans',
 
   // 建築・土木
-  '14-間取り': 'Apartment plan',
+  '14-間取り': 'A two-bedroom apartment plan with room dimensions, which way each door swings, and where the wet rooms and storage sit',
   '24-校舎の平面図': 'School floor plan (walls, door swings, grid lines, dimensions)',
   '32-ホテルの基準階': 'Hotel typical floor, twelve rooms',
   '134-梁の配筋図': 'Beam reinforcement: the last moment it can be changed is before the pour',
@@ -139,6 +139,7 @@ export const CAPTIONS_EN = {
   '282-ランドルト環': 'Visual acuity 1.0 is an angle, not a size: the gap must subtend one minute of arc and the whole ring five, which is why a chart for 5m and one for 3m print rings of different sizes',
   '283-中継の決まり': 'Two kinds of handover measured in opposite ways: ekiden fixes a single line and allows hundreds of metres around it to prepare, while a relay fixes a 30m zone and disqualifies anything outside it',
   '284-三審制': 'Three instances does not mean the same three courts: a small civil claim starting at a summary court is appealed to a district court and goes no further than a high court, while a criminal case from the same summary court goes to the high court and then the supreme court',
+  '314-うるう年の決め方': 'Ninety-seven leap years every four hundred, not a hundred: dropping three of them brings the average year to 365.2425 days, within 0.0003 of the real one — and the four-hundred-year total happens to divide by seven, so the weekdays come back round as well',
   '313-時計の針の角度': 'At a quarter past three the hands are not together: while the minute hand travelled ninety degrees the hour hand moved seven and a half, and the same arithmetic explains why the hands coincide eleven times in twelve hours rather than twelve',
   '312-UIのComponent構造': 'Draw a component tree per screen and the same component keeps reappearing; the real structure is a net, where one component has several parents — and counting those parents is how you tell a shared component from a screen-specific one before you change it',
   '311-ピアノの鍵盤': 'The black keys are grouped in twos and threes so that a hand can find its place without looking — twelve evenly spaced keys would give no landmark at all — and 88 turns out to be seven octaves plus four: three keys added below and one above',
@@ -275,9 +276,9 @@ export const CAPTIONS_EN = {
   '138-ロープ高所作業の作業計画図': 'Rope access work plan — the law says what the drawing must carry',
   '51-工事工程表': 'Construction bar chart',
   '42-擁壁の標準断面図': 'Retaining wall section',
-  '43-舗装構成の断面図': 'Pavement build-up',
+  '43-舗装構成の断面図': 'A road pavement section stacking surface, binder, upper and lower base courses and subgrade, each with its thickness',
   '114-点字ブロックの敷設図': 'Tactile paving: bars mean go, dots mean stop',
-  '28-ダムの平面図': 'Gravity dam plan',
+  '28-ダムの平面図': 'The plan of a concrete gravity dam: the body, the spillway, the intake works and the access road for maintenance',
   '27-圃場整備の平面図': 'Farmland consolidation plan',
   '62-寺院庭園の平面図': 'Temple garden plan, drawn with closed curves',
   '41-露地の平面図': 'Tea garden path and planting',
@@ -299,7 +300,7 @@ export const CAPTIONS_EN = {
   '146-Restorative-chart': 'Restorative chart: one number fixes a tooth',
   '39-経絡と経穴': 'Meridians and points (WHO standard)',
   '36-手術室の機器配置': 'Operating room equipment layout',
-  '09-患者の動線': 'Outpatient flow',
+  '09-患者の動線': 'How an outpatient moves through a hospital — reception, consultation, tests, payment, prescription — and where each department keeps people waiting',
   '108-おせち重箱の詰め方': 'New year box: odd numbers, and no gaps',
   '104-牛枝肉の部分肉分割図': 'Beef cutting chart: the bones decide the lines',
   '23-厨房の動線': 'Kitchen zones and one-way flow (HACCP)',
@@ -316,9 +317,9 @@ export const CAPTIONS_EN = {
   '73-サビキ仕掛け図': 'Fishing rig, six hooks',
 
   // 店舗・物流
-  '15-店舗のレイアウト': 'Shop layout',
+  '15-店舗のレイアウト': 'A convenience store floor layout: the fixtures, the main aisle, the till and chilled cases, and the path a customer takes from the door',
   '58-商店街の店舗案内図': 'Shopping street directory, trade by hatch',
-  '59-フードコートの配置図': 'Food court layout',
+  '59-フードコートの配置図': 'A food court laid out with 240 seats in the middle and the outlets around the edge, each cuisine distinguished by hatch rather than colour',
   '109-ヤーデージブック': 'Yardage book: shade the surfaces, write the distances',
   '60-ドームの座席等級図': 'Stadium seating by price band',
   '150-Baseball-infield': 'Baseball infield: every distance starts at the apex of home plate',
@@ -336,12 +337,12 @@ export const CAPTIONS_EN = {
   '08-工場のライン': 'Assembly line and inspection',
 
   // 業務・組織
-  '20-組織図': 'Organisation chart',
-  '07-承認の流れ': 'Approval routing',
-  '05-業務の流れ': 'Order to shipment',
+  '20-組織図': 'A company organisation chart down to section level, with headcount and remit written on each box',
+  '07-承認の流れ': 'The route a written proposal takes through each rank of approval, including the conditions that send it back',
+  '05-業務の流れ': 'From order to shipment: credit check, stock allocation, picking instruction, packing and despatch, with the owner of each step',
   '11-取材から公開まで': 'From interview to publication',
-  '13-学校の年間': 'Admission process',
-  '55-学校の時間割': 'School timetable',
+  '13-学校の年間': 'The path from application to enrolment — examination, results, admission procedures — with the deadline on every step',
+  '55-学校の時間割': 'A lower secondary school week: periods down the side, days across the top, and the subject, room and teacher in each cell',
   '31-座席図': 'Seating plan, sixty seats and two wheelchair spaces',
   '107-葬儀式場の配置図': 'Funeral hall: the seating is the order of offering',
   '113-墓石の彫刻指示図': 'Gravestone engraving: the living are cut in red',
@@ -376,7 +377,7 @@ export const CAPTIONS_EN = {
   '67-将棋の局面図': 'Shogi starting position',
   '68-チェスの局面図': 'Chess starting position',
   '70-リバーシの局面図': 'Reversi opening position',
-  '69-ビンゴカード': 'Bingo card',
+  '69-ビンゴカード': 'A bingo card, five by five with a free centre, where each column draws from its own range of numbers',
 
   // UI・画面設計
   '74-EC商品ページのUI構造': 'Product page structure, desktop against mobile',
@@ -390,12 +391,12 @@ export const CAPTIONS_EN = {
   // IT・ソフトウェア
   '26-データセンターのラック': 'Data centre rack elevation',
   '21-テーブルの関係': 'Entity relationships',
-  '46-クラス図': 'Class diagram (UML)',
-  '47-状態遷移図': 'State machine (UML)',
+  '46-クラス図': 'A UML class diagram where inheritance, realisation, association and aggregation are told apart by line type and end symbol',
+  '47-状態遷移図': 'A UML state machine with transitions, the events and guards that fire them, and the pseudostates that begin and end it',
   '48-ユースケース図': 'Use case diagram (UML)',
   '49-アクティビティ図': 'Activity diagram (UML)',
-  '02-クラウド構成': 'Cloud architecture',
+  '02-クラウド構成': 'A cloud architecture showing the VPC and its subnets, and where the load balancer, application, database and object store sit',
   '01-オンプレのサーバ構成': 'On-premise server layout',
-  '03-データの流れ': 'Data flow',
-  '04-ネットワーク構成': 'Network layout',
+  '03-データの流れ': 'Where data goes from collection through transformation, storage and aggregation to display, and what kind of container holds it at each step',
+  '04-ネットワーク構成': 'A network layout of the links and equipment between sites, with the address range carried by each segment',
 };
