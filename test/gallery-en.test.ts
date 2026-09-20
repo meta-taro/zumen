@@ -27,6 +27,7 @@ const captions = CAPTIONS_EN as Record<string, string>;
 const heads = GROUPS_EN as Record<string, string>;
 
 const names: string[] = groups.flatMap((group) => group.items.map((item) => item.name));
+const items = groups.flatMap((group) => group.items) as { name: string; alt?: string; caption?: string }[];
 
 describe('見本の英語', () => {
   it('**どの見本にも英語がある**', () => {
@@ -69,6 +70,62 @@ describe('見本の英語', () => {
  * 分類の順を英語だけ差し替え、分類の中では**名前が英字の見本を先に**出す
  * （英字の名前は、図の中も英語で書いたもの）。**見本は 1 枚も落とさない。**
  */
+/**
+ * **代替テキスト（alt）は、見出しの繰り返しにしない**（2026-09-20）。
+ *
+ * `alt` は目の見えない人に読み上げられ、検索にも使われる。
+ * **`<figcaption>` と同じ文字を `alt` に入れると、同じ言葉が 2 回読まれるだけ**で、
+ * 図の中身は何ひとつ伝わらない。測ったら **21 枚**がそうなっていた。
+ *
+ * `alt` は「その図に何が描いてあるか」、`caption` は「その図の見どころ」。**別のものを書く。**
+ */
+describe('見本の代替テキスト', () => {
+  it('**alt が空でない**', () => {
+    const empty = items.filter((item) => (item.alt ?? '').trim() === '').map((item) => item.name);
+    assert.deepEqual(empty, []);
+  });
+
+  /**
+   * **20 字未満の alt は、題名を言い直しているだけ**（2026-09-20）。
+   *
+   * 「クラス図（UML）」の alt が「UML クラス図」では、**見えない人には何も増えない。**
+   * alt には「何が描いてあるか」—— 要素と、その関係を書く。
+   * 測ったら 94 枚が 20 字未満だったので、3 周かけて全部書き直した。
+   */
+  it('**alt が 20 字以上ある**（題名の言い直しにしない）', () => {
+    const thin = items
+      .filter((item) => (item.alt ?? '').length < 20)
+      .map((item) => `${item.name}: ${item.alt}`);
+    assert.deepEqual(thin, [], 'alt が短すぎる（図の中身を書く）');
+  });
+
+  it('**alt が caption の繰り返しになっていない**', () => {
+    const same = items
+      .filter((item) => (item.alt ?? '').trim() === (item.caption ?? '').trim())
+      .map((item) => item.name);
+    assert.deepEqual(same, [], 'alt が caption と同じ（読み上げると同じ言葉が 2 回出る）');
+  });
+});
+
+/**
+ * **英語のページに、日本語の代替テキストが残っていた**（2026-09-20）。
+ *
+ * 見本ごとのページは、**言語にかかわらず日本語の `alt`** を書き出していた ——
+ * 英語圏の読み上げ環境では、**英語のページで日本語が読み上げられる。**
+ * 272 枚すべてがそうだった。図の説明は、そのページの言語で書く。
+ */
+describe('英語のページの代替テキスト', () => {
+  it('**英語のページの alt に、日本語が混ざっていない**', async () => {
+    const { readFileSync } = await import('node:fs');
+    for (const path of ['site/en/index.html', 'site/en/g/01/index.html', 'site/en/g/271/index.html']) {
+      const page = readFileSync(path, 'utf8');
+      const alts = page.match(/alt="[^"]*"/g) ?? [];
+      const japanese = alts.filter((text) => /[ぁ-んァ-ヶ一-龠]/.test(text));
+      assert.deepEqual(japanese, [], `${path} の alt に日本語が残っている`);
+    }
+  });
+});
+
 describe('英語のページの並び', () => {
   it('**分類の順が、英語だけ違う**（建築から始まり、日本の鉄道は最後）', () => {
     const order = ORDER_EN as string[];

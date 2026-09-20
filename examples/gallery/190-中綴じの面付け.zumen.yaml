@@ -1,0 +1,941 @@
+version: 1
+kind: placement
+arrows: true
+title: 中綴じの面付けと、断ち切り
+scale: { mm: 1 }
+palette:
+  塗り足し: "#8f6f3f"
+views:
+  - id: menzuke
+    title: ① 中綴じの面付け（縮尺なし・ページ番号の並び）
+    at: { x: 60, y: 140 }
+    size: { w: 640, h: 464 }
+  - id: shiage
+    title: ② 断ち切りと塗り足し（1px ＝ 1mm）
+    at: { x: 700, y: 140 }
+    size: { w: 460, h: 370 }
+    scale: { mm: 1 }
+    grid:
+      x:
+        - { id: T1, at: 790 }
+        - { id: T2, at: 938 }
+      y:
+        - { id: T3, at: 250 }
+        - { id: T4, at: 460 }
+# **面付けには、証明できる規則がある。**
+#
+# 中綴じでは**左右のページ番号の合計が、いつも「総ページ数 ＋ 1」**。
+# だから用紙 1 枚が 4 ページぶんになり、**4 の倍数でしか作れない**。
+#
+# ① はページ番号の並びなので**縮尺を持たない**。② は実寸（1px ＝ 1mm）。
+# 同じ紙に、**縮尺のある図と無い図**が載っている。
+nodes:
+  - id: sh0
+    label: "用紙 1"
+    marker: none
+    align: right
+    at: { x: 66, y: 272 }
+    size: { w: 76, h: 18 }
+  - id: f0L
+    label: "16"
+    at: { x: 150, y: 250 }
+    size: { w: 92, h: 62 }
+  - id: f0R
+    label: "1"
+    at: { x: 242, y: 250 }
+    size: { w: 92, h: 62 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 241, y: 241 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 241, y: 319 }
+    size: { w: 2, h: 2 }
+  - id: b0L
+    label: "2"
+    at: { x: 380, y: 250 }
+    size: { w: 92, h: 62 }
+  - id: b0R
+    label: "15"
+    at: { x: 472, y: 250 }
+    size: { w: 92, h: 62 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 471, y: 241 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 471, y: 319 }
+    size: { w: 2, h: 2 }
+  - id: sum0
+    label: "16＋1＝17"
+    marker: none
+    align: center
+    at: { x: 150, y: 314 }
+    size: { w: 184, h: 16 }
+  - id: sumb0
+    label: "2＋15＝17"
+    marker: none
+    align: center
+    at: { x: 380, y: 314 }
+    size: { w: 184, h: 16 }
+  - id: sh1
+    label: "用紙 2"
+    marker: none
+    align: right
+    at: { x: 66, y: 356 }
+    size: { w: 76, h: 18 }
+  - id: f1L
+    label: "14"
+    at: { x: 150, y: 334 }
+    size: { w: 92, h: 62 }
+  - id: f1R
+    label: "3"
+    at: { x: 242, y: 334 }
+    size: { w: 92, h: 62 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 241, y: 325 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 241, y: 403 }
+    size: { w: 2, h: 2 }
+  - id: b1L
+    label: "4"
+    at: { x: 380, y: 334 }
+    size: { w: 92, h: 62 }
+  - id: b1R
+    label: "13"
+    at: { x: 472, y: 334 }
+    size: { w: 92, h: 62 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 471, y: 325 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 471, y: 403 }
+    size: { w: 2, h: 2 }
+  - id: sum1
+    label: "14＋3＝17"
+    marker: none
+    align: center
+    at: { x: 150, y: 398 }
+    size: { w: 184, h: 16 }
+  - id: sumb1
+    label: "4＋13＝17"
+    marker: none
+    align: center
+    at: { x: 380, y: 398 }
+    size: { w: 184, h: 16 }
+  - id: sh2
+    label: "用紙 3"
+    marker: none
+    align: right
+    at: { x: 66, y: 440 }
+    size: { w: 76, h: 18 }
+  - id: f2L
+    label: "12"
+    at: { x: 150, y: 418 }
+    size: { w: 92, h: 62 }
+  - id: f2R
+    label: "5"
+    at: { x: 242, y: 418 }
+    size: { w: 92, h: 62 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 241, y: 409 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 241, y: 487 }
+    size: { w: 2, h: 2 }
+  - id: b2L
+    label: "6"
+    at: { x: 380, y: 418 }
+    size: { w: 92, h: 62 }
+  - id: b2R
+    label: "11"
+    at: { x: 472, y: 418 }
+    size: { w: 92, h: 62 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 471, y: 409 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 471, y: 487 }
+    size: { w: 2, h: 2 }
+  - id: sum2
+    label: "12＋5＝17"
+    marker: none
+    align: center
+    at: { x: 150, y: 482 }
+    size: { w: 184, h: 16 }
+  - id: sumb2
+    label: "6＋11＝17"
+    marker: none
+    align: center
+    at: { x: 380, y: 482 }
+    size: { w: 184, h: 16 }
+  - id: sh3
+    label: "用紙 4"
+    marker: none
+    align: right
+    at: { x: 66, y: 524 }
+    size: { w: 76, h: 18 }
+  - id: f3L
+    label: "10"
+    at: { x: 150, y: 502 }
+    size: { w: 92, h: 62 }
+  - id: f3R
+    label: "7"
+    at: { x: 242, y: 502 }
+    size: { w: 92, h: 62 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 241, y: 493 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 241, y: 571 }
+    size: { w: 2, h: 2 }
+  - id: b3L
+    label: "8"
+    at: { x: 380, y: 502 }
+    size: { w: 92, h: 62 }
+  - id: b3R
+    label: "9"
+    at: { x: 472, y: 502 }
+    size: { w: 92, h: 62 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 471, y: 493 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 471, y: 571 }
+    size: { w: 2, h: 2 }
+  - id: sum3
+    label: "10＋7＝17"
+    marker: none
+    align: center
+    at: { x: 150, y: 566 }
+    size: { w: 184, h: 16 }
+  - id: sumb3
+    label: "8＋9＝17"
+    marker: none
+    align: center
+    at: { x: 380, y: 566 }
+    size: { w: 184, h: 16 }
+  - id: a_f
+    label: "表（おもて）"
+    marker: none
+    align: center
+    at: { x: 150, y: 220 }
+    size: { w: 184, h: 18 }
+  - id: a_b
+    label: "裏（うら）"
+    marker: none
+    align: center
+    at: { x: 380, y: 220 }
+    size: { w: 184, h: 18 }
+  - id: a_fold
+    label: "折り目（背になる）"
+    marker: none
+    align: center
+    at: { x: 260, y: 198 }
+    size: { w: 240, h: 18 }
+  - id: a_t
+    label: "① 中綴じの面付け —— 左右の合計は、いつも 総ページ ＋ 1"
+    marker: none
+    align: left
+    at: { x: 120, y: 154 }
+    size: { w: 560, h: 20 }
+  - id: a_u
+    label: "　16 ページなら、どの面も 17。用紙は 1 枚で 4 ページぶんなので 4 枚。"
+    marker: none
+    align: left
+    at: { x: 120, y: 176 }
+    size: { w: 560, h: 18 }
+  - id: a_mid
+    label: "↑ 真ん中の見開き（8｜9）だけは、1 枚の中で隣り合う"
+    marker: none
+    align: center
+    at: { x: 150, y: 588 }
+    size: { w: 414, h: 18 }
+  - id: bleed
+    label: ""
+    marker: none
+    fill: 塗り足し
+    at: { x: 787, y: 247 }
+    size: { w: 154, h: 216 }
+  - id: trim
+    label: ""
+    at: { x: 790, y: 250 }
+    size: { w: 148, h: 210 }
+  - id: safe
+    label: ""
+    marker: none
+    line: dashed
+    at: { x: 800, y: 260 }
+    size: { w: 128, h: 190 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 786, y: 249 }
+    size: { w: 2, h: 2 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 778, y: 249 }
+    size: { w: 2, h: 2 }
+  - id: p18
+    label: ""
+    marker: none
+    at: { x: 789, y: 246 }
+    size: { w: 2, h: 2 }
+  - id: p19
+    label: ""
+    marker: none
+    at: { x: 789, y: 238 }
+    size: { w: 2, h: 2 }
+  - id: p20
+    label: ""
+    marker: none
+    at: { x: 783, y: 246 }
+    size: { w: 2, h: 2 }
+  - id: p21
+    label: ""
+    marker: none
+    at: { x: 775, y: 246 }
+    size: { w: 2, h: 2 }
+  - id: p22
+    label: ""
+    marker: none
+    at: { x: 786, y: 243 }
+    size: { w: 2, h: 2 }
+  - id: p23
+    label: ""
+    marker: none
+    at: { x: 786, y: 235 }
+    size: { w: 2, h: 2 }
+  - id: p24
+    label: ""
+    marker: none
+    at: { x: 940, y: 249 }
+    size: { w: 2, h: 2 }
+  - id: p25
+    label: ""
+    marker: none
+    at: { x: 948, y: 249 }
+    size: { w: 2, h: 2 }
+  - id: p26
+    label: ""
+    marker: none
+    at: { x: 937, y: 246 }
+    size: { w: 2, h: 2 }
+  - id: p27
+    label: ""
+    marker: none
+    at: { x: 937, y: 238 }
+    size: { w: 2, h: 2 }
+  - id: p28
+    label: ""
+    marker: none
+    at: { x: 943, y: 246 }
+    size: { w: 2, h: 2 }
+  - id: p29
+    label: ""
+    marker: none
+    at: { x: 951, y: 246 }
+    size: { w: 2, h: 2 }
+  - id: p30
+    label: ""
+    marker: none
+    at: { x: 940, y: 243 }
+    size: { w: 2, h: 2 }
+  - id: p31
+    label: ""
+    marker: none
+    at: { x: 940, y: 235 }
+    size: { w: 2, h: 2 }
+  - id: p32
+    label: ""
+    marker: none
+    at: { x: 786, y: 459 }
+    size: { w: 2, h: 2 }
+  - id: p33
+    label: ""
+    marker: none
+    at: { x: 778, y: 459 }
+    size: { w: 2, h: 2 }
+  - id: p34
+    label: ""
+    marker: none
+    at: { x: 789, y: 462 }
+    size: { w: 2, h: 2 }
+  - id: p35
+    label: ""
+    marker: none
+    at: { x: 789, y: 470 }
+    size: { w: 2, h: 2 }
+  - id: p36
+    label: ""
+    marker: none
+    at: { x: 783, y: 462 }
+    size: { w: 2, h: 2 }
+  - id: p37
+    label: ""
+    marker: none
+    at: { x: 775, y: 462 }
+    size: { w: 2, h: 2 }
+  - id: p38
+    label: ""
+    marker: none
+    at: { x: 786, y: 465 }
+    size: { w: 2, h: 2 }
+  - id: p39
+    label: ""
+    marker: none
+    at: { x: 786, y: 473 }
+    size: { w: 2, h: 2 }
+  - id: p40
+    label: ""
+    marker: none
+    at: { x: 940, y: 459 }
+    size: { w: 2, h: 2 }
+  - id: p41
+    label: ""
+    marker: none
+    at: { x: 948, y: 459 }
+    size: { w: 2, h: 2 }
+  - id: p42
+    label: ""
+    marker: none
+    at: { x: 937, y: 462 }
+    size: { w: 2, h: 2 }
+  - id: p43
+    label: ""
+    marker: none
+    at: { x: 937, y: 470 }
+    size: { w: 2, h: 2 }
+  - id: p44
+    label: ""
+    marker: none
+    at: { x: 943, y: 462 }
+    size: { w: 2, h: 2 }
+  - id: p45
+    label: ""
+    marker: none
+    at: { x: 951, y: 462 }
+    size: { w: 2, h: 2 }
+  - id: p46
+    label: ""
+    marker: none
+    at: { x: 940, y: 465 }
+    size: { w: 2, h: 2 }
+  - id: p47
+    label: ""
+    marker: none
+    at: { x: 940, y: 473 }
+    size: { w: 2, h: 2 }
+  - id: p48
+    label: ""
+    marker: none
+    at: { x: 863, y: 246 }
+    size: { w: 2, h: 2 }
+  - id: p49
+    label: ""
+    marker: none
+    at: { x: 863, y: 238 }
+    size: { w: 2, h: 2 }
+  - id: p50
+    label: ""
+    marker: none
+    at: { x: 863, y: 462 }
+    size: { w: 2, h: 2 }
+  - id: p51
+    label: ""
+    marker: none
+    at: { x: 863, y: 470 }
+    size: { w: 2, h: 2 }
+  - id: p52
+    label: ""
+    marker: none
+    at: { x: 786, y: 354 }
+    size: { w: 2, h: 2 }
+  - id: p53
+    label: ""
+    marker: none
+    at: { x: 778, y: 354 }
+    size: { w: 2, h: 2 }
+  - id: p54
+    label: ""
+    marker: none
+    at: { x: 940, y: 354 }
+    size: { w: 2, h: 2 }
+  - id: p55
+    label: ""
+    marker: none
+    at: { x: 948, y: 354 }
+    size: { w: 2, h: 2 }
+  - id: b_t
+    label: "② 断ち切りと塗り足し（1px ＝ 1mm・A5）"
+    marker: none
+    align: left
+    at: { x: 700, y: 154 }
+    size: { w: 460, h: 20 }
+  - id: b_u
+    label: "　仕上がりの線では切れない。だから外へ 3mm 伸ばす。"
+    marker: none
+    align: left
+    at: { x: 700, y: 176 }
+    size: { w: 460, h: 18 }
+  - id: b_bleed
+    label: "← 塗り足し 3mm"
+    marker: none
+    align: left
+    at: { x: 956, y: 266 }
+    size: { w: 180, h: 18 }
+  - id: b_trim
+    label: "← 仕上がり 148 × 210"
+    marker: none
+    align: left
+    at: { x: 956, y: 292 }
+    size: { w: 180, h: 18 }
+  - id: b_safe
+    label: "← 文字はここまで（10mm）"
+    marker: none
+    align: left
+    at: { x: 956, y: 318 }
+    size: { w: 180, h: 18 }
+  - id: b_tomb
+    label: "← 角トンボ（仕上がりと塗り足し）"
+    marker: none
+    align: left
+    at: { x: 956, y: 420 }
+    size: { w: 240, h: 18 }
+  - id: b_ctomb
+    label: "← センタートンボ"
+    marker: none
+    align: left
+    at: { x: 956, y: 346 }
+    size: { w: 200, h: 18 }
+  - id: b_nodo
+    label: "ノド（綴じ側）"
+    marker: none
+    align: right
+    at: { x: 650, y: 346 }
+    size: { w: 130, h: 18 }
+  - id: b_ten
+    label: "天"
+    marker: none
+    align: center
+    at: { x: 790, y: 226 }
+    size: { w: 148, h: 18 }
+  - id: b_chi
+    label: "地"
+    marker: none
+    align: center
+    at: { x: 790, y: 468 }
+    size: { w: 148, h: 18 }
+  - id: h190
+    label: "中綴じ"
+    hatch: solid
+    at: { x: 1200, y: 190 }
+    size: { w: 470, h: 24 }
+  - id: x214
+    label: "綴じ方"
+    at: { x: 1200, y: 214 }
+    size: { w: 190, h: 24 }
+  - id: y214
+    label: "二つ折りにして、背を針金で綴じる"
+    align: left
+    at: { x: 1390, y: 214 }
+    size: { w: 280, h: 24 }
+  - id: x238
+    label: "ページ数"
+    at: { x: 1200, y: 238 }
+    size: { w: 190, h: 24 }
+  - id: y238
+    label: "4 の倍数でないと作れない"
+    align: left
+    at: { x: 1390, y: 238 }
+    size: { w: 280, h: 24 }
+  - id: x262
+    label: "面付けの規則"
+    at: { x: 1200, y: 262 }
+    size: { w: 190, h: 24 }
+  - id: y262
+    label: "左＋右 ＝ 総ページ ＋ 1（この図では 17）"
+    align: left
+    at: { x: 1390, y: 262 }
+    size: { w: 280, h: 24 }
+  - id: x286
+    label: "用紙の枚数"
+    at: { x: 1200, y: 286 }
+    size: { w: 190, h: 24 }
+  - id: y286
+    label: "総ページ ÷ 4"
+    align: left
+    at: { x: 1390, y: 286 }
+    size: { w: 280, h: 24 }
+  - id: x310
+    label: "よい所"
+    at: { x: 1200, y: 310 }
+    size: { w: 190, h: 24 }
+  - id: y310
+    label: "ノドまで開く（見開きの写真が切れない）"
+    align: left
+    at: { x: 1390, y: 310 }
+    size: { w: 280, h: 24 }
+  - id: x334
+    label: "弱い所"
+    at: { x: 1200, y: 334 }
+    size: { w: 190, h: 24 }
+  - id: y334
+    label: "厚いと小口が階段状にずれる"
+    align: left
+    at: { x: 1390, y: 334 }
+    size: { w: 280, h: 24 }
+  - id: h376
+    label: "無線綴じ"
+    hatch: solid
+    at: { x: 1200, y: 376 }
+    size: { w: 470, h: 24 }
+  - id: x400
+    label: "綴じ方"
+    at: { x: 1200, y: 400 }
+    size: { w: 190, h: 24 }
+  - id: y400
+    label: "折丁を重ね、背を削って糊で固める"
+    align: left
+    at: { x: 1390, y: 400 }
+    size: { w: 280, h: 24 }
+  - id: x424
+    label: "背幅"
+    at: { x: 1200, y: 424 }
+    size: { w: 190, h: 24 }
+  - id: y424
+    label: "（総ページ − 4）× 本文紙の厚さ ÷ 2"
+    align: left
+    at: { x: 1390, y: 424 }
+    size: { w: 280, h: 24 }
+  - id: x448
+    label: "例（54 頁・上質 90kg）"
+    at: { x: 1200, y: 448 }
+    size: { w: 190, h: 24 }
+  - id: y448
+    label: "(54−4)×0.120÷2 ＝ 3mm"
+    align: left
+    at: { x: 1390, y: 448 }
+    size: { w: 280, h: 24 }
+  - id: x472
+    label: "背の文字"
+    at: { x: 1200, y: 472 }
+    size: { w: 190, h: 24 }
+  - id: y472
+    label: "入れるなら背幅 4〜5mm 以上"
+    align: left
+    at: { x: 1390, y: 472 }
+    size: { w: 280, h: 24 }
+  - id: x496
+    label: "表紙の厚み"
+    at: { x: 1200, y: 496 }
+    size: { w: 190, h: 24 }
+  - id: y496
+    label: "背幅の計算には入れない"
+    align: left
+    at: { x: 1390, y: 496 }
+    size: { w: 280, h: 24 }
+  - id: x520
+    label: "弱い所"
+    at: { x: 1200, y: 520 }
+    size: { w: 190, h: 24 }
+  - id: y520
+    label: "ノドが開きにくい"
+    align: left
+    at: { x: 1390, y: 520 }
+    size: { w: 280, h: 24 }
+  - id: h562
+    label: "本文用紙の厚さ（1 枚・mm）"
+    hatch: solid
+    at: { x: 1200, y: 562 }
+    size: { w: 470, h: 24 }
+  - id: x586
+    label: "上質 70kg"
+    at: { x: 1200, y: 586 }
+    size: { w: 190, h: 24 }
+  - id: y586
+    label: "0.095"
+    align: left
+    at: { x: 1390, y: 586 }
+    size: { w: 280, h: 24 }
+  - id: x610
+    label: "上質 90kg"
+    at: { x: 1200, y: 610 }
+    size: { w: 190, h: 24 }
+  - id: y610
+    label: "0.120"
+    align: left
+    at: { x: 1390, y: 610 }
+    size: { w: 280, h: 24 }
+  - id: x634
+    label: "上質 110kg"
+    at: { x: 1200, y: 634 }
+    size: { w: 190, h: 24 }
+  - id: y634
+    label: "0.145"
+    align: left
+    at: { x: 1390, y: 634 }
+    size: { w: 280, h: 24 }
+  - id: x658
+    label: "コート 90kg"
+    at: { x: 1200, y: 658 }
+    size: { w: 190, h: 24 }
+  - id: y658
+    label: "0.080"
+    align: left
+    at: { x: 1390, y: 658 }
+    size: { w: 280, h: 24 }
+  - id: x682
+    label: "コート 110kg"
+    at: { x: 1200, y: 682 }
+    size: { w: 190, h: 24 }
+  - id: y682
+    label: "0.100"
+    align: left
+    at: { x: 1390, y: 682 }
+    size: { w: 280, h: 24 }
+  - id: x706
+    label: "マット 135kg"
+    at: { x: 1200, y: 706 }
+    size: { w: 190, h: 24 }
+  - id: y706
+    label: "0.170"
+    align: left
+    at: { x: 1390, y: 706 }
+    size: { w: 280, h: 24 }
+  - id: h748
+    label: "この図に出ていないもの"
+    hatch: solid
+    at: { x: 1200, y: 748 }
+    size: { w: 470, h: 24 }
+  - id: x772
+    label: "折丁の面付け"
+    at: { x: 1200, y: 772 }
+    size: { w: 190, h: 24 }
+  - id: y772
+    label: "16 ページ折りの並びは印刷機で変わる"
+    align: left
+    at: { x: 1390, y: 772 }
+    size: { w: 280, h: 24 }
+  - id: x796
+    label: "台割"
+    at: { x: 1200, y: 796 }
+    size: { w: 190, h: 24 }
+  - id: y796
+    label: "どのページに何を入れるかの表"
+    align: left
+    at: { x: 1390, y: 796 }
+    size: { w: 280, h: 24 }
+  - id: x820
+    label: "丁合"
+    at: { x: 1200, y: 820 }
+    size: { w: 190, h: 24 }
+  - id: y820
+    label: "折丁を順に重ねる工程"
+    align: left
+    at: { x: 1390, y: 820 }
+    size: { w: 280, h: 24 }
+  - id: x844
+    label: "小口の断裁"
+    at: { x: 1200, y: 844 }
+    size: { w: 190, h: 24 }
+  - id: y844
+    label: "中綴じは内側ほど多く切られる"
+    align: left
+    at: { x: 1390, y: 844 }
+    size: { w: 280, h: 24 }
+  - id: n1
+    label: "冊子の面付け（どのページを紙のどこへ置くか）と、断ち切りの図です。"
+    marker: none
+    align: left
+    at: { x: 120, y: 760 }
+    size: { w: 1080, h: 18 }
+  - id: n2
+    label: "中綴じの面付けには、証明できる規則が 1 つあります —— 左右のページ番号の合計は、いつも「総ページ数 ＋ 1」（16 ページなら 17）。"
+    marker: none
+    align: left
+    at: { x: 120, y: 782 }
+    size: { w: 1080, h: 18 }
+  - id: n3
+    label: "用紙 1 枚が 4 ページぶんになるので、中綴じは 4 の倍数のページ数でしか作れません。"
+    marker: none
+    align: left
+    at: { x: 120, y: 804 }
+    size: { w: 1080, h: 18 }
+  - id: n4
+    label: "無線綴じは折丁を重ねて背を削り、糊で固めます。背幅 ＝（総ページ − 4）× 本文紙の厚さ ÷ 2 で、表紙の厚みは入れません。"
+    marker: none
+    align: left
+    at: { x: 120, y: 826 }
+    size: { w: 1080, h: 18 }
+  - id: n5
+    label: "断ち切りは、仕上がりの線ちょうどには切れません。外へ 3mm 伸ばす（塗り足し）のはそのためです。"
+    marker: none
+    align: left
+    at: { x: 120, y: 848 }
+    size: { w: 1080, h: 18 }
+  - id: n6
+    label: "文字は仕上がりから 10mm ほど内側に置きます。断裁の誤差で切れないようにするためです。"
+    marker: none
+    align: left
+    at: { x: 120, y: 870 }
+    size: { w: 1080, h: 18 }
+  - id: n7
+    label: "数値は一般的な目安です。印刷所と機械で変わります。"
+    marker: none
+    align: left
+    at: { x: 120, y: 892 }
+    size: { w: 1080, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p2
+    to: p3
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p4
+    to: p5
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p6
+    to: p7
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p8
+    to: p9
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p10
+    to: p11
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p12
+    to: p13
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p14
+    to: p15
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p16
+    to: p17
+    curve: none
+    ends: { from: none, to: none }
+  - from: p18
+    to: p19
+    curve: none
+    ends: { from: none, to: none }
+  - from: p20
+    to: p21
+    curve: none
+    ends: { from: none, to: none }
+  - from: p22
+    to: p23
+    curve: none
+    ends: { from: none, to: none }
+  - from: p24
+    to: p25
+    curve: none
+    ends: { from: none, to: none }
+  - from: p26
+    to: p27
+    curve: none
+    ends: { from: none, to: none }
+  - from: p28
+    to: p29
+    curve: none
+    ends: { from: none, to: none }
+  - from: p30
+    to: p31
+    curve: none
+    ends: { from: none, to: none }
+  - from: p32
+    to: p33
+    curve: none
+    ends: { from: none, to: none }
+  - from: p34
+    to: p35
+    curve: none
+    ends: { from: none, to: none }
+  - from: p36
+    to: p37
+    curve: none
+    ends: { from: none, to: none }
+  - from: p38
+    to: p39
+    curve: none
+    ends: { from: none, to: none }
+  - from: p40
+    to: p41
+    curve: none
+    ends: { from: none, to: none }
+  - from: p42
+    to: p43
+    curve: none
+    ends: { from: none, to: none }
+  - from: p44
+    to: p45
+    curve: none
+    ends: { from: none, to: none }
+  - from: p46
+    to: p47
+    curve: none
+    ends: { from: none, to: none }
+  - from: p48
+    to: p49
+    curve: none
+    ends: { from: none, to: none }
+  - from: p50
+    to: p51
+    curve: none
+    ends: { from: none, to: none }
+  - from: p52
+    to: p53
+    curve: none
+    ends: { from: none, to: none }
+  - from: p54
+    to: p55
+    curve: none
+    ends: { from: none, to: none }

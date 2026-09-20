@@ -21,6 +21,7 @@
  * 衝突しなければ良いドライバ、ではない。黙って片方を採ると、
  * 人の直しが片方だけ消え、しかも**消えたことが誰にも見えない**。
  */
+import { TO_STRING_OPTIONS } from './format.ts';
 import { Document, YAMLSeq, isMap, isSeq, parseDocument } from 'yaml';
 import type { Pair, YAMLMap } from 'yaml';
 
@@ -56,7 +57,7 @@ export function mergeThreeWay(baseText: string, oursText: string, theirsText: st
   mergeRoot(base, ours, theirs, conflicts);
   for (const section of SECTIONS) mergeSection(section, base, ours, theirs, conflicts);
 
-  const merged = ours.toString({ lineWidth: 0 });
+  const merged = ours.toString(TO_STRING_OPTIONS);
   return { text: conflicts.length === 0 ? merged : markConflicts(merged, conflicts), conflicts };
 }
 
@@ -221,11 +222,11 @@ function render(section: Exclude<Section, 'root'>, element: YAMLMap | undefined,
   if (section === 'pins') {
     const holder = new Document({});
     (holder.contents as YAMLMap).set(key, element);
-    return holder.toString({ lineWidth: 0 }).trimEnd();
+    return holder.toString(TO_STRING_OPTIONS).trimEnd();
   }
   const holder = new Document(new YAMLSeq());
   (holder.contents as YAMLSeq).items.push(element);
-  return holder.toString({ lineWidth: 0 }).trimEnd();
+  return holder.toString(TO_STRING_OPTIONS).trimEnd();
 }
 
 /**

@@ -33,6 +33,7 @@ import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
 import { z } from 'zod';
 
 import { about } from './about.ts';
+import { catalogue, search, source } from './examples.ts';
 import { isEntry } from './entry.ts';
 import { messages } from './messages.ts';
 import { mkdirSync, writeFileSync } from 'node:fs';
@@ -44,6 +45,7 @@ import {
   inspect,
   list,
   pinsOf,
+  pngOf,
   propose,
   read,
   spec,
@@ -62,6 +64,28 @@ function json(value: unknown): { content: { type: 'text'; text: string }[] } {
 /** そのまま返す（書き出した図など）。 */
 function text(value: string): { content: { type: 'text'; text: string }[] } {
   return { content: [{ type: 'text', text: value }] };
+}
+
+/**
+ * **絵をそのまま返す**（2026-09-18）。
+ *
+ * 文字で SVG を返しても、**エージェントは自分の絵を見られない。**
+ * MCP は画像を返せるので、png はここで画像として渡す
+ * （Chrome が無ければ、無いと言う文字だけを返す）。
+ */
+function picture(made: { image: string | null; note: string }): {
+  content: (
+    | { type: 'text'; text: string }
+    | { type: 'image'; data: string; mimeType: string }
+  )[];
+} {
+  if (made.image === null) return { content: [{ type: 'text', text: made.note }] };
+  return {
+    content: [
+      { type: 'text', text: made.note },
+      { type: 'image', data: made.image, mimeType: 'image/png' },
+    ],
+  };
 }
 
 export function buildServer(hub: Hub = createHub()): McpServer {
@@ -107,6 +131,47 @@ export function buildServer(hub: Hub = createHub()): McpServer {
       inputSchema: { dir: z.string().describe(m.listDir) },
     },
     ({ dir }) => json({ dir, diagrams: list(dir) }),
+  );
+
+  /**
+   * **同梱の見本を引く**（`src/examples.ts`）。
+   *
+   * `zumen_spec` は「どう書くか」しか渡していなかった。
+   * **「世の中にどんな図面があるか」は、どこからも渡っていなかった**（D39 と同じ穴）。
+   */
+  server.registerTool(
+    'zumen_examples',
+    {
+      title: m.examplesTitle,
+      description: m.examplesDesc,
+      inputSchema: {
+        query: z.string().optional().describe(m.examplesQuery),
+        name: z.string().optional().describe(m.examplesName),
+      },
+    },
+    ({ query, name }) => {
+      const book = catalogue();
+      if (book === null) return text(m.examplesNone);
+      if (name !== undefined && name !== '') {
+        const yaml = source(name);
+        return yaml === null ? text(m.examplesMissing(name)) : text(yaml);
+      }
+      if (query !== undefined && query !== '') {
+        const found = search(book, query);
+        return json({ count: found.reduce((n, g) => n + g.items.length, 0), categories: found });
+      }
+      // **引数なしは目次だけ**（189 枚をいちどに返すと、読む側が埋まる）。
+      return json({
+        count: book.count,
+        categories: book.categories.map((g) => ({
+          key: g.key,
+          label: g.label,
+          labelEn: g.labelEn,
+          count: g.items.length,
+          examples: g.items.slice(0, 3).map((i) => i.name),
+        })),
+      });
+    },
   );
 
   server.registerTool(
@@ -185,15 +250,19 @@ export function buildServer(hub: Hub = createHub()): McpServer {
       description:
         m.exportDesc,
       inputSchema: {
-        kind: z.enum(['svg', 'mermaid', 'drawio']),
+        kind: z.enum(['svg', 'png', 'mermaid', 'drawio']),
         source: z.string().optional(),
         path: z.string().optional(),
         theme: z.enum(['light', 'dark']).optional().describe(m.exportTheme),
         intent: z.enum(['safe', 'vivid']).optional().describe(m.exportIntent),
       },
     },
-    async ({ kind, source, path, theme, intent }) =>
-      text(await exportAs(bodyOf(source, path), kind, { theme, intent })),
+    async ({ kind, source, path, theme, intent }) => {
+      const body = bodyOf(source, path);
+      // **png は絵で返す。** 文字で返しても、描いたものを見たことにならない。
+      if (kind === 'png') return picture(await pngOf(body, { theme, intent }));
+      return text(await exportAs(body, kind, { theme, intent }));
+    },
   );
 
   /**

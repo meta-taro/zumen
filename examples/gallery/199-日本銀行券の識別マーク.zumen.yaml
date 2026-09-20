@@ -1,0 +1,479 @@
+version: 1
+kind: placement
+arrows: true
+title: 日本銀行券の大きさと識別マーク（模式・図柄は描かない）
+scale: { mm: 0.5 }
+# **紙幣そのものは描かない。**
+#
+# 通貨及証券模造取締法があるので、肖像・模様・地紋は出さない。
+# 描くのは**外形の寸法**と、**触って分かる印（識別マーク）の位置**だけ。
+#
+# 中身は 2 つ。**高さはどれも 76mm で、幅だけが違う**こと。
+# そして**識別マークは形が同じ（11 本の斜線）で、位置で券種を分けている**こと ——
+# 上下の中央にある印は、**二つ折りで重ならないよう左右にずらしてある**。
+nodes:
+  - id: b0
+    label: ""
+    at: { x: 600, y: 360 }
+    size: { w: 320, h: 30 }
+  - id: b0n
+    label: "一万円"
+    marker: none
+    align: right
+    at: { x: 504, y: 366 }
+    size: { w: 88, h: 18 }
+  - id: b0w
+    label: "160"
+    marker: none
+    align: left
+    at: { x: 928, y: 366 }
+    size: { w: 70, h: 18 }
+  - id: b1
+    label: ""
+    at: { x: 600, y: 402 }
+    size: { w: 312, h: 30 }
+  - id: b1n
+    label: "五千円"
+    marker: none
+    align: right
+    at: { x: 504, y: 408 }
+    size: { w: 88, h: 18 }
+  - id: b1w
+    label: "156"
+    marker: none
+    align: left
+    at: { x: 920, y: 408 }
+    size: { w: 70, h: 18 }
+  - id: b2
+    label: ""
+    at: { x: 600, y: 444 }
+    size: { w: 308, h: 30 }
+  - id: b2n
+    label: "二千円"
+    marker: none
+    align: right
+    at: { x: 504, y: 450 }
+    size: { w: 88, h: 18 }
+  - id: b2w
+    label: "154"
+    marker: none
+    align: left
+    at: { x: 916, y: 450 }
+    size: { w: 70, h: 18 }
+  - id: b3
+    label: ""
+    at: { x: 600, y: 486 }
+    size: { w: 300, h: 30 }
+  - id: b3n
+    label: "千円"
+    marker: none
+    align: right
+    at: { x: 504, y: 492 }
+    size: { w: 88, h: 18 }
+  - id: b3w
+    label: "150"
+    marker: none
+    align: left
+    at: { x: 908, y: 492 }
+    size: { w: 70, h: 18 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 599, y: 347 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 599, y: 527 }
+    size: { w: 2, h: 2 }
+  - id: t1
+    label: "① 幅だけが違う"
+    marker: none
+    align: left
+    at: { x: 560, y: 268 }
+    size: { w: 420, h: 20 }
+  - id: t1b
+    label: "　高さはどれも 76mm。幅が 4mm ずつ違う（二千円だけ 2mm）。"
+    marker: none
+    align: left
+    at: { x: 560, y: 290 }
+    size: { w: 420, h: 18 }
+  - id: t1c
+    label: "左端をそろえてある（単位 mm）"
+    marker: none
+    align: center
+    at: { x: 600, y: 540 }
+    size: { w: 320, h: 18 }
+  - id: n1_f
+    label: ""
+    at: { x: 180, y: 400 }
+    size: { w: 320, h: 152 }
+  - id: n1_n
+    label: "一万円 —— 左右の中央"
+    marker: none
+    align: center
+    at: { x: 180, y: 376 }
+    size: { w: 320, h: 18 }
+  - id: n1_m0
+    label: ""
+    hatch: lines
+    at: { x: 188, y: 467 }
+    size: { w: 24, h: 18 }
+  - id: n1_m1
+    label: ""
+    hatch: lines
+    at: { x: 468, y: 467 }
+    size: { w: 24, h: 18 }
+  - id: n2_f
+    label: ""
+    at: { x: 180, y: 586 }
+    size: { w: 312, h: 152 }
+  - id: n2_n
+    label: "五千円 —— 上下の中央"
+    marker: none
+    align: center
+    at: { x: 180, y: 562 }
+    size: { w: 312, h: 18 }
+  - id: n2_m0
+    label: ""
+    hatch: lines
+    at: { x: 344, y: 595 }
+    size: { w: 24, h: 18 }
+  - id: n2_m1
+    label: ""
+    hatch: lines
+    at: { x: 304, y: 711 }
+    size: { w: 24, h: 18 }
+  - id: n3_f
+    label: ""
+    at: { x: 180, y: 772 }
+    size: { w: 300, h: 152 }
+  - id: n3_n
+    label: "千円 —— 左下と右上"
+    marker: none
+    align: center
+    at: { x: 180, y: 748 }
+    size: { w: 300, h: 18 }
+  - id: n3_m0
+    label: ""
+    hatch: lines
+    at: { x: 192, y: 897 }
+    size: { w: 24, h: 18 }
+  - id: n3_m1
+    label: ""
+    hatch: lines
+    at: { x: 444, y: 781 }
+    size: { w: 24, h: 18 }
+  - id: t2
+    label: "② 触って分かる印（識別マーク）"
+    marker: none
+    align: left
+    at: { x: 150, y: 304 }
+    size: { w: 400, h: 20 }
+  - id: t2b
+    label: "　11 本の斜線に形をそろえ、位置で券種を分ける。"
+    marker: none
+    align: left
+    at: { x: 150, y: 326 }
+    size: { w: 400, h: 18 }
+  - id: t2c
+    label: "斜線の向きは、この図では表していない"
+    marker: none
+    align: center
+    at: { x: 180, y: 938 }
+    size: { w: 320, h: 18 }
+  - id: c_f
+    label: ""
+    at: { x: 600, y: 700 }
+    size: { w: 312, h: 152 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 755, y: 685 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 755, y: 865 }
+    size: { w: 2, h: 2 }
+  - id: c_m1
+    label: ""
+    hatch: lines
+    at: { x: 764, y: 709 }
+    size: { w: 24, h: 18 }
+  - id: c_m2
+    label: ""
+    hatch: lines
+    at: { x: 724, y: 825 }
+    size: { w: 24, h: 18 }
+  - id: c_t
+    label: "③ 折り目をよけてある"
+    marker: none
+    align: left
+    at: { x: 560, y: 626 }
+    size: { w: 420, h: 20 }
+  - id: c_b
+    label: "　上の印は少し右、下の印は少し左。二つ折りで重ならない。"
+    marker: none
+    align: left
+    at: { x: 560, y: 648 }
+    size: { w: 420, h: 18 }
+  - id: c_l
+    label: "折り目"
+    marker: none
+    align: left
+    at: { x: 766, y: 870 }
+    size: { w: 120, h: 18 }
+  - id: h190
+    label: "日本銀行券の大きさ（mm）"
+    hatch: solid
+    at: { x: 1000, y: 190 }
+    size: { w: 460, h: 24 }
+  - id: x214
+    label: "一万円"
+    at: { x: 1000, y: 214 }
+    size: { w: 200, h: 24 }
+  - id: y214
+    label: "160 × 76"
+    align: left
+    at: { x: 1200, y: 214 }
+    size: { w: 260, h: 24 }
+  - id: x238
+    label: "五千円"
+    at: { x: 1000, y: 238 }
+    size: { w: 200, h: 24 }
+  - id: y238
+    label: "156 × 76"
+    align: left
+    at: { x: 1200, y: 238 }
+    size: { w: 260, h: 24 }
+  - id: x262
+    label: "二千円"
+    at: { x: 1000, y: 262 }
+    size: { w: 200, h: 24 }
+  - id: y262
+    label: "154 × 76"
+    align: left
+    at: { x: 1200, y: 262 }
+    size: { w: 260, h: 24 }
+  - id: x286
+    label: "千円"
+    at: { x: 1000, y: 286 }
+    size: { w: 200, h: 24 }
+  - id: y286
+    label: "150 × 76"
+    align: left
+    at: { x: 1200, y: 286 }
+    size: { w: 260, h: 24 }
+  - id: x310
+    label: "高さ"
+    at: { x: 1000, y: 310 }
+    size: { w: 200, h: 24 }
+  - id: y310
+    label: "どれも 76"
+    align: left
+    at: { x: 1200, y: 310 }
+    size: { w: 260, h: 24 }
+  - id: x334
+    label: "幅"
+    at: { x: 1000, y: 334 }
+    size: { w: 200, h: 24 }
+  - id: y334
+    label: "4mm ずつ違う（二千円だけ 2mm）"
+    align: left
+    at: { x: 1200, y: 334 }
+    size: { w: 260, h: 24 }
+  - id: h376
+    label: "識別マーク（2024 年発行の券）"
+    hatch: solid
+    at: { x: 1000, y: 376 }
+    size: { w: 460, h: 24 }
+  - id: x400
+    label: "形"
+    at: { x: 1000, y: 400 }
+    size: { w: 200, h: 24 }
+  - id: y400
+    label: "11 本の斜線（券種で同じ）"
+    align: left
+    at: { x: 1200, y: 400 }
+    size: { w: 260, h: 24 }
+  - id: x424
+    label: "分け方"
+    at: { x: 1000, y: 424 }
+    size: { w: 200, h: 24 }
+  - id: y424
+    label: "位置で分ける"
+    align: left
+    at: { x: 1200, y: 424 }
+    size: { w: 260, h: 24 }
+  - id: x448
+    label: "一万円"
+    at: { x: 1000, y: 448 }
+    size: { w: 200, h: 24 }
+  - id: y448
+    label: "表面の左右の中央"
+    align: left
+    at: { x: 1200, y: 448 }
+    size: { w: 260, h: 24 }
+  - id: x472
+    label: "五千円"
+    at: { x: 1000, y: 472 }
+    size: { w: 200, h: 24 }
+  - id: y472
+    label: "表面の上下の中央"
+    align: left
+    at: { x: 1200, y: 472 }
+    size: { w: 260, h: 24 }
+  - id: x496
+    label: "千円"
+    at: { x: 1000, y: 496 }
+    size: { w: 200, h: 24 }
+  - id: y496
+    label: "表面の左下と右上"
+    align: left
+    at: { x: 1200, y: 496 }
+    size: { w: 260, h: 24 }
+  - id: x520
+    label: "折り目"
+    at: { x: 1000, y: 520 }
+    size: { w: 200, h: 24 }
+  - id: y520
+    label: "上は少し右、下は少し左へずらす"
+    align: left
+    at: { x: 1200, y: 520 }
+    size: { w: 260, h: 24 }
+  - id: h562
+    label: "ほかのユニバーサルデザイン"
+    hatch: solid
+    at: { x: 1000, y: 562 }
+    size: { w: 460, h: 24 }
+  - id: x586
+    label: "額面の数字"
+    at: { x: 1000, y: 586 }
+    size: { w: 200, h: 24 }
+  - id: y586
+    label: "アラビア数字で、前より大きく"
+    align: left
+    at: { x: 1200, y: 586 }
+    size: { w: 260, h: 24 }
+  - id: x610
+    label: "色"
+    at: { x: 1000, y: 610 }
+    size: { w: 200, h: 24 }
+  - id: y610
+    label: "券種ごとの色味を分ける"
+    align: left
+    at: { x: 1200, y: 610 }
+    size: { w: 260, h: 24 }
+  - id: x634
+    label: "大きさ"
+    at: { x: 1000, y: 634 }
+    size: { w: 200, h: 24 }
+  - id: y634
+    label: "幅の違いで、並べれば分かる"
+    align: left
+    at: { x: 1200, y: 634 }
+    size: { w: 260, h: 24 }
+  - id: x658
+    label: "ホログラム"
+    at: { x: 1000, y: 658 }
+    size: { w: 200, h: 24 }
+  - id: y658
+    label: "3D の肖像が回転する（世界初）"
+    align: left
+    at: { x: 1200, y: 658 }
+    size: { w: 260, h: 24 }
+  - id: h700
+    label: "この図が描かないもの"
+    hatch: solid
+    at: { x: 1000, y: 700 }
+    size: { w: 460, h: 24 }
+  - id: x724
+    label: "図柄"
+    at: { x: 1000, y: 724 }
+    size: { w: 200, h: 24 }
+  - id: y724
+    label: "肖像・模様・地紋は描かない"
+    align: left
+    at: { x: 1200, y: 724 }
+    size: { w: 260, h: 24 }
+  - id: x748
+    label: "なぜ"
+    at: { x: 1000, y: 748 }
+    size: { w: 200, h: 24 }
+  - id: y748
+    label: "通貨及証券模造取締法（模造の禁止）"
+    align: left
+    at: { x: 1200, y: 748 }
+    size: { w: 260, h: 24 }
+  - id: x772
+    label: "すき入れ"
+    at: { x: 1000, y: 772 }
+    size: { w: 200, h: 24 }
+  - id: y772
+    label: "位置も形も、ここには出さない"
+    align: left
+    at: { x: 1200, y: 772 }
+    size: { w: 260, h: 24 }
+  - id: x796
+    label: "描くもの"
+    at: { x: 1000, y: 796 }
+    size: { w: 200, h: 24 }
+  - id: y796
+    label: "外形の寸法と、触って分かる印の位置だけ"
+    align: left
+    at: { x: 1200, y: 796 }
+    size: { w: 260, h: 24 }
+  - id: n1
+    label: "この図は紙幣の図柄を描いていません。 外形の寸法と、触って分かる印の位置だけです（通貨及証券模造取締法）。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1010 }
+    size: { w: 1050, h: 18 }
+  - id: n2
+    label: "日本銀行券は高さがどれも 76mm で、幅だけが違います —— 千円 150、二千円 154、五千円 156、一万円 160mm。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1032 }
+    size: { w: 1050, h: 18 }
+  - id: n3
+    label: "識別マークは 11 本の斜線で、形は券種で同じです。分けているのは位置です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1054 }
+    size: { w: 1050, h: 18 }
+  - id: n4
+    label: "一万円は左右の中央、五千円は上下の中央、千円は左下と右上。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1076 }
+    size: { w: 1050, h: 18 }
+  - id: n5
+    label: "上下の中央にある印は、上を少し右、下を少し左にずらしてあります —— 二つ折りにしたとき重ならないようにするためです。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1098 }
+    size: { w: 1050, h: 18 }
+  - id: n6
+    label: "額面の数字は、年齢や国籍を問わず読めるよう、アラビア数字で前より大きく刷られています。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1120 }
+    size: { w: 1050, h: 18 }
+  - id: n7
+    label: "寸法と位置は公表されている情報によります。この図は模式です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1142 }
+    size: { w: 1050, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    line: chain
+    ends: { from: none, to: none }
+  - from: p2
+    to: p3
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }

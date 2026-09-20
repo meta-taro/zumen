@@ -1,0 +1,1035 @@
+version: 1
+kind: placement
+arrows: true
+title: 地上天気図の読み方（等圧線と前線記号・架空の気圧配置）
+# **等圧線は 4hPa ごと。混んでいるところは風が強い。**
+#
+# 前線は 4 種類で、記号が違う ——
+# **寒冷は三角**（寒気が暖気の下へ潜り込む）、**温暖は半円**（暖気が寒気の上へ這い上がる）、
+# **停滞は三角と半円が交互に反対側**、**閉塞は同じ側**（寒冷が温暖に追いついた）。
+# 記号は**前線が進む向きの側**に付くので、記号を見ればどちらへ動くかが分かる。
+#
+# 気圧配置は架空。海岸線は描いていない（記号の図）。
+nodes:
+  - id: e0
+    label: ""
+    marker: none
+    at: { x: 393.1, y: 329 }
+    size: { w: 2, h: 2 }
+  - id: lp0
+    label: "992"
+    marker: none
+    align: center
+    at: { x: 312, y: 267.6 }
+    size: { w: 36, h: 16 }
+  - id: e1
+    label: ""
+    marker: none
+    at: { x: 416.5, y: 329 }
+    size: { w: 2, h: 2 }
+  - id: lp1
+    label: "996"
+    marker: none
+    align: center
+    at: { x: 312, y: 250 }
+    size: { w: 36, h: 16 }
+  - id: e2
+    label: ""
+    marker: none
+    at: { x: 439.8, y: 329 }
+    size: { w: 2, h: 2 }
+  - id: lp2
+    label: "1000"
+    marker: none
+    align: center
+    at: { x: 312, y: 232.4 }
+    size: { w: 36, h: 16 }
+  - id: e3
+    label: ""
+    marker: none
+    at: { x: 463.1, y: 329 }
+    size: { w: 2, h: 2 }
+  - id: lp3
+    label: "1004"
+    marker: none
+    align: center
+    at: { x: 312, y: 214.8 }
+    size: { w: 36, h: 16 }
+  - id: e4
+    label: ""
+    marker: none
+    at: { x: 486.4, y: 329 }
+    size: { w: 2, h: 2 }
+  - id: lp4
+    label: "1008"
+    marker: none
+    align: center
+    at: { x: 312, y: 197.2 }
+    size: { w: 36, h: 16 }
+  - id: e5
+    label: ""
+    marker: none
+    at: { x: 886.8, y: 299 }
+    size: { w: 2, h: 2 }
+  - id: hp0
+    label: "1020"
+    marker: none
+    align: center
+    at: { x: 812, y: 243 }
+    size: { w: 36, h: 16 }
+  - id: e6
+    label: ""
+    marker: none
+    at: { x: 915.6, y: 299 }
+    size: { w: 2, h: 2 }
+  - id: hp1
+    label: "1016"
+    marker: none
+    align: center
+    at: { x: 812, y: 221.5 }
+    size: { w: 36, h: 16 }
+  - id: e7
+    label: ""
+    marker: none
+    at: { x: 944.5, y: 299 }
+    size: { w: 2, h: 2 }
+  - id: hp2
+    label: "1012"
+    marker: none
+    align: center
+    at: { x: 812, y: 200 }
+    size: { w: 36, h: 16 }
+  - id: e8
+    label: ""
+    marker: none
+    at: { x: 973.4, y: 299 }
+    size: { w: 2, h: 2 }
+  - id: hp3
+    label: "1008"
+    marker: none
+    align: center
+    at: { x: 812, y: 178.5 }
+    size: { w: 36, h: 16 }
+  - id: L
+    label: "L"
+    marker: none
+    align: center
+    at: { x: 314, y: 318 }
+    size: { w: 32, h: 24 }
+  - id: H
+    label: "H"
+    marker: none
+    align: center
+    at: { x: 814, y: 288 }
+    size: { w: 32, h: 24 }
+  - id: L2
+    label: "低気圧"
+    marker: none
+    align: center
+    at: { x: 290, y: 344 }
+    size: { w: 80, h: 16 }
+  - id: H2
+    label: "高気圧"
+    marker: none
+    align: center
+    at: { x: 790, y: 314 }
+    size: { w: 80, h: 16 }
+  - id: e9
+    label: ""
+    marker: none
+    at: { x: 369, y: 339 }
+    size: { w: 2, h: 2 }
+  - id: e10
+    label: ""
+    marker: none
+    at: { x: 420.3, y: 358.7 }
+    size: { w: 2, h: 2 }
+  - id: e11
+    label: ""
+    marker: none
+    at: { x: 463.3, y: 375.3 }
+    size: { w: 2, h: 2 }
+  - id: e12
+    label: ""
+    marker: none
+    at: { x: 506.2, y: 391.8 }
+    size: { w: 2, h: 2 }
+  - id: e13
+    label: ""
+    marker: none
+    at: { x: 550.5, y: 404.4 }
+    size: { w: 2, h: 2 }
+  - id: e14
+    label: ""
+    marker: none
+    at: { x: 594.5, y: 417.7 }
+    size: { w: 2, h: 2 }
+  - id: e15
+    label: ""
+    marker: none
+    at: { x: 359, y: 355 }
+    size: { w: 2, h: 2 }
+  - id: e16
+    label: ""
+    marker: none
+    at: { x: 375.1, y: 388.3 }
+    size: { w: 2, h: 2 }
+  - id: e17
+    label: ""
+    marker: none
+    at: { x: 395.2, y: 429.7 }
+    size: { w: 2, h: 2 }
+  - id: e18
+    label: ""
+    marker: none
+    at: { x: 415.9, y: 470.8 }
+    size: { w: 2, h: 2 }
+  - id: e19
+    label: ""
+    marker: none
+    at: { x: 432.4, y: 513.8 }
+    size: { w: 2, h: 2 }
+  - id: e20
+    label: ""
+    marker: none
+    at: { x: 448.9, y: 556.7 }
+    size: { w: 2, h: 2 }
+  - id: e21
+    label: ""
+    marker: none
+    at: { x: 465.4, y: 599.6 }
+    size: { w: 2, h: 2 }
+  - id: e22
+    label: ""
+    marker: none
+    at: { x: 319, y: 313 }
+    size: { w: 2, h: 2 }
+  - id: e23
+    label: ""
+    marker: none
+    at: { x: 286.4, y: 295.4 }
+    size: { w: 2, h: 2 }
+  - id: e24
+    label: ""
+    marker: none
+    at: { x: 230.1, y: 265 }
+    size: { w: 2, h: 2 }
+  - id: e25
+    label: ""
+    marker: none
+    at: { x: 204.5, y: 254.1 }
+    size: { w: 2, h: 2 }
+  - id: e26
+    label: ""
+    marker: none
+    at: { x: 143.9, y: 233.5 }
+    size: { w: 2, h: 2 }
+  - id: e27
+    label: ""
+    marker: none
+    at: { x: 629, y: 659 }
+    size: { w: 2, h: 2 }
+  - id: e28
+    label: ""
+    marker: none
+    at: { x: 665.7, y: 663.5 }
+    size: { w: 2, h: 2 }
+  - id: e29
+    label: ""
+    marker: none
+    at: { x: 729.2, y: 671.3 }
+    size: { w: 2, h: 2 }
+  - id: e30
+    label: ""
+    marker: none
+    at: { x: 757, y: 675.1 }
+    size: { w: 2, h: 2 }
+  - id: e31
+    label: ""
+    marker: none
+    at: { x: 820.9, y: 671.2 }
+    size: { w: 2, h: 2 }
+  - id: e32
+    label: ""
+    marker: none
+    at: { x: 848.8, y: 669.5 }
+    size: { w: 2, h: 2 }
+  - id: f_warm
+    label: "温暖前線"
+    marker: none
+    align: left
+    at: { x: 626, y: 416 }
+    size: { w: 110, h: 18 }
+  - id: f_cold
+    label: "寒冷前線"
+    marker: none
+    align: left
+    at: { x: 476, y: 602 }
+    size: { w: 110, h: 18 }
+  - id: f_occ
+    label: "閉塞前線"
+    marker: none
+    align: right
+    at: { x: 0, y: 217 }
+    size: { w: 110, h: 18 }
+  - id: f_sta
+    label: "停滞前線（参考）"
+    marker: none
+    align: left
+    at: { x: 896, y: 659 }
+    size: { w: 140, h: 18 }
+  - id: h80
+    label: "等圧線"
+    hatch: solid
+    at: { x: 1010, y: 80 }
+    size: { w: 470, h: 22 }
+  - id: a102
+    label: "何を結んだ線か"
+    at: { x: 1010, y: 102 }
+    size: { w: 150, h: 22 }
+  - id: b102
+    label: "気圧が同じところ"
+    align: left
+    at: { x: 1160, y: 102 }
+    size: { w: 320, h: 22 }
+  - id: a124
+    label: "間隔"
+    at: { x: 1010, y: 124 }
+    size: { w: 150, h: 22 }
+  - id: b124
+    label: "4hPa ごと"
+    align: left
+    at: { x: 1160, y: 124 }
+    size: { w: 320, h: 22 }
+  - id: a146
+    label: "混んでいる"
+    at: { x: 1010, y: 146 }
+    size: { w: 150, h: 22 }
+  - id: b146
+    label: "気圧の傾きが急 ＝ 風が強い"
+    align: left
+    at: { x: 1160, y: 146 }
+    size: { w: 320, h: 22 }
+  - id: a168
+    label: "閉じた線の中"
+    at: { x: 1010, y: 168 }
+    size: { w: 150, h: 22 }
+  - id: b168
+    label: "まわりより高ければ高気圧、低ければ低気圧"
+    align: left
+    at: { x: 1160, y: 168 }
+    size: { w: 320, h: 22 }
+  - id: h204
+    label: "前線の記号（4 種）"
+    hatch: solid
+    at: { x: 1010, y: 204 }
+    size: { w: 470, h: 22 }
+  - id: a226
+    label: "寒冷前線"
+    at: { x: 1010, y: 226 }
+    size: { w: 150, h: 22 }
+  - id: b226
+    label: "三角。寒気が暖気の下へ潜り込む"
+    align: left
+    at: { x: 1160, y: 226 }
+    size: { w: 320, h: 22 }
+  - id: a248
+    label: "温暖前線"
+    at: { x: 1010, y: 248 }
+    size: { w: 150, h: 22 }
+  - id: b248
+    label: "半円。暖気が寒気の上へ這い上がる"
+    align: left
+    at: { x: 1160, y: 248 }
+    size: { w: 320, h: 22 }
+  - id: a270
+    label: "停滞前線"
+    at: { x: 1010, y: 270 }
+    size: { w: 150, h: 22 }
+  - id: b270
+    label: "三角と半円が交互に反対側。動きが遅い"
+    align: left
+    at: { x: 1160, y: 270 }
+    size: { w: 320, h: 22 }
+  - id: a292
+    label: "閉塞前線"
+    at: { x: 1010, y: 292 }
+    size: { w: 150, h: 22 }
+  - id: b292
+    label: "三角と半円が同じ側。寒冷が温暖に追いついた"
+    align: left
+    at: { x: 1160, y: 292 }
+    size: { w: 320, h: 22 }
+  - id: a314
+    label: "記号の向き"
+    at: { x: 1010, y: 314 }
+    size: { w: 150, h: 22 }
+  - id: b314
+    label: "進む向きの側に付ける"
+    align: left
+    at: { x: 1160, y: 314 }
+    size: { w: 320, h: 22 }
+  - id: h350
+    label: "高気圧と低気圧"
+    hatch: solid
+    at: { x: 1010, y: 350 }
+    size: { w: 470, h: 22 }
+  - id: a372
+    label: "H（高）"
+    at: { x: 1010, y: 372 }
+    size: { w: 150, h: 22 }
+  - id: b372
+    label: "まわりより気圧が高い。中心付近は晴れ"
+    align: left
+    at: { x: 1160, y: 372 }
+    size: { w: 320, h: 22 }
+  - id: a394
+    label: "L（低）"
+    at: { x: 1010, y: 394 }
+    size: { w: 150, h: 22 }
+  - id: b394
+    label: "まわりより気圧が低い。くもりや雨"
+    align: left
+    at: { x: 1160, y: 394 }
+    size: { w: 320, h: 22 }
+  - id: a416
+    label: "前線"
+    at: { x: 1010, y: 416 }
+    size: { w: 150, h: 22 }
+  - id: b416
+    label: "低気圧から伸びる。前線付近は雲や雨"
+    align: left
+    at: { x: 1160, y: 416 }
+    size: { w: 320, h: 22 }
+  - id: h452
+    label: "この図について"
+    hatch: solid
+    at: { x: 1010, y: 452 }
+    size: { w: 470, h: 22 }
+  - id: a474
+    label: "数値"
+    at: { x: 1010, y: 474 }
+    size: { w: 150, h: 22 }
+  - id: b474
+    label: "992〜1020hPa（4hPa ごと）"
+    align: left
+    at: { x: 1160, y: 474 }
+    size: { w: 320, h: 22 }
+  - id: a496
+    label: "地図"
+    at: { x: 1010, y: 496 }
+    size: { w: 150, h: 22 }
+  - id: b496
+    label: "海岸線は描いていない（記号の図）"
+    align: left
+    at: { x: 1160, y: 496 }
+    size: { w: 320, h: 22 }
+  - id: a518
+    label: "この図"
+    at: { x: 1010, y: 518 }
+    size: { w: 150, h: 22 }
+  - id: b518
+    label: "架空の気圧配置。実在の天気図ではない"
+    align: left
+    at: { x: 1160, y: 518 }
+    size: { w: 320, h: 22 }
+  - id: n1
+    label: "等圧線は、気圧が同じところを結んだ線です。ふつう4hPa ごとに引きます。"
+    marker: none
+    align: left
+    at: { x: 90, y: 780 }
+    size: { w: 860, h: 18 }
+  - id: n2
+    label: "線が混んでいるところは気圧の傾きが急で、風が強いところです。"
+    marker: none
+    align: left
+    at: { x: 90, y: 802 }
+    size: { w: 860, h: 18 }
+  - id: n3
+    label: "前線は 4 種類。寒冷は三角、温暖は半円、停滞は交互に反対側、閉塞は同じ側に付きます。"
+    marker: none
+    align: left
+    at: { x: 90, y: 824 }
+    size: { w: 860, h: 18 }
+  - id: n4
+    label: "記号は前線が進む向きの側に付きます。だから記号を見れば、どちらへ動くかが分かります。"
+    marker: none
+    align: left
+    at: { x: 90, y: 846 }
+    size: { w: 860, h: 18 }
+  - id: n5
+    label: "気圧配置は架空です。海岸線は描いていません。"
+    marker: none
+    align: left
+    at: { x: 90, y: 868 }
+    size: { w: 860, h: 18 }
+edges:
+  - from: e0
+    to: e0
+    curve: smooth
+    ends: { from: none, to: none }
+    via:
+      - { x: 394.1, y: 330 }
+      - { x: 390.9, y: 343.1 }
+      - { x: 382.4, y: 354.2 }
+      - { x: 371, y: 362.8 }
+      - { x: 358.4, y: 369.4 }
+      - { x: 345, y: 374.8 }
+      - { x: 330, y: 378.4 }
+      - { x: 313.7, y: 378.7 }
+      - { x: 297.9, y: 374.4 }
+      - { x: 285.4, y: 365.7 }
+      - { x: 277.6, y: 354.2 }
+      - { x: 274, y: 342 }
+      - { x: 273.1, y: 330 }
+      - { x: 274, y: 318 }
+      - { x: 277.6, y: 305.8 }
+      - { x: 285.4, y: 294.3 }
+      - { x: 297.9, y: 285.6 }
+      - { x: 313.7, y: 281.3 }
+      - { x: 330, y: 281.6 }
+      - { x: 345, y: 285.2 }
+      - { x: 358.4, y: 290.6 }
+      - { x: 371, y: 297.2 }
+      - { x: 382.4, y: 305.8 }
+      - { x: 390.9, y: 316.9 }
+      - { x: 394.1, y: 330 }
+  - from: e1
+    to: e1
+    curve: smooth
+    ends: { from: none, to: none }
+    via:
+      - { x: 417.5, y: 330 }
+      - { x: 413.1, y: 347.8 }
+      - { x: 401.4, y: 363 }
+      - { x: 385.9, y: 374.7 }
+      - { x: 368.8, y: 383.7 }
+      - { x: 350.4, y: 391 }
+      - { x: 330, y: 396 }
+      - { x: 307.7, y: 396.5 }
+      - { x: 286.3, y: 390.6 }
+      - { x: 269.2, y: 378.6 }
+      - { x: 258.6, y: 363 }
+      - { x: 253.7, y: 346.4 }
+      - { x: 252.5, y: 330 }
+      - { x: 253.7, y: 313.6 }
+      - { x: 258.6, y: 297 }
+      - { x: 269.2, y: 281.4 }
+      - { x: 286.3, y: 269.4 }
+      - { x: 307.7, y: 263.5 }
+      - { x: 330, y: 264 }
+      - { x: 350.4, y: 269 }
+      - { x: 368.8, y: 276.3 }
+      - { x: 385.9, y: 285.3 }
+      - { x: 401.4, y: 297 }
+      - { x: 413.1, y: 312.2 }
+      - { x: 417.5, y: 330 }
+  - from: e2
+    to: e2
+    curve: smooth
+    ends: { from: none, to: none }
+    via:
+      - { x: 440.8, y: 330 }
+      - { x: 435.2, y: 352.6 }
+      - { x: 420.5, y: 371.8 }
+      - { x: 400.8, y: 386.6 }
+      - { x: 379.1, y: 398.1 }
+      - { x: 355.9, y: 407.3 }
+      - { x: 330, y: 413.6 }
+      - { x: 301.8, y: 414.2 }
+      - { x: 274.6, y: 406.7 }
+      - { x: 253, y: 391.6 }
+      - { x: 239.5, y: 371.8 }
+      - { x: 233.3, y: 350.7 }
+      - { x: 231.8, y: 330 }
+      - { x: 233.3, y: 309.3 }
+      - { x: 239.5, y: 288.2 }
+      - { x: 253, y: 268.4 }
+      - { x: 274.6, y: 253.3 }
+      - { x: 301.8, y: 245.8 }
+      - { x: 330, y: 246.4 }
+      - { x: 355.9, y: 252.7 }
+      - { x: 379.1, y: 261.9 }
+      - { x: 400.8, y: 273.4 }
+      - { x: 420.5, y: 288.2 }
+      - { x: 435.2, y: 307.4 }
+      - { x: 440.8, y: 330 }
+  - from: e3
+    to: e3
+    curve: smooth
+    ends: { from: none, to: none }
+    via:
+      - { x: 464.1, y: 330 }
+      - { x: 457.4, y: 357.3 }
+      - { x: 439.6, y: 380.6 }
+      - { x: 415.7, y: 398.5 }
+      - { x: 389.5, y: 412.4 }
+      - { x: 361.4, y: 423.6 }
+      - { x: 330, y: 431.2 }
+      - { x: 295.9, y: 431.9 }
+      - { x: 263, y: 422.9 }
+      - { x: 236.8, y: 404.6 }
+      - { x: 220.4, y: 380.6 }
+      - { x: 213, y: 355.1 }
+      - { x: 211.1, y: 330 }
+      - { x: 213, y: 304.9 }
+      - { x: 220.4, y: 279.4 }
+      - { x: 236.8, y: 255.4 }
+      - { x: 263, y: 237.1 }
+      - { x: 295.9, y: 228.1 }
+      - { x: 330, y: 228.8 }
+      - { x: 361.4, y: 236.4 }
+      - { x: 389.5, y: 247.6 }
+      - { x: 415.7, y: 261.5 }
+      - { x: 439.6, y: 279.4 }
+      - { x: 457.4, y: 302.7 }
+      - { x: 464.1, y: 330 }
+  - from: e4
+    to: e4
+    curve: smooth
+    ends: { from: none, to: none }
+    via:
+      - { x: 487.4, y: 330 }
+      - { x: 479.5, y: 362.1 }
+      - { x: 458.6, y: 389.4 }
+      - { x: 430.6, y: 410.4 }
+      - { x: 399.8, y: 426.7 }
+      - { x: 366.8, y: 439.9 }
+      - { x: 330, y: 448.8 }
+      - { x: 289.9, y: 449.6 }
+      - { x: 251.3, y: 439.1 }
+      - { x: 220.5, y: 417.6 }
+      - { x: 201.4, y: 389.4 }
+      - { x: 192.6, y: 359.4 }
+      - { x: 190.4, y: 330 }
+      - { x: 192.6, y: 300.6 }
+      - { x: 201.4, y: 270.6 }
+      - { x: 220.5, y: 242.4 }
+      - { x: 251.3, y: 220.9 }
+      - { x: 289.9, y: 210.4 }
+      - { x: 330, y: 211.2 }
+      - { x: 366.8, y: 220.1 }
+      - { x: 399.8, y: 233.3 }
+      - { x: 430.6, y: 249.6 }
+      - { x: 458.6, y: 270.6 }
+      - { x: 479.5, y: 297.9 }
+      - { x: 487.4, y: 330 }
+  - from: e5
+    to: e5
+    curve: smooth
+    ends: { from: none, to: none }
+    via:
+      - { x: 887.8, y: 300 }
+      - { x: 885, y: 311.5 }
+      - { x: 877.6, y: 321.5 }
+      - { x: 867.5, y: 329.3 }
+      - { x: 856.1, y: 335.4 }
+      - { x: 843.7, y: 340.1 }
+      - { x: 830, y: 343 }
+      - { x: 815.3, y: 343 }
+      - { x: 801.1, y: 339.1 }
+      - { x: 789.7, y: 331.5 }
+      - { x: 782.4, y: 321.5 }
+      - { x: 778.8, y: 310.7 }
+      - { x: 777.8, y: 300 }
+      - { x: 778.8, y: 289.3 }
+      - { x: 782.4, y: 278.5 }
+      - { x: 789.7, y: 268.5 }
+      - { x: 801.1, y: 260.9 }
+      - { x: 815.3, y: 257 }
+      - { x: 830, y: 257 }
+      - { x: 843.7, y: 259.9 }
+      - { x: 856.1, y: 264.6 }
+      - { x: 867.5, y: 270.7 }
+      - { x: 877.6, y: 278.5 }
+      - { x: 885, y: 288.5 }
+      - { x: 887.8, y: 300 }
+  - from: e6
+    to: e6
+    curve: smooth
+    ends: { from: none, to: none }
+    via:
+      - { x: 916.6, y: 300 }
+      - { x: 912.5, y: 317.3 }
+      - { x: 901.4, y: 332.3 }
+      - { x: 886.3, y: 344 }
+      - { x: 869.2, y: 353.1 }
+      - { x: 850.6, y: 360.1 }
+      - { x: 830, y: 364.5 }
+      - { x: 807.9, y: 364.5 }
+      - { x: 786.7, y: 358.7 }
+      - { x: 769.6, y: 347.2 }
+      - { x: 758.6, y: 332.3 }
+      - { x: 753.1, y: 316.1 }
+      - { x: 751.6, y: 300 }
+      - { x: 753.1, y: 283.9 }
+      - { x: 758.6, y: 267.8 }
+      - { x: 769.6, y: 252.8 }
+      - { x: 786.7, y: 241.3 }
+      - { x: 807.9, y: 235.5 }
+      - { x: 830, y: 235.5 }
+      - { x: 850.6, y: 239.9 }
+      - { x: 869.2, y: 246.9 }
+      - { x: 886.3, y: 256 }
+      - { x: 901.4, y: 267.8 }
+      - { x: 912.5, y: 282.7 }
+      - { x: 916.6, y: 300 }
+  - from: e7
+    to: e7
+    curve: smooth
+    ends: { from: none, to: none }
+    via:
+      - { x: 945.5, y: 300 }
+      - { x: 940, y: 323 }
+      - { x: 925.3, y: 343 }
+      - { x: 905, y: 358.7 }
+      - { x: 882.3, y: 370.8 }
+      - { x: 857.5, y: 380.1 }
+      - { x: 830, y: 386 }
+      - { x: 800.5, y: 386 }
+      - { x: 772.3, y: 378.2 }
+      - { x: 749.5, y: 363 }
+      - { x: 734.7, y: 343 }
+      - { x: 727.5, y: 321.5 }
+      - { x: 725.5, y: 300 }
+      - { x: 727.5, y: 278.5 }
+      - { x: 734.7, y: 257 }
+      - { x: 749.5, y: 237 }
+      - { x: 772.3, y: 221.8 }
+      - { x: 800.5, y: 214 }
+      - { x: 830, y: 214 }
+      - { x: 857.5, y: 219.9 }
+      - { x: 882.3, y: 229.2 }
+      - { x: 905, y: 241.3 }
+      - { x: 925.3, y: 257 }
+      - { x: 940, y: 277 }
+      - { x: 945.5, y: 300 }
+  - from: e8
+    to: e8
+    curve: smooth
+    ends: { from: none, to: none }
+    via:
+      - { x: 974.4, y: 300 }
+      - { x: 967.5, y: 328.8 }
+      - { x: 949.1, y: 353.8 }
+      - { x: 923.8, y: 373.3 }
+      - { x: 895.3, y: 388.4 }
+      - { x: 864.3, y: 400.2 }
+      - { x: 830, y: 407.5 }
+      - { x: 793.2, y: 407.5 }
+      - { x: 757.8, y: 397.8 }
+      - { x: 729.3, y: 378.7 }
+      - { x: 710.9, y: 353.8 }
+      - { x: 701.9, y: 326.8 }
+      - { x: 699.4, y: 300 }
+      - { x: 701.9, y: 273.2 }
+      - { x: 710.9, y: 246.3 }
+      - { x: 729.3, y: 221.3 }
+      - { x: 757.8, y: 202.2 }
+      - { x: 793.2, y: 192.5 }
+      - { x: 830, y: 192.5 }
+      - { x: 864.3, y: 199.8 }
+      - { x: 895.3, y: 211.6 }
+      - { x: 923.8, y: 226.7 }
+      - { x: 949.1, y: 246.2 }
+      - { x: 967.5, y: 271.2 }
+      - { x: 974.4, y: 300 }
+  - from: e9
+    to: e9
+    curve: smooth
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 370, y: 340 }
+      - { x: 500, y: 390 }
+      - { x: 620, y: 426 }
+  - from: e10
+    to: e10
+    curve: none
+    close: true
+    hatch: solid
+    ends: { from: none, to: none }
+    via:
+      - { x: 421.3, y: 359.7 }
+      - { x: 419.5, y: 362.7 }
+      - { x: 416.6, y: 364.7 }
+      - { x: 413.2, y: 365.5 }
+      - { x: 409.7, y: 364.9 }
+      - { x: 406.7, y: 363 }
+      - { x: 404.7, y: 360.2 }
+      - { x: 403.9, y: 356.7 }
+      - { x: 404.5, y: 353.3 }
+      - { x: 404.5, y: 353.3 }
+  - from: e11
+    to: e11
+    curve: none
+    close: true
+    hatch: solid
+    ends: { from: none, to: none }
+    via:
+      - { x: 464.3, y: 376.3 }
+      - { x: 462.4, y: 379.2 }
+      - { x: 459.5, y: 381.3 }
+      - { x: 456.1, y: 382 }
+      - { x: 452.6, y: 381.4 }
+      - { x: 449.7, y: 379.6 }
+      - { x: 447.6, y: 376.7 }
+      - { x: 446.9, y: 373.3 }
+      - { x: 447.5, y: 369.8 }
+      - { x: 447.5, y: 369.8 }
+  - from: e12
+    to: e12
+    curve: none
+    close: true
+    hatch: solid
+    ends: { from: none, to: none }
+    via:
+      - { x: 507.2, y: 392.8 }
+      - { x: 505.3, y: 395.7 }
+      - { x: 502.5, y: 397.8 }
+      - { x: 499, y: 398.5 }
+      - { x: 495.6, y: 397.9 }
+      - { x: 492.6, y: 396.1 }
+      - { x: 490.6, y: 393.2 }
+      - { x: 489.8, y: 389.8 }
+      - { x: 490.4, y: 386.3 }
+      - { x: 490.4, y: 386.3 }
+  - from: e13
+    to: e13
+    curve: none
+    close: true
+    hatch: solid
+    ends: { from: none, to: none }
+    via:
+      - { x: 551.5, y: 405.4 }
+      - { x: 549.8, y: 408.5 }
+      - { x: 547.1, y: 410.8 }
+      - { x: 543.7, y: 411.8 }
+      - { x: 540.2, y: 411.5 }
+      - { x: 537.1, y: 409.8 }
+      - { x: 534.9, y: 407.1 }
+      - { x: 533.9, y: 403.8 }
+      - { x: 534.2, y: 400.3 }
+      - { x: 534.2, y: 400.3 }
+  - from: e14
+    to: e14
+    curve: none
+    close: true
+    hatch: solid
+    ends: { from: none, to: none }
+    via:
+      - { x: 595.5, y: 418.7 }
+      - { x: 593.9, y: 421.8 }
+      - { x: 591.2, y: 424 }
+      - { x: 587.8, y: 425 }
+      - { x: 584.3, y: 424.7 }
+      - { x: 581.2, y: 423 }
+      - { x: 579, y: 420.3 }
+      - { x: 577.9, y: 417 }
+      - { x: 578.3, y: 413.5 }
+      - { x: 578.3, y: 413.5 }
+  - from: e15
+    to: e15
+    curve: smooth
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 360, y: 356 }
+      - { x: 420, y: 480 }
+      - { x: 470, y: 610 }
+  - from: e16
+    to: e16
+    curve: none
+    close: true
+    hatch: solid
+    ends: { from: none, to: none }
+    via:
+      - { x: 376.1, y: 389.3 }
+      - { x: 384, y: 405.5 }
+      - { x: 367.1, y: 403.7 }
+  - from: e17
+    to: e17
+    curve: none
+    close: true
+    hatch: solid
+    ends: { from: none, to: none }
+    via:
+      - { x: 396.2, y: 430.7 }
+      - { x: 404, y: 446.9 }
+      - { x: 387.1, y: 445.1 }
+  - from: e18
+    to: e18
+    curve: none
+    close: true
+    hatch: solid
+    ends: { from: none, to: none }
+    via:
+      - { x: 416.9, y: 471.8 }
+      - { x: 423.3, y: 488.6 }
+      - { x: 406.6, y: 485.4 }
+  - from: e19
+    to: e19
+    curve: none
+    close: true
+    hatch: solid
+    ends: { from: none, to: none }
+    via:
+      - { x: 433.4, y: 514.8 }
+      - { x: 439.8, y: 531.6 }
+      - { x: 423.2, y: 528.3 }
+  - from: e20
+    to: e20
+    curve: none
+    close: true
+    hatch: solid
+    ends: { from: none, to: none }
+    via:
+      - { x: 449.9, y: 557.7 }
+      - { x: 456.3, y: 574.5 }
+      - { x: 439.7, y: 571.3 }
+  - from: e21
+    to: e21
+    curve: none
+    close: true
+    hatch: solid
+    ends: { from: none, to: none }
+    via:
+      - { x: 466.4, y: 600.6 }
+      - { x: 472.9, y: 617.4 }
+      - { x: 456.2, y: 614.2 }
+  - from: e22
+    to: e22
+    curve: smooth
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 320, y: 314 }
+      - { x: 220, y: 260 }
+      - { x: 120, y: 226 }
+  - from: e23
+    to: e23
+    curve: none
+    close: true
+    hatch: solid
+    ends: { from: none, to: none }
+    via:
+      - { x: 287.4, y: 296.4 }
+      - { x: 271.6, y: 287.9 }
+      - { x: 286.4, y: 279.5 }
+  - from: e24
+    to: e24
+    curve: none
+    close: true
+    hatch: solid
+    ends: { from: none, to: none }
+    via:
+      - { x: 231.1, y: 266 }
+      - { x: 233.4, y: 263.3 }
+      - { x: 236.5, y: 261.7 }
+      - { x: 240, y: 261.3 }
+      - { x: 243.3, y: 262.4 }
+      - { x: 246, y: 264.6 }
+      - { x: 247.7, y: 267.7 }
+      - { x: 248, y: 271.2 }
+      - { x: 247, y: 274.6 }
+      - { x: 247, y: 274.6 }
+  - from: e25
+    to: e25
+    curve: none
+    close: true
+    hatch: solid
+    ends: { from: none, to: none }
+    via:
+      - { x: 205.5, y: 255.1 }
+      - { x: 188.4, y: 249.3 }
+      - { x: 201.6, y: 238.5 }
+  - from: e26
+    to: e26
+    curve: none
+    close: true
+    hatch: solid
+    ends: { from: none, to: none }
+    via:
+      - { x: 144.9, y: 234.5 }
+      - { x: 146.6, y: 231.4 }
+      - { x: 149.4, y: 229.3 }
+      - { x: 152.8, y: 228.4 }
+      - { x: 156.3, y: 228.8 }
+      - { x: 159.3, y: 230.6 }
+      - { x: 161.5, y: 233.4 }
+      - { x: 162.4, y: 236.8 }
+      - { x: 161.9, y: 240.3 }
+      - { x: 161.9, y: 240.3 }
+  - from: e27
+    to: e27
+    curve: smooth
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 630, y: 660 }
+      - { x: 760, y: 676 }
+      - { x: 890, y: 668 }
+  - from: e28
+    to: e28
+    curve: none
+    close: true
+    hatch: solid
+    ends: { from: none, to: none }
+    via:
+      - { x: 666.7, y: 664.5 }
+      - { x: 684.6, y: 666.7 }
+      - { x: 673.9, y: 679.9 }
+  - from: e29
+    to: e29
+    curve: none
+    close: true
+    hatch: solid
+    ends: { from: none, to: none }
+    via:
+      - { x: 730.2, y: 672.3 }
+      - { x: 730, y: 668.8 }
+      - { x: 728.4, y: 665.7 }
+      - { x: 725.7, y: 663.4 }
+      - { x: 722.4, y: 662.3 }
+      - { x: 718.9, y: 662.6 }
+      - { x: 715.8, y: 664.1 }
+      - { x: 713.5, y: 666.8 }
+      - { x: 712.4, y: 670.1 }
+      - { x: 712.4, y: 670.1 }
+  - from: e30
+    to: e30
+    curve: none
+    close: true
+    hatch: solid
+    ends: { from: none, to: none }
+    via:
+      - { x: 758, y: 676.1 }
+      - { x: 776, y: 675 }
+      - { x: 767.9, y: 689.9 }
+  - from: e31
+    to: e31
+    curve: none
+    close: true
+    hatch: solid
+    ends: { from: none, to: none }
+    via:
+      - { x: 821.9, y: 672.2 }
+      - { x: 821, y: 668.8 }
+      - { x: 818.9, y: 666 }
+      - { x: 815.8, y: 664.2 }
+      - { x: 812.4, y: 663.8 }
+      - { x: 809, y: 664.7 }
+      - { x: 806.2, y: 666.8 }
+      - { x: 804.4, y: 669.8 }
+      - { x: 803.9, y: 673.3 }
+      - { x: 803.9, y: 673.3 }
+  - from: e32
+    to: e32
+    curve: none
+    close: true
+    hatch: solid
+    ends: { from: none, to: none }
+    via:
+      - { x: 849.8, y: 670.5 }
+      - { x: 867.8, y: 669.4 }
+      - { x: 859.7, y: 684.3 }

@@ -242,6 +242,35 @@ edges:
     assert.match(pathOfEdge(out), / Z$/);
   });
 
+  /**
+   * **自分自身への辺で `close` を書かなければ、戻り線を引かない。**
+   *
+   * 2026-09-19。見本 174（送電線路）を作り直していて気づいた ——
+   * 正本に書いていない線が、最後の点から節へ**戻って**引かれていた。
+   * 地面の線とほぼ重なっていたので、誰も気づかないまま出ていた。
+   * **10 枚・123 本**が同じ状態だった（測った）。
+   *
+   * 自分自身への辺は、**閉じた形にも開いた折れ線にも使う**
+   * （等圧線・断面の地形・型紙の縫い代）。閉じるかどうかは `close` が言う。
+   */
+  it('**自分自身への辺は、close を書かなければ戻らない**', async () => {
+    const OPEN = POND.replace('from: a\n    to: b', 'from: a\n    to: a').replace('    close: true\n', '');
+    const placed = await layout(OPEN);
+    const points = placed.edges[0]!.points;
+    const head = points[0]!;
+    const tail = points[points.length - 1]!;
+    assert.ok(
+      Math.hypot(tail.x - head.x, tail.y - head.y) > 20,
+      `書いていない戻り線が引かれた（${JSON.stringify(points)}）`,
+    );
+  });
+
+  it('**自分自身への辺でも、close: true なら閉じる**', async () => {
+    const placed = await layout(POND.replace('from: a\n    to: b', 'from: a\n    to: a'));
+    const points = placed.edges[0]!.points;
+    assert.deepEqual(points[points.length - 1], points[0], '輪が閉じていない');
+  });
+
   it('真偽でない値を警告する', () => {
     const found = validate(POND.replace('close: true', 'close: はい'));
     assert.ok(found.some((f) => f.code === 'close-not-boolean'));

@@ -1,0 +1,500 @@
+version: 1
+kind: placement
+arrows: true
+title: 棚板はなぜたわむか（スパン・厚み・幕板）
+# **たわみはスパンの 3 乗で効く。** 同じ本を載せるなら、
+# スパンを 2 倍にすると 8 倍。**本で埋めるなら 4 乗で 16 倍。**
+#
+# δ ＝ 5 W L³ ／ (384 E I)、I ＝ b t³ ／ 12。
+# **厚みも 3 乗。** 18mm を 24mm にすると、たわみは (18/24)³ ＝ 0.42 倍。
+#
+# **材料を替えるより、形を変えるほうが効く。**
+# 奥行 250・厚 18・スパン 900 に本 20kg で、8 タイプなら 7.7mm、
+# 18 タイプでも 5.1mm。ところが**前に 40mm の幕板を付けると 0.8mm**。
+# 断面二次モーメントが 121,500 → 739,500 mm⁴（6.1 倍）になるため。
+#
+# 効くのは**中立軸からどれだけ離れた所に材料があるか**。
+# 本棚の幕板は、見栄えではなくたわみ止め。
+#
+# E は JIS A 5908 の曲げヤング係数（8 タイプ 2,000 ／ 13 タイプ 2,500 ／
+# 18 タイプ 3,000 N/mm² 以上）。
+nodes:
+  - id: t1
+    label: "① 両端で受けた棚板に、本を並べて載せたとき"
+    marker: none
+    align: left
+    at: { x: 150, y: 150 }
+    size: { w: 620, h: 20 }
+  - id: lp
+    label: ""
+    hatch: lines
+    at: { x: 214, y: 290 }
+    size: { w: 26, h: 210 }
+  - id: rp
+    label: ""
+    hatch: lines
+    at: { x: 700, y: 290 }
+    size: { w: 26, h: 210 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 239, y: 299 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 699, y: 299 }
+    size: { w: 2, h: 2 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 239, y: 315 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 699, y: 315 }
+    size: { w: 2, h: 2 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 239, y: 299 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 239, y: 315 }
+    size: { w: 2, h: 2 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 699, y: 299 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 699, y: 315 }
+    size: { w: 2, h: 2 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 199, y: 299 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 739, y: 299 }
+    size: { w: 2, h: 2 }
+  - id: bk0
+    label: ""
+    at: { x: 258, y: 253.4 }
+    size: { w: 34, h: 56 }
+  - id: bk1
+    label: ""
+    at: { x: 306, y: 267.8 }
+    size: { w: 34, h: 56 }
+  - id: bk2
+    label: ""
+    at: { x: 354, y: 278.3 }
+    size: { w: 34, h: 56 }
+  - id: bk3
+    label: ""
+    at: { x: 402, y: 285 }
+    size: { w: 34, h: 56 }
+  - id: bk4
+    label: ""
+    at: { x: 450, y: 287.9 }
+    size: { w: 34, h: 56 }
+  - id: bk5
+    label: ""
+    at: { x: 498, y: 286.9 }
+    size: { w: 34, h: 56 }
+  - id: bk6
+    label: ""
+    at: { x: 546, y: 282.1 }
+    size: { w: 34, h: 56 }
+  - id: bk7
+    label: ""
+    at: { x: 594, y: 273.5 }
+    size: { w: 34, h: 56 }
+  - id: bk8
+    label: ""
+    at: { x: 642, y: 261.1 }
+    size: { w: 34, h: 56 }
+  - id: bkN
+    label: "本 20kg を等分布で"
+    marker: none
+    align: center
+    at: { x: 340, y: 216 }
+    size: { w: 260, h: 18 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 469, y: 299 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 469, y: 343 }
+    size: { w: 2, h: 2 }
+  - id: sagN
+    label: "たわみ δ"
+    marker: none
+    align: left
+    at: { x: 482, y: 370 }
+    size: { w: 110, h: 18 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 239, y: 539 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 699, y: 539 }
+    size: { w: 2, h: 2 }
+  - id: spanN
+    label: "スパン L（支えの内法）"
+    marker: none
+    align: center
+    at: { x: 240, y: 546 }
+    size: { w: 460, h: 18 }
+  - id: eq
+    label: "δ ＝ 5 W L³ ／ (384 E I)　　I ＝ b t³ ／ 12\nW ＝ 載せた重さ　L ＝ スパン　E ＝ 材料の固さ　b ＝ 奥行　t ＝ 厚み"
+    at: { x: 240, y: 584 }
+    size: { w: 540, h: 54 }
+  - id: pow
+    label: "L は 3 乗、t も 3 乗で効く。スパンを 2 倍にすると、たわみは 8 倍。"
+    at: { x: 240, y: 650 }
+    size: { w: 540, h: 30 }
+  - id: t2
+    label: "② 奥行 250・厚 18・18 タイプに本 20kg"
+    marker: none
+    align: left
+    at: { x: 800, y: 150 }
+    size: { w: 440, h: 20 }
+  - id: h186
+    label: "スパンを変えたときのたわみ"
+    hatch: solid
+    at: { x: 800, y: 186 }
+    size: { w: 440, h: 24 }
+  - id: x210
+    label: "600mm"
+    at: { x: 800, y: 210 }
+    size: { w: 200, h: 24 }
+  - id: y210
+    label: "1.5mm（スパンの 1/396）"
+    align: left
+    at: { x: 1000, y: 210 }
+    size: { w: 240, h: 24 }
+  - id: x234
+    label: "750mm"
+    at: { x: 800, y: 234 }
+    size: { w: 200, h: 24 }
+  - id: y234
+    label: "3.0mm（スパンの 1/254）"
+    align: left
+    at: { x: 1000, y: 234 }
+    size: { w: 240, h: 24 }
+  - id: x258
+    label: "900mm"
+    at: { x: 800, y: 258 }
+    size: { w: 200, h: 24 }
+  - id: y258
+    label: "5.1mm（スパンの 1/176）"
+    align: left
+    at: { x: 1000, y: 258 }
+    size: { w: 240, h: 24 }
+  - id: x282
+    label: "1,200mm"
+    at: { x: 800, y: 282 }
+    size: { w: 200, h: 24 }
+  - id: y282
+    label: "12.1mm（スパンの 1/99）"
+    align: left
+    at: { x: 1000, y: 282 }
+    size: { w: 240, h: 24 }
+  - id: why2
+    label: "本で埋めるなら、もっと増える。\n重さもスパンに比例するので、そのときは 4 乗 ——\n2 倍のスパンで 16 倍。"
+    at: { x: 800, y: 320 }
+    size: { w: 440, h: 80 }
+  - id: t3
+    label: "③ スパン 900mm・本 20kg で、変えてみる"
+    marker: none
+    align: left
+    at: { x: 800, y: 416 }
+    size: { w: 440, h: 20 }
+  - id: h446
+    label: "たわみ（mm）"
+    hatch: solid
+    at: { x: 800, y: 446 }
+    size: { w: 440, h: 24 }
+  - id: x470
+    label: "18mm・8 タイプ（E 2,000）"
+    at: { x: 800, y: 470 }
+    size: { w: 250, h: 24 }
+  - id: y470
+    label: "7.7"
+    align: left
+    at: { x: 1050, y: 470 }
+    size: { w: 190, h: 24 }
+  - id: x494
+    label: "18mm・18 タイプ（E 3,000）"
+    at: { x: 800, y: 494 }
+    size: { w: 250, h: 24 }
+  - id: y494
+    label: "5.1"
+    align: left
+    at: { x: 1050, y: 494 }
+    size: { w: 190, h: 24 }
+  - id: x518
+    label: "24mm・18 タイプ"
+    at: { x: 800, y: 518 }
+    size: { w: 250, h: 24 }
+  - id: y518
+    label: "2.2"
+    align: left
+    at: { x: 1050, y: 518 }
+    size: { w: 190, h: 24 }
+  - id: x542
+    label: "18mm ＋ 幕板 40mm"
+    at: { x: 800, y: 542 }
+    size: { w: 250, h: 24 }
+  - id: y542
+    label: "0.8"
+    align: left
+    at: { x: 1050, y: 542 }
+    size: { w: 190, h: 24 }
+  - id: why3
+    label: "E は JIS A 5908 の曲げヤング係数（N/mm²）。\n8 タイプ 2,000 ／ 13 タイプ 2,500 ／ 18 タイプ 3,000 以上。\n材料を替えるより、形を変えるほうが効く。"
+    at: { x: 800, y: 580 }
+    size: { w: 440, h: 80 }
+  - id: t4
+    label: "④ 前に 40mm の幕板を付けると、6.1 倍固くなる"
+    marker: none
+    align: left
+    at: { x: 150, y: 720 }
+    size: { w: 620, h: 20 }
+  - id: f0p
+    label: ""
+    hatch: lines
+    at: { x: 220, y: 770 }
+    size: { w: 250, h: 18 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 199, y: 778 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 489, y: 778 }
+    size: { w: 2, h: 2 }
+  - id: f0n
+    label: "平板　I ＝ 121,500 mm⁴"
+    marker: none
+    align: center
+    at: { x: 210, y: 810 }
+    size: { w: 270, h: 18 }
+  - id: f1p
+    label: ""
+    hatch: lines
+    at: { x: 560, y: 770 }
+    size: { w: 250, h: 18 }
+  - id: f1l
+    label: ""
+    hatch: lines
+    at: { x: 792, y: 788 }
+    size: { w: 18, h: 40 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 539, y: 782 }
+    size: { w: 2, h: 2 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 829, y: 782 }
+    size: { w: 2, h: 2 }
+  - id: f1n
+    label: "幕板つき　I ＝ 739,500 mm⁴"
+    marker: none
+    align: center
+    at: { x: 550, y: 846 }
+    size: { w: 270, h: 18 }
+  - id: cxN
+    label: "一点鎖線 ＝ 中立軸（曲げでも伸び縮みしない高さ）"
+    marker: none
+    align: center
+    at: { x: 150, y: 870 }
+    size: { w: 620, h: 18 }
+  - id: why4
+    label: "材料を足した所が中立軸から遠いほど効く。\n幕板は板の下へ 40mm 出ているので、そのぶん I が跳ね上がる。\n本棚の幕板は、見栄えではなく、たわみ止め。"
+    at: { x: 150, y: 900 }
+    size: { w: 620, h: 80 }
+  - id: r1
+    label: "棚板のたわみは、スパンの 3 乗で効きます（①）。同じ本を載せるなら、スパンを 2 倍にすると 8 倍たわみます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1010 }
+    size: { w: 1090, h: 18 }
+  - id: r2
+    label: "本で埋めるなら 4 乗です。 長くしたぶん本も増えるので、2 倍のスパンで 16 倍になります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1034 }
+    size: { w: 1090, h: 18 }
+  - id: r3
+    label: "厚みも 3 乗です。 18mm を 24mm にすると、たわみは 0.42 倍（＝(18/24)³）になります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1058 }
+    size: { w: 1090, h: 18 }
+  - id: r4
+    label: "材料を替えるより、形を変えるほうが効きます（③④）。18 タイプにしても 5.1mm ですが、前に 40mm の幕板を付けると 0.8mm です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1082 }
+    size: { w: 1090, h: 18 }
+  - id: r5
+    label: "効くのは、中立軸からどれだけ離れた所に材料があるか。 幕板が板の下へ出ているのは、そのためです。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1106 }
+    size: { w: 1090, h: 18 }
+  - id: r6
+    label: "JIS A 5908 は、家具用のパーティクルボードを 3 段に分けています（8・13・18 タイプ）。曲げヤング係数は 2,000 / 2,500 / 3,000 N/mm² 以上です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1130 }
+    size: { w: 1090, h: 18 }
+  - id: r7
+    label: "棚の割り付けは、見た目ではなく L で決まります。 幅 1,200 の本棚に仕切りを 1 枚入れると、たわみは 8 分の 1 になります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1154 }
+    size: { w: 1090, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 251.5, y: 304.3 }
+      - { x: 263, y: 308.4 }
+      - { x: 274.5, y: 312.2 }
+      - { x: 286, y: 315.8 }
+      - { x: 297.5, y: 319.3 }
+      - { x: 309, y: 322.4 }
+      - { x: 320.5, y: 325.4 }
+      - { x: 332, y: 328.2 }
+      - { x: 343.5, y: 330.7 }
+      - { x: 355, y: 333 }
+      - { x: 366.5, y: 335.1 }
+      - { x: 378, y: 337 }
+      - { x: 389.5, y: 338.6 }
+      - { x: 401, y: 340 }
+      - { x: 412.5, y: 341.3 }
+      - { x: 424, y: 342.2 }
+      - { x: 435.5, y: 343 }
+      - { x: 447, y: 343.6 }
+      - { x: 458.5, y: 343.9 }
+      - { x: 470, y: 344 }
+      - { x: 481.5, y: 343.9 }
+      - { x: 493, y: 343.6 }
+      - { x: 504.5, y: 343 }
+      - { x: 516, y: 342.2 }
+      - { x: 527.5, y: 341.3 }
+      - { x: 539, y: 340 }
+      - { x: 550.5, y: 338.6 }
+      - { x: 562, y: 337 }
+      - { x: 573.5, y: 335.1 }
+      - { x: 585, y: 333 }
+      - { x: 596.5, y: 330.7 }
+      - { x: 608, y: 328.2 }
+      - { x: 619.5, y: 325.4 }
+      - { x: 631, y: 322.4 }
+      - { x: 642.5, y: 319.3 }
+      - { x: 654, y: 315.8 }
+      - { x: 665.5, y: 312.2 }
+      - { x: 677, y: 308.4 }
+      - { x: 688.5, y: 304.3 }
+  - from: p2
+    to: p3
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 251.5, y: 320.3 }
+      - { x: 263, y: 324.4 }
+      - { x: 274.5, y: 328.2 }
+      - { x: 286, y: 331.8 }
+      - { x: 297.5, y: 335.3 }
+      - { x: 309, y: 338.4 }
+      - { x: 320.5, y: 341.4 }
+      - { x: 332, y: 344.2 }
+      - { x: 343.5, y: 346.7 }
+      - { x: 355, y: 349 }
+      - { x: 366.5, y: 351.1 }
+      - { x: 378, y: 353 }
+      - { x: 389.5, y: 354.6 }
+      - { x: 401, y: 356 }
+      - { x: 412.5, y: 357.3 }
+      - { x: 424, y: 358.2 }
+      - { x: 435.5, y: 359 }
+      - { x: 447, y: 359.6 }
+      - { x: 458.5, y: 359.9 }
+      - { x: 470, y: 360 }
+      - { x: 481.5, y: 359.9 }
+      - { x: 493, y: 359.6 }
+      - { x: 504.5, y: 359 }
+      - { x: 516, y: 358.2 }
+      - { x: 527.5, y: 357.3 }
+      - { x: 539, y: 356 }
+      - { x: 550.5, y: 354.6 }
+      - { x: 562, y: 353 }
+      - { x: 573.5, y: 351.1 }
+      - { x: 585, y: 349 }
+      - { x: 596.5, y: 346.7 }
+      - { x: 608, y: 344.2 }
+      - { x: 619.5, y: 341.4 }
+      - { x: 631, y: 338.4 }
+      - { x: 642.5, y: 335.3 }
+      - { x: 654, y: 331.8 }
+      - { x: 665.5, y: 328.2 }
+      - { x: 677, y: 324.4 }
+      - { x: 688.5, y: 320.3 }
+  - from: p4
+    to: p5
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p6
+    to: p7
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p8
+    to: p9
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p10
+    to: p11
+    curve: none
+    ends: { from: arrow, to: arrow }
+  - from: p12
+    to: p13
+    curve: none
+    ends: { from: arrow, to: arrow }
+  - from: p14
+    to: p15
+    curve: none
+    line: chain
+    ends: { from: none, to: none }
+  - from: p16
+    to: p17
+    curve: none
+    line: chain
+    ends: { from: none, to: none }

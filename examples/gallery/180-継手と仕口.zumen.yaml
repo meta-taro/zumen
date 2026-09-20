@@ -1,0 +1,852 @@
+version: 1
+kind: placement
+arrows: true
+title: 継手と仕口（追掛大栓継ぎ・金輪継ぎ・番付／寸法は設計）
+scale: { mm: 0.7 }
+# **継手は材を長手に継ぎ、仕口は角度をもって組む。**
+#
+# どちらも**繊維どうしを噛み合わせて**力を伝える。だから**引かれるほど締まる**。
+# 追掛大栓継ぎは、継手のなかで**いちばん引っ張りに強い** ——
+# 水平力で引っ張りが働く外周部の梁などに使う。込み栓は**2 本打ちが基本**
+# （4 本打っても耐力は変わらない）。1200 年ごろに原型、1400 年ごろに今の形。
+#
+# 金輪継ぎは**車知栓**（くさび）を打ち込んで締める。土台・柱の根継ぎ・梁に使う。
+#
+# **番付**は柱の位置の呼び方。横が「いろは」、縦が「一二三」で、交点を「ろ二」と呼ぶ。
+# 材が何百本もあるので、名前が無いと**どこの材か言えない**。
+#
+# 寸法の割合（継手の長さ ＝ 材せいの 2.5 倍、目違い ＝ 1/6）はこの図の設計。
+nodes:
+  - id: e0
+    label: ""
+    marker: none
+    at: { x: 75, y: 209 }
+    size: { w: 2, h: 2 }
+  - id: e1
+    label: ""
+    marker: none
+    at: { x: 75, y: 377 }
+    size: { w: 2, h: 2 }
+  - id: e2
+    label: ""
+    marker: none
+    at: { x: 75, y: 209 }
+    size: { w: 2, h: 2 }
+  - id: e3
+    label: ""
+    marker: none
+    at: { x: 663, y: 209 }
+    size: { w: 2, h: 2 }
+  - id: e4
+    label: ""
+    marker: none
+    at: { x: 159, y: 293 }
+    size: { w: 2, h: 2 }
+  - id: e5
+    label: ""
+    marker: none
+    at: { x: 159, y: 185 }
+    size: { w: 2, h: 2 }
+  - id: 追掛大栓継ぎ（おっかけだいせんつぎ）_l
+    label: "継手の長さ 300mm（材せいの 2.5 倍）"
+    marker: none
+    align: center
+    at: { x: 240, y: 162 }
+    size: { w: 260, h: 18 }
+  - id: e6
+    label: ""
+    marker: none
+    at: { x: 241.6, y: 293 }
+    size: { w: 2, h: 2 }
+  - id: 追掛大栓継ぎ（おっかけだいせんつぎ）_p
+    label: "込み栓（2 本打ち）"
+    marker: none
+    align: left
+    at: { x: 76, y: 390 }
+    size: { w: 180, h: 18 }
+  - id: e7
+    label: ""
+    marker: none
+    at: { x: 510.4, y: 293 }
+    size: { w: 2, h: 2 }
+  - id: 追掛大栓継ぎ（おっかけだいせんつぎ）_t
+    label: "追掛大栓継ぎ（おっかけだいせんつぎ）"
+    marker: none
+    align: left
+    at: { x: 76, y: 132 }
+    size: { w: 420, h: 20 }
+  - id: e8
+    label: ""
+    marker: none
+    at: { x: 75, y: 499 }
+    size: { w: 2, h: 2 }
+  - id: e9
+    label: ""
+    marker: none
+    at: { x: 75, y: 667 }
+    size: { w: 2, h: 2 }
+  - id: e10
+    label: ""
+    marker: none
+    at: { x: 75, y: 499 }
+    size: { w: 2, h: 2 }
+  - id: e11
+    label: ""
+    marker: none
+    at: { x: 663, y: 499 }
+    size: { w: 2, h: 2 }
+  - id: e12
+    label: ""
+    marker: none
+    at: { x: 159, y: 583 }
+    size: { w: 2, h: 2 }
+  - id: e13
+    label: ""
+    marker: none
+    at: { x: 159, y: 475 }
+    size: { w: 2, h: 2 }
+  - id: 金輪継ぎ（かなわつぎ）_l
+    label: "継手の長さ 300mm（材せいの 2.5 倍）"
+    marker: none
+    align: center
+    at: { x: 240, y: 452 }
+    size: { w: 260, h: 18 }
+  - id: e14
+    label: ""
+    marker: none
+    at: { x: 216.4, y: 583 }
+    size: { w: 2, h: 2 }
+  - id: 金輪継ぎ（かなわつぎ）_p
+    label: "込み栓（2 本打ち）"
+    marker: none
+    align: left
+    at: { x: 76, y: 680 }
+    size: { w: 180, h: 18 }
+  - id: e15
+    label: ""
+    marker: none
+    at: { x: 535.6, y: 583 }
+    size: { w: 2, h: 2 }
+  - id: e16
+    label: ""
+    marker: none
+    at: { x: 343.8, y: 555 }
+    size: { w: 2, h: 2 }
+  - id: 金輪継ぎ（かなわつぎ）_w
+    label: "車知栓（打ち込んで締める）"
+    marker: none
+    align: left
+    at: { x: 409.2, y: 680 }
+    size: { w: 220, h: 18 }
+  - id: 金輪継ぎ（かなわつぎ）_t
+    label: "金輪継ぎ（かなわつぎ）"
+    marker: none
+    align: left
+    at: { x: 76, y: 422 }
+    size: { w: 420, h: 20 }
+  - id: nx0
+    label: "い"
+    marker: none
+    align: center
+    at: { x: 200, y: 736 }
+    size: { w: 34, h: 16 }
+  - id: nx1
+    label: "ろ"
+    marker: none
+    align: center
+    at: { x: 234, y: 736 }
+    size: { w: 34, h: 16 }
+  - id: nx2
+    label: "は"
+    marker: none
+    align: center
+    at: { x: 268, y: 736 }
+    size: { w: 34, h: 16 }
+  - id: nx3
+    label: "に"
+    marker: none
+    align: center
+    at: { x: 302, y: 736 }
+    size: { w: 34, h: 16 }
+  - id: nx4
+    label: "ほ"
+    marker: none
+    align: center
+    at: { x: 336, y: 736 }
+    size: { w: 34, h: 16 }
+  - id: nx5
+    label: "へ"
+    marker: none
+    align: center
+    at: { x: 370, y: 736 }
+    size: { w: 34, h: 16 }
+  - id: ny0
+    label: "一"
+    marker: none
+    align: right
+    at: { x: 160, y: 768 }
+    size: { w: 34, h: 16 }
+  - id: ny1
+    label: "二"
+    marker: none
+    align: right
+    at: { x: 160, y: 802 }
+    size: { w: 34, h: 16 }
+  - id: ny2
+    label: "三"
+    marker: none
+    align: right
+    at: { x: 160, y: 836 }
+    size: { w: 34, h: 16 }
+  - id: ny3
+    label: "四"
+    marker: none
+    align: right
+    at: { x: 160, y: 870 }
+    size: { w: 34, h: 16 }
+  - id: e17
+    label: ""
+    marker: none
+    at: { x: 182, y: 759 }
+    size: { w: 2, h: 2 }
+  - id: e18
+    label: ""
+    marker: none
+    at: { x: 216, y: 759 }
+    size: { w: 2, h: 2 }
+  - id: e19
+    label: ""
+    marker: none
+    at: { x: 250, y: 759 }
+    size: { w: 2, h: 2 }
+  - id: e20
+    label: ""
+    marker: none
+    at: { x: 284, y: 759 }
+    size: { w: 2, h: 2 }
+  - id: e21
+    label: ""
+    marker: none
+    at: { x: 318, y: 759 }
+    size: { w: 2, h: 2 }
+  - id: e22
+    label: ""
+    marker: none
+    at: { x: 352, y: 759 }
+    size: { w: 2, h: 2 }
+  - id: e23
+    label: ""
+    marker: none
+    at: { x: 386, y: 759 }
+    size: { w: 2, h: 2 }
+  - id: e24
+    label: ""
+    marker: none
+    at: { x: 182, y: 759 }
+    size: { w: 2, h: 2 }
+  - id: e25
+    label: ""
+    marker: none
+    at: { x: 182, y: 793 }
+    size: { w: 2, h: 2 }
+  - id: e26
+    label: ""
+    marker: none
+    at: { x: 182, y: 827 }
+    size: { w: 2, h: 2 }
+  - id: e27
+    label: ""
+    marker: none
+    at: { x: 182, y: 861 }
+    size: { w: 2, h: 2 }
+  - id: e28
+    label: ""
+    marker: none
+    at: { x: 182, y: 895 }
+    size: { w: 2, h: 2 }
+  - id: e29
+    label: ""
+    marker: none
+    at: { x: 241, y: 810 }
+    size: { w: 2, h: 2 }
+  - id: e30
+    label: ""
+    marker: none
+    at: { x: 309, y: 844 }
+    size: { w: 2, h: 2 }
+  - id: e31
+    label: ""
+    marker: none
+    at: { x: 343, y: 776 }
+    size: { w: 2, h: 2 }
+  - id: n_t
+    label: "番付（柱の位置の呼び方）"
+    marker: none
+    align: left
+    at: { x: 166, y: 708 }
+    size: { w: 300, h: 20 }
+  - id: n_e
+    label: "この 3 本は「ろ二」「に三」「ほ一」"
+    marker: none
+    align: left
+    at: { x: 166, y: 906 }
+    size: { w: 300, h: 18 }
+  - id: h70
+    label: "継手と仕口"
+    hatch: solid
+    at: { x: 760, y: 70 }
+    size: { w: 450, h: 22 }
+  - id: a92
+    label: "継手"
+    at: { x: 760, y: 92 }
+    size: { w: 150, h: 22 }
+  - id: b92
+    label: "材を長手方向に継ぐ"
+    align: left
+    at: { x: 910, y: 92 }
+    size: { w: 300, h: 22 }
+  - id: a114
+    label: "仕口"
+    at: { x: 760, y: 114 }
+    size: { w: 150, h: 22 }
+  - id: b114
+    label: "材を角度をもって組む"
+    align: left
+    at: { x: 910, y: 114 }
+    size: { w: 300, h: 22 }
+  - id: a136
+    label: "追掛大栓継ぎ"
+    at: { x: 760, y: 136 }
+    size: { w: 150, h: 22 }
+  - id: b136
+    label: "桁・胴差しなど。継手でいちばん引っ張りに強い"
+    align: left
+    at: { x: 910, y: 136 }
+    size: { w: 300, h: 22 }
+  - id: a158
+    label: "金輪継ぎ"
+    at: { x: 760, y: 158 }
+    size: { w: 150, h: 22 }
+  - id: b158
+    label: "土台・柱の根継ぎ・梁。車知栓で締める"
+    align: left
+    at: { x: 910, y: 158 }
+    size: { w: 300, h: 22 }
+  - id: a180
+    label: "共通"
+    at: { x: 760, y: 180 }
+    size: { w: 150, h: 22 }
+  - id: b180
+    label: "繊維どうしを噛み合わせる。引かれるほど締まる"
+    align: left
+    at: { x: 910, y: 180 }
+    size: { w: 300, h: 22 }
+  - id: h216
+    label: "追掛大栓継ぎ"
+    hatch: solid
+    at: { x: 760, y: 216 }
+    size: { w: 450, h: 22 }
+  - id: a238
+    label: "どこに使うか"
+    at: { x: 760, y: 238 }
+    size: { w: 150, h: 22 }
+  - id: b238
+    label: "水平力で引っ張りが働く外周部の梁など"
+    align: left
+    at: { x: 910, y: 238 }
+    size: { w: 300, h: 22 }
+  - id: a260
+    label: "なぜ強いか"
+    at: { x: 760, y: 260 }
+    size: { w: 150, h: 22 }
+  - id: b260
+    label: "繊維方向どうしを噛み合わせ、顎で面圧を取る"
+    align: left
+    at: { x: 910, y: 260 }
+    size: { w: 300, h: 22 }
+  - id: a282
+    label: "込み栓"
+    at: { x: 760, y: 282 }
+    size: { w: 150, h: 22 }
+  - id: b282
+    label: "2 本打ちが基本。4 本打っても耐力は変わらない"
+    align: left
+    at: { x: 910, y: 282 }
+    size: { w: 300, h: 22 }
+  - id: a304
+    label: "歴史"
+    at: { x: 760, y: 304 }
+    size: { w: 150, h: 22 }
+  - id: b304
+    label: "1200 年ごろに原型、1400 年ごろに今の形"
+    align: left
+    at: { x: 910, y: 304 }
+    size: { w: 300, h: 22 }
+  - id: h340
+    label: "この図の寸法（設計）"
+    hatch: solid
+    at: { x: 760, y: 340 }
+    size: { w: 450, h: 22 }
+  - id: a362
+    label: "材せい"
+    at: { x: 760, y: 362 }
+    size: { w: 150, h: 22 }
+  - id: b362
+    label: "120mm"
+    align: left
+    at: { x: 910, y: 362 }
+    size: { w: 300, h: 22 }
+  - id: a384
+    label: "継手の長さ"
+    at: { x: 760, y: 384 }
+    size: { w: 150, h: 22 }
+  - id: b384
+    label: "300mm（材せいの 2.5 倍）"
+    align: left
+    at: { x: 910, y: 384 }
+    size: { w: 300, h: 22 }
+  - id: a406
+    label: "目違い"
+    at: { x: 760, y: 406 }
+    size: { w: 150, h: 22 }
+  - id: b406
+    label: "20mm（材せいの 1/6）"
+    align: left
+    at: { x: 910, y: 406 }
+    size: { w: 300, h: 22 }
+  - id: a428
+    label: "込み栓"
+    at: { x: 760, y: 428 }
+    size: { w: 150, h: 22 }
+  - id: b428
+    label: "径 13mm・2 本"
+    align: left
+    at: { x: 910, y: 428 }
+    size: { w: 300, h: 22 }
+  - id: a450
+    label: "断り"
+    at: { x: 760, y: 450 }
+    size: { w: 150, h: 22 }
+  - id: b450
+    label: "割合は工法と流派で変わる。実寸は現場が決める"
+    align: left
+    at: { x: 910, y: 450 }
+    size: { w: 300, h: 22 }
+  - id: h486
+    label: "番付（柱の位置の呼び方）"
+    hatch: solid
+    at: { x: 760, y: 486 }
+    size: { w: 450, h: 22 }
+  - id: a508
+    label: "横の通り"
+    at: { x: 760, y: 508 }
+    size: { w: 150, h: 22 }
+  - id: b508
+    label: "いろは（い・ろ・は・に・ほ・へ…）"
+    align: left
+    at: { x: 910, y: 508 }
+    size: { w: 300, h: 22 }
+  - id: a530
+    label: "縦の通り"
+    at: { x: 760, y: 530 }
+    size: { w: 150, h: 22 }
+  - id: b530
+    label: "一二三（一・二・三・四…）"
+    align: left
+    at: { x: 910, y: 530 }
+    size: { w: 300, h: 22 }
+  - id: a552
+    label: "呼び方"
+    at: { x: 760, y: 552 }
+    size: { w: 150, h: 22 }
+  - id: b552
+    label: "交点で「ろ二」。図と現場で同じ名前"
+    align: left
+    at: { x: 910, y: 552 }
+    size: { w: 300, h: 22 }
+  - id: a574
+    label: "なぜ要るか"
+    at: { x: 760, y: 574 }
+    size: { w: 150, h: 22 }
+  - id: b574
+    label: "材が何百本もある。名前が無いと言えない"
+    align: left
+    at: { x: 910, y: 574 }
+    size: { w: 300, h: 22 }
+  - id: n1
+    label: "継手は材を長手に継ぎ、仕口は角度をもって組みます。どちらも繊維どうしを噛み合わせて力を伝えます。"
+    marker: none
+    align: left
+    at: { x: 100, y: 940 }
+    size: { w: 640, h: 18 }
+  - id: n2
+    label: "追掛大栓継ぎは、継手のなかでいちばん引っ張りに強いものです。込み栓は 2 本打ちが基本です。"
+    marker: none
+    align: left
+    at: { x: 100, y: 962 }
+    size: { w: 640, h: 18 }
+  - id: n3
+    label: "金輪継ぎは車知栓（くさび）を打ち込んで締めます。土台や柱の根継ぎに使います。"
+    marker: none
+    align: left
+    at: { x: 100, y: 984 }
+    size: { w: 640, h: 18 }
+  - id: n4
+    label: "番付は柱の位置の呼び方です。横は「いろは」、縦は「一二三」で、交点を「ろ二」と呼びます。"
+    marker: none
+    align: left
+    at: { x: 100, y: 1006 }
+    size: { w: 640, h: 18 }
+  - id: n5
+    label: "寸法の割合はこの図の設計です。工法と流派で変わります。"
+    marker: none
+    align: left
+    at: { x: 100, y: 1028 }
+    size: { w: 640, h: 18 }
+edges:
+  - from: e0
+    to: e0
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 76, y: 210 }
+      - { x: 664, y: 210 }
+  - from: e1
+    to: e1
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 76, y: 378 }
+      - { x: 664, y: 378 }
+  - from: e2
+    to: e2
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 76, y: 210 }
+      - { x: 76, y: 378 }
+  - from: e3
+    to: e3
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 664, y: 210 }
+      - { x: 664, y: 378 }
+  - from: e4
+    to: e4
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 160, y: 294 }
+      - { x: 286, y: 294 }
+      - { x: 286, y: 266 }
+      - { x: 344.8, y: 266 }
+      - { x: 395.2, y: 322 }
+      - { x: 454, y: 322 }
+      - { x: 454, y: 294 }
+      - { x: 580, y: 294 }
+  - from: e5
+    to: e5
+    curve: none
+    ends: { from: arrow, to: arrow }
+    via:
+      - { x: 160, y: 186 }
+      - { x: 580, y: 186 }
+  - from: e6
+    to: e6
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 242.6, y: 294 }
+      - { x: 241.9, y: 297 }
+      - { x: 240, y: 299.5 }
+      - { x: 237.2, y: 300.8 }
+      - { x: 234, y: 300.8 }
+      - { x: 231.2, y: 299.5 }
+      - { x: 229.3, y: 297 }
+      - { x: 228.6, y: 294 }
+      - { x: 229.3, y: 291 }
+      - { x: 231.2, y: 288.5 }
+      - { x: 234, y: 287.2 }
+      - { x: 237.2, y: 287.2 }
+      - { x: 240, y: 288.5 }
+      - { x: 241.9, y: 291 }
+      - { x: 242.6, y: 294 }
+  - from: e7
+    to: e7
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 511.4, y: 294 }
+      - { x: 510.7, y: 297 }
+      - { x: 508.8, y: 299.5 }
+      - { x: 506, y: 300.8 }
+      - { x: 502.8, y: 300.8 }
+      - { x: 500, y: 299.5 }
+      - { x: 498.1, y: 297 }
+      - { x: 497.4, y: 294 }
+      - { x: 498.1, y: 291 }
+      - { x: 500, y: 288.5 }
+      - { x: 502.8, y: 287.2 }
+      - { x: 506, y: 287.2 }
+      - { x: 508.8, y: 288.5 }
+      - { x: 510.7, y: 291 }
+      - { x: 511.4, y: 294 }
+  - from: e8
+    to: e8
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 76, y: 500 }
+      - { x: 664, y: 500 }
+  - from: e9
+    to: e9
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 76, y: 668 }
+      - { x: 664, y: 668 }
+  - from: e10
+    to: e10
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 76, y: 500 }
+      - { x: 76, y: 668 }
+  - from: e11
+    to: e11
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 664, y: 500 }
+      - { x: 664, y: 668 }
+  - from: e12
+    to: e12
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 160, y: 584 }
+      - { x: 252.4, y: 584 }
+      - { x: 252.4, y: 556 }
+      - { x: 328, y: 556 }
+      - { x: 328, y: 612 }
+      - { x: 412, y: 612 }
+      - { x: 412, y: 556 }
+      - { x: 487.6, y: 556 }
+      - { x: 487.6, y: 584 }
+      - { x: 580, y: 584 }
+  - from: e13
+    to: e13
+    curve: none
+    ends: { from: arrow, to: arrow }
+    via:
+      - { x: 160, y: 476 }
+      - { x: 580, y: 476 }
+  - from: e14
+    to: e14
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 217.4, y: 584 }
+      - { x: 216.7, y: 587 }
+      - { x: 214.8, y: 589.5 }
+      - { x: 212, y: 590.8 }
+      - { x: 208.8, y: 590.8 }
+      - { x: 206, y: 589.5 }
+      - { x: 204.1, y: 587 }
+      - { x: 203.4, y: 584 }
+      - { x: 204.1, y: 581 }
+      - { x: 206, y: 578.5 }
+      - { x: 208.8, y: 577.2 }
+      - { x: 212, y: 577.2 }
+      - { x: 214.8, y: 578.5 }
+      - { x: 216.7, y: 581 }
+      - { x: 217.4, y: 584 }
+  - from: e15
+    to: e15
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 536.6, y: 584 }
+      - { x: 535.9, y: 587 }
+      - { x: 534, y: 589.5 }
+      - { x: 531.2, y: 590.8 }
+      - { x: 528, y: 590.8 }
+      - { x: 525.2, y: 589.5 }
+      - { x: 523.3, y: 587 }
+      - { x: 522.6, y: 584 }
+      - { x: 523.3, y: 581 }
+      - { x: 525.2, y: 578.5 }
+      - { x: 528, y: 577.2 }
+      - { x: 531.2, y: 577.2 }
+      - { x: 534, y: 578.5 }
+      - { x: 535.9, y: 581 }
+      - { x: 536.6, y: 584 }
+  - from: e16
+    to: e16
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 344.8, y: 556 }
+      - { x: 395.2, y: 556 }
+      - { x: 395.2, y: 612 }
+      - { x: 344.8, y: 612 }
+      - { x: 344.8, y: 556 }
+  - from: e17
+    to: e17
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 183, y: 760 }
+      - { x: 183, y: 896 }
+  - from: e18
+    to: e18
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 217, y: 760 }
+      - { x: 217, y: 896 }
+  - from: e19
+    to: e19
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 251, y: 760 }
+      - { x: 251, y: 896 }
+  - from: e20
+    to: e20
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 285, y: 760 }
+      - { x: 285, y: 896 }
+  - from: e21
+    to: e21
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 319, y: 760 }
+      - { x: 319, y: 896 }
+  - from: e22
+    to: e22
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 353, y: 760 }
+      - { x: 353, y: 896 }
+  - from: e23
+    to: e23
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 387, y: 760 }
+      - { x: 387, y: 896 }
+  - from: e24
+    to: e24
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 183, y: 760 }
+      - { x: 387, y: 760 }
+  - from: e25
+    to: e25
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 183, y: 794 }
+      - { x: 387, y: 794 }
+  - from: e26
+    to: e26
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 183, y: 828 }
+      - { x: 387, y: 828 }
+  - from: e27
+    to: e27
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 183, y: 862 }
+      - { x: 387, y: 862 }
+  - from: e28
+    to: e28
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 183, y: 896 }
+      - { x: 387, y: 896 }
+  - from: e29
+    to: e29
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 242, y: 811 }
+      - { x: 241.2, y: 814.5 }
+      - { x: 239, y: 817.3 }
+      - { x: 235.8, y: 818.8 }
+      - { x: 232.2, y: 818.8 }
+      - { x: 229, y: 817.3 }
+      - { x: 226.8, y: 814.5 }
+      - { x: 226, y: 811 }
+      - { x: 226.8, y: 807.5 }
+      - { x: 229, y: 804.7 }
+      - { x: 232.2, y: 803.2 }
+      - { x: 235.8, y: 803.2 }
+      - { x: 239, y: 804.7 }
+      - { x: 241.2, y: 807.5 }
+      - { x: 242, y: 811 }
+  - from: e30
+    to: e30
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 310, y: 845 }
+      - { x: 309.2, y: 848.5 }
+      - { x: 307, y: 851.3 }
+      - { x: 303.8, y: 852.8 }
+      - { x: 300.2, y: 852.8 }
+      - { x: 297, y: 851.3 }
+      - { x: 294.8, y: 848.5 }
+      - { x: 294, y: 845 }
+      - { x: 294.8, y: 841.5 }
+      - { x: 297, y: 838.7 }
+      - { x: 300.2, y: 837.2 }
+      - { x: 303.8, y: 837.2 }
+      - { x: 307, y: 838.7 }
+      - { x: 309.2, y: 841.5 }
+      - { x: 310, y: 845 }
+  - from: e31
+    to: e31
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 344, y: 777 }
+      - { x: 343.2, y: 780.5 }
+      - { x: 341, y: 783.3 }
+      - { x: 337.8, y: 784.8 }
+      - { x: 334.2, y: 784.8 }
+      - { x: 331, y: 783.3 }
+      - { x: 328.8, y: 780.5 }
+      - { x: 328, y: 777 }
+      - { x: 328.8, y: 773.5 }
+      - { x: 331, y: 770.7 }
+      - { x: 334.2, y: 769.2 }
+      - { x: 337.8, y: 769.2 }
+      - { x: 341, y: 770.7 }
+      - { x: 343.2, y: 773.5 }
+      - { x: 344, y: 777 }

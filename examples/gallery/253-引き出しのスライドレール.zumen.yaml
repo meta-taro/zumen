@@ -1,0 +1,357 @@
+version: 1
+kind: placement
+arrows: true
+title: 引き出しのスライドレール（幅を決めるのはレールの厚み）
+# **レールの厚みが、引き出しの幅を決めてしまう。**
+# 側面付けなら左右に **12.7mm ずつ**取られるので、
+# 開口 500mm の家具に入る箱の外幅は **500 − 12.7 × 2 ＝ 474.6mm**。
+# **レールを決めてから箱を作る。** 逆にすると、必ず入らない。
+#
+# **2 段引き（3/4）は、奥の 1/4 が残る。** 奥行 500mm なら 125mm は手が届かない。
+# 書類や工具のように奥まで使うものは、3 段引き（フルエクステンション）にする。
+#
+# 中身はベアリング —— **すべり摩擦を、ころがり摩擦に変えているだけ。**
+# 重いものほど効きが大きい。
+#
+# **耐荷重は「ペア」で書いてある**（45kgf／ペア ＝ 左右 2 本で 45kg）。
+# カタログの値は静かに載せたときの値で、
+# 開けた所に手をついたぶんは入っていない。
+#
+# 底付けとアンダーマウントは幅を削らないが、下の隙間が要る。
+nodes:
+  - id: t1
+    label: "① 水平断面（上から見る）—— 左右 12.7mm ずつ取られる"
+    marker: none
+    align: left
+    at: { x: 150, y: 150 }
+    size: { w: 640, h: 20 }
+  - id: case
+    label: ""
+    at: { x: 200, y: 200 }
+    size: { w: 560, h: 190 }
+  - id: sideL
+    label: ""
+    hatch: lines
+    at: { x: 200, y: 200 }
+    size: { w: 18, h: 190 }
+  - id: sideR
+    label: ""
+    hatch: lines
+    at: { x: 742, y: 200 }
+    size: { w: 18, h: 190 }
+  - id: railL
+    label: ""
+    hatch: solid
+    at: { x: 218, y: 220 }
+    size: { w: 26, h: 150 }
+  - id: railR
+    label: ""
+    hatch: solid
+    at: { x: 716, y: 220 }
+    size: { w: 26, h: 150 }
+  - id: drawer
+    label: "引き出しの箱"
+    at: { x: 244, y: 220 }
+    size: { w: 472, h: 150 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 217, y: 411 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 243, y: 411 }
+    size: { w: 2, h: 2 }
+  - id: rtN
+    label: "12.7mm"
+    marker: none
+    align: right
+    at: { x: 80, y: 404 }
+    size: { w: 130, h: 18 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 217, y: 443 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 741, y: 443 }
+    size: { w: 2, h: 2 }
+  - id: opN
+    label: "家具の開口"
+    marker: none
+    align: center
+    at: { x: 200, y: 450 }
+    size: { w: 560, h: 18 }
+  - id: calc
+    label: "開口 500mm の家具に入る引き出しの外幅 ＝ 500 − 12.7 × 2 ＝ 474.6mm。\nレールを決めてから箱を作る。逆にすると、必ず入らない。"
+    at: { x: 200, y: 490 }
+    size: { w: 560, h: 54 }
+  - id: t2
+    label: "② 2 段引きと 3 段引き —— 奥まで手が届くか"
+    marker: none
+    align: left
+    at: { x: 150, y: 580 }
+    size: { w: 640, h: 20 }
+  - id: ac
+    label: ""
+    at: { x: 220, y: 626 }
+    size: { w: 260, h: 40 }
+  - id: ad
+    label: ""
+    hatch: dots
+    at: { x: 410, y: 632 }
+    size: { w: 240, h: 28 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 229, y: 679 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 409, y: 679 }
+    size: { w: 2, h: 2 }
+  - id: am
+    label: "引き出せる量 180"
+    marker: none
+    align: center
+    at: { x: 230, y: 686 }
+    size: { w: 180, h: 18 }
+  - id: an
+    label: "2 段引き（3/4）—— 奥の 1/4 が残る"
+    marker: none
+    align: left
+    at: { x: 220, y: 708 }
+    size: { w: 480, h: 18 }
+  - id: bc
+    label: ""
+    at: { x: 220, y: 730 }
+    size: { w: 260, h: 40 }
+  - id: bd
+    label: ""
+    hatch: dots
+    at: { x: 482, y: 736 }
+    size: { w: 240, h: 28 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 229, y: 783 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 481, y: 783 }
+    size: { w: 2, h: 2 }
+  - id: bm
+    label: "引き出せる量 240"
+    marker: none
+    align: center
+    at: { x: 230, y: 790 }
+    size: { w: 252, h: 18 }
+  - id: bn
+    label: "3 段引き（フルエクステンション）"
+    marker: none
+    align: left
+    at: { x: 220, y: 812 }
+    size: { w: 480, h: 18 }
+  - id: why2
+    label: "奥行 500mm の引き出しを 2 段引きにすると、奥 125mm は手が届かない。\n書類や工具のように「奥まで使う」ものは 3 段引きにする。"
+    at: { x: 200, y: 848 }
+    size: { w: 560, h: 54 }
+  - id: t3
+    label: "③ すべり摩擦を、ころがり摩擦に変える"
+    marker: none
+    align: left
+    at: { x: 820, y: 150 }
+    size: { w: 420, h: 20 }
+  - id: h186
+    label: "レールの中身"
+    hatch: solid
+    at: { x: 820, y: 186 }
+    size: { w: 420, h: 24 }
+  - id: x210
+    label: "アウターレール"
+    at: { x: 820, y: 210 }
+    size: { w: 150, h: 24 }
+  - id: y210
+    label: "家具の側板に留める"
+    align: left
+    at: { x: 970, y: 210 }
+    size: { w: 270, h: 24 }
+  - id: x234
+    label: "インナーレール"
+    at: { x: 820, y: 234 }
+    size: { w: 150, h: 24 }
+  - id: y234
+    label: "引き出しの箱に留める"
+    align: left
+    at: { x: 970, y: 234 }
+    size: { w: 270, h: 24 }
+  - id: x258
+    label: "中間レール"
+    at: { x: 820, y: 258 }
+    size: { w: 150, h: 24 }
+  - id: y258
+    label: "3 段引きだけ。間を橋渡しする"
+    align: left
+    at: { x: 970, y: 258 }
+    size: { w: 270, h: 24 }
+  - id: x282
+    label: "ボールベアリング"
+    at: { x: 820, y: 282 }
+    size: { w: 150, h: 24 }
+  - id: y282
+    label: "その間を転がる"
+    align: left
+    at: { x: 970, y: 282 }
+    size: { w: 270, h: 24 }
+  - id: why3
+    label: "重いものほど、転がりに替えた効きが大きい。\nすべらせると荷重の何割かが抵抗になるが、\n転がりならごくわずかで済む。"
+    at: { x: 820, y: 320 }
+    size: { w: 420, h: 80 }
+  - id: t4
+    label: "④ 耐荷重は「ペア」で書いてある"
+    marker: none
+    align: left
+    at: { x: 820, y: 416 }
+    size: { w: 420, h: 20 }
+  - id: h446
+    label: "カタログの読み方"
+    hatch: solid
+    at: { x: 820, y: 446 }
+    size: { w: 420, h: 24 }
+  - id: x470
+    label: "45kgf／ペア"
+    at: { x: 820, y: 470 }
+    size: { w: 140, h: 24 }
+  - id: y470
+    label: "左右 2 本で 45kg。1 本では半分"
+    align: left
+    at: { x: 960, y: 470 }
+    size: { w: 280, h: 24 }
+  - id: x494
+    label: "厚み 12.7mm"
+    at: { x: 820, y: 494 }
+    size: { w: 140, h: 24 }
+  - id: y494
+    label: "ベアリング型の標準。20〜45kgf"
+    align: left
+    at: { x: 960, y: 494 }
+    size: { w: 280, h: 24 }
+  - id: x518
+    label: "長さ"
+    at: { x: 820, y: 518 }
+    size: { w: 140, h: 24 }
+  - id: y518
+    label: "引き出しの奥行に合わせる（短いと垂れる）"
+    align: left
+    at: { x: 960, y: 518 }
+    size: { w: 280, h: 24 }
+  - id: why4
+    label: "中身の重さだけでは足りない。引き出しを開けた所に\n手をついたり、子どもがぶら下がったりする。\nカタログの値は、静かに載せたときの値。"
+    at: { x: 820, y: 556 }
+    size: { w: 420, h: 80 }
+  - id: t5
+    label: "⑤ 付け方で、要る隙間が変わる"
+    marker: none
+    align: left
+    at: { x: 820, y: 652 }
+    size: { w: 420, h: 20 }
+  - id: h682
+    label: "取付の種類"
+    hatch: solid
+    at: { x: 820, y: 682 }
+    size: { w: 420, h: 24 }
+  - id: x706
+    label: "側面付け"
+    at: { x: 820, y: 706 }
+    size: { w: 140, h: 24 }
+  - id: y706
+    label: "左右に 12.7mm ずつ。いちばん多い"
+    align: left
+    at: { x: 960, y: 706 }
+    size: { w: 280, h: 24 }
+  - id: x730
+    label: "底付け"
+    at: { x: 820, y: 730 }
+    size: { w: 140, h: 24 }
+  - id: y730
+    label: "下に付ける。左右の隙間が要らない"
+    align: left
+    at: { x: 960, y: 730 }
+    size: { w: 280, h: 24 }
+  - id: x754
+    label: "アンダーマウント"
+    at: { x: 820, y: 754 }
+    size: { w: 140, h: 24 }
+  - id: y754
+    label: "引き出しの底裏。外から見えない"
+    align: left
+    at: { x: 960, y: 754 }
+    size: { w: 280, h: 24 }
+  - id: why5
+    label: "底付けとアンダーマウントは、引き出しの幅を削らない。\nかわりに底板の厚みと、下の隙間が要る。\nどれを選ぶかで、図面の寸法が全部変わる。"
+    at: { x: 820, y: 792 }
+    size: { w: 420, h: 80 }
+  - id: r1
+    label: "レールの厚みが、引き出しの幅を決めます（①）。側面付けなら左右に 12.7mm ずつ取られます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 928 }
+    size: { w: 1090, h: 18 }
+  - id: r2
+    label: "開口 500mm の家具に入る箱は、外幅 474.6mm です。 レールを決めてから箱を作らないと、必ず入りません。"
+    marker: none
+    align: left
+    at: { x: 150, y: 952 }
+    size: { w: 1090, h: 18 }
+  - id: r3
+    label: "2 段引きは、奥の 1/4 が残ります（②）。奥行 500mm なら 125mm は手が届きません。"
+    marker: none
+    align: left
+    at: { x: 150, y: 976 }
+    size: { w: 1090, h: 18 }
+  - id: r4
+    label: "中身はベアリングです（③）。すべり摩擦を、ころがり摩擦に変えているだけ —— 重いものほど、効きが大きくなります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1000 }
+    size: { w: 1090, h: 18 }
+  - id: r5
+    label: "耐荷重は「ペア」で書いてあります（④）。45kgf／ペアは、左右 2 本で 45kg です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1024 }
+    size: { w: 1090, h: 18 }
+  - id: r6
+    label: "カタログの値は、静かに載せたときの値です。 開けた所に手をついたり、子どもがぶら下がったりする分は入っていません。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1048 }
+    size: { w: 1090, h: 18 }
+  - id: r7
+    label: "付け方で、要る隙間が変わります（⑤）。底付けとアンダーマウントは幅を削りませんが、下の隙間が要ります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1072 }
+    size: { w: 1090, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    ends: { from: arrow, to: arrow }
+  - from: p2
+    to: p3
+    curve: none
+    ends: { from: arrow, to: arrow }
+  - from: p4
+    to: p5
+    curve: none
+    ends: { from: arrow, to: arrow }
+  - from: p6
+    to: p7
+    curve: none
+    ends: { from: arrow, to: arrow }

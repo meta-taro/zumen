@@ -14,7 +14,7 @@ import { join } from 'node:path';
 import { CATEGORIES } from './gallery-categories.mjs';
 import { CAPTIONS_EN, GROUPS_EN, ORDER_EN, englishFirst } from './gallery-en.mjs';
 import { kindOf } from '../src/kind.ts';
-import { layout } from '../src/layout.ts';
+import { crossings, layout } from '../src/layout.ts';
 import { render } from '../src/render.ts';
 
 const DIR = 'examples/gallery';
@@ -34,10 +34,21 @@ const WIDE = 1.9;
 const check = process.argv.includes('--check');
 
 const stale = [];
+/**
+ * **ページに書く数は、ここで数える**（2026-09-18）。
+ *
+ * 「4 枚とも、手で位置を直していません」と書いたまま見本が 178 枚になり、
+ * **そのうち 152 枚は座標を正本に書いている**——という嘘が半年ぶんたまっていた。
+ * 手で書いた数は、見本が増えた日にずれる（`english` / `total` と同じ扱いにする）。
+ */
+const tally = { auto: 0, placed: 0, crossing: 0 };
 for (const file of readdirSync(DIR).filter((f) => f.endsWith('.zumen.yaml')).sort()) {
   const text = readFileSync(join(DIR, file), 'utf8');
   const placed = await layout(text);
   const plan = kindOf(text) === 'placement';
+  if (plan) tally.placed += 1;
+  else tally.auto += 1;
+  if (crossings(placed) > 0) tally.crossing += 1;
   for (const theme of ['light', 'dark']) {
     const out = join(DIR, `${file.replace('.zumen.yaml', '')}${theme === 'dark' ? '-dark' : ''}.svg`);
     const svg = render(placed, theme, 'safe', plan);
@@ -87,10 +98,12 @@ function pageParts(page) {
         en ? GROUPS_EN[group.key] : group.label
       } <span class="n">${group.items.length}</span></button>`,
     );
+    // **分野ごとのページへの入口**（2026-09-20。`scripts/pages.mjs`）。
+    // 見出しから辿れないと、せっかく作った URL に誰も行き着かない。
     figures.push(
-      `    <h3 class="cat" data-cat="${group.key}">${
+      `    <h3 class="cat" data-cat="${group.key}"><a href="${en ? '' : ''}c/${group.key}/">${
         en ? GROUPS_EN[group.key] : group.label
-      }<span class="n">${group.items.length}</span></h3>`,
+      }</a><span class="n">${group.items.length}</span></h3>`,
     );
     for (const item of en ? englishFirst(group.items) : group.items) {
       listed.add(item.name);
@@ -128,6 +141,7 @@ const sources = readdirSync(DIR)
 const counted = {
   total: sources.length,
   english: sources.filter((name) => !/[\u3040-\u30ff\u4e00-\u9fff]/.test(name)).length,
+  ...tally,
 };
 
 /**
@@ -160,10 +174,73 @@ for (const target of PAGES) {
     .replace(/(<div class="gallery">\n)[\s\S]*?(\n  <\/div>)/, `$1${parts.gallery}$2`)
     // **「何枚が英語か」は数えて入れる。** 手で書いた数は、見本が増えた日にずれる。
     .replace(/(<span data-count="english">)\d*(<\/span>)/, `$1${counted.english}$2`)
-    .replace(/(<span data-count="total">)\d*(<\/span>)/, `$1${counted.total}$2`);
+    .replace(/(<span data-count="total">)\d*(<\/span>)/, `$1${counted.total}$2`)
+    .replace(/(<span data-count="auto">)\d*(<\/span>)/, `$1${counted.auto}$2`)
+    .replace(/(<span data-count="placed">)\d*(<\/span>)/, `$1${counted.placed}$2`)
+    .replace(/(<span data-count="crossing">)\d*(<\/span>)/, `$1${counted.crossing}$2`);
   if (!check) writeFileSync(target.path, rebuilt);
   else if (rebuilt !== page) stale.push(target.path);
 }
+
+/**
+ * **同梱の見本の目次**（`examples/gallery/index.json`）。
+ *
+ * MCP の `zumen_examples` がこれを読む —— **入れた人のエージェントに、
+ * どんな図面があるかを渡すため**（D39 と同じ筋。`src/examples.ts`）。
+ * 正本は `gallery-categories.mjs` と `gallery-en.mjs` なので、ここで写すだけ。
+ */
+/**
+ * **その見本が使っている道具**（`zumen_examples` の目次に載る）。
+ *
+ * 入れた人のエージェントがいちばん知りたいのは、しばしば題材ではなく
+ * **「views を 2 つ使って縮尺を分けた見本はどれか」**のほう ——
+ * 書き方は `zumen_spec` にあるが、**効いている実物**は見本の中にしかない。
+ */
+const USES = [
+  ['views', /^views:/m], ['scale', /^\s*scale: \{/m], ['grid', /^\s*grid:/m],
+  ['north', /^north:/m], ['wall', /^wall:/m], ['floors', /^floors:/m],
+  ['palette', /^palette:/m], ['fill', /^\s+fill: /m], ['color', /^\s+color: /m],
+  ['hatch', /^\s+hatch: /m], ['marker', /^\s+marker: (?!none)/m], ['symbol', /^\s+symbol: /m],
+  ['tag', /^\s+tag: /m], ['technology', /^\s+technology: /m], ['openings', /^\s+openings:/m],
+  ['radius', /^\s+radius: /m], ['via', /^\s+via:/m], ['close', /^\s+close: true/m],
+  ['curve', /^\s+curve: smooth/m], ['line', /^\s+line: (?!solid)/m], ['chain', /^\s+line: chain/m],
+  ['double', /^\s+line: double/m], ['weight', /^\s+weight: /m], ['ends', /^\s+ends:/m],
+  ['align', /^\s+align: /m], ['wrap', /^wrap: true/m], ['groups', /^groups:/m],
+  ['vertical', /^\s+vertical: /m], ['pins', /^pins:/m],
+];
+const usesOf = (text) => USES.filter(([, re]) => re.test(text)).map(([name]) => name);
+/** **配置図か構成図か。** まねる相手を選ぶとき、題材より先に効く。 */
+const kindOfText = (text) => (/^kind:\s*placement\b/m.test(text) ? 'placement' : 'structure');
+/**
+ * **1 枚に、いくつ違う縮尺があるか。**
+ *
+ * `uses` に views と scale があるだけでは、**同じ縮尺の views**（各階平面図）と
+ * **縮尺を分けた views**（詳細図と全体図）が区別できない。
+ * 「1 枚に 2 つの縮尺」を目次から引けるようにするための数。
+ */
+const scalesOf = (text) =>
+  new Set([...text.matchAll(/^\s*scale: \{[^}]*\}/gm)].map((m) => m[0].trim().replace(/\s+/g, ''))).size;
+
+const index = {
+  count: readdirSync(DIR).filter((f) => f.endsWith('.zumen.yaml')).length,
+  categories: CATEGORIES.map((group) => ({
+    key: group.key,
+    label: group.label,
+    labelEn: GROUPS_EN[group.key] ?? group.label,
+    items: group.items.map((item) => ({
+      name: item.name,
+      caption: item.caption,
+      captionEn: CAPTIONS_EN[item.name] ?? '',
+      kind: kindOfText(readFileSync(join(DIR, `${item.name}.zumen.yaml`), 'utf8')),
+      scales: scalesOf(readFileSync(join(DIR, `${item.name}.zumen.yaml`), 'utf8')),
+      uses: usesOf(readFileSync(join(DIR, `${item.name}.zumen.yaml`), 'utf8')),
+    })),
+  })),
+};
+const indexPath = join(DIR, 'index.json');
+const indexText = `${JSON.stringify(index, null, 2)}\n`;
+if (!check) writeFileSync(indexPath, indexText);
+else if (readFileSync(indexPath, 'utf8') !== indexText) stale.push(indexPath);
 
 if (parts.missing.length > 0) {
   console.log(`紹介ページに出していない見本が ${parts.missing.length} 件あります（scripts/gallery-categories.mjs に足してください）。`);

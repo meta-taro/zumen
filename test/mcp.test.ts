@@ -23,6 +23,7 @@ import { readFileSync } from 'node:fs';
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { InMemoryTransport } from '@modelcontextprotocol/sdk/inMemory.js';
 
+import { DOORS } from '../src/about.ts';
 import { buildServer } from '../src/mcp.ts';
 
 async function connect(): Promise<Client> {
@@ -39,6 +40,25 @@ function body(result: unknown): string {
   return content.map((part) => part.text).join('\n');
 }
 
+/**
+ * **`zumen_about` の口の一覧は、実際に開いている口と同じか**（2026-09-19）。
+ *
+ * `src/about.ts` の `DOORS` には「ここを増やしたら、あちらも増やすこと
+ * （`test/about.test.ts` が見張る）」と書いてあった。**その検査は無かった。**
+ * だから一覧は **9 個のまま**古くなり、`zumen_examples` も live 系も出ていなかった。
+ *
+ * README は「**まず `zumen_about` を 1 回**」と書いている ——
+ * **最初に読む所が古いと、あとの全部がずれる。**
+ * 見張る、と書いたなら見張る（ベースルール §10）。
+ */
+describe('about の口の一覧', () => {
+  it('**実際に開いている口と、ひとつ残らず同じ**', async () => {
+    const client = await connect();
+    const { tools } = await client.listTools();
+    assert.deepEqual([...DOORS].sort(), tools.map((tool) => tool.name).sort());
+  });
+});
+
 describe('MCP の口', () => {
   it('**道具が並んでいる**（エージェントが最初に見るもの）', async () => {
     const client = await connect();
@@ -47,6 +67,7 @@ describe('MCP の口', () => {
     assert.deepEqual(names, [
       'zumen_about',
       'zumen_create',
+      'zumen_examples',
       'zumen_export',
       'zumen_inspect',
       'zumen_list',

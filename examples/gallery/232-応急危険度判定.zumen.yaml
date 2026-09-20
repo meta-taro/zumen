@@ -1,0 +1,322 @@
+version: 1
+kind: placement
+arrows: true
+title: 応急危険度判定 —— 赤い紙は「全壊」ではない
+# **答えているのは「今入って大丈夫か」であって、「どれだけ壊れたか」ではない。**
+#
+# 目的は**余震などの二次災害を防ぐこと**。外壁や窓ガラスの落下、
+# 付属設備の転倒も危険のうち。だから**壊れ方が小さくても、
+# 落ちそうなものがあれば赤**になる。
+#
+# **応急危険度判定は申請を待たない**（行政と判定士が回る）。
+# **罹災証明は申請してから始まる**（自分で出さないと始まらない）——
+# この違いを知らないと、赤い紙を見て「手続きは済んだ」と思ってしまう。
+nodes:
+  - id: t1
+    label: "① 貼るのは 3 色のどれか"
+    marker: none
+    align: left
+    at: { x: 150, y: 200 }
+    size: { w: 600, h: 20 }
+  - id: c_赤
+    label: ""
+    hatch: lines
+    at: { x: 170, y: 250 }
+    size: { w: 170, h: 120 }
+  - id: c_赤n
+    label: "危険（赤）"
+    marker: none
+    align: center
+    at: { x: 170, y: 266 }
+    size: { w: 170, h: 18 }
+  - id: c_赤t1
+    label: "この建築物に立ち入るこ"
+    marker: none
+    align: left
+    at: { x: 178, y: 300 }
+    size: { w: 154, h: 18 }
+  - id: c_赤t2
+    label: "とは危険です"
+    marker: none
+    align: left
+    at: { x: 178, y: 320 }
+    size: { w: 154, h: 18 }
+  - id: c_黄
+    label: ""
+    hatch: dots
+    at: { x: 380, y: 250 }
+    size: { w: 170, h: 120 }
+  - id: c_黄n
+    label: "要注意（黄）"
+    marker: none
+    align: center
+    at: { x: 380, y: 266 }
+    size: { w: 170, h: 18 }
+  - id: c_黄t1
+    label: "立ち入る場合は十分注意"
+    marker: none
+    align: left
+    at: { x: 388, y: 300 }
+    size: { w: 154, h: 18 }
+  - id: c_黄t2
+    label: "してください"
+    marker: none
+    align: left
+    at: { x: 388, y: 320 }
+    size: { w: 154, h: 18 }
+  - id: c_緑
+    label: ""
+    at: { x: 590, y: 250 }
+    size: { w: 170, h: 120 }
+  - id: c_緑n
+    label: "調査済（緑）"
+    marker: none
+    align: center
+    at: { x: 590, y: 266 }
+    size: { w: 170, h: 18 }
+  - id: c_緑t1
+    label: "被災程度は小さいと考え"
+    marker: none
+    align: left
+    at: { x: 598, y: 300 }
+    size: { w: 154, h: 18 }
+  - id: c_緑t2
+    label: "られます"
+    marker: none
+    align: left
+    at: { x: 598, y: 320 }
+    size: { w: 154, h: 18 }
+  - id: n1
+    label: "出入り口など、見えやすい場所に貼る。"
+    marker: none
+    align: left
+    at: { x: 150, y: 396 }
+    size: { w: 600, h: 18 }
+  - id: n2
+    label: "住んでいる人だけでなく、前を通る人にも分かるように。"
+    marker: none
+    align: left
+    at: { x: 150, y: 418 }
+    size: { w: 600, h: 18 }
+  - id: n3
+    label: "外壁や窓ガラスの落下、付属設備の転倒も危険のうち。"
+    marker: none
+    align: left
+    at: { x: 150, y: 440 }
+    size: { w: 600, h: 18 }
+  - id: t2
+    label: "② 罹災証明の調査とは、別のもの"
+    marker: none
+    align: left
+    at: { x: 150, y: 490 }
+    size: { w: 600, h: 20 }
+  - id: d0_0
+    label: ""
+    hatch: solid
+    at: { x: 150, y: 522 }
+    size: { w: 140, h: 30 }
+  - id: d0_1
+    label: "応急危険度判定"
+    hatch: solid
+    at: { x: 290, y: 522 }
+    size: { w: 240, h: 30 }
+  - id: d0_2
+    label: "罹災証明の被害認定"
+    hatch: solid
+    at: { x: 530, y: 522 }
+    size: { w: 240, h: 30 }
+  - id: d1_0
+    label: "何に答えるか"
+    at: { x: 150, y: 552 }
+    size: { w: 140, h: 30 }
+  - id: d1_1
+    label: "今入って大丈夫か"
+    at: { x: 290, y: 552 }
+    size: { w: 240, h: 30 }
+  - id: d1_2
+    label: "どれだけ壊れたか"
+    at: { x: 530, y: 552 }
+    size: { w: 240, h: 30 }
+  - id: d2_0
+    label: "何のため"
+    at: { x: 150, y: 582 }
+    size: { w: 140, h: 30 }
+  - id: d2_1
+    label: "余震などの二次災害を防ぐ"
+    at: { x: 290, y: 582 }
+    size: { w: 240, h: 30 }
+  - id: d2_2
+    label: "支援の区分を決める"
+    at: { x: 530, y: 582 }
+    size: { w: 240, h: 30 }
+  - id: d3_0
+    label: "いつ"
+    at: { x: 150, y: 612 }
+    size: { w: 140, h: 30 }
+  - id: d3_1
+    label: "地震のすぐあと"
+    at: { x: 290, y: 612 }
+    size: { w: 240, h: 30 }
+  - id: d3_2
+    label: "落ち着いてから"
+    at: { x: 530, y: 612 }
+    size: { w: 240, h: 30 }
+  - id: d4_0
+    label: "結果"
+    at: { x: 150, y: 642 }
+    size: { w: 140, h: 30 }
+  - id: d4_1
+    label: "赤・黄・緑のステッカー"
+    at: { x: 290, y: 642 }
+    size: { w: 240, h: 30 }
+  - id: d4_2
+    label: "全壊〜準半壊の 6 区分"
+    at: { x: 530, y: 642 }
+    size: { w: 240, h: 30 }
+  - id: d5_0
+    label: "見本"
+    at: { x: 150, y: 672 }
+    size: { w: 140, h: 30 }
+  - id: d5_1
+    label: "（この図）"
+    at: { x: 290, y: 672 }
+    size: { w: 240, h: 30 }
+  - id: d5_2
+    label: "見本 224"
+    at: { x: 530, y: 672 }
+    size: { w: 240, h: 30 }
+  - id: n4
+    label: "赤い紙は「全壊」ではありません。"
+    marker: none
+    align: left
+    at: { x: 150, y: 712 }
+    size: { w: 600, h: 18 }
+  - id: n5
+    label: "壊れ方が小さくても、落ちそうなものがあれば赤になります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 734 }
+    size: { w: 600, h: 18 }
+  - id: n6
+    label: "逆に、大きく壊れていても倒れる恐れが無ければ黄のこともある。"
+    marker: none
+    align: left
+    at: { x: 150, y: 756 }
+    size: { w: 600, h: 18 }
+  - id: t3
+    label: "③ 順番"
+    marker: none
+    align: left
+    at: { x: 810, y: 200 }
+    size: { w: 430, h: 20 }
+  - id: s0
+    label: "地震"
+    at: { x: 860, y: 232 }
+    size: { w: 260, h: 40 }
+  - id: s1
+    label: "応急危険度判定\n（赤・黄・緑）"
+    at: { x: 860, y: 302 }
+    size: { w: 260, h: 56 }
+  - id: s2
+    label: "罹災証明の申請"
+    at: { x: 860, y: 402 }
+    size: { w: 260, h: 40 }
+  - id: s3
+    label: "被害認定の調査"
+    at: { x: 860, y: 472 }
+    size: { w: 260, h: 40 }
+  - id: s4
+    label: "罹災証明の交付"
+    at: { x: 860, y: 542 }
+    size: { w: 260, h: 40 }
+  - id: p1
+    label: "応急危険度判定は、申請を待ちません。"
+    marker: none
+    align: left
+    at: { x: 810, y: 620 }
+    size: { w: 430, h: 18 }
+  - id: p2
+    label: "行政と判定士が回ります（住んでいる人が頼むものではない）。"
+    marker: none
+    align: left
+    at: { x: 810, y: 642 }
+    size: { w: 430, h: 18 }
+  - id: p4
+    label: "罹災証明は、申請してから始まります。"
+    marker: none
+    align: left
+    at: { x: 810, y: 686 }
+    size: { w: 430, h: 18 }
+  - id: p5
+    label: "自分で出さないと、調査も交付もされません。"
+    marker: none
+    align: left
+    at: { x: 810, y: 708 }
+    size: { w: 430, h: 18 }
+  - id: p7
+    label: "この違いを知らないと、赤い紙を見て"
+    marker: none
+    align: left
+    at: { x: 810, y: 752 }
+    size: { w: 430, h: 18 }
+  - id: p8
+    label: "「もう手続きは済んだ」と思ってしまいます。"
+    marker: none
+    align: left
+    at: { x: 810, y: 774 }
+    size: { w: 430, h: 18 }
+  - id: r1
+    label: "応急危険度判定が答えているのは「今入って大丈夫か」です。「どれだけ壊れたか」ではありません。"
+    marker: none
+    align: left
+    at: { x: 150, y: 820 }
+    size: { w: 1090, h: 18 }
+  - id: r2
+    label: "目的は余震などの二次災害を防ぐこと。 外壁や窓ガラスの落下、付属設備の転倒も、危険のうちに入ります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 844 }
+    size: { w: 1090, h: 18 }
+  - id: r3
+    label: "だから赤い紙は「全壊」ではありません（②）。壊れ方が小さくても、落ちそうなものがあれば赤になります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 868 }
+    size: { w: 1090, h: 18 }
+  - id: r4
+    label: "ステッカーは出入り口など、見えやすい場所に貼ります。 住んでいる人だけでなく、前を通る人にも分かるように。"
+    marker: none
+    align: left
+    at: { x: 150, y: 892 }
+    size: { w: 1090, h: 18 }
+  - id: r5
+    label: "応急危険度判定は申請を待ちません（③）。行政と判定士が回ります —— 頼まなくても貼られます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 916 }
+    size: { w: 1090, h: 18 }
+  - id: r6
+    label: "罹災証明は、申請してから始まります。 自分で出さないと、調査も交付もされません。"
+    marker: none
+    align: left
+    at: { x: 150, y: 940 }
+    size: { w: 1090, h: 18 }
+  - id: r7
+    label: "この違いを知らないと、赤い紙を見て「もう手続きは済んだ」と思ってしまいます。 別の紙で、別の問いに答えています。"
+    marker: none
+    align: left
+    at: { x: 150, y: 964 }
+    size: { w: 1090, h: 18 }
+edges:
+  - from: s0
+    to: s1
+    curve: none
+  - from: s1
+    to: s2
+    curve: none
+  - from: s2
+    to: s3
+    curve: none
+  - from: s3
+    to: s4
+    curve: none

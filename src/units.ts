@@ -54,7 +54,18 @@ export function inMetres(mm: number): boolean {
 export function lengthText(px: number, mm: number, feet = false): string {
   const value = Math.abs(px) * mm;
   if (feet) return feetText(value);
-  if (!inMetres(mm)) return Math.round(value).toLocaleString('en-US');
+  if (!inMetres(mm)) {
+    /**
+     * **1px が 1mm 未満の図では、小数が意味を持つ**（2026-09-19。見本 194 の点字）。
+     *
+     * ミリの整数に丸めると、点字の点間隔 **2.6mm が「3」**になる。
+     * 2.6 も 3.4 も同じ「3」になってしまい、**規格の図面としては書いていないのと同じ。**
+     * どちらで書くかは、ここでも縮尺が言う —— 1:1 より拡大した図だけ、小数 1 桁まで。
+     */
+    const fine = mm < 1;
+    const rounded = fine ? Math.round(value * 10) / 10 : Math.round(value);
+    return rounded.toLocaleString('en-US', { maximumFractionDigits: 1 });
+  }
   const metres = value / 1000;
   // **整数なら小数点を書かない。** 200 m を 200.0 m と書く図面は無い。
   const rounded = Math.round(metres * 10) / 10;

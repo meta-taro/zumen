@@ -23,7 +23,7 @@ write. Regeneration rewrites `nodes:` and `edges:` and cannot touch `pins:`.
 
 ## What it is
 
-- Example drawings: 178 (all generated from the YAML in `examples/gallery/`)
+- Example drawings: 273 (all generated from the YAML in `examples/gallery/`)
 - Source of truth: one `.zumen.yaml` file, readable and writable by hand
 - Output: SVG (light and dark), Mermaid, draw.io XML, Markdown embedding
 - Validator: 75 checks that say, in the writer's terms, what will not be drawn
@@ -42,13 +42,42 @@ write. Regeneration rewrites `nodes:` and `edges:` and cannot touch `pins:`.
 
 ## Range of the examples
 
-Not only boxes and arrows. Among the 178: floor plans with grid lines and
+Not only boxes and arrows. Among the 273: floor plans with grid lines and
 dimensions, wall sections, transit maps and train graphs, periodontal charts,
 stage lighting plots, container ship bay plans, fishing rigs, a metes and bounds
 plat, a lane closure plan (MUTCD), a wildland fire IAP map, a marching band
 drill chart, a weaving draft, a cabin layout (LOPA), residential ductwork.
 
 One rendering model and a small set of primitives, not a per-industry engine.
+
+## Every drawing has its own page
+
+Each example has a stable URL by number, and each field has a page listing its
+drawings. The per-drawing page carries the drawing itself, one line saying what
+it answers, and **the rules written in its source** — the part that exists
+nowhere else. The source YAML is linked from there.
+
+- `https://meta-taro.github.io/zumen/g/<number>/` — one drawing (Japanese)
+- `https://meta-taro.github.io/zumen/en/g/<number>/` — one drawing (English)
+- `https://meta-taro.github.io/zumen/c/<field>/` — one field (Japanese)
+- `https://meta-taro.github.io/zumen/en/c/<field>/` — one field (English)
+
+Fields:
+
+- `tetsudo` — Transit and transport (21)
+- `kenchiku` — Building and civil (57)
+- `bosai` — Disaster and emergency (20)
+- `manabi` — Learning and geometry (10)
+- `ongaku` — Instruments and acoustics (4)
+- `setsubi` — Services and electrical (14)
+- `iryo` — Health, food and farming (23)
+- `tenpo` — Retail and logistics (17)
+- `gyomu` — Work and organisations (25)
+- `moyooshi` — Events and games (25)
+- `ui` — UI and screen design (7)
+- `it` — IT and software (10)
+
+The full list of URLs is in `https://meta-taro.github.io/zumen/sitemap.xml`.
 
 ## Links
 

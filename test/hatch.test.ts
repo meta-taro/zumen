@@ -15,7 +15,8 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
-import { HATCHES, drawHatch, hatchOf } from '../src/hatch.ts';
+import { placedFindings } from '../src/cli.ts';
+import { HATCHES, drawHatch, drawTint, hatchOf, tooThinForPattern } from '../src/hatch.ts';
 import { layout } from '../src/layout.ts';
 import { render } from '../src/render.ts';
 import { spec } from '../src/tools.ts';
@@ -386,5 +387,158 @@ edges:
     hatch: solid
 `);
     assert.ok(found.some((f) => f.code === 'edge-hatch-ignored'), found.map((f) => f.code).join(','));
+  });
+});
+
+/**
+ * **辺に `fill` は無い。** 黙って落とさない（2026-09-19。見本 192 で踏んだ）。
+ *
+ * 面の色は `nodes[].fill`、線の色は `color`。
+ * **閉じた輪（`close: true`）の中を塗るのは `hatch` で、その色は `color`。**
+ * ところが「面を塗るのだから fill だろう」と辺へ書くと、
+ * **何も言われないまま、塗られない図が出る** —— zumen がいちばん嫌う壊れ方
+ * （描かれないものを名指しする、という約束の反対）。
+ */
+describe('辺に fill は効かない', () => {
+  const RING = `version: 1
+kind: placement
+arrows: true
+palette:
+  面: "#3f6f8f"
+nodes:
+  - id: a
+    label: ""
+    marker: none
+    at: { x: 40, y: 40 }
+    size: { w: 2, h: 2 }
+edges:
+  - from: a
+    to: a
+    close: true
+    hatch: solid
+    fill: 面
+    ends: { from: none, to: none }
+    via:
+      - { x: 60, y: 60 }
+      - { x: 200, y: 60 }
+      - { x: 200, y: 200 }
+`;
+
+  it('**辺の fill を知らせる**（黙って落とさない）', () => {
+    const found = validate(RING);
+    assert.ok(
+      found.some((f) => f.code === 'edge-fill-ignored'),
+      `何も言っていない: ${JSON.stringify(found.map((f) => f.code))}`,
+    );
+  });
+
+  it('**どう書けばよいかを言う**（color と hatch）', () => {
+    const said = validate(RING).find((f) => f.code === 'edge-fill-ignored')!.message;
+    assert.match(said, /color/);
+    assert.match(said, /hatch/);
+  });
+
+  it('warning であって、図は出る', () => {
+    assert.ok(validate(RING).every((f) => f.severity === 'warning'));
+  });
+
+  it('color で書いてあれば、何も言わない', () => {
+    assert.ok(!validate(RING.replace('fill: 面', 'color: 面')).some((f) => f.code === 'edge-fill-ignored'));
+  });
+});
+
+/**
+ * **模様が、面の途中で切れていた**（2026-09-19）。
+ *
+ * 要素数の上限に当たったとき `break` が**内側のくり返ししか抜けていなかった**ので、
+ * 残りの行は 1 つも描かれず、**箱の上だけが埋まった面**が出ていた。
+ * 測ったら**見本 9 枚**がそうなっており、
+ * **ビリヤード台の羅紗（見本 168）は 20% しか点がなかった** ——
+ * 上と左の縁だけに点が入り、下と右の縁は無地だった。誰も気づいていなかった。
+ *
+ * **半分だけ模様が入った面は、無地より悪い** —— 材料が途中で変わって見える。
+ */
+describe('広い面でも、模様は端まで届く', () => {
+  /** 描かれた点の y の最大。**下の縁まで届いているか。** */
+  const lowest = (svg: string): number =>
+    Math.max(...[...svg.matchAll(/<circle cx="\d+" cy="(\d+)"/g)].map((m) => Number(m[1])));
+  const drawn = (svg: string): number => (svg.match(/<circle /g) ?? []).length;
+
+  const WIDE = { x: 0, y: 0, w: 600, h: 600 };
+
+  it('**上限を超える広さでも、下の縁まで点が届く**', () => {
+    const svg = drawHatch('dots', WIDE, '#000', 'box', 'a');
+    assert.ok(lowest(svg) > WIDE.h * 0.9, `いちばん下の点が ${lowest(svg)}（下の縁は ${WIDE.h}）`);
+  });
+
+  it('要素数の上限は守る（間隔のほうを広げる）', () => {
+    assert.ok(drawn(drawHatch('dots', WIDE, '#000', 'box', 'a')) <= 480);
+  });
+
+  it('狭い面は、これまでどおりの細かさ', () => {
+    const small = { x: 0, y: 0, w: 90, h: 90 };
+    assert.equal(drawn(drawHatch('dots', small, '#000', 'box', 'a')), 100);
+  });
+
+  it('**斜線も端まで届く**（同じ形の穴）', () => {
+    const svg = drawHatch('lines', { x: 0, y: 0, w: 2000, h: 2000 }, '#000', 'box', 'a');
+    const ys = [...svg.matchAll(/y2="(-?\d+)"/g)].map((m) => Number(m[1]));
+    assert.ok(Math.max(...ys) > 1800, `いちばん下の斜線が ${Math.max(...ys)}`);
+  });
+});
+
+/**
+ * **細い面**（2026-09-20）。
+ *
+ * 模様の下限（2px）は**点や斜線を置く余地**の話だったのに、
+ * `solid` と `fill` まで同じ下限で断っていた。測ったら
+ * **見本 10 枚・67 節**が「`hatch: solid` と書いたのに面が塗られていない」状態で、
+ * 屋根伏図の垂木 44 本がそれだった。
+ *
+ * 置く余地が本当に無いとき（点・斜線）は描かないままでよいが、
+ * **黙って無地になるのが良くない** —— 検査が名指しする。
+ */
+describe('細い面', () => {
+  const thin = { x: 0, y: 0, w: 2, h: 112 };
+
+  it('**塗り潰しは、幅 2px でも塗る**', () => {
+    assert.match(drawHatch('solid', thin, '#000'), /<rect [^>]*fill-opacity="0.82"/);
+  });
+
+  it('面の色も、幅 2px で敷く', () => {
+    assert.match(drawTint(thin, '#c00', 0.2), /<rect [^>]*fill="#c00"/);
+  });
+
+  it('幅 0 は描かない', () => {
+    assert.equal(drawHatch('solid', { x: 0, y: 0, w: 0, h: 100 }, '#000'), '');
+    assert.equal(drawTint({ x: 0, y: 0, w: 0, h: 100 }, '#c00', 0.2), '');
+  });
+
+  it('**点は置く余地が無いので、描かない**', () => {
+    assert.equal(drawHatch('dots', thin, '#000', 'box', 'a'), '');
+    assert.ok(tooThinForPattern('dots', thin));
+  });
+
+  it('斜線も、短辺 3px を切ると描かない（切れ端が点に見える）', () => {
+    assert.equal(drawHatch('lines', { x: 0, y: 0, w: 600, h: 1 }, '#000', 'box', 'a'), '');
+    assert.ok(!tooThinForPattern('lines', { x: 0, y: 0, w: 600, h: 4 }), '4px は描く');
+  });
+
+  it('**描かれないことを、検査が名指しする**', async () => {
+    const found = await placedFindings(
+      'version: 1\nkind: placement\nnodes:\n' +
+        '  - id: rule\n    label: ""\n    hatch: dots\n    at: { x: 0, y: 0 }\n    size: { w: 2, h: 90 }\n',
+    );
+    const said = found.filter((f) => f.code === 'hatch-too-thin');
+    assert.equal(said.length, 1, found.map((f) => f.code).join(','));
+    assert.match(said[0]!.message, /2px しかない/);
+  });
+
+  it('余地のある面なら言わない', async () => {
+    const found = await placedFindings(
+      'version: 1\nkind: placement\nnodes:\n' +
+        '  - id: area\n    label: ""\n    hatch: dots\n    at: { x: 0, y: 0 }\n    size: { w: 90, h: 90 }\n',
+    );
+    assert.ok(!found.some((f) => f.code === 'hatch-too-thin'));
   });
 });

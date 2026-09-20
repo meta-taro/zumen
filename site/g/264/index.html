@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>配光曲線と照度計算（lm は器具の話、lx は机の上の話） — zumen の見本 264</title>
+<link rel="icon" type="image/svg+xml" href="../../icon.svg">
+<meta name="theme-color" content="#23232b">
+<meta name="description" content="配光曲線（lm は器具の話、lx は机の上の話）">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="zumen">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:url" content="https://meta-taro.github.io/zumen/g/264/">
+<meta property="og:title" content="配光曲線と照度計算（lm は器具の話、lx は机の上の話） — zumen の見本 264">
+<meta property="og:description" content="配光曲線（lm は器具の話、lx は机の上の話）">
+<meta property="og:image" content="https://meta-taro.github.io/zumen/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="配光曲線と照度計算（lm は器具の話、lx は机の上の話） — zumen の見本 264">
+<meta name="twitter:description" content="配光曲線（lm は器具の話、lx は机の上の話）">
+<meta name="twitter:image" content="https://meta-taro.github.io/zumen/og.png">
+<link rel="stylesheet" href="../../style.css">
+<link rel="canonical" href="https://meta-taro.github.io/zumen/g/264/">
+<link rel="alternate" hreflang="ja" href="https://meta-taro.github.io/zumen/g/264/">
+<link rel="alternate" hreflang="en" href="https://meta-taro.github.io/zumen/en/g/264/">
+<link rel="alternate" hreflang="x-default" href="https://meta-taro.github.io/zumen/g/264/">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="alternate" type="text/markdown" href="https://meta-taro.github.io/zumen/llms.txt" title="llms.txt">
+<link rel="sitemap" type="application/xml" href="https://meta-taro.github.io/zumen/sitemap.xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": "配光曲線と照度計算（lm は器具の話、lx は机の上の話）",
+  "description": "配光曲線（lm は器具の話、lx は机の上の話）",
+  "url": "https://meta-taro.github.io/zumen/g/264/",
+  "image": "https://meta-taro.github.io/zumen/gallery/264-%E9%85%8D%E5%85%89%E6%9B%B2%E7%B7%9A%E3%81%A8%E7%85%A7%E5%BA%A6%E8%A8%88%E7%AE%97.svg",
+  "inLanguage": "ja",
+  "license": "https://opensource.org/licenses/MIT",
+  "isPartOf": {
+    "@type": "CollectionPage",
+    "name": "設備・電気",
+    "url": "https://meta-taro.github.io/zumen/c/setsubi/"
+  },
+  "encodingFormat": "text/yaml",
+  "isAccessibleForFree": true
+}
+</script>
+</head>
+<body class="sub">
+<header class="bar">
+  <a class="home" href="../../">zumen</a>
+  <nav><a href="../../c/setsubi/">設備・電気</a></nav>
+</header>
+<main>
+<article>
+  <p class="crumb">設備・電気</p>
+  <h1>配光曲線と照度計算（lm は器具の話、lx は机の上の話）</h1>
+  <p class="lead">配光曲線（lm は器具の話、lx は机の上の話）</p>
+  <figure>
+    <img src="../../gallery/264-%E9%85%8D%E5%85%89%E6%9B%B2%E7%B7%9A%E3%81%A8%E7%85%A7%E5%BA%A6%E8%A8%88%E7%AE%97.svg" alt="照明器具の配光曲線（集光と拡散を下向きの極座標で重ねた図）と、光束・光度・照度・輝度の違い、逐点法 E＝I cosθ/R²、光束法 E＝FNUM/A、JIS の推奨照度" loading="lazy">
+  </figure>
+  <p class="made">この図は、下の 1 枚の YAML から描かれています。手で図形を動かしてはいません。</p>
+  <h2>正本に書いてある決まりごと</h2>
+  <p><strong>配光曲線は、方向ごとの光度（cd）を、下向きに開いた極座標で読む図。</strong>同じ「40W 相当」でも、<strong>集光は真下 2,500cd・60° で 39cd</strong>、<strong>拡散は真下 1,000cd・60° でも 500cd</strong> —— 全部足した量（lm）が同じでも、机の上の明るさは別物になる。</p>
+  <p><strong>単位が 4 つあるのは、測る場所が違うから。</strong> 光束 lm は器具から出ていく総量、光度 cd はある向きへの強さ、照度 lx は面が受け取った量、輝度 cd/m² は目に見えるまぶしさ。<strong>買うときに見るのは lm、設計で要るのは lx</strong> —— 配光曲線は、その 2 つをつなぐ唯一の資料。</p>
+  <p><strong>逐点法。</strong> `E ＝ I × cosθ ÷ R²` —— 高さ 2.5m の集光器具なら、真下 400lx が <strong>1.4m 横へずれただけで 110lx</strong>（4 分の 1）。落ちる原因は、距離の 2 乗と、斜めに当たる cos の 2 つ。</p>
+  <p><strong>光束法。</strong> `E ＝ F × N × U × M ÷ A` —— 5,000lm のシーリング 1 台で 12 畳（20m²）なら<strong>120lx</strong>。U（照明率）と M（保守率）で、<strong>出した光の半分は着く前に消える。</strong></p>
+  <p><strong>要る明るさは、部屋ではなく作業で決まる。</strong><strong>JIS Z 9110 は 2024 年の改正で総則だけになり、屋内の数値は JIS Z 9125:2023 へ移った</strong> ——古い早見表は「JIS Z 9110 の表」として同じ数字を載せているが、いまの出どころは Z 9125。事務室 750lx・会議室 500lx に対して、<strong>居間の全般は 50lx</strong> —— 団らん 200lx、読書 500lx。<strong>手元だけ 500lx にして部屋は暗いままにする</strong>のがタスク・アンビエントで、1 灯で部屋ぜんぶを明るくする方法では、この差を作れない。</p>
+  <h2>正本（YAML）</h2>
+  <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/264-%E9%85%8D%E5%85%89%E6%9B%B2%E7%B7%9A%E3%81%A8%E7%85%A7%E5%BA%A6%E8%A8%88%E7%AE%97.zumen.yaml"><code>examples/gallery/264-配光曲線と照度計算.zumen.yaml</code></a></p>
+  <h2>同じ分野の見本</h2>
+  <ul class="near"><li><a href="../06/">住宅の電気系統</a></li><li><a href="../10/">住宅の給排水</a></li><li><a href="../18/">配管の系統（P&amp;amp;ID）</a></li><li><a href="../19/">受変電の結線（単線結線図）</a></li><li><a href="../35/">配水系統図（上水道）</a></li><li><a href="../38/">計装ループ図（TIC-101）</a></li><li><a href="../44/">人工衛星の系統図（150kg 級）</a></li><li><a href="../50/">電子回路図（IEC／JIS 記号）</a></li></ul>
+</article>
+</main>
+<footer class="foot">
+  <p><a href="https://github.com/meta-taro/zumen">GitHub</a> · MIT · <a href="https://meta-taro.github.io/zumen/en/g/264/">English</a></p>
+</footer>
+</body>
+</html>

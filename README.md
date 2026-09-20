@@ -32,11 +32,11 @@ AI pass, nothing else matters.
 Concretely: what a person pins lives in a separate `pins:` block that the AI is not
 allowed to write. Regeneration rewrites `nodes:` and `edges:`; it cannot touch `pins:`.
 Measured over 10 real AI round trips, **10/10 kept every human edit** — and a pin
-survives a regeneration in **178/178 of the example drawings**, whatever their shape.
+survives a regeneration in **210/210 of the example drawings**, whatever their shape.
 
 ## What it looks like
 
-178 example drawings, all generated from the YAML sources in
+273 example drawings, all generated from the YAML sources in
 [`examples/gallery/`](examples/gallery/):
 
 **[→ Browse the gallery](https://meta-taro.github.io/zumen/)**
@@ -99,7 +99,7 @@ This is **not finished software.** It is being built in the open, small step by 
 
 - Reading and writing the source, automatic layout, SVG output (light/dark)
 - Export to Mermaid, draw.io XML, and embedding into Markdown
-- A validator (76 checks) that explains, in the writer's terms, what will not be drawn —
+- A validator (87 checks) that explains, in the writer's terms, what will not be drawn —
   including one that lays the drawing out and reports labels that would collide
 - A Git merge driver so two people editing the same diagram merge structurally
 - An MCP server, so an agent can read the spec and write diagrams
@@ -142,6 +142,7 @@ pnpm qa:verify                # read back human verification evidence (see qa/RE
 
 pnpm svg examples/gallery/25-路線図.zumen.yaml out.svg
 pnpm validate examples/gallery/14-間取り.zumen.yaml
+pnpm inspect examples/gallery/14-間取り.zumen.yaml   # observations: crossings, straddles, text overlaps, print ratio
 pnpm mermaid examples/gallery/04-ネットワーク構成.zumen.yaml
 ```
 
@@ -151,9 +152,15 @@ To let an agent draw, run the MCP server:
 pnpm mcp
 ```
 
-It exposes `zumen_spec` (read this first), `zumen_propose`, `zumen_export`,
+It exposes `zumen_spec` (read this first), **`zumen_examples`** (the catalogue and
+sources of the 189 bundled examples), `zumen_propose`, `zumen_export`,
 `zumen_inspect` and others. **There is no tool that writes the source directly** —
 an agent proposes, and a human applies.
+
+`zumen_spec` hands over the *syntax*. **What to draw** comes from `zumen_examples`:
+how a periodontal chart, a plywood cutting diagram, a lighting plot, a used-car
+appraisal chart, a timber joint or tactile paving is actually put together. Each
+one-liner states what that drawing must get right, not its title.
 
 With the server running, it also **links to the open desktop window**, so you can
 adjust a diagram by talking: the agent reads what is actually on screen (including

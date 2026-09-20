@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PoE の給電クラス —— W が 2 つ書いてある理由 — zumen example 236</title>
+<link rel="icon" type="image/svg+xml" href="../../../icon.svg">
+<meta name="theme-color" content="#23232b">
+<meta name="description" content="A PoE standard quotes two wattages, not one: what the switch sends and what the device receives — the difference is what the 100m of copper turns into heat">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="zumen">
+<meta property="og:locale" content="en_US">
+<meta property="og:url" content="https://meta-taro.github.io/zumen/en/g/236/">
+<meta property="og:title" content="PoE の給電クラス —— W が 2 つ書いてある理由 — zumen example 236">
+<meta property="og:description" content="A PoE standard quotes two wattages, not one: what the switch sends and what the device receives — the difference is what the 100m of copper turns into heat">
+<meta property="og:image" content="https://meta-taro.github.io/zumen/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="PoE の給電クラス —— W が 2 つ書いてある理由 — zumen example 236">
+<meta name="twitter:description" content="A PoE standard quotes two wattages, not one: what the switch sends and what the device receives — the difference is what the 100m of copper turns into heat">
+<meta name="twitter:image" content="https://meta-taro.github.io/zumen/og.png">
+<link rel="stylesheet" href="../../../style.css">
+<link rel="canonical" href="https://meta-taro.github.io/zumen/en/g/236/">
+<link rel="alternate" hreflang="en" href="https://meta-taro.github.io/zumen/en/g/236/">
+<link rel="alternate" hreflang="ja" href="https://meta-taro.github.io/zumen/g/236/">
+<link rel="alternate" hreflang="x-default" href="https://meta-taro.github.io/zumen/g/236/">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="alternate" type="text/markdown" href="https://meta-taro.github.io/zumen/llms.txt" title="llms.txt">
+<link rel="sitemap" type="application/xml" href="https://meta-taro.github.io/zumen/sitemap.xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": "PoE の給電クラス —— W が 2 つ書いてある理由",
+  "description": "A PoE standard quotes two wattages, not one: what the switch sends and what the device receives — the difference is what the 100m of copper turns into heat",
+  "url": "https://meta-taro.github.io/zumen/en/g/236/",
+  "image": "https://meta-taro.github.io/zumen/gallery/236-PoE%E3%81%AE%E7%B5%A6%E9%9B%BB%E3%82%AF%E3%83%A9%E3%82%B9.svg",
+  "inLanguage": "en",
+  "license": "https://opensource.org/licenses/MIT",
+  "isPartOf": {
+    "@type": "CollectionPage",
+    "name": "IT and software",
+    "url": "https://meta-taro.github.io/zumen/en/c/it/"
+  },
+  "encodingFormat": "text/yaml",
+  "isAccessibleForFree": true
+}
+</script>
+</head>
+<body class="sub">
+<header class="bar">
+  <a class="home" href="../../../">zumen</a>
+  <nav><a href="../../c/it/">IT and software</a></nav>
+</header>
+<main>
+<article>
+  <p class="crumb">IT and software</p>
+  <h1>PoE の給電クラス —— W が 2 つ書いてある理由</h1>
+  <p class="lead">A PoE standard quotes two wattages, not one: what the switch sends and what the device receives — the difference is what the 100m of copper turns into heat</p>
+  <figure>
+    <img src="../../../gallery/236-PoE%E3%81%AE%E7%B5%A6%E9%9B%BB%E3%82%AF%E3%83%A9%E3%82%B9.svg" alt="A PoE standard quotes two wattages, not one: what the switch sends and what the device receives — the difference is what the 100m of copper turns into heat" loading="lazy">
+  </figure>
+  <p class="made">This drawing comes from one YAML file. No shape was moved by hand.</p>
+  <h2>What the source says</h2>
+  <p><strong>規格には W が 2 つ書いてある</strong> —— 出す側（PSE）と、受け取る側（PD）。<strong>差は 100m のケーブルで熱になる分</strong>で、規格が先に織り込んでいる。どの型も、おおむね 15% が消える。</p>
+  <p><strong>選ぶときに見るのは、PD が受け取る側の数。</strong>「PoE+ は 30W」と言っても、機器側では 25.5W しか来ない。</p>
+  <p>8 本のうちどれで送るかは 2 通り（A はデータの線に重ね、B は空き線）。<strong>30W を超えるなら 4 ペア全部</strong>（bt）—— 1 本あたりの電流が減り、落ちる分も減る。</p>
+  <h2>Source (YAML)</h2>
+  <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/236-PoE%E3%81%AE%E7%B5%A6%E9%9B%BB%E3%82%AF%E3%83%A9%E3%82%B9.zumen.yaml"><code>examples/gallery/236-PoEの給電クラス.zumen.yaml</code></a></p>
+  <h2>More in this field</h2>
+  <ul class="near"><li><a href="../01/">On-premise server layout</a></li><li><a href="../02/">Cloud architecture</a></li><li><a href="../03/">Data flow</a></li><li><a href="../04/">Network layout</a></li><li><a href="../21/">Entity relationships</a></li><li><a href="../26/">Data centre rack elevation</a></li><li><a href="../46/">Class diagram (UML)</a></li><li><a href="../47/">State machine (UML)</a></li></ul>
+</article>
+</main>
+<footer class="foot">
+  <p><a href="https://github.com/meta-taro/zumen">GitHub</a> · MIT · <a href="https://meta-taro.github.io/zumen/g/236/">日本語</a></p>
+</footer>
+</body>
+</html>

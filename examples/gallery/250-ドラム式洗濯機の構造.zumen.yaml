@@ -1,0 +1,514 @@
+version: 1
+kind: placement
+arrows: true
+title: ドラム式洗濯機の構造（1G 未満と 335G を切り替える）
+# **同じドラムで、1G 未満と 335G を切り替えている。**
+#
+# **洗いは 1G を超えてはいけない。** 超えると衣類が壁に貼りつき、
+# 落ちて叩きつける動き（たたき洗い）が消える。ドラム径 600mm なら **55rpm が境**。
+# **脱水の 1,000rpm は 335G** —— 水が布から 335 倍の重さで引き剥がされる。
+#
+# だから**1kg の偏りが、335kgf の回る力**になる。
+# ドラムは機械に固定できない —— **ばねで吊り、ダンパで受け、おもりで重くする。**
+# ドラム式が重いのはこのため（洗濯乾燥機の平均は 77.7kg ／ 縦型 50.2kg）。
+#
+# **脱水前にいつまでも回っているのは、偏りを測り直している。**
+# 収まらないときに「偏り」と出して止まる。
+#
+# **ヒートポンプ乾燥は、空気を外へ出さない。**
+# 冷やして水を落とし、温め直して回す。外へ捨てるのは水だけ。
+nodes:
+  - id: t1
+    label: "① 断面 —— ドラムは、機械に固定されていない"
+    marker: none
+    align: left
+    at: { x: 150, y: 150 }
+    size: { w: 600, h: 20 }
+  - id: body
+    label: ""
+    at: { x: 200, y: 200 }
+    size: { w: 500, h: 470 }
+  - id: tub
+    label: ""
+    marker: circle
+    at: { x: 300, y: 260 }
+    size: { w: 300, h: 300 }
+  - id: drum
+    label: ""
+    marker: circle
+    at: { x: 326, y: 286 }
+    size: { w: 248, h: 248 }
+  - id: tubN
+    label: "外槽"
+    marker: none
+    align: left
+    at: { x: 206, y: 206 }
+    size: { w: 110, h: 18 }
+  - id: tubN2
+    label: "（水を溜める）"
+    marker: none
+    align: left
+    at: { x: 206, y: 228 }
+    size: { w: 120, h: 18 }
+  - id: drumN
+    label: "内ドラム（回る）"
+    marker: none
+    align: center
+    at: { x: 370, y: 400 }
+    size: { w: 160, h: 18 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 353, y: 207 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 333, y: 297 }
+    size: { w: 2, h: 2 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 353, y: 661 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 337, y: 525 }
+    size: { w: 2, h: 2 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 545, y: 207 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 565, y: 297 }
+    size: { w: 2, h: 2 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 545, y: 661 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 561, y: 525 }
+    size: { w: 2, h: 2 }
+  - id: spN
+    label: "吊りばね"
+    marker: none
+    align: left
+    at: { x: 206, y: 262 }
+    size: { w: 88, h: 18 }
+  - id: dpN
+    label: "ダンパ"
+    marker: none
+    align: left
+    at: { x: 206, y: 640 }
+    size: { w: 130, h: 18 }
+  - id: w1
+    label: ""
+    hatch: solid
+    at: { x: 334, y: 216 }
+    size: { w: 232, h: 34 }
+  - id: wN
+    label: "おもり（外槽に固定）"
+    marker: none
+    align: center
+    at: { x: 350, y: 172 }
+    size: { w: 200, h: 18 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 333.2, y: 350 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 564.8, y: 350 }
+    size: { w: 2, h: 2 }
+  - id: blN
+    label: "バランサー"
+    marker: none
+    align: center
+    at: { x: 360, y: 294 }
+    size: { w: 180, h: 18 }
+  - id: mot
+    label: ""
+    marker: circle
+    at: { x: 624, y: 444 }
+    size: { w: 52, h: 52 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 599, y: 469 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 623, y: 469 }
+    size: { w: 2, h: 2 }
+  - id: motN
+    label: "モーター"
+    marker: none
+    align: left
+    at: { x: 610, y: 504 }
+    size: { w: 90, h: 18 }
+  - id: pmp
+    label: "排水ポンプ"
+    at: { x: 390, y: 612 }
+    size: { w: 120, h: 40 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 449, y: 559 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 449, y: 611 }
+    size: { w: 2, h: 2 }
+  - id: t2
+    label: "② 同じドラムで、1G 未満と 335G を切り替える"
+    marker: none
+    align: left
+    at: { x: 780, y: 150 }
+    size: { w: 460, h: 20 }
+  - id: h186
+    label: "ドラム径 600mm のとき（内側の壁で）"
+    hatch: solid
+    at: { x: 780, y: 186 }
+    size: { w: 460, h: 24 }
+  - id: x210
+    label: "洗い　45 rpm"
+    at: { x: 780, y: 210 }
+    size: { w: 210, h: 24 }
+  - id: y210
+    label: "0.7G　衣類は上で落ちる（たたき洗い）"
+    align: left
+    at: { x: 990, y: 210 }
+    size: { w: 250, h: 24 }
+  - id: x234
+    label: "1G の境　55 rpm"
+    at: { x: 780, y: 234 }
+    size: { w: 210, h: 24 }
+  - id: y234
+    label: "ここを超えると、落ちなくなる"
+    align: left
+    at: { x: 990, y: 234 }
+    size: { w: 250, h: 24 }
+  - id: x258
+    label: "すすぎ　300 rpm"
+    at: { x: 780, y: 258 }
+    size: { w: 210, h: 24 }
+  - id: y258
+    label: "30G"
+    align: left
+    at: { x: 990, y: 258 }
+    size: { w: 250, h: 24 }
+  - id: x282
+    label: "脱水　1,000 rpm"
+    at: { x: 780, y: 282 }
+    size: { w: 210, h: 24 }
+  - id: y282
+    label: "335G"
+    align: left
+    at: { x: 990, y: 282 }
+    size: { w: 250, h: 24 }
+  - id: x306
+    label: "脱水　1,400 rpm"
+    at: { x: 780, y: 306 }
+    size: { w: 210, h: 24 }
+  - id: y306
+    label: "658G"
+    align: left
+    at: { x: 990, y: 306 }
+    size: { w: 250, h: 24 }
+  - id: why2
+    label: "遠心加速度 ＝ r ω² ／ g。ω ＝ 2πN/60。\n洗いは 1G を超えてはいけない。超えると衣類が壁に貼りつき、\n落ちて叩きつける動きが消えてしまう。"
+    at: { x: 780, y: 344 }
+    size: { w: 460, h: 80 }
+  - id: t3
+    label: "③ 1kg の偏りが、335kgf の回る力になる"
+    marker: none
+    align: left
+    at: { x: 780, y: 440 }
+    size: { w: 460, h: 20 }
+  - id: h470
+    label: "脱水 1,000rpm で、片寄った分の重さ"
+    hatch: solid
+    at: { x: 780, y: 470 }
+    size: { w: 460, h: 24 }
+  - id: x494
+    label: "偏り 0.5kg"
+    at: { x: 780, y: 494 }
+    size: { w: 210, h: 24 }
+  - id: y494
+    label: "約 170kgf が回りながら引っぱる"
+    align: left
+    at: { x: 990, y: 494 }
+    size: { w: 250, h: 24 }
+  - id: x518
+    label: "偏り 1.0kg"
+    at: { x: 780, y: 518 }
+    size: { w: 210, h: 24 }
+  - id: y518
+    label: "約 335kgf"
+    align: left
+    at: { x: 990, y: 518 }
+    size: { w: 250, h: 24 }
+  - id: x542
+    label: "偏り 2.0kg"
+    at: { x: 780, y: 542 }
+    size: { w: 210, h: 24 }
+  - id: y542
+    label: "約 670kgf"
+    align: left
+    at: { x: 990, y: 542 }
+    size: { w: 250, h: 24 }
+  - id: why3
+    label: "だからドラムは機械に固定できない。 ばねで吊ってダンパで受け、\nおもりで重くして揺れを抑える。ドラム式が重い理由でもある\n（洗濯乾燥機の平均は、ドラム式 77.7kg ／ 縦型 50.2kg）。"
+    at: { x: 780, y: 580 }
+    size: { w: 460, h: 80 }
+  - id: t4
+    label: "④ 回す前に、偏りを消しにいく"
+    marker: none
+    align: left
+    at: { x: 780, y: 676 }
+    size: { w: 460, h: 20 }
+  - id: h706
+    label: "脱水に入るまで"
+    hatch: solid
+    at: { x: 780, y: 706 }
+    size: { w: 460, h: 24 }
+  - id: x730
+    label: "ゆっくり回す"
+    at: { x: 780, y: 730 }
+    size: { w: 170, h: 24 }
+  - id: y730
+    label: "偏りを測る（モーターの負けかたで分かる）"
+    align: left
+    at: { x: 950, y: 730 }
+    size: { w: 290, h: 24 }
+  - id: x754
+    label: "ほぐす"
+    at: { x: 780, y: 754 }
+    size: { w: 170, h: 24 }
+  - id: y754
+    label: "正逆に振って、片寄りを崩す"
+    align: left
+    at: { x: 950, y: 754 }
+    size: { w: 290, h: 24 }
+  - id: x778
+    label: "測り直す"
+    at: { x: 780, y: 778 }
+    size: { w: 170, h: 24 }
+  - id: y778
+    label: "収まらなければ、もう一度"
+    align: left
+    at: { x: 950, y: 778 }
+    size: { w: 290, h: 24 }
+  - id: x802
+    label: "バランサー"
+    at: { x: 780, y: 802 }
+    size: { w: 170, h: 24 }
+  - id: y802
+    label: "回り出すと、中の液や球が反対側へ寄る"
+    align: left
+    at: { x: 950, y: 802 }
+    size: { w: 290, h: 24 }
+  - id: why4
+    label: "脱水前にいつまでも回っているのは、測り直している。\n収まらないときに「偏り」と出して止まる。"
+    at: { x: 780, y: 840 }
+    size: { w: 460, h: 56 }
+  - id: t5
+    label: "⑤ ヒートポンプ乾燥は、空気を外へ出さない"
+    marker: none
+    align: left
+    at: { x: 150, y: 712 }
+    size: { w: 600, h: 20 }
+  - id: h_drum
+    label: "ドラム（衣類）"
+    at: { x: 220, y: 752 }
+    size: { w: 180, h: 56 }
+  - id: h_cool
+    label: "蒸発器\n冷やして水を落とす"
+    hatch: dots
+    at: { x: 470, y: 752 }
+    size: { w: 190, h: 56 }
+  - id: h_hot
+    label: "凝縮器\n温める"
+    hatch: lines
+    at: { x: 470, y: 842 }
+    size: { w: 190, h: 56 }
+  - id: h_fan
+    label: "ファン"
+    at: { x: 220, y: 842 }
+    size: { w: 180, h: 56 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 399, y: 779 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 469, y: 779 }
+    size: { w: 2, h: 2 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 564, y: 807 }
+    size: { w: 2, h: 2 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 564, y: 841 }
+    size: { w: 2, h: 2 }
+  - id: p18
+    label: ""
+    marker: none
+    at: { x: 469, y: 869 }
+    size: { w: 2, h: 2 }
+  - id: p19
+    label: ""
+    marker: none
+    at: { x: 399, y: 869 }
+    size: { w: 2, h: 2 }
+  - id: p20
+    label: ""
+    marker: none
+    at: { x: 309, y: 841 }
+    size: { w: 2, h: 2 }
+  - id: p21
+    label: ""
+    marker: none
+    at: { x: 309, y: 807 }
+    size: { w: 2, h: 2 }
+  - id: h_dr
+    label: "落ちた水は排水へ（外へ捨てるのは水だけ）"
+    at: { x: 220, y: 912 }
+    size: { w: 440, h: 30 }
+  - id: h_why
+    label: "乾いた空気を作って回すので、部屋へ湿気も熱も出さない。\nヒーター式より電気も少ない（ただし時間はかかる）。"
+    at: { x: 150, y: 958 }
+    size: { w: 600, h: 54 }
+  - id: r1
+    label: "同じドラムで、1G 未満と 335G を切り替えています（②）。洗いと脱水は、まったく違う世界です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1032 }
+    size: { w: 1090, h: 18 }
+  - id: r2
+    label: "洗いは 1G を超えてはいけません。 超えると衣類が壁に貼りついて、落ちて叩きつける動きが消えます。ドラム径 600mm なら 55rpm が境です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1056 }
+    size: { w: 1090, h: 18 }
+  - id: r3
+    label: "脱水の 1,000rpm は 335G。 水が布から 335 倍の重さで引き剥がされます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1080 }
+    size: { w: 1090, h: 18 }
+  - id: r4
+    label: "だから 1kg の偏りが 335kgf の回る力になります（③）。ドラムは機械に固定できません。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1104 }
+    size: { w: 1090, h: 18 }
+  - id: r5
+    label: "ばねで吊り、ダンパで受け、おもりで重くする（①）。ドラム式が重いのは、この三つのためです（平均 77.7kg／縦型 50.2kg）。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1128 }
+    size: { w: 1090, h: 18 }
+  - id: r6
+    label: "脱水前にいつまでも回っているのは、偏りを測り直しているからです（④）。収まらないときに「偏り」と出して止まります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1152 }
+    size: { w: 1090, h: 18 }
+  - id: r7
+    label: "ヒートポンプ乾燥は、空気を外へ出しません（⑤）。冷やして水を落とし、温め直して回す。外へ捨てるのは水だけです。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1176 }
+    size: { w: 1090, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p2
+    to: p3
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p4
+    to: p5
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p6
+    to: p7
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p8
+    to: p9
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 340.1, y: 340.6 }
+      - { x: 346.9, y: 330.9 }
+      - { x: 354.5, y: 321.8 }
+      - { x: 363, y: 313.4 }
+      - { x: 372.2, y: 305.8 }
+      - { x: 382.1, y: 299.2 }
+      - { x: 392.5, y: 293.4 }
+      - { x: 403.4, y: 288.6 }
+      - { x: 414.7, y: 284.9 }
+      - { x: 426.3, y: 282.2 }
+      - { x: 438.1, y: 280.5 }
+      - { x: 450, y: 280 }
+      - { x: 461.9, y: 280.5 }
+      - { x: 473.7, y: 282.2 }
+      - { x: 485.3, y: 284.9 }
+      - { x: 496.6, y: 288.6 }
+      - { x: 507.5, y: 293.4 }
+      - { x: 517.9, y: 299.2 }
+      - { x: 527.8, y: 305.8 }
+      - { x: 537, y: 313.4 }
+      - { x: 545.5, y: 321.8 }
+      - { x: 553.1, y: 330.9 }
+      - { x: 559.9, y: 340.6 }
+  - from: p10
+    to: p11
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p12
+    to: p13
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p14
+    to: p15
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p16
+    to: p17
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p18
+    to: p19
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p20
+    to: p21
+    curve: none
+    ends: { from: none, to: arrow }

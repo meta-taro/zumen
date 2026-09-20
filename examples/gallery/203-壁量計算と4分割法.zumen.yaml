@@ -1,0 +1,497 @@
+version: 1
+kind: placement
+arrows: true
+title: 壁量計算と 4 分割法（木造 2 階建て）
+scale: { mm: 35 }
+palette:
+  側端: "#3f6f8f"
+# **壁はあればいいのではない。**
+#
+# 必要壁量は**地震力（床面積 × 係数）と風圧力（見付面積 × 50）の大きいほう**。
+# 存在壁量は**長さ × 壁倍率**。
+#
+# そして**足りていても、片側へ寄っていれば通らない** ——
+# 4 分割法は、両端の 1/4（側端部分）の充足率を比べ、
+# **小さいほう ÷ 大きいほう ≧ 0.5** を求める。③ はその、だめな例。
+nodes:
+  - id: a_f
+    label: ""
+    at: { x: 200, y: 350 }
+    size: { w: 228.6, h: 171.4 }
+  - id: a_w0
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 228.6, y: 369.9 }
+    size: { w: 57.1, h: 6 }
+  - id: a_w1
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 285.7, y: 432.7 }
+    size: { w: 42.9, h: 6 }
+  - id: a_w2
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 328.6, y: 495.6 }
+    size: { w: 71.4, h: 6 }
+  - id: a_n
+    label: "1 階平面（8 × 6m ＝ 48m²）"
+    marker: none
+    align: center
+    at: { x: 200, y: 531.4 }
+    size: { w: 228.6, h: 18 }
+  - id: a_l0
+    label: "2m × 2.5 ＝ 5m"
+    marker: none
+    align: left
+    at: { x: 442.6, y: 363.9 }
+    size: { w: 190, h: 18 }
+  - id: a_l1
+    label: "1.5m × 2.5 ＝ 3.8m"
+    marker: none
+    align: left
+    at: { x: 442.6, y: 426.7 }
+    size: { w: 190, h: 18 }
+  - id: a_l2
+    label: "2.5m × 2.5 ＝ 6.3m"
+    marker: none
+    align: left
+    at: { x: 442.6, y: 489.6 }
+    size: { w: 190, h: 18 }
+  - id: t1
+    label: "① 壁量 —— 長さ × 倍率で数える"
+    marker: none
+    align: left
+    at: { x: 160, y: 254 }
+    size: { w: 480, h: 20 }
+  - id: t1b
+    label: "　必要 48 × 29 ＝ 1392cm ＝ 13.9m。存在 15m。"
+    marker: none
+    align: left
+    at: { x: 160, y: 276 }
+    size: { w: 480, h: 18 }
+  - id: a_x
+    label: "← X 方向の耐力壁（この向きの力を受ける）"
+    marker: none
+    align: left
+    at: { x: 200, y: 555.4 }
+    size: { w: 468.6, h: 18 }
+  - id: b_f
+    label: ""
+    at: { x: 200, y: 740 }
+    size: { w: 228.6, h: 171.4 }
+  - id: b_w0
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 228.6, y: 759.9 }
+    size: { w: 57.1, h: 6 }
+  - id: b_w1
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 285.7, y: 822.7 }
+    size: { w: 42.9, h: 6 }
+  - id: b_w2
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 328.6, y: 885.6 }
+    size: { w: 71.4, h: 6 }
+  - id: b_n
+    label: "側端部分は、上下の 1/4"
+    marker: none
+    align: center
+    at: { x: 200, y: 921.4 }
+    size: { w: 228.6, h: 18 }
+  - id: b_q1
+    label: ""
+    marker: none
+    fill: 側端
+    at: { x: 201, y: 741 }
+    size: { w: 226.6, h: 41.9 }
+  - id: b_q2
+    label: ""
+    marker: none
+    fill: 側端
+    at: { x: 201, y: 867.6 }
+    size: { w: 226.6, h: 41.9 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 183, y: 739 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 183, y: 781.9 }
+    size: { w: 2, h: 2 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 183, y: 867.6 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 183, y: 910.4 }
+    size: { w: 2, h: 2 }
+  - id: b_1
+    label: "上 1/4：存在 5m ÷ 必要 3.5m ＝ 充足率 1.4"
+    marker: none
+    align: left
+    at: { x: 200, y: 945.4 }
+    size: { w: 348.6, h: 18 }
+  - id: b_2
+    label: "下 1/4：存在 6.3m ÷ 必要 3.5m ＝ 充足率 1.8"
+    marker: none
+    align: left
+    at: { x: 200, y: 965.4 }
+    size: { w: 348.6, h: 18 }
+  - id: b_r
+    label: "壁率比 0.8 ≧ 0.5 → 通る"
+    marker: none
+    align: left
+    at: { x: 200, y: 987.4 }
+    size: { w: 348.6, h: 18 }
+  - id: t2
+    label: "② 4 分割法"
+    marker: none
+    align: left
+    at: { x: 160, y: 622 }
+    size: { w: 340, h: 20 }
+  - id: t2a
+    label: "　足りていても、偏っていれば通らない"
+    marker: none
+    align: left
+    at: { x: 160, y: 644 }
+    size: { w: 340, h: 18 }
+  - id: t2b
+    label: "　小さいほう ÷ 大きいほう ≧ 0.5"
+    marker: none
+    align: left
+    at: { x: 160, y: 666 }
+    size: { w: 340, h: 18 }
+  - id: c_f
+    label: ""
+    at: { x: 560, y: 740 }
+    size: { w: 228.6, h: 171.4 }
+  - id: c_w0
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 588.6, y: 759.9 }
+    size: { w: 57.1, h: 6 }
+  - id: c_w1
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 645.7, y: 822.7 }
+    size: { w: 42.9, h: 6 }
+  - id: c_w2
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 688.6, y: 834.1 }
+    size: { w: 71.4, h: 6 }
+  - id: c_n
+    label: "下 1/4 に壁が無い"
+    marker: none
+    align: center
+    at: { x: 560, y: 921.4 }
+    size: { w: 228.6, h: 18 }
+  - id: c_q1
+    label: ""
+    marker: none
+    fill: 側端
+    at: { x: 561, y: 741 }
+    size: { w: 226.6, h: 41.9 }
+  - id: c_q2
+    label: ""
+    marker: none
+    fill: 側端
+    at: { x: 561, y: 867.6 }
+    size: { w: 226.6, h: 41.9 }
+  - id: c_1
+    label: "上 1/4：充足率 1.4"
+    marker: none
+    align: left
+    at: { x: 560, y: 945.4 }
+    size: { w: 348.6, h: 18 }
+  - id: c_2
+    label: "下 1/4：充足率 0"
+    marker: none
+    align: left
+    at: { x: 560, y: 965.4 }
+    size: { w: 348.6, h: 18 }
+  - id: c_r
+    label: "壁率比 0 → 通らない"
+    marker: none
+    align: left
+    at: { x: 560, y: 987.4 }
+    size: { w: 348.6, h: 18 }
+  - id: t3
+    label: "③ 壁の合計が同じでも"
+    marker: none
+    align: left
+    at: { x: 520, y: 644 }
+    size: { w: 340, h: 20 }
+  - id: t3b
+    label: "　片側へ寄せると、ねじれる。"
+    marker: none
+    align: left
+    at: { x: 520, y: 666 }
+    size: { w: 340, h: 18 }
+  - id: h190
+    label: "必要壁量（cm/m²・地震力）"
+    hatch: solid
+    at: { x: 880, y: 190 }
+    size: { w: 420, h: 24 }
+  - id: x214
+    label: "平屋（軽い屋根）"
+    at: { x: 880, y: 214 }
+    size: { w: 190, h: 24 }
+  - id: y214
+    label: "11"
+    align: left
+    at: { x: 1070, y: 214 }
+    size: { w: 230, h: 24 }
+  - id: x238
+    label: "2 階建ての 1 階"
+    at: { x: 880, y: 238 }
+    size: { w: 190, h: 24 }
+  - id: y238
+    label: "29"
+    align: left
+    at: { x: 1070, y: 238 }
+    size: { w: 230, h: 24 }
+  - id: x262
+    label: "2 階建ての 2 階"
+    at: { x: 880, y: 262 }
+    size: { w: 190, h: 24 }
+  - id: y262
+    label: "15"
+    align: left
+    at: { x: 1070, y: 262 }
+    size: { w: 230, h: 24 }
+  - id: x286
+    label: "平屋（重い屋根）"
+    at: { x: 880, y: 286 }
+    size: { w: 190, h: 24 }
+  - id: y286
+    label: "15"
+    align: left
+    at: { x: 1070, y: 286 }
+    size: { w: 230, h: 24 }
+  - id: x310
+    label: "2 階建ての 1 階（重い）"
+    at: { x: 880, y: 310 }
+    size: { w: 190, h: 24 }
+  - id: y310
+    label: "33"
+    align: left
+    at: { x: 1070, y: 310 }
+    size: { w: 230, h: 24 }
+  - id: x334
+    label: "2 階建ての 2 階（重い）"
+    at: { x: 880, y: 334 }
+    size: { w: 190, h: 24 }
+  - id: y334
+    label: "21"
+    align: left
+    at: { x: 1070, y: 334 }
+    size: { w: 230, h: 24 }
+  - id: h376
+    label: "もう 1 つの必要壁量（風圧力）"
+    hatch: solid
+    at: { x: 880, y: 376 }
+    size: { w: 420, h: 24 }
+  - id: x400
+    label: "何で決まるか"
+    at: { x: 880, y: 400 }
+    size: { w: 190, h: 24 }
+  - id: y400
+    label: "見付面積（風を受ける面）"
+    align: left
+    at: { x: 1070, y: 400 }
+    size: { w: 230, h: 24 }
+  - id: x424
+    label: "一般の地域"
+    at: { x: 880, y: 424 }
+    size: { w: 190, h: 24 }
+  - id: y424
+    label: "50 cm/m²"
+    align: left
+    at: { x: 1070, y: 424 }
+    size: { w: 230, h: 24 }
+  - id: x448
+    label: "どちらを採るか"
+    at: { x: 880, y: 448 }
+    size: { w: 190, h: 24 }
+  - id: y448
+    label: "地震力と風圧力の大きいほう"
+    align: left
+    at: { x: 1070, y: 448 }
+    size: { w: 230, h: 24 }
+  - id: h490
+    label: "壁倍率（存在壁量 ＝ 長さ × 倍率）"
+    hatch: solid
+    at: { x: 880, y: 490 }
+    size: { w: 420, h: 24 }
+  - id: x514
+    label: "筋かい 45×90 片側"
+    at: { x: 880, y: 514 }
+    size: { w: 190, h: 24 }
+  - id: y514
+    label: "2.0"
+    align: left
+    at: { x: 1070, y: 514 }
+    size: { w: 230, h: 24 }
+  - id: x538
+    label: "同 たすき掛け"
+    at: { x: 880, y: 538 }
+    size: { w: 190, h: 24 }
+  - id: y538
+    label: "4.0"
+    align: left
+    at: { x: 1070, y: 538 }
+    size: { w: 230, h: 24 }
+  - id: x562
+    label: "構造用合板（大壁）"
+    at: { x: 880, y: 562 }
+    size: { w: 190, h: 24 }
+  - id: y562
+    label: "2.5"
+    align: left
+    at: { x: 1070, y: 562 }
+    size: { w: 230, h: 24 }
+  - id: x586
+    label: "上限"
+    at: { x: 880, y: 586 }
+    size: { w: 190, h: 24 }
+  - id: y586
+    label: "5.0"
+    align: left
+    at: { x: 1070, y: 586 }
+    size: { w: 230, h: 24 }
+  - id: x610
+    label: "つまり"
+    at: { x: 880, y: 610 }
+    size: { w: 190, h: 24 }
+  - id: y610
+    label: "倍率で 2 倍以上変わる"
+    align: left
+    at: { x: 1070, y: 610 }
+    size: { w: 230, h: 24 }
+  - id: h652
+    label: "4 分割法（告示 1352 号）"
+    hatch: solid
+    at: { x: 880, y: 652 }
+    size: { w: 420, h: 24 }
+  - id: x676
+    label: "何を見るか"
+    at: { x: 880, y: 676 }
+    size: { w: 190, h: 24 }
+  - id: y676
+    label: "壁の釣り合い（偏っていないか）"
+    align: left
+    at: { x: 1070, y: 676 }
+    size: { w: 230, h: 24 }
+  - id: x700
+    label: "側端部分"
+    at: { x: 880, y: 700 }
+    size: { w: 190, h: 24 }
+  - id: y700
+    label: "各方向で、両端の 1/4"
+    align: left
+    at: { x: 1070, y: 700 }
+    size: { w: 230, h: 24 }
+  - id: x724
+    label: "充足率"
+    at: { x: 880, y: 724 }
+    size: { w: 190, h: 24 }
+  - id: y724
+    label: "その区画の 存在 ÷ 必要"
+    align: left
+    at: { x: 1070, y: 724 }
+    size: { w: 230, h: 24 }
+  - id: x748
+    label: "通る条件 1"
+    at: { x: 880, y: 748 }
+    size: { w: 190, h: 24 }
+  - id: y748
+    label: "両側とも充足率 1.0 超"
+    align: left
+    at: { x: 1070, y: 748 }
+    size: { w: 230, h: 24 }
+  - id: x772
+    label: "通る条件 2"
+    at: { x: 880, y: 772 }
+    size: { w: 190, h: 24 }
+  - id: y772
+    label: "壁率比（小 ÷ 大）≧ 0.5"
+    align: left
+    at: { x: 1070, y: 772 }
+    size: { w: 230, h: 24 }
+  - id: x796
+    label: "代わりの道"
+    at: { x: 880, y: 796 }
+    size: { w: 190, h: 24 }
+  - id: y796
+    label: "偏心率 ≦ 0.3 を計算する"
+    align: left
+    at: { x: 1070, y: 796 }
+    size: { w: 230, h: 24 }
+  - id: n1
+    label: "木造 2 階建ての壁量計算と4 分割法です（施行令 46 条／告示 1352 号）。"
+    marker: none
+    align: left
+    at: { x: 160, y: 1080 }
+    size: { w: 1000, h: 18 }
+  - id: n2
+    label: "必要壁量は 2 つ出します —— 地震力は床面積 × 係数、風圧力は見付面積 × 50。大きいほうを満たします。"
+    marker: none
+    align: left
+    at: { x: 160, y: 1102 }
+    size: { w: 1000, h: 18 }
+  - id: n3
+    label: "存在壁量は「長さ × 壁倍率」です。同じ長さでも、筋かい片側 2.0 と たすき掛け 4.0 では 2 倍違います。"
+    marker: none
+    align: left
+    at: { x: 160, y: 1124 }
+    size: { w: 1000, h: 18 }
+  - id: n4
+    label: "壁はあればいいのではありません。 足りていても、片側へ寄っていれば通りません。"
+    marker: none
+    align: left
+    at: { x: 160, y: 1146 }
+    size: { w: 1000, h: 18 }
+  - id: n5
+    label: "4 分割法は、各方向で建物を 4 つに割り、両端の 1/4（側端部分）の充足率を比べます。"
+    marker: none
+    align: left
+    at: { x: 160, y: 1168 }
+    size: { w: 1000, h: 18 }
+  - id: n6
+    label: "小さいほう ÷ 大きいほう ≧ 0.5（壁率比）。両側とも充足率 1.0 を超えていれば、それで通ります。"
+    marker: none
+    align: left
+    at: { x: 160, y: 1190 }
+    size: { w: 1000, h: 18 }
+  - id: n7
+    label: "数値は一例です。実際は柱の引き抜き（N 値計算）と金物も要ります。"
+    marker: none
+    align: left
+    at: { x: 160, y: 1212 }
+    size: { w: 1000, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    ends: { from: arrow, to: arrow }
+  - from: p2
+    to: p3
+    curve: none
+    ends: { from: arrow, to: arrow }

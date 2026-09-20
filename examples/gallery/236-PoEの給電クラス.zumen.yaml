@@ -1,0 +1,463 @@
+version: 1
+kind: placement
+arrows: true
+title: PoE の給電クラス —— W が 2 つ書いてある理由
+palette:
+  G: "#e0e0e0"
+# **規格には W が 2 つ書いてある** —— 出す側（PSE）と、受け取る側（PD）。
+# **差は 100m のケーブルで熱になる分**で、規格が先に織り込んでいる。
+# どの型も、おおむね 15% が消える。
+#
+# **選ぶときに見るのは、PD が受け取る側の数。**
+# 「PoE+ は 30W」と言っても、機器側では 25.5W しか来ない。
+#
+# 8 本のうちどれで送るかは 2 通り（A はデータの線に重ね、B は空き線）。
+# **30W を超えるなら 4 ペア全部**（bt）—— 1 本あたりの電流が減り、落ちる分も減る。
+nodes:
+  - id: t1
+    label: "① 出す W と、受け取る W は違う"
+    marker: none
+    align: left
+    at: { x: 150, y: 200 }
+    size: { w: 640, h: 20 }
+  - id: h0
+    label: "規格"
+    hatch: solid
+    at: { x: 150, y: 232 }
+    size: { w: 110, h: 40 }
+  - id: h1
+    label: "型"
+    hatch: solid
+    at: { x: 260, y: 232 }
+    size: { w: 90, h: 40 }
+  - id: h2
+    label: "呼び名"
+    hatch: solid
+    at: { x: 350, y: 232 }
+    size: { w: 90, h: 40 }
+  - id: h3
+    label: "PSE が出す"
+    hatch: solid
+    at: { x: 440, y: 232 }
+    size: { w: 110, h: 40 }
+  - id: h4
+    label: "PD が受け取る"
+    hatch: solid
+    at: { x: 550, y: 232 }
+    size: { w: 120, h: 40 }
+  - id: h5
+    label: "ペア"
+    hatch: solid
+    at: { x: 670, y: 232 }
+    size: { w: 80, h: 40 }
+  - id: h6
+    label: "落ちる分"
+    hatch: solid
+    at: { x: 750, y: 232 }
+    size: { w: 150, h: 40 }
+  - id: rType 10
+    label: "802.3af"
+    at: { x: 150, y: 272 }
+    size: { w: 110, h: 30 }
+  - id: rType 11
+    label: "Type 1"
+    at: { x: 260, y: 272 }
+    size: { w: 90, h: 30 }
+  - id: rType 12
+    label: "PoE"
+    at: { x: 350, y: 272 }
+    size: { w: 90, h: 30 }
+  - id: rType 13
+    label: "15.4 W"
+    at: { x: 440, y: 272 }
+    size: { w: 110, h: 30 }
+  - id: rType 14
+    label: "12.95 W"
+    at: { x: 550, y: 272 }
+    size: { w: 120, h: 30 }
+  - id: rType 15
+    label: "2"
+    at: { x: 670, y: 272 }
+    size: { w: 80, h: 30 }
+  - id: rType 16
+    label: "2.5 W（16%）"
+    fill: G
+    hatch: solid
+    at: { x: 750, y: 272 }
+    size: { w: 150, h: 30 }
+  - id: rType 20
+    label: "802.3at"
+    at: { x: 150, y: 302 }
+    size: { w: 110, h: 30 }
+  - id: rType 21
+    label: "Type 2"
+    at: { x: 260, y: 302 }
+    size: { w: 90, h: 30 }
+  - id: rType 22
+    label: "PoE+"
+    at: { x: 350, y: 302 }
+    size: { w: 90, h: 30 }
+  - id: rType 23
+    label: "30 W"
+    at: { x: 440, y: 302 }
+    size: { w: 110, h: 30 }
+  - id: rType 24
+    label: "25.5 W"
+    at: { x: 550, y: 302 }
+    size: { w: 120, h: 30 }
+  - id: rType 25
+    label: "2"
+    at: { x: 670, y: 302 }
+    size: { w: 80, h: 30 }
+  - id: rType 26
+    label: "4.5 W（15%）"
+    fill: G
+    hatch: solid
+    at: { x: 750, y: 302 }
+    size: { w: 150, h: 30 }
+  - id: rType 30
+    label: "802.3bt"
+    at: { x: 150, y: 332 }
+    size: { w: 110, h: 30 }
+  - id: rType 31
+    label: "Type 3"
+    at: { x: 260, y: 332 }
+    size: { w: 90, h: 30 }
+  - id: rType 32
+    label: "PoE++"
+    at: { x: 350, y: 332 }
+    size: { w: 90, h: 30 }
+  - id: rType 33
+    label: "60 W"
+    at: { x: 440, y: 332 }
+    size: { w: 110, h: 30 }
+  - id: rType 34
+    label: "51 W"
+    at: { x: 550, y: 332 }
+    size: { w: 120, h: 30 }
+  - id: rType 35
+    label: "4"
+    at: { x: 670, y: 332 }
+    size: { w: 80, h: 30 }
+  - id: rType 36
+    label: "9 W（15%）"
+    fill: G
+    hatch: solid
+    at: { x: 750, y: 332 }
+    size: { w: 150, h: 30 }
+  - id: rType 40
+    label: "802.3bt"
+    at: { x: 150, y: 362 }
+    size: { w: 110, h: 30 }
+  - id: rType 41
+    label: "Type 4"
+    at: { x: 260, y: 362 }
+    size: { w: 90, h: 30 }
+  - id: rType 42
+    label: "PoE++"
+    at: { x: 350, y: 362 }
+    size: { w: 90, h: 30 }
+  - id: rType 43
+    label: "90 W"
+    at: { x: 440, y: 362 }
+    size: { w: 110, h: 30 }
+  - id: rType 44
+    label: "71.3 W"
+    at: { x: 550, y: 362 }
+    size: { w: 120, h: 30 }
+  - id: rType 45
+    label: "4"
+    at: { x: 670, y: 362 }
+    size: { w: 80, h: 30 }
+  - id: rType 46
+    label: "18.7 W（21%）"
+    fill: G
+    hatch: solid
+    at: { x: 750, y: 362 }
+    size: { w: 150, h: 30 }
+  - id: n1
+    label: "規格は、落ちる分を織り込んで 2 つの数を決めている。"
+    marker: none
+    align: left
+    at: { x: 150, y: 402 }
+    size: { w: 640, h: 18 }
+  - id: n2
+    label: "どの型も、おおむね 15% がケーブルで熱になる。"
+    marker: none
+    align: left
+    at: { x: 150, y: 424 }
+    size: { w: 640, h: 18 }
+  - id: t2
+    label: "② 落ちる場所は、100m のケーブルの中"
+    marker: none
+    align: left
+    at: { x: 150, y: 444 }
+    size: { w: 640, h: 20 }
+  - id: pse
+    label: "PSE\n（スイッチ・給電側）"
+    at: { x: 170, y: 502 }
+    size: { w: 200, h: 60 }
+  - id: cab
+    label: "ツイストペア 100m"
+    hatch: lines
+    at: { x: 400, y: 514 }
+    size: { w: 260, h: 36 }
+  - id: pd
+    label: "PD\n（カメラ・AP）"
+    at: { x: 690, y: 502 }
+    size: { w: 200, h: 60 }
+  - id: w_in
+    label: "30 W"
+    marker: none
+    align: center
+    at: { x: 320, y: 478 }
+    size: { w: 100, h: 18 }
+  - id: w_out
+    label: "25.5 W"
+    marker: none
+    align: center
+    at: { x: 610, y: 478 }
+    size: { w: 100, h: 18 }
+  - id: n3
+    label: "差の 4.5 W は、銅線の抵抗で熱になる（802.3at の例）。"
+    marker: none
+    align: left
+    at: { x: 170, y: 580 }
+    size: { w: 640, h: 18 }
+  - id: n4
+    label: "だから「PoE+ は 30W」と言うと、機器側では足りない。"
+    marker: none
+    align: left
+    at: { x: 170, y: 602 }
+    size: { w: 640, h: 18 }
+  - id: n5
+    label: "選ぶときに見るのは、PD が受け取る側の数。"
+    marker: none
+    align: left
+    at: { x: 170, y: 624 }
+    size: { w: 640, h: 18 }
+  - id: t3
+    label: "③ 8 本のうち、どれで送るか"
+    marker: none
+    align: left
+    at: { x: 930, y: 200 }
+    size: { w: 400, h: 20 }
+  - id: pl0
+    label: "Alternative A"
+    marker: none
+    align: left
+    at: { x: 950, y: 228 }
+    size: { w: 300, h: 18 }
+  - id: p0_1
+    label: "1"
+    fill: G
+    hatch: solid
+    at: { x: 950, y: 250 }
+    size: { w: 30, h: 34 }
+  - id: p0_2
+    label: "2"
+    fill: G
+    hatch: solid
+    at: { x: 980, y: 250 }
+    size: { w: 30, h: 34 }
+  - id: p0_3
+    label: "3"
+    fill: G
+    hatch: solid
+    at: { x: 1010, y: 250 }
+    size: { w: 30, h: 34 }
+  - id: p0_4
+    label: "4"
+    at: { x: 1040, y: 250 }
+    size: { w: 30, h: 34 }
+  - id: p0_5
+    label: "5"
+    at: { x: 1070, y: 250 }
+    size: { w: 30, h: 34 }
+  - id: p0_6
+    label: "6"
+    fill: G
+    hatch: solid
+    at: { x: 1100, y: 250 }
+    size: { w: 30, h: 34 }
+  - id: p0_7
+    label: "7"
+    at: { x: 1130, y: 250 }
+    size: { w: 30, h: 34 }
+  - id: p0_8
+    label: "8"
+    at: { x: 1160, y: 250 }
+    size: { w: 30, h: 34 }
+  - id: pl1
+    label: "Alternative B"
+    marker: none
+    align: left
+    at: { x: 950, y: 324 }
+    size: { w: 300, h: 18 }
+  - id: p1_1
+    label: "1"
+    at: { x: 950, y: 346 }
+    size: { w: 30, h: 34 }
+  - id: p1_2
+    label: "2"
+    at: { x: 980, y: 346 }
+    size: { w: 30, h: 34 }
+  - id: p1_3
+    label: "3"
+    at: { x: 1010, y: 346 }
+    size: { w: 30, h: 34 }
+  - id: p1_4
+    label: "4"
+    fill: G
+    hatch: solid
+    at: { x: 1040, y: 346 }
+    size: { w: 30, h: 34 }
+  - id: p1_5
+    label: "5"
+    fill: G
+    hatch: solid
+    at: { x: 1070, y: 346 }
+    size: { w: 30, h: 34 }
+  - id: p1_6
+    label: "6"
+    at: { x: 1100, y: 346 }
+    size: { w: 30, h: 34 }
+  - id: p1_7
+    label: "7"
+    fill: G
+    hatch: solid
+    at: { x: 1130, y: 346 }
+    size: { w: 30, h: 34 }
+  - id: p1_8
+    label: "8"
+    fill: G
+    hatch: solid
+    at: { x: 1160, y: 346 }
+    size: { w: 30, h: 34 }
+  - id: pl2
+    label: "4 ペア（bt）"
+    marker: none
+    align: left
+    at: { x: 950, y: 420 }
+    size: { w: 300, h: 18 }
+  - id: p2_1
+    label: "1"
+    fill: G
+    hatch: solid
+    at: { x: 950, y: 442 }
+    size: { w: 30, h: 34 }
+  - id: p2_2
+    label: "2"
+    fill: G
+    hatch: solid
+    at: { x: 980, y: 442 }
+    size: { w: 30, h: 34 }
+  - id: p2_3
+    label: "3"
+    fill: G
+    hatch: solid
+    at: { x: 1010, y: 442 }
+    size: { w: 30, h: 34 }
+  - id: p2_4
+    label: "4"
+    fill: G
+    hatch: solid
+    at: { x: 1040, y: 442 }
+    size: { w: 30, h: 34 }
+  - id: p2_5
+    label: "5"
+    fill: G
+    hatch: solid
+    at: { x: 1070, y: 442 }
+    size: { w: 30, h: 34 }
+  - id: p2_6
+    label: "6"
+    fill: G
+    hatch: solid
+    at: { x: 1100, y: 442 }
+    size: { w: 30, h: 34 }
+  - id: p2_7
+    label: "7"
+    fill: G
+    hatch: solid
+    at: { x: 1130, y: 442 }
+    size: { w: 30, h: 34 }
+  - id: p2_8
+    label: "8"
+    fill: G
+    hatch: solid
+    at: { x: 1160, y: 442 }
+    size: { w: 30, h: 34 }
+  - id: n6
+    label: "1・2・3・6 はデータの線（100BASE-TX）。"
+    marker: none
+    align: left
+    at: { x: 930, y: 498 }
+    size: { w: 400, h: 18 }
+  - id: n7
+    label: "A はデータに電気を重ねる。B は空いている 4・5・7・8 を使う。"
+    marker: none
+    align: left
+    at: { x: 930, y: 520 }
+    size: { w: 420, h: 18 }
+  - id: n8
+    label: "30W を超えるなら 4 ペア全部（bt）。"
+    marker: none
+    align: left
+    at: { x: 930, y: 542 }
+    size: { w: 400, h: 18 }
+  - id: n9
+    label: "受ける側は、どちらで来ても受けられるように作る。"
+    marker: none
+    align: left
+    at: { x: 930, y: 564 }
+    size: { w: 420, h: 18 }
+  - id: r1
+    label: "PoE の規格には、W が 2 つ書いてあります（①）—— 出す側（PSE）と、受け取る側（PD）。"
+    marker: none
+    align: left
+    at: { x: 150, y: 672 }
+    size: { w: 1180, h: 18 }
+  - id: r2
+    label: "差はケーブルで熱になる分です（②）。100m のツイストペアの抵抗で落ちるぶんを、規格が先に織り込んでいます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 696 }
+    size: { w: 1180, h: 18 }
+  - id: r3
+    label: "どの型も、おおむね 15% が消えます。 「PoE+ は 30W」と言うと、機器側では 25.5W しか来ません。"
+    marker: none
+    align: left
+    at: { x: 150, y: 720 }
+    size: { w: 1180, h: 18 }
+  - id: r4
+    label: "選ぶときに見るのは、PD が受け取る側の数です。カメラの消費電力と比べるのは、こちら。"
+    marker: none
+    align: left
+    at: { x: 150, y: 744 }
+    size: { w: 1180, h: 18 }
+  - id: r5
+    label: "8 本のうちどれで送るかは 2 通りあります（③）。A はデータの線（1・2・3・6）に重ね、B は空いている 4・5・7・8 を使います。"
+    marker: none
+    align: left
+    at: { x: 150, y: 768 }
+    size: { w: 1180, h: 18 }
+  - id: r6
+    label: "電気とデータが同じ線に乗れるのは、周波数が違うからです。データは交流、給電は直流で、コイルとコンデンサで分けます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 792 }
+    size: { w: 1180, h: 18 }
+  - id: r7
+    label: "30W を超えるなら 4 ペア全部を使います（bt）。線を増やせば、1 本あたりの電流が減って、落ちる分も減ります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 816 }
+    size: { w: 1180, h: 18 }
+edges:
+  - from: pse
+    to: cab
+    curve: none
+  - from: cab
+    to: pd
+    curve: none

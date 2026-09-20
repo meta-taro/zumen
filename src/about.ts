@@ -22,6 +22,7 @@
  *
  * ここに数字を書かない。**記録と実体がずれる**（テストで見張る）。
  */
+import { fileURLToPath } from 'node:url';
 import { readFileSync } from 'node:fs';
 
 import { messages } from './messages.ts';
@@ -121,9 +122,14 @@ export function releases(markdown: string): Release[] {
   return out.filter((release) => release.notes.length > 0);
 }
 
-/** package.json の在り処。`src/` からも `dist/` からも 1 つ上。 */
+/**
+ * package.json の在り処。`src/` からも `dist/` からも 1 つ上。
+ *
+ * **`.pathname` ではなく `fileURLToPath`。** 入れた場所の名前に日本語や空白が
+ * 入っていると、URL のままでは開けない（2026-09-19。`src/examples.ts` で踏んだ）。
+ */
 function root(name: string): string {
-  return new URL(`../${name}`, import.meta.url).pathname;
+  return fileURLToPath(new URL(`../${name}`, import.meta.url));
 }
 
 export async function about(): Promise<About> {
@@ -155,13 +161,20 @@ export async function about(): Promise<About> {
 }
 
 /**
- * 開いている口。**`src/mcp.ts` が登録しているものと同じ。**
+ * 開いている口。**`src/mcp.ts` が登録しているものと、ひとつ残らず同じ。**
  *
- * ここを増やしたら、あちらも増やすこと（`test/about.test.ts` が見張る）。
+ * ここは `zumen_about` が返す一覧で、README は「**まず zumen_about を 1 回**」と
+ * 案内している —— **最初に読む所が古いと、あとの全部がずれる。**
+ *
+ * 前は「ここを増やしたら、あちらも増やすこと（`test/about.test.ts` が見張る）」と
+ * 書いてあったが、**その検査は無かった。** だから 9 個のまま古くなり、
+ * `zumen_examples` も画面と繋ぐ口も出ていなかった（2026-09-19）。
+ * いまは `test/mcp.test.ts` が、実際に登録された口と突き合わせている。
  */
 export const DOORS = [
   'zumen_about',
   'zumen_spec',
+  'zumen_examples',
   'zumen_list',
   'zumen_read',
   'zumen_pins',
@@ -169,4 +182,10 @@ export const DOORS = [
   'zumen_create',
   'zumen_propose',
   'zumen_export',
+  'zumen_timelapse',
+  // 画面と繋ぐ線（D34）。**提案を採用する口は、ここに無い。**
+  'zumen_live_status',
+  'zumen_live_read',
+  'zumen_live_point',
+  'zumen_live_propose',
 ];

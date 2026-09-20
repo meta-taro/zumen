@@ -17,6 +17,7 @@ import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
 import { getPins, parse } from '../src/format.ts';
+import { messages } from '../src/messages.ts';
 import { create, exportAs, inspect, list, pinsOf, propose, spec } from '../src/tools.ts';
 import type { Io } from '../src/tools.ts';
 
@@ -294,6 +295,31 @@ describe('spec が、通り芯と縮尺を載せている', () => {
     assert.deepEqual(spec().norths, ['up', 'right', 'down', 'left']);
   });
 
+  /**
+   * **縮尺を図ごとに変えられることを、規則が言っていない**（2026-09-19）。
+   *
+   * `views[].scale` は D35 で入っていて、仕様書の本文にも
+   * 「全体図 1/200 の横に詳細図 1/20 を置ける」と書いてある。
+   * ところが `zumen_spec` が返す規則は、views の理由を
+   * **「通しで測ると意味のない数字が出る」だけ**にしていた。
+   *
+   * 見本 189（点字ブロック）で実際にこれを踏んだ —— 突起 12mm の詳細と
+   * ホーム 1.5m の並びを 1 枚に載せるのに、**持っている道具を使わずに
+   * 「1 枚に 1 縮尺しか書けない」と誤って結論した。**
+   *
+   * `spec()` は**リポジトリの外へ渡る唯一の面**（D39）。
+   * ここに無い決まりは、他の人のエージェントには無いのと同じ。
+   */
+  it('**規則が、縮尺を図ごとに変えられると言っている**（詳細図と全体図）', () => {
+    // **views の規則そのもの**を選ぶ（views の語は他の規則にも出る）。
+    const rule = spec().rules.find((r) => r.includes('1 枚に図を 2 つ以上置くなら views'));
+    assert.ok(rule !== undefined, 'views の規則が無い');
+    assert.ok(
+      rule.includes('縮尺') || rule.includes('1/20'),
+      `views の規則が「縮尺を図ごとに変えられる」と言っていない:\n${rule}`,
+    );
+  });
+
   it('規則に「寸法が無い図は現場で使えない」がある', () => {
     assert.ok(spec().rules.some((rule) => rule.includes('現場') || rule.includes('site')));
   });
@@ -455,5 +481,180 @@ describe('inspect の説明に、直すべき観測値が出ている', () => {
   it('検査が返す形に、その観測値がある（名前だけ書いて実装が無い、を防ぐ）', async () => {
     const found = await inspect('version: 1\nnodes:\n  - id: a\n    label: あ\n');
     assert.deepEqual(ACTIONABLE.filter((key) => !(key in found)), []);
+  });
+});
+
+/**
+ * **調べてから描く、を道具の側に置く**（2026-09-18）。
+ *
+ * オーナーの問い。
+ *
+ * > そもそも zumen さえ入れればエージェントはこのレベルがサクッとできちゃうんですか？
+ * > **あなたがメモリにノウハウ溜め込んでいるだけではなくて？**
+ *
+ * 数えたら、半分は道具に入っていて（規則 26・観測値 35）、
+ * **半分は入っていなかった。**「実在の専門図面を先に調べる」は
+ * `.claude/rules/専門図面の調査と実装方針.md` —— **このリポジトリの中だけ**にあり、
+ * 他の人のエージェントは見ない。これが無いと、
+ * 自分の記憶から「○○らしい絵」を描いて終わる。
+ *
+ * **道具が言えることは、道具が言う。**
+ */
+describe('調べてから描く', () => {
+  it('**実在の図面を調べてから描く**ことを、規則が言う', () => {
+    assert.ok(
+      spec().rules.some((rule) => rule.includes('調べ')),
+      '「調べてから描く」が規則に無い（他の人のエージェントには伝わらない）',
+    );
+  });
+
+  it('**描いたものを見る**ことを、規則が言う', () => {
+    assert.ok(
+      spec().rules.some((rule) => rule.includes('見る') || rule.includes('png')),
+      '「描いたら見る」が規則に無い',
+    );
+  });
+});
+
+/**
+ * **エージェントが、自分の描いた図を見られるようにする**（2026-09-18）。
+ *
+ * `zumen_export` は SVG を**文字で**返していた。文字は読めても**絵は見えない** ——
+ * だから「名前が扉の弧に乗っている」「扇の半径が読めない」に気づけるのは、
+ * 人が画面を開いたときだけだった。**リモートでは誰も開かない。**
+ *
+ * png を足す。Chrome があれば画像そのもの（base64）を返し、
+ * **無ければ、無いと言う**（黙って落とさない。`scripts/icon.mjs` と同じ筋）。
+ */
+describe('図を絵で返す（png）', () => {
+  const SMALL = `version: 1
+kind: placement
+nodes:
+  - id: a
+    label: 部屋
+    at: { x: 0, y: 0 }
+    size: { w: 120, h: 80 }
+`;
+
+  it('**png を求められる**（書き出しの種類に入っている）', () => {
+    assert.ok(spec().exports.includes('png'), `png が無い: ${spec().exports.join(',')}`);
+  });
+
+  it('**Chrome が無ければ、無いと言う**（黙って落とさない）', async () => {
+    const { pngOf } = await import('../src/tools.ts');
+    const out = await pngOf(SMALL, {}, () => null);
+    assert.equal(out.image, null);
+    assert.match(out.note, /Chrome/);
+  });
+
+  it('**Chrome があれば、画像の中身を返す**', async () => {
+    const { pngOf } = await import('../src/tools.ts');
+    const fake = (): string => 'ダミーの Chrome';
+    const out = await pngOf(SMALL, {}, fake, () => Buffer.from('PNG-DUMMY'));
+    assert.equal(out.image, Buffer.from('PNG-DUMMY').toString('base64'));
+    assert.match(out.note, /png/);
+  });
+});
+
+/**
+ * **どの 2 本が交わっているかを返す**（2026-09-19。見本 195 で当たった）。
+ *
+ * `straddles` も `overlappingText` も `edgesUnderBoxes` も**組**を返すのに、
+ * `crossings` だけが**数**だった。「2 本交わっています」と言われても、
+ * どれとどれかは自分で探すしかない —— 直近の周で 3 回これに往復をとられた。
+ *
+ * 数はそのまま残す（テストも見本の登録も数で見ている）。**組を足す。**
+ */
+/**
+ * **書き方を読んだ人が、実物へ辿り着けるか**（2026-09-19）。
+ *
+ * `zumen_about` → `zumen_spec` → 書く、という順に読まれる。
+ * ところが `zumen_spec` は**どこにも `zumen_examples` を案内していなかった** ——
+ * 198 枚の実物が同梱されているのに、**書き方だけ読んで書き始める**ことになる。
+ *
+ * D39 と同じ形：**あるのに気づかれない口は、無いのと同じ。**
+ */
+/**
+ * **縮尺だけを図ごとに宣言した views は、間違いではない**（2026-09-19）。
+ *
+ * `views-no-grid` は「名前は出ますが、寸法も通り芯も描かれません」と言う。
+ * 事実ではあるが、**views が無駄だ、と読める** ——
+ * 実際それで見本 189 に、要らない通り芯を足しかけた。
+ *
+ * `views[].scale` は、**描かれなくても正本に残る**（読む側と別の実装へ伝わる）。
+ * 1 枚に縮尺が 2 つある図では、それ自体が意味を持つ。
+ */
+describe('views の警告が、縮尺だけの図を否定しない', () => {
+  it('**scale だけを持つ views でも、その値は残ると言っている**', () => {
+    const said = messages().validate.viewsNoGrid;
+    assert.match(said, /縮尺|scale/);
+  });
+
+  it('寸法を出すには grid が要る、とも言っている', () => {
+    assert.match(messages().validate.viewsNoGrid, /grid/);
+  });
+});
+
+describe('spec から、実物へ辿り着ける', () => {
+  it('**規則が zumen_examples を案内している**', () => {
+    const said = spec().rules.join('\n');
+    assert.ok(said.includes('zumen_examples'), `実物への案内が無い:\n${said.slice(0, 300)}`);
+  });
+
+  it('**「何を描くか」は実物にある、と言っている**', () => {
+    const rule = spec().rules.find((r) => r.includes('zumen_examples'))!;
+    assert.match(rule, /見本|実物/);
+  });
+});
+
+describe('交差は、どの 2 本かを返す', () => {
+  const CROSS = `version: 1
+kind: placement
+arrows: true
+nodes:
+  - id: a
+    label: ""
+    marker: none
+    at: { x: 40, y: 40 }
+    size: { w: 2, h: 2 }
+  - id: b
+    label: ""
+    marker: none
+    at: { x: 240, y: 240 }
+    size: { w: 2, h: 2 }
+  - id: c
+    label: ""
+    marker: none
+    at: { x: 240, y: 40 }
+    size: { w: 2, h: 2 }
+  - id: d
+    label: ""
+    marker: none
+    at: { x: 40, y: 240 }
+    size: { w: 2, h: 2 }
+edges:
+  - from: a
+    to: b
+    ends: { from: none, to: none }
+  - from: c
+    to: d
+    ends: { from: none, to: none }
+`;
+
+  it('**交わっている 2 本の id が返る**', async () => {
+    const out = await inspect(CROSS);
+    assert.equal(out.crossings, 1, '数が合っていない');
+    // 辺の id は from>to（`エッジ p0>p1` と同じ呼び方）。
+    assert.deepEqual(out.crossingEdges, [['a>b', 'c>d']]);
+  });
+
+  it('交わっていなければ空', async () => {
+    const out = await inspect(CROSS.replace('{ x: 240, y: 40 }', '{ x: 600, y: 40 }').replace('{ x: 40, y: 240 }', '{ x: 600, y: 240 }'));
+    assert.equal(out.crossings, 0);
+    assert.deepEqual(out.crossingEdges, []);
+  });
+
+  it('**inspect の説明に crossingEdges が出ている**（あるのに気づかれない口を作らない）', () => {
+    assert.match(messages().mcp.inspectDesc, /crossingEdges/);
   });
 });

@@ -1,0 +1,759 @@
+version: 1
+kind: placement
+arrows: true
+title: 組子の割り付け（麻の葉と三ツ組手）
+# **麻の葉は、正六角形の中を 18 の二等辺三角形に割った模様。**
+# 六角形を 6 つの正三角形に分け、**それぞれを重心から 3 本で割る**（6 × 3 ＝ 18）。
+# **六角形の大きさを決めると、部材の長さも角度も全部決まる** ——
+# 逆に 1 か所を 0.1mm 間違えると、**そのずれが最後の 1 本まで積み上がる。**
+# 「**割り付けができて一人前**」と言われるのは、ここが全部つながっているから。
+#
+# **地組は、3 本を 1 点で組む（三ツ組手）。** 端を **60° と 120°** に削り、
+# 欠き込みの深さを **3 分の 1・3 分の 2・2 分の 1** に変えて嵌め込む ——
+# **全部を半分ずつ欠くと、3 本目の行き場が無くなる。**
+#
+# **地組と模様は別々に作る。** 地組はどの文様でも同じ格子で、
+# **入れる葉（正三角形のパーツ）を替えると、別の文様になる。**
+#
+# **釘も接着剤も使わない。** 意地ではなく寸法の都合で、
+# **釘の頭も接着剤の層も 0.01mm の割り付けより厚い** —— 入れた瞬間に模様が歪む。
+#
+# **平面を隙間なく埋められる正多角形は 3 つだけ**（正三角形・正方形・正六角形）。
+# 六角形を選ぶと**1 点に集まる部材が 3 本**で済む ——
+# 三角格子なら 6 本、四角格子なら 4 本が 1 点に来る。
+# **三ツ組手が 3 本なのは、六角形を選んだ結果。**
+nodes:
+  - id: t1
+    label: "① 麻の葉は、正六角形の中を 18 の二等辺三角形に割ったもの"
+    marker: none
+    align: left
+    at: { x: 150, y: 150 }
+    size: { w: 700, h: 20 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 469, y: 229 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 469, y: 379 }
+    size: { w: 2, h: 2 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 469, y: 229 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 469, y: 379 }
+    size: { w: 2, h: 2 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 598.9, y: 304 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 469, y: 379 }
+    size: { w: 2, h: 2 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 598.9, y: 454 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 469, y: 379 }
+    size: { w: 2, h: 2 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 469, y: 529 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 469, y: 379 }
+    size: { w: 2, h: 2 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 339.1, y: 454 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 469, y: 379 }
+    size: { w: 2, h: 2 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 339.1, y: 304 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 512.3, y: 304 }
+    size: { w: 2, h: 2 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 469, y: 379 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 512.3, y: 304 }
+    size: { w: 2, h: 2 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 469, y: 229 }
+    size: { w: 2, h: 2 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 512.3, y: 304 }
+    size: { w: 2, h: 2 }
+  - id: p18
+    label: ""
+    marker: none
+    at: { x: 598.9, y: 304 }
+    size: { w: 2, h: 2 }
+  - id: p19
+    label: ""
+    marker: none
+    at: { x: 555.6, y: 379 }
+    size: { w: 2, h: 2 }
+  - id: p20
+    label: ""
+    marker: none
+    at: { x: 469, y: 379 }
+    size: { w: 2, h: 2 }
+  - id: p21
+    label: ""
+    marker: none
+    at: { x: 555.6, y: 379 }
+    size: { w: 2, h: 2 }
+  - id: p22
+    label: ""
+    marker: none
+    at: { x: 598.9, y: 304 }
+    size: { w: 2, h: 2 }
+  - id: p23
+    label: ""
+    marker: none
+    at: { x: 555.6, y: 379 }
+    size: { w: 2, h: 2 }
+  - id: p24
+    label: ""
+    marker: none
+    at: { x: 598.9, y: 454 }
+    size: { w: 2, h: 2 }
+  - id: p25
+    label: ""
+    marker: none
+    at: { x: 512.3, y: 454 }
+    size: { w: 2, h: 2 }
+  - id: p26
+    label: ""
+    marker: none
+    at: { x: 469, y: 379 }
+    size: { w: 2, h: 2 }
+  - id: p27
+    label: ""
+    marker: none
+    at: { x: 512.3, y: 454 }
+    size: { w: 2, h: 2 }
+  - id: p28
+    label: ""
+    marker: none
+    at: { x: 598.9, y: 454 }
+    size: { w: 2, h: 2 }
+  - id: p29
+    label: ""
+    marker: none
+    at: { x: 512.3, y: 454 }
+    size: { w: 2, h: 2 }
+  - id: p30
+    label: ""
+    marker: none
+    at: { x: 469, y: 529 }
+    size: { w: 2, h: 2 }
+  - id: p31
+    label: ""
+    marker: none
+    at: { x: 425.7, y: 454 }
+    size: { w: 2, h: 2 }
+  - id: p32
+    label: ""
+    marker: none
+    at: { x: 469, y: 379 }
+    size: { w: 2, h: 2 }
+  - id: p33
+    label: ""
+    marker: none
+    at: { x: 425.7, y: 454 }
+    size: { w: 2, h: 2 }
+  - id: p34
+    label: ""
+    marker: none
+    at: { x: 469, y: 529 }
+    size: { w: 2, h: 2 }
+  - id: p35
+    label: ""
+    marker: none
+    at: { x: 425.7, y: 454 }
+    size: { w: 2, h: 2 }
+  - id: p36
+    label: ""
+    marker: none
+    at: { x: 339.1, y: 454 }
+    size: { w: 2, h: 2 }
+  - id: p37
+    label: ""
+    marker: none
+    at: { x: 382.4, y: 379 }
+    size: { w: 2, h: 2 }
+  - id: p38
+    label: ""
+    marker: none
+    at: { x: 469, y: 379 }
+    size: { w: 2, h: 2 }
+  - id: p39
+    label: ""
+    marker: none
+    at: { x: 382.4, y: 379 }
+    size: { w: 2, h: 2 }
+  - id: p40
+    label: ""
+    marker: none
+    at: { x: 339.1, y: 454 }
+    size: { w: 2, h: 2 }
+  - id: p41
+    label: ""
+    marker: none
+    at: { x: 382.4, y: 379 }
+    size: { w: 2, h: 2 }
+  - id: p42
+    label: ""
+    marker: none
+    at: { x: 339.1, y: 304 }
+    size: { w: 2, h: 2 }
+  - id: p43
+    label: ""
+    marker: none
+    at: { x: 425.7, y: 304 }
+    size: { w: 2, h: 2 }
+  - id: p44
+    label: ""
+    marker: none
+    at: { x: 469, y: 379 }
+    size: { w: 2, h: 2 }
+  - id: p45
+    label: ""
+    marker: none
+    at: { x: 425.7, y: 304 }
+    size: { w: 2, h: 2 }
+  - id: p46
+    label: ""
+    marker: none
+    at: { x: 339.1, y: 304 }
+    size: { w: 2, h: 2 }
+  - id: p47
+    label: ""
+    marker: none
+    at: { x: 425.7, y: 304 }
+    size: { w: 2, h: 2 }
+  - id: p48
+    label: ""
+    marker: none
+    at: { x: 469, y: 229 }
+    size: { w: 2, h: 2 }
+  - id: h1
+    label: "六角形 1 つ ＝ 正三角形 6 つ"
+    marker: none
+    align: right
+    at: { x: 70, y: 270 }
+    size: { w: 240, h: 18 }
+  - id: h2
+    label: "正三角形 1 つ ＝ 二等辺三角形 3 つ\n（重心から 3 本）"
+    marker: none
+    align: right
+    at: { x: 70, y: 420 }
+    size: { w: 240, h: 36 }
+  - id: h3
+    label: "6 × 3 ＝ 18"
+    marker: none
+    align: right
+    at: { x: 70, y: 476 }
+    size: { w: 240, h: 18 }
+  - id: p49
+    label: ""
+    marker: none
+    at: { x: 317, y: 279 }
+    size: { w: 2, h: 2 }
+  - id: p50
+    label: ""
+    marker: none
+    at: { x: 377, y: 311 }
+    size: { w: 2, h: 2 }
+  - id: p51
+    label: ""
+    marker: none
+    at: { x: 317, y: 437 }
+    size: { w: 2, h: 2 }
+  - id: p52
+    label: ""
+    marker: none
+    at: { x: 391, y: 419 }
+    size: { w: 2, h: 2 }
+  - id: why1
+    label: "割り付けができて一人前と言われるのは、ここが全部つながっているから。\n六角形の大きさを決めると、正三角形も、二等辺三角形も、\n部材の長さも角度も全部決まる —— 逆に、1 か所を 0.1mm 間違えると、\nそのずれが最後の 1 本まで積み上がる。"
+    at: { x: 150, y: 570 }
+    size: { w: 700, h: 92 }
+  - id: t2
+    label: "② 地組 —— 3 本が 1 点で交わる"
+    marker: none
+    align: left
+    at: { x: 150, y: 680 }
+    size: { w: 700, h: 20 }
+  - id: p53
+    label: ""
+    marker: none
+    at: { x: 285, y: 779 }
+    size: { w: 2, h: 2 }
+  - id: p54
+    label: ""
+    marker: none
+    at: { x: 433, y: 779 }
+    size: { w: 2, h: 2 }
+  - id: p55
+    label: ""
+    marker: none
+    at: { x: 322, y: 714.9 }
+    size: { w: 2, h: 2 }
+  - id: p56
+    label: ""
+    marker: none
+    at: { x: 396, y: 843.1 }
+    size: { w: 2, h: 2 }
+  - id: p57
+    label: ""
+    marker: none
+    at: { x: 396, y: 714.9 }
+    size: { w: 2, h: 2 }
+  - id: p58
+    label: ""
+    marker: none
+    at: { x: 322, y: 843.1 }
+    size: { w: 2, h: 2 }
+  - id: p59
+    label: ""
+    marker: none
+    at: { x: 398.8, y: 781.5 }
+    size: { w: 2, h: 2 }
+  - id: p60
+    label: ""
+    marker: none
+    at: { x: 381.1, y: 812.3 }
+    size: { w: 2, h: 2 }
+  - id: deg
+    label: "60°"
+    marker: none
+    align: left
+    at: { x: 406, y: 746 }
+    size: { w: 50, h: 18 }
+  - id: gn
+    label: "3 本を 1 点で組む（三ツ組手）"
+    marker: none
+    align: center
+    at: { x: 240, y: 860 }
+    size: { w: 240, h: 18 }
+  - id: h560_710
+    label: "欠き込みの深さ"
+    hatch: solid
+    at: { x: 560, y: 710 }
+    size: { w: 290, h: 24 }
+  - id: x560_734
+    label: "1 本目"
+    at: { x: 560, y: 734 }
+    size: { w: 130, h: 24 }
+  - id: y560_734
+    label: "3 分の 1"
+    align: left
+    at: { x: 690, y: 734 }
+    size: { w: 160, h: 24 }
+  - id: x560_758
+    label: "2 本目"
+    at: { x: 560, y: 758 }
+    size: { w: 130, h: 24 }
+  - id: y560_758
+    label: "3 分の 2"
+    align: left
+    at: { x: 690, y: 758 }
+    size: { w: 160, h: 24 }
+  - id: x560_782
+    label: "3 本目"
+    at: { x: 560, y: 782 }
+    size: { w: 130, h: 24 }
+  - id: y560_782
+    label: "2 分の 1"
+    align: left
+    at: { x: 690, y: 782 }
+    size: { w: 160, h: 24 }
+  - id: why2
+    label: "深さを変えるから、3 本が同じ厚みの中に収まる。\n全部を半分ずつ欠くと、3 本目の行き場が無くなる ——\n1/3・2/3・1/2 の組み合わせだけが、平らに納まる。 端は 60° と 120° に削る。"
+    at: { x: 150, y: 898 }
+    size: { w: 700, h: 74 }
+  - id: t3
+    label: "③ 地組に「葉」を入れて模様にする"
+    marker: none
+    align: left
+    at: { x: 890, y: 150 }
+    size: { w: 440, h: 20 }
+  - id: h890_186
+    label: "組み立ての順"
+    hatch: solid
+    at: { x: 890, y: 186 }
+    size: { w: 440, h: 24 }
+  - id: x890_210
+    label: "1 外枠"
+    at: { x: 890, y: 210 }
+    size: { w: 170, h: 24 }
+  - id: y890_210
+    label: "仕上がり寸法を決める"
+    align: left
+    at: { x: 1060, y: 210 }
+    size: { w: 270, h: 24 }
+  - id: x890_234
+    label: "2 地組"
+    at: { x: 890, y: 234 }
+    size: { w: 170, h: 24 }
+  - id: y890_234
+    label: "正六角形の格子を三ツ組手で組む"
+    align: left
+    at: { x: 1060, y: 234 }
+    size: { w: 270, h: 24 }
+  - id: x890_258
+    label: "3 葉"
+    at: { x: 890, y: 258 }
+    size: { w: 170, h: 24 }
+  - id: y890_258
+    label: "正三角形のパーツを作る"
+    align: left
+    at: { x: 1060, y: 258 }
+    size: { w: 270, h: 24 }
+  - id: x890_282
+    label: "4 はめ込む"
+    at: { x: 890, y: 282 }
+    size: { w: 170, h: 24 }
+  - id: y890_282
+    label: "地組の目に葉を落とし込む"
+    align: left
+    at: { x: 1060, y: 282 }
+    size: { w: 270, h: 24 }
+  - id: why3
+    label: "地組と模様は別々に作る。\n地組はどの模様でも同じ格子で、\n入れる葉を替えると別の文様になる ——\n麻の葉・七宝・胡麻がら は、同じ地組の上に載る。"
+    at: { x: 890, y: 320 }
+    size: { w: 440, h: 92 }
+  - id: t4
+    label: "④ 数で決まる仕事"
+    marker: none
+    align: left
+    at: { x: 890, y: 430 }
+    size: { w: 440, h: 20 }
+  - id: h890_460
+    label: "割り付け"
+    hatch: solid
+    at: { x: 890, y: 460 }
+    size: { w: 440, h: 24 }
+  - id: x890_484
+    label: "計算の単位"
+    at: { x: 890, y: 484 }
+    size: { w: 180, h: 24 }
+  - id: y890_484
+    label: "0.01mm"
+    align: left
+    at: { x: 1070, y: 484 }
+    size: { w: 260, h: 24 }
+  - id: x890_508
+    label: "できるようになると"
+    at: { x: 890, y: 508 }
+    size: { w: 180, h: 24 }
+  - id: y890_508
+    label: "一人前と言われる"
+    align: left
+    at: { x: 1070, y: 508 }
+    size: { w: 260, h: 24 }
+  - id: x890_532
+    label: "留めるもの"
+    at: { x: 890, y: 532 }
+    size: { w: 180, h: 24 }
+  - id: y890_532
+    label: "釘も接着剤も使わない"
+    align: left
+    at: { x: 1070, y: 532 }
+    size: { w: 260, h: 24 }
+  - id: x890_556
+    label: "固定しているもの"
+    at: { x: 890, y: 556 }
+    size: { w: 180, h: 24 }
+  - id: y890_556
+    label: "木と木のかみ合わせ"
+    align: left
+    at: { x: 1070, y: 556 }
+    size: { w: 260, h: 24 }
+  - id: why4
+    label: "釘を使わないのは、意地ではなく寸法の都合。\n釘の頭も接着剤の層も、0.01mm の割り付けより厚い ——\n入れた瞬間に模様が歪む。\nかみ合わせだけで留めるほうが、精度が出る。"
+    at: { x: 890, y: 594 }
+    size: { w: 440, h: 110 }
+  - id: ⑤t
+    label: "⑤ なぜ六角形が基礎なのか"
+    marker: none
+    align: left
+    at: { x: 890, y: 722 }
+    size: { w: 440, h: 20 }
+  - id: h890_752
+    label: "平面を隙間なく埋められる正多角形"
+    hatch: solid
+    at: { x: 890, y: 752 }
+    size: { w: 440, h: 24 }
+  - id: x890_776
+    label: "正三角形"
+    at: { x: 890, y: 776 }
+    size: { w: 200, h: 24 }
+  - id: y890_776
+    label: "60° × 6 ＝ 360°"
+    align: left
+    at: { x: 1090, y: 776 }
+    size: { w: 240, h: 24 }
+  - id: x890_800
+    label: "正方形"
+    at: { x: 890, y: 800 }
+    size: { w: 200, h: 24 }
+  - id: y890_800
+    label: "90° × 4 ＝ 360°"
+    align: left
+    at: { x: 1090, y: 800 }
+    size: { w: 240, h: 24 }
+  - id: x890_824
+    label: "正六角形"
+    at: { x: 890, y: 824 }
+    size: { w: 200, h: 24 }
+  - id: y890_824
+    label: "120° × 3 ＝ 360°"
+    align: left
+    at: { x: 1090, y: 824 }
+    size: { w: 240, h: 24 }
+  - id: x890_848
+    label: "正五角形"
+    at: { x: 890, y: 848 }
+    size: { w: 200, h: 24 }
+  - id: y890_848
+    label: "108° × 3 ＝ 324°（埋まらない）"
+    align: left
+    at: { x: 1090, y: 848 }
+    size: { w: 240, h: 24 }
+  - id: why5
+    label: "隙間なく埋まる正多角形は 3 つしかない。\n六角形を選ぶと、1 点に集まる部材が 3 本で済む ——\n三角格子なら 6 本、四角格子なら 4 本が 1 点に来る。\n三ツ組手が 3 本なのは、六角形を選んだ結果。"
+    at: { x: 890, y: 886 }
+    size: { w: 440, h: 92 }
+  - id: r1
+    label: "麻の葉は、正六角形の中を 18 の二等辺三角形に割った模様です（①）。六角形 6 分割 × 重心から 3 本 ＝ 18 です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 992 }
+    size: { w: 1180, h: 18 }
+  - id: r2
+    label: "六角形の大きさを決めると、部材の長さも角度も全部決まります。 1 か所のずれは、最後の 1 本まで積み上がります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1016 }
+    size: { w: 1180, h: 18 }
+  - id: r3
+    label: "地組は 3 本を 1 点で組みます（②・三ツ組手）。端を 60° と 120° に削り、深さを 1/3・2/3・1/2 に変えます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1040 }
+    size: { w: 1180, h: 18 }
+  - id: r4
+    label: "深さを変えるから、3 本が同じ厚みの中に収まります。 全部を半分ずつ欠くと、3 本目の行き場がありません。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1064 }
+    size: { w: 1180, h: 18 }
+  - id: r5
+    label: "地組と模様は別々に作ります（③）。地組は同じ格子で、入れる葉を替えると別の文様になります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1088 }
+    size: { w: 1180, h: 18 }
+  - id: r6
+    label: "釘も接着剤も使いません（④）。釘の頭も接着剤の層も、0.01mm の割り付けより厚いからです。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1112 }
+    size: { w: 1180, h: 18 }
+  - id: r7
+    label: "隙間なく埋まる正多角形は 3 つだけです（⑤）。六角形を選ぶと、1 点に集まる部材が 3 本で済みます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1136 }
+    size: { w: 1180, h: 18 }
+edges:
+  - from: p0
+    to: p0
+    curve: none
+    close: true
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 470, y: 230 }
+      - { x: 599.9, y: 305 }
+      - { x: 599.9, y: 455 }
+      - { x: 470, y: 530 }
+      - { x: 340.1, y: 455 }
+      - { x: 340.1, y: 305 }
+  - from: p1
+    to: p2
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p3
+    to: p4
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p5
+    to: p6
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p7
+    to: p8
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p9
+    to: p10
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p11
+    to: p12
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p13
+    to: p14
+    curve: none
+    ends: { from: none, to: none }
+  - from: p15
+    to: p16
+    curve: none
+    ends: { from: none, to: none }
+  - from: p17
+    to: p18
+    curve: none
+    ends: { from: none, to: none }
+  - from: p19
+    to: p20
+    curve: none
+    ends: { from: none, to: none }
+  - from: p21
+    to: p22
+    curve: none
+    ends: { from: none, to: none }
+  - from: p23
+    to: p24
+    curve: none
+    ends: { from: none, to: none }
+  - from: p25
+    to: p26
+    curve: none
+    ends: { from: none, to: none }
+  - from: p27
+    to: p28
+    curve: none
+    ends: { from: none, to: none }
+  - from: p29
+    to: p30
+    curve: none
+    ends: { from: none, to: none }
+  - from: p31
+    to: p32
+    curve: none
+    ends: { from: none, to: none }
+  - from: p33
+    to: p34
+    curve: none
+    ends: { from: none, to: none }
+  - from: p35
+    to: p36
+    curve: none
+    ends: { from: none, to: none }
+  - from: p37
+    to: p38
+    curve: none
+    ends: { from: none, to: none }
+  - from: p39
+    to: p40
+    curve: none
+    ends: { from: none, to: none }
+  - from: p41
+    to: p42
+    curve: none
+    ends: { from: none, to: none }
+  - from: p43
+    to: p44
+    curve: none
+    ends: { from: none, to: none }
+  - from: p45
+    to: p46
+    curve: none
+    ends: { from: none, to: none }
+  - from: p47
+    to: p48
+    curve: none
+    ends: { from: none, to: none }
+  - from: p49
+    to: p50
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p51
+    to: p52
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p53
+    to: p54
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p55
+    to: p56
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p57
+    to: p58
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p59
+    to: p60
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 399.7, y: 785.2 }
+      - { x: 398.6, y: 790.4 }
+      - { x: 397, y: 795.3 }
+      - { x: 394.6, y: 800 }
+      - { x: 391.7, y: 804.4 }
+      - { x: 388.3, y: 808.3 }
+      - { x: 384.4, y: 811.7 }

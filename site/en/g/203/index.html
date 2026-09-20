@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>壁量計算と 4 分割法（木造 2 階建て） — zumen example 203</title>
+<link rel="icon" type="image/svg+xml" href="../../../icon.svg">
+<meta name="theme-color" content="#23232b">
+<meta name="description" content="Japanese timber wall-quantity check: enough shear wall still fails if it sits on one side">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="zumen">
+<meta property="og:locale" content="en_US">
+<meta property="og:url" content="https://meta-taro.github.io/zumen/en/g/203/">
+<meta property="og:title" content="壁量計算と 4 分割法（木造 2 階建て） — zumen example 203">
+<meta property="og:description" content="Japanese timber wall-quantity check: enough shear wall still fails if it sits on one side">
+<meta property="og:image" content="https://meta-taro.github.io/zumen/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="壁量計算と 4 分割法（木造 2 階建て） — zumen example 203">
+<meta name="twitter:description" content="Japanese timber wall-quantity check: enough shear wall still fails if it sits on one side">
+<meta name="twitter:image" content="https://meta-taro.github.io/zumen/og.png">
+<link rel="stylesheet" href="../../../style.css">
+<link rel="canonical" href="https://meta-taro.github.io/zumen/en/g/203/">
+<link rel="alternate" hreflang="en" href="https://meta-taro.github.io/zumen/en/g/203/">
+<link rel="alternate" hreflang="ja" href="https://meta-taro.github.io/zumen/g/203/">
+<link rel="alternate" hreflang="x-default" href="https://meta-taro.github.io/zumen/g/203/">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="alternate" type="text/markdown" href="https://meta-taro.github.io/zumen/llms.txt" title="llms.txt">
+<link rel="sitemap" type="application/xml" href="https://meta-taro.github.io/zumen/sitemap.xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": "壁量計算と 4 分割法（木造 2 階建て）",
+  "description": "Japanese timber wall-quantity check: enough shear wall still fails if it sits on one side",
+  "url": "https://meta-taro.github.io/zumen/en/g/203/",
+  "image": "https://meta-taro.github.io/zumen/gallery/203-%E5%A3%81%E9%87%8F%E8%A8%88%E7%AE%97%E3%81%A84%E5%88%86%E5%89%B2%E6%B3%95.svg",
+  "inLanguage": "en",
+  "license": "https://opensource.org/licenses/MIT",
+  "isPartOf": {
+    "@type": "CollectionPage",
+    "name": "Building and civil",
+    "url": "https://meta-taro.github.io/zumen/en/c/kenchiku/"
+  },
+  "encodingFormat": "text/yaml",
+  "isAccessibleForFree": true
+}
+</script>
+</head>
+<body class="sub">
+<header class="bar">
+  <a class="home" href="../../../">zumen</a>
+  <nav><a href="../../c/kenchiku/">Building and civil</a></nav>
+</header>
+<main>
+<article>
+  <p class="crumb">Building and civil</p>
+  <h1>壁量計算と 4 分割法（木造 2 階建て）</h1>
+  <p class="lead">Japanese timber wall-quantity check: enough shear wall still fails if it sits on one side</p>
+  <figure>
+    <img src="../../../gallery/203-%E5%A3%81%E9%87%8F%E8%A8%88%E7%AE%97%E3%81%A84%E5%88%86%E5%89%B2%E6%B3%95.svg" alt="Japanese timber wall-quantity check: enough shear wall still fails if it sits on one side" loading="lazy">
+  </figure>
+  <p class="made">This drawing comes from one YAML file. No shape was moved by hand.</p>
+  <h2>What the source says</h2>
+  <p><strong>壁はあればいいのではない。</strong></p>
+  <p>必要壁量は<strong>地震力（床面積 × 係数）と風圧力（見付面積 × 50）の大きいほう</strong>。存在壁量は<strong>長さ × 壁倍率</strong>。</p>
+  <p>そして<strong>足りていても、片側へ寄っていれば通らない</strong> ——4 分割法は、両端の 1/4（側端部分）の充足率を比べ、<strong>小さいほう ÷ 大きいほう ≧ 0.5</strong> を求める。③ はその、だめな例。</p>
+  <h2>Source (YAML)</h2>
+  <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/203-%E5%A3%81%E9%87%8F%E8%A8%88%E7%AE%97%E3%81%A84%E5%88%86%E5%89%B2%E6%B3%95.zumen.yaml"><code>examples/gallery/203-壁量計算と4分割法.zumen.yaml</code></a></p>
+  <h2>More in this field</h2>
+  <ul class="near"><li><a href="../14/">Apartment plan</a></li><li><a href="../17/">Concrete framing plan</a></li><li><a href="../24/">School floor plan (walls, door swings, grid lines, dimensions)</a></li><li><a href="../27/">Farmland consolidation plan</a></li><li><a href="../28/">Gravity dam plan</a></li><li><a href="../30/">Site logistics plan with the crane radius</a></li><li><a href="../32/">Hotel typical floor, twelve rooms</a></li><li><a href="../33/">Parking layout, fourteen bays</a></li></ul>
+</article>
+</main>
+<footer class="foot">
+  <p><a href="https://github.com/meta-taro/zumen">GitHub</a> · MIT · <a href="https://meta-taro.github.io/zumen/g/203/">日本語</a></p>
+</footer>
+</body>
+</html>

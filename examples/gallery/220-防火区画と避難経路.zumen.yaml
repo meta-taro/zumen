@@ -1,0 +1,580 @@
+version: 1
+kind: placement
+arrows: true
+title: 防火区画と、防火戸が閉まったあとの避難経路
+scale: { mm: 100 }
+# **避難訓練でいちばん大事なのは、いつもの近道が閉まること。**
+#
+# 防火戸とシャッターは煙感知で自動的に閉まる。だから訓練の図は
+# 「ふだんの経路」ではなく「**閉まったあとの経路**」を描く ——
+# 東階段まで 43m の道が、西階段まで 28m に変わる。
+#
+# 煙は天井を這って広がるので、防煙壁は天井から 50cm 下げ、
+# 排煙口は天井から 80cm 以内に付ける（令 126 条の 2・3）。
+nodes:
+  - id: t1
+    label: "① 同じ階に、経路が 2 つある（1px ＝ 100mm）"
+    marker: none
+    align: left
+    at: { x: 150, y: 200 }
+    size: { w: 620, h: 20 }
+  - id: floor
+    label: ""
+    at: { x: 170, y: 270 }
+    size: { w: 600, h: 300 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 169, y: 389 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 769, y: 389 }
+    size: { w: 2, h: 2 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 169, y: 419 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 769, y: 419 }
+    size: { w: 2, h: 2 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 459, y: 269 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 459, y: 389 }
+    size: { w: 2, h: 2 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 459, y: 419 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 459, y: 569 }
+    size: { w: 2, h: 2 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 579, y: 269 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 579, y: 389 }
+    size: { w: 2, h: 2 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 579, y: 419 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 579, y: 569 }
+    size: { w: 2, h: 2 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 699, y: 269 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 699, y: 389 }
+    size: { w: 2, h: 2 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 699, y: 419 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 699, y: 569 }
+    size: { w: 2, h: 2 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 819, y: 269 }
+    size: { w: 2, h: 2 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 819, y: 389 }
+    size: { w: 2, h: 2 }
+  - id: p18
+    label: ""
+    marker: none
+    at: { x: 819, y: 419 }
+    size: { w: 2, h: 2 }
+  - id: p19
+    label: ""
+    marker: none
+    at: { x: 819, y: 569 }
+    size: { w: 2, h: 2 }
+  - id: stW
+    label: "階段"
+    hatch: lines
+    at: { x: 170, y: 360 }
+    size: { w: 60, h: 90 }
+  - id: stE
+    label: "階段"
+    hatch: lines
+    at: { x: 710, y: 360 }
+    size: { w: 60, h: 90 }
+  - id: ev
+    label: "EV"
+    hatch: lines
+    at: { x: 340, y: 360 }
+    size: { w: 40, h: 30 }
+  - id: p20
+    label: ""
+    marker: none
+    at: { x: 469, y: 269 }
+    size: { w: 2, h: 2 }
+  - id: p21
+    label: ""
+    marker: none
+    at: { x: 469, y: 389 }
+    size: { w: 2, h: 2 }
+  - id: p22
+    label: ""
+    marker: none
+    at: { x: 469, y: 419 }
+    size: { w: 2, h: 2 }
+  - id: p23
+    label: ""
+    marker: none
+    at: { x: 469, y: 569 }
+    size: { w: 2, h: 2 }
+  - id: sh
+    label: ""
+    hatch: solid
+    at: { x: 465, y: 390 }
+    size: { w: 10, h: 30 }
+  - id: p24
+    label: ""
+    marker: none
+    at: { x: 389, y: 319 }
+    size: { w: 2, h: 2 }
+  - id: p25
+    label: ""
+    marker: none
+    at: { x: 735, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: p26
+    label: ""
+    marker: none
+    at: { x: 377, y: 319 }
+    size: { w: 2, h: 2 }
+  - id: p27
+    label: ""
+    marker: none
+    at: { x: 205, y: 411 }
+    size: { w: 2, h: 2 }
+  - id: x
+    label: ""
+    marker: circle
+    at: { x: 455, y: 385 }
+    size: { w: 30, h: 30 }
+  - id: x_n
+    label: "×"
+    marker: none
+    align: center
+    at: { x: 455, y: 390 }
+    size: { w: 30, h: 18 }
+  - id: p_f
+    label: "事務室"
+    marker: none
+    align: left
+    at: { x: 360, y: 294 }
+    size: { w: 90, h: 18 }
+  - id: p_k
+    label: "面積区画（1,500m² 以下ごと）"
+    marker: none
+    align: left
+    at: { x: 480, y: 280 }
+    size: { w: 250, h: 18 }
+  - id: p_sh
+    label: "防火シャッター（煙感知で閉まる）"
+    marker: none
+    align: left
+    at: { x: 480, y: 302 }
+    size: { w: 250, h: 18 }
+  - id: p_l1
+    label: "…… ふだんの経路（東階段まで 43m）"
+    marker: none
+    align: left
+    at: { x: 150, y: 590 }
+    size: { w: 620, h: 18 }
+  - id: p_l2
+    label: "━━ 火災時の経路（シャッターが閉まる → 西階段まで 28m）"
+    marker: none
+    align: left
+    at: { x: 150, y: 612 }
+    size: { w: 620, h: 18 }
+  - id: p_l3
+    label: "階段と EV は竪穴区画。特定防火設備（遮炎 1 時間）で区画する。"
+    marker: none
+    align: left
+    at: { x: 150, y: 634 }
+    size: { w: 620, h: 18 }
+  - id: t2
+    label: "② 煙は、垂れ壁で止める（1px ＝ 20mm）"
+    marker: none
+    align: left
+    at: { x: 840, y: 200 }
+    size: { w: 400, h: 20 }
+  - id: p28
+    label: ""
+    marker: none
+    at: { x: 849, y: 474 }
+    size: { w: 2, h: 2 }
+  - id: p29
+    label: ""
+    marker: none
+    at: { x: 1229, y: 474 }
+    size: { w: 2, h: 2 }
+  - id: p30
+    label: ""
+    marker: none
+    at: { x: 849, y: 339 }
+    size: { w: 2, h: 2 }
+  - id: p31
+    label: ""
+    marker: none
+    at: { x: 1229, y: 339 }
+    size: { w: 2, h: 2 }
+  - id: p32
+    label: ""
+    marker: none
+    at: { x: 849, y: 339 }
+    size: { w: 2, h: 2 }
+  - id: p33
+    label: ""
+    marker: none
+    at: { x: 849, y: 474 }
+    size: { w: 2, h: 2 }
+  - id: p34
+    label: ""
+    marker: none
+    at: { x: 1229, y: 339 }
+    size: { w: 2, h: 2 }
+  - id: p35
+    label: ""
+    marker: none
+    at: { x: 1229, y: 474 }
+    size: { w: 2, h: 2 }
+  - id: tare
+    label: ""
+    hatch: solid
+    at: { x: 1036, y: 340 }
+    size: { w: 8, h: 25 }
+  - id: vent
+    label: ""
+    hatch: lines
+    at: { x: 858, y: 329 }
+    size: { w: 46, h: 22 }
+  - id: vent2
+    label: ""
+    hatch: lines
+    at: { x: 1176, y: 329 }
+    size: { w: 46, h: 22 }
+  - id: smoke
+    label: ""
+    hatch: dots
+    at: { x: 852, y: 340 }
+    size: { w: 184, h: 25 }
+  - id: open
+    label: ""
+    hatch: lines
+    at: { x: 852, y: 400 }
+    size: { w: 14, h: 35 }
+  - id: s_t
+    label: "垂れ壁 50cm 以上"
+    marker: none
+    align: left
+    at: { x: 1050, y: 372 }
+    size: { w: 170, h: 18 }
+  - id: s_v
+    label: "排煙口（天井から 80cm 以内）"
+    marker: none
+    align: left
+    at: { x: 910, y: 294 }
+    size: { w: 240, h: 18 }
+  - id: s_o
+    label: "手動開放装置"
+    marker: none
+    align: left
+    at: { x: 872, y: 409 }
+    size: { w: 150, h: 18 }
+  - id: s_o2
+    label: "床から 80cm〜1.5m"
+    marker: none
+    align: left
+    at: { x: 872, y: 429 }
+    size: { w: 150, h: 18 }
+  - id: s_s
+    label: "煙"
+    marker: none
+    align: left
+    at: { x: 930, y: 344 }
+    size: { w: 40, h: 18 }
+  - id: s_c
+    label: "天井"
+    marker: none
+    align: right
+    at: { x: 1170, y: 310 }
+    size: { w: 52, h: 18 }
+  - id: s_g
+    label: "床"
+    marker: none
+    align: right
+    at: { x: 1190, y: 453 }
+    size: { w: 32, h: 18 }
+  - id: t3
+    label: "③ 防火区画の種類（令 112 条）"
+    marker: none
+    align: left
+    at: { x: 840, y: 540 }
+    size: { w: 400, h: 20 }
+  - id: k0_0
+    label: "種類"
+    hatch: solid
+    at: { x: 840, y: 572 }
+    size: { w: 130, h: 30 }
+  - id: k0_1
+    label: "区画する大きさ"
+    hatch: solid
+    at: { x: 970, y: 572 }
+    size: { w: 130, h: 30 }
+  - id: k0_2
+    label: "何を守るか"
+    hatch: solid
+    at: { x: 1100, y: 572 }
+    size: { w: 140, h: 30 }
+  - id: k1_0
+    label: "面積区画"
+    at: { x: 840, y: 602 }
+    size: { w: 130, h: 58 }
+  - id: k1_1
+    label: "耐火 1,500m²\n準耐火 1,000m²\nその他 500m²"
+    at: { x: 970, y: 602 }
+    size: { w: 130, h: 58 }
+  - id: k1_2
+    label: "燃え広がる先"
+    at: { x: 1100, y: 602 }
+    size: { w: 140, h: 58 }
+  - id: k2_0
+    label: "高層区画\n（11 階以上）"
+    at: { x: 840, y: 660 }
+    size: { w: 130, h: 42 }
+  - id: k2_1
+    label: "100 / 200 / 500m²"
+    at: { x: 970, y: 660 }
+    size: { w: 130, h: 42 }
+  - id: k2_2
+    label: "上の階へ回る煙"
+    at: { x: 1100, y: 660 }
+    size: { w: 140, h: 42 }
+  - id: k3_0
+    label: "竪穴区画"
+    at: { x: 840, y: 702 }
+    size: { w: 130, h: 30 }
+  - id: k3_1
+    label: "階段・EV・吹抜け"
+    at: { x: 970, y: 702 }
+    size: { w: 130, h: 30 }
+  - id: k3_2
+    label: "煙の通り道"
+    at: { x: 1100, y: 702 }
+    size: { w: 140, h: 30 }
+  - id: k4_0
+    label: "異種用途区画"
+    at: { x: 840, y: 732 }
+    size: { w: 130, h: 30 }
+  - id: k4_1
+    label: "用途の境目"
+    at: { x: 970, y: 732 }
+    size: { w: 130, h: 30 }
+  - id: k4_2
+    label: "別の使い方の側"
+    at: { x: 1100, y: 732 }
+    size: { w: 140, h: 30 }
+  - id: k_n
+    label: "開口部は特定防火設備（遮炎 1 時間）か防火設備（20 分）。"
+    marker: none
+    align: left
+    at: { x: 840, y: 772 }
+    size: { w: 400, h: 18 }
+  - id: k_n2
+    label: "常時閉じているか、煙感知で閉まる。"
+    marker: none
+    align: left
+    at: { x: 840, y: 794 }
+    size: { w: 400, h: 18 }
+  - id: t4
+    label: "④ 排煙の決まり（令 126 条の 2・3）"
+    marker: none
+    align: left
+    at: { x: 150, y: 690 }
+    size: { w: 620, h: 20 }
+  - id: q1
+    label: "防煙区画は 500m² 以内ごと。仕切るのは防煙壁（天井から 50cm 以上の垂れ壁）。"
+    marker: none
+    align: left
+    at: { x: 150, y: 722 }
+    size: { w: 620, h: 18 }
+  - id: q2
+    label: "排煙口までは水平距離 30m 以下。 天井か、壁の上部（天井から 80cm 以内）に付ける。"
+    marker: none
+    align: left
+    at: { x: 150, y: 746 }
+    size: { w: 620, h: 18 }
+  - id: q3
+    label: "手動開放装置は、壁なら床から 80cm 以上 1.5m 以下。 煙の中でも手が届く高さ。"
+    marker: none
+    align: left
+    at: { x: 150, y: 770 }
+    size: { w: 620, h: 18 }
+  - id: q4
+    label: "排煙口・風道など煙に触れる部分は、不燃材料で造る。"
+    marker: none
+    align: left
+    at: { x: 150, y: 794 }
+    size: { w: 620, h: 18 }
+  - id: r1
+    label: "避難訓練でいちばん大事なのは、いつもの近道が閉まることです。 防火戸とシャッターは煙感知で自動的に閉まります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 850 }
+    size: { w: 1090, h: 18 }
+  - id: r2
+    label: "だから訓練の図は「ふだんの経路」ではなく「閉まったあとの経路」を描きます（①）—— 東階段まで 43m の道が、西階段まで 28m に変わります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 874 }
+    size: { w: 1090, h: 18 }
+  - id: r3
+    label: "区画は、燃え広がる先を切るためのものです。 面積区画は横に、竪穴区画は縦に —— 階段と EV は煙が最も速く上がる道です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 898 }
+    size: { w: 1090, h: 18 }
+  - id: r4
+    label: "煙は天井を這って広がります。 だから防煙壁は天井から 50cm 下げ、排煙口は天井から 80cm 以内に付けます（②）。"
+    marker: none
+    align: left
+    at: { x: 150, y: 922 }
+    size: { w: 1090, h: 18 }
+  - id: r5
+    label: "手動開放装置が床から 80cm〜1.5m にあるのは、煙の中でも手が届く高さだからです。 煙は上から溜まります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 946 }
+    size: { w: 1090, h: 18 }
+  - id: r6
+    label: "区画の線は、図面では見えても現場では見えません。 どこに防火戸があるかを知っているかどうかが、訓練の中身です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 970 }
+    size: { w: 1090, h: 18 }
+  - id: r7
+    label: "消火器は歩行距離 20m、消火栓は水平距離 25m（見本 119）。測り方が違うのは、壁を回り込むかどうかの違いです。"
+    marker: none
+    align: left
+    at: { x: 150, y: 994 }
+    size: { w: 1090, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    ends: { from: none, to: none }
+  - from: p2
+    to: p3
+    curve: none
+    ends: { from: none, to: none }
+  - from: p4
+    to: p5
+    curve: none
+    ends: { from: none, to: none }
+  - from: p6
+    to: p7
+    curve: none
+    ends: { from: none, to: none }
+  - from: p8
+    to: p9
+    curve: none
+    ends: { from: none, to: none }
+  - from: p10
+    to: p11
+    curve: none
+    ends: { from: none, to: none }
+  - from: p12
+    to: p13
+    curve: none
+    ends: { from: none, to: none }
+  - from: p14
+    to: p15
+    curve: none
+    ends: { from: none, to: none }
+  - from: p16
+    to: p17
+    curve: none
+    ends: { from: none, to: none }
+  - from: p18
+    to: p19
+    curve: none
+    ends: { from: none, to: none }
+  - from: p20
+    to: p21
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p22
+    to: p23
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p24
+    to: p25
+    curve: none
+    line: dotted
+    ends: { from: none, to: arrow }
+    via:
+      - { x: 390, y: 400 }
+  - from: p26
+    to: p27
+    curve: none
+    weight: thick
+    ends: { from: none, to: arrow }
+    via:
+      - { x: 378, y: 412 }
+  - from: p28
+    to: p29
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p30
+    to: p31
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p32
+    to: p33
+    curve: none
+    ends: { from: none, to: none }
+  - from: p34
+    to: p35
+    curve: none
+    ends: { from: none, to: none }

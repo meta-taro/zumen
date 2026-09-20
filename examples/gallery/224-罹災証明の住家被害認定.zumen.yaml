@@ -1,0 +1,457 @@
+version: 1
+kind: placement
+arrows: true
+title: 罹災証明の住家被害認定 —— どこから測るか
+scale: { mm: 20 }
+# **ハザードマップは地面から、罹災証明は床から測る。**
+#
+# 区分は損害割合 1 つで決まる（全壊 50%／大規模半壊 40%／中規模半壊 30%／
+# 半壊 20%／準半壊 10%）。水害では浸水深がそのまま区分になり、
+# **床上 1.8m 以上で全壊**（外壁や建具が一定の被害を受けた一戸建て木造）。
+#
+# **0.1m 違うと区分が変わる。** 床が地面より 0.4m 高い家なら、
+# 地面から 0.9m の水が「床上 0.5m」—— 中規模半壊の境目にちょうど乗る。
+#
+# 出典は内閣府「災害に係る住家の被害認定基準運用指針」。
+nodes:
+  - id: t1
+    label: "① 区分は 6 つ。境目は損害割合"
+    marker: none
+    align: left
+    at: { x: 150, y: 200 }
+    size: { w: 600, h: 20 }
+  - id: a0_0
+    label: "区分"
+    hatch: solid
+    at: { x: 150, y: 232 }
+    size: { w: 180, h: 28 }
+  - id: a0_1
+    label: "損害割合"
+    hatch: solid
+    at: { x: 330, y: 232 }
+    size: { w: 200, h: 28 }
+  - id: a0_2
+    label: "床上の浸水深（水害）"
+    hatch: solid
+    at: { x: 530, y: 232 }
+    size: { w: 220, h: 28 }
+  - id: a1_0
+    label: "全壊"
+    at: { x: 150, y: 260 }
+    size: { w: 180, h: 28 }
+  - id: a1_1
+    label: "50% 以上"
+    at: { x: 330, y: 260 }
+    size: { w: 200, h: 28 }
+  - id: a1_2
+    label: "1.8m 以上"
+    at: { x: 530, y: 260 }
+    size: { w: 220, h: 28 }
+  - id: a2_0
+    label: "大規模半壊"
+    at: { x: 150, y: 288 }
+    size: { w: 180, h: 28 }
+  - id: a2_1
+    label: "40% 以上 50% 未満"
+    at: { x: 330, y: 288 }
+    size: { w: 200, h: 28 }
+  - id: a2_2
+    label: "1.0m 以上 1.8m 未満"
+    at: { x: 530, y: 288 }
+    size: { w: 220, h: 28 }
+  - id: a3_0
+    label: "中規模半壊"
+    at: { x: 150, y: 316 }
+    size: { w: 180, h: 28 }
+  - id: a3_1
+    label: "30% 以上 40% 未満"
+    at: { x: 330, y: 316 }
+    size: { w: 200, h: 28 }
+  - id: a3_2
+    label: "0.5m 以上 1.0m 未満"
+    at: { x: 530, y: 316 }
+    size: { w: 220, h: 28 }
+  - id: a4_0
+    label: "半壊"
+    at: { x: 150, y: 344 }
+    size: { w: 180, h: 28 }
+  - id: a4_1
+    label: "20% 以上 30% 未満"
+    at: { x: 330, y: 344 }
+    size: { w: 200, h: 28 }
+  - id: a4_2
+    label: "0.1m 以上 0.5m 未満"
+    at: { x: 530, y: 344 }
+    size: { w: 220, h: 28 }
+  - id: a5_0
+    label: "準半壊"
+    at: { x: 150, y: 372 }
+    size: { w: 180, h: 28 }
+  - id: a5_1
+    label: "10% 以上 20% 未満"
+    at: { x: 330, y: 372 }
+    size: { w: 200, h: 28 }
+  - id: a5_2
+    label: "0.1m 未満（床上）"
+    at: { x: 530, y: 372 }
+    size: { w: 220, h: 28 }
+  - id: a6_0
+    label: "準半壊に至らない"
+    at: { x: 150, y: 400 }
+    size: { w: 180, h: 28 }
+  - id: a6_1
+    label: "10% 未満"
+    at: { x: 330, y: 400 }
+    size: { w: 200, h: 28 }
+  - id: a6_2
+    label: "床に達しない（床下）"
+    at: { x: 530, y: 400 }
+    size: { w: 220, h: 28 }
+  - id: a_n
+    label: "水害の欄は、外壁や建具が一定の被害を受けた一戸建て木造の場合。"
+    marker: none
+    align: left
+    at: { x: 150, y: 438 }
+    size: { w: 600, h: 18 }
+  - id: t2
+    label: "② ハザードマップは地面から、罹災証明は床から（1px ＝ 20mm）"
+    marker: none
+    align: left
+    at: { x: 150, y: 480 }
+    size: { w: 600, h: 20 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 169, y: 919 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 759, y: 919 }
+    size: { w: 2, h: 2 }
+  - id: kiso
+    label: ""
+    hatch: lines
+    at: { x: 200, y: 900 }
+    size: { w: 220, h: 20 }
+  - id: f1
+    label: ""
+    at: { x: 200, y: 750 }
+    size: { w: 220, h: 150 }
+  - id: f2
+    label: ""
+    at: { x: 200, y: 600 }
+    size: { w: 220, h: 150 }
+  - id: f1_n
+    label: "1 階"
+    marker: none
+    align: left
+    at: { x: 212, y: 758 }
+    size: { w: 60, h: 18 }
+  - id: f2_n
+    label: "2 階"
+    marker: none
+    align: left
+    at: { x: 212, y: 608 }
+    size: { w: 60, h: 18 }
+  - id: gl_n
+    label: "地面（GL）"
+    marker: none
+    align: left
+    at: { x: 170, y: 928 }
+    size: { w: 140, h: 18 }
+  - id: yuka_n
+    label: "床"
+    marker: none
+    align: right
+    at: { x: 90, y: 891 }
+    size: { w: 100, h: 18 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 439, y: 899 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 439, y: 919 }
+    size: { w: 2, h: 2 }
+  - id: kiso_n
+    label: "床は地面より 0.4m 高い（この図の置き方）"
+    marker: none
+    align: left
+    at: { x: 450, y: 914 }
+    size: { w: 330, h: 18 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 169, y: 809 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 429, y: 809 }
+    size: { w: 2, h: 2 }
+  - id: l1.8
+    label: "床上 1.8m —— ここから 全壊"
+    marker: none
+    align: left
+    at: { x: 450, y: 801 }
+    size: { w: 330, h: 18 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 169, y: 849 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 429, y: 849 }
+    size: { w: 2, h: 2 }
+  - id: l1
+    label: "床上 1.0m —— ここから 大規模半壊"
+    marker: none
+    align: left
+    at: { x: 450, y: 841 }
+    size: { w: 330, h: 18 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 169, y: 874 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 429, y: 874 }
+    size: { w: 2, h: 2 }
+  - id: l0.5
+    label: "床上 0.5m —— ここから 中規模半壊"
+    marker: none
+    align: left
+    at: { x: 450, y: 866 }
+    size: { w: 330, h: 18 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 169, y: 894 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 429, y: 894 }
+    size: { w: 2, h: 2 }
+  - id: l0.1
+    label: "床上 0.1m —— ここから 半壊"
+    marker: none
+    align: left
+    at: { x: 450, y: 886 }
+    size: { w: 330, h: 18 }
+  - id: l_n
+    label: "0.1m 違うと区分が変わる。"
+    marker: none
+    align: left
+    at: { x: 170, y: 954 }
+    size: { w: 600, h: 18 }
+  - id: l_n2
+    label: "同じ雨でも、床が高い家と低い家で判定が違う。"
+    marker: none
+    align: left
+    at: { x: 170, y: 976 }
+    size: { w: 600, h: 18 }
+  - id: t3
+    label: "③ 地震などのときは、部位ごとに足す"
+    marker: none
+    align: left
+    at: { x: 810, y: 200 }
+    size: { w: 430, h: 20 }
+  - id: f
+    label: "損害割合 ＝ Σ（損傷程度 × 損傷面積割合 × 構成比）"
+    at: { x: 810, y: 232 }
+    size: { w: 430, h: 40 }
+  - id: b0_0
+    label: "部位"
+    hatch: solid
+    at: { x: 810, y: 292 }
+    size: { w: 90, h: 28 }
+  - id: b0_1
+    label: "構成比"
+    hatch: solid
+    at: { x: 900, y: 292 }
+    size: { w: 80, h: 28 }
+  - id: b0_2
+    label: "損傷程度"
+    hatch: solid
+    at: { x: 980, y: 292 }
+    size: { w: 80, h: 28 }
+  - id: b0_3
+    label: "面積割合"
+    hatch: solid
+    at: { x: 1060, y: 292 }
+    size: { w: 80, h: 28 }
+  - id: b0_4
+    label: "部位の割合"
+    hatch: solid
+    at: { x: 1140, y: 292 }
+    size: { w: 100, h: 28 }
+  - id: b1_0
+    label: "屋根"
+    at: { x: 810, y: 320 }
+    size: { w: 90, h: 28 }
+  - id: b1_1
+    label: "15%"
+    at: { x: 900, y: 320 }
+    size: { w: 80, h: 28 }
+  - id: b1_2
+    label: "50%"
+    at: { x: 980, y: 320 }
+    size: { w: 80, h: 28 }
+  - id: b1_3
+    label: "40%"
+    at: { x: 1060, y: 320 }
+    size: { w: 80, h: 28 }
+  - id: b1_4
+    label: "3.0%"
+    at: { x: 1140, y: 320 }
+    size: { w: 100, h: 28 }
+  - id: b2_0
+    label: "内壁"
+    at: { x: 810, y: 348 }
+    size: { w: 90, h: 28 }
+  - id: b2_1
+    label: "10%"
+    at: { x: 900, y: 348 }
+    size: { w: 80, h: 28 }
+  - id: b2_2
+    label: "25%"
+    at: { x: 980, y: 348 }
+    size: { w: 80, h: 28 }
+  - id: b2_3
+    label: "60%"
+    at: { x: 1060, y: 348 }
+    size: { w: 80, h: 28 }
+  - id: b2_4
+    label: "1.5%"
+    at: { x: 1140, y: 348 }
+    size: { w: 100, h: 28 }
+  - id: b3_0
+    label: "…"
+    at: { x: 810, y: 376 }
+    size: { w: 90, h: 28 }
+  - id: b3_1
+    label: "…"
+    at: { x: 900, y: 376 }
+    size: { w: 80, h: 28 }
+  - id: b3_2
+    label: "…"
+    at: { x: 980, y: 376 }
+    size: { w: 80, h: 28 }
+  - id: b3_3
+    label: "…"
+    at: { x: 1060, y: 376 }
+    size: { w: 80, h: 28 }
+  - id: b3_4
+    label: "…"
+    at: { x: 1140, y: 376 }
+    size: { w: 100, h: 28 }
+  - id: c1
+    label: "構成比は運用指針の表による。この図では屋根 15%・内壁 10%"
+    marker: none
+    align: left
+    at: { x: 810, y: 418 }
+    size: { w: 430, h: 18 }
+  - id: c2
+    label: "だけを引いた（ほかの部位も同じ形で足す）。"
+    marker: none
+    align: left
+    at: { x: 810, y: 440 }
+    size: { w: 430, h: 18 }
+  - id: c4
+    label: "第 1 次調査 —— 外から見る（傾き・部位の損傷）。"
+    marker: none
+    align: left
+    at: { x: 810, y: 484 }
+    size: { w: 430, h: 18 }
+  - id: c5
+    label: "第 2 次調査 —— 中に入る。1 次の結果に納得できないとき、"
+    marker: none
+    align: left
+    at: { x: 810, y: 506 }
+    size: { w: 430, h: 18 }
+  - id: c6
+    label: "申請すると行われる。"
+    marker: none
+    align: left
+    at: { x: 810, y: 528 }
+    size: { w: 430, h: 18 }
+  - id: r1
+    label: "罹災証明の区分は、損害割合 1 つで決まります（①）。全壊 50%・大規模半壊 40%・中規模半壊 30%・半壊 20%・準半壊 10%。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1010 }
+    size: { w: 1090, h: 18 }
+  - id: r2
+    label: "水害では、浸水深がそのまま区分になります。 外壁や建具が一定の被害を受けた一戸建て木造では、床上 1.8m 以上で全壊です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1034 }
+    size: { w: 1090, h: 18 }
+  - id: r3
+    label: "ここで測るのは「床上」です（②）。ハザードマップの浸水深は地面からなので、同じ水でも数が違います。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1058 }
+    size: { w: 1090, h: 18 }
+  - id: r4
+    label: "床が地面より 0.4m 高い家なら、地面から 0.9m の水は「床上 0.5m」 —— 中規模半壊の境目にちょうど乗ります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1082 }
+    size: { w: 1090, h: 18 }
+  - id: r5
+    label: "0.1m 違うと区分が変わります。 区分が変われば、受けられる支援も変わります。だから測り方が争点になります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1106 }
+    size: { w: 1090, h: 18 }
+  - id: r6
+    label: "地震などでは、部位ごとに足します（③）。損傷程度 × 面積割合 × 構成比。外から見る 1 次調査と、中に入る 2 次調査があります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1130 }
+    size: { w: 1090, h: 18 }
+  - id: r7
+    label: "海図も同じ形でした（見本 223）—— どこから測るかを決めないと、同じ高さが違う数になります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1154 }
+    size: { w: 1090, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p2
+    to: p3
+    curve: none
+    ends: { from: arrow, to: arrow }
+  - from: p4
+    to: p5
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p6
+    to: p7
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p8
+    to: p9
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p10
+    to: p11
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }

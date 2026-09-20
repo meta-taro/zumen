@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>多層ターミナルの乗換案内図（架空駅・1F / B1 / B2 と縦の動線） — zumen の見本 82</title>
+<link rel="icon" type="image/svg+xml" href="../../icon.svg">
+<meta name="theme-color" content="#23232b">
+<meta name="description" content="多層ターミナルの乗換案内（階と縦の動線）">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="zumen">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:url" content="https://meta-taro.github.io/zumen/g/82/">
+<meta property="og:title" content="多層ターミナルの乗換案内図（架空駅・1F / B1 / B2 と縦の動線） — zumen の見本 82">
+<meta property="og:description" content="多層ターミナルの乗換案内（階と縦の動線）">
+<meta property="og:image" content="https://meta-taro.github.io/zumen/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="多層ターミナルの乗換案内図（架空駅・1F / B1 / B2 と縦の動線） — zumen の見本 82">
+<meta name="twitter:description" content="多層ターミナルの乗換案内（階と縦の動線）">
+<meta name="twitter:image" content="https://meta-taro.github.io/zumen/og.png">
+<link rel="stylesheet" href="../../style.css">
+<link rel="canonical" href="https://meta-taro.github.io/zumen/g/82/">
+<link rel="alternate" hreflang="ja" href="https://meta-taro.github.io/zumen/g/82/">
+<link rel="alternate" hreflang="en" href="https://meta-taro.github.io/zumen/en/g/82/">
+<link rel="alternate" hreflang="x-default" href="https://meta-taro.github.io/zumen/g/82/">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="alternate" type="text/markdown" href="https://meta-taro.github.io/zumen/llms.txt" title="llms.txt">
+<link rel="sitemap" type="application/xml" href="https://meta-taro.github.io/zumen/sitemap.xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": "多層ターミナルの乗換案内図（架空駅・1F / B1 / B2 と縦の動線）",
+  "description": "多層ターミナルの乗換案内（階と縦の動線）",
+  "url": "https://meta-taro.github.io/zumen/g/82/",
+  "image": "https://meta-taro.github.io/zumen/gallery/82-%E5%A4%9A%E5%B1%A4%E3%82%BF%E3%83%BC%E3%83%9F%E3%83%8A%E3%83%AB%E3%81%AE%E4%B9%97%E6%8F%9B%E6%A1%88%E5%86%85%E5%9B%B3.svg",
+  "inLanguage": "ja",
+  "license": "https://opensource.org/licenses/MIT",
+  "isPartOf": {
+    "@type": "CollectionPage",
+    "name": "鉄道・交通",
+    "url": "https://meta-taro.github.io/zumen/c/tetsudo/"
+  },
+  "encodingFormat": "text/yaml",
+  "isAccessibleForFree": true
+}
+</script>
+</head>
+<body class="sub">
+<header class="bar">
+  <a class="home" href="../../">zumen</a>
+  <nav><a href="../../c/tetsudo/">鉄道・交通</a></nav>
+</header>
+<main>
+<article>
+  <p class="crumb">鉄道・交通</p>
+  <h1>多層ターミナルの乗換案内図（架空駅・1F / B1 / B2 と縦の動線）</h1>
+  <p class="lead">多層ターミナルの乗換案内（階と縦の動線）</p>
+  <figure>
+    <img src="../../gallery/82-%E5%A4%9A%E5%B1%A4%E3%82%BF%E3%83%BC%E3%83%9F%E3%83%8A%E3%83%AB%E3%81%AE%E4%B9%97%E6%8F%9B%E6%A1%88%E5%86%85%E5%9B%B3.svg" alt="多層ターミナルの乗換案内図（1F / B1 / B2）" loading="lazy">
+  </figure>
+  <p class="made">この図は、下の 1 枚の YAML から描かれています。手で図形を動かしてはいません。</p>
+  <h2>正本に書いてある決まりごと</h2>
+  <p><strong>階が正本の言葉になった</strong>（floors ＋ nodes[].floor）。階の枠と階名は<strong>機械が描く</strong> —— 箱を足しても枠がずれない。箱は 1 px も動かない（floor は「どの枠に属するか」を言うだけ）。</p>
+  <p>縦動線は edges[].vertical（stair / escalator / elevator。JIS Z 8210 の語）。同じ階どうしを結ぶと検証器が知らせる —— またがないものは縦動線ではない。</p>
+  <p>太い矢印が案内する経路：JR 中央改札 → ES → B1 中央通路 → 階段 → B2 南行ホーム。<strong>1 枚の中に、向きのある線と無い線が混ざる</strong>ので、縦動線は ends で矢印を消してある。</p>
+  <p>凡例と注記には floor を書いていない —— <strong>階に属さないものは、どの枠にも入らない。</strong></p>
+  <p>実在の駅では描いていない。<strong>各階の正確な配置が手元に無いため</strong>（調べずに描かない）。</p>
+  <h2>正本（YAML）</h2>
+  <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/82-%E5%A4%9A%E5%B1%A4%E3%82%BF%E3%83%BC%E3%83%9F%E3%83%8A%E3%83%AB%E3%81%AE%E4%B9%97%E6%8F%9B%E6%A1%88%E5%86%85%E5%9B%B3.zumen.yaml"><code>examples/gallery/82-多層ターミナルの乗換案内図.zumen.yaml</code></a></p>
+  <h2>同じ分野の見本</h2>
+  <ul class="near"><li><a href="../25/">鉄道の路線図</a></li><li><a href="../29/">車両の編成図（10 両）</a></li><li><a href="../37/">配送ルート（2t 車 3 台）</a></li><li><a href="../45/">駅の構内図（1F・B1F）</a></li><li><a href="../52/">停車駅案内図（帯が種別・白丸が停車）</a></li><li><a href="../53/">駅の時刻表（平日／土休日）</a></li><li><a href="../54/">のりかえ案内図（縦組みの駅名）</a></li><li><a href="../56/">バスの時刻表（平日／土曜／日祝）</a></li></ul>
+</article>
+</main>
+<footer class="foot">
+  <p><a href="https://github.com/meta-taro/zumen">GitHub</a> · MIT · <a href="https://meta-taro.github.io/zumen/en/g/82/">English</a></p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,746 @@
+version: 1
+kind: placement
+arrows: true
+title: 海図の読み方 —— 基準面・距離・灯質・浮標式
+scale: { mm: 100 }
+# **1 枚の海図に、基準面が 3 つある。**
+#
+# 水深は**最低水面**から、橋の桁下高と海岸線は**最高水面**から、
+# 灯台の高さは**平均水面**から。深さと高さを別の面から測るのは、
+# **それぞれ「いちばん危ないとき」を取る**ため。
+#
+# **距離は縦（緯度）の目盛りで測る** —— 緯度 1 分 ＝ 1 海里 ＝ 1852m。
+# メルカトル図法なので、経度 1 分は緯度が高いほど短くなる。
+#
+# **入港するとき右が赤**（日本は IALA-B）。欧州の A 方式とは左右が逆。
+nodes:
+  - id: t1
+    label: "① 深さと高さは、別の面から測る（1px ＝ 100mm）"
+    marker: none
+    align: left
+    at: { x: 150, y: 200 }
+    size: { w: 600, h: 20 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 169, y: 379 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 159, y: 479 }
+    size: { w: 2, h: 2 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 759, y: 479 }
+    size: { w: 2, h: 2 }
+  - id: wl480
+    label: "最高水面"
+    marker: none
+    align: right
+    at: { x: 40, y: 471 }
+    size: { w: 120, h: 18 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 159, y: 499 }
+    size: { w: 2, h: 2 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 759, y: 499 }
+    size: { w: 2, h: 2 }
+  - id: wl500
+    label: "平均水面"
+    marker: none
+    align: right
+    at: { x: 40, y: 491 }
+    size: { w: 120, h: 18 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 159, y: 519 }
+    size: { w: 2, h: 2 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 759, y: 519 }
+    size: { w: 2, h: 2 }
+  - id: wl520
+    label: "最低水面"
+    marker: none
+    align: right
+    at: { x: 40, y: 511 }
+    size: { w: 120, h: 18 }
+  - id: wl_n
+    label: "最低水面 ＝ 基本水準面（略最低低潮面）"
+    marker: none
+    align: left
+    at: { x: 40, y: 536 }
+    size: { w: 260, h: 18 }
+  - id: lt
+    label: ""
+    at: { x: 200, y: 350 }
+    size: { w: 16, h: 63 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 239, y: 349 }
+    size: { w: 2, h: 2 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 239, y: 499 }
+    size: { w: 2, h: 2 }
+  - id: lt_n
+    label: "灯高 15m"
+    marker: none
+    align: left
+    at: { x: 250, y: 346 }
+    size: { w: 120, h: 18 }
+  - id: lt_n2
+    label: "（平均水面から）"
+    marker: none
+    align: left
+    at: { x: 250, y: 366 }
+    size: { w: 140, h: 18 }
+  - id: br
+    label: ""
+    at: { x: 470, y: 372 }
+    size: { w: 290, h: 8 }
+  - id: pier
+    label: ""
+    at: { x: 700, y: 380 }
+    size: { w: 18, h: 260 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 519, y: 379 }
+    size: { w: 2, h: 2 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 519, y: 479 }
+    size: { w: 2, h: 2 }
+  - id: br_n
+    label: "桁下高 10m"
+    marker: none
+    align: left
+    at: { x: 528, y: 396 }
+    size: { w: 130, h: 18 }
+  - id: br_n2
+    label: "（最高水面から）"
+    marker: none
+    align: left
+    at: { x: 528, y: 416 }
+    size: { w: 140, h: 18 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 399, y: 545 }
+    size: { w: 2, h: 2 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 459, y: 504 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 459, y: 519 }
+    size: { w: 2, h: 2 }
+  - id: dr_n
+    label: "干出 1.5m（最低水面から）"
+    marker: none
+    align: left
+    at: { x: 360, y: 566 }
+    size: { w: 240, h: 18 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 639, y: 519 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 639, y: 639 }
+    size: { w: 2, h: 2 }
+  - id: dp_n
+    label: "水深 12m"
+    marker: none
+    align: left
+    at: { x: 500, y: 600 }
+    size: { w: 120, h: 18 }
+  - id: dp_n2
+    label: "（最低水面から）"
+    marker: none
+    align: left
+    at: { x: 490, y: 620 }
+    size: { w: 140, h: 18 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 287, y: 475 }
+    size: { w: 2, h: 2 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 319, y: 443 }
+    size: { w: 2, h: 2 }
+  - id: cl_n
+    label: "海岸線は最高水面"
+    marker: none
+    align: left
+    at: { x: 326, y: 436 }
+    size: { w: 180, h: 18 }
+  - id: t2
+    label: "② 距離は、縦（緯度）の目盛りで測る"
+    marker: none
+    align: left
+    at: { x: 810, y: 200 }
+    size: { w: 430, h: 20 }
+  - id: chart
+    label: ""
+    at: { x: 840, y: 250 }
+    size: { w: 260, h: 220 }
+  - id: p18
+    label: ""
+    marker: none
+    at: { x: 839, y: 293 }
+    size: { w: 2, h: 2 }
+  - id: p19
+    label: ""
+    marker: none
+    at: { x: 849, y: 293 }
+    size: { w: 2, h: 2 }
+  - id: p20
+    label: ""
+    marker: none
+    at: { x: 1089, y: 293 }
+    size: { w: 2, h: 2 }
+  - id: p21
+    label: ""
+    marker: none
+    at: { x: 1099, y: 293 }
+    size: { w: 2, h: 2 }
+  - id: p22
+    label: ""
+    marker: none
+    at: { x: 891, y: 249 }
+    size: { w: 2, h: 2 }
+  - id: p23
+    label: ""
+    marker: none
+    at: { x: 891, y: 259 }
+    size: { w: 2, h: 2 }
+  - id: p24
+    label: ""
+    marker: none
+    at: { x: 891, y: 459 }
+    size: { w: 2, h: 2 }
+  - id: p25
+    label: ""
+    marker: none
+    at: { x: 891, y: 469 }
+    size: { w: 2, h: 2 }
+  - id: p26
+    label: ""
+    marker: none
+    at: { x: 839, y: 337 }
+    size: { w: 2, h: 2 }
+  - id: p27
+    label: ""
+    marker: none
+    at: { x: 849, y: 337 }
+    size: { w: 2, h: 2 }
+  - id: p28
+    label: ""
+    marker: none
+    at: { x: 1089, y: 337 }
+    size: { w: 2, h: 2 }
+  - id: p29
+    label: ""
+    marker: none
+    at: { x: 1099, y: 337 }
+    size: { w: 2, h: 2 }
+  - id: p30
+    label: ""
+    marker: none
+    at: { x: 943, y: 249 }
+    size: { w: 2, h: 2 }
+  - id: p31
+    label: ""
+    marker: none
+    at: { x: 943, y: 259 }
+    size: { w: 2, h: 2 }
+  - id: p32
+    label: ""
+    marker: none
+    at: { x: 943, y: 459 }
+    size: { w: 2, h: 2 }
+  - id: p33
+    label: ""
+    marker: none
+    at: { x: 943, y: 469 }
+    size: { w: 2, h: 2 }
+  - id: p34
+    label: ""
+    marker: none
+    at: { x: 839, y: 381 }
+    size: { w: 2, h: 2 }
+  - id: p35
+    label: ""
+    marker: none
+    at: { x: 849, y: 381 }
+    size: { w: 2, h: 2 }
+  - id: p36
+    label: ""
+    marker: none
+    at: { x: 1089, y: 381 }
+    size: { w: 2, h: 2 }
+  - id: p37
+    label: ""
+    marker: none
+    at: { x: 1099, y: 381 }
+    size: { w: 2, h: 2 }
+  - id: p38
+    label: ""
+    marker: none
+    at: { x: 995, y: 249 }
+    size: { w: 2, h: 2 }
+  - id: p39
+    label: ""
+    marker: none
+    at: { x: 995, y: 259 }
+    size: { w: 2, h: 2 }
+  - id: p40
+    label: ""
+    marker: none
+    at: { x: 995, y: 459 }
+    size: { w: 2, h: 2 }
+  - id: p41
+    label: ""
+    marker: none
+    at: { x: 995, y: 469 }
+    size: { w: 2, h: 2 }
+  - id: p42
+    label: ""
+    marker: none
+    at: { x: 839, y: 425 }
+    size: { w: 2, h: 2 }
+  - id: p43
+    label: ""
+    marker: none
+    at: { x: 849, y: 425 }
+    size: { w: 2, h: 2 }
+  - id: p44
+    label: ""
+    marker: none
+    at: { x: 1089, y: 425 }
+    size: { w: 2, h: 2 }
+  - id: p45
+    label: ""
+    marker: none
+    at: { x: 1099, y: 425 }
+    size: { w: 2, h: 2 }
+  - id: p46
+    label: ""
+    marker: none
+    at: { x: 1047, y: 249 }
+    size: { w: 2, h: 2 }
+  - id: p47
+    label: ""
+    marker: none
+    at: { x: 1047, y: 259 }
+    size: { w: 2, h: 2 }
+  - id: p48
+    label: ""
+    marker: none
+    at: { x: 1047, y: 459 }
+    size: { w: 2, h: 2 }
+  - id: p49
+    label: ""
+    marker: none
+    at: { x: 1047, y: 469 }
+    size: { w: 2, h: 2 }
+  - id: p50
+    label: ""
+    marker: none
+    at: { x: 863, y: 293 }
+    size: { w: 2, h: 2 }
+  - id: p51
+    label: ""
+    marker: none
+    at: { x: 863, y: 381 }
+    size: { w: 2, h: 2 }
+  - id: nm
+    label: "2 海里"
+    marker: none
+    align: left
+    at: { x: 876, y: 338 }
+    size: { w: 150, h: 18 }
+  - id: lat
+    label: "緯度の目盛り"
+    marker: none
+    align: left
+    at: { x: 876, y: 360 }
+    size: { w: 150, h: 18 }
+  - id: lon
+    label: "経度の目盛り（距離には使わない）"
+    marker: none
+    align: left
+    at: { x: 840, y: 224 }
+    size: { w: 300, h: 18 }
+  - id: m_n1
+    label: "緯度 1 分 ＝ 1 海里 ＝ 1852m。"
+    marker: none
+    align: left
+    at: { x: 810, y: 514 }
+    size: { w: 430, h: 18 }
+  - id: m_n2
+    label: "海図はメルカトル図法なので、経度 1 分の長さは"
+    marker: none
+    align: left
+    at: { x: 810, y: 536 }
+    size: { w: 430, h: 18 }
+  - id: m_n3
+    label: "緯度が高いほど短くなります（赤道の cos 倍）。"
+    marker: none
+    align: left
+    at: { x: 810, y: 558 }
+    size: { w: 430, h: 18 }
+  - id: m_n4
+    label: "だから距離は、その場所と同じ高さの縦の目盛りで取る。"
+    marker: none
+    align: left
+    at: { x: 810, y: 580 }
+    size: { w: 430, h: 18 }
+  - id: t3
+    label: "③ 灯質は、1 つの文字列に 5 つ書いてある"
+    marker: none
+    align: left
+    at: { x: 150, y: 714 }
+    size: { w: 600, h: 20 }
+  - id: lq
+    label: "Fl(2)W.10s15m20M"
+    at: { x: 170, y: 746 }
+    size: { w: 320, h: 40 }
+  - id: ps804
+    label: "Fl"
+    at: { x: 170, y: 804 }
+    size: { w: 60, h: 26 }
+  - id: pw804
+    label: "閃光（Fl）／明暗（Oc）／等明暗（Iso）／不動（F）"
+    marker: none
+    align: left
+    at: { x: 244, y: 808 }
+    size: { w: 500, h: 18 }
+  - id: ps834
+    label: "(2)"
+    at: { x: 170, y: 834 }
+    size: { w: 60, h: 26 }
+  - id: pw834
+    label: "2 閃の群 —— 2 回光って、休む"
+    marker: none
+    align: left
+    at: { x: 244, y: 838 }
+    size: { w: 500, h: 18 }
+  - id: ps864
+    label: "W"
+    at: { x: 170, y: 864 }
+    size: { w: 60, h: 26 }
+  - id: pw864
+    label: "白（W）／赤（R）／緑（G）"
+    marker: none
+    align: left
+    at: { x: 244, y: 868 }
+    size: { w: 500, h: 18 }
+  - id: ps894
+    label: "10s"
+    at: { x: 170, y: 894 }
+    size: { w: 60, h: 26 }
+  - id: pw894
+    label: "周期 10 秒 —— ここまでで 1 回り"
+    marker: none
+    align: left
+    at: { x: 244, y: 898 }
+    size: { w: 500, h: 18 }
+  - id: ps924
+    label: "15m"
+    at: { x: 170, y: 924 }
+    size: { w: 60, h: 26 }
+  - id: pw924
+    label: "灯高 15m（平均水面から）"
+    marker: none
+    align: left
+    at: { x: 244, y: 928 }
+    size: { w: 500, h: 18 }
+  - id: ps954
+    label: "20M"
+    at: { x: 170, y: 954 }
+    size: { w: 60, h: 26 }
+  - id: pw954
+    label: "光達距離 20 海里"
+    marker: none
+    align: left
+    at: { x: 244, y: 958 }
+    size: { w: 500, h: 18 }
+  - id: t4
+    label: "④ 入港するとき、右が赤（日本は IALA-B）"
+    marker: none
+    align: left
+    at: { x: 810, y: 600 }
+    size: { w: 430, h: 20 }
+  - id: bh0
+    label: "標識"
+    hatch: solid
+    at: { x: 810, y: 632 }
+    size: { w: 110, h: 26 }
+  - id: bh1
+    label: "色"
+    hatch: solid
+    at: { x: 920, y: 632 }
+    size: { w: 70, h: 26 }
+  - id: bh2
+    label: "形"
+    hatch: solid
+    at: { x: 990, y: 632 }
+    size: { w: 100, h: 26 }
+  - id: bh3
+    label: "どちら側"
+    hatch: solid
+    at: { x: 1090, y: 632 }
+    size: { w: 150, h: 26 }
+  - id: b0_0
+    label: "右舷標識"
+    at: { x: 810, y: 658 }
+    size: { w: 110, h: 26 }
+  - id: b0_1
+    label: "赤"
+    at: { x: 920, y: 658 }
+    size: { w: 70, h: 26 }
+  - id: b0_2
+    label: "円錐形"
+    at: { x: 990, y: 658 }
+    size: { w: 100, h: 26 }
+  - id: b0_3
+    label: "入港時の右"
+    at: { x: 1090, y: 658 }
+    size: { w: 150, h: 26 }
+  - id: b1_0
+    label: "左舷標識"
+    at: { x: 810, y: 684 }
+    size: { w: 110, h: 26 }
+  - id: b1_1
+    label: "緑"
+    at: { x: 920, y: 684 }
+    size: { w: 70, h: 26 }
+  - id: b1_2
+    label: "円筒形"
+    at: { x: 990, y: 684 }
+    size: { w: 100, h: 26 }
+  - id: b1_3
+    label: "入港時の左"
+    at: { x: 1090, y: 684 }
+    size: { w: 150, h: 26 }
+  - id: b_n
+    label: "IALA-A（欧州ほか）は左右が逆。 同じ海でも地域で違う。"
+    marker: none
+    align: left
+    at: { x: 810, y: 720 }
+    size: { w: 430, h: 18 }
+  - id: b_n2
+    label: "日本・南北アメリカ・韓国・フィリピンが B 方式。"
+    marker: none
+    align: left
+    at: { x: 810, y: 742 }
+    size: { w: 430, h: 18 }
+  - id: t5
+    label: "⑤ 底質は 2 文字の略号"
+    marker: none
+    align: left
+    at: { x: 810, y: 780 }
+    size: { w: 430, h: 20 }
+  - id: t5b
+    label: "S 砂　M 泥　R 岩　Co 珊瑚　Sh 貝殻　G 礫"
+    marker: none
+    align: left
+    at: { x: 810, y: 812 }
+    size: { w: 430, h: 18 }
+  - id: t5c
+    label: "錨が効くかどうかは、水深より底質で決まる。"
+    marker: none
+    align: left
+    at: { x: 810, y: 834 }
+    size: { w: 430, h: 18 }
+  - id: r1
+    label: "1 枚の海図に、基準面が 3 つあります（①）。深さと高さを別の面から測るのは、それぞれ「いちばん危ないとき」を取るためです。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1000 }
+    size: { w: 1090, h: 18 }
+  - id: r2
+    label: "水深は最低水面から —— それ以上浅くならない面を 0 にしておけば、書いてある数より浅いことがありません。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1024 }
+    size: { w: 1090, h: 18 }
+  - id: r3
+    label: "橋の桁下高は最高水面から —— それ以上高くならない面を 0 にしておけば、書いてある数より低いことがありません。どちらも安全側です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1048 }
+    size: { w: 1090, h: 18 }
+  - id: r4
+    label: "灯台の高さだけは平均水面から。光が届く距離の計算に使うもので、ぶつかるかどうかの数ではないからです。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1072 }
+    size: { w: 1090, h: 18 }
+  - id: r5
+    label: "距離は縦の目盛りで測ります（②）。緯度 1 分が 1 海里 —— 経度 1 分は緯度が高いほど短くなるので、横では測れません。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1096 }
+    size: { w: 1090, h: 18 }
+  - id: r6
+    label: "灯質は 1 つの文字列に 5 つ入っています（③）。夜、光り方だけでどの灯台かを決められるように、重ならないように配ってあります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1120 }
+    size: { w: 1090, h: 18 }
+  - id: r7
+    label: "入港するとき右が赤（④）。日本は IALA-B 方式で、欧州の A 方式とは左右が逆です。同じ記号が、地域で逆の意味になります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1144 }
+    size: { w: 1090, h: 18 }
+edges:
+  - from: p0
+    to: p0
+    curve: none
+    close: true
+    hatch: dots
+    ends: { from: none, to: none }
+    via:
+      - { x: 170, y: 380 }
+      - { x: 330, y: 520 }
+      - { x: 520, y: 640 }
+      - { x: 750, y: 640 }
+      - { x: 750, y: 676 }
+      - { x: 170, y: 676 }
+  - from: p1
+    to: p2
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p3
+    to: p4
+    curve: none
+    line: chain
+    ends: { from: none, to: none }
+  - from: p5
+    to: p6
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p7
+    to: p8
+    curve: none
+    ends: { from: arrow, to: arrow }
+  - from: p9
+    to: p10
+    curve: none
+    ends: { from: arrow, to: arrow }
+  - from: p11
+    to: p11
+    curve: none
+    close: true
+    hatch: lines
+    ends: { from: none, to: none }
+    via:
+      - { x: 400, y: 546 }
+      - { x: 420, y: 505 }
+      - { x: 440, y: 546 }
+  - from: p12
+    to: p13
+    curve: none
+    ends: { from: arrow, to: arrow }
+  - from: p14
+    to: p15
+    curve: none
+    ends: { from: arrow, to: arrow }
+  - from: p16
+    to: p17
+    curve: none
+    ends: { from: none, to: none }
+  - from: p18
+    to: p19
+    curve: none
+    ends: { from: none, to: none }
+  - from: p20
+    to: p21
+    curve: none
+    ends: { from: none, to: none }
+  - from: p22
+    to: p23
+    curve: none
+    ends: { from: none, to: none }
+  - from: p24
+    to: p25
+    curve: none
+    ends: { from: none, to: none }
+  - from: p26
+    to: p27
+    curve: none
+    ends: { from: none, to: none }
+  - from: p28
+    to: p29
+    curve: none
+    ends: { from: none, to: none }
+  - from: p30
+    to: p31
+    curve: none
+    ends: { from: none, to: none }
+  - from: p32
+    to: p33
+    curve: none
+    ends: { from: none, to: none }
+  - from: p34
+    to: p35
+    curve: none
+    ends: { from: none, to: none }
+  - from: p36
+    to: p37
+    curve: none
+    ends: { from: none, to: none }
+  - from: p38
+    to: p39
+    curve: none
+    ends: { from: none, to: none }
+  - from: p40
+    to: p41
+    curve: none
+    ends: { from: none, to: none }
+  - from: p42
+    to: p43
+    curve: none
+    ends: { from: none, to: none }
+  - from: p44
+    to: p45
+    curve: none
+    ends: { from: none, to: none }
+  - from: p46
+    to: p47
+    curve: none
+    ends: { from: none, to: none }
+  - from: p48
+    to: p49
+    curve: none
+    ends: { from: none, to: none }
+  - from: p50
+    to: p51
+    curve: none
+    ends: { from: arrow, to: arrow }
+    weight: thick

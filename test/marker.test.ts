@@ -47,7 +47,7 @@ async function svg(text: string, plan = true): Promise<string> {
 
 describe('印を読む', () => {
   it('**形の名前だけで閉じる。意味の語は無い**', () => {
-    assert.deepEqual([...MARKERS], ['box', 'circle', 'double', 'ellipse', 'diamond', 'bar', 'none']);
+    assert.deepEqual([...MARKERS], ['box', 'circle', 'double', 'ellipse', 'diamond', 'triangle', 'bar', 'none']);
     // 意味の語は受けない（消火器・ユースケース・判断）。
     assert.equal(markerOf('extinguisher'), 'box', '意味の語を受けてはいけない');
     assert.equal(markerOf('usecase'), 'box');
@@ -109,11 +109,49 @@ describe('印を描く', () => {
   });
 });
 
+/**
+ * **測量の基準点は三角**（2026-09-20）。
+ *
+ * 地籍図の図根点、地形図の三角点、方位記号、警告の記号 ——
+ * **三角は丸や四角と同じくらい広く使われている形**なのに無く、
+ * 見本 271（地籍図）では輪を 3 点描いて代用していた。
+ */
+describe('三角の印', () => {
+  it('**箱に収まる三角を描く**（上辺の中点と、下辺の両端）', async () => {
+    const tri = [
+      'version: 1', 'kind: placement', 'nodes:',
+      '  - id: t', '    label: ""', '    marker: triangle',
+      '    at: { x: 20, y: 20 }', '    size: { w: 40, h: 40 }',
+      '',
+    ].join('\n');
+    const out = render(await layout(tri), 'light', 'safe', true);
+    assert.match(out, /M 40 20 L 60 60 L 20 60 Z/, out.slice(0, 400));
+  });
+
+  it('知らない語ではない（markerOf がそのまま返す）', () => {
+    assert.equal(markerOf('triangle'), 'triangle');
+  });
+});
+
 describe('知らせる', () => {
   it('知らない印を警告する（矩形で描く）', () => {
     const found = validate(STATION.replace('marker: circle', 'marker: hoshi'));
     assert.ok(found.some((f) => f.code === 'marker-unknown'));
     assert.ok(found.every((f) => f.severity === 'warning'));
+  });
+
+  /**
+   * **使える形を、全部出す**（2026-09-20）。
+   *
+   * この文言は `box / circle / double / none` の 4 つしか出しておらず、
+   * **ellipse・diamond・bar は、あることすら言っていなかった。**
+   * `line-unknown` は同じ穴を前日に塞いでいる（`test/line.test.ts`）。
+   */
+  it('**警告の文に、使える印がぜんぶ出る**', () => {
+    const said = validate(STATION.replace('marker: circle', 'marker: hoshi')).find(
+      (f) => f.code === 'marker-unknown',
+    )!.message;
+    for (const word of MARKERS) assert.ok(said.includes(word), `${word} が出ていない: ${said}`);
   });
 
   it('構成図に書いても効かないことを知らせる', () => {
@@ -122,7 +160,7 @@ describe('知らせる', () => {
   });
 
   it('spec が印の語を返す', () => {
-    assert.deepEqual(spec().markers, ['box', 'circle', 'double', 'ellipse', 'diamond', 'bar', 'none']);
+    assert.deepEqual(spec().markers, ['box', 'circle', 'double', 'ellipse', 'diamond', 'triangle', 'bar', 'none']);
     assert.match(spec().shape, /marker:/);
   });
 });

@@ -1,0 +1,650 @@
+version: 1
+kind: placement
+arrows: true
+title: 電子レンジの構造（加熱ムラの間隔は 6.1cm）
+# **加熱ムラの間隔は、波長の半分 ＝ 6.1cm。箱の作りでは消せない。**
+# 30 万 km/s ÷ 2,450MHz ＝ 波長 12.2cm。その半分が、腹と腹の間隔。
+# だから**食品のほうを動かす** —— ターンテーブル、または電波をかき混ぜる撹拌翼。
+#
+# **電波はまっすぐ入れない。** マグネトロンから導波管を回して入れる
+# （まっすぐ向けると、はね返った電波がマグネトロンを壊す）。
+#
+# **覗けるのに電波が出てこないのは、穴の大きさ。**
+# 1〜2mm の穴は、波長 12.2cm の波にとっては**つながった金属の板**。
+# 可視光は波長 0.0005mm 前後なので通れる。
+#
+# **温まるのは水。** 極が偏った分子が 1 秒に 24.5 億回向きを変えようとして、
+# 隣とこすれる。器が熱いのは中身から伝わったから。
+nodes:
+  - id: t1
+    label: "① 断面 —— 電波はまっすぐ入れず、導波管で回す"
+    marker: none
+    align: left
+    at: { x: 150, y: 150 }
+    size: { w: 600, h: 20 }
+  - id: oven
+    label: ""
+    at: { x: 200, y: 200 }
+    size: { w: 340, h: 260 }
+  - id: door
+    label: ""
+    hatch: cross
+    at: { x: 184, y: 220 }
+    size: { w: 16, h: 220 }
+  - id: doorN
+    label: "ドアの金網"
+    marker: none
+    align: right
+    at: { x: 20, y: 260 }
+    size: { w: 150, h: 18 }
+  - id: doorN2
+    label: "穴は波長より小さい"
+    marker: none
+    align: right
+    at: { x: 20, y: 282 }
+    size: { w: 150, h: 18 }
+  - id: plate
+    label: "ターンテーブル"
+    at: { x: 260, y: 404 }
+    size: { w: 220, h: 34 }
+  - id: food
+    label: ""
+    hatch: dots
+    at: { x: 330, y: 364 }
+    size: { w: 80, h: 40 }
+  - id: foodN
+    label: "食品"
+    marker: none
+    align: left
+    at: { x: 420, y: 374 }
+    size: { w: 80, h: 18 }
+  - id: wg
+    label: "導波管"
+    hatch: lines
+    at: { x: 540, y: 240 }
+    size: { w: 130, h: 44 }
+  - id: mag
+    label: "マグネトロン\n2,450MHz"
+    at: { x: 670, y: 220 }
+    size: { w: 150, h: 84 }
+  - id: tr
+    label: "高圧トランス"
+    at: { x: 670, y: 330 }
+    size: { w: 150, h: 44 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 744, y: 329 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 744, y: 303 }
+    size: { w: 2, h: 2 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 669, y: 261 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 543, y: 261 }
+    size: { w: 2, h: 2 }
+  - id: wgN
+    label: "マグネトロン → 導波管 → 加熱室の横から入る"
+    marker: none
+    align: left
+    at: { x: 200, y: 470 }
+    size: { w: 380, h: 18 }
+  - id: t2
+    label: "② 加熱ムラの間隔は、波長の半分（6.1cm）"
+    marker: none
+    align: left
+    at: { x: 150, y: 500 }
+    size: { w: 600, h: 20 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 219, y: 629 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 699, y: 629 }
+    size: { w: 2, h: 2 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 219, y: 629 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 699, y: 629 }
+    size: { w: 2, h: 2 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 219, y: 551 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 219, y: 707 }
+    size: { w: 2, h: 2 }
+  - id: nd0
+    label: "節"
+    marker: none
+    align: center
+    at: { x: 196, y: 712 }
+    size: { w: 48, h: 18 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 279, y: 551 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 279, y: 707 }
+    size: { w: 2, h: 2 }
+  - id: nd1
+    label: "腹"
+    marker: none
+    align: center
+    at: { x: 256, y: 712 }
+    size: { w: 48, h: 18 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 339, y: 551 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 339, y: 707 }
+    size: { w: 2, h: 2 }
+  - id: nd2
+    label: "節"
+    marker: none
+    align: center
+    at: { x: 316, y: 712 }
+    size: { w: 48, h: 18 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 399, y: 551 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 399, y: 707 }
+    size: { w: 2, h: 2 }
+  - id: nd3
+    label: "腹"
+    marker: none
+    align: center
+    at: { x: 376, y: 712 }
+    size: { w: 48, h: 18 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 459, y: 551 }
+    size: { w: 2, h: 2 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 459, y: 707 }
+    size: { w: 2, h: 2 }
+  - id: nd4
+    label: "節"
+    marker: none
+    align: center
+    at: { x: 436, y: 712 }
+    size: { w: 48, h: 18 }
+  - id: p18
+    label: ""
+    marker: none
+    at: { x: 519, y: 551 }
+    size: { w: 2, h: 2 }
+  - id: p19
+    label: ""
+    marker: none
+    at: { x: 519, y: 707 }
+    size: { w: 2, h: 2 }
+  - id: nd5
+    label: "腹"
+    marker: none
+    align: center
+    at: { x: 496, y: 712 }
+    size: { w: 48, h: 18 }
+  - id: p20
+    label: ""
+    marker: none
+    at: { x: 579, y: 551 }
+    size: { w: 2, h: 2 }
+  - id: p21
+    label: ""
+    marker: none
+    at: { x: 579, y: 707 }
+    size: { w: 2, h: 2 }
+  - id: nd6
+    label: "節"
+    marker: none
+    align: center
+    at: { x: 556, y: 712 }
+    size: { w: 48, h: 18 }
+  - id: p22
+    label: ""
+    marker: none
+    at: { x: 639, y: 551 }
+    size: { w: 2, h: 2 }
+  - id: p23
+    label: ""
+    marker: none
+    at: { x: 639, y: 707 }
+    size: { w: 2, h: 2 }
+  - id: nd7
+    label: "腹"
+    marker: none
+    align: center
+    at: { x: 616, y: 712 }
+    size: { w: 48, h: 18 }
+  - id: p24
+    label: ""
+    marker: none
+    at: { x: 699, y: 551 }
+    size: { w: 2, h: 2 }
+  - id: p25
+    label: ""
+    marker: none
+    at: { x: 699, y: 707 }
+    size: { w: 2, h: 2 }
+  - id: nd8
+    label: "節"
+    marker: none
+    align: center
+    at: { x: 676, y: 712 }
+    size: { w: 48, h: 18 }
+  - id: p26
+    label: ""
+    marker: none
+    at: { x: 279, y: 745 }
+    size: { w: 2, h: 2 }
+  - id: p27
+    label: ""
+    marker: none
+    at: { x: 399, y: 745 }
+    size: { w: 2, h: 2 }
+  - id: halfN
+    label: "腹と腹の間隔 ＝ 半波長 ＝ 6.1cm"
+    marker: none
+    align: center
+    at: { x: 270, y: 752 }
+    size: { w: 400, h: 18 }
+  - id: hotN
+    label: "腹＝よく温まる　／　節＝温まらない"
+    marker: none
+    align: center
+    at: { x: 220, y: 776 }
+    size: { w: 480, h: 18 }
+  - id: h536
+    label: "波長は、光の速さと周波数で決まる"
+    hatch: solid
+    at: { x: 760, y: 536 }
+    size: { w: 480, h: 24 }
+  - id: x560
+    label: "周波数"
+    at: { x: 760, y: 560 }
+    size: { w: 240, h: 24 }
+  - id: y560
+    label: "2,450MHz（世界共通の ISM 帯）"
+    align: left
+    at: { x: 1000, y: 560 }
+    size: { w: 240, h: 24 }
+  - id: x584
+    label: "波長"
+    at: { x: 760, y: 584 }
+    size: { w: 240, h: 24 }
+  - id: y584
+    label: "30 万 km/s ÷ 2.45GHz ＝ 12.2cm"
+    align: left
+    at: { x: 1000, y: 584 }
+    size: { w: 240, h: 24 }
+  - id: x608
+    label: "腹と腹"
+    at: { x: 760, y: 608 }
+    size: { w: 240, h: 24 }
+  - id: y608
+    label: "半波長 ＝ 6.1cm"
+    align: left
+    at: { x: 1000, y: 608 }
+    size: { w: 240, h: 24 }
+  - id: x632
+    label: "腹と節"
+    at: { x: 760, y: 632 }
+    size: { w: 240, h: 24 }
+  - id: y632
+    label: "四分の一波長 ＝ 3.1cm"
+    align: left
+    at: { x: 1000, y: 632 }
+    size: { w: 240, h: 24 }
+  - id: why2
+    label: "ムラの間隔は波長で決まるので、箱の作りでは消せない。\nだから食品のほうを動かす —— ターンテーブル、\nまたは電波をかき混ぜる撹拌翼。"
+    at: { x: 760, y: 670 }
+    size: { w: 480, h: 80 }
+  - id: t3
+    label: "③ 覗けるのに、電波は出てこない"
+    marker: none
+    align: left
+    at: { x: 760, y: 766 }
+    size: { w: 480, h: 20 }
+  - id: h796
+    label: "穴の大きさと、通れるもの"
+    hatch: solid
+    at: { x: 760, y: 796 }
+    size: { w: 480, h: 24 }
+  - id: x820
+    label: "マイクロ波"
+    at: { x: 760, y: 820 }
+    size: { w: 240, h: 24 }
+  - id: y820
+    label: "波長 12.2cm。穴 1〜2mm は通れない"
+    align: left
+    at: { x: 1000, y: 820 }
+    size: { w: 240, h: 24 }
+  - id: x844
+    label: "可視光"
+    at: { x: 760, y: 844 }
+    size: { w: 240, h: 24 }
+  - id: y844
+    label: "波長 0.0005mm 前後。通れる"
+    align: left
+    at: { x: 1000, y: 844 }
+    size: { w: 240, h: 24 }
+  - id: why3
+    label: "金網は、電波にとってはつながった金属の板。\n穴が波長よりずっと小さいので、反射して外へ出ない。\n目には穴が見えるので、中は覗ける。"
+    at: { x: 760, y: 882 }
+    size: { w: 480, h: 80 }
+  - id: t4
+    label: "④ 温まるのは、水（と油や塩分）"
+    marker: none
+    align: left
+    at: { x: 760, y: 978 }
+    size: { w: 480, h: 20 }
+  - id: h1008
+    label: "なぜ器は熱くならないのか"
+    hatch: solid
+    at: { x: 760, y: 1008 }
+    size: { w: 480, h: 24 }
+  - id: x1032
+    label: "水の分子"
+    at: { x: 760, y: 1032 }
+    size: { w: 200, h: 24 }
+  - id: y1032
+    label: "極が偏っている。電界の向きに合わせて回る"
+    align: left
+    at: { x: 960, y: 1032 }
+    size: { w: 280, h: 24 }
+  - id: x1056
+    label: "2,450MHz"
+    at: { x: 760, y: 1056 }
+    size: { w: 200, h: 24 }
+  - id: y1056
+    label: "1 秒に 24.5 億回、向きが入れ替わる"
+    align: left
+    at: { x: 960, y: 1056 }
+    size: { w: 280, h: 24 }
+  - id: x1080
+    label: "熱になるもの"
+    at: { x: 760, y: 1080 }
+    size: { w: 200, h: 24 }
+  - id: y1080
+    label: "回ろうとして隣とこすれる摩擦"
+    align: left
+    at: { x: 960, y: 1080 }
+    size: { w: 280, h: 24 }
+  - id: x1104
+    label: "陶器・ガラス"
+    at: { x: 760, y: 1104 }
+    size: { w: 200, h: 24 }
+  - id: y1104
+    label: "回る分子が無いので、ほぼ温まらない"
+    align: left
+    at: { x: 960, y: 1104 }
+    size: { w: 280, h: 24 }
+  - id: why4
+    label: "器が熱いのは、中身から伝わったから。\n凍った食品が温まりにくいのは、氷の中では分子が\n回れないため（溶けた所だけ急に熱くなる）。"
+    at: { x: 760, y: 1142 }
+    size: { w: 480, h: 80 }
+  - id: r1
+    label: "電波はまっすぐ入れません（①）。マグネトロンから導波管を通して、加熱室の上や横から入れます。まっすぐ向けると、はね返った電波がマグネトロンを壊します。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1234 }
+    size: { w: 1090, h: 18 }
+  - id: r2
+    label: "加熱ムラの間隔は 6.1cm です（②）。波長 12.2cm の半分で、箱の作りでは消せません。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1258 }
+    size: { w: 1090, h: 18 }
+  - id: r3
+    label: "だから食品のほうを動かします。 ターンテーブルで回すか、撹拌翼で電波をかき混ぜるか。どちらも「ムラを平均する」装置です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1282 }
+    size: { w: 1090, h: 18 }
+  - id: r4
+    label: "チョコレートを回さずに温めると、6cm おきに溶けます。 その間隔 × 2 × 2.45GHz は光の速さになります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1306 }
+    size: { w: 1090, h: 18 }
+  - id: r5
+    label: "覗けるのに電波が出てこないのは、穴の大きさです（③）。1〜2mm の穴は、12.2cm の波にとっては「つながった金属の板」です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1330 }
+    size: { w: 1090, h: 18 }
+  - id: r6
+    label: "温まるのは水です（④）。極が偏った分子が、1 秒に 24.5 億回向きを変えようとして、隣とこすれます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1354 }
+    size: { w: 1090, h: 18 }
+  - id: r7
+    label: "器が熱いのは中身から伝わったからです。 凍った食品が温まりにくいのは、氷の中では分子が回れないためです。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1378 }
+    size: { w: 1090, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p2
+    to: p3
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p4
+    to: p5
+    curve: none
+    line: chain
+    ends: { from: none, to: none }
+  - from: p6
+    to: p7
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 224, y: 624.6 }
+      - { x: 228, y: 619.2 }
+      - { x: 232, y: 613.9 }
+      - { x: 236, y: 608.8 }
+      - { x: 240, y: 604 }
+      - { x: 244, y: 599.4 }
+      - { x: 248, y: 595.2 }
+      - { x: 252, y: 591.4 }
+      - { x: 256, y: 587.9 }
+      - { x: 260, y: 585 }
+      - { x: 264, y: 582.5 }
+      - { x: 268, y: 580.5 }
+      - { x: 272, y: 579.1 }
+      - { x: 276, y: 578.3 }
+      - { x: 280, y: 578 }
+      - { x: 284, y: 578.3 }
+      - { x: 288, y: 579.1 }
+      - { x: 292, y: 580.5 }
+      - { x: 296, y: 582.5 }
+      - { x: 300, y: 585 }
+      - { x: 304, y: 587.9 }
+      - { x: 308, y: 591.4 }
+      - { x: 312, y: 595.2 }
+      - { x: 316, y: 599.4 }
+      - { x: 320, y: 604 }
+      - { x: 324, y: 608.8 }
+      - { x: 328, y: 613.9 }
+      - { x: 332, y: 619.2 }
+      - { x: 336, y: 624.6 }
+      - { x: 340, y: 630 }
+      - { x: 344, y: 635.4 }
+      - { x: 348, y: 640.8 }
+      - { x: 352, y: 646.1 }
+      - { x: 356, y: 651.2 }
+      - { x: 360, y: 656 }
+      - { x: 364, y: 660.6 }
+      - { x: 368, y: 664.8 }
+      - { x: 372, y: 668.6 }
+      - { x: 376, y: 672.1 }
+      - { x: 380, y: 675 }
+      - { x: 384, y: 677.5 }
+      - { x: 388, y: 679.5 }
+      - { x: 392, y: 680.9 }
+      - { x: 396, y: 681.7 }
+      - { x: 400, y: 682 }
+      - { x: 404, y: 681.7 }
+      - { x: 408, y: 680.9 }
+      - { x: 412, y: 679.5 }
+      - { x: 416, y: 677.5 }
+      - { x: 420, y: 675 }
+      - { x: 424, y: 672.1 }
+      - { x: 428, y: 668.6 }
+      - { x: 432, y: 664.8 }
+      - { x: 436, y: 660.6 }
+      - { x: 440, y: 656 }
+      - { x: 444, y: 651.2 }
+      - { x: 448, y: 646.1 }
+      - { x: 452, y: 640.8 }
+      - { x: 456, y: 635.4 }
+      - { x: 460, y: 630 }
+      - { x: 464, y: 624.6 }
+      - { x: 468, y: 619.2 }
+      - { x: 472, y: 613.9 }
+      - { x: 476, y: 608.8 }
+      - { x: 480, y: 604 }
+      - { x: 484, y: 599.4 }
+      - { x: 488, y: 595.2 }
+      - { x: 492, y: 591.4 }
+      - { x: 496, y: 587.9 }
+      - { x: 500, y: 585 }
+      - { x: 504, y: 582.5 }
+      - { x: 508, y: 580.5 }
+      - { x: 512, y: 579.1 }
+      - { x: 516, y: 578.3 }
+      - { x: 520, y: 578 }
+      - { x: 524, y: 578.3 }
+      - { x: 528, y: 579.1 }
+      - { x: 532, y: 580.5 }
+      - { x: 536, y: 582.5 }
+      - { x: 540, y: 585 }
+      - { x: 544, y: 587.9 }
+      - { x: 548, y: 591.4 }
+      - { x: 552, y: 595.2 }
+      - { x: 556, y: 599.4 }
+      - { x: 560, y: 604 }
+      - { x: 564, y: 608.8 }
+      - { x: 568, y: 613.9 }
+      - { x: 572, y: 619.2 }
+      - { x: 576, y: 624.6 }
+      - { x: 580, y: 630 }
+      - { x: 584, y: 635.4 }
+      - { x: 588, y: 640.8 }
+      - { x: 592, y: 646.1 }
+      - { x: 596, y: 651.2 }
+      - { x: 600, y: 656 }
+      - { x: 604, y: 660.6 }
+      - { x: 608, y: 664.8 }
+      - { x: 612, y: 668.6 }
+      - { x: 616, y: 672.1 }
+      - { x: 620, y: 675 }
+      - { x: 624, y: 677.5 }
+      - { x: 628, y: 679.5 }
+      - { x: 632, y: 680.9 }
+      - { x: 636, y: 681.7 }
+      - { x: 640, y: 682 }
+      - { x: 644, y: 681.7 }
+      - { x: 648, y: 680.9 }
+      - { x: 652, y: 679.5 }
+      - { x: 656, y: 677.5 }
+      - { x: 660, y: 675 }
+      - { x: 664, y: 672.1 }
+      - { x: 668, y: 668.6 }
+      - { x: 672, y: 664.8 }
+      - { x: 676, y: 660.6 }
+      - { x: 680, y: 656 }
+      - { x: 684, y: 651.2 }
+      - { x: 688, y: 646.1 }
+      - { x: 692, y: 640.8 }
+      - { x: 696, y: 635.4 }
+  - from: p8
+    to: p9
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }
+  - from: p10
+    to: p11
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }
+  - from: p12
+    to: p13
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }
+  - from: p14
+    to: p15
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }
+  - from: p16
+    to: p17
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }
+  - from: p18
+    to: p19
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }
+  - from: p20
+    to: p21
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }
+  - from: p22
+    to: p23
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }
+  - from: p24
+    to: p25
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }
+  - from: p26
+    to: p27
+    curve: none
+    ends: { from: arrow, to: arrow }

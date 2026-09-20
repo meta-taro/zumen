@@ -1,0 +1,306 @@
+version: 1
+kind: placement
+arrows: true
+title: START 法（一次トリアージ）
+# **医療者でなくてもできるように作られている。**
+# 見るのは**歩行・呼吸・循環・意識の 4 つだけ**で、1 人 30 秒〜1 分。
+#
+# **赤に行く道が 3 本ある** —— 呼吸数 10〜29 回/分の外、橈骨動脈が触れない
+# （脈 120/分 以上）、簡単な指示に従えない。**どれか 1 つで赤。**
+#
+# **この場でしてよいのは 2 つだけ** —— 用手気道確保と、活動性出血の止血。
+# 止まると、後ろの人が見てもらえなくなる。
+#
+# **4 区分は順番であって、見捨てることではない。** 状態は変わるので、何度もやり直す。
+nodes:
+  - id: t1
+    label: "① 見るのは 4 つだけ（歩行・呼吸・循環・意識）"
+    marker: none
+    align: left
+    at: { x: 150, y: 200 }
+    size: { w: 560, h: 20 }
+  - id: q1
+    label: "歩けるか"
+    at: { x: 170, y: 260 }
+    size: { w: 300, h: 40 }
+  - id: q2
+    label: "呼吸はあるか（気道確保しても）"
+    at: { x: 170, y: 350 }
+    size: { w: 300, h: 44 }
+  - id: q3
+    label: "呼吸数は 10〜29 回/分か"
+    at: { x: 170, y: 452 }
+    size: { w: 300, h: 40 }
+  - id: q4
+    label: "橈骨動脈を触れるか（脈 120/分 未満）"
+    at: { x: 170, y: 542 }
+    size: { w: 300, h: 44 }
+  - id: q5
+    label: "簡単な指示に従えるか"
+    at: { x: 170, y: 644 }
+    size: { w: 300, h: 40 }
+  - id: a3
+    label: "緑　Ⅲ\n保留群（軽症）"
+    at: { x: 540, y: 254 }
+    size: { w: 190, h: 52 }
+  - id: a0
+    label: "黒　0\n死亡群"
+    hatch: solid
+    at: { x: 540, y: 346 }
+    size: { w: 190, h: 52 }
+  - id: a1
+    label: "赤　Ⅰ\n\n最優先治療群\n（重症）"
+    hatch: lines
+    at: { x: 540, y: 452 }
+    size: { w: 190, h: 232 }
+  - id: a2
+    label: "黄　Ⅱ　待機的治療群（中等症）"
+    at: { x: 170, y: 744 }
+    size: { w: 300, h: 44 }
+  - id: n1
+    label: "赤に行く道が 3 本ある。 どれか 1 つで赤。"
+    marker: none
+    align: left
+    at: { x: 150, y: 806 }
+    size: { w: 560, h: 18 }
+  - id: n2
+    label: "歩ける人を先に分けるので、いちばん多い人が最初に抜ける。"
+    marker: none
+    align: left
+    at: { x: 150, y: 828 }
+    size: { w: 560, h: 18 }
+  - id: t2
+    label: "② 4 つに分ける"
+    marker: none
+    align: left
+    at: { x: 760, y: 200 }
+    size: { w: 480, h: 20 }
+  - id: c0_0
+    label: "色"
+    hatch: solid
+    at: { x: 760, y: 232 }
+    size: { w: 70, h: 28 }
+  - id: c0_1
+    label: "番号"
+    hatch: solid
+    at: { x: 830, y: 232 }
+    size: { w: 60, h: 28 }
+  - id: c0_2
+    label: "名前"
+    hatch: solid
+    at: { x: 890, y: 232 }
+    size: { w: 160, h: 28 }
+  - id: c0_3
+    label: "意味"
+    hatch: solid
+    at: { x: 1050, y: 232 }
+    size: { w: 190, h: 28 }
+  - id: c1_0
+    label: "赤"
+    at: { x: 760, y: 260 }
+    size: { w: 70, h: 28 }
+  - id: c1_1
+    label: "Ⅰ"
+    at: { x: 830, y: 260 }
+    size: { w: 60, h: 28 }
+  - id: c1_2
+    label: "最優先治療群"
+    at: { x: 890, y: 260 }
+    size: { w: 160, h: 28 }
+  - id: c1_3
+    label: "いま処置すれば助かる"
+    at: { x: 1050, y: 260 }
+    size: { w: 190, h: 28 }
+  - id: c2_0
+    label: "黄"
+    at: { x: 760, y: 288 }
+    size: { w: 70, h: 28 }
+  - id: c2_1
+    label: "Ⅱ"
+    at: { x: 830, y: 288 }
+    size: { w: 60, h: 28 }
+  - id: c2_2
+    label: "待機的治療群"
+    at: { x: 890, y: 288 }
+    size: { w: 160, h: 28 }
+  - id: c2_3
+    label: "少し待てる"
+    at: { x: 1050, y: 288 }
+    size: { w: 190, h: 28 }
+  - id: c3_0
+    label: "緑"
+    at: { x: 760, y: 316 }
+    size: { w: 70, h: 28 }
+  - id: c3_1
+    label: "Ⅲ"
+    at: { x: 830, y: 316 }
+    size: { w: 60, h: 28 }
+  - id: c3_2
+    label: "保留群"
+    at: { x: 890, y: 316 }
+    size: { w: 160, h: 28 }
+  - id: c3_3
+    label: "歩ける。急がない"
+    at: { x: 1050, y: 316 }
+    size: { w: 190, h: 28 }
+  - id: c4_0
+    label: "黒"
+    at: { x: 760, y: 344 }
+    size: { w: 70, h: 28 }
+  - id: c4_1
+    label: "0"
+    at: { x: 830, y: 344 }
+    size: { w: 60, h: 28 }
+  - id: c4_2
+    label: "死亡群"
+    at: { x: 890, y: 344 }
+    size: { w: 160, h: 28 }
+  - id: c4_3
+    label: "呼吸が戻らない"
+    at: { x: 1050, y: 344 }
+    size: { w: 190, h: 28 }
+  - id: n3
+    label: "順番であって、見捨てることではありません。"
+    marker: none
+    align: left
+    at: { x: 760, y: 382 }
+    size: { w: 480, h: 18 }
+  - id: n4
+    label: "赤を先に運ぶと、全体で助かる人がいちばん多くなる。"
+    marker: none
+    align: left
+    at: { x: 760, y: 404 }
+    size: { w: 480, h: 18 }
+  - id: t3
+    label: "③ この場でしてよいのは 2 つだけ"
+    marker: none
+    align: left
+    at: { x: 760, y: 432 }
+    size: { w: 480, h: 20 }
+  - id: p1
+    label: "用手による気道確保"
+    at: { x: 760, y: 452 }
+    size: { w: 230, h: 36 }
+  - id: p2
+    label: "活動性の出血の止血"
+    at: { x: 1000, y: 452 }
+    size: { w: 230, h: 36 }
+  - id: pp1
+    label: "それ以外の処置はしません。 止まると、後ろの人が"
+    marker: none
+    align: left
+    at: { x: 760, y: 504 }
+    size: { w: 480, h: 18 }
+  - id: pp2
+    label: "見てもらえなくなるからです。1 人 30 秒〜1 分。"
+    marker: none
+    align: left
+    at: { x: 760, y: 526 }
+    size: { w: 480, h: 18 }
+  - id: pp4
+    label: "状態は変わります。 黄が赤になり、赤が黒になる。"
+    marker: none
+    align: left
+    at: { x: 760, y: 570 }
+    size: { w: 480, h: 18 }
+  - id: pp5
+    label: "だからトリアージは何度もやり直します（搬送前・搬入時）。"
+    marker: none
+    align: left
+    at: { x: 760, y: 592 }
+    size: { w: 480, h: 18 }
+  - id: pp7
+    label: "医療者でなくてもできるように作られています ——"
+    marker: none
+    align: left
+    at: { x: 760, y: 636 }
+    size: { w: 480, h: 18 }
+  - id: pp8
+    label: "専門の知識ではなく、見える 4 つだけで決まります。"
+    marker: none
+    align: left
+    at: { x: 760, y: 658 }
+    size: { w: 480, h: 18 }
+  - id: r1
+    label: "START 法は、医療者でなくてもできるように作られています。 見るのは歩行・呼吸・循環・意識の 4 つだけ。"
+    marker: none
+    align: left
+    at: { x: 150, y: 900 }
+    size: { w: 1090, h: 18 }
+  - id: r2
+    label: "最初に「歩けるか」を聞くのは、いちばん人数の多い群を一度に抜くためです。歩ける人は自分で集合場所へ移動します。"
+    marker: none
+    align: left
+    at: { x: 150, y: 924 }
+    size: { w: 1090, h: 18 }
+  - id: r3
+    label: "赤に行く道が 3 本あります（①）—— 呼吸数・循環・意識のどれか 1 つでも外れたら赤。足し算ではなく、どれか 1 つです。"
+    marker: none
+    align: left
+    at: { x: 150, y: 948 }
+    size: { w: 1090, h: 18 }
+  - id: r4
+    label: "呼吸数 10〜29 回/分の外（30 以上か 9 以下）、橈骨動脈が触れないか脈 120/分 以上、簡単な指示に従えない —— これが赤の 3 条件。"
+    marker: none
+    align: left
+    at: { x: 150, y: 972 }
+    size: { w: 1090, h: 18 }
+  - id: r5
+    label: "この場でしてよいのは 2 つだけ（③）。用手による気道確保と、活動性の出血の止血。止まると、後ろの人が見てもらえません。"
+    marker: none
+    align: left
+    at: { x: 150, y: 996 }
+    size: { w: 1090, h: 18 }
+  - id: r6
+    label: "4 つの区分は順番であって、見捨てることではありません。 赤を先に運ぶと、全体で助かる人がいちばん多くなります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1020 }
+    size: { w: 1090, h: 18 }
+  - id: r7
+    label: "状態は変わるので、何度もやり直します。 1 回の判定は「そのときの順番」で、決まった札ではありません。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1044 }
+    size: { w: 1090, h: 18 }
+edges:
+  - from: q1
+    to: a3
+    curve: none
+    label: "はい"
+  - from: q1
+    to: q2
+    curve: none
+    label: "いいえ"
+  - from: q2
+    to: a0
+    curve: none
+    label: "ない"
+  - from: q2
+    to: q3
+    curve: none
+    label: "ある"
+  - from: q3
+    to: a1
+    curve: none
+    label: "いいえ"
+  - from: q3
+    to: q4
+    curve: none
+    label: "はい"
+  - from: q4
+    to: a1
+    curve: none
+    label: "いいえ"
+  - from: q4
+    to: q5
+    curve: none
+    label: "はい"
+  - from: q5
+    to: a1
+    curve: none
+    label: "いいえ"
+  - from: q5
+    to: a2
+    curve: none
+    label: "はい"

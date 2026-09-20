@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>基板の層を増やすのは、GND を近づけるため — zumen example 237</title>
+<link rel="icon" type="image/svg+xml" href="../../../icon.svg">
+<meta name="theme-color" content="#23232b">
+<meta name="description" content="Adding layers is not only about routing: it brings the ground plane close, and the same 50 ohms goes from a 2.85mm trace to a 0.34mm one">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="zumen">
+<meta property="og:locale" content="en_US">
+<meta property="og:url" content="https://meta-taro.github.io/zumen/en/g/237/">
+<meta property="og:title" content="基板の層を増やすのは、GND を近づけるため — zumen example 237">
+<meta property="og:description" content="Adding layers is not only about routing: it brings the ground plane close, and the same 50 ohms goes from a 2.85mm trace to a 0.34mm one">
+<meta property="og:image" content="https://meta-taro.github.io/zumen/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="基板の層を増やすのは、GND を近づけるため — zumen example 237">
+<meta name="twitter:description" content="Adding layers is not only about routing: it brings the ground plane close, and the same 50 ohms goes from a 2.85mm trace to a 0.34mm one">
+<meta name="twitter:image" content="https://meta-taro.github.io/zumen/og.png">
+<link rel="stylesheet" href="../../../style.css">
+<link rel="canonical" href="https://meta-taro.github.io/zumen/en/g/237/">
+<link rel="alternate" hreflang="en" href="https://meta-taro.github.io/zumen/en/g/237/">
+<link rel="alternate" hreflang="ja" href="https://meta-taro.github.io/zumen/g/237/">
+<link rel="alternate" hreflang="x-default" href="https://meta-taro.github.io/zumen/g/237/">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="alternate" type="text/markdown" href="https://meta-taro.github.io/zumen/llms.txt" title="llms.txt">
+<link rel="sitemap" type="application/xml" href="https://meta-taro.github.io/zumen/sitemap.xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": "基板の層を増やすのは、GND を近づけるため",
+  "description": "Adding layers is not only about routing: it brings the ground plane close, and the same 50 ohms goes from a 2.85mm trace to a 0.34mm one",
+  "url": "https://meta-taro.github.io/zumen/en/g/237/",
+  "image": "https://meta-taro.github.io/zumen/gallery/237-%E5%9F%BA%E6%9D%BF%E3%81%AE%E5%B1%A4%E6%A7%8B%E6%88%90.svg",
+  "inLanguage": "en",
+  "license": "https://opensource.org/licenses/MIT",
+  "isPartOf": {
+    "@type": "CollectionPage",
+    "name": "IT and software",
+    "url": "https://meta-taro.github.io/zumen/en/c/it/"
+  },
+  "encodingFormat": "text/yaml",
+  "isAccessibleForFree": true
+}
+</script>
+</head>
+<body class="sub">
+<header class="bar">
+  <a class="home" href="../../../">zumen</a>
+  <nav><a href="../../c/it/">IT and software</a></nav>
+</header>
+<main>
+<article>
+  <p class="crumb">IT and software</p>
+  <h1>基板の層を増やすのは、GND を近づけるため</h1>
+  <p class="lead">Adding layers is not only about routing: it brings the ground plane close, and the same 50 ohms goes from a 2.85mm trace to a 0.34mm one</p>
+  <figure>
+    <img src="../../../gallery/237-%E5%9F%BA%E6%9D%BF%E3%81%AE%E5%B1%A4%E6%A7%8B%E6%88%90.svg" alt="Adding layers is not only about routing: it brings the ground plane close, and the same 50 ohms goes from a 2.85mm trace to a 0.34mm one" loading="lazy">
+  </figure>
+  <p class="made">This drawing comes from one YAML file. No shape was moved by hand.</p>
+  <h2>What the source says</h2>
+  <p><strong>層を増やすのは、配線を通すためだけではない。</strong>GND を信号の真下に近づけて、<strong>線を細くするため</strong>。</p>
+  <p>同じ 50Ω が、2 層（GND まで 1.53mm）では約 2.85mm、4 層（GND まで 0.2mm）では約 0.33mm —— <strong>8.5 倍の差</strong>。2 層で 3mm の線は、部品の足の間隔（2.54mm）より太くて引けない。</p>
+  <p><strong>特性インピーダンスは線幅だけでは決まらない</strong> —— GND までの厚み h とセット。板厚 1.6mm は同じでも、どこに GND を置くかで線幅が変わる。</p>
+  <p>線幅は目安式から解いた（h ＝ 1.53mm で 2.85mm は、実務で言われる 2.9〜3.1mm と一致する）。</p>
+  <h2>Source (YAML)</h2>
+  <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/237-%E5%9F%BA%E6%9D%BF%E3%81%AE%E5%B1%A4%E6%A7%8B%E6%88%90.zumen.yaml"><code>examples/gallery/237-基板の層構成.zumen.yaml</code></a></p>
+  <h2>More in this field</h2>
+  <ul class="near"><li><a href="../01/">On-premise server layout</a></li><li><a href="../02/">Cloud architecture</a></li><li><a href="../03/">Data flow</a></li><li><a href="../04/">Network layout</a></li><li><a href="../21/">Entity relationships</a></li><li><a href="../26/">Data centre rack elevation</a></li><li><a href="../46/">Class diagram (UML)</a></li><li><a href="../47/">State machine (UML)</a></li></ul>
+</article>
+</main>
+<footer class="foot">
+  <p><a href="https://github.com/meta-taro/zumen">GitHub</a> · MIT · <a href="https://meta-taro.github.io/zumen/g/237/">日本語</a></p>
+</footer>
+</body>
+</html>

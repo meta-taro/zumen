@@ -21,13 +21,15 @@
  * 返さないと、エージェントは当て推量で書く。
  * 実際、交差が 143 本ある図を出しても気づけなかった（Issue 004）。
  */
-import { readFileSync, writeFileSync, existsSync, readdirSync, statSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
+import { readFileSync, writeFileSync, existsSync, readdirSync, statSync, mkdtempSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 import { join, relative, resolve } from 'node:path';
 
 import { toDrawio } from './drawio.ts';
 import { placeEdgeLabels } from './edge-labels.ts';
 import { getPins, parse } from './format.ts';
-import { crossings, edgesUnderBoxes, groupEscapes, layout, overlaps, straddles } from './layout.ts';
+import { crossingEdges, crossings, edgesUnderBoxes, groupEscapes, layout, overlaps, straddles } from './layout.ts';
 import { messages } from './messages.ts';
 import { PASS_LINE, measure } from './measure.ts';
 import { merge } from './merge.ts';
@@ -126,6 +128,8 @@ export function spec(): {
   weights: string[];
   /** 方位（`src/grid.ts`）。 */
   norths: string[];
+  /** **書き出せる形**。`png` は絵そのもの（Chrome があるときだけ）。 */
+  exports: string[];
   appearances: string[];
   rules: string[];
 } {
@@ -163,6 +167,7 @@ export function spec(): {
     symbols: [...SYMBOLS],
     weights: [...WEIGHTS],
     norths: [...NORTHS],
+    exports: ['svg', 'png', 'mermaid', 'drawio'],
     appearances: Object.keys(APPEARANCE),
     rules: m.rules,
   };
@@ -188,6 +193,8 @@ export interface Inspection {
   groups: number;
   /** 線どうしの交差。**多いと読めない。** */
   crossings: number;
+  /** **交わっている辺の組。** 数だけでは、どれとどれかを探せない（2026-09-19）。 */
+  crossingEdges: [string, string][];
   /** 箱どうしの重なり。**入れ子も数える。** */
   overlaps: [string, string][];
   /**
@@ -335,6 +342,7 @@ export async function inspect(source: string): Promise<Inspection> {
       crossings: 0,
       overlaps: [],
       straddles: [],
+      crossingEdges: [],
       groupEscapes: [],
       collisions: [],
       width: 0,
@@ -381,6 +389,7 @@ export async function inspect(source: string): Promise<Inspection> {
     crossings: crossed,
     overlaps: overlaps(placed),
     straddles: straddles(placed),
+    crossingEdges: crossingEdges(placed),
     groupEscapes: groupEscapes(placed),
     collisions: placed.collisions,
     width: placed.width,
@@ -468,7 +477,7 @@ export function propose(path: string, source: string, io: Io = realIo): WriteRes
 
 // --- 書き出す --------------------------------------------------------------
 
-export type ExportKind = 'svg' | 'mermaid' | 'drawio';
+export type ExportKind = 'svg' | 'mermaid' | 'drawio' | 'png';
 
 export interface ExportOptions {
   /**
@@ -483,6 +492,82 @@ export interface ExportOptions {
 }
 
 /**
+ * **図を絵にして返す**（2026-09-18）。
+ *
+ * これまで書き出しは SVG を**文字で**返していた。文字は読めても**絵は見えない** ——
+ * だから「名前が扉の弧に乗っている」「扇の半径が読めない」に気づけるのは、
+ * 人が画面を開いたときだけだった。**リモートでは誰も開かない。**
+ *
+ * ## 符号化器は同梱しない
+ *
+ * PNG にするのに Chrome を使う（`scripts/icon.mjs` と同じ理由。依存を増やさない）。
+ * **無ければ、無いと言う。** 黙って落とすと、絵を見ないまま「見た」ことになる。
+ */
+export interface Png {
+  /** PNG の中身（base64）。**Chrome が無ければ null。** */
+  image: string | null;
+  /** 人とエージェントへの一言（どこで何をしたか／なぜ返せないか）。 */
+  note: string;
+}
+
+/** Chrome の探し方（`scripts/icon.mjs` と同じ並び）。 */
+const CHROME = [
+  process.env.CHROME_PATH,
+  '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+  '/Applications/Chromium.app/Contents/MacOS/Chromium',
+  '/usr/bin/google-chrome',
+  '/usr/bin/chromium',
+  'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
+];
+
+function findChrome(): string | null {
+  for (const path of CHROME) {
+    if (typeof path === 'string' && path.length > 0 && existsSync(path)) return path;
+  }
+  return null;
+}
+
+/** SVG を PNG にする（Chrome を 1 回だけ起動する）。 */
+function shoot(chrome: string, svg: string): Buffer {
+  const dir = mkdtempSync(join(tmpdir(), 'zumen-png-'));
+  const page = join(dir, 'p.html');
+  const out = join(dir, 'p.png');
+  const width = Number(/width="(\d+)"/.exec(svg)?.[1] ?? 1200);
+  const height = Number(/height="(\d+)"/.exec(svg)?.[1] ?? 800);
+  writeFileSync(page, `<!doctype html><meta charset="utf-8"><style>*{margin:0}</style>${svg}`);
+  execFileSync(chrome, [
+    '--headless',
+    '--disable-gpu',
+    '--hide-scrollbars',
+    '--force-device-scale-factor=2',
+    '--default-background-color=FFFFFF',
+    `--screenshot=${out}`,
+    `--window-size=${width},${height}`,
+    `file://${page}`,
+  ], { stdio: 'ignore' });
+  const png = readFileSync(out);
+  rmSync(dir, { recursive: true, force: true });
+  return png;
+}
+
+export async function pngOf(
+  source: string,
+  options: ExportOptions = {},
+  chromeOf: () => string | null = findChrome,
+  shootWith: (chrome: string, svg: string) => Buffer = shoot,
+): Promise<Png> {
+  const m = messages().tools;
+  const svg = await exportAs(source, 'svg', options);
+  const chrome = chromeOf();
+  if (chrome === null) return { image: null, note: m.noChrome };
+  try {
+    return { image: shootWith(chrome, svg).toString('base64'), note: m.pngMade };
+  } catch (error) {
+    return { image: null, note: `${m.pngFailed} ${String(error)}` };
+  }
+}
+
+/**
  * 書き出す。**落ちるものは、それぞれの書き出しが自分で断る。**
  */
 export async function exportAs(
@@ -491,6 +576,8 @@ export async function exportAs(
   options: ExportOptions = {},
 ): Promise<string> {
   if (kind === 'mermaid') return toMermaid(source);
+  // png はここでは扱わない（絵は文字ではないので `pngOf` が返す）。
+  if (kind === 'png') return (await pngOf(source, options)).note;
   const placed = await layout(source);
   if (kind === 'drawio') return toDrawio(placed, titleOf(source));
   return render(placed, options.theme, options.intent, kindOf(source) === 'placement');

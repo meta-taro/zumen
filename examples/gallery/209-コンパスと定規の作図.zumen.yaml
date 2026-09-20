@@ -1,0 +1,807 @@
+version: 1
+kind: placement
+arrows: true
+title: コンパスと定規の作図（3 つの基本）
+# **目盛りは使わない。**
+#
+# 使えるのは「**同じ長さを移す**」（コンパス）と「**2 点を結ぶ**」（定規）の 2 つだけ。
+# **「同じ開き」が、等しい長さを作る** —— だから目盛りが要らない。
+#
+# 破線は**作図の跡**（弧）。実際の答案でも消さずに残す —— どう作ったかが答えだから。
+nodes:
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 169, y: 519 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 439, y: 519 }
+    size: { w: 2, h: 2 }
+  - id: a1
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 196, y: 516 }
+    size: { w: 8, h: 8 }
+  - id: a1_n
+    label: "A"
+    marker: none
+    align: left
+    at: { x: 170, y: 494 }
+    size: { w: 60, h: 18 }
+  - id: b1
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 406, y: 516 }
+    size: { w: 8, h: 8 }
+  - id: b1_n
+    label: "B"
+    marker: none
+    align: left
+    at: { x: 420, y: 496 }
+    size: { w: 60, h: 18 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 248.6, y: 388.1 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 248.6, y: 649.9 }
+    size: { w: 2, h: 2 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 359.4, y: 649.9 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 359.4, y: 388.1 }
+    size: { w: 2, h: 2 }
+  - id: pt_p
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 301, y: 423.4 }
+    size: { w: 8, h: 8 }
+  - id: pt_p_n
+    label: "P"
+    marker: none
+    align: left
+    at: { x: 315, y: 401.4 }
+    size: { w: 60, h: 18 }
+  - id: pt_q
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 301, y: 608.6 }
+    size: { w: 8, h: 8 }
+  - id: pt_q_n
+    label: "Q"
+    marker: none
+    align: left
+    at: { x: 315, y: 618.6 }
+    size: { w: 60, h: 18 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 304, y: 386.4 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 304, y: 651.6 }
+    size: { w: 2, h: 2 }
+  - id: t1
+    label: "① 垂直二等分線"
+    marker: none
+    align: left
+    at: { x: 180, y: 317.4 }
+    size: { w: 300, h: 20 }
+  - id: t1b
+    label: "　A と B から同じ開きで弧を描く。"
+    marker: none
+    align: left
+    at: { x: 180, y: 339.4 }
+    size: { w: 300, h: 18 }
+  - id: t1c
+    label: "P と Q を結べば、AB の垂直二等分線"
+    marker: none
+    align: left
+    at: { x: 180, y: 668.6 }
+    size: { w: 340, h: 18 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 639, y: 599 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 698.5, y: 376.8 }
+    size: { w: 2, h: 2 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 639, y: 599 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 829.2, y: 537.2 }
+    size: { w: 2, h: 2 }
+  - id: o2
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 636, y: 596 }
+    size: { w: 8, h: 8 }
+  - id: o2_n
+    label: "O"
+    marker: none
+    align: left
+    at: { x: 612, y: 604 }
+    size: { w: 60, h: 18 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 656, y: 480.2 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 756.7, y: 575.8 }
+    size: { w: 2, h: 2 }
+  - id: c2
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 667.1, y: 480.1 }
+    size: { w: 8, h: 8 }
+  - id: c2_n
+    label: "C"
+    marker: none
+    align: left
+    at: { x: 641.1, y: 478.1 }
+    size: { w: 60, h: 18 }
+  - id: d2
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 750.1, y: 558.9 }
+    size: { w: 8, h: 8 }
+  - id: d2_n
+    label: "D"
+    marker: none
+    align: left
+    at: { x: 764.1, y: 556.9 }
+    size: { w: 60, h: 18 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 670.1, y: 363.1 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 774, y: 543.1 }
+    size: { w: 2, h: 2 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 633.1, y: 561.9 }
+    size: { w: 2, h: 2 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 813.1, y: 458 }
+    size: { w: 2, h: 2 }
+  - id: e2
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 791.2, y: 432.5 }
+    size: { w: 8, h: 8 }
+  - id: e2_n
+    label: "E"
+    marker: none
+    align: left
+    at: { x: 763.2, y: 430.5 }
+    size: { w: 60, h: 18 }
+  - id: p18
+    label: ""
+    marker: none
+    at: { x: 639, y: 599 }
+    size: { w: 2, h: 2 }
+  - id: p19
+    label: ""
+    marker: none
+    at: { x: 787, y: 443 }
+    size: { w: 2, h: 2 }
+  - id: t2
+    label: "② 角の二等分線"
+    marker: none
+    align: left
+    at: { x: 620, y: 300 }
+    size: { w: 230, h: 20 }
+  - id: t2b
+    label: "　O から弧 → C・D → E。"
+    marker: none
+    align: left
+    at: { x: 620, y: 322 }
+    size: { w: 230, h: 18 }
+  - id: t2c
+    label: "O と E を結べば、角の二等分線"
+    marker: none
+    align: left
+    at: { x: 620, y: 640 }
+    size: { w: 230, h: 18 }
+  - id: p20
+    label: ""
+    marker: none
+    at: { x: 219, y: 959 }
+    size: { w: 2, h: 2 }
+  - id: p21
+    label: ""
+    marker: none
+    at: { x: 419, y: 959 }
+    size: { w: 2, h: 2 }
+  - id: a3
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 216, y: 956 }
+    size: { w: 8, h: 8 }
+  - id: a3_n
+    label: "A"
+    marker: none
+    align: left
+    at: { x: 190, y: 964 }
+    size: { w: 60, h: 18 }
+  - id: b3
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 416, y: 956 }
+    size: { w: 8, h: 8 }
+  - id: b3_n
+    label: "B"
+    marker: none
+    align: left
+    at: { x: 430, y: 964 }
+    size: { w: 60, h: 18 }
+  - id: p22
+    label: ""
+    marker: none
+    at: { x: 247.5, y: 761 }
+    size: { w: 2, h: 2 }
+  - id: p23
+    label: ""
+    marker: none
+    at: { x: 406.9, y: 890.6 }
+    size: { w: 2, h: 2 }
+  - id: p24
+    label: ""
+    marker: none
+    at: { x: 231.1, y: 890.6 }
+    size: { w: 2, h: 2 }
+  - id: p25
+    label: ""
+    marker: none
+    at: { x: 390.5, y: 761 }
+    size: { w: 2, h: 2 }
+  - id: c3
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 316, y: 782.8 }
+    size: { w: 8, h: 8 }
+  - id: c3_n
+    label: "C"
+    marker: none
+    align: left
+    at: { x: 330, y: 760.8 }
+    size: { w: 60, h: 18 }
+  - id: p26
+    label: ""
+    marker: none
+    at: { x: 219, y: 959 }
+    size: { w: 2, h: 2 }
+  - id: p27
+    label: ""
+    marker: none
+    at: { x: 319, y: 785.8 }
+    size: { w: 2, h: 2 }
+  - id: p28
+    label: ""
+    marker: none
+    at: { x: 419, y: 959 }
+    size: { w: 2, h: 2 }
+  - id: p29
+    label: ""
+    marker: none
+    at: { x: 319, y: 785.8 }
+    size: { w: 2, h: 2 }
+  - id: t3
+    label: "③ 正三角形"
+    marker: none
+    align: left
+    at: { x: 180, y: 690.8 }
+    size: { w: 300, h: 20 }
+  - id: t3b
+    label: "　コンパスの開きを AB のまま、両端から弧。"
+    marker: none
+    align: left
+    at: { x: 180, y: 712.8 }
+    size: { w: 320, h: 18 }
+  - id: t3c
+    label: "交点 C を結べば、3 辺が等しい"
+    marker: none
+    align: left
+    at: { x: 180, y: 1000 }
+    size: { w: 320, h: 18 }
+  - id: h200
+    label: "使ってよい道具"
+    hatch: solid
+    at: { x: 860, y: 200 }
+    size: { w: 420, h: 24 }
+  - id: x224
+    label: "定規"
+    at: { x: 860, y: 224 }
+    size: { w: 190, h: 24 }
+  - id: y224
+    label: "2 点をまっすぐ結ぶだけ"
+    align: left
+    at: { x: 1050, y: 224 }
+    size: { w: 230, h: 24 }
+  - id: x248
+    label: "コンパス"
+    at: { x: 860, y: 248 }
+    size: { w: 190, h: 24 }
+  - id: y248
+    label: "中心と半径で円・弧を描く"
+    align: left
+    at: { x: 1050, y: 248 }
+    size: { w: 230, h: 24 }
+  - id: x272
+    label: "使わない"
+    at: { x: 860, y: 272 }
+    size: { w: 190, h: 24 }
+  - id: y272
+    label: "定規の目盛り"
+    align: left
+    at: { x: 1050, y: 272 }
+    size: { w: 230, h: 24 }
+  - id: x296
+    label: "使わない"
+    at: { x: 860, y: 296 }
+    size: { w: 190, h: 24 }
+  - id: y296
+    label: "分度器"
+    align: left
+    at: { x: 1050, y: 296 }
+    size: { w: 230, h: 24 }
+  - id: x320
+    label: "なぜ"
+    at: { x: 860, y: 320 }
+    size: { w: 190, h: 24 }
+  - id: y320
+    label: "「測る」ではなく「作る」から"
+    align: left
+    at: { x: 1050, y: 320 }
+    size: { w: 230, h: 24 }
+  - id: h362
+    label: "なぜ、こうすると正しいか"
+    hatch: solid
+    at: { x: 860, y: 362 }
+    size: { w: 420, h: 24 }
+  - id: x386
+    label: "垂直二等分線"
+    at: { x: 860, y: 386 }
+    size: { w: 190, h: 24 }
+  - id: y386
+    label: "P も Q も、A と B から等距離"
+    align: left
+    at: { x: 1050, y: 386 }
+    size: { w: 230, h: 24 }
+  - id: x410
+    label: ""
+    at: { x: 860, y: 410 }
+    size: { w: 190, h: 24 }
+  - id: y410
+    label: "だから PQ 上の点はすべて等距離"
+    align: left
+    at: { x: 1050, y: 410 }
+    size: { w: 230, h: 24 }
+  - id: x434
+    label: "角の二等分線"
+    at: { x: 860, y: 434 }
+    size: { w: 190, h: 24 }
+  - id: y434
+    label: "OC ＝ OD、CE ＝ DE で三角形が合同"
+    align: left
+    at: { x: 1050, y: 434 }
+    size: { w: 230, h: 24 }
+  - id: x458
+    label: "正三角形"
+    at: { x: 860, y: 458 }
+    size: { w: 190, h: 24 }
+  - id: y458
+    label: "弧の半径がどちらも AB"
+    align: left
+    at: { x: 1050, y: 458 }
+    size: { w: 230, h: 24 }
+  - id: x482
+    label: "共通"
+    at: { x: 860, y: 482 }
+    size: { w: 190, h: 24 }
+  - id: y482
+    label: "「同じ開き」が、等しい長さを作る"
+    align: left
+    at: { x: 1050, y: 482 }
+    size: { w: 230, h: 24 }
+  - id: h524
+    label: "できないこと（証明されている）"
+    hatch: solid
+    at: { x: 860, y: 524 }
+    size: { w: 420, h: 24 }
+  - id: x548
+    label: "角の三等分"
+    at: { x: 860, y: 548 }
+    size: { w: 190, h: 24 }
+  - id: y548
+    label: "一般の角では作図できない"
+    align: left
+    at: { x: 1050, y: 548 }
+    size: { w: 230, h: 24 }
+  - id: x572
+    label: "立方体の倍積"
+    at: { x: 860, y: 572 }
+    size: { w: 190, h: 24 }
+  - id: y572
+    label: "辺を 2^(1/3) 倍にはできない"
+    align: left
+    at: { x: 1050, y: 572 }
+    size: { w: 230, h: 24 }
+  - id: x596
+    label: "円積問題"
+    at: { x: 860, y: 596 }
+    size: { w: 190, h: 24 }
+  - id: y596
+    label: "円と同じ面積の正方形"
+    align: left
+    at: { x: 1050, y: 596 }
+    size: { w: 230, h: 24 }
+  - id: x620
+    label: "正 7 角形"
+    at: { x: 860, y: 620 }
+    size: { w: 190, h: 24 }
+  - id: y620
+    label: "正 17 角形は作図できる"
+    align: left
+    at: { x: 1050, y: 620 }
+    size: { w: 230, h: 24 }
+  - id: h662
+    label: "この図に出ていないもの"
+    hatch: solid
+    at: { x: 860, y: 662 }
+    size: { w: 420, h: 24 }
+  - id: x686
+    label: "作図の跡"
+    at: { x: 860, y: 686 }
+    size: { w: 190, h: 24 }
+  - id: y686
+    label: "実際は弧を消さずに残す"
+    align: left
+    at: { x: 1050, y: 686 }
+    size: { w: 230, h: 24 }
+  - id: x710
+    label: "順番"
+    at: { x: 860, y: 710 }
+    size: { w: 190, h: 24 }
+  - id: y710
+    label: "どの弧を先に描くか"
+    align: left
+    at: { x: 1050, y: 710 }
+    size: { w: 230, h: 24 }
+  - id: x734
+    label: "証明"
+    at: { x: 860, y: 734 }
+    size: { w: 190, h: 24 }
+  - id: y734
+    label: "合同の示し方"
+    align: left
+    at: { x: 1050, y: 734 }
+    size: { w: 230, h: 24 }
+  - id: x758
+    label: "折り紙"
+    at: { x: 860, y: 758 }
+    size: { w: 190, h: 24 }
+  - id: y758
+    label: "折ると角の三等分ができる"
+    align: left
+    at: { x: 1050, y: 758 }
+    size: { w: 230, h: 24 }
+  - id: n1
+    label: "コンパスと定規だけを使う作図です。定規の目盛りは使いません。"
+    marker: none
+    align: left
+    at: { x: 180, y: 1120 }
+    size: { w: 1000, h: 18 }
+  - id: n2
+    label: "使えるのは 「同じ長さを移す」（コンパス） と 「2 点を結ぶ」（定規） の 2 つだけです。"
+    marker: none
+    align: left
+    at: { x: 180, y: 1142 }
+    size: { w: 1000, h: 18 }
+  - id: n3
+    label: "① 垂直二等分線 —— A と B から同じ開きで弧を描き、交点 P・Q を結びます。"
+    marker: none
+    align: left
+    at: { x: 180, y: 1164 }
+    size: { w: 1000, h: 18 }
+  - id: n4
+    label: "P も Q も A と B から等距離なので、PQ 上のどの点も A と B から等距離になります。"
+    marker: none
+    align: left
+    at: { x: 180, y: 1186 }
+    size: { w: 1000, h: 18 }
+  - id: n5
+    label: "② 角の二等分線 —— O から弧を描いて C・D を取り、そこから同じ開きで弧を描いて E を取ります。"
+    marker: none
+    align: left
+    at: { x: 180, y: 1208 }
+    size: { w: 1000, h: 18 }
+  - id: n6
+    label: "③ 正三角形 —— コンパスの開きを AB のまま、A と B から弧を描いて交点 C を取ります。"
+    marker: none
+    align: left
+    at: { x: 180, y: 1230 }
+    size: { w: 1000, h: 18 }
+  - id: n7
+    label: "どれも「同じ開き」が、等しい長さを作っていることが要です。だから目盛りが要りません。"
+    marker: none
+    align: left
+    at: { x: 180, y: 1252 }
+    size: { w: 1000, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p2
+    to: p3
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 262.6, y: 394.8 }
+      - { x: 274.8, y: 401.7 }
+      - { x: 286.3, y: 409.8 }
+      - { x: 297, y: 419 }
+      - { x: 306.6, y: 429.3 }
+      - { x: 315.2, y: 440.5 }
+      - { x: 322.6, y: 452.5 }
+      - { x: 328.8, y: 465.1 }
+      - { x: 333.7, y: 478.3 }
+      - { x: 337.2, y: 492 }
+      - { x: 339.3, y: 505.9 }
+      - { x: 340, y: 520 }
+      - { x: 339.3, y: 534.1 }
+      - { x: 337.2, y: 548 }
+      - { x: 333.7, y: 561.7 }
+      - { x: 328.8, y: 574.9 }
+      - { x: 322.6, y: 587.5 }
+      - { x: 315.2, y: 599.5 }
+      - { x: 306.6, y: 610.7 }
+      - { x: 297, y: 621 }
+      - { x: 286.3, y: 630.2 }
+      - { x: 274.8, y: 638.3 }
+      - { x: 262.6, y: 645.2 }
+  - from: p4
+    to: p5
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 347.4, y: 645.2 }
+      - { x: 335.2, y: 638.3 }
+      - { x: 323.7, y: 630.2 }
+      - { x: 313, y: 621 }
+      - { x: 303.4, y: 610.7 }
+      - { x: 294.8, y: 599.5 }
+      - { x: 287.4, y: 587.5 }
+      - { x: 281.2, y: 574.9 }
+      - { x: 276.3, y: 561.7 }
+      - { x: 272.8, y: 548 }
+      - { x: 270.7, y: 534.1 }
+      - { x: 270, y: 520 }
+      - { x: 270.7, y: 505.9 }
+      - { x: 272.8, y: 492 }
+      - { x: 276.3, y: 478.3 }
+      - { x: 281.2, y: 465.1 }
+      - { x: 287.4, y: 452.5 }
+      - { x: 294.8, y: 440.5 }
+      - { x: 303.4, y: 429.3 }
+      - { x: 313, y: 419 }
+      - { x: 323.7, y: 409.8 }
+      - { x: 335.2, y: 401.7 }
+      - { x: 347.4, y: 394.8 }
+  - from: p6
+    to: p7
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p8
+    to: p9
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p10
+    to: p11
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p12
+    to: p13
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 663, y: 482.2 }
+      - { x: 669.1, y: 483.6 }
+      - { x: 675, y: 485.2 }
+      - { x: 680.9, y: 487.2 }
+      - { x: 686.6, y: 489.4 }
+      - { x: 692.3, y: 492 }
+      - { x: 697.7, y: 494.8 }
+      - { x: 703.1, y: 497.9 }
+      - { x: 708.2, y: 501.3 }
+      - { x: 713.2, y: 504.9 }
+      - { x: 718, y: 508.8 }
+      - { x: 722.6, y: 513 }
+      - { x: 727, y: 517.3 }
+      - { x: 731.1, y: 521.9 }
+      - { x: 735, y: 526.7 }
+      - { x: 738.6, y: 531.7 }
+      - { x: 742, y: 536.8 }
+      - { x: 745.1, y: 542.2 }
+      - { x: 748, y: 547.7 }
+      - { x: 750.5, y: 553.3 }
+      - { x: 752.8, y: 559 }
+      - { x: 754.7, y: 564.9 }
+      - { x: 756.4, y: 570.8 }
+  - from: p14
+    to: p15
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 683.6, y: 364.7 }
+      - { x: 696, y: 366.7 }
+      - { x: 708.1, y: 370 }
+      - { x: 719.9, y: 374.5 }
+      - { x: 731.1, y: 380.2 }
+      - { x: 741.6, y: 387 }
+      - { x: 751.4, y: 394.9 }
+      - { x: 760.2, y: 403.8 }
+      - { x: 768.1, y: 413.6 }
+      - { x: 775, y: 424.1 }
+      - { x: 780.7, y: 435.3 }
+      - { x: 785.2, y: 447 }
+      - { x: 788.4, y: 459.1 }
+      - { x: 790.4, y: 471.5 }
+      - { x: 791.1, y: 484.1 }
+      - { x: 790.4, y: 496.6 }
+      - { x: 788.4, y: 509 }
+      - { x: 785.2, y: 521.2 }
+      - { x: 780.7, y: 532.9 }
+  - from: p16
+    to: p17
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 634.8, y: 550.4 }
+      - { x: 636.7, y: 538 }
+      - { x: 640, y: 525.8 }
+      - { x: 644.5, y: 514.1 }
+      - { x: 650.2, y: 502.9 }
+      - { x: 657, y: 492.4 }
+      - { x: 664.9, y: 482.6 }
+      - { x: 673.8, y: 473.7 }
+      - { x: 683.6, y: 465.8 }
+      - { x: 694.1, y: 459 }
+      - { x: 705.3, y: 453.3 }
+      - { x: 717, y: 448.8 }
+      - { x: 729.2, y: 445.5 }
+      - { x: 741.6, y: 443.6 }
+      - { x: 754.1, y: 442.9 }
+      - { x: 766.7, y: 443.6 }
+      - { x: 779.1, y: 445.5 }
+      - { x: 791.2, y: 448.8 }
+      - { x: 802.9, y: 453.3 }
+  - from: p18
+    to: p19
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p20
+    to: p21
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p22
+    to: p23
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 257.3, y: 763.5 }
+      - { x: 266.1, y: 765.4 }
+      - { x: 274.8, y: 767.7 }
+      - { x: 283.4, y: 770.3 }
+      - { x: 291.9, y: 773.4 }
+      - { x: 300.2, y: 776.8 }
+      - { x: 308.3, y: 780.6 }
+      - { x: 316.3, y: 784.7 }
+      - { x: 324.1, y: 789.2 }
+      - { x: 331.7, y: 794.1 }
+      - { x: 339, y: 799.3 }
+      - { x: 346.1, y: 804.8 }
+      - { x: 353, y: 810.6 }
+      - { x: 359.5, y: 816.7 }
+      - { x: 365.8, y: 823.1 }
+      - { x: 371.8, y: 829.8 }
+      - { x: 377.5, y: 836.8 }
+      - { x: 382.9, y: 844 }
+      - { x: 388, y: 851.4 }
+      - { x: 392.7, y: 859.1 }
+      - { x: 397, y: 866.9 }
+      - { x: 401, y: 875 }
+      - { x: 404.7, y: 883.2 }
+  - from: p24
+    to: p25
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 235.3, y: 883.2 }
+      - { x: 239, y: 875 }
+      - { x: 243, y: 866.9 }
+      - { x: 247.3, y: 859.1 }
+      - { x: 252, y: 851.4 }
+      - { x: 257.1, y: 844 }
+      - { x: 262.5, y: 836.8 }
+      - { x: 268.2, y: 829.8 }
+      - { x: 274.2, y: 823.1 }
+      - { x: 280.5, y: 816.7 }
+      - { x: 287, y: 810.6 }
+      - { x: 293.9, y: 804.8 }
+      - { x: 301, y: 799.3 }
+      - { x: 308.3, y: 794.1 }
+      - { x: 315.9, y: 789.2 }
+      - { x: 323.7, y: 784.7 }
+      - { x: 331.7, y: 780.6 }
+      - { x: 339.8, y: 776.8 }
+      - { x: 348.1, y: 773.4 }
+      - { x: 356.6, y: 770.3 }
+      - { x: 365.2, y: 767.7 }
+      - { x: 373.9, y: 765.4 }
+      - { x: 382.7, y: 763.5 }
+  - from: p26
+    to: p27
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p28
+    to: p29
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }

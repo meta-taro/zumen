@@ -23,7 +23,7 @@
  * そこを開けると、これは設備記号（課題 4）の裏口になり、
  * D22 で断った「業界ごとに語彙が増える」がそのまま起きる。
  *
- * 入れてよいのは**形の名前だけ**。4 つで閉じる。
+ * 入れてよいのは**形の名前だけ**。
  *
  * | 値 | 絵 | そう描く図 |
  * |---|---|---|
@@ -32,6 +32,7 @@
  * | `double` | 二重丸 | 路線図の乗換駅 |
  * | `ellipse` | 楕円 | UML のユースケース |
  * | `diamond` | 菱形 | UML の判断（分岐）・フローチャートの条件 |
+ * | `triangle` | 三角 | 測量の基準点（三角点・図根点）、方位、警告の記号 |
  * | `bar` | 太い帯 | UML のフォーク／ジョイン |
  * | `none` | 枠を描かない | 折れ点・注記だけの場所 |
  *
@@ -47,6 +48,7 @@ export const MARKERS = [
   'double',
   'ellipse',
   'diamond',
+  'triangle',
   'bar',
   'none',
 ] as const;
@@ -99,6 +101,21 @@ export function drawMarker(marker: Marker, box: Frame, paint: Paint): string {
     return (
       `<path d="M ${n(cx)} ${n(box.y)} L ${n(box.x + box.w)} ${n(cy)} ` +
       `L ${n(cx)} ${n(box.y + box.h)} L ${n(box.x)} ${n(cy)} Z" ${skin}/>`
+    );
+  }
+
+  if (marker === 'triangle') {
+    /**
+     * **測量の基準点は三角**（2026-09-20）。
+     *
+     * 地籍図の図根点、地形図の三角点、方位記号、警告の記号 ——
+     * **三角は、丸や四角と同じくらい広く使われている形**なのに無かった。
+     * 見本 271（地籍図）で輪を 3 点描いて代用したときに気づいた。
+     * **箱の下辺と、上辺の中点を結ぶ**（菱形と同じく、箱に収まる）。
+     */
+    return (
+      `<path d="M ${n(cx)} ${n(box.y)} L ${n(box.x + box.w)} ${n(box.y + box.h)} ` +
+      `L ${n(box.x)} ${n(box.y + box.h)} Z" ${skin}/>`
     );
   }
 

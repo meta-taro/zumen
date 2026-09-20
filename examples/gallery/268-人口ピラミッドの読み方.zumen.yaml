@@ -1,0 +1,672 @@
+version: 1
+kind: placement
+arrows: true
+title: 人口ピラミッドの読み方（段は年齢、意味は生まれた年）
+# **人口ピラミッドは「今の姿」ではなく、80 年ぶんの出生の記録を縦に積んだ図。**
+# 段の位置は年齢だが、**意味しているのは生まれた年** ——
+# だから、ふくらみもへこみも**毎年 1 段ずつ上へ動く。**
+#
+# 日本の形には**ふくらみが 2 つ**ある。**団塊の世代**（1947〜49 年生。
+# 第 1 次ベビーブームで年間出生数が約 270 万人）と、**団塊ジュニア**（1971〜74 年生）。
+# **へこみが 1 つ**あり、これは**丙午の 1966 年生** ——
+# **出生数が前年より約 25% 少なく**、翌 1967 年には戻っている。
+# **避けたのであって、失われたのではない。**
+#
+# **形は 3 つに分かれる。** 下が広い**ピラミッド型**、縦にまっすぐな**つりがね型**、
+# 下がすぼまる**つぼ型**。日本はつぼ型に 2 つのふくらみが残った、ひょうたんのような形。
+# **型の名前は、これから何が起きるかの言い換え** ——
+# 下がすぼまった形は、40 年後の働き手の数をそのまま示している。
+#
+# **3 つに切って読む**（令和 6 年 10 月 1 日現在。令和 7 年版高齢社会白書）。
+# 総人口 **1 億 2,380 万人**、65 歳以上（老年）**3,624 万人・29.3%**、
+# 15〜64 歳（生産年齢）**59.5%**、15 歳未満（年少）**11.2%**。
+# 令和 52 年（2070 年）には**2.6 人に 1 人が 65 歳以上**と推計されている。
+#
+# **3 区分から、割り算 1 回で比が出る。** 65 歳以上 1 人を支える生産年齢は
+# 59.5 ÷ 29.3 ＝ 約 2.0 人、生産年齢 1 人が支えるのは
+# （29.3 ＋ 11.2）÷ 59.5 ＝ 約 0.68 人。**形を見た時点で、この比は決まっている。**
+#
+# **段の長さは形をつかむための模式**で、各段の実数ではない。
+nodes:
+  - id: t1
+    label: "① 日本の形 —— ふくらみ 2 つと、へこみ 1 つ"
+    marker: none
+    align: left
+    at: { x: 150, y: 150 }
+    size: { w: 700, h: 20 }
+  - id: m0
+    label: ""
+    hatch: lines
+    at: { x: 402, y: 196 }
+    size: { w: 10, h: 14 }
+  - id: f0
+    label: ""
+    hatch: dots
+    at: { x: 428, y: 196 }
+    size: { w: 10.4, h: 14 }
+  - id: a0
+    label: "100 〜"
+    marker: none
+    align: right
+    at: { x: 316, y: 194 }
+    size: { w: 80, h: 18 }
+  - id: m1
+    label: ""
+    hatch: lines
+    at: { x: 398, y: 213 }
+    size: { w: 14, h: 14 }
+  - id: f1
+    label: ""
+    hatch: dots
+    at: { x: 428, y: 213 }
+    size: { w: 14.6, h: 14 }
+  - id: m2
+    label: ""
+    hatch: lines
+    at: { x: 392, y: 230 }
+    size: { w: 20, h: 14 }
+  - id: f2
+    label: ""
+    hatch: dots
+    at: { x: 428, y: 230 }
+    size: { w: 20.8, h: 14 }
+  - id: a2
+    label: "90 〜 94"
+    marker: none
+    align: right
+    at: { x: 306, y: 228 }
+    size: { w: 80, h: 18 }
+  - id: m3
+    label: ""
+    hatch: lines
+    at: { x: 372, y: 247 }
+    size: { w: 40, h: 14 }
+  - id: f3
+    label: ""
+    hatch: dots
+    at: { x: 428, y: 247 }
+    size: { w: 41.6, h: 14 }
+  - id: m4
+    label: ""
+    hatch: lines
+    at: { x: 352, y: 264 }
+    size: { w: 60, h: 14 }
+  - id: f4
+    label: ""
+    hatch: dots
+    at: { x: 428, y: 264 }
+    size: { w: 62.4, h: 14 }
+  - id: a4
+    label: "80 〜 84"
+    marker: none
+    align: right
+    at: { x: 266, y: 262 }
+    size: { w: 80, h: 18 }
+  - id: m5
+    label: ""
+    hatch: lines
+    at: { x: 320, y: 281 }
+    size: { w: 92, h: 14 }
+  - id: f5
+    label: ""
+    hatch: dots
+    at: { x: 428, y: 281 }
+    size: { w: 95.7, h: 14 }
+  - id: m6
+    label: ""
+    hatch: lines
+    at: { x: 340, y: 298 }
+    size: { w: 72, h: 14 }
+  - id: f6
+    label: ""
+    hatch: dots
+    at: { x: 428, y: 298 }
+    size: { w: 74.9, h: 14 }
+  - id: a6
+    label: "70 〜 74"
+    marker: none
+    align: right
+    at: { x: 254, y: 296 }
+    size: { w: 80, h: 18 }
+  - id: m7
+    label: ""
+    hatch: lines
+    at: { x: 350, y: 315 }
+    size: { w: 62, h: 14 }
+  - id: f7
+    label: ""
+    hatch: dots
+    at: { x: 428, y: 315 }
+    size: { w: 64.5, h: 14 }
+  - id: m8
+    label: ""
+    hatch: lines
+    at: { x: 346, y: 332 }
+    size: { w: 66, h: 14 }
+  - id: f8
+    label: ""
+    hatch: dots
+    at: { x: 428, y: 332 }
+    size: { w: 68.6, h: 14 }
+  - id: a8
+    label: "60 〜 64"
+    marker: none
+    align: right
+    at: { x: 260, y: 330 }
+    size: { w: 80, h: 18 }
+  - id: m9
+    label: ""
+    hatch: lines
+    at: { x: 354, y: 349 }
+    size: { w: 58, h: 14 }
+  - id: f9
+    label: ""
+    hatch: dots
+    at: { x: 428, y: 349 }
+    size: { w: 60.3, h: 14 }
+  - id: m10
+    label: ""
+    hatch: lines
+    at: { x: 324, y: 366 }
+    size: { w: 88, h: 14 }
+  - id: f10
+    label: ""
+    hatch: dots
+    at: { x: 428, y: 366 }
+    size: { w: 91.5, h: 14 }
+  - id: a10
+    label: "50 〜 54"
+    marker: none
+    align: right
+    at: { x: 238, y: 364 }
+    size: { w: 80, h: 18 }
+  - id: m11
+    label: ""
+    hatch: lines
+    at: { x: 334, y: 383 }
+    size: { w: 78, h: 14 }
+  - id: f11
+    label: ""
+    hatch: dots
+    at: { x: 428, y: 383 }
+    size: { w: 81.1, h: 14 }
+  - id: m12
+    label: ""
+    hatch: lines
+    at: { x: 346, y: 400 }
+    size: { w: 66, h: 14 }
+  - id: f12
+    label: ""
+    hatch: dots
+    at: { x: 428, y: 400 }
+    size: { w: 68.6, h: 14 }
+  - id: a12
+    label: "40 〜 44"
+    marker: none
+    align: right
+    at: { x: 260, y: 398 }
+    size: { w: 80, h: 18 }
+  - id: m13
+    label: ""
+    hatch: lines
+    at: { x: 352, y: 417 }
+    size: { w: 60, h: 14 }
+  - id: f13
+    label: ""
+    hatch: dots
+    at: { x: 428, y: 417 }
+    size: { w: 62.4, h: 14 }
+  - id: m14
+    label: ""
+    hatch: lines
+    at: { x: 356, y: 434 }
+    size: { w: 56, h: 14 }
+  - id: f14
+    label: ""
+    hatch: dots
+    at: { x: 428, y: 434 }
+    size: { w: 58.2, h: 14 }
+  - id: a14
+    label: "30 〜 34"
+    marker: none
+    align: right
+    at: { x: 270, y: 432 }
+    size: { w: 80, h: 18 }
+  - id: m15
+    label: ""
+    hatch: lines
+    at: { x: 358, y: 451 }
+    size: { w: 54, h: 14 }
+  - id: f15
+    label: ""
+    hatch: dots
+    at: { x: 428, y: 451 }
+    size: { w: 56.2, h: 14 }
+  - id: m16
+    label: ""
+    hatch: lines
+    at: { x: 358, y: 468 }
+    size: { w: 54, h: 14 }
+  - id: f16
+    label: ""
+    hatch: dots
+    at: { x: 428, y: 468 }
+    size: { w: 56.2, h: 14 }
+  - id: a16
+    label: "20 〜 24"
+    marker: none
+    align: right
+    at: { x: 272, y: 466 }
+    size: { w: 80, h: 18 }
+  - id: m17
+    label: ""
+    hatch: lines
+    at: { x: 362, y: 485 }
+    size: { w: 50, h: 14 }
+  - id: f17
+    label: ""
+    hatch: dots
+    at: { x: 428, y: 485 }
+    size: { w: 52, h: 14 }
+  - id: m18
+    label: ""
+    hatch: lines
+    at: { x: 366, y: 502 }
+    size: { w: 46, h: 14 }
+  - id: f18
+    label: ""
+    hatch: dots
+    at: { x: 428, y: 502 }
+    size: { w: 47.8, h: 14 }
+  - id: a18
+    label: "10 〜 14"
+    marker: none
+    align: right
+    at: { x: 280, y: 500 }
+    size: { w: 80, h: 18 }
+  - id: m19
+    label: ""
+    hatch: lines
+    at: { x: 368, y: 519 }
+    size: { w: 44, h: 14 }
+  - id: f19
+    label: ""
+    hatch: dots
+    at: { x: 428, y: 519 }
+    size: { w: 45.8, h: 14 }
+  - id: m20
+    label: ""
+    hatch: lines
+    at: { x: 374, y: 536 }
+    size: { w: 38, h: 14 }
+  - id: f20
+    label: ""
+    hatch: dots
+    at: { x: 428, y: 536 }
+    size: { w: 39.5, h: 14 }
+  - id: a20
+    label: "0 〜 4"
+    marker: none
+    align: right
+    at: { x: 288, y: 534 }
+    size: { w: 80, h: 18 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 419, y: 181 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 419, y: 558 }
+    size: { w: 2, h: 2 }
+  - id: male
+    label: "男（左）"
+    marker: none
+    align: center
+    at: { x: 220, y: 174 }
+    size: { w: 180, h: 18 }
+  - id: fem
+    label: "女（右）"
+    marker: none
+    align: center
+    at: { x: 450, y: 174 }
+    size: { w: 180, h: 18 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 427, y: 331 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 619, y: 331 }
+    size: { w: 2, h: 2 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 427, y: 501 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 619, y: 501 }
+    size: { w: 2, h: 2 }
+  - id: l65
+    label: "65 歳 —— ここから上が 29.3%"
+    marker: none
+    align: left
+    at: { x: 630, y: 323 }
+    size: { w: 250, h: 18 }
+  - id: l15
+    label: "15 歳 —— ここから下が 11.2%"
+    marker: none
+    align: left
+    at: { x: 630, y: 493 }
+    size: { w: 250, h: 18 }
+  - id: b1
+    label: "団塊の世代\n1947 〜 49 年生（75 〜 77 歳）"
+    marker: none
+    align: left
+    at: { x: 630, y: 257 }
+    size: { w: 250, h: 36 }
+  - id: b2
+    label: "団塊ジュニア\n1971 〜 74 年生（50 〜 53 歳）"
+    marker: none
+    align: left
+    at: { x: 630, y: 358 }
+    size: { w: 250, h: 36 }
+  - id: b3
+    label: "丙午（1966 年生・58 歳）\n出生が前年より\n約 25% 少ない"
+    marker: none
+    align: right
+    at: { x: 48, y: 335 }
+    size: { w: 178, h: 54 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 241, y: 355 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 345, y: 355 }
+    size: { w: 2, h: 2 }
+  - id: cap
+    label: "左の目盛りは年齢（5 歳きざみ・上が高齢）。形をつかむための模式図で、\n段の長さは実数ではない —— 数は令和 6 年 10 月 1 日現在"
+    marker: none
+    align: center
+    at: { x: 150, y: 565 }
+    size: { w: 700, h: 36 }
+  - id: why1
+    label: "ふくらみは、生まれた年の多さがそのまま上がってきたもの。\n人口ピラミッドは「今の姿」ではなく、80 年ぶんの出生の記録を縦に積んだ図 ——\n段の位置は年齢だが、意味しているのは生まれた年。\nだから、ふくらみもへこみも、毎年 1 段ずつ上へ動く。"
+    at: { x: 150, y: 611 }
+    size: { w: 700, h: 92 }
+  - id: t2
+    label: "② 形は 3 つに分かれる"
+    marker: none
+    align: left
+    at: { x: 890, y: 150 }
+    size: { w: 440, h: 20 }
+  - id: h890_186
+    label: "人口ピラミッドの型"
+    hatch: solid
+    at: { x: 890, y: 186 }
+    size: { w: 440, h: 24 }
+  - id: x890_210
+    label: "ピラミッド型"
+    at: { x: 890, y: 210 }
+    size: { w: 148, h: 24 }
+  - id: y890_210
+    label: "下が広い。生まれる数が多く、寿命が短い"
+    align: left
+    at: { x: 1038, y: 210 }
+    size: { w: 292, h: 24 }
+  - id: x890_234
+    label: "つりがね型"
+    at: { x: 890, y: 234 }
+    size: { w: 148, h: 24 }
+  - id: y890_234
+    label: "縦にまっすぐ。生まれる数と死ぬ数が釣り合う"
+    align: left
+    at: { x: 1038, y: 234 }
+    size: { w: 292, h: 24 }
+  - id: x890_258
+    label: "つぼ型"
+    at: { x: 890, y: 258 }
+    size: { w: 148, h: 24 }
+  - id: y890_258
+    label: "下がすぼまる。生まれる数が減り続けている"
+    align: left
+    at: { x: 1038, y: 258 }
+    size: { w: 292, h: 24 }
+  - id: why2
+    label: "日本はつぼ型。 さらに、2 度のベビーブームのふくらみが\n残っているのでひょうたんのような形になる ——\n型の名前は、これから何が起きるかの言い換え。\n下がすぼまった形は、40 年後の働き手の数をそのまま示している。"
+    at: { x: 890, y: 296 }
+    size: { w: 440, h: 92 }
+  - id: t3
+    label: "③ 3 つに切って読む"
+    marker: none
+    align: left
+    at: { x: 890, y: 406 }
+    size: { w: 440, h: 20 }
+  - id: h890_436
+    label: "令和 6 年 10 月 1 日現在"
+    hatch: solid
+    at: { x: 890, y: 436 }
+    size: { w: 440, h: 24 }
+  - id: x890_460
+    label: "総人口"
+    at: { x: 890, y: 460 }
+    size: { w: 210, h: 24 }
+  - id: y890_460
+    label: "1 億 2,380 万人"
+    align: left
+    at: { x: 1100, y: 460 }
+    size: { w: 230, h: 24 }
+  - id: x890_484
+    label: "65 歳以上（老年）"
+    at: { x: 890, y: 484 }
+    size: { w: 210, h: 24 }
+  - id: y890_484
+    label: "3,624 万人 ／ 29.3%"
+    align: left
+    at: { x: 1100, y: 484 }
+    size: { w: 230, h: 24 }
+  - id: x890_508
+    label: "15 〜 64 歳（生産年齢）"
+    at: { x: 890, y: 508 }
+    size: { w: 210, h: 24 }
+  - id: y890_508
+    label: "59.5%"
+    align: left
+    at: { x: 1100, y: 508 }
+    size: { w: 230, h: 24 }
+  - id: x890_532
+    label: "15 歳未満（年少）"
+    at: { x: 890, y: 532 }
+    size: { w: 210, h: 24 }
+  - id: y890_532
+    label: "11.2%"
+    align: left
+    at: { x: 1100, y: 532 }
+    size: { w: 230, h: 24 }
+  - id: h890_566
+    label: "将来推計"
+    hatch: solid
+    at: { x: 890, y: 566 }
+    size: { w: 440, h: 24 }
+  - id: x890_590
+    label: "令和 52 年（2070 年）"
+    at: { x: 890, y: 590 }
+    size: { w: 210, h: 24 }
+  - id: y890_590
+    label: "2.6 人に 1 人が 65 歳以上"
+    align: left
+    at: { x: 1100, y: 590 }
+    size: { w: 230, h: 24 }
+  - id: why3
+    label: "3 区分は、税と年金の設計図。\n生産年齢人口 59.5% が、老年 29.3% と年少 11.2% を支える形 ——\nこの 3 つの数字だけで、支える側と支えられる側の比が出る。"
+    at: { x: 890, y: 628 }
+    size: { w: 440, h: 74 }
+  - id: t4
+    label: "④ 読み違えやすいところ"
+    marker: none
+    align: left
+    at: { x: 890, y: 720 }
+    size: { w: 440, h: 20 }
+  - id: h890_750
+    label: "注意"
+    hatch: solid
+    at: { x: 890, y: 750 }
+    size: { w: 440, h: 24 }
+  - id: x890_774
+    label: "段は年齢、意味は生年"
+    at: { x: 890, y: 774 }
+    size: { w: 190, h: 24 }
+  - id: y890_774
+    label: "毎年 1 段ずつ上へ動く"
+    align: left
+    at: { x: 1080, y: 774 }
+    size: { w: 250, h: 24 }
+  - id: x890_798
+    label: "左右は男女"
+    at: { x: 890, y: 798 }
+    size: { w: 190, h: 24 }
+  - id: y890_798
+    label: "足して 1 つの世代"
+    align: left
+    at: { x: 1080, y: 798 }
+    size: { w: 250, h: 24 }
+  - id: x890_822
+    label: "へこみ＝出生の少ない年"
+    at: { x: 890, y: 822 }
+    size: { w: 190, h: 24 }
+  - id: y890_822
+    label: "死んだのではない"
+    align: left
+    at: { x: 1080, y: 822 }
+    size: { w: 250, h: 24 }
+  - id: x890_846
+    label: "上ほど女が多い"
+    at: { x: 890, y: 846 }
+    size: { w: 190, h: 24 }
+  - id: y890_846
+    label: "平均寿命の差が出る"
+    align: left
+    at: { x: 1080, y: 846 }
+    size: { w: 250, h: 24 }
+  - id: why4
+    label: "へこみを「その世代が減った」と読まない。\n丙午のへこみは、その年に生まれなかったという記録 ——\n1966 年の出生は前年より約 25% 少なく、翌 1967 年には戻っている。\n避けたのであって、失われたのではない。"
+    at: { x: 890, y: 884 }
+    size: { w: 440, h: 92 }
+  - id: t5
+    label: "⑤ この図から、割り算 1 回で出る数"
+    marker: none
+    align: left
+    at: { x: 150, y: 719 }
+    size: { w: 700, h: 20 }
+  - id: h150_749
+    label: "令和 6 年 10 月 1 日現在の 3 区分から"
+    hatch: solid
+    at: { x: 150, y: 749 }
+    size: { w: 700, h: 24 }
+  - id: x150_773
+    label: "65 歳以上 1 人を支える生産年齢"
+    at: { x: 150, y: 773 }
+    size: { w: 330, h: 24 }
+  - id: y150_773
+    label: "59.5 ÷ 29.3 ＝ 約 2.0 人"
+    align: left
+    at: { x: 480, y: 773 }
+    size: { w: 370, h: 24 }
+  - id: x150_797
+    label: "生産年齢 1 人が支える人数"
+    at: { x: 150, y: 797 }
+    size: { w: 330, h: 24 }
+  - id: y150_797
+    label: "（29.3 ＋ 11.2）÷ 59.5 ＝ 約 0.68 人"
+    align: left
+    at: { x: 480, y: 797 }
+    size: { w: 370, h: 24 }
+  - id: x150_821
+    label: "令和 52 年（2070 年）の見込み"
+    at: { x: 150, y: 821 }
+    size: { w: 330, h: 24 }
+  - id: y150_821
+    label: "2.6 人に 1 人が 65 歳以上"
+    align: left
+    at: { x: 480, y: 821 }
+    size: { w: 370, h: 24 }
+  - id: why5
+    label: "この比は、図の形そのものから出てくる。\n上が太く下が細い形は、割り算の分母が小さく分子が大きいということ ——\n形を見た時点で、比はもう決まっている。\n人口ピラミッドが政策の図として使われるのは、ここが一目で分かるから。"
+    at: { x: 150, y: 859 }
+    size: { w: 700, h: 92 }
+  - id: r1
+    label: "人口ピラミッドは、今の姿ではなく 80 年ぶんの出生の記録です（①）。段の位置は年齢ですが、意味しているのは生まれた年です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 976 }
+    size: { w: 1180, h: 18 }
+  - id: r2
+    label: "ふくらみもへこみも、毎年 1 段ずつ上へ動きます。 団塊の世代（1947〜49 年生）も団塊ジュニア（1971〜74 年生）も同じです。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1000 }
+    size: { w: 1180, h: 18 }
+  - id: r3
+    label: "形は 3 つに分かれます（②）。ピラミッド型・つりがね型・つぼ型 —— 日本はつぼ型に 2 つのふくらみが残った形です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1024 }
+    size: { w: 1180, h: 18 }
+  - id: r4
+    label: "型の名前は、これから何が起きるかの言い換えです。 下がすぼまった形は、40 年後の働き手の数をそのまま示しています。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1048 }
+    size: { w: 1180, h: 18 }
+  - id: r5
+    label: "3 つに切って読みます（③）。65 歳以上 29.3%、15〜64 歳 59.5%、15 歳未満 11.2%（令和 6 年 10 月 1 日現在）。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1072 }
+    size: { w: 1180, h: 18 }
+  - id: r6
+    label: "へこみを「その世代が減った」と読みません（④）。丙午（1966 年生）のへこみは、その年に生まれなかったという記録です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1096 }
+    size: { w: 1180, h: 18 }
+  - id: r7
+    label: "避けたのであって、失われたのではありません。 翌 1967 年の出生数は戻っています。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1120 }
+    size: { w: 1180, h: 18 }
+  - id: r8
+    label: "この図から、割り算 1 回で数が出ます（⑤）。65 歳以上 1 人を、15〜64 歳 約 2.0 人で支える形です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1144 }
+    size: { w: 1180, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    line: chain
+    ends: { from: none, to: none }
+  - from: p2
+    to: p3
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p4
+    to: p5
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p6
+    to: p7
+    curve: none
+    ends: { from: none, to: arrow }

@@ -12,6 +12,7 @@
  * 壁の厚みをどちらに数えるかで値が変わり、**現場で食い違う**。
  * 実物の図面が通り芯を基準にしているのは、そこを一意にするため。
  */
+import { CHAIN as LINE_CHAIN } from './line.ts';
 import type { Axis, Grid, NorthMark } from './grid.ts';
 import { CODE_R, MARGIN } from './grid.ts';
 import type { Rect } from './names.ts';
@@ -36,8 +37,11 @@ export interface Ink {
   font: string;
 }
 
-/** 一点鎖線。**通り芯の決まりごと**（実線でも破線でもない）。 */
-const CHAIN = '14 3 3 3';
+/**
+ * 一点鎖線。**通り芯の決まりごと**（実線でも破線でもない）。
+ * 人が引く線の `line: chain` と**同じ刻み**（`src/line.ts`）。
+ */
+const CHAIN = LINE_CHAIN;
 /** 文字の手前で芯を切る幅。 */
 const TEXT_GAP = 3;
 /**

@@ -1,0 +1,500 @@
+version: 1
+kind: placement
+arrows: true
+title: 合板 1 枚からの木取り図（サブロク 910×1820）
+scale: { mm: 2.9 }
+palette:
+  端材: "#8f6f3f"
+  横木目: "#a33a3a"
+  試したカット: "#c0392b"
+# **面積が足りることと、取れることは別。**
+#
+# ホームセンターのカット（パネルソー）は**端から端まで通す切り方だけ**。
+# だから ③ の風車配置は、面積が足りていても頼めない ——
+# 通るカットが 1 本も無いことを、当たる所に × を置いて見せた。
+#
+# もう 2 つは**刃厚 3mm**（910 を 300 × 3 に割ると残り 1mm）と、
+# **木目の向き**（長手 1820。回すと横木目になり、棚板は割れやすい）。
+nodes:
+  - id: sheet
+    label: ""
+    at: { x: 120, y: 180 }
+    size: { w: 309.4, h: 618.8 }
+  - id: a_side1
+    label: "側板\n300×900"
+    at: { x: 120, y: 180 }
+    size: { w: 102, h: 306 }
+  - id: a_side2
+    label: "側板\n300×900"
+    at: { x: 120, y: 487 }
+    size: { w: 102, h: 306 }
+  - id: a_off1
+    label: ""
+    marker: none
+    fill: 端材
+    at: { x: 120, y: 793 }
+    size: { w: 102, h: 5.8 }
+  - id: a_top
+    label: "天板\n300×564"
+    at: { x: 223, y: 180 }
+    size: { w: 102, h: 191.8 }
+  - id: a_bot
+    label: "地板\n300×564"
+    at: { x: 223, y: 372.8 }
+    size: { w: 102, h: 191.8 }
+  - id: a_sh1
+    label: "棚板 1\n300×564"
+    at: { x: 223, y: 565.6 }
+    size: { w: 102, h: 191.8 }
+  - id: a_off2
+    label: ""
+    marker: none
+    fill: 端材
+    at: { x: 223, y: 758.3 }
+    size: { w: 102, h: 40.5 }
+  - id: a_sh2
+    label: "棚板 2\n300×564"
+    at: { x: 326, y: 180 }
+    size: { w: 102, h: 191.8 }
+  - id: a_off3
+    label: "使える端材\n300×1253"
+    fill: 端材
+    at: { x: 326, y: 372.8 }
+    size: { w: 102, h: 426 }
+  - id: a_t
+    label: "② 通し切りでできる木取り（合板 1 枚・サブロク 910×1820）"
+    marker: none
+    align: left
+    at: { x: 120, y: 122 }
+    size: { w: 470, h: 20 }
+  - id: a_u
+    label: "　縦挽き 3 本 → 横挽き 6 本。刃が 3mm ずつ食う"
+    marker: none
+    align: left
+    at: { x: 120, y: 144 }
+    size: { w: 470, h: 18 }
+  - id: a_w
+    label: "910"
+    marker: none
+    align: center
+    at: { x: 120, y: 163 }
+    size: { w: 309.4, h: 14 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 89, y: 219.8 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 89, y: 417 }
+    size: { w: 2, h: 2 }
+  - id: a_g
+    label: "木目\n1820\nの向き"
+    marker: none
+    align: right
+    at: { x: 2, y: 292.2 }
+    size: { w: 80, h: 54 }
+  - id: a_k
+    label: "部材どうしのすきま ＝ 刃の厚み 3mm"
+    marker: none
+    align: center
+    at: { x: 120, y: 808.8 }
+    size: { w: 309.4, h: 18 }
+  - id: a_h
+    label: "1820"
+    marker: none
+    align: left
+    at: { x: 439.4, y: 480.4 }
+    size: { w: 60, h: 18 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 462.4, y: 199.4 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 462.4, y: 448.4 }
+    size: { w: 2, h: 2 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 462.4, y: 528.4 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 462.4, y: 777.4 }
+    size: { w: 2, h: 2 }
+  - id: sheet2
+    label: ""
+    at: { x: 660, y: 180 }
+    size: { w: 309.4, h: 618.8 }
+  - id: b_side1
+    label: "側板\n300×900"
+    at: { x: 660, y: 180 }
+    size: { w: 102, h: 306 }
+  - id: b_top
+    label: "天板 564×300\n（横木目）"
+    fill: 横木目
+    at: { x: 763, y: 180 }
+    size: { w: 191.8, h: 102 }
+  - id: b_side2
+    label: "側板\n300×900"
+    at: { x: 852.8, y: 283 }
+    size: { w: 102, h: 306 }
+  - id: b_bot
+    label: "地板 564×300\n（横木目）"
+    fill: 横木目
+    at: { x: 660, y: 487 }
+    size: { w: 191.8, h: 102 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 761.5, y: 172.2 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 763.7, y: 481.6 }
+    size: { w: 2, h: 2 }
+  - id: b_x1
+    label: "×"
+    marker: none
+    align: center
+    at: { x: 768.5, y: 461 }
+    size: { w: 20, h: 18 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 652.2, y: 485.5 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 854.5, y: 485.5 }
+    size: { w: 2, h: 2 }
+  - id: b_x2
+    label: "×"
+    marker: none
+    align: center
+    at: { x: 822.8, y: 460.5 }
+    size: { w: 20, h: 18 }
+  - id: b_lg
+    label: "赤い破線 ＝ 試したカット　× ＝ 当たる所"
+    marker: none
+    align: center
+    at: { x: 660, y: 808.8 }
+    size: { w: 309.4, h: 18 }
+  - id: b_t
+    label: "③ これは頼めない —— 端から端まで通るカットが 1 本も無い"
+    marker: none
+    align: left
+    at: { x: 660, y: 128 }
+    size: { w: 430, h: 20 }
+  - id: b_u
+    label: "　面積は足りている。切り方が無いだけ。"
+    marker: none
+    align: left
+    at: { x: 660, y: 148 }
+    size: { w: 430, h: 18 }
+  - id: h140
+    label: "カットリスト（本棚・奥行 300／t=18）"
+    hatch: solid
+    at: { x: 1110, y: 140 }
+    size: { w: 460, h: 24 }
+  - id: x164
+    label: "側板"
+    at: { x: 1110, y: 164 }
+    size: { w: 190, h: 24 }
+  - id: y164
+    label: "300 × 900mm　2 枚"
+    align: left
+    at: { x: 1300, y: 164 }
+    size: { w: 270, h: 24 }
+  - id: x188
+    label: "天板"
+    at: { x: 1110, y: 188 }
+    size: { w: 190, h: 24 }
+  - id: y188
+    label: "300 × 564mm　1 枚"
+    align: left
+    at: { x: 1300, y: 188 }
+    size: { w: 270, h: 24 }
+  - id: x212
+    label: "地板"
+    at: { x: 1110, y: 212 }
+    size: { w: 190, h: 24 }
+  - id: y212
+    label: "300 × 564mm　1 枚"
+    align: left
+    at: { x: 1300, y: 212 }
+    size: { w: 270, h: 24 }
+  - id: x236
+    label: "棚板 1"
+    at: { x: 1110, y: 236 }
+    size: { w: 190, h: 24 }
+  - id: y236
+    label: "300 × 564mm　1 枚"
+    align: left
+    at: { x: 1300, y: 236 }
+    size: { w: 270, h: 24 }
+  - id: x260
+    label: "棚板 2"
+    at: { x: 1110, y: 260 }
+    size: { w: 190, h: 24 }
+  - id: y260
+    label: "300 × 564mm　1 枚"
+    align: left
+    at: { x: 1300, y: 260 }
+    size: { w: 270, h: 24 }
+  - id: x284
+    label: "使う面積"
+    at: { x: 1110, y: 284 }
+    size: { w: 190, h: 24 }
+  - id: y284
+    label: "1.217 m²"
+    align: left
+    at: { x: 1300, y: 284 }
+    size: { w: 270, h: 24 }
+  - id: x308
+    label: "歩留まり"
+    at: { x: 1110, y: 308 }
+    size: { w: 190, h: 24 }
+  - id: y308
+    label: "73.5%（板は 1.656 m²）"
+    align: left
+    at: { x: 1300, y: 308 }
+    size: { w: 270, h: 24 }
+  - id: h350
+    label: "定尺の板（合板）"
+    hatch: solid
+    at: { x: 1110, y: 350 }
+    size: { w: 460, h: 24 }
+  - id: x374
+    label: "サブロク（3×6）"
+    at: { x: 1110, y: 374 }
+    size: { w: 190, h: 24 }
+  - id: y374
+    label: "910 × 1820mm（3 尺 × 6 尺）"
+    align: left
+    at: { x: 1300, y: 374 }
+    size: { w: 270, h: 24 }
+  - id: x398
+    label: "サンパチ"
+    at: { x: 1110, y: 398 }
+    size: { w: 190, h: 24 }
+  - id: y398
+    label: "910 × 2420mm"
+    align: left
+    at: { x: 1300, y: 398 }
+    size: { w: 270, h: 24 }
+  - id: x422
+    label: "シハチ（4×8）"
+    at: { x: 1110, y: 422 }
+    size: { w: 190, h: 24 }
+  - id: y422
+    label: "1210 × 2420mm"
+    align: left
+    at: { x: 1300, y: 422 }
+    size: { w: 270, h: 24 }
+  - id: x446
+    label: "メーター板"
+    at: { x: 1110, y: 446 }
+    size: { w: 190, h: 24 }
+  - id: y446
+    label: "1000 × 2000mm"
+    align: left
+    at: { x: 1300, y: 446 }
+    size: { w: 270, h: 24 }
+  - id: x470
+    label: "910 の由来"
+    at: { x: 1110, y: 470 }
+    size: { w: 190, h: 24 }
+  - id: y470
+    label: "1 間 ＝ 6 尺 ＝ 1820。その半分"
+    align: left
+    at: { x: 1300, y: 470 }
+    size: { w: 270, h: 24 }
+  - id: h512
+    label: "木取りの決まりごと"
+    hatch: solid
+    at: { x: 1110, y: 512 }
+    size: { w: 460, h: 24 }
+  - id: x536
+    label: "刃の厚み"
+    at: { x: 1110, y: 536 }
+    size: { w: 190, h: 24 }
+  - id: y536
+    label: "パネルソーで 3〜4mm。手のこで 1〜2mm"
+    align: left
+    at: { x: 1300, y: 536 }
+    size: { w: 270, h: 24 }
+  - id: x560
+    label: "切り方"
+    at: { x: 1110, y: 560 }
+    size: { w: 190, h: 24 }
+  - id: y560
+    label: "端から端まで通す（途中で止められない）"
+    align: left
+    at: { x: 1300, y: 560 }
+    size: { w: 270, h: 24 }
+  - id: x584
+    label: "だから"
+    at: { x: 1110, y: 584 }
+    size: { w: 190, h: 24 }
+  - id: y584
+    label: "縦に挽いて帯にしてから、横に挽く"
+    align: left
+    at: { x: 1300, y: 584 }
+    size: { w: 270, h: 24 }
+  - id: x608
+    label: "木目"
+    at: { x: 1110, y: 608 }
+    size: { w: 190, h: 24 }
+  - id: y608
+    label: "長手 1820 の方向。回すと横木目になる"
+    align: left
+    at: { x: 1300, y: 608 }
+    size: { w: 270, h: 24 }
+  - id: x632
+    label: "棚板"
+    at: { x: 1110, y: 632 }
+    size: { w: 190, h: 24 }
+  - id: y632
+    label: "木目は渡す向きへ。横木目は割れる"
+    align: left
+    at: { x: 1300, y: 632 }
+    size: { w: 270, h: 24 }
+  - id: x656
+    label: "カット数"
+    at: { x: 1110, y: 656 }
+    size: { w: 190, h: 24 }
+  - id: y656
+    label: "この図で 9 本（1 本 30〜50 円が目安）"
+    align: left
+    at: { x: 1300, y: 656 }
+    size: { w: 270, h: 24 }
+  - id: h698
+    label: "この図に出ていないもの"
+    hatch: solid
+    at: { x: 1110, y: 698 }
+    size: { w: 460, h: 24 }
+  - id: x722
+    label: "背板"
+    at: { x: 1110, y: 722 }
+    size: { w: 190, h: 24 }
+  - id: y722
+    label: "4mm のベニヤを別に取る"
+    align: left
+    at: { x: 1300, y: 722 }
+    size: { w: 270, h: 24 }
+  - id: x746
+    label: "木口"
+    at: { x: 1110, y: 746 }
+    size: { w: 190, h: 24 }
+  - id: y746
+    label: "テープ・面取り・塗装"
+    align: left
+    at: { x: 1300, y: 746 }
+    size: { w: 270, h: 24 }
+  - id: x770
+    label: "組み方"
+    at: { x: 1110, y: 770 }
+    size: { w: 190, h: 24 }
+  - id: y770
+    label: "ビス・ダボ・接合金物"
+    align: left
+    at: { x: 1300, y: 770 }
+    size: { w: 270, h: 24 }
+  - id: x794
+    label: "反り"
+    at: { x: 1110, y: 794 }
+    size: { w: 190, h: 24 }
+  - id: y794
+    label: "合板でも長い板は反る"
+    align: left
+    at: { x: 1300, y: 794 }
+    size: { w: 270, h: 24 }
+  - id: x818
+    label: "寸法"
+    at: { x: 1110, y: 818 }
+    size: { w: 190, h: 24 }
+  - id: y818
+    label: "例。板の実寸は 909×1818 のこともある"
+    align: left
+    at: { x: 1300, y: 818 }
+    size: { w: 270, h: 24 }
+  - id: n1
+    label: "合板 1 枚からどう部材を取るかの図です。素人がつまずくのは 3 つあります。"
+    marker: none
+    align: left
+    at: { x: 120, y: 880 }
+    size: { w: 960, h: 18 }
+  - id: n2
+    label: "1 つめ —— 刃が 3mm 食います。 910mm を 300mm 3 枚に割ると、刃の分で 909mm 使い、残りは 1mm です。"
+    marker: none
+    align: left
+    at: { x: 120, y: 902 }
+    size: { w: 960, h: 18 }
+  - id: n3
+    label: "2 つめ —— ホームセンターのカットは、端から端まで通す切り方だけです（パネルソー）。"
+    marker: none
+    align: left
+    at: { x: 120, y: 924 }
+    size: { w: 960, h: 18 }
+  - id: n4
+    label: "　途中で止めたり L 字に切ったりはできません。だから ③ のようなパズル配置は、面積が足りていても頼めません。"
+    marker: none
+    align: left
+    at: { x: 120, y: 946 }
+    size: { w: 960, h: 18 }
+  - id: n5
+    label: "3 つめ —— 木目の向きは変えられません。 長手 1820 の方向に繊維が通っています。回すと横木目になり、棚板は割れやすくなります。"
+    marker: none
+    align: left
+    at: { x: 120, y: 968 }
+    size: { w: 960, h: 18 }
+  - id: n6
+    label: "この木取りの歩留まりは 73.5% です。残りは端材で、300×1253mm は次に使えます。"
+    marker: none
+    align: left
+    at: { x: 120, y: 990 }
+    size: { w: 960, h: 18 }
+  - id: n7
+    label: "寸法は例です。板の実寸や刃の厚みは、店と機械で変わります。"
+    marker: none
+    align: left
+    at: { x: 120, y: 1012 }
+    size: { w: 960, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    weight: thick
+    ends: { from: arrow, to: arrow }
+  - from: p2
+    to: p3
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }
+  - from: p4
+    to: p5
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }
+  - from: p6
+    to: p7
+    curve: none
+    line: dashed
+    weight: thick
+    color: 試したカット
+    ends: { from: none, to: none }
+  - from: p8
+    to: p9
+    curve: none
+    line: dashed
+    weight: thick
+    color: 試したカット
+    ends: { from: none, to: none }

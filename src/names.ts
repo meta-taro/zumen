@@ -479,7 +479,9 @@ export function tagFits(box: Box): boolean {
     box.marker === 'circle' ||
     box.marker === 'double' ||
     box.marker === 'ellipse' ||
-    box.marker === 'diamond';
+    box.marker === 'diamond' ||
+    // **三角も、四隅が実物より外へ出ている**（菱形と同じ理由。2026-09-20）。
+    box.marker === 'triangle';
   // **名前が無ければ、符号は名前の大きさで描く**（`src/render.ts`）。
   // 物差しも合わせないと、「入る」と言って隣へはみ出す。
   const alone = box.label === '' && box.technology === null;

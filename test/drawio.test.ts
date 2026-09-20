@@ -194,3 +194,65 @@ describe('書き出しで、符号と副題を落とさない', () => {
     assert.ok(out.includes('value="あ"'), '余分な区切りが入った');
   });
 });
+
+/**
+ * **線種が、書き出しで黙って落ちていた**（2026-09-19。`line: chain` を足して気づいた）。
+ *
+ * draw.io へ出すと、`dashed` も `dotted` も `double` も `chain` も**ぜんぶ実線**になる。
+ * これは「落ちる」だけでは済まない ——
+ * **相続関係説明図は婚姻が二重線、親子が単線**と決まっていて、
+ * 二重線が単線になった図は、**情報が失われたのではなく、別のことを言っている。**
+ *
+ * しかも `<!-- 落ちるもの -->` の一覧にも書いていなかった。
+ * **黙って落とすのは、この道具がいちばん嫌う壊れ方。**
+ */
+describe('線種を書き出す', () => {
+  const LINES = `version: 1
+kind: placement
+arrows: true
+nodes:
+  - id: a
+    label: "あ"
+    at: { x: 0, y: 0 }
+    size: { w: 80, h: 40 }
+  - id: b
+    label: "い"
+    at: { x: 200, y: 0 }
+    size: { w: 80, h: 40 }
+edges:
+  - from: a
+    to: b
+    line: LINE
+`;
+  const of = async (word: string): Promise<string> => toDrawio(await layout(LINES.replace('LINE', word)));
+
+  it('**破線は破線として出る**', async () => {
+    assert.match(await of('dashed'), /dashed=1/);
+  });
+
+  it('**点線は、破線と違う刻みで出る**', async () => {
+    const dotted = await of('dotted');
+    assert.match(dotted, /dashed=1/);
+    assert.match(dotted, /dashPattern=/);
+    assert.notEqual(/dashPattern=([^;"]*)/.exec(dotted)?.[1], /dashPattern=([^;"]*)/.exec(await of('dashed'))?.[1]);
+  });
+
+  it('**一点鎖線も、それと分かる刻みで出る**', async () => {
+    const chain = await of('chain');
+    assert.match(chain, /dashPattern=/);
+    assert.notEqual(/dashPattern=([^;"]*)/.exec(chain)?.[1], /dashPattern=([^;"]*)/.exec(await of('dotted'))?.[1]);
+  });
+
+  it('実線には刻みを付けない', async () => {
+    assert.ok(!/dashed=1[^"]*edge="1"/.test(await of('solid')));
+  });
+
+  /**
+   * **二重線だけは出せない。** draw.io の辺に二重線の型が無い。
+   * 出せないなら、**出せないと書く**（黙って単線にしない）。
+   */
+  it('**二重線は、落ちると一覧に書いてある**', async () => {
+    const out = await of('double');
+    assert.match(out, /二重線|double/);
+  });
+});

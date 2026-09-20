@@ -160,3 +160,52 @@
 .lang span { color: var(--fg-3); }
 .lang a { color: var(--fg-2); text-decoration: none; }
 .lang a:hover { color: var(--accent); text-decoration: underline; }
+
+/**
+ * **分野ごと・見本ごとのページ**（2026-09-20。`scripts/pages.mjs`）。
+ *
+ * 見本が 233 枚になったのに、世に出ている入口は 2 つだけだった。
+ * **1 枚ごとに URL が無いと、検索でも言語モデルでも引けない。**
+ *
+ * トップと同じ見た目にはしない —— こちらは**読むためのページ**で、
+ * 勧めるためのページではない。図と、その図の決まりごとだけを置く。
+ */
+body.sub { max-width: 920px; margin: 0 auto; padding: 0 20px; }
+.bar {
+  display: flex; align-items: baseline; gap: 16px;
+  padding: 20px 0 14px; border-bottom: 1px solid var(--border); font-size: 14px;
+}
+.bar .home { font-weight: 700; font-size: 17px; color: var(--fg-1); text-decoration: none; }
+.bar nav a { color: var(--fg-2); }
+body.sub main { padding: 28px 0 8px; }
+body.sub h1 { font-size: 28px; line-height: 1.35; margin: 6px 0 10px; }
+body.sub h2 { font-size: 17px; margin: 34px 0 10px; color: var(--fg-1); }
+body.sub p { line-height: 1.85; color: var(--fg-2); margin: 0 0 12px; }
+.crumb { font-size: 13px; color: var(--fg-3); margin: 0; }
+.lead { font-size: 17px; color: var(--fg-1); }
+.made { font-size: 13px; color: var(--fg-3); }
+body.sub figure {
+  margin: 20px 0 6px; padding: 18px; border: 1px solid var(--border);
+  border-radius: 8px; background: var(--paper);
+}
+body.sub figure img { width: 100%; height: auto; display: block; }
+.near { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+.near a { color: var(--fg-2); }
+.cards { list-style: none; padding: 0; margin: 18px 0 0; display: grid; gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+.cards a { display: block; color: var(--fg-2); text-decoration: none; }
+.cards img {
+  width: 100%; height: auto; display: block; border: 1px solid var(--border);
+  border-radius: 6px; background: var(--paper); padding: 10px;
+}
+.cards span { display: block; margin-top: 8px; font-size: 14px; line-height: 1.6; }
+.cards a:hover span { color: var(--accent); }
+.foot {
+  margin-top: 48px; padding: 20px 0 56px; border-top: 1px solid var(--border);
+  font-size: 13px; color: var(--fg-3);
+}
+.foot a { color: var(--fg-2); }
+
+/** 分野の見出しから、分野ごとのページへ（2026-09-20）。 */
+h3.cat a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--border); }
+h3.cat a:hover { color: var(--accent); border-bottom-color: var(--accent); }

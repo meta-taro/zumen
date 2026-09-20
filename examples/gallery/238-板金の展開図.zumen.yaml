@@ -1,0 +1,444 @@
+version: 1
+kind: placement
+arrows: true
+title: 板金の展開図 —— 足しただけでは合わない
+scale: { mm: 0.25 }
+# **展開長は、外側寸法を足しただけでは合わない。**
+# 曲げると外側が伸びるので、その分（伸び値）を曲げの数だけ引く。
+# 50 ＋ 30 − 2.9 ＝ 77.1。
+#
+# 外は伸び、内は縮み、あいだに**伸びも縮みもしない面（中立面）**がある。
+# その面の長さが展開長。**中立面は板厚の真ん中ではなく、内側へ寄る。**
+#
+# **伸び値は規格ではない。** 材質・板厚・内R・金型で変わり、
+# 各工場が実測データとして持っている ——
+# だから図面には**どの伸び値で展開したか**を書く。この図の 2.9 も例。
+nodes:
+  - id: t1
+    label: "① 外側寸法を足しただけでは合わない（1px ＝ 0.25mm）"
+    marker: none
+    align: left
+    at: { x: 150, y: 200 }
+    size: { w: 600, h: 20 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 219, y: 299 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 219, y: 279 }
+    size: { w: 2, h: 2 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 419, y: 279 }
+    size: { w: 2, h: 2 }
+  - id: la
+    label: "外側 50"
+    marker: none
+    align: center
+    at: { x: 220, y: 258 }
+    size: { w: 200, h: 18 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 199, y: 299 }
+    size: { w: 2, h: 2 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 199, y: 419 }
+    size: { w: 2, h: 2 }
+  - id: lb
+    label: "外側 30"
+    marker: none
+    align: right
+    at: { x: 90, y: 351 }
+    size: { w: 100, h: 18 }
+  - id: lt
+    label: "板厚 1.6　内R 1.6"
+    marker: none
+    align: left
+    at: { x: 436, y: 302 }
+    size: { w: 200, h: 18 }
+  - id: lt2
+    label: "（角の形は ② を見る）"
+    marker: none
+    align: left
+    at: { x: 436, y: 322 }
+    size: { w: 200, h: 18 }
+  - id: l_n
+    label: "曲げたあと"
+    marker: none
+    align: center
+    at: { x: 220, y: 434 }
+    size: { w: 200, h: 18 }
+  - id: flat
+    label: ""
+    hatch: lines
+    at: { x: 220, y: 500 }
+    size: { w: 308.4, h: 6.4 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 219, y: 479 }
+    size: { w: 2, h: 2 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 527.4, y: 479 }
+    size: { w: 2, h: 2 }
+  - id: fl
+    label: "展開長 77.1"
+    marker: none
+    align: center
+    at: { x: 220, y: 458 }
+    size: { w: 308.4, h: 18 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 419, y: 486 }
+    size: { w: 2, h: 2 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 419, y: 518.4 }
+    size: { w: 2, h: 2 }
+  - id: fb
+    label: "曲げ線"
+    marker: none
+    align: center
+    at: { x: 360, y: 518.4 }
+    size: { w: 120, h: 18 }
+  - id: f_n
+    label: "曲げる前（展開図）"
+    marker: none
+    align: center
+    at: { x: 220, y: 542.4 }
+    size: { w: 308.4, h: 18 }
+  - id: calc
+    label: "展開長 ＝ 50 ＋ 30 − 2.9 ＝ 77.1"
+    at: { x: 220, y: 570 }
+    size: { w: 420, h: 40 }
+  - id: c_n
+    label: "外側寸法の合計から、伸び値を曲げの数だけ引く。"
+    marker: none
+    align: left
+    at: { x: 220, y: 618 }
+    size: { w: 460, h: 18 }
+  - id: t2
+    label: "② 外は伸び、内は縮む"
+    marker: none
+    align: left
+    at: { x: 800, y: 200 }
+    size: { w: 440, h: 20 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 809, y: 319 }
+    size: { w: 2, h: 2 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 899, y: 229 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 835, y: 319 }
+    size: { w: 2, h: 2 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 899, y: 255 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 822, y: 319 }
+    size: { w: 2, h: 2 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 899, y: 242 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 809, y: 319 }
+    size: { w: 2, h: 2 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 835, y: 319 }
+    size: { w: 2, h: 2 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 899, y: 229 }
+    size: { w: 2, h: 2 }
+  - id: p18
+    label: ""
+    marker: none
+    at: { x: 899, y: 255 }
+    size: { w: 2, h: 2 }
+  - id: o_n
+    label: "外側 —— 伸びる"
+    marker: none
+    align: left
+    at: { x: 910, y: 226 }
+    size: { w: 200, h: 18 }
+  - id: i_n
+    label: "内側 —— 縮む"
+    marker: none
+    align: left
+    at: { x: 860, y: 280 }
+    size: { w: 200, h: 18 }
+  - id: m_n
+    label: "中立面（一点鎖線）—— 伸びも縮みもしない"
+    marker: none
+    align: left
+    at: { x: 800, y: 350 }
+    size: { w: 440, h: 18 }
+  - id: m_n2
+    label: "この面の長さが、展開長になる。"
+    marker: none
+    align: left
+    at: { x: 800, y: 372 }
+    size: { w: 440, h: 18 }
+  - id: m_n3
+    label: "中立面の位置は板厚の真ん中ではない —— 内側へ寄る。"
+    marker: none
+    align: left
+    at: { x: 800, y: 394 }
+    size: { w: 440, h: 18 }
+  - id: m_n4
+    label: "寄り方（K 値）は材質・板厚・内R・金型で変わる。"
+    marker: none
+    align: left
+    at: { x: 800, y: 416 }
+    size: { w: 440, h: 18 }
+  - id: t3
+    label: "③ 図面に書くこと"
+    marker: none
+    align: left
+    at: { x: 800, y: 470 }
+    size: { w: 440, h: 20 }
+  - id: d0_0
+    label: "何を"
+    hatch: solid
+    at: { x: 800, y: 502 }
+    size: { w: 150, h: 28 }
+  - id: d0_1
+    label: "なぜ"
+    hatch: solid
+    at: { x: 950, y: 502 }
+    size: { w: 290, h: 28 }
+  - id: d1_0
+    label: "板厚と材質"
+    at: { x: 800, y: 530 }
+    size: { w: 150, h: 28 }
+  - id: d1_1
+    label: "伸び値が変わる"
+    at: { x: 950, y: 530 }
+    size: { w: 290, h: 28 }
+  - id: d2_0
+    label: "内R"
+    at: { x: 800, y: 558 }
+    size: { w: 150, h: 28 }
+  - id: d2_1
+    label: "同上"
+    at: { x: 950, y: 558 }
+    size: { w: 290, h: 28 }
+  - id: d3_0
+    label: "曲げ角度"
+    at: { x: 800, y: 586 }
+    size: { w: 150, h: 28 }
+  - id: d3_1
+    label: "同上"
+    at: { x: 950, y: 586 }
+    size: { w: 290, h: 28 }
+  - id: d4_0
+    label: "伸び値"
+    at: { x: 800, y: 614 }
+    size: { w: 150, h: 28 }
+  - id: d4_1
+    label: "どの値で展開したか"
+    at: { x: 950, y: 614 }
+    size: { w: 290, h: 28 }
+  - id: d5_0
+    label: "曲げ順"
+    at: { x: 800, y: 642 }
+    size: { w: 150, h: 28 }
+  - id: d5_1
+    label: "順が違うと、金型が当たる"
+    at: { x: 950, y: 642 }
+    size: { w: 290, h: 28 }
+  - id: d_n
+    label: "伸び値は規格ではない。 工場ごとの実測値。"
+    marker: none
+    align: left
+    at: { x: 800, y: 680 }
+    size: { w: 440, h: 18 }
+  - id: d_n2
+    label: "この図の 2.9 も、ある条件での例。"
+    marker: none
+    align: left
+    at: { x: 800, y: 702 }
+    size: { w: 440, h: 18 }
+  - id: r1
+    label: "展開長は、外側寸法を足しただけでは合いません（①）。曲げると外側が伸びるので、その分を引きます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 750 }
+    size: { w: 1090, h: 18 }
+  - id: r2
+    label: "50 ＋ 30 − 2.9 ＝ 77.1。 引く数を「伸び値」と呼び、曲げの箇所の数だけ引きます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 774 }
+    size: { w: 1090, h: 18 }
+  - id: r3
+    label: "外は伸び、内は縮み、あいだに伸びも縮みもしない面があります（②）。その面の長さが展開長です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 798 }
+    size: { w: 1090, h: 18 }
+  - id: r4
+    label: "中立面は板厚の真ん中ではありません。 内側へ寄ります —— 寄り方は材質・板厚・内R・金型で変わります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 822 }
+    size: { w: 1090, h: 18 }
+  - id: r5
+    label: "だから伸び値は規格ではありません（③）。各工場が実測データとして持っていて、同じ図面でも工場が違えば数が違います。"
+    marker: none
+    align: left
+    at: { x: 150, y: 846 }
+    size: { w: 1090, h: 18 }
+  - id: r6
+    label: "図面には「どの伸び値で展開したか」を書きます。 書いていないと、受け取った工場が自分の値で展開し直すことになります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 870 }
+    size: { w: 1090, h: 18 }
+  - id: r7
+    label: "曲げ順も書きます。 順が違うと、先に曲げた部分に金型が当たって、最後の一折りが曲げられません。"
+    marker: none
+    align: left
+    at: { x: 150, y: 894 }
+    size: { w: 1090, h: 18 }
+edges:
+  - from: p0
+    to: p0
+    curve: none
+    close: true
+    hatch: lines
+    ends: { from: none, to: none }
+    via:
+      - { x: 220, y: 300 }
+      - { x: 420, y: 300 }
+      - { x: 420, y: 306.4 }
+      - { x: 226.4, y: 306.4 }
+      - { x: 226.4, y: 420 }
+      - { x: 220, y: 420 }
+  - from: p1
+    to: p2
+    curve: none
+    ends: { from: arrow, to: arrow }
+  - from: p3
+    to: p4
+    curve: none
+    ends: { from: arrow, to: arrow }
+  - from: p5
+    to: p6
+    curve: none
+    ends: { from: arrow, to: arrow }
+  - from: p7
+    to: p8
+    curve: none
+    line: chain
+    ends: { from: none, to: none }
+  - from: p9
+    to: p10
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 810.3, y: 312.9 }
+      - { x: 811.1, y: 305.9 }
+      - { x: 812.5, y: 299 }
+      - { x: 814.4, y: 292.2 }
+      - { x: 816.9, y: 285.6 }
+      - { x: 819.8, y: 279.1 }
+      - { x: 823.3, y: 273 }
+      - { x: 827.2, y: 267.1 }
+      - { x: 831.6, y: 261.5 }
+      - { x: 836.4, y: 256.4 }
+      - { x: 841.5, y: 251.6 }
+      - { x: 847.1, y: 247.2 }
+      - { x: 853, y: 243.3 }
+      - { x: 859.1, y: 239.8 }
+      - { x: 865.6, y: 236.9 }
+      - { x: 872.2, y: 234.4 }
+      - { x: 879, y: 232.5 }
+      - { x: 885.9, y: 231.1 }
+      - { x: 892.9, y: 230.3 }
+  - from: p11
+    to: p12
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 836.2, y: 315 }
+      - { x: 836.8, y: 310 }
+      - { x: 837.8, y: 305.1 }
+      - { x: 839.1, y: 300.2 }
+      - { x: 840.9, y: 295.5 }
+      - { x: 843, y: 290.9 }
+      - { x: 845.4, y: 286.6 }
+      - { x: 848.2, y: 282.4 }
+      - { x: 851.3, y: 278.4 }
+      - { x: 854.7, y: 274.7 }
+      - { x: 858.4, y: 271.3 }
+      - { x: 862.4, y: 268.2 }
+      - { x: 866.6, y: 265.4 }
+      - { x: 870.9, y: 263 }
+      - { x: 875.5, y: 260.9 }
+      - { x: 880.2, y: 259.1 }
+      - { x: 885.1, y: 257.8 }
+      - { x: 890, y: 256.8 }
+      - { x: 895, y: 256.2 }
+  - from: p13
+    to: p14
+    curve: none
+    line: chain
+    ends: { from: none, to: none }
+    via:
+      - { x: 823.2, y: 314 }
+      - { x: 823.9, y: 308 }
+      - { x: 825.1, y: 302 }
+      - { x: 826.8, y: 296.2 }
+      - { x: 828.9, y: 290.5 }
+      - { x: 831.4, y: 285 }
+      - { x: 834.3, y: 279.8 }
+      - { x: 837.7, y: 274.7 }
+      - { x: 841.4, y: 270 }
+      - { x: 845.6, y: 265.6 }
+      - { x: 850, y: 261.4 }
+      - { x: 854.7, y: 257.7 }
+      - { x: 859.8, y: 254.3 }
+      - { x: 865, y: 251.4 }
+      - { x: 870.5, y: 248.9 }
+      - { x: 876.2, y: 246.8 }
+      - { x: 882, y: 245.1 }
+      - { x: 888, y: 243.9 }
+      - { x: 894, y: 243.2 }
+  - from: p15
+    to: p16
+    curve: none
+    ends: { from: none, to: none }
+  - from: p17
+    to: p18
+    curve: none
+    ends: { from: none, to: none }

@@ -94,6 +94,15 @@ export interface Box {
   radius: number | null;
   /** **配置図での印の描き方**（`src/marker.ts`）。既定は矩形。 */
   marker: Marker;
+  /**
+   * **枠の線種**（`src/line.ts`）。既定は実線。
+   *
+   * 辺だけの語だと思われていたが、**枠にも要る**（2026-09-19）——
+   * 敷地境界線は一点鎖線、仕上がりの内側の安全領域は破線、
+   * 点字の「出ていない点」は点線の丸。
+   * 書いても効かず、**見本 194 で 57 個が黙って落ちていた。**
+   */
+  line: Line;
   /** **ハッチング**（材料・区域の模様。`src/hatch.ts`）。既定は無地。 */
   hatch: Hatch;
   /** **縦組みにするか**（`src/write.ts`）。既定は横組み。 */
@@ -640,14 +649,46 @@ export function groupEscapes(placed: Placed): string[] {
  * 断面図の水抜管は壁を貫き、碁石は盤の線の上に置く。
  * だから**合否ではなく観測値**にして、良し悪しは人が決める（`crossings` と同じ）。
  */
+/** 何も描かない小さな節（折れ線の足場）。`edgesUnderBoxes` が塗らないのと同じ筋。 */
+function anchorOnly(box: Box): boolean {
+  return box.marker === 'none' && box.label === '' && box.w <= 4 && box.h <= 4;
+}
+
 export function straddles(placed: Placed): [string, string][] {
   const by = new Map(placed.boxes.map((box) => [box.id, box]));
   return overlaps(placed).filter(([left, right]) => {
     const a = by.get(left)!;
     const b = by.get(right)!;
+    // **線の錨は、箱ではない**（2026-09-19）。折れ線や自分自身への辺の端に置く
+    // 2px・`marker: none`・名前なしの節は**何も描かない** —— 通り道の足場であって、
+    // 床の場所を取る物ではない。数えていたせいで **27 組・8 枚**が嘘の観測値になり、
+    // 見本 61 は**その組しか無いのに**「わざと重ねている」へ登録されていた。
+    if (anchorOnly(a) || anchorOnly(b)) return false;
     const inside = (x: Box, y: Box): boolean =>
       x.x <= y.x && x.y <= y.y && x.x + x.w >= y.x + y.w && x.y + x.h >= y.y + y.h;
     return !inside(a, b) && !inside(b, a);
+  });
+}
+
+/**
+ * **またぎの、重なっている大きさ**（2026-09-20）。
+ *
+ * `straddles` は組しか返さないので、**どちらへ何 px 動かせば解けるかが分からない。**
+ * 狭いほうの辺を詰めれば解けるので、**幅と高さの小さいほうが動かす量**になる。
+ */
+export function straddlePlaces(placed: Placed): { a: string; b: string; by: { x: number; y: number } }[] {
+  const by = new Map(placed.boxes.map((box) => [box.id, box]));
+  return straddles(placed).map(([left, right]) => {
+    const a = by.get(left)!;
+    const b = by.get(right)!;
+    return {
+      a: left,
+      b: right,
+      by: {
+        x: Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x),
+        y: Math.min(a.y + a.h, b.y + b.h) - Math.max(a.y, b.y),
+      },
+    };
   });
 }
 
@@ -681,6 +722,36 @@ export function edgesUnderBoxes(placed: Placed): [string, string][] {
 }
 
 /** 重なっている組を返す。合否ではなく観測値。 */
+/**
+ * **丸い節**（`marker: circle` / `ellipse` で、幅と高さが同じもの）。
+ *
+ * 丸の外接四角は、**四隅が実物より外へ出ている。**
+ * 輪の上に丸を並べると（花火の星、盤上の石、円卓の席）、
+ * 丸どうしは離れているのに四角だけが重なる。
+ */
+function roundOf(box: Box): { cx: number; cy: number; r: number } | null {
+  if (box.marker !== 'circle' && box.marker !== 'ellipse') return null;
+  if (Math.abs(box.w - box.h) > 0.5) return null;
+  return { cx: box.x + box.w / 2, cy: box.y + box.h / 2, r: box.w / 2 };
+}
+
+/**
+ * **紙の上で場所を取り合っているか。**
+ *
+ * 基本は外接四角どうし。ただし**丸は四角ではない**（2026-09-19）——
+ * 丸どうしのときは中心の距離で見る。
+ * 割物花火の断面（見本 212）で、割薬の円と、その外を囲む星 36 個が
+ * **3mm 離れているのに 36 組すべて重なりとして数えられた。**
+ * 四隅の分だけ、丸は四角より小さい。
+ */
+function hits(a: Box, b: Box): boolean {
+  const apart = a.x + a.w <= b.x || b.x + b.w <= a.x || a.y + a.h <= b.y || b.y + b.h <= a.y;
+  if (apart) return false;
+  const [ra, rb] = [roundOf(a), roundOf(b)];
+  if (ra === null || rb === null) return true;
+  return Math.hypot(ra.cx - rb.cx, ra.cy - rb.cy) < ra.r + rb.r;
+}
+
 export function overlaps(placed: Placed): [string, string][] {
   const found: [string, string][] = [];
   const boxes = placed.boxes;
@@ -688,9 +759,7 @@ export function overlaps(placed: Placed): [string, string][] {
     for (let j = i + 1; j < boxes.length; j += 1) {
       const a = boxes[i]!;
       const b = boxes[j]!;
-      const apart =
-        a.x + a.w <= b.x || b.x + b.w <= a.x || a.y + a.h <= b.y || b.y + b.h <= a.y;
-      if (!apart) found.push([a.id, b.id]);
+      if (hits(a, b)) found.push([a.id, b.id]);
     }
   }
   return found;
@@ -705,25 +774,71 @@ export function overlaps(placed: Placed): [string, string][] {
  * 同じ点から出ている線どうしは数えない（扇形に広がるのは交差ではない）。
  */
 export function crossings(placed: Placed): number {
-  const segments: [P, P][] = [];
+  return countCrossings(placed).count;
+}
+
+/**
+ * **どの 2 本が交わっているか**（2026-09-19）。
+ *
+ * `straddles` も `overlappingText` も `edgesUnderBoxes` も組を返すのに、
+ * ここだけが数だった。「2 本交わっています」では、**どれとどれかを自分で探すしかない。**
+ * 同じ 2 本が何か所で交わっても、組は 1 つだけ返す（探すのに要るのは場所ではなく相手）。
+ */
+export function crossingEdges(placed: Placed): [string, string][] {
+  return countCrossings(placed).pairs.map(([a, b]) => [a, b] as [string, string]);
+}
+
+/**
+ * **交わっている場所まで返す**（2026-09-20）。
+ *
+ * 組だけでは足りない。`path()` で引いた折れ線の id は `p16>p17` のような
+ * **書き手が付けていない名前**なので、「どの 2 本か」を言われても図の中で探せない。
+ * **紙の上の座標**が分かれば、その場所を見て直せる
+ * （エスカレーターの引出線を直すとき、自分で台本を書いて座標を出した）。
+ */
+export function crossingPlaces(placed: Placed): { a: string; b: string; at: P }[] {
+  return countCrossings(placed).pairs.map(([a, b, at]) => ({ a, b, at }));
+}
+
+function countCrossings(placed: Placed): { count: number; pairs: [string, string, P][] } {
+  const segments: { seg: [P, P]; id: string }[] = [];
   for (const edge of placed.edges) {
     for (let i = 0; i + 1 < edge.points.length; i += 1) {
-      segments.push([edge.points[i]!, edge.points[i + 1]!]);
+      segments.push({ seg: [edge.points[i]!, edge.points[i + 1]!], id: edge.id });
     }
   }
 
   let count = 0;
+  const seen = new Set<string>();
+  const pairs: [string, string, P][] = [];
   for (let i = 0; i < segments.length; i += 1) {
     for (let j = i + 1; j < segments.length; j += 1) {
-      if (intersects(segments[i]!, segments[j]!)) count += 1;
+      if (!intersects(segments[i]!.seg, segments[j]!.seg)) continue;
+      count += 1;
+      const [a, b] = [segments[i]!.id, segments[j]!.id].sort() as [string, string];
+      const key = `${a}\u0000${b}`;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      pairs.push([a, b, meetOf(segments[i]!.seg, segments[j]!.seg)]);
     }
   }
-  return count;
+  return { count, pairs };
 }
 
 interface P {
   x: number;
   y: number;
+}
+
+/**
+ * **2 本が交わる点。** `intersects` が真のときだけ呼ぶので、平行は来ない。
+ */
+function meetOf([a, b]: [P, P], [c, d]: [P, P]): P {
+  const r = { x: b.x - a.x, y: b.y - a.y };
+  const sg = { x: d.x - c.x, y: d.y - c.y };
+  const den = r.x * sg.y - r.y * sg.x;
+  const t = ((c.x - a.x) * sg.y - (c.y - a.y) * sg.x) / den;
+  return { x: Math.round(a.x + r.x * t), y: Math.round(a.y + r.y * t) };
 }
 
 /**
@@ -777,6 +892,8 @@ interface NodeInfo {
   radius: number | null;
   /** 印の描き方（`src/marker.ts`）。 */
   marker: Marker;
+  /** 枠の線種（`src/line.ts`）。 */
+  line: Line;
   /** 模様（`src/hatch.ts`）。 */
   hatch: Hatch;
   /** 縦組みにするか（`src/write.ts`）。 */
@@ -823,6 +940,7 @@ function readNodes(diagram: ReturnType<typeof parse>): NodeInfo[] {
       tag?: unknown;
       radius?: unknown;
       marker?: unknown;
+  line?: unknown;
       hatch?: unknown;
       write?: unknown;
       align?: unknown;
@@ -846,6 +964,7 @@ function readNodes(diagram: ReturnType<typeof parse>): NodeInfo[] {
       tag: asText(node.tag),
       radius: radiusOf(node.radius),
       marker: markerOf(node.marker),
+      line: lineOf(node.line),
       hatch: hatchOf(node.hatch),
       write: writeOf(node.write),
       align: alignOf(node.align),
@@ -1060,7 +1179,14 @@ function routeEdges(
       const last = edge.via[edge.via.length - 1]!;
       // **ほとんど同じ点は畳む**（`merged`）。自分自身への辺では、
       // 出口と入口が同じ節の縁で 1 px ほど離れて並び、曲線が跳ねる。
-      const points = merged([clip(from, first), ...edge.via, clip(to, last)]);
+      // **自分自身への辺で `close` を書かなければ、戻り線を引かない。**
+      // 閉じた形（池・視野・外形）にも、開いた折れ線（等圧線・地形・縫い代）にも
+      // 同じ書き方を使う。**閉じるかどうかは `close` が言う** —— 2026-09-19。
+      // ここを戻していたため、見本 10 枚に**正本が書いていない線 123 本**が出ていた。
+      const open = edge.from === edge.to && edge.close !== true;
+      const points = merged(
+        open ? [clip(from, first), ...edge.via] : [clip(from, first), ...edge.via, clip(to, last)],
+      );
       // **輪を閉じる**（`close`）。最後から最初へ戻る —— 池・トラック・外形。
       if (edge.close) {
         // 自分自身への辺では、**出口と入口が同じ節の縁**に来る。
@@ -1247,6 +1373,7 @@ function collect(
       tag: nodes.find((n) => n.id === child.id)?.tag ?? null,
       radius: nodes.find((n) => n.id === child.id)?.radius ?? null,
       marker: nodes.find((n) => n.id === child.id)?.marker ?? 'box',
+      line: nodes.find((n) => n.id === child.id)?.line ?? 'solid',
       hatch: nodes.find((n) => n.id === child.id)?.hatch ?? 'none',
       write: nodes.find((n) => n.id === child.id)?.write ?? 'across',
       align: nodes.find((n) => n.id === child.id)?.align ?? 'center',

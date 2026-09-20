@@ -18,15 +18,18 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 
 import { toDrawio } from './drawio.ts';
+import { tooThinForPattern } from './hatch.ts';
+import { patternPeriod } from './line.ts';
 import { renderZumenBlocks, replaceZumenBlocks } from './embed.ts';
 import { mergeThreeWay } from './git-merge.ts';
-import { edgesUnderBoxes, layout } from './layout.ts';
+import { crossingPlaces, edgesUnderBoxes, layout, straddlePlaces, straddles } from './layout.ts';
 import { PASS_LINE, measure, percent } from './measure.ts';
 import { merge } from './merge.ts';
 import type { Conflict } from './merge.ts';
 import { toMermaid } from './mermaid.ts';
-import { overlappingInk, render } from './render.ts';
+import { overlappingInk, render, viewTitleBox } from './render.ts';
 import { timelapse } from './timelapse.ts';
+import { inspect } from './tools.ts';
 import { kindOf } from './kind.ts';
 import { messages } from './messages.ts';
 import { hasError, validate } from './validate.ts';
@@ -90,6 +93,71 @@ export async function runValidate(paths: string[], read = readFileSync): Promise
 }
 
 /**
+ * **長辺の両端にいる要素**（`too-small-to-print` に添える）。
+ *
+ * 「あと 89px 詰めてください」までは出ていたが、**どこを詰めるかは出ていなかった。**
+ * 長辺が縦か横かも、その端に何がいるかも、図を目で探すしかない ——
+ * PDCA の直近 5 周のうち 4 周で、ここに 3〜4 往復とられた（2026-09-19）。
+ */
+function endsOfLongSide(
+  placed: { boxes: { id: string; x: number; y: number; w: number; h: number }[] },
+  vertical: boolean,
+): [string, string] {
+  if (placed.boxes.length === 0) return ['', ''];
+  const low = (b: { x: number; y: number }): number => (vertical ? b.y : b.x);
+  const high = (b: { x: number; y: number; w: number; h: number }): number =>
+    vertical ? b.y + b.h : b.x + b.w;
+  let head = placed.boxes[0]!;
+  let tail = placed.boxes[0]!;
+  for (const box of placed.boxes) {
+    if (low(box) < low(head)) head = box;
+    if (high(box) > high(tail)) tail = box;
+  }
+  return [head.id, tail.id];
+}
+
+/**
+ * **長辺の向きで、いちばん空いている帯**（2026-09-19）。
+ *
+ * 「あと N px 詰めてください」まで言えるようになったが、
+ * **どこを詰めればよいかは、まだ当て推量だった** ——
+ * 1 枚の見本で 3 往復したことが今日 4 回あった。
+ * 中身が 1 つも無い帯を見つけて、その場所と幅を返す。
+ * **節の間の空きは、たいてい意図ではなく余り。**
+ */
+/** 空いている帯を、文言へ渡す 4 つの文字にする（無ければ空文字 4 つ）。 */
+function gapWords(
+  gap: { at: number; to: number } | null,
+  vertical: boolean,
+): [string, string, string, string] {
+  if (gap === null) return ['', '', '', ''];
+  return [
+    vertical ? 'y' : 'x',
+    String(Math.round(gap.at)),
+    String(Math.round(gap.to)),
+    String(Math.round(gap.to - gap.at)),
+  ];
+}
+
+function widestGap(
+  placed: { boxes: { x: number; y: number; w: number; h: number }[] },
+  vertical: boolean,
+): { at: number; to: number } | null {
+  if (placed.boxes.length < 2) return null;
+  const span = placed.boxes
+    .map((b) => (vertical ? { a: b.y, b: b.y + b.h } : { a: b.x, b: b.x + b.w }))
+    .sort((x, y) => x.a - y.a);
+  let edge = span[0]!.b;
+  let best: { at: number; to: number } | null = null;
+  for (const s of span) {
+    if (s.a > edge && (best === null || s.a - edge > best.to - best.at)) best = { at: edge, to: s.a };
+    edge = Math.max(edge, s.b);
+  }
+  // **20px 未満は、行と行のあいだ**。詰めても効かないし、詰めると読めなくなる。
+  return best !== null && best.to - best.at >= 20 ? best : null;
+}
+
+/**
  * **置いてみないと分からない指摘**（配置図だけ）。
  *
  * 構成図では置き場所を機械が決めるので、重なりは起きない。
@@ -134,12 +202,48 @@ export async function placedFindings(text: string): Promise<Finding[]> {
             paper.smallestText,
             Math.round(paper.longestSide),
             Math.floor(paper.smallestText / paper.printFloor),
+            placed.height >= placed.width
+              ? messages().validate.alongVertical
+              : messages().validate.alongHorizontal,
+            ...endsOfLongSide(placed, placed.height >= placed.width),
+            ...gapWords(widestGap(placed, placed.height >= placed.width), placed.height >= placed.width),
           ),
         },
       ]
     : [];
 
-  if (!plan) return size;
+  /**
+   * **刻みが 1 回も出そろわない線**（2026-09-20）。
+   *
+   * 破線も一点鎖線も、**線種そのものが意味**を持つ（`src/line.ts`）。
+   * 刻みが 1 周しない長さだと、描かれるのは 1 本の短い実線で、**意味が消える。**
+   * 測ったら見本 2 枚が実際にそうだった —— どちらも中心線・見えない線のつもりで引いたもの。
+   */
+  const short: Finding[] = placed.edges.flatMap((edge) => {
+    const need = patternPeriod(edge.line);
+    if (need === 0) return [];
+    let length = 0;
+    for (let i = 1; i < edge.points.length; i += 1) {
+      const a = edge.points[i - 1]!;
+      const b = edge.points[i]!;
+      length += Math.hypot(b.x - a.x, b.y - a.y);
+    }
+    if (length === 0 || length >= need) return [];
+    return [
+      {
+        severity: 'warning' as const,
+        code: 'line-too-short',
+        message: messages().validate.lineTooShort(
+          `${edge.from} → ${edge.to}`,
+          edge.line,
+          String(Math.round(length)),
+          String(need),
+        ),
+      },
+    ];
+  });
+
+  if (!plan) return [...size, ...short];
   const plans = planNames(placed.boxes, extentOf(placed.boxes), placed.edges, placed.groups);
   /**
    * **紙の上で数える**（2026-09-17）。
@@ -151,13 +255,14 @@ export async function placedFindings(text: string): Promise<Finding[]> {
    */
   const said = (word: { text: string; id: string | null }): string =>
     word.id === null ? JSON.stringify(word.text) : `${JSON.stringify(word.text)}（${word.id}）`;
-  const ink = overlappingInk(render(placed, 'light', 'safe', true)).map(([a, b]) => ({
+  const ink = overlappingInk(render(placed, 'light', 'safe', true)).map(([a, b, by]) => ({
     severity: 'warning' as const,
     code: 'text-overlap',
-    message: messages().validate.inkOverlap(said(a), said(b)),
+    message: messages().validate.inkOverlap(said(a), said(b), by.x, by.y),
   }));
   return [
     ...size,
+    ...short,
     ...ink,
     // **広い箱から出ていった名前。** 表の欄が空に見える。
     /**
@@ -190,7 +295,61 @@ export async function placedFindings(text: string): Promise<Finding[]> {
       code: 'edge-under-box',
       message: messages().validate.edgeUnderBox(edge, box),
     })),
+    /**
+     * **図の名前が、中身の上に乗っている**（2026-09-19）。
+     *
+     * `views[].title` は**図の下辺のすぐ下**に描かれる。だから
+     * `size` に書いた高さより中身が下へ出ていると、**名前がその上に乗る。**
+     *
+     * `overlappingInk` は文字どうししか見ないので、
+     * **名前が箱の上に乗っただけでは拾えなかった** ——
+     * 血球計算盤（見本 213）を描いていて、断面図の名前が計算盤の箱に
+     * 重なっているのを**ブラウザで開いて初めて見つけた。**
+     */
+    ...viewTitlesCovered(placed),
+    /**
+     * **模様を頼んだのに、面が細すぎて 1 つも描かれない**（2026-09-20）。
+     *
+     * `hatch-unknown` は知らない語を拾い、`hatch-ignored` は配置図でない図を拾うが、
+     * **正しい語を正しい図に書いて、それでも何も出ない**場合は誰も見ていなかった。
+     * 測ったら**見本 4 枚・9 節**がそうで、どれも「線のつもりで細い箱に模様を書いた」もの。
+     * 出てくる図は無地と区別がつかないので、**書いた人は気づけない。**
+     */
+    ...placed.boxes
+      .filter((box) => box.hatch !== 'none' && tooThinForPattern(box.hatch, box))
+      .map((box) => ({
+        severity: 'warning' as const,
+        code: 'hatch-too-thin',
+        message: messages().validate.hatchTooThin(box.id, box.hatch, Math.round(Math.min(box.w, box.h))),
+      })),
   ];
+}
+
+/** 図の名前が、描かれた箱の上に乗っている組。 */
+function viewTitlesCovered(placed: Awaited<ReturnType<typeof layout>>): Finding[] {
+  const found: Finding[] = [];
+  for (const view of placed.views) {
+    const band = viewTitleBox(view);
+    if (band === null) continue;
+    for (const box of placed.boxes) {
+      // **何も描かない節は乗られても見えない**（`marker: none`）。
+      // 名前のある節は文字なので、文字どうしの重なりとして `overlappingInk` が拾う。
+      if (box.marker === 'none') continue;
+      const hit =
+        box.x < band.x + band.w &&
+        band.x < box.x + box.w &&
+        box.y < band.y + band.h &&
+        band.y < box.y + box.h;
+      if (!hit) continue;
+      found.push({
+        severity: 'warning',
+        code: 'view-title-covered',
+        message: messages().validate.viewTitleCovered(view.id, box.id, Math.ceil(box.y + box.h - band.y + 6)),
+      });
+      break;
+    }
+  }
+  return found;
 }
 
 function format(finding: Finding): string {
@@ -265,6 +424,145 @@ function titleOf(text: string): string | undefined {
 }
 
 /**
+ * **観測値を見せる**（2026-09-20）。
+ *
+ * `crossings` と `straddles` は「**合否ではなく観測値**」と決めてあるので
+ * 検査（`validate`）からは出さない。ところが**見る道具がどこにも無かった** ——
+ * test/names.test.ts は両方を見ているのに、書いている最中は分からない。
+ * 見本を 1 枚足すたびに使い捨ての台本を書いていた（このセッションだけで 5 回）。
+ *
+ * **止めない。数えて見せるだけ。**
+ */
+export async function runInspect(paths: string[], read = readFileSync): Promise<RunResult> {
+  const m = messages().cli;
+  if (paths.length === 0) return { code: 2, lines: [m.usageInspect] };
+
+  const lines: string[] = [];
+  let gated = false;
+  let unreadable = 0;
+  for (const path of paths) {
+    let text: string;
+    try {
+      text = String(read(path, 'utf8'));
+    } catch (error) {
+      return { code: 1, lines: [m.fileUnreadable(path, error instanceof Error ? error.message : String(error))] };
+    }
+    const seen = await inspect(text);
+    lines.push(m.inspected(path));
+    if (!seen.readable) {
+      /**
+       * **読めない図に、観測値は無い**（2026-09-20）。
+       *
+       * 前は指摘を並べたあと、最後に「これは合否ではなく観測値です」まで足していた ——
+       * **観測値を 1 つも出していないのに。** 読めない図は、まず読めるようにする話。
+       */
+      lines.push(...seen.findings.map(format));
+      unreadable += 1;
+      continue;
+    }
+    lines.push(m.inspectCounts(seen.nodes, seen.edges));
+
+    /**
+     * **警告の件数も出す**（2026-09-20）。
+     *
+     * 「登録の前に `pnpm inspect` で 0 にする」手順を作ったのに、
+     * **この口は検査の警告を 1 件も出していなかった** —— 見本 268 を登録したあとで、
+     * 描かれていない `hatch: dots` を `pnpm validate` が見つけた。
+     * 中身までは出さない（`validate` の仕事）。**在ることだけを知らせる。**
+     */
+    const warnings = [...validate(text), ...(await placedFindings(text))].filter(
+      (finding) => finding.severity === 'warning',
+    );
+    if (warnings.length > 0) lines.push(m.inspectWarnings(String(warnings.length)));
+
+    const placed = await layout(text);
+    const crossed = crossingPlaces(placed);
+    const over = straddles(placed);
+    const quiet =
+      crossed.length === 0 && over.length === 0 &&
+      seen.overlappingText.length === 0 && seen.edgesUnderBoxes.length === 0 &&
+      seen.hiddenLabels.length === 0 && seen.crowdedNames.length === 0 &&
+      seen.adriftNames.length === 0 && seen.hiddenTags.length === 0;
+    if (quiet) lines.push(m.inspectClean);
+    if (crossed.length > 0 || over.length > 0) gated = true;
+    if (crossed.length > 0) lines.push(m.inspectCrossings(seen.crossings, crossed.length, spots(crossed)));
+    if (over.length > 0) {
+      // **どれだけ重なっているかまで出す。** 組だけでは、何 px 動かすかが分からない。
+      const said = straddlePlaces(placed).map((found) =>
+        m.straddleBy(found.a, found.b, String(Math.ceil(found.by.x)), String(Math.ceil(found.by.y))),
+      );
+      lines.push(m.inspectStraddles(over.length, names(said, 6)));
+    }
+    if (seen.overlappingText.length > 0) {
+      lines.push(m.inspectOverlaps(seen.overlappingText.length, pairs(seen.overlappingText)));
+    }
+    if (seen.edgesUnderBoxes.length > 0) {
+      lines.push(m.inspectUnderBoxes(seen.edgesUnderBoxes.length, pairs(seen.edgesUnderBoxes)));
+    }
+
+    /**
+     * **検査の網と、見る道具の網をそろえる**（2026-09-20）。
+     * `test/names.test.ts` は `hiddenLabels` と `crowdedNames` も 0 だと決めているのに、
+     * この口は交差とまたぎしか出していなかった。**閉じたはずの穴が半分開いていた。**
+     */
+    if (seen.hiddenLabels.length > 0) {
+      lines.push(m.inspectHiddenLabels(seen.hiddenLabels.length, names(seen.hiddenLabels)));
+    }
+    if (seen.crowdedNames.length > 0) {
+      lines.push(m.inspectCrowded(seen.crowdedNames.length, names(seen.crowdedNames)));
+    }
+    if (seen.adriftNames.length > 0) {
+      // **どれだけ足りないかまで出す。** id だけでは、箱をいくつ広げるかが分からない。
+      const detail =
+        kindOf(text) === 'placement'
+          ? adriftDetails(placed.boxes, planNames(placed.boxes, extentOf(placed.boxes), placed.edges, placed.groups)).map(
+              (found) => m.adriftWidth(found.id, String(Math.ceil(found.needs)), String(Math.round(found.has))),
+            )
+          : seen.adriftNames;
+      lines.push(m.inspectAdrift(seen.adriftNames.length, names(detail)));
+    }
+    if (seen.hiddenTags.length > 0) {
+      lines.push(m.inspectHiddenTags(seen.hiddenTags.length, names(seen.hiddenTags)));
+    }
+
+    // **長さは 1px きざみで足りる。** 1448.6107034668482 は読む人を困らせるだけ。
+    const ratio = seen.textRatio === null ? '—' : seen.textRatio.toFixed(4);
+    lines.push(m.inspectPaper(seen.smallestText, Math.round(seen.longestSide), ratio));
+    if (seen.tooSmallToPrint) lines.push(m.inspectPrint);
+    else if (seen.tooSmallToProject) lines.push(m.inspectProject);
+  }
+  // **読めなかった図しか無いなら、観測値の話はしない。**
+  if (unreadable < paths.length) lines.push(m.inspectNote);
+  // **止めないが、放っておくとテストが落ちる**ことだけは言う。
+  if (gated) lines.push(m.inspectGate);
+  if (unreadable > 0) lines.push(m.inspectUnreadable(unreadable));
+  return { code: 0, lines };
+}
+
+/**
+ * 交差を「a↔b (x, y)」の形にする。**場所まで言う**（2026-09-20）。
+ *
+ * `path()` で引いた折れ線の id は書き手が付けた名前ではないので、
+ * 組だけ言われても図の中で探せない。**紙の上の座標が要る。**
+ */
+function spots(list: { a: string; b: string; at: { x: number; y: number } }[], limit = 6): string {
+  const head = list.slice(0, limit).map((c) => `${c.a}↔${c.b} (${c.at.x}, ${c.at.y})`).join(', ');
+  return list.length <= limit ? head : `${head}, …`;
+}
+
+/** id を並べる。**多いときは先頭だけ。** */
+function names(list: string[], limit = 8): string {
+  const head = list.slice(0, limit).join(', ');
+  return list.length <= limit ? head : `${head}, …`;
+}
+
+/** 組を「a↔b, c↔d」の形にする。**多いときは先頭だけ**（探すのに要るのは相手）。 */
+function pairs(list: [string, string][], limit = 6): string {
+  const head = list.slice(0, limit).map(([a, b]) => `${a}↔${b}`).join(', ');
+  return list.length <= limit ? head : `${head}, …`;
+}
+
+/**
  * 「9 割」を測る（Issue 003 / D3）。
  *
  * **合格しなくても 1 は返さない。** これは検査ではなく物差しで、
@@ -323,6 +621,11 @@ async function convert(
   const m = messages().cli;
   const [input, output] = paths;
   if (input === undefined) return { code: 2, lines: [usage] };
+  // **旗と読み違えた出し先で、ファイルを作らない。** `-o 出力.svg` と書くと
+  // `-o` という名前のファイルが出来て、本当の出し先は黙って捨てられていた。
+  if (output !== undefined && output.startsWith('-')) {
+    return { code: 2, lines: [m.outputLooksLikeFlag(output), usage] };
+  }
   const target = output ?? `${input.replace(/\.zumen\.yaml$|\.ya?ml$|\.md$/, '')}${extension}`;
 
   let text: string;
@@ -465,6 +768,7 @@ export async function run(argv: string[]): Promise<RunResult> {
   if (command === 'merge-driver') return runMergeDriver(rest);
   if (command === 'drawio') return runDrawio(rest);
   if (command === 'measure') return runMeasure(rest);
+  if (command === 'inspect') return runInspect(rest);
   if (command === 'svg') return runSvg(rest);
   if (command === 'mermaid') return runMermaid(rest);
   if (command === 'timelapse') return runTimelapse(rest);
@@ -474,6 +778,7 @@ export async function run(argv: string[]): Promise<RunResult> {
   const usage = [
     m.usage,
     m.usageMeasure,
+    m.usageInspect,
     m.usageSvg,
     m.usageTimelapse,
     m.usageMermaid,

@@ -13,6 +13,7 @@
  */
 import { asText, getPins, parse } from './format.ts';
 import { directionOf } from './direction.ts';
+import { kindOf } from './kind.ts';
 import type { Pin } from './format.ts';
 import { messages } from './messages.ts';
 import { APPEARANCE } from './tokens.ts';
@@ -64,6 +65,14 @@ export function toMermaid(text: string): string {
 
   const lines: string[] = [];
   if (raw.title !== undefined) lines.push(`%% ${raw.title}`);
+  /**
+   * **配置図を Mermaid へ出すと、位置が丸ごと落ちる**（2026-09-19）。
+   *
+   * 間取り・仕込図・木取り図は「**どこに何があるか**」が中身で、
+   * Mermaid にはその器が無い。出てくるのは位置を失った箱の一覧で、
+   * 「落ちる」では済まず**別のもの**になる。draw.io には注記があるのに、ここには無かった。
+   */
+  if (kindOf(text) === 'placement') lines.push(`%% ${messages().mermaid.lossPlacement}`);
   lines.push(...droppedNotes(pins));
   // **向きは正本が決める**（`src/direction.ts`。既定は横）。
   // ここを `TD` で固定していたので、**同じ正本から SVG は横、Mermaid は縦**が出ていた。

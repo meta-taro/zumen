@@ -81,6 +81,10 @@ function faceOf(marker: Marker, box: Rect, attrs: string): string {
   if (marker === 'ellipse') {
     return `<ellipse cx="${n(cx)}" cy="${n(cy)}" rx="${n(box.w / 2)}" ry="${n(box.h / 2)}" ${attrs}/>`;
   }
+  if (marker === 'triangle') {
+    const d = `M ${n(cx)} ${n(box.y)} L ${n(box.x + box.w)} ${n(box.y + box.h)} L ${n(box.x)} ${n(box.y + box.h)} Z`;
+    return `<path d="${d}" ${attrs}/>`;
+  }
   if (marker === 'diamond') {
     const d = `M ${n(cx)} ${n(box.y)} L ${n(box.x + box.w)} ${n(cy)} L ${n(cx)} ${n(box.y + box.h)} L ${n(box.x)} ${n(cy)} Z`;
     return `<path d="${d}" ${attrs}/>`;
@@ -98,8 +102,31 @@ function slug(id: string): string {
  * 印の形（丸・菱形）に沿わせるので、`faceOf` をここから使う。
  */
 export function drawTint(box: Rect, color: string, opacity: number, marker: Marker = 'box'): string {
-  if (box.w <= 2 || box.h <= 2) return '';
+  // **細い面にも敷く**（2026-09-20）。塗り潰しと同じ理由 ——
+  // 下限は模様を置く余地の話で、面の色には要らない。
+  // いまの見本に該当は無いが、**片方だけ描けるほうが罠になる。**
+  if (box.w <= 0 || box.h <= 0) return '';
   return faceOf(marker, box, `fill="${color}" fill-opacity="${opacity}" stroke="none"`);
+}
+
+/**
+ * **点・斜線・格子が読めない面**（2026-09-20）。
+ *
+ * - **点**は `STEP` 間隔で置くので、**短辺が半間隔に満たない面には 1 つも乗らない。**
+ * - **斜線・格子**は箱で切り取るので、短辺が細いほど**切れ端が短くなる。**
+ *   3px を切ると、線ではなく点の列に見える（＝模様として読めない）。
+ *
+ * 描かれないこと自体は正しいが、**黙って無地になるのが良くない** ——
+ * 書いた人は模様を頼んだのに、無地と見分けがつかない図が出る。
+ * 測ったら**見本 4 枚・10 節**が該当した（線のつもりで細い箱に模様を書いたもの）。
+ *
+ * `drawHatch` と検査の両方がここを見る。**判定を 2 か所に書かない。**
+ */
+export function tooThinForPattern(hatch: Hatch, box: Rect): boolean {
+  const min = Math.min(box.w, box.h);
+  if (hatch === 'dots') return min <= STEP / 2;
+  if (hatch === 'lines' || hatch === 'cross') return min < 3;
+  return false;
 }
 
 export function drawHatch(
@@ -109,22 +136,42 @@ export function drawHatch(
   marker: Marker = 'box',
   id = '',
 ): string {
-  if (hatch === 'none' || box.w <= 2 || box.h <= 2) return '';
+  if (hatch === 'none' || box.w <= 0 || box.h <= 0) return '';
 
   if (hatch === 'solid') {
-    // 塗り潰し。**枠は別に描かれているので、ここは面だけ。**
+    /**
+     * 塗り潰し。**枠は別に描かれているので、ここは面だけ。**
+     *
+     * **細い面にも塗る**（2026-09-20）。前は 2px 以下の面を模様ごと断っていたが、
+     * その下限は**点や斜線を置く余地**の話で、塗り潰しには要らない ——
+     * 幅 2px の垂木は塗れる。測ったら**見本 10 枚・67 節**が
+     * 「`hatch: solid` と書いたのに面が塗られていない」状態だった
+     * （屋根伏図の垂木 44 本、車線規制図の車線、冷蔵庫の放熱スペース）。
+     */
     return faceOf(marker, box, `fill="${stroke}" fill-opacity="0.82"`);
   }
+
+  // **点・斜線・格子は、置く余地が要る。**
+  // 余地が無いときは 1 つも描かない —— そのことは検査（`hatch-too-thin`）が言う。
+  if (tooThinForPattern(hatch, box)) return '';
 
   const parts: string[] = [];
 
   if (hatch === 'dots') {
-    let count = 0;
-    for (let y = box.y + STEP / 2; y < box.y + box.h; y += STEP) {
-      for (let x = box.x + STEP / 2; x < box.x + box.w; x += STEP) {
-        if (count >= LIMIT * 3) break;
+    /**
+     * **上限に当たったとき、間隔を広げる**（2026-09-19）。
+     *
+     * 前は数えて `break` していたが、**抜けるのは内側のくり返しだけ**だった ——
+     * 上限に届いたあとの行は 1 つも描かれず、**箱の上だけが埋まった面**が出ていた。
+     * 測ったら**見本 9 枚**がそうなっていた（ビリヤード台の羅紗は **20%** しか点がない）。
+     *
+     * **半分だけ模様が入った面は、無地より悪い** —— 材料が途中で変わって見える。
+     * 上限は要素数を抑えるためのものなので、**間隔のほうを広げて面ぜんたいを埋める。**
+     */
+    const step = spread(STEP, (Math.ceil(box.w / STEP) + 1) * (Math.ceil(box.h / STEP) + 1), LIMIT * 3);
+    for (let y = box.y + step / 2; y < box.y + box.h; y += step) {
+      for (let x = box.x + step / 2; x < box.x + box.w; x += step) {
         parts.push(`<circle cx="${n(x)}" cy="${n(y)}" r="0.9" fill="${stroke}"/>`);
-        count += 1;
       }
     }
     return clipped(parts.join(''), marker, box, id);
@@ -135,22 +182,32 @@ export function drawHatch(
   // 直線の族として数える —— 右下がりは `y - x = c`、右上がりは `y + x = c`。
   // **左辺からだけ引くと、箱の右上が埋まらない**（2026-09-12 に実際に踏んだ。
   // 幅 400 の路床で、左下の三角しか斜線が入らなかった）。
-  let count = 0;
+  // **点と同じ扱い**（2026-09-19）。数えて止めると、箱の片側だけに斜線が入る。
+  const ways = hatch === 'cross' ? 2 : 1;
+  const step = spread(STEP, Math.ceil((box.w + box.h) / STEP) * ways + ways, LIMIT * 2);
   for (const dir of hatch === 'cross' ? ([1, -1] as const) : ([1] as const)) {
     const from = dir === 1 ? box.y - (box.x + box.w) : box.y + box.x;
     const to = dir === 1 ? box.y + box.h - box.x : box.y + box.h + box.x + box.w;
-    for (let c = Math.ceil(from / STEP) * STEP; c <= to; c += STEP) {
-      if (count >= LIMIT * 2) break;
+    for (let c = Math.ceil(from / step) * step; c <= to; c += step) {
       const seg = span(box, c, dir);
       if (seg === null) continue;
       parts.push(
         `<line x1="${n(seg.a.x)}" y1="${n(seg.a.y)}" x2="${n(seg.b.x)}" y2="${n(seg.b.y)}" ` +
           `stroke="${stroke}" stroke-width="0.7"/>`,
       );
-      count += 1;
     }
   }
   return clipped(parts.join(''), marker, box, id);
+}
+
+/**
+ * **入りきらないときの間隔。**
+ *
+ * `want` 個が上限 `limit` を超えるなら、**その分だけ間隔を広げる。**
+ * 数えて途中で止めると、面の片側だけに模様が入る（2026-09-19 に 9 枚で踏んだ）。
+ */
+function spread(step: number, want: number, limit: number): number {
+  return want <= limit ? step : step * Math.sqrt(want / limit);
 }
 
 /**

@@ -1,0 +1,807 @@
+version: 1
+kind: placement
+arrows: true
+title: 凸レンズの作図（引く線は 3 本）
+# **引く線は 3 本しかない。**
+#
+# ① 光軸に平行 → 焦点 F′ を通る／② 中心 → 直進／③ 焦点 F を通る → 光軸に平行。
+# **2 本で像の先端が決まり、3 本目は答え合わせ。**
+#
+# ② の虚像では、光は実際には集まっていない。**逆に延ばした破線**が交わる所に見える。
+# 実線と破線の違いが、この図でいちばん大事な区別。
+nodes:
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 119, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 769, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: one_a
+    label: "光軸"
+    marker: none
+    align: left
+    at: { x: 778, y: 391 }
+    size: { w: 80, h: 18 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 469, y: 279 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 469, y: 519 }
+    size: { w: 2, h: 2 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 460, y: 288 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 478, y: 288 }
+    size: { w: 2, h: 2 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 460, y: 510 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 478, y: 510 }
+    size: { w: 2, h: 2 }
+  - id: one_l
+    label: "凸レンズ"
+    marker: none
+    align: left
+    at: { x: 484, y: 270 }
+    size: { w: 110, h: 18 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 329, y: 394 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 329, y: 404 }
+    size: { w: 2, h: 2 }
+  - id: f1a
+    label: "F"
+    marker: none
+    align: center
+    at: { x: 290, y: 372 }
+    size: { w: 80, h: 18 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 609, y: 394 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 609, y: 404 }
+    size: { w: 2, h: 2 }
+  - id: f1b
+    label: "F′"
+    marker: none
+    align: center
+    at: { x: 570, y: 372 }
+    size: { w: 80, h: 18 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 189, y: 394 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 189, y: 404 }
+    size: { w: 2, h: 2 }
+  - id: f2a
+    label: "2F"
+    marker: none
+    align: center
+    at: { x: 150, y: 410 }
+    size: { w: 80, h: 18 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 749, y: 394 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 749, y: 404 }
+    size: { w: 2, h: 2 }
+  - id: f2b
+    label: "2F′"
+    marker: none
+    align: center
+    at: { x: 710, y: 410 }
+    size: { w: 80, h: 18 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 139, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 139, y: 313 }
+    size: { w: 2, h: 2 }
+  - id: ob1
+    label: "物体"
+    marker: none
+    align: center
+    at: { x: 70, y: 290 }
+    size: { w: 140, h: 18 }
+  - id: p18
+    label: ""
+    marker: none
+    at: { x: 139, y: 313 }
+    size: { w: 2, h: 2 }
+  - id: p19
+    label: ""
+    marker: none
+    at: { x: 712.2, y: 462.4 }
+    size: { w: 2, h: 2 }
+  - id: p20
+    label: ""
+    marker: none
+    at: { x: 139, y: 313 }
+    size: { w: 2, h: 2 }
+  - id: p21
+    label: ""
+    marker: none
+    at: { x: 712.2, y: 462.4 }
+    size: { w: 2, h: 2 }
+  - id: p22
+    label: ""
+    marker: none
+    at: { x: 139, y: 313 }
+    size: { w: 2, h: 2 }
+  - id: p23
+    label: ""
+    marker: none
+    at: { x: 792.2, y: 462.4 }
+    size: { w: 2, h: 2 }
+  - id: p24
+    label: ""
+    marker: none
+    at: { x: 712.2, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: p25
+    label: ""
+    marker: none
+    at: { x: 712.2, y: 462.4 }
+    size: { w: 2, h: 2 }
+  - id: im1
+    label: "実像（倒立・縮小）"
+    marker: none
+    align: center
+    at: { x: 623.2, y: 473.4 }
+    size: { w: 180, h: 18 }
+  - id: r1a
+    label: "① 光軸に平行 → F′ を通る"
+    marker: none
+    align: left
+    at: { x: 130, y: 268 }
+    size: { w: 300, h: 18 }
+  - id: r1b
+    label: "② 中心 → まっすぐ"
+    marker: none
+    align: left
+    at: { x: 500, y: 326 }
+    size: { w: 200, h: 18 }
+  - id: r1c
+    label: "③ F を通る → 光軸に平行"
+    marker: none
+    align: left
+    at: { x: 453.2, y: 497.4 }
+    size: { w: 280, h: 18 }
+  - id: t1
+    label: "① 引く線は 3 本しかない（物体が 2F より遠いとき）"
+    marker: none
+    align: left
+    at: { x: 120, y: 168 }
+    size: { w: 620, h: 20 }
+  - id: t1b
+    label: "　2 本で像の先が決まる。3 本目は答え合わせ。"
+    marker: none
+    align: left
+    at: { x: 120, y: 190 }
+    size: { w: 620, h: 18 }
+  - id: p26
+    label: ""
+    marker: none
+    at: { x: 119, y: 899 }
+    size: { w: 2, h: 2 }
+  - id: p27
+    label: ""
+    marker: none
+    at: { x: 769, y: 899 }
+    size: { w: 2, h: 2 }
+  - id: two_a
+    label: "光軸"
+    marker: none
+    align: left
+    at: { x: 778, y: 891 }
+    size: { w: 80, h: 18 }
+  - id: p28
+    label: ""
+    marker: none
+    at: { x: 469, y: 779 }
+    size: { w: 2, h: 2 }
+  - id: p29
+    label: ""
+    marker: none
+    at: { x: 469, y: 1019 }
+    size: { w: 2, h: 2 }
+  - id: p30
+    label: ""
+    marker: none
+    at: { x: 460, y: 788 }
+    size: { w: 2, h: 2 }
+  - id: p31
+    label: ""
+    marker: none
+    at: { x: 478, y: 788 }
+    size: { w: 2, h: 2 }
+  - id: p32
+    label: ""
+    marker: none
+    at: { x: 460, y: 1010 }
+    size: { w: 2, h: 2 }
+  - id: p33
+    label: ""
+    marker: none
+    at: { x: 478, y: 1010 }
+    size: { w: 2, h: 2 }
+  - id: two_l
+    label: "凸レンズ"
+    marker: none
+    align: left
+    at: { x: 484, y: 770 }
+    size: { w: 110, h: 18 }
+  - id: p34
+    label: ""
+    marker: none
+    at: { x: 329, y: 894 }
+    size: { w: 2, h: 2 }
+  - id: p35
+    label: ""
+    marker: none
+    at: { x: 329, y: 904 }
+    size: { w: 2, h: 2 }
+  - id: f2c
+    label: "F"
+    marker: none
+    align: center
+    at: { x: 290, y: 872 }
+    size: { w: 80, h: 18 }
+  - id: p36
+    label: ""
+    marker: none
+    at: { x: 609, y: 894 }
+    size: { w: 2, h: 2 }
+  - id: p37
+    label: ""
+    marker: none
+    at: { x: 609, y: 904 }
+    size: { w: 2, h: 2 }
+  - id: f2d
+    label: "F′"
+    marker: none
+    align: center
+    at: { x: 570, y: 872 }
+    size: { w: 80, h: 18 }
+  - id: p38
+    label: ""
+    marker: none
+    at: { x: 385, y: 899 }
+    size: { w: 2, h: 2 }
+  - id: p39
+    label: ""
+    marker: none
+    at: { x: 385, y: 837 }
+    size: { w: 2, h: 2 }
+  - id: ob2
+    label: "物体"
+    marker: none
+    align: center
+    at: { x: 316, y: 814 }
+    size: { w: 140, h: 18 }
+  - id: p40
+    label: ""
+    marker: none
+    at: { x: 385, y: 837 }
+    size: { w: 2, h: 2 }
+  - id: p41
+    label: ""
+    marker: none
+    at: { x: 699, y: 938.9 }
+    size: { w: 2, h: 2 }
+  - id: p42
+    label: ""
+    marker: none
+    at: { x: 385, y: 837 }
+    size: { w: 2, h: 2 }
+  - id: p43
+    label: ""
+    marker: none
+    at: { x: 699, y: 1068.8 }
+    size: { w: 2, h: 2 }
+  - id: p44
+    label: ""
+    marker: none
+    at: { x: 469, y: 837 }
+    size: { w: 2, h: 2 }
+  - id: p45
+    label: ""
+    marker: none
+    at: { x: 259, y: 744 }
+    size: { w: 2, h: 2 }
+  - id: p46
+    label: ""
+    marker: none
+    at: { x: 469, y: 899 }
+    size: { w: 2, h: 2 }
+  - id: p47
+    label: ""
+    marker: none
+    at: { x: 259, y: 744 }
+    size: { w: 2, h: 2 }
+  - id: p48
+    label: ""
+    marker: none
+    at: { x: 259, y: 899 }
+    size: { w: 2, h: 2 }
+  - id: p49
+    label: ""
+    marker: none
+    at: { x: 259, y: 744 }
+    size: { w: 2, h: 2 }
+  - id: im2
+    label: "虚像（正立・拡大）"
+    marker: none
+    align: center
+    at: { x: 160, y: 719 }
+    size: { w: 200, h: 18 }
+  - id: t2
+    label: "② 物体が F より近いとき ＝ 虫めがね"
+    marker: none
+    align: left
+    at: { x: 120, y: 668 }
+    size: { w: 620, h: 20 }
+  - id: t2b
+    label: "　光は実際には集まらない。逆に延ばした線が交わる所に見える。"
+    marker: none
+    align: left
+    at: { x: 120, y: 690 }
+    size: { w: 620, h: 18 }
+  - id: t2c
+    label: "破線 ＝ 逆に延ばした線（そこに光は無い）"
+    marker: none
+    align: left
+    at: { x: 510, y: 934 }
+    size: { w: 300, h: 18 }
+  - id: h190
+    label: "引く 3 本（凸レンズ）"
+    hatch: solid
+    at: { x: 900, y: 190 }
+    size: { w: 470, h: 24 }
+  - id: x214
+    label: "① 光軸に平行"
+    at: { x: 900, y: 214 }
+    size: { w: 200, h: 24 }
+  - id: y214
+    label: "屈折して、向こう側の焦点 F′ を通る"
+    align: left
+    at: { x: 1100, y: 214 }
+    size: { w: 270, h: 24 }
+  - id: x238
+    label: "② レンズの中心"
+    at: { x: 900, y: 238 }
+    size: { w: 200, h: 24 }
+  - id: y238
+    label: "そのまま直進する"
+    align: left
+    at: { x: 1100, y: 238 }
+    size: { w: 270, h: 24 }
+  - id: x262
+    label: "③ 手前の焦点 F を通る"
+    at: { x: 900, y: 262 }
+    size: { w: 200, h: 24 }
+  - id: y262
+    label: "屈折して、光軸に平行に出る"
+    align: left
+    at: { x: 1100, y: 262 }
+    size: { w: 270, h: 24 }
+  - id: x286
+    label: "要る本数"
+    at: { x: 900, y: 286 }
+    size: { w: 200, h: 24 }
+  - id: y286
+    label: "2 本（3 本目は答え合わせ）"
+    align: left
+    at: { x: 1100, y: 286 }
+    size: { w: 270, h: 24 }
+  - id: h328
+    label: "物体の位置と、できる像"
+    hatch: solid
+    at: { x: 900, y: 328 }
+    size: { w: 470, h: 24 }
+  - id: x352
+    label: "2F より遠い"
+    at: { x: 900, y: 352 }
+    size: { w: 200, h: 24 }
+  - id: y352
+    label: "倒立・縮小の実像（F と 2F′ の間）"
+    align: left
+    at: { x: 1100, y: 352 }
+    size: { w: 270, h: 24 }
+  - id: x376
+    label: "ちょうど 2F"
+    at: { x: 900, y: 376 }
+    size: { w: 200, h: 24 }
+  - id: y376
+    label: "倒立・等倍の実像（2F′）"
+    align: left
+    at: { x: 1100, y: 376 }
+    size: { w: 270, h: 24 }
+  - id: x400
+    label: "F と 2F の間"
+    at: { x: 900, y: 400 }
+    size: { w: 200, h: 24 }
+  - id: y400
+    label: "倒立・拡大の実像（2F′ より遠い）"
+    align: left
+    at: { x: 1100, y: 400 }
+    size: { w: 270, h: 24 }
+  - id: x424
+    label: "ちょうど F"
+    at: { x: 900, y: 424 }
+    size: { w: 200, h: 24 }
+  - id: y424
+    label: "像はできない（光が平行に出る）"
+    align: left
+    at: { x: 1100, y: 424 }
+    size: { w: 270, h: 24 }
+  - id: x448
+    label: "F より近い"
+    at: { x: 900, y: 448 }
+    size: { w: 200, h: 24 }
+  - id: y448
+    label: "正立・拡大の虚像（同じ側）"
+    align: left
+    at: { x: 1100, y: 448 }
+    size: { w: 270, h: 24 }
+  - id: h490
+    label: "数で言うと"
+    hatch: solid
+    at: { x: 900, y: 490 }
+    size: { w: 470, h: 24 }
+  - id: x514
+    label: "式"
+    at: { x: 900, y: 514 }
+    size: { w: 200, h: 24 }
+  - id: y514
+    label: "1/a ＋ 1/b ＝ 1/f"
+    align: left
+    at: { x: 1100, y: 514 }
+    size: { w: 270, h: 24 }
+  - id: x538
+    label: "a"
+    at: { x: 900, y: 538 }
+    size: { w: 200, h: 24 }
+  - id: y538
+    label: "レンズから物体まで"
+    align: left
+    at: { x: 1100, y: 538 }
+    size: { w: 270, h: 24 }
+  - id: x562
+    label: "b"
+    at: { x: 900, y: 562 }
+    size: { w: 200, h: 24 }
+  - id: y562
+    label: "レンズから像まで（負なら虚像）"
+    align: left
+    at: { x: 1100, y: 562 }
+    size: { w: 270, h: 24 }
+  - id: x586
+    label: "倍率"
+    at: { x: 900, y: 586 }
+    size: { w: 200, h: 24 }
+  - id: y586
+    label: "b ÷ a"
+    align: left
+    at: { x: 1100, y: 586 }
+    size: { w: 270, h: 24 }
+  - id: x610
+    label: "この図 ①"
+    at: { x: 900, y: 610 }
+    size: { w: 200, h: 24 }
+  - id: y610
+    label: "a＝330　b＝243.2　倍率 0.7"
+    align: left
+    at: { x: 1100, y: 610 }
+    size: { w: 270, h: 24 }
+  - id: x634
+    label: "この図 ②"
+    at: { x: 900, y: 634 }
+    size: { w: 200, h: 24 }
+  - id: y634
+    label: "a＝84　b＝-210　倍率 2.5"
+    align: left
+    at: { x: 1100, y: 634 }
+    size: { w: 270, h: 24 }
+  - id: h676
+    label: "この図の約束"
+    hatch: solid
+    at: { x: 900, y: 676 }
+    size: { w: 470, h: 24 }
+  - id: x700
+    label: "物体と像"
+    at: { x: 900, y: 700 }
+    size: { w: 200, h: 24 }
+  - id: y700
+    label: "矢印で表す（向きが分かるように）"
+    align: left
+    at: { x: 1100, y: 700 }
+    size: { w: 270, h: 24 }
+  - id: x724
+    label: "レンズ"
+    at: { x: 900, y: 724 }
+    size: { w: 200, h: 24 }
+  - id: y724
+    label: "厚みを無視し、中心線で 1 回だけ曲げる"
+    align: left
+    at: { x: 1100, y: 724 }
+    size: { w: 270, h: 24 }
+  - id: x748
+    label: "実線"
+    at: { x: 900, y: 748 }
+    size: { w: 200, h: 24 }
+  - id: y748
+    label: "実際に光が通る道"
+    align: left
+    at: { x: 1100, y: 748 }
+    size: { w: 270, h: 24 }
+  - id: x772
+    label: "破線"
+    at: { x: 900, y: 772 }
+    size: { w: 200, h: 24 }
+  - id: y772
+    label: "逆に延ばした線（光は通っていない）"
+    align: left
+    at: { x: 1100, y: 772 }
+    size: { w: 270, h: 24 }
+  - id: h814
+    label: "この図に出ていないもの"
+    hatch: solid
+    at: { x: 900, y: 814 }
+    size: { w: 470, h: 24 }
+  - id: x838
+    label: "凹レンズ"
+    at: { x: 900, y: 838 }
+    size: { w: 200, h: 24 }
+  - id: y838
+    label: "いつも正立・縮小の虚像"
+    align: left
+    at: { x: 1100, y: 838 }
+    size: { w: 270, h: 24 }
+  - id: x862
+    label: "収差"
+    at: { x: 900, y: 862 }
+    size: { w: 200, h: 24 }
+  - id: y862
+    label: "端を通る光は焦点がずれる"
+    align: left
+    at: { x: 1100, y: 862 }
+    size: { w: 270, h: 24 }
+  - id: x886
+    label: "レンズの厚み"
+    at: { x: 900, y: 886 }
+    size: { w: 200, h: 24 }
+  - id: y886
+    label: "厚いレンズは 2 面で曲がる"
+    align: left
+    at: { x: 1100, y: 886 }
+    size: { w: 270, h: 24 }
+  - id: x910
+    label: "目に届くまで"
+    at: { x: 900, y: 910 }
+    size: { w: 200, h: 24 }
+  - id: y910
+    label: "像を見るのは、その先の話"
+    align: left
+    at: { x: 1100, y: 910 }
+    size: { w: 270, h: 24 }
+  - id: n1
+    label: "凸レンズで像がどこにできるかを求める図です。引く線は 3 本しかありません。"
+    marker: none
+    align: left
+    at: { x: 120, y: 1090 }
+    size: { w: 1050, h: 18 }
+  - id: n2
+    label: "① 光軸に平行な光は、屈折して向こう側の焦点 F′ を通ります。"
+    marker: none
+    align: left
+    at: { x: 120, y: 1112 }
+    size: { w: 1050, h: 18 }
+  - id: n3
+    label: "② レンズの中心を通る光は、そのまま直進します。"
+    marker: none
+    align: left
+    at: { x: 120, y: 1134 }
+    size: { w: 1050, h: 18 }
+  - id: n4
+    label: "③ 手前の焦点 F を通った光は、屈折して光軸に平行に出ます。"
+    marker: none
+    align: left
+    at: { x: 120, y: 1156 }
+    size: { w: 1050, h: 18 }
+  - id: n5
+    label: "このうち 2 本で像の先端が決まります。3 本目は答え合わせです。"
+    marker: none
+    align: left
+    at: { x: 120, y: 1178 }
+    size: { w: 1050, h: 18 }
+  - id: n6
+    label: "物体が焦点より近いと、光は実際には集まりません。逆に延ばした線が交わる所に見えます —— これが虚像（虫めがね）です。"
+    marker: none
+    align: left
+    at: { x: 120, y: 1200 }
+    size: { w: 1050, h: 18 }
+  - id: n7
+    label: "レンズは厚みを無視し、中心線で 1 回だけ曲げて描く約束です。実物は 2 つの面で曲がります。"
+    marker: none
+    align: left
+    at: { x: 120, y: 1222 }
+    size: { w: 1050, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    line: chain
+    ends: { from: none, to: none }
+  - from: p2
+    to: p3
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p4
+    to: p5
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 470, y: 280 }
+  - from: p6
+    to: p7
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 470, y: 520 }
+  - from: p8
+    to: p9
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p10
+    to: p11
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p12
+    to: p13
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p14
+    to: p15
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p16
+    to: p17
+    curve: none
+    weight: thick
+    ends: { from: none, to: arrow }
+  - from: p18
+    to: p19
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 470, y: 314 }
+  - from: p20
+    to: p21
+    curve: none
+    ends: { from: none, to: none }
+  - from: p22
+    to: p23
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 470, y: 463.4 }
+  - from: p24
+    to: p25
+    curve: none
+    weight: thick
+    ends: { from: none, to: arrow }
+  - from: p26
+    to: p27
+    curve: none
+    line: chain
+    ends: { from: none, to: none }
+  - from: p28
+    to: p29
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p30
+    to: p31
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 470, y: 780 }
+  - from: p32
+    to: p33
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 470, y: 1020 }
+  - from: p34
+    to: p35
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p36
+    to: p37
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p38
+    to: p39
+    curve: none
+    weight: thick
+    ends: { from: none, to: arrow }
+  - from: p40
+    to: p41
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 470, y: 838 }
+  - from: p42
+    to: p43
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p44
+    to: p45
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p46
+    to: p47
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p48
+    to: p49
+    curve: none
+    weight: thick
+    ends: { from: none, to: arrow }

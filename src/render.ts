@@ -393,7 +393,13 @@ export interface Word {
   id: string | null;
 }
 
-export function overlappingInk(svg: string): [Word, Word][] {
+/** 重なっている量（px）。**どちらへ何 px 逃がせばよいか**を、描く側に渡す。 */
+export interface Overlap {
+  x: number;
+  y: number;
+}
+
+export function overlappingInk(svg: string): [Word, Word, Overlap][] {
   const words: { rect: Rect; word: Word }[] = [];
   const groups: (string | null)[] = [];
   const token = /<g\b([^>]*)>|<\/g>|<text x="(-?[\d.]+)" y="(-?[\d.]+)"([^>]*)>([^<]*)<\/text>/g;
@@ -419,7 +425,7 @@ export function overlappingInk(svg: string): [Word, Word][] {
     words.push({ rect: { x: left, y: y - font, w, h: font }, word: { text, id } });
   }
 
-  const found: [Word, Word][] = [];
+  const found: [Word, Word, Overlap][] = [];
   const gap = 2;
   for (let i = 0; i < words.length; i += 1) {
     for (let j = i + 1; j < words.length; j += 1) {
@@ -430,7 +436,11 @@ export function overlappingInk(svg: string): [Word, Word][] {
         b.x + b.w <= a.x + gap ||
         a.y + a.h <= b.y + gap ||
         b.y + b.h <= a.y + gap;
-      if (!apart) found.push([words[i]!.word, words[j]!.word]);
+      if (apart) continue;
+      // **どれだけずらせば離れるか。** 重なっている幅 ＋ 空ける分。
+      const x = Math.ceil(Math.min(a.x + a.w - b.x, b.x + b.w - a.x)) + gap;
+      const y = Math.ceil(Math.min(a.y + a.h - b.y, b.y + b.h - a.y)) + gap;
+      found.push([words[i]!.word, words[j]!.word, { x, y }]);
     }
   }
   return found;
@@ -524,13 +534,30 @@ function dimensionLayer(placed: Placed, palette: Palette): string {
  *
  * 置くのは図の下、**寸法と符号より外側**（重ねると数値に乗る）。
  */
+/** 図の名前の字の大きさ（`viewTitle` と、それを検査する側で同じ値を見る）。 */
+export const VIEW_TITLE_FONT = 13;
+
+/**
+ * **図の名前が紙のどこを取るか**（2026-09-19）。
+ *
+ * 名前は図の**下辺のすぐ下**に置かれる。だから、その図の中身が下辺からはみ出すと
+ * **名前が中身の上に乗る。** 描く側と検査する側（`src/cli.ts`）が
+ * 同じ場所を見られるように、ここから返す。
+ */
+export function viewTitleBox(view: View): { x: number; y: number; w: number; h: number } | null {
+  if (view.title === null || view.title === '') return null;
+  const w = labelWidth(view.title, VIEW_TITLE_FONT);
+  const y = view.y + view.h + (hasAxes(view) ? VIEW_TITLE_GAP : 22);
+  return { x: view.x + view.w / 2 - w / 2, y: y - 11, w, h: 15 };
+}
+
 function viewTitle(view: View, ink: Ink): string {
   if (view.title === null || view.title === '') return '';
   const x = Math.round(view.x + view.w / 2);
   // **芯の無い図は、下に符号も寸法も出ない。** 同じだけ空けると離れすぎて、
   // どの図の名前か分からなくなる。
   const y = Math.round(view.y + view.h + (hasAxes(view) ? VIEW_TITLE_GAP : 22));
-  return `<text x="${x}" y="${y}" text-anchor="middle" font-family="${ink.font}" font-size="13" font-weight="600" fill="${ink.text}" data-view="${view.id}">${escapeText(view.title)}</text>`;
+  return `<text x="${x}" y="${y}" text-anchor="middle" font-family="${ink.font}" font-size="${VIEW_TITLE_FONT}" font-weight="600" fill="${ink.text}" data-view="${view.id}">${escapeText(view.title)}</text>`;
 }
 
 /**
@@ -732,7 +759,15 @@ function renderNode(
     strokeWidth:
       (box.marker === 'box' && wallFits(wall, box) ? wall : null) ??
       (box.pinned ? STROKE_WIDTH.pinned : STROKE_WIDTH.auto),
-    dash: style.dash,
+    /**
+     * **枠の線種は、正本が選ぶ**（2026-09-19）。
+     *
+     * 敷地境界線は一点鎖線、仕上がりの内側の安全領域は破線、
+     * 点字の「出ていない点」は点線の丸 —— どれも実物の図面がそう描く。
+     * 書いても効かず、**見本 194 で 57 個が黙って落ちていた。**
+     * 書いていなければ、これまでどおり（人が置いた印の破線）。
+     */
+    dash: dashOf(box.line) ?? style.dash,
   };
 
   // **平面図は角を四角に。** 角丸だと、隣の部屋と壁を共有して見えない。
@@ -855,7 +890,9 @@ function nodeTag(
     box.marker === 'circle' ||
     box.marker === 'double' ||
     box.marker === 'ellipse' ||
-    box.marker === 'diamond';
+    box.marker === 'diamond' ||
+    // **三角も、四隅が実物より外へ出ている**（菱形と同じ理由。2026-09-20）。
+    box.marker === 'triangle';
   /**
    * **名前が無ければ、符号が中身そのもの。**
    *

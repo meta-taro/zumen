@@ -8,7 +8,7 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
-import { run, runEmbed, runMerge, runMergeDriver, runMermaid, runSvg, runValidate } from '../src/cli.ts';
+import { run, runEmbed, runInspect, runMerge, runMergeDriver, runMermaid, runSvg, runValidate } from '../src/cli.ts';
 
 /** ファイルを読みに行かせない。**テストが実物のファイル配置に縛られないため。** */
 function reader(files: Record<string, string>) {
@@ -154,6 +154,63 @@ nodes:
     assert.match(line, /HALL/);
   });
 
+  /**
+   * **図の名前（`views[].title`）も、紙の上の文字。**
+   *
+   * 規則には「views を置いたら図の下に 130px 空ける。**数の検査は鳴らない**」と
+   * 書いてあった（見本 129〜134 で 3 枚続けて踏んだときの記述）。
+   * **いまは鳴る。** 2026-09-19 に見本 190 を描いていて、
+   * 注記が図の名前に乗ったのを検証器が言った ——
+   * **古い記述は、動いている検査を信じさせなくする**（ベースルール §10）。
+   *
+   * 鳴ることをここで留めておく。留めておかないと、また記述だけが古くなる。
+   */
+  it('**図の名前に注記が乗ったら、そう言う**（views[].title も紙の上の文字）', async () => {
+    const VIEWED = `version: 1
+kind: placement
+arrows: true
+views:
+  - id: a
+    title: 上の図
+    at: { x: 40, y: 40 }
+    size: { w: 200, h: 100 }
+    grid:
+      x:
+        - { id: X1, at: 60 }
+        - { id: X2, at: 220 }
+nodes:
+  - id: box
+    label: "中身"
+    at: { x: 60, y: 60 }
+    size: { w: 160, h: 60 }
+  - id: sita
+    label: "すぐ下に置いた注記"
+    marker: none
+    at: { x: 40, y: 250 }
+    size: { w: 220, h: 18 }
+`;
+    const result = await runValidate(['a.yaml'], reader({ 'a.yaml': VIEWED }) as never);
+    const line = result.lines.find((text) => text.includes('すぐ下に置いた注記'));
+    assert.ok(line !== undefined, `図の名前との重なりを言っていない: ${result.lines.join(' / ')}`);
+    assert.match(line, /上の図/);
+  });
+
+  /**
+   * **どれだけずらせば離れるかを、px で言う**（2026-09-19）。
+   *
+   * 「重なっています」までは言っていたが、**どれだけ動かせばよいかは言っていなかった。**
+   * PDCA の 4 周で 8 回この指摘を受け、そのたびに座標を当て推量で動かした
+   * （見本 190〜193）。`name-adrift` と A3 の警告に px を足したときと同じ話。
+   *
+   * **横と縦の両方**を出す —— どちらへ逃がすかは描く側が決める。
+   */
+  it('**どれだけずらせば離れるかを px で言う**', async () => {
+    const result = await runValidate(['a.yaml'], reader({ 'a.yaml': PILED_TAG }) as never);
+    const line = result.lines.find((text) => text.includes('AHU'))!;
+    assert.match(line, /横に \d+px/, line);
+    assert.match(line, /縦に \d+px/, line);
+  });
+
   it('**重なっていない図には、何も言わない**', async () => {
     const apart = PILED_TAG.replace('{ x: 70, y: 30 }', '{ x: 400, y: 300 }');
     const result = await runValidate(['a.yaml'], reader({ 'a.yaml': apart }) as never);
@@ -226,6 +283,21 @@ describe('印刷して読めるか', () => {
     assert.match(line, /長辺 \d+px/, line);
     assert.match(line, /長辺が \d+px 以下なら収まります/, line);
     assert.match(line, /あと \d+px 詰めてください/, line);
+  });
+
+  /**
+   * **どこを詰めるかまで言う**（2026-09-19）。
+   *
+   * 「あと 89px 詰めてください」まで出るようになったが、**どこを詰めるかは分からない。**
+   * 長辺が縦なのか横なのか、その端にいるのが何なのか —— 図を目で探すしかなかった。
+   * PDCA の直近 5 周のうち **4 周**で、ここに 3〜4 往復とられた
+   * （見本 186・187・189）。**端にいる 2 つを名指しする。**
+   */
+  it('**長辺がどちらの向きで、その端に何がいるかを言う**', async () => {
+    const result = await runValidate(['a.yaml'], reader({ 'a.yaml': TALL }) as never);
+    const line = result.lines.find((l) => l.includes('A3')) ?? '';
+    assert.match(line, /長辺は(縦|横)で/, line);
+    assert.match(line, /端は "[^"]+" と "[^"]+"/, line);
   });
 
   it('下限を通る図には、何も言わない', async () => {
@@ -317,7 +389,7 @@ describe('命令の振り分け', () => {
     const result = await run([]);
     assert.equal(result.code, 2);
     // **口が増えたら 1 行増える**（2026-09-16 に timelapse を足した）。
-    assert.equal(result.lines.length, 9);
+    assert.equal(result.lines.length, 10);
   });
 });
 
@@ -360,6 +432,22 @@ describe('変換の口', () => {
   it('読めないファイルは 1（黙って 0 で終わらない）', async () => {
     const { read, write } = io({});
     assert.equal((await runSvg(['無い.yaml'], read, write)).code, 1);
+  });
+
+  it('出し先が旗に見えたら、その名前でファイルを作らない', async () => {
+    const { read, write, written } = io({ 'z.zumen.yaml': DIAGRAM });
+    const result = await runSvg(['z.zumen.yaml', '-o', 'z.svg'], read, write);
+    assert.equal(result.code, 2);
+    // **`-o` という名前のファイルが出来ていた**（2026-09-20 に踏んだ）。
+    assert.equal(written['-o'], undefined);
+    assert.equal(written['z.svg'], undefined);
+    assert.match(result.lines[0] ?? '', /-o/);
+  });
+
+  it('--dark は出し先と読み違えない', async () => {
+    const { read, write, written } = io({ 'z.zumen.yaml': DIAGRAM });
+    assert.equal((await runSvg(['z.zumen.yaml', '--dark'], read, write)).code, 0);
+    assert.match(written['z.svg'] ?? '', /^<svg/);
   });
 });
 
@@ -454,5 +542,282 @@ describe('置いたあとの形も見る（配置図）', () => {
     // ここで見たいのは**重なりの指摘が出ないこと**だけ。
     const result = await runValidate(['a.yaml'], reader({ 'a.yaml': PILE.replace('kind: placement\n', '') }) as never);
     assert.ok(!result.lines.some((line) => line.includes('重なって')), result.lines.join('\n'));
+  });
+});
+
+/**
+ * **観測値を見せる口**（`pnpm inspect`。2026-09-20）。
+ *
+ * `crossings` と `straddles` は合否ではないので検査から出さないと決めてあるが、
+ * **見る道具がどこにも無かった。** test/names.test.ts は両方を見ているのに、
+ * 書いている最中は分からず、見本を足すたびに使い捨ての台本を書いていた。
+ */
+describe('観測値を見せる（inspect）', () => {
+  const CROSS = [
+    'version: 1',
+    'kind: placement',
+    'arrows: true',
+    'nodes:',
+    '  - id: a',
+    '    label: ""',
+    '    marker: none',
+    '    at: { x: 0, y: 0 }',
+    '    size: { w: 2, h: 2 }',
+    '  - id: b',
+    '    label: ""',
+    '    marker: none',
+    '    at: { x: 200, y: 200 }',
+    '    size: { w: 2, h: 2 }',
+    '  - id: c',
+    '    label: ""',
+    '    marker: none',
+    '    at: { x: 200, y: 0 }',
+    '    size: { w: 2, h: 2 }',
+    '  - id: d',
+    '    label: ""',
+    '    marker: none',
+    '    at: { x: 0, y: 200 }',
+    '    size: { w: 2, h: 2 }',
+    'edges:',
+    '  - from: a',
+    '    to: b',
+    '    curve: none',
+    '  - from: c',
+    '    to: d',
+    '    curve: none',
+    '',
+  ].join('\n');
+
+  it('**交差を数えて、どれとどれかを言う**', async () => {
+    const result = await runInspect(['a.yaml'], reader({ 'a.yaml': CROSS }) as never);
+    assert.equal(result.code, 0, '止めない');
+    const said = result.lines.join('\n');
+    assert.match(said, /交差 1/);
+    assert.match(said, /↔/, `どの 2 本かを言っていない\n${said}`);
+  });
+
+  /**
+   * **組だけでは探せない**（2026-09-20）。
+   *
+   * `path()` で引いた折れ線の id は `p16>p17` のように書き手が付けた名前ではない。
+   * 「その 2 本です」と言われても、図の中で見つけられない。**紙の上の座標が要る。**
+   */
+  it('**交わっている場所（座標）まで言う**', async () => {
+    const result = await runInspect(['a.yaml'], reader({ 'a.yaml': CROSS }) as never);
+    const said = result.lines.join('\n');
+    assert.match(said, /\(\d+, \d+\)/, `場所を言っていない\n${said}`);
+    // 0,0 と 200,200 ／ 200,0 と 0,200 が交わるのは真ん中（錨は 2px の箱なので 1px ずれる）
+    assert.match(said, /\(10[01], 10[01]\)/, said);
+  });
+
+  it('**止めない。** 観測値であって合否ではない', async () => {
+    const result = await runInspect(['a.yaml'], reader({ 'a.yaml': CROSS }) as never);
+    assert.equal(result.code, 0);
+    assert.ok(result.lines.some((line) => line.includes('観測値')), result.lines.join('\n'));
+  });
+
+  it('何も無ければ 0 と言う（黙らない）', async () => {
+    const one = 'version: 1\nkind: placement\nnodes:\n  - id: a\n    label: 居間\n    at: { x: 0, y: 0 }\n    size: { w: 200, h: 120 }\n';
+    const result = await runInspect(['a.yaml'], reader({ 'a.yaml': one }) as never);
+    assert.ok(result.lines.some((line) => line.includes('交差 0')), result.lines.join('\n'));
+  });
+
+  /**
+   * **数と、並べた組がずれていた**（2026-09-20）。
+   *
+   * 「交差 942」と言いながら並ぶのは 703 組で、同じ 2 本が何か所で交わっても
+   * 組は 1 つしか返さない。**見本 22 枚でずれる**（アイコンのキーライン図は 942 と 703）。
+   * 数だけ出すと、読んだ人は「並べ切れていない」と思う。
+   */
+  it('**数と組をどちらも言う**（同じ 2 本が 2 か所で交わっても 1 組）', async () => {
+    // 1 本の折れ線が、もう 1 本を 2 か所で横切る
+    const zig = [
+      'version: 1', 'kind: placement', 'arrows: true', 'nodes:',
+      '  - id: a', '    label: ""', '    marker: none', '    at: { x: 0, y: 100 }', '    size: { w: 2, h: 2 }',
+      '  - id: b', '    label: ""', '    marker: none', '    at: { x: 300, y: 100 }', '    size: { w: 2, h: 2 }',
+      '  - id: c', '    label: ""', '    marker: none', '    at: { x: 0, y: 0 }', '    size: { w: 2, h: 2 }',
+      '  - id: d', '    label: ""', '    marker: none', '    at: { x: 300, y: 0 }', '    size: { w: 2, h: 2 }',
+      'edges:',
+      '  - from: a', '    to: b', '    curve: none',
+      '  - from: c', '    to: d', '    curve: none',
+      '    via:', '      - { x: 100, y: 200 }', '      - { x: 200, y: 200 }',
+      '',
+    ].join('\n');
+    const result = await runInspect(['a.yaml'], reader({ 'a.yaml': zig }) as never);
+    const said = result.lines.join('\n');
+    assert.match(said, /交差 2/, said);
+    assert.match(said, /1 組/, `組の数を言っていない\n${said}`);
+  });
+
+  it('ファイルを渡さなければ使い方を出す', async () => {
+    const result = await runInspect([]);
+    assert.equal(result.code, 2);
+    assert.match(result.lines.join('\n'), /pnpm inspect/);
+  });
+
+  it('命令の一覧に出る', async () => {
+    const result = await run([]);
+    assert.match(result.lines.join('\n'), /pnpm inspect/);
+  });
+});
+
+/**
+ * **検査の網と、見る道具の網がそろっていなかった**（2026-09-20）。
+ *
+ * `test/names.test.ts` は `hiddenLabels`（絵に出ない辺のラベル）と
+ * `crowdedNames`（外へ出す先も無い名前）も 0 だと決めているのに、
+ * `pnpm inspect` は交差とまたぎしか出していなかった。
+ * **閉じたはずの穴が、半分開いたままだった。**
+ */
+describe('inspect が、検査と同じものを見る', () => {
+  /**
+   * **観測値の口が、警告を見ていなかった**（2026-09-20）。
+   *
+   * 「登録の前に inspect で 0 にする」手順を作ったのに、`inspect` は
+   * 検査の警告を 1 件も出していなかった —— 見本 268 を登録したあとで、
+   * 描かれていない `hatch: dots` を `pnpm validate` が見つけた。
+   */
+  it('**警告があることを言う**（中身は validate の仕事）', async () => {
+    const thin = [
+      'version: 1', 'kind: placement', 'nodes:',
+      '  - id: rule', '    label: ""', '    hatch: dots', '    at: { x: 0, y: 0 }', '    size: { w: 2, h: 90 }',
+      '',
+    ].join('\n');
+    const result = await runInspect(['a.yaml'], reader({ 'a.yaml': thin }) as never);
+    assert.match(result.lines.join('\n'), /警告 1 件/, result.lines.join('\n'));
+  });
+
+  it('**警告が無ければ、その行は出さない**', async () => {
+    const clean = [
+      'version: 1', 'kind: placement', 'nodes:',
+      '  - id: a', '    label: あ', '    at: { x: 0, y: 0 }', '    size: { w: 120, h: 60 }',
+      '',
+    ].join('\n');
+    const result = await runInspect(['a.yaml'], reader({ 'a.yaml': clean }) as never);
+    assert.doesNotMatch(result.lines.join('\n'), /警告/);
+  });
+
+  it('**またぎは、どれだけ重なっているかまで言う**', async () => {
+    const over = [
+      'version: 1', 'kind: placement', 'nodes:',
+      '  - id: a', '    label: あ', '    at: { x: 0, y: 0 }', '    size: { w: 100, h: 60 }',
+      '  - id: b', '    label: い', '    at: { x: 92, y: 40 }', '    size: { w: 100, h: 60 }',
+      '',
+    ].join('\n');
+    const result = await runInspect(['a.yaml'], reader({ 'a.yaml': over }) as never);
+    const said = result.lines.join('\n');
+    assert.match(said, /a↔b（横 8px ／ 縦 20px 重なる）/, said);
+  });
+
+  /**
+   * **どれだけ足りないかまで言う**（2026-09-20）。
+   *
+   * id だけを出していたので、**箱をいくつ広げればよいかが当て推量**だった。
+   */
+  it('**名前が箱から離れているとき、要る幅と今の幅を言う**', async () => {
+    const wide = [
+      'version: 1', 'kind: placement', 'nodes:',
+      '  - id: cell', '    label: "これは欄の幅にまったく入りきらない長い値です"',
+      '    at: { x: 0, y: 0 }', '    size: { w: 120, h: 24 }',
+      '  - id: far', '    label: 遠く', '    at: { x: 0, y: 200 }', '    size: { w: 60, h: 24 }',
+      '',
+    ].join('\n');
+    const result = await runInspect(['a.yaml'], reader({ 'a.yaml': wide }) as never);
+    const said = result.lines.join('\n');
+    assert.match(said, /cell（要 \d+px ／ 今 120px）/, said);
+  });
+
+  it('**絵に出ていない辺のラベルを言う**', async () => {
+    const hidden = [
+      'version: 1', 'kind: placement', 'arrows: true', 'nodes:',
+      '  - id: a', '    label: あ', '    at: { x: 0, y: 0 }', '    size: { w: 40, h: 40 }',
+      '  - id: b', '    label: い', '    at: { x: 42, y: 0 }', '    size: { w: 40, h: 40 }',
+      'edges:',
+      '  - from: a', '    to: b', '    label: とても長いラベル', '    curve: none',
+      '',
+    ].join('\n');
+    const result = await runInspect(['a.yaml'], reader({ 'a.yaml': hidden }) as never);
+    const said = result.lines.join('\n');
+    assert.match(said, /絵に出ていない辺のラベル/, said);
+    assert.equal(result.code, 0, '止めない');
+  });
+
+  /**
+   * **止めないが、放っておくと落ちる**（2026-09-20）。
+   *
+   * `inspect` は観測値なので 0 を返す。ところが**見本として登録すると**、
+   * `test/names.test.ts` が交差とまたぎを 0 だと決めているので落ちる。
+   * 洗濯機（見本 250）で、**inspect が 8 件出したのを読んだまま登録して落とした。**
+   */
+  it('**交差やまたぎがあるときは、テストで落ちることを言う**', async () => {
+    const CROSS2 = [
+      'version: 1', 'kind: placement', 'arrows: true', 'nodes:',
+      '  - id: a', '    label: ""', '    marker: none', '    at: { x: 0, y: 100 }', '    size: { w: 2, h: 2 }',
+      '  - id: b', '    label: ""', '    marker: none', '    at: { x: 200, y: 100 }', '    size: { w: 2, h: 2 }',
+      '  - id: c', '    label: ""', '    marker: none', '    at: { x: 100, y: 0 }', '    size: { w: 2, h: 2 }',
+      '  - id: d', '    label: ""', '    marker: none', '    at: { x: 100, y: 200 }', '    size: { w: 2, h: 2 }',
+      'edges:',
+      '  - from: a', '    to: b', '    curve: none',
+      '  - from: c', '    to: d', '    curve: none',
+      '',
+    ].join('\n');
+    const result = await runInspect(['a.yaml'], reader({ 'a.yaml': CROSS2 }) as never);
+    const said = result.lines.join('\n');
+    assert.match(said, /テストが落ちます/, said);
+    assert.equal(result.code, 0, 'それでも止めない');
+  });
+
+  it('何も無ければ、落ちる話はしない', async () => {
+    const one = 'version: 1\nkind: placement\nnodes:\n  - id: a\n    label: 居間\n    at: { x: 0, y: 0 }\n    size: { w: 200, h: 120 }\n';
+    const result = await runInspect(['a.yaml'], reader({ 'a.yaml': one }) as never);
+    assert.ok(!result.lines.some((line) => line.includes('テストが落ちます')), result.lines.join('\n'));
+  });
+
+  it('何も無ければ「全部出ています」と言う（黙らない）', async () => {
+    const one = 'version: 1\nkind: placement\nnodes:\n  - id: a\n    label: 居間\n    at: { x: 0, y: 0 }\n    size: { w: 200, h: 120 }\n';
+    const result = await runInspect(['a.yaml'], reader({ 'a.yaml': one }) as never);
+    assert.ok(result.lines.some((line) => line.includes('全部出ています')), result.lines.join('\n'));
+  });
+});
+
+/**
+ * **読めない図に、観測値は無い**（2026-09-20）。
+ *
+ * 前は指摘を並べたあと、最後に「これは合否ではなく観測値です」まで足していた ——
+ * **観測値を 1 つも出していないのに。** 読めない図は、まず読めるようにする話。
+ * あわせて、長辺が `1448.6107034668482px` と出ていたのを 1px きざみにした。
+ */
+describe('inspect が読めない図を渡されたとき', () => {
+  const BAD = 'version: 1\nnodes:\n  - id: a\n  - id: a\n';
+
+  it('**指摘だけ出して、締めの「合否ではなく観測値です」は出さない**', async () => {
+    const result = await runInspect(['a.yaml'], reader({ 'a.yaml': BAD }) as never);
+    const said = result.lines.join('\n');
+    assert.ok(!said.includes('合否ではなく'), said);
+  });
+
+  it('読めなかったことを言う（黙って空で返さない）', async () => {
+    const result = await runInspect(['a.yaml'], reader({ 'a.yaml': BAD }) as never);
+    assert.match(result.lines.join('\n'), /読めませんでした/);
+  });
+
+  it('**それでも止めない**（inspect は合否ではない）', async () => {
+    const result = await runInspect(['a.yaml'], reader({ 'a.yaml': BAD }) as never);
+    assert.equal(result.code, 0);
+  });
+
+  it('読める図が混ざっていれば、観測値の話はする', async () => {
+    const ok = 'version: 1\nkind: placement\nnodes:\n  - id: a\n    label: 居間\n    at: { x: 0, y: 0 }\n    size: { w: 200, h: 120 }\n';
+    const result = await runInspect(['a.yaml', 'b.yaml'], reader({ 'a.yaml': BAD, 'b.yaml': ok }) as never);
+    const said = result.lines.join('\n');
+    assert.match(said, /合否ではなく/);
+    assert.match(said, /読めませんでした/);
+  });
+
+  it('**長辺は 1px きざみで出す**', async () => {
+    const ok = 'version: 1\nkind: placement\nnodes:\n  - id: a\n    label: 居間\n    at: { x: 0, y: 0 }\n    size: { w: 200.4, h: 120.7 }\n';
+    const result = await runInspect(['a.yaml'], reader({ 'a.yaml': ok }) as never);
+    const said = result.lines.join('\n');
+    assert.ok(!/長辺 \d+\.\d/.test(said), said);
   });
 });

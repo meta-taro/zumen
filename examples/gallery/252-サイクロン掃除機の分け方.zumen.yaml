@@ -1,0 +1,705 @@
+version: 1
+kind: placement
+arrows: true
+title: サイクロン掃除機の分け方（遠心力は v² ÷ r）
+# **接線から入れて、中心から抜く。** 壁ぎわを回る空気は外へ振られ、
+# 中心は逆に上へ登る。重い粒ほど外へ行くので、
+# 中心から抜く空気には軽い粒しか残らない。
+#
+# **遠心力は a ＝ v² ÷ r。** 同じ速さなら、**径を 1/10 にすると G は 10 倍。**
+# 速さを 2 倍にすると 4 倍。接線速度 40m/s で、
+# 径 200mm なら約 1,600G、径 20mm なら約 16,000G。
+#
+# **ところが細くすると、通せる空気が減る**（断面積は r² に比例）。
+# だから**細いコーンを並列に何本も並べて**、本数で流量を取り戻す。
+#
+# 紙パック式とは詰まり方が違う —— 紙パックは溜まるほど目が詰まる。
+# **ただし「フィルタが無い」のではない。分離の主役がフィルタではないだけ**で、
+# モーターの前後には入っていて、手入れを怠れば吸う力は落ちる。
+nodes:
+  - id: t1
+    label: "① 一次サイクロン —— 接線から入れて、中心から抜く"
+    marker: none
+    align: left
+    at: { x: 150, y: 150 }
+    size: { w: 620, h: 20 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 249, y: 209 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 449, y: 209 }
+    size: { w: 2, h: 2 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 249, y: 209 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 449, y: 209 }
+    size: { w: 2, h: 2 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 139, y: 235 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 249, y: 235 }
+    size: { w: 2, h: 2 }
+  - id: inN
+    label: "吸い込んだ空気"
+    marker: none
+    align: right
+    at: { x: 0, y: 228 }
+    size: { w: 240, h: 18 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 435, y: 239 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 333.5, y: 459 }
+    size: { w: 2, h: 2 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 349, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 349, y: 159 }
+    size: { w: 2, h: 2 }
+  - id: outN
+    label: "きれいな空気は中心から上へ"
+    marker: none
+    align: left
+    at: { x: 364, y: 176 }
+    size: { w: 260, h: 18 }
+  - id: dust
+    label: ""
+    hatch: dots
+    at: { x: 280, y: 496 }
+    size: { w: 140, h: 44 }
+  - id: dustN
+    label: "ゴミは壁に当たって落ちる"
+    marker: none
+    align: left
+    at: { x: 434, y: 506 }
+    size: { w: 240, h: 18 }
+  - id: why1
+    label: "壁ぎわを回る空気は外へ振られ、中心は逆に上へ登る。\n重い粒ほど外へ行くので、中心から抜く空気は軽い粒しか残らない。"
+    at: { x: 150, y: 560 }
+    size: { w: 620, h: 54 }
+  - id: t2
+    label: "② 二次サイクロン —— 細いコーンを並べる"
+    marker: none
+    align: left
+    at: { x: 150, y: 640 }
+    size: { w: 620, h: 20 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 189, y: 679 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 249, y: 679 }
+    size: { w: 2, h: 2 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 189, y: 679 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 249, y: 679 }
+    size: { w: 2, h: 2 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 219, y: 739 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 219, y: 659 }
+    size: { w: 2, h: 2 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 279, y: 679 }
+    size: { w: 2, h: 2 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 339, y: 679 }
+    size: { w: 2, h: 2 }
+  - id: p18
+    label: ""
+    marker: none
+    at: { x: 279, y: 679 }
+    size: { w: 2, h: 2 }
+  - id: p19
+    label: ""
+    marker: none
+    at: { x: 339, y: 679 }
+    size: { w: 2, h: 2 }
+  - id: p20
+    label: ""
+    marker: none
+    at: { x: 309, y: 739 }
+    size: { w: 2, h: 2 }
+  - id: p21
+    label: ""
+    marker: none
+    at: { x: 309, y: 659 }
+    size: { w: 2, h: 2 }
+  - id: p22
+    label: ""
+    marker: none
+    at: { x: 369, y: 679 }
+    size: { w: 2, h: 2 }
+  - id: p23
+    label: ""
+    marker: none
+    at: { x: 429, y: 679 }
+    size: { w: 2, h: 2 }
+  - id: p24
+    label: ""
+    marker: none
+    at: { x: 369, y: 679 }
+    size: { w: 2, h: 2 }
+  - id: p25
+    label: ""
+    marker: none
+    at: { x: 429, y: 679 }
+    size: { w: 2, h: 2 }
+  - id: p26
+    label: ""
+    marker: none
+    at: { x: 399, y: 739 }
+    size: { w: 2, h: 2 }
+  - id: p27
+    label: ""
+    marker: none
+    at: { x: 399, y: 659 }
+    size: { w: 2, h: 2 }
+  - id: p28
+    label: ""
+    marker: none
+    at: { x: 459, y: 679 }
+    size: { w: 2, h: 2 }
+  - id: p29
+    label: ""
+    marker: none
+    at: { x: 519, y: 679 }
+    size: { w: 2, h: 2 }
+  - id: p30
+    label: ""
+    marker: none
+    at: { x: 459, y: 679 }
+    size: { w: 2, h: 2 }
+  - id: p31
+    label: ""
+    marker: none
+    at: { x: 519, y: 679 }
+    size: { w: 2, h: 2 }
+  - id: p32
+    label: ""
+    marker: none
+    at: { x: 489, y: 739 }
+    size: { w: 2, h: 2 }
+  - id: p33
+    label: ""
+    marker: none
+    at: { x: 489, y: 659 }
+    size: { w: 2, h: 2 }
+  - id: p34
+    label: ""
+    marker: none
+    at: { x: 549, y: 679 }
+    size: { w: 2, h: 2 }
+  - id: p35
+    label: ""
+    marker: none
+    at: { x: 609, y: 679 }
+    size: { w: 2, h: 2 }
+  - id: p36
+    label: ""
+    marker: none
+    at: { x: 549, y: 679 }
+    size: { w: 2, h: 2 }
+  - id: p37
+    label: ""
+    marker: none
+    at: { x: 609, y: 679 }
+    size: { w: 2, h: 2 }
+  - id: p38
+    label: ""
+    marker: none
+    at: { x: 579, y: 739 }
+    size: { w: 2, h: 2 }
+  - id: p39
+    label: ""
+    marker: none
+    at: { x: 579, y: 659 }
+    size: { w: 2, h: 2 }
+  - id: p40
+    label: ""
+    marker: none
+    at: { x: 639, y: 679 }
+    size: { w: 2, h: 2 }
+  - id: p41
+    label: ""
+    marker: none
+    at: { x: 699, y: 679 }
+    size: { w: 2, h: 2 }
+  - id: p42
+    label: ""
+    marker: none
+    at: { x: 639, y: 679 }
+    size: { w: 2, h: 2 }
+  - id: p43
+    label: ""
+    marker: none
+    at: { x: 699, y: 679 }
+    size: { w: 2, h: 2 }
+  - id: p44
+    label: ""
+    marker: none
+    at: { x: 669, y: 739 }
+    size: { w: 2, h: 2 }
+  - id: p45
+    label: ""
+    marker: none
+    at: { x: 669, y: 659 }
+    size: { w: 2, h: 2 }
+  - id: mcN
+    label: "細いコーンを何本も並列に。1 本が細いほど G は上がるが、通せる空気は減る。"
+    marker: none
+    align: center
+    at: { x: 150, y: 786 }
+    size: { w: 620, h: 18 }
+  - id: t3
+    label: "③ 遠心力は v² ÷ r"
+    marker: none
+    align: left
+    at: { x: 800, y: 150 }
+    size: { w: 440, h: 20 }
+  - id: h186
+    label: "接線速度 40m/s のとき（内壁で）"
+    hatch: solid
+    at: { x: 800, y: 186 }
+    size: { w: 440, h: 24 }
+  - id: x210
+    label: "径 200mm（一次）"
+    at: { x: 800, y: 210 }
+    size: { w: 150, h: 24 }
+  - id: y210
+    label: "約 1,600G"
+    align: left
+    at: { x: 950, y: 210 }
+    size: { w: 290, h: 24 }
+  - id: x234
+    label: "径 60mm"
+    at: { x: 800, y: 234 }
+    size: { w: 150, h: 24 }
+  - id: y234
+    label: "約 5,400G"
+    align: left
+    at: { x: 950, y: 234 }
+    size: { w: 290, h: 24 }
+  - id: x258
+    label: "径 20mm（二次）"
+    at: { x: 800, y: 258 }
+    size: { w: 150, h: 24 }
+  - id: y258
+    label: "約 16,000G"
+    align: left
+    at: { x: 950, y: 258 }
+    size: { w: 290, h: 24 }
+  - id: x282
+    label: "径 8mm"
+    at: { x: 800, y: 282 }
+    size: { w: 150, h: 24 }
+  - id: y282
+    label: "約 41,000G"
+    align: left
+    at: { x: 950, y: 282 }
+    size: { w: 290, h: 24 }
+  - id: why3
+    label: "a ＝ v² ／ r。同じ速さなら、径を 1/10 にすると G は 10 倍。\n速さを 2 倍にすると G は 4 倍。\nだから細くして、さらに速く回す。"
+    at: { x: 800, y: 320 }
+    size: { w: 440, h: 80 }
+  - id: t4
+    label: "④ 細くすると強くなるが、通せる空気が減る"
+    marker: none
+    align: left
+    at: { x: 800, y: 416 }
+    size: { w: 440, h: 20 }
+  - id: h446
+    label: "径を細くしたときの両面"
+    hatch: solid
+    at: { x: 800, y: 446 }
+    size: { w: 440, h: 24 }
+  - id: x470
+    label: "遠心力"
+    at: { x: 800, y: 470 }
+    size: { w: 150, h: 24 }
+  - id: y470
+    label: "強くなる（1/r に比例）"
+    align: left
+    at: { x: 950, y: 470 }
+    size: { w: 290, h: 24 }
+  - id: x494
+    label: "通せる空気"
+    at: { x: 800, y: 494 }
+    size: { w: 150, h: 24 }
+  - id: y494
+    label: "減る（断面積が r² に比例）"
+    align: left
+    at: { x: 950, y: 494 }
+    size: { w: 290, h: 24 }
+  - id: x518
+    label: "解き方"
+    at: { x: 800, y: 518 }
+    size: { w: 150, h: 24 }
+  - id: y518
+    label: "細いコーンを並列に何本も並べる"
+    align: left
+    at: { x: 950, y: 518 }
+    size: { w: 290, h: 24 }
+  - id: why4
+    label: "1 本で全部は通せないので、並べる本数で流量を取り戻す。\nコーンの数が多い機種ほど、細かい粒まで分けられて\nしかも吸う量が落ちない。"
+    at: { x: 800, y: 556 }
+    size: { w: 440, h: 80 }
+  - id: t5
+    label: "⑤ 紙パック式と、詰まり方が違う"
+    marker: none
+    align: left
+    at: { x: 800, y: 652 }
+    size: { w: 440, h: 20 }
+  - id: h682
+    label: "吸う力が落ちる理由"
+    hatch: solid
+    at: { x: 800, y: 682 }
+    size: { w: 440, h: 24 }
+  - id: x706
+    label: "紙パック式"
+    at: { x: 800, y: 706 }
+    size: { w: 150, h: 24 }
+  - id: y706
+    label: "紙パックが目詰まりして落ちる"
+    align: left
+    at: { x: 950, y: 706 }
+    size: { w: 290, h: 24 }
+  - id: x730
+    label: "サイクロン式"
+    at: { x: 800, y: 730 }
+    size: { w: 150, h: 24 }
+  - id: y730
+    label: "分けるのは遠心力。詰まりでは落ちにくい"
+    align: left
+    at: { x: 950, y: 730 }
+    size: { w: 290, h: 24 }
+  - id: x754
+    label: "ただし"
+    at: { x: 800, y: 754 }
+    size: { w: 150, h: 24 }
+  - id: y754
+    label: "モーター前後のフィルタは、あるし詰まる"
+    align: left
+    at: { x: 950, y: 754 }
+    size: { w: 290, h: 24 }
+  - id: why5
+    label: "「フィルタが無い」のではない。分離の主役がフィルタではない。\nサイクロンで取り切れない微粒子と排気のために、\nフィルタは入っている —— 手入れを怠れば、やはり落ちる。"
+    at: { x: 800, y: 792 }
+    size: { w: 440, h: 80 }
+  - id: r1
+    label: "接線から入れて、中心から抜きます（①）。壁ぎわを回る空気は外へ振られ、中心は逆に上へ登ります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 884 }
+    size: { w: 1090, h: 18 }
+  - id: r2
+    label: "重い粒ほど外へ行くので、中心から抜く空気には軽い粒しか残りません。壁に当たった粒は、重力で下へ落ちます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 908 }
+    size: { w: 1090, h: 18 }
+  - id: r3
+    label: "遠心力は v² ÷ r です（③）。同じ速さなら、径を 1/10 にすると G は 10 倍。速さを 2 倍にすると 4 倍です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 932 }
+    size: { w: 1090, h: 18 }
+  - id: r4
+    label: "だから細くしますが、通せる空気が減ります（④）。断面積は r² に比例するので、細くするほど量が落ちます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 956 }
+    size: { w: 1090, h: 18 }
+  - id: r5
+    label: "解き方は、細いコーンを並列に何本も並べること。 コーンの数で流量を取り戻します。"
+    marker: none
+    align: left
+    at: { x: 150, y: 980 }
+    size: { w: 1090, h: 18 }
+  - id: r6
+    label: "紙パック式とは、詰まり方が違います（⑤）。紙パックは溜まるほど目が詰まり、吸う力が落ちていきます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1004 }
+    size: { w: 1090, h: 18 }
+  - id: r7
+    label: "ただし「フィルタが無い」のではありません。 分離の主役がフィルタではないだけで、モーターの前後には入っていて、手入れを怠れば落ちます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1028 }
+    size: { w: 1090, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 250, y: 360 }
+      - { x: 326, y: 490 }
+      - { x: 374, y: 490 }
+      - { x: 450, y: 360 }
+  - from: p2
+    to: p3
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p4
+    to: p5
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p6
+    to: p7
+    curve: none
+    line: dashed
+    ends: { from: none, to: arrow }
+    via:
+      - { x: 433.9, y: 242.4 }
+      - { x: 429.3, y: 244.9 }
+      - { x: 422.4, y: 247.3 }
+      - { x: 413.5, y: 249.8 }
+      - { x: 402.8, y: 252.2 }
+      - { x: 390.6, y: 254.7 }
+      - { x: 377.5, y: 257.1 }
+      - { x: 363.8, y: 259.6 }
+      - { x: 350, y: 262 }
+      - { x: 336.4, y: 264.4 }
+      - { x: 323.5, y: 266.9 }
+      - { x: 311.7, y: 269.3 }
+      - { x: 301.3, y: 271.8 }
+      - { x: 292.5, y: 274.2 }
+      - { x: 285.7, y: 276.7 }
+      - { x: 281, y: 279.1 }
+      - { x: 278.4, y: 281.6 }
+      - { x: 278.1, y: 284 }
+      - { x: 280, y: 286.4 }
+      - { x: 283.9, y: 288.9 }
+      - { x: 289.8, y: 291.3 }
+      - { x: 297.3, y: 293.8 }
+      - { x: 306.3, y: 296.2 }
+      - { x: 316.4, y: 298.7 }
+      - { x: 327.3, y: 301.1 }
+      - { x: 338.6, y: 303.6 }
+      - { x: 350, y: 306 }
+      - { x: 361.1, y: 308.4 }
+      - { x: 371.6, y: 310.9 }
+      - { x: 381.2, y: 313.3 }
+      - { x: 389.7, y: 315.8 }
+      - { x: 396.7, y: 318.2 }
+      - { x: 402.1, y: 320.7 }
+      - { x: 405.8, y: 323.1 }
+      - { x: 407.7, y: 325.6 }
+      - { x: 407.8, y: 328 }
+      - { x: 406.1, y: 330.4 }
+      - { x: 402.8, y: 332.9 }
+      - { x: 398, y: 335.3 }
+      - { x: 391.9, y: 337.8 }
+      - { x: 384.6, y: 340.2 }
+      - { x: 376.5, y: 342.7 }
+      - { x: 367.9, y: 345.1 }
+      - { x: 358.9, y: 347.6 }
+      - { x: 350, y: 350 }
+      - { x: 341.3, y: 352.4 }
+      - { x: 333.2, y: 354.9 }
+      - { x: 325.8, y: 357.3 }
+      - { x: 319.4, y: 359.8 }
+      - { x: 314.1, y: 362.2 }
+      - { x: 310.1, y: 364.7 }
+      - { x: 307.5, y: 367.1 }
+      - { x: 306.2, y: 369.6 }
+      - { x: 306.3, y: 372 }
+      - { x: 307.7, y: 374.4 }
+      - { x: 310.4, y: 376.9 }
+      - { x: 314.2, y: 379.3 }
+      - { x: 318.9, y: 381.8 }
+      - { x: 324.4, y: 384.2 }
+      - { x: 330.5, y: 386.7 }
+      - { x: 336.9, y: 389.1 }
+      - { x: 343.5, y: 391.6 }
+      - { x: 350, y: 394 }
+      - { x: 356.2, y: 396.4 }
+      - { x: 362, y: 398.9 }
+      - { x: 367.1, y: 401.3 }
+      - { x: 371.5, y: 403.8 }
+      - { x: 375.1, y: 406.2 }
+      - { x: 377.7, y: 408.7 }
+      - { x: 379.3, y: 411.1 }
+      - { x: 379.9, y: 413.6 }
+      - { x: 379.6, y: 416 }
+      - { x: 378.4, y: 418.4 }
+      - { x: 376.3, y: 420.9 }
+      - { x: 373.6, y: 423.3 }
+      - { x: 370.3, y: 425.8 }
+      - { x: 366.5, y: 428.2 }
+      - { x: 362.4, y: 430.7 }
+      - { x: 358.2, y: 433.1 }
+      - { x: 354, y: 435.6 }
+      - { x: 350, y: 438 }
+      - { x: 346.2, y: 440.4 }
+      - { x: 342.8, y: 442.9 }
+      - { x: 339.9, y: 445.3 }
+      - { x: 337.5, y: 447.8 }
+      - { x: 335.7, y: 450.2 }
+      - { x: 334.6, y: 452.7 }
+      - { x: 334, y: 455.1 }
+      - { x: 334, y: 457.6 }
+  - from: p8
+    to: p9
+    curve: none
+    weight: thick
+    ends: { from: none, to: arrow }
+  - from: p10
+    to: p11
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 190, y: 710 }
+      - { x: 214, y: 770 }
+      - { x: 226, y: 770 }
+      - { x: 250, y: 710 }
+  - from: p12
+    to: p13
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p14
+    to: p15
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p16
+    to: p17
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 280, y: 710 }
+      - { x: 304, y: 770 }
+      - { x: 316, y: 770 }
+      - { x: 340, y: 710 }
+  - from: p18
+    to: p19
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p20
+    to: p21
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p22
+    to: p23
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 370, y: 710 }
+      - { x: 394, y: 770 }
+      - { x: 406, y: 770 }
+      - { x: 430, y: 710 }
+  - from: p24
+    to: p25
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p26
+    to: p27
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p28
+    to: p29
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 460, y: 710 }
+      - { x: 484, y: 770 }
+      - { x: 496, y: 770 }
+      - { x: 520, y: 710 }
+  - from: p30
+    to: p31
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p32
+    to: p33
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p34
+    to: p35
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 550, y: 710 }
+      - { x: 574, y: 770 }
+      - { x: 586, y: 770 }
+      - { x: 610, y: 710 }
+  - from: p36
+    to: p37
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p38
+    to: p39
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p40
+    to: p41
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 640, y: 710 }
+      - { x: 664, y: 770 }
+      - { x: 676, y: 770 }
+      - { x: 700, y: 710 }
+  - from: p42
+    to: p43
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p44
+    to: p45
+    curve: none
+    ends: { from: none, to: arrow }

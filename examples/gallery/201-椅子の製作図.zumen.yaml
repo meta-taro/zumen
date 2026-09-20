@@ -1,0 +1,503 @@
+version: 1
+kind: placement
+arrows: true
+title: 椅子の製作図（後脚のほぞの取り合い）
+scale: { mm: 3 }
+views:
+  - id: side
+    title: ①② 側面と平面（1px ＝ 3mm）
+    at: { x: 140, y: 290 }
+    size: { w: 480, h: 413.3 }
+    scale: { mm: 3 }
+    grid:
+      y:
+        - { id: Y1, at: 483.3 }
+        - { id: Y2, at: 623.3 }
+  - id: leg
+    title: ③ 後脚の詳細（1px ＝ 1mm）
+    at: { x: 650, y: 340 }
+    size: { w: 320, h: 380 }
+    scale: { mm: 1 }
+# **椅子でいちばん壊れるのは後脚。**
+#
+# 背板・横の座枠・後ろの座枠・貫と、**4 方向からほぞが入る**。
+# **高さをずらさないと、ほぞ穴どうしが脚の中で貫通して折れる。**
+#
+# もう 1 つ —— **座面も背も、垂直でも水平でもない。**
+# 座面は後ろへ 5〜8°（まっすぐだと滑り落ちる）、背は座面に 95〜105°。
+# 座枠は前が広い台形なので、**横の座枠のほぞは斜めになる**。
+nodes:
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 149, y: 622.3 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 422.3, y: 622.3 }
+    size: { w: 2, h: 2 }
+  - id: f_leg
+    label: ""
+    at: { x: 190, y: 483.3 }
+    size: { w: 11.7, h: 140 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 334, y: 622.3 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 189, y: 482.3 }
+    size: { w: 2, h: 2 }
+  - id: rail_low
+    label: ""
+    hatch: dots
+    at: { x: 201.7, y: 563.3 }
+    size: { w: 133.3, h: 10 }
+  - id: a_sh
+    label: "座面 前 420 / 後 385"
+    marker: none
+    align: left
+    at: { x: 437.3, y: 474.3 }
+    size: { w: 240, h: 18 }
+  - id: a_tilt
+    label: "後ろへ 5°（座り落ちを防ぐ）"
+    marker: none
+    align: left
+    at: { x: 437.3, y: 496.3 }
+    size: { w: 240, h: 18 }
+  - id: a_back
+    label: "背は座面に 100°"
+    marker: none
+    align: left
+    at: { x: 437.3, y: 380 }
+    size: { w: 240, h: 18 }
+  - id: a_h
+    label: "全高 850"
+    marker: none
+    align: left
+    at: { x: 437.3, y: 334 }
+    size: { w: 240, h: 18 }
+  - id: a_nuki
+    label: "貫は下のほうへ（力がかかる）"
+    marker: none
+    align: left
+    at: { x: 437.3, y: 554.3 }
+    size: { w: 240, h: 18 }
+  - id: t1
+    label: "① 側面 —— 座面も背も、垂直でも水平でもない"
+    marker: none
+    align: left
+    at: { x: 150, y: 244 }
+    size: { w: 520, h: 20 }
+  - id: t1b
+    label: "　座面は後ろへ 5°、背は座面に 100°。まっすぐ作ると、滑り落ちる。"
+    marker: none
+    align: left
+    at: { x: 150, y: 266 }
+    size: { w: 520, h: 18 }
+  - id: a_n
+    label: "側面図"
+    marker: none
+    align: center
+    at: { x: 150, y: 635.3 }
+    size: { w: 246.7, h: 18 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 220.7, y: 959 }
+    size: { w: 2, h: 2 }
+  - id: b_f
+    label: "前 450"
+    marker: none
+    align: center
+    at: { x: 210, y: 1105.3 }
+    size: { w: 150, h: 18 }
+  - id: b_b
+    label: "後 380"
+    marker: none
+    align: center
+    at: { x: 210, y: 938 }
+    size: { w: 150, h: 18 }
+  - id: b_d
+    label: "奥行 400"
+    marker: none
+    align: left
+    at: { x: 372, y: 1017.7 }
+    size: { w: 160, h: 18 }
+  - id: t2
+    label: "② 平面 —— 座枠は台形"
+    marker: none
+    align: left
+    at: { x: 150, y: 890 }
+    size: { w: 440, h: 20 }
+  - id: t2b
+    label: "　前が広く後ろが狭い。横の座枠のほぞは斜めになる。"
+    marker: none
+    align: left
+    at: { x: 150, y: 914 }
+    size: { w: 440, h: 18 }
+  - id: c_leg
+    label: ""
+    hatch: lines
+    at: { x: 800, y: 390 }
+    size: { w: 70, h: 260 }
+  - id: h1
+    label: ""
+    at: { x: 845, y: 420 }
+    size: { w: 25, h: 60 }
+  - id: h1_n
+    label: "背板のほぞ"
+    marker: none
+    align: left
+    at: { x: 880, y: 441 }
+    size: { w: 120, h: 18 }
+  - id: h2
+    label: ""
+    at: { x: 800, y: 500 }
+    size: { w: 25, h: 55 }
+  - id: h2_n
+    label: "横の座枠"
+    marker: none
+    align: right
+    at: { x: 664, y: 518.5 }
+    size: { w: 120, h: 18 }
+  - id: h3
+    label: ""
+    at: { x: 845, y: 530 }
+    size: { w: 25, h: 55 }
+  - id: h3_n
+    label: "後ろの座枠"
+    marker: none
+    align: left
+    at: { x: 880, y: 548.5 }
+    size: { w: 120, h: 18 }
+  - id: h4
+    label: ""
+    at: { x: 800, y: 600 }
+    size: { w: 25, h: 30 }
+  - id: h4_n
+    label: "貫"
+    marker: none
+    align: right
+    at: { x: 664, y: 606 }
+    size: { w: 120, h: 18 }
+  - id: t3
+    label: "③ 後脚 —— 高さをずらす"
+    marker: none
+    align: left
+    at: { x: 660, y: 294 }
+    size: { w: 300, h: 20 }
+  - id: t3b
+    label: "　4 方向から入る。同じ高さだと脚が折れる。"
+    marker: none
+    align: left
+    at: { x: 660, y: 316 }
+    size: { w: 300, h: 18 }
+  - id: c_n
+    label: "後脚（1px ＝ 1mm）"
+    marker: none
+    align: center
+    at: { x: 720, y: 662 }
+    size: { w: 230, h: 18 }
+  - id: h190
+    label: "部材表（木取り）"
+    hatch: solid
+    at: { x: 1000, y: 190 }
+    size: { w: 400, h: 24 }
+  - id: x214
+    label: "前脚"
+    at: { x: 1000, y: 214 }
+    size: { w: 175, h: 24 }
+  - id: y214
+    label: "35 × 35 × 420　2 本"
+    align: left
+    at: { x: 1175, y: 214 }
+    size: { w: 225, h: 24 }
+  - id: x238
+    label: "後脚"
+    at: { x: 1000, y: 238 }
+    size: { w: 175, h: 24 }
+  - id: y238
+    label: "35 × 70 × 850　2 本"
+    align: left
+    at: { x: 1175, y: 238 }
+    size: { w: 225, h: 24 }
+  - id: x262
+    label: "座枠（前・後）"
+    at: { x: 1000, y: 262 }
+    size: { w: 175, h: 24 }
+  - id: y262
+    label: "t25 × 60　各 1"
+    align: left
+    at: { x: 1175, y: 262 }
+    size: { w: 225, h: 24 }
+  - id: x286
+    label: "座枠（横）"
+    at: { x: 1000, y: 286 }
+    size: { w: 175, h: 24 }
+  - id: y286
+    label: "t25 × 60　2（斜めほぞ）"
+    align: left
+    at: { x: 1175, y: 286 }
+    size: { w: 225, h: 24 }
+  - id: x310
+    label: "貫"
+    at: { x: 1000, y: 310 }
+    size: { w: 175, h: 24 }
+  - id: y310
+    label: "t20 × 30　3 本"
+    align: left
+    at: { x: 1175, y: 310 }
+    size: { w: 225, h: 24 }
+  - id: x334
+    label: "背板"
+    at: { x: 1000, y: 334 }
+    size: { w: 175, h: 24 }
+  - id: y334
+    label: "t18 × 80　1 〜 2 枚"
+    align: left
+    at: { x: 1175, y: 334 }
+    size: { w: 225, h: 24 }
+  - id: h376
+    label: "角度と高さ（目安）"
+    hatch: solid
+    at: { x: 1000, y: 376 }
+    size: { w: 400, h: 24 }
+  - id: x400
+    label: "座面高（前）"
+    at: { x: 1000, y: 400 }
+    size: { w: 175, h: 24 }
+  - id: y400
+    label: "400 〜 420"
+    align: left
+    at: { x: 1175, y: 400 }
+    size: { w: 225, h: 24 }
+  - id: x424
+    label: "後傾"
+    at: { x: 1000, y: 424 }
+    size: { w: 175, h: 24 }
+  - id: y424
+    label: "5 〜 8°（後ろを下げる）"
+    align: left
+    at: { x: 1175, y: 424 }
+    size: { w: 225, h: 24 }
+  - id: x448
+    label: "背の角度"
+    at: { x: 1000, y: 448 }
+    size: { w: 175, h: 24 }
+  - id: y448
+    label: "座面に 95 〜 105°"
+    align: left
+    at: { x: 1175, y: 448 }
+    size: { w: 225, h: 24 }
+  - id: x472
+    label: "食事用"
+    at: { x: 1000, y: 472 }
+    size: { w: 175, h: 24 }
+  - id: y472
+    label: "95 〜 100°（浅く座る）"
+    align: left
+    at: { x: 1175, y: 472 }
+    size: { w: 225, h: 24 }
+  - id: x496
+    label: "休息用"
+    at: { x: 1000, y: 496 }
+    size: { w: 175, h: 24 }
+  - id: y496
+    label: "105 〜 110°（深く座る）"
+    align: left
+    at: { x: 1175, y: 496 }
+    size: { w: 225, h: 24 }
+  - id: x520
+    label: "座の奥行き"
+    at: { x: 1000, y: 520 }
+    size: { w: 175, h: 24 }
+  - id: y520
+    label: "400 〜 450"
+    align: left
+    at: { x: 1175, y: 520 }
+    size: { w: 225, h: 24 }
+  - id: h562
+    label: "椅子でいちばん壊れる所"
+    hatch: solid
+    at: { x: 1000, y: 562 }
+    size: { w: 400, h: 24 }
+  - id: x586
+    label: "後脚"
+    at: { x: 1000, y: 586 }
+    size: { w: 175, h: 24 }
+  - id: y586
+    label: "4 方向からほぞが入る"
+    align: left
+    at: { x: 1175, y: 586 }
+    size: { w: 225, h: 24 }
+  - id: x610
+    label: "対策"
+    at: { x: 1000, y: 610 }
+    size: { w: 175, h: 24 }
+  - id: y610
+    label: "ほぞの高さをずらす"
+    align: left
+    at: { x: 1175, y: 610 }
+    size: { w: 225, h: 24 }
+  - id: x634
+    label: "やると割れる"
+    at: { x: 1000, y: 634 }
+    size: { w: 175, h: 24 }
+  - id: y634
+    label: "同じ高さでほぞ穴が貫通する"
+    align: left
+    at: { x: 1175, y: 634 }
+    size: { w: 225, h: 24 }
+  - id: x658
+    label: "横の座枠"
+    at: { x: 1000, y: 658 }
+    size: { w: 175, h: 24 }
+  - id: y658
+    label: "台形なので斜めほぞになる"
+    align: left
+    at: { x: 1175, y: 658 }
+    size: { w: 225, h: 24 }
+  - id: x682
+    label: "貫"
+    at: { x: 1000, y: 682 }
+    size: { w: 175, h: 24 }
+  - id: y682
+    label: "下のほうへ入れる（力が集まる）"
+    align: left
+    at: { x: 1175, y: 682 }
+    size: { w: 225, h: 24 }
+  - id: x706
+    label: "座枠"
+    at: { x: 1000, y: 706 }
+    size: { w: 175, h: 24 }
+  - id: y706
+    label: "背もたれを押す力は、ここで受ける"
+    align: left
+    at: { x: 1175, y: 706 }
+    size: { w: 225, h: 24 }
+  - id: h748
+    label: "この図に出ていないもの"
+    hatch: solid
+    at: { x: 1000, y: 748 }
+    size: { w: 400, h: 24 }
+  - id: x772
+    label: "座面"
+    at: { x: 1000, y: 772 }
+    size: { w: 175, h: 24 }
+  - id: y772
+    label: "板張り・張り込み・ペーパーコード"
+    align: left
+    at: { x: 1175, y: 772 }
+    size: { w: 225, h: 24 }
+  - id: x796
+    label: "背板の反り"
+    at: { x: 1000, y: 796 }
+    size: { w: 175, h: 24 }
+  - id: y796
+    label: "背中に合わせて曲げる"
+    align: left
+    at: { x: 1175, y: 796 }
+    size: { w: 225, h: 24 }
+  - id: x820
+    label: "面取り"
+    at: { x: 1000, y: 820 }
+    size: { w: 175, h: 24 }
+  - id: y820
+    label: "角の丸め（手が当たる所）"
+    align: left
+    at: { x: 1175, y: 820 }
+    size: { w: 225, h: 24 }
+  - id: x844
+    label: "仕上げ"
+    at: { x: 1000, y: 844 }
+    size: { w: 175, h: 24 }
+  - id: y844
+    label: "オイル・ウレタン"
+    align: left
+    at: { x: 1175, y: 844 }
+    size: { w: 225, h: 24 }
+  - id: n1
+    label: "椅子の製作図です。机と違い、座面も背も、垂直でも水平でもありません。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1180 }
+    size: { w: 1000, h: 18 }
+  - id: n2
+    label: "座面は後ろへ 5 〜 8° 傾けます。 まっすぐだと、座ったときに前へ滑り落ちます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1202 }
+    size: { w: 1000, h: 18 }
+  - id: n3
+    label: "背は座面に対して 95 〜 105°。 食事用は浅く（95 〜 100°）、休息用は深く（105 〜 110°）します。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1224 }
+    size: { w: 1000, h: 18 }
+  - id: n4
+    label: "座枠は前が広く、後ろが狭い台形です。だから横の座枠のほぞは斜めになります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1246 }
+    size: { w: 1000, h: 18 }
+  - id: n5
+    label: "椅子でいちばん壊れるのは後脚です。背板・横の座枠・後ろの座枠・貫と、4 方向からほぞが入ります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1268 }
+    size: { w: 1000, h: 18 }
+  - id: n6
+    label: "ほぞの高さをずらしてください。 同じ高さに掘ると、ほぞ穴どうしが脚の中で貫通し、そこから折れます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1290 }
+    size: { w: 1000, h: 18 }
+  - id: n7
+    label: "寸法は一例です。座る人と用途で変わります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1312 }
+    size: { w: 1000, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p2
+    to: p2
+    curve: none
+    close: true
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 335, y: 623.3 }
+      - { x: 346.7, y: 623.3 }
+      - { x: 326.7, y: 340 }
+      - { x: 315, y: 340 }
+  - from: p3
+    to: p3
+    curve: none
+    close: true
+    hatch: dots
+    ends: { from: none, to: none }
+    via:
+      - { x: 190, y: 483.3 }
+      - { x: 346.7, y: 495 }
+      - { x: 346.7, y: 503.3 }
+      - { x: 190, y: 491.7 }
+  - from: p4
+    to: p4
+    curve: none
+    close: true
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 221.7, y: 960 }
+      - { x: 348.3, y: 960 }
+      - { x: 360, y: 1093.3 }
+      - { x: 210, y: 1093.3 }

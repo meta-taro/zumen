@@ -59,8 +59,22 @@ export interface Edge {
   vertical?: unknown;
 }
 
-/** 折り返しでの改行を止める。人が書いた行の形を機械が変えないため。 */
-const TO_STRING_OPTIONS = { lineWidth: 0 } as const;
+/**
+ * **書き戻しで行の形を変えない。**
+ *
+ * - `lineWidth: 0` … 折り返しでの改行を止める
+ * - `doubleQuotedMinMultiLineLength: Infinity` …
+ *   **長い名前の `\n` を、実際の改行に展開させない**（2026-09-20）。
+ *   `yaml` は 40 文字を超える二重引用符の文字列に改行が入っていると、
+ *   **複数行に割って書き戻す。** すると `round-trip-changed` が鳴り、
+ *   **その図は「読めない」扱いになっていた** ——
+ *   名前が箱に入らないときの知らせが「`\n` で折り返してください」と言うので、
+ *   **言われたとおりにすると落ちる**状態だった（保育園の避難計画を描いていて踏んだ）。
+ */
+export const TO_STRING_OPTIONS = {
+  lineWidth: 0,
+  doubleQuotedMinMultiLineLength: Number.POSITIVE_INFINITY,
+} as const;
 
 export class Diagram {
   readonly doc: Document;

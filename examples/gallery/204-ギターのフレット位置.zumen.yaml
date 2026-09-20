@@ -1,0 +1,992 @@
+version: 1
+kind: placement
+arrows: true
+title: ギターのフレット位置（12√2）
+scale: { mm: 1 }
+# **フレットは等間隔ではない。**
+#
+# 1 フレットごとに **1 / 2^(1/12)** 倍。だから **12 フレットでちょうど半分**になる。
+# 式は n 番の位置 ＝ S ×（1 − 2^(−n/12)）。
+#
+# そして **理論どおりに作っても音は合わない** ——
+# 押さえると弦が伸びて音程が上がるので、**サドルを後ろへずらす**（弦ごとに違う）。
+nodes:
+  - id: board
+    label: ""
+    at: { x: 150, y: 360 }
+    size: { w: 648, h: 56 }
+  - id: nut
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 144, y: 356 }
+    size: { w: 6, h: 64 }
+  - id: nut_n
+    label: "ナット（0）"
+    marker: none
+    align: right
+    at: { x: 30, y: 330 }
+    size: { w: 110, h: 18 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 185.4, y: 360 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 185.4, y: 414 }
+    size: { w: 2, h: 2 }
+  - id: f1
+    label: "1"
+    marker: none
+    align: center
+    at: { x: 173.4, y: 422 }
+    size: { w: 26, h: 16 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 219.7, y: 360 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 219.7, y: 414 }
+    size: { w: 2, h: 2 }
+  - id: f2
+    label: "2"
+    marker: none
+    align: center
+    at: { x: 207.7, y: 422 }
+    size: { w: 26, h: 16 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 252.1, y: 360 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 252.1, y: 414 }
+    size: { w: 2, h: 2 }
+  - id: f3
+    label: "3"
+    marker: none
+    align: center
+    at: { x: 240.1, y: 422 }
+    size: { w: 26, h: 16 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 282.7, y: 360 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 282.7, y: 414 }
+    size: { w: 2, h: 2 }
+  - id: f4
+    label: "4"
+    marker: none
+    align: center
+    at: { x: 270.7, y: 422 }
+    size: { w: 26, h: 16 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 311.5, y: 360 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 311.5, y: 414 }
+    size: { w: 2, h: 2 }
+  - id: f5
+    label: "5"
+    marker: none
+    align: center
+    at: { x: 299.5, y: 422 }
+    size: { w: 26, h: 16 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 338.8, y: 360 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 338.8, y: 414 }
+    size: { w: 2, h: 2 }
+  - id: f6
+    label: "6"
+    marker: none
+    align: center
+    at: { x: 326.8, y: 422 }
+    size: { w: 26, h: 16 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 364.5, y: 360 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 364.5, y: 414 }
+    size: { w: 2, h: 2 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 388.8, y: 360 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 388.8, y: 414 }
+    size: { w: 2, h: 2 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 411.7, y: 360 }
+    size: { w: 2, h: 2 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 411.7, y: 414 }
+    size: { w: 2, h: 2 }
+  - id: f9
+    label: "9"
+    marker: none
+    align: center
+    at: { x: 399.7, y: 422 }
+    size: { w: 26, h: 16 }
+  - id: p18
+    label: ""
+    marker: none
+    at: { x: 433.3, y: 360 }
+    size: { w: 2, h: 2 }
+  - id: p19
+    label: ""
+    marker: none
+    at: { x: 433.3, y: 414 }
+    size: { w: 2, h: 2 }
+  - id: p20
+    label: ""
+    marker: none
+    at: { x: 453.7, y: 360 }
+    size: { w: 2, h: 2 }
+  - id: p21
+    label: ""
+    marker: none
+    at: { x: 453.7, y: 414 }
+    size: { w: 2, h: 2 }
+  - id: p22
+    label: ""
+    marker: none
+    at: { x: 473, y: 360 }
+    size: { w: 2, h: 2 }
+  - id: p23
+    label: ""
+    marker: none
+    at: { x: 473, y: 414 }
+    size: { w: 2, h: 2 }
+  - id: f12
+    label: "12"
+    marker: none
+    align: center
+    at: { x: 461, y: 422 }
+    size: { w: 26, h: 16 }
+  - id: p24
+    label: ""
+    marker: none
+    at: { x: 491.2, y: 360 }
+    size: { w: 2, h: 2 }
+  - id: p25
+    label: ""
+    marker: none
+    at: { x: 491.2, y: 414 }
+    size: { w: 2, h: 2 }
+  - id: p26
+    label: ""
+    marker: none
+    at: { x: 508.3, y: 360 }
+    size: { w: 2, h: 2 }
+  - id: p27
+    label: ""
+    marker: none
+    at: { x: 508.3, y: 414 }
+    size: { w: 2, h: 2 }
+  - id: p28
+    label: ""
+    marker: none
+    at: { x: 524.5, y: 360 }
+    size: { w: 2, h: 2 }
+  - id: p29
+    label: ""
+    marker: none
+    at: { x: 524.5, y: 414 }
+    size: { w: 2, h: 2 }
+  - id: f15
+    label: "15"
+    marker: none
+    align: center
+    at: { x: 512.5, y: 422 }
+    size: { w: 26, h: 16 }
+  - id: p30
+    label: ""
+    marker: none
+    at: { x: 539.8, y: 360 }
+    size: { w: 2, h: 2 }
+  - id: p31
+    label: ""
+    marker: none
+    at: { x: 539.8, y: 414 }
+    size: { w: 2, h: 2 }
+  - id: p32
+    label: ""
+    marker: none
+    at: { x: 554.3, y: 360 }
+    size: { w: 2, h: 2 }
+  - id: p33
+    label: ""
+    marker: none
+    at: { x: 554.3, y: 414 }
+    size: { w: 2, h: 2 }
+  - id: p34
+    label: ""
+    marker: none
+    at: { x: 567.9, y: 360 }
+    size: { w: 2, h: 2 }
+  - id: p35
+    label: ""
+    marker: none
+    at: { x: 567.9, y: 414 }
+    size: { w: 2, h: 2 }
+  - id: f18
+    label: "18"
+    marker: none
+    align: center
+    at: { x: 555.9, y: 422 }
+    size: { w: 26, h: 16 }
+  - id: p36
+    label: ""
+    marker: none
+    at: { x: 580.8, y: 360 }
+    size: { w: 2, h: 2 }
+  - id: p37
+    label: ""
+    marker: none
+    at: { x: 580.8, y: 414 }
+    size: { w: 2, h: 2 }
+  - id: p38
+    label: ""
+    marker: none
+    at: { x: 592.9, y: 360 }
+    size: { w: 2, h: 2 }
+  - id: p39
+    label: ""
+    marker: none
+    at: { x: 592.9, y: 414 }
+    size: { w: 2, h: 2 }
+  - id: p40
+    label: ""
+    marker: none
+    at: { x: 604.3, y: 360 }
+    size: { w: 2, h: 2 }
+  - id: p41
+    label: ""
+    marker: none
+    at: { x: 604.3, y: 414 }
+    size: { w: 2, h: 2 }
+  - id: f21
+    label: "21"
+    marker: none
+    align: center
+    at: { x: 592.3, y: 422 }
+    size: { w: 26, h: 16 }
+  - id: p42
+    label: ""
+    marker: none
+    at: { x: 615.2, y: 360 }
+    size: { w: 2, h: 2 }
+  - id: p43
+    label: ""
+    marker: none
+    at: { x: 615.2, y: 414 }
+    size: { w: 2, h: 2 }
+  - id: p44
+    label: ""
+    marker: none
+    at: { x: 625.4, y: 360 }
+    size: { w: 2, h: 2 }
+  - id: p45
+    label: ""
+    marker: none
+    at: { x: 625.4, y: 414 }
+    size: { w: 2, h: 2 }
+  - id: p46
+    label: ""
+    marker: none
+    at: { x: 635, y: 360 }
+    size: { w: 2, h: 2 }
+  - id: p47
+    label: ""
+    marker: none
+    at: { x: 635, y: 414 }
+    size: { w: 2, h: 2 }
+  - id: f24
+    label: "24"
+    marker: none
+    align: center
+    at: { x: 623, y: 422 }
+    size: { w: 26, h: 16 }
+  - id: dot3
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 232.9, y: 384 }
+    size: { w: 8, h: 8 }
+  - id: dot5
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 294.1, y: 384 }
+    size: { w: 8, h: 8 }
+  - id: dot7
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 348.7, y: 384 }
+    size: { w: 8, h: 8 }
+  - id: dot9
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 397.2, y: 384 }
+    size: { w: 8, h: 8 }
+  - id: dot15
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 513.4, y: 384 }
+    size: { w: 8, h: 8 }
+  - id: dot17
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 544.1, y: 384 }
+    size: { w: 8, h: 8 }
+  - id: dot19
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 571.3, y: 384 }
+    size: { w: 8, h: 8 }
+  - id: dot21
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 595.6, y: 384 }
+    size: { w: 8, h: 8 }
+  - id: p48
+    label: ""
+    marker: none
+    at: { x: 149, y: 337 }
+    size: { w: 2, h: 2 }
+  - id: p49
+    label: ""
+    marker: none
+    at: { x: 473, y: 337 }
+    size: { w: 2, h: 2 }
+  - id: half
+    label: "12 フレット ＝ 324mm（半分）"
+    marker: none
+    align: left
+    at: { x: 150, y: 314 }
+    size: { w: 324, h: 18 }
+  - id: p50
+    label: ""
+    marker: none
+    at: { x: 473, y: 337 }
+    size: { w: 2, h: 2 }
+  - id: p51
+    label: ""
+    marker: none
+    at: { x: 797, y: 337 }
+    size: { w: 2, h: 2 }
+  - id: brg
+    label: "ブリッジ（また同じ長さ）"
+    marker: none
+    align: left
+    at: { x: 484, y: 314 }
+    size: { w: 300, h: 18 }
+  - id: t1
+    label: "① フレットは等間隔ではない"
+    marker: none
+    align: left
+    at: { x: 150, y: 240 }
+    size: { w: 560, h: 20 }
+  - id: t1b
+    label: "　1 フレットごとに 1 / 1.0595 倍。高音側ほど狭くなる。"
+    marker: none
+    align: left
+    at: { x: 150, y: 262 }
+    size: { w: 560, h: 18 }
+  - id: g1
+    label: "1 番の幅 36.4mm"
+    marker: none
+    align: center
+    at: { x: 116.4, y: 452 }
+    size: { w: 140, h: 18 }
+  - id: g12
+    label: "12 番の幅 19.3mm"
+    marker: none
+    align: center
+    at: { x: 404, y: 452 }
+    size: { w: 140, h: 18 }
+  - id: g24
+    label: "24 番の幅 9.6mm"
+    marker: none
+    align: center
+    at: { x: 566, y: 452 }
+    size: { w: 140, h: 18 }
+  - id: p52
+    label: ""
+    marker: none
+    at: { x: 319, y: 625 }
+    size: { w: 2, h: 2 }
+  - id: p53
+    label: ""
+    marker: none
+    at: { x: 319, y: 803 }
+    size: { w: 2, h: 2 }
+  - id: b_t0
+    label: "理論どおりの位置"
+    marker: none
+    align: center
+    at: { x: 160, y: 604 }
+    size: { w: 320, h: 18 }
+  - id: s0
+    label: "1 弦（細）"
+    marker: none
+    align: right
+    at: { x: 90, y: 640 }
+    size: { w: 100, h: 18 }
+  - id: sd0
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 332, y: 634 }
+    size: { w: 26, h: 18 }
+  - id: so0
+    label: "＋1mm"
+    marker: none
+    align: left
+    at: { x: 366, y: 640 }
+    size: { w: 110, h: 18 }
+  - id: s1
+    label: "2 弦"
+    marker: none
+    align: right
+    at: { x: 90, y: 666 }
+    size: { w: 100, h: 18 }
+  - id: sd1
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 346.4, y: 660 }
+    size: { w: 26, h: 18 }
+  - id: so1
+    label: "＋2.2mm"
+    marker: none
+    align: left
+    at: { x: 380.4, y: 666 }
+    size: { w: 110, h: 18 }
+  - id: s2
+    label: "3 弦"
+    marker: none
+    align: right
+    at: { x: 90, y: 692 }
+    size: { w: 100, h: 18 }
+  - id: sd2
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 360.8, y: 686 }
+    size: { w: 26, h: 18 }
+  - id: so2
+    label: "＋3.4mm"
+    marker: none
+    align: left
+    at: { x: 394.8, y: 692 }
+    size: { w: 110, h: 18 }
+  - id: s3
+    label: "4 弦"
+    marker: none
+    align: right
+    at: { x: 90, y: 718 }
+    size: { w: 100, h: 18 }
+  - id: sd3
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 351.2, y: 712 }
+    size: { w: 26, h: 18 }
+  - id: so3
+    label: "＋2.6mm"
+    marker: none
+    align: left
+    at: { x: 385.2, y: 718 }
+    size: { w: 110, h: 18 }
+  - id: s4
+    label: "5 弦"
+    marker: none
+    align: right
+    at: { x: 90, y: 744 }
+    size: { w: 100, h: 18 }
+  - id: sd4
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 363.2, y: 738 }
+    size: { w: 26, h: 18 }
+  - id: so4
+    label: "＋3.6mm"
+    marker: none
+    align: left
+    at: { x: 397.2, y: 744 }
+    size: { w: 110, h: 18 }
+  - id: s5
+    label: "6 弦（太）"
+    marker: none
+    align: right
+    at: { x: 90, y: 770 }
+    size: { w: 100, h: 18 }
+  - id: sd5
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 372.8, y: 764 }
+    size: { w: 26, h: 18 }
+  - id: so5
+    label: "＋4.4mm"
+    marker: none
+    align: left
+    at: { x: 406.8, y: 770 }
+    size: { w: 110, h: 18 }
+  - id: t2
+    label: "② 理論どおりでは、音が合わない"
+    marker: none
+    align: left
+    at: { x: 150, y: 544 }
+    size: { w: 520, h: 20 }
+  - id: t2b
+    label: "　押さえると弦が伸びて音が上がる。サドルを後ろへずらす（弦ごとに違う）。"
+    marker: none
+    align: left
+    at: { x: 150, y: 566 }
+    size: { w: 520, h: 18 }
+  - id: b_n
+    label: "→ ブリッジ側（弦が長くなる向き）"
+    marker: none
+    align: left
+    at: { x: 320, y: 812 }
+    size: { w: 360, h: 18 }
+  - id: h200
+    label: "位置の決まり方"
+    hatch: solid
+    at: { x: 880, y: 200 }
+    size: { w: 440, h: 24 }
+  - id: x224
+    label: "比"
+    at: { x: 880, y: 224 }
+    size: { w: 180, h: 24 }
+  - id: y224
+    label: "1 / 2^(1/12) ＝ 0.9439"
+    align: left
+    at: { x: 1060, y: 224 }
+    size: { w: 260, h: 24 }
+  - id: x248
+    label: "式"
+    at: { x: 880, y: 248 }
+    size: { w: 180, h: 24 }
+  - id: y248
+    label: "n 番の位置 ＝ S ×（1 − 2^(−n/12)）"
+    align: left
+    at: { x: 1060, y: 248 }
+    size: { w: 260, h: 24 }
+  - id: x272
+    label: "12 フレット"
+    at: { x: 880, y: 272 }
+    size: { w: 180, h: 24 }
+  - id: y272
+    label: "S ÷ 2（ちょうど半分）"
+    align: left
+    at: { x: 1060, y: 272 }
+    size: { w: 260, h: 24 }
+  - id: x296
+    label: "24 フレット"
+    at: { x: 880, y: 296 }
+    size: { w: 180, h: 24 }
+  - id: y296
+    label: "S × 3/4"
+    align: left
+    at: { x: 1060, y: 296 }
+    size: { w: 260, h: 24 }
+  - id: x320
+    label: "古い近似"
+    at: { x: 880, y: 320 }
+    size: { w: 180, h: 24 }
+  - id: y320
+    label: "前の残り ÷ 17.817（「18 の法則」）"
+    align: left
+    at: { x: 1060, y: 320 }
+    size: { w: 260, h: 24 }
+  - id: x344
+    label: "S とは"
+    at: { x: 880, y: 344 }
+    size: { w: 180, h: 24 }
+  - id: y344
+    label: "ナットからブリッジまで"
+    align: left
+    at: { x: 1060, y: 344 }
+    size: { w: 260, h: 24 }
+  - id: h386
+    label: "位置（S ＝ 648mm・mm）"
+    hatch: solid
+    at: { x: 880, y: 386 }
+    size: { w: 440, h: 24 }
+  - id: x410
+    label: "1 フレット"
+    at: { x: 880, y: 410 }
+    size: { w: 180, h: 24 }
+  - id: y410
+    label: "36.4"
+    align: left
+    at: { x: 1060, y: 410 }
+    size: { w: 260, h: 24 }
+  - id: x434
+    label: "2 フレット"
+    at: { x: 880, y: 434 }
+    size: { w: 180, h: 24 }
+  - id: y434
+    label: "70.7"
+    align: left
+    at: { x: 1060, y: 434 }
+    size: { w: 260, h: 24 }
+  - id: x458
+    label: "3 フレット"
+    at: { x: 880, y: 458 }
+    size: { w: 180, h: 24 }
+  - id: y458
+    label: "103.1"
+    align: left
+    at: { x: 1060, y: 458 }
+    size: { w: 260, h: 24 }
+  - id: x482
+    label: "5 フレット"
+    at: { x: 880, y: 482 }
+    size: { w: 180, h: 24 }
+  - id: y482
+    label: "162.5"
+    align: left
+    at: { x: 1060, y: 482 }
+    size: { w: 260, h: 24 }
+  - id: x506
+    label: "7 フレット"
+    at: { x: 880, y: 506 }
+    size: { w: 180, h: 24 }
+  - id: y506
+    label: "215.5"
+    align: left
+    at: { x: 1060, y: 506 }
+    size: { w: 260, h: 24 }
+  - id: x530
+    label: "9 フレット"
+    at: { x: 880, y: 530 }
+    size: { w: 180, h: 24 }
+  - id: y530
+    label: "262.7"
+    align: left
+    at: { x: 1060, y: 530 }
+    size: { w: 260, h: 24 }
+  - id: x554
+    label: "12 フレット"
+    at: { x: 880, y: 554 }
+    size: { w: 180, h: 24 }
+  - id: y554
+    label: "324"
+    align: left
+    at: { x: 1060, y: 554 }
+    size: { w: 260, h: 24 }
+  - id: x578
+    label: "15 フレット"
+    at: { x: 880, y: 578 }
+    size: { w: 180, h: 24 }
+  - id: y578
+    label: "375.5"
+    align: left
+    at: { x: 1060, y: 578 }
+    size: { w: 260, h: 24 }
+  - id: x602
+    label: "19 フレット"
+    at: { x: 880, y: 602 }
+    size: { w: 180, h: 24 }
+  - id: y602
+    label: "431.8"
+    align: left
+    at: { x: 1060, y: 602 }
+    size: { w: 260, h: 24 }
+  - id: x626
+    label: "24 フレット"
+    at: { x: 880, y: 626 }
+    size: { w: 180, h: 24 }
+  - id: y626
+    label: "486"
+    align: left
+    at: { x: 1060, y: 626 }
+    size: { w: 260, h: 24 }
+  - id: h668
+    label: "よく使うスケール長"
+    hatch: solid
+    at: { x: 880, y: 668 }
+    size: { w: 440, h: 24 }
+  - id: x692
+    label: "フェンダー系"
+    at: { x: 880, y: 692 }
+    size: { w: 180, h: 24 }
+  - id: y692
+    label: "25.5 インチ ＝ 647.7mm"
+    align: left
+    at: { x: 1060, y: 692 }
+    size: { w: 260, h: 24 }
+  - id: x716
+    label: "ギブソン系"
+    at: { x: 880, y: 716 }
+    size: { w: 180, h: 24 }
+  - id: y716
+    label: "24.75 インチ ＝ 628.6mm"
+    align: left
+    at: { x: 1060, y: 716 }
+    size: { w: 260, h: 24 }
+  - id: x740
+    label: "クラシック"
+    at: { x: 880, y: 740 }
+    size: { w: 180, h: 24 }
+  - id: y740
+    label: "650mm"
+    align: left
+    at: { x: 1060, y: 740 }
+    size: { w: 260, h: 24 }
+  - id: x764
+    label: "ベース"
+    at: { x: 880, y: 764 }
+    size: { w: 180, h: 24 }
+  - id: y764
+    label: "34 インチ ＝ 863.6mm"
+    align: left
+    at: { x: 1060, y: 764 }
+    size: { w: 260, h: 24 }
+  - id: x788
+    label: "短いと"
+    at: { x: 880, y: 788 }
+    size: { w: 180, h: 24 }
+  - id: y788
+    label: "張力が下がり、押さえやすい"
+    align: left
+    at: { x: 1060, y: 788 }
+    size: { w: 260, h: 24 }
+  - id: h830
+    label: "この図に出ていないもの"
+    hatch: solid
+    at: { x: 880, y: 830 }
+    size: { w: 440, h: 24 }
+  - id: x854
+    label: "ナット側の補正"
+    at: { x: 880, y: 854 }
+    size: { w: 180, h: 24 }
+  - id: y854
+    label: "押さえない弦のぶんの調整"
+    align: left
+    at: { x: 1060, y: 854 }
+    size: { w: 260, h: 24 }
+  - id: x878
+    label: "指板の R"
+    at: { x: 880, y: 878 }
+    size: { w: 180, h: 24 }
+  - id: y878
+    label: "指板は平らではない"
+    align: left
+    at: { x: 1060, y: 878 }
+    size: { w: 260, h: 24 }
+  - id: x902
+    label: "フレットの高さ"
+    at: { x: 880, y: 902 }
+    size: { w: 180, h: 24 }
+  - id: y902
+    label: "すり合わせで変わる"
+    align: left
+    at: { x: 1060, y: 902 }
+    size: { w: 260, h: 24 }
+  - id: x926
+    label: "弦高"
+    at: { x: 880, y: 926 }
+    size: { w: 180, h: 24 }
+  - id: y926
+    label: "ここが変わると補正量も変わる"
+    align: left
+    at: { x: 1060, y: 926 }
+    size: { w: 260, h: 24 }
+  - id: n1
+    label: "ギターのフレット位置です。等間隔ではありません。"
+    marker: none
+    align: left
+    at: { x: 150, y: 960 }
+    size: { w: 1000, h: 18 }
+  - id: n2
+    label: "1 フレットごとに 1 / 2^(1/12)（＝ 0.9439）倍になります。だから高音側ほど間隔が狭くなります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 982 }
+    size: { w: 1000, h: 18 }
+  - id: n3
+    label: "12 フレットで、ちょうどスケール長の半分（648mm なら 324mm）—— そこが 1 オクターブ上です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1004 }
+    size: { w: 1000, h: 18 }
+  - id: n4
+    label: "式は n 番の位置 ＝ S ×（1 − 2^(−n/12)）。昔は「前の残り ÷ 17.817」と近似していました（18 の法則）。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1026 }
+    size: { w: 1000, h: 18 }
+  - id: n5
+    label: "理論どおりに作っても、音は合いません。 弦を押さえると伸びて張力が上がり、音程が上がるからです。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1048 }
+    size: { w: 1000, h: 18 }
+  - id: n6
+    label: "だからブリッジのサドルを、理論の位置より後ろへずらします（コンペンセーション）。ずらす量は弦ごとに違います。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1070 }
+    size: { w: 1000, h: 18 }
+  - id: n7
+    label: "ずらす量は弦の太さ・弦高・弾き方で変わるので、最後は実際に音を測って合わせます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1092 }
+    size: { w: 1000, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    ends: { from: none, to: none }
+  - from: p2
+    to: p3
+    curve: none
+    ends: { from: none, to: none }
+  - from: p4
+    to: p5
+    curve: none
+    ends: { from: none, to: none }
+  - from: p6
+    to: p7
+    curve: none
+    ends: { from: none, to: none }
+  - from: p8
+    to: p9
+    curve: none
+    ends: { from: none, to: none }
+  - from: p10
+    to: p11
+    curve: none
+    ends: { from: none, to: none }
+  - from: p12
+    to: p13
+    curve: none
+    ends: { from: none, to: none }
+  - from: p14
+    to: p15
+    curve: none
+    ends: { from: none, to: none }
+  - from: p16
+    to: p17
+    curve: none
+    ends: { from: none, to: none }
+  - from: p18
+    to: p19
+    curve: none
+    ends: { from: none, to: none }
+  - from: p20
+    to: p21
+    curve: none
+    ends: { from: none, to: none }
+  - from: p22
+    to: p23
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p24
+    to: p25
+    curve: none
+    ends: { from: none, to: none }
+  - from: p26
+    to: p27
+    curve: none
+    ends: { from: none, to: none }
+  - from: p28
+    to: p29
+    curve: none
+    ends: { from: none, to: none }
+  - from: p30
+    to: p31
+    curve: none
+    ends: { from: none, to: none }
+  - from: p32
+    to: p33
+    curve: none
+    ends: { from: none, to: none }
+  - from: p34
+    to: p35
+    curve: none
+    ends: { from: none, to: none }
+  - from: p36
+    to: p37
+    curve: none
+    ends: { from: none, to: none }
+  - from: p38
+    to: p39
+    curve: none
+    ends: { from: none, to: none }
+  - from: p40
+    to: p41
+    curve: none
+    ends: { from: none, to: none }
+  - from: p42
+    to: p43
+    curve: none
+    ends: { from: none, to: none }
+  - from: p44
+    to: p45
+    curve: none
+    ends: { from: none, to: none }
+  - from: p46
+    to: p47
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p48
+    to: p49
+    curve: none
+    ends: { from: arrow, to: arrow }
+  - from: p50
+    to: p51
+    curve: none
+    ends: { from: arrow, to: arrow }
+  - from: p52
+    to: p53
+    curve: none
+    line: chain
+    ends: { from: none, to: none }

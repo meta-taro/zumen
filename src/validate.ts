@@ -22,13 +22,14 @@ import { ENDS } from './ends.ts';
 import { LINES } from './line.ts';
 import { CURVES, viaOf } from './curve.ts';
 import { VERTICALS, floorsOf } from './floor.ts';
-import { faintOn, paletteOf as routePalette } from './palette.ts';
+import { achromatic, faintOn, faintWhere, paletteOf as routePalette } from './palette.ts';
 import { WEIGHTS } from './weight.ts';
 import { HATCHES } from './hatch.ts';
 import { SYMBOLS } from './symbol.ts';
 import { MARKERS } from './marker.ts';
 import { ALIGNS } from './align.ts';
 import { WRITES } from './write.ts';
+import { TO_STRING_OPTIONS } from './format.ts';
 import { messages } from './messages.ts';
 import { OPENINGS, SIDES } from './openings.ts';
 
@@ -113,6 +114,7 @@ export function validate(text: string): Finding[] {
   checkViews(doc, add, m, at);
   checkConstruction(doc, add, m, at);
   checkSharedIds(doc, add, m, at);
+  checkLabelMarkdown(doc, add, m, at);
   checkNumberText(doc, add, m, at);
   checkEnds(doc, add, m, at);
   checkColors(doc, add, m, at);
@@ -172,7 +174,16 @@ function checkNodes(doc: Document, add: Add, m: Messages, at: At): Set<string> |
     return undefined;
   }
 
-  const ids = new Set<string>();
+  /**
+   * **重なった相手の行まで言う**（2026-09-20）。
+   *
+   * 前は「id "p3" が 2 か所以上にあります」と**片方の行だけ**だった。
+   * ところが重複は、**もう 1 つを見つけないと直せない** ——
+   * 自動で名前を振る道具（`p0` `p1` …）と手で書いた名前がぶつかると、
+   * どちらを直すかを決めるのに、結局こちらで探すことになる。
+   * **このセッションで 3 回踏んだ**（`n1`/`p1`、`p3`/`p4`）。
+   */
+  const ids = new Map<string, number | undefined>();
   let position = 0;
   for (const item of node.items) {
     position += 1;
@@ -184,12 +195,12 @@ function checkNodes(doc: Document, add: Add, m: Messages, at: At): Set<string> |
     }
     const key = String(id);
     if (ids.has(key)) {
-      add('error', 'node-id-duplicated', m.nodeIdDuplicated(key), at(item));
+      add('error', 'node-id-duplicated', m.nodeIdDuplicated(key, ids.get(key)), at(item));
       continue;
     }
-    ids.add(key);
+    ids.set(key, at(item));
   }
-  return ids;
+  return new Set(ids.keys());
 }
 
 /**
@@ -365,6 +376,72 @@ function checkNumberText(doc: Document, add: Add, m: Messages, at: At): void {
  * 数の検査も、囲みどうしの重なりを見ていないので鳴らなかった。
  * 見つかったのは、書き出した SVG の文字を総当たりで比べたとき。
  */
+/**
+ * **名前の中の `**` は、そのまま絵に出る**（2026-09-19）。
+ *
+ * zumen の名前は**素のテキスト**で、Markdown ではない。
+ * ところが正本のコメントも CHANGELOG も Markdown なので、
+ * **強調の印をそのまま名前へ持ち込む**ことが起きる（見本 193 と 200 で 2 回やった）。
+ * 絵を見れば気づくが、**表のセルは 1 行が短く、見落とす。**
+ */
+function checkLabelMarkdown(doc: Document, add: Add, m: Messages, at: At): void {
+  /**
+   * **節だけを見ていた**（2026-09-20 に直した）。
+   *
+   * 絵に出る文字は節の名前だけではない —— **辺のラベルも、図（views）の名前も出る。**
+   * ところがこの検査は `nodes` しか回っていなかったので、
+   * `edges[].label: "**強く**"` は素通りしていた。
+   * いまの見本に該当は 0 件だが、**穴が開いていることは確かめた**
+   * （辺のラベルと図の名前に `**` を入れて、何も言われなかった）。
+   */
+  const scan = (item: YAMLMap, who: string, fields: readonly string[]): void => {
+    for (const field of fields) {
+      const text = item.get(field);
+      if (typeof text !== 'string') continue;
+      if (text.includes('**')) {
+        add('warning', 'label-markdown', m.labelMarkdown(who), at(item.get(field, true)));
+      }
+      const glued = GLUED.exec(text);
+      if (glued !== null) {
+        add('warning', 'label-glued-word', m.labelGluedWord(who, glued[0]), at(item.get(field, true)));
+      }
+    }
+  };
+
+  // **名前だけではない。** 符号（tag）も版（technology）も、そのまま絵に出る。
+  for (const item of seqOf(doc, 'nodes')) {
+    scan(item, String(item.get('id') ?? ''), ['label', 'tag', 'technology']);
+  }
+  for (const item of seqOf(doc, 'edges')) {
+    scan(item, edgeNameOf(item), ['label']);
+  }
+  for (const item of seqOf(doc, 'views')) {
+    scan(item, String(item.get('id') ?? ''), ['title']);
+  }
+}
+
+/** 辺には id が無いので「from → to」で呼ぶ（ほかの検査と同じ呼び方）。 */
+function edgeNameOf(item: YAMLMap): string {
+  return `${String(item.get('from') ?? '?')} → ${String(item.get('to') ?? '?')}`;
+}
+
+/**
+ * **日本語の字のすぐ隣に、小文字の英単語がくっついている**（2026-09-20）。
+ *
+ * 棚板の図を描いていて、**「前framing」という無い言葉**を自分で作った
+ * （正しくは幕板）。英語の用語を下書きから写して、日本語に直し忘れた形。
+ * **絵にはそのまま出るのに、どの検査も見ていなかった。**
+ *
+ * 測ったら**見本 249 枚で 2 件**だけ当たった —— どちらも本物で、
+ * 見本 195 の「身長 160 以上cm」（正しくは「160cm 以上」）。
+ *
+ * **中黒（・）を字に数えない。** 数えると `mm・` が当たって 62 件になる。
+ * 単位（mm・cm・kg）は ASCII だけなので当たらず、
+ * 「PoE の」「R600a」のように**間に空きがある書き方も当たらない。**
+ */
+const GLUED =
+  /[\u3041-\u3096\u30a1-\u30fa\u30fc\u4e00-\u9fff][a-z]{2,}|[a-z]{2,}[\u3041-\u3096\u30a1-\u30fa\u30fc\u4e00-\u9fff]/;
+
 function checkSharedIds(doc: Document, add: Add, m: Messages, at: At): void {
   const groups = new Set<string>();
   for (const item of seqOf(doc, 'groups')) {
@@ -498,7 +575,24 @@ function checkViews(doc: Document, add: Add, m: Messages, at: At): void {
   const scaled =
     doc.get('scale', true) !== undefined ||
     views.items.some((item) => isMap(item) && item.get('scale', true) !== undefined);
-  if (seen.size > 0 && withGrid === 0 && scaled) {
+  /**
+   * **図ごとに縮尺を宣言しているなら、責めない**（2026-09-19）。
+   *
+   * `views[].scale` は**絵に出なくても正本に残る** ——
+   * 読む側と別の実装へ「この範囲は 1px が何 mm か」を伝える。
+   * 1 枚に縮尺が 2 つある図（詳細図と全体図）では、それ自体が中身なので、
+   * **grid が無いことは書き忘れではない。**
+   *
+   * 線引きは**縮尺が図ごとに違うかどうか** —— 2 つ以上の違う縮尺が並んでいれば、
+   * 書き手は縮尺のために views を使っている。同じ縮尺しか無いなら、
+   * これまでどおり「縮尺があるのに芯が無い ＝ 書き忘れ」（2026-09-15 の決定）。
+   */
+  const scales = new Set(
+    views.items
+      .filter((item) => isMap(item) && item.get('scale', true) !== undefined)
+      .map((item) => JSON.stringify((item as YAMLMap).get('scale'))),
+  );
+  if (seen.size > 0 && withGrid === 0 && scaled && scales.size < 2) {
     add('warning', 'views-no-grid', m.viewsNoGrid, at(views));
   }
 }
@@ -538,9 +632,57 @@ function checkGeometry(doc: Document, add: Add, m: Messages, at: At): void {
     const marker = item.get('marker');
     if (marker !== undefined && marker !== null) {
       if (!MARKER_WORDS.has(String(marker))) {
-        add('warning', 'marker-unknown', m.markerUnknown(id, String(marker)), at(item.get('marker', true)));
+        add('warning', 'marker-unknown', m.markerUnknown(id, String(marker), MARKERS.join(' / ')), at(item.get('marker', true)));
       } else if (!placement) {
         add('warning', 'marker-ignored', m.markerIgnored(id), at(item.get('marker', true)));
+      } else {
+        /**
+         * **丸に長方形の `size` を書いても、短いほうしか描かれない**（2026-09-20）。
+         *
+         * `circle` と `double` は半径を `min(w, h) / 2` で描く（`src/marker.ts`）。
+         * だから `size: { w: 80, h: 34 }` と書いても**直径 34 の丸**が出る ——
+         * 書いた 80 は消える。ところが名前の置き場所も重なりの判定も
+         * **書いた 80 のほうを見る**ので、丸の横に空きが残る。
+         *
+         * 測ったら**見本 8 枚・42 節**がこうなっていた
+         * （フェリーの発着表の港名は 80×34。描かれるのは 34 の丸）。
+         * **横長の丸が欲しいなら `ellipse`** があり、そちらは w と h の両方を使う。
+         */
+        const round = String(marker) === 'circle' || String(marker) === 'double';
+        const w = isMap(size) ? Number(size.get('w')) : NaN;
+        const h = isMap(size) ? Number(size.get('h')) : NaN;
+        if (round && Number.isFinite(w) && Number.isFinite(h) && Math.abs(w - h) > 1) {
+          add(
+            'warning',
+            'circle-not-square',
+            m.circleNotSquare(id, String(marker), Math.round(w), Math.round(h), Math.round(Math.min(w, h))),
+            at(size),
+          );
+        }
+      }
+    }
+
+    /**
+     * **枠の線種**（`src/line.ts`。2026-09-19 から節にも効く）。
+     * 敷地境界線は一点鎖線、安全領域は破線、点字の「出ていない点」は点線。
+     */
+    const nodeLine = item.get('line');
+    if (nodeLine !== undefined && nodeLine !== null && !LINE_WORDS.has(String(nodeLine))) {
+      add('warning', 'line-unknown', m.lineUnknown(id, String(nodeLine)), at(item.get('line', true)));
+    }
+
+    /**
+     * **辺だけの語を、節に書いていないか**（2026-09-19）。
+     *
+     * `edges[].fill` の裏返し。`weight` / `curve` / `ends` / `via` / `close` は
+     * **辺のもの**で、節に書いても黙って落ちる。
+     * 敷地境界線を太くしようとして `weight: thick` と書き、
+     * **何も言われないまま細い線が出た**（見本 214 を描いていて踏んだ）。
+     */
+    for (const key of ['weight', 'curve', 'ends', 'via', 'close'] as const) {
+      const wrote = item.get(key, true);
+      if (wrote !== undefined && wrote !== null) {
+        add('warning', 'node-edge-key-ignored', m.nodeEdgeKeyIgnored(id, key), at(wrote));
       }
     }
 
@@ -712,6 +854,24 @@ function checkColors(doc: Document, add: Add, m: Messages, at: At): void {
   const table = routePalette(isMap(raw) ? raw.toJSON() : undefined);
 
   /**
+   * **読めない色は、値を名指しする**（2026-09-19）。
+   *
+   * `paletteOf` は `#rrggbb` でない値を黙って落とす（`src/palette.ts`）。
+   * 落ちた鍵を使うと、これまでは「**palette にその鍵がありません**」と言っていた ——
+   * 鍵はある。読めなかったのは**値**のほう。**嘘の指摘は、直す先を間違えさせる。**
+   */
+  const declared = new Set<string>();
+  if (isMap(raw)) {
+    for (const entry of raw.items) {
+      const key = String(entry.key?.toString() ?? '');
+      declared.add(key);
+      if (table[key] !== undefined) continue;
+      const value = entry.value?.toString() ?? '';
+      add('warning', 'color-not-hex', m.colorNotHex(key, value), at(entry.value ?? raw));
+    }
+  }
+
+  /**
    * **面だけに使う鍵には、線の下限を当てない**（2026-09-18）。
    *
    * `color-faint` は「**地に沈んで線が消える**」ことを言う検査で、
@@ -733,7 +893,8 @@ function checkColors(doc: Document, add: Add, m: Messages, at: At): void {
   for (const [key, value] of Object.entries(table)) {
     if (tints.has(key) && !onLines.has(key)) continue;
     if (faintOn(value)) {
-      add('warning', 'color-faint', m.colorFaint(key, value), at(raw));
+      const where = faintWhere(value);
+      add('warning', 'color-faint', m.colorFaint(key, value, where.light, where.dark), at(raw));
     }
   }
 
@@ -759,7 +920,10 @@ function checkColors(doc: Document, add: Add, m: Messages, at: At): void {
     const key = item.get(field);
     if (key === undefined || key === null) return;
     if (table[String(key)] === undefined) {
-      add('warning', 'color-unknown', m.colorUnknown(name, String(key)), at(item.get(field, true)));
+      // 鍵はあるが値が読めなかったときは、palette 側で 1 度だけ言う（color-not-hex）
+      if (!declared.has(String(key))) {
+        add('warning', 'color-unknown', m.colorUnknown(name, String(key)), at(item.get(field, true)));
+      }
       return;
     }
     if (!used.has(String(key))) used.set(String(key), item);
@@ -783,9 +947,41 @@ function checkColors(doc: Document, add: Add, m: Messages, at: At): void {
 
   for (const [key, item] of used) {
     if (written.some((text) => text.includes(key))) continue;
+    /**
+     * **下敷きの灰色には、凡例を求めない**（2026-09-19）。
+     *
+     * この検査は「色を落としたら読めなくなる」ことを防ぐためのもの。
+     * **無彩色はどちらでも落ちない** —— 白黒で刷ってもその灰色のまま出るし、
+     * 色覚特性でも他の人と同じに見える。
+     *
+     * ただし**線の色に使っているなら今までどおり言う。** 線の色は
+     * 「どれがどれか」を運んでいて、読む人が色 → 意味を引く必要があるから。
+     * 面（`fill`）だけに使った無彩色は、表の 1 行を淡く敷くような**強調**で、
+     * それ自体は何の意味も運んでいない（見本 211 の表で要った）。
+     */
+    if (tints.has(key) && !onLines.has(key) && achromatic(table[key]!)) continue;
     add('warning', 'color-without-code', m.colorWithoutCode(key), at(item));
   }
 }
+
+/**
+ * **節だけの語**（辺に書いても落ちる）。
+ *
+ * 辺は 2 点を結ぶ線なので、置き場所も大きさも印も持たない。
+ */
+const NODE_ONLY_KEYS = [
+  'at',
+  'size',
+  'marker',
+  'align',
+  'tag',
+  'radius',
+  'technology',
+  'write',
+  'symbol',
+  'openings',
+  'floor',
+] as const;
 
 /** そのノードが何階にあるか。無ければ null。 */
 function floorOfNode(doc: Document, id: string): string | null {
@@ -814,6 +1010,34 @@ function checkEnds(doc: Document, add: Add, m: Messages, at: At): void {
         add('warning', 'vertical-unknown', m.verticalUnknown(name, String(vertical)), at(item.get('vertical', true)));
       } else if (floorOfNode(doc, String(item.get('from'))) === floorOfNode(doc, String(item.get('to')))) {
         add('warning', 'vertical-same-floor', m.verticalSameFloor(name), at(item.get('vertical', true)));
+      }
+    }
+
+    /**
+     * **辺に `fill` は無い**（2026-09-19。見本 192 を描いていて踏んだ）。
+     *
+     * 面の色は `nodes[].fill`、線の色は `color`。
+     * **閉じた輪の中を塗るのは `hatch` で、その色は `color`。**
+     * 「面を塗るのだから fill だろう」と書くと、これまでは
+     * **何も言われないまま、塗られない図が出ていた** ——
+     * 描かれないものを名指しする、というこの道具の約束の反対。
+     */
+    const edgeFill = item.get('fill', true);
+    if (edgeFill !== undefined && edgeFill !== null) {
+      add('warning', 'edge-fill-ignored', m.edgeFillIgnored(name), at(edgeFill));
+    }
+
+    /**
+     * **節だけの語を、辺に書いていないか**（2026-09-19）。
+     *
+     * `node-edge-key-ignored` の裏返し。辺は 2 点を結ぶ線なので、
+     * 置き場所も大きさも印も持たない。書いても黙って落ちる。
+     * **片側だけ塞ぐと、もう片側で同じことが起きる。**
+     */
+    for (const key of NODE_ONLY_KEYS) {
+      const wrote = item.get(key, true);
+      if (wrote !== undefined && wrote !== null) {
+        add('warning', 'edge-node-key-ignored', m.edgeNodeKeyIgnored(name, key), at(wrote));
       }
     }
 
@@ -917,7 +1141,7 @@ function checkPins(
  * **既に CRLF で clone 済みの手元は、それでは救われない。**
  */
 function checkRoundTrip(doc: Document, text: string, add: Add, m: Messages): void {
-  const back = doc.toString({ lineWidth: 0 });
+  const back = doc.toString(TO_STRING_OPTIONS);
   if (normalizeEol(back) === normalizeEol(text)) return;
   add('error', 'round-trip-changed', m.roundTripChanged, firstDifferingLine(text, back));
 }

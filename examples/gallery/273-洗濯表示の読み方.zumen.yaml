@@ -1,0 +1,528 @@
+version: 1
+kind: placement
+arrows: true
+title: 洗濯表示の読み方（形が処理、付ける印が条件）
+# **基本記号は 5 つだけ。** 桶は**洗濯**、三角は**漂白**、四角は**乾燥**、
+# アイロンの形は**アイロン**、丸は**商業クリーニング** ——
+# **残りは全部、この 5 つに付ける印。**
+# 2016 年 12 月に国際規格へそろえて（JIS L 0001）**22 種類から 41 種類**に増え、
+# **2024 年 8 月にさらに足された。**
+#
+# **付ける印は 4 つ。** **数字は温度の上限**（30 / 40 / 50 / 60 / 70 / 95）、
+# **下の線 1 本はより弱く・2 本はさらに弱く**、**点は温度**（多いほど高い）、**× は禁止。**
+# **数字は「上限」であって「その温度で洗え」ではない** —— 40 なら 40℃ 以下ならよい。
+# **旧表示は「40℃を限度」と日本語で書いてあった**ので読めたが、新表示は記号だけ。
+#
+# **同じ四角でも、中の線 1 本で干し方が変わる。** 中に丸なら**タンブル乾燥**、
+# **縦線はつり干し・横線は平干し**（線が 2 本ならぬれ干し）、**左上の斜線は日陰。**
+# 編み物を吊るすと伸びるので、平干しの指定がある。
+#
+# **点は数えるもので、濃さではない。** アイロンは**点 1 つで 120℃、2 つで 160℃、
+# 3 つで 210℃** まで（底面温度の上限）。タンブル乾燥は**点 1 つで 60℃、2 つで 80℃。**
+#
+# **2024 年 8 月 20 日に、また変わった**（JIS L 0001 の改正）。
+# **30℃ の手洗い**と**スチームなしのアイロン**の記号が足され、
+# **アイロンの上限温度が 10℃ 上がり**（110/150/200 → 120/160/210）、
+# 手の形と禁止の × の位置が直された。旧表示は 2025 年 8 月 19 日まで出荷できた ——
+# **記号は同じ形のまま、意味だけが変わったので、買った時期で意味が違う。**
+#
+# **丸の中の文字は、店への指示。** **P** はパークロロエチレン等、**F** は石油系溶剤、
+# **W** はウエットクリーニング。**自分に関わるのは ×（禁止）だけ** ——
+# 「クリーニング禁止」の服は、家で洗うしかない。
+nodes:
+  - id: t1
+    label: "① 基本記号は 5 つだけ —— 形が「何の処理か」を言う"
+    marker: none
+    align: left
+    at: { x: 150, y: 150 }
+    size: { w: 700, h: 20 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 183, y: 211 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 231, y: 211 }
+    size: { w: 2, h: 2 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 183, y: 211 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 231, y: 211 }
+    size: { w: 2, h: 2 }
+  - id: mn0
+    label: "洗濯"
+    marker: none
+    align: center
+    at: { x: 148, y: 266 }
+    size: { w: 120, h: 18 }
+  - id: ms0
+    label: "家庭での洗濯"
+    marker: none
+    align: center
+    at: { x: 148, y: 284 }
+    size: { w: 120, h: 18 }
+  - id: m1
+    label: ""
+    marker: triangle
+    at: { x: 312, y: 200 }
+    size: { w: 56, h: 56 }
+  - id: mn1
+    label: "漂白"
+    marker: none
+    align: center
+    at: { x: 280, y: 266 }
+    size: { w: 120, h: 18 }
+  - id: ms1
+    label: "漂白の仕方"
+    marker: none
+    align: center
+    at: { x: 280, y: 284 }
+    size: { w: 120, h: 18 }
+  - id: m2
+    label: ""
+    marker: box
+    at: { x: 444, y: 200 }
+    size: { w: 56, h: 56 }
+  - id: mn2
+    label: "乾燥"
+    marker: none
+    align: center
+    at: { x: 412, y: 266 }
+    size: { w: 120, h: 18 }
+  - id: ms2
+    label: "干し方・タンブル"
+    marker: none
+    align: center
+    at: { x: 412, y: 284 }
+    size: { w: 120, h: 18 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 577, y: 247 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 577, y: 247 }
+    size: { w: 2, h: 2 }
+  - id: mn3
+    label: "アイロン"
+    marker: none
+    align: center
+    at: { x: 544, y: 266 }
+    size: { w: 120, h: 18 }
+  - id: ms3
+    label: "アイロンのかけ方"
+    marker: none
+    align: center
+    at: { x: 544, y: 284 }
+    size: { w: 120, h: 18 }
+  - id: m4
+    label: ""
+    marker: circle
+    at: { x: 708, y: 200 }
+    size: { w: 56, h: 56 }
+  - id: mn4
+    label: "クリーニング"
+    marker: none
+    align: center
+    at: { x: 676, y: 266 }
+    size: { w: 120, h: 18 }
+  - id: ms4
+    label: "店に出すとき"
+    marker: none
+    align: center
+    at: { x: 676, y: 284 }
+    size: { w: 120, h: 18 }
+  - id: why1
+    label: "形を覚えれば、知らない記号でも何の話かは分かる。\n桶は洗濯、三角は漂白、四角は乾燥、アイロンはアイロン、丸はクリーニング ——\n残りは全部、この 5 つに付ける印。\n2016 年 12 月に国際規格へそろえて 22 種類から 41 種類に増え、\n2024 年 8 月にさらに足された。"
+    at: { x: 150, y: 316 }
+    size: { w: 700, h: 92 }
+  - id: t2
+    label: "② 付ける印は 4 つ"
+    marker: none
+    align: left
+    at: { x: 150, y: 428 }
+    size: { w: 700, h: 20 }
+  - id: h150_458
+    label: "基本記号に付けるもの"
+    hatch: solid
+    at: { x: 150, y: 458 }
+    size: { w: 700, h: 24 }
+  - id: x150_482
+    label: "数字"
+    at: { x: 150, y: 482 }
+    size: { w: 200, h: 24 }
+  - id: y150_482
+    label: "温度の上限（30 / 40 / 50 / 60 / 70 / 95）"
+    align: left
+    at: { x: 350, y: 482 }
+    size: { w: 500, h: 24 }
+  - id: x150_506
+    label: "下の線 1 本"
+    at: { x: 150, y: 506 }
+    size: { w: 200, h: 24 }
+  - id: y150_506
+    label: "同じ記号より弱く"
+    align: left
+    at: { x: 350, y: 506 }
+    size: { w: 500, h: 24 }
+  - id: x150_530
+    label: "下の線 2 本"
+    at: { x: 150, y: 530 }
+    size: { w: 200, h: 24 }
+  - id: y150_530
+    label: "さらに弱く"
+    align: left
+    at: { x: 350, y: 530 }
+    size: { w: 500, h: 24 }
+  - id: x150_554
+    label: "点"
+    at: { x: 150, y: 554 }
+    size: { w: 200, h: 24 }
+  - id: y150_554
+    label: "温度（多いほど高い）"
+    align: left
+    at: { x: 350, y: 554 }
+    size: { w: 500, h: 24 }
+  - id: x150_578
+    label: "×"
+    at: { x: 150, y: 578 }
+    size: { w: 200, h: 24 }
+  - id: y150_578
+    label: "禁止"
+    align: left
+    at: { x: 350, y: 578 }
+    size: { w: 500, h: 24 }
+  - id: why2
+    label: "数字は「上限」であって「その温度で洗え」ではない。\n40 と書いてあれば 40℃ 以下ならよい —— 30℃ でも 20℃ でも構わない。\n旧表示は「40℃を限度」と日本語で書いてあったので読めたが、\n新表示は記号だけ。意味を知らないと、上限か指定かが読めない。"
+    at: { x: 150, y: 616 }
+    size: { w: 700, h: 92 }
+  - id: t3
+    label: "③ 四角の中身で、干し方が変わる"
+    marker: none
+    align: left
+    at: { x: 890, y: 150 }
+    size: { w: 450, h: 20 }
+  - id: h890_186
+    label: "乾燥（四角）"
+    hatch: solid
+    at: { x: 890, y: 186 }
+    size: { w: 450, h: 24 }
+  - id: x890_210
+    label: "中に丸・点 1 つ"
+    at: { x: 890, y: 210 }
+    size: { w: 190, h: 24 }
+  - id: y890_210
+    label: "タンブル乾燥 60℃ まで"
+    align: left
+    at: { x: 1080, y: 210 }
+    size: { w: 260, h: 24 }
+  - id: x890_234
+    label: "中に丸・点 2 つ"
+    at: { x: 890, y: 234 }
+    size: { w: 190, h: 24 }
+  - id: y890_234
+    label: "タンブル乾燥 80℃ まで"
+    align: left
+    at: { x: 1080, y: 234 }
+    size: { w: 260, h: 24 }
+  - id: x890_258
+    label: "縦線 1 本"
+    at: { x: 890, y: 258 }
+    size: { w: 190, h: 24 }
+  - id: y890_258
+    label: "つり干し"
+    align: left
+    at: { x: 1080, y: 258 }
+    size: { w: 260, h: 24 }
+  - id: x890_282
+    label: "横線 1 本"
+    at: { x: 890, y: 282 }
+    size: { w: 190, h: 24 }
+  - id: y890_282
+    label: "平干し"
+    align: left
+    at: { x: 1080, y: 282 }
+    size: { w: 260, h: 24 }
+  - id: x890_306
+    label: "線が 2 本"
+    at: { x: 890, y: 306 }
+    size: { w: 190, h: 24 }
+  - id: y890_306
+    label: "ぬれ干し（脱水しない）"
+    align: left
+    at: { x: 1080, y: 306 }
+    size: { w: 260, h: 24 }
+  - id: x890_330
+    label: "左上に斜線"
+    at: { x: 890, y: 330 }
+    size: { w: 190, h: 24 }
+  - id: y890_330
+    label: "日陰で"
+    align: left
+    at: { x: 1080, y: 330 }
+    size: { w: 260, h: 24 }
+  - id: why3
+    label: "同じ四角でも、中の線 1 本で干し方が変わる。\n縦線はハンガー、横線は寝かせる ——\n編み物を吊るすと伸びるので、平干しの指定がある。\n斜線は日なたで色が抜けるもの。"
+    at: { x: 890, y: 368 }
+    size: { w: 450, h: 92 }
+  - id: t4
+    label: "④ 点の数は、温度の上限"
+    marker: none
+    align: left
+    at: { x: 890, y: 478 }
+    size: { w: 450, h: 20 }
+  - id: h890_508
+    label: "アイロン（底面温度の上限・2024 年〜）"
+    hatch: solid
+    at: { x: 890, y: 508 }
+    size: { w: 450, h: 24 }
+  - id: x890_532
+    label: "点 1 つ"
+    at: { x: 890, y: 532 }
+    size: { w: 190, h: 24 }
+  - id: y890_532
+    label: "120℃ まで"
+    align: left
+    at: { x: 1080, y: 532 }
+    size: { w: 260, h: 24 }
+  - id: x890_556
+    label: "点 2 つ"
+    at: { x: 890, y: 556 }
+    size: { w: 190, h: 24 }
+  - id: y890_556
+    label: "160℃ まで"
+    align: left
+    at: { x: 1080, y: 556 }
+    size: { w: 260, h: 24 }
+  - id: x890_580
+    label: "点 3 つ"
+    at: { x: 890, y: 580 }
+    size: { w: 190, h: 24 }
+  - id: y890_580
+    label: "210℃ まで"
+    align: left
+    at: { x: 1080, y: 580 }
+    size: { w: 260, h: 24 }
+  - id: x890_604
+    label: "スチームなしの記号"
+    at: { x: 890, y: 604 }
+    size: { w: 190, h: 24 }
+  - id: y890_604
+    label: "120℃ まで（2024 年に追加）"
+    align: left
+    at: { x: 1080, y: 604 }
+    size: { w: 260, h: 24 }
+  - id: x890_628
+    label: "×"
+    at: { x: 890, y: 628 }
+    size: { w: 190, h: 24 }
+  - id: y890_628
+    label: "アイロン禁止"
+    align: left
+    at: { x: 1080, y: 628 }
+    size: { w: 260, h: 24 }
+  - id: why4
+    label: "点は数えるもので、濃さではない。\n乾燥（タンブル）の点も同じ読み方で、1 つが 60℃、2 つが 80℃。\nこの温度は 2024 年に 10℃ 上がった\n（110/150/200 → 120/160/210）——\n古い早見表がまだ出回っている。"
+    at: { x: 890, y: 666 }
+    size: { w: 450, h: 110 }
+  - id: t5
+    label: "⑤ 丸の中の文字は、店への指示"
+    marker: none
+    align: left
+    at: { x: 890, y: 794 }
+    size: { w: 450, h: 20 }
+  - id: h890_824
+    label: "クリーニング（丸）"
+    hatch: solid
+    at: { x: 890, y: 824 }
+    size: { w: 450, h: 24 }
+  - id: x890_848
+    label: "P"
+    at: { x: 890, y: 848 }
+    size: { w: 190, h: 24 }
+  - id: y890_848
+    label: "パークロロエチレン等での処理"
+    align: left
+    at: { x: 1080, y: 848 }
+    size: { w: 260, h: 24 }
+  - id: x890_872
+    label: "F"
+    at: { x: 890, y: 872 }
+    size: { w: 190, h: 24 }
+  - id: y890_872
+    label: "石油系溶剤での処理"
+    align: left
+    at: { x: 1080, y: 872 }
+    size: { w: 260, h: 24 }
+  - id: x890_896
+    label: "W"
+    at: { x: 890, y: 896 }
+    size: { w: 190, h: 24 }
+  - id: y890_896
+    label: "ウエットクリーニング"
+    align: left
+    at: { x: 1080, y: 896 }
+    size: { w: 260, h: 24 }
+  - id: x890_920
+    label: "×"
+    at: { x: 890, y: 920 }
+    size: { w: 190, h: 24 }
+  - id: y890_920
+    label: "ドライクリーニング禁止"
+    align: left
+    at: { x: 1080, y: 920 }
+    size: { w: 260, h: 24 }
+  - id: why5
+    label: "丸の記号は、自分ではなく店が読む。\n家で洗う人には関係がないように見えるが、\n×（禁止）だけは自分に関わる ——\n「クリーニング禁止」の服は、家で洗うしかない。"
+    at: { x: 890, y: 958 }
+    size: { w: 450, h: 92 }
+  - id: t6
+    label: "⑥ 2024 年 8 月に、また変わった"
+    marker: none
+    align: left
+    at: { x: 150, y: 722 }
+    size: { w: 700, h: 20 }
+  - id: h150_752
+    label: "令和 6 年 8 月 20 日の改正（JIS L 0001）"
+    hatch: solid
+    at: { x: 150, y: 752 }
+    size: { w: 700, h: 24 }
+  - id: x150_776
+    label: "足された記号"
+    at: { x: 150, y: 776 }
+    size: { w: 300, h: 24 }
+  - id: y150_776
+    label: "30℃ の手洗い、スチームなしのアイロン"
+    align: left
+    at: { x: 450, y: 776 }
+    size: { w: 400, h: 24 }
+  - id: x150_800
+    label: "変わった意味"
+    at: { x: 150, y: 800 }
+    size: { w: 300, h: 24 }
+  - id: y150_800
+    label: "アイロンの上限温度が 10℃ 上がった"
+    align: left
+    at: { x: 450, y: 800 }
+    size: { w: 400, h: 24 }
+  - id: x150_824
+    label: "直された形"
+    at: { x: 150, y: 824 }
+    size: { w: 300, h: 24 }
+  - id: y150_824
+    label: "手の形、禁止の × の位置"
+    align: left
+    at: { x: 450, y: 824 }
+    size: { w: 400, h: 24 }
+  - id: x150_848
+    label: "施行"
+    at: { x: 150, y: 848 }
+    size: { w: 300, h: 24 }
+  - id: y150_848
+    label: "2024 年 8 月 20 日"
+    align: left
+    at: { x: 450, y: 848 }
+    size: { w: 400, h: 24 }
+  - id: x150_872
+    label: "経過措置"
+    at: { x: 150, y: 872 }
+    size: { w: 300, h: 24 }
+  - id: y150_872
+    label: "旧表示は 2025 年 8 月 19 日まで出荷できた"
+    align: left
+    at: { x: 450, y: 872 }
+    size: { w: 400, h: 24 }
+  - id: why6
+    label: "同じ服のタグでも、買った時期で意味が違う。\n2025 年 8 月までに出荷された服には旧表示が付いていて、\nアイロンの点 2 つは 150℃、新しい服では 160℃ ——\n記号は同じ形のまま、意味だけが変わった。"
+    at: { x: 150, y: 910 }
+    size: { w: 700, h: 92 }
+  - id: r1
+    label: "基本記号は 5 つだけです（①）。桶は洗濯、三角は漂白、四角は乾燥、アイロンはアイロン、丸はクリーニングです。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1064 }
+    size: { w: 1190, h: 18 }
+  - id: r2
+    label: "残りは全部、この 5 つに付ける印です（②）。数字は温度の上限、下の線は弱さ、点は温度、× は禁止。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1088 }
+    size: { w: 1190, h: 18 }
+  - id: r3
+    label: "数字は「上限」であって「その温度で洗え」ではありません。 40 なら 40℃ 以下ならよく、30℃ でも構いません。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1112 }
+    size: { w: 1190, h: 18 }
+  - id: r4
+    label: "2016 年 12 月に国際規格へそろえ、22 種類から 41 種類に増えました。 旧表示にあった日本語は無くなりました。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1136 }
+    size: { w: 1190, h: 18 }
+  - id: r5
+    label: "同じ四角でも、中の線 1 本で干し方が変わります（③）。縦線はつり干し、横線は平干し、左上の斜線は日陰です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1160 }
+    size: { w: 1190, h: 18 }
+  - id: r6
+    label: "点は数えるもので、濃さではありません（④）。アイロンは 1 つで 120℃、2 つで 160℃、3 つで 210℃ まで、タンブル乾燥は 1 つが 60℃、2 つが 80℃ です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1184 }
+    size: { w: 1190, h: 18 }
+  - id: r7
+    label: "丸の記号は、自分ではなく店が読みます（⑤）。ただし × だけは自分に関わります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1208 }
+    size: { w: 1190, h: 18 }
+  - id: r8
+    label: "2024 年 8 月に、また変わりました（⑥）。アイロンの上限が 10℃ 上がり、30℃ の手洗いとスチームなしの記号が足されました。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1232 }
+    size: { w: 1190, h: 18 }
+  - id: r9
+    label: "記号は同じ形のまま、意味だけが変わりました。 買った時期で、同じタグの意味が違います。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1256 }
+    size: { w: 1190, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 190, y: 256 }
+      - { x: 226, y: 256 }
+  - from: p2
+    to: p3
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 196, y: 204 }
+      - { x: 208, y: 212 }
+      - { x: 220, y: 204 }
+  - from: p4
+    to: p5
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 630, y: 248 }
+      - { x: 620, y: 214 }
+      - { x: 590, y: 214 }

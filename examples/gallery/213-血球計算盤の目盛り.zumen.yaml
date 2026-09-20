@@ -1,0 +1,1353 @@
+version: 1
+kind: placement
+arrows: true
+title: 血球計算盤の目盛りと、数え方（改良ノイバウエル）
+scale: { mm: 0.005 }
+palette:
+  G: "#e0e0e0"
+views:
+  - id: ban
+    title: ① 目盛り（1px ＝ 0.005mm・実寸 3mm 角）
+    at: { x: 96, y: 170 }
+    size: { w: 750, h: 660 }
+    scale: { mm: 0.005 }
+  - id: dan
+    title: ② 断面（1px ＝ 0.002mm）
+    at: { x: 860, y: 170 }
+    size: { w: 400, h: 330 }
+    scale: { mm: 0.002 }
+  - id: masu
+    title: ③ 境界に触れた細胞（1px ＝ 0.001mm・1 マス 0.25mm）
+    at: { x: 860, y: 540 }
+    size: { w: 400, h: 380 }
+    scale: { mm: 0.001 }
+# **深さ 0.100mm が、面積を体積に変える。**
+#
+# 目盛りは面積しか区切っていない。カバーガラスを載せると隙間が 0.100mm に決まり、
+# **1 大ブロック（1mm 角）＝ 0.1µL ＝ 10⁻⁴mL** になる。
+#
+# 境界に触れた細胞は、**相対する 2 辺のどちらか一方だけ**を数える（上と左）。
+# 隣のマスがその分を数えるので、全体では合う。
+nodes:
+  - id: ban
+    label: ""
+    at: { x: 170, y: 200 }
+    size: { w: 600, h: 600 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 369, y: 199 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 369, y: 799 }
+    size: { w: 2, h: 2 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 169, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 769, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 569, y: 199 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 569, y: 799 }
+    size: { w: 2, h: 2 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 169, y: 599 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 769, y: 599 }
+    size: { w: 2, h: 2 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 219, y: 199 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 219, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 169, y: 249 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 369, y: 249 }
+    size: { w: 2, h: 2 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 269, y: 199 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 269, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 169, y: 299 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 369, y: 299 }
+    size: { w: 2, h: 2 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 319, y: 199 }
+    size: { w: 2, h: 2 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 319, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: p18
+    label: ""
+    marker: none
+    at: { x: 169, y: 349 }
+    size: { w: 2, h: 2 }
+  - id: p19
+    label: ""
+    marker: none
+    at: { x: 369, y: 349 }
+    size: { w: 2, h: 2 }
+  - id: p20
+    label: ""
+    marker: none
+    at: { x: 619, y: 199 }
+    size: { w: 2, h: 2 }
+  - id: p21
+    label: ""
+    marker: none
+    at: { x: 619, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: p22
+    label: ""
+    marker: none
+    at: { x: 569, y: 249 }
+    size: { w: 2, h: 2 }
+  - id: p23
+    label: ""
+    marker: none
+    at: { x: 769, y: 249 }
+    size: { w: 2, h: 2 }
+  - id: p24
+    label: ""
+    marker: none
+    at: { x: 669, y: 199 }
+    size: { w: 2, h: 2 }
+  - id: p25
+    label: ""
+    marker: none
+    at: { x: 669, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: p26
+    label: ""
+    marker: none
+    at: { x: 569, y: 299 }
+    size: { w: 2, h: 2 }
+  - id: p27
+    label: ""
+    marker: none
+    at: { x: 769, y: 299 }
+    size: { w: 2, h: 2 }
+  - id: p28
+    label: ""
+    marker: none
+    at: { x: 719, y: 199 }
+    size: { w: 2, h: 2 }
+  - id: p29
+    label: ""
+    marker: none
+    at: { x: 719, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: p30
+    label: ""
+    marker: none
+    at: { x: 569, y: 349 }
+    size: { w: 2, h: 2 }
+  - id: p31
+    label: ""
+    marker: none
+    at: { x: 769, y: 349 }
+    size: { w: 2, h: 2 }
+  - id: p32
+    label: ""
+    marker: none
+    at: { x: 219, y: 599 }
+    size: { w: 2, h: 2 }
+  - id: p33
+    label: ""
+    marker: none
+    at: { x: 219, y: 799 }
+    size: { w: 2, h: 2 }
+  - id: p34
+    label: ""
+    marker: none
+    at: { x: 169, y: 649 }
+    size: { w: 2, h: 2 }
+  - id: p35
+    label: ""
+    marker: none
+    at: { x: 369, y: 649 }
+    size: { w: 2, h: 2 }
+  - id: p36
+    label: ""
+    marker: none
+    at: { x: 269, y: 599 }
+    size: { w: 2, h: 2 }
+  - id: p37
+    label: ""
+    marker: none
+    at: { x: 269, y: 799 }
+    size: { w: 2, h: 2 }
+  - id: p38
+    label: ""
+    marker: none
+    at: { x: 169, y: 699 }
+    size: { w: 2, h: 2 }
+  - id: p39
+    label: ""
+    marker: none
+    at: { x: 369, y: 699 }
+    size: { w: 2, h: 2 }
+  - id: p40
+    label: ""
+    marker: none
+    at: { x: 319, y: 599 }
+    size: { w: 2, h: 2 }
+  - id: p41
+    label: ""
+    marker: none
+    at: { x: 319, y: 799 }
+    size: { w: 2, h: 2 }
+  - id: p42
+    label: ""
+    marker: none
+    at: { x: 169, y: 749 }
+    size: { w: 2, h: 2 }
+  - id: p43
+    label: ""
+    marker: none
+    at: { x: 369, y: 749 }
+    size: { w: 2, h: 2 }
+  - id: p44
+    label: ""
+    marker: none
+    at: { x: 619, y: 599 }
+    size: { w: 2, h: 2 }
+  - id: p45
+    label: ""
+    marker: none
+    at: { x: 619, y: 799 }
+    size: { w: 2, h: 2 }
+  - id: p46
+    label: ""
+    marker: none
+    at: { x: 569, y: 649 }
+    size: { w: 2, h: 2 }
+  - id: p47
+    label: ""
+    marker: none
+    at: { x: 769, y: 649 }
+    size: { w: 2, h: 2 }
+  - id: p48
+    label: ""
+    marker: none
+    at: { x: 669, y: 599 }
+    size: { w: 2, h: 2 }
+  - id: p49
+    label: ""
+    marker: none
+    at: { x: 669, y: 799 }
+    size: { w: 2, h: 2 }
+  - id: p50
+    label: ""
+    marker: none
+    at: { x: 569, y: 699 }
+    size: { w: 2, h: 2 }
+  - id: p51
+    label: ""
+    marker: none
+    at: { x: 769, y: 699 }
+    size: { w: 2, h: 2 }
+  - id: p52
+    label: ""
+    marker: none
+    at: { x: 719, y: 599 }
+    size: { w: 2, h: 2 }
+  - id: p53
+    label: ""
+    marker: none
+    at: { x: 719, y: 799 }
+    size: { w: 2, h: 2 }
+  - id: p54
+    label: ""
+    marker: none
+    at: { x: 569, y: 749 }
+    size: { w: 2, h: 2 }
+  - id: p55
+    label: ""
+    marker: none
+    at: { x: 769, y: 749 }
+    size: { w: 2, h: 2 }
+  - id: p56
+    label: ""
+    marker: none
+    at: { x: 409, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: p57
+    label: ""
+    marker: none
+    at: { x: 409, y: 599 }
+    size: { w: 2, h: 2 }
+  - id: p58
+    label: ""
+    marker: none
+    at: { x: 369, y: 439 }
+    size: { w: 2, h: 2 }
+  - id: p59
+    label: ""
+    marker: none
+    at: { x: 569, y: 439 }
+    size: { w: 2, h: 2 }
+  - id: p60
+    label: ""
+    marker: none
+    at: { x: 449, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: p61
+    label: ""
+    marker: none
+    at: { x: 449, y: 599 }
+    size: { w: 2, h: 2 }
+  - id: p62
+    label: ""
+    marker: none
+    at: { x: 369, y: 479 }
+    size: { w: 2, h: 2 }
+  - id: p63
+    label: ""
+    marker: none
+    at: { x: 569, y: 479 }
+    size: { w: 2, h: 2 }
+  - id: p64
+    label: ""
+    marker: none
+    at: { x: 489, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: p65
+    label: ""
+    marker: none
+    at: { x: 489, y: 599 }
+    size: { w: 2, h: 2 }
+  - id: p66
+    label: ""
+    marker: none
+    at: { x: 369, y: 519 }
+    size: { w: 2, h: 2 }
+  - id: p67
+    label: ""
+    marker: none
+    at: { x: 569, y: 519 }
+    size: { w: 2, h: 2 }
+  - id: p68
+    label: ""
+    marker: none
+    at: { x: 529, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: p69
+    label: ""
+    marker: none
+    at: { x: 529, y: 599 }
+    size: { w: 2, h: 2 }
+  - id: p70
+    label: ""
+    marker: none
+    at: { x: 369, y: 559 }
+    size: { w: 2, h: 2 }
+  - id: p71
+    label: ""
+    marker: none
+    at: { x: 569, y: 559 }
+    size: { w: 2, h: 2 }
+  - id: c00
+    label: ""
+    fill: G
+    hatch: solid
+    at: { x: 370, y: 400 }
+    size: { w: 40, h: 40 }
+  - id: p72
+    label: ""
+    marker: none
+    at: { x: 379, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: p73
+    label: ""
+    marker: none
+    at: { x: 379, y: 439 }
+    size: { w: 2, h: 2 }
+  - id: p74
+    label: ""
+    marker: none
+    at: { x: 369, y: 409 }
+    size: { w: 2, h: 2 }
+  - id: p75
+    label: ""
+    marker: none
+    at: { x: 409, y: 409 }
+    size: { w: 2, h: 2 }
+  - id: p76
+    label: ""
+    marker: none
+    at: { x: 389, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: p77
+    label: ""
+    marker: none
+    at: { x: 389, y: 439 }
+    size: { w: 2, h: 2 }
+  - id: p78
+    label: ""
+    marker: none
+    at: { x: 369, y: 419 }
+    size: { w: 2, h: 2 }
+  - id: p79
+    label: ""
+    marker: none
+    at: { x: 409, y: 419 }
+    size: { w: 2, h: 2 }
+  - id: p80
+    label: ""
+    marker: none
+    at: { x: 399, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: p81
+    label: ""
+    marker: none
+    at: { x: 399, y: 439 }
+    size: { w: 2, h: 2 }
+  - id: p82
+    label: ""
+    marker: none
+    at: { x: 369, y: 429 }
+    size: { w: 2, h: 2 }
+  - id: p83
+    label: ""
+    marker: none
+    at: { x: 409, y: 429 }
+    size: { w: 2, h: 2 }
+  - id: c40
+    label: ""
+    fill: G
+    hatch: solid
+    at: { x: 530, y: 400 }
+    size: { w: 40, h: 40 }
+  - id: p84
+    label: ""
+    marker: none
+    at: { x: 539, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: p85
+    label: ""
+    marker: none
+    at: { x: 539, y: 439 }
+    size: { w: 2, h: 2 }
+  - id: p86
+    label: ""
+    marker: none
+    at: { x: 529, y: 409 }
+    size: { w: 2, h: 2 }
+  - id: p87
+    label: ""
+    marker: none
+    at: { x: 569, y: 409 }
+    size: { w: 2, h: 2 }
+  - id: p88
+    label: ""
+    marker: none
+    at: { x: 549, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: p89
+    label: ""
+    marker: none
+    at: { x: 549, y: 439 }
+    size: { w: 2, h: 2 }
+  - id: p90
+    label: ""
+    marker: none
+    at: { x: 529, y: 419 }
+    size: { w: 2, h: 2 }
+  - id: p91
+    label: ""
+    marker: none
+    at: { x: 569, y: 419 }
+    size: { w: 2, h: 2 }
+  - id: p92
+    label: ""
+    marker: none
+    at: { x: 559, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: p93
+    label: ""
+    marker: none
+    at: { x: 559, y: 439 }
+    size: { w: 2, h: 2 }
+  - id: p94
+    label: ""
+    marker: none
+    at: { x: 529, y: 429 }
+    size: { w: 2, h: 2 }
+  - id: p95
+    label: ""
+    marker: none
+    at: { x: 569, y: 429 }
+    size: { w: 2, h: 2 }
+  - id: c22
+    label: ""
+    fill: G
+    hatch: solid
+    at: { x: 450, y: 480 }
+    size: { w: 40, h: 40 }
+  - id: p96
+    label: ""
+    marker: none
+    at: { x: 459, y: 479 }
+    size: { w: 2, h: 2 }
+  - id: p97
+    label: ""
+    marker: none
+    at: { x: 459, y: 519 }
+    size: { w: 2, h: 2 }
+  - id: p98
+    label: ""
+    marker: none
+    at: { x: 449, y: 489 }
+    size: { w: 2, h: 2 }
+  - id: p99
+    label: ""
+    marker: none
+    at: { x: 489, y: 489 }
+    size: { w: 2, h: 2 }
+  - id: p100
+    label: ""
+    marker: none
+    at: { x: 469, y: 479 }
+    size: { w: 2, h: 2 }
+  - id: p101
+    label: ""
+    marker: none
+    at: { x: 469, y: 519 }
+    size: { w: 2, h: 2 }
+  - id: p102
+    label: ""
+    marker: none
+    at: { x: 449, y: 499 }
+    size: { w: 2, h: 2 }
+  - id: p103
+    label: ""
+    marker: none
+    at: { x: 489, y: 499 }
+    size: { w: 2, h: 2 }
+  - id: p104
+    label: ""
+    marker: none
+    at: { x: 479, y: 479 }
+    size: { w: 2, h: 2 }
+  - id: p105
+    label: ""
+    marker: none
+    at: { x: 479, y: 519 }
+    size: { w: 2, h: 2 }
+  - id: p106
+    label: ""
+    marker: none
+    at: { x: 449, y: 509 }
+    size: { w: 2, h: 2 }
+  - id: p107
+    label: ""
+    marker: none
+    at: { x: 489, y: 509 }
+    size: { w: 2, h: 2 }
+  - id: c04
+    label: ""
+    fill: G
+    hatch: solid
+    at: { x: 370, y: 560 }
+    size: { w: 40, h: 40 }
+  - id: p108
+    label: ""
+    marker: none
+    at: { x: 379, y: 559 }
+    size: { w: 2, h: 2 }
+  - id: p109
+    label: ""
+    marker: none
+    at: { x: 379, y: 599 }
+    size: { w: 2, h: 2 }
+  - id: p110
+    label: ""
+    marker: none
+    at: { x: 369, y: 569 }
+    size: { w: 2, h: 2 }
+  - id: p111
+    label: ""
+    marker: none
+    at: { x: 409, y: 569 }
+    size: { w: 2, h: 2 }
+  - id: p112
+    label: ""
+    marker: none
+    at: { x: 389, y: 559 }
+    size: { w: 2, h: 2 }
+  - id: p113
+    label: ""
+    marker: none
+    at: { x: 389, y: 599 }
+    size: { w: 2, h: 2 }
+  - id: p114
+    label: ""
+    marker: none
+    at: { x: 369, y: 579 }
+    size: { w: 2, h: 2 }
+  - id: p115
+    label: ""
+    marker: none
+    at: { x: 409, y: 579 }
+    size: { w: 2, h: 2 }
+  - id: p116
+    label: ""
+    marker: none
+    at: { x: 399, y: 559 }
+    size: { w: 2, h: 2 }
+  - id: p117
+    label: ""
+    marker: none
+    at: { x: 399, y: 599 }
+    size: { w: 2, h: 2 }
+  - id: p118
+    label: ""
+    marker: none
+    at: { x: 369, y: 589 }
+    size: { w: 2, h: 2 }
+  - id: p119
+    label: ""
+    marker: none
+    at: { x: 409, y: 589 }
+    size: { w: 2, h: 2 }
+  - id: c44
+    label: ""
+    fill: G
+    hatch: solid
+    at: { x: 530, y: 560 }
+    size: { w: 40, h: 40 }
+  - id: p120
+    label: ""
+    marker: none
+    at: { x: 539, y: 559 }
+    size: { w: 2, h: 2 }
+  - id: p121
+    label: ""
+    marker: none
+    at: { x: 539, y: 599 }
+    size: { w: 2, h: 2 }
+  - id: p122
+    label: ""
+    marker: none
+    at: { x: 529, y: 569 }
+    size: { w: 2, h: 2 }
+  - id: p123
+    label: ""
+    marker: none
+    at: { x: 569, y: 569 }
+    size: { w: 2, h: 2 }
+  - id: p124
+    label: ""
+    marker: none
+    at: { x: 549, y: 559 }
+    size: { w: 2, h: 2 }
+  - id: p125
+    label: ""
+    marker: none
+    at: { x: 549, y: 599 }
+    size: { w: 2, h: 2 }
+  - id: p126
+    label: ""
+    marker: none
+    at: { x: 529, y: 579 }
+    size: { w: 2, h: 2 }
+  - id: p127
+    label: ""
+    marker: none
+    at: { x: 569, y: 579 }
+    size: { w: 2, h: 2 }
+  - id: p128
+    label: ""
+    marker: none
+    at: { x: 559, y: 559 }
+    size: { w: 2, h: 2 }
+  - id: p129
+    label: ""
+    marker: none
+    at: { x: 559, y: 599 }
+    size: { w: 2, h: 2 }
+  - id: p130
+    label: ""
+    marker: none
+    at: { x: 529, y: 589 }
+    size: { w: 2, h: 2 }
+  - id: p131
+    label: ""
+    marker: none
+    at: { x: 569, y: 589 }
+    size: { w: 2, h: 2 }
+  - id: w1
+    label: "W1"
+    marker: none
+    align: right
+    at: { x: 96, y: 202 }
+    size: { w: 62, h: 18 }
+  - id: w2
+    label: "W2"
+    marker: none
+    align: left
+    at: { x: 778, y: 202 }
+    size: { w: 62, h: 18 }
+  - id: w3
+    label: "W3"
+    marker: none
+    align: right
+    at: { x: 96, y: 778 }
+    size: { w: 62, h: 18 }
+  - id: w4
+    label: "W4"
+    marker: none
+    align: left
+    at: { x: 778, y: 778 }
+    size: { w: 62, h: 18 }
+  - id: cc
+    label: "C"
+    marker: none
+    align: left
+    at: { x: 778, y: 490 }
+    size: { w: 62, h: 18 }
+  - id: cover
+    label: ""
+    at: { x: 870, y: 200 }
+    size: { w: 260, h: 85 }
+  - id: doteL
+    label: ""
+    at: { x: 870, y: 285 }
+    size: { w: 50, h: 50 }
+  - id: doteR
+    label: ""
+    at: { x: 1080, y: 285 }
+    size: { w: 50, h: 50 }
+  - id: shiryo
+    label: ""
+    hatch: dots
+    at: { x: 920, y: 285 }
+    size: { w: 160, h: 50 }
+  - id: base
+    label: ""
+    at: { x: 870, y: 335 }
+    size: { w: 260, h: 150 }
+  - id: p132
+    label: ""
+    marker: none
+    at: { x: 1139, y: 284 }
+    size: { w: 2, h: 2 }
+  - id: p133
+    label: ""
+    marker: none
+    at: { x: 1139, y: 334 }
+    size: { w: 2, h: 2 }
+  - id: d_cover
+    label: "カバーガラス（上へ続く）"
+    marker: none
+    align: left
+    at: { x: 880, y: 233 }
+    size: { w: 220, h: 18 }
+  - id: d_dote
+    label: "土手"
+    marker: none
+    align: left
+    at: { x: 876, y: 301 }
+    size: { w: 42, h: 18 }
+  - id: d_shiryo
+    label: "試料"
+    marker: none
+    align: left
+    at: { x: 1146, y: 292 }
+    size: { w: 104, h: 18 }
+  - id: d_gap
+    label: "0.100mm"
+    marker: none
+    align: left
+    at: { x: 1146, y: 312 }
+    size: { w: 104, h: 18 }
+  - id: d_base
+    label: "計算盤（下へ続く）"
+    marker: none
+    align: left
+    at: { x: 880, y: 400 }
+    size: { w: 200, h: 18 }
+  - id: masu
+    label: ""
+    at: { x: 880, y: 580 }
+    size: { w: 250, h: 250 }
+  - id: p134
+    label: ""
+    marker: none
+    at: { x: 879, y: 579 }
+    size: { w: 2, h: 2 }
+  - id: p135
+    label: ""
+    marker: none
+    at: { x: 1129, y: 579 }
+    size: { w: 2, h: 2 }
+  - id: p136
+    label: ""
+    marker: none
+    at: { x: 879, y: 579 }
+    size: { w: 2, h: 2 }
+  - id: p137
+    label: ""
+    marker: none
+    at: { x: 879, y: 829 }
+    size: { w: 2, h: 2 }
+  - id: k0
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 925, y: 575 }
+    size: { w: 10, h: 10 }
+  - id: k1
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 875, y: 685 }
+    size: { w: 10, h: 10 }
+  - id: k2
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 875, y: 575 }
+    size: { w: 10, h: 10 }
+  - id: k3
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 955, y: 645 }
+    size: { w: 10, h: 10 }
+  - id: k4
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 1025, y: 715 }
+    size: { w: 10, h: 10 }
+  - id: k5
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 905, y: 775 }
+    size: { w: 10, h: 10 }
+  - id: x0
+    label: ""
+    marker: circle
+    at: { x: 985, y: 825 }
+    size: { w: 10, h: 10 }
+  - id: x1
+    label: ""
+    marker: circle
+    at: { x: 1125, y: 635 }
+    size: { w: 10, h: 10 }
+  - id: m1
+    label: "●  上と左の線に触れたら 数える"
+    marker: none
+    align: left
+    at: { x: 880, y: 842 }
+    size: { w: 300, h: 18 }
+  - id: m2
+    label: "○  下と右の線に触れたら 数えない"
+    marker: none
+    align: left
+    at: { x: 880, y: 864 }
+    size: { w: 300, h: 18 }
+  - id: m3
+    label: "重複を避けるため。隣のマスで数える。"
+    marker: none
+    align: left
+    at: { x: 880, y: 886 }
+    size: { w: 300, h: 18 }
+  - id: t4
+    label: "④ 何を、どこで数えるか"
+    marker: none
+    align: left
+    at: { x: 130, y: 950 }
+    size: { w: 1120, h: 20 }
+  - id: q0_0
+    label: "数えるもの"
+    hatch: solid
+    at: { x: 130, y: 978 }
+    size: { w: 150, h: 24 }
+  - id: q0_1
+    label: "どこを"
+    hatch: solid
+    at: { x: 280, y: 978 }
+    size: { w: 200, h: 24 }
+  - id: q0_2
+    label: "体積"
+    hatch: solid
+    at: { x: 480, y: 978 }
+    size: { w: 160, h: 24 }
+  - id: q0_3
+    label: "希釈"
+    hatch: solid
+    at: { x: 640, y: 978 }
+    size: { w: 180, h: 24 }
+  - id: q0_4
+    label: "1µL あたり"
+    hatch: solid
+    at: { x: 820, y: 978 }
+    size: { w: 320, h: 24 }
+  - id: q1_0
+    label: "白血球"
+    align: left
+    at: { x: 130, y: 1002 }
+    size: { w: 150, h: 24 }
+  - id: q1_1
+    label: "W1〜W4 の 4 大ブロック"
+    align: left
+    at: { x: 280, y: 1002 }
+    size: { w: 200, h: 24 }
+  - id: q1_2
+    label: "0.4mm³"
+    align: left
+    at: { x: 480, y: 1002 }
+    size: { w: 160, h: 24 }
+  - id: q1_3
+    label: "1/10"
+    align: left
+    at: { x: 640, y: 1002 }
+    size: { w: 180, h: 24 }
+  - id: q1_4
+    label: "X ＝ 25 × 数えた総数"
+    align: left
+    at: { x: 820, y: 1002 }
+    size: { w: 320, h: 24 }
+  - id: q2_0
+    label: "赤血球"
+    align: left
+    at: { x: 130, y: 1026 }
+    size: { w: 150, h: 24 }
+  - id: q2_1
+    label: "C の 5 中ブロック"
+    align: left
+    at: { x: 280, y: 1026 }
+    size: { w: 200, h: 24 }
+  - id: q2_2
+    label: "0.02mm³"
+    align: left
+    at: { x: 480, y: 1026 }
+    size: { w: 160, h: 24 }
+  - id: q2_3
+    label: "1/200"
+    align: left
+    at: { x: 640, y: 1026 }
+    size: { w: 180, h: 24 }
+  - id: q2_4
+    label: "R ＝ 10,000 × 数えた総数"
+    align: left
+    at: { x: 820, y: 1026 }
+    size: { w: 320, h: 24 }
+  - id: q3_0
+    label: "培養細胞"
+    align: left
+    at: { x: 130, y: 1050 }
+    size: { w: 150, h: 24 }
+  - id: q3_1
+    label: "W1〜W4 の平均"
+    align: left
+    at: { x: 280, y: 1050 }
+    size: { w: 200, h: 24 }
+  - id: q3_2
+    label: "0.1mm³"
+    align: left
+    at: { x: 480, y: 1050 }
+    size: { w: 160, h: 24 }
+  - id: q3_3
+    label: "任意"
+    align: left
+    at: { x: 640, y: 1050 }
+    size: { w: 180, h: 24 }
+  - id: q3_4
+    label: "平均 × 10⁴ × 希釈倍率 ＝ 個/mL"
+    align: left
+    at: { x: 820, y: 1050 }
+    size: { w: 320, h: 24 }
+  - id: r1
+    label: "深さ 0.100mm が、面積を体積に変えます。 目盛りは面積しか区切っていませんが、"
+    marker: none
+    align: left
+    at: { x: 130, y: 1108 }
+    size: { w: 1120, h: 18 }
+  - id: r2
+    label: "カバーガラスを載せると隙間が 0.100mm に決まるので、1 大ブロック（1mm 角）＝ 0.1mm³ ＝ 0.1µL になります。"
+    marker: none
+    align: left
+    at: { x: 130, y: 1131 }
+    size: { w: 1120, h: 18 }
+  - id: r3
+    label: "0.1µL ＝ 10⁻⁴mL。 だから培養細胞では「4 大ブロックの平均 × 10⁴ × 希釈倍率」で 1mL あたりの数が出ます。"
+    marker: none
+    align: left
+    at: { x: 130, y: 1154 }
+    size: { w: 1120, h: 18 }
+  - id: r4
+    label: "数えるものによって、見る区画が変わります。 多いもの（赤血球）は狭く、少ないもの（白血球）は広く取る ——"
+    marker: none
+    align: left
+    at: { x: 130, y: 1177 }
+    size: { w: 1120, h: 18 }
+  - id: r5
+    label: "一度に数えられる数に収めるためです。区画を変えたら、体積が変わるので係数も変わります。"
+    marker: none
+    align: left
+    at: { x: 130, y: 1200 }
+    size: { w: 1120, h: 18 }
+  - id: r6
+    label: "境界に触れた細胞は、相対する 2 辺のどちらか一方だけを数えます（③）。上と左、と決めておく。"
+    marker: none
+    align: left
+    at: { x: 130, y: 1223 }
+    size: { w: 1120, h: 18 }
+  - id: r7
+    label: "両方数えれば二重に、どちらも数えなければ抜けます。隣のマスがその分を数えるので、全体では合います。"
+    marker: none
+    align: left
+    at: { x: 130, y: 1246 }
+    size: { w: 1120, h: 18 }
+  - id: r8
+    label: "中央 C は 25 中ブロックすべてが 16 小マスに分かれます。この図は、数える 5 つだけを描いてあります。"
+    marker: none
+    align: left
+    at: { x: 130, y: 1269 }
+    size: { w: 1120, h: 18 }
+  - id: r9
+    label: "決まっているのは隙間の 0.100mm だけです。②のカバーガラスと計算盤の厚みは、この図では切ってあります。"
+    marker: none
+    align: left
+    at: { x: 130, y: 1292 }
+    size: { w: 1120, h: 18 }
+  - id: r10
+    label: "上下左右の 4 大ブロックは描いていません —— 数えるのは W1〜W4 と C だからです。"
+    marker: none
+    align: left
+    at: { x: 130, y: 1315 }
+    size: { w: 1120, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p2
+    to: p3
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p4
+    to: p5
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p6
+    to: p7
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p8
+    to: p9
+    curve: none
+    ends: { from: none, to: none }
+  - from: p10
+    to: p11
+    curve: none
+    ends: { from: none, to: none }
+  - from: p12
+    to: p13
+    curve: none
+    ends: { from: none, to: none }
+  - from: p14
+    to: p15
+    curve: none
+    ends: { from: none, to: none }
+  - from: p16
+    to: p17
+    curve: none
+    ends: { from: none, to: none }
+  - from: p18
+    to: p19
+    curve: none
+    ends: { from: none, to: none }
+  - from: p20
+    to: p21
+    curve: none
+    ends: { from: none, to: none }
+  - from: p22
+    to: p23
+    curve: none
+    ends: { from: none, to: none }
+  - from: p24
+    to: p25
+    curve: none
+    ends: { from: none, to: none }
+  - from: p26
+    to: p27
+    curve: none
+    ends: { from: none, to: none }
+  - from: p28
+    to: p29
+    curve: none
+    ends: { from: none, to: none }
+  - from: p30
+    to: p31
+    curve: none
+    ends: { from: none, to: none }
+  - from: p32
+    to: p33
+    curve: none
+    ends: { from: none, to: none }
+  - from: p34
+    to: p35
+    curve: none
+    ends: { from: none, to: none }
+  - from: p36
+    to: p37
+    curve: none
+    ends: { from: none, to: none }
+  - from: p38
+    to: p39
+    curve: none
+    ends: { from: none, to: none }
+  - from: p40
+    to: p41
+    curve: none
+    ends: { from: none, to: none }
+  - from: p42
+    to: p43
+    curve: none
+    ends: { from: none, to: none }
+  - from: p44
+    to: p45
+    curve: none
+    ends: { from: none, to: none }
+  - from: p46
+    to: p47
+    curve: none
+    ends: { from: none, to: none }
+  - from: p48
+    to: p49
+    curve: none
+    ends: { from: none, to: none }
+  - from: p50
+    to: p51
+    curve: none
+    ends: { from: none, to: none }
+  - from: p52
+    to: p53
+    curve: none
+    ends: { from: none, to: none }
+  - from: p54
+    to: p55
+    curve: none
+    ends: { from: none, to: none }
+  - from: p56
+    to: p57
+    curve: none
+    ends: { from: none, to: none }
+  - from: p58
+    to: p59
+    curve: none
+    ends: { from: none, to: none }
+  - from: p60
+    to: p61
+    curve: none
+    ends: { from: none, to: none }
+  - from: p62
+    to: p63
+    curve: none
+    ends: { from: none, to: none }
+  - from: p64
+    to: p65
+    curve: none
+    ends: { from: none, to: none }
+  - from: p66
+    to: p67
+    curve: none
+    ends: { from: none, to: none }
+  - from: p68
+    to: p69
+    curve: none
+    ends: { from: none, to: none }
+  - from: p70
+    to: p71
+    curve: none
+    ends: { from: none, to: none }
+  - from: p72
+    to: p73
+    curve: none
+    ends: { from: none, to: none }
+  - from: p74
+    to: p75
+    curve: none
+    ends: { from: none, to: none }
+  - from: p76
+    to: p77
+    curve: none
+    ends: { from: none, to: none }
+  - from: p78
+    to: p79
+    curve: none
+    ends: { from: none, to: none }
+  - from: p80
+    to: p81
+    curve: none
+    ends: { from: none, to: none }
+  - from: p82
+    to: p83
+    curve: none
+    ends: { from: none, to: none }
+  - from: p84
+    to: p85
+    curve: none
+    ends: { from: none, to: none }
+  - from: p86
+    to: p87
+    curve: none
+    ends: { from: none, to: none }
+  - from: p88
+    to: p89
+    curve: none
+    ends: { from: none, to: none }
+  - from: p90
+    to: p91
+    curve: none
+    ends: { from: none, to: none }
+  - from: p92
+    to: p93
+    curve: none
+    ends: { from: none, to: none }
+  - from: p94
+    to: p95
+    curve: none
+    ends: { from: none, to: none }
+  - from: p96
+    to: p97
+    curve: none
+    ends: { from: none, to: none }
+  - from: p98
+    to: p99
+    curve: none
+    ends: { from: none, to: none }
+  - from: p100
+    to: p101
+    curve: none
+    ends: { from: none, to: none }
+  - from: p102
+    to: p103
+    curve: none
+    ends: { from: none, to: none }
+  - from: p104
+    to: p105
+    curve: none
+    ends: { from: none, to: none }
+  - from: p106
+    to: p107
+    curve: none
+    ends: { from: none, to: none }
+  - from: p108
+    to: p109
+    curve: none
+    ends: { from: none, to: none }
+  - from: p110
+    to: p111
+    curve: none
+    ends: { from: none, to: none }
+  - from: p112
+    to: p113
+    curve: none
+    ends: { from: none, to: none }
+  - from: p114
+    to: p115
+    curve: none
+    ends: { from: none, to: none }
+  - from: p116
+    to: p117
+    curve: none
+    ends: { from: none, to: none }
+  - from: p118
+    to: p119
+    curve: none
+    ends: { from: none, to: none }
+  - from: p120
+    to: p121
+    curve: none
+    ends: { from: none, to: none }
+  - from: p122
+    to: p123
+    curve: none
+    ends: { from: none, to: none }
+  - from: p124
+    to: p125
+    curve: none
+    ends: { from: none, to: none }
+  - from: p126
+    to: p127
+    curve: none
+    ends: { from: none, to: none }
+  - from: p128
+    to: p129
+    curve: none
+    ends: { from: none, to: none }
+  - from: p130
+    to: p131
+    curve: none
+    ends: { from: none, to: none }
+  - from: p132
+    to: p133
+    curve: none
+    ends: { from: arrow, to: arrow }
+  - from: p134
+    to: p135
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p136
+    to: p137
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }

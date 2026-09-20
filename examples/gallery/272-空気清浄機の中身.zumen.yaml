@@ -1,0 +1,439 @@
+version: 1
+kind: placement
+arrows: true
+title: 空気清浄機の中身（「8 畳」は 8 畳用という意味ではない）
+# **通る順番は、寿命の順番。** プレフィルタ（大きなゴミ）→ 集じん（HEPA）→ 脱臭 → ファン。
+# **プレで大きなゴミを止めないと、HEPA が数か月で詰まる。**
+# プレは洗えるが **HEPA は洗えない**（繊維の隙間が壊れて性能が落ちる）——
+# **洗える順に、前から並んでいる。**
+#
+# **「8 畳」は「8 畳用」ではなく「8 畳を 30 分で」の意味**（JEM 1467）。
+# 天井高 2.4m の部屋で、粉じん **1.25 mg/m³** を **0.15 mg/m³**（ビル管法の基準）まで
+# **30 分**で下げられる広さを、適用床面積と呼んでいる。
+# だから **清浄時間 ＝ 30 分 × （部屋の広さ ÷ 適用床面積）** ——
+# 8 畳の部屋に 24 畳の機械なら **10 分**。**実際の畳数の 2〜3 倍を選ぶのが定番**なのはそのため。
+#
+# **HEPA は素材でも形でもなく「この試験に通った」という印**（JIS）。
+# 定格風量で **0.3μm の粒子を 99.97% 以上**捕集し、**初期圧力損失 245Pa 以下**。
+# 0.3μm が基準なのは**いちばん捕りにくい大きさ**だから ——
+# **0.3μm で 99.97% なら、ほかの大きさは全部それ以上。**
+#
+# **245Pa は「初期」の値。** 使ううちにほこりが詰まって圧力損失が上がり、
+# 同じファンでも風量が落ちて**清浄時間が延びる** ——
+# 捕集率は落ちない（目詰まりでむしろ上がる）ので、
+# **性能が落ちたことは音でも風でも分かりにくい。**
+#
+# **置き方で、同じ機械が別の性能になる。** 適用床面積は
+# **空気が機械を通ること**を前提にした数字で、隅に置いて吹出が壁を向いていると
+# **同じ空気を何度も吸って、部屋の反対側は動かない。**
+nodes:
+  - id: t1
+    label: "① 通る順番 —— 大きいゴミを先に止めないと、HEPA がすぐ詰まる"
+    marker: none
+    align: left
+    at: { x: 150, y: 150 }
+    size: { w: 700, h: 20 }
+  - id: body
+    label: ""
+    at: { x: 240, y: 200 }
+    size: { w: 540, h: 202 }
+  - id: bn
+    label: "本体（断面）"
+    marker: none
+    align: left
+    at: { x: 248, y: 208 }
+    size: { w: 160, h: 18 }
+  - id: f0
+    label: ""
+    hatch: lines
+    at: { x: 300, y: 240 }
+    size: { w: 26, h: 110 }
+  - id: fn0
+    label: "プレ"
+    marker: none
+    align: center
+    at: { x: 251, y: 356 }
+    size: { w: 124, h: 18 }
+  - id: fs0
+    label: "大きなゴミ"
+    marker: none
+    align: center
+    at: { x: 251, y: 374 }
+    size: { w: 124, h: 18 }
+  - id: f130
+    label: ""
+    hatch: cross
+    at: { x: 430, y: 240 }
+    size: { w: 26, h: 110 }
+  - id: fn130
+    label: "集じん（HEPA）"
+    marker: none
+    align: center
+    at: { x: 381, y: 356 }
+    size: { w: 124, h: 18 }
+  - id: fs130
+    label: "0.3μm を 99.97%"
+    marker: none
+    align: center
+    at: { x: 381, y: 374 }
+    size: { w: 124, h: 18 }
+  - id: f260
+    label: ""
+    hatch: dots
+    at: { x: 560, y: 240 }
+    size: { w: 26, h: 110 }
+  - id: fn260
+    label: "脱臭"
+    marker: none
+    align: center
+    at: { x: 511, y: 356 }
+    size: { w: 124, h: 18 }
+  - id: fs260
+    label: "におい"
+    marker: none
+    align: center
+    at: { x: 511, y: 374 }
+    size: { w: 124, h: 18 }
+  - id: fan
+    label: ""
+    marker: circle
+    at: { x: 630, y: 260 }
+    size: { w: 70, h: 70 }
+  - id: fann
+    label: "ファン"
+    marker: none
+    align: center
+    at: { x: 630, y: 286 }
+    size: { w: 70, h: 18 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 179, y: 294 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 295, y: 294 }
+    size: { w: 2, h: 2 }
+  - id: in
+    label: "吸込"
+    marker: none
+    align: center
+    at: { x: 110, y: 277 }
+    size: { w: 70, h: 18 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 705, y: 294 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 787, y: 294 }
+    size: { w: 2, h: 2 }
+  - id: out
+    label: "吹出"
+    marker: none
+    align: center
+    at: { x: 794, y: 277 }
+    size: { w: 60, h: 18 }
+  - id: why1
+    label: "順番は、寿命の順番。 いちばん高いフィルタをいちばん後ろに置く ——\nプレで大きなゴミを止めないと、HEPA が数か月で詰まる。\nプレは洗える、HEPA は洗えない（洗うと繊維の隙間が壊れて性能が落ちる）——\n洗える順に前から並んでいる。"
+    at: { x: 150, y: 436 }
+    size: { w: 700, h: 92 }
+  - id: t2
+    label: "② 「8 畳」と書いてあるのは、8 畳用という意味ではない"
+    marker: none
+    align: left
+    at: { x: 150, y: 546 }
+    size: { w: 700, h: 20 }
+  - id: h150_576
+    label: "適用床面積の決め方（JEM 1467）"
+    hatch: solid
+    at: { x: 150, y: 576 }
+    size: { w: 700, h: 24 }
+  - id: x150_600
+    label: "測る条件"
+    at: { x: 150, y: 600 }
+    size: { w: 300, h: 24 }
+  - id: y150_600
+    label: "天井高 2.4m の部屋"
+    align: left
+    at: { x: 450, y: 600 }
+    size: { w: 400, h: 24 }
+  - id: x150_624
+    label: "はじめの汚れ"
+    at: { x: 150, y: 624 }
+    size: { w: 300, h: 24 }
+  - id: y150_624
+    label: "粉じん 1.25 mg/m³"
+    align: left
+    at: { x: 450, y: 624 }
+    size: { w: 400, h: 24 }
+  - id: x150_648
+    label: "そこまで下げる"
+    at: { x: 150, y: 648 }
+    size: { w: 300, h: 24 }
+  - id: y150_648
+    label: "0.15 mg/m³（ビル管法の基準）"
+    align: left
+    at: { x: 450, y: 648 }
+    size: { w: 400, h: 24 }
+  - id: x150_672
+    label: "かかる時間"
+    at: { x: 150, y: 672 }
+    size: { w: 300, h: 24 }
+  - id: y150_672
+    label: "30 分"
+    align: left
+    at: { x: 450, y: 672 }
+    size: { w: 400, h: 24 }
+  - id: x150_696
+    label: "適用床面積"
+    at: { x: 150, y: 696 }
+    size: { w: 300, h: 24 }
+  - id: y150_696
+    label: "それができる部屋の広さ"
+    align: left
+    at: { x: 450, y: 696 }
+    size: { w: 400, h: 24 }
+  - id: h150_730
+    label: "だから、時間はこう出る"
+    hatch: solid
+    at: { x: 150, y: 730 }
+    size: { w: 700, h: 24 }
+  - id: x150_754
+    label: "清浄時間"
+    at: { x: 150, y: 754 }
+    size: { w: 300, h: 24 }
+  - id: y150_754
+    label: "30 分 × （部屋の広さ ÷ 適用床面積）"
+    align: left
+    at: { x: 450, y: 754 }
+    size: { w: 400, h: 24 }
+  - id: x150_778
+    label: "8 畳の部屋 ／ 8 畳の機械"
+    at: { x: 150, y: 778 }
+    size: { w: 300, h: 24 }
+  - id: y150_778
+    label: "30 分"
+    align: left
+    at: { x: 450, y: 778 }
+    size: { w: 400, h: 24 }
+  - id: x150_802
+    label: "8 畳の部屋 ／ 24 畳の機械"
+    at: { x: 150, y: 802 }
+    size: { w: 300, h: 24 }
+  - id: y150_802
+    label: "30 × 8 ÷ 24 ＝ 10 分"
+    align: left
+    at: { x: 450, y: 802 }
+    size: { w: 400, h: 24 }
+  - id: why2
+    label: "「8 畳」は「8 畳を 30 分で」の意味。 30 分は、たばこを 1 本吸った\n部屋がきれいになるまでの時間としては長い ——\n実際の畳数の 2〜3 倍を選ぶのが定番なのはそのため。\n大きい機械は、同じ部屋を弱い風で回せるので静かでもある。"
+    at: { x: 150, y: 840 }
+    size: { w: 700, h: 92 }
+  - id: t3
+    label: "③ HEPA は、性能の名前"
+    marker: none
+    align: left
+    at: { x: 890, y: 150 }
+    size: { w: 450, h: 20 }
+  - id: h890_186
+    label: "JIS の定義"
+    hatch: solid
+    at: { x: 890, y: 186 }
+    size: { w: 450, h: 24 }
+  - id: x890_210
+    label: "粒の大きさ"
+    at: { x: 890, y: 210 }
+    size: { w: 190, h: 24 }
+  - id: y890_210
+    label: "0.3μm"
+    align: left
+    at: { x: 1080, y: 210 }
+    size: { w: 260, h: 24 }
+  - id: x890_234
+    label: "捕集率"
+    at: { x: 890, y: 234 }
+    size: { w: 190, h: 24 }
+  - id: y890_234
+    label: "99.97% 以上"
+    align: left
+    at: { x: 1080, y: 234 }
+    size: { w: 260, h: 24 }
+  - id: x890_258
+    label: "初期圧力損失"
+    at: { x: 890, y: 258 }
+    size: { w: 190, h: 24 }
+  - id: y890_258
+    label: "245Pa 以下"
+    align: left
+    at: { x: 1080, y: 258 }
+    size: { w: 260, h: 24 }
+  - id: x890_282
+    label: "測る風量"
+    at: { x: 890, y: 282 }
+    size: { w: 190, h: 24 }
+  - id: y890_282
+    label: "定格風量で"
+    align: left
+    at: { x: 1080, y: 282 }
+    size: { w: 260, h: 24 }
+  - id: why3
+    label: "HEPA は、素材でも形でもなく「この試験に通った」という印。\n0.3μm が基準なのは、いちばん捕りにくい大きさだから ——\nこれより大きい粒も小さい粒も、もっとよく捕れる。\n0.3μm で 99.97% なら、ほかは全部それ以上。"
+    at: { x: 890, y: 320 }
+    size: { w: 450, h: 92 }
+  - id: t4
+    label: "④ 詰まると、風が減って時間が延びる"
+    marker: none
+    align: left
+    at: { x: 890, y: 430 }
+    size: { w: 450, h: 20 }
+  - id: h890_460
+    label: "圧力損失"
+    hatch: solid
+    at: { x: 890, y: 460 }
+    size: { w: 450, h: 24 }
+  - id: x890_484
+    label: "245Pa 以下"
+    at: { x: 890, y: 484 }
+    size: { w: 190, h: 24 }
+  - id: y890_484
+    label: "これは「初期」の値"
+    align: left
+    at: { x: 1080, y: 484 }
+    size: { w: 260, h: 24 }
+  - id: x890_508
+    label: "使ううちに"
+    at: { x: 890, y: 508 }
+    size: { w: 190, h: 24 }
+  - id: y890_508
+    label: "ほこりが詰まって上がる"
+    align: left
+    at: { x: 1080, y: 508 }
+    size: { w: 260, h: 24 }
+  - id: x890_532
+    label: "上がると"
+    at: { x: 890, y: 532 }
+    size: { w: 190, h: 24 }
+  - id: y890_532
+    label: "同じファンでも風量が落ちる"
+    align: left
+    at: { x: 1080, y: 532 }
+    size: { w: 260, h: 24 }
+  - id: x890_556
+    label: "風量が落ちると"
+    at: { x: 890, y: 556 }
+    size: { w: 190, h: 24 }
+  - id: y890_556
+    label: "清浄時間が延びる"
+    align: left
+    at: { x: 1080, y: 556 }
+    size: { w: 260, h: 24 }
+  - id: why4
+    label: "性能が落ちたことは、音でも風でも分かりにくい。\n捕集率は落ちない（むしろ目詰まりで上がる）——\n落ちるのは通せる空気の量のほうで、\n部屋を 1 回まわす時間が、静かに延びていく。"
+    at: { x: 890, y: 594 }
+    size: { w: 450, h: 92 }
+  - id: t5
+    label: "⑤ 置き方で、同じ機械が別の性能になる"
+    marker: none
+    align: left
+    at: { x: 890, y: 704 }
+    size: { w: 450, h: 20 }
+  - id: h890_734
+    label: "置き場所"
+    hatch: solid
+    at: { x: 890, y: 734 }
+    size: { w: 450, h: 24 }
+  - id: x890_758
+    label: "吸込・吹出をふさがない"
+    at: { x: 890, y: 758 }
+    size: { w: 190, h: 24 }
+  - id: y890_758
+    label: "壁や家具から離す"
+    align: left
+    at: { x: 1080, y: 758 }
+    size: { w: 260, h: 24 }
+  - id: x890_782
+    label: "空気が動く所"
+    at: { x: 890, y: 782 }
+    size: { w: 190, h: 24 }
+  - id: y890_782
+    label: "出入口や人の通り道の近く"
+    align: left
+    at: { x: 1080, y: 782 }
+    size: { w: 260, h: 24 }
+  - id: x890_806
+    label: "床から"
+    at: { x: 890, y: 806 }
+    size: { w: 190, h: 24 }
+  - id: y890_806
+    label: "ほこりは低い所にある"
+    align: left
+    at: { x: 1080, y: 806 }
+    size: { w: 260, h: 24 }
+  - id: x890_830
+    label: "エアコンと"
+    at: { x: 890, y: 830 }
+    size: { w: 190, h: 24 }
+  - id: y890_830
+    label: "風がぶつからないように"
+    align: left
+    at: { x: 1080, y: 830 }
+    size: { w: 260, h: 24 }
+  - id: why5
+    label: "適用床面積は、空気が機械を通ることを前提にした数字。\n部屋の隅に置いて吹出が壁を向いていると、\n同じ空気を何度も吸って、部屋の反対側は動かない ——\nカタログの 30 分は、そこでは成り立たない。"
+    at: { x: 890, y: 868 }
+    size: { w: 450, h: 92 }
+  - id: r1
+    label: "順番は、寿命の順番です（①）。プレで大きなゴミを止めないと、HEPA が数か月で詰まります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 974 }
+    size: { w: 1190, h: 18 }
+  - id: r2
+    label: "プレは洗えて、HEPA は洗えません。 洗える順に前から並んでいます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 998 }
+    size: { w: 1190, h: 18 }
+  - id: r3
+    label: "「8 畳」は「8 畳を 30 分で」の意味です（②）。粉じん 1.25mg/m³ を 0.15mg/m³ まで下げる時間です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1022 }
+    size: { w: 1190, h: 18 }
+  - id: r4
+    label: "清浄時間 ＝ 30 分 × （部屋の広さ ÷ 適用床面積） —— 8 畳の部屋に 24 畳の機械なら 10 分です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1046 }
+    size: { w: 1190, h: 18 }
+  - id: r5
+    label: "HEPA は「この試験に通った」という印です（③）。0.3μm が基準なのは、いちばん捕りにくい大きさだからです。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1070 }
+    size: { w: 1190, h: 18 }
+  - id: r6
+    label: "詰まると、風が減って時間が延びます（④）。落ちるのは捕集率ではなく、通せる空気の量のほうです。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1094 }
+    size: { w: 1190, h: 18 }
+  - id: r7
+    label: "置き方で、同じ機械が別の性能になります（⑤）。隅に置いて吹出が壁を向いていると、同じ空気を何度も吸います。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1118 }
+    size: { w: 1190, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p2
+    to: p3
+    curve: none
+    ends: { from: none, to: arrow }
