@@ -1839,6 +1839,7 @@ Mermaid も draw.io も、落ちたものを先頭のコメントに列挙する
 | `line-too-short` | **破線・点線・一点鎖線が短すぎて、刻みが 1 回も出そろわないか**（実線と見分けがつかない） |
 | `ends-too-long` | **端の記号（矢じり・鳥の足・菱形）のほうが線より長いか**（記号は線に収まるよう縮めて描くが、線そのものは見えない） |
 | `label-too-tall` | **折り返した名前が箱の高さに入りきらないか**（名前は上下の真ん中から積むので、上下へはみ出す） |
+| `structure-too-thin` | **構成図の縦横の比が 4 : 1 を超えていないか**（貼った先で幅に合わせて縮むので、細長いほど字が小さくなる） |
 | `node-edge-key-ignored` | **辺だけの語（`weight` / `curve` / `ends` / `via` / `close`）を節に書いていないか** |
 | `edge-node-key-ignored` | **節だけの語（`at` / `size` / `marker` / `tag` ほか）を辺に書いていないか** |
 | `align-unknown` | `left` / `center` / `right` か |

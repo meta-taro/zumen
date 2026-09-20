@@ -342,7 +342,33 @@ export async function placedFindings(text: string): Promise<Finding[]> {
         ];
       });
 
-  if (!plan) return [...size, ...short, ...heads];
+  /**
+   * **細長すぎる構成図**（2026-09-21。構成図だけ）。
+   *
+   * 貼った先で幅に合わせて縮むので、**細長いほど字が小さくなる**（`src/wrap.ts`）。
+   * 配置図の細長さは中身（長い断面・経路）であることが多いので見ない ——
+   * 構成図は**機械が形を決めている**ので、`wrap` で直せる。
+   */
+  const thin: Finding[] = ((): Finding[] => {
+    if (plan) return [];
+    const long = Math.max(placed.width, placed.height);
+    const short2 = Math.max(1, Math.min(placed.width, placed.height));
+    const ratio = long / short2;
+    if (ratio <= 4) return [];
+    return [
+      {
+        severity: 'warning' as const,
+        code: 'structure-too-thin',
+        message: messages().validate.structureTooThin(
+          `${ratio.toFixed(1)} : 1`,
+          Math.round(placed.width),
+          Math.round(placed.height),
+        ),
+      },
+    ];
+  })();
+
+  if (!plan) return [...size, ...short, ...heads, ...thin];
   const plans = planNames(placed.boxes, extentOf(placed.boxes), placed.edges, placed.groups);
   /**
    * **紙の上で数える**（2026-09-17）。

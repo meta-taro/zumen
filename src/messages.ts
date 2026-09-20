@@ -835,6 +835,19 @@ const ja = {
      * 見本 297 を描いていて自分で踏んだ —— 2 行の名前を高さ 18px の箱に入れ、
      * 2 行目が下の図にかぶった。
      */
+    /**
+     * **細長すぎる構成図**（2026-09-21）。
+     *
+     * 貼った先で幅に合わせて縮むので、**細長いほど字が小さくなる**（`src/wrap.ts`）。
+     * 測ったら、構成図の縦横比の中央値は **2.19**（配置図は 1.27）で、
+     * **4 を超えるものが 34 枚中 5 枚**あった。
+     *
+     * **`wrap: true` は万能ではない。** 見本 301（閉路も groups も無い）は
+     * 4.09 : 1 → 1.7 : 1 になって読む順もそのままだったが、
+     * 見本 287（groups あり）は折り返すと**三段仕込みの 4 つがばらばらの順**に出た。
+     */
+    structureTooThin: (ratio: string, width: number, height: number) =>
+      `この構成図は ${width} × ${height}px で、縦横の比が ${ratio} あります。**貼った先では幅に合わせて縮む**ので、細長いほど字が小さくなります。\`wrap: true\` で折り返せますが、**並びの順が崩れることがあります**（戻る辺や groups があるとき）—— 折り返したら必ず絵にして、読む順どおりに出ているか見てください。崩れるなら、節をまとめて段を減らすか、図を分けてください。`,
     labelTooTall: (id: string, lines: number, need: number, has: number) =>
       `ノード "${id}" の名前は ${lines} 行ありますが、箱の高さが ${has}px しかありません（${need}px 要ります）。名前は箱の上下の真ん中から積むので、**足りない分は上下へはみ出して**、まわりの図に重なります。\`size.h\` を ${need}px 以上にするか、行を減らしてください。`,
     hatchTooThin: (id: string, hatch: string, side: number) =>
@@ -1498,6 +1511,8 @@ const en: Catalog = {
       `The label of "${id}" contains **"${found}"** — a lowercase English word glued straight onto Japanese text. That is usually a draft term left untranslated (an invented word), or two parts in the wrong order. **It is drawn exactly as written.** Translate it, or put a space between the scripts. Units (mm, cm, kg) and spaced forms like "PoE の" are not flagged.`,
     circleNotSquare: (id: string, marker: string, w: number, h: number, d: number) =>
       `Node "${id}" is \`marker: ${marker}\` (a circle), but its \`size\` is ${w}x${h}, not square. **A circle takes the shorter side as its diameter**, so what gets drawn is a **${d} circle** and the ${Math.max(w, h)} you wrote is gone. Label placement and overlap still measure the ${w}x${h} box, so **empty room is left beside the circle**. Use \`marker: ellipse\` for an oval (it uses both w and h), or make \`size\` square.`,
+    structureTooThin: (ratio: string, width: number, height: number) =>
+      `This structure diagram is ${width} × ${height}px, an aspect ratio of ${ratio}. **Pasted anywhere it will be scaled to the column width**, so the thinner it is the smaller the text gets. \`wrap: true\` folds it, but **it can scramble the reading order** (back edges and groups both do this) — always look at the picture afterwards. If it scrambles, merge nodes to shorten the chain, or split the drawing.`,
     labelTooTall: (id: string, lines: number, need: number, has: number) =>
       `Node "${id}" has a ${lines}-line name but the box is only ${has}px tall (it needs ${need}px). Lines are stacked from the middle of the box, so **the overflow spills above and below** onto whatever is there. Raise \`size.h\` to ${need}px or use fewer lines.`,
     hatchTooThin: (id: string, hatch: string, side: number) =>

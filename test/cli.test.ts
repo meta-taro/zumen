@@ -987,3 +987,55 @@ describe('inspect が出す紙の大きさ', () => {
     assert.match(row, /比 [\d.]+/, row);
   });
 });
+
+/**
+ * **細長すぎる構成図**（2026-09-21）。
+ *
+ * 貼った先で幅に合わせて縮むので、**細長いほど字が小さくなる**（`src/wrap.ts`）。
+ * 測ったら、構成図の縦横比の中央値は **2.19**（配置図は 1.27）で、
+ * **4 を超えるものが 34 枚中 5 枚**あった。
+ *
+ * 配置図の細長さは中身（長い断面・経路）であることが多いので見ない ——
+ * 構成図は**機械が形を決めている**ので、`wrap` で直せる見込みがある。
+ */
+describe('細長すぎる構成図', () => {
+  const chain = (n: number): string => {
+    const nodes = Array.from({ length: n }, (_, i) => `  - id: n${i}\n    label: 工程 ${i}\n`).join('');
+    const edges = Array.from({ length: n - 1 }, (_, i) => `  - from: n${i}\n    to: n${i + 1}\n`).join('');
+    return `version: 1\ndirection: down\nnodes:\n${nodes}edges:\n${edges}`;
+  };
+
+  it('**比を出して、折り返しを勧める**', async () => {
+    const { placedFindings } = await import('../src/cli.ts');
+    const found = await placedFindings(chain(10));
+    const said = found.find((f) => f.code === 'structure-too-thin');
+    assert.ok(said !== undefined, found.map((f) => f.code).join(','));
+    assert.match(said.message, /: 1/, said.message);
+    assert.match(said.message, /wrap: true/, said.message);
+  });
+
+  it('**折り返すと順が崩れることも言う**（wrap は万能ではない）', async () => {
+    const { placedFindings } = await import('../src/cli.ts');
+    const found = await placedFindings(chain(10));
+    const said = found.find((f) => f.code === 'structure-too-thin')!;
+    assert.match(said.message, /崩れることがあります/, said.message);
+  });
+
+  it('ほどよい形には言わない', async () => {
+    const { placedFindings } = await import('../src/cli.ts');
+    const found = await placedFindings(chain(3));
+    assert.ok(!found.some((f) => f.code === 'structure-too-thin'));
+  });
+
+  it('**配置図には言わない**（細長さが中身のことがある）', async () => {
+    const { placedFindings } = await import('../src/cli.ts');
+    const long = [
+      'version: 1', 'kind: placement', 'nodes:',
+      '  - id: a', '    label: 端', '    at: { x: 0, y: 0 }', '    size: { w: 40, h: 40 }',
+      '  - id: b', '    label: 端', '    at: { x: 2000, y: 0 }', '    size: { w: 40, h: 40 }',
+      '',
+    ].join('\n');
+    const found = await placedFindings(long);
+    assert.ok(!found.some((f) => f.code === 'structure-too-thin'));
+  });
+});
