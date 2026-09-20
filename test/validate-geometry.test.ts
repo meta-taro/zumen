@@ -531,3 +531,58 @@ describe('丸に長方形の size', () => {
     assert.match(said.message, /ellipse/);
   });
 });
+
+/**
+ * **日本語に、小文字の英単語がくっついている**（2026-09-20）。
+ *
+ * 棚板の図を描いていて、**「前framing」という無い言葉**を自分で作った（正しくは幕板）。
+ * 英語の用語を下書きから写して、日本語に直し忘れた形。
+ * **絵にはそのまま出るのに、どの検査も見ていなかった。**
+ *
+ * 測ったら見本 249 枚で **2 件**だけ当たり、どちらも本物だった ——
+ * 見本 195 の「身長 160 以上cm」（正しくは「160cm 以上」）。
+ */
+describe('日本語にくっついた英単語', () => {
+  const one = (text: string) =>
+    codes(`${PLACEMENT}  - id: a\n    label: "${text}"\n    at: { x: 0, y: 0 }\n    size: { w: 200, h: 60 }\n`);
+
+  it('**「前framing」のような造語を知らせる**', () => {
+    assert.deepEqual(one('前framing を付ける'), ['label-glued-word']);
+  });
+
+  it('語の順が入れ替わった形も当たる（160 以上cm）', () => {
+    assert.deepEqual(one('身長 160 以上cm'), ['label-glued-word']);
+  });
+
+  it('**単位は当たらない**（mm・cm・kg は ASCII だけ）', () => {
+    assert.deepEqual(one('厚み 18mm ／ 奥行 250mm'), []);
+  });
+
+  it('**中黒をはさんだ単位も当たらない**（`mm・` を字と数えない）', () => {
+    assert.deepEqual(one('30mm・40mm の二つ'), []);
+  });
+
+  it('あいだに空きがあれば当たらない', () => {
+    assert.deepEqual(one('PoE の給電クラス'), []);
+  });
+
+  it('大文字だけの略語は当たらない', () => {
+    assert.deepEqual(one('JIS の定め'), []);
+  });
+
+  it('1 文字の英字は当たらない（記号として使う）', () => {
+    assert.deepEqual(one('たわみ δ と幅 b'), []);
+  });
+
+  it('符号（tag）も見る', () => {
+    assert.deepEqual(
+      codes(`${PLACEMENT}  - id: a\n    label: あ\n    tag: "前framing"\n    at: { x: 0, y: 0 }\n    size: { w: 60, h: 60 }\n`),
+      ['label-glued-word'],
+    );
+  });
+
+  it('どこが当たったかを言う', () => {
+    const found = validate(`${PLACEMENT}  - id: a\n    label: "前framing を付ける"\n    at: { x: 0, y: 0 }\n    size: { w: 200, h: 60 }\n`);
+    assert.match(found.find((f) => f.code === 'label-glued-word')!.message, /前framing|framing/);
+  });
+});

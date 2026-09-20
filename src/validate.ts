@@ -380,12 +380,35 @@ function checkLabelMarkdown(doc: Document, add: Add, m: Messages, at: At): void 
     // **名前だけではない。** 符号（tag）も版（technology）も、そのまま絵に出る。
     for (const field of ['label', 'tag', 'technology'] as const) {
       const text = item.get(field);
-      if (typeof text !== 'string' || !text.includes('**')) continue;
+      if (typeof text !== 'string') continue;
       const id = String(item.get('id') ?? '');
-      add('warning', 'label-markdown', m.labelMarkdown(id), at(item.get(field, true)));
+      if (text.includes('**')) {
+        add('warning', 'label-markdown', m.labelMarkdown(id), at(item.get(field, true)));
+      }
+      const glued = GLUED.exec(text);
+      if (glued !== null) {
+        add('warning', 'label-glued-word', m.labelGluedWord(id, glued[0]), at(item.get(field, true)));
+      }
     }
   }
 }
+
+/**
+ * **日本語の字のすぐ隣に、小文字の英単語がくっついている**（2026-09-20）。
+ *
+ * 棚板の図を描いていて、**「前framing」という無い言葉**を自分で作った
+ * （正しくは幕板）。英語の用語を下書きから写して、日本語に直し忘れた形。
+ * **絵にはそのまま出るのに、どの検査も見ていなかった。**
+ *
+ * 測ったら**見本 249 枚で 2 件**だけ当たった —— どちらも本物で、
+ * 見本 195 の「身長 160 以上cm」（正しくは「160cm 以上」）。
+ *
+ * **中黒（・）を字に数えない。** 数えると `mm・` が当たって 62 件になる。
+ * 単位（mm・cm・kg）は ASCII だけなので当たらず、
+ * 「PoE の」「R600a」のように**間に空きがある書き方も当たらない。**
+ */
+const GLUED =
+  /[\u3041-\u3096\u30a1-\u30fa\u30fc\u4e00-\u9fff][a-z]{2,}|[a-z]{2,}[\u3041-\u3096\u30a1-\u30fa\u30fc\u4e00-\u9fff]/;
 
 function checkSharedIds(doc: Document, add: Add, m: Messages, at: At): void {
   const groups = new Set<string>();

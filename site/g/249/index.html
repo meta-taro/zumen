@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>棚板はなぜたわむか（スパン・厚み・幕板） — zumen の見本 249</title>
+<link rel="icon" type="image/svg+xml" href="../../icon.svg">
+<meta name="theme-color" content="#23232b">
+<meta name="description" content="棚板（材料を替えるより、形を変えるほうが効く）">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="zumen">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:url" content="https://meta-taro.github.io/zumen/g/249/">
+<meta property="og:title" content="棚板はなぜたわむか（スパン・厚み・幕板） — zumen の見本 249">
+<meta property="og:description" content="棚板（材料を替えるより、形を変えるほうが効く）">
+<meta property="og:image" content="https://meta-taro.github.io/zumen/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="棚板はなぜたわむか（スパン・厚み・幕板） — zumen の見本 249">
+<meta name="twitter:description" content="棚板（材料を替えるより、形を変えるほうが効く）">
+<meta name="twitter:image" content="https://meta-taro.github.io/zumen/og.png">
+<link rel="stylesheet" href="../../style.css">
+<link rel="canonical" href="https://meta-taro.github.io/zumen/g/249/">
+<link rel="alternate" hreflang="ja" href="https://meta-taro.github.io/zumen/g/249/">
+<link rel="alternate" hreflang="en" href="https://meta-taro.github.io/zumen/en/g/249/">
+<link rel="alternate" hreflang="x-default" href="https://meta-taro.github.io/zumen/g/249/">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="alternate" type="text/markdown" href="https://meta-taro.github.io/zumen/llms.txt" title="llms.txt">
+<link rel="sitemap" type="application/xml" href="https://meta-taro.github.io/zumen/sitemap.xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": "棚板はなぜたわむか（スパン・厚み・幕板）",
+  "description": "棚板（材料を替えるより、形を変えるほうが効く）",
+  "url": "https://meta-taro.github.io/zumen/g/249/",
+  "image": "https://meta-taro.github.io/zumen/gallery/249-%E6%A3%9A%E6%9D%BF%E3%81%AE%E3%81%9F%E3%82%8F%E3%81%BF.svg",
+  "inLanguage": "ja",
+  "license": "https://opensource.org/licenses/MIT",
+  "isPartOf": {
+    "@type": "CollectionPage",
+    "name": "建築・土木",
+    "url": "https://meta-taro.github.io/zumen/c/kenchiku/"
+  },
+  "encodingFormat": "text/yaml",
+  "isAccessibleForFree": true
+}
+</script>
+</head>
+<body class="sub">
+<header class="bar">
+  <a class="home" href="../../">zumen</a>
+  <nav><a href="../../c/kenchiku/">建築・土木</a></nav>
+</header>
+<main>
+<article>
+  <p class="crumb">建築・土木</p>
+  <h1>棚板はなぜたわむか（スパン・厚み・幕板）</h1>
+  <p class="lead">棚板（材料を替えるより、形を変えるほうが効く）</p>
+  <figure>
+    <img src="../../gallery/249-%E6%A3%9A%E6%9D%BF%E3%81%AE%E3%81%9F%E3%82%8F%E3%81%BF.svg" alt="棚板のたわみ（スパンと厚みの 3 乗・JIS A 5908 のヤング係数・幕板の断面二次モーメント）" loading="lazy">
+  </figure>
+  <p class="made">この図は、下の 1 枚の YAML から描かれています。手で図形を動かしてはいません。</p>
+  <h2>正本に書いてある決まりごと</h2>
+  <p><strong>たわみはスパンの 3 乗で効く。</strong> 同じ本を載せるなら、スパンを 2 倍にすると 8 倍。<strong>本で埋めるなら 4 乗で 16 倍。</strong></p>
+  <p>δ ＝ 5 W L³ ／ (384 E I)、I ＝ b t³ ／ 12。<strong>厚みも 3 乗。</strong> 18mm を 24mm にすると、たわみは (18/24)³ ＝ 0.42 倍。</p>
+  <p><strong>材料を替えるより、形を変えるほうが効く。</strong>奥行 250・厚 18・スパン 900 に本 20kg で、8 タイプなら 7.7mm、18 タイプでも 5.1mm。ところが<strong>前に 40mm の幕板を付けると 0.8mm</strong>。断面二次モーメントが 121,500 → 739,500 mm⁴（6.1 倍）になるため。</p>
+  <p>効くのは<strong>中立軸からどれだけ離れた所に材料があるか</strong>。本棚の幕板は、見栄えではなくたわみ止め。</p>
+  <p>E は JIS A 5908 の曲げヤング係数（8 タイプ 2,000 ／ 13 タイプ 2,500 ／18 タイプ 3,000 N/mm² 以上）。</p>
+  <h2>正本（YAML）</h2>
+  <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/249-%E6%A3%9A%E6%9D%BF%E3%81%AE%E3%81%9F%E3%82%8F%E3%81%BF.zumen.yaml"><code>examples/gallery/249-棚板のたわみ.zumen.yaml</code></a></p>
+  <h2>同じ分野の見本</h2>
+  <ul class="near"><li><a href="../14/">間取り（2LDK・1 階）</a></li><li><a href="../17/">躯体の伏図（RC 造・2 階床）</a></li><li><a href="../24/">校舎の平面図（小学校 3 階）</a></li><li><a href="../27/">ほ場整備の平面図（30a 区画）</a></li><li><a href="../28/">ダムの平面図（重力式）</a></li><li><a href="../30/">総合仮設計画図（クレーンの作業半径つき）</a></li><li><a href="../32/">ホテルの基準階（客室 12 室）</a></li><li><a href="../33/">駐車場の区画割（14 台）</a></li></ul>
+</article>
+</main>
+<footer class="foot">
+  <p><a href="https://github.com/meta-taro/zumen">GitHub</a> · MIT · <a href="https://meta-taro.github.io/zumen/en/g/249/">English</a></p>
+</footer>
+</body>
+</html>

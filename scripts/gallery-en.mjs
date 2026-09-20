@@ -112,6 +112,7 @@ export const CAPTIONS_EN = {
   '169-麻雀の配牌': 'Mahjong: the dice decide where the wall is opened, not luck',
   '168-ダイヤモンドシステム': 'Billiards: the diamonds on the rails are a ruler, not decoration',
   '167-ダーツボードの割り付け': 'A dartboard: the numbers are arranged to punish a miss',
+  '249-棚板のたわみ': 'A shelf sags with the cube of its span, so doubling the span sags it eight times — and gluing a 40mm rail under the front edge does more than upgrading the board',
   '248-電子レンジの構造': 'Hot and cold spots sit 6.1cm apart because that is half of the 12.2cm wavelength, which no cabinet design can remove — so the food is moved instead',
   '247-エアコンの四方弁': 'Heating and cooling swap the roles of the indoor and outdoor coils, and the only part that changes is one valve — which is also why a heat pump briefly runs cooling in the middle of heating, to melt its own frost',
   '246-冷蔵庫の中身': 'A fridge does not make cold, it pumps heat out — and it throws away more than it took, because the compressor\'s electricity comes out as heat too',
