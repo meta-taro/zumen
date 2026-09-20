@@ -118,6 +118,19 @@ describe('行番号が出る（「不正です」で終わらせない）', () =
     assert.equal(duplicated?.line, 5);
   });
 
+  /**
+   * **重なった相手の行まで言う**（2026-09-20）。
+   *
+   * 片方の行だけでは直せない —— **もう 1 つを見つけないと、どちらを変えるか決められない。**
+   * 自動で名前を振る道具（`p0` `p1` …）と手で書いた名前がぶつかったとき、
+   * 結局こちらで探すことになっていた（1 日に 3 回踏んだ）。
+   */
+  it('**先に出てきたほうの行も言う**', () => {
+    const findings = validate('version: 1\nnodes:\n  - id: a\n  - id: b\n  - id: a\n');
+    const duplicated = findings.find((finding) => finding.code === 'node-id-duplicated')!;
+    assert.match(duplicated.message, /先に出てきたのは 3 行目/, duplicated.message);
+  });
+
   it('構文誤りの行を指す', () => {
     const findings = validate('version: 1\nnodes:\n  - id: a\n   bad indent\n');
     assert.equal(findings[0]?.line, 4);

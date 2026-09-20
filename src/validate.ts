@@ -174,7 +174,16 @@ function checkNodes(doc: Document, add: Add, m: Messages, at: At): Set<string> |
     return undefined;
   }
 
-  const ids = new Set<string>();
+  /**
+   * **重なった相手の行まで言う**（2026-09-20）。
+   *
+   * 前は「id "p3" が 2 か所以上にあります」と**片方の行だけ**だった。
+   * ところが重複は、**もう 1 つを見つけないと直せない** ——
+   * 自動で名前を振る道具（`p0` `p1` …）と手で書いた名前がぶつかると、
+   * どちらを直すかを決めるのに、結局こちらで探すことになる。
+   * **このセッションで 3 回踏んだ**（`n1`/`p1`、`p3`/`p4`）。
+   */
+  const ids = new Map<string, number | undefined>();
   let position = 0;
   for (const item of node.items) {
     position += 1;
@@ -186,12 +195,12 @@ function checkNodes(doc: Document, add: Add, m: Messages, at: At): Set<string> |
     }
     const key = String(id);
     if (ids.has(key)) {
-      add('error', 'node-id-duplicated', m.nodeIdDuplicated(key), at(item));
+      add('error', 'node-id-duplicated', m.nodeIdDuplicated(key, ids.get(key)), at(item));
       continue;
     }
-    ids.add(key);
+    ids.set(key, at(item));
   }
-  return ids;
+  return new Set(ids.keys());
 }
 
 /**

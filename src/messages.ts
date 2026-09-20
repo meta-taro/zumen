@@ -531,7 +531,8 @@ const ja = {
     nodesMissing: 'nodes がありません。要素を 1 つも持たない図は描けません。',
     nodesNotSequence: 'nodes が並びになっていません。- で始まる行を並べます。',
     nodeIdMissing: (position: number) => `nodes の ${position} 番目に id がありません。`,
-    nodeIdDuplicated: (id: string) => `id "${id}" が 2 か所以上にあります。id は文書の中で一意です。`,
+    nodeIdDuplicated: (id: string, first?: number) =>
+      `id "${id}" が 2 か所以上にあります。id は文書の中で一意です。${first === undefined ? '' : `**先に出てきたのは ${first} 行目**です —— どちらかの名前を変えてください。`}`,
     edgeEndpointUnknown: (edge: string, id: string) =>
       `エッジ ${edge} が id "${id}" を指していますが、そのノードがありません。`,
     edgeEndpointMissing: (position: number) =>
@@ -1178,7 +1179,8 @@ const en: Catalog = {
     nodesMissing: 'nodes is missing. A diagram with no elements cannot be drawn.',
     nodesNotSequence: 'nodes is not a sequence. It should be a list of items starting with -.',
     nodeIdMissing: (position: number) => `Item ${position} of nodes has no id.`,
-    nodeIdDuplicated: (id: string) => `id "${id}" appears more than once. Ids are unique per document.`,
+    nodeIdDuplicated: (id: string, first?: number) =>
+      `id "${id}" appears more than once. Ids are unique per document.${first === undefined ? '' : ` **The first one is on line ${first}** — rename one of them.`}`,
     edgeEndpointUnknown: (edge: string, id: string) =>
       `Edge ${edge} points at id "${id}", but no such node exists.`,
     edgeEndpointMissing: (position: number) => `Item ${position} of edges has no from or no to.`,
