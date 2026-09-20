@@ -112,6 +112,7 @@ export const CAPTIONS_EN = {
   '169-麻雀の配牌': 'Mahjong: the dice decide where the wall is opened, not luck',
   '168-ダイヤモンドシステム': 'Billiards: the diamonds on the rails are a ruler, not decoration',
   '167-ダーツボードの割り付け': 'A dartboard: the numbers are arranged to punish a miss',
+  '235-19インチラックと1U': 'Rack holes are deliberately unevenly spaced — 15.875 / 15.875 / 12.7 — so that the middle of the 12.7 gap marks where one U ends and the next begins',
   '234-プロトコルのヘッダ': 'Protocol headers are drawn 32 bits wide because that is the unit they are read in: the width of a field is its bit count, and nothing that does not divide into 32 ever appears',
   '233-周期表の形': 'The shape of the periodic table is the electron configuration: block widths of 2, 6, 10 and 14 are orbital capacities, so no other width is possible',
   '232-応急危険度判定': 'A red placard does not mean total loss: it answers whether it is safe to go in now, not how badly the building is damaged — two different papers, two different questions',

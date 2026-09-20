@@ -1,0 +1,538 @@
+version: 1
+kind: placement
+arrows: true
+title: 19 インチラックと 1U —— 穴は等間隔ではない
+scale: { mm: 1 }
+# **決めているのは、幅と穴の位置だけ。**
+# 奥行き・重さ・扉・電源・冷却は規格ではない ——
+# **だから「入る」ことと「収まる」ことは別。**
+#
+# **取付穴は等間隔ではない。** 15.875 / 15.875 / 12.7 の繰り返しで、
+# **12.7 の真ん中が 1U の境目**。等間隔にしなかったのは、境目が分かるようにするため。
+#
+# 1U ＝ 44.45mm ＝ 1.75 インチ。42U で 1866.9mm ——
+# インチで決まった数が、ミリの図面にそのまま出てくる。
+nodes:
+  - id: t1
+    label: "① 取付穴は等間隔ではない（1px ＝ 1mm・3U 分）"
+    marker: none
+    align: left
+    at: { x: 150, y: 200 }
+    size: { w: 620, h: 20 }
+  - id: rail
+    label: ""
+    at: { x: 220, y: 300 }
+    size: { w: 482.6, h: 133.4 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 197, y: 299 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 723.6, y: 299 }
+    size: { w: 2, h: 2 }
+  - id: u0
+    label: "3U"
+    marker: none
+    align: right
+    at: { x: 150, y: 313.2 }
+    size: { w: 44, h: 18 }
+  - id: h000
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 225.8, y: 303.4 }
+    size: { w: 6, h: 6 }
+  - id: h001
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 690.8, y: 303.4 }
+    size: { w: 6, h: 6 }
+  - id: h010
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 225.8, y: 319.2 }
+    size: { w: 6, h: 6 }
+  - id: h011
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 690.8, y: 319.2 }
+    size: { w: 6, h: 6 }
+  - id: h020
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 225.8, y: 335.1 }
+    size: { w: 6, h: 6 }
+  - id: h021
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 690.8, y: 335.1 }
+    size: { w: 6, h: 6 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 197, y: 343.5 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 723.6, y: 343.5 }
+    size: { w: 2, h: 2 }
+  - id: u1
+    label: "2U"
+    marker: none
+    align: right
+    at: { x: 150, y: 357.7 }
+    size: { w: 44, h: 18 }
+  - id: h100
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 225.8, y: 347.8 }
+    size: { w: 6, h: 6 }
+  - id: h101
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 690.8, y: 347.8 }
+    size: { w: 6, h: 6 }
+  - id: h110
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 225.8, y: 363.7 }
+    size: { w: 6, h: 6 }
+  - id: h111
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 690.8, y: 363.7 }
+    size: { w: 6, h: 6 }
+  - id: h120
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 225.8, y: 379.6 }
+    size: { w: 6, h: 6 }
+  - id: h121
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 690.8, y: 379.6 }
+    size: { w: 6, h: 6 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 197, y: 387.9 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 723.6, y: 387.9 }
+    size: { w: 2, h: 2 }
+  - id: u2
+    label: "1U"
+    marker: none
+    align: right
+    at: { x: 150, y: 402.1 }
+    size: { w: 44, h: 18 }
+  - id: h200
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 225.8, y: 392.3 }
+    size: { w: 6, h: 6 }
+  - id: h201
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 690.8, y: 392.3 }
+    size: { w: 6, h: 6 }
+  - id: h210
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 225.8, y: 408.1 }
+    size: { w: 6, h: 6 }
+  - id: h211
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 690.8, y: 408.1 }
+    size: { w: 6, h: 6 }
+  - id: h220
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 225.8, y: 424 }
+    size: { w: 6, h: 6 }
+  - id: h221
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 690.8, y: 424 }
+    size: { w: 6, h: 6 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 197, y: 432.4 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 723.6, y: 432.4 }
+    size: { w: 2, h: 2 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 731.6, y: 305.4 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 731.6, y: 349.8 }
+    size: { w: 2, h: 2 }
+  - id: dim
+    label: "1U"
+    marker: none
+    align: left
+    at: { x: 740.6, y: 314 }
+    size: { w: 40, h: 18 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 227.8, y: 273 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 692.8, y: 273 }
+    size: { w: 2, h: 2 }
+  - id: w1
+    label: "穴のピッチ 465"
+    marker: none
+    align: center
+    at: { x: 220, y: 252 }
+    size: { w: 482.6, h: 18 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 219, y: 458.4 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 701.6, y: 458.4 }
+    size: { w: 2, h: 2 }
+  - id: w2
+    label: "482.6（19 インチ）"
+    marker: none
+    align: center
+    at: { x: 220, y: 463.4 }
+    size: { w: 482.6, h: 18 }
+  - id: dim2
+    label: "1U ＝ 44.45 ＝ 15.875 ＋ 15.875 ＋ 12.7"
+    marker: none
+    align: left
+    at: { x: 220, y: 489.4 }
+    size: { w: 500, h: 18 }
+  - id: dim3
+    label: "12.7 の真ん中が、U の境目。"
+    marker: none
+    align: left
+    at: { x: 220, y: 511.4 }
+    size: { w: 500, h: 18 }
+  - id: t2
+    label: "② 決まっている数"
+    marker: none
+    align: left
+    at: { x: 800, y: 200 }
+    size: { w: 440, h: 20 }
+  - id: m0_0
+    label: "何"
+    hatch: solid
+    at: { x: 800, y: 232 }
+    size: { w: 180, h: 28 }
+  - id: m0_1
+    label: "数"
+    hatch: solid
+    at: { x: 980, y: 232 }
+    size: { w: 190, h: 28 }
+  - id: m0_2
+    label: "由来"
+    hatch: solid
+    at: { x: 1170, y: 232 }
+    size: { w: 120, h: 28 }
+  - id: m1_0
+    label: "幅"
+    at: { x: 800, y: 260 }
+    size: { w: 180, h: 28 }
+  - id: m1_1
+    label: "482.6mm"
+    at: { x: 980, y: 260 }
+    size: { w: 190, h: 28 }
+  - id: m1_2
+    label: "19 インチ"
+    at: { x: 1170, y: 260 }
+    size: { w: 120, h: 28 }
+  - id: m2_0
+    label: "1U"
+    at: { x: 800, y: 288 }
+    size: { w: 180, h: 28 }
+  - id: m2_1
+    label: "44.45mm"
+    at: { x: 980, y: 288 }
+    size: { w: 190, h: 28 }
+  - id: m2_2
+    label: "1.75 インチ"
+    at: { x: 1170, y: 288 }
+    size: { w: 120, h: 28 }
+  - id: m3_0
+    label: "穴のピッチ（横）"
+    at: { x: 800, y: 316 }
+    size: { w: 180, h: 28 }
+  - id: m3_1
+    label: "465mm"
+    at: { x: 980, y: 316 }
+    size: { w: 190, h: 28 }
+  - id: m3_2
+    label: "EIA-310"
+    at: { x: 1170, y: 316 }
+    size: { w: 120, h: 28 }
+  - id: m4_0
+    label: "穴のピッチ（縦）"
+    at: { x: 800, y: 344 }
+    size: { w: 180, h: 40 }
+  - id: m4_1
+    label: "15.875 / 15.875 / 12.7"
+    at: { x: 980, y: 344 }
+    size: { w: 190, h: 40 }
+  - id: m4_2
+    label: "足して 44.45"
+    at: { x: 1170, y: 344 }
+    size: { w: 120, h: 40 }
+  - id: m5_0
+    label: "42U"
+    at: { x: 800, y: 384 }
+    size: { w: 180, h: 28 }
+  - id: m5_1
+    label: "1866.9mm"
+    at: { x: 980, y: 384 }
+    size: { w: 190, h: 28 }
+  - id: m5_2
+    label: "44.45 × 42"
+    at: { x: 1170, y: 384 }
+    size: { w: 120, h: 28 }
+  - id: n1
+    label: "決まっていないもの —— 奥行き・重さ・扉・電源・冷却。"
+    marker: none
+    align: left
+    at: { x: 800, y: 422 }
+    size: { w: 440, h: 18 }
+  - id: n2
+    label: "奥行きは 600 / 800 / 1000 / 1200 が多いが、規格ではない。"
+    marker: none
+    align: left
+    at: { x: 800, y: 444 }
+    size: { w: 440, h: 18 }
+  - id: n3
+    label: "だから「入る」ことと「収まる」ことは別。"
+    marker: none
+    align: left
+    at: { x: 800, y: 466 }
+    size: { w: 440, h: 18 }
+  - id: t3
+    label: "③ 42U に何を積むか（模式）"
+    marker: none
+    align: left
+    at: { x: 150, y: 549.4 }
+    size: { w: 620, h: 20 }
+  - id: st0
+    label: "パッチパネル 1U"
+    at: { x: 220, y: 583.4 }
+    size: { w: 300, h: 20 }
+  - id: stn0
+    label: "1U"
+    marker: none
+    align: left
+    at: { x: 528, y: 585.4 }
+    size: { w: 36, h: 18 }
+  - id: st1
+    label: "スイッチ 1U"
+    at: { x: 220, y: 603.4 }
+    size: { w: 300, h: 20 }
+  - id: stn1
+    label: "1U"
+    marker: none
+    align: left
+    at: { x: 528, y: 605.4 }
+    size: { w: 36, h: 18 }
+  - id: st2
+    label: "空き 1U（熱を抜く）"
+    hatch: lines
+    at: { x: 220, y: 623.4 }
+    size: { w: 300, h: 20 }
+  - id: stn2
+    label: "1U"
+    marker: none
+    align: left
+    at: { x: 528, y: 625.4 }
+    size: { w: 36, h: 18 }
+  - id: st3
+    label: "サーバ 2U"
+    at: { x: 220, y: 643.4 }
+    size: { w: 300, h: 40 }
+  - id: stn3
+    label: "2U"
+    marker: none
+    align: left
+    at: { x: 528, y: 655.4 }
+    size: { w: 36, h: 18 }
+  - id: st4
+    label: "サーバ 2U"
+    at: { x: 220, y: 683.4 }
+    size: { w: 300, h: 40 }
+  - id: stn4
+    label: "2U"
+    marker: none
+    align: left
+    at: { x: 528, y: 695.4 }
+    size: { w: 36, h: 18 }
+  - id: st5
+    label: "ストレージ 4U"
+    at: { x: 220, y: 723.4 }
+    size: { w: 300, h: 80 }
+  - id: stn5
+    label: "4U"
+    marker: none
+    align: left
+    at: { x: 528, y: 755.4 }
+    size: { w: 36, h: 18 }
+  - id: st6
+    label: "UPS 3U"
+    at: { x: 220, y: 803.4 }
+    size: { w: 300, h: 60 }
+  - id: stn6
+    label: "3U"
+    marker: none
+    align: left
+    at: { x: 528, y: 825.4 }
+    size: { w: 36, h: 18 }
+  - id: n4
+    label: "重いものを下に。倒れる向きが変わる。"
+    marker: none
+    align: left
+    at: { x: 620, y: 583.4 }
+    size: { w: 340, h: 18 }
+  - id: n5
+    label: "前から吸って、後ろへ出す。"
+    marker: none
+    align: left
+    at: { x: 620, y: 609.4 }
+    size: { w: 360, h: 18 }
+  - id: n6
+    label: "向きをそろえないと、隣の排気を吸い込む。"
+    marker: none
+    align: left
+    at: { x: 620, y: 631.4 }
+    size: { w: 360, h: 18 }
+  - id: n7
+    label: "空き 1U は、熱を抜くためにわざと空ける。"
+    marker: none
+    align: left
+    at: { x: 620, y: 661.4 }
+    size: { w: 360, h: 18 }
+  - id: n8
+    label: "ふさぐならブランクパネルで。"
+    marker: none
+    align: left
+    at: { x: 620, y: 683.4 }
+    size: { w: 360, h: 18 }
+  - id: n9
+    label: "開けっぱなしだと、後ろの熱が前へ回り込む。"
+    marker: none
+    align: left
+    at: { x: 620, y: 705.4 }
+    size: { w: 360, h: 18 }
+  - id: r1
+    label: "19 インチラックが決めているのは、幅と穴の位置だけです（②）。奥行き・重さ・扉・電源・冷却は規格ではありません。"
+    marker: none
+    align: left
+    at: { x: 150, y: 923.4 }
+    size: { w: 1090, h: 18 }
+  - id: r2
+    label: "だから「入る」ことと「収まる」ことは別です。幅は合うのに奥行きが足りない、重さで棚が持たない、という形でぶつかります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 947.4 }
+    size: { w: 1090, h: 18 }
+  - id: r3
+    label: "取付穴は等間隔ではありません（①）。15.875 / 15.875 / 12.7 の繰り返しで、12.7 の真ん中が 1U の境目です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 971.4 }
+    size: { w: 1090, h: 18 }
+  - id: r4
+    label: "等間隔にしなかったのは、境目が分かるようにするためです。等間隔だと、どこから 1U が始まるのか手で数えることになります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 995.4 }
+    size: { w: 1090, h: 18 }
+  - id: r5
+    label: "1U ＝ 44.45mm は 1.75 インチ。42U で 1866.9mm —— インチで決まった数が、ミリの図面にそのまま出てきます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1019.4 }
+    size: { w: 1090, h: 18 }
+  - id: r6
+    label: "空き 1U は、熱を抜くためにわざと空けます（③）。ふさぐならブランクパネルで —— 開けっぱなしだと、後ろの熱が前へ回り込みます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1043.4 }
+    size: { w: 1090, h: 18 }
+  - id: r7
+    label: "前から吸って、後ろへ出す。 向きをそろえないと、隣の排気を吸い込みます。ラックの並べ方（ホットアイル・コールドアイル）はここから決まります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1067.4 }
+    size: { w: 1090, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p2
+    to: p3
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p4
+    to: p5
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p6
+    to: p7
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p8
+    to: p9
+    curve: none
+    ends: { from: arrow, to: arrow }
+  - from: p10
+    to: p11
+    curve: none
+    ends: { from: arrow, to: arrow }
+  - from: p12
+    to: p13
+    curve: none
+    ends: { from: arrow, to: arrow }
