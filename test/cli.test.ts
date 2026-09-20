@@ -905,7 +905,7 @@ describe('構成図が紙に収まらないとき', () => {
     const found = await (await import('../src/cli.ts')).placedFindings(chain(24));
     const said = found.find((f) => f.code === 'too-small-to-print');
     assert.ok(said !== undefined, found.map((f) => f.code).join(','));
-    assert.match(said.message, /鎖がいちばん深い所は 24 段/, said.message);
+    assert.match(said.message, /長辺の向きに 24 段/, said.message);
     assert.match(said.message, /段まで減らしてください/, said.message);
     assert.equal(result.code, 0, '止めない');
   });
@@ -1037,5 +1037,41 @@ describe('細長すぎる構成図', () => {
     ].join('\n');
     const found = await placedFindings(long);
     assert.ok(!found.some((f) => f.code === 'structure-too-thin'));
+  });
+});
+
+/**
+ * **段の数は、中心で数える**（2026-09-21）。
+ *
+ * 機械は同じ段の節を同じ線の上に並べるが、**箱ごとに幅が違うので左端はずれる。**
+ * 左上の座標で数えたら、**3 段に折り返した図を 9 段**と数えた。
+ */
+describe('段の数', () => {
+  it('**幅の違う箱が同じ段にあっても、1 段と数える**', async () => {
+    const { rankCount } = await import('../src/cli.ts');
+    const same = {
+      boxes: [
+        { x: 0, y: 0, w: 100, h: 40 },
+        { x: 140, y: 0, w: 300, h: 40 },
+        { x: 500, y: 0, w: 60, h: 40 },
+      ],
+      width: 200,
+      height: 600,
+    };
+    assert.equal(rankCount(same), 1, '縦に並べた図なら、y が同じものは 1 段');
+  });
+
+  it('段が分かれていれば、その数を返す', async () => {
+    const { rankCount } = await import('../src/cli.ts');
+    const three = {
+      boxes: [
+        { x: 0, y: 0, w: 100, h: 40 },
+        { x: 0, y: 140, w: 300, h: 40 },
+        { x: 0, y: 280, w: 60, h: 40 },
+      ],
+      width: 200,
+      height: 600,
+    };
+    assert.equal(rankCount(three), 3);
   });
 });

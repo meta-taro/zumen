@@ -160,6 +160,25 @@ function widestGap(
 }
 
 /**
+ * **段の数**（構成図。いちばん深い鎖が何段か）。
+ *
+ * 機械は同じ段の節を同じ線の上に並べるので、**中心の座標をまとめれば段が数えられる。**
+ * 左上の座標では数えられない —— **箱ごとに幅が違うので、同じ段でも左端がずれる**
+ * （折り返した図で 3 段を 9 段と数えた。2026-09-21）。
+ */
+export function rankCount(placed: {
+  boxes: { x: number; y: number; w: number; h: number }[];
+  width: number;
+  height: number;
+}): number {
+  const line = (v: number): number => Math.round(v / 20);
+  const along = placed.width >= placed.height
+    ? placed.boxes.map((box) => line(box.x + box.w / 2))
+    : placed.boxes.map((box) => line(box.y + box.h / 2));
+  return new Set(along).size;
+}
+
+/**
  * **置いてみないと分からない指摘**（配置図だけ）。
  *
  * 構成図では置き場所を機械が決めるので、重なりは起きない。
@@ -191,12 +210,7 @@ export async function placedFindings(text: string): Promise<Finding[]> {
    * 機械が並べる図では、同じ段の節が同じ座標に並ぶ。
    * **段の数がそのまま紙の長さ**になるので、別の座標の数を数えれば足りる。
    */
-  const ranksOf = (): number => {
-    const down = new Set(placed.boxes.map((box) => Math.round(box.y))).size;
-    const across = new Set(placed.boxes.map((box) => Math.round(box.x))).size;
-    // 横へ並べた図は x が段になる。**長辺の向きで決める**（`direction` は置いた後には残らない）。
-    return placed.width >= placed.height ? across : down;
-  };
+  const ranksOf = (): number => rankCount(placed);
   const size: Finding[] = paper.tooSmallToPrint && !plan
     ? [
         {
@@ -588,6 +602,8 @@ export async function runInspect(paths: string[], read = readFileSync): Promise<
       continue;
     }
     lines.push(m.inspectCounts(seen.nodes, seen.edges, kindOf(text) === 'placement' ? m.inspectPlan : m.inspectStructure));
+    // **構成図には段の数も出す。** 紙の長さは、いちばん長い鎖の深さで決まる。
+    if (kindOf(text) !== 'placement') lines.push(m.inspectRanks(rankCount(await layout(text))));
 
     /**
      * **警告の件数も出す**（2026-09-20）。
