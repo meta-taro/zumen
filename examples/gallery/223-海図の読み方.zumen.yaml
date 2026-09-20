@@ -14,6 +14,16 @@ scale: { mm: 100 }
 #
 # **入港するとき右が赤**（日本は IALA-B）。欧州の A 方式とは左右が逆。
 nodes:
+  - id: dim_p12
+    label: ""
+    marker: none
+    at: { x: 459, y: 480 }
+    size: { w: 2, h: 2 }
+  - id: dim_p13
+    label: ""
+    marker: none
+    at: { x: 459, y: 543 }
+    size: { w: 2, h: 2 }
   - id: t1
     label: "① 深さと高さは、別の面から測る（1px ＝ 100mm）"
     marker: none
@@ -666,7 +676,15 @@ edges:
   - from: p12
     to: p13
     curve: none
-    ends: { from: arrow, to: arrow }
+    ends: { from: none, to: none }
+  - from: dim_p12
+    to: p12
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: dim_p13
+    to: p13
+    curve: none
+    ends: { from: none, to: arrow }
   - from: p14
     to: p15
     curve: none

@@ -19,6 +19,16 @@ title: スライド丁番のかぶせ量（扉の幅は、丁番を決めてか�
 # **付けてから左右・前後・上下の 3 方向に動かせる。**
 # 木は動くので、作ったあとに合わせられることが、この金物の値打ち。
 nodes:
+  - id: dim_p2
+    label: ""
+    marker: none
+    at: { x: 406, y: 349 }
+    size: { w: 2, h: 2 }
+  - id: dim_p3
+    label: ""
+    marker: none
+    at: { x: 465, y: 349 }
+    size: { w: 2, h: 2 }
   - id: t1
     label: "① 水平断面（上から見る）—— 扉が側板にどれだけかぶるか"
     marker: none
@@ -324,4 +334,12 @@ edges:
   - from: p2
     to: p3
     curve: none
-    ends: { from: arrow, to: arrow }
+    ends: { from: none, to: none }
+  - from: dim_p2
+    to: p2
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: dim_p3
+    to: p3
+    curve: none
+    ends: { from: none, to: arrow }
