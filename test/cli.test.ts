@@ -644,3 +644,34 @@ describe('観測値を見せる（inspect）', () => {
     assert.match(result.lines.join('\n'), /pnpm inspect/);
   });
 });
+
+/**
+ * **検査の網と、見る道具の網がそろっていなかった**（2026-09-20）。
+ *
+ * `test/names.test.ts` は `hiddenLabels`（絵に出ない辺のラベル）と
+ * `crowdedNames`（外へ出す先も無い名前）も 0 だと決めているのに、
+ * `pnpm inspect` は交差とまたぎしか出していなかった。
+ * **閉じたはずの穴が、半分開いたままだった。**
+ */
+describe('inspect が、検査と同じものを見る', () => {
+  it('**絵に出ていない辺のラベルを言う**', async () => {
+    const hidden = [
+      'version: 1', 'kind: placement', 'arrows: true', 'nodes:',
+      '  - id: a', '    label: あ', '    at: { x: 0, y: 0 }', '    size: { w: 40, h: 40 }',
+      '  - id: b', '    label: い', '    at: { x: 42, y: 0 }', '    size: { w: 40, h: 40 }',
+      'edges:',
+      '  - from: a', '    to: b', '    label: とても長いラベル', '    curve: none',
+      '',
+    ].join('\n');
+    const result = await runInspect(['a.yaml'], reader({ 'a.yaml': hidden }) as never);
+    const said = result.lines.join('\n');
+    assert.match(said, /絵に出ていない辺のラベル/, said);
+    assert.equal(result.code, 0, '止めない');
+  });
+
+  it('何も無ければ「全部出ています」と言う（黙らない）', async () => {
+    const one = 'version: 1\nkind: placement\nnodes:\n  - id: a\n    label: 居間\n    at: { x: 0, y: 0 }\n    size: { w: 200, h: 120 }\n';
+    const result = await runInspect(['a.yaml'], reader({ 'a.yaml': one }) as never);
+    assert.ok(result.lines.some((line) => line.includes('全部出ています')), result.lines.join('\n'));
+  });
+});

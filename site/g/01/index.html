@@ -60,7 +60,10 @@
     <img src="../../gallery/01-%E3%82%AA%E3%83%B3%E3%83%97%E3%83%AC%E3%81%AE%E3%82%B5%E3%83%BC%E3%83%90%E6%A7%8B%E6%88%90.svg" alt="オンプレのサーバ構成" loading="lazy">
   </figure>
   <p class="made">この図は、下の 1 枚の YAML から描かれています。手で図形を動かしてはいません。</p>
-  
+  <h2>正本に書いてある決まりごと</h2>
+  <p><strong>構成図の値打ちは、箱ではなく「どこで切れるか」。</strong>利用者 → Apache → PHP-FPM → MariaDB と並べると、<strong>止まったときにどこまで届くか</strong>が読める。</p>
+  <p>バックアップ先（Wasabi）を同じ箱の中に描くと、<strong>本番機ごと失ったときに戻せない</strong>ことが図から消える。だから保管先は、別の群として離して置く。</p>
+  <p>昼間は誰も通らない経路でも、DB を触っている。<strong>図に出ていない経路は、点検されない。</strong></p>
   <h2>正本（YAML）</h2>
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/01-%E3%82%AA%E3%83%B3%E3%83%97%E3%83%AC%E3%81%AE%E3%82%B5%E3%83%BC%E3%83%90%E6%A7%8B%E6%88%90.zumen.yaml"><code>examples/gallery/01-オンプレのサーバ構成.zumen.yaml</code></a></p>
   <h2>同じ分野の見本</h2>

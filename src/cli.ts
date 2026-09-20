@@ -425,7 +425,9 @@ export async function runInspect(paths: string[], read = readFileSync): Promise<
     const over = straddles(placed);
     const quiet =
       crossed.length === 0 && over.length === 0 &&
-      seen.overlappingText.length === 0 && seen.edgesUnderBoxes.length === 0;
+      seen.overlappingText.length === 0 && seen.edgesUnderBoxes.length === 0 &&
+      seen.hiddenLabels.length === 0 && seen.crowdedNames.length === 0 &&
+      seen.adriftNames.length === 0 && seen.hiddenTags.length === 0;
     if (quiet) lines.push(m.inspectClean);
     if (crossed.length > 0) lines.push(m.inspectCrossings(seen.crossings, crossed.length, spots(crossed)));
     if (over.length > 0) lines.push(m.inspectStraddles(over.length, pairs(over)));
@@ -434,6 +436,24 @@ export async function runInspect(paths: string[], read = readFileSync): Promise<
     }
     if (seen.edgesUnderBoxes.length > 0) {
       lines.push(m.inspectUnderBoxes(seen.edgesUnderBoxes.length, pairs(seen.edgesUnderBoxes)));
+    }
+
+    /**
+     * **検査の網と、見る道具の網をそろえる**（2026-09-20）。
+     * `test/names.test.ts` は `hiddenLabels` と `crowdedNames` も 0 だと決めているのに、
+     * この口は交差とまたぎしか出していなかった。**閉じたはずの穴が半分開いていた。**
+     */
+    if (seen.hiddenLabels.length > 0) {
+      lines.push(m.inspectHiddenLabels(seen.hiddenLabels.length, names(seen.hiddenLabels)));
+    }
+    if (seen.crowdedNames.length > 0) {
+      lines.push(m.inspectCrowded(seen.crowdedNames.length, names(seen.crowdedNames)));
+    }
+    if (seen.adriftNames.length > 0) {
+      lines.push(m.inspectAdrift(seen.adriftNames.length, names(seen.adriftNames)));
+    }
+    if (seen.hiddenTags.length > 0) {
+      lines.push(m.inspectHiddenTags(seen.hiddenTags.length, names(seen.hiddenTags)));
     }
 
     const ratio = seen.textRatio === null ? '—' : seen.textRatio.toFixed(4);
@@ -453,6 +473,12 @@ export async function runInspect(paths: string[], read = readFileSync): Promise<
  */
 function spots(list: { a: string; b: string; at: { x: number; y: number } }[], limit = 6): string {
   const head = list.slice(0, limit).map((c) => `${c.a}↔${c.b} (${c.at.x}, ${c.at.y})`).join(', ');
+  return list.length <= limit ? head : `${head}, …`;
+}
+
+/** id を並べる。**多いときは先頭だけ。** */
+function names(list: string[], limit = 8): string {
+  const head = list.slice(0, limit).join(', ');
   return list.length <= limit ? head : `${head}, …`;
 }
 

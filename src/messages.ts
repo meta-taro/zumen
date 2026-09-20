@@ -152,12 +152,16 @@ const ja = {
     /** 「9 割」の測り方は `docs/specs/003-9割の定義.md`。 */
     inspected: (path: string) => `${path}`,
     inspectCounts: (nodes: number, edges: number) => `  節 ${nodes} ／ 辺 ${edges}`,
-    inspectClean: '  交差 0 ／ またぎ 0 ／ 文字の重なり 0 ／ 隠れた辺 0',
+    inspectClean: '  交差 0 ／ またぎ 0 ／ 文字の重なり 0 ／ 隠れた辺 0 ／ 名前も符号も全部出ています',
     inspectCrossings: (count: number, groups: number, pairs: string) =>
       `  **交差 ${count}**（${groups} 組。同じ 2 本が何か所で交わっても 1 組）\n    ${pairs}`,
     inspectStraddles: (count: number, pairs: string) => `  **またぎ ${count}**（${pairs}）`,
     inspectOverlaps: (count: number, pairs: string) => `  **文字の重なり ${count}**（${pairs}）`,
     inspectUnderBoxes: (count: number, pairs: string) => `  **箱に隠れた辺 ${count}**（${pairs}）`,
+    inspectHiddenLabels: (count: number, ids: string) => `  **絵に出ていない辺のラベル ${count}**（${ids}）`,
+    inspectCrowded: (count: number, ids: string) => `  **外へ出す先も無い名前 ${count}**（${ids}）`,
+    inspectAdrift: (count: number, ids: string) => `  名前が箱から離れている ${count}（${ids}）`,
+    inspectHiddenTags: (count: number, ids: string) => `  印に入らなかった符号 ${count}（${ids}）`,
     inspectPaper: (smallest: number, longest: number, ratio: string) =>
       `  いちばん小さい字 ${smallest}px ／ 長辺 ${longest}px ／ 比 ${ratio}`,
     inspectPrint: '  **A3 に印刷しても字が読めません。**',
@@ -843,12 +847,16 @@ const en: Catalog = {
     mergedClean2: 'No disagreements.',
     inspected: (path: string) => `${path}`,
     inspectCounts: (nodes: number, edges: number) => `  ${nodes} nodes / ${edges} edges`,
-    inspectClean: '  0 crossings / 0 straddles / 0 text overlaps / 0 buried edges',
+    inspectClean: '  0 crossings / 0 straddles / 0 text overlaps / 0 buried edges / every name and tag is drawn',
     inspectCrossings: (count: number, groups: number, pairs: string) =>
       `  **${count} crossings** (${groups} pairs; two lines that cross more than once count as one pair)\n    ${pairs}`,
     inspectStraddles: (count: number, pairs: string) => `  **${count} straddles** (${pairs})`,
     inspectOverlaps: (count: number, pairs: string) => `  **${count} text overlaps** (${pairs})`,
     inspectUnderBoxes: (count: number, pairs: string) => `  **${count} edges buried under boxes** (${pairs})`,
+    inspectHiddenLabels: (count: number, ids: string) => `  **${count} edge labels never drawn** (${ids})`,
+    inspectCrowded: (count: number, ids: string) => `  **${count} names with nowhere to go** (${ids})`,
+    inspectAdrift: (count: number, ids: string) => `  ${count} names drifting away from their box (${ids})`,
+    inspectHiddenTags: (count: number, ids: string) => `  ${count} tags that did not fit their marker (${ids})`,
     inspectPaper: (smallest: number, longest: number, ratio: string) =>
       `  smallest text ${smallest}px / longest side ${longest}px / ratio ${ratio}`,
     inspectPrint: '  **Too small to read when printed on A3.**',
