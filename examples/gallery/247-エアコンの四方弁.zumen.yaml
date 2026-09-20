@@ -1,0 +1,462 @@
+version: 1
+kind: placement
+arrows: true
+title: エアコンの冷媒回路（四方弁で冷房と暖房が入れ替わる）
+# **冷房と暖房で、室内機と室外機の役目が入れ替わる。入れ替えるのは弁ひとつ。**
+# 圧縮機も膨張弁も熱交換器も、同じものが同じ場所にある。
+#
+# 冷房 —— 室内機が**蒸発器**（熱を吸う）、室外機が**凝縮器**（熱を出す）。
+# 暖房 —— そっくり逆。四方弁のコイルに通電して、高圧の行き先を室内機へ向ける。
+#
+# **暖房中は、ときどき冷房している。** 室外機は蒸発器なので 0℃ を下回り、
+# 外気の水分が霜になる。落とすには**四方弁を冷房側へ戻して**高温の冷媒を室外機へ送る
+# ——室内の風が止まり、室外機から湯気が出るのはこのとき。
+#
+# 冷媒は冷蔵庫と別（R410A ＝ GWP 2,090、R32 ＝ 675）。
+# **R600a（3）まで下げられないのは、必要な量が数 kg と桁違いだから。**
+#
+# **APF は定格の効率ではない**（JIS C 9612）。
+# 1 年に要る冷暖房能力の総和 ÷ 期間消費電力量。
+nodes:
+  - id: t1
+    label: "① 冷房 —— 室内機が蒸発器、室外機が凝縮器"
+    marker: none
+    align: left
+    at: { x: 150, y: 150 }
+    size: { w: 560, h: 20 }
+  - id: cin
+    label: "室内機\n蒸発器（熱を吸う）"
+    hatch: dots
+    at: { x: 180, y: 226 }
+    size: { w: 190, h: 90 }
+  - id: cout
+    label: "室外機の熱交換器\n凝縮器（熱を出す）"
+    hatch: lines
+    at: { x: 510, y: 226 }
+    size: { w: 190, h: 90 }
+  - id: cv
+    label: "四方弁"
+    at: { x: 420, y: 386 }
+    size: { w: 110, h: 44 }
+  - id: cc
+    label: "圧縮機"
+    at: { x: 414, y: 478 }
+    size: { w: 122, h: 44 }
+  - id: ce
+    label: "膨張弁"
+    at: { x: 396, y: 226 }
+    size: { w: 100, h: 44 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 474, y: 477 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 474, y: 429 }
+    size: { w: 2, h: 2 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 529, y: 407 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 604, y: 315 }
+    size: { w: 2, h: 2 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 604, y: 225 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 445, y: 225 }
+    size: { w: 2, h: 2 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 445, y: 269 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 274, y: 269 }
+    size: { w: 2, h: 2 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 274, y: 315 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 419, y: 407 }
+    size: { w: 2, h: 2 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 439, y: 429 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 439, y: 477 }
+    size: { w: 2, h: 2 }
+  - id: cN
+    label: "四方弁のコイルに通電していない（既定の向き）"
+    marker: none
+    align: center
+    at: { x: 180, y: 530 }
+    size: { w: 520, h: 18 }
+  - id: t2
+    label: "② 暖房 —— 同じ回路で、役目が入れ替わる"
+    marker: none
+    align: left
+    at: { x: 150, y: 566 }
+    size: { w: 560, h: 20 }
+  - id: hin
+    label: "室内機\n凝縮器（熱を出す）"
+    hatch: lines
+    at: { x: 180, y: 642 }
+    size: { w: 190, h: 90 }
+  - id: hout
+    label: "室外機の熱交換器\n蒸発器（熱を吸う）"
+    hatch: dots
+    at: { x: 510, y: 642 }
+    size: { w: 190, h: 90 }
+  - id: hv
+    label: "四方弁"
+    hatch: solid
+    at: { x: 420, y: 802 }
+    size: { w: 110, h: 44 }
+  - id: hc
+    label: "圧縮機"
+    at: { x: 414, y: 894 }
+    size: { w: 122, h: 44 }
+  - id: he
+    label: "膨張弁"
+    at: { x: 396, y: 642 }
+    size: { w: 100, h: 44 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 474, y: 893 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 474, y: 845 }
+    size: { w: 2, h: 2 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 419, y: 823 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 274, y: 731 }
+    size: { w: 2, h: 2 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 274, y: 641 }
+    size: { w: 2, h: 2 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 445, y: 641 }
+    size: { w: 2, h: 2 }
+  - id: p18
+    label: ""
+    marker: none
+    at: { x: 445, y: 685 }
+    size: { w: 2, h: 2 }
+  - id: p19
+    label: ""
+    marker: none
+    at: { x: 604, y: 685 }
+    size: { w: 2, h: 2 }
+  - id: p20
+    label: ""
+    marker: none
+    at: { x: 604, y: 731 }
+    size: { w: 2, h: 2 }
+  - id: p21
+    label: ""
+    marker: none
+    at: { x: 529, y: 823 }
+    size: { w: 2, h: 2 }
+  - id: p22
+    label: ""
+    marker: none
+    at: { x: 439, y: 845 }
+    size: { w: 2, h: 2 }
+  - id: p23
+    label: ""
+    marker: none
+    at: { x: 439, y: 893 }
+    size: { w: 2, h: 2 }
+  - id: hN
+    label: "四方弁のコイルに通電して、高圧の行き先を室内機へ切り替えた"
+    marker: none
+    align: center
+    at: { x: 180, y: 946 }
+    size: { w: 520, h: 18 }
+  - id: same
+    label: "替わったのは四方弁だけ。\n圧縮機も膨張弁も熱交換器も、同じものが同じ場所にある。"
+    at: { x: 180, y: 976 }
+    size: { w: 520, h: 52 }
+  - id: t3
+    label: "③ 暖房中に、ときどき冷房している"
+    marker: none
+    align: left
+    at: { x: 780, y: 150 }
+    size: { w: 460, h: 20 }
+  - id: h186
+    label: "霜がつく理由と、落とし方"
+    hatch: solid
+    at: { x: 780, y: 186 }
+    size: { w: 460, h: 24 }
+  - id: x210
+    label: "暖房のとき"
+    at: { x: 780, y: 210 }
+    size: { w: 150, h: 24 }
+  - id: y210
+    label: "室外機は蒸発器。0℃ を下回る"
+    align: left
+    at: { x: 930, y: 210 }
+    size: { w: 310, h: 24 }
+  - id: x234
+    label: "外気の水分"
+    at: { x: 780, y: 234 }
+    size: { w: 150, h: 24 }
+  - id: y234
+    label: "いちばん冷たい所（室外機）へ集まる"
+    align: left
+    at: { x: 930, y: 234 }
+    size: { w: 310, h: 24 }
+  - id: x258
+    label: "霜がつくと"
+    at: { x: 780, y: 258 }
+    size: { w: 150, h: 24 }
+  - id: y258
+    label: "風が通らず、熱を吸えなくなる"
+    align: left
+    at: { x: 930, y: 258 }
+    size: { w: 310, h: 24 }
+  - id: x282
+    label: "落とし方"
+    at: { x: 780, y: 282 }
+    size: { w: 150, h: 24 }
+  - id: y282
+    label: "四方弁を冷房側へ戻し、高温の冷媒を室外機へ送る"
+    align: left
+    at: { x: 930, y: 282 }
+    size: { w: 310, h: 24 }
+  - id: why3
+    label: "暖房中に室内機から風が止まるのは、このとき。\n室外機から湯気が出て、下から水が落ちる。\n故障ではなく、霜を溶かしている。"
+    at: { x: 780, y: 320 }
+    size: { w: 460, h: 80 }
+  - id: t4
+    label: "④ エアコンの冷媒は、冷蔵庫とは別"
+    marker: none
+    align: left
+    at: { x: 780, y: 416 }
+    size: { w: 460, h: 20 }
+  - id: h446
+    label: "家庭用の主な冷媒"
+    hatch: solid
+    at: { x: 780, y: 446 }
+    size: { w: 460, h: 24 }
+  - id: x470
+    label: "R22"
+    at: { x: 780, y: 470 }
+    size: { w: 110, h: 24 }
+  - id: y470
+    label: "ODP 0.055 ／ GWP 1,810 ／ 廃止（HCFC）"
+    align: left
+    at: { x: 890, y: 470 }
+    size: { w: 350, h: 24 }
+  - id: x494
+    label: "R410A"
+    at: { x: 780, y: 494 }
+    size: { w: 110, h: 24 }
+  - id: y494
+    label: "ODP 0 ／ GWP 2,090 ／ A1（不燃）"
+    align: left
+    at: { x: 890, y: 494 }
+    size: { w: 350, h: 24 }
+  - id: x518
+    label: "R32"
+    at: { x: 780, y: 518 }
+    size: { w: 110, h: 24 }
+  - id: y518
+    label: "ODP 0 ／ GWP 675 ／ A2L（微燃）"
+    align: left
+    at: { x: 890, y: 518 }
+    size: { w: 350, h: 24 }
+  - id: why4
+    label: "冷蔵庫の R600a（GWP 3）まで下げられないのは、\n必要な量が桁違いに多いから。\n室外機には数 kg 入る（冷蔵庫は 150g 前後）。"
+    at: { x: 780, y: 556 }
+    size: { w: 460, h: 80 }
+  - id: t5
+    label: "⑤ APF は「1 年ぶんの能力 ÷ 1 年ぶんの電気」"
+    marker: none
+    align: left
+    at: { x: 780, y: 652 }
+    size: { w: 460, h: 20 }
+  - id: h682
+    label: "JIS C 9612 の測り方"
+    hatch: solid
+    at: { x: 780, y: 682 }
+    size: { w: 460, h: 24 }
+  - id: x706
+    label: "式"
+    at: { x: 780, y: 706 }
+    size: { w: 140, h: 24 }
+  - id: y706
+    label: "1 年に要る冷暖房能力の総和 ÷ 期間消費電力量"
+    align: left
+    at: { x: 920, y: 706 }
+    size: { w: 320, h: 24 }
+  - id: x730
+    label: "外気"
+    at: { x: 780, y: 730 }
+    size: { w: 140, h: 24 }
+  - id: y730
+    label: "東京をモデルにした 1 年ぶんの気温"
+    align: left
+    at: { x: 920, y: 730 }
+    size: { w: 320, h: 24 }
+  - id: x754
+    label: "設定"
+    at: { x: 780, y: 754 }
+    size: { w: 140, h: 24 }
+  - id: y754
+    label: "冷房 27℃ ／ 暖房 20℃"
+    align: left
+    at: { x: 920, y: 754 }
+    size: { w: 320, h: 24 }
+  - id: x778
+    label: "運転"
+    at: { x: 780, y: 778 }
+    size: { w: 140, h: 24 }
+  - id: y778
+    label: "6 時〜24 時の 18 時間"
+    align: left
+    at: { x: 920, y: 778 }
+    size: { w: 320, h: 24 }
+  - id: why5
+    label: "定格能力の効率ではない。 1 年のほとんどは定格より軽い負荷で、\nそこでの効率が効く。だから中間能力の数字も載っている。"
+    at: { x: 780, y: 816 }
+    size: { w: 460, h: 56 }
+  - id: r1
+    label: "冷房と暖房で、室内機と室外機の役目が入れ替わります（①②）。冷房では室内機が蒸発器、暖房では凝縮器です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1030 }
+    size: { w: 1090, h: 18 }
+  - id: r2
+    label: "入れ替えるのは四方弁ひとつ。 圧縮機も膨張弁も熱交換器も、同じものが同じ場所にあります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1054 }
+    size: { w: 1090, h: 18 }
+  - id: r3
+    label: "コイルに通電すると暖房側へ切り替わります。 止まれば冷房側へ戻るので、弁が固着すると「暖房なのに冷風」になります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1078 }
+    size: { w: 1090, h: 18 }
+  - id: r4
+    label: "暖房中、ときどき冷房しています（③）。室外機は蒸発器なので 0℃ を下回り、外気の水分が霜になります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1102 }
+    size: { w: 1090, h: 18 }
+  - id: r5
+    label: "霜を落とすには、四方弁を冷房側へ戻して高温の冷媒を室外機へ送ります。 室内の風が止まり、室外機から湯気が出るのはこのときです。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1126 }
+    size: { w: 1090, h: 18 }
+  - id: r6
+    label: "冷媒は冷蔵庫と別です（④）。R32 の GWP は 675 —— 冷蔵庫の R600a（3）まで下げられないのは、必要な量が数 kg と桁違いだからです。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1150 }
+    size: { w: 1090, h: 18 }
+  - id: r7
+    label: "APF は定格の効率ではありません（⑤）。1 年ぶんの能力を 1 年ぶんの電気で割った値で、軽い負荷での効率が効きます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1174 }
+    size: { w: 1090, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p2
+    to: p3
+    curve: none
+    ends: { from: none, to: arrow }
+    via:
+      - { x: 605, y: 408 }
+  - from: p4
+    to: p5
+    curve: none
+    ends: { from: none, to: arrow }
+    via:
+      - { x: 605, y: 208 }
+      - { x: 446, y: 208 }
+  - from: p6
+    to: p7
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p8
+    to: p9
+    curve: none
+    ends: { from: none, to: arrow }
+    via:
+      - { x: 275, y: 408 }
+  - from: p10
+    to: p11
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p12
+    to: p13
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p14
+    to: p15
+    curve: none
+    ends: { from: none, to: arrow }
+    via:
+      - { x: 275, y: 824 }
+  - from: p16
+    to: p17
+    curve: none
+    ends: { from: none, to: arrow }
+    via:
+      - { x: 275, y: 624 }
+      - { x: 446, y: 624 }
+  - from: p18
+    to: p19
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p20
+    to: p21
+    curve: none
+    ends: { from: none, to: arrow }
+    via:
+      - { x: 605, y: 824 }
+  - from: p22
+    to: p23
+    curve: none
+    ends: { from: none, to: arrow }

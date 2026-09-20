@@ -606,6 +606,33 @@ describe('観測値を見せる（inspect）', () => {
     assert.ok(result.lines.some((line) => line.includes('交差 0')), result.lines.join('\n'));
   });
 
+  /**
+   * **数と、並べた組がずれていた**（2026-09-20）。
+   *
+   * 「交差 942」と言いながら並ぶのは 703 組で、同じ 2 本が何か所で交わっても
+   * 組は 1 つしか返さない。**見本 22 枚でずれる**（アイコンのキーライン図は 942 と 703）。
+   * 数だけ出すと、読んだ人は「並べ切れていない」と思う。
+   */
+  it('**数と組をどちらも言う**（同じ 2 本が 2 か所で交わっても 1 組）', async () => {
+    // 1 本の折れ線が、もう 1 本を 2 か所で横切る
+    const zig = [
+      'version: 1', 'kind: placement', 'arrows: true', 'nodes:',
+      '  - id: a', '    label: ""', '    marker: none', '    at: { x: 0, y: 100 }', '    size: { w: 2, h: 2 }',
+      '  - id: b', '    label: ""', '    marker: none', '    at: { x: 300, y: 100 }', '    size: { w: 2, h: 2 }',
+      '  - id: c', '    label: ""', '    marker: none', '    at: { x: 0, y: 0 }', '    size: { w: 2, h: 2 }',
+      '  - id: d', '    label: ""', '    marker: none', '    at: { x: 300, y: 0 }', '    size: { w: 2, h: 2 }',
+      'edges:',
+      '  - from: a', '    to: b', '    curve: none',
+      '  - from: c', '    to: d', '    curve: none',
+      '    via:', '      - { x: 100, y: 200 }', '      - { x: 200, y: 200 }',
+      '',
+    ].join('\n');
+    const result = await runInspect(['a.yaml'], reader({ 'a.yaml': zig }) as never);
+    const said = result.lines.join('\n');
+    assert.match(said, /交差 2/, said);
+    assert.match(said, /1 組/, `組の数を言っていない\n${said}`);
+  });
+
   it('ファイルを渡さなければ使い方を出す', async () => {
     const result = await runInspect([]);
     assert.equal(result.code, 2);

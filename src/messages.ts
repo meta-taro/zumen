@@ -153,7 +153,8 @@ const ja = {
     inspected: (path: string) => `${path}`,
     inspectCounts: (nodes: number, edges: number) => `  節 ${nodes} ／ 辺 ${edges}`,
     inspectClean: '  交差 0 ／ またぎ 0 ／ 文字の重なり 0 ／ 隠れた辺 0',
-    inspectCrossings: (count: number, pairs: string) => `  **交差 ${count}**（${pairs}）`,
+    inspectCrossings: (count: number, groups: number, pairs: string) =>
+      `  **交差 ${count}**（${groups} 組。同じ 2 本が何か所で交わっても 1 組）\n    ${pairs}`,
     inspectStraddles: (count: number, pairs: string) => `  **またぎ ${count}**（${pairs}）`,
     inspectOverlaps: (count: number, pairs: string) => `  **文字の重なり ${count}**（${pairs}）`,
     inspectUnderBoxes: (count: number, pairs: string) => `  **箱に隠れた辺 ${count}**（${pairs}）`,
@@ -843,7 +844,8 @@ const en: Catalog = {
     inspected: (path: string) => `${path}`,
     inspectCounts: (nodes: number, edges: number) => `  ${nodes} nodes / ${edges} edges`,
     inspectClean: '  0 crossings / 0 straddles / 0 text overlaps / 0 buried edges',
-    inspectCrossings: (count: number, pairs: string) => `  **${count} crossings** (${pairs})`,
+    inspectCrossings: (count: number, groups: number, pairs: string) =>
+      `  **${count} crossings** (${groups} pairs; two lines that cross more than once count as one pair)\n    ${pairs}`,
     inspectStraddles: (count: number, pairs: string) => `  **${count} straddles** (${pairs})`,
     inspectOverlaps: (count: number, pairs: string) => `  **${count} text overlaps** (${pairs})`,
     inspectUnderBoxes: (count: number, pairs: string) => `  **${count} edges buried under boxes** (${pairs})`,

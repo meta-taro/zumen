@@ -427,7 +427,7 @@ export async function runInspect(paths: string[], read = readFileSync): Promise<
       crossed.length === 0 && over.length === 0 &&
       seen.overlappingText.length === 0 && seen.edgesUnderBoxes.length === 0;
     if (quiet) lines.push(m.inspectClean);
-    if (crossed.length > 0) lines.push(m.inspectCrossings(seen.crossings, spots(crossed)));
+    if (crossed.length > 0) lines.push(m.inspectCrossings(seen.crossings, crossed.length, spots(crossed)));
     if (over.length > 0) lines.push(m.inspectStraddles(over.length, pairs(over)));
     if (seen.overlappingText.length > 0) {
       lines.push(m.inspectOverlaps(seen.overlappingText.length, pairs(seen.overlappingText)));
