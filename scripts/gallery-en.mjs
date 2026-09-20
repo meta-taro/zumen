@@ -132,6 +132,7 @@ export const CAPTIONS_EN = {
   '275-寿司桶の盛付指示図': 'The shape of the vessel decides the arrangement: a round tub is divided radially so every seat sees the same face, while a rectangular plate carries a flowing arrangement because there is only one direction to look from',
   '276-ケーキのデコレーション指示図': 'How many strawberries go on a cake is decided by how many slices it will be cut into, and they sit between the cut lines rather than on them — a berry on the line is halved by the knife and lands on two plates',
   '277-食品トレーサビリティ': 'Each business records only one step back and one step forward; the chain is what makes the whole route traceable, so one missing record breaks it — and the lot size chosen at the factory decides how much has to be recalled',
+  '278-ロープ結索の選び方': 'Knots are chosen by the job they do — joining two ropes, tying to an object, or stopping an end — and every knot is the weakest point of the rope, taking it down to 40-80% of its rated strength',
   '259-家具の転倒防止': 'Mass cancels out of the tipping condition, so how easily furniture falls depends only on its depth and the height of its centre of gravity — a shallow tall bookcase goes over at a shindo 5+',
   '258-液晶テレビの層': 'An LCD makes no light of its own — it only blocks it, which is why its black is whatever light failed to be blocked, and why only a tenth of the backlight ever reaches your eye',
   '257-換気扇の風量と静圧': 'The airflow on the box is the free-delivery figure; what you actually get is where the fan curve meets the duct resistance, and a long bent duct can cut it to 43 percent',
