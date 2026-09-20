@@ -131,6 +131,7 @@ const ja = {
     usageMergeDriver: '使い方: merge-driver <base> <ours> <theirs>',
     usageDrawio: '使い方: pnpm drawio <図のファイル> [書き出し先]',
     usageMeasure: '使い方: pnpm measure <図のファイル> ...',
+    usageInspect: '使い方: pnpm inspect <図のファイル> ...',
     usageSvg: '使い方: pnpm svg <図のファイル> [書き出し先] [--dark] [--vivid]',
     usageTimelapse:
       '使い方: pnpm timelapse <段のファイル…> [--out 置き場] [--hold 1 段の秒数]（2 段以上）',
@@ -149,6 +150,19 @@ const ja = {
     conflictSuppressed: (ai: string) => `提案 ${ai}。人が自分の指定を採ると決めているので聞き直しません。`,
     mergedClean2: '食い違いはありません。',
     /** 「9 割」の測り方は `docs/specs/003-9割の定義.md`。 */
+    inspected: (path: string) => `${path}`,
+    inspectCounts: (nodes: number, edges: number) => `  節 ${nodes} ／ 辺 ${edges}`,
+    inspectClean: '  交差 0 ／ またぎ 0 ／ 文字の重なり 0 ／ 隠れた辺 0',
+    inspectCrossings: (count: number, pairs: string) => `  **交差 ${count}**（${pairs}）`,
+    inspectStraddles: (count: number, pairs: string) => `  **またぎ ${count}**（${pairs}）`,
+    inspectOverlaps: (count: number, pairs: string) => `  **文字の重なり ${count}**（${pairs}）`,
+    inspectUnderBoxes: (count: number, pairs: string) => `  **箱に隠れた辺 ${count}**（${pairs}）`,
+    inspectPaper: (smallest: number, longest: number, ratio: string) =>
+      `  いちばん小さい字 ${smallest}px ／ 長辺 ${longest}px ／ 比 ${ratio}`,
+    inspectPrint: '  **A3 に印刷しても字が読めません。**',
+    inspectProject: '  投影には小さすぎます（印刷して読む図なら、これでよい）。',
+    inspectNote:
+      'これは合否ではなく**観測値**です。交差もまたぎも、中身がそうなら正しい —— 止めません。',
     measured: (path: string, autonomy: string, layout: string) =>
       `${path} — 自力率 ${autonomy} / 配置の自力率 ${layout}`,
     measurePassed: (count: number, line: string) => `${count} 件すべてが合格ライン ${line} に届いています。`,
@@ -808,6 +822,7 @@ const en: Catalog = {
     usageMergeDriver: 'Usage: merge-driver <base> <ours> <theirs>',
     usageDrawio: 'Usage: pnpm drawio <diagram file> [output path]',
     usageMeasure: 'Usage: pnpm measure <diagram file> ...',
+    usageInspect: 'Usage: pnpm inspect <diagram file> ...',
     usageSvg: 'Usage: pnpm svg <diagram file> [output path] [--dark] [--vivid]',
     usageTimelapse:
       'Usage: pnpm timelapse <step files…> [--out dir] [--hold seconds per step] (two or more steps)',
@@ -823,6 +838,19 @@ const en: Catalog = {
     conflictPosition: (human: string, ai: string) => `hand edit ${human} / proposal ${ai}`,
     conflictSuppressed: (ai: string) => `proposal ${ai}. The person chose their own placement, so this is not asked again.`,
     mergedClean2: 'No disagreements.',
+    inspected: (path: string) => `${path}`,
+    inspectCounts: (nodes: number, edges: number) => `  ${nodes} nodes / ${edges} edges`,
+    inspectClean: '  0 crossings / 0 straddles / 0 text overlaps / 0 buried edges',
+    inspectCrossings: (count: number, pairs: string) => `  **${count} crossings** (${pairs})`,
+    inspectStraddles: (count: number, pairs: string) => `  **${count} straddles** (${pairs})`,
+    inspectOverlaps: (count: number, pairs: string) => `  **${count} text overlaps** (${pairs})`,
+    inspectUnderBoxes: (count: number, pairs: string) => `  **${count} edges buried under boxes** (${pairs})`,
+    inspectPaper: (smallest: number, longest: number, ratio: string) =>
+      `  smallest text ${smallest}px / longest side ${longest}px / ratio ${ratio}`,
+    inspectPrint: '  **Too small to read when printed on A3.**',
+    inspectProject: '  Too small to project (fine if this drawing is meant to be printed).',
+    inspectNote:
+      'These are **observations, not a verdict**. Crossings and straddles are right when the subject crosses — nothing is stopped here.',
     measured: (path: string, autonomy: string, layout: string) =>
       `${path} — autonomy ${autonomy} / layout autonomy ${layout}`,
     measurePassed: (count: number, line: string) => `All ${count} diagram(s) meet the ${line} line.`,

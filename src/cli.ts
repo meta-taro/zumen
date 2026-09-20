@@ -21,13 +21,14 @@ import { toDrawio } from './drawio.ts';
 import { tooThinForPattern } from './hatch.ts';
 import { renderZumenBlocks, replaceZumenBlocks } from './embed.ts';
 import { mergeThreeWay } from './git-merge.ts';
-import { edgesUnderBoxes, layout } from './layout.ts';
+import { crossingEdges, edgesUnderBoxes, layout, straddles } from './layout.ts';
 import { PASS_LINE, measure, percent } from './measure.ts';
 import { merge } from './merge.ts';
 import type { Conflict } from './merge.ts';
 import { toMermaid } from './mermaid.ts';
 import { overlappingInk, render, viewTitleBox } from './render.ts';
 import { timelapse } from './timelapse.ts';
+import { inspect } from './tools.ts';
 import { kindOf } from './kind.ts';
 import { messages } from './messages.ts';
 import { hasError, validate } from './validate.ts';
@@ -390,6 +391,67 @@ function titleOf(text: string): string | undefined {
 }
 
 /**
+ * **観測値を見せる**（2026-09-20）。
+ *
+ * `crossings` と `straddles` は「**合否ではなく観測値**」と決めてあるので
+ * 検査（`validate`）からは出さない。ところが**見る道具がどこにも無かった** ——
+ * test/names.test.ts は両方を見ているのに、書いている最中は分からない。
+ * 見本を 1 枚足すたびに使い捨ての台本を書いていた（このセッションだけで 5 回）。
+ *
+ * **止めない。数えて見せるだけ。**
+ */
+export async function runInspect(paths: string[], read = readFileSync): Promise<RunResult> {
+  const m = messages().cli;
+  if (paths.length === 0) return { code: 2, lines: [m.usageInspect] };
+
+  const lines: string[] = [];
+  for (const path of paths) {
+    let text: string;
+    try {
+      text = String(read(path, 'utf8'));
+    } catch (error) {
+      return { code: 1, lines: [m.fileUnreadable(path, error instanceof Error ? error.message : String(error))] };
+    }
+    const seen = await inspect(text);
+    lines.push(m.inspected(path));
+    if (!seen.readable) {
+      lines.push(...seen.findings.map(format));
+      continue;
+    }
+    lines.push(m.inspectCounts(seen.nodes, seen.edges));
+
+    const placed = await layout(text);
+    const crossed = crossingEdges(placed);
+    const over = straddles(placed);
+    const quiet =
+      crossed.length === 0 && over.length === 0 &&
+      seen.overlappingText.length === 0 && seen.edgesUnderBoxes.length === 0;
+    if (quiet) lines.push(m.inspectClean);
+    if (crossed.length > 0) lines.push(m.inspectCrossings(seen.crossings, pairs(crossed)));
+    if (over.length > 0) lines.push(m.inspectStraddles(over.length, pairs(over)));
+    if (seen.overlappingText.length > 0) {
+      lines.push(m.inspectOverlaps(seen.overlappingText.length, pairs(seen.overlappingText)));
+    }
+    if (seen.edgesUnderBoxes.length > 0) {
+      lines.push(m.inspectUnderBoxes(seen.edgesUnderBoxes.length, pairs(seen.edgesUnderBoxes)));
+    }
+
+    const ratio = seen.textRatio === null ? '—' : seen.textRatio.toFixed(4);
+    lines.push(m.inspectPaper(seen.smallestText, seen.longestSide, ratio));
+    if (seen.tooSmallToPrint) lines.push(m.inspectPrint);
+    else if (seen.tooSmallToProject) lines.push(m.inspectProject);
+  }
+  lines.push(m.inspectNote);
+  return { code: 0, lines };
+}
+
+/** 組を「a↔b, c↔d」の形にする。**多いときは先頭だけ**（探すのに要るのは相手）。 */
+function pairs(list: [string, string][], limit = 6): string {
+  const head = list.slice(0, limit).map(([a, b]) => `${a}↔${b}`).join(', ');
+  return list.length <= limit ? head : `${head}, …`;
+}
+
+/**
  * 「9 割」を測る（Issue 003 / D3）。
  *
  * **合格しなくても 1 は返さない。** これは検査ではなく物差しで、
@@ -590,6 +652,7 @@ export async function run(argv: string[]): Promise<RunResult> {
   if (command === 'merge-driver') return runMergeDriver(rest);
   if (command === 'drawio') return runDrawio(rest);
   if (command === 'measure') return runMeasure(rest);
+  if (command === 'inspect') return runInspect(rest);
   if (command === 'svg') return runSvg(rest);
   if (command === 'mermaid') return runMermaid(rest);
   if (command === 'timelapse') return runTimelapse(rest);
@@ -599,6 +662,7 @@ export async function run(argv: string[]): Promise<RunResult> {
   const usage = [
     m.usage,
     m.usageMeasure,
+    m.usageInspect,
     m.usageSvg,
     m.usageTimelapse,
     m.usageMermaid,

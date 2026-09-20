@@ -36,7 +36,7 @@ survives a regeneration in **210/210 of the example drawings**, whatever their s
 
 ## What it looks like
 
-241 example drawings, all generated from the YAML sources in
+242 example drawings, all generated from the YAML sources in
 [`examples/gallery/`](examples/gallery/):
 
 **[→ Browse the gallery](https://meta-taro.github.io/zumen/)**
@@ -142,6 +142,7 @@ pnpm qa:verify                # read back human verification evidence (see qa/RE
 
 pnpm svg examples/gallery/25-路線図.zumen.yaml out.svg
 pnpm validate examples/gallery/14-間取り.zumen.yaml
+pnpm inspect examples/gallery/14-間取り.zumen.yaml   # observations: crossings, straddles, text overlaps, print ratio
 pnpm mermaid examples/gallery/04-ネットワーク構成.zumen.yaml
 ```
 

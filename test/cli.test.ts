@@ -8,7 +8,7 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
-import { run, runEmbed, runMerge, runMergeDriver, runMermaid, runSvg, runValidate } from '../src/cli.ts';
+import { run, runEmbed, runInspect, runMerge, runMergeDriver, runMermaid, runSvg, runValidate } from '../src/cli.ts';
 
 /** ファイルを読みに行かせない。**テストが実物のファイル配置に縛られないため。** */
 function reader(files: Record<string, string>) {
@@ -389,7 +389,7 @@ describe('命令の振り分け', () => {
     const result = await run([]);
     assert.equal(result.code, 2);
     // **口が増えたら 1 行増える**（2026-09-16 に timelapse を足した）。
-    assert.equal(result.lines.length, 9);
+    assert.equal(result.lines.length, 10);
   });
 });
 
@@ -526,5 +526,80 @@ describe('置いたあとの形も見る（配置図）', () => {
     // ここで見たいのは**重なりの指摘が出ないこと**だけ。
     const result = await runValidate(['a.yaml'], reader({ 'a.yaml': PILE.replace('kind: placement\n', '') }) as never);
     assert.ok(!result.lines.some((line) => line.includes('重なって')), result.lines.join('\n'));
+  });
+});
+
+/**
+ * **観測値を見せる口**（`pnpm inspect`。2026-09-20）。
+ *
+ * `crossings` と `straddles` は合否ではないので検査から出さないと決めてあるが、
+ * **見る道具がどこにも無かった。** test/names.test.ts は両方を見ているのに、
+ * 書いている最中は分からず、見本を足すたびに使い捨ての台本を書いていた。
+ */
+describe('観測値を見せる（inspect）', () => {
+  const CROSS = [
+    'version: 1',
+    'kind: placement',
+    'arrows: true',
+    'nodes:',
+    '  - id: a',
+    '    label: ""',
+    '    marker: none',
+    '    at: { x: 0, y: 0 }',
+    '    size: { w: 2, h: 2 }',
+    '  - id: b',
+    '    label: ""',
+    '    marker: none',
+    '    at: { x: 200, y: 200 }',
+    '    size: { w: 2, h: 2 }',
+    '  - id: c',
+    '    label: ""',
+    '    marker: none',
+    '    at: { x: 200, y: 0 }',
+    '    size: { w: 2, h: 2 }',
+    '  - id: d',
+    '    label: ""',
+    '    marker: none',
+    '    at: { x: 0, y: 200 }',
+    '    size: { w: 2, h: 2 }',
+    'edges:',
+    '  - from: a',
+    '    to: b',
+    '    curve: none',
+    '  - from: c',
+    '    to: d',
+    '    curve: none',
+    '',
+  ].join('\n');
+
+  it('**交差を数えて、どれとどれかを言う**', async () => {
+    const result = await runInspect(['a.yaml'], reader({ 'a.yaml': CROSS }) as never);
+    assert.equal(result.code, 0, '止めない');
+    const said = result.lines.join('\n');
+    assert.match(said, /交差 1/);
+    assert.match(said, /↔/, `どの 2 本かを言っていない\n${said}`);
+  });
+
+  it('**止めない。** 観測値であって合否ではない', async () => {
+    const result = await runInspect(['a.yaml'], reader({ 'a.yaml': CROSS }) as never);
+    assert.equal(result.code, 0);
+    assert.ok(result.lines.some((line) => line.includes('観測値')), result.lines.join('\n'));
+  });
+
+  it('何も無ければ 0 と言う（黙らない）', async () => {
+    const one = 'version: 1\nkind: placement\nnodes:\n  - id: a\n    label: 居間\n    at: { x: 0, y: 0 }\n    size: { w: 200, h: 120 }\n';
+    const result = await runInspect(['a.yaml'], reader({ 'a.yaml': one }) as never);
+    assert.ok(result.lines.some((line) => line.includes('交差 0')), result.lines.join('\n'));
+  });
+
+  it('ファイルを渡さなければ使い方を出す', async () => {
+    const result = await runInspect([]);
+    assert.equal(result.code, 2);
+    assert.match(result.lines.join('\n'), /pnpm inspect/);
+  });
+
+  it('命令の一覧に出る', async () => {
+    const result = await run([]);
+    assert.match(result.lines.join('\n'), /pnpm inspect/);
   });
 });

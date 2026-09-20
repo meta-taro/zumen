@@ -1,0 +1,957 @@
+version: 1
+kind: placement
+arrows: true
+title: 溶接記号（JIS Z 3021:2016）
+# **基線の上下が、どちらの面を溶接するかを言う。**
+# 下が**矢の側**、上が**その反対側**。上下ともに書けば両側。
+# だから記号は、**矢をどこへ当てたかと組でしか読めない。**
+#
+# 寸法は基本記号の**左が断面、右が長さ**。
+# `a6　3×50（150）` なら、のど厚 6mm・個数 3・長さ 50・中心間隔 150。
+#
+# **のど厚 a と脚長 z は別の寸法**（3.16 / 3.17）。等脚なら a ＝ z ÷ √2 ≒ 0.7z。
+# 「a6」と「z6」では大きさが 1.4 倍違う。
+#
+# レ形・J 形は片方の材だけを削るので、**矢を折って、削る材を指す**（4.6.3）。
+# 矢と基線の交点の丸が全周溶接、旗が現場溶接。
+nodes:
+  - id: t1
+    label: "① 記号の組み立て（矢・基線・基本記号・寸法・尾）"
+    marker: none
+    align: left
+    at: { x: 150, y: 150 }
+    size: { w: 560, h: 20 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 299, y: 299 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 639, y: 299 }
+    size: { w: 2, h: 2 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 209, y: 369 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 299, y: 299 }
+    size: { w: 2, h: 2 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 639, y: 299 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 673, y: 283 }
+    size: { w: 2, h: 2 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 639, y: 299 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 673, y: 315 }
+    size: { w: 2, h: 2 }
+  - id: tail
+    label: "JIS Z 3021"
+    marker: none
+    align: left
+    at: { x: 680, y: 290 }
+    size: { w: 110, h: 18 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 399, y: 299 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 399, y: 299 }
+    size: { w: 2, h: 2 }
+  - id: dim_l
+    label: "a6"
+    marker: none
+    align: right
+    at: { x: 358, y: 304 }
+    size: { w: 38, h: 18 }
+  - id: dim_r
+    label: "3×50（150）"
+    marker: none
+    align: left
+    at: { x: 432, y: 304 }
+    size: { w: 150, h: 18 }
+  - id: allr
+    label: ""
+    marker: circle
+    at: { x: 289, y: 289 }
+    size: { w: 22, h: 22 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 299, y: 299 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 299, y: 257 }
+    size: { w: 2, h: 2 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 299, y: 257 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 299, y: 273 }
+    size: { w: 2, h: 2 }
+  - id: c1
+    label: "矢 —— 溶接する場所を指す"
+    marker: none
+    align: left
+    at: { x: 150, y: 396 }
+    size: { w: 560, h: 18 }
+  - id: c2
+    label: "基線 —— 記号を載せる横線"
+    marker: none
+    align: left
+    at: { x: 150, y: 420 }
+    size: { w: 560, h: 18 }
+  - id: c3
+    label: "基本記号 —— 溶接の種類（ここではすみ肉）"
+    marker: none
+    align: left
+    at: { x: 150, y: 444 }
+    size: { w: 560, h: 18 }
+  - id: c4
+    label: "左の数 a6 —— 断面の寸法（のど厚 6mm）"
+    marker: none
+    align: left
+    at: { x: 150, y: 468 }
+    size: { w: 560, h: 18 }
+  - id: c5
+    label: "右の数 3×50（150）—— 個数 3・長さ 50・中心間隔 150"
+    marker: none
+    align: left
+    at: { x: 150, y: 492 }
+    size: { w: 560, h: 18 }
+  - id: c6
+    label: "交点の丸 —— 全周溶接（4.5.2）"
+    marker: none
+    align: left
+    at: { x: 150, y: 516 }
+    size: { w: 560, h: 18 }
+  - id: c7
+    label: "交点の旗 —— 現場溶接（4.5.4。基線と直角、上へ、右向き）"
+    marker: none
+    align: left
+    at: { x: 150, y: 540 }
+    size: { w: 560, h: 18 }
+  - id: c8
+    label: "尾 —— 規格や施工法を書く欄"
+    marker: none
+    align: left
+    at: { x: 150, y: 564 }
+    size: { w: 560, h: 18 }
+  - id: t2
+    label: "② 基線の下が「矢の側」、上が「その反対側」"
+    marker: none
+    align: left
+    at: { x: 150, y: 596 }
+    size: { w: 560, h: 20 }
+  - id: 170h
+    label: "下だけ"
+    marker: none
+    align: center
+    at: { x: 170, y: 626 }
+    size: { w: 170, h: 18 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 189, y: 685 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 319, y: 685 }
+    size: { w: 2, h: 2 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 169, y: 729 }
+    size: { w: 2, h: 2 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 189, y: 685 }
+    size: { w: 2, h: 2 }
+  - id: p18
+    label: ""
+    marker: none
+    at: { x: 239, y: 685 }
+    size: { w: 2, h: 2 }
+  - id: p19
+    label: ""
+    marker: none
+    at: { x: 239, y: 685 }
+    size: { w: 2, h: 2 }
+  - id: 170c
+    label: "矢の側だけ溶接する"
+    marker: none
+    align: center
+    at: { x: 160, y: 762 }
+    size: { w: 190, h: 18 }
+  - id: 390h
+    label: "上だけ"
+    marker: none
+    align: center
+    at: { x: 390, y: 626 }
+    size: { w: 170, h: 18 }
+  - id: p20
+    label: ""
+    marker: none
+    at: { x: 409, y: 685 }
+    size: { w: 2, h: 2 }
+  - id: p21
+    label: ""
+    marker: none
+    at: { x: 539, y: 685 }
+    size: { w: 2, h: 2 }
+  - id: p22
+    label: ""
+    marker: none
+    at: { x: 389, y: 729 }
+    size: { w: 2, h: 2 }
+  - id: p23
+    label: ""
+    marker: none
+    at: { x: 409, y: 685 }
+    size: { w: 2, h: 2 }
+  - id: p24
+    label: ""
+    marker: none
+    at: { x: 459, y: 685 }
+    size: { w: 2, h: 2 }
+  - id: p25
+    label: ""
+    marker: none
+    at: { x: 459, y: 685 }
+    size: { w: 2, h: 2 }
+  - id: 390c
+    label: "矢の反対側だけ溶接する"
+    marker: none
+    align: center
+    at: { x: 380, y: 762 }
+    size: { w: 190, h: 18 }
+  - id: 610h
+    label: "上下とも"
+    marker: none
+    align: center
+    at: { x: 610, y: 626 }
+    size: { w: 170, h: 18 }
+  - id: p26
+    label: ""
+    marker: none
+    at: { x: 629, y: 685 }
+    size: { w: 2, h: 2 }
+  - id: p27
+    label: ""
+    marker: none
+    at: { x: 759, y: 685 }
+    size: { w: 2, h: 2 }
+  - id: p28
+    label: ""
+    marker: none
+    at: { x: 609, y: 729 }
+    size: { w: 2, h: 2 }
+  - id: p29
+    label: ""
+    marker: none
+    at: { x: 629, y: 685 }
+    size: { w: 2, h: 2 }
+  - id: p30
+    label: ""
+    marker: none
+    at: { x: 679, y: 685 }
+    size: { w: 2, h: 2 }
+  - id: p31
+    label: ""
+    marker: none
+    at: { x: 679, y: 685 }
+    size: { w: 2, h: 2 }
+  - id: p32
+    label: ""
+    marker: none
+    at: { x: 679, y: 685 }
+    size: { w: 2, h: 2 }
+  - id: p33
+    label: ""
+    marker: none
+    at: { x: 679, y: 685 }
+    size: { w: 2, h: 2 }
+  - id: 610c
+    label: "両側を溶接する"
+    marker: none
+    align: center
+    at: { x: 600, y: 762 }
+    size: { w: 190, h: 18 }
+  - id: two
+    label: "同じ継手でも、記号を基線のどちら側へ書くかで、溶接する面が変わる。\n矢をどこへ当てたかと組で読む。"
+    at: { x: 150, y: 820 }
+    size: { w: 610, h: 54 }
+  - id: t3
+    label: "③ 基本記号（表 1 から）"
+    marker: none
+    align: left
+    at: { x: 800, y: 150 }
+    size: { w: 440, h: 20 }
+  - id: sb0
+    label: ""
+    at: { x: 800, y: 190 }
+    size: { w: 128, h: 74 }
+  - id: p34
+    label: ""
+    marker: none
+    at: { x: 855, y: 243 }
+    size: { w: 2, h: 2 }
+  - id: p35
+    label: ""
+    marker: none
+    at: { x: 855, y: 209 }
+    size: { w: 2, h: 2 }
+  - id: p36
+    label: ""
+    marker: none
+    at: { x: 871, y: 243 }
+    size: { w: 2, h: 2 }
+  - id: p37
+    label: ""
+    marker: none
+    at: { x: 871, y: 209 }
+    size: { w: 2, h: 2 }
+  - id: sn0
+    label: "I 形"
+    marker: none
+    align: center
+    at: { x: 800, y: 268 }
+    size: { w: 128, h: 18 }
+  - id: sb1
+    label: ""
+    at: { x: 948, y: 190 }
+    size: { w: 128, h: 74 }
+  - id: p38
+    label: ""
+    marker: none
+    at: { x: 993, y: 209 }
+    size: { w: 2, h: 2 }
+  - id: p39
+    label: ""
+    marker: none
+    at: { x: 1029, y: 209 }
+    size: { w: 2, h: 2 }
+  - id: sn1
+    label: "V 形"
+    marker: none
+    align: center
+    at: { x: 948, y: 268 }
+    size: { w: 128, h: 18 }
+  - id: sb2
+    label: ""
+    at: { x: 1096, y: 190 }
+    size: { w: 128, h: 74 }
+  - id: p40
+    label: ""
+    marker: none
+    at: { x: 1150, y: 243 }
+    size: { w: 2, h: 2 }
+  - id: p41
+    label: ""
+    marker: none
+    at: { x: 1150, y: 209 }
+    size: { w: 2, h: 2 }
+  - id: p42
+    label: ""
+    marker: none
+    at: { x: 1150, y: 243 }
+    size: { w: 2, h: 2 }
+  - id: p43
+    label: ""
+    marker: none
+    at: { x: 1174, y: 209 }
+    size: { w: 2, h: 2 }
+  - id: sn2
+    label: "レ形"
+    marker: none
+    align: center
+    at: { x: 1096, y: 268 }
+    size: { w: 128, h: 18 }
+  - id: sb3
+    label: ""
+    at: { x: 800, y: 314 }
+    size: { w: 128, h: 74 }
+  - id: p44
+    label: ""
+    marker: none
+    at: { x: 846, y: 333 }
+    size: { w: 2, h: 2 }
+  - id: p45
+    label: ""
+    marker: none
+    at: { x: 846, y: 355 }
+    size: { w: 2, h: 2 }
+  - id: p46
+    label: ""
+    marker: none
+    at: { x: 846, y: 355 }
+    size: { w: 2, h: 2 }
+  - id: p47
+    label: ""
+    marker: none
+    at: { x: 880, y: 355 }
+    size: { w: 2, h: 2 }
+  - id: p48
+    label: ""
+    marker: none
+    at: { x: 880, y: 333 }
+    size: { w: 2, h: 2 }
+  - id: p49
+    label: ""
+    marker: none
+    at: { x: 880, y: 355 }
+    size: { w: 2, h: 2 }
+  - id: sn3
+    label: "U 形"
+    marker: none
+    align: center
+    at: { x: 800, y: 392 }
+    size: { w: 128, h: 18 }
+  - id: sb4
+    label: ""
+    at: { x: 948, y: 314 }
+    size: { w: 128, h: 74 }
+  - id: p50
+    label: ""
+    marker: none
+    at: { x: 1001, y: 367 }
+    size: { w: 2, h: 2 }
+  - id: p51
+    label: ""
+    marker: none
+    at: { x: 1001, y: 333 }
+    size: { w: 2, h: 2 }
+  - id: p52
+    label: ""
+    marker: none
+    at: { x: 1025, y: 333 }
+    size: { w: 2, h: 2 }
+  - id: p53
+    label: ""
+    marker: none
+    at: { x: 1025, y: 353 }
+    size: { w: 2, h: 2 }
+  - id: p54
+    label: ""
+    marker: none
+    at: { x: 1025, y: 353 }
+    size: { w: 2, h: 2 }
+  - id: p55
+    label: ""
+    marker: none
+    at: { x: 1013, y: 365 }
+    size: { w: 2, h: 2 }
+  - id: p56
+    label: ""
+    marker: none
+    at: { x: 1013, y: 365 }
+    size: { w: 2, h: 2 }
+  - id: p57
+    label: ""
+    marker: none
+    at: { x: 1001, y: 365 }
+    size: { w: 2, h: 2 }
+  - id: sn4
+    label: "J 形"
+    marker: none
+    align: center
+    at: { x: 948, y: 392 }
+    size: { w: 128, h: 18 }
+  - id: sb5
+    label: ""
+    at: { x: 1096, y: 314 }
+    size: { w: 128, h: 74 }
+  - id: p58
+    label: ""
+    marker: none
+    at: { x: 1146, y: 367 }
+    size: { w: 2, h: 2 }
+  - id: p59
+    label: ""
+    marker: none
+    at: { x: 1146, y: 367 }
+    size: { w: 2, h: 2 }
+  - id: sn5
+    label: "すみ肉"
+    marker: none
+    align: center
+    at: { x: 1096, y: 392 }
+    size: { w: 128, h: 18 }
+  - id: sb6
+    label: ""
+    at: { x: 800, y: 438 }
+    size: { w: 128, h: 74 }
+  - id: pl
+    label: ""
+    at: { x: 847, y: 462 }
+    size: { w: 34, h: 30 }
+  - id: sn6
+    label: "プラグ／スロット"
+    marker: none
+    align: center
+    at: { x: 800, y: 516 }
+    size: { w: 128, h: 18 }
+  - id: sb7
+    label: ""
+    at: { x: 948, y: 438 }
+    size: { w: 128, h: 74 }
+  - id: sp
+    label: ""
+    marker: circle
+    at: { x: 997, y: 462 }
+    size: { w: 30, h: 30 }
+  - id: sn7
+    label: "スポット"
+    marker: none
+    align: center
+    at: { x: 948, y: 516 }
+    size: { w: 128, h: 18 }
+  - id: sb8
+    label: "開先の記号は、削った断面の形そのもの。"
+    marker: none
+    align: center
+    at: { x: 800, y: 554 }
+    size: { w: 424, h: 18 }
+  - id: sb8b
+    label: "だから、形を覚えなくても読める。"
+    marker: none
+    align: center
+    at: { x: 800, y: 578 }
+    size: { w: 424, h: 18 }
+  - id: t4
+    label: "④ すみ肉の寸法 —— のど厚 a と 脚長 z"
+    marker: none
+    align: left
+    at: { x: 150, y: 886 }
+    size: { w: 560, h: 20 }
+  - id: mat_v
+    label: ""
+    hatch: lines
+    at: { x: 210, y: 946 }
+    size: { w: 20, h: 150 }
+  - id: mat_h
+    label: ""
+    hatch: lines
+    at: { x: 210, y: 1096 }
+    size: { w: 200, h: 20 }
+  - id: p60
+    label: ""
+    marker: none
+    at: { x: 229, y: 1095 }
+    size: { w: 2, h: 2 }
+  - id: p61
+    label: ""
+    marker: none
+    at: { x: 229, y: 1095 }
+    size: { w: 2, h: 2 }
+  - id: p62
+    label: ""
+    marker: none
+    at: { x: 229, y: 1095 }
+    size: { w: 2, h: 2 }
+  - id: p63
+    label: ""
+    marker: none
+    at: { x: 268, y: 1056 }
+    size: { w: 2, h: 2 }
+  - id: lz1
+    label: "z（脚長）"
+    marker: none
+    align: right
+    at: { x: 100, y: 1047 }
+    size: { w: 96, h: 18 }
+  - id: lz2
+    label: "z（脚長）"
+    marker: none
+    align: center
+    at: { x: 221, y: 1124 }
+    size: { w: 120, h: 18 }
+  - id: la
+    label: "a（のど厚）"
+    marker: none
+    align: left
+    at: { x: 277, y: 1047 }
+    size: { w: 120, h: 18 }
+  - id: h932
+    label: "a と z（等脚のとき）"
+    hatch: solid
+    at: { x: 470, y: 932 }
+    size: { w: 290, h: 24 }
+  - id: x956
+    label: "z ＝ 6"
+    at: { x: 470, y: 956 }
+    size: { w: 140, h: 24 }
+  - id: y956
+    label: "a ＝ 4.2"
+    align: left
+    at: { x: 610, y: 956 }
+    size: { w: 150, h: 24 }
+  - id: x980
+    label: "z ＝ 8.5"
+    at: { x: 470, y: 980 }
+    size: { w: 140, h: 24 }
+  - id: y980
+    label: "a ＝ 6"
+    align: left
+    at: { x: 610, y: 980 }
+    size: { w: 150, h: 24 }
+  - id: x1004
+    label: "z ＝ 10"
+    at: { x: 470, y: 1004 }
+    size: { w: 140, h: 24 }
+  - id: y1004
+    label: "a ＝ 7.1"
+    align: left
+    at: { x: 610, y: 1004 }
+    size: { w: 150, h: 24 }
+  - id: x1028
+    label: "z ＝ 12"
+    at: { x: 470, y: 1028 }
+    size: { w: 140, h: 24 }
+  - id: y1028
+    label: "a ＝ 8.5"
+    align: left
+    at: { x: 610, y: 1028 }
+    size: { w: 150, h: 24 }
+  - id: az
+    label: "a は、すみ肉に内包される\n最大の二等辺三角形の高さ（3.16）。\nz は、ルートから止端までの距離（3.17）。\n等脚なら a ＝ z ÷ √2 ≒ 0.7z。\nどちらで書いたかを必ず添える。"
+    at: { x: 470, y: 1064 }
+    size: { w: 290, h: 124 }
+  - id: t5
+    label: "⑤ 片側だけ開先をとるときは、矢を折る（4.6.3）"
+    marker: none
+    align: left
+    at: { x: 800, y: 602 }
+    size: { w: 440, h: 20 }
+  - id: k_l
+    label: ""
+    hatch: lines
+    at: { x: 840, y: 640 }
+    size: { w: 24, h: 70 }
+  - id: k_r
+    label: ""
+    hatch: lines
+    at: { x: 864, y: 710 }
+    size: { w: 150, h: 24 }
+  - id: p64
+    label: ""
+    marker: none
+    at: { x: 863, y: 639 }
+    size: { w: 2, h: 2 }
+  - id: p65
+    label: ""
+    marker: none
+    at: { x: 891, y: 709 }
+    size: { w: 2, h: 2 }
+  - id: p66
+    label: ""
+    marker: none
+    at: { x: 1049, y: 803 }
+    size: { w: 2, h: 2 }
+  - id: p67
+    label: ""
+    marker: none
+    at: { x: 843, y: 679 }
+    size: { w: 2, h: 2 }
+  - id: k1
+    label: "折った矢が指した材を、開先にとる"
+    marker: none
+    align: center
+    at: { x: 800, y: 834 }
+    size: { w: 440, h: 18 }
+  - id: k2
+    label: "削る材が明らかなときは、折らなくてもよい"
+    marker: none
+    align: center
+    at: { x: 800, y: 856 }
+    size: { w: 440, h: 18 }
+  - id: r1
+    label: "溶接記号は、基線の上下で「どちらの面を溶接するか」を言います（②）。下が矢の側、上がその反対側です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1216 }
+    size: { w: 1090, h: 18 }
+  - id: r2
+    label: "だから、矢をどこへ当てたかと組でしか読めません。 同じ記号でも、矢が反対なら溶接する面が反対になります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1240 }
+    size: { w: 1090, h: 18 }
+  - id: r3
+    label: "寸法は、基本記号の左が断面、右が長さです（①）。a6 が のど厚 6mm、3×50（150）が 個数 3・長さ 50・中心間隔 150。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1264 }
+    size: { w: 1090, h: 18 }
+  - id: r4
+    label: "a と z は別の寸法です（④）。等脚なら a ＝ 0.7z。「a6」と「z6」では、溶接の大きさが 1.4 倍違います。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1288 }
+    size: { w: 1090, h: 18 }
+  - id: r5
+    label: "レ形・J 形は、片方の材だけを削ります（⑤）。どちらを削るかを言うために、矢を折って指します（4.6.3）。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1312 }
+    size: { w: 1090, h: 18 }
+  - id: r6
+    label: "交点の丸は全周、交点の旗は現場（①）。図面に描き切れない施工の条件を、記号 1 つで運んでいます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1336 }
+    size: { w: 1090, h: 18 }
+  - id: r7
+    label: "尾は、規格や施工法を書く欄です。 記号で言えないことは、ここへ文字で書きます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1360 }
+    size: { w: 1090, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p2
+    to: p3
+    curve: none
+    ends: { from: arrow, to: none }
+  - from: p4
+    to: p5
+    curve: none
+    ends: { from: none, to: none }
+  - from: p6
+    to: p7
+    curve: none
+    ends: { from: none, to: none }
+  - from: p8
+    to: p9
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 400, y: 326 }
+      - { x: 426, y: 326 }
+  - from: p10
+    to: p11
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p12
+    to: p13
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 322, y: 266 }
+  - from: p14
+    to: p15
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p16
+    to: p17
+    curve: none
+    ends: { from: arrow, to: none }
+  - from: p18
+    to: p19
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 240, y: 708 }
+      - { x: 262, y: 708 }
+  - from: p20
+    to: p21
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p22
+    to: p23
+    curve: none
+    ends: { from: arrow, to: none }
+  - from: p24
+    to: p25
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 460, y: 664 }
+      - { x: 482, y: 664 }
+  - from: p26
+    to: p27
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p28
+    to: p29
+    curve: none
+    ends: { from: arrow, to: none }
+  - from: p30
+    to: p31
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 680, y: 708 }
+      - { x: 702, y: 708 }
+  - from: p32
+    to: p33
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 680, y: 664 }
+      - { x: 702, y: 664 }
+  - from: p34
+    to: p35
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p36
+    to: p37
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p38
+    to: p39
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 1012, y: 244 }
+  - from: p40
+    to: p41
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p42
+    to: p43
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p44
+    to: p45
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p46
+    to: p47
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 847.3, y: 359 }
+      - { x: 848, y: 361.8 }
+      - { x: 849.3, y: 364.5 }
+      - { x: 851, y: 366.9 }
+      - { x: 853.1, y: 369 }
+      - { x: 855.5, y: 370.7 }
+      - { x: 858.2, y: 372 }
+      - { x: 861, y: 372.7 }
+      - { x: 864, y: 373 }
+      - { x: 867, y: 372.7 }
+      - { x: 869.8, y: 372 }
+      - { x: 872.5, y: 370.7 }
+      - { x: 874.9, y: 369 }
+      - { x: 877, y: 366.9 }
+      - { x: 878.7, y: 364.5 }
+      - { x: 880, y: 361.8 }
+      - { x: 880.7, y: 359 }
+  - from: p48
+    to: p49
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p50
+    to: p51
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p52
+    to: p53
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p54
+    to: p55
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 1025.9, y: 355.6 }
+      - { x: 1025.6, y: 357.1 }
+      - { x: 1025.1, y: 358.6 }
+      - { x: 1024.4, y: 360 }
+      - { x: 1023.5, y: 361.3 }
+      - { x: 1022.5, y: 362.5 }
+      - { x: 1021.3, y: 363.5 }
+      - { x: 1020, y: 364.4 }
+      - { x: 1018.6, y: 365.1 }
+      - { x: 1017.1, y: 365.6 }
+      - { x: 1015.6, y: 365.9 }
+  - from: p56
+    to: p57
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p58
+    to: p59
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 1147, y: 338 }
+      - { x: 1177, y: 368 }
+  - from: p60
+    to: p61
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 230, y: 1018 }
+      - { x: 308, y: 1096 }
+  - from: p62
+    to: p63
+    curve: none
+    line: dashed
+    ends: { from: none, to: arrow }
+  - from: p64
+    to: p65
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p66
+    to: p67
+    curve: none
+    ends: { from: none, to: arrow }
+    via:
+      - { x: 784, y: 804 }
