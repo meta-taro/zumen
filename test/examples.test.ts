@@ -193,3 +193,54 @@ describe('目次は、正本と同じものを写している', () => {
     }
   });
 });
+
+/**
+ * **説明が無い見本は、絵しか渡していない**（2026-09-20）。
+ *
+ * 見本の値打ちは絵ではなく、**「なぜその形なのか」**のほうにある
+ * （`.claude/rules/専門図面の調査と実装方針.md` §2）。
+ * `#` のコメントは見本ページの本文にそのまま出るので、
+ * **短い説明は、そのまま短いページになる。**
+ *
+ * 測ったら 120 字未満が **35 枚**あり、いちばん短いのは 12 字
+ * （`# 1 px = 25 mm` だけ）だった。7 周かけて 0 にしたので、**下限を決めて戻さない。**
+ */
+describe('見本の説明', () => {
+  /** `#` で始まる行（`# ` の後ろ）を、強調記号を外してつないだもの。 */
+  const body = (file: string): string =>
+    readFileSync(new URL(file, dir), 'utf8')
+      .split('\n')
+      .filter((line) => line.startsWith('# '))
+      .map((line) => line.slice(2))
+      .join('')
+      .replace(/\*\*/g, '');
+
+  it('**どの見本にも、120 字以上の説明がある**', () => {
+    const thin = files
+      .filter((file) => body(file).length < 120)
+      .map((file) => `${file}（${body(file).length} 字）`);
+    assert.deepEqual(thin, [], '説明が短い見本（絵だけでは、なぜその形かが渡らない）');
+  });
+
+  /**
+   * **規格は改正される**（2026-09-20）。
+   *
+   * 洗濯表示のアイロン温度を 110/150/200℃ と書いたあとで、
+   * **2024 年 8 月の改正で 120/160/210℃ になっていた**と気づいた。
+   * 同じ日に照度基準も JIS Z 9110 → Z 9125:2023 へ移っていた。
+   * **記号は同じ形のまま意味だけ変わる**ので、絵を見ても気づけない ——
+   * 規格番号を書くなら、**どの版を見たのか**まで書く。
+   */
+  it('**規格番号を書いた見本は、版（年）も書いている**', () => {
+    const STANDARD = /JIS\s*[A-Z]\s*\d+|ISO\s*\d+|JEM\s*\d+|JASO|IEC\s*\d+|JEITA|WDF|ANSI|NFPA/;
+    const comments = (file: string): string =>
+      readFileSync(new URL(file, dir), 'utf8')
+        .split('\n')
+        .filter((line) => line.startsWith('#'))
+        .join('\n');
+    const undated = files.filter(
+      (file) => STANDARD.test(comments(file)) && !/(19|20)\d\d/.test(comments(file)),
+    );
+    assert.deepEqual(undated, [], '規格番号はあるのに、いつの版か書いていない見本');
+  });
+});

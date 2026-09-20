@@ -62,6 +62,8 @@
   <p class="made">この図は、下の 1 枚の YAML から描かれています。手で図形を動かしてはいません。</p>
   <h2>正本に書いてある決まりごと</h2>
   <p>線の角度は水平・垂直・斜め 45 度のみ（日本の路線図の決まり）。色は路線の名前そのもの（DESIGN.md §7 の例外・src/palette.ts）。白黒でも読めるよう、色と駅ナンバリング（H / S / L）の両方で示す。</p>
+  <p><strong>駅の間隔は等間隔で、実際の距離とは違う。</strong>路線図が答えるのは「どこで乗り換えるか」であって「何 km か」ではない ——距離を正しく描くと、<strong>都心の駅が団子になって乗換が読めなくなる。</strong></p>
+  <p><strong>角度を 3 つ（水平・垂直・45 度）に絞るのは、折れ点を減らすため。</strong>線が素直なほど、<strong>折れていない所＝乗換駅</strong>が目に入る。駅ナンバリングは、色が読めない人にも、路線名を読めない人にも同じように効く。</p>
   <h2>正本（YAML）</h2>
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/25-%E8%B7%AF%E7%B7%9A%E5%9B%B3.zumen.yaml"><code>examples/gallery/25-路線図.zumen.yaml</code></a></p>
   <h2>同じ分野の見本</h2>
