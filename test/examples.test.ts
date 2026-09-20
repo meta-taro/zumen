@@ -232,14 +232,32 @@ describe('見本の説明', () => {
    * 規格番号を書くなら、**どの版を見たのか**まで書く。
    */
   it('**規格番号を書いた見本は、版（年）も書いている**', () => {
-    const STANDARD = /JIS\s*[A-Z]\s*\d+|ISO\s*\d+|JEM\s*\d+|JASO|IEC\s*\d+|JEITA|WDF|ANSI|NFPA/;
+    /**
+     * **見る規格の名前を広げた**（2026-09-21）。
+     *
+     * `EN` と `ISO/IEC` が漏れていて、見本 97（防犯カメラの視野図）の
+     * **IEC/EN 62676-4 が版なしのまま通っていた。**
+     */
+    const STANDARD =
+      /JIS\s*[A-Z]\s*\d+|ISO\/IEC\s*\d+|ISO\s*\d+|IEC\/EN\s*\d+|IEC\s*\d+|EN\s*\d+|DIN\s*\d+|ASTM\s*[A-Z]?\d+|IEEE\s*\d+|JEM\s*\d+|JASO|JEITA|WDF|ANSI|NFPA/;
+    /**
+     * **版を確かめられないなら、確かめていないと書く。**
+     *
+     * 年を書かせるのは、**古い版の数をそのまま載せない**ため。
+     * 調べがつかないときに年をでっち上げるほうが悪いので、
+     * **そう書いてあるなら通す**（そのかわり、図を読む人にも伝わる）。
+     */
+    const ADMITS = /版は確かめていない/;
     const comments = (file: string): string =>
       readFileSync(new URL(file, dir), 'utf8')
         .split('\n')
         .filter((line) => line.startsWith('#'))
         .join('\n');
     const undated = files.filter(
-      (file) => STANDARD.test(comments(file)) && !/(19|20)\d\d/.test(comments(file)),
+      (file) =>
+        STANDARD.test(comments(file)) &&
+        !/(19|20)\d\d/.test(comments(file)) &&
+        !ADMITS.test(comments(file)),
     );
     assert.deepEqual(undated, [], '規格番号はあるのに、いつの版か書いていない見本');
   });
