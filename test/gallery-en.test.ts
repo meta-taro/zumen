@@ -107,6 +107,25 @@ describe('見本の代替テキスト', () => {
   });
 });
 
+/**
+ * **英語のページに、日本語の代替テキストが残っていた**（2026-09-20）。
+ *
+ * 見本ごとのページは、**言語にかかわらず日本語の `alt`** を書き出していた ——
+ * 英語圏の読み上げ環境では、**英語のページで日本語が読み上げられる。**
+ * 272 枚すべてがそうだった。図の説明は、そのページの言語で書く。
+ */
+describe('英語のページの代替テキスト', () => {
+  it('**英語のページの alt に、日本語が混ざっていない**', async () => {
+    const { readFileSync } = await import('node:fs');
+    for (const path of ['site/en/index.html', 'site/en/g/01/index.html', 'site/en/g/271/index.html']) {
+      const page = readFileSync(path, 'utf8');
+      const alts = page.match(/alt="[^"]*"/g) ?? [];
+      const japanese = alts.filter((text) => /[ぁ-んァ-ヶ一-龠]/.test(text));
+      assert.deepEqual(japanese, [], `${path} の alt に日本語が残っている`);
+    }
+  });
+});
+
 describe('英語のページの並び', () => {
   it('**分類の順が、英語だけ違う**（建築から始まり、日本の鉄道は最後）', () => {
     const order = ORDER_EN as string[];

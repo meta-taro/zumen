@@ -148,7 +148,7 @@ function samplePage(s, lang) {
   <h1>${esc(s.title)}</h1>
   <p class="lead">${esc(lang === 'ja' ? s.caption : s.en)}</p>
   <figure>
-    <img src="../../${lang === 'ja' ? '' : '../'}gallery/${encodeURIComponent(s.name)}.svg" alt="${esc(s.alt)}" loading="lazy">
+    <img src="../../${lang === 'ja' ? '' : '../'}gallery/${encodeURIComponent(s.name)}.svg" alt="${esc(lang === 'ja' ? s.alt : s.en)}" loading="lazy">
   </figure>
   <p class="made">${esc(t.made)}</p>
   ${s.note.length === 0 ? '' : `<h2>${esc(t.note)}</h2>\n  ${s.note.map((p) => `<p>${strong(p)}</p>`).join('\n  ')}`}
@@ -191,7 +191,7 @@ function groupPage(group, lang) {
   <h1>${esc(label)}</h1>
   <p class="lead">${esc(desc)}</p>
   <ul class="cards">
-${items.map((s) => `    <li><a href="../../${lang === 'ja' ? '' : '../'}g/${s.no}/"><img src="../../${lang === 'ja' ? '' : '../'}gallery/${encodeURIComponent(s.name)}.svg" alt="${esc(s.alt)}" loading="lazy"><span>${esc(lang === 'ja' ? s.caption : s.en)}</span></a></li>`).join('\n')}
+${items.map((s) => `    <li><a href="../../${lang === 'ja' ? '' : '../'}g/${s.no}/"><img src="../../${lang === 'ja' ? '' : '../'}gallery/${encodeURIComponent(s.name)}.svg" alt="${esc(lang === 'ja' ? s.alt : s.en)}" loading="lazy"><span>${esc(lang === 'ja' ? s.caption : s.en)}</span></a></li>`).join('\n')}
   </ul>
 </article>`;
   return shell({
