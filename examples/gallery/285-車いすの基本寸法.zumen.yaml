@@ -1,0 +1,296 @@
+version: 1
+kind: placement
+arrows: true
+scale: { mm: 3.8 }
+title: 車いすの基本寸法（通れることと、向きを変えられることは別）
+# **通れることと、向きを変えられることは別の話。**
+# 幅 700 の車いすは 800 の出入口を通れるが、**その先で向きを変えられるとはかぎらない** ——
+# **通路には 1,400 角（転回 180°）、個室には φ1,500（回転 360°）** が要り、
+# 大型の電動車いすでは **φ1,800** で考える。
+#
+# **車いすの大きさは JIS で「これ以下」と決まっている** ——
+# **全幅 700mm 以下・全長 1,200mm 以下・全高 1,090mm 以下**（フットサポート高は 50mm 以上）。
+# 建物側は**上限いっぱいの車いすが来ても通れるように**作るので、
+# 「うちの車いすは細いから」では施設の設計はできない。
+#
+# **まっすぐ通れる幅と、人とすれ違える幅は倍ちがう。**
+# 出入口は **800mm 以上**、廊下は **850mm 以上**、**すれ違いには 1,800mm 以上** ——
+# 850 は「1 台が通れる」幅で、人が来たら片方が下がることになる。
+# 通路には**50m 以内ごとに転回できる場所**を置く。
+#
+# **段差を消すと、長さが要る。** 勾配 **1/12** は高さ 1 に対して長さ 12 なので、
+# 玄関の 1 段（15cm）をスロープにすると**1.8m の助走路**が要る ——
+# **「段差をなくす」は、場所を用意するということ。**
+# （勾配 1/12 以下で高さ 16cm 未満なら、手すりは免除される。）
+nodes:
+  - id: t1
+    label: "① 車いすの寸法と、要る空間を同じ縮尺で重ねる（上から見る）"
+    marker: none
+    align: left
+    at: { x: 150, y: 150 }
+    size: { w: 760, h: 20 }
+  - id: c18
+    label: ""
+    marker: circle
+    line: dashed
+    at: { x: 236, y: 206 }
+    size: { w: 468, h: 468 }
+  - id: c15
+    label: ""
+    marker: circle
+    at: { x: 275, y: 245 }
+    size: { w: 390, h: 390 }
+  - id: sq14
+    label: ""
+    line: dashed
+    at: { x: 288, y: 258 }
+    size: { w: 364, h: 364 }
+  - id: chair
+    label: ""
+    hatch: lines
+    at: { x: 379, y: 284 }
+    size: { w: 182, h: 312 }
+  - id: chairn
+    label: "車いす\n700 × 1,200"
+    marker: none
+    align: center
+    at: { x: 379, y: 400 }
+    size: { w: 182, h: 36 }
+  - id: l18
+    label: "φ1,800 ——\n大型の電動車いす"
+    marker: none
+    align: left
+    at: { x: 714, y: 202 }
+    size: { w: 210, h: 36 }
+  - id: l15
+    label: "φ1,500 ——\n回転（360°）の内接円"
+    marker: none
+    align: left
+    at: { x: 714, y: 380 }
+    size: { w: 210, h: 36 }
+  - id: l14
+    label: "1,400 角 ——\n転回（180°）"
+    marker: none
+    align: left
+    at: { x: 714, y: 608 }
+    size: { w: 210, h: 36 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 378, y: 697 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 560, y: 697 }
+    size: { w: 2, h: 2 }
+  - id: w700
+    label: "全幅 700 以下"
+    marker: none
+    align: center
+    at: { x: 319, y: 704 }
+    size: { w: 302, h: 18 }
+  - id: scale
+    label: "1mm ＝ 0.26px（実寸の 1/3.8）"
+    marker: none
+    align: center
+    at: { x: 150, y: 734 }
+    size: { w: 760, h: 18 }
+  - id: why1
+    label: "通れることと、向きを変えられることは別の話。\n幅 700 の車いすは 800 の出入口を通れるが、その先で向きを変えられるとはかぎらない ——\n通路には 1,400 角（転回 180°）、個室には φ1,500（回転 360°） が要る。\n大型の電動車いすでは φ1,800 で考える。"
+    at: { x: 150, y: 764 }
+    size: { w: 760, h: 92 }
+  - id: t2
+    label: "② 車いすの大きさ（JIS）"
+    marker: none
+    align: left
+    at: { x: 950, y: 150 }
+    size: { w: 400, h: 20 }
+  - id: h950_186
+    label: "手動・電動の上限"
+    hatch: solid
+    at: { x: 950, y: 186 }
+    size: { w: 400, h: 24 }
+  - id: x950_210
+    label: "全幅"
+    at: { x: 950, y: 210 }
+    size: { w: 160, h: 24 }
+  - id: y950_210
+    label: "700mm 以下"
+    align: left
+    at: { x: 1110, y: 210 }
+    size: { w: 240, h: 24 }
+  - id: x950_234
+    label: "全長"
+    at: { x: 950, y: 234 }
+    size: { w: 160, h: 24 }
+  - id: y950_234
+    label: "1,200mm 以下"
+    align: left
+    at: { x: 1110, y: 234 }
+    size: { w: 240, h: 24 }
+  - id: x950_258
+    label: "全高"
+    at: { x: 950, y: 258 }
+    size: { w: 160, h: 24 }
+  - id: y950_258
+    label: "1,090mm 以下"
+    align: left
+    at: { x: 1110, y: 258 }
+    size: { w: 240, h: 24 }
+  - id: x950_282
+    label: "フットサポート高"
+    at: { x: 950, y: 282 }
+    size: { w: 160, h: 24 }
+  - id: y950_282
+    label: "50mm 以上"
+    align: left
+    at: { x: 1110, y: 282 }
+    size: { w: 240, h: 24 }
+  - id: why2
+    label: "規格は「これ以下」で決まっている。\n建物側は上限いっぱいの車いすが来ても通れるように作る ——\n「うちの車いすは細いから」では、施設の設計はできない。"
+    at: { x: 950, y: 320 }
+    size: { w: 400, h: 74 }
+  - id: t3
+    label: "③ 通路とすれ違い"
+    marker: none
+    align: left
+    at: { x: 950, y: 412 }
+    size: { w: 400, h: 20 }
+  - id: h950_442
+    label: "有効幅"
+    hatch: solid
+    at: { x: 950, y: 442 }
+    size: { w: 400, h: 24 }
+  - id: x950_466
+    label: "出入口"
+    at: { x: 950, y: 466 }
+    size: { w: 200, h: 24 }
+  - id: y950_466
+    label: "800mm 以上"
+    align: left
+    at: { x: 1150, y: 466 }
+    size: { w: 200, h: 24 }
+  - id: x950_490
+    label: "廊下（車いす）"
+    at: { x: 950, y: 490 }
+    size: { w: 200, h: 24 }
+  - id: y950_490
+    label: "850mm 以上"
+    align: left
+    at: { x: 1150, y: 490 }
+    size: { w: 200, h: 24 }
+  - id: x950_514
+    label: "すれ違い"
+    at: { x: 950, y: 514 }
+    size: { w: 200, h: 24 }
+  - id: y950_514
+    label: "1,800mm 以上"
+    align: left
+    at: { x: 1150, y: 514 }
+    size: { w: 200, h: 24 }
+  - id: x950_538
+    label: "転回の場所"
+    at: { x: 950, y: 538 }
+    size: { w: 200, h: 24 }
+  - id: y950_538
+    label: "50m 以内ごとに"
+    align: left
+    at: { x: 1150, y: 538 }
+    size: { w: 200, h: 24 }
+  - id: why3
+    label: "まっすぐ通れる幅と、人とすれ違える幅は倍ちがう。\n850 は「1 台が通れる」幅で、人が来たら片方が下がる ——\n1,800 あれば、止まらずにすれ違える。"
+    at: { x: 950, y: 576 }
+    size: { w: 400, h: 74 }
+  - id: t4
+    label: "④ スロープの勾配"
+    marker: none
+    align: left
+    at: { x: 950, y: 668 }
+    size: { w: 400, h: 20 }
+  - id: h950_698
+    label: "1/12 の意味"
+    hatch: solid
+    at: { x: 950, y: 698 }
+    size: { w: 400, h: 24 }
+  - id: x950_722
+    label: "勾配 1/12"
+    at: { x: 950, y: 722 }
+    size: { w: 200, h: 24 }
+  - id: y950_722
+    label: "高さ 1 に対して長さ 12"
+    align: left
+    at: { x: 1150, y: 722 }
+    size: { w: 200, h: 24 }
+  - id: x950_746
+    label: "高さ 16cm"
+    at: { x: 950, y: 746 }
+    size: { w: 200, h: 24 }
+  - id: y950_746
+    label: "長さ 1.92m"
+    align: left
+    at: { x: 1150, y: 746 }
+    size: { w: 200, h: 24 }
+  - id: x950_770
+    label: "高さ 75cm"
+    at: { x: 950, y: 770 }
+    size: { w: 200, h: 24 }
+  - id: y950_770
+    label: "長さ 9m"
+    align: left
+    at: { x: 1150, y: 770 }
+    size: { w: 200, h: 24 }
+  - id: x950_794
+    label: "手すり"
+    at: { x: 950, y: 794 }
+    size: { w: 200, h: 24 }
+  - id: y950_794
+    label: "1/12 以下・16cm 未満で免除"
+    align: left
+    at: { x: 1150, y: 794 }
+    size: { w: 200, h: 24 }
+  - id: why4
+    label: "段差を消すと、長さが要る。\n玄関の 1 段（15cm）をスロープにすると、\n1.8m の助走路が要る ——\n「段差をなくす」は、場所を用意すること。"
+    at: { x: 950, y: 832 }
+    size: { w: 400, h: 92 }
+  - id: r1
+    label: "通れることと、向きを変えられることは別の話です（①）。幅 700 の車いすは 800 の出入口を通れますが、その先で向きを変えられるとはかぎりません。"
+    marker: none
+    align: left
+    at: { x: 150, y: 924 }
+    size: { w: 1200, h: 18 }
+  - id: r2
+    label: "通路には 1,400 角（転回 180°）、個室には φ1,500（回転 360°）が要ります。 大型の電動車いすでは φ1,800 で考えます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 948 }
+    size: { w: 1200, h: 18 }
+  - id: r3
+    label: "規格は「これ以下」で決まっています（②）。全幅 700・全長 1,200・全高 1,090mm 以下です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 972 }
+    size: { w: 1200, h: 18 }
+  - id: r4
+    label: "建物側は、上限いっぱいの車いすが来ても通れるように作ります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 996 }
+    size: { w: 1200, h: 18 }
+  - id: r5
+    label: "まっすぐ通れる幅と、すれ違える幅は倍ちがいます（③）。850 は 1 台ぶん、1,800 ですれ違えます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1020 }
+    size: { w: 1200, h: 18 }
+  - id: r6
+    label: "段差を消すと、長さが要ります（④）。勾配 1/12 なら、高さ 15cm の 1 段に 1.8m の助走路が要ります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1044 }
+    size: { w: 1200, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    ends: { from: arrow, to: arrow }
