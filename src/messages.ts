@@ -205,8 +205,15 @@ const ja = {
     adriftWidth: (id: string, needs: string, has: string) => `${id}（要 ${needs}px ／ 今 ${has}px）`,
     inspectAdrift: (count: number, ids: string) => `  名前が箱から離れている ${count}（${ids}）`,
     inspectHiddenTags: (count: number, ids: string) => `  印に入らなかった符号 ${count}（${ids}）`,
-    inspectPaper: (smallest: number, longest: number, ratio: string) =>
-      `  いちばん小さい字 ${smallest}px ／ 長辺 ${longest}px ／ 比 ${ratio}`,
+    /**
+     * **紙の縦横も出す**（2026-09-21）。
+     *
+     * 長辺しか出していなかったので、**どちらの向きが長いのか**が分からず、
+     * どこを詰めるかを決めるのに毎回、別に測る道具を書いていた
+     * （この夜だけで 6 回）。
+     */
+    inspectPaper: (width: number, height: number, smallest: number, longest: number, ratio: string) =>
+      `  紙 ${width} × ${height}px ／ いちばん小さい字 ${smallest}px ／ 長辺 ${longest}px ／ 比 ${ratio}`,
     inspectPrint: '  **A3 に印刷しても字が読めません。**',
     inspectProject: '  投影には小さすぎます（印刷して読む図なら、これでよい）。',
     inspectNote:
@@ -990,8 +997,8 @@ const en: Catalog = {
     adriftWidth: (id: string, needs: string, has: string) => `${id} (needs ${needs}px, has ${has}px)`,
     inspectAdrift: (count: number, ids: string) => `  ${count} names drifting away from their box (${ids})`,
     inspectHiddenTags: (count: number, ids: string) => `  ${count} tags that did not fit their marker (${ids})`,
-    inspectPaper: (smallest: number, longest: number, ratio: string) =>
-      `  smallest text ${smallest}px / longest side ${longest}px / ratio ${ratio}`,
+    inspectPaper: (width: number, height: number, smallest: number, longest: number, ratio: string) =>
+      `  paper ${width} × ${height}px / smallest text ${smallest}px / longest side ${longest}px / ratio ${ratio}`,
     inspectPrint: '  **Too small to read when printed on A3.**',
     inspectProject: '  Too small to project (fine if this drawing is meant to be printed).',
     inspectNote:

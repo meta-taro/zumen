@@ -645,7 +645,15 @@ export async function runInspect(paths: string[], read = readFileSync): Promise<
 
     // **長さは 1px きざみで足りる。** 1448.6107034668482 は読む人を困らせるだけ。
     const ratio = seen.textRatio === null ? '—' : seen.textRatio.toFixed(4);
-    lines.push(m.inspectPaper(seen.smallestText, Math.round(seen.longestSide), ratio));
+    lines.push(
+      m.inspectPaper(
+        Math.round(placed.width),
+        Math.round(placed.height),
+        seen.smallestText,
+        Math.round(seen.longestSide),
+        ratio,
+      ),
+    );
     if (seen.tooSmallToPrint) lines.push(m.inspectPrint);
     else if (seen.tooSmallToProject) lines.push(m.inspectProject);
   }

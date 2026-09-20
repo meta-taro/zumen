@@ -959,3 +959,31 @@ describe('並べきれない分の数', () => {
     assert.ok(!row.includes('ほか'), row);
   });
 });
+
+/**
+ * **紙の縦横も出す**（2026-09-21）。
+ *
+ * 長辺しか出していなかったので、**どちらの向きが長いのか**が分からず、
+ * どこを詰めるかを決めるのに毎回、別に測る道具を書いていた（この夜だけで 6 回）。
+ */
+describe('inspect が出す紙の大きさ', () => {
+  const wide = [
+    'version: 1', 'kind: placement', 'nodes:',
+    '  - id: a', '    label: 左', '    at: { x: 0, y: 0 }', '    size: { w: 100, h: 40 }',
+    '  - id: b', '    label: 右', '    at: { x: 400, y: 0 }', '    size: { w: 100, h: 40 }',
+    '',
+  ].join('\n');
+
+  it('**縦と横の両方を言う**', async () => {
+    const result = await runInspect(['a.yaml'], reader({ 'a.yaml': wide }) as never);
+    const row = result.lines.find((line) => line.includes('いちばん小さい字'))!;
+    assert.match(row, /紙 \d+ × \d+px/, row);
+  });
+
+  it('長辺と比も、これまでどおり出す', async () => {
+    const result = await runInspect(['a.yaml'], reader({ 'a.yaml': wide }) as never);
+    const row = result.lines.find((line) => line.includes('いちばん小さい字'))!;
+    assert.match(row, /長辺 \d+px/, row);
+    assert.match(row, /比 [\d.]+/, row);
+  });
+});
