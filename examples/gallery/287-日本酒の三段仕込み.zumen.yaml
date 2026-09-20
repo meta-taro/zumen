@@ -1,0 +1,108 @@
+version: 1
+direction: down
+wrap: false
+title: 日本酒の三段仕込み（糖化と発酵が、同じタンクで同時に進む）
+# **日本酒がほかの醸造酒と違うのは、糖化と発酵を同じタンクで同時にやるから。**
+# ワインはぶどうに糖があるので、そのまま発酵する（単発酵）。
+# ビールは麦を糖にして麦汁にしてから、酵母を入れる（単行複発酵）。
+# 日本酒は**米のデンプンを麹の酵素が糖に変えるそばから、酵母がその糖を食べる** ——
+# **並行複発酵**という。世界の醸造酒で、この形はほかにほとんど無い。
+#
+# **だから麹が要る。** 米には糖が無く、麦芽のように米を発芽させることもしない。
+# **麹菌を米に生やして、その酵素を借りる。** 麹米は総米のおよそ 20% で、
+# 特定名称酒では**こうじ米の割合が 15% 以上**と決まっている
+# （清酒の製法品質表示基準・国税庁告示第 8 号（平成元年）。
+# **平成 15 年改正・平成 16 年 1 月施行**で、純米酒の精米歩合 70% 以下の要件は削除された）。
+#
+# **三段仕込みは、4 日で 3 回に分けて足す。**
+# 1 日目 初添（総米の 1/6）→ 2 日目 **踊（何も足さずに 1 日待つ）** →
+# 3 日目 仲添（2/6）→ 4 日目 留添（3/6）。**1 : 2 : 3 で倍々に増える。**
+#
+# **なぜ一度に入れないか。** 酒母は乳酸で酸性にして雑菌を締め出した液で、
+# そこへ一度に全量を足すと**酸が薄まって雑菌が動く。**
+# 3 回に分ければ、酸と酵母の濃さを保ったまま量だけ増やせる ——
+# **踊は、初添で増えた酵母が量に追いつくのを待つ日**で、休みではない。
+#
+# **留添の日が、もろみの 1 日目。** そこから 20〜30 日。
+# 留添の品温は**もろみ全体の最低温**をねらい、吟醸で 6〜7℃、普通酒で 7〜10℃。
+# 低いほど発酵はゆっくり進み、香りが残る。
+#
+# **数えているのは日数ではなく、酵母の数と酸の濃さ。**
+# 図の縦は時間の順だが、段を分ける理由はどれも「薄めないこと」に行き着く。
+groups:
+  - id: shikomi
+    label: 三段仕込み（4 日で 3 回）
+nodes:
+  - id: kome
+    type: generic
+    label: 精米・洗米・浸漬・蒸し
+    technology: 大吟醸 50%・本醸造 70%
+  - id: kouji1
+    type: generic
+    label: 製麹
+    technology: 約 48 時間・最高 43℃
+  - id: shubo
+    type: database
+    label: 酒母
+    technology: 速醸 2 週間・生酛 1 か月
+  - id: hatsuzoe
+    type: generic
+    label: 初添（1 日目）
+    technology: 総米の 1/6
+    group: shikomi
+  - id: odori
+    type: generic
+    label: 踊（2 日目）
+    technology: 何も足さない
+    group: shikomi
+  - id: nakazoe
+    type: generic
+    label: 仲添（3 日目）
+    technology: 総米の 2/6
+    group: shikomi
+  - id: tomezoe
+    type: generic
+    label: 留添（4 日目）
+    technology: 総米の 3/6
+    group: shikomi
+  - id: moromi
+    type: database
+    label: もろみ
+    technology: 並行複発酵・20〜30 日
+  - id: jouso
+    type: generic
+    label: 上槽・火入れ・貯蔵
+    technology: 搾って酒と酒粕に分ける
+edges:
+  - from: kome
+    to: kouji1
+    label: 麹米 約 20%
+  - from: kome
+    to: shubo
+    label: 蒸米
+  - from: kome
+    to: hatsuzoe
+    line: dashed
+    label: 掛米
+  - from: kouji1
+    to: shubo
+    label: 麹
+  - from: kouji1
+    to: hatsuzoe
+    line: dashed
+    label: 麹
+  - from: shubo
+    to: hatsuzoe
+    label: 酵母を増やしてから
+  - from: hatsuzoe
+    to: odori
+  - from: odori
+    to: nakazoe
+  - from: nakazoe
+    to: tomezoe
+  - from: tomezoe
+    to: moromi
+    label: ここが醪 1 日目
+  - from: moromi
+    to: jouso
+    label: 20〜30 日

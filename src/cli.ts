@@ -513,7 +513,17 @@ export async function runInspect(paths: string[], read = readFileSync): Promise<
     const warnings = [...validate(text), ...(await placedFindings(text))].filter(
       (finding) => finding.severity === 'warning',
     );
-    if (warnings.length > 0) lines.push(m.inspectWarnings(String(warnings.length)));
+    /**
+     * **どの検査が鳴っているかまで出す**（2026-09-21）。
+     *
+     * 件数だけだと、`pnpm validate` をもう一度叩かないと種類が分からない ——
+     * 見本 286・287 を描いていて、同じ往復を 2 回した。
+     * **中身（どの節か・何 px か）は出さない。**それは `validate` の仕事のまま。
+     */
+    if (warnings.length > 0) {
+      const codes = [...new Set(warnings.map((finding) => finding.code))];
+      lines.push(m.inspectWarnings(String(warnings.length), codes.join(' / ')));
+    }
 
     const placed = await layout(text);
     const crossed = crossingPlaces(placed);

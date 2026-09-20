@@ -838,3 +838,44 @@ describe('inspect が読めない図を渡されたとき', () => {
     assert.ok(!/長辺 \d+\.\d/.test(said), said);
   });
 });
+
+/**
+ * **警告は、件数だけでなく種類まで出す**（2026-09-21）。
+ *
+ * 「警告 2 件」だけだと、`pnpm validate` をもう一度叩かないと種類が分からない ——
+ * 見本 286・287 を描いていて、同じ往復を 2 回した。
+ * **中身（どの節か・何 px か）は出さない。**それは `validate` の仕事のまま。
+ */
+describe('inspect が出す警告の種類', () => {
+  // 8px しか離れていない 2 つの箱。既定の矢印（12px）のほうが長い。
+  const NEAR = [
+    'version: 1',
+    'kind: placement',
+    'nodes:',
+    '  - id: a',
+    '    label: あ',
+    '    at: { x: 0, y: 0 }',
+    '    size: { w: 60, h: 40 }',
+    '  - id: b',
+    '    label: い',
+    '    at: { x: 68, y: 0 }',
+    '    size: { w: 60, h: 40 }',
+    'edges:',
+    '  - from: a',
+    '    to: b',
+    '',
+  ].join('\n');
+
+  it('**どの検査が鳴っているかを言う**', async () => {
+    const result = await runInspect(['a.yaml'], reader({ 'a.yaml': NEAR }) as never);
+    const said = result.lines.join('\n');
+    assert.match(said, /警告 1 件/, said);
+    assert.match(said, /ends-too-long/, `種類を言っていない\n${said}`);
+  });
+
+  it('警告が無ければ、その行を出さない', async () => {
+    const far = NEAR.replace('x: 68', 'x: 200');
+    const result = await runInspect(['a.yaml'], reader({ 'a.yaml': far }) as never);
+    assert.ok(!result.lines.some((line) => line.includes('警告')), result.lines.join('\n'));
+  });
+});

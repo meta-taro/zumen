@@ -174,7 +174,8 @@ const ja = {
      * 見本 268 を登録したあとで、`hatch: dots` が描かれていない節を
      * `pnpm validate` が見つけた。**手順が見ている口に、警告が出ていないと意味がない。**
      */
-    inspectWarnings: (count: string) => `  **警告 ${count} 件**（中身は \`pnpm validate\` で出ます）`,
+    inspectWarnings: (count: string, codes: string) =>
+      `  **警告 ${count} 件**（${codes}。中身は \`pnpm validate\` で出ます）`,
     inspectStraddles: (count: number, pairs: string) => `  **またぎ ${count}**（${pairs}）`,
     inspectOverlaps: (count: number, pairs: string) => `  **文字の重なり ${count}**（${pairs}）`,
     inspectUnderBoxes: (count: number, pairs: string) => `  **箱に隠れた辺 ${count}**（${pairs}）`,
@@ -940,7 +941,8 @@ const en: Catalog = {
     inspectCrossings: (count: number, groups: number, pairs: string) =>
       `  **${count} crossings** (${groups} pairs; two lines that cross more than once count as one pair)\n    ${pairs}`,
     straddleBy: (a: string, b: string, x: string, y: string) => `${a}<->${b} (overlap ${x}px wide, ${y}px tall)`,
-    inspectWarnings: (count: string) => `  **${count} warning(s)** (run \`pnpm validate\` to see them)`,
+    inspectWarnings: (count: string, codes: string) =>
+      `  **${count} warning(s)** (${codes}; run \`pnpm validate\` to see them)`,
     inspectStraddles: (count: number, pairs: string) => `  **${count} straddles** (${pairs})`,
     inspectOverlaps: (count: number, pairs: string) => `  **${count} text overlaps** (${pairs})`,
     inspectUnderBoxes: (count: number, pairs: string) => `  **${count} edges buried under boxes** (${pairs})`,
