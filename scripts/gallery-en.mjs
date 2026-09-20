@@ -112,6 +112,7 @@ export const CAPTIONS_EN = {
   '169-麻雀の配牌': 'Mahjong: the dice decide where the wall is opened, not luck',
   '168-ダイヤモンドシステム': 'Billiards: the diamonds on the rails are a ruler, not decoration',
   '167-ダーツボードの割り付け': 'A dartboard: the numbers are arranged to punish a miss',
+  '238-板金の展開図': 'A flat pattern is not the sum of the outside dimensions: the outside stretches when you bend it, and the amount subtracted is each shop measured value, not a standard',
   '237-基板の層構成': 'Adding layers is not only about routing: it brings the ground plane close, and the same 50 ohms goes from a 2.85mm trace to a 0.34mm one',
   '236-PoEの給電クラス': 'A PoE standard quotes two wattages, not one: what the switch sends and what the device receives — the difference is what the 100m of copper turns into heat',
   '235-19インチラックと1U': 'Rack holes are deliberately unevenly spaced — 15.875 / 15.875 / 12.7 — so that the middle of the 12.7 gap marks where one U ends and the next begins',
