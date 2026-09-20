@@ -562,6 +562,11 @@ async function convert(
   const m = messages().cli;
   const [input, output] = paths;
   if (input === undefined) return { code: 2, lines: [usage] };
+  // **旗と読み違えた出し先で、ファイルを作らない。** `-o 出力.svg` と書くと
+  // `-o` という名前のファイルが出来て、本当の出し先は黙って捨てられていた。
+  if (output !== undefined && output.startsWith('-')) {
+    return { code: 2, lines: [m.outputLooksLikeFlag(output), usage] };
+  }
   const target = output ?? `${input.replace(/\.zumen\.yaml$|\.ya?ml$|\.md$/, '')}${extension}`;
 
   let text: string;

@@ -217,6 +217,14 @@ const ja = {
     /** 解けなかったとき。**片方を黙って捨てない**ので、人が選ぶ。 */
     mergedWithConflicts: (path: string, count: number) =>
       `${path} に ${count} 件、両方が別々に変えた箇所があります。印を付けたので、人が選んでください。`,
+    /**
+     * 出し先が旗のように見えるとき。**その名前でファイルを作らない。**
+     *
+     * `pnpm svg 図.zumen.yaml -o 出力.svg` と書くと、以前は `-o` という名前の
+     * ファイルが出来て、本当の出し先は黙って捨てられていた。
+     */
+    outputLooksLikeFlag: (value: string) =>
+      `出し先が ${value} になっています。zumen に ${value} という旗はありません —— 出し先はファイル名で直接書いてください（例: \`pnpm svg 図.zumen.yaml 図.svg\`）。`,
     fileUnreadable: (path: string, reason: string) => `${path} を読めません: ${reason}`,
     /** 1 ファイルぶんの見出し。指摘が無いときは出さない。 */
     fileHeading: (path: string) => `${path}`,
@@ -900,6 +908,8 @@ const en: Catalog = {
     mergedClean: (path: string) => `Merged ${path} structurally. No conflicts.`,
     mergedWithConflicts: (path: string, count: number) =>
       `${path} has ${count} place(s) both sides changed differently. They are marked for you to choose.`,
+    outputLooksLikeFlag: (value: string) =>
+      `The output path is ${value}. zumen has no ${value} option — write the output path directly (for example \`pnpm svg drawing.zumen.yaml drawing.svg\`).`,
     fileUnreadable: (path: string, reason: string) => `Cannot read ${path}: ${reason}`,
     fileHeading: (path: string) => `${path}`,
     severityError: 'error',

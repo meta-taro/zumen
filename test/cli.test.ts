@@ -433,6 +433,22 @@ describe('変換の口', () => {
     const { read, write } = io({});
     assert.equal((await runSvg(['無い.yaml'], read, write)).code, 1);
   });
+
+  it('出し先が旗に見えたら、その名前でファイルを作らない', async () => {
+    const { read, write, written } = io({ 'z.zumen.yaml': DIAGRAM });
+    const result = await runSvg(['z.zumen.yaml', '-o', 'z.svg'], read, write);
+    assert.equal(result.code, 2);
+    // **`-o` という名前のファイルが出来ていた**（2026-09-20 に踏んだ）。
+    assert.equal(written['-o'], undefined);
+    assert.equal(written['z.svg'], undefined);
+    assert.match(result.lines[0] ?? '', /-o/);
+  });
+
+  it('--dark は出し先と読み違えない', async () => {
+    const { read, write, written } = io({ 'z.zumen.yaml': DIAGRAM });
+    assert.equal((await runSvg(['z.zumen.yaml', '--dark'], read, write)).code, 0);
+    assert.match(written['z.svg'] ?? '', /^<svg/);
+  });
 });
 
 describe('Markdown への埋め込み', () => {

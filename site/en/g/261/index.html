@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>電源タップの定格（つないでも足し算にならない） — zumen example 261</title>
+<link rel="icon" type="image/svg+xml" href="../../../icon.svg">
+<meta name="theme-color" content="#23232b">
+<meta name="description" content="Chaining power strips does not add up: the wall socket caps the whole chain at 15A, the flex gauge caps it lower still (0.75sq means 7A), and the 20A branch breaker trips after the 15A strip has already overheated">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="zumen">
+<meta property="og:locale" content="en_US">
+<meta property="og:url" content="https://meta-taro.github.io/zumen/en/g/261/">
+<meta property="og:title" content="電源タップの定格（つないでも足し算にならない） — zumen example 261">
+<meta property="og:description" content="Chaining power strips does not add up: the wall socket caps the whole chain at 15A, the flex gauge caps it lower still (0.75sq means 7A), and the 20A branch breaker trips after the 15A strip has already overheated">
+<meta property="og:image" content="https://meta-taro.github.io/zumen/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="電源タップの定格（つないでも足し算にならない） — zumen example 261">
+<meta name="twitter:description" content="Chaining power strips does not add up: the wall socket caps the whole chain at 15A, the flex gauge caps it lower still (0.75sq means 7A), and the 20A branch breaker trips after the 15A strip has already overheated">
+<meta name="twitter:image" content="https://meta-taro.github.io/zumen/og.png">
+<link rel="stylesheet" href="../../../style.css">
+<link rel="canonical" href="https://meta-taro.github.io/zumen/en/g/261/">
+<link rel="alternate" hreflang="en" href="https://meta-taro.github.io/zumen/en/g/261/">
+<link rel="alternate" hreflang="ja" href="https://meta-taro.github.io/zumen/g/261/">
+<link rel="alternate" hreflang="x-default" href="https://meta-taro.github.io/zumen/g/261/">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="alternate" type="text/markdown" href="https://meta-taro.github.io/zumen/llms.txt" title="llms.txt">
+<link rel="sitemap" type="application/xml" href="https://meta-taro.github.io/zumen/sitemap.xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": "電源タップの定格（つないでも足し算にならない）",
+  "description": "Chaining power strips does not add up: the wall socket caps the whole chain at 15A, the flex gauge caps it lower still (0.75sq means 7A), and the 20A branch breaker trips after the 15A strip has already overheated",
+  "url": "https://meta-taro.github.io/zumen/en/g/261/",
+  "image": "https://meta-taro.github.io/zumen/gallery/261-%E9%9B%BB%E6%BA%90%E3%82%BF%E3%83%83%E3%83%97%E3%81%AE%E5%AE%9A%E6%A0%BC.svg",
+  "inLanguage": "en",
+  "license": "https://opensource.org/licenses/MIT",
+  "isPartOf": {
+    "@type": "CollectionPage",
+    "name": "Appliances and furniture",
+    "url": "https://meta-taro.github.io/zumen/en/c/kaden/"
+  },
+  "encodingFormat": "text/yaml",
+  "isAccessibleForFree": true
+}
+</script>
+</head>
+<body class="sub">
+<header class="bar">
+  <a class="home" href="../../../">zumen</a>
+  <nav><a href="../../c/kaden/">Appliances and furniture</a></nav>
+</header>
+<main>
+<article>
+  <p class="crumb">Appliances and furniture</p>
+  <h1>電源タップの定格（つないでも足し算にならない）</h1>
+  <p class="lead">Chaining power strips does not add up: the wall socket caps the whole chain at 15A, the flex gauge caps it lower still (0.75sq means 7A), and the 20A branch breaker trips after the 15A strip has already overheated</p>
+  <figure>
+    <img src="../../../gallery/261-%E9%9B%BB%E6%BA%90%E3%82%BF%E3%83%83%E3%83%97%E3%81%AE%E5%AE%9A%E6%A0%BC.svg" alt="電源タップをつないでも容量は増えないこと、コードの太さ（0.75sq で 7A）が上限を決めること、消費電力の目安、コードリールの巻き込み、トラッキング現象、分岐ブレーカー 20A とタップ 15A の順序" loading="lazy">
+  </figure>
+  <p class="made">This drawing comes from one YAML file. No shape was moved by hand.</p>
+  <h2>What the source says</h2>
+  <p><strong>タップをつないでも、容量は増えない。</strong>壁のコンセント 1 口が 15A なら、その先に何個足しても合計は 15A のまま。</p>
+  <p><strong>上限を決めるのは、いちばん細い所。</strong> 本体に 15A と書いてあっても、コードが <strong>0.75sq なら 7A（700W）</strong>が上限（1.25sq で 12A、2.0sq で 17A）。</p>
+  <p><strong>熱を作るものだけが、桁違いに食う。</strong> 電子レンジ 1,400W、ホットプレート 1,300W、ドライヤー 1,200W に対して、<strong>テレビ 150W、ノート PC 65W、スマホ充電 20W</strong> —— 2 桁ちがう。危ないのは「数」ではなく、<strong>熱を作るものが 2 つ乗ったとき。</strong></p>
+  <p><strong>巻いたコードリールは 5A（500W）まで。</strong> 巻くと出た熱が逃げず、被覆が溶ける。</p>
+  <p><strong>ブレーカーは、タップを守らない。</strong> タップは 15A、分岐ブレーカーは 20A。ホットプレート 1,300W ＋ こたつ 600W ＝ <strong>1,900W（19A）</strong>は、ブレーカーが落ちない値 —— <strong>落ちないまま、タップだけが熱を持ち続ける。</strong></p>
+  <p><strong>トラッキングは、使っていなくても起きる。</strong> 差さっていれば刃の間に電圧はかかっていて、ほこりと湿気で炭化し、発火する。<strong>家具の裏の見えないコンセントがいちばん危ない。</strong></p>
+  <h2>Source (YAML)</h2>
+  <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/261-%E9%9B%BB%E6%BA%90%E3%82%BF%E3%83%83%E3%83%97%E3%81%AE%E5%AE%9A%E6%A0%BC.zumen.yaml"><code>examples/gallery/261-電源タップの定格.zumen.yaml</code></a></p>
+  <h2>More in this field</h2>
+  <ul class="near"><li><a href="../186/">Fitting a refrigerator: clearances differ by model, and a corner turns on the diagonal</a></li><li><a href="../200/">A bench built for making: tenons mitred where they meet, and a top that is never screwed down</a></li><li><a href="../201/">A chair drawn for making: four tenons meet in the back leg, and they must be set at different heights</a></li><li><a href="../246/">A fridge does not make cold, it pumps heat out — and it throws away more than it took, because the compressor's electricity comes out as heat too</a></li><li><a href="../247/">Heating and cooling swap the roles of the indoor and outdoor coils, and the only part that changes is one valve — which is also why a heat pump briefly runs cooling in the middle of heating, to melt its own frost</a></li><li><a href="../248/">Hot and cold spots sit 6.1cm apart because that is half of the 12.2cm wavelength, which no cabinet design can remove — so the food is moved instead</a></li><li><a href="../249/">A shelf sags with the cube of its span, so doubling the span sags it eight times — and gluing a 40mm rail under the front edge does more than upgrading the board</a></li><li><a href="../250/">The same drum has to stay under 1G to wash and reach 335G to spin, which is why it hangs on springs behind a concrete weight rather than being bolted to the machine</a></li></ul>
+</article>
+</main>
+<footer class="foot">
+  <p><a href="https://github.com/meta-taro/zumen">GitHub</a> · MIT · <a href="https://meta-taro.github.io/zumen/g/261/">日本語</a></p>
+</footer>
+</body>
+</html>
