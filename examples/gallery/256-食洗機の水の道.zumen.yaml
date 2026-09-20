@@ -1,0 +1,403 @@
+version: 1
+kind: placement
+arrows: true
+title: 食洗機の水の道（同じ水を、何度も回す）
+# **手洗いは、使った水をその場で捨てる。** 食洗機は溜めた水を循環ポンプで回し続ける
+# —— **10L を 20 回まわせば、食器に当たった水は 200L ぶん。**
+# 減るのは「捨てる水」だけ。
+#
+# 1 回に使う水は、**手洗い 約 75L に対して 約 9.9L**（メーカー公表の例）。
+# 7.6 分の 1 で、1 日 2 回なら年 47.5m³ の差になる。
+#
+# **手では触れない温度で洗う。** 洗浄 約 52℃、最終すすぎ 約 67℃ ——
+# 手洗いは 40℃ 前後が上限（手が入っているから）。
+# **油は温度で落ちる。** 人が入らない箱だから温度を上げられる。
+#
+# **噴いた水が当たらない所は、洗われない。**
+# こすって落とす工程が無いので、当たるかどうかがそのまま結果になる。
+# 残菜フィルタが詰まると水が回らず、この仕組みそのものが止まる。
+nodes:
+  - id: t1
+    label: "① 水は捨てずに、輪で回す"
+    marker: none
+    align: left
+    at: { x: 150, y: 150 }
+    size: { w: 600, h: 20 }
+  - id: tub
+    label: ""
+    at: { x: 210, y: 200 }
+    size: { w: 440, h: 300 }
+  - id: tubN
+    label: "庫内"
+    marker: none
+    align: left
+    at: { x: 218, y: 206 }
+    size: { w: 90, h: 18 }
+  - id: rack
+    label: ""
+    at: { x: 270, y: 270 }
+    size: { w: 320, h: 96 }
+  - id: rackN
+    label: "食器かご"
+    marker: none
+    align: center
+    at: { x: 270, y: 306 }
+    size: { w: 320, h: 18 }
+  - id: nz_u
+    label: ""
+    hatch: solid
+    at: { x: 340, y: 240 }
+    size: { w: 180, h: 16 }
+  - id: nz_d
+    label: ""
+    hatch: solid
+    at: { x: 340, y: 386 }
+    size: { w: 180, h: 16 }
+  - id: nzN
+    label: "回転ノズル（上と下）"
+    marker: none
+    align: left
+    at: { x: 660, y: 234 }
+    size: { w: 140, h: 18 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 369, y: 385 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 369, y: 369 }
+    size: { w: 2, h: 2 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 369, y: 255 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 369, y: 269 }
+    size: { w: 2, h: 2 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 429, y: 385 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 429, y: 369 }
+    size: { w: 2, h: 2 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 429, y: 255 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 429, y: 269 }
+    size: { w: 2, h: 2 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 489, y: 385 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 489, y: 369 }
+    size: { w: 2, h: 2 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 489, y: 255 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 489, y: 269 }
+    size: { w: 2, h: 2 }
+  - id: sump
+    label: ""
+    hatch: dots
+    at: { x: 250, y: 450 }
+    size: { w: 360, h: 34 }
+  - id: sumpN
+    label: "残菜フィルタ ＋ 溜まり（約 10L）"
+    marker: none
+    align: center
+    at: { x: 250, y: 456 }
+    size: { w: 360, h: 18 }
+  - id: pump
+    label: "循環ポンプ"
+    at: { x: 60, y: 430 }
+    size: { w: 130, h: 44 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 249, y: 451 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 189, y: 451 }
+    size: { w: 2, h: 2 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 124, y: 429 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 339, y: 393 }
+    size: { w: 2, h: 2 }
+  - id: heat
+    label: ""
+    hatch: lines
+    at: { x: 250, y: 486 }
+    size: { w: 360, h: 12 }
+  - id: heatN
+    label: "ヒーター"
+    marker: none
+    align: left
+    at: { x: 660, y: 480 }
+    size: { w: 130, h: 18 }
+  - id: drain
+    label: "排水ポンプ\n（最後にだけ捨てる）"
+    line: dashed
+    at: { x: 660, y: 408 }
+    size: { w: 130, h: 54 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 609, y: 434 }
+    size: { w: 2, h: 2 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 659, y: 434 }
+    size: { w: 2, h: 2 }
+  - id: why1
+    label: "手洗いは、使った水をその場で捨てる。 食洗機は溜めた水を回し続ける ——\n10L を 20 回まわせば、食器に当たった水は 200L ぶんになる。"
+    at: { x: 150, y: 530 }
+    size: { w: 600, h: 54 }
+  - id: t2
+    label: "② 手洗いとの差は、7.6 倍"
+    marker: none
+    align: left
+    at: { x: 800, y: 150 }
+    size: { w: 440, h: 20 }
+  - id: h186
+    label: "1 回に使う水（メーカー公表の例）"
+    hatch: solid
+    at: { x: 800, y: 186 }
+    size: { w: 440, h: 24 }
+  - id: x210
+    label: "手洗い"
+    at: { x: 800, y: 210 }
+    size: { w: 200, h: 24 }
+  - id: y210
+    label: "約 75 L"
+    align: left
+    at: { x: 1000, y: 210 }
+    size: { w: 240, h: 24 }
+  - id: x234
+    label: "食洗機"
+    at: { x: 800, y: 234 }
+    size: { w: 200, h: 24 }
+  - id: y234
+    label: "約 9.9 L"
+    align: left
+    at: { x: 1000, y: 234 }
+    size: { w: 240, h: 24 }
+  - id: x258
+    label: "差"
+    at: { x: 800, y: 258 }
+    size: { w: 200, h: 24 }
+  - id: y258
+    label: "65 L。1 日 2 回なら年 47.5 m³"
+    align: left
+    at: { x: 1000, y: 258 }
+    size: { w: 240, h: 24 }
+  - id: why2
+    label: "水の量ではなく、当たった回数で洗っている。\n少ない水を何度も回すので、捨てる水だけが減る。"
+    at: { x: 800, y: 296 }
+    size: { w: 440, h: 56 }
+  - id: t3
+    label: "③ 手では触れない温度で洗う"
+    marker: none
+    align: left
+    at: { x: 800, y: 368 }
+    size: { w: 440, h: 20 }
+  - id: h398
+    label: "標準コースの例"
+    hatch: solid
+    at: { x: 800, y: 398 }
+    size: { w: 440, h: 24 }
+  - id: x422
+    label: "洗浄"
+    at: { x: 800, y: 422 }
+    size: { w: 200, h: 24 }
+  - id: y422
+    label: "約 52℃"
+    align: left
+    at: { x: 1000, y: 422 }
+    size: { w: 240, h: 24 }
+  - id: x446
+    label: "最終すすぎ"
+    at: { x: 800, y: 446 }
+    size: { w: 200, h: 24 }
+  - id: y446
+    label: "約 67℃"
+    align: left
+    at: { x: 1000, y: 446 }
+    size: { w: 240, h: 24 }
+  - id: x470
+    label: "手洗い"
+    at: { x: 800, y: 470 }
+    size: { w: 200, h: 24 }
+  - id: y470
+    label: "40℃ 前後（手が我慢できる上限）"
+    align: left
+    at: { x: 1000, y: 470 }
+    size: { w: 240, h: 24 }
+  - id: why3
+    label: "油は温度で落ちる。 手洗いが 40℃ 止まりなのは、\n手が入っているから —— 人が入らない箱だから、\n温度を上げられる。これが洗剤の効きも変える。"
+    at: { x: 800, y: 508 }
+    size: { w: 440, h: 80 }
+  - id: t4
+    label: "④ 並べ方が効くのは、水が「届く」必要があるから"
+    marker: none
+    align: left
+    at: { x: 800, y: 604 }
+    size: { w: 440, h: 20 }
+  - id: h634
+    label: "入れ方の決まり"
+    hatch: solid
+    at: { x: 800, y: 634 }
+    size: { w: 440, h: 24 }
+  - id: x658
+    label: "汚れた面"
+    at: { x: 800, y: 658 }
+    size: { w: 160, h: 24 }
+  - id: y658
+    label: "ノズルのほうへ向ける"
+    align: left
+    at: { x: 960, y: 658 }
+    size: { w: 280, h: 24 }
+  - id: x682
+    label: "深い器"
+    at: { x: 800, y: 682 }
+    size: { w: 160, h: 24 }
+  - id: y682
+    label: "伏せる（上向きだと水が溜まる）"
+    align: left
+    at: { x: 960, y: 682 }
+    size: { w: 280, h: 24 }
+  - id: x706
+    label: "重ねない"
+    at: { x: 800, y: 706 }
+    size: { w: 160, h: 24 }
+  - id: y706
+    label: "影になった所は洗われない"
+    align: left
+    at: { x: 960, y: 706 }
+    size: { w: 280, h: 24 }
+  - id: x730
+    label: "フィルタ"
+    at: { x: 800, y: 730 }
+    size: { w: 160, h: 24 }
+  - id: y730
+    label: "詰まると水が回らず、洗えなくなる"
+    align: left
+    at: { x: 960, y: 730 }
+    size: { w: 280, h: 24 }
+  - id: why4
+    label: "噴いた水が当たらない所は、洗われない。\n手洗いと違って「こすって落とす」工程が無いので、\n当たるかどうかがそのまま結果になる。"
+    at: { x: 800, y: 768 }
+    size: { w: 440, h: 80 }
+  - id: r1
+    label: "手洗いは、使った水をその場で捨てます（①）。食洗機は溜めた水を循環ポンプで回し続けます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 860 }
+    size: { w: 1090, h: 18 }
+  - id: r2
+    label: "10L を 20 回まわせば、食器に当たった水は 200L ぶん。 減るのは「捨てる水」だけです。"
+    marker: none
+    align: left
+    at: { x: 150, y: 884 }
+    size: { w: 1090, h: 18 }
+  - id: r3
+    label: "1 回の水は、手洗い 75L に対して 9.9L（②）。7.6 分の 1 で、1 日 2 回なら年 47.5m³ の差になります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 908 }
+    size: { w: 1090, h: 18 }
+  - id: r4
+    label: "手では触れない温度で洗います（③）。洗浄 52℃、最終すすぎ 67℃ —— 手洗いは 40℃ 前後が上限です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 932 }
+    size: { w: 1090, h: 18 }
+  - id: r5
+    label: "油は温度で落ちます。 人が入らない箱だから温度を上げられる、というのがいちばんの違いです。"
+    marker: none
+    align: left
+    at: { x: 150, y: 956 }
+    size: { w: 1090, h: 18 }
+  - id: r6
+    label: "噴いた水が当たらない所は、洗われません（④）。こすって落とす工程が無いので、当たるかどうかがそのまま結果になります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 980 }
+    size: { w: 1090, h: 18 }
+  - id: r7
+    label: "残菜フィルタが詰まると、水が回らなくなります。 回せないと、この仕組みは成り立ちません。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1004 }
+    size: { w: 1090, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p2
+    to: p3
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p4
+    to: p5
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p6
+    to: p7
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p8
+    to: p9
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p10
+    to: p11
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p12
+    to: p13
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p14
+    to: p15
+    curve: none
+    ends: { from: none, to: arrow }
+    via:
+      - { x: 125, y: 394 }
+  - from: p16
+    to: p17
+    curve: none
+    line: dashed
+    ends: { from: none, to: arrow }

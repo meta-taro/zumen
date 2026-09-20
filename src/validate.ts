@@ -22,7 +22,7 @@ import { ENDS } from './ends.ts';
 import { LINES } from './line.ts';
 import { CURVES, viaOf } from './curve.ts';
 import { VERTICALS, floorsOf } from './floor.ts';
-import { achromatic, faintOn, paletteOf as routePalette } from './palette.ts';
+import { achromatic, faintOn, faintWhere, paletteOf as routePalette } from './palette.ts';
 import { WEIGHTS } from './weight.ts';
 import { HATCHES } from './hatch.ts';
 import { SYMBOLS } from './symbol.ts';
@@ -893,7 +893,8 @@ function checkColors(doc: Document, add: Add, m: Messages, at: At): void {
   for (const [key, value] of Object.entries(table)) {
     if (tints.has(key) && !onLines.has(key)) continue;
     if (faintOn(value)) {
-      add('warning', 'color-faint', m.colorFaint(key, value), at(raw));
+      const where = faintWhere(value);
+      add('warning', 'color-faint', m.colorFaint(key, value, where.light, where.dark), at(raw));
     }
   }
 

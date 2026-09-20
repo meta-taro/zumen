@@ -453,3 +453,39 @@ nodes:
     assert.match(out, /<text[^>]*fill="#ffffff"/);
   });
 });
+
+/**
+ * **どちらの地で沈んだか、いくつだったか**（2026-09-20）。
+ *
+ * 前は「薄すぎます」としか言わず、**ライトで落ちたのかダークで落ちたのかが分からなかった。**
+ * 実物の色を使う図（東京の地下鉄 13 路線・見本 81）では**色を変えられない**ので、
+ * 「白地だけ落ちている」と分かって、はじめて次の手（線を太くする・符号を添える）が選べる。
+ */
+describe('薄い色は、どちらの地で沈んだかを言う', () => {
+  const said = (hex: string): string => {
+    const yaml = `version: 1\nkind: placement\npalette:\n  A: "${hex}"\nnodes:\n  - id: a\n    label: あ\n    color: A\n    at: { x: 0, y: 0 }\n    size: { w: 40, h: 40 }\n`;
+    return validate(yaml).find((f) => f.code === 'color-faint')?.message ?? '';
+  };
+
+  it('**比の数字を両方出す**', () => {
+    assert.match(said('#f19a38'), /白地で 2\.\d\d:1/);
+    assert.match(said('#f19a38'), /暗い地で \d+\.\d\d:1/);
+  });
+
+  it('白地だけ足りないときは、そう言う', () => {
+    assert.match(said('#f19a38'), /白地だけ/);
+  });
+
+  it('暗い地だけ足りないときは、そう言う', () => {
+    assert.match(said('#4a4a52'), /暗い地だけ/);
+  });
+
+  it('**実物の色を変えられないときの逃げ道を書く**（白地だけ落ちたとき）', () => {
+    assert.match(said('#f19a38'), /線を太くする|符号/);
+  });
+
+  it('両方で沈む色には、逃げ道を書かない（色そのものを直すしかない）', () => {
+    const both = said('#7f7f85');
+    if (both !== '') assert.ok(!both.includes('線を太くする'), both);
+  });
+});

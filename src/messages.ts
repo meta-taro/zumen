@@ -661,8 +661,8 @@ const ja = {
       `エッジ ${edge} の weight が "${word}" になっています（thin / normal / thick）。ふつうの太さで描きます。`,
     colorUnknown: (target: string, key: string) =>
       `${target} の color が "${key}" ですが、palette にその鍵がありません。色は付きません。`,
-    colorFaint: (key: string, value: string) =>
-      `palette の "${key}"（${value}）が薄すぎます。地に沈んで線が消えます（非文字の下限は 3:1。ライトとダークの両方の地で見ています）。`,
+    colorFaint: (key: string, value: string, light: number, dark: number) =>
+      `palette の "${key}"（${value}）が薄すぎます。地に沈んで線が消えます。**白地で ${light}:1 ／ 暗い地で ${dark}:1**（非文字の下限は 3:1）—— **${light < 3 && dark < 3 ? 'どちらの地でも' : light < 3 ? '白地だけ' : '暗い地だけ'}**足りません。${light < 3 && dark >= 3 ? '実物の色で変えられないなら（路線図の路線色など）、線を太くするか、色以外の見分け（符号・線種）を必ず添えてください。' : ''}`,
     labelMarkdown: (id: string) =>
       `"${id || '(id なし)'}" の名前に ** が入っています（節でも、辺のラベルでも、図の名前でも同じ）。**zumen の名前は素のテキスト**で、Markdown ではありません —— ** は強調にならず、**そのまま絵に出ます**。正本のコメントや変更の記録は Markdown なので、そこから持ち込みやすいところです。`,
     colorNotHex: (key: string, value: string) =>

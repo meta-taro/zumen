@@ -96,6 +96,23 @@ export function faintOn(color: string): boolean {
 }
 
 /**
+ * **どちらの地で沈んだか、いくつだったか**（2026-09-20）。
+ *
+ * 前は「薄すぎます」としか言わず、**ライトで落ちたのかダークで落ちたのかが分からなかった。**
+ * 実物の色を使う図（路線図の 13 路線）では**色を変えられない**ので、
+ * 「ライトだけ落ちている」と分かれば、地のほうを選ぶ判断ができる。
+ */
+export function faintWhere(color: string): { light: number; dark: number } {
+  // **丸めてから渡す。** 文言の側で整形すると、受け取った値がそのまま出ず、
+  // 「引数を落としていないか」を見るテストが通らない（2026-09-20 に踏んだ）。
+  const round = (n: number): number => Math.round(n * 100) / 100;
+  return {
+    light: round(contrastOn(color, GROUNDS[0])),
+    dark: round(contrastOn(color, GROUNDS[1])),
+  };
+}
+
+/**
  * **無彩色か**（R ＝ G ＝ B）。
  *
  * `color-without-code` は「色を落としたら読めなくなる」ことを防ぐ検査だが、

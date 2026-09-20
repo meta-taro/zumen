@@ -114,6 +114,8 @@ export const CAPTIONS_EN = {
   '169-麻雀の配牌': 'Mahjong: the dice decide where the wall is opened, not luck',
   '168-ダイヤモンドシステム': 'Billiards: the diamonds on the rails are a ruler, not decoration',
   '167-ダーツボードの割り付け': 'A dartboard: the numbers are arranged to punish a miss',
+  '257-換気扇の風量と静圧': 'The airflow on the box is the free-delivery figure; what you actually get is where the fan curve meets the duct resistance, and a long bent duct can cut it to 43 percent',
+  '256-食洗機の水の道': 'A dishwasher does not use less water, it uses the same water many times: 10 litres pumped around twenty times is 200 litres of water hitting the dishes',
   '255-炊飯器の温度と圧力': 'Boiling water refuses to go past 100C, so a pressure cooker adds exactly one part — a valve — to lift that ceiling to about 105C',
   '254-給湯器の号数': 'A water heater is rated in heat, not flow: the same 24-go unit gives 40 litres a minute in summer and 17 in winter, because the rating assumes a 25 degree rise',
   '253-引き出しのスライドレール': 'The slide decides the drawer, not the other way round: a side-mounted pair takes 12.7mm each side, so a 500mm opening leaves a 474.6mm box',
