@@ -112,6 +112,7 @@ export const CAPTIONS_EN = {
   '169-麻雀の配牌': 'Mahjong: the dice decide where the wall is opened, not luck',
   '168-ダイヤモンドシステム': 'Billiards: the diamonds on the rails are a ruler, not decoration',
   '167-ダーツボードの割り付け': 'A dartboard: the numbers are arranged to punish a miss',
+  '239-縫い方の番号': 'Stitches are specified by number, not by name: 301 rather than "lockstitch" — three digits for the stitch, five for the seam, and the two standards are separate because thread and cloth are decided separately',
   '238-板金の展開図': 'A flat pattern is not the sum of the outside dimensions: the outside stretches when you bend it, and the amount subtracted is each shop measured value, not a standard',
   '237-基板の層構成': 'Adding layers is not only about routing: it brings the ground plane close, and the same 50 ohms goes from a 2.85mm trace to a 0.34mm one',
   '236-PoEの給電クラス': 'A PoE standard quotes two wattages, not one: what the switch sends and what the device receives — the difference is what the 100m of copper turns into heat',

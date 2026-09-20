@@ -1,0 +1,638 @@
+version: 1
+kind: placement
+arrows: true
+title: 縫い方には番号がある（JIS L 0120 / L 0121）
+# **縫い方は、言葉ではなく番号で指定する。**
+# 「本縫いで」ではなく「301 で」—— 国が違っても、同じ番号は同じ縫い方。
+#
+# **ステッチは 3 けた**（第 1 けたがクラス 100〜600、残り 2 けたが細分）、
+# **シームは 5 けた**（クラス 1〜8 ／ 布の構成 ／ 針の位置と布の状態）。
+#
+# **ステッチとシームは別の規格**（ISO 4915 と 4916）——
+# 糸の絡み方と布の重ね方は別々に決められるので、番号も別。
+# 縫製仕様書は「301 で、1.01 のシーム」と組で書く。
+nodes:
+  - id: t1
+    label: "① ステッチ形式は 6 クラス（JIS L 0120 ＝ ISO 4915）"
+    marker: none
+    align: left
+    at: { x: 150, y: 200 }
+    size: { w: 580, h: 20 }
+  - id: a0_0
+    label: "番号"
+    hatch: solid
+    at: { x: 150, y: 232 }
+    size: { w: 110, h: 28 }
+  - id: a0_1
+    label: "名前"
+    hatch: solid
+    at: { x: 260, y: 232 }
+    size: { w: 200, h: 28 }
+  - id: a0_2
+    label: "中身"
+    hatch: solid
+    at: { x: 460, y: 232 }
+    size: { w: 250, h: 28 }
+  - id: a1_0
+    label: "100"
+    at: { x: 150, y: 260 }
+    size: { w: 110, h: 28 }
+  - id: a1_1
+    label: "単環縫い"
+    at: { x: 260, y: 260 }
+    size: { w: 200, h: 28 }
+  - id: a1_2
+    label: "針糸 1 本だけ。ほどけやすい"
+    at: { x: 460, y: 260 }
+    size: { w: 250, h: 28 }
+  - id: a2_0
+    label: "200"
+    at: { x: 150, y: 288 }
+    size: { w: 110, h: 28 }
+  - id: a2_1
+    label: "手縫い"
+    at: { x: 260, y: 288 }
+    size: { w: 200, h: 28 }
+  - id: a2_2
+    label: "糸の端が布を行き来する"
+    at: { x: 460, y: 288 }
+    size: { w: 250, h: 28 }
+  - id: a3_0
+    label: "300"
+    at: { x: 150, y: 316 }
+    size: { w: 110, h: 28 }
+  - id: a3_1
+    label: "本縫い"
+    at: { x: 260, y: 316 }
+    size: { w: 200, h: 28 }
+  - id: a3_2
+    label: "針糸とボビン糸が布の中で絡む"
+    at: { x: 460, y: 316 }
+    size: { w: 250, h: 28 }
+  - id: a4_0
+    label: "400"
+    at: { x: 150, y: 344 }
+    size: { w: 110, h: 28 }
+  - id: a4_1
+    label: "二重環縫い"
+    at: { x: 260, y: 344 }
+    size: { w: 200, h: 28 }
+  - id: a4_2
+    label: "針糸とループ糸で裏に鎖ができる"
+    at: { x: 460, y: 344 }
+    size: { w: 250, h: 28 }
+  - id: a5_0
+    label: "500"
+    at: { x: 150, y: 372 }
+    size: { w: 110, h: 28 }
+  - id: a5_1
+    label: "縁かがり縫い"
+    at: { x: 260, y: 372 }
+    size: { w: 200, h: 28 }
+  - id: a5_2
+    label: "布の端を巻く（ほつれ止め）"
+    at: { x: 460, y: 372 }
+    size: { w: 250, h: 28 }
+  - id: a6_0
+    label: "600"
+    at: { x: 150, y: 400 }
+    size: { w: 110, h: 28 }
+  - id: a6_1
+    label: "偏平縫い"
+    at: { x: 260, y: 400 }
+    size: { w: 200, h: 28 }
+  - id: a6_2
+    label: "端を重ねず、平らにつなぐ"
+    at: { x: 460, y: 400 }
+    size: { w: 250, h: 28 }
+  - id: rule
+    label: "第 1 けた ＝ クラス　　第 2・3 けた ＝ そのクラスの中の細分"
+    at: { x: 150, y: 440 }
+    size: { w: 560, h: 36 }
+  - id: n1
+    label: "301 … 針糸 1 本とボビン糸 1 本の本縫い"
+    marker: none
+    align: left
+    at: { x: 150, y: 488 }
+    size: { w: 580, h: 18 }
+  - id: n2
+    label: "401 … 針糸 1 本とループ糸 1 本の二重環縫い"
+    marker: none
+    align: left
+    at: { x: 150, y: 510 }
+    size: { w: 580, h: 18 }
+  - id: n3
+    label: "504 … 針糸 1 本とループ糸 2 本の縁かがり縫い"
+    marker: none
+    align: left
+    at: { x: 150, y: 532 }
+    size: { w: 580, h: 18 }
+  - id: t2
+    label: "② 同じ「縫う」でも、糸の通り方が違う"
+    marker: none
+    align: left
+    at: { x: 150, y: 570 }
+    size: { w: 580, h: 20 }
+  - id: sl0
+    label: "301 本縫い"
+    marker: none
+    align: left
+    at: { x: 160, y: 602 }
+    size: { w: 180, h: 18 }
+  - id: cl0
+    label: ""
+    hatch: lines
+    at: { x: 160, y: 672 }
+    size: { w: 160, h: 26 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 189, y: 649 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 189, y: 684 }
+    size: { w: 2, h: 2 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 189, y: 684 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 189, y: 719 }
+    size: { w: 2, h: 2 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 239, y: 649 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 239, y: 684 }
+    size: { w: 2, h: 2 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 239, y: 684 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 239, y: 719 }
+    size: { w: 2, h: 2 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 289, y: 649 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 289, y: 684 }
+    size: { w: 2, h: 2 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 289, y: 684 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 289, y: 719 }
+    size: { w: 2, h: 2 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 169, y: 649 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 309, y: 649 }
+    size: { w: 2, h: 2 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 169, y: 719 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 309, y: 719 }
+    size: { w: 2, h: 2 }
+  - id: u0
+    label: "上 —— 針糸"
+    marker: none
+    align: left
+    at: { x: 160, y: 632 }
+    size: { w: 180, h: 18 }
+  - id: d0
+    label: "下 —— ボビン糸"
+    marker: none
+    align: left
+    at: { x: 160, y: 728 }
+    size: { w: 180, h: 18 }
+  - id: sl1
+    label: "401 二重環縫い"
+    marker: none
+    align: left
+    at: { x: 360, y: 602 }
+    size: { w: 180, h: 18 }
+  - id: cl1
+    label: ""
+    hatch: lines
+    at: { x: 360, y: 672 }
+    size: { w: 160, h: 26 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 389, y: 649 }
+    size: { w: 2, h: 2 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 389, y: 711 }
+    size: { w: 2, h: 2 }
+  - id: p18
+    label: ""
+    marker: none
+    at: { x: 439, y: 649 }
+    size: { w: 2, h: 2 }
+  - id: p19
+    label: ""
+    marker: none
+    at: { x: 439, y: 711 }
+    size: { w: 2, h: 2 }
+  - id: p20
+    label: ""
+    marker: none
+    at: { x: 489, y: 649 }
+    size: { w: 2, h: 2 }
+  - id: p21
+    label: ""
+    marker: none
+    at: { x: 489, y: 711 }
+    size: { w: 2, h: 2 }
+  - id: p22
+    label: ""
+    marker: none
+    at: { x: 369, y: 649 }
+    size: { w: 2, h: 2 }
+  - id: p23
+    label: ""
+    marker: none
+    at: { x: 509, y: 649 }
+    size: { w: 2, h: 2 }
+  - id: p24
+    label: ""
+    marker: none
+    at: { x: 389, y: 711 }
+    size: { w: 2, h: 2 }
+  - id: p25
+    label: ""
+    marker: none
+    at: { x: 439, y: 711 }
+    size: { w: 2, h: 2 }
+  - id: p26
+    label: ""
+    marker: none
+    at: { x: 439, y: 711 }
+    size: { w: 2, h: 2 }
+  - id: p27
+    label: ""
+    marker: none
+    at: { x: 489, y: 711 }
+    size: { w: 2, h: 2 }
+  - id: u1
+    label: "上 —— 針糸"
+    marker: none
+    align: left
+    at: { x: 360, y: 632 }
+    size: { w: 180, h: 18 }
+  - id: d1
+    label: "下 —— 鎖になる"
+    marker: none
+    align: left
+    at: { x: 360, y: 742 }
+    size: { w: 180, h: 18 }
+  - id: sl2
+    label: "504 縁かがり"
+    marker: none
+    align: left
+    at: { x: 560, y: 602 }
+    size: { w: 180, h: 18 }
+  - id: cl2
+    label: ""
+    hatch: lines
+    at: { x: 560, y: 672 }
+    size: { w: 160, h: 26 }
+  - id: p28
+    label: ""
+    marker: none
+    at: { x: 589, y: 684 }
+    size: { w: 2, h: 2 }
+  - id: p29
+    label: ""
+    marker: none
+    at: { x: 589, y: 684 }
+    size: { w: 2, h: 2 }
+  - id: p30
+    label: ""
+    marker: none
+    at: { x: 639, y: 684 }
+    size: { w: 2, h: 2 }
+  - id: p31
+    label: ""
+    marker: none
+    at: { x: 639, y: 684 }
+    size: { w: 2, h: 2 }
+  - id: p32
+    label: ""
+    marker: none
+    at: { x: 689, y: 684 }
+    size: { w: 2, h: 2 }
+  - id: p33
+    label: ""
+    marker: none
+    at: { x: 689, y: 684 }
+    size: { w: 2, h: 2 }
+  - id: u2
+    label: "布の端を巻く"
+    marker: none
+    align: left
+    at: { x: 560, y: 632 }
+    size: { w: 180, h: 18 }
+  - id: d2
+    label: "ほつれを止める"
+    marker: none
+    align: left
+    at: { x: 560, y: 742 }
+    size: { w: 180, h: 18 }
+  - id: n4
+    label: "「本縫いで」と書くより「301 で」と書くほうが速く、間違いがない。"
+    marker: none
+    align: left
+    at: { x: 150, y: 768 }
+    size: { w: 640, h: 18 }
+  - id: t3
+    label: "③ シームは 5 けた（JIS L 0121 ＝ ISO 4916）"
+    marker: none
+    align: left
+    at: { x: 800, y: 200 }
+    size: { w: 440, h: 20 }
+  - id: sr
+    label: "第 1 けた ＝ クラス 1〜8\n第 2・3 けた ＝ 布の構成\n第 4・5 けた ＝ 針の位置と布の状態"
+    at: { x: 800, y: 232 }
+    size: { w: 440, h: 76 }
+  - id: b0_0
+    label: "クラス"
+    hatch: solid
+    at: { x: 800, y: 328 }
+    size: { w: 90, h: 28 }
+  - id: b0_1
+    label: "布の構成"
+    hatch: solid
+    at: { x: 890, y: 328 }
+    size: { w: 350, h: 28 }
+  - id: b1_0
+    label: "1"
+    at: { x: 800, y: 356 }
+    size: { w: 90, h: 28 }
+  - id: b1_1
+    label: "2 枚以上。同じ側の縁が特定縁"
+    at: { x: 890, y: 356 }
+    size: { w: 350, h: 28 }
+  - id: b2_0
+    label: "2"
+    at: { x: 800, y: 384 }
+    size: { w: 90, h: 28 }
+  - id: b2_1
+    label: "2 枚以上。相反する側の縁が重なり合う"
+    at: { x: 890, y: 384 }
+    size: { w: 350, h: 28 }
+  - id: b3_0
+    label: "3"
+    at: { x: 800, y: 412 }
+    size: { w: 90, h: 28 }
+  - id: b3_1
+    label: "2 枚以上。一方は片側、他方は両側"
+    at: { x: 890, y: 412 }
+    size: { w: 350, h: 28 }
+  - id: b4_0
+    label: "4"
+    at: { x: 800, y: 440 }
+    size: { w: 90, h: 28 }
+  - id: b4_1
+    label: "2 枚以上。相反する側の縁が突き合う"
+    at: { x: 890, y: 440 }
+    size: { w: 350, h: 28 }
+  - id: b5_0
+    label: "5"
+    at: { x: 800, y: 468 }
+    size: { w: 90, h: 28 }
+  - id: b5_1
+    label: "1 枚以上。単一枚なら両側が非特定縁"
+    at: { x: 890, y: 468 }
+    size: { w: 350, h: 28 }
+  - id: b6_0
+    label: "6"
+    at: { x: 800, y: 496 }
+    size: { w: 90, h: 28 }
+  - id: b6_1
+    label: "1 枚。片側の縁が特定縁"
+    at: { x: 890, y: 496 }
+    size: { w: 350, h: 28 }
+  - id: b7_0
+    label: "7"
+    at: { x: 800, y: 524 }
+    size: { w: 90, h: 28 }
+  - id: b7_1
+    label: "2 枚以上で構成"
+    at: { x: 890, y: 524 }
+    size: { w: 350, h: 28 }
+  - id: b8_0
+    label: "8"
+    at: { x: 800, y: 552 }
+    size: { w: 90, h: 28 }
+  - id: b8_1
+    label: "1 枚以上。すべて両側が特定縁"
+    at: { x: 890, y: 552 }
+    size: { w: 350, h: 28 }
+  - id: n5
+    label: "ステッチとシームは別の規格。 2 つを組で書く。"
+    marker: none
+    align: left
+    at: { x: 800, y: 590 }
+    size: { w: 440, h: 18 }
+  - id: n6
+    label: "「301 で、1.01 のシーム」のように指定する。"
+    marker: none
+    align: left
+    at: { x: 800, y: 612 }
+    size: { w: 440, h: 18 }
+  - id: n7
+    label: "糸の絡み方（ステッチ）と、布の重ね方（シーム）は、"
+    marker: none
+    align: left
+    at: { x: 800, y: 642 }
+    size: { w: 440, h: 18 }
+  - id: n8
+    label: "別々に決められるから、別々の番号になっている。"
+    marker: none
+    align: left
+    at: { x: 800, y: 664 }
+    size: { w: 440, h: 18 }
+  - id: r1
+    label: "縫い方には番号があります（①③）。「本縫いで」ではなく「301 で」—— 国が違っても、同じ番号は同じ縫い方です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 818 }
+    size: { w: 1090, h: 18 }
+  - id: r2
+    label: "番号の付け方に意味があります。 ステッチは 3 けたで、第 1 けたがクラス、残り 2 けたが細分。300 番台ならどれも本縫いの仲間です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 842 }
+    size: { w: 1090, h: 18 }
+  - id: r3
+    label: "シームは 5 けたで、第 1 けたがクラス 1〜8、第 2・3 けたが布の構成、第 4・5 けたが針の位置と布の状態。"
+    marker: none
+    align: left
+    at: { x: 150, y: 866 }
+    size: { w: 1090, h: 18 }
+  - id: r4
+    label: "ステッチとシームは別の規格です（ISO 4915 と 4916）。糸の絡み方と布の重ね方は、別々に決められるからです。"
+    marker: none
+    align: left
+    at: { x: 150, y: 890 }
+    size: { w: 1090, h: 18 }
+  - id: r5
+    label: "だから縫製仕様書は「301 で、1.01 のシーム」と書きます。 2 つを組で指定して、はじめて縫い方が決まります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 914 }
+    size: { w: 1090, h: 18 }
+  - id: r6
+    label: "同じ「縫う」でも、糸の通り方がまったく違います（②）。本縫いは布の中で結び、二重環は裏に鎖を作り、縁かがりは端を巻きます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 938 }
+    size: { w: 1090, h: 18 }
+  - id: r7
+    label: "ほどけ方も違います。 本縫いは切れてもそこだけ、二重環は端から引くと一気にほどける —— だから使い分けます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 962 }
+    size: { w: 1090, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    ends: { from: none, to: none }
+  - from: p2
+    to: p3
+    curve: none
+    ends: { from: none, to: none }
+  - from: p4
+    to: p5
+    curve: none
+    ends: { from: none, to: none }
+  - from: p6
+    to: p7
+    curve: none
+    ends: { from: none, to: none }
+  - from: p8
+    to: p9
+    curve: none
+    ends: { from: none, to: none }
+  - from: p10
+    to: p11
+    curve: none
+    ends: { from: none, to: none }
+  - from: p12
+    to: p13
+    curve: none
+    ends: { from: none, to: none }
+  - from: p14
+    to: p15
+    curve: none
+    ends: { from: none, to: none }
+  - from: p16
+    to: p17
+    curve: none
+    ends: { from: none, to: none }
+  - from: p18
+    to: p19
+    curve: none
+    ends: { from: none, to: none }
+  - from: p20
+    to: p21
+    curve: none
+    ends: { from: none, to: none }
+  - from: p22
+    to: p23
+    curve: none
+    ends: { from: none, to: none }
+  - from: p24
+    to: p25
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 390.9, y: 718.5 }
+      - { x: 393.3, y: 724.5 }
+      - { x: 397.3, y: 729.7 }
+      - { x: 402.5, y: 733.7 }
+      - { x: 408.5, y: 736.1 }
+      - { x: 415, y: 737 }
+      - { x: 421.5, y: 736.1 }
+      - { x: 427.5, y: 733.7 }
+      - { x: 432.7, y: 729.7 }
+      - { x: 436.7, y: 724.5 }
+      - { x: 439.1, y: 718.5 }
+  - from: p26
+    to: p27
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 440.9, y: 718.5 }
+      - { x: 443.3, y: 724.5 }
+      - { x: 447.3, y: 729.7 }
+      - { x: 452.5, y: 733.7 }
+      - { x: 458.5, y: 736.1 }
+      - { x: 465, y: 737 }
+      - { x: 471.5, y: 736.1 }
+      - { x: 477.5, y: 733.7 }
+      - { x: 482.7, y: 729.7 }
+      - { x: 486.7, y: 724.5 }
+      - { x: 489.1, y: 718.5 }
+  - from: p28
+    to: p29
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 608, y: 656 }
+      - { x: 724, y: 656 }
+      - { x: 724, y: 714 }
+      - { x: 608, y: 714 }
+  - from: p30
+    to: p31
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 658, y: 656 }
+      - { x: 724, y: 656 }
+      - { x: 724, y: 714 }
+      - { x: 658, y: 714 }
+  - from: p32
+    to: p33
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 708, y: 656 }
+      - { x: 724, y: 656 }
+      - { x: 724, y: 714 }
+      - { x: 708, y: 714 }
