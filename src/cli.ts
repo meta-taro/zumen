@@ -364,7 +364,8 @@ export async function placedFindings(text: string): Promise<Finding[]> {
    * 構成図は**機械が形を決めている**ので、`wrap` で直せる。
    */
   const thin: Finding[] = ((): Finding[] => {
-    if (plan) return [];
+    // **作図図（construction）は機械が並べていない。** `wrap` も効かないので言わない。
+    if (kindOf(text) !== 'structure') return [];
     const long = Math.max(placed.width, placed.height);
     const short2 = Math.max(1, Math.min(placed.width, placed.height));
     const ratio = long / short2;
@@ -377,6 +378,9 @@ export async function placedFindings(text: string): Promise<Finding[]> {
           `${ratio.toFixed(1)} : 1`,
           Math.round(placed.width),
           Math.round(placed.height),
+          placed.wrap
+            ? messages().validate.structureWrapOn
+            : messages().validate.structureWrapOff,
         ),
       },
     ];
@@ -619,9 +623,16 @@ export async function runInspect(paths: string[], read = readFileSync): Promise<
       unreadable += 1;
       continue;
     }
-    lines.push(m.inspectCounts(seen.nodes, seen.edges, kindOf(text) === 'placement' ? m.inspectPlan : m.inspectStructure));
+    const kind = kindOf(text);
+    const kindWord =
+      kind === 'placement'
+        ? m.inspectPlan
+        : kind === 'construction'
+          ? m.inspectConstruction
+          : m.inspectStructure;
+    lines.push(m.inspectCounts(seen.nodes, seen.edges, kindWord));
     // **構成図には段の数も出す。** 紙の長さは、いちばん長い鎖の深さで決まる。
-    if (kindOf(text) !== 'placement') lines.push(m.inspectRanks(rankCount(await layout(text))));
+    if (kindOf(text) === 'structure') lines.push(m.inspectRanks(rankCount(await layout(text))));
 
     /**
      * **警告の件数も出す**（2026-09-20）。

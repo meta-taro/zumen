@@ -1,0 +1,209 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1324" height="1092" viewBox="0 0 1324 1092">
+<title>TCP のつなぎ方と切り方（状態は 11 個）</title>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#63636e"/></marker></defs>
+<rect data-paper="1" x="0" y="0" width="1324" height="1092" fill="#ffffff"/>
+<g data-node="data" data-pinned="false" data-shape="rect"><rect x="500" y="410" width="440" height="34" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/><circle cx="505" cy="415" r="0.9" fill="#1c1c22"/><circle cx="514" cy="415" r="0.9" fill="#1c1c22"/><circle cx="523" cy="415" r="0.9" fill="#1c1c22"/><circle cx="532" cy="415" r="0.9" fill="#1c1c22"/><circle cx="541" cy="415" r="0.9" fill="#1c1c22"/><circle cx="550" cy="415" r="0.9" fill="#1c1c22"/><circle cx="559" cy="415" r="0.9" fill="#1c1c22"/><circle cx="568" cy="415" r="0.9" fill="#1c1c22"/><circle cx="577" cy="415" r="0.9" fill="#1c1c22"/><circle cx="586" cy="415" r="0.9" fill="#1c1c22"/><circle cx="595" cy="415" r="0.9" fill="#1c1c22"/><circle cx="604" cy="415" r="0.9" fill="#1c1c22"/><circle cx="613" cy="415" r="0.9" fill="#1c1c22"/><circle cx="622" cy="415" r="0.9" fill="#1c1c22"/><circle cx="631" cy="415" r="0.9" fill="#1c1c22"/><circle cx="640" cy="415" r="0.9" fill="#1c1c22"/><circle cx="649" cy="415" r="0.9" fill="#1c1c22"/><circle cx="658" cy="415" r="0.9" fill="#1c1c22"/><circle cx="667" cy="415" r="0.9" fill="#1c1c22"/><circle cx="676" cy="415" r="0.9" fill="#1c1c22"/><circle cx="685" cy="415" r="0.9" fill="#1c1c22"/><circle cx="694" cy="415" r="0.9" fill="#1c1c22"/><circle cx="703" cy="415" r="0.9" fill="#1c1c22"/><circle cx="712" cy="415" r="0.9" fill="#1c1c22"/><circle cx="721" cy="415" r="0.9" fill="#1c1c22"/><circle cx="730" cy="415" r="0.9" fill="#1c1c22"/><circle cx="739" cy="415" r="0.9" fill="#1c1c22"/><circle cx="748" cy="415" r="0.9" fill="#1c1c22"/><circle cx="757" cy="415" r="0.9" fill="#1c1c22"/><circle cx="766" cy="415" r="0.9" fill="#1c1c22"/><circle cx="775" cy="415" r="0.9" fill="#1c1c22"/><circle cx="784" cy="415" r="0.9" fill="#1c1c22"/><circle cx="793" cy="415" r="0.9" fill="#1c1c22"/><circle cx="802" cy="415" r="0.9" fill="#1c1c22"/><circle cx="811" cy="415" r="0.9" fill="#1c1c22"/><circle cx="820" cy="415" r="0.9" fill="#1c1c22"/><circle cx="829" cy="415" r="0.9" fill="#1c1c22"/><circle cx="838" cy="415" r="0.9" fill="#1c1c22"/><circle cx="847" cy="415" r="0.9" fill="#1c1c22"/><circle cx="856" cy="415" r="0.9" fill="#1c1c22"/><circle cx="865" cy="415" r="0.9" fill="#1c1c22"/><circle cx="874" cy="415" r="0.9" fill="#1c1c22"/><circle cx="883" cy="415" r="0.9" fill="#1c1c22"/><circle cx="892" cy="415" r="0.9" fill="#1c1c22"/><circle cx="901" cy="415" r="0.9" fill="#1c1c22"/><circle cx="910" cy="415" r="0.9" fill="#1c1c22"/><circle cx="919" cy="415" r="0.9" fill="#1c1c22"/><circle cx="928" cy="415" r="0.9" fill="#1c1c22"/><circle cx="937" cy="415" r="0.9" fill="#1c1c22"/><circle cx="505" cy="424" r="0.9" fill="#1c1c22"/><circle cx="514" cy="424" r="0.9" fill="#1c1c22"/><circle cx="523" cy="424" r="0.9" fill="#1c1c22"/><circle cx="532" cy="424" r="0.9" fill="#1c1c22"/><circle cx="541" cy="424" r="0.9" fill="#1c1c22"/><circle cx="550" cy="424" r="0.9" fill="#1c1c22"/><circle cx="559" cy="424" r="0.9" fill="#1c1c22"/><circle cx="568" cy="424" r="0.9" fill="#1c1c22"/><circle cx="577" cy="424" r="0.9" fill="#1c1c22"/><circle cx="586" cy="424" r="0.9" fill="#1c1c22"/><circle cx="595" cy="424" r="0.9" fill="#1c1c22"/><circle cx="604" cy="424" r="0.9" fill="#1c1c22"/><circle cx="613" cy="424" r="0.9" fill="#1c1c22"/><circle cx="622" cy="424" r="0.9" fill="#1c1c22"/><circle cx="631" cy="424" r="0.9" fill="#1c1c22"/><circle cx="640" cy="424" r="0.9" fill="#1c1c22"/><circle cx="649" cy="424" r="0.9" fill="#1c1c22"/><circle cx="658" cy="424" r="0.9" fill="#1c1c22"/><circle cx="667" cy="424" r="0.9" fill="#1c1c22"/><circle cx="676" cy="424" r="0.9" fill="#1c1c22"/><circle cx="685" cy="424" r="0.9" fill="#1c1c22"/><circle cx="694" cy="424" r="0.9" fill="#1c1c22"/><circle cx="703" cy="424" r="0.9" fill="#1c1c22"/><circle cx="712" cy="424" r="0.9" fill="#1c1c22"/><circle cx="721" cy="424" r="0.9" fill="#1c1c22"/><circle cx="730" cy="424" r="0.9" fill="#1c1c22"/><circle cx="739" cy="424" r="0.9" fill="#1c1c22"/><circle cx="748" cy="424" r="0.9" fill="#1c1c22"/><circle cx="757" cy="424" r="0.9" fill="#1c1c22"/><circle cx="766" cy="424" r="0.9" fill="#1c1c22"/><circle cx="775" cy="424" r="0.9" fill="#1c1c22"/><circle cx="784" cy="424" r="0.9" fill="#1c1c22"/><circle cx="793" cy="424" r="0.9" fill="#1c1c22"/><circle cx="802" cy="424" r="0.9" fill="#1c1c22"/><circle cx="811" cy="424" r="0.9" fill="#1c1c22"/><circle cx="820" cy="424" r="0.9" fill="#1c1c22"/><circle cx="829" cy="424" r="0.9" fill="#1c1c22"/><circle cx="838" cy="424" r="0.9" fill="#1c1c22"/><circle cx="847" cy="424" r="0.9" fill="#1c1c22"/><circle cx="856" cy="424" r="0.9" fill="#1c1c22"/><circle cx="865" cy="424" r="0.9" fill="#1c1c22"/><circle cx="874" cy="424" r="0.9" fill="#1c1c22"/><circle cx="883" cy="424" r="0.9" fill="#1c1c22"/><circle cx="892" cy="424" r="0.9" fill="#1c1c22"/><circle cx="901" cy="424" r="0.9" fill="#1c1c22"/><circle cx="910" cy="424" r="0.9" fill="#1c1c22"/><circle cx="919" cy="424" r="0.9" fill="#1c1c22"/><circle cx="928" cy="424" r="0.9" fill="#1c1c22"/><circle cx="937" cy="424" r="0.9" fill="#1c1c22"/><circle cx="505" cy="433" r="0.9" fill="#1c1c22"/><circle cx="514" cy="433" r="0.9" fill="#1c1c22"/><circle cx="523" cy="433" r="0.9" fill="#1c1c22"/><circle cx="532" cy="433" r="0.9" fill="#1c1c22"/><circle cx="541" cy="433" r="0.9" fill="#1c1c22"/><circle cx="550" cy="433" r="0.9" fill="#1c1c22"/><circle cx="559" cy="433" r="0.9" fill="#1c1c22"/><circle cx="568" cy="433" r="0.9" fill="#1c1c22"/><circle cx="577" cy="433" r="0.9" fill="#1c1c22"/><circle cx="586" cy="433" r="0.9" fill="#1c1c22"/><circle cx="595" cy="433" r="0.9" fill="#1c1c22"/><circle cx="604" cy="433" r="0.9" fill="#1c1c22"/><circle cx="613" cy="433" r="0.9" fill="#1c1c22"/><circle cx="622" cy="433" r="0.9" fill="#1c1c22"/><circle cx="631" cy="433" r="0.9" fill="#1c1c22"/><circle cx="640" cy="433" r="0.9" fill="#1c1c22"/><circle cx="649" cy="433" r="0.9" fill="#1c1c22"/><circle cx="658" cy="433" r="0.9" fill="#1c1c22"/><circle cx="667" cy="433" r="0.9" fill="#1c1c22"/><circle cx="676" cy="433" r="0.9" fill="#1c1c22"/><circle cx="685" cy="433" r="0.9" fill="#1c1c22"/><circle cx="694" cy="433" r="0.9" fill="#1c1c22"/><circle cx="703" cy="433" r="0.9" fill="#1c1c22"/><circle cx="712" cy="433" r="0.9" fill="#1c1c22"/><circle cx="721" cy="433" r="0.9" fill="#1c1c22"/><circle cx="730" cy="433" r="0.9" fill="#1c1c22"/><circle cx="739" cy="433" r="0.9" fill="#1c1c22"/><circle cx="748" cy="433" r="0.9" fill="#1c1c22"/><circle cx="757" cy="433" r="0.9" fill="#1c1c22"/><circle cx="766" cy="433" r="0.9" fill="#1c1c22"/><circle cx="775" cy="433" r="0.9" fill="#1c1c22"/><circle cx="784" cy="433" r="0.9" fill="#1c1c22"/><circle cx="793" cy="433" r="0.9" fill="#1c1c22"/><circle cx="802" cy="433" r="0.9" fill="#1c1c22"/><circle cx="811" cy="433" r="0.9" fill="#1c1c22"/><circle cx="820" cy="433" r="0.9" fill="#1c1c22"/><circle cx="829" cy="433" r="0.9" fill="#1c1c22"/><circle cx="838" cy="433" r="0.9" fill="#1c1c22"/><circle cx="847" cy="433" r="0.9" fill="#1c1c22"/><circle cx="856" cy="433" r="0.9" fill="#1c1c22"/><circle cx="865" cy="433" r="0.9" fill="#1c1c22"/><circle cx="874" cy="433" r="0.9" fill="#1c1c22"/><circle cx="883" cy="433" r="0.9" fill="#1c1c22"/><circle cx="892" cy="433" r="0.9" fill="#1c1c22"/><circle cx="901" cy="433" r="0.9" fill="#1c1c22"/><circle cx="910" cy="433" r="0.9" fill="#1c1c22"/><circle cx="919" cy="433" r="0.9" fill="#1c1c22"/><circle cx="928" cy="433" r="0.9" fill="#1c1c22"/><circle cx="937" cy="433" r="0.9" fill="#1c1c22"/><circle cx="505" cy="442" r="0.9" fill="#1c1c22"/><circle cx="514" cy="442" r="0.9" fill="#1c1c22"/><circle cx="523" cy="442" r="0.9" fill="#1c1c22"/><circle cx="532" cy="442" r="0.9" fill="#1c1c22"/><circle cx="541" cy="442" r="0.9" fill="#1c1c22"/><circle cx="550" cy="442" r="0.9" fill="#1c1c22"/><circle cx="559" cy="442" r="0.9" fill="#1c1c22"/><circle cx="568" cy="442" r="0.9" fill="#1c1c22"/><circle cx="577" cy="442" r="0.9" fill="#1c1c22"/><circle cx="586" cy="442" r="0.9" fill="#1c1c22"/><circle cx="595" cy="442" r="0.9" fill="#1c1c22"/><circle cx="604" cy="442" r="0.9" fill="#1c1c22"/><circle cx="613" cy="442" r="0.9" fill="#1c1c22"/><circle cx="622" cy="442" r="0.9" fill="#1c1c22"/><circle cx="631" cy="442" r="0.9" fill="#1c1c22"/><circle cx="640" cy="442" r="0.9" fill="#1c1c22"/><circle cx="649" cy="442" r="0.9" fill="#1c1c22"/><circle cx="658" cy="442" r="0.9" fill="#1c1c22"/><circle cx="667" cy="442" r="0.9" fill="#1c1c22"/><circle cx="676" cy="442" r="0.9" fill="#1c1c22"/><circle cx="685" cy="442" r="0.9" fill="#1c1c22"/><circle cx="694" cy="442" r="0.9" fill="#1c1c22"/><circle cx="703" cy="442" r="0.9" fill="#1c1c22"/><circle cx="712" cy="442" r="0.9" fill="#1c1c22"/><circle cx="721" cy="442" r="0.9" fill="#1c1c22"/><circle cx="730" cy="442" r="0.9" fill="#1c1c22"/><circle cx="739" cy="442" r="0.9" fill="#1c1c22"/><circle cx="748" cy="442" r="0.9" fill="#1c1c22"/><circle cx="757" cy="442" r="0.9" fill="#1c1c22"/><circle cx="766" cy="442" r="0.9" fill="#1c1c22"/><circle cx="775" cy="442" r="0.9" fill="#1c1c22"/><circle cx="784" cy="442" r="0.9" fill="#1c1c22"/><circle cx="793" cy="442" r="0.9" fill="#1c1c22"/><circle cx="802" cy="442" r="0.9" fill="#1c1c22"/><circle cx="811" cy="442" r="0.9" fill="#1c1c22"/><circle cx="820" cy="442" r="0.9" fill="#1c1c22"/><circle cx="829" cy="442" r="0.9" fill="#1c1c22"/><circle cx="838" cy="442" r="0.9" fill="#1c1c22"/><circle cx="847" cy="442" r="0.9" fill="#1c1c22"/><circle cx="856" cy="442" r="0.9" fill="#1c1c22"/><circle cx="865" cy="442" r="0.9" fill="#1c1c22"/><circle cx="874" cy="442" r="0.9" fill="#1c1c22"/><circle cx="883" cy="442" r="0.9" fill="#1c1c22"/><circle cx="892" cy="442" r="0.9" fill="#1c1c22"/><circle cx="901" cy="442" r="0.9" fill="#1c1c22"/><circle cx="910" cy="442" r="0.9" fill="#1c1c22"/><circle cx="919" cy="442" r="0.9" fill="#1c1c22"/><circle cx="928" cy="442" r="0.9" fill="#1c1c22"/><circle cx="937" cy="442" r="0.9" fill="#1c1c22"/></g>
+<g data-node="h140_780" data-pinned="false" data-shape="rect"><rect x="140" y="780" width="620" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/><rect x="140" y="780" width="620" height="24" fill="#1c1c22" fill-opacity="0.82"/></g>
+<g data-node="t1" data-pinned="false" data-shape="rect"></g>
+<g data-node="tw" data-pinned="false" data-shape="rect"></g>
+<g data-node="y140_804" data-pinned="false" data-shape="rect"><rect x="340" y="804" width="420" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="y140_828" data-pinned="false" data-shape="rect"><rect x="340" y="828" width="420" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="y140_852" data-pinned="false" data-shape="rect"><rect x="340" y="852" width="420" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="y140_876" data-pinned="false" data-shape="rect"><rect x="340" y="876" width="420" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="y140_900" data-pinned="false" data-shape="rect"><rect x="340" y="900" width="420" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="y140_924" data-pinned="false" data-shape="rect"><rect x="340" y="924" width="420" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="y140_948" data-pinned="false" data-shape="rect"><rect x="340" y="948" width="420" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="y140_972" data-pinned="false" data-shape="rect"><rect x="340" y="972" width="420" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="y140_996" data-pinned="false" data-shape="rect"><rect x="340" y="996" width="420" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="y140_1020" data-pinned="false" data-shape="rect"><rect x="340" y="1020" width="420" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="y140_1044" data-pinned="false" data-shape="rect"><rect x="340" y="1044" width="420" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="m1" data-pinned="false" data-shape="rect"></g>
+<g data-node="m2" data-pinned="false" data-shape="rect"></g>
+<g data-node="m3" data-pinned="false" data-shape="rect"></g>
+<g data-node="m4" data-pinned="false" data-shape="rect"></g>
+<g data-node="m5" data-pinned="false" data-shape="rect"></g>
+<g data-node="half" data-pinned="false" data-shape="rect"></g>
+<g data-node="m6" data-pinned="false" data-shape="rect"></g>
+<g data-node="m7" data-pinned="false" data-shape="rect"></g>
+<g data-node="r1" data-pinned="false" data-shape="rect"></g>
+<g data-node="r2" data-pinned="false" data-shape="rect"></g>
+<g data-node="r3" data-pinned="false" data-shape="rect"></g>
+<g data-node="r4" data-pinned="false" data-shape="rect"></g>
+<g data-node="r5" data-pinned="false" data-shape="rect"></g>
+<g data-node="cli" data-pinned="false" data-shape="rect"><rect x="330" y="166" width="220" height="30" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/><rect x="330" y="166" width="220" height="30" fill="#1c1c22" fill-opacity="0.82"/></g>
+<g data-node="srv" data-pinned="false" data-shape="rect"><rect x="890" y="166" width="220" height="30" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/><rect x="890" y="166" width="220" height="30" fill="#1c1c22" fill-opacity="0.82"/></g>
+<g data-node="x140_804" data-pinned="false" data-shape="rect"><rect x="140" y="804" width="200" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="x140_828" data-pinned="false" data-shape="rect"><rect x="140" y="828" width="200" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="x140_852" data-pinned="false" data-shape="rect"><rect x="140" y="852" width="200" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="x140_876" data-pinned="false" data-shape="rect"><rect x="140" y="876" width="200" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="x140_900" data-pinned="false" data-shape="rect"><rect x="140" y="900" width="200" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="x140_924" data-pinned="false" data-shape="rect"><rect x="140" y="924" width="200" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="x140_948" data-pinned="false" data-shape="rect"><rect x="140" y="948" width="200" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="x140_972" data-pinned="false" data-shape="rect"><rect x="140" y="972" width="200" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="x140_996" data-pinned="false" data-shape="rect"><rect x="140" y="996" width="200" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="x140_1020" data-pinned="false" data-shape="rect"><rect x="140" y="1020" width="200" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="x140_1044" data-pinned="false" data-shape="rect"><rect x="140" y="1044" width="200" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="s0c" data-pinned="false" data-shape="rect"><rect x="140" y="200" width="170" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="s0s" data-pinned="false" data-shape="rect"><rect x="1130" y="200" width="170" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="s1c" data-pinned="false" data-shape="rect"><rect x="140" y="258" width="170" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="s1s" data-pinned="false" data-shape="rect"><rect x="1130" y="280" width="170" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="s2c" data-pinned="false" data-shape="rect"><rect x="140" y="370" width="170" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="s2s" data-pinned="false" data-shape="rect"><rect x="1130" y="370" width="170" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="s3c" data-pinned="false" data-shape="rect"><rect x="140" y="494" width="170" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="s4c" data-pinned="false" data-shape="rect"><rect x="140" y="542" width="170" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="s3s" data-pinned="false" data-shape="rect"><rect x="1130" y="516" width="170" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="s4s" data-pinned="false" data-shape="rect"><rect x="1130" y="596" width="170" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="s5c" data-pinned="false" data-shape="rect"><rect x="140" y="670" width="170" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="s5s" data-pinned="false" data-shape="rect"><rect x="1130" y="670" width="170" height="24" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="p0" data-pinned="false" data-shape="rect"></g>
+<g data-node="p1" data-pinned="false" data-shape="rect"></g>
+<g data-node="p2" data-pinned="false" data-shape="rect"></g>
+<g data-node="p3" data-pinned="false" data-shape="rect"></g>
+<g data-node="p4" data-pinned="false" data-shape="rect"></g>
+<g data-node="p5" data-pinned="false" data-shape="rect"></g>
+<g data-node="p6" data-pinned="false" data-shape="rect"></g>
+<g data-node="p7" data-pinned="false" data-shape="rect"></g>
+<g data-node="p8" data-pinned="false" data-shape="rect"></g>
+<g data-node="p9" data-pinned="false" data-shape="rect"></g>
+<g data-node="p10" data-pinned="false" data-shape="rect"></g>
+<g data-node="p11" data-pinned="false" data-shape="rect"></g>
+<g data-node="p12" data-pinned="false" data-shape="rect"></g>
+<g data-node="p13" data-pinned="false" data-shape="rect"></g>
+<g data-node="p14" data-pinned="false" data-shape="rect"></g>
+<g data-node="p15" data-pinned="false" data-shape="rect"></g>
+<g data-node="p16" data-pinned="false" data-shape="rect"></g>
+<g data-node="p17" data-pinned="false" data-shape="rect"></g>
+<g data-edge="p0&gt;p1" data-pinned="false"><path d="M 440 197 L 440 699" fill="none" stroke="#63636e" stroke-width="2" stroke-dasharray="7 4"/></g>
+<g data-edge="p2&gt;p3" data-pinned="false"><path d="M 1000 197 L 1000 699" fill="none" stroke="#63636e" stroke-width="2" stroke-dasharray="7 4"/></g>
+<g data-edge="p4&gt;p5" data-pinned="false"><path d="M 445 250 L 995 250" fill="none" stroke="#63636e" stroke-width="2"/><path d="M 995 250 L 985 246 L 985 254 Z" fill="#63636e" stroke="none"/></g>
+<g data-edge="p6&gt;p7" data-pinned="false"><path d="M 995 306 L 445 306" fill="none" stroke="#63636e" stroke-width="2"/><path d="M 445 306 L 455 310 L 455 302 Z" fill="#63636e" stroke="none"/></g>
+<g data-edge="p8&gt;p9" data-pinned="false"><path d="M 445 362 L 995 362" fill="none" stroke="#63636e" stroke-width="2"/><path d="M 995 362 L 985 358 L 985 366 Z" fill="#63636e" stroke="none"/></g>
+<g data-edge="p10&gt;p11" data-pinned="false"><path d="M 445 486 L 995 486" fill="none" stroke="#63636e" stroke-width="2"/><path d="M 995 486 L 985 482 L 985 490 Z" fill="#63636e" stroke="none"/></g>
+<g data-edge="p12&gt;p13" data-pinned="false"><path d="M 995 534 L 445 534" fill="none" stroke="#63636e" stroke-width="2"/><path d="M 445 534 L 455 538 L 455 530 Z" fill="#63636e" stroke="none"/></g>
+<g data-edge="p14&gt;p15" data-pinned="false"><path d="M 995 614 L 445 614" fill="none" stroke="#63636e" stroke-width="2"/><path d="M 445 614 L 455 618 L 455 610 Z" fill="#63636e" stroke="none"/></g>
+<g data-edge="p16&gt;p17" data-pinned="false"><path d="M 445 662 L 995 662" fill="none" stroke="#63636e" stroke-width="2"/><path d="M 995 662 L 985 658 L 985 666 Z" fill="#63636e" stroke="none"/></g>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<g data-name="data"><rect x="644" y="420" width="152" height="15" fill="#ffffff"/><text x="720" y="431" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1c1c22">データを送る（双方向）</text></g>
+<g data-name="h140_780"><text x="450" y="796" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#ffffff">状態（RFC 793 の 11 個）</text></g>
+<g data-name="t1"><text x="140" y="141" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">① つなぐ（3 ウェイ）→ 送る → 切る（4 ウェイ）。時間は下へ</text></g>
+<g data-name="tw"><text x="140" y="723" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">↓ 2MSL（RFC 793 の MSL は 2 分。最大 4 分）待ってから CLOSED</text></g>
+<g data-name="y140_804"><text x="346" y="820" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">つながりが無い</text></g>
+<g data-name="y140_828"><text x="346" y="844" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">相手からの接続要求を待っている（サーバ）</text></g>
+<g data-name="y140_852"><text x="346" y="868" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">接続要求を送って、相手の要求を待っている</text></g>
+<g data-name="y140_876"><text x="346" y="892" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">接続要求を受けても送ってもいて、確認応答を待っている</text></g>
+<g data-name="y140_900"><text x="346" y="916" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">開いている。データを渡せる。ふだんの状態</text></g>
+<g data-name="y140_924"><text x="346" y="940" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">相手の終了要求か、自分が送った終了要求への確認応答を待つ</text></g>
+<g data-name="y140_948"><text x="346" y="964" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">相手の終了要求を待っている</text></g>
+<g data-name="y140_972"><text x="346" y="988" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">自分の側の利用者が「切る」と言うのを待っている</text></g>
+<g data-name="y140_996"><text x="346" y="1012" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">相手からの終了要求への確認応答を待っている</text></g>
+<g data-name="y140_1020"><text x="346" y="1036" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">自分が送った終了要求への確認応答を待っている</text></g>
+<g data-name="y140_1044"><text x="346" y="1060" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">残っているパケットが寿命で消えるだけの時間を待っている</text></g>
+<g data-name="m1"><text x="720" y="241" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1c1c22">SYN　seq = A</text></g>
+<g data-name="m2"><text x="720" y="297" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1c1c22">SYN + ACK　seq = B ／ ack = A + 1</text></g>
+<g data-name="m3"><text x="720" y="353" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1c1c22">ACK　seq = A + 1 ／ ack = B + 1</text></g>
+<g data-name="m4"><text x="720" y="477" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1c1c22">FIN</text></g>
+<g data-name="m5"><text x="720" y="525" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1c1c22">ACK</text></g>
+<g data-name="half"><text x="720" y="569" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1c1c22">半クローズ —— 送り終えたのは片方だけ。サーバはまだ送れる</text></g>
+<g data-name="m6"><text x="720" y="605" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1c1c22">FIN</text></g>
+<g data-name="m7"><text x="720" y="653" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1c1c22">ACK</text></g>
+<g data-name="r1"><text x="820" y="813" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">・つなぐのは 3 通、切るのは 4 通。 切るときだけ 1 通多いのは、</text></g>
+<g data-name="r2"><text x="820" y="837" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">　「もう送らない」と「もう受け取らない」が別の話だから（半クローズ）。</text></g>
+<g data-name="r3"><text x="820" y="861" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">・CLOSING は、両側が同時に FIN を送ったときだけ通る道。</text></g>
+<g data-name="r4"><text x="820" y="885" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">・TIME-WAIT が残るのは、最後の ACK が落ちた場合に備えるため。</text></g>
+<g data-name="r5"><text x="820" y="909" text-anchor="start" font-family="sans-serif" font-size="12" fill="#1c1c22">　実装では 30 秒・1 分・2 分が多い。</text></g>
+<g data-name="cli"><text x="440" y="185" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#ffffff">クライアント</text></g>
+<g data-name="srv"><text x="1000" y="185" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#ffffff">サーバ</text></g>
+<g data-name="x140_804"><text x="240" y="820" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1c1c22">CLOSED</text></g>
+<g data-name="x140_828"><text x="240" y="844" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1c1c22">LISTEN</text></g>
+<g data-name="x140_852"><text x="240" y="868" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1c1c22">SYN-SENT</text></g>
+<g data-name="x140_876"><text x="240" y="892" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1c1c22">SYN-RECEIVED</text></g>
+<g data-name="x140_900"><text x="240" y="916" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1c1c22">ESTABLISHED</text></g>
+<g data-name="x140_924"><text x="240" y="940" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1c1c22">FIN-WAIT-1</text></g>
+<g data-name="x140_948"><text x="240" y="964" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1c1c22">FIN-WAIT-2</text></g>
+<g data-name="x140_972"><text x="240" y="988" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1c1c22">CLOSE-WAIT</text></g>
+<g data-name="x140_996"><text x="240" y="1012" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1c1c22">CLOSING</text></g>
+<g data-name="x140_1020"><text x="240" y="1036" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1c1c22">LAST-ACK</text></g>
+<g data-name="x140_1044"><text x="240" y="1060" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1c1c22">TIME-WAIT</text></g>
+<g data-name="s0c"><text x="225" y="216" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1c1c22">CLOSED</text></g>
+<g data-name="s0s"><text x="1215" y="216" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1c1c22">LISTEN</text></g>
+<g data-name="s1c"><text x="225" y="274" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1c1c22">SYN-SENT</text></g>
+<g data-name="s1s"><text x="1215" y="296" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1c1c22">SYN-RECEIVED</text></g>
+<g data-name="s2c"><text x="225" y="386" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1c1c22">ESTABLISHED</text></g>
+<g data-name="s2s"><text x="1215" y="386" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1c1c22">ESTABLISHED</text></g>
+<g data-name="s3c"><text x="225" y="510" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1c1c22">FIN-WAIT-1</text></g>
+<g data-name="s4c"><text x="225" y="558" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1c1c22">FIN-WAIT-2</text></g>
+<g data-name="s3s"><text x="1215" y="532" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1c1c22">CLOSE-WAIT</text></g>
+<g data-name="s4s"><text x="1215" y="612" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1c1c22">LAST-ACK</text></g>
+<g data-name="s5c"><text x="225" y="686" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1c1c22">TIME-WAIT</text></g>
+<g data-name="s5s"><text x="1215" y="686" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1c1c22">CLOSED</text></g>
+</svg>

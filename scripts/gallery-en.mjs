@@ -199,6 +199,7 @@ export const CAPTIONS_EN = {
   '237-基板の層構成': 'Adding layers is not only about routing: it brings the ground plane close, and the same 50 ohms goes from a 2.85mm trace to a 0.34mm one',
   '236-PoEの給電クラス': 'A PoE standard quotes two wattages, not one: what the switch sends and what the device receives — the difference is what the 100m of copper turns into heat',
   '235-19インチラックと1U': 'Rack holes are deliberately unevenly spaced — 15.875 / 15.875 / 12.7 — so that the middle of the 12.7 gap marks where one U ends and the next begins',
+  '320-TCPのつなぎ方と切り方': 'Opening a TCP connection takes three segments and closing it takes four, and the extra one is the whole point: "I have nothing more to send" and "I will not receive any more" are separate statements, so between the two FINs one side is still allowed to send. The eleven RFC 793 states are listed beside the ladder, along with why the last side to send an ACK has to wait before it disappears.',
   '234-プロトコルのヘッダ': 'Protocol headers are drawn 32 bits wide because that is the unit they are read in: the width of a field is its bit count, and nothing that does not divide into 32 ever appears',
   '233-周期表の形': 'The shape of the periodic table is the electron configuration: block widths of 2, 6, 10 and 14 are orbital capacities, so no other width is possible',
   '232-応急危険度判定': 'A red placard does not mean total loss: it answers whether it is safe to go in now, not how badly the building is damaged — two different papers, two different questions',

@@ -168,6 +168,8 @@ const ja = {
     inspectRanks: (ranks: number) => `  段 ${ranks}（長辺の向きに並んだ段の数。1 段およそ 145px）`,
     inspectPlan: '配置図（置き場所は自分で書く）',
     inspectStructure: '構成図（機械が並べる）',
+    /** **座標を持たない図**（`kind: construction`）。折り返しも段も無い。 */
+    inspectConstruction: '作図図（手順から解く。座標は正本に無い）',
     inspectClean: '  交差 0 ／ またぎ 0 ／ 文字の重なり 0 ／ 隠れた辺 0 ／ 名前も符号も全部出ています',
     inspectCrossings: (count: number, groups: number, pairs: string) =>
       `  **交差 ${count}**（${groups} 組。同じ 2 本が何か所で交わっても 1 組）\n    ${pairs}`,
@@ -903,8 +905,13 @@ const ja = {
      * 4.09 : 1 → 1.7 : 1 になって読む順もそのままだったが、
      * 見本 287（groups あり）は折り返すと**三段仕込みの 4 つがばらばらの順**に出た。
      */
-    structureTooThin: (ratio: string, width: number, height: number) =>
-      `この構成図は ${width} × ${height}px で、縦横の比が ${ratio} あります。**貼った先では幅に合わせて縮む**ので、細長いほど字が小さくなります。\`wrap: true\` で折り返せますが、**並びの順が崩れることがあります**（戻る辺や groups があるとき）—— 折り返したら必ず絵にして、読む順どおりに出ているか見てください。崩れるなら、節をまとめて段を減らすか、図を分けてください。`,
+    structureWrapOff:
+      '`wrap: true` で折り返せますが、**並びの順が崩れることがあります**（戻る辺や groups があるとき）—— 折り返したら必ず絵にして、読む順どおりに出ているか見てください。崩れるなら、節をまとめて段を減らすか、図を分けてください。',
+    /** **逃げ道を書いたなら、逃げ道を満たしたかどうかも見る。** すでに折り返してある図に「折り返せます」と言わない。 */
+    structureWrapOn:
+      '**すでに `wrap: true` が書いてあります。** 折り返してもこの比なので、残っているのは 2 つだけです —— 節をまとめて鎖を短くするか、図を 2 枚に分けるか。',
+    structureTooThin: (ratio: string, width: number, height: number, advice: string) =>
+      `この構成図は ${width} × ${height}px で、縦横の比が ${ratio} あります。**貼った先では幅に合わせて縮む**ので、細長いほど字が小さくなります。${advice}`,
     labelTooTall: (id: string, lines: number, need: number, has: number) =>
       `ノード "${id}" の名前は ${lines} 行ありますが、箱の高さが ${has}px しかありません（${need}px 要ります）。名前は箱の上下の真ん中から積むので、**足りない分は上下へはみ出して**、まわりの図に重なります。\`size.h\` を ${need}px 以上にするか、行を減らしてください。`,
     hatchTooThin: (id: string, hatch: string, side: number) =>
@@ -1053,6 +1060,7 @@ const en: Catalog = {
     inspectRanks: (ranks: number) => `  ${ranks} ranks deep (about 145px each)`,
     inspectPlan: 'placement (you write the positions)',
     inspectStructure: 'structure (the machine lays it out)',
+    inspectConstruction: 'construction (solved from the steps; no coordinates in the source)',
     inspectClean: '  0 crossings / 0 straddles / 0 text overlaps / 0 buried edges / every name and tag is drawn',
     inspectCrossings: (count: number, groups: number, pairs: string) =>
       `  **${count} crossings** (${groups} pairs; two lines that cross more than once count as one pair)\n    ${pairs}`,
@@ -1579,8 +1587,13 @@ const en: Catalog = {
       `The label of "${id}" contains **"${found}"** — a lowercase English word glued straight onto Japanese text. That is usually a draft term left untranslated (an invented word), or two parts in the wrong order. **It is drawn exactly as written.** Translate it, or put a space between the scripts. Units (mm, cm, kg) and spaced forms like "PoE の" are not flagged.`,
     circleNotSquare: (id: string, marker: string, w: number, h: number, d: number) =>
       `Node "${id}" is \`marker: ${marker}\` (a circle), but its \`size\` is ${w}x${h}, not square. **A circle takes the shorter side as its diameter**, so what gets drawn is a **${d} circle** and the ${Math.max(w, h)} you wrote is gone. Label placement and overlap still measure the ${w}x${h} box, so **empty room is left beside the circle**. Use \`marker: ellipse\` for an oval (it uses both w and h), or make \`size\` square.`,
-    structureTooThin: (ratio: string, width: number, height: number) =>
-      `This structure diagram is ${width} × ${height}px, an aspect ratio of ${ratio}. **Pasted anywhere it will be scaled to the column width**, so the thinner it is the smaller the text gets. \`wrap: true\` folds it, but **it can scramble the reading order** (back edges and groups both do this) — always look at the picture afterwards. If it scrambles, merge nodes to shorten the chain, or split the drawing.`,
+    structureWrapOff:
+      '`wrap: true` folds it, but **it can scramble the reading order** (back edges and groups both do this) — always look at the picture afterwards. If it scrambles, merge nodes to shorten the chain, or split the drawing.',
+    /** **If you offer a way out, check whether it has already been taken.** */
+    structureWrapOn:
+      '**`wrap: true` is already set.** Folded, it is still this thin, so only two things are left: merge nodes to shorten the chain, or split the drawing in two.',
+    structureTooThin: (ratio: string, width: number, height: number, advice: string) =>
+      `This structure diagram is ${width} × ${height}px, an aspect ratio of ${ratio}. **Pasted anywhere it will be scaled to the column width**, so the thinner it is the smaller the text gets. ${advice}`,
     labelTooTall: (id: string, lines: number, need: number, has: number) =>
       `Node "${id}" has a ${lines}-line name but the box is only ${has}px tall (it needs ${need}px). Lines are stacked from the middle of the box, so **the overflow spills above and below** onto whatever is there. Raise \`size.h\` to ${need}px or use fewer lines.`,
     hatchTooThin: (id: string, hatch: string, side: number) =>
