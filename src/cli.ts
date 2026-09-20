@@ -421,7 +421,14 @@ export async function placedFindings(text: string): Promise<Finding[]> {
     ...adriftDetails(placed.boxes, plans).map((found) => ({
       severity: 'warning' as const,
       code: 'name-adrift',
-      message: messages().validate.nameAdrift(found.id, found.needs, found.has),
+      message: messages().validate.nameAdrift(
+        found.id,
+        found.needs,
+        found.has,
+        placed.boxes.find((box) => box.id === found.id)?.marker === 'none'
+          ? messages().validate.adriftNote
+          : messages().validate.adriftCell,
+      ),
     })),
     // **書いたのに出ない符号。** 印が小さいと入らないので落としている。
     // 落とすのは正しいが、**黙って落とすと書いた側が気づけない。**

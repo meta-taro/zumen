@@ -1,0 +1,385 @@
+version: 1
+kind: placement
+arrows: true
+scale: { mm: 0.3 }
+title: 乾電池の規格（番号の順は、大きさの順ではない）
+# **背の順は、番号の順ではない。**
+# 単 3 形（R6）は **50.5mm**、単 2 形（R14）は **50.0mm** —— **単 3 のほうが 0.5mm 高い。**
+# 単 5 形（R1）は直径 **12.0mm** で、単 4 形（R03）の **10.5mm** より**太い**（背は低い）。
+#
+# | 呼び名 | IEC | 直径 × 高さ |
+# |---|---|---|
+# | 単 1 形 | R20 | 34.2 × 61.5mm |
+# | 単 2 形 | R14 | 26.2 × 50.0mm |
+# | 単 3 形 | R6 | 14.5 × 50.5mm |
+# | 単 4 形 | R03 | 10.5 × 44.5mm |
+# | 単 5 形 | R1 | 12.0 × 30.2mm |
+# | 9V 形 | F22（006P） | 13.5 × 48.5mm |
+#
+# **どれも公称 1.5V。** 大きさが変わっても電圧は同じで、変わるのは
+# **取り出せる電流と、持つ時間** —— **単 1 は「強い電池」ではなく「長い電池」。**
+#
+# **9V 形だけ、中が違う。** **1.5V の素電池 6 個を直列**につないだ箱で、
+# 1.5 × 6 ＝ 9V。**円筒でないのは、6 個を詰めるため。**
+#
+# **ボタン電池の型番は、そのまま寸法。**
+# **CR2032** は「**C**（リチウム）・**R**（円形）・**20**（直径 20.0mm）・**32**（高さ 3.2mm）」——
+# 数字は型の番号ではなく、寸法そのもの。
+#
+# **マンガンとアルカリは、向いている使い方が違う。**
+# マンガンは小さい電流向きで、**電流を止めると起電力が一時的に回復する。**
+# アルカリは大きい電流でも電圧が安定する。
+# **強い電池が、いつも良い電池ではない** —— 時計やリモコンにはマンガンが合う。
+nodes:
+  - id: t1
+    label: "① 実寸で並べる（1px ＝ 0.3mm）—— 単 3 は単 2 より背が高い"
+    marker: none
+    align: left
+    at: { x: 140, y: 150 }
+    size: { w: 660, h: 20 }
+  - id: c0
+    label: ""
+    at: { x: 250, y: 355 }
+    size: { w: 114, h: 205 }
+  - id: c0t
+    label: ""
+    hatch: solid
+    at: { x: 284.2, y: 347 }
+    size: { w: 45.6, h: 8 }
+  - id: c0n
+    label: "単 1 形（R20）\n34.2 × 61.5mm"
+    marker: none
+    align: center
+    at: { x: 252, y: 580 }
+    size: { w: 110, h: 36 }
+  - id: c1
+    label: ""
+    at: { x: 394, y: 393.3 }
+    size: { w: 87.3, h: 166.7 }
+  - id: c1t
+    label: ""
+    hatch: solid
+    at: { x: 420.2, y: 385.3 }
+    size: { w: 34.9, h: 8 }
+  - id: c1n
+    label: "単 2 形（R14）\n26.2 × 50mm"
+    marker: none
+    align: center
+    at: { x: 382.7, y: 620 }
+    size: { w: 110, h: 36 }
+  - id: c2
+    label: ""
+    at: { x: 511, y: 391.7 }
+    size: { w: 48.3, h: 168.3 }
+  - id: c2t
+    label: ""
+    hatch: solid
+    at: { x: 525.5, y: 383.7 }
+    size: { w: 19.3, h: 8 }
+  - id: c2n
+    label: "単 3 形（R6）\n14.5 × 50.5mm"
+    marker: none
+    align: center
+    at: { x: 480.2, y: 580 }
+    size: { w: 110, h: 36 }
+  - id: c3
+    label: ""
+    at: { x: 589, y: 411.7 }
+    size: { w: 35, h: 148.3 }
+  - id: c3t
+    label: ""
+    hatch: solid
+    at: { x: 599.5, y: 403.7 }
+    size: { w: 14, h: 8 }
+  - id: c3n
+    label: "単 4 形（R03）\n10.5 × 44.5mm"
+    marker: none
+    align: center
+    at: { x: 551.5, y: 620 }
+    size: { w: 110, h: 36 }
+  - id: c4
+    label: ""
+    at: { x: 654, y: 459.3 }
+    size: { w: 40, h: 100.7 }
+  - id: c4t
+    label: ""
+    hatch: solid
+    at: { x: 666, y: 451.3 }
+    size: { w: 16, h: 8 }
+  - id: c4n
+    label: "単 5 形（R1）\n12 × 30.2mm"
+    marker: none
+    align: center
+    at: { x: 619, y: 580 }
+    size: { w: 110, h: 36 }
+  - id: c5
+    label: ""
+    at: { x: 724, y: 398.3 }
+    size: { w: 45, h: 161.7 }
+  - id: c5t
+    label: ""
+    hatch: solid
+    at: { x: 737.5, y: 390.3 }
+    size: { w: 18, h: 8 }
+  - id: c5n
+    label: "9V 形（F22）\n13.5 × 48.5mm"
+    marker: none
+    align: center
+    at: { x: 691.5, y: 620 }
+    size: { w: 110, h: 36 }
+  - id: base
+    label: ""
+    hatch: lines
+    at: { x: 230, y: 560 }
+    size: { w: 560, h: 12 }
+  - id: cap1
+    label: "背の順は、番号の順ではない。 単 3（50.5mm）は単 2（50.0mm）より 0.5mm 高く、単 5 は単 4 より太い。"
+    marker: none
+    align: center
+    at: { x: 140, y: 670 }
+    size: { w: 660, h: 18 }
+  - id: t2
+    label: "② ボタン電池の型番は、そのまま寸法"
+    marker: none
+    align: left
+    at: { x: 140, y: 716 }
+    size: { w: 660, h: 20 }
+  - id: m0
+    label: "C"
+    at: { x: 300, y: 760 }
+    size: { w: 90, h: 56 }
+  - id: m0n
+    label: "リチウム"
+    marker: none
+    align: center
+    at: { x: 300, y: 824 }
+    size: { w: 90, h: 18 }
+  - id: m1
+    label: "R"
+    at: { x: 400, y: 760 }
+    size: { w: 90, h: 56 }
+  - id: m1n
+    label: "円形"
+    marker: none
+    align: center
+    at: { x: 400, y: 824 }
+    size: { w: 90, h: 18 }
+  - id: m2
+    label: "20"
+    at: { x: 500, y: 760 }
+    size: { w: 140, h: 56 }
+  - id: m2n
+    label: "直径 20.0mm"
+    marker: none
+    align: center
+    at: { x: 500, y: 824 }
+    size: { w: 140, h: 18 }
+  - id: m3
+    label: "32"
+    at: { x: 650, y: 760 }
+    size: { w: 140, h: 56 }
+  - id: m3n
+    label: "高さ 3.2mm"
+    marker: none
+    align: center
+    at: { x: 650, y: 824 }
+    size: { w: 140, h: 18 }
+  - id: cap2
+    label: "CR2032 は「リチウムの円形、直径 20.0mm・高さ 3.2mm」と読む。 数字は型の番号ではなく、寸法そのもの。"
+    marker: none
+    align: center
+    at: { x: 140, y: 856 }
+    size: { w: 660, h: 18 }
+  - id: t3
+    label: "③ 呼び名と寸法"
+    marker: none
+    align: left
+    at: { x: 860, y: 150 }
+    size: { w: 420, h: 20 }
+  - id: h860_186
+    label: "JIS の呼び名 ／ IEC ／ 直径 × 高さ"
+    hatch: solid
+    at: { x: 860, y: 186 }
+    size: { w: 420, h: 24 }
+  - id: x860_210
+    label: "単 1 形"
+    at: { x: 860, y: 210 }
+    size: { w: 150, h: 24 }
+  - id: y860_210
+    label: "R20 ／ 34.2 × 61.5mm"
+    align: left
+    at: { x: 1010, y: 210 }
+    size: { w: 270, h: 24 }
+  - id: x860_234
+    label: "単 2 形"
+    at: { x: 860, y: 234 }
+    size: { w: 150, h: 24 }
+  - id: y860_234
+    label: "R14 ／ 26.2 × 50.0mm"
+    align: left
+    at: { x: 1010, y: 234 }
+    size: { w: 270, h: 24 }
+  - id: x860_258
+    label: "単 3 形"
+    at: { x: 860, y: 258 }
+    size: { w: 150, h: 24 }
+  - id: y860_258
+    label: "R6 ／ 14.5 × 50.5mm"
+    align: left
+    at: { x: 1010, y: 258 }
+    size: { w: 270, h: 24 }
+  - id: x860_282
+    label: "単 4 形"
+    at: { x: 860, y: 282 }
+    size: { w: 150, h: 24 }
+  - id: y860_282
+    label: "R03 ／ 10.5 × 44.5mm"
+    align: left
+    at: { x: 1010, y: 282 }
+    size: { w: 270, h: 24 }
+  - id: x860_306
+    label: "単 5 形"
+    at: { x: 860, y: 306 }
+    size: { w: 150, h: 24 }
+  - id: y860_306
+    label: "R1 ／ 12.0 × 30.2mm"
+    align: left
+    at: { x: 1010, y: 306 }
+    size: { w: 270, h: 24 }
+  - id: x860_330
+    label: "9V 形"
+    at: { x: 860, y: 330 }
+    size: { w: 150, h: 24 }
+  - id: y860_330
+    label: "F22（006P）／ 13.5 × 48.5mm"
+    align: left
+    at: { x: 1010, y: 330 }
+    size: { w: 270, h: 24 }
+  - id: why3
+    label: "どれも公称 1.5V。 大きさが変わっても電圧は同じで、\n変わるのは取り出せる電流と、持つ時間 ——\n単 1 は「強い電池」ではなく「長い電池」。"
+    at: { x: 860, y: 368 }
+    size: { w: 420, h: 74 }
+  - id: t4
+    label: "④ 9V 形だけ、中が違う"
+    marker: none
+    align: left
+    at: { x: 860, y: 460 }
+    size: { w: 420, h: 20 }
+  - id: h860_490
+    label: "006P の中身"
+    hatch: solid
+    at: { x: 860, y: 490 }
+    size: { w: 420, h: 24 }
+  - id: x860_514
+    label: "中身"
+    at: { x: 860, y: 514 }
+    size: { w: 150, h: 24 }
+  - id: y860_514
+    label: "1.5V の素電池が 6 個"
+    align: left
+    at: { x: 1010, y: 514 }
+    size: { w: 270, h: 24 }
+  - id: x860_538
+    label: "つなぎ方"
+    at: { x: 860, y: 538 }
+    size: { w: 150, h: 24 }
+  - id: y860_538
+    label: "直列"
+    align: left
+    at: { x: 1010, y: 538 }
+    size: { w: 270, h: 24 }
+  - id: x860_562
+    label: "出る電圧"
+    at: { x: 860, y: 562 }
+    size: { w: 150, h: 24 }
+  - id: y860_562
+    label: "1.5 × 6 ＝ 9V"
+    align: left
+    at: { x: 1010, y: 562 }
+    size: { w: 270, h: 24 }
+  - id: x860_586
+    label: "形"
+    at: { x: 860, y: 586 }
+    size: { w: 150, h: 24 }
+  - id: y860_586
+    label: "平たい箱（円筒ではない）"
+    align: left
+    at: { x: 1010, y: 586 }
+    size: { w: 270, h: 24 }
+  - id: why4
+    label: "9V は、1 本の電池ではない。\n中で 6 個を直列につないだ箱 ——\n円筒でないのは、6 個を詰めるため。"
+    at: { x: 860, y: 624 }
+    size: { w: 420, h: 74 }
+  - id: t5
+    label: "⑤ マンガンとアルカリ"
+    marker: none
+    align: left
+    at: { x: 860, y: 716 }
+    size: { w: 420, h: 20 }
+  - id: h860_746
+    label: "向いている使い方"
+    hatch: solid
+    at: { x: 860, y: 746 }
+    size: { w: 420, h: 24 }
+  - id: x860_770
+    label: "マンガン"
+    at: { x: 860, y: 770 }
+    size: { w: 150, h: 24 }
+  - id: y860_770
+    label: "小さい電流。休ませると回復する"
+    align: left
+    at: { x: 1010, y: 770 }
+    size: { w: 270, h: 24 }
+  - id: x860_794
+    label: "アルカリ"
+    at: { x: 860, y: 794 }
+    size: { w: 150, h: 24 }
+  - id: y860_794
+    label: "大きい電流。電圧が安定する"
+    align: left
+    at: { x: 1010, y: 794 }
+    size: { w: 270, h: 24 }
+  - id: x860_818
+    label: "向く道具"
+    at: { x: 860, y: 818 }
+    size: { w: 150, h: 24 }
+  - id: y860_818
+    label: "時計・リモコン ／ モーター・ライト"
+    align: left
+    at: { x: 1010, y: 818 }
+    size: { w: 270, h: 24 }
+  - id: why5
+    label: "休ませると戻るのが、マンガンの特徴。\n使いっぱなしでなければ長く持つので、\n時計やリモコンにはこちらが合う ——\n強い電池が、いつも良い電池ではない。"
+    at: { x: 860, y: 856 }
+    size: { w: 420, h: 74 }
+  - id: r1
+    label: "背の順は番号の順ではありません（①）。単 3（50.5mm）は単 2（50.0mm）より 0.5mm 高く、単 5 は単 4 より太いです。"
+    marker: none
+    align: left
+    at: { x: 140, y: 948 }
+    size: { w: 1140, h: 18 }
+  - id: r2
+    label: "どれも公称 1.5V です（③）。大きさで変わるのは取り出せる電流と持つ時間で、単 1 は「強い電池」ではなく「長い電池」です。"
+    marker: none
+    align: left
+    at: { x: 140, y: 972 }
+    size: { w: 1140, h: 18 }
+  - id: r3
+    label: "9V 形だけ中が違います（④）。1.5V の素電池 6 個を直列にした箱で、円筒でないのは 6 個を詰めるためです。"
+    marker: none
+    align: left
+    at: { x: 140, y: 996 }
+    size: { w: 1140, h: 18 }
+  - id: r4
+    label: "ボタン電池の型番は寸法そのものです（②）。CR2032 は「リチウムの円形、直径 20.0mm・高さ 3.2mm」です。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1020 }
+    size: { w: 1140, h: 18 }
+  - id: r5
+    label: "強い電池が、いつも良い電池ではありません（⑤）。休ませると回復するマンガンは、時計やリモコンに合います。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1044 }
+    size: { w: 1140, h: 18 }
+edges:

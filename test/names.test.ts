@@ -1004,3 +1004,44 @@ nodes:
     assert.ok(subRight <= nameLeft, `副題が名前へ食い込んでいる（${subRight} > ${nameLeft}）`);
   });
 });
+
+/**
+ * **注記には、表の話をしない**（2026-09-21）。
+ *
+ * 「表の欄なら、値が欄から離れて行が空に見えます」は枠のある箱の話で、
+ * **`marker: none` の注記には当たらない** —— そちらは**まわりの図に重なる。**
+ * この夜だけで 10 回以上この指摘を受け、そのたびに表ではなく注記だった。
+ */
+describe('名前が箱から離れているときの言い方', () => {
+  const one = (marker: string): string =>
+    [
+      'version: 1', 'kind: placement', 'nodes:',
+      '  - id: a', '    label: "とても長い文字列がここに入ります"', `    marker: ${marker}`,
+      '    at: { x: 0, y: 0 }', '    size: { w: 100, h: 24 }', '',
+    ].join('\n');
+
+  it('**注記なら、まわりの図に重なると言う**', async () => {
+    const { placedFindings } = await import('../src/cli.ts');
+    const found = await placedFindings(one('none'));
+    const said = found.find((f) => f.code === 'name-adrift');
+    assert.ok(said !== undefined, found.map((f) => f.code).join(','));
+    assert.match(said.message, /まわりの図に重なります/, said.message);
+    assert.ok(!said.message.includes('表の欄なら'), said.message);
+  });
+
+  it('枠のある箱なら、これまでどおり表の話をする', async () => {
+    const { placedFindings } = await import('../src/cli.ts');
+    const found = await placedFindings(one('box'));
+    const said = found.find((f) => f.code === 'name-adrift')!;
+    assert.match(said.message, /表の欄なら/, said.message);
+  });
+
+  it('どちらでも、足りない px は言う', async () => {
+    const { placedFindings } = await import('../src/cli.ts');
+    for (const marker of ['none', 'box']) {
+      const found = await placedFindings(one(marker));
+      const said = found.find((f) => f.code === 'name-adrift')!;
+      assert.match(said.message, /px 足りません/, said.message);
+    }
+  });
+});
