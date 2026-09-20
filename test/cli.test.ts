@@ -1075,3 +1075,39 @@ describe('段の数', () => {
     assert.equal(rankCount(three), 3);
   });
 });
+
+/**
+ * **重なりの大きさが全部同じなら、1 回だけ言う**（2026-09-21）。
+ *
+ * 見本 311（ピアノの鍵盤）で、黒鍵と白鍵の 20 組が**どれも「横 12px ／ 縦 110px」**だった。
+ * 同じ数を 20 回繰り返すと 1 行が 800 字を超え、**組の名前が読めなくなる。**
+ */
+describe('またぎの大きさの言い方', () => {
+  const grid = (n: number): string => {
+    const nodes = Array.from({ length: n }, (_, i) =>
+      `  - id: a${i}\n    label: 白 ${i}\n    at: { x: ${i * 40}, y: 0 }\n    size: { w: 40, h: 60 }\n` +
+      (i === 0 ? '' : `  - id: b${i}\n    label: ""\n    at: { x: ${i * 40 - 10}, y: 0 }\n    size: { w: 20, h: 30 }\n`),
+    ).join('');
+    return `version: 1\nkind: placement\nnodes:\n${nodes}`;
+  };
+
+  it('**同じ大きさなら、名前だけ並べて最後に 1 回言う**', async () => {
+    const result = await runInspect(['a.yaml'], reader({ 'a.yaml': grid(5) }) as never);
+    const row = result.lines.find((line) => line.includes('またぎ'))!;
+    assert.match(row, /どれも 横 \d+px ／ 縦 \d+px/, row);
+    assert.equal(row.split('横').length - 1, 1, `大きさを 1 回だけ言っていない\n${row}`);
+  });
+
+  it('大きさが違えば、組ごとに言う（これまでどおり）', async () => {
+    const mixed = [
+      'version: 1', 'kind: placement', 'nodes:',
+      '  - id: a', '    label: あ', '    at: { x: 0, y: 0 }', '    size: { w: 100, h: 60 }',
+      '  - id: b', '    label: い', '    at: { x: 80, y: 0 }', '    size: { w: 100, h: 60 }',
+      '  - id: c', '    label: う', '    at: { x: 150, y: 30 }', '    size: { w: 100, h: 60 }',
+      '',
+    ].join('\n');
+    const result = await runInspect(['a.yaml'], reader({ 'a.yaml': mixed }) as never);
+    const row = result.lines.find((line) => line.includes('またぎ'))!;
+    assert.ok(!row.includes('どれも'), row);
+  });
+});

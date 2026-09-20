@@ -648,12 +648,33 @@ export async function runInspect(paths: string[], read = readFileSync): Promise<
     if (crossed.length > 0) lines.push(m.inspectCrossings(seen.crossings, crossed.length, spots(crossed)));
     if (over.length > 0) {
       // **どれだけ重なっているかまで出す。** 組だけでは、何 px 動かすかが分からない。
-      const said = straddlePlaces(placed).map((found) =>
-        m.straddleBy(found.a, found.b, String(Math.ceil(found.by.x)), String(Math.ceil(found.by.y))),
-      );
+      const places = straddlePlaces(placed);
+      /**
+       * **重なりの大きさが全部同じなら、1 回だけ言う**（2026-09-21）。
+       *
+       * 見本 311（ピアノの鍵盤）で、黒鍵と白鍵の 20 組が
+       * **どれも「横 12px ／ 縦 110px」**だった ——
+       * 同じ数を 20 回繰り返すと 1 行が 800 字を超え、**組の名前が読めなくなる。**
+       */
+      const size = (found: { by: { x: number; y: number } }): string =>
+        `${Math.ceil(found.by.x)}x${Math.ceil(found.by.y)}`;
+      const same = places.length > 1 && places.every((found) => size(found) === size(places[0]!));
+      const said = same
+        ? places.map((found) => `${found.a}↔${found.b}`)
+        : places.map((found) =>
+            m.straddleBy(found.a, found.b, String(Math.ceil(found.by.x)), String(Math.ceil(found.by.y))),
+          );
       // **またぎは 20 組まで並べる。** 交差と違って数が跳ねにくく、
       // どれも「動かすかどうか」を 1 つずつ決める相手なので、先頭 6 組では足りない。
-      lines.push(m.inspectStraddles(over.length, names(said, 20)));
+      const head = names(said, 20);
+      lines.push(
+        m.inspectStraddles(
+          over.length,
+          same
+            ? `${head}。${m.straddleAllSame(String(Math.ceil(places[0]!.by.x)), String(Math.ceil(places[0]!.by.y)))}`
+            : head,
+        ),
+      );
     }
     if (seen.overlappingText.length > 0) {
       lines.push(m.inspectOverlaps(seen.overlappingText.length, pairs(seen.overlappingText)));

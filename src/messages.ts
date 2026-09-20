@@ -191,6 +191,14 @@ const ja = {
      * 半分以上で「全部見たのかどうか」が判断できなかった。
      */
     andMore: (rest: string) => `ほか ${rest} 組`,
+    /**
+     * **重なりの大きさが全部同じなら、1 回だけ言う**（2026-09-21）。
+     *
+     * 見本 311（ピアノの鍵盤）で、黒鍵と白鍵の 20 組が
+     * **どれも「横 12px ／ 縦 110px」**だった。
+     * 同じ数を 20 回繰り返すと 1 行が 800 字を超え、**組の名前が読めなくなる。**
+     */
+    straddleAllSame: (x: string, y: string) => `どれも 横 ${x}px ／ 縦 ${y}px`,
     inspectStraddles: (count: number, pairs: string) => `  **またぎ ${count}**（${pairs}）`,
     inspectOverlaps: (count: number, pairs: string) => `  **文字の重なり ${count}**（${pairs}）`,
     inspectUnderBoxes: (count: number, pairs: string) => `  **箱に隠れた辺 ${count}**（${pairs}）`,
@@ -1028,6 +1036,7 @@ const en: Catalog = {
     inspectWarnings: (count: string, codes: string) =>
       `  **${count} warning(s)** (${codes}; run \`pnpm validate\` to see them)`,
     andMore: (rest: string) => `and ${rest} more`,
+    straddleAllSame: (x: string, y: string) => `all of them ${x}px across / ${y}px down`,
     inspectStraddles: (count: number, pairs: string) => `  **${count} straddles** (${pairs})`,
     inspectOverlaps: (count: number, pairs: string) => `  **${count} text overlaps** (${pairs})`,
     inspectUnderBoxes: (count: number, pairs: string) => `  **${count} edges buried under boxes** (${pairs})`,
