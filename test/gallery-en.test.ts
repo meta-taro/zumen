@@ -27,6 +27,7 @@ const captions = CAPTIONS_EN as Record<string, string>;
 const heads = GROUPS_EN as Record<string, string>;
 
 const names: string[] = groups.flatMap((group) => group.items.map((item) => item.name));
+const items = groups.flatMap((group) => group.items) as { name: string; alt?: string; caption?: string }[];
 
 describe('見本の英語', () => {
   it('**どの見本にも英語がある**', () => {
@@ -69,6 +70,29 @@ describe('見本の英語', () => {
  * 分類の順を英語だけ差し替え、分類の中では**名前が英字の見本を先に**出す
  * （英字の名前は、図の中も英語で書いたもの）。**見本は 1 枚も落とさない。**
  */
+/**
+ * **代替テキスト（alt）は、見出しの繰り返しにしない**（2026-09-20）。
+ *
+ * `alt` は目の見えない人に読み上げられ、検索にも使われる。
+ * **`<figcaption>` と同じ文字を `alt` に入れると、同じ言葉が 2 回読まれるだけ**で、
+ * 図の中身は何ひとつ伝わらない。測ったら **21 枚**がそうなっていた。
+ *
+ * `alt` は「その図に何が描いてあるか」、`caption` は「その図の見どころ」。**別のものを書く。**
+ */
+describe('見本の代替テキスト', () => {
+  it('**alt が空でない**', () => {
+    const empty = items.filter((item) => (item.alt ?? '').trim() === '').map((item) => item.name);
+    assert.deepEqual(empty, []);
+  });
+
+  it('**alt が caption の繰り返しになっていない**', () => {
+    const same = items
+      .filter((item) => (item.alt ?? '').trim() === (item.caption ?? '').trim())
+      .map((item) => item.name);
+    assert.deepEqual(same, [], 'alt が caption と同じ（読み上げると同じ言葉が 2 回出る）');
+  });
+});
+
 describe('英語のページの並び', () => {
   it('**分類の順が、英語だけ違う**（建築から始まり、日本の鉄道は最後）', () => {
     const order = ORDER_EN as string[];
