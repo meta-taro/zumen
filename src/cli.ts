@@ -578,7 +578,9 @@ export async function runInspect(paths: string[], read = readFileSync): Promise<
       const said = straddlePlaces(placed).map((found) =>
         m.straddleBy(found.a, found.b, String(Math.ceil(found.by.x)), String(Math.ceil(found.by.y))),
       );
-      lines.push(m.inspectStraddles(over.length, names(said, 6)));
+      // **またぎは 20 組まで並べる。** 交差と違って数が跳ねにくく、
+      // どれも「動かすかどうか」を 1 つずつ決める相手なので、先頭 6 組では足りない。
+      lines.push(m.inspectStraddles(over.length, names(said, 20)));
     }
     if (seen.overlappingText.length > 0) {
       lines.push(m.inspectOverlaps(seen.overlappingText.length, pairs(seen.overlappingText)));
@@ -642,16 +644,24 @@ function spots(list: { a: string; b: string; at: { x: number; y: number } }[], l
   return list.length <= limit ? head : `${head}, …`;
 }
 
-/** id を並べる。**多いときは先頭だけ。** */
+/**
+ * id を並べる。**多いときは先頭だけ** —— ただし**隠した分の数を言う**（2026-09-21）。
+ *
+ * 「…」だけでは、**あと何組あるのかが分からない。**
+ * 見本 48 枚にまたぎがあり、そのうち 27 枚が 6 組を超えていた ——
+ * 半分以上で「全部見たのかどうか」が判断できなかった。
+ */
 function names(list: string[], limit = 8): string {
   const head = list.slice(0, limit).join(', ');
-  return list.length <= limit ? head : `${head}, …`;
+  if (list.length <= limit) return head;
+  return `${head}, ${messages().cli.andMore(String(list.length - limit))}`;
 }
 
 /** 組を「a↔b, c↔d」の形にする。**多いときは先頭だけ**（探すのに要るのは相手）。 */
 function pairs(list: [string, string][], limit = 6): string {
   const head = list.slice(0, limit).map(([a, b]) => `${a}↔${b}`).join(', ');
-  return list.length <= limit ? head : `${head}, …`;
+  if (list.length <= limit) return head;
+  return `${head}, ${messages().cli.andMore(String(list.length - limit))}`;
 }
 
 /**

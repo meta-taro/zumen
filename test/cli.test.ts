@@ -913,11 +913,49 @@ describe('構成図が紙に収まらないとき', () => {
   it('**「端の 2 つを詰めろ」とは言わない**（構成図では動かせない）', async () => {
     const found = await (await import('../src/cli.ts')).placedFindings(chain(24));
     const said = found.find((f) => f.code === 'too-small-to-print');
+    assert.ok(said !== undefined);
     assert.ok(!said.message.includes('この 2 つの間を詰めてください'), said.message);
   });
 
   it('短い鎖には言わない', async () => {
     const found = await (await import('../src/cli.ts')).placedFindings(chain(4));
     assert.ok(!found.some((f) => f.code === 'too-small-to-print'));
+  });
+});
+
+/**
+ * **隠した分の数を言う**（2026-09-21）。
+ *
+ * 先頭だけ並べて「…」で切っていたので、**あと何組あるのかが分からなかった。**
+ * 見本 48 枚にまたぎがあり、そのうち **27 枚が 6 組を超える** ——
+ * 半分以上で「全部見たのかどうか」が判断できなかった。
+ * 能舞台（見本 294）を描いたとき、22 組のまたぎのうち 6 組しか見えず、
+ * 全部を見るのに自分で数える道具を書く羽目になった。
+ */
+describe('並べきれない分の数', () => {
+  const many = (n: number): string => {
+    const nodes = Array.from({ length: n }, (_, i) =>
+      `  - id: a${i}\n    label: 部屋 ${i}\n    at: { x: ${i * 40}, y: 0 }\n    size: { w: 60, h: 60 }\n`,
+    ).join('');
+    return `version: 1\nkind: placement\nnodes:\n${nodes}`;
+  };
+
+  it('**「ほか N 組」と言う**（「…」で切らない）', async () => {
+    const result = await runInspect(['a.yaml'], reader({ 'a.yaml': many(30) }) as never);
+    const said = result.lines.join('\n');
+    assert.match(said, /またぎ/, said);
+    assert.match(said, /ほか \d+ 組/, `隠した分の数を言っていない\n${said}`);
+  });
+
+  it('**またぎは 20 組まで並べる**（交差と違って、1 つずつ決める相手）', async () => {
+    const result = await runInspect(['a.yaml'], reader({ 'a.yaml': many(30) }) as never);
+    const row = result.lines.find((line) => line.includes('またぎ'))!;
+    assert.equal(row.split('↔').length - 1, 20, row);
+  });
+
+  it('全部並べきれるときは、何も足さない', async () => {
+    const result = await runInspect(['a.yaml'], reader({ 'a.yaml': many(3) }) as never);
+    const row = result.lines.find((line) => line.includes('またぎ'))!;
+    assert.ok(!row.includes('ほか'), row);
   });
 });

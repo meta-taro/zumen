@@ -176,6 +176,14 @@ const ja = {
      */
     inspectWarnings: (count: string, codes: string) =>
       `  **警告 ${count} 件**（${codes}。中身は \`pnpm validate\` で出ます）`,
+    /**
+     * **隠した分の数を言う**（2026-09-21）。
+     *
+     * 先頭だけ並べて「…」で切っていたが、**あと何組あるのかが分からない。**
+     * 見本 48 枚にまたぎがあり、そのうち **27 枚が 6 組を超える** ——
+     * 半分以上で「全部見たのかどうか」が判断できなかった。
+     */
+    andMore: (rest: string) => `ほか ${rest} 組`,
     inspectStraddles: (count: number, pairs: string) => `  **またぎ ${count}**（${pairs}）`,
     inspectOverlaps: (count: number, pairs: string) => `  **文字の重なり ${count}**（${pairs}）`,
     inspectUnderBoxes: (count: number, pairs: string) => `  **箱に隠れた辺 ${count}**（${pairs}）`,
@@ -962,6 +970,7 @@ const en: Catalog = {
     straddleBy: (a: string, b: string, x: string, y: string) => `${a}<->${b} (overlap ${x}px wide, ${y}px tall)`,
     inspectWarnings: (count: string, codes: string) =>
       `  **${count} warning(s)** (${codes}; run \`pnpm validate\` to see them)`,
+    andMore: (rest: string) => `and ${rest} more`,
     inspectStraddles: (count: number, pairs: string) => `  **${count} straddles** (${pairs})`,
     inspectOverlaps: (count: number, pairs: string) => `  **${count} text overlaps** (${pairs})`,
     inspectUnderBoxes: (count: number, pairs: string) => `  **${count} edges buried under boxes** (${pairs})`,

@@ -1,0 +1,443 @@
+version: 1
+kind: placement
+arrows: true
+scale: { mm: 20 }
+title: 能舞台（床板の向きが、場所を分ける）
+# **本舞台は常寸で京間三間四方 —— ほぼ 6m 角。** 檜の板で、
+# **床下の要所には甕を埋める**（足拍子の響きをよくするため）。
+#
+# **床板の向きが、場所を分ける。**
+# 地謡座は本舞台と同じく**板を縦**に敷き、後座は**板を横**に渡す ——
+# だから後座は「**横板**」とも呼ばれる。
+# 後座には囃子方が**笛・小鼓・大鼓・太鼓の順**で坐る。
+#
+# **四本柱は飾りではない。** 面をかけると視野がほとんど無くなるので、
+# **柱が、自分がどこに立っているかを知る手がかり**になる ——
+# **目付柱**はその名のとおり目を付けるための柱で、ほかに**シテ柱・脇柱（大臣柱）・笛柱**。
+# 笛柱には**『道成寺』の鐘を吊るための金属の環**が付いている。
+#
+# **橋掛りは通路ではない。** 歌舞伎の花道と同じように**演技の場**として重んじられ、
+# 本舞台へ**約 110 度**の角度で取り付く（正面の客から見やすい角度）。
+# 橋掛りには**一の松・二の松・三の松**が並び、演技のときの目印になる
+# （いまは照明の都合で造木が多い）。
+#
+# **鏡板の老松は、神の依り代であり、囃子の反響板でもある。**
+#
+# **出口が、そのまま筋の意味になる。**
+# シテは**鏡の間**で装束をつけ面をかけ、**揚幕**（五色の布。幕番が竹で上げ下げする）から出る。
+# ところが**舞台で切られた役は、小さな切戸口から退場する** —— 揚幕へは帰らない。
+#
+# **白洲**は客席と舞台のあいだに敷き詰めた玉砂利で、**水を象徴する。**
+# **階（きざはし）**は三段。いまはシテが落ちたときに使う程度。
+nodes:
+  - id: t1
+    label: "① 能舞台の平面（客席は下）—— 本舞台は京間三間四方、ほぼ 6m 角"
+    marker: none
+    align: left
+    at: { x: 140, y: 150 }
+    size: { w: 660, h: 20 }
+  - id: kagami
+    label: "鏡板（老松を描く）"
+    hatch: solid
+    at: { x: 340, y: 368 }
+    size: { w: 300, h: 22 }
+  - id: atoza
+    label: "後座（横板）"
+    hatch: lines
+    at: { x: 340, y: 390 }
+    size: { w: 300, h: 90 }
+  - id: butai
+    label: "本舞台"
+    at: { x: 340, y: 480 }
+    size: { w: 300, h: 300 }
+  - id: jiutai
+    label: "地謡座"
+    hatch: dots
+    at: { x: 640, y: 480 }
+    size: { w: 90, h: 300 }
+  - id: shirasu
+    label: "白洲（玉砂利）"
+    hatch: dots
+    at: { x: 300, y: 820 }
+    size: { w: 470, h: 54 }
+  - id: kiza
+    label: "階"
+    hatch: solid
+    at: { x: 456, y: 780 }
+    size: { w: 68, h: 26 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 357.1, y: 425.1 }
+    size: { w: 2, h: 2 }
+  - id: hashi
+    label: "橋掛り"
+    marker: none
+    align: center
+    at: { x: 216, y: 378 }
+    size: { w: 90, h: 18 }
+  - id: m0
+    label: ""
+    marker: circle
+    at: { x: 264.2, y: 449.4 }
+    size: { w: 28, h: 28 }
+  - id: m1
+    label: ""
+    marker: circle
+    at: { x: 213.3, y: 410.8 }
+    size: { w: 28, h: 28 }
+  - id: m2
+    label: ""
+    marker: circle
+    at: { x: 162.3, y: 372.1 }
+    size: { w: 28, h: 28 }
+  - id: matsu
+    label: "一の松・二の松・三の松\n舞台に近いほうから。演技の目印"
+    marker: none
+    align: right
+    at: { x: 120, y: 494 }
+    size: { w: 215, h: 36 }
+  - id: maku
+    label: ""
+    hatch: solid
+    at: { x: 124, y: 268 }
+    size: { w: 68, h: 12 }
+  - id: makun
+    label: "揚幕（五色の布）"
+    marker: none
+    align: right
+    at: { x: -38, y: 262 }
+    size: { w: 160, h: 18 }
+  - id: kagamima
+    label: "鏡の間"
+    line: dashed
+    at: { x: 98, y: 196 }
+    size: { w: 120, h: 60 }
+  - id: shite
+    label: ""
+    hatch: solid
+    at: { x: 327, y: 467 }
+    size: { w: 26, h: 26 }
+  - id: shiten
+    label: "シテ柱"
+    marker: none
+    align: left
+    at: { x: 354, y: 492 }
+    size: { w: 96, h: 18 }
+  - id: fue
+    label: ""
+    hatch: solid
+    at: { x: 627, y: 467 }
+    size: { w: 26, h: 26 }
+  - id: fuen
+    label: "笛柱"
+    marker: none
+    align: right
+    at: { x: 530, y: 492 }
+    size: { w: 96, h: 18 }
+  - id: metsuke
+    label: ""
+    hatch: solid
+    at: { x: 327, y: 767 }
+    size: { w: 26, h: 26 }
+  - id: metsuken
+    label: "目付柱"
+    marker: none
+    align: left
+    at: { x: 354, y: 740 }
+    size: { w: 96, h: 18 }
+  - id: waki
+    label: ""
+    hatch: solid
+    at: { x: 627, y: 767 }
+    size: { w: 26, h: 26 }
+  - id: wakin
+    label: "脇柱"
+    marker: none
+    align: right
+    at: { x: 530, y: 740 }
+    size: { w: 96, h: 18 }
+  - id: kogaki
+    label: "切戸口"
+    marker: none
+    align: left
+    at: { x: 740, y: 406 }
+    size: { w: 100, h: 18 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 735, y: 413 }
+    size: { w: 2, h: 2 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 643, y: 413 }
+    size: { w: 2, h: 2 }
+  - id: koken
+    label: "後見座"
+    marker: none
+    align: left
+    at: { x: 348, y: 396 }
+    size: { w: 96, h: 18 }
+  - id: kyogen
+    label: "狂言座"
+    marker: none
+    align: left
+    at: { x: 348, y: 600 }
+    size: { w: 96, h: 18 }
+  - id: cap1
+    label: "床板の向きが、場所を分ける。 地謡座は本舞台と同じく板を縦に、後座は板を横に渡す。"
+    marker: none
+    align: center
+    at: { x: 140, y: 890 }
+    size: { w: 660, h: 18 }
+  - id: cap2
+    label: "床下の要所には甕を埋める —— 足拍子の響きのため。鏡板の老松は神の依り代で、囃子の反響板でもある。"
+    marker: none
+    align: center
+    at: { x: 140, y: 912 }
+    size: { w: 660, h: 18 }
+  - id: t2
+    label: "② 四本柱は、飾りではない"
+    marker: none
+    align: left
+    at: { x: 140, y: 956 }
+    size: { w: 660, h: 20 }
+  - id: why2
+    label: "面をかけると、視野がほとんど無くなる。\n目の位置に小さな穴が開いているだけなので、シテは足もとも客席も見えない ——\n柱が、自分がどこに立っているかを知る唯一の手がかり。\n目付柱はその名のとおり、目を付けるための柱。"
+    at: { x: 140, y: 986 }
+    size: { w: 660, h: 84 }
+  - id: t3
+    label: "③ 舞台の各部"
+    marker: none
+    align: left
+    at: { x: 840, y: 150 }
+    size: { w: 440, h: 20 }
+  - id: h840_186
+    label: "名前と役目"
+    hatch: solid
+    at: { x: 840, y: 186 }
+    size: { w: 440, h: 24 }
+  - id: x840_210
+    label: "本舞台"
+    at: { x: 840, y: 210 }
+    size: { w: 130, h: 24 }
+  - id: y840_210
+    label: "京間三間四方（ほぼ 6m 角）・檜"
+    align: left
+    at: { x: 970, y: 210 }
+    size: { w: 310, h: 24 }
+  - id: x840_234
+    label: "鏡板"
+    at: { x: 840, y: 234 }
+    size: { w: 130, h: 24 }
+  - id: y840_234
+    label: "老松を描く。神の依り代／反響板"
+    align: left
+    at: { x: 970, y: 234 }
+    size: { w: 310, h: 24 }
+  - id: x840_258
+    label: "後座（横板）"
+    at: { x: 840, y: 258 }
+    size: { w: 130, h: 24 }
+  - id: y840_258
+    label: "板を横に渡す。囃子方が坐る"
+    align: left
+    at: { x: 970, y: 258 }
+    size: { w: 310, h: 24 }
+  - id: x840_282
+    label: "地謡座"
+    at: { x: 840, y: 282 }
+    size: { w: 130, h: 24 }
+  - id: y840_282
+    label: "地謡が二列で坐る。板は縦"
+    align: left
+    at: { x: 970, y: 282 }
+    size: { w: 310, h: 24 }
+  - id: x840_306
+    label: "橋掛り"
+    at: { x: 840, y: 306 }
+    size: { w: 130, h: 24 }
+  - id: y840_306
+    label: "本舞台へ約 110 度。演技の場"
+    align: left
+    at: { x: 970, y: 306 }
+    size: { w: 310, h: 24 }
+  - id: x840_330
+    label: "白洲"
+    at: { x: 840, y: 330 }
+    size: { w: 130, h: 24 }
+  - id: y840_330
+    label: "玉砂利。水を象徴する"
+    align: left
+    at: { x: 970, y: 330 }
+    size: { w: 310, h: 24 }
+  - id: x840_354
+    label: "階（きざはし）"
+    at: { x: 840, y: 354 }
+    size: { w: 130, h: 24 }
+  - id: y840_354
+    label: "三段。いまはほとんど使わない"
+    align: left
+    at: { x: 970, y: 354 }
+    size: { w: 310, h: 24 }
+  - id: why3
+    label: "橋掛りは通路ではない。\n歌舞伎の花道と同じように、\nそこで演技をする場として重んじられる ——\n登場の歩みそのものが見せ場になる。"
+    at: { x: 840, y: 392 }
+    size: { w: 440, h: 74 }
+  - id: t4
+    label: "④ 後座に坐る順"
+    marker: none
+    align: left
+    at: { x: 840, y: 484 }
+    size: { w: 440, h: 20 }
+  - id: h840_514
+    label: "囃子方（向かって左から）"
+    hatch: solid
+    at: { x: 840, y: 514 }
+    size: { w: 440, h: 24 }
+  - id: x840_538
+    label: "1 番目"
+    at: { x: 840, y: 538 }
+    size: { w: 130, h: 24 }
+  - id: y840_538
+    label: "笛"
+    align: left
+    at: { x: 970, y: 538 }
+    size: { w: 310, h: 24 }
+  - id: x840_562
+    label: "2 番目"
+    at: { x: 840, y: 562 }
+    size: { w: 130, h: 24 }
+  - id: y840_562
+    label: "小鼓"
+    align: left
+    at: { x: 970, y: 562 }
+    size: { w: 310, h: 24 }
+  - id: x840_586
+    label: "3 番目"
+    at: { x: 840, y: 586 }
+    size: { w: 130, h: 24 }
+  - id: y840_586
+    label: "大鼓"
+    align: left
+    at: { x: 970, y: 586 }
+    size: { w: 310, h: 24 }
+  - id: x840_610
+    label: "4 番目"
+    at: { x: 840, y: 610 }
+    size: { w: 130, h: 24 }
+  - id: y840_610
+    label: "太鼓"
+    align: left
+    at: { x: 970, y: 610 }
+    size: { w: 310, h: 24 }
+  - id: why4
+    label: "順は決まっている。 曲によって太鼓が入らないことはあるが、\n並びは変わらない —— 音の高さの順でも、大きさの順でもなく、\n囃子の組み立ての順。"
+    at: { x: 840, y: 648 }
+    size: { w: 440, h: 74 }
+  - id: t5
+    label: "⑤ 出入りと、その意味"
+    marker: none
+    align: left
+    at: { x: 840, y: 740 }
+    size: { w: 440, h: 20 }
+  - id: h840_770
+    label: "どこから出て、どこへ入るか"
+    hatch: solid
+    at: { x: 840, y: 770 }
+    size: { w: 440, h: 24 }
+  - id: x840_794
+    label: "鏡の間"
+    at: { x: 840, y: 794 }
+    size: { w: 130, h: 24 }
+  - id: y840_794
+    label: "シテの控え。面をかける所"
+    align: left
+    at: { x: 970, y: 794 }
+    size: { w: 310, h: 24 }
+  - id: x840_818
+    label: "揚幕"
+    at: { x: 840, y: 818 }
+    size: { w: 130, h: 24 }
+  - id: y840_818
+    label: "五色の布。幕番が竹で上げ下げ"
+    align: left
+    at: { x: 970, y: 818 }
+    size: { w: 310, h: 24 }
+  - id: x840_842
+    label: "橋掛り"
+    at: { x: 840, y: 842 }
+    size: { w: 130, h: 24 }
+  - id: y840_842
+    label: "そこを歩くこと自体が演技"
+    align: left
+    at: { x: 970, y: 842 }
+    size: { w: 310, h: 24 }
+  - id: x840_866
+    label: "切戸口"
+    at: { x: 840, y: 866 }
+    size: { w: 130, h: 24 }
+  - id: y840_866
+    label: "小さな出入り口"
+    align: left
+    at: { x: 970, y: 866 }
+    size: { w: 310, h: 24 }
+  - id: x840_890
+    label: "切られた役"
+    at: { x: 840, y: 890 }
+    size: { w: 130, h: 24 }
+  - id: y840_890
+    label: "切戸口から退場する"
+    align: left
+    at: { x: 970, y: 890 }
+    size: { w: 310, h: 24 }
+  - id: why5
+    label: "死んだ役は、揚幕から帰らない。\n舞台で切られた役は小さな切戸口から出る ——\n出口が違うことが、そのまま筋の意味になる。"
+    at: { x: 840, y: 928 }
+    size: { w: 440, h: 74 }
+  - id: r1
+    label: "本舞台は京間三間四方、ほぼ 6m 角です（①③）。檜の板で、床下の要所に甕を埋めて足拍子を響かせます。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1086 }
+    size: { w: 1140, h: 18 }
+  - id: r2
+    label: "床板の向きが場所を分けます。 地謡座は本舞台と同じく縦、後座は横に渡すので「横板」とも呼びます。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1110 }
+    size: { w: 1140, h: 18 }
+  - id: r3
+    label: "四本柱は飾りではありません（②）。面をかけると視野がほとんど無くなるので、柱が立ち位置を知る手がかりになります。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1134 }
+    size: { w: 1140, h: 18 }
+  - id: r4
+    label: "橋掛りは通路ではありません（③）。歌舞伎の花道と同じく演技の場で、本舞台へ約 110 度に取り付きます。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1158 }
+    size: { w: 1140, h: 18 }
+  - id: r5
+    label: "出口が意味を持ちます（⑤）。舞台で切られた役は揚幕へ戻らず、小さな切戸口から退場します。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1182 }
+    size: { w: 1140, h: 18 }
+edges:
+  - from: p0
+    to: p0
+    curve: none
+    close: true
+    ends: { from: none, to: none }
+    via:
+      - { x: 358.1, y: 426.1 }
+      - { x: 176.1, y: 288.1 }
+      - { x: 139.9, y: 335.9 }
+      - { x: 321.9, y: 473.9 }
+  - from: p1
+    to: p2
+    curve: none
+    ends: { from: none, to: arrow }
