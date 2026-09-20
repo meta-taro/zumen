@@ -1,0 +1,572 @@
+version: 1
+kind: placement
+arrows: true
+scale: { mm: 0.9 }
+title: ギターのフレット位置（等分するのは、差ではなく比）
+# **フレットの間隔は、だんだん狭くなる。**
+# 弦長 648mm のとき、ナット〜1 フレットは **36.4mm**、11〜12 フレットは **19.3mm** ——
+# **同じ半音でも、長さは半分近くまで縮む。**
+#
+# **12 フレットがちょうど半分**（**324.0mm**）。弦長が半分になると 1 オクターブ上がり、
+# そこから先は**同じ形が半分の大きさで繰り返す。**
+#
+# **位置は 1 つの式で出る。**
+# **n 番目のフレットまでの距離 ＝ 弦長 ×（1 − 2 の −n/12 乗）**
+# 648 ×（1 − 2^(−1/12)）＝ **36.4mm**、648 ×（1 − 2^(−12/12)）＝ **324.0mm**。
+#
+# **等分するのは、差ではなく比。**
+# 1 オクターブは周波数が 2 倍。それを半音 12 個で等分するのだから、
+# **1 回ぶんは 2 の 1/12 乗 ＝ 1.059463**（12 回かけるとちょうど 2）。
+# 音の高さは比で感じるので、**足し算ではなくかけ算で等分する** ——
+# フレットの間隔が狭くなるのはそのため。
+#
+# **昔からの「17.817 で割る」も、同じもの。**
+# 残りの弦長を 17.817 で割った所に次のフレットを置く、を繰り返す。
+# **17.817 ＝ 1 ÷（1 − 1/1.059463）** で、648 ÷ 17.817 ＝ **36.4mm** ——
+# **べき乗を計算せずに同じ位置が出る**、計算尺も電卓も無い時代の書き換え。
+#
+# 数はすべて計算で確かめた（フレット位置・半音の比・17.817 との一致）。
+nodes:
+  - id: t1
+    label: "① フレットの間隔は、だんだん狭くなる（1px ＝ 0.9mm。弦長 648mm）"
+    marker: none
+    align: left
+    at: { x: 140, y: 150 }
+    size: { w: 660, h: 20 }
+  - id: board
+    label: ""
+    at: { x: 250, y: 250 }
+    size: { w: 400, h: 150 }
+  - id: nut
+    label: ""
+    hatch: solid
+    at: { x: 244, y: 250 }
+    size: { w: 6, h: 150 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 289.4, y: 249 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 289.4, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: f1
+    label: "1"
+    marker: none
+    align: center
+    at: { x: 270.4, y: 408 }
+    size: { w: 40, h: 18 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 327.6, y: 249 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 327.6, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 363.6, y: 249 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 363.6, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: f3
+    label: "3"
+    marker: none
+    align: center
+    at: { x: 344.6, y: 408 }
+    size: { w: 40, h: 18 }
+  - id: dot3
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 340.6, y: 319 }
+    size: { w: 12, h: 12 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 397.5, y: 249 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 397.5, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 429.6, y: 249 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 429.6, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: f5
+    label: "5"
+    marker: none
+    align: center
+    at: { x: 410.6, y: 408 }
+    size: { w: 40, h: 18 }
+  - id: dot5
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 408.6, y: 319 }
+    size: { w: 12, h: 12 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 459.9, y: 249 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 459.9, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 488.5, y: 249 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 488.5, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: f7
+    label: "7"
+    marker: none
+    align: center
+    at: { x: 469.5, y: 408 }
+    size: { w: 40, h: 18 }
+  - id: dot7
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 469.2, y: 319 }
+    size: { w: 12, h: 12 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 515.4, y: 249 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 515.4, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 540.9, y: 249 }
+    size: { w: 2, h: 2 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 540.9, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: f9
+    label: "9"
+    marker: none
+    align: center
+    at: { x: 521.9, y: 408 }
+    size: { w: 40, h: 18 }
+  - id: dot9
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 523.2, y: 319 }
+    size: { w: 12, h: 12 }
+  - id: p18
+    label: ""
+    marker: none
+    at: { x: 564.9, y: 249 }
+    size: { w: 2, h: 2 }
+  - id: p19
+    label: ""
+    marker: none
+    at: { x: 564.9, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: p20
+    label: ""
+    marker: none
+    at: { x: 587.6, y: 249 }
+    size: { w: 2, h: 2 }
+  - id: p21
+    label: ""
+    marker: none
+    at: { x: 587.6, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: p22
+    label: ""
+    marker: none
+    at: { x: 609, y: 249 }
+    size: { w: 2, h: 2 }
+  - id: p23
+    label: ""
+    marker: none
+    at: { x: 609, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: f12
+    label: "12"
+    marker: none
+    align: center
+    at: { x: 590, y: 408 }
+    size: { w: 40, h: 18 }
+  - id: dot12a
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 593.3, y: 294 }
+    size: { w: 12, h: 12 }
+  - id: dot12b
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 593.3, y: 344 }
+    size: { w: 12, h: 12 }
+  - id: nut_n
+    label: "ナット"
+    marker: none
+    align: center
+    at: { x: 184, y: 224 }
+    size: { w: 120, h: 18 }
+  - id: f12_n
+    label: "12 フレット ＝ ちょうど半分（324.0mm）"
+    marker: none
+    align: center
+    at: { x: 490, y: 224 }
+    size: { w: 280, h: 18 }
+  - id: p24
+    label: ""
+    marker: none
+    at: { x: 249, y: 439 }
+    size: { w: 2, h: 2 }
+  - id: p25
+    label: ""
+    marker: none
+    at: { x: 289.4, y: 439 }
+    size: { w: 2, h: 2 }
+  - id: d1
+    label: "1 フレットまで 36.4mm"
+    marker: none
+    align: left
+    at: { x: 300.4, y: 431 }
+    size: { w: 240, h: 18 }
+  - id: p26
+    label: ""
+    marker: none
+    at: { x: 249, y: 465 }
+    size: { w: 2, h: 2 }
+  - id: p27
+    label: ""
+    marker: none
+    at: { x: 429.6, y: 465 }
+    size: { w: 2, h: 2 }
+  - id: d5
+    label: "5 フレットまで 162.5mm"
+    marker: none
+    align: left
+    at: { x: 440.6, y: 457 }
+    size: { w: 240, h: 18 }
+  - id: p28
+    label: ""
+    marker: none
+    at: { x: 249, y: 491 }
+    size: { w: 2, h: 2 }
+  - id: p29
+    label: ""
+    marker: none
+    at: { x: 609, y: 491 }
+    size: { w: 2, h: 2 }
+  - id: d12
+    label: "12 フレットまで 324mm"
+    marker: none
+    align: left
+    at: { x: 620, y: 483 }
+    size: { w: 240, h: 18 }
+  - id: cap1
+    label: "半分の所が 12 フレット（1 オクターブ上）。そこから先は、同じ形が半分の大きさで繰り返す。"
+    marker: none
+    align: center
+    at: { x: 140, y: 530 }
+    size: { w: 660, h: 18 }
+  - id: t2
+    label: "② 位置は 1 つの式で出る"
+    marker: none
+    align: left
+    at: { x: 140, y: 576 }
+    size: { w: 660, h: 20 }
+  - id: fml
+    label: "n 番目のフレットまでの距離 ＝ 弦長 ×（1 − 2 の −n/12 乗）\n\n648 ×（1 − 2 の −1/12 乗）＝ 36.4mm　　648 ×（1 − 2 の −12/12 乗）＝ 324.0mm"
+    at: { x: 140, y: 606 }
+    size: { w: 660, h: 78 }
+  - id: cap2
+    label: "昔からの「17.817 で割る」も、同じもの。\n648 ÷ 17.817 ＝ 36.4mm —— 半音の比 2^(1/12) ＝ 1.059463 から出ている。"
+    marker: none
+    align: center
+    at: { x: 140, y: 690 }
+    size: { w: 660, h: 36 }
+  - id: t3
+    label: "③ 弦長 648mm のとき"
+    marker: none
+    align: left
+    at: { x: 860, y: 150 }
+    size: { w: 420, h: 20 }
+  - id: h860_186
+    label: "ナットからの距離"
+    hatch: solid
+    at: { x: 860, y: 186 }
+    size: { w: 420, h: 24 }
+  - id: x860_210
+    label: "1 フレット"
+    at: { x: 860, y: 210 }
+    size: { w: 150, h: 24 }
+  - id: y860_210
+    label: "36.4mm"
+    align: left
+    at: { x: 1010, y: 210 }
+    size: { w: 270, h: 24 }
+  - id: x860_234
+    label: "3 フレット"
+    at: { x: 860, y: 234 }
+    size: { w: 150, h: 24 }
+  - id: y860_234
+    label: "103.1mm"
+    align: left
+    at: { x: 1010, y: 234 }
+    size: { w: 270, h: 24 }
+  - id: x860_258
+    label: "5 フレット"
+    at: { x: 860, y: 258 }
+    size: { w: 150, h: 24 }
+  - id: y860_258
+    label: "162.5mm"
+    align: left
+    at: { x: 1010, y: 258 }
+    size: { w: 270, h: 24 }
+  - id: x860_282
+    label: "7 フレット"
+    at: { x: 860, y: 282 }
+    size: { w: 150, h: 24 }
+  - id: y860_282
+    label: "215.5mm"
+    align: left
+    at: { x: 1010, y: 282 }
+    size: { w: 270, h: 24 }
+  - id: x860_306
+    label: "12 フレット"
+    at: { x: 860, y: 306 }
+    size: { w: 150, h: 24 }
+  - id: y860_306
+    label: "324.0mm（半分）"
+    align: left
+    at: { x: 1010, y: 306 }
+    size: { w: 270, h: 24 }
+  - id: why3
+    label: "間隔は等しくない。\nナット〜1 フレットが 36.4mm、\n11〜12 フレットは 19.3mm ——\n同じ半音でも、長さは半分近くまで縮む。"
+    at: { x: 860, y: 344 }
+    size: { w: 420, h: 74 }
+  - id: t4
+    label: "④ 半音の比"
+    marker: none
+    align: left
+    at: { x: 860, y: 436 }
+    size: { w: 420, h: 20 }
+  - id: h860_466
+    label: "12 等分するということ"
+    hatch: solid
+    at: { x: 860, y: 466 }
+    size: { w: 420, h: 24 }
+  - id: x860_490
+    label: "1 オクターブ"
+    at: { x: 860, y: 490 }
+    size: { w: 150, h: 24 }
+  - id: y860_490
+    label: "周波数が 2 倍"
+    align: left
+    at: { x: 1010, y: 490 }
+    size: { w: 270, h: 24 }
+  - id: x860_514
+    label: "半音 12 個"
+    at: { x: 860, y: 514 }
+    size: { w: 150, h: 24 }
+  - id: y860_514
+    label: "2 倍を 12 等分"
+    align: left
+    at: { x: 1010, y: 514 }
+    size: { w: 270, h: 24 }
+  - id: x860_538
+    label: "半音 1 つ"
+    at: { x: 860, y: 538 }
+    size: { w: 150, h: 24 }
+  - id: y860_538
+    label: "2 の 1/12 乗 ＝ 1.059463"
+    align: left
+    at: { x: 1010, y: 538 }
+    size: { w: 270, h: 24 }
+  - id: x860_562
+    label: "12 回かけると"
+    at: { x: 860, y: 562 }
+    size: { w: 150, h: 24 }
+  - id: y860_562
+    label: "ちょうど 2"
+    align: left
+    at: { x: 1010, y: 562 }
+    size: { w: 270, h: 24 }
+  - id: why4
+    label: "足し算ではなく、かけ算で等分する。\n音の高さは比で感じるので、\n等分するのは差ではなく比 ——\nフレットの間隔が狭くなるのはそのため。"
+    at: { x: 860, y: 600 }
+    size: { w: 420, h: 74 }
+  - id: t5
+    label: "⑤ 「17.817 で割る」"
+    marker: none
+    align: left
+    at: { x: 860, y: 692 }
+    size: { w: 420, h: 20 }
+  - id: h860_722
+    label: "昔からの作り方"
+    hatch: solid
+    at: { x: 860, y: 722 }
+    size: { w: 420, h: 24 }
+  - id: x860_746
+    label: "やり方"
+    at: { x: 860, y: 746 }
+    size: { w: 150, h: 24 }
+  - id: y860_746
+    label: "残りの弦長を 17.817 で割る"
+    align: left
+    at: { x: 1010, y: 746 }
+    size: { w: 270, h: 24 }
+  - id: x860_770
+    label: "次のフレット"
+    at: { x: 860, y: 770 }
+    size: { w: 150, h: 24 }
+  - id: y860_770
+    label: "その位置から、また 17.817 で割る"
+    align: left
+    at: { x: 1010, y: 770 }
+    size: { w: 270, h: 24 }
+  - id: x860_794
+    label: "なぜ 17.817"
+    at: { x: 860, y: 794 }
+    size: { w: 150, h: 24 }
+  - id: y860_794
+    label: "1 ÷（1 − 1/1.059463）"
+    align: left
+    at: { x: 1010, y: 794 }
+    size: { w: 270, h: 24 }
+  - id: x860_818
+    label: "合うか"
+    at: { x: 860, y: 818 }
+    size: { w: 150, h: 24 }
+  - id: y860_818
+    label: "648 ÷ 17.817 ＝ 36.4mm。合う"
+    align: left
+    at: { x: 1010, y: 818 }
+    size: { w: 270, h: 24 }
+  - id: why5
+    label: "式を知らなくても作れるように書き換えたもの。\n割り算 1 回を繰り返すだけで、\nべき乗を計算せずに同じ位置が出る ——\n計算尺も電卓も無い時代の道具。"
+    at: { x: 860, y: 856 }
+    size: { w: 420, h: 74 }
+  - id: r1
+    label: "フレットの間隔は、だんだん狭くなります（①③）。ナット〜1 フレットが 36.4mm、11〜12 フレットは 19.3mm です。"
+    marker: none
+    align: left
+    at: { x: 140, y: 948 }
+    size: { w: 1140, h: 18 }
+  - id: r2
+    label: "12 フレットがちょうど半分です（①）。弦長の半分で 1 オクターブ上がり、そこから先は同じ形が半分の大きさで繰り返します。"
+    marker: none
+    align: left
+    at: { x: 140, y: 972 }
+    size: { w: 1140, h: 18 }
+  - id: r3
+    label: "位置は 1 つの式で出ます（②）。弦長 ×（1 − 2 の −n/12 乗）—— 半音の比 2^(1/12) ＝ 1.059463 から出ています。"
+    marker: none
+    align: left
+    at: { x: 140, y: 996 }
+    size: { w: 1140, h: 18 }
+  - id: r4
+    label: "等分するのは差ではなく比です（④）。音の高さは比で感じるので、2 倍を 12 等分するとかけ算になります。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1020 }
+    size: { w: 1140, h: 18 }
+  - id: r5
+    label: "「17.817 で割る」は同じものです（⑤）。べき乗を計算せずに同じ位置が出る、計算尺も電卓も無い時代の書き換えです。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1044 }
+    size: { w: 1140, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    ends: { from: none, to: none }
+  - from: p2
+    to: p3
+    curve: none
+    ends: { from: none, to: none }
+  - from: p4
+    to: p5
+    curve: none
+    ends: { from: none, to: none }
+  - from: p6
+    to: p7
+    curve: none
+    ends: { from: none, to: none }
+  - from: p8
+    to: p9
+    curve: none
+    ends: { from: none, to: none }
+  - from: p10
+    to: p11
+    curve: none
+    ends: { from: none, to: none }
+  - from: p12
+    to: p13
+    curve: none
+    ends: { from: none, to: none }
+  - from: p14
+    to: p15
+    curve: none
+    ends: { from: none, to: none }
+  - from: p16
+    to: p17
+    curve: none
+    ends: { from: none, to: none }
+  - from: p18
+    to: p19
+    curve: none
+    ends: { from: none, to: none }
+  - from: p20
+    to: p21
+    curve: none
+    ends: { from: none, to: none }
+  - from: p22
+    to: p23
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p24
+    to: p25
+    curve: none
+    ends: { from: arrow, to: arrow }
+  - from: p26
+    to: p27
+    curve: none
+    ends: { from: arrow, to: arrow }
+  - from: p28
+    to: p29
+    curve: none
+    ends: { from: arrow, to: arrow }

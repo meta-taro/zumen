@@ -222,7 +222,15 @@ const ja = {
     inspectPaper: (width: number, height: number, smallest: number, longest: number, ratio: string) =>
       `  紙 ${width} × ${height}px ／ いちばん小さい字 ${smallest}px ／ 長辺 ${longest}px ／ 比 ${ratio}`,
     inspectPrint: '  **A3 に印刷しても字が読めません。**',
-    inspectProject: '  投影には小さすぎます（印刷して読む図なら、これでよい）。',
+    /**
+     * **良い知らせのときだけ出す**（2026-09-21）。
+     *
+     * 「投影には小さすぎます（印刷して読む図なら、これでよい）」は
+     * **見本 309 枚のうち 228 枚（74%）で出ていて、しかも直しようがない** ——
+     * 鳴りっぱなしの指摘は読まれなくなる（`src/projection.ts` に書いたとおり）。
+     * **出るのが珍しいほう**（投影に耐える 26%）を知らせる形へ変えた。
+     */
+    inspectProject: '  **投影にも耐えます**（スライドに貼っても字が読めます）。',
     inspectNote:
       'これは合否ではなく**観測値**です。交差もまたぎも、中身がそうなら正しい —— 止めません。',
     /**
@@ -1032,7 +1040,7 @@ const en: Catalog = {
     inspectPaper: (width: number, height: number, smallest: number, longest: number, ratio: string) =>
       `  paper ${width} × ${height}px / smallest text ${smallest}px / longest side ${longest}px / ratio ${ratio}`,
     inspectPrint: '  **Too small to read when printed on A3.**',
-    inspectProject: '  Too small to project (fine if this drawing is meant to be printed).',
+    inspectProject: '  **Large enough to project** (the text stays readable on a slide).',
     inspectNote:
       'These are **observations, not a verdict**. Crossings and straddles are right when the subject crosses — nothing is stopped here.',
     inspectUnreadable: (count: number) =>

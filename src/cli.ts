@@ -704,7 +704,9 @@ export async function runInspect(paths: string[], read = readFileSync): Promise<
       ),
     );
     if (seen.tooSmallToPrint) lines.push(m.inspectPrint);
-    else if (seen.tooSmallToProject) lines.push(m.inspectProject);
+    // **投影の行は、耐えるときだけ出す**（2026-09-21）。
+    // 「小さすぎます」は 309 枚中 228 枚（74%）で出ていて、しかも直しようがなかった。
+    else if (!seen.tooSmallToProject) lines.push(m.inspectProject);
   }
   // **読めなかった図しか無いなら、観測値の話はしない。**
   if (unreadable < paths.length) lines.push(m.inspectNote);
