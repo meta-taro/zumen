@@ -775,8 +775,20 @@ const ja = {
       `エッジ ${edge} の weight が "${word}" になっています（thin / normal / thick）。ふつうの太さで描きます。`,
     colorUnknown: (target: string, key: string) =>
       `${target} の color が "${key}" ですが、palette にその鍵がありません。色は付きません。`,
-    colorFaint: (key: string, value: string, light: number, dark: number) =>
-      `palette の "${key}"（${value}）が薄すぎます。地に沈んで線が消えます。**白地で ${light}:1 ／ 暗い地で ${dark}:1**（非文字の下限は 3:1）—— **${light < 3 && dark < 3 ? 'どちらの地でも' : light < 3 ? '白地だけ' : '暗い地だけ'}**足りません。${light < 3 && dark >= 3 ? '実物の色で変えられないなら（路線図の路線色など）、線を太くするか、色以外の見分け（符号・線種）を必ず添えてください。' : ''}`,
+    /**
+     * **符号が文字で出ているなら、言うことが変わる**（2026-09-21）。
+     *
+     * 測ったら `color-faint` は 10 件とも**実物の路線色**（山手線 #9acd32、
+     * 阪急 #8b0000、東京メトロ各線）で、**どれも符号が図に文字で出ていた。**
+     * 文言自身が逃げ道として「符号を添えてください」と言っているのに、
+     * **添えてあっても同じ文で鳴り続けていた。**
+     */
+    colorFaintCoded:
+      'ただし、この符号は図に文字で出ています —— **色が読めなくても区別はつきます。**線の太さだけ確かめてください。',
+    colorFaintPlain:
+      '実物の色で変えられないなら（路線図の路線色など）、線を太くするか、**色以外の見分け（符号・線種）を必ず添えて**ください。',
+    colorFaint: (key: string, value: string, light: number, dark: number, advice: string) =>
+      `palette の "${key}"（${value}）が薄すぎます。地に沈んで線が消えます。**白地で ${light}:1 ／ 暗い地で ${dark}:1**（非文字の下限は 3:1）—— **${light < 3 && dark < 3 ? 'どちらの地でも' : light < 3 ? '白地だけ' : '暗い地だけ'}**足りません。${advice}`,
     labelMarkdown: (id: string) =>
       `"${id || '(id なし)'}" の名前に ** が入っています（節でも、辺のラベルでも、図の名前でも同じ）。**zumen の名前は素のテキスト**で、Markdown ではありません —— ** は強調にならず、**そのまま絵に出ます**。正本のコメントや変更の記録は Markdown なので、そこから持ち込みやすいところです。`,
     colorNotHex: (key: string, value: string) =>
@@ -1486,8 +1498,12 @@ const en: Catalog = {
       `Edge ${edge} has weight "${word}" (thin / normal / thick). It is drawn at the normal width.`,
     colorUnknown: (target: string, key: string) =>
       `${target} has color "${key}", but palette has no such key. No colour is applied.`,
-    colorFaint: (key: string, value: string) =>
-      `palette entry "${key}" (${value}) is too faint: the line sinks into the ground (3:1 is the floor for non-text; both the light and the dark ground are checked).`,
+    colorFaintCoded:
+      'The code does appear as text in the drawing, so the distinction survives without colour; just check the line weight.',
+    colorFaintPlain:
+      'If the colour is fixed by the subject (a transit line, say), thicken the line or add a non-colour distinction.',
+    colorFaint: (key: string, value: string, light: number, dark: number, advice: string) =>
+      `palette entry "${key}" (${value}) is too faint: the line sinks into the ground — ${light}:1 on the light ground, ${dark}:1 on the dark one (3:1 is the floor for non-text). ${advice}`,
     labelMarkdown: (id: string) =>
       `"${id || '(no id)'}" has ** in its label (nodes, edge labels and view titles alike). **Labels are plain text**, not Markdown — the asterisks are not emphasis, they are **drawn as they are**. They creep in from the Markdown used in source comments and changelogs.`,
     colorNotHex: (key: string, value: string) =>

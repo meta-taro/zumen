@@ -359,6 +359,7 @@ export const CATEGORIES = [
     key: 'ui',
     label: 'UI・画面設計',
     items: [
+      { name: '312-UIのComponent構造', alt: '商品一覧・商品詳細・カートの 3 画面と、Header・Footer・ProductCard・Price・QuantityStepper・ImageGallery・Button の関係を並べた構成図。1 つの Component に親が何本刺さっているかを書き入れ、共通のものと画面専用のものが読めるようにした図', caption: 'UI の Component 構造（木ではなく、網になる）' },
       { name: '74-EC商品ページのUI構造', alt: 'EC 商品ページの UI 構造（Desktop / Mobile）', caption: 'EC 商品ページの UI 構造（レスポンシブ差分）' },
       { name: '76-管理画面のレスポンシブ構造', alt: '管理画面の UI 構造。Desktop・Tablet・Mobile で Sidebar が Drawer に変わる構造の違いを並べた図', caption: '管理画面（Sidebar → Drawer）' },
       { name: '88-レスポンシブLPのUI構造', alt: 'レスポンシブ LP の UI 構造（Desktop / Tablet / Mobile）', caption: 'レスポンシブ LP の UI 構造（節が消える・増える）' },

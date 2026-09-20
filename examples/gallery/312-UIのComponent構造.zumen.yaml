@@ -1,0 +1,100 @@
+version: 1
+direction: down
+wrap: false
+title: UI の Component 構造（木ではなく、網になる）
+# **画面ごとに木を描くと、同じ Component が何度も出てくる。**
+# 実際には 1 つの Component が**複数の画面から使われる**ので、
+# 構造は**木ではなく網**（同じ節に、親が何本も刺さる）。
+# ここを木として描くと、**どれが共通でどれが専用かが図から消える。**
+#
+# **共通か専用かは、親の数を数えれば分かる。**
+# 親が 2 本以上刺さっている節が共通の Component ——
+# 直すと**刺さっている画面ぜんぶに効く**ので、直す前にここを見る。
+# 親が 1 本だけなら、その画面だけの都合で変えてよい。
+#
+# **これが「完成 UI ではなく構造を残す」ということ**（`.claude/rules/UIワイヤーフレームの方針.md` §11）。
+# 見た目は何度でも作り直されるが、**画面と Component と、その関係は残る。**
+# この図を正として「React / Vue / Flutter で実装してください」と渡せる。
+#
+# **Responsive で変わるのは、この図の形ではない。**
+# Sidebar が Drawer になっても、**使っている Component は同じ** ——
+# 変わるのは**置き方**で、それは見本 76（管理画面のレスポンシブ構造）の側の話。
+#
+# **見本 74・75・76・85・86・87・88 と対。** あちらは画面の絵、こちらは部品の関係。
+nodes:
+  - id: list
+    type: generic
+    label: 商品一覧ページ
+    technology: 画面
+  - id: detail
+    type: generic
+    label: 商品詳細ページ
+    technology: 画面
+  - id: cart
+    type: generic
+    label: カートページ
+    technology: 画面
+  - id: header
+    type: generic
+    label: Header
+    technology: 親 3 —— 共通
+  - id: footer
+    type: generic
+    label: Footer
+    technology: 親 3 —— 共通
+  - id: card
+    type: generic
+    label: ProductCard
+    technology: 親 2 —— 一覧と、詳細の関連商品
+  - id: price
+    type: generic
+    label: Price
+    technology: 親 2 —— 表示の規則を 1 か所に
+  - id: qty
+    type: generic
+    label: QuantityStepper
+    technology: 親 1 —— カートだけ
+  - id: gallery
+    type: generic
+    label: ImageGallery
+    technology: 親 1 —— 詳細だけ
+  - id: button
+    type: database
+    label: Button
+    technology: 親 4 —— いちばん奥の部品
+edges:
+  - from: list
+    to: header
+  - from: list
+    to: card
+  - from: list
+    to: footer
+  - from: detail
+    to: header
+  - from: detail
+    to: gallery
+  - from: detail
+    to: card
+    label: 関連商品
+  - from: detail
+    to: footer
+  - from: cart
+    to: header
+  - from: cart
+    to: qty
+  - from: cart
+    to: price
+  - from: cart
+    to: footer
+  - from: card
+    to: price
+  - from: card
+    to: button
+  - from: gallery
+    to: button
+  - from: qty
+    to: button
+  - from: price
+    to: button
+    line: dashed
+    label: 表示だけ

@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UI の Component 構造（木ではなく、網になる） — zumen の見本 312</title>
+<link rel="icon" type="image/svg+xml" href="../../icon.svg">
+<meta name="theme-color" content="#23232b">
+<meta name="description" content="UI の Component 構造（木ではなく、網になる）">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="zumen">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:url" content="https://meta-taro.github.io/zumen/g/312/">
+<meta property="og:title" content="UI の Component 構造（木ではなく、網になる） — zumen の見本 312">
+<meta property="og:description" content="UI の Component 構造（木ではなく、網になる）">
+<meta property="og:image" content="https://meta-taro.github.io/zumen/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="UI の Component 構造（木ではなく、網になる） — zumen の見本 312">
+<meta name="twitter:description" content="UI の Component 構造（木ではなく、網になる）">
+<meta name="twitter:image" content="https://meta-taro.github.io/zumen/og.png">
+<link rel="stylesheet" href="../../style.css">
+<link rel="canonical" href="https://meta-taro.github.io/zumen/g/312/">
+<link rel="alternate" hreflang="ja" href="https://meta-taro.github.io/zumen/g/312/">
+<link rel="alternate" hreflang="en" href="https://meta-taro.github.io/zumen/en/g/312/">
+<link rel="alternate" hreflang="x-default" href="https://meta-taro.github.io/zumen/g/312/">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="alternate" type="text/markdown" href="https://meta-taro.github.io/zumen/llms.txt" title="llms.txt">
+<link rel="sitemap" type="application/xml" href="https://meta-taro.github.io/zumen/sitemap.xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": "UI の Component 構造（木ではなく、網になる）",
+  "description": "UI の Component 構造（木ではなく、網になる）",
+  "url": "https://meta-taro.github.io/zumen/g/312/",
+  "image": "https://meta-taro.github.io/zumen/gallery/312-UI%E3%81%AEComponent%E6%A7%8B%E9%80%A0.svg",
+  "inLanguage": "ja",
+  "license": "https://opensource.org/licenses/MIT",
+  "isPartOf": {
+    "@type": "CollectionPage",
+    "name": "UI・画面設計",
+    "url": "https://meta-taro.github.io/zumen/c/ui/"
+  },
+  "encodingFormat": "text/yaml",
+  "isAccessibleForFree": true
+}
+</script>
+</head>
+<body class="sub">
+<header class="bar">
+  <a class="home" href="../../">zumen</a>
+  <nav><a href="../../c/ui/">UI・画面設計</a></nav>
+</header>
+<main>
+<article>
+  <p class="crumb">UI・画面設計</p>
+  <h1>UI の Component 構造（木ではなく、網になる）</h1>
+  <p class="lead">UI の Component 構造（木ではなく、網になる）</p>
+  <figure>
+    <img src="../../gallery/312-UI%E3%81%AEComponent%E6%A7%8B%E9%80%A0.svg" alt="商品一覧・商品詳細・カートの 3 画面と、Header・Footer・ProductCard・Price・QuantityStepper・ImageGallery・Button の関係を並べた構成図。1 つの Component に親が何本刺さっているかを書き入れ、共通のものと画面専用のものが読めるようにした図" loading="lazy">
+  </figure>
+  <p class="made">この図は、下の 1 枚の YAML から描かれています。手で図形を動かしてはいません。</p>
+  <h2>正本に書いてある決まりごと</h2>
+  <p><strong>画面ごとに木を描くと、同じ Component が何度も出てくる。</strong>実際には 1 つの Component が<strong>複数の画面から使われる</strong>ので、構造は<strong>木ではなく網</strong>（同じ節に、親が何本も刺さる）。ここを木として描くと、<strong>どれが共通でどれが専用かが図から消える。</strong></p>
+  <p><strong>共通か専用かは、親の数を数えれば分かる。</strong>親が 2 本以上刺さっている節が共通の Component ——直すと<strong>刺さっている画面ぜんぶに効く</strong>ので、直す前にここを見る。親が 1 本だけなら、その画面だけの都合で変えてよい。</p>
+  <p><strong>これが「完成 UI ではなく構造を残す」ということ</strong>（`.claude/rules/UIワイヤーフレームの方針.md` §11）。見た目は何度でも作り直されるが、<strong>画面と Component と、その関係は残る。</strong>この図を正として「React / Vue / Flutter で実装してください」と渡せる。</p>
+  <p><strong>Responsive で変わるのは、この図の形ではない。</strong>Sidebar が Drawer になっても、<strong>使っている Component は同じ</strong> ——変わるのは<strong>置き方</strong>で、それは見本 76（管理画面のレスポンシブ構造）の側の話。</p>
+  <p><strong>見本 74・75・76・85・86・87・88 と対。</strong> あちらは画面の絵、こちらは部品の関係。</p>
+  <h2>正本（YAML）</h2>
+  <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/312-UI%E3%81%AEComponent%E6%A7%8B%E9%80%A0.zumen.yaml"><code>examples/gallery/312-UIのComponent構造.zumen.yaml</code></a></p>
+  <h2>同じ分野の見本</h2>
+  <ul class="near"><li><a href="../74/">EC 商品ページの UI 構造（レスポンシブ差分）</a></li><li><a href="../75/">画面遷移図（ワイヤーフレームつき）</a></li><li><a href="../76/">管理画面（Sidebar → Drawer）</a></li><li><a href="../85/">Checkout の画面遷移（5 段・エラーの戻り先つき）</a></li><li><a href="../86/">CRUD 管理画面の画面遷移（削除は確認を挟む）</a></li><li><a href="../87/">モバイルアプリの UI 構造（Bottom Navigation）</a></li><li><a href="../88/">レスポンシブ LP の UI 構造（節が消える・増える）</a></li></ul>
+</article>
+</main>
+<footer class="foot">
+  <p><a href="https://github.com/meta-taro/zumen">GitHub</a> · MIT · <a href="https://meta-taro.github.io/zumen/en/g/312/">English</a></p>
+</footer>
+</body>
+</html>

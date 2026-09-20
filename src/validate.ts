@@ -910,11 +910,34 @@ function checkColors(doc: Document, add: Add, m: Messages, at: At): void {
     const key = item.get('fill');
     if (key !== undefined && key !== null) tints.add(String(key));
   }
+  /**
+   * **符号が文字で出ているかを、先に見る**（2026-09-21）。
+   *
+   * 逃げ道（「色以外の見分けを添えてください」）を満たしているのに
+   * 同じ文で鳴り続けていた —— 測ったら `color-faint` の 10 件は
+   * **どれも実物の路線色で、どれも符号が図に出ていた。**
+   */
+  const asText: string[] = [];
+  const titleText = doc.get('title');
+  if (titleText !== undefined && titleText !== null) asText.push(String(titleText));
+  for (const item of seqOf(doc, 'nodes')) {
+    for (const field of ['label', 'tag', 'technology'] as const) {
+      const value = item.get(field);
+      if (value !== undefined && value !== null) asText.push(String(value));
+    }
+  }
+  for (const item of seqOf(doc, 'edges')) {
+    const value = item.get('label');
+    if (value !== undefined && value !== null) asText.push(String(value));
+  }
+  const allText = asText.join('\n');
+
   for (const [key, value] of Object.entries(table)) {
     if (tints.has(key) && !onLines.has(key)) continue;
     if (faintOn(value)) {
       const where = faintWhere(value);
-      add('warning', 'color-faint', m.colorFaint(key, value, where.light, where.dark), at(raw));
+      const advice = allText.includes(key) ? m.colorFaintCoded : m.colorFaintPlain;
+      add('warning', 'color-faint', m.colorFaint(key, value, where.light, where.dark, advice), at(raw));
     }
   }
 
