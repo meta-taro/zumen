@@ -400,7 +400,9 @@ export async function placedFindings(text: string): Promise<Finding[]> {
           Math.round(placed.height),
           placed.wrap
             ? messages().validate.structureWrapOn
-            : messages().validate.structureWrapOff,
+            : placed.wrapWritten
+              ? messages().validate.structureWrapTried
+              : messages().validate.structureWrapOff,
         ),
       },
     ];

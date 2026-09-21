@@ -98,6 +98,7 @@ describe('overlaps', () => {
       title: null,
       floors: [],
       wrap: false,
+      wrapWritten: false,
       views: [],
       strokes: [],
       troubles: [],

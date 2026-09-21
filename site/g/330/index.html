@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>データセンターの気流（通路を分けるのは、熱気を吸わせないため） — zumen の見本 330</title>
+<link rel="icon" type="image/svg+xml" href="../../icon.svg">
+<meta name="theme-color" content="#23232b">
+<meta name="description" content="データセンターの気流（通路を分けるのは、熱気を吸わせないため）">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="zumen">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:url" content="https://meta-taro.github.io/zumen/g/330/">
+<meta property="og:title" content="データセンターの気流（通路を分けるのは、熱気を吸わせないため） — zumen の見本 330">
+<meta property="og:description" content="データセンターの気流（通路を分けるのは、熱気を吸わせないため）">
+<meta property="og:image" content="https://meta-taro.github.io/zumen/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="データセンターの気流（通路を分けるのは、熱気を吸わせないため） — zumen の見本 330">
+<meta name="twitter:description" content="データセンターの気流（通路を分けるのは、熱気を吸わせないため）">
+<meta name="twitter:image" content="https://meta-taro.github.io/zumen/og.png">
+<link rel="stylesheet" href="../../style.css">
+<link rel="canonical" href="https://meta-taro.github.io/zumen/g/330/">
+<link rel="alternate" hreflang="ja" href="https://meta-taro.github.io/zumen/g/330/">
+<link rel="alternate" hreflang="en" href="https://meta-taro.github.io/zumen/en/g/330/">
+<link rel="alternate" hreflang="x-default" href="https://meta-taro.github.io/zumen/g/330/">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="alternate" type="text/markdown" href="https://meta-taro.github.io/zumen/llms.txt" title="llms.txt">
+<link rel="sitemap" type="application/xml" href="https://meta-taro.github.io/zumen/sitemap.xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": "データセンターの気流（通路を分けるのは、熱気を吸わせないため）",
+  "description": "データセンターの気流（通路を分けるのは、熱気を吸わせないため）",
+  "url": "https://meta-taro.github.io/zumen/g/330/",
+  "image": "https://meta-taro.github.io/zumen/gallery/330-%E3%83%87%E3%83%BC%E3%82%BF%E3%82%BB%E3%83%B3%E3%82%BF%E3%83%BC%E3%81%AE%E6%B0%97%E6%B5%81.svg",
+  "inLanguage": "ja",
+  "license": "https://opensource.org/licenses/MIT",
+  "isPartOf": {
+    "@type": "CollectionPage",
+    "name": "IT・ソフトウェア",
+    "url": "https://meta-taro.github.io/zumen/c/it/"
+  },
+  "encodingFormat": "text/yaml",
+  "isAccessibleForFree": true
+}
+</script>
+</head>
+<body class="sub">
+<header class="bar">
+  <a class="home" href="../../">zumen</a>
+  <nav><a href="../../c/it/">IT・ソフトウェア</a></nav>
+</header>
+<main>
+<article>
+  <p class="crumb">IT・ソフトウェア</p>
+  <h1>データセンターの気流（通路を分けるのは、熱気を吸わせないため）</h1>
+  <p class="lead">データセンターの気流（通路を分けるのは、熱気を吸わせないため）</p>
+  <figure>
+    <img src="../../gallery/330-%E3%83%87%E3%83%BC%E3%82%BF%E3%82%BB%E3%83%B3%E3%82%BF%E3%83%BC%E3%81%AE%E6%B0%97%E6%B5%81.svg" alt="データセンターの断面図。空調機（CRAC）が床下のフリーアクセスフロアへ冷気を送り、穴あきパネルからコールドアイルへ上がって両側のラック前面に吸い込まれ、背面から出た熱気がホットアイルを通って天井へ戻る流れを矢印で示した図と、上から見たラック 4 列の向き（前面どうし・背面どうし）、1 ラック 15kW・PUE 1.0 と約 1.2・外気冷房で空調コスト約 4 割減の表、通路を分ける理由の表" loading="lazy">
+  </figure>
+  <p class="made">この図は、下の 1 枚の YAML から描かれています。手で図形を動かしてはいません。</p>
+  <h2>正本に書いてある決まりごと</h2>
+  <p><strong>ラックを全部同じ向きに並べると、前の列が出した熱気を次の列が吸い込む。</strong>だから<strong>1 列おきに向きを返して</strong>、前面どうしの通路（コールドアイル）と背面どうしの通路（ホットアイル）を作る。</p>
+  <p>空調機（CRAC）が<strong>床下（フリーアクセスフロア）</strong>へ冷気を送り、<strong>コールドアイルの穴あきパネル</strong>から上がって、両側のラックの<strong>前面</strong>から吸い込まれる。背面から出た熱気は<strong>ホットアイル</strong>を通って天井へ戻る。</p>
+  <p><strong>吸気温度が上がる。</strong> 同じ風量では冷えないので空調をさらに回すことになり、<strong>PUE が上がる。</strong> 通路を分けるのは、風量を増やさずに吸気温度を下げるための置き方。</p>
+  <p><strong>空冷で冷やせるのは 1 ラックあたり 15kW まで。</strong> それ以上は水を使う話になる。</p>
+  <p><strong>PUE ＝ データセンター全体の消費電力 ÷ IT 機器の消費電力。</strong><strong>低いほど効率がよく、1.0 が理論上の最良。最新のもので約 1.2</strong> と見られている。</p>
+  <p>寒い土地では外気をそのまま使える。ある事例では<strong>空調コストを約 4 割</strong>減らせるとしている。</p>
+  <p>電力の系統は見本 241、ラックと 1U は見本 235、PoE は見本 236。</p>
+  <h2>正本（YAML）</h2>
+  <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/330-%E3%83%87%E3%83%BC%E3%82%BF%E3%82%BB%E3%83%B3%E3%82%BF%E3%83%BC%E3%81%AE%E6%B0%97%E6%B5%81.zumen.yaml"><code>examples/gallery/330-データセンターの気流.zumen.yaml</code></a></p>
+  <h2>同じ分野の見本</h2>
+  <ul class="near"><li><a href="../01/">オンプレのサーバ構成</a></li><li><a href="../02/">クラウド構成</a></li><li><a href="../03/">データの流れ</a></li><li><a href="../04/">ネットワーク構成</a></li><li><a href="../21/">テーブルの関係（ER）</a></li><li><a href="../26/">データセンターのラック配置</a></li><li><a href="../46/">クラス図（UML）</a></li><li><a href="../47/">状態遷移図（UML）</a></li></ul>
+</article>
+</main>
+<footer class="foot">
+  <p><a href="https://github.com/meta-taro/zumen">GitHub</a> · MIT · <a href="https://meta-taro.github.io/zumen/en/g/330/">English</a></p>
+</footer>
+</body>
+</html>

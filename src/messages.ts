@@ -926,6 +926,9 @@ const ja = {
      */
     structureWrapOff:
       '`wrap: true` で折り返せますが、**並びの順が崩れることがあります**（戻る辺や groups があるとき）—— 折り返したら必ず絵にして、読む順どおりに出ているか見てください。崩れるなら、節をまとめて段を減らすか、図を分けてください。',
+    /** **`wrap: false` と自分で書いてある図には、折り返しを勧めない**（2026-09-21。5 例目）。 */
+    structureWrapTried:
+      '**正本に `wrap: false` と書いてあります。** 一度試して戻した形かもしれないので、折り返しは勧めません —— 残っているのは、節をまとめて鎖を短くするか、図を 2 枚に分けるかです。',
     /** **逃げ道を書いたなら、逃げ道を満たしたかどうかも見る。** すでに折り返してある図に「折り返せます」と言わない。 */
     structureWrapOn:
       '**すでに `wrap: true` が書いてあります。** 折り返してもこの比なので、残っているのは 2 つだけです —— 節をまとめて鎖を短くするか、図を 2 枚に分けるか。',
@@ -1624,6 +1627,8 @@ const en: Catalog = {
       `Node "${id}" is \`marker: ${marker}\` (a circle), but its \`size\` is ${w}x${h}, not square. **A circle takes the shorter side as its diameter**, so what gets drawn is a **${d} circle** and the ${Math.max(w, h)} you wrote is gone. Label placement and overlap still measure the ${w}x${h} box, so **empty room is left beside the circle**. Use \`marker: ellipse\` for an oval (it uses both w and h), or make \`size\` square.`,
     structureWrapOff:
       '`wrap: true` folds it, but **it can scramble the reading order** (back edges and groups both do this) — always look at the picture afterwards. If it scrambles, merge nodes to shorten the chain, or split the drawing.',
+    structureWrapTried:
+      '**The source says `wrap: false`.** That may be a fold that was tried and backed out, so folding is not suggested — what is left is to merge nodes to shorten the chain, or split the drawing in two.',
     /** **If you offer a way out, check whether it has already been taken.** */
     structureWrapOn:
       '**`wrap: true` is already set.** Folded, it is still this thin, so only two things are left: merge nodes to shorten the chain, or split the drawing in two.',
