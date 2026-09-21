@@ -7,7 +7,7 @@
  * ここで見るのは**残りの食い違い** —— 行き先と、互いへの入口。
  */
 import assert from 'node:assert/strict';
-import { readFileSync, readdirSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { describe, it } from 'node:test';
 
 const ja = readFileSync('site/index.html', 'utf8');
@@ -278,5 +278,62 @@ describe('見本のページ', () => {
       .filter((page) => !/og:image:alt" content="[^"]{10,}"/.test(page.html))
       .map((page) => page.no);
     assert.deepEqual(missing, []);
+  });
+});
+
+/**
+ * **指しているのに無い絵を止める**（2026-09-22。91 周目。ベースルール §23）。
+ *
+ * この日、見本ごとの共有カード（`site/og/NN.png`）を足した。
+ * **カードは重いので、見本が増えた直後は追いついていない**ことがある ——
+ * そのとき `og:image` が 404 を指すと、**組み立てもテストも通ったまま、
+ * 共有したときだけ壊れる。**人が気づくのは貼った後になる。
+ *
+ * 図（`gallery/*.svg`）は `site/` には置かない（`pnpm pages` と workflow が写す）ので、
+ * **正本の `examples/gallery/` に在るか**で見る。
+ */
+describe('指している絵が、ちゃんと在る', () => {
+  const SITE = 'https://meta-taro.github.io/zumen';
+  const walk = (dir: URL): URL[] =>
+    readdirSync(dir, { withFileTypes: true }).flatMap((entry) =>
+      entry.isDirectory()
+        ? walk(new URL(`${entry.name}/`, dir))
+        : entry.name.endsWith('.html')
+          ? [new URL(entry.name, dir)]
+          : [],
+    );
+  const site = new URL('../site/', import.meta.url);
+  const htmls = walk(site);
+
+  it('**ページが 700 枚以上ある**（歩き方が合っている）', () => {
+    assert.ok(htmls.length > 700, `ページが少なすぎる: ${htmls.length}`);
+  });
+
+  it('**共有カード（og:image）が、すべて在る**', () => {
+    const missing: string[] = [];
+    for (const html of htmls) {
+      const text = readFileSync(html, 'utf8');
+      for (const [, url] of text.matchAll(/(?:og:image|twitter:image)" content="([^"]+)"/g)) {
+        if (!url.startsWith(SITE)) continue;
+        const path = decodeURIComponent(url.slice(SITE.length + 1));
+        if (existsSync(new URL(path, site))) continue;
+        missing.push(`${html.pathname.split('/site/')[1]} → ${path}`);
+      }
+    }
+    assert.deepEqual([...new Set(missing)], []);
+  });
+
+  it('**貼ってある図が、すべて正本に在る**', () => {
+    const gallery = new URL('../examples/gallery/', import.meta.url);
+    const missing: string[] = [];
+    for (const html of htmls) {
+      for (const [, src] of readFileSync(html, 'utf8').matchAll(/<img [^>]*src="([^"]+)"/g)) {
+        const name = /\/gallery\/([^/]+\.svg)$/.exec(src)?.[1];
+        if (name === undefined) continue;
+        if (existsSync(new URL(decodeURIComponent(name), gallery))) continue;
+        missing.push(`${html.pathname.split('/site/')[1]} → ${name}`);
+      }
+    }
+    assert.deepEqual([...new Set(missing)], []);
   });
 });

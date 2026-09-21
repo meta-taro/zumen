@@ -209,7 +209,15 @@ function samplePage(s, lang) {
     path: `/g/${s.no}/`,
     title: t.title,
     desc: t.desc,
-    // **共有された絵に、何が描いてあるかを添える。** 絵そのものは当面みな同じなので、せめて言葉で分ける。
+    /**
+     * **見本ごとの共有カード**（`scripts/og-samples.mjs` が描く。2026-09-22）。
+     * X・Slack・Facebook は SVG を描画しないので、**PNG が要る**。
+     *
+     * **無ければ指さない**（ベースルール §23。参照だけ足して中身が無い状態を作らない）。
+     * カードは重いので、見本が増えた直後は追いついていないことがある。
+     * そのときは全体のカード（`site/og.png`）に落ちる —— 空の枠よりまし。
+     */
+    image: existsSync(`site/og/${s.no}.png`) ? `${SITE}/og/${s.no}.png` : undefined,
     imageAlt: fit(lang === 'ja' ? s.alt : s.en, 140),
     up: [{ href: `../../${lang === 'ja' ? '' : ''}c/${s.group.key}/`, text: lang === 'ja' ? s.group.label : GROUPS_EN[s.group.key] ?? s.group.label }],
     /**
@@ -359,5 +367,33 @@ if (check) {
     mkdirSync(path.replace(/\/[^/]+$/, ''), { recursive: true });
     writeFileSync(path, text);
   }
+  /**
+   * **図は毎回ぜんぶ写す**（2026-09-22。89 周目）。
+   *
+   * 前は `site/gallery/` に **102 枚だけが commit されていた**（見本 01〜51 の頃の残り）。
+   * 配るときは workflow が `examples/gallery/` から写し直すので**本番は正しかった**が、
+   * 手元で開くと 688 枚のうち 15% しか出ず、**壊れているように見えた**（実際に一度そう誤読した）。
+   *
+   * 中途半端に置くのをやめて、**写す係をここに一本化した**。
+   * `site/gallery/` は追跡しない（`.gitignore`）。正本は `examples/gallery/` の 1 つだけ。
+   */
+  mkdirSync('site/gallery', { recursive: true });
+  let copied = 0;
+  for (const name of readdirSync(DIR).filter((f) => f.endsWith('.svg'))) {
+    const from = join(DIR, name);
+    const to = join('site/gallery', name);
+    const text = readFileSync(from, 'utf8');
+    if (existsSync(to) && readFileSync(to, 'utf8') === text) continue;
+    writeFileSync(to, text);
+    copied += 1;
+  }
+  // **要らなくなった図は消す。** 残すと、消したはずの見本が手元でだけ開ける。
+  let dropped = 0;
+  for (const name of readdirSync('site/gallery')) {
+    if (existsSync(join(DIR, name))) continue;
+    rmSync(join('site/gallery', name));
+    dropped += 1;
+  }
   console.log(`ページを ${want.size} 件、組み立て直しました（分野 ${CATEGORIES.length * 2} ／ 見本 ${SAMPLES.length * 2}）。`);
+  console.log(`図を site/gallery/ へ写しました（新しく ${copied} 枚／古いのを ${dropped} 枚 外した）。`);
 }
