@@ -63,7 +63,8 @@ describe('数を書いてある場所は、どこも実物と合っている', (
         wrong.push(`${file}: ${what} が ${said[1]}、実物は ${truth[what]}`);
       }
     }
-    assert.deepEqual(wrong, []);
+    // **落ちたときに、直し方まで言う。** 数は機械が書くものなので、手で直させない。
+    assert.deepEqual(wrong, [], '`pnpm gallery` を走らせると、書いてある数を実物に合わせます');
   });
 });
 
