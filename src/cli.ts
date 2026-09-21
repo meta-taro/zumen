@@ -320,6 +320,23 @@ export async function placedFindings(text: string): Promise<Finding[]> {
       length += Math.hypot(b.x - a.x, b.y - a.y);
     }
     if (length === 0 || length >= need) return [];
+    /**
+     * **「節を離してください」が当たらない相手がいる**（2026-09-21。4 度目）。
+     *
+     * 壁を共有する部屋どうし（動線図・避難経路図）や、
+     * 積み重なった盤の段（電力系統）は、**離すことが図の嘘になる。**
+     * 箱と箱の隙間を測って、近いなら言い方を変える。
+     */
+    const from = placed.boxes.find((box) => box.id === edge.from);
+    const to = placed.boxes.find((box) => box.id === edge.to);
+    const apart =
+      from === undefined || to === undefined
+        ? Infinity
+        : Math.max(
+            0,
+            Math.max(from.x - (to.x + to.w), to.x - (from.x + from.w)),
+            Math.max(from.y - (to.y + to.h), to.y - (from.y + from.h)),
+          );
     return [
       {
         severity: 'warning' as const,
@@ -328,6 +345,9 @@ export async function placedFindings(text: string): Promise<Finding[]> {
           `${edge.from} → ${edge.to}`,
           String(Math.round(length)),
           String(Math.round(need)),
+          apart <= 20
+            ? messages().validate.endsTouching(String(Math.round(apart)))
+            : messages().validate.endsApart,
         ),
       },
     ];

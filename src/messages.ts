@@ -750,8 +750,13 @@ const ja = {
      */
     lineTooShort: (edge: string, line: string, length: string, need: string) =>
       `エッジ ${edge} の line: ${line} は、描かれる長さが ${length}px しかありません（刻みが 1 周するのに ${need}px 要ります）。実線と見分けがつきません —— 伸ばすか、line: solid にしてください。`,
-    endsTooLong: (edge: string, length: string, need: string) =>
-      `エッジ ${edge} は ${length}px しかないのに、端の記号が ${need}px 要ります。記号は線の長さまで縮めて描きますが、**線そのものは見えません** —— 節を離すか、ends: { to: none } にしてください。`,
+    /** 箱が離れているときの言い方。 */
+    endsApart: '節を離すか、`ends: { to: none }` にしてください。',
+    /** **壁を共有する部屋には「離せ」が当たらない**（2026-09-21）。 */
+    endsTouching: (apart: string) =>
+      `ただし、この 2 つの節は **${apart}px しか離れていません** —— 壁を共有する部屋や、積み重なった段のように、**離すと図が嘘になる置き方**です。その場合は線を諦めて、**記号だけで向きを示す**のが正しい（いまの絵はそうなっています）。気になるなら \`ends: { to: none }\` にしてください。`,
+    endsTooLong: (edge: string, length: string, need: string, advice: string) =>
+      `エッジ ${edge} は ${length}px しかないのに、端の記号が ${need}px 要ります。記号は線の長さまで縮めて描きますが、**線そのものは見えません** —— ${advice}`,
     alignUnknown: (id: string, word: string) =>
       `ノード "${id}" の align が "${word}" になっています（left / center / right）。中央で描きます。`,
     alignIgnored: (id: string) =>
@@ -1503,8 +1508,11 @@ const en: Catalog = {
       `Edge ${edge} is hidden under the fill of box "${box}" (with arrows: false, lines are drawn before boxes). Set arrows: true to bring the line above the boxes.`,
     lineTooShort: (edge: string, line: string, length: string, need: string) =>
       `Edge ${edge} is drawn only ${length}px long, but line: ${line} needs ${need}px for one full dash cycle. It will look solid — make it longer, or use line: solid.`,
-    endsTooLong: (edge: string, length: string, need: string) =>
-      `Edge ${edge} is only ${length}px long, but its end symbols want ${need}px. They are shrunk to fit, but no line shows at all — move the nodes apart, or use ends: { to: none }.`,
+    endsApart: 'Move the nodes apart, or use `ends: { to: none }`.',
+    endsTouching: (apart: string) =>
+      `But these two nodes are only **${apart}px apart** — rooms sharing a wall, or stacked tiers, where moving them apart would make the drawing lie. Then give up on the line and let the symbol alone carry the direction (which is what is drawn now). Use \`ends: { to: none }\` if it bothers you.`,
+    endsTooLong: (edge: string, length: string, need: string, advice: string) =>
+      `Edge ${edge} is only ${length}px long, but its end symbols want ${need}px. They are shrunk to fit, but no line shows at all — ${advice}`,
     alignUnknown: (id: string, word: string) =>
       `Node "${id}" has align "${word}" (left / center / right). It is centred.`,
     alignIgnored: (id: string) =>
