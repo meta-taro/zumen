@@ -225,6 +225,49 @@ describe('目次は、正本と同じものを写している', () => {
  * **消さない**（オーナーの指示）。代わりに**互いを指させる** ——
  * どちらが何を扱うかを、図の説明に書く。
  */
+/**
+ * **名前を被らせない**（2026-09-22。86 周目。オーナーの指示）。
+ *
+ * 84 周目に足したのは「被ったら互いを参照しろ」という**後始末**の検査だった。
+ * オーナーから「**今後名前が被らないように**」と言われたので、**被らせない側**を足す。
+ *
+ * すでに被っている 2 組（ギターのフレット位置、オーケストラの配置）は**消さない** ——
+ * 消すなと言われているし、公開ページの URL も配ってある。
+ * **ここに書いてあるものだけを通し、新しい重複は通さない。**
+ */
+describe('見本の名前', () => {
+  /** **もう被っているもの。** 増やさないための記録で、消すための表ではない。 */
+  const ALREADY: Record<string, string> = {
+    'ギターのフレット位置':
+      '204 は寸法（12√2 と実際の位置）、310 は「等分するのは差ではなく比」。2026-09-22 より前からある',
+    'オーケストラの配置':
+      '96 は対向配置と現代配置の比較、317 は「配置そのものが音量の調整」。2026-09-22 より前からある',
+  };
+
+  const word = (file: string): string =>
+    file.replace('.zumen.yaml', '').replace(/^[0-9]+-/, '').replace(/図$/, '');
+
+  it('**新しく名前を被らせない**（すでに被っている 2 組だけを通す）', () => {
+    const byWord = new Map<string, string[]>();
+    for (const file of readdirSync(dir).filter((f) => f.endsWith('.zumen.yaml'))) {
+      byWord.set(word(file), [...(byWord.get(word(file)) ?? []), file]);
+    }
+    const collided = [...byWord.entries()]
+      .filter(([key, files]) => files.length > 1 && ALREADY[key] === undefined)
+      .map(([key, files]) => `${key}: ${files.join(' / ')}`);
+    assert.deepEqual(collided, [], '名前が被っている見本（別の題にするか、片方の名前を変える）');
+  });
+
+  it('**逃がした名前が、本当にまだ被っている**（消し忘れを残さない）', () => {
+    const byWord = new Map<string, number>();
+    for (const file of readdirSync(dir).filter((f) => f.endsWith('.zumen.yaml'))) {
+      byWord.set(word(file), (byWord.get(word(file)) ?? 0) + 1);
+    }
+    const stale = Object.keys(ALREADY).filter((key) => (byWord.get(key) ?? 0) < 2);
+    assert.deepEqual(stale, [], 'もう被っていないのに、逃がし表に残っている名前');
+  });
+});
+
 describe('同じ題材の見本', () => {
   it('**名前が同じ／含む見本どうしは、互いを参照している**', () => {
     const files = readdirSync(dir).filter((f) => f.endsWith('.zumen.yaml'));

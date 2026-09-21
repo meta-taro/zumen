@@ -84,7 +84,7 @@ SAMPLES.sort((a, b) => Number(a.no) - Number(b.no));
 const byGroup = new Map(CATEGORIES.map((g) => [g.key, SAMPLES.filter((s) => s.group.key === g.key)]));
 
 /** ページの殻。**どのページも同じ形**にして、差は中身だけにする。 */
-function shell({ lang, path, title, desc, jsonld, body, up }) {
+function shell({ lang, path, title, desc, jsonld, body, up, image, imageAlt }) {
   const other = lang === 'ja' ? `${SITE}/en${path}` : `${SITE}${path}`;
   const self = lang === 'ja' ? `${SITE}${path}` : `${SITE}/en${path}`;
   const depth = path.split('/').filter(Boolean).length + (lang === 'ja' ? 0 : 1);
@@ -104,11 +104,13 @@ function shell({ lang, path, title, desc, jsonld, body, up }) {
 <meta property="og:url" content="${self}">
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(desc)}">
-<meta property="og:image" content="${SITE}/og.png">
+<meta property="og:image" content="${image ?? `${SITE}/og.png`}">
+<meta property="og:image:alt" content="${esc(imageAlt ?? (lang === 'ja' ? '歯周チャートと路線図。どちらも zumen が YAML から描いたもの。' : 'A periodontal chart and a transit map, both drawn by zumen from YAML.'))}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="${esc(title)}">
 <meta name="twitter:description" content="${esc(desc)}">
-<meta name="twitter:image" content="${SITE}/og.png">
+<meta name="twitter:image" content="${image ?? `${SITE}/og.png`}">
+<meta name="twitter:image:alt" content="${esc(imageAlt ?? (lang === 'ja' ? '歯周チャートと路線図。どちらも zumen が YAML から描いたもの。' : 'A periodontal chart and a transit map, both drawn by zumen from YAML.'))}">
 <link rel="stylesheet" href="${root}style.css">
 <link rel="canonical" href="${self}">
 <link rel="alternate" hreflang="${lang}" href="${self}">
@@ -139,9 +141,25 @@ ${body}
 
 /** 見本 1 枚のページ。 */
 function samplePage(s, lang) {
+  /**
+   * **検索結果に出る文は、題の言い直しにしない**（2026-09-22。86 周目）。
+   *
+   * 測ったら **344 枚すべてが 70 字未満**で、**64 枚は題とまったく同じ**だった。
+   * `alt`（図に何が描いてあるか）は 20 字の下限を通して書き直してあるので、
+   * **そちらを使う。** 長すぎる分は文の切れ目で落とす。
+   */
+  const fit = (text, limit) => {
+    const flat = String(text).replace(/\s+/g, ' ').trim();
+    if (flat.length <= limit) return flat;
+    const cut = flat.slice(0, limit);
+    const stop = Math.max(cut.lastIndexOf('。'), cut.lastIndexOf('、'), cut.lastIndexOf(', '), cut.lastIndexOf('. '));
+    return `${(stop > limit * 0.5 ? cut.slice(0, stop) : cut).trim()}…`;
+  };
+  const summary = lang === 'ja' ? `${s.caption}。${fit(s.alt, 110)}` : fit(s.en, 150);
+
   const t = lang === 'ja'
-    ? { title: `${s.title} — zumen の見本 ${s.no}`, desc: s.caption, note: '正本に書いてある決まりごと', src: '正本（YAML）', near: '同じ分野の見本', made: 'この図は、下の 1 枚の YAML から描かれています。手で図形を動かしてはいません。' }
-    : { title: `${s.title} — zumen example ${s.no}`, desc: s.en, note: 'What the source says', src: 'Source (YAML)', near: 'More in this field', made: 'This drawing comes from one YAML file. No shape was moved by hand.' };
+    ? { title: `${s.title} — zumen の見本 ${s.no}`, desc: summary, note: '正本に書いてある決まりごと', src: '正本（YAML）', near: '同じ分野の見本', made: 'この図は、下の 1 枚の YAML から描かれています。手で図形を動かしてはいません。' }
+    : { title: `${s.title} — zumen example ${s.no}`, desc: summary, note: 'What the source says', src: 'Source (YAML)', near: 'More in this field', made: 'This drawing comes from one YAML file. No shape was moved by hand.' };
   const near = (byGroup.get(s.group.key) ?? []).filter((x) => x.no !== s.no).slice(0, 8);
   const body = `<article>
   <p class="crumb">${esc(lang === 'ja' ? s.group.label : GROUPS_EN[s.group.key] ?? s.group.label)}</p>
@@ -162,20 +180,55 @@ function samplePage(s, lang) {
     path: `/g/${s.no}/`,
     title: t.title,
     desc: t.desc,
+    // **共有された絵に、何が描いてあるかを添える。** 絵そのものは当面みな同じなので、せめて言葉で分ける。
+    imageAlt: fit(lang === 'ja' ? s.alt : s.en, 140),
     up: [{ href: `../../${lang === 'ja' ? '' : ''}c/${s.group.key}/`, text: lang === 'ja' ? s.group.label : GROUPS_EN[s.group.key] ?? s.group.label }],
-    jsonld: {
-      '@context': 'https://schema.org',
-      '@type': 'CreativeWork',
-      name: s.title,
-      description: lang === 'ja' ? s.caption : s.en,
-      url: `${SITE}${lang === 'ja' ? '' : '/en'}/g/${s.no}/`,
-      image: `${SITE}/gallery/${encodeURIComponent(s.name)}.svg`,
-      inLanguage: lang,
-      license: 'https://opensource.org/licenses/MIT',
-      isPartOf: { '@type': 'CollectionPage', name: lang === 'ja' ? s.group.label : GROUPS_EN[s.group.key] ?? s.group.label, url: `${SITE}${lang === 'ja' ? '' : '/en'}/c/${s.group.key}/` },
-      encodingFormat: 'text/yaml',
-      isAccessibleForFree: true,
-    },
+    /**
+     * **検索結果に出す構造化データ**（2026-09-22。86 周目）。
+     *
+     * 前は `CreativeWork` 1 つだけだった。足したのは 2 つ ——
+     * **パンくず**（分野 → この図、が検索結果に出る）と、
+     * **`ImageObject`**（図そのものに `caption` と `description` が付く。画像検索に効く）。
+     */
+    jsonld: [
+      {
+        '@context': 'https://schema.org',
+        '@type': 'CreativeWork',
+        name: s.title,
+        headline: s.title,
+        description: summary,
+        url: `${SITE}${lang === 'ja' ? '' : '/en'}/g/${s.no}/`,
+        image: {
+          '@type': 'ImageObject',
+          contentUrl: `${SITE}/gallery/${encodeURIComponent(s.name)}.svg`,
+          caption: lang === 'ja' ? s.caption : s.en,
+          description: lang === 'ja' ? s.alt : s.en,
+          encodingFormat: 'image/svg+xml',
+          license: 'https://opensource.org/licenses/MIT',
+          acquireLicensePage: 'https://github.com/meta-taro/zumen/blob/main/LICENSE',
+          creditText: 'zumen',
+        },
+        inLanguage: lang,
+        license: 'https://opensource.org/licenses/MIT',
+        isPartOf: { '@type': 'CollectionPage', name: lang === 'ja' ? s.group.label : GROUPS_EN[s.group.key] ?? s.group.label, url: `${SITE}${lang === 'ja' ? '' : '/en'}/c/${s.group.key}/` },
+        encodingFormat: 'text/yaml',
+        isAccessibleForFree: true,
+      },
+      {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'zumen', item: `${SITE}${lang === 'ja' ? '/' : '/en/'}` },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: lang === 'ja' ? s.group.label : GROUPS_EN[s.group.key] ?? s.group.label,
+            item: `${SITE}${lang === 'ja' ? '' : '/en'}/c/${s.group.key}/`,
+          },
+          { '@type': 'ListItem', position: 3, name: s.title },
+        ],
+      },
+    ],
     body,
   });
 }

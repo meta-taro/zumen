@@ -6,18 +6,20 @@
 <title>NAND フラッシュの階層と、ページ／ブロック — zumen の見本 215</title>
 <link rel="icon" type="image/svg+xml" href="../../icon.svg">
 <meta name="theme-color" content="#23232b">
-<meta name="description" content="NAND フラッシュ（読み書きはページ、消去はブロック）">
+<meta name="description" content="NAND フラッシュ（読み書きはページ、消去はブロック）。NAND フラッシュの階層（パッケージ→ダイ→プレーン→ブロック→ページ）とガベージコレクション">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="zumen">
 <meta property="og:locale" content="ja_JP">
 <meta property="og:url" content="https://meta-taro.github.io/zumen/g/215/">
 <meta property="og:title" content="NAND フラッシュの階層と、ページ／ブロック — zumen の見本 215">
-<meta property="og:description" content="NAND フラッシュ（読み書きはページ、消去はブロック）">
+<meta property="og:description" content="NAND フラッシュ（読み書きはページ、消去はブロック）。NAND フラッシュの階層（パッケージ→ダイ→プレーン→ブロック→ページ）とガベージコレクション">
 <meta property="og:image" content="https://meta-taro.github.io/zumen/og.png">
+<meta property="og:image:alt" content="NAND フラッシュの階層（パッケージ→ダイ→プレーン→ブロック→ページ）とガベージコレクション">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="NAND フラッシュの階層と、ページ／ブロック — zumen の見本 215">
-<meta name="twitter:description" content="NAND フラッシュ（読み書きはページ、消去はブロック）">
+<meta name="twitter:description" content="NAND フラッシュ（読み書きはページ、消去はブロック）。NAND フラッシュの階層（パッケージ→ダイ→プレーン→ブロック→ページ）とガベージコレクション">
 <meta name="twitter:image" content="https://meta-taro.github.io/zumen/og.png">
+<meta name="twitter:image:alt" content="NAND フラッシュの階層（パッケージ→ダイ→プレーン→ブロック→ページ）とガベージコレクション">
 <link rel="stylesheet" href="../../style.css">
 <link rel="canonical" href="https://meta-taro.github.io/zumen/g/215/">
 <link rel="alternate" hreflang="ja" href="https://meta-taro.github.io/zumen/g/215/">
@@ -27,23 +29,58 @@
 <link rel="alternate" type="text/markdown" href="https://meta-taro.github.io/zumen/llms.txt" title="llms.txt">
 <link rel="sitemap" type="application/xml" href="https://meta-taro.github.io/zumen/sitemap.xml">
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "CreativeWork",
-  "name": "NAND フラッシュの階層と、ページ／ブロック",
-  "description": "NAND フラッシュ（読み書きはページ、消去はブロック）",
-  "url": "https://meta-taro.github.io/zumen/g/215/",
-  "image": "https://meta-taro.github.io/zumen/gallery/215-NAND%E3%83%95%E3%83%A9%E3%83%83%E3%82%B7%E3%83%A5%E3%81%AE%E9%9A%8E%E5%B1%A4.svg",
-  "inLanguage": "ja",
-  "license": "https://opensource.org/licenses/MIT",
-  "isPartOf": {
-    "@type": "CollectionPage",
-    "name": "建築・土木",
-    "url": "https://meta-taro.github.io/zumen/c/kenchiku/"
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    "name": "NAND フラッシュの階層と、ページ／ブロック",
+    "headline": "NAND フラッシュの階層と、ページ／ブロック",
+    "description": "NAND フラッシュ（読み書きはページ、消去はブロック）。NAND フラッシュの階層（パッケージ→ダイ→プレーン→ブロック→ページ）とガベージコレクション",
+    "url": "https://meta-taro.github.io/zumen/g/215/",
+    "image": {
+      "@type": "ImageObject",
+      "contentUrl": "https://meta-taro.github.io/zumen/gallery/215-NAND%E3%83%95%E3%83%A9%E3%83%83%E3%82%B7%E3%83%A5%E3%81%AE%E9%9A%8E%E5%B1%A4.svg",
+      "caption": "NAND フラッシュ（読み書きはページ、消去はブロック）",
+      "description": "NAND フラッシュの階層（パッケージ→ダイ→プレーン→ブロック→ページ）とガベージコレクション",
+      "encodingFormat": "image/svg+xml",
+      "license": "https://opensource.org/licenses/MIT",
+      "acquireLicensePage": "https://github.com/meta-taro/zumen/blob/main/LICENSE",
+      "creditText": "zumen"
+    },
+    "inLanguage": "ja",
+    "license": "https://opensource.org/licenses/MIT",
+    "isPartOf": {
+      "@type": "CollectionPage",
+      "name": "建築・土木",
+      "url": "https://meta-taro.github.io/zumen/c/kenchiku/"
+    },
+    "encodingFormat": "text/yaml",
+    "isAccessibleForFree": true
   },
-  "encodingFormat": "text/yaml",
-  "isAccessibleForFree": true
-}
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "zumen",
+        "item": "https://meta-taro.github.io/zumen/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "建築・土木",
+        "item": "https://meta-taro.github.io/zumen/c/kenchiku/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "NAND フラッシュの階層と、ページ／ブロック"
+      }
+    ]
+  }
+]
 </script>
 </head>
 <body class="sub">
