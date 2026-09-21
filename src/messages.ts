@@ -882,6 +882,8 @@ const ja = {
       `ノード "${id}" に \`${key}\` を書いていますが、**これは辺（edges）の語**です。節に書いても黙って落ちます。枠の線種なら \`line\`（実線・破線・点線・一点鎖線）、面の模様なら \`hatch\`、線の色なら \`color\` を使ってください。**枠の太さを変える語は、いまはありません** —— 太さで示したいなら、線種を変えるか \`hatch\` で面を示してください。`,
     viewTitleCovered: (view: string, box: string, grow: number) =>
       `図 "${view}" の名前が、"${box}" の上に乗って描かれます。**図の名前は、その図の下辺のすぐ下**に置かれるので、\`size\` に書いた高さより中身が下へ出ていると重なります。**この図の \`size.h\` を ${grow}px 増やすか、中身を上へ詰めてください。**`,
+    labelPlaceholder: (who: string, word: string) =>
+      `${who} の文字に「${word}」が入っています。**これは図の言葉ではなく、組み立てに失敗した跡**です（引数が足りない・数が数にならなかった）。そのまま絵に描かれ、交差にも文字の重なりにも数えられません —— 絵を見るまで誰も止めません。書いた側を直してください。`,
     labelGluedWord: (id: string, found: string) =>
       `"${id}" の名前に **"${found}"** が入っています —— 日本語の字のすぐ隣に、小文字の英単語がくっついています。下書きの英語を日本語へ直し忘れた形（「前framing」のような、**無い言葉**）か、語の順が入れ替わった形（「160 以上cm」＝「160cm 以上」）です。**そのまま絵に出ます。** 日本語に直すか、あいだに空きを入れてください。単位（mm・cm・kg）や「PoE の」のように空きがある書き方は当たりません。`,
     circleNotSquare: (id: string, marker: string, w: number, h: number, d: number) =>
@@ -1583,6 +1585,8 @@ const en: Catalog = {
       `Node "${id}" carries \`${key}\`, but **that word belongs to edges**. On a node it is dropped in silence. Use \`line\` for the outline's line type (solid / dashed / dotted / chain), \`hatch\` for a fill pattern, \`color\` for the stroke colour. **There is no word for outline thickness yet** — change the line type, or show the area with \`hatch\`.`,
     viewTitleCovered: (view: string, box: string, grow: number) =>
       `The title of view "${view}" is drawn on top of "${box}". **A view title sits just below the view's bottom edge**, so anything that reaches past the height you wrote in \`size\` ends up underneath it. **Grow this view's \`size.h\` by ${grow}px, or move its contents up.**`,
+    labelPlaceholder: (who: string, word: string) =>
+      `The text of ${who} contains "${word}". **That is not a word of the drawing; it is the trace of a build that went wrong** (a missing argument, a number that never became a number). It is drawn as it stands, and it counts as neither a crossing nor an overlap — nothing stops you until you look at the picture. Fix the side that wrote it.`,
     labelGluedWord: (id: string, found: string) =>
       `The label of "${id}" contains **"${found}"** — a lowercase English word glued straight onto Japanese text. That is usually a draft term left untranslated (an invented word), or two parts in the wrong order. **It is drawn exactly as written.** Translate it, or put a space between the scripts. Units (mm, cm, kg) and spaced forms like "PoE の" are not flagged.`,
     circleNotSquare: (id: string, marker: string, w: number, h: number, d: number) =>

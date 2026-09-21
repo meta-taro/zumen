@@ -1864,6 +1864,7 @@ Mermaid も draw.io も、落ちたものを先頭のコメントに列挙する
 | `edge-self-open` | **自分自身への辺に `via` があるか**（無いと長さ 0 の線になる） |
 | `edge-hatch-ignored` | **閉じていない辺に `hatch` を書いていないか**（面が無い） |
 | `label-markdown` | **名前に `**` が入っていないか**（節・辺のラベル・図の名前すべて。Markdown ではないので、そのまま絵に出る） |
+| `label-placeholder` | **`undefined` / `NaN` / `[object Object]` が文字に入っていないか**（組み立てに失敗した跡。そのまま絵に出る） |
 | `edge-fill-ignored` | **辺に `fill` を書いていないか**（面の色は `nodes[].fill`。閉じた輪の中は `hatch` ＋ `color`） |
 | `name-adrift` | **幅のある箱から名前が出ていっていないか**（表の欄が空に見える） |
 | `tag-hidden` | **符号が印に入りきって描かれるか**（配置図。同上） |

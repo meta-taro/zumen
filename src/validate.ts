@@ -405,6 +405,23 @@ function checkLabelMarkdown(doc: Document, add: Add, m: Messages, at: At): void 
       if (glued !== null) {
         add('warning', 'label-glued-word', m.labelGluedWord(who, glued[0]), at(item.get(field, true)));
       }
+      /**
+       * **`undefined` / `NaN` が、そのまま絵に出る**（2026-09-21）。
+       *
+       * 見本 322 を組んでいて踏んだ —— 組み立てるスクリプトの引数が 1 つ足りず、
+       * **「undefined」と書かれた行が 6 か所に描かれた。**
+       * 交差 0・文字の重なり 0 と言われ、**絵を見るまで誰も止めなかった。**
+       * 図の言葉としては意味を持たないので、出たら書き間違い。
+       */
+      const placeholder = PLACEHOLDER.exec(text);
+      if (placeholder !== null) {
+        add(
+          'warning',
+          'label-placeholder',
+          m.labelPlaceholder(who, placeholder[0]),
+          at(item.get(field, true)),
+        );
+      }
     }
   };
 
@@ -441,6 +458,9 @@ function edgeNameOf(item: YAMLMap): string {
  */
 const GLUED =
   /[\u3041-\u3096\u30a1-\u30fa\u30fc\u4e00-\u9fff][a-z]{2,}|[a-z]{2,}[\u3041-\u3096\u30a1-\u30fa\u30fc\u4e00-\u9fff]/;
+
+/** **計算や組み立ての失敗が、そのまま文字になったもの。** 図の言葉ではない。 */
+const PLACEHOLDER = /(?<![A-Za-z])(undefined|NaN|\[object Object\])(?![A-Za-z])/;
 
 function checkSharedIds(doc: Document, add: Add, m: Messages, at: At): void {
   const groups = new Set<string>();
