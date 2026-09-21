@@ -298,6 +298,7 @@ export const CAPTIONS_EN = {
   '06-家の電気系統': 'A house wiring layout from the service entrance to the consumer unit, then breaker by breaker to the sockets and lights in each room',
   '10-給排水の系統': 'The four plumbing systems of a house — cold supply, hot supply, drainage and venting — separated out fixture by fixture',
   '103-陸上養殖の循環系統図': 'Land-based aquaculture: the water is cleaned, not replaced',
+  '321-下水処理の流れ': 'A sewage works does not destroy the dirt; it feeds it to microorganisms, settles them out and carts them somewhere else. One line in the drawing runs backwards — the returned sludge, because the microorganisms are the machine, so they are put back rather than thrown away, and only the surplus is drawn off into the sludge line. A combined sewer also spills untreated water in heavy rain.',
   '35-配水系統図': 'A town water distribution network from treatment works through service reservoirs and trunk mains to each supply zone, with the ground level of every zone',
   '44-人工衛星の系統図': 'The subsystems of a 150kg satellite and how they connect: power, communications, attitude control, data handling and the mission payload',
 
