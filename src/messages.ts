@@ -131,7 +131,7 @@ const ja = {
     usageMergeDriver: '使い方: merge-driver <base> <ours> <theirs>',
     usageDrawio: '使い方: pnpm drawio <図のファイル> [書き出し先]',
     usageMeasure: '使い方: pnpm measure <図のファイル> ...',
-    usageInspect: '使い方: pnpm inspect <図のファイル> ...',
+    usageInspect: '使い方: pnpm inspect <図のファイル> ... [--tally]（--tally はまとめて数え上げる）',
     usageSvg: '使い方: pnpm svg <図のファイル> [書き出し先] [--dark] [--vivid]',
     usageTimelapse:
       '使い方: pnpm timelapse <段のファイル…> [--out 置き場] [--hold 1 段の秒数]（2 段以上）',
@@ -241,6 +241,11 @@ const ja = {
      * **出るのが珍しいほう**（投影に耐える 26%）を知らせる形へ変えた。
      */
     inspectProject: '  **投影にも耐えます**（スライドに貼っても字が読めます）。',
+    tallyHead: (files: number, quiet: number) =>
+      `見本 ${files} 枚を数えました（何も出なかったのは ${quiet} 枚）。`,
+    tallyRow: (code: string, times: number, files: number, said: string) =>
+      `  ${code}　${times} 本 ／ ${files} 枚　${said}`,
+    tallyNone: '  どの検査も鳴っていません。',
     inspectNote:
       'これは合否ではなく**観測値**です。交差もまたぎも、中身がそうなら正しい —— 止めません。',
     /**
@@ -1046,7 +1051,7 @@ const en: Catalog = {
     usageMergeDriver: 'Usage: merge-driver <base> <ours> <theirs>',
     usageDrawio: 'Usage: pnpm drawio <diagram file> [output path]',
     usageMeasure: 'Usage: pnpm measure <diagram file> ...',
-    usageInspect: 'Usage: pnpm inspect <diagram file> ...',
+    usageInspect: 'Usage: pnpm inspect <diagram file> ... [--tally] (--tally counts them up instead)',
     usageSvg: 'Usage: pnpm svg <diagram file> [output path] [--dark] [--vivid]',
     usageTimelapse:
       'Usage: pnpm timelapse <step files…> [--out dir] [--hold seconds per step] (two or more steps)',
@@ -1089,6 +1094,11 @@ const en: Catalog = {
       `  paper ${width} × ${height}px / smallest text ${smallest}px / longest side ${longest}px / ratio ${ratio}`,
     inspectPrint: '  **Too small to read when printed on A3.**',
     inspectProject: '  **Large enough to project** (the text stays readable on a slide).',
+    tallyHead: (files: number, quiet: number) =>
+      `Counted ${files} drawings (${quiet} of them said nothing).`,
+    tallyRow: (code: string, times: number, files: number, said: string) =>
+      `  ${code}  ${times} finding(s) across ${files} drawing(s)  ${said}`,
+    tallyNone: '  No check is firing.',
     inspectNote:
       'These are **observations, not a verdict**. Crossings and straddles are right when the subject crosses — nothing is stopped here.',
     inspectUnreadable: (count: number) =>

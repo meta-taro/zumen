@@ -596,9 +596,67 @@ function titleOf(text: string): string | undefined {
  *
  * **止めない。数えて見せるだけ。**
  */
+/**
+ * **見本をまとめて見るときの数え上げ**（2026-09-21）。
+ *
+ * 1 枚ずつの観測値は 4 行あるので、325 枚に当てると **1300 行**出る ——
+ * 読めないので、結局その場で使い捨てのスクリプトを書くことになる
+ * （このリポジトリの作業で、**同じ形のループを 7 回**書いた）。
+ *
+ * 出すのは**どの検査が・何本・何枚で鳴っているか**と、その見本の名前だけ。
+ * 中身（どの節か・何 px か）は `validate` の仕事のまま。
+ */
+async function runTally(paths: string[], read: typeof readFileSync): Promise<RunResult> {
+  const m = messages().cli;
+  const count = new Map<string, number>();
+  const where = new Map<string, string[]>();
+  let quiet = 0;
+  let unreadable = 0;
+  for (const path of paths) {
+    let text: string;
+    try {
+      text = String(read(path, 'utf8'));
+    } catch (error) {
+      return { code: 1, lines: [m.fileUnreadable(path, error instanceof Error ? error.message : String(error))] };
+    }
+    const found = [...validate(text), ...(await placedFindings(text))];
+    if (found.some((one) => one.severity === 'error')) unreadable += 1;
+    const warnings = found.filter((one) => one.severity === 'warning');
+    if (warnings.length === 0) {
+      quiet += 1;
+      continue;
+    }
+    for (const one of warnings) {
+      count.set(one.code, (count.get(one.code) ?? 0) + 1);
+      const seen = where.get(one.code) ?? [];
+      if (!seen.includes(path)) seen.push(path);
+      where.set(one.code, seen);
+    }
+  }
+  const rows = [...count.entries()].sort((a, b) => b[1] - a[1]);
+  const lines = [m.tallyHead(paths.length, quiet)];
+  for (const [code, times] of rows) {
+    const files = where.get(code) ?? [];
+    lines.push(m.tallyRow(code, times, files.length, names(files.map(shortName), 6)));
+  }
+  if (rows.length === 0) lines.push(m.tallyNone);
+  if (unreadable > 0) lines.push(m.inspectUnreadable(unreadable));
+  return { code: 0, lines };
+}
+
+/** 数え上げでは、道のりではなく見本の名前だけを出す。 */
+function shortName(path: string): string {
+  return path.split('/').pop()?.replace(/\.zumen\.yaml$/, '') ?? path;
+}
+
 export async function runInspect(paths: string[], read = readFileSync): Promise<RunResult> {
   const m = messages().cli;
-  if (paths.length === 0) return { code: 2, lines: [m.usageInspect] };
+  const tally = paths.includes('--tally');
+  const files = paths.filter((path) => path !== '--tally');
+  if (files.length === 0) return { code: 2, lines: [m.usageInspect] };
+  // **たくさんの図をまとめて見るときは、1 枚ずつの観測値ではなく数え上げ。**
+  if (tally) return runTally(files, read);
+  paths = files;
 
   const lines: string[] = [];
   let gated = false;

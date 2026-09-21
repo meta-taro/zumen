@@ -588,6 +588,36 @@ describe('観測値を見せる（inspect）', () => {
     '',
   ].join('\n');
 
+  /**
+   * **たくさんの図は、1 枚ずつではなく数え上げる**（2026-09-21）。
+   *
+   * 1 枚 4 行の観測値を 325 枚に当てると 1300 行になり、読めない ——
+   * このリポジトリの作業では、結局その場で使い捨てのループを 7 回書いた。
+   */
+  it('**--tally は、検査ごとに何本・何枚かだけを出す**', async () => {
+    const thin = [
+      'version: 1',
+      'kind: placement',
+      'palette:',
+      '  薄: "#eeeeee"',
+      'nodes:',
+      '  - id: a',
+      '    label: "薄い色の箱"',
+      '    color: 薄',
+      '    at: { x: 0, y: 0 }',
+      '    size: { w: 100, h: 40 }',
+      '',
+    ].join('\n');
+    const files = { 'a.yaml': thin, 'b.yaml': thin, 'c.yaml': CROSS };
+    const result = await runInspect(['--tally', 'a.yaml', 'b.yaml', 'c.yaml'], reader(files) as never);
+    assert.equal(result.code, 0);
+    const said = result.lines.join('\n');
+    assert.match(said, /見本 3 枚を数えました/);
+    assert.match(said, /color-faint.*2 本 ／ 2 枚/, `検査ごとの数が出ていない\n${said}`);
+    // **1 枚ずつの観測値は出さない。** それが数え上げの目的。
+    assert.doesNotMatch(said, /紙 \d+ × \d+px/, `数え上げなのに 1 枚ずつの行が出ている\n${said}`);
+  });
+
   it('**交差を数えて、どれとどれかを言う**', async () => {
     const result = await runInspect(['a.yaml'], reader({ 'a.yaml': CROSS }) as never);
     assert.equal(result.code, 0, '止めない');

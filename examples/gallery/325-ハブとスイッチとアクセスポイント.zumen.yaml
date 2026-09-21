@@ -1,0 +1,576 @@
+version: 1
+kind: placement
+arrows: true
+title: ハブ・スイッチ・アクセスポイント（どこまで届くか）
+# **同じ 4 台をつないで、A が B 宛てに 1 つ送る。** 違いはそこに全部出る。
+#
+# ## リピータハブ —— 全部へ出す
+#
+# レイヤ 1（物理層）の装置で、**受けたポート以外の全ポートへそのまま出す。**
+# C も D も受け取ってから、自分宛てでないので捨てる。
+# **衝突ドメインは 1 つ**なので、同時に送れるのは 1 台だけ（半二重・CSMA/CD）。
+#
+# ## スイッチングハブ —— 1 つのポートだけへ出す
+#
+# レイヤ 2（データリンク層）の装置で、**MAC アドレスの表を持っている。**
+#
+# 表は最初から埋まっているわけではない。**送られてきたフレームの送り元を見て覚える。**
+# 宛先が分からないうちは全ポートへ出し（フラッディング）、
+# 相手が返事をした時点で相手のポートも分かる。
+#
+# **衝突ドメインがポートごとに切れる**ので、全二重にできる ——
+# 1 つの衝突ドメインに送信機と受信機が 1 つずつしかなければ、衝突は起こらない。
+#
+# ## アクセスポイント —— 媒体そのものを分けられない
+#
+# 電波は**共有の媒体**なので、届く範囲の全員に届く。
+# AP を足しても衝突ドメインは切れない。だから半二重で、**送る前に毎回待つ**（CSMA/CA）。
+#
+# **有線と無線で構えが逆になるのは、無線に信頼できる衝突検出の手段が無いから。**
+# 有線は「送りながら衝突を見つけて即やめる」、無線は「送る前に毎回待つ」。
+#
+# **隠れ端末** —— A から見える C と、A から見えない D が同時に送ると、
+# キャリアセンスが効かない。802.11 は RTS/CTS でこれを避ける。
+#
+# 結線の色は見本 324、ラックと 1U は見本 235、PoE は見本 236。
+nodes:
+  - id: head
+    label: "同じ 4 台をつないで、A が B 宛てに 1 つ送る。 どこまで届くかが、この 3 つの違い。"
+    marker: none
+    align: left
+    at: { x: 140, y: 150 }
+    size: { w: 900, h: 18 }
+  - id: ht
+    label: "① リピータハブ（レイヤ 1・物理層）"
+    marker: none
+    align: left
+    at: { x: 130, y: 186 }
+    size: { w: 380, h: 18 }
+  - id: hcd0
+    label: ""
+    line: dashed
+    hatch: dots
+    at: { x: 132, y: 216 }
+    size: { w: 330, h: 216 }
+  - id: hA
+    label: "A"
+    hatch: solid
+    at: { x: 140, y: 236 }
+    size: { w: 70, h: 44 }
+  - id: hB
+    label: "B"
+    at: { x: 222, y: 236 }
+    size: { w: 70, h: 44 }
+  - id: hC
+    label: "C"
+    at: { x: 304, y: 236 }
+    size: { w: 70, h: 44 }
+  - id: hD
+    label: "D"
+    at: { x: 386, y: 236 }
+    size: { w: 70, h: 44 }
+  - id: hd
+    label: "リピータハブ"
+    at: { x: 170, y: 372 }
+    size: { w: 280, h: 48 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 174, y: 279 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 174, y: 371 }
+    size: { w: 2, h: 2 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 256, y: 371 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 256, y: 279 }
+    size: { w: 2, h: 2 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 338, y: 371 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 338, y: 279 }
+    size: { w: 2, h: 2 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 420, y: 371 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 420, y: 279 }
+    size: { w: 2, h: 2 }
+  - id: hn1
+    label: "受けたポート以外の全部へ出す。"
+    marker: none
+    align: left
+    at: { x: 130, y: 432 }
+    size: { w: 380, h: 18 }
+  - id: hn2
+    label: "C と D も受け取ってから、自分宛てでないので捨てる。"
+    marker: none
+    align: left
+    at: { x: 130, y: 454 }
+    size: { w: 380, h: 18 }
+  - id: hn3
+    label: "衝突ドメインは 1 つ（破線の枠）。半二重。"
+    marker: none
+    align: left
+    at: { x: 130, y: 476 }
+    size: { w: 380, h: 18 }
+  - id: st
+    label: "② スイッチングハブ（レイヤ 2・データリンク層）"
+    marker: none
+    align: left
+    at: { x: 530, y: 186 }
+    size: { w: 380, h: 18 }
+  - id: scd0
+    label: ""
+    line: dashed
+    hatch: dots
+    at: { x: 538, y: 216 }
+    size: { w: 74, h: 150 }
+  - id: scd1
+    label: ""
+    line: dashed
+    hatch: dots
+    at: { x: 620, y: 216 }
+    size: { w: 74, h: 150 }
+  - id: scd2
+    label: ""
+    line: dashed
+    hatch: dots
+    at: { x: 702, y: 216 }
+    size: { w: 74, h: 150 }
+  - id: scd3
+    label: ""
+    line: dashed
+    hatch: dots
+    at: { x: 784, y: 216 }
+    size: { w: 74, h: 150 }
+  - id: sA
+    label: "A"
+    hatch: solid
+    at: { x: 540, y: 236 }
+    size: { w: 70, h: 44 }
+  - id: sB
+    label: "B"
+    at: { x: 622, y: 236 }
+    size: { w: 70, h: 44 }
+  - id: sC
+    label: "C"
+    at: { x: 704, y: 236 }
+    size: { w: 70, h: 44 }
+  - id: sD
+    label: "D"
+    at: { x: 786, y: 236 }
+    size: { w: 70, h: 44 }
+  - id: sd
+    label: "スイッチングハブ"
+    at: { x: 570, y: 372 }
+    size: { w: 280, h: 48 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 574, y: 279 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 574, y: 371 }
+    size: { w: 2, h: 2 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 656, y: 371 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 656, y: 279 }
+    size: { w: 2, h: 2 }
+  - id: sn1
+    label: "表を見て、B のいるポートだけへ出す。"
+    marker: none
+    align: left
+    at: { x: 530, y: 432 }
+    size: { w: 380, h: 18 }
+  - id: sn2
+    label: "C と D には流れない。"
+    marker: none
+    align: left
+    at: { x: 530, y: 454 }
+    size: { w: 380, h: 18 }
+  - id: sn3
+    label: "衝突ドメインはポートごとに 4 つ。全二重にできる。"
+    marker: none
+    align: left
+    at: { x: 530, y: 476 }
+    size: { w: 380, h: 18 }
+  - id: wt
+    label: "③ 無線 LAN アクセスポイント"
+    marker: none
+    align: left
+    at: { x: 930, y: 186 }
+    size: { w: 380, h: 18 }
+  - id: wcd0
+    label: ""
+    line: dashed
+    hatch: dots
+    at: { x: 932, y: 216 }
+    size: { w: 330, h: 216 }
+  - id: wA
+    label: "A"
+    hatch: solid
+    at: { x: 940, y: 236 }
+    size: { w: 70, h: 44 }
+  - id: wB
+    label: "B"
+    at: { x: 1022, y: 236 }
+    size: { w: 70, h: 44 }
+  - id: wC
+    label: "C"
+    at: { x: 1104, y: 236 }
+    size: { w: 70, h: 44 }
+  - id: wD
+    label: "D"
+    at: { x: 1186, y: 236 }
+    size: { w: 70, h: 44 }
+  - id: wd
+    label: "アクセスポイント（AP）"
+    at: { x: 970, y: 372 }
+    size: { w: 280, h: 48 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 974, y: 279 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 974, y: 371 }
+    size: { w: 2, h: 2 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 1056, y: 371 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 1056, y: 279 }
+    size: { w: 2, h: 2 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 1138, y: 371 }
+    size: { w: 2, h: 2 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 1138, y: 279 }
+    size: { w: 2, h: 2 }
+  - id: p18
+    label: ""
+    marker: none
+    at: { x: 1220, y: 371 }
+    size: { w: 2, h: 2 }
+  - id: p19
+    label: ""
+    marker: none
+    at: { x: 1220, y: 279 }
+    size: { w: 2, h: 2 }
+  - id: wn1
+    label: "電波は共有の媒体なので、届く範囲の全員に届く。"
+    marker: none
+    align: left
+    at: { x: 930, y: 432 }
+    size: { w: 380, h: 18 }
+  - id: wn2
+    label: "AP を足しても、媒体そのものは分けられない。"
+    marker: none
+    align: left
+    at: { x: 930, y: 454 }
+    size: { w: 380, h: 18 }
+  - id: wn3
+    label: "衝突ドメインは 1 つ。半二重で、送る前に毎回待つ。"
+    marker: none
+    align: left
+    at: { x: 930, y: 476 }
+    size: { w: 380, h: 18 }
+  - id: r1
+    label: "・破線の枠が衝突ドメイン。 スイッチだけが、ここをポートごとに切っている。"
+    marker: none
+    align: left
+    at: { x: 140, y: 510 }
+    size: { w: 1280, h: 18 }
+  - id: r2
+    label: "　切れているから全二重にできる —— 1 つの衝突ドメインに送信機と受信機が 1 つずつしかないので、衝突が起きない。"
+    marker: none
+    align: left
+    at: { x: 140, y: 534 }
+    size: { w: 1280, h: 18 }
+  - id: r3
+    label: "・無線は媒体そのものを分けられないので、AP を足しても衝突ドメインは切れない。"
+    marker: none
+    align: left
+    at: { x: 140, y: 558 }
+    size: { w: 1280, h: 18 }
+  - id: h140_600
+    label: "スイッチが表を覚えるまで"
+    hatch: solid
+    at: { x: 140, y: 600 }
+    size: { w: 620, h: 24 }
+  - id: x140_624
+    label: "① 表が空のとき"
+    at: { x: 140, y: 624 }
+    size: { w: 190, h: 24 }
+  - id: y140_624
+    label: "B がどこにいるか分からない"
+    align: left
+    at: { x: 330, y: 624 }
+    size: { w: 430, h: 24 }
+  - id: x140_648
+    label: ""
+    at: { x: 140, y: 648 }
+    size: { w: 190, h: 24 }
+  - id: y140_648
+    label: "受けたポート以外の全部へ出す（フラッディング）"
+    align: left
+    at: { x: 330, y: 648 }
+    size: { w: 430, h: 24 }
+  - id: x140_672
+    label: "② 同時に覚える"
+    at: { x: 140, y: 672 }
+    size: { w: 190, h: 24 }
+  - id: y140_672
+    label: "送り元 A は 1 番ポートの先にいる、と表に書く"
+    align: left
+    at: { x: 330, y: 672 }
+    size: { w: 430, h: 24 }
+  - id: x140_696
+    label: "③ B が返事をすると"
+    at: { x: 140, y: 696 }
+    size: { w: 190, h: 24 }
+  - id: y140_696
+    label: "B は 2 番ポートの先、と分かる"
+    align: left
+    at: { x: 330, y: 696 }
+    size: { w: 430, h: 24 }
+  - id: x140_720
+    label: "④ 以後"
+    at: { x: 140, y: 720 }
+    size: { w: 190, h: 24 }
+  - id: y140_720
+    label: "A ↔ B は 1 番と 2 番だけ。C と D には流れない"
+    align: left
+    at: { x: 330, y: 720 }
+    size: { w: 430, h: 24 }
+  - id: h140_762
+    label: "送り出し方の 3 つ"
+    hatch: solid
+    at: { x: 140, y: 762 }
+    size: { w: 620, h: 24 }
+  - id: x140_786
+    label: "ストア&フォワード"
+    at: { x: 140, y: 786 }
+    size: { w: 190, h: 24 }
+  - id: y140_786
+    label: "フレーム全体を取り込んでから送る。壊れたものを捨てられる"
+    align: left
+    at: { x: 330, y: 786 }
+    size: { w: 430, h: 24 }
+  - id: x140_810
+    label: "カットスルー"
+    at: { x: 140, y: 810 }
+    size: { w: 190, h: 24 }
+  - id: y140_810
+    label: "宛先 MAC だけ読んで送り出す。いちばん速い"
+    align: left
+    at: { x: 330, y: 810 }
+    size: { w: 430, h: 24 }
+  - id: x140_834
+    label: "フラグメントフリー"
+    at: { x: 140, y: 834 }
+    size: { w: 190, h: 24 }
+  - id: y140_834
+    label: "CRC を見てから送る"
+    align: left
+    at: { x: 330, y: 834 }
+    size: { w: 430, h: 24 }
+  - id: h780_600
+    label: "有線と無線で、衝突への構えが違う"
+    hatch: solid
+    at: { x: 780, y: 600 }
+    size: { w: 640, h: 24 }
+  - id: x780_624
+    label: "CSMA/CD（有線）"
+    at: { x: 780, y: 624 }
+    size: { w: 200, h: 24 }
+  - id: y780_624
+    label: "送りながら衝突を見つけ、見つけたら即やめて待つ"
+    align: left
+    at: { x: 980, y: 624 }
+    size: { w: 440, h: 24 }
+  - id: x780_648
+    label: "CSMA/CA（無線）"
+    at: { x: 780, y: 648 }
+    size: { w: 200, h: 24 }
+  - id: y780_648
+    label: "送る前に、毎回ランダムな長さだけ待つ"
+    align: left
+    at: { x: 980, y: 648 }
+    size: { w: 440, h: 24 }
+  - id: x780_672
+    label: "なぜ違うのか"
+    at: { x: 780, y: 672 }
+    size: { w: 200, h: 24 }
+  - id: y780_672
+    label: "無線には、信頼できる衝突検出の手段が無い"
+    align: left
+    at: { x: 980, y: 672 }
+    size: { w: 440, h: 24 }
+  - id: x780_696
+    label: "衝突したら"
+    at: { x: 780, y: 696 }
+    size: { w: 200, h: 24 }
+  - id: y780_696
+    label: "コンテンションウィンドウ（待ち時間の幅）を段階的に広げる"
+    align: left
+    at: { x: 980, y: 696 }
+    size: { w: 440, h: 24 }
+  - id: x780_720
+    label: "隠れ端末"
+    at: { x: 780, y: 720 }
+    size: { w: 200, h: 24 }
+  - id: y780_720
+    label: "距離的に互いを検知できない端末どうしが衝突する"
+    align: left
+    at: { x: 980, y: 720 }
+    size: { w: 440, h: 24 }
+  - id: x780_744
+    label: "その対策"
+    at: { x: 780, y: 744 }
+    size: { w: 200, h: 24 }
+  - id: y780_744
+    label: "RTS/CTS"
+    align: left
+    at: { x: 980, y: 744 }
+    size: { w: 440, h: 24 }
+  - id: h780_786
+    label: "無線の規格（公称の最大速度）"
+    hatch: solid
+    at: { x: 780, y: 786 }
+    size: { w: 640, h: 24 }
+  - id: x780_810
+    label: "802.11b"
+    at: { x: 780, y: 810 }
+    size: { w: 200, h: 24 }
+  - id: y780_810
+    label: "2.4GHz ／ 11Mbps ／ 22MHz 幅"
+    align: left
+    at: { x: 980, y: 810 }
+    size: { w: 440, h: 24 }
+  - id: x780_834
+    label: "802.11a"
+    at: { x: 780, y: 834 }
+    size: { w: 200, h: 24 }
+  - id: y780_834
+    label: "5GHz ／ 54Mbps ／ 20MHz 幅"
+    align: left
+    at: { x: 980, y: 834 }
+    size: { w: 440, h: 24 }
+  - id: x780_858
+    label: "802.11g"
+    at: { x: 780, y: 858 }
+    size: { w: 200, h: 24 }
+  - id: y780_858
+    label: "2.4GHz ／ 54Mbps ／ 20MHz 幅"
+    align: left
+    at: { x: 980, y: 858 }
+    size: { w: 440, h: 24 }
+  - id: x780_882
+    label: "802.11n"
+    at: { x: 780, y: 882 }
+    size: { w: 200, h: 24 }
+  - id: y780_882
+    label: "2.4・5GHz ／ 65〜600Mbps ／ 20・40MHz 幅"
+    align: left
+    at: { x: 980, y: 882 }
+    size: { w: 440, h: 24 }
+  - id: x780_906
+    label: "802.11ac"
+    at: { x: 780, y: 906 }
+    size: { w: 200, h: 24 }
+  - id: y780_906
+    label: "5GHz ／ 292.5Mbps〜6.93Gbps ／ 80・160MHz 幅"
+    align: left
+    at: { x: 980, y: 906 }
+    size: { w: 440, h: 24 }
+  - id: x780_930
+    label: "802.11ax"
+    at: { x: 780, y: 930 }
+    size: { w: 200, h: 24 }
+  - id: y780_930
+    label: "2.4・5・6GHz ／ 9.6Gbps ／ 20〜160MHz 幅"
+    align: left
+    at: { x: 980, y: 930 }
+    size: { w: 440, h: 24 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p2
+    to: p3
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p4
+    to: p5
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p6
+    to: p7
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p8
+    to: p9
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p10
+    to: p11
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p12
+    to: p13
+    curve: none
+    line: dashed
+    ends: { from: none, to: arrow }
+  - from: p14
+    to: p15
+    curve: none
+    line: dashed
+    ends: { from: none, to: arrow }
+  - from: p16
+    to: p17
+    curve: none
+    line: dashed
+    ends: { from: none, to: arrow }
+  - from: p18
+    to: p19
+    curve: none
+    line: dashed
+    ends: { from: none, to: arrow }
