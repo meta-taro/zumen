@@ -1,0 +1,320 @@
+version: 1
+kind: placement
+arrows: true
+title: 折り図（線の形が、そのまま指示）
+# **折り図には言葉がほとんど書いていない。線の形が指示そのものだから。**
+#
+# ## 同じ場所の線でも、結果が逆になる
+#
+# **谷折り線は破線（― ― ― ― ―）、山折り線は一点鎖線（― ・ ― ・ ―）。**
+# 紙の同じ位置に引いても、**破線なら手前から向こうへ、一点鎖線なら向こうから手前へ**折る。
+# 折ったあと端から見ると、**谷は V、山は Λ**になる。
+#
+# **切る線は ✂ の印。**
+#
+# ## だから言葉が要らない
+#
+# この記号体系は **1940〜50 年代に吉澤章が発展させ、
+# その後サミュエル・ランドレットらが補完した**（吉澤・ランドレット系）。
+# **線の形だけで、どちらへ折るかが世界中に通じる。**
+#
+# ## 基本形
+#
+# 折り紙には、**途中で止めた形に名前がついている**ものがある ——
+# **鶴の基本形**（折り鶴を作る途中。**4 つのとがった「カド」**を持つ）、
+# **あやめの基本形**、**さかなの基本形**、**とびらの基本形。**
+#
+# **完成形ではなく、途中の形に名前がある** —— そこから何種類にも分かれるから。
+#
+# 一点鎖線は zumen の `line: chain`（中心線・対称軸と同じ線種）。
+# 型紙の側は見本 176・177・179、面付けは見本 190。
+nodes:
+  - id: t1
+    label: "① 同じ場所の線でも、線種で結果が逆になる"
+    marker: none
+    align: left
+    at: { x: 140, y: 170 }
+    size: { w: 700, h: 18 }
+  - id: t1b
+    label: "　矢印は折る向き。 どちらも「右半分を左へ」だが、折れる方向が違う。"
+    marker: none
+    align: left
+    at: { x: 140, y: 192 }
+    size: { w: 700, h: 18 }
+  - id: vp
+    label: ""
+    at: { x: 260, y: 280 }
+    size: { w: 200, h: 200 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 359, y: 285 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 359, y: 473 }
+    size: { w: 2, h: 2 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 435, y: 319 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 283, y: 319 }
+    size: { w: 2, h: 2 }
+  - id: vn
+    label: "破線 ＝ 谷折り線"
+    marker: none
+    align: center
+    at: { x: 220, y: 492 }
+    size: { w: 280, h: 18 }
+  - id: vh
+    label: "手前から向こうへ折る"
+    marker: none
+    align: center
+    at: { x: 220, y: 514 }
+    size: { w: 280, h: 18 }
+  - id: mp
+    label: ""
+    at: { x: 620, y: 280 }
+    size: { w: 200, h: 200 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 719, y: 285 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 719, y: 473 }
+    size: { w: 2, h: 2 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 795, y: 319 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 643, y: 319 }
+    size: { w: 2, h: 2 }
+  - id: mn
+    label: "一点鎖線 ＝ 山折り線"
+    marker: none
+    align: center
+    at: { x: 580, y: 492 }
+    size: { w: 280, h: 18 }
+  - id: mh
+    label: "向こうから手前へ折る"
+    marker: none
+    align: center
+    at: { x: 580, y: 514 }
+    size: { w: 280, h: 18 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 289, y: 569 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 429, y: 569 }
+    size: { w: 2, h: 2 }
+  - id: ve
+    label: "谷（へこむ）"
+    marker: none
+    align: center
+    at: { x: 260, y: 616 }
+    size: { w: 200, h: 18 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 649, y: 603 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 789, y: 603 }
+    size: { w: 2, h: 2 }
+  - id: me
+    label: "山（出っぱる）"
+    marker: none
+    align: center
+    at: { x: 620, y: 616 }
+    size: { w: 200, h: 18 }
+  - id: side
+    label: "↓ 折ったあと、端から見ると"
+    marker: none
+    align: left
+    at: { x: 140, y: 570 }
+    size: { w: 200, h: 18 }
+  - id: t2
+    label: "② 線種が記法そのもの"
+    marker: none
+    align: left
+    at: { x: 940, y: 170 }
+    size: { w: 460, h: 18 }
+  - id: g1
+    label: "・谷折り線 …… 破線（― ― ― ― ―）"
+    marker: none
+    align: left
+    at: { x: 940, y: 202 }
+    size: { w: 460, h: 18 }
+  - id: g2
+    label: "・山折り線 …… 一点鎖線（― ・ ― ・ ―）"
+    marker: none
+    align: left
+    at: { x: 940, y: 226 }
+    size: { w: 460, h: 18 }
+  - id: g3
+    label: "・切る線 …… ✂ の印"
+    marker: none
+    align: left
+    at: { x: 940, y: 250 }
+    size: { w: 460, h: 18 }
+  - id: g5
+    label: "・この記号体系は 1940〜50 年代に吉澤章が発展させ、"
+    marker: none
+    align: left
+    at: { x: 940, y: 298 }
+    size: { w: 460, h: 18 }
+  - id: g6
+    label: "　その後サミュエル・ランドレットらが補完した。"
+    marker: none
+    align: left
+    at: { x: 940, y: 322 }
+    size: { w: 460, h: 18 }
+  - id: g7
+    label: "・だから言葉が要らない —— 線の形だけで、"
+    marker: none
+    align: left
+    at: { x: 940, y: 346 }
+    size: { w: 460, h: 18 }
+  - id: g8
+    label: "　どちらへ折るかが世界中に通じる。"
+    marker: none
+    align: left
+    at: { x: 940, y: 370 }
+    size: { w: 460, h: 18 }
+  - id: h140_700
+    label: "折り図の線"
+    hatch: solid
+    at: { x: 140, y: 700 }
+    size: { w: 620, h: 24 }
+  - id: x140_724
+    label: "谷折り線"
+    at: { x: 140, y: 724 }
+    size: { w: 220, h: 24 }
+  - id: y140_724
+    label: "破線。手前から向こうへ折る"
+    align: left
+    at: { x: 360, y: 724 }
+    size: { w: 400, h: 24 }
+  - id: x140_748
+    label: "山折り線"
+    at: { x: 140, y: 748 }
+    size: { w: 220, h: 24 }
+  - id: y140_748
+    label: "一点鎖線。向こうから手前へ折る"
+    align: left
+    at: { x: 360, y: 748 }
+    size: { w: 400, h: 24 }
+  - id: x140_772
+    label: "切る線"
+    at: { x: 140, y: 772 }
+    size: { w: 220, h: 24 }
+  - id: y140_772
+    label: "✂ の印"
+    align: left
+    at: { x: 360, y: 772 }
+    size: { w: 400, h: 24 }
+  - id: x140_796
+    label: "記号体系"
+    at: { x: 140, y: 796 }
+    size: { w: 220, h: 24 }
+  - id: y140_796
+    label: "吉澤章（1940〜50 年代）とランドレットら"
+    align: left
+    at: { x: 360, y: 796 }
+    size: { w: 400, h: 24 }
+  - id: h880_700
+    label: "基本形（途中で止めた形に名前がある）"
+    hatch: solid
+    at: { x: 880, y: 700 }
+    size: { w: 540, h: 24 }
+  - id: x880_724
+    label: "鶴の基本形"
+    at: { x: 880, y: 724 }
+    size: { w: 220, h: 24 }
+  - id: y880_724
+    label: "折り鶴を作る途中。4 つのとがった「カド」を持つ"
+    align: left
+    at: { x: 1100, y: 724 }
+    size: { w: 320, h: 24 }
+  - id: x880_748
+    label: "あやめの基本形"
+    at: { x: 880, y: 748 }
+    size: { w: 220, h: 24 }
+  - id: y880_748
+    label: "あやめを作る途中"
+    align: left
+    at: { x: 1100, y: 748 }
+    size: { w: 320, h: 24 }
+  - id: x880_772
+    label: "さかなの基本形"
+    at: { x: 880, y: 772 }
+    size: { w: 220, h: 24 }
+  - id: y880_772
+    label: "さかなを作る途中"
+    align: left
+    at: { x: 1100, y: 772 }
+    size: { w: 320, h: 24 }
+  - id: x880_796
+    label: "とびらの基本形"
+    at: { x: 880, y: 796 }
+    size: { w: 220, h: 24 }
+  - id: y880_796
+    label: "同上"
+    align: left
+    at: { x: 1100, y: 796 }
+    size: { w: 320, h: 24 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p2
+    to: p3
+    curve: none
+    ends: { from: none, to: arrow }
+    via:
+      - { x: 360, y: 298 }
+  - from: p4
+    to: p5
+    curve: none
+    line: chain
+    ends: { from: none, to: none }
+  - from: p6
+    to: p7
+    curve: none
+    ends: { from: none, to: arrow }
+    via:
+      - { x: 720, y: 298 }
+  - from: p8
+    to: p9
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 360, y: 604 }
+  - from: p10
+    to: p11
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 720, y: 570 }
