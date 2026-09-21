@@ -215,6 +215,43 @@ describe('目次は、正本と同じものを写している', () => {
  * `版は確かめていない` と書く（見本 97・195・239 がそうしている）。
  * ここが見るのは**揃っているか**だけで、版が正しいかは見ない。
  */
+/**
+ * **同じ題材の見本どうしは、互いを知っていること**（2026-09-22。84 周目）。
+ *
+ * 測ったら、**名前が同じ見本が 2 組**（ギターのフレット位置、オーケストラの配置）、
+ * **片方が片方を丸ごと含むものが 3 組**あり、**8 方向すべてに参照が無かった。**
+ * 読む人には「同じものが 2 枚あるのか、違うものなのか」が分からない。
+ *
+ * **消さない**（オーナーの指示）。代わりに**互いを指させる** ——
+ * どちらが何を扱うかを、図の説明に書く。
+ */
+describe('同じ題材の見本', () => {
+  it('**名前が同じ／含む見本どうしは、互いを参照している**', () => {
+    const files = readdirSync(dir).filter((f) => f.endsWith('.zumen.yaml'));
+    const items = files.map((file) => {
+      const name = file.replace('.zumen.yaml', '');
+      return {
+        file,
+        name,
+        number: name.split('-')[0]!,
+        word: name.replace(/^[0-9]+-/, '').replace(/図$/, ''),
+        text: readFileSync(new URL(file, dir), 'utf8'),
+      };
+    });
+    const lonely: string[] = [];
+    for (const a of items) {
+      for (const b of items) {
+        if (a.file === b.file) continue;
+        const same = a.word === b.word;
+        const inside = a.word.length >= 4 && b.word.length > a.word.length && b.word.includes(a.word);
+        if (!same && !inside) continue;
+        if (!a.text.includes(`見本 ${b.number}`)) lonely.push(`${a.name} が 見本 ${b.number} を指していない`);
+      }
+    }
+    assert.deepEqual(lonely, [], '同じ題材なのに、互いを指していない見本');
+  });
+});
+
 describe('規格番号の書き方', () => {
   const STANDARD = /(JIS|ISO|IEC|IEEE|ANSI|EN|JAS)\s+([A-Z]{0,2}\s?[0-9]{3,5})(:[0-9]{4})?/g;
 
