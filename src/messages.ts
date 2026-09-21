@@ -791,6 +791,10 @@ const ja = {
       'ただし、この符号は図に文字で出ています —— **色が読めなくても区別はつきます。**線の太さだけ確かめてください。',
     colorFaintPlain:
       '実物の色で変えられないなら（路線図の路線色など）、線を太くするか、**色以外の見分け（符号・線種）を必ず添えて**ください。',
+    /** **逃げ道を書いたなら、満たしたかどうかも見る**（2026-09-21）。太さは道具が数えられる。 */
+    colorFaintThick: ' その色を使っている辺は、いちばん細いところで `weight: thick` です —— **太さのほうは足りています。**',
+    colorFaintThin: ' その色を使っている辺は、いちばん細いところが `weight: normal` 以下です —— **太さでは補えていません。**',
+    colorFaintNodes: ' その色は**辺ではなく節の枠**に付いています —— 節に `weight` は無いので、太さでは補えません。印（marker）か符号（tag）で分けてください。',
     colorFaint: (key: string, value: string, light: number, dark: number, advice: string) =>
       `palette の "${key}"（${value}）が薄すぎます。地に沈んで線が消えます。**白地で ${light}:1 ／ 暗い地で ${dark}:1**（非文字の下限は 3:1）—— **${light < 3 && dark < 3 ? 'どちらの地でも' : light < 3 ? '白地だけ' : '暗い地だけ'}**足りません。${advice}`,
     labelMarkdown: (id: string) =>
@@ -1527,6 +1531,9 @@ const en: Catalog = {
       'The code does appear as text in the drawing, so the distinction survives without colour; just check the line weight.',
     colorFaintPlain:
       'If the colour is fixed by the subject (a transit line, say), thicken the line or add a non-colour distinction.',
+    colorFaintThick: ' The thinnest edge drawn in it is `weight: thick`, so **the weight side is already covered.**',
+    colorFaintThin: ' The thinnest edge drawn in it is `weight: normal` or below, so **weight is not making up for it.**',
+    colorFaintNodes: ' The colour is on **node outlines, not edges** — nodes have no `weight`, so thickness cannot make up for it. Separate them by `marker` or `tag` instead.',
     colorFaint: (key: string, value: string, light: number, dark: number, advice: string) =>
       `palette entry "${key}" (${value}) is too faint: the line sinks into the ground — ${light}:1 on the light ground, ${dark}:1 on the dark one (3:1 is the floor for non-text). ${advice}`,
     labelMarkdown: (id: string) =>

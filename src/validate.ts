@@ -23,7 +23,7 @@ import { LINES } from './line.ts';
 import { CURVES, viaOf } from './curve.ts';
 import { VERTICALS, floorsOf } from './floor.ts';
 import { achromatic, faintOn, faintWhere, paletteOf as routePalette } from './palette.ts';
-import { WEIGHTS } from './weight.ts';
+import { WEIGHTS, weightOf, type Weight } from './weight.ts';
 import { HATCHES } from './hatch.ts';
 import { SYMBOLS } from './symbol.ts';
 import { MARKERS } from './marker.ts';
@@ -921,9 +921,28 @@ function checkColors(doc: Document, add: Add, m: Messages, at: At): void {
    * 販売図面の淡い色分けが、全部この警告で埋まる。
    */
   const onLines = new Set<string>();
-  for (const item of [...seqOf(doc, 'nodes'), ...seqOf(doc, 'edges')]) {
+  /**
+   * **いちばん細いところの太さ**（2026-09-21）。
+   *
+   * 逃げ道に「線の太さだけ確かめてください」と書いておきながら、
+   * **確かめたかどうかを道具が見ていなかった**（課題 19・`structure-too-thin` に続いて 3 度目）。
+   * その色を使っている辺のうち、**いちばん細いもの**を覚えておいて、文に入れる。
+   */
+  const thinnest = new Map<string, Weight>();
+  const thinner = (a: Weight, b: Weight): Weight =>
+    WEIGHTS.indexOf(a) <= WEIGHTS.indexOf(b) ? a : b;
+  for (const item of seqOf(doc, 'nodes')) {
     const key = item.get('color');
     if (key !== undefined && key !== null) onLines.add(String(key));
+  }
+  // **太さの話は辺にしか効かない。** 節の枠に `weight` は無い。
+  for (const item of seqOf(doc, 'edges')) {
+    const key = item.get('color');
+    if (key === undefined || key === null) continue;
+    onLines.add(String(key));
+    const weight = weightOf(item.get('weight'));
+    const known = thinnest.get(String(key));
+    thinnest.set(String(key), known === undefined ? weight : thinner(known, weight));
   }
   const tints = new Set<string>();
   for (const item of seqOf(doc, 'nodes')) {
@@ -957,7 +976,19 @@ function checkColors(doc: Document, add: Add, m: Messages, at: At): void {
     if (faintOn(value)) {
       const where = faintWhere(value);
       const advice = allText.includes(key) ? m.colorFaintCoded : m.colorFaintPlain;
-      add('warning', 'color-faint', m.colorFaint(key, value, where.light, where.dark, advice), at(raw));
+      const weight = thinnest.get(key);
+      const room =
+        weight === undefined
+          ? m.colorFaintNodes
+          : weight === 'thick'
+            ? m.colorFaintThick
+            : m.colorFaintThin;
+      add(
+        'warning',
+        'color-faint',
+        m.colorFaint(key, value, where.light, where.dark, `${advice}${room}`),
+        at(raw),
+      );
     }
   }
 

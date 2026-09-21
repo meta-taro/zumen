@@ -1,0 +1,499 @@
+version: 1
+kind: placement
+arrows: true
+palette:
+  緑: "#0f7a3d"
+  橙: "#b06000"
+  青: "#3a7fd0"
+  茶: "#8a6a58"
+title: LAN ケーブルの結線（T568A と B の違いは、橙と緑だけ）
+# **2 つの規格があるのに、違うのは 4 本だけ。** 4・5・7・8 番は完全に同じ。
+#
+# ## T568A
+#
+# 1 白/緑・2 緑・3 白/橙・4 青・5 白/青・6 橙・7 白/茶・8 茶。
+#
+# ## T568B
+#
+# 1 白/橙・2 橙・3 白/緑・4 青・5 白/青・6 緑・7 白/茶・8 茶。
+#
+# **ペア 2（橙）とペア 3（緑）を入れ替えただけ。**
+#
+# ## ペア 3 が、となり合っていない
+#
+# ペアは 1（4・5 番）・2（1・2 番）・3（**3 番と 6 番**）・4（7・8 番）。
+# **ペア 3 だけが、間にペア 1 をはさんで離れている。**
+# 真ん中の 2 本（4・5）を電話に使っていたころの並びが、そのまま残っている。
+#
+# ## 両端が同じならストレート
+#
+# 両端とも同じ規格で結べば**ストレート**、片方だけ変えると**クロス**。
+# いまは Auto MDI-X が入っているので、クロスケーブルはほとんど要らない。
+#
+# ## なぜ撚るのか
+#
+# **撚ると、ノイズ源に近い線が入れ替わる。**
+# 両方の線が同じだけノイズを受けるので、差動で打ち消し合う。
+# **対ごとに撚りの細かさを変えてある**のは、同じ撚り率だと
+# 別の対の同じ線が繰り返しとなり合ってしまい、差動の利点を失うから。
+#
+# ## 4 本だけ繋がっていれば動く、は 1Gbps では通らない
+#
+# **1000BASE-T は 4 対すべてを使う。** 10BASE-T・100BASE-TX が 2 対しか
+# 使っていなかったので、その時代の常識が残っている。
+#
+# ラックと 1U は見本 235、PoE の給電クラスは見本 236。
+#
+# 色は palette で持たせ、**ピン番号と色の名前を図の中に文字でも出している** ——
+# 色だけに頼ると、白黒と色覚特性で読めなくなる。
+# **規格が決めているのは色の名前（橙・緑・青・茶）であって、hex ではない**ので、
+# ここの値は地の上で読める濃さに寄せてある。
+nodes:
+  - id: t1
+    label: "① T568A と T568B —— 違うのは橙と緑を入れ替えただけ。4・5・7・8 は同じ"
+    marker: none
+    align: left
+    at: { x: 200, y: 150 }
+    size: { w: 900, h: 18 }
+  - id: pn
+    label: "ピン"
+    marker: none
+    align: right
+    at: { x: 100, y: 192 }
+    size: { w: 90, h: 18 }
+  - id: p0n
+    label: "1"
+    marker: none
+    align: center
+    at: { x: 200, y: 192 }
+    size: { w: 118, h: 18 }
+  - id: p1n
+    label: "2"
+    marker: none
+    align: center
+    at: { x: 324, y: 192 }
+    size: { w: 118, h: 18 }
+  - id: p2n
+    label: "3"
+    marker: none
+    align: center
+    at: { x: 448, y: 192 }
+    size: { w: 118, h: 18 }
+  - id: p3n
+    label: "4"
+    marker: none
+    align: center
+    at: { x: 572, y: 192 }
+    size: { w: 118, h: 18 }
+  - id: p4n
+    label: "5"
+    marker: none
+    align: center
+    at: { x: 696, y: 192 }
+    size: { w: 118, h: 18 }
+  - id: p5n
+    label: "6"
+    marker: none
+    align: center
+    at: { x: 820, y: 192 }
+    size: { w: 118, h: 18 }
+  - id: p6n
+    label: "7"
+    marker: none
+    align: center
+    at: { x: 944, y: 192 }
+    size: { w: 118, h: 18 }
+  - id: p7n
+    label: "8"
+    marker: none
+    align: center
+    at: { x: 1068, y: 192 }
+    size: { w: 118, h: 18 }
+  - id: an
+    label: "T568A"
+    marker: none
+    align: right
+    at: { x: 60, y: 224 }
+    size: { w: 130, h: 18 }
+  - id: a0
+    label: "白/緑"
+    color: 緑
+    hatch: lines
+    at: { x: 200, y: 214 }
+    size: { w: 118, h: 42 }
+  - id: a1
+    label: "緑"
+    fill: 緑
+    at: { x: 324, y: 214 }
+    size: { w: 118, h: 42 }
+  - id: a2
+    label: "白/橙"
+    color: 橙
+    hatch: lines
+    at: { x: 448, y: 214 }
+    size: { w: 118, h: 42 }
+  - id: a3
+    label: "青"
+    fill: 青
+    at: { x: 572, y: 214 }
+    size: { w: 118, h: 42 }
+  - id: a4
+    label: "白/青"
+    color: 青
+    hatch: lines
+    at: { x: 696, y: 214 }
+    size: { w: 118, h: 42 }
+  - id: a5
+    label: "橙"
+    fill: 橙
+    at: { x: 820, y: 214 }
+    size: { w: 118, h: 42 }
+  - id: a6
+    label: "白/茶"
+    color: 茶
+    hatch: lines
+    at: { x: 944, y: 214 }
+    size: { w: 118, h: 42 }
+  - id: a7
+    label: "茶"
+    fill: 茶
+    at: { x: 1068, y: 214 }
+    size: { w: 118, h: 42 }
+  - id: bn
+    label: "T568B"
+    marker: none
+    align: right
+    at: { x: 60, y: 280 }
+    size: { w: 130, h: 18 }
+  - id: b0
+    label: "白/橙"
+    color: 橙
+    hatch: lines
+    at: { x: 200, y: 270 }
+    size: { w: 118, h: 42 }
+  - id: b1
+    label: "橙"
+    fill: 橙
+    at: { x: 324, y: 270 }
+    size: { w: 118, h: 42 }
+  - id: b2
+    label: "白/緑"
+    color: 緑
+    hatch: lines
+    at: { x: 448, y: 270 }
+    size: { w: 118, h: 42 }
+  - id: b3
+    label: "青"
+    fill: 青
+    at: { x: 572, y: 270 }
+    size: { w: 118, h: 42 }
+  - id: b4
+    label: "白/青"
+    color: 青
+    hatch: lines
+    at: { x: 696, y: 270 }
+    size: { w: 118, h: 42 }
+  - id: b5
+    label: "緑"
+    fill: 緑
+    at: { x: 820, y: 270 }
+    size: { w: 118, h: 42 }
+  - id: b6
+    label: "白/茶"
+    color: 茶
+    hatch: lines
+    at: { x: 944, y: 270 }
+    size: { w: 118, h: 42 }
+  - id: b7
+    label: "茶"
+    fill: 茶
+    at: { x: 1068, y: 270 }
+    size: { w: 118, h: 42 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 258, y: 255 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 258, y: 269 }
+    size: { w: 2, h: 2 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 382, y: 255 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 382, y: 269 }
+    size: { w: 2, h: 2 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 506, y: 255 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 506, y: 269 }
+    size: { w: 2, h: 2 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 878, y: 255 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 878, y: 269 }
+    size: { w: 2, h: 2 }
+  - id: sw
+    label: "↑ この 4 本だけが入れ替わる（ペア 2 とペア 3）"
+    marker: none
+    align: left
+    at: { x: 200, y: 324 }
+    size: { w: 560, h: 18 }
+  - id: pr
+    label: "ペア"
+    marker: none
+    align: right
+    at: { x: 100, y: 360 }
+    size: { w: 90, h: 18 }
+  - id: pair2
+    label: "ペア 2"
+    at: { x: 200, y: 352 }
+    size: { w: 242, h: 30 }
+  - id: pair3a
+    label: "ペア 3"
+    at: { x: 448, y: 352 }
+    size: { w: 118, h: 30 }
+  - id: pair1
+    label: "ペア 1"
+    at: { x: 572, y: 352 }
+    size: { w: 242, h: 30 }
+  - id: pair3b
+    label: "ペア 3"
+    at: { x: 820, y: 352 }
+    size: { w: 118, h: 30 }
+  - id: pair4
+    label: "ペア 4"
+    at: { x: 944, y: 352 }
+    size: { w: 242, h: 30 }
+  - id: prn
+    label: "ペア 3 は 3 番と 6 番。 間にペア 1（4・5 番）をはさむので、1 本の対がとなり合っていない —— 電話の結線から続いている並び。"
+    marker: none
+    align: left
+    at: { x: 200, y: 390 }
+    size: { w: 900, h: 18 }
+  - id: t2
+    label: "② 両端が同じならストレート、片方だけ変えるとクロス"
+    marker: none
+    align: left
+    at: { x: 200, y: 442 }
+    size: { w: 900, h: 18 }
+  - id: s1
+    label: "T568B"
+    at: { x: 200, y: 474 }
+    size: { w: 200, h: 40 }
+  - id: s2
+    label: "T568B"
+    at: { x: 640, y: 474 }
+    size: { w: 200, h: 40 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 401, y: 493 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 637, y: 493 }
+    size: { w: 2, h: 2 }
+  - id: sn
+    label: "ストレート（いまはこれ）"
+    marker: none
+    align: left
+    at: { x: 860, y: 484 }
+    size: { w: 300, h: 18 }
+  - id: c1
+    label: "T568A"
+    at: { x: 200, y: 528 }
+    size: { w: 200, h: 40 }
+  - id: c2
+    label: "T568B"
+    at: { x: 640, y: 528 }
+    size: { w: 200, h: 40 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 401, y: 547 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 637, y: 547 }
+    size: { w: 2, h: 2 }
+  - id: cn
+    label: "クロス（Auto MDI-X があるので、いまはほとんど要らない）"
+    marker: none
+    align: left
+    at: { x: 860, y: 538 }
+    size: { w: 420, h: 18 }
+  - id: h200_610
+    label: "カテゴリと帯域"
+    hatch: solid
+    at: { x: 200, y: 610 }
+    size: { w: 560, h: 24 }
+  - id: x200_634
+    label: "Cat 5e"
+    at: { x: 200, y: 634 }
+    size: { w: 170, h: 24 }
+  - id: y200_634
+    label: "100MHz ／ 1000BASE-T 1Gbps"
+    align: left
+    at: { x: 370, y: 634 }
+    size: { w: 390, h: 24 }
+  - id: x200_658
+    label: "Cat 6"
+    at: { x: 200, y: 658 }
+    size: { w: 170, h: 24 }
+  - id: y200_658
+    label: "250MHz ／ 10GBASE-T は 55m まで"
+    align: left
+    at: { x: 370, y: 658 }
+    size: { w: 390, h: 24 }
+  - id: x200_682
+    label: "Cat 6A"
+    at: { x: 200, y: 682 }
+    size: { w: 170, h: 24 }
+  - id: y200_682
+    label: "500MHz ／ 10GBASE-T 100m"
+    align: left
+    at: { x: 370, y: 682 }
+    size: { w: 390, h: 24 }
+  - id: x200_706
+    label: "Cat 7"
+    at: { x: 200, y: 706 }
+    size: { w: 170, h: 24 }
+  - id: y200_706
+    label: "600MHz ／ 10GBASE-T"
+    align: left
+    at: { x: 370, y: 706 }
+    size: { w: 390, h: 24 }
+  - id: x200_730
+    label: "Cat 8.1"
+    at: { x: 200, y: 730 }
+    size: { w: 170, h: 24 }
+  - id: y200_730
+    label: "2000MHz ／ 25G・40GBASE-T は 30m まで"
+    align: left
+    at: { x: 370, y: 730 }
+    size: { w: 390, h: 24 }
+  - id: h820_640
+    label: "なぜ「より対」なのか"
+    hatch: solid
+    at: { x: 820, y: 640 }
+    size: { w: 560, h: 24 }
+  - id: x820_664
+    label: "なぜ撚るのか"
+    at: { x: 820, y: 664 }
+    size: { w: 200, h: 24 }
+  - id: y820_664
+    label: "ノイズ源に近い線が入れ替わり、両線が同じだけ受ける"
+    align: left
+    at: { x: 1020, y: 664 }
+    size: { w: 360, h: 24 }
+  - id: x820_688
+    label: ""
+    at: { x: 820, y: 688 }
+    size: { w: 200, h: 24 }
+  - id: y820_688
+    label: "同じだけ受ければ、差動で打ち消し合う"
+    align: left
+    at: { x: 1020, y: 688 }
+    size: { w: 360, h: 24 }
+  - id: x820_712
+    label: "なぜ対ごとに撚りが違うのか"
+    at: { x: 820, y: 712 }
+    size: { w: 200, h: 24 }
+  - id: y820_712
+    label: "同じ撚り率だと、別の対の同じ線が繰り返しとなり合う"
+    align: left
+    at: { x: 1020, y: 712 }
+    size: { w: 360, h: 24 }
+  - id: x820_736
+    label: ""
+    at: { x: 820, y: 736 }
+    size: { w: 200, h: 24 }
+  - id: y820_736
+    label: "それでは差動の利点を失う"
+    align: left
+    at: { x: 1020, y: 736 }
+    size: { w: 360, h: 24 }
+  - id: x820_760
+    label: "UTP と STP"
+    at: { x: 820, y: 760 }
+    size: { w: 200, h: 24 }
+  - id: y820_760
+    label: "シールド無しと有り。工場・屋外・高速では有り"
+    align: left
+    at: { x: 1020, y: 760 }
+    size: { w: 360, h: 24 }
+  - id: r1
+    label: "・1000BASE-T は 4 対すべてを使い、1 対で送りと受けを同時に行う。"
+    marker: none
+    align: left
+    at: { x: 200, y: 800 }
+    size: { w: 900, h: 18 }
+  - id: r2
+    label: "　10BASE-T / 100BASE-TX が 2 対しか使っていなかったので、"
+    marker: none
+    align: left
+    at: { x: 200, y: 824 }
+    size: { w: 900, h: 18 }
+  - id: r3
+    label: "　「4 本だけ繋がっていれば動く」は 1Gbps では通らない。"
+    marker: none
+    align: left
+    at: { x: 200, y: 848 }
+    size: { w: 900, h: 18 }
+  - id: r4
+    label: "・どの色がどのピンかは、色だけでなく番号でも図に出している ——"
+    marker: none
+    align: left
+    at: { x: 200, y: 872 }
+    size: { w: 900, h: 18 }
+  - id: r5
+    label: "　色覚特性と白黒印刷の両方で読めるように。"
+    marker: none
+    align: left
+    at: { x: 200, y: 896 }
+    size: { w: 900, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    ends: { from: none, to: none }
+  - from: p2
+    to: p3
+    curve: none
+    ends: { from: none, to: none }
+  - from: p4
+    to: p5
+    curve: none
+    ends: { from: none, to: none }
+  - from: p6
+    to: p7
+    curve: none
+    ends: { from: none, to: none }
+  - from: p8
+    to: p9
+    curve: none
+    ends: { from: none, to: none }
+  - from: p10
+    to: p11
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
