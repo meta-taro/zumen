@@ -632,6 +632,8 @@ async function runTally(paths: string[], read: typeof readFileSync): Promise<Run
   const where = new Map<string, string[]>();
   let quiet = 0;
   let unreadable = 0;
+  let crossed = 0;
+  let straddled = 0;
   for (const path of paths) {
     let text: string;
     try {
@@ -642,6 +644,17 @@ async function runTally(paths: string[], read: typeof readFileSync): Promise<Run
     const found = [...validate(text), ...(await placedFindings(text))];
     if (found.some((one) => one.severity === 'error')) unreadable += 1;
     const warnings = found.filter((one) => one.severity === 'warning');
+    /**
+     * **交差とまたぎは、行に並べない**（2026-09-21）。
+     *
+     * この 2 つは `Finding` ではないが、**テストを落とすのはこちら**なので
+     * 一度は検査と同じ行に並べてみた —— **何も出ない見本が 316 枚から 216 枚に落ちた。**
+     * 中身であることのほうが多い（極座標の目盛り・組子の仕口・壁を共有する部屋）ので、
+     * **枚数だけを見出しに出す。** どれが「わざと」かは `test/names.test.ts` の表が持っている。
+     */
+    const placed = await layout(text);
+    if (crossingPlaces(placed).length > 0) crossed += 1;
+    if (straddles(placed).length > 0) straddled += 1;
     if (warnings.length === 0) {
       quiet += 1;
       continue;
@@ -654,7 +667,7 @@ async function runTally(paths: string[], read: typeof readFileSync): Promise<Run
     }
   }
   const rows = [...count.entries()].sort((a, b) => b[1] - a[1]);
-  const lines = [m.tallyHead(paths.length, quiet)];
+  const lines = [m.tallyHead(paths.length, quiet), m.tallyGates(crossed, straddled)];
   for (const [code, times] of rows) {
     const files = where.get(code) ?? [];
     lines.push(m.tallyRow(code, times, files.length, names(files.map(shortName), 6)));

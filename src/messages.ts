@@ -245,6 +245,8 @@ const ja = {
       `見本 ${files} 枚を数えました（何も出なかったのは ${quiet} 枚）。`,
     tallyRow: (code: string, times: number, files: number, said: string) =>
       `  ${code}　${times} 本 ／ ${files} 枚　${said}`,
+    tallyGates: (crossed: number, straddled: number) =>
+      `  交差のある見本 ${crossed} 枚 ／ またぎのある見本 ${straddled} 枚 —— **どちらも中身のことが多い**ので、わざとかどうかは \`test/names.test.ts\` の表と突き合わせてください。`,
     tallyNone: '  どの検査も鳴っていません。',
     inspectNote:
       'これは合否ではなく**観測値**です。交差もまたぎも、中身がそうなら正しい —— 止めません。',
@@ -1103,6 +1105,8 @@ const en: Catalog = {
       `Counted ${files} drawings (${quiet} of them said nothing).`,
     tallyRow: (code: string, times: number, files: number, said: string) =>
       `  ${code}  ${times} finding(s) across ${files} drawing(s)  ${said}`,
+    tallyGates: (crossed: number, straddled: number) =>
+      `  ${crossed} drawing(s) have crossings, ${straddled} have straddles — **both are usually content**, so check them against the table in \`test/names.test.ts\`.`,
     tallyNone: '  No check is firing.',
     inspectNote:
       'These are **observations, not a verdict**. Crossings and straddles are right when the subject crosses — nothing is stopped here.',

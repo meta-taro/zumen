@@ -233,6 +233,7 @@ export const CAPTIONS_EN = {
   '208-建蔽率と容積率': 'Floor-area ratio in Japan: a narrow street caps it below the zoned figure, so the road sizes the building',
   '207-ウェハのダイ取り': 'Die-per-wafer: squares in a circle, so the bigger the die the larger the share thrown away',
   '206-ピアノのアクション': 'A piano action: the jack lets go just before the string, so nothing is pushing the hammer at impact',
+  '327-マイクの指向性': 'A polar plot of how much a microphone picks up from each direction. The three familiar shapes are not separate inventions but one formula at its ends and middle — omnidirectional, cardioid and figure-of-eight are A = 1, 0.5 and 0 in r = A + (1 - A)cos θ. Solving the same formula gives the dead angles: 180 degrees for a cardioid, 90 and 270 for a figure-of-eight.',
   '205-ホールの初期反射': 'Hall acoustics: delay is nothing but a difference in path length \u2014 one millisecond is 0.34 m',
   '204-ギターのフレット位置': 'Guitar frets are a geometric series, and the saddle must still be moved back to play in tune',
   '203-壁量計算と4分割法': 'Japanese timber wall-quantity check: enough shear wall still fails if it sits on one side',
