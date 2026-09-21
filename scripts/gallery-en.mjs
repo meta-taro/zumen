@@ -220,6 +220,7 @@ export const CAPTIONS_EN = {
   '221-避難行動の判定と浸水深': 'Deciding whether to leave: five questions answered once, in advance — and flood-depth bands read as floors of your own house, not as metres',
   '220-防火区画と避難経路': 'Fire compartments: the shortcut you use every day is the one that closes — a drill map must show the route after the shutters come down, not before',
   '219-算数数学の問題図': 'Figures in maths problems: the marks carry the meaning — equal ticks, right-angle squares, parallel chevrons — and only the given values are written on the figure',
+  '328-ゼーゲルコーン': 'A pyrometric cone is not a thermometer. It is a small clay pyramid stood at 8 degrees in the kiln, and it bends until its tip is level with the base — at which point the ware has had the right amount of heat work, meaning temperature and time together. The quoted temperatures hold only for a stated heating rate: the same cone bends at a different temperature if the kiln climbs faster.',
   '218-窯詰めの棚組み': 'Kiln loading: three posts per shelf, because three points always lie in one plane — and bisque and glaze firings are packed in opposite ways',
   '217-上部式フィルターの断面': 'Aquarium filter in section: it does not remove the poison, it turns it into a weaker one — and the water must meet the mechanical media before the biological',
   '216-日本の硬貨6種': 'Japanese coins: the order by size is not the order by value, so the hand reads the hole first, then the reeding, and only then the size',
