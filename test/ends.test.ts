@@ -345,3 +345,114 @@ describe('**`arrow` を書いたら、矢印が出る**（2026-09-15）', () => 
     assert.equal(drawEnd('none', tip, back, '#000'), '');
   });
 });
+
+/**
+ * **線より矢じりのほうが長い辺**（2026-09-20）。
+ *
+ * 既定の矢印は SVG の `marker-end`（`markerWidth: 6`）なので、
+ * **矢じりの長さは線の太さの 6 倍** —— `weight: normal` で 12px、`thick` なら 30px ある。
+ * `ends` の記号も同じで、鳥の足は 12px、菱形は 14px。
+ * 線がそれより短いと、**描かれるのは記号だけ**で、線は 1px も見えない。
+ *
+ * 見つけ方は目で見たから。見本 133（受付 → 名簿）は 8px の辺で、
+ * 箱と箱の間に三角が 1 つ挟まっているだけだった。見本 115 は `weight: thick` の
+ * 8px で、30px の矢じりが**隣の部屋の中まで食い込んでいた。**
+ * 測ったら見本 14 枚・辺 40 本が同じ形だった。
+ */
+describe('線より長い端の記号', () => {
+  const two = (gap: number, extra: string): string =>
+    'version: 1\nkind: placement\nnodes:\n' +
+    '  - id: a\n    label: あ\n    at: { x: 0, y: 0 }\n    size: { w: 60, h: 40 }\n' +
+    `  - id: b\n    label: い\n    at: { x: ${60 + gap}, y: 0 }\n    size: { w: 60, h: 40 }\n` +
+    `edges:\n  - from: a\n    to: b\n${extra}`;
+
+  it('記号が線から食う長さを数える', async () => {
+    const { endRoom } = await import('../src/ends.ts');
+    assert.equal(endRoom('none'), 0);
+    assert.equal(endRoom('arrow'), 10);
+    assert.equal(endRoom('crow'), 12);
+    assert.equal(endRoom('dot-crow'), 23, '丸の先へ鳥の足が続く');
+    assert.equal(endRoom('solid-diamond'), 14);
+  });
+
+  it('**既定の矢印より短い辺を名指しする**（normal は 12px）', async () => {
+    const { placedFindings } = await import('../src/cli.ts');
+    const found = await placedFindings(two(8, ''));
+    const said = found.filter((f) => f.code === 'ends-too-long');
+    assert.equal(said.length, 1, found.map((f) => f.code).join(','));
+    assert.match(said[0]!.message, /8px/);
+    assert.match(said[0]!.message, /12px/);
+  });
+
+  it('**太い線ほど矢じりが長い**（thick は 30px）', async () => {
+    const { placedFindings } = await import('../src/cli.ts');
+    const found = await placedFindings(two(20, '    weight: thick\n'));
+    const said = found.filter((f) => f.code === 'ends-too-long');
+    assert.equal(said.length, 1, found.map((f) => f.code).join(','));
+    assert.match(said[0]!.message, /30px/);
+  });
+
+  it('離れていれば言わない', async () => {
+    const { placedFindings } = await import('../src/cli.ts');
+    const found = await placedFindings(two(60, ''));
+    assert.ok(!found.some((f) => f.code === 'ends-too-long'));
+  });
+
+  it('記号を出さない辺には言わない（ends が none どうし）', async () => {
+    const { placedFindings } = await import('../src/cli.ts');
+    const found = await placedFindings(two(4, '    ends: { from: none, to: none }\n'));
+    assert.ok(!found.some((f) => f.code === 'ends-too-long'));
+  });
+
+  it('**両端に記号を置くなら、2 つ分の長さが要る**', async () => {
+    const { placedFindings } = await import('../src/cli.ts');
+    const found = await placedFindings(two(16, '    ends: { from: arrow, to: arrow }\n'));
+    const said = found.filter((f) => f.code === 'ends-too-long');
+    assert.equal(said.length, 1, found.map((f) => f.code).join(','));
+    assert.match(said[0]!.message, /20px/);
+  });
+});
+
+/**
+ * **記号を、線からはみ出させない**（2026-09-21）。
+ *
+ * 検査（`ends-too-long`）で名指しはできるようになったが、
+ * **描くほうは、はみ出したまま**だった —— 見本 115 は 30px の矢じりが
+ * 隣の部屋の中まで食い込み、見本 262 は 12px の寸法線に
+ * 10px の三角が 2 つ乗って蝶ネクタイになっていた。
+ *
+ * 収まらないときは**形を変えずに縮める。**
+ * 線が見えないこと自体は直らない（それは検査の仕事）。
+ */
+describe('端の記号を線に収める', () => {
+  const at = (x: number): { x: number; y: number } => ({ x, y: 0 });
+
+  it('**収まるときは、何も変えない**', async () => {
+    const { drawEnd } = await import('../src/ends.ts');
+    const full = drawEnd('arrow', at(100), at(0), '#000');
+    assert.equal(drawEnd('arrow', at(100), at(0), '#000', '#fff', 100), full);
+  });
+
+  it('**収まらないときは縮める**（10px の三角を 4px の場所へ）', async () => {
+    const { drawEnd } = await import('../src/ends.ts');
+    const small = drawEnd('arrow', at(100), at(0), '#000', '#fff', 4);
+    // 三角の底辺は tip から 10px 内側ではなく 4px 内側に来る。
+    assert.match(small, /L 96 /, small);
+    assert.ok(!/L 90 /.test(small), `縮んでいない\n${small}`);
+  });
+
+  it('矢じり（marker）も線の長さまで縮む', async () => {
+    const { headScaleOf } = await import('../src/render.ts');
+    const long = { points: [{ x: 0, y: 0 }, { x: 200, y: 0 }] } as never;
+    const short = { points: [{ x: 0, y: 0 }, { x: 8, y: 0 }] } as never;
+    assert.equal(headScaleOf(long, 2), 6, '足りていれば既定のまま');
+    assert.equal(headScaleOf(short, 2), 4, '8px ÷ 太さ 2px ＝ 4');
+  });
+
+  it('太さで変わる（構成図の 1px は 6px の矢じり）', async () => {
+    const { edgeStrokeWidth } = await import('../src/render.ts');
+    const normal = { weight: 'normal', pinned: false } as never;
+    assert.equal(edgeStrokeWidth(normal, true), 2, '配置図は 2px');
+    assert.equal(edgeStrokeWidth(normal, false), 1, '構成図は 1px');
+  });
+});

@@ -489,3 +489,43 @@ describe('薄い色は、どちらの地で沈んだかを言う', () => {
     if (both !== '') assert.ok(!both.includes('線を太くする'), both);
   });
 });
+
+/**
+ * **符号が文字で出ているなら、言うことが変わる**（2026-09-21）。
+ *
+ * 測ったら `color-faint` は見本 3 枚・10 件とも**実物の路線色**
+ * （山手線 #9acd32、阪急 #8b0000、東京メトロ各線）で、
+ * **どれも符号が図に文字で出ていた。**
+ * 文言自身が逃げ道として「符号を添えてください」と言っているのに、
+ * **添えてあっても同じ文で鳴り続けていた。**
+ */
+describe('薄い色の言い方', () => {
+  const one = (label: string): string =>
+    [
+      'version: 1', 'kind: placement', 'palette:', '  JY: "#9acd32"', 'nodes:',
+      '  - id: a', `    label: ${JSON.stringify(label)}`, '    color: JY',
+      '    at: { x: 0, y: 0 }', '    size: { w: 200, h: 40 }', '',
+    ].join('\n');
+
+  it('**符号が図に出ていれば、そう言う**', async () => {
+    const { validate } = await import('../src/validate.ts');
+    const found = validate(one('JY 山手線')).find((f) => f.code === 'color-faint');
+    assert.ok(found !== undefined);
+    assert.match(found.message, /符号は図に文字で出ています/, found.message);
+  });
+
+  it('出ていなければ、これまでどおり「添えてください」', async () => {
+    const { validate } = await import('../src/validate.ts');
+    const found = validate(one('路線')).find((f) => f.code === 'color-faint');
+    assert.ok(found !== undefined);
+    assert.match(found.message, /必ず添えて/, found.message);
+  });
+
+  it('どちらでも、比の数は言う', async () => {
+    const { validate } = await import('../src/validate.ts');
+    for (const label of ['JY 山手線', '路線']) {
+      const found = validate(one(label)).find((f) => f.code === 'color-faint')!;
+      assert.match(found.message, /白地で [\d.]+:1/, found.message);
+    }
+  });
+});

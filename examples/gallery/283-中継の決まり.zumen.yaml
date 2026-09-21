@@ -1,0 +1,368 @@
+version: 1
+kind: placement
+arrows: true
+title: 中継の決まり（駅伝のたすきと、リレーのバトン）
+# **駅伝の中継線は「渡す点」だが、準備は数百 m にまたがる。**
+# 前走者がたすきを外すのは**中継線の手前 400m** から、
+# 次走者が掛けるのは**中継後 200m** までがおおよその目安 ——
+# 走りながら外し、走りながら掛けるので、**中継所の図は線 1 本ではなく前後の区間を持つ。**
+# たすきは**必ず前走者と次走者の間で手渡す**（置いて拾うのは認められない）。
+#
+# **リレーは 30m のゾーンの中で渡し終える。**
+# 各走者のスタート地点（100m）を基準に、**手前 20m・後ろ 10m** で計 30m。
+# **2018 年に 20m から 30m になった** ——
+# 手前にあった助走だけの区間（通称ブルーゾーン 10m）がゾーンに取り込まれた形で、
+# **渡せる場所が長くなったのではなく、助走の区間が渡してよい区間になった。**
+# ゾーンの外で渡すと失格。
+#
+# **たすきは寸法が決まっている**（日本陸連の駅伝競走規準）。
+# 布製で**長さ 1,600〜1,800mm・幅 6cm**、**肩から斜めに脇の下**へ掛ける ——
+# 斜めに掛けるのは**走りながら外せるから**で、首にかけた輪だと外すのに立ち止まることになる。
+#
+# **同じ「中継」でも、測っているものが違う。**
+# 駅伝は**渡す 1 点**を決めて前後に余裕を置き、リレーは**渡してよい区間**を決めて
+# その外を失格にする —— **図に引く線の意味が、逆になっている。**
+nodes:
+  - id: t1
+    label: "① 駅伝の中継 —— 中継線の前後に、長い「準備の区間」がある"
+    marker: none
+    align: left
+    at: { x: 150, y: 150 }
+    size: { w: 700, h: 20 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 149, y: 249 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 779, y: 249 }
+    size: { w: 2, h: 2 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 569, y: 209 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 569, y: 289 }
+    size: { w: 2, h: 2 }
+  - id: line0
+    label: "中継線"
+    marker: none
+    align: center
+    at: { x: 510, y: 188 }
+    size: { w: 120, h: 18 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 149, y: 309 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 569, y: 309 }
+    size: { w: 2, h: 2 }
+  - id: m400
+    label: "手前 400m —— ここからたすきを外してよい"
+    marker: none
+    align: center
+    at: { x: 150, y: 316 }
+    size: { w: 420, h: 18 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 569, y: 349 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 779, y: 349 }
+    size: { w: 2, h: 2 }
+  - id: m200
+    label: "中継後 200m —— ここまでに掛ける"
+    marker: none
+    align: center
+    at: { x: 540, y: 356 }
+    size: { w: 270, h: 18 }
+  - id: run
+    label: "走る向き →"
+    marker: none
+    align: right
+    at: { x: 640, y: 220 }
+    size: { w: 150, h: 18 }
+  - id: why1
+    label: "中継線は「渡す点」だが、準備は数百 m にまたがる。\n走りながら外し、走りながら掛けるので、\n中継所の図は線 1 本ではなく、前後の区間を持つ ——\nたすきは必ず前走者と次走者の間で手渡す（置いて拾うのは認められない）。"
+    at: { x: 150, y: 390 }
+    size: { w: 700, h: 92 }
+  - id: t2
+    label: "② リレーの中継 —— 30m の中で渡し終える"
+    marker: none
+    align: left
+    at: { x: 150, y: 550 }
+    size: { w: 700, h: 20 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 149, y: 659 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 769, y: 659 }
+    size: { w: 2, h: 2 }
+  - id: zone
+    label: ""
+    hatch: lines
+    at: { x: 270, y: 638 }
+    size: { w: 330, h: 44 }
+  - id: zonen
+    label: "テークオーバーゾーン 30m"
+    marker: none
+    align: center
+    at: { x: 270, y: 664 }
+    size: { w: 330, h: 18 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 489, y: 603 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 489, y: 715 }
+    size: { w: 2, h: 2 }
+  - id: p100
+    label: "各走者のスタート地点（100m）"
+    marker: none
+    align: center
+    at: { x: 340, y: 580 }
+    size: { w: 300, h: 18 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 269, y: 729 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 489, y: 729 }
+    size: { w: 2, h: 2 }
+  - id: m20
+    label: "手前 20m"
+    marker: none
+    align: center
+    at: { x: 270, y: 736 }
+    size: { w: 220, h: 18 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 489, y: 729 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 599, y: 729 }
+    size: { w: 2, h: 2 }
+  - id: m10
+    label: "後ろ 10m"
+    marker: none
+    align: center
+    at: { x: 490, y: 736 }
+    size: { w: 110, h: 18 }
+  - id: why2
+    label: "2018 年に 20m から 30m になった。\n手前にあった助走だけの区間（ブルーゾーン 10m）が、ゾーンに取り込まれた ——\n渡せる場所が長くなったのではなく、助走の区間が渡してよい区間になった。\nゾーンの外で渡すと失格。バトンの位置で判定する（走者の体ではない）。"
+    at: { x: 150, y: 770 }
+    size: { w: 700, h: 92 }
+  - id: t3
+    label: "③ たすきは、寸法が決まっている"
+    marker: none
+    align: left
+    at: { x: 890, y: 150 }
+    size: { w: 450, h: 20 }
+  - id: h890_186
+    label: "日本陸連の駅伝競走規準"
+    hatch: solid
+    at: { x: 890, y: 186 }
+    size: { w: 450, h: 24 }
+  - id: x890_210
+    label: "素材"
+    at: { x: 890, y: 210 }
+    size: { w: 190, h: 24 }
+  - id: y890_210
+    label: "布"
+    align: left
+    at: { x: 1080, y: 210 }
+    size: { w: 260, h: 24 }
+  - id: x890_234
+    label: "長さ"
+    at: { x: 890, y: 234 }
+    size: { w: 190, h: 24 }
+  - id: y890_234
+    label: "1,600 〜 1,800mm"
+    align: left
+    at: { x: 1080, y: 234 }
+    size: { w: 260, h: 24 }
+  - id: x890_258
+    label: "幅"
+    at: { x: 890, y: 258 }
+    size: { w: 190, h: 24 }
+  - id: y890_258
+    label: "6cm"
+    align: left
+    at: { x: 1080, y: 258 }
+    size: { w: 260, h: 24 }
+  - id: x890_282
+    label: "掛け方"
+    at: { x: 890, y: 282 }
+    size: { w: 190, h: 24 }
+  - id: y890_282
+    label: "肩から斜めに、脇の下へ"
+    align: left
+    at: { x: 1080, y: 282 }
+    size: { w: 260, h: 24 }
+  - id: why3
+    label: "斜めに掛けるのは、走りながら外せるから。\n首にかけた輪だと、外すのに立ち止まることになる ——\n肩から脇の下なら、腕を抜くだけで外れる。\n長さが 1.6〜1.8m と幅があるのは、体格に合わせるため。"
+    at: { x: 890, y: 320 }
+    size: { w: 450, h: 92 }
+  - id: t4
+    label: "④ 駅伝とリレーは、別の競技の別の決まり"
+    marker: none
+    align: left
+    at: { x: 890, y: 430 }
+    size: { w: 450, h: 20 }
+  - id: h890_460
+    label: "渡す決まりの比べ方"
+    hatch: solid
+    at: { x: 890, y: 460 }
+    size: { w: 450, h: 24 }
+  - id: x890_484
+    label: "駅伝"
+    at: { x: 890, y: 484 }
+    size: { w: 150, h: 24 }
+  - id: y890_484
+    label: "中継線で渡す。前後に準備の区間"
+    align: left
+    at: { x: 1040, y: 484 }
+    size: { w: 300, h: 24 }
+  - id: x890_508
+    label: ""
+    at: { x: 890, y: 508 }
+    size: { w: 150, h: 24 }
+  - id: y890_508
+    label: "外すのは手前 400m から"
+    align: left
+    at: { x: 1040, y: 508 }
+    size: { w: 300, h: 24 }
+  - id: x890_532
+    label: "リレー"
+    at: { x: 890, y: 532 }
+    size: { w: 150, h: 24 }
+  - id: y890_532
+    label: "30m のゾーンの中で渡し終える"
+    align: left
+    at: { x: 1040, y: 532 }
+    size: { w: 300, h: 24 }
+  - id: x890_556
+    label: ""
+    at: { x: 890, y: 556 }
+    size: { w: 150, h: 24 }
+  - id: y890_556
+    label: "ゾーンの外で渡すと失格"
+    align: left
+    at: { x: 1040, y: 556 }
+    size: { w: 300, h: 24 }
+  - id: x890_580
+    label: "渡すもの"
+    at: { x: 890, y: 580 }
+    size: { w: 150, h: 24 }
+  - id: y890_580
+    label: "たすき（布）／ バトン（棒）"
+    align: left
+    at: { x: 1040, y: 580 }
+    size: { w: 300, h: 24 }
+  - id: why4
+    label: "同じ「中継」でも、測っているものが違う。\n駅伝は渡す 1 点を決めて前後に余裕を置き、\nリレーは渡してよい区間を決めて、その外を失格にする ——\n図に引く線の意味が、逆になっている。"
+    at: { x: 890, y: 618 }
+    size: { w: 450, h: 92 }
+  - id: r1
+    label: "駅伝の中継線は「渡す点」ですが、準備は数百 m にまたがります（①）。外すのは手前 400m から、掛けるのは中継後 200m までが目安です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 890 }
+    size: { w: 1190, h: 18 }
+  - id: r2
+    label: "たすきは必ず前走者と次走者の間で手渡します。 置いて拾うのは認められません。"
+    marker: none
+    align: left
+    at: { x: 150, y: 914 }
+    size: { w: 1190, h: 18 }
+  - id: r3
+    label: "リレーは 30m のゾーンの中で渡し終えます（②）。各走者のスタート地点を基準に、手前 20m・後ろ 10m です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 938 }
+    size: { w: 1190, h: 18 }
+  - id: r4
+    label: "2018 年に 20m から 30m になりました。 助走だけだったブルーゾーン 10m が、渡してよい区間に取り込まれました。"
+    marker: none
+    align: left
+    at: { x: 150, y: 962 }
+    size: { w: 1190, h: 18 }
+  - id: r5
+    label: "たすきは寸法が決まっています（③）。布製で長さ 1,600〜1,800mm、幅 6cm、肩から斜めに脇の下へ。"
+    marker: none
+    align: left
+    at: { x: 150, y: 986 }
+    size: { w: 1190, h: 18 }
+  - id: r6
+    label: "斜めに掛けるのは、走りながら外せるからです。 首の輪だと、外すのに立ち止まることになります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1010 }
+    size: { w: 1190, h: 18 }
+  - id: r7
+    label: "同じ「中継」でも、測っているものが違います（④）。駅伝は渡す 1 点、リレーは渡してよい区間です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1034 }
+    size: { w: 1190, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    weight: thick
+    ends: { from: none, to: arrow }
+  - from: p2
+    to: p3
+    curve: none
+    line: chain
+    ends: { from: none, to: none }
+  - from: p4
+    to: p5
+    curve: none
+    ends: { from: arrow, to: arrow }
+  - from: p6
+    to: p7
+    curve: none
+    ends: { from: arrow, to: arrow }
+  - from: p8
+    to: p9
+    curve: none
+    weight: thick
+    ends: { from: none, to: arrow }
+  - from: p10
+    to: p11
+    curve: none
+    line: chain
+    ends: { from: none, to: none }
+  - from: p12
+    to: p13
+    curve: none
+    ends: { from: arrow, to: arrow }
+  - from: p14
+    to: p15
+    curve: none
+    ends: { from: arrow, to: arrow }

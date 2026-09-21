@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>振込が届くまで（1 億円で、道が分かれる） — zumen の見本 332</title>
+<link rel="icon" type="image/svg+xml" href="../../icon.svg">
+<meta name="theme-color" content="#23232b">
+<meta name="description" content="振込が届くまで（1 億円で、お金と通知の順が入れ替わる）">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="zumen">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:url" content="https://meta-taro.github.io/zumen/g/332/">
+<meta property="og:title" content="振込が届くまで（1 億円で、道が分かれる） — zumen の見本 332">
+<meta property="og:description" content="振込が届くまで（1 億円で、お金と通知の順が入れ替わる）">
+<meta property="og:image" content="https://meta-taro.github.io/zumen/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="振込が届くまで（1 億円で、道が分かれる） — zumen の見本 332">
+<meta name="twitter:description" content="振込が届くまで（1 億円で、お金と通知の順が入れ替わる）">
+<meta name="twitter:image" content="https://meta-taro.github.io/zumen/og.png">
+<link rel="stylesheet" href="../../style.css">
+<link rel="canonical" href="https://meta-taro.github.io/zumen/g/332/">
+<link rel="alternate" hreflang="ja" href="https://meta-taro.github.io/zumen/g/332/">
+<link rel="alternate" hreflang="en" href="https://meta-taro.github.io/zumen/en/g/332/">
+<link rel="alternate" hreflang="x-default" href="https://meta-taro.github.io/zumen/g/332/">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="alternate" type="text/markdown" href="https://meta-taro.github.io/zumen/llms.txt" title="llms.txt">
+<link rel="sitemap" type="application/xml" href="https://meta-taro.github.io/zumen/sitemap.xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": "振込が届くまで（1 億円で、道が分かれる）",
+  "description": "振込が届くまで（1 億円で、お金と通知の順が入れ替わる）",
+  "url": "https://meta-taro.github.io/zumen/g/332/",
+  "image": "https://meta-taro.github.io/zumen/gallery/332-%E6%8C%AF%E8%BE%BC%E3%81%8C%E5%B1%8A%E3%81%8F%E3%81%BE%E3%81%A7.svg",
+  "inLanguage": "ja",
+  "license": "https://opensource.org/licenses/MIT",
+  "isPartOf": {
+    "@type": "CollectionPage",
+    "name": "店舗・物流",
+    "url": "https://meta-taro.github.io/zumen/c/tenpo/"
+  },
+  "encodingFormat": "text/yaml",
+  "isAccessibleForFree": true
+}
+</script>
+</head>
+<body class="sub">
+<header class="bar">
+  <a class="home" href="../../">zumen</a>
+  <nav><a href="../../c/tenpo/">店舗・物流</a></nav>
+</header>
+<main>
+<article>
+  <p class="crumb">店舗・物流</p>
+  <h1>振込が届くまで（1 億円で、道が分かれる）</h1>
+  <p class="lead">振込が届くまで（1 億円で、お金と通知の順が入れ替わる）</p>
+  <figure>
+    <img src="../../gallery/332-%E6%8C%AF%E8%BE%BC%E3%81%8C%E5%B1%8A%E3%81%8F%E3%81%BE%E3%81%A7.svg" alt="依頼人から仕向銀行、全銀システムを経て被仕向銀行と受取人の口座へ至る流れを並べた構成図。1 億円未満はネッティング（相殺）して為替通知が先に届き差額の決済は午後 4 時 15 分、1 億円以上は RTGS で資金決済が先に行われてから通知が届く、という 2 つの道が交わる形で描かれている" loading="lazy">
+  </figure>
+  <p class="made">この図は、下の 1 枚の YAML から描かれています。手で図形を動かしてはいません。</p>
+  <h2>正本に書いてある決まりごと</h2>
+  <p><strong>お金と通知は、同じ速さでは動かない。</strong> しかも<strong>1 億円を境に、どちらが先かが入れ替わる。</strong></p>
+  <p>全銀システムは 1 件ずつ資金を動かさず、<strong>その日の分をネッティング（相殺）して差額だけ</strong>を日本銀行へ通知する。<strong>為替通知のほうは先に被仕向銀行へ届く</strong>ので、受取人の口座にはすぐ入る。<strong>銀行どうしの資金決済は、その日の午後 4 時 15 分</strong>に、全銀ネットの当座預金口座と加盟金融機関の当座預金口座の間で行われる。</p>
+  <p><strong>1 件ずつ資金決済してから、被仕向銀行へ為替通知を送る。</strong>決済は<strong>流動性節約機能付 RTGS（即時グロス決済）。</strong>大きい金額では、通知だけ先に流して差額決済を待つ形を取らない。</p>
+  <p><strong>コアタイムは平日の午前 8 時 30 分〜午後 3 時 30 分。</strong>そのあとが<strong>モアタイム</strong>で、<strong>給与や賞与の振り込みを除く 1 億円未満の送金は原則 24 時間 365 日</strong>できる。モアタイムに最初から参加したのは、<strong>全 1,275 機関のうち 504 機関。</strong></p>
+  <p>2023 年 10 月の障害では、<strong>約 255 万件</strong>が遅れた。<strong>1 か所で全部の銀行がつながっている</strong>ということは、そういうことでもある。</p>
+  <p>全銀センターは<strong>東京と大阪の 2 か所</strong>にあり、各センターのコンピュータはマルチホスト構成。</p>
+  <p>硬貨そのものは見本 300、紙幣の識別マークは見本 199。</p>
+  <h2>正本（YAML）</h2>
+  <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/332-%E6%8C%AF%E8%BE%BC%E3%81%8C%E5%B1%8A%E3%81%8F%E3%81%BE%E3%81%A7.zumen.yaml"><code>examples/gallery/332-振込が届くまで.zumen.yaml</code></a></p>
+  <h2>同じ分野の見本</h2>
+  <ul class="near"><li><a href="../08/">組立ラインと検査</a></li><li><a href="../12/">店舗の在庫と発注</a></li><li><a href="../15/">店舗のレイアウト</a></li><li><a href="../34/">倉庫のロケーション図</a></li><li><a href="../58/">商店街の店舗案内図（業種は模様で）</a></li><li><a href="../59/">フードコートの店舗配置図</a></li><li><a href="../60/">ドームの座席等級図（席種 5 区分）</a></li><li><a href="../89/">コンテナ船の積付図（Bay-Row-Tier がそのまま住所）</a></li></ul>
+</article>
+</main>
+<footer class="foot">
+  <p><a href="https://github.com/meta-taro/zumen">GitHub</a> · MIT · <a href="https://meta-taro.github.io/zumen/en/g/332/">English</a></p>
+</footer>
+</body>
+</html>

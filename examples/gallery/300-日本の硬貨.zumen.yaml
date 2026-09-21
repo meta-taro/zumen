@@ -1,0 +1,371 @@
+version: 1
+kind: placement
+arrows: true
+scale: { mm: 0.15 }
+title: 日本の硬貨（大きさは、価値の順に並んでいない）
+# **3 つの順番が、どれも一致しない。**
+#
+# - **価値の順** —— 1 → 5 → 10 → 50 → 100 → 500
+# - **大きさの順** —— 1 円 20mm → **50 円 21mm** → **5 円 22mm** → 100 円 22.6mm → **10 円 23.5mm** → 500 円 26.5mm
+# - **重さの順** —— 1 円 1.0g → 5 円 3.75g → **50 円 4.0g** → **10 円 4.5g** → 100 円 4.8g → 500 円 7.1g
+#
+# **50 円は 5 円より小さく、10 円は 100 円より大きい。** 価値と形はつながっていない。
+#
+# **穴があるのは 5 円と 50 円だけ**（5mm と 4mm）。
+# どちらも穴があるが、**50 円にはギザがあり、5 円には無い** ——
+# **触っただけで区別できるように組んである。**
+# ギザがあるのは 50 円と 100 円で、500 円は斜めのギザ。
+#
+# **5 円の 3.75g は 1 匁（もんめ）。** ほかの 5 種が 1.0・4.0・4.5・4.8・7.1 と
+# 切りのよい数なのに、**5 円だけ 3.75 という半端な数**なのは、尺貫法の重さの単位が
+# そのまま残っているから。
+#
+# **厚さは法令で定めていない。** 決まっているのは**直径・重さ・素材・縁・穴**で、
+# 厚さは「おおよその値」しかない —— 自動販売機は電気の通りやすさと重さと直径で見分けている。
+#
+# 素材はアルミニウム（1 円）・黄銅（5 円）・青銅（10 円）・白銅（50 円・100 円）・
+# バイカラークラッド（500 円。2021 年 11 月から）。
+nodes:
+  - id: t1
+    label: "① 実寸で並べる（1px ＝ 0.15mm）—— 大きさは、価値の順に並んでいない"
+    marker: none
+    align: left
+    at: { x: 140, y: 150 }
+    size: { w: 660, h: 20 }
+  - id: c0
+    label: ""
+    marker: circle
+    at: { x: 250, y: 273.3 }
+    size: { w: 133.3, h: 133.3 }
+  - id: c0n
+    label: "1 円\n20mm ／ 1g"
+    marker: none
+    align: center
+    at: { x: 238, y: 416.7 }
+    size: { w: 157.3, h: 36 }
+  - id: c1
+    label: ""
+    marker: circle
+    at: { x: 413, y: 266.7 }
+    size: { w: 146.7, h: 146.7 }
+  - id: c1h
+    label: ""
+    marker: circle
+    at: { x: 469.7, y: 323.3 }
+    size: { w: 33.3, h: 33.3 }
+  - id: c1n
+    label: "5 円\n22mm ／ 3.75g"
+    marker: none
+    align: center
+    at: { x: 401, y: 423.3 }
+    size: { w: 170.7, h: 36 }
+  - id: c2
+    label: ""
+    marker: circle
+    at: { x: 590, y: 261.7 }
+    size: { w: 156.7, h: 156.7 }
+  - id: c2n
+    label: "10 円\n23.5mm ／ 4.5g"
+    marker: none
+    align: center
+    at: { x: 578, y: 428.3 }
+    size: { w: 180.7, h: 36 }
+  - id: c3
+    label: ""
+    marker: circle
+    at: { x: 250, y: 510 }
+    size: { w: 140, h: 140 }
+  - id: c3h
+    label: ""
+    marker: circle
+    at: { x: 306.7, y: 566.7 }
+    size: { w: 26.7, h: 26.7 }
+  - id: c3n
+    label: "50 円\n21mm ／ 4g"
+    marker: none
+    align: center
+    at: { x: 238, y: 660 }
+    size: { w: 164, h: 36 }
+  - id: c4
+    label: ""
+    marker: circle
+    at: { x: 420, y: 504.7 }
+    size: { w: 150.7, h: 150.7 }
+  - id: c4n
+    label: "100 円\n22.6mm ／ 4.8g"
+    marker: none
+    align: center
+    at: { x: 408, y: 665.3 }
+    size: { w: 174.7, h: 36 }
+  - id: c5
+    label: ""
+    marker: circle
+    at: { x: 601, y: 491.7 }
+    size: { w: 176.7, h: 176.7 }
+  - id: c5n
+    label: "500 円\n26.5mm ／ 7.1g"
+    marker: none
+    align: center
+    at: { x: 589, y: 678.3 }
+    size: { w: 200.7, h: 36 }
+  - id: cap1
+    label: "穴があるのは 5 円と 50 円だけ。 見なくても指で分かるように、この 2 つだけ穴を開けてある。"
+    marker: none
+    align: center
+    at: { x: 140, y: 730 }
+    size: { w: 660, h: 18 }
+  - id: t2
+    label: "② 3 つの順番が、どれも一致しない"
+    marker: none
+    align: left
+    at: { x: 140, y: 776 }
+    size: { w: 660, h: 20 }
+  - id: h140_806
+    label: "並べ替えると、順が入れ替わる"
+    hatch: solid
+    at: { x: 140, y: 806 }
+    size: { w: 660, h: 24 }
+  - id: x140_830
+    label: "価値の順"
+    at: { x: 140, y: 830 }
+    size: { w: 150, h: 24 }
+  - id: y140_830
+    label: "1 円 → 5 円 → 10 円 → 50 円 → 100 円 → 500 円"
+    align: left
+    at: { x: 290, y: 830 }
+    size: { w: 510, h: 24 }
+  - id: x140_854
+    label: "大きさの順"
+    at: { x: 140, y: 854 }
+    size: { w: 150, h: 24 }
+  - id: y140_854
+    label: "1 円 → 50 円 → 5 円 → 100 円 → 10 円 → 500 円"
+    align: left
+    at: { x: 290, y: 854 }
+    size: { w: 510, h: 24 }
+  - id: x140_878
+    label: "重さの順"
+    at: { x: 140, y: 878 }
+    size: { w: 150, h: 24 }
+  - id: y140_878
+    label: "1 円 → 5 円 → 50 円 → 10 円 → 100 円 → 500 円"
+    align: left
+    at: { x: 290, y: 878 }
+    size: { w: 510, h: 24 }
+  - id: cap2
+    label: "50 円は 5 円より小さく、10 円は 100 円より大きい。 価値と形はつながっていない。"
+    marker: none
+    align: center
+    at: { x: 140, y: 916 }
+    size: { w: 660, h: 18 }
+  - id: t3
+    label: "③ 現行の 6 種"
+    marker: none
+    align: left
+    at: { x: 860, y: 150 }
+    size: { w: 420, h: 20 }
+  - id: h860_186
+    label: "直径 ／ 重さ ／ 素材"
+    hatch: solid
+    at: { x: 860, y: 186 }
+    size: { w: 420, h: 24 }
+  - id: x860_210
+    label: "1 円"
+    at: { x: 860, y: 210 }
+    size: { w: 120, h: 24 }
+  - id: y860_210
+    label: "20mm ／ 1.0g ／ アルミニウム"
+    align: left
+    at: { x: 980, y: 210 }
+    size: { w: 300, h: 24 }
+  - id: x860_234
+    label: "5 円"
+    at: { x: 860, y: 234 }
+    size: { w: 120, h: 24 }
+  - id: y860_234
+    label: "22mm ／ 3.75g ／ 黄銅"
+    align: left
+    at: { x: 980, y: 234 }
+    size: { w: 300, h: 24 }
+  - id: x860_258
+    label: "10 円"
+    at: { x: 860, y: 258 }
+    size: { w: 120, h: 24 }
+  - id: y860_258
+    label: "23.5mm ／ 4.5g ／ 青銅"
+    align: left
+    at: { x: 980, y: 258 }
+    size: { w: 300, h: 24 }
+  - id: x860_282
+    label: "50 円"
+    at: { x: 860, y: 282 }
+    size: { w: 120, h: 24 }
+  - id: y860_282
+    label: "21mm ／ 4.0g ／ 白銅"
+    align: left
+    at: { x: 980, y: 282 }
+    size: { w: 300, h: 24 }
+  - id: x860_306
+    label: "100 円"
+    at: { x: 860, y: 306 }
+    size: { w: 120, h: 24 }
+  - id: y860_306
+    label: "22.6mm ／ 4.8g ／ 白銅"
+    align: left
+    at: { x: 980, y: 306 }
+    size: { w: 300, h: 24 }
+  - id: x860_330
+    label: "500 円"
+    at: { x: 860, y: 330 }
+    size: { w: 120, h: 24 }
+  - id: y860_330
+    label: "26.5mm ／ 7.1g ／ バイカラー・クラッド"
+    align: left
+    at: { x: 980, y: 330 }
+    size: { w: 300, h: 24 }
+  - id: why3
+    label: "5 円の 3.75g は、1 匁（もんめ）。\n尺貫法の重さの単位がそのまま残っている ——\nほかの 5 種は切りのよい数なのに、\n5 円だけ 3.75 という半端な数なのはそのため。"
+    at: { x: 860, y: 368 }
+    size: { w: 420, h: 92 }
+  - id: t4
+    label: "④ 見ないで見分ける"
+    marker: none
+    align: left
+    at: { x: 860, y: 478 }
+    size: { w: 420, h: 20 }
+  - id: h860_508
+    label: "穴とギザの組み合わせ"
+    hatch: solid
+    at: { x: 860, y: 508 }
+    size: { w: 420, h: 24 }
+  - id: x860_532
+    label: "1 円"
+    at: { x: 860, y: 532 }
+    size: { w: 120, h: 24 }
+  - id: y860_532
+    label: "穴なし ／ ギザなし"
+    align: left
+    at: { x: 980, y: 532 }
+    size: { w: 300, h: 24 }
+  - id: x860_556
+    label: "5 円"
+    at: { x: 860, y: 556 }
+    size: { w: 120, h: 24 }
+  - id: y860_556
+    label: "穴あり（5mm）／ ギザなし"
+    align: left
+    at: { x: 980, y: 556 }
+    size: { w: 300, h: 24 }
+  - id: x860_580
+    label: "10 円"
+    at: { x: 860, y: 580 }
+    size: { w: 120, h: 24 }
+  - id: y860_580
+    label: "穴なし ／ ギザなし"
+    align: left
+    at: { x: 980, y: 580 }
+    size: { w: 300, h: 24 }
+  - id: x860_604
+    label: "50 円"
+    at: { x: 860, y: 604 }
+    size: { w: 120, h: 24 }
+  - id: y860_604
+    label: "穴あり（4mm）／ ギザあり"
+    align: left
+    at: { x: 980, y: 604 }
+    size: { w: 300, h: 24 }
+  - id: x860_628
+    label: "100 円"
+    at: { x: 860, y: 628 }
+    size: { w: 120, h: 24 }
+  - id: y860_628
+    label: "穴なし ／ ギザあり"
+    align: left
+    at: { x: 980, y: 628 }
+    size: { w: 300, h: 24 }
+  - id: x860_652
+    label: "500 円"
+    at: { x: 860, y: 652 }
+    size: { w: 120, h: 24 }
+  - id: y860_652
+    label: "穴なし ／ 斜めのギザ"
+    align: left
+    at: { x: 980, y: 652 }
+    size: { w: 300, h: 24 }
+  - id: why4
+    label: "穴とギザは、目の代わり。\n5 円と 50 円はどちらも穴があるが、\nギザの有無で分かれる ——\n触っただけで区別できるように組んである。"
+    at: { x: 860, y: 690 }
+    size: { w: 420, h: 74 }
+  - id: t5
+    label: "⑤ 書いていない寸法"
+    marker: none
+    align: left
+    at: { x: 860, y: 782 }
+    size: { w: 420, h: 20 }
+  - id: h860_812
+    label: "厚さ"
+    hatch: solid
+    at: { x: 860, y: 812 }
+    size: { w: 420, h: 24 }
+  - id: x860_836
+    label: "法令"
+    at: { x: 860, y: 836 }
+    size: { w: 120, h: 24 }
+  - id: y860_836
+    label: "厚さは定めていない"
+    align: left
+    at: { x: 980, y: 836 }
+    size: { w: 300, h: 24 }
+  - id: x860_860
+    label: "実物"
+    at: { x: 860, y: 860 }
+    size: { w: 120, h: 24 }
+  - id: y860_860
+    label: "おおよその値はあるが、正式な規格ではない"
+    align: left
+    at: { x: 980, y: 860 }
+    size: { w: 300, h: 24 }
+  - id: x860_884
+    label: "決まっているもの"
+    at: { x: 860, y: 884 }
+    size: { w: 120, h: 24 }
+  - id: y860_884
+    label: "直径・重さ・素材・縁・穴"
+    align: left
+    at: { x: 980, y: 884 }
+    size: { w: 300, h: 24 }
+  - id: why5
+    label: "自動販売機は、厚さで見分けていない。\n決まっているのは直径・重さ・素材（電気の通りやすさ）——\n厚さを規格にしなくても、硬貨は識別できる。"
+    at: { x: 860, y: 922 }
+    size: { w: 420, h: 74 }
+  - id: r1
+    label: "大きさは価値の順に並んでいません（①②）。50 円は 5 円より小さく、10 円は 100 円より大きいです。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1014 }
+    size: { w: 1140, h: 18 }
+  - id: r2
+    label: "重さの順もまた違います（②）。3 つの順番が、どれも一致しません。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1038 }
+    size: { w: 1140, h: 18 }
+  - id: r3
+    label: "穴があるのは 5 円と 50 円だけです（④）。どちらも穴がありますが、ギザの有無で分かれます。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1062 }
+    size: { w: 1140, h: 18 }
+  - id: r4
+    label: "5 円の 3.75g は 1 匁です（③）。ほかが切りのよい数なのに 5 円だけ半端なのは、尺貫法が残っているからです。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1086 }
+    size: { w: 1140, h: 18 }
+  - id: r5
+    label: "厚さは法令で定めていません（⑤）。決まっているのは直径・重さ・素材・縁・穴です。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1110 }
+    size: { w: 1140, h: 18 }
+edges:

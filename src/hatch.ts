@@ -85,6 +85,10 @@ function faceOf(marker: Marker, box: Rect, attrs: string): string {
     const d = `M ${n(cx)} ${n(box.y)} L ${n(box.x + box.w)} ${n(box.y + box.h)} L ${n(box.x)} ${n(box.y + box.h)} Z`;
     return `<path d="${d}" ${attrs}/>`;
   }
+  if (marker === 'triangle-down') {
+    const d = `M ${n(box.x)} ${n(box.y)} L ${n(box.x + box.w)} ${n(box.y)} L ${n(cx)} ${n(box.y + box.h)} Z`;
+    return `<path d="${d}" ${attrs}/>`;
+  }
   if (marker === 'diamond') {
     const d = `M ${n(cx)} ${n(box.y)} L ${n(box.x + box.w)} ${n(cy)} L ${n(cx)} ${n(box.y + box.h)} L ${n(box.x)} ${n(cy)} Z`;
     return `<path d="${d}" ${attrs}/>`;

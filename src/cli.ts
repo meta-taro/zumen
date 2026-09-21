@@ -20,6 +20,8 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { toDrawio } from './drawio.ts';
 import { tooThinForPattern } from './hatch.ts';
 import { patternPeriod } from './line.ts';
+import { endRoom, hasEnds } from './ends.ts';
+import { widthOf } from './weight.ts';
 import { renderZumenBlocks, replaceZumenBlocks } from './embed.ts';
 import { mergeThreeWay } from './git-merge.ts';
 import { crossingPlaces, edgesUnderBoxes, layout, straddlePlaces, straddles } from './layout.ts';
@@ -27,7 +29,7 @@ import { PASS_LINE, measure, percent } from './measure.ts';
 import { merge } from './merge.ts';
 import type { Conflict } from './merge.ts';
 import { toMermaid } from './mermaid.ts';
-import { overlappingInk, render, viewTitleBox } from './render.ts';
+import { linesOverText, overlappingInk, render, viewTitleBox } from './render.ts';
 import { timelapse } from './timelapse.ts';
 import { inspect } from './tools.ts';
 import { kindOf } from './kind.ts';
@@ -158,6 +160,25 @@ function widestGap(
 }
 
 /**
+ * **段の数**（構成図。いちばん深い鎖が何段か）。
+ *
+ * 機械は同じ段の節を同じ線の上に並べるので、**中心の座標をまとめれば段が数えられる。**
+ * 左上の座標では数えられない —— **箱ごとに幅が違うので、同じ段でも左端がずれる**
+ * （折り返した図で 3 段を 9 段と数えた。2026-09-21）。
+ */
+export function rankCount(placed: {
+  boxes: { x: number; y: number; w: number; h: number }[];
+  width: number;
+  height: number;
+}): number {
+  const line = (v: number): number => Math.round(v / 20);
+  const along = placed.width >= placed.height
+    ? placed.boxes.map((box) => line(box.x + box.w / 2))
+    : placed.boxes.map((box) => line(box.y + box.h / 2));
+  return new Set(along).size;
+}
+
+/**
  * **置いてみないと分からない指摘**（配置図だけ）。
  *
  * 構成図では置き場所を機械が決めるので、重なりは起きない。
@@ -183,7 +204,35 @@ export async function placedFindings(text: string): Promise<Finding[]> {
   // 投影の下限（`tooSmallToProject`）は出さない。**路線図・仕込図・積付図は
   // 印刷して読む図**で、鳴りっぱなしの指摘は読まれなくなる（`src/projection.ts`）。
   const paper = projection(placed.width, placed.height, smallestTextOf(placed, plan));
-  const size: Finding[] = paper.tooSmallToPrint
+  /**
+   * **鎖がいちばん深い所は何段か**（構成図だけ。2026-09-21）。
+   *
+   * 機械が並べる図では、同じ段の節が同じ座標に並ぶ。
+   * **段の数がそのまま紙の長さ**になるので、別の座標の数を数えれば足りる。
+   */
+  const ranksOf = (): number => rankCount(placed);
+  const size: Finding[] = paper.tooSmallToPrint && !plan
+    ? [
+        {
+          severity: 'warning' as const,
+          code: 'too-small-to-print',
+          message: ((): string => {
+            const ranks = Math.max(1, ranksOf());
+            const per = Math.round(paper.longestSide / ranks);
+            return messages().validate.tooSmallToPrintStructure(
+              (paper.textRatio ?? 0).toFixed(4),
+              paper.printFloor.toFixed(4),
+              paper.smallestText,
+              Math.round(paper.longestSide),
+              Math.floor(paper.smallestText / paper.printFloor),
+              ranks,
+              per,
+              Math.max(1, Math.floor(Math.floor(paper.smallestText / paper.printFloor) / Math.max(1, per))),
+            );
+          })(),
+        },
+      ]
+    : paper.tooSmallToPrint
     ? [
         {
           severity: 'warning' as const,
@@ -243,7 +292,123 @@ export async function placedFindings(text: string): Promise<Finding[]> {
     ];
   });
 
-  if (!plan) return [...size, ...short];
+  /**
+   * **線より矢じりのほうが長い辺**（2026-09-20）。
+   *
+   * 既定の矢印は `marker-end`（`markerWidth: 6`）なので、**長さは線の太さの 6 倍** ——
+   * weight: normal なら 12px ある。`ends` の記号も同じで、鳥の足は 12px、菱形は 14px。
+   * 線がそれより短いと、**描かれるのは記号だけ**で、線は 1px も見えない。
+   * 見本 133（受付 → 名簿）は 8px の辺で、箱と箱の間に三角が 1 つ挟まっているだけだった。
+   * 見本 39（経絡）は 10px で、矢じりが帯を突き抜けて出ていた。
+   */
+  const heads: Finding[] = placed.edges.flatMap((edge) => {
+    if (edge.close) return [];
+    // **太さは描く側と同じ数え方で**（`src/render.ts`）。
+    // weight: normal の線は、配置図と人が留めた辺だけ 2px、構成図では 1px。
+    const stroke =
+      edge.weight === 'normal' ? (edge.pinned || plan ? 2 : 1) : widthOf(edge.weight);
+    const need = hasEnds(edge.ends)
+      ? endRoom(edge.ends!.from) + endRoom(edge.ends!.to)
+      : placed.arrows
+        ? 6 * stroke
+        : 0;
+    if (need === 0) return [];
+    let length = 0;
+    for (let i = 1; i < edge.points.length; i += 1) {
+      const a = edge.points[i - 1]!;
+      const b = edge.points[i]!;
+      length += Math.hypot(b.x - a.x, b.y - a.y);
+    }
+    if (length === 0 || length >= need) return [];
+    /**
+     * **「節を離してください」が当たらない相手がいる**（2026-09-21。4 度目）。
+     *
+     * 壁を共有する部屋どうし（動線図・避難経路図）や、
+     * 積み重なった盤の段（電力系統）は、**離すことが図の嘘になる。**
+     * 箱と箱の隙間を測って、近いなら言い方を変える。
+     */
+    const from = placed.boxes.find((box) => box.id === edge.from);
+    const to = placed.boxes.find((box) => box.id === edge.to);
+    const apart =
+      from === undefined || to === undefined
+        ? Infinity
+        : Math.max(
+            0,
+            Math.max(from.x - (to.x + to.w), to.x - (from.x + from.w)),
+            Math.max(from.y - (to.y + to.h), to.y - (from.y + from.h)),
+          );
+    return [
+      {
+        severity: 'warning' as const,
+        code: 'ends-too-long',
+        message: messages().validate.endsTooLong(
+          `${edge.from} → ${edge.to}`,
+          String(Math.round(length)),
+          String(Math.round(need)),
+          apart <= 20
+            ? messages().validate.endsTouching(String(Math.round(apart)))
+            : messages().validate.endsApart,
+        ),
+      },
+    ];
+  });
+
+  /**
+   * **折り返した名前が、箱からはみ出す**（2026-09-21。配置図だけ）。
+   *
+   * 名前は箱の上下の真ん中から積むので（`src/render.ts`）、
+   * 行が増えると上下へはみ出す。**幅は `name-adrift` が見ていたが、高さは誰も見ていなかった。**
+   * 構成図では箱の高さを機械が決めるので、見るのは配置図だけ。
+   */
+  const tall: Finding[] = !plan
+    ? []
+    : placed.boxes.flatMap((box) => {
+        const lines = typeof box.label === 'string' ? box.label.split('\n').length : 1;
+        if (lines < 2) return [];
+        const need = lines * 14 + (box.technology === null ? 0 : 13);
+        if (need <= box.h) return [];
+        return [
+          {
+            severity: 'warning' as const,
+            code: 'label-too-tall',
+            message: messages().validate.labelTooTall(box.id, lines, need, Math.round(box.h)),
+          },
+        ];
+      });
+
+  /**
+   * **細長すぎる構成図**（2026-09-21。構成図だけ）。
+   *
+   * 貼った先で幅に合わせて縮むので、**細長いほど字が小さくなる**（`src/wrap.ts`）。
+   * 配置図の細長さは中身（長い断面・経路）であることが多いので見ない ——
+   * 構成図は**機械が形を決めている**ので、`wrap` で直せる。
+   */
+  const thin: Finding[] = ((): Finding[] => {
+    // **作図図（construction）は機械が並べていない。** `wrap` も効かないので言わない。
+    if (kindOf(text) !== 'structure') return [];
+    const long = Math.max(placed.width, placed.height);
+    const short2 = Math.max(1, Math.min(placed.width, placed.height));
+    const ratio = long / short2;
+    if (ratio <= 4) return [];
+    return [
+      {
+        severity: 'warning' as const,
+        code: 'structure-too-thin',
+        message: messages().validate.structureTooThin(
+          `${ratio.toFixed(1)} : 1`,
+          Math.round(placed.width),
+          Math.round(placed.height),
+          placed.wrap
+            ? messages().validate.structureWrapOn
+            : placed.wrapWritten
+              ? messages().validate.structureWrapTried
+              : messages().validate.structureWrapOff,
+        ),
+      },
+    ];
+  })();
+
+  if (!plan) return [...size, ...short, ...heads, ...thin];
   const plans = planNames(placed.boxes, extentOf(placed.boxes), placed.edges, placed.groups);
   /**
    * **紙の上で数える**（2026-09-17）。
@@ -255,7 +420,17 @@ export async function placedFindings(text: string): Promise<Finding[]> {
    */
   const said = (word: { text: string; id: string | null }): string =>
     word.id === null ? JSON.stringify(word.text) : `${JSON.stringify(word.text)}（${word.id}）`;
-  const ink = overlappingInk(render(placed, 'light', 'safe', true)).map(([a, b, by]) => ({
+  const drawn = render(placed, 'light', 'safe', true);
+  /**
+   * **線が、枠の無い注記の字を横切っている**（2026-09-21。課題 20）。
+   * `overlappingInk` は文字どうししか見ない —— 線は数に入っていなかった。
+   */
+  const struck = linesOverText(drawn, placed).map((found) => ({
+    severity: 'warning' as const,
+    code: 'line-over-text',
+    message: messages().validate.lineOverText(found.edge, found.box, found.text, found.px),
+  }));
+  const ink = overlappingInk(drawn).map(([a, b, by]) => ({
     severity: 'warning' as const,
     code: 'text-overlap',
     message: messages().validate.inkOverlap(said(a), said(b), by.x, by.y),
@@ -263,7 +438,10 @@ export async function placedFindings(text: string): Promise<Finding[]> {
   return [
     ...size,
     ...short,
+    ...heads,
+    ...tall,
     ...ink,
+    ...struck,
     // **広い箱から出ていった名前。** 表の欄が空に見える。
     /**
      * **入りきらず、外にも空きが無かった名前**（`crowdedNames`）。
@@ -280,7 +458,14 @@ export async function placedFindings(text: string): Promise<Finding[]> {
     ...adriftDetails(placed.boxes, plans).map((found) => ({
       severity: 'warning' as const,
       code: 'name-adrift',
-      message: messages().validate.nameAdrift(found.id, found.needs, found.has),
+      message: messages().validate.nameAdrift(
+        found.id,
+        found.needs,
+        found.has,
+        placed.boxes.find((box) => box.id === found.id)?.marker === 'none'
+          ? messages().validate.adriftNote
+          : messages().validate.adriftCell,
+      ),
     })),
     // **書いたのに出ない符号。** 印が小さいと入らないので落としている。
     // 落とすのは正しいが、**黙って落とすと書いた側が気づけない。**
@@ -433,9 +618,80 @@ function titleOf(text: string): string | undefined {
  *
  * **止めない。数えて見せるだけ。**
  */
+/**
+ * **見本をまとめて見るときの数え上げ**（2026-09-21）。
+ *
+ * 1 枚ずつの観測値は 4 行あるので、325 枚に当てると **1300 行**出る ——
+ * 読めないので、結局その場で使い捨てのスクリプトを書くことになる
+ * （このリポジトリの作業で、**同じ形のループを 7 回**書いた）。
+ *
+ * 出すのは**どの検査が・何本・何枚で鳴っているか**と、その見本の名前だけ。
+ * 中身（どの節か・何 px か）は `validate` の仕事のまま。
+ */
+async function runTally(paths: string[], read: typeof readFileSync): Promise<RunResult> {
+  const m = messages().cli;
+  const count = new Map<string, number>();
+  const where = new Map<string, string[]>();
+  let quiet = 0;
+  let unreadable = 0;
+  let crossed = 0;
+  let straddled = 0;
+  for (const path of paths) {
+    let text: string;
+    try {
+      text = String(read(path, 'utf8'));
+    } catch (error) {
+      return { code: 1, lines: [m.fileUnreadable(path, error instanceof Error ? error.message : String(error))] };
+    }
+    const found = [...validate(text), ...(await placedFindings(text))];
+    if (found.some((one) => one.severity === 'error')) unreadable += 1;
+    const warnings = found.filter((one) => one.severity === 'warning');
+    /**
+     * **交差とまたぎは、行に並べない**（2026-09-21）。
+     *
+     * この 2 つは `Finding` ではないが、**テストを落とすのはこちら**なので
+     * 一度は検査と同じ行に並べてみた —— **何も出ない見本が 316 枚から 216 枚に落ちた。**
+     * 中身であることのほうが多い（極座標の目盛り・組子の仕口・壁を共有する部屋）ので、
+     * **枚数だけを見出しに出す。** どれが「わざと」かは `test/names.test.ts` の表が持っている。
+     */
+    const placed = await layout(text);
+    if (crossingPlaces(placed).length > 0) crossed += 1;
+    if (straddles(placed).length > 0) straddled += 1;
+    if (warnings.length === 0) {
+      quiet += 1;
+      continue;
+    }
+    for (const one of warnings) {
+      count.set(one.code, (count.get(one.code) ?? 0) + 1);
+      const seen = where.get(one.code) ?? [];
+      if (!seen.includes(path)) seen.push(path);
+      where.set(one.code, seen);
+    }
+  }
+  const rows = [...count.entries()].sort((a, b) => b[1] - a[1]);
+  const lines = [m.tallyHead(paths.length, quiet), m.tallyGates(crossed, straddled)];
+  for (const [code, times] of rows) {
+    const files = where.get(code) ?? [];
+    lines.push(m.tallyRow(code, times, files.length, names(files.map(shortName), 6)));
+  }
+  if (rows.length === 0) lines.push(m.tallyNone);
+  if (unreadable > 0) lines.push(m.inspectUnreadable(unreadable));
+  return { code: 0, lines };
+}
+
+/** 数え上げでは、道のりではなく見本の名前だけを出す。 */
+function shortName(path: string): string {
+  return path.split('/').pop()?.replace(/\.zumen\.yaml$/, '') ?? path;
+}
+
 export async function runInspect(paths: string[], read = readFileSync): Promise<RunResult> {
   const m = messages().cli;
-  if (paths.length === 0) return { code: 2, lines: [m.usageInspect] };
+  const tally = paths.includes('--tally');
+  const files = paths.filter((path) => path !== '--tally');
+  if (files.length === 0) return { code: 2, lines: [m.usageInspect] };
+  // **たくさんの図をまとめて見るときは、1 枚ずつの観測値ではなく数え上げ。**
+  if (tally) return runTally(files, read);
+  paths = files;
 
   const lines: string[] = [];
   let gated = false;
@@ -460,7 +716,16 @@ export async function runInspect(paths: string[], read = readFileSync): Promise<
       unreadable += 1;
       continue;
     }
-    lines.push(m.inspectCounts(seen.nodes, seen.edges));
+    const kind = kindOf(text);
+    const kindWord =
+      kind === 'placement'
+        ? m.inspectPlan
+        : kind === 'construction'
+          ? m.inspectConstruction
+          : m.inspectStructure;
+    lines.push(m.inspectCounts(seen.nodes, seen.edges, kindWord));
+    // **構成図には段の数も出す。** 紙の長さは、いちばん長い鎖の深さで決まる。
+    if (kindOf(text) === 'structure') lines.push(m.inspectRanks(rankCount(await layout(text))));
 
     /**
      * **警告の件数も出す**（2026-09-20）。
@@ -473,7 +738,17 @@ export async function runInspect(paths: string[], read = readFileSync): Promise<
     const warnings = [...validate(text), ...(await placedFindings(text))].filter(
       (finding) => finding.severity === 'warning',
     );
-    if (warnings.length > 0) lines.push(m.inspectWarnings(String(warnings.length)));
+    /**
+     * **どの検査が鳴っているかまで出す**（2026-09-21）。
+     *
+     * 件数だけだと、`pnpm validate` をもう一度叩かないと種類が分からない ——
+     * 見本 286・287 を描いていて、同じ往復を 2 回した。
+     * **中身（どの節か・何 px か）は出さない。**それは `validate` の仕事のまま。
+     */
+    if (warnings.length > 0) {
+      const codes = [...new Set(warnings.map((finding) => finding.code))];
+      lines.push(m.inspectWarnings(String(warnings.length), codes.join(' / ')));
+    }
 
     const placed = await layout(text);
     const crossed = crossingPlaces(placed);
@@ -488,10 +763,33 @@ export async function runInspect(paths: string[], read = readFileSync): Promise<
     if (crossed.length > 0) lines.push(m.inspectCrossings(seen.crossings, crossed.length, spots(crossed)));
     if (over.length > 0) {
       // **どれだけ重なっているかまで出す。** 組だけでは、何 px 動かすかが分からない。
-      const said = straddlePlaces(placed).map((found) =>
-        m.straddleBy(found.a, found.b, String(Math.ceil(found.by.x)), String(Math.ceil(found.by.y))),
+      const places = straddlePlaces(placed);
+      /**
+       * **重なりの大きさが全部同じなら、1 回だけ言う**（2026-09-21）。
+       *
+       * 見本 311（ピアノの鍵盤）で、黒鍵と白鍵の 20 組が
+       * **どれも「横 12px ／ 縦 110px」**だった ——
+       * 同じ数を 20 回繰り返すと 1 行が 800 字を超え、**組の名前が読めなくなる。**
+       */
+      const size = (found: { by: { x: number; y: number } }): string =>
+        `${Math.ceil(found.by.x)}x${Math.ceil(found.by.y)}`;
+      const same = places.length > 1 && places.every((found) => size(found) === size(places[0]!));
+      const said = same
+        ? places.map((found) => `${found.a}↔${found.b}`)
+        : places.map((found) =>
+            m.straddleBy(found.a, found.b, String(Math.ceil(found.by.x)), String(Math.ceil(found.by.y))),
+          );
+      // **またぎは 20 組まで並べる。** 交差と違って数が跳ねにくく、
+      // どれも「動かすかどうか」を 1 つずつ決める相手なので、先頭 6 組では足りない。
+      const head = names(said, 20);
+      lines.push(
+        m.inspectStraddles(
+          over.length,
+          same
+            ? `${head}。${m.straddleAllSame(String(Math.ceil(places[0]!.by.x)), String(Math.ceil(places[0]!.by.y)))}`
+            : head,
+        ),
       );
-      lines.push(m.inspectStraddles(over.length, names(said, 6)));
     }
     if (seen.overlappingText.length > 0) {
       lines.push(m.inspectOverlaps(seen.overlappingText.length, pairs(seen.overlappingText)));
@@ -506,7 +804,12 @@ export async function runInspect(paths: string[], read = readFileSync): Promise<
      * この口は交差とまたぎしか出していなかった。**閉じたはずの穴が半分開いていた。**
      */
     if (seen.hiddenLabels.length > 0) {
-      lines.push(m.inspectHiddenLabels(seen.hiddenLabels.length, names(seen.hiddenLabels)));
+      // **どの言葉が消えたかまで出す。** id だけでは、書いた文字を探しに戻ることになる。
+      const said = seen.hiddenLabels.map((id) => {
+        const edge = placed.edges.find((e) => e.id === id);
+        return edge?.label == null ? id : m.hiddenLabelText(`${edge.from} → ${edge.to}`, edge.label);
+      });
+      lines.push(m.inspectHiddenLabels(seen.hiddenLabels.length, names(said)));
     }
     if (seen.crowdedNames.length > 0) {
       lines.push(m.inspectCrowded(seen.crowdedNames.length, names(seen.crowdedNames)));
@@ -527,9 +830,19 @@ export async function runInspect(paths: string[], read = readFileSync): Promise<
 
     // **長さは 1px きざみで足りる。** 1448.6107034668482 は読む人を困らせるだけ。
     const ratio = seen.textRatio === null ? '—' : seen.textRatio.toFixed(4);
-    lines.push(m.inspectPaper(seen.smallestText, Math.round(seen.longestSide), ratio));
+    lines.push(
+      m.inspectPaper(
+        Math.round(placed.width),
+        Math.round(placed.height),
+        seen.smallestText,
+        Math.round(seen.longestSide),
+        ratio,
+      ),
+    );
     if (seen.tooSmallToPrint) lines.push(m.inspectPrint);
-    else if (seen.tooSmallToProject) lines.push(m.inspectProject);
+    // **投影の行は、耐えるときだけ出す**（2026-09-21）。
+    // 「小さすぎます」は 309 枚中 228 枚（74%）で出ていて、しかも直しようがなかった。
+    else if (!seen.tooSmallToProject) lines.push(m.inspectProject);
   }
   // **読めなかった図しか無いなら、観測値の話はしない。**
   if (unreadable < paths.length) lines.push(m.inspectNote);
@@ -550,16 +863,24 @@ function spots(list: { a: string; b: string; at: { x: number; y: number } }[], l
   return list.length <= limit ? head : `${head}, …`;
 }
 
-/** id を並べる。**多いときは先頭だけ。** */
+/**
+ * id を並べる。**多いときは先頭だけ** —— ただし**隠した分の数を言う**（2026-09-21）。
+ *
+ * 「…」だけでは、**あと何組あるのかが分からない。**
+ * 見本 48 枚にまたぎがあり、そのうち 27 枚が 6 組を超えていた ——
+ * 半分以上で「全部見たのかどうか」が判断できなかった。
+ */
 function names(list: string[], limit = 8): string {
   const head = list.slice(0, limit).join(', ');
-  return list.length <= limit ? head : `${head}, …`;
+  if (list.length <= limit) return head;
+  return `${head}, ${messages().cli.andMore(String(list.length - limit))}`;
 }
 
 /** 組を「a↔b, c↔d」の形にする。**多いときは先頭だけ**（探すのに要るのは相手）。 */
 function pairs(list: [string, string][], limit = 6): string {
   const head = list.slice(0, limit).map(([a, b]) => `${a}↔${b}`).join(', ');
-  return list.length <= limit ? head : `${head}, …`;
+  if (list.length <= limit) return head;
+  return `${head}, ${messages().cli.andMore(String(list.length - limit))}`;
 }
 
 /**

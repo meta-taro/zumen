@@ -8,6 +8,7 @@
  * 英語は名前で引く辞書（`scripts/gallery-en.mjs`）。**混ぜない。**
  */
 import assert from 'node:assert/strict';
+import { readdirSync, readFileSync } from 'node:fs';
 import { describe, it } from 'node:test';
 // @ts-expect-error 組み立て用のスクリプトは型を持たない（下で形を言う）
 import { CATEGORIES } from '../scripts/gallery-categories.mjs';
@@ -182,5 +183,67 @@ describe('英語のページの「何枚が英語か」', () => {
     assert.ok(total !== null, '全体の枚数が書かれていない');
     assert.equal(Number(said[1]), english);
     assert.equal(Number(total[1]), files.length);
+  });
+});
+
+/**
+ * **一覧に載せ忘れた見本は、黙って消える**（2026-09-21）。
+ *
+ * 紹介ページは `scripts/gallery-categories.mjs` の一覧から組み立てる。
+ * **そこへ足し忘れると、`pnpm gallery` は何も言わずにその 1 枚を飛ばす** ——
+ * 正本もテストも通るのに、**世に出るページにだけ載っていない**状態になる。
+ *
+ * ベースルール §23（参照とアップロードを分離させない）と同じ形なので、
+ * **CI に見させる。**
+ */
+describe('一覧と実物', () => {
+  const dir = new URL('../examples/gallery/', import.meta.url);
+  const samples = (): string[] =>
+    readdirSync(dir)
+      .filter((f) => f.endsWith('.zumen.yaml'))
+      .map((f) => f.replace('.zumen.yaml', ''));
+
+  it('**どの見本も、分野の一覧に載っている**', () => {
+    const cats = readFileSync(new URL('../scripts/gallery-categories.mjs', import.meta.url), 'utf8');
+    const listed = new Set([...cats.matchAll(/\{ name: '([^']+)'/g)].map((m) => m[1]!));
+    assert.deepEqual(samples().filter((s) => !listed.has(s)), [], '一覧に載っていない見本');
+  });
+
+  it('**一覧にあって、実物が無いものは無い**', () => {
+    const cats = readFileSync(new URL('../scripts/gallery-categories.mjs', import.meta.url), 'utf8');
+    const listed = [...cats.matchAll(/\{ name: '([^']+)'/g)].map((m) => m[1]!);
+    const have = new Set(samples());
+    assert.deepEqual(listed.filter((n) => !have.has(n)), [], '実物の無い見出し');
+  });
+
+  it('**同じ見本が 2 つの分野に出ていない**', () => {
+    const cats = readFileSync(new URL('../scripts/gallery-categories.mjs', import.meta.url), 'utf8');
+    const listed = [...cats.matchAll(/\{ name: '([^']+)'/g)].map((m) => m[1]!);
+    const twice = listed.filter((n, i) => listed.indexOf(n) !== i);
+    assert.deepEqual(twice, []);
+  });
+});
+
+/**
+ * **英語ページの説明にも、同じ下限を当てる**（2026-09-21）。
+ *
+ * 日本語の alt は 20 字の下限を入れて全部書き直したのに、
+ * **英語側は「Data flow」「Transit map」のまま**だった ——
+ * 測ったら **9 字から 350 字まで**ばらつき、**19 件が 20 字未満。**
+ * 英語ページでは、この文が alt にも説明にも使われる。
+ */
+describe('英語の説明の長さ', () => {
+  it('**どれも 40 字以上ある**（題名の言い直しにしない）', () => {
+    const thin = Object.entries(CAPTIONS_EN)
+      .filter(([, text]) => String(text).length < 40)
+      .map(([name, text]) => `${name}: ${String(text)}`);
+    assert.deepEqual(thin, [], '英語の説明が短すぎる');
+  });
+
+  it('**長すぎもしない**（400 字を超えない）', () => {
+    const fat = Object.entries(CAPTIONS_EN)
+      .filter(([, text]) => String(text).length > 400)
+      .map(([name, text]) => `${name}: ${String(text).length}`);
+    assert.deepEqual(fat, []);
   });
 });

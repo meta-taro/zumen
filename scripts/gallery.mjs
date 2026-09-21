@@ -242,6 +242,22 @@ const indexText = `${JSON.stringify(index, null, 2)}\n`;
 if (!check) writeFileSync(indexPath, indexText);
 else if (readFileSync(indexPath, 'utf8') !== indexText) stale.push(indexPath);
 
+/**
+ * **英語の説明の長さを、ここで言う**（2026-09-21）。
+ *
+ * 下限 40 字・上限 400 字は `test/gallery-en.test.ts` が見ているが、
+ * **分かるのがフルテストの最後**なので、見本を足すたびに往復していた
+ * （この晩だけで 3 回）。組み立てるときに言えば、その場で直せる。
+ */
+const badEnglish = Object.entries(CAPTIONS_EN)
+  .map(([name, text]) => [name, String(text).length])
+  .filter(([, length]) => length < 40 || length > 400);
+if (badEnglish.length > 0) {
+  console.log(`英語の説明の長さが外れているものが ${badEnglish.length} 件あります（40〜400 字）。`);
+  for (const [name, length] of badEnglish) console.log(`  ${name}: ${length} 字`);
+  process.exitCode = 1;
+}
+
 if (parts.missing.length > 0) {
   console.log(`紹介ページに出していない見本が ${parts.missing.length} 件あります（scripts/gallery-categories.mjs に足してください）。`);
   for (const name of parts.missing) console.log(`  ${name}`);

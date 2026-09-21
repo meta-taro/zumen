@@ -1,0 +1,489 @@
+version: 1
+kind: placement
+arrows: true
+title: 交通信号機（色の順は、見落としの重さで決まっている）
+# **横型は左から 青・黄・赤、縦型は上から 赤・黄・青。**
+# 理由ははっきりしていて、**赤をいちばん視認性の良い位置に置かなければならない**から ——
+# **青が端にあるのは、赤を優先した結果。**
+# 色の順は美しさではなく、**見落としたときの重さ**で決まっている。
+#
+# **矢印の並びも決まっている。** 横型では三色灯器の**下**、縦型では**右**に付き、
+# **青の隣が左折、黄の隣が直進、赤の隣が右折。**
+#
+# **灯器の大きさは 3 通り。** 車両用は **φ250mm と φ300mm**、
+# **高速道路用は φ450mm**。歩行者用は**一辺 200〜250mm の正方形**。
+# 大きいほうが遠くから見えるので、速度の出る道ほど大きくなる。
+#
+# **高さ。** 車両用は地盤面から**灯器の底部まで 5,100mm 以上**。
+# 歩行者用は **2.5m 以上**（ふつう 2.7〜3.2m）、柱頭式は約 3m。
+#
+# **LED 式は、反射鏡を持たない。**
+# 電球式は着色レンズと反射鏡で色と向きを作っていたが、LED はそれ自体が色を含めて光るので
+# どちらも要らない。**表示面から均一に光が出て、疑似点灯（西日が反射して点いて見える現象）が起きない。**
+# 消費電力は電球式の **3 分の 1 〜 10 分の 1。**
+#
+# 縦型は雪が積もりにくいので雪国で多く、狭い所や陸橋・側道でも使われる。
+#
+# **縮尺は図ごとに違う** —— ①② の灯器は 1px ＝ 3mm、③ の高さ比べは 1px ＝ 20mm。
+nodes:
+  - id: t1
+    label: "① 横型は、左から 青・黄・赤（1px ＝ 3mm。灯器は φ300mm）"
+    marker: none
+    align: left
+    at: { x: 140, y: 150 }
+    size: { w: 660, h: 20 }
+  - id: yoko
+    label: ""
+    at: { x: 250, y: 230 }
+    size: { w: 340, h: 120 }
+  - id: h_ao
+    label: ""
+    marker: circle
+    at: { x: 260, y: 240 }
+    size: { w: 100, h: 100 }
+  - id: h_ki
+    label: ""
+    marker: circle
+    at: { x: 370, y: 240 }
+    size: { w: 100, h: 100 }
+  - id: h_aka
+    label: ""
+    marker: circle
+    at: { x: 480, y: 240 }
+    size: { w: 100, h: 100 }
+  - id: h_n0
+    label: "青"
+    marker: none
+    align: center
+    at: { x: 260, y: 356 }
+    size: { w: 100, h: 18 }
+  - id: h_n1
+    label: "黄"
+    marker: none
+    align: center
+    at: { x: 370, y: 356 }
+    size: { w: 100, h: 18 }
+  - id: h_n2
+    label: "赤"
+    marker: none
+    align: center
+    at: { x: 480, y: 356 }
+    size: { w: 100, h: 18 }
+  - id: yaji
+    label: ""
+    at: { x: 250, y: 380 }
+    size: { w: 340, h: 70 }
+  - id: a_0
+    label: ""
+    at: { x: 266, y: 388 }
+    size: { w: 88, h: 54 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 335, y: 413 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 283, y: 413 }
+    size: { w: 2, h: 2 }
+  - id: a_n0
+    label: "左折"
+    marker: none
+    align: center
+    at: { x: 260, y: 454 }
+    size: { w: 100, h: 18 }
+  - id: a_1
+    label: ""
+    at: { x: 376, y: 388 }
+    size: { w: 88, h: 54 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 419, y: 431 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 419, y: 395 }
+    size: { w: 2, h: 2 }
+  - id: a_n1
+    label: "直進"
+    marker: none
+    align: center
+    at: { x: 370, y: 454 }
+    size: { w: 100, h: 18 }
+  - id: a_2
+    label: ""
+    at: { x: 486, y: 388 }
+    size: { w: 88, h: 54 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 503, y: 413 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 555, y: 413 }
+    size: { w: 2, h: 2 }
+  - id: a_n2
+    label: "右折"
+    marker: none
+    align: center
+    at: { x: 480, y: 454 }
+    size: { w: 100, h: 18 }
+  - id: cap1
+    label: "矢印は三色灯器の下。 青の下が左折、黄の下が直進、赤の下が右折と決まっている。"
+    marker: none
+    align: center
+    at: { x: 140, y: 480 }
+    size: { w: 660, h: 18 }
+  - id: t2
+    label: "② 縦型は、上から 赤・黄・青"
+    marker: none
+    align: left
+    at: { x: 140, y: 520 }
+    size: { w: 300, h: 20 }
+  - id: tate
+    label: ""
+    at: { x: 250, y: 560 }
+    size: { w: 120, h: 340 }
+  - id: v_aka
+    label: ""
+    marker: circle
+    at: { x: 260, y: 570 }
+    size: { w: 100, h: 100 }
+  - id: v_ki
+    label: ""
+    marker: circle
+    at: { x: 260, y: 680 }
+    size: { w: 100, h: 100 }
+  - id: v_ao
+    label: ""
+    marker: circle
+    at: { x: 260, y: 790 }
+    size: { w: 100, h: 100 }
+  - id: v_n0
+    label: "赤"
+    marker: none
+    align: left
+    at: { x: 376, y: 611 }
+    size: { w: 60, h: 18 }
+  - id: v_n1
+    label: "黄"
+    marker: none
+    align: left
+    at: { x: 376, y: 721 }
+    size: { w: 60, h: 18 }
+  - id: v_n2
+    label: "青"
+    marker: none
+    align: left
+    at: { x: 376, y: 831 }
+    size: { w: 60, h: 18 }
+  - id: cap2
+    label: "縦型は矢印を右に付\nける。雪が積もりに\nくいので雪国で多い。"
+    marker: none
+    align: left
+    at: { x: 376, y: 750 }
+    size: { w: 158, h: 54 }
+  - id: t3
+    label: "③ 取り付けの高さ（ここだけ 1px ＝ 20mm）"
+    marker: none
+    align: left
+    at: { x: 520, y: 520 }
+    size: { w: 320, h: 20 }
+  - id: road
+    label: ""
+    hatch: lines
+    at: { x: 500, y: 890 }
+    size: { w: 340, h: 16 }
+  - id: lamp
+    label: ""
+    hatch: solid
+    at: { x: 560, y: 635 }
+    size: { w: 70, h: 30 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 594, y: 664 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 594, y: 889 }
+    size: { w: 2, h: 2 }
+  - id: h1
+    label: "車両用\n5,100mm 以上"
+    marker: none
+    align: center
+    at: { x: 520, y: 912 }
+    size: { w: 150, h: 36 }
+  - id: plamp
+    label: ""
+    hatch: solid
+    at: { x: 730, y: 755 }
+    size: { w: 40, h: 40 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 749, y: 794 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 749, y: 889 }
+    size: { w: 2, h: 2 }
+  - id: h2
+    label: "歩行者用\n2.5m 以上"
+    marker: none
+    align: center
+    at: { x: 675, y: 912 }
+    size: { w: 150, h: 36 }
+  - id: cap3
+    label: "赤がいちばん見やすい所へ来るように並べる。 だから青は端になる。"
+    marker: none
+    align: center
+    at: { x: 140, y: 964 }
+    size: { w: 700, h: 18 }
+  - id: t4
+    label: "④ 灯器の大きさ"
+    marker: none
+    align: left
+    at: { x: 880, y: 150 }
+    size: { w: 400, h: 20 }
+  - id: h880_186
+    label: "直径と一辺"
+    hatch: solid
+    at: { x: 880, y: 186 }
+    size: { w: 400, h: 24 }
+  - id: x880_210
+    label: "車両用"
+    at: { x: 880, y: 210 }
+    size: { w: 150, h: 24 }
+  - id: y880_210
+    label: "φ250mm ／ φ300mm"
+    align: left
+    at: { x: 1030, y: 210 }
+    size: { w: 250, h: 24 }
+  - id: x880_234
+    label: "高速道路用"
+    at: { x: 880, y: 234 }
+    size: { w: 150, h: 24 }
+  - id: y880_234
+    label: "φ450mm"
+    align: left
+    at: { x: 1030, y: 234 }
+    size: { w: 250, h: 24 }
+  - id: x880_258
+    label: "歩行者用"
+    at: { x: 880, y: 258 }
+    size: { w: 150, h: 24 }
+  - id: y880_258
+    label: "一辺 200 〜 250mm の正方形"
+    align: left
+    at: { x: 1030, y: 258 }
+    size: { w: 250, h: 24 }
+  - id: x880_282
+    label: "車両用の高さ"
+    at: { x: 880, y: 282 }
+    size: { w: 150, h: 24 }
+  - id: y880_282
+    label: "灯器底部まで 5,100mm 以上"
+    align: left
+    at: { x: 1030, y: 282 }
+    size: { w: 250, h: 24 }
+  - id: x880_306
+    label: "歩行者用の高さ"
+    at: { x: 880, y: 306 }
+    size: { w: 150, h: 24 }
+  - id: y880_306
+    label: "2.5m 以上（ふつう 2.7〜3.2m）"
+    align: left
+    at: { x: 1030, y: 306 }
+    size: { w: 250, h: 24 }
+  - id: x880_330
+    label: "柱頭式"
+    at: { x: 880, y: 330 }
+    size: { w: 150, h: 24 }
+  - id: y880_330
+    label: "約 3m"
+    align: left
+    at: { x: 1030, y: 330 }
+    size: { w: 250, h: 24 }
+  - id: why4
+    label: "大きいほうが遠くから見える。\n速度の出る道や、遠くから見せたい所ほど\nφ300 や φ450 を使う ——\n高速道路が 450 なのはそのため。"
+    at: { x: 880, y: 368 }
+    size: { w: 400, h: 74 }
+  - id: t5
+    label: "⑤ 並び順"
+    marker: none
+    align: left
+    at: { x: 880, y: 460 }
+    size: { w: 400, h: 20 }
+  - id: h880_490
+    label: "どちらから数えるか"
+    hatch: solid
+    at: { x: 880, y: 490 }
+    size: { w: 400, h: 24 }
+  - id: x880_514
+    label: "横型"
+    at: { x: 880, y: 514 }
+    size: { w: 150, h: 24 }
+  - id: y880_514
+    label: "左から 青・黄・赤"
+    align: left
+    at: { x: 1030, y: 514 }
+    size: { w: 250, h: 24 }
+  - id: x880_538
+    label: "縦型"
+    at: { x: 880, y: 538 }
+    size: { w: 150, h: 24 }
+  - id: y880_538
+    label: "上から 赤・黄・青"
+    align: left
+    at: { x: 1030, y: 538 }
+    size: { w: 250, h: 24 }
+  - id: x880_562
+    label: "理由"
+    at: { x: 880, y: 562 }
+    size: { w: 150, h: 24 }
+  - id: y880_562
+    label: "赤をいちばん見やすい位置へ"
+    align: left
+    at: { x: 1030, y: 562 }
+    size: { w: 250, h: 24 }
+  - id: x880_586
+    label: "矢印（横型）"
+    at: { x: 880, y: 586 }
+    size: { w: 150, h: 24 }
+  - id: y880_586
+    label: "三色灯器の下"
+    align: left
+    at: { x: 1030, y: 586 }
+    size: { w: 250, h: 24 }
+  - id: x880_610
+    label: "矢印（縦型）"
+    at: { x: 880, y: 610 }
+    size: { w: 150, h: 24 }
+  - id: y880_610
+    label: "三色灯器の右"
+    align: left
+    at: { x: 1030, y: 610 }
+    size: { w: 250, h: 24 }
+  - id: x880_634
+    label: "矢印の並び"
+    at: { x: 880, y: 634 }
+    size: { w: 150, h: 24 }
+  - id: y880_634
+    label: "青の隣に左折、黄に直進、赤に右折"
+    align: left
+    at: { x: 1030, y: 634 }
+    size: { w: 250, h: 24 }
+  - id: why5
+    label: "青が端にあるのは、赤を優先した結果。\n赤を見落とすことが、いちばん危ない ——\n色の順は美しさではなく、\n見落としの重さで決まっている。"
+    at: { x: 880, y: 672 }
+    size: { w: 400, h: 74 }
+  - id: t6
+    label: "⑥ LED 式で変わったこと"
+    marker: none
+    align: left
+    at: { x: 880, y: 764 }
+    size: { w: 400, h: 20 }
+  - id: h880_794
+    label: "電球式との違い"
+    hatch: solid
+    at: { x: 880, y: 794 }
+    size: { w: 400, h: 24 }
+  - id: x880_818
+    label: "発光"
+    at: { x: 880, y: 818 }
+    size: { w: 150, h: 24 }
+  - id: y880_818
+    label: "表示面から均一に出る"
+    align: left
+    at: { x: 1030, y: 818 }
+    size: { w: 250, h: 24 }
+  - id: x880_842
+    label: "いらなくなったもの"
+    at: { x: 880, y: 842 }
+    size: { w: 150, h: 24 }
+  - id: y880_842
+    label: "着色レンズ・反射鏡"
+    align: left
+    at: { x: 1030, y: 842 }
+    size: { w: 250, h: 24 }
+  - id: x880_866
+    label: "疑似点灯"
+    at: { x: 880, y: 866 }
+    size: { w: 150, h: 24 }
+  - id: y880_866
+    label: "起きない"
+    align: left
+    at: { x: 1030, y: 866 }
+    size: { w: 250, h: 24 }
+  - id: x880_890
+    label: "消費電力"
+    at: { x: 880, y: 890 }
+    size: { w: 150, h: 24 }
+  - id: y880_890
+    label: "3 分の 1 〜 10 分の 1"
+    align: left
+    at: { x: 1030, y: 890 }
+    size: { w: 250, h: 24 }
+  - id: why6
+    label: "疑似点灯は、光が入って反射する現象。\n電球式は反射鏡を持っているので、\n西日が入ると点いて見える ——\nLED は鏡を持たないので起きない。"
+    at: { x: 880, y: 928 }
+    size: { w: 400, h: 74 }
+  - id: r1
+    label: "横型は左から青・黄・赤、縦型は上から赤・黄・青です（①②⑤）。赤をいちばん見やすい位置へ置いた結果、青が端になります。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1020 }
+    size: { w: 1140, h: 18 }
+  - id: r2
+    label: "矢印の並びも決まっています（⑤）。青の隣が左折、黄の隣が直進、赤の隣が右折です。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1044 }
+    size: { w: 1140, h: 18 }
+  - id: r3
+    label: "灯器は φ250・φ300、高速道路は φ450（④）。大きいほうが遠くから見えます。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1068 }
+    size: { w: 1140, h: 18 }
+  - id: r4
+    label: "車両用は灯器底部まで 5,100mm 以上（③）。歩行者用は 2.5m 以上で、ふつう 2.7〜3.2m です。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1092 }
+    size: { w: 1140, h: 18 }
+  - id: r5
+    label: "LED は反射鏡を持ちません（⑥）。だから西日で点いて見える疑似点灯が起きず、消費電力も 3 分の 1 〜 10 分の 1 です。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1116 }
+    size: { w: 1140, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p2
+    to: p3
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p4
+    to: p5
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p6
+    to: p7
+    curve: none
+    ends: { from: none, to: none }
+  - from: p8
+    to: p9
+    curve: none
+    ends: { from: none, to: none }

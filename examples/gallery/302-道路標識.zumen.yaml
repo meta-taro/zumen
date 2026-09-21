@@ -1,0 +1,340 @@
+version: 1
+kind: placement
+arrows: true
+scale: { mm: 5 }
+palette:
+  黄: "#f2c200"
+  赤: "#c8102e"
+  青: "#0b57a4"
+  緑: "#0f7a3d"
+title: 道路標識（形と色で、読む前に種類が分かる）
+# **本標識は 4 種類あり、形と色で種類が分かる。**
+#
+# | | 形と色 |
+# |---|---|
+# | **案内標識** | 青地または緑地に白 |
+# | **警戒標識** | **黄地に黒の菱形**（一辺 45cm） |
+# | **規制標識** | 赤地に青・白、または青地に白。円形・四角・逆三角形 |
+# | **指示標識** | 青地に白。五角形や正方形 |
+#
+# **文字が読めない距離でも、黄色い菱形が見えた時点で「注意」と分かる。**
+# 形と色が先に届き、中身はあとから読む —— **読む前に種類が分かる**ことが、この体系の肝。
+#
+# **ウィーン標識条約の原則では、警告は三角（白か黄の地）、禁止は丸で周囲が赤。**
+# **日本の警戒標識だけが菱形**で、三角ではない ——
+# 形が違っても、色（黄）と役目は同じ。一時停止は逆三角形。
+#
+# **案内標識だけが 2 色ある。** 一般道は青、高速道路は緑。
+#
+# **本標識は、条件を持たない。**
+# 「駐車禁止」は駐車禁止としか言えないので、**いつ・どこで・誰に効くかは、
+# 下に付ける補助標識**（距離・区域・時間・車両の種類・方向）が持つ ——
+# 本標識と補助標識の**組み合わせ**で意味を作っている。
+#
+# 色は palette で持たせた。**記号の名前（黄・赤・青・緑）は図の中に文字でも出している** ——
+# 色だけに頼ると、白黒と色覚特性で読めなくなる。
+nodes:
+  - id: t1
+    label: "① 形と色で、読む前に種類が分かる"
+    marker: none
+    align: left
+    at: { x: 140, y: 150 }
+    size: { w: 660, h: 20 }
+  - id: keikai
+    label: ""
+    marker: diamond
+    fill: 黄
+    hatch: solid
+    at: { x: 205, y: 240 }
+    size: { w: 90, h: 90 }
+  - id: keikain
+    label: "警戒標識"
+    marker: none
+    align: center
+    at: { x: 150, y: 342 }
+    size: { w: 200, h: 18 }
+  - id: keikaic
+    label: "黄地に黒・菱形"
+    marker: none
+    align: center
+    at: { x: 150, y: 362 }
+    size: { w: 200, h: 18 }
+  - id: kisei
+    label: ""
+    marker: circle
+    fill: 赤
+    hatch: solid
+    at: { x: 425, y: 240 }
+    size: { w: 90, h: 90 }
+  - id: kisein
+    label: "規制標識"
+    marker: none
+    align: center
+    at: { x: 370, y: 342 }
+    size: { w: 200, h: 18 }
+  - id: kiseic
+    label: "赤地に白・円形"
+    marker: none
+    align: center
+    at: { x: 370, y: 362 }
+    size: { w: 200, h: 18 }
+  - id: ichiji
+    label: ""
+    marker: triangle-down
+    fill: 赤
+    hatch: solid
+    at: { x: 645, y: 240 }
+    size: { w: 90, h: 90 }
+  - id: ichijin
+    label: "一時停止"
+    marker: none
+    align: center
+    at: { x: 590, y: 342 }
+    size: { w: 200, h: 18 }
+  - id: ichijic
+    label: "赤地に白・逆三角"
+    marker: none
+    align: center
+    at: { x: 590, y: 362 }
+    size: { w: 200, h: 18 }
+  - id: cap1
+    label: "警戒標識の一辺は 45cm。 文字が読めない距離でも、黄色い菱形が見えた時点で「注意」と分かる。"
+    marker: none
+    align: center
+    at: { x: 140, y: 392 }
+    size: { w: 660, h: 18 }
+  - id: t2
+    label: "② 青と緑は、指示と案内"
+    marker: none
+    align: left
+    at: { x: 140, y: 430 }
+    size: { w: 660, h: 20 }
+  - id: shiji2
+    label: ""
+    fill: 青
+    hatch: solid
+    at: { x: 250, y: 470 }
+    size: { w: 120, h: 76 }
+  - id: shiji2n
+    label: "指示標識\n青地に白・五角形や正方形"
+    marker: none
+    align: center
+    at: { x: 210, y: 556 }
+    size: { w: 200, h: 36 }
+  - id: annai_a
+    label: ""
+    fill: 青
+    hatch: solid
+    at: { x: 430, y: 470 }
+    size: { w: 180, h: 76 }
+  - id: annai_an
+    label: "案内標識（一般道）\n青地に白"
+    marker: none
+    align: center
+    at: { x: 420, y: 556 }
+    size: { w: 200, h: 36 }
+  - id: annai_m
+    label: ""
+    fill: 緑
+    hatch: solid
+    at: { x: 650, y: 470 }
+    size: { w: 180, h: 76 }
+  - id: annai_mn
+    label: "案内標識（高速道路）\n緑地に白"
+    marker: none
+    align: center
+    at: { x: 640, y: 556 }
+    size: { w: 200, h: 36 }
+  - id: cap2
+    label: "案内標識だけが 2 色ある。 一般道は青、高速道路は緑 —— 同じ「案内」でも、走っている道が違う。"
+    marker: none
+    align: center
+    at: { x: 140, y: 600 }
+    size: { w: 660, h: 18 }
+  - id: t3
+    label: "③ 本標識の 4 種類"
+    marker: none
+    align: left
+    at: { x: 860, y: 150 }
+    size: { w: 420, h: 20 }
+  - id: h860_186
+    label: "形と色"
+    hatch: solid
+    at: { x: 860, y: 186 }
+    size: { w: 420, h: 24 }
+  - id: x860_210
+    label: "案内標識"
+    at: { x: 860, y: 210 }
+    size: { w: 120, h: 24 }
+  - id: y860_210
+    label: "青地または緑地に白"
+    align: left
+    at: { x: 980, y: 210 }
+    size: { w: 300, h: 24 }
+  - id: x860_234
+    label: "警戒標識"
+    at: { x: 860, y: 234 }
+    size: { w: 120, h: 24 }
+  - id: y860_234
+    label: "黄地に黒・菱形（一辺 45cm）"
+    align: left
+    at: { x: 980, y: 234 }
+    size: { w: 300, h: 24 }
+  - id: x860_258
+    label: "規制標識"
+    at: { x: 860, y: 258 }
+    size: { w: 120, h: 24 }
+  - id: y860_258
+    label: "赤地に青・白、または青地に白"
+    align: left
+    at: { x: 980, y: 258 }
+    size: { w: 300, h: 24 }
+  - id: x860_282
+    label: "指示標識"
+    at: { x: 860, y: 282 }
+    size: { w: 120, h: 24 }
+  - id: y860_282
+    label: "青地に白・五角形や正方形"
+    align: left
+    at: { x: 980, y: 282 }
+    size: { w: 300, h: 24 }
+  - id: x860_306
+    label: "補助標識"
+    at: { x: 860, y: 306 }
+    size: { w: 120, h: 24 }
+  - id: y860_306
+    label: "本標識に付ける"
+    align: left
+    at: { x: 980, y: 306 }
+    size: { w: 300, h: 24 }
+  - id: why3
+    label: "種類の名前が、そのまま役目。\n案内は教える、警戒は知らせる、\n規制は禁じる・命じる、指示は示す ——\n4 つの動詞が、4 つの色になっている。"
+    at: { x: 860, y: 344 }
+    size: { w: 420, h: 74 }
+  - id: t4
+    label: "④ 形が先に届く"
+    marker: none
+    align: left
+    at: { x: 860, y: 436 }
+    size: { w: 420, h: 20 }
+  - id: h860_466
+    label: "ウィーン標識条約の原則"
+    hatch: solid
+    at: { x: 860, y: 466 }
+    size: { w: 420, h: 24 }
+  - id: x860_490
+    label: "三角"
+    at: { x: 860, y: 490 }
+    size: { w: 120, h: 24 }
+  - id: y860_490
+    label: "警告（白か黄の地）"
+    align: left
+    at: { x: 980, y: 490 }
+    size: { w: 300, h: 24 }
+  - id: x860_514
+    label: "丸・赤い周囲"
+    at: { x: 860, y: 514 }
+    size: { w: 120, h: 24 }
+  - id: y860_514
+    label: "禁止"
+    align: left
+    at: { x: 980, y: 514 }
+    size: { w: 300, h: 24 }
+  - id: x860_538
+    label: "日本の警戒標識"
+    at: { x: 860, y: 538 }
+    size: { w: 120, h: 24 }
+  - id: y860_538
+    label: "菱形（三角ではない）"
+    align: left
+    at: { x: 980, y: 538 }
+    size: { w: 300, h: 24 }
+  - id: x860_562
+    label: "一時停止"
+    at: { x: 860, y: 562 }
+    size: { w: 120, h: 24 }
+  - id: y860_562
+    label: "逆三角形"
+    align: left
+    at: { x: 980, y: 562 }
+    size: { w: 300, h: 24 }
+  - id: why4
+    label: "日本の警戒標識だけ、菱形。\n条約の原則は三角だが、日本は菱形を採った ——\n形が違っても、色（黄）と役目は同じ。"
+    at: { x: 860, y: 600 }
+    size: { w: 420, h: 74 }
+  - id: t5
+    label: "⑤ 補助標識"
+    marker: none
+    align: left
+    at: { x: 860, y: 692 }
+    size: { w: 420, h: 20 }
+  - id: h860_722
+    label: "本標識に付け足すもの"
+    hatch: solid
+    at: { x: 860, y: 722 }
+    size: { w: 420, h: 24 }
+  - id: x860_746
+    label: "距離・区域"
+    at: { x: 860, y: 746 }
+    size: { w: 120, h: 24 }
+  - id: y860_746
+    label: "ここから 100m、この先など"
+    align: left
+    at: { x: 980, y: 746 }
+    size: { w: 300, h: 24 }
+  - id: x860_770
+    label: "時間"
+    at: { x: 860, y: 770 }
+    size: { w: 120, h: 24 }
+  - id: y860_770
+    label: "8-20 時など"
+    align: left
+    at: { x: 980, y: 770 }
+    size: { w: 300, h: 24 }
+  - id: x860_794
+    label: "車両の種類"
+    at: { x: 860, y: 794 }
+    size: { w: 120, h: 24 }
+  - id: y860_794
+    label: "大型貨物など"
+    align: left
+    at: { x: 980, y: 794 }
+    size: { w: 300, h: 24 }
+  - id: x860_818
+    label: "方向"
+    at: { x: 860, y: 818 }
+    size: { w: 120, h: 24 }
+  - id: y860_818
+    label: "矢印で向きを足す"
+    align: left
+    at: { x: 980, y: 818 }
+    size: { w: 300, h: 24 }
+  - id: why5
+    label: "本標識は、条件を持たない。\n「駐車禁止」は駐車禁止としか言えないので、\nいつ・どこで・誰に効くかは、下の板が持つ ——\n組み合わせで意味を作っている。"
+    at: { x: 860, y: 856 }
+    size: { w: 420, h: 74 }
+  - id: r1
+    label: "形と色で、読む前に種類が分かります（①③）。文字が読めない距離でも、黄色い菱形が見えた時点で「注意」と分かります。"
+    marker: none
+    align: left
+    at: { x: 140, y: 948 }
+    size: { w: 1140, h: 18 }
+  - id: r2
+    label: "警戒標識の一辺は 45cm です（①）。ウィーン標識条約の原則は三角ですが、日本は菱形を採りました。"
+    marker: none
+    align: left
+    at: { x: 140, y: 972 }
+    size: { w: 1140, h: 18 }
+  - id: r3
+    label: "案内標識だけが 2 色あります（②）。一般道は青、高速道路は緑です。"
+    marker: none
+    align: left
+    at: { x: 140, y: 996 }
+    size: { w: 1140, h: 18 }
+  - id: r4
+    label: "本標識は条件を持ちません（⑤）。いつ・どこで・誰に効くかは、下に付ける補助標識が持ちます。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1020 }
+    size: { w: 1140, h: 18 }
+edges:

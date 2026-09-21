@@ -1,0 +1,99 @@
+version: 1
+direction: down
+wrap: false
+title: 献血から輸血まで（同じ 1 本の血から、保ちの違う 3 つができる）
+# **1 本の献血から、保存の条件がまるで違う 3 つの製剤ができる。**
+# 遠心分離で**赤血球・血小板・血漿**に分かれたあと、
+# **赤血球は低温で 28 日、血小板は室温で 4 日、血漿は凍結して 1 年**（融解後は 24 時間）。
+#
+# **だから、在庫の作り方が製剤ごとに違う。**
+# 血漿は凍らせて貯められるが、**血小板は 4 日しかもたない** ——
+# 貯めておくことができないので、**必要な量を、毎日集め続けるしかない。**
+# 「献血が足りない」という言い方が指しているのは、たいていここ。
+#
+# **検査は、集めたあとにする。**
+# 感染症（HIV・B 型肝炎・C 型肝炎・梅毒・**核酸増幅検査 NAT**）、
+# 血液型（**ABO 式と Rh 式**）、**不規則抗体**のスクリーニング ——
+# 陽性なら抗体パネルで詳しく調べる。
+#
+# **献血には 2 つのやり方がある。**
+# **全血献血**は血をそのまま採り、あとから遠心分離で成分に分ける。
+# **成分献血**はアフェレーシスで、血漿や血小板だけをその場で採って残りを返す。
+#
+# **単位の大きさは国で違う。** 日本は **1 単位 ＝ 200mL**、海外は **450mL** が標準。
+# 同じ「2 単位」でも量が違うので、文献を読むときは単位の定義から確かめる。
+#
+# **病院側でもう一度照合する。** 血液センターから届いた製剤は、
+# そのまま使わずに**交差適合試験**（患者の血と混ぜて反応を見る）を通す ——
+# **検査は 1 回では終わらない。**
+nodes:
+  - id: kenketsu
+    type: generic
+    label: 献血
+    technology: 全血 ／ 成分（アフェレーシス）
+  - id: kouyou
+    type: generic
+    label: 抗凝固剤を混ぜる
+    technology: 固まらせない
+  - id: kensa
+    type: generic
+    label: 検査
+    technology: 感染症・血液型・不規則抗体
+  - id: bunri
+    type: generic
+    label: 遠心分離
+    technology: 重さの違いで分ける
+  - id: sekkekkyu
+    type: database
+    label: 赤血球製剤
+    technology: 低温・28 日
+  - id: kesshoban
+    type: database
+    label: 血小板製剤
+    technology: 室温で振盪・4 日
+  - id: kessho
+    type: database
+    label: 新鮮凍結血漿
+    technology: 凍結・1 年（融解後 24 時間）
+  - id: center
+    type: storage
+    label: 血液センターで保管
+    technology: 温度も期限も製剤ごと
+  - id: byoin
+    type: generic
+    label: 病院へ供給
+  - id: kousa
+    type: generic
+    label: 交差適合試験
+    technology: 患者の血と混ぜて確かめる
+  - id: yuketsu
+    type: generic
+    label: 輸血
+edges:
+  - from: kenketsu
+    to: kouyou
+  - from: kouyou
+    to: kensa
+  - from: kensa
+    to: bunri
+    label: 通れば
+  - from: bunri
+    to: sekkekkyu
+  - from: bunri
+    to: kesshoban
+  - from: bunri
+    to: kessho
+  - from: sekkekkyu
+    to: center
+  - from: kesshoban
+    to: center
+    label: 貯められない
+  - from: kessho
+    to: center
+  - from: center
+    to: byoin
+  - from: byoin
+    to: kousa
+  - from: kousa
+    to: yuketsu
+    label: 合えば

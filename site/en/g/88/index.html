@@ -62,10 +62,12 @@
   <p class="made">This drawing comes from one YAML file. No shape was moved by hand.</p>
   <h2>What the source says</h2>
   <p>完成デザインではなく <strong>UI 構造の正本</strong>（UI 方針 §0）。右の表が主役 —— <strong>絵を 3 枚並べるだけでは、何が変わるか言えない</strong>（UI 方針 §2）。レスポンシブは縮小ではなく、<strong>節そのものが消えたり増えたりする</strong>こと。</p>
+  <p><strong>LP は上から下へ読む 1 本道なので、節の順序そのものが情報。</strong>管理画面のように「どこから見てもよい」画面と違い、<strong>並べ替えると言いたいことの順序が変わる</strong> ——Mobile で節を入れ替えるなら、それは見た目ではなく<strong>話の順の変更。</strong></p>
+  <p><strong>消えた節は、表に書かないと実装側が困る。</strong>絵からは「消えたのか、下へ行ったのか」が読めない。</p>
   <h2>Source (YAML)</h2>
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/88-%E3%83%AC%E3%82%B9%E3%83%9D%E3%83%B3%E3%82%B7%E3%83%96LP%E3%81%AEUI%E6%A7%8B%E9%80%A0.zumen.yaml"><code>examples/gallery/88-レスポンシブLPのUI構造.zumen.yaml</code></a></p>
   <h2>More in this field</h2>
-  <ul class="near"><li><a href="../74/">Product page structure, desktop against mobile</a></li><li><a href="../75/">Screen flow with the wireframes drawn in</a></li><li><a href="../76/">Admin screen: sidebar becomes a drawer</a></li><li><a href="../85/">Checkout flow, five steps and where errors return to</a></li><li><a href="../86/">CRUD admin flow: delete goes through a confirmation</a></li><li><a href="../87/">Mobile app with a bottom navigation</a></li></ul>
+  <ul class="near"><li><a href="../74/">Product page structure, desktop against mobile</a></li><li><a href="../75/">Screen flow with the wireframes drawn in</a></li><li><a href="../76/">The same admin screen at desktop, tablet and mobile, where the sidebar turns into a drawer rather than simply shrinking</a></li><li><a href="../85/">Checkout flow, five steps and where errors return to</a></li><li><a href="../86/">CRUD admin flow: delete goes through a confirmation</a></li><li><a href="../87/">A mobile app with five bottom navigation tabs, and what each tab holds and where it can go from there</a></li><li><a href="../312/">Draw a component tree per screen and the same component keeps reappearing; the real structure is a net, where one component has several parents — and counting those parents is how you tell a shared component from a screen-specific one before you change it</a></li></ul>
 </article>
 </main>
 <footer class="foot">

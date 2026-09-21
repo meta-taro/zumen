@@ -1,0 +1,1412 @@
+version: 1
+kind: placement
+arrows: true
+title: 将棋の駒の利き（成ると、4 つが同じ動きになる）
+# **成った瞬間に、4 種類の駒が 1 つの動きへまとまる。**
+# **成銀・成桂・成香・と金 —— どれも金将と同じ動き。**
+# 元は前 2 横 1 で飛び越える桂馬も、前へ何マスでも進む香車も、成れば同じになる。
+#
+# ## 成らない駒は 2 つだけ
+#
+# **玉将と金将**。ほかは全部成れる。
+#
+# ## 飛車と角行は、足される
+#
+# **竜王（飛車が成る）は、飛車の動きに斜め 1 マスが足される。**
+# **竜馬（角行が成る）は、角行の動きに縦横 1 マスが足される。**
+# **まとまるのではなく、増える** —— この 2 つだけが例外。
+#
+# ## 飛び越えられるのは桂馬だけ
+#
+# 飛車・角行・香車は何マスでも進めるが、**間に駒があるとそこで止まる。**
+# **桂馬だけが飛び越えられる**（前 2 マス・横 1 マスの位置へ）。
+#
+# ## 枚数
+#
+# 1 人ぶんで計 20 枚 —— 玉将 1・飛車 1・角行 1・金将 2・銀将 2・桂馬 2・香車 2・歩兵 9。
+#
+# 局面図は見本 67、チェスは見本 68、囲碁の棋譜は見本 66。
+nodes:
+  - id: t1
+    label: "① 1 マス動ける向きは■、何マスでも動ける向きは矢印（上が前）"
+    marker: none
+    align: left
+    at: { x: 140, y: 160 }
+    size: { w: 900, h: 18 }
+  - id: gyoku0_0
+    label: ""
+    at: { x: 256, y: 250 }
+    size: { w: 36, h: 36 }
+  - id: gyoku0_1
+    label: ""
+    at: { x: 292, y: 250 }
+    size: { w: 36, h: 36 }
+  - id: gyoku0_2
+    label: ""
+    at: { x: 328, y: 250 }
+    size: { w: 36, h: 36 }
+  - id: gyoku1_0
+    label: ""
+    at: { x: 256, y: 286 }
+    size: { w: 36, h: 36 }
+  - id: gyoku1_1
+    label: "玉将"
+    hatch: dots
+    at: { x: 292, y: 286 }
+    size: { w: 36, h: 36 }
+  - id: gyoku1_2
+    label: ""
+    at: { x: 328, y: 286 }
+    size: { w: 36, h: 36 }
+  - id: gyoku2_0
+    label: ""
+    at: { x: 256, y: 322 }
+    size: { w: 36, h: 36 }
+  - id: gyoku2_1
+    label: ""
+    at: { x: 292, y: 322 }
+    size: { w: 36, h: 36 }
+  - id: gyoku2_2
+    label: ""
+    at: { x: 328, y: 322 }
+    size: { w: 36, h: 36 }
+  - id: gyokus-1_-1
+    label: ""
+    hatch: solid
+    at: { x: 268, y: 262 }
+    size: { w: 12, h: 12 }
+  - id: gyokus0_-1
+    label: ""
+    hatch: solid
+    at: { x: 304, y: 262 }
+    size: { w: 12, h: 12 }
+  - id: gyokus1_-1
+    label: ""
+    hatch: solid
+    at: { x: 340, y: 262 }
+    size: { w: 12, h: 12 }
+  - id: gyokus-1_0
+    label: ""
+    hatch: solid
+    at: { x: 268, y: 298 }
+    size: { w: 12, h: 12 }
+  - id: gyokus1_0
+    label: ""
+    hatch: solid
+    at: { x: 340, y: 298 }
+    size: { w: 12, h: 12 }
+  - id: gyokus-1_1
+    label: ""
+    hatch: solid
+    at: { x: 268, y: 334 }
+    size: { w: 12, h: 12 }
+  - id: gyokus0_1
+    label: ""
+    hatch: solid
+    at: { x: 304, y: 334 }
+    size: { w: 12, h: 12 }
+  - id: gyokus1_1
+    label: ""
+    hatch: solid
+    at: { x: 340, y: 334 }
+    size: { w: 12, h: 12 }
+  - id: gyokun
+    label: "玉将 —— 全方向に 1 マス"
+    marker: none
+    align: center
+    at: { x: 180, y: 368 }
+    size: { w: 260, h: 18 }
+  - id: kin0_0
+    label: ""
+    at: { x: 556, y: 250 }
+    size: { w: 36, h: 36 }
+  - id: kin0_1
+    label: ""
+    at: { x: 592, y: 250 }
+    size: { w: 36, h: 36 }
+  - id: kin0_2
+    label: ""
+    at: { x: 628, y: 250 }
+    size: { w: 36, h: 36 }
+  - id: kin1_0
+    label: ""
+    at: { x: 556, y: 286 }
+    size: { w: 36, h: 36 }
+  - id: kin1_1
+    label: "金将"
+    hatch: dots
+    at: { x: 592, y: 286 }
+    size: { w: 36, h: 36 }
+  - id: kin1_2
+    label: ""
+    at: { x: 628, y: 286 }
+    size: { w: 36, h: 36 }
+  - id: kin2_0
+    label: ""
+    at: { x: 556, y: 322 }
+    size: { w: 36, h: 36 }
+  - id: kin2_1
+    label: ""
+    at: { x: 592, y: 322 }
+    size: { w: 36, h: 36 }
+  - id: kin2_2
+    label: ""
+    at: { x: 628, y: 322 }
+    size: { w: 36, h: 36 }
+  - id: kins-1_-1
+    label: ""
+    hatch: solid
+    at: { x: 568, y: 262 }
+    size: { w: 12, h: 12 }
+  - id: kins0_-1
+    label: ""
+    hatch: solid
+    at: { x: 604, y: 262 }
+    size: { w: 12, h: 12 }
+  - id: kins1_-1
+    label: ""
+    hatch: solid
+    at: { x: 640, y: 262 }
+    size: { w: 12, h: 12 }
+  - id: kins-1_0
+    label: ""
+    hatch: solid
+    at: { x: 568, y: 298 }
+    size: { w: 12, h: 12 }
+  - id: kins1_0
+    label: ""
+    hatch: solid
+    at: { x: 640, y: 298 }
+    size: { w: 12, h: 12 }
+  - id: kins0_1
+    label: ""
+    hatch: solid
+    at: { x: 604, y: 334 }
+    size: { w: 12, h: 12 }
+  - id: kinn
+    label: "金将 —— 斜め後ろ以外に 1 マス"
+    marker: none
+    align: center
+    at: { x: 480, y: 368 }
+    size: { w: 260, h: 18 }
+  - id: gin0_0
+    label: ""
+    at: { x: 856, y: 250 }
+    size: { w: 36, h: 36 }
+  - id: gin0_1
+    label: ""
+    at: { x: 892, y: 250 }
+    size: { w: 36, h: 36 }
+  - id: gin0_2
+    label: ""
+    at: { x: 928, y: 250 }
+    size: { w: 36, h: 36 }
+  - id: gin1_0
+    label: ""
+    at: { x: 856, y: 286 }
+    size: { w: 36, h: 36 }
+  - id: gin1_1
+    label: "銀将"
+    hatch: dots
+    at: { x: 892, y: 286 }
+    size: { w: 36, h: 36 }
+  - id: gin1_2
+    label: ""
+    at: { x: 928, y: 286 }
+    size: { w: 36, h: 36 }
+  - id: gin2_0
+    label: ""
+    at: { x: 856, y: 322 }
+    size: { w: 36, h: 36 }
+  - id: gin2_1
+    label: ""
+    at: { x: 892, y: 322 }
+    size: { w: 36, h: 36 }
+  - id: gin2_2
+    label: ""
+    at: { x: 928, y: 322 }
+    size: { w: 36, h: 36 }
+  - id: gins-1_-1
+    label: ""
+    hatch: solid
+    at: { x: 868, y: 262 }
+    size: { w: 12, h: 12 }
+  - id: gins0_-1
+    label: ""
+    hatch: solid
+    at: { x: 904, y: 262 }
+    size: { w: 12, h: 12 }
+  - id: gins1_-1
+    label: ""
+    hatch: solid
+    at: { x: 940, y: 262 }
+    size: { w: 12, h: 12 }
+  - id: gins-1_1
+    label: ""
+    hatch: solid
+    at: { x: 868, y: 334 }
+    size: { w: 12, h: 12 }
+  - id: gins1_1
+    label: ""
+    hatch: solid
+    at: { x: 940, y: 334 }
+    size: { w: 12, h: 12 }
+  - id: ginn
+    label: "銀将 —— 前と斜めに 1 マス"
+    marker: none
+    align: center
+    at: { x: 780, y: 368 }
+    size: { w: 260, h: 18 }
+  - id: fu0_0
+    label: ""
+    at: { x: 1156, y: 250 }
+    size: { w: 36, h: 36 }
+  - id: fu0_1
+    label: ""
+    at: { x: 1192, y: 250 }
+    size: { w: 36, h: 36 }
+  - id: fu0_2
+    label: ""
+    at: { x: 1228, y: 250 }
+    size: { w: 36, h: 36 }
+  - id: fu1_0
+    label: ""
+    at: { x: 1156, y: 286 }
+    size: { w: 36, h: 36 }
+  - id: fu1_1
+    label: "歩兵"
+    hatch: dots
+    at: { x: 1192, y: 286 }
+    size: { w: 36, h: 36 }
+  - id: fu1_2
+    label: ""
+    at: { x: 1228, y: 286 }
+    size: { w: 36, h: 36 }
+  - id: fu2_0
+    label: ""
+    at: { x: 1156, y: 322 }
+    size: { w: 36, h: 36 }
+  - id: fu2_1
+    label: ""
+    at: { x: 1192, y: 322 }
+    size: { w: 36, h: 36 }
+  - id: fu2_2
+    label: ""
+    at: { x: 1228, y: 322 }
+    size: { w: 36, h: 36 }
+  - id: fus0_-1
+    label: ""
+    hatch: solid
+    at: { x: 1204, y: 262 }
+    size: { w: 12, h: 12 }
+  - id: fun
+    label: "歩兵 —— 前に 1 マス"
+    marker: none
+    align: center
+    at: { x: 1080, y: 368 }
+    size: { w: 260, h: 18 }
+  - id: hisha0_0
+    label: ""
+    at: { x: 220, y: 460 }
+    size: { w: 36, h: 36 }
+  - id: hisha0_1
+    label: ""
+    at: { x: 256, y: 460 }
+    size: { w: 36, h: 36 }
+  - id: hisha0_2
+    label: ""
+    at: { x: 292, y: 460 }
+    size: { w: 36, h: 36 }
+  - id: hisha0_3
+    label: ""
+    at: { x: 328, y: 460 }
+    size: { w: 36, h: 36 }
+  - id: hisha0_4
+    label: ""
+    at: { x: 364, y: 460 }
+    size: { w: 36, h: 36 }
+  - id: hisha1_0
+    label: ""
+    at: { x: 220, y: 496 }
+    size: { w: 36, h: 36 }
+  - id: hisha1_1
+    label: ""
+    at: { x: 256, y: 496 }
+    size: { w: 36, h: 36 }
+  - id: hisha1_2
+    label: ""
+    at: { x: 292, y: 496 }
+    size: { w: 36, h: 36 }
+  - id: hisha1_3
+    label: ""
+    at: { x: 328, y: 496 }
+    size: { w: 36, h: 36 }
+  - id: hisha1_4
+    label: ""
+    at: { x: 364, y: 496 }
+    size: { w: 36, h: 36 }
+  - id: hisha2_0
+    label: ""
+    at: { x: 220, y: 532 }
+    size: { w: 36, h: 36 }
+  - id: hisha2_1
+    label: ""
+    at: { x: 256, y: 532 }
+    size: { w: 36, h: 36 }
+  - id: hisha2_2
+    label: "飛車"
+    hatch: dots
+    at: { x: 292, y: 532 }
+    size: { w: 36, h: 36 }
+  - id: hisha2_3
+    label: ""
+    at: { x: 328, y: 532 }
+    size: { w: 36, h: 36 }
+  - id: hisha2_4
+    label: ""
+    at: { x: 364, y: 532 }
+    size: { w: 36, h: 36 }
+  - id: hisha3_0
+    label: ""
+    at: { x: 220, y: 568 }
+    size: { w: 36, h: 36 }
+  - id: hisha3_1
+    label: ""
+    at: { x: 256, y: 568 }
+    size: { w: 36, h: 36 }
+  - id: hisha3_2
+    label: ""
+    at: { x: 292, y: 568 }
+    size: { w: 36, h: 36 }
+  - id: hisha3_3
+    label: ""
+    at: { x: 328, y: 568 }
+    size: { w: 36, h: 36 }
+  - id: hisha3_4
+    label: ""
+    at: { x: 364, y: 568 }
+    size: { w: 36, h: 36 }
+  - id: hisha4_0
+    label: ""
+    at: { x: 220, y: 604 }
+    size: { w: 36, h: 36 }
+  - id: hisha4_1
+    label: ""
+    at: { x: 256, y: 604 }
+    size: { w: 36, h: 36 }
+  - id: hisha4_2
+    label: ""
+    at: { x: 292, y: 604 }
+    size: { w: 36, h: 36 }
+  - id: hisha4_3
+    label: ""
+    at: { x: 328, y: 604 }
+    size: { w: 36, h: 36 }
+  - id: hisha4_4
+    label: ""
+    at: { x: 364, y: 604 }
+    size: { w: 36, h: 36 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 309, y: 549 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 309, y: 462.6 }
+    size: { w: 2, h: 2 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 309, y: 549 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 309, y: 635.4 }
+    size: { w: 2, h: 2 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 309, y: 549 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 222.6, y: 549 }
+    size: { w: 2, h: 2 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 309, y: 549 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 395.4, y: 549 }
+    size: { w: 2, h: 2 }
+  - id: hishan
+    label: "飛車 —— 縦横に何マスでも"
+    marker: none
+    align: center
+    at: { x: 180, y: 650 }
+    size: { w: 260, h: 18 }
+  - id: kaku0_0
+    label: ""
+    at: { x: 520, y: 460 }
+    size: { w: 36, h: 36 }
+  - id: kaku0_1
+    label: ""
+    at: { x: 556, y: 460 }
+    size: { w: 36, h: 36 }
+  - id: kaku0_2
+    label: ""
+    at: { x: 592, y: 460 }
+    size: { w: 36, h: 36 }
+  - id: kaku0_3
+    label: ""
+    at: { x: 628, y: 460 }
+    size: { w: 36, h: 36 }
+  - id: kaku0_4
+    label: ""
+    at: { x: 664, y: 460 }
+    size: { w: 36, h: 36 }
+  - id: kaku1_0
+    label: ""
+    at: { x: 520, y: 496 }
+    size: { w: 36, h: 36 }
+  - id: kaku1_1
+    label: ""
+    at: { x: 556, y: 496 }
+    size: { w: 36, h: 36 }
+  - id: kaku1_2
+    label: ""
+    at: { x: 592, y: 496 }
+    size: { w: 36, h: 36 }
+  - id: kaku1_3
+    label: ""
+    at: { x: 628, y: 496 }
+    size: { w: 36, h: 36 }
+  - id: kaku1_4
+    label: ""
+    at: { x: 664, y: 496 }
+    size: { w: 36, h: 36 }
+  - id: kaku2_0
+    label: ""
+    at: { x: 520, y: 532 }
+    size: { w: 36, h: 36 }
+  - id: kaku2_1
+    label: ""
+    at: { x: 556, y: 532 }
+    size: { w: 36, h: 36 }
+  - id: kaku2_2
+    label: "角行"
+    hatch: dots
+    at: { x: 592, y: 532 }
+    size: { w: 36, h: 36 }
+  - id: kaku2_3
+    label: ""
+    at: { x: 628, y: 532 }
+    size: { w: 36, h: 36 }
+  - id: kaku2_4
+    label: ""
+    at: { x: 664, y: 532 }
+    size: { w: 36, h: 36 }
+  - id: kaku3_0
+    label: ""
+    at: { x: 520, y: 568 }
+    size: { w: 36, h: 36 }
+  - id: kaku3_1
+    label: ""
+    at: { x: 556, y: 568 }
+    size: { w: 36, h: 36 }
+  - id: kaku3_2
+    label: ""
+    at: { x: 592, y: 568 }
+    size: { w: 36, h: 36 }
+  - id: kaku3_3
+    label: ""
+    at: { x: 628, y: 568 }
+    size: { w: 36, h: 36 }
+  - id: kaku3_4
+    label: ""
+    at: { x: 664, y: 568 }
+    size: { w: 36, h: 36 }
+  - id: kaku4_0
+    label: ""
+    at: { x: 520, y: 604 }
+    size: { w: 36, h: 36 }
+  - id: kaku4_1
+    label: ""
+    at: { x: 556, y: 604 }
+    size: { w: 36, h: 36 }
+  - id: kaku4_2
+    label: ""
+    at: { x: 592, y: 604 }
+    size: { w: 36, h: 36 }
+  - id: kaku4_3
+    label: ""
+    at: { x: 628, y: 604 }
+    size: { w: 36, h: 36 }
+  - id: kaku4_4
+    label: ""
+    at: { x: 664, y: 604 }
+    size: { w: 36, h: 36 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 609, y: 549 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 522.6, y: 462.6 }
+    size: { w: 2, h: 2 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 609, y: 549 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 695.4, y: 462.6 }
+    size: { w: 2, h: 2 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 609, y: 549 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 522.6, y: 635.4 }
+    size: { w: 2, h: 2 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 609, y: 549 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 695.4, y: 635.4 }
+    size: { w: 2, h: 2 }
+  - id: kakun
+    label: "角行 —— 斜めに何マスでも"
+    marker: none
+    align: center
+    at: { x: 480, y: 650 }
+    size: { w: 260, h: 18 }
+  - id: kyo0_0
+    label: ""
+    at: { x: 820, y: 460 }
+    size: { w: 36, h: 36 }
+  - id: kyo0_1
+    label: ""
+    at: { x: 856, y: 460 }
+    size: { w: 36, h: 36 }
+  - id: kyo0_2
+    label: ""
+    at: { x: 892, y: 460 }
+    size: { w: 36, h: 36 }
+  - id: kyo0_3
+    label: ""
+    at: { x: 928, y: 460 }
+    size: { w: 36, h: 36 }
+  - id: kyo0_4
+    label: ""
+    at: { x: 964, y: 460 }
+    size: { w: 36, h: 36 }
+  - id: kyo1_0
+    label: ""
+    at: { x: 820, y: 496 }
+    size: { w: 36, h: 36 }
+  - id: kyo1_1
+    label: ""
+    at: { x: 856, y: 496 }
+    size: { w: 36, h: 36 }
+  - id: kyo1_2
+    label: ""
+    at: { x: 892, y: 496 }
+    size: { w: 36, h: 36 }
+  - id: kyo1_3
+    label: ""
+    at: { x: 928, y: 496 }
+    size: { w: 36, h: 36 }
+  - id: kyo1_4
+    label: ""
+    at: { x: 964, y: 496 }
+    size: { w: 36, h: 36 }
+  - id: kyo2_0
+    label: ""
+    at: { x: 820, y: 532 }
+    size: { w: 36, h: 36 }
+  - id: kyo2_1
+    label: ""
+    at: { x: 856, y: 532 }
+    size: { w: 36, h: 36 }
+  - id: kyo2_2
+    label: "香車"
+    hatch: dots
+    at: { x: 892, y: 532 }
+    size: { w: 36, h: 36 }
+  - id: kyo2_3
+    label: ""
+    at: { x: 928, y: 532 }
+    size: { w: 36, h: 36 }
+  - id: kyo2_4
+    label: ""
+    at: { x: 964, y: 532 }
+    size: { w: 36, h: 36 }
+  - id: kyo3_0
+    label: ""
+    at: { x: 820, y: 568 }
+    size: { w: 36, h: 36 }
+  - id: kyo3_1
+    label: ""
+    at: { x: 856, y: 568 }
+    size: { w: 36, h: 36 }
+  - id: kyo3_2
+    label: ""
+    at: { x: 892, y: 568 }
+    size: { w: 36, h: 36 }
+  - id: kyo3_3
+    label: ""
+    at: { x: 928, y: 568 }
+    size: { w: 36, h: 36 }
+  - id: kyo3_4
+    label: ""
+    at: { x: 964, y: 568 }
+    size: { w: 36, h: 36 }
+  - id: kyo4_0
+    label: ""
+    at: { x: 820, y: 604 }
+    size: { w: 36, h: 36 }
+  - id: kyo4_1
+    label: ""
+    at: { x: 856, y: 604 }
+    size: { w: 36, h: 36 }
+  - id: kyo4_2
+    label: ""
+    at: { x: 892, y: 604 }
+    size: { w: 36, h: 36 }
+  - id: kyo4_3
+    label: ""
+    at: { x: 928, y: 604 }
+    size: { w: 36, h: 36 }
+  - id: kyo4_4
+    label: ""
+    at: { x: 964, y: 604 }
+    size: { w: 36, h: 36 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 909, y: 549 }
+    size: { w: 2, h: 2 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 909, y: 462.6 }
+    size: { w: 2, h: 2 }
+  - id: kyon
+    label: "香車 —— 前に何マスでも"
+    marker: none
+    align: center
+    at: { x: 780, y: 650 }
+    size: { w: 260, h: 18 }
+  - id: kei0_0
+    label: ""
+    at: { x: 1120, y: 460 }
+    size: { w: 36, h: 36 }
+  - id: kei0_1
+    label: ""
+    at: { x: 1156, y: 460 }
+    size: { w: 36, h: 36 }
+  - id: kei0_2
+    label: ""
+    at: { x: 1192, y: 460 }
+    size: { w: 36, h: 36 }
+  - id: kei0_3
+    label: ""
+    at: { x: 1228, y: 460 }
+    size: { w: 36, h: 36 }
+  - id: kei0_4
+    label: ""
+    at: { x: 1264, y: 460 }
+    size: { w: 36, h: 36 }
+  - id: kei1_0
+    label: ""
+    at: { x: 1120, y: 496 }
+    size: { w: 36, h: 36 }
+  - id: kei1_1
+    label: ""
+    at: { x: 1156, y: 496 }
+    size: { w: 36, h: 36 }
+  - id: kei1_2
+    label: ""
+    at: { x: 1192, y: 496 }
+    size: { w: 36, h: 36 }
+  - id: kei1_3
+    label: ""
+    at: { x: 1228, y: 496 }
+    size: { w: 36, h: 36 }
+  - id: kei1_4
+    label: ""
+    at: { x: 1264, y: 496 }
+    size: { w: 36, h: 36 }
+  - id: kei2_0
+    label: ""
+    at: { x: 1120, y: 532 }
+    size: { w: 36, h: 36 }
+  - id: kei2_1
+    label: ""
+    at: { x: 1156, y: 532 }
+    size: { w: 36, h: 36 }
+  - id: kei2_2
+    label: "桂馬"
+    hatch: dots
+    at: { x: 1192, y: 532 }
+    size: { w: 36, h: 36 }
+  - id: kei2_3
+    label: ""
+    at: { x: 1228, y: 532 }
+    size: { w: 36, h: 36 }
+  - id: kei2_4
+    label: ""
+    at: { x: 1264, y: 532 }
+    size: { w: 36, h: 36 }
+  - id: kei3_0
+    label: ""
+    at: { x: 1120, y: 568 }
+    size: { w: 36, h: 36 }
+  - id: kei3_1
+    label: ""
+    at: { x: 1156, y: 568 }
+    size: { w: 36, h: 36 }
+  - id: kei3_2
+    label: ""
+    at: { x: 1192, y: 568 }
+    size: { w: 36, h: 36 }
+  - id: kei3_3
+    label: ""
+    at: { x: 1228, y: 568 }
+    size: { w: 36, h: 36 }
+  - id: kei3_4
+    label: ""
+    at: { x: 1264, y: 568 }
+    size: { w: 36, h: 36 }
+  - id: kei4_0
+    label: ""
+    at: { x: 1120, y: 604 }
+    size: { w: 36, h: 36 }
+  - id: kei4_1
+    label: ""
+    at: { x: 1156, y: 604 }
+    size: { w: 36, h: 36 }
+  - id: kei4_2
+    label: ""
+    at: { x: 1192, y: 604 }
+    size: { w: 36, h: 36 }
+  - id: kei4_3
+    label: ""
+    at: { x: 1228, y: 604 }
+    size: { w: 36, h: 36 }
+  - id: kei4_4
+    label: ""
+    at: { x: 1264, y: 604 }
+    size: { w: 36, h: 36 }
+  - id: keis-1_-2
+    label: ""
+    hatch: solid
+    at: { x: 1168, y: 472 }
+    size: { w: 12, h: 12 }
+  - id: keis1_-2
+    label: ""
+    hatch: solid
+    at: { x: 1240, y: 472 }
+    size: { w: 12, h: 12 }
+  - id: kein
+    label: "桂馬 —— 前 2・横 1（飛べる）"
+    marker: none
+    align: center
+    at: { x: 1080, y: 650 }
+    size: { w: 260, h: 18 }
+  - id: ryuo0_0
+    label: ""
+    at: { x: 220, y: 780 }
+    size: { w: 36, h: 36 }
+  - id: ryuo0_1
+    label: ""
+    at: { x: 256, y: 780 }
+    size: { w: 36, h: 36 }
+  - id: ryuo0_2
+    label: ""
+    at: { x: 292, y: 780 }
+    size: { w: 36, h: 36 }
+  - id: ryuo0_3
+    label: ""
+    at: { x: 328, y: 780 }
+    size: { w: 36, h: 36 }
+  - id: ryuo0_4
+    label: ""
+    at: { x: 364, y: 780 }
+    size: { w: 36, h: 36 }
+  - id: ryuo1_0
+    label: ""
+    at: { x: 220, y: 816 }
+    size: { w: 36, h: 36 }
+  - id: ryuo1_1
+    label: ""
+    at: { x: 256, y: 816 }
+    size: { w: 36, h: 36 }
+  - id: ryuo1_2
+    label: ""
+    at: { x: 292, y: 816 }
+    size: { w: 36, h: 36 }
+  - id: ryuo1_3
+    label: ""
+    at: { x: 328, y: 816 }
+    size: { w: 36, h: 36 }
+  - id: ryuo1_4
+    label: ""
+    at: { x: 364, y: 816 }
+    size: { w: 36, h: 36 }
+  - id: ryuo2_0
+    label: ""
+    at: { x: 220, y: 852 }
+    size: { w: 36, h: 36 }
+  - id: ryuo2_1
+    label: ""
+    at: { x: 256, y: 852 }
+    size: { w: 36, h: 36 }
+  - id: ryuo2_2
+    label: "竜王"
+    hatch: dots
+    at: { x: 292, y: 852 }
+    size: { w: 36, h: 36 }
+  - id: ryuo2_3
+    label: ""
+    at: { x: 328, y: 852 }
+    size: { w: 36, h: 36 }
+  - id: ryuo2_4
+    label: ""
+    at: { x: 364, y: 852 }
+    size: { w: 36, h: 36 }
+  - id: ryuo3_0
+    label: ""
+    at: { x: 220, y: 888 }
+    size: { w: 36, h: 36 }
+  - id: ryuo3_1
+    label: ""
+    at: { x: 256, y: 888 }
+    size: { w: 36, h: 36 }
+  - id: ryuo3_2
+    label: ""
+    at: { x: 292, y: 888 }
+    size: { w: 36, h: 36 }
+  - id: ryuo3_3
+    label: ""
+    at: { x: 328, y: 888 }
+    size: { w: 36, h: 36 }
+  - id: ryuo3_4
+    label: ""
+    at: { x: 364, y: 888 }
+    size: { w: 36, h: 36 }
+  - id: ryuo4_0
+    label: ""
+    at: { x: 220, y: 924 }
+    size: { w: 36, h: 36 }
+  - id: ryuo4_1
+    label: ""
+    at: { x: 256, y: 924 }
+    size: { w: 36, h: 36 }
+  - id: ryuo4_2
+    label: ""
+    at: { x: 292, y: 924 }
+    size: { w: 36, h: 36 }
+  - id: ryuo4_3
+    label: ""
+    at: { x: 328, y: 924 }
+    size: { w: 36, h: 36 }
+  - id: ryuo4_4
+    label: ""
+    at: { x: 364, y: 924 }
+    size: { w: 36, h: 36 }
+  - id: ryuos-1_-1
+    label: ""
+    hatch: solid
+    at: { x: 268, y: 828 }
+    size: { w: 12, h: 12 }
+  - id: ryuos1_-1
+    label: ""
+    hatch: solid
+    at: { x: 340, y: 828 }
+    size: { w: 12, h: 12 }
+  - id: ryuos-1_1
+    label: ""
+    hatch: solid
+    at: { x: 268, y: 900 }
+    size: { w: 12, h: 12 }
+  - id: ryuos1_1
+    label: ""
+    hatch: solid
+    at: { x: 340, y: 900 }
+    size: { w: 12, h: 12 }
+  - id: p18
+    label: ""
+    marker: none
+    at: { x: 309, y: 869 }
+    size: { w: 2, h: 2 }
+  - id: p19
+    label: ""
+    marker: none
+    at: { x: 309, y: 782.6 }
+    size: { w: 2, h: 2 }
+  - id: p20
+    label: ""
+    marker: none
+    at: { x: 309, y: 869 }
+    size: { w: 2, h: 2 }
+  - id: p21
+    label: ""
+    marker: none
+    at: { x: 309, y: 955.4 }
+    size: { w: 2, h: 2 }
+  - id: p22
+    label: ""
+    marker: none
+    at: { x: 309, y: 869 }
+    size: { w: 2, h: 2 }
+  - id: p23
+    label: ""
+    marker: none
+    at: { x: 222.6, y: 869 }
+    size: { w: 2, h: 2 }
+  - id: p24
+    label: ""
+    marker: none
+    at: { x: 309, y: 869 }
+    size: { w: 2, h: 2 }
+  - id: p25
+    label: ""
+    marker: none
+    at: { x: 395.4, y: 869 }
+    size: { w: 2, h: 2 }
+  - id: ryuon
+    label: "竜王 ＝ 飛車 ＋ 斜め 1 マス"
+    marker: none
+    align: center
+    at: { x: 180, y: 970 }
+    size: { w: 260, h: 18 }
+  - id: ryuma0_0
+    label: ""
+    at: { x: 520, y: 780 }
+    size: { w: 36, h: 36 }
+  - id: ryuma0_1
+    label: ""
+    at: { x: 556, y: 780 }
+    size: { w: 36, h: 36 }
+  - id: ryuma0_2
+    label: ""
+    at: { x: 592, y: 780 }
+    size: { w: 36, h: 36 }
+  - id: ryuma0_3
+    label: ""
+    at: { x: 628, y: 780 }
+    size: { w: 36, h: 36 }
+  - id: ryuma0_4
+    label: ""
+    at: { x: 664, y: 780 }
+    size: { w: 36, h: 36 }
+  - id: ryuma1_0
+    label: ""
+    at: { x: 520, y: 816 }
+    size: { w: 36, h: 36 }
+  - id: ryuma1_1
+    label: ""
+    at: { x: 556, y: 816 }
+    size: { w: 36, h: 36 }
+  - id: ryuma1_2
+    label: ""
+    at: { x: 592, y: 816 }
+    size: { w: 36, h: 36 }
+  - id: ryuma1_3
+    label: ""
+    at: { x: 628, y: 816 }
+    size: { w: 36, h: 36 }
+  - id: ryuma1_4
+    label: ""
+    at: { x: 664, y: 816 }
+    size: { w: 36, h: 36 }
+  - id: ryuma2_0
+    label: ""
+    at: { x: 520, y: 852 }
+    size: { w: 36, h: 36 }
+  - id: ryuma2_1
+    label: ""
+    at: { x: 556, y: 852 }
+    size: { w: 36, h: 36 }
+  - id: ryuma2_2
+    label: "竜馬"
+    hatch: dots
+    at: { x: 592, y: 852 }
+    size: { w: 36, h: 36 }
+  - id: ryuma2_3
+    label: ""
+    at: { x: 628, y: 852 }
+    size: { w: 36, h: 36 }
+  - id: ryuma2_4
+    label: ""
+    at: { x: 664, y: 852 }
+    size: { w: 36, h: 36 }
+  - id: ryuma3_0
+    label: ""
+    at: { x: 520, y: 888 }
+    size: { w: 36, h: 36 }
+  - id: ryuma3_1
+    label: ""
+    at: { x: 556, y: 888 }
+    size: { w: 36, h: 36 }
+  - id: ryuma3_2
+    label: ""
+    at: { x: 592, y: 888 }
+    size: { w: 36, h: 36 }
+  - id: ryuma3_3
+    label: ""
+    at: { x: 628, y: 888 }
+    size: { w: 36, h: 36 }
+  - id: ryuma3_4
+    label: ""
+    at: { x: 664, y: 888 }
+    size: { w: 36, h: 36 }
+  - id: ryuma4_0
+    label: ""
+    at: { x: 520, y: 924 }
+    size: { w: 36, h: 36 }
+  - id: ryuma4_1
+    label: ""
+    at: { x: 556, y: 924 }
+    size: { w: 36, h: 36 }
+  - id: ryuma4_2
+    label: ""
+    at: { x: 592, y: 924 }
+    size: { w: 36, h: 36 }
+  - id: ryuma4_3
+    label: ""
+    at: { x: 628, y: 924 }
+    size: { w: 36, h: 36 }
+  - id: ryuma4_4
+    label: ""
+    at: { x: 664, y: 924 }
+    size: { w: 36, h: 36 }
+  - id: ryumas0_-1
+    label: ""
+    hatch: solid
+    at: { x: 604, y: 828 }
+    size: { w: 12, h: 12 }
+  - id: ryumas0_1
+    label: ""
+    hatch: solid
+    at: { x: 604, y: 900 }
+    size: { w: 12, h: 12 }
+  - id: ryumas-1_0
+    label: ""
+    hatch: solid
+    at: { x: 568, y: 864 }
+    size: { w: 12, h: 12 }
+  - id: ryumas1_0
+    label: ""
+    hatch: solid
+    at: { x: 640, y: 864 }
+    size: { w: 12, h: 12 }
+  - id: p26
+    label: ""
+    marker: none
+    at: { x: 609, y: 869 }
+    size: { w: 2, h: 2 }
+  - id: p27
+    label: ""
+    marker: none
+    at: { x: 522.6, y: 782.6 }
+    size: { w: 2, h: 2 }
+  - id: p28
+    label: ""
+    marker: none
+    at: { x: 609, y: 869 }
+    size: { w: 2, h: 2 }
+  - id: p29
+    label: ""
+    marker: none
+    at: { x: 695.4, y: 782.6 }
+    size: { w: 2, h: 2 }
+  - id: p30
+    label: ""
+    marker: none
+    at: { x: 609, y: 869 }
+    size: { w: 2, h: 2 }
+  - id: p31
+    label: ""
+    marker: none
+    at: { x: 522.6, y: 955.4 }
+    size: { w: 2, h: 2 }
+  - id: p32
+    label: ""
+    marker: none
+    at: { x: 609, y: 869 }
+    size: { w: 2, h: 2 }
+  - id: p33
+    label: ""
+    marker: none
+    at: { x: 695.4, y: 955.4 }
+    size: { w: 2, h: 2 }
+  - id: ryuman
+    label: "竜馬 ＝ 角行 ＋ 縦横 1 マス"
+    marker: none
+    align: center
+    at: { x: 480, y: 970 }
+    size: { w: 260, h: 18 }
+  - id: nari0_0
+    label: ""
+    at: { x: 856, y: 780 }
+    size: { w: 36, h: 36 }
+  - id: nari0_1
+    label: ""
+    at: { x: 892, y: 780 }
+    size: { w: 36, h: 36 }
+  - id: nari0_2
+    label: ""
+    at: { x: 928, y: 780 }
+    size: { w: 36, h: 36 }
+  - id: nari1_0
+    label: ""
+    at: { x: 856, y: 816 }
+    size: { w: 36, h: 36 }
+  - id: nari1_1
+    label: "成"
+    hatch: dots
+    at: { x: 892, y: 816 }
+    size: { w: 36, h: 36 }
+  - id: nari1_2
+    label: ""
+    at: { x: 928, y: 816 }
+    size: { w: 36, h: 36 }
+  - id: nari2_0
+    label: ""
+    at: { x: 856, y: 852 }
+    size: { w: 36, h: 36 }
+  - id: nari2_1
+    label: ""
+    at: { x: 892, y: 852 }
+    size: { w: 36, h: 36 }
+  - id: nari2_2
+    label: ""
+    at: { x: 928, y: 852 }
+    size: { w: 36, h: 36 }
+  - id: naris-1_-1
+    label: ""
+    hatch: solid
+    at: { x: 868, y: 792 }
+    size: { w: 12, h: 12 }
+  - id: naris0_-1
+    label: ""
+    hatch: solid
+    at: { x: 904, y: 792 }
+    size: { w: 12, h: 12 }
+  - id: naris1_-1
+    label: ""
+    hatch: solid
+    at: { x: 940, y: 792 }
+    size: { w: 12, h: 12 }
+  - id: naris-1_0
+    label: ""
+    hatch: solid
+    at: { x: 868, y: 828 }
+    size: { w: 12, h: 12 }
+  - id: naris1_0
+    label: ""
+    hatch: solid
+    at: { x: 940, y: 828 }
+    size: { w: 12, h: 12 }
+  - id: naris0_1
+    label: ""
+    hatch: solid
+    at: { x: 904, y: 864 }
+    size: { w: 12, h: 12 }
+  - id: narin
+    label: "成銀・成桂・成香・と金 ＝ 金将"
+    marker: none
+    align: center
+    at: { x: 780, y: 898 }
+    size: { w: 260, h: 18 }
+  - id: r1
+    label: "・成ると、銀将・桂馬・香車・歩兵の 4 つは 全部「金将と同じ動き」になる。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1100 }
+    size: { w: 1150, h: 18 }
+  - id: r2
+    label: "　4 種類の別々の駒が、成った瞬間に 1 つの動きへまとまる。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1124 }
+    size: { w: 1150, h: 18 }
+  - id: r3
+    label: "・成らないのは玉将と金将の 2 つだけ。 飛車と角行は、元の動きに 1 マスぶん足される。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1148 }
+    size: { w: 1150, h: 18 }
+  - id: r4
+    label: "・飛び越えられるのは桂馬だけ。 ほかの駒は、間に駒があるとそこで止まる。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1172 }
+    size: { w: 1150, h: 18 }
+  - id: h1080_800
+    label: "1 人ぶんの枚数（計 20 枚）"
+    hatch: solid
+    at: { x: 1080, y: 800 }
+    size: { w: 380, h: 24 }
+  - id: x1080_824
+    label: "玉将（王将）"
+    at: { x: 1080, y: 824 }
+    size: { w: 200, h: 24 }
+  - id: y1080_824
+    label: "1"
+    align: left
+    at: { x: 1280, y: 824 }
+    size: { w: 180, h: 24 }
+  - id: x1080_848
+    label: "飛車"
+    at: { x: 1080, y: 848 }
+    size: { w: 200, h: 24 }
+  - id: y1080_848
+    label: "1"
+    align: left
+    at: { x: 1280, y: 848 }
+    size: { w: 180, h: 24 }
+  - id: x1080_872
+    label: "角行"
+    at: { x: 1080, y: 872 }
+    size: { w: 200, h: 24 }
+  - id: y1080_872
+    label: "1"
+    align: left
+    at: { x: 1280, y: 872 }
+    size: { w: 180, h: 24 }
+  - id: x1080_896
+    label: "金将"
+    at: { x: 1080, y: 896 }
+    size: { w: 200, h: 24 }
+  - id: y1080_896
+    label: "2"
+    align: left
+    at: { x: 1280, y: 896 }
+    size: { w: 180, h: 24 }
+  - id: x1080_920
+    label: "銀将"
+    at: { x: 1080, y: 920 }
+    size: { w: 200, h: 24 }
+  - id: y1080_920
+    label: "2"
+    align: left
+    at: { x: 1280, y: 920 }
+    size: { w: 180, h: 24 }
+  - id: x1080_944
+    label: "桂馬"
+    at: { x: 1080, y: 944 }
+    size: { w: 200, h: 24 }
+  - id: y1080_944
+    label: "2"
+    align: left
+    at: { x: 1280, y: 944 }
+    size: { w: 180, h: 24 }
+  - id: x1080_968
+    label: "香車"
+    at: { x: 1080, y: 968 }
+    size: { w: 200, h: 24 }
+  - id: y1080_968
+    label: "2"
+    align: left
+    at: { x: 1280, y: 968 }
+    size: { w: 180, h: 24 }
+  - id: x1080_992
+    label: "歩兵"
+    at: { x: 1080, y: 992 }
+    size: { w: 200, h: 24 }
+  - id: y1080_992
+    label: "9"
+    align: left
+    at: { x: 1280, y: 992 }
+    size: { w: 180, h: 24 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p2
+    to: p3
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p4
+    to: p5
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p6
+    to: p7
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p8
+    to: p9
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p10
+    to: p11
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p12
+    to: p13
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p14
+    to: p15
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p16
+    to: p17
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p18
+    to: p19
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p20
+    to: p21
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p22
+    to: p23
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p24
+    to: p25
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p26
+    to: p27
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p28
+    to: p29
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p30
+    to: p31
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p32
+    to: p33
+    curve: none
+    ends: { from: none, to: arrow }

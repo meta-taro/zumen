@@ -7,7 +7,14 @@ title: 受注管理のテーブル関係（ER・鳥の足記法）
 # |---|---|
 # | 三またの足 | 多（0 個以上、または 1 個以上） |
 # | 縦棒 1 本 | ちょうど 1 |
-# | 丸 | 0 でもよい |
+# | 丸 ＋ 三またの足 | 0 以上（まだ 1 件も無くてよい） |
+# | 丸 ＋ 縦棒 | 0 または 1 |
+#
+# **「0 でもよい」かどうかは、業務のほうから決まる。**
+# まだ 1 件も注文していない顧客はいる（顧客 → 受注は **0 以上**）。
+# 一度も売れていない商品もある（商品 → 明細も **0 以上**）。
+# 受注 1 件に対する出荷は、**まだ無いか 1 回**（0 または 1）——
+# **端の形が、その表に何が入り得るかをそのまま言っている。**
 #
 # ## 受注と受注明細を分けるのは、個数が違うから
 #
@@ -77,19 +84,19 @@ nodes:
 edges:
   - from: kokyaku
     to: juchu
-    ends: { from: bar, to: crow }
+    ends: { from: bar, to: dot-crow }
   - from: juchu
     to: meisai
     ends: { from: bar, to: crow }
   - from: shohin
     to: meisai
-    ends: { from: bar, to: crow }
+    ends: { from: bar, to: dot-crow }
   - from: shohin
     to: tanka
     ends: { from: bar, to: crow }
   - from: juchu
     to: shukka
-    ends: { from: bar, to: crow }
+    ends: { from: bar, to: dot-bar }
   - from: shohin
     to: stocks
   - from: souko

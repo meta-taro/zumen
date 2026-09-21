@@ -52,6 +52,26 @@ nodes:
     marker: none
     at: { x: 250.7, y: 319 }
     size: { w: 2, h: 2 }
+  - id: q_l1
+    label: ""
+    marker: none
+    at: { x: 226, y: 319 }
+    size: { w: 2, h: 2 }
+  - id: q_r1
+    label: ""
+    marker: none
+    at: { x: 294, y: 319 }
+    size: { w: 2, h: 2 }
+  - id: q_l2
+    label: ""
+    marker: none
+    at: { x: 530, y: 319 }
+    size: { w: 2, h: 2 }
+  - id: q_r2
+    label: ""
+    marker: none
+    at: { x: 594, y: 319 }
+    size: { w: 2, h: 2 }
   - id: p5
     label: ""
     marker: none
@@ -560,7 +580,15 @@ edges:
   - from: p4
     to: p5
     curve: none
-    ends: { from: arrow, to: arrow }
+    ends: { from: none, to: none }
+  - from: q_l1
+    to: p4
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: q_r1
+    to: p5
+    curve: none
+    ends: { from: none, to: arrow }
   - from: p6
     to: p7
     curve: none
@@ -576,7 +604,15 @@ edges:
   - from: p10
     to: p11
     curve: none
-    ends: { from: arrow, to: arrow }
+    ends: { from: none, to: none }
+  - from: q_l2
+    to: p10
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: q_r2
+    to: p11
+    curve: none
+    ends: { from: none, to: arrow }
   - from: p12
     to: p13
     curve: none

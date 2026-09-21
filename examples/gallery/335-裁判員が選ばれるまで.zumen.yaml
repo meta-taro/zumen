@@ -1,0 +1,70 @@
+version: 1
+wrap: true
+title: 裁判員が選ばれるまで（過半数だけでは決まらない）
+# **9 人のうち 6 人が裁判員、3 人が裁判官。** 決め方はそこから先が肝心で、
+# **過半数の賛成だけでは足りない。**
+#
+# ## 評決の要件は 2 つある
+#
+# **合議体の過半数の賛成**が要る。**そのうえで、裁判員と裁判官のそれぞれ 1 名は
+# 賛成しなければならない。**
+#
+# つまり**裁判員 6 人が全員賛成しても、裁判官が 1 人も賛成していなければ決まらない。**
+# 逆に**裁判官 3 人が全員賛成しても、裁判員が 1 人も賛成していなければ決まらない。**
+# 多数決の形をしているが、**片方だけでは動かない仕組み**になっている。
+#
+# ## 選ばれるまで
+#
+# **選挙人名簿から、くじで裁判員候補者名簿を作る**（毎年）。
+# 事件ごとにそこからくじを引き、**呼出状と質問票**を送り、**選任手続期日**で決める。
+#
+# ## 多くの人は、ここまで来ない
+#
+# 平成 21 年度の対象事件では、**選任手続期日の前の段階で辞退が認められた人が 48.8%。**
+# **期日当日に辞退を申し出た人のうち、認められたのは 82.2%。**
+#
+# ## 対象
+#
+# **死刑又は無期拘禁刑に当たる罪**などの重大な事件。
+#
+# 法廷の配置は見本 188、三審制は見本 284。
+nodes:
+  - id: senkyo
+    label: 選挙人名簿
+  - id: meibo
+    label: 裁判員候補者名簿
+    technology: 毎年、くじで作る
+  - id: kuji
+    label: 事件ごとのくじ
+    technology: 対象は死刑又は無期拘禁刑に当たる罪など
+  - id: yobidashi
+    label: 呼出状と質問票
+  - id: kijitsu
+    label: 選任手続期日
+    technology: 期日前に 48.8% の辞退が認められた（平成 21 年度）
+  - id: saibanin
+    label: 裁判員 6 人
+  - id: saibankan
+    label: 裁判官 3 人
+  - id: gougi
+    label: 合議体 9 人
+  - id: hyoketsu
+    label: 評決
+    technology: 過半数。かつ裁判員と裁判官から各 1 名以上の賛成
+edges:
+  - from: senkyo
+    to: meibo
+  - from: meibo
+    to: kuji
+  - from: kuji
+    to: yobidashi
+  - from: yobidashi
+    to: kijitsu
+  - from: kijitsu
+    to: saibanin
+  - from: saibanin
+    to: gougi
+  - from: saibankan
+    to: gougi
+  - from: gougi
+    to: hyoketsu

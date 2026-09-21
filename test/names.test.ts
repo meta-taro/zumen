@@ -197,6 +197,28 @@ nodes:
  * 理由が書けないものは外さない —— それが「自己採点させない」の線。
  */
 const CROSSINGS_ARE_CONTENT: Record<string, string> = {
+  '333-歯車のかみ合い.zumen.yaml':
+    '**基準円（ピッチ円）は、歯を横切る線そのもの。** 歯先と歯底の間を通るからこそ「歯の大きさの基準」になり、2 つの基準円が接する所がかみ合い点になる —— 交わらない円は歯車の外か内を通るだけで、モジュールが同じでなければかみ合わない理由を描けない',
+  '332-振込が届くまで.zumen.yaml':
+    '**交わっている所が、入れ替わりそのもの。** 1 億円未満は為替通知が先で資金決済があと、1 億円以上は資金決済が先で通知があと —— 2 本の道で「お金と通知のどちらが先か」が逆になるので、線は必ず交わる。交わらない図では、入れ替わっていることを描けない',
+  '327-マイクの指向性.zumen.yaml':
+    '**極座標の図は、目盛りと曲線が交わってできている。** r ＝ 0.25 / 0.5 / 0.75 / 1 の同心円と 0°／90° の十字を指向性の輪が横切る所で、何度でどれだけ拾うかを読む —— 交わらない極座標は、目盛りが無いのと同じ（見本 264 と同じ理由）',
+  '312-UIのComponent構造.zumen.yaml':
+    '**共通の Component には、親が何本も刺さる。** 3 つの画面から同じ Header へ線が集まるので交わる —— 交わらない図は「画面ごとの木」で、そこでは共通かどうかが読めない',
+  '309-電気の引き込み.zumen.yaml':
+    '**柱上変圧器からもキュービクルからも、単相 3 線と三相 3 線の両方が出る。** 4 本の線が交わるのはそのためで、交わらない図では「どちらの変圧器からでも両方が取れる」ことを描けない',
+  '305-階段の寸法.zumen.yaml':
+    '**勾配の線は、段鼻を結んだ線そのもの。** 段を横切らずに引くことはできず、交わる所が段鼻 —— 57 度と 36 度の違いを見せるための線なので、交わらなければ勾配が描けない',
+  '292-製麹の品温.zumen.yaml':
+    '**目盛りの線は、縦横で必ず交わる。** 12 時間ごとの縦線と 4℃ ごとの横線が格子になって初めて「何時間で何度か」を読めるので、交わらない目盛りは目盛りではない',
+  '290-ラマチャンドランプロット.zumen.yaml':
+    '**目盛りの線は、縦横で必ず交わる。** −90 / 0 / +90 度の補助線が格子になって初めて φ と ψ を同時に読めるので、交わらない目盛りは目盛りではない',
+  '289-自転車ホイールの組み方.zumen.yaml':
+    '**交差の数が、そのまま組み方の名前。** 6 本組は 3 クロス、8 本組は 4 クロス —— 交わらないラジアル組と区別するために描いている図なので、交差を消したら何も残らない',
+  '286-魚の三枚おろし.zumen.yaml':
+    '**包丁を入れる線は、魚を横切る線そのもの。** 頭を落とす線は体を斜めに切り、腹側・背側から中骨に沿わせる線は外形の内側を通る —— 切り口の図でも、包丁は中骨の両脇を通って身の中を進む。交わらない線を外に並べても、どこへ刃を入れるのかを指せない',
+  '283-中継の決まり.zumen.yaml':
+    '**中継線とスタート地点は、コースを横切る線そのもの。** 走る道の上のどこかを指すための線なので、交わらない図では「どこで渡すのか」を指せない',
   '269-組子の割り付け.zumen.yaml':
     '**交わる所が、組む所そのもの。** 三ツ組手は 3 本が 1 点で交わる仕口で、麻の葉も重心から出た線が交わって 18 の三角形を作る —— 交わらない線を並べても、組子にはならない',
   '267-クモの円網.zumen.yaml':
@@ -625,6 +647,14 @@ nodes:
  * わざと重ねている図は理由を書いて外す。
  */
 const LAYERED_ON_PURPOSE: Record<string, string> = {
+  '311-ピアノの鍵盤.zumen.yaml':
+    '**黒鍵は、白鍵のあいだにまたいで載っている。** 白鍵 2 枚に半分ずつかかるのが実物で、離して置いたら「どの 2 つのあいだの黒鍵か」が描けない —— 2 つの組と 3 つの組に分かれて見えるのも、この重なりのおかげ',
+  '295-土俵.zumen.yaml':
+    '**徳俵は、勝負俵の輪から外へ出っ張っている俵。** 俵 1 本ぶん外へずらしてあることがこの図の中身なので、輪と重なっていなければ徳俵ではない',
+  '294-能舞台.zumen.yaml':
+    '**四本柱は、舞台の四隅そのものに立っている。** 柱の太さのぶんだけ舞台・後座・地謡座と重なるのが実物で、離して置いたら「どの隅の柱か」が描けない —— 面をかけたシテはその柱で立ち位置を知る',
+  '288-茶室の四畳半と八炉.zumen.yaml':
+    '**炉は、畳に切る穴。** 四畳半切は半畳の隅を 1 尺 4 寸角に切って据えるので、炉は半畳の中にある —— 離して置いたら、どの畳のどこを切るのかが描けない',
   '253-引き出しのスライドレール.zumen.yaml':
     '**2 段引きは、奥の 1/4 が家具の中に残る。** 残っていることがこの図の中身なので、引き出しの箱と家具は重なる（3 段引きのほうは離してある）',
   '244-エレベーターの構造.zumen.yaml':
@@ -984,5 +1014,83 @@ nodes:
     const subRight = Number(sub[1]) + 5; // 回した文字の太さの半分
     const nameLeft = Number(name[1]) - 36 / 2; // 「A 列」の見た目の幅の半分
     assert.ok(subRight <= nameLeft, `副題が名前へ食い込んでいる（${subRight} > ${nameLeft}）`);
+  });
+});
+
+/**
+ * **注記には、表の話をしない**（2026-09-21）。
+ *
+ * 「表の欄なら、値が欄から離れて行が空に見えます」は枠のある箱の話で、
+ * **`marker: none` の注記には当たらない** —— そちらは**まわりの図に重なる。**
+ * この夜だけで 10 回以上この指摘を受け、そのたびに表ではなく注記だった。
+ */
+describe('名前が箱から離れているときの言い方', () => {
+  const one = (marker: string): string =>
+    [
+      'version: 1', 'kind: placement', 'nodes:',
+      '  - id: a', '    label: "とても長い文字列がここに入ります"', `    marker: ${marker}`,
+      '    at: { x: 0, y: 0 }', '    size: { w: 100, h: 24 }', '',
+    ].join('\n');
+
+  it('**注記なら、まわりの図に重なると言う**', async () => {
+    const { placedFindings } = await import('../src/cli.ts');
+    const found = await placedFindings(one('none'));
+    const said = found.find((f) => f.code === 'name-adrift');
+    assert.ok(said !== undefined, found.map((f) => f.code).join(','));
+    assert.match(said.message, /まわりの図に重なります/, said.message);
+    assert.ok(!said.message.includes('表の欄なら'), said.message);
+  });
+
+  it('枠のある箱なら、これまでどおり表の話をする', async () => {
+    const { placedFindings } = await import('../src/cli.ts');
+    const found = await placedFindings(one('box'));
+    const said = found.find((f) => f.code === 'name-adrift')!;
+    assert.match(said.message, /表の欄なら/, said.message);
+  });
+
+  it('どちらでも、足りない px は言う', async () => {
+    const { placedFindings } = await import('../src/cli.ts');
+    for (const marker of ['none', 'box']) {
+      const found = await placedFindings(one(marker));
+      const said = found.find((f) => f.code === 'name-adrift')!;
+      assert.match(said.message, /px 足りません/, said.message);
+    }
+  });
+});
+
+/**
+ * **足りない px が負になっていた**（2026-09-21）。
+ *
+ * 幅は足りているのに名前が外へ出ることがある（行が増えて**高さ**が足りないとき）。
+ * そのとき「**-88px 足りません**」と出ていた ——
+ * 数として意味がないうえ、**直す場所（幅）を間違って指している。**
+ */
+describe('幅は足りているのに外へ出たとき', () => {
+  const two = [
+    'version: 1', 'kind: placement', 'nodes:',
+    '  - id: a', '    label: "2 行の\\n名前"',
+    '    at: { x: 0, y: 0 }', '    size: { w: 280, h: 24 }', '',
+  ].join('\n');
+
+  it('**「幅は足りています」と言い、高さを指す**', async () => {
+    const { placedFindings } = await import('../src/cli.ts');
+    const found = await placedFindings(two);
+    const said = found.find((f) => f.code === 'name-adrift');
+    assert.ok(said !== undefined, found.map((f) => f.code).join(','));
+    assert.match(said.message, /幅は足りています/, said.message);
+    assert.match(said.message, /高さ/, said.message);
+  });
+
+  it('**負の px を出さない**', async () => {
+    const { placedFindings } = await import('../src/cli.ts');
+    const found = await placedFindings(two);
+    const said = found.find((f) => f.code === 'name-adrift')!;
+    assert.ok(!/-\d+px 足りません/.test(said.message), said.message);
+  });
+
+  it('高さも同時に名指しする（label-too-tall）', async () => {
+    const { placedFindings } = await import('../src/cli.ts');
+    const found = await placedFindings(two);
+    assert.ok(found.some((f) => f.code === 'label-too-tall'), found.map((f) => f.code).join(','));
   });
 });

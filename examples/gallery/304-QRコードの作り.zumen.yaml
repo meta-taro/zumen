@@ -1,0 +1,462 @@
+version: 1
+kind: placement
+arrows: true
+title: QR コードの作り（先に見つけるものの大きさが、一定）
+# **バージョン 1 は 21 × 21 モジュール。** 1 つ上がるごとに 4 増え、
+# **バージョン 40 で 177 × 177** になる。
+#
+# **大きくなっても、切り出しシンボルは 7 × 7 のまま。**
+# 21 × 21 でも 177 × 177 でも 3 隅に同じ大きさで入っているので、
+# **型番を知らなくても読み始められる** —— 先に見つけるものの大きさが一定であることが、
+# この記号の設計の要。
+#
+# **切り出しシンボルの白黒比は 1 : 1 : 3 : 1 : 1。**
+# **縦でも横でも斜めでも同じ比**になるので、**向きが分からないまま探せる。**
+# 読み取りが速いのはこのため。
+#
+# **タイミングパターン**（6 行目・6 列目）はモジュールの刻みを数えるためのもの。
+# **形式情報**には誤り訂正レベルと、どのマスクを使ったかが書いてある。
+# **クワイエットゾーン**は外周 4 モジュールの余白で、地と区別するために要る。
+#
+# **誤り訂正は 4 段階。** L が約 7%、M が約 15%、Q が約 25%、H が約 30% まで復元できる。
+# **強くすると、入る字が減る** —— 同じ型番なら、復元できる割合が上がるほど
+# データに使える符号語が減る。
+#
+# **マスクは、模様を散らすため。** 黒か白が固まると読み取りにくいので、
+# **8 種類の型で白黒を反転させて、いちばん散る型を選ぶ。**
+#
+# 図はバージョン 1 の割り付けで、符号語（データと誤り訂正）の中身は描いていない。
+nodes:
+  - id: t1
+    label: "① バージョン 1（21 × 21 モジュール）の割り付け"
+    marker: none
+    align: left
+    at: { x: 140, y: 150 }
+    size: { w: 660, h: 20 }
+  - id: quiet
+    label: ""
+    line: dashed
+    at: { x: 234, y: 244 }
+    size: { w: 406, h: 406 }
+  - id: sym
+    label: ""
+    at: { x: 290, y: 300 }
+    size: { w: 294, h: 294 }
+  - id: tlo
+    label: ""
+    hatch: solid
+    at: { x: 290, y: 300 }
+    size: { w: 98, h: 98 }
+  - id: tlm
+    label: ""
+    at: { x: 304, y: 314 }
+    size: { w: 70, h: 70 }
+  - id: tli
+    label: ""
+    hatch: solid
+    at: { x: 318, y: 328 }
+    size: { w: 42, h: 42 }
+  - id: tro
+    label: ""
+    hatch: solid
+    at: { x: 486, y: 300 }
+    size: { w: 98, h: 98 }
+  - id: trm
+    label: ""
+    at: { x: 500, y: 314 }
+    size: { w: 70, h: 70 }
+  - id: tri
+    label: ""
+    hatch: solid
+    at: { x: 514, y: 328 }
+    size: { w: 42, h: 42 }
+  - id: blo
+    label: ""
+    hatch: solid
+    at: { x: 290, y: 496 }
+    size: { w: 98, h: 98 }
+  - id: blm
+    label: ""
+    at: { x: 304, y: 510 }
+    size: { w: 70, h: 70 }
+  - id: bli
+    label: ""
+    hatch: solid
+    at: { x: 318, y: 524 }
+    size: { w: 42, h: 42 }
+  - id: tmr
+    label: ""
+    hatch: lines
+    at: { x: 402, y: 384 }
+    size: { w: 70, h: 14 }
+  - id: tmc
+    label: ""
+    hatch: lines
+    at: { x: 374, y: 412 }
+    size: { w: 14, h: 70 }
+  - id: fmt1
+    label: ""
+    hatch: dots
+    at: { x: 290, y: 412 }
+    size: { w: 84, h: 14 }
+  - id: fmt2
+    label: ""
+    hatch: dots
+    at: { x: 402, y: 300 }
+    size: { w: 14, h: 84 }
+  - id: n_finder
+    label: "切り出しシンボル\n7 × 7 が 3 隅"
+    marker: none
+    align: left
+    at: { x: 660, y: 319.6 }
+    size: { w: 190, h: 36 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 655, y: 335.4 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 490.6, y: 335.4 }
+    size: { w: 2, h: 2 }
+  - id: n_timing
+    label: "タイミングパターン"
+    marker: none
+    align: left
+    at: { x: 660, y: 384 }
+    size: { w: 190, h: 18 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 655, y: 390 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 465.4, y: 390 }
+    size: { w: 2, h: 2 }
+  - id: n_fmt
+    label: "形式情報\n訂正レベルとマスク"
+    marker: none
+    align: left
+    at: { x: 660, y: 417.6 }
+    size: { w: 190, h: 36 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 655, y: 432 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 409.4, y: 432 }
+    size: { w: 2, h: 2 }
+  - id: n_data
+    label: "符号語（データと誤り訂正）"
+    marker: none
+    align: left
+    at: { x: 660, y: 482 }
+    size: { w: 190, h: 18 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 655, y: 488 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 499, y: 509 }
+    size: { w: 2, h: 2 }
+  - id: n_quiet
+    label: "クワイエットゾーン（外周 4 モジュール）"
+    marker: none
+    align: center
+    at: { x: 234, y: 221.6 }
+    size: { w: 406, h: 18 }
+  - id: cap1
+    label: "バージョン 1 は 21 × 21。 以後 4 モジュールずつ増え、バージョン 40 で 177 × 177 になる。"
+    marker: none
+    align: center
+    at: { x: 140, y: 660 }
+    size: { w: 660, h: 18 }
+  - id: t2
+    label: "② 切り出しシンボルは、どこから走査しても 1 : 1 : 3 : 1 : 1"
+    marker: none
+    align: left
+    at: { x: 140, y: 700 }
+    size: { w: 660, h: 20 }
+  - id: b0
+    label: ""
+    hatch: solid
+    at: { x: 260, y: 744 }
+    size: { w: 34, h: 60 }
+  - id: b0n
+    label: "1"
+    marker: none
+    align: center
+    at: { x: 260, y: 810 }
+    size: { w: 34, h: 18 }
+  - id: b1
+    label: ""
+    at: { x: 294, y: 744 }
+    size: { w: 34, h: 60 }
+  - id: b1n
+    label: "1"
+    marker: none
+    align: center
+    at: { x: 294, y: 810 }
+    size: { w: 34, h: 18 }
+  - id: b2
+    label: ""
+    hatch: solid
+    at: { x: 328, y: 744 }
+    size: { w: 102, h: 60 }
+  - id: b2n
+    label: "3"
+    marker: none
+    align: center
+    at: { x: 328, y: 810 }
+    size: { w: 102, h: 18 }
+  - id: b3
+    label: ""
+    at: { x: 430, y: 744 }
+    size: { w: 34, h: 60 }
+  - id: b3n
+    label: "1"
+    marker: none
+    align: center
+    at: { x: 430, y: 810 }
+    size: { w: 34, h: 18 }
+  - id: b4
+    label: ""
+    hatch: solid
+    at: { x: 464, y: 744 }
+    size: { w: 34, h: 60 }
+  - id: b4n
+    label: "1"
+    marker: none
+    align: center
+    at: { x: 464, y: 810 }
+    size: { w: 34, h: 18 }
+  - id: b_n
+    label: "黒 1 ・白 1 ・黒 3 ・白 1 ・黒 1"
+    marker: none
+    align: left
+    at: { x: 518, y: 764 }
+    size: { w: 300, h: 18 }
+  - id: cap2
+    label: "この比は、縦でも横でも斜めでも同じ。\nだから向きが分からないまま探せる —— 読み取りが速いのはこのため。"
+    marker: none
+    align: center
+    at: { x: 140, y: 838 }
+    size: { w: 660, h: 36 }
+  - id: t3
+    label: "③ 型番（バージョン）"
+    marker: none
+    align: left
+    at: { x: 860, y: 150 }
+    size: { w: 420, h: 20 }
+  - id: h860_186
+    label: "モジュール数"
+    hatch: solid
+    at: { x: 860, y: 186 }
+    size: { w: 420, h: 24 }
+  - id: x860_210
+    label: "バージョン 1"
+    at: { x: 860, y: 210 }
+    size: { w: 150, h: 24 }
+  - id: y860_210
+    label: "21 × 21"
+    align: left
+    at: { x: 1010, y: 210 }
+    size: { w: 270, h: 24 }
+  - id: x860_234
+    label: "1 つ上がるごと"
+    at: { x: 860, y: 234 }
+    size: { w: 150, h: 24 }
+  - id: y860_234
+    label: "4 モジュール増える"
+    align: left
+    at: { x: 1010, y: 234 }
+    size: { w: 270, h: 24 }
+  - id: x860_258
+    label: "バージョン 40"
+    at: { x: 860, y: 258 }
+    size: { w: 150, h: 24 }
+  - id: y860_258
+    label: "177 × 177"
+    align: left
+    at: { x: 1010, y: 258 }
+    size: { w: 270, h: 24 }
+  - id: x860_282
+    label: "切り出しシンボル"
+    at: { x: 860, y: 282 }
+    size: { w: 150, h: 24 }
+  - id: y860_282
+    label: "どの型番でも 7 × 7 が 3 つ"
+    align: left
+    at: { x: 1010, y: 282 }
+    size: { w: 270, h: 24 }
+  - id: why3
+    label: "大きくなっても、目印は同じ大きさ。\n21 × 21 でも 177 × 177 でも切り出しシンボルは 7 × 7 ——\n先に見つけるものの大きさが一定だから、\n型番を知らなくても読み始められる。"
+    at: { x: 860, y: 320 }
+    size: { w: 420, h: 92 }
+  - id: t4
+    label: "④ 誤り訂正のレベル"
+    marker: none
+    align: left
+    at: { x: 860, y: 430 }
+    size: { w: 420, h: 20 }
+  - id: h860_460
+    label: "どれだけ汚れても読めるか"
+    hatch: solid
+    at: { x: 860, y: 460 }
+    size: { w: 420, h: 24 }
+  - id: x860_484
+    label: "L"
+    at: { x: 860, y: 484 }
+    size: { w: 150, h: 24 }
+  - id: y860_484
+    label: "約 7% まで復元"
+    align: left
+    at: { x: 1010, y: 484 }
+    size: { w: 270, h: 24 }
+  - id: x860_508
+    label: "M"
+    at: { x: 860, y: 508 }
+    size: { w: 150, h: 24 }
+  - id: y860_508
+    label: "約 15% まで復元"
+    align: left
+    at: { x: 1010, y: 508 }
+    size: { w: 270, h: 24 }
+  - id: x860_532
+    label: "Q"
+    at: { x: 860, y: 532 }
+    size: { w: 150, h: 24 }
+  - id: y860_532
+    label: "約 25% まで復元"
+    align: left
+    at: { x: 1010, y: 532 }
+    size: { w: 270, h: 24 }
+  - id: x860_556
+    label: "H"
+    at: { x: 860, y: 556 }
+    size: { w: 150, h: 24 }
+  - id: y860_556
+    label: "約 30% まで復元"
+    align: left
+    at: { x: 1010, y: 556 }
+    size: { w: 270, h: 24 }
+  - id: why4
+    label: "強くすると、入る字が減る。\n同じ型番なら、復元できる割合が上がるほど\nデータに使える符号語が減る ——\n汚れに強い QR は、そのぶん小さい情報しか持てない。"
+    at: { x: 860, y: 594 }
+    size: { w: 420, h: 92 }
+  - id: t5
+    label: "⑤ 各部の役目"
+    marker: none
+    align: left
+    at: { x: 860, y: 704 }
+    size: { w: 420, h: 20 }
+  - id: h860_734
+    label: "何のためにあるか"
+    hatch: solid
+    at: { x: 860, y: 734 }
+    size: { w: 420, h: 24 }
+  - id: x860_758
+    label: "切り出しシンボル"
+    at: { x: 860, y: 758 }
+    size: { w: 150, h: 24 }
+  - id: y860_758
+    label: "位置と向きを見つける"
+    align: left
+    at: { x: 1010, y: 758 }
+    size: { w: 270, h: 24 }
+  - id: x860_782
+    label: "タイミングパターン"
+    at: { x: 860, y: 782 }
+    size: { w: 150, h: 24 }
+  - id: y860_782
+    label: "モジュールの刻みを数える"
+    align: left
+    at: { x: 1010, y: 782 }
+    size: { w: 270, h: 24 }
+  - id: x860_806
+    label: "形式情報"
+    at: { x: 860, y: 806 }
+    size: { w: 150, h: 24 }
+  - id: y860_806
+    label: "訂正レベルとマスクを知らせる"
+    align: left
+    at: { x: 1010, y: 806 }
+    size: { w: 270, h: 24 }
+  - id: x860_830
+    label: "クワイエットゾーン"
+    at: { x: 860, y: 830 }
+    size: { w: 150, h: 24 }
+  - id: y860_830
+    label: "地と区別する余白"
+    align: left
+    at: { x: 1010, y: 830 }
+    size: { w: 270, h: 24 }
+  - id: x860_854
+    label: "マスク処理"
+    at: { x: 860, y: 854 }
+    size: { w: 150, h: 24 }
+  - id: y860_854
+    label: "8 種類から選ぶ"
+    align: left
+    at: { x: 1010, y: 854 }
+    size: { w: 270, h: 24 }
+  - id: why5
+    label: "マスクは、模様を散らすため。\n黒か白が固まると読み取りにくいので、\n8 種類の型で白黒を反転させて、いちばん散る型を選ぶ ——\nどれを選んだかは形式情報に書いてある。"
+    at: { x: 860, y: 892 }
+    size: { w: 420, h: 92 }
+  - id: r1
+    label: "バージョン 1 は 21 × 21 モジュールです（①③）。1 つ上がるごとに 4 増え、バージョン 40 で 177 × 177 になります。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1002 }
+    size: { w: 1140, h: 18 }
+  - id: r2
+    label: "大きくなっても、切り出しシンボルは 7 × 7 のままです。 先に見つけるものの大きさが一定なので、型番を知らなくても読み始められます。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1026 }
+    size: { w: 1140, h: 18 }
+  - id: r3
+    label: "切り出しシンボルの比は 1 : 1 : 3 : 1 : 1 です（②）。縦でも横でも斜めでも同じなので、向きが分からないまま探せます。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1050 }
+    size: { w: 1140, h: 18 }
+  - id: r4
+    label: "誤り訂正は 4 段階です（④）。L 約 7%・M 約 15%・Q 約 25%・H 約 30% —— 強くするほど、入る情報は減ります。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1074 }
+    size: { w: 1140, h: 18 }
+  - id: r5
+    label: "マスクは模様を散らすためのものです（⑤）。8 種類から選び、どれを選んだかは形式情報に書いてあります。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1098 }
+    size: { w: 1140, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p2
+    to: p3
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p4
+    to: p5
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p6
+    to: p7
+    curve: none
+    ends: { from: none, to: arrow }

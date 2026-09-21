@@ -1,0 +1,268 @@
+version: 1
+kind: placement
+arrows: true
+title: 緊急地震速報（猶予は「残り」でしかない）
+# **速報は地震を予知していない。速い波と遅い波の差を借りているだけ。**
+#
+# P 波と S 波は、**1 秒あたり約 2.3 キロ（実際には 2〜4 キロ程度）の差**で離れていく。
+# 先に届く P 波を捕まえて、あとから来る S 波より先に知らせる —— それが全部。
+#
+# ## 引かれる分は、震源が近くても遠くても同じ
+#
+# **規模は P 波到達後 3 秒の波形から算出する。**
+# そこに**処理と発表の数秒〜数十秒**が乗る。
+# **この合計は、震源までの距離と関係なく引かれる。**
+#
+# ## だから、近いほど残らない
+#
+# 海溝型のように震源が遠ければ、借りられる差が大きいので
+# **猶予は数秒から数十秒**になる。
+#
+# **陸地の浅い直下型では、激しく揺れる震央付近で原理上数秒しか猶予がないか、
+# あるいは間に合わない。**
+# これは装置が遅いからではなく、**借りる差がそもそも無いから。**
+#
+# ## 出す基準
+#
+# **警報は最大予測震度 5 弱以上**のとき。**予測震度 4 以上の地域**へ伝える。
+# 警報は最低限の情報、予報はより豊富な情報を出す。
+#
+# **帯の長さは模式。** 目盛りを打っていないのは、各段の秒数が出典に無いから ——
+# 確かなのは「3 秒」「数秒〜数十秒」「約 2.3 キロ」の 3 つだけで、
+# **この図が言いたいのは長さではなく、引かれる分が先にあるという順番。**
+#
+# 震度とマグニチュードの違いは見本 315、避難の判定は見本 221。
+nodes:
+  - id: t1
+    label: "① 猶予は「残り」でしかない —— 引かれる分は、震源が近くても遠くても同じ"
+    marker: none
+    align: left
+    at: { x: 140, y: 150 }
+    size: { w: 900, h: 18 }
+  - id: t1b
+    label: "　帯の長さは模式。 出典にある数字は「P 波到達後 3 秒」と「処理に数秒〜数十秒」。"
+    marker: none
+    align: left
+    at: { x: 140, y: 172 }
+    size: { w: 900, h: 18 }
+  - id: al
+    label: "海溝型（震源が遠い）"
+    marker: none
+    align: right
+    at: { x: 120, y: 266 }
+    size: { w: 180, h: 18 }
+  - id: a0
+    label: "P 波が観測点に届くまで"
+    at: { x: 320, y: 250 }
+    size: { w: 200, h: 50 }
+  - id: a1
+    label: "3 秒"
+    hatch: solid
+    at: { x: 520, y: 250 }
+    size: { w: 80, h: 50 }
+  - id: a2
+    label: "処理と発表 数秒〜数十秒"
+    hatch: lines
+    at: { x: 600, y: 250 }
+    size: { w: 210, h: 50 }
+  - id: a3
+    label: "猶予（数秒〜数十秒）"
+    hatch: dots
+    at: { x: 810, y: 250 }
+    size: { w: 380, h: 50 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 1192, y: 239 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 1192, y: 309 }
+    size: { w: 2, h: 2 }
+  - id: ashaken
+    label: "大きな揺れ（S 波）が来る"
+    marker: none
+    align: center
+    at: { x: 1060, y: 314 }
+    size: { w: 260, h: 18 }
+  - id: bl
+    label: "直下型（震源が真下）"
+    marker: none
+    align: right
+    at: { x: 120, y: 446 }
+    size: { w: 180, h: 18 }
+  - id: b0
+    label: ""
+    at: { x: 320, y: 430 }
+    size: { w: 70, h: 50 }
+  - id: bu0
+    label: "P 波"
+    marker: none
+    align: center
+    at: { x: 260, y: 404 }
+    size: { w: 190, h: 18 }
+  - id: b1
+    label: "3 秒"
+    hatch: solid
+    at: { x: 390, y: 430 }
+    size: { w: 80, h: 50 }
+  - id: b2
+    label: "処理と発表 数秒〜数十秒"
+    hatch: lines
+    at: { x: 470, y: 430 }
+    size: { w: 210, h: 50 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 522, y: 419 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 522, y: 489 }
+    size: { w: 2, h: 2 }
+  - id: bshaken
+    label: "発表より先に、大きな揺れが来る"
+    marker: none
+    align: center
+    at: { x: 390, y: 494 }
+    size: { w: 280, h: 18 }
+  - id: bnone
+    label: "← 猶予が残らない"
+    marker: none
+    align: left
+    at: { x: 696, y: 446 }
+    size: { w: 260, h: 18 }
+  - id: leg
+    label: "塗り ＝ 必ず引かれる分（3 秒と、処理の数秒〜数十秒）。 点 ＝ 残った猶予。"
+    marker: none
+    align: left
+    at: { x: 320, y: 540 }
+    size: { w: 700, h: 18 }
+  - id: r1
+    label: "・速報は地震を予知していない。 P 波と S 波が 1 秒あたり約 2.3 キロ（実際には 2〜4 キロ程度）"
+    marker: none
+    align: left
+    at: { x: 140, y: 580 }
+    size: { w: 1180, h: 18 }
+  - id: r2
+    label: "　の差で離れていくので、先に届く P 波を捕まえて、あとから来る S 波より先に知らせているだけ。"
+    marker: none
+    align: left
+    at: { x: 140, y: 604 }
+    size: { w: 1180, h: 18 }
+  - id: r3
+    label: "・引かれる分は距離と関係なく同じなので、震源が近いほど残りが無くなる。"
+    marker: none
+    align: left
+    at: { x: 140, y: 628 }
+    size: { w: 1180, h: 18 }
+  - id: r4
+    label: "　震央のすぐ近くで間に合わないのは、装置が遅いからではなく、借りる差がそもそも無いから。"
+    marker: none
+    align: left
+    at: { x: 140, y: 652 }
+    size: { w: 1180, h: 18 }
+  - id: h140_700
+    label: "何に、どれだけ引かれるか"
+    hatch: solid
+    at: { x: 140, y: 700 }
+    size: { w: 690, h: 24 }
+  - id: x140_724
+    label: "P 波が届くまで"
+    at: { x: 140, y: 724 }
+    size: { w: 250, h: 24 }
+  - id: y140_724
+    label: "震源からの距離しだい"
+    align: left
+    at: { x: 390, y: 724 }
+    size: { w: 440, h: 24 }
+  - id: x140_748
+    label: "規模の算出"
+    at: { x: 140, y: 748 }
+    size: { w: 250, h: 24 }
+  - id: y140_748
+    label: "P 波到達後 3 秒の波形から出す"
+    align: left
+    at: { x: 390, y: 748 }
+    size: { w: 440, h: 24 }
+  - id: x140_772
+    label: "処理と発表"
+    at: { x: 140, y: 772 }
+    size: { w: 250, h: 24 }
+  - id: y140_772
+    label: "数秒〜数十秒"
+    align: left
+    at: { x: 390, y: 772 }
+    size: { w: 440, h: 24 }
+  - id: x140_796
+    label: "残りが猶予（海溝型）"
+    at: { x: 140, y: 796 }
+    size: { w: 250, h: 24 }
+  - id: y140_796
+    label: "数秒〜数十秒"
+    align: left
+    at: { x: 390, y: 796 }
+    size: { w: 440, h: 24 }
+  - id: x140_820
+    label: "残りが猶予（直下型）"
+    at: { x: 140, y: 820 }
+    size: { w: 250, h: 24 }
+  - id: y140_820
+    label: "数秒しかない、あるいは間に合わない"
+    align: left
+    at: { x: 390, y: 820 }
+    size: { w: 440, h: 24 }
+  - id: h870_700
+    label: "どこへ、何を出すか"
+    hatch: solid
+    at: { x: 870, y: 700 }
+    size: { w: 690, h: 24 }
+  - id: x870_724
+    label: "警報を出す基準"
+    at: { x: 870, y: 724 }
+    size: { w: 250, h: 24 }
+  - id: y870_724
+    label: "最大予測震度 5 弱以上"
+    align: left
+    at: { x: 1120, y: 724 }
+    size: { w: 440, h: 24 }
+  - id: x870_748
+    label: "伝える先"
+    at: { x: 870, y: 748 }
+    size: { w: 250, h: 24 }
+  - id: y870_748
+    label: "予測震度 4 以上の地域"
+    align: left
+    at: { x: 1120, y: 748 }
+    size: { w: 440, h: 24 }
+  - id: x870_772
+    label: "警報"
+    at: { x: 870, y: 772 }
+    size: { w: 250, h: 24 }
+  - id: y870_772
+    label: "最低限の情報"
+    align: left
+    at: { x: 1120, y: 772 }
+    size: { w: 440, h: 24 }
+  - id: x870_796
+    label: "予報"
+    at: { x: 870, y: 796 }
+    size: { w: 250, h: 24 }
+  - id: y870_796
+    label: "より豊富な情報"
+    align: left
+    at: { x: 1120, y: 796 }
+    size: { w: 440, h: 24 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p2
+    to: p3
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }

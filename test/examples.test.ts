@@ -193,3 +193,157 @@ describe('目次は、正本と同じものを写している', () => {
     }
   });
 });
+
+/**
+ * **説明が無い見本は、絵しか渡していない**（2026-09-20）。
+ *
+ * 見本の値打ちは絵ではなく、**「なぜその形なのか」**のほうにある
+ * （`.claude/rules/専門図面の調査と実装方針.md` §2）。
+ * `#` のコメントは見本ページの本文にそのまま出るので、
+ * **短い説明は、そのまま短いページになる。**
+ *
+ * 測ったら 120 字未満が **35 枚**あり、いちばん短いのは 12 字
+ * （`# 1 px = 25 mm` だけ）だった。7 周かけて 0 にしたので、**下限を決めて戻さない。**
+ */
+describe('見本の説明', () => {
+  /** `#` で始まる行（`# ` の後ろ）を、強調記号を外してつないだもの。 */
+  const body = (file: string): string =>
+    readFileSync(new URL(file, dir), 'utf8')
+      .split('\n')
+      .filter((line) => line.startsWith('# '))
+      .map((line) => line.slice(2))
+      .join('')
+      .replace(/\*\*/g, '');
+
+  it('**どの見本にも、120 字以上の説明がある**', () => {
+    const thin = files
+      .filter((file) => body(file).length < 120)
+      .map((file) => `${file}（${body(file).length} 字）`);
+    assert.deepEqual(thin, [], '説明が短い見本（絵だけでは、なぜその形かが渡らない）');
+  });
+
+  /**
+   * **規格は改正される**（2026-09-20）。
+   *
+   * 洗濯表示のアイロン温度を 110/150/200℃ と書いたあとで、
+   * **2024 年 8 月の改正で 120/160/210℃ になっていた**と気づいた。
+   * 同じ日に照度基準も JIS Z 9110 → Z 9125:2023 へ移っていた。
+   * **記号は同じ形のまま意味だけ変わる**ので、絵を見ても気づけない ——
+   * 規格番号を書くなら、**どの版を見たのか**まで書く。
+   */
+  it('**規格番号を書いた見本は、版（年）も書いている**', () => {
+    /**
+     * **見る規格の名前を広げた**（2026-09-21）。
+     *
+     * `EN` と `ISO/IEC` が漏れていて、見本 97（防犯カメラの視野図）の
+     * **IEC/EN 62676-4 が版なしのまま通っていた。**
+     */
+    const STANDARD =
+      /JIS\s*[A-Z]\s*\d+|ISO\/IEC\s*\d+|ISO\s*\d+|IEC\/EN\s*\d+|IEC\s*\d+|EN\s*\d+|DIN\s*\d+|ASTM\s*[A-Z]?\d+|IEEE\s*\d+|JEM\s*\d+|JASO|JEITA|WDF|ANSI|NFPA/;
+    /**
+     * **版を確かめられないなら、確かめていないと書く。**
+     *
+     * 年を書かせるのは、**古い版の数をそのまま載せない**ため。
+     * 調べがつかないときに年をでっち上げるほうが悪いので、
+     * **そう書いてあるなら通す**（そのかわり、図を読む人にも伝わる）。
+     */
+    const ADMITS = /版は確かめていない/;
+    const comments = (file: string): string =>
+      readFileSync(new URL(file, dir), 'utf8')
+        .split('\n')
+        .filter((line) => line.startsWith('#'))
+        .join('\n');
+    const undated = files.filter(
+      (file) =>
+        STANDARD.test(comments(file)) &&
+        !/(19|20)\d\d/.test(comments(file)) &&
+        !ADMITS.test(comments(file)),
+    );
+    assert.deepEqual(undated, [], '規格番号はあるのに、いつの版か書いていない見本');
+  });
+});
+
+/**
+ * **「見本 NNN と対」が、切れていないか**（2026-09-21）。
+ *
+ * 説明の中で別の見本を指すことがよくある（いま 47 か所）。
+ * **番号を間違えても、誰も気づかない** —— 絵は出るし、テストも通る。
+ * 番号だけは機械に見させる。
+ *
+ * 名前まで見ようとすると誤検出になる。
+ * 「見本 95（1 人 3.5m² のスフィア基準）」のように、
+ * **括弧の中は名前ではなく中身の説明**であることが多い（測って 13 件中 2 件）。
+ */
+describe('見本どうしの参照', () => {
+  it('**指している見本が実在する**', () => {
+    const dir = new URL('../examples/gallery/', import.meta.url);
+    const files = readdirSync(dir).filter((f) => f.endsWith('.zumen.yaml'));
+    const have = new Set(files.map((f) => f.split('-')[0]!));
+    const broken: string[] = [];
+    let refs = 0;
+    for (const file of files) {
+      const text = readFileSync(new URL(file, dir), 'utf8');
+      for (const found of text.matchAll(/見本\s?(\d{1,3})/g)) {
+        refs += 1;
+        const num = found[1]!;
+        if (!have.has(num) && !have.has(num.padStart(2, '0'))) broken.push(`${file} → 見本 ${num}`);
+      }
+    }
+    assert.ok(refs >= 40, `参照が ${refs} 件しか見つからない（数え方が壊れた？）`);
+    assert.deepEqual(broken, []);
+  });
+});
+
+/**
+ * **道具を足したら、それを使った見本も足す**（2026-09-21）。
+ *
+ * `spec().rules` は「その書き方が効いている実物を先に見られる」と言っているが、
+ * **実物が 1 枚も無い語**があった。数えたら `ends` の
+ * `dot` / `dot-bar` / `dot-crow` が **0 枚**（見本 304 枚のうち）。
+ *
+ * 道具だけあって実物が無い語は、**書いてもよいのか分からない語**になる。
+ */
+describe('閉じた語彙と、それを使った見本', () => {
+  /** **まだ実物が無い語と、その理由。** 空にするのが目標。 */
+  const NO_SAMPLE_YET: Record<string, string> = {
+    'ends: dot':
+      '**丸 1 つは、鳥の足記法では単独で使わない**（0 以上は dot-crow、0 または 1 は dot-bar）。かつてここには「接続点としての使い道（単線結線図のバスの分岐）はまだ描いていない」と書いてあったが、**2026-09-21 に試して、その道が無いことが分かった** —— `dot` は `fill="none"` の白丸で、電気の接続点は黒丸。見本 19（受変電の結線）の分岐に付けてみたら、記法として誤りだったので戻した。**使い道が無いのではなく、提案されていた使い道のほうが間違っていた**',
+  };
+
+  it('**どの値も、どこかの見本で使われている**', async () => {
+    const { MARKERS } = await import('../src/marker.ts');
+    const { HATCHES } = await import('../src/hatch.ts');
+    const { LINES } = await import('../src/line.ts');
+    const { ENDS } = await import('../src/ends.ts');
+    const dir = new URL('../examples/gallery/', import.meta.url);
+    const texts = readdirSync(dir)
+      .filter((f) => f.endsWith('.zumen.yaml'))
+      .map((f) => readFileSync(new URL(f, dir), 'utf8'));
+    const unused: string[] = [];
+    const census = (key: string, words: readonly string[], pattern: (w: string) => RegExp): void => {
+      for (const word of words) {
+        if (texts.some((t) => pattern(word).test(t))) continue;
+        unused.push(`${key}: ${word}`);
+      }
+    };
+    // **`\b` では足りない** —— `to: dot` の正規表現が `to: dot-crow` にも当たる。
+    const only = (w: string): string => `${w}(?![\\w-])`;
+    census('marker', MARKERS, (w) => new RegExp(`marker:\\s*${only(w)}`));
+    census('hatch', HATCHES, (w) => new RegExp(`hatch:\\s*${only(w)}`));
+    census('line', LINES, (w) => new RegExp(`line:\\s*${only(w)}`));
+    census('ends', ENDS, (w) => new RegExp(`(?:from|to):\\s*${only(w)}`));
+    assert.deepEqual(unused.filter((u) => NO_SAMPLE_YET[u] === undefined), []);
+  });
+
+  it('**理由を書いた語は、本当にまだ使われていない**（消し忘れを残さない）', async () => {
+    const dir = new URL('../examples/gallery/', import.meta.url);
+    const texts = readdirSync(dir)
+      .filter((f) => f.endsWith('.zumen.yaml'))
+      .map((f) => readFileSync(new URL(f, dir), 'utf8'));
+    for (const key of Object.keys(NO_SAMPLE_YET)) {
+      const word = key.split(': ')[1]!;
+      const used = texts.some((t) => new RegExp(`(?:from|to):\\s*${word}(?![\\w-])`).test(t));
+      assert.ok(!used, `${key} は使われている —— 表から消すこと`);
+    }
+  });
+});

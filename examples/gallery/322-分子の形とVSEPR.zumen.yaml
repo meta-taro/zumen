@@ -1,0 +1,689 @@
+version: 1
+kind: placement
+arrows: true
+title: 分子の形（VSEPR ——電子対は離れたがる）
+# **中心の原子のまわりの電子対が、できるだけ離れようとする。それだけで形が決まる。**
+# 原子価殻電子対反発則（VSEPR）。結合に使っている電子対と、
+# **使っていない電子対（孤立電子対）を同じように数える**のがこの規則の要。
+#
+# ## 同じ四面体の骨組みから、3 つの形が出る
+#
+# **CH4 は 109.5°、NH3 は 107°、H2O は 104.5°。**
+# どれも電子対は 4 つで、骨組みは同じ四面体。違うのは
+# **そのうち何個が結合で、何個が孤立電子対か**だけ。
+#
+# ## なぜ孤立電子対があると狭くなるか
+#
+# **孤立電子対は、中心原子の正の電荷に近いところにある。**
+# だから反発が強い —— 孤立－孤立 ＞ 孤立－結合 ＞ 結合－結合。
+# **強いほうが弱いほうを押す**ので、結合どうしの角は理想値より狭くなる。
+# 109.5° → 107° → 104.5° の 2.5° と 2.5° が、押された分。
+#
+# ## 形の名前は「原子の位置」で呼ぶ
+#
+# NH3 を三角錐形と呼ぶのは、**孤立電子対を形の頂点に数えないから。**
+# 電子対の並びは四面体だが、**見える形（原子の並び）は錐**になる。
+# H2O も同じで、電子対は四面体、原子は折れ線。
+#
+# 周期表の形と電子配置は見本 233。
+nodes:
+  - id: t1
+    label: "① 電子対は、できるだけ離れようとする —— それだけで形が決まる"
+    marker: none
+    align: left
+    at: { x: 140, y: 118 }
+    size: { w: 800, h: 18 }
+  - id: at
+    label: "直線形　AX2　BeCl2"
+    marker: none
+    align: center
+    at: { x: 150, y: 150 }
+    size: { w: 300, h: 18 }
+  - id: ac
+    label: "Be"
+    marker: circle
+    at: { x: 283, y: 303 }
+    size: { w: 34, h: 34 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 280, y: 319 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 223, y: 319 }
+    size: { w: 2, h: 2 }
+  - id: aa0
+    label: "Cl"
+    marker: circle
+    at: { x: 209, y: 305 }
+    size: { w: 30, h: 30 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 318, y: 319 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 375, y: 319 }
+    size: { w: 2, h: 2 }
+  - id: aa1
+    label: "Cl"
+    marker: circle
+    at: { x: 361, y: 305 }
+    size: { w: 30, h: 30 }
+  - id: ag
+    label: "結合角 180°"
+    marker: none
+    align: center
+    at: { x: 150, y: 436 }
+    size: { w: 300, h: 18 }
+  - id: bt
+    label: "平面三角形　AX3　BCl3"
+    marker: none
+    align: center
+    at: { x: 550, y: 150 }
+    size: { w: 300, h: 18 }
+  - id: bc
+    label: "B"
+    marker: circle
+    at: { x: 683, y: 303 }
+    size: { w: 34, h: 34 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 699, y: 300 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 699, y: 243 }
+    size: { w: 2, h: 2 }
+  - id: ba0
+    label: "Cl"
+    marker: circle
+    at: { x: 685, y: 229 }
+    size: { w: 30, h: 30 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 682.5, y: 328.5 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 633, y: 357 }
+    size: { w: 2, h: 2 }
+  - id: ba1
+    label: "Cl"
+    marker: circle
+    at: { x: 619, y: 343 }
+    size: { w: 30, h: 30 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 715.5, y: 328.5 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 765, y: 357 }
+    size: { w: 2, h: 2 }
+  - id: ba2
+    label: "Cl"
+    marker: circle
+    at: { x: 751, y: 343 }
+    size: { w: 30, h: 30 }
+  - id: bg
+    label: "結合角 120°"
+    marker: none
+    align: center
+    at: { x: 550, y: 436 }
+    size: { w: 300, h: 18 }
+  - id: ct
+    label: "八面体形　AX6　SF6"
+    marker: none
+    align: center
+    at: { x: 950, y: 150 }
+    size: { w: 300, h: 18 }
+  - id: cc
+    label: "S"
+    marker: circle
+    at: { x: 1083, y: 303 }
+    size: { w: 34, h: 34 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 1099, y: 300 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 1099, y: 243 }
+    size: { w: 2, h: 2 }
+  - id: ca0
+    label: "F"
+    marker: circle
+    at: { x: 1085, y: 229 }
+    size: { w: 30, h: 30 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 1099, y: 338 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 1099, y: 395 }
+    size: { w: 2, h: 2 }
+  - id: ca1
+    label: "F"
+    marker: circle
+    at: { x: 1085, y: 381 }
+    size: { w: 30, h: 30 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 1080, y: 319 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 1023, y: 319 }
+    size: { w: 2, h: 2 }
+  - id: ca2
+    label: "F"
+    marker: circle
+    at: { x: 1009, y: 305 }
+    size: { w: 30, h: 30 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 1118, y: 319 }
+    size: { w: 2, h: 2 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 1175, y: 319 }
+    size: { w: 2, h: 2 }
+  - id: ca3
+    label: "F"
+    marker: circle
+    at: { x: 1161, y: 305 }
+    size: { w: 30, h: 30 }
+  - id: p18
+    label: ""
+    marker: none
+    at: { x: 1085.6, y: 305.6 }
+    size: { w: 2, h: 2 }
+  - id: p19
+    label: ""
+    marker: none
+    at: { x: 1049, y: 269 }
+    size: { w: 2, h: 2 }
+  - id: ca4
+    label: "F"
+    marker: circle
+    at: { x: 1035, y: 255 }
+    size: { w: 30, h: 30 }
+  - id: p20
+    label: ""
+    marker: none
+    at: { x: 1112.4, y: 332.4 }
+    size: { w: 2, h: 2 }
+  - id: p21
+    label: ""
+    marker: none
+    at: { x: 1149, y: 369 }
+    size: { w: 2, h: 2 }
+  - id: ca5
+    label: "F"
+    marker: circle
+    at: { x: 1135, y: 355 }
+    size: { w: 30, h: 30 }
+  - id: cg
+    label: "結合角 90°"
+    marker: none
+    align: center
+    at: { x: 950, y: 436 }
+    size: { w: 300, h: 18 }
+  - id: t2
+    label: "② 同じ四面体の骨組みでも、孤立電子対が増えた分だけ角が狭くなる"
+    marker: none
+    align: left
+    at: { x: 140, y: 458 }
+    size: { w: 800, h: 18 }
+  - id: dt
+    label: "四面体形　AX4E0　CH4"
+    marker: none
+    align: center
+    at: { x: 150, y: 490 }
+    size: { w: 300, h: 18 }
+  - id: dc
+    label: "C"
+    marker: circle
+    at: { x: 283, y: 643 }
+    size: { w: 34, h: 34 }
+  - id: p22
+    label: ""
+    marker: none
+    at: { x: 299, y: 640 }
+    size: { w: 2, h: 2 }
+  - id: p23
+    label: ""
+    marker: none
+    at: { x: 299, y: 583 }
+    size: { w: 2, h: 2 }
+  - id: da0
+    label: "H"
+    marker: circle
+    at: { x: 285, y: 569 }
+    size: { w: 30, h: 30 }
+  - id: p24
+    label: ""
+    marker: none
+    at: { x: 283.1, y: 669.4 }
+    size: { w: 2, h: 2 }
+  - id: p25
+    label: ""
+    marker: none
+    at: { x: 235, y: 701 }
+    size: { w: 2, h: 2 }
+  - id: da1
+    label: "H"
+    marker: circle
+    at: { x: 221, y: 687 }
+    size: { w: 30, h: 30 }
+  - id: p26
+    label: ""
+    marker: none
+    at: { x: 299, y: 678 }
+    size: { w: 2, h: 2 }
+  - id: p27
+    label: ""
+    marker: none
+    at: { x: 299, y: 713 }
+    size: { w: 2, h: 2 }
+  - id: da2
+    label: "H"
+    marker: circle
+    at: { x: 285, y: 699 }
+    size: { w: 30, h: 30 }
+  - id: p28
+    label: ""
+    marker: none
+    at: { x: 314.9, y: 669.4 }
+    size: { w: 2, h: 2 }
+  - id: p29
+    label: ""
+    marker: none
+    at: { x: 363, y: 701 }
+    size: { w: 2, h: 2 }
+  - id: da3
+    label: "H"
+    marker: circle
+    at: { x: 349, y: 687 }
+    size: { w: 30, h: 30 }
+  - id: dg
+    label: "結合角 109.5°"
+    marker: none
+    align: center
+    at: { x: 150, y: 776 }
+    size: { w: 300, h: 18 }
+  - id: et
+    label: "三角錐形　AX3E1　NH3"
+    marker: none
+    align: center
+    at: { x: 550, y: 490 }
+    size: { w: 300, h: 18 }
+  - id: ec
+    label: "N"
+    marker: circle
+    at: { x: 683, y: 643 }
+    size: { w: 34, h: 34 }
+  - id: p30
+    label: ""
+    marker: none
+    at: { x: 683.1, y: 669.4 }
+    size: { w: 2, h: 2 }
+  - id: p31
+    label: ""
+    marker: none
+    at: { x: 635, y: 701 }
+    size: { w: 2, h: 2 }
+  - id: ea0
+    label: "H"
+    marker: circle
+    at: { x: 621, y: 687 }
+    size: { w: 30, h: 30 }
+  - id: p32
+    label: ""
+    marker: none
+    at: { x: 699, y: 678 }
+    size: { w: 2, h: 2 }
+  - id: p33
+    label: ""
+    marker: none
+    at: { x: 699, y: 713 }
+    size: { w: 2, h: 2 }
+  - id: ea1
+    label: "H"
+    marker: circle
+    at: { x: 685, y: 699 }
+    size: { w: 30, h: 30 }
+  - id: p34
+    label: ""
+    marker: none
+    at: { x: 714.9, y: 669.4 }
+    size: { w: 2, h: 2 }
+  - id: p35
+    label: ""
+    marker: none
+    at: { x: 763, y: 701 }
+    size: { w: 2, h: 2 }
+  - id: ea2
+    label: "H"
+    marker: circle
+    at: { x: 749, y: 687 }
+    size: { w: 30, h: 30 }
+  - id: ep0
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 685, y: 599 }
+    size: { w: 30, h: 18 }
+  - id: eg
+    label: "結合角 107°"
+    marker: none
+    align: center
+    at: { x: 550, y: 776 }
+    size: { w: 300, h: 18 }
+  - id: ft
+    label: "折れ線形　AX2E2　H2O"
+    marker: none
+    align: center
+    at: { x: 950, y: 490 }
+    size: { w: 300, h: 18 }
+  - id: fc
+    label: "O"
+    marker: circle
+    at: { x: 1083, y: 643 }
+    size: { w: 34, h: 34 }
+  - id: p36
+    label: ""
+    marker: none
+    at: { x: 1083.9, y: 670.6 }
+    size: { w: 2, h: 2 }
+  - id: p37
+    label: ""
+    marker: none
+    at: { x: 1039, y: 705 }
+    size: { w: 2, h: 2 }
+  - id: fa0
+    label: "H"
+    marker: circle
+    at: { x: 1025, y: 691 }
+    size: { w: 30, h: 30 }
+  - id: p38
+    label: ""
+    marker: none
+    at: { x: 1114.1, y: 670.6 }
+    size: { w: 2, h: 2 }
+  - id: p39
+    label: ""
+    marker: none
+    at: { x: 1159, y: 705 }
+    size: { w: 2, h: 2 }
+  - id: fa1
+    label: "H"
+    marker: circle
+    at: { x: 1145, y: 691 }
+    size: { w: 30, h: 30 }
+  - id: fp0
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 1055, y: 601 }
+    size: { w: 30, h: 18 }
+  - id: fp1
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 1115, y: 601 }
+    size: { w: 30, h: 18 }
+  - id: fg
+    label: "結合角 104.5°"
+    marker: none
+    align: center
+    at: { x: 950, y: 776 }
+    size: { w: 300, h: 18 }
+  - id: leg
+    label: "● 黒い楕円＝孤立電子対（非共有電子対）。 破線の棒＝紙の奥へ向かう結合。"
+    marker: none
+    align: left
+    at: { x: 140, y: 812 }
+    size: { w: 700, h: 18 }
+  - id: r1
+    label: "・孤立電子対は、中心原子の正の電荷に近いところにある。"
+    marker: none
+    align: left
+    at: { x: 140, y: 842 }
+    size: { w: 760, h: 18 }
+  - id: r2
+    label: "　だから 孤立－孤立 の反発 ＞ 孤立－結合 の反発 ＞ 結合－結合 の反発。"
+    marker: none
+    align: left
+    at: { x: 140, y: 866 }
+    size: { w: 760, h: 18 }
+  - id: r3
+    label: "・強いほうが弱いほうを押すので、結合どうしの角は理想値より狭くなる。"
+    marker: none
+    align: left
+    at: { x: 140, y: 890 }
+    size: { w: 760, h: 18 }
+  - id: r4
+    label: "　109.5°（0 個）→ 107°（1 個）→ 104.5°（2 個）は、押された分の差。"
+    marker: none
+    align: left
+    at: { x: 140, y: 914 }
+    size: { w: 760, h: 18 }
+  - id: h920_820
+    label: "立体数と形（AX：結合、E：孤立電子対）"
+    hatch: solid
+    at: { x: 920, y: 820 }
+    size: { w: 500, h: 24 }
+  - id: x920_844
+    label: "AX2E0"
+    at: { x: 920, y: 844 }
+    size: { w: 190, h: 24 }
+  - id: y920_844
+    label: "直線形　180°　BeCl2"
+    align: left
+    at: { x: 1110, y: 844 }
+    size: { w: 310, h: 24 }
+  - id: x920_868
+    label: "AX3E0"
+    at: { x: 920, y: 868 }
+    size: { w: 190, h: 24 }
+  - id: y920_868
+    label: "平面三角形　120°　BCl3"
+    align: left
+    at: { x: 1110, y: 868 }
+    size: { w: 310, h: 24 }
+  - id: x920_892
+    label: "AX2E1"
+    at: { x: 920, y: 892 }
+    size: { w: 190, h: 24 }
+  - id: y920_892
+    label: "折れ線形　109.45°　SO2・NO2−"
+    align: left
+    at: { x: 1110, y: 892 }
+    size: { w: 310, h: 24 }
+  - id: x920_916
+    label: "AX4E0"
+    at: { x: 920, y: 916 }
+    size: { w: 190, h: 24 }
+  - id: y920_916
+    label: "四面体形　109.5°　CH4"
+    align: left
+    at: { x: 1110, y: 916 }
+    size: { w: 310, h: 24 }
+  - id: x920_940
+    label: "AX3E1"
+    at: { x: 920, y: 940 }
+    size: { w: 190, h: 24 }
+  - id: y920_940
+    label: "三角錐形　107°　NH3"
+    align: left
+    at: { x: 1110, y: 940 }
+    size: { w: 310, h: 24 }
+  - id: x920_964
+    label: "AX2E2"
+    at: { x: 920, y: 964 }
+    size: { w: 190, h: 24 }
+  - id: y920_964
+    label: "折れ線形　104.5°　H2O"
+    align: left
+    at: { x: 1110, y: 964 }
+    size: { w: 310, h: 24 }
+  - id: x920_988
+    label: "AX5E0"
+    at: { x: 920, y: 988 }
+    size: { w: 190, h: 24 }
+  - id: y920_988
+    label: "三方両錐形　PCl5"
+    align: left
+    at: { x: 1110, y: 988 }
+    size: { w: 310, h: 24 }
+  - id: x920_1012
+    label: "AX4E1"
+    at: { x: 920, y: 1012 }
+    size: { w: 190, h: 24 }
+  - id: y920_1012
+    label: "シーソー形　SF4"
+    align: left
+    at: { x: 1110, y: 1012 }
+    size: { w: 310, h: 24 }
+  - id: x920_1036
+    label: "AX3E2"
+    at: { x: 920, y: 1036 }
+    size: { w: 190, h: 24 }
+  - id: y920_1036
+    label: "T 字形　ClF3"
+    align: left
+    at: { x: 1110, y: 1036 }
+    size: { w: 310, h: 24 }
+  - id: x920_1060
+    label: "AX2E3"
+    at: { x: 920, y: 1060 }
+    size: { w: 190, h: 24 }
+  - id: y920_1060
+    label: "直線形　XeF2"
+    align: left
+    at: { x: 1110, y: 1060 }
+    size: { w: 310, h: 24 }
+  - id: x920_1084
+    label: "AX6E0"
+    at: { x: 920, y: 1084 }
+    size: { w: 190, h: 24 }
+  - id: y920_1084
+    label: "八面体形　90°　SF6"
+    align: left
+    at: { x: 1110, y: 1084 }
+    size: { w: 310, h: 24 }
+  - id: x920_1108
+    label: "AX6E1"
+    at: { x: 920, y: 1108 }
+    size: { w: 190, h: 24 }
+  - id: y920_1108
+    label: "五角錐形　XeF6"
+    align: left
+    at: { x: 1110, y: 1108 }
+    size: { w: 310, h: 24 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    ends: { from: none, to: none }
+  - from: p2
+    to: p3
+    curve: none
+    ends: { from: none, to: none }
+  - from: p4
+    to: p5
+    curve: none
+    ends: { from: none, to: none }
+  - from: p6
+    to: p7
+    curve: none
+    ends: { from: none, to: none }
+  - from: p8
+    to: p9
+    curve: none
+    ends: { from: none, to: none }
+  - from: p10
+    to: p11
+    curve: none
+    ends: { from: none, to: none }
+  - from: p12
+    to: p13
+    curve: none
+    ends: { from: none, to: none }
+  - from: p14
+    to: p15
+    curve: none
+    ends: { from: none, to: none }
+  - from: p16
+    to: p17
+    curve: none
+    ends: { from: none, to: none }
+  - from: p18
+    to: p19
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p20
+    to: p21
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p22
+    to: p23
+    curve: none
+    ends: { from: none, to: none }
+  - from: p24
+    to: p25
+    curve: none
+    ends: { from: none, to: none }
+  - from: p26
+    to: p27
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p28
+    to: p29
+    curve: none
+    ends: { from: none, to: none }
+  - from: p30
+    to: p31
+    curve: none
+    ends: { from: none, to: none }
+  - from: p32
+    to: p33
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p34
+    to: p35
+    curve: none
+    ends: { from: none, to: none }
+  - from: p36
+    to: p37
+    curve: none
+    ends: { from: none, to: none }
+  - from: p38
+    to: p39
+    curve: none
+    ends: { from: none, to: none }

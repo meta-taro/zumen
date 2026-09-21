@@ -160,7 +160,7 @@ nodes:
 | `technology` | | 副題（版・役割・広さ）。箱の中に小さく描く |
 | `group` | | 属する `groups` の `id` |
 | `radius` | | **範囲の円**（作業半径・警戒区域）。配置図でだけ描く（§3.0.5） |
-| `marker` | | **印の描き方**（`box` / `circle` / `double` / `ellipse` / `diamond` / `triangle` / `bar` / `none`）。配置図でだけ効く（§3.0.6） |
+| `marker` | | **印の描き方**（`box` / `circle` / `double` / `ellipse` / `diamond` / `triangle` / `triangle-down` / `bar` / `none`）。配置図でだけ効く（§3.0.6） |
 | `hatch` | | **材料と区域の模様**（`none` / `solid` / `dots` / `lines` / `cross`）。配置図でだけ効く（§3.0.7） |
 | `line` | | **枠の線種**（`solid` / `dashed` / `dotted` / `chain`）。敷地境界線は一点鎖線、想定線・安全領域は破線 |
 | | | **`label` は `\n` で折り返せます。** 幅はいちばん長い行で測ります（注記を 2 行に分けるのに、節を 2 つ作る必要はありません） |
@@ -488,7 +488,8 @@ zumen が出す図は 1/100 前後の粗さなので、**塗り潰しのほう�
 | `double` | 二重丸 | 路線図の乗換駅 |
 | `ellipse` | 楕円 | UML のユースケース |
 | `diamond` | 菱形 | UML の判断（分岐） |
-| `triangle` | 三角 | 測量の基準点（三角点・図根点）、方位、警告の記号 |
+| `triangle` | 三角（上向き） | 測量の基準点（三角点・図根点）、方位、警告の記号 |
+| `triangle-down` | 三角（下向き） | **向きが意味を持つ三角。** TOPS 図の「下向きストランド」 |
 | `bar` | 太い帯 | UML のフォーク／ジョイン |
 | `none` | 枠を描かない | 折れ点・注記だけの場所 |
 
@@ -1827,6 +1828,7 @@ Mermaid も draw.io も、落ちたものを先頭のコメントに列挙する
 | `wall-invalid` | `wall.mm` が正の数か |
 | `wall-needs-scale` | **壁の厚みはあるが縮尺が無い**（太さが変わらない） |
 | `radius-invalid` | `radius` が正の数か |
+| `radius-too-small` | **`radius` が節より小さい円になっていないか**（`radius` は範囲の円で、角の丸みではない） |
 | `radius-ignored` | **構成図に `radius` を書いていないか** |
 | `marker-unknown` | `box` / `circle` / `double` / `ellipse` / `diamond` / `bar` / `none` か |
 | `circle-not-square` | **丸（`circle` / `double`）に長方形の `size` を書いていないか**（短いほうしか描かれない。横長が要るなら `ellipse`） |
@@ -1835,6 +1837,9 @@ Mermaid も draw.io も、落ちたものを先頭のコメントに列挙する
 | `view-title-covered` | **`views[].title` が、下辺からはみ出した中身の上に乗っていないか** |
 | `hatch-too-thin` | **模様を頼んだのに、面が細すぎて 1 つも描かれないか**（無地と見分けがつかない） |
 | `line-too-short` | **破線・点線・一点鎖線が短すぎて、刻みが 1 回も出そろわないか**（実線と見分けがつかない） |
+| `ends-too-long` | **端の記号（矢じり・鳥の足・菱形）のほうが線より長いか**（記号は線に収まるよう縮めて描くが、線そのものは見えない） |
+| `label-too-tall` | **折り返した名前が箱の高さに入りきらないか**（名前は上下の真ん中から積むので、上下へはみ出す） |
+| `structure-too-thin` | **構成図の縦横の比が 4 : 1 を超えていないか**（貼った先で幅に合わせて縮むので、細長いほど字が小さくなる） |
 | `node-edge-key-ignored` | **辺だけの語（`weight` / `curve` / `ends` / `via` / `close`）を節に書いていないか** |
 | `edge-node-key-ignored` | **節だけの語（`at` / `size` / `marker` / `tag` ほか）を辺に書いていないか** |
 | `align-unknown` | `left` / `center` / `right` か |
@@ -1855,9 +1860,11 @@ Mermaid も draw.io も、落ちたものを先頭のコメントに列挙する
 | `ends-unknown` | 端の記号が `ENDS` の語か |
 | `line-unknown` | 線種が `solid` / `dashed` / `dotted` / `double` か |
 | `text-overlap` | **文字どうしが重なっていないか**（配置図。**置いてみないと分からない**） |
+| `line-over-text` | **線が、枠の無い注記の字を横切っていないか**（配置図。40px 以上。箱の中の字と違って、注記には枠が無いので取り消し線に見える） |
 | `edge-self-open` | **自分自身への辺に `via` があるか**（無いと長さ 0 の線になる） |
 | `edge-hatch-ignored` | **閉じていない辺に `hatch` を書いていないか**（面が無い） |
 | `label-markdown` | **名前に `**` が入っていないか**（節・辺のラベル・図の名前すべて。Markdown ではないので、そのまま絵に出る） |
+| `label-placeholder` | **`undefined` / `NaN` / `[object Object]` が文字に入っていないか**（組み立てに失敗した跡。そのまま絵に出る） |
 | `edge-fill-ignored` | **辺に `fill` を書いていないか**（面の色は `nodes[].fill`。閉じた輪の中は `hatch` ＋ `color`） |
 | `name-adrift` | **幅のある箱から名前が出ていっていないか**（表の欄が空に見える） |
 | `tag-hidden` | **符号が印に入りきって描かれるか**（配置図。同上） |

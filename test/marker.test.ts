@@ -47,7 +47,7 @@ async function svg(text: string, plan = true): Promise<string> {
 
 describe('印を読む', () => {
   it('**形の名前だけで閉じる。意味の語は無い**', () => {
-    assert.deepEqual([...MARKERS], ['box', 'circle', 'double', 'ellipse', 'diamond', 'triangle', 'bar', 'none']);
+    assert.deepEqual([...MARKERS], ['box', 'circle', 'double', 'ellipse', 'diamond', 'triangle', 'triangle-down', 'bar', 'none']);
     // 意味の語は受けない（消火器・ユースケース・判断）。
     assert.equal(markerOf('extinguisher'), 'box', '意味の語を受けてはいけない');
     assert.equal(markerOf('usecase'), 'box');
@@ -131,6 +131,29 @@ describe('三角の印', () => {
   it('知らない語ではない（markerOf がそのまま返す）', () => {
     assert.equal(markerOf('triangle'), 'triangle');
   });
+
+  /**
+   * **向きが意味を持つ三角**（2026-09-21）。
+   *
+   * たんぱく質の TOPS 図は、**上向き三角＝手前へ向かうストランド、
+   * 下向き三角＝奥へ向かうストランド**で、形は同じで向きだけが違う。
+   * **回す道具は持たない**（正本に角度を書かせない）ので、形の名前で持つ。
+   */
+  it('**下向きの三角も描ける**（上辺の両端と、下辺の中点）', async () => {
+    const tri = [
+      'version: 1', 'kind: placement', 'nodes:',
+      '  - id: t', '    label: ""', '    marker: triangle-down',
+      '    at: { x: 20, y: 20 }', '    size: { w: 40, h: 40 }',
+      '',
+    ].join('\n');
+    const out = render(await layout(tri), 'light', 'safe', true);
+    assert.match(out, /M 20 20 L 60 20 L 40 60 Z/, out.slice(0, 400));
+  });
+
+  it('上向きと下向きは、別の形として持つ', () => {
+    assert.equal(markerOf('triangle-down'), 'triangle-down');
+    assert.notEqual(markerOf('triangle-down'), markerOf('triangle'));
+  });
 });
 
 describe('知らせる', () => {
@@ -160,7 +183,7 @@ describe('知らせる', () => {
   });
 
   it('spec が印の語を返す', () => {
-    assert.deepEqual(spec().markers, ['box', 'circle', 'double', 'ellipse', 'diamond', 'triangle', 'bar', 'none']);
+    assert.deepEqual(spec().markers, ['box', 'circle', 'double', 'ellipse', 'diamond', 'triangle', 'triangle-down', 'bar', 'none']);
     assert.match(spec().shape, /marker:/);
   });
 });

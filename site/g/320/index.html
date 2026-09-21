@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TCP のつなぎ方と切り方（状態は 11 個） — zumen の見本 320</title>
+<link rel="icon" type="image/svg+xml" href="../../icon.svg">
+<meta name="theme-color" content="#23232b">
+<meta name="description" content="TCP のつなぎ方と切り方（つなぐのは 3 通、切るのは 4 通）">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="zumen">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:url" content="https://meta-taro.github.io/zumen/g/320/">
+<meta property="og:title" content="TCP のつなぎ方と切り方（状態は 11 個） — zumen の見本 320">
+<meta property="og:description" content="TCP のつなぎ方と切り方（つなぐのは 3 通、切るのは 4 通）">
+<meta property="og:image" content="https://meta-taro.github.io/zumen/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="TCP のつなぎ方と切り方（状態は 11 個） — zumen の見本 320">
+<meta name="twitter:description" content="TCP のつなぎ方と切り方（つなぐのは 3 通、切るのは 4 通）">
+<meta name="twitter:image" content="https://meta-taro.github.io/zumen/og.png">
+<link rel="stylesheet" href="../../style.css">
+<link rel="canonical" href="https://meta-taro.github.io/zumen/g/320/">
+<link rel="alternate" hreflang="ja" href="https://meta-taro.github.io/zumen/g/320/">
+<link rel="alternate" hreflang="en" href="https://meta-taro.github.io/zumen/en/g/320/">
+<link rel="alternate" hreflang="x-default" href="https://meta-taro.github.io/zumen/g/320/">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="alternate" type="text/markdown" href="https://meta-taro.github.io/zumen/llms.txt" title="llms.txt">
+<link rel="sitemap" type="application/xml" href="https://meta-taro.github.io/zumen/sitemap.xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": "TCP のつなぎ方と切り方（状態は 11 個）",
+  "description": "TCP のつなぎ方と切り方（つなぐのは 3 通、切るのは 4 通）",
+  "url": "https://meta-taro.github.io/zumen/g/320/",
+  "image": "https://meta-taro.github.io/zumen/gallery/320-TCP%E3%81%AE%E3%81%A4%E3%81%AA%E3%81%8E%E6%96%B9%E3%81%A8%E5%88%87%E3%82%8A%E6%96%B9.svg",
+  "inLanguage": "ja",
+  "license": "https://opensource.org/licenses/MIT",
+  "isPartOf": {
+    "@type": "CollectionPage",
+    "name": "IT・ソフトウェア",
+    "url": "https://meta-taro.github.io/zumen/c/it/"
+  },
+  "encodingFormat": "text/yaml",
+  "isAccessibleForFree": true
+}
+</script>
+</head>
+<body class="sub">
+<header class="bar">
+  <a class="home" href="../../">zumen</a>
+  <nav><a href="../../c/it/">IT・ソフトウェア</a></nav>
+</header>
+<main>
+<article>
+  <p class="crumb">IT・ソフトウェア</p>
+  <h1>TCP のつなぎ方と切り方（状態は 11 個）</h1>
+  <p class="lead">TCP のつなぎ方と切り方（つなぐのは 3 通、切るのは 4 通）</p>
+  <figure>
+    <img src="../../gallery/320-TCP%E3%81%AE%E3%81%A4%E3%81%AA%E3%81%8E%E6%96%B9%E3%81%A8%E5%88%87%E3%82%8A%E6%96%B9.svg" alt="クライアントとサーバの命の線を 2 本立て、時間を下に取った梯子図。SYN・SYN+ACK・ACK の 3 通でつなぎ、データを送り、FIN・ACK・FIN・ACK の 4 通で切るまでを矢印で示し、その脇に CLOSED・LISTEN・SYN-SENT・SYN-RECEIVED・ESTABLISHED・FIN-WAIT-1・FIN-WAIT-2・CLOSE-WAIT・LAST-ACK・TIME-WAIT の札を置いた図と、RFC 793 の 11 状態の表" loading="lazy">
+  </figure>
+  <p class="made">この図は、下の 1 枚の YAML から描かれています。手で図形を動かしてはいません。</p>
+  <h2>正本に書いてある決まりごと</h2>
+  <p><strong>つなぐのは 3 通、切るのは 4 通。</strong> その 1 通の差が、この図の中身。</p>
+  <p>クライアントが <strong>SYN</strong>（乱数 A を seq に）を送り、サーバが <strong>SYN + ACK</strong>（seq に乱数 B、ack に A + 1）を返し、クライアントが <strong>ACK</strong>（seq に A + 1、ack に B + 1）を返す。<strong>3 通。</strong></p>
+  <p><strong>FIN → ACK → FIN → ACK。</strong> なぜ 4 通かというと、<strong>「もう送らない」と「もう受け取らない」が別の話</strong>だから。片方が FIN を送ってから相手が FIN を送るまでの間、<strong>送り終えたのは片方だけ</strong>という状態（半クローズ）があり、<strong>相手はまだ送れる。</strong> その区間が CLOSE-WAIT と FIN-WAIT-2。</p>
+  <p>最後の ACK を送った側は、すぐには消えない。<strong>最後の ACK が落ちたら、相手は FIN を送り直してくる</strong> ——そのとき応えられる者がいないと、相手は待ち続ける。だから 2MSL（RFC 793 の MSL ＝ 最大セグメント生存時間は 2 分。最大 4 分）待つ。実装では 30 秒・1 分・2 分が多い。</p>
+  <p><strong>CLOSING は、両側が同時に FIN を送ったときだけ通る道</strong>なので、この梯子には現れない。</p>
+  <p>ヘッダのビットの並びは見本 234。状態の説明は RFC 793 の語をそのまま使った。</p>
+  <h2>正本（YAML）</h2>
+  <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/320-TCP%E3%81%AE%E3%81%A4%E3%81%AA%E3%81%8E%E6%96%B9%E3%81%A8%E5%88%87%E3%82%8A%E6%96%B9.zumen.yaml"><code>examples/gallery/320-TCPのつなぎ方と切り方.zumen.yaml</code></a></p>
+  <h2>同じ分野の見本</h2>
+  <ul class="near"><li><a href="../01/">オンプレのサーバ構成</a></li><li><a href="../02/">クラウド構成</a></li><li><a href="../03/">データの流れ</a></li><li><a href="../04/">ネットワーク構成</a></li><li><a href="../21/">テーブルの関係（ER）</a></li><li><a href="../26/">データセンターのラック配置</a></li><li><a href="../46/">クラス図（UML）</a></li><li><a href="../47/">状態遷移図（UML）</a></li></ul>
+</article>
+</main>
+<footer class="foot">
+  <p><a href="https://github.com/meta-taro/zumen">GitHub</a> · MIT · <a href="https://meta-taro.github.io/zumen/en/g/320/">English</a></p>
+</footer>
+</body>
+</html>

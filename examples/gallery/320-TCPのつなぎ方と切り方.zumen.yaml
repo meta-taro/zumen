@@ -1,0 +1,418 @@
+version: 1
+kind: placement
+arrows: true
+title: TCP のつなぎ方と切り方（状態は 11 個）
+# **つなぐのは 3 通、切るのは 4 通。** その 1 通の差が、この図の中身。
+#
+# ## つなぐ —— 3 ウェイハンドシェイク
+#
+# クライアントが **SYN**（乱数 A を seq に）を送り、
+# サーバが **SYN + ACK**（seq に乱数 B、ack に A + 1）を返し、
+# クライアントが **ACK**（seq に A + 1、ack に B + 1）を返す。**3 通。**
+#
+# ## 切る —— 4 ウェイハンドシェイク
+#
+# **FIN → ACK → FIN → ACK。** なぜ 4 通かというと、
+# **「もう送らない」と「もう受け取らない」が別の話**だから。
+# 片方が FIN を送ってから相手が FIN を送るまでの間、
+# **送り終えたのは片方だけ**という状態（半クローズ）があり、
+# **相手はまだ送れる。** その区間が CLOSE-WAIT と FIN-WAIT-2。
+#
+# ## TIME-WAIT
+#
+# 最後の ACK を送った側は、すぐには消えない。
+# **最後の ACK が落ちたら、相手は FIN を送り直してくる** ——
+# そのとき応えられる者がいないと、相手は待ち続ける。
+# だから 2MSL（RFC 793 の MSL ＝ 最大セグメント生存時間は 2 分。最大 4 分）待つ。
+# 実装では 30 秒・1 分・2 分が多い。
+#
+# **CLOSING は、両側が同時に FIN を送ったときだけ通る道**なので、この梯子には現れない。
+#
+# ヘッダのビットの並びは見本 234。状態の説明は RFC 793 の語をそのまま使った。
+nodes:
+  - id: t1
+    label: "① つなぐ（3 ウェイ）→ 送る → 切る（4 ウェイ）。時間は下へ"
+    marker: none
+    align: left
+    at: { x: 140, y: 128 }
+    size: { w: 700, h: 18 }
+  - id: cli
+    label: "クライアント"
+    hatch: solid
+    at: { x: 330, y: 166 }
+    size: { w: 220, h: 30 }
+  - id: srv
+    label: "サーバ"
+    hatch: solid
+    at: { x: 890, y: 166 }
+    size: { w: 220, h: 30 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 439, y: 195 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 439, y: 699 }
+    size: { w: 2, h: 2 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 999, y: 195 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 999, y: 699 }
+    size: { w: 2, h: 2 }
+  - id: s0c
+    label: "CLOSED"
+    at: { x: 140, y: 200 }
+    size: { w: 170, h: 24 }
+  - id: s0s
+    label: "LISTEN"
+    at: { x: 1130, y: 200 }
+    size: { w: 170, h: 24 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 443, y: 249 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 995, y: 249 }
+    size: { w: 2, h: 2 }
+  - id: m1
+    label: "SYN　seq = A"
+    marker: none
+    align: center
+    at: { x: 470, y: 228 }
+    size: { w: 500, h: 18 }
+  - id: s1c
+    label: "SYN-SENT"
+    at: { x: 140, y: 258 }
+    size: { w: 170, h: 24 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 995, y: 305 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 443, y: 305 }
+    size: { w: 2, h: 2 }
+  - id: m2
+    label: "SYN + ACK　seq = B ／ ack = A + 1"
+    marker: none
+    align: center
+    at: { x: 470, y: 284 }
+    size: { w: 500, h: 18 }
+  - id: s1s
+    label: "SYN-RECEIVED"
+    at: { x: 1130, y: 280 }
+    size: { w: 170, h: 24 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 443, y: 361 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 995, y: 361 }
+    size: { w: 2, h: 2 }
+  - id: m3
+    label: "ACK　seq = A + 1 ／ ack = B + 1"
+    marker: none
+    align: center
+    at: { x: 470, y: 340 }
+    size: { w: 500, h: 18 }
+  - id: s2c
+    label: "ESTABLISHED"
+    at: { x: 140, y: 370 }
+    size: { w: 170, h: 24 }
+  - id: s2s
+    label: "ESTABLISHED"
+    at: { x: 1130, y: 370 }
+    size: { w: 170, h: 24 }
+  - id: data
+    label: "データを送る（双方向）"
+    hatch: dots
+    at: { x: 500, y: 410 }
+    size: { w: 440, h: 34 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 443, y: 485 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 995, y: 485 }
+    size: { w: 2, h: 2 }
+  - id: m4
+    label: "FIN"
+    marker: none
+    align: center
+    at: { x: 470, y: 464 }
+    size: { w: 500, h: 18 }
+  - id: s3c
+    label: "FIN-WAIT-1"
+    at: { x: 140, y: 494 }
+    size: { w: 170, h: 24 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 995, y: 533 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 443, y: 533 }
+    size: { w: 2, h: 2 }
+  - id: m5
+    label: "ACK"
+    marker: none
+    align: center
+    at: { x: 470, y: 512 }
+    size: { w: 500, h: 18 }
+  - id: s4c
+    label: "FIN-WAIT-2"
+    at: { x: 140, y: 542 }
+    size: { w: 170, h: 24 }
+  - id: s3s
+    label: "CLOSE-WAIT"
+    at: { x: 1130, y: 516 }
+    size: { w: 170, h: 24 }
+  - id: half
+    label: "半クローズ —— 送り終えたのは片方だけ。サーバはまだ送れる"
+    marker: none
+    align: center
+    at: { x: 470, y: 556 }
+    size: { w: 500, h: 18 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 995, y: 613 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 443, y: 613 }
+    size: { w: 2, h: 2 }
+  - id: m6
+    label: "FIN"
+    marker: none
+    align: center
+    at: { x: 470, y: 592 }
+    size: { w: 500, h: 18 }
+  - id: s4s
+    label: "LAST-ACK"
+    at: { x: 1130, y: 596 }
+    size: { w: 170, h: 24 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 443, y: 661 }
+    size: { w: 2, h: 2 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 995, y: 661 }
+    size: { w: 2, h: 2 }
+  - id: m7
+    label: "ACK"
+    marker: none
+    align: center
+    at: { x: 470, y: 640 }
+    size: { w: 500, h: 18 }
+  - id: s5c
+    label: "TIME-WAIT"
+    at: { x: 140, y: 670 }
+    size: { w: 170, h: 24 }
+  - id: s5s
+    label: "CLOSED"
+    at: { x: 1130, y: 670 }
+    size: { w: 170, h: 24 }
+  - id: tw
+    label: "↓ 2MSL（RFC 793 の MSL は 2 分。最大 4 分）待ってから CLOSED"
+    marker: none
+    align: left
+    at: { x: 140, y: 710 }
+    size: { w: 560, h: 18 }
+  - id: h140_780
+    label: "状態（RFC 793 の 11 個）"
+    hatch: solid
+    at: { x: 140, y: 780 }
+    size: { w: 620, h: 24 }
+  - id: x140_804
+    label: "CLOSED"
+    at: { x: 140, y: 804 }
+    size: { w: 200, h: 24 }
+  - id: y140_804
+    label: "つながりが無い"
+    align: left
+    at: { x: 340, y: 804 }
+    size: { w: 420, h: 24 }
+  - id: x140_828
+    label: "LISTEN"
+    at: { x: 140, y: 828 }
+    size: { w: 200, h: 24 }
+  - id: y140_828
+    label: "相手からの接続要求を待っている（サーバ）"
+    align: left
+    at: { x: 340, y: 828 }
+    size: { w: 420, h: 24 }
+  - id: x140_852
+    label: "SYN-SENT"
+    at: { x: 140, y: 852 }
+    size: { w: 200, h: 24 }
+  - id: y140_852
+    label: "接続要求を送って、相手の要求を待っている"
+    align: left
+    at: { x: 340, y: 852 }
+    size: { w: 420, h: 24 }
+  - id: x140_876
+    label: "SYN-RECEIVED"
+    at: { x: 140, y: 876 }
+    size: { w: 200, h: 24 }
+  - id: y140_876
+    label: "接続要求を受けても送ってもいて、確認応答を待っている"
+    align: left
+    at: { x: 340, y: 876 }
+    size: { w: 420, h: 24 }
+  - id: x140_900
+    label: "ESTABLISHED"
+    at: { x: 140, y: 900 }
+    size: { w: 200, h: 24 }
+  - id: y140_900
+    label: "開いている。データを渡せる。ふだんの状態"
+    align: left
+    at: { x: 340, y: 900 }
+    size: { w: 420, h: 24 }
+  - id: x140_924
+    label: "FIN-WAIT-1"
+    at: { x: 140, y: 924 }
+    size: { w: 200, h: 24 }
+  - id: y140_924
+    label: "相手の終了要求か、自分が送った終了要求への確認応答を待つ"
+    align: left
+    at: { x: 340, y: 924 }
+    size: { w: 420, h: 24 }
+  - id: x140_948
+    label: "FIN-WAIT-2"
+    at: { x: 140, y: 948 }
+    size: { w: 200, h: 24 }
+  - id: y140_948
+    label: "相手の終了要求を待っている"
+    align: left
+    at: { x: 340, y: 948 }
+    size: { w: 420, h: 24 }
+  - id: x140_972
+    label: "CLOSE-WAIT"
+    at: { x: 140, y: 972 }
+    size: { w: 200, h: 24 }
+  - id: y140_972
+    label: "自分の側の利用者が「切る」と言うのを待っている"
+    align: left
+    at: { x: 340, y: 972 }
+    size: { w: 420, h: 24 }
+  - id: x140_996
+    label: "CLOSING"
+    at: { x: 140, y: 996 }
+    size: { w: 200, h: 24 }
+  - id: y140_996
+    label: "相手からの終了要求への確認応答を待っている"
+    align: left
+    at: { x: 340, y: 996 }
+    size: { w: 420, h: 24 }
+  - id: x140_1020
+    label: "LAST-ACK"
+    at: { x: 140, y: 1020 }
+    size: { w: 200, h: 24 }
+  - id: y140_1020
+    label: "自分が送った終了要求への確認応答を待っている"
+    align: left
+    at: { x: 340, y: 1020 }
+    size: { w: 420, h: 24 }
+  - id: x140_1044
+    label: "TIME-WAIT"
+    at: { x: 140, y: 1044 }
+    size: { w: 200, h: 24 }
+  - id: y140_1044
+    label: "残っているパケットが寿命で消えるだけの時間を待っている"
+    align: left
+    at: { x: 340, y: 1044 }
+    size: { w: 420, h: 24 }
+  - id: r1
+    label: "・つなぐのは 3 通、切るのは 4 通。 切るときだけ 1 通多いのは、"
+    marker: none
+    align: left
+    at: { x: 820, y: 800 }
+    size: { w: 470, h: 18 }
+  - id: r2
+    label: "　「もう送らない」と「もう受け取らない」が別の話だから（半クローズ）。"
+    marker: none
+    align: left
+    at: { x: 820, y: 824 }
+    size: { w: 470, h: 18 }
+  - id: r3
+    label: "・CLOSING は、両側が同時に FIN を送ったときだけ通る道。"
+    marker: none
+    align: left
+    at: { x: 820, y: 848 }
+    size: { w: 470, h: 18 }
+  - id: r4
+    label: "・TIME-WAIT が残るのは、最後の ACK が落ちた場合に備えるため。"
+    marker: none
+    align: left
+    at: { x: 820, y: 872 }
+    size: { w: 470, h: 18 }
+  - id: r5
+    label: "　実装では 30 秒・1 分・2 分が多い。"
+    marker: none
+    align: left
+    at: { x: 820, y: 896 }
+    size: { w: 470, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p2
+    to: p3
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p4
+    to: p5
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p6
+    to: p7
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p8
+    to: p9
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p10
+    to: p11
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p12
+    to: p13
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p14
+    to: p15
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p16
+    to: p17
+    curve: none
+    ends: { from: none, to: arrow }

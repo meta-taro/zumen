@@ -131,7 +131,7 @@ const ja = {
     usageMergeDriver: '使い方: merge-driver <base> <ours> <theirs>',
     usageDrawio: '使い方: pnpm drawio <図のファイル> [書き出し先]',
     usageMeasure: '使い方: pnpm measure <図のファイル> ...',
-    usageInspect: '使い方: pnpm inspect <図のファイル> ...',
+    usageInspect: '使い方: pnpm inspect <図のファイル> ... [--tally]（--tally はまとめて数え上げる）',
     usageSvg: '使い方: pnpm svg <図のファイル> [書き出し先] [--dark] [--vivid]',
     usageTimelapse:
       '使い方: pnpm timelapse <段のファイル…> [--out 置き場] [--hold 1 段の秒数]（2 段以上）',
@@ -151,7 +151,25 @@ const ja = {
     mergedClean2: '食い違いはありません。',
     /** 「9 割」の測り方は `docs/specs/003-9割の定義.md`。 */
     inspected: (path: string) => `${path}`,
-    inspectCounts: (nodes: number, edges: number) => `  節 ${nodes} ／ 辺 ${edges}`,
+    /**
+     * **どちらの図かを、最初に言う**（2026-09-20）。
+     *
+     * 配置図（自分で置く）と構成図（機械が並べる）では、直し方がまるで違う ——
+     * またぎも交差も、配置図なら自分で動かして消すが、構成図では**書き手に動かす手段が無い。**
+     * ところがこの口は、どちらなのかを言っていなかった（`kind:` を grep するしかなかった）。
+     */
+    inspectCounts: (nodes: number, edges: number, kind: string) => `  節 ${nodes} ／ 辺 ${edges} ／ ${kind}`,
+    /**
+     * **構成図には段の数も出す**（2026-09-21）。
+     *
+     * **紙の長さは、いちばん長い鎖の深さで決まる**（1 段およそ 145px）。
+     * 警告が出てから初めて段数を知るのでは遅いので、観測値として最初から出す。
+     */
+    inspectRanks: (ranks: number) => `  段 ${ranks}（長辺の向きに並んだ段の数。1 段およそ 145px）`,
+    inspectPlan: '配置図（置き場所は自分で書く）',
+    inspectStructure: '構成図（機械が並べる）',
+    /** **座標を持たない図**（`kind: construction`）。折り返しも段も無い。 */
+    inspectConstruction: '作図図（手順から解く。座標は正本に無い）',
     inspectClean: '  交差 0 ／ またぎ 0 ／ 文字の重なり 0 ／ 隠れた辺 0 ／ 名前も符号も全部出ています',
     inspectCrossings: (count: number, groups: number, pairs: string) =>
       `  **交差 ${count}**（${groups} 組。同じ 2 本が何か所で交わっても 1 組）\n    ${pairs}`,
@@ -165,10 +183,34 @@ const ja = {
      * 見本 268 を登録したあとで、`hatch: dots` が描かれていない節を
      * `pnpm validate` が見つけた。**手順が見ている口に、警告が出ていないと意味がない。**
      */
-    inspectWarnings: (count: string) => `  **警告 ${count} 件**（中身は \`pnpm validate\` で出ます）`,
+    inspectWarnings: (count: string, codes: string) =>
+      `  **警告 ${count} 件**（${codes}。中身は \`pnpm validate\` で出ます）`,
+    /**
+     * **隠した分の数を言う**（2026-09-21）。
+     *
+     * 先頭だけ並べて「…」で切っていたが、**あと何組あるのかが分からない。**
+     * 見本 48 枚にまたぎがあり、そのうち **27 枚が 6 組を超える** ——
+     * 半分以上で「全部見たのかどうか」が判断できなかった。
+     */
+    andMore: (rest: string) => `ほか ${rest} 組`,
+    /**
+     * **重なりの大きさが全部同じなら、1 回だけ言う**（2026-09-21）。
+     *
+     * 見本 311（ピアノの鍵盤）で、黒鍵と白鍵の 20 組が
+     * **どれも「横 12px ／ 縦 110px」**だった。
+     * 同じ数を 20 回繰り返すと 1 行が 800 字を超え、**組の名前が読めなくなる。**
+     */
+    straddleAllSame: (x: string, y: string) => `どれも 横 ${x}px ／ 縦 ${y}px`,
     inspectStraddles: (count: number, pairs: string) => `  **またぎ ${count}**（${pairs}）`,
     inspectOverlaps: (count: number, pairs: string) => `  **文字の重なり ${count}**（${pairs}）`,
     inspectUnderBoxes: (count: number, pairs: string) => `  **箱に隠れた辺 ${count}**（${pairs}）`,
+    /**
+     * **どのラベルが消えたかを、文字で言う**（2026-09-20）。
+     *
+     * 辺の id だけでは、**どの言葉を短くすればよいか**が分からない
+     * （`lot>kaisyu` と言われても、書いた文字を探しに戻ることになる）。
+     */
+    hiddenLabelText: (edge: string, text: string) => `${edge}「${text}」`,
     inspectHiddenLabels: (count: number, ids: string) => `  **絵に出ていない辺のラベル ${count}**（${ids}）`,
     inspectCrowded: (count: number, ids: string) => `  **外へ出す先も無い名前 ${count}**（${ids}）`,
     /**
@@ -180,10 +222,32 @@ const ja = {
     adriftWidth: (id: string, needs: string, has: string) => `${id}（要 ${needs}px ／ 今 ${has}px）`,
     inspectAdrift: (count: number, ids: string) => `  名前が箱から離れている ${count}（${ids}）`,
     inspectHiddenTags: (count: number, ids: string) => `  印に入らなかった符号 ${count}（${ids}）`,
-    inspectPaper: (smallest: number, longest: number, ratio: string) =>
-      `  いちばん小さい字 ${smallest}px ／ 長辺 ${longest}px ／ 比 ${ratio}`,
+    /**
+     * **紙の縦横も出す**（2026-09-21）。
+     *
+     * 長辺しか出していなかったので、**どちらの向きが長いのか**が分からず、
+     * どこを詰めるかを決めるのに毎回、別に測る道具を書いていた
+     * （この夜だけで 6 回）。
+     */
+    inspectPaper: (width: number, height: number, smallest: number, longest: number, ratio: string) =>
+      `  紙 ${width} × ${height}px ／ いちばん小さい字 ${smallest}px ／ 長辺 ${longest}px ／ 比 ${ratio}`,
     inspectPrint: '  **A3 に印刷しても字が読めません。**',
-    inspectProject: '  投影には小さすぎます（印刷して読む図なら、これでよい）。',
+    /**
+     * **良い知らせのときだけ出す**（2026-09-21）。
+     *
+     * 「投影には小さすぎます（印刷して読む図なら、これでよい）」は
+     * **見本 309 枚のうち 228 枚（74%）で出ていて、しかも直しようがない** ——
+     * 鳴りっぱなしの指摘は読まれなくなる（`src/projection.ts` に書いたとおり）。
+     * **出るのが珍しいほう**（投影に耐える 26%）を知らせる形へ変えた。
+     */
+    inspectProject: '  **投影にも耐えます**（スライドに貼っても字が読めます）。',
+    tallyHead: (files: number, quiet: number) =>
+      `見本 ${files} 枚を数えました（何も出なかったのは ${quiet} 枚）。`,
+    tallyRow: (code: string, times: number, files: number, said: string) =>
+      `  ${code}　${times} 本 ／ ${files} 枚　${said}`,
+    tallyGates: (crossed: number, straddled: number) =>
+      `  交差のある見本 ${crossed} 枚 ／ またぎのある見本 ${straddled} 枚 —— **どちらも中身のことが多い**ので、わざとかどうかは \`test/names.test.ts\` の表と突き合わせてください。`,
+    tallyNone: '  どの検査も鳴っていません。',
     inspectNote:
       'これは合否ではなく**観測値**です。交差もまたぎも、中身がそうなら正しい —— 止めません。',
     /**
@@ -314,7 +378,7 @@ const ja = {
       '人が置いた位置・大きさ・ラベル・体裁を返す。読むだけで、書き換える口は無い。ここを避けて構造だけを直すこと。',
     inspectTitle: '図を検査する',
     inspectDesc:
-      '読めるか・要素の数・線の交差・箱の重なり・囲みからのはみ出し・図の大きさ・「9 割」を返す。書いたら必ずこれを見ること。tooTangled が真なら、線が絡みすぎて目で追えない。hiddenLabels に辺の id があれば、そのラベルは置き場が無くて絵に出ていない（短くするか、辺を減らす）。**kind を必ず見ること** — placement（配置図）では positionsInSource が真で、**置き場所は自分で書く**（nodes[].at に { x, y }）。機械は並べ直さない。**大きさも nodes[].size に書ける**（{ w, h }。構成図でも効く）—— 間取りのように大きさが意味を持つ図では、書かないと全部同じ箱になる。pins は人のものなので書かないこと。tooSmallToProject が真なら、投影すると字が読めない大きさ。**ただし tooSmallToPrint が偽なら、その図は「印刷して読む図」で、投影に向かないだけ**（路線図・査定図・仕込図・積付図はここに入る。見本 95 枚のうち 36 枚がこれ）。**両方が真のときだけ、本当に直すところがある。** 直すときは **文字を大きくしないこと**（図が伸びて比がさらに下がる）。**まず wrap: true を試すこと** —— 横一列に伸びているだけなら、折り返すと収まる（8 個の鎖で比 13.9 → 2.2）。それでも足りなければ、図を分けられないかを人へ聞くこと。crowdedNames に id があれば、その名前は箱に入りきらず、外へ出した先も空いていない（他の箱に重なって出ている）。箱を大きくするか、technology を短くすること。**消してはいない** —— 部屋の名前が消えるのは、重なるより悪いため。adriftNames に id があれば、**幅のある箱から名前が出ていっている**（表の欄なら、値が欄から離れて行が空に見える）。hiddenTags に id があれば、**書いた符号（tag）が印に入りきらず描かれていない** —— 印を大きくするか符号を短くすること（黙って落としている）。crossingEdges に組があれば、**その 2 本の線が交わっている**（crossings は交差の数、crossingEdges はどの辺どうしか）。straddles に組があれば、**その 2 つの箱がはみ出して重なっている**（どちらも相手を含んでいない）。物どうしが同じ場所を取っている状態で、入れ子（overlaps）とは別。ただし伏図の柱・断面の水抜管・盤の上の石のように、**わざと重ねる図もある**。overlappingText に組があれば、**その 2 つの文字が重なって描かれている**（配置図だけ）。箱の重なり（overlaps）は枠の中に節を入れる図では当たり前だが、**文字の重なりはほぼ必ず間違い**。器の名前を器の真ん中に書くと中身の名前に乗るので、**器の名前は端の欄へ出すこと**。edgesUnderBoxes に組があれば、**その辺は箱の塗りに隠れて描かれない** —— arrows: false は線を箱より先に描くので、枠の中へ引いた線は消える。線を上に出すなら arrows: true にすること。reviewed が偽なら、まだ誰もこの図を見ていない。',
+      '読めるか・要素の数・線の交差・箱の重なり・囲みからのはみ出し・図の大きさ・「9 割」を返す。書いたら必ずこれを見ること。tooTangled は「交差の数が辺の数より多い」という意味で、**それ自体は欠陥ではない**（見本 333 枚で真になる 19 枚は、キーライン図・クモの円網・歯車の基準円・目盛りの格子など、**19 枚とも線が交わること自体が中身**だった）。真のときは、**その図が線の重なりで出来ているのか、ただ絡んでいるのかを自分で見分けること。**hiddenLabels に辺の id があれば、そのラベルは置き場が無くて絵に出ていない（短くするか、辺を減らす）。**kind を必ず見ること** — placement（配置図）では positionsInSource が真で、**置き場所は自分で書く**（nodes[].at に { x, y }）。機械は並べ直さない。**大きさも nodes[].size に書ける**（{ w, h }。構成図でも効く）—— 間取りのように大きさが意味を持つ図では、書かないと全部同じ箱になる。pins は人のものなので書かないこと。tooSmallToProject が真なら、投影すると字が読めない大きさ。**ただし tooSmallToPrint が偽なら、その図は「印刷して読む図」で、投影に向かないだけ**（路線図・査定図・仕込図・積付図はここに入る。見本 95 枚のうち 36 枚がこれ）。**両方が真のときだけ、本当に直すところがある。** 直すときは **文字を大きくしないこと**（図が伸びて比がさらに下がる）。**まず wrap: true を試すこと** —— 横一列に伸びているだけなら、折り返すと収まる（8 個の鎖で比 13.9 → 2.2）。それでも足りなければ、図を分けられないかを人へ聞くこと。crowdedNames に id があれば、その名前は箱に入りきらず、外へ出した先も空いていない（他の箱に重なって出ている）。箱を大きくするか、technology を短くすること。**消してはいない** —— 部屋の名前が消えるのは、重なるより悪いため。adriftNames に id があれば、**幅のある箱から名前が出ていっている**（表の欄なら、値が欄から離れて行が空に見える）。hiddenTags に id があれば、**書いた符号（tag）が印に入りきらず描かれていない** —— 印を大きくするか符号を短くすること（黙って落としている）。crossingEdges に組があれば、**その 2 本の線が交わっている**（crossings は交差の数、crossingEdges はどの辺どうしか）。straddles に組があれば、**その 2 つの箱がはみ出して重なっている**（どちらも相手を含んでいない）。物どうしが同じ場所を取っている状態で、入れ子（overlaps）とは別。ただし伏図の柱・断面の水抜管・盤の上の石のように、**わざと重ねる図もある**。overlappingText に組があれば、**その 2 つの文字が重なって描かれている**（配置図だけ）。箱の重なり（overlaps）は枠の中に節を入れる図では当たり前だが、**文字の重なりはほぼ必ず間違い**。器の名前を器の真ん中に書くと中身の名前に乗るので、**器の名前は端の欄へ出すこと**。edgesUnderBoxes に組があれば、**その辺は箱の塗りに隠れて描かれない** —— arrows: false は線を箱より先に描くので、枠の中へ引いた線は消える。線を上に出すなら arrows: true にすること。reviewed が偽なら、まだ誰もこの図を見ていない。',
     inspectSource: '図の中身。path とどちらか',
     inspectPath: '図の道。source とどちらか',
     createTitle: '新しい図を作る',
@@ -462,7 +526,7 @@ const ja = {
       '    group: <属する囲みの id。無所属なら書かない>',
       '    size: { w: <幅>, h: <高さ> }      # 構成図でも効く',
       '    radius: <px>                       # 範囲の円（作業半径・警戒区域）',
-      '    marker: <box（既定）| circle | double | ellipse | diamond | triangle | bar | none>  # 配置図での印',
+      '    marker: <box（既定）| circle | double | ellipse | diamond | triangle | triangle-down | bar | none>  # 配置図での印',
       '                                          # 丸は駅・経穴・計器。bar は帯（停車駅一覧）',
       '    hatch: <none（既定）| solid | dots | lines | cross>  # 材料と区域の模様',
       '    write: <across（既定）| down>       # 縦組み。駅名を縦に積む（ラテン文字は寝る）',
@@ -504,8 +568,10 @@ const ja = {
       '建築の図（間取り・伏図・平面詳細図）を描くなら、grid（通り芯）と scale を必ず書く。寸法の数値が出ない図は、現場では使えない。通り芯は壁や柱の芯に置き、符号は X1 / Y1 のように付ける。',
       '断面図・立面図も kind: placement で描く（測り方は同じ。y を高さとして読む）。横の基準線は mark: level にして、id に GL±0 や 2FL+3,200 と書く。方位は書かない。',
       '**何を描くかで迷ったら zumen_examples を見ること。** ここに書いてあるのは**書き方**だけで、**何を描くか**は見本の中にしかない —— 歯周チャート・木取り図・舞台の仕込図・中古車の査定図・継手と仕口・点字ブロックが、実務でどう組まれているか。name を渡せば**正本そのもの**が返るので、真似て書ける。道具の名前（views / hatch / chain / openings…）でも引けるので、**その書き方が効いている実物**を先に見られる。**汎用のネットワーク図・フローチャートを量産しないこと。**',
-      '**1 枚に図を 2 つ以上置くなら views を書く**（各階平面図・船の一般配置図・三面図・展開図）。views が無いと grid と scale が図ぜんたいに 1 組しかないので、**通しで測って意味のない数字が出る**（2 階を合わせた全長 82,000）。通り芯も隣の図を串刺しにする。views には id・at・size を必ず書き、その図だけの grid と scale を持たせる。**縮尺は図ごとに変えられる** —— 全体図 1/200 の横に詳細図 1/20 を置ける。突起 12mm の詳細と、ホーム 1.5m の並びのように、**1 枚の紙に桁の違う寸法を載せたいときは、1 つの縮尺に寄せず views を分ける**。title を書くと図の名前が下に出る（どちらが何階か読めない図にしない）。**節は views に属さない** —— 座標で置く図なので、どの図の中かは座標が決めている。\n\n（図どうしで寸法が通っているかは、まだ機械が見ていない。三面図で正面図と側面図の高さを揃えるのは、いまは書き手の責任。）',
+      '**1 枚に図を 2 つ以上置くなら views を書く**（各階平面図・船の一般配置図・三面図・展開図）。views が無いと grid と scale が図ぜんたいに 1 組しかないので、**通しで測って意味のない数字が出る**（2 階を合わせた全長 82,000）。通り芯も隣の図を串刺しにする。views には id・at・size を必ず書き、その図だけの grid と scale を持たせる。**縮尺は図ごとに変えられる** —— 全体図 1/200 の横に詳細図 1/20 を置ける。突起 12mm の詳細と、ホーム 1.5m の並びのように、**1 枚の紙に桁の違う寸法を載せたいときは、1 つの縮尺に寄せず views を分ける**。title を書くと図の名前が下に出る（どちらが何階か読めない図にしない）。**節は views に属さない** —— 座標で置く図なので、どの図の中かは座標が決めている。\n\n（図どうしで寸法が通っているかは、まだ機械が見ていない。三面図で正面図と側面図の高さを揃えるのは、いまは書き手の責任。）\n\n**要るのは「縮尺を持つ図が 2 つ以上あるとき」だけ。** 表・凡例・寸法を書き込まない模式図を並べるだけなら要らない ——測ったら、views を使っているのは 21 枚、①②③ の節で組んだ見本は 117 枚で、**後者のほとんどは節が表や凡例**だった。1 枚に縮尺の違う図を載せたいのに views を使いたくないなら、`scale` を書かずに**図ごとに縮尺を文字で書く**（見本 298・305 がそうしている）。',
       '**views を置いたら、図の下に 130 px 以上空ける。** 図の下には通り芯の符号（90 px）と図の名前（116 px）が出るので、そこへ次の図や注記を置くと重なる。**検証器は鳴る**（紙の上の文字として、図の名前も符号も寸法の数値も数えている）—— ただし `zumen_inspect` の overlappingText は節の文字どうししか見ていないので、**pnpm validate まで通すこと**。左右も同じで、符号は図の両側に出る（1 枚に 2 つ並べるなら 260 px は離す）。',
+      '**辺にラベルを書くなら、まず direction: down を試す**（構成図。ラベルのある 25 枚で測った・2026-09-20）。**1 つの節へ線が集まると、right では入らないラベルが出る** —— 25 枚のうち down がラベルを増やしたことは **0 回**、減らしたのが 2 回（患者の動線 1 → 0、特許の手続 3 → 0）。ただし**紙は 23/25 で right のほうが小さい**ので、ラベルが全部出ているなら right でよい。**審級・組織・系統のように「上下」がある図は down、工程のように「前後」がある図は right** が読みやすい。',
+      '**groups を付けると、紙が大きくなる**（構成図。囲みのある見本 20 枚で測った・2026-09-20）。**20 枚すべてで、groups を外すと紙が小さくなった** —— 面積で 32〜86%（多くは半分ほど）。**交差は 20 枚とも、囲みがあっても 0 だった**ので「囲み＝交差」ではない。戻る線（差し戻し・再申請・分割）の有無と縮み方にも、はっきりした関係は見えない。囲みは**「同時に在るもの」（VPC・階・区域）を言うために付ける**もので、**付けるほど紙は伸びる** —— 投影に載せる図なら、囲みを外すか数を減らすこと。',
       '配置図では部屋や棚が接しているのが普通で、隙間を空けない。壁は隣どうしで共有する。',
       '**注記を何行も並べるなら align: left を書く。** 文字は既定で箱の中央へ置かれるので、行の長さが違うと行頭が揃わず、箇条書きが階段状になる（実物を見るまで気づかない。数の検査は「読めるか」しか見ていない）。**箱の幅を文字に合わせて揃えようとしない** —— 幅の見積もりは行ごとに ±20px ずれる（D32）。',
       '**表の欄は、値が入る幅にする。** 幅のある箱で名前が入りきらないと、文字が欄の外へ出て行が空に見える（zumen_inspect の adriftNames と validate の name-adrift が知らせる）。',
@@ -529,6 +595,9 @@ const ja = {
       '**その図面が実在するかを、描く前に調べること。** 「○○らしい絵」を記憶から描かない —— 歯科なら歯のイラストではなく歯式と歯周チャート、釣りなら魚の絵ではなく仕掛け図、舞台なら舞台の絵ではなく照明仕込図。実物が何を載せているか（誰が・何の作業に使い・何が節で・何が線で・座標と寸法に意味があるか・業界固有の記号があるか）まで調べてから描くこと。日本語だけでなく英語の専門語でも探すこと。**調べずに描いた図は、その業界の人が見た瞬間に分かる。**',
       '**描いたら、絵にして見ること。** 数の検査（zumen_inspect / validate）は「読めるか」しか見ていない —— 名前が扉の弧に乗る、線が設備を横切る、扇の半径が読めない、といったことは**実物を見るまで分からない**。svg を書き出して開くか、png（Chrome があれば画像で返る）で見ること。**1 枚も見ずに完成と言わないこと。**',
       '**色が記法そのものである図だけ、palette に色を書く**（路線の色・配管の識別色・工区の色分け）。線に乗せるなら nodes/edges の color、面に敷くなら nodes[].fill。**この 2 つは別物** —— color は枠の線に乗るので、淡い色を書くと壁まで消える。fill は面だけを薄く敷くので、ライトでもダークでも上の文字が読める。どちらも **鍵を図のどこかに文字として出す**こと（凡例に 1 回でよい。色を落とすと読めない図にしない）。',
+      '**構成図で「戻る辺」を書くと、並びの順が崩れる。** 機械は上から下へ並べるので、行って戻る閉路があると、あとの節が先に来る（見本 293 では検証が精密化の上に、見本 299 では書店が出版社の上に出た）。**測った** —— 構成図 33 枚のうち閉路があるのは 8 枚で、そこでは**逆向きに描かれる辺が 33%**、閉路の無い 25 枚では 19% だった。戻りを描きたいなら、**終端の節にする**（「返品」という節を 1 つ置いて、そこで止める）か、戻る先を節の technology に書く。',
+      '**`arrows` は「矢印を出すか」だけでなく、「辺を箱の上に描くか」の切り替えでもある。** `arrows: true` だと辺が箱より上、`false` だと下に敷かれる（`src/render.ts`）。**測った** —— 配置図で `arrows: true` の 201 枚のうち **165 枚（82%）は、既定の矢印を 1 本も出していない**（2026-09-21 に測り直した。見本が 313 → 338 枚に増えて、割合は 68% から上がった）。みんな上下の順のために書いている。記号を線の中まで描き込みたい図（TOPS 図の「中心まで引いた線」、回路の分岐点）では `arrows: true` にして、端は `ends: { from: none, to: none }` で消す。逆に、線を図そのものとして敷きたい図（路線図・型紙・伏図）は `arrows: false`。',
+      '**囲み（groups）は、構成図の紙を伸ばす。** **測った** —— groups を持つ構成図 21 枚で、groups を外すだけで**長辺が中央値 1.28 倍（最大 1.54 倍）短くなった**（05 業務の流れ 1621 → 1058px、11 取材から公開まで 1707 → 1116px）。囲みは段を増やすので、**紙が長くて字が読めないときは、まず囲みを疑う。** 囲みの名前を節の名前の中へ入れられるなら（「電気炉」→「電気炉（電炉法）」）、そのほうが短い。**分けて見せること自体が中身の図**（工区・VLAN・部署）では囲みを残す —— 消すかどうかは、囲みが意味を運んでいるかで決める。',
     ],
     noChrome:
       'Chrome が見つからないので、絵にできませんでした。svg で書き出して開くか、CHROME_PATH に Chrome の場所を渡してください（符号化器は同梱しません）。',
@@ -639,6 +708,15 @@ const ja = {
       'wall（壁の厚み）はありますが scale がありません。mm を px にできないので、壁の太さは変わりません。',
     radiusInvalid: (id: string) =>
       `ノード "${id}" の radius が正の数になっていません。範囲の円は描かれません。`,
+    /**
+     * **角の丸みのつもりで書いた radius**（2026-09-20）。
+     *
+     * `radius` は**範囲の円**（作業半径・警戒区域）。CSS の `border-radius` と同じ名前なので、
+     * **角を丸くするつもりで小さい値を書くと、節の中に点線の丸が出る。**
+     * 手元の 24 節に、節より小さい円は 1 つも無かった。
+     */
+    radiusTooSmall: (id: string, drawn: string, size: string) =>
+      `ノード "${id}" の radius が ${drawn} で、節そのもの（${size}px）より小さい円になります。radius は**範囲の円**（作業半径・警戒区域）で、**角の丸みではありません** —— 角を丸くする書き方はありません。範囲を示したいなら節より大きい値を、そうでなければ radius を外してください。`,
     radiusIgnored: (id: string) =>
       `ノード "${id}" に radius がありますが、構成図では描かれません（kind: placement で描かれます）。`,
     /**
@@ -674,6 +752,13 @@ const ja = {
      */
     lineTooShort: (edge: string, line: string, length: string, need: string) =>
       `エッジ ${edge} の line: ${line} は、描かれる長さが ${length}px しかありません（刻みが 1 周するのに ${need}px 要ります）。実線と見分けがつきません —— 伸ばすか、line: solid にしてください。`,
+    /** 箱が離れているときの言い方。 */
+    endsApart: '節を離すか、`ends: { to: none }` にしてください。',
+    /** **壁を共有する部屋には「離せ」が当たらない**（2026-09-21）。 */
+    endsTouching: (apart: string) =>
+      `ただし、この 2 つの節は **${apart}px しか離れていません** —— 壁を共有する部屋や、積み重なった段のように、**離すと図が嘘になる置き方**です。その場合は線を諦めて、**記号だけで向きを示す**のが正しい（いまの絵はそうなっています）。気になるなら \`ends: { to: none }\` にしてください。`,
+    endsTooLong: (edge: string, length: string, need: string, advice: string) =>
+      `エッジ ${edge} は ${length}px しかないのに、端の記号が ${need}px 要ります。記号は線の長さまで縮めて描きますが、**線そのものは見えません** —— ${advice}`,
     alignUnknown: (id: string, word: string) =>
       `ノード "${id}" の align が "${word}" になっています（left / center / right）。中央で描きます。`,
     alignIgnored: (id: string) =>
@@ -706,8 +791,24 @@ const ja = {
       `エッジ ${edge} の weight が "${word}" になっています（thin / normal / thick）。ふつうの太さで描きます。`,
     colorUnknown: (target: string, key: string) =>
       `${target} の color が "${key}" ですが、palette にその鍵がありません。色は付きません。`,
-    colorFaint: (key: string, value: string, light: number, dark: number) =>
-      `palette の "${key}"（${value}）が薄すぎます。地に沈んで線が消えます。**白地で ${light}:1 ／ 暗い地で ${dark}:1**（非文字の下限は 3:1）—— **${light < 3 && dark < 3 ? 'どちらの地でも' : light < 3 ? '白地だけ' : '暗い地だけ'}**足りません。${light < 3 && dark >= 3 ? '実物の色で変えられないなら（路線図の路線色など）、線を太くするか、色以外の見分け（符号・線種）を必ず添えてください。' : ''}`,
+    /**
+     * **符号が文字で出ているなら、言うことが変わる**（2026-09-21）。
+     *
+     * 測ったら `color-faint` は 10 件とも**実物の路線色**（山手線 #9acd32、
+     * 阪急 #8b0000、東京メトロ各線）で、**どれも符号が図に文字で出ていた。**
+     * 文言自身が逃げ道として「符号を添えてください」と言っているのに、
+     * **添えてあっても同じ文で鳴り続けていた。**
+     */
+    colorFaintCoded:
+      'ただし、この符号は図に文字で出ています —— **色が読めなくても区別はつきます。**線の太さだけ確かめてください。',
+    colorFaintPlain:
+      '実物の色で変えられないなら（路線図の路線色など）、線を太くするか、**色以外の見分け（符号・線種）を必ず添えて**ください。',
+    /** **逃げ道を書いたなら、満たしたかどうかも見る**（2026-09-21）。太さは道具が数えられる。 */
+    colorFaintThick: ' その色を使っている辺は、いちばん細いところで `weight: thick` です —— **太さのほうは足りています。**',
+    colorFaintThin: ' その色を使っている辺は、いちばん細いところが `weight: normal` 以下です —— **太さでは補えていません。**',
+    colorFaintNodes: ' その色は**辺ではなく節の枠**に付いています —— 節に `weight` は無いので、太さでは補えません。印（marker）か符号（tag）で分けてください。',
+    colorFaint: (key: string, value: string, light: number, dark: number, advice: string) =>
+      `palette の "${key}"（${value}）が薄すぎます。地に沈んで線が消えます。**白地で ${light}:1 ／ 暗い地で ${dark}:1**（非文字の下限は 3:1）—— **${light < 3 && dark < 3 ? 'どちらの地でも' : light < 3 ? '白地だけ' : '暗い地だけ'}**足りません。${advice}`,
     labelMarkdown: (id: string) =>
       `"${id || '(id なし)'}" の名前に ** が入っています（節でも、辺のラベルでも、図の名前でも同じ）。**zumen の名前は素のテキスト**で、Markdown ではありません —— ** は強調にならず、**そのまま絵に出ます**。正本のコメントや変更の記録は Markdown なので、そこから持ち込みやすいところです。`,
     colorNotHex: (key: string, value: string) =>
@@ -720,8 +821,27 @@ const ja = {
       `エッジ ${edge} に hatch がありますが、close: true でないので効きません。閉じていない辺には面が無く、塗りようがありません。`,
     nameCrowded: (id: string) =>
       `ノード "${id}" の名前は箱に入りきらず、外へ出した先も空いていません（**他の要素に重なる**か、**紙の縁で切れます**）。箱を大きくするか、名前を **\`\\n\`** で折り返すか、文字を短くしてください（消してはいません —— 名前が消えるのは、重なるより悪いためです）。`,
-    nameAdrift: (id: string, needs: number, has: number) =>
-      `ノード "${id}" は幅のある箱ですが、名前が入りきらず外へ出ています（名前に ${needs}px 要るところ、箱は ${has}px。${needs - has}px 足りません）。表の欄なら、値が欄から離れて行が空に見えます。箱を広げるか、名前を **\`\\n\`** で折り返すか（いちばん長い行で測ります）、文字を短くしてください。`,
+    /**
+     * **注記には、表の話をしない**（2026-09-21）。
+     *
+     * 「表の欄なら、値が欄から離れて行が空に見えます」は枠のある箱の話で、
+     * **`marker: none` の注記には当たらない** —— そちらは**まわりの図に重なる。**
+     * この夜だけで 10 回以上この指摘を受け、そのたびに表ではなく注記だった。
+     */
+    /** `nameAdrift` に渡す語。**枠のある箱と、注記で言うことが違う。** */
+    adriftCell: '表の欄なら、値が欄から離れて行が空に見えます。',
+    adriftNote: '注記なので、はみ出した分はまわりの図に重なります。',
+    /**
+     * **足りない px が負になっていた**（2026-09-21）。
+     *
+     * 幅は足りているのに外へ出ることがある（行が増えて**高さ**が足りないとき）。
+     * そのとき「**-88px 足りません**」と出ていた —— 数として意味がないうえ、
+     * **直す場所（幅）を間違って指している。**
+     */
+    nameAdrift: (id: string, needs: number, has: number, what: string) =>
+      needs <= has
+        ? `ノード "${id}" は幅のある箱ですが、名前が外へ出ています（名前に ${needs}px 要るところ、箱は ${has}px —— **幅は足りています**）。${what}原因は**高さ**です。行が増えたぶん \`size.h\` を増やすか、行を減らしてください。`
+        : `ノード "${id}" は幅のある箱ですが、名前が入りきらず外へ出ています（名前に ${needs}px 要るところ、箱は ${has}px。${needs - has}px 足りません）。${what}箱を広げるか、名前を **\`\\n\`** で折り返すか（いちばん長い行で測ります）、文字を短くしてください。`,
     tagHidden: (id: string) =>
       `ノード "${id}" の tag は、印に入りきらないので描かれません。印を大きくするか、符号を短くしてください（消してはいません。書いたのに出ない状態を知らせています）。`,
     /** 長辺の向き（`tooSmallToPrint` に渡す語）。 */
@@ -748,8 +868,29 @@ const ja = {
       gapWide: string,
     ) =>
       `この図は A3 に印刷しても字が読めません（いちばん小さい字 ${smallest}px ÷ 長辺 ${longest}px ＝ ${ratio}。下限は ${floor}）。**あと ${Math.max(1, Math.ceil(longest - need))}px 詰めてください** —— 長辺が ${need}px 以下なら収まります。**長辺は${axis}で、端は "${head}" と "${tail}" です。**この 2 つの間を詰めてください。**文字を大きくしないでください**（図が伸びて比がさらに下がります）。表や注記を詰めるか、図を分けてください。${gapAxis === '' ? '' : `**いちばん空いているのは ${gapAxis} ${gapAt}〜${gapTo} の ${gapWide}px** です —— ここに中身がありません。`}`,
+    /**
+     * **構成図には、別の言い方が要る**（2026-09-21）。
+     *
+     * `tooSmallToPrint` は「長辺の端の 2 つの間を詰めてください」と言うが、
+     * **構成図では置き場所を機械が決める**ので、詰めようがない。
+     * 動かせるのは**節の数と、鎖の深さ**だけ —— そこを名指しする
+     * （見本 287 を描くとき、この言い方が無くて 4 回やり直した）。
+     */
+    tooSmallToPrintStructure: (
+      ratio: string,
+      floor: string,
+      smallest: number,
+      longest: number,
+      need: number,
+      ranks: number,
+      perRank: number,
+      fits: number,
+    ) =>
+      `この図は A3 に印刷しても字が読めません（いちばん小さい字 ${smallest}px ÷ 長辺 ${longest}px ＝ ${ratio}。下限は ${floor}）。**構成図では置き場所を機械が決めるので、節を動かしても縮みません。** いま**長辺の向きに ${ranks} 段**並んでいて、1 段およそ ${perRank}px です。長辺が ${need}px 以下なら収まるので、**${fits} 段まで減らしてください** —— 節をまとめるか、図を 2 枚に分けるかのどちらかです。`,
     inkOverlap: (a: string, b: string, x: number, y: number) =>
       `紙の上で ${a} と ${b} の文字が重なって描かれます。名前どうしだけでなく、符号・寸法の数値・通り芯の符号・図の名前も同じ場所を取ります。**横に ${x}px か、縦に ${y}px** ずらせば離れます（どちらへ逃がすかは、図の都合で決めてください）。`,
+    lineOverText: (edge: string, box: string, text: string, px: number) =>
+      `辺 ${edge} が、枠の無い注記 ${box} の「${text}」を ${px}px ぶん横切っています。**箱の中の字なら枠が「これは中身だ」と言いますが、注記には枠がありません** —— 線は取り消し線にしか見えません。注記をずらすか、線をその手前で止めてください（寸法の数字を自分の寸法線に乗せるのは正しい置き方なので、短い交差は数えていません）。`,
     textOverlap: (a: string, b: string) =>
       `${a} と ${b} の文字が重なって描かれます。器の名前を器の真ん中に書くと、中の節の名前に乗ります（器の名前は端の欄へ出してください）。`,
     edgeNodeKeyIgnored: (name: string, key: string) =>
@@ -758,10 +899,43 @@ const ja = {
       `ノード "${id}" に \`${key}\` を書いていますが、**これは辺（edges）の語**です。節に書いても黙って落ちます。枠の線種なら \`line\`（実線・破線・点線・一点鎖線）、面の模様なら \`hatch\`、線の色なら \`color\` を使ってください。**枠の太さを変える語は、いまはありません** —— 太さで示したいなら、線種を変えるか \`hatch\` で面を示してください。`,
     viewTitleCovered: (view: string, box: string, grow: number) =>
       `図 "${view}" の名前が、"${box}" の上に乗って描かれます。**図の名前は、その図の下辺のすぐ下**に置かれるので、\`size\` に書いた高さより中身が下へ出ていると重なります。**この図の \`size.h\` を ${grow}px 増やすか、中身を上へ詰めてください。**`,
+    labelPlaceholder: (who: string, word: string) =>
+      `${who} の文字に「${word}」が入っています。**これは図の言葉ではなく、組み立てに失敗した跡**です（引数が足りない・数が数にならなかった）。そのまま絵に描かれ、交差にも文字の重なりにも数えられません —— 絵を見るまで誰も止めません。書いた側を直してください。`,
     labelGluedWord: (id: string, found: string) =>
       `"${id}" の名前に **"${found}"** が入っています —— 日本語の字のすぐ隣に、小文字の英単語がくっついています。下書きの英語を日本語へ直し忘れた形（「前framing」のような、**無い言葉**）か、語の順が入れ替わった形（「160 以上cm」＝「160cm 以上」）です。**そのまま絵に出ます。** 日本語に直すか、あいだに空きを入れてください。単位（mm・cm・kg）や「PoE の」のように空きがある書き方は当たりません。`,
     circleNotSquare: (id: string, marker: string, w: number, h: number, d: number) =>
       `ノード "${id}" は \`marker: ${marker}\`（丸）ですが、\`size\` が ${w}×${h} で正方形ではありません。**丸は短いほうが直径になる**ので、描かれるのは**直径 ${d} の丸**で、長いほうの ${Math.max(w, h)} は消えます。ところが名前の置き場所と重なりの判定は ${w}×${h} のほうを見るので、**丸の横に空きが残ります**。横長・縦長の丸が欲しいなら \`marker: ellipse\`（w と h の両方を使います）、丸でよいなら \`size\` を正方形にしてください。`,
+    /**
+     * **折り返した名前が、箱からはみ出す**（2026-09-21）。
+     *
+     * 名前は箱の**上下の真ん中**から積むので、行が増えると上下へはみ出す
+     * （`src/render.ts`）。**幅は `name-adrift` が見ていたが、高さは誰も見ていなかった。**
+     * 見本 297 を描いていて自分で踏んだ —— 2 行の名前を高さ 18px の箱に入れ、
+     * 2 行目が下の図にかぶった。
+     */
+    /**
+     * **細長すぎる構成図**（2026-09-21）。
+     *
+     * 貼った先で幅に合わせて縮むので、**細長いほど字が小さくなる**（`src/wrap.ts`）。
+     * 測ったら、構成図の縦横比の中央値は **2.19**（配置図は 1.27）で、
+     * **4 を超えるものが 34 枚中 5 枚**あった。
+     *
+     * **`wrap: true` は万能ではない。** 見本 301（閉路も groups も無い）は
+     * 4.09 : 1 → 1.7 : 1 になって読む順もそのままだったが、
+     * 見本 287（groups あり）は折り返すと**三段仕込みの 4 つがばらばらの順**に出た。
+     */
+    structureWrapOff:
+      '`wrap: true` で折り返せますが、**並びの順が崩れることがあります**（戻る辺や groups があるとき）—— 折り返したら必ず絵にして、読む順どおりに出ているか見てください。崩れるなら、節をまとめて段を減らすか、図を分けてください。',
+    /** **`wrap: false` と自分で書いてある図には、折り返しを勧めない**（2026-09-21。5 例目）。 */
+    structureWrapTried:
+      '**正本に `wrap: false` と書いてあります。** 一度試して戻した形かもしれないので、折り返しは勧めません —— 残っているのは、節をまとめて鎖を短くするか、図を 2 枚に分けるかです。',
+    /** **逃げ道を書いたなら、逃げ道を満たしたかどうかも見る。** すでに折り返してある図に「折り返せます」と言わない。 */
+    structureWrapOn:
+      '**すでに `wrap: true` が書いてあります。** 折り返してもこの比なので、残っているのは 2 つだけです —— 節をまとめて鎖を短くするか、図を 2 枚に分けるか。',
+    structureTooThin: (ratio: string, width: number, height: number, advice: string) =>
+      `この構成図は ${width} × ${height}px で、縦横の比が ${ratio} あります。**貼った先では幅に合わせて縮む**ので、細長いほど字が小さくなります。${advice}`,
+    labelTooTall: (id: string, lines: number, need: number, has: number) =>
+      `ノード "${id}" の名前は ${lines} 行ありますが、箱の高さが ${has}px しかありません（${need}px 要ります）。名前は箱の上下の真ん中から積むので、**足りない分は上下へはみ出して**、まわりの図に重なります。\`size.h\` を ${need}px 以上にするか、行を減らしてください。`,
     hatchTooThin: (id: string, hatch: string, side: number) =>
       `ノード "${id}" に \`hatch: ${hatch}\` を書いていますが、**面の短いほうが ${side}px しかないので、模様は 1 つも描かれません**（無地と見分けがつきません）。点は間隔 9px で置くので半間隔に満たない面には乗らず、斜線・格子は面で切り取られるので細いほど切れ端が短くなります。**線のつもりなら \`hatch\` を外して \`line\` で線種を指定**し、模様で材料を示したいなら**短いほうを 9px 以上**にしてください。`,
     colorWithoutCode: (key: string) =>
@@ -887,7 +1061,7 @@ const en: Catalog = {
     usageMergeDriver: 'Usage: merge-driver <base> <ours> <theirs>',
     usageDrawio: 'Usage: pnpm drawio <diagram file> [output path]',
     usageMeasure: 'Usage: pnpm measure <diagram file> ...',
-    usageInspect: 'Usage: pnpm inspect <diagram file> ...',
+    usageInspect: 'Usage: pnpm inspect <diagram file> ... [--tally] (--tally counts them up instead)',
     usageSvg: 'Usage: pnpm svg <diagram file> [output path] [--dark] [--vivid]',
     usageTimelapse:
       'Usage: pnpm timelapse <step files…> [--out dir] [--hold seconds per step] (two or more steps)',
@@ -904,24 +1078,39 @@ const en: Catalog = {
     conflictSuppressed: (ai: string) => `proposal ${ai}. The person chose their own placement, so this is not asked again.`,
     mergedClean2: 'No disagreements.',
     inspected: (path: string) => `${path}`,
-    inspectCounts: (nodes: number, edges: number) => `  ${nodes} nodes / ${edges} edges`,
+    inspectCounts: (nodes: number, edges: number, kind: string) => `  ${nodes} nodes / ${edges} edges / ${kind}`,
+    inspectRanks: (ranks: number) => `  ${ranks} ranks deep (about 145px each)`,
+    inspectPlan: 'placement (you write the positions)',
+    inspectStructure: 'structure (the machine lays it out)',
+    inspectConstruction: 'construction (solved from the steps; no coordinates in the source)',
     inspectClean: '  0 crossings / 0 straddles / 0 text overlaps / 0 buried edges / every name and tag is drawn',
     inspectCrossings: (count: number, groups: number, pairs: string) =>
       `  **${count} crossings** (${groups} pairs; two lines that cross more than once count as one pair)\n    ${pairs}`,
     straddleBy: (a: string, b: string, x: string, y: string) => `${a}<->${b} (overlap ${x}px wide, ${y}px tall)`,
-    inspectWarnings: (count: string) => `  **${count} warning(s)** (run \`pnpm validate\` to see them)`,
+    inspectWarnings: (count: string, codes: string) =>
+      `  **${count} warning(s)** (${codes}; run \`pnpm validate\` to see them)`,
+    andMore: (rest: string) => `and ${rest} more`,
+    straddleAllSame: (x: string, y: string) => `all of them ${x}px across / ${y}px down`,
     inspectStraddles: (count: number, pairs: string) => `  **${count} straddles** (${pairs})`,
     inspectOverlaps: (count: number, pairs: string) => `  **${count} text overlaps** (${pairs})`,
     inspectUnderBoxes: (count: number, pairs: string) => `  **${count} edges buried under boxes** (${pairs})`,
+    hiddenLabelText: (edge: string, text: string) => `${edge} "${text}"`,
     inspectHiddenLabels: (count: number, ids: string) => `  **${count} edge labels never drawn** (${ids})`,
     inspectCrowded: (count: number, ids: string) => `  **${count} names with nowhere to go** (${ids})`,
     adriftWidth: (id: string, needs: string, has: string) => `${id} (needs ${needs}px, has ${has}px)`,
     inspectAdrift: (count: number, ids: string) => `  ${count} names drifting away from their box (${ids})`,
     inspectHiddenTags: (count: number, ids: string) => `  ${count} tags that did not fit their marker (${ids})`,
-    inspectPaper: (smallest: number, longest: number, ratio: string) =>
-      `  smallest text ${smallest}px / longest side ${longest}px / ratio ${ratio}`,
+    inspectPaper: (width: number, height: number, smallest: number, longest: number, ratio: string) =>
+      `  paper ${width} × ${height}px / smallest text ${smallest}px / longest side ${longest}px / ratio ${ratio}`,
     inspectPrint: '  **Too small to read when printed on A3.**',
-    inspectProject: '  Too small to project (fine if this drawing is meant to be printed).',
+    inspectProject: '  **Large enough to project** (the text stays readable on a slide).',
+    tallyHead: (files: number, quiet: number) =>
+      `Counted ${files} drawings (${quiet} of them said nothing).`,
+    tallyRow: (code: string, times: number, files: number, said: string) =>
+      `  ${code}  ${times} finding(s) across ${files} drawing(s)  ${said}`,
+    tallyGates: (crossed: number, straddled: number) =>
+      `  ${crossed} drawing(s) have crossings, ${straddled} have straddles — **both are usually content**, so check them against the table in \`test/names.test.ts\`.`,
+    tallyNone: '  No check is firing.',
     inspectNote:
       'These are **observations, not a verdict**. Crossings and straddles are right when the subject crosses — nothing is stopped here.',
     inspectUnreadable: (count: number) =>
@@ -1002,7 +1191,7 @@ const en: Catalog = {
       'Returns the positions, sizes, labels and appearance a person set. Read only; there is no way to write here. Leave it alone and change the structure instead.',
     inspectTitle: 'Inspect a diagram',
     inspectDesc:
-      'Returns readability, element counts, edge crossings, box overlaps, group escapes, size, and the autonomy figure. Always look at this after writing. If tooTangled is true, the edges are too knotted to follow by eye. Any edge id in hiddenLabels has a label that did not fit and is not drawn — shorten it or use fewer edges. **Always check kind**: for a placement drawing positionsInSource is true, meaning you write the positions yourself (nodes[].at as { x, y }) and the machine will not re-arrange them. You can also set sizes with nodes[].size ({ w, h }, which works for structure diagrams too) — without it every room comes out the same size. Never write pins — those belong to the person. If tooSmallToProject is true the text is too small to read when projected. **If tooSmallToPrint is false, the drawing is simply one to be printed rather than projected** (transit maps, appraisal charts, lighting plots and stowage plans land here — 36 of the 95 examples do). **Only when both are true is there really something to fix.** Do NOT fix it by enlarging the text (that grows the diagram and lowers the ratio further). **Try wrap: true first** — if the diagram is just one long row, wrapping brings it back (a chain of 8 goes from 13.9 to 2.2). If that is not enough, ask the person whether the diagram can be split. Any id in crowdedNames has a name that did not fit its box and had nowhere free outside it, so it is drawn overlapping something. Make the box bigger or shorten technology. It is NOT dropped — a room losing its name is worse than an overlap. Any id in adriftNames is a wide box whose name did not fit and is drawn outside it — in a table that leaves the row looking empty. Any id in hiddenTags has a tag that does not fit its marker and is not drawn — make the marker bigger or shorten the tag. Any pair in crossingEdges is two edges that cross (crossings is the count, crossingEdges names which edges). Any pair in straddles is two boxes overlapping without either containing the other: two things taking the same place on the floor (distinct from nesting, which `overlaps` also counts). Some drawings layer on purpose (a column on a slab, a stone on a board). Any pair in overlappingText is two labels drawn on top of each other (placement drawings only). Any pair in edgesUnderBoxes is an edge that is hidden under a box fill: with arrows: false, lines are drawn before boxes, so a line drawn inside a filled box disappears. Set arrows: true to bring the lines above the boxes. Overlapping boxes are often intended (a frame around sections), but overlapping text almost never is. A container that holds children should not repeat its name in the middle — move it to an edge cell. If reviewed is false, nobody has looked at this diagram yet.',
+      'Returns readability, element counts, edge crossings, box overlaps, group escapes, size, and the autonomy figure. Always look at this after writing. tooTangled only means there are more crossings than edges, which is **not a defect in itself**: of the 333 examples, the 19 where it is true are keyline grids, a spider web, gear pitch circles and measuring graticules — in all 19 the crossing lines *are* the drawing. When it is true, judge for yourself whether the drawing is made of overlapping lines or merely knotted. Any edge id in hiddenLabels has a label that did not fit and is not drawn — shorten it or use fewer edges. **Always check kind**: for a placement drawing positionsInSource is true, meaning you write the positions yourself (nodes[].at as { x, y }) and the machine will not re-arrange them. You can also set sizes with nodes[].size ({ w, h }, which works for structure diagrams too) — without it every room comes out the same size. Never write pins — those belong to the person. If tooSmallToProject is true the text is too small to read when projected. **If tooSmallToPrint is false, the drawing is simply one to be printed rather than projected** (transit maps, appraisal charts, lighting plots and stowage plans land here — 36 of the 95 examples do). **Only when both are true is there really something to fix.** Do NOT fix it by enlarging the text (that grows the diagram and lowers the ratio further). **Try wrap: true first** — if the diagram is just one long row, wrapping brings it back (a chain of 8 goes from 13.9 to 2.2). If that is not enough, ask the person whether the diagram can be split. Any id in crowdedNames has a name that did not fit its box and had nowhere free outside it, so it is drawn overlapping something. Make the box bigger or shorten technology. It is NOT dropped — a room losing its name is worse than an overlap. Any id in adriftNames is a wide box whose name did not fit and is drawn outside it — in a table that leaves the row looking empty. Any id in hiddenTags has a tag that does not fit its marker and is not drawn — make the marker bigger or shorten the tag. Any pair in crossingEdges is two edges that cross (crossings is the count, crossingEdges names which edges). Any pair in straddles is two boxes overlapping without either containing the other: two things taking the same place on the floor (distinct from nesting, which `overlaps` also counts). Some drawings layer on purpose (a column on a slab, a stone on a board). Any pair in overlappingText is two labels drawn on top of each other (placement drawings only). Any pair in edgesUnderBoxes is an edge that is hidden under a box fill: with arrows: false, lines are drawn before boxes, so a line drawn inside a filled box disappears. Set arrows: true to bring the lines above the boxes. Overlapping boxes are often intended (a frame around sections), but overlapping text almost never is. A container that holds children should not repeat its name in the middle — move it to an edge cell. If reviewed is false, nobody has looked at this diagram yet.',
     inspectSource: 'The diagram body. Either this or path',
     inspectPath: 'Path to the diagram. Either this or source',
     createTitle: 'Create a new diagram',
@@ -1136,7 +1325,7 @@ const en: Catalog = {
       '    group: <id of the containing group. omit if none>',
       '    size: { w: <width>, h: <height> }   # applies to structure diagrams too',
       '    radius: <px>                         # range circle (crane reach, alarm zone)',
-      '    marker: <box (default) | circle | double | ellipse | diamond | triangle | bar | none>  # how it is marked on a plan',
+      '    marker: <box (default) | circle | double | ellipse | diamond | triangle | triangle-down | bar | none>  # how it is marked on a plan',
       '                                          # circle for stations, acupoints, instruments; bar for a band',
       '    hatch: <none (default) | solid | dots | lines | cross>  # material / zone pattern',
       '    write: <across (default) | down>     # vertical setting: stack the glyphs (Latin is laid on its side)',
@@ -1179,6 +1368,8 @@ const en: Catalog = {
       '**When unsure what to draw, call zumen_examples.** What is written here is only the syntax; **what to draw** exists only in the examples — how a periodontal chart, a plywood cutting diagram, a stage lighting plot, a used-car appraisal chart, a timber joint or tactile paving is actually put together. Pass a name to get the source itself, so you can copy how it is written; query by feature (views, hatch, chain, openings…) to find a working example of that syntax. **Do not churn out generic network diagrams and flowcharts.**',
       'To put two or more drawings on one sheet, write views (floor-by-floor plans, a ship general arrangement, a three-view drawing, an unfolded room). Without views there is only one grid and one scale for the whole sheet, so dimensions are measured straight through both drawings and meaningless figures come out (an "overall length" spanning two floors), and grid lines skewer the neighbouring drawing. Every view needs id, at and size, plus its own grid and scale. **The scale can differ per view** — a 1/20 detail can sit beside a 1/200 general drawing. When one sheet must carry dimensions orders of magnitude apart (a 12 mm stud and a 1.5 m run of paving), **split them into views instead of forcing one scale**. A title is drawn under each view so a reader can tell which floor is which. Nodes do NOT belong to a view — this is a coordinate drawing, so which drawing a node is in is decided by where it is.\n\n(Whether dimensions agree between drawings is not checked yet. In a three-view drawing, keeping the front and side heights equal is the writer\'s job for now.)',
       'Leave 130px or more below a view. Grid-line codes (90px) and the view title (116px) are drawn below it, so anything placed there collides. **The validator does report it** (it counts view titles, grid codes and dimension figures as ink on the paper) — but zumen_inspect overlappingText only looks at node text, so run pnpm validate as well. The same applies sideways: codes appear on both sides, so leave 260px between two views placed side by side.',
+      '**If your edges carry labels, try direction: down first** (structure diagrams; measured across the 25 examples that have edge labels, 2026-09-20). **When several edges converge on one node, right leaves no room for their labels** — across the 25, down never hid more labels (0 cases) and hid fewer in 2. But **right gives a smaller sheet in 23 of 25**, so if every label is drawn, right is fine. Use down for hierarchies (courts, org charts, utilities) and right for processes.',
+      '**Groups make the sheet bigger** (structure diagrams; measured across the 20 examples that use them, 2026-09-20). **All 20 shrank when groups were removed** — to 32-86% of the area, around half in most cases. **None of the 20 had a crossing either way**, so containers do not cause crossings, and no clear relation showed up with edges that go back (rework, resubmission, division). Use containers to say that things exist at once (a VPC, a floor, a zone), and expect the paper to grow for each one — for a diagram meant to be projected, drop them or use fewer.',
       'In a placement diagram rooms and shelves normally touch. Do not leave gaps; neighbours share a wall.',
       'When you line up several notes, write align: left. Text is centred in its box by default, so lines of different length do not share a left edge and the list comes out as a staircase. Do NOT try to fix it by matching each box width to its text — the width estimate is off by up to 20px per line.',
       'Make a table cell wide enough for its value. If a name does not fit a wide box, the text is drawn outside the cell and the row looks empty (zumen_inspect reports it as adriftNames, validate as name-adrift).',
@@ -1202,6 +1393,9 @@ const en: Catalog = {
       '**Before drawing, find out whether the drawing actually exists in the trade.** Never draw "something that looks like the field" from memory: for dentistry it is a tooth chart and a periodontal chart, not a picture of teeth; for fishing it is a rig diagram, not a fish; for theatre it is a lighting plot, not a stage. Research what the real sheet carries (who uses it, for which task, what is a node, what is a line, whether coordinates and dimensions carry meaning, which symbols the trade has) before you draw. Search in the trade\'s own language as well as your own. **A drawing made without that research is obvious to anyone in the field.**',
       '**Once drawn, look at it as a picture.** The numeric checks (zumen_inspect / validate) only tell you whether it is readable — a name landing on a door swing, a line crossing a fixture, a radius you cannot read: none of that shows up until you look. Export the svg and open it, or use png (returned as an image when Chrome is present). **Never call a drawing finished without having looked at one.**',
       'Write colours in palette ONLY where colour is the notation itself (transit line colours, pipe identification colours, zone colour-coding). Put it on lines with color (nodes/edges), on areas with fill (nodes). They are NOT the same: color paints the frame, so a pale value makes the walls vanish; fill tints the face only, laid thinly over the ground so the text on it stays readable in both light and dark. Either way the key must appear somewhere as text (once in a legend is enough) — never let colour alone carry the meaning.',
+      '**A back edge scrambles the order of a structure diagram.** The machine lays nodes out top to bottom, so a cycle puts later nodes above earlier ones. Measured across 33 structure diagrams: the 8 with a cycle draw 33% of their edges backwards, the 25 without only 19%. If you want to show something going back, make it a terminal node and stop there, or say it in the node technology.',
+      '**`arrows` does two things: it draws the default arrowheads, and it decides whether edges are drawn above or below the boxes.** Measured: of 201 placement drawings with `arrows: true`, **165 (82%) never draw a single default arrowhead** (re-measured 2026-09-21; the share rose from 68% as the collection grew) — they set it for the stacking order. Use `arrows: true` plus `ends: { from: none, to: none }` when a line has to reach into the middle of a symbol; use `arrows: false` when the lines are the drawing itself (transit maps, patterns, framing plans).',
+      '**Groups stretch a structure diagram.** Measured: across the 21 structure drawings that use `groups`, removing the groups alone made the longest side **1.28x shorter at the median (up to 1.54x)** — groups add ranks. So when the sheet is too long to read, **suspect the groups first.** If the group name can move into the node names ("electric furnace" becomes "electric furnace (scrap route)"), that is the shorter drawing. Keep the groups where the separation is itself the content (site zones, VLANs, departments) — decide by whether the box carries meaning, not by the measurement alone.',
     ],
     noChrome:
       'Chrome was not found, so the drawing could not be rendered. Export svg and open it, or pass the path to Chrome in CHROME_PATH (no encoder is bundled).',
@@ -1299,6 +1493,8 @@ const en: Catalog = {
       'wall is present but scale is not, so mm cannot be turned into pixels and the wall thickness is unchanged.',
     radiusInvalid: (id: string) =>
       `Node "${id}" has a radius that is not a positive number. The range circle is not drawn.`,
+    radiusTooSmall: (id: string, drawn: string, size: string) =>
+      `Node "${id}" has radius ${drawn}, smaller than the node itself (${size}px). radius draws a **range circle** (a working radius, a keep-out zone) — it is **not corner rounding**, and there is no corner rounding. Use a value larger than the node, or drop radius.`,
     radiusIgnored: (id: string) =>
       `Node "${id}" has a radius, but range circles are not drawn on a structure diagram. Use kind: placement.`,
     markerUnknown: (id: string, word: string, words: string) =>
@@ -1319,6 +1515,11 @@ const en: Catalog = {
       `Edge ${edge} is hidden under the fill of box "${box}" (with arrows: false, lines are drawn before boxes). Set arrows: true to bring the line above the boxes.`,
     lineTooShort: (edge: string, line: string, length: string, need: string) =>
       `Edge ${edge} is drawn only ${length}px long, but line: ${line} needs ${need}px for one full dash cycle. It will look solid — make it longer, or use line: solid.`,
+    endsApart: 'Move the nodes apart, or use `ends: { to: none }`.',
+    endsTouching: (apart: string) =>
+      `But these two nodes are only **${apart}px apart** — rooms sharing a wall, or stacked tiers, where moving them apart would make the drawing lie. Then give up on the line and let the symbol alone carry the direction (which is what is drawn now). Use \`ends: { to: none }\` if it bothers you.`,
+    endsTooLong: (edge: string, length: string, need: string, advice: string) =>
+      `Edge ${edge} is only ${length}px long, but its end symbols want ${need}px. They are shrunk to fit, but no line shows at all — ${advice}`,
     alignUnknown: (id: string, word: string) =>
       `Node "${id}" has align "${word}" (left / center / right). It is centred.`,
     alignIgnored: (id: string) =>
@@ -1351,8 +1552,15 @@ const en: Catalog = {
       `Edge ${edge} has weight "${word}" (thin / normal / thick). It is drawn at the normal width.`,
     colorUnknown: (target: string, key: string) =>
       `${target} has color "${key}", but palette has no such key. No colour is applied.`,
-    colorFaint: (key: string, value: string) =>
-      `palette entry "${key}" (${value}) is too faint: the line sinks into the ground (3:1 is the floor for non-text; both the light and the dark ground are checked).`,
+    colorFaintCoded:
+      'The code does appear as text in the drawing, so the distinction survives without colour; just check the line weight.',
+    colorFaintPlain:
+      'If the colour is fixed by the subject (a transit line, say), thicken the line or add a non-colour distinction.',
+    colorFaintThick: ' The thinnest edge drawn in it is `weight: thick`, so **the weight side is already covered.**',
+    colorFaintThin: ' The thinnest edge drawn in it is `weight: normal` or below, so **weight is not making up for it.**',
+    colorFaintNodes: ' The colour is on **node outlines, not edges** — nodes have no `weight`, so thickness cannot make up for it. Separate them by `marker` or `tag` instead.',
+    colorFaint: (key: string, value: string, light: number, dark: number, advice: string) =>
+      `palette entry "${key}" (${value}) is too faint: the line sinks into the ground — ${light}:1 on the light ground, ${dark}:1 on the dark one (3:1 is the floor for non-text). ${advice}`,
     labelMarkdown: (id: string) =>
       `"${id || '(no id)'}" has ** in its label (nodes, edge labels and view titles alike). **Labels are plain text**, not Markdown — the asterisks are not emphasis, they are **drawn as they are**. They creep in from the Markdown used in source comments and changelogs.`,
     colorNotHex: (key: string, value: string) =>
@@ -1365,8 +1573,10 @@ const en: Catalog = {
       `Edge ${edge} has a hatch, but without close: true there is no face to fill, so it does nothing.`,
     nameCrowded: (id: string) =>
       `The name on node "${id}" does not fit its box and there is no free room outside either: it either lands on something else or is cut off at the edge of the sheet. Make the box bigger, break the name with **\`\\n\`**, or shorten the text. It is NOT dropped: losing a name is worse than an overlap.`,
-    nameAdrift: (id: string, needs: number, has: number) =>
-      `Node "${id}" is a wide box whose name did not fit, so it is drawn outside: the name needs ${needs}px and the box is ${has}px, so it is ${needs - has}px short. In a table that leaves the row looking empty. Widen the box, break the name with **\`\\n\`** (it is measured by its longest line), or shorten the text.`,
+    adriftCell: 'In a table that leaves the row looking empty.',
+    adriftNote: 'It is a note, so the overflow lands on whatever is next to it.',
+    nameAdrift: (id: string, needs: number, has: number, what: string) =>
+      `Node "${id}" is a wide box whose name did not fit, so it is drawn outside: the name needs ${needs}px and the box is ${has}px, so it is ${needs - has}px short. ${what} Widen the box, break the name with **\`\\n\`** (it is measured by its longest line), or shorten the text.`,
     tagHidden: (id: string) =>
       `The tag on node "${id}" does not fit its marker and is not drawn. Make the marker bigger or shorten the tag.`,
     alongVertical: 'vertically',
@@ -1386,8 +1596,21 @@ const en: Catalog = {
       gapWide: string,
     ) =>
       `This drawing is too small to read even printed on A3 (smallest text ${smallest}px / longest side ${longest}px = ${ratio}; the floor is ${floor}). **Take ${Math.max(1, Math.ceil(longest - need))}px off** — a longest side of ${need}px or less fits. **The long side runs ${axis}, between "${head}" and "${tail}".** Close the gap between those two. **Do not enlarge the text** (that grows the drawing and lowers the ratio further). Tighten the tables and notes, or split the drawing.${gapAxis === '' ? '' : ` **The widest empty band is ${gapAxis} ${gapAt}-${gapTo}, ${gapWide}px wide** with nothing in it.`}`,
+    tooSmallToPrintStructure: (
+      ratio: string,
+      floor: string,
+      smallest: number,
+      longest: number,
+      need: number,
+      ranks: number,
+      perRank: number,
+      fits: number,
+    ) =>
+      `This drawing is unreadable even printed on A3 (smallest text ${smallest}px over longest side ${longest}px = ${ratio}; the floor is ${floor}). **On a structure diagram the machine decides the positions, so moving nodes will not shrink it.** It is ${ranks} ranks across the long side at about ${perRank}px each; the longest side has to come down to ${need}px, so **cut it to ${fits} ranks** — merge nodes, or split the drawing in two.`,
     inkOverlap: (a: string, b: string, x: number, y: number) =>
       `On the sheet, ${a} and ${b} are drawn on top of each other. It is not only names: tags, dimension values, grid codes and view titles take room too. **Moving one ${x}px sideways or ${y}px vertically** clears it — which way is yours to choose.`,
+    lineOverText: (edge: string, box: string, text: string, px: number) =>
+      `Edge ${edge} runs ${px}px through "${text}" in the unboxed note ${box}. **Text inside a box has a frame saying it is contents; a bare note has none** — the line reads as a strike-through. Move the note, or stop the line short of it. (Short crossings are not counted: a dimension value sitting on its own dimension line is placed correctly.)`,
     textOverlap: (a: string, b: string) =>
       `The labels of ${a} and ${b} are drawn on top of each other. A container that holds children should not repeat its name in the middle — move it to an edge cell.`,
     edgeNodeKeyIgnored: (name: string, key: string) =>
@@ -1396,10 +1619,23 @@ const en: Catalog = {
       `Node "${id}" carries \`${key}\`, but **that word belongs to edges**. On a node it is dropped in silence. Use \`line\` for the outline's line type (solid / dashed / dotted / chain), \`hatch\` for a fill pattern, \`color\` for the stroke colour. **There is no word for outline thickness yet** — change the line type, or show the area with \`hatch\`.`,
     viewTitleCovered: (view: string, box: string, grow: number) =>
       `The title of view "${view}" is drawn on top of "${box}". **A view title sits just below the view's bottom edge**, so anything that reaches past the height you wrote in \`size\` ends up underneath it. **Grow this view's \`size.h\` by ${grow}px, or move its contents up.**`,
+    labelPlaceholder: (who: string, word: string) =>
+      `The text of ${who} contains "${word}". **That is not a word of the drawing; it is the trace of a build that went wrong** (a missing argument, a number that never became a number). It is drawn as it stands, and it counts as neither a crossing nor an overlap — nothing stops you until you look at the picture. Fix the side that wrote it.`,
     labelGluedWord: (id: string, found: string) =>
       `The label of "${id}" contains **"${found}"** — a lowercase English word glued straight onto Japanese text. That is usually a draft term left untranslated (an invented word), or two parts in the wrong order. **It is drawn exactly as written.** Translate it, or put a space between the scripts. Units (mm, cm, kg) and spaced forms like "PoE の" are not flagged.`,
     circleNotSquare: (id: string, marker: string, w: number, h: number, d: number) =>
       `Node "${id}" is \`marker: ${marker}\` (a circle), but its \`size\` is ${w}x${h}, not square. **A circle takes the shorter side as its diameter**, so what gets drawn is a **${d} circle** and the ${Math.max(w, h)} you wrote is gone. Label placement and overlap still measure the ${w}x${h} box, so **empty room is left beside the circle**. Use \`marker: ellipse\` for an oval (it uses both w and h), or make \`size\` square.`,
+    structureWrapOff:
+      '`wrap: true` folds it, but **it can scramble the reading order** (back edges and groups both do this) — always look at the picture afterwards. If it scrambles, merge nodes to shorten the chain, or split the drawing.',
+    structureWrapTried:
+      '**The source says `wrap: false`.** That may be a fold that was tried and backed out, so folding is not suggested — what is left is to merge nodes to shorten the chain, or split the drawing in two.',
+    /** **If you offer a way out, check whether it has already been taken.** */
+    structureWrapOn:
+      '**`wrap: true` is already set.** Folded, it is still this thin, so only two things are left: merge nodes to shorten the chain, or split the drawing in two.',
+    structureTooThin: (ratio: string, width: number, height: number, advice: string) =>
+      `This structure diagram is ${width} × ${height}px, an aspect ratio of ${ratio}. **Pasted anywhere it will be scaled to the column width**, so the thinner it is the smaller the text gets. ${advice}`,
+    labelTooTall: (id: string, lines: number, need: number, has: number) =>
+      `Node "${id}" has a ${lines}-line name but the box is only ${has}px tall (it needs ${need}px). Lines are stacked from the middle of the box, so **the overflow spills above and below** onto whatever is there. Raise \`size.h\` to ${need}px or use fewer lines.`,
     hatchTooThin: (id: string, hatch: string, side: number) =>
       `Node "${id}" carries \`hatch: ${hatch}\`, but **its short side is only ${side}px, so not one mark is drawn** — it comes out indistinguishable from plain. Dots sit on a 9px pitch, so a face narrower than half that holds none; diagonals and cross-hatch are clipped to the face, so the thinner it is the shorter the stubs. **If you meant a line, drop \`hatch\` and set \`line\` instead**; if the pattern is meant to name a material, make the short side 9px or more.`,
     colorWithoutCode: (key: string) =>

@@ -1,0 +1,435 @@
+version: 1
+kind: placement
+arrows: true
+title: データセンターの気流（通路を分けるのは、熱気を吸わせないため）
+# **ラックを全部同じ向きに並べると、前の列が出した熱気を次の列が吸い込む。**
+# だから**1 列おきに向きを返して**、前面どうしの通路（コールドアイル）と
+# 背面どうしの通路（ホットアイル）を作る。
+#
+# ## 冷気の道
+#
+# 空調機（CRAC）が**床下（フリーアクセスフロア）**へ冷気を送り、
+# **コールドアイルの穴あきパネル**から上がって、両側のラックの**前面**から吸い込まれる。
+# 背面から出た熱気は**ホットアイル**を通って天井へ戻る。
+#
+# ## 分けないと何が起きるか
+#
+# **吸気温度が上がる。** 同じ風量では冷えないので空調をさらに回すことになり、
+# **PUE が上がる。** 通路を分けるのは、風量を増やさずに吸気温度を下げるための置き方。
+#
+# ## 数
+#
+# **空冷で冷やせるのは 1 ラックあたり 15kW まで。** それ以上は水を使う話になる。
+#
+# **PUE ＝ データセンター全体の消費電力 ÷ IT 機器の消費電力。**
+# **低いほど効率がよく、1.0 が理論上の最良。最新のもので約 1.2** と見られている。
+#
+# 寒い土地では外気をそのまま使える。ある事例では**空調コストを約 4 割**減らせるとしている。
+#
+# 電力の系統は見本 241、ラックと 1U は見本 235、PoE は見本 236。
+nodes:
+  - id: t1
+    label: "① 断面 —— 冷気は床下から上がり、熱気は背面から出て天井へ戻る"
+    marker: none
+    align: left
+    at: { x: 140, y: 160 }
+    size: { w: 700, h: 18 }
+  - id: crac
+    label: "CRAC"
+    hatch: lines
+    at: { x: 150, y: 262 }
+    size: { w: 90, h: 160 }
+  - id: cracn
+    label: "空調機"
+    marker: none
+    align: center
+    at: { x: 150, y: 346 }
+    size: { w: 90, h: 18 }
+  - id: rka
+    label: "ラック"
+    at: { x: 300, y: 262 }
+    size: { w: 110, h: 160 }
+  - id: rkb
+    label: "ラック"
+    at: { x: 520, y: 262 }
+    size: { w: 110, h: 160 }
+  - id: rkan
+    label: "前面 →"
+    marker: none
+    align: center
+    at: { x: 300, y: 346 }
+    size: { w: 110, h: 18 }
+  - id: rkbn
+    label: "← 前面"
+    marker: none
+    align: center
+    at: { x: 520, y: 346 }
+    size: { w: 110, h: 18 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 139, y: 423 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 779, y: 423 }
+    size: { w: 2, h: 2 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 139, y: 457 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 779, y: 457 }
+    size: { w: 2, h: 2 }
+  - id: plenum
+    label: "フリーアクセスフロア（床下が給気の通り道）"
+    marker: none
+    align: left
+    at: { x: 250, y: 466 }
+    size: { w: 420, h: 18 }
+  - id: grille
+    label: ""
+    hatch: dots
+    at: { x: 440, y: 420 }
+    size: { w: 70, h: 8 }
+  - id: grn
+    label: "↑ 穴あきパネル（床の給気口）"
+    marker: none
+    align: center
+    at: { x: 360, y: 488 }
+    size: { w: 280, h: 18 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 195, y: 429 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 474, y: 429 }
+    size: { w: 2, h: 2 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 474, y: 415 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 474, y: 349 }
+    size: { w: 2, h: 2 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 469, y: 335 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 413, y: 335 }
+    size: { w: 2, h: 2 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 479, y: 335 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 515, y: 335 }
+    size: { w: 2, h: 2 }
+  - id: cold
+    label: ""
+    marker: none
+    hatch: dots
+    at: { x: 414, y: 262 }
+    size: { w: 106, h: 152 }
+  - id: coldn
+    label: "コールドアイル"
+    marker: none
+    align: center
+    at: { x: 414, y: 272 }
+    size: { w: 106, h: 18 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 295, y: 335 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 261, y: 239 }
+    size: { w: 2, h: 2 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 633, y: 335 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 689, y: 239 }
+    size: { w: 2, h: 2 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 689, y: 231 }
+    size: { w: 2, h: 2 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 205, y: 257 }
+    size: { w: 2, h: 2 }
+  - id: hot2
+    label: "ホットアイル（背面側）"
+    marker: none
+    align: left
+    at: { x: 640, y: 272 }
+    size: { w: 170, h: 18 }
+  - id: ceil
+    label: "天井（還り）"
+    marker: none
+    align: center
+    at: { x: 380, y: 208 }
+    size: { w: 200, h: 18 }
+  - id: t2
+    label: "② 上から —— 前面どうし・背面どうしで向かい合わせる"
+    marker: none
+    align: left
+    at: { x: 880, y: 160 }
+    size: { w: 500, h: 18 }
+  - id: u0a
+    label: ""
+    at: { x: 900, y: 220 }
+    size: { w: 150, h: 28 }
+  - id: u0b
+    label: ""
+    at: { x: 1060, y: 220 }
+    size: { w: 150, h: 28 }
+  - id: u0n
+    label: "▼ 前面　コールドアイル"
+    marker: none
+    align: left
+    at: { x: 900, y: 252 }
+    size: { w: 310, h: 18 }
+  - id: u1a
+    label: ""
+    at: { x: 900, y: 286 }
+    size: { w: 150, h: 28 }
+  - id: u1b
+    label: ""
+    at: { x: 1060, y: 286 }
+    size: { w: 150, h: 28 }
+  - id: u1n
+    label: "▲ 背面　ホットアイル"
+    marker: none
+    align: left
+    at: { x: 900, y: 318 }
+    size: { w: 310, h: 18 }
+  - id: u2a
+    label: ""
+    at: { x: 900, y: 352 }
+    size: { w: 150, h: 28 }
+  - id: u2b
+    label: ""
+    at: { x: 1060, y: 352 }
+    size: { w: 150, h: 28 }
+  - id: u2n
+    label: "▼ 前面　コールドアイル"
+    marker: none
+    align: left
+    at: { x: 900, y: 384 }
+    size: { w: 310, h: 18 }
+  - id: u3a
+    label: ""
+    at: { x: 900, y: 418 }
+    size: { w: 150, h: 28 }
+  - id: u3b
+    label: ""
+    at: { x: 1060, y: 418 }
+    size: { w: 150, h: 28 }
+  - id: u3n
+    label: "▲ 背面　ホットアイル"
+    marker: none
+    align: left
+    at: { x: 900, y: 450 }
+    size: { w: 310, h: 18 }
+  - id: un
+    label: "ラックの向きを 1 列おきに返すので、前面どうし・背面どうしで通路ができる。"
+    marker: none
+    align: left
+    at: { x: 880, y: 500 }
+    size: { w: 500, h: 18 }
+  - id: un2
+    label: "全部同じ向きに並べると、前の列が出した熱気を次の列が吸い込む。"
+    marker: none
+    align: left
+    at: { x: 880, y: 522 }
+    size: { w: 500, h: 18 }
+  - id: r1
+    label: "・空冷で冷やせるのは 1 ラックあたり 15kW まで。 それ以上は水を使う話になる。"
+    marker: none
+    align: left
+    at: { x: 140, y: 570 }
+    size: { w: 1200, h: 18 }
+  - id: r2
+    label: "・PUE ＝ データセンター全体の消費電力 ÷ IT 機器の消費電力。"
+    marker: none
+    align: left
+    at: { x: 140, y: 594 }
+    size: { w: 1200, h: 18 }
+  - id: r3
+    label: "　低いほど効率がよく、1.0 が理論上の最良。 最新のもので約 1.2 と見られている。"
+    marker: none
+    align: left
+    at: { x: 140, y: 618 }
+    size: { w: 1200, h: 18 }
+  - id: r4
+    label: "・寒い土地では外気をそのまま使える。 ある事例では空調コストを約 4 割減らせるとしている。"
+    marker: none
+    align: left
+    at: { x: 140, y: 642 }
+    size: { w: 1200, h: 18 }
+  - id: h140_690
+    label: "数（出典に書かれている値）"
+    hatch: solid
+    at: { x: 140, y: 690 }
+    size: { w: 620, h: 24 }
+  - id: x140_714
+    label: "空冷の上限"
+    at: { x: 140, y: 714 }
+    size: { w: 260, h: 24 }
+  - id: y140_714
+    label: "1 ラックあたり 15kW"
+    align: left
+    at: { x: 400, y: 714 }
+    size: { w: 360, h: 24 }
+  - id: x140_738
+    label: "PUE"
+    at: { x: 140, y: 738 }
+    size: { w: 260, h: 24 }
+  - id: y140_738
+    label: "全体の消費電力 ÷ IT 機器の消費電力"
+    align: left
+    at: { x: 400, y: 738 }
+    size: { w: 360, h: 24 }
+  - id: x140_762
+    label: "　理論上の最良"
+    at: { x: 140, y: 762 }
+    size: { w: 260, h: 24 }
+  - id: y140_762
+    label: "1.0"
+    align: left
+    at: { x: 400, y: 762 }
+    size: { w: 360, h: 24 }
+  - id: x140_786
+    label: "　最新のもの"
+    at: { x: 140, y: 786 }
+    size: { w: 260, h: 24 }
+  - id: y140_786
+    label: "約 1.2"
+    align: left
+    at: { x: 400, y: 786 }
+    size: { w: 360, h: 24 }
+  - id: x140_810
+    label: "外気冷房"
+    at: { x: 140, y: 810 }
+    size: { w: 260, h: 24 }
+  - id: y140_810
+    label: "空調コスト 約 4 割の削減（ある事例）"
+    align: left
+    at: { x: 400, y: 810 }
+    size: { w: 360, h: 24 }
+  - id: h860_690
+    label: "なぜ通路を分けるのか"
+    hatch: solid
+    at: { x: 860, y: 690 }
+    size: { w: 620, h: 24 }
+  - id: x860_714
+    label: "分けないと"
+    at: { x: 860, y: 714 }
+    size: { w: 250, h: 24 }
+  - id: y860_714
+    label: "前の列の排気を、次の列が吸い込む"
+    align: left
+    at: { x: 1110, y: 714 }
+    size: { w: 370, h: 24 }
+  - id: x860_738
+    label: "吸い込むと"
+    at: { x: 860, y: 738 }
+    size: { w: 250, h: 24 }
+  - id: y860_738
+    label: "吸気温度が上がり、同じ風量では冷えない"
+    align: left
+    at: { x: 1110, y: 738 }
+    size: { w: 370, h: 24 }
+  - id: x860_762
+    label: "冷えないと"
+    at: { x: 860, y: 762 }
+    size: { w: 250, h: 24 }
+  - id: y860_762
+    label: "空調をさらに回すので、PUE が上がる"
+    align: left
+    at: { x: 1110, y: 762 }
+    size: { w: 370, h: 24 }
+  - id: x860_786
+    label: "分ける方法"
+    at: { x: 860, y: 786 }
+    size: { w: 250, h: 24 }
+  - id: y860_786
+    label: "ラックの向きを 1 列おきに返す"
+    align: left
+    at: { x: 1110, y: 786 }
+    size: { w: 370, h: 24 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p2
+    to: p3
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p4
+    to: p5
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 196, y: 442 }
+      - { x: 475, y: 442 }
+  - from: p6
+    to: p7
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p8
+    to: p9
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p10
+    to: p11
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p12
+    to: p13
+    curve: none
+    ends: { from: none, to: arrow }
+    via:
+      - { x: 262, y: 336 }
+  - from: p14
+    to: p15
+    curve: none
+    ends: { from: none, to: arrow }
+    via:
+      - { x: 690, y: 336 }
+  - from: p16
+    to: p17
+    curve: none
+    ends: { from: none, to: arrow }
+    via:
+      - { x: 206, y: 232 }

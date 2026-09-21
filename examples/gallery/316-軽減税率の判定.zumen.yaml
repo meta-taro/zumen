@@ -1,0 +1,97 @@
+version: 1
+direction: down
+wrap: false
+title: 軽減税率の判定（同じ品物でも、どこで食べるかで変わる）
+# **2019 年 10 月から、消費税は 10% と 8% の 2 本立てになった。**
+# 軽減税率 8% の対象は、大きく 2 つだけ ——
+# **飲食料品**（食品表示法に規定する食品。**酒税法に規定する酒類を除く**）と、
+# **週 2 回以上発行される、定期購読契約の新聞。**
+#
+# **同じ品物でも、どこで食べるかで税率が変わる。**
+# **持ち帰りは 8%、店内で食べれば 10%。**
+# 分かれ目は品物ではなく、**「テーブル・いす等を設けて飲食させるための設備を置いた場所で
+# 食事を提供する」かどうか。** 同じハンバーガーが、レジでの一言で変わる。
+#
+# **新聞も、買い方で変わる。**
+# 定期購読の契約なら 8%、**コンビニで買えば 10%**。電子版も 10%。
+# **「何を」ではなく「どう買ったか」で決まる。**
+#
+# **一体資産は、2 つの条件を両方満たしたときだけ 8%。**
+# 食品と食品でないものを組にして売る場合、**価格が 1 万円以下**で、かつ
+# **食品の割合が 3 分の 2 以上**であること。おまけ付きのお菓子がこれ。
+#
+# **学校給食と老人ホームでの食事は 8%。** 設備を置いた場所での食事だが、
+# 外食とは別に扱われる —— **線は、生活のほうに合わせて引かれている。**
+nodes:
+  - id: start
+    type: generic
+    label: 売るもの
+  - id: q_food
+    type: generic
+    label: 飲食料品か
+    technology: 食品表示法に規定する食品
+  - id: q_paper
+    type: generic
+    label: 新聞か
+  - id: std1
+    type: generic
+    label: 10%
+    technology: それ以外はすべて標準税率
+  - id: q_sake
+    type: generic
+    label: 酒類か
+    technology: 酒税法に規定するもの
+  - id: q_eat
+    type: generic
+    label: 店内で食べるか
+    technology: テーブル・いす等のある場所
+  - id: q_sub
+    type: generic
+    label: 週 2 回以上 ＋ 定期購読か
+  - id: light1
+    type: storage
+    label: 8%
+    technology: 持ち帰り・出前・給食・老人ホーム
+  - id: light2
+    type: storage
+    label: 8%
+    technology: 定期購読の新聞
+  - id: std2
+    type: generic
+    label: 10%
+    technology: 店内飲食・ケータリング
+edges:
+  - from: start
+    to: q_food
+  - from: start
+    to: q_paper
+    line: dashed
+  - from: q_food
+    to: q_sake
+    label: はい
+  - from: q_food
+    to: std1
+    label: いいえ
+    line: dashed
+  - from: q_sake
+    to: std1
+    label: はい（酒は 10%）
+    line: dashed
+  - from: q_sake
+    to: q_eat
+    label: いいえ
+  - from: q_eat
+    to: std2
+    label: はい
+  - from: q_eat
+    to: light1
+    label: いいえ
+  - from: q_paper
+    to: q_sub
+  - from: q_sub
+    to: light2
+    label: はい
+  - from: q_sub
+    to: std1
+    label: いいえ
+    line: dashed

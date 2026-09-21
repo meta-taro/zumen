@@ -12,6 +12,16 @@ scale: { mm: 0.1 }
 # 付く側も決まっている（上向きは符頭の右、下向きは左）。
 # ♯を置く順は**ファ・ド・ソ・レ・ラ・ミ・シ**で、置く場所まで決まっている。
 nodes:
+  - id: dim_p0
+    label: ""
+    marker: none
+    at: { x: 239, y: 335 }
+    size: { w: 2, h: 2 }
+  - id: dim_p1
+    label: ""
+    marker: none
+    at: { x: 239, y: 401 }
+    size: { w: 2, h: 2 }
   - id: al0
     label: ""
     marker: none
@@ -116,7 +126,7 @@ nodes:
   - id: p7
     label: ""
     marker: none
-    at: { x: 518.8, y: 359 }
+    at: { x: 518.8, y: 341.5 }
     size: { w: 2, h: 2 }
   - id: nt3
     label: ""
@@ -745,7 +755,15 @@ edges:
   - from: p0
     to: p1
     curve: none
-    ends: { from: arrow, to: arrow }
+    ends: { from: none, to: none }
+  - from: dim_p0
+    to: p0
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: dim_p1
+    to: p1
+    curve: none
+    ends: { from: none, to: arrow }
   - from: p2
     to: p3
     curve: none

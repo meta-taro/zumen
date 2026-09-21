@@ -180,6 +180,10 @@ export interface Placed {
   title: string | null;
   /** **階の一覧**（`src/floor.ts`）。下から上へ。書かなければ空。 */
   floors: string[];
+  /** **折り返したか**（`src/wrap.ts`）。細長い構成図に、もう済んでいる逃げ道を言わないため。 */
+  wrap: boolean;
+  /** **`wrap` を正本に書いたか。** `false` と書いてあるなら、一度試して戻した形かもしれない。 */
+  wrapWritten: boolean;
   /** **通り芯**（`src/grid.ts`）。書かなければ空。配置図でだけ描く。 */
   grid: Grid;
   /**
@@ -361,7 +365,9 @@ export async function layout(text: string): Promise<Placed> {
   };
   const direction = elkDirection(directionOf(raw.direction));
   // **折り返すかは正本が決める**（`src/wrap.ts`）。既定は折り返さない。
-  const wrap = wrapOptions(wrapOf(raw.wrap));
+  const wrapped = wrapOf(raw.wrap);
+  const wrapWritten = raw.wrap !== undefined && raw.wrap !== null;
+  const wrap = wrapOptions(wrapped);
   const graph = buildGraph(nodes, groupIds, diagram.edges(), pins, direction, wrap);
   const laid = await new ELK().layout(graph);
 
@@ -557,6 +563,8 @@ export async function layout(text: string): Promise<Placed> {
     boxes,
     groups,
     edges,
+    wrap: wrapped,
+    wrapWritten,
     collisions: locked,
     title: asText(raw.title),
     floors: floorsOf(raw.floors),
@@ -1506,6 +1514,8 @@ function construct(raw: Record<string, unknown>, pins: Record<string, unknown>):
     boxes: [],
     groups: [],
     edges: [],
+    wrap: false,
+    wrapWritten: false,
     collisions: [],
     title: asText(raw.title),
     floors: [],

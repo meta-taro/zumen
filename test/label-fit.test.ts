@@ -264,3 +264,48 @@ nodes:
     assert.ok(!validate(STARS.replace('"**留め**に切る"', '"300 * 2"')).some((f) => f.code === 'label-markdown'));
   });
 });
+
+/**
+ * **折り返した名前が、箱からはみ出す**（2026-09-21）。
+ *
+ * 名前は箱の**上下の真ん中**から積むので（`src/render.ts`）、
+ * 行が増えると上下へはみ出す。
+ * **幅は `name-adrift` が見ていたが、高さは誰も見ていなかった。**
+ * 見本 297（郵便物の規格）を描いていて自分で踏んだ ——
+ * 2 行の名前を高さ 18px の箱に入れ、2 行目が下の図にかぶった。
+ */
+describe('折り返した名前の高さ', () => {
+  const box = (label: string, h: number): string =>
+    [
+      'version: 1', 'kind: placement', 'nodes:',
+      '  - id: a', `    label: ${JSON.stringify(label)}`, '    marker: none',
+      '    at: { x: 0, y: 0 }', `    size: { w: 200, h: ${h} }`, '',
+    ].join('\n');
+
+  it('**2 行を 18px の箱に入れたら名指しする**', async () => {
+    const { placedFindings } = await import('../src/cli.ts');
+    const found = await placedFindings(box('上の行\n下の行', 18));
+    const said = found.filter((f) => f.code === 'label-too-tall');
+    assert.equal(said.length, 1, found.map((f) => f.code).join(','));
+    assert.match(said[0]!.message, /2 行/, said[0]!.message);
+    assert.match(said[0]!.message, /28px/, '要る高さを言っていない');
+  });
+
+  it('高さが足りていれば言わない', async () => {
+    const { placedFindings } = await import('../src/cli.ts');
+    const found = await placedFindings(box('上の行\n下の行', 36));
+    assert.ok(!found.some((f) => f.code === 'label-too-tall'));
+  });
+
+  it('1 行には言わない（折り返していないので積まない）', async () => {
+    const { placedFindings } = await import('../src/cli.ts');
+    const found = await placedFindings(box('1 行だけ', 8));
+    assert.ok(!found.some((f) => f.code === 'label-too-tall'));
+  });
+
+  it('警告であって、図は出る', async () => {
+    const { placedFindings } = await import('../src/cli.ts');
+    const found = await placedFindings(box('上の行\n下の行', 18));
+    assert.ok(found.every((f) => f.severity === 'warning'));
+  });
+});

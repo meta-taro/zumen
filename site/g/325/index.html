@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ハブ・スイッチ・アクセスポイント（どこまで届くか） — zumen の見本 325</title>
+<link rel="icon" type="image/svg+xml" href="../../icon.svg">
+<meta name="theme-color" content="#23232b">
+<meta name="description" content="ハブとスイッチと AP（どこまで届くかが、違いのすべて）">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="zumen">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:url" content="https://meta-taro.github.io/zumen/g/325/">
+<meta property="og:title" content="ハブ・スイッチ・アクセスポイント（どこまで届くか） — zumen の見本 325">
+<meta property="og:description" content="ハブとスイッチと AP（どこまで届くかが、違いのすべて）">
+<meta property="og:image" content="https://meta-taro.github.io/zumen/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ハブ・スイッチ・アクセスポイント（どこまで届くか） — zumen の見本 325">
+<meta name="twitter:description" content="ハブとスイッチと AP（どこまで届くかが、違いのすべて）">
+<meta name="twitter:image" content="https://meta-taro.github.io/zumen/og.png">
+<link rel="stylesheet" href="../../style.css">
+<link rel="canonical" href="https://meta-taro.github.io/zumen/g/325/">
+<link rel="alternate" hreflang="ja" href="https://meta-taro.github.io/zumen/g/325/">
+<link rel="alternate" hreflang="en" href="https://meta-taro.github.io/zumen/en/g/325/">
+<link rel="alternate" hreflang="x-default" href="https://meta-taro.github.io/zumen/g/325/">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="alternate" type="text/markdown" href="https://meta-taro.github.io/zumen/llms.txt" title="llms.txt">
+<link rel="sitemap" type="application/xml" href="https://meta-taro.github.io/zumen/sitemap.xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": "ハブ・スイッチ・アクセスポイント（どこまで届くか）",
+  "description": "ハブとスイッチと AP（どこまで届くかが、違いのすべて）",
+  "url": "https://meta-taro.github.io/zumen/g/325/",
+  "image": "https://meta-taro.github.io/zumen/gallery/325-%E3%83%8F%E3%83%96%E3%81%A8%E3%82%B9%E3%82%A4%E3%83%83%E3%83%81%E3%81%A8%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88.svg",
+  "inLanguage": "ja",
+  "license": "https://opensource.org/licenses/MIT",
+  "isPartOf": {
+    "@type": "CollectionPage",
+    "name": "IT・ソフトウェア",
+    "url": "https://meta-taro.github.io/zumen/c/it/"
+  },
+  "encodingFormat": "text/yaml",
+  "isAccessibleForFree": true
+}
+</script>
+</head>
+<body class="sub">
+<header class="bar">
+  <a class="home" href="../../">zumen</a>
+  <nav><a href="../../c/it/">IT・ソフトウェア</a></nav>
+</header>
+<main>
+<article>
+  <p class="crumb">IT・ソフトウェア</p>
+  <h1>ハブ・スイッチ・アクセスポイント（どこまで届くか）</h1>
+  <p class="lead">ハブとスイッチと AP（どこまで届くかが、違いのすべて）</p>
+  <figure>
+    <img src="../../gallery/325-%E3%83%8F%E3%83%96%E3%81%A8%E3%82%B9%E3%82%A4%E3%83%83%E3%83%81%E3%81%A8%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88.svg" alt="同じ 4 台（A・B・C・D）をつないで A が B 宛てに 1 つ送ったとき、フレームがどこまで届くかを 3 通り並べた図。リピータハブは受けたポート以外の全部へ出し衝突ドメインが 1 つ、スイッチングハブは B のポートだけへ出し衝突ドメインがポートごとに 4 つ、無線のアクセスポイントは破線の電波で全員に届き衝突ドメインが 1 つ。破線の枠が衝突ドメインを示し、スイッチが表を覚えるまでの 4 段、送り出し方の 3 つ、CSMA/CD と CSMA/CA の違い、802.11 の規格表を添えた図" loading="lazy">
+  </figure>
+  <p class="made">この図は、下の 1 枚の YAML から描かれています。手で図形を動かしてはいません。</p>
+  <h2>正本に書いてある決まりごと</h2>
+  <p><strong>同じ 4 台をつないで、A が B 宛てに 1 つ送る。</strong> 違いはそこに全部出る。</p>
+  <p>レイヤ 1（物理層）の装置で、<strong>受けたポート以外の全ポートへそのまま出す。</strong>C も D も受け取ってから、自分宛てでないので捨てる。<strong>衝突ドメインは 1 つ</strong>なので、同時に送れるのは 1 台だけ（半二重・CSMA/CD）。</p>
+  <p>レイヤ 2（データリンク層）の装置で、<strong>MAC アドレスの表を持っている。</strong></p>
+  <p>表は最初から埋まっているわけではない。<strong>送られてきたフレームの送り元を見て覚える。</strong>宛先が分からないうちは全ポートへ出し（フラッディング）、相手が返事をした時点で相手のポートも分かる。</p>
+  <p><strong>衝突ドメインがポートごとに切れる</strong>ので、全二重にできる ——1 つの衝突ドメインに送信機と受信機が 1 つずつしかなければ、衝突は起こらない。</p>
+  <p>電波は<strong>共有の媒体</strong>なので、届く範囲の全員に届く。AP を足しても衝突ドメインは切れない。だから半二重で、<strong>送る前に毎回待つ</strong>（CSMA/CA）。</p>
+  <p><strong>有線と無線で構えが逆になるのは、無線に信頼できる衝突検出の手段が無いから。</strong>有線は「送りながら衝突を見つけて即やめる」、無線は「送る前に毎回待つ」。</p>
+  <p><strong>隠れ端末</strong> —— A から見える C と、A から見えない D が同時に送ると、キャリアセンスが効かない。802.11 は RTS/CTS でこれを避ける。</p>
+  <p>結線の色は見本 324、ラックと 1U は見本 235、PoE は見本 236。</p>
+  <h2>正本（YAML）</h2>
+  <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/325-%E3%83%8F%E3%83%96%E3%81%A8%E3%82%B9%E3%82%A4%E3%83%83%E3%83%81%E3%81%A8%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88.zumen.yaml"><code>examples/gallery/325-ハブとスイッチとアクセスポイント.zumen.yaml</code></a></p>
+  <h2>同じ分野の見本</h2>
+  <ul class="near"><li><a href="../01/">オンプレのサーバ構成</a></li><li><a href="../02/">クラウド構成</a></li><li><a href="../03/">データの流れ</a></li><li><a href="../04/">ネットワーク構成</a></li><li><a href="../21/">テーブルの関係（ER）</a></li><li><a href="../26/">データセンターのラック配置</a></li><li><a href="../46/">クラス図（UML）</a></li><li><a href="../47/">状態遷移図（UML）</a></li></ul>
+</article>
+</main>
+<footer class="foot">
+  <p><a href="https://github.com/meta-taro/zumen">GitHub</a> · MIT · <a href="https://meta-taro.github.io/zumen/en/g/325/">English</a></p>
+</footer>
+</body>
+</html>

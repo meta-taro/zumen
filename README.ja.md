@@ -36,7 +36,7 @@
 | <img src="examples/gallery/22-避難経路図.svg" width="320"> | <img src="examples/gallery/23-厨房の動線.svg" width="320"> |
 | 避難経路図 | 厨房の区域と動線（HACCP） |
 
-**273 枚を [`examples/gallery/`](examples/gallery/) に置いてあります。**
+**342 枚を [`examples/gallery/`](examples/gallery/) に置いてあります。**
 [紹介のページ](https://meta-taro.github.io/zumen/)に全部並べてあり、業界で絞り込めます。
 
 **業界ごとの図形は 1 つも足していません。** `type` は 11 語のままです。
@@ -153,6 +153,8 @@ pnpm qa:verify   # **人が画面を見た証跡**を読み返す（git-qa。qa/
 pnpm validate <図のファイル> ...   # 形式に適合しているかを見る
 pnpm measure  <図のファイル> ...   # 「AI が 9 割描けたか」を測る
 pnpm inspect  <図のファイル> ...   # 観測値を見せる（交差・またぎ・文字の重なり・紙の上の比）
+pnpm inspect  <図のファイル> ... --tally   # まとめて数え上げる（どの検査が何本・何枚で鳴っているか）
+pnpm gallery                      # 見本を描き直す。**書いてある数（枚数・検査の項目数）も実物に合わせる**
 pnpm svg      <図のファイル>       # SVG を書き出す（--dark 暗い地へ / --vivid 主役を強く）
 pnpm mermaid  <図のファイル>       # Mermaid を書き出す（翌日 読める）
 pnpm drawio   <図のファイル>       # draw.io の XML へ書き出す（翌日 編集できる）
@@ -171,7 +173,7 @@ pnpm merge    <正本> <提案>        # AI の提案を正本へ入れる（競
 **まず `zumen_about` を 1 回。** 何をする道具か・**どの口が開いていないか**・版ごとに何が変わったかを返します。
 **試して断られる往復が減ります。**
 
-開いている口は 15 個。`zumen_spec`（形式を教える）／**`zumen_examples`（同梱の見本 273 枚の目次と正本を返す）**／
+開いている口は 15 個。`zumen_spec`（形式を教える）／**`zumen_examples`（同梱の見本 342 枚の目次と正本を返す）**／
 `zumen_create`（**ゼロから作る。既にあれば失敗**）／
 `zumen_propose`（**提案の `pins` は読まない**）／`zumen_inspect`（交差・重なり・**置けずに消えたラベル**・**投影で読める大きさか**・**人が見たか**・「9 割」を返す）ほか。
 

@@ -588,6 +588,36 @@ describe('観測値を見せる（inspect）', () => {
     '',
   ].join('\n');
 
+  /**
+   * **たくさんの図は、1 枚ずつではなく数え上げる**（2026-09-21）。
+   *
+   * 1 枚 4 行の観測値を 325 枚に当てると 1300 行になり、読めない ——
+   * このリポジトリの作業では、結局その場で使い捨てのループを 7 回書いた。
+   */
+  it('**--tally は、検査ごとに何本・何枚かだけを出す**', async () => {
+    const thin = [
+      'version: 1',
+      'kind: placement',
+      'palette:',
+      '  薄: "#eeeeee"',
+      'nodes:',
+      '  - id: a',
+      '    label: "薄い色の箱"',
+      '    color: 薄',
+      '    at: { x: 0, y: 0 }',
+      '    size: { w: 100, h: 40 }',
+      '',
+    ].join('\n');
+    const files = { 'a.yaml': thin, 'b.yaml': thin, 'c.yaml': CROSS };
+    const result = await runInspect(['--tally', 'a.yaml', 'b.yaml', 'c.yaml'], reader(files) as never);
+    assert.equal(result.code, 0);
+    const said = result.lines.join('\n');
+    assert.match(said, /見本 3 枚を数えました/);
+    assert.match(said, /color-faint.*2 本 ／ 2 枚/, `検査ごとの数が出ていない\n${said}`);
+    // **1 枚ずつの観測値は出さない。** それが数え上げの目的。
+    assert.doesNotMatch(said, /紙 \d+ × \d+px/, `数え上げなのに 1 枚ずつの行が出ている\n${said}`);
+  });
+
   it('**交差を数えて、どれとどれかを言う**', async () => {
     const result = await runInspect(['a.yaml'], reader({ 'a.yaml': CROSS }) as never);
     assert.equal(result.code, 0, '止めない');
@@ -697,6 +727,21 @@ describe('inspect が、検査と同じものを見る', () => {
     assert.doesNotMatch(result.lines.join('\n'), /警告/);
   });
 
+  /**
+   * **どちらの図かを、最初に言う**（2026-09-20）。
+   *
+   * 配置図と構成図では直し方が違う —— またぎも交差も、配置図なら自分で動かして消すが、
+   * **構成図では書き手に動かす手段が無い。** どちらなのかを `kind:` の grep で確かめていた。
+   */
+  it('**配置図か構成図かを言う**', async () => {
+    const plan = 'version: 1\nkind: placement\nnodes:\n  - id: a\n    label: あ\n    at: { x: 0, y: 0 }\n    size: { w: 80, h: 40 }\n';
+    const built = 'version: 1\nnodes:\n  - id: a\n    label: あ\n  - id: b\n    label: い\nedges:\n  - from: a\n    to: b\n';
+    const one = await runInspect(['a.yaml'], reader({ 'a.yaml': plan }) as never);
+    assert.match(one.lines.join('\n'), /配置図/, one.lines.join('\n'));
+    const two = await runInspect(['b.yaml'], reader({ 'b.yaml': built }) as never);
+    assert.match(two.lines.join('\n'), /構成図/, two.lines.join('\n'));
+  });
+
   it('**またぎは、どれだけ重なっているかまで言う**', async () => {
     const over = [
       'version: 1', 'kind: placement', 'nodes:',
@@ -739,6 +784,8 @@ describe('inspect が、検査と同じものを見る', () => {
     const result = await runInspect(['a.yaml'], reader({ 'a.yaml': hidden }) as never);
     const said = result.lines.join('\n');
     assert.match(said, /絵に出ていない辺のラベル/, said);
+    // **どの言葉が消えたかまで言う**（id だけでは、書いた文字を探しに戻ることになる）。
+    assert.match(said, /「とても長いラベル」/, said);
     assert.equal(result.code, 0, '止めない');
   });
 
@@ -819,5 +866,278 @@ describe('inspect が読めない図を渡されたとき', () => {
     const result = await runInspect(['a.yaml'], reader({ 'a.yaml': ok }) as never);
     const said = result.lines.join('\n');
     assert.ok(!/長辺 \d+\.\d/.test(said), said);
+  });
+});
+
+/**
+ * **警告は、件数だけでなく種類まで出す**（2026-09-21）。
+ *
+ * 「警告 2 件」だけだと、`pnpm validate` をもう一度叩かないと種類が分からない ——
+ * 見本 286・287 を描いていて、同じ往復を 2 回した。
+ * **中身（どの節か・何 px か）は出さない。**それは `validate` の仕事のまま。
+ */
+describe('inspect が出す警告の種類', () => {
+  // 8px しか離れていない 2 つの箱。既定の矢印（12px）のほうが長い。
+  const NEAR = [
+    'version: 1',
+    'kind: placement',
+    'nodes:',
+    '  - id: a',
+    '    label: あ',
+    '    at: { x: 0, y: 0 }',
+    '    size: { w: 60, h: 40 }',
+    '  - id: b',
+    '    label: い',
+    '    at: { x: 68, y: 0 }',
+    '    size: { w: 60, h: 40 }',
+    'edges:',
+    '  - from: a',
+    '    to: b',
+    '',
+  ].join('\n');
+
+  it('**どの検査が鳴っているかを言う**', async () => {
+    const result = await runInspect(['a.yaml'], reader({ 'a.yaml': NEAR }) as never);
+    const said = result.lines.join('\n');
+    assert.match(said, /警告 1 件/, said);
+    assert.match(said, /ends-too-long/, `種類を言っていない\n${said}`);
+  });
+
+  it('警告が無ければ、その行を出さない', async () => {
+    const far = NEAR.replace('x: 68', 'x: 200');
+    const result = await runInspect(['a.yaml'], reader({ 'a.yaml': far }) as never);
+    assert.ok(!result.lines.some((line) => line.includes('警告')), result.lines.join('\n'));
+  });
+});
+
+/**
+ * **構成図には、別の言い方が要る**（2026-09-21）。
+ *
+ * `too-small-to-print` は「長辺の端の 2 つの間を詰めてください」と言っていたが、
+ * **構成図では置き場所を機械が決める**ので、詰めようがない。
+ * 動かせるのは**節の数と、鎖の深さ**だけ。
+ * 見本 287（日本酒）を描くとき、この言い方が無くて 4 回やり直した ——
+ * 20 節で 1928 × 2361 になり、`wrap` も `direction` も効かず、
+ * **効いたのは節を減らすことだけ**だった。
+ */
+describe('構成図が紙に収まらないとき', () => {
+  /** n 個の節を 1 本の鎖でつなぐ（＝鎖の深さが n）。 */
+  const chain = (n: number): string => {
+    const nodes = Array.from({ length: n }, (_, i) =>
+      `  - id: n${i}\n    label: 工程 ${i}\n    technology: 短い副題をここへ\n`,
+    ).join('');
+    const edges = Array.from({ length: n - 1 }, (_, i) => `  - from: n${i}\n    to: n${i + 1}\n`).join('');
+    return `version: 1\ndirection: down\nnodes:\n${nodes}edges:\n${edges}`;
+  };
+
+  it('**何段あって、何段まで減らせばよいかを言う**', async () => {
+    const result = await runInspect(['a.yaml'], reader({ 'a.yaml': chain(24) }) as never);
+    const found = await (await import('../src/cli.ts')).placedFindings(chain(24));
+    const said = found.find((f) => f.code === 'too-small-to-print');
+    assert.ok(said !== undefined, found.map((f) => f.code).join(','));
+    assert.match(said.message, /長辺の向きに 24 段/, said.message);
+    assert.match(said.message, /段まで減らしてください/, said.message);
+    assert.equal(result.code, 0, '止めない');
+  });
+
+  it('**「端の 2 つを詰めろ」とは言わない**（構成図では動かせない）', async () => {
+    const found = await (await import('../src/cli.ts')).placedFindings(chain(24));
+    const said = found.find((f) => f.code === 'too-small-to-print');
+    assert.ok(said !== undefined);
+    assert.ok(!said.message.includes('この 2 つの間を詰めてください'), said.message);
+  });
+
+  it('短い鎖には言わない', async () => {
+    const found = await (await import('../src/cli.ts')).placedFindings(chain(4));
+    assert.ok(!found.some((f) => f.code === 'too-small-to-print'));
+  });
+});
+
+/**
+ * **隠した分の数を言う**（2026-09-21）。
+ *
+ * 先頭だけ並べて「…」で切っていたので、**あと何組あるのかが分からなかった。**
+ * 見本 48 枚にまたぎがあり、そのうち **27 枚が 6 組を超える** ——
+ * 半分以上で「全部見たのかどうか」が判断できなかった。
+ * 能舞台（見本 294）を描いたとき、22 組のまたぎのうち 6 組しか見えず、
+ * 全部を見るのに自分で数える道具を書く羽目になった。
+ */
+describe('並べきれない分の数', () => {
+  const many = (n: number): string => {
+    const nodes = Array.from({ length: n }, (_, i) =>
+      `  - id: a${i}\n    label: 部屋 ${i}\n    at: { x: ${i * 40}, y: 0 }\n    size: { w: 60, h: 60 }\n`,
+    ).join('');
+    return `version: 1\nkind: placement\nnodes:\n${nodes}`;
+  };
+
+  it('**「ほか N 組」と言う**（「…」で切らない）', async () => {
+    const result = await runInspect(['a.yaml'], reader({ 'a.yaml': many(30) }) as never);
+    const said = result.lines.join('\n');
+    assert.match(said, /またぎ/, said);
+    assert.match(said, /ほか \d+ 組/, `隠した分の数を言っていない\n${said}`);
+  });
+
+  it('**またぎは 20 組まで並べる**（交差と違って、1 つずつ決める相手）', async () => {
+    const result = await runInspect(['a.yaml'], reader({ 'a.yaml': many(30) }) as never);
+    const row = result.lines.find((line) => line.includes('またぎ'))!;
+    assert.equal(row.split('↔').length - 1, 20, row);
+  });
+
+  it('全部並べきれるときは、何も足さない', async () => {
+    const result = await runInspect(['a.yaml'], reader({ 'a.yaml': many(3) }) as never);
+    const row = result.lines.find((line) => line.includes('またぎ'))!;
+    assert.ok(!row.includes('ほか'), row);
+  });
+});
+
+/**
+ * **紙の縦横も出す**（2026-09-21）。
+ *
+ * 長辺しか出していなかったので、**どちらの向きが長いのか**が分からず、
+ * どこを詰めるかを決めるのに毎回、別に測る道具を書いていた（この夜だけで 6 回）。
+ */
+describe('inspect が出す紙の大きさ', () => {
+  const wide = [
+    'version: 1', 'kind: placement', 'nodes:',
+    '  - id: a', '    label: 左', '    at: { x: 0, y: 0 }', '    size: { w: 100, h: 40 }',
+    '  - id: b', '    label: 右', '    at: { x: 400, y: 0 }', '    size: { w: 100, h: 40 }',
+    '',
+  ].join('\n');
+
+  it('**縦と横の両方を言う**', async () => {
+    const result = await runInspect(['a.yaml'], reader({ 'a.yaml': wide }) as never);
+    const row = result.lines.find((line) => line.includes('いちばん小さい字'))!;
+    assert.match(row, /紙 \d+ × \d+px/, row);
+  });
+
+  it('長辺と比も、これまでどおり出す', async () => {
+    const result = await runInspect(['a.yaml'], reader({ 'a.yaml': wide }) as never);
+    const row = result.lines.find((line) => line.includes('いちばん小さい字'))!;
+    assert.match(row, /長辺 \d+px/, row);
+    assert.match(row, /比 [\d.]+/, row);
+  });
+});
+
+/**
+ * **細長すぎる構成図**（2026-09-21）。
+ *
+ * 貼った先で幅に合わせて縮むので、**細長いほど字が小さくなる**（`src/wrap.ts`）。
+ * 測ったら、構成図の縦横比の中央値は **2.19**（配置図は 1.27）で、
+ * **4 を超えるものが 34 枚中 5 枚**あった。
+ *
+ * 配置図の細長さは中身（長い断面・経路）であることが多いので見ない ——
+ * 構成図は**機械が形を決めている**ので、`wrap` で直せる見込みがある。
+ */
+describe('細長すぎる構成図', () => {
+  const chain = (n: number): string => {
+    const nodes = Array.from({ length: n }, (_, i) => `  - id: n${i}\n    label: 工程 ${i}\n`).join('');
+    const edges = Array.from({ length: n - 1 }, (_, i) => `  - from: n${i}\n    to: n${i + 1}\n`).join('');
+    return `version: 1\ndirection: down\nnodes:\n${nodes}edges:\n${edges}`;
+  };
+
+  it('**比を出して、折り返しを勧める**', async () => {
+    const { placedFindings } = await import('../src/cli.ts');
+    const found = await placedFindings(chain(10));
+    const said = found.find((f) => f.code === 'structure-too-thin');
+    assert.ok(said !== undefined, found.map((f) => f.code).join(','));
+    assert.match(said.message, /: 1/, said.message);
+    assert.match(said.message, /wrap: true/, said.message);
+  });
+
+  it('**折り返すと順が崩れることも言う**（wrap は万能ではない）', async () => {
+    const { placedFindings } = await import('../src/cli.ts');
+    const found = await placedFindings(chain(10));
+    const said = found.find((f) => f.code === 'structure-too-thin')!;
+    assert.match(said.message, /崩れることがあります/, said.message);
+  });
+
+  it('ほどよい形には言わない', async () => {
+    const { placedFindings } = await import('../src/cli.ts');
+    const found = await placedFindings(chain(3));
+    assert.ok(!found.some((f) => f.code === 'structure-too-thin'));
+  });
+
+  it('**配置図には言わない**（細長さが中身のことがある）', async () => {
+    const { placedFindings } = await import('../src/cli.ts');
+    const long = [
+      'version: 1', 'kind: placement', 'nodes:',
+      '  - id: a', '    label: 端', '    at: { x: 0, y: 0 }', '    size: { w: 40, h: 40 }',
+      '  - id: b', '    label: 端', '    at: { x: 2000, y: 0 }', '    size: { w: 40, h: 40 }',
+      '',
+    ].join('\n');
+    const found = await placedFindings(long);
+    assert.ok(!found.some((f) => f.code === 'structure-too-thin'));
+  });
+});
+
+/**
+ * **段の数は、中心で数える**（2026-09-21）。
+ *
+ * 機械は同じ段の節を同じ線の上に並べるが、**箱ごとに幅が違うので左端はずれる。**
+ * 左上の座標で数えたら、**3 段に折り返した図を 9 段**と数えた。
+ */
+describe('段の数', () => {
+  it('**幅の違う箱が同じ段にあっても、1 段と数える**', async () => {
+    const { rankCount } = await import('../src/cli.ts');
+    const same = {
+      boxes: [
+        { x: 0, y: 0, w: 100, h: 40 },
+        { x: 140, y: 0, w: 300, h: 40 },
+        { x: 500, y: 0, w: 60, h: 40 },
+      ],
+      width: 200,
+      height: 600,
+    };
+    assert.equal(rankCount(same), 1, '縦に並べた図なら、y が同じものは 1 段');
+  });
+
+  it('段が分かれていれば、その数を返す', async () => {
+    const { rankCount } = await import('../src/cli.ts');
+    const three = {
+      boxes: [
+        { x: 0, y: 0, w: 100, h: 40 },
+        { x: 0, y: 140, w: 300, h: 40 },
+        { x: 0, y: 280, w: 60, h: 40 },
+      ],
+      width: 200,
+      height: 600,
+    };
+    assert.equal(rankCount(three), 3);
+  });
+});
+
+/**
+ * **重なりの大きさが全部同じなら、1 回だけ言う**（2026-09-21）。
+ *
+ * 見本 311（ピアノの鍵盤）で、黒鍵と白鍵の 20 組が**どれも「横 12px ／ 縦 110px」**だった。
+ * 同じ数を 20 回繰り返すと 1 行が 800 字を超え、**組の名前が読めなくなる。**
+ */
+describe('またぎの大きさの言い方', () => {
+  const grid = (n: number): string => {
+    const nodes = Array.from({ length: n }, (_, i) =>
+      `  - id: a${i}\n    label: 白 ${i}\n    at: { x: ${i * 40}, y: 0 }\n    size: { w: 40, h: 60 }\n` +
+      (i === 0 ? '' : `  - id: b${i}\n    label: ""\n    at: { x: ${i * 40 - 10}, y: 0 }\n    size: { w: 20, h: 30 }\n`),
+    ).join('');
+    return `version: 1\nkind: placement\nnodes:\n${nodes}`;
+  };
+
+  it('**同じ大きさなら、名前だけ並べて最後に 1 回言う**', async () => {
+    const result = await runInspect(['a.yaml'], reader({ 'a.yaml': grid(5) }) as never);
+    const row = result.lines.find((line) => line.includes('またぎ'))!;
+    assert.match(row, /どれも 横 \d+px ／ 縦 \d+px/, row);
+    assert.equal(row.split('横').length - 1, 1, `大きさを 1 回だけ言っていない\n${row}`);
+  });
+
+  it('大きさが違えば、組ごとに言う（これまでどおり）', async () => {
+    const mixed = [
+      'version: 1', 'kind: placement', 'nodes:',
+      '  - id: a', '    label: あ', '    at: { x: 0, y: 0 }', '    size: { w: 100, h: 60 }',
+      '  - id: b', '    label: い', '    at: { x: 80, y: 0 }', '    size: { w: 100, h: 60 }',
+      '  - id: c', '    label: う', '    at: { x: 150, y: 30 }', '    size: { w: 100, h: 60 }',
+      '',
+    ].join('\n');
+    const result = await runInspect(['a.yaml'], reader({ 'a.yaml': mixed }) as never);
+    const row = result.lines.find((line) => line.includes('またぎ'))!;
+    assert.ok(!row.includes('どれも'), row);
   });
 });

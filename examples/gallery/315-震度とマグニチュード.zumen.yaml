@@ -1,0 +1,671 @@
+version: 1
+kind: placement
+arrows: true
+title: 震度とマグニチュード（数字の差が小さく見える尺度）
+# **震度は 10 階級。** 0・1・2・3・4・**5 弱・5 強・6 弱・6 強**・7 ——
+# **1996 年 4 月 1 日**に 5 と 6 がそれぞれ弱・強に分かれ、8 階級から 10 階級になった。
+#
+# **階級は、計測震度という数から決まる。**
+# 加速度の絶対値がある値以上になる時間の合計が**ちょうど 0.3 秒**になる値を求めたもので、
+# 境目はこう決まっている。
+#
+# | 階級 | 計測震度 |
+# |---|---|
+# | 震度 4 | 3.5 以上 4.5 未満 |
+# | 震度 5 弱 | 4.5 以上 5.0 未満 |
+# | 震度 5 強 | 5.0 以上 5.5 未満 |
+# | 震度 6 弱 | 5.5 以上 6.0 未満 |
+# | 震度 6 強 | 6.0 以上 6.5 未満 |
+# | 震度 7 | 6.5 以上 |
+#
+# **5 と 6 だけ 0.5 刻み。** 下の階級は 1.0 刻みなのに、
+# **被害が急に増える所だけ細かく分けてある。**
+#
+# **震度とマグニチュードは、別のものを測っている。**
+# **マグニチュードは地震そのものの規模**で、1 つの地震に 1 つ。
+# **震度はその場所の揺れの大きさ**で、**観測点の数だけある** ——
+# 「震度 6 強の地震」という言い方は、本当は略語。
+#
+# **M が 1 増えると、エネルギーは約 32 倍**（**10 の 1.5 乗 ＝ 31.62**）。
+# 2 増えれば **約 1,000 倍**、M6 と M9 では **約 32,000 倍。**
+# **数字の差が小さく見えるのが、この尺度の怖い所。**
+#
+# エネルギーの比は計算で確かめた。
+nodes:
+  - id: t1
+    label: "① 計測震度の目盛りと、10 階級の境目"
+    marker: none
+    align: left
+    at: { x: 140, y: 150 }
+    size: { w: 660, h: 20 }
+  - id: bar
+    label: ""
+    at: { x: 200, y: 250 }
+    size: { w: 620, h: 56 }
+  - id: n0
+    label: "0"
+    marker: none
+    align: center
+    at: { x: 201, y: 269 }
+    size: { w: 42.3, h: 18 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 243.3, y: 249 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 243.3, y: 305 }
+    size: { w: 2, h: 2 }
+  - id: n1
+    label: "1"
+    marker: none
+    align: center
+    at: { x: 245.3, y: 269 }
+    size: { w: 86.6, h: 18 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 331.9, y: 249 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 331.9, y: 305 }
+    size: { w: 2, h: 2 }
+  - id: n2
+    label: "2"
+    marker: none
+    align: center
+    at: { x: 333.9, y: 269 }
+    size: { w: 86.6, h: 18 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 420.4, y: 249 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 420.4, y: 305 }
+    size: { w: 2, h: 2 }
+  - id: n3
+    label: "3"
+    marker: none
+    align: center
+    at: { x: 422.4, y: 269 }
+    size: { w: 86.6, h: 18 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 509, y: 249 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 509, y: 305 }
+    size: { w: 2, h: 2 }
+  - id: n4
+    label: "4"
+    marker: none
+    align: center
+    at: { x: 511, y: 269 }
+    size: { w: 86.6, h: 18 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 597.6, y: 249 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 597.6, y: 305 }
+    size: { w: 2, h: 2 }
+  - id: n5
+    label: "5弱"
+    marker: none
+    align: center
+    at: { x: 599.6, y: 269 }
+    size: { w: 42.3, h: 18 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 641.9, y: 249 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 641.9, y: 305 }
+    size: { w: 2, h: 2 }
+  - id: n6
+    label: "5強"
+    marker: none
+    align: center
+    at: { x: 643.9, y: 269 }
+    size: { w: 42.3, h: 18 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 686.1, y: 249 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 686.1, y: 305 }
+    size: { w: 2, h: 2 }
+  - id: n7
+    label: "6弱"
+    marker: none
+    align: center
+    at: { x: 688.1, y: 269 }
+    size: { w: 42.3, h: 18 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 730.4, y: 249 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 730.4, y: 305 }
+    size: { w: 2, h: 2 }
+  - id: n8
+    label: "6強"
+    marker: none
+    align: center
+    at: { x: 732.4, y: 269 }
+    size: { w: 42.3, h: 18 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 774.7, y: 249 }
+    size: { w: 2, h: 2 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 774.7, y: 305 }
+    size: { w: 2, h: 2 }
+  - id: n9
+    label: "7"
+    marker: none
+    align: center
+    at: { x: 776.7, y: 269 }
+    size: { w: 42.3, h: 18 }
+  - id: p18
+    label: ""
+    marker: none
+    at: { x: 199, y: 305 }
+    size: { w: 2, h: 2 }
+  - id: p19
+    label: ""
+    marker: none
+    at: { x: 199, y: 313 }
+    size: { w: 2, h: 2 }
+  - id: s0
+    label: "0"
+    marker: none
+    align: center
+    at: { x: 180, y: 318 }
+    size: { w: 40, h: 18 }
+  - id: p20
+    label: ""
+    marker: none
+    at: { x: 287.6, y: 305 }
+    size: { w: 2, h: 2 }
+  - id: p21
+    label: ""
+    marker: none
+    at: { x: 287.6, y: 313 }
+    size: { w: 2, h: 2 }
+  - id: s1
+    label: "1"
+    marker: none
+    align: center
+    at: { x: 268.6, y: 318 }
+    size: { w: 40, h: 18 }
+  - id: p22
+    label: ""
+    marker: none
+    at: { x: 376.1, y: 305 }
+    size: { w: 2, h: 2 }
+  - id: p23
+    label: ""
+    marker: none
+    at: { x: 376.1, y: 313 }
+    size: { w: 2, h: 2 }
+  - id: s2
+    label: "2"
+    marker: none
+    align: center
+    at: { x: 357.1, y: 318 }
+    size: { w: 40, h: 18 }
+  - id: p24
+    label: ""
+    marker: none
+    at: { x: 464.7, y: 305 }
+    size: { w: 2, h: 2 }
+  - id: p25
+    label: ""
+    marker: none
+    at: { x: 464.7, y: 313 }
+    size: { w: 2, h: 2 }
+  - id: s3
+    label: "3"
+    marker: none
+    align: center
+    at: { x: 445.7, y: 318 }
+    size: { w: 40, h: 18 }
+  - id: p26
+    label: ""
+    marker: none
+    at: { x: 553.3, y: 305 }
+    size: { w: 2, h: 2 }
+  - id: p27
+    label: ""
+    marker: none
+    at: { x: 553.3, y: 313 }
+    size: { w: 2, h: 2 }
+  - id: s4
+    label: "4"
+    marker: none
+    align: center
+    at: { x: 534.3, y: 318 }
+    size: { w: 40, h: 18 }
+  - id: p28
+    label: ""
+    marker: none
+    at: { x: 641.9, y: 305 }
+    size: { w: 2, h: 2 }
+  - id: p29
+    label: ""
+    marker: none
+    at: { x: 641.9, y: 313 }
+    size: { w: 2, h: 2 }
+  - id: s5
+    label: "5"
+    marker: none
+    align: center
+    at: { x: 622.9, y: 318 }
+    size: { w: 40, h: 18 }
+  - id: p30
+    label: ""
+    marker: none
+    at: { x: 730.4, y: 305 }
+    size: { w: 2, h: 2 }
+  - id: p31
+    label: ""
+    marker: none
+    at: { x: 730.4, y: 313 }
+    size: { w: 2, h: 2 }
+  - id: s6
+    label: "6"
+    marker: none
+    align: center
+    at: { x: 711.4, y: 318 }
+    size: { w: 40, h: 18 }
+  - id: p32
+    label: ""
+    marker: none
+    at: { x: 819, y: 305 }
+    size: { w: 2, h: 2 }
+  - id: p33
+    label: ""
+    marker: none
+    at: { x: 819, y: 313 }
+    size: { w: 2, h: 2 }
+  - id: s7
+    label: "7"
+    marker: none
+    align: center
+    at: { x: 800, y: 318 }
+    size: { w: 40, h: 18 }
+  - id: axis
+    label: "計測震度（加速度から計算した値）"
+    marker: none
+    align: center
+    at: { x: 200, y: 342 }
+    size: { w: 620, h: 18 }
+  - id: cap1
+    label: "5 と 6 だけ、幅が半分。 1996 年 4 月 1 日から弱・強に分かれ、8 階級が 10 階級になった。"
+    marker: none
+    align: center
+    at: { x: 140, y: 372 }
+    size: { w: 660, h: 18 }
+  - id: t2
+    label: "② マグニチュードが 1 増えると、エネルギーは約 32 倍"
+    marker: none
+    align: left
+    at: { x: 140, y: 416 }
+    size: { w: 660, h: 20 }
+  - id: e0
+    label: ""
+    hatch: solid
+    at: { x: 230, y: 626 }
+    size: { w: 120, h: 40 }
+  - id: e0n
+    label: "M6"
+    marker: none
+    align: center
+    at: { x: 190, y: 686 }
+    size: { w: 200, h: 18 }
+  - id: e0m
+    label: "1 倍"
+    marker: none
+    align: center
+    at: { x: 190, y: 706 }
+    size: { w: 200, h: 18 }
+  - id: e1
+    label: ""
+    hatch: solid
+    at: { x: 430, y: 536 }
+    size: { w: 120, h: 130 }
+  - id: e1n
+    label: "M7"
+    marker: none
+    align: center
+    at: { x: 390, y: 686 }
+    size: { w: 200, h: 18 }
+  - id: e1m
+    label: "約 32 倍"
+    marker: none
+    align: center
+    at: { x: 390, y: 706 }
+    size: { w: 200, h: 18 }
+  - id: e2
+    label: ""
+    hatch: solid
+    at: { x: 630, y: 446 }
+    size: { w: 120, h: 220 }
+  - id: e2n
+    label: "M8"
+    marker: none
+    align: center
+    at: { x: 590, y: 686 }
+    size: { w: 200, h: 18 }
+  - id: e2m
+    label: "約 1,000 倍"
+    marker: none
+    align: center
+    at: { x: 590, y: 706 }
+    size: { w: 200, h: 18 }
+  - id: eground
+    label: ""
+    hatch: lines
+    at: { x: 200, y: 666 }
+    size: { w: 620, h: 12 }
+  - id: cap2
+    label: "縦は対数。 32 倍を棒の長さで描くと、M8 の棒は M6 の 1,000 倍になって紙に収まらない。"
+    marker: none
+    align: center
+    at: { x: 140, y: 736 }
+    size: { w: 660, h: 18 }
+  - id: t3
+    label: "③ 気象庁震度階級"
+    marker: none
+    align: left
+    at: { x: 860, y: 150 }
+    size: { w: 420, h: 20 }
+  - id: h860_186
+    label: "計測震度の境目"
+    hatch: solid
+    at: { x: 860, y: 186 }
+    size: { w: 420, h: 24 }
+  - id: x860_210
+    label: "震度 4"
+    at: { x: 860, y: 210 }
+    size: { w: 150, h: 24 }
+  - id: y860_210
+    label: "3.5 以上 4.5 未満"
+    align: left
+    at: { x: 1010, y: 210 }
+    size: { w: 270, h: 24 }
+  - id: x860_234
+    label: "震度 5 弱"
+    at: { x: 860, y: 234 }
+    size: { w: 150, h: 24 }
+  - id: y860_234
+    label: "4.5 以上 5.0 未満"
+    align: left
+    at: { x: 1010, y: 234 }
+    size: { w: 270, h: 24 }
+  - id: x860_258
+    label: "震度 5 強"
+    at: { x: 860, y: 258 }
+    size: { w: 150, h: 24 }
+  - id: y860_258
+    label: "5.0 以上 5.5 未満"
+    align: left
+    at: { x: 1010, y: 258 }
+    size: { w: 270, h: 24 }
+  - id: x860_282
+    label: "震度 6 弱"
+    at: { x: 860, y: 282 }
+    size: { w: 150, h: 24 }
+  - id: y860_282
+    label: "5.5 以上 6.0 未満"
+    align: left
+    at: { x: 1010, y: 282 }
+    size: { w: 270, h: 24 }
+  - id: x860_306
+    label: "震度 6 強"
+    at: { x: 860, y: 306 }
+    size: { w: 150, h: 24 }
+  - id: y860_306
+    label: "6.0 以上 6.5 未満"
+    align: left
+    at: { x: 1010, y: 306 }
+    size: { w: 270, h: 24 }
+  - id: x860_330
+    label: "震度 7"
+    at: { x: 860, y: 330 }
+    size: { w: 150, h: 24 }
+  - id: y860_330
+    label: "6.5 以上"
+    align: left
+    at: { x: 1010, y: 330 }
+    size: { w: 270, h: 24 }
+  - id: why3
+    label: "5 と 6 だけ、0.5 刻み。\n下の階級は 1.0 刻みなのに、\n被害が急に増える所だけ細かく分けてある ——\n1996 年 4 月 1 日から 10 階級。"
+    at: { x: 860, y: 368 }
+    size: { w: 420, h: 74 }
+  - id: t4
+    label: "④ 震度とマグニチュード"
+    marker: none
+    align: left
+    at: { x: 860, y: 460 }
+    size: { w: 420, h: 20 }
+  - id: h860_490
+    label: "別のものを測っている"
+    hatch: solid
+    at: { x: 860, y: 490 }
+    size: { w: 420, h: 24 }
+  - id: x860_514
+    label: "震度"
+    at: { x: 860, y: 514 }
+    size: { w: 150, h: 24 }
+  - id: y860_514
+    label: "その場所の揺れの大きさ"
+    align: left
+    at: { x: 1010, y: 514 }
+    size: { w: 270, h: 24 }
+  - id: x860_538
+    label: "マグニチュード"
+    at: { x: 860, y: 538 }
+    size: { w: 150, h: 24 }
+  - id: y860_538
+    label: "地震そのものの規模"
+    align: left
+    at: { x: 1010, y: 538 }
+    size: { w: 270, h: 24 }
+  - id: x860_562
+    label: "1 つの地震に"
+    at: { x: 860, y: 562 }
+    size: { w: 150, h: 24 }
+  - id: y860_562
+    label: "震度はいくつもある"
+    align: left
+    at: { x: 1010, y: 562 }
+    size: { w: 270, h: 24 }
+  - id: x860_586
+    label: "同じ地震でも"
+    at: { x: 860, y: 586 }
+    size: { w: 150, h: 24 }
+  - id: y860_586
+    label: "遠ければ震度は下がる"
+    align: left
+    at: { x: 1010, y: 586 }
+    size: { w: 270, h: 24 }
+  - id: why4
+    label: "震度は場所の数だけある。\nマグニチュードは地震に 1 つだが、\n震度は観測点ごとに違う ——\n「震度 6 強の地震」という言い方は、本当は略語。"
+    at: { x: 860, y: 624 }
+    size: { w: 420, h: 74 }
+  - id: t5
+    label: "⑤ M の差とエネルギー"
+    marker: none
+    align: left
+    at: { x: 860, y: 716 }
+    size: { w: 420, h: 20 }
+  - id: h860_746
+    label: "10 の 1.5 乗ずつ"
+    hatch: solid
+    at: { x: 860, y: 746 }
+    size: { w: 420, h: 24 }
+  - id: x860_770
+    label: "M が 1 増える"
+    at: { x: 860, y: 770 }
+    size: { w: 150, h: 24 }
+  - id: y860_770
+    label: "エネルギー 約 32 倍"
+    align: left
+    at: { x: 1010, y: 770 }
+    size: { w: 270, h: 24 }
+  - id: x860_794
+    label: "M が 2 増える"
+    at: { x: 860, y: 794 }
+    size: { w: 150, h: 24 }
+  - id: y860_794
+    label: "約 1,000 倍"
+    align: left
+    at: { x: 1010, y: 794 }
+    size: { w: 270, h: 24 }
+  - id: x860_818
+    label: "M6 → M9"
+    at: { x: 860, y: 818 }
+    size: { w: 150, h: 24 }
+  - id: y860_818
+    label: "約 32,000 倍"
+    align: left
+    at: { x: 1010, y: 818 }
+    size: { w: 270, h: 24 }
+  - id: x860_842
+    label: "もと"
+    at: { x: 860, y: 842 }
+    size: { w: 150, h: 24 }
+  - id: y860_842
+    label: "10 の 1.5 乗 ＝ 31.62"
+    align: left
+    at: { x: 1010, y: 842 }
+    size: { w: 270, h: 24 }
+  - id: why5
+    label: "「M7 と M9 は 2 違うだけ」ではない。\n10 の 1.5 乗を 2 回かけるので 1,000 倍 ——\n数字の差が小さく見えるのが、この尺度の怖い所。"
+    at: { x: 860, y: 880 }
+    size: { w: 420, h: 74 }
+  - id: r1
+    label: "震度は 10 階級です（①③）。0・1・2・3・4・5 弱・5 強・6 弱・6 強・7 —— 1996 年 4 月 1 日から弱・強に分かれました。"
+    marker: none
+    align: left
+    at: { x: 140, y: 972 }
+    size: { w: 1140, h: 18 }
+  - id: r2
+    label: "5 と 6 だけ 0.5 刻みです（③）。下の階級は 1.0 刻みで、被害が急に増える所だけ細かく分けてあります。"
+    marker: none
+    align: left
+    at: { x: 140, y: 996 }
+    size: { w: 1140, h: 18 }
+  - id: r3
+    label: "震度とマグニチュードは別のものを測っています（④）。マグニチュードは地震に 1 つ、震度は観測点の数だけあります。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1020 }
+    size: { w: 1140, h: 18 }
+  - id: r4
+    label: "M が 1 増えると、エネルギーは約 32 倍です（②⑤）。10 の 1.5 乗 ＝ 31.62 —— 2 増えれば約 1,000 倍になります。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1044 }
+    size: { w: 1140, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    ends: { from: none, to: none }
+  - from: p2
+    to: p3
+    curve: none
+    ends: { from: none, to: none }
+  - from: p4
+    to: p5
+    curve: none
+    ends: { from: none, to: none }
+  - from: p6
+    to: p7
+    curve: none
+    ends: { from: none, to: none }
+  - from: p8
+    to: p9
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p10
+    to: p11
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p12
+    to: p13
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p14
+    to: p15
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p16
+    to: p17
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p18
+    to: p19
+    curve: none
+    ends: { from: none, to: none }
+  - from: p20
+    to: p21
+    curve: none
+    ends: { from: none, to: none }
+  - from: p22
+    to: p23
+    curve: none
+    ends: { from: none, to: none }
+  - from: p24
+    to: p25
+    curve: none
+    ends: { from: none, to: none }
+  - from: p26
+    to: p27
+    curve: none
+    ends: { from: none, to: none }
+  - from: p28
+    to: p29
+    curve: none
+    ends: { from: none, to: none }
+  - from: p30
+    to: p31
+    curve: none
+    ends: { from: none, to: none }
+  - from: p32
+    to: p33
+    curve: none
+    ends: { from: none, to: none }

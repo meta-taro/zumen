@@ -23,7 +23,7 @@ import { LINES } from './line.ts';
 import { CURVES, viaOf } from './curve.ts';
 import { VERTICALS, floorsOf } from './floor.ts';
 import { achromatic, faintOn, faintWhere, paletteOf as routePalette } from './palette.ts';
-import { WEIGHTS } from './weight.ts';
+import { WEIGHTS, weightOf, type Weight } from './weight.ts';
 import { HATCHES } from './hatch.ts';
 import { SYMBOLS } from './symbol.ts';
 import { MARKERS } from './marker.ts';
@@ -405,6 +405,23 @@ function checkLabelMarkdown(doc: Document, add: Add, m: Messages, at: At): void 
       if (glued !== null) {
         add('warning', 'label-glued-word', m.labelGluedWord(who, glued[0]), at(item.get(field, true)));
       }
+      /**
+       * **`undefined` / `NaN` が、そのまま絵に出る**（2026-09-21）。
+       *
+       * 見本 322 を組んでいて踏んだ —— 組み立てるスクリプトの引数が 1 つ足りず、
+       * **「undefined」と書かれた行が 6 か所に描かれた。**
+       * 交差 0・文字の重なり 0 と言われ、**絵を見るまで誰も止めなかった。**
+       * 図の言葉としては意味を持たないので、出たら書き間違い。
+       */
+      const placeholder = PLACEHOLDER.exec(text);
+      if (placeholder !== null) {
+        add(
+          'warning',
+          'label-placeholder',
+          m.labelPlaceholder(who, placeholder[0]),
+          at(item.get(field, true)),
+        );
+      }
     }
   };
 
@@ -441,6 +458,9 @@ function edgeNameOf(item: YAMLMap): string {
  */
 const GLUED =
   /[\u3041-\u3096\u30a1-\u30fa\u30fc\u4e00-\u9fff][a-z]{2,}|[a-z]{2,}[\u3041-\u3096\u30a1-\u30fa\u30fc\u4e00-\u9fff]/;
+
+/** **計算や組み立ての失敗が、そのまま文字になったもの。** 図の言葉ではない。 */
+const PLACEHOLDER = /(?<![A-Za-z])(undefined|NaN|\[object Object\])(?![A-Za-z])/;
 
 function checkSharedIds(doc: Document, add: Add, m: Messages, at: At): void {
   const groups = new Set<string>();
@@ -626,6 +646,26 @@ function checkGeometry(doc: Document, add: Add, m: Messages, at: At): void {
         add('warning', 'radius-invalid', m.radiusInvalid(id), at(radius));
       } else if (!placement) {
         add('warning', 'radius-ignored', m.radiusIgnored(id), at(radius));
+      } else if (isMap(size) && isPositive(size.get('w')) && isPositive(size.get('h'))) {
+        /**
+         * **節より小さい「範囲の円」**（2026-09-20）。
+         *
+         * `radius` は**範囲の円**（作業半径・警戒区域）で、**角の丸みではない。**
+         * CSS の `border-radius` のつもりで小さい値を書くと、
+         * **節の中に点線の丸が出るだけ**で、書いた人には飾りに見える。
+         * 見本 281 を描いていて自分で踏んだ ——
+         * 手元の 24 節を測ると**節より小さい円は 1 つも無かった**ので、noise にならない。
+         */
+        const half = Math.min(Number(size.get('w')), Number(size.get('h'))) / 2;
+        const drawn = Number(item.get('radius'));
+        if (drawn <= half) {
+          add(
+            'warning',
+            'radius-too-small',
+            m.radiusTooSmall(id, String(drawn), String(Math.round(half * 2))),
+            at(radius),
+          );
+        }
       }
     }
 
@@ -881,20 +921,74 @@ function checkColors(doc: Document, add: Add, m: Messages, at: At): void {
    * 販売図面の淡い色分けが、全部この警告で埋まる。
    */
   const onLines = new Set<string>();
-  for (const item of [...seqOf(doc, 'nodes'), ...seqOf(doc, 'edges')]) {
+  /**
+   * **いちばん細いところの太さ**（2026-09-21）。
+   *
+   * 逃げ道に「線の太さだけ確かめてください」と書いておきながら、
+   * **確かめたかどうかを道具が見ていなかった**（課題 19・`structure-too-thin` に続いて 3 度目）。
+   * その色を使っている辺のうち、**いちばん細いもの**を覚えておいて、文に入れる。
+   */
+  const thinnest = new Map<string, Weight>();
+  const thinner = (a: Weight, b: Weight): Weight =>
+    WEIGHTS.indexOf(a) <= WEIGHTS.indexOf(b) ? a : b;
+  for (const item of seqOf(doc, 'nodes')) {
     const key = item.get('color');
     if (key !== undefined && key !== null) onLines.add(String(key));
+  }
+  // **太さの話は辺にしか効かない。** 節の枠に `weight` は無い。
+  for (const item of seqOf(doc, 'edges')) {
+    const key = item.get('color');
+    if (key === undefined || key === null) continue;
+    onLines.add(String(key));
+    const weight = weightOf(item.get('weight'));
+    const known = thinnest.get(String(key));
+    thinnest.set(String(key), known === undefined ? weight : thinner(known, weight));
   }
   const tints = new Set<string>();
   for (const item of seqOf(doc, 'nodes')) {
     const key = item.get('fill');
     if (key !== undefined && key !== null) tints.add(String(key));
   }
+  /**
+   * **符号が文字で出ているかを、先に見る**（2026-09-21）。
+   *
+   * 逃げ道（「色以外の見分けを添えてください」）を満たしているのに
+   * 同じ文で鳴り続けていた —— 測ったら `color-faint` の 10 件は
+   * **どれも実物の路線色で、どれも符号が図に出ていた。**
+   */
+  const asText: string[] = [];
+  const titleText = doc.get('title');
+  if (titleText !== undefined && titleText !== null) asText.push(String(titleText));
+  for (const item of seqOf(doc, 'nodes')) {
+    for (const field of ['label', 'tag', 'technology'] as const) {
+      const value = item.get(field);
+      if (value !== undefined && value !== null) asText.push(String(value));
+    }
+  }
+  for (const item of seqOf(doc, 'edges')) {
+    const value = item.get('label');
+    if (value !== undefined && value !== null) asText.push(String(value));
+  }
+  const allText = asText.join('\n');
+
   for (const [key, value] of Object.entries(table)) {
     if (tints.has(key) && !onLines.has(key)) continue;
     if (faintOn(value)) {
       const where = faintWhere(value);
-      add('warning', 'color-faint', m.colorFaint(key, value, where.light, where.dark), at(raw));
+      const advice = allText.includes(key) ? m.colorFaintCoded : m.colorFaintPlain;
+      const weight = thinnest.get(key);
+      const room =
+        weight === undefined
+          ? m.colorFaintNodes
+          : weight === 'thick'
+            ? m.colorFaintThick
+            : m.colorFaintThin;
+      add(
+        'warning',
+        'color-faint',
+        m.colorFaint(key, value, where.light, where.dark, `${advice}${room}`),
+        at(raw),
+      );
     }
   }
 

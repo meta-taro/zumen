@@ -1,0 +1,388 @@
+version: 1
+kind: placement
+arrows: true
+scale: { mm: 17 }
+title: 墓地の区画図（番号は、たどり方を指している）
+# **番号は場所を指すのではなく、たどり方を指している。**
+# 「1-5-12-25」のような墓所番号は**区 → 地区 → 列 → 番**の階層で、
+# **上から順にたどると現地に着く** —— 通し番号にすると、区画を足したときに全部振り直しになる。
+# **墓地は数十年かけて区画を足していく**ので、階層でないと続かない。
+#
+# **広さは ㎡ で表す。** **4.0m² なら間口 2m × 奥行 2m**、**3.0m² なら 2m × 1.5m。**
+# よくある広さは 1〜2m² 未満で、地方の霊園では 3〜5m² も多い。
+# 区画の形は正方形とはかぎらず、**同じ面積でも、置ける墓石の大きさは間口で決まる。**
+#
+# **買うのは、土地ではない。** 取得するのは**永代使用権**（使う権利）で、
+# 土地の所有権ではない —— 地番も登記もなく、**管理料が毎年かかる。**
+# **区画図は不動産の図面ではなく、「この区画を使ってよい」という台帳の図** ——
+# 同じ形の図でも、宅地の区画割（見本 33）とは性格が違う。
+#
+# **現地でこの図を持って歩く人がいる。** 番号だけの図では、区画が数百あると探せない ——
+# **水場や管理棟のような目印**が、番号と現地をつなぐ。
+nodes:
+  - id: t1
+    label: "① 区画図 —— 番号と、間口 × 奥行で 1 区画が決まる"
+    marker: none
+    align: left
+    at: { x: 150, y: 150 }
+    size: { w: 700, h: 20 }
+  - id: p00
+    label: ""
+    at: { x: 230, y: 250 }
+    size: { w: 120, h: 120 }
+  - id: n00
+    label: "1-5-12-25"
+    marker: none
+    align: center
+    at: { x: 230, y: 258 }
+    size: { w: 120, h: 18 }
+  - id: a00
+    label: "4.0m²"
+    marker: none
+    align: center
+    at: { x: 230, y: 280 }
+    size: { w: 120, h: 18 }
+  - id: m00
+    label: "2m × 2m"
+    marker: none
+    align: center
+    at: { x: 230, y: 344 }
+    size: { w: 120, h: 18 }
+  - id: p01
+    label: ""
+    at: { x: 230, y: 394 }
+    size: { w: 120, h: 90 }
+  - id: n01
+    label: "1-5-12-26"
+    marker: none
+    align: center
+    at: { x: 230, y: 402 }
+    size: { w: 120, h: 18 }
+  - id: a01
+    label: "3.0m²"
+    marker: none
+    align: center
+    at: { x: 230, y: 424 }
+    size: { w: 120, h: 18 }
+  - id: m01
+    label: "2m × 1.5m"
+    marker: none
+    align: center
+    at: { x: 230, y: 458 }
+    size: { w: 120, h: 18 }
+  - id: p10
+    label: ""
+    at: { x: 440, y: 250 }
+    size: { w: 120, h: 120 }
+  - id: n10
+    label: "1-5-13-25"
+    marker: none
+    align: center
+    at: { x: 440, y: 258 }
+    size: { w: 120, h: 18 }
+  - id: a10
+    label: "4.0m²"
+    marker: none
+    align: center
+    at: { x: 440, y: 280 }
+    size: { w: 120, h: 18 }
+  - id: m10
+    label: "2m × 2m"
+    marker: none
+    align: center
+    at: { x: 440, y: 344 }
+    size: { w: 120, h: 18 }
+  - id: p11
+    label: ""
+    at: { x: 440, y: 394 }
+    size: { w: 120, h: 90 }
+  - id: n11
+    label: "1-5-13-26"
+    marker: none
+    align: center
+    at: { x: 440, y: 402 }
+    size: { w: 120, h: 18 }
+  - id: a11
+    label: "3.0m²"
+    marker: none
+    align: center
+    at: { x: 440, y: 424 }
+    size: { w: 120, h: 18 }
+  - id: m11
+    label: "2m × 1.5m"
+    marker: none
+    align: center
+    at: { x: 440, y: 458 }
+    size: { w: 120, h: 18 }
+  - id: road
+    label: ""
+    hatch: lines
+    at: { x: 354, y: 250 }
+    size: { w: 82, h: 234 }
+  - id: roadn
+    label: "通路"
+    marker: none
+    align: center
+    at: { x: 354, y: 380 }
+    size: { w: 82, h: 18 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 229, y: 223 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 349, y: 223 }
+    size: { w: 2, h: 2 }
+  - id: ma
+    label: "間口 2m"
+    marker: none
+    align: center
+    at: { x: 230, y: 200 }
+    size: { w: 120, h: 18 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 203, y: 249 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 203, y: 369 }
+    size: { w: 2, h: 2 }
+  - id: oku
+    label: "奥行\n2m"
+    marker: none
+    align: right
+    at: { x: 100, y: 290 }
+    size: { w: 90, h: 36 }
+  - id: num
+    label: "墓所番号は階層（区 - 地区 - 列 - 番）。実在の様式に倣った形"
+    marker: none
+    align: left
+    at: { x: 150, y: 174 }
+    size: { w: 700, h: 18 }
+  - id: cap
+    label: "1 px ＝ 約 17mm"
+    marker: none
+    align: center
+    at: { x: 150, y: 504 }
+    size: { w: 700, h: 18 }
+  - id: why1
+    label: "番号は場所を指すのではなく、たどり方を指している。\n「1-5-12-25」は区 → 地区 → 列 → 番の順で、上から順にたどると現地に着く ——\n通し番号にすると、区画を足したときに全部振り直しになる。\n墓地は数十年かけて区画を足していくので、階層でないと続かない。"
+    at: { x: 150, y: 534 }
+    size: { w: 700, h: 92 }
+  - id: t2
+    label: "② 広さは ㎡ で表す"
+    marker: none
+    align: left
+    at: { x: 890, y: 150 }
+    size: { w: 450, h: 20 }
+  - id: h890_186
+    label: "間口 × 奥行 と 面積"
+    hatch: solid
+    at: { x: 890, y: 186 }
+    size: { w: 450, h: 24 }
+  - id: x890_210
+    label: "2m × 2m"
+    at: { x: 890, y: 210 }
+    size: { w: 190, h: 24 }
+  - id: y890_210
+    label: "4.0 m²"
+    align: left
+    at: { x: 1080, y: 210 }
+    size: { w: 260, h: 24 }
+  - id: x890_234
+    label: "2m × 1.5m"
+    at: { x: 890, y: 234 }
+    size: { w: 190, h: 24 }
+  - id: y890_234
+    label: "3.0 m²"
+    align: left
+    at: { x: 1080, y: 234 }
+    size: { w: 260, h: 24 }
+  - id: x890_258
+    label: "よくある広さ"
+    at: { x: 890, y: 258 }
+    size: { w: 190, h: 24 }
+  - id: y890_258
+    label: "1 〜 2m² 未満"
+    align: left
+    at: { x: 1080, y: 258 }
+    size: { w: 260, h: 24 }
+  - id: x890_282
+    label: "地方の霊園"
+    at: { x: 890, y: 282 }
+    size: { w: 190, h: 24 }
+  - id: y890_282
+    label: "3 〜 5m² も多い"
+    align: left
+    at: { x: 1080, y: 282 }
+    size: { w: 260, h: 24 }
+  - id: why2
+    label: "広さは「何 ㎡ か」で言い、坪では言わない。\n区画の形は正方形とはかぎらず、\n間口の広い区画・奥行の深い区画がある ——\n同じ面積でも、置ける墓石の大きさは間口で決まる。"
+    at: { x: 890, y: 320 }
+    size: { w: 450, h: 92 }
+  - id: t3
+    label: "③ 買うのは、土地ではない"
+    marker: none
+    align: left
+    at: { x: 890, y: 430 }
+    size: { w: 450, h: 20 }
+  - id: h890_460
+    label: "区画の権利"
+    hatch: solid
+    at: { x: 890, y: 460 }
+    size: { w: 450, h: 24 }
+  - id: x890_484
+    label: "買うもの"
+    at: { x: 890, y: 484 }
+    size: { w: 190, h: 24 }
+  - id: y890_484
+    label: "永代使用権（使う権利）"
+    align: left
+    at: { x: 1080, y: 484 }
+    size: { w: 260, h: 24 }
+  - id: x890_508
+    label: "買わないもの"
+    at: { x: 890, y: 508 }
+    size: { w: 190, h: 24 }
+  - id: y890_508
+    label: "土地の所有権"
+    align: left
+    at: { x: 1080, y: 508 }
+    size: { w: 260, h: 24 }
+  - id: x890_532
+    label: "毎年かかるもの"
+    at: { x: 890, y: 532 }
+    size: { w: 190, h: 24 }
+  - id: y890_532
+    label: "管理料"
+    align: left
+    at: { x: 1080, y: 532 }
+    size: { w: 260, h: 24 }
+  - id: x890_556
+    label: "できないこと"
+    at: { x: 890, y: 556 }
+    size: { w: 190, h: 24 }
+  - id: y890_556
+    label: "転売・相続人以外への譲渡"
+    align: left
+    at: { x: 1080, y: 556 }
+    size: { w: 260, h: 24 }
+  - id: why3
+    label: "区画図は不動産の図面ではない。\n地番も登記もなく、「この区画を使ってよい」という台帳の図 ——\n同じ形の図でも、宅地の区画割（見本 33）とは性格が違う。"
+    at: { x: 890, y: 594 }
+    size: { w: 450, h: 74 }
+  - id: t4
+    label: "④ 区画図に書くこと"
+    marker: none
+    align: left
+    at: { x: 890, y: 686 }
+    size: { w: 450, h: 20 }
+  - id: h890_716
+    label: "1 枚に載せる項目"
+    hatch: solid
+    at: { x: 890, y: 716 }
+    size: { w: 450, h: 24 }
+  - id: x890_740
+    label: "墓所番号"
+    at: { x: 890, y: 740 }
+    size: { w: 190, h: 24 }
+  - id: y890_740
+    label: "階層のまま書く"
+    align: left
+    at: { x: 1080, y: 740 }
+    size: { w: 260, h: 24 }
+  - id: x890_764
+    label: "間口 × 奥行"
+    at: { x: 890, y: 764 }
+    size: { w: 190, h: 24 }
+  - id: y890_764
+    label: "面積だけでは足りない"
+    align: left
+    at: { x: 1080, y: 764 }
+    size: { w: 260, h: 24 }
+  - id: x890_788
+    label: "通路"
+    at: { x: 890, y: 788 }
+    size: { w: 190, h: 24 }
+  - id: y890_788
+    label: "どちらから入るか"
+    align: left
+    at: { x: 1080, y: 788 }
+    size: { w: 260, h: 24 }
+  - id: x890_812
+    label: "使用中か空きか"
+    at: { x: 890, y: 812 }
+    size: { w: 190, h: 24 }
+  - id: y890_812
+    label: "貸出区画が分かること"
+    align: left
+    at: { x: 1080, y: 812 }
+    size: { w: 260, h: 24 }
+  - id: x890_836
+    label: "水場・管理棟"
+    at: { x: 890, y: 836 }
+    size: { w: 190, h: 24 }
+  - id: y890_836
+    label: "現地でたどる目印"
+    align: left
+    at: { x: 1080, y: 836 }
+    size: { w: 260, h: 24 }
+  - id: why4
+    label: "現地でこの図を持って歩く人がいる。\n番号だけの図では、区画が数百あると探せない ——\n水場や管理棟のような目印が、番号と現地をつなぐ。"
+    at: { x: 890, y: 874 }
+    size: { w: 450, h: 74 }
+  - id: r1
+    label: "番号は場所ではなく、たどり方を指しています（①）。「1-5-12-25」は区 → 地区 → 列 → 番の順です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 966 }
+    size: { w: 1190, h: 18 }
+  - id: r2
+    label: "通し番号にすると、区画を足したときに全部振り直しになります。 墓地は数十年かけて足していきます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 990 }
+    size: { w: 1190, h: 18 }
+  - id: r3
+    label: "広さは ㎡ で表します（②）。4m² なら 2m × 2m、3m² なら 2m × 1.5m です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1014 }
+    size: { w: 1190, h: 18 }
+  - id: r4
+    label: "同じ面積でも、置ける墓石の大きさは間口で決まります。 奥行だけ深い区画は、正面から見ると小さく見えます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1038 }
+    size: { w: 1190, h: 18 }
+  - id: r5
+    label: "買うのは土地ではなく、永代使用権です（③）。地番も登記もなく、管理料が毎年かかります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1062 }
+    size: { w: 1190, h: 18 }
+  - id: r6
+    label: "区画図は不動産の図面ではなく、台帳の図です。 同じ形でも、宅地の区画割（見本 33）とは性格が違います。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1086 }
+    size: { w: 1190, h: 18 }
+  - id: r7
+    label: "現地でこの図を持って歩く人がいます（④）。水場や管理棟のような目印が、番号と現地をつなぎます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1110 }
+    size: { w: 1190, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    ends: { from: arrow, to: arrow }
+  - from: p2
+    to: p3
+    curve: none
+    ends: { from: arrow, to: arrow }

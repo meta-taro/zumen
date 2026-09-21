@@ -1,0 +1,433 @@
+version: 1
+kind: placement
+arrows: true
+title: 処方箋の読み方（1 行に、全部入っている）
+# **処方の 1 行に「何を・どれだけ・いつ・何日分」が全部入っている。**
+# 例 —— **アローゼン（0.5）2P 2× 朝夕食後 14TD。**
+# **アローゼン**が薬の名前、**（0.5）**が 1 包 0.5g、**2P** が 1 回 2 包、
+# **2× 朝夕食後**が 1 日 2 回といつ飲むか、**14TD** が 14 日分。
+# **T は錠剤、C はカプセル、P は包**（分包した粉薬）。
+#
+# **使用期間は、無記入なら発行日を含めて 4 日。**
+# **発行日を 1 日目に数え、休みの日も日数に入る** ——
+# 金曜に出た処方箋は、**月曜にはもう切れている。**
+# 「4 日もある」と思うと、連休をまたいだだけで使えなくなる。
+#
+# **記載事項は、薬の名前と量だけではない。**
+# 患者の氏名・年齢、薬名、分量、用法・用量、発行の年月日、**使用期間** ——
+# **「いつまで使えるか」も、書かなければならないことのひとつ。**
+#
+# **Rp. は「処方」ではなく「受け取れ」。**
+# **℞** は 16 世紀の書類にあったラテン語 **recipe**（受け取れ）の略で、
+# はじめは Rc と書かれた。**薬剤師への命令の形**が、今も頭に残っている。
+#
+# 様式は模式（欄の寸法は確かめていない）。薬の名前は例として書いたもの。
+nodes:
+  - id: t1
+    label: "① 処方箋の欄の割り付け（様式は模式）"
+    marker: none
+    align: left
+    at: { x: 140, y: 150 }
+    size: { w: 660, h: 20 }
+  - id: head
+    label: ""
+    hatch: solid
+    at: { x: 250, y: 200 }
+    size: { w: 520, h: 32 }
+  - id: headn
+    label: "処方箋（保険）"
+    marker: none
+    align: left
+    at: { x: 258, y: 207 }
+    size: { w: 504, h: 18 }
+  - id: pt
+    label: ""
+    at: { x: 250, y: 232 }
+    size: { w: 520, h: 34 }
+  - id: ptn
+    label: "患者の氏名・年齢（生年月日）・性別"
+    marker: none
+    align: left
+    at: { x: 258, y: 240 }
+    size: { w: 504, h: 18 }
+  - id: ins
+    label: ""
+    at: { x: 250, y: 266 }
+    size: { w: 520, h: 34 }
+  - id: insn
+    label: "保険者番号・記号・番号"
+    marker: none
+    align: left
+    at: { x: 258, y: 274 }
+    size: { w: 504, h: 18 }
+  - id: rp
+    label: ""
+    hatch: dots
+    at: { x: 250, y: 300 }
+    size: { w: 520, h: 150 }
+  - id: rpn
+    label: "処方"
+    marker: none
+    align: left
+    at: { x: 258, y: 308 }
+    size: { w: 120, h: 18 }
+  - id: rp1
+    label: "Rp.  アローゼン（0.5）2P  2× 朝夕食後  14TD"
+    marker: none
+    align: left
+    at: { x: 270, y: 340 }
+    size: { w: 480, h: 18 }
+  - id: rp2
+    label: "Rp.  ロキソプロフェン錠 60mg  3T  3× 毎食後  5TD"
+    marker: none
+    align: left
+    at: { x: 270, y: 370 }
+    size: { w: 480, h: 18 }
+  - id: rp3
+    label: "（以下余白）"
+    marker: none
+    align: left
+    at: { x: 270, y: 400 }
+    size: { w: 480, h: 18 }
+  - id: date
+    label: ""
+    at: { x: 250, y: 450 }
+    size: { w: 520, h: 34 }
+  - id: daten
+    label: "発行の年月日 ／ 使用期間（無記入なら発行日を含めて 4 日）"
+    marker: none
+    align: left
+    at: { x: 258, y: 458 }
+    size: { w: 504, h: 18 }
+  - id: dr
+    label: ""
+    at: { x: 250, y: 484 }
+    size: { w: 520, h: 34 }
+  - id: drn
+    label: "医師の氏名・押印 ／ 医療機関の名称・所在地"
+    marker: none
+    align: left
+    at: { x: 258, y: 492 }
+    size: { w: 504, h: 18 }
+  - id: note
+    label: ""
+    at: { x: 250, y: 518 }
+    size: { w: 520, h: 34 }
+  - id: noten
+    label: "備考（後発医薬品への変更、分割調剤など）"
+    marker: none
+    align: left
+    at: { x: 258, y: 526 }
+    size: { w: 504, h: 18 }
+  - id: cap1
+    label: "使用期間は、無記入なら発行日を含めて 4 日。 金曜に出た処方箋は、月曜には切れている。"
+    marker: none
+    align: center
+    at: { x: 140, y: 566 }
+    size: { w: 660, h: 18 }
+  - id: t2
+    label: "② 処方の 1 行に、全部入っている"
+    marker: none
+    align: left
+    at: { x: 140, y: 610 }
+    size: { w: 660, h: 20 }
+  - id: m0
+    label: ""
+    at: { x: 200, y: 650 }
+    size: { w: 130, h: 50 }
+  - id: m0c
+    label: "アローゼン"
+    marker: none
+    align: center
+    at: { x: 200, y: 666 }
+    size: { w: 130, h: 18 }
+  - id: m0n
+    label: "薬の名前"
+    marker: none
+    align: center
+    at: { x: 200, y: 708 }
+    size: { w: 130, h: 18 }
+  - id: m1
+    label: ""
+    at: { x: 340, y: 650 }
+    size: { w: 100, h: 50 }
+  - id: m1c
+    label: "（0.5）"
+    marker: none
+    align: center
+    at: { x: 340, y: 666 }
+    size: { w: 100, h: 18 }
+  - id: m1n
+    label: "1 包の量 0.5g"
+    marker: none
+    align: center
+    at: { x: 340, y: 708 }
+    size: { w: 100, h: 18 }
+  - id: m2
+    label: ""
+    at: { x: 450, y: 650 }
+    size: { w: 80, h: 50 }
+  - id: m2c
+    label: "2P"
+    marker: none
+    align: center
+    at: { x: 450, y: 666 }
+    size: { w: 80, h: 18 }
+  - id: m2n
+    label: "1 回に 2 包"
+    marker: none
+    align: center
+    at: { x: 450, y: 708 }
+    size: { w: 80, h: 18 }
+  - id: m3
+    label: ""
+    at: { x: 540, y: 650 }
+    size: { w: 170, h: 50 }
+  - id: m3c
+    label: "2× 朝夕食後"
+    marker: none
+    align: center
+    at: { x: 540, y: 666 }
+    size: { w: 170, h: 18 }
+  - id: m3n
+    label: "1 日 2 回・いつ飲むか"
+    marker: none
+    align: center
+    at: { x: 540, y: 708 }
+    size: { w: 170, h: 18 }
+  - id: m4
+    label: ""
+    at: { x: 720, y: 650 }
+    size: { w: 90, h: 50 }
+  - id: m4c
+    label: "14TD"
+    marker: none
+    align: center
+    at: { x: 720, y: 666 }
+    size: { w: 90, h: 18 }
+  - id: m4n
+    label: "14 日分"
+    marker: none
+    align: center
+    at: { x: 720, y: 708 }
+    size: { w: 90, h: 18 }
+  - id: cap2
+    label: "「何を・どれだけ・いつ・何日分」が 1 行に収まっている。 T は錠剤、C はカプセル、P は包。"
+    marker: none
+    align: center
+    at: { x: 140, y: 738 }
+    size: { w: 660, h: 18 }
+  - id: t3
+    label: "③ 書かなければならないこと"
+    marker: none
+    align: left
+    at: { x: 860, y: 150 }
+    size: { w: 420, h: 20 }
+  - id: h860_186
+    label: "処方箋の記載事項"
+    hatch: solid
+    at: { x: 860, y: 186 }
+    size: { w: 420, h: 24 }
+  - id: x860_210
+    label: "患者"
+    at: { x: 860, y: 210 }
+    size: { w: 160, h: 24 }
+  - id: y860_210
+    label: "氏名・年齢"
+    align: left
+    at: { x: 1020, y: 210 }
+    size: { w: 260, h: 24 }
+  - id: x860_234
+    label: "薬"
+    at: { x: 860, y: 234 }
+    size: { w: 160, h: 24 }
+  - id: y860_234
+    label: "薬名"
+    align: left
+    at: { x: 1020, y: 234 }
+    size: { w: 260, h: 24 }
+  - id: x860_258
+    label: "量"
+    at: { x: 860, y: 258 }
+    size: { w: 160, h: 24 }
+  - id: y860_258
+    label: "分量"
+    align: left
+    at: { x: 1020, y: 258 }
+    size: { w: 260, h: 24 }
+  - id: x860_282
+    label: "飲み方"
+    at: { x: 860, y: 282 }
+    size: { w: 160, h: 24 }
+  - id: y860_282
+    label: "用法・用量"
+    align: left
+    at: { x: 1020, y: 282 }
+    size: { w: 260, h: 24 }
+  - id: x860_306
+    label: "日付"
+    at: { x: 860, y: 306 }
+    size: { w: 160, h: 24 }
+  - id: y860_306
+    label: "発行の年月日"
+    align: left
+    at: { x: 1020, y: 306 }
+    size: { w: 260, h: 24 }
+  - id: x860_330
+    label: "期限"
+    at: { x: 860, y: 330 }
+    size: { w: 160, h: 24 }
+  - id: y860_330
+    label: "使用期間"
+    align: left
+    at: { x: 1020, y: 330 }
+    size: { w: 260, h: 24 }
+  - id: why3
+    label: "「いつまで使えるか」も記載事項。\n薬の名前と量だけでは処方箋にならない ——\n期限が書かれていなければ、発行日を含めて 4 日として扱う。"
+    at: { x: 860, y: 368 }
+    size: { w: 420, h: 74 }
+  - id: t4
+    label: "④ 有効期限"
+    marker: none
+    align: left
+    at: { x: 860, y: 460 }
+    size: { w: 420, h: 20 }
+  - id: h860_490
+    label: "発行日を含めて 4 日"
+    hatch: solid
+    at: { x: 860, y: 490 }
+    size: { w: 420, h: 24 }
+  - id: x860_514
+    label: "金曜に発行"
+    at: { x: 860, y: 514 }
+    size: { w: 160, h: 24 }
+  - id: y860_514
+    label: "月曜には切れている"
+    align: left
+    at: { x: 1020, y: 514 }
+    size: { w: 260, h: 24 }
+  - id: x860_538
+    label: "数え方"
+    at: { x: 860, y: 538 }
+    size: { w: 160, h: 24 }
+  - id: y860_538
+    label: "発行日を 1 日目に数える"
+    align: left
+    at: { x: 1020, y: 538 }
+    size: { w: 260, h: 24 }
+  - id: x860_562
+    label: "休日"
+    at: { x: 860, y: 562 }
+    size: { w: 160, h: 24 }
+  - id: y860_562
+    label: "日数に含まれる"
+    align: left
+    at: { x: 1020, y: 562 }
+    size: { w: 260, h: 24 }
+  - id: x860_586
+    label: "切れたら"
+    at: { x: 860, y: 586 }
+    size: { w: 160, h: 24 }
+  - id: y860_586
+    label: "処方箋を出し直してもらう"
+    align: left
+    at: { x: 1020, y: 586 }
+    size: { w: 260, h: 24 }
+  - id: why4
+    label: "休みの日も日数に入る。\n「4 日もある」と思うと、\n連休をまたいだだけで切れる ——\n受け取りに行く日を先に決めておく。"
+    at: { x: 860, y: 624 }
+    size: { w: 420, h: 74 }
+  - id: t5
+    label: "⑤ Rp. と記号"
+    marker: none
+    align: left
+    at: { x: 860, y: 716 }
+    size: { w: 420, h: 20 }
+  - id: h860_746
+    label: "何の略か"
+    hatch: solid
+    at: { x: 860, y: 746 }
+    size: { w: 420, h: 24 }
+  - id: x860_770
+    label: "Rp.（℞）"
+    at: { x: 860, y: 770 }
+    size: { w: 160, h: 24 }
+  - id: y860_770
+    label: "ラテン語 recipe ＝「受け取れ」"
+    align: left
+    at: { x: 1020, y: 770 }
+    size: { w: 260, h: 24 }
+  - id: x860_794
+    label: "T"
+    at: { x: 860, y: 794 }
+    size: { w: 160, h: 24 }
+  - id: y860_794
+    label: "錠剤"
+    align: left
+    at: { x: 1020, y: 794 }
+    size: { w: 260, h: 24 }
+  - id: x860_818
+    label: "C"
+    at: { x: 860, y: 818 }
+    size: { w: 160, h: 24 }
+  - id: y860_818
+    label: "カプセル"
+    align: left
+    at: { x: 1020, y: 818 }
+    size: { w: 260, h: 24 }
+  - id: x860_842
+    label: "P"
+    at: { x: 860, y: 842 }
+    size: { w: 160, h: 24 }
+  - id: y860_842
+    label: "包（分包した粉薬）"
+    align: left
+    at: { x: 1020, y: 842 }
+    size: { w: 260, h: 24 }
+  - id: x860_866
+    label: "2×"
+    at: { x: 860, y: 866 }
+    size: { w: 160, h: 24 }
+  - id: y860_866
+    label: "1 日 2 回に分ける"
+    align: left
+    at: { x: 1020, y: 866 }
+    size: { w: 260, h: 24 }
+  - id: x860_890
+    label: "14TD"
+    at: { x: 860, y: 890 }
+    size: { w: 160, h: 24 }
+  - id: y860_890
+    label: "14 日分"
+    align: left
+    at: { x: 1020, y: 890 }
+    size: { w: 260, h: 24 }
+  - id: why5
+    label: "Rp. は「処方」ではなく「受け取れ」。\n16 世紀の書類にあったラテン語の略で、\n薬剤師への命令の形が今も残っている。"
+    at: { x: 860, y: 928 }
+    size: { w: 420, h: 74 }
+  - id: r1
+    label: "使用期間は、無記入なら発行日を含めて 4 日です（①④）。休みの日も数に入るので、連休をまたぐと切れます。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1020 }
+    size: { w: 1140, h: 18 }
+  - id: r2
+    label: "処方の 1 行に「何を・どれだけ・いつ・何日分」が全部入っています（②）。T は錠剤、C はカプセル、P は包です。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1044 }
+    size: { w: 1140, h: 18 }
+  - id: r3
+    label: "「いつまで使えるか」も記載事項です（③）。薬の名前と量だけでは処方箋になりません。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1068 }
+    size: { w: 1140, h: 18 }
+  - id: r4
+    label: "Rp. は「処方」ではなく「受け取れ」です（⑤）。16 世紀のラテン語 recipe の略で、薬剤師への命令の形が残っています。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1092 }
+    size: { w: 1140, h: 18 }
+edges:

@@ -36,7 +36,7 @@ survives a regeneration in **210/210 of the example drawings**, whatever their s
 
 ## What it looks like
 
-273 example drawings, all generated from the YAML sources in
+342 example drawings, all generated from the YAML sources in
 [`examples/gallery/`](examples/gallery/):
 
 **[→ Browse the gallery](https://meta-taro.github.io/zumen/)**
@@ -99,7 +99,7 @@ This is **not finished software.** It is being built in the open, small step by 
 
 - Reading and writing the source, automatic layout, SVG output (light/dark)
 - Export to Mermaid, draw.io XML, and embedding into Markdown
-- A validator (87 checks) that explains, in the writer's terms, what will not be drawn —
+- A validator (93 checks) that explains, in the writer's terms, what will not be drawn —
   including one that lays the drawing out and reports labels that would collide
 - A Git merge driver so two people editing the same diagram merge structurally
 - An MCP server, so an agent can read the spec and write diagrams
@@ -143,6 +143,7 @@ pnpm qa:verify                # read back human verification evidence (see qa/RE
 pnpm svg examples/gallery/25-路線図.zumen.yaml out.svg
 pnpm validate examples/gallery/14-間取り.zumen.yaml
 pnpm inspect examples/gallery/14-間取り.zumen.yaml   # observations: crossings, straddles, text overlaps, print ratio
+pnpm inspect examples/gallery/*.zumen.yaml --tally   # count them up instead: which check fires, how often, where
 pnpm mermaid examples/gallery/04-ネットワーク構成.zumen.yaml
 ```
 

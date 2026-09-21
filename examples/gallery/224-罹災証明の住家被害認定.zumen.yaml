@@ -14,6 +14,16 @@ scale: { mm: 20 }
 #
 # 出典は内閣府「災害に係る住家の被害認定基準運用指針」。
 nodes:
+  - id: dim_p2
+    label: ""
+    marker: none
+    at: { x: 439, y: 875 }
+    size: { w: 2, h: 2 }
+  - id: dim_p3
+    label: ""
+    marker: none
+    at: { x: 439, y: 943 }
+    size: { w: 2, h: 2 }
   - id: t1
     label: "① 区分は 6 つ。境目は損害割合"
     marker: none
@@ -180,7 +190,7 @@ nodes:
     label: "床は地面より 0.4m 高い（この図の置き方）"
     marker: none
     align: left
-    at: { x: 450, y: 914 }
+    at: { x: 450, y: 924 }
     size: { w: 330, h: 18 }
   - id: p4
     label: ""
@@ -434,7 +444,15 @@ edges:
   - from: p2
     to: p3
     curve: none
-    ends: { from: arrow, to: arrow }
+    ends: { from: none, to: none }
+  - from: dim_p2
+    to: p2
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: dim_p3
+    to: p3
+    curve: none
+    ends: { from: none, to: arrow }
   - from: p4
     to: p5
     curve: none

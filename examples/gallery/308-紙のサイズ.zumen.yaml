@@ -1,0 +1,351 @@
+version: 1
+kind: placement
+arrows: true
+scale: { mm: 2.2 }
+title: 紙のサイズ（寸法表ではなく、2 つの決めごと）
+# **A 列は、2 つの決めごとから全部が出る。**
+# **A0 の面積がちょうど 1m²**、**縦横の比が √2** —— それだけ。
+# 実際、**841 × 1,189 ＝ 0.9999m²**、**1,189 ÷ 841 ＝ 1.4138**（√2 ＝ 1.4142）。
+#
+# **半分にすると、次の番号になる。**
+# A0 → A1 → A2 … と長辺を半分にしていくと、
+# **841 × 1,189 → 594 × 841 → 420 × 594 → 297 × 420 → 210 × 297**。
+#
+# **√2 以外では、折るたびに形が変わる。**
+# 縦横比を r とすると、半分にした紙の比は **2 ÷ r** になる。
+# **r ＝ 2 ÷ r を満たすのは r ＝ √2 だけ** —— だから何回折っても相似のまま。
+# 拡大縮小のコピーが倍率 1 つで済む（A4 → A3 は 141%、A3 → A4 は 71%）のも、これのおかげ。
+#
+# **B 列は 2 つある。**
+# **JIS の B0 は 1,030 × 1,456**（**1,030 × 1,456 ＝ 1.4998m²** ＝ A0 のちょうど 1.5 倍）。
+# **ISO の B0 は 1,000 × 1,414**（**√2 m²**）。
+# **同じ「B4」でも、日本の規格と国際規格で寸法が違う。**
+# B4（JIS）は 257 × 364mm。
+#
+# 数はすべて計算で確かめた（面積・比・半分にしたときの寸法）。
+nodes:
+  - id: t1
+    label: "① A 列は、半分にしても形が変わらない（1px ＝ 2.2mm）"
+    marker: none
+    align: left
+    at: { x: 140, y: 150 }
+    size: { w: 660, h: 20 }
+  - id: a0
+    label: ""
+    at: { x: 250, y: 230 }
+    size: { w: 382, h: 540 }
+  - id: a1
+    label: ""
+    at: { x: 250, y: 230 }
+    size: { w: 382, h: 270 }
+  - id: a1n
+    label: "A1"
+    marker: none
+    align: center
+    at: { x: 250, y: 345 }
+    size: { w: 382, h: 18 }
+  - id: a1s
+    label: "594 × 841"
+    marker: none
+    align: center
+    at: { x: 250, y: 365 }
+    size: { w: 382, h: 18 }
+  - id: a2
+    label: ""
+    at: { x: 250, y: 500 }
+    size: { w: 191, h: 270 }
+  - id: a2n
+    label: "A2"
+    marker: none
+    align: center
+    at: { x: 250, y: 615 }
+    size: { w: 191, h: 18 }
+  - id: a2s
+    label: "420 × 594"
+    marker: none
+    align: center
+    at: { x: 250, y: 635 }
+    size: { w: 191, h: 18 }
+  - id: a3
+    label: ""
+    at: { x: 441, y: 500 }
+    size: { w: 191, h: 135 }
+  - id: a3n
+    label: "A3"
+    marker: none
+    align: center
+    at: { x: 441, y: 547.5 }
+    size: { w: 191, h: 18 }
+  - id: a3s
+    label: "297 × 420"
+    marker: none
+    align: center
+    at: { x: 441, y: 567.5 }
+    size: { w: 191, h: 18 }
+  - id: a4
+    label: ""
+    at: { x: 441, y: 635 }
+    size: { w: 96, h: 135 }
+  - id: a4n
+    label: "A4"
+    marker: none
+    align: center
+    at: { x: 441, y: 682.5 }
+    size: { w: 96, h: 18 }
+  - id: a4s
+    label: "210 × 297"
+    marker: none
+    align: center
+    at: { x: 441, y: 702.5 }
+    size: { w: 96, h: 18 }
+  - id: a5
+    label: ""
+    at: { x: 537, y: 635 }
+    size: { w: 95, h: 135 }
+  - id: a5n
+    label: "A5"
+    marker: none
+    align: center
+    at: { x: 537, y: 682.5 }
+    size: { w: 95, h: 18 }
+  - id: a5s
+    label: "148 × 210"
+    marker: none
+    align: center
+    at: { x: 537, y: 702.5 }
+    size: { w: 95, h: 18 }
+  - id: a0n
+    label: "A0 ＝ 841 × 1,189mm（面積ちょうど 1m²）"
+    marker: none
+    align: center
+    at: { x: 210, y: 204 }
+    size: { w: 462, h: 18 }
+  - id: cap1
+    label: "半分にすると、次の番号になる。 縦横の比が √2 だから、何回折っても形が変わらない。"
+    marker: none
+    align: center
+    at: { x: 140, y: 786 }
+    size: { w: 660, h: 18 }
+  - id: b4
+    label: ""
+    hatch: dots
+    at: { x: 700, y: 300 }
+    size: { w: 117, h: 165 }
+  - id: a4c
+    label: ""
+    at: { x: 700, y: 330 }
+    size: { w: 95, h: 135 }
+  - id: b4n
+    label: "B4 257 × 364"
+    marker: none
+    align: center
+    at: { x: 680, y: 274 }
+    size: { w: 157, h: 18 }
+  - id: a4cn
+    label: "A4 210 × 297"
+    marker: none
+    align: center
+    at: { x: 680, y: 477 }
+    size: { w: 157, h: 18 }
+  - id: b4c
+    label: "（左下で揃えた）"
+    marker: none
+    align: center
+    at: { x: 680, y: 497 }
+    size: { w: 157, h: 18 }
+  - id: t3
+    label: "③ A 列の寸法"
+    marker: none
+    align: left
+    at: { x: 860, y: 150 }
+    size: { w: 420, h: 20 }
+  - id: h860_186
+    label: "mm"
+    hatch: solid
+    at: { x: 860, y: 186 }
+    size: { w: 420, h: 24 }
+  - id: x860_210
+    label: "A0"
+    at: { x: 860, y: 210 }
+    size: { w: 120, h: 24 }
+  - id: y860_210
+    label: "841 × 1,189（1m²）"
+    align: left
+    at: { x: 980, y: 210 }
+    size: { w: 300, h: 24 }
+  - id: x860_234
+    label: "A1"
+    at: { x: 860, y: 234 }
+    size: { w: 120, h: 24 }
+  - id: y860_234
+    label: "594 × 841"
+    align: left
+    at: { x: 980, y: 234 }
+    size: { w: 300, h: 24 }
+  - id: x860_258
+    label: "A2"
+    at: { x: 860, y: 258 }
+    size: { w: 120, h: 24 }
+  - id: y860_258
+    label: "420 × 594"
+    align: left
+    at: { x: 980, y: 258 }
+    size: { w: 300, h: 24 }
+  - id: x860_282
+    label: "A3"
+    at: { x: 860, y: 282 }
+    size: { w: 120, h: 24 }
+  - id: y860_282
+    label: "297 × 420"
+    align: left
+    at: { x: 980, y: 282 }
+    size: { w: 300, h: 24 }
+  - id: x860_306
+    label: "A4"
+    at: { x: 860, y: 306 }
+    size: { w: 120, h: 24 }
+  - id: y860_306
+    label: "210 × 297"
+    align: left
+    at: { x: 980, y: 306 }
+    size: { w: 300, h: 24 }
+  - id: x860_330
+    label: "A5"
+    at: { x: 860, y: 330 }
+    size: { w: 120, h: 24 }
+  - id: y860_330
+    label: "148 × 210"
+    align: left
+    at: { x: 980, y: 330 }
+    size: { w: 300, h: 24 }
+  - id: why3
+    label: "A0 の面積が 1m² と決まっていて、\n縦横の比が √2。 この 2 つから全部が出る ——\n841 × 1,189 ＝ 0.9999m²、1,189 ÷ 841 ＝ 1.4138。\n寸法表ではなく、2 つの決めごと。"
+    at: { x: 860, y: 368 }
+    size: { w: 420, h: 92 }
+  - id: t4
+    label: "④ B 列は 2 つある"
+    marker: none
+    align: left
+    at: { x: 860, y: 478 }
+    size: { w: 420, h: 20 }
+  - id: h860_508
+    label: "JIS と ISO で別物"
+    hatch: solid
+    at: { x: 860, y: 508 }
+    size: { w: 420, h: 24 }
+  - id: x860_532
+    label: "JIS B0"
+    at: { x: 860, y: 532 }
+    size: { w: 120, h: 24 }
+  - id: y860_532
+    label: "1,030 × 1,456（1.5m²）"
+    align: left
+    at: { x: 980, y: 532 }
+    size: { w: 300, h: 24 }
+  - id: x860_556
+    label: "ISO B0"
+    at: { x: 860, y: 556 }
+    size: { w: 120, h: 24 }
+  - id: y860_556
+    label: "1,000 × 1,414（√2 m²）"
+    align: left
+    at: { x: 980, y: 556 }
+    size: { w: 300, h: 24 }
+  - id: x860_580
+    label: "JIS B4"
+    at: { x: 860, y: 580 }
+    size: { w: 120, h: 24 }
+  - id: y860_580
+    label: "257 × 364"
+    align: left
+    at: { x: 980, y: 580 }
+    size: { w: 300, h: 24 }
+  - id: x860_604
+    label: "JIS B5"
+    at: { x: 860, y: 604 }
+    size: { w: 120, h: 24 }
+  - id: y860_604
+    label: "182 × 257"
+    align: left
+    at: { x: 980, y: 604 }
+    size: { w: 300, h: 24 }
+  - id: why4
+    label: "JIS の B0 は、A0 の 1.5 倍の面積。\n1,030 × 1,456 ＝ 1.4998m² で、A0 のちょうど 1.5 倍 ——\nISO の B0（√2 m²）とは別物。\n同じ「B4」でも、国際規格と日本の規格で寸法が違う。"
+    at: { x: 860, y: 642 }
+    size: { w: 420, h: 92 }
+  - id: t5
+    label: "⑤ なぜ √2 か"
+    marker: none
+    align: left
+    at: { x: 860, y: 752 }
+    size: { w: 420, h: 20 }
+  - id: h860_782
+    label: "半分にしても相似"
+    hatch: solid
+    at: { x: 860, y: 782 }
+    size: { w: 420, h: 24 }
+  - id: x860_806
+    label: "長辺 ÷ 短辺"
+    at: { x: 860, y: 806 }
+    size: { w: 120, h: 24 }
+  - id: y860_806
+    label: "1.4142…（√2）"
+    align: left
+    at: { x: 980, y: 806 }
+    size: { w: 300, h: 24 }
+  - id: x860_830
+    label: "半分にすると"
+    at: { x: 860, y: 830 }
+    size: { w: 120, h: 24 }
+  - id: y860_830
+    label: "短辺が新しい長辺になる"
+    align: left
+    at: { x: 980, y: 830 }
+    size: { w: 300, h: 24 }
+  - id: x860_854
+    label: "新しい比"
+    at: { x: 860, y: 854 }
+    size: { w: 120, h: 24 }
+  - id: y860_854
+    label: "短辺 ÷（長辺 ÷ 2）＝ √2"
+    align: left
+    at: { x: 980, y: 854 }
+    size: { w: 300, h: 24 }
+  - id: x860_878
+    label: "だから"
+    at: { x: 860, y: 878 }
+    size: { w: 120, h: 24 }
+  - id: y860_878
+    label: "何回折っても形が変わらない"
+    align: left
+    at: { x: 980, y: 878 }
+    size: { w: 300, h: 24 }
+  - id: why5
+    label: "√2 以外では、折るたびに形が変わる。\n縦横比が r のとき、半分にすると 2 ÷ r になる ——\nr ＝ 2 ÷ r を満たすのは r ＝ √2 だけ。\n拡大縮小のコピーが倍率 1 つで済むのも、これのおかげ。"
+    at: { x: 860, y: 916 }
+    size: { w: 420, h: 92 }
+  - id: r1
+    label: "A 列は 2 つの決めごとから出ています（③）。A0 の面積が 1m²、縦横の比が √2 —— 寸法表ではありません。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1026 }
+    size: { w: 1140, h: 18 }
+  - id: r2
+    label: "半分にすると次の番号になります（①⑤）。r ＝ 2 ÷ r を満たすのは r ＝ √2 だけなので、この比でしか成り立ちません。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1050 }
+    size: { w: 1140, h: 18 }
+  - id: r3
+    label: "B 列は 2 つあります（④）。JIS の B0 は A0 の 1.5 倍の面積、ISO の B0 は √2 m² —— 同じ「B4」でも寸法が違います。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1074 }
+    size: { w: 1140, h: 18 }
+  - id: r4
+    label: "拡大縮小のコピーが倍率 1 つで済むのも、√2 のおかげです。 A4 → A3 は必ず 141%、A3 → A4 は必ず 71% です。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1098 }
+    size: { w: 1140, h: 18 }
+edges:
