@@ -399,6 +399,7 @@ export const CAPTIONS_EN = {
   '93-花火大会の保安距離図': 'Fireworks safety distances, a circle per shell size',
   '121-生け花の構成図': 'The three main stems of a formal ikebana arrangement, set by the ratio of their lengths and the angle each one leaves at',
   '66-囲碁の棋譜': 'A game record on a 19-line go board where each stone carries the number of the move, showing the shape of the opening',
+  '340-将棋の駒の利き': 'Promotion in shogi collapses four different pieces into one: a promoted silver, knight, lance or pawn all move exactly as a gold general does, however differently they moved before. Only the king and the gold cannot promote, and only the rook and bishop gain rather than converge — each keeps its own reach and picks up one extra step. The knight alone may jump.',
   '67-将棋の局面図': 'The starting position of shogi on a nine by nine board, the two sides told apart by which way the pieces point',
   '68-チェスの局面図': 'The starting position of chess on an eight by eight board, with the file and rank coordinates marked',
   '70-リバーシの局面図': 'The opening position of reversi: four stones in the centre four squares, black and white alternating',
