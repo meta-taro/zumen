@@ -255,6 +255,7 @@ export const CAPTIONS_EN = {
   '194-点字の6点': 'Braille has only six dots, so \u201ca\u201d and \u201c1\u201d are the same shape until a number sign says otherwise',
   '193-カードの版面': 'A trading card layout: the back must look the same upside down, or the face is readable from the table',
   '192-サッカーボールの形': 'A football is a truncated icosahedron: the 12 degrees missing at every vertex are what make it a sphere',
+  '337-露出とEV': 'Brightness is set not by the aperture or the shutter but by their sum, so equal exposures line up on a diagonal: f/2.8 at 1/500, f/4 at 1/250 and f/5.6 at 1/125 are all 12 EV. One stop either way halves the light. What the diagonal does not equalise is the picture — a smaller aperture deepens the focus and a slower shutter lets movement blur, which is why choosing along it is the craft.',
   '191-凸レンズの作図': 'Ray tracing through a convex lens: there are only three lines to draw, and two of them fix the image',
   '190-中綴じの面付け': 'Saddle-stitch imposition: facing page numbers always add up to the page count plus one',
   '189-点字ブロック': 'Tactile paving: only two kinds, and one line tells you which side the platform is on',
