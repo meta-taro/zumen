@@ -294,6 +294,31 @@ describe('見本の説明', () => {
     );
     assert.deepEqual(undated, [], '規格番号はあるのに、いつの版か書いていない見本');
   });
+
+  /**
+   * **年は「どこかにある」では足りない。番号に付いていること**（2026-09-22。82 周目）。
+   *
+   * 上の検査は**コメントのどこかに 4 桁の年**があれば通していた。
+   * だから `JIS B 0401 ＝ ISO 286` のように**版の無い引用**が、
+   * 別の年（改正の年や調べた年）に紛れて通っていた ——
+   * 測ったら **8 枚**にそういう引用があり、**5 枚は断りも無かった。**
+   *
+   * ここは **`番号:年` が付いているか、`版は確かめていない` と書いてあるか**だけを見る。
+   * **部の番号（`-2`）は版ではない。**
+   */
+  it('**版の無い引用があるなら、確かめていないと書いてある**', () => {
+    const CITE =
+      /(JIS|ISO|IEC|IEEE|ANSI|EN|JAS|DIN|ASTM|JEM)(\/[A-Z]+)?\s+([A-Z]{0,2}\s?[0-9]{3,5})(-[0-9]+)?(:[0-9]{4}(-[0-9]+)?)?/g;
+    const silent: string[] = [];
+    for (const file of files) {
+      const text = readFileSync(new URL(file, dir), 'utf8');
+      const bare = [...text.matchAll(CITE)].filter((found) => found[5] === undefined);
+      if (bare.length === 0) continue;
+      if (/版は確かめていない/.test(text)) continue;
+      silent.push(`${file}: ${[...new Set(bare.map((f) => f[0].trim()))].join(' / ')}`);
+    }
+    assert.deepEqual(silent, [], '版の無い引用があるのに、確かめていないと書いていない見本');
+  });
 });
 
 /**
