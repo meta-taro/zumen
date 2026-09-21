@@ -38,24 +38,10 @@ function samples(): string[] {
  *
  * **手で直す場所は、いつか必ずずれる。** 書いてある場所を全部、機械に数えさせる。
  */
-const QUOTES = [
-  ['README.ja.md', /\*\*(\d+) 枚を \[`examples\/gallery\/`\]/, 'samples'],
-  ['README.ja.md', /同梱の見本 (\d+) 枚の目次と正本を返す/, 'samples'],
-  ['README.ja.md', /開いている口は (\d+) 個/, 'doors'],
-  ['README.md', /(\d+) example drawings, all generated/, 'samples'],
-  ['README.md', /A validator \((\d+) checks\)/, 'checks'],
-  ['scripts/og.mjs', /見本 (\d+) 枚 ／ テキスト正本/, 'samples'],
-  ['scripts/og.mjs', /(\d+) example drawings &middot; diagrams as text/, 'samples'],
-  ['site/index.html', /テキスト正本の作図ツール。見本 (\d+) 枚・MIT。/, 'samples'],
-  ['site/index.html', /見本 (\d+) 枚、検査 \d+ 項目/, 'samples'],
-  ['site/index.html', /見本 \d+ 枚、検査 (\d+) 項目/, 'checks'],
-  ['site/index.html', /描かれないものを名指しする検査 (\d+) 項目/, 'checks'],
-  ['site/index.html', /その直しが次の生成で壊れない図。見本 (\d+) 枚。/, 'samples'],
-  ['site/en/index.html', /(\d+) example drawings, \d+ checks, MCP server included/, 'samples'],
-  ['site/en/index.html', /\d+ example drawings, (\d+) checks, MCP server included/, 'checks'],
-  ['site/en/index.html', /(\d+) checks that name what will not be drawn/, 'checks'],
-  ['site/en/index.html', /your fix survives\. (\d+) example drawings\./, 'samples'],
-] as const;
+// @ts-expect-error 組み立て用のスクリプトは型を持たない
+import { QUOTES } from '../scripts/quoted-numbers.mjs';
+
+const QUOTED = QUOTES as [string, RegExp, string][];
 
 describe('数を書いてある場所は、どこも実物と合っている', () => {
   it('**13 か所以上ある。README だけ見ていると、残りが古くなる**', async () => {
@@ -66,7 +52,7 @@ describe('数を書いてある場所は、どこも実物と合っている', (
       doors: DOORS.length,
     };
     const wrong: string[] = [];
-    for (const [file, re, what] of QUOTES) {
+    for (const [file, re, what] of QUOTED) {
       const text = readFileSync(new URL(`../${file}`, import.meta.url), 'utf8');
       const said = re.exec(text);
       if (said === null) {

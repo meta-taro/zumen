@@ -347,6 +347,7 @@ export const CAPTIONS_EN = {
   '89-コンテナ船の積付図': 'Container stowage: bay, row and tier are the address',
   '126-船の一般配置図': 'General arrangement: four drawings, each with its own scale',
   '12-在庫と発注': 'How a shop restocks: the reorder point, the safety stock, and the lead time that has to be covered until goods arrive',
+  '329-ごみが行く先': 'Incineration is not a way of making rubbish vanish; it is a way of cutting its volume by 80 to 95 per cent, and the ash still has to go to landfill. Whether a municipality or the business that produced it is responsible depends not on what the waste is but on where it came from — the same paper is household waste at home and industrial waste at an office.',
   '323-鉄ができるまで': 'Half of ironmaking is putting carbon in and the other half is taking it back out: the blast furnace uses carbon to strip the oxygen off the ore and leaves molten iron at around 4% carbon, which is hard but shatters, so the converter blows it down below 2% to make steel. The scrap route skips the ore, the furnace and the coke entirely.',
   '08-工場のライン': 'An assembly line with what happens at each station, and the route a part takes back when inspection rejects it',
 
