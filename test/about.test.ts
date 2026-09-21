@@ -95,9 +95,18 @@ describe('版ごとの変更を読む', () => {
 });
 
 describe('道具の説明', () => {
-  it('名前と版を返す', async () => {
+  /**
+   * **名前をベタ書きしない**（2026-09-21）。
+   *
+   * 版は `package.json` と突き合わせていたのに、**名前だけ `'zumen'` と書いてあった。**
+   * npm の名前を `@meta-taro/zumen` へ変えた日（Issue #14）に、ここだけが落ちた ——
+   * 実体が変わったのに、テストが古い名前を守っていた。
+   * **数と同じで、名前も正本から読む。**
+   */
+  it('名前と版を返す（どちらも package.json と一致する）', async () => {
+    const pkg = JSON.parse(readFileSync(join(ROOT, 'package.json'), 'utf8')) as { name: string };
     const out = await about();
-    assert.equal(out.name, 'zumen');
+    assert.equal(out.name, pkg.name);
     assert.match(out.version, /^\d+\.\d+\.\d+$/);
   });
 
