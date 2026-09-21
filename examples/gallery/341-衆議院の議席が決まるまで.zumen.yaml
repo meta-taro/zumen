@@ -1,0 +1,81 @@
+version: 1
+wrap: true
+title: 衆議院の議席が決まるまで（1 人が 2 票を持つ）
+# **有権者は 1 人で 2 票を持つ。** 1 票目は小選挙区の候補者へ、2 票目は比例代表の政党へ。
+# **別々の数え方をして、別々の議席を配る。**
+#
+# ## 465 は、2 つに分かれている
+#
+# **小選挙区 289 議席、比例代表 176 議席、合わせて総定数 465。**
+# 小選挙区は各区で 1 位だけが当選するので、**2 位以下の票は議席にならない。**
+# 比例代表は政党の得票で配るので、**少数の票も積み上がる。**
+#
+# ## 2 つは、切り離されていない
+#
+# **重複立候補**という仕組みがあり、政党は**小選挙区の候補者を比例名簿にも載せられる。**
+# 小選挙区で落選しても、**比例で復活当選**できる。
+#
+# ## 惜敗率
+#
+# 比例名簿で**同じ順位に並べた**とき、実際の順位は**惜敗率**で決まる。
+# **小選挙区で惜しく負けた候補ほど、比例で復活しやすい。**
+#
+# つまり、**同じ「落選」でも、僅差で負けたかどうかが次の扉を開ける。**
+# 1 票目の結果が、2 票目で配る議席の中身を動かしている。
+#
+# 投票所の配置は見本 133、開票の前段にある本会議場の議席は見本 184。
+nodes:
+  - id: yukensha
+    label: 有権者
+    technology: 1 人が 2 票を持つ
+  - id: vote1
+    label: 1 票目 —— 小選挙区
+    technology: 候補者に入れる
+  - id: vote2
+    label: 2 票目 —— 比例代表
+    technology: 政党に入れる
+  - id: shosen
+    label: 小選挙区の開票
+    technology: 各区で 1 位だけが当選する
+  - id: seats1
+    label: 289 議席
+  - id: ochisen
+    label: 小選挙区で落選
+    technology: 重複立候補なら、ここで終わらない
+  - id: sekihai
+    label: 惜敗率
+    technology: 比例名簿で同じ順位のとき、実際の順位を決める
+  - id: fukkatsu
+    label: 比例での復活当選
+  - id: hirei
+    label: 比例代表の開票
+    technology: 政党の得票で配る
+  - id: seats2
+    label: 176 議席
+  - id: total
+    label: 総定数 465
+edges:
+  - from: yukensha
+    to: vote1
+  - from: yukensha
+    to: vote2
+  - from: vote1
+    to: shosen
+  - from: vote2
+    to: hirei
+  - from: shosen
+    to: seats1
+  - from: shosen
+    to: ochisen
+  - from: ochisen
+    to: sekihai
+  - from: sekihai
+    to: fukkatsu
+  - from: fukkatsu
+    to: seats2
+  - from: hirei
+    to: seats2
+  - from: seats1
+    to: total
+  - from: seats2
+    to: total
