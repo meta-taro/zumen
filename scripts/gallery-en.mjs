@@ -218,6 +218,7 @@ export const CAPTIONS_EN = {
   '224-罹災証明の住家被害認定': 'Damage certification: a hazard map measures from the ground, this measures from the floor — so the same water gives two different numbers, and 0.1m changes the category',
   '223-海図の読み方': 'A nautical chart carries three datums at once: depths from the lowest water, clearances from the highest, and light heights from the mean — each taken at its worst case',
   '222-平屋の保育園の避難計画': 'A single-storey nursery has no upstairs, so the plan is half about the building next door — and three people coming out to help halves the time the children spend outside',
+  '331-緊急地震速報': 'An earthquake early warning does not predict anything; it borrows the gap between the fast P wave and the slow S wave. Three seconds of waveform are needed to size the quake and the processing takes seconds more, and those costs are the same however far away the epicentre is — so the warning time is only what is left over, and directly beneath a shallow quake there is nothing left.',
   '221-避難行動の判定と浸水深': 'Deciding whether to leave: five questions answered once, in advance — and flood-depth bands read as floors of your own house, not as metres',
   '220-防火区画と避難経路': 'Fire compartments: the shortcut you use every day is the one that closes — a drill map must show the route after the shutters come down, not before',
   '219-算数数学の問題図': 'Figures in maths problems: the marks carry the meaning — equal ticks, right-angle squares, parallel chevrons — and only the given values are written on the figure',
