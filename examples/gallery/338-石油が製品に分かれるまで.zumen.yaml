@@ -1,0 +1,99 @@
+version: 1
+wrap: true
+title: 石油が製品に分かれるまで（分けるだけでは、足りない）
+# **蒸留は「分ける」工程で、「作る」工程ではない。**
+# 原油に入っている軽い油の量は決まっているのに、世の中が欲しがる量はそれより多い ——
+# だから**重いものを壊して、軽いものを作る。**
+#
+# ## まず分ける
+#
+# **常圧蒸留装置**が、沸点の違いで原油を分ける。
+# 上から**石油ガス・ナフサ・灯油・軽油・A 重油**、そして**塔の底に常圧残渣油**が残る。
+#
+# 残渣油はさらに**減圧蒸留装置**へ。**圧を下げると低い温度で沸く**ので、
+# そのままでは分解してしまう重い油からも**減圧軽油**を搾れる。
+#
+# ## 足りない分は、壊して作る
+#
+# **流動接触分解（FCC）**は軽質減圧軽油を壊して、ブテン・ナフサ・灯油・FCC 軽油にする。
+# **水素化分解**は重質減圧軽油を壊して、LPG・ブテン・ガソリン・灯油・軽油にする。
+# **熱分解（コーカー）**は減圧残渣油から、ナフサ・暖房軽油と**石油コークス**を作る。
+#
+# **分解装置は、需要の形に合わせて分子の大きさを変える装置**である。
+#
+# ## 最後に整える
+#
+# **水素化精製**で硫黄などの不純物を除き、**接触改質**でガソリンのオクタン価を上げる。
+# **分ける → 壊す → 整える**の 3 段で、ようやく製品になる。
+#
+# 鉄の側は見本 323、下水は見本 321。
+nodes:
+  - id: genyu
+    label: 原油
+  - id: joatsu
+    label: 常圧蒸留装置
+    technology: 沸点の違いで分ける
+  - id: keishitsu
+    label: 軽い留分
+    technology: 石油ガス・ナフサ・灯油・軽油・A 重油
+  - id: zansa
+    label: 常圧残渣油
+    technology: 塔の底に残る重いもの
+  - id: genatsu
+    label: 減圧蒸留装置
+    technology: 圧を下げて、さらに軽油を搾る
+  - id: vgo
+    label: 減圧軽油
+    technology: 軽質と重質に分かれる
+  - id: vr
+    label: 減圧残渣油
+  - id: fcc
+    label: 流動接触分解（FCC）
+    technology: ブテン・ナフサ・灯油・FCC 軽油へ
+  - id: hydro
+    label: 水素化分解
+    technology: LPG・ブテン・ガソリン・灯油・軽油へ
+  - id: coker
+    label: 熱分解（コーカー）
+    technology: ナフサ・暖房軽油と石油コークスへ
+  - id: seisei
+    label: 水素化精製
+    technology: 硫黄などの不純物を除く
+  - id: kaishitsu
+    label: 接触改質
+    technology: ガソリンのオクタン価を上げる
+  - id: seihin
+    label: 製品
+edges:
+  - from: genyu
+    to: joatsu
+  - from: joatsu
+    to: keishitsu
+  - from: joatsu
+    to: zansa
+  - from: zansa
+    to: genatsu
+  - from: genatsu
+    to: vgo
+  - from: genatsu
+    to: vr
+  - from: vgo
+    to: fcc
+  - from: vgo
+    to: hydro
+  - from: vr
+    to: coker
+  - from: keishitsu
+    to: seisei
+  - from: keishitsu
+    to: kaishitsu
+  - from: fcc
+    to: seisei
+  - from: hydro
+    to: seisei
+  - from: coker
+    to: seisei
+  - from: seisei
+    to: seihin
+  - from: kaishitsu
+    to: seihin
