@@ -86,6 +86,7 @@ export const CAPTIONS_EN = {
   '56-バスの時刻表': 'A bus stop timetable in three columns — weekday, Saturday, Sunday and holiday — with the departure minutes listed under each hour',
   '63-フェリーの発着表': 'Ferry sailings route by route, with departure and arrival times and the name of the vessel working each one',
   '57-登山のコースタイム図': 'A hiking profile with distance across and elevation up, annotated with how long each section takes to walk',
+  '334-滑走路の番号とマーキング': 'A runway number is not a name but a bearing: the magnetic heading divided by ten. Use the same strip from the other end and the heading differs by 180 degrees, so the two numbers always differ by 18 and the runway is called 16/34. Because magnetic north drifts, the number painted on the ground is not permanent — when the bearing moves far enough, it gets repainted.',
   '102-ドローンの飛行計画図': 'Drone flight plan and the area kept clear of people',
   '61-道路の平面線形図': 'A road alignment where straights, circular curves and transition curves join up, annotated with chainage and the parameters of each curve',
   '37-配送ルート': 'Delivery rounds for three two-tonne vans: the order of calls, the stops themselves, and the area each van covers',
