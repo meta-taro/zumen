@@ -155,7 +155,36 @@ function samplePage(s, lang) {
     const stop = Math.max(cut.lastIndexOf('。'), cut.lastIndexOf('、'), cut.lastIndexOf(', '), cut.lastIndexOf('. '));
     return `${(stop > limit * 0.5 ? cut.slice(0, stop) : cut).trim()}…`;
   };
-  const summary = lang === 'ja' ? `${s.caption}。${fit(s.alt, 110)}` : fit(s.en, 150);
+  /**
+   * **繋げる前に、重なりを見る**（2026-09-22。88 周目）。
+   *
+   * 題と `alt` をそのまま繋げたら、**見本 7 が「稟議の流れ。稟議の流れ。…」**になった。
+   * 題の言い直しが `alt` の先頭に来ている図が多い。
+   *
+   * 繋げるのは**中身が増えるときだけ**。増えないなら、
+   * **正本の説明（`note` の 1 段落目 ＝ その図の見どころ）**を使う。そちらのほうが濃い。
+   */
+  const flat = (text) => String(text).replace(/\*\*/g, '').replace(/\s+/g, ' ').trim();
+  /**
+   * **繋げる前に、重なりを見る**（2026-09-22。88 周目）。
+   *
+   * 題と `alt` をそのまま繋げたら **見本 7 が「稟議の流れ。稟議の流れ。…」**になった
+   * （題の言い直しが `alt` の先頭に来ている図が多い）。
+   * 逆に「重なったら捨てる」にしたら、今度は**題だけ 6 字**になった（見本 2）。
+   *
+   * **いちばん中身のあるものを 1 つ選ぶ。**
+   * それが題を含んでいるならそれだけを使い、含んでいないなら題に足す。
+   */
+  const summary = (() => {
+    const head = flat(lang === 'ja' ? s.caption : s.en);
+    if (lang !== 'ja') return fit(head, 150);
+    // **note は 1 段落目とは限らない。** 題より長いものを、前のほうから探す。
+    const best = [flat(s.alt), ...s.note.map(flat)]
+      .filter((one) => one.length > head.length)
+      .sort((a, b) => b.length - a.length)[0];
+    if (best === undefined) return fit(head, 150);
+    return best.startsWith(head.replace(/[（(].*$/, '')) ? fit(best, 150) : fit(`${head}。${best}`, 150);
+  })();
 
   const t = lang === 'ja'
     ? { title: `${s.title} — zumen の見本 ${s.no}`, desc: summary, note: '正本に書いてある決まりごと', src: '正本（YAML）', near: '同じ分野の見本', made: 'この図は、下の 1 枚の YAML から描かれています。手で図形を動かしてはいません。' }

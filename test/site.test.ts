@@ -7,7 +7,7 @@
  * ここで見るのは**残りの食い違い** —— 行き先と、互いへの入口。
  */
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import { describe, it } from 'node:test';
 
 const ja = readFileSync('site/index.html', 'utf8');
@@ -217,5 +217,66 @@ describe('探して見つかること（SEO / AIEO）', () => {
       }
     }
     assert.match(llms, new RegExp(`Example drawings: ${total}`));
+  });
+});
+
+/**
+ * **見本のページを、検査が 1 枚も見ていなかった**（2026-09-22。88 周目）。
+ *
+ * SEO の検査はトップと DL ページだけを見ていて、**688 枚の見本ページは素通り**だった。
+ * 測ったら **344 枚すべての説明が 70 字未満**、**64 枚は題とまったく同じ**だった。
+ *
+ * ここが見るのは**形**だけ —— 文の善し悪しは人が読む。
+ */
+describe('見本のページ', () => {
+  const pages = (base: string): { no: string; html: string }[] => {
+    const dir = new URL(`../${base}/`, import.meta.url);
+    return readdirSync(dir)
+      .filter((name) => /^[0-9]+$/.test(name))
+      .map((no) => ({ no, html: readFileSync(new URL(`${no}/index.html`, dir), 'utf8') }));
+  };
+  const meta = (html: string, name: string): string =>
+    new RegExp(`name="${name}" content="([^"]*)"`).exec(html)?.[1] ?? '';
+  const ja = pages('site/g');
+  const en = pages('site/en/g');
+
+  it('**1 枚も欠けていない**（日本語と英語で同じ数）', () => {
+    assert.ok(ja.length > 300, `見本のページが少なすぎる: ${ja.length}`);
+    assert.equal(en.length, ja.length);
+  });
+
+  it('**説明が、題の言い直しになっていない**', () => {
+    const same = [...ja, ...en]
+      .filter((page) => {
+        const title = /<title>([^<]*)<\/title>/.exec(page.html)?.[1] ?? '';
+        return title.replace(/ — zumen.*$/, '') === meta(page.html, 'description');
+      })
+      .map((page) => page.no);
+    assert.deepEqual(same, [], '説明が題と同じ見本のページ');
+  });
+
+  it('**説明が、同じ文を繰り返していない**', () => {
+    const repeated = [...ja]
+      .filter((page) => {
+        const desc = meta(page.html, 'description');
+        const head = desc.split('。')[0] ?? '';
+        return head.length >= 6 && desc.slice(head.length + 1).startsWith(head);
+      })
+      .map((page) => page.no);
+    assert.deepEqual(repeated, [], '説明の中で同じ文が 2 回出ている見本のページ');
+  });
+
+  it('**パンくずと図の構造化データがある**（検索結果に出る）', () => {
+    const missing = [...ja, ...en]
+      .filter((page) => !page.html.includes('BreadcrumbList') || !page.html.includes('ImageObject'))
+      .map((page) => page.no);
+    assert.deepEqual(missing, []);
+  });
+
+  it('**共有したときの絵に、説明が添えてある**（og:image:alt）', () => {
+    const missing = [...ja, ...en]
+      .filter((page) => !/og:image:alt" content="[^"]{10,}"/.test(page.html))
+      .map((page) => page.no);
+    assert.deepEqual(missing, []);
   });
 });
