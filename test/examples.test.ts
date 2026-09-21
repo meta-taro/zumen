@@ -205,6 +205,39 @@ describe('目次は、正本と同じものを写している', () => {
  * 測ったら 120 字未満が **35 枚**あり、いちばん短いのは 12 字
  * （`# 1 px = 25 mm` だけ）だった。7 周かけて 0 にしたので、**下限を決めて戻さない。**
  */
+/**
+ * **同じ規格を、同じ図の中で版つきと版なしで書かない**（2026-09-22。81 周目）。
+ *
+ * 見本 242 は題に `JIS Z 3021:2016` と書きながら、図の中の札は `JIS Z 3021` だった。
+ * **読む側には「別のものを指しているのか」が分からない。**
+ *
+ * 版が確かめられないなら**書かない**のではなく、
+ * `版は確かめていない` と書く（見本 97・195・239 がそうしている）。
+ * ここが見るのは**揃っているか**だけで、版が正しいかは見ない。
+ */
+describe('規格番号の書き方', () => {
+  const STANDARD = /(JIS|ISO|IEC|IEEE|ANSI|EN|JAS)\s+([A-Z]{0,2}\s?[0-9]{3,5})(:[0-9]{4})?/g;
+
+  it('**同じ図の中で、版の有無が混ざっていない**', () => {
+    const dir = new URL('../examples/gallery/', import.meta.url);
+    const mixed: string[] = [];
+    for (const file of readdirSync(dir).filter((f) => f.endsWith('.zumen.yaml'))) {
+      const text = readFileSync(new URL(file, dir), 'utf8');
+      const seen = new Map<string, Set<string>>();
+      for (const found of text.matchAll(STANDARD)) {
+        const key = `${found[1]} ${found[2]!.replace(/\s+/g, ' ').trim()}`;
+        seen.set(key, (seen.get(key) ?? new Set()).add(found[3] ?? ''));
+      }
+      for (const [key, versions] of seen) {
+        if (versions.size > 1 && versions.has('')) {
+          mixed.push(`${file}: ${key} が ${[...versions].map((v) => v || '（版なし）').join(' と ')}`);
+        }
+      }
+    }
+    assert.deepEqual(mixed, [], '同じ規格を、版つきと版なしで書いている');
+  });
+});
+
 describe('見本の説明', () => {
   /** `#` で始まる行（`# ` の後ろ）を、強調記号を外してつないだもの。 */
   const body = (file: string): string =>
