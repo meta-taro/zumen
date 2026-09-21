@@ -1,0 +1,98 @@
+version: 1
+wrap: true
+title: 鉄ができるまで（炭素を入れて、また抜く）
+# **鉄をつくる工程の半分は、炭素を入れる仕事。残りの半分は、それを抜く仕事。**
+#
+# ## 入れる —— 高炉
+#
+# 鉄鉱石は酸素とくっついた形（酸化鉄）で採れる。**その酸素を取るために炭素を使う。**
+# 高炉は上から鉄鉱石とコークスを入れ、下から熱風を吹き込む炉で、
+# 還元は **320〜620℃ ／ 620〜950℃ ／ 950℃ 以上**の 3 段階に分かれて進む。
+# 出てくる溶けた鉄（溶銑・銑鉄）は、**炭素を 4% 前後**含んでいる。
+#
+# ## 抜く —— 転炉
+#
+# **銑鉄は硬いが、衝撃を与えると割れやすい。** だから構造材には使えない。
+# 転炉で酸素を吹き込み、**炭素を 4% 前後から 2% 以下へ下げる**と鋼になる。
+# **入れた炭素を、次の工程で抜いている。**
+#
+# ## 抜かない道もある
+#
+# 成分を調整して鋳型へ流し込めば**鋳鉄**になる。
+# 急冷すると主成分がセメンタイトの**白銑鉄**。
+# 「もろい」は欠点ではなく、**用途が違う**という話。
+#
+# ## 鉄鉱石から始めない道
+#
+# **電炉法**はスクラップを電気炉で溶かす。鉄鉱石も高炉もコークスも要らない。
+# いまの鉄鋼製品は、**高炉法と電炉法の 2 つ**で大半がつくられている。
+#
+# ## 数
+#
+# 日本の高炉の炉容積は **2,080〜5,775 m³**（最大は日本製鉄大分第 1 高炉の 5,775 m³）。
+#
+# 出典はウィキペディア日本語版「製鉄」「高炉」「銑鉄」。炉の温度と容積はそこに載っている値。
+nodes:
+  - id: kouseki
+    label: 鉄鉱石
+    technology: 酸素とくっついた形
+  - id: sekitan
+    label: 石炭
+  - id: shoketsu
+    label: 焼結鉱・コークス
+    technology: 炉に入る形にそろえる
+  - id: bf
+    label: 高炉（高炉法）
+    technology: 320〜620／620〜950／950℃ 以上
+  - id: yosen
+    label: 溶銑（銑鉄）
+    technology: 炭素 4% 前後・硬いが割れやすい
+  - id: chutetsu
+    label: 鋳鉄・白銑鉄
+    technology: 成分を調整して鋳型へ
+  - id: scrap
+    label: スクラップ（鉄くず）
+  - id: eaf
+    label: 電気炉（電炉法）
+    technology: 鉄鉱石もコークスも要らない
+  - id: bof
+    label: 転炉（脱炭）
+    technology: 炭素を 2% 以下へ下げる
+  - id: nishi
+    label: 二次精錬
+    technology: 成分と温度を合わせる
+  - id: cc
+    label: 連続鋳造
+    technology: スラブ・ブルーム・ビレット
+  - id: atsuen
+    label: 圧延（熱間 → 冷間）
+  - id: kozai
+    label: 鋼材
+edges:
+  - from: kouseki
+    to: shoketsu
+  - from: sekitan
+    to: shoketsu
+  - from: shoketsu
+    to: bf
+  - from: bf
+    to: yosen
+  - from: yosen
+    to: bof
+    label: 炭素を抜く
+  - from: yosen
+    to: chutetsu
+    label: 抜かない道
+    line: dashed
+  - from: scrap
+    to: eaf
+  - from: eaf
+    to: nishi
+  - from: bof
+    to: nishi
+  - from: nishi
+    to: cc
+  - from: cc
+    to: atsuen
+  - from: atsuen
+    to: kozai
