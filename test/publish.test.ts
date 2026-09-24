@@ -1,7 +1,7 @@
 /**
  * **配るものに、要らないものを混ぜない**（2026-09-24）。
  *
- * `@meta-taro/zumen` を初めて npm へ出す直前に、3 つ見つかった。
+ * `@zumen/core` を初めて npm へ出す直前に、3 つ見つかった。
  *
  * | 出るところだった | 中身 |
  * |---|---|
@@ -71,9 +71,16 @@ describe('配るもの', () => {
     }
   });
 
-  it('**組み立ての前に `dist` を消す**（置き忘れが混ざらないように）', () => {
+  /**
+   * **`rm -rf` は Windows で動かない。**
+   * npm の 2FA がパスキーで Windows 機に紐づいており、**そちらから publish する目が
+   * ある**（2026-09-24）。publish の直前に走る `build` が cmd.exe で落ちると、
+   * **出せないか、古い `dist` のまま出る。**
+   */
+  it('**組み立ての前に `dist` を消す**（置き忘れが混ざらないように・Windows でも）', () => {
     const build = (JSON.parse(readFileSync('package.json', 'utf8')) as { scripts: Record<string, string> })
       .scripts.build;
-    assert.match(build ?? '', /rm -rf dist/);
+    assert.match(build ?? '', /rmSync\('dist'/);
+    assert.doesNotMatch(build ?? '', /\brm -rf\b/, 'rm -rf は Windows で動かない');
   });
 });

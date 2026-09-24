@@ -223,18 +223,18 @@ pnpm merge    <正本> <提案>        # AI の提案を正本へ入れる（競
 ### 取り込んで使う（library）
 
 ```bash
-pnpm add github:meta-taro/zumen
+pnpm add @zumen/core
 ```
 
 ```ts
-import { toSvg } from 'zumen';
+import { toSvg } from '@zumen/core';
 
 const svg = await toSvg(source);                        // 図 1 枚を SVG に
 const dark = await toSvg(source, { theme: 'dark' });    // 暗い地へ貼るとき
 const vivid = await toSvg(source, { intent: 'vivid' }); // 遠くから見せるとき
 ```
 
-検査は `zumen/tools` の `inspect`（交差・重なり・置けずに消えたラベル・「9 割」）。
+検査は `@zumen/core/tools` の `inspect`（交差・重なり・置けずに消えたラベル・「9 割」）。
 
 **`dist` を配ります。** Node は `node_modules` の中の TypeScript を受け付けないため
 （`ERR_UNSUPPORTED_NODE_MODULES_TYPE_STRIPPING`）、`pnpm build` で組み立てたものを指しています。
