@@ -21,15 +21,28 @@
  * 姉妹アプリ（md-business）が囲みを図にする経路は、ここが通らないと丸ごと動かない。
  */
 import { execFileSync } from 'node:child_process';
-import { mkdtempSync, readdirSync, writeFileSync } from 'node:fs';
+import { mkdtempSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = fileURLToPath(new URL('../', import.meta.url));
 
+/** **配る名前**。`package.json` から取る（手で書くと、改名したとき置き去りになる）。 */
+const NAME = JSON.parse(readFileSync(join(ROOT, 'package.json'), 'utf8')).name;
+
+/**
+ * **Windows では `pnpm` の実体が `pnpm.cmd`。**
+ *
+ * `shell` 無しの `execFileSync` は解決できず `ENOENT`（errno -4058）で落ちる。
+ * **中身の不具合ではなく、起動だけの問題**だが、この検査は `prepublishOnly` に入っているので
+ * **落ちると Windows から publish できない**（2026-09-24。姉妹セッションが実機で踏んだ）。
+ *
+ * `shell: true` にすると引数が連結されて Node が DEP0190 を出すので、拡張子を足すほうを採る。
+ */
 function run(command, args, cwd) {
-  return execFileSync(command, args, { cwd, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
+  const real = process.platform === 'win32' && !command.endsWith('.cmd') ? `${command}.cmd` : command;
+  return execFileSync(real, args, { cwd, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
 }
 
 console.log('組み立てる…');
@@ -44,7 +57,15 @@ if (tarball === undefined) throw new Error('pnpm pack が何も作りません�
 writeFileSync(
   join(work, 'package.json'),
   JSON.stringify(
-    { name: 'zumen-consume-check', private: true, type: 'module', dependencies: { zumen: `file:./${tarball}` } },
+    {
+      name: 'zumen-consume-check',
+      private: true,
+      type: 'module',
+      // **本当の名前で入れる**（2026-09-24。姉妹セッションの指摘）。
+      // ここを `zumen` と書いていたので、`@metataro/zumen` へ改名したあとも
+      // **偶然そのまま通っていた** —— 取り込む側の実際の書き方を検査していなかった。
+      dependencies: { [NAME]: `file:./${tarball}` },
+    },
     null,
     2,
   ),
@@ -53,9 +74,9 @@ writeFileSync(
 // **取り込む側と同じ書き方で呼ぶ。** md-business が呼ぶのは toSvg 1 つ（#240）。
 writeFileSync(
   join(work, 'check.mjs'),
-  `import { toSvg } from 'zumen';
-import { about } from 'zumen/about';
-import { inspect } from 'zumen/tools';
+  `import { toSvg } from '${NAME}';
+import { about } from '${NAME}/about';
+import { inspect } from '${NAME}/tools';
 
 const source = [
   'version: 1',
@@ -98,7 +119,7 @@ console.log('  ok   toSvg / theme / intent / inspect / about（版の記録つ�
 `,
 );
 
-console.log('入れて呼ぶ…');
+console.log(`入れて呼ぶ（${NAME}）…`);
 run('pnpm', ['install', '--silent', '--ignore-workspace'], work);
 process.stdout.write(run('node', ['check.mjs'], work));
 

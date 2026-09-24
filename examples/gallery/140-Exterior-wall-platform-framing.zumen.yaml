@@ -74,7 +74,7 @@ nodes:
     label: "Sill plate 2x6 (PT), anchor bolts"
     marker: none
     align: left
-    at: { x: 685, y: 387.5 }
+    at: { x: 685, y: 367.5 }
     size: { w: 250, h: 18 }
   - id: bot
     label: ""
@@ -150,13 +150,13 @@ nodes:
     label: "Studs 2x6 at 16 in o.c."
     marker: none
     align: left
-    at: { x: 685, y: 137.5 }
+    at: { x: 685, y: 142.5 }
     size: { w: 225, h: 18 }
   - id: nbot
     label: "Bottom plate 2x6"
     marker: none
     align: left
-    at: { x: 685, y: 350 }
+    at: { x: 685, y: 330 }
     size: { w: 200, h: 18 }
   - id: kingL
     label: ""
@@ -202,7 +202,12 @@ nodes:
     label: "Header 2-2x10"
     marker: none
     align: left
-    at: { x: 452.5, y: 72.75 }
+    # **柱が字を貫いていた**（2026-09-24。qa/品質100周 第 21 周）。
+    # 骨組みの中に置いていたので、`Header 2-2x10` は柱 2 本、
+    # `Rough opening` は柱 6 本に横切られていた。
+    # **この見本は右に注記の列を持っている**（x 685）ので、そちらへ移す。
+    # 並びは上から下へ —— 二重上枠 67.5 ／ **ここ** ／ 柱 137.5。
+    at: { x: 685, y: 105 }
     size: { w: 150, h: 18 }
   - id: nking
     label: "King stud, jack stud"
@@ -214,7 +219,8 @@ nodes:
     label: "Rough opening 1,220 x 1,220"
     marker: none
     align: left
-    at: { x: 296.25, y: 262.75 }
+    # 同上。羽目板 295 と下枠 350 の間へ。
+    at: { x: 685, y: 292.5 }
     size: { w: 237.5, h: 18 }
   - id: tp1
     label: ""
@@ -241,7 +247,7 @@ nodes:
     label: "Sheathing 11 mm OSB"
     marker: none
     align: left
-    at: { x: 685, y: 195 }
+    at: { x: 685, y: 180 }
     size: { w: 225, h: 18 }
   - id: siding
     label: ""
@@ -252,13 +258,13 @@ nodes:
     label: "WRB, then 19 mm rainscreen battens"
     marker: none
     align: left
-    at: { x: 685, y: 245 }
+    at: { x: 685, y: 217.5 }
     size: { w: 325, h: 18 }
   - id: nsid
     label: "Siding, lapped over the battens"
     marker: none
     align: left
-    at: { x: 685, y: 295 }
+    at: { x: 685, y: 255 }
     size: { w: 325, h: 18 }
   - id: n1
     label: "Built in the order a framer builds it, plate to skin."

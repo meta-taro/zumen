@@ -71,9 +71,25 @@ execFileSync('cargo', ['update', '-p', 'zumen', '--offline'], {
 // 日本時間の朝に叩くと前日になる（実際になった）。
 const today = new Intl.DateTimeFormat('sv-SE').format(new Date());
 edit('CHANGELOG.md', (text) => {
-  const heading = /^## 未リリース$/m;
-  if (!heading.test(text)) return text;
-  return text.replace(heading, `## 未リリース\n\n## ${next} — ${today}`);
+  /**
+   * **中身のある「未リリース」を選ぶ**（2026-09-24。ここで 2 回続けて崩した）。
+   *
+   * 前は最初に見つけた `## 未リリース` に入れていた。ところが版を上げた直後の
+   * CHANGELOG には**空の「未リリース」が先頭に残っている**ので、
+   * そこへ新しい版の見出しが入り、**中身を書いたほうが下に取り残される** ——
+   * `## 未リリース` / `## 0.3.2` / `## 未リリース`（中身）という並びになった。
+   *
+   * **次の `## ` までに中身がある「未リリース」**を選ぶ。どれも空なら最初のものでよい。
+   */
+  const found = [...text.matchAll(/^## 未リリース$/gm)];
+  if (found.length === 0) return text;
+  const withBody = found.find((one) => {
+    const rest = text.slice(one.index + one[0].length);
+    const body = rest.slice(0, rest.search(/^## /m) === -1 ? rest.length : rest.search(/^## /m));
+    return body.trim().length > 0;
+  });
+  const at = (withBody ?? found[0]).index;
+  return `${text.slice(0, at)}## 未リリース\n\n## ${next} — ${today}${text.slice(at + '## 未リリース'.length)}`;
 });
 
 console.log(`\n版を ${next} にしました。**CHANGELOG.md の中身を確かめてください** —`);
