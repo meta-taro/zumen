@@ -313,7 +313,8 @@ describe('指している絵が、ちゃんと在る', () => {
     const missing: string[] = [];
     for (const html of htmls) {
       const text = readFileSync(html, 'utf8');
-      for (const [, url] of text.matchAll(/(?:og:image|twitter:image)" content="([^"]+)"/g)) {
+      for (const found of text.matchAll(/(?:og:image|twitter:image)" content="([^"]+)"/g)) {
+        const url = found[1] ?? '';
         if (!url.startsWith(SITE)) continue;
         const path = decodeURIComponent(url.slice(SITE.length + 1));
         if (existsSync(new URL(path, site))) continue;
@@ -327,8 +328,8 @@ describe('指している絵が、ちゃんと在る', () => {
     const gallery = new URL('../examples/gallery/', import.meta.url);
     const missing: string[] = [];
     for (const html of htmls) {
-      for (const [, src] of readFileSync(html, 'utf8').matchAll(/<img [^>]*src="([^"]+)"/g)) {
-        const name = /\/gallery\/([^/]+\.svg)$/.exec(src)?.[1];
+      for (const found of readFileSync(html, 'utf8').matchAll(/<img [^>]*src="([^"]+)"/g)) {
+        const name = /\/gallery\/([^/]+\.svg)$/.exec(found[1] ?? '')?.[1];
         if (name === undefined) continue;
         if (existsSync(new URL(decodeURIComponent(name), gallery))) continue;
         missing.push(`${html.pathname.split('/site/')[1]} → ${name}`);

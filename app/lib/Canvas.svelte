@@ -226,6 +226,27 @@
           <!-- 選択の印は左端の 2px バー（姉妹アプリ §5.7 と同じ作法） -->
           <rect x={pos.x} y={pos.y} width="2" height={box.h} fill="var(--accent)" />
         {/if}
+        <!--
+          **掴めることの印**（2026-09-24。オーナーが触って出た不満）。
+
+          > 四角しかクリック移動できなくて、矢印とか、背景の点線四角とか、テキストはどう編集するの？
+
+          **掴めるのは節だけ**なのに、見て分からなかった。
+          矢印の上でもカーソルは `grab` のままで、押すと紙が動く。
+
+          印は**角の 4 点**。ホバーしている間だけ出る。
+
+          - **枠を太くしない。** 2px は「人が置いた」の意味（`DESIGN.md` §2.3）。混ぜられない
+          - **塗りを触らない。** 前の `brightness(0.98)` は `vivid` の塗りと混ざるうえ、ほぼ見えなかった
+          - **静止しているときは何も出ない。** 図そのものを汚さない
+
+          **掴めないもの（辺・囲み・文字）には何も出ない。それ自体が印。**
+        -->
+        <g class="grips" aria-hidden="true">
+          {#each [[pos.x, pos.y], [pos.x + box.w, pos.y], [pos.x, pos.y + box.h], [pos.x + box.w, pos.y + box.h]] as [gx, gy] (`${gx},${gy}`)}
+            <rect x={gx - 3} y={gy - 3} width="6" height="6" fill="var(--accent)" />
+          {/each}
+        </g>
       </g>
     {/each}
   </g>
@@ -243,8 +264,14 @@
   .node {
     cursor: move;
   }
-  .node:hover rect {
-    filter: brightness(0.98);
+  /** 掴めることの印。**ホバーしている間だけ。** 静止時は図を汚さない。 */
+  .grips {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .node:hover .grips,
+  .node:focus-visible .grips {
+    opacity: 1;
   }
   .node text {
     user-select: none;
