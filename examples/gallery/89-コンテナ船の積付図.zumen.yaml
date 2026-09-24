@@ -468,10 +468,14 @@ nodes:
     at: { x: 622, y: 248 }
     size: { w: 70, h: 26 }
   - id: ld0
+    # **凡例の説明は左揃えで、起点をそろえる**（2026-09-24。qa/品質100周 第 26 周）。
+    # 既定の中央揃えだと、字数の違う 6 行が**てんでばらばらの位置から始まる。**
+    # 色の見本（左の箱）と説明が対になっているので、**読む目は左端を下りる。**
     label: "シンガポール揚げ"
     marker: none
-    at: { x: 692, y: 248 }
-    size: { w: 200, h: 26 }
+    align: left
+    at: { x: 710, y: 248 }
+    size: { w: 380, h: 26 }
   - id: lc1
     label: "HKG"
     color: HKG
@@ -480,8 +484,9 @@ nodes:
   - id: ld1
     label: "香港揚げ"
     marker: none
-    at: { x: 692, y: 276 }
-    size: { w: 200, h: 26 }
+    align: left
+    at: { x: 710, y: 276 }
+    size: { w: 380, h: 26 }
   - id: lc2
     label: "UKB"
     color: UKB
@@ -490,8 +495,9 @@ nodes:
   - id: ld2
     label: "神戸揚げ"
     marker: none
-    at: { x: 692, y: 304 }
-    size: { w: 200, h: 26 }
+    align: left
+    at: { x: 710, y: 304 }
+    size: { w: 380, h: 26 }
   - id: mk0
     label: "R"
     hatch: solid
@@ -500,8 +506,9 @@ nodes:
   - id: md0
     label: "リーファー（電源の要るもの）。甲板上に置く"
     marker: none
-    at: { x: 672, y: 332 }
-    size: { w: 400, h: 26 }
+    align: left
+    at: { x: 710, y: 332 }
+    size: { w: 380, h: 26 }
   - id: mk1
     label: "3"
     hatch: solid
@@ -510,8 +517,9 @@ nodes:
   - id: md1
     label: "IMDG Class 3（引火性液体）。隔離の決まりがある"
     marker: none
-    at: { x: 672, y: 360 }
-    size: { w: 400, h: 26 }
+    align: left
+    at: { x: 710, y: 360 }
+    size: { w: 380, h: 26 }
   - id: mk2
     label: "空"
     hatch: none
@@ -520,8 +528,9 @@ nodes:
   - id: md2
     label: "空きスロット"
     marker: none
-    at: { x: 672, y: 388 }
-    size: { w: 400, h: 26 }
+    align: left
+    at: { x: 710, y: 388 }
+    size: { w: 380, h: 26 }
   - id: num
     label: "数字は総重量（t）。"
     marker: none
