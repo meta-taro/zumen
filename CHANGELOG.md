@@ -20,18 +20,21 @@
 
 ### できることが増えます
 
-- **npm から入れられるようになりました。** 名前は **`@zumen/core`** です。
+- **npm から入れられるようになりました。** 名前は **`@metataro/zumen`** です。
 
   ```bash
-  pnpm add @zumen/core
+  pnpm add @metataro/zumen
   ```
 
   ```ts
-  import { toSvg } from '@zumen/core';
+  import { toSvg } from '@metataro/zumen';
   ```
 
-  スコープを**プロダクト名**にしたのは、姉妹（`@mmj-map/elements`）と同じ形にするためです。
   前は `github:` から直接入れてもらっていました。
+
+  **`@zumen` は取れませんでした。** npm は**パッケージ名と org 名が同じ名前空間**で、
+  素の `zumen` を別の人が押さえているためです（`zumen@1.0.17`）。
+  org を作らずに済む**利用者スコープ**にしています。
 
 ### 直りました
 
