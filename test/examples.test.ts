@@ -488,3 +488,35 @@ describe('閉じた語彙と、それを使った見本', () => {
     }
   });
 });
+
+/**
+ * **矢じりが向きを持っていること**（2026-09-24。`qa/品質100周` 第 18 周）。
+ *
+ * 見本 45（駅の構内図）を実物で見て見つけた。
+ * 隣り合う部屋を結ぶと、**両端を縁で切った結果が同じ点になる。**
+ * 長さゼロの線に `marker-end` を付けても SVG の `orient="auto"` は向きを決められず、
+ * **矢印が全部右を向く** —— 南口 → 改札（左向き）も、改札 → コンコース（下向き）も
+ * 見た目が同じ「▶」になっていた。
+ *
+ * 見つけた時点で **603 本中 18 本 ／ 8 枚**（40・45 が各 4 本、116 が 3 本）。
+ * `src/layout.ts` の `nudge()` で直した。**ここは戻らないことだけを見る。**
+ */
+describe('矢じりの向き', () => {
+  it('**矢印つきの線が、長さゼロになっていない**', () => {
+    const short: string[] = [];
+    let total = 0;
+    for (const file of readdirSync(dir).filter((f) => f.endsWith('.svg') && !f.endsWith('-dark.svg'))) {
+      const svg = readFileSync(new URL(file, dir), 'utf8');
+      for (const found of svg.matchAll(/<path d="M ([\d.-]+) ([\d.-]+)((?: L [\d.-]+ [\d.-]+)+)"[^>]*marker-end/g)) {
+        total += 1;
+        const tail = [...(found[3] ?? '').matchAll(/L ([\d.-]+) ([\d.-]+)/g)].at(-1);
+        if (tail === undefined) continue;
+        const dx = Number(tail[1]) - Number(found[1]);
+        const dy = Number(tail[2]) - Number(found[2]);
+        if (dx * dx + dy * dy < 4) short.push(`${file}: (${found[1]}, ${found[2]})`);
+      }
+    }
+    assert.ok(total > 400, `矢印つきの線が少なすぎる: ${total}`);
+    assert.deepEqual(short, [], '長さゼロの矢印（向きを持てないので、全部右を向く）');
+  });
+});
