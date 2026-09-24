@@ -70,12 +70,18 @@
       {
         "@type": "ListItem",
         "position": 2,
+        "name": "見本 344 枚",
+        "item": "https://meta-taro.github.io/zumen/all/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
         "name": "UI・画面設計",
         "item": "https://meta-taro.github.io/zumen/c/ui/"
       },
       {
         "@type": "ListItem",
-        "position": 3,
+        "position": 4,
         "name": "UI の Component 構造（木ではなく、網になる）"
       }
     ]
@@ -85,8 +91,14 @@
 </head>
 <body class="sub">
 <header class="bar">
-  <a class="home" href="../../">zumen</a>
-  <nav><a href="../../c/ui/">UI・画面設計</a></nav>
+  <!--
+    パンくず（2026-09-24）。入口から現在地まで一本で出す。
+    aria-label を付けて、読み上げでも「ここは道案内」と分かるようにする。
+    区切りの記号は aria-hidden（読み上げると邪魔なだけ）。
+  -->
+  <nav class="crumbs" aria-label="パンくず">
+    <a class="home" href="../../">zumen</a><span aria-hidden="true">›</span><a href="../../all/">見本 344 枚</a><span aria-hidden="true">›</span><a href="../../c/ui/">UI・画面設計</a>
+  </nav>
 </header>
 <main>
 <article>
@@ -100,13 +112,18 @@
   <h2>正本に書いてある決まりごと</h2>
   <p><strong>画面ごとに木を描くと、同じ Component が何度も出てくる。</strong>実際には 1 つの Component が<strong>複数の画面から使われる</strong>ので、構造は<strong>木ではなく網</strong>（同じ節に、親が何本も刺さる）。ここを木として描くと、<strong>どれが共通でどれが専用かが図から消える。</strong></p>
   <p><strong>共通か専用かは、親の数を数えれば分かる。</strong>親が 2 本以上刺さっている節が共通の Component ——直すと<strong>刺さっている画面ぜんぶに効く</strong>ので、直す前にここを見る。親が 1 本だけなら、その画面だけの都合で変えてよい。</p>
-  <p><strong>これが「完成 UI ではなく構造を残す」ということ</strong>（`.claude/rules/UIワイヤーフレームの方針.md` §11）。見た目は何度でも作り直されるが、<strong>画面と Component と、その関係は残る。</strong>この図を正として「React / Vue / Flutter で実装してください」と渡せる。</p>
+  <p><strong>これが「完成 UI ではなく構造を残す」ということ</strong>（<code>.claude/rules/UIワイヤーフレームの方針.md</code> §11）。見た目は何度でも作り直されるが、<strong>画面と Component と、その関係は残る。</strong>この図を正として「React / Vue / Flutter で実装してください」と渡せる。</p>
   <p><strong>Responsive で変わるのは、この図の形ではない。</strong>Sidebar が Drawer になっても、<strong>使っている Component は同じ</strong> ——変わるのは<strong>置き方</strong>で、それは見本 76（管理画面のレスポンシブ構造）の側の話。</p>
   <p><strong>見本 74・75・76・85・86・87・88 と対。</strong> あちらは画面の絵、こちらは部品の関係。</p>
   <h2>正本（YAML）</h2>
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/312-UI%E3%81%AEComponent%E6%A7%8B%E9%80%A0.zumen.yaml"><code>examples/gallery/312-UIのComponent構造.zumen.yaml</code></a></p>
   <h2>同じ分野の見本</h2>
   <ul class="near"><li><a href="../74/">EC 商品ページの UI 構造（レスポンシブ差分）</a></li><li><a href="../75/">画面遷移図（ワイヤーフレームつき）</a></li><li><a href="../76/">管理画面（Sidebar → Drawer）</a></li><li><a href="../85/">Checkout の画面遷移（5 段・エラーの戻り先つき）</a></li><li><a href="../86/">CRUD 管理画面の画面遷移（削除は確認を挟む）</a></li><li><a href="../87/">モバイルアプリの UI 構造（Bottom Navigation）</a></li><li><a href="../88/">レスポンシブ LP の UI 構造（節が消える・増える）</a></li></ul>
+  <nav class="steps" aria-label="前後の見本">
+    <a class="step prev" href="../311/" rel="prev"><span>←</span> ピアノの鍵盤（88 は、7 オクターブ ＋ 4 鍵）</a>
+    <a class="step index" href="../../all/">見本 344 枚</a>
+    <a class="step next" href="../313/" rel="next">時計の針の角度（3 時 15 分に、針は重ならない） <span>→</span></a>
+  </nav>
 </article>
 </main>
 <footer class="foot">

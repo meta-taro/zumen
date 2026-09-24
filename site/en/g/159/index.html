@@ -70,12 +70,18 @@
       {
         "@type": "ListItem",
         "position": 2,
+        "name": "All 344 examples",
+        "item": "https://meta-taro.github.io/zumen/en/all/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
         "name": "Disaster and emergency",
         "item": "https://meta-taro.github.io/zumen/en/c/bosai/"
       },
       {
         "@type": "ListItem",
-        "position": 3,
+        "position": 4,
         "name": "Wildland fire IAP map (fictional)"
       }
     ]
@@ -85,8 +91,14 @@
 </head>
 <body class="sub">
 <header class="bar">
-  <a class="home" href="../../../">zumen</a>
-  <nav><a href="../../c/bosai/">Disaster and emergency</a></nav>
+  <!--
+    パンくず（2026-09-24）。入口から現在地まで一本で出す。
+    aria-label を付けて、読み上げでも「ここは道案内」と分かるようにする。
+    区切りの記号は aria-hidden（読み上げると邪魔なだけ）。
+  -->
+  <nav class="crumbs" aria-label="Breadcrumb">
+    <a class="home" href="../../../">zumen</a><span aria-hidden="true">›</span><a href="../../all/">All 344</a><span aria-hidden="true">›</span><a href="../../c/bosai/">Disaster and emergency</a>
+  </nav>
 </header>
 <main>
 <article>
@@ -107,6 +119,11 @@
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/159-Fire-IAP-map.zumen.yaml"><code>examples/gallery/159-Fire-IAP-map.zumen.yaml</code></a></p>
   <h2>More in this field</h2>
   <ul class="near"><li><a href="../22/">Escape routes on a third floor: two ways out of every room to a staircase, with the travel distance and the fire doors and extinguishers along the way</a></li><li><a href="../93/">Fireworks safety distances, a circle per shell size</a></li><li><a href="../95/">Shelter layout: 3.5 sq m a person, and how many toilets</a></li><li><a href="../106/">Crowd plan: how many can flow out against how many come in</a></li><li><a href="../119/">Extinguishers and hose reels, measured two different ways</a></li><li><a href="../145/">Sprinkler layout: area per head and spacing, decided together</a></li><li><a href="../148/">Egress plan: three lengths answering three questions</a></li><li><a href="../154/">Fire alarm devices: spacing is a circle, not a square</a></li></ul>
+  <nav class="steps" aria-label="Previous and next">
+    <a class="step prev" href="../158/" rel="prev"><span>←</span> Every dimension comes from w…</a>
+    <a class="step index" href="../../all/">All 344</a>
+    <a class="step next" href="../160/" rel="next">A method is not a tune - it… <span>→</span></a>
+  </nav>
 </article>
 </main>
 <footer class="foot">

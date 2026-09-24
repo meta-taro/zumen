@@ -70,12 +70,18 @@
       {
         "@type": "ListItem",
         "position": 2,
+        "name": "見本 344 枚",
+        "item": "https://meta-taro.github.io/zumen/all/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
         "name": "UI・画面設計",
         "item": "https://meta-taro.github.io/zumen/c/ui/"
       },
       {
         "@type": "ListItem",
-        "position": 3,
+        "position": 4,
         "name": "EC 商品ページ UI 構造（Desktop 1440 / Mobile 390・レスポンシブ差分つき）"
       }
     ]
@@ -85,8 +91,14 @@
 </head>
 <body class="sub">
 <header class="bar">
-  <a class="home" href="../../">zumen</a>
-  <nav><a href="../../c/ui/">UI・画面設計</a></nav>
+  <!--
+    パンくず（2026-09-24）。入口から現在地まで一本で出す。
+    aria-label を付けて、読み上げでも「ここは道案内」と分かるようにする。
+    区切りの記号は aria-hidden（読み上げると邪魔なだけ）。
+  -->
+  <nav class="crumbs" aria-label="パンくず">
+    <a class="home" href="../../">zumen</a><span aria-hidden="true">›</span><a href="../../all/">見本 344 枚</a><span aria-hidden="true">›</span><a href="../../c/ui/">UI・画面設計</a>
+  </nav>
 </header>
 <main>
 <article>
@@ -104,6 +116,11 @@
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/74-EC%E5%95%86%E5%93%81%E3%83%9A%E3%83%BC%E3%82%B8%E3%81%AEUI%E6%A7%8B%E9%80%A0.zumen.yaml"><code>examples/gallery/74-EC商品ページのUI構造.zumen.yaml</code></a></p>
   <h2>同じ分野の見本</h2>
   <ul class="near"><li><a href="../75/">画面遷移図（ワイヤーフレームつき）</a></li><li><a href="../76/">管理画面（Sidebar → Drawer）</a></li><li><a href="../85/">Checkout の画面遷移（5 段・エラーの戻り先つき）</a></li><li><a href="../86/">CRUD 管理画面の画面遷移（削除は確認を挟む）</a></li><li><a href="../87/">モバイルアプリの UI 構造（Bottom Navigation）</a></li><li><a href="../88/">レスポンシブ LP の UI 構造（節が消える・増える）</a></li><li><a href="../312/">UI の Component 構造（木ではなく、網になる）</a></li></ul>
+  <nav class="steps" aria-label="前後の見本">
+    <a class="step prev" href="../73/" rel="prev"><span>←</span> サビキ仕掛け図（6 本針）</a>
+    <a class="step index" href="../../all/">見本 344 枚</a>
+    <a class="step next" href="../75/" rel="next">画面遷移図（ワイヤーフレームつき） <span>→</span></a>
+  </nav>
 </article>
 </main>
 <footer class="foot">

@@ -70,12 +70,18 @@
       {
         "@type": "ListItem",
         "position": 2,
+        "name": "All 344 examples",
+        "item": "https://meta-taro.github.io/zumen/en/all/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
         "name": "Transit and transport",
         "item": "https://meta-taro.github.io/zumen/en/c/tetsudo/"
       },
       {
         "@type": "ListItem",
-        "position": 3,
+        "position": 4,
         "name": "JR 中央線快速 停車駅一覧（東京〜高尾・種別 4 区分）"
       }
     ]
@@ -85,8 +91,14 @@
 </head>
 <body class="sub">
 <header class="bar">
-  <a class="home" href="../../../">zumen</a>
-  <nav><a href="../../c/tetsudo/">Transit and transport</a></nav>
+  <!--
+    パンくず（2026-09-24）。入口から現在地まで一本で出す。
+    aria-label を付けて、読み上げでも「ここは道案内」と分かるようにする。
+    区切りの記号は aria-hidden（読み上げると邪魔なだけ）。
+  -->
+  <nav class="crumbs" aria-label="Breadcrumb">
+    <a class="home" href="../../../">zumen</a><span aria-hidden="true">›</span><a href="../../all/">All 344</a><span aria-hidden="true">›</span><a href="../../c/tetsudo/">Transit and transport</a>
+  </nav>
 </header>
 <main>
 <article>
@@ -104,6 +116,11 @@
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/80-%E4%B8%AD%E5%A4%AE%E7%B7%9A%E5%BF%AB%E9%80%9F%E3%81%AE%E5%81%9C%E8%BB%8A%E9%A7%85%E4%B8%80%E8%A6%A7.zumen.yaml"><code>examples/gallery/80-中央線快速の停車駅一覧.zumen.yaml</code></a></p>
   <h2>More in this field</h2>
   <ul class="near"><li><a href="../25/">A transit map of six lines told apart by colour and letter code, with interchange stations marked by a double circle rather than by name</a></li><li><a href="../29/">A ten-car commuter train set out car by car: which are motored and which are trailers, where the pantographs are, and what each car carries inside</a></li><li><a href="../37/">Delivery rounds for three two-tonne vans: the order of calls, the stops themselves, and the area each van covers</a></li><li><a href="../45/">A station on two levels — ground floor and concourse — showing how the gates, stairs, lifts and exits line up with each other</a></li><li><a href="../52/">Stopping pattern chart: a band per service, a circle per stop</a></li><li><a href="../53/">A station timetable with hours down the side and minutes across, weekday and weekend separated, and train types shown by symbol</a></li><li><a href="../54/">Interchange guide with station names set vertically</a></li><li><a href="../56/">A bus stop timetable in three columns — weekday, Saturday, Sunday and holiday — with the departure minutes listed under each hour</a></li></ul>
+  <nav class="steps" aria-label="Previous and next">
+    <a class="step prev" href="../79/" rel="prev"><span>←</span> Seven stations all called Um…</a>
+    <a class="step index" href="../../all/">All 344</a>
+    <a class="step next" href="../81/" rel="next">Thirteen Tokyo subway lines… <span>→</span></a>
+  </nav>
 </article>
 </main>
 <footer class="foot">

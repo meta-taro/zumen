@@ -70,12 +70,18 @@
       {
         "@type": "ListItem",
         "position": 2,
+        "name": "見本 344 枚",
+        "item": "https://meta-taro.github.io/zumen/all/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
         "name": "業務・組織",
         "item": "https://meta-taro.github.io/zumen/c/gyomu/"
       },
       {
         "@type": "ListItem",
-        "position": 3,
+        "position": 4,
         "name": "展示会の会場（1 マス = 1800mm を 30px として）"
       }
     ]
@@ -85,8 +91,14 @@
 </head>
 <body class="sub">
 <header class="bar">
-  <a class="home" href="../../">zumen</a>
-  <nav><a href="../../c/gyomu/">業務・組織</a></nav>
+  <!--
+    パンくず（2026-09-24）。入口から現在地まで一本で出す。
+    aria-label を付けて、読み上げでも「ここは道案内」と分かるようにする。
+    区切りの記号は aria-hidden（読み上げると邪魔なだけ）。
+  -->
+  <nav class="crumbs" aria-label="パンくず">
+    <a class="home" href="../../">zumen</a><span aria-hidden="true">›</span><a href="../../all/">見本 344 枚</a><span aria-hidden="true">›</span><a href="../../c/gyomu/">業務・組織</a>
+  </nav>
 </header>
 <main>
 <article>
@@ -105,6 +117,11 @@
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/16-%E4%BC%9A%E5%A0%B4%E3%81%AE%E9%85%8D%E7%BD%AE.zumen.yaml"><code>examples/gallery/16-会場の配置.zumen.yaml</code></a></p>
   <h2>同じ分野の見本</h2>
   <ul class="near"><li><a href="../05/">受注から出荷まで</a></li><li><a href="../07/">稟議の流れ</a></li><li><a href="../11/">記事ができるまで</a></li><li><a href="../13/">入学までの流れ</a></li><li><a href="../20/">組織図（2026 年度）</a></li><li><a href="../31/">座席図（60 席・車椅子 2）</a></li><li><a href="../55/">学校の時間割（週の表）</a></li><li><a href="../64/">施設の開館表（週間）</a></li></ul>
+  <nav class="steps" aria-label="前後の見本">
+    <a class="step prev" href="../15/" rel="prev"><span>←</span> 店舗のレイアウト</a>
+    <a class="step index" href="../../all/">見本 344 枚</a>
+    <a class="step next" href="../17/" rel="next">躯体の伏図（RC 造・2 階床） <span>→</span></a>
+  </nav>
 </article>
 </main>
 <footer class="foot">

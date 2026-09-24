@@ -70,12 +70,18 @@
       {
         "@type": "ListItem",
         "position": 2,
+        "name": "All 344 examples",
+        "item": "https://meta-taro.github.io/zumen/en/all/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
         "name": "Services and electrical",
         "item": "https://meta-taro.github.io/zumen/en/c/setsubi/"
       },
       {
         "@type": "ListItem",
-        "position": 3,
+        "position": 4,
         "name": "エスカレーターの構造（トラスの側面図）"
       }
     ]
@@ -85,8 +91,14 @@
 </head>
 <body class="sub">
 <header class="bar">
-  <a class="home" href="../../../">zumen</a>
-  <nav><a href="../../c/setsubi/">Services and electrical</a></nav>
+  <!--
+    パンくず（2026-09-24）。入口から現在地まで一本で出す。
+    aria-label を付けて、読み上げでも「ここは道案内」と分かるようにする。
+    区切りの記号は aria-hidden（読み上げると邪魔なだけ）。
+  -->
+  <nav class="crumbs" aria-label="Breadcrumb">
+    <a class="home" href="../../../">zumen</a><span aria-hidden="true">›</span><a href="../../all/">All 344</a><span aria-hidden="true">›</span><a href="../../c/setsubi/">Services and electrical</a>
+  </nav>
 </header>
 <main>
 <article>
@@ -106,6 +118,11 @@
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/245-%E3%82%A8%E3%82%B9%E3%82%AB%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC%E3%81%AE%E6%A7%8B%E9%80%A0.zumen.yaml"><code>examples/gallery/245-エスカレーターの構造.zumen.yaml</code></a></p>
   <h2>More in this field</h2>
   <ul class="near"><li><a href="../06/">A house wiring layout from the service entrance to the consumer unit, then breaker by breaker to the sockets and lights in each room</a></li><li><a href="../10/">The four plumbing systems of a house — cold supply, hot supply, drainage and venting — separated out fixture by fixture</a></li><li><a href="../18/">A cooling water P&amp;ID where pumps, heat exchangers, valves and instruments are joined by pipes distinguished by line type</a></li><li><a href="../19/">A substation single-line diagram from the incoming supply through disconnector, breaker and transformer to the low voltage boards</a></li><li><a href="../35/">A town water distribution network from treatment works through service reservoirs and trunk mains to each supply zone, with the ground level of every zone</a></li><li><a href="../38/">An instrument loop from sensing element through transmitter and controller to final element, every device carrying its ISA tag</a></li><li><a href="../44/">The subsystems of a 150kg satellite and how they connect: power, communications, attitude control, data handling and the mission payload</a></li><li><a href="../50/">An LED circuit drawn with IEC and JIS symbols: supply, resistor, LED and switch</a></li></ul>
+  <nav class="steps" aria-label="Previous and next">
+    <a class="step prev" href="../244/" rel="prev"><span>←</span> The counterweight is not the…</a>
+    <a class="step index" href="../../all/">All 344</a>
+    <a class="step next" href="../246/" rel="next">A fridge does not make cold,… <span>→</span></a>
+  </nav>
 </article>
 </main>
 <footer class="foot">

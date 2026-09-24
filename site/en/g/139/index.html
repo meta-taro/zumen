@@ -70,12 +70,18 @@
       {
         "@type": "ListItem",
         "position": 2,
+        "name": "All 344 examples",
+        "item": "https://meta-taro.github.io/zumen/en/all/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
         "name": "Building and civil",
         "item": "https://meta-taro.github.io/zumen/en/c/kenchiku/"
       },
       {
         "@type": "ListItem",
-        "position": 3,
+        "position": 4,
         "name": "矩計図（木造軸組・平屋の外壁まわり／架空）"
       }
     ]
@@ -85,8 +91,14 @@
 </head>
 <body class="sub">
 <header class="bar">
-  <a class="home" href="../../../">zumen</a>
-  <nav><a href="../../c/kenchiku/">Building and civil</a></nav>
+  <!--
+    パンくず（2026-09-24）。入口から現在地まで一本で出す。
+    aria-label を付けて、読み上げでも「ここは道案内」と分かるようにする。
+    区切りの記号は aria-hidden（読み上げると邪魔なだけ）。
+  -->
+  <nav class="crumbs" aria-label="Breadcrumb">
+    <a class="home" href="../../../">zumen</a><span aria-hidden="true">›</span><a href="../../all/">All 344</a><span aria-hidden="true">›</span><a href="../../c/kenchiku/">Building and civil</a>
+  </nav>
 </header>
 <main>
 <article>
@@ -99,14 +111,21 @@
   <p class="made">This drawing comes from one YAML file. No shape was moved by hand.</p>
   <h2>What the source says</h2>
   <p><strong>矩計図（かなばかりず）は、建物を垂直に切って基礎から軒まで通しで見る図。</strong>縮尺は 1/50〜1/20（住宅は 1/30 が多い）。</p>
-  <p>基礎の深さ／立上り／土台上端／1FL／2FL／軒桁の高さ／最高高さ ——<strong>施工の基準はここで決まる。</strong> だから `mark: level` で書く。</p>
+  <p>基礎の深さ／立上り／土台上端／1FL／2FL／軒桁の高さ／最高高さ ——<strong>施工の基準はここで決まる。</strong> だから <code>mark: level</code> で書く。</p>
   <p><strong>外装仕上げ → 通気層 → 構造用面材 → 断熱材 → 内装下地 → 内装仕上げ。</strong>縮尺 1/30 では層ごとに線を引けないので、<strong>厚みは表で言う</strong>（実物もそうする）。</p>
-  <p>| | ||---|---|| 令 22 条 | 最下階の木造の居室の床は、直下の地面から<strong>床上面まで 450 以上</strong> || 令 22 条 | 床下換気は<strong>壁の長さ 5 m 以下ごとに 300 cm² 以上</strong>（ねずみの侵入を防ぐ） || 令 21 条 | 居室の<strong>天井高 2,100 以上</strong> || 告示 1347 号 | 基礎の<strong>立上りは地盤面から 300 以上</strong> |</p>
+  <table class="note bare">
+  <tbody><tr><td>令 22 条</td><td>最下階の木造の居室の床は、直下の地面から<strong>床上面まで 450 以上</strong></td></tr><tr><td>令 22 条</td><td>床下換気は<strong>壁の長さ 5 m 以下ごとに 300 cm² 以上</strong>（ねずみの侵入を防ぐ）</td></tr><tr><td>令 21 条</td><td>居室の<strong>天井高 2,100 以上</strong></td></tr><tr><td>告示 1347 号</td><td>基礎の<strong>立上りは地盤面から 300 以上</strong></td></tr></tbody>
+</table>
   <p>1 px ＝ 10 mm。寸法・仕様はすべて架空。</p>
   <h2>Source (YAML)</h2>
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/139-%E7%9F%A9%E8%A8%88%E5%9B%B3.zumen.yaml"><code>examples/gallery/139-矩計図.zumen.yaml</code></a></p>
   <h2>More in this field</h2>
   <ul class="near"><li><a href="../14/">A two-bedroom apartment plan with room dimensions, which way each door swings, and where the wet rooms and storage sit</a></li><li><a href="../17/">A reinforced concrete framing plan for a second floor, with the grid lines and the mark of every column, girder, beam and slab</a></li><li><a href="../24/">School floor plan (walls, door swings, grid lines, dimensions)</a></li><li><a href="../27/">A farmland consolidation plan laying out 30-are plots, with the irrigation channels, the drainage channels and the farm roads that serve them</a></li><li><a href="../28/">The plan of a concrete gravity dam: the body, the spillway, the intake works and the access road for maintenance</a></li><li><a href="../30/">Site logistics plan with the crane radius</a></li><li><a href="../32/">The typical floor of a business hotel with twelve rooms, the corridor, the fire stairs and the lifts</a></li><li><a href="../33/">A surface car park set out for fourteen cars, with bay dimensions, aisle width and where the entrance and exit sit</a></li></ul>
+  <nav class="steps" aria-label="Previous and next">
+    <a class="step prev" href="../138/" rel="prev"><span>←</span> Rope access work plan — the…</a>
+    <a class="step index" href="../../all/">All 344</a>
+    <a class="step next" href="../140/" rel="next">Exterior wall framing… <span>→</span></a>
+  </nav>
 </article>
 </main>
 <footer class="foot">

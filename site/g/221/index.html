@@ -70,12 +70,18 @@
       {
         "@type": "ListItem",
         "position": 2,
+        "name": "見本 344 枚",
+        "item": "https://meta-taro.github.io/zumen/all/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
         "name": "防災・災害",
         "item": "https://meta-taro.github.io/zumen/c/bosai/"
       },
       {
         "@type": "ListItem",
-        "position": 3,
+        "position": 4,
         "name": "避難行動の判定フローと、浸水深の読み方"
       }
     ]
@@ -85,8 +91,14 @@
 </head>
 <body class="sub">
 <header class="bar">
-  <a class="home" href="../../">zumen</a>
-  <nav><a href="../../c/bosai/">防災・災害</a></nav>
+  <!--
+    パンくず（2026-09-24）。入口から現在地まで一本で出す。
+    aria-label を付けて、読み上げでも「ここは道案内」と分かるようにする。
+    区切りの記号は aria-hidden（読み上げると邪魔なだけ）。
+  -->
+  <nav class="crumbs" aria-label="パンくず">
+    <a class="home" href="../../">zumen</a><span aria-hidden="true">›</span><a href="../../all/">見本 344 枚</a><span aria-hidden="true">›</span><a href="../../c/bosai/">防災・災害</a>
+  </nav>
 </header>
 <main>
 <article>
@@ -105,6 +117,11 @@
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/221-%E9%81%BF%E9%9B%A3%E8%A1%8C%E5%8B%95%E3%81%AE%E5%88%A4%E5%AE%9A%E3%81%A8%E6%B5%B8%E6%B0%B4%E6%B7%B1.zumen.yaml"><code>examples/gallery/221-避難行動の判定と浸水深.zumen.yaml</code></a></p>
   <h2>同じ分野の見本</h2>
   <ul class="near"><li><a href="../22/">避難経路図（3 階）</a></li><li><a href="../93/">花火大会の保安距離図（号数ごとの円）</a></li><li><a href="../95/">避難所レイアウト（1 人 3.5m² とトイレの数）</a></li><li><a href="../106/">雑踏警備計画図（流せる量と入ってくる量）</a></li><li><a href="../119/">消火器と消火栓の配置図（測り方が 2 つ載る）</a></li><li><a href="../145/">スプリンクラーの配置（面積と間隔、2 つ同時に決まる）</a></li><li><a href="../148/">避難計画図（3 つの長さが、3 つの問いに答える）</a></li><li><a href="../154/">火災報知の配置（間隔は四角ではなく円）</a></li></ul>
+  <nav class="steps" aria-label="前後の見本">
+    <a class="step prev" href="../220/" rel="prev"><span>←</span> 防火区画（訓練で大事なのは、いつもの近道が閉まること）</a>
+    <a class="step index" href="../../all/">見本 344 枚</a>
+    <a class="step next" href="../222/" rel="next">避難確保計画（上が無い施設は、避難先を作れない） <span>→</span></a>
+  </nav>
 </article>
 </main>
 <footer class="foot">

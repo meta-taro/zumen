@@ -70,12 +70,18 @@
       {
         "@type": "ListItem",
         "position": 2,
+        "name": "All 344 examples",
+        "item": "https://meta-taro.github.io/zumen/en/all/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
         "name": "Building and civil",
         "item": "https://meta-taro.github.io/zumen/en/c/kenchiku/"
       },
       {
         "@type": "ListItem",
-        "position": 3,
+        "position": 4,
         "name": "Exterior wall framing, platform framing (fictional)"
       }
     ]
@@ -85,8 +91,14 @@
 </head>
 <body class="sub">
 <header class="bar">
-  <a class="home" href="../../../">zumen</a>
-  <nav><a href="../../c/kenchiku/">Building and civil</a></nav>
+  <!--
+    パンくず（2026-09-24）。入口から現在地まで一本で出す。
+    aria-label を付けて、読み上げでも「ここは道案内」と分かるようにする。
+    区切りの記号は aria-hidden（読み上げると邪魔なだけ）。
+  -->
+  <nav class="crumbs" aria-label="Breadcrumb">
+    <a class="home" href="../../../">zumen</a><span aria-hidden="true">›</span><a href="../../all/">All 344</a><span aria-hidden="true">›</span><a href="../../c/kenchiku/">Building and civil</a>
+  </nav>
 </header>
 <main>
 <article>
@@ -101,13 +113,20 @@
   <p><strong>Built in the order a framer builds it</strong> — the same wall as 見本 139（矩計図）, but in the other building culture.</p>
   <p>Sill plate (pressure treated) on anchor bolts, bottom plate, studs at 16 ino.c., the rough opening (king stud, jack stud, header, cripples, rough sill),the double top plate, then the skin: sheathing, WRB, rainscreen battens, siding.</p>
   <p><strong>The skin is drawn part way across on purpose</strong> —— that is how a wall lookswhile it is being built, and it keeps the framing visible behind it.</p>
-  <p>| | ||---|---|| Anchor bolts | 1/2 in dia, 7 in embedment, <strong>6 ft o.c. max</strong>, 2 per plate (IRC R403.1.6) || Studs | 2x6 at <strong>16 in o.c.</strong> |</p>
+  <table class="note bare">
+  <tbody><tr><td>Anchor bolts</td><td>1/2 in dia, 7 in embedment, <strong>6 ft o.c. max</strong>, 2 per plate (IRC R403.1.6)</td></tr><tr><td>Studs</td><td>2x6 at <strong>16 in o.c.</strong></td></tr></tbody>
+</table>
   <p><strong>日本語の同じ主題は見本 139（矩計図）。</strong> 同じ「壁の作り方」を、尺貫法と通り芯で書くか、フィートと o.c. で書くかの違いとして並べてある。</p>
   <p>1 px ＝ 8 mm。寸法・建物はすべて架空。</p>
   <h2>Source (YAML)</h2>
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/140-Exterior-wall-platform-framing.zumen.yaml"><code>examples/gallery/140-Exterior-wall-platform-framing.zumen.yaml</code></a></p>
   <h2>More in this field</h2>
   <ul class="near"><li><a href="../14/">A two-bedroom apartment plan with room dimensions, which way each door swings, and where the wet rooms and storage sit</a></li><li><a href="../17/">A reinforced concrete framing plan for a second floor, with the grid lines and the mark of every column, girder, beam and slab</a></li><li><a href="../24/">School floor plan (walls, door swings, grid lines, dimensions)</a></li><li><a href="../27/">A farmland consolidation plan laying out 30-are plots, with the irrigation channels, the drainage channels and the farm roads that serve them</a></li><li><a href="../28/">The plan of a concrete gravity dam: the body, the spillway, the intake works and the access road for maintenance</a></li><li><a href="../30/">Site logistics plan with the crane radius</a></li><li><a href="../32/">The typical floor of a business hotel with twelve rooms, the corridor, the fire stairs and the lifts</a></li><li><a href="../33/">A surface car park set out for fourteen cars, with bay dimensions, aisle width and where the entrance and exit sit</a></li></ul>
+  <nav class="steps" aria-label="Previous and next">
+    <a class="step prev" href="../139/" rel="prev"><span>←</span> Japanese wall section…</a>
+    <a class="step index" href="../../all/">All 344</a>
+    <a class="step next" href="../141/" rel="next">Two-story house plan in feet… <span>→</span></a>
+  </nav>
 </article>
 </main>
 <footer class="foot">

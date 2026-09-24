@@ -6,18 +6,18 @@
 <title>Egress plan — office floor (fictional) — zumen の見本 148</title>
 <link rel="icon" type="image/svg+xml" href="../../icon.svg">
 <meta name="theme-color" content="#23232b">
-<meta name="description" content="避難計画図（3 つの長さが、3 つの問いに答える）。| | ||---|---|| Common path | how far before you can choose between two exits || Dead end | how far into a corridor that goe…">
+<meta name="description" content="避難計画図（3 つの長さが、3 つの問いに答える）。Occupant load decides how many exits; travel distance decides where.48 people would allow a single exit; the conference room…">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="zumen">
 <meta property="og:locale" content="ja_JP">
 <meta property="og:url" content="https://meta-taro.github.io/zumen/g/148/">
 <meta property="og:title" content="Egress plan — office floor (fictional) — zumen の見本 148">
-<meta property="og:description" content="避難計画図（3 つの長さが、3 つの問いに答える）。| | ||---|---|| Common path | how far before you can choose between two exits || Dead end | how far into a corridor that goe…">
+<meta property="og:description" content="避難計画図（3 つの長さが、3 つの問いに答える）。Occupant load decides how many exits; travel distance decides where.48 people would allow a single exit; the conference room…">
 <meta property="og:image" content="https://meta-taro.github.io/zumen/og/148.png">
 <meta property="og:image:alt" content="事務所階の避難計画図（IBC の 3 つの距離／英語・架空）">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Egress plan — office floor (fictional) — zumen の見本 148">
-<meta name="twitter:description" content="避難計画図（3 つの長さが、3 つの問いに答える）。| | ||---|---|| Common path | how far before you can choose between two exits || Dead end | how far into a corridor that goe…">
+<meta name="twitter:description" content="避難計画図（3 つの長さが、3 つの問いに答える）。Occupant load decides how many exits; travel distance decides where.48 people would allow a single exit; the conference room…">
 <meta name="twitter:image" content="https://meta-taro.github.io/zumen/og/148.png">
 <meta name="twitter:image:alt" content="事務所階の避難計画図（IBC の 3 つの距離／英語・架空）">
 <link rel="stylesheet" href="../../style.css">
@@ -35,7 +35,7 @@
     "@type": "CreativeWork",
     "name": "Egress plan — office floor (fictional)",
     "headline": "Egress plan — office floor (fictional)",
-    "description": "避難計画図（3 つの長さが、3 つの問いに答える）。| | ||---|---|| Common path | how far before you can choose between two exits || Dead end | how far into a corridor that goe…",
+    "description": "避難計画図（3 つの長さが、3 つの問いに答える）。Occupant load decides how many exits; travel distance decides where.48 people would allow a single exit; the conference room…",
     "url": "https://meta-taro.github.io/zumen/g/148/",
     "image": {
       "@type": "ImageObject",
@@ -70,12 +70,18 @@
       {
         "@type": "ListItem",
         "position": 2,
+        "name": "見本 344 枚",
+        "item": "https://meta-taro.github.io/zumen/all/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
         "name": "防災・災害",
         "item": "https://meta-taro.github.io/zumen/c/bosai/"
       },
       {
         "@type": "ListItem",
-        "position": 3,
+        "position": 4,
         "name": "Egress plan — office floor (fictional)"
       }
     ]
@@ -85,8 +91,14 @@
 </head>
 <body class="sub">
 <header class="bar">
-  <a class="home" href="../../">zumen</a>
-  <nav><a href="../../c/bosai/">防災・災害</a></nav>
+  <!--
+    パンくず（2026-09-24）。入口から現在地まで一本で出す。
+    aria-label を付けて、読み上げでも「ここは道案内」と分かるようにする。
+    区切りの記号は aria-hidden（読み上げると邪魔なだけ）。
+  -->
+  <nav class="crumbs" aria-label="パンくず">
+    <a class="home" href="../../">zumen</a><span aria-hidden="true">›</span><a href="../../all/">見本 344 枚</a><span aria-hidden="true">›</span><a href="../../c/bosai/">防災・災害</a>
+  </nav>
 </header>
 <main>
 <article>
@@ -99,7 +111,9 @@
   <p class="made">この図は、下の 1 枚の YAML から描かれています。手で図形を動かしてはいません。</p>
   <h2>正本に書いてある決まりごと</h2>
   <p><strong>Three different lengths, three different questions.</strong></p>
-  <p>| | ||---|---|| Common path | how far before you can choose between two exits || Dead end | how far into a corridor that goes nowhere || Exit access travel | how far to an exit once you can choose |</p>
+  <table class="note bare">
+  <tbody><tr><td>Common path</td><td>how far before you can choose between two exits</td></tr><tr><td>Dead end</td><td>how far into a corridor that goes nowhere</td></tr><tr><td>Exit access travel</td><td>how far to an exit once you can choose</td></tr></tbody>
+</table>
   <p>Sprinklers lengthen all three —— which is why the egress plan and thesprinkler plan get read together（見本 145）.</p>
   <p><strong>Occupant load decides how many exits; travel distance decides where.</strong>48 people would allow a single exit; the conference room pushes the floorpast 49, so two are required.</p>
   <p><strong>日本語の見本 22（避難経路図）と対。</strong></p>
@@ -108,6 +122,11 @@
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/148-Egress-plan.zumen.yaml"><code>examples/gallery/148-Egress-plan.zumen.yaml</code></a></p>
   <h2>同じ分野の見本</h2>
   <ul class="near"><li><a href="../22/">避難経路図（3 階）</a></li><li><a href="../93/">花火大会の保安距離図（号数ごとの円）</a></li><li><a href="../95/">避難所レイアウト（1 人 3.5m² とトイレの数）</a></li><li><a href="../106/">雑踏警備計画図（流せる量と入ってくる量）</a></li><li><a href="../119/">消火器と消火栓の配置図（測り方が 2 つ載る）</a></li><li><a href="../145/">スプリンクラーの配置（面積と間隔、2 つ同時に決まる）</a></li><li><a href="../154/">火災報知の配置（間隔は四角ではなく円）</a></li><li><a href="../159/">林野火災の作戦図（火の絵ではなく、逃げ道が書いてある紙）</a></li></ul>
+  <nav class="steps" aria-label="前後の見本">
+    <a class="step prev" href="../147/" rel="prev"><span>←</span> 敷地図（建てられる範囲は、敷地から庭を引いた残り）</a>
+    <a class="step index" href="../../all/">見本 344 枚</a>
+    <a class="step next" href="../149/" rel="next">パレットラックの配置（通路幅は、機種が決める） <span>→</span></a>
+  </nav>
 </article>
 </main>
 <footer class="foot">

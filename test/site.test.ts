@@ -338,3 +338,103 @@ describe('指している絵が、ちゃんと在る', () => {
     assert.deepEqual([...new Set(missing)], []);
   });
 });
+
+/**
+ * **徘徊の道**（2026-09-24。オーナーの指摘）。
+ *
+ * > 個別ページはありますが、**徘徊機能がないのは意図していますか**
+ *
+ * **意図していなかった。** 見本ごとの `og:image`・構造化データ・パンくずと、
+ * 「**検索や SNS から 1 枚に降りてくる人**」の作りは揃えてあったのに、
+ * **降りてきた人が隣を見に行く道が無かった。**
+ *
+ * ここで見張るのは 3 つ —— 前後の道、全部の一覧、パンくずの通し。
+ */
+describe('徘徊の道', () => {
+  const read = (path: string): string => readFileSync(new URL(`../${path}`, import.meta.url), 'utf8');
+  const numbers = readdirSync(new URL('../site/g/', import.meta.url)).filter((n) => /^[0-9]+$/.test(n));
+
+  it('**どの見本からも、前と次へ行ける**', () => {
+    const broken = numbers.filter((no) => {
+      const html = read(`site/g/${no}/index.html`);
+      return !/rel="prev"/.test(html) || !/rel="next"/.test(html);
+    });
+    assert.deepEqual(broken, []);
+  });
+
+  it('**344 枚が 1 ページに並ぶ**（JS が無くても読める）', () => {
+    for (const path of ['site/all/index.html', 'site/en/all/index.html']) {
+      const html = read(path);
+      const cards = [...html.matchAll(/<li data-name="/g)].length;
+      assert.equal(cards, numbers.length, `${path} の枚数が見本の数と違う`);
+    }
+  });
+
+  /**
+   * **見える形と構造化データを食い違わせない。**
+   * 検索結果に出るのは後者で、人が見るのは前者。
+   */
+  it('**パンくずが、入口から現在地まで通っている**', () => {
+    const thin: string[] = [];
+    for (const no of numbers) {
+      const html = read(`site/g/${no}/index.html`);
+      const crumbs = /<nav class="crumbs"[^>]*>([\s\S]*?)<\/nav>/.exec(html)?.[1] ?? '';
+      // 見える側は 入口 / すべての見本 / 分野 の 3 つ
+      if ([...crumbs.matchAll(/<a /g)].length !== 3) thin.push(`${no}: 見える側`);
+      /**
+       * **JSON は JSON として読む。**
+       * 最初はここを正規表現で切り出していて、閉じ括弧のインデントを決め打ちしたせいで
+       * 実物が正しいのに 344 枚すべてを落とした（2026-09-24）。
+       */
+      const script = /<script type="application\/ld\+json">\s*([\s\S]*?)\s*<\/script>/.exec(html)?.[1] ?? 'null';
+      const data = JSON.parse(script) as unknown;
+      const all = Array.isArray(data) ? data : [data];
+      const crumb = all.find((one) => (one as { '@type'?: string })['@type'] === 'BreadcrumbList') as
+        | { itemListElement: unknown[] }
+        | undefined;
+      // 構造化データは、見える 3 つに現在地を足した 4 つ
+      if (crumb === undefined || crumb.itemListElement.length !== 4) thin.push(`${no}: 構造化データ`);
+    }
+    assert.deepEqual(thin.slice(0, 5), []);
+  });
+
+  it('**分野のページと一覧にも、パンくずがある**', () => {
+    for (const path of ['site/c/gyomu/index.html', 'site/all/index.html', 'site/en/all/index.html']) {
+      assert.match(read(path), /BreadcrumbList/, `${path} にパンくずが無い`);
+    }
+  });
+
+  /**
+   * **カードの図が 1 枚も出ていなかった**（2026-09-24）。
+   *
+   * `<img>` に `width` / `height` が無く、読み込む前の高さが 0 になり、
+   * `loading="lazy"` が発火しないままだった。**分野ページ 13 枚すべて。**
+   * 寸法があると場所が先に決まるので、字も飛び跳ねない（CLS）。
+   */
+  it('**カードの図に寸法が付いている**', () => {
+    const naked: string[] = [];
+    for (const path of ['site/c/gyomu/index.html', 'site/all/index.html']) {
+      for (const [tag] of read(path).matchAll(/<img [^>]*gallery\/[^>]*>/g)) {
+        if (!/ width="\d+" height="\d+"/.test(tag)) naked.push(`${path}: ${tag.slice(0, 60)}`);
+      }
+    }
+    assert.deepEqual(naked.slice(0, 3), []);
+  });
+
+  /**
+   * **正本の書き方が、生のまま出ていた**（2026-09-24）。
+   *
+   * 表は 1 行に潰れ（17 枚・100 行）、`**` とバッククォートはそのまま文字として出ていた。
+   * **とくに `meta description` は検索結果にそのまま出る。**
+   */
+  it('**検索結果に出る文に、書き方の記号が残っていない**', () => {
+    const dirty: string[] = [];
+    for (const no of numbers) {
+      const html = read(`site/g/${no}/index.html`);
+      for (const found of html.matchAll(/name="description" content="([^"]*)"/g)) {
+        if (/\*\*|`/.test(found[1] ?? '')) dirty.push(no);
+      }
+    }
+    assert.deepEqual(dirty.slice(0, 5), []);
+  });
+});

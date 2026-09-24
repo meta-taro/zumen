@@ -70,12 +70,18 @@
       {
         "@type": "ListItem",
         "position": 2,
+        "name": "All 344 examples",
+        "item": "https://meta-taro.github.io/zumen/en/all/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
         "name": "IT and software",
         "item": "https://meta-taro.github.io/zumen/en/c/it/"
       },
       {
         "@type": "ListItem",
-        "position": 3,
+        "position": 4,
         "name": "受注管理のテーブル関係（ER・鳥の足記法）"
       }
     ]
@@ -85,8 +91,14 @@
 </head>
 <body class="sub">
 <header class="bar">
-  <a class="home" href="../../../">zumen</a>
-  <nav><a href="../../c/it/">IT and software</a></nav>
+  <!--
+    パンくず（2026-09-24）。入口から現在地まで一本で出す。
+    aria-label を付けて、読み上げでも「ここは道案内」と分かるようにする。
+    区切りの記号は aria-hidden（読み上げると邪魔なだけ）。
+  -->
+  <nav class="crumbs" aria-label="Breadcrumb">
+    <a class="home" href="../../../">zumen</a><span aria-hidden="true">›</span><a href="../../all/">All 344</a><span aria-hidden="true">›</span><a href="../../c/it/">IT and software</a>
+  </nav>
 </header>
 <main>
 <article>
@@ -99,7 +111,10 @@
   <p class="made">This drawing comes from one YAML file. No shape was moved by hand.</p>
   <h2>What the source says</h2>
   <p><strong>鳥の足（crow's foot）は、線の端の形が「何個つながるか」を言う。</strong>線そのものではなく、<strong>端</strong>を読む図。</p>
-  <p>| 端の形 | 意味 ||---|---|| 三またの足 | 多（0 個以上、または 1 個以上） || 縦棒 1 本 | ちょうど 1 || 丸 ＋ 三またの足 | 0 以上（まだ 1 件も無くてよい） || 丸 ＋ 縦棒 | 0 または 1 |</p>
+  <table class="note">
+  <thead><tr><th>端の形</th><th>意味</th></tr></thead>
+  <tbody><tr><td>三またの足</td><td>多（0 個以上、または 1 個以上）</td></tr><tr><td>縦棒 1 本</td><td>ちょうど 1</td></tr><tr><td>丸 ＋ 三またの足</td><td>0 以上（まだ 1 件も無くてよい）</td></tr><tr><td>丸 ＋ 縦棒</td><td>0 または 1</td></tr></tbody>
+</table>
   <p><strong>「0 でもよい」かどうかは、業務のほうから決まる。</strong>まだ 1 件も注文していない顧客はいる（顧客 → 受注は <strong>0 以上</strong>）。一度も売れていない商品もある（商品 → 明細も <strong>0 以上</strong>）。受注 1 件に対する出荷は、<strong>まだ無いか 1 回</strong>（0 または 1）——<strong>端の形が、その表に何が入り得るかをそのまま言っている。</strong></p>
   <p>受注 1 件に明細は何行でも付く。<strong>同じ表に入れると、受注の日付が行の数だけ重複する。</strong>表を分ける理由は、たいていこの「個数の違い」にある。</p>
   <p>商品は 1 つでも、価格は時期で変わる。<strong>過去の受注は、そのときの価格で残す。</strong></p>
@@ -107,6 +122,11 @@
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/21-%E3%83%86%E3%83%BC%E3%83%96%E3%83%AB%E3%81%AE%E9%96%A2%E4%BF%82.zumen.yaml"><code>examples/gallery/21-テーブルの関係.zumen.yaml</code></a></p>
   <h2>More in this field</h2>
   <ul class="near"><li><a href="../01/">An on-premise server layout rack by rack, with the redundant power feeds and network links drawn as separate paths</a></li><li><a href="../02/">A cloud architecture showing the VPC and its subnets, and where the load balancer, application, database and object store sit</a></li><li><a href="../03/">Where data goes from collection through transformation, storage and aggregation to display, and what kind of container holds it at each step</a></li><li><a href="../04/">A network layout of the links and equipment between sites, with the address range carried by each segment</a></li><li><a href="../26/">A server room where racks face each other to make hot and cold aisles, with the clearance of each aisle written in</a></li><li><a href="../46/">A UML class diagram where inheritance, realisation, association and aggregation are told apart by line type and end symbol</a></li><li><a href="../47/">A UML state machine with transitions, the events and guards that fire them, and the pseudostates that begin and end it</a></li><li><a href="../48/">A UML use case diagram with the actors, the use cases, and the include and extend relationships between them</a></li></ul>
+  <nav class="steps" aria-label="Previous and next">
+    <a class="step prev" href="../20/" rel="prev"><span>←</span> A company organisation chart…</a>
+    <a class="step index" href="../../all/">All 344</a>
+    <a class="step next" href="../22/" rel="next">Escape routes on a third flo… <span>→</span></a>
+  </nav>
 </article>
 </main>
 <footer class="foot">

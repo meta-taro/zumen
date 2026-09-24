@@ -70,12 +70,18 @@
       {
         "@type": "ListItem",
         "position": 2,
+        "name": "All 344 examples",
+        "item": "https://meta-taro.github.io/zumen/en/all/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
         "name": "Disaster and emergency",
         "item": "https://meta-taro.github.io/zumen/en/c/bosai/"
       },
       {
         "@type": "ListItem",
-        "position": 3,
+        "position": 4,
         "name": "Egress plan — office floor (fictional)"
       }
     ]
@@ -85,8 +91,14 @@
 </head>
 <body class="sub">
 <header class="bar">
-  <a class="home" href="../../../">zumen</a>
-  <nav><a href="../../c/bosai/">Disaster and emergency</a></nav>
+  <!--
+    パンくず（2026-09-24）。入口から現在地まで一本で出す。
+    aria-label を付けて、読み上げでも「ここは道案内」と分かるようにする。
+    区切りの記号は aria-hidden（読み上げると邪魔なだけ）。
+  -->
+  <nav class="crumbs" aria-label="Breadcrumb">
+    <a class="home" href="../../../">zumen</a><span aria-hidden="true">›</span><a href="../../all/">All 344</a><span aria-hidden="true">›</span><a href="../../c/bosai/">Disaster and emergency</a>
+  </nav>
 </header>
 <main>
 <article>
@@ -99,7 +111,9 @@
   <p class="made">This drawing comes from one YAML file. No shape was moved by hand.</p>
   <h2>What the source says</h2>
   <p><strong>Three different lengths, three different questions.</strong></p>
-  <p>| | ||---|---|| Common path | how far before you can choose between two exits || Dead end | how far into a corridor that goes nowhere || Exit access travel | how far to an exit once you can choose |</p>
+  <table class="note bare">
+  <tbody><tr><td>Common path</td><td>how far before you can choose between two exits</td></tr><tr><td>Dead end</td><td>how far into a corridor that goes nowhere</td></tr><tr><td>Exit access travel</td><td>how far to an exit once you can choose</td></tr></tbody>
+</table>
   <p>Sprinklers lengthen all three —— which is why the egress plan and thesprinkler plan get read together（見本 145）.</p>
   <p><strong>Occupant load decides how many exits; travel distance decides where.</strong>48 people would allow a single exit; the conference room pushes the floorpast 49, so two are required.</p>
   <p><strong>日本語の見本 22（避難経路図）と対。</strong></p>
@@ -108,6 +122,11 @@
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/148-Egress-plan.zumen.yaml"><code>examples/gallery/148-Egress-plan.zumen.yaml</code></a></p>
   <h2>More in this field</h2>
   <ul class="near"><li><a href="../22/">Escape routes on a third floor: two ways out of every room to a staircase, with the travel distance and the fire doors and extinguishers along the way</a></li><li><a href="../93/">Fireworks safety distances, a circle per shell size</a></li><li><a href="../95/">Shelter layout: 3.5 sq m a person, and how many toilets</a></li><li><a href="../106/">Crowd plan: how many can flow out against how many come in</a></li><li><a href="../119/">Extinguishers and hose reels, measured two different ways</a></li><li><a href="../145/">Sprinkler layout: area per head and spacing, decided together</a></li><li><a href="../154/">Fire alarm devices: spacing is a circle, not a square</a></li><li><a href="../159/">Not a picture of the fire - the way out is written on it</a></li></ul>
+  <nav class="steps" aria-label="Previous and next">
+    <a class="step prev" href="../147/" rel="prev"><span>←</span> Site plan: the envelope is t…</a>
+    <a class="step index" href="../../all/">All 344</a>
+    <a class="step next" href="../149/" rel="next">Pallet rack: the truck decid… <span>→</span></a>
+  </nav>
 </article>
 </main>
 <footer class="foot">

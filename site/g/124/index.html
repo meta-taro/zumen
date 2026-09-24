@@ -70,12 +70,18 @@
       {
         "@type": "ListItem",
         "position": 2,
+        "name": "見本 344 枚",
+        "item": "https://meta-taro.github.io/zumen/all/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
         "name": "業務・組織",
         "item": "https://meta-taro.github.io/zumen/c/gyomu/"
       },
       {
         "@type": "ListItem",
-        "position": 3,
+        "position": 4,
         "name": "和文と欧文を混ぜるときの寸法図（仮想ボディとベースライン）"
       }
     ]
@@ -85,8 +91,14 @@
 </head>
 <body class="sub">
 <header class="bar">
-  <a class="home" href="../../">zumen</a>
-  <nav><a href="../../c/gyomu/">業務・組織</a></nav>
+  <!--
+    パンくず（2026-09-24）。入口から現在地まで一本で出す。
+    aria-label を付けて、読み上げでも「ここは道案内」と分かるようにする。
+    区切りの記号は aria-hidden（読み上げると邪魔なだけ）。
+  -->
+  <nav class="crumbs" aria-label="パンくず">
+    <a class="home" href="../../">zumen</a><span aria-hidden="true">›</span><a href="../../all/">見本 344 枚</a><span aria-hidden="true">›</span><a href="../../c/gyomu/">業務・組織</a>
+  </nav>
 </header>
 <main>
 <article>
@@ -107,6 +119,11 @@
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/124-%E5%92%8C%E6%AC%A7%E6%B7%B7%E6%A4%8D%E3%81%AE%E5%AF%B8%E6%B3%95%E5%9B%B3.zumen.yaml"><code>examples/gallery/124-和欧混植の寸法図.zumen.yaml</code></a></p>
   <h2>同じ分野の見本</h2>
   <ul class="near"><li><a href="../05/">受注から出荷まで</a></li><li><a href="../07/">稟議の流れ</a></li><li><a href="../11/">記事ができるまで</a></li><li><a href="../13/">入学までの流れ</a></li><li><a href="../16/">展示会の会場</a></li><li><a href="../20/">組織図（2026 年度）</a></li><li><a href="../31/">座席図（60 席・車椅子 2）</a></li><li><a href="../55/">学校の時間割（週の表）</a></li></ul>
+  <nav class="steps" aria-label="前後の見本">
+    <a class="step prev" href="../123/" rel="prev"><span>←</span> アイコンのキーライン図（揃えるのは見えた大きさ）</a>
+    <a class="step index" href="../../all/">見本 344 枚</a>
+    <a class="step next" href="../125/" rel="next">庭木の剪定指示図（どこで切るかまで書く） <span>→</span></a>
+  </nav>
 </article>
 </main>
 <footer class="foot">

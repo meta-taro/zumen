@@ -70,12 +70,18 @@
       {
         "@type": "ListItem",
         "position": 2,
+        "name": "All 344 examples",
+        "item": "https://meta-taro.github.io/zumen/en/all/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
         "name": "Instruments and acoustics",
         "item": "https://meta-taro.github.io/zumen/en/c/ongaku/"
       },
       {
         "@type": "ListItem",
-        "position": 3,
+        "position": 4,
         "name": "楽譜の寸法（五線が単位）"
       }
     ]
@@ -85,8 +91,14 @@
 </head>
 <body class="sub">
 <header class="bar">
-  <a class="home" href="../../../">zumen</a>
-  <nav><a href="../../c/ongaku/">Instruments and acoustics</a></nav>
+  <!--
+    パンくず（2026-09-24）。入口から現在地まで一本で出す。
+    aria-label を付けて、読み上げでも「ここは道案内」と分かるようにする。
+    区切りの記号は aria-hidden（読み上げると邪魔なだけ）。
+  -->
+  <nav class="crumbs" aria-label="Breadcrumb">
+    <a class="home" href="../../../">zumen</a><span aria-hidden="true">›</span><a href="../../all/">All 344</a><span aria-hidden="true">›</span><a href="../../c/ongaku/">Instruments and acoustics</a>
+  </nav>
 </header>
 <main>
 <article>
@@ -105,6 +117,11 @@
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/210-%E6%A5%BD%E8%AD%9C%E3%81%AE%E5%AF%B8%E6%B3%95.zumen.yaml"><code>examples/gallery/210-楽譜の寸法.zumen.yaml</code></a></p>
   <h2>More in this field</h2>
   <ul class="near"><li><a href="../204/">Guitar frets are a geometric series, and the saddle must still be moved back to play in tune</a></li><li><a href="../205/">Hall acoustics: delay is nothing but a difference in path length — one millisecond is 0.34 m</a></li><li><a href="../206/">A piano action: the jack lets go just before the string, so nothing is pushing the hammer at impact</a></li><li><a href="../310/">Frets crowd together as you climb because what is divided into twelve is not a distance but a ratio: each semitone multiplies by 2^(1/12), so the twelfth fret lands at exactly half the string and everything beyond it repeats at half size</a></li><li><a href="../311/">The black keys are grouped in twos and threes so that a hand can find its place without looking — twelve evenly spaced keys would give no landmark at all — and 88 turns out to be seven octaves plus four: three keys added below and one above</a></li><li><a href="../317/">The strings run left to right from high to low and the louder the instrument the further back it sits, so the seating plan is itself a balance control — and &quot;double wind&quot; or &quot;triple wind&quot; names the size of the orchestra by counting only the woodwind</a></li><li><a href="../327/">A polar plot of how much a microphone picks up from each direction. The three familiar shapes are not separate inventions but one formula at its ends and middle — omnidirectional, cardioid and figure-of-eight are A = 1, 0.5 and 0 in r = A + (1 - A)cos θ. Solving the same formula gives the dead angles: 180 degrees for a cardioid, 90 and 270 for a figure-of-eight.</a></li><li><a href="../343/">The same control means different things depending on where in the chain it sits. An aux send taken before the fader keeps its level when the engineer moves the fader, which is what a performer monitor needs; taken after, it follows the fader, which is what a reverb needs. Insert is in series and cuts the path open; aux is in parallel and branches away and back.</a></li></ul>
+  <nav class="steps" aria-label="Previous and next">
+    <a class="step prev" href="../209/" rel="prev"><span>←</span> Ruler-and-compass constructi…</a>
+    <a class="step index" href="../../all/">All 344</a>
+    <a class="step next" href="../211/" rel="next">Hold-down selection (N-value… <span>→</span></a>
+  </nav>
 </article>
 </main>
 <footer class="foot">

@@ -70,12 +70,18 @@
       {
         "@type": "ListItem",
         "position": 2,
+        "name": "見本 344 枚",
+        "item": "https://meta-taro.github.io/zumen/all/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
         "name": "業務・組織",
         "item": "https://meta-taro.github.io/zumen/c/gyomu/"
       },
       {
         "@type": "ListItem",
-        "position": 3,
+        "position": 4,
         "name": "被相続人　甲野太郎　相続関係説明図"
       }
     ]
@@ -85,8 +91,14 @@
 </head>
 <body class="sub">
 <header class="bar">
-  <a class="home" href="../../">zumen</a>
-  <nav><a href="../../c/gyomu/">業務・組織</a></nav>
+  <!--
+    パンくず（2026-09-24）。入口から現在地まで一本で出す。
+    aria-label を付けて、読み上げでも「ここは道案内」と分かるようにする。
+    区切りの記号は aria-hidden（読み上げると邪魔なだけ）。
+  -->
+  <nav class="crumbs" aria-label="パンくず">
+    <a class="home" href="../../">zumen</a><span aria-hidden="true">›</span><a href="../../all/">見本 344 枚</a><span aria-hidden="true">›</span><a href="../../c/gyomu/">業務・組織</a>
+  </nav>
 </header>
 <main>
 <article>
@@ -99,13 +111,18 @@
   <p class="made">この図は、下の 1 枚の YAML から描かれています。手で図形を動かしてはいません。</p>
   <h2>正本に書いてある決まりごと</h2>
   <p>不動産の相続登記に添える書面（法務局へ出す）。<strong>戸籍と一字一句合っていること</strong>が要る。氏名の旧字体・異体字、生年月日、住所、本籍 —— ここが戸籍と違うと補正になる。</p>
-  <p><strong>婚姻は二重線、親子は単線。</strong> 太さでも破線でも代わりにならない（`line: double`。src/line.ts）。読む側はこれで婚姻を見分けている。</p>
+  <p><strong>婚姻は二重線、親子は単線。</strong> 太さでも破線でも代わりにならない（<code>line: double</code>。src/line.ts）。読む側はこれで婚姻を見分けている。</p>
   <p>誰が不動産を取るのかを図の上で言い切る。書かないと補正になる。<strong>相続放棄した人も省かない</strong> —— 省くと、相続人の範囲が戸籍と合わなくなる。</p>
   <p>人名・住所・本籍はすべて架空。</p>
   <h2>正本（YAML）</h2>
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/90-%E7%9B%B8%E7%B6%9A%E9%96%A2%E4%BF%82%E8%AA%AC%E6%98%8E%E5%9B%B3.zumen.yaml"><code>examples/gallery/90-相続関係説明図.zumen.yaml</code></a></p>
   <h2>同じ分野の見本</h2>
   <ul class="near"><li><a href="../05/">受注から出荷まで</a></li><li><a href="../07/">稟議の流れ</a></li><li><a href="../11/">記事ができるまで</a></li><li><a href="../13/">入学までの流れ</a></li><li><a href="../16/">展示会の会場</a></li><li><a href="../20/">組織図（2026 年度）</a></li><li><a href="../31/">座席図（60 席・車椅子 2）</a></li><li><a href="../55/">学校の時間割（週の表）</a></li></ul>
+  <nav class="steps" aria-label="前後の見本">
+    <a class="step prev" href="../89/" rel="prev"><span>←</span> コンテナ船の積付図（Bay-Row-Tier がそのまま…</a>
+    <a class="step index" href="../../all/">見本 344 枚</a>
+    <a class="step next" href="../91/" rel="next">リンゴ高密植栽培の樹形図（樹高・樹間・列間つき） <span>→</span></a>
+  </nav>
 </article>
 </main>
 <footer class="foot">

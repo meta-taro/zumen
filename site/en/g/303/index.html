@@ -70,12 +70,18 @@
       {
         "@type": "ListItem",
         "position": 2,
+        "name": "All 344 examples",
+        "item": "https://meta-taro.github.io/zumen/en/all/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
         "name": "Learning and geometry",
         "item": "https://meta-taro.github.io/zumen/en/c/manabi/"
       },
       {
         "@type": "ListItem",
-        "position": 3,
+        "position": 4,
         "name": "ISBN の作り（桁数が動くのは、真ん中の 2 つだけ）"
       }
     ]
@@ -85,8 +91,14 @@
 </head>
 <body class="sub">
 <header class="bar">
-  <a class="home" href="../../../">zumen</a>
-  <nav><a href="../../c/manabi/">Learning and geometry</a></nav>
+  <!--
+    パンくず（2026-09-24）。入口から現在地まで一本で出す。
+    aria-label を付けて、読み上げでも「ここは道案内」と分かるようにする。
+    区切りの記号は aria-hidden（読み上げると邪魔なだけ）。
+  -->
+  <nav class="crumbs" aria-label="Breadcrumb">
+    <a class="home" href="../../../">zumen</a><span aria-hidden="true">›</span><a href="../../all/">All 344</a><span aria-hidden="true">›</span><a href="../../c/manabi/">Learning and geometry</a>
+  </nav>
 </header>
 <main>
 <article>
@@ -108,6 +120,11 @@
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/303-ISBN%E3%81%AE%E4%BD%9C%E3%82%8A.zumen.yaml"><code>examples/gallery/303-ISBNの作り.zumen.yaml</code></a></p>
   <h2>More in this field</h2>
   <ul class="near"><li><a href="../191/">Ray tracing through a convex lens: there are only three lines to draw, and two of them fix the image</a></li><li><a href="../192/">A football is a truncated icosahedron: the 12 degrees missing at every vertex are what make it a sphere</a></li><li><a href="../194/">Braille has only six dots, so “a” and “1” are the same shape until a number sign says otherwise</a></li><li><a href="../196/">Slope notation: roofs in sun, ramps in fractions, roads in percent, railways in per mille — degrees are the minority</a></li><li><a href="../197/">Isometric, third-angle and oblique: one scale serves all three axes, but circles become ellipses</a></li><li><a href="../198/">Honeycomb cells: for a given area the hexagon has the shortest wall of any shape that tiles</a></li><li><a href="../209/">Ruler-and-compass constructions: no scale is used, because equal compass openings make equal lengths</a></li><li><a href="../219/">Figures in maths problems: the marks carry the meaning — equal ticks, right-angle squares, parallel chevrons — and only the given values are written on the figure</a></li></ul>
+  <nav class="steps" aria-label="Previous and next">
+    <a class="step prev" href="../302/" rel="prev"><span>←</span> You know what kind of sign i…</a>
+    <a class="step index" href="../../all/">All 344</a>
+    <a class="step next" href="../304/" rel="next">A QR code can be 21 modules… <span>→</span></a>
+  </nav>
 </article>
 </main>
 <footer class="foot">

@@ -6,18 +6,18 @@
 <title>送電線路の縦断面図（275kV・架空） — zumen の見本 174</title>
 <link rel="icon" type="image/svg+xml" href="../../icon.svg">
 <meta name="theme-color" content="#23232b">
-<meta name="description" content="送電線路の縦断面図（電線は垂れる。垂れても届かない高さを決める）。縦横で縮尺が違う（横 1:5,000／縦 1:1,000）。縦を強調しないと、130m の起伏が 1,150m の中で潰れて読めない —— だから \`scale\` は書かない（1 つしか持てない縮尺を書くと、もう片方が嘘になる）…">
+<meta name="description" content="送電線路の縦断面図（電線は垂れる。垂れても届かない高さを決める）。縦横で縮尺が違う（横 1:5,000／縦 1:1,000）。縦を強調しないと、130m の起伏が 1,150m の中で潰れて読めない —— だから \scale\ は書かない（1 つしか持てない縮尺を書くと、もう片方が嘘になる）…">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="zumen">
 <meta property="og:locale" content="ja_JP">
 <meta property="og:url" content="https://meta-taro.github.io/zumen/g/174/">
 <meta property="og:title" content="送電線路の縦断面図（275kV・架空） — zumen の見本 174">
-<meta property="og:description" content="送電線路の縦断面図（電線は垂れる。垂れても届かない高さを決める）。縦横で縮尺が違う（横 1:5,000／縦 1:1,000）。縦を強調しないと、130m の起伏が 1,150m の中で潰れて読めない —— だから \`scale\` は書かない（1 つしか持てない縮尺を書くと、もう片方が嘘になる）…">
+<meta property="og:description" content="送電線路の縦断面図（電線は垂れる。垂れても届かない高さを決める）。縦横で縮尺が違う（横 1:5,000／縦 1:1,000）。縦を強調しないと、130m の起伏が 1,150m の中で潰れて読めない —— だから \scale\ は書かない（1 つしか持てない縮尺を書くと、もう片方が嘘になる）…">
 <meta property="og:image" content="https://meta-taro.github.io/zumen/og/174.png">
 <meta property="og:image:alt" content="送電線路の縦断面図（275kV・弛度と地上高／架空）">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="送電線路の縦断面図（275kV・架空） — zumen の見本 174">
-<meta name="twitter:description" content="送電線路の縦断面図（電線は垂れる。垂れても届かない高さを決める）。縦横で縮尺が違う（横 1:5,000／縦 1:1,000）。縦を強調しないと、130m の起伏が 1,150m の中で潰れて読めない —— だから \`scale\` は書かない（1 つしか持てない縮尺を書くと、もう片方が嘘になる）…">
+<meta name="twitter:description" content="送電線路の縦断面図（電線は垂れる。垂れても届かない高さを決める）。縦横で縮尺が違う（横 1:5,000／縦 1:1,000）。縦を強調しないと、130m の起伏が 1,150m の中で潰れて読めない —— だから \scale\ は書かない（1 つしか持てない縮尺を書くと、もう片方が嘘になる）…">
 <meta name="twitter:image" content="https://meta-taro.github.io/zumen/og/174.png">
 <meta name="twitter:image:alt" content="送電線路の縦断面図（275kV・弛度と地上高／架空）">
 <link rel="stylesheet" href="../../style.css">
@@ -35,7 +35,7 @@
     "@type": "CreativeWork",
     "name": "送電線路の縦断面図（275kV・架空）",
     "headline": "送電線路の縦断面図（275kV・架空）",
-    "description": "送電線路の縦断面図（電線は垂れる。垂れても届かない高さを決める）。縦横で縮尺が違う（横 1:5,000／縦 1:1,000）。縦を強調しないと、130m の起伏が 1,150m の中で潰れて読めない —— だから \\`scale\\` は書かない（1 つしか持てない縮尺を書くと、もう片方が嘘になる）…",
+    "description": "送電線路の縦断面図（電線は垂れる。垂れても届かない高さを決める）。縦横で縮尺が違う（横 1:5,000／縦 1:1,000）。縦を強調しないと、130m の起伏が 1,150m の中で潰れて読めない —— だから \\scale\\ は書かない（1 つしか持てない縮尺を書くと、もう片方が嘘になる）…",
     "url": "https://meta-taro.github.io/zumen/g/174/",
     "image": {
       "@type": "ImageObject",
@@ -70,12 +70,18 @@
       {
         "@type": "ListItem",
         "position": 2,
+        "name": "見本 344 枚",
+        "item": "https://meta-taro.github.io/zumen/all/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
         "name": "設備・電気",
         "item": "https://meta-taro.github.io/zumen/c/setsubi/"
       },
       {
         "@type": "ListItem",
-        "position": 3,
+        "position": 4,
         "name": "送電線路の縦断面図（275kV・架空）"
       }
     ]
@@ -85,8 +91,14 @@
 </head>
 <body class="sub">
 <header class="bar">
-  <a class="home" href="../../">zumen</a>
-  <nav><a href="../../c/setsubi/">設備・電気</a></nav>
+  <!--
+    パンくず（2026-09-24）。入口から現在地まで一本で出す。
+    aria-label を付けて、読み上げでも「ここは道案内」と分かるようにする。
+    区切りの記号は aria-hidden（読み上げると邪魔なだけ）。
+  -->
+  <nav class="crumbs" aria-label="パンくず">
+    <a class="home" href="../../">zumen</a><span aria-hidden="true">›</span><a href="../../all/">見本 344 枚</a><span aria-hidden="true">›</span><a href="../../c/setsubi/">設備・電気</a>
+  </nav>
 </header>
 <main>
 <article>
@@ -99,13 +111,18 @@
   <p class="made">この図は、下の 1 枚の YAML から描かれています。手で図形を動かしてはいません。</p>
   <h2>正本に書いてある決まりごと</h2>
   <p><strong>プロフィール図。</strong> 送電線が地面からどれだけ離れているかを見る図。</p>
-  <p><strong>縦横で縮尺が違う</strong>（横 1:5,000／縦 1:1,000）。縦を強調しないと、130m の起伏が 1,150m の中で潰れて読めない —— だから \`scale\` は書かない（1 つしか持てない縮尺を書くと、もう片方が嘘になる）。同じ理由で<strong>斜めの寸法線を引かない</strong>。長さは数字で書く。</p>
+  <p><strong>縦横で縮尺が違う</strong>（横 1:5,000／縦 1:1,000）。縦を強調しないと、130m の起伏が 1,150m の中で潰れて読めない —— だから \<code>scale\</code> は書かない（1 つしか持てない縮尺を書くと、もう片方が嘘になる）。同じ理由で<strong>斜めの寸法線を引かない</strong>。長さは数字で書く。</p>
   <p>弛度は D ＝ WS² ÷ 8T（W 電線の重量・S 径間・T 水平張力）。<strong>径間が延びると二乗で増える。</strong> いちばん垂れるのは最高気温・無風のときで、そのときに最低地上高を満たすように鉄塔の高さを決める。</p>
   <p>最低地上高は解釈 87 条。160kV を超える分は 10kV ごとに 12cm を足す。この図の弛度・地上高は、W・T・径間から計算した（手で書いていない）。</p>
   <h2>正本（YAML）</h2>
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/174-%E9%80%81%E9%9B%BB%E7%B7%9A%E8%B7%AF%E3%81%AE%E7%B8%A6%E6%96%AD%E9%9D%A2%E5%9B%B3.zumen.yaml"><code>examples/gallery/174-送電線路の縦断面図.zumen.yaml</code></a></p>
   <h2>同じ分野の見本</h2>
   <ul class="near"><li><a href="../06/">住宅の電気系統</a></li><li><a href="../10/">住宅の給排水</a></li><li><a href="../18/">配管の系統（P&amp;amp;ID）</a></li><li><a href="../19/">受変電の結線（単線結線図）</a></li><li><a href="../35/">配水系統図（上水道）</a></li><li><a href="../38/">計装ループ図（TIC-101）</a></li><li><a href="../44/">人工衛星の系統図（150kg 級）</a></li><li><a href="../50/">電子回路図（IEC／JIS 記号）</a></li></ul>
+  <nav class="steps" aria-label="前後の見本">
+    <a class="step prev" href="../173/" rel="prev"><span>←</span> 販売図面（無彩色の版。壁を面で見せ、家具を描かない）</a>
+    <a class="step index" href="../../all/">見本 344 枚</a>
+    <a class="step next" href="../175/" rel="next">ペルシャ絨毯の意匠図（1 マス 1 結び… <span>→</span></a>
+  </nav>
 </article>
 </main>
 <footer class="foot">
