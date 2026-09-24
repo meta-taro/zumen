@@ -205,6 +205,122 @@ describe('目次は、正本と同じものを写している', () => {
  * 測ったら 120 字未満が **35 枚**あり、いちばん短いのは 12 字
  * （`# 1 px = 25 mm` だけ）だった。7 周かけて 0 にしたので、**下限を決めて戻さない。**
  */
+/**
+ * **同じ規格を、同じ図の中で版つきと版なしで書かない**（2026-09-22。81 周目）。
+ *
+ * 見本 242 は題に `JIS Z 3021:2016` と書きながら、図の中の札は `JIS Z 3021` だった。
+ * **読む側には「別のものを指しているのか」が分からない。**
+ *
+ * 版が確かめられないなら**書かない**のではなく、
+ * `版は確かめていない` と書く（見本 97・195・239 がそうしている）。
+ * ここが見るのは**揃っているか**だけで、版が正しいかは見ない。
+ */
+/**
+ * **同じ題材の見本どうしは、互いを知っていること**（2026-09-22。84 周目）。
+ *
+ * 測ったら、**名前が同じ見本が 2 組**（ギターのフレット位置、オーケストラの配置）、
+ * **片方が片方を丸ごと含むものが 3 組**あり、**8 方向すべてに参照が無かった。**
+ * 読む人には「同じものが 2 枚あるのか、違うものなのか」が分からない。
+ *
+ * **消さない**（オーナーの指示）。代わりに**互いを指させる** ——
+ * どちらが何を扱うかを、図の説明に書く。
+ */
+/**
+ * **名前を被らせない**（2026-09-22。86 周目。オーナーの指示）。
+ *
+ * 84 周目に足したのは「被ったら互いを参照しろ」という**後始末**の検査だった。
+ * オーナーから「**今後名前が被らないように**」と言われたので、**被らせない側**を足す。
+ *
+ * すでに被っている 2 組（ギターのフレット位置、オーケストラの配置）は**消さない** ——
+ * 消すなと言われているし、公開ページの URL も配ってある。
+ * **ここに書いてあるものだけを通し、新しい重複は通さない。**
+ */
+describe('見本の名前', () => {
+  /**
+   * **もう被っているもの。** 増やさないための記録で、消すための表ではない。
+   *
+   * **2026-09-22 に空になった。** 2 組あったのを改名したため
+   * （`.claude/rules/専門図面の調査と実装方針.md` §5.6）——
+   * `310-ギターのフレット位置` → `310-ギターのフレット位置は等比`、
+   * `317-オーケストラの配置` → `317-オーケストラの配置と音量`。
+   * **番号は変えていない**ので、ページ・共有カード・相互参照はどれも動いていない。
+   */
+  const ALREADY: Record<string, string> = {};
+
+  const word = (file: string): string =>
+    file.replace('.zumen.yaml', '').replace(/^[0-9]+-/, '').replace(/図$/, '');
+
+  it('**新しく名前を被らせない**（すでに被っている 2 組だけを通す）', () => {
+    const byWord = new Map<string, string[]>();
+    for (const file of readdirSync(dir).filter((f) => f.endsWith('.zumen.yaml'))) {
+      byWord.set(word(file), [...(byWord.get(word(file)) ?? []), file]);
+    }
+    const collided = [...byWord.entries()]
+      .filter(([key, files]) => files.length > 1 && ALREADY[key] === undefined)
+      .map(([key, files]) => `${key}: ${files.join(' / ')}`);
+    assert.deepEqual(collided, [], '名前が被っている見本（別の題にするか、片方の名前を変える）');
+  });
+
+  it('**逃がした名前が、本当にまだ被っている**（消し忘れを残さない）', () => {
+    const byWord = new Map<string, number>();
+    for (const file of readdirSync(dir).filter((f) => f.endsWith('.zumen.yaml'))) {
+      byWord.set(word(file), (byWord.get(word(file)) ?? 0) + 1);
+    }
+    const stale = Object.keys(ALREADY).filter((key) => (byWord.get(key) ?? 0) < 2);
+    assert.deepEqual(stale, [], 'もう被っていないのに、逃がし表に残っている名前');
+  });
+});
+
+describe('同じ題材の見本', () => {
+  it('**名前が同じ／含む見本どうしは、互いを参照している**', () => {
+    const files = readdirSync(dir).filter((f) => f.endsWith('.zumen.yaml'));
+    const items = files.map((file) => {
+      const name = file.replace('.zumen.yaml', '');
+      return {
+        file,
+        name,
+        number: name.split('-')[0]!,
+        word: name.replace(/^[0-9]+-/, '').replace(/図$/, ''),
+        text: readFileSync(new URL(file, dir), 'utf8'),
+      };
+    });
+    const lonely: string[] = [];
+    for (const a of items) {
+      for (const b of items) {
+        if (a.file === b.file) continue;
+        const same = a.word === b.word;
+        const inside = a.word.length >= 4 && b.word.length > a.word.length && b.word.includes(a.word);
+        if (!same && !inside) continue;
+        if (!a.text.includes(`見本 ${b.number}`)) lonely.push(`${a.name} が 見本 ${b.number} を指していない`);
+      }
+    }
+    assert.deepEqual(lonely, [], '同じ題材なのに、互いを指していない見本');
+  });
+});
+
+describe('規格番号の書き方', () => {
+  const STANDARD = /(JIS|ISO|IEC|IEEE|ANSI|EN|JAS)\s+([A-Z]{0,2}\s?[0-9]{3,5})(:[0-9]{4})?/g;
+
+  it('**同じ図の中で、版の有無が混ざっていない**', () => {
+    const dir = new URL('../examples/gallery/', import.meta.url);
+    const mixed: string[] = [];
+    for (const file of readdirSync(dir).filter((f) => f.endsWith('.zumen.yaml'))) {
+      const text = readFileSync(new URL(file, dir), 'utf8');
+      const seen = new Map<string, Set<string>>();
+      for (const found of text.matchAll(STANDARD)) {
+        const key = `${found[1]} ${found[2]!.replace(/\s+/g, ' ').trim()}`;
+        seen.set(key, (seen.get(key) ?? new Set()).add(found[3] ?? ''));
+      }
+      for (const [key, versions] of seen) {
+        if (versions.size > 1 && versions.has('')) {
+          mixed.push(`${file}: ${key} が ${[...versions].map((v) => v || '（版なし）').join(' と ')}`);
+        }
+      }
+    }
+    assert.deepEqual(mixed, [], '同じ規格を、版つきと版なしで書いている');
+  });
+});
+
 describe('見本の説明', () => {
   /** `#` で始まる行（`# ` の後ろ）を、強調記号を外してつないだもの。 */
   const body = (file: string): string =>
@@ -260,6 +376,31 @@ describe('見本の説明', () => {
         !ADMITS.test(comments(file)),
     );
     assert.deepEqual(undated, [], '規格番号はあるのに、いつの版か書いていない見本');
+  });
+
+  /**
+   * **年は「どこかにある」では足りない。番号に付いていること**（2026-09-22。82 周目）。
+   *
+   * 上の検査は**コメントのどこかに 4 桁の年**があれば通していた。
+   * だから `JIS B 0401 ＝ ISO 286` のように**版の無い引用**が、
+   * 別の年（改正の年や調べた年）に紛れて通っていた ——
+   * 測ったら **8 枚**にそういう引用があり、**5 枚は断りも無かった。**
+   *
+   * ここは **`番号:年` が付いているか、`版は確かめていない` と書いてあるか**だけを見る。
+   * **部の番号（`-2`）は版ではない。**
+   */
+  it('**版の無い引用があるなら、確かめていないと書いてある**', () => {
+    const CITE =
+      /(JIS|ISO|IEC|IEEE|ANSI|EN|JAS|DIN|ASTM|JEM)(\/[A-Z]+)?\s+([A-Z]{0,2}\s?[0-9]{3,5})(-[0-9]+)?(:[0-9]{4}(-[0-9]+)?)?/g;
+    const silent: string[] = [];
+    for (const file of files) {
+      const text = readFileSync(new URL(file, dir), 'utf8');
+      const bare = [...text.matchAll(CITE)].filter((found) => found[5] === undefined);
+      if (bare.length === 0) continue;
+      if (/版は確かめていない/.test(text)) continue;
+      silent.push(`${file}: ${[...new Set(bare.map((f) => f[0].trim()))].join(' / ')}`);
+    }
+    assert.deepEqual(silent, [], '版の無い引用があるのに、確かめていないと書いていない見本');
   });
 });
 
@@ -345,5 +486,37 @@ describe('閉じた語彙と、それを使った見本', () => {
       const used = texts.some((t) => new RegExp(`(?:from|to):\\s*${word}(?![\\w-])`).test(t));
       assert.ok(!used, `${key} は使われている —— 表から消すこと`);
     }
+  });
+});
+
+/**
+ * **矢じりが向きを持っていること**（2026-09-24。`qa/品質100周` 第 18 周）。
+ *
+ * 見本 45（駅の構内図）を実物で見て見つけた。
+ * 隣り合う部屋を結ぶと、**両端を縁で切った結果が同じ点になる。**
+ * 長さゼロの線に `marker-end` を付けても SVG の `orient="auto"` は向きを決められず、
+ * **矢印が全部右を向く** —— 南口 → 改札（左向き）も、改札 → コンコース（下向き）も
+ * 見た目が同じ「▶」になっていた。
+ *
+ * 見つけた時点で **603 本中 18 本 ／ 8 枚**（40・45 が各 4 本、116 が 3 本）。
+ * `src/layout.ts` の `nudge()` で直した。**ここは戻らないことだけを見る。**
+ */
+describe('矢じりの向き', () => {
+  it('**矢印つきの線が、長さゼロになっていない**', () => {
+    const short: string[] = [];
+    let total = 0;
+    for (const file of readdirSync(dir).filter((f) => f.endsWith('.svg') && !f.endsWith('-dark.svg'))) {
+      const svg = readFileSync(new URL(file, dir), 'utf8');
+      for (const found of svg.matchAll(/<path d="M ([\d.-]+) ([\d.-]+)((?: L [\d.-]+ [\d.-]+)+)"[^>]*marker-end/g)) {
+        total += 1;
+        const tail = [...(found[3] ?? '').matchAll(/L ([\d.-]+) ([\d.-]+)/g)].at(-1);
+        if (tail === undefined) continue;
+        const dx = Number(tail[1]) - Number(found[1]);
+        const dy = Number(tail[2]) - Number(found[2]);
+        if (dx * dx + dy * dy < 4) short.push(`${file}: (${found[1]}, ${found[2]})`);
+      }
+    }
+    assert.ok(total > 400, `矢印つきの線が少なすぎる: ${total}`);
+    assert.deepEqual(short, [], '長さゼロの矢印（向きを持てないので、全部右を向く）');
   });
 });

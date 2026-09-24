@@ -61,19 +61,24 @@ nodes:
     label: "90'-0\""
     marker: none
     align: left
-    at: { x: 457.64, y: 510.36 }
+    # **塁線がラベルの上を通っていた**（2026-09-24。qa/品質100周 第 8 周）。
+    # ホーム〜1B の線は y 510〜528 で x 471〜453 を通る。**外へ 72px 逃がした。**
+    # 左右そろえるため、反対側も中心 x 397 の鏡の位置へ動かしてある。
+    at: { x: 530, y: 510.36 }
     size: { w: 90, h: 18 }
   - id: d2
     label: "90'-0\""
     marker: none
     align: left
-    at: { x: 246.36, y: 510.36 }
+    at: { x: 174, y: 510.36 }
     size: { w: 90, h: 18 }
   - id: d3
     label: "60'-6\" to the rubber"
     marker: none
     align: left
-    at: { x: 396, y: 532 }
+    # ホーム〜2B の点線（x 405）が、この字の頭を縦に貫いていた
+    # （2026-09-24。qa/品質100周 第 9 周）。**点線の右へ 24px 逃がした。**
+    at: { x: 420, y: 532 }
     size: { w: 220, h: 18 }
   - id: d4
     label: "foul line"

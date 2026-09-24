@@ -6,18 +6,20 @@
 <title>CRUD 管理画面の画面遷移（一覧 → 作成 / 編集 / 削除確認） — zumen の見本 86</title>
 <link rel="icon" type="image/svg+xml" href="../../icon.svg">
 <meta name="theme-color" content="#23232b">
-<meta name="description" content="CRUD 管理画面の画面遷移（削除は確認を挟む）">
+<meta name="description" content="CRUD 管理画面の画面遷移（削除は確認を挟む）。戻り先が全部「一覧」なのが、この型の肝。 作成した直後に詳細へ飛ばすと、続けて 10 件登録する人が毎回戻る操作をすることになる。管理画面を使うのは同じ作業を何十回も繰り返す人なので、1 回あたり 1 操作の差が、そのまま作業時間の差になる。">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="zumen">
 <meta property="og:locale" content="ja_JP">
 <meta property="og:url" content="https://meta-taro.github.io/zumen/g/86/">
 <meta property="og:title" content="CRUD 管理画面の画面遷移（一覧 → 作成 / 編集 / 削除確認） — zumen の見本 86">
-<meta property="og:description" content="CRUD 管理画面の画面遷移（削除は確認を挟む）">
-<meta property="og:image" content="https://meta-taro.github.io/zumen/og.png">
+<meta property="og:description" content="CRUD 管理画面の画面遷移（削除は確認を挟む）。戻り先が全部「一覧」なのが、この型の肝。 作成した直後に詳細へ飛ばすと、続けて 10 件登録する人が毎回戻る操作をすることになる。管理画面を使うのは同じ作業を何十回も繰り返す人なので、1 回あたり 1 操作の差が、そのまま作業時間の差になる。">
+<meta property="og:image" content="https://meta-taro.github.io/zumen/og/86.png">
+<meta property="og:image:alt" content="CRUD 管理画面の画面遷移（一覧・作成・編集・削除確認）">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="CRUD 管理画面の画面遷移（一覧 → 作成 / 編集 / 削除確認） — zumen の見本 86">
-<meta name="twitter:description" content="CRUD 管理画面の画面遷移（削除は確認を挟む）">
-<meta name="twitter:image" content="https://meta-taro.github.io/zumen/og.png">
+<meta name="twitter:description" content="CRUD 管理画面の画面遷移（削除は確認を挟む）。戻り先が全部「一覧」なのが、この型の肝。 作成した直後に詳細へ飛ばすと、続けて 10 件登録する人が毎回戻る操作をすることになる。管理画面を使うのは同じ作業を何十回も繰り返す人なので、1 回あたり 1 操作の差が、そのまま作業時間の差になる。">
+<meta name="twitter:image" content="https://meta-taro.github.io/zumen/og/86.png">
+<meta name="twitter:image:alt" content="CRUD 管理画面の画面遷移（一覧・作成・編集・削除確認）">
 <link rel="stylesheet" href="../../style.css">
 <link rel="canonical" href="https://meta-taro.github.io/zumen/g/86/">
 <link rel="alternate" hreflang="ja" href="https://meta-taro.github.io/zumen/g/86/">
@@ -27,23 +29,58 @@
 <link rel="alternate" type="text/markdown" href="https://meta-taro.github.io/zumen/llms.txt" title="llms.txt">
 <link rel="sitemap" type="application/xml" href="https://meta-taro.github.io/zumen/sitemap.xml">
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "CreativeWork",
-  "name": "CRUD 管理画面の画面遷移（一覧 → 作成 / 編集 / 削除確認）",
-  "description": "CRUD 管理画面の画面遷移（削除は確認を挟む）",
-  "url": "https://meta-taro.github.io/zumen/g/86/",
-  "image": "https://meta-taro.github.io/zumen/gallery/86-CRUD%E7%AE%A1%E7%90%86%E7%94%BB%E9%9D%A2%E3%81%AE%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB.svg",
-  "inLanguage": "ja",
-  "license": "https://opensource.org/licenses/MIT",
-  "isPartOf": {
-    "@type": "CollectionPage",
-    "name": "UI・画面設計",
-    "url": "https://meta-taro.github.io/zumen/c/ui/"
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    "name": "CRUD 管理画面の画面遷移（一覧 → 作成 / 編集 / 削除確認）",
+    "headline": "CRUD 管理画面の画面遷移（一覧 → 作成 / 編集 / 削除確認）",
+    "description": "CRUD 管理画面の画面遷移（削除は確認を挟む）。戻り先が全部「一覧」なのが、この型の肝。 作成した直後に詳細へ飛ばすと、続けて 10 件登録する人が毎回戻る操作をすることになる。管理画面を使うのは同じ作業を何十回も繰り返す人なので、1 回あたり 1 操作の差が、そのまま作業時間の差になる。",
+    "url": "https://meta-taro.github.io/zumen/g/86/",
+    "image": {
+      "@type": "ImageObject",
+      "contentUrl": "https://meta-taro.github.io/zumen/gallery/86-CRUD%E7%AE%A1%E7%90%86%E7%94%BB%E9%9D%A2%E3%81%AE%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB.svg",
+      "caption": "CRUD 管理画面の画面遷移（削除は確認を挟む）",
+      "description": "CRUD 管理画面の画面遷移（一覧・作成・編集・削除確認）",
+      "encodingFormat": "image/svg+xml",
+      "license": "https://opensource.org/licenses/MIT",
+      "acquireLicensePage": "https://github.com/meta-taro/zumen/blob/main/LICENSE",
+      "creditText": "zumen"
+    },
+    "inLanguage": "ja",
+    "license": "https://opensource.org/licenses/MIT",
+    "isPartOf": {
+      "@type": "CollectionPage",
+      "name": "UI・画面設計",
+      "url": "https://meta-taro.github.io/zumen/c/ui/"
+    },
+    "encodingFormat": "text/yaml",
+    "isAccessibleForFree": true
   },
-  "encodingFormat": "text/yaml",
-  "isAccessibleForFree": true
-}
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "zumen",
+        "item": "https://meta-taro.github.io/zumen/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "UI・画面設計",
+        "item": "https://meta-taro.github.io/zumen/c/ui/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "CRUD 管理画面の画面遷移（一覧 → 作成 / 編集 / 削除確認）"
+      }
+    ]
+  }
+]
 </script>
 </head>
 <body class="sub">

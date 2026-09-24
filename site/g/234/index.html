@@ -6,18 +6,20 @@
 <title>プロトコルのヘッダは、32 ビット幅で読む — zumen の見本 234</title>
 <link rel="icon" type="image/svg+xml" href="../../icon.svg">
 <meta name="theme-color" content="#23232b">
-<meta name="description" content="ヘッダ（幅がビットの数そのもの。32 で割り切れる）">
+<meta name="description" content="ヘッダ（幅がビットの数そのもの。32 で割り切れる）。入れ子にすると MTU 1500 から IP 20 ＋ TCP 20 を引いた 1460 が MSS。Ethernet の 14 ＋ 4 バイトは MTU の外。">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="zumen">
 <meta property="og:locale" content="ja_JP">
 <meta property="og:url" content="https://meta-taro.github.io/zumen/g/234/">
 <meta property="og:title" content="プロトコルのヘッダは、32 ビット幅で読む — zumen の見本 234">
-<meta property="og:description" content="ヘッダ（幅がビットの数そのもの。32 で割り切れる）">
-<meta property="og:image" content="https://meta-taro.github.io/zumen/og.png">
+<meta property="og:description" content="ヘッダ（幅がビットの数そのもの。32 で割り切れる）。入れ子にすると MTU 1500 から IP 20 ＋ TCP 20 を引いた 1460 が MSS。Ethernet の 14 ＋ 4 バイトは MTU の外。">
+<meta property="og:image" content="https://meta-taro.github.io/zumen/og/234.png">
+<meta property="og:image:alt" content="IPv4 と TCP のヘッダを 32 ビット幅で・Ethernet フレームの入れ子と MSS 1460">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="プロトコルのヘッダは、32 ビット幅で読む — zumen の見本 234">
-<meta name="twitter:description" content="ヘッダ（幅がビットの数そのもの。32 で割り切れる）">
-<meta name="twitter:image" content="https://meta-taro.github.io/zumen/og.png">
+<meta name="twitter:description" content="ヘッダ（幅がビットの数そのもの。32 で割り切れる）。入れ子にすると MTU 1500 から IP 20 ＋ TCP 20 を引いた 1460 が MSS。Ethernet の 14 ＋ 4 バイトは MTU の外。">
+<meta name="twitter:image" content="https://meta-taro.github.io/zumen/og/234.png">
+<meta name="twitter:image:alt" content="IPv4 と TCP のヘッダを 32 ビット幅で・Ethernet フレームの入れ子と MSS 1460">
 <link rel="stylesheet" href="../../style.css">
 <link rel="canonical" href="https://meta-taro.github.io/zumen/g/234/">
 <link rel="alternate" hreflang="ja" href="https://meta-taro.github.io/zumen/g/234/">
@@ -27,23 +29,58 @@
 <link rel="alternate" type="text/markdown" href="https://meta-taro.github.io/zumen/llms.txt" title="llms.txt">
 <link rel="sitemap" type="application/xml" href="https://meta-taro.github.io/zumen/sitemap.xml">
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "CreativeWork",
-  "name": "プロトコルのヘッダは、32 ビット幅で読む",
-  "description": "ヘッダ（幅がビットの数そのもの。32 で割り切れる）",
-  "url": "https://meta-taro.github.io/zumen/g/234/",
-  "image": "https://meta-taro.github.io/zumen/gallery/234-%E3%83%97%E3%83%AD%E3%83%88%E3%82%B3%E3%83%AB%E3%81%AE%E3%83%98%E3%83%83%E3%83%80.svg",
-  "inLanguage": "ja",
-  "license": "https://opensource.org/licenses/MIT",
-  "isPartOf": {
-    "@type": "CollectionPage",
-    "name": "IT・ソフトウェア",
-    "url": "https://meta-taro.github.io/zumen/c/it/"
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    "name": "プロトコルのヘッダは、32 ビット幅で読む",
+    "headline": "プロトコルのヘッダは、32 ビット幅で読む",
+    "description": "ヘッダ（幅がビットの数そのもの。32 で割り切れる）。入れ子にすると MTU 1500 から IP 20 ＋ TCP 20 を引いた 1460 が MSS。Ethernet の 14 ＋ 4 バイトは MTU の外。",
+    "url": "https://meta-taro.github.io/zumen/g/234/",
+    "image": {
+      "@type": "ImageObject",
+      "contentUrl": "https://meta-taro.github.io/zumen/gallery/234-%E3%83%97%E3%83%AD%E3%83%88%E3%82%B3%E3%83%AB%E3%81%AE%E3%83%98%E3%83%83%E3%83%80.svg",
+      "caption": "ヘッダ（幅がビットの数そのもの。32 で割り切れる）",
+      "description": "IPv4 と TCP のヘッダを 32 ビット幅で・Ethernet フレームの入れ子と MSS 1460",
+      "encodingFormat": "image/svg+xml",
+      "license": "https://opensource.org/licenses/MIT",
+      "acquireLicensePage": "https://github.com/meta-taro/zumen/blob/main/LICENSE",
+      "creditText": "zumen"
+    },
+    "inLanguage": "ja",
+    "license": "https://opensource.org/licenses/MIT",
+    "isPartOf": {
+      "@type": "CollectionPage",
+      "name": "IT・ソフトウェア",
+      "url": "https://meta-taro.github.io/zumen/c/it/"
+    },
+    "encodingFormat": "text/yaml",
+    "isAccessibleForFree": true
   },
-  "encodingFormat": "text/yaml",
-  "isAccessibleForFree": true
-}
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "zumen",
+        "item": "https://meta-taro.github.io/zumen/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "IT・ソフトウェア",
+        "item": "https://meta-taro.github.io/zumen/c/it/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "プロトコルのヘッダは、32 ビット幅で読む"
+      }
+    ]
+  }
+]
 </script>
 </head>
 <body class="sub">

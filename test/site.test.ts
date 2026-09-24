@@ -7,7 +7,7 @@
  * ここで見るのは**残りの食い違い** —— 行き先と、互いへの入口。
  */
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { describe, it } from 'node:test';
 
 const ja = readFileSync('site/index.html', 'utf8');
@@ -217,5 +217,124 @@ describe('探して見つかること（SEO / AIEO）', () => {
       }
     }
     assert.match(llms, new RegExp(`Example drawings: ${total}`));
+  });
+});
+
+/**
+ * **見本のページを、検査が 1 枚も見ていなかった**（2026-09-22。88 周目）。
+ *
+ * SEO の検査はトップと DL ページだけを見ていて、**688 枚の見本ページは素通り**だった。
+ * 測ったら **344 枚すべての説明が 70 字未満**、**64 枚は題とまったく同じ**だった。
+ *
+ * ここが見るのは**形**だけ —— 文の善し悪しは人が読む。
+ */
+describe('見本のページ', () => {
+  const pages = (base: string): { no: string; html: string }[] => {
+    const dir = new URL(`../${base}/`, import.meta.url);
+    return readdirSync(dir)
+      .filter((name) => /^[0-9]+$/.test(name))
+      .map((no) => ({ no, html: readFileSync(new URL(`${no}/index.html`, dir), 'utf8') }));
+  };
+  const meta = (html: string, name: string): string =>
+    new RegExp(`name="${name}" content="([^"]*)"`).exec(html)?.[1] ?? '';
+  const ja = pages('site/g');
+  const en = pages('site/en/g');
+
+  it('**1 枚も欠けていない**（日本語と英語で同じ数）', () => {
+    assert.ok(ja.length > 300, `見本のページが少なすぎる: ${ja.length}`);
+    assert.equal(en.length, ja.length);
+  });
+
+  it('**説明が、題の言い直しになっていない**', () => {
+    const same = [...ja, ...en]
+      .filter((page) => {
+        const title = /<title>([^<]*)<\/title>/.exec(page.html)?.[1] ?? '';
+        return title.replace(/ — zumen.*$/, '') === meta(page.html, 'description');
+      })
+      .map((page) => page.no);
+    assert.deepEqual(same, [], '説明が題と同じ見本のページ');
+  });
+
+  it('**説明が、同じ文を繰り返していない**', () => {
+    const repeated = [...ja]
+      .filter((page) => {
+        const desc = meta(page.html, 'description');
+        const head = desc.split('。')[0] ?? '';
+        return head.length >= 6 && desc.slice(head.length + 1).startsWith(head);
+      })
+      .map((page) => page.no);
+    assert.deepEqual(repeated, [], '説明の中で同じ文が 2 回出ている見本のページ');
+  });
+
+  it('**パンくずと図の構造化データがある**（検索結果に出る）', () => {
+    const missing = [...ja, ...en]
+      .filter((page) => !page.html.includes('BreadcrumbList') || !page.html.includes('ImageObject'))
+      .map((page) => page.no);
+    assert.deepEqual(missing, []);
+  });
+
+  it('**共有したときの絵に、説明が添えてある**（og:image:alt）', () => {
+    const missing = [...ja, ...en]
+      .filter((page) => !/og:image:alt" content="[^"]{10,}"/.test(page.html))
+      .map((page) => page.no);
+    assert.deepEqual(missing, []);
+  });
+});
+
+/**
+ * **指しているのに無い絵を止める**（2026-09-22。91 周目。ベースルール §23）。
+ *
+ * この日、見本ごとの共有カード（`site/og/NN.png`）を足した。
+ * **カードは重いので、見本が増えた直後は追いついていない**ことがある ——
+ * そのとき `og:image` が 404 を指すと、**組み立てもテストも通ったまま、
+ * 共有したときだけ壊れる。**人が気づくのは貼った後になる。
+ *
+ * 図（`gallery/*.svg`）は `site/` には置かない（`pnpm pages` と workflow が写す）ので、
+ * **正本の `examples/gallery/` に在るか**で見る。
+ */
+describe('指している絵が、ちゃんと在る', () => {
+  const SITE = 'https://meta-taro.github.io/zumen';
+  const walk = (dir: URL): URL[] =>
+    readdirSync(dir, { withFileTypes: true }).flatMap((entry) =>
+      entry.isDirectory()
+        ? walk(new URL(`${entry.name}/`, dir))
+        : entry.name.endsWith('.html')
+          ? [new URL(entry.name, dir)]
+          : [],
+    );
+  const site = new URL('../site/', import.meta.url);
+  const htmls = walk(site);
+
+  it('**ページが 700 枚以上ある**（歩き方が合っている）', () => {
+    assert.ok(htmls.length > 700, `ページが少なすぎる: ${htmls.length}`);
+  });
+
+  it('**共有カード（og:image）が、すべて在る**', () => {
+    const missing: string[] = [];
+    for (const html of htmls) {
+      const text = readFileSync(html, 'utf8');
+      for (const found of text.matchAll(/(?:og:image|twitter:image)" content="([^"]+)"/g)) {
+        const url = found[1] ?? '';
+        if (!url.startsWith(SITE)) continue;
+        const path = decodeURIComponent(url.slice(SITE.length + 1));
+        if (existsSync(new URL(path, site))) continue;
+        missing.push(`${html.pathname.split('/site/')[1]} → ${path}`);
+      }
+    }
+    assert.deepEqual([...new Set(missing)], []);
+  });
+
+  it('**貼ってある図が、すべて正本に在る**', () => {
+    const gallery = new URL('../examples/gallery/', import.meta.url);
+    const missing: string[] = [];
+    for (const html of htmls) {
+      for (const found of readFileSync(html, 'utf8').matchAll(/<img [^>]*src="([^"]+)"/g)) {
+        const name = /\/gallery\/([^/]+\.svg)$/.exec(found[1] ?? '')?.[1];
+        if (name === undefined) continue;
+        if (existsSync(new URL(decodeURIComponent(name), gallery))) continue;
+        missing.push(`${html.pathname.split('/site/')[1]} → ${name}`);
+      }
+    }
+    assert.deepEqual([...new Set(missing)], []);
   });
 });

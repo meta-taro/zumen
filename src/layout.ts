@@ -1230,8 +1230,44 @@ function routeEdges(
     }
 
     // 直線で結ぶ。**両端は箱の縁で切る**ので、動かした先へ必ず届く。
-    return { ...edge, points: [clip(from, center(to)), clip(to, center(from))], pinned: false };
+    return { ...edge, points: nudge(clip(from, center(to)), clip(to, center(from)), from, to), pinned: false };
   });
+}
+
+/**
+ * **壁を共有する箱どうしの線に、向きを持たせる。**
+ *
+ * 2026-09-24（`qa/品質100周` 第 18 周）。見本 45（駅の構内図）を実物で見て見つけた。
+ *
+ * 隣り合う部屋を結ぶと、**両端を縁で切った結果が同じ点になる。**
+ * 長さゼロの線に `marker-end` を付けても、SVG の `orient="auto"` は向きを決められず、
+ * **矢印が全部右を向く** —— 南口 → 改札（左向き）も、改札 → コンコース（下向き）も、
+ * 見た目は同じ「▶」になっていた。
+ *
+ * 全体で **603 本中 18 本 ／ 8 枚**（40・45 が各 4 本、116 が 3 本、28・34 が各 2 本）。
+ *
+ * **見本ごとに逃げず、道具の側で直す**（D40 と同じ筋）。
+ * 重なった点を、**箱の中心どうしを結ぶ向き**に 6px だけ開く。
+ * 線そのものはほぼ見えないままで、変わるのは**矢じりの向き**だけ。
+ */
+function nudge(
+  a: { x: number; y: number },
+  b: { x: number; y: number },
+  from: Box,
+  to: Box,
+): { x: number; y: number }[] {
+  const gap = Math.hypot(b.x - a.x, b.y - a.y);
+  if (gap >= 2) return [a, b];
+  const p = center(from);
+  const q = center(to);
+  const span = Math.hypot(q.x - p.x, q.y - p.y);
+  if (span === 0) return [a, b];
+  const ux = (q.x - p.x) / span;
+  const uy = (q.y - p.y) / span;
+  return [
+    { x: round(a.x - ux * 3), y: round(a.y - uy * 3) },
+    { x: round(b.x + ux * 3), y: round(b.y + uy * 3) },
+  ];
 }
 
 /**

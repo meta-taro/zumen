@@ -84,7 +84,7 @@ SAMPLES.sort((a, b) => Number(a.no) - Number(b.no));
 const byGroup = new Map(CATEGORIES.map((g) => [g.key, SAMPLES.filter((s) => s.group.key === g.key)]));
 
 /** ページの殻。**どのページも同じ形**にして、差は中身だけにする。 */
-function shell({ lang, path, title, desc, jsonld, body, up }) {
+function shell({ lang, path, title, desc, jsonld, body, up, image, imageAlt }) {
   const other = lang === 'ja' ? `${SITE}/en${path}` : `${SITE}${path}`;
   const self = lang === 'ja' ? `${SITE}${path}` : `${SITE}/en${path}`;
   const depth = path.split('/').filter(Boolean).length + (lang === 'ja' ? 0 : 1);
@@ -104,11 +104,13 @@ function shell({ lang, path, title, desc, jsonld, body, up }) {
 <meta property="og:url" content="${self}">
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(desc)}">
-<meta property="og:image" content="${SITE}/og.png">
+<meta property="og:image" content="${image ?? `${SITE}/og.png`}">
+<meta property="og:image:alt" content="${esc(imageAlt ?? (lang === 'ja' ? '歯周チャートと路線図。どちらも zumen が YAML から描いたもの。' : 'A periodontal chart and a transit map, both drawn by zumen from YAML.'))}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="${esc(title)}">
 <meta name="twitter:description" content="${esc(desc)}">
-<meta name="twitter:image" content="${SITE}/og.png">
+<meta name="twitter:image" content="${image ?? `${SITE}/og.png`}">
+<meta name="twitter:image:alt" content="${esc(imageAlt ?? (lang === 'ja' ? '歯周チャートと路線図。どちらも zumen が YAML から描いたもの。' : 'A periodontal chart and a transit map, both drawn by zumen from YAML.'))}">
 <link rel="stylesheet" href="${root}style.css">
 <link rel="canonical" href="${self}">
 <link rel="alternate" hreflang="${lang}" href="${self}">
@@ -139,9 +141,54 @@ ${body}
 
 /** 見本 1 枚のページ。 */
 function samplePage(s, lang) {
+  /**
+   * **検索結果に出る文は、題の言い直しにしない**（2026-09-22。86 周目）。
+   *
+   * 測ったら **344 枚すべてが 70 字未満**で、**64 枚は題とまったく同じ**だった。
+   * `alt`（図に何が描いてあるか）は 20 字の下限を通して書き直してあるので、
+   * **そちらを使う。** 長すぎる分は文の切れ目で落とす。
+   */
+  const fit = (text, limit) => {
+    const flat = String(text).replace(/\s+/g, ' ').trim();
+    if (flat.length <= limit) return flat;
+    const cut = flat.slice(0, limit);
+    const stop = Math.max(cut.lastIndexOf('。'), cut.lastIndexOf('、'), cut.lastIndexOf(', '), cut.lastIndexOf('. '));
+    return `${(stop > limit * 0.5 ? cut.slice(0, stop) : cut).trim()}…`;
+  };
+  /**
+   * **繋げる前に、重なりを見る**（2026-09-22。88 周目）。
+   *
+   * 題と `alt` をそのまま繋げたら、**見本 7 が「稟議の流れ。稟議の流れ。…」**になった。
+   * 題の言い直しが `alt` の先頭に来ている図が多い。
+   *
+   * 繋げるのは**中身が増えるときだけ**。増えないなら、
+   * **正本の説明（`note` の 1 段落目 ＝ その図の見どころ）**を使う。そちらのほうが濃い。
+   */
+  const flat = (text) => String(text).replace(/\*\*/g, '').replace(/\s+/g, ' ').trim();
+  /**
+   * **繋げる前に、重なりを見る**（2026-09-22。88 周目）。
+   *
+   * 題と `alt` をそのまま繋げたら **見本 7 が「稟議の流れ。稟議の流れ。…」**になった
+   * （題の言い直しが `alt` の先頭に来ている図が多い）。
+   * 逆に「重なったら捨てる」にしたら、今度は**題だけ 6 字**になった（見本 2）。
+   *
+   * **いちばん中身のあるものを 1 つ選ぶ。**
+   * それが題を含んでいるならそれだけを使い、含んでいないなら題に足す。
+   */
+  const summary = (() => {
+    const head = flat(lang === 'ja' ? s.caption : s.en);
+    if (lang !== 'ja') return fit(head, 150);
+    // **note は 1 段落目とは限らない。** 題より長いものを、前のほうから探す。
+    const best = [flat(s.alt), ...s.note.map(flat)]
+      .filter((one) => one.length > head.length)
+      .sort((a, b) => b.length - a.length)[0];
+    if (best === undefined) return fit(head, 150);
+    return best.startsWith(head.replace(/[（(].*$/, '')) ? fit(best, 150) : fit(`${head}。${best}`, 150);
+  })();
+
   const t = lang === 'ja'
-    ? { title: `${s.title} — zumen の見本 ${s.no}`, desc: s.caption, note: '正本に書いてある決まりごと', src: '正本（YAML）', near: '同じ分野の見本', made: 'この図は、下の 1 枚の YAML から描かれています。手で図形を動かしてはいません。' }
-    : { title: `${s.title} — zumen example ${s.no}`, desc: s.en, note: 'What the source says', src: 'Source (YAML)', near: 'More in this field', made: 'This drawing comes from one YAML file. No shape was moved by hand.' };
+    ? { title: `${s.title} — zumen の見本 ${s.no}`, desc: summary, note: '正本に書いてある決まりごと', src: '正本（YAML）', near: '同じ分野の見本', made: 'この図は、下の 1 枚の YAML から描かれています。手で図形を動かしてはいません。' }
+    : { title: `${s.title} — zumen example ${s.no}`, desc: summary, note: 'What the source says', src: 'Source (YAML)', near: 'More in this field', made: 'This drawing comes from one YAML file. No shape was moved by hand.' };
   const near = (byGroup.get(s.group.key) ?? []).filter((x) => x.no !== s.no).slice(0, 8);
   const body = `<article>
   <p class="crumb">${esc(lang === 'ja' ? s.group.label : GROUPS_EN[s.group.key] ?? s.group.label)}</p>
@@ -162,20 +209,63 @@ function samplePage(s, lang) {
     path: `/g/${s.no}/`,
     title: t.title,
     desc: t.desc,
+    /**
+     * **見本ごとの共有カード**（`scripts/og-samples.mjs` が描く。2026-09-22）。
+     * X・Slack・Facebook は SVG を描画しないので、**PNG が要る**。
+     *
+     * **無ければ指さない**（ベースルール §23。参照だけ足して中身が無い状態を作らない）。
+     * カードは重いので、見本が増えた直後は追いついていないことがある。
+     * そのときは全体のカード（`site/og.png`）に落ちる —— 空の枠よりまし。
+     */
+    image: existsSync(`site/og/${s.no}.png`) ? `${SITE}/og/${s.no}.png` : undefined,
+    imageAlt: fit(lang === 'ja' ? s.alt : s.en, 140),
     up: [{ href: `../../${lang === 'ja' ? '' : ''}c/${s.group.key}/`, text: lang === 'ja' ? s.group.label : GROUPS_EN[s.group.key] ?? s.group.label }],
-    jsonld: {
-      '@context': 'https://schema.org',
-      '@type': 'CreativeWork',
-      name: s.title,
-      description: lang === 'ja' ? s.caption : s.en,
-      url: `${SITE}${lang === 'ja' ? '' : '/en'}/g/${s.no}/`,
-      image: `${SITE}/gallery/${encodeURIComponent(s.name)}.svg`,
-      inLanguage: lang,
-      license: 'https://opensource.org/licenses/MIT',
-      isPartOf: { '@type': 'CollectionPage', name: lang === 'ja' ? s.group.label : GROUPS_EN[s.group.key] ?? s.group.label, url: `${SITE}${lang === 'ja' ? '' : '/en'}/c/${s.group.key}/` },
-      encodingFormat: 'text/yaml',
-      isAccessibleForFree: true,
-    },
+    /**
+     * **検索結果に出す構造化データ**（2026-09-22。86 周目）。
+     *
+     * 前は `CreativeWork` 1 つだけだった。足したのは 2 つ ——
+     * **パンくず**（分野 → この図、が検索結果に出る）と、
+     * **`ImageObject`**（図そのものに `caption` と `description` が付く。画像検索に効く）。
+     */
+    jsonld: [
+      {
+        '@context': 'https://schema.org',
+        '@type': 'CreativeWork',
+        name: s.title,
+        headline: s.title,
+        description: summary,
+        url: `${SITE}${lang === 'ja' ? '' : '/en'}/g/${s.no}/`,
+        image: {
+          '@type': 'ImageObject',
+          contentUrl: `${SITE}/gallery/${encodeURIComponent(s.name)}.svg`,
+          caption: lang === 'ja' ? s.caption : s.en,
+          description: lang === 'ja' ? s.alt : s.en,
+          encodingFormat: 'image/svg+xml',
+          license: 'https://opensource.org/licenses/MIT',
+          acquireLicensePage: 'https://github.com/meta-taro/zumen/blob/main/LICENSE',
+          creditText: 'zumen',
+        },
+        inLanguage: lang,
+        license: 'https://opensource.org/licenses/MIT',
+        isPartOf: { '@type': 'CollectionPage', name: lang === 'ja' ? s.group.label : GROUPS_EN[s.group.key] ?? s.group.label, url: `${SITE}${lang === 'ja' ? '' : '/en'}/c/${s.group.key}/` },
+        encodingFormat: 'text/yaml',
+        isAccessibleForFree: true,
+      },
+      {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'zumen', item: `${SITE}${lang === 'ja' ? '/' : '/en/'}` },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: lang === 'ja' ? s.group.label : GROUPS_EN[s.group.key] ?? s.group.label,
+            item: `${SITE}${lang === 'ja' ? '' : '/en'}/c/${s.group.key}/`,
+          },
+          { '@type': 'ListItem', position: 3, name: s.title },
+        ],
+      },
+    ],
     body,
   });
 }
@@ -277,5 +367,33 @@ if (check) {
     mkdirSync(path.replace(/\/[^/]+$/, ''), { recursive: true });
     writeFileSync(path, text);
   }
+  /**
+   * **図は毎回ぜんぶ写す**（2026-09-22。89 周目）。
+   *
+   * 前は `site/gallery/` に **102 枚だけが commit されていた**（見本 01〜51 の頃の残り）。
+   * 配るときは workflow が `examples/gallery/` から写し直すので**本番は正しかった**が、
+   * 手元で開くと 688 枚のうち 15% しか出ず、**壊れているように見えた**（実際に一度そう誤読した）。
+   *
+   * 中途半端に置くのをやめて、**写す係をここに一本化した**。
+   * `site/gallery/` は追跡しない（`.gitignore`）。正本は `examples/gallery/` の 1 つだけ。
+   */
+  mkdirSync('site/gallery', { recursive: true });
+  let copied = 0;
+  for (const name of readdirSync(DIR).filter((f) => f.endsWith('.svg'))) {
+    const from = join(DIR, name);
+    const to = join('site/gallery', name);
+    const text = readFileSync(from, 'utf8');
+    if (existsSync(to) && readFileSync(to, 'utf8') === text) continue;
+    writeFileSync(to, text);
+    copied += 1;
+  }
+  // **要らなくなった図は消す。** 残すと、消したはずの見本が手元でだけ開ける。
+  let dropped = 0;
+  for (const name of readdirSync('site/gallery')) {
+    if (existsSync(join(DIR, name))) continue;
+    rmSync(join('site/gallery', name));
+    dropped += 1;
+  }
   console.log(`ページを ${want.size} 件、組み立て直しました（分野 ${CATEGORIES.length * 2} ／ 見本 ${SAMPLES.length * 2}）。`);
+  console.log(`図を site/gallery/ へ写しました（新しく ${copied} 枚／古いのを ${dropped} 枚 外した）。`);
 }

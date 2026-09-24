@@ -1,0 +1,423 @@
+version: 1
+kind: placement
+arrows: true
+title: ミキサー 1 チャンネルの信号の道（順番が音を決める）
+# **同じ機能でも、道のどこに置くかで別のものになる。**
+#
+# ## 順番
+#
+# 入力（マイク／ライン）→ **HA（ヘッドアンプ）**→ フィルタ（HPF / LPF）→ **EQ** →
+# ダイナミクス → **インサート** → **AUX SEND** → PAN POT → **フェーダー** →
+# BUS / GROUP → マスター。
+#
+# **HA で利得を合わせるのが先**なのは、そこで決まった余裕が以降の段すべてに効くから。
+# **フィルタが EQ より前**なのは、要らない帯域を先に落としておくため。
+#
+# ## 同じ AUX でも、取り出す場所で別のものになる
+#
+# **フェーダーの前から取る（プリフェーダー）**と、卓の音量を動かしても送る量は変わらない ——
+# **演者に返すモニター**はこちら。
+#
+# **フェーダーの後から取る（ポストフェーダー）**と、卓の音量に連動して送る量も動く ——
+# **残響などのエフェクト**はこちら。
+#
+# **どちらも「AUX SEND」という同じつまみ**で、違うのは取り出す場所だけ。
+#
+# ## 直列と並列
+#
+# **インサートは直列。** 道を切って、そこへ外部機器を挟む。通った音がそのまま先へ行く。
+# **AUX は並列。** 枝分かれして送り、戻してくる。
+# インサートは PRE か POST を選べる。
+#
+# ## PFL
+#
+# **Pre Fader Listening** —— フェーダーで音量を調整される**前段**の信号をソロで聞く。
+# 卓のフェーダーを下げていても聞けるので、**送り出す前に確かめられる。**
+#
+# PA の配置は見本 101、ホールの反射は見本 205、マイクの指向性は見本 327。
+nodes:
+  - id: t1
+    label: "① 上から下へ、順番が決まっている（1 チャンネルぶん）"
+    marker: none
+    align: left
+    at: { x: 140, y: 160 }
+    size: { w: 700, h: 18 }
+  - id: t1b
+    label: "　右に出ている枝は、どこから取り出すかで意味が変わる。"
+    marker: none
+    align: left
+    at: { x: 140, y: 182 }
+    size: { w: 700, h: 18 }
+  - id: in
+    label: "入力（マイク／ライン）"
+    at: { x: 300, y: 240 }
+    size: { w: 230, h: 42 }
+  - id: inn
+    label: "コンデンサマイクにはファンタム電源"
+    marker: none
+    align: left
+    at: { x: 546, y: 252 }
+    size: { w: 300, h: 18 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 414, y: 281 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 414, y: 295 }
+    size: { w: 2, h: 2 }
+  - id: ha
+    label: "HA（ヘッドアンプ）"
+    at: { x: 300, y: 296 }
+    size: { w: 230, h: 42 }
+  - id: han
+    label: "ここで利得を合わせる。以降の段の余裕が決まる"
+    marker: none
+    align: left
+    at: { x: 546, y: 308 }
+    size: { w: 300, h: 18 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 414, y: 337 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 414, y: 351 }
+    size: { w: 2, h: 2 }
+  - id: fil
+    label: "フィルタ（HPF / LPF）"
+    at: { x: 300, y: 352 }
+    size: { w: 230, h: 42 }
+  - id: filn
+    label: "要らない帯域を先に落とす"
+    marker: none
+    align: left
+    at: { x: 546, y: 364 }
+    size: { w: 300, h: 18 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 414, y: 393 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 414, y: 407 }
+    size: { w: 2, h: 2 }
+  - id: eq
+    label: "EQ"
+    at: { x: 300, y: 408 }
+    size: { w: 230, h: 42 }
+  - id: eqn
+    label: "音色を補正する／積極的に変える"
+    marker: none
+    align: left
+    at: { x: 546, y: 420 }
+    size: { w: 300, h: 18 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 414, y: 449 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 414, y: 463 }
+    size: { w: 2, h: 2 }
+  - id: dyn
+    label: "ダイナミクス"
+    at: { x: 300, y: 464 }
+    size: { w: 230, h: 42 }
+  - id: dynn
+    label: "コンプレッサー・リミッター・ノイズゲート"
+    marker: none
+    align: left
+    at: { x: 546, y: 476 }
+    size: { w: 300, h: 18 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 414, y: 505 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 414, y: 519 }
+    size: { w: 2, h: 2 }
+  - id: ins
+    label: "インサート"
+    at: { x: 300, y: 520 }
+    size: { w: 230, h: 42 }
+  - id: insn
+    label: "外部機器を直列に挿す。PRE か POST を選べる"
+    marker: none
+    align: left
+    at: { x: 546, y: 532 }
+    size: { w: 300, h: 18 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 414, y: 561 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 414, y: 575 }
+    size: { w: 2, h: 2 }
+  - id: aux
+    label: "AUX SEND"
+    at: { x: 300, y: 576 }
+    size: { w: 230, h: 42 }
+  - id: auxn
+    label: "出口が複数。エフェクトや返しへ送る"
+    marker: none
+    align: left
+    at: { x: 546, y: 588 }
+    size: { w: 300, h: 18 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 414, y: 617 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 414, y: 631 }
+    size: { w: 2, h: 2 }
+  - id: pan
+    label: "PAN POT"
+    at: { x: 300, y: 632 }
+    size: { w: 230, h: 42 }
+  - id: pann
+    label: "ステレオの定位を決める"
+    marker: none
+    align: left
+    at: { x: 546, y: 644 }
+    size: { w: 300, h: 18 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 414, y: 673 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 414, y: 687 }
+    size: { w: 2, h: 2 }
+  - id: fad
+    label: "フェーダー"
+    at: { x: 300, y: 688 }
+    size: { w: 230, h: 42 }
+  - id: fadn
+    label: "音量を調整する"
+    marker: none
+    align: left
+    at: { x: 546, y: 700 }
+    size: { w: 300, h: 18 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 414, y: 729 }
+    size: { w: 2, h: 2 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 414, y: 743 }
+    size: { w: 2, h: 2 }
+  - id: bus
+    label: "BUS / GROUP"
+    at: { x: 300, y: 744 }
+    size: { w: 230, h: 42 }
+  - id: busn
+    label: "複数チャンネルをまとめる（サブグループ）"
+    marker: none
+    align: left
+    at: { x: 546, y: 756 }
+    size: { w: 300, h: 18 }
+  - id: p18
+    label: ""
+    marker: none
+    at: { x: 414, y: 785 }
+    size: { w: 2, h: 2 }
+  - id: p19
+    label: ""
+    marker: none
+    at: { x: 414, y: 799 }
+    size: { w: 2, h: 2 }
+  - id: mst
+    label: "マスター"
+    hatch: solid
+    at: { x: 300, y: 800 }
+    size: { w: 230, h: 42 }
+  - id: mstn
+    label: "最終出力"
+    marker: none
+    align: left
+    at: { x: 546, y: 812 }
+    size: { w: 300, h: 18 }
+  - id: p20
+    label: ""
+    marker: none
+    at: { x: 299, y: 708 }
+    size: { w: 2, h: 2 }
+  - id: p21
+    label: ""
+    marker: none
+    at: { x: 199, y: 807 }
+    size: { w: 2, h: 2 }
+  - id: pfl
+    label: "PFL"
+    at: { x: 120, y: 812 }
+    size: { w: 160, h: 36 }
+  - id: pfln
+    label: "Pre Fader Listening —— フェーダーで音量を調整される「前段」の信号をソロで聞く"
+    marker: none
+    align: left
+    at: { x: 60, y: 858 }
+    size: { w: 560, h: 18 }
+  - id: t2
+    label: "② 同じ AUX でも、取り出す場所で別のものになる"
+    marker: none
+    align: left
+    at: { x: 960, y: 160 }
+    size: { w: 460, h: 18 }
+  - id: m1
+    label: "・フェーダーの前から取る（プリフェーダー）"
+    marker: none
+    align: left
+    at: { x: 960, y: 194 }
+    size: { w: 500, h: 18 }
+  - id: m2
+    label: "　→ 卓の音量を動かしても、送る量は変わらない。"
+    marker: none
+    align: left
+    at: { x: 960, y: 218 }
+    size: { w: 500, h: 18 }
+  - id: m3
+    label: "　　演者に返す「モニター」はこちら。"
+    marker: none
+    align: left
+    at: { x: 960, y: 242 }
+    size: { w: 500, h: 18 }
+  - id: m5
+    label: "・フェーダーの後から取る（ポストフェーダー）"
+    marker: none
+    align: left
+    at: { x: 960, y: 290 }
+    size: { w: 500, h: 18 }
+  - id: m6
+    label: "　→ 卓の音量に連動して送る量も動く。"
+    marker: none
+    align: left
+    at: { x: 960, y: 314 }
+    size: { w: 500, h: 18 }
+  - id: m7
+    label: "　　残響などの「エフェクト」はこちら。"
+    marker: none
+    align: left
+    at: { x: 960, y: 338 }
+    size: { w: 500, h: 18 }
+  - id: m9
+    label: "・インサートは直列。 通った音がそのまま先へ行く。"
+    marker: none
+    align: left
+    at: { x: 960, y: 386 }
+    size: { w: 500, h: 18 }
+  - id: m10
+    label: "　AUX は並列で、枝分かれして戻ってくる。"
+    marker: none
+    align: left
+    at: { x: 960, y: 410 }
+    size: { w: 500, h: 18 }
+  - id: h960_470
+    label: "枝の取り方"
+    hatch: solid
+    at: { x: 960, y: 470 }
+    size: { w: 500, h: 24 }
+  - id: x960_494
+    label: "インサート"
+    at: { x: 960, y: 494 }
+    size: { w: 240, h: 24 }
+  - id: y960_494
+    label: "直列。切って間に挟む"
+    align: left
+    at: { x: 1200, y: 494 }
+    size: { w: 260, h: 24 }
+  - id: x960_518
+    label: "AUX SEND"
+    at: { x: 960, y: 518 }
+    size: { w: 240, h: 24 }
+  - id: y960_518
+    label: "並列。分けて送り、戻す"
+    align: left
+    at: { x: 1200, y: 518 }
+    size: { w: 260, h: 24 }
+  - id: x960_542
+    label: "PFL"
+    at: { x: 960, y: 542 }
+    size: { w: 240, h: 24 }
+  - id: y960_542
+    label: "フェーダーの前を、ソロで聞く"
+    align: left
+    at: { x: 1200, y: 542 }
+    size: { w: 260, h: 24 }
+  - id: x960_566
+    label: "BUS / GROUP"
+    at: { x: 960, y: 566 }
+    size: { w: 240, h: 24 }
+  - id: y960_566
+    label: "まとめてから、まとめて動かす"
+    align: left
+    at: { x: 1200, y: 566 }
+    size: { w: 260, h: 24 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p2
+    to: p3
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p4
+    to: p5
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p6
+    to: p7
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p8
+    to: p9
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p10
+    to: p11
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p12
+    to: p13
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p14
+    to: p15
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p16
+    to: p17
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p18
+    to: p19
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p20
+    to: p21
+    curve: none
+    ends: { from: none, to: arrow }
+    via:
+      - { x: 200, y: 709 }

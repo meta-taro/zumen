@@ -92,7 +92,15 @@ nodes:
     label: "Reviews"
     marker: box
     at: { x: 48, y: 448 }
-    size: { w: 504, h: 100 }
+    size: { w: 504, h: 68 }
+  # **Footer を描いていなかった**（2026-09-24。qa/品質100周 第 5 周）。
+  # 下の Component の行は Footer を挙げているのに、枠の中に箱が無く、
+  # **図と構成の列挙が食い違っていた。** 構造の正本なので、図のほうを合わせる。
+  - id: d_foot
+    label: "Footer"
+    marker: box
+    at: { x: 48, y: 520 }
+    size: { w: 504, h: 28 }
   - id: m_cap
     label: "Mobile 390px"
     marker: none
@@ -157,7 +165,13 @@ nodes:
     label: "Reviews"
     marker: box
     at: { x: 618, y: 442 }
-    size: { w: 214, h: 62 }
+    size: { w: 214, h: 40 }
+  # Mobile では **Footer の上に Add to Cart が載る**（`fixed`）。並びも構造の差。
+  - id: m_foot
+    label: "Footer"
+    marker: box
+    at: { x: 618, y: 486 }
+    size: { w: 214, h: 22 }
   - id: m_cart
     label: "Add to Cart"
     hatch: solid
