@@ -75,8 +75,26 @@ jobs:
   #
   # `pnpm test` も `pnpm dev` も通ったままなので、**気づくのは配った後**になる。
   # 姉妹アプリの囲みの経路は、ここが通らないと丸ごと動かない。
+  #
+  # **Windows でも回す**（2026-09-24）。この検査は `prepublishOnly` に入っていて、
+  # **落ちると publish そのものができない。** npm の 2FA がパスキーで Windows 機に
+  # 紐づいており、**そこから出すしかない**ので致命的になる。
+  #
+  # 実際に 2 回続けて落とした。どちらも **macOS では緑のまま**で、
+  # 姉妹セッションが実機で踏んで初めて分かった。
+  #
+  # | 呼び方 | 結果 |
+  # |---|---|
+  # | `execFileSync('pnpm', args)` | `ENOENT`（実体は `pnpm.cmd`）|
+  # | `execFileSync('pnpm.cmd', args)` | `EINVAL`（CVE-2024-27980 で `.cmd` は shell 無しで起動できない）|
+  #
+  # **人の機体を待たずに落ちるようにする。** それがここに Windows を足した理由。
   consume:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
     steps:
       - uses: actions/checkout@v7
 

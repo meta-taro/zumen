@@ -89,7 +89,10 @@ edit('CHANGELOG.md', (text) => {
     return body.trim().length > 0;
   });
   const at = (withBody ?? found[0]).index;
-  return `${text.slice(0, at)}## 未リリース\n\n## ${next} — ${today}${text.slice(at + '## 未リリース'.length)}`;
+  const moved = `${text.slice(0, at)}## 未リリース\n\n## ${next} — ${today}${text.slice(at + '## 未リリース'.length)}`;
+  // **空の「未リリース」が 2 つ並ばないようにする。**
+  // 前の版を上げたときの空きが残っていると、その下にもう 1 つ増える。
+  return moved.replace(/## 未リリース\n\n(?=## 未リリース\n)/g, '');
 });
 
 console.log(`\n版を ${next} にしました。**CHANGELOG.md の中身を確かめてください** —`);
