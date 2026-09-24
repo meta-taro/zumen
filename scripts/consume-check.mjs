@@ -20,7 +20,7 @@
  *
  * 姉妹アプリ（md-business）が囲みを図にする経路は、ここが通らないと丸ごと動かない。
  */
-import { execFileSync } from 'node:child_process';
+import { execSync } from 'node:child_process';
 import { mkdtempSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
@@ -32,17 +32,40 @@ const ROOT = fileURLToPath(new URL('../', import.meta.url));
 const NAME = JSON.parse(readFileSync(join(ROOT, 'package.json'), 'utf8')).name;
 
 /**
- * **Windows では `pnpm` の実体が `pnpm.cmd`。**
+ * **Windows で `pnpm` を起動する道は、シェル経由しか無い。**
  *
- * `shell` 無しの `execFileSync` は解決できず `ENOENT`（errno -4058）で落ちる。
- * **中身の不具合ではなく、起動だけの問題**だが、この検査は `prepublishOnly` に入っているので
- * **落ちると Windows から publish できない**（2026-09-24。姉妹セッションが実機で踏んだ）。
+ * この検査は `prepublishOnly` に入っているので、**落ちると publish そのものができない。**
+ * npm の 2FA がパスキーで Windows 機に紐づいており、そこから出すしかないので致命的。
  *
- * `shell: true` にすると引数が連結されて Node が DEP0190 を出すので、拡張子を足すほうを採る。
+ * 2026-09-24 に 2 回外した。姉妹セッションが実機で踏んだ順に書く。
+ *
+ * | 呼び方 | 結果 |
+ * |---|---|
+ * | `execFileSync('pnpm', args)` | **ENOENT**（-4058）。実体は `pnpm.cmd` |
+ * | `execFileSync('pnpm.cmd', args)` | **EINVAL**（-4071）|
+ *
+ * 2 つ目は **Node の 2024 年のセキュリティ修正（CVE-2024-27980）**。
+ * `.cmd` / `.bat` を `shell` 無しで起動することを拒否する。
+ * **「`.cmd` にすればシェルが要らない」は誤り。**どのみちシェルが要る。
+ *
+ * `execFileSync(..., { shell: true })` でも通るが、Node が DEP0190 を出す。
+ * **`execSync` にコマンド 1 本を渡す**ほうが、両方の OS で同じ形になって警告も出ない。
+ *
+ * **引用は自分で付ける。** シェルを通すので、`mkdtemp` の行き先に空白があると壊れる
+ * （`C:\Users\First Last\AppData\...`）。`JSON.stringify` は使えない ——
+ * **バックスラッシュを二重にする**ので、cmd がそのまま literal として読む。
  */
+function quote(one) {
+  if (one.includes('"')) throw new Error(`引数に " が入っています: ${one}`);
+  return /[\s]/.test(one) ? `"${one}"` : one;
+}
+
 function run(command, args, cwd) {
-  const real = process.platform === 'win32' && !command.endsWith('.cmd') ? `${command}.cmd` : command;
-  return execFileSync(real, args, { cwd, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
+  return execSync([command, ...args.map(quote)].join(' '), {
+    cwd,
+    encoding: 'utf8',
+    stdio: ['ignore', 'pipe', 'pipe'],
+  });
 }
 
 console.log('組み立てる…');
