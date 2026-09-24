@@ -25,6 +25,17 @@ on:
         type: boolean
         default: true
 
+# **追い越された run は止める。**
+#
+# 同じブランチへ続けて push すると、**古い commit の run が走り切る。**
+# 見るのはいちばん新しい 1 本だけなのに、**緑が揃わないように見える**
+# （2026-09-24。オーナーが「毎回全部緑を待っていた」と言った）。
+#
+# `pages` は前からこうしてある（配るのは常に最新の 1 つなので）。
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
 
