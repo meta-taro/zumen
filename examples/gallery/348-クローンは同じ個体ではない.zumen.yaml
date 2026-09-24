@@ -1,0 +1,240 @@
+version: 1
+kind: placement
+arrows: false
+title: クローンは「同じ個体」ではない（CC と レインボー）
+# **世界初のクローン猫 CC は、元の猫と毛色が違った。**
+#
+# 2001 年 12 月 22 日、テキサス A&M 大学で誕生。名は Carbon Copy の略。
+# 核を採ったのは三毛の「レインボー」。**核の DNA は完全に同じ。**
+# それでも **CC は三毛にならず、白地に灰色のトラ（白キジ）**だった。
+#
+# ## なぜ同じにならないのか —— 3 つある
+#
+# | | 元の猫から来るもの | 来ないもの |
+# |---|---|---|
+# | 核の DNA | **そのまま**（だから「クローン」）| |
+# | ミトコンドリア DNA | | **卵子の提供猫のもの** |
+# | X 染色体の不活性化 | | **細胞ごとにランダムに決まり直す** |
+# | 子宮の環境・その後の経験 | | **代理母と、育った場所のもの** |
+#
+# ## 三毛が三毛になる仕組み
+#
+# 茶色と黒の遺伝子は **X 染色体**にある。メス猫は X を 2 本持つが、
+# **細胞ごとにどちらか片方が不活性化される。** どちらが止まるかは**ランダム**。
+# その斑が毛色の模様になる —— **だから三毛の模様は遺伝しない。**
+#
+# クローンでも同じことが起きる。**DNA が同じでも、模様は決まり直す。**
+#
+# ## 描かなかったもの
+#
+# **手順は描かない**（方針 §5.5）。除核の方法も、電気刺激の条件も書いていない。
+# **この図は「何が受け継がれ、何が受け継がれないか」の図。**
+#
+# 出典 —— CC（猫）に関する報道と、X 染色体不活性化（ライオニゼーション）の教科書的記述。
+nodes:
+  - id: t1
+    label: "① CC の何が、どこから来たか"
+    marker: none
+    align: left
+    at: { x: 150, y: 60 }
+    size: { w: 700, h: 20 }
+  - id: h0
+    label: "CC の"
+    marker: box
+    hatch: solid
+    at: { x: 150, y: 96 }
+    size: { w: 300, h: 34 }
+  - id: h1
+    label: "どこから来たか"
+    marker: box
+    hatch: solid
+    at: { x: 450, y: 96 }
+    size: { w: 330, h: 34 }
+  - id: h2
+    label: "元の猫（レインボー）と同じか"
+    marker: box
+    hatch: solid
+    at: { x: 780, y: 96 }
+    size: { w: 380, h: 34 }
+  - id: c00
+    label: "核の DNA"
+    marker: box
+    at: { x: 150, y: 130 }
+    size: { w: 300, h: 34 }
+  - id: c01
+    label: "元の猫（レインボー）"
+    marker: box
+    at: { x: 450, y: 130 }
+    size: { w: 330, h: 34 }
+  - id: c02
+    label: "同じ"
+    marker: box
+    at: { x: 780, y: 130 }
+    size: { w: 380, h: 34 }
+  - id: c10
+    label: "ミトコンドリア DNA"
+    marker: box
+    at: { x: 150, y: 164 }
+    size: { w: 300, h: 34 }
+  - id: c11
+    label: "卵子を出した別の猫"
+    marker: box
+    at: { x: 450, y: 164 }
+    size: { w: 330, h: 34 }
+  - id: c12
+    label: "違う"
+    marker: box
+    at: { x: 780, y: 164 }
+    size: { w: 380, h: 34 }
+  - id: c20
+    label: "X 不活性化の模様"
+    marker: box
+    at: { x: 150, y: 198 }
+    size: { w: 300, h: 34 }
+  - id: c21
+    label: "どの猫からも来ない。受精のあと細胞ごとに決まる"
+    marker: box
+    at: { x: 450, y: 198 }
+    size: { w: 330, h: 34 }
+  - id: c22
+    label: "違う"
+    marker: box
+    at: { x: 780, y: 198 }
+    size: { w: 380, h: 34 }
+  - id: c30
+    label: "子宮の環境"
+    marker: box
+    at: { x: 150, y: 232 }
+    size: { w: 300, h: 34 }
+  - id: c31
+    label: "代理母（アリー）"
+    marker: box
+    at: { x: 450, y: 232 }
+    size: { w: 330, h: 34 }
+  - id: c32
+    label: "違う"
+    marker: box
+    at: { x: 780, y: 232 }
+    size: { w: 380, h: 34 }
+  - id: c40
+    label: "生まれたあとの経験"
+    marker: box
+    at: { x: 150, y: 266 }
+    size: { w: 300, h: 34 }
+  - id: c41
+    label: "育った場所"
+    marker: box
+    at: { x: 450, y: 266 }
+    size: { w: 330, h: 34 }
+  - id: c42
+    label: "違う"
+    marker: box
+    at: { x: 780, y: 266 }
+    size: { w: 380, h: 34 }
+  - id: n1
+    label: "※ 「クローン」が指しているのは 1 行目だけ。残りは元の猫から来ない。"
+    marker: none
+    align: left
+    at: { x: 150, y: 308 }
+    size: { w: 900, h: 18 }
+  - id: t2
+    label: "② 三毛の模様が決まる仕組み（だから同じにならない）"
+    marker: none
+    align: left
+    at: { x: 150, y: 352 }
+    size: { w: 700, h: 20 }
+  - id: x1
+    label: "メス猫は X 染色体を 2 本持つ"
+    marker: box
+    at: { x: 150, y: 388 }
+    size: { w: 320, h: 34 }
+  - id: x2
+    label: "茶色の遺伝子"
+    marker: box
+    hatch: lines
+    at: { x: 490, y: 388 }
+    size: { w: 160, h: 34 }
+  - id: x3
+    label: "黒の遺伝子"
+    marker: box
+    hatch: cross
+    at: { x: 670, y: 388 }
+    size: { w: 160, h: 34 }
+  - id: x4
+    label: "↓ 細胞ごとに、どちらか片方が止まる（どちらが止まるかはランダム）"
+    marker: none
+    align: left
+    at: { x: 150, y: 430 }
+    size: { w: 700, h: 18 }
+  - id: p0
+    label: ""
+    marker: box
+    hatch: lines
+    at: { x: 150, y: 458 }
+    size: { w: 50, h: 34 }
+  - id: p1
+    label: ""
+    marker: box
+    hatch: cross
+    at: { x: 204, y: 458 }
+    size: { w: 50, h: 34 }
+  - id: p2
+    label: ""
+    marker: box
+    hatch: lines
+    at: { x: 258, y: 458 }
+    size: { w: 50, h: 34 }
+  - id: p3
+    label: ""
+    marker: box
+    hatch: lines
+    at: { x: 312, y: 458 }
+    size: { w: 50, h: 34 }
+  - id: p4
+    label: ""
+    marker: box
+    hatch: cross
+    at: { x: 366, y: 458 }
+    size: { w: 50, h: 34 }
+  - id: p5
+    label: ""
+    marker: box
+    hatch: cross
+    at: { x: 420, y: 458 }
+    size: { w: 50, h: 34 }
+  - id: p6
+    label: ""
+    marker: box
+    hatch: lines
+    at: { x: 474, y: 458 }
+    size: { w: 50, h: 34 }
+  - id: p7
+    label: ""
+    marker: box
+    hatch: cross
+    at: { x: 528, y: 458 }
+    size: { w: 50, h: 34 }
+  - id: p8
+    label: ""
+    marker: box
+    hatch: lines
+    at: { x: 582, y: 458 }
+    size: { w: 50, h: 34 }
+  - id: p9
+    label: ""
+    marker: box
+    hatch: cross
+    at: { x: 636, y: 458 }
+    size: { w: 50, h: 34 }
+  - id: x5
+    label: "↑ 止まらなかったほうの色が出る。この斑が、そのまま毛の模様になる。"
+    marker: none
+    align: left
+    at: { x: 150, y: 502 }
+    size: { w: 760, h: 18 }
+  - id: x6
+    label: "模様は DNA に書かれていない ── だから三毛の模様は遺伝しないし、クローンでも同じにならない。"
+    marker: none
+    align: left
+    at: { x: 150, y: 526 }
+    size: { w: 900, h: 18 }
