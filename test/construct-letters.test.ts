@@ -200,17 +200,37 @@ describe('**見本 128 —— 座標を 1 つも書かない正本**', () => {
     }
   });
 
+  /**
+   * **外寸は実線で測る。跡（`trace`）は数えない**（2026-09-24。`qa/品質100周` 第 24 周）。
+   *
+   * この日、12 個ある円に `trace: true` を足した ——
+   * 題が「作図」なのに、**跡を 1 本も出していなかった**ため。
+   *
+   * 縦棒の円は半径 1,794 で字の 9 倍ある。**跡を外寸に入れると高さが 3,628 になる**
+   * （字の高さは 218）。`inkBounds` も `src/layout.ts` も跡を除くので、ここも合わせる。
+   */
   it('**横組の外寸 2527.308 × 218.034 が、その正本から出る**', () => {
     const got = build(parse(source).doc.toJS() as Parameters<typeof build>[0]);
     assert.deepEqual(got.troubles, []);
-    const ink = inkBounds(got.strokes)!;
+    const solid = got.strokes.filter((one) => !one.trace);
+    const ink = inkBounds(solid)!;
     assert.equal(Math.round((ink.right - ink.left) * 1000) / 1000, 2527.308);
-    assert.equal(Math.round(heightOf(got.strokes) * 1000) / 1000, 218.034);
+    assert.equal(Math.round(heightOf(solid) * 1000) / 1000, 218.034);
   });
 
-  it('弧が 29 本（字 10 個ぶん）', () => {
+  it('**跡を入れても外寸が変わらない**（`inkBounds` が跡を除く）', () => {
     const got = build(parse(source).doc.toJS() as Parameters<typeof build>[0]);
-    assert.equal(got.strokes.length, 29);
+    const all = inkBounds(got.strokes)!;
+    const solid = inkBounds(got.strokes.filter((one) => !one.trace))!;
+    assert.equal(all.left, solid.left);
+    assert.equal(all.right, solid.right);
+  });
+
+  it('弧が 29 本（字 10 個ぶん）＋ 跡が 27 本', () => {
+    const got = build(parse(source).doc.toJS() as Parameters<typeof build>[0]);
+    const trace = got.strokes.filter((one) => one.trace);
+    assert.equal(got.strokes.length - trace.length, 29);
+    assert.equal(trace.length, 27);
   });
 
   it('**見本 122 より 1 桁小さい**（コンパスで作れる図は、正本も小さい）', () => {

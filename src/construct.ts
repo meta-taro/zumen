@@ -656,7 +656,18 @@ export function inkBounds(strokes: readonly Stroke[]): { left: number; right: nu
   if (strokes.length === 0) return null;
   let left = Infinity;
   let right = -Infinity;
-  for (const one of strokes) {
+  /**
+   * **跡（`trace`）は送り幅に数えない**（2026-09-24。`qa/品質100周` 第 24 周）。
+   *
+   * 紙の大きさは既に跡を除いていた（`src/layout.ts`）が、**ここが除いていなかった。**
+   * 見本 128（ロゴの作図）で跡を出したら、**横が 2,576 → 49,069px** になった ——
+   * 縦棒の円は半径 1,794 で字の 9 倍あるので、
+   * それを外接に含めると**字と字が 3,600 ずつ離れる。**
+   *
+   * 跡しか無いときは跡で測る（全部が跡の図で、幅が出せなくなるのを避ける）。
+   */
+  const solid = strokes.filter((one) => !one.trace);
+  for (const one of solid.length > 0 ? solid : strokes) {
     const pad = one.weight / 2;
     const add = (x: number): void => {
       left = Math.min(left, x - pad);

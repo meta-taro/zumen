@@ -30,6 +30,12 @@ title: ロゴの作図（murmuraura ／ 円と比だけ・座標を書かない�
 # 作図図では跡を消さない —— 消すと、どう作ったかが読めなくなる。
 # **跡は紙を広げない**（半径 1794 の円は字の何倍もあるので、入れると字が豆粒になる）。
 #
+# **2026-09-24 まで、その跡を 1 本も出していなかった**（`qa/品質100周` 第 24 周）。
+# 題は「作図」なのに、出るのは仕上がりだけ —— 正本を開かない人には、ただのロゴだった。
+#
+# 12 個ある円に `trace: true` を足した。**紙は 1px も変わらない**（2576 × 267）。
+# 縦棒の所に見える**薄い縦の弧**が、「直線が 1 本も無い」の実物。
+#
 # 姉妹プロジェクトの確定したロゴ。公開してよいことを確認済み。
 let:
   R: 100
@@ -56,6 +62,8 @@ define:
       - id: to
         center: tc
         r: stem
+        draw: true
+        trace: true
       - id: ta
         y: 0
       - id: tb
@@ -84,11 +92,15 @@ define:
       - id: b
         center: bC
         r: R
+        draw: true
+        trace: true
       - id: lc
         at: { x: 0 - stem, y: R }
       - id: lo
         center: lc
         r: stem
+        draw: true
+        trace: true
       - id: la
         y: 0
       - id: lb
@@ -108,6 +120,8 @@ define:
       - id: go
         center: gc
         r: stem
+        draw: true
+        trace: true
       - id: ga
         y: 0
       - id: gb
@@ -146,16 +160,22 @@ define:
       - id: h1
         center: h1C
         r: shoulder
+        draw: true
+        trace: true
       - id: h2C
         at: { x: 3 * shoulder, y: shoulder }
       - id: h2
         center: h2C
         r: shoulder
+        draw: true
+        trace: true
       - id: pc
         at: { x: 0 - stem, y: shoulder }
       - id: po
         center: pc
         r: stem
+        draw: true
+        trace: true
       - id: pa
         y: shoulder
       - id: pb
@@ -175,6 +195,8 @@ define:
       - id: qo
         center: qc
         r: stem
+        draw: true
+        trace: true
       - id: qa
         y: shoulder
       - id: qb
@@ -194,6 +216,8 @@ define:
       - id: so
         center: sc
         r: stem
+        draw: true
+        trace: true
       - id: sa
         y: shoulder
       - id: sb
@@ -242,11 +266,15 @@ define:
       - id: h1
         center: h1C
         r: shoulder
+        draw: true
+        trace: true
       - id: pc
         at: { x: 0 - stem, y: shoulder }
       - id: po
         center: pc
         r: stem
+        draw: true
+        trace: true
       - id: pa
         y: shoulder
       - id: pb
