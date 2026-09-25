@@ -1,0 +1,831 @@
+version: 1
+kind: placement
+arrows: false
+title: 宇宙は無重力ではない（ISS の高さでも 89%）
+# **高さ 400km の ISS でも、地球が引く力は地表の 88.5%（8.68m/s²）。**
+# 飛行士が浮くのは、力が無いからではない —— **落ち続けているから。**
+#
+# ## 力はほとんど減っていない
+#
+# 引く力は距離の 2 乗で弱まるが、**測るのは地球の中心から**である。
+# 地表で 6,371km。400km 上がっても 6,771km で、**6% 遠くなっただけ。**
+# 2 乗しても 0.89 にしかならない。
+#
+# | どこ | 高さ km | 地表を 100% として |
+# |---|---|---|
+# | カーマン線 | 100 | 96.93% |
+# | **ISS** | **400** | **88.53%** |
+# | 静止衛星 | 35,786 | 2.284% |
+# | 月 | 384,400 | 0.0266% |
+#
+# **1% まで落ちるのは高さ 57,000km。** 地球 9 個ぶん外側である。
+#
+# ## 浮く理由は「落ち続けている」
+#
+# ISS は **1 秒で 7.66km 進み、そのあいだに 4.34m 落ちる。**
+# ところが**その 7.66km 先では、地球の面も 4.34m 下がっている。**
+# だから、いつまでも地面に着かない。**高さが変わらないだけで、落ちてはいる。**
+#
+# 体重計が 0 を指すのは、**体重計も同じ速さで落ちている**から。
+# 押し返すものが無いだけで、引かれる力は消えていない。
+#
+# ## 「微小重力」と呼ぶ理由
+#
+# 完全に落ちていても、**重心から離れた点は少しだけ違う軌道**を描く。
+# 重心から 10m のところで **2.6 × 10⁻⁶ g**（＝ 2GMd / r³）。
+# 大気の抵抗と、人や機械の動きも足される。**0 にはならない**ので µg と書く。
+#
+# ## 縦を誇張してある
+#
+# ②は**縦を 1000 倍**にしてある。7.66km に対して 4.34m は、
+# そのまま描くと線の太さに埋まる。**横だけが読める図。**
+#
+# 出典: g = g₀(R/(R+h))²、R = 6,371km、g₀ = 9.807m/s²。
+# ISS の速さと周期は NASA の公開値（7.66km/s・92.6 分）。月の距離は平均 384,400km。
+nodes:
+  - id: t1
+    label: "① 高さと、地球が引く力（縦は地表を 100% とした割合）"
+    marker: none
+    align: left
+    at: { x: 60, y: 96 }
+    size: { w: 880, h: 18 }
+  - id: axa
+    label: ""
+    marker: none
+    at: { x: 229, y: 149 }
+    size: { w: 2, h: 2 }
+  - id: axb
+    label: ""
+    marker: none
+    at: { x: 229, y: 449 }
+    size: { w: 2, h: 2 }
+  - id: axc
+    label: ""
+    marker: none
+    at: { x: 929, y: 449 }
+    size: { w: 2, h: 2 }
+  - id: yl1000
+    label: "100%"
+    marker: none
+    align: right
+    at: { x: 156, y: 141 }
+    size: { w: 62, h: 16 }
+  - id: yt1000
+    label: ""
+    marker: none
+    at: { x: 223, y: 149 }
+    size: { w: 2, h: 2 }
+  - id: yu1000
+    label: ""
+    marker: none
+    at: { x: 229, y: 149 }
+    size: { w: 2, h: 2 }
+  - id: yl885
+    label: "89%"
+    marker: none
+    align: right
+    at: { x: 156, y: 175.5 }
+    size: { w: 62, h: 16 }
+  - id: yt885
+    label: ""
+    marker: none
+    at: { x: 223, y: 183.5 }
+    size: { w: 2, h: 2 }
+  - id: yu885
+    label: ""
+    marker: none
+    at: { x: 229, y: 183.5 }
+    size: { w: 2, h: 2 }
+  - id: yl500
+    label: "50%"
+    marker: none
+    align: right
+    at: { x: 156, y: 291 }
+    size: { w: 62, h: 16 }
+  - id: yt500
+    label: ""
+    marker: none
+    at: { x: 223, y: 299 }
+    size: { w: 2, h: 2 }
+  - id: yu500
+    label: ""
+    marker: none
+    at: { x: 229, y: 299 }
+    size: { w: 2, h: 2 }
+  - id: yl0
+    label: "0%"
+    marker: none
+    align: right
+    at: { x: 156, y: 441 }
+    size: { w: 62, h: 16 }
+  - id: yt0
+    label: ""
+    marker: none
+    at: { x: 223, y: 449 }
+    size: { w: 2, h: 2 }
+  - id: yu0
+    label: ""
+    marker: none
+    at: { x: 229, y: 449 }
+    size: { w: 2, h: 2 }
+  - id: xl0
+    label: "0"
+    marker: none
+    align: center
+    at: { x: 180, y: 460 }
+    size: { w: 100, h: 16 }
+  - id: xl400
+    label: "400"
+    marker: none
+    align: center
+    at: { x: 320, y: 460 }
+    size: { w: 100, h: 16 }
+  - id: xl1000
+    label: "1,000"
+    marker: none
+    align: center
+    at: { x: 530, y: 460 }
+    size: { w: 100, h: 16 }
+  - id: xl2000
+    label: "2,000 km"
+    marker: none
+    align: center
+    at: { x: 880, y: 460 }
+    size: { w: 100, h: 16 }
+  - id: xa0
+    label: ""
+    marker: none
+    at: { x: 229, y: 449 }
+    size: { w: 2, h: 2 }
+  - id: xb0
+    label: ""
+    marker: none
+    at: { x: 229, y: 455 }
+    size: { w: 2, h: 2 }
+  - id: xa100
+    label: ""
+    marker: none
+    at: { x: 264, y: 449 }
+    size: { w: 2, h: 2 }
+  - id: xb100
+    label: ""
+    marker: none
+    at: { x: 264, y: 455 }
+    size: { w: 2, h: 2 }
+  - id: xa400
+    label: ""
+    marker: none
+    at: { x: 369, y: 449 }
+    size: { w: 2, h: 2 }
+  - id: xb400
+    label: ""
+    marker: none
+    at: { x: 369, y: 455 }
+    size: { w: 2, h: 2 }
+  - id: xa1000
+    label: ""
+    marker: none
+    at: { x: 579, y: 449 }
+    size: { w: 2, h: 2 }
+  - id: xb1000
+    label: ""
+    marker: none
+    at: { x: 579, y: 455 }
+    size: { w: 2, h: 2 }
+  - id: xa2000
+    label: ""
+    marker: none
+    at: { x: 929, y: 449 }
+    size: { w: 2, h: 2 }
+  - id: xb2000
+    label: ""
+    marker: none
+    at: { x: 929, y: 455 }
+    size: { w: 2, h: 2 }
+  - id: c0
+    label: ""
+    marker: none
+    at: { x: 229, y: 149 }
+    size: { w: 2, h: 2 }
+  - id: c1
+    label: ""
+    marker: none
+    at: { x: 929, y: 275.2 }
+    size: { w: 2, h: 2 }
+  - id: issp
+    label: ""
+    marker: none
+    at: { x: 369, y: 183.4 }
+    size: { w: 2, h: 2 }
+  - id: issq
+    label: ""
+    marker: none
+    at: { x: 369, y: 449 }
+    size: { w: 2, h: 2 }
+  - id: issl
+    label: "ISS 400km ＝ 89%"
+    marker: none
+    align: left
+    at: { x: 386, y: 158.4 }
+    size: { w: 200, h: 18 }
+  - id: kp
+    label: ""
+    marker: none
+    at: { x: 264, y: 449 }
+    size: { w: 2, h: 2 }
+  - id: kq
+    label: ""
+    marker: none
+    at: { x: 264, y: 419 }
+    size: { w: 2, h: 2 }
+  - id: kl
+    label: "カーマン線 100km（ここから「宇宙」）"
+    marker: none
+    align: left
+    at: { x: 275, y: 404 }
+    size: { w: 300, h: 18 }
+  - id: t1n
+    label: "地表からわずか 400km。力はほとんど減っていない。"
+    marker: none
+    align: left
+    at: { x: 60, y: 492 }
+    size: { w: 880, h: 18 }
+  - id: t1n2
+    label: "それでも飛行士が浮くのは、力が無いからではない。"
+    marker: none
+    align: left
+    at: { x: 60, y: 514 }
+    size: { w: 880, h: 18 }
+  - id: t2
+    label: "② 浮いているのではなく、落ち続けている（縦は 1000 倍に描いてある）"
+    marker: none
+    align: left
+    at: { x: 60, y: 566 }
+    size: { w: 880, h: 18 }
+  - id: f0
+    label: ""
+    marker: none
+    at: { x: 229, y: 623 }
+    size: { w: 2, h: 2 }
+  - id: f1
+    label: ""
+    marker: none
+    at: { x: 869, y: 623 }
+    size: { w: 2, h: 2 }
+  - id: fl1
+    label: "重力が無ければ\nまっすぐ"
+    marker: none
+    align: left
+    at: { x: 886, y: 597 }
+    size: { w: 118, h: 36 }
+  - id: f2
+    label: ""
+    marker: none
+    at: { x: 229, y: 623 }
+    size: { w: 2, h: 2 }
+  - id: f3
+    label: ""
+    marker: none
+    at: { x: 869, y: 753 }
+    size: { w: 2, h: 2 }
+  - id: e0
+    label: ""
+    marker: none
+    at: { x: 229, y: 793 }
+    size: { w: 2, h: 2 }
+  - id: e1
+    label: ""
+    marker: none
+    at: { x: 869, y: 923 }
+    size: { w: 2, h: 2 }
+  - id: el
+    label: "地球の面"
+    marker: none
+    align: left
+    at: { x: 886, y: 915 }
+    size: { w: 150, h: 18 }
+  - id: d0
+    label: ""
+    marker: none
+    at: { x: 879, y: 623 }
+    size: { w: 2, h: 2 }
+  - id: d1
+    label: ""
+    marker: none
+    at: { x: 879, y: 753 }
+    size: { w: 2, h: 2 }
+  - id: dl
+    label: "4.34m"
+    marker: none
+    align: left
+    at: { x: 886, y: 680 }
+    size: { w: 80, h: 18 }
+  - id: pl
+    label: "ISS が通る道"
+    marker: none
+    align: left
+    at: { x: 290, y: 666 }
+    size: { w: 200, h: 18 }
+  - id: h0
+    label: ""
+    marker: none
+    at: { x: 229, y: 601 }
+    size: { w: 2, h: 2 }
+  - id: h1
+    label: ""
+    marker: none
+    at: { x: 869, y: 601 }
+    size: { w: 2, h: 2 }
+  - id: hl
+    label: "1 秒で 7.66km 進む"
+    marker: none
+    align: center
+    at: { x: 450, y: 584 }
+    size: { w: 200, h: 18 }
+  - id: t2n
+    label: "1 秒で 7.66km 進むあいだに 4.34m 落ちる。その 7.66km 先では、"
+    marker: none
+    align: left
+    at: { x: 60, y: 862 }
+    size: { w: 800, h: 18 }
+  - id: t2n2
+    label: "地球の面も 4.34m 下がっている —— だから、いつまでも地面に着かない。"
+    marker: none
+    align: left
+    at: { x: 60, y: 884 }
+    size: { w: 800, h: 18 }
+  - id: t2n3
+    label: "高さが変わらないだけで、落ちてはいる。一周 92.6 分。"
+    marker: none
+    align: left
+    at: { x: 60, y: 906 }
+    size: { w: 800, h: 18 }
+  - id: t3
+    label: "③ 高さごとに、地球が引く力"
+    marker: none
+    align: left
+    at: { x: 1010, y: 96 }
+    size: { w: 540, h: 18 }
+  - id: ah0
+    label: "どこ"
+    hatch: solid
+    align: center
+    at: { x: 1010, y: 124 }
+    size: { w: 210, h: 26 }
+  - id: ah1
+    label: "高さ km"
+    hatch: solid
+    align: center
+    at: { x: 1220, y: 124 }
+    size: { w: 150, h: 26 }
+  - id: ah2
+    label: "地表を 100% として"
+    hatch: solid
+    align: center
+    at: { x: 1370, y: 124 }
+    size: { w: 180, h: 26 }
+  - id: a0_0
+    label: "地表"
+    align: center
+    at: { x: 1010, y: 150 }
+    size: { w: 210, h: 26 }
+  - id: a0_1
+    label: "0"
+    align: center
+    at: { x: 1220, y: 150 }
+    size: { w: 150, h: 26 }
+  - id: a0_2
+    label: "100%"
+    align: center
+    at: { x: 1370, y: 150 }
+    size: { w: 180, h: 26 }
+  - id: a1_0
+    label: "旅客機の巡航"
+    align: center
+    at: { x: 1010, y: 176 }
+    size: { w: 210, h: 26 }
+  - id: a1_1
+    label: "12"
+    align: center
+    at: { x: 1220, y: 176 }
+    size: { w: 150, h: 26 }
+  - id: a1_2
+    label: "99.62%"
+    align: center
+    at: { x: 1370, y: 176 }
+    size: { w: 180, h: 26 }
+  - id: a2_0
+    label: "カーマン線"
+    align: center
+    at: { x: 1010, y: 202 }
+    size: { w: 210, h: 26 }
+  - id: a2_1
+    label: "100"
+    align: center
+    at: { x: 1220, y: 202 }
+    size: { w: 150, h: 26 }
+  - id: a2_2
+    label: "96.93%"
+    align: center
+    at: { x: 1370, y: 202 }
+    size: { w: 180, h: 26 }
+  - id: a3_0
+    label: "ISS"
+    align: center
+    at: { x: 1010, y: 228 }
+    size: { w: 210, h: 26 }
+  - id: a3_1
+    label: "400"
+    align: center
+    at: { x: 1220, y: 228 }
+    size: { w: 150, h: 26 }
+  - id: a3_2
+    label: "88.53%"
+    align: center
+    at: { x: 1370, y: 228 }
+    size: { w: 180, h: 26 }
+  - id: a4_0
+    label: "GPS 衛星"
+    align: center
+    at: { x: 1010, y: 254 }
+    size: { w: 210, h: 26 }
+  - id: a4_1
+    label: "20,200"
+    align: center
+    at: { x: 1220, y: 254 }
+    size: { w: 150, h: 26 }
+  - id: a4_2
+    label: "5.749%"
+    align: center
+    at: { x: 1370, y: 254 }
+    size: { w: 180, h: 26 }
+  - id: a5_0
+    label: "静止衛星"
+    align: center
+    at: { x: 1010, y: 280 }
+    size: { w: 210, h: 26 }
+  - id: a5_1
+    label: "35,786"
+    align: center
+    at: { x: 1220, y: 280 }
+    size: { w: 150, h: 26 }
+  - id: a5_2
+    label: "2.284%"
+    align: center
+    at: { x: 1370, y: 280 }
+    size: { w: 180, h: 26 }
+  - id: a6_0
+    label: "月"
+    align: center
+    at: { x: 1010, y: 306 }
+    size: { w: 210, h: 26 }
+  - id: a6_1
+    label: "384,400"
+    align: center
+    at: { x: 1220, y: 306 }
+    size: { w: 150, h: 26 }
+  - id: a6_2
+    label: "0.02658%"
+    align: center
+    at: { x: 1370, y: 306 }
+    size: { w: 180, h: 26 }
+  - id: t3n
+    label: "1% まで落ちるのは 高さ 57,000km —— 地球 9 個ぶん外側。"
+    marker: none
+    align: left
+    at: { x: 1010, y: 344 }
+    size: { w: 540, h: 18 }
+  - id: t3n2
+    label: "月が落ちてこないのも、力が 0 だからではない（0.027% 残っている）。"
+    marker: none
+    align: left
+    at: { x: 1010, y: 366 }
+    size: { w: 540, h: 18 }
+  - id: t4
+    label: "④ 「無重力」ではなく「微小重力」と呼ぶ理由"
+    marker: none
+    align: left
+    at: { x: 1010, y: 404 }
+    size: { w: 540, h: 18 }
+  - id: bh0
+    label: "何が残るか"
+    hatch: solid
+    align: center
+    at: { x: 1010, y: 432 }
+    size: { w: 250, h: 26 }
+  - id: bh1
+    label: "どれくらい"
+    hatch: solid
+    align: center
+    at: { x: 1260, y: 432 }
+    size: { w: 290, h: 26 }
+  - id: b0_0
+    label: "重力の勾配（重心から 10m）"
+    align: center
+    at: { x: 1010, y: 458 }
+    size: { w: 250, h: 26 }
+  - id: b0_1
+    label: "2.6 × 10⁻⁶ g"
+    align: center
+    at: { x: 1260, y: 458 }
+    size: { w: 290, h: 26 }
+  - id: b1_0
+    label: "大気の抵抗（高度 400km）"
+    align: center
+    at: { x: 1010, y: 484 }
+    size: { w: 250, h: 26 }
+  - id: b1_1
+    label: "10⁻⁷ 〜 10⁻⁶ g"
+    align: center
+    at: { x: 1260, y: 484 }
+    size: { w: 290, h: 26 }
+  - id: b2_0
+    label: "人が動く・機械が回る"
+    align: center
+    at: { x: 1010, y: 510 }
+    size: { w: 250, h: 26 }
+  - id: b2_1
+    label: "10⁻⁴ 〜 10⁻³ g"
+    align: center
+    at: { x: 1260, y: 510 }
+    size: { w: 290, h: 26 }
+  - id: t4n
+    label: "完全に落ちていても、重心から離れた点は少し違う軌道を描く。"
+    marker: none
+    align: left
+    at: { x: 1010, y: 548 }
+    size: { w: 540, h: 18 }
+  - id: t4n2
+    label: "0 にはならないので、0g ではなく µg（マイクロ）と書く。"
+    marker: none
+    align: left
+    at: { x: 1010, y: 570 }
+    size: { w: 540, h: 18 }
+  - id: t5
+    label: "⑤ 地上でも同じことが起きる"
+    marker: none
+    align: left
+    at: { x: 1010, y: 608 }
+    size: { w: 540, h: 18 }
+  - id: ch0
+    label: "やりかた"
+    hatch: solid
+    align: center
+    at: { x: 1010, y: 636 }
+    size: { w: 220, h: 26 }
+  - id: ch1
+    label: "浮いていられる時間"
+    hatch: solid
+    align: center
+    at: { x: 1230, y: 636 }
+    size: { w: 320, h: 26 }
+  - id: c0_0
+    label: "放物線飛行（航空機）"
+    align: center
+    at: { x: 1010, y: 662 }
+    size: { w: 220, h: 26 }
+  - id: c0_1
+    label: "20 秒ほど。1 回の飛行で数十回"
+    align: center
+    at: { x: 1230, y: 662 }
+    size: { w: 320, h: 26 }
+  - id: c1_0
+    label: "落下塔"
+    align: center
+    at: { x: 1010, y: 688 }
+    size: { w: 220, h: 26 }
+  - id: c1_1
+    label: "3〜10 秒"
+    align: center
+    at: { x: 1230, y: 688 }
+    size: { w: 320, h: 26 }
+  - id: c2_0
+    label: "エレベーターの綱が切れたら"
+    align: center
+    at: { x: 1010, y: 714 }
+    size: { w: 220, h: 26 }
+  - id: c2_1
+    label: "着くまで（やってはいけない）"
+    align: center
+    at: { x: 1230, y: 714 }
+    size: { w: 320, h: 26 }
+  - id: t5n
+    label: "どれも「力を消した」のではなく、支えを外して落としているだけ。"
+    marker: none
+    align: left
+    at: { x: 1010, y: 752 }
+    size: { w: 540, h: 18 }
+edges:
+  - from: axa
+    to: axb
+    curve: none
+    ends: { from: none, to: none }
+  - from: axb
+    to: axc
+    curve: none
+    ends: { from: none, to: none }
+  - from: yt1000
+    to: yu1000
+    curve: none
+    ends: { from: none, to: none }
+  - from: yt885
+    to: yu885
+    curve: none
+    ends: { from: none, to: none }
+  - from: yt500
+    to: yu500
+    curve: none
+    ends: { from: none, to: none }
+  - from: yt0
+    to: yu0
+    curve: none
+    ends: { from: none, to: none }
+  - from: xa0
+    to: xb0
+    curve: none
+    ends: { from: none, to: none }
+  - from: xa100
+    to: xb100
+    curve: none
+    ends: { from: none, to: none }
+  - from: xa400
+    to: xb400
+    curve: none
+    ends: { from: none, to: none }
+  - from: xa1000
+    to: xb1000
+    curve: none
+    ends: { from: none, to: none }
+  - from: xa2000
+    to: xb2000
+    curve: none
+    ends: { from: none, to: none }
+  - from: c0
+    to: c1
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 230.0, y: 150.0 }
+      - { x: 238.8, y: 152.3 }
+      - { x: 247.5, y: 154.7 }
+      - { x: 256.2, y: 156.9 }
+      - { x: 265.0, y: 159.2 }
+      - { x: 273.8, y: 161.4 }
+      - { x: 282.5, y: 163.6 }
+      - { x: 291.2, y: 165.8 }
+      - { x: 300.0, y: 168.0 }
+      - { x: 308.8, y: 170.1 }
+      - { x: 317.5, y: 172.2 }
+      - { x: 326.2, y: 174.3 }
+      - { x: 335.0, y: 176.4 }
+      - { x: 343.8, y: 178.4 }
+      - { x: 352.5, y: 180.4 }
+      - { x: 361.2, y: 182.4 }
+      - { x: 370.0, y: 184.4 }
+      - { x: 378.8, y: 186.3 }
+      - { x: 387.5, y: 188.3 }
+      - { x: 396.2, y: 190.2 }
+      - { x: 405.0, y: 192.1 }
+      - { x: 413.8, y: 193.9 }
+      - { x: 422.5, y: 195.8 }
+      - { x: 431.2, y: 197.6 }
+      - { x: 440.0, y: 199.4 }
+      - { x: 448.8, y: 201.2 }
+      - { x: 457.5, y: 203.0 }
+      - { x: 466.2, y: 204.7 }
+      - { x: 475.0, y: 206.5 }
+      - { x: 483.8, y: 208.2 }
+      - { x: 492.5, y: 209.9 }
+      - { x: 501.2, y: 211.5 }
+      - { x: 510.0, y: 213.2 }
+      - { x: 518.8, y: 214.8 }
+      - { x: 527.5, y: 216.5 }
+      - { x: 536.2, y: 218.1 }
+      - { x: 545.0, y: 219.7 }
+      - { x: 553.8, y: 221.2 }
+      - { x: 562.5, y: 222.8 }
+      - { x: 571.2, y: 224.4 }
+      - { x: 580.0, y: 225.9 }
+      - { x: 588.8, y: 227.4 }
+      - { x: 597.5, y: 228.9 }
+      - { x: 606.2, y: 230.4 }
+      - { x: 615.0, y: 231.8 }
+      - { x: 623.8, y: 233.3 }
+      - { x: 632.5, y: 234.7 }
+      - { x: 641.2, y: 236.2 }
+      - { x: 650.0, y: 237.6 }
+      - { x: 658.8, y: 239.0 }
+      - { x: 667.5, y: 240.3 }
+      - { x: 676.2, y: 241.7 }
+      - { x: 685.0, y: 243.1 }
+      - { x: 693.8, y: 244.4 }
+      - { x: 702.5, y: 245.7 }
+      - { x: 711.2, y: 247.1 }
+      - { x: 720.0, y: 248.4 }
+      - { x: 728.8, y: 249.6 }
+      - { x: 737.5, y: 250.9 }
+      - { x: 746.2, y: 252.2 }
+      - { x: 755.0, y: 253.4 }
+      - { x: 763.8, y: 254.7 }
+      - { x: 772.5, y: 255.9 }
+      - { x: 781.2, y: 257.1 }
+      - { x: 790.0, y: 258.3 }
+      - { x: 798.8, y: 259.5 }
+      - { x: 807.5, y: 260.7 }
+      - { x: 816.2, y: 261.9 }
+      - { x: 825.0, y: 263.1 }
+      - { x: 833.8, y: 264.2 }
+      - { x: 842.5, y: 265.4 }
+      - { x: 851.2, y: 266.5 }
+      - { x: 860.0, y: 267.6 }
+      - { x: 868.8, y: 268.7 }
+      - { x: 877.5, y: 269.8 }
+      - { x: 886.2, y: 270.9 }
+      - { x: 895.0, y: 272.0 }
+      - { x: 903.8, y: 273.1 }
+      - { x: 912.5, y: 274.1 }
+      - { x: 921.2, y: 275.2 }
+      - { x: 930.0, y: 276.2 }
+  - from: issp
+    to: issq
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: kp
+    to: kq
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: f0
+    to: f1
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: f2
+    to: f3
+    curve: none
+    ends: { from: none, to: arrow }
+    via:
+      - { x: 230.0, y: 624.0 }
+      - { x: 256.7, y: 624.2 }
+      - { x: 283.3, y: 624.9 }
+      - { x: 310.0, y: 626.0 }
+      - { x: 336.7, y: 627.6 }
+      - { x: 363.3, y: 629.6 }
+      - { x: 390.0, y: 632.1 }
+      - { x: 416.7, y: 635.1 }
+      - { x: 443.3, y: 638.4 }
+      - { x: 470.0, y: 642.3 }
+      - { x: 496.7, y: 646.6 }
+      - { x: 523.3, y: 651.3 }
+      - { x: 550.0, y: 656.5 }
+      - { x: 576.7, y: 662.1 }
+      - { x: 603.3, y: 668.2 }
+      - { x: 630.0, y: 674.8 }
+      - { x: 656.7, y: 681.8 }
+      - { x: 683.3, y: 689.2 }
+      - { x: 710.0, y: 697.1 }
+      - { x: 736.7, y: 705.5 }
+      - { x: 763.3, y: 714.3 }
+      - { x: 790.0, y: 723.5 }
+      - { x: 816.7, y: 733.2 }
+      - { x: 843.3, y: 743.4 }
+      - { x: 870.0, y: 754.0 }
+  - from: e0
+    to: e1
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 230.0, y: 794.0 }
+      - { x: 256.7, y: 794.2 }
+      - { x: 283.3, y: 794.9 }
+      - { x: 310.0, y: 796.0 }
+      - { x: 336.7, y: 797.6 }
+      - { x: 363.3, y: 799.6 }
+      - { x: 390.0, y: 802.1 }
+      - { x: 416.7, y: 805.1 }
+      - { x: 443.3, y: 808.4 }
+      - { x: 470.0, y: 812.3 }
+      - { x: 496.7, y: 816.6 }
+      - { x: 523.3, y: 821.3 }
+      - { x: 550.0, y: 826.5 }
+      - { x: 576.7, y: 832.1 }
+      - { x: 603.3, y: 838.2 }
+      - { x: 630.0, y: 844.8 }
+      - { x: 656.7, y: 851.8 }
+      - { x: 683.3, y: 859.2 }
+      - { x: 710.0, y: 867.1 }
+      - { x: 736.7, y: 875.5 }
+      - { x: 763.3, y: 884.3 }
+      - { x: 790.0, y: 893.5 }
+      - { x: 816.7, y: 903.2 }
+      - { x: 843.3, y: 913.4 }
+      - { x: 870.0, y: 924.0 }
+  - from: d0
+    to: d1
+    curve: none
+    ends: { from: arrow, to: arrow }
+  - from: h0
+    to: h1
+    curve: none
+    ends: { from: arrow, to: arrow }
