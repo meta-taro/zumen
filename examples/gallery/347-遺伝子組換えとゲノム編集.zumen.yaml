@@ -1,0 +1,133 @@
+version: 1
+kind: placement
+arrows: false
+title: 遺伝子組換えとゲノム編集（残るものが違う）
+# **どちらも「遺伝子をいじる」だが、終わったときに残るものが違う。**
+# そしてその違いが、**そのまま日本の制度の違いになっている。**
+#
+# | | 遺伝子組換え | ゲノム編集（SDN-1）|
+# |---|---|---|
+# | すること | **別の生物の遺伝子を入れる** | **自分の配列を切る。入れない** |
+# | 終わったとき | **外来遺伝子が残る** | **切れた跡が修復され、外来遺伝子は残らない** |
+# | 自然に起きるか | **起きない**（交配では入らない）| **起きる**（突然変異と区別できない）|
+# | カルタヘナ法 | **対象** | **外来遺伝子が残らなければ対象外** |
+# | 食品としての扱い | **安全性審査** | **届出**（2019 年 10 月から）|
+# | 表示 | **義務あり** | **義務なし** |
+#
+# ## 「切って終わり」が要点
+#
+# ゲノム編集には外から遺伝子を入れる型（SDN-2 / SDN-3）もある。
+# **その場合は外来遺伝子が残るので、遺伝子組換えとして扱われる。**
+# 届出で済むのは、**切って終わる型（SDN-1）**だけ。
+#
+# ## 描かなかったもの
+#
+# **手順は描かない**（`.claude/rules/専門図面の調査と実装方針.md` §5.5）。
+# ベクターの作り方も、導入の条件も書いていない。**この図は「何が残るか」の図。**
+#
+# 出典 —— 厚生労働省「ゲノム編集技術を利用して得られた食品等の食品衛生上の取扱いについて」、
+# 環境省報道発表（カルタヘナ法に該当しない生物の取扱い）、
+# 神奈川県衛生研究所 衛研ニュース No.218。
+nodes:
+  - id: t1
+    label: "① 遺伝子組換え —— 別の生物の遺伝子を入れる"
+    marker: none
+    align: left
+    at: { x: 150, y: 60 }
+    size: { w: 700, h: 20 }
+  - id: g_a
+    label: "もとの生物の DNA"
+    marker: box
+    at: { x: 150, y: 96 }
+    size: { w: 420, h: 34 }
+  - id: g_x
+    label: "入れる遺伝子（別の生物）"
+    marker: box
+    hatch: cross
+    at: { x: 610, y: 96 }
+    size: { w: 260, h: 34 }
+  - id: g_ar
+    label: "↓ 入れる"
+    marker: none
+    align: center
+    at: { x: 150, y: 140 }
+    size: { w: 720, h: 18 }
+  - id: g_b1
+    label: "もとの DNA"
+    marker: box
+    at: { x: 150, y: 166 }
+    size: { w: 260, h: 34 }
+  - id: g_b2
+    label: "入れた遺伝子"
+    marker: box
+    hatch: cross
+    at: { x: 410, y: 166 }
+    size: { w: 160, h: 34 }
+  - id: g_b3
+    label: "もとの DNA"
+    marker: box
+    at: { x: 570, y: 166 }
+    size: { w: 300, h: 34 }
+  - id: g_n
+    label: "外来遺伝子が残る → カルタヘナ法の対象 ／ 安全性審査 ／ 表示義務あり"
+    marker: none
+    align: left
+    at: { x: 150, y: 208 }
+    size: { w: 720, h: 18 }
+  - id: t2
+    label: "② ゲノム編集（切って終わる型・SDN-1）—— 自分の配列を切る"
+    marker: none
+    align: left
+    at: { x: 150, y: 254 }
+    size: { w: 700, h: 20 }
+  - id: e_a
+    label: "もとの生物の DNA"
+    marker: box
+    at: { x: 150, y: 290 }
+    size: { w: 720, h: 34 }
+  - id: e_mark
+    label: ""
+    hatch: solid
+    marker: box
+    at: { x: 560, y: 324 }
+    size: { w: 4, h: 14 }
+  - id: e_cut
+    label: "↑ ここを切る（入れない）"
+    marker: none
+    align: center
+    at: { x: 470, y: 340 }
+    size: { w: 184, h: 18 }
+  - id: e_ar
+    label: "↓ 切れた跡が、細胞自身の修復で閉じる"
+    marker: none
+    align: center
+    at: { x: 150, y: 364 }
+    size: { w: 720, h: 18 }
+  - id: e_b1
+    label: "もとの DNA"
+    marker: box
+    at: { x: 150, y: 390 }
+    size: { w: 412, h: 34 }
+  - id: e_b2
+    label: "跡"
+    marker: box
+    hatch: dots
+    at: { x: 562, y: 390 }
+    size: { w: 86, h: 34 }
+  - id: e_b3
+    label: "もとの DNA"
+    marker: box
+    at: { x: 648, y: 390 }
+    size: { w: 222, h: 34 }
+  - id: e_n
+    label: "外来遺伝子は残らない → カルタヘナ法の対象外 ／ 届出 ／ 表示義務なし"
+    marker: none
+    align: left
+    at: { x: 150, y: 432 }
+    size: { w: 720, h: 18 }
+  - id: e_n2
+    label: "跡は数塩基の欠失や置換。自然に起きる突然変異と区別できない。"
+    marker: none
+    align: left
+    at: { x: 150, y: 454 }
+    size: { w: 720, h: 18 }

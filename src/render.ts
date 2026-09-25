@@ -223,6 +223,8 @@ export function render(
    * 拾えず、通り芯が図の名前を横切っていた（2026-09-16。見本 138 で踏んだ）。
    */
   const marks = plan && drawsDatum(placed) ? dimensionLayer(placed, palette) : '';
+  // **縮尺の物差し**（2026-09-25）。実寸で描いた図にだけ出る。
+  const bar = scaleBar(placed, frameOf(placed), paper.h, inkOf(palette));
   const avoid = plan && drawsDatum(placed) ? wordRects(under.join('') + marks) : [];
   const parts = [
     `<svg xmlns="http://www.w3.org/2000/svg" width="${size(paper.w)}" height="${size(paper.h)}" viewBox="0 0 ${size(paper.w)} ${size(paper.h)}">`,
@@ -235,6 +237,7 @@ export function render(
      * いちばん最初の子に置く —— 読み上げの順がそこで決まる。
      */
     placed.title === null || placed.title === '' ? '' : `<title>${escapeText(placed.title)}</title>`,
+    // （物差しは下で、いちばん最後に出す）
     `<defs>${arrowMarkers(placed, plan, palette).join('')}</defs>`,
     /**
      * **地の色は、図そのものが持つ。**
@@ -258,6 +261,8 @@ export function render(
     // 跡（`trace`）を先に敷いて、形を上に描く。
     // **作図図では跡を消さない** —— 消すと、どう作ったかが読めなくなる。
     ...(placed.strokes.length > 0 ? [strokeLayer(placed, palette)] : []),
+    // **物差しはいちばん最後。** 図の上に置く（下に敷くと部屋の塗りで消える）。
+    bar,
     '</svg>',
   ];
   return parts.join('\n');
@@ -668,6 +673,9 @@ function paperFor(placed: Placed, plans: Map<string, Plan>): { w: number; h: num
   for (const group of placed.groups) {
     w = Math.max(w, group.x + 12 + labelWidth(group.label, GROUP_FONT) + 12);
   }
+  // **縮尺の物差しのぶん、紙を下へ伸ばす**（2026-09-25）。
+  // 伸ばさずに枠の中へ置いたら、**通り芯の丸と重なった**（見本 14 で踏んだ）。
+  if (placed.mm !== null && placed.mm > 0) h += 42;
   return { w, h };
 }
 
@@ -700,6 +708,59 @@ function floorBands(placed: Placed, palette: Palette): string[] {
     );
   }
   return out;
+}
+
+/**
+ * **縮尺の物差し**（スケールバー。2026-09-25）。
+ *
+ * **`scale` を書いている見本が 122 枚あるのに、物差しは 0 枚だった。**
+ *
+ * `scale: { mm: 20 }` は正本にはあるが、**SVG を web へ貼った時点で縮尺は失われる**
+ * （ブラウザが勝手に伸び縮みさせる。md-business に埋め込むときも同じ）。
+ * **物差しだけは図と一緒に伸び縮みするので、そこだけ生き残る。**
+ *
+ * 実物の図面は必ず持っている（`0 — 1 — 2 — 5m` のあれ）。
+ *
+ * **長さは機械が選ぶ。** 紙の 1/6 前後に収まる**きりのよい実長**
+ * （1・2・5 の系列）を取る。書く人に数を決めさせない。
+ */
+function scaleBar(placed: Placed, frame: Frame, paperH: number, ink: Ink): string {
+  const mm = placed.mm;
+  if (mm === null || mm <= 0) return '';
+  // 紙の 1/6 に近い、1・2・5 系列の実長（mm）
+  const want = (frame.w / 6) * mm;
+  const pow = 10 ** Math.floor(Math.log10(want));
+  const real = [1, 2, 5, 10].map((k) => k * pow).reduce((a, b) => (Math.abs(b - want) < Math.abs(a - want) ? b : a));
+  const px = real / mm;
+  if (px < 40 || px > frame.w) return '';
+  // **紙のいちばん下へ。** 図の枠内に置くと、通り芯の丸と重なった（見本 14 で踏んだ）。
+  const x = frame.x;
+  // 呼ぶ側（paperFor）が、この 42px ぶんを紙に足している。
+  const y = paperH - 30;
+  const h = 7;
+  // **黒白の交互**にする。実物の物差しと同じで、これがあると目盛を数えられる。
+  const parts = [0, 1, 2, 3].map((i) => {
+    const w = px / 4;
+    return `<rect x="${n(x + i * w)}" y="${n(y)}" width="${n(w)}" height="${h}" fill="${i % 2 === 0 ? ink.stroke : ink.paper}" stroke="${ink.stroke}" stroke-width="0.8"/>`;
+  });
+  const unit = real >= 1000 ? 'm' : 'mm';
+  const show = (v: number): string => {
+    const n = unit === 'm' ? v / 1000 : v;
+    return Number.isInteger(n) ? String(n) : String(Math.round(n * 10) / 10);
+  };
+  /**
+   * 目盛の数字。**左端だけは左揃え**にする。
+   *
+   * 中央揃えにしたら、`0` の左半分が紙の外へ出た（`test/paper.test.ts` が捕まえた）。
+   * 図の左端に物差しを置く以上、いちばん左の字は内側へ倒すしかない。
+   */
+  const tick = (i: number): string => {
+    const at = x + (px * i) / 4;
+    const align = i === 0 ? 'start' : i === 4 ? 'end' : 'middle';
+    return `<text x="${n(at)}" y="${n(y + h + 9)}" text-anchor="${align}" font-family="${ink.font}" font-size="10" fill="${ink.text}">${show((real * i) / 4)}</text>`;
+  };
+  return `<g data-name="scalebar">${parts.join('')}${[0, 2, 4].map(tick).join('')}` +
+    `<text x="${n(x + px + 8)}" y="${n(y + h)}" font-family="${ink.font}" font-size="10" fill="${ink.text}">${unit}</text></g>`;
 }
 
 function frameOf(placed: Placed): Frame {

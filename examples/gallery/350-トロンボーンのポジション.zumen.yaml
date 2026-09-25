@@ -1,0 +1,1020 @@
+version: 1
+kind: placement
+arrows: false
+title: トロンボーンのポジション（スライドは、先へ行くほど開く）
+scale: { mm: 1.2 }
+# **7 つのポジションは、等間隔ではない。** 1 番と 2 番は 8.5cm、
+# 6 番と 7 番は 11.3cm 離れている。**隣へ行くたびに 1.0595 倍（＝ 12√2）。**
+#
+# 半音下げるには管を 2^(1/12) 倍にする。管が長くなるほど
+# 「その 5.95%」が増えるので、**先へ行くほど間隔が開く。**
+#
+# ## ギターと同じ式が、逆を向く
+#
+# ギターのフレット（見本 204・310）も 12√2 だが、**詰まっていく。**
+# 押さえたところから駒までの**残り**を短くしていくから。
+# トロンボーンは**管ぜんぶ**を長くしていくので、**開いていく。**
+# **式は同じで、測る向きが逆。**
+#
+# ## E2 の下に穴がある
+#
+# F 管の無いテナーの最低音は **E2**（7 番・第 2 倍音）。
+# その下のペダル B♭1 までの 5 音（E♭2・D2・D♭2・C2・B1）は**出ない。**
+# F 管はこの穴を埋めるために付いている。
+#
+# **それでも B1 は残る。** F 管側は管が 1.33 倍なので、同じ半音でも
+# 移動が 1.33 倍要る。C2 で 47mm、B1 で 198mm 足りない ——
+# **スライドの長さが先に尽きる。** バストロンボーンが 2 つめの弁を持つのは、そのため。
+#
+# ## この図の読み方
+#
+# **横だけが実寸**（1px ＝ 0.833mm）。②の升目の横位置は
+# ①の目盛りと同じ ——「その音は、スライドがここにあるときに出る」と読む。
+# 縦は音の高さで、寸法ではない。
+#
+# 管長 2.85m は、奏者の表（1 番から 3.25 / 6.75 / 10.5 / 14.5 / 18.75 / 23.25 インチ）
+# から逆算した値。計算と実測は、どこも 3mm 以内で合う。
+#
+# ギターのフレットは見本 204・310、楽譜の寸法は見本 210、ピアノの鍵盤は見本 311。
+nodes:
+  - id: t1
+    label: "① スライドの目盛り —— 横だけ実寸（1px ＝ 0.833mm）。縦は音の高さで、寸法ではない。"
+    marker: none
+    align: left
+    at: { x: 40, y: 70 }
+    size: { w: 940, h: 18 }
+  - id: rail
+    label: ""
+    marker: box
+    at: { x: 260, y: 118 }
+    size: { w: 708.3, h: 26 }
+  - id: tk0a
+    label: ""
+    marker: none
+    at: { x: 259, y: 106 }
+    size: { w: 2, h: 2 }
+  - id: tk0b
+    label: ""
+    marker: none
+    at: { x: 259, y: 156 }
+    size: { w: 2, h: 2 }
+  - id: pn0
+    label: "1"
+    marker: none
+    align: center
+    at: { x: 236, y: 162 }
+    size: { w: 48, h: 18 }
+  - id: tk1a
+    label: ""
+    marker: none
+    at: { x: 360.7, y: 106 }
+    size: { w: 2, h: 2 }
+  - id: tk1b
+    label: ""
+    marker: none
+    at: { x: 360.7, y: 156 }
+    size: { w: 2, h: 2 }
+  - id: pn1
+    label: "2"
+    marker: none
+    align: center
+    at: { x: 337.7, y: 162 }
+    size: { w: 48, h: 18 }
+  - id: tk2a
+    label: ""
+    marker: none
+    at: { x: 468.4, y: 106 }
+    size: { w: 2, h: 2 }
+  - id: tk2b
+    label: ""
+    marker: none
+    at: { x: 468.4, y: 156 }
+    size: { w: 2, h: 2 }
+  - id: pn2
+    label: "3"
+    marker: none
+    align: center
+    at: { x: 445.4, y: 162 }
+    size: { w: 48, h: 18 }
+  - id: tk3a
+    label: ""
+    marker: none
+    at: { x: 582.5, y: 106 }
+    size: { w: 2, h: 2 }
+  - id: tk3b
+    label: ""
+    marker: none
+    at: { x: 582.5, y: 156 }
+    size: { w: 2, h: 2 }
+  - id: pn3
+    label: "4"
+    marker: none
+    align: center
+    at: { x: 559.5, y: 162 }
+    size: { w: 48, h: 18 }
+  - id: tk4a
+    label: ""
+    marker: none
+    at: { x: 703.5, y: 106 }
+    size: { w: 2, h: 2 }
+  - id: tk4b
+    label: ""
+    marker: none
+    at: { x: 703.5, y: 156 }
+    size: { w: 2, h: 2 }
+  - id: pn4
+    label: "5"
+    marker: none
+    align: center
+    at: { x: 680.5, y: 162 }
+    size: { w: 48, h: 18 }
+  - id: tk5a
+    label: ""
+    marker: none
+    at: { x: 831.6, y: 106 }
+    size: { w: 2, h: 2 }
+  - id: tk5b
+    label: ""
+    marker: none
+    at: { x: 831.6, y: 156 }
+    size: { w: 2, h: 2 }
+  - id: pn5
+    label: "6"
+    marker: none
+    align: center
+    at: { x: 808.6, y: 162 }
+    size: { w: 48, h: 18 }
+  - id: tk6a
+    label: ""
+    marker: none
+    at: { x: 967.3, y: 106 }
+    size: { w: 2, h: 2 }
+  - id: tk6b
+    label: ""
+    marker: none
+    at: { x: 967.3, y: 156 }
+    size: { w: 2, h: 2 }
+  - id: pn6
+    label: "7"
+    marker: none
+    align: center
+    at: { x: 944.3, y: 162 }
+    size: { w: 48, h: 18 }
+  - id: gp0
+    label: "85"
+    marker: none
+    align: center
+    at: { x: 280.8, y: 90 }
+    size: { w: 60, h: 16 }
+  - id: gp1
+    label: "90"
+    marker: none
+    align: center
+    at: { x: 385.5, y: 90 }
+    size: { w: 60, h: 16 }
+  - id: gp2
+    label: "95"
+    marker: none
+    align: center
+    at: { x: 496.5, y: 90 }
+    size: { w: 60, h: 16 }
+  - id: gp3
+    label: "101"
+    marker: none
+    align: center
+    at: { x: 614, y: 90 }
+    size: { w: 60, h: 16 }
+  - id: gp4
+    label: "107"
+    marker: none
+    align: center
+    at: { x: 738.5, y: 90 }
+    size: { w: 60, h: 16 }
+  - id: gp5
+    label: "113"
+    marker: none
+    align: center
+    at: { x: 870.4, y: 90 }
+    size: { w: 60, h: 16 }
+  - id: gpl
+    label: "ポジションの間隔 mm"
+    marker: none
+    align: right
+    at: { x: 40, y: 90 }
+    size: { w: 164, h: 16 }
+  - id: pnl
+    label: "ポジション"
+    marker: none
+    align: right
+    at: { x: 40, y: 162 }
+    size: { w: 164, h: 18 }
+  - id: t1n
+    label: "間隔は、隣へ行くたびに 1.0595 倍（＝ 12√2）。8.5cm から始まって、7 番の手前では 11.3cm になる。"
+    marker: none
+    align: left
+    at: { x: 40, y: 196 }
+    size: { w: 960, h: 18 }
+  - id: t1n2
+    label: "7 番までの移動は 590mm。奏者の表（1/4 インチ刻み）とは、どこも 3mm 以内で合う。"
+    marker: none
+    align: left
+    at: { x: 40, y: 218 }
+    size: { w: 960, h: 18 }
+  - id: t2
+    label: "② 同じポジションで、唇の張りを変えると別の倍音が出る（音名は中央ハ＝C4）"
+    marker: none
+    align: left
+    at: { x: 40, y: 268 }
+    size: { w: 960, h: 18 }
+  - id: rl0
+    label: "第 8 倍音"
+    marker: none
+    align: right
+    at: { x: 40, y: 306 }
+    size: { w: 164, h: 18 }
+  - id: c0_0
+    label: "B♭4"
+    align: center
+    at: { x: 214, y: 300 }
+    size: { w: 92, h: 26 }
+  - id: c0_1
+    label: "A4"
+    align: center
+    at: { x: 315.7, y: 300 }
+    size: { w: 92, h: 26 }
+  - id: c0_2
+    label: "A♭4"
+    align: center
+    at: { x: 423.4, y: 300 }
+    size: { w: 92, h: 26 }
+  - id: c0_3
+    label: "G4"
+    align: center
+    at: { x: 537.5, y: 300 }
+    size: { w: 92, h: 26 }
+  - id: c0_4
+    label: "G♭4"
+    align: center
+    at: { x: 658.5, y: 300 }
+    size: { w: 92, h: 26 }
+  - id: c0_5
+    label: "F4"
+    align: center
+    at: { x: 786.6, y: 300 }
+    size: { w: 92, h: 26 }
+  - id: c0_6
+    label: "E4"
+    align: center
+    at: { x: 922.3, y: 300 }
+    size: { w: 92, h: 26 }
+  - id: rl1
+    label: "第 6 倍音"
+    marker: none
+    align: right
+    at: { x: 40, y: 336 }
+    size: { w: 164, h: 18 }
+  - id: c1_0
+    label: "F4"
+    align: center
+    at: { x: 214, y: 330 }
+    size: { w: 92, h: 26 }
+  - id: c1_1
+    label: "E4"
+    align: center
+    at: { x: 315.7, y: 330 }
+    size: { w: 92, h: 26 }
+  - id: c1_2
+    label: "E♭4"
+    align: center
+    at: { x: 423.4, y: 330 }
+    size: { w: 92, h: 26 }
+  - id: c1_3
+    label: "D4"
+    align: center
+    at: { x: 537.5, y: 330 }
+    size: { w: 92, h: 26 }
+  - id: c1_4
+    label: "D♭4"
+    align: center
+    at: { x: 658.5, y: 330 }
+    size: { w: 92, h: 26 }
+  - id: c1_5
+    label: "C4"
+    align: center
+    at: { x: 786.6, y: 330 }
+    size: { w: 92, h: 26 }
+  - id: c1_6
+    label: "B3"
+    align: center
+    at: { x: 922.3, y: 330 }
+    size: { w: 92, h: 26 }
+  - id: rl2
+    label: "第 5 倍音"
+    marker: none
+    align: right
+    at: { x: 40, y: 366 }
+    size: { w: 164, h: 18 }
+  - id: c2_0
+    label: "D4"
+    align: center
+    at: { x: 214, y: 360 }
+    size: { w: 92, h: 26 }
+  - id: c2_1
+    label: "D♭4"
+    align: center
+    at: { x: 315.7, y: 360 }
+    size: { w: 92, h: 26 }
+  - id: c2_2
+    label: "C4"
+    align: center
+    at: { x: 423.4, y: 360 }
+    size: { w: 92, h: 26 }
+  - id: c2_3
+    label: "B3"
+    align: center
+    at: { x: 537.5, y: 360 }
+    size: { w: 92, h: 26 }
+  - id: c2_4
+    label: "B♭3"
+    align: center
+    at: { x: 658.5, y: 360 }
+    size: { w: 92, h: 26 }
+  - id: c2_5
+    label: "A3"
+    align: center
+    at: { x: 786.6, y: 360 }
+    size: { w: 92, h: 26 }
+  - id: c2_6
+    label: "A♭3"
+    align: center
+    at: { x: 922.3, y: 360 }
+    size: { w: 92, h: 26 }
+  - id: rl3
+    label: "第 4 倍音"
+    marker: none
+    align: right
+    at: { x: 40, y: 396 }
+    size: { w: 164, h: 18 }
+  - id: c3_0
+    label: "B♭3"
+    align: center
+    at: { x: 214, y: 390 }
+    size: { w: 92, h: 26 }
+  - id: c3_1
+    label: "A3"
+    align: center
+    at: { x: 315.7, y: 390 }
+    size: { w: 92, h: 26 }
+  - id: c3_2
+    label: "A♭3"
+    align: center
+    at: { x: 423.4, y: 390 }
+    size: { w: 92, h: 26 }
+  - id: c3_3
+    label: "G3"
+    align: center
+    at: { x: 537.5, y: 390 }
+    size: { w: 92, h: 26 }
+  - id: c3_4
+    label: "G♭3"
+    align: center
+    at: { x: 658.5, y: 390 }
+    size: { w: 92, h: 26 }
+  - id: c3_5
+    label: "F3"
+    align: center
+    at: { x: 786.6, y: 390 }
+    size: { w: 92, h: 26 }
+  - id: c3_6
+    label: "E3"
+    align: center
+    at: { x: 922.3, y: 390 }
+    size: { w: 92, h: 26 }
+  - id: rl4
+    label: "第 3 倍音"
+    marker: none
+    align: right
+    at: { x: 40, y: 426 }
+    size: { w: 164, h: 18 }
+  - id: c4_0
+    label: "F3"
+    align: center
+    at: { x: 214, y: 420 }
+    size: { w: 92, h: 26 }
+  - id: c4_1
+    label: "E3"
+    align: center
+    at: { x: 315.7, y: 420 }
+    size: { w: 92, h: 26 }
+  - id: c4_2
+    label: "E♭3"
+    align: center
+    at: { x: 423.4, y: 420 }
+    size: { w: 92, h: 26 }
+  - id: c4_3
+    label: "D3"
+    align: center
+    at: { x: 537.5, y: 420 }
+    size: { w: 92, h: 26 }
+  - id: c4_4
+    label: "D♭3"
+    align: center
+    at: { x: 658.5, y: 420 }
+    size: { w: 92, h: 26 }
+  - id: c4_5
+    label: "C3"
+    align: center
+    at: { x: 786.6, y: 420 }
+    size: { w: 92, h: 26 }
+  - id: c4_6
+    label: "B2"
+    align: center
+    at: { x: 922.3, y: 420 }
+    size: { w: 92, h: 26 }
+  - id: rl5
+    label: "第 2 倍音"
+    marker: none
+    align: right
+    at: { x: 40, y: 456 }
+    size: { w: 164, h: 18 }
+  - id: c5_0
+    label: "B♭2"
+    align: center
+    at: { x: 214, y: 450 }
+    size: { w: 92, h: 26 }
+  - id: c5_1
+    label: "A2"
+    align: center
+    at: { x: 315.7, y: 450 }
+    size: { w: 92, h: 26 }
+  - id: c5_2
+    label: "A♭2"
+    align: center
+    at: { x: 423.4, y: 450 }
+    size: { w: 92, h: 26 }
+  - id: c5_3
+    label: "G2"
+    align: center
+    at: { x: 537.5, y: 450 }
+    size: { w: 92, h: 26 }
+  - id: c5_4
+    label: "G♭2"
+    align: center
+    at: { x: 658.5, y: 450 }
+    size: { w: 92, h: 26 }
+  - id: c5_5
+    label: "F2"
+    align: center
+    at: { x: 786.6, y: 450 }
+    size: { w: 92, h: 26 }
+  - id: c5_6
+    label: "E2"
+    hatch: solid
+    align: center
+    at: { x: 922.3, y: 450 }
+    size: { w: 92, h: 26 }
+  - id: rl6
+    label: "第 1（ペダル）"
+    marker: none
+    align: right
+    at: { x: 40, y: 486 }
+    size: { w: 164, h: 18 }
+  - id: c6_0
+    label: "B♭1"
+    align: center
+    at: { x: 214, y: 480 }
+    size: { w: 92, h: 26 }
+  - id: c6_1
+    label: "A1"
+    align: center
+    at: { x: 315.7, y: 480 }
+    size: { w: 92, h: 26 }
+  - id: c6_2
+    label: "A♭1"
+    align: center
+    at: { x: 423.4, y: 480 }
+    size: { w: 92, h: 26 }
+  - id: c6_3
+    label: "G1"
+    align: center
+    at: { x: 537.5, y: 480 }
+    size: { w: 92, h: 26 }
+  - id: c6_4
+    label: "G♭1"
+    align: center
+    at: { x: 658.5, y: 480 }
+    size: { w: 92, h: 26 }
+  - id: c6_5
+    label: "F1"
+    align: center
+    at: { x: 786.6, y: 480 }
+    size: { w: 92, h: 26 }
+  - id: c6_6
+    label: "E1"
+    align: center
+    at: { x: 922.3, y: 480 }
+    size: { w: 92, h: 26 }
+  - id: t2n
+    label: "塗りつぶしたのが E2 —— 7 番・第 2 倍音。F 管の無いテナーが、ふつうに出せるいちばん低い音。"
+    marker: none
+    align: left
+    at: { x: 40, y: 524 }
+    size: { w: 960, h: 18 }
+  - id: t2n2
+    label: "第 7 倍音（A♭4 のあたり）は 3 分の 1 音ほど低く、ふつう使わないので抜いてある。"
+    marker: none
+    align: left
+    at: { x: 40, y: 546 }
+    size: { w: 960, h: 18 }
+  - id: t5
+    label: "⑤ F 管は管が 1.33 倍 —— 同じ半音でも、移動が 1.33 倍要る"
+    marker: none
+    align: left
+    at: { x: 40, y: 592 }
+    size: { w: 960, h: 18 }
+  - id: fh0
+    label: "F 管側"
+    hatch: solid
+    align: center
+    at: { x: 190, y: 620 }
+    size: { w: 120, h: 26 }
+  - id: fh1
+    label: "出る音"
+    hatch: solid
+    align: center
+    at: { x: 310, y: 620 }
+    size: { w: 120, h: 26 }
+  - id: fh2
+    label: "要る移動"
+    hatch: solid
+    align: center
+    at: { x: 430, y: 620 }
+    size: { w: 160, h: 26 }
+  - id: fh3
+    label: "スライドは 590mm まで"
+    hatch: solid
+    align: center
+    at: { x: 590, y: 620 }
+    size: { w: 424, h: 26 }
+  - id: f0a
+    label: "1 番"
+    align: center
+    at: { x: 190, y: 646 }
+    size: { w: 120, h: 26 }
+  - id: f0b
+    label: "F2"
+    align: center
+    at: { x: 310, y: 646 }
+    size: { w: 120, h: 26 }
+  - id: f0c
+    label: "0mm"
+    align: center
+    at: { x: 430, y: 646 }
+    size: { w: 160, h: 26 }
+  - id: f0d
+    label: "届く"
+    align: center
+    at: { x: 590, y: 646 }
+    size: { w: 424, h: 26 }
+  - id: f1a
+    label: "2 番"
+    align: center
+    at: { x: 190, y: 672 }
+    size: { w: 120, h: 26 }
+  - id: f1b
+    label: "E2"
+    align: center
+    at: { x: 310, y: 672 }
+    size: { w: 120, h: 26 }
+  - id: f1c
+    label: "113mm"
+    align: center
+    at: { x: 430, y: 672 }
+    size: { w: 160, h: 26 }
+  - id: f1d
+    label: "届く"
+    align: center
+    at: { x: 590, y: 672 }
+    size: { w: 424, h: 26 }
+  - id: f2a
+    label: "3 番"
+    align: center
+    at: { x: 190, y: 698 }
+    size: { w: 120, h: 26 }
+  - id: f2b
+    label: "E♭2"
+    align: center
+    at: { x: 310, y: 698 }
+    size: { w: 120, h: 26 }
+  - id: f2c
+    label: "233mm"
+    align: center
+    at: { x: 430, y: 698 }
+    size: { w: 160, h: 26 }
+  - id: f2d
+    label: "届く"
+    align: center
+    at: { x: 590, y: 698 }
+    size: { w: 424, h: 26 }
+  - id: f3a
+    label: "4 番"
+    align: center
+    at: { x: 190, y: 724 }
+    size: { w: 120, h: 26 }
+  - id: f3b
+    label: "D2"
+    align: center
+    at: { x: 310, y: 724 }
+    size: { w: 120, h: 26 }
+  - id: f3c
+    label: "360mm"
+    align: center
+    at: { x: 430, y: 724 }
+    size: { w: 160, h: 26 }
+  - id: f3d
+    label: "届く"
+    align: center
+    at: { x: 590, y: 724 }
+    size: { w: 424, h: 26 }
+  - id: f4a
+    label: "5 番"
+    align: center
+    at: { x: 190, y: 750 }
+    size: { w: 120, h: 26 }
+  - id: f4b
+    label: "D♭2"
+    align: center
+    at: { x: 310, y: 750 }
+    size: { w: 120, h: 26 }
+  - id: f4c
+    label: "494mm"
+    align: center
+    at: { x: 430, y: 750 }
+    size: { w: 160, h: 26 }
+  - id: f4d
+    label: "届く"
+    align: center
+    at: { x: 590, y: 750 }
+    size: { w: 424, h: 26 }
+  - id: f5a
+    label: "6 番"
+    align: center
+    at: { x: 190, y: 776 }
+    size: { w: 120, h: 26 }
+  - id: f5b
+    label: "C2"
+    align: center
+    at: { x: 310, y: 776 }
+    size: { w: 120, h: 26 }
+  - id: f5c
+    label: "637mm"
+    align: center
+    at: { x: 430, y: 776 }
+    size: { w: 160, h: 26 }
+  - id: f5d
+    label: "47mm 足りない —— 端で止まる"
+    align: center
+    at: { x: 590, y: 776 }
+    size: { w: 424, h: 26 }
+  - id: f6a
+    label: "7 番"
+    align: center
+    at: { x: 190, y: 802 }
+    size: { w: 120, h: 26 }
+  - id: f6b
+    label: "B1"
+    align: center
+    at: { x: 310, y: 802 }
+    size: { w: 120, h: 26 }
+  - id: f6c
+    label: "788mm"
+    align: center
+    at: { x: 430, y: 802 }
+    size: { w: 160, h: 26 }
+  - id: f6d
+    label: "198mm 足りない —— 端で止まる"
+    align: center
+    at: { x: 590, y: 802 }
+    size: { w: 424, h: 26 }
+  - id: t5n
+    label: "C2 は 47mm 足りない —— 端まで出しても届かず、その場所で吹くので高めになる。"
+    marker: none
+    align: left
+    at: { x: 40, y: 840 }
+    size: { w: 960, h: 18 }
+  - id: t5n2
+    label: "B1 は 198mm 足りない。テナーの F 管では、どうやっても出ない。"
+    marker: none
+    align: left
+    at: { x: 40, y: 862 }
+    size: { w: 960, h: 18 }
+  - id: t3
+    label: "③ 同じ 12√2 が、ギターでは逆を向く"
+    marker: none
+    align: left
+    at: { x: 1090, y: 70 }
+    size: { w: 520, h: 18 }
+  - id: gh0
+    label: ""
+    hatch: solid
+    align: center
+    at: { x: 1090, y: 100 }
+    size: { w: 180, h: 26 }
+  - id: gh1
+    label: "弦・管をどう扱うか"
+    hatch: solid
+    align: center
+    at: { x: 1270, y: 100 }
+    size: { w: 340, h: 26 }
+  - id: g1a0
+    label: "ギター（見本 204・310）"
+    align: center
+    at: { x: 1090, y: 126 }
+    size: { w: 180, h: 48 }
+  - id: g1b0
+    label: "残りの弦が短くなる。フレットは駒へ向かって詰まる"
+    align: left
+    at: { x: 1270, y: 126 }
+    size: { w: 340, h: 48 }
+  - id: g1a1
+    label: "トロンボーン"
+    align: center
+    at: { x: 1090, y: 174 }
+    size: { w: 180, h: 48 }
+  - id: g1b1
+    label: "管ぜんぶが長くなる。ポジションは先へ向かって開く"
+    align: left
+    at: { x: 1270, y: 174 }
+    size: { w: 340, h: 48 }
+  - id: t3n
+    label: "どちらも長さ × 2^(1/12)。測る向きが逆なだけで、式は同じ。"
+    marker: none
+    align: left
+    at: { x: 1090, y: 232 }
+    size: { w: 520, h: 18 }
+  - id: t4
+    label: "④ E2 の下に穴がある"
+    marker: none
+    align: left
+    at: { x: 1090, y: 286 }
+    size: { w: 520, h: 18 }
+  - id: lh0
+    label: "音"
+    hatch: solid
+    align: center
+    at: { x: 1090, y: 314 }
+    size: { w: 160, h: 26 }
+  - id: lh1
+    label: "F 管なし"
+    hatch: solid
+    align: center
+    at: { x: 1250, y: 314 }
+    size: { w: 180, h: 26 }
+  - id: lh2
+    label: "F 管あり"
+    hatch: solid
+    align: center
+    at: { x: 1430, y: 314 }
+    size: { w: 180, h: 26 }
+  - id: l0a
+    label: "E2"
+    align: center
+    at: { x: 1090, y: 340 }
+    size: { w: 160, h: 26 }
+  - id: l0b
+    label: "出る"
+    align: center
+    at: { x: 1250, y: 340 }
+    size: { w: 180, h: 26 }
+  - id: l0c
+    label: "出る"
+    align: center
+    at: { x: 1430, y: 340 }
+    size: { w: 180, h: 26 }
+  - id: l1a
+    label: "E♭2"
+    align: center
+    at: { x: 1090, y: 366 }
+    size: { w: 160, h: 26 }
+  - id: l1b
+    label: "—"
+    hatch: lines
+    align: center
+    at: { x: 1250, y: 366 }
+    size: { w: 180, h: 26 }
+  - id: l1c
+    label: "出る"
+    align: center
+    at: { x: 1430, y: 366 }
+    size: { w: 180, h: 26 }
+  - id: l2a
+    label: "D2"
+    align: center
+    at: { x: 1090, y: 392 }
+    size: { w: 160, h: 26 }
+  - id: l2b
+    label: "—"
+    hatch: lines
+    align: center
+    at: { x: 1250, y: 392 }
+    size: { w: 180, h: 26 }
+  - id: l2c
+    label: "出る"
+    align: center
+    at: { x: 1430, y: 392 }
+    size: { w: 180, h: 26 }
+  - id: l3a
+    label: "D♭2"
+    align: center
+    at: { x: 1090, y: 418 }
+    size: { w: 160, h: 26 }
+  - id: l3b
+    label: "—"
+    hatch: lines
+    align: center
+    at: { x: 1250, y: 418 }
+    size: { w: 180, h: 26 }
+  - id: l3c
+    label: "出る"
+    align: center
+    at: { x: 1430, y: 418 }
+    size: { w: 180, h: 26 }
+  - id: l4a
+    label: "C2"
+    align: center
+    at: { x: 1090, y: 444 }
+    size: { w: 160, h: 26 }
+  - id: l4b
+    label: "—"
+    hatch: lines
+    align: center
+    at: { x: 1250, y: 444 }
+    size: { w: 180, h: 26 }
+  - id: l4c
+    label: "端・高め"
+    align: center
+    at: { x: 1430, y: 444 }
+    size: { w: 180, h: 26 }
+  - id: l5a
+    label: "B1"
+    align: center
+    at: { x: 1090, y: 470 }
+    size: { w: 160, h: 26 }
+  - id: l5b
+    label: "—"
+    hatch: lines
+    align: center
+    at: { x: 1250, y: 470 }
+    size: { w: 180, h: 26 }
+  - id: l5c
+    label: "—"
+    hatch: lines
+    align: center
+    at: { x: 1430, y: 470 }
+    size: { w: 180, h: 26 }
+  - id: l6a
+    label: "B♭1"
+    align: center
+    at: { x: 1090, y: 496 }
+    size: { w: 160, h: 26 }
+  - id: l6b
+    label: "ペダル"
+    align: center
+    at: { x: 1250, y: 496 }
+    size: { w: 180, h: 26 }
+  - id: l6c
+    label: "ペダル"
+    align: center
+    at: { x: 1430, y: 496 }
+    size: { w: 180, h: 26 }
+  - id: l7a
+    label: "A1"
+    align: center
+    at: { x: 1090, y: 522 }
+    size: { w: 160, h: 26 }
+  - id: l7b
+    label: "ペダル"
+    align: center
+    at: { x: 1250, y: 522 }
+    size: { w: 180, h: 26 }
+  - id: l7c
+    label: "ペダル"
+    align: center
+    at: { x: 1430, y: 522 }
+    size: { w: 180, h: 26 }
+  - id: l8a
+    label: "A♭1"
+    align: center
+    at: { x: 1090, y: 548 }
+    size: { w: 160, h: 26 }
+  - id: l8b
+    label: "ペダル"
+    align: center
+    at: { x: 1250, y: 548 }
+    size: { w: 180, h: 26 }
+  - id: l8c
+    label: "ペダル"
+    align: center
+    at: { x: 1430, y: 548 }
+    size: { w: 180, h: 26 }
+  - id: l9a
+    label: "G1"
+    align: center
+    at: { x: 1090, y: 574 }
+    size: { w: 160, h: 26 }
+  - id: l9b
+    label: "ペダル"
+    align: center
+    at: { x: 1250, y: 574 }
+    size: { w: 180, h: 26 }
+  - id: l9c
+    label: "ペダル"
+    align: center
+    at: { x: 1430, y: 574 }
+    size: { w: 180, h: 26 }
+  - id: l10a
+    label: "G♭1"
+    align: center
+    at: { x: 1090, y: 600 }
+    size: { w: 160, h: 26 }
+  - id: l10b
+    label: "ペダル"
+    align: center
+    at: { x: 1250, y: 600 }
+    size: { w: 180, h: 26 }
+  - id: l10c
+    label: "ペダル"
+    align: center
+    at: { x: 1430, y: 600 }
+    size: { w: 180, h: 26 }
+  - id: l11a
+    label: "F1"
+    align: center
+    at: { x: 1090, y: 626 }
+    size: { w: 160, h: 26 }
+  - id: l11b
+    label: "ペダル"
+    align: center
+    at: { x: 1250, y: 626 }
+    size: { w: 180, h: 26 }
+  - id: l11c
+    label: "ペダル"
+    align: center
+    at: { x: 1430, y: 626 }
+    size: { w: 180, h: 26 }
+  - id: l12a
+    label: "E1"
+    align: center
+    at: { x: 1090, y: 652 }
+    size: { w: 160, h: 26 }
+  - id: l12b
+    label: "ペダル"
+    align: center
+    at: { x: 1250, y: 652 }
+    size: { w: 180, h: 26 }
+  - id: l12c
+    label: "ペダル"
+    align: center
+    at: { x: 1430, y: 652 }
+    size: { w: 180, h: 26 }
+  - id: t4n
+    label: "斜線が、出ない音。F 管を足しても B1 だけは残る —— バストロンボーンが"
+    marker: none
+    align: left
+    at: { x: 1090, y: 690 }
+    size: { w: 520, h: 18 }
+  - id: t4n2
+    label: "2 つめの弁（G♭ / D）を持つのは、ここを埋めるため。"
+    marker: none
+    align: left
+    at: { x: 1090, y: 712 }
+    size: { w: 520, h: 18 }
+edges:
+  - from: tk0a
+    to: tk0b
+    curve: none
+    ends: { from: none, to: none }
+  - from: tk1a
+    to: tk1b
+    curve: none
+    ends: { from: none, to: none }
+  - from: tk2a
+    to: tk2b
+    curve: none
+    ends: { from: none, to: none }
+  - from: tk3a
+    to: tk3b
+    curve: none
+    ends: { from: none, to: none }
+  - from: tk4a
+    to: tk4b
+    curve: none
+    ends: { from: none, to: none }
+  - from: tk5a
+    to: tk5b
+    curve: none
+    ends: { from: none, to: none }
+  - from: tk6a
+    to: tk6b
+    curve: none
+    ends: { from: none, to: none }

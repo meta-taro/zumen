@@ -209,3 +209,67 @@ body.sub figure img { width: 100%; height: auto; display: block; }
 /** 分野の見出しから、分野ごとのページへ（2026-09-20）。 */
 h3.cat a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--border); }
 h3.cat a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+/**
+ * **徘徊**（2026-09-24）。オーナーの指摘 ——「個別ページはありますが、
+ * 徘徊機能がないのは意図していますか」。**意図していなかった。**
+ *
+ * 検索や SNS から 1 枚に降りてきた人が、**隣へ行く道**と
+ * **全部を見渡す道**を持っていなかった。
+ */
+
+/** 見本ページの下。前へ / 全部 / 次へ。 */
+.steps {
+  display: grid; grid-template-columns: 1fr auto 1fr; gap: 12px;
+  align-items: center; margin: 40px 0 0; padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+.step { color: var(--fg-2); text-decoration: none; font-size: 14px; line-height: 1.5; }
+.step:hover { color: var(--accent); }
+.step.next { text-align: right; }
+.step.index { text-align: center; white-space: nowrap; border-bottom: 1px solid var(--border); }
+.step span { color: var(--fg-3, var(--fg-2)); }
+@media (max-width: 560px) {
+  .steps { grid-template-columns: 1fr; gap: 10px; }
+  .step.next, .step.index { text-align: left; }
+}
+
+/** 全部の一覧。**絞り込みは JS だが、一覧そのものは JS 無しで読める。** */
+.sift { margin: 24px 0 8px; display: flex; gap: 14px; align-items: baseline; flex-wrap: wrap; }
+.sift input {
+  flex: 1 1 320px; padding: 10px 14px; font: inherit; font-size: 15px;
+  color: var(--fg); background: var(--bg-2, transparent);
+  border: 1px solid var(--border); border-radius: 8px;
+}
+.sift input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+.hit { margin: 0; color: var(--fg-2); font-size: 14px; white-space: nowrap; }
+.all .field { margin-top: 40px; }
+.all .field h2 { margin: 0; font-size: 17px; }
+.all .field h2 a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--border); }
+.all .field h2 a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+.all .field h2 small { color: var(--fg-2); font-weight: 400; margin-left: 8px; }
+
+/** パンくず（2026-09-24）。入口から現在地まで一本。 */
+.crumbs { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px; }
+.crumbs span { color: var(--fg-3, var(--fg-2)); }
+
+/**
+ * 正本の見出しに書いた表（2026-09-24）。
+ * 前は空行までを 1 段落に繋いでいたので、**表が 1 行に潰れていた**（17 枚・100 行）。
+ */
+table.note { border-collapse: collapse; margin: 18px 0; font-size: 15px; width: 100%; }
+table.note th, table.note td {
+  border: 1px solid var(--border); padding: 8px 12px; text-align: left; vertical-align: top;
+}
+table.note th { color: var(--fg); font-weight: 600; background: var(--bg-2, transparent); }
+table.note td { color: var(--fg-2); }
+
+/** 見出しの無い表（正本に `| | |` と書いてあるもの）。1 列目を見出しの扱いにする。 */
+table.note.bare td:first-child { color: var(--fg); font-weight: 600; white-space: nowrap; }
+
+/** 正本の書き方（バッククォート）を `<code>` にしたので、地の文と見分ける（2026-09-24）。 */
+main code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.92em; padding: 1px 5px; border-radius: 4px;
+  background: var(--bg-2, rgba(128,128,128,0.14)); color: var(--fg);
+}

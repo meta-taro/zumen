@@ -70,12 +70,18 @@
       {
         "@type": "ListItem",
         "position": 2,
+        "name": "All 352 examples",
+        "item": "https://meta-taro.github.io/zumen/en/all/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
         "name": "Events and games",
         "item": "https://meta-taro.github.io/zumen/en/c/moyooshi/"
       },
       {
         "@type": "ListItem",
-        "position": 3,
+        "position": 4,
         "name": "宮殿の儀礼動線図（アンフィラードと、身分ごとの到達範囲）"
       }
     ]
@@ -85,8 +91,14 @@
 </head>
 <body class="sub">
 <header class="bar">
-  <a class="home" href="../../../">zumen</a>
-  <nav><a href="../../c/moyooshi/">Events and games</a></nav>
+  <!--
+    パンくず（2026-09-24）。入口から現在地まで一本で出す。
+    aria-label を付けて、読み上げでも「ここは道案内」と分かるようにする。
+    区切りの記号は aria-hidden（読み上げると邪魔なだけ）。
+  -->
+  <nav class="crumbs" aria-label="Breadcrumb">
+    <a class="home" href="../../../">zumen</a><span aria-hidden="true">›</span><a href="../../all/">All 352</a><span aria-hidden="true">›</span><a href="../../c/moyooshi/">Events and games</a>
+  </nav>
 </header>
 <main>
 <article>
@@ -100,11 +112,16 @@
   <h2>What the source says</h2>
   <p><strong>宮殿の続き間は、飾りではなく手続き。</strong></p>
   <p>扉を一直線に並べる（アンフィラード）。軸線に立つと奥まで見通せる。部屋は奥へ行くほど小さくなる —— 待つ人が減るため。案内人は、その人の<strong>身分が許すいちばん奥の部屋まで</strong>通す。同格以上の客には、主人が<strong>奥から迎えに出る</strong>（出てくる距離が敬意の量）。</p>
-  <p>並びは英国バロック（ハンプトン・コート、ウィリアム 3 世の続き間）。<strong>寸法は入れていない</strong> —— これは順序と到達範囲の図で、造るための図ではない（だから \`scale\` も通り芯も書かない）。</p>
+  <p>並びは英国バロック（ハンプトン・コート、ウィリアム 3 世の続き間）。<strong>寸法は入れていない</strong> —— これは順序と到達範囲の図で、造るための図ではない（だから \<code>scale\</code> も通り芯も書かない）。</p>
   <h2>Source (YAML)</h2>
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/172-%E5%AE%AE%E6%AE%BF%E3%81%AE%E5%84%80%E7%A4%BC%E5%8B%95%E7%B7%9A%E5%9B%B3.zumen.yaml"><code>examples/gallery/172-宮殿の儀礼動線図.zumen.yaml</code></a></p>
   <h2>More in this field</h2>
   <ul class="near"><li><a href="../66/">A game record on a 19-line go board where each stone carries the number of the move, showing the shape of the opening</a></li><li><a href="../67/">The starting position of shogi on a nine by nine board, the two sides told apart by which way the pieces point</a></li><li><a href="../68/">The starting position of chess on an eight by eight board, with the file and rank coordinates marked</a></li><li><a href="../69/">A bingo card, five by five with a free centre, where each column draws from its own range of numbers</a></li><li><a href="../70/">The opening position of reversi: four stones in the centre four squares, black and white alternating</a></li><li><a href="../77/">Theatrical lighting plot, with the channel schedule</a></li><li><a href="../96/">Orchestra seating, two traditions side by side</a></li><li><a href="../101/">PA layout, where distance turns into delay</a></li></ul>
+  <nav class="steps" aria-label="Previous and next">
+    <a class="step prev" href="../171/" rel="prev"><span>←</span> A crossword is a grid before…</a>
+    <a class="step index" href="../../all/">All 352</a>
+    <a class="step next" href="../173/" rel="next">The greyscale version of the… <span>→</span></a>
+  </nav>
 </article>
 </main>
 <footer class="foot">

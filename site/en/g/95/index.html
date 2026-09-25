@@ -70,12 +70,18 @@
       {
         "@type": "ListItem",
         "position": 2,
+        "name": "All 352 examples",
+        "item": "https://meta-taro.github.io/zumen/en/all/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
         "name": "Disaster and emergency",
         "item": "https://meta-taro.github.io/zumen/en/c/bosai/"
       },
       {
         "@type": "ListItem",
-        "position": 3,
+        "position": 4,
         "name": "避難所レイアウト（体育館 30 × 20m・48 名・スフィア基準）"
       }
     ]
@@ -85,8 +91,14 @@
 </head>
 <body class="sub">
 <header class="bar">
-  <a class="home" href="../../../">zumen</a>
-  <nav><a href="../../c/bosai/">Disaster and emergency</a></nav>
+  <!--
+    パンくず（2026-09-24）。入口から現在地まで一本で出す。
+    aria-label を付けて、読み上げでも「ここは道案内」と分かるようにする。
+    区切りの記号は aria-hidden（読み上げると邪魔なだけ）。
+  -->
+  <nav class="crumbs" aria-label="Breadcrumb">
+    <a class="home" href="../../../">zumen</a><span aria-hidden="true">›</span><a href="../../all/">All 352</a><span aria-hidden="true">›</span><a href="../../c/bosai/">Disaster and emergency</a>
+  </nav>
 </header>
 <main>
 <article>
@@ -107,6 +119,11 @@
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/95-%E9%81%BF%E9%9B%A3%E6%89%80%E3%83%AC%E3%82%A4%E3%82%A2%E3%82%A6%E3%83%88.zumen.yaml"><code>examples/gallery/95-避難所レイアウト.zumen.yaml</code></a></p>
   <h2>More in this field</h2>
   <ul class="near"><li><a href="../22/">Escape routes on a third floor: two ways out of every room to a staircase, with the travel distance and the fire doors and extinguishers along the way</a></li><li><a href="../93/">Fireworks safety distances, a circle per shell size</a></li><li><a href="../106/">Crowd plan: how many can flow out against how many come in</a></li><li><a href="../119/">Extinguishers and hose reels, measured two different ways</a></li><li><a href="../145/">Sprinkler layout: area per head and spacing, decided together</a></li><li><a href="../148/">Egress plan: three lengths answering three questions</a></li><li><a href="../154/">Fire alarm devices: spacing is a circle, not a square</a></li><li><a href="../159/">Not a picture of the fire - the way out is written on it</a></li></ul>
+  <nav class="steps" aria-label="Previous and next">
+    <a class="step prev" href="../94/" rel="prev"><span>←</span> Hair colour sectioning: the…</a>
+    <a class="step index" href="../../all/">All 352</a>
+    <a class="step next" href="../96/" rel="next">Orchestra seating… <span>→</span></a>
+  </nav>
 </article>
 </main>
 <footer class="foot">

@@ -70,12 +70,18 @@
       {
         "@type": "ListItem",
         "position": 2,
+        "name": "見本 352 枚",
+        "item": "https://meta-taro.github.io/zumen/all/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
         "name": "IT・ソフトウェア",
         "item": "https://meta-taro.github.io/zumen/c/it/"
       },
       {
         "@type": "ListItem",
-        "position": 3,
+        "position": 4,
         "name": "データセンターの気流（通路を分けるのは、熱気を吸わせないため）"
       }
     ]
@@ -85,8 +91,14 @@
 </head>
 <body class="sub">
 <header class="bar">
-  <a class="home" href="../../">zumen</a>
-  <nav><a href="../../c/it/">IT・ソフトウェア</a></nav>
+  <!--
+    パンくず（2026-09-24）。入口から現在地まで一本で出す。
+    aria-label を付けて、読み上げでも「ここは道案内」と分かるようにする。
+    区切りの記号は aria-hidden（読み上げると邪魔なだけ）。
+  -->
+  <nav class="crumbs" aria-label="パンくず">
+    <a class="home" href="../../">zumen</a><span aria-hidden="true">›</span><a href="../../all/">見本 352 枚</a><span aria-hidden="true">›</span><a href="../../c/it/">IT・ソフトウェア</a>
+  </nav>
 </header>
 <main>
 <article>
@@ -109,6 +121,11 @@
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/330-%E3%83%87%E3%83%BC%E3%82%BF%E3%82%BB%E3%83%B3%E3%82%BF%E3%83%BC%E3%81%AE%E6%B0%97%E6%B5%81.zumen.yaml"><code>examples/gallery/330-データセンターの気流.zumen.yaml</code></a></p>
   <h2>同じ分野の見本</h2>
   <ul class="near"><li><a href="../01/">オンプレのサーバ構成</a></li><li><a href="../02/">クラウド構成</a></li><li><a href="../03/">データの流れ</a></li><li><a href="../04/">ネットワーク構成</a></li><li><a href="../21/">テーブルの関係（ER）</a></li><li><a href="../26/">データセンターのラック配置</a></li><li><a href="../46/">クラス図（UML）</a></li><li><a href="../47/">状態遷移図（UML）</a></li></ul>
+  <nav class="steps" aria-label="前後の見本">
+    <a class="step prev" href="../329/" rel="prev"><span>←</span> ごみが行く先（燃やしても、無くならない）</a>
+    <a class="step index" href="../../all/">見本 352 枚</a>
+    <a class="step next" href="../331/" rel="next">緊急地震速報（猶予は「残り」でしかない） <span>→</span></a>
+  </nav>
 </article>
 </main>
 <footer class="foot">

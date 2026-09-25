@@ -70,12 +70,18 @@
       {
         "@type": "ListItem",
         "position": 2,
+        "name": "見本 352 枚",
+        "item": "https://meta-taro.github.io/zumen/all/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
         "name": "建築・土木",
         "item": "https://meta-taro.github.io/zumen/c/kenchiku/"
       },
       {
         "@type": "ListItem",
-        "position": 3,
+        "position": 4,
         "name": "道路標識（形と色で、読む前に種類が分かる）"
       }
     ]
@@ -85,8 +91,14 @@
 </head>
 <body class="sub">
 <header class="bar">
-  <a class="home" href="../../">zumen</a>
-  <nav><a href="../../c/kenchiku/">建築・土木</a></nav>
+  <!--
+    パンくず（2026-09-24）。入口から現在地まで一本で出す。
+    aria-label を付けて、読み上げでも「ここは道案内」と分かるようにする。
+    区切りの記号は aria-hidden（読み上げると邪魔なだけ）。
+  -->
+  <nav class="crumbs" aria-label="パンくず">
+    <a class="home" href="../../">zumen</a><span aria-hidden="true">›</span><a href="../../all/">見本 352 枚</a><span aria-hidden="true">›</span><a href="../../c/kenchiku/">建築・土木</a>
+  </nav>
 </header>
 <main>
 <article>
@@ -99,7 +111,10 @@
   <p class="made">この図は、下の 1 枚の YAML から描かれています。手で図形を動かしてはいません。</p>
   <h2>正本に書いてある決まりごと</h2>
   <p><strong>本標識は 4 種類あり、形と色で種類が分かる。</strong></p>
-  <p>| | 形と色 ||---|---|| <strong>案内標識</strong> | 青地または緑地に白 || <strong>警戒標識</strong> | <strong>黄地に黒の菱形</strong>（一辺 45cm） || <strong>規制標識</strong> | 赤地に青・白、または青地に白。円形・四角・逆三角形 || <strong>指示標識</strong> | 青地に白。五角形や正方形 |</p>
+  <table class="note">
+  <thead><tr><th></th><th>形と色</th></tr></thead>
+  <tbody><tr><td><strong>案内標識</strong></td><td>青地または緑地に白</td></tr><tr><td><strong>警戒標識</strong></td><td><strong>黄地に黒の菱形</strong>（一辺 45cm）</td></tr><tr><td><strong>規制標識</strong></td><td>赤地に青・白、または青地に白。円形・四角・逆三角形</td></tr><tr><td><strong>指示標識</strong></td><td>青地に白。五角形や正方形</td></tr></tbody>
+</table>
   <p><strong>文字が読めない距離でも、黄色い菱形が見えた時点で「注意」と分かる。</strong>形と色が先に届き、中身はあとから読む —— <strong>読む前に種類が分かる</strong>ことが、この体系の肝。</p>
   <p><strong>ウィーン標識条約の原則では、警告は三角（白か黄の地）、禁止は丸で周囲が赤。</strong><strong>日本の警戒標識だけが菱形</strong>で、三角ではない ——形が違っても、色（黄）と役目は同じ。一時停止は逆三角形。</p>
   <p><strong>案内標識だけが 2 色ある。</strong> 一般道は青、高速道路は緑。</p>
@@ -109,6 +124,11 @@
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/302-%E9%81%93%E8%B7%AF%E6%A8%99%E8%AD%98.zumen.yaml"><code>examples/gallery/302-道路標識.zumen.yaml</code></a></p>
   <h2>同じ分野の見本</h2>
   <ul class="near"><li><a href="../14/">間取り（2LDK・1 階）</a></li><li><a href="../17/">躯体の伏図（RC 造・2 階床）</a></li><li><a href="../24/">校舎の平面図（小学校 3 階）</a></li><li><a href="../27/">ほ場整備の平面図（30a 区画）</a></li><li><a href="../28/">ダムの平面図（重力式）</a></li><li><a href="../30/">総合仮設計画図（クレーンの作業半径つき）</a></li><li><a href="../32/">ホテルの基準階（客室 12 室）</a></li><li><a href="../33/">駐車場の区画割（14 台）</a></li></ul>
+  <nav class="steps" aria-label="前後の見本">
+    <a class="step prev" href="../301/" rel="prev"><span>←</span> 治験の三つの相（人数ではなく、「誰に試すか」で分かれてい…</a>
+    <a class="step index" href="../../all/">見本 352 枚</a>
+    <a class="step next" href="../303/" rel="next">ISBN の作り（桁数が動くのは、真ん中の 2 つだけ） <span>→</span></a>
+  </nav>
 </article>
 </main>
 <footer class="foot">

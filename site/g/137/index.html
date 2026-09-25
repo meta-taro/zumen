@@ -70,12 +70,18 @@
       {
         "@type": "ListItem",
         "position": 2,
+        "name": "見本 352 枚",
+        "item": "https://meta-taro.github.io/zumen/all/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
         "name": "催し・遊び",
         "item": "https://meta-taro.github.io/zumen/c/moyooshi/"
       },
       {
         "@type": "ListItem",
-        "position": 3,
+        "position": 4,
         "name": "舞台転換図（3 場面・小劇場／架空）"
       }
     ]
@@ -85,8 +91,14 @@
 </head>
 <body class="sub">
 <header class="bar">
-  <a class="home" href="../../">zumen</a>
-  <nav><a href="../../c/moyooshi/">催し・遊び</a></nav>
+  <!--
+    パンくず（2026-09-24）。入口から現在地まで一本で出す。
+    aria-label を付けて、読み上げでも「ここは道案内」と分かるようにする。
+    区切りの記号は aria-hidden（読み上げると邪魔なだけ）。
+  -->
+  <nav class="crumbs" aria-label="パンくず">
+    <a class="home" href="../../">zumen</a><span aria-hidden="true">›</span><a href="../../all/">見本 352 枚</a><span aria-hidden="true">›</span><a href="../../c/moyooshi/">催し・遊び</a>
+  </nav>
 </header>
 <main>
 <article>
@@ -102,7 +114,9 @@
   <p>舞台の平面図は場面の数だけ要る。要るのはそれだけではなく、<strong>場面と場面のあいだに何が起きるか</strong> —— 誰が、何を、どこから、どこへ、何秒で。それが無いと、図はきれいでも本番で動けない。</p>
   <p><strong>図は客席から見た向き。</strong> 下が舞台前端（プロセ）、上がホリゾント。<strong>上手（かみて）は客席から見て右、下手（しもて）は左。</strong></p>
   <p>舞台の寸法は尺貫法で言う。建築の部材がその寸法で作られているため。</p>
-  <p>| | ||---|---|| 1 間 | 6 尺 ＝ 1,818 mm || 1 尺 | 10 寸 ＝ 303 mm || 1 寸 | 30.3 mm |</p>
+  <table class="note bare">
+  <tbody><tr><td>1 間</td><td>6 尺 ＝ 1,818 mm</td></tr><tr><td>1 尺</td><td>10 寸 ＝ 303 mm</td></tr><tr><td>1 寸</td><td>30.3 mm</td></tr></tbody>
+</table>
   <p><strong>平台はサブロク</strong>（3 尺 × 6 尺 ＝ 909 × 1,818）、<strong>厚さ 4 寸</strong>。箱馬を <strong>3 寸に置けば高さ 7 寸</strong>、<strong>1 尺に置けば 1 尺 4 寸</strong> ——平台の 4 寸が足されるので、ひな段の段差はこの組み合わせで決まる。</p>
   <p><strong>暗転の尺は先に決まっている</strong>（そこで流す音楽やアナウンスの長さ）。人と道具は増やせるが、秒は増やせない。<strong>入らない段取りは、場面の側を変える。</strong></p>
   <p>1 px ＝ 70 mm。寸法・演目・段取りはすべて架空。</p>
@@ -110,6 +124,11 @@
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/137-%E8%88%9E%E5%8F%B0%E8%BB%A2%E6%8F%9B%E5%9B%B3.zumen.yaml"><code>examples/gallery/137-舞台転換図.zumen.yaml</code></a></p>
   <h2>同じ分野の見本</h2>
   <ul class="near"><li><a href="../66/">囲碁の棋譜（19 路・布石）</a></li><li><a href="../67/">将棋の局面図（平手初形）</a></li><li><a href="../68/">チェスの局面図（初期配置）</a></li><li><a href="../69/">ビンゴカード（5×5）</a></li><li><a href="../70/">リバーシの局面図（初期配置）</a></li><li><a href="../77/">舞台照明仕込図（図＋チャンネル一覧）</a></li><li><a href="../96/">オーケストラの配置（対向と現代を並べる）</a></li><li><a href="../101/">PA 配置図（距離が時間になる）</a></li></ul>
+  <nav class="steps" aria-label="前後の見本">
+    <a class="step prev" href="../136/" rel="prev"><span>←</span> 天井伏図（見上げるものを、見下ろして描く）</a>
+    <a class="step index" href="../../all/">見本 352 枚</a>
+    <a class="step next" href="../138/" rel="next">ロープ高所作業の作業計画図（法律が「作れ」と言う図） <span>→</span></a>
+  </nav>
 </article>
 </main>
 <footer class="foot">

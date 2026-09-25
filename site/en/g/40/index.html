@@ -70,12 +70,18 @@
       {
         "@type": "ListItem",
         "position": 2,
+        "name": "All 352 examples",
+        "item": "https://meta-taro.github.io/zumen/en/all/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
         "name": "Health, food and farming",
         "item": "https://meta-taro.github.io/zumen/en/c/iryo/"
       },
       {
         "@type": "ListItem",
-        "position": 3,
+        "position": 4,
         "name": "幕の内弁当 盛付指示書（容器 210×170・総重量 480g）"
       }
     ]
@@ -85,8 +91,14 @@
 </head>
 <body class="sub">
 <header class="bar">
-  <a class="home" href="../../../">zumen</a>
-  <nav><a href="../../c/iryo/">Health, food and farming</a></nav>
+  <!--
+    パンくず（2026-09-24）。入口から現在地まで一本で出す。
+    aria-label を付けて、読み上げでも「ここは道案内」と分かるようにする。
+    区切りの記号は aria-hidden（読み上げると邪魔なだけ）。
+  -->
+  <nav class="crumbs" aria-label="Breadcrumb">
+    <a class="home" href="../../../">zumen</a><span aria-hidden="true">›</span><a href="../../all/">All 352</a><span aria-hidden="true">›</span><a href="../../c/iryo/">Health, food and farming</a>
+  </nav>
 </header>
 <main>
 <article>
@@ -105,6 +117,11 @@
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/40-%E5%BC%81%E5%BD%93%E3%81%AE%E7%9B%9B%E4%BB%98%E5%9B%B3.zumen.yaml"><code>examples/gallery/40-弁当の盛付図.zumen.yaml</code></a></p>
   <h2>More in this field</h2>
   <ul class="near"><li><a href="../09/">How an outpatient moves through a hospital — reception, consultation, tests, payment, prescription — and where each department keeps people waiting</a></li><li><a href="../23/">A school meal kitchen split into contaminated and clean zones, with the paths of food, people and crockery kept from crossing</a></li><li><a href="../36/">An operating room laid out around the table: surgical light, anaesthesia machine, electrosurgical unit and monitors, with the sterile field</a></li><li><a href="../39/">The fourteen meridians and their principal points, named to the WHO standard acupuncture point locations</a></li><li><a href="../72/">A periodontal chart where all 32 teeth are measured at six points each, recording pocket depth, bleeding and mobility</a></li><li><a href="../73/">A sabiki fishing rig from main line to six hooks, feeder cage and sinker, with the gauge and length specified for every section</a></li><li><a href="../91/">High-density apple training, with tree and row spacing</a></li><li><a href="../92/">Pest monitoring: the stations never move</a></li></ul>
+  <nav class="steps" aria-label="Previous and next">
+    <a class="step prev" href="../39/" rel="prev"><span>←</span> The fourteen meridians and t…</a>
+    <a class="step index" href="../../all/">All 352</a>
+    <a class="step next" href="../41/" rel="next">The garden path to a tea hou… <span>→</span></a>
+  </nav>
 </article>
 </main>
 <footer class="foot">

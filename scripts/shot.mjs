@@ -30,6 +30,21 @@ const OUT = join(ROOT, 'qa/shots');
 const args = process.argv.slice(2);
 const no = args.find((a) => /^\d+$/.test(a));
 const dark = args.includes('--dark');
+
+/**
+ * **怪しい所を切り出して拡大する**（`--crop x y w h`。2026-09-24）。
+ *
+ * 縮めた図を目で見ての判定は、**2 回続けて外した。**
+ *
+ * | 周 | 見えたと思ったもの | 実際 |
+ * |---|---|---|
+ * | 21 | 横線が字を貫いている | 貫いていたのは**縦の柱**。横線は無関係 |
+ * | 27 | 上辺の中央に格子がある | **空だった。**隣の W1 の格子が続いて見えていた |
+ *
+ * `viewBox` を差し替えて、その範囲だけを画面いっぱいに出す。**判定はこれを見てから。**
+ */
+const cropAt = args.indexOf('--crop');
+const crop = cropAt === -1 ? null : args.slice(cropAt + 1, cropAt + 5).map(Number);
 // `indexOf` は無いとき -1 を返すので、そのまま +1 すると **番号そのもの**を幅に読む
 // （`pnpm shot 310` が 310px で出た）。
 const at = args.indexOf('--width');
@@ -59,8 +74,13 @@ if (chrome === undefined) {
   process.exit(1);
 }
 
-const svg = readFileSync(join(DIR, name), 'utf8');
-const found = /viewBox="0 0 ([\d.]+) ([\d.]+)"/.exec(svg);
+const raw = readFileSync(join(DIR, name), 'utf8');
+const svg = crop === null || crop.some(Number.isNaN)
+  ? raw
+  : raw.replace(/viewBox="0 0 [\d.]+ [\d.]+"/, `viewBox="${crop.join(' ')}"`);
+const found = crop === null || crop.some(Number.isNaN)
+  ? /viewBox="0 0 ([\d.]+) ([\d.]+)"/.exec(svg)
+  : [null, String(crop[2]), String(crop[3])];
 const ratio = found === null ? 1 : Number(found[2]) / Number(found[1]);
 const height = Math.max(200, Math.round(width * ratio));
 

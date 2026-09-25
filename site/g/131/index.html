@@ -6,18 +6,18 @@
 <title>刺網の網図（仕立て図・縮結 30%／架空の一反） — zumen の見本 131</title>
 <link rel="icon" type="image/svg+xml" href="../../icon.svg">
 <meta name="theme-color" content="#23232b">
-<meta name="description" content="刺網の網図（縮めて仕立てるから、目が開く）。| | ||---|---|| 目合（めあい） | 目の大きさ。節（15.15 cm の中の節数）か、伸ばした目の長さ || 掛目（かけめ） | 丈の方向の目の数 || 縮結 | 綱に付けるときの縮め率…">
+<meta name="description" content="刺網の網図（縮めて仕立てるから、目が開く）。同じ網地が、仕立てると短く・縦に開く。 だから上下 2 枚を並べてある（views）。30 m の網地を 21 m の綱に付ける（縮結 30%）と、目が菱形に開いて丈が 6 m → 4.28 m になる…">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="zumen">
 <meta property="og:locale" content="ja_JP">
 <meta property="og:url" content="https://meta-taro.github.io/zumen/g/131/">
 <meta property="og:title" content="刺網の網図（仕立て図・縮結 30%／架空の一反） — zumen の見本 131">
-<meta property="og:description" content="刺網の網図（縮めて仕立てるから、目が開く）。| | ||---|---|| 目合（めあい） | 目の大きさ。節（15.15 cm の中の節数）か、伸ばした目の長さ || 掛目（かけめ） | 丈の方向の目の数 || 縮結 | 綱に付けるときの縮め率…">
+<meta property="og:description" content="刺網の網図（縮めて仕立てるから、目が開く）。同じ網地が、仕立てると短く・縦に開く。 だから上下 2 枚を並べてある（views）。30 m の網地を 21 m の綱に付ける（縮結 30%）と、目が菱形に開いて丈が 6 m → 4.28 m になる…">
 <meta property="og:image" content="https://meta-taro.github.io/zumen/og/131.png">
 <meta property="og:image:alt" content="刺網の網図（仕立て前と仕立て後。縮結 30%）">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="刺網の網図（仕立て図・縮結 30%／架空の一反） — zumen の見本 131">
-<meta name="twitter:description" content="刺網の網図（縮めて仕立てるから、目が開く）。| | ||---|---|| 目合（めあい） | 目の大きさ。節（15.15 cm の中の節数）か、伸ばした目の長さ || 掛目（かけめ） | 丈の方向の目の数 || 縮結 | 綱に付けるときの縮め率…">
+<meta name="twitter:description" content="刺網の網図（縮めて仕立てるから、目が開く）。同じ網地が、仕立てると短く・縦に開く。 だから上下 2 枚を並べてある（views）。30 m の網地を 21 m の綱に付ける（縮結 30%）と、目が菱形に開いて丈が 6 m → 4.28 m になる…">
 <meta name="twitter:image" content="https://meta-taro.github.io/zumen/og/131.png">
 <meta name="twitter:image:alt" content="刺網の網図（仕立て前と仕立て後。縮結 30%）">
 <link rel="stylesheet" href="../../style.css">
@@ -35,7 +35,7 @@
     "@type": "CreativeWork",
     "name": "刺網の網図（仕立て図・縮結 30%／架空の一反）",
     "headline": "刺網の網図（仕立て図・縮結 30%／架空の一反）",
-    "description": "刺網の網図（縮めて仕立てるから、目が開く）。| | ||---|---|| 目合（めあい） | 目の大きさ。節（15.15 cm の中の節数）か、伸ばした目の長さ || 掛目（かけめ） | 丈の方向の目の数 || 縮結 | 綱に付けるときの縮め率…",
+    "description": "刺網の網図（縮めて仕立てるから、目が開く）。同じ網地が、仕立てると短く・縦に開く。 だから上下 2 枚を並べてある（views）。30 m の網地を 21 m の綱に付ける（縮結 30%）と、目が菱形に開いて丈が 6 m → 4.28 m になる…",
     "url": "https://meta-taro.github.io/zumen/g/131/",
     "image": {
       "@type": "ImageObject",
@@ -70,12 +70,18 @@
       {
         "@type": "ListItem",
         "position": 2,
+        "name": "見本 352 枚",
+        "item": "https://meta-taro.github.io/zumen/all/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
         "name": "医療・食品・農",
         "item": "https://meta-taro.github.io/zumen/c/iryo/"
       },
       {
         "@type": "ListItem",
-        "position": 3,
+        "position": 4,
         "name": "刺網の網図（仕立て図・縮結 30%／架空の一反）"
       }
     ]
@@ -85,8 +91,14 @@
 </head>
 <body class="sub">
 <header class="bar">
-  <a class="home" href="../../">zumen</a>
-  <nav><a href="../../c/iryo/">医療・食品・農</a></nav>
+  <!--
+    パンくず（2026-09-24）。入口から現在地まで一本で出す。
+    aria-label を付けて、読み上げでも「ここは道案内」と分かるようにする。
+    区切りの記号は aria-hidden（読み上げると邪魔なだけ）。
+  -->
+  <nav class="crumbs" aria-label="パンくず">
+    <a class="home" href="../../">zumen</a><span aria-hidden="true">›</span><a href="../../all/">見本 352 枚</a><span aria-hidden="true">›</span><a href="../../c/iryo/">医療・食品・農</a>
+  </nav>
 </header>
 <main>
 <article>
@@ -101,13 +113,20 @@
   <p><strong>網は「縮めて仕立てる」。</strong> 縮めないと目が開かず、網が縦に拡がらない。その縮め具合を <strong>縮結（いせ）</strong> といい、漁具の設計でいちばん基本の数字とされる。</p>
   <p>&gt; <strong>縮結 ＝（元の網地長さ − 仕立上げの長さ）／ 元の網地長さ</strong></p>
   <p><strong>同じ網地が、仕立てると短く・縦に開く。</strong> だから上下 2 枚を並べてある（views）。30 m の網地を 21 m の綱に付ける（縮結 30%）と、目が菱形に開いて<strong>丈が 6 m → 4.28 m</strong> になる。縦の比は √(1 − 0.7²) ＝ 0.714 —— <strong>横に縮めた分だけ、縦に開く。</strong></p>
-  <p>| | ||---|---|| 目合（めあい） | 目の大きさ。<strong>節</strong>（15.15 cm の中の節数）か、伸ばした目の長さ || 掛目（かけめ） | 丈の方向の目の数 || 縮結 | 綱に付けるときの縮め率。<strong>浮子方と沈子方で違う</strong> || あば綱 / いわ綱 | 浮子綱・沈子綱。<strong>刺網では沈子綱を 3〜10% 長くする</strong> |</p>
+  <table class="note bare">
+  <tbody><tr><td>目合（めあい）</td><td>目の大きさ。<strong>節</strong>（15.15 cm の中の節数）か、伸ばした目の長さ</td></tr><tr><td>掛目（かけめ）</td><td>丈の方向の目の数</td></tr><tr><td>縮結</td><td>綱に付けるときの縮め率。<strong>浮子方と沈子方で違う</strong></td></tr><tr><td>あば綱 / いわ綱</td><td>浮子綱・沈子綱。<strong>刺網では沈子綱を 3〜10% 長くする</strong></td></tr></tbody>
+</table>
   <p>まき網では浮子方 30%・岩方 20% ほど（網地 500 間に対し、浮子方 350 間・岩方 400 間）。</p>
   <p>1 px ＝ 50 mm。目合・掛目・寸法はすべて架空の一反。</p>
   <h2>正本（YAML）</h2>
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/131-%E5%88%BA%E7%B6%B2%E3%81%AE%E7%B6%B2%E5%9B%B3.zumen.yaml"><code>examples/gallery/131-刺網の網図.zumen.yaml</code></a></p>
   <h2>同じ分野の見本</h2>
   <ul class="near"><li><a href="../09/">外来の流れ</a></li><li><a href="../23/">厨房の区域と動線（HACCP）</a></li><li><a href="../36/">手術室の機器配置（OR-3）</a></li><li><a href="../39/">経絡と経穴（鍼灸・WHO 標準）</a></li><li><a href="../40/">弁当の盛付指示書（中食）</a></li><li><a href="../72/">歯周精密検査チャート（32 歯 × 6 点）</a></li><li><a href="../73/">サビキ仕掛け図（6 本針）</a></li><li><a href="../91/">リンゴ高密植栽培の樹形図（樹高・樹間・列間つき）</a></li></ul>
+  <nav class="steps" aria-label="前後の見本">
+    <a class="step prev" href="../130/" rel="prev"><span>←</span> 法定相続情報一覧図（下から 5 cm は認証文が入るので…</a>
+    <a class="step index" href="../../all/">見本 352 枚</a>
+    <a class="step next" href="../132/" rel="next">クレーン揚重計画図（腕を伸ばすほど吊れなくなる） <span>→</span></a>
+  </nav>
 </article>
 </main>
 <footer class="foot">

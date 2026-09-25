@@ -70,12 +70,18 @@
       {
         "@type": "ListItem",
         "position": 2,
+        "name": "All 352 examples",
+        "item": "https://meta-taro.github.io/zumen/en/all/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
         "name": "Work and organisations",
         "item": "https://meta-taro.github.io/zumen/en/c/gyomu/"
       },
       {
         "@type": "ListItem",
-        "position": 3,
+        "position": 4,
         "name": "組織図（2026 年度）"
       }
     ]
@@ -85,8 +91,14 @@
 </head>
 <body class="sub">
 <header class="bar">
-  <a class="home" href="../../../">zumen</a>
-  <nav><a href="../../c/gyomu/">Work and organisations</a></nav>
+  <!--
+    パンくず（2026-09-24）。入口から現在地まで一本で出す。
+    aria-label を付けて、読み上げでも「ここは道案内」と分かるようにする。
+    区切りの記号は aria-hidden（読み上げると邪魔なだけ）。
+  -->
+  <nav class="crumbs" aria-label="Breadcrumb">
+    <a class="home" href="../../../">zumen</a><span aria-hidden="true">›</span><a href="../../all/">All 352</a><span aria-hidden="true">›</span><a href="../../c/gyomu/">Work and organisations</a>
+  </nav>
 </header>
 <main>
 <article>
@@ -101,12 +113,17 @@
   <p><strong>組織図が示しているのは、指揮系統であって仕事の流れではない。</strong>線は「誰が誰に指示できるか」で、<strong>仕事は線を無視して横に流れる。</strong></p>
   <p>監査室が代表取締役の直轄なのは、<strong>監査される側の下に置けない</strong>から。内部監査は、指揮系統から外れていることが成立の条件になる。</p>
   <p>左から事業本部・管理本部と並べるのは慣習だが、<strong>同じ段に並べた部署は対等</strong>という意味になる。段をずらすと序列が生まれる。</p>
-  <p>この図は自動配置（`direction: down`）なので、<strong>本部の中で部署がどの順に並ぶかは機械が決める。</strong> 正本の書き順（D-10 → D-20 → D-30）でも、辺の書き順でも変わらない（2026-09-24。`qa/品質100周` 第 23 周で、辺の順を逆にして実際に確かめた）。</p>
-  <p>だから <strong>開発部 → 営業部 → 製造部 という左右の並びに意味は無い。</strong>番号（D-10 / D-20 / D-30）が順序を持つ側で、<strong>線の繋がりが親子を持つ側</strong>。意味のある並びが要るなら、`kind: placement` で座標を書く。</p>
+  <p>この図は自動配置（<code>direction: down</code>）なので、<strong>本部の中で部署がどの順に並ぶかは機械が決める。</strong> 正本の書き順（D-10 → D-20 → D-30）でも、辺の書き順でも変わらない（2026-09-24。<code>qa/品質100周</code> 第 23 周で、辺の順を逆にして実際に確かめた）。</p>
+  <p>だから <strong>開発部 → 営業部 → 製造部 という左右の並びに意味は無い。</strong>番号（D-10 / D-20 / D-30）が順序を持つ側で、<strong>線の繋がりが親子を持つ側</strong>。意味のある並びが要るなら、<code>kind: placement</code> で座標を書く。</p>
   <h2>Source (YAML)</h2>
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/20-%E7%B5%84%E7%B9%94%E5%9B%B3.zumen.yaml"><code>examples/gallery/20-組織図.zumen.yaml</code></a></p>
   <h2>More in this field</h2>
   <ul class="near"><li><a href="../05/">From order to shipment: credit check, stock allocation, picking instruction, packing and despatch, with the owner of each step</a></li><li><a href="../07/">The route a written proposal takes through each rank of approval, including the conditions that send it back</a></li><li><a href="../11/">How an article gets made — commissioning, interview, writing, subediting, typesetting, publication — and the loops back when it is sent for rework</a></li><li><a href="../13/">The path from application to enrolment — examination, results, admission procedures — with the deadline on every step</a></li><li><a href="../16/">An exhibition hall divided into booths, with aisle widths and the position of reception, meeting space and the goods entrance</a></li><li><a href="../31/">Seating plan, sixty seats and two wheelchair spaces</a></li><li><a href="../55/">A lower secondary school week: periods down the side, days across the top, and the subject, room and teacher in each cell</a></li><li><a href="../64/">A sports hall opened by the week: time bands per day allocated between clubs, groups and individual use</a></li></ul>
+  <nav class="steps" aria-label="Previous and next">
+    <a class="step prev" href="../19/" rel="prev"><span>←</span> A substation single-line dia…</a>
+    <a class="step index" href="../../all/">All 352</a>
+    <a class="step next" href="../21/" rel="next">An order management ER diagr… <span>→</span></a>
+  </nav>
 </article>
 </main>
 <footer class="foot">

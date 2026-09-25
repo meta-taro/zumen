@@ -70,12 +70,18 @@
       {
         "@type": "ListItem",
         "position": 2,
+        "name": "All 352 examples",
+        "item": "https://meta-taro.github.io/zumen/en/all/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
         "name": "Retail and logistics",
         "item": "https://meta-taro.github.io/zumen/en/c/tenpo/"
       },
       {
         "@type": "ListItem",
-        "position": 3,
+        "position": 4,
         "name": "トラックの積載計画図（軸重の配分／架空の 3 軸車）"
       }
     ]
@@ -85,8 +91,14 @@
 </head>
 <body class="sub">
 <header class="bar">
-  <a class="home" href="../../../">zumen</a>
-  <nav><a href="../../c/tenpo/">Retail and logistics</a></nav>
+  <!--
+    パンくず（2026-09-24）。入口から現在地まで一本で出す。
+    aria-label を付けて、読み上げでも「ここは道案内」と分かるようにする。
+    区切りの記号は aria-hidden（読み上げると邪魔なだけ）。
+  -->
+  <nav class="crumbs" aria-label="Breadcrumb">
+    <a class="home" href="../../../">zumen</a><span aria-hidden="true">›</span><a href="../../all/">All 352</a><span aria-hidden="true">›</span><a href="../../c/tenpo/">Retail and logistics</a>
+  </nav>
 </header>
 <main>
 <article>
@@ -107,6 +119,11 @@
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/120-%E3%83%88%E3%83%A9%E3%83%83%E3%82%AF%E3%81%AE%E7%A9%8D%E8%BC%89%E8%A8%88%E7%94%BB%E5%9B%B3.zumen.yaml"><code>examples/gallery/120-トラックの積載計画図.zumen.yaml</code></a></p>
   <h2>More in this field</h2>
   <ul class="near"><li><a href="../08/">An assembly line with what happens at each station, and the route a part takes back when inspection rejects it</a></li><li><a href="../12/">How a shop restocks: the reorder point, the safety stock, and the lead time that has to be covered until goods arrive</a></li><li><a href="../15/">A convenience store floor layout: the fixtures, the main aisle, the till and chilled cases, and the path a customer takes from the door</a></li><li><a href="../34/">A warehouse where every rack bay, level and position carries an address, overlaid with the aisles and the picking route</a></li><li><a href="../58/">Shopping street directory, trade by hatch</a></li><li><a href="../59/">A food court laid out with 240 seats in the middle and the outlets around the edge, each cuisine distinguished by hatch rather than colour</a></li><li><a href="../60/">A domed stadium with its seats divided into five price bands, including standing room</a></li><li><a href="../89/">Container stowage: bay, row and tier are the address</a></li></ul>
+  <nav class="steps" aria-label="Previous and next">
+    <a class="step prev" href="../119/" rel="prev"><span>←</span> Extinguishers and hose reels…</a>
+    <a class="step index" href="../../all/">All 352</a>
+    <a class="step next" href="../121/" rel="next">The three main stems of a fo… <span>→</span></a>
+  </nav>
 </article>
 </main>
 <footer class="foot">

@@ -46,21 +46,104 @@ function noteOf(text) {
   const lines = head.split('\n').filter((l) => l.startsWith('#')).map((l) => l.replace(/^#\s?/, ''));
   const paras = [];
   let now = [];
+  let table = [];
+  const flush = () => {
+    if (now.length > 0) paras.push(now.join(''));
+    now = [];
+    if (table.length > 0) paras.push({ table });
+    table = [];
+  };
   for (const line of lines) {
     if (line.trim() === '') {
-      if (now.length > 0) paras.push(now.join(''));
-      now = [];
+      flush();
       continue;
     }
+    // **表の行は繋がない。** 繋ぐと 1 行に潰れる。
+    if (line.trim().startsWith('|')) {
+      if (now.length > 0) { paras.push(now.join('')); now = []; }
+      table.push(line);
+      continue;
+    }
+    if (table.length > 0) { paras.push({ table }); table = []; }
     now.push(line.trim());
   }
+  if (table.length > 0) { paras.push({ table }); table = []; }
   if (now.length > 0) paras.push(now.join(''));
-  return paras.filter((p) => !p.startsWith('##'));
+  return paras.filter((p) => typeof p !== 'string' || !p.startsWith('##'));
+}
+
+/**
+ * **正本の見出しに書いた表を、表として出す**（2026-09-24）。
+ *
+ * `noteOf` は空行までを 1 段落として繋ぐので、**表の行がぜんぶ 1 行に潰れていた** ——
+ * 見本 128 のページには `| ||---|---|| a | 真円（半径 R）と、縦棒 1 本 || u | …` と出ていた。
+ * **17 枚・100 行**が同じ崩れ方をしていた。
+ *
+ * 正本は Markdown の書き方で書いてあるので、そのまま `<table>` にする。
+ * **区切りの行（`|---|---|`）は捨てる。**
+ */
+function tableOf(lines) {
+  const rows = lines
+    // **区切りの行だけを捨てる。** `-` を含むものが区切り ——
+    // `| | |`（見出しの無い表）まで捨てると、1 行目のデータが見出しに化ける。
+    .filter((l) => !/^\|[\s:|-]*-[\s:|-]*\|$/.test(l.trim()))
+    .map((l) => l.trim().replace(/^\||\|$/g, '').split('|').map((c) => c.trim()));
+  if (rows.length === 0) return '';
+  const cells = (cols, tag) => cols.map((c) => `<${tag}>${strong(c)}</${tag}>`).join('');
+  /**
+   * **見出しの無い表がある**（`| | |` と書いてあるもの。17 枚中 12 枚）。
+   *
+   * そこを捨てて 1 行目を見出しにすると、**データが見出しに化ける** ——
+   * 見本 128 で `a | 真円（半径 R）と、縦棒 1 本` が見出しになった。
+   * **空なら見出しを出さない。**
+   */
+  const [head, ...rest] = rows;
+  if (head.every((c) => c === '')) {
+    return `<table class="note bare">
+  <tbody>${rest.map((r) => `<tr>${cells(r, 'td')}</tr>`).join('')}</tbody>
+</table>`;
+  }
+  return `<table class="note">
+  <thead><tr>${cells(head, 'th')}</tr></thead>
+  <tbody>${rest.map((r) => `<tr>${cells(r, 'td')}</tr>`).join('')}</tbody>
+</table>`;
 }
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-/** `**ここ**` を `<strong>` にする。**正本の書き方をそのまま活かす。** */
-const strong = (s) => esc(s).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+/**
+ * 正本の書き方を、そのままページへ持ってくる。
+ *
+ * - `**ここ**` → `<strong>`
+ * - **バッククォート** → `<code>`（2026-09-24。生のまま出ていた ——
+ *   見本 128 のページに `` `after` で繋ぐと `` と出ていたのがそれ）
+ */
+const strong = (s) =>
+  esc(s)
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/`([^`]+)`/g, '<code>$1</code>');
+
+/**
+ * **パンくずの構造化データ**（2026-09-24）。
+ *
+ * 見える形（`up`）と同じ並びを返す。**食い違わせない** ——
+ * 検索結果に出るのはこちらで、人が見るのはあちら。
+ */
+const crumbs = (lang, steps) => ({
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'zumen', item: `${SITE}${lang === 'ja' ? '/' : '/en/'}` },
+    ...steps.map((one, i) => ({
+      '@type': 'ListItem',
+      position: i + 2,
+      name: one.name,
+      ...(one.url === undefined ? {} : { item: one.url }),
+    })),
+  ],
+});
+
+/** `<img>` に付ける寸法。**無ければ付けない**（付けないほうが、嘘の寸法より良い）。 */
+const dims = (s) => (s.size === null ? '' : ` width="${s.size.w}" height="${s.size.h}"`);
 
 const SAMPLES = [];
 for (const group of CATEGORIES) {
@@ -76,6 +159,21 @@ for (const group of CATEGORIES) {
       alt: item.alt,
       en: CAPTIONS_EN[item.name] ?? item.caption,
       note: noteOf(text),
+      /**
+       * **図の寸法**（2026-09-24）。`<img>` に `width` / `height` を付けるため。
+       *
+       * 付いていなかったので、**読み込む前の高さが 0 になり、`loading=lazy` が
+       * 発火せず、カードの図が 1 枚も出ていなかった**（分野ページ 13 枚と `/all/`）。
+       * 入口のページ（`scripts/gallery.mjs`）は前から付けていた。
+       *
+       * 寸法があると**読み込む前に場所が決まる**ので、
+       * 字が飛び跳ねない（CLS）。検索の評価にも効く。
+       */
+      size: (() => {
+        const svg = readFileSync(join(DIR, `${item.name}.svg`), 'utf8').slice(0, 300);
+        const found = /width="(\d+)" height="(\d+)"/.exec(svg);
+        return found === null ? null : { w: found[1], h: found[2] };
+      })(),
       group,
     });
   }
@@ -125,8 +223,16 @@ ${JSON.stringify(jsonld, null, 2)}
 </head>
 <body class="sub">
 <header class="bar">
-  <a class="home" href="${root}">zumen</a>
-  <nav>${up.map((u) => `<a href="${u.href}">${esc(u.text)}</a>`).join(' / ')}</nav>
+  <!--
+    パンくず（2026-09-24）。入口から現在地まで一本で出す。
+    aria-label を付けて、読み上げでも「ここは道案内」と分かるようにする。
+    区切りの記号は aria-hidden（読み上げると邪魔なだけ）。
+  -->
+  <nav class="crumbs" aria-label="${lang === 'ja' ? 'パンくず' : 'Breadcrumb'}">
+    <a class="home" href="${root}">zumen</a>${up
+      .map((u) => `<span aria-hidden="true">›</span><a href="${u.href}">${esc(u.text)}</a>`)
+      .join('')}
+  </nav>
 </header>
 <main>
 ${body}
@@ -164,7 +270,14 @@ function samplePage(s, lang) {
    * 繋げるのは**中身が増えるときだけ**。増えないなら、
    * **正本の説明（`note` の 1 段落目 ＝ その図の見どころ）**を使う。そちらのほうが濃い。
    */
-  const flat = (text) => String(text).replace(/\*\*/g, '').replace(/\s+/g, ' ').trim();
+  /**
+   * **検索結果に出る文からは、書き方の記号を落とす**（2026-09-24）。
+   *
+   * `**` は前から落としていたが、**バッククォートが残っていた** ——
+   * `meta description` と構造化データに `` `after` で繋ぐと `` と出ていた。
+   * ページの中では `<code>` になるが、**ここは地の文として読まれる。**
+   */
+  const flat = (text) => String(text).replace(/\*\*/g, '').replace(/`/g, '').replace(/\s+/g, ' ').trim();
   /**
    * **繋げる前に、重なりを見る**（2026-09-22。88 周目）。
    *
@@ -179,7 +292,7 @@ function samplePage(s, lang) {
     const head = flat(lang === 'ja' ? s.caption : s.en);
     if (lang !== 'ja') return fit(head, 150);
     // **note は 1 段落目とは限らない。** 題より長いものを、前のほうから探す。
-    const best = [flat(s.alt), ...s.note.map(flat)]
+    const best = [flat(s.alt), ...s.note.filter((p) => typeof p === 'string').map(flat)]
       .filter((one) => one.length > head.length)
       .sort((a, b) => b.length - a.length)[0];
     if (best === undefined) return fit(head, 150);
@@ -190,19 +303,38 @@ function samplePage(s, lang) {
     ? { title: `${s.title} — zumen の見本 ${s.no}`, desc: summary, note: '正本に書いてある決まりごと', src: '正本（YAML）', near: '同じ分野の見本', made: 'この図は、下の 1 枚の YAML から描かれています。手で図形を動かしてはいません。' }
     : { title: `${s.title} — zumen example ${s.no}`, desc: summary, note: 'What the source says', src: 'Source (YAML)', near: 'More in this field', made: 'This drawing comes from one YAML file. No shape was moved by hand.' };
   const near = (byGroup.get(s.group.key) ?? []).filter((x) => x.no !== s.no).slice(0, 8);
+  /**
+   * **前へ・次へ**（2026-09-24。オーナーの指摘「**徘徊機能がない**」）。
+   *
+   * ここまでの作りは、**検索や SNS から 1 枚に降りてくる人**のためのものだった
+   * （見本ごとの `og:image`・パンくず・構造化データ）。
+   * **降りてきた人が隣を見に行く道が無かった。**
+   *
+   * 番号順で、端は輪にする（最後の次は最初）。**344 枚を順に見ていける。**
+   */
+  const at = SAMPLES.findIndex((x) => x.no === s.no);
+  const prev = SAMPLES[(at - 1 + SAMPLES.length) % SAMPLES.length];
+  const next = SAMPLES[(at + 1) % SAMPLES.length];
+  const stepText = (x) => fit(lang === 'ja' ? x.caption : x.en, 28);
+  const steps = `<nav class="steps" aria-label="${lang === 'ja' ? '前後の見本' : 'Previous and next'}">
+    <a class="step prev" href="../${prev.no}/" rel="prev"><span>←</span> ${esc(stepText(prev))}</a>
+    <a class="step index" href="../../${lang === 'ja' ? '' : ''}all/">${lang === 'ja' ? `見本 ${SAMPLES.length} 枚` : `All ${SAMPLES.length}`}</a>
+    <a class="step next" href="../${next.no}/" rel="next">${esc(stepText(next))} <span>→</span></a>
+  </nav>`;
   const body = `<article>
   <p class="crumb">${esc(lang === 'ja' ? s.group.label : GROUPS_EN[s.group.key] ?? s.group.label)}</p>
   <h1>${esc(s.title)}</h1>
-  <p class="lead">${esc(lang === 'ja' ? s.caption : s.en)}</p>
+  <p class="lead">${strong(lang === 'ja' ? s.caption : s.en)}</p>
   <figure>
     <img src="../../${lang === 'ja' ? '' : '../'}gallery/${encodeURIComponent(s.name)}.svg" alt="${esc(lang === 'ja' ? s.alt : s.en)}" loading="lazy">
   </figure>
   <p class="made">${esc(t.made)}</p>
-  ${s.note.length === 0 ? '' : `<h2>${esc(t.note)}</h2>\n  ${s.note.map((p) => `<p>${strong(p)}</p>`).join('\n  ')}`}
+  ${s.note.length === 0 ? '' : `<h2>${esc(t.note)}</h2>\n  ${s.note.map((p) => (typeof p === 'string' ? `<p>${strong(p)}</p>` : tableOf(p.table))).join('\n  ')}`}
   <h2>${esc(t.src)}</h2>
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/${encodeURIComponent(s.name)}.zumen.yaml"><code>examples/gallery/${esc(s.name)}.zumen.yaml</code></a></p>
   ${near.length === 0 ? '' : `<h2>${esc(t.near)}</h2>
   <ul class="near">${near.map((x) => `<li><a href="../${x.no}/">${esc(lang === 'ja' ? x.caption : x.en)}</a></li>`).join('')}</ul>`}
+  ${steps}
 </article>`;
   return shell({
     lang,
@@ -219,7 +351,17 @@ function samplePage(s, lang) {
      */
     image: existsSync(`site/og/${s.no}.png`) ? `${SITE}/og/${s.no}.png` : undefined,
     imageAlt: fit(lang === 'ja' ? s.alt : s.en, 140),
-    up: [{ href: `../../${lang === 'ja' ? '' : ''}c/${s.group.key}/`, text: lang === 'ja' ? s.group.label : GROUPS_EN[s.group.key] ?? s.group.label }],
+    /**
+     * **パンくずは通しで出す**（2026-09-24。オーナーの指摘）。
+     *
+     * 前は `zumen / 分野` の 2 段で、**間の「すべての見本」が抜けていた。**
+     * `/all/` を作ったので、**入口 → すべての見本 → 分野 → この図**が一本に繋がる。
+     * 構造化データ（`BreadcrumbList`）も同じ並びにする。**見える形と食い違わせない。**
+     */
+    up: [
+      { href: `../../all/`, text: lang === 'ja' ? `見本 ${SAMPLES.length} 枚` : `All ${SAMPLES.length}` },
+      { href: `../../c/${s.group.key}/`, text: lang === 'ja' ? s.group.label : GROUPS_EN[s.group.key] ?? s.group.label },
+    ],
     /**
      * **検索結果に出す構造化データ**（2026-09-22。86 周目）。
      *
@@ -259,10 +401,16 @@ function samplePage(s, lang) {
           {
             '@type': 'ListItem',
             position: 2,
+            name: lang === 'ja' ? `見本 ${SAMPLES.length} 枚` : `All ${SAMPLES.length} examples`,
+            item: `${SITE}${lang === 'ja' ? '' : '/en'}/all/`,
+          },
+          {
+            '@type': 'ListItem',
+            position: 3,
             name: lang === 'ja' ? s.group.label : GROUPS_EN[s.group.key] ?? s.group.label,
             item: `${SITE}${lang === 'ja' ? '' : '/en'}/c/${s.group.key}/`,
           },
-          { '@type': 'ListItem', position: 3, name: s.title },
+          { '@type': 'ListItem', position: 4, name: s.title },
         ],
       },
     ],
@@ -271,6 +419,65 @@ function samplePage(s, lang) {
 }
 
 /** 分野 1 つのページ。 */
+/**
+ * **全部が 1 枚に並ぶページ**（`/all/`。2026-09-24）。
+ *
+ * オーナーの指摘 ——「個別ページはありますが、**徘徊機能がないのは意図していますか**」。
+ * **意図していなかった。** 入口は分野ごとの入口で、
+ * **344 枚が 1 枚に並んだページが無かった。**
+ *
+ * 検索から降りてきた人が「**どれだけあるのか**」を一目で掴める場所。
+ * 分野で区切って並べ、**絞り込みはここに載せる**（`site/all.js`）。
+ */
+function allPage(lang) {
+  const desc = lang === 'ja'
+    ? `zumen の見本 ${SAMPLES.length} 枚を 1 枚に並べたページ。分野は ${CATEGORIES.length} つ。題・分野で絞り込めます。`
+    : `All ${SAMPLES.length} zumen examples on one page, across ${CATEGORIES.length} fields. Filter by title or field.`;
+  const body = `<article class="all">
+  <h1>${lang === 'ja' ? `見本 ${SAMPLES.length} 枚` : `All ${SAMPLES.length} examples`}</h1>
+  <p class="lead">${esc(desc)}</p>
+  <div class="sift">
+    <input id="q" type="search" autocomplete="off"
+      placeholder="${lang === 'ja' ? '題や分野で絞る（例: 避難、配線、halftone）' : 'Filter by title or field'}"
+      aria-label="${lang === 'ja' ? '絞り込み' : 'Filter'}">
+    <p id="hit" class="hit" role="status">${lang === 'ja' ? `${SAMPLES.length} 枚` : `${SAMPLES.length} shown`}</p>
+  </div>
+${CATEGORIES.map((g) => {
+  const items = byGroup.get(g.key) ?? [];
+  if (items.length === 0) return '';
+  const label = lang === 'ja' ? g.label : GROUPS_EN[g.key] ?? g.label;
+  return `  <section class="field" data-field="${esc(label)}">
+    <h2><a href="../${lang === 'ja' ? '' : ''}c/${g.key}/">${esc(label)}</a> <small>${items.length}</small></h2>
+    <ul class="cards">
+${items.map((s) => `      <li data-name="${esc(`${s.no} ${s.caption} ${s.en} ${label}`)}"><a href="../${lang === 'ja' ? '' : ''}g/${s.no}/"><img src="../${lang === 'ja' ? '' : '../'}gallery/${encodeURIComponent(s.name)}.svg" alt="${esc(lang === 'ja' ? s.alt : s.en)}"${dims(s)} loading="lazy" decoding="async"><span>${esc(lang === 'ja' ? s.caption : s.en)}</span></a></li>`).join('\n')}
+    </ul>
+  </section>`;
+}).filter(Boolean).join('\n')}
+</article>
+<script src="../${lang === 'ja' ? '' : '../'}all.js" defer></script>`;
+  return shell({
+    lang,
+    path: '/all/',
+    title: lang === 'ja' ? `見本 ${SAMPLES.length} 枚をすべて — zumen` : `All ${SAMPLES.length} examples — zumen`,
+    desc,
+    // 入口は `zumen` のほうが出しているので、ここは現在地だけ。
+    up: [],
+    jsonld: [
+      {
+        '@context': 'https://schema.org',
+        '@type': 'CollectionPage',
+        name: lang === 'ja' ? `zumen の見本 ${SAMPLES.length} 枚` : `All ${SAMPLES.length} zumen examples`,
+        description: desc,
+        url: `${SITE}${lang === 'ja' ? '' : '/en'}/all/`,
+        numberOfItems: SAMPLES.length,
+        inLanguage: lang,
+      },
+      crumbs(lang, [{ name: lang === 'ja' ? `見本 ${SAMPLES.length} 枚` : `All ${SAMPLES.length} examples` }]),
+    ],
+    body,
+  });
+}
+
 function groupPage(group, lang) {
   const items = byGroup.get(group.key) ?? [];
   const label = lang === 'ja' ? group.label : GROUPS_EN[group.key] ?? group.label;
@@ -281,7 +488,7 @@ function groupPage(group, lang) {
   <h1>${esc(label)}</h1>
   <p class="lead">${esc(desc)}</p>
   <ul class="cards">
-${items.map((s) => `    <li><a href="../../${lang === 'ja' ? '' : '../'}g/${s.no}/"><img src="../../${lang === 'ja' ? '' : '../'}gallery/${encodeURIComponent(s.name)}.svg" alt="${esc(lang === 'ja' ? s.alt : s.en)}" loading="lazy"><span>${esc(lang === 'ja' ? s.caption : s.en)}</span></a></li>`).join('\n')}
+${items.map((s) => `    <li><a href="../../${lang === 'ja' ? '' : '../'}g/${s.no}/"><img src="../../${lang === 'ja' ? '' : '../'}gallery/${encodeURIComponent(s.name)}.svg" alt="${esc(lang === 'ja' ? s.alt : s.en)}"${dims(s)} loading="lazy" decoding="async"><span>${esc(lang === 'ja' ? s.caption : s.en)}</span></a></li>`).join('\n')}
   </ul>
 </article>`;
   return shell({
@@ -289,21 +496,27 @@ ${items.map((s) => `    <li><a href="../../${lang === 'ja' ? '' : '../'}g/${s.no
     path: `/c/${group.key}/`,
     title: lang === 'ja' ? `${label}の図面 ${items.length} 枚 — zumen` : `${label} — ${items.length} drawings — zumen`,
     desc,
-    up: [{ href: `../../${lang === 'ja' ? '' : ''}`, text: lang === 'ja' ? 'すべての見本' : 'All examples' }],
-    jsonld: {
-      '@context': 'https://schema.org',
-      '@type': 'CollectionPage',
-      name: label,
-      description: desc,
-      url: `${SITE}${lang === 'ja' ? '' : '/en'}/c/${group.key}/`,
-      inLanguage: lang,
-      hasPart: items.map((s) => ({
-        '@type': 'CreativeWork',
-        name: s.title,
-        url: `${SITE}${lang === 'ja' ? '' : '/en'}/g/${s.no}/`,
-        image: `${SITE}/gallery/${encodeURIComponent(s.name)}.svg`,
-      })),
-    },
+    up: [{ href: `../../all/`, text: lang === 'ja' ? `見本 ${SAMPLES.length} 枚` : `All ${SAMPLES.length}` }],
+    jsonld: [
+      {
+        '@context': 'https://schema.org',
+        '@type': 'CollectionPage',
+        name: label,
+        description: desc,
+        url: `${SITE}${lang === 'ja' ? '' : '/en'}/c/${group.key}/`,
+        inLanguage: lang,
+        hasPart: items.map((s) => ({
+          '@type': 'CreativeWork',
+          name: s.title,
+          url: `${SITE}${lang === 'ja' ? '' : '/en'}/g/${s.no}/`,
+          image: `${SITE}/gallery/${encodeURIComponent(s.name)}.svg`,
+        })),
+      },
+      crumbs(lang, [
+        { name: lang === 'ja' ? `見本 ${SAMPLES.length} 枚` : `All ${SAMPLES.length} examples`, url: `${SITE}${lang === 'ja' ? '' : '/en'}/all/` },
+        { name: label },
+      ]),
+    ],
     body,
   });
 }
@@ -318,10 +531,13 @@ for (const g of CATEGORIES) {
   want.set(`site/c/${g.key}/index.html`, groupPage(g, 'ja'));
   want.set(`site/en/c/${g.key}/index.html`, groupPage(g, 'en'));
 }
+want.set('site/all/index.html', allPage('ja'));
+want.set('site/en/all/index.html', allPage('en'));
 
 /** sitemap。**ページだけ出す**（図の SVG は図であってページではない）。 */
 const urls = [
   { ja: `${SITE}/`, en: `${SITE}/en/` },
+  { ja: `${SITE}/all/`, en: `${SITE}/en/all/` },
   ...CATEGORIES.map((g) => ({ ja: `${SITE}/c/${g.key}/`, en: `${SITE}/en/c/${g.key}/` })),
   ...SAMPLES.map((s) => ({ ja: `${SITE}/g/${s.no}/`, en: `${SITE}/en/g/${s.no}/` })),
 ];

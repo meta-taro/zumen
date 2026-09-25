@@ -70,12 +70,18 @@
       {
         "@type": "ListItem",
         "position": 2,
+        "name": "見本 352 枚",
+        "item": "https://meta-taro.github.io/zumen/all/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
         "name": "楽器・音響",
         "item": "https://meta-taro.github.io/zumen/c/ongaku/"
       },
       {
         "@type": "ListItem",
-        "position": 3,
+        "position": 4,
         "name": "マイクの指向性（3 つは、1 つの式の両端と真ん中）"
       }
     ]
@@ -85,8 +91,14 @@
 </head>
 <body class="sub">
 <header class="bar">
-  <a class="home" href="../../">zumen</a>
-  <nav><a href="../../c/ongaku/">楽器・音響</a></nav>
+  <!--
+    パンくず（2026-09-24）。入口から現在地まで一本で出す。
+    aria-label を付けて、読み上げでも「ここは道案内」と分かるようにする。
+    区切りの記号は aria-hidden（読み上げると邪魔なだけ）。
+  -->
+  <nav class="crumbs" aria-label="パンくず">
+    <a class="home" href="../../">zumen</a><span aria-hidden="true">›</span><a href="../../all/">見本 352 枚</a><span aria-hidden="true">›</span><a href="../../c/ongaku/">楽器・音響</a>
+  </nav>
 </header>
 <main>
 <article>
@@ -112,6 +124,11 @@
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/327-%E3%83%9E%E3%82%A4%E3%82%AF%E3%81%AE%E6%8C%87%E5%90%91%E6%80%A7.zumen.yaml"><code>examples/gallery/327-マイクの指向性.zumen.yaml</code></a></p>
   <h2>同じ分野の見本</h2>
   <ul class="near"><li><a href="../204/">フレット（等間隔ではない。12 でちょうど半分）</a></li><li><a href="../205/">初期反射（遅れは、距離の差そのもの。1ms ＝ 0.34m）</a></li><li><a href="../206/">ピアノ（ハンマーは、最後は誰も押していない）</a></li><li><a href="../210/">楽譜（五線の間隔が、すべての寸法の単位）</a></li><li><a href="../310/">ギターのフレット位置（等分するのは、差ではなく比）</a></li><li><a href="../311/">ピアノの鍵盤（88 は、7 オクターブ ＋ 4 鍵）</a></li><li><a href="../317/">オーケストラの配置（配置そのものが、音量の調整）</a></li><li><a href="../343/">ミキサーの信号の道（順番が音を決める）</a></li></ul>
+  <nav class="steps" aria-label="前後の見本">
+    <a class="step prev" href="../326/" rel="prev"><span>←</span> 半導体ができるまで（真ん中の 3 つは…</a>
+    <a class="step index" href="../../all/">見本 352 枚</a>
+    <a class="step next" href="../328/" rel="next">ゼーゲルコーン（温度ではなく、熱量を読む） <span>→</span></a>
+  </nav>
 </article>
 </main>
 <footer class="foot">

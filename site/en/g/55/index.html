@@ -70,12 +70,18 @@
       {
         "@type": "ListItem",
         "position": 2,
+        "name": "All 352 examples",
+        "item": "https://meta-taro.github.io/zumen/en/all/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
         "name": "Work and organisations",
         "item": "https://meta-taro.github.io/zumen/en/c/gyomu/"
       },
       {
         "@type": "ListItem",
-        "position": 3,
+        "position": 4,
         "name": "第三中学校 3 年 2 組 時間割（2026 年度 2 学期）"
       }
     ]
@@ -85,8 +91,14 @@
 </head>
 <body class="sub">
 <header class="bar">
-  <a class="home" href="../../../">zumen</a>
-  <nav><a href="../../c/gyomu/">Work and organisations</a></nav>
+  <!--
+    パンくず（2026-09-24）。入口から現在地まで一本で出す。
+    aria-label を付けて、読み上げでも「ここは道案内」と分かるようにする。
+    区切りの記号は aria-hidden（読み上げると邪魔なだけ）。
+  -->
+  <nav class="crumbs" aria-label="Breadcrumb">
+    <a class="home" href="../../../">zumen</a><span aria-hidden="true">›</span><a href="../../all/">All 352</a><span aria-hidden="true">›</span><a href="../../c/gyomu/">Work and organisations</a>
+  </nav>
 </header>
 <main>
 <article>
@@ -105,6 +117,11 @@
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/55-%E5%AD%A6%E6%A0%A1%E3%81%AE%E6%99%82%E9%96%93%E5%89%B2.zumen.yaml"><code>examples/gallery/55-学校の時間割.zumen.yaml</code></a></p>
   <h2>More in this field</h2>
   <ul class="near"><li><a href="../05/">From order to shipment: credit check, stock allocation, picking instruction, packing and despatch, with the owner of each step</a></li><li><a href="../07/">The route a written proposal takes through each rank of approval, including the conditions that send it back</a></li><li><a href="../11/">How an article gets made — commissioning, interview, writing, subediting, typesetting, publication — and the loops back when it is sent for rework</a></li><li><a href="../13/">The path from application to enrolment — examination, results, admission procedures — with the deadline on every step</a></li><li><a href="../16/">An exhibition hall divided into booths, with aisle widths and the position of reception, meeting space and the goods entrance</a></li><li><a href="../20/">A company organisation chart down to section level, with headcount and remit written on each box</a></li><li><a href="../31/">Seating plan, sixty seats and two wheelchair spaces</a></li><li><a href="../64/">A sports hall opened by the week: time bands per day allocated between clubs, groups and individual use</a></li></ul>
+  <nav class="steps" aria-label="Previous and next">
+    <a class="step prev" href="../54/" rel="prev"><span>←</span> Interchange guide with stati…</a>
+    <a class="step index" href="../../all/">All 352</a>
+    <a class="step next" href="../56/" rel="next">A bus stop timetable in thre… <span>→</span></a>
+  </nav>
 </article>
 </main>
 <footer class="foot">

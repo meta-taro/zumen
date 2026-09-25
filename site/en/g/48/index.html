@@ -70,12 +70,18 @@
       {
         "@type": "ListItem",
         "position": 2,
+        "name": "All 352 examples",
+        "item": "https://meta-taro.github.io/zumen/en/all/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
         "name": "IT and software",
         "item": "https://meta-taro.github.io/zumen/en/c/it/"
       },
       {
         "@type": "ListItem",
-        "position": 3,
+        "position": 4,
         "name": "ユースケース図（通販サイト・UML）"
       }
     ]
@@ -85,8 +91,14 @@
 </head>
 <body class="sub">
 <header class="bar">
-  <a class="home" href="../../../">zumen</a>
-  <nav><a href="../../c/it/">IT and software</a></nav>
+  <!--
+    パンくず（2026-09-24）。入口から現在地まで一本で出す。
+    aria-label を付けて、読み上げでも「ここは道案内」と分かるようにする。
+    区切りの記号は aria-hidden（読み上げると邪魔なだけ）。
+  -->
+  <nav class="crumbs" aria-label="Breadcrumb">
+    <a class="home" href="../../../">zumen</a><span aria-hidden="true">›</span><a href="../../all/">All 352</a><span aria-hidden="true">›</span><a href="../../c/it/">IT and software</a>
+  </nav>
 </header>
 <main>
 <article>
@@ -105,6 +117,11 @@
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/48-%E3%83%A6%E3%83%BC%E3%82%B9%E3%82%B1%E3%83%BC%E3%82%B9%E5%9B%B3.zumen.yaml"><code>examples/gallery/48-ユースケース図.zumen.yaml</code></a></p>
   <h2>More in this field</h2>
   <ul class="near"><li><a href="../01/">An on-premise server layout rack by rack, with the redundant power feeds and network links drawn as separate paths</a></li><li><a href="../02/">A cloud architecture showing the VPC and its subnets, and where the load balancer, application, database and object store sit</a></li><li><a href="../03/">Where data goes from collection through transformation, storage and aggregation to display, and what kind of container holds it at each step</a></li><li><a href="../04/">A network layout of the links and equipment between sites, with the address range carried by each segment</a></li><li><a href="../21/">An order management ER diagram with primary and foreign keys, and the one-to-many relationships drawn as crow feet</a></li><li><a href="../26/">A server room where racks face each other to make hot and cold aisles, with the clearance of each aisle written in</a></li><li><a href="../46/">A UML class diagram where inheritance, realisation, association and aggregation are told apart by line type and end symbol</a></li><li><a href="../47/">A UML state machine with transitions, the events and guards that fire them, and the pseudostates that begin and end it</a></li></ul>
+  <nav class="steps" aria-label="Previous and next">
+    <a class="step prev" href="../47/" rel="prev"><span>←</span> A UML state machine with tra…</a>
+    <a class="step index" href="../../all/">All 352</a>
+    <a class="step next" href="../49/" rel="next">A UML activity diagram from… <span>→</span></a>
+  </nav>
 </article>
 </main>
 <footer class="foot">

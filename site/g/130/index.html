@@ -6,18 +6,18 @@
 <title>法定相続情報一覧図（被相続人 甲野太郎 法定相続情報／架空） — zumen の見本 130</title>
 <link rel="icon" type="image/svg+xml" href="../../icon.svg">
 <meta name="theme-color" content="#23232b">
-<meta name="description" content="法定相続情報一覧図（下から 5 cm は認証文が入るので空ける）。| | 法定相続情報一覧図 | 相続関係説明図 ||---|---|---|| 何か | 法務局が認証する証明書 | 申請内容を説明する図 || 証明力 | ある | 無い || 数次相続 | 個別の相続だけ | 全部書くことがある…">
+<meta name="description" content="法定相続情報一覧図（下から 5 cm は認証文が入るので空ける）。A4 縦。長期保存に耐える丈夫な白紙。用紙の下から 5 cm には、法務局の認証文が入る —— ここには何も書かない。1 px ＝ 0.5 mm なので、下の帯 100 px がその 5 cm。">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="zumen">
 <meta property="og:locale" content="ja_JP">
 <meta property="og:url" content="https://meta-taro.github.io/zumen/g/130/">
 <meta property="og:title" content="法定相続情報一覧図（被相続人 甲野太郎 法定相続情報／架空） — zumen の見本 130">
-<meta property="og:description" content="法定相続情報一覧図（下から 5 cm は認証文が入るので空ける）。| | 法定相続情報一覧図 | 相続関係説明図 ||---|---|---|| 何か | 法務局が認証する証明書 | 申請内容を説明する図 || 証明力 | ある | 無い || 数次相続 | 個別の相続だけ | 全部書くことがある…">
+<meta property="og:description" content="法定相続情報一覧図（下から 5 cm は認証文が入るので空ける）。A4 縦。長期保存に耐える丈夫な白紙。用紙の下から 5 cm には、法務局の認証文が入る —— ここには何も書かない。1 px ＝ 0.5 mm なので、下の帯 100 px がその 5 cm。">
 <meta property="og:image" content="https://meta-taro.github.io/zumen/og/130.png">
 <meta property="og:image:alt" content="法定相続情報一覧図（法務局が認証する証明書。架空）">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="法定相続情報一覧図（被相続人 甲野太郎 法定相続情報／架空） — zumen の見本 130">
-<meta name="twitter:description" content="法定相続情報一覧図（下から 5 cm は認証文が入るので空ける）。| | 法定相続情報一覧図 | 相続関係説明図 ||---|---|---|| 何か | 法務局が認証する証明書 | 申請内容を説明する図 || 証明力 | ある | 無い || 数次相続 | 個別の相続だけ | 全部書くことがある…">
+<meta name="twitter:description" content="法定相続情報一覧図（下から 5 cm は認証文が入るので空ける）。A4 縦。長期保存に耐える丈夫な白紙。用紙の下から 5 cm には、法務局の認証文が入る —— ここには何も書かない。1 px ＝ 0.5 mm なので、下の帯 100 px がその 5 cm。">
 <meta name="twitter:image" content="https://meta-taro.github.io/zumen/og/130.png">
 <meta name="twitter:image:alt" content="法定相続情報一覧図（法務局が認証する証明書。架空）">
 <link rel="stylesheet" href="../../style.css">
@@ -35,7 +35,7 @@
     "@type": "CreativeWork",
     "name": "法定相続情報一覧図（被相続人 甲野太郎 法定相続情報／架空）",
     "headline": "法定相続情報一覧図（被相続人 甲野太郎 法定相続情報／架空）",
-    "description": "法定相続情報一覧図（下から 5 cm は認証文が入るので空ける）。| | 法定相続情報一覧図 | 相続関係説明図 ||---|---|---|| 何か | 法務局が認証する証明書 | 申請内容を説明する図 || 証明力 | ある | 無い || 数次相続 | 個別の相続だけ | 全部書くことがある…",
+    "description": "法定相続情報一覧図（下から 5 cm は認証文が入るので空ける）。A4 縦。長期保存に耐える丈夫な白紙。用紙の下から 5 cm には、法務局の認証文が入る —— ここには何も書かない。1 px ＝ 0.5 mm なので、下の帯 100 px がその 5 cm。",
     "url": "https://meta-taro.github.io/zumen/g/130/",
     "image": {
       "@type": "ImageObject",
@@ -70,12 +70,18 @@
       {
         "@type": "ListItem",
         "position": 2,
+        "name": "見本 352 枚",
+        "item": "https://meta-taro.github.io/zumen/all/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
         "name": "業務・組織",
         "item": "https://meta-taro.github.io/zumen/c/gyomu/"
       },
       {
         "@type": "ListItem",
-        "position": 3,
+        "position": 4,
         "name": "法定相続情報一覧図（被相続人 甲野太郎 法定相続情報／架空）"
       }
     ]
@@ -85,8 +91,14 @@
 </head>
 <body class="sub">
 <header class="bar">
-  <a class="home" href="../../">zumen</a>
-  <nav><a href="../../c/gyomu/">業務・組織</a></nav>
+  <!--
+    パンくず（2026-09-24）。入口から現在地まで一本で出す。
+    aria-label を付けて、読み上げでも「ここは道案内」と分かるようにする。
+    区切りの記号は aria-hidden（読み上げると邪魔なだけ）。
+  -->
+  <nav class="crumbs" aria-label="パンくず">
+    <a class="home" href="../../">zumen</a><span aria-hidden="true">›</span><a href="../../all/">見本 352 枚</a><span aria-hidden="true">›</span><a href="../../c/gyomu/">業務・組織</a>
+  </nav>
 </header>
 <main>
 <article>
@@ -99,7 +111,10 @@
   <p class="made">この図は、下の 1 枚の YAML から描かれています。手で図形を動かしてはいません。</p>
   <h2>正本に書いてある決まりごと</h2>
   <p><strong>法務局が認証文を付けて交付する、公的な証明書。</strong>これがあると、相続手続きの申請先ごとに戸籍謄本を出さずに済む。</p>
-  <p>| | 法定相続情報一覧図 | 相続関係説明図 ||---|---|---|| 何か | <strong>法務局が認証する証明書</strong> | 申請内容を説明する図 || 証明力 | <strong>ある</strong> | <strong>無い</strong> || 数次相続 | 個別の相続だけ | 全部書くことがある |</p>
+  <table class="note">
+  <thead><tr><th></th><th>法定相続情報一覧図</th><th>相続関係説明図</th></tr></thead>
+  <tbody><tr><td>何か</td><td><strong>法務局が認証する証明書</strong></td><td>申請内容を説明する図</td></tr><tr><td>証明力</td><td><strong>ある</strong></td><td><strong>無い</strong></td></tr><tr><td>数次相続</td><td>個別の相続だけ</td><td>全部書くことがある</td></tr></tbody>
+</table>
   <p><strong>A4 縦。長期保存に耐える丈夫な白紙。</strong><strong>用紙の下から 5 cm には、法務局の認証文が入る</strong> —— ここには何も書かない。1 px ＝ 0.5 mm なので、下の帯 100 px がその 5 cm。</p>
   <p><strong>配偶者と被相続人は二重線、子は単線。</strong> 戸籍の記載どおりに書く。<strong>相続放棄した人も書く</strong>（相続しないことになった人を落とさない）。</p>
   <p>人の欄は中に何行も入るので、枠の名前を中央に置くと中身に乗る（D29）。<strong>枠は名前を持たず、氏名は中の 1 行目として置く。</strong></p>
@@ -108,6 +123,11 @@
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/130-%E6%B3%95%E5%AE%9A%E7%9B%B8%E7%B6%9A%E6%83%85%E5%A0%B1%E4%B8%80%E8%A6%A7%E5%9B%B3.zumen.yaml"><code>examples/gallery/130-法定相続情報一覧図.zumen.yaml</code></a></p>
   <h2>同じ分野の見本</h2>
   <ul class="near"><li><a href="../05/">受注から出荷まで</a></li><li><a href="../07/">稟議の流れ</a></li><li><a href="../11/">記事ができるまで</a></li><li><a href="../13/">入学までの流れ</a></li><li><a href="../16/">展示会の会場</a></li><li><a href="../20/">組織図（2026 年度）</a></li><li><a href="../31/">座席図（60 席・車椅子 2）</a></li><li><a href="../55/">学校の時間割（週の表）</a></li></ul>
+  <nav class="steps" aria-label="前後の見本">
+    <a class="step prev" href="../129/" rel="prev"><span>←</span> 家紋の割り出し（分廻しで半径を円周に回す）</a>
+    <a class="step index" href="../../all/">見本 352 枚</a>
+    <a class="step next" href="../131/" rel="next">刺網の網図（縮めて仕立てるから、目が開く） <span>→</span></a>
+  </nav>
 </article>
 </main>
 <footer class="foot">

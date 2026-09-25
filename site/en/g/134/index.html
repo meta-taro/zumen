@@ -70,12 +70,18 @@
       {
         "@type": "ListItem",
         "position": 2,
+        "name": "All 352 examples",
+        "item": "https://meta-taro.github.io/zumen/en/all/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
         "name": "Building and civil",
         "item": "https://meta-taro.github.io/zumen/en/c/kenchiku/"
       },
       {
         "@type": "ListItem",
-        "position": 3,
+        "position": 4,
         "name": "梁の配筋図（G1・断面と側面／架空）"
       }
     ]
@@ -85,8 +91,14 @@
 </head>
 <body class="sub">
 <header class="bar">
-  <a class="home" href="../../../">zumen</a>
-  <nav><a href="../../c/kenchiku/">Building and civil</a></nav>
+  <!--
+    パンくず（2026-09-24）。入口から現在地まで一本で出す。
+    aria-label を付けて、読み上げでも「ここは道案内」と分かるようにする。
+    区切りの記号は aria-hidden（読み上げると邪魔なだけ）。
+  -->
+  <nav class="crumbs" aria-label="Breadcrumb">
+    <a class="home" href="../../../">zumen</a><span aria-hidden="true">›</span><a href="../../all/">All 352</a><span aria-hidden="true">›</span><a href="../../c/kenchiku/">Building and civil</a>
+  </nav>
 </header>
 <main>
 <article>
@@ -99,7 +111,9 @@
   <p class="made">This drawing comes from one YAML file. No shape was moved by hand.</p>
   <h2>What the source says</h2>
   <p><strong>検査で見るのはこの図。</strong> コンクリートを打つ前に、鉄筋が図のとおりかを確かめる。打ってしまえば中は見えないので、<strong>打設前がやり直せる最後の時</strong>になる。</p>
-  <p>| | ||---|---|| `D22` | 鉄筋の径（異形鉄筋 22 mm） || `4-D22` | <strong>D22 が 4 本</strong> || `@200` | 配置の間隔 200 mm || `40d` | 径の 40 倍（D22 なら 880 mm）。定着と重ね継手の長さ |</p>
+  <table class="note bare">
+  <tbody><tr><td><code>D22</code></td><td>鉄筋の径（異形鉄筋 22 mm）</td></tr><tr><td><code>4-D22</code></td><td><strong>D22 が 4 本</strong></td></tr><tr><td><code>@200</code></td><td>配置の間隔 200 mm</td></tr><tr><td><code>40d</code></td><td>径の 40 倍（D22 なら 880 mm）。定着と重ね継手の長さ</td></tr></tbody>
+</table>
   <p><strong>コンクリート表面から、いちばん外側の鉄筋の表面まで。</strong>梁ではあばら筋が外側にあるので、<strong>あばら筋の外面から測る。</strong>主筋から測ると、あばら筋の径のぶん足りなくなる。</p>
   <p>せん断力は端部で大きいので、あばら筋は<strong>端を詰めて中央を空ける</strong>（@100 / @200）。一定間隔で並べると、いちばん要る所が足りない。</p>
   <p><strong>断面は 1 px ＝ 4 mm、側面は 1 px ＝ 20 mm。</strong>同じ梁でも、断面は鉄筋の並びを、側面は長さ方向の配置を見せるので、<strong>要る細かさが違う</strong>（views。D35）。</p>
@@ -107,6 +121,11 @@
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/134-%E6%A2%81%E3%81%AE%E9%85%8D%E7%AD%8B%E5%9B%B3.zumen.yaml"><code>examples/gallery/134-梁の配筋図.zumen.yaml</code></a></p>
   <h2>More in this field</h2>
   <ul class="near"><li><a href="../14/">A two-bedroom apartment plan with room dimensions, which way each door swings, and where the wet rooms and storage sit</a></li><li><a href="../17/">A reinforced concrete framing plan for a second floor, with the grid lines and the mark of every column, girder, beam and slab</a></li><li><a href="../24/">School floor plan (walls, door swings, grid lines, dimensions)</a></li><li><a href="../27/">A farmland consolidation plan laying out 30-are plots, with the irrigation channels, the drainage channels and the farm roads that serve them</a></li><li><a href="../28/">The plan of a concrete gravity dam: the body, the spillway, the intake works and the access road for maintenance</a></li><li><a href="../30/">Site logistics plan with the crane radius</a></li><li><a href="../32/">The typical floor of a business hotel with twelve rooms, the corridor, the fire stairs and the lifts</a></li><li><a href="../33/">A surface car park set out for fourteen cars, with bay dimensions, aisle width and where the entrance and exit sit</a></li></ul>
+  <nav class="steps" aria-label="Previous and next">
+    <a class="step prev" href="../133/" rel="prev"><span>←</span> Polling station: three ballo…</a>
+    <a class="step index" href="../../all/">All 352</a>
+    <a class="step next" href="../135/" rel="next">Industrial pattern: cloth ca… <span>→</span></a>
+  </nav>
 </article>
 </main>
 <footer class="foot">

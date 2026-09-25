@@ -70,12 +70,18 @@
       {
         "@type": "ListItem",
         "position": 2,
+        "name": "見本 352 枚",
+        "item": "https://meta-taro.github.io/zumen/all/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
         "name": "設備・電気",
         "item": "https://meta-taro.github.io/zumen/c/setsubi/"
       },
       {
         "@type": "ListItem",
-        "position": 3,
+        "position": 4,
         "name": "配光曲線と照度計算（lm は器具の話、lx は机の上の話）"
       }
     ]
@@ -85,8 +91,14 @@
 </head>
 <body class="sub">
 <header class="bar">
-  <a class="home" href="../../">zumen</a>
-  <nav><a href="../../c/setsubi/">設備・電気</a></nav>
+  <!--
+    パンくず（2026-09-24）。入口から現在地まで一本で出す。
+    aria-label を付けて、読み上げでも「ここは道案内」と分かるようにする。
+    区切りの記号は aria-hidden（読み上げると邪魔なだけ）。
+  -->
+  <nav class="crumbs" aria-label="パンくず">
+    <a class="home" href="../../">zumen</a><span aria-hidden="true">›</span><a href="../../all/">見本 352 枚</a><span aria-hidden="true">›</span><a href="../../c/setsubi/">設備・電気</a>
+  </nav>
 </header>
 <main>
 <article>
@@ -100,14 +112,19 @@
   <h2>正本に書いてある決まりごと</h2>
   <p><strong>配光曲線は、方向ごとの光度（cd）を、下向きに開いた極座標で読む図。</strong>同じ「40W 相当」でも、<strong>集光は真下 2,500cd・60° で 39cd</strong>、<strong>拡散は真下 1,000cd・60° でも 500cd</strong> —— 全部足した量（lm）が同じでも、机の上の明るさは別物になる。</p>
   <p><strong>単位が 4 つあるのは、測る場所が違うから。</strong> 光束 lm は器具から出ていく総量、光度 cd はある向きへの強さ、照度 lx は面が受け取った量、輝度 cd/m² は目に見えるまぶしさ。<strong>買うときに見るのは lm、設計で要るのは lx</strong> —— 配光曲線は、その 2 つをつなぐ唯一の資料。</p>
-  <p><strong>逐点法。</strong> `E ＝ I × cosθ ÷ R²` —— 高さ 2.5m の集光器具なら、真下 400lx が <strong>1.4m 横へずれただけで 110lx</strong>（4 分の 1）。落ちる原因は、距離の 2 乗と、斜めに当たる cos の 2 つ。</p>
-  <p><strong>光束法。</strong> `E ＝ F × N × U × M ÷ A` —— 5,000lm のシーリング 1 台で 12 畳（20m²）なら<strong>120lx</strong>。U（照明率）と M（保守率）で、<strong>出した光の半分は着く前に消える。</strong></p>
+  <p><strong>逐点法。</strong> <code>E ＝ I × cosθ ÷ R²</code> —— 高さ 2.5m の集光器具なら、真下 400lx が <strong>1.4m 横へずれただけで 110lx</strong>（4 分の 1）。落ちる原因は、距離の 2 乗と、斜めに当たる cos の 2 つ。</p>
+  <p><strong>光束法。</strong> <code>E ＝ F × N × U × M ÷ A</code> —— 5,000lm のシーリング 1 台で 12 畳（20m²）なら<strong>120lx</strong>。U（照明率）と M（保守率）で、<strong>出した光の半分は着く前に消える。</strong></p>
   <p><strong>要る明るさは、部屋ではなく作業で決まる。</strong><strong>JIS Z 9110 は 2024 年の改正で総則だけになり、屋内の数値は JIS Z 9125:2023 へ移った</strong> ——古い早見表は「JIS Z 9110 の表」として同じ数字を載せているが、いまの出どころは Z 9125。事務室 750lx・会議室 500lx に対して、<strong>居間の全般は 50lx</strong> —— 団らん 200lx、読書 500lx。<strong>手元だけ 500lx にして部屋は暗いままにする</strong>のがタスク・アンビエントで、1 灯で部屋ぜんぶを明るくする方法では、この差を作れない。</p>
   <p><strong>JIS Z 9110 は改正をまたいで指しているので、版を付けていない</strong>（版は確かめていない）。数値の出どころは JIS Z 9125:2023 のほう。</p>
   <h2>正本（YAML）</h2>
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/264-%E9%85%8D%E5%85%89%E6%9B%B2%E7%B7%9A%E3%81%A8%E7%85%A7%E5%BA%A6%E8%A8%88%E7%AE%97.zumen.yaml"><code>examples/gallery/264-配光曲線と照度計算.zumen.yaml</code></a></p>
   <h2>同じ分野の見本</h2>
   <ul class="near"><li><a href="../06/">住宅の電気系統</a></li><li><a href="../10/">住宅の給排水</a></li><li><a href="../18/">配管の系統（P&amp;amp;ID）</a></li><li><a href="../19/">受変電の結線（単線結線図）</a></li><li><a href="../35/">配水系統図（上水道）</a></li><li><a href="../38/">計装ループ図（TIC-101）</a></li><li><a href="../44/">人工衛星の系統図（150kg 級）</a></li><li><a href="../50/">電子回路図（IEC／JIS 記号）</a></li></ul>
+  <nav class="steps" aria-label="前後の見本">
+    <a class="step prev" href="../263/" rel="prev"><span>←</span> 加湿器（違うのは、蒸発させる熱をどこから取るか）</a>
+    <a class="step index" href="../../all/">見本 352 枚</a>
+    <a class="step next" href="../265/" rel="next">建具の開き勝手（弧 1 本が、部屋の使い方を決める） <span>→</span></a>
+  </nav>
 </article>
 </main>
 <footer class="foot">

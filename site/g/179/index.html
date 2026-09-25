@@ -70,12 +70,18 @@
       {
         "@type": "ListItem",
         "position": 2,
+        "name": "見本 352 枚",
+        "item": "https://meta-taro.github.io/zumen/all/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
         "name": "催し・遊び",
         "item": "https://meta-taro.github.io/zumen/c/moyooshi/"
       },
       {
         "@type": "ListItem",
-        "position": 3,
+        "position": 4,
         "name": "革靴の型紙（木型からの展開・架空の設計）"
       }
     ]
@@ -85,8 +91,14 @@
 </head>
 <body class="sub">
 <header class="bar">
-  <a class="home" href="../../">zumen</a>
-  <nav><a href="../../c/moyooshi/">催し・遊び</a></nav>
+  <!--
+    パンくず（2026-09-24）。入口から現在地まで一本で出す。
+    aria-label を付けて、読み上げでも「ここは道案内」と分かるようにする。
+    区切りの記号は aria-hidden（読み上げると邪魔なだけ）。
+  -->
+  <nav class="crumbs" aria-label="パンくず">
+    <a class="home" href="../../">zumen</a><span aria-hidden="true">›</span><a href="../../all/">見本 352 枚</a><span aria-hidden="true">›</span><a href="../../c/moyooshi/">催し・遊び</a>
+  </nav>
 </header>
 <main>
 <article>
@@ -105,6 +117,11 @@
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/179-%E9%9D%A9%E9%9D%B4%E3%81%AE%E5%9E%8B%E7%B4%99.zumen.yaml"><code>examples/gallery/179-革靴の型紙.zumen.yaml</code></a></p>
   <h2>同じ分野の見本</h2>
   <ul class="near"><li><a href="../66/">囲碁の棋譜（19 路・布石）</a></li><li><a href="../67/">将棋の局面図（平手初形）</a></li><li><a href="../68/">チェスの局面図（初期配置）</a></li><li><a href="../69/">ビンゴカード（5×5）</a></li><li><a href="../70/">リバーシの局面図（初期配置）</a></li><li><a href="../77/">舞台照明仕込図（図＋チャンネル一覧）</a></li><li><a href="../96/">オーケストラの配置（対向と現代を並べる）</a></li><li><a href="../101/">PA 配置図（距離が時間になる）</a></li></ul>
+  <nav class="steps" aria-label="前後の見本">
+    <a class="step prev" href="../178/" rel="prev"><span>←</span> 靴のサイズ（25.0 の EE と 26.0 の E は…</a>
+    <a class="step index" href="../../all/">見本 352 枚</a>
+    <a class="step next" href="../180/" rel="next">継手と仕口（引かれるほど締まる。番付で材を呼ぶ） <span>→</span></a>
+  </nav>
 </article>
 </main>
 <footer class="foot">

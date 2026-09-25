@@ -70,12 +70,18 @@
       {
         "@type": "ListItem",
         "position": 2,
+        "name": "見本 352 枚",
+        "item": "https://meta-taro.github.io/zumen/all/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
         "name": "建築・土木",
         "item": "https://meta-taro.github.io/zumen/c/kenchiku/"
       },
       {
         "@type": "ListItem",
-        "position": 3,
+        "position": 4,
         "name": "販売図面（英語表記・グレースケール／架空）"
       }
     ]
@@ -85,8 +91,14 @@
 </head>
 <body class="sub">
 <header class="bar">
-  <a class="home" href="../../">zumen</a>
-  <nav><a href="../../c/kenchiku/">建築・土木</a></nav>
+  <!--
+    パンくず（2026-09-24）。入口から現在地まで一本で出す。
+    aria-label を付けて、読み上げでも「ここは道案内」と分かるようにする。
+    区切りの記号は aria-hidden（読み上げると邪魔なだけ）。
+  -->
+  <nav class="crumbs" aria-label="パンくず">
+    <a class="home" href="../../">zumen</a><span aria-hidden="true">›</span><a href="../../all/">見本 352 枚</a><span aria-hidden="true">›</span><a href="../../c/kenchiku/">建築・土木</a>
+  </nav>
 </header>
 <main>
 <article>
@@ -101,11 +113,16 @@
   <p><strong>同じ間取りでも、売り場が違えば別の図になる。</strong></p>
   <p>見本 166 は色で用途を分けた版（買う人の下見）。こちらは<strong>無彩色の英語表記</strong>で、高級賃貸のリーシング図面・海外向けの資料に使われる形。</p>
   <p>効いているのは 4 つ。<strong>壁を面で見せる</strong>（太さ 2 段：外壁 150mm・間仕切 100mm）、<strong>部屋は白のまま</strong>（面を敷くのは Living だけ）、<strong>家具を描かない</strong>（置き家具は買う人が決める。描くと間取りの話でなくなる）、<strong>面積を㎡・帖（J）・坪（T）の 3 つで言う</strong>。</p>
-  <p>色は無彩色 2 つだけ。線に \`color\`（Wall・Fixture）、面に \`fill\`（Living）。1 px = 20 mm。間取り・面積・物件は架空。</p>
+  <p>色は無彩色 2 つだけ。線に \<code>color\</code>（Wall・Fixture）、面に \<code>fill\</code>（Living）。1 px = 20 mm。間取り・面積・物件は架空。</p>
   <h2>正本（YAML）</h2>
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/173-%E8%B2%A9%E5%A3%B2%E5%9B%B3%E9%9D%A2-%E8%8B%B1%E8%AA%9E%E8%A1%A8%E8%A8%98.zumen.yaml"><code>examples/gallery/173-販売図面-英語表記.zumen.yaml</code></a></p>
   <h2>同じ分野の見本</h2>
   <ul class="near"><li><a href="../14/">間取り（2LDK・1 階）</a></li><li><a href="../17/">躯体の伏図（RC 造・2 階床）</a></li><li><a href="../24/">校舎の平面図（小学校 3 階）</a></li><li><a href="../27/">ほ場整備の平面図（30a 区画）</a></li><li><a href="../28/">ダムの平面図（重力式）</a></li><li><a href="../30/">総合仮設計画図（クレーンの作業半径つき）</a></li><li><a href="../32/">ホテルの基準階（客室 12 室）</a></li><li><a href="../33/">駐車場の区画割（14 台）</a></li></ul>
+  <nav class="steps" aria-label="前後の見本">
+    <a class="step prev" href="../172/" rel="prev"><span>←</span> 宮殿の続き間（どこまで通されるかが、身分そのもの）</a>
+    <a class="step index" href="../../all/">見本 352 枚</a>
+    <a class="step next" href="../174/" rel="next">送電線路の縦断面図（電線は垂れる… <span>→</span></a>
+  </nav>
 </article>
 </main>
 <footer class="foot">

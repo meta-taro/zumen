@@ -70,12 +70,18 @@
       {
         "@type": "ListItem",
         "position": 2,
+        "name": "All 352 examples",
+        "item": "https://meta-taro.github.io/zumen/en/all/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
         "name": "UI and screen design",
         "item": "https://meta-taro.github.io/zumen/en/c/ui/"
       },
       {
         "@type": "ListItem",
-        "position": 3,
+        "position": 4,
         "name": "LP の UI 構造（Desktop / Tablet / Mobile で Section 構造が変わる）"
       }
     ]
@@ -85,8 +91,14 @@
 </head>
 <body class="sub">
 <header class="bar">
-  <a class="home" href="../../../">zumen</a>
-  <nav><a href="../../c/ui/">UI and screen design</a></nav>
+  <!--
+    パンくず（2026-09-24）。入口から現在地まで一本で出す。
+    aria-label を付けて、読み上げでも「ここは道案内」と分かるようにする。
+    区切りの記号は aria-hidden（読み上げると邪魔なだけ）。
+  -->
+  <nav class="crumbs" aria-label="Breadcrumb">
+    <a class="home" href="../../../">zumen</a><span aria-hidden="true">›</span><a href="../../all/">All 352</a><span aria-hidden="true">›</span><a href="../../c/ui/">UI and screen design</a>
+  </nav>
 </header>
 <main>
 <article>
@@ -105,6 +117,11 @@
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/88-%E3%83%AC%E3%82%B9%E3%83%9D%E3%83%B3%E3%82%B7%E3%83%96LP%E3%81%AEUI%E6%A7%8B%E9%80%A0.zumen.yaml"><code>examples/gallery/88-レスポンシブLPのUI構造.zumen.yaml</code></a></p>
   <h2>More in this field</h2>
   <ul class="near"><li><a href="../74/">Product page structure, desktop against mobile</a></li><li><a href="../75/">Screen flow with the wireframes drawn in</a></li><li><a href="../76/">The same admin screen at desktop, tablet and mobile, where the sidebar turns into a drawer rather than simply shrinking</a></li><li><a href="../85/">Checkout flow, five steps and where errors return to</a></li><li><a href="../86/">CRUD admin flow: delete goes through a confirmation</a></li><li><a href="../87/">A mobile app with five bottom navigation tabs, and what each tab holds and where it can go from there</a></li><li><a href="../312/">Draw a component tree per screen and the same component keeps reappearing; the real structure is a net, where one component has several parents — and counting those parents is how you tell a shared component from a screen-specific one before you change it</a></li></ul>
+  <nav class="steps" aria-label="Previous and next">
+    <a class="step prev" href="../87/" rel="prev"><span>←</span> A mobile app with five botto…</a>
+    <a class="step index" href="../../all/">All 352</a>
+    <a class="step next" href="../89/" rel="next">Container stowage: bay… <span>→</span></a>
+  </nav>
 </article>
 </main>
 <footer class="foot">

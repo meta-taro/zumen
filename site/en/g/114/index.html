@@ -70,12 +70,18 @@
       {
         "@type": "ListItem",
         "position": 2,
+        "name": "All 352 examples",
+        "item": "https://meta-taro.github.io/zumen/en/all/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
         "name": "Building and civil",
         "item": "https://meta-taro.github.io/zumen/en/c/kenchiku/"
       },
       {
         "@type": "ListItem",
-        "position": 3,
+        "position": 4,
         "name": "点字ブロックの敷設図（歩道・階段・横断歩道／JIS T 9251:2014）"
       }
     ]
@@ -85,8 +91,14 @@
 </head>
 <body class="sub">
 <header class="bar">
-  <a class="home" href="../../../">zumen</a>
-  <nav><a href="../../c/kenchiku/">Building and civil</a></nav>
+  <!--
+    パンくず（2026-09-24）。入口から現在地まで一本で出す。
+    aria-label を付けて、読み上げでも「ここは道案内」と分かるようにする。
+    区切りの記号は aria-hidden（読み上げると邪魔なだけ）。
+  -->
+  <nav class="crumbs" aria-label="Breadcrumb">
+    <a class="home" href="../../../">zumen</a><span aria-hidden="true">›</span><a href="../../all/">All 352</a><span aria-hidden="true">›</span><a href="../../c/kenchiku/">Building and civil</a>
+  </nav>
 </header>
 <main>
 <article>
@@ -108,6 +120,11 @@
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/114-%E7%82%B9%E5%AD%97%E3%83%96%E3%83%AD%E3%83%83%E3%82%AF%E3%81%AE%E6%95%B7%E8%A8%AD%E5%9B%B3.zumen.yaml"><code>examples/gallery/114-点字ブロックの敷設図.zumen.yaml</code></a></p>
   <h2>More in this field</h2>
   <ul class="near"><li><a href="../14/">A two-bedroom apartment plan with room dimensions, which way each door swings, and where the wet rooms and storage sit</a></li><li><a href="../17/">A reinforced concrete framing plan for a second floor, with the grid lines and the mark of every column, girder, beam and slab</a></li><li><a href="../24/">School floor plan (walls, door swings, grid lines, dimensions)</a></li><li><a href="../27/">A farmland consolidation plan laying out 30-are plots, with the irrigation channels, the drainage channels and the farm roads that serve them</a></li><li><a href="../28/">The plan of a concrete gravity dam: the body, the spillway, the intake works and the access road for maintenance</a></li><li><a href="../30/">Site logistics plan with the crane radius</a></li><li><a href="../32/">The typical floor of a business hotel with twelve rooms, the corridor, the fire stairs and the lifts</a></li><li><a href="../33/">A surface car park set out for fourteen cars, with bay dimensions, aisle width and where the entrance and exit sit</a></li></ul>
+  <nav class="steps" aria-label="Previous and next">
+    <a class="step prev" href="../113/" rel="prev"><span>←</span> Gravestone engraving: the li…</a>
+    <a class="step index" href="../../all/">All 352</a>
+    <a class="step next" href="../115/" rel="next">Allergen flow: never let the… <span>→</span></a>
+  </nav>
 </article>
 </main>
 <footer class="foot">

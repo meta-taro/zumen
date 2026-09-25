@@ -1,0 +1,568 @@
+version: 1
+kind: placement
+arrows: false
+title: 日本史の時代区分（一本の線ではない）
+# **年表は一本の線に見えるが、実際は重なっている。**
+#
+# ## 重なっている
+#
+# **戦国は室町の中にある。** 応仁の乱（1467）に始まるが、室町幕府は 1573 年まで続く ——
+# **106 年ぶん重なる。** 幕末（1853〜1868）も江戸の中。
+#
+# ## 並立していた
+#
+# **南北朝の 56 年（1336〜1392）は、朝廷が 2 つあった。**
+# 京都の北朝と吉野の南朝。足利義満の仲介で後亀山天皇が京都へ入り、合一する。
+#
+# ## 境目が 1 点に決まらない
+#
+# 鎌倉幕府の成立は **1185 と 1192 の両論**。守護・地頭を全国に置いた年か、
+# 征夷大将軍に任じられた年か。**いまの教科書は 1185 が主流**（「いい国」→「いい箱」）。
+#
+# 幕末も、切り替わった 1 点は無い —— 大政奉還 1867・王政復古 1867・
+# 戊辰戦争 1868〜69・版籍奉還 1869・廃藩置県 1871。
+#
+# ## 細い所は、拡大して別に描く
+#
+# 全体は 1px ＝ 0.96 年なので、**15 年は 16px にしかならない。**
+# 帯の中に字が入らない所は、**下に拡大図**を置いた（②③）。年表の常道。
+#
+# **目盛の線は帯の中だけ**にしてある。下まで伸ばすと、出来事の字を貫く（実際に貫いた）。
+# **出来事の名前は段をずらす** —— 幕末は 4 年に 4 つ集まるので、同じ段では必ず重なる。
+nodes:
+  - id: t1
+    label: "① 750〜1900 年（1px ＝ 0.96 年）"
+    marker: none
+    align: left
+    at: { x: 140, y: 60 }
+    size: { w: 900, h: 20 }
+  - id: g800
+    label: "800"
+    marker: none
+    align: center
+    at: { x: 166.2, y: 92 }
+    size: { w: 52, h: 18 }
+  - id: gl800
+    label: ""
+    hatch: solid
+    marker: box
+    at: { x: 191.7, y: 120 }
+    size: { w: 1, h: 34 }
+  - id: g900
+    label: "900"
+    marker: none
+    align: center
+    at: { x: 270.5, y: 92 }
+    size: { w: 52, h: 18 }
+  - id: gl900
+    label: ""
+    hatch: solid
+    marker: box
+    at: { x: 296.0, y: 120 }
+    size: { w: 1, h: 34 }
+  - id: g1000
+    label: "1000"
+    marker: none
+    align: center
+    at: { x: 374.9, y: 92 }
+    size: { w: 52, h: 18 }
+  - id: gl1000
+    label: ""
+    hatch: solid
+    marker: box
+    at: { x: 400.4, y: 120 }
+    size: { w: 1, h: 34 }
+  - id: g1100
+    label: "1100"
+    marker: none
+    align: center
+    at: { x: 479.2, y: 92 }
+    size: { w: 52, h: 18 }
+  - id: gl1100
+    label: ""
+    hatch: solid
+    marker: box
+    at: { x: 504.7, y: 120 }
+    size: { w: 1, h: 34 }
+  - id: g1200
+    label: "1200"
+    marker: none
+    align: center
+    at: { x: 583.6, y: 92 }
+    size: { w: 52, h: 18 }
+  - id: gl1200
+    label: ""
+    hatch: solid
+    marker: box
+    at: { x: 609.1, y: 120 }
+    size: { w: 1, h: 34 }
+  - id: g1300
+    label: "1300"
+    marker: none
+    align: center
+    at: { x: 687.9, y: 92 }
+    size: { w: 52, h: 18 }
+  - id: gl1300
+    label: ""
+    hatch: solid
+    marker: box
+    at: { x: 713.4, y: 120 }
+    size: { w: 1, h: 34 }
+  - id: g1400
+    label: "1400"
+    marker: none
+    align: center
+    at: { x: 792.3, y: 92 }
+    size: { w: 52, h: 18 }
+  - id: gl1400
+    label: ""
+    hatch: solid
+    marker: box
+    at: { x: 817.8, y: 120 }
+    size: { w: 1, h: 34 }
+  - id: g1500
+    label: "1500"
+    marker: none
+    align: center
+    at: { x: 896.6, y: 92 }
+    size: { w: 52, h: 18 }
+  - id: gl1500
+    label: ""
+    hatch: solid
+    marker: box
+    at: { x: 922.1, y: 120 }
+    size: { w: 1, h: 34 }
+  - id: g1600
+    label: "1600"
+    marker: none
+    align: center
+    at: { x: 1001.0, y: 92 }
+    size: { w: 52, h: 18 }
+  - id: gl1600
+    label: ""
+    hatch: solid
+    marker: box
+    at: { x: 1026.5, y: 120 }
+    size: { w: 1, h: 34 }
+  - id: g1700
+    label: "1700"
+    marker: none
+    align: center
+    at: { x: 1105.3, y: 92 }
+    size: { w: 52, h: 18 }
+  - id: gl1700
+    label: ""
+    hatch: solid
+    marker: box
+    at: { x: 1130.8, y: 120 }
+    size: { w: 1, h: 34 }
+  - id: g1800
+    label: "1800"
+    marker: none
+    align: center
+    at: { x: 1209.7, y: 92 }
+    size: { w: 52, h: 18 }
+  - id: gl1800
+    label: ""
+    hatch: solid
+    marker: box
+    at: { x: 1235.2, y: 120 }
+    size: { w: 1, h: 34 }
+  - id: g1900
+    label: "1900"
+    marker: none
+    align: center
+    at: { x: 1314.0, y: 92 }
+    size: { w: 52, h: 18 }
+  - id: heian
+    label: "平安"
+    marker: box
+    at: { x: 185.9, y: 120 }
+    size: { w: 408.0, h: 34 }
+  - id: kamakura
+    label: "鎌倉"
+    marker: box
+    at: { x: 593.9, y: 120 }
+    size: { w: 154.4, h: 34 }
+  - id: kenmu
+    label: ""
+    marker: box
+    at: { x: 748.3, y: 120 }
+    size: { w: 3.2, h: 34 }
+  - id: muromachi
+    label: "室町"
+    marker: box
+    at: { x: 751.5, y: 120 }
+    size: { w: 247.3, h: 34 }
+  - id: azuchi
+    label: "安土桃山"
+    marker: box
+    at: { x: 998.8, y: 120 }
+    size: { w: 31.3, h: 34 }
+  - id: edo
+    label: "江戸"
+    marker: box
+    at: { x: 1030.1, y: 120 }
+    size: { w: 276.5, h: 34 }
+  - id: meiji
+    label: "明治"
+    marker: box
+    at: { x: 1306.6, y: 120 }
+    size: { w: 33.4, h: 34 }
+  - id: kenmu_n
+    label: "建武（1333〜36）"
+    marker: none
+    align: center
+    at: { x: 696.3, y: 160 }
+    size: { w: 130, h: 16 }
+  - id: nanboku_n
+    label: "北朝（京都）"
+    marker: box
+    hatch: lines
+    at: { x: 751.5, y: 186 }
+    size: { w: 58.4, h: 20 }
+  - id: nanboku_s
+    label: "南朝（吉野）"
+    marker: box
+    hatch: lines
+    at: { x: 751.5, y: 210 }
+    size: { w: 58.4, h: 20 }
+  - id: sengoku
+    label: "戦国"
+    marker: box
+    hatch: lines
+    at: { x: 888.2, y: 186 }
+    size: { w: 128.3, h: 20 }
+  - id: bakumatsu
+    label: ""
+    marker: box
+    hatch: lines
+    at: { x: 1291.0, y: 186 }
+    size: { w: 15.6, h: 20 }
+  - id: bak_n
+    label: "幕末（1853〜68）"
+    marker: none
+    align: center
+    at: { x: 1195.0, y: 212 }
+    size: { w: 180, h: 16 }
+  - id: nb_n
+    label: "南北朝（1336〜92）"
+    marker: none
+    align: center
+    at: { x: 647.5, y: 236 }
+    size: { w: 200, h: 16 }
+  - id: kt
+    label: "② 鎌倉の始まりを拡大（1180〜1200。1px ＝ 0.04 年）"
+    marker: none
+    align: left
+    at: { x: 150, y: 290 }
+    size: { w: 560, h: 20 }
+  - id: kg1180
+    label: "1180"
+    marker: none
+    align: center
+    at: { x: 124.0, y: 322 }
+    size: { w: 52, h: 18 }
+  - id: kgl1180
+    label: ""
+    hatch: solid
+    marker: box
+    at: { x: 149.5, y: 344 }
+    size: { w: 1, h: 8 }
+  - id: kg1185
+    label: "1185"
+    marker: none
+    align: center
+    at: { x: 246.5, y: 322 }
+    size: { w: 52, h: 18 }
+  - id: kgl1185
+    label: ""
+    hatch: solid
+    marker: box
+    at: { x: 272.0, y: 344 }
+    size: { w: 1, h: 8 }
+  - id: kg1190
+    label: "1190"
+    marker: none
+    align: center
+    at: { x: 369.0, y: 322 }
+    size: { w: 52, h: 18 }
+  - id: kgl1190
+    label: ""
+    hatch: solid
+    marker: box
+    at: { x: 394.5, y: 344 }
+    size: { w: 1, h: 8 }
+  - id: kg1195
+    label: "1195"
+    marker: none
+    align: center
+    at: { x: 491.5, y: 322 }
+    size: { w: 52, h: 18 }
+  - id: kgl1195
+    label: ""
+    hatch: solid
+    marker: box
+    at: { x: 517.0, y: 344 }
+    size: { w: 1, h: 8 }
+  - id: kg1200
+    label: "1200"
+    marker: none
+    align: center
+    at: { x: 614.0, y: 322 }
+    size: { w: 52, h: 18 }
+  - id: kgl1200
+    label: ""
+    hatch: solid
+    marker: box
+    at: { x: 639.5, y: 344 }
+    size: { w: 1, h: 8 }
+  - id: kgap
+    label: ""
+    marker: box
+    hatch: cross
+    at: { x: 272.5, y: 356 }
+    size: { w: 171.5, h: 26 }
+  - id: kgapn
+    label: "ここが「成立」の幅"
+    marker: none
+    align: center
+    at: { x: 242.5, y: 388 }
+    size: { w: 240, h: 16 }
+  - id: kd0
+    label: ""
+    marker: circle
+    at: { x: 147.0, y: 416 }
+    size: { w: 6, h: 6 }
+  - id: kn0
+    label: "頼朝が挙兵"
+    marker: none
+    align: center
+    at: { x: 96.0, y: 424 }
+    size: { w: 108, h: 16 }
+  - id: kd1
+    label: ""
+    marker: circle
+    at: { x: 269.5, y: 416 }
+    size: { w: 6, h: 6 }
+  - id: kn1
+    label: "守護・地頭"
+    marker: none
+    align: center
+    at: { x: 218.5, y: 444 }
+    size: { w: 108, h: 16 }
+  - id: kd2
+    label: ""
+    marker: circle
+    at: { x: 441.0, y: 416 }
+    size: { w: 6, h: 6 }
+  - id: kn2
+    label: "征夷大将軍"
+    marker: none
+    align: center
+    at: { x: 390.0, y: 464 }
+    size: { w: 108, h: 16 }
+  - id: kd3
+    label: ""
+    marker: circle
+    at: { x: 612.5, y: 416 }
+    size: { w: 6, h: 6 }
+  - id: kn3
+    label: "頼朝 没"
+    marker: none
+    align: center
+    at: { x: 561.5, y: 484 }
+    size: { w: 108, h: 16 }
+  - id: knote
+    label: "1185 を取るか 1192 を取るかで、7 年ぶん動く。"
+    marker: none
+    align: left
+    at: { x: 150, y: 512 }
+    size: { w: 560, h: 16 }
+  - id: et
+    label: "③ 幕末から明治を拡大（1850〜1875。1px ＝ 0.04 年）"
+    marker: none
+    align: left
+    at: { x: 760, y: 290 }
+    size: { w: 560, h: 20 }
+  - id: eg1850
+    label: "1850"
+    marker: none
+    align: center
+    at: { x: 734.0, y: 322 }
+    size: { w: 52, h: 18 }
+  - id: egl1850
+    label: ""
+    hatch: solid
+    marker: box
+    at: { x: 759.5, y: 344 }
+    size: { w: 1, h: 8 }
+  - id: eg1855
+    label: "1855"
+    marker: none
+    align: center
+    at: { x: 850.0, y: 322 }
+    size: { w: 52, h: 18 }
+  - id: egl1855
+    label: ""
+    hatch: solid
+    marker: box
+    at: { x: 875.5, y: 344 }
+    size: { w: 1, h: 8 }
+  - id: eg1860
+    label: "1860"
+    marker: none
+    align: center
+    at: { x: 966.0, y: 322 }
+    size: { w: 52, h: 18 }
+  - id: egl1860
+    label: ""
+    hatch: solid
+    marker: box
+    at: { x: 991.5, y: 344 }
+    size: { w: 1, h: 8 }
+  - id: eg1865
+    label: "1865"
+    marker: none
+    align: center
+    at: { x: 1082.0, y: 322 }
+    size: { w: 52, h: 18 }
+  - id: egl1865
+    label: ""
+    hatch: solid
+    marker: box
+    at: { x: 1107.5, y: 344 }
+    size: { w: 1, h: 8 }
+  - id: eg1870
+    label: "1870"
+    marker: none
+    align: center
+    at: { x: 1198.0, y: 322 }
+    size: { w: 52, h: 18 }
+  - id: egl1870
+    label: ""
+    hatch: solid
+    marker: box
+    at: { x: 1223.5, y: 344 }
+    size: { w: 1, h: 8 }
+  - id: eg1875
+    label: "1875"
+    marker: none
+    align: center
+    at: { x: 1314.0, y: 322 }
+    size: { w: 52, h: 18 }
+  - id: egl1875
+    label: ""
+    hatch: solid
+    marker: box
+    at: { x: 1339.5, y: 344 }
+    size: { w: 1, h: 8 }
+  - id: egap
+    label: ""
+    marker: box
+    hatch: cross
+    at: { x: 1154.4, y: 356 }
+    size: { w: 92.8, h: 26 }
+  - id: egapn
+    label: "ここが「切り替わり」の幅"
+    marker: none
+    align: center
+    at: { x: 1124.4, y: 388 }
+    size: { w: 240, h: 16 }
+  - id: ed0
+    label: ""
+    marker: circle
+    at: { x: 826.6, y: 416 }
+    size: { w: 6, h: 6 }
+  - id: en0
+    label: "黒船"
+    marker: none
+    align: center
+    at: { x: 775.6, y: 424 }
+    size: { w: 108, h: 16 }
+  - id: ed1
+    label: ""
+    marker: circle
+    at: { x: 1151.4, y: 416 }
+    size: { w: 6, h: 6 }
+  - id: en1
+    label: "大政奉還"
+    marker: none
+    align: center
+    at: { x: 1100.4, y: 444 }
+    size: { w: 108, h: 16 }
+  - id: ed2
+    label: ""
+    marker: circle
+    at: { x: 1174.6, y: 416 }
+    size: { w: 6, h: 6 }
+  - id: en2
+    label: "明治改元"
+    marker: none
+    align: center
+    at: { x: 1123.6, y: 464 }
+    size: { w: 108, h: 16 }
+  - id: ed3
+    label: ""
+    marker: circle
+    at: { x: 1197.8, y: 416 }
+    size: { w: 6, h: 6 }
+  - id: en3
+    label: "版籍奉還"
+    marker: none
+    align: center
+    at: { x: 1146.8, y: 484 }
+    size: { w: 108, h: 16 }
+  - id: ed4
+    label: ""
+    marker: circle
+    at: { x: 1244.2, y: 416 }
+    size: { w: 6, h: 6 }
+  - id: en4
+    label: "廃藩置県"
+    marker: none
+    align: center
+    at: { x: 1193.2, y: 504 }
+    size: { w: 108, h: 16 }
+  - id: enote
+    label: "「1868 年に切り替わった」という 1 点は無い。"
+    marker: none
+    align: left
+    at: { x: 760, y: 532 }
+    size: { w: 560, h: 16 }
+  - id: r0
+    label: "この図の読み方"
+    marker: none
+    align: left
+    at: { x: 150, y: 568 }
+    size: { w: 900, h: 20 }
+  - id: r1
+    label: "・上の帯が「時代」。すぐ下に付けた網掛けの帯は、その時代と同時に進んでいたもの。"
+    marker: none
+    align: left
+    at: { x: 150, y: 596 }
+    size: { w: 1190, h: 20 }
+  - id: r2
+    label: "・戦国（1467〜1590）は室町（1336〜1573）の中にある —— 106 年ぶん重なる。"
+    marker: none
+    align: left
+    at: { x: 150, y: 620 }
+    size: { w: 1190, h: 20 }
+  - id: r3
+    label: "・南北朝の 56 年は、朝廷が 2 つあった。北朝は京都、南朝は吉野。"
+    marker: none
+    align: left
+    at: { x: 150, y: 644 }
+    size: { w: 1190, h: 20 }
+  - id: r4
+    label: "・格子の網掛けは「境目が 1 点に決まらない」所。年号を 1 つ選んで線を引くと、そこが消える。"
+    marker: none
+    align: left
+    at: { x: 150, y: 668 }
+    size: { w: 1190, h: 20 }
+  - id: r5
+    label: "・全体では 15 年が 16px にしかならないので、細い所は下に拡大して描いた（②③）。"
+    marker: none
+    align: left
+    at: { x: 150, y: 692 }
+    size: { w: 1190, h: 20 }

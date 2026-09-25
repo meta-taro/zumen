@@ -70,12 +70,18 @@
       {
         "@type": "ListItem",
         "position": 2,
+        "name": "All 352 examples",
+        "item": "https://meta-taro.github.io/zumen/en/all/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
         "name": "Events and games",
         "item": "https://meta-taro.github.io/zumen/en/c/moyooshi/"
       },
       {
         "@type": "ListItem",
-        "position": 3,
+        "position": 4,
         "name": "ビンゴカード（No.0142・5×5・中央フリー）"
       }
     ]
@@ -85,8 +91,14 @@
 </head>
 <body class="sub">
 <header class="bar">
-  <a class="home" href="../../../">zumen</a>
-  <nav><a href="../../c/moyooshi/">Events and games</a></nav>
+  <!--
+    パンくず（2026-09-24）。入口から現在地まで一本で出す。
+    aria-label を付けて、読み上げでも「ここは道案内」と分かるようにする。
+    区切りの記号は aria-hidden（読み上げると邪魔なだけ）。
+  -->
+  <nav class="crumbs" aria-label="Breadcrumb">
+    <a class="home" href="../../../">zumen</a><span aria-hidden="true">›</span><a href="../../all/">All 352</a><span aria-hidden="true">›</span><a href="../../c/moyooshi/">Events and games</a>
+  </nav>
 </header>
 <main>
 <article>
@@ -105,6 +117,11 @@
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/69-%E3%83%93%E3%83%B3%E3%82%B4%E3%82%AB%E3%83%BC%E3%83%89.zumen.yaml"><code>examples/gallery/69-ビンゴカード.zumen.yaml</code></a></p>
   <h2>More in this field</h2>
   <ul class="near"><li><a href="../66/">A game record on a 19-line go board where each stone carries the number of the move, showing the shape of the opening</a></li><li><a href="../67/">The starting position of shogi on a nine by nine board, the two sides told apart by which way the pieces point</a></li><li><a href="../68/">The starting position of chess on an eight by eight board, with the file and rank coordinates marked</a></li><li><a href="../70/">The opening position of reversi: four stones in the centre four squares, black and white alternating</a></li><li><a href="../77/">Theatrical lighting plot, with the channel schedule</a></li><li><a href="../96/">Orchestra seating, two traditions side by side</a></li><li><a href="../101/">PA layout, where distance turns into delay</a></li><li><a href="../110/">Dance formations: the diagonal reads strongest</a></li></ul>
+  <nav class="steps" aria-label="Previous and next">
+    <a class="step prev" href="../68/" rel="prev"><span>←</span> The starting position of che…</a>
+    <a class="step index" href="../../all/">All 352</a>
+    <a class="step next" href="../70/" rel="next">The opening position of reve… <span>→</span></a>
+  </nav>
 </article>
 </main>
 <footer class="foot">
