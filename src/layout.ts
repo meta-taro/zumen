@@ -25,6 +25,8 @@ import type { Source as ConstructSource, Stroke } from './construct.ts';
 import type { View } from './views.ts';
 import type { Grid, NorthMark } from './grid.ts';
 import { arrowsOf } from './arrows.ts';
+import { axonOf, project } from './axon.ts';
+import type { Axon } from './axon.ts';
 import { hatchOf } from './hatch.ts';
 import { legsOf, symbolOf } from './symbol.ts';
 import type { Symbol } from './symbol.ts';
@@ -939,6 +941,8 @@ interface NodeInfo {
 
 function readNodes(diagram: ReturnType<typeof parse>): NodeInfo[] {
   const raw = diagram.doc.toJS() as {
+    /** **図ぜんたいに 1 行**（`projection: isometric`）。`src/axon.ts`。 */
+    projection?: unknown;
     nodes?: {
       id?: unknown;
       label?: unknown;
@@ -961,6 +965,7 @@ function readNodes(diagram: ReturnType<typeof parse>): NodeInfo[] {
       openings?: unknown;
     }[];
   };
+  const axon = axonOf(raw.projection);
   return (raw.nodes ?? []).map((node) => {
     const id = asText(node.id) ?? '';
     return {
@@ -980,7 +985,7 @@ function readNodes(diagram: ReturnType<typeof parse>): NodeInfo[] {
       symbol: symbolOf(node.symbol),
       color: node.color,
       fill: node.fill,
-      at: asPoint(node.at),
+      at: asPoint(node.at, axon),
       size: asSize(node.size),
       openings: openingsOf(node.openings),
     };
@@ -1021,12 +1026,19 @@ interface EdgeInfo {
 
 /** グループの表示名。無ければ id を使う。 */
 /** `{ x, y }` として読めるものだけ受ける。**読めなければ機械が置く。** */
-function asPoint(raw: unknown): { x: number; y: number } | null {
+function asPoint(raw: unknown, axon: Axon | null = null): { x: number; y: number } | null {
   if (raw === null || typeof raw !== 'object') return null;
-  const { x, y } = raw as { x?: unknown; y?: unknown };
+  const { x, y, z } = raw as { x?: unknown; y?: unknown; z?: unknown };
   if (typeof x !== 'number' || typeof y !== 'number') return null;
   if (!Number.isFinite(x) || !Number.isFinite(y)) return null;
-  return { x, y };
+  /**
+   * **`z` を書いていれば、そこで紙へ落とす**（2026-09-25。`src/axon.ts`）。
+   *
+   * ここ 1 か所で済む —— 正本の座標を読むのはこの関数だけなので、
+   * **以降の処理は 2D のまま**で何も変わらない。
+   */
+  if (typeof z !== 'number' || !Number.isFinite(z)) return { x, y };
+  return project({ x, y, z }, axon);
 }
 
 /** `{ w, h }` として読めるものだけ受ける。**読めなければラベルから決める。** */
