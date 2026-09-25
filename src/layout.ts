@@ -230,6 +230,8 @@ const SUB_FONT = 11;
 const TAG_FONT = 10;
 /** 符号を箱の角から離す分。 */
 export const TAG_INSET = 8;
+/** 同じ 2 点を結ぶ線どうしを開く幅（`fanOut`）。細い箱ではこれより詰める。 */
+const FAN_STEP = 16;
 
 /**
  * ラベルの見た目の幅を測る。
@@ -1173,6 +1175,7 @@ function routeEdges(
   moved: Set<string>,
 ): PlacedEdge[] {
   const byId = new Map(boxes.map((box) => [box.id, box]));
+  const spread = fanOut(edges, byId);
   return edges.map((edge, index) => {
     const from = byId.get(edge.from);
     const to = byId.get(edge.to);
@@ -1227,7 +1230,7 @@ function routeEdges(
     if (from.symbol !== null || to.symbol !== null) {
       const a = clip(from, center(to));
       const b = clip(to, center(from));
-      return { ...edge, points: elbow(a, b), pinned: false };
+      return { ...edge, points: apart(elbow(a, b), spread.get(index)), pinned: false };
     }
 
     // ELK の経路を使う。**箱を避けて回り込む道が入っている。**
@@ -1242,7 +1245,8 @@ function routeEdges(
     }
 
     // 直線で結ぶ。**両端は箱の縁で切る**ので、動かした先へ必ず届く。
-    return { ...edge, points: nudge(clip(from, center(to)), clip(to, center(from)), from, to), pinned: false };
+    const straight = nudge(clip(from, center(to)), clip(to, center(from)), from, to);
+    return { ...edge, points: apart(straight, spread.get(index)), pinned: false };
   });
 }
 
@@ -1280,6 +1284,72 @@ function nudge(
     { x: round(a.x - ux * 3), y: round(a.y - uy * 3) },
     { x: round(b.x + ux * 3), y: round(b.y + uy * 3) },
   ];
+}
+
+/**
+ * **同じ 2 つの箱を結ぶ線が何本もあるとき、横へずらして分ける。**
+ *
+ * 2026-09-25（`qa/品質100周` 第 51 周）。見本 86（CRUD 管理画面の画面遷移）を実物で見て見つけた。
+ *
+ * 正本には `一覧 → 削除確認（削除）` と `削除確認 → 一覧（削除して戻る）` の
+ * **2 本**が書いてある。ところが 2 つの箱は縦に並んでいるので、
+ * **両方とも同じ直線の上に描かれていた。**
+ *
+ * 出てきた絵は「**両端に矢じりがある 1 本の線**」で、そこにラベルが 2 つ積まれる。
+ * **どちらの言葉がどちらの向きなのか、読んだ人には決められない。**
+ * 遷移図としては、ここが読めないと意味がない。
+ *
+ * 全体で **4 枚**（86・09・44・164）。**見本ごとに逃げず、道具の側で直す。**
+ *
+ * やることは 1 つ —— 束になった線を、**向きと直角の方へ等間隔に開く。**
+ * 開く幅は箱の小さいほうに合わせる（細い箱から線がはみ出さないように）。
+ * 通り道（`via`）や人が曲げた線（`pins`）は**触らない** —— 書いた人が決めている。
+ */
+function fanOut(
+  edges: EdgeInfo[],
+  byId: Map<string, Box>,
+): Map<number, { x: number; y: number }> {
+  const groups = new Map<string, number[]>();
+  edges.forEach((edge, index) => {
+    if (edge.via.length > 0 || edge.from === edge.to) return;
+    if (!byId.has(edge.from) || !byId.has(edge.to)) return;
+    const key = [edge.from, edge.to].sort().join('\u0000');
+    const seen = groups.get(key);
+    if (seen === undefined) groups.set(key, [index]);
+    else seen.push(index);
+  });
+
+  const spread = new Map<number, { x: number; y: number }>();
+  for (const members of groups.values()) {
+    if (members.length < 2) continue;
+    const first = edges[members[0]!]!;
+    const from = byId.get(first.from)!;
+    const to = byId.get(first.to)!;
+    const p = center(from);
+    const q = center(to);
+    const span = Math.hypot(q.x - p.x, q.y - p.y);
+    if (span === 0) continue;
+    // 向きと直角の単位ベクトル
+    const nx = -(q.y - p.y) / span;
+    const ny = (q.x - p.x) / span;
+    // 細い箱から線が出ていかないよう、いちばん小さい辺に合わせる
+    const room = Math.min(from.w, from.h, to.w, to.h) / 3;
+    const step = Math.max(3, Math.min(FAN_STEP, room));
+    members.forEach((index, k) => {
+      const d = (k - (members.length - 1) / 2) * step;
+      spread.set(index, { x: nx * d, y: ny * d });
+    });
+  }
+  return spread;
+}
+
+/** 線をまるごと平行に動かす。`fanOut` が出した分だけ。 */
+function apart(
+  points: { x: number; y: number }[],
+  by: { x: number; y: number } | undefined,
+): { x: number; y: number }[] {
+  if (by === undefined) return points;
+  return points.map((point) => ({ x: round(point.x + by.x), y: round(point.y + by.y) }));
 }
 
 /**

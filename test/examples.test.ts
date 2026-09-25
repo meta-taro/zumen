@@ -522,6 +522,55 @@ describe('矢じりの向き', () => {
 });
 
 /**
+ * **同じ 2 つの箱を結ぶ線が、重ならずに分かれていること**
+ * （2026-09-25。`qa/品質100周` 第 51 周）。
+ *
+ * 見本 86（CRUD 管理画面の画面遷移）を実物で見て見つけた。
+ * 正本には `一覧 → 削除確認（削除）` と `削除確認 → 一覧（削除して戻る）` の
+ * **2 本**が書いてあるのに、2 つの箱が縦に並んでいるせいで
+ * **両方が同じ直線の上に出ていた。**
+ *
+ * 絵としては「**両端に矢じりがある 1 本の線**」になり、ラベルが 2 つ積まれる ——
+ * **どちらの言葉がどちらの向きか、読んだ人には決められない。**
+ * `src/layout.ts` の `fanOut()` で直した。**ここは戻らないことだけを見る。**
+ */
+describe('往復する線', () => {
+  it('**同じ 2 点を結ぶ線が、同じ道の上に重なっていない**', () => {
+    const stacked: string[] = [];
+    let pairs = 0;
+    for (const file of readdirSync(dir).filter((f) => f.endsWith('.zumen.yaml'))) {
+      const source = readFileSync(new URL(file, dir), 'utf8');
+      const [, body = ''] = source.split('\nedges:\n');
+      const seen = new Map<string, number>();
+      for (const block of body.split('  - from:').slice(1)) {
+        const ends = /^\s*(\S+)\s*\n\s*to:\s*(\S+)/.exec(block);
+        if (ends === null || ends[1] === ends[2]) continue;
+        if (/^\s+via:/m.test(block)) continue;
+        const key = [ends[1], ends[2]].sort().join('\u0000');
+        seen.set(key, (seen.get(key) ?? 0) + 1);
+      }
+      if (![...seen.values()].some((count) => count > 1)) continue;
+      pairs += 1;
+      const svg = readFileSync(new URL(file.replace('.zumen.yaml', '.svg'), dir), 'utf8');
+      // **向きを外して比べる。** 往復する 2 本は `A→B` と `B→A` で、
+      // 文字列としては別物だが、**紙の上では同じ 1 本**になる。
+      const once = new Set<string>();
+      for (const found of svg.matchAll(/<path d="(M [^"]+)"/g)) {
+        const d = found[1];
+        if (d === undefined) continue;
+        const points = [...d.matchAll(/(-?[\d.]+) (-?[\d.]+)/g)].map((p) => `${p[1]},${p[2]}`);
+        if (points.length !== 2) continue;
+        const key = [...points].sort().join(' ');
+        if (once.has(key)) stacked.push(`${file}: ${d}`);
+        once.add(key);
+      }
+    }
+    assert.ok(pairs > 0, '往復する線を持つ見本が 1 枚も無い —— 検査が空回りしている');
+    assert.deepEqual(stacked, [], '同じ道の上に 2 本以上（どちらの向きか読めない）');
+  });
+});
+
+/**
  * **実寸で描いた図には、縮尺の物差しがある**（2026-09-25）。
  *
  * オーナーが X で見せてくれた平面図（`A-01 平面計画`）と見比べて見つけた ——
