@@ -161,6 +161,16 @@ nodes:
     align: left
     at: { x: 542, y: 380 }
     size: { w: 180, h: 36 }
+  - id: lwa
+    label: ""
+    marker: none
+    at: { x: 376, y: 337 }
+    size: { w: 2, h: 2 }
+  - id: lwb
+    label: ""
+    marker: none
+    at: { x: 450, y: 271 }
+    size: { w: 2, h: 2 }
   - id: lw
     label: "拡散（ベースライト）\n真下 1,000cd"
     marker: none
@@ -518,6 +528,10 @@ nodes:
     at: { x: 150, y: 1194 }
     size: { w: 1170, h: 18 }
 edges:
+  - from: lwa
+    to: lwb
+    curve: none
+    ends: { from: none, to: none }
   - from: p0
     to: p1
     curve: none
