@@ -520,3 +520,40 @@ describe('矢じりの向き', () => {
     assert.deepEqual(short, [], '長さゼロの矢印（向きを持てないので、全部右を向く）');
   });
 });
+
+/**
+ * **実寸で描いた図には、縮尺の物差しがある**（2026-09-25）。
+ *
+ * オーナーが X で見せてくれた平面図（`A-01 平面計画`）と見比べて見つけた ——
+ * **`scale` を書いている見本が 122 枚あるのに、物差しは 0 枚だった。**
+ *
+ * `scale: { mm: 20 }` は正本にはあるが、**SVG を web へ貼った時点で縮尺は失われる**
+ * （ブラウザが伸び縮みさせる。md-business に埋め込むときも同じ）。
+ * **物差しだけは図と一緒に伸び縮みするので、そこだけ生き残る。**
+ */
+describe('縮尺の物差し', () => {
+  it('**`scale` のある見本には、物差しが付いている**', () => {
+    const missing: string[] = [];
+    let withScale = 0;
+    for (const file of readdirSync(dir).filter((f) => f.endsWith('.zumen.yaml'))) {
+      const source = readFileSync(new URL(file, dir), 'utf8');
+      if (!/^scale:/m.test(source)) continue;
+      withScale += 1;
+      const svg = readFileSync(new URL(file.replace('.zumen.yaml', '.svg'), dir), 'utf8');
+      if (!svg.includes('data-name="scalebar"')) missing.push(file);
+    }
+    assert.ok(withScale > 100, `実寸の見本が少なすぎる: ${withScale}`);
+    assert.deepEqual(missing.slice(0, 5), []);
+  });
+
+  it('**物差しの無い図に、物差しが出ていない**（`scale` を書いていない図）', () => {
+    const stray: string[] = [];
+    for (const file of readdirSync(dir).filter((f) => f.endsWith('.zumen.yaml'))) {
+      const source = readFileSync(new URL(file, dir), 'utf8');
+      if (/^scale:/m.test(source)) continue;
+      const svg = readFileSync(new URL(file.replace('.zumen.yaml', '.svg'), dir), 'utf8');
+      if (svg.includes('data-name="scalebar"')) stray.push(file);
+    }
+    assert.deepEqual(stray.slice(0, 5), []);
+  });
+});
