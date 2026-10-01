@@ -11,7 +11,7 @@
 #   OSS_ALLOWED_EMAIL_DOMAINS       追加行・commit message で許可するメールの許可リスト（空白区切り）
 #                                   ドメインだけ書くとそのドメイン全体を許可する。
 #                                   "@" を含めて書くとそのアドレスだけを許可する（推奨）
-#   OSS_DENY_WORDS                  禁止語（実名等）を 1 行 1 語。CI では secrets から渡す
+#   OSS_DENY_WORDS                  禁止語（実名等）を 1 行 1 語。手元で使う（CI では配らない方針）
 #   OSS_SCAN_ALL_FILES              1 なら、差分ではなく**追跡中の全ファイルの中身**を見る。
 #                                   公開へ切り替える前の確認に使う（差分検査は最初の
 #                                   commit の中身を含まないため）
@@ -227,7 +227,8 @@ else
 fi
 
 if [ -z "$DENY_WORDS" ]; then
-  note "INFO OSS_DENY_WORDS が空のため禁止語検査はスキップします（fork からの PR では GitHub 仕様上 secrets が渡らず常に空になります）"
+  # CI では禁止語の一覧を配らない方針なので、黙って飛ばす（手元では一覧が無いことを知らせる）
+  [ -z "${GITHUB_ACTIONS:-}" ] && note "INFO OSS_DENY_WORDS が空のため禁止語検査はスキップします"
 fi
 
 # --- 1. commit の author / committer（メール + 表示名） ---------------------
