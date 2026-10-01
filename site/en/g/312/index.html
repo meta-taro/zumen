@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UI の Component 構造（木ではなく、網になる） — zumen example 312</title>
+<link rel="icon" type="image/svg+xml" href="../../../icon.svg">
+<meta name="theme-color" content="#23232b">
+<meta name="description" content="Draw a component tree per screen and the same component keeps reappearing; the real structure is a net…">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="zumen">
+<meta property="og:locale" content="en_US">
+<meta property="og:url" content="https://meta-taro.github.io/zumen/en/g/312/">
+<meta property="og:title" content="UI の Component 構造（木ではなく、網になる） — zumen example 312">
+<meta property="og:description" content="Draw a component tree per screen and the same component keeps reappearing; the real structure is a net…">
+<meta property="og:image" content="https://meta-taro.github.io/zumen/og/312.png">
+<meta property="og:image:alt" content="Draw a component tree per screen and the same component keeps reappearing; the real structure is a net…">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="UI の Component 構造（木ではなく、網になる） — zumen example 312">
+<meta name="twitter:description" content="Draw a component tree per screen and the same component keeps reappearing; the real structure is a net…">
+<meta name="twitter:image" content="https://meta-taro.github.io/zumen/og/312.png">
+<meta name="twitter:image:alt" content="Draw a component tree per screen and the same component keeps reappearing; the real structure is a net…">
+<link rel="stylesheet" href="../../../style.css">
+<link rel="canonical" href="https://meta-taro.github.io/zumen/en/g/312/">
+<link rel="alternate" hreflang="en" href="https://meta-taro.github.io/zumen/en/g/312/">
+<link rel="alternate" hreflang="ja" href="https://meta-taro.github.io/zumen/g/312/">
+<link rel="alternate" hreflang="x-default" href="https://meta-taro.github.io/zumen/g/312/">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="alternate" type="text/markdown" href="https://meta-taro.github.io/zumen/llms.txt" title="llms.txt">
+<link rel="sitemap" type="application/xml" href="https://meta-taro.github.io/zumen/sitemap.xml">
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    "name": "UI の Component 構造（木ではなく、網になる）",
+    "headline": "UI の Component 構造（木ではなく、網になる）",
+    "description": "Draw a component tree per screen and the same component keeps reappearing; the real structure is a net…",
+    "url": "https://meta-taro.github.io/zumen/en/g/312/",
+    "image": {
+      "@type": "ImageObject",
+      "contentUrl": "https://meta-taro.github.io/zumen/gallery/312-UI%E3%81%AEComponent%E6%A7%8B%E9%80%A0.svg",
+      "caption": "Draw a component tree per screen and the same component keeps reappearing; the real structure is a net, where one component has several parents — and counting those parents is how you tell a shared component from a screen-specific one before you change it",
+      "description": "Draw a component tree per screen and the same component keeps reappearing; the real structure is a net, where one component has several parents — and counting those parents is how you tell a shared component from a screen-specific one before you change it",
+      "encodingFormat": "image/svg+xml",
+      "license": "https://opensource.org/licenses/MIT",
+      "acquireLicensePage": "https://github.com/meta-taro/zumen/blob/main/LICENSE",
+      "creditText": "zumen"
+    },
+    "inLanguage": "en",
+    "license": "https://opensource.org/licenses/MIT",
+    "isPartOf": {
+      "@type": "CollectionPage",
+      "name": "UI and screen design",
+      "url": "https://meta-taro.github.io/zumen/en/c/ui/"
+    },
+    "encodingFormat": "text/yaml",
+    "isAccessibleForFree": true
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "zumen",
+        "item": "https://meta-taro.github.io/zumen/en/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "All 368 examples",
+        "item": "https://meta-taro.github.io/zumen/en/all/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "UI and screen design",
+        "item": "https://meta-taro.github.io/zumen/en/c/ui/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": "UI の Component 構造（木ではなく、網になる）"
+      }
+    ]
+  }
+]
+</script>
+</head>
+<body class="sub">
+<header class="bar">
+  <!--
+    パンくず（2026-09-24）。入口から現在地まで一本で出す。
+    aria-label を付けて、読み上げでも「ここは道案内」と分かるようにする。
+    区切りの記号は aria-hidden（読み上げると邪魔なだけ）。
+  -->
+  <nav class="crumbs" aria-label="Breadcrumb">
+    <a class="home" href="../../../">zumen</a><span aria-hidden="true">›</span><a href="../../all/">All 368</a><span aria-hidden="true">›</span><a href="../../c/ui/">UI and screen design</a>
+  </nav>
+</header>
+<main>
+<article>
+  <p class="crumb">UI and screen design</p>
+  <h1>UI の Component 構造（木ではなく、網になる）</h1>
+  <p class="lead">Draw a component tree per screen and the same component keeps reappearing; the real structure is a net, where one component has several parents — and counting those parents is how you tell a shared component from a screen-specific one before you change it</p>
+  <figure>
+    <img src="../../../gallery/312-UI%E3%81%AEComponent%E6%A7%8B%E9%80%A0.svg" alt="Draw a component tree per screen and the same component keeps reappearing; the real structure is a net, where one component has several parents — and counting those parents is how you tell a shared component from a screen-specific one before you change it" loading="lazy">
+  </figure>
+  <p class="made">This drawing comes from one YAML file. No shape was moved by hand.</p>
+  <h2>What the source says</h2>
+  <p><strong>画面ごとに木を描くと、同じ Component が何度も出てくる。</strong>実際には 1 つの Component が<strong>複数の画面から使われる</strong>ので、構造は<strong>木ではなく網</strong>（同じ節に、親が何本も刺さる）。ここを木として描くと、<strong>どれが共通でどれが専用かが図から消える。</strong></p>
+  <p><strong>共通か専用かは、親の数を数えれば分かる。</strong>親が 2 本以上刺さっている節が共通の Component ——直すと<strong>刺さっている画面ぜんぶに効く</strong>ので、直す前にここを見る。親が 1 本だけなら、その画面だけの都合で変えてよい。</p>
+  <p><strong>これが「完成 UI ではなく構造を残す」ということ</strong>（<code>.claude/rules/UIワイヤーフレームの方針.md</code> §11）。見た目は何度でも作り直されるが、<strong>画面と Component と、その関係は残る。</strong>この図を正として「React / Vue / Flutter で実装してください」と渡せる。</p>
+  <p><strong>Responsive で変わるのは、この図の形ではない。</strong>Sidebar が Drawer になっても、<strong>使っている Component は同じ</strong> ——変わるのは<strong>置き方</strong>で、それは見本 76（管理画面のレスポンシブ構造）の側の話。</p>
+  <p><strong>Button は円柱（データベースの記号）で描かない。</strong> 形が別の意味を持つ（見本 46 と同じ約束）。Price は値を表示するだけの部品で、Button を持たない（以前は「表示だけ」という線で親に数えていた）。</p>
+  <p><strong>見本 74・75・76・85・86・87・88 と対。</strong> あちらは画面の絵、こちらは部品の関係。</p>
+  <h2>Source (YAML)</h2>
+  <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/312-UI%E3%81%AEComponent%E6%A7%8B%E9%80%A0.zumen.yaml"><code>examples/gallery/312-UIのComponent構造.zumen.yaml</code></a></p>
+  <h2>More in this field</h2>
+  <ul class="cards">
+    <li><a href="../74/"><img src="../../../gallery/74-EC%E5%95%86%E5%93%81%E3%83%9A%E3%83%BC%E3%82%B8%E3%81%AEUI%E6%A7%8B%E9%80%A0.svg" alt="Product page structure, desktop against mobile" width="1474" height="658" loading="lazy" decoding="async"><span>Product page structure, desktop against mobile</span></a></li>
+    <li><a href="../75/"><img src="../../../gallery/75-%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB%E3%81%A8%E3%83%AF%E3%82%A4%E3%83%A4%E3%83%BC%E3%83%95%E3%83%AC%E3%83%BC%E3%83%A0.svg" alt="Screen flow with the wireframes drawn in" width="1184" height="490" loading="lazy" decoding="async"><span>Screen flow with the wireframes drawn in</span></a></li>
+    <li><a href="../76/"><img src="../../../gallery/76-%E7%AE%A1%E7%90%86%E7%94%BB%E9%9D%A2%E3%81%AE%E3%83%AC%E3%82%B9%E3%83%9D%E3%83%B3%E3%82%B7%E3%83%96%E6%A7%8B%E9%80%A0.svg" alt="The same admin screen at desktop, tablet and mobile, where the sidebar turns into a drawer rather than simply shrinking" width="1654" height="414" loading="lazy" decoding="async"><span>The same admin screen at desktop, tablet and mobile, where the sidebar turns into a drawer rather than simply shrinking</span></a></li>
+    <li><a href="../85/"><img src="../../../gallery/85-Checkout%E3%81%AE%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB.svg" alt="Checkout flow, five steps and where errors return to" width="1194" height="480" loading="lazy" decoding="async"><span>Checkout flow, five steps and where errors return to</span></a></li>
+    <li><a href="../86/"><img src="../../../gallery/86-CRUD%E7%AE%A1%E7%90%86%E7%94%BB%E9%9D%A2%E3%81%AE%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB.svg" alt="CRUD admin flow: delete goes through a confirmation" width="964" height="676" loading="lazy" decoding="async"><span>CRUD admin flow: delete goes through a confirmation</span></a></li>
+    <li><a href="../87/"><img src="../../../gallery/87-%E3%83%A2%E3%83%90%E3%82%A4%E3%83%AB%E3%82%A2%E3%83%97%E3%83%AA%E3%81%AEUI%E6%A7%8B%E9%80%A0.svg" alt="A mobile app with five bottom navigation tabs, and what each tab holds and where it can go from there" width="944" height="584" loading="lazy" decoding="async"><span>A mobile app with five bottom navigation tabs, and what each tab holds and where it can go from there</span></a></li>
+    <li><a href="../88/"><img src="../../../gallery/88-%E3%83%AC%E3%82%B9%E3%83%9D%E3%83%B3%E3%82%B7%E3%83%96LP%E3%81%AEUI%E6%A7%8B%E9%80%A0.svg" alt="Landing page where sections appear and disappear" width="1684" height="486" loading="lazy" decoding="async"><span>Landing page where sections appear and disappear</span></a></li>
+  </ul>
+  <nav class="steps" aria-label="Previous and next">
+    <a class="step prev" href="../311/" rel="prev"><span>←</span> The black keys are grouped i…</a>
+    <a class="step index" href="../../all/">All 368</a>
+    <a class="step next" href="../313/" rel="next">At a quarter past three the… <span>→</span></a>
+  </nav>
+</article>
+</main>
+<footer class="foot">
+  <p><a href="https://github.com/meta-taro/zumen">GitHub</a> · MIT · <a href="https://meta-taro.github.io/zumen/g/312/">日本語</a></p>
+</footer>
+</body>
+</html>

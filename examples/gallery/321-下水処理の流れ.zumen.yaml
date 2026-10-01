@@ -1,0 +1,507 @@
+version: 1
+kind: placement
+arrows: true
+title: 下水処理の流れ（標準活性汚泥法）
+# **汚れを消しているのではない。微生物に食べさせて、沈めて、別の場所へ運んでいる。**
+#
+# ## 水の道は 6 つ
+#
+# 管渠・ポンプ場 → 沈砂池（砂と大きなごみ）→ 最初沈殿池（沈む有機物）→
+# **反応タンク（曝気。6〜8 時間）**→ 最終沈殿池（活性汚泥を沈める）→ 消毒して放流。
+#
+# ## 1 本だけ戻る線がある
+#
+# **返送汚泥。** 最終沈殿池で沈めた活性汚泥を、反応タンクへ戻す。
+# **微生物そのものが装置**なので、捨てずに戻さないと次の水を処理できない。
+# 増えた分だけが**余剰汚泥**として抜かれ、汚泥の道
+# （濃縮 → 消化 → 脱水 → 焼却・溶融・炭化）へ入る。
+#
+# ## この図を構成図で描こうとして、やめた
+#
+# **戻る線が、機械の並べ方を壊した**（決まり 33）。
+# 最終沈殿池が反応タンクより前の段へ引かれ、
+# **水の道が沈砂池 → 最初沈殿池 → 濃縮（汚泥の道）と読める絵**になった。
+# 折り返しても、groups を外しても直らない。
+# **戻る線が主役の図は、置き場所を自分で書くほうが速い。**
+#
+# ## 合流式と分流式
+#
+# **合流式**は雨水と汚水を同じ管で流す。工費が安く、雨で管の中が自然に洗われるが、
+# 晴れた日は流れが遅くて沈殿物がたまり、大雨のときは処理しきれない分を
+# 未処理または簡易処理のまま放流する（**合流式下水道越流水 ＝ CSO**）。
+# **分流式**は別の管に分ける。流量も水質も安定するが、
+# 汚水管は細いので**人が入れず、清掃や点検がしにくい。**
+#
+# ## 数
+#
+# 令和 6 年度末の**下水道処理人口普及率は 81.8%**。
+# 浄化槽なども足した汚水処理人口普及率は 94.0%
+# （下水道 82.2%・浄化槽 9.5%・農業集落排水など 2.2%）。
+#
+# 上水の側は見本 306。
+nodes:
+  - id: t1
+    label: "① 水の道 —— 汚れを消してはいない。微生物に食べさせ、沈めて、別の場所へ運んでいる"
+    marker: none
+    align: left
+    at: { x: 140, y: 150 }
+    size: { w: 900, h: 18 }
+  - id: home
+    label: "家庭・事業所（汚水）"
+    at: { x: 140, y: 190 }
+    size: { w: 170, h: 46 }
+  - id: ame
+    label: "雨水"
+    at: { x: 140, y: 256 }
+    size: { w: 170, h: 46 }
+  - id: kankyo
+    label: "管渠・ポンプ場"
+    at: { x: 350, y: 226 }
+    size: { w: 160, h: 60 }
+  - id: chinsa
+    label: "沈砂池"
+    at: { x: 550, y: 226 }
+    size: { w: 160, h: 60 }
+  - id: saisho
+    label: "最初沈殿池"
+    at: { x: 750, y: 226 }
+    size: { w: 160, h: 60 }
+  - id: hannou
+    label: "反応タンク（曝気槽）"
+    at: { x: 950, y: 226 }
+    size: { w: 180, h: 60 }
+  - id: saishu
+    label: "最終沈殿池"
+    at: { x: 1170, y: 226 }
+    size: { w: 160, h: 60 }
+  - id: shodoku
+    label: "消毒して放流"
+    at: { x: 1370, y: 226 }
+    size: { w: 160, h: 60 }
+  - id: kn
+    label: "速やかに排除する"
+    marker: none
+    align: center
+    at: { x: 340, y: 290 }
+    size: { w: 180, h: 18 }
+  - id: cn
+    label: "砂と大きなごみ"
+    marker: none
+    align: center
+    at: { x: 540, y: 290 }
+    size: { w: 180, h: 18 }
+  - id: sn
+    label: "沈む有機物を分ける"
+    marker: none
+    align: center
+    at: { x: 740, y: 290 }
+    size: { w: 180, h: 18 }
+  - id: hn
+    label: "6〜8 時間・微生物が食べる"
+    marker: none
+    align: center
+    at: { x: 940, y: 290 }
+    size: { w: 200, h: 18 }
+  - id: un
+    label: "活性汚泥を沈める"
+    marker: none
+    align: center
+    at: { x: 1160, y: 290 }
+    size: { w: 180, h: 18 }
+  - id: dn
+    label: "塩素など・河川や海へ"
+    marker: none
+    align: center
+    at: { x: 1360, y: 290 }
+    size: { w: 180, h: 18 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 309, y: 212 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 347, y: 255 }
+    size: { w: 2, h: 2 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 309, y: 278 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 329, y: 255 }
+    size: { w: 2, h: 2 }
+  - id: gn
+    label: "合流式なら同じ管"
+    marker: none
+    align: left
+    at: { x: 140, y: 308 }
+    size: { w: 190, h: 18 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 511, y: 255 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 547, y: 255 }
+    size: { w: 2, h: 2 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 711, y: 255 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 747, y: 255 }
+    size: { w: 2, h: 2 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 911, y: 255 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 947, y: 255 }
+    size: { w: 2, h: 2 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 1131, y: 255 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 1167, y: 255 }
+    size: { w: 2, h: 2 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 1331, y: 255 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 1367, y: 255 }
+    size: { w: 2, h: 2 }
+  - id: cso
+    label: "越流（CSO）"
+    hatch: dots
+    at: { x: 350, y: 348 }
+    size: { w: 240, h: 46 }
+  - id: cson
+    label: "合流式・大雨のとき、処理しきれない分を未処理のまま放流"
+    marker: none
+    align: left
+    at: { x: 350, y: 398 }
+    size: { w: 460, h: 18 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 429, y: 287 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 429, y: 345 }
+    size: { w: 2, h: 2 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 1249, y: 285 }
+    size: { w: 2, h: 2 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 1039, y: 285 }
+    size: { w: 2, h: 2 }
+  - id: hen
+    label: "返送汚泥"
+    marker: none
+    align: right
+    at: { x: 1060, y: 364 }
+    size: { w: 170, h: 18 }
+  - id: hen2
+    label: "微生物そのものが装置なので、捨てずに戻す。増えた分だけを抜く"
+    marker: none
+    align: right
+    at: { x: 850, y: 388 }
+    size: { w: 420, h: 18 }
+  - id: t2
+    label: "② 汚泥の道 —— 増えた分だけを抜く"
+    marker: none
+    align: left
+    at: { x: 140, y: 452 }
+    size: { w: 400, h: 18 }
+  - id: nou
+    label: "濃縮"
+    at: { x: 750, y: 460 }
+    size: { w: 160, h: 54 }
+  - id: sho
+    label: "消化"
+    at: { x: 950, y: 460 }
+    size: { w: 180, h: 54 }
+  - id: das
+    label: "脱水して焼却・溶融・炭化"
+    at: { x: 1170, y: 460 }
+    size: { w: 360, h: 54 }
+  - id: dasn
+    label: "残るのは灰と溶融スラグ"
+    marker: none
+    align: center
+    at: { x: 1170, y: 518 }
+    size: { w: 360, h: 18 }
+  - id: p18
+    label: ""
+    marker: none
+    at: { x: 911, y: 486 }
+    size: { w: 2, h: 2 }
+  - id: p19
+    label: ""
+    marker: none
+    at: { x: 947, y: 486 }
+    size: { w: 2, h: 2 }
+  - id: p20
+    label: ""
+    marker: none
+    at: { x: 1131, y: 486 }
+    size: { w: 2, h: 2 }
+  - id: p21
+    label: ""
+    marker: none
+    at: { x: 1167, y: 486 }
+    size: { w: 2, h: 2 }
+  - id: p22
+    label: ""
+    marker: none
+    at: { x: 829, y: 285 }
+    size: { w: 2, h: 2 }
+  - id: p23
+    label: ""
+    marker: none
+    at: { x: 829, y: 457 }
+    size: { w: 2, h: 2 }
+  - id: nama
+    label: "生汚泥"
+    marker: none
+    align: right
+    at: { x: 700, y: 432 }
+    size: { w: 130, h: 18 }
+  - id: p24
+    label: ""
+    marker: none
+    at: { x: 1299, y: 285 }
+    size: { w: 2, h: 2 }
+  - id: p25
+    label: ""
+    marker: none
+    at: { x: 869, y: 457 }
+    size: { w: 2, h: 2 }
+  - id: yojo
+    label: "余剰汚泥"
+    marker: none
+    align: left
+    at: { x: 880, y: 408 }
+    size: { w: 120, h: 18 }
+  - id: h140_560
+    label: "合流式と分流式（どちらの管にするか）"
+    hatch: solid
+    at: { x: 140, y: 560 }
+    size: { w: 560, h: 24 }
+  - id: x140_584
+    label: "合流式"
+    at: { x: 140, y: 584 }
+    size: { w: 120, h: 24 }
+  - id: y140_584
+    label: "雨水と汚水を同じ管で流す"
+    align: left
+    at: { x: 260, y: 584 }
+    size: { w: 440, h: 24 }
+  - id: x140_608
+    label: "　よいところ"
+    at: { x: 140, y: 608 }
+    size: { w: 120, h: 24 }
+  - id: y140_608
+    label: "工費が安い。雨で管の中が自然に洗われる"
+    align: left
+    at: { x: 260, y: 608 }
+    size: { w: 440, h: 24 }
+  - id: x140_632
+    label: "　わるいところ"
+    at: { x: 140, y: 632 }
+    size: { w: 120, h: 24 }
+  - id: y140_632
+    label: "晴れた日は流れが遅く、沈殿物がたまる"
+    align: left
+    at: { x: 260, y: 632 }
+    size: { w: 440, h: 24 }
+  - id: x140_656
+    label: "　　〃"
+    at: { x: 140, y: 656 }
+    size: { w: 120, h: 24 }
+  - id: y140_656
+    label: "大雨のとき、処理しきれない分を未処理のまま放流（CSO）"
+    align: left
+    at: { x: 260, y: 656 }
+    size: { w: 440, h: 24 }
+  - id: x140_680
+    label: "分流式"
+    at: { x: 140, y: 680 }
+    size: { w: 120, h: 24 }
+  - id: y140_680
+    label: "雨水と汚水を別の管に分ける"
+    align: left
+    at: { x: 260, y: 680 }
+    size: { w: 440, h: 24 }
+  - id: x140_704
+    label: "　よいところ"
+    at: { x: 140, y: 704 }
+    size: { w: 120, h: 24 }
+  - id: y140_704
+    label: "流量も水質も安定し、処理が安定する"
+    align: left
+    at: { x: 260, y: 704 }
+    size: { w: 440, h: 24 }
+  - id: x140_728
+    label: "　わるいところ"
+    at: { x: 140, y: 728 }
+    size: { w: 120, h: 24 }
+  - id: y140_728
+    label: "汚水管は細く、人が入れないので清掃・点検がしにくい"
+    align: left
+    at: { x: 260, y: 728 }
+    size: { w: 440, h: 24 }
+  - id: h740_560
+    label: "どれだけ届いているか（令和 6 年度末）"
+    hatch: solid
+    at: { x: 740, y: 560 }
+    size: { w: 560, h: 24 }
+  - id: x740_584
+    label: "下水道処理人口普及率"
+    at: { x: 740, y: 584 }
+    size: { w: 260, h: 24 }
+  - id: y740_584
+    label: "81.8%"
+    align: left
+    at: { x: 1000, y: 584 }
+    size: { w: 300, h: 24 }
+  - id: x740_608
+    label: "汚水処理人口普及率"
+    at: { x: 740, y: 608 }
+    size: { w: 260, h: 24 }
+  - id: y740_608
+    label: "94.0%"
+    align: left
+    at: { x: 1000, y: 608 }
+    size: { w: 300, h: 24 }
+  - id: x740_632
+    label: "　うち下水道"
+    at: { x: 740, y: 632 }
+    size: { w: 260, h: 24 }
+  - id: y740_632
+    label: "82.2%"
+    align: left
+    at: { x: 1000, y: 632 }
+    size: { w: 300, h: 24 }
+  - id: x740_656
+    label: "　うち浄化槽"
+    at: { x: 740, y: 656 }
+    size: { w: 260, h: 24 }
+  - id: y740_656
+    label: "9.5%"
+    align: left
+    at: { x: 1000, y: 656 }
+    size: { w: 300, h: 24 }
+  - id: x740_680
+    label: "　うち農業集落排水など"
+    at: { x: 740, y: 680 }
+    size: { w: 260, h: 24 }
+  - id: y740_680
+    label: "2.2%"
+    align: left
+    at: { x: 1000, y: 680 }
+    size: { w: 300, h: 24 }
+  - id: r1
+    label: "・汚水処理の合計が下水道の値より大きいのは、"
+    marker: none
+    align: left
+    at: { x: 740, y: 716 }
+    size: { w: 560, h: 18 }
+  - id: r2
+    label: "　下水道以外の受け皿（浄化槽・農集排）が残りを担っているから。"
+    marker: none
+    align: left
+    at: { x: 740, y: 740 }
+    size: { w: 560, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    ends: { from: none, to: arrow }
+    via:
+      - { x: 330, y: 213 }
+      - { x: 330, y: 256 }
+  - from: p2
+    to: p3
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 330, y: 279 }
+  - from: p4
+    to: p5
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p6
+    to: p7
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p8
+    to: p9
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p10
+    to: p11
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p12
+    to: p13
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p14
+    to: p15
+    curve: none
+    line: dashed
+    ends: { from: none, to: arrow }
+  - from: p16
+    to: p17
+    curve: none
+    ends: { from: none, to: arrow }
+    via:
+      - { x: 1250, y: 360 }
+      - { x: 1040, y: 360 }
+  - from: p18
+    to: p19
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p20
+    to: p21
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p22
+    to: p23
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p24
+    to: p25
+    curve: none
+    ends: { from: none, to: arrow }
+    via:
+      - { x: 1300, y: 430 }
+      - { x: 870, y: 430 }

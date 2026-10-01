@@ -1,0 +1,71 @@
+name: pages
+
+# **紹介のページを配る**（GitHub Pages）。
+#
+# 中身は `site/`。組み立ての段は無く、置いてあるものをそのまま配る。
+# **図は実物**（`examples/gallery/` で描いたものを写している）で、
+# 絵として作ったものではない。**出せない図を載せない**ため。
+#
+# ## 配るのは `main` から（2026-09-18）
+#
+# **これは本番の配布物**なので、`main` からだけ配る。
+# 既定ブランチは `develop`（ふだんの push 先）で、
+# **`develop → main` の PR が通ったときに世に出る** —— 他のリポジトリと同じ運用。
+#
+# 以前は `develop` から配っていた。**push した瞬間に公開される**ので、
+# 「出す」判断と「直す」作業が同じ操作になっていた（指摘）。
+#
+# 開発中の見た目を確かめたいときは `workflow_dispatch` で手で回す。
+#
+# ## 人の作業が 1 回だけ要る
+#
+# Settings → Pages → Source を **GitHub Actions** にすること。
+# そこまでは、この workflow が走っても配られない。
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'site/**'
+      - 'examples/gallery/**'
+      - '.github/workflows/pages.yml'
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 走っている途中のものは止めてよい（配るのは常に最新の 1 つ）。
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v7
+
+      # **図はここで写す。** site/ に置いたものが古くならないように、
+      # 配るたびに examples/gallery/ から取り直す。
+      - name: 図とアイコンを写す
+        run: |
+          mkdir -p site/gallery
+          cp examples/gallery/*.svg site/gallery/
+          # **アイコンの正本は `app/icon.svg` の 1 つだけ**（`DESIGN.md` §6）。
+          # ここで写すので、`site/` 側が古くならない。
+          cp app/icon.svg site/icon.svg
+          ls -l site site/gallery
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+      - id: deploy
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,315 @@
+version: 1
+kind: placement
+arrows: true
+title: 消火器と屋内消火栓の配置図（歩行距離と水平距離／架空のビル）
+scale: { mm: 50 }
+# **同じ階の図に、測り方が 2 つ同時に載る。**
+#
+# ## 消火器は歩行距離、消火栓は水平距離
+#
+# **消火器**は、あらゆる部分から**歩行距離 20 m 以下**。
+# 壁を回り込んだ「**歩く道のり**」で測る。
+#
+# **屋内消火栓（1 号）**は、各部分からホース接続口までの**水平距離 25 m 以下**。
+# **壁を無視した直線**で測るので、図では円で描く。
+#
+# **取り違えると、届かない所ができる。**
+#
+# ## 消火器の置き方
+#
+# **各階ごとに置く**（上の階から借りてこられない）。
+# **床面から 1.5 m 以下**、通行と避難の邪魔にならない場所。
+# **見やすい位置に「消火器」の標識**を付ける。高温多湿を避ける。
+nodes:
+  - id: bldg
+    label: ""
+    at: { x: 120, y: 180 }
+    size: { w: 1000, h: 600 }
+  - id: bldg_n
+    label: "事務所ビル 3 階　50 m × 30 m（1 px = 50 mm）"
+    marker: none
+    align: left
+    at: { x: 120, y: 150 }
+    size: { w: 420, h: 22 }
+  - id: rouka
+    label: ""
+    hatch: dots
+    at: { x: 140, y: 460 }
+    size: { w: 960, h: 60 }
+  - id: rouka_n
+    label: "廊下"
+    marker: none
+    align: left
+    at: { x: 148, y: 476 }
+    size: { w: 60, h: 24 }
+  - id: r1
+    label: "事務室 A"
+    at: { x: 140, y: 200 }
+    size: { w: 460, h: 260 }
+  - id: r2
+    label: "事務室 B"
+    at: { x: 620, y: 200 }
+    size: { w: 480, h: 260 }
+  - id: r3
+    label: "会議室"
+    at: { x: 140, y: 520 }
+    size: { w: 300, h: 240 }
+  - id: r4
+    label: "倉庫"
+    at: { x: 460, y: 520 }
+    size: { w: 300, h: 240 }
+  - id: r5
+    label: "機械室"
+    at: { x: 780, y: 520 }
+    size: { w: 320, h: 240 }
+  - id: kaidan
+    label: "階段"
+    hatch: lines
+    at: { x: 1000, y: 200 }
+    size: { w: 100, h: 120 }
+  - id: hr1
+    label: ""
+    marker: circle
+    tag: HR1
+    radius: 500
+    at: { x: 360, y: 476 }
+    size: { w: 28, h: 28 }
+  - id: hr2
+    label: ""
+    marker: circle
+    tag: HR2
+    radius: 500
+    at: { x: 860, y: 476 }
+    size: { w: 28, h: 28 }
+  - id: hr_n
+    label: "屋内消火栓（1 号）　水平距離 25 m 以下"
+    marker: none
+    align: left
+    at: { x: 140, y: 796 }
+    size: { w: 420, h: 22 }
+  - id: ex1
+    label: ""
+    marker: diamond
+    tag: EX1
+    at: { x: 180, y: 476 }
+    size: { w: 26, h: 26 }
+  - id: ex2
+    label: ""
+    marker: diamond
+    tag: EX2
+    at: { x: 590, y: 476 }
+    size: { w: 26, h: 26 }
+  - id: ex3
+    label: ""
+    marker: diamond
+    tag: EX3
+    at: { x: 1020, y: 476 }
+    size: { w: 26, h: 26 }
+  - id: ex4
+    label: ""
+    marker: diamond
+    tag: EX4
+    at: { x: 480, y: 720 }
+    size: { w: 26, h: 26 }
+  - id: ex_n
+    label: "消火器　歩行距離 20 m 以下（床面から 1.5 m 以下・標識を付ける）"
+    marker: none
+    align: left
+    at: { x: 140, y: 824 }
+    size: { w: 520, h: 22 }
+  - id: far
+    label: ""
+    marker: circle
+    at: { x: 160, y: 220 }
+    size: { w: 20, h: 20 }
+  - id: walk_n
+    label: "歩行距離 18.4 m（壁を回り込んだ道のり）"
+    marker: none
+    align: left
+    at: { x: 390, y: 210 }
+    size: { w: 330, h: 22 }
+  - id: door
+    label: ""
+    hatch: solid
+    at: { x: 350, y: 452 }
+    size: { w: 40, h: 5 }
+  - id: far_n
+    label: "いちばん遠い所"
+    marker: none
+    align: left
+    at: { x: 160, y: 246 }
+    size: { w: 150, h: 22 }
+  - id: c_t
+    label: "どこまで届くか（消防法施行令）"
+    marker: none
+    align: left
+    at: { x: 1180, y: 40 }
+    size: { w: 400, h: 24 }
+  - id: th0
+    label: "設備"
+    hatch: solid
+    at: { x: 1180, y: 70 }
+    size: { w: 220, h: 26 }
+  - id: th1
+    label: "測り方"
+    hatch: solid
+    at: { x: 1400, y: 70 }
+    size: { w: 170, h: 26 }
+  - id: th2
+    label: "上限"
+    hatch: solid
+    at: { x: 1570, y: 70 }
+    size: { w: 130, h: 26 }
+  - id: th3
+    label: "放水量・圧力"
+    hatch: solid
+    at: { x: 1700, y: 70 }
+    size: { w: 260, h: 26 }
+  - id: tc0_0
+    label: "消火器"
+    at: { x: 1180, y: 96 }
+    size: { w: 220, h: 30 }
+  - id: tc0_1
+    label: "歩行距離"
+    at: { x: 1400, y: 96 }
+    size: { w: 170, h: 30 }
+  - id: tc0_2
+    label: "20 m 以下"
+    at: { x: 1570, y: 96 }
+    size: { w: 130, h: 30 }
+  - id: tc0_3
+    label: "—"
+    at: { x: 1700, y: 96 }
+    size: { w: 260, h: 30 }
+  - id: tc1_0
+    label: "大型消火器"
+    at: { x: 1180, y: 126 }
+    size: { w: 220, h: 30 }
+  - id: tc1_1
+    label: "歩行距離"
+    at: { x: 1400, y: 126 }
+    size: { w: 170, h: 30 }
+  - id: tc1_2
+    label: "30 m 以下"
+    at: { x: 1570, y: 126 }
+    size: { w: 130, h: 30 }
+  - id: tc1_3
+    label: "—"
+    at: { x: 1700, y: 126 }
+    size: { w: 260, h: 30 }
+  - id: tc2_0
+    label: "屋内消火栓 1 号"
+    at: { x: 1180, y: 156 }
+    size: { w: 220, h: 30 }
+  - id: tc2_1
+    label: "水平距離"
+    at: { x: 1400, y: 156 }
+    size: { w: 170, h: 30 }
+  - id: tc2_2
+    label: "25 m 以下"
+    at: { x: 1570, y: 156 }
+    size: { w: 130, h: 30 }
+  - id: tc2_3
+    label: "130 L/min 以上・0.17 MPa 以上"
+    at: { x: 1700, y: 156 }
+    size: { w: 260, h: 30 }
+  - id: tc3_0
+    label: "屋内消火栓 2 号"
+    at: { x: 1180, y: 186 }
+    size: { w: 220, h: 30 }
+  - id: tc3_1
+    label: "水平距離"
+    at: { x: 1400, y: 186 }
+    size: { w: 170, h: 30 }
+  - id: tc3_2
+    label: "15 m 以下"
+    at: { x: 1570, y: 186 }
+    size: { w: 130, h: 30 }
+  - id: tc3_3
+    label: "60 L/min 以上・0.25 MPa 以上"
+    at: { x: 1700, y: 186 }
+    size: { w: 260, h: 30 }
+  - id: tc4_0
+    label: "広範囲型 2 号"
+    at: { x: 1180, y: 216 }
+    size: { w: 220, h: 30 }
+  - id: tc4_1
+    label: "水平距離"
+    at: { x: 1400, y: 216 }
+    size: { w: 170, h: 30 }
+  - id: tc4_2
+    label: "25 m 以下"
+    at: { x: 1570, y: 216 }
+    size: { w: 130, h: 30 }
+  - id: tc4_3
+    label: "80 L/min 以上・0.17 MPa 以上"
+    at: { x: 1700, y: 216 }
+    size: { w: 260, h: 30 }
+  - id: r_t
+    label: "この図の決まり"
+    marker: none
+    align: left
+    at: { x: 1180, y: 272 }
+    size: { w: 200, h: 24 }
+  - id: rn0
+    label: "・消火器は歩行距離。壁を回り込んだ「歩く道のり」で測る"
+    marker: none
+    align: left
+    at: { x: 1180, y: 300 }
+    size: { w: 620, h: 24 }
+  - id: rn1
+    label: "・屋内消火栓は水平距離。壁を無視した直線で測る（図では円で描く）"
+    marker: none
+    align: left
+    at: { x: 1180, y: 326 }
+    size: { w: 620, h: 24 }
+  - id: rn2
+    label: "・同じ階の図に、2 つの測り方が同時に載る。取り違えると届かない所ができる"
+    marker: none
+    align: left
+    at: { x: 1180, y: 352 }
+    size: { w: 620, h: 24 }
+  - id: rn3
+    label: "・消火器は各階ごとに置く。上の階から借りてこられない"
+    marker: none
+    align: left
+    at: { x: 1180, y: 378 }
+    size: { w: 620, h: 24 }
+  - id: rn4
+    label: "・床面から 1.5 m 以下。通行と避難の邪魔にならない場所"
+    marker: none
+    align: left
+    at: { x: 1180, y: 404 }
+    size: { w: 620, h: 24 }
+  - id: rn5
+    label: "・見やすい位置に「消火器」の標識を付ける"
+    marker: none
+    align: left
+    at: { x: 1180, y: 430 }
+    size: { w: 620, h: 24 }
+  - id: rn6
+    label: "・高温多湿を避ける（薬剤が固まる・変質する）"
+    marker: none
+    align: left
+    at: { x: 1180, y: 456 }
+    size: { w: 620, h: 24 }
+  - id: rn7
+    label: "・階段・機械室など、人が通らない所にも歩行距離は効く"
+    marker: none
+    align: left
+    at: { x: 1180, y: 482 }
+    size: { w: 620, h: 24 }
+  - id: leg
+    label: "円 ＝ 屋内消火栓の水平距離 25 m　　菱形 ＝ 消火器　　太線 ＝ 歩行距離の測り方"
+    marker: none
+    align: left
+    at: { x: 1180, y: 520 }
+    size: { w: 640, h: 24 }
+edges:
+  - from: far
+    to: ex1
+    weight: thick
+    via:
+      - { x: 370, y: 200 }
+      - { x: 370, y: 490 }
+      - { x: 220, y: 490 }

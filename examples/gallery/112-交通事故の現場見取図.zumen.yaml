@@ -1,0 +1,537 @@
+version: 1
+kind: placement
+arrows: true
+title: 交通事故 現場見取図（信号機の無い交差点・出会い頭／架空の事故）
+scale: { mm: 50 }
+north: up
+# **実況見分調書に綴じる見取図。** 警察が、当事者の立会いのもとで実測して描く。
+# 後で過失割合を争うときに、いちばん強い証拠になる。
+#
+# ## 寸法は、すべて基点から測る
+#
+# **基点**は動かない物（電柱・路端・交差点の角）。
+# 衝突地点も停止位置も、基点からの実測値で押さえる。**「だいたいこのへん」は書かない。**
+#
+# ## 地点は、立会人が指し示した所
+#
+# 甲車は **①〜⑤**（発見・危険・制動開始・衝突・停止）、乙車は **ア〜エ**。
+# **調書の指示説明の番号と、図の番号を合わせる。**
+# 警察が推測して置くものではない。
+#
+# ## 書くもの
+#
+# 道路の幅員・形状・規制（一時停止・横断歩道・停止線）、見通しを妨げる物、
+# スリップ痕の長さ、天候と路面の状態、見分の日時、立会人。
+#
+# **車は左側通行。** 進路は、その道路の左半分に描く。
+#
+# **この図は関係を示すもので、過失割合そのものではない。**
+nodes:
+  - id: road_ew
+    label: ""
+    at: { x: 0, y: 300 }
+    size: { w: 960, h: 160 }
+  - id: road_ns
+    label: ""
+    at: { x: 520, y: 0 }
+    size: { w: 110, h: 660 }
+  - id: ew_n
+    label: "東西道路　幅員 8.0 m　優先"
+    marker: none
+    align: left
+    at: { x: 20, y: 470 }
+    size: { w: 240, h: 22 }
+  - id: ns_n
+    label: "南北道路　幅員 5.5 m"
+    marker: none
+    align: left
+    at: { x: 644, y: 30 }
+    size: { w: 190, h: 22 }
+  - id: hei
+    label: ""
+    hatch: cross
+    at: { x: 200, y: 236 }
+    size: { w: 184, h: 50 }
+  - id: hei_n
+    label: "ブロック塀（見通しを妨げる）"
+    marker: none
+    align: left
+    at: { x: 200, y: 180 }
+    size: { w: 250, h: 22 }
+  - id: cl_a
+    label: ""
+    marker: none
+    at: { x: -1, y: 379 }
+    size: { w: 2, h: 2 }
+  - id: cl_b
+    label: ""
+    marker: none
+    at: { x: 519, y: 379 }
+    size: { w: 2, h: 2 }
+  - id: cl_c
+    label: ""
+    marker: none
+    at: { x: 629, y: 379 }
+    size: { w: 2, h: 2 }
+  - id: cl_d
+    label: ""
+    marker: none
+    at: { x: 959, y: 379 }
+    size: { w: 2, h: 2 }
+  - id: stop_line
+    label: ""
+    hatch: solid
+    at: { x: 524, y: 488 }
+    size: { w: 102, h: 6 }
+  - id: stop_sign
+    label: "一時停止"
+    marker: diamond
+    at: { x: 652, y: 484 }
+    size: { w: 92, h: 30 }
+  - id: cross
+    label: ""
+    hatch: lines
+    at: { x: 660, y: 300 }
+    size: { w: 88, h: 160 }
+  - id: cross_n
+    label: "横断歩道"
+    marker: none
+    align: left
+    at: { x: 760, y: 320 }
+    size: { w: 90, h: 22 }
+  - id: kiten
+    label: "基点"
+    marker: circle
+    at: { x: 400, y: 240 }
+    size: { w: 56, h: 56 }
+  - id: kiten_n
+    label: "電柱"
+    marker: none
+    align: left
+    at: { x: 400, y: 212 }
+    size: { w: 48, h: 22 }
+  - id: kt_a
+    label: ""
+    marker: none
+    at: { x: 443, y: 291 }
+    size: { w: 2, h: 2 }
+  - id: kt_b
+    label: ""
+    marker: none
+    at: { x: 589, y: 407 }
+    size: { w: 2, h: 2 }
+  - id: kiten_d
+    label: "10.4 m"
+    marker: none
+    align: left
+    at: { x: 424, y: 348 }
+    size: { w: 70, h: 20 }
+  - id: hit
+    label: ""
+    marker: diamond
+    at: { x: 584, y: 402 }
+    size: { w: 36, h: 36 }
+  - id: hit_n
+    label: "④・ウ　衝突地点"
+    marker: none
+    align: left
+    at: { x: 620, y: 258 }
+    size: { w: 150, h: 22 }
+  - id: ht_a
+    label: ""
+    marker: none
+    at: { x: 617, y: 403 }
+    size: { w: 2, h: 2 }
+  - id: ht_b
+    label: ""
+    marker: none
+    at: { x: 629, y: 281 }
+    size: { w: 2, h: 2 }
+  - id: k1
+    label: "①"
+    marker: circle
+    at: { x: 127, y: 405 }
+    size: { w: 30, h: 30 }
+  - id: k2
+    label: "②"
+    marker: circle
+    at: { x: 307, y: 405 }
+    size: { w: 30, h: 30 }
+  - id: k3
+    label: "③"
+    marker: circle
+    at: { x: 407, y: 405 }
+    size: { w: 30, h: 30 }
+  - id: k5
+    label: "⑤"
+    marker: circle
+    at: { x: 827, y: 405 }
+    size: { w: 30, h: 30 }
+  - id: ka
+    label: ""
+    marker: none
+    at: { x: 59, y: 419 }
+    size: { w: 2, h: 2 }
+  - id: kb
+    label: ""
+    marker: none
+    at: { x: 919, y: 419 }
+    size: { w: 2, h: 2 }
+  - id: kou_n
+    label: "甲車　東へ"
+    marker: none
+    align: left
+    at: { x: 20, y: 408 }
+    size: { w: 104, h: 22 }
+  - id: slip
+    label: ""
+    hatch: cross
+    at: { x: 422, y: 442 }
+    size: { w: 180, h: 6 }
+  - id: slip_n
+    label: "スリップ痕 9.0 m"
+    marker: none
+    align: left
+    at: { x: 272, y: 436 }
+    size: { w: 150, h: 22 }
+  - id: o1
+    label: "ア"
+    marker: circle
+    at: { x: 587, y: 525 }
+    size: { w: 30, h: 30 }
+  - id: o2
+    label: "イ"
+    marker: circle
+    at: { x: 587, y: 453 }
+    size: { w: 30, h: 30 }
+  - id: o4
+    label: "エ"
+    marker: circle
+    at: { x: 587, y: 225 }
+    size: { w: 30, h: 30 }
+  - id: oa
+    label: ""
+    marker: none
+    at: { x: 601, y: 619 }
+    size: { w: 2, h: 2 }
+  - id: ob
+    label: ""
+    marker: none
+    at: { x: 601, y: 169 }
+    size: { w: 2, h: 2 }
+  - id: otu_n
+    label: "乙車　北へ"
+    marker: none
+    align: left
+    at: { x: 644, y: 596 }
+    size: { w: 110, h: 22 }
+  - id: c_t
+    label: "見分の条件"
+    marker: none
+    align: left
+    at: { x: 1060, y: 30 }
+    size: { w: 140, h: 24 }
+  - id: ck0
+    label: "日時"
+    hatch: solid
+    at: { x: 1060, y: 58 }
+    size: { w: 110, h: 28 }
+  - id: cv0
+    label: "令和 8 年 4 月 12 日　16 時 40 分"
+    at: { x: 1170, y: 58 }
+    size: { w: 350, h: 28 }
+  - id: ck1
+    label: "天候"
+    hatch: solid
+    at: { x: 1060, y: 86 }
+    size: { w: 110, h: 28 }
+  - id: cv1
+    label: "晴　路面 乾燥"
+    at: { x: 1170, y: 86 }
+    size: { w: 350, h: 28 }
+  - id: ck2
+    label: "明暗"
+    hatch: solid
+    at: { x: 1060, y: 114 }
+    size: { w: 110, h: 28 }
+  - id: cv2
+    label: "明るい（日没前）"
+    at: { x: 1170, y: 114 }
+    size: { w: 350, h: 28 }
+  - id: ck3
+    label: "見通し"
+    hatch: solid
+    at: { x: 1060, y: 142 }
+    size: { w: 110, h: 28 }
+  - id: cv3
+    label: "南北道路から西方 —— ブロック塀で悪い"
+    at: { x: 1170, y: 142 }
+    size: { w: 350, h: 28 }
+  - id: ck4
+    label: "信号"
+    hatch: solid
+    at: { x: 1060, y: 170 }
+    size: { w: 110, h: 28 }
+  - id: cv4
+    label: "無し（南北道路に一時停止）"
+    at: { x: 1170, y: 170 }
+    size: { w: 350, h: 28 }
+  - id: ck5
+    label: "立会人"
+    hatch: solid
+    at: { x: 1060, y: 198 }
+    size: { w: 110, h: 28 }
+  - id: cv5
+    label: "甲車運転者・乙車運転者の両名"
+    at: { x: 1170, y: 198 }
+    size: { w: 350, h: 28 }
+  - id: a_t
+    label: "甲車　普通乗用　時速 約 40 km（本人の指示説明）"
+    marker: none
+    align: left
+    at: { x: 1060, y: 250 }
+    size: { w: 420, h: 24 }
+  - id: ka0
+    label: "①"
+    hatch: solid
+    at: { x: 1060, y: 278 }
+    size: { w: 44, h: 28 }
+  - id: kb0
+    label: "乙車を発見した地点"
+    at: { x: 1104, y: 278 }
+    size: { w: 240, h: 28 }
+  - id: kc0
+    label: "衝突地点から西 23.0 m"
+    at: { x: 1344, y: 278 }
+    size: { w: 196, h: 28 }
+  - id: ka1
+    label: "②"
+    hatch: solid
+    at: { x: 1060, y: 306 }
+    size: { w: 44, h: 28 }
+  - id: kb1
+    label: "危険を感じた地点"
+    at: { x: 1104, y: 306 }
+    size: { w: 240, h: 28 }
+  - id: kc1
+    label: "衝突地点から西 14.0 m"
+    at: { x: 1344, y: 306 }
+    size: { w: 196, h: 28 }
+  - id: ka2
+    label: "③"
+    hatch: solid
+    at: { x: 1060, y: 334 }
+    size: { w: 44, h: 28 }
+  - id: kb2
+    label: "制動を開始した地点"
+    at: { x: 1104, y: 334 }
+    size: { w: 240, h: 28 }
+  - id: kc2
+    label: "衝突地点から西 9.0 m"
+    at: { x: 1344, y: 334 }
+    size: { w: 196, h: 28 }
+  - id: ka3
+    label: "④"
+    hatch: solid
+    at: { x: 1060, y: 362 }
+    size: { w: 44, h: 28 }
+  - id: kb3
+    label: "衝突地点"
+    at: { x: 1104, y: 362 }
+    size: { w: 240, h: 28 }
+  - id: kc3
+    label: "基点から南東 10.4 m"
+    at: { x: 1344, y: 362 }
+    size: { w: 196, h: 28 }
+  - id: ka4
+    label: "⑤"
+    hatch: solid
+    at: { x: 1060, y: 390 }
+    size: { w: 44, h: 28 }
+  - id: kb4
+    label: "停止した地点"
+    at: { x: 1104, y: 390 }
+    size: { w: 240, h: 28 }
+  - id: kc4
+    label: "衝突地点から東 12.0 m"
+    at: { x: 1344, y: 390 }
+    size: { w: 196, h: 28 }
+  - id: b_t
+    label: "乙車　軽貨物　時速 約 15 km（本人の指示説明）"
+    marker: none
+    align: left
+    at: { x: 1060, y: 438 }
+    size: { w: 420, h: 24 }
+  - id: oa0
+    label: "ア"
+    hatch: solid
+    at: { x: 1060, y: 466 }
+    size: { w: 44, h: 28 }
+  - id: ob0
+    label: "停止線で一時停止した地点"
+    at: { x: 1104, y: 466 }
+    size: { w: 240, h: 28 }
+  - id: oc0
+    label: "衝突地点から南 6.0 m"
+    at: { x: 1344, y: 466 }
+    size: { w: 196, h: 28 }
+  - id: oa1
+    label: "イ"
+    hatch: solid
+    at: { x: 1060, y: 494 }
+    size: { w: 44, h: 28 }
+  - id: ob1
+    label: "発進し、甲車を発見した地点"
+    at: { x: 1104, y: 494 }
+    size: { w: 240, h: 28 }
+  - id: oc1
+    label: "衝突地点から南 2.4 m"
+    at: { x: 1344, y: 494 }
+    size: { w: 196, h: 28 }
+  - id: oa2
+    label: "ウ"
+    hatch: solid
+    at: { x: 1060, y: 522 }
+    size: { w: 44, h: 28 }
+  - id: ob2
+    label: "衝突地点"
+    at: { x: 1104, y: 522 }
+    size: { w: 240, h: 28 }
+  - id: oc2
+    label: "④ と同じ"
+    at: { x: 1344, y: 522 }
+    size: { w: 196, h: 28 }
+  - id: oa3
+    label: "エ"
+    hatch: solid
+    at: { x: 1060, y: 550 }
+    size: { w: 44, h: 28 }
+  - id: ob3
+    label: "停止した地点"
+    at: { x: 1104, y: 550 }
+    size: { w: 240, h: 28 }
+  - id: oc3
+    label: "衝突地点から北 9.0 m"
+    at: { x: 1344, y: 550 }
+    size: { w: 196, h: 28 }
+  - id: r_t
+    label: "この図の決まり"
+    marker: none
+    align: left
+    at: { x: 1060, y: 602 }
+    size: { w: 200, h: 24 }
+  - id: rn0
+    label: "・寸法はすべて基点から測る。基点は動かない物（電柱・路端・角）"
+    marker: none
+    align: left
+    at: { x: 1060, y: 630 }
+    size: { w: 480, h: 24 }
+  - id: rn1
+    label: "・地点は、立会人が現場で指し示した所。警察が推測して置かない"
+    marker: none
+    align: left
+    at: { x: 1060, y: 656 }
+    size: { w: 480, h: 24 }
+  - id: rn2
+    label: "・甲車は ①〜⑤、乙車は ア〜エ。指示説明の番号と図の番号を合わせる"
+    marker: none
+    align: left
+    at: { x: 1060, y: 682 }
+    size: { w: 480, h: 24 }
+  - id: rn3
+    label: "・スリップ痕は長さを書く。速度の推定に使われる"
+    marker: none
+    align: left
+    at: { x: 1060, y: 708 }
+    size: { w: 480, h: 24 }
+  - id: rn4
+    label: "・見通しの悪さは、何で悪いか（塀・生垣・駐車車両）まで書く"
+    marker: none
+    align: left
+    at: { x: 1060, y: 734 }
+    size: { w: 480, h: 24 }
+  - id: rn5
+    label: "・信号の色は、双方の言い分が違えば両方を書く"
+    marker: none
+    align: left
+    at: { x: 1060, y: 760 }
+    size: { w: 480, h: 24 }
+  - id: rn6
+    label: "・車は左側通行。進路は、その道路の左半分に描く"
+    marker: none
+    align: left
+    at: { x: 1060, y: 786 }
+    size: { w: 480, h: 24 }
+  - id: rn7
+    label: "・この図は関係を示すもので、過失割合そのものではない"
+    marker: none
+    align: left
+    at: { x: 1060, y: 812 }
+    size: { w: 480, h: 24 }
+  - id: leg
+    label: "◆＝衝突地点　　網掛け＝スリップ痕・見通しを妨げる物"
+    marker: none
+    align: left
+    at: { x: 1060, y: 850 }
+    size: { w: 480, h: 24 }
+edges:
+  - from: cl_a
+    to: cl_b
+    line: dashed
+    ends: { from: none, to: none }
+  - from: cl_c
+    to: cl_d
+    line: dashed
+    ends: { from: none, to: none }
+  - from: kt_a
+    to: kt_b
+    line: dotted
+    ends: { from: bar, to: bar }
+  - from: ht_a
+    to: ht_b
+    line: dotted
+    ends: { from: none, to: none }
+  - from: ka
+    to: k1
+    weight: thick
+    ends: { from: none, to: none }
+  - from: k1
+    to: k2
+    weight: thick
+    ends: { from: none, to: none }
+  - from: k2
+    to: k3
+    weight: thick
+    ends: { from: none, to: none }
+  - from: k3
+    to: hit
+    weight: thick
+    ends: { from: none, to: none }
+  - from: hit
+    to: k5
+    weight: thick
+    ends: { from: none, to: none }
+  - from: k5
+    to: kb
+    weight: thick
+    ends: { from: none, to: arrow }
+  - from: oa
+    to: o1
+    weight: thick
+    ends: { from: none, to: none }
+  - from: o1
+    to: o2
+    weight: thick
+    ends: { from: none, to: none }
+  - from: o2
+    to: hit
+    weight: thick
+    ends: { from: none, to: none }
+  - from: hit
+    to: o4
+    weight: thick
+    ends: { from: none, to: none }
+  - from: o4
+    to: ob
+    weight: thick
+    ends: { from: none, to: arrow }

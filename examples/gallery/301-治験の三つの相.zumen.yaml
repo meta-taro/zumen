@@ -1,0 +1,77 @@
+version: 1
+direction: down
+wrap: true
+title: 治験の三つの相（人数ではなく、「誰に試すか」で分かれている）
+# **治験の相は、人数で分かれているのではない。**
+# **誰に試すか**で分かれていて、その順番に意味がある。
+#
+# **第 I 相 —— 自由意思に基づき志願した健常成人。**
+# 病気の人ではなく、**健康な人**に試す。見るのは効くかどうかではなく、
+# **薬物動態**（体の中でどう動き、どう消えるか）と**安全性**。
+# 効き目を確かめる段ではないので、患者に負担をかける理由が無い。
+#
+# **第 II 相 —— 比較的軽度な、少数例の患者。**
+# ここで初めて患者に試す。有効性・安全性・薬物動態の検討 ——
+# **軽い人から始める**のは、効かなかったときの損が小さいから。
+#
+# **第 III 相 —— 上市後に実際にその化合物を使うであろう患者。**
+# **数百例以上の規模**になることもあり、**多施設共同**で行う。
+# ここで初めて「効く」ことを**検証**する（それまでは検討）。
+#
+# **検討と検証は、違う言葉として使い分けられている。**
+# 第 I 相・第 II 相は「検討」、第 III 相が「検証」。
+# **試す相手が実際の使い手に近づくほど、言葉が強くなる。**
+#
+# **人数は結果であって、条件ではない。**
+# 「実際に使う患者」を集めれば数百例になるだけで、
+# **先に人数を決めて相を分けているのではない。**
+nodes:
+  - id: kiso
+    type: generic
+    label: 基礎研究
+    technology: 化合物を見つける
+  - id: hirinsho
+    type: generic
+    label: 非臨床試験
+    technology: 人に試す前
+  - id: p1
+    type: generic
+    label: 第 I 相
+    technology: 志願した健常成人
+  - id: p2
+    type: generic
+    label: 第 II 相
+    technology: 比較的軽度な少数例の患者
+  - id: p3
+    type: generic
+    label: 第 III 相
+    technology: 実際に使うであろう患者
+  - id: shinsa
+    type: generic
+    label: 承認申請・審査
+  - id: shihan
+    type: storage
+    label: 市販
+  - id: ato
+    type: generic
+    label: 市販後も見続ける
+    technology: 使う人の数が桁違いに増える
+edges:
+  - from: kiso
+    to: hirinsho
+  - from: hirinsho
+    to: p1
+    label: ここから人
+  - from: p1
+    to: p2
+    label: 薬物動態と安全性を検討
+  - from: p2
+    to: p3
+    label: 有効性・安全性を検討
+  - from: p3
+    to: shinsa
+    label: 有効性を検証（数百例以上・多施設）
+  - from: shinsa
+    to: shihan
+  - from: shihan
+    to: ato

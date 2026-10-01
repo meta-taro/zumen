@@ -1,0 +1,855 @@
+version: 1
+kind: placement
+arrows: false
+title: 1995 年 1 月 17 日の死者 —— いつ、何で亡くなったか（厚生省 人口動態統計）
+# **ほとんどの人は、夜明け前の数時間に、家の中で亡くなった。**
+#
+# 1995 年 1 月 17 日 午前 5 時 46 分、兵庫県南部地震（M7.3）。
+# 厚生省の人口動態統計（1995 年 1〜6 月の死亡届のうち「震災による死亡」）で 5,488 人。
+#
+# | | 人 | % |
+# |---|---|---|
+# | 1 月 17 日 午前 | 4,461 | 81.3 |
+# | 17 日 全体 | 5,175 | 94.3 |
+# | 窒息・圧死 | 4,224 | 77.0 |
+#
+# 内閣府の教訓資料集は、神戸市の監察医の検案から「**9 割以上は死亡推定時刻が当日 6 時まで**で、
+# ほとんどが即死状態だった」と書いている。**救助が間に合う時間は、ほとんど無かった。**
+# だからこの地震の教訓は「早く助ける」より先に、**「家と家具が倒れない」**になった。
+#
+# ## 挫滅症候群だけが、遅れて出る
+#
+# ③の表で、挫滅症候群（クラッシュ症候群）の 15 人は**全員が 19 日以降**。
+# 長く挟まれた手足の筋肉が壊れ、**助け出されて血が戻ったときに**、その毒が全身に回る。
+# 助け出された人が、あとで亡くなる。**表の空欄の並びが、病気の仕組みと合っている。**
+# （救出の直後に心停止する例もあるので「当日には起きない」とは言えない。言えるのは、この統計では 19 日より前が 0 人だということ。）
+#
+# ## 死者の数が 3 つある理由
+#
+# 6,434 人（全体・震災関連死を含む）、6,402 人（兵庫県・直接死 5,483 ＋ 関連死 919）、5,488 人（人口動態統計）。
+# **どれも正しく、数えているものが違う。** この図は死因と日時の内訳がある 5,488 人で描いた。
+#
+# ## 描かなかったもの
+#
+# - **個人。** 名前も、場所も、写真も。数だけ
+# - **地図。** 震度 7 の帯は、地図の精度を損ねずに描く手段がこの図に無い
+# - **「こうしていれば助かった」。** 統計から言えることだけを書く
+#
+# 出典: 厚生省大臣官房統計情報部「人口動態統計からみた阪神・淡路大震災による死亡の状況」（1995 年）
+# 表 3 年齢階級・死因別死亡数及び構成割合、表 4 死亡日時・死因別死亡数。
+# 内閣府「阪神・淡路大震災教訓情報資料集【02】人的被害」。
+# 兵庫県「阪神・淡路大震災の死者にかかる調査について」（2005 年 12 月 22 日記者発表）。
+nodes:
+  - id: t1
+    label: "① いつ亡くなったか —— 5,488 人を幅にした帯（地震は 1 月 17 日 午前 5 時 46 分）"
+    marker: none
+    align: left
+    at: { x: 60, y: 96 }
+    size: { w: 1200, h: 18 }
+  - id: a0
+    label: "1 月 17 日 午前\n4,461 人（81.3%）"
+    align: center
+    at: { x: 60, y: 128 }
+    size: { w: 894, h: 56 }
+  - id: a1
+    label: ""
+    hatch: lines
+    align: center
+    at: { x: 954, y: 128 }
+    size: { w: 88, h: 56 }
+  - id: a2
+    label: ""
+    hatch: dots
+    align: center
+    at: { x: 1042, y: 128 }
+    size: { w: 55, h: 56 }
+  - id: a3
+    label: ""
+    align: center
+    at: { x: 1097, y: 128 }
+    size: { w: 37, h: 56 }
+  - id: a4
+    label: ""
+    align: center
+    at: { x: 1134, y: 128 }
+    size: { w: 6, h: 56 }
+  - id: a5
+    label: ""
+    align: center
+    at: { x: 1140, y: 128 }
+    size: { w: 20, h: 56 }
+  - id: a6
+    label: ""
+    align: center
+    at: { x: 1160, y: 128 }
+    size: { w: 1, h: 56 }
+  - id: ta0_0
+    label: ""
+    hatch: solid
+    align: center
+    at: { x: 60, y: 200 }
+    size: { w: 150, h: 26 }
+  - id: ta0_1
+    label: "17 日 午前"
+    hatch: solid
+    align: center
+    at: { x: 210, y: 200 }
+    size: { w: 110, h: 26 }
+  - id: ta0_2
+    label: "17 日 午後"
+    hatch: solid
+    align: center
+    at: { x: 320, y: 200 }
+    size: { w: 110, h: 26 }
+  - id: ta0_3
+    label: "17 日 不詳"
+    hatch: solid
+    align: center
+    at: { x: 430, y: 200 }
+    size: { w: 110, h: 26 }
+  - id: ta0_4
+    label: "18 日"
+    hatch: solid
+    align: center
+    at: { x: 540, y: 200 }
+    size: { w: 90, h: 26 }
+  - id: ta0_5
+    label: "19 日"
+    hatch: solid
+    align: center
+    at: { x: 630, y: 200 }
+    size: { w: 90, h: 26 }
+  - id: ta0_6
+    label: "20 日以降"
+    hatch: solid
+    align: center
+    at: { x: 720, y: 200 }
+    size: { w: 110, h: 26 }
+  - id: ta0_7
+    label: "不詳"
+    hatch: solid
+    align: center
+    at: { x: 830, y: 200 }
+    size: { w: 90, h: 26 }
+  - id: ta1_0
+    label: "人"
+    align: center
+    at: { x: 60, y: 226 }
+    size: { w: 150, h: 26 }
+  - id: ta1_1
+    label: "4,461"
+    align: center
+    at: { x: 210, y: 226 }
+    size: { w: 110, h: 26 }
+  - id: ta1_2
+    label: "440"
+    align: center
+    at: { x: 320, y: 226 }
+    size: { w: 110, h: 26 }
+  - id: ta1_3
+    label: "274"
+    align: center
+    at: { x: 430, y: 226 }
+    size: { w: 110, h: 26 }
+  - id: ta1_4
+    label: "185"
+    align: center
+    at: { x: 540, y: 226 }
+    size: { w: 90, h: 26 }
+  - id: ta1_5
+    label: "29"
+    align: center
+    at: { x: 630, y: 226 }
+    size: { w: 90, h: 26 }
+  - id: ta1_6
+    label: "97"
+    align: center
+    at: { x: 720, y: 226 }
+    size: { w: 110, h: 26 }
+  - id: ta1_7
+    label: "2"
+    align: center
+    at: { x: 830, y: 226 }
+    size: { w: 90, h: 26 }
+  - id: ta2_0
+    label: "%"
+    align: center
+    at: { x: 60, y: 252 }
+    size: { w: 150, h: 26 }
+  - id: ta2_1
+    label: "81.3"
+    align: center
+    at: { x: 210, y: 252 }
+    size: { w: 110, h: 26 }
+  - id: ta2_2
+    label: "8.0"
+    align: center
+    at: { x: 320, y: 252 }
+    size: { w: 110, h: 26 }
+  - id: ta2_3
+    label: "5.0"
+    align: center
+    at: { x: 430, y: 252 }
+    size: { w: 110, h: 26 }
+  - id: ta2_4
+    label: "3.4"
+    align: center
+    at: { x: 540, y: 252 }
+    size: { w: 90, h: 26 }
+  - id: ta2_5
+    label: "0.5"
+    align: center
+    at: { x: 630, y: 252 }
+    size: { w: 90, h: 26 }
+  - id: ta2_6
+    label: "1.8"
+    align: center
+    at: { x: 720, y: 252 }
+    size: { w: 110, h: 26 }
+  - id: ta2_7
+    label: "0.0"
+    align: center
+    at: { x: 830, y: 252 }
+    size: { w: 90, h: 26 }
+  - id: t1n
+    label: "当日（17 日）だけで 5,175 人、94.3%。帯の左の白い部分が、17 日の午前（地震から 6 時間余り）に亡くなった人たち。"
+    marker: none
+    align: left
+    at: { x: 60, y: 288 }
+    size: { w: 1200, h: 18 }
+  - id: t2
+    label: "② 何で亡くなったか —— 同じ 5,488 人を死因で分けた帯"
+    marker: none
+    align: left
+    at: { x: 60, y: 342 }
+    size: { w: 1200, h: 18 }
+  - id: b0
+    label: "窒息・圧死\n4,224 人（77.0%）"
+    align: center
+    at: { x: 60, y: 374 }
+    size: { w: 847, h: 56 }
+  - id: b1
+    label: ""
+    hatch: lines
+    align: center
+    at: { x: 907, y: 374 }
+    size: { w: 101, h: 56 }
+  - id: b2
+    label: ""
+    hatch: dots
+    align: center
+    at: { x: 1008, y: 374 }
+    size: { w: 56, h: 56 }
+  - id: b3
+    label: ""
+    align: center
+    at: { x: 1064, y: 374 }
+    size: { w: 20, h: 56 }
+  - id: b4
+    label: ""
+    align: center
+    at: { x: 1084, y: 374 }
+    size: { w: 13, h: 56 }
+  - id: b5
+    label: ""
+    align: center
+    at: { x: 1097, y: 374 }
+    size: { w: 9, h: 56 }
+  - id: b6
+    label: ""
+    align: center
+    at: { x: 1106, y: 374 }
+    size: { w: 3, h: 56 }
+  - id: b7
+    label: ""
+    align: center
+    at: { x: 1109, y: 374 }
+    size: { w: 26, h: 56 }
+  - id: b8
+    label: ""
+    align: center
+    at: { x: 1135, y: 374 }
+    size: { w: 25, h: 56 }
+  - id: tb0_0
+    label: ""
+    hatch: solid
+    align: center
+    at: { x: 60, y: 446 }
+    size: { w: 150, h: 26 }
+  - id: tb0_1
+    label: "窒息・圧死"
+    hatch: solid
+    align: center
+    at: { x: 210, y: 446 }
+    size: { w: 105, h: 26 }
+  - id: tb0_2
+    label: "焼死・熱傷"
+    hatch: solid
+    align: center
+    at: { x: 315, y: 446 }
+    size: { w: 105, h: 26 }
+  - id: tb0_3
+    label: "頭・頸部損傷"
+    hatch: solid
+    align: center
+    at: { x: 420, y: 446 }
+    size: { w: 105, h: 26 }
+  - id: tb0_4
+    label: "内臓損傷"
+    hatch: solid
+    align: center
+    at: { x: 525, y: 446 }
+    size: { w: 90, h: 26 }
+  - id: tb0_5
+    label: "外傷性ショック"
+    hatch: solid
+    align: center
+    at: { x: 615, y: 446 }
+    size: { w: 105, h: 26 }
+  - id: tb0_6
+    label: "全身挫滅"
+    hatch: solid
+    align: center
+    at: { x: 720, y: 446 }
+    size: { w: 90, h: 26 }
+  - id: tb0_7
+    label: "挫滅症候群"
+    hatch: solid
+    align: center
+    at: { x: 810, y: 446 }
+    size: { w: 105, h: 26 }
+  - id: tb0_8
+    label: "その他"
+    hatch: solid
+    align: center
+    at: { x: 915, y: 446 }
+    size: { w: 80, h: 26 }
+  - id: tb0_9
+    label: "不詳"
+    hatch: solid
+    align: center
+    at: { x: 995, y: 446 }
+    size: { w: 70, h: 26 }
+  - id: tb1_0
+    label: "人"
+    align: center
+    at: { x: 60, y: 472 }
+    size: { w: 150, h: 26 }
+  - id: tb1_1
+    label: "4,224"
+    align: center
+    at: { x: 210, y: 472 }
+    size: { w: 105, h: 26 }
+  - id: tb1_2
+    label: "504"
+    align: center
+    at: { x: 315, y: 472 }
+    size: { w: 105, h: 26 }
+  - id: tb1_3
+    label: "282"
+    align: center
+    at: { x: 420, y: 472 }
+    size: { w: 105, h: 26 }
+  - id: tb1_4
+    label: "98"
+    align: center
+    at: { x: 525, y: 472 }
+    size: { w: 90, h: 26 }
+  - id: tb1_5
+    label: "68"
+    align: center
+    at: { x: 615, y: 472 }
+    size: { w: 105, h: 26 }
+  - id: tb1_6
+    label: "45"
+    align: center
+    at: { x: 720, y: 472 }
+    size: { w: 90, h: 26 }
+  - id: tb1_7
+    label: "15"
+    align: center
+    at: { x: 810, y: 472 }
+    size: { w: 105, h: 26 }
+  - id: tb1_8
+    label: "128"
+    align: center
+    at: { x: 915, y: 472 }
+    size: { w: 80, h: 26 }
+  - id: tb1_9
+    label: "124"
+    align: center
+    at: { x: 995, y: 472 }
+    size: { w: 70, h: 26 }
+  - id: tb2_0
+    label: "%"
+    align: center
+    at: { x: 60, y: 498 }
+    size: { w: 150, h: 26 }
+  - id: tb2_1
+    label: "77.0"
+    align: center
+    at: { x: 210, y: 498 }
+    size: { w: 105, h: 26 }
+  - id: tb2_2
+    label: "9.2"
+    align: center
+    at: { x: 315, y: 498 }
+    size: { w: 105, h: 26 }
+  - id: tb2_3
+    label: "5.1"
+    align: center
+    at: { x: 420, y: 498 }
+    size: { w: 105, h: 26 }
+  - id: tb2_4
+    label: "1.8"
+    align: center
+    at: { x: 525, y: 498 }
+    size: { w: 90, h: 26 }
+  - id: tb2_5
+    label: "1.2"
+    align: center
+    at: { x: 615, y: 498 }
+    size: { w: 105, h: 26 }
+  - id: tb2_6
+    label: "0.8"
+    align: center
+    at: { x: 720, y: 498 }
+    size: { w: 90, h: 26 }
+  - id: tb2_7
+    label: "0.3"
+    align: center
+    at: { x: 810, y: 498 }
+    size: { w: 105, h: 26 }
+  - id: tb2_8
+    label: "2.3"
+    align: center
+    at: { x: 915, y: 498 }
+    size: { w: 80, h: 26 }
+  - id: tb2_9
+    label: "2.3"
+    align: center
+    at: { x: 995, y: 498 }
+    size: { w: 70, h: 26 }
+  - id: t2n
+    label: "帯の塗りは①と揃えてある —— 白 ＝ いちばん多い、斜線 ＝ 2 番目、点 ＝ 3 番目。"
+    marker: none
+    align: left
+    at: { x: 60, y: 534 }
+    size: { w: 1200, h: 18 }
+  - id: t3
+    label: "③ 死因 × 日時（抜き出し）—— 挫滅症候群だけが、19 日より前に 1 人もいない"
+    marker: none
+    align: left
+    at: { x: 60, y: 588 }
+    size: { w: 1200, h: 18 }
+  - id: tc0_0
+    label: "死因"
+    hatch: solid
+    align: center
+    at: { x: 60, y: 620 }
+    size: { w: 170, h: 26 }
+  - id: tc0_1
+    label: "総数"
+    hatch: solid
+    align: center
+    at: { x: 230, y: 620 }
+    size: { w: 100, h: 26 }
+  - id: tc0_2
+    label: "17 日 午前"
+    hatch: solid
+    align: center
+    at: { x: 330, y: 620 }
+    size: { w: 110, h: 26 }
+  - id: tc0_3
+    label: "17 日 午後"
+    hatch: solid
+    align: center
+    at: { x: 440, y: 620 }
+    size: { w: 110, h: 26 }
+  - id: tc0_4
+    label: "17 日 不詳"
+    hatch: solid
+    align: center
+    at: { x: 550, y: 620 }
+    size: { w: 100, h: 26 }
+  - id: tc0_5
+    label: "18 日"
+    hatch: solid
+    align: center
+    at: { x: 650, y: 620 }
+    size: { w: 90, h: 26 }
+  - id: tc0_6
+    label: "19 日"
+    hatch: solid
+    align: center
+    at: { x: 740, y: 620 }
+    size: { w: 90, h: 26 }
+  - id: tc0_7
+    label: "20 日以降"
+    hatch: solid
+    align: center
+    at: { x: 830, y: 620 }
+    size: { w: 110, h: 26 }
+  - id: tc1_0
+    label: "窒息・圧死"
+    align: center
+    at: { x: 60, y: 646 }
+    size: { w: 170, h: 26 }
+  - id: tc1_1
+    label: "4,224"
+    align: center
+    at: { x: 230, y: 646 }
+    size: { w: 100, h: 26 }
+  - id: tc1_2
+    label: "3,626"
+    align: center
+    at: { x: 330, y: 646 }
+    size: { w: 110, h: 26 }
+  - id: tc1_3
+    label: "316"
+    align: center
+    at: { x: 440, y: 646 }
+    size: { w: 110, h: 26 }
+  - id: tc1_4
+    label: "117"
+    align: center
+    at: { x: 550, y: 646 }
+    size: { w: 100, h: 26 }
+  - id: tc1_5
+    label: "124"
+    align: center
+    at: { x: 650, y: 646 }
+    size: { w: 90, h: 26 }
+  - id: tc1_6
+    label: "14"
+    align: center
+    at: { x: 740, y: 646 }
+    size: { w: 90, h: 26 }
+  - id: tc1_7
+    label: "26"
+    align: center
+    at: { x: 830, y: 646 }
+    size: { w: 110, h: 26 }
+  - id: tc2_0
+    label: "焼死・熱傷"
+    align: center
+    at: { x: 60, y: 672 }
+    size: { w: 170, h: 26 }
+  - id: tc2_1
+    label: "504"
+    align: center
+    at: { x: 230, y: 672 }
+    size: { w: 100, h: 26 }
+  - id: tc2_2
+    label: "307"
+    align: center
+    at: { x: 330, y: 672 }
+    size: { w: 110, h: 26 }
+  - id: tc2_3
+    label: "62"
+    align: center
+    at: { x: 440, y: 672 }
+    size: { w: 110, h: 26 }
+  - id: tc2_4
+    label: "119"
+    align: center
+    at: { x: 550, y: 672 }
+    size: { w: 100, h: 26 }
+  - id: tc2_5
+    label: "15"
+    align: center
+    at: { x: 650, y: 672 }
+    size: { w: 90, h: 26 }
+  - id: tc2_6
+    label: "1"
+    align: center
+    at: { x: 740, y: 672 }
+    size: { w: 90, h: 26 }
+  - id: tc2_7
+    label: ""
+    align: center
+    at: { x: 830, y: 672 }
+    size: { w: 110, h: 26 }
+  - id: tc3_0
+    label: "頭・頸部損傷"
+    align: center
+    at: { x: 60, y: 698 }
+    size: { w: 170, h: 26 }
+  - id: tc3_1
+    label: "282"
+    align: center
+    at: { x: 230, y: 698 }
+    size: { w: 100, h: 26 }
+  - id: tc3_2
+    label: "236"
+    align: center
+    at: { x: 330, y: 698 }
+    size: { w: 110, h: 26 }
+  - id: tc3_3
+    label: "7"
+    align: center
+    at: { x: 440, y: 698 }
+    size: { w: 110, h: 26 }
+  - id: tc3_4
+    label: "13"
+    align: center
+    at: { x: 550, y: 698 }
+    size: { w: 100, h: 26 }
+  - id: tc3_5
+    label: "7"
+    align: center
+    at: { x: 650, y: 698 }
+    size: { w: 90, h: 26 }
+  - id: tc3_6
+    label: "1"
+    align: center
+    at: { x: 740, y: 698 }
+    size: { w: 90, h: 26 }
+  - id: tc3_7
+    label: "17"
+    align: center
+    at: { x: 830, y: 698 }
+    size: { w: 110, h: 26 }
+  - id: tc4_0
+    label: "挫滅症候群"
+    align: center
+    at: { x: 60, y: 724 }
+    size: { w: 170, h: 26 }
+  - id: tc4_1
+    label: "15"
+    align: center
+    at: { x: 230, y: 724 }
+    size: { w: 100, h: 26 }
+  - id: tc4_2
+    label: ""
+    align: center
+    at: { x: 330, y: 724 }
+    size: { w: 110, h: 26 }
+  - id: tc4_3
+    label: ""
+    align: center
+    at: { x: 440, y: 724 }
+    size: { w: 110, h: 26 }
+  - id: tc4_4
+    label: ""
+    align: center
+    at: { x: 550, y: 724 }
+    size: { w: 100, h: 26 }
+  - id: tc4_5
+    label: ""
+    align: center
+    at: { x: 650, y: 724 }
+    size: { w: 90, h: 26 }
+  - id: tc4_6
+    label: "3"
+    align: center
+    at: { x: 740, y: 724 }
+    size: { w: 90, h: 26 }
+  - id: tc4_7
+    label: "12"
+    align: center
+    at: { x: 830, y: 724 }
+    size: { w: 110, h: 26 }
+  - id: t3n1
+    label: "挫滅症候群（クラッシュ症候群）は、長く挟まれた手足から、助け出されたあとに毒が回る。この統計では 15 人とも 19 日以降。"
+    marker: none
+    align: left
+    at: { x: 60, y: 760 }
+    size: { w: 1200, h: 18 }
+  - id: t3n2
+    label: "空欄は 0 人（統計の表では「-」）。「不詳」の欄と「内臓損傷」などは省いた（合計は②の表）。"
+    marker: none
+    align: left
+    at: { x: 60, y: 782 }
+    size: { w: 1200, h: 18 }
+  - id: t4
+    label: "④ 年齢 —— 65 歳以上が 2,399 人（43.7%）"
+    marker: none
+    align: left
+    at: { x: 60, y: 834 }
+    size: { w: 560, h: 18 }
+  - id: td0_0
+    label: "年齢"
+    hatch: solid
+    align: center
+    at: { x: 60, y: 866 }
+    size: { w: 170, h: 26 }
+  - id: td0_1
+    label: "死亡数"
+    hatch: solid
+    align: center
+    at: { x: 230, y: 866 }
+    size: { w: 110, h: 26 }
+  - id: td0_2
+    label: "窒息・圧死 %"
+    hatch: solid
+    align: center
+    at: { x: 340, y: 866 }
+    size: { w: 130, h: 26 }
+  - id: td0_3
+    label: "焼死・熱傷 %"
+    hatch: solid
+    align: center
+    at: { x: 470, y: 866 }
+    size: { w: 130, h: 26 }
+  - id: td1_0
+    label: "0〜14 歳"
+    align: center
+    at: { x: 60, y: 892 }
+    size: { w: 170, h: 26 }
+  - id: td1_1
+    label: "389"
+    align: center
+    at: { x: 230, y: 892 }
+    size: { w: 110, h: 26 }
+  - id: td1_2
+    label: "85.1"
+    align: center
+    at: { x: 340, y: 892 }
+    size: { w: 130, h: 26 }
+  - id: td1_3
+    label: "3.3"
+    align: center
+    at: { x: 470, y: 892 }
+    size: { w: 130, h: 26 }
+  - id: td2_0
+    label: "15〜64 歳"
+    align: center
+    at: { x: 60, y: 918 }
+    size: { w: 170, h: 26 }
+  - id: td2_1
+    label: "2,682"
+    align: center
+    at: { x: 230, y: 918 }
+    size: { w: 110, h: 26 }
+  - id: td2_2
+    label: "79.0"
+    align: center
+    at: { x: 340, y: 918 }
+    size: { w: 130, h: 26 }
+  - id: td2_3
+    label: "8.2"
+    align: center
+    at: { x: 470, y: 918 }
+    size: { w: 130, h: 26 }
+  - id: td3_0
+    label: "65 歳以上"
+    align: center
+    at: { x: 60, y: 944 }
+    size: { w: 170, h: 26 }
+  - id: td3_1
+    label: "2,399"
+    align: center
+    at: { x: 230, y: 944 }
+    size: { w: 110, h: 26 }
+  - id: td3_2
+    label: "73.7"
+    align: center
+    at: { x: 340, y: 944 }
+    size: { w: 130, h: 26 }
+  - id: td3_3
+    label: "11.0"
+    align: center
+    at: { x: 470, y: 944 }
+    size: { w: 130, h: 26 }
+  - id: td4_0
+    label: "不詳"
+    align: center
+    at: { x: 60, y: 970 }
+    size: { w: 170, h: 26 }
+  - id: td4_1
+    label: "18"
+    align: center
+    at: { x: 230, y: 970 }
+    size: { w: 110, h: 26 }
+  - id: td4_2
+    label: "33.3"
+    align: center
+    at: { x: 340, y: 970 }
+    size: { w: 130, h: 26 }
+  - id: td4_3
+    label: "38.9"
+    align: center
+    at: { x: 470, y: 970 }
+    size: { w: 130, h: 26 }
+  - id: t4n
+    label: "焼死・熱傷の割合は、年齢の分かる中で 65 歳以上がいちばん高い。"
+    marker: none
+    align: left
+    at: { x: 60, y: 1006 }
+    size: { w: 560, h: 18 }
+  - id: t5
+    label: "⑤ 死者の数は、数え方で 3 つある"
+    marker: none
+    align: left
+    at: { x: 680, y: 834 }
+    size: { w: 560, h: 18 }
+  - id: te0_0
+    label: "人数"
+    hatch: solid
+    align: center
+    at: { x: 680, y: 866 }
+    size: { w: 110, h: 26 }
+  - id: te0_1
+    label: "誰が"
+    hatch: solid
+    align: center
+    at: { x: 790, y: 866 }
+    size: { w: 200, h: 26 }
+  - id: te0_2
+    label: "何を数えたか"
+    hatch: solid
+    align: center
+    at: { x: 990, y: 866 }
+    size: { w: 250, h: 26 }
+  - id: te1_0
+    label: "6,434"
+    align: center
+    at: { x: 680, y: 892 }
+    size: { w: 110, h: 26 }
+  - id: te1_1
+    label: "消防庁（内閣府の資料）"
+    align: center
+    at: { x: 790, y: 892 }
+    size: { w: 200, h: 26 }
+  - id: te1_2
+    label: "全体。震災関連死を含む"
+    align: center
+    at: { x: 990, y: 892 }
+    size: { w: 250, h: 26 }
+  - id: te2_0
+    label: "6,402"
+    align: center
+    at: { x: 680, y: 918 }
+    size: { w: 110, h: 26 }
+  - id: te2_1
+    label: "兵庫県（2005 年の調査）"
+    align: center
+    at: { x: 790, y: 918 }
+    size: { w: 200, h: 26 }
+  - id: te2_2
+    label: "県内。直接死 5,483 ＋ 関連死 919"
+    align: center
+    at: { x: 990, y: 918 }
+    size: { w: 250, h: 26 }
+  - id: te3_0
+    label: "5,488"
+    align: center
+    at: { x: 680, y: 944 }
+    size: { w: 110, h: 26 }
+  - id: te3_1
+    label: "厚生省 人口動態統計"
+    align: center
+    at: { x: 790, y: 944 }
+    size: { w: 200, h: 26 }
+  - id: te3_2
+    label: "1995 年 1〜6 月の「震災による死亡」"
+    align: center
+    at: { x: 990, y: 944 }
+    size: { w: 250, h: 26 }
+  - id: t5n
+    label: "この図は、死因と日時の内訳がある 5,488 人で描いた。"
+    marker: none
+    align: left
+    at: { x: 680, y: 984 }
+    size: { w: 560, h: 18 }

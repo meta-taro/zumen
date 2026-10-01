@@ -1,0 +1,11 @@
+// 監視は本番と同じ VPC に置く。
+digraph production {
+  rankdir=TB;
+
+  lb    [label="Load Balancer"];
+  web01 [label="Web 01"];
+  db    [label="MariaDB", shape=cylinder];
+
+  lb    -> web01;
+  web01 -> db;
+}

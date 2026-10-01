@@ -1,0 +1,591 @@
+version: 1
+kind: placement
+arrows: true
+title: 革靴の型紙（木型からの展開・架空の設計）
+# **立体をそのまま平面に写す。** 木型にテープを貼り、センター線を引き、
+# 切り替えの線をテープの上に描いて、剥がして紙に貼る —— それが型紙の原型。
+#
+# 出来上がり線の**外側**に、縫い代・折り込み代・**吊り込み代**を足す。
+# 吊り込み代は底へ巻き込む分で、いちばん大きく取る（足りないと木型に吊り込めない）。
+#
+# **1 回では決まらない。** 平面へ落とす → 木型に被せる → 直す、を繰り返す。
+# 寸法（縫い代 8・折り込み代 4・吊り込み代 15mm）は、この図の設計。
+nodes:
+  - id: e0
+    label: ""
+    marker: none
+    at: { x: 89, y: 230.1 }
+    size: { w: 2, h: 2 }
+  - id: e1
+    label: ""
+    marker: none
+    at: { x: 89, y: 230.1 }
+    size: { w: 2, h: 2 }
+  - id: e2
+    label: ""
+    marker: none
+    at: { x: 236, y: 239.6 }
+    size: { w: 2, h: 2 }
+  - id: e3
+    label: ""
+    marker: none
+    at: { x: 128.9, y: 152.4 }
+    size: { w: 2, h: 2 }
+  - id: e4
+    label: ""
+    marker: none
+    at: { x: 189.8, y: 162.9 }
+    size: { w: 2, h: 2 }
+  - id: e5
+    label: ""
+    marker: none
+    at: { x: 221.3, y: 173.4 }
+    size: { w: 2, h: 2 }
+  - id: l_t
+    label: "① 木型にテープを貼り、センター線とデザインを描く"
+    marker: none
+    align: left
+    at: { x: 80, y: 94.5 }
+    size: { w: 420, h: 20 }
+  - id: l_c
+    label: "センター線"
+    marker: none
+    align: left
+    at: { x: 253.8, y: 245.8 }
+    size: { w: 110, h: 18 }
+  - id: l_q
+    label: "クォーター"
+    marker: none
+    align: left
+    at: { x: 125.7, y: 176.5 }
+    size: { w: 100, h: 18 }
+  - id: l_v
+    label: "バンプ（甲）"
+    marker: none
+    align: left
+    at: { x: 295.8, y: 168.1 }
+    size: { w: 120, h: 18 }
+  - id: l_lin
+    label: "吊り込み線（底の縁）"
+    marker: none
+    align: left
+    at: { x: 132, y: 266 }
+    size: { w: 160, h: 18 }
+  - id: e6
+    label: ""
+    marker: none
+    at: { x: 559, y: 260.5 }
+    size: { w: 2, h: 2 }
+  - id: e7
+    label: ""
+    marker: none
+    at: { x: 550.6, y: 260.5 }
+    size: { w: 2, h: 2 }
+  - id: v_n
+    label: "バンプ（甲革）"
+    marker: none
+    align: left
+    at: { x: 566, y: 196 }
+    size: { w: 200, h: 20 }
+  - id: v_th
+    label: "のど（タンが入る）"
+    marker: none
+    align: left
+    at: { x: 550, y: 364.1 }
+    size: { w: 220, h: 18 }
+  - id: v_s
+    label: "縫い代 8mm"
+    marker: none
+    align: left
+    at: { x: 725.5, y: 263 }
+    size: { w: 110, h: 18 }
+  - id: e8
+    label: ""
+    marker: none
+    at: { x: 789, y: 256.1 }
+    size: { w: 2, h: 2 }
+  - id: e9
+    label: ""
+    marker: none
+    at: { x: 784.8, y: 254 }
+    size: { w: 2, h: 2 }
+  - id: e10
+    label: ""
+    marker: none
+    at: { x: 936, y: 249.8 }
+    size: { w: 2, h: 2 }
+  - id: q_n
+    label: "クォーター（腰革・左右 2 枚）"
+    marker: none
+    align: left
+    at: { x: 784, y: 194 }
+    size: { w: 240, h: 20 }
+  - id: q_b
+    label: "後ろ中心（左右を合わせて縫う）"
+    marker: none
+    align: left
+    at: { x: 784, y: 344 }
+    size: { w: 230, h: 18 }
+  - id: q_f
+    label: "折り込み代 4mm"
+    marker: none
+    align: right
+    at: { x: 807.5, y: 216 }
+    size: { w: 150, h: 18 }
+  - id: e11
+    label: ""
+    marker: none
+    at: { x: 599, y: 445.3 }
+    size: { w: 2, h: 2 }
+  - id: e12
+    label: ""
+    marker: none
+    at: { x: 594.8, y: 443.2 }
+    size: { w: 2, h: 2 }
+  - id: t_n
+    label: "タン（舌革）"
+    marker: none
+    align: left
+    at: { x: 594, y: 410 }
+    size: { w: 160, h: 20 }
+  - id: e13
+    label: ""
+    marker: none
+    at: { x: 569.5, y: 320.4 }
+    size: { w: 2, h: 2 }
+  - id: v_l
+    label: "吊り込み代 15mm（底へ巻き込む）"
+    marker: none
+    align: left
+    at: { x: 550, y: 344.1 }
+    size: { w: 230, h: 18 }
+  - id: f_t
+    label: "② テープを剥がして平面へ落とす（標準型）"
+    marker: none
+    align: left
+    at: { x: 550, y: 166 }
+    size: { w: 420, h: 20 }
+  - id: h70
+    label: "型紙の作り方（4 つの手順）"
+    hatch: solid
+    at: { x: 1060, y: 70 }
+    size: { w: 470, h: 22 }
+  - id: a92
+    label: "① テープを貼る"
+    at: { x: 1060, y: 92 }
+    size: { w: 160, h: 22 }
+  - id: b92
+    label: "木型の甲の面に、マスキングテープを重ねて貼る"
+    align: left
+    at: { x: 1220, y: 92 }
+    size: { w: 310, h: 22 }
+  - id: a114
+    label: "② センター線"
+    at: { x: 1060, y: 114 }
+    size: { w: 160, h: 22 }
+  - id: b114
+    label: "つま先側とかかと側に中心線を引く"
+    align: left
+    at: { x: 1220, y: 114 }
+    size: { w: 310, h: 22 }
+  - id: a136
+    label: "③ デザインを描く"
+    at: { x: 1060, y: 136 }
+    size: { w: 160, h: 22 }
+  - id: b136
+    label: "テープの上に、切り替えの線をそのまま描く"
+    align: left
+    at: { x: 1220, y: 136 }
+    size: { w: 310, h: 22 }
+  - id: a158
+    label: "④ 剥がして写す"
+    at: { x: 1060, y: 158 }
+    size: { w: 160, h: 22 }
+  - id: b158
+    label: "平面に貼り、中心線で反転して写す"
+    align: left
+    at: { x: 1220, y: 158 }
+    size: { w: 310, h: 22 }
+  - id: a180
+    label: "道具"
+    at: { x: 1060, y: 180 }
+    size: { w: 160, h: 22 }
+  - id: b180
+    label: "木型・テープ・ペン・メジャー・カッター"
+    align: left
+    at: { x: 1220, y: 180 }
+    size: { w: 310, h: 22 }
+  - id: h216
+    label: "代（しろ）の付け方"
+    hatch: solid
+    at: { x: 1060, y: 216 }
+    size: { w: 470, h: 22 }
+  - id: a238
+    label: "縫い代"
+    at: { x: 1060, y: 238 }
+    size: { w: 160, h: 22 }
+  - id: b238
+    label: "8mm。パーツどうしを縫い合わせる分"
+    align: left
+    at: { x: 1220, y: 238 }
+    size: { w: 310, h: 22 }
+  - id: a260
+    label: "折り込み代"
+    at: { x: 1060, y: 260 }
+    size: { w: 160, h: 22 }
+  - id: b260
+    label: "4mm。切りっぱなしの縁を折り返す分"
+    align: left
+    at: { x: 1220, y: 260 }
+    size: { w: 310, h: 22 }
+  - id: a282
+    label: "吊り込み代"
+    at: { x: 1060, y: 282 }
+    size: { w: 160, h: 22 }
+  - id: b282
+    label: "15mm。木型に吊り込んで底へ巻き込む分"
+    align: left
+    at: { x: 1220, y: 282 }
+    size: { w: 310, h: 22 }
+  - id: a304
+    label: "どこに付くか"
+    at: { x: 1060, y: 304 }
+    size: { w: 160, h: 22 }
+  - id: b304
+    label: "出来上がり線の外側。破線がその線"
+    align: left
+    at: { x: 1220, y: 304 }
+    size: { w: 310, h: 22 }
+  - id: a326
+    label: "この図の値"
+    at: { x: 1060, y: 326 }
+    size: { w: 160, h: 22 }
+  - id: b326
+    label: "架空の設計。工房と革で変わる"
+    align: left
+    at: { x: 1220, y: 326 }
+    size: { w: 310, h: 22 }
+  - id: h362
+    label: "パーツの名前"
+    hatch: solid
+    at: { x: 1060, y: 362 }
+    size: { w: 470, h: 22 }
+  - id: a384
+    label: "バンプ"
+    at: { x: 1060, y: 384 }
+    size: { w: 160, h: 22 }
+  - id: b384
+    label: "甲を覆う。いちばん力がかかる"
+    align: left
+    at: { x: 1220, y: 384 }
+    size: { w: 310, h: 22 }
+  - id: a406
+    label: "クォーター"
+    at: { x: 1060, y: 406 }
+    size: { w: 160, h: 22 }
+  - id: b406
+    label: "腰革。かかとの左右を包む"
+    align: left
+    at: { x: 1220, y: 406 }
+    size: { w: 310, h: 22 }
+  - id: a428
+    label: "タン"
+    at: { x: 1060, y: 428 }
+    size: { w: 160, h: 22 }
+  - id: b428
+    label: "靴ひもの下の舌革"
+    align: left
+    at: { x: 1220, y: 428 }
+    size: { w: 310, h: 22 }
+  - id: a450
+    label: "ライニング"
+    at: { x: 1060, y: 450 }
+    size: { w: 160, h: 22 }
+  - id: b450
+    label: "裏革。甲革と同じ形で一回り小さい"
+    align: left
+    at: { x: 1220, y: 450 }
+    size: { w: 310, h: 22 }
+  - id: a472
+    label: "先芯・月型"
+    at: { x: 1060, y: 472 }
+    size: { w: 160, h: 22 }
+  - id: b472
+    label: "つま先とかかとに入れる芯。型紙は別"
+    align: left
+    at: { x: 1220, y: 472 }
+    size: { w: 310, h: 22 }
+  - id: h508
+    label: "平面と立体を行き来する"
+    hatch: solid
+    at: { x: 1060, y: 508 }
+    size: { w: 470, h: 22 }
+  - id: a530
+    label: "1 回では決まらない"
+    at: { x: 1060, y: 530 }
+    size: { w: 160, h: 22 }
+  - id: b530
+    label: "落とす → 被せる → 直す、を繰り返す"
+    align: left
+    at: { x: 1220, y: 530 }
+    size: { w: 310, h: 22 }
+  - id: a552
+    label: "曲面の逃げ"
+    at: { x: 1060, y: 552 }
+    size: { w: 160, h: 22 }
+  - id: b552
+    label: "テープは平らにならない。切り込みで逃がす"
+    align: left
+    at: { x: 1220, y: 552 }
+    size: { w: 310, h: 22 }
+  - id: a574
+    label: "革の向き"
+    at: { x: 1060, y: 574 }
+    size: { w: 160, h: 22 }
+  - id: b574
+    label: "革は部位で伸びが違う。伸びの向きを揃えて置く"
+    align: left
+    at: { x: 1220, y: 574 }
+    size: { w: 310, h: 22 }
+  - id: a596
+    label: "左右"
+    at: { x: 1060, y: 596 }
+    size: { w: 160, h: 22 }
+  - id: b596
+    label: "センター線で反転する。人の足は左右で違う"
+    align: left
+    at: { x: 1220, y: 596 }
+    size: { w: 310, h: 22 }
+  - id: n1
+    label: "革靴の型紙は、木型に貼って剥がすところから始まります。立体をそのまま平面に写す方法です。"
+    marker: none
+    align: left
+    at: { x: 80, y: 648 }
+    size: { w: 820, h: 18 }
+  - id: n2
+    label: "テープの上に切り替えの線を描き、剥がして紙に貼り、センター線で反転して写します。"
+    marker: none
+    align: left
+    at: { x: 80, y: 670 }
+    size: { w: 820, h: 18 }
+  - id: n3
+    label: "出来上がり線の外側に、縫い代・折り込み代・吊り込み代を足します（破線がその線です）。"
+    marker: none
+    align: left
+    at: { x: 80, y: 692 }
+    size: { w: 820, h: 18 }
+  - id: n4
+    label: "吊り込み代は底へ巻き込む分で、いちばん大きく取ります。ここが足りないと木型に吊り込めません。"
+    marker: none
+    align: left
+    at: { x: 80, y: 714 }
+    size: { w: 820, h: 18 }
+  - id: n5
+    label: "1 回では決まりません。平面へ落とす → 木型に被せる → 直す、を繰り返します。"
+    marker: none
+    align: left
+    at: { x: 80, y: 736 }
+    size: { w: 820, h: 18 }
+  - id: n6
+    label: "寸法と形は架空の設計です。"
+    marker: none
+    align: left
+    at: { x: 80, y: 758 }
+    size: { w: 820, h: 18 }
+edges:
+  - from: e0
+    to: e0
+    curve: smooth
+    ends: { from: none, to: none }
+    via:
+      - { x: 90, y: 231.1 }
+      - { x: 92.1, y: 203.8 }
+      - { x: 98.4, y: 178.6 }
+      - { x: 111, y: 161.8 }
+      - { x: 129.9, y: 153.4 }
+      - { x: 153, y: 153.4 }
+      - { x: 180.3, y: 159.7 }
+      - { x: 216, y: 170.2 }
+      - { x: 255.9, y: 182.8 }
+      - { x: 295.8, y: 195.4 }
+      - { x: 329.4, y: 208 }
+      - { x: 350.4, y: 220.6 }
+      - { x: 358.8, y: 231.1 }
+      - { x: 352.5, y: 239.5 }
+      - { x: 321, y: 243.7 }
+      - { x: 268.5, y: 245.8 }
+      - { x: 205.5, y: 245.8 }
+      - { x: 153, y: 243.7 }
+      - { x: 115.2, y: 239.5 }
+      - { x: 96.3, y: 235.3 }
+      - { x: 90, y: 231.1 }
+  - from: e1
+    to: e1
+    curve: smooth
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 90, y: 231.1 }
+      - { x: 153, y: 237.4 }
+      - { x: 237, y: 240.6 }
+      - { x: 310.5, y: 240.6 }
+      - { x: 358.8, y: 231.1 }
+  - from: e2
+    to: e2
+    curve: smooth
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 237, y: 240.6 }
+      - { x: 247.5, y: 218.5 }
+      - { x: 266.4, y: 195.4 }
+      - { x: 295.8, y: 184.9 }
+  - from: e3
+    to: e3
+    curve: smooth
+    ends: { from: none, to: none }
+    via:
+      - { x: 129.9, y: 153.4 }
+      - { x: 157.2, y: 155.5 }
+      - { x: 190.8, y: 163.9 }
+      - { x: 222.3, y: 174.4 }
+  - from: e4
+    to: e4
+    curve: smooth
+    ends: { from: none, to: none }
+    via:
+      - { x: 190.8, y: 163.9 }
+      - { x: 199.2, y: 193.3 }
+      - { x: 205.5, y: 222.7 }
+      - { x: 207.6, y: 240.6 }
+  - from: e5
+    to: e5
+    curve: smooth
+    ends: { from: none, to: none }
+    via:
+      - { x: 222.3, y: 174.4 }
+      - { x: 234.9, y: 197.5 }
+      - { x: 243.3, y: 222.7 }
+      - { x: 245.4, y: 240.6 }
+  - from: e6
+    to: e6
+    curve: smooth
+    ends: { from: none, to: none }
+    via:
+      - { x: 560, y: 261.5 }
+      - { x: 581, y: 238.4 }
+      - { x: 623, y: 230 }
+      - { x: 665, y: 234.2 }
+      - { x: 694.4, y: 248.9 }
+      - { x: 707, y: 272 }
+      - { x: 698.6, y: 295.1 }
+      - { x: 673.4, y: 307.7 }
+      - { x: 641.9, y: 309.8 }
+      - { x: 625.1, y: 288.8 }
+      - { x: 608.3, y: 309.8 }
+      - { x: 578.9, y: 299.3 }
+      - { x: 563.2, y: 280.4 }
+      - { x: 560, y: 261.5 }
+  - from: e7
+    to: e7
+    curve: smooth
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 551.6, y: 261.5 }
+      - { x: 578.9, y: 230 }
+      - { x: 623, y: 221.6 }
+      - { x: 669.2, y: 225.8 }
+      - { x: 700.7, y: 242.6 }
+      - { x: 715.4, y: 272 }
+      - { x: 706, y: 301.4 }
+      - { x: 677.6, y: 316.1 }
+      - { x: 644, y: 320.3 }
+      - { x: 625.1, y: 299.3 }
+      - { x: 606.2, y: 320.3 }
+      - { x: 574.7, y: 307.7 }
+      - { x: 555.8, y: 284.6 }
+      - { x: 551.6, y: 261.5 }
+  - from: e8
+    to: e8
+    curve: smooth
+    ends: { from: none, to: none }
+    via:
+      - { x: 790, y: 257.1 }
+      - { x: 802.6, y: 240.3 }
+      - { x: 838.3, y: 227.7 }
+      - { x: 886.6, y: 225.6 }
+      - { x: 922.3, y: 236.1 }
+      - { x: 937, y: 250.8 }
+      - { x: 937, y: 297 }
+      - { x: 895, y: 307.5 }
+      - { x: 848.8, y: 305.4 }
+      - { x: 811, y: 290.7 }
+      - { x: 790, y: 257.1 }
+  - from: e9
+    to: e9
+    curve: smooth
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 785.8, y: 255 }
+      - { x: 800.5, y: 234 }
+      - { x: 838.3, y: 221.4 }
+      - { x: 888.7, y: 219.3 }
+      - { x: 926.5, y: 230.9 }
+      - { x: 943.3, y: 248.7 }
+      - { x: 943.3, y: 303.3 }
+      - { x: 897.1, y: 314.9 }
+      - { x: 846.7, y: 312.8 }
+      - { x: 806.8, y: 297 }
+      - { x: 785.8, y: 255 }
+  - from: e10
+    to: e10
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 937, y: 250.8 }
+      - { x: 937, y: 297 }
+  - from: e11
+    to: e11
+    curve: smooth
+    ends: { from: none, to: none }
+    via:
+      - { x: 600, y: 446.3 }
+      - { x: 614.7, y: 437.9 }
+      - { x: 639.9, y: 437.9 }
+      - { x: 654.6, y: 446.3 }
+      - { x: 656.7, y: 482 }
+      - { x: 652.5, y: 515.6 }
+      - { x: 639.9, y: 528.2 }
+      - { x: 614.7, y: 528.2 }
+      - { x: 602.1, y: 515.6 }
+      - { x: 600, y: 482 }
+      - { x: 600, y: 446.3 }
+  - from: e12
+    to: e12
+    curve: smooth
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 595.8, y: 444.2 }
+      - { x: 613.7, y: 431.6 }
+      - { x: 641, y: 431.6 }
+      - { x: 660.9, y: 444.2 }
+      - { x: 663, y: 482 }
+      - { x: 658.8, y: 519.8 }
+      - { x: 642, y: 534.5 }
+      - { x: 612.6, y: 534.5 }
+      - { x: 597.9, y: 519.8 }
+      - { x: 595.8, y: 482 }
+      - { x: 595.8, y: 444.2 }
+  - from: e13
+    to: e13
+    curve: smooth
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 570.5, y: 321.4 }
+      - { x: 608.3, y: 336.1 }
+      - { x: 644, y: 336.1 }
+      - { x: 681.8, y: 327.7 }

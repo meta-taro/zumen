@@ -1,0 +1,639 @@
+version: 1
+kind: placement
+arrows: true
+title: ピアノのアクション（脱進）
+# **ハンマーは、最後は誰も押していない。**
+#
+# 弦に当たる直前にジャックが外れ（脱進）、**ハンマーは自由に飛んで弦を打つ**。
+# だから押し続けても弦に押し付けられず、**指が決められるのはハンマーの速さだけ**。
+#
+# 外れるのは弦の 2〜3mm 手前（レットオフ）。ここが狂うと、音が出ないか二度打ちする。
+# 寸法と比は模式。
+nodes:
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 469, y: 369 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 639, y: 369 }
+    size: { w: 2, h: 2 }
+  - id: a_str
+    label: "⑥"
+    marker: none
+    align: left
+    at: { x: 650, y: 361 }
+    size: { w: 40, h: 18 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 219, y: 519 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 419, y: 519 }
+    size: { w: 2, h: 2 }
+  - id: a_kp
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 335, y: 515 }
+    size: { w: 10, h: 10 }
+  - id: a_k
+    label: "①"
+    marker: none
+    align: left
+    at: { x: 226, y: 532 }
+    size: { w: 40, h: 18 }
+  - id: a_cap
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 400, y: 500 }
+    size: { w: 12, h: 12 }
+  - id: a_capn
+    label: "②"
+    marker: none
+    align: right
+    at: { x: 362, y: 516 }
+    size: { w: 40, h: 18 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 369, y: 499 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 519, y: 485 }
+    size: { w: 2, h: 2 }
+  - id: a_wp
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 365, y: 495 }
+    size: { w: 10, h: 10 }
+  - id: a_w
+    label: "③"
+    marker: none
+    align: left
+    at: { x: 416, y: 506 }
+    size: { w: 40, h: 18 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 495, y: 487 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 495, y: 439 }
+    size: { w: 2, h: 2 }
+  - id: a_j
+    label: "④"
+    marker: none
+    align: left
+    at: { x: 510, y: 414 }
+    size: { w: 40, h: 18 }
+  - id: a_hp
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 465, y: 421 }
+    size: { w: 10, h: 10 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 469, y: 425 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 564.5, y: 415 }
+    size: { w: 2, h: 2 }
+  - id: a_h
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 552.5, y: 407 }
+    size: { w: 26, h: 18 }
+  - id: a_hn
+    label: "⑤"
+    marker: none
+    align: center
+    at: { x: 545.5, y: 436 }
+    size: { w: 40, h: 18 }
+  - id: t1
+    label: "① 指で押す —— てこが 3 つ、つながっている"
+    marker: none
+    align: left
+    at: { x: 160, y: 190 }
+    size: { w: 500, h: 20 }
+  - id: t1b
+    label: "　鍵盤 → キャプスタン → ウィッペン → ジャック → ハンマー。"
+    marker: none
+    align: left
+    at: { x: 160, y: 212 }
+    size: { w: 500, h: 18 }
+  - id: lg0
+    label: "① 鍵盤（支点はバランスピン）"
+    marker: none
+    align: left
+    at: { x: 160, y: 590 }
+    size: { w: 320, h: 18 }
+  - id: lg1
+    label: "② キャプスタン"
+    marker: none
+    align: left
+    at: { x: 160, y: 610 }
+    size: { w: 320, h: 18 }
+  - id: lg2
+    label: "③ ウィッペン"
+    marker: none
+    align: left
+    at: { x: 160, y: 630 }
+    size: { w: 320, h: 18 }
+  - id: lg3
+    label: "④ ジャック"
+    marker: none
+    align: left
+    at: { x: 160, y: 650 }
+    size: { w: 320, h: 18 }
+  - id: lg4
+    label: "⑤ ハンマー"
+    marker: none
+    align: left
+    at: { x: 160, y: 670 }
+    size: { w: 320, h: 18 }
+  - id: lg5
+    label: "⑥ 弦"
+    marker: none
+    align: left
+    at: { x: 160, y: 690 }
+    size: { w: 320, h: 18 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 1089, y: 369 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 1259, y: 369 }
+    size: { w: 2, h: 2 }
+  - id: b_str
+    label: "⑥"
+    marker: none
+    align: left
+    at: { x: 1270, y: 361 }
+    size: { w: 40, h: 18 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 839, y: 529 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 1039, y: 515 }
+    size: { w: 2, h: 2 }
+  - id: b_kp
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 955, y: 517 }
+    size: { w: 10, h: 10 }
+  - id: b_k
+    label: "①"
+    marker: none
+    align: left
+    at: { x: 846, y: 542 }
+    size: { w: 40, h: 18 }
+  - id: b_cap
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 1020, y: 497 }
+    size: { w: 12, h: 12 }
+  - id: b_capn
+    label: "②"
+    marker: none
+    align: right
+    at: { x: 982, y: 513 }
+    size: { w: 40, h: 18 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 989, y: 486 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 1139, y: 472 }
+    size: { w: 2, h: 2 }
+  - id: b_wp
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 985, y: 482 }
+    size: { w: 10, h: 10 }
+  - id: b_w
+    label: "③"
+    marker: none
+    align: left
+    at: { x: 1036, y: 493 }
+    size: { w: 40, h: 18 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 1131, y: 474 }
+    size: { w: 2, h: 2 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 1143, y: 426 }
+    size: { w: 2, h: 2 }
+  - id: b_j
+    label: "④"
+    marker: none
+    align: left
+    at: { x: 1146, y: 401 }
+    size: { w: 40, h: 18 }
+  - id: b_hp
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 1085, y: 408 }
+    size: { w: 10, h: 10 }
+  - id: p18
+    label: ""
+    marker: none
+    at: { x: 1089, y: 412 }
+    size: { w: 2, h: 2 }
+  - id: p19
+    label: ""
+    marker: none
+    at: { x: 1128, y: 324.3 }
+    size: { w: 2, h: 2 }
+  - id: b_h
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 1116, y: 316.3 }
+    size: { w: 26, h: 18 }
+  - id: b_hn
+    label: "⑤"
+    marker: none
+    align: center
+    at: { x: 1109, y: 345.3 }
+    size: { w: 40, h: 18 }
+  - id: p20
+    label: ""
+    marker: none
+    at: { x: 1165, y: 432 }
+    size: { w: 2, h: 2 }
+  - id: p21
+    label: ""
+    marker: none
+    at: { x: 1201, y: 432 }
+    size: { w: 2, h: 2 }
+  - id: b_esc
+    label: "← ここで外れる（脱進）"
+    marker: none
+    align: left
+    at: { x: 1202, y: 445 }
+    size: { w: 180, h: 18 }
+  - id: b_free
+    label: "ハンマーは、ここから自由に飛ぶ"
+    marker: none
+    align: center
+    at: { x: 1029, y: 273.3 }
+    size: { w: 300, h: 18 }
+  - id: b_let
+    label: "レットオフ 2 〜 3mm"
+    marker: none
+    align: left
+    at: { x: 1160, y: 322 }
+    size: { w: 220, h: 18 }
+  - id: t2
+    label: "② 最後は、誰も押していない"
+    marker: none
+    align: left
+    at: { x: 780, y: 190 }
+    size: { w: 500, h: 20 }
+  - id: t2b
+    label: "　弦に当たる直前にジャックが外れる。だから押し付けられない。"
+    marker: none
+    align: left
+    at: { x: 780, y: 212 }
+    size: { w: 500, h: 18 }
+  - id: h200
+    label: "力の伝わる順"
+    hatch: solid
+    at: { x: 1400, y: 200 }
+    size: { w: 420, h: 24 }
+  - id: x224
+    label: "① 鍵盤"
+    at: { x: 1400, y: 224 }
+    size: { w: 190, h: 24 }
+  - id: y224
+    label: "支点はバランスピン"
+    align: left
+    at: { x: 1590, y: 224 }
+    size: { w: 230, h: 24 }
+  - id: x248
+    label: "② キャプスタン"
+    at: { x: 1400, y: 248 }
+    size: { w: 190, h: 24 }
+  - id: y248
+    label: "鍵盤の奥が、下から突く"
+    align: left
+    at: { x: 1590, y: 248 }
+    size: { w: 230, h: 24 }
+  - id: x272
+    label: "③ ウィッペン"
+    at: { x: 1400, y: 272 }
+    size: { w: 190, h: 24 }
+  - id: y272
+    label: "受けて持ち上げる"
+    align: left
+    at: { x: 1590, y: 272 }
+    size: { w: 230, h: 24 }
+  - id: x296
+    label: "④ ジャック"
+    at: { x: 1400, y: 296 }
+    size: { w: 190, h: 24 }
+  - id: y296
+    label: "ハンマーを突き上げる"
+    align: left
+    at: { x: 1590, y: 296 }
+    size: { w: 230, h: 24 }
+  - id: x320
+    label: "⑤ ハンマー"
+    at: { x: 1400, y: 320 }
+    size: { w: 190, h: 24 }
+  - id: y320
+    label: "弦を打つ"
+    align: left
+    at: { x: 1590, y: 320 }
+    size: { w: 230, h: 24 }
+  - id: x344
+    label: "⑥ ダンパー"
+    at: { x: 1400, y: 344 }
+    size: { w: 190, h: 24 }
+  - id: y344
+    label: "鍵を離すと弦を止める"
+    align: left
+    at: { x: 1590, y: 344 }
+    size: { w: 230, h: 24 }
+  - id: h386
+    label: "脱進（エスケープメント）"
+    hatch: solid
+    at: { x: 1400, y: 386 }
+    size: { w: 420, h: 24 }
+  - id: x410
+    label: "何が起きるか"
+    at: { x: 1400, y: 410 }
+    size: { w: 190, h: 24 }
+  - id: y410
+    label: "弦の手前でジャックが外れる"
+    align: left
+    at: { x: 1590, y: 410 }
+    size: { w: 230, h: 24 }
+  - id: x434
+    label: "レットオフ"
+    at: { x: 1400, y: 434 }
+    size: { w: 190, h: 24 }
+  - id: y434
+    label: "弦まで 2 〜 3mm"
+    align: left
+    at: { x: 1590, y: 434 }
+    size: { w: 230, h: 24 }
+  - id: x458
+    label: "そのあと"
+    at: { x: 1400, y: 458 }
+    size: { w: 190, h: 24 }
+  - id: y458
+    label: "ハンマーは自由に飛ぶ"
+    align: left
+    at: { x: 1590, y: 458 }
+    size: { w: 230, h: 24 }
+  - id: x482
+    label: "だから 1"
+    at: { x: 1400, y: 482 }
+    size: { w: 190, h: 24 }
+  - id: y482
+    label: "押し続けても弦に押し付けない"
+    align: left
+    at: { x: 1590, y: 482 }
+    size: { w: 230, h: 24 }
+  - id: x506
+    label: "だから 2"
+    at: { x: 1400, y: 506 }
+    size: { w: 190, h: 24 }
+  - id: y506
+    label: "指は速さだけを決める"
+    align: left
+    at: { x: 1590, y: 506 }
+    size: { w: 230, h: 24 }
+  - id: x530
+    label: "戻り"
+    at: { x: 1400, y: 530 }
+    size: { w: 190, h: 24 }
+  - id: y530
+    label: "レペティションレバーが受け止める"
+    align: left
+    at: { x: 1590, y: 530 }
+    size: { w: 230, h: 24 }
+  - id: h572
+    label: "グランドとアップライト"
+    hatch: solid
+    at: { x: 1400, y: 572 }
+    size: { w: 420, h: 24 }
+  - id: x596
+    label: "グランド"
+    at: { x: 1400, y: 596 }
+    size: { w: 190, h: 24 }
+  - id: y596
+    label: "ハンマーは下から上へ。重力で戻る"
+    align: left
+    at: { x: 1590, y: 596 }
+    size: { w: 230, h: 24 }
+  - id: x620
+    label: "アップライト"
+    at: { x: 1400, y: 620 }
+    size: { w: 190, h: 24 }
+  - id: y620
+    label: "横から。ばねで戻す"
+    align: left
+    at: { x: 1590, y: 620 }
+    size: { w: 230, h: 24 }
+  - id: x644
+    label: "連打"
+    at: { x: 1400, y: 644 }
+    size: { w: 190, h: 24 }
+  - id: y644
+    label: "浅く戻すだけで次が打てる"
+    align: left
+    at: { x: 1590, y: 644 }
+    size: { w: 230, h: 24 }
+  - id: x668
+    label: "レペティション"
+    at: { x: 1400, y: 668 }
+    size: { w: 190, h: 24 }
+  - id: y668
+    label: "アップライトには無い"
+    align: left
+    at: { x: 1590, y: 668 }
+    size: { w: 230, h: 24 }
+  - id: x692
+    label: "鍵盤の深さ"
+    at: { x: 1400, y: 692 }
+    size: { w: 190, h: 24 }
+  - id: y692
+    label: "どちらも 10mm 前後"
+    align: left
+    at: { x: 1590, y: 692 }
+    size: { w: 230, h: 24 }
+  - id: h734
+    label: "この図に出ていないもの"
+    hatch: solid
+    at: { x: 1400, y: 734 }
+    size: { w: 420, h: 24 }
+  - id: x758
+    label: "ダンパーとペダル"
+    at: { x: 1400, y: 758 }
+    size: { w: 190, h: 24 }
+  - id: y758
+    label: "3 本のペダルの働き"
+    align: left
+    at: { x: 1590, y: 758 }
+    size: { w: 230, h: 24 }
+  - id: x782
+    label: "寸法"
+    at: { x: 1400, y: 782 }
+    size: { w: 190, h: 24 }
+  - id: y782
+    label: "部材の長さと比は模式"
+    align: left
+    at: { x: 1590, y: 782 }
+    size: { w: 230, h: 24 }
+  - id: x806
+    label: "調整"
+    at: { x: 1400, y: 806 }
+    size: { w: 190, h: 24 }
+  - id: y806
+    label: "regulation と呼ばれる追い込み"
+    align: left
+    at: { x: 1590, y: 806 }
+    size: { w: 230, h: 24 }
+  - id: x830
+    label: "弦"
+    at: { x: 1400, y: 830 }
+    size: { w: 190, h: 24 }
+  - id: y830
+    label: "1 音に 1 〜 3 本。低音は巻線"
+    align: left
+    at: { x: 1590, y: 830 }
+    size: { w: 230, h: 24 }
+  - id: n1
+    label: "グランドピアノのアクション（打弦機構）の模式図です。"
+    marker: none
+    align: left
+    at: { x: 160, y: 860 }
+    size: { w: 1200, h: 18 }
+  - id: n2
+    label: "力は 鍵盤 → キャプスタン → ウィッペン → ジャック → ハンマーの順に伝わります。てこが 3 つ、つながっています。"
+    marker: none
+    align: left
+    at: { x: 160, y: 882 }
+    size: { w: 1200, h: 18 }
+  - id: n3
+    label: "肝は「脱進（エスケープメント）」です。 ハンマーが弦に当たる直前に、ジャックが外れます。"
+    marker: none
+    align: left
+    at: { x: 160, y: 904 }
+    size: { w: 1200, h: 18 }
+  - id: n4
+    label: "そこから先、ハンマーは誰にも押されていません。 自由に飛んで弦を打ち、跳ね返ります。"
+    marker: none
+    align: left
+    at: { x: 160, y: 926 }
+    size: { w: 1200, h: 18 }
+  - id: n5
+    label: "だから 押し続けても、ハンマーを弦に押し付けられません（音が詰まらない）。"
+    marker: none
+    align: left
+    at: { x: 160, y: 948 }
+    size: { w: 1200, h: 18 }
+  - id: n6
+    label: "そして指が決められるのは「ハンマーの速さ」だけです。強さも音色も、そこから決まります。"
+    marker: none
+    align: left
+    at: { x: 160, y: 970 }
+    size: { w: 1200, h: 18 }
+  - id: n7
+    label: "ジャックが外れるのは弦の 2 〜 3mm 手前（レットオフ）。ここが狂うと、音が出ない／二度打ちする。"
+    marker: none
+    align: left
+    at: { x: 160, y: 992 }
+    size: { w: 1200, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p2
+    to: p3
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p4
+    to: p5
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p6
+    to: p7
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p8
+    to: p9
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p10
+    to: p11
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p12
+    to: p13
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p14
+    to: p15
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p16
+    to: p17
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p18
+    to: p19
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p20
+    to: p21
+    curve: none
+    weight: thick
+    ends: { from: arrow, to: none }

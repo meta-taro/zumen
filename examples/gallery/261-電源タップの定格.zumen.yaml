@@ -1,0 +1,409 @@
+version: 1
+kind: placement
+arrows: true
+title: 電源タップの定格（つないでも足し算にならない）
+# **タップをつないでも、容量は増えない。**
+# 壁のコンセント 1 口が 15A なら、その先に何個足しても合計は 15A のまま。
+#
+# **上限を決めるのは、いちばん細い所。** 本体に 15A と書いてあっても、
+# コードが **0.75sq なら 7A（700W）**が上限（1.25sq で 12A、2.0sq で 17A）。
+#
+# **熱を作るものだけが、桁違いに食う。** 電子レンジ 1,400W、
+# ホットプレート 1,300W、ドライヤー 1,200W に対して、
+# **テレビ 150W、ノート PC 65W、スマホ充電 20W** —— 2 桁ちがう。
+# 危ないのは「数」ではなく、**熱を作るものが 2 つ乗ったとき。**
+#
+# **巻いたコードリールは 5A（500W）まで。** 巻くと出た熱が逃げず、被覆が溶ける。
+#
+# **ブレーカーは、タップを守らない。** タップは 15A、分岐ブレーカーは 20A。
+# ホットプレート 1,300W ＋ こたつ 600W ＝ **1,900W（19A）**は、
+# ブレーカーが落ちない値 —— **落ちないまま、タップだけが熱を持ち続ける。**
+#
+# **トラッキングは、使っていなくても起きる。** 差さっていれば刃の間に電圧はかかっていて、
+# ほこりと湿気で炭化し、発火する。**家具の裏の見えないコンセントがいちばん危ない。**
+nodes:
+  - id: t1
+    label: "① タップをつないでも、容量は増えない"
+    marker: none
+    align: left
+    at: { x: 150, y: 150 }
+    size: { w: 620, h: 20 }
+  - id: out
+    label: "コンセント\n15A / 1500W"
+    at: { x: 180, y: 240 }
+    size: { w: 150, h: 56 }
+  - id: tp1
+    label: "タップ A\n15A"
+    at: { x: 380, y: 240 }
+    size: { w: 120, h: 56 }
+  - id: tp2
+    label: "タップ B\n15A"
+    at: { x: 560, y: 240 }
+    size: { w: 120, h: 56 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 329, y: 267 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 379, y: 267 }
+    size: { w: 2, h: 2 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 499, y: 267 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 559, y: 267 }
+    size: { w: 2, h: 2 }
+  - id: sumN
+    label: "15 ＋ 15 ＝ 30A ではない"
+    marker: none
+    align: center
+    at: { x: 380, y: 302 }
+    size: { w: 300, h: 18 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 179, y: 329 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 679, y: 329 }
+    size: { w: 2, h: 2 }
+  - id: limN
+    label: "この線ぜんぶで 15A。いちばん手前のコンセントが上限"
+    marker: none
+    align: center
+    at: { x: 180, y: 336 }
+    size: { w: 500, h: 18 }
+  - id: why1
+    label: "電気は、直列につないだ先で増えない。 壁のコンセント 1 口が 15A なら、\nその先に何個タップを足しても、合計は 15A のまま。"
+    at: { x: 150, y: 380 }
+    size: { w: 620, h: 54 }
+  - id: t2
+    label: "② 上限を決めるのは、いちばん細い所"
+    marker: none
+    align: left
+    at: { x: 150, y: 460 }
+    size: { w: 620, h: 20 }
+  - id: h200_494
+    label: "ビニル平形コード（VFF）の太さと許容電流"
+    hatch: solid
+    at: { x: 200, y: 494 }
+    size: { w: 580, h: 24 }
+  - id: x200_518
+    label: "0.75 sq"
+    at: { x: 200, y: 518 }
+    size: { w: 230, h: 24 }
+  - id: y200_518
+    label: "7A（700W）"
+    align: left
+    at: { x: 430, y: 518 }
+    size: { w: 350, h: 24 }
+  - id: x200_542
+    label: "1.25 sq"
+    at: { x: 200, y: 542 }
+    size: { w: 230, h: 24 }
+  - id: y200_542
+    label: "12A（1,200W）"
+    align: left
+    at: { x: 430, y: 542 }
+    size: { w: 350, h: 24 }
+  - id: x200_566
+    label: "2.0 sq"
+    at: { x: 200, y: 566 }
+    size: { w: 230, h: 24 }
+  - id: y200_566
+    label: "17A（1,700W）"
+    align: left
+    at: { x: 430, y: 566 }
+    size: { w: 350, h: 24 }
+  - id: why2
+    label: "本体に 15A と書いてあっても、コードが 0.75sq なら 7A が上限。\n「1500W まで」の表示は、太いコードのタップの話 ——\n安いタップほど細いので、表示と実力が食い違う。"
+    at: { x: 200, y: 604 }
+    size: { w: 580, h: 80 }
+  - id: t3
+    label: "③ 熱を出すものだけが、桁違い"
+    marker: none
+    align: left
+    at: { x: 820, y: 150 }
+    size: { w: 420, h: 20 }
+  - id: h820_186
+    label: "消費電力の目安"
+    hatch: solid
+    at: { x: 820, y: 186 }
+    size: { w: 420, h: 24 }
+  - id: x820_210
+    label: "電子レンジ"
+    at: { x: 820, y: 210 }
+    size: { w: 230, h: 24 }
+  - id: y820_210
+    label: "1,400W（14A）"
+    align: left
+    at: { x: 1050, y: 210 }
+    size: { w: 190, h: 24 }
+  - id: x820_234
+    label: "ホットプレート"
+    at: { x: 820, y: 234 }
+    size: { w: 230, h: 24 }
+  - id: y820_234
+    label: "1,300W（13A）"
+    align: left
+    at: { x: 1050, y: 234 }
+    size: { w: 190, h: 24 }
+  - id: x820_258
+    label: "電気ケトル"
+    at: { x: 820, y: 258 }
+    size: { w: 230, h: 24 }
+  - id: y820_258
+    label: "1,250W（12.5A）"
+    align: left
+    at: { x: 1050, y: 258 }
+    size: { w: 190, h: 24 }
+  - id: x820_282
+    label: "ドライヤー"
+    at: { x: 820, y: 282 }
+    size: { w: 230, h: 24 }
+  - id: y820_282
+    label: "1,200W（12A）"
+    align: left
+    at: { x: 1050, y: 282 }
+    size: { w: 190, h: 24 }
+  - id: x820_306
+    label: "こたつ"
+    at: { x: 820, y: 306 }
+    size: { w: 230, h: 24 }
+  - id: y820_306
+    label: "600W（6A）"
+    align: left
+    at: { x: 1050, y: 306 }
+    size: { w: 190, h: 24 }
+  - id: x820_330
+    label: "テレビ 55 型"
+    at: { x: 820, y: 330 }
+    size: { w: 230, h: 24 }
+  - id: y820_330
+    label: "150W（1.5A）"
+    align: left
+    at: { x: 1050, y: 330 }
+    size: { w: 190, h: 24 }
+  - id: x820_354
+    label: "ノート PC"
+    at: { x: 820, y: 354 }
+    size: { w: 230, h: 24 }
+  - id: y820_354
+    label: "65W（0.7A）"
+    align: left
+    at: { x: 1050, y: 354 }
+    size: { w: 190, h: 24 }
+  - id: x820_378
+    label: "スマホ充電"
+    at: { x: 820, y: 378 }
+    size: { w: 230, h: 24 }
+  - id: y820_378
+    label: "20W（0.2A）"
+    align: left
+    at: { x: 1050, y: 378 }
+    size: { w: 190, h: 24 }
+  - id: why3
+    label: "熱を作るものは 1,000W を超える。\n光る・回る・計算するものは、2 桁小さい。\n危ないのは「数」ではなく、熱を作るものが 2 つ乗ったとき。"
+    at: { x: 820, y: 416 }
+    size: { w: 420, h: 92 }
+  - id: t4
+    label: "④ 巻いたコードリールは 5A まで"
+    marker: none
+    align: left
+    at: { x: 820, y: 512 }
+    size: { w: 420, h: 20 }
+  - id: h820_542
+    label: "同じコードでも"
+    hatch: solid
+    at: { x: 820, y: 542 }
+    size: { w: 420, h: 24 }
+  - id: x820_566
+    label: "全部伸ばす"
+    at: { x: 820, y: 566 }
+    size: { w: 190, h: 24 }
+  - id: y820_566
+    label: "15A（1,500W）"
+    align: left
+    at: { x: 1010, y: 566 }
+    size: { w: 230, h: 24 }
+  - id: x820_590
+    label: "巻いたまま"
+    at: { x: 820, y: 590 }
+    size: { w: 190, h: 24 }
+  - id: y820_590
+    label: "5A（500W）程度"
+    align: left
+    at: { x: 1010, y: 590 }
+    size: { w: 230, h: 24 }
+  - id: why4
+    label: "巻くと、出た熱が逃げない。 内側の熱が外へ抜けず、\n被覆が溶けて短絡する。リールに「全部引き出して」と\n書いてあるのは、飾りではない。"
+    at: { x: 820, y: 628 }
+    size: { w: 420, h: 80 }
+  - id: t5
+    label: "⑤ 抜き差ししない所ほど危ない"
+    marker: none
+    align: left
+    at: { x: 820, y: 724 }
+    size: { w: 420, h: 20 }
+  - id: h820_754
+    label: "トラッキング現象"
+    hatch: solid
+    at: { x: 820, y: 754 }
+    size: { w: 420, h: 24 }
+  - id: x820_778
+    label: "起きる所"
+    at: { x: 820, y: 778 }
+    size: { w: 150, h: 24 }
+  - id: y820_778
+    label: "差しっぱなしのプラグの根元"
+    align: left
+    at: { x: 970, y: 778 }
+    size: { w: 270, h: 24 }
+  - id: x820_802
+    label: "要るもの"
+    at: { x: 820, y: 802 }
+    size: { w: 150, h: 24 }
+  - id: y820_802
+    label: "ほこり ＋ 湿気"
+    align: left
+    at: { x: 970, y: 802 }
+    size: { w: 270, h: 24 }
+  - id: x820_826
+    label: "起きること"
+    at: { x: 820, y: 826 }
+    size: { w: 150, h: 24 }
+  - id: y820_826
+    label: "刃の間で放電し、炭化して発火"
+    align: left
+    at: { x: 970, y: 826 }
+    size: { w: 270, h: 24 }
+  - id: why5
+    label: "使っていなくても起きる。 電気が流れていなくても、\nプラグが差さっていれば刃の間に電圧がかかっている。\n家具の裏の見えないコンセントが、いちばん危ない。"
+    at: { x: 820, y: 864 }
+    size: { w: 420, h: 80 }
+  - id: t6
+    label: "⑥ ブレーカーは、タップを守らない"
+    marker: none
+    align: left
+    at: { x: 150, y: 700 }
+    size: { w: 620, h: 20 }
+  - id: h200_734
+    label: "つないだ合計"
+    hatch: solid
+    at: { x: 200, y: 734 }
+    size: { w: 580, h: 24 }
+  - id: x200_758
+    label: "ホットプレート ＋ こたつ"
+    at: { x: 200, y: 758 }
+    size: { w: 340, h: 24 }
+  - id: y200_758
+    label: "1,900W ＝ 19A"
+    align: left
+    at: { x: 540, y: 758 }
+    size: { w: 240, h: 24 }
+  - id: x200_782
+    label: "電気ケトル ＋ ドライヤー"
+    at: { x: 200, y: 782 }
+    size: { w: 340, h: 24 }
+  - id: y200_782
+    label: "2,450W ＝ 24.5A"
+    align: left
+    at: { x: 540, y: 782 }
+    size: { w: 240, h: 24 }
+  - id: h200_816
+    label: "切れる／焼ける順"
+    hatch: solid
+    at: { x: 200, y: 816 }
+    size: { w: 580, h: 24 }
+  - id: x200_840
+    label: "タップ"
+    at: { x: 200, y: 840 }
+    size: { w: 340, h: 24 }
+  - id: y200_840
+    label: "15A で発熱"
+    align: left
+    at: { x: 540, y: 840 }
+    size: { w: 240, h: 24 }
+  - id: x200_864
+    label: "分岐ブレーカー"
+    at: { x: 200, y: 864 }
+    size: { w: 340, h: 24 }
+  - id: y200_864
+    label: "20A で切れる"
+    align: left
+    at: { x: 540, y: 864 }
+    size: { w: 240, h: 24 }
+  - id: why6
+    label: "タップの 15A のほうが、ブレーカーの 20A より先に来る。\n19A は、ブレーカーが切れない値 —— だから落ちないまま、\nタップだけが熱を持ち続ける。落ちないことは、安全の証拠ではない。"
+    at: { x: 200, y: 902 }
+    size: { w: 580, h: 92 }
+  - id: r1
+    label: "タップをつないでも、容量は増えません（①）。壁のコンセント 1 口が 15A なら、その先は何個足しても 15A のままです。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1008 }
+    size: { w: 1090, h: 18 }
+  - id: r2
+    label: "上限を決めるのは、いちばん細い所です（②）。本体に 15A と書いてあっても、コードが 0.75sq なら 7A が上限です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1032 }
+    size: { w: 1090, h: 18 }
+  - id: r3
+    label: "熱を作るものだけが、桁違いに食います（③）。電子レンジ 1,400W に対して、ノート PC は 65W —— 2 桁ちがいます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1056 }
+    size: { w: 1090, h: 18 }
+  - id: r4
+    label: "危ないのは「数」ではなく、熱を作るものが 2 つ乗ったとき。 スマホを 6 個挿しても 120W です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1080 }
+    size: { w: 1090, h: 18 }
+  - id: r5
+    label: "巻いたコードリールは 5A までです（④）。巻くと熱が逃げず、被覆が溶けます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1104 }
+    size: { w: 1090, h: 18 }
+  - id: r6
+    label: "トラッキングは、使っていなくても起きます（⑤）。差さっていれば刃の間に電圧はかかっています。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1128 }
+    size: { w: 1090, h: 18 }
+  - id: r7
+    label: "家具の裏の見えないコンセントが、いちばん危ない。 ほこりと湿気がたまり、誰も見ていません。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1152 }
+    size: { w: 1090, h: 18 }
+  - id: r8
+    label: "ブレーカーは、タップを守りません（⑥）。タップは 15A、分岐ブレーカーは 20A —— 19A ではブレーカーは落ちず、タップだけが熱を持ち続けます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1176 }
+    size: { w: 1090, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p2
+    to: p3
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p4
+    to: p5
+    curve: none
+    ends: { from: arrow, to: arrow }

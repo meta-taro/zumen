@@ -1,0 +1,24 @@
+# pnpm の設定（ベースルール §1）。
+#
+# **pnpm 10 以降、これらは package.json の "pnpm" ではなくここを見る。**
+# package.json に書いたままだと黙って無視され、
+# `pnpm config get minimumReleaseAge` が undefined を返す（2026-09-06 に判明）。
+#
+# - onlyBuiltDependencies: install script を走らせてよい依存の許可リスト。
+#   **空 = どれも走らせない。** vite / esbuild はスクリプト無しで動くことを確認済み
+# - ignoredBuiltDependencies: 走らせないことを承知しているもの。
+#   書いておかないと install が毎回 exit 1 になる
+# - minimumReleaseAge: 公開直後のパッケージを隔離する分数（1440 = 24 時間）
+
+onlyBuiltDependencies: []
+
+ignoredBuiltDependencies:
+  - esbuild
+
+minimumReleaseAge: 1440
+
+allowBuilds:
+  esbuild: set this to true or false
+
+# 承知したうえで進む（スクリプトは走らせないまま）。
+strictDepBuilds: false

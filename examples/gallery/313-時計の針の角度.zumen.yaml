@@ -1,0 +1,847 @@
+version: 1
+kind: placement
+arrows: true
+title: 時計の針の角度（3 時 15 分に、針は重ならない）
+# **3 時 15 分に、長針と短針は重ならない。**
+# 分針が 90 度（3 の位置）まで来るあいだに、**時針も 7.5 度ぶん進んでいる。**
+# 3 時ちょうどの差は 90 度、3 時 15 分の差は **7.5 度。**
+#
+# **角度は 1 つの式で出る。**
+# **2 つの針の角度 ＝ |30H − 5.5M|**（H は時、M は分。180 度を超えたら 360 から引く）。
+# 時針は 1 分に **0.5 度**、分針は 1 分に **6 度** —— 差は 1 分に **5.5 度。**
+# 3 時 15 分なら |30 × 3 − 5.5 × 15| ＝ |90 − 82.5| ＝ **7.5 度。**
+#
+# **12 時間で重なるのは、12 回ではなく 11 回。**
+# 分針は 12 時間で **12 周**、時針は **1 周** —— 差は **11 周ぶん**で、
+# **分針が時針を 1 周ぶん追い越すたびに 1 回重なる。**
+# だから **12 ÷ 11 時間ごと**（約 1 時間 5 分 27 秒）に重なり、**11 時台だけ重ならない。**
+#
+# **直角になるのは 22 回。** 追い越し 1 回につき、**追いつく前に 1 回、追い越してから 1 回。**
+# 一直線（180 度）になるのも 11 回。
+#
+# 数はすべて計算で確かめた（重なる時刻・角度・回数）。見本 303・308・310 と同じやり方。
+nodes:
+  - id: t1
+    label: "① 3 時ちょうどと、3 時 15 分"
+    marker: none
+    align: left
+    at: { x: 140, y: 150 }
+    size: { w: 660, h: 20 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 329, y: 259 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 329, y: 273 }
+    size: { w: 2, h: 2 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 329, y: 261 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 392, y: 289.9 }
+    size: { w: 2, h: 2 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 398, y: 279.5 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 438.1, y: 336 }
+    size: { w: 2, h: 2 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 448.5, y: 330 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 455, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 467, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 438.1, y: 462 }
+    size: { w: 2, h: 2 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 448.5, y: 468 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 392, y: 508.1 }
+    size: { w: 2, h: 2 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 398, y: 518.5 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 329, y: 525 }
+    size: { w: 2, h: 2 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 329, y: 537 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 266, y: 508.1 }
+    size: { w: 2, h: 2 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 260, y: 518.5 }
+    size: { w: 2, h: 2 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 219.9, y: 462 }
+    size: { w: 2, h: 2 }
+  - id: p18
+    label: ""
+    marker: none
+    at: { x: 209.5, y: 468 }
+    size: { w: 2, h: 2 }
+  - id: p19
+    label: ""
+    marker: none
+    at: { x: 203, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: p20
+    label: ""
+    marker: none
+    at: { x: 191, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: p21
+    label: ""
+    marker: none
+    at: { x: 219.9, y: 336 }
+    size: { w: 2, h: 2 }
+  - id: p22
+    label: ""
+    marker: none
+    at: { x: 209.5, y: 330 }
+    size: { w: 2, h: 2 }
+  - id: p23
+    label: ""
+    marker: none
+    at: { x: 266, y: 289.9 }
+    size: { w: 2, h: 2 }
+  - id: p24
+    label: ""
+    marker: none
+    at: { x: 260, y: 279.5 }
+    size: { w: 2, h: 2 }
+  - id: a12
+    label: "12"
+    marker: none
+    align: center
+    at: { x: 310, y: 285 }
+    size: { w: 40, h: 18 }
+  - id: a3
+    label: "3"
+    marker: none
+    align: center
+    at: { x: 416, y: 391 }
+    size: { w: 40, h: 18 }
+  - id: a6
+    label: "6"
+    marker: none
+    align: center
+    at: { x: 310, y: 497 }
+    size: { w: 40, h: 18 }
+  - id: a9
+    label: "9"
+    marker: none
+    align: center
+    at: { x: 204, y: 391 }
+    size: { w: 40, h: 18 }
+  - id: p25
+    label: ""
+    marker: none
+    at: { x: 329, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: p26
+    label: ""
+    marker: none
+    at: { x: 410.2, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: p27
+    label: ""
+    marker: none
+    at: { x: 329, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: p28
+    label: ""
+    marker: none
+    at: { x: 329, y: 278.6 }
+    size: { w: 2, h: 2 }
+  - id: ac
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 324, y: 394 }
+    size: { w: 12, h: 12 }
+  - id: at
+    label: "3 時ちょうど"
+    marker: none
+    align: center
+    at: { x: 190, y: 556 }
+    size: { w: 280, h: 18 }
+  - id: aa
+    label: "時針 90 度 ／ 分針 0 度 ／ 差 90 度"
+    marker: none
+    align: center
+    at: { x: 190, y: 576 }
+    size: { w: 280, h: 18 }
+  - id: p29
+    label: ""
+    marker: none
+    at: { x: 699, y: 259 }
+    size: { w: 2, h: 2 }
+  - id: p30
+    label: ""
+    marker: none
+    at: { x: 699, y: 273 }
+    size: { w: 2, h: 2 }
+  - id: p31
+    label: ""
+    marker: none
+    at: { x: 699, y: 261 }
+    size: { w: 2, h: 2 }
+  - id: p32
+    label: ""
+    marker: none
+    at: { x: 762, y: 289.9 }
+    size: { w: 2, h: 2 }
+  - id: p33
+    label: ""
+    marker: none
+    at: { x: 768, y: 279.5 }
+    size: { w: 2, h: 2 }
+  - id: p34
+    label: ""
+    marker: none
+    at: { x: 808.1, y: 336 }
+    size: { w: 2, h: 2 }
+  - id: p35
+    label: ""
+    marker: none
+    at: { x: 818.5, y: 330 }
+    size: { w: 2, h: 2 }
+  - id: p36
+    label: ""
+    marker: none
+    at: { x: 825, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: p37
+    label: ""
+    marker: none
+    at: { x: 837, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: p38
+    label: ""
+    marker: none
+    at: { x: 808.1, y: 462 }
+    size: { w: 2, h: 2 }
+  - id: p39
+    label: ""
+    marker: none
+    at: { x: 818.5, y: 468 }
+    size: { w: 2, h: 2 }
+  - id: p40
+    label: ""
+    marker: none
+    at: { x: 762, y: 508.1 }
+    size: { w: 2, h: 2 }
+  - id: p41
+    label: ""
+    marker: none
+    at: { x: 768, y: 518.5 }
+    size: { w: 2, h: 2 }
+  - id: p42
+    label: ""
+    marker: none
+    at: { x: 699, y: 525 }
+    size: { w: 2, h: 2 }
+  - id: p43
+    label: ""
+    marker: none
+    at: { x: 699, y: 537 }
+    size: { w: 2, h: 2 }
+  - id: p44
+    label: ""
+    marker: none
+    at: { x: 636, y: 508.1 }
+    size: { w: 2, h: 2 }
+  - id: p45
+    label: ""
+    marker: none
+    at: { x: 630, y: 518.5 }
+    size: { w: 2, h: 2 }
+  - id: p46
+    label: ""
+    marker: none
+    at: { x: 589.9, y: 462 }
+    size: { w: 2, h: 2 }
+  - id: p47
+    label: ""
+    marker: none
+    at: { x: 579.5, y: 468 }
+    size: { w: 2, h: 2 }
+  - id: p48
+    label: ""
+    marker: none
+    at: { x: 573, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: p49
+    label: ""
+    marker: none
+    at: { x: 561, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: p50
+    label: ""
+    marker: none
+    at: { x: 589.9, y: 336 }
+    size: { w: 2, h: 2 }
+  - id: p51
+    label: ""
+    marker: none
+    at: { x: 579.5, y: 330 }
+    size: { w: 2, h: 2 }
+  - id: p52
+    label: ""
+    marker: none
+    at: { x: 636, y: 289.9 }
+    size: { w: 2, h: 2 }
+  - id: p53
+    label: ""
+    marker: none
+    at: { x: 630, y: 279.5 }
+    size: { w: 2, h: 2 }
+  - id: b12
+    label: "12"
+    marker: none
+    align: center
+    at: { x: 680, y: 285 }
+    size: { w: 40, h: 18 }
+  - id: b3
+    label: "3"
+    marker: none
+    align: center
+    at: { x: 786, y: 391 }
+    size: { w: 40, h: 18 }
+  - id: b6
+    label: "6"
+    marker: none
+    align: center
+    at: { x: 680, y: 497 }
+    size: { w: 40, h: 18 }
+  - id: b9
+    label: "9"
+    marker: none
+    align: center
+    at: { x: 574, y: 391 }
+    size: { w: 40, h: 18 }
+  - id: p54
+    label: ""
+    marker: none
+    at: { x: 699, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: p55
+    label: ""
+    marker: none
+    at: { x: 779.5, y: 409.6 }
+    size: { w: 2, h: 2 }
+  - id: p56
+    label: ""
+    marker: none
+    at: { x: 699, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: p57
+    label: ""
+    marker: none
+    at: { x: 819.4, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: bc
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 694, y: 394 }
+    size: { w: 12, h: 12 }
+  - id: bt
+    label: "3 時 15 分"
+    marker: none
+    align: center
+    at: { x: 560, y: 556 }
+    size: { w: 280, h: 18 }
+  - id: ba
+    label: "時針 97.5 度 ／ 分針 90 度 ／ 差 7.5 度"
+    marker: none
+    align: center
+    at: { x: 560, y: 576 }
+    size: { w: 280, h: 18 }
+  - id: cap1
+    label: "3 時 15 分に針は重ならない。 分針が 90 度まで来るあいだに、時針も 7.5 度ぶん進んでいる。"
+    marker: none
+    align: center
+    at: { x: 140, y: 606 }
+    size: { w: 660, h: 18 }
+  - id: t2
+    label: "② 角度は 1 つの式で出る"
+    marker: none
+    align: left
+    at: { x: 140, y: 650 }
+    size: { w: 660, h: 20 }
+  - id: fml
+    label: "2 つの針の角度 ＝ |30H − 5.5M|（H は時、M は分。180 度を超えたら 360 から引く）\n\n時針は 1 分に 0.5 度、分針は 1 分に 6 度 —— 差は 1 分に 5.5 度。\n3 時 15 分なら |30 × 3 − 5.5 × 15| ＝ |90 − 82.5| ＝ 7.5 度。"
+    at: { x: 140, y: 680 }
+    size: { w: 660, h: 92 }
+  - id: t3
+    label: "③ 針が重なる時刻"
+    marker: none
+    align: left
+    at: { x: 860, y: 150 }
+    size: { w: 420, h: 20 }
+  - id: h860_186
+    label: "12 時間で 11 回"
+    hatch: solid
+    at: { x: 860, y: 186 }
+    size: { w: 420, h: 24 }
+  - id: x860_210
+    label: "0 時"
+    at: { x: 860, y: 210 }
+    size: { w: 150, h: 24 }
+  - id: y860_210
+    label: "0 分ちょうど"
+    align: left
+    at: { x: 1010, y: 210 }
+    size: { w: 270, h: 24 }
+  - id: x860_234
+    label: "1 時"
+    at: { x: 860, y: 234 }
+    size: { w: 150, h: 24 }
+  - id: y860_234
+    label: "5 分 27 秒（5.45 分）"
+    align: left
+    at: { x: 1010, y: 234 }
+    size: { w: 270, h: 24 }
+  - id: x860_258
+    label: "2 時"
+    at: { x: 860, y: 258 }
+    size: { w: 150, h: 24 }
+  - id: y860_258
+    label: "10 分 55 秒（10.91 分）"
+    align: left
+    at: { x: 1010, y: 258 }
+    size: { w: 270, h: 24 }
+  - id: x860_282
+    label: "3 時"
+    at: { x: 860, y: 282 }
+    size: { w: 150, h: 24 }
+  - id: y860_282
+    label: "16 分 22 秒（16.36 分）"
+    align: left
+    at: { x: 1010, y: 282 }
+    size: { w: 270, h: 24 }
+  - id: x860_306
+    label: "6 時"
+    at: { x: 860, y: 306 }
+    size: { w: 150, h: 24 }
+  - id: y860_306
+    label: "32 分 44 秒（32.73 分）"
+    align: left
+    at: { x: 1010, y: 306 }
+    size: { w: 270, h: 24 }
+  - id: x860_330
+    label: "11 時"
+    at: { x: 860, y: 330 }
+    size: { w: 150, h: 24 }
+  - id: y860_330
+    label: "重ならない（次は 12 時）"
+    align: left
+    at: { x: 1010, y: 330 }
+    size: { w: 270, h: 24 }
+  - id: why3
+    label: "12 時間で 12 回ではなく、11 回。\n11 時台だけ重ならず、12 時ちょうどで重なる ——\n12 ÷ 11 時間ごとに重なるので、\n1 周ぶん少なくなる。"
+    at: { x: 860, y: 368 }
+    size: { w: 420, h: 74 }
+  - id: t4
+    label: "④ なぜ 11 回か"
+    marker: none
+    align: left
+    at: { x: 860, y: 460 }
+    size: { w: 420, h: 20 }
+  - id: h860_490
+    label: "追いつく回数"
+    hatch: solid
+    at: { x: 860, y: 490 }
+    size: { w: 420, h: 24 }
+  - id: x860_514
+    label: "分針"
+    at: { x: 860, y: 514 }
+    size: { w: 150, h: 24 }
+  - id: y860_514
+    label: "12 時間で 12 周"
+    align: left
+    at: { x: 1010, y: 514 }
+    size: { w: 270, h: 24 }
+  - id: x860_538
+    label: "時針"
+    at: { x: 860, y: 538 }
+    size: { w: 150, h: 24 }
+  - id: y860_538
+    label: "12 時間で 1 周"
+    align: left
+    at: { x: 1010, y: 538 }
+    size: { w: 270, h: 24 }
+  - id: x860_562
+    label: "差"
+    at: { x: 860, y: 562 }
+    size: { w: 150, h: 24 }
+  - id: y860_562
+    label: "12 − 1 ＝ 11 周ぶん追い越す"
+    align: left
+    at: { x: 1010, y: 562 }
+    size: { w: 270, h: 24 }
+  - id: x860_586
+    label: "だから"
+    at: { x: 860, y: 586 }
+    size: { w: 150, h: 24 }
+  - id: y860_586
+    label: "重なるのは 11 回"
+    align: left
+    at: { x: 1010, y: 586 }
+    size: { w: 270, h: 24 }
+  - id: why4
+    label: "「追い越した回数」が重なった回数。\n分針が時針を 1 周ぶん追い越すたびに 1 回重なる ——\n周回数の差がそのまま答え。"
+    at: { x: 860, y: 624 }
+    size: { w: 420, h: 74 }
+  - id: t5
+    label: "⑤ 直角になる回数"
+    marker: none
+    align: left
+    at: { x: 860, y: 716 }
+    size: { w: 420, h: 20 }
+  - id: h860_746
+    label: "12 時間で 22 回"
+    hatch: solid
+    at: { x: 860, y: 746 }
+    size: { w: 420, h: 24 }
+  - id: x860_770
+    label: "重なる"
+    at: { x: 860, y: 770 }
+    size: { w: 150, h: 24 }
+  - id: y860_770
+    label: "11 回"
+    align: left
+    at: { x: 1010, y: 770 }
+    size: { w: 270, h: 24 }
+  - id: x860_794
+    label: "一直線（180 度）"
+    at: { x: 860, y: 794 }
+    size: { w: 150, h: 24 }
+  - id: y860_794
+    label: "11 回"
+    align: left
+    at: { x: 1010, y: 794 }
+    size: { w: 270, h: 24 }
+  - id: x860_818
+    label: "直角（90 度）"
+    at: { x: 860, y: 818 }
+    size: { w: 150, h: 24 }
+  - id: y860_818
+    label: "22 回"
+    align: left
+    at: { x: 1010, y: 818 }
+    size: { w: 270, h: 24 }
+  - id: x860_842
+    label: "理由"
+    at: { x: 860, y: 842 }
+    size: { w: 150, h: 24 }
+  - id: y860_842
+    label: "1 周ぶん追い越すあいだに 2 回"
+    align: left
+    at: { x: 1010, y: 842 }
+    size: { w: 270, h: 24 }
+  - id: why5
+    label: "追い越し 1 回につき、直角は 2 回。\n追いつく前に 1 回、追い越してから 1 回 ——\n11 × 2 ＝ 22 回。"
+    at: { x: 860, y: 880 }
+    size: { w: 420, h: 74 }
+  - id: r1
+    label: "3 時 15 分に針は重なりません（①）。分針が 90 度まで来るあいだに、時針も 7.5 度ぶん進んでいます。"
+    marker: none
+    align: left
+    at: { x: 140, y: 972 }
+    size: { w: 1140, h: 18 }
+  - id: r2
+    label: "角度は |30H − 5.5M| で出ます（②）。時針は 1 分に 0.5 度、分針は 1 分に 6 度 —— 差は 1 分に 5.5 度です。"
+    marker: none
+    align: left
+    at: { x: 140, y: 996 }
+    size: { w: 1140, h: 18 }
+  - id: r3
+    label: "12 時間で重なるのは 11 回です（③④）。分針は 12 周、時針は 1 周なので、追い越すのは 11 周ぶんです。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1020 }
+    size: { w: 1140, h: 18 }
+  - id: r4
+    label: "直角になるのは 22 回です（⑤）。追い越し 1 回につき、追いつく前と追い越したあとで 2 回あります。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1044 }
+    size: { w: 1140, h: 18 }
+edges:
+  - from: p0
+    to: p0
+    curve: none
+    close: true
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 330, y: 260 }
+      - { x: 348.3, y: 261.2 }
+      - { x: 366.2, y: 264.8 }
+      - { x: 383.6, y: 270.7 }
+      - { x: 400, y: 278.8 }
+      - { x: 415.2, y: 288.9 }
+      - { x: 429, y: 301 }
+      - { x: 441.1, y: 314.8 }
+      - { x: 451.2, y: 330 }
+      - { x: 459.3, y: 346.4 }
+      - { x: 465.2, y: 363.8 }
+      - { x: 468.8, y: 381.7 }
+      - { x: 470, y: 400 }
+      - { x: 468.8, y: 418.3 }
+      - { x: 465.2, y: 436.2 }
+      - { x: 459.3, y: 453.6 }
+      - { x: 451.2, y: 470 }
+      - { x: 441.1, y: 485.2 }
+      - { x: 429, y: 499 }
+      - { x: 415.2, y: 511.1 }
+      - { x: 400, y: 521.2 }
+      - { x: 383.6, y: 529.3 }
+      - { x: 366.2, y: 535.2 }
+      - { x: 348.3, y: 538.8 }
+      - { x: 330, y: 540 }
+      - { x: 311.7, y: 538.8 }
+      - { x: 293.8, y: 535.2 }
+      - { x: 276.4, y: 529.3 }
+      - { x: 260, y: 521.2 }
+      - { x: 244.8, y: 511.1 }
+      - { x: 231, y: 499 }
+      - { x: 218.9, y: 485.2 }
+      - { x: 208.8, y: 470 }
+      - { x: 200.7, y: 453.6 }
+      - { x: 194.8, y: 436.2 }
+      - { x: 191.2, y: 418.3 }
+      - { x: 190, y: 400 }
+      - { x: 191.2, y: 381.7 }
+      - { x: 194.8, y: 363.8 }
+      - { x: 200.7, y: 346.4 }
+      - { x: 208.8, y: 330 }
+      - { x: 218.9, y: 314.8 }
+      - { x: 231, y: 301 }
+      - { x: 244.8, y: 288.9 }
+      - { x: 260, y: 278.8 }
+      - { x: 276.4, y: 270.7 }
+      - { x: 293.8, y: 264.8 }
+      - { x: 311.7, y: 261.2 }
+  - from: p1
+    to: p2
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p3
+    to: p4
+    curve: none
+    ends: { from: none, to: none }
+  - from: p5
+    to: p6
+    curve: none
+    ends: { from: none, to: none }
+  - from: p7
+    to: p8
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p9
+    to: p10
+    curve: none
+    ends: { from: none, to: none }
+  - from: p11
+    to: p12
+    curve: none
+    ends: { from: none, to: none }
+  - from: p13
+    to: p14
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p15
+    to: p16
+    curve: none
+    ends: { from: none, to: none }
+  - from: p17
+    to: p18
+    curve: none
+    ends: { from: none, to: none }
+  - from: p19
+    to: p20
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p21
+    to: p22
+    curve: none
+    ends: { from: none, to: none }
+  - from: p23
+    to: p24
+    curve: none
+    ends: { from: none, to: none }
+  - from: p25
+    to: p26
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p27
+    to: p28
+    curve: none
+    ends: { from: none, to: none }
+  - from: p29
+    to: p29
+    curve: none
+    close: true
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 700, y: 260 }
+      - { x: 718.3, y: 261.2 }
+      - { x: 736.2, y: 264.8 }
+      - { x: 753.6, y: 270.7 }
+      - { x: 770, y: 278.8 }
+      - { x: 785.2, y: 288.9 }
+      - { x: 799, y: 301 }
+      - { x: 811.1, y: 314.8 }
+      - { x: 821.2, y: 330 }
+      - { x: 829.3, y: 346.4 }
+      - { x: 835.2, y: 363.8 }
+      - { x: 838.8, y: 381.7 }
+      - { x: 840, y: 400 }
+      - { x: 838.8, y: 418.3 }
+      - { x: 835.2, y: 436.2 }
+      - { x: 829.3, y: 453.6 }
+      - { x: 821.2, y: 470 }
+      - { x: 811.1, y: 485.2 }
+      - { x: 799, y: 499 }
+      - { x: 785.2, y: 511.1 }
+      - { x: 770, y: 521.2 }
+      - { x: 753.6, y: 529.3 }
+      - { x: 736.2, y: 535.2 }
+      - { x: 718.3, y: 538.8 }
+      - { x: 700, y: 540 }
+      - { x: 681.7, y: 538.8 }
+      - { x: 663.8, y: 535.2 }
+      - { x: 646.4, y: 529.3 }
+      - { x: 630, y: 521.2 }
+      - { x: 614.8, y: 511.1 }
+      - { x: 601, y: 499 }
+      - { x: 588.9, y: 485.2 }
+      - { x: 578.8, y: 470 }
+      - { x: 570.7, y: 453.6 }
+      - { x: 564.8, y: 436.2 }
+      - { x: 561.2, y: 418.3 }
+      - { x: 560, y: 400 }
+      - { x: 561.2, y: 381.7 }
+      - { x: 564.8, y: 363.8 }
+      - { x: 570.7, y: 346.4 }
+      - { x: 578.8, y: 330 }
+      - { x: 588.9, y: 314.8 }
+      - { x: 601, y: 301 }
+      - { x: 614.8, y: 288.9 }
+      - { x: 630, y: 278.8 }
+      - { x: 646.4, y: 270.7 }
+      - { x: 663.8, y: 264.8 }
+      - { x: 681.7, y: 261.2 }
+  - from: p30
+    to: p31
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p32
+    to: p33
+    curve: none
+    ends: { from: none, to: none }
+  - from: p34
+    to: p35
+    curve: none
+    ends: { from: none, to: none }
+  - from: p36
+    to: p37
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p38
+    to: p39
+    curve: none
+    ends: { from: none, to: none }
+  - from: p40
+    to: p41
+    curve: none
+    ends: { from: none, to: none }
+  - from: p42
+    to: p43
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p44
+    to: p45
+    curve: none
+    ends: { from: none, to: none }
+  - from: p46
+    to: p47
+    curve: none
+    ends: { from: none, to: none }
+  - from: p48
+    to: p49
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p50
+    to: p51
+    curve: none
+    ends: { from: none, to: none }
+  - from: p52
+    to: p53
+    curve: none
+    ends: { from: none, to: none }
+  - from: p54
+    to: p55
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p56
+    to: p57
+    curve: none
+    ends: { from: none, to: none }

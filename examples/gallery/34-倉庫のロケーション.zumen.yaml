@@ -1,0 +1,115 @@
+version: 1
+kind: placement
+title: 物流倉庫 ロケーション図（中量棚 2 列・パレットラック 1 列・リーチフォーク）
+# **ロケーション図は、棚を置く図ではなく「通路を取る図」。**
+# リーチフォークの旋回に要る幅が先にあって、残りが棚になる。
+# **通路を削ると、フォークが回れずに棚へ入れられない。**
+#
+# ## 有効高さ 5,000 と床荷重が、段数を決める
+#
+# 棚の段数は高さで決まり、載せられる重さは床荷重（15kN/m²）で決まる。
+# **どちらか先に効いたほうが上限。**
+#
+# ## 基幹通路は、火災のときの道でもある
+#
+# スプリンクラーの散水を遮らないよう、**棚の天端と天井の間も空ける。**
+# 積みすぎると水が届かなくなるので、高さ制限は消防の都合でもある。
+# 1 px = 25 mm。中量棚 W1800×D600、パレットラック D1,000、フォーク通路 有効 2,800
+#
+# ## 2026-09-29 専門家レビューで直したこと
+#
+# - **番地の数を棚の長さに合わせた。** 列の長さは 15,000。W1800 の棚は 8 連しか入らないのに
+#   A-01〜A-16 と書いていた（16 連なら 28.8 m 要る）。A・B は 01〜08 にした。
+# - **中量棚は手で出し入れする棚**で、フォークは入れない。フォーク通路（2,800）が要るのは
+#   パレットラック（C 列）の前だけ。A・B の間は台車の通路（2,400）にした。
+# - **パレットラックの奥行を 1,000 にした**（以前は中量棚と同じ 600。1,100 のパレットが載らない）。
+# - **トラックバースの開口を両開き戸の記号から、開口だけにした。** バースはシャッター
+#   （または オーバーヘッドドア）で、平面表示記号の両開き戸ではない。zumen にシャッターの記号が
+#   まだ無いので、開口として描き、説明にシャッターと書く。開口 2,500、中心間 4,250。
+# - C 列（パレットラック）は 1 間口に 1,100 のパレット 2 枚で約 2,700。15,000 に 5 間口。
+scale: { mm: 25 }
+wall: { mm: 150, outer: 250 }
+north: up
+grid:
+  x:
+    - { id: X1, at: 0 }
+    - { id: X2, at: 600 }
+    - { id: X3, at: 760 }
+  y:
+    - { id: Y1, at: 0 }
+    - { id: Y2, at: 296 }
+    - { id: Y3, at: 420 }
+groups:
+  - id: soko
+    label: 保管区画　有効 H=5,000　床荷重 15kN/m²　スプリンクラー
+nodes:
+  - id: tanaA
+    label: A 列
+    tag: A-01〜A-08
+    technology: 中量棚 W1800×D600×H2100・4 段
+    at: { x: 0, y: 0 }
+    size: { w: 600, h: 24 }
+    group: soko
+  - id: tsuroA
+    label: 通路（台車）
+    technology: 有効 2,400
+    at: { x: 0, y: 24 }
+    size: { w: 600, h: 96 }
+    group: soko
+  - id: tanaB
+    label: B 列
+    tag: B-01〜B-08
+    technology: 中量棚 W1800×D600×H2100・4 段
+    at: { x: 0, y: 120 }
+    size: { w: 600, h: 24 }
+    group: soko
+  - id: tsuroB
+    label: 通路（フォーク）
+    technology: 有効 2,800・リーチフォーク
+    at: { x: 0, y: 144 }
+    size: { w: 600, h: 112 }
+    group: soko
+  - id: tanaC
+    label: C 列　パレットラック D1,000・2 段
+    tag: C-01〜C-05
+    at: { x: 0, y: 256 }
+    size: { w: 600, h: 40 }
+    group: soko
+  - id: mainT
+    label: 基幹通路
+    technology: 有効 4,000・双方向
+    at: { x: 600, y: 0 }
+    size: { w: 160, h: 296 }
+    group: soko
+  - id: kenpin
+    label: 検品エリア
+    tag: QC
+    technology: 作業台 4・ハンディ端末
+    at: { x: 0, y: 296 }
+    size: { w: 260, h: 124 }
+    group: soko
+    openings:
+      - { kind: open, side: top, at: 0.5, width: 80 }
+  - id: shukka
+    label: 出荷バース
+    tag: DK-1/2
+    technology: シャッター 2・ドックレベラー H=1,200
+    at: { x: 260, y: 296 }
+    size: { w: 340, h: 124 }
+    group: soko
+    openings:
+      - { kind: open, side: bottom, at: 0.25, width: 100 }
+      - { kind: open, side: bottom, at: 0.75, width: 100 }
+  - id: jimu
+    label: 事務所
+    technology: 在庫管理 3 名
+    at: { x: 600, y: 296 }
+    size: { w: 160, h: 124 }
+    group: soko
+    openings:
+      - { kind: door, side: left, at: 0.5, width: 34 }
+edges:
+  - from: shukka
+    to: kenpin
+  - from: mainT
+    to: tsuroA

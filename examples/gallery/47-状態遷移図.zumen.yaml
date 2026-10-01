@@ -1,0 +1,75 @@
+version: 1
+wrap: true
+title: 状態遷移図（注文の状態・UML）
+# **状態遷移図は、状態ではなく「遷移」を数える図。**
+# 状態が 6 つでも、そこへ入る道と出る道が何本あるかで、作る手間が決まる。
+#
+# ## ガード条件は矢印に書く
+#
+# 「入金［与信 OK］」のように、**同じ操作でも条件で行き先が変わる。**
+# 条件を書かないと、実装したときに分岐が現れて図と合わなくなる。
+#
+# ## 取消はどこからでも来る
+#
+# 終わりの状態が 2 つある（完了と取消）。
+# **どの状態から取消へ行けるかを描き切る**のが、この図の本番。
+pins:
+  shipped:
+    appearance: primary
+nodes:
+  - id: start
+    type: generic
+    label: ●
+    technology: 開始
+  - id: draft
+    type: generic
+    label: 下書き
+    technology: 編集できる
+  - id: placed
+    type: generic
+    label: 受付済
+    technology: 在庫確保／取消で戻す
+  - id: paid
+    type: generic
+    label: 入金済
+    technology: 出荷待ち
+  - id: shipped
+    type: generic
+    label: 出荷済
+    technology: 出荷で番号を発行
+  - id: done
+    type: generic
+    label: 完了
+  - id: cancelled
+    type: generic
+    label: 取消
+    technology: 在庫を戻す
+  - id: fin
+    type: generic
+    label: ◉
+    technology: 終了
+edges:
+  - from: start
+    to: draft
+  - from: draft
+    to: placed
+    label: 注文
+  - from: placed
+    to: paid
+    label: 入金［与信 OK］
+  - from: paid
+    to: shipped
+    label: 出荷
+  - from: shipped
+    to: done
+    label: 受領
+  - from: placed
+    to: cancelled
+    label: 取消 ／ 在庫を戻す
+  - from: paid
+    to: cancelled
+    label: 取消 ／ 返金
+  - from: done
+    to: fin
+  - from: cancelled
+    to: fin

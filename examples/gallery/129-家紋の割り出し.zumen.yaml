@@ -1,0 +1,186 @@
+version: 1
+kind: construction
+title: 家紋の割り出し（六つ割・十二割／分廻しと定規だけ）
+# **家紋は、定規と分廻し（ぶんまわし＝竹のコンパス）だけで描かれてきた。**
+# その作図を、紋章上絵師は「**割り出し**」と呼ぶ。
+#
+# ## 依った記述
+#
+# 『標準紋章集成』（1954）に、こうある。
+#
+# > **凡て紋の寸法は九分の紋なれば九分の丸の内で作る**
+# > **六つ割は一寸の丸を廻せし分廻しにて割る　十二割はこれを更に割る**
+#
+# つまり ——
+#
+# 1. **基準の丸（九分の丸）を描く。** 紋はすべてこの中に収める
+# 2. **半径をそのまま円周に回す。** 6 回で元へ戻る ＝ **六つ割**
+# 3. **それをさらに割る** ＝ **十二割**
+#
+# 「半径を円周に回すと 6 等分になる」は、分度器を使わずに 60 度を出す作図そのもの。
+# 三つ割（120 度）は、六つ割を 1 つおきに採るだけで出る。
+#
+# ## この正本に座標は無い
+#
+# 与えてあるのは基準の半径 r と線の太さだけ。**あとは全部そこから出る**（D36）。
+# 薄い円は分廻しの跡で、**作図図では消さない。**
+#
+# 出どころ —— 『標準紋章集成』（1954）／『紋切形』（弘化 5 年）「紋割方の傳」／
+# 『紋割出法』（昭和 46 年・東京紋章上絵師組合）。
+let:
+  r: 150
+lengths:
+  weight: 3
+  thin: 1
+  inner: r / 2
+  head: r / 3
+steps:
+  # 1 基準の丸（九分の丸）
+  - id: O
+    at: { x: 0, y: 0 }
+  - id: base
+    center: O
+    r: r
+    draw: true
+    weight: weight
+  # 2 円周の 1 点から、半径をそのまま回す（分廻しで六つ割）
+  - id: axis
+    y: 0
+  - id: P0
+    intersect:
+      - base
+      - axis
+    take: right
+  - id: c0
+    center: P0
+    r: r
+    draw: true
+    weight: thin
+    trace: true
+  - id: P1
+    intersect:
+      - base
+      - c0
+    take: lower
+  - id: P5
+    intersect:
+      - base
+      - c0
+    take: upper
+  - id: c1
+    center: P1
+    r: r
+    draw: true
+    weight: thin
+    trace: true
+  - id: P2
+    intersect:
+      - base
+      - c1
+    take: left
+  - id: c2
+    center: P2
+    r: r
+    draw: true
+    weight: thin
+    trace: true
+  - id: P3
+    intersect:
+      - base
+      - c2
+    take: left
+  - id: c3
+    center: P3
+    r: r
+    draw: true
+    weight: thin
+    trace: true
+  - id: P4
+    intersect:
+      - base
+      - c3
+    take: upper
+  # 3 十二割 —— 六つ割の隣どうしから、さらに割る
+  - id: h0
+    center: P0
+    r: inner
+  - id: h1
+    center: P1
+    r: inner
+  - id: Q0
+    intersect:
+      - h0
+      - h1
+    take: right
+  # 4 内円（紋を収める内側の丸）
+  - id: ring
+    center: O
+    r: inner
+    draw: true
+    weight: thin
+    trace: true
+  # 5 三つ割の向きへ、中心から線を引いて内円との交点を採る
+  #   （六つ割を 1 つおきに採ったのが三つ割）
+  - id: d0
+    through:
+      - O
+      - P0
+  - id: d2
+    through:
+      - O
+      - P2
+  - id: d4
+    through:
+      - O
+      - P4
+  - id: H0
+    intersect:
+      - ring
+      - d0
+    take: right
+  - id: H2
+    intersect:
+      - ring
+      - d2
+    take: left
+  - id: H4
+    intersect:
+      - ring
+      - d4
+    take: left
+  # 6 巴の頭（三つ巴）。内円の上に三つ置く
+  - id: t0
+    center: H0
+    r: head
+    draw: true
+    weight: weight
+  - id: t2
+    center: H2
+    r: head
+    draw: true
+    weight: weight
+  - id: t4
+    center: H4
+    r: head
+    draw: true
+    weight: weight
+# 六つ割の 6 点を結ぶと亀甲になる（定規の分）
+segments:
+  - from: P0
+    to: P1
+    weight: weight
+  - from: P1
+    to: P2
+    weight: weight
+  - from: P2
+    to: P3
+    weight: weight
+  - from: P3
+    to: P4
+    weight: weight
+  - from: P4
+    to: P5
+    weight: weight
+  - from: P5
+    to: P0
+    weight: weight

@@ -1,0 +1,437 @@
+version: 1
+kind: placement
+arrows: true
+title: 食品工場のアレルゲン動線図（3 区域のゾーニングと専用ライン／架空の工場）
+# **交差接触は、動線の設計で防ぐ。** 現場の注意では防げない。
+#
+# ## 一方通行
+#
+# 人・物・空気・水を、すべて一方通行にする。
+# 物は **汚染 → 準清潔 → 清潔 → 準清潔 → 汚染** の順に進む。
+# **戻り道を作らない。** 戻す必要が出たら、区域の分け方のほうが間違っている。
+#
+# ## 区域は落下菌で分ける
+#
+# **清潔作業区域**（製造・内装）は落下菌 30 以下・真菌 10 以下、
+# **準清潔作業区域**（計量・外装・保管・出荷）は 50 以下、
+# **汚染作業区域**（受入・下処理・廃棄物）は 100 以下が目安。
+#
+# ## アレルゲンは、空間か時間で分ける
+#
+# **特定原材料は 8 品目** —— えび・かに・くるみ・小麦・そば・卵・乳・落花生。
+# 分けきれないときは**作る順番で分ける**（アレルゲンを使う品を後に作る）。
+# 器具は**色で分ける**。切替のたびに洗浄し、拭き取りで確認する。
+nodes:
+  - id: z1
+    label: ""
+    at: { x: 0, y: 140 }
+    size: { w: 248, h: 280 }
+  - id: z1_h
+    label: "汚染作業区域　受入・下処理"
+    hatch: solid
+    at: { x: 0, y: 140 }
+    size: { w: 248, h: 26 }
+  - id: z2
+    label: ""
+    at: { x: 272, y: 140 }
+    size: { w: 236, h: 280 }
+  - id: z2_h
+    label: "準清潔作業区域　計量・中間保管"
+    hatch: solid
+    at: { x: 272, y: 140 }
+    size: { w: 236, h: 26 }
+  - id: z3
+    label: ""
+    at: { x: 532, y: 140 }
+    size: { w: 312, h: 280 }
+  - id: z3_h
+    label: "清潔作業区域　製造・内装"
+    hatch: solid
+    at: { x: 532, y: 140 }
+    size: { w: 312, h: 26 }
+  - id: z4
+    label: ""
+    at: { x: 868, y: 140 }
+    size: { w: 232, h: 280 }
+  - id: z4_h
+    label: "準清潔作業区域　外装・保管・出荷"
+    hatch: solid
+    at: { x: 868, y: 140 }
+    size: { w: 232, h: 26 }
+  - id: z5
+    label: ""
+    at: { x: 1124, y: 140 }
+    size: { w: 200, h: 280 }
+  - id: z5_h
+    label: "汚染作業区域　出荷"
+    hatch: solid
+    at: { x: 1124, y: 140 }
+    size: { w: 200, h: 26 }
+  - id: r1
+    label: "原料受入"
+    at: { x: 12, y: 178 }
+    size: { w: 110, h: 56 }
+  - id: r2
+    label: "外装 開梱"
+    at: { x: 130, y: 178 }
+    size: { w: 106, h: 56 }
+  - id: r3
+    label: "下処理"
+    at: { x: 130, y: 242 }
+    size: { w: 106, h: 56 }
+  - id: r4
+    label: "廃棄物置場"
+    hatch: cross
+    at: { x: 12, y: 242 }
+    size: { w: 110, h: 56 }
+  - id: r5
+    label: "原料保管"
+    at: { x: 12, y: 306 }
+    size: { w: 224, h: 56 }
+  - id: s1
+    label: ""
+    hatch: solid
+    at: { x: 248, y: 140 }
+    size: { w: 24, h: 280 }
+  - id: r6
+    label: "計量・仕込み"
+    at: { x: 284, y: 306 }
+    size: { w: 212, h: 56 }
+  - id: r7
+    label: "器具洗浄"
+    at: { x: 284, y: 178 }
+    size: { w: 212, h: 56 }
+  - id: r8
+    label: "中間保管"
+    at: { x: 396, y: 242 }
+    size: { w: 100, h: 56 }
+  - id: s2
+    label: ""
+    hatch: solid
+    at: { x: 508, y: 140 }
+    size: { w: 24, h: 280 }
+  - id: r9
+    label: "A ライン"
+    technology: アレルゲンなし
+    at: { x: 544, y: 178 }
+    size: { w: 140, h: 100 }
+  - id: r10
+    label: "B ライン"
+    technology: えび・小麦
+    hatch: dots
+    at: { x: 692, y: 178 }
+    size: { w: 140, h: 100 }
+  - id: r11
+    label: "内装（包装）"
+    at: { x: 544, y: 294 }
+    size: { w: 288, h: 48 }
+  - id: r12
+    label: "B ライン専用器具（赤）"
+    hatch: dots
+    at: { x: 544, y: 350 }
+    size: { w: 288, h: 40 }
+  - id: s3
+    label: ""
+    hatch: solid
+    at: { x: 844, y: 140 }
+    size: { w: 24, h: 280 }
+  - id: r13
+    label: "外装・箱詰め"
+    at: { x: 880, y: 302 }
+    size: { w: 208, h: 50 }
+  - id: r14
+    label: "製品保管"
+    at: { x: 880, y: 236 }
+    size: { w: 208, h: 50 }
+  - id: r15
+    label: "出荷準備"
+    at: { x: 880, y: 170 }
+    size: { w: 208, h: 50 }
+  - id: r16
+    label: "トラックバース"
+    at: { x: 1136, y: 178 }
+    size: { w: 176, h: 56 }
+  - id: r17
+    label: "廃棄物 搬出"
+    hatch: cross
+    at: { x: 1136, y: 290 }
+    size: { w: 176, h: 56 }
+  - id: kuma
+    label: "更衣室・手洗い・エアシャワー（サニタリー室）"
+    hatch: solid
+    at: { x: 0, y: 480 }
+    size: { w: 1324, h: 28 }
+  - id: pa0
+    label: ""
+    marker: none
+    at: { x: 259, y: 477 }
+    size: { w: 2, h: 2 }
+  - id: pb0
+    label: ""
+    marker: none
+    at: { x: 259, y: 423 }
+    size: { w: 2, h: 2 }
+  - id: pa1
+    label: ""
+    marker: none
+    at: { x: 519, y: 477 }
+    size: { w: 2, h: 2 }
+  - id: pb1
+    label: ""
+    marker: none
+    at: { x: 519, y: 423 }
+    size: { w: 2, h: 2 }
+  - id: pa2
+    label: ""
+    marker: none
+    at: { x: 855, y: 477 }
+    size: { w: 2, h: 2 }
+  - id: pb2
+    label: ""
+    marker: none
+    at: { x: 855, y: 423 }
+    size: { w: 2, h: 2 }
+  - id: kuma_n
+    label: "人はここを通ってから中へ入る。区域をまたぐたびに通る"
+    marker: none
+    align: left
+    at: { x: 0, y: 516 }
+    size: { w: 560, h: 22 }
+  - id: s_n
+    label: "太い縦帯 ＝ サニタリー室（前室）。除塵・手洗い・消毒をしてから入る"
+    marker: none
+    align: left
+    at: { x: 0, y: 542 }
+    size: { w: 560, h: 22 }
+  - id: haiki_n
+    label: "廃棄物は製品と別の道で外へ。清潔区へ戻さない"
+    marker: none
+    align: left
+    at: { x: 896, y: 440 }
+    size: { w: 428, h: 22 }
+  - id: c_t
+    label: "区域の分け方"
+    marker: none
+    align: left
+    at: { x: 1400, y: 40 }
+    size: { w: 220, h: 24 }
+  - id: th0
+    label: "区域"
+    hatch: solid
+    at: { x: 1400, y: 70 }
+    size: { w: 150, h: 26 }
+  - id: th1
+    label: "そこで何をするか"
+    hatch: solid
+    at: { x: 1550, y: 70 }
+    size: { w: 300, h: 26 }
+  - id: th2
+    label: "落下菌の目安"
+    hatch: solid
+    at: { x: 1850, y: 70 }
+    size: { w: 160, h: 26 }
+  - id: tc0_0
+    label: "汚染作業区域"
+    at: { x: 1400, y: 96 }
+    size: { w: 150, h: 30 }
+  - id: tc0_1
+    label: "原料の受入・外装の開梱・下処理・廃棄物"
+    at: { x: 1550, y: 96 }
+    size: { w: 300, h: 30 }
+  - id: tc0_2
+    label: "100 以下"
+    at: { x: 1850, y: 96 }
+    size: { w: 160, h: 30 }
+  - id: tc1_0
+    label: "準清潔作業区域"
+    at: { x: 1400, y: 126 }
+    size: { w: 150, h: 30 }
+  - id: tc1_1
+    label: "計量・仕込み・中間保管・外装・保管・出荷"
+    at: { x: 1550, y: 126 }
+    size: { w: 300, h: 30 }
+  - id: tc1_2
+    label: "50 以下"
+    at: { x: 1850, y: 126 }
+    size: { w: 160, h: 30 }
+  - id: tc2_0
+    label: "清潔作業区域"
+    at: { x: 1400, y: 156 }
+    size: { w: 150, h: 30 }
+  - id: tc2_1
+    label: "製造・内装（包装）"
+    at: { x: 1550, y: 156 }
+    size: { w: 300, h: 30 }
+  - id: tc2_2
+    label: "30 以下（真菌 10 以下）"
+    at: { x: 1850, y: 156 }
+    size: { w: 160, h: 30 }
+  - id: a_t
+    label: "アレルゲンの決まり"
+    marker: none
+    align: left
+    at: { x: 1400, y: 212 }
+    size: { w: 260, h: 24 }
+  - id: ak0
+    label: "特定原材料（8 品目）"
+    hatch: solid
+    at: { x: 1400, y: 240 }
+    size: { w: 190, h: 30 }
+  - id: av0
+    label: "えび・かに・くるみ・小麦・そば・卵・乳・落花生"
+    at: { x: 1590, y: 240 }
+    size: { w: 420, h: 30 }
+  - id: ak1
+    label: "空間を分ける"
+    hatch: solid
+    at: { x: 1400, y: 270 }
+    size: { w: 190, h: 30 }
+  - id: av1
+    label: "ライン・器具・作業エリアを分ける（ゾーニング）"
+    at: { x: 1590, y: 270 }
+    size: { w: 420, h: 30 }
+  - id: ak2
+    label: "時間を分ける"
+    hatch: solid
+    at: { x: 1400, y: 300 }
+    size: { w: 190, h: 30 }
+  - id: av2
+    label: "分けきれないときは、アレルゲンを使う品を後に作る"
+    at: { x: 1590, y: 300 }
+    size: { w: 420, h: 30 }
+  - id: ak3
+    label: "専用器具"
+    hatch: solid
+    at: { x: 1400, y: 330 }
+    size: { w: 190, h: 30 }
+  - id: av3
+    label: "色を分ける（B ラインは赤）。保管も出荷も色で分ける"
+    at: { x: 1590, y: 330 }
+    size: { w: 420, h: 30 }
+  - id: ak4
+    label: "切替の洗浄"
+    hatch: solid
+    at: { x: 1400, y: 360 }
+    size: { w: 190, h: 30 }
+  - id: av4
+    label: "ライン切替のたびに洗浄し、拭き取りで確認する"
+    at: { x: 1590, y: 360 }
+    size: { w: 420, h: 30 }
+  - id: ak5
+    label: "表示"
+    hatch: solid
+    at: { x: 1400, y: 390 }
+    size: { w: 190, h: 30 }
+  - id: av5
+    label: "使っていない品でも、混入のおそれがあれば書く"
+    at: { x: 1590, y: 390 }
+    size: { w: 420, h: 30 }
+  - id: r_t
+    label: "この図の決まり"
+    marker: none
+    align: left
+    at: { x: 1400, y: 446 }
+    size: { w: 200, h: 24 }
+  - id: rn0
+    label: "・人・物・空気・水は、すべて一方通行にする"
+    marker: none
+    align: left
+    at: { x: 1400, y: 474 }
+    size: { w: 610, h: 24 }
+  - id: rn1
+    label: "・物は 汚染 → 準清潔 → 清潔 → 準清潔 → 汚染 の順に進む"
+    marker: none
+    align: left
+    at: { x: 1400, y: 500 }
+    size: { w: 610, h: 24 }
+  - id: rn2
+    label: "・戻り道を作らない。戻す必要が出たら、区域の分け方が間違っている"
+    marker: none
+    align: left
+    at: { x: 1400, y: 526 }
+    size: { w: 610, h: 24 }
+  - id: rn3
+    label: "・廃棄物は製品と別の道で外へ出す。清潔区へ戻さない"
+    marker: none
+    align: left
+    at: { x: 1400, y: 552 }
+    size: { w: 610, h: 24 }
+  - id: rn4
+    label: "・人は区域をまたぐたびにサニタリー室を通る"
+    marker: none
+    align: left
+    at: { x: 1400, y: 578 }
+    size: { w: 610, h: 24 }
+  - id: rn5
+    label: "・空気は清潔区の気圧を高くして、清潔 → 汚染 へ流す"
+    marker: none
+    align: left
+    at: { x: 1400, y: 604 }
+    size: { w: 610, h: 24 }
+  - id: rn6
+    label: "・落下菌の目安は区域ごとに違う。同じ基準で測らない"
+    marker: none
+    align: left
+    at: { x: 1400, y: 630 }
+    size: { w: 610, h: 24 }
+  - id: rn7
+    label: "・アレルゲンは空間か時間のどちらかで必ず分ける"
+    marker: none
+    align: left
+    at: { x: 1400, y: 656 }
+    size: { w: 610, h: 24 }
+edges:
+  - from: r1
+    to: r2
+    weight: thick
+  - from: r2
+    to: r3
+    weight: thick
+  - from: r3
+    to: r5
+    weight: thick
+  - from: r5
+    to: r6
+    weight: thick
+  - from: r6
+    to: r8
+    weight: thick
+  - from: r8
+    to: r9
+    weight: thick
+  - from: r8
+    to: r10
+    weight: thick
+  - from: r9
+    to: r11
+    weight: thick
+  - from: r10
+    to: r11
+    weight: thick
+  - from: r11
+    to: r13
+    weight: thick
+  - from: r13
+    to: r14
+    weight: thick
+  - from: r14
+    to: r15
+    weight: thick
+  - from: r15
+    to: r16
+    weight: thick
+  - from: r4
+    to: r17
+    line: dotted
+    via:
+      - { x: 66, y: 400 }
+      - { x: 1224, y: 400 }
+  - from: pa0
+    to: pb0
+    line: dashed
+  - from: pa1
+    to: pb1
+    line: dashed
+  - from: pa2
+    to: pb2
+    line: dashed

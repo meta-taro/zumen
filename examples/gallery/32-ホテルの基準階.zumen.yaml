@@ -1,0 +1,185 @@
+version: 1
+kind: placement
+title: ビジネスホテル 基準階 平面図（客室 11 室・直通階段 2）
+# **基準階は「同じ階を何枚も刷る」ための図。**
+# 5〜9 階がまったく同じなので、1 枚描けば 5 層ぶんになる。
+# **基準階が決まると、建物の幅も柱の間隔も決まる。**
+#
+# ## 客室の幅は、ベッドと通路で決まる
+#
+# シングル 20.4 m²（3,400 × 6,000。壁心）は、ベッド幅 ＋ サイドの通路 ＋ 水まわりの積み上げ。
+# **狭くできないのはベッドではなく、車椅子が通らない通路のほう。**
+#
+# ## 内廊下は、両側に部屋を取るため
+#
+# 片側廊下より廊下 1 本ぶん得をするが、**窓が無いので機械換気と排煙が要る。**
+# 図で廊下の位置を決めることは、設備の要る量を決めることでもある。
+# ## 階段は 2 つ要る（2026-09-29 に直した）
+#
+# 宿泊室の床面積の合計がその階で 200 m²（耐火・準耐火）を超えると、**直通階段が 2 以上**要る
+# （建築基準法施行令 第 121 条第 1 項第 5 号・第 2 項）。前は階段 1 つで客室 12 室（合計 264 m²）、
+# しかも**その階段の扉が 512 号室の中に開いていた**。西の端の 1 室を 2 つ目の階段（EX-2）にし、
+# EX-1 の扉は EV ホールから入るようにした。扉は階段室へ向かって開く ＝ **避難の方向**（令 第 123 条第 1 項第 6 号）。
+# 5 階以上へ通じる直通階段は**避難階段**（令 第 122 条）。前は「特別避難階段」と書いていたが、
+# 特別避難階段は**付室かバルコニーを通って入る**もので（令 第 123 条第 3 項第 1 号）、この図には付室が無い。
+# 面積も、前は 13.6 m² と書いていたが寸法（3,400 × 6,000）と合わなかったので、寸法を正として直した。
+# 出典 e-Gov 法令検索 https://laws.e-gov.go.jp/law/325CO0000000338 （取得 2026-09-29）
+# 1 px = 25 mm
+scale: { mm: 25 }
+wall: { mm: 150, outer: 200 }
+north: up
+grid:
+  x:
+    - { id: X1, at: 0 }
+    - { id: X2, at: 408 }
+    - { id: X3, at: 816 }
+    - { id: X4, at: 976 }
+  y:
+    - { id: Y1, at: 0 }
+    - { id: Y2, at: 240 }
+    - { id: Y3, at: 312 }
+    - { id: Y4, at: 552 }
+groups:
+  - id: f5
+    label: 基準階（5〜9 階）　客室 11 室　CH＝2,400　北 5 室・南 6 室
+nodes:
+  - id: n1
+    label: 階段
+    tag: EX-2
+    technology: 避難階段
+    at: { x: 0, y: 0 }
+    size: { w: 136, h: 240 }
+    group: f5
+    openings:
+      - { kind: door, side: bottom, at: 0.2, width: 34 }
+      - { kind: window, side: top, at: 0.5, width: 80 }
+  - id: n2
+    label: 502
+    technology: シングル 20.4 m²
+    at: { x: 136, y: 0 }
+    size: { w: 136, h: 240 }
+    group: f5
+    openings:
+      - { kind: door, side: bottom, at: 0.2, width: 34 }
+      - { kind: window, side: top, at: 0.5, width: 80 }
+  - id: n3
+    label: 503
+    technology: シングル 20.4 m²
+    at: { x: 272, y: 0 }
+    size: { w: 136, h: 240 }
+    group: f5
+    openings:
+      - { kind: door, side: bottom, at: 0.2, width: 34 }
+      - { kind: window, side: top, at: 0.5, width: 80 }
+  - id: n4
+    label: 504
+    technology: ツイン 30.0 m²
+    at: { x: 408, y: 0 }
+    size: { w: 200, h: 240 }
+    group: f5
+    openings:
+      - { kind: door, side: bottom, at: 0.2, width: 34 }
+      - { kind: window, side: top, at: 0.5, width: 110 }
+  - id: n5
+    label: 505
+    technology: シングル 20.4 m²
+    at: { x: 608, y: 0 }
+    size: { w: 136, h: 240 }
+    group: f5
+    openings:
+      - { kind: door, side: bottom, at: 0.2, width: 34 }
+      - { kind: window, side: top, at: 0.5, width: 80 }
+  - id: n6
+    label: 506
+    technology: シングル 20.4 m²
+    at: { x: 744, y: 0 }
+    size: { w: 136, h: 240 }
+    group: f5
+    openings:
+      - { kind: door, side: bottom, at: 0.2, width: 34 }
+      - { kind: window, side: top, at: 0.5, width: 80 }
+  - id: rouka
+    label: 内廊下
+    technology: 有効 1,800・排煙窓
+    at: { x: 0, y: 240 }
+    size: { w: 880, h: 72 }
+    group: f5
+  - id: s1
+    label: 507
+    technology: シングル 20.4 m²
+    at: { x: 0, y: 312 }
+    size: { w: 136, h: 240 }
+    group: f5
+    openings:
+      - { kind: door, side: top, at: 0.2, width: 34 }
+      - { kind: window, side: bottom, at: 0.5, width: 80 }
+  - id: s2
+    label: 508
+    technology: シングル 20.4 m²
+    at: { x: 136, y: 312 }
+    size: { w: 136, h: 240 }
+    group: f5
+    openings:
+      - { kind: door, side: top, at: 0.2, width: 34 }
+      - { kind: window, side: bottom, at: 0.5, width: 80 }
+  - id: s3
+    label: 509
+    technology: シングル 20.4 m²
+    at: { x: 272, y: 312 }
+    size: { w: 136, h: 240 }
+    group: f5
+    openings:
+      - { kind: door, side: top, at: 0.2, width: 34 }
+      - { kind: window, side: bottom, at: 0.5, width: 80 }
+  - id: s4
+    label: 510
+    technology: シングル 20.4 m²
+    at: { x: 408, y: 312 }
+    size: { w: 136, h: 240 }
+    group: f5
+    openings:
+      - { kind: door, side: top, at: 0.2, width: 34 }
+      - { kind: window, side: bottom, at: 0.5, width: 80 }
+  - id: s5
+    label: 511
+    technology: バリアフリー 30.0 m²
+    at: { x: 544, y: 312 }
+    size: { w: 200, h: 240 }
+    group: f5
+    openings:
+      - { kind: slide, side: top, at: 0.2, width: 40 }
+      - { kind: window, side: bottom, at: 0.5, width: 110 }
+  - id: s6
+    label: 512
+    technology: シングル 20.4 m²
+    at: { x: 744, y: 312 }
+    size: { w: 136, h: 240 }
+    group: f5
+    openings:
+      - { kind: door, side: top, at: 0.2, width: 34 }
+      - { kind: window, side: bottom, at: 0.5, width: 80 }
+  - id: ev
+    label: EV ホール
+    tag: EV-1/2
+    technology: 15 人乗×2
+    at: { x: 880, y: 240 }
+    size: { w: 96, h: 160 }
+    group: f5
+    openings:
+      - { kind: open, side: left, at: 0.5, width: 60 }
+  - id: kaidan
+    label: 階段
+    tag: EX-1
+    technology: 避難階段
+    at: { x: 880, y: 400 }
+    size: { w: 96, h: 152 }
+    group: f5
+    openings:
+      - { kind: door, side: top, at: 0.68, width: 40 }
+  - id: linen
+    label: リネン室
+    at: { x: 880, y: 0 }
+    size: { w: 96, h: 240 }
+    group: f5
+    openings:
+      - { kind: door, side: bottom, at: 0.5, width: 34 }

@@ -1,0 +1,956 @@
+version: 1
+kind: placement
+arrows: true
+title: 勾配の書き方（寸・分数・％・‰・度）
+# **同じ傾きが、業界ごとに違う書き方になる。**
+#
+# 屋根は**寸**（水平 10 に対する垂直）、スロープは**分数**（1/12）、
+# 道路は**％**、鉄道は**‰**。**度で書く図面のほうが少ない。**
+#
+# ① は分度器のように、実際の角度で並べた ——
+# 書き方は違っても、**紙の上では同じ 1 本の線**になる。
+nodes:
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 199, y: 639 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 619, y: 639 }
+    size: { w: 2, h: 2 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 199, y: 639 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 199, y: 219 }
+    size: { w: 2, h: 2 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 579, y: 639 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 467.7, y: 370.3 }
+    size: { w: 2, h: 2 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 579, y: 639 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 591, y: 639 }
+    size: { w: 2, h: 2 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 573.2, y: 573 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 585, y: 570.9 }
+    size: { w: 2, h: 2 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 556.1, y: 509 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 567.4, y: 504.9 }
+    size: { w: 2, h: 2 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 528.1, y: 449 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 538.5, y: 443 }
+    size: { w: 2, h: 2 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 490.1, y: 394.7 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 499.3, y: 387 }
+    size: { w: 2, h: 2 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 467.7, y: 370.3 }
+    size: { w: 2, h: 2 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 476.2, y: 361.8 }
+    size: { w: 2, h: 2 }
+  - id: p18
+    label: ""
+    marker: none
+    at: { x: 207, y: 638.7 }
+    size: { w: 2, h: 2 }
+  - id: p19
+    label: ""
+    marker: none
+    at: { x: 578.8, y: 625.7 }
+    size: { w: 2, h: 2 }
+  - id: p20
+    label: ""
+    marker: none
+    at: { x: 584.8, y: 625.7 }
+    size: { w: 2, h: 2 }
+  - id: p21
+    label: ""
+    marker: none
+    at: { x: 601, y: 608 }
+    size: { w: 2, h: 2 }
+  - id: l0
+    label: "35 ‰　＝ 2°"
+    marker: none
+    align: left
+    at: { x: 610, y: 600 }
+    size: { w: 240, h: 18 }
+  - id: ln0
+    label: "鉄道の勾配"
+    marker: none
+    align: left
+    at: { x: 860, y: 600 }
+    size: { w: 140, h: 18 }
+  - id: p22
+    label: ""
+    marker: none
+    at: { x: 207, y: 638.6 }
+    size: { w: 2, h: 2 }
+  - id: p23
+    label: ""
+    marker: none
+    at: { x: 578.5, y: 620 }
+    size: { w: 2, h: 2 }
+  - id: p24
+    label: ""
+    marker: none
+    at: { x: 584.5, y: 620 }
+    size: { w: 2, h: 2 }
+  - id: p25
+    label: ""
+    marker: none
+    at: { x: 601, y: 578 }
+    size: { w: 2, h: 2 }
+  - id: l1
+    label: "5 %　＝ 2.9°"
+    marker: none
+    align: left
+    at: { x: 610, y: 570 }
+    size: { w: 240, h: 18 }
+  - id: ln1
+    label: "道路の縦断"
+    marker: none
+    align: left
+    at: { x: 860, y: 570 }
+    size: { w: 140, h: 18 }
+  - id: p26
+    label: ""
+    marker: none
+    at: { x: 207, y: 638.3 }
+    size: { w: 2, h: 2 }
+  - id: p27
+    label: ""
+    marker: none
+    at: { x: 577.7, y: 607.4 }
+    size: { w: 2, h: 2 }
+  - id: p28
+    label: ""
+    marker: none
+    at: { x: 583.7, y: 607.4 }
+    size: { w: 2, h: 2 }
+  - id: p29
+    label: ""
+    marker: none
+    at: { x: 601, y: 548 }
+    size: { w: 2, h: 2 }
+  - id: l2
+    label: "1/12（バリアフリー法）　＝ 4.8°"
+    marker: none
+    align: left
+    at: { x: 610, y: 540 }
+    size: { w: 240, h: 18 }
+  - id: ln2
+    label: "スロープ"
+    marker: none
+    align: left
+    at: { x: 860, y: 540 }
+    size: { w: 140, h: 18 }
+  - id: p30
+    label: ""
+    marker: none
+    at: { x: 207, y: 638 }
+    size: { w: 2, h: 2 }
+  - id: p31
+    label: ""
+    marker: none
+    at: { x: 576.1, y: 591.9 }
+    size: { w: 2, h: 2 }
+  - id: p32
+    label: ""
+    marker: none
+    at: { x: 582.1, y: 591.9 }
+    size: { w: 2, h: 2 }
+  - id: p33
+    label: ""
+    marker: none
+    at: { x: 601, y: 518 }
+    size: { w: 2, h: 2 }
+  - id: l3
+    label: "1/8（建基令 26 条）　＝ 7.1°"
+    marker: none
+    align: left
+    at: { x: 610, y: 510 }
+    size: { w: 240, h: 18 }
+  - id: ln3
+    label: "スロープ"
+    marker: none
+    align: left
+    at: { x: 860, y: 510 }
+    size: { w: 140, h: 18 }
+  - id: p34
+    label: ""
+    marker: none
+    at: { x: 207, y: 636.6 }
+    size: { w: 2, h: 2 }
+  - id: p35
+    label: ""
+    marker: none
+    at: { x: 563, y: 529.8 }
+    size: { w: 2, h: 2 }
+  - id: p36
+    label: ""
+    marker: none
+    at: { x: 569, y: 529.8 }
+    size: { w: 2, h: 2 }
+  - id: p37
+    label: ""
+    marker: none
+    at: { x: 601, y: 488 }
+    size: { w: 2, h: 2 }
+  - id: l4
+    label: "3 寸勾配　＝ 16.7°"
+    marker: none
+    align: left
+    at: { x: 610, y: 480 }
+    size: { w: 240, h: 18 }
+  - id: ln4
+    label: "屋根"
+    marker: none
+    align: left
+    at: { x: 860, y: 480 }
+    size: { w: 140, h: 18 }
+  - id: p38
+    label: ""
+    marker: none
+    at: { x: 207, y: 635.8 }
+    size: { w: 2, h: 2 }
+  - id: p39
+    label: ""
+    marker: none
+    at: { x: 551.8, y: 497.9 }
+    size: { w: 2, h: 2 }
+  - id: p40
+    label: ""
+    marker: none
+    at: { x: 557.8, y: 497.9 }
+    size: { w: 2, h: 2 }
+  - id: p41
+    label: ""
+    marker: none
+    at: { x: 601, y: 458 }
+    size: { w: 2, h: 2 }
+  - id: l5
+    label: "4 寸勾配　＝ 21.8°"
+    marker: none
+    align: left
+    at: { x: 610, y: 450 }
+    size: { w: 240, h: 18 }
+  - id: ln5
+    label: "屋根"
+    marker: none
+    align: left
+    at: { x: 860, y: 450 }
+    size: { w: 140, h: 18 }
+  - id: p42
+    label: ""
+    marker: none
+    at: { x: 207, y: 635 }
+    size: { w: 2, h: 2 }
+  - id: p43
+    label: ""
+    marker: none
+    at: { x: 538.9, y: 469.1 }
+    size: { w: 2, h: 2 }
+  - id: p44
+    label: ""
+    marker: none
+    at: { x: 544.9, y: 469.1 }
+    size: { w: 2, h: 2 }
+  - id: p45
+    label: ""
+    marker: none
+    at: { x: 601, y: 428 }
+    size: { w: 2, h: 2 }
+  - id: l6
+    label: "5 寸勾配　＝ 26.6°"
+    marker: none
+    align: left
+    at: { x: 610, y: 420 }
+    size: { w: 240, h: 18 }
+  - id: ln6
+    label: "屋根"
+    marker: none
+    align: left
+    at: { x: 860, y: 420 }
+    size: { w: 140, h: 18 }
+  - id: p46
+    label: ""
+    marker: none
+    at: { x: 207, y: 633.5 }
+    size: { w: 2, h: 2 }
+  - id: p47
+    label: ""
+    marker: none
+    at: { x: 511.4, y: 422.7 }
+    size: { w: 2, h: 2 }
+  - id: p48
+    label: ""
+    marker: none
+    at: { x: 517.4, y: 422.7 }
+    size: { w: 2, h: 2 }
+  - id: p49
+    label: ""
+    marker: none
+    at: { x: 601, y: 398 }
+    size: { w: 2, h: 2 }
+  - id: l7
+    label: "蹴上 180 / 踏面 260　＝ 34.7°"
+    marker: none
+    align: left
+    at: { x: 610, y: 390 }
+    size: { w: 240, h: 18 }
+  - id: ln7
+    label: "階段"
+    marker: none
+    align: left
+    at: { x: 860, y: 390 }
+    size: { w: 140, h: 18 }
+  - id: p50
+    label: ""
+    marker: none
+    at: { x: 207, y: 631 }
+    size: { w: 2, h: 2 }
+  - id: p51
+    label: ""
+    marker: none
+    at: { x: 467.7, y: 370.3 }
+    size: { w: 2, h: 2 }
+  - id: p52
+    label: ""
+    marker: none
+    at: { x: 473.7, y: 370.3 }
+    size: { w: 2, h: 2 }
+  - id: p53
+    label: ""
+    marker: none
+    at: { x: 601, y: 368 }
+    size: { w: 2, h: 2 }
+  - id: l8
+    label: "矩（かね）勾配 10 寸　＝ 45°"
+    marker: none
+    align: left
+    at: { x: 610, y: 360 }
+    size: { w: 240, h: 18 }
+  - id: ln8
+    label: "屋根"
+    marker: none
+    align: left
+    at: { x: 860, y: 360 }
+    size: { w: 140, h: 18 }
+  - id: t1
+    label: "① 同じ傾きでも、書き方は業界で違う"
+    marker: none
+    align: left
+    at: { x: 150, y: 168 }
+    size: { w: 600, h: 20 }
+  - id: t1b
+    label: "　度で書く図面のほうが少ない。寸・分数・%・‰ で書く。"
+    marker: none
+    align: left
+    at: { x: 150, y: 190 }
+    size: { w: 600, h: 18 }
+  - id: o0
+    label: "0°（水平）"
+    marker: none
+    align: left
+    at: { x: 630, y: 631 }
+    size: { w: 140, h: 18 }
+  - id: o45
+    label: "45°"
+    marker: none
+    align: center
+    at: { x: 398.7, y: 341.3 }
+    size: { w: 140, h: 18 }
+  - id: p54
+    label: ""
+    marker: none
+    at: { x: 199, y: 959 }
+    size: { w: 2, h: 2 }
+  - id: p55
+    label: ""
+    marker: none
+    at: { x: 199, y: 973 }
+    size: { w: 2, h: 2 }
+  - id: p56
+    label: ""
+    marker: none
+    at: { x: 499, y: 973 }
+    size: { w: 2, h: 2 }
+  - id: p57
+    label: ""
+    marker: none
+    at: { x: 513, y: 839 }
+    size: { w: 2, h: 2 }
+  - id: p58
+    label: ""
+    marker: none
+    at: { x: 513, y: 959 }
+    size: { w: 2, h: 2 }
+  - id: roof_t
+    label: "② 屋根は「寸」で書く"
+    marker: none
+    align: left
+    at: { x: 200, y: 792 }
+    size: { w: 480, h: 20 }
+  - id: roof_s
+    label: "　水平 10 に対して、垂直がいくつか。4 寸勾配 ＝ 4/10 ＝ 21.8°"
+    marker: none
+    align: left
+    at: { x: 200, y: 814 }
+    size: { w: 480, h: 18 }
+  - id: roof_w
+    label: "水平 10"
+    marker: none
+    align: center
+    at: { x: 200, y: 978 }
+    size: { w: 300, h: 18 }
+  - id: roof_h
+    label: "垂直 4"
+    marker: none
+    align: left
+    at: { x: 522, y: 891 }
+    size: { w: 120, h: 18 }
+  - id: p59
+    label: ""
+    marker: none
+    at: { x: 199, y: 1134 }
+    size: { w: 2, h: 2 }
+  - id: p60
+    label: ""
+    marker: none
+    at: { x: 199, y: 1148 }
+    size: { w: 2, h: 2 }
+  - id: p61
+    label: ""
+    marker: none
+    at: { x: 619, y: 1148 }
+    size: { w: 2, h: 2 }
+  - id: p62
+    label: ""
+    marker: none
+    at: { x: 633, y: 1099 }
+    size: { w: 2, h: 2 }
+  - id: p63
+    label: ""
+    marker: none
+    at: { x: 633, y: 1134 }
+    size: { w: 2, h: 2 }
+  - id: slope_t
+    label: "③ スロープは「分数」で書く"
+    marker: none
+    align: left
+    at: { x: 200, y: 1052 }
+    size: { w: 600, h: 20 }
+  - id: slope_s
+    label: "　1/12 ＝ 4.8°。高さ 750mm なら、長さは 9,000mm 要る。"
+    marker: none
+    align: left
+    at: { x: 200, y: 1074 }
+    size: { w: 600, h: 18 }
+  - id: slope_w
+    label: "長さ 12"
+    marker: none
+    align: center
+    at: { x: 200, y: 1153 }
+    size: { w: 420, h: 18 }
+  - id: slope_h
+    label: "高さ 1"
+    marker: none
+    align: left
+    at: { x: 642, y: 1108.5 }
+    size: { w: 120, h: 18 }
+  - id: h190
+    label: "同じ傾きを、5 通りで書く"
+    hatch: solid
+    at: { x: 1000, y: 190 }
+    size: { w: 480, h: 24 }
+  - id: x214
+    label: "1/12（スロープ）"
+    at: { x: 1000, y: 214 }
+    size: { w: 230, h: 24 }
+  - id: y214
+    label: "0.83 寸 ／ 8.3% ／ 83‰ ／ 4.8°"
+    align: left
+    at: { x: 1230, y: 214 }
+    size: { w: 250, h: 24 }
+  - id: x238
+    label: "4 寸勾配（屋根）"
+    at: { x: 1000, y: 238 }
+    size: { w: 230, h: 24 }
+  - id: y238
+    label: "1/2.5 ／ 40% ／ 400‰ ／ 21.8°"
+    align: left
+    at: { x: 1230, y: 238 }
+    size: { w: 250, h: 24 }
+  - id: x262
+    label: "5%（道路）"
+    at: { x: 1000, y: 262 }
+    size: { w: 230, h: 24 }
+  - id: y262
+    label: "0.5 寸 ／ 1/20 ／ 50‰ ／ 2.9°"
+    align: left
+    at: { x: 1230, y: 262 }
+    size: { w: 250, h: 24 }
+  - id: x286
+    label: "35‰（鉄道）"
+    at: { x: 1000, y: 286 }
+    size: { w: 230, h: 24 }
+  - id: y286
+    label: "0.35 寸 ／ 1/28.6 ／ 3.5% ／ 2°"
+    align: left
+    at: { x: 1230, y: 286 }
+    size: { w: 250, h: 24 }
+  - id: x310
+    label: "45°"
+    at: { x: 1000, y: 310 }
+    size: { w: 230, h: 24 }
+  - id: y310
+    label: "10 寸 ／ 1/1 ／ 100% ／ 1000‰"
+    align: left
+    at: { x: 1230, y: 310 }
+    size: { w: 250, h: 24 }
+  - id: h352
+    label: "どの業界が、どう書くか"
+    hatch: solid
+    at: { x: 1000, y: 352 }
+    size: { w: 480, h: 24 }
+  - id: x376
+    label: "建築（屋根）"
+    at: { x: 1000, y: 376 }
+    size: { w: 230, h: 24 }
+  - id: y376
+    label: "寸勾配（水平 10 に対する垂直）"
+    align: left
+    at: { x: 1230, y: 376 }
+    size: { w: 250, h: 24 }
+  - id: x400
+    label: "建築（スロープ）"
+    at: { x: 1000, y: 400 }
+    size: { w: 230, h: 24 }
+  - id: y400
+    label: "分数（1/12・1/8）"
+    align: left
+    at: { x: 1230, y: 400 }
+    size: { w: 250, h: 24 }
+  - id: x424
+    label: "土木（道路）"
+    at: { x: 1000, y: 424 }
+    size: { w: 230, h: 24 }
+  - id: y424
+    label: "パーセント"
+    align: left
+    at: { x: 1230, y: 424 }
+    size: { w: 250, h: 24 }
+  - id: x448
+    label: "鉄道"
+    at: { x: 1000, y: 448 }
+    size: { w: 230, h: 24 }
+  - id: y448
+    label: "パーミル（‰）"
+    align: left
+    at: { x: 1230, y: 448 }
+    size: { w: 250, h: 24 }
+  - id: x472
+    label: "機械"
+    at: { x: 1000, y: 472 }
+    size: { w: 230, h: 24 }
+  - id: y472
+    label: "度（°）と ラジアン"
+    align: left
+    at: { x: 1230, y: 472 }
+    size: { w: 250, h: 24 }
+  - id: x496
+    label: "測量"
+    at: { x: 1000, y: 496 }
+    size: { w: 230, h: 24 }
+  - id: y496
+    label: "パーセントと度"
+    align: left
+    at: { x: 1230, y: 496 }
+    size: { w: 250, h: 24 }
+  - id: h538
+    label: "決まりごと（日本）"
+    hatch: solid
+    at: { x: 1000, y: 538 }
+    size: { w: 480, h: 24 }
+  - id: x562
+    label: "スロープ"
+    at: { x: 1000, y: 562 }
+    size: { w: 230, h: 24 }
+  - id: y562
+    label: "建基令 26 条で 1/8 以下"
+    align: left
+    at: { x: 1230, y: 562 }
+    size: { w: 250, h: 24 }
+  - id: x586
+    label: "バリアフリー"
+    at: { x: 1000, y: 586 }
+    size: { w: 230, h: 24 }
+  - id: y586
+    label: "1/12 以下（高さ 16cm 超）"
+    align: left
+    at: { x: 1230, y: 586 }
+    size: { w: 250, h: 24 }
+  - id: x610
+    label: "踊り場"
+    at: { x: 1000, y: 610 }
+    size: { w: 230, h: 24 }
+  - id: y610
+    label: "高さ 75cm ごとに 150cm 以上"
+    align: left
+    at: { x: 1230, y: 610 }
+    size: { w: 250, h: 24 }
+  - id: x634
+    label: "屋根"
+    at: { x: 1000, y: 634 }
+    size: { w: 230, h: 24 }
+  - id: y634
+    label: "3 寸未満は雨仕舞いに注意が要る"
+    align: left
+    at: { x: 1230, y: 634 }
+    size: { w: 250, h: 24 }
+  - id: x658
+    label: "矩勾配"
+    at: { x: 1000, y: 658 }
+    size: { w: 230, h: 24 }
+  - id: y658
+    label: "10 寸 ＝ 45°。「かね」と読む"
+    align: left
+    at: { x: 1230, y: 658 }
+    size: { w: 250, h: 24 }
+  - id: h700
+    label: "この図に出ていないもの"
+    hatch: solid
+    at: { x: 1000, y: 700 }
+    size: { w: 480, h: 24 }
+  - id: x724
+    label: "横断勾配"
+    at: { x: 1000, y: 724 }
+    size: { w: 230, h: 24 }
+  - id: y724
+    label: "道路の水はけ（2% 前後）"
+    align: left
+    at: { x: 1230, y: 724 }
+    size: { w: 250, h: 24 }
+  - id: x748
+    label: "屋根の谷"
+    at: { x: 1000, y: 748 }
+    size: { w: 230, h: 24 }
+  - id: y748
+    label: "2 面が交わる線の勾配は別"
+    align: left
+    at: { x: 1230, y: 748 }
+    size: { w: 250, h: 24 }
+  - id: x772
+    label: "手すり"
+    at: { x: 1000, y: 772 }
+    size: { w: 230, h: 24 }
+  - id: y772
+    label: "スロープには両側に要る"
+    align: left
+    at: { x: 1230, y: 772 }
+    size: { w: 250, h: 24 }
+  - id: x796
+    label: "滑り"
+    at: { x: 1000, y: 796 }
+    size: { w: 230, h: 24 }
+  - id: y796
+    label: "勾配だけでは決まらない（表面と濡れ）"
+    align: left
+    at: { x: 1230, y: 796 }
+    size: { w: 250, h: 24 }
+  - id: n1
+    label: "傾きの書き方の図です。度（°）で書く図面のほうが少数派です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1220 }
+    size: { w: 1000, h: 18 }
+  - id: n2
+    label: "屋根は「寸」で書きます —— 水平 10 に対して垂直がいくつか。4 寸勾配なら 4/10 で、角度にすると 21.8° です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1242 }
+    size: { w: 1000, h: 18 }
+  - id: n3
+    label: "スロープは「分数」です。1/12 は 4.8°。高さ 750mm を上がるには、長さが 9,000mm 要ります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1264 }
+    size: { w: 1000, h: 18 }
+  - id: n4
+    label: "道路はパーセント、鉄道はパーミル（‰）。同じ 35‰ は 3.5% で 2.0° です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1286 }
+    size: { w: 1000, h: 18 }
+  - id: n5
+    label: "建築基準法施行令 26 条はスロープを 1/8 以下と定め、バリアフリー法は 1/12 以下を求めています。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1308 }
+    size: { w: 1000, h: 18 }
+  - id: n6
+    label: "10 寸勾配は 45° で、「矩（かね）勾配」と読みます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1330 }
+    size: { w: 1000, h: 18 }
+  - id: n7
+    label: "数値は代表的な値です。用途と法令で変わります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1352 }
+    size: { w: 1000, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p2
+    to: p3
+    curve: none
+    line: chain
+    ends: { from: none, to: none }
+  - from: p4
+    to: p5
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }
+    via:
+      - { x: 579.9, y: 631.7 }
+      - { x: 579.6, y: 623.4 }
+      - { x: 579.2, y: 615.1 }
+      - { x: 578.6, y: 606.9 }
+      - { x: 577.7, y: 598.6 }
+      - { x: 576.7, y: 590.4 }
+      - { x: 575.6, y: 582.2 }
+      - { x: 574.2, y: 574 }
+      - { x: 572.7, y: 565.9 }
+      - { x: 571, y: 557.8 }
+      - { x: 569.1, y: 549.7 }
+      - { x: 567.1, y: 541.6 }
+      - { x: 564.8, y: 533.7 }
+      - { x: 562.4, y: 525.7 }
+      - { x: 559.8, y: 517.9 }
+      - { x: 557.1, y: 510 }
+      - { x: 554.2, y: 502.3 }
+      - { x: 551.1, y: 494.6 }
+      - { x: 547.8, y: 487 }
+      - { x: 544.4, y: 479.4 }
+      - { x: 540.8, y: 471.9 }
+      - { x: 537.1, y: 464.5 }
+      - { x: 533.2, y: 457.2 }
+      - { x: 529.1, y: 450 }
+      - { x: 524.9, y: 442.9 }
+      - { x: 520.5, y: 435.8 }
+      - { x: 516, y: 428.9 }
+      - { x: 511.3, y: 422 }
+      - { x: 506.4, y: 415.3 }
+      - { x: 501.5, y: 408.7 }
+      - { x: 496.4, y: 402.1 }
+      - { x: 491.1, y: 395.7 }
+      - { x: 485.7, y: 389.4 }
+      - { x: 480.2, y: 383.3 }
+      - { x: 474.5, y: 377.2 }
+  - from: p6
+    to: p7
+    curve: none
+    ends: { from: none, to: none }
+  - from: p8
+    to: p9
+    curve: none
+    ends: { from: none, to: none }
+  - from: p10
+    to: p11
+    curve: none
+    ends: { from: none, to: none }
+  - from: p12
+    to: p13
+    curve: none
+    ends: { from: none, to: none }
+  - from: p14
+    to: p15
+    curve: none
+    ends: { from: none, to: none }
+  - from: p16
+    to: p17
+    curve: none
+    ends: { from: none, to: none }
+  - from: p18
+    to: p19
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p20
+    to: p21
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }
+  - from: p22
+    to: p23
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p24
+    to: p25
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }
+  - from: p26
+    to: p27
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p28
+    to: p29
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }
+  - from: p30
+    to: p31
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p32
+    to: p33
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }
+  - from: p34
+    to: p35
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p36
+    to: p37
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }
+  - from: p38
+    to: p39
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p40
+    to: p41
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }
+  - from: p42
+    to: p43
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p44
+    to: p45
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }
+  - from: p46
+    to: p47
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p48
+    to: p49
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }
+  - from: p50
+    to: p51
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p52
+    to: p53
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }
+  - from: p54
+    to: p54
+    curve: none
+    close: true
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 200, y: 960 }
+      - { x: 500, y: 960 }
+      - { x: 500, y: 840 }
+  - from: p55
+    to: p56
+    curve: none
+    ends: { from: arrow, to: arrow }
+  - from: p57
+    to: p58
+    curve: none
+    ends: { from: arrow, to: arrow }
+  - from: p59
+    to: p59
+    curve: none
+    close: true
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 200, y: 1135 }
+      - { x: 620, y: 1135 }
+      - { x: 620, y: 1100 }
+  - from: p60
+    to: p61
+    curve: none
+    ends: { from: arrow, to: arrow }
+  - from: p62
+    to: p63
+    curve: none
+    ends: { from: arrow, to: arrow }

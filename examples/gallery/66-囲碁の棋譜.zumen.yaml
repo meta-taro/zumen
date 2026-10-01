@@ -1,0 +1,1587 @@
+version: 1
+kind: placement
+arrows: false
+title: 囲碁 棋譜（19 路・布石 12 手まで）
+# 碁盤は「線の交点」に石を置く —— マス目ではない。
+# ここでは 18×18 のマスの枠で線を作り、石はその角（＝交点）へ置いている。
+# 線を辺で引くと交差が 324 か所になり、検査が「読みにくい」と言う ——
+# 盤としては正しいので、交差の数え方が合わない図もある（記録）。
+# 星は 9 つの小さな黒点。**石が乗る星は書かない** ——
+# zumen は重なり順を正本から決められないので、小さい星が石の上に出る（課題 10）。
+# 手数は石の中（白石の数字は黒、黒石の数字は白）。
+nodes:
+  - id: g00_00
+    label: ""
+    at: { x: 44, y: 44 }
+    size: { w: 28, h: 28 }
+  - id: g00_01
+    label: ""
+    at: { x: 72, y: 44 }
+    size: { w: 28, h: 28 }
+  - id: g00_02
+    label: ""
+    at: { x: 100, y: 44 }
+    size: { w: 28, h: 28 }
+  - id: g00_03
+    label: ""
+    at: { x: 128, y: 44 }
+    size: { w: 28, h: 28 }
+  - id: g00_04
+    label: ""
+    at: { x: 156, y: 44 }
+    size: { w: 28, h: 28 }
+  - id: g00_05
+    label: ""
+    at: { x: 184, y: 44 }
+    size: { w: 28, h: 28 }
+  - id: g00_06
+    label: ""
+    at: { x: 212, y: 44 }
+    size: { w: 28, h: 28 }
+  - id: g00_07
+    label: ""
+    at: { x: 240, y: 44 }
+    size: { w: 28, h: 28 }
+  - id: g00_08
+    label: ""
+    at: { x: 268, y: 44 }
+    size: { w: 28, h: 28 }
+  - id: g00_09
+    label: ""
+    at: { x: 296, y: 44 }
+    size: { w: 28, h: 28 }
+  - id: g00_10
+    label: ""
+    at: { x: 324, y: 44 }
+    size: { w: 28, h: 28 }
+  - id: g00_11
+    label: ""
+    at: { x: 352, y: 44 }
+    size: { w: 28, h: 28 }
+  - id: g00_12
+    label: ""
+    at: { x: 380, y: 44 }
+    size: { w: 28, h: 28 }
+  - id: g00_13
+    label: ""
+    at: { x: 408, y: 44 }
+    size: { w: 28, h: 28 }
+  - id: g00_14
+    label: ""
+    at: { x: 436, y: 44 }
+    size: { w: 28, h: 28 }
+  - id: g00_15
+    label: ""
+    at: { x: 464, y: 44 }
+    size: { w: 28, h: 28 }
+  - id: g00_16
+    label: ""
+    at: { x: 492, y: 44 }
+    size: { w: 28, h: 28 }
+  - id: g00_17
+    label: ""
+    at: { x: 520, y: 44 }
+    size: { w: 28, h: 28 }
+  - id: g01_00
+    label: ""
+    at: { x: 44, y: 72 }
+    size: { w: 28, h: 28 }
+  - id: g01_01
+    label: ""
+    at: { x: 72, y: 72 }
+    size: { w: 28, h: 28 }
+  - id: g01_02
+    label: ""
+    at: { x: 100, y: 72 }
+    size: { w: 28, h: 28 }
+  - id: g01_03
+    label: ""
+    at: { x: 128, y: 72 }
+    size: { w: 28, h: 28 }
+  - id: g01_04
+    label: ""
+    at: { x: 156, y: 72 }
+    size: { w: 28, h: 28 }
+  - id: g01_05
+    label: ""
+    at: { x: 184, y: 72 }
+    size: { w: 28, h: 28 }
+  - id: g01_06
+    label: ""
+    at: { x: 212, y: 72 }
+    size: { w: 28, h: 28 }
+  - id: g01_07
+    label: ""
+    at: { x: 240, y: 72 }
+    size: { w: 28, h: 28 }
+  - id: g01_08
+    label: ""
+    at: { x: 268, y: 72 }
+    size: { w: 28, h: 28 }
+  - id: g01_09
+    label: ""
+    at: { x: 296, y: 72 }
+    size: { w: 28, h: 28 }
+  - id: g01_10
+    label: ""
+    at: { x: 324, y: 72 }
+    size: { w: 28, h: 28 }
+  - id: g01_11
+    label: ""
+    at: { x: 352, y: 72 }
+    size: { w: 28, h: 28 }
+  - id: g01_12
+    label: ""
+    at: { x: 380, y: 72 }
+    size: { w: 28, h: 28 }
+  - id: g01_13
+    label: ""
+    at: { x: 408, y: 72 }
+    size: { w: 28, h: 28 }
+  - id: g01_14
+    label: ""
+    at: { x: 436, y: 72 }
+    size: { w: 28, h: 28 }
+  - id: g01_15
+    label: ""
+    at: { x: 464, y: 72 }
+    size: { w: 28, h: 28 }
+  - id: g01_16
+    label: ""
+    at: { x: 492, y: 72 }
+    size: { w: 28, h: 28 }
+  - id: g01_17
+    label: ""
+    at: { x: 520, y: 72 }
+    size: { w: 28, h: 28 }
+  - id: g02_00
+    label: ""
+    at: { x: 44, y: 100 }
+    size: { w: 28, h: 28 }
+  - id: g02_01
+    label: ""
+    at: { x: 72, y: 100 }
+    size: { w: 28, h: 28 }
+  - id: g02_02
+    label: ""
+    at: { x: 100, y: 100 }
+    size: { w: 28, h: 28 }
+  - id: g02_03
+    label: ""
+    at: { x: 128, y: 100 }
+    size: { w: 28, h: 28 }
+  - id: g02_04
+    label: ""
+    at: { x: 156, y: 100 }
+    size: { w: 28, h: 28 }
+  - id: g02_05
+    label: ""
+    at: { x: 184, y: 100 }
+    size: { w: 28, h: 28 }
+  - id: g02_06
+    label: ""
+    at: { x: 212, y: 100 }
+    size: { w: 28, h: 28 }
+  - id: g02_07
+    label: ""
+    at: { x: 240, y: 100 }
+    size: { w: 28, h: 28 }
+  - id: g02_08
+    label: ""
+    at: { x: 268, y: 100 }
+    size: { w: 28, h: 28 }
+  - id: g02_09
+    label: ""
+    at: { x: 296, y: 100 }
+    size: { w: 28, h: 28 }
+  - id: g02_10
+    label: ""
+    at: { x: 324, y: 100 }
+    size: { w: 28, h: 28 }
+  - id: g02_11
+    label: ""
+    at: { x: 352, y: 100 }
+    size: { w: 28, h: 28 }
+  - id: g02_12
+    label: ""
+    at: { x: 380, y: 100 }
+    size: { w: 28, h: 28 }
+  - id: g02_13
+    label: ""
+    at: { x: 408, y: 100 }
+    size: { w: 28, h: 28 }
+  - id: g02_14
+    label: ""
+    at: { x: 436, y: 100 }
+    size: { w: 28, h: 28 }
+  - id: g02_15
+    label: ""
+    at: { x: 464, y: 100 }
+    size: { w: 28, h: 28 }
+  - id: g02_16
+    label: ""
+    at: { x: 492, y: 100 }
+    size: { w: 28, h: 28 }
+  - id: g02_17
+    label: ""
+    at: { x: 520, y: 100 }
+    size: { w: 28, h: 28 }
+  - id: g03_00
+    label: ""
+    at: { x: 44, y: 128 }
+    size: { w: 28, h: 28 }
+  - id: g03_01
+    label: ""
+    at: { x: 72, y: 128 }
+    size: { w: 28, h: 28 }
+  - id: g03_02
+    label: ""
+    at: { x: 100, y: 128 }
+    size: { w: 28, h: 28 }
+  - id: g03_03
+    label: ""
+    at: { x: 128, y: 128 }
+    size: { w: 28, h: 28 }
+  - id: g03_04
+    label: ""
+    at: { x: 156, y: 128 }
+    size: { w: 28, h: 28 }
+  - id: g03_05
+    label: ""
+    at: { x: 184, y: 128 }
+    size: { w: 28, h: 28 }
+  - id: g03_06
+    label: ""
+    at: { x: 212, y: 128 }
+    size: { w: 28, h: 28 }
+  - id: g03_07
+    label: ""
+    at: { x: 240, y: 128 }
+    size: { w: 28, h: 28 }
+  - id: g03_08
+    label: ""
+    at: { x: 268, y: 128 }
+    size: { w: 28, h: 28 }
+  - id: g03_09
+    label: ""
+    at: { x: 296, y: 128 }
+    size: { w: 28, h: 28 }
+  - id: g03_10
+    label: ""
+    at: { x: 324, y: 128 }
+    size: { w: 28, h: 28 }
+  - id: g03_11
+    label: ""
+    at: { x: 352, y: 128 }
+    size: { w: 28, h: 28 }
+  - id: g03_12
+    label: ""
+    at: { x: 380, y: 128 }
+    size: { w: 28, h: 28 }
+  - id: g03_13
+    label: ""
+    at: { x: 408, y: 128 }
+    size: { w: 28, h: 28 }
+  - id: g03_14
+    label: ""
+    at: { x: 436, y: 128 }
+    size: { w: 28, h: 28 }
+  - id: g03_15
+    label: ""
+    at: { x: 464, y: 128 }
+    size: { w: 28, h: 28 }
+  - id: g03_16
+    label: ""
+    at: { x: 492, y: 128 }
+    size: { w: 28, h: 28 }
+  - id: g03_17
+    label: ""
+    at: { x: 520, y: 128 }
+    size: { w: 28, h: 28 }
+  - id: g04_00
+    label: ""
+    at: { x: 44, y: 156 }
+    size: { w: 28, h: 28 }
+  - id: g04_01
+    label: ""
+    at: { x: 72, y: 156 }
+    size: { w: 28, h: 28 }
+  - id: g04_02
+    label: ""
+    at: { x: 100, y: 156 }
+    size: { w: 28, h: 28 }
+  - id: g04_03
+    label: ""
+    at: { x: 128, y: 156 }
+    size: { w: 28, h: 28 }
+  - id: g04_04
+    label: ""
+    at: { x: 156, y: 156 }
+    size: { w: 28, h: 28 }
+  - id: g04_05
+    label: ""
+    at: { x: 184, y: 156 }
+    size: { w: 28, h: 28 }
+  - id: g04_06
+    label: ""
+    at: { x: 212, y: 156 }
+    size: { w: 28, h: 28 }
+  - id: g04_07
+    label: ""
+    at: { x: 240, y: 156 }
+    size: { w: 28, h: 28 }
+  - id: g04_08
+    label: ""
+    at: { x: 268, y: 156 }
+    size: { w: 28, h: 28 }
+  - id: g04_09
+    label: ""
+    at: { x: 296, y: 156 }
+    size: { w: 28, h: 28 }
+  - id: g04_10
+    label: ""
+    at: { x: 324, y: 156 }
+    size: { w: 28, h: 28 }
+  - id: g04_11
+    label: ""
+    at: { x: 352, y: 156 }
+    size: { w: 28, h: 28 }
+  - id: g04_12
+    label: ""
+    at: { x: 380, y: 156 }
+    size: { w: 28, h: 28 }
+  - id: g04_13
+    label: ""
+    at: { x: 408, y: 156 }
+    size: { w: 28, h: 28 }
+  - id: g04_14
+    label: ""
+    at: { x: 436, y: 156 }
+    size: { w: 28, h: 28 }
+  - id: g04_15
+    label: ""
+    at: { x: 464, y: 156 }
+    size: { w: 28, h: 28 }
+  - id: g04_16
+    label: ""
+    at: { x: 492, y: 156 }
+    size: { w: 28, h: 28 }
+  - id: g04_17
+    label: ""
+    at: { x: 520, y: 156 }
+    size: { w: 28, h: 28 }
+  - id: g05_00
+    label: ""
+    at: { x: 44, y: 184 }
+    size: { w: 28, h: 28 }
+  - id: g05_01
+    label: ""
+    at: { x: 72, y: 184 }
+    size: { w: 28, h: 28 }
+  - id: g05_02
+    label: ""
+    at: { x: 100, y: 184 }
+    size: { w: 28, h: 28 }
+  - id: g05_03
+    label: ""
+    at: { x: 128, y: 184 }
+    size: { w: 28, h: 28 }
+  - id: g05_04
+    label: ""
+    at: { x: 156, y: 184 }
+    size: { w: 28, h: 28 }
+  - id: g05_05
+    label: ""
+    at: { x: 184, y: 184 }
+    size: { w: 28, h: 28 }
+  - id: g05_06
+    label: ""
+    at: { x: 212, y: 184 }
+    size: { w: 28, h: 28 }
+  - id: g05_07
+    label: ""
+    at: { x: 240, y: 184 }
+    size: { w: 28, h: 28 }
+  - id: g05_08
+    label: ""
+    at: { x: 268, y: 184 }
+    size: { w: 28, h: 28 }
+  - id: g05_09
+    label: ""
+    at: { x: 296, y: 184 }
+    size: { w: 28, h: 28 }
+  - id: g05_10
+    label: ""
+    at: { x: 324, y: 184 }
+    size: { w: 28, h: 28 }
+  - id: g05_11
+    label: ""
+    at: { x: 352, y: 184 }
+    size: { w: 28, h: 28 }
+  - id: g05_12
+    label: ""
+    at: { x: 380, y: 184 }
+    size: { w: 28, h: 28 }
+  - id: g05_13
+    label: ""
+    at: { x: 408, y: 184 }
+    size: { w: 28, h: 28 }
+  - id: g05_14
+    label: ""
+    at: { x: 436, y: 184 }
+    size: { w: 28, h: 28 }
+  - id: g05_15
+    label: ""
+    at: { x: 464, y: 184 }
+    size: { w: 28, h: 28 }
+  - id: g05_16
+    label: ""
+    at: { x: 492, y: 184 }
+    size: { w: 28, h: 28 }
+  - id: g05_17
+    label: ""
+    at: { x: 520, y: 184 }
+    size: { w: 28, h: 28 }
+  - id: g06_00
+    label: ""
+    at: { x: 44, y: 212 }
+    size: { w: 28, h: 28 }
+  - id: g06_01
+    label: ""
+    at: { x: 72, y: 212 }
+    size: { w: 28, h: 28 }
+  - id: g06_02
+    label: ""
+    at: { x: 100, y: 212 }
+    size: { w: 28, h: 28 }
+  - id: g06_03
+    label: ""
+    at: { x: 128, y: 212 }
+    size: { w: 28, h: 28 }
+  - id: g06_04
+    label: ""
+    at: { x: 156, y: 212 }
+    size: { w: 28, h: 28 }
+  - id: g06_05
+    label: ""
+    at: { x: 184, y: 212 }
+    size: { w: 28, h: 28 }
+  - id: g06_06
+    label: ""
+    at: { x: 212, y: 212 }
+    size: { w: 28, h: 28 }
+  - id: g06_07
+    label: ""
+    at: { x: 240, y: 212 }
+    size: { w: 28, h: 28 }
+  - id: g06_08
+    label: ""
+    at: { x: 268, y: 212 }
+    size: { w: 28, h: 28 }
+  - id: g06_09
+    label: ""
+    at: { x: 296, y: 212 }
+    size: { w: 28, h: 28 }
+  - id: g06_10
+    label: ""
+    at: { x: 324, y: 212 }
+    size: { w: 28, h: 28 }
+  - id: g06_11
+    label: ""
+    at: { x: 352, y: 212 }
+    size: { w: 28, h: 28 }
+  - id: g06_12
+    label: ""
+    at: { x: 380, y: 212 }
+    size: { w: 28, h: 28 }
+  - id: g06_13
+    label: ""
+    at: { x: 408, y: 212 }
+    size: { w: 28, h: 28 }
+  - id: g06_14
+    label: ""
+    at: { x: 436, y: 212 }
+    size: { w: 28, h: 28 }
+  - id: g06_15
+    label: ""
+    at: { x: 464, y: 212 }
+    size: { w: 28, h: 28 }
+  - id: g06_16
+    label: ""
+    at: { x: 492, y: 212 }
+    size: { w: 28, h: 28 }
+  - id: g06_17
+    label: ""
+    at: { x: 520, y: 212 }
+    size: { w: 28, h: 28 }
+  - id: g07_00
+    label: ""
+    at: { x: 44, y: 240 }
+    size: { w: 28, h: 28 }
+  - id: g07_01
+    label: ""
+    at: { x: 72, y: 240 }
+    size: { w: 28, h: 28 }
+  - id: g07_02
+    label: ""
+    at: { x: 100, y: 240 }
+    size: { w: 28, h: 28 }
+  - id: g07_03
+    label: ""
+    at: { x: 128, y: 240 }
+    size: { w: 28, h: 28 }
+  - id: g07_04
+    label: ""
+    at: { x: 156, y: 240 }
+    size: { w: 28, h: 28 }
+  - id: g07_05
+    label: ""
+    at: { x: 184, y: 240 }
+    size: { w: 28, h: 28 }
+  - id: g07_06
+    label: ""
+    at: { x: 212, y: 240 }
+    size: { w: 28, h: 28 }
+  - id: g07_07
+    label: ""
+    at: { x: 240, y: 240 }
+    size: { w: 28, h: 28 }
+  - id: g07_08
+    label: ""
+    at: { x: 268, y: 240 }
+    size: { w: 28, h: 28 }
+  - id: g07_09
+    label: ""
+    at: { x: 296, y: 240 }
+    size: { w: 28, h: 28 }
+  - id: g07_10
+    label: ""
+    at: { x: 324, y: 240 }
+    size: { w: 28, h: 28 }
+  - id: g07_11
+    label: ""
+    at: { x: 352, y: 240 }
+    size: { w: 28, h: 28 }
+  - id: g07_12
+    label: ""
+    at: { x: 380, y: 240 }
+    size: { w: 28, h: 28 }
+  - id: g07_13
+    label: ""
+    at: { x: 408, y: 240 }
+    size: { w: 28, h: 28 }
+  - id: g07_14
+    label: ""
+    at: { x: 436, y: 240 }
+    size: { w: 28, h: 28 }
+  - id: g07_15
+    label: ""
+    at: { x: 464, y: 240 }
+    size: { w: 28, h: 28 }
+  - id: g07_16
+    label: ""
+    at: { x: 492, y: 240 }
+    size: { w: 28, h: 28 }
+  - id: g07_17
+    label: ""
+    at: { x: 520, y: 240 }
+    size: { w: 28, h: 28 }
+  - id: g08_00
+    label: ""
+    at: { x: 44, y: 268 }
+    size: { w: 28, h: 28 }
+  - id: g08_01
+    label: ""
+    at: { x: 72, y: 268 }
+    size: { w: 28, h: 28 }
+  - id: g08_02
+    label: ""
+    at: { x: 100, y: 268 }
+    size: { w: 28, h: 28 }
+  - id: g08_03
+    label: ""
+    at: { x: 128, y: 268 }
+    size: { w: 28, h: 28 }
+  - id: g08_04
+    label: ""
+    at: { x: 156, y: 268 }
+    size: { w: 28, h: 28 }
+  - id: g08_05
+    label: ""
+    at: { x: 184, y: 268 }
+    size: { w: 28, h: 28 }
+  - id: g08_06
+    label: ""
+    at: { x: 212, y: 268 }
+    size: { w: 28, h: 28 }
+  - id: g08_07
+    label: ""
+    at: { x: 240, y: 268 }
+    size: { w: 28, h: 28 }
+  - id: g08_08
+    label: ""
+    at: { x: 268, y: 268 }
+    size: { w: 28, h: 28 }
+  - id: g08_09
+    label: ""
+    at: { x: 296, y: 268 }
+    size: { w: 28, h: 28 }
+  - id: g08_10
+    label: ""
+    at: { x: 324, y: 268 }
+    size: { w: 28, h: 28 }
+  - id: g08_11
+    label: ""
+    at: { x: 352, y: 268 }
+    size: { w: 28, h: 28 }
+  - id: g08_12
+    label: ""
+    at: { x: 380, y: 268 }
+    size: { w: 28, h: 28 }
+  - id: g08_13
+    label: ""
+    at: { x: 408, y: 268 }
+    size: { w: 28, h: 28 }
+  - id: g08_14
+    label: ""
+    at: { x: 436, y: 268 }
+    size: { w: 28, h: 28 }
+  - id: g08_15
+    label: ""
+    at: { x: 464, y: 268 }
+    size: { w: 28, h: 28 }
+  - id: g08_16
+    label: ""
+    at: { x: 492, y: 268 }
+    size: { w: 28, h: 28 }
+  - id: g08_17
+    label: ""
+    at: { x: 520, y: 268 }
+    size: { w: 28, h: 28 }
+  - id: g09_00
+    label: ""
+    at: { x: 44, y: 296 }
+    size: { w: 28, h: 28 }
+  - id: g09_01
+    label: ""
+    at: { x: 72, y: 296 }
+    size: { w: 28, h: 28 }
+  - id: g09_02
+    label: ""
+    at: { x: 100, y: 296 }
+    size: { w: 28, h: 28 }
+  - id: g09_03
+    label: ""
+    at: { x: 128, y: 296 }
+    size: { w: 28, h: 28 }
+  - id: g09_04
+    label: ""
+    at: { x: 156, y: 296 }
+    size: { w: 28, h: 28 }
+  - id: g09_05
+    label: ""
+    at: { x: 184, y: 296 }
+    size: { w: 28, h: 28 }
+  - id: g09_06
+    label: ""
+    at: { x: 212, y: 296 }
+    size: { w: 28, h: 28 }
+  - id: g09_07
+    label: ""
+    at: { x: 240, y: 296 }
+    size: { w: 28, h: 28 }
+  - id: g09_08
+    label: ""
+    at: { x: 268, y: 296 }
+    size: { w: 28, h: 28 }
+  - id: g09_09
+    label: ""
+    at: { x: 296, y: 296 }
+    size: { w: 28, h: 28 }
+  - id: g09_10
+    label: ""
+    at: { x: 324, y: 296 }
+    size: { w: 28, h: 28 }
+  - id: g09_11
+    label: ""
+    at: { x: 352, y: 296 }
+    size: { w: 28, h: 28 }
+  - id: g09_12
+    label: ""
+    at: { x: 380, y: 296 }
+    size: { w: 28, h: 28 }
+  - id: g09_13
+    label: ""
+    at: { x: 408, y: 296 }
+    size: { w: 28, h: 28 }
+  - id: g09_14
+    label: ""
+    at: { x: 436, y: 296 }
+    size: { w: 28, h: 28 }
+  - id: g09_15
+    label: ""
+    at: { x: 464, y: 296 }
+    size: { w: 28, h: 28 }
+  - id: g09_16
+    label: ""
+    at: { x: 492, y: 296 }
+    size: { w: 28, h: 28 }
+  - id: g09_17
+    label: ""
+    at: { x: 520, y: 296 }
+    size: { w: 28, h: 28 }
+  - id: g10_00
+    label: ""
+    at: { x: 44, y: 324 }
+    size: { w: 28, h: 28 }
+  - id: g10_01
+    label: ""
+    at: { x: 72, y: 324 }
+    size: { w: 28, h: 28 }
+  - id: g10_02
+    label: ""
+    at: { x: 100, y: 324 }
+    size: { w: 28, h: 28 }
+  - id: g10_03
+    label: ""
+    at: { x: 128, y: 324 }
+    size: { w: 28, h: 28 }
+  - id: g10_04
+    label: ""
+    at: { x: 156, y: 324 }
+    size: { w: 28, h: 28 }
+  - id: g10_05
+    label: ""
+    at: { x: 184, y: 324 }
+    size: { w: 28, h: 28 }
+  - id: g10_06
+    label: ""
+    at: { x: 212, y: 324 }
+    size: { w: 28, h: 28 }
+  - id: g10_07
+    label: ""
+    at: { x: 240, y: 324 }
+    size: { w: 28, h: 28 }
+  - id: g10_08
+    label: ""
+    at: { x: 268, y: 324 }
+    size: { w: 28, h: 28 }
+  - id: g10_09
+    label: ""
+    at: { x: 296, y: 324 }
+    size: { w: 28, h: 28 }
+  - id: g10_10
+    label: ""
+    at: { x: 324, y: 324 }
+    size: { w: 28, h: 28 }
+  - id: g10_11
+    label: ""
+    at: { x: 352, y: 324 }
+    size: { w: 28, h: 28 }
+  - id: g10_12
+    label: ""
+    at: { x: 380, y: 324 }
+    size: { w: 28, h: 28 }
+  - id: g10_13
+    label: ""
+    at: { x: 408, y: 324 }
+    size: { w: 28, h: 28 }
+  - id: g10_14
+    label: ""
+    at: { x: 436, y: 324 }
+    size: { w: 28, h: 28 }
+  - id: g10_15
+    label: ""
+    at: { x: 464, y: 324 }
+    size: { w: 28, h: 28 }
+  - id: g10_16
+    label: ""
+    at: { x: 492, y: 324 }
+    size: { w: 28, h: 28 }
+  - id: g10_17
+    label: ""
+    at: { x: 520, y: 324 }
+    size: { w: 28, h: 28 }
+  - id: g11_00
+    label: ""
+    at: { x: 44, y: 352 }
+    size: { w: 28, h: 28 }
+  - id: g11_01
+    label: ""
+    at: { x: 72, y: 352 }
+    size: { w: 28, h: 28 }
+  - id: g11_02
+    label: ""
+    at: { x: 100, y: 352 }
+    size: { w: 28, h: 28 }
+  - id: g11_03
+    label: ""
+    at: { x: 128, y: 352 }
+    size: { w: 28, h: 28 }
+  - id: g11_04
+    label: ""
+    at: { x: 156, y: 352 }
+    size: { w: 28, h: 28 }
+  - id: g11_05
+    label: ""
+    at: { x: 184, y: 352 }
+    size: { w: 28, h: 28 }
+  - id: g11_06
+    label: ""
+    at: { x: 212, y: 352 }
+    size: { w: 28, h: 28 }
+  - id: g11_07
+    label: ""
+    at: { x: 240, y: 352 }
+    size: { w: 28, h: 28 }
+  - id: g11_08
+    label: ""
+    at: { x: 268, y: 352 }
+    size: { w: 28, h: 28 }
+  - id: g11_09
+    label: ""
+    at: { x: 296, y: 352 }
+    size: { w: 28, h: 28 }
+  - id: g11_10
+    label: ""
+    at: { x: 324, y: 352 }
+    size: { w: 28, h: 28 }
+  - id: g11_11
+    label: ""
+    at: { x: 352, y: 352 }
+    size: { w: 28, h: 28 }
+  - id: g11_12
+    label: ""
+    at: { x: 380, y: 352 }
+    size: { w: 28, h: 28 }
+  - id: g11_13
+    label: ""
+    at: { x: 408, y: 352 }
+    size: { w: 28, h: 28 }
+  - id: g11_14
+    label: ""
+    at: { x: 436, y: 352 }
+    size: { w: 28, h: 28 }
+  - id: g11_15
+    label: ""
+    at: { x: 464, y: 352 }
+    size: { w: 28, h: 28 }
+  - id: g11_16
+    label: ""
+    at: { x: 492, y: 352 }
+    size: { w: 28, h: 28 }
+  - id: g11_17
+    label: ""
+    at: { x: 520, y: 352 }
+    size: { w: 28, h: 28 }
+  - id: g12_00
+    label: ""
+    at: { x: 44, y: 380 }
+    size: { w: 28, h: 28 }
+  - id: g12_01
+    label: ""
+    at: { x: 72, y: 380 }
+    size: { w: 28, h: 28 }
+  - id: g12_02
+    label: ""
+    at: { x: 100, y: 380 }
+    size: { w: 28, h: 28 }
+  - id: g12_03
+    label: ""
+    at: { x: 128, y: 380 }
+    size: { w: 28, h: 28 }
+  - id: g12_04
+    label: ""
+    at: { x: 156, y: 380 }
+    size: { w: 28, h: 28 }
+  - id: g12_05
+    label: ""
+    at: { x: 184, y: 380 }
+    size: { w: 28, h: 28 }
+  - id: g12_06
+    label: ""
+    at: { x: 212, y: 380 }
+    size: { w: 28, h: 28 }
+  - id: g12_07
+    label: ""
+    at: { x: 240, y: 380 }
+    size: { w: 28, h: 28 }
+  - id: g12_08
+    label: ""
+    at: { x: 268, y: 380 }
+    size: { w: 28, h: 28 }
+  - id: g12_09
+    label: ""
+    at: { x: 296, y: 380 }
+    size: { w: 28, h: 28 }
+  - id: g12_10
+    label: ""
+    at: { x: 324, y: 380 }
+    size: { w: 28, h: 28 }
+  - id: g12_11
+    label: ""
+    at: { x: 352, y: 380 }
+    size: { w: 28, h: 28 }
+  - id: g12_12
+    label: ""
+    at: { x: 380, y: 380 }
+    size: { w: 28, h: 28 }
+  - id: g12_13
+    label: ""
+    at: { x: 408, y: 380 }
+    size: { w: 28, h: 28 }
+  - id: g12_14
+    label: ""
+    at: { x: 436, y: 380 }
+    size: { w: 28, h: 28 }
+  - id: g12_15
+    label: ""
+    at: { x: 464, y: 380 }
+    size: { w: 28, h: 28 }
+  - id: g12_16
+    label: ""
+    at: { x: 492, y: 380 }
+    size: { w: 28, h: 28 }
+  - id: g12_17
+    label: ""
+    at: { x: 520, y: 380 }
+    size: { w: 28, h: 28 }
+  - id: g13_00
+    label: ""
+    at: { x: 44, y: 408 }
+    size: { w: 28, h: 28 }
+  - id: g13_01
+    label: ""
+    at: { x: 72, y: 408 }
+    size: { w: 28, h: 28 }
+  - id: g13_02
+    label: ""
+    at: { x: 100, y: 408 }
+    size: { w: 28, h: 28 }
+  - id: g13_03
+    label: ""
+    at: { x: 128, y: 408 }
+    size: { w: 28, h: 28 }
+  - id: g13_04
+    label: ""
+    at: { x: 156, y: 408 }
+    size: { w: 28, h: 28 }
+  - id: g13_05
+    label: ""
+    at: { x: 184, y: 408 }
+    size: { w: 28, h: 28 }
+  - id: g13_06
+    label: ""
+    at: { x: 212, y: 408 }
+    size: { w: 28, h: 28 }
+  - id: g13_07
+    label: ""
+    at: { x: 240, y: 408 }
+    size: { w: 28, h: 28 }
+  - id: g13_08
+    label: ""
+    at: { x: 268, y: 408 }
+    size: { w: 28, h: 28 }
+  - id: g13_09
+    label: ""
+    at: { x: 296, y: 408 }
+    size: { w: 28, h: 28 }
+  - id: g13_10
+    label: ""
+    at: { x: 324, y: 408 }
+    size: { w: 28, h: 28 }
+  - id: g13_11
+    label: ""
+    at: { x: 352, y: 408 }
+    size: { w: 28, h: 28 }
+  - id: g13_12
+    label: ""
+    at: { x: 380, y: 408 }
+    size: { w: 28, h: 28 }
+  - id: g13_13
+    label: ""
+    at: { x: 408, y: 408 }
+    size: { w: 28, h: 28 }
+  - id: g13_14
+    label: ""
+    at: { x: 436, y: 408 }
+    size: { w: 28, h: 28 }
+  - id: g13_15
+    label: ""
+    at: { x: 464, y: 408 }
+    size: { w: 28, h: 28 }
+  - id: g13_16
+    label: ""
+    at: { x: 492, y: 408 }
+    size: { w: 28, h: 28 }
+  - id: g13_17
+    label: ""
+    at: { x: 520, y: 408 }
+    size: { w: 28, h: 28 }
+  - id: g14_00
+    label: ""
+    at: { x: 44, y: 436 }
+    size: { w: 28, h: 28 }
+  - id: g14_01
+    label: ""
+    at: { x: 72, y: 436 }
+    size: { w: 28, h: 28 }
+  - id: g14_02
+    label: ""
+    at: { x: 100, y: 436 }
+    size: { w: 28, h: 28 }
+  - id: g14_03
+    label: ""
+    at: { x: 128, y: 436 }
+    size: { w: 28, h: 28 }
+  - id: g14_04
+    label: ""
+    at: { x: 156, y: 436 }
+    size: { w: 28, h: 28 }
+  - id: g14_05
+    label: ""
+    at: { x: 184, y: 436 }
+    size: { w: 28, h: 28 }
+  - id: g14_06
+    label: ""
+    at: { x: 212, y: 436 }
+    size: { w: 28, h: 28 }
+  - id: g14_07
+    label: ""
+    at: { x: 240, y: 436 }
+    size: { w: 28, h: 28 }
+  - id: g14_08
+    label: ""
+    at: { x: 268, y: 436 }
+    size: { w: 28, h: 28 }
+  - id: g14_09
+    label: ""
+    at: { x: 296, y: 436 }
+    size: { w: 28, h: 28 }
+  - id: g14_10
+    label: ""
+    at: { x: 324, y: 436 }
+    size: { w: 28, h: 28 }
+  - id: g14_11
+    label: ""
+    at: { x: 352, y: 436 }
+    size: { w: 28, h: 28 }
+  - id: g14_12
+    label: ""
+    at: { x: 380, y: 436 }
+    size: { w: 28, h: 28 }
+  - id: g14_13
+    label: ""
+    at: { x: 408, y: 436 }
+    size: { w: 28, h: 28 }
+  - id: g14_14
+    label: ""
+    at: { x: 436, y: 436 }
+    size: { w: 28, h: 28 }
+  - id: g14_15
+    label: ""
+    at: { x: 464, y: 436 }
+    size: { w: 28, h: 28 }
+  - id: g14_16
+    label: ""
+    at: { x: 492, y: 436 }
+    size: { w: 28, h: 28 }
+  - id: g14_17
+    label: ""
+    at: { x: 520, y: 436 }
+    size: { w: 28, h: 28 }
+  - id: g15_00
+    label: ""
+    at: { x: 44, y: 464 }
+    size: { w: 28, h: 28 }
+  - id: g15_01
+    label: ""
+    at: { x: 72, y: 464 }
+    size: { w: 28, h: 28 }
+  - id: g15_02
+    label: ""
+    at: { x: 100, y: 464 }
+    size: { w: 28, h: 28 }
+  - id: g15_03
+    label: ""
+    at: { x: 128, y: 464 }
+    size: { w: 28, h: 28 }
+  - id: g15_04
+    label: ""
+    at: { x: 156, y: 464 }
+    size: { w: 28, h: 28 }
+  - id: g15_05
+    label: ""
+    at: { x: 184, y: 464 }
+    size: { w: 28, h: 28 }
+  - id: g15_06
+    label: ""
+    at: { x: 212, y: 464 }
+    size: { w: 28, h: 28 }
+  - id: g15_07
+    label: ""
+    at: { x: 240, y: 464 }
+    size: { w: 28, h: 28 }
+  - id: g15_08
+    label: ""
+    at: { x: 268, y: 464 }
+    size: { w: 28, h: 28 }
+  - id: g15_09
+    label: ""
+    at: { x: 296, y: 464 }
+    size: { w: 28, h: 28 }
+  - id: g15_10
+    label: ""
+    at: { x: 324, y: 464 }
+    size: { w: 28, h: 28 }
+  - id: g15_11
+    label: ""
+    at: { x: 352, y: 464 }
+    size: { w: 28, h: 28 }
+  - id: g15_12
+    label: ""
+    at: { x: 380, y: 464 }
+    size: { w: 28, h: 28 }
+  - id: g15_13
+    label: ""
+    at: { x: 408, y: 464 }
+    size: { w: 28, h: 28 }
+  - id: g15_14
+    label: ""
+    at: { x: 436, y: 464 }
+    size: { w: 28, h: 28 }
+  - id: g15_15
+    label: ""
+    at: { x: 464, y: 464 }
+    size: { w: 28, h: 28 }
+  - id: g15_16
+    label: ""
+    at: { x: 492, y: 464 }
+    size: { w: 28, h: 28 }
+  - id: g15_17
+    label: ""
+    at: { x: 520, y: 464 }
+    size: { w: 28, h: 28 }
+  - id: g16_00
+    label: ""
+    at: { x: 44, y: 492 }
+    size: { w: 28, h: 28 }
+  - id: g16_01
+    label: ""
+    at: { x: 72, y: 492 }
+    size: { w: 28, h: 28 }
+  - id: g16_02
+    label: ""
+    at: { x: 100, y: 492 }
+    size: { w: 28, h: 28 }
+  - id: g16_03
+    label: ""
+    at: { x: 128, y: 492 }
+    size: { w: 28, h: 28 }
+  - id: g16_04
+    label: ""
+    at: { x: 156, y: 492 }
+    size: { w: 28, h: 28 }
+  - id: g16_05
+    label: ""
+    at: { x: 184, y: 492 }
+    size: { w: 28, h: 28 }
+  - id: g16_06
+    label: ""
+    at: { x: 212, y: 492 }
+    size: { w: 28, h: 28 }
+  - id: g16_07
+    label: ""
+    at: { x: 240, y: 492 }
+    size: { w: 28, h: 28 }
+  - id: g16_08
+    label: ""
+    at: { x: 268, y: 492 }
+    size: { w: 28, h: 28 }
+  - id: g16_09
+    label: ""
+    at: { x: 296, y: 492 }
+    size: { w: 28, h: 28 }
+  - id: g16_10
+    label: ""
+    at: { x: 324, y: 492 }
+    size: { w: 28, h: 28 }
+  - id: g16_11
+    label: ""
+    at: { x: 352, y: 492 }
+    size: { w: 28, h: 28 }
+  - id: g16_12
+    label: ""
+    at: { x: 380, y: 492 }
+    size: { w: 28, h: 28 }
+  - id: g16_13
+    label: ""
+    at: { x: 408, y: 492 }
+    size: { w: 28, h: 28 }
+  - id: g16_14
+    label: ""
+    at: { x: 436, y: 492 }
+    size: { w: 28, h: 28 }
+  - id: g16_15
+    label: ""
+    at: { x: 464, y: 492 }
+    size: { w: 28, h: 28 }
+  - id: g16_16
+    label: ""
+    at: { x: 492, y: 492 }
+    size: { w: 28, h: 28 }
+  - id: g16_17
+    label: ""
+    at: { x: 520, y: 492 }
+    size: { w: 28, h: 28 }
+  - id: g17_00
+    label: ""
+    at: { x: 44, y: 520 }
+    size: { w: 28, h: 28 }
+  - id: g17_01
+    label: ""
+    at: { x: 72, y: 520 }
+    size: { w: 28, h: 28 }
+  - id: g17_02
+    label: ""
+    at: { x: 100, y: 520 }
+    size: { w: 28, h: 28 }
+  - id: g17_03
+    label: ""
+    at: { x: 128, y: 520 }
+    size: { w: 28, h: 28 }
+  - id: g17_04
+    label: ""
+    at: { x: 156, y: 520 }
+    size: { w: 28, h: 28 }
+  - id: g17_05
+    label: ""
+    at: { x: 184, y: 520 }
+    size: { w: 28, h: 28 }
+  - id: g17_06
+    label: ""
+    at: { x: 212, y: 520 }
+    size: { w: 28, h: 28 }
+  - id: g17_07
+    label: ""
+    at: { x: 240, y: 520 }
+    size: { w: 28, h: 28 }
+  - id: g17_08
+    label: ""
+    at: { x: 268, y: 520 }
+    size: { w: 28, h: 28 }
+  - id: g17_09
+    label: ""
+    at: { x: 296, y: 520 }
+    size: { w: 28, h: 28 }
+  - id: g17_10
+    label: ""
+    at: { x: 324, y: 520 }
+    size: { w: 28, h: 28 }
+  - id: g17_11
+    label: ""
+    at: { x: 352, y: 520 }
+    size: { w: 28, h: 28 }
+  - id: g17_12
+    label: ""
+    at: { x: 380, y: 520 }
+    size: { w: 28, h: 28 }
+  - id: g17_13
+    label: ""
+    at: { x: 408, y: 520 }
+    size: { w: 28, h: 28 }
+  - id: g17_14
+    label: ""
+    at: { x: 436, y: 520 }
+    size: { w: 28, h: 28 }
+  - id: g17_15
+    label: ""
+    at: { x: 464, y: 520 }
+    size: { w: 28, h: 28 }
+  - id: g17_16
+    label: ""
+    at: { x: 492, y: 520 }
+    size: { w: 28, h: 28 }
+  - id: g17_17
+    label: ""
+    at: { x: 520, y: 520 }
+    size: { w: 28, h: 28 }
+  - id: ho_3_9
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 125, y: 293 }
+    size: { w: 6, h: 6 }
+  - id: ho_9_9
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 293, y: 293 }
+    size: { w: 6, h: 6 }
+  - id: ho_15_9
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 461, y: 293 }
+    size: { w: 6, h: 6 }
+  - id: m1
+    label: "1"
+    marker: circle
+    hatch: solid
+    at: { x: 452, y: 116 }
+    size: { w: 24, h: 24 }
+  - id: m2
+    label: "2"
+    marker: circle
+    at: { x: 116, y: 452 }
+    size: { w: 24, h: 24 }
+  - id: m3
+    label: "3"
+    marker: circle
+    hatch: solid
+    at: { x: 116, y: 116 }
+    size: { w: 24, h: 24 }
+  - id: m4
+    label: "4"
+    marker: circle
+    at: { x: 452, y: 452 }
+    size: { w: 24, h: 24 }
+  - id: m5
+    label: "5"
+    marker: circle
+    hatch: solid
+    at: { x: 480, y: 172 }
+    size: { w: 24, h: 24 }
+  - id: m6
+    label: "6"
+    marker: circle
+    at: { x: 480, y: 396 }
+    size: { w: 24, h: 24 }
+  - id: m7
+    label: "7"
+    marker: circle
+    hatch: solid
+    at: { x: 396, y: 88 }
+    size: { w: 24, h: 24 }
+  - id: m8
+    label: "8"
+    marker: circle
+    at: { x: 88, y: 396 }
+    size: { w: 24, h: 24 }
+  - id: m9
+    label: "9"
+    marker: circle
+    hatch: solid
+    at: { x: 172, y: 480 }
+    size: { w: 24, h: 24 }
+  - id: m10
+    label: "10"
+    marker: circle
+    at: { x: 284, y: 116 }
+    size: { w: 24, h: 24 }
+  - id: m11
+    label: "11"
+    marker: circle
+    hatch: solid
+    at: { x: 284, y: 452 }
+    size: { w: 24, h: 24 }
+  - id: m12
+    label: "12"
+    marker: circle
+    at: { x: 480, y: 284 }
+    size: { w: 24, h: 24 }
+  - id: cx0
+    label: "A"
+    marker: none
+    at: { x: 34, y: 16 }
+    size: { w: 20, h: 18 }
+  - id: cy0
+    label: "19"
+    marker: none
+    at: { x: 10, y: 35 }
+    size: { w: 24, h: 18 }
+  - id: cx1
+    label: "B"
+    marker: none
+    at: { x: 62, y: 16 }
+    size: { w: 20, h: 18 }
+  - id: cy1
+    label: "18"
+    marker: none
+    at: { x: 10, y: 63 }
+    size: { w: 24, h: 18 }
+  - id: cx2
+    label: "C"
+    marker: none
+    at: { x: 90, y: 16 }
+    size: { w: 20, h: 18 }
+  - id: cy2
+    label: "17"
+    marker: none
+    at: { x: 10, y: 91 }
+    size: { w: 24, h: 18 }
+  - id: cx3
+    label: "D"
+    marker: none
+    at: { x: 118, y: 16 }
+    size: { w: 20, h: 18 }
+  - id: cy3
+    label: "16"
+    marker: none
+    at: { x: 10, y: 119 }
+    size: { w: 24, h: 18 }
+  - id: cx4
+    label: "E"
+    marker: none
+    at: { x: 146, y: 16 }
+    size: { w: 20, h: 18 }
+  - id: cy4
+    label: "15"
+    marker: none
+    at: { x: 10, y: 147 }
+    size: { w: 24, h: 18 }
+  - id: cx5
+    label: "F"
+    marker: none
+    at: { x: 174, y: 16 }
+    size: { w: 20, h: 18 }
+  - id: cy5
+    label: "14"
+    marker: none
+    at: { x: 10, y: 175 }
+    size: { w: 24, h: 18 }
+  - id: cx6
+    label: "G"
+    marker: none
+    at: { x: 202, y: 16 }
+    size: { w: 20, h: 18 }
+  - id: cy6
+    label: "13"
+    marker: none
+    at: { x: 10, y: 203 }
+    size: { w: 24, h: 18 }
+  - id: cx7
+    label: "H"
+    marker: none
+    at: { x: 230, y: 16 }
+    size: { w: 20, h: 18 }
+  - id: cy7
+    label: "12"
+    marker: none
+    at: { x: 10, y: 231 }
+    size: { w: 24, h: 18 }
+  - id: cx8
+    label: "J"
+    marker: none
+    at: { x: 258, y: 16 }
+    size: { w: 20, h: 18 }
+  - id: cy8
+    label: "11"
+    marker: none
+    at: { x: 10, y: 259 }
+    size: { w: 24, h: 18 }
+  - id: cx9
+    label: "K"
+    marker: none
+    at: { x: 286, y: 16 }
+    size: { w: 20, h: 18 }
+  - id: cy9
+    label: "10"
+    marker: none
+    at: { x: 10, y: 287 }
+    size: { w: 24, h: 18 }
+  - id: cx10
+    label: "L"
+    marker: none
+    at: { x: 314, y: 16 }
+    size: { w: 20, h: 18 }
+  - id: cy10
+    label: "9"
+    marker: none
+    at: { x: 10, y: 315 }
+    size: { w: 24, h: 18 }
+  - id: cx11
+    label: "M"
+    marker: none
+    at: { x: 342, y: 16 }
+    size: { w: 20, h: 18 }
+  - id: cy11
+    label: "8"
+    marker: none
+    at: { x: 10, y: 343 }
+    size: { w: 24, h: 18 }
+  - id: cx12
+    label: "N"
+    marker: none
+    at: { x: 370, y: 16 }
+    size: { w: 20, h: 18 }
+  - id: cy12
+    label: "7"
+    marker: none
+    at: { x: 10, y: 371 }
+    size: { w: 24, h: 18 }
+  - id: cx13
+    label: "O"
+    marker: none
+    at: { x: 398, y: 16 }
+    size: { w: 20, h: 18 }
+  - id: cy13
+    label: "6"
+    marker: none
+    at: { x: 10, y: 399 }
+    size: { w: 24, h: 18 }
+  - id: cx14
+    label: "P"
+    marker: none
+    at: { x: 426, y: 16 }
+    size: { w: 20, h: 18 }
+  - id: cy14
+    label: "5"
+    marker: none
+    at: { x: 10, y: 427 }
+    size: { w: 24, h: 18 }
+  - id: cx15
+    label: "Q"
+    marker: none
+    at: { x: 454, y: 16 }
+    size: { w: 20, h: 18 }
+  - id: cy15
+    label: "4"
+    marker: none
+    at: { x: 10, y: 455 }
+    size: { w: 24, h: 18 }
+  - id: cx16
+    label: "R"
+    marker: none
+    at: { x: 482, y: 16 }
+    size: { w: 20, h: 18 }
+  - id: cy16
+    label: "3"
+    marker: none
+    at: { x: 10, y: 483 }
+    size: { w: 24, h: 18 }
+  - id: cx17
+    label: "S"
+    marker: none
+    at: { x: 510, y: 16 }
+    size: { w: 20, h: 18 }
+  - id: cy17
+    label: "2"
+    marker: none
+    at: { x: 10, y: 511 }
+    size: { w: 24, h: 18 }
+  - id: cx18
+    label: "T"
+    marker: none
+    at: { x: 538, y: 16 }
+    size: { w: 20, h: 18 }
+  - id: cy18
+    label: "1"
+    marker: none
+    at: { x: 10, y: 539 }
+    size: { w: 24, h: 18 }
+  - id: note
+    label: "黒 1・3・5…／白 2・4・6…　星は 9 つ（隅・辺・天元）"
+    marker: none
+    at: { x: 44, y: 574 }
+    size: { w: 400, h: 24 }

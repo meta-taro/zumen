@@ -1,0 +1,659 @@
+/**
+ * エージェントへ開く口（D13 / D18）。
+ *
+ * ここでいちばん大事なのは、**開けていない口が本当に開いていないこと**。
+ *
+ * 「AI が中心、人は責任を負う」は、**人が承認しなくてよいという意味ではない。**
+ * 見ずに責任は負えない。だから、
+ *
+ * - **競合の決着**は開けない（開けたら AI が自分の提案を自分で承認できる）
+ * - **`pins` の書き換え**は開けない
+ * - **既存ファイルの無条件な上書き**は開けない
+ *
+ * 実測でも、**AI は 10 回中 10 回 `pins` を書いてきた**（`pnpm s1:real`）。
+ * **エージェントは規約を守らない。** だから道具の形で守る。
+ */
+import assert from 'node:assert/strict';
+import { describe, it } from 'node:test';
+
+import { getPins, parse } from '../src/format.ts';
+import { messages } from '../src/messages.ts';
+import { create, exportAs, inspect, list, pinsOf, propose, spec } from '../src/tools.ts';
+import type { Io } from '../src/tools.ts';
+
+const GOOD = [
+  'version: 1',
+  'title: 本番構成',
+  'nodes:',
+  '  - id: lb',
+  '    type: load-balancer',
+  '    label: Load Balancer',
+  '  - id: web01',
+  '    type: server',
+  '    label: Web 01',
+  'edges:',
+  '  - from: lb',
+  '    to: web01',
+  '',
+].join('\n');
+
+/** 人が 1 か所に手直しを入れた正本。 */
+const WITH_PIN = GOOD.replace(
+  'nodes:',
+  'pins:\n  web01:\n    position: { x: 600, y: 400 }\n\nnodes:',
+);
+
+/** 覚えているだけのファイル置き場。**本物のディスクを触らない。** */
+function memory(files: Record<string, string> = {}): Io & { files: Record<string, string> } {
+  return {
+    files,
+    read: (path) => {
+      const text = files[path];
+      if (text === undefined) throw new Error(`ありません: ${path}`);
+      return text;
+    },
+    write: (path, text) => {
+      files[path] = text;
+    },
+    exists: (path) => files[path] !== undefined,
+    list: () => Object.keys(files),
+  };
+}
+
+describe('形式を教える（ゼロから描けるように）', () => {
+  it('形と、書ける語を返す', () => {
+    const s = spec();
+    assert.equal(s.version, 1);
+    assert.match(s.shape, /^version: 1/);
+    assert.ok(s.nodeTypes.includes('server'));
+    assert.ok(s.appearances.includes('primary'));
+  });
+
+  it('**pins を書かないことを伝える**（伝えないと書いてくる）', () => {
+    assert.ok(spec().rules.some((rule) => rule.includes('pins')));
+  });
+
+  it('id を書き換えないことを伝える', () => {
+    assert.ok(spec().rules.some((rule) => rule.includes('id')));
+  });
+
+  it('付ける名前を伝える（マージドライバが効く名前）', () => {
+    assert.equal(spec().suffix, '.zumen.yaml');
+  });
+});
+
+describe('新しい図を作る（D18）', () => {
+  it('作れる', () => {
+    const io = memory();
+    const result = create('a.zumen.yaml', GOOD, io);
+    assert.equal(result.ok, true);
+    assert.equal(io.files['a.zumen.yaml'], GOOD);
+  });
+
+  it('**既にあれば失敗する。** 上書きの経路にしない', () => {
+    const io = memory({ 'a.zumen.yaml': WITH_PIN });
+    const result = create('a.zumen.yaml', GOOD, io);
+    assert.equal(result.ok, false);
+    // 人の手直しが残っていること。
+    assert.equal(io.files['a.zumen.yaml'], WITH_PIN);
+  });
+
+  it('**形式に適合しないものは書かない**（壊れた図をディスクに残さない）', () => {
+    const io = memory();
+    const result = create('a.zumen.yaml', 'version: 2\nnodes: []\n', io);
+    assert.equal(result.ok, false);
+    assert.deepEqual(Object.keys(io.files), []);
+    assert.ok((result.findings ?? []).length > 0);
+  });
+
+  it('名前が違えば断る（マージドライバが効かなくなるため）', () => {
+    const io = memory();
+    assert.equal(create('a.yaml', GOOD, io).ok, false);
+    assert.deepEqual(Object.keys(io.files), []);
+  });
+
+  it('断るときは理由を返す（握り潰さない）', () => {
+    const io = memory({ 'a.zumen.yaml': GOOD });
+    assert.match(create('a.zumen.yaml', GOOD, io).reason ?? '', /propose/);
+  });
+});
+
+describe('提案を入れる（D5 の向き）', () => {
+  it('構造は入る', () => {
+    const io = memory({ 'a.zumen.yaml': WITH_PIN });
+    const proposal = GOOD.replace(
+      '    label: Web 01',
+      '    label: Web 01\n  - id: redis\n    type: cache\n    label: Redis',
+    );
+    const result = propose('a.zumen.yaml', proposal, io);
+    assert.equal(result.ok, true);
+    assert.match(io.files['a.zumen.yaml']!, /id: redis/);
+  });
+
+  it('**提案が pins を書いてきても採らない**（実測で 10 回中 10 回書いてきた）', () => {
+    const io = memory({ 'a.zumen.yaml': WITH_PIN });
+    const proposal = GOOD.replace(
+      'nodes:',
+      'pins:\n  web01:\n    position: { x: 1, y: 1 }\n\nnodes:',
+    );
+    propose('a.zumen.yaml', proposal, io);
+    const pins = getPins(parse(io.files['a.zumen.yaml']!));
+    assert.deepEqual(pins['web01']?.position, { x: 600, y: 400 });
+  });
+
+  it('無いファイルには入れない（create を使わせる）', () => {
+    const io = memory();
+    const result = propose('a.zumen.yaml', GOOD, io);
+    assert.equal(result.ok, false);
+    assert.match(result.reason ?? '', /create/);
+  });
+
+  it('形式に適合しない提案は入れない', () => {
+    const io = memory({ 'a.zumen.yaml': WITH_PIN });
+    propose('a.zumen.yaml', 'version: 1\n', io);
+    assert.equal(io.files['a.zumen.yaml'], WITH_PIN);
+  });
+
+  it('**競合は返すが、適用しない**', () => {
+    const io = memory({ 'a.zumen.yaml': WITH_PIN });
+    // web01 を消してくる提案。人が置いた要素なので、消さずに残して聞く。
+    const proposal = 'version: 1\nnodes:\n  - id: lb\n    label: Load Balancer\n';
+    const result = propose('a.zumen.yaml', proposal, io);
+    assert.equal(result.ok, true);
+    assert.ok((result.conflicts ?? []).length > 0);
+    assert.match(io.files['a.zumen.yaml']!, /id: web01/);
+  });
+});
+
+describe('**開けていない口**', () => {
+  it('競合を決着させる口が無い', async () => {
+    const tools = await import('../src/tools.ts');
+    const names = Object.keys(tools);
+    for (const forbidden of ['resolve', 'decide', 'accept', 'setPin', 'deletePin']) {
+      assert.equal(names.includes(forbidden), false, `${forbidden} が開いている`);
+    }
+  });
+
+  it('pins は読めるが、書く口が無い', async () => {
+    const tools = await import('../src/tools.ts');
+    assert.ok(Object.keys(tools).includes('pinsOf'));
+    assert.equal(Object.keys(tools).some((n) => /writePin|savePin|updatePin/i.test(n)), false);
+  });
+
+  it('無条件に書く口が無い（create と propose だけ）', async () => {
+    const tools = await import('../src/tools.ts');
+    const writers = Object.keys(tools).filter((n) => /write|save|overwrite|put/i.test(n));
+    assert.deepEqual(writers, []);
+  });
+});
+
+describe('自分で直せるだけの情報を返す', () => {
+  it('読めない図では、行番号つきの指摘が返る', async () => {
+    const out = await inspect('version: 1\nnodes:\n  - id: a\n  - id: a\n');
+    assert.equal(out.readable, false);
+    assert.ok(out.findings.some((f) => f.severity === 'error' && f.line !== undefined));
+  });
+
+  it('数と、読みにくさの目安が返る', async () => {
+    const out = await inspect(GOOD);
+    assert.equal(out.readable, true);
+    assert.equal(out.nodes, 2);
+    assert.equal(out.edges, 1);
+    assert.equal(typeof out.crossings, 'number');
+    assert.equal(out.tooTangled, false);
+  });
+
+  it('**「9 割」を返す**（AI ドリブンが崩れていないかを、AI 自身が見られる）', async () => {
+    const out = await inspect(WITH_PIN);
+    assert.equal(typeof out.autonomy, 'number');
+    assert.equal(out.passLine, 0.9);
+  });
+
+  it('絡まりすぎを知らせる（交差がエッジ数を超えたら）', async () => {
+    // 少ないノードに多くの線を張ると絡む。
+    // **直交ルーティング（Issue #3 の 1）で交差が減ったので、より密にした。**
+    // 6 ノード総当たり 30 辺では交差 16 で、もう「絡まりすぎ」ではない。
+    const ids = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'];
+    const nodes = ids.map((id) => `  - id: ${id}`).join('\n');
+    const edges = ids
+      .flatMap((from) => ids.filter((to) => to !== from).map((to) => `  - from: ${from}\n    to: ${to}`))
+      .join('\n');
+    const out = await inspect(`version: 1\nnodes:\n${nodes}\nedges:\n${edges}\n`);
+    assert.equal(out.readable, true);
+    assert.equal(out.tooTangled, true, `交差 ${out.crossings} / エッジ ${out.edges}`);
+  });
+});
+
+describe('書き出す', () => {
+  it('SVG', async () => {
+    assert.match(await exportAs(GOOD, 'svg'), /^<svg/);
+  });
+
+  it('Mermaid', async () => {
+    assert.match(await exportAs(GOOD, 'mermaid'), /flowchart/);
+  });
+
+  it('draw.io', async () => {
+    assert.match(await exportAs(GOOD, 'drawio'), /<mxfile/);
+  });
+});
+
+describe('spec が、AI の書ける場所をすべて載せている', () => {
+  /**
+   * **エージェントは図を書く前にここを読む。**
+   * 載っていないキーは、存在しないのと同じ。
+   *
+   * 実際、`kind` / `at` / `size` / `tag` / `openings` を足したあとも
+   * `spec` は 1 つも載せていなかった。**誰も間取り図を書けない状態**だった。
+   */
+  const template = (): string => spec().shape;
+
+  it('図の種類（kind）が載っている。**これが無いと配置図に入れない**', () => {
+    assert.match(template(), /kind:/);
+    assert.deepEqual(spec().kinds, ['structure', 'placement', 'construction']);
+  });
+
+  it('置き場所（at）と大きさ（size）が載っている', () => {
+    assert.match(template(), /at:/);
+    assert.match(template(), /size:/);
+  });
+
+  it('符号（tag）と副題（technology）が載っている', () => {
+    assert.match(template(), /tag:/);
+    assert.match(template(), /technology:/);
+  });
+
+  it('建具（openings）と、書ける語が載っている', () => {
+    assert.match(template(), /openings:/);
+    assert.deepEqual(spec().openings, ['door', 'slide', 'window', 'double', 'open']);
+    assert.deepEqual(spec().sides, ['top', 'right', 'bottom', 'left']);
+  });
+
+  it('向き（direction）と折り返し（wrap）が載っている', () => {
+    assert.match(template(), /direction:/);
+    assert.match(template(), /wrap:/);
+    assert.deepEqual(spec().directions, ['down', 'right']);
+  });
+
+  it('**配置図では自分で置く、という規則がある**', () => {
+    assert.ok(
+      spec().rules.some((rule) => rule.includes('placement')),
+      '配置図の書き方が規則に無い',
+    );
+  });
+
+  it('雛形は、そのまま読める YAML のままである', async () => {
+    const { parseDocument } = await import('yaml');
+    assert.deepEqual(parseDocument(template()).errors, []);
+  });
+});
+
+describe('spec が、通り芯と縮尺を載せている', () => {
+  it('**建築の図で最も重要な 2 つ** —— これが無いと現場で使えない', () => {
+    assert.match(spec().shape, /grid:/);
+    assert.match(spec().shape, /scale:/);
+    assert.deepEqual(spec().norths, ['up', 'right', 'down', 'left']);
+  });
+
+  /**
+   * **縮尺を図ごとに変えられることを、規則が言っていない**（2026-09-19）。
+   *
+   * `views[].scale` は D35 で入っていて、仕様書の本文にも
+   * 「全体図 1/200 の横に詳細図 1/20 を置ける」と書いてある。
+   * ところが `zumen_spec` が返す規則は、views の理由を
+   * **「通しで測ると意味のない数字が出る」だけ**にしていた。
+   *
+   * 見本 189（点字ブロック）で実際にこれを踏んだ —— 突起 12mm の詳細と
+   * ホーム 1.5m の並びを 1 枚に載せるのに、**持っている道具を使わずに
+   * 「1 枚に 1 縮尺しか書けない」と誤って結論した。**
+   *
+   * `spec()` は**リポジトリの外へ渡る唯一の面**（D39）。
+   * ここに無い決まりは、他の人のエージェントには無いのと同じ。
+   */
+  it('**規則が、縮尺を図ごとに変えられると言っている**（詳細図と全体図）', () => {
+    // **views の規則そのもの**を選ぶ（views の語は他の規則にも出る）。
+    const rule = spec().rules.find((r) => r.includes('1 枚に図を 2 つ以上置くなら views'));
+    assert.ok(rule !== undefined, 'views の規則が無い');
+    assert.ok(
+      rule.includes('縮尺') || rule.includes('1/20'),
+      `views の規則が「縮尺を図ごとに変えられる」と言っていない:\n${rule}`,
+    );
+  });
+
+  it('規則に「寸法が無い図は現場で使えない」がある', () => {
+    assert.ok(spec().rules.some((rule) => rule.includes('現場') || rule.includes('site')));
+  });
+});
+
+describe('spec が、壁の厚みを載せている', () => {
+  it('平面図の壁は塗り潰す。**その厚みを書く場所がある**', () => {
+    assert.match(spec().shape, /wall:/);
+  });
+});
+
+describe('spec が、範囲の円を載せている', () => {
+  it('クレーンの作業半径が書ける場所がある', () => {
+    assert.match(spec().shape, /radius:/);
+    assert.ok(spec().rules.some((rule) => rule.includes('radius')));
+  });
+});
+
+describe('図を探す口（zumen_list）', () => {
+  /**
+   * **2026-09-13 の棚卸しで見つけた。** MCP の口なのに、
+   * テストから一度も呼ばれていなかった（`tools.ts` の関数カバレッジ 52%）。
+   *
+   * エージェントが最初に叩く口の 1 つで、**ここが壊れると図に辿り着けない。**
+   */
+  const io = {
+    read: () => '',
+    write: () => undefined,
+    exists: () => true,
+    list: (dir: string) => (dir === 'docs' ? ['a.zumen.yaml', 'sub/b.zumen.yaml'] : []),
+  };
+
+  it('その下にある図の道を返す', () => {
+    assert.deepEqual(list('docs', io), ['a.zumen.yaml', 'sub/b.zumen.yaml']);
+  });
+
+  it('無ければ空（例外にしない）', () => {
+    assert.deepEqual(list('empty', io), []);
+  });
+
+  it('**本物のファイルでも動く。** 見本の置き場を数える', () => {
+    const found = list('examples/gallery');
+    assert.ok(found.length >= 51, `見本が ${found.length} 件しか見つからない`);
+    assert.ok(
+      found.every((path) => path.endsWith('.zumen.yaml')),
+      '正本でないものが混ざっている',
+    );
+  });
+});
+
+describe('人が手で決めたことを読む口（zumen_pins）', () => {
+  /** 同上。**書き換える口は無く、読むだけ**であることも、ここで固定する。 */
+  const SOURCE = `version: 1
+pins:
+  a:
+    position: { x: 100, y: 200 }
+    label: 人が付けた名前
+    appearance: primary
+nodes:
+  - id: a
+    label: AI が付けた名前
+`;
+
+  it('人が決めたものだけを返す', () => {
+    const out = pinsOf(SOURCE);
+    assert.deepEqual(Object.keys(out), ['a']);
+    assert.deepEqual((out.a as Record<string, unknown>).position, { x: 100, y: 200 });
+    assert.equal((out.a as Record<string, unknown>).label, '人が付けた名前');
+  });
+
+  it('**AI が書いた値は返さない**（`nodes[].label` は人のものではない）', () => {
+    assert.ok(!JSON.stringify(pinsOf(SOURCE)).includes('AI が付けた名前'));
+  });
+
+  it('`pins` が無ければ空', () => {
+    assert.deepEqual(pinsOf('version: 1\nnodes:\n  - id: a\n'), {});
+  });
+});
+
+/**
+ * **`shape` に書いていない語は、エージェントにとって存在しない。**
+ *
+ * `zumen_spec` はエージェントが最初に読むもので、**`shape` が書き方の見本**。
+ * 語彙の配列（`markers` など）を増やしても `shape` を直し忘れると、
+ * **足した語は誰にも使われない。**
+ *
+ * 2026-09-14 に実際に 2 か所ずれていた。
+ *
+ * - `line` に `double` を足したのに `shape` は `solid / dashed / dotted` のまま（D27）
+ * - `marker` の `ellipse` / `diamond` / `bar` が**一度も書かれていなかった**
+ *
+ * ここで見るのは**その欄の行**。文字列ぜんたいを探すと、
+ * `marker` の行にある `double` を `line` の語と数えてしまう（実際に見落とした）。
+ */
+describe('spec の見本と、語彙の一覧が食い違わない', () => {
+  const FIELDS = ['kinds', 'directions', 'markers', 'hatches', 'writes', 'curves', 'verticals', 'lines', 'weights', 'norths'] as const;
+  /** その欄が `shape` のどの行にあるか（欄の名前は単数形）。 */
+  const KEY: Record<string, string> = {
+    kinds: 'kind:',
+    directions: 'direction:',
+    markers: 'marker:',
+    hatches: 'hatch:',
+    writes: 'write:',
+    curves: 'curve:',
+    verticals: 'vertical:',
+    lines: 'line:',
+    weights: 'weight:',
+    norths: 'north:',
+  };
+
+  it('**閉じた語彙は、その欄の行に全部書いてある**', () => {
+    const found = spec();
+    const missing: string[] = [];
+    for (const field of FIELDS) {
+      const words = found[field] as readonly string[];
+      const row = found.shape.split('\n').find((line) => line.includes(KEY[field]!));
+      assert.ok(row !== undefined, `${field} の欄が shape に無い`);
+      for (const word of words) {
+        if (!row.includes(word)) missing.push(`${field}: ${word}`);
+      }
+    }
+    assert.deepEqual(missing, []);
+  });
+});
+
+/**
+ * **説明に書いていない観測値は、エージェントにとって存在しない。**
+ *
+ * `zumen_spec` の見本で同じことが起きていた（`line: double` が載っていなかった）。
+ * `zumen_inspect` でも起きていた —— **`straddles` と `hiddenTags` を足したのに、
+ * 道具の説明に一言も書いていなかった**（2026-09-14）。
+ *
+ * 数（`nodes` `width`）は見れば分かるので求めない。
+ * **直し方があるもの**だけ、名前が説明に出ていることを見る。
+ */
+describe('inspect の説明に、直すべき観測値が出ている', () => {
+  /** 出ていたら直し方がある観測値。 */
+  const ACTIONABLE = [
+    'tooTangled',
+    'hiddenLabels',
+    'crowdedNames',
+    'hiddenTags',
+    'overlappingText',
+    'edgesUnderBoxes',
+    'straddles',
+    'adriftNames',
+    'tooSmallToProject',
+    'tooSmallToPrint',
+    'positionsInSource',
+    'reviewed',
+  ];
+
+  it('**足した観測値を、説明に書き忘れていない**', async () => {
+    const { messages } = await import('../src/messages.ts');
+    const said = messages().mcp.inspectDesc;
+    assert.deepEqual(ACTIONABLE.filter((key) => !said.includes(key)), []);
+  });
+
+  it('検査が返す形に、その観測値がある（名前だけ書いて実装が無い、を防ぐ）', async () => {
+    const found = await inspect('version: 1\nnodes:\n  - id: a\n    label: あ\n');
+    assert.deepEqual(ACTIONABLE.filter((key) => !(key in found)), []);
+  });
+});
+
+/**
+ * **調べてから描く、を道具の側に置く**（2026-09-18）。
+ *
+ * 問い。
+ *
+ * この水準は zumen を入れただけで出せるのか、手元に溜めたノウハウによるものか、という問い。
+ *
+ * 数えたら、半分は道具に入っていて（規則 26・観測値 35）、
+ * **半分は入っていなかった。**「実在の専門図面を先に調べる」は
+ * `.claude/rules/専門図面の調査と実装方針.md` —— **このリポジトリの中だけ**にあり、
+ * 他の人のエージェントは見ない。これが無いと、
+ * 自分の記憶から「○○らしい絵」を描いて終わる。
+ *
+ * **道具が言えることは、道具が言う。**
+ */
+describe('調べてから描く', () => {
+  it('**実在の図面を調べてから描く**ことを、規則が言う', () => {
+    assert.ok(
+      spec().rules.some((rule) => rule.includes('調べ')),
+      '「調べてから描く」が規則に無い（他の人のエージェントには伝わらない）',
+    );
+  });
+
+  it('**描いたものを見る**ことを、規則が言う', () => {
+    assert.ok(
+      spec().rules.some((rule) => rule.includes('見る') || rule.includes('png')),
+      '「描いたら見る」が規則に無い',
+    );
+  });
+});
+
+/**
+ * **エージェントが、自分の描いた図を見られるようにする**（2026-09-18）。
+ *
+ * `zumen_export` は SVG を**文字で**返していた。文字は読めても**絵は見えない** ——
+ * だから「名前が扉の弧に乗っている」「扇の半径が読めない」に気づけるのは、
+ * 人が画面を開いたときだけだった。**リモートでは誰も開かない。**
+ *
+ * png を足す。Chrome があれば画像そのもの（base64）を返し、
+ * **無ければ、無いと言う**（黙って落とさない。`scripts/icon.mjs` と同じ筋）。
+ */
+describe('図を絵で返す（png）', () => {
+  const SMALL = `version: 1
+kind: placement
+nodes:
+  - id: a
+    label: 部屋
+    at: { x: 0, y: 0 }
+    size: { w: 120, h: 80 }
+`;
+
+  it('**png を求められる**（書き出しの種類に入っている）', () => {
+    assert.ok(spec().exports.includes('png'), `png が無い: ${spec().exports.join(',')}`);
+  });
+
+  it('**Chrome が無ければ、無いと言う**（黙って落とさない）', async () => {
+    const { pngOf } = await import('../src/tools.ts');
+    const out = await pngOf(SMALL, {}, () => null);
+    assert.equal(out.image, null);
+    assert.match(out.note, /Chrome/);
+  });
+
+  it('**Chrome があれば、画像の中身を返す**', async () => {
+    const { pngOf } = await import('../src/tools.ts');
+    const fake = (): string => 'ダミーの Chrome';
+    const out = await pngOf(SMALL, {}, fake, () => Buffer.from('PNG-DUMMY'));
+    assert.equal(out.image, Buffer.from('PNG-DUMMY').toString('base64'));
+    assert.match(out.note, /png/);
+  });
+});
+
+/**
+ * **どの 2 本が交わっているかを返す**（2026-09-19。見本 195 で当たった）。
+ *
+ * `straddles` も `overlappingText` も `edgesUnderBoxes` も**組**を返すのに、
+ * `crossings` だけが**数**だった。「2 本交わっています」と言われても、
+ * どれとどれかは自分で探すしかない —— 直近の周で 3 回これに往復をとられた。
+ *
+ * 数はそのまま残す（テストも見本の登録も数で見ている）。**組を足す。**
+ */
+/**
+ * **書き方を読んだ人が、実物へ辿り着けるか**（2026-09-19）。
+ *
+ * `zumen_about` → `zumen_spec` → 書く、という順に読まれる。
+ * ところが `zumen_spec` は**どこにも `zumen_examples` を案内していなかった** ——
+ * 198 枚の実物が同梱されているのに、**書き方だけ読んで書き始める**ことになる。
+ *
+ * D39 と同じ形：**あるのに気づかれない口は、無いのと同じ。**
+ */
+/**
+ * **縮尺だけを図ごとに宣言した views は、間違いではない**（2026-09-19）。
+ *
+ * `views-no-grid` は「名前は出ますが、寸法も通り芯も描かれません」と言う。
+ * 事実ではあるが、**views が無駄だ、と読める** ——
+ * 実際それで見本 189 に、要らない通り芯を足しかけた。
+ *
+ * `views[].scale` は、**描かれなくても正本に残る**（読む側と別の実装へ伝わる）。
+ * 1 枚に縮尺が 2 つある図では、それ自体が意味を持つ。
+ */
+describe('views の警告が、縮尺だけの図を否定しない', () => {
+  it('**scale だけを持つ views でも、その値は残ると言っている**', () => {
+    const said = messages().validate.viewsNoGrid;
+    assert.match(said, /縮尺|scale/);
+  });
+
+  it('寸法を出すには grid が要る、とも言っている', () => {
+    assert.match(messages().validate.viewsNoGrid, /grid/);
+  });
+});
+
+describe('spec から、実物へ辿り着ける', () => {
+  it('**規則が zumen_examples を案内している**', () => {
+    const said = spec().rules.join('\n');
+    assert.ok(said.includes('zumen_examples'), `実物への案内が無い:\n${said.slice(0, 300)}`);
+  });
+
+  it('**「何を描くか」は実物にある、と言っている**', () => {
+    const rule = spec().rules.find((r) => r.includes('zumen_examples'))!;
+    assert.match(rule, /見本|実物/);
+  });
+});
+
+describe('交差は、どの 2 本かを返す', () => {
+  const CROSS = `version: 1
+kind: placement
+arrows: true
+nodes:
+  - id: a
+    label: ""
+    marker: none
+    at: { x: 40, y: 40 }
+    size: { w: 2, h: 2 }
+  - id: b
+    label: ""
+    marker: none
+    at: { x: 240, y: 240 }
+    size: { w: 2, h: 2 }
+  - id: c
+    label: ""
+    marker: none
+    at: { x: 240, y: 40 }
+    size: { w: 2, h: 2 }
+  - id: d
+    label: ""
+    marker: none
+    at: { x: 40, y: 240 }
+    size: { w: 2, h: 2 }
+edges:
+  - from: a
+    to: b
+    ends: { from: none, to: none }
+  - from: c
+    to: d
+    ends: { from: none, to: none }
+`;
+
+  it('**交わっている 2 本の id が返る**', async () => {
+    const out = await inspect(CROSS);
+    assert.equal(out.crossings, 1, '数が合っていない');
+    // 辺の id は from>to（`エッジ p0>p1` と同じ呼び方）。
+    assert.deepEqual(out.crossingEdges, [['a>b', 'c>d']]);
+  });
+
+  it('交わっていなければ空', async () => {
+    const out = await inspect(CROSS.replace('{ x: 240, y: 40 }', '{ x: 600, y: 40 }').replace('{ x: 40, y: 240 }', '{ x: 600, y: 240 }'));
+    assert.equal(out.crossings, 0);
+    assert.deepEqual(out.crossingEdges, []);
+  });
+
+  it('**inspect の説明に crossingEdges が出ている**（あるのに気づかれない口を作らない）', () => {
+    assert.match(messages().mcp.inspectDesc, /crossingEdges/);
+  });
+});

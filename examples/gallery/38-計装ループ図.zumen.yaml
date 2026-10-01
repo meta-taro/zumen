@@ -1,0 +1,112 @@
+version: 1
+wrap: true
+title: 計装ループ図（TIC-101・熱交換器の出口温度制御）
+# **ループ図は、1 つの制御ループだけを描く。**
+# P&ID がプラント全体なら、ループ図は**その中の 1 本を最後まで**追う図。
+#
+# ## TIC-101 は、名前ではなく組み立て
+#
+# 変量の文字（T ＝ 温度）＋機能の文字（I ＝ 指示、C ＝ 調節）＋個別番号。
+# **JIS Z 8204:1983** は、これを直径 10mm の丸の中へ、
+# 上に文字記号・下に個別番号と決めている。
+#
+# ## 4〜20mA なのは、0 を空けておくため
+#
+# 0mA を「測定値ゼロ」に使わない。**0 は断線**。
+# 下限を 4mA にしてあるので、線が切れたことと、値が下がったことを区別できる。
+#
+# ## 安全計装は、制御系と別に測る
+#
+# 同じ発信器から取ると、**それが壊れたときに両方とも効かない。**
+# 温度スイッチが独立して測温しているのは、そのため。
+pins:
+  tic:
+    appearance: primary
+groups:
+  - id: genba
+    label: 現場（フィールド）
+  - id: seigyo
+    label: 制御室
+  - id: anzen
+    label: 安全計装
+nodes:
+  - id: tt
+    type: generic
+    label: 温度発信器
+    tag: TT-101
+    technology: 測温抵抗体 Pt100
+    group: genba
+  - id: hx
+    type: cluster
+    label: 熱交換器
+    tag: HX-101
+    technology: 出口 設定 85℃
+    group: genba
+  - id: tv
+    type: generic
+    label: 調節弁
+    tag: TV-101
+    technology: 空気作動・FC
+    group: genba
+  - id: posi
+    type: generic
+    label: ポジショナ
+    tag: ZT-101
+    technology: 電空・開度発信
+    group: genba
+  - id: tic
+    type: cluster
+    label: 温度調節計
+    tag: TIC-101
+    technology: PID・DCS 実装
+    group: seigyo
+  - id: ti
+    type: generic
+    label: 指示計
+    tag: TI-101
+    technology: 運転画面
+    group: seigyo
+  - id: ta
+    type: queue
+    label: 上限警報
+    tag: TAH-101
+    technology: 95℃ で発報
+    group: seigyo
+  - id: tsh
+    type: generic
+    label: 温度スイッチ
+    tag: TSH-102
+    technology: 独立・105℃
+    group: anzen
+  - id: sdv
+    type: generic
+    label: 緊急遮断弁
+    tag: SDV-102
+    technology: SIL2・フェイルクローズ
+    group: anzen
+edges:
+  - from: hx
+    to: tt
+    label: 測温
+  - from: tt
+    to: tic
+    label: 4-20mA
+  - from: tic
+    to: posi
+    label: 4-20mA
+  - from: posi
+    to: tv
+  - from: tv
+    to: hx
+    label: 蒸気量
+  - from: tic
+    to: ti
+  - from: tic
+    to: ta
+    label: 95℃
+  - from: tsh
+    to: sdv
+    label: 遮断
+  - from: hx
+    to: tsh
+    label: 独立測温

@@ -1,0 +1,461 @@
+version: 1
+kind: placement
+arrows: true
+scale: { mm: 3 }
+title: 階段の寸法（2H ＋ D が同じでも、急さは別物）
+# **住宅の階段は、建築基準法で下限が決まっている。**
+# **蹴上 230mm 以下・踏面 150mm 以上・有効幅（内法）750mm 以上。**
+# **蹴上だけが「以下」** —— 踏面と幅は「以上」で縛るのに、蹴上は上限で縛る。
+# 高く上がりすぎることのほうが危ないから。
+#
+# **2H ＋ D は、歩幅に合わせる目安。**
+# 蹴上を H、踏面を D として **2H ＋ D ＝ 歩幅**（600mm 以上）。
+#
+# **ところが、同じ 610mm でも急さは別物。**
+# **蹴上 230・踏面 150 は 230 × 2 ＋ 150 ＝ 610**（勾配およそ **57 度**）。
+# **蹴上 180・踏面 250 も 180 × 2 ＋ 250 ＝ 610**（勾配およそ **36 度**）。
+# **20 度違うのに、式の上では同じ。**
+# 2H ＋ D は「歩幅に合うか」しか見ていない —— **急さは蹴上と踏面の比**で決まる。
+#
+# 家庭用の階段は **45 度前後**とされるが、**45 度はけっこう急。**
+# 法の下限いっぱいはさらに急で、**降りるときに踏面が見えない** ——
+# **上がれることと、降りられることは別。**
+#
+# **手すりの高さは 2 つある。**
+# **水平部は 1,100mm 以上、段部は 850mm 以上。**
+# 段の上に立つ人の足もとはすでに段ぶん高いので、**手の高さを揃えるために手すりは低く取る。**
+nodes:
+  - id: t1
+    label: "① 同じ 2H ＋ D ＝ 610mm でも、急さはまるで違う（1px ＝ 3mm）"
+    marker: none
+    align: left
+    at: { x: 140, y: 150 }
+    size: { w: 660, h: 20 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 249, y: 559 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 399, y: 329 }
+    size: { w: 2, h: 2 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 249, y: 559 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 399, y: 329 }
+    size: { w: 2, h: 2 }
+  - id: san
+    label: "法の下限いっぱい\n蹴上 230・踏面 150"
+    marker: none
+    align: center
+    at: { x: 220, y: 576 }
+    size: { w: 210, h: 36 }
+  - id: sad
+    label: "勾配およそ 57 度"
+    marker: none
+    align: center
+    at: { x: 220, y: 616 }
+    size: { w: 210, h: 18 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 479, y: 559 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 729, y: 379 }
+    size: { w: 2, h: 2 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 479, y: 559 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 729, y: 379 }
+    size: { w: 2, h: 2 }
+  - id: sbn
+    label: "ゆるい階段\n蹴上 180・踏面 250"
+    marker: none
+    align: center
+    at: { x: 450, y: 576 }
+    size: { w: 310, h: 36 }
+  - id: sbd
+    label: "勾配およそ 36 度"
+    marker: none
+    align: center
+    at: { x: 450, y: 616 }
+    size: { w: 310, h: 18 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 239, y: 559 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 239, y: 482.3 }
+    size: { w: 2, h: 2 }
+  - id: sa_h
+    label: "230"
+    marker: none
+    align: right
+    at: { x: 180, y: 512.7 }
+    size: { w: 54, h: 18 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 249, y: 472.3 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 299, y: 472.3 }
+    size: { w: 2, h: 2 }
+  - id: sa_d
+    label: "150"
+    marker: none
+    align: center
+    at: { x: 250, y: 451.3 }
+    size: { w: 50, h: 18 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 469, y: 559 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 469, y: 499 }
+    size: { w: 2, h: 2 }
+  - id: sb_h
+    label: "180"
+    marker: none
+    align: right
+    at: { x: 410, y: 521 }
+    size: { w: 54, h: 18 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 479, y: 489 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 562.3, y: 489 }
+    size: { w: 2, h: 2 }
+  - id: sb_d
+    label: "250"
+    marker: none
+    align: center
+    at: { x: 480, y: 468 }
+    size: { w: 83.3, h: 18 }
+  - id: ground
+    label: ""
+    hatch: lines
+    at: { x: 200, y: 560 }
+    size: { w: 620, h: 14 }
+  - id: cap1
+    label: "2H ＋ D は、どちらも 610mm。 歩幅の目安（60cm 以上）には両方とも合うのに、勾配は 20 度も違う。"
+    marker: none
+    align: center
+    at: { x: 140, y: 646 }
+    size: { w: 660, h: 18 }
+  - id: t2
+    label: "② 手すりの高さは、2 つある（高さの比だけ実物どおり）"
+    marker: none
+    align: left
+    at: { x: 140, y: 690 }
+    size: { w: 660, h: 20 }
+  - id: ground2
+    label: ""
+    hatch: lines
+    at: { x: 250, y: 940 }
+    size: { w: 460, h: 12 }
+  - id: flat
+    label: ""
+    hatch: solid
+    at: { x: 300, y: 740 }
+    size: { w: 70, h: 200 }
+  - id: flatn
+    label: "1100mm 以上"
+    marker: none
+    align: center
+    at: { x: 240, y: 716 }
+    size: { w: 190, h: 18 }
+  - id: flatw
+    label: "水平部"
+    marker: none
+    align: center
+    at: { x: 240, y: 958 }
+    size: { w: 190, h: 18 }
+  - id: flatc
+    label: "踊り場・廊下"
+    marker: none
+    align: center
+    at: { x: 240, y: 978 }
+    size: { w: 190, h: 18 }
+  - id: step
+    label: ""
+    hatch: solid
+    at: { x: 520, y: 785.5 }
+    size: { w: 70, h: 154.5 }
+  - id: stepn
+    label: "850mm 以上"
+    marker: none
+    align: center
+    at: { x: 460, y: 761.5 }
+    size: { w: 190, h: 18 }
+  - id: stepw
+    label: "段部"
+    marker: none
+    align: center
+    at: { x: 460, y: 958 }
+    size: { w: 190, h: 18 }
+  - id: stepc
+    label: "段の上"
+    marker: none
+    align: center
+    at: { x: 460, y: 978 }
+    size: { w: 190, h: 18 }
+  - id: cap2
+    label: "段部のほうが低い。 段の上に立つ人の足もとは、すでに段ぶん高い ——\n手の高さを揃えるために、手すりは低く取る。"
+    marker: none
+    align: center
+    at: { x: 140, y: 1010 }
+    size: { w: 660, h: 36 }
+  - id: t3
+    label: "③ 住宅の階段（建築基準法）"
+    marker: none
+    align: left
+    at: { x: 860, y: 150 }
+    size: { w: 420, h: 20 }
+  - id: h860_186
+    label: "最低これだけ"
+    hatch: solid
+    at: { x: 860, y: 186 }
+    size: { w: 420, h: 24 }
+  - id: x860_210
+    label: "蹴上"
+    at: { x: 860, y: 210 }
+    size: { w: 150, h: 24 }
+  - id: y860_210
+    label: "230mm 以下"
+    align: left
+    at: { x: 1010, y: 210 }
+    size: { w: 270, h: 24 }
+  - id: x860_234
+    label: "踏面"
+    at: { x: 860, y: 234 }
+    size: { w: 150, h: 24 }
+  - id: y860_234
+    label: "150mm 以上"
+    align: left
+    at: { x: 1010, y: 234 }
+    size: { w: 270, h: 24 }
+  - id: x860_258
+    label: "有効幅（内法）"
+    at: { x: 860, y: 258 }
+    size: { w: 150, h: 24 }
+  - id: y860_258
+    label: "750mm 以上"
+    align: left
+    at: { x: 1010, y: 258 }
+    size: { w: 270, h: 24 }
+  - id: x860_282
+    label: "手すり・水平部"
+    at: { x: 860, y: 282 }
+    size: { w: 150, h: 24 }
+  - id: y860_282
+    label: "1,100mm 以上"
+    align: left
+    at: { x: 1010, y: 282 }
+    size: { w: 270, h: 24 }
+  - id: x860_306
+    label: "手すり・段部"
+    at: { x: 860, y: 306 }
+    size: { w: 150, h: 24 }
+  - id: y860_306
+    label: "850mm 以上"
+    align: left
+    at: { x: 1010, y: 306 }
+    size: { w: 270, h: 24 }
+  - id: why3
+    label: "蹴上だけが「以下」。\n踏面と幅は「以上」で、蹴上は「以下」——\n高く上がりすぎないことが危ないので、\n上限で縛っている。"
+    at: { x: 860, y: 344 }
+    size: { w: 420, h: 74 }
+  - id: t4
+    label: "④ 2H ＋ D"
+    marker: none
+    align: left
+    at: { x: 860, y: 436 }
+    size: { w: 420, h: 20 }
+  - id: h860_466
+    label: "歩幅に合わせる目安"
+    hatch: solid
+    at: { x: 860, y: 466 }
+    size: { w: 420, h: 24 }
+  - id: x860_490
+    label: "式"
+    at: { x: 860, y: 490 }
+    size: { w: 150, h: 24 }
+  - id: y860_490
+    label: "蹴上 × 2 ＋ 踏面 ＝ 歩幅"
+    align: left
+    at: { x: 1010, y: 490 }
+    size: { w: 270, h: 24 }
+  - id: x860_514
+    label: "歩幅の目安"
+    at: { x: 860, y: 514 }
+    size: { w: 150, h: 24 }
+  - id: y860_514
+    label: "600mm 以上"
+    align: left
+    at: { x: 1010, y: 514 }
+    size: { w: 270, h: 24 }
+  - id: x860_538
+    label: "法の下限いっぱい"
+    at: { x: 860, y: 538 }
+    size: { w: 150, h: 24 }
+  - id: y860_538
+    label: "230 × 2 ＋ 150 ＝ 610"
+    align: left
+    at: { x: 1010, y: 538 }
+    size: { w: 270, h: 24 }
+  - id: x860_562
+    label: "ゆるい階段"
+    at: { x: 860, y: 562 }
+    size: { w: 150, h: 24 }
+  - id: y860_562
+    label: "180 × 2 ＋ 250 ＝ 610"
+    align: left
+    at: { x: 1010, y: 562 }
+    size: { w: 270, h: 24 }
+  - id: why4
+    label: "同じ 610 でも、急さは別物。\n2H ＋ D は「歩幅に合うか」しか見ていない ——\n急さは蹴上と踏面の比で決まるので、\nこの式だけでは決められない。"
+    at: { x: 860, y: 600 }
+    size: { w: 420, h: 74 }
+  - id: t5
+    label: "⑤ 勾配"
+    marker: none
+    align: left
+    at: { x: 860, y: 692 }
+    size: { w: 420, h: 20 }
+  - id: h860_722
+    label: "何度になるか"
+    hatch: solid
+    at: { x: 860, y: 722 }
+    size: { w: 420, h: 24 }
+  - id: x860_746
+    label: "法の下限いっぱい"
+    at: { x: 860, y: 746 }
+    size: { w: 150, h: 24 }
+  - id: y860_746
+    label: "およそ 57 度"
+    align: left
+    at: { x: 1010, y: 746 }
+    size: { w: 270, h: 24 }
+  - id: x860_770
+    label: "家庭用のふつう"
+    at: { x: 860, y: 770 }
+    size: { w: 150, h: 24 }
+  - id: y860_770
+    label: "45 度前後"
+    align: left
+    at: { x: 1010, y: 770 }
+    size: { w: 270, h: 24 }
+  - id: x860_794
+    label: "ゆるい階段"
+    at: { x: 860, y: 794 }
+    size: { w: 150, h: 24 }
+  - id: y860_794
+    label: "およそ 36 度"
+    align: left
+    at: { x: 1010, y: 794 }
+    size: { w: 270, h: 24 }
+  - id: why5
+    label: "45 度は、けっこう急。\n法の下限いっぱいはさらに急で、\n降りるときに踏面が見えない ——\n上がれることと、降りられることは別。"
+    at: { x: 860, y: 832 }
+    size: { w: 420, h: 74 }
+  - id: r1
+    label: "住宅の階段は、蹴上 230mm 以下・踏面 150mm 以上・幅 750mm 以上です（③）。蹴上だけが「以下」で縛られています。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1060 }
+    size: { w: 1140, h: 18 }
+  - id: r2
+    label: "2H ＋ D は歩幅の目安です（④）。蹴上 230・踏面 150 も、蹴上 180・踏面 250 も、どちらも 610mm になります。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1084 }
+    size: { w: 1140, h: 18 }
+  - id: r3
+    label: "それでも勾配は 20 度違います（①⑤）。57 度と 36 度 —— この式だけでは急さを決められません。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1108 }
+    size: { w: 1140, h: 18 }
+  - id: r4
+    label: "手すりの高さは 2 つあります（②）。水平部 1,100mm 以上、段部 850mm 以上 —— 段の上では足もとがすでに高いためです。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1132 }
+    size: { w: 1140, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 250, y: 483.3 }
+      - { x: 300, y: 483.3 }
+      - { x: 300, y: 406.7 }
+      - { x: 350, y: 406.7 }
+      - { x: 350, y: 330 }
+  - from: p2
+    to: p3
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p4
+    to: p5
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 480, y: 500 }
+      - { x: 563.3, y: 500 }
+      - { x: 563.3, y: 440 }
+      - { x: 646.7, y: 440 }
+      - { x: 646.7, y: 380 }
+  - from: p6
+    to: p7
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p8
+    to: p9
+    curve: none
+    ends: { from: arrow, to: arrow }
+  - from: p10
+    to: p11
+    curve: none
+    ends: { from: arrow, to: arrow }
+  - from: p12
+    to: p13
+    curve: none
+    ends: { from: arrow, to: arrow }
+  - from: p14
+    to: p15
+    curve: none
+    ends: { from: arrow, to: arrow }

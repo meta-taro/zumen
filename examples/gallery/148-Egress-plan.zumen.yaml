@@ -1,0 +1,268 @@
+version: 1
+kind: placement
+arrows: true
+title: "Egress plan — office floor (fictional)"
+scale: { in: 3 }
+grid:
+  x:
+    - { id: A, at: 60 }
+    - { id: B, at: 100 }
+    - { id: C, at: 500 }
+    - { id: D, at: 540 }
+  y:
+    - { id: 1, at: 60 }
+    - { id: 2, at: 164 }
+    - { id: 3, at: 196 }
+    - { id: 4, at: 300 }
+# **Three different lengths, three different questions.**
+#
+# | | |
+# |---|---|
+# | Common path | how far before you can choose between two exits |
+# | Dead end | how far into a corridor that goes nowhere |
+# | Exit access travel | how far to an exit once you can choose |
+#
+# Sprinklers lengthen all three —— which is why the egress plan and the
+# sprinkler plan get read together（見本 145）.
+#
+# **Occupant load decides how many exits; travel distance decides where.**
+# 48 people would allow a single exit; the conference room pushes the floor
+# past 49, so two are required.
+#
+# **日本語の見本 22（避難経路図）と対。**
+#
+# Occupancy, areas and distances are fictional.
+nodes:
+  - id: floor
+    label: ""
+    at: { x: 60, y: 60 }
+    size: { w: 480, h: 240 }
+  - id: corr
+    label: "CORRIDOR"
+    hatch: dots
+    at: { x: 100, y: 164 }
+    size: { w: 400, h: 32 }
+  - id: stA
+    label: "STAIR A"
+    technology: "EXIT"
+    hatch: lines
+    at: { x: 60, y: 140 }
+    size: { w: 40, h: 80 }
+  - id: stB
+    label: "STAIR B"
+    technology: "EXIT"
+    hatch: lines
+    at: { x: 500, y: 140 }
+    size: { w: 40, h: 80 }
+  - id: open
+    label: "OPEN OFFICE"
+    technology: "3,120 sq ft"
+    at: { x: 100, y: 60 }
+    size: { w: 240, h: 104 }
+  - id: conf
+    label: "CONFERENCE"
+    technology: "600 sq ft"
+    at: { x: 340, y: 60 }
+    size: { w: 160, h: 60 }
+  - id: brk
+    label: "BREAK"
+    technology: "440 sq ft"
+    at: { x: 340, y: 120 }
+    size: { w: 160, h: 44 }
+  - id: o1
+    label: "OFFICE 1"
+    at: { x: 100, y: 196 }
+    size: { w: 88, h: 104 }
+  - id: o2
+    label: "OFFICE 2"
+    at: { x: 188, y: 196 }
+    size: { w: 88, h: 104 }
+  - id: o3
+    label: "OFFICE 3"
+    at: { x: 276, y: 196 }
+    size: { w: 88, h: 104 }
+  - id: store
+    label: "STORAGE"
+    at: { x: 364, y: 196 }
+    size: { w: 56, h: 104 }
+  - id: dead
+    label: "DEAD END"
+    technology: "18 ft"
+    hatch: cross
+    at: { x: 420, y: 196 }
+    size: { w: 80, h: 80 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 460, y: 276 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 460, y: 180 }
+    size: { w: 2, h: 2 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 508, y: 180 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 108, y: 180 }
+    size: { w: 2, h: 2 }
+  - id: d1
+    label: "common path 46'-0\""
+    marker: none
+    align: left
+    at: { x: 428, y: 284 }
+    size: { w: 180, h: 18 }
+  - id: d2
+    label: "to STAIR B  12'-0\""
+    marker: none
+    align: left
+    at: { x: 464, y: 148 }
+    size: { w: 170, h: 18 }
+  - id: d3
+    label: "to STAIR A  88'-0\""
+    marker: none
+    align: left
+    at: { x: 220, y: 148 }
+    size: { w: 170, h: 18 }
+  - id: h60
+    label: "LIMITS  (IBC, sprinklered)"
+    hatch: solid
+    at: { x: 610, y: 60 }
+    size: { w: 430, h: 22 }
+  - id: a82
+    label: "Common path"
+    at: { x: 610, y: 82 }
+    size: { w: 210, h: 22 }
+  - id: b82
+    label: "100 ft  —  here 46 ft"
+    align: left
+    at: { x: 820, y: 82 }
+    size: { w: 220, h: 22 }
+  - id: a104
+    label: "Dead-end corridor"
+    at: { x: 610, y: 104 }
+    size: { w: 210, h: 22 }
+  - id: b104
+    label: "50 ft  —  here 18 ft"
+    align: left
+    at: { x: 820, y: 104 }
+    size: { w: 220, h: 22 }
+  - id: a126
+    label: "Exit access travel"
+    at: { x: 610, y: 126 }
+    size: { w: 210, h: 22 }
+  - id: b126
+    label: "250 ft  —  here 100 ft"
+    align: left
+    at: { x: 820, y: 126 }
+    size: { w: 220, h: 22 }
+  - id: a148
+    label: "Unsprinklered"
+    at: { x: 610, y: 148 }
+    size: { w: 210, h: 22 }
+  - id: b148
+    label: "75 / 20 / 200 ft"
+    align: left
+    at: { x: 820, y: 148 }
+    size: { w: 220, h: 22 }
+  - id: h184
+    label: "OCCUPANT LOAD"
+    hatch: solid
+    at: { x: 610, y: 184 }
+    size: { w: 430, h: 22 }
+  - id: a206
+    label: "Business, 150 sq ft gross"
+    at: { x: 610, y: 206 }
+    size: { w: 210, h: 22 }
+  - id: b206
+    label: "7,200 sq ft  =  48"
+    align: left
+    at: { x: 820, y: 206 }
+    size: { w: 220, h: 22 }
+  - id: a228
+    label: "Conference, 15 sq ft net"
+    at: { x: 610, y: 228 }
+    size: { w: 210, h: 22 }
+  - id: b228
+    label: "600 sq ft  =  40"
+    align: left
+    at: { x: 820, y: 228 }
+    size: { w: 220, h: 22 }
+  - id: a250
+    label: "Floor total"
+    at: { x: 610, y: 250 }
+    size: { w: 210, h: 22 }
+  - id: b250
+    label: "88 occupants"
+    align: left
+    at: { x: 820, y: 250 }
+    size: { w: 220, h: 22 }
+  - id: a272
+    label: "Exits required"
+    at: { x: 610, y: 272 }
+    size: { w: 210, h: 22 }
+  - id: b272
+    label: "2  (over 49)"
+    align: left
+    at: { x: 820, y: 272 }
+    size: { w: 220, h: 22 }
+  - id: h308
+    label: "WHY TWO EXITS"
+    hatch: solid
+    at: { x: 610, y: 308 }
+    size: { w: 430, h: 22 }
+  - id: a330
+    label: "48 alone would allow one"
+    at: { x: 610, y: 330 }
+    size: { w: 210, h: 22 }
+  - id: b330
+    label: "if the common path stayed short"
+    align: left
+    at: { x: 820, y: 330 }
+    size: { w: 220, h: 22 }
+  - id: a352
+    label: "88 with the conference room"
+    at: { x: 610, y: 352 }
+    size: { w: 210, h: 22 }
+  - id: b352
+    label: "puts the floor over 49, so two"
+    align: left
+    at: { x: 820, y: 352 }
+    size: { w: 220, h: 22 }
+  - id: n1
+    label: "Three lengths, three questions: how far before a choice, how far into a blind corridor, how far to an exit."
+    marker: none
+    align: left
+    at: { x: 60, y: 396 }
+    size: { w: 780, h: 18 }
+  - id: n2
+    label: "Sprinklers lengthen all three, which is why this plan is read beside the sprinkler plan."
+    marker: none
+    align: left
+    at: { x: 60, y: 418 }
+    size: { w: 780, h: 18 }
+  - id: n3
+    label: "Occupant load decides how many exits; travel distance decides where they go."
+    marker: none
+    align: left
+    at: { x: 60, y: 440 }
+    size: { w: 780, h: 18 }
+  - id: n4
+    label: "Occupancy, areas and distances are fictional."
+    marker: none
+    align: left
+    at: { x: 60, y: 462 }
+    size: { w: 780, h: 18 }
+edges:
+  - from: p0
+    to: p1
+  - from: p1
+    to: p2
+  - from: p1
+    to: p3
+    line: dashed

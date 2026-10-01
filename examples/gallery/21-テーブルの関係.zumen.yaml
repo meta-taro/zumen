@@ -1,0 +1,111 @@
+version: 1
+title: 受注管理のテーブル関係（ER・鳥の足記法）
+# **鳥の足（crow's foot）は、線の端の形が「何個つながるか」を言う。**
+# 線そのものではなく、**端**を読む図。
+#
+# | 端の形 | 意味 |
+# |---|---|
+# | 三またの足 | 多（0 個以上、または 1 個以上） |
+# | 縦棒 1 本 | ちょうど 1 |
+# | 丸 ＋ 三またの足 | 0 以上（まだ 1 件も無くてよい） |
+# | 丸 ＋ 縦棒 | 0 または 1 |
+#
+# **「0 でもよい」かどうかは、業務のほうから決まる。**
+# まだ 1 件も注文していない顧客はいる（顧客 → 受注は **0 以上**）。
+# 一度も売れていない商品もある（商品 → 明細も **0 以上**）。
+# 受注 1 件に対する出荷は、**まだ無いか 1 回**（0 または 1）——
+# **端の形が、その表に何が入り得るかをそのまま言っている。**
+#
+# ## 受注と受注明細を分けるのは、個数が違うから
+#
+# 受注 1 件に明細は何行でも付く。**同じ表に入れると、受注の日付が行の数だけ重複する。**
+# 表を分ける理由は、たいていこの「個数の違い」にある。
+#
+# ## 価格を商品から分けるのは、時間があるから
+#
+# 商品は 1 つでも、価格は時期で変わる。**過去の受注は、そのときの価格で残す。**
+#
+# ## 表は矩形で描く（円柱にしない）
+#
+# 鳥の足記法（IE 記法）の実体は**矩形**。円柱は「データベース（格納庫）」の記号なので、
+# 表 1 つずつを円柱にすると「DB が 8 個ある」と読まれる。
+# **在庫（商品×倉庫）の 2 本も、矢印ではなく端の形で言う**（商品 1 に対して在庫行は 0 以上）。
+pins:
+  juchu:
+    appearance: primary
+groups:
+  - id: master
+    label: マスタ
+  - id: torihiki
+    label: 取引
+  - id: zaiko
+    label: 在庫
+nodes:
+  - id: kokyaku
+    type: generic
+    label: 顧客
+    tag: customers
+    technology: PK customer_id
+    group: master
+  - id: shohin
+    type: generic
+    label: 商品
+    tag: products
+    technology: PK product_id
+    group: master
+  - id: tanka
+    type: generic
+    label: 価格
+    tag: price_lists
+    technology: 期間つき
+    group: master
+  - id: juchu
+    type: generic
+    label: 受注
+    tag: orders
+    technology: PK order_id
+    group: torihiki
+  - id: meisai
+    type: generic
+    label: 受注明細
+    tag: order_items
+    technology: FK order_id
+    group: torihiki
+  - id: shukka
+    type: generic
+    label: 出荷
+    tag: shipments
+    group: torihiki
+  - id: souko
+    type: generic
+    label: 倉庫
+    tag: warehouses
+    group: zaiko
+  - id: stocks
+    type: generic
+    label: 在庫
+    tag: stocks
+    technology: 商品×倉庫
+    group: zaiko
+edges:
+  - from: kokyaku
+    to: juchu
+    ends: { from: bar, to: dot-crow }
+  - from: juchu
+    to: meisai
+    ends: { from: bar, to: crow }
+  - from: shohin
+    to: meisai
+    ends: { from: bar, to: dot-crow }
+  - from: shohin
+    to: tanka
+    ends: { from: bar, to: crow }
+  - from: juchu
+    to: shukka
+    ends: { from: bar, to: dot-bar }
+  - from: shohin
+    to: stocks
+    ends: { from: bar, to: dot-crow }
+  - from: souko
+    to: stocks
+    ends: { from: bar, to: dot-crow }

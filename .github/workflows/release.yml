@@ -1,0 +1,255 @@
+name: release
+
+# **配布物を作る。** タグを打ったときと、手で回したとき。
+#
+# この Mac 単体では Windows 版を作れない（Tauri はクロスビルドを実質サポートしない）。
+# **CI で `macos-latest` と `windows-latest` の両方を回す。**
+# 姉妹プロジェクト warifu が同じ形で作っているので、そこへ揃える。
+#
+# ## 署名について
+#
+# 署名と公証には秘密情報が要る。**AI は作らない・置かない・貼らない**（ベースルール §14）。
+# 人が GitHub の Secrets へ入れる。**名前だけをここに書く。**
+#
+#   APPLE_SIGNING_IDENTITY      … "Developer ID Application: …" の文字列
+#   APPLE_CERTIFICATE           … .p12 を base64 にしたもの
+#   APPLE_CERTIFICATE_PASSWORD  … その .p12 のパスワード
+#   APPLE_ID / APPLE_PASSWORD / APPLE_TEAM_ID … 公証に使う（app 用パスワード）
+#
+# **揃っていなければ、署名せずに作る。ただし黙って作らない** —
+# 出来たものが「配れないもの」だと分かる形で出す。
+# 署名なしの .dmg を配ると、受け取った Mac は「壊れている」と言って開かない。
+# Windows は「WindowsによってPCが保護されました」を出す。
+#
+# ## MCP サーバは、これとは別に配れる
+#
+# エージェントに図を描かせるだけなら、殻は要らない。
+# Node があればどこでも動く（ネイティブ依存が無い）。`docs/install.md` を見ること。
+
+# **develop でも回す**（Issue #7）。
+#
+# 理由は、**殻でしか出ない壊れ方を、誰も確かめられなかった**から。
+# 自動保存（D19）・「見た」の記録（D20）・ドラッグ＆ドロップ・
+# ネイティブの保存ダイアログは、`pnpm gui:check`（Chrome）では触れない。
+#
+# Rust の無い機械では `pnpm app` が建たないので、**成果物が無い ＝ 触る手段が無い**。
+# 実際、報告者の Windows では**デスクトップ版を 1 度も触れていなかった**。
+#
+# タグを待つと、直すたびに実機で確かめられない。**develop で出す。**
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - develop
+    tags:
+      - 'v*'
+
+# タグを打ったときは、**Release へ実物を貼る**（下の release ジョブ）。
+# Actions の Artifacts は **GitHub にログインしないと落とせない**ので、
+# 外の人へ配るには足りない（紹介のページから辿れる先が要る）。
+permissions:
+  contents: write
+
+jobs:
+  macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+
+      - run: corepack enable
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: 画面を束ねる
+        run: pnpm build:app
+
+      # 秘密情報が揃っているかを、**値を出さずに**言う。
+      #
+      # **3 つとも揃っていなければ「揃っていない」とする**（2026-09-08 に直した）。
+      # 以前は `APPLE_SIGNING_IDENTITY` 1 つしか見ておらず、
+      # **`APPLE_CERTIFICATE` だけが入っている状態でビルドが落ちた。**
+      #
+      #     if [ -n "" ]        ← IDENTITY は空なので「署名しない」と判定
+      #     failed codesign application: failed to import keychain certificate
+      #
+      # tauri は `APPLE_CERTIFICATE` があるだけで署名へ進むので、
+      # **判定が偽でも、環境変数を渡していれば署名が始まる。**
+      # 揃っていないときは**渡さない**ようにした（下の env）。
+      #
+      # 値は `env:` 経由で見る。**script へ直に埋めない** —
+      # 秘密情報に引用符が入っていると、そこで shell が壊れる。
+      - name: 署名できるか
+        id: signing
+        env:
+          IDENTITY: ${{ secrets.APPLE_SIGNING_IDENTITY }}
+          CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
+          CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+        # `[ -z "$X" ] && …` と書かない。**条件が偽のとき戻り値が 1 になり、
+        # `bash -e` がそこで止まる**（GitHub の既定シェルは `bash -e`）。
+        run: |
+          missing=""
+          if [ -z "$IDENTITY" ]; then missing="$missing APPLE_SIGNING_IDENTITY"; fi
+          if [ -z "$CERTIFICATE" ]; then missing="$missing APPLE_CERTIFICATE"; fi
+          if [ -z "$CERTIFICATE_PASSWORD" ]; then missing="$missing APPLE_CERTIFICATE_PASSWORD"; fi
+          if [ -z "$missing" ]; then
+            echo "3 つとも揃っています。署名して作ります。"
+            echo "signed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "**署名しません。** 受け取った Mac は「壊れている」と言って開きません。"
+            echo "足りないもの:$missing"
+            echo "**一部だけ入れると、以前はここで落ちていました。** 揃うまでは署名せずに作ります。"
+            echo "配るときは Secrets へ入れてください（人の作業。ベースルール §14）。"
+            echo "signed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      # **段を 2 つに分ける。**「空を渡す」では駄目だった（2026-09-08。実測 2 回）。
+      #
+      # tauri は `APPLE_CERTIFICATE` が**存在するか**だけを見て署名へ進む。
+      # GitHub Actions の `env:` は**空文字でも変数を定義する**ので、
+      #
+      #     APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}   # secret が無ければ ''
+      #     APPLE_CERTIFICATE: ${{ … && secrets.… || '' }}        # これも ''
+      #
+      # どちらも「空だが存在する」になり、**署名が始まって鍵の取り込みで落ちる。**
+      #
+      #     failed codesign application: failed to import keychain certificate
+      #
+      # secret が 1 つも入っていない状態でも同じように落ちていた。
+      # **変数を定義しないためには、その `env:` を持つ段ごと動かさないしかない。**
+      - name: 殻を建てる（署名する）
+        if: steps.signing.outputs.signed == 'true'
+        env:
+          APPLE_SIGNING_IDENTITY: ${{ secrets.APPLE_SIGNING_IDENTITY }}
+          APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
+          APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+        run: pnpm exec tauri build
+
+      # **APPLE_* を 1 つも定義しない段。** ここが「署名しない」の実体。
+      - name: 殻を建てる（署名しない）
+        if: steps.signing.outputs.signed != 'true'
+        run: pnpm exec tauri build
+
+      # **何ができたかを実物で言う。** 「建った」だけでは、配れるものが出たか分からない。
+      - name: できたものを並べる
+        run: |
+          find src-tauri/target/release/bundle -type f \
+            \( -name '*.dmg' -o -name '*.app.tar.gz' \) -exec ls -l {} \;
+          echo "署名: ${{ steps.signing.outputs.signed }}"
+
+      # **インストーラだけでは足りない**（Issue #7）。
+      #
+      # 署名していない `.dmg` は、受け取った Mac が「壊れている」と言って開かない。
+      # **置いてそのまま起動できるもの**が要る。`.app` をそのまま固めて上げる。
+      - name: 素の .app を固める
+        run: |
+          cd src-tauri/target/release/bundle/macos
+          tar czf "$GITHUB_WORKSPACE/zumen-macos-app.tar.gz" zumen.app
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: zumen-macos
+          path: |
+            src-tauri/target/release/bundle/**/*.dmg
+            zumen-macos-app.tar.gz
+          if-no-files-found: error
+
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+
+      - run: corepack enable
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: 画面を束ねる
+        run: pnpm build:app
+
+      # **署名していない。** 受け取った Windows は
+      # 「WindowsによってPCが保護されました」を出す。手順は docs/install.md。
+      - name: 殻を建てる
+        run: pnpm exec tauri build
+
+      - name: できたものを並べる
+        shell: bash
+        run: |
+          find src-tauri/target/release/bundle -type f \
+            \( -name '*.msi' -o -name '*.exe' \) -exec ls -l {} \;
+          ls -l src-tauri/target/release/zumen.exe
+
+      # **インストーラだけでは足りない**（Issue #7）。
+      #
+      # 署名していない `.msi` / `setup.exe` は
+      # 「WindowsによってPCが保護されました」で止まる環境がある。
+      # `src-tauri/target/release/zumen.exe` は**置いてそのまま起動できる**。
+      # `bundle/` の下だけを拾っていたので、これまで上げていなかった。
+      - uses: actions/upload-artifact@v4
+        with:
+          name: zumen-windows
+          path: |
+            src-tauri/target/release/bundle/**/*.msi
+            src-tauri/target/release/bundle/**/*.exe
+            src-tauri/target/release/zumen.exe
+          if-no-files-found: error
+
+  # --- タグを打ったときだけ、Release へ貼る ---------------------------------
+  #
+  # **Artifacts はログインが要る。** 紹介のページ（site/）から辿るのは Release。
+  # develop への push では走らない（配るものは、人がタグを打って決める）。
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: [macos, windows]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/download-artifact@v4
+        with:
+          path: out
+
+      - name: 貼るものを並べる
+        run: find out -type f -exec ls -l {} \;
+
+      # **署名していないことを、受け取る前に言う。**
+      # 黙って配ると「壊れている」とだけ出て、原因が分からない。
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: out/**/*
+          generate_release_notes: true
+          body: |
+            **アルファ版です。署名していません。**
+
+            | | 出るもの | 開き方 |
+            |---|---|---|
+            | Windows | 「WindowsによってPCが保護されました」 | 詳細情報 → 実行。または署名の要らない `zumen.exe` を使う |
+            | mac | 「壊れているため開けません」 | 右クリック → 開く。または `xattr -d com.apple.quarantine` |
+
+            **`zumen.exe` と `zumen-macos-app.tar.gz` は、置いてそのまま起動できます。**
+            インストーラ（`.msi` / `setup.exe` / `.dmg`）より確実です。
+
+            mac 版は Apple Silicon 用だけです。
+
+            変更の記録は [CHANGELOG.md](../blob/develop/CHANGELOG.md)。

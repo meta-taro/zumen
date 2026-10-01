@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="917" height="451" viewBox="0 0 917 451">
+<title>Cloud architecture</title>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#63636e"/></marker></defs>
+<rect data-paper="1" x="0" y="0" width="917" height="451" fill="#ffffff"/>
+<g data-group="pub"><rect x="99" y="281" width="208" height="124" rx="8" fill="#f0f0f3" stroke="#63636e" stroke-dasharray="6 4"/><text x="111" y="303" font-family="sans-serif" font-size="13" fill="#63636e">Public subnet</text></g>
+<g data-group="pri"><rect x="375" y="165" width="216" height="262" rx="8" fill="#f0f0f3" stroke="#63636e" stroke-dasharray="6 4"/><text x="387" y="187" font-family="sans-serif" font-size="13" fill="#63636e">Private subnet</text></g>
+<g data-group="mgd"><rect x="657" y="56" width="236" height="360" rx="8" fill="#f0f0f3" stroke="#63636e" stroke-dasharray="6 4"/><text x="669" y="78" font-family="sans-serif" font-size="13" fill="#63636e">Managed</text></g>
+<g data-edge="net&gt;lb" data-pinned="false"><path d="M 314 82 L 606 82 L 606 144 L 24 144 L 24 351 L 123 351" fill="none" stroke="#63636e" stroke-width="1" marker-end="url(#arrow)"/><rect data-edge-label="1" x="326" y="127" width="26" height="14" fill="#ffffff"/><text x="339" y="138" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#63636e">443</text></g>
+<g data-edge="lb&gt;web1" data-pinned="false"><path d="M 283 341 L 324 341 L 324 247 L 399 247" fill="none" stroke="#63636e" stroke-width="1" marker-end="url(#arrow)"/></g>
+<g data-edge="lb&gt;web2" data-pinned="false"><path d="M 283 361 L 399 361" fill="none" stroke="#63636e" stroke-width="1" marker-end="url(#arrow)"/></g>
+<g data-edge="web1&gt;kv" data-pinned="false"><path d="M 567 247 L 626 247 L 626 230.3 L 681 230.3" fill="none" stroke="#63636e" stroke-width="1" marker-end="url(#arrow)"/><rect data-edge-label="1" x="598" y="224" width="56" height="14" fill="#ffffff"/><text x="626" y="235" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#63636e">sessions</text></g>
+<g data-edge="web1&gt;db" data-pinned="false"><path d="M 567 268 L 606 268 L 606 329.7 L 681 329.7" fill="none" stroke="#63636e" stroke-width="1" marker-end="url(#arrow)"/></g>
+<g data-edge="web2&gt;db" data-pinned="false"><path d="M 567 361 L 681 361" fill="none" stroke="#63636e" stroke-width="1" marker-end="url(#arrow)"/></g>
+<g data-edge="web1&gt;bkt" data-pinned="false"><path d="M 567 226 L 616 226 L 616 129.3 L 681 129.3" fill="none" stroke="#63636e" stroke-width="1" marker-end="url(#arrow)"/><rect data-edge-label="1" x="591" y="153" width="50" height="14" fill="#ffffff"/><text x="616" y="164" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#63636e">uploads</text></g>
+<g data-node="lb" data-pinned="false" data-shape="rect"><rect x="123" y="321" width="160" height="60" rx="6" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="web1" data-pinned="false" data-shape="double"><rect x="399" y="205" width="168" height="84" rx="6" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/><rect x="403" y="209" width="160" height="76" rx="4" fill="none" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="web2" data-pinned="false" data-shape="double"><rect x="399" y="319" width="168" height="84" rx="6" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/><rect x="403" y="323" width="160" height="76" rx="4" fill="none" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="kv" data-pinned="false" data-shape="hexagon"><polygon points="695,192 855,192 869,230 855,268 695,268 681,230" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="db" data-pinned="false" data-appearance="primary" data-shape="cylinder"><path d="M 681 307 L 681 383 A 80 9 0 0 0 841 383 L 841 307" fill="#eeeefb" stroke="#5b5bd6" stroke-width="1"/><ellipse cx="761" cy="307" rx="80" ry="9" fill="#eeeefb" stroke="#5b5bd6" stroke-width="1"/></g>
+<g data-node="bkt" data-pinned="false" data-shape="stacked"><rect x="687" y="96" width="164" height="60" rx="4" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/><rect x="681" y="102" width="164" height="60" rx="4" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-node="net" data-pinned="false" data-shape="cloud"><path d="M 132 124 A 42 42 0 0 1 132 73.6 A 50.4 50.4 0 0 1 202 40 A 46.2 46.2 0 0 1 272 73.6 A 42 42 0 0 1 272 124 Z" fill="#ffffff" stroke="#1c1c22" stroke-width="1"/></g>
+<g data-name="lb"><text x="203" y="356" text-anchor="middle" font-family="sans-serif" font-size="15" fill="#1c1c22">Load balancer</text></g>
+<g data-name="web1"><text x="483" y="245" text-anchor="middle" font-family="sans-serif" font-size="15" fill="#1c1c22">web-1</text><text x="483" y="263" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#63636e">node 22</text></g>
+<g data-name="web2"><text x="483" y="359" text-anchor="middle" font-family="sans-serif" font-size="15" fill="#1c1c22">web-2</text><text x="483" y="377" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#63636e">node 22</text></g>
+<g data-name="kv"><text x="775" y="228" text-anchor="middle" font-family="sans-serif" font-size="15" fill="#1c1c22">Redis</text><text x="775" y="246" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#63636e">7.2</text></g>
+<g data-name="db"><text x="761" y="352" text-anchor="middle" font-family="sans-serif" font-size="15" fill="#1c1c22">PostgreSQL</text><text x="761" y="370" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#63636e">16</text></g>
+<g data-name="bkt"><text x="766" y="137" text-anchor="middle" font-family="sans-serif" font-size="15" fill="#1c1c22">Object storage</text></g>
+<g data-name="net"><text x="202" y="87" text-anchor="middle" font-family="sans-serif" font-size="15" fill="#1c1c22">Internet</text></g>
+</svg>

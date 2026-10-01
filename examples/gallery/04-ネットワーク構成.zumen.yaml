@@ -1,0 +1,90 @@
+version: 1
+wrap: true
+# 無線は破線、有線は実線（線種で区別する。色は使わない）。
+title: 事務所のネットワーク構成（VLAN10 と VLAN20）
+# **構成図で意味があるのは、箱ではなく VLAN の線。**
+# 事務所（VLAN10）と DMZ（VLAN20）を分けてあるので、
+# **公開 Web が乗っ取られても、事務 PC へは直接行けない。**
+#
+# 事務所は 192.168.10.0/24、DMZ は 192.168.20.0/24。**題に片方だけ書くと、DMZ が同じ網に見える。**
+#
+# ## ファイアウォールは 1 つでも、面は 3 つ
+#
+# ファイアウォールは **DMZ の枠の外**に置く。DMZ の中に描くと、
+# 外と内を仕切る装置が公開側の網の一員に見えてしまう。
+#
+# 外・DMZ・内の 3 方向を持つ。**どの向きの通信を許すか**が設定の中身で、
+# 図はその向きを描くために要る。
+#
+# ## 無線 AP は、事務所側に置いてある
+#
+# 来客に貸すなら別の VLAN を切る。
+# **同じ AP でも、どの VLAN に載せるかで意味が変わる。**
+pins:
+  fw:
+    appearance: primary
+groups:
+  - id: office
+    label: 事務所 VLAN10
+  - id: dmz
+    label: DMZ VLAN20
+nodes:
+  - id: isp
+    type: internet
+    label: 光回線
+    technology: 1Gbps・固定 1 個
+  - id: fw
+    type: network
+    label: ファイアウォール
+    tag: FW-01
+    technology: .10.1 / .20.1
+  - id: web
+    type: server
+    label: 公開 Web
+    tag: WEB-01
+    technology: 192.168.20.10
+    group: dmz
+  - id: sw
+    type: network
+    label: L2 スイッチ
+    tag: SW-01
+    technology: 24 ポート・PoE
+    group: office
+  - id: ap
+    type: network
+    label: 無線 AP
+    tag: AP-01/02
+    technology: Wi-Fi 6・2 台
+    group: office
+  - id: nas
+    type: storage
+    label: 共有フォルダ
+    tag: NAS-01
+    technology: 192.168.10.20
+    group: office
+  - id: pc
+    type: generic
+    label: 事務 PC
+    tag: PC-01〜12
+    technology: DHCP .100〜.150
+    group: office
+edges:
+  - from: isp
+    to: fw
+    label: WAN
+  - from: fw
+    to: web
+    label: VLAN20
+  - from: fw
+    to: sw
+    label: VLAN10
+  - from: sw
+    to: ap
+    label: PoE
+  - from: sw
+    to: nas
+    label: 1Gbps
+  - from: ap
+    to: pc
+    label: Wi-Fi
+    line: dashed

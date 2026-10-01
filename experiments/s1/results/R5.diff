@@ -1,0 +1,106 @@
+  version: 1
+  title: 本番構成
+  
+  # 人が直した分。AI はこの節を書かない。
+  # S1 では、これが再生成で消えないかを測る。
+  pins:
+    db:
+      position: { x: 620, y: 410 }
+      locked: true
+    monitor:
+      size: { w: 220, h: 80 }
+      label: 監視（Zabbix）
+    web01>db:
+      waypoints:
+        - x: 340
+          y: 300
+  
+  groups:
+    - id: vpc
+      label: Production VPC
+  
+  nodes:
+    - id: internet
+      type: internet
+      label: Internet
+  
+    - id: lb
+      type: load-balancer
+      label: Load Balancer
+      group: vpc
+  
+    - id: web01
+      type: server
+      label: Web 01
+      technology: Apache
+      group: vpc
+  
+    - id: web02
+      type: server
+      label: Web 02
+      technology: Apache
+      group: vpc
+  
+    # 監視は本番と同じ VPC に置く。外へ出すと踏み台が要る。
+    - id: monitor
+      type: server
+      label: Monitoring
+      group: vpc
+  
+    - id: db
+      type: database
+      label: MariaDB
+      group: vpc
+  
+    - id: replica
+      type: database
+      label: MariaDB Replica
+      group: vpc
+  
+    - id: redis
+      type: cache
+      label: Redis
+      group: vpc
+  
+    - id: web03
+      type: server
+      label: Web 03
+      technology: Apache
+      group: vpc
+  
+  edges:
+    - from: internet
+      to: lb
+      protocol: HTTPS
+  
+    - from: lb
+      to: web01
+  
+    - from: lb
+      to: web02
+  
+    - from: web01
+      to: db
+  
+    - from: web02
+      to: db
+  
+    - from: db
+      to: replica
+      label: replication
+  
+    - from: monitor
+      to: web01
+  
+    - from: web01
+      to: redis
+  
+    - from: web02
+      to: redis
+  
+    - from: lb
+      to: web03
+  
+    - from: web03
+      to: db
+  

@@ -1,0 +1,73 @@
+version: 1
+wrap: true
+direction: right
+title: 食品トレーサビリティ（1 段ずつの記録が、鎖になる）
+# **1 つの事業者が持つのは、自分の前と後ろの 1 段だけ。**
+# 「どこから来たか」と「どこへ行ったか」を記録しておけば、
+# **その鎖をつなぐと、端から端までたどれる** ——
+# 全部の履歴を 1 か所に集める仕組みではない。だから**誰か 1 人が記録を欠くと、そこで鎖が切れる。**
+#
+# **図に描いてあるのは鎖そのもの（追跡の向き）。** 遡及は**同じ鎖を逆から読む**だけで、
+# 別の線を引く必要はない —— **鎖が 1 本つながっていれば、どちらの向きにも使える。**
+#
+# **向きが 2 つある。** 下流から上流へさかのぼるのが**遡及**（この食品はどこから来たか）、
+# 上流から下流へたどるのが**追跡**（この原料はどこへ行ったか）。
+# 事故が起きたときに要るのは**両方** —— 原因を探すのが遡及、回収する先を出すのが追跡。
+#
+# **鎖をつなぐ鍵が、ロット番号。** どの範囲を 1 ロットにするかで、
+# **回収の大きさが決まる** —— 1 日分を 1 ロットにすれば 1 日分を回収することになり、
+# 1 時間ごとに分ければ 1 時間分で済む。**細かく分けるほど記録の手間は増える。**
+#
+# **牛は法律で番号が決まっている。** 2003 年の BSE を受けた牛トレーサビリティ法で、
+# 国内で飼われる牛には **10 桁の個体識別番号**の耳標が義務づけられ、
+# 番号は生産からと畜・販売まで伝達される —— **1 頭ごとにたどれる。**
+# 米には米トレーサビリティ法（米穀等の取引等に係る情報の記録および伝達に関する法律）がある。
+nodes:
+  - id: seisan
+    type: generic
+    label: 生産者
+    technology: 誰が・いつ・どの畑
+  - id: syuka
+    type: generic
+    label: 集荷・産地
+    technology: 生産者ごとに分ける
+  - id: seizo
+    type: generic
+    label: 製造・加工
+    technology: ここでロット番号を振る
+  - id: oroshi
+    type: generic
+    label: 卸
+    technology: 入荷と出荷を突き合わせる
+  - id: kouri
+    type: generic
+    label: 小売
+    technology: 棚に並ぶ単位
+  - id: syohi
+    type: generic
+    label: 消費者
+  - id: lot
+    type: database
+    label: ロット番号
+    technology: どこまでを 1 ロットにするか
+  - id: kaisyu
+    type: generic
+    label: 回収の範囲
+    technology: ロットの大きさで決まる
+edges:
+  - from: seisan
+    to: syuka
+  - from: syuka
+    to: seizo
+  - from: seizo
+    to: oroshi
+  - from: oroshi
+    to: kouri
+  - from: kouri
+    to: syohi
+  - from: seizo
+    to: lot
+    label: 振る
+  - from: lot
+    to: kaisyu
+    label: 大きさ

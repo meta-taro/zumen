@@ -1,0 +1,47 @@
+# お知らせ（LP の「お知らせ」と feed.xml の元）。新しい順。表示は new ＝ 追加・fix ＝ 更新・feat ＝ 機能追加。
+# 列：日付 ／ 種類（new ＝ 見本を足した・fix ＝ 見本を直した・feat ＝ 機能が増えた）／ 見本の番号（feat は名前）／ 一言（日本語）／ 一言（英語）
+# new の一言は空でよい（見本の説明文を使う）。fix は、読む人に効く直しだけを書く（事実の誤り・読み違いの元）。
+# feat は、使う人から見てできることが増えたものだけ（CHANGELOG の「できることが増えます」と同じ線）。内部の整理は書かない。
+# CHANGELOG の「未リリース」で増えた項目には `<!-- news: 名前 -->` を付け、ここに同じ名前の feat を置く。
+# **いちばん新しい見本がここに無いと、テストが落ちる**（test/news.test.ts）。
+2026-09-30	feat	door-check	検査（inspect）が、開き戸の扇に乗っている名前・設備を知らせる	inspect now reports names and fixtures inside a door swing
+2026-09-30	feat	door-swing	開き戸の開く向き（swing: out）と蝶番の側（hinge）。日本の玄関と便所は外開き	Door swing (swing: out) and hinge side (hinge). Japanese front doors and toilets open outward
+2026-09-30	fix	362	玄関を外開きに、便所の扉が台所の流し台に開いていたのを直した	The front door now opens outward; the toilet door no longer opens onto the kitchen counter
+2026-09-29	fix	318	旧来の書き方の量は 1 日量（1 回量と説明していた）	In the old notation the quantity is per day, not per dose
+2026-09-29	fix	132	図の半径ではクレーンの定格を超えていた。置き場を半径 10m の内側へ	At the drawn radius the crane was over its rated load; the laydown moved inside 10 m
+2026-09-29	fix	50	平滑コンデンサが LED と直列で、LED が点かない回路だった	The smoothing capacitor was in series with the LED, so the LED could never light
+2026-09-29	fix	81	東西線・南北線・丸ノ内線・日比谷線・大江戸線の通り方	Routes of the Tozai, Namboku, Marunouchi, Hibiya and Oedo lines
+2026-09-29	fix	166	開き戸の弧が扇形でなく、蝶番側へ凹んでいた（すべての見本で直した）。バルコニーへの出口は引き違いに	Swing-door arcs bulged the wrong way, hollowing towards the hinge (fixed in every example); the balcony exit is now a sliding sash
+2026-09-29	new	368
+2026-09-29	new	367
+2026-09-29	fix	166	柱と床の張り方（洋室と LDK はフローリング、水まわりはタイル）を足した	Added columns and floor finishes: boards in the rooms and living area, tiles in the wet areas
+2026-09-29	new	366
+2026-09-28	new	365
+2026-09-28	new	364
+2026-09-28	new	363
+2026-09-28	new	362
+2026-09-28	new	361
+2026-09-28	new	360
+2026-09-28	new	359
+2026-09-28	fix	173	柱を入れ、バルコニーのデッキを床の模様に。文字に線が乗っていた 3 か所を直した	Added columns; the balcony deck is now a floor pattern; three labels no longer sit on lines
+2026-09-28	feat	styles	見せ方の表（styles）。同じ間取りのまま、表を差し替えるだけで作風が変わる	Style tables (styles): swap the table and the same plan takes another house style
+2026-09-28	feat	floor-patterns	床の模様 rows・columns・grid（フローリングの横張り・縦張り・タイル）	Floor patterns rows, columns and grid (boards laid across or lengthwise, tiles)
+2026-09-28	feat	embed-font	書体を図の中へ入れられるようになった（--embed-font）。どの端末でも同じ字形	Embed the typeface in a diagram (--embed-font), so it looks the same on every device
+2026-09-27	new	358
+2026-09-27	new	357
+2026-09-27	new	356
+2026-09-27	new	355
+2026-09-27	fix	315	震度が 10 階級になったのは 1996 年 10 月（4 月ではなかった）	The ten-step intensity scale began in October 1996, not April
+2026-09-27	fix	228	「脈 120/分」は二次トリアージの基準。START は橈骨動脈が触れるかで見る	A pulse of 120 is a secondary-triage criterion; START checks the radial pulse
+2026-09-27	fix	221	気象庁の情報の列を足した（2026 年 5 月から、情報名にもレベルの数字）	Added the Meteorological Agency column: its warnings carry level numbers since May 2026
+2026-09-27	new	354
+2026-09-25	new	353
+2026-09-25	fix	322	SO2 の結合角は 119°（109.45° と書いていた）	The bond angle of SO2 is 119°, not 109.45°
+2026-09-25	new	352
+2026-09-25	new	351
+2026-09-25	new	350
+2026-09-25	new	349
+2026-09-25	new	348
+2026-09-25	new	347
+2026-09-25	new	346
+2026-09-25	new	345

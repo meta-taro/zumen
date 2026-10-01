@@ -1,0 +1,1344 @@
+version: 1
+kind: placement
+arrows: true
+title: 点字の 6 点（JIS T 0921:2017）
+scale: { mm: 0.05 }
+views:
+  - id: detail
+    title: ① 1 マスの寸法（1px ＝ 0.05mm）
+    at: { x: 120, y: 170 }
+    size: { w: 560, h: 424 }
+    scale: { mm: 0.05 }
+    grid:
+      x:
+        - { id: X1, at: 250 }
+        - { id: X2, at: 302 }
+        - { id: X3, at: 390 }
+      y:
+        - { id: Y1, at: 330 }
+        - { id: Y2, at: 434 }
+        - { id: Y3, at: 554 }
+  - id: chart
+    title: ②③ かなと数字（1px ＝ 0.125mm）
+    at: { x: 690, y: 200 }
+    size: { w: 470, h: 611.6 }
+    scale: { mm: 0.125 }
+# **6 点しかない。**
+#
+# だから「あ」と「1」は**同じ形**で、前に**数符**があるかどうかで決まる。
+# 母音は ①②④ だけで作り、子音はそこへ点を足す（か行は ⑥ を足すだけ）。
+#
+# 漢字が無いので、**語で区切る「ますあけ」**が要る ——
+# 区切らないと「ここで／はきもの」と「ここでは／きもの」のどちらにも読める。
+nodes:
+  - id: one_1
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 235.5, y: 315.5 }
+    size: { w: 29, h: 29 }
+  - id: one_2
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 235.5, y: 367.5 }
+    size: { w: 29, h: 29 }
+  - id: one_3
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 235.5, y: 419.5 }
+    size: { w: 29, h: 29 }
+  - id: one_4
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 287.5, y: 315.5 }
+    size: { w: 29, h: 29 }
+  - id: one_5
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 287.5, y: 367.5 }
+    size: { w: 29, h: 29 }
+  - id: one_6
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 287.5, y: 419.5 }
+    size: { w: 29, h: 29 }
+  - id: num1
+    label: "①"
+    marker: none
+    align: center
+    at: { x: 188, y: 321 }
+    size: { w: 40, h: 18 }
+  - id: num2
+    label: "②"
+    marker: none
+    align: center
+    at: { x: 188, y: 373 }
+    size: { w: 40, h: 18 }
+  - id: num3
+    label: "③"
+    marker: none
+    align: center
+    at: { x: 188, y: 425 }
+    size: { w: 40, h: 18 }
+  - id: num4
+    label: "④"
+    marker: none
+    align: center
+    at: { x: 324, y: 321 }
+    size: { w: 40, h: 18 }
+  - id: num5
+    label: "⑤"
+    marker: none
+    align: center
+    at: { x: 324, y: 373 }
+    size: { w: 40, h: 18 }
+  - id: num6
+    label: "⑥"
+    marker: none
+    align: center
+    at: { x: 324, y: 425 }
+    size: { w: 40, h: 18 }
+  - id: t1
+    label: "① 点字は 6 点しかない（縦 3 × 横 2）"
+    marker: none
+    align: left
+    at: { x: 150, y: 190 }
+    size: { w: 460, h: 20 }
+  - id: t1b
+    label: "　番号は、左の上から ①②③、右の上から ④⑤⑥。"
+    marker: none
+    align: left
+    at: { x: 150, y: 212 }
+    size: { w: 460, h: 18 }
+  - id: one2_1
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 375.5, y: 315.5 }
+    size: { w: 29, h: 29 }
+  - id: one2_2
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 375.5, y: 367.5 }
+    size: { w: 29, h: 29 }
+  - id: one2_3
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 375.5, y: 419.5 }
+    size: { w: 29, h: 29 }
+  - id: one2_4
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 427.5, y: 315.5 }
+    size: { w: 29, h: 29 }
+  - id: one2_5
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 427.5, y: 367.5 }
+    size: { w: 29, h: 29 }
+  - id: one2_6
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 427.5, y: 419.5 }
+    size: { w: 29, h: 29 }
+  - id: one3_1
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 235.5, y: 539.5 }
+    size: { w: 29, h: 29 }
+  - id: one3_2
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 235.5, y: 591.5 }
+    size: { w: 29, h: 29 }
+  - id: one3_3
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 235.5, y: 643.5 }
+    size: { w: 29, h: 29 }
+  - id: one3_4
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 287.5, y: 539.5 }
+    size: { w: 29, h: 29 }
+  - id: one3_5
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 287.5, y: 591.5 }
+    size: { w: 29, h: 29 }
+  - id: one3_6
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 287.5, y: 643.5 }
+    size: { w: 29, h: 29 }
+  - id: dim_d
+    label: "点の直径 d ＝ 1.3 〜 1.6mm"
+    marker: none
+    align: left
+    at: { x: 482, y: 322 }
+    size: { w: 300, h: 18 }
+  - id: dim_h
+    label: "点の高さ h ＝ 0.4 〜 0.7mm（丸く）"
+    marker: none
+    align: left
+    at: { x: 482, y: 342 }
+    size: { w: 300, h: 18 }
+  - id: dim_n
+    label: "p はマス間隔、q は行の空き"
+    marker: none
+    align: left
+    at: { x: 482, y: 362 }
+    size: { w: 300, h: 18 }
+  - id: t2
+    label: "② 母音は ①②④ だけで作る"
+    marker: none
+    align: left
+    at: { x: 700, y: 220 }
+    size: { w: 460, h: 20 }
+  - id: t2b
+    label: "　子音は、そこへ点を足す。か行は ⑥ を足すだけ。"
+    marker: none
+    align: left
+    at: { x: 700, y: 242 }
+    size: { w: 460, h: 18 }
+  - id: v0_1
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 784.2, y: 324.2 }
+    size: { w: 11.6, h: 11.6 }
+  - id: v0_2
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 784.2, y: 345 }
+    size: { w: 11.6, h: 11.6 }
+  - id: v0_3
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 784.2, y: 365.8 }
+    size: { w: 11.6, h: 11.6 }
+  - id: v0_4
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 805, y: 324.2 }
+    size: { w: 11.6, h: 11.6 }
+  - id: v0_5
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 805, y: 345 }
+    size: { w: 11.6, h: 11.6 }
+  - id: v0_6
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 805, y: 365.8 }
+    size: { w: 11.6, h: 11.6 }
+  - id: v0n
+    label: "あ"
+    marker: none
+    align: center
+    at: { x: 760.6, y: 385.6 }
+    size: { w: 58.8, h: 18 }
+  - id: v0d
+    label: "1"
+    marker: none
+    align: center
+    at: { x: 760.6, y: 403.6 }
+    size: { w: 58.8, h: 16 }
+  - id: v1_1
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 851.4, y: 324.2 }
+    size: { w: 11.6, h: 11.6 }
+  - id: v1_2
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 851.4, y: 345 }
+    size: { w: 11.6, h: 11.6 }
+  - id: v1_3
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 851.4, y: 365.8 }
+    size: { w: 11.6, h: 11.6 }
+  - id: v1_4
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 872.2, y: 324.2 }
+    size: { w: 11.6, h: 11.6 }
+  - id: v1_5
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 872.2, y: 345 }
+    size: { w: 11.6, h: 11.6 }
+  - id: v1_6
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 872.2, y: 365.8 }
+    size: { w: 11.6, h: 11.6 }
+  - id: v1n
+    label: "い"
+    marker: none
+    align: center
+    at: { x: 827.8, y: 385.6 }
+    size: { w: 58.8, h: 18 }
+  - id: v1d
+    label: "12"
+    marker: none
+    align: center
+    at: { x: 827.8, y: 403.6 }
+    size: { w: 58.8, h: 16 }
+  - id: v2_1
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 918.6, y: 324.2 }
+    size: { w: 11.6, h: 11.6 }
+  - id: v2_2
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 918.6, y: 345 }
+    size: { w: 11.6, h: 11.6 }
+  - id: v2_3
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 918.6, y: 365.8 }
+    size: { w: 11.6, h: 11.6 }
+  - id: v2_4
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 939.4, y: 324.2 }
+    size: { w: 11.6, h: 11.6 }
+  - id: v2_5
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 939.4, y: 345 }
+    size: { w: 11.6, h: 11.6 }
+  - id: v2_6
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 939.4, y: 365.8 }
+    size: { w: 11.6, h: 11.6 }
+  - id: v2n
+    label: "う"
+    marker: none
+    align: center
+    at: { x: 895, y: 385.6 }
+    size: { w: 58.8, h: 18 }
+  - id: v2d
+    label: "14"
+    marker: none
+    align: center
+    at: { x: 895, y: 403.6 }
+    size: { w: 58.8, h: 16 }
+  - id: v3_1
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 985.8, y: 324.2 }
+    size: { w: 11.6, h: 11.6 }
+  - id: v3_2
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 985.8, y: 345 }
+    size: { w: 11.6, h: 11.6 }
+  - id: v3_3
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 985.8, y: 365.8 }
+    size: { w: 11.6, h: 11.6 }
+  - id: v3_4
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 1006.6, y: 324.2 }
+    size: { w: 11.6, h: 11.6 }
+  - id: v3_5
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 1006.6, y: 345 }
+    size: { w: 11.6, h: 11.6 }
+  - id: v3_6
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 1006.6, y: 365.8 }
+    size: { w: 11.6, h: 11.6 }
+  - id: v3n
+    label: "え"
+    marker: none
+    align: center
+    at: { x: 962.2, y: 385.6 }
+    size: { w: 58.8, h: 18 }
+  - id: v3d
+    label: "124"
+    marker: none
+    align: center
+    at: { x: 962.2, y: 403.6 }
+    size: { w: 58.8, h: 16 }
+  - id: v4_1
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 1053, y: 324.2 }
+    size: { w: 11.6, h: 11.6 }
+  - id: v4_2
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 1053, y: 345 }
+    size: { w: 11.6, h: 11.6 }
+  - id: v4_3
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 1053, y: 365.8 }
+    size: { w: 11.6, h: 11.6 }
+  - id: v4_4
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 1073.8, y: 324.2 }
+    size: { w: 11.6, h: 11.6 }
+  - id: v4_5
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 1073.8, y: 345 }
+    size: { w: 11.6, h: 11.6 }
+  - id: v4_6
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 1073.8, y: 365.8 }
+    size: { w: 11.6, h: 11.6 }
+  - id: v4n
+    label: "お"
+    marker: none
+    align: center
+    at: { x: 1029.4, y: 385.6 }
+    size: { w: 58.8, h: 18 }
+  - id: v4d
+    label: "24"
+    marker: none
+    align: center
+    at: { x: 1029.4, y: 403.6 }
+    size: { w: 58.8, h: 16 }
+  - id: k0_1
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 784.2, y: 454.2 }
+    size: { w: 11.6, h: 11.6 }
+  - id: k0_2
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 784.2, y: 475 }
+    size: { w: 11.6, h: 11.6 }
+  - id: k0_3
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 784.2, y: 495.8 }
+    size: { w: 11.6, h: 11.6 }
+  - id: k0_4
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 805, y: 454.2 }
+    size: { w: 11.6, h: 11.6 }
+  - id: k0_5
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 805, y: 475 }
+    size: { w: 11.6, h: 11.6 }
+  - id: k0_6
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 805, y: 495.8 }
+    size: { w: 11.6, h: 11.6 }
+  - id: k0n
+    label: "か"
+    marker: none
+    align: center
+    at: { x: 760.6, y: 515.6 }
+    size: { w: 58.8, h: 18 }
+  - id: k0d
+    label: "16"
+    marker: none
+    align: center
+    at: { x: 760.6, y: 533.6 }
+    size: { w: 58.8, h: 16 }
+  - id: k1_1
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 851.4, y: 454.2 }
+    size: { w: 11.6, h: 11.6 }
+  - id: k1_2
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 851.4, y: 475 }
+    size: { w: 11.6, h: 11.6 }
+  - id: k1_3
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 851.4, y: 495.8 }
+    size: { w: 11.6, h: 11.6 }
+  - id: k1_4
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 872.2, y: 454.2 }
+    size: { w: 11.6, h: 11.6 }
+  - id: k1_5
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 872.2, y: 475 }
+    size: { w: 11.6, h: 11.6 }
+  - id: k1_6
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 872.2, y: 495.8 }
+    size: { w: 11.6, h: 11.6 }
+  - id: k1n
+    label: "き"
+    marker: none
+    align: center
+    at: { x: 827.8, y: 515.6 }
+    size: { w: 58.8, h: 18 }
+  - id: k1d
+    label: "126"
+    marker: none
+    align: center
+    at: { x: 827.8, y: 533.6 }
+    size: { w: 58.8, h: 16 }
+  - id: k2_1
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 918.6, y: 454.2 }
+    size: { w: 11.6, h: 11.6 }
+  - id: k2_2
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 918.6, y: 475 }
+    size: { w: 11.6, h: 11.6 }
+  - id: k2_3
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 918.6, y: 495.8 }
+    size: { w: 11.6, h: 11.6 }
+  - id: k2_4
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 939.4, y: 454.2 }
+    size: { w: 11.6, h: 11.6 }
+  - id: k2_5
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 939.4, y: 475 }
+    size: { w: 11.6, h: 11.6 }
+  - id: k2_6
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 939.4, y: 495.8 }
+    size: { w: 11.6, h: 11.6 }
+  - id: k2n
+    label: "く"
+    marker: none
+    align: center
+    at: { x: 895, y: 515.6 }
+    size: { w: 58.8, h: 18 }
+  - id: k2d
+    label: "146"
+    marker: none
+    align: center
+    at: { x: 895, y: 533.6 }
+    size: { w: 58.8, h: 16 }
+  - id: k3_1
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 985.8, y: 454.2 }
+    size: { w: 11.6, h: 11.6 }
+  - id: k3_2
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 985.8, y: 475 }
+    size: { w: 11.6, h: 11.6 }
+  - id: k3_3
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 985.8, y: 495.8 }
+    size: { w: 11.6, h: 11.6 }
+  - id: k3_4
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 1006.6, y: 454.2 }
+    size: { w: 11.6, h: 11.6 }
+  - id: k3_5
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 1006.6, y: 475 }
+    size: { w: 11.6, h: 11.6 }
+  - id: k3_6
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 1006.6, y: 495.8 }
+    size: { w: 11.6, h: 11.6 }
+  - id: k3n
+    label: "け"
+    marker: none
+    align: center
+    at: { x: 962.2, y: 515.6 }
+    size: { w: 58.8, h: 18 }
+  - id: k3d
+    label: "1246"
+    marker: none
+    align: center
+    at: { x: 962.2, y: 533.6 }
+    size: { w: 58.8, h: 16 }
+  - id: k4_1
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 1053, y: 454.2 }
+    size: { w: 11.6, h: 11.6 }
+  - id: k4_2
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 1053, y: 475 }
+    size: { w: 11.6, h: 11.6 }
+  - id: k4_3
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 1053, y: 495.8 }
+    size: { w: 11.6, h: 11.6 }
+  - id: k4_4
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 1073.8, y: 454.2 }
+    size: { w: 11.6, h: 11.6 }
+  - id: k4_5
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 1073.8, y: 475 }
+    size: { w: 11.6, h: 11.6 }
+  - id: k4_6
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 1073.8, y: 495.8 }
+    size: { w: 11.6, h: 11.6 }
+  - id: k4n
+    label: "こ"
+    marker: none
+    align: center
+    at: { x: 1029.4, y: 515.6 }
+    size: { w: 58.8, h: 18 }
+  - id: k4d
+    label: "246"
+    marker: none
+    align: center
+    at: { x: 1029.4, y: 533.6 }
+    size: { w: 58.8, h: 16 }
+  - id: kplus
+    label: "↑ どれも ⑥ が足してあるだけ"
+    marker: none
+    align: left
+    at: { x: 760, y: 557.6 }
+    size: { w: 340, h: 18 }
+  - id: t3
+    label: "③ 「あ」と「1」は同じ形"
+    marker: none
+    align: left
+    at: { x: 700, y: 606 }
+    size: { w: 460, h: 20 }
+  - id: t3b
+    label: "　前に 数符 を置くと、そこから先は数字になる。"
+    marker: none
+    align: left
+    at: { x: 700, y: 628 }
+    size: { w: 460, h: 18 }
+  - id: d0_1
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 784.2, y: 684.2 }
+    size: { w: 11.6, h: 11.6 }
+  - id: d0_2
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 784.2, y: 705 }
+    size: { w: 11.6, h: 11.6 }
+  - id: d0_3
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 784.2, y: 725.8 }
+    size: { w: 11.6, h: 11.6 }
+  - id: d0_4
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 805, y: 684.2 }
+    size: { w: 11.6, h: 11.6 }
+  - id: d0_5
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 805, y: 705 }
+    size: { w: 11.6, h: 11.6 }
+  - id: d0_6
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 805, y: 725.8 }
+    size: { w: 11.6, h: 11.6 }
+  - id: d0n
+    label: "数符"
+    marker: none
+    align: center
+    at: { x: 760.6, y: 745.6 }
+    size: { w: 58.8, h: 18 }
+  - id: d0d
+    label: "3456"
+    marker: none
+    align: center
+    at: { x: 760.6, y: 763.6 }
+    size: { w: 58.8, h: 16 }
+  - id: d1_1
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 851.4, y: 684.2 }
+    size: { w: 11.6, h: 11.6 }
+  - id: d1_2
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 851.4, y: 705 }
+    size: { w: 11.6, h: 11.6 }
+  - id: d1_3
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 851.4, y: 725.8 }
+    size: { w: 11.6, h: 11.6 }
+  - id: d1_4
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 872.2, y: 684.2 }
+    size: { w: 11.6, h: 11.6 }
+  - id: d1_5
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 872.2, y: 705 }
+    size: { w: 11.6, h: 11.6 }
+  - id: d1_6
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 872.2, y: 725.8 }
+    size: { w: 11.6, h: 11.6 }
+  - id: d1n
+    label: "1"
+    marker: none
+    align: center
+    at: { x: 827.8, y: 745.6 }
+    size: { w: 58.8, h: 18 }
+  - id: d1d
+    label: "1"
+    marker: none
+    align: center
+    at: { x: 827.8, y: 763.6 }
+    size: { w: 58.8, h: 16 }
+  - id: d2_1
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 918.6, y: 684.2 }
+    size: { w: 11.6, h: 11.6 }
+  - id: d2_2
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 918.6, y: 705 }
+    size: { w: 11.6, h: 11.6 }
+  - id: d2_3
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 918.6, y: 725.8 }
+    size: { w: 11.6, h: 11.6 }
+  - id: d2_4
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 939.4, y: 684.2 }
+    size: { w: 11.6, h: 11.6 }
+  - id: d2_5
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 939.4, y: 705 }
+    size: { w: 11.6, h: 11.6 }
+  - id: d2_6
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 939.4, y: 725.8 }
+    size: { w: 11.6, h: 11.6 }
+  - id: d2n
+    label: "2"
+    marker: none
+    align: center
+    at: { x: 895, y: 745.6 }
+    size: { w: 58.8, h: 18 }
+  - id: d2d
+    label: "12"
+    marker: none
+    align: center
+    at: { x: 895, y: 763.6 }
+    size: { w: 58.8, h: 16 }
+  - id: d3_1
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 985.8, y: 684.2 }
+    size: { w: 11.6, h: 11.6 }
+  - id: d3_2
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 985.8, y: 705 }
+    size: { w: 11.6, h: 11.6 }
+  - id: d3_3
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 985.8, y: 725.8 }
+    size: { w: 11.6, h: 11.6 }
+  - id: d3_4
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 1006.6, y: 684.2 }
+    size: { w: 11.6, h: 11.6 }
+  - id: d3_5
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 1006.6, y: 705 }
+    size: { w: 11.6, h: 11.6 }
+  - id: d3_6
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 1006.6, y: 725.8 }
+    size: { w: 11.6, h: 11.6 }
+  - id: d3n
+    label: "3"
+    marker: none
+    align: center
+    at: { x: 962.2, y: 745.6 }
+    size: { w: 58.8, h: 18 }
+  - id: d3d
+    label: "14"
+    marker: none
+    align: center
+    at: { x: 962.2, y: 763.6 }
+    size: { w: 58.8, h: 16 }
+  - id: d4_1
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 1053, y: 684.2 }
+    size: { w: 11.6, h: 11.6 }
+  - id: d4_2
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 1053, y: 705 }
+    size: { w: 11.6, h: 11.6 }
+  - id: d4_3
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 1053, y: 725.8 }
+    size: { w: 11.6, h: 11.6 }
+  - id: d4_4
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 1073.8, y: 684.2 }
+    size: { w: 11.6, h: 11.6 }
+  - id: d4_5
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 1073.8, y: 705 }
+    size: { w: 11.6, h: 11.6 }
+  - id: d4_6
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 1073.8, y: 725.8 }
+    size: { w: 11.6, h: 11.6 }
+  - id: d4n
+    label: "4"
+    marker: none
+    align: center
+    at: { x: 1029.4, y: 745.6 }
+    size: { w: 58.8, h: 18 }
+  - id: d4d
+    label: "145"
+    marker: none
+    align: center
+    at: { x: 1029.4, y: 763.6 }
+    size: { w: 58.8, h: 16 }
+  - id: d5_1
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 1120.2, y: 684.2 }
+    size: { w: 11.6, h: 11.6 }
+  - id: d5_2
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 1120.2, y: 705 }
+    size: { w: 11.6, h: 11.6 }
+  - id: d5_3
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 1120.2, y: 725.8 }
+    size: { w: 11.6, h: 11.6 }
+  - id: d5_4
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 1141, y: 684.2 }
+    size: { w: 11.6, h: 11.6 }
+  - id: d5_5
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 1141, y: 705 }
+    size: { w: 11.6, h: 11.6 }
+  - id: d5_6
+    label: ""
+    marker: circle
+    line: dotted
+    at: { x: 1141, y: 725.8 }
+    size: { w: 11.6, h: 11.6 }
+  - id: d5n
+    label: "5"
+    marker: none
+    align: center
+    at: { x: 1096.6, y: 745.6 }
+    size: { w: 58.8, h: 18 }
+  - id: d5d
+    label: "15"
+    marker: none
+    align: center
+    at: { x: 1096.6, y: 763.6 }
+    size: { w: 58.8, h: 16 }
+  - id: same
+    label: "「1」「2」「3」は「あ」「い」「う」と同じ形"
+    marker: none
+    align: left
+    at: { x: 760, y: 785.6 }
+    size: { w: 380, h: 18 }
+  - id: t4
+    label: "④ 点字には漢字が無い。だから「ますあけ」が要る"
+    marker: none
+    align: left
+    at: { x: 150, y: 796 }
+    size: { w: 560, h: 20 }
+  - id: e1
+    label: "ここではきものをぬいでください"
+    at: { x: 180, y: 840 }
+    size: { w: 600, h: 34 }
+  - id: e2
+    label: "ここで はきもの を ぬいで ください"
+    at: { x: 180, y: 898 }
+    size: { w: 600, h: 34 }
+  - id: e3
+    label: "ここでは きもの を ぬいで ください"
+    at: { x: 180, y: 948 }
+    size: { w: 600, h: 34 }
+  - id: e1n
+    label: "← 切らないと、どちらにも読める"
+    marker: none
+    align: left
+    at: { x: 800, y: 848 }
+    size: { w: 300, h: 18 }
+  - id: e2n
+    label: "← 履物"
+    marker: none
+    align: left
+    at: { x: 800, y: 906 }
+    size: { w: 300, h: 18 }
+  - id: e3n
+    label: "← 着物"
+    marker: none
+    align: left
+    at: { x: 800, y: 956 }
+    size: { w: 300, h: 18 }
+  - id: h190
+    label: "寸法（JIS T 0921:2017・mm）"
+    hatch: solid
+    at: { x: 1180, y: 190 }
+    size: { w: 470, h: 24 }
+  - id: x214
+    label: "点の直径 d"
+    at: { x: 1180, y: 214 }
+    size: { w: 200, h: 24 }
+  - id: y214
+    label: "1.3 〜 1.6"
+    align: left
+    at: { x: 1380, y: 214 }
+    size: { w: 270, h: 24 }
+  - id: x238
+    label: "点の高さ h"
+    at: { x: 1180, y: 238 }
+    size: { w: 200, h: 24 }
+  - id: y238
+    label: "0.4 〜 0.7"
+    align: left
+    at: { x: 1380, y: 238 }
+    size: { w: 270, h: 24 }
+  - id: x262
+    label: "垂直点間隔 a"
+    at: { x: 1180, y: 262 }
+    size: { w: 200, h: 24 }
+  - id: y262
+    label: "2.3 〜 2.9"
+    align: left
+    at: { x: 1380, y: 262 }
+    size: { w: 270, h: 24 }
+  - id: x286
+    label: "水平点間隔 b"
+    at: { x: 1180, y: 286 }
+    size: { w: 200, h: 24 }
+  - id: y286
+    label: "2.3 〜 2.9"
+    align: left
+    at: { x: 1380, y: 286 }
+    size: { w: 270, h: 24 }
+  - id: x310
+    label: "マス間隔 p"
+    at: { x: 1180, y: 310 }
+    size: { w: 200, h: 24 }
+  - id: y310
+    label: "5.0 〜 7.0"
+    align: left
+    at: { x: 1380, y: 310 }
+    size: { w: 270, h: 24 }
+  - id: x334
+    label: "行間隔 q"
+    at: { x: 1180, y: 334 }
+    size: { w: 200, h: 24 }
+  - id: y334
+    label: "5.0 〜 7.0"
+    align: left
+    at: { x: 1380, y: 334 }
+    size: { w: 270, h: 24 }
+  - id: x358
+    label: "屋外・車内"
+    at: { x: 1180, y: 358 }
+    size: { w: 200, h: 24 }
+  - id: y358
+    label: "h は 0.5 以上が望ましい"
+    align: left
+    at: { x: 1380, y: 358 }
+    size: { w: 270, h: 24 }
+  - id: x382
+    label: "点の形"
+    at: { x: 1180, y: 382 }
+    size: { w: 200, h: 24 }
+  - id: y382
+    label: "丸い（平らでも尖ってもいけない）"
+    align: left
+    at: { x: 1380, y: 382 }
+    size: { w: 270, h: 24 }
+  - id: h424
+    label: "組み立て"
+    hatch: solid
+    at: { x: 1180, y: 424 }
+    size: { w: 470, h: 24 }
+  - id: x448
+    label: "1 マス"
+    at: { x: 1180, y: 448 }
+    size: { w: 200, h: 24 }
+  - id: y448
+    label: "縦 3 × 横 2 の 6 点"
+    align: left
+    at: { x: 1380, y: 448 }
+    size: { w: 270, h: 24 }
+  - id: x472
+    label: "番号"
+    at: { x: 1180, y: 472 }
+    size: { w: 200, h: 24 }
+  - id: y472
+    label: "左が上から ①②③、右が ④⑤⑥"
+    align: left
+    at: { x: 1380, y: 472 }
+    size: { w: 270, h: 24 }
+  - id: x496
+    label: "母音"
+    at: { x: 1180, y: 496 }
+    size: { w: 200, h: 24 }
+  - id: y496
+    label: "①②④ の組み合わせだけで作る"
+    align: left
+    at: { x: 1380, y: 496 }
+    size: { w: 270, h: 24 }
+  - id: x520
+    label: "か行"
+    at: { x: 1180, y: 520 }
+    size: { w: 200, h: 24 }
+  - id: y520
+    label: "母音に ⑥ を足す"
+    align: left
+    at: { x: 1380, y: 520 }
+    size: { w: 270, h: 24 }
+  - id: x544
+    label: "さ行"
+    at: { x: 1180, y: 544 }
+    size: { w: 200, h: 24 }
+  - id: y544
+    label: "母音に ⑤⑥ を足す"
+    align: left
+    at: { x: 1380, y: 544 }
+    size: { w: 270, h: 24 }
+  - id: x568
+    label: "た行"
+    at: { x: 1180, y: 568 }
+    size: { w: 200, h: 24 }
+  - id: y568
+    label: "母音に ③⑤ を足す"
+    align: left
+    at: { x: 1380, y: 568 }
+    size: { w: 270, h: 24 }
+  - id: x592
+    label: "な行"
+    at: { x: 1180, y: 592 }
+    size: { w: 200, h: 24 }
+  - id: y592
+    label: "母音に ③ を足す"
+    align: left
+    at: { x: 1380, y: 592 }
+    size: { w: 270, h: 24 }
+  - id: x616
+    label: "は行"
+    at: { x: 1180, y: 616 }
+    size: { w: 200, h: 24 }
+  - id: y616
+    label: "母音に ③⑥ を足す"
+    align: left
+    at: { x: 1380, y: 616 }
+    size: { w: 270, h: 24 }
+  - id: h658
+    label: "数字とますあけ"
+    hatch: solid
+    at: { x: 1180, y: 658 }
+    size: { w: 470, h: 24 }
+  - id: x682
+    label: "数符"
+    at: { x: 1180, y: 682 }
+    size: { w: 200, h: 24 }
+  - id: y682
+    label: "③④⑤⑥"
+    align: left
+    at: { x: 1380, y: 682 }
+    size: { w: 270, h: 24 }
+  - id: x706
+    label: "1 〜 5"
+    at: { x: 1180, y: 706 }
+    size: { w: 200, h: 24 }
+  - id: y706
+    label: "① ／ ①② ／ ①④ ／ ①④⑤ ／ ①⑤"
+    align: left
+    at: { x: 1380, y: 706 }
+    size: { w: 270, h: 24 }
+  - id: x730
+    label: "つまり"
+    at: { x: 1180, y: 730 }
+    size: { w: 200, h: 24 }
+  - id: y730
+    label: "1・2・3 は あ・い・う と同じ形"
+    align: left
+    at: { x: 1380, y: 730 }
+    size: { w: 270, h: 24 }
+  - id: x754
+    label: "見分け方"
+    at: { x: 1180, y: 754 }
+    size: { w: 200, h: 24 }
+  - id: y754
+    label: "前に数符があるかどうか"
+    align: left
+    at: { x: 1380, y: 754 }
+    size: { w: 270, h: 24 }
+  - id: x778
+    label: "ますあけ"
+    at: { x: 1180, y: 778 }
+    size: { w: 200, h: 24 }
+  - id: y778
+    label: "漢字が無いので、語で区切る"
+    align: left
+    at: { x: 1380, y: 778 }
+    size: { w: 270, h: 24 }
+  - id: x802
+    label: "区切らないと"
+    at: { x: 1180, y: 802 }
+    size: { w: 200, h: 24 }
+  - id: y802
+    label: "「ここで はきもの」と「ここでは きもの」"
+    align: left
+    at: { x: 1380, y: 802 }
+    size: { w: 270, h: 24 }
+  - id: h844
+    label: "この図に出ていないもの"
+    hatch: solid
+    at: { x: 1180, y: 844 }
+    size: { w: 470, h: 24 }
+  - id: x868
+    label: "濁音・半濁音"
+    at: { x: 1180, y: 868 }
+    size: { w: 200, h: 24 }
+  - id: y868
+    label: "前に符号を 1 マス置く"
+    align: left
+    at: { x: 1380, y: 868 }
+    size: { w: 270, h: 24 }
+  - id: x892
+    label: "拗音"
+    at: { x: 1180, y: 892 }
+    size: { w: 200, h: 24 }
+  - id: y892
+    label: "きゃ・しゅなどの合成"
+    align: left
+    at: { x: 1380, y: 892 }
+    size: { w: 270, h: 24 }
+  - id: x916
+    label: "外国語"
+    at: { x: 1180, y: 916 }
+    size: { w: 200, h: 24 }
+  - id: y916
+    label: "外字符・大文字符"
+    align: left
+    at: { x: 1380, y: 916 }
+    size: { w: 270, h: 24 }
+  - id: x940
+    label: "8 点点字"
+    at: { x: 1180, y: 940 }
+    size: { w: 200, h: 24 }
+  - id: y940
+    label: "情報処理用は 8 点のものもある"
+    align: left
+    at: { x: 1380, y: 940 }
+    size: { w: 270, h: 24 }
+  - id: n1
+    label: "点字は 6 点しかありません（縦 3 × 横 2）。番号は左の上から ①②③、右の上から ④⑤⑥ です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1010 }
+    size: { w: 1000, h: 18 }
+  - id: n2
+    label: "母音は ①②④ だけで作ります。子音は、そこへ点を足すだけ —— か行は ⑥ を足す、さ行は ⑤⑥、な行は ③。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1032 }
+    size: { w: 1000, h: 18 }
+  - id: n3
+    label: "「あ」と「1」は同じ形です。前に数符（③④⑤⑥）を置くと、そこから先が数字になります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1054 }
+    size: { w: 1000, h: 18 }
+  - id: n4
+    label: "点字には漢字がありません。だから語で区切る「ますあけ」が要ります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1076 }
+    size: { w: 1000, h: 18 }
+  - id: n5
+    label: "区切らないと「ここで／はきもの」と「ここでは／きもの」のどちらにも読めてしまいます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1098 }
+    size: { w: 1000, h: 18 }
+  - id: n6
+    label: "寸法は JIS T 0921:2017（標識・設備・機器への点字）によります。点は丸く、平らでも尖っていてもいけません。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1120 }
+    size: { w: 1000, h: 18 }
+  - id: n7
+    label: "屋外や車内では、点の高さを 0.5mm 以上にすることが望まれています。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1142 }
+    size: { w: 1000, h: 18 }
+edges:

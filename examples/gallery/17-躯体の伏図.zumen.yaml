@@ -1,0 +1,105 @@
+version: 1
+kind: placement
+title: 2 階 床伏図（RC 造）
+# **伏図は「上から見下ろして、その階の床を描く」図。**
+# 2 階床伏図なら、**描いてあるのは 1 階と 2 階の間**にある梁と柱。
+# 見えている床板ではなく、その下の骨を描く。
+#
+# ## 柱の符号は、階をまたいで同じ
+#
+# C1 は 1 階も 2 階も C1。**通し番号ではなく種類の名前**なので、
+# 同じ断面の柱はどこにあっても同じ符号になる。
+#
+# ## 大梁と小梁を分けて描く
+#
+# 大梁（G）は柱と柱をつなぎ、小梁（B）は大梁と大梁をつなぐ。
+# **荷重の行き先が違う**ので、同じ「梁」でも別の記号にする。
+# 1 px = 20 mm。柱芯の間隔 180px が 1 スパン 3,600mm になる。
+# **柱・梁の幅も同じ縮尺で描く**（C1 700 = 35px、G 400 = 20px、B1 300 = 15px）。
+# 2026-09-29 まで柱を 1,120mm 角で描いていて、表の 700×700 と合っていなかった。
+#
+# X2 の小梁 B1 は、北の G1 と南の G1 をつなぐ（大梁から大梁へ）。
+# ここに柱を立てると、B1 は柱に取り付く梁＝大梁になり、上の定義と食い違う
+# ので、X2 の南に置いていた柱 C2 を外した（南の G1 は X1〜X3 の 1 本）。
+scale: { mm: 20 }
+north: up
+grid:
+  x:
+    - { id: X1, at: 68 }
+    - { id: X2, at: 248 }
+    - { id: X3, at: 428 }
+  y:
+    - { id: Y1, at: 68 }
+    - { id: Y2, at: 368 }
+groups:
+  - id: f2
+    label: 2FL（1FL＋3,200）　C1=700×700　G1・G2=400×750
+nodes:
+  - id: c1a
+    label: 柱
+    tag: C1
+    at: { x: 50.5, y: 50.5 }
+    size: { w: 35, h: 35 }
+    group: f2
+  - id: c1b
+    label: 柱
+    tag: C1
+    at: { x: 410.5, y: 50.5 }
+    size: { w: 35, h: 35 }
+    group: f2
+  - id: c1c
+    label: 柱
+    tag: C1
+    at: { x: 50.5, y: 350.5 }
+    size: { w: 35, h: 35 }
+    group: f2
+  - id: c1d
+    label: 柱
+    tag: C1
+    at: { x: 410.5, y: 350.5 }
+    size: { w: 35, h: 35 }
+    group: f2
+  - id: g1n
+    label: 大梁
+    tag: G1
+    at: { x: 85.5, y: 58 }
+    size: { w: 325, h: 20 }
+    group: f2
+  - id: g1s
+    label: 大梁
+    tag: G1
+    at: { x: 85.5, y: 358 }
+    size: { w: 325, h: 20 }
+    group: f2
+  - id: g2w
+    label: 大梁
+    tag: G2
+    at: { x: 58, y: 85.5 }
+    size: { w: 20, h: 265 }
+    group: f2
+  - id: g2e
+    label: 大梁
+    tag: G2
+    at: { x: 418, y: 85.5 }
+    size: { w: 20, h: 265 }
+    group: f2
+  - id: b1
+    label: 小梁 B1
+    technology: 300×600
+    at: { x: 240.5, y: 78 }
+    size: { w: 15, h: 280 }
+    group: f2
+  - id: s1
+    label: スラブ
+    tag: S1
+    technology: t=180
+    at: { x: 78, y: 78 }
+    size: { w: 162.5, h: 280 }
+    group: f2
+  - id: s2
+    label: スラブ
+    tag: S2
+    technology: t=200
+    at: { x: 255.5, y: 78 }
+    size: { w: 162.5, h: 280 }
+    group: f2

@@ -1,0 +1,103 @@
+version: 1
+direction: down
+title: 組織図（2026 年度）
+# **組織図が示しているのは、指揮系統であって仕事の流れではない。**
+# 線は「誰が誰に指示できるか」で、**仕事は線を無視して横に流れる。**
+#
+# ## 直轄には意味がある
+#
+# 監査室が代表取締役の直轄なのは、**監査される側の下に置けない**から。
+# 内部監査は、指揮系統から外れていることが成立の条件になる。
+#
+# ## 並び順も情報
+#
+# 左から事業本部・管理本部と並べるのは慣習だが、
+# **同じ段に並べた部署は対等**という意味になる。段をずらすと序列が生まれる。
+#
+# ## ただし、本部の中の左右は決められない
+#
+# この図は自動配置（`direction: down`）なので、**本部の中で部署がどの順に並ぶかは
+# 機械が決める。** 正本の書き順（D-10 → D-20 → D-30）でも、辺の書き順でも変わらない
+# （2026-09-24。`qa/品質100周` 第 23 周で、辺の順を逆にして実際に確かめた）。
+#
+# だから **開発部 → 営業部 → 製造部 という左右の並びに意味は無い。**
+# 番号（D-10 / D-20 / D-30）が順序を持つ側で、**線の繋がりが親子を持つ側**。
+# 意味のある並びが要るなら、`kind: placement` で座標を書く。
+pins:
+  shacho:
+    appearance: primary
+groups:
+  - id: honbu
+    label: 事業本部
+  - id: kanri
+    label: 管理本部
+nodes:
+  - id: shacho
+    type: generic
+    label: 代表取締役
+    technology: 1 名
+  - id: eigyo
+    type: generic
+    label: 営業部
+    tag: D-10
+    technology: 12 名
+    group: honbu
+  - id: seizo
+    type: generic
+    label: 製造部
+    tag: D-20
+    technology: 34 名
+    group: honbu
+  - id: hinshitsu
+    type: generic
+    label: 品質保証部
+    tag: D-21
+    technology: 6 名
+    group: honbu
+  - id: kaihatsu
+    type: generic
+    label: 開発部
+    tag: D-30
+    technology: 9 名
+    group: honbu
+  - id: soumu
+    type: generic
+    label: 総務人事部
+    tag: D-80
+    technology: 5 名
+    group: kanri
+  - id: keiri
+    type: generic
+    label: 経理部
+    tag: D-81
+    technology: 4 名
+    group: kanri
+  - id: joho
+    type: generic
+    label: 情報システム室
+    tag: D-85
+    technology: 3 名
+    group: kanri
+  - id: kansa
+    type: generic
+    label: 監査室
+    tag: D-90
+    technology: 2 名
+edges:
+  - from: shacho
+    to: eigyo
+  - from: shacho
+    to: seizo
+  - from: shacho
+    to: kaihatsu
+  - from: shacho
+    to: soumu
+  - from: shacho
+    to: keiri
+  - from: shacho
+    to: kansa
+    label: 直轄
+  - from: seizo
+    to: hinshitsu
+  - from: soumu
+    to: joho

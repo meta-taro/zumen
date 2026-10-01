@@ -1,0 +1,131 @@
+version: 1
+kind: placement
+title: 手の太陰肺経・手の陽明大腸経（WHO/ISO 標準経穴部位）
+# **経穴の位置は、国際規格で決まっている**（WHO/ISO 標準経穴部位）。
+# 361 穴の名前・記号・位置が定義されていて、**LU（肺経）・LI（大腸経）**のように
+# 経絡ごとの記号と番号で呼ぶ。
+#
+# ## 流注（るちゅう）の向きに意味がある
+#
+# **肺経は胸から手へ、大腸経は手から顔へ。**
+# 向きが逆の 2 本が手の先でつながっていて、これを**表裏の関係**という。
+# 図で矢印の向きを描くのは、そこが治療の組み立てに効くから。
+#
+# ## 位置は骨で測る
+#
+# 経穴は「肘から何センチ」ではなく、**骨の目印の間を等分した比（骨度）**で決める。
+# 体の大きさが違っても同じ所になるように作られている。
+pins:
+  lu9:
+    appearance: primary
+groups:
+  - id: lung
+    label: 手の太陰肺経　LU（11 穴）
+  - id: li
+    label: 手の陽明大腸経　LI（20 穴）
+nodes:
+  - id: flow1
+    label: 肺経の流注は胸から手へ。大腸経は手から顔へ
+    marker: none
+    align: left
+    at: { x: 12, y: -52 }
+    size: { w: 420, h: 20 }
+  - id: lu1
+    label: 中府
+    tag: LU-1
+    technology: 前胸部・第 1 肋間
+    at: { x: 0, y: 0 }
+    size: { w: 150, h: 42 }
+    group: lung
+  - id: lu2
+    label: 雲門
+    tag: LU-2
+    technology: 鎖骨下窩
+    at: { x: 0, y: 58 }
+    size: { w: 150, h: 42 }
+    group: lung
+  - id: lu5
+    label: 尺沢
+    tag: LU-5
+    technology: 肘窩・二頭筋腱外方
+    at: { x: 0, y: 116 }
+    size: { w: 150, h: 42 }
+    group: lung
+  - id: lu7
+    label: 列缺
+    tag: LU-7
+    technology: 手関節横紋の上 1.5 寸
+    at: { x: 0, y: 174 }
+    size: { w: 150, h: 42 }
+    group: lung
+  - id: lu9
+    label: 太淵
+    tag: LU-9
+    technology: 橈骨動脈拍動部
+    at: { x: 0, y: 232 }
+    size: { w: 150, h: 42 }
+    group: lung
+  - id: lu11
+    label: 少商
+    tag: LU-11
+    technology: 母指爪甲根部・橈側
+    at: { x: 0, y: 290 }
+    size: { w: 150, h: 42 }
+    group: lung
+  - id: li1
+    label: 商陽
+    tag: LI-1
+    technology: 示指爪甲根部・橈側
+    at: { x: 220, y: 290 }
+    size: { w: 150, h: 42 }
+    group: li
+  - id: li4
+    label: 合谷
+    tag: LI-4
+    technology: 第 2 中手骨中点・橈側
+    at: { x: 220, y: 232 }
+    size: { w: 150, h: 42 }
+    group: li
+  - id: li11
+    label: 曲池
+    tag: LI-11
+    technology: 肘窩横紋外端
+    at: { x: 220, y: 174 }
+    size: { w: 150, h: 42 }
+    group: li
+  - id: li15
+    label: 肩髃
+    tag: LI-15
+    technology: 肩峰外縁の前下方
+    at: { x: 220, y: 116 }
+    size: { w: 150, h: 42 }
+    group: li
+  - id: li20
+    label: 迎香
+    tag: LI-20
+    technology: 鼻唇溝中・鼻翼外縁中点
+    at: { x: 220, y: 0 }
+    size: { w: 150, h: 42 }
+    group: li
+edges:
+  - from: lu1
+    to: lu2
+  - from: lu2
+    to: lu5
+  - from: lu5
+    to: lu7
+  - from: lu7
+    to: lu9
+  - from: lu9
+    to: lu11
+  - from: lu11
+    to: li1
+    label: 表裏の接続
+  - from: li1
+    to: li4
+  - from: li4
+    to: li11
+  - from: li11
+    to: li15
+  - from: li15
+    to: li20

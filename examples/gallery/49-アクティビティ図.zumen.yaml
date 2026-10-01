@@ -1,0 +1,129 @@
+version: 1
+kind: placement
+title: アクティビティ図（注文の処理・UML）
+# **レーンがあると、「誰がやるか」が図に入る。**
+# 受付と倉庫で分けてあるので、**レーンをまたぐ線が引き継ぎ**になる。
+# 引き継ぎの数が、そのまま連絡の回数になる。
+#
+# ## 分岐と合流は対で描く
+#
+# 在庫の有無で分かれた道は、必ずどこかで合流する。
+# **合流を描かないと、片方の道がどこへ行くのか分からなくなる。**
+#
+# ## 分岐はひし形、並行は太い棒
+#
+# 「どちらか」（デシジョン／マージ ＝ ひし形）と「両方」（フォーク／ジョイン ＝ 太い棒）は別の記号。
+# **同じ形で描くと、同時にやってよいのかが読めない。**
+#
+# ## UML の決まり（OMG UML 2.5.1 §15）
+#
+# - **フォークに入る線は 1 本だけ**（ForkNode の制約）。在庫あり／なしの 2 本は、
+#   先にマージ（ひし形）で 1 本にしてからフォークへ入れる
+# - 分岐の条件（ガード）は **［ ］で囲んで線に書く**
+# - 開始ノードは**黒丸**、アクティビティ終了は**丸の中に黒丸**（二重丸は状態機械でも使わない）
+# - フォークから出た 2 つは**横に並べる** —— 縦に積むと、順にやるように見える
+groups:
+  - id: front
+    label: 受付（レーン）
+  - id: back
+    label: 倉庫（レーン）
+pins:
+  ship:
+    appearance: primary
+nodes:
+  - id: start
+    label: 開始
+    marker: circle
+    hatch: solid
+    at: { x: 62, y: 0 }
+    size: { w: 26, h: 26 }
+    group: front
+  - id: recv
+    label: 注文を受ける
+    at: { x: 0, y: 60 }
+    size: { w: 150, h: 50 }
+    group: front
+  - id: dec
+    label: 在庫は？
+    marker: diamond
+    at: { x: 10, y: 140 }
+    size: { w: 130, h: 70 }
+    group: front
+  - id: back_order
+    label: 取り寄せる
+    at: { x: 0, y: 260 }
+    size: { w: 120, h: 50 }
+    group: front
+  - id: merge
+    label: マージ
+    marker: diamond
+    at: { x: 150, y: 350 }
+    size: { w: 70, h: 44 }
+    group: front
+  - id: fork
+    label: フォーク
+    marker: bar
+    at: { x: 300, y: 368 }
+    size: { w: 330, h: 8 }
+    group: back
+  - id: pick
+    label: 品を集める
+    at: { x: 300, y: 420 }
+    size: { w: 150, h: 50 }
+    group: back
+  - id: label
+    label: 伝票を作る
+    at: { x: 480, y: 420 }
+    size: { w: 150, h: 50 }
+    group: back
+  - id: join
+    label: ジョイン
+    marker: bar
+    at: { x: 300, y: 510 }
+    size: { w: 330, h: 8 }
+    group: back
+  - id: ship
+    label: 出荷する
+    at: { x: 390, y: 560 }
+    size: { w: 150, h: 50 }
+    group: back
+  - id: fin
+    label: 終了
+    marker: circle
+    at: { x: 452, y: 640 }
+    size: { w: 26, h: 26 }
+    group: back
+  - id: fin_dot
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 458, y: 646 }
+    size: { w: 14, h: 14 }
+    group: back
+edges:
+  - from: start
+    to: recv
+  - from: recv
+    to: dec
+  - from: dec
+    to: merge
+    label: ［在庫あり］
+  - from: dec
+    to: back_order
+    label: ［在庫なし］
+  - from: back_order
+    to: merge
+  - from: merge
+    to: fork
+  - from: fork
+    to: pick
+  - from: fork
+    to: label
+  - from: pick
+    to: join
+  - from: label
+    to: join
+  - from: join
+    to: ship
+  - from: ship
+    to: fin

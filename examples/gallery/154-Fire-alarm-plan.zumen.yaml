@@ -1,0 +1,272 @@
+version: 1
+kind: placement
+arrows: false
+title: "Fire alarm device plan (fictional)"
+scale: { in: 3 }
+grid:
+  x:
+    - { id: A, at: 60 }
+    - { id: B, at: 540 }
+  y:
+    - { id: 1, at: 60 }
+    - { id: 2, at: 164 }
+    - { id: 3, at: 204 }
+    - { id: 4, at: 300 }
+# **Spacing is a circle, not a square.** The listed 30 ft is the side of the
+# square that fits inside the circle a detector actually covers, so the real
+# reach is **21 ft** —— and in a corridor narrow enough to have no corners to
+# waste, heads may sit **41 ft** apart. The odd number is the rule working.
+#
+# **日本語の見本 136（天井伏図）と対**（同じ天井に、別の決まりで物を置く）。
+#
+# Devices, spacing and the floor are fictional.
+nodes:
+  - id: floor
+    label: ""
+    at: { x: 60, y: 60 }
+    size: { w: 480, h: 240 }
+  - id: corr
+    label: ""
+    hatch: dots
+    at: { x: 100, y: 164 }
+    size: { w: 400, h: 40 }
+  - id: s1
+    label: ""
+    tag: "S"
+    marker: circle
+    at: { x: 109, y: 101 }
+    size: { w: 22, h: 22 }
+  - id: s2
+    label: ""
+    tag: "S"
+    marker: circle
+    at: { x: 229, y: 101 }
+    size: { w: 22, h: 22 }
+  - id: s3
+    label: ""
+    tag: "S"
+    marker: circle
+    at: { x: 349, y: 101 }
+    size: { w: 22, h: 22 }
+  - id: s4
+    label: ""
+    tag: "S"
+    marker: circle
+    at: { x: 469, y: 101 }
+    size: { w: 22, h: 22 }
+  - id: s5
+    label: ""
+    tag: "S"
+    marker: circle
+    at: { x: 109, y: 233 }
+    size: { w: 22, h: 22 }
+  - id: s6
+    label: ""
+    tag: "S"
+    marker: circle
+    at: { x: 229, y: 233 }
+    size: { w: 22, h: 22 }
+  - id: s7
+    label: ""
+    tag: "S"
+    marker: circle
+    at: { x: 349, y: 233 }
+    size: { w: 22, h: 22 }
+  - id: s8
+    label: ""
+    tag: "S"
+    marker: circle
+    at: { x: 469, y: 233 }
+    size: { w: 22, h: 22 }
+  - id: c9
+    label: ""
+    tag: "S"
+    marker: circle
+    at: { x: 129, y: 173 }
+    size: { w: 22, h: 22 }
+  - id: c10
+    label: ""
+    tag: "S"
+    marker: circle
+    at: { x: 293, y: 173 }
+    size: { w: 22, h: 22 }
+  - id: c11
+    label: ""
+    tag: "S"
+    marker: circle
+    at: { x: 457, y: 173 }
+    size: { w: 22, h: 22 }
+  - id: p1
+    label: ""
+    tag: "F"
+    marker: diamond
+    at: { x: 73, y: 173 }
+    size: { w: 22, h: 22 }
+  - id: p2
+    label: ""
+    tag: "F"
+    marker: diamond
+    at: { x: 505, y: 173 }
+    size: { w: 22, h: 22 }
+  - id: nac1
+    label: ""
+    tag: "NA"
+    marker: double
+    at: { x: 189, y: 173 }
+    size: { w: 22, h: 22 }
+  - id: nac2
+    label: ""
+    tag: "NA"
+    marker: double
+    at: { x: 389, y: 173 }
+    size: { w: 22, h: 22 }
+  - id: reach
+    label: ""
+    marker: none
+    radius: 84
+    at: { x: 238, y: 110 }
+    size: { w: 4, h: 4 }
+  - id: l1
+    label: "30'-0\" grid, 15'-0\" from the walls"
+    marker: none
+    align: left
+    at: { x: 124, y: 76 }
+    size: { w: 300, h: 18 }
+  - id: l2
+    label: "corridor 41'-0\" apart  (the 0.7 rule)"
+    marker: none
+    align: left
+    at: { x: 148, y: 140 }
+    size: { w: 320, h: 18 }
+  - id: l3
+    label: "every point within 21'-0\""
+    marker: none
+    align: left
+    at: { x: 212, y: 208 }
+    size: { w: 240, h: 18 }
+  - id: l4
+    label: "S smoke   F pull station   NA horn/strobe"
+    marker: none
+    align: left
+    at: { x: 76, y: 306 }
+    size: { w: 340, h: 18 }
+  - id: h60
+    label: "SMOKE DETECTORS  (NFPA 72)"
+    hatch: solid
+    at: { x: 600, y: 60 }
+    size: { w: 430, h: 22 }
+  - id: a82
+    label: "Listed spacing"
+    at: { x: 600, y: 82 }
+    size: { w: 190, h: 22 }
+  - id: b82
+    label: "30 ft on a smooth ceiling"
+    align: left
+    at: { x: 790, y: 82 }
+    size: { w: 240, h: 22 }
+  - id: a104
+    label: "To a wall"
+    at: { x: 600, y: 104 }
+    size: { w: 190, h: 22 }
+  - id: b104
+    label: "half of it, so 15 ft"
+    align: left
+    at: { x: 790, y: 104 }
+    size: { w: 240, h: 22 }
+  - id: a126
+    label: "The 0.7 rule"
+    at: { x: 600, y: 126 }
+    size: { w: 190, h: 22 }
+  - id: b126
+    label: "every point within 21 ft of a head"
+    align: left
+    at: { x: 790, y: 126 }
+    size: { w: 240, h: 22 }
+  - id: a148
+    label: "In a corridor"
+    at: { x: 600, y: 148 }
+    size: { w: 190, h: 22 }
+  - id: b148
+    label: "that allows 41 ft apart"
+    align: left
+    at: { x: 790, y: 148 }
+    size: { w: 240, h: 22 }
+  - id: a170
+    label: "Ceiling height"
+    at: { x: 600, y: 170 }
+    size: { w: 190, h: 22 }
+  - id: b170
+    label: "the 30 ft spacing holds to 28 ft"
+    align: left
+    at: { x: 790, y: 170 }
+    size: { w: 240, h: 22 }
+  - id: h206
+    label: "KEEP AWAY FROM"
+    hatch: solid
+    at: { x: 600, y: 206 }
+    size: { w: 430, h: 22 }
+  - id: a228
+    label: "Supply diffusers"
+    at: { x: 600, y: 228 }
+    size: { w: 190, h: 22 }
+  - id: b228
+    label: "3 ft"
+    align: left
+    at: { x: 790, y: 228 }
+    size: { w: 240, h: 22 }
+  - id: a250
+    label: "Ceiling and wall corner"
+    at: { x: 600, y: 250 }
+    size: { w: 190, h: 22 }
+  - id: b250
+    label: "4 in"
+    align: left
+    at: { x: 790, y: 250 }
+    size: { w: 240, h: 22 }
+  - id: h286
+    label: "WHY 41 FT IS NOT A MISTAKE"
+    hatch: solid
+    at: { x: 600, y: 286 }
+    size: { w: 430, h: 22 }
+  - id: a308
+    label: "A square grid"
+    at: { x: 600, y: 308 }
+    size: { w: 190, h: 22 }
+  - id: b308
+    label: "wastes the corners of the circle"
+    align: left
+    at: { x: 790, y: 308 }
+    size: { w: 240, h: 22 }
+  - id: a330
+    label: "A narrow corridor"
+    at: { x: 600, y: 330 }
+    size: { w: 190, h: 22 }
+  - id: b330
+    label: "has no corners to waste"
+    align: left
+    at: { x: 790, y: 330 }
+    size: { w: 240, h: 22 }
+  - id: n1
+    label: "Spacing is a circle, not a square: 30 ft is the side of the square inside that circle."
+    marker: none
+    align: left
+    at: { x: 60, y: 356 }
+    size: { w: 700, h: 18 }
+  - id: n2
+    label: "So the real reach is 21 ft, and a narrow corridor lets the heads sit 41 ft apart."
+    marker: none
+    align: left
+    at: { x: 60, y: 378 }
+    size: { w: 700, h: 18 }
+  - id: n3
+    label: "Only one reach circle is drawn; nine would leave no drawing to read."
+    marker: none
+    align: left
+    at: { x: 60, y: 400 }
+    size: { w: 700, h: 18 }
+  - id: n4
+    label: "Devices, spacing and the floor are fictional."
+    marker: none
+    align: left
+    at: { x: 60, y: 422 }
+    size: { w: 700, h: 18 }

@@ -1,0 +1,220 @@
+version: 1
+kind: placement
+arrows: false
+title: "Site plan — setbacks and the buildable envelope (fictional)"
+scale: { in: 4 }
+north: up
+grid:
+  x:
+    - { id: PL, at: 60 }
+    - { id: BL, at: 81 }
+    - { id: BR, at: 279 }
+    - { id: PR, at: 300 }
+  y:
+    - { id: 1, at: 60 }
+    - { id: 2, at: 120 }
+    - { id: 3, at: 345 }
+    - { id: 4, at: 420 }
+# **The envelope is not a building.** It is what is left of the lot once the
+# front, rear and side yards are taken out —— everything else on the sheet
+# （house, garage, drive）is a choice made inside it.
+#
+# Coverage counts footprints; a second storey costs nothing in coverage but
+# does count in floor area ratio. **That is why the two numbers are both here.**
+#
+# Zone, dimensions and the lot are fictional. Local rules differ everywhere.
+nodes:
+  - id: lot
+    label: ""
+    at: { x: 60, y: 60 }
+    size: { w: 240, h: 360 }
+  - id: env
+    label: ""
+    hatch: lines
+    at: { x: 81, y: 120 }
+    size: { w: 198, h: 225 }
+  - id: house
+    label: "HOUSE"
+    technology: "40'-0\" x 45'-0\""
+    hatch: solid
+    at: { x: 120, y: 195 }
+    size: { w: 120, h: 135 }
+  - id: garage
+    label: "GARAGE"
+    at: { x: 216, y: 120 }
+    size: { w: 66, h: 66 }
+  - id: drive
+    label: ""
+    hatch: dots
+    at: { x: 216, y: 186 }
+    size: { w: 66, h: 234 }
+  - id: walk
+    label: ""
+    hatch: dots
+    at: { x: 162, y: 330 }
+    size: { w: 12, h: 90 }
+  - id: street
+    label: ""
+    hatch: cross
+    at: { x: 42, y: 424 }
+    size: { w: 276, h: 30 }
+  - id: lstreet
+    label: "STREET"
+    marker: none
+    align: left
+    at: { x: 150, y: 434 }
+    size: { w: 120, h: 18 }
+  - id: lenv
+    label: "BUILDABLE ENVELOPE"
+    marker: none
+    align: left
+    at: { x: 90, y: 126 }
+    size: { w: 220, h: 18 }
+  - id: ldrive
+    label: "DRIVE"
+    marker: none
+    align: left
+    at: { x: 225, y: 270 }
+    size: { w: 90, h: 18 }
+  - id: h60
+    label: "ZONING SUMMARY  (R-1, fictional)"
+    hatch: solid
+    at: { x: 396, y: 60 }
+    size: { w: 420, h: 22 }
+  - id: a82
+    label: "Lot area"
+    at: { x: 396, y: 82 }
+    size: { w: 190, h: 22 }
+  - id: b82
+    label: "9,600 sq ft (80' x 120')"
+    align: left
+    at: { x: 586, y: 82 }
+    size: { w: 230, h: 22 }
+  - id: a104
+    label: "Front setback"
+    at: { x: 396, y: 104 }
+    size: { w: 190, h: 22 }
+  - id: b104
+    label: "25'-0\""
+    align: left
+    at: { x: 586, y: 104 }
+    size: { w: 230, h: 22 }
+  - id: a126
+    label: "Rear setback"
+    at: { x: 396, y: 126 }
+    size: { w: 190, h: 22 }
+  - id: b126
+    label: "20'-0\""
+    align: left
+    at: { x: 586, y: 126 }
+    size: { w: 230, h: 22 }
+  - id: a148
+    label: "Side setbacks"
+    at: { x: 396, y: 148 }
+    size: { w: 190, h: 22 }
+  - id: b148
+    label: "7'-0\" each"
+    align: left
+    at: { x: 586, y: 148 }
+    size: { w: 230, h: 22 }
+  - id: a170
+    label: "Envelope"
+    at: { x: 396, y: 170 }
+    size: { w: 190, h: 22 }
+  - id: b170
+    label: "66' x 75' = 4,950 sq ft"
+    align: left
+    at: { x: 586, y: 170 }
+    size: { w: 230, h: 22 }
+  - id: a192
+    label: "House footprint"
+    at: { x: 396, y: 192 }
+    size: { w: 190, h: 22 }
+  - id: b192
+    label: "1,800 sq ft"
+    align: left
+    at: { x: 586, y: 192 }
+    size: { w: 230, h: 22 }
+  - id: a214
+    label: "Garage footprint"
+    at: { x: 396, y: 214 }
+    size: { w: 190, h: 22 }
+  - id: b214
+    label: "484 sq ft"
+    align: left
+    at: { x: 586, y: 214 }
+    size: { w: 230, h: 22 }
+  - id: a236
+    label: "Lot coverage"
+    at: { x: 396, y: 236 }
+    size: { w: 190, h: 22 }
+  - id: b236
+    label: "23.8 %  (35 % allowed)"
+    align: left
+    at: { x: 586, y: 236 }
+    size: { w: 230, h: 22 }
+  - id: a258
+    label: "Floor area ratio"
+    at: { x: 396, y: 258 }
+    size: { w: 190, h: 22 }
+  - id: b258
+    label: "0.38  (0.50 allowed)"
+    align: left
+    at: { x: 586, y: 258 }
+    size: { w: 230, h: 22 }
+  - id: h294
+    label: "WHAT THE SETBACKS DO"
+    hatch: solid
+    at: { x: 396, y: 294 }
+    size: { w: 420, h: 22 }
+  - id: a316
+    label: "They subtract"
+    at: { x: 396, y: 316 }
+    size: { w: 190, h: 22 }
+  - id: b316
+    label: "Envelope = lot minus the yards"
+    align: left
+    at: { x: 586, y: 316 }
+    size: { w: 230, h: 22 }
+  - id: a338
+    label: "Corner lots"
+    at: { x: 396, y: 338 }
+    size: { w: 190, h: 22 }
+  - id: b338
+    label: "Street side takes the larger"
+    align: left
+    at: { x: 586, y: 338 }
+    size: { w: 230, h: 22 }
+  - id: a360
+    label: "Accessory"
+    at: { x: 396, y: 360 }
+    size: { w: 190, h: 22 }
+  - id: b360
+    label: "Detached garage: smaller yards"
+    align: left
+    at: { x: 586, y: 360 }
+    size: { w: 230, h: 22 }
+  - id: n1
+    label: "The envelope is not a building: it is the lot with the yards taken out."
+    marker: none
+    align: left
+    at: { x: 60, y: 474 }
+    size: { w: 760, h: 18 }
+  - id: n2
+    label: "Coverage counts footprints; overhangs up to 30 in and low decks usually do not."
+    marker: none
+    align: left
+    at: { x: 60, y: 496 }
+    size: { w: 760, h: 18 }
+  - id: n3
+    label: "Floor area ratio is floor area over lot area, so a second storey costs nothing in coverage."
+    marker: none
+    align: left
+    at: { x: 60, y: 518 }
+    size: { w: 760, h: 18 }
+  - id: n4
+    label: "Zone, dimensions and the lot are fictional. Local rules differ everywhere."
+    marker: none
+    align: left
+    at: { x: 60, y: 540 }
+    size: { w: 760, h: 18 }

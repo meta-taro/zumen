@@ -1,0 +1,51 @@
+node_modules/
+.env
+.env.local
+dist/
+build/
+coverage/
+*.log
+.DS_Store
+
+# ローカル秘密控え（🟡 識別子のみ・🔴 token/key は置かない）— commit 禁止
+SECRETS.local.md
+
+# ベースルール完全版（内部事例を含むため公開しない）— commit 禁止
+.claude/rules/product-baseline.full.md
+
+# 画面のビルド成果物
+app-dist/
+
+# Tauri のビルド成果物
+src-tauri/target/
+src-tauri/gen/
+
+# 画面写真を撮るときの包み（下書き場へ置く。過去に 4 枚こぼした）
+examples/gallery/*.html
+
+# **図の写し**（`pnpm pages` が `examples/gallery/` から写す。正本はそちらの 1 つだけ）
+site/gallery/
+
+# 見本を出して見るための PNG（qa/品質100周.md。見るためだけのもので、正本ではない）
+qa/shots/
+
+# 作業メモ（会話の記録を含むので公開しない。手元にだけ置く。2026-09-30）
+.claude/project-status.md
+.claude/sample-ideas.md
+.claude/archive/
+.claude/posts/
+
+# 公開しないもの（開発の記録・判断・進捗・会話を含みうる）。手元にだけ置く。2026-10-01
+# .github/scripts/private-notes-check.sh が、これらが追跡されていたら push を止める
+.claude/
+CLAUDE.md
+qa/
+docs/origin/
+docs/handoff/
+docs/specs/
+docs/feedback/
+docs/test-specs/
+.private-deny-words
+test/laps.test.ts
+test/quality-laps.test.ts
+scripts/laps.mjs

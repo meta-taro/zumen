@@ -1,0 +1,401 @@
+version: 1
+kind: placement
+arrows: false
+title: "Cattle handling facility (fictional)"
+scale: { in: 2 }
+# **A behaviour diagram drawn in plan.**
+#
+# Every dimension on this sheet comes from what cattle will and will not do.
+# The race curves because **cattle head back toward where they came from** -
+# the curve uses that instead of fighting it.
+#
+# **It is not a trick.** An animal standing in the crowd pen still has to see
+# two body lengths up the race; if it cannot, the entrance reads as a wall and
+# nothing moves. That is also why a tight radius needs a straight section first.
+#
+# Sides are solid for the same reason: what they see beside them stops them.
+# The crowd pen is level, and any ramp belongs inside the single file race.
+#
+# 1 px = 2 in. Dimensions follow published handling-facility guidance
+# (Grandin, design of facilities for handling cattle); this layout is fictional.
+nodes:
+  - id: hold
+    label: ""
+    at: { x: 116, y: 258 }
+    size: { w: 180, h: 144 }
+  - id: pen
+    label: ""
+    marker: circle
+    at: { x: 296, y: 258 }
+    size: { w: 144, h: 144 }
+  - id: gate
+    label: ""
+    hatch: solid
+    at: { x: 367, y: 258 }
+    size: { w: 2, h: 72 }
+  - id: squeeze
+    label: ""
+    hatch: lines
+    at: { x: 452, y: 481 }
+    size: { w: 48, h: 14 }
+  - id: i0
+    label: ""
+    marker: none
+    at: { x: 439, y: 336 }
+    size: { w: 2, h: 2 }
+  - id: i1
+    label: ""
+    marker: none
+    at: { x: 499, y: 480 }
+    size: { w: 2, h: 2 }
+  - id: o0
+    label: ""
+    marker: none
+    at: { x: 439, y: 322 }
+    size: { w: 2, h: 2 }
+  - id: o1
+    label: ""
+    marker: none
+    at: { x: 499, y: 494 }
+    size: { w: 2, h: 2 }
+  - id: l1
+    label: "HOLDING PEN"
+    marker: none
+    align: left
+    at: { x: 124, y: 266 }
+    size: { w: 140, h: 18 }
+  - id: l2
+    label: "CROWD PEN"
+    marker: none
+    align: left
+    at: { x: 328, y: 410 }
+    size: { w: 120, h: 18 }
+  - id: l3
+    label: "crowd gate"
+    marker: none
+    align: left
+    at: { x: 376, y: 294 }
+    size: { w: 100, h: 18 }
+  - id: l4
+    label: "SINGLE FILE RACE  (solid sides)"
+    marker: none
+    align: left
+    at: { x: 530, y: 296 }
+    size: { w: 260, h: 18 }
+  - id: l5
+    label: "SQUEEZE"
+    marker: none
+    align: left
+    at: { x: 380, y: 479 }
+    size: { w: 66, h: 18 }
+  - id: l6
+    label: "10'-0\" straight first"
+    marker: none
+    align: left
+    at: { x: 410, y: 370 }
+    size: { w: 160, h: 18 }
+  - id: l7
+    label: "cattle come in here"
+    marker: none
+    align: left
+    at: { x: 124, y: 376 }
+    size: { w: 160, h: 18 }
+  - id: l8
+    label: "out and away"
+    marker: none
+    align: left
+    at: { x: 380, y: 504 }
+    size: { w: 100, h: 18 }
+  - id: h60
+    label: "SINGLE FILE RACE"
+    hatch: solid
+    at: { x: 760, y: 60 }
+    size: { w: 440, h: 22 }
+  - id: a82
+    label: "Width, adult cows"
+    at: { x: 760, y: 82 }
+    size: { w: 170, h: 22 }
+  - id: b82
+    label: "26 to 28 in"
+    align: left
+    at: { x: 930, y: 82 }
+    size: { w: 270, h: 22 }
+  - id: a104
+    label: "Width, calves"
+    at: { x: 760, y: 104 }
+    size: { w: 170, h: 22 }
+  - id: b104
+    label: "20 in"
+    align: left
+    at: { x: 930, y: 104 }
+    size: { w: 270, h: 22 }
+  - id: a126
+    label: "V race"
+    at: { x: 760, y: 126 }
+    size: { w: 170, h: 22 }
+  - id: b126
+    label: "16 to 18 in at the bottom"
+    align: left
+    at: { x: 930, y: 126 }
+    size: { w: 270, h: 22 }
+  - id: a148
+    label: ""
+    at: { x: 760, y: 148 }
+    size: { w: 170, h: 22 }
+  - id: b148
+    label: "32 in at the 5 ft level"
+    align: left
+    at: { x: 930, y: 148 }
+    size: { w: 270, h: 22 }
+  - id: a170
+    label: "Side height"
+    at: { x: 760, y: 170 }
+    size: { w: 170, h: 22 }
+  - id: b170
+    label: "5 ft for English breeds"
+    align: left
+    at: { x: 930, y: 170 }
+    size: { w: 270, h: 22 }
+  - id: a192
+    label: "Excitable lines"
+    at: { x: 760, y: 192 }
+    size: { w: 170, h: 22 }
+  - id: b192
+    label: "5 ft 6 in to 6 ft"
+    align: left
+    at: { x: 930, y: 192 }
+    size: { w: 270, h: 22 }
+  - id: a214
+    label: "Minimum length"
+    at: { x: 760, y: 214 }
+    size: { w: 170, h: 22 }
+  - id: b214
+    label: "30 ft"
+    align: left
+    at: { x: 930, y: 214 }
+    size: { w: 270, h: 22 }
+  - id: h250
+    label: "THE CURVE"
+    hatch: solid
+    at: { x: 760, y: 250 }
+    size: { w: 440, h: 22 }
+  - id: a272
+    label: "Inside radius"
+    at: { x: 760, y: 272 }
+    size: { w: 170, h: 22 }
+  - id: b272
+    label: "12 to 20 ft"
+    align: left
+    at: { x: 930, y: 272 }
+    size: { w: 270, h: 22 }
+  - id: a294
+    label: "As tight as 5 ft"
+    at: { x: 760, y: 294 }
+    size: { w: 170, h: 22 }
+  - id: b294
+    label: "only with a 10 ft straight first"
+    align: left
+    at: { x: 930, y: 294 }
+    size: { w: 270, h: 22 }
+  - id: a316
+    label: "From the crowd pen"
+    at: { x: 760, y: 316 }
+    size: { w: 170, h: 22 }
+  - id: b316
+    label: "the animal must see two body"
+    align: left
+    at: { x: 930, y: 316 }
+    size: { w: 270, h: 22 }
+  - id: a338
+    label: ""
+    at: { x: 760, y: 338 }
+    size: { w: 170, h: 22 }
+  - id: b338
+    label: "lengths up the race"
+    align: left
+    at: { x: 930, y: 338 }
+    size: { w: 270, h: 22 }
+  - id: a360
+    label: "Or else"
+    at: { x: 760, y: 360 }
+    size: { w: 170, h: 22 }
+  - id: b360
+    label: "the entrance reads as a dead end"
+    align: left
+    at: { x: 930, y: 360 }
+    size: { w: 270, h: 22 }
+  - id: h396
+    label: "WHY IT CURVES"
+    hatch: solid
+    at: { x: 760, y: 396 }
+    size: { w: 440, h: 22 }
+  - id: a418
+    label: "Cattle"
+    at: { x: 760, y: 418 }
+    size: { w: 170, h: 22 }
+  - id: b418
+    label: "go back to where they came from"
+    align: left
+    at: { x: 930, y: 418 }
+    size: { w: 270, h: 22 }
+  - id: a440
+    label: "The curve"
+    at: { x: 760, y: 440 }
+    size: { w: 170, h: 22 }
+  - id: b440
+    label: "uses that instead of fighting it"
+    align: left
+    at: { x: 930, y: 440 }
+    size: { w: 270, h: 22 }
+  - id: a462
+    label: "Not a trick"
+    at: { x: 760, y: 462 }
+    size: { w: 170, h: 22 }
+  - id: b462
+    label: "they still have to see ahead"
+    align: left
+    at: { x: 930, y: 462 }
+    size: { w: 270, h: 22 }
+  - id: h498
+    label: "SOLID SIDES, LEVEL FLOOR"
+    hatch: solid
+    at: { x: 760, y: 498 }
+    size: { w: 440, h: 22 }
+  - id: a520
+    label: "Solid"
+    at: { x: 760, y: 520 }
+    size: { w: 170, h: 22 }
+  - id: b520
+    label: "race, crowd pen, loading ramp"
+    align: left
+    at: { x: 930, y: 520 }
+    size: { w: 270, h: 22 }
+  - id: a542
+    label: "Why"
+    at: { x: 760, y: 542 }
+    size: { w: 170, h: 22 }
+  - id: b542
+    label: "what they see beside them stops them"
+    align: left
+    at: { x: 930, y: 542 }
+    size: { w: 270, h: 22 }
+  - id: a564
+    label: "Crowd pen"
+    at: { x: 760, y: 564 }
+    size: { w: 170, h: 22 }
+  - id: b564
+    label: "always level"
+    align: left
+    at: { x: 930, y: 564 }
+    size: { w: 270, h: 22 }
+  - id: a586
+    label: "Any ramp"
+    at: { x: 760, y: 586 }
+    size: { w: 170, h: 22 }
+  - id: b586
+    label: "inside the race, never in the pen"
+    align: left
+    at: { x: 930, y: 586 }
+    size: { w: 270, h: 22 }
+  - id: a608
+    label: "Crowd gate"
+    at: { x: 760, y: 608 }
+    size: { w: 170, h: 22 }
+  - id: b608
+    label: "10 to 11 ft 6 in"
+    align: left
+    at: { x: 930, y: 608 }
+    size: { w: 270, h: 22 }
+  - id: n1
+    label: "A behaviour diagram drawn in plan: the dimensions come from what cattle will and will not do."
+    marker: none
+    align: left
+    at: { x: 60, y: 620 }
+    size: { w: 660, h: 18 }
+  - id: n2
+    label: "The race curves because cattle head back to where they came from."
+    marker: none
+    align: left
+    at: { x: 60, y: 642 }
+    size: { w: 660, h: 18 }
+  - id: n3
+    label: "Not a trick: from the pen an animal must see two body lengths up the race."
+    marker: none
+    align: left
+    at: { x: 60, y: 664 }
+    size: { w: 660, h: 18 }
+  - id: n4
+    label: "Sides are solid for the same reason - what they see beside them stops them."
+    marker: none
+    align: left
+    at: { x: 60, y: 686 }
+    size: { w: 660, h: 18 }
+  - id: n5
+    label: "Dimensions follow published handling-facility guidance; this layout is fictional."
+    marker: none
+    align: left
+    at: { x: 60, y: 708 }
+    size: { w: 660, h: 18 }
+edges:
+  - from: i0
+    to: i1
+    via:
+      - { x: 500, y: 337 }
+      - { x: 508.1, y: 337.4 }
+      - { x: 516, y: 338.8 }
+      - { x: 523.8, y: 341 }
+      - { x: 531.2, y: 344.1 }
+      - { x: 538.3, y: 348 }
+      - { x: 544.9, y: 352.7 }
+      - { x: 550.9, y: 358.1 }
+      - { x: 556.3, y: 364.1 }
+      - { x: 561, y: 370.7 }
+      - { x: 564.9, y: 377.8 }
+      - { x: 568, y: 385.2 }
+      - { x: 570.2, y: 393 }
+      - { x: 571.5, y: 400.9 }
+      - { x: 572, y: 409 }
+      - { x: 571.5, y: 417.1 }
+      - { x: 570.2, y: 425 }
+      - { x: 568, y: 432.8 }
+      - { x: 564.9, y: 440.2 }
+      - { x: 561, y: 447.3 }
+      - { x: 556.3, y: 453.9 }
+      - { x: 550.9, y: 459.9 }
+      - { x: 544.9, y: 465.3 }
+      - { x: 538.3, y: 470 }
+      - { x: 531.2, y: 473.9 }
+      - { x: 523.8, y: 476.9 }
+      - { x: 516, y: 479.2 }
+      - { x: 508.1, y: 480.5 }
+  - from: o0
+    to: o1
+    via:
+      - { x: 500, y: 323 }
+      - { x: 509.6, y: 323.6 }
+      - { x: 519.1, y: 325.2 }
+      - { x: 528.4, y: 327.8 }
+      - { x: 537.3, y: 331.5 }
+      - { x: 545.7, y: 336.2 }
+      - { x: 553.6, y: 341.8 }
+      - { x: 560.8, y: 348.2 }
+      - { x: 567.2, y: 355.4 }
+      - { x: 572.8, y: 363.2 }
+      - { x: 577.5, y: 371.7 }
+      - { x: 581.2, y: 380.6 }
+      - { x: 583.8, y: 389.9 }
+      - { x: 585.4, y: 399.4 }
+      - { x: 586, y: 409 }
+      - { x: 585.4, y: 418.6 }
+      - { x: 583.8, y: 428.1 }
+      - { x: 581.2, y: 437.4 }
+      - { x: 577.5, y: 446.3 }
+      - { x: 572.8, y: 454.7 }
+      - { x: 567.2, y: 462.6 }
+      - { x: 560.8, y: 469.8 }
+      - { x: 553.6, y: 476.2 }
+      - { x: 545.7, y: 481.8 }
+      - { x: 537.3, y: 486.5 }
+      - { x: 528.4, y: 490.1 }
+      - { x: 519.1, y: 492.8 }
+      - { x: 509.6, y: 494.4 }

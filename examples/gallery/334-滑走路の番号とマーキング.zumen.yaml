@@ -1,0 +1,425 @@
+version: 1
+kind: placement
+arrows: true
+title: 滑走路の番号とマーキング（番号は方位そのもの）
+# **滑走路の番号は名前ではなく、方位である。**
+# **磁北からの方位角を 1／10 した数** —— 01 から 36 まで。
+#
+# ## 両端で 18 違う
+#
+# 同じ 1 本の滑走路を逆から使えば、方位は 180 度違う。
+# だから**番号は必ず 18 違い**、「**16/34**」のように両方を書く。
+# この図の滑走路は磁方位 160 度なので、こちらから進入すれば **16**、
+# 反対からなら 340 度で **34**。
+#
+# ## 平行滑走路は L・C・R
+#
+# 同じ方位の滑走路が並ぶときは、**進入の向きから見て左から
+# L（Left）・C（Center）・R（Right）** を付ける。
+#
+# ## 番号は永久ではない
+#
+# **磁北は動く。** 方位がずれれば番号も変わるので、**塗り替える。**
+# 地図の記号と違い、**地面に書いてある数字のほうが動く。**
+#
+# ## マーキング
+#
+# 末端標識（太い白線の束）・滑走路番号・中心線・固定距離標識（接地の目標）・滑走終了線。
+# **ブラストパッドは黄色の山形模様**、
+# **ずらした末端（ディスプレイスドスレッシュホールド）は白色の矢印**で示す。
+#
+# 長さの比は模式。 道路の平面線形は見本 61、地図記号は見本 165。
+nodes:
+  - id: t1
+    label: "① 真上から見た滑走路（長さの比は模式）"
+    marker: none
+    align: left
+    at: { x: 140, y: 160 }
+    size: { w: 700, h: 18 }
+  - id: rwy
+    label: ""
+    hatch: dots
+    at: { x: 220, y: 300 }
+    size: { w: 1100, h: 130 }
+  - id: tha0
+    label: ""
+    at: { x: 230, y: 314 }
+    size: { w: 4, h: 102 }
+  - id: tha1
+    label: ""
+    at: { x: 238, y: 314 }
+    size: { w: 4, h: 102 }
+  - id: tha2
+    label: ""
+    at: { x: 246, y: 314 }
+    size: { w: 4, h: 102 }
+  - id: tha3
+    label: ""
+    at: { x: 254, y: 314 }
+    size: { w: 4, h: 102 }
+  - id: tha4
+    label: ""
+    at: { x: 262, y: 314 }
+    size: { w: 4, h: 102 }
+  - id: tha5
+    label: ""
+    at: { x: 270, y: 314 }
+    size: { w: 4, h: 102 }
+  - id: thb0
+    label: ""
+    at: { x: 1262, y: 314 }
+    size: { w: 4, h: 102 }
+  - id: thb1
+    label: ""
+    at: { x: 1270, y: 314 }
+    size: { w: 4, h: 102 }
+  - id: thb2
+    label: ""
+    at: { x: 1278, y: 314 }
+    size: { w: 4, h: 102 }
+  - id: thb3
+    label: ""
+    at: { x: 1286, y: 314 }
+    size: { w: 4, h: 102 }
+  - id: thb4
+    label: ""
+    at: { x: 1294, y: 314 }
+    size: { w: 4, h: 102 }
+  - id: thb5
+    label: ""
+    at: { x: 1302, y: 314 }
+    size: { w: 4, h: 102 }
+  - id: cl380
+    label: ""
+    hatch: solid
+    at: { x: 380, y: 362 }
+    size: { w: 34, h: 6 }
+  - id: cl440
+    label: ""
+    hatch: solid
+    at: { x: 440, y: 362 }
+    size: { w: 34, h: 6 }
+  - id: cl500
+    label: ""
+    hatch: solid
+    at: { x: 500, y: 362 }
+    size: { w: 34, h: 6 }
+  - id: cl560
+    label: ""
+    hatch: solid
+    at: { x: 560, y: 362 }
+    size: { w: 34, h: 6 }
+  - id: cl620
+    label: ""
+    hatch: solid
+    at: { x: 620, y: 362 }
+    size: { w: 34, h: 6 }
+  - id: cl680
+    label: ""
+    hatch: solid
+    at: { x: 680, y: 362 }
+    size: { w: 34, h: 6 }
+  - id: cl740
+    label: ""
+    hatch: solid
+    at: { x: 740, y: 362 }
+    size: { w: 34, h: 6 }
+  - id: cl800
+    label: ""
+    hatch: solid
+    at: { x: 800, y: 362 }
+    size: { w: 34, h: 6 }
+  - id: cl860
+    label: ""
+    hatch: solid
+    at: { x: 860, y: 362 }
+    size: { w: 34, h: 6 }
+  - id: cl920
+    label: ""
+    hatch: solid
+    at: { x: 920, y: 362 }
+    size: { w: 34, h: 6 }
+  - id: cl980
+    label: ""
+    hatch: solid
+    at: { x: 980, y: 362 }
+    size: { w: 34, h: 6 }
+  - id: cl1040
+    label: ""
+    hatch: solid
+    at: { x: 1040, y: 362 }
+    size: { w: 34, h: 6 }
+  - id: cl1100
+    label: ""
+    hatch: solid
+    at: { x: 1100, y: 362 }
+    size: { w: 34, h: 6 }
+  - id: n16
+    label: "16"
+    marker: none
+    align: center
+    at: { x: 296, y: 349 }
+    size: { w: 60, h: 18 }
+  - id: n34
+    label: "34"
+    marker: none
+    align: center
+    at: { x: 1184, y: 349 }
+    size: { w: 60, h: 18 }
+  - id: aimp0
+    label: ""
+    hatch: solid
+    at: { x: 470, y: 322 }
+    size: { w: 60, h: 24 }
+  - id: aimp1
+    label: ""
+    hatch: solid
+    at: { x: 470, y: 384 }
+    size: { w: 60, h: 24 }
+  - id: aimq0
+    label: ""
+    hatch: solid
+    at: { x: 1010, y: 322 }
+    size: { w: 60, h: 24 }
+  - id: aimq1
+    label: ""
+    hatch: solid
+    at: { x: 1010, y: 384 }
+    size: { w: 60, h: 24 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 139, y: 307 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 139, y: 421 }
+    size: { w: 2, h: 2 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 157, y: 307 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 157, y: 421 }
+    size: { w: 2, h: 2 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 175, y: 307 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 175, y: 421 }
+    size: { w: 2, h: 2 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 193, y: 307 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 193, y: 421 }
+    size: { w: 2, h: 2 }
+  - id: la
+    label: "末端標識"
+    marker: none
+    align: center
+    at: { x: 200, y: 444 }
+    size: { w: 110, h: 18 }
+  - id: lb
+    label: "滑走路番号"
+    marker: none
+    align: center
+    at: { x: 326, y: 444 }
+    size: { w: 140, h: 18 }
+  - id: lc
+    label: "固定距離標識"
+    marker: none
+    align: center
+    at: { x: 440, y: 466 }
+    size: { w: 160, h: 18 }
+  - id: ld
+    label: "中心線"
+    marker: none
+    align: left
+    at: { x: 640, y: 444 }
+    size: { w: 120, h: 18 }
+  - id: le
+    label: "ブラストパッド（黄色の山形）"
+    marker: none
+    align: left
+    at: { x: 120, y: 246 }
+    size: { w: 280, h: 18 }
+  - id: lf
+    label: "滑走終了線・末端標識"
+    marker: none
+    align: right
+    at: { x: 1110, y: 444 }
+    size: { w: 220, h: 18 }
+  - id: arr
+    label: "→ 進入の向き"
+    marker: none
+    align: left
+    at: { x: 280, y: 270 }
+    size: { w: 200, h: 18 }
+  - id: t2
+    label: "② 番号は、磁北からの方位角を 1／10 したもの（01〜36）"
+    marker: none
+    align: left
+    at: { x: 140, y: 500 }
+    size: { w: 900, h: 18 }
+  - id: r1
+    label: "・この滑走路は磁方位 160 度なので「16」。 反対から進入すると磁方位 340 度で「34」。"
+    marker: none
+    align: left
+    at: { x: 140, y: 530 }
+    size: { w: 1150, h: 18 }
+  - id: r2
+    label: "　両端は必ず 18 違う（方位で 180 度違うから）。 呼び方は「16/34」。"
+    marker: none
+    align: left
+    at: { x: 140, y: 554 }
+    size: { w: 1150, h: 18 }
+  - id: r3
+    label: "・平行滑走路は、進入の向きから見て左から L（Left）・C（Center）・R（Right）。"
+    marker: none
+    align: left
+    at: { x: 140, y: 578 }
+    size: { w: 1150, h: 18 }
+  - id: r4
+    label: "・磁北は動くので、番号は永久のものではない。 ずれれば塗り替える。"
+    marker: none
+    align: left
+    at: { x: 140, y: 602 }
+    size: { w: 1150, h: 18 }
+  - id: h140_700
+    label: "滑走路のマーキング"
+    hatch: solid
+    at: { x: 140, y: 700 }
+    size: { w: 640, h: 24 }
+  - id: x140_724
+    label: "末端標識"
+    at: { x: 140, y: 724 }
+    size: { w: 200, h: 24 }
+  - id: y140_724
+    label: "滑走路の端。太い白線を並べる"
+    align: left
+    at: { x: 340, y: 724 }
+    size: { w: 440, h: 24 }
+  - id: x140_748
+    label: "滑走路番号"
+    at: { x: 140, y: 748 }
+    size: { w: 200, h: 24 }
+  - id: y140_748
+    label: "磁北からの方位角の 1／10"
+    align: left
+    at: { x: 340, y: 748 }
+    size: { w: 440, h: 24 }
+  - id: x140_772
+    label: "中心線"
+    at: { x: 140, y: 772 }
+    size: { w: 200, h: 24 }
+  - id: y140_772
+    label: "真ん中を通る破線"
+    align: left
+    at: { x: 340, y: 772 }
+    size: { w: 440, h: 24 }
+  - id: x140_796
+    label: "固定距離標識"
+    at: { x: 140, y: 796 }
+    size: { w: 200, h: 24 }
+  - id: y140_796
+    label: "接地の目標。中心線の両側に置く"
+    align: left
+    at: { x: 340, y: 796 }
+    size: { w: 440, h: 24 }
+  - id: x140_820
+    label: "滑走終了線"
+    at: { x: 140, y: 820 }
+    size: { w: 200, h: 24 }
+  - id: y140_820
+    label: "使える部分の終わり"
+    align: left
+    at: { x: 340, y: 820 }
+    size: { w: 440, h: 24 }
+  - id: h870_700
+    label: "番号と記号"
+    hatch: solid
+    at: { x: 870, y: 700 }
+    size: { w: 640, h: 24 }
+  - id: x870_724
+    label: "番号の範囲"
+    at: { x: 870, y: 724 }
+    size: { w: 200, h: 24 }
+  - id: y870_724
+    label: "01〜36"
+    align: left
+    at: { x: 1070, y: 724 }
+    size: { w: 440, h: 24 }
+  - id: x870_748
+    label: "両端の関係"
+    at: { x: 870, y: 748 }
+    size: { w: 200, h: 24 }
+  - id: y870_748
+    label: "必ず 18 違う（16 と 34）"
+    align: left
+    at: { x: 1070, y: 748 }
+    size: { w: 440, h: 24 }
+  - id: x870_772
+    label: "平行滑走路"
+    at: { x: 870, y: 772 }
+    size: { w: 200, h: 24 }
+  - id: y870_772
+    label: "進入の向きから見て左から L・C・R"
+    align: left
+    at: { x: 1070, y: 772 }
+    size: { w: 440, h: 24 }
+  - id: x870_796
+    label: "ブラストパッド"
+    at: { x: 870, y: 796 }
+    size: { w: 200, h: 24 }
+  - id: y870_796
+    label: "黄色の山形模様"
+    align: left
+    at: { x: 1070, y: 796 }
+    size: { w: 440, h: 24 }
+  - id: x870_820
+    label: "ずらした末端"
+    at: { x: 870, y: 820 }
+    size: { w: 200, h: 24 }
+  - id: y870_820
+    label: "白色の矢印（ディスプレイスドスレッシュホールド）"
+    align: left
+    at: { x: 1070, y: 820 }
+    size: { w: 440, h: 24 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 154, y: 365 }
+  - from: p2
+    to: p3
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 172, y: 365 }
+  - from: p4
+    to: p5
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 190, y: 365 }
+  - from: p6
+    to: p7
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 208, y: 365 }

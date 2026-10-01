@@ -1,0 +1,154 @@
+version: 1
+kind: placement
+arrows: false
+projection: isometric
+title: 等角図を、座標に z を書いて組む
+# **この正本には、紙の座標が 1 つも無い。** 書いてあるのは立体の **x・y・z** だけで、
+# 紙へ落とすのは機械（`projection: isometric`）。
+#
+# ## 等角図の約束
+#
+# **軸のあいだは 120°、2 本は水平から 30°。** だから 3 方向を同じ物差しで測れる。
+#
+# | 立体で 100 動かすと | 紙では |
+# |---|---|
+# | x（間口）| 右へ 86.6・下へ 50（cos30°・sin30°）|
+# | y（奥行き）| 左へ 86.6・下へ 50 |
+# | z（高さ）| 真上へ 100 |
+#
+# ## 見本 197 との違い
+#
+# 197（等角図と三面図）は、この掛け算を**人が電卓で出して 104 点を手打ち**している
+# （`399 + 100 × cos30° = 485.6`）。**ここは z を書くだけ。**
+#
+# ## 箱は落ちない（いまの限界）
+#
+# **`projection` が落とすのは点の位置だけ。** `size: { w, h }` の箱は紙の上で
+# 軸に平行な長方形のままなので、**立体の面にはならない。**
+# だから立体は**点と線で組む** —— 197 も同じ描き方をしている。
+#
+# 面を塗りたくなったら、そのとき `box` を平行四辺形へ落とす話をする。
+# **いまは当たっていないので足さない。**
+#
+# ## 隠れ線
+#
+# 実物の図面は、奥の物に隠れた辺を**破線**にする。**機械は判定しない**
+# （どれが隠れるかは意味の判断）—— 書いた人が `line: dashed` で書く。
+# ここでは奥の 3 本をそうしてある。
+nodes:
+  - id: a
+    label: ""
+    marker: none
+    at: { x: 380, y: 240, z: 0 }
+    size: { w: 2, h: 2 }
+  - id: b
+    label: ""
+    marker: none
+    at: { x: 520, y: 240, z: 0 }
+    size: { w: 2, h: 2 }
+  - id: c
+    label: ""
+    marker: none
+    at: { x: 520, y: 380, z: 0 }
+    size: { w: 2, h: 2 }
+  - id: d
+    label: ""
+    marker: none
+    at: { x: 380, y: 380, z: 0 }
+    size: { w: 2, h: 2 }
+  - id: e
+    label: ""
+    marker: none
+    at: { x: 380, y: 240, z: 140 }
+    size: { w: 2, h: 2 }
+  - id: f
+    label: ""
+    marker: none
+    at: { x: 520, y: 240, z: 140 }
+    size: { w: 2, h: 2 }
+  - id: g
+    label: ""
+    marker: none
+    at: { x: 520, y: 380, z: 140 }
+    size: { w: 2, h: 2 }
+  - id: h
+    label: ""
+    marker: none
+    at: { x: 380, y: 380, z: 140 }
+    size: { w: 2, h: 2 }
+  - id: nx
+    label: "x（間口）140"
+    marker: none
+    align: left
+    at: { x: 540, y: 240, z: 0 }
+    size: { w: 140, h: 18 }
+  - id: ny
+    label: "y（奥行き）140"
+    marker: none
+    align: right
+    at: { x: 360, y: 396, z: 0 }
+    size: { w: 150, h: 18 }
+  - id: nz
+    label: "z（高さ）140"
+    marker: none
+    align: right
+    at: { x: 366, y: 240, z: 166 }
+    size: { w: 130, h: 18 }
+  - id: t
+    label: "① 一辺 140 の立方体。正本に書いてあるのは x・y・z だけ"
+    marker: none
+    align: left
+    at: { x: 40, y: 40 }
+    size: { w: 640, h: 20 }
+  - id: n1
+    label: "・実線 9 本、破線 3 本（奥に隠れる辺）。隠れるかどうかは、書いた人が決める。"
+    marker: none
+    align: left
+    at: { x: 40, y: 560 }
+    size: { w: 700, h: 18 }
+  - id: n2
+    label: "・見本 197 は同じ図を 104 点の手計算で描いている。ここは掛け算を 1 つも書いていない。"
+    marker: none
+    align: left
+    at: { x: 40, y: 584 }
+    size: { w: 760, h: 18 }
+edges:
+  - from: a
+    to: b
+    ends: { from: none, to: none }
+  - from: b
+    to: c
+    ends: { from: none, to: none }
+  - from: c
+    to: d
+    line: dashed
+    ends: { from: none, to: none }
+  - from: d
+    to: a
+    line: dashed
+    ends: { from: none, to: none }
+  - from: e
+    to: f
+    ends: { from: none, to: none }
+  - from: f
+    to: g
+    ends: { from: none, to: none }
+  - from: g
+    to: h
+    ends: { from: none, to: none }
+  - from: h
+    to: e
+    ends: { from: none, to: none }
+  - from: a
+    to: e
+    ends: { from: none, to: none }
+  - from: b
+    to: f
+    ends: { from: none, to: none }
+  - from: c
+    to: g
+    ends: { from: none, to: none }
+  - from: d
+    to: h
+    line: dashed
+    ends: { from: none, to: none }

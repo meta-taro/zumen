@@ -1,0 +1,428 @@
+version: 1
+kind: placement
+arrows: true
+title: "Roof framing plan — hip roof (fictional)"
+scale: { in: 1.5 }
+grid:
+  x:
+    - { id: A, at: 60 }
+    - { id: B, at: 172 }
+    - { id: C, at: 268 }
+    - { id: D, at: 380 }
+  y:
+    - { id: 1, at: 60 }
+    - { id: 2, at: 172 }
+    - { id: 3, at: 284 }
+# **In plan a rafter is a line, so the plan is mostly lines.**
+#
+# The ridge board runs the length minus the width (a hip roof), the four hips
+# run out to the corners at 45 degrees in plan, and **every rafter outside the
+# ridge is a jack** that dies into a hip.
+#
+# **日本語の見本 17（躯体の伏図）と対**。あちらは通り芯と符号で梁を、
+# こちらは o.c. と span で垂木を書く。
+#
+# 1 px = 1.5 in. Spans, sizes and the building are fictional.
+nodes:
+  - id: roof
+    label: ""
+    at: { x: 60, y: 60 }
+    size: { w: 320, h: 224 }
+  - id: ridge
+    label: ""
+    hatch: solid
+    at: { x: 172, y: 169.5 }
+    size: { w: 96, h: 5 }
+  - id: ru1
+    label: ""
+    hatch: solid
+    at: { x: 69.67, y: 60 }
+    size: { w: 2, h: 10.67 }
+  - id: rd1
+    label: ""
+    hatch: solid
+    at: { x: 69.67, y: 273.33 }
+    size: { w: 2, h: 10.67 }
+  - id: ru2
+    label: ""
+    hatch: solid
+    at: { x: 80.33, y: 60 }
+    size: { w: 2, h: 21.33 }
+  - id: rd2
+    label: ""
+    hatch: solid
+    at: { x: 80.33, y: 262.67 }
+    size: { w: 2, h: 21.33 }
+  - id: ru3
+    label: ""
+    hatch: solid
+    at: { x: 91, y: 60 }
+    size: { w: 2, h: 32 }
+  - id: rd3
+    label: ""
+    hatch: solid
+    at: { x: 91, y: 252 }
+    size: { w: 2, h: 32 }
+  - id: ru4
+    label: ""
+    hatch: solid
+    at: { x: 101.67, y: 60 }
+    size: { w: 2, h: 42.67 }
+  - id: rd4
+    label: ""
+    hatch: solid
+    at: { x: 101.67, y: 241.33 }
+    size: { w: 2, h: 42.67 }
+  - id: ru5
+    label: ""
+    hatch: solid
+    at: { x: 112.33, y: 60 }
+    size: { w: 2, h: 53.33 }
+  - id: rd5
+    label: ""
+    hatch: solid
+    at: { x: 112.33, y: 230.67 }
+    size: { w: 2, h: 53.33 }
+  - id: ru6
+    label: ""
+    hatch: solid
+    at: { x: 123, y: 60 }
+    size: { w: 2, h: 64 }
+  - id: rd6
+    label: ""
+    hatch: solid
+    at: { x: 123, y: 220 }
+    size: { w: 2, h: 64 }
+  - id: ru7
+    label: ""
+    hatch: solid
+    at: { x: 133.67, y: 60 }
+    size: { w: 2, h: 74.67 }
+  - id: rd7
+    label: ""
+    hatch: solid
+    at: { x: 133.67, y: 209.33 }
+    size: { w: 2, h: 74.67 }
+  - id: ru8
+    label: ""
+    hatch: solid
+    at: { x: 144.33, y: 60 }
+    size: { w: 2, h: 85.33 }
+  - id: rd8
+    label: ""
+    hatch: solid
+    at: { x: 144.33, y: 198.67 }
+    size: { w: 2, h: 85.33 }
+  - id: ru9
+    label: ""
+    hatch: solid
+    at: { x: 155, y: 60 }
+    size: { w: 2, h: 96 }
+  - id: rd9
+    label: ""
+    hatch: solid
+    at: { x: 155, y: 188 }
+    size: { w: 2, h: 96 }
+  - id: ru10
+    label: ""
+    hatch: solid
+    at: { x: 165.67, y: 60 }
+    size: { w: 2, h: 106.67 }
+  - id: rd10
+    label: ""
+    hatch: solid
+    at: { x: 165.67, y: 177.33 }
+    size: { w: 2, h: 106.67 }
+  - id: ru11
+    label: ""
+    hatch: solid
+    at: { x: 176.33, y: 60 }
+    size: { w: 2, h: 112 }
+  - id: rd11
+    label: ""
+    hatch: solid
+    at: { x: 176.33, y: 172 }
+    size: { w: 2, h: 112 }
+  - id: ru12
+    label: ""
+    hatch: solid
+    at: { x: 187, y: 60 }
+    size: { w: 2, h: 112 }
+  - id: rd12
+    label: ""
+    hatch: solid
+    at: { x: 187, y: 172 }
+    size: { w: 2, h: 112 }
+  - id: ru13
+    label: ""
+    hatch: solid
+    at: { x: 197.67, y: 60 }
+    size: { w: 2, h: 112 }
+  - id: rd13
+    label: ""
+    hatch: solid
+    at: { x: 197.67, y: 172 }
+    size: { w: 2, h: 112 }
+  - id: ru14
+    label: ""
+    hatch: solid
+    at: { x: 208.33, y: 60 }
+    size: { w: 2, h: 112 }
+  - id: rd14
+    label: ""
+    hatch: solid
+    at: { x: 208.33, y: 172 }
+    size: { w: 2, h: 112 }
+  - id: ru15
+    label: ""
+    hatch: solid
+    at: { x: 219, y: 60 }
+    size: { w: 2, h: 112 }
+  - id: rd15
+    label: ""
+    hatch: solid
+    at: { x: 219, y: 172 }
+    size: { w: 2, h: 112 }
+  - id: ru16
+    label: ""
+    hatch: solid
+    at: { x: 229.67, y: 60 }
+    size: { w: 2, h: 112 }
+  - id: rd16
+    label: ""
+    hatch: solid
+    at: { x: 229.67, y: 172 }
+    size: { w: 2, h: 112 }
+  - id: ru17
+    label: ""
+    hatch: solid
+    at: { x: 240.33, y: 60 }
+    size: { w: 2, h: 112 }
+  - id: rd17
+    label: ""
+    hatch: solid
+    at: { x: 240.33, y: 172 }
+    size: { w: 2, h: 112 }
+  - id: ru18
+    label: ""
+    hatch: solid
+    at: { x: 251, y: 60 }
+    size: { w: 2, h: 112 }
+  - id: rd18
+    label: ""
+    hatch: solid
+    at: { x: 251, y: 172 }
+    size: { w: 2, h: 112 }
+  - id: ru19
+    label: ""
+    hatch: solid
+    at: { x: 261.67, y: 60 }
+    size: { w: 2, h: 112 }
+  - id: rd19
+    label: ""
+    hatch: solid
+    at: { x: 261.67, y: 172 }
+    size: { w: 2, h: 112 }
+  - id: ru20
+    label: ""
+    hatch: solid
+    at: { x: 272.33, y: 60 }
+    size: { w: 2, h: 106.67 }
+  - id: rd20
+    label: ""
+    hatch: solid
+    at: { x: 272.33, y: 177.33 }
+    size: { w: 2, h: 106.67 }
+  - id: ru21
+    label: ""
+    hatch: solid
+    at: { x: 283, y: 60 }
+    size: { w: 2, h: 96 }
+  - id: rd21
+    label: ""
+    hatch: solid
+    at: { x: 283, y: 188 }
+    size: { w: 2, h: 96 }
+  - id: ru22
+    label: ""
+    hatch: solid
+    at: { x: 293.67, y: 60 }
+    size: { w: 2, h: 85.33 }
+  - id: rd22
+    label: ""
+    hatch: solid
+    at: { x: 293.67, y: 198.67 }
+    size: { w: 2, h: 85.33 }
+  - id: ru23
+    label: ""
+    hatch: solid
+    at: { x: 304.33, y: 60 }
+    size: { w: 2, h: 74.67 }
+  - id: rd23
+    label: ""
+    hatch: solid
+    at: { x: 304.33, y: 209.33 }
+    size: { w: 2, h: 74.67 }
+  - id: ru24
+    label: ""
+    hatch: solid
+    at: { x: 315, y: 60 }
+    size: { w: 2, h: 64 }
+  - id: rd24
+    label: ""
+    hatch: solid
+    at: { x: 315, y: 220 }
+    size: { w: 2, h: 64 }
+  - id: ru25
+    label: ""
+    hatch: solid
+    at: { x: 325.67, y: 60 }
+    size: { w: 2, h: 53.33 }
+  - id: rd25
+    label: ""
+    hatch: solid
+    at: { x: 325.67, y: 230.67 }
+    size: { w: 2, h: 53.33 }
+  - id: ru26
+    label: ""
+    hatch: solid
+    at: { x: 336.33, y: 60 }
+    size: { w: 2, h: 42.67 }
+  - id: rd26
+    label: ""
+    hatch: solid
+    at: { x: 336.33, y: 241.33 }
+    size: { w: 2, h: 42.67 }
+  - id: ru27
+    label: ""
+    hatch: solid
+    at: { x: 347, y: 60 }
+    size: { w: 2, h: 32 }
+  - id: rd27
+    label: ""
+    hatch: solid
+    at: { x: 347, y: 252 }
+    size: { w: 2, h: 32 }
+  - id: ru28
+    label: ""
+    hatch: solid
+    at: { x: 357.67, y: 60 }
+    size: { w: 2, h: 21.33 }
+  - id: rd28
+    label: ""
+    hatch: solid
+    at: { x: 357.67, y: 262.67 }
+    size: { w: 2, h: 21.33 }
+  - id: ru29
+    label: ""
+    hatch: solid
+    at: { x: 368.33, y: 60 }
+    size: { w: 2, h: 10.67 }
+  - id: rd29
+    label: ""
+    hatch: solid
+    at: { x: 368.33, y: 273.33 }
+    size: { w: 2, h: 10.67 }
+  - id: c1
+    label: ""
+    marker: none
+    at: { x: 60, y: 60 }
+    size: { w: 2, h: 2 }
+  - id: c2
+    label: ""
+    marker: none
+    at: { x: 60, y: 284 }
+    size: { w: 2, h: 2 }
+  - id: c3
+    label: ""
+    marker: none
+    at: { x: 380, y: 60 }
+    size: { w: 2, h: 2 }
+  - id: c4
+    label: ""
+    marker: none
+    at: { x: 380, y: 284 }
+    size: { w: 2, h: 2 }
+  - id: e1
+    label: ""
+    marker: none
+    at: { x: 172, y: 172 }
+    size: { w: 2, h: 2 }
+  - id: e2
+    label: ""
+    marker: none
+    at: { x: 268, y: 172 }
+    size: { w: 2, h: 2 }
+  - id: m1
+    label: "RIDGE BOARD 2x10"
+    marker: none
+    align: left
+    at: { x: 420, y: 132 }
+    size: { w: 240, h: 18 }
+  - id: m2
+    label: "HIP 2x10 (4)"
+    marker: none
+    align: left
+    at: { x: 420, y: 100 }
+    size: { w: 240, h: 18 }
+  - id: m3
+    label: "COMMON RAFTER 2x8 @ 16\" O.C."
+    marker: none
+    align: left
+    at: { x: 420, y: 160 }
+    size: { w: 300, h: 18 }
+  - id: m4
+    label: "JACK RAFTERS to the hips"
+    marker: none
+    align: left
+    at: { x: 420, y: 200 }
+    size: { w: 300, h: 18 }
+  - id: m5
+    label: "ROOF 6:12  ·  OVERHANG 1'-6\""
+    marker: none
+    align: left
+    at: { x: 420, y: 250 }
+    size: { w: 300, h: 18 }
+  - id: n1
+    label: "Rafters land opposite each other on the ridge board (IRC R802.3)."
+    marker: none
+    align: left
+    at: { x: 60, y: 354 }
+    size: { w: 700, h: 18 }
+  - id: n2
+    label: "Hips: 2 in nominal min, no shallower than the rafter they carry (IRC R802.4.3)."
+    marker: none
+    align: left
+    at: { x: 60, y: 376 }
+    size: { w: 700, h: 18 }
+  - id: n3
+    label: "Below 3:12 the ridge and hips must be designed as beams (IRC R802.4.4)."
+    marker: none
+    align: left
+    at: { x: 60, y: 398 }
+    size: { w: 700, h: 18 }
+  - id: n4
+    label: "2x8 at 16 in o.c. spans about 17 ft; 2x6 about 13 ft, 2x10 about 22 ft."
+    marker: none
+    align: left
+    at: { x: 60, y: 420 }
+    size: { w: 700, h: 18 }
+  - id: n5
+    label: "Spans, sizes and the building are fictional."
+    marker: none
+    align: left
+    at: { x: 60, y: 442 }
+    size: { w: 700, h: 18 }
+edges:
+  - from: c1
+    to: e1
+    ends: { from: none, to: none }
+  - from: c2
+    to: e1
+    ends: { from: none, to: none }
+  - from: c3
+    to: e2
+    ends: { from: none, to: none }
+  - from: c4
+    to: e2
+    ends: { from: none, to: none }

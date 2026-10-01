@@ -1,0 +1,133 @@
+version: 1
+kind: placement
+title: 小学校 校舎 3 階 平面図（普通教室 2・特別教室 1）
+# **片廊下型は、全部の教室に窓を取るための形。**
+# 中廊下にすると廊下が短くて済むが、**片側の教室が北向きになる。**
+# 採光と換気の基準があるので、平面の形はそこから決まる。
+#
+# ## 理科室が端にあるのは、設備のため
+#
+# ガス・水道・排気が要るので、**縦に積む**（各階の同じ位置に置く）。
+# 準備室が隣にあるのは、薬品を教室から離して管理するため。
+#
+# ## 階段と便所の位置は、避難で決まる
+#
+# 二方向避難が要るので、階段は離して 2 か所。
+# **廊下の端から端まで、どこにいても両方へ行ける**ことを図で確かめる。
+# 1 px = 25 mm。普通教室は 8m×7m（56 m²）。
+#
+# ## 検算して直したこと（2026-09-29）
+#
+# - 教室 64 m² → **56 m²**（8,000 × 7,000）。理科室 80 → **34 m²**、準備室 30 → **19 m²**、
+#   床面積 480 → **329 m²**（23,500 × 14,000）。題の「普通教室 4・特別教室 2」も、描いてある数に合わせた
+# - **北を下にした。** 窓は教室の上の辺にしか無いので、北が上だと**全部の教室が北向き**になり、
+#   上の「片廊下型は全部の教室に窓を取るための形」と食い違っていた。日本の片廊下型は**北側廊下・南側教室**が定石
+# - X4 の通り芯を建物の端（23,500）へ。前は 20,000 の位置にあり、どの壁にも当たっていなかった
+# - 蹴上 160・踏面 280 は、建築基準法施行令 第 23 条の表（一）小学校児童用「蹴上 16 以下・踏面 26 以上・幅 140 以上」に適合。
+#   廊下 有効 2,500 は、令 第 119 条（児童用・片側居室 1.8 m 以上）に適合
+#   （出典 e-Gov 法令検索 https://laws.e-gov.go.jp/law/325CO0000000338 取得 2026-09-29）
+scale: { mm: 25 }
+wall: { mm: 150, outer: 250 }
+north: down
+grid:
+  x:
+    - { id: X1, at: 40 }
+    - { id: X2, at: 360 }
+    - { id: X3, at: 680 }
+    - { id: X4, at: 980 }
+  y:
+    - { id: Y1, at: 40 }
+    - { id: Y2, at: 320 }
+    - { id: Y3, at: 420 }
+groups:
+  - id: f3
+    label: 3 階　床面積 329 m²　CH＝3,000　片廊下型
+nodes:
+  - id: c31
+    label: 3 年 1 組
+    tag: 3-1
+    technology: 56 m²・35 人
+    at: { x: 40, y: 40 }
+    size: { w: 320, h: 280 }
+    group: f3
+    openings:
+      - { kind: slide, side: bottom, at: 0.2, width: 70 }
+      - { kind: slide, side: bottom, at: 0.8, width: 70 }
+      - { kind: window, side: top, at: 0.3, width: 110 }
+      - { kind: window, side: top, at: 0.7, width: 110 }
+  - id: c32
+    label: 3 年 2 組
+    tag: 3-2
+    technology: 56 m²・34 人
+    at: { x: 360, y: 40 }
+    size: { w: 320, h: 280 }
+    group: f3
+    openings:
+      - { kind: slide, side: bottom, at: 0.2, width: 70 }
+      - { kind: slide, side: bottom, at: 0.8, width: 70 }
+      - { kind: window, side: top, at: 0.3, width: 110 }
+      - { kind: window, side: top, at: 0.7, width: 110 }
+  - id: rika
+    label: 理科室
+    tag: 3-3
+    technology: 34 m²・準備室つき
+    at: { x: 680, y: 40 }
+    size: { w: 300, h: 180 }
+    group: f3
+    openings:
+      - { kind: door, side: bottom, at: 0.5, width: 70 }
+      - { kind: window, side: top, at: 0.5, width: 120 }
+  - id: junbi
+    label: 準備室
+    tag: 3-4
+    technology: 19 m²
+    at: { x: 680, y: 220 }
+    size: { w: 300, h: 100 }
+    group: f3
+    openings:
+      - { kind: door, side: bottom, at: 0.2, width: 60 }
+  - id: rouka
+    label: 廊下
+    technology: 有効 2,500
+    at: { x: 40, y: 320 }
+    size: { w: 940, h: 100 }
+    group: f3
+  - id: kaidan_w
+    label: 階段
+    tag: EX-1
+    technology: 蹴上 160・踏面 280
+    at: { x: 40, y: 420 }
+    size: { w: 200, h: 180 }
+    group: f3
+    openings:
+      - { kind: open, side: top, at: 0.5, width: 100 }
+  - id: wc_b
+    label: 男子便所
+    at: { x: 240, y: 420 }
+    size: { w: 180, h: 180 }
+    group: f3
+    openings:
+      - { kind: open, side: top, at: 0.5, width: 70 }
+  - id: wc_g
+    label: 女子便所
+    at: { x: 420, y: 420 }
+    size: { w: 180, h: 180 }
+    group: f3
+    openings:
+      - { kind: open, side: top, at: 0.5, width: 70 }
+  - id: tebiki
+    label: 手洗い
+    at: { x: 600, y: 420 }
+    size: { w: 180, h: 180 }
+    group: f3
+    openings:
+      - { kind: open, side: top, at: 0.5, width: 90 }
+  - id: kaidan_e
+    label: 階段
+    tag: EX-2
+    technology: 蹴上 160・踏面 280
+    at: { x: 780, y: 420 }
+    size: { w: 200, h: 180 }
+    group: f3
+    openings:
+      - { kind: open, side: top, at: 0.5, width: 100 }

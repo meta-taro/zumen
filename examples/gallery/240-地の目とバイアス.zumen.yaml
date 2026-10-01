@@ -1,0 +1,935 @@
+version: 1
+kind: placement
+arrows: true
+title: 地の目とバイアス（布が 45° だけ伸びる理由）
+# **伸びているのは糸ではない。織り目の角が倒れている。**
+#
+# 耳と平行が**たて地**、直角が**よこ地**、45° が**正バイアス**。
+# 正方形の織り目が、糸の長さを変えないままひし形へ倒れるので、
+# **45° だけがよく伸びる**（頂角 120° で長さ +22.5%）。
+#
+# **伸びと同時に幅が縮む**（同 −29.3%）。縮むほうが大きい ——
+# バイアス裁ちのスカートの裾が下がるのは、これ。
+#
+# バイアステープを 45° で裁つのは、曲線に沿わせるため。
+# **継ぎ目だけは 90° ずらす**ので、そこはたて地になって伸びない。
+nodes:
+  - id: t1
+    label: "① 布には向きがある（耳・たて地・よこ地・正バイアス）"
+    marker: none
+    align: left
+    at: { x: 150, y: 190 }
+    size: { w: 560, h: 20 }
+  - id: cloth
+    label: ""
+    at: { x: 150, y: 226 }
+    size: { w: 330, h: 250 }
+  - id: sel_l
+    label: ""
+    hatch: lines
+    at: { x: 150, y: 226 }
+    size: { w: 14, h: 250 }
+  - id: sel_r
+    label: ""
+    hatch: lines
+    at: { x: 466, y: 226 }
+    size: { w: 14, h: 250 }
+  - id: sl1
+    label: "耳"
+    marker: none
+    align: right
+    at: { x: 124, y: 342 }
+    size: { w: 22, h: 18 }
+  - id: sl2
+    label: "耳"
+    marker: none
+    align: left
+    at: { x: 484, y: 342 }
+    size: { w: 22, h: 18 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 314, y: 245 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 314, y: 455 }
+    size: { w: 2, h: 2 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 183, y: 350 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 445, y: 350 }
+    size: { w: 2, h: 2 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 226, y: 438 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 402, y: 262 }
+    size: { w: 2, h: 2 }
+  - id: lv
+    label: "たて地（経）"
+    marker: none
+    align: left
+    at: { x: 321, y: 252 }
+    size: { w: 96, h: 18 }
+  - id: lh
+    label: "よこ地（緯）"
+    marker: none
+    align: left
+    at: { x: 190, y: 325 }
+    size: { w: 96, h: 18 }
+  - id: lb
+    label: "正バイアス 45°"
+    marker: none
+    align: left
+    at: { x: 333, y: 393 }
+    size: { w: 116, h: 18 }
+  - id: h226
+    label: "引いたときの伸び"
+    hatch: solid
+    at: { x: 520, y: 226 }
+    size: { w: 420, h: 24 }
+  - id: x250
+    label: "たて地（耳と平行）"
+    at: { x: 520, y: 250 }
+    size: { w: 150, h: 24 }
+  - id: y250
+    label: "いちばん伸びない"
+    align: left
+    at: { x: 670, y: 250 }
+    size: { w: 270, h: 24 }
+  - id: x274
+    label: "よこ地"
+    at: { x: 520, y: 274 }
+    size: { w: 150, h: 24 }
+  - id: y274
+    label: "たて地より少し伸びる"
+    align: left
+    at: { x: 670, y: 274 }
+    size: { w: 270, h: 24 }
+  - id: x298
+    label: "正バイアス 45°"
+    at: { x: 520, y: 298 }
+    size: { w: 150, h: 24 }
+  - id: y298
+    label: "いちばん伸びる"
+    align: left
+    at: { x: 670, y: 298 }
+    size: { w: 270, h: 24 }
+  - id: grain
+    label: "型紙の地の目線は、かならず耳と平行に置く。\n回して置くと、同じ服の左右で伸び方が変わる。"
+    at: { x: 520, y: 344 }
+    size: { w: 420, h: 54 }
+  - id: kiji
+    label: "地直し（水通し）で、たて・よこを直角に戻してから裁つ。\n斜めのまま裁つと、仕上がってから歪む。"
+    at: { x: 520, y: 406 }
+    size: { w: 420, h: 54 }
+  - id: t2
+    label: "② 伸びているのは糸ではない。織り目の角が倒れている"
+    marker: none
+    align: left
+    at: { x: 150, y: 530 }
+    size: { w: 620, h: 20 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 215, y: 559 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 121.7, y: 652.3 }
+    size: { w: 2, h: 2 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 215, y: 559 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 308.3, y: 652.3 }
+    size: { w: 2, h: 2 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 230.6, y: 574.6 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 137.2, y: 667.9 }
+    size: { w: 2, h: 2 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 199.4, y: 574.6 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 292.8, y: 667.9 }
+    size: { w: 2, h: 2 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 246.1, y: 590.1 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 152.8, y: 683.5 }
+    size: { w: 2, h: 2 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 183.9, y: 590.1 }
+    size: { w: 2, h: 2 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 277.2, y: 683.5 }
+    size: { w: 2, h: 2 }
+  - id: p18
+    label: ""
+    marker: none
+    at: { x: 261.7, y: 605.7 }
+    size: { w: 2, h: 2 }
+  - id: p19
+    label: ""
+    marker: none
+    at: { x: 168.3, y: 699 }
+    size: { w: 2, h: 2 }
+  - id: p20
+    label: ""
+    marker: none
+    at: { x: 168.3, y: 605.7 }
+    size: { w: 2, h: 2 }
+  - id: p21
+    label: ""
+    marker: none
+    at: { x: 261.7, y: 699 }
+    size: { w: 2, h: 2 }
+  - id: p22
+    label: ""
+    marker: none
+    at: { x: 277.2, y: 621.2 }
+    size: { w: 2, h: 2 }
+  - id: p23
+    label: ""
+    marker: none
+    at: { x: 183.9, y: 714.6 }
+    size: { w: 2, h: 2 }
+  - id: p24
+    label: ""
+    marker: none
+    at: { x: 152.8, y: 621.2 }
+    size: { w: 2, h: 2 }
+  - id: p25
+    label: ""
+    marker: none
+    at: { x: 246.1, y: 714.6 }
+    size: { w: 2, h: 2 }
+  - id: p26
+    label: ""
+    marker: none
+    at: { x: 292.8, y: 636.8 }
+    size: { w: 2, h: 2 }
+  - id: p27
+    label: ""
+    marker: none
+    at: { x: 199.4, y: 730.1 }
+    size: { w: 2, h: 2 }
+  - id: p28
+    label: ""
+    marker: none
+    at: { x: 137.2, y: 636.8 }
+    size: { w: 2, h: 2 }
+  - id: p29
+    label: ""
+    marker: none
+    at: { x: 230.6, y: 730.1 }
+    size: { w: 2, h: 2 }
+  - id: p30
+    label: ""
+    marker: none
+    at: { x: 308.3, y: 652.3 }
+    size: { w: 2, h: 2 }
+  - id: p31
+    label: ""
+    marker: none
+    at: { x: 215, y: 745.7 }
+    size: { w: 2, h: 2 }
+  - id: p32
+    label: ""
+    marker: none
+    at: { x: 121.7, y: 652.3 }
+    size: { w: 2, h: 2 }
+  - id: p33
+    label: ""
+    marker: none
+    at: { x: 215, y: 745.7 }
+    size: { w: 2, h: 2 }
+  - id: g90
+    label: "頂角 90°"
+    marker: none
+    align: center
+    at: { x: 166, y: 754.7 }
+    size: { w: 100, h: 18 }
+  - id: p34
+    label: ""
+    marker: none
+    at: { x: 522, y: 559 }
+    size: { w: 2, h: 2 }
+  - id: p35
+    label: ""
+    marker: none
+    at: { x: 407.7, y: 625 }
+    size: { w: 2, h: 2 }
+  - id: p36
+    label: ""
+    marker: none
+    at: { x: 522, y: 559 }
+    size: { w: 2, h: 2 }
+  - id: p37
+    label: ""
+    marker: none
+    at: { x: 636.3, y: 625 }
+    size: { w: 2, h: 2 }
+  - id: p38
+    label: ""
+    marker: none
+    at: { x: 541.1, y: 570 }
+    size: { w: 2, h: 2 }
+  - id: p39
+    label: ""
+    marker: none
+    at: { x: 426.7, y: 636 }
+    size: { w: 2, h: 2 }
+  - id: p40
+    label: ""
+    marker: none
+    at: { x: 502.9, y: 570 }
+    size: { w: 2, h: 2 }
+  - id: p41
+    label: ""
+    marker: none
+    at: { x: 617.3, y: 636 }
+    size: { w: 2, h: 2 }
+  - id: p42
+    label: ""
+    marker: none
+    at: { x: 560.1, y: 581 }
+    size: { w: 2, h: 2 }
+  - id: p43
+    label: ""
+    marker: none
+    at: { x: 445.8, y: 647 }
+    size: { w: 2, h: 2 }
+  - id: p44
+    label: ""
+    marker: none
+    at: { x: 483.9, y: 581 }
+    size: { w: 2, h: 2 }
+  - id: p45
+    label: ""
+    marker: none
+    at: { x: 598.2, y: 647 }
+    size: { w: 2, h: 2 }
+  - id: p46
+    label: ""
+    marker: none
+    at: { x: 579.2, y: 592 }
+    size: { w: 2, h: 2 }
+  - id: p47
+    label: ""
+    marker: none
+    at: { x: 464.8, y: 658 }
+    size: { w: 2, h: 2 }
+  - id: p48
+    label: ""
+    marker: none
+    at: { x: 464.8, y: 592 }
+    size: { w: 2, h: 2 }
+  - id: p49
+    label: ""
+    marker: none
+    at: { x: 579.2, y: 658 }
+    size: { w: 2, h: 2 }
+  - id: p50
+    label: ""
+    marker: none
+    at: { x: 598.2, y: 603 }
+    size: { w: 2, h: 2 }
+  - id: p51
+    label: ""
+    marker: none
+    at: { x: 483.9, y: 669 }
+    size: { w: 2, h: 2 }
+  - id: p52
+    label: ""
+    marker: none
+    at: { x: 445.8, y: 603 }
+    size: { w: 2, h: 2 }
+  - id: p53
+    label: ""
+    marker: none
+    at: { x: 560.1, y: 669 }
+    size: { w: 2, h: 2 }
+  - id: p54
+    label: ""
+    marker: none
+    at: { x: 617.3, y: 614 }
+    size: { w: 2, h: 2 }
+  - id: p55
+    label: ""
+    marker: none
+    at: { x: 502.9, y: 680 }
+    size: { w: 2, h: 2 }
+  - id: p56
+    label: ""
+    marker: none
+    at: { x: 426.7, y: 614 }
+    size: { w: 2, h: 2 }
+  - id: p57
+    label: ""
+    marker: none
+    at: { x: 541.1, y: 680 }
+    size: { w: 2, h: 2 }
+  - id: p58
+    label: ""
+    marker: none
+    at: { x: 636.3, y: 625 }
+    size: { w: 2, h: 2 }
+  - id: p59
+    label: ""
+    marker: none
+    at: { x: 522, y: 691 }
+    size: { w: 2, h: 2 }
+  - id: p60
+    label: ""
+    marker: none
+    at: { x: 407.7, y: 625 }
+    size: { w: 2, h: 2 }
+  - id: p61
+    label: ""
+    marker: none
+    at: { x: 522, y: 691 }
+    size: { w: 2, h: 2 }
+  - id: g120
+    label: "頂角 120°"
+    marker: none
+    align: center
+    at: { x: 473, y: 700 }
+    size: { w: 100, h: 18 }
+  - id: p62
+    label: ""
+    marker: none
+    at: { x: 379, y: 649 }
+    size: { w: 2, h: 2 }
+  - id: p63
+    label: ""
+    marker: none
+    at: { x: 419, y: 649 }
+    size: { w: 2, h: 2 }
+  - id: pull
+    label: "引く"
+    marker: none
+    align: center
+    at: { x: 380, y: 624 }
+    size: { w: 42, h: 18 }
+  - id: h556
+    label: "織り目を倒したとき（糸は伸びていない）"
+    hatch: solid
+    at: { x: 680, y: 556 }
+    size: { w: 420, h: 24 }
+  - id: x580
+    label: "頂角"
+    at: { x: 680, y: 580 }
+    size: { w: 120, h: 24 }
+  - id: y580
+    label: "のび　　／　　幅の縮み"
+    align: left
+    at: { x: 800, y: 580 }
+    size: { w: 300, h: 24 }
+  - id: x604
+    label: "90°（そのまま）"
+    at: { x: 680, y: 604 }
+    size: { w: 120, h: 24 }
+  - id: y604
+    label: "±0%　　／　　±0%"
+    align: left
+    at: { x: 800, y: 604 }
+    size: { w: 300, h: 24 }
+  - id: x628
+    label: "100°"
+    at: { x: 680, y: 628 }
+    size: { w: 120, h: 24 }
+  - id: y628
+    label: "+8.3%　／　−9.1%"
+    align: left
+    at: { x: 800, y: 628 }
+    size: { w: 300, h: 24 }
+  - id: x652
+    label: "110°"
+    at: { x: 680, y: 652 }
+    size: { w: 120, h: 24 }
+  - id: y652
+    label: "+15.8%　／　−18.9%"
+    align: left
+    at: { x: 800, y: 652 }
+    size: { w: 300, h: 24 }
+  - id: x676
+    label: "120°"
+    at: { x: 680, y: 676 }
+    size: { w: 120, h: 24 }
+  - id: y676
+    label: "+22.5%　／　−29.3%"
+    align: left
+    at: { x: 800, y: 676 }
+    size: { w: 300, h: 24 }
+  - id: x700
+    label: "130°"
+    at: { x: 680, y: 700 }
+    size: { w: 120, h: 24 }
+  - id: y700
+    label: "+28.2%　／　−40.2%"
+    align: left
+    at: { x: 800, y: 700 }
+    size: { w: 300, h: 24 }
+  - id: why
+    label: "辺 1 のひし形の対角線は 2sin(頂角/2) と 2cos(頂角/2)。\nもとの √2 と比べた値が、この表。\n伸びより幅の縮みのほうが大きい ——\nバイアスで裁った布は、伸ばすほど細くなる。"
+    at: { x: 680, y: 734 }
+    size: { w: 420, h: 108 }
+  - id: t3
+    label: "③ バイアステープは 45° で裁ち、継ぎ目はたて地で合わせる"
+    marker: none
+    align: left
+    at: { x: 150, y: 850 }
+    size: { w: 640, h: 20 }
+  - id: base
+    label: ""
+    at: { x: 150, y: 880 }
+    size: { w: 300, h: 210 }
+  - id: p64
+    label: ""
+    marker: none
+    at: { x: 233, y: 879 }
+    size: { w: 2, h: 2 }
+  - id: p65
+    label: ""
+    marker: none
+    at: { x: 443, y: 1089 }
+    size: { w: 2, h: 2 }
+  - id: p66
+    label: ""
+    marker: none
+    at: { x: 191, y: 879 }
+    size: { w: 2, h: 2 }
+  - id: p67
+    label: ""
+    marker: none
+    at: { x: 401, y: 1089 }
+    size: { w: 2, h: 2 }
+  - id: p68
+    label: ""
+    marker: none
+    at: { x: 149, y: 879 }
+    size: { w: 2, h: 2 }
+  - id: p69
+    label: ""
+    marker: none
+    at: { x: 359, y: 1089 }
+    size: { w: 2, h: 2 }
+  - id: p70
+    label: ""
+    marker: none
+    at: { x: 149, y: 921 }
+    size: { w: 2, h: 2 }
+  - id: p71
+    label: ""
+    marker: none
+    at: { x: 317, y: 1089 }
+    size: { w: 2, h: 2 }
+  - id: p72
+    label: ""
+    marker: none
+    at: { x: 149, y: 963 }
+    size: { w: 2, h: 2 }
+  - id: p73
+    label: ""
+    marker: none
+    at: { x: 275, y: 1089 }
+    size: { w: 2, h: 2 }
+  - id: p74
+    label: ""
+    marker: none
+    at: { x: 149, y: 1005 }
+    size: { w: 2, h: 2 }
+  - id: p75
+    label: ""
+    marker: none
+    at: { x: 233, y: 1089 }
+    size: { w: 2, h: 2 }
+  - id: p76
+    label: ""
+    marker: none
+    at: { x: 149, y: 1047 }
+    size: { w: 2, h: 2 }
+  - id: p77
+    label: ""
+    marker: none
+    at: { x: 191, y: 1089 }
+    size: { w: 2, h: 2 }
+  - id: p78
+    label: ""
+    marker: none
+    at: { x: 149, y: 1089 }
+    size: { w: 2, h: 2 }
+  - id: p79
+    label: ""
+    marker: none
+    at: { x: 149, y: 1089 }
+    size: { w: 2, h: 2 }
+  - id: cut
+    label: "幅 4cm に裁つ（出来上がり 1cm の両折れ）"
+    marker: none
+    align: center
+    at: { x: 150, y: 1098 }
+    size: { w: 300, h: 18 }
+  - id: s1
+    label: ""
+    at: { x: 500, y: 930 }
+    size: { w: 120, h: 44 }
+  - id: s2
+    label: ""
+    hatch: lines
+    at: { x: 596, y: 890 }
+    size: { w: 44, h: 120 }
+  - id: p80
+    label: ""
+    marker: none
+    at: { x: 595, y: 973 }
+    size: { w: 2, h: 2 }
+  - id: p81
+    label: ""
+    marker: none
+    at: { x: 639, y: 929 }
+    size: { w: 2, h: 2 }
+  - id: j1
+    label: "90° ずらして重ね、角と角を結んで縫う"
+    marker: none
+    align: center
+    at: { x: 490, y: 1030 }
+    size: { w: 300, h: 18 }
+  - id: j2
+    label: "継ぎ目はたて地の向きになり、そこだけ伸びない"
+    marker: none
+    align: center
+    at: { x: 480, y: 1052 }
+    size: { w: 320, h: 18 }
+  - id: h876
+    label: "45° に裁つ理由"
+    hatch: solid
+    at: { x: 830, y: 876 }
+    size: { w: 420, h: 24 }
+  - id: x900
+    label: "曲線に沿う"
+    at: { x: 830, y: 900 }
+    size: { w: 200, h: 24 }
+  - id: y900
+    label: "伸びる向きなので、縁を一周できる"
+    align: left
+    at: { x: 1030, y: 900 }
+    size: { w: 220, h: 24 }
+  - id: x924
+    label: "インカーブ"
+    at: { x: 830, y: 924 }
+    size: { w: 200, h: 24 }
+  - id: y924
+    label: "アイロンで縮めてから当てる"
+    align: left
+    at: { x: 1030, y: 924 }
+    size: { w: 220, h: 24 }
+  - id: x948
+    label: "アウトカーブ"
+    at: { x: 830, y: 948 }
+    size: { w: 200, h: 24 }
+  - id: y948
+    label: "アイロンで伸ばしてから当てる"
+    align: left
+    at: { x: 1030, y: 948 }
+    size: { w: 220, h: 24 }
+  - id: x972
+    label: "裁断幅"
+    at: { x: 830, y: 972 }
+    size: { w: 200, h: 24 }
+  - id: y972
+    label: "出来上がり幅 × 4（両折れ）"
+    align: left
+    at: { x: 1030, y: 972 }
+    size: { w: 220, h: 24 }
+  - id: x996
+    label: "継ぎ目"
+    at: { x: 830, y: 996 }
+    size: { w: 200, h: 24 }
+  - id: y996
+    label: "90° ずらす（＝たて地で継ぐ）"
+    align: left
+    at: { x: 1030, y: 996 }
+    size: { w: 220, h: 24 }
+  - id: r1
+    label: "布には向きがあります（①）。耳と平行が「たて地」、直角が「よこ地」、45° が「正バイアス」。伸び方がまったく違います。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1150 }
+    size: { w: 1090, h: 18 }
+  - id: r2
+    label: "伸びているのは糸ではありません（②）。織り目の正方形が、糸の長さを変えないままひし形へ倒れているだけです。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1174 }
+    size: { w: 1090, h: 18 }
+  - id: r3
+    label: "だから伸びと同時に幅が縮みます。 頂角 120° まで倒すと、長さは +22.5%、幅は −29.3% —— 縮むほうが大きい。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1198 }
+    size: { w: 1090, h: 18 }
+  - id: r4
+    label: "バイアスで裁ったスカートの裾が下がるのは、これです。 自重で倒れて、長くなり、細くなる。だから吊るしてから裾を決めます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1222 }
+    size: { w: 1090, h: 18 }
+  - id: r5
+    label: "型紙の地の目線は、かならず耳と平行に置きます（①）。回して置くと、同じ服の左右で伸び方が変わってしまいます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1246 }
+    size: { w: 1090, h: 18 }
+  - id: r6
+    label: "バイアステープは 45° で裁ちます（③）。伸びる向きだから、襟ぐりや袖ぐりの曲線を一周できます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1270 }
+    size: { w: 1090, h: 18 }
+  - id: r7
+    label: "継ぎ目だけは 90° ずらします。 継いだ線がたて地の向きになり、そこだけ伸びない —— 伸びる布を、伸びない糸で留めています。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1294 }
+    size: { w: 1090, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    ends: { from: arrow, to: arrow }
+  - from: p2
+    to: p3
+    curve: none
+    ends: { from: arrow, to: arrow }
+  - from: p4
+    to: p5
+    curve: none
+    line: chain
+    ends: { from: arrow, to: arrow }
+  - from: p6
+    to: p7
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p8
+    to: p9
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p10
+    to: p11
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p12
+    to: p13
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p14
+    to: p15
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p16
+    to: p17
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p18
+    to: p19
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p20
+    to: p21
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p22
+    to: p23
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p24
+    to: p25
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p26
+    to: p27
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p28
+    to: p29
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p30
+    to: p31
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p32
+    to: p33
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p34
+    to: p35
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p36
+    to: p37
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p38
+    to: p39
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p40
+    to: p41
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p42
+    to: p43
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p44
+    to: p45
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p46
+    to: p47
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p48
+    to: p49
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p50
+    to: p51
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p52
+    to: p53
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p54
+    to: p55
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p56
+    to: p57
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p58
+    to: p59
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p60
+    to: p61
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p62
+    to: p63
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p64
+    to: p65
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }
+  - from: p66
+    to: p67
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }
+  - from: p68
+    to: p69
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }
+  - from: p70
+    to: p71
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }
+  - from: p72
+    to: p73
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p74
+    to: p75
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }
+  - from: p76
+    to: p77
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }
+  - from: p78
+    to: p79
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }
+  - from: p80
+    to: p81
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }

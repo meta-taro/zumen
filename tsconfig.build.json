@@ -1,0 +1,25 @@
+{
+  /**
+   * 取り込む側へ配るための組み立て。
+   *
+   * **Node は `node_modules` の中の TypeScript を意図的に受け付けない**
+   * （`ERR_UNSUPPORTED_NODE_MODULES_TYPE_STRIPPING`）。
+   * 手元では `node src/cli.ts` がそのまま動くが、**外から import すると動かない。**
+   * 実際に確かめた（md-business#240）。
+   *
+   * `rewriteRelativeImportExtensions` が `./layout.ts` を `./layout.js` に書き換える。
+   * **手元の書き方を変えずに済む**ので、開発の体験は変わらない。
+   */
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "rewriteRelativeImportExtensions": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "outDir": "dist",
+    "rootDir": "src"
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["src/**/*.test.ts"]
+}

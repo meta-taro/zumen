@@ -1,0 +1,197 @@
+version: 1
+kind: placement
+arrows: false
+title: 刺網の網図（仕立て図・縮結 30%／架空の一反）
+# **網は「縮めて仕立てる」。** 縮めないと目が開かず、網が縦に拡がらない。
+# その縮め具合を **縮結（いせ）** といい、漁具の設計でいちばん基本の数字とされる。
+#
+# > **縮結 ＝（元の網地長さ − 仕立上げの長さ）／ 元の網地長さ**
+#
+# ## この図が言っていること
+#
+# **同じ網地が、仕立てると短く・縦に開く。** だから上下 2 枚を並べてある（views）。
+# 30 m の網地を 21 m の綱に付ける（縮結 30%）と、
+# 目が菱形に開いて**丈が 6 m → 4.28 m** になる。
+# 縦の比は √(1 − 0.7²) ＝ 0.714 —— **横に縮めた分だけ、縦に開く。**
+#
+# ## 網図に書くもの
+#
+# | | |
+# |---|---|
+# | 目合（めあい） | 目の大きさ。**節**（15.15 cm の中の節数）か、伸ばした目の長さ |
+# | 掛目（かけめ） | 丈の方向の目の数 |
+# | 縮結 | 綱に付けるときの縮め率。**浮子方と沈子方で違う** |
+# | あば綱 / いわ綱 | 浮子綱・沈子綱。**刺網では沈子綱を 3〜10% 長くする** |
+#
+# まき網では浮子方 30%・岩方 20% ほど（網地 500 間に対し、浮子方 350 間・岩方 400 間）。
+#
+# 1 px ＝ 50 mm。目合・掛目・寸法はすべて架空の一反。
+
+scale: { mm: 50 }
+views:
+  - id: flat
+    title: 仕立て前（網地を伸ばした状態）
+    at: { x: 60, y: 130 }
+    size: { w: 600, h: 120 }
+    scale: { mm: 50 }
+    grid:
+      x:
+        - { id: A, at: 60 }
+        - { id: B, at: 660 }
+      y:
+        - { id: 上, at: 130 }
+        - { id: 下, at: 250 }
+  - id: rigged
+    title: 仕立て後（縮結 30%。目が菱形に開く）
+    at: { x: 60, y: 450 }
+    size: { w: 420, h: 86 }
+    scale: { mm: 50 }
+    grid:
+      x:
+        - { id: C, at: 60 }
+        - { id: D, at: 480 }
+      y:
+        - { id: あば, at: 450 }
+        - { id: いわ, at: 536 }
+nodes:
+  - id: t1
+    label: 刺網 一反　目合 60 mm　掛目 100 目　網地長さ 500 目
+    hatch: solid
+    at: { x: 60, y: 40 }
+    size: { w: 600, h: 26 }
+  - id: t2
+    label: 仕立て前 30.0 m × 6.0 m　→　仕立て後 21.0 m × 4.28 m（縮結 30%）
+    at: { x: 60, y: 66 }
+    size: { w: 600, h: 24 }
+  - id: flatnet
+    label: ""
+    hatch: cross
+    at: { x: 60, y: 130 }
+    size: { w: 600, h: 120 }
+  - id: flatname
+    label: 網地 500 目 × 100 目（目を伸ばした形）
+    marker: none
+    at: { x: 60, y: 178 }
+    size: { w: 600, h: 22 }
+  - id: net
+    label: ""
+    hatch: cross
+    at: { x: 60, y: 450 }
+    size: { w: 420, h: 86 }
+  - id: netname
+    label: 網地（目が菱形に開いている）
+    marker: none
+    at: { x: 60, y: 482 }
+    size: { w: 420, h: 22 }
+  - id: f0
+    label: ""
+    marker: circle
+    at: { x: 82, y: 442 }
+    size: { w: 16, h: 16 }
+  - id: f1
+    label: ""
+    marker: circle
+    at: { x: 144, y: 442 }
+    size: { w: 16, h: 16 }
+  - id: f2
+    label: ""
+    marker: circle
+    at: { x: 206, y: 442 }
+    size: { w: 16, h: 16 }
+  - id: f3
+    label: ""
+    marker: circle
+    at: { x: 268, y: 442 }
+    size: { w: 16, h: 16 }
+  - id: f4
+    label: ""
+    marker: circle
+    at: { x: 330, y: 442 }
+    size: { w: 16, h: 16 }
+  - id: f5
+    label: ""
+    marker: circle
+    at: { x: 392, y: 442 }
+    size: { w: 16, h: 16 }
+  - id: f6
+    label: ""
+    marker: circle
+    at: { x: 454, y: 442 }
+    size: { w: 16, h: 16 }
+  - id: w0
+    label: ""
+    marker: bar
+    at: { x: 82, y: 531 }
+    size: { w: 16, h: 10 }
+  - id: w1
+    label: ""
+    marker: bar
+    at: { x: 144, y: 531 }
+    size: { w: 16, h: 10 }
+  - id: w2
+    label: ""
+    marker: bar
+    at: { x: 206, y: 531 }
+    size: { w: 16, h: 10 }
+  - id: w3
+    label: ""
+    marker: bar
+    at: { x: 268, y: 531 }
+    size: { w: 16, h: 10 }
+  - id: w4
+    label: ""
+    marker: bar
+    at: { x: 330, y: 531 }
+    size: { w: 16, h: 10 }
+  - id: w5
+    label: ""
+    marker: bar
+    at: { x: 392, y: 531 }
+    size: { w: 16, h: 10 }
+  - id: w6
+    label: ""
+    marker: bar
+    at: { x: 454, y: 531 }
+    size: { w: 16, h: 10 }
+  - id: n0
+    label: ・縮結 ＝（元の網地長さ − 仕立上げの長さ）／ 元の網地長さ
+    marker: none
+    align: left
+    at: { x: 60, y: 680 }
+    size: { w: 600, h: 22 }
+  - id: n0b
+    label: 　ここでは（30 − 21）／ 30 ＝ 0.30
+    marker: none
+    align: left
+    at: { x: 60, y: 702 }
+    size: { w: 600, h: 22 }
+  - id: n1
+    label: ・横に 0.7 倍へ縮めた分、縦は √(1 − 0.7²) ＝ 0.714 倍に開く。丈 6.0 m → 4.28 m
+    marker: none
+    align: left
+    at: { x: 60, y: 724 }
+    size: { w: 600, h: 22 }
+  - id: n2
+    label: ・あば綱（浮子綱）21.0 m。いわ綱（沈子綱）22.05 m —— 浮子綱の 5% 増し
+    marker: none
+    align: left
+    at: { x: 60, y: 746 }
+    size: { w: 600, h: 22 }
+  - id: n3
+    label: ・沈子綱を長くするのは、網を下でたるませて魚を絡めるため（刺網で 3〜10%）
+    marker: none
+    align: left
+    at: { x: 60, y: 768 }
+    size: { w: 600, h: 22 }
+  - id: n4
+    label: ・目合は「節」でも言う。伸ばした網の 15.15 cm に節がいくつ入るかを数える
+    marker: none
+    align: left
+    at: { x: 60, y: 790 }
+    size: { w: 600, h: 22 }
+  - id: n5
+    label: ・両端には碇と浮標を付ける。この図では省いている
+    marker: none
+    align: left
+    at: { x: 60, y: 812 }
+    size: { w: 600, h: 22 }

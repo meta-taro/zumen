@@ -1,0 +1,449 @@
+version: 1
+kind: placement
+arrows: true
+title: ロープ高所作業の作業計画図（外壁清掃・4 階建て／架空）
+# **この図は、法律が「作れ」と言っている図。**
+#
+# 高さ 2 m 以上で、作業床を設けられず、昇降器具で身体を保持して行う作業は
+# **ロープ高所作業**（安衛則 第 539 条の 2 〜 第 539 条の 9。平成 28 年 1 月施行）。
+# 事業者は**あらかじめ調査し、その結果に適応する作業計画を定めて**作業する。
+#
+# ## 図に載るものが、条文で決まっている
+#
+# **第 539 条の 5（作業計画）** —— 作業の方法及び順序／従事者の人数／
+# 支持物の位置／メインロープ等の種類・強度・長さ／切断防止の措置／
+# 墜落防止の措置／物体落下防止の措置／応急の措置。
+#
+# **第 539 条の 4（調査と記録）** —— 作業箇所**及びその下方**の状況／
+# 支持物の位置・状態・周囲の状況／作業箇所と支持物への通路の状況／
+# **切断のおそれのある箇所**の有無・位置・状態。
+#
+# ## いちばん大事な 1 行
+#
+# **メインロープとライフラインは、それぞれ異なる支持物に緊結する。**
+# 同じ支持物に 2 本とも取ると、支持物が抜けたときに両方いっぺんに落ちる。
+# **だから屋上の伏図が要る** —— 立面だけでは「別の支持物か」が分からない。
+#
+# ## 中止（第 522 条）
+#
+# 強風・大雨・大雪のときは行わせてはならない。
+# **強風 ＝ 10 分間の平均風速 10 m/s 以上**、大雨 ＝ 1 回 50 mm 以上、
+# 大雪 ＝ 1 回 25 cm 以上。
+#
+# 1 px ＝ 50 mm。建物・ロープ・人数はすべて架空。
+scale: { mm: 50 }
+views:
+  - id: elev
+    title: 立面（南面）—— 作業箇所と、その下方
+    at: { x: 60, y: 60 }
+    size: { w: 240, h: 306 }
+    grid:
+      x:
+        - { id: X1, at: 60 }
+        - { id: X2, at: 140 }
+        - { id: X3, at: 220 }
+        - { id: X4, at: 300 }
+      y:
+        - { id: "天端+13,300", at: 60, mark: level }
+        - { id: "4FL+10,500", at: 116, mark: level }
+        - { id: "GL±0", at: 326, mark: level }
+  - id: roof
+    title: 屋上伏図 —— 支持物は、メインとライフラインで別にする
+    at: { x: 60, y: 560 }
+    size: { w: 240, h: 200 }
+    grid:
+      x:
+        - { id: X1, at: 60 }
+        - { id: X2, at: 140 }
+        - { id: X3, at: 220 }
+        - { id: X4, at: 300 }
+      y:
+        - { id: Y1, at: 560 }
+        - { id: Y2, at: 760 }
+nodes:
+  # ---- 立面 ---------------------------------------------------
+  - id: wall
+    label: ""
+    at: { x: 60, y: 60 }
+    size: { w: 240, h: 266 }
+  - id: w41
+    label: ""
+    hatch: dots
+    at: { x: 74, y: 76 }
+    size: { w: 36, h: 28 }
+  - id: w42
+    label: ""
+    hatch: dots
+    at: { x: 132, y: 76 }
+    size: { w: 36, h: 28 }
+  - id: w43
+    label: ""
+    hatch: dots
+    at: { x: 190, y: 76 }
+    size: { w: 36, h: 28 }
+  - id: w44
+    label: ""
+    hatch: dots
+    at: { x: 248, y: 76 }
+    size: { w: 36, h: 28 }
+  - id: w31
+    label: ""
+    hatch: dots
+    at: { x: 74, y: 132 }
+    size: { w: 36, h: 28 }
+  - id: w32
+    label: ""
+    hatch: dots
+    at: { x: 132, y: 132 }
+    size: { w: 36, h: 28 }
+  - id: w33
+    label: ""
+    hatch: dots
+    at: { x: 190, y: 132 }
+    size: { w: 36, h: 28 }
+  - id: w34
+    label: ""
+    hatch: dots
+    at: { x: 248, y: 132 }
+    size: { w: 36, h: 28 }
+  - id: w21
+    label: ""
+    hatch: dots
+    at: { x: 74, y: 202 }
+    size: { w: 36, h: 28 }
+  - id: w22
+    label: ""
+    hatch: dots
+    at: { x: 132, y: 202 }
+    size: { w: 36, h: 28 }
+  - id: w23
+    label: ""
+    hatch: dots
+    at: { x: 190, y: 202 }
+    size: { w: 36, h: 28 }
+  - id: w24
+    label: ""
+    hatch: dots
+    at: { x: 248, y: 202 }
+    size: { w: 36, h: 28 }
+  - id: w11
+    label: ""
+    hatch: dots
+    at: { x: 74, y: 272 }
+    size: { w: 36, h: 28 }
+  - id: w12
+    label: ""
+    hatch: dots
+    at: { x: 132, y: 272 }
+    size: { w: 36, h: 28 }
+  - id: w13
+    label: ""
+    hatch: dots
+    at: { x: 190, y: 272 }
+    size: { w: 36, h: 28 }
+  - id: w14
+    label: ""
+    hatch: dots
+    at: { x: 248, y: 272 }
+    size: { w: 36, h: 28 }
+  - id: rm1
+    label: ""
+    hatch: solid
+    at: { x: 118, y: 60 }
+    size: { w: 3, h: 266 }
+  - id: rl1
+    label: ""
+    hatch: solid
+    at: { x: 124, y: 60 }
+    size: { w: 3, h: 266 }
+  - id: rm2
+    label: ""
+    hatch: solid
+    at: { x: 234, y: 60 }
+    size: { w: 3, h: 266 }
+  - id: rl2
+    label: ""
+    hatch: solid
+    at: { x: 240, y: 60 }
+    size: { w: 3, h: 266 }
+  - id: drop1
+    label: 降下 1
+    marker: none
+    at: { x: 71, y: 38 }
+    size: { w: 100, h: 18 }
+  - id: drop2
+    label: 降下 2
+    marker: none
+    at: { x: 187, y: 38 }
+    size: { w: 100, h: 18 }
+  - id: keep
+    label: ""
+    hatch: lines
+    at: { x: 60, y: 326 }
+    size: { w: 240, h: 30 }
+  - id: keepn
+    label: 立入禁止 コーンとバー 奥行 1,500
+    marker: none
+    align: left
+    at: { x: 66, y: 332 }
+    size: { w: 230, h: 18 }
+  # ---- 屋上伏図 -----------------------------------------------
+  - id: slab
+    label: ""
+    at: { x: 60, y: 560 }
+    size: { w: 240, h: 200 }
+  - id: base
+    label: ""
+    tag: 架台
+    hatch: lines
+    at: { x: 96, y: 594 }
+    size: { w: 52, h: 30 }
+  - id: hato
+    label: ""
+    tag: ハト小屋
+    hatch: lines
+    at: { x: 196, y: 594 }
+    size: { w: 68, h: 30 }
+  - id: m1
+    label: ""
+    tag: M1
+    marker: circle
+    at: { x: 152, y: 678 }
+    size: { w: 24, h: 24 }
+  - id: l1
+    label: ""
+    tag: L1
+    marker: circle
+    at: { x: 104, y: 616 }
+    size: { w: 24, h: 24 }
+  - id: m2
+    label: ""
+    tag: M2
+    marker: circle
+    at: { x: 252, y: 678 }
+    size: { w: 24, h: 24 }
+  - id: l2
+    label: ""
+    tag: L2
+    marker: circle
+    at: { x: 216, y: 616 }
+    size: { w: 24, h: 24 }
+  - id: g1
+    label: ""
+    tag: 養生
+    hatch: dots
+    at: { x: 96, y: 746 }
+    size: { w: 40, h: 14 }
+  - id: g2
+    label: ""
+    tag: 養生
+    hatch: dots
+    at: { x: 208, y: 746 }
+    size: { w: 40, h: 14 }
+  # ---- 作業計画（第 539 条の 5）--------------------------------
+  - id: ph
+    label: 作業計画に定める事項（安衛則 第 539 条の 5）
+    hatch: solid
+    at: { x: 470, y: 60 }
+    size: { w: 520, h: 26 }
+  - id: p1k
+    label: 方法と順序
+    at: { x: 470, y: 86 }
+    size: { w: 190, h: 24 }
+  - id: p1v
+    label: 天端から 1 階まで下り、次のスパンへ移る
+    align: left
+    at: { x: 660, y: 86 }
+    size: { w: 330, h: 24 }
+  - id: p2k
+    label: 従事者の人数
+    at: { x: 470, y: 110 }
+    size: { w: 190, h: 24 }
+  - id: p2v
+    label: 3 名（作業者 2・作業指揮者 1）
+    align: left
+    at: { x: 660, y: 110 }
+    size: { w: 330, h: 24 }
+  - id: p3k
+    label: 支持物の位置
+    at: { x: 470, y: 134 }
+    size: { w: 190, h: 24 }
+  - id: p3v
+    label: 屋上伏図のとおり。M と L は別の支持物
+    align: left
+    at: { x: 660, y: 134 }
+    size: { w: 330, h: 24 }
+  - id: p4k
+    label: 種類・強度・長さ
+    at: { x: 470, y: 158 }
+    size: { w: 190, h: 24 }
+  - id: p4v
+    label: φ16 三つ打ち／破断 30 kN／20 m ×4 本
+    align: left
+    at: { x: 660, y: 158 }
+    size: { w: 330, h: 24 }
+  - id: p5k
+    label: 切断防止の措置
+    at: { x: 470, y: 182 }
+    size: { w: 190, h: 24 }
+  - id: p5v
+    label: パラペット天端に養生（ロープガード）
+    align: left
+    at: { x: 660, y: 182 }
+    size: { w: 330, h: 24 }
+  - id: p6k
+    label: 墜落防止の措置
+    at: { x: 470, y: 206 }
+    size: { w: 190, h: 24 }
+  - id: p6v
+    label: ライフライン ＋ 要求性能墜落制止用器具
+    align: left
+    at: { x: 660, y: 206 }
+    size: { w: 330, h: 24 }
+  - id: p7k
+    label: 物体落下防止の措置
+    at: { x: 470, y: 230 }
+    size: { w: 190, h: 24 }
+  - id: p7v
+    label: 立入禁止区画・工具の落下防止紐・保護帽
+    align: left
+    at: { x: 660, y: 230 }
+    size: { w: 330, h: 24 }
+  - id: p8k
+    label: 応急の措置
+    at: { x: 470, y: 254 }
+    size: { w: 190, h: 24 }
+  - id: p8v
+    label: 引き上げ手順／連絡先／搬送先を掲示
+    align: left
+    at: { x: 660, y: 254 }
+    size: { w: 330, h: 24 }
+  # ---- 調査と記録（第 539 条の 4）------------------------------
+  - id: sh
+    label: 調査して記録すること（第 539 条の 4）
+    hatch: solid
+    at: { x: 470, y: 292 }
+    size: { w: 520, h: 26 }
+  - id: s1k
+    label: 作業箇所と下方
+    at: { x: 470, y: 318 }
+    size: { w: 190, h: 24 }
+  - id: s1v
+    label: 南面は歩道。出入口は工事中、北側へ回す
+    align: left
+    at: { x: 660, y: 318 }
+    size: { w: 330, h: 24 }
+  - id: s2k
+    label: 支持物と周囲
+    at: { x: 470, y: 342 }
+    size: { w: 190, h: 24 }
+  - id: s2v
+    label: 架台とハト小屋。ぐらつき・腐食なしを確認
+    align: left
+    at: { x: 660, y: 342 }
+    size: { w: 330, h: 24 }
+  - id: s3k
+    label: 通路の状況
+    at: { x: 470, y: 366 }
+    size: { w: 190, h: 24 }
+  - id: s3v
+    label: 屋上へは北側の階段。タラップは使わない
+    align: left
+    at: { x: 660, y: 366 }
+    size: { w: 330, h: 24 }
+  - id: s4k
+    label: 切断のおそれ
+    at: { x: 470, y: 390 }
+    size: { w: 190, h: 24 }
+  - id: s4v
+    label: パラペット天端の笠木の角（2 か所）
+    align: left
+    at: { x: 660, y: 390 }
+    size: { w: 330, h: 24 }
+  # ---- 中止（第 522 条）---------------------------------------
+  - id: wh
+    label: この日は行わない（第 522 条・悪天候）
+    hatch: solid
+    at: { x: 470, y: 428 }
+    size: { w: 520, h: 26 }
+  - id: w1k
+    label: 強風
+    at: { x: 470, y: 454 }
+    size: { w: 190, h: 24 }
+  - id: w1v
+    label: 10 分間の平均風速 10 m/s 以上
+    align: left
+    at: { x: 660, y: 454 }
+    size: { w: 330, h: 24 }
+  - id: w2k
+    label: 大雨
+    at: { x: 470, y: 478 }
+    size: { w: 190, h: 24 }
+  - id: w2v
+    label: 1 回の降雨量 50 mm 以上
+    align: left
+    at: { x: 660, y: 478 }
+    size: { w: 330, h: 24 }
+  - id: w3k
+    label: 大雪
+    at: { x: 470, y: 502 }
+    size: { w: 190, h: 24 }
+  - id: w3v
+    label: 1 回の降雪量 25 cm 以上
+    align: left
+    at: { x: 660, y: 502 }
+    size: { w: 330, h: 24 }
+  # ---- 注記 ---------------------------------------------------
+  - id: n0
+    label: ・M ＝ メインロープ（身体保持器具を取り付ける）。L ＝ ライフライン
+    marker: none
+    align: left
+    at: { x: 470, y: 546 }
+    size: { w: 520, h: 22 }
+  - id: n0b
+    label: ・立面の降下 1 は M1・L1、降下 2 は M2・L2
+    marker: none
+    align: left
+    at: { x: 470, y: 568 }
+    size: { w: 520, h: 22 }
+  - id: n1
+    label: ・M と L は、それぞれ異なる支持物に緊結する
+    marker: none
+    align: left
+    at: { x: 470, y: 590 }
+    size: { w: 520, h: 22 }
+  - id: n2
+    label: 　同じ支持物に 2 本とも取ると、抜けたときに両方いっぺんに落ちる
+    marker: none
+    align: left
+    at: { x: 470, y: 612 }
+    size: { w: 520, h: 22 }
+  - id: n3
+    label: ・だから屋上の伏図が要る。立面だけでは別の支持物かが分からない
+    marker: none
+    align: left
+    at: { x: 470, y: 634 }
+    size: { w: 520, h: 22 }
+  - id: n4
+    label: ・作業指揮者は、器具の点検と、保護具の使用状況の監視を行う
+    marker: none
+    align: left
+    at: { x: 470, y: 656 }
+    size: { w: 520, h: 22 }
+  - id: n5
+    label: ・その日の作業前に、ロープ・墜落制止用器具・保護帽を点検する
+    marker: none
+    align: left
+    at: { x: 470, y: 678 }
+    size: { w: 520, h: 22 }
+edges:
+  - from: l1
+    to: g1
+    line: dashed
+  - from: m1
+    to: g1
+  - from: l2
+    to: g2
+    line: dashed
+  - from: m2
+    to: g2

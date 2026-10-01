@@ -1,0 +1,218 @@
+version: 1
+kind: placement
+arrows: true
+title: 災害対策本部と、報告の経路
+# **大きいものは、県と国へ同時に出す。**
+#
+# ふだんは 現場 → 市町村 → 都道府県 → 消防庁 だが、
+# **直接即報基準に当たるものは県と国へ同時**（中継を待つと遅れるため）。
+# **第一報は覚知から 30 分以内が目安** —— 分かっていることだけ出し、続報で足す。
+#
+# **指揮は 1 本、情報は 1 か所。**
+# 1 人が 2 か所から指示を受けると、どちらを先にするかを現場が決めることになる。
+# 情報がばらばらだと、同じ現場へ 2 隊出す。
+#
+# 班の編成は自治体ごとに違う（この図は例）。
+nodes:
+  - id: t1
+    label: "① ふだんは県へ。大きいものは国へも同時に"
+    marker: none
+    align: left
+    at: { x: 150, y: 200 }
+    size: { w: 560, h: 20 }
+  - id: genba
+    label: "現場（消防・住民・施設）"
+    at: { x: 170, y: 250 }
+    size: { w: 240, h: 44 }
+  - id: shi
+    label: "市町村\n災害対策本部"
+    at: { x: 170, y: 350 }
+    size: { w: 240, h: 56 }
+  - id: ken
+    label: "都道府県\n災害対策本部"
+    at: { x: 170, y: 470 }
+    size: { w: 240, h: 56 }
+  - id: kuni
+    label: "消防庁"
+    at: { x: 170, y: 590 }
+    size: { w: 240, h: 44 }
+  - id: n1
+    label: "直接即報基準に当たるものは、県と国へ同時に出す。"
+    marker: none
+    align: left
+    at: { x: 150, y: 656 }
+    size: { w: 560, h: 18 }
+  - id: n2
+    label: "中継を待つと、そのぶん遅れるため。"
+    marker: none
+    align: left
+    at: { x: 150, y: 678 }
+    size: { w: 560, h: 18 }
+  - id: n3
+    label: "第一報は、覚知から 30 分以内が目安。"
+    marker: none
+    align: left
+    at: { x: 150, y: 706 }
+    size: { w: 560, h: 18 }
+  - id: n4
+    label: "分かっていることだけ出し、あとは続報で足す。"
+    marker: none
+    align: left
+    at: { x: 150, y: 728 }
+    size: { w: 560, h: 18 }
+  - id: n5
+    label: "「まとまってから」にすると、いつまでも出せない。"
+    marker: none
+    align: left
+    at: { x: 150, y: 750 }
+    size: { w: 560, h: 18 }
+  - id: t2
+    label: "② 指揮は 1 本、情報は 1 か所（編成は自治体ごと。これは例）"
+    marker: none
+    align: left
+    at: { x: 760, y: 200 }
+    size: { w: 480, h: 20 }
+  - id: cho
+    label: "本部長（市町村長）"
+    at: { x: 900, y: 250 }
+    size: { w: 200, h: 44 }
+  - id: fuku
+    label: "副本部長"
+    at: { x: 900, y: 320 }
+    size: { w: 200, h: 36 }
+  - id: b0
+    label: "総務班"
+    at: { x: 762, y: 400 }
+    size: { w: 74, h: 36 }
+  - id: b1
+    label: "情報班"
+    at: { x: 842, y: 400 }
+    size: { w: 74, h: 36 }
+  - id: b2
+    label: "避難班"
+    at: { x: 922, y: 400 }
+    size: { w: 74, h: 36 }
+  - id: b3
+    label: "救護班"
+    at: { x: 1002, y: 400 }
+    size: { w: 74, h: 36 }
+  - id: b4
+    label: "物資班"
+    at: { x: 1082, y: 400 }
+    size: { w: 74, h: 36 }
+  - id: b5
+    label: "施設班"
+    at: { x: 1162, y: 400 }
+    size: { w: 74, h: 36 }
+  - id: m1
+    label: "1 人が 2 か所から指示を受けない（指揮 1 本）。"
+    marker: none
+    align: left
+    at: { x: 760, y: 470 }
+    size: { w: 480, h: 18 }
+  - id: m2
+    label: "受けると、どちらを先にするかを現場が決めることになる。"
+    marker: none
+    align: left
+    at: { x: 760, y: 492 }
+    size: { w: 480, h: 18 }
+  - id: m4
+    label: "情報は情報班にすべて集める（情報 1 か所）。"
+    marker: none
+    align: left
+    at: { x: 760, y: 536 }
+    size: { w: 480, h: 18 }
+  - id: m5
+    label: "ばらばらに持っていると、同じ現場へ 2 隊出す。"
+    marker: none
+    align: left
+    at: { x: 760, y: 558 }
+    size: { w: 480, h: 18 }
+  - id: m7
+    label: "決めるのは本部長 1 人。 班は案を出して、実行する。"
+    marker: none
+    align: left
+    at: { x: 760, y: 602 }
+    size: { w: 480, h: 18 }
+  - id: r1
+    label: "報告の経路は 2 本あります（①）。ふだんは 現場 → 市町村 → 都道府県 → 消防庁 ですが、"
+    marker: none
+    align: left
+    at: { x: 150, y: 830 }
+    size: { w: 1090, h: 18 }
+  - id: r2
+    label: "直接即報基準に当たるものは、県と国へ同時に出します。 中継を待つと、そのぶん遅れるからです。"
+    marker: none
+    align: left
+    at: { x: 150, y: 854 }
+    size: { w: 1090, h: 18 }
+  - id: r3
+    label: "第一報は覚知から 30 分以内が目安。 分かっていることだけ出し、あとは続報で足します。"
+    marker: none
+    align: left
+    at: { x: 150, y: 878 }
+    size: { w: 1090, h: 18 }
+  - id: r4
+    label: "「まとまってから」にすると、いつまでも出せません。 早く粗く出して、直していくほうが速い。"
+    marker: none
+    align: left
+    at: { x: 150, y: 902 }
+    size: { w: 1090, h: 18 }
+  - id: r5
+    label: "指揮は 1 本（②）。1 人が 2 か所から指示を受けると、どちらを先にするかを現場が決めることになります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 926 }
+    size: { w: 1090, h: 18 }
+  - id: r6
+    label: "情報は 1 か所。ばらばらに持っていると、同じ現場へ 2 隊出します。重複は、足りないのと同じだけ害になります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 950 }
+    size: { w: 1090, h: 18 }
+  - id: r7
+    label: "編成は自治体ごとに違います。 図にできるのは「1 本と 1 か所」という形だけで、班の名前は各自治体の計画を見ます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 974 }
+    size: { w: 1090, h: 18 }
+edges:
+  - from: genba
+    to: shi
+    curve: none
+  - from: shi
+    to: ken
+    curve: none
+    label: "ふだんの経路"
+  - from: ken
+    to: kuni
+    curve: none
+  - from: shi
+    to: kuni
+    curve: none
+    line: dashed
+    via:
+      - { x: 500, y: 378 }
+      - { x: 500, y: 612 }
+    label: "直接即報（同時に出す）"
+  - from: cho
+    to: fuku
+    curve: none
+  - from: fuku
+    to: b0
+    curve: none
+  - from: fuku
+    to: b1
+    curve: none
+  - from: fuku
+    to: b2
+    curve: none
+  - from: fuku
+    to: b3
+    curve: none
+  - from: fuku
+    to: b4
+    curve: none
+  - from: fuku
+    to: b5
+    curve: none

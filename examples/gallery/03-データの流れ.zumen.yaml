@@ -1,0 +1,94 @@
+version: 1
+wrap: true
+title: 収集から配信まで
+# **データフロー図で数えるのは、箱ではなく「入口」。**
+# 外部 API と手上げの CSV —— **入口が 2 つある時点で、形の違う 2 種類が入ってくる。**
+#
+# ## 旧バッチを消さずに描く
+#
+# 新しいワーカーができても、旧バッチが止まるまでは両方が同じ集約先へ書く。
+# **移行中の期間こそ、図が要る。** 片方だけ描くと、二重書き込みが見えない。
+# 旧バッチにも**入口の線**を描く。入力の無い処理は、データフロー図では
+# 「どこからともなく出力が出る」誤り（奇跡の処理、miracle）として数える。
+#
+# ## 処理待ちは箱ではなく状態
+#
+# キューは「そこに溜まる」ので、**詰まったときに何が起きるか**を図から読む。
+# 入る速さと出る速さが釣り合わない所が、いつも事故になる。
+pins:
+  work:
+    appearance: primary
+  legacy:
+    appearance: muted
+groups:
+  - id: take
+    label: 取り込み
+  - id: run
+    label: 処理
+  - id: serve
+    label: 配信
+nodes:
+  - id: api
+    type: internet
+    label: 外部 API
+    technology: 1 時間ごと
+    group: take
+  - id: csv
+    type: storage
+    label: 手上げの CSV
+    technology: 担当者が置く
+    group: take
+  - id: q
+    type: queue
+    label: 処理待ち
+    group: run
+  - id: work
+    type: cluster
+    label: ワーカー
+    technology: 4 並列
+    group: run
+  - id: legacy
+    type: server
+    label: 旧バッチ
+    technology: 停止予定
+    group: run
+  - id: db
+    type: database
+    label: 集約先
+    technology: PostgreSQL 16
+    group: serve
+  - id: kv
+    type: cache
+    label: 配信用
+    technology: Redis
+    group: serve
+  - id: web
+    type: server
+    label: 参照 API
+    group: serve
+edges:
+  - from: api
+    to: q
+    label: 取得
+  - from: csv
+    to: q
+    label: 投入
+  - from: q
+    to: work
+  - from: api
+    to: legacy
+    label: 取得（旧）
+  - from: legacy
+    to: db
+    label: 旧経路
+  - from: work
+    to: db
+    label: 書き込み
+  - from: db
+    to: kv
+    label: 温める
+  - from: kv
+    to: web
+  - from: db
+    to: web
+    label: 直参照

@@ -1,0 +1,361 @@
+version: 1
+kind: placement
+arrows: true
+title: 接地工事の 4 種類（B 種だけ、数が決まっていない）
+# **A・C・D は数で、B だけは式で決まる。**
+#
+# ## 4 種類
+#
+# **A 種**は高圧・特別高圧の機器の金属の架台やケース —— **10Ω 以下、接地線 2.6mm 以上。**
+# **C 種**は低圧で **300V を超える**もの —— **10Ω 以下、1.6mm 以上。**
+# **D 種**は低圧 **300V 以下** —— **100Ω 以下、1.6mm 以上。**
+#
+# ## B 種だけが式
+#
+# **B 種**は高圧と低圧をつなぐ変圧器の**低圧側の中性点**に施す。
+# 抵抗の上限は **150 ÷ I**（I は変圧器の高圧側電路の 1 線地絡電流）。
+# 混触したとき **2 秒以内に自動遮断する**なら **300 ÷ I** まで緩められる。
+#
+# **「電流が大きい所ほど、抵抗を小さくしろ」** ——
+# 数を 1 つ決めてしまうと、電流の大小に関わらず同じ電圧が出てしまう。
+#
+# ## 抵抗を下げる代わりに、速さで守る
+#
+# **C 種と D 種は、100mA 以下の漏電遮断器を付ければ 500Ω 以下でもよい。**
+# 抵抗を下げる工事の代わりに、**切る速さ**で守るという交換になっている。
+#
+# ## 何のためか
+#
+# **漏電による感電と火災を防ぐこと。**
+# そして**変圧器の中で混触したとき、低圧の電路へ高い電圧が入るのを抑えること。**
+# 前者は人を守り、後者は機器と回路を守る。
+#
+# 家の電気系統は見本 06、受変電の結線は見本 19、電気の引き込みは見本 309。
+nodes:
+  - id: t1
+    label: "① どこに落とすか —— 4 種類の違いは「つなぐ相手」と「抵抗の上限」"
+    marker: none
+    align: left
+    at: { x: 140, y: 150 }
+    size: { w: 900, h: 18 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 139, y: 559 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 1399, y: 559 }
+    size: { w: 2, h: 2 }
+  # **「大地」は線の名前なので、線の上に置く**（2026-09-24。qa/品質100周 第 3 周）。
+  # 接地極 4 つと同じ高さ（y 570）に並べていたので、**5 つ目の接地極に見えた。**
+  - id: gn
+    label: "大地"
+    marker: none
+    align: left
+    at: { x: 140, y: 532 }
+    size: { w: 90, h: 18 }
+  - id: ab
+    label: "A 種（第 1 種）"
+    at: { x: 180, y: 240 }
+    size: { w: 250, h: 56 }
+  - id: aw
+    label: "高圧・特別高圧機器の\n金属の架台やケース"
+    marker: none
+    align: center
+    at: { x: 180, y: 302 }
+    size: { w: 250, h: 36 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 304, y: 339 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 304, y: 557 }
+    size: { w: 2, h: 2 }
+  - id: ao
+    label: "10Ω 以下"
+    hatch: solid
+    at: { x: 225, y: 400 }
+    size: { w: 160, h: 34 }
+  - id: as
+    label: "接地線 直径 2.6mm 以上"
+    marker: none
+    align: center
+    at: { x: 180, y: 446 }
+    size: { w: 250, h: 18 }
+  - id: ae
+    label: "接地極"
+    marker: none
+    align: center
+    at: { x: 245, y: 570 }
+    size: { w: 120, h: 18 }
+  - id: bb
+    label: "B 種（第 2 種）"
+    at: { x: 490, y: 240 }
+    size: { w: 250, h: 56 }
+  - id: bw
+    label: "高圧と低圧をつなぐ\n変圧器の低圧側 中性点"
+    marker: none
+    align: center
+    at: { x: 490, y: 302 }
+    size: { w: 250, h: 36 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 614, y: 339 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 614, y: 557 }
+    size: { w: 2, h: 2 }
+  - id: bo
+    label: "計算で出す"
+    hatch: solid
+    at: { x: 535, y: 400 }
+    size: { w: 160, h: 34 }
+  - id: bs
+    label: "接地線 直径 4.0mm 以上"
+    marker: none
+    align: center
+    at: { x: 490, y: 446 }
+    size: { w: 250, h: 18 }
+  - id: be
+    label: "接地極"
+    marker: none
+    align: center
+    at: { x: 555, y: 570 }
+    size: { w: 120, h: 18 }
+  - id: cb
+    label: "C 種（特別第 3 種）"
+    at: { x: 800, y: 240 }
+    size: { w: 250, h: 56 }
+  - id: cw
+    label: "低圧機器\n300V を超えるもの"
+    marker: none
+    align: center
+    at: { x: 800, y: 302 }
+    size: { w: 250, h: 36 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 924, y: 339 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 924, y: 557 }
+    size: { w: 2, h: 2 }
+  - id: co
+    label: "10Ω 以下"
+    hatch: solid
+    at: { x: 845, y: 400 }
+    size: { w: 160, h: 34 }
+  - id: cs
+    label: "接地線 直径 1.6mm 以上"
+    marker: none
+    align: center
+    at: { x: 800, y: 446 }
+    size: { w: 250, h: 18 }
+  - id: ce
+    label: "接地極"
+    marker: none
+    align: center
+    at: { x: 865, y: 570 }
+    size: { w: 120, h: 18 }
+  - id: db
+    label: "D 種（第 3 種）"
+    at: { x: 1110, y: 240 }
+    size: { w: 250, h: 56 }
+  - id: dw
+    label: "低圧機器\n300V 以下"
+    marker: none
+    align: center
+    at: { x: 1110, y: 302 }
+    size: { w: 250, h: 36 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 1234, y: 339 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 1234, y: 557 }
+    size: { w: 2, h: 2 }
+  - id: do
+    label: "100Ω 以下"
+    hatch: solid
+    at: { x: 1155, y: 400 }
+    size: { w: 160, h: 34 }
+  - id: ds
+    label: "接地線 直径 1.6mm 以上"
+    marker: none
+    align: center
+    at: { x: 1110, y: 446 }
+    size: { w: 250, h: 18 }
+  - id: de
+    label: "接地極"
+    marker: none
+    align: center
+    at: { x: 1175, y: 570 }
+    size: { w: 120, h: 18 }
+  - id: t2
+    label: "② B 種だけ、数が決まっていない"
+    marker: none
+    align: left
+    at: { x: 140, y: 640 }
+    size: { w: 700, h: 18 }
+  - id: r1
+    label: "・B 種は 150 ÷（変圧器の高圧側 1 線地絡電流 I）。 混触で 2 秒以内に自動遮断するなら 300 ÷ I。"
+    marker: none
+    align: left
+    at: { x: 140, y: 672 }
+    size: { w: 1200, h: 18 }
+  - id: r2
+    label: "　つまり「電流が大きい所ほど、抵抗を小さくしろ」—— 数ではなく式で決まっている。"
+    marker: none
+    align: left
+    at: { x: 140, y: 696 }
+    size: { w: 1200, h: 18 }
+  - id: r3
+    label: "・C 種と D 種は、100mA 以下の漏電遮断器を付ければ 500Ω 以下でもよい。"
+    marker: none
+    align: left
+    at: { x: 140, y: 720 }
+    size: { w: 1200, h: 18 }
+  - id: r4
+    label: "　抵抗を下げる代わりに、切る速さで守るという交換。"
+    marker: none
+    align: left
+    at: { x: 140, y: 744 }
+    size: { w: 1200, h: 18 }
+  - id: r5
+    label: "・目的は 2 つ —— 漏電による感電と火災を防ぐこと、"
+    marker: none
+    align: left
+    at: { x: 140, y: 768 }
+    size: { w: 1200, h: 18 }
+  - id: r6
+    label: "　変圧器の中で混触したとき、低圧の電路へ高い電圧が入るのを抑えること。"
+    marker: none
+    align: left
+    at: { x: 140, y: 792 }
+    size: { w: 1200, h: 18 }
+  - id: h140_810
+    label: "4 種類（電気設備技術基準）"
+    hatch: solid
+    at: { x: 140, y: 810 }
+    size: { w: 620, h: 24 }
+  - id: x140_834
+    label: "A 種"
+    at: { x: 140, y: 834 }
+    size: { w: 190, h: 24 }
+  - id: y140_834
+    label: "10Ω 以下 ／ 2.6mm 以上"
+    align: left
+    at: { x: 330, y: 834 }
+    size: { w: 430, h: 24 }
+  - id: x140_858
+    label: "B 種"
+    at: { x: 140, y: 858 }
+    size: { w: 190, h: 24 }
+  - id: y140_858
+    label: "150 ÷ I（2 秒以内なら 300 ÷ I）／ 4.0mm 以上"
+    align: left
+    at: { x: 330, y: 858 }
+    size: { w: 430, h: 24 }
+  - id: x140_882
+    label: "C 種"
+    at: { x: 140, y: 882 }
+    size: { w: 190, h: 24 }
+  - id: y140_882
+    label: "10Ω 以下 ／ 1.6mm 以上"
+    align: left
+    at: { x: 330, y: 882 }
+    size: { w: 430, h: 24 }
+  - id: x140_906
+    label: "D 種"
+    at: { x: 140, y: 906 }
+    size: { w: 190, h: 24 }
+  - id: y140_906
+    label: "100Ω 以下 ／ 1.6mm 以上"
+    align: left
+    at: { x: 330, y: 906 }
+    size: { w: 430, h: 24 }
+  - id: h800_810
+    label: "どれを使うかは、電圧で決まる"
+    hatch: solid
+    at: { x: 800, y: 810 }
+    size: { w: 600, h: 24 }
+  - id: x800_834
+    label: "高圧・特別高圧の機器"
+    at: { x: 800, y: 834 }
+    size: { w: 260, h: 24 }
+  - id: y800_834
+    label: "A 種"
+    align: left
+    at: { x: 1060, y: 834 }
+    size: { w: 340, h: 24 }
+  - id: x800_858
+    label: "高圧と低圧をつなぐ変圧器"
+    at: { x: 800, y: 858 }
+    size: { w: 260, h: 24 }
+  - id: y800_858
+    label: "B 種（低圧側の中性点）"
+    align: left
+    at: { x: 1060, y: 858 }
+    size: { w: 340, h: 24 }
+  - id: x800_882
+    label: "低圧 300V を超える"
+    at: { x: 800, y: 882 }
+    size: { w: 260, h: 24 }
+  - id: y800_882
+    label: "C 種"
+    align: left
+    at: { x: 1060, y: 882 }
+    size: { w: 340, h: 24 }
+  - id: x800_906
+    label: "低圧 300V 以下"
+    at: { x: 800, y: 906 }
+    size: { w: 260, h: 24 }
+  - id: y800_906
+    label: "D 種"
+    align: left
+    at: { x: 1060, y: 906 }
+    size: { w: 340, h: 24 }
+  - id: x800_930
+    label: "漏電遮断器 100mA 以下"
+    at: { x: 800, y: 930 }
+    size: { w: 260, h: 24 }
+  - id: y800_930
+    label: "C・D は 500Ω 以下でもよい"
+    align: left
+    at: { x: 1060, y: 930 }
+    size: { w: 340, h: 24 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p2
+    to: p3
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p4
+    to: p5
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p6
+    to: p7
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p8
+    to: p9
+    curve: none
+    ends: { from: none, to: arrow }

@@ -1,0 +1,346 @@
+version: 1
+kind: placement
+arrows: false
+title: 架空電鉄 本線 停車駅一覧（K01 港町 — K09 海浜公園）
+# ホームと車内に貼ってある「どの種別が、どこに停まるか」の表。
+# 帯が種別、白丸が停車。帯がそのまま抜けているところが通過。
+# 速い種別ほど上（実物の停車駅一覧の並べ方）。
+#
+# 駅名は縦組み（write: down）—— 駅の間隔を詰めても隣の名前とぶつからない。
+# 色は種別の名前そのもの（DESIGN.md §7 の例外・src/palette.ts）。
+# 色だけに頼らせない —— 種別名は各帯の右に文字で出ている。
+palette:
+  特急: "#e5171f"
+  急行: "#d95f02"
+  準急: "#009a5b"
+  普通: "#808080"
+  みなと線: "#8f76d6"
+  本線: "#0072bc"
+nodes:
+  - id: band_tokkyu
+    label: ""
+    marker: bar
+    color: 特急
+    at: { x: 60, y: 170 }
+    size: { w: 858, h: 26 }
+  - id: tokkyu_01
+    label: ""
+    marker: circle
+    at: { x: 101, y: 174 }
+    size: { w: 18, h: 18 }
+  - id: tokkyu_03
+    label: ""
+    marker: circle
+    at: { x: 293, y: 174 }
+    size: { w: 18, h: 18 }
+  - id: tokkyu_06
+    label: ""
+    marker: circle
+    at: { x: 581, y: 174 }
+    size: { w: 18, h: 18 }
+  - id: tokkyu_09
+    label: ""
+    marker: circle
+    at: { x: 869, y: 174 }
+    size: { w: 18, h: 18 }
+  - id: name_tokkyu
+    label: "特急"
+    marker: none
+    at: { x: 926, y: 173 }
+    size: { w: 64, h: 20 }
+  - id: band_kyuko
+    label: ""
+    marker: bar
+    color: 急行
+    at: { x: 60, y: 204 }
+    size: { w: 858, h: 26 }
+  - id: kyuko_01
+    label: ""
+    marker: circle
+    at: { x: 101, y: 208 }
+    size: { w: 18, h: 18 }
+  - id: kyuko_03
+    label: ""
+    marker: circle
+    at: { x: 293, y: 208 }
+    size: { w: 18, h: 18 }
+  - id: kyuko_05
+    label: ""
+    marker: circle
+    at: { x: 485, y: 208 }
+    size: { w: 18, h: 18 }
+  - id: kyuko_06
+    label: ""
+    marker: circle
+    at: { x: 581, y: 208 }
+    size: { w: 18, h: 18 }
+  - id: kyuko_08
+    label: ""
+    marker: circle
+    at: { x: 773, y: 208 }
+    size: { w: 18, h: 18 }
+  - id: kyuko_09
+    label: ""
+    marker: circle
+    at: { x: 869, y: 208 }
+    size: { w: 18, h: 18 }
+  - id: name_kyuko
+    label: "急行"
+    marker: none
+    at: { x: 926, y: 207 }
+    size: { w: 64, h: 20 }
+  - id: band_junkyu
+    label: ""
+    marker: bar
+    color: 準急
+    at: { x: 60, y: 238 }
+    size: { w: 858, h: 26 }
+  - id: junkyu_01
+    label: ""
+    marker: circle
+    at: { x: 101, y: 242 }
+    size: { w: 18, h: 18 }
+  - id: junkyu_02
+    label: ""
+    marker: circle
+    at: { x: 197, y: 242 }
+    size: { w: 18, h: 18 }
+  - id: junkyu_03
+    label: ""
+    marker: circle
+    at: { x: 293, y: 242 }
+    size: { w: 18, h: 18 }
+  - id: junkyu_05
+    label: ""
+    marker: circle
+    at: { x: 485, y: 242 }
+    size: { w: 18, h: 18 }
+  - id: junkyu_06
+    label: ""
+    marker: circle
+    at: { x: 581, y: 242 }
+    size: { w: 18, h: 18 }
+  - id: junkyu_07
+    label: ""
+    marker: circle
+    at: { x: 677, y: 242 }
+    size: { w: 18, h: 18 }
+  - id: junkyu_08
+    label: ""
+    marker: circle
+    at: { x: 773, y: 242 }
+    size: { w: 18, h: 18 }
+  - id: junkyu_09
+    label: ""
+    marker: circle
+    at: { x: 869, y: 242 }
+    size: { w: 18, h: 18 }
+  - id: name_junkyu
+    label: "準急"
+    marker: none
+    at: { x: 926, y: 241 }
+    size: { w: 64, h: 20 }
+  - id: band_futsu
+    label: ""
+    marker: bar
+    color: 普通
+    at: { x: 60, y: 272 }
+    size: { w: 858, h: 26 }
+  - id: futsu_01
+    label: ""
+    marker: circle
+    at: { x: 101, y: 276 }
+    size: { w: 18, h: 18 }
+  - id: futsu_02
+    label: ""
+    marker: circle
+    at: { x: 197, y: 276 }
+    size: { w: 18, h: 18 }
+  - id: futsu_03
+    label: ""
+    marker: circle
+    at: { x: 293, y: 276 }
+    size: { w: 18, h: 18 }
+  - id: futsu_04
+    label: ""
+    marker: circle
+    at: { x: 389, y: 276 }
+    size: { w: 18, h: 18 }
+  - id: futsu_05
+    label: ""
+    marker: circle
+    at: { x: 485, y: 276 }
+    size: { w: 18, h: 18 }
+  - id: futsu_06
+    label: ""
+    marker: circle
+    at: { x: 581, y: 276 }
+    size: { w: 18, h: 18 }
+  - id: futsu_07
+    label: ""
+    marker: circle
+    at: { x: 677, y: 276 }
+    size: { w: 18, h: 18 }
+  - id: futsu_08
+    label: ""
+    marker: circle
+    at: { x: 773, y: 276 }
+    size: { w: 18, h: 18 }
+  - id: futsu_09
+    label: ""
+    marker: circle
+    at: { x: 869, y: 276 }
+    size: { w: 18, h: 18 }
+  - id: name_futsu
+    label: "普通"
+    marker: none
+    at: { x: 926, y: 275 }
+    size: { w: 64, h: 20 }
+  - id: no0
+    label: "K01"
+    marker: circle
+    hatch: solid
+    color: 本線
+    at: { x: 92, y: 314 }
+    size: { w: 36, h: 36 }
+  - id: nm0
+    label: "港町"
+    marker: none
+    write: down
+    at: { x: 102, y: 360 }
+    size: { w: 16, h: 74 }
+  - id: no1
+    label: "K02"
+    marker: circle
+    hatch: solid
+    color: 本線
+    at: { x: 188, y: 314 }
+    size: { w: 36, h: 36 }
+  - id: nm1
+    label: "桜台"
+    marker: none
+    write: down
+    at: { x: 198, y: 360 }
+    size: { w: 16, h: 74 }
+  - id: no2
+    label: "K03"
+    marker: circle
+    hatch: solid
+    color: 本線
+    at: { x: 284, y: 314 }
+    size: { w: 36, h: 36 }
+  - id: nm2
+    label: "中央"
+    marker: none
+    write: down
+    at: { x: 294, y: 360 }
+    size: { w: 16, h: 74 }
+  - id: no3
+    label: "K04"
+    marker: circle
+    hatch: solid
+    color: 本線
+    at: { x: 380, y: 314 }
+    size: { w: 36, h: 36 }
+  - id: nm3
+    label: "川手"
+    marker: none
+    write: down
+    at: { x: 390, y: 360 }
+    size: { w: 16, h: 74 }
+  - id: no4
+    label: "K05"
+    marker: circle
+    hatch: solid
+    color: 本線
+    at: { x: 476, y: 314 }
+    size: { w: 36, h: 36 }
+  - id: nm4
+    label: "東浜"
+    marker: none
+    write: down
+    at: { x: 486, y: 360 }
+    size: { w: 16, h: 74 }
+  - id: no5
+    label: "K06"
+    marker: circle
+    hatch: solid
+    color: 本線
+    at: { x: 572, y: 314 }
+    size: { w: 36, h: 36 }
+  - id: nm5
+    label: "空港前"
+    marker: none
+    write: down
+    at: { x: 582, y: 360 }
+    size: { w: 16, h: 74 }
+  - id: no6
+    label: "K07"
+    marker: circle
+    hatch: solid
+    color: 本線
+    at: { x: 668, y: 314 }
+    size: { w: 36, h: 36 }
+  - id: nm6
+    label: "学園前"
+    marker: none
+    write: down
+    at: { x: 678, y: 360 }
+    size: { w: 16, h: 74 }
+  - id: no7
+    label: "K08"
+    marker: circle
+    hatch: solid
+    color: 本線
+    at: { x: 764, y: 314 }
+    size: { w: 36, h: 36 }
+  - id: nm7
+    label: "みどり台"
+    marker: none
+    write: down
+    at: { x: 774, y: 360 }
+    size: { w: 16, h: 74 }
+  - id: no8
+    label: "K09"
+    marker: circle
+    hatch: solid
+    color: 本線
+    at: { x: 860, y: 314 }
+    size: { w: 36, h: 36 }
+  - id: nm8
+    label: "海浜公園"
+    marker: none
+    write: down
+    at: { x: 870, y: 360 }
+    size: { w: 16, h: 74 }
+  - id: br_band
+    label: ""
+    marker: bar
+    color: みなと線
+    at: { x: 289, y: 30 }
+    size: { w: 26, h: 140 }
+  - id: br0
+    label: ""
+    marker: circle
+    at: { x: 293, y: 50 }
+    size: { w: 18, h: 18 }
+  - id: brn0
+    label: "浜町"
+    marker: none
+    at: { x: 198, y: 49 }
+    size: { w: 84, h: 20 }
+  - id: br1
+    label: ""
+    marker: circle
+    at: { x: 293, y: 94 }
+    size: { w: 18, h: 18 }
+  - id: brn1
+    label: "工場前"
+    marker: none
+    at: { x: 198, y: 93 }
+    size: { w: 84, h: 20 }
+  - id: br_name
+    label: "みなと線"
+    marker: box
+    at: { x: 324, y: 30 }
+    size: { w: 80, h: 24 }

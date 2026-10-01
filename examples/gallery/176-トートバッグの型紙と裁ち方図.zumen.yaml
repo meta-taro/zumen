@@ -1,0 +1,481 @@
+version: 1
+kind: placement
+arrows: true
+title: トートバッグの型紙と裁ち方図（架空）
+# **型紙は「どう裁つか」、裁ち方図は「生地のどこへ置くか」。**
+#
+# 実線が出来上がり線（縫う線）、破線が縫い代線（裁つ線）。
+# **底は「わ」** —— 布を二つ折りにして折り山へ合わせるので、型紙は半分しか無い。
+# 角の 6×6cm を切り落とすと、縫ったときに**マチ 12cm** になる。
+# 地の目の矢印は布のたて地。**回して置くと伸びが変わって形が狂う。**
+#
+# **型紙と裁ち方図で縮尺が違う**（実物もそう）。だから \`scale\` は書かず、
+# 寸法はすべて数字で書く。用尺は裁ち方図の置き方から計算した。
+nodes:
+  - id: e0
+    label: ""
+    marker: none
+    at: { x: 83.6, y: 199 }
+    size: { w: 2, h: 2 }
+  - id: e1
+    label: ""
+    marker: none
+    at: { x: 89, y: 215.2 }
+    size: { w: 2, h: 2 }
+  - id: e2
+    label: ""
+    marker: none
+    at: { x: 116, y: 409.6 }
+    size: { w: 2, h: 2 }
+  - id: wa
+    label: "わ（底の折り山）"
+    marker: none
+    align: center
+    at: { x: 149.6, y: 418.6 }
+    size: { w: 140, h: 18 }
+  - id: e3
+    label: ""
+    marker: none
+    at: { x: 218.6, y: 231.4 }
+    size: { w: 2, h: 2 }
+  - id: grain
+    label: "地の目"
+    marker: none
+    align: left
+    at: { x: 227.6, y: 296.3 }
+    size: { w: 70, h: 18 }
+  - id: e4
+    label: ""
+    marker: none
+    at: { x: 132.2, y: 215.2 }
+    size: { w: 2, h: 2 }
+  - id: e5
+    label: ""
+    marker: none
+    at: { x: 132.2, y: 199 }
+    size: { w: 2, h: 2 }
+  - id: e6
+    label: ""
+    marker: none
+    at: { x: 305, y: 215.2 }
+    size: { w: 2, h: 2 }
+  - id: e7
+    label: ""
+    marker: none
+    at: { x: 305, y: 199 }
+    size: { w: 2, h: 2 }
+  - id: notch
+    label: "合印（持ち手の位置）"
+    marker: none
+    align: left
+    at: { x: 363.2, y: 232.2 }
+    size: { w: 170, h: 18 }
+  - id: e8
+    label: ""
+    marker: none
+    at: { x: 89, y: 215.2 }
+    size: { w: 2, h: 2 }
+  - id: hem
+    label: "袋口 3cm 折り返す"
+    marker: none
+    align: left
+    at: { x: 363.2, y: 202 }
+    size: { w: 150, h: 18 }
+  - id: sa_l
+    label: "縫い代 1cm"
+    marker: none
+    align: right
+    at: { x: -11.4, y: 296.3 }
+    size: { w: 90, h: 18 }
+  - id: corner_l
+    label: "角の切り欠き 6×6cm（マチ 12cm）"
+    marker: none
+    align: left
+    at: { x: 326.8, y: 385.4 }
+    size: { w: 250, h: 18 }
+  - id: p_name
+    label: "本体（表布 1・裏布 1）"
+    marker: none
+    align: left
+    at: { x: 90, y: 144 }
+    size: { w: 260, h: 20 }
+  - id: p_size
+    label: "裁ち寸法 50 × 40cm（「わ」から上）"
+    marker: none
+    align: left
+    at: { x: 90, y: 166 }
+    size: { w: 300, h: 18 }
+  - id: w_dim
+    label: "48cm"
+    marker: none
+    align: center
+    at: { x: 179.6, y: 186 }
+    size: { w: 80, h: 16 }
+  - id: e9
+    label: ""
+    marker: none
+    at: { x: 838.2, y: 159 }
+    size: { w: 2, h: 2 }
+  - id: c0
+    label: "本体"
+    at: { x: 553.2, y: 160 }
+    size: { w: 130, h: 208 }
+  - id: c1
+    label: "持ち手"
+    at: { x: 688.4, y: 160 }
+    size: { w: 20.8, h: 109.2 }
+  - id: c2
+    label: "持ち手"
+    at: { x: 714.4, y: 160 }
+    size: { w: 20.8, h: 109.2 }
+  - id: c3
+    label: "ポケット"
+    at: { x: 740.4, y: 160 }
+    size: { w: 46.8, h: 83.2 }
+  - id: c_head
+    label: "裁ち方図（生地幅 110cm）"
+    marker: none
+    align: left
+    at: { x: 553.2, y: 104 }
+    size: { w: 260, h: 20 }
+  - id: c_use
+    label: "用尺 80cm（表布）・裏布も同じ"
+    marker: none
+    align: left
+    at: { x: 553.2, y: 126 }
+    size: { w: 260, h: 18 }
+  - id: c_w
+    label: "生地幅 110cm"
+    marker: none
+    align: left
+    at: { x: 847.2, y: 151 }
+    size: { w: 120, h: 18 }
+  - id: c_len
+    label: "80cm"
+    marker: none
+    align: left
+    at: { x: 847.2, y: 255 }
+    size: { w: 80, h: 18 }
+  - id: c_rest
+    label: "余り 20cm"
+    marker: none
+    align: left
+    at: { x: 793.2, y: 338 }
+    size: { w: 110, h: 18 }
+  - id: h70
+    label: "寸法（この図から計算した）"
+    hatch: solid
+    at: { x: 989.2, y: 70 }
+    size: { w: 450, h: 22 }
+  - id: a92
+    label: "出来上がり"
+    at: { x: 989.2, y: 92 }
+    size: { w: 150, h: 22 }
+  - id: b92
+    label: "幅 36 × 高さ 30 × マチ 12cm"
+    align: left
+    at: { x: 1139.2, y: 92 }
+    size: { w: 300, h: 22 }
+  - id: a114
+    label: "本体の裁ち寸法"
+    at: { x: 989.2, y: 114 }
+    size: { w: 150, h: 22 }
+  - id: b114
+    label: "50 × 80cm（底で「わ」）"
+    align: left
+    at: { x: 1139.2, y: 114 }
+    size: { w: 300, h: 22 }
+  - id: a136
+    label: "角の切り欠き"
+    at: { x: 989.2, y: 136 }
+    size: { w: 150, h: 22 }
+  - id: b136
+    label: "6 × 6cm（両角。マチ 12cm になる）"
+    align: left
+    at: { x: 1139.2, y: 136 }
+    size: { w: 300, h: 22 }
+  - id: a158
+    label: "持ち手"
+    at: { x: 989.2, y: 158 }
+    size: { w: 150, h: 22 }
+  - id: b158
+    label: "8 × 42cm × 2 枚"
+    align: left
+    at: { x: 1139.2, y: 158 }
+    size: { w: 300, h: 22 }
+  - id: a180
+    label: "内ポケット"
+    at: { x: 989.2, y: 180 }
+    size: { w: 150, h: 22 }
+  - id: b180
+    label: "18 × 32cm × 1 枚"
+    align: left
+    at: { x: 1139.2, y: 180 }
+    size: { w: 300, h: 22 }
+  - id: a202
+    label: "用尺"
+    at: { x: 989.2, y: 202 }
+    size: { w: 150, h: 22 }
+  - id: b202
+    label: "生地幅 110cm で 80cm（余り 20cm）"
+    align: left
+    at: { x: 1139.2, y: 202 }
+    size: { w: 300, h: 22 }
+  - id: h238
+    label: "型紙の記号"
+    hatch: solid
+    at: { x: 989.2, y: 238 }
+    size: { w: 450, h: 22 }
+  - id: a260
+    label: "出来上がり線"
+    at: { x: 989.2, y: 260 }
+    size: { w: 150, h: 22 }
+  - id: b260
+    label: "実線。この線の上を縫う"
+    align: left
+    at: { x: 1139.2, y: 260 }
+    size: { w: 300, h: 22 }
+  - id: a282
+    label: "縫い代線"
+    at: { x: 989.2, y: 282 }
+    size: { w: 150, h: 22 }
+  - id: b282
+    label: "破線。ここで裁つ（この図は 1cm）"
+    align: left
+    at: { x: 1139.2, y: 282 }
+    size: { w: 300, h: 22 }
+  - id: a304
+    label: "わ"
+    at: { x: 989.2, y: 304 }
+    size: { w: 150, h: 22 }
+  - id: b304
+    label: "布を二つ折りにして、折り山へ合わせる"
+    align: left
+    at: { x: 1139.2, y: 304 }
+    size: { w: 300, h: 22 }
+  - id: a326
+    label: "地の目"
+    at: { x: 989.2, y: 326 }
+    size: { w: 150, h: 22 }
+  - id: b326
+    label: "矢印の向きに布のたて地を通す"
+    align: left
+    at: { x: 1139.2, y: 326 }
+    size: { w: 300, h: 22 }
+  - id: a348
+    label: "合印（ノッチ）"
+    at: { x: 989.2, y: 348 }
+    size: { w: 150, h: 22 }
+  - id: b348
+    label: "縫い代に 0.5cm の切り込み。ずれ止め"
+    align: left
+    at: { x: 1139.2, y: 348 }
+    size: { w: 300, h: 22 }
+  - id: a370
+    label: "袋口"
+    at: { x: 989.2, y: 370 }
+    size: { w: 150, h: 22 }
+  - id: b370
+    label: "折り返す分を型紙に足しておく"
+    align: left
+    at: { x: 1139.2, y: 370 }
+    size: { w: 300, h: 22 }
+  - id: h406
+    label: "この図の決まり"
+    hatch: solid
+    at: { x: 989.2, y: 406 }
+    size: { w: 450, h: 22 }
+  - id: a428
+    label: "縮尺が 2 つ"
+    at: { x: 989.2, y: 428 }
+    size: { w: 150, h: 22 }
+  - id: b428
+    label: "型紙と裁ち方図で縮尺が違う（実物もそう）"
+    align: left
+    at: { x: 1139.2, y: 428 }
+    size: { w: 300, h: 22 }
+  - id: a450
+    label: "寸法は数字で"
+    at: { x: 989.2, y: 450 }
+    size: { w: 150, h: 22 }
+  - id: b450
+    label: "縮尺が違うので、図から測らせない"
+    align: left
+    at: { x: 1139.2, y: 450 }
+    size: { w: 300, h: 22 }
+  - id: a472
+    label: "裁ち方図"
+    at: { x: 989.2, y: 472 }
+    size: { w: 150, h: 22 }
+  - id: b472
+    label: "型紙を生地へどう置くか。用尺はここで決まる"
+    align: left
+    at: { x: 1139.2, y: 472 }
+    size: { w: 300, h: 22 }
+  - id: a494
+    label: "地の目を回さない"
+    at: { x: 989.2, y: 494 }
+    size: { w: 150, h: 22 }
+  - id: b494
+    label: "布は縦と横で伸びが違う。回すと形が狂う"
+    align: left
+    at: { x: 1139.2, y: 494 }
+    size: { w: 300, h: 22 }
+  - id: h530
+    label: "この図に出ていないもの"
+    hatch: solid
+    at: { x: 989.2, y: 530 }
+    size: { w: 450, h: 22 }
+  - id: a552
+    label: "接着芯"
+    at: { x: 989.2, y: 552 }
+    size: { w: 150, h: 22 }
+  - id: b552
+    label: "貼る位置と種類は、仕様書のほうに書く"
+    align: left
+    at: { x: 1139.2, y: 552 }
+    size: { w: 300, h: 22 }
+  - id: a574
+    label: "縫う順"
+    at: { x: 989.2, y: 574 }
+    size: { w: 150, h: 22 }
+  - id: b574
+    label: "型紙は形の図。手順は工程表で書く"
+    align: left
+    at: { x: 1139.2, y: 574 }
+    size: { w: 300, h: 22 }
+  - id: a596
+    label: "生地の柄合わせ"
+    at: { x: 989.2, y: 596 }
+    size: { w: 150, h: 22 }
+  - id: b596
+    label: "柄物は、柄の向きで用尺が変わる"
+    align: left
+    at: { x: 1139.2, y: 596 }
+    size: { w: 300, h: 22 }
+  - id: n1
+    label: "型紙は「どう裁つか」の図、裁ち方図は「生地のどこへ置くか」の図です。"
+    marker: none
+    align: left
+    at: { x: 90, y: 648 }
+    size: { w: 760, h: 18 }
+  - id: n2
+    label: "実線が出来上がり線、破線が縫い代線です。縫い代はこの図では 1cm、袋口は 3cm 折り返します。"
+    marker: none
+    align: left
+    at: { x: 90, y: 670 }
+    size: { w: 760, h: 18 }
+  - id: n3
+    label: "角の 6×6cm を切り落とすと、縫ったときにマチ 12cm になります。"
+    marker: none
+    align: left
+    at: { x: 90, y: 692 }
+    size: { w: 760, h: 18 }
+  - id: n4
+    label: "地の目の矢印は、布のたて地の向きです。回して置くと、伸びが変わって形が狂います。"
+    marker: none
+    align: left
+    at: { x: 90, y: 714 }
+    size: { w: 760, h: 18 }
+  - id: n5
+    label: "型紙と裁ち方図は縮尺が違うので、寸法はすべて数字で書いています。"
+    marker: none
+    align: left
+    at: { x: 90, y: 736 }
+    size: { w: 760, h: 18 }
+  - id: n6
+    label: "寸法・用尺は架空の設計です。"
+    marker: none
+    align: left
+    at: { x: 90, y: 758 }
+    size: { w: 760, h: 18 }
+edges:
+  - from: e0
+    to: e0
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 84.6, y: 200 }
+      - { x: 354.6, y: 200 }
+      - { x: 354.6, y: 383.6 }
+      - { x: 322.2, y: 383.6 }
+      - { x: 322.2, y: 410.6 }
+      - { x: 117, y: 410.6 }
+      - { x: 117, y: 383.6 }
+      - { x: 84.6, y: 383.6 }
+      - { x: 84.6, y: 200 }
+  - from: e1
+    to: e1
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 90, y: 216.2 }
+      - { x: 349.2, y: 216.2 }
+      - { x: 349.2, y: 378.2 }
+      - { x: 316.8, y: 378.2 }
+      - { x: 316.8, y: 410.6 }
+      - { x: 122.4, y: 410.6 }
+      - { x: 122.4, y: 378.2 }
+      - { x: 90, y: 378.2 }
+      - { x: 90, y: 216.2 }
+  - from: e2
+    to: e2
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 117, y: 410.6 }
+      - { x: 322.2, y: 410.6 }
+  - from: e3
+    to: e3
+    curve: none
+    ends: { from: arrow, to: arrow }
+    via:
+      - { x: 219.6, y: 232.4 }
+      - { x: 219.6, y: 367.4 }
+  - from: e4
+    to: e4
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 133.2, y: 216.2 }
+      - { x: 133.2, y: 205.2 }
+  - from: e5
+    to: e5
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 133.2, y: 200 }
+      - { x: 133.2, y: 211 }
+  - from: e6
+    to: e6
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 306, y: 216.2 }
+      - { x: 306, y: 205.2 }
+  - from: e7
+    to: e7
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 306, y: 200 }
+      - { x: 306, y: 211 }
+  - from: e8
+    to: e8
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 90, y: 216.2 }
+      - { x: 349.2, y: 216.2 }
+  - from: e9
+    to: e9
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 839.2, y: 160 }
+      - { x: 839.2, y: 383.6 }
+      - { x: 553.2, y: 383.6 }
+      - { x: 553.2, y: 160 }
+      - { x: 839.2, y: 160 }

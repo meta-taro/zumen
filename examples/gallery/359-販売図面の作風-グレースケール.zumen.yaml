@@ -1,0 +1,560 @@
+version: 1
+kind: placement
+arrows: true
+title: 販売図面の作風（グレースケール・高級賃貸の型／架空）
+scale: { mm: 20 }
+wall: { mm: 100, outer: 180 }
+north: { face: up, at: { x: 640, y: 640 } }
+palette:
+  Wall: "#5f5f66"
+  Fixture: "#8f8f97"
+  LD: "#b5ab9c"
+styles:
+  room: { color: Wall }
+  entry: { color: Wall }
+  wet: { color: Wall }
+  living: { color: Wall, fill: LD }
+  balcony: { color: Wall, hatch: rows }
+  column: { color: Wall, hatch: solid }
+# **同じ間取りを、見せ方だけ変えて描く。**
+#
+# 見本 359・360・361 は **nodes と edges が 1 行も違わない。** 違うのは `palette` と `styles`（見せ方の表）だけ。
+# 販売図面の作風の差は、間取りではなく見せ方にある —— 業者ごとの個性（グレースケールの高級賃貸、
+# 色分けの分譲）は、表を差し替えるだけで出せる。**合わせ技**（361）も表の組み合わせで作れる。
+#
+# | | 359 グレースケール | 360 色分け | 361 合わせ技 |
+# |---|---|---|---|
+# | 壁・柱 | 濃い灰 | 濃い灰 | 濃い灰 |
+# | LDK | 淡い面 | 淡い桃 | 淡い面 ＋ 縦張り |
+# | 洋室 | 白 | 生成り ＋ 横張り | 縦張り |
+# | 水まわり・玄関 | 白 | 淡い青 ＋ タイル | タイル |
+# | バルコニー | デッキ | デッキ | デッキ |
+#
+# 床の模様は `rows`（横張り）・`columns`（縦張り）・`grid`（タイル）。
+# 45 度の `lines` は製図で地盤・撤去の記号なので、床には使わない。
+#
+# 面積は壁芯。帖（J）は ㎡ ÷ 1.62、坪（T）は ㎡ ÷ 3.30578。CH は天井の高さ（mm）。
+# **家具は描かない**（置き家具は買う人が決める）。設備（天板・シンク・加熱機器・浴槽・洗面・便器・収納）は細い線で。
+#
+# 出どころ —— 実在の高級賃貸・分譲マンション・戸建ての販売図面 8 枚（提供資料、2026-09-28）を見比べて、
+# 作風の差を「壁と柱の濃さ／面を敷く部屋／床の張り方／水まわりの色」に分けた。**間取り・面積・物件はすべて架空。**
+nodes:
+  - id: bed2
+    label: "Bedroom 2"
+    technology: "13.16㎡ (8.1J)"
+    style: room
+    at: { x: 80, y: 200 }
+    size: { w: 235, h: 140 }
+    openings:
+      - { kind: window, side: left, at: 0.5, width: 60 }
+      - { kind: door, side: right, at: 0.72, width: 36 }
+  - id: hall1
+    label: "Hall"
+    style: room
+    at: { x: 315, y: 200 }
+    size: { w: 60, h: 140 }
+    openings:
+      - { kind: open, side: bottom, at: 0.5, width: 60 }
+  - id: ent
+    label: "Entrance"
+    style: entry
+    at: { x: 375, y: 200 }
+    size: { w: 80, h: 80 }
+    openings:
+      - { kind: door, side: top, at: 0.28, width: 34, swing: out }
+      - { kind: open, side: left, at: 0.5, width: 60 }
+  - id: wc
+    label: "WC"
+    style: wet
+    at: { x: 375, y: 280 }
+    size: { w: 80, h: 60 }
+    openings:
+      - { kind: door, side: left, at: 0.5, width: 30, swing: out }
+  - id: bed1
+    label: "Master\nBedroom"
+    technology: "13.20㎡ (8.1J)"
+    style: room
+    at: { x: 455, y: 200 }
+    size: { w: 150, h: 220 }
+    openings:
+      - { kind: window, side: right, at: 0.45, width: 90 }
+      - { kind: door, side: left, at: 0.82, width: 36 }
+  - id: bath
+    label: "Bath\n1620"
+    style: wet
+    at: { x: 80, y: 340 }
+    size: { w: 80, h: 100 }
+    openings:
+      - { kind: slide, side: right, at: 0.5, width: 36 }
+  - id: wash
+    label: "Wash"
+    style: wet
+    at: { x: 160, y: 340 }
+    size: { w: 155, h: 100 }
+    openings:
+      - { kind: door, side: right, at: 0.7, width: 34 }
+  - id: hall2
+    label: ""
+    style: room
+    at: { x: 315, y: 340 }
+    size: { w: 140, h: 100 }
+    openings:
+      - { kind: door, side: bottom, at: 0.5, width: 44 }
+  - id: ldk
+    label: "Living Dining\nKitchen"
+    technology: "24.00㎡ (14.8J)"
+    style: living
+    at: { x: 80, y: 440 }
+    size: { w: 375, h: 160 }
+    openings:
+      - { kind: slide, side: bottom, at: 0.32, width: 120 }
+      - { kind: slide, side: bottom, at: 0.78, width: 110 }
+  - id: bed3
+    label: "Bedroom 3"
+    technology: "10.80㎡ (6.7J)"
+    style: room
+    at: { x: 455, y: 420 }
+    size: { w: 150, h: 180 }
+    openings:
+      - { kind: slide, side: left, at: 0.55, width: 60 }
+      - { kind: slide, side: bottom, at: 0.5, width: 80 }
+  - id: bal
+    label: "Balcony"
+    style: balcony
+    at: { x: 80, y: 600 }
+    size: { w: 525, h: 55 }
+  - id: col0
+    label: ""
+    style: column
+    at: { x: 69, y: 189 }
+    size: { w: 22, h: 22 }
+  - id: col1
+    label: ""
+    style: column
+    at: { x: 304, y: 189 }
+    size: { w: 22, h: 22 }
+  - id: col2
+    label: ""
+    style: column
+    at: { x: 594, y: 189 }
+    size: { w: 22, h: 22 }
+  - id: col3
+    label: ""
+    style: column
+    at: { x: 69, y: 429 }
+    size: { w: 22, h: 22 }
+  - id: col4
+    label: ""
+    style: column
+    at: { x: 594, y: 409 }
+    size: { w: 22, h: 22 }
+  - id: col5
+    label: ""
+    style: column
+    at: { x: 69, y: 589 }
+    size: { w: 22, h: 22 }
+  - id: col6
+    label: ""
+    style: column
+    at: { x: 304, y: 589 }
+    size: { w: 22, h: 22 }
+  - id: col7
+    label: ""
+    style: column
+    at: { x: 594, y: 589 }
+    size: { w: 22, h: 22 }
+  - id: f1
+    label: ""
+    marker: none
+    at: { x: 87, y: 445 }
+    size: { w: 2, h: 2 }
+  - id: f2
+    label: ""
+    marker: none
+    at: { x: 134, y: 457 }
+    size: { w: 2, h: 2 }
+  - id: f3
+    label: ""
+    marker: none
+    at: { x: 203.5, y: 454 }
+    size: { w: 2, h: 2 }
+  - id: f4
+    label: ""
+    marker: none
+    at: { x: 219.5, y: 454 }
+    size: { w: 2, h: 2 }
+  - id: f5
+    label: ""
+    marker: none
+    at: { x: 211.5, y: 463 }
+    size: { w: 2, h: 2 }
+  - id: f6
+    label: ""
+    marker: none
+    at: { x: 265, y: 445 }
+    size: { w: 2, h: 2 }
+  - id: f7
+    label: ""
+    marker: none
+    at: { x: 143, y: 349 }
+    size: { w: 2, h: 2 }
+  - id: f8
+    label: ""
+    marker: none
+    at: { x: 165, y: 343 }
+    size: { w: 2, h: 2 }
+  - id: f9
+    label: ""
+    marker: none
+    at: { x: 198.8, y: 348.6 }
+    size: { w: 2, h: 2 }
+  - id: f10
+    label: ""
+    marker: none
+    at: { x: 267, y: 345 }
+    size: { w: 2, h: 2 }
+  - id: f11
+    label: ""
+    marker: none
+    at: { x: 428, y: 280 }
+    size: { w: 2, h: 2 }
+  - id: f12
+    label: ""
+    marker: none
+    at: { x: 439, y: 315 }
+    size: { w: 2, h: 2 }
+  - id: f13
+    label: ""
+    marker: none
+    at: { x: 437, y: 204 }
+    size: { w: 2, h: 2 }
+  - id: f14
+    label: ""
+    marker: none
+    at: { x: 89, y: 204 }
+    size: { w: 2, h: 2 }
+  - id: f15
+    label: ""
+    marker: none
+    at: { x: 459, y: 204 }
+    size: { w: 2, h: 2 }
+  - id: f16
+    label: ""
+    marker: none
+    at: { x: 583, y: 425 }
+    size: { w: 2, h: 2 }
+  - id: f17
+    label: ""
+    marker: none
+    at: { x: 559, y: 611 }
+    size: { w: 2, h: 2 }
+  - id: t_r
+    label: "R"
+    marker: none
+    align: center
+    at: { x: 272, y: 451 }
+    size: { w: 16, h: 16 }
+  - id: t_wd
+    label: "W/D"
+    marker: none
+    align: center
+    at: { x: 270, y: 358 }
+    size: { w: 36, h: 16 }
+  - id: t_ac
+    label: "AC"
+    marker: none
+    align: center
+    at: { x: 562, y: 620 }
+    size: { w: 32, h: 16 }
+  - id: h1
+    label: "TYPE B　3LDK"
+    marker: none
+    align: left
+    at: { x: 80, y: 104 }
+    size: { w: 300, h: 18 }
+  - id: h2
+    label: "84.00㎡ (25.41T)　Balcony 11.55㎡　CH=2,600"
+    marker: none
+    align: left
+    at: { x: 80, y: 128 }
+    size: { w: 420, h: 18 }
+  - id: n0
+    label: "部屋は白のまま。面を敷くのは LDK だけ。壁と柱は濃い灰で押し、黒は使わない。"
+    marker: none
+    align: left
+    at: { x: 80, y: 700 }
+    size: { w: 620, h: 18 }
+  - id: n1
+    label: "床の模様はバルコニーのデッキだけ。設備は細い線、家具は描かない。"
+    marker: none
+    align: left
+    at: { x: 80, y: 722 }
+    size: { w: 620, h: 18 }
+  - id: n2
+    label: "359・360・361 は同じ正本の間取りで、palette と styles だけが違います。"
+    marker: none
+    align: left
+    at: { x: 80, y: 744 }
+    size: { w: 620, h: 18 }
+  - id: n3
+    label: "線 —— Wall ＝ 壁と柱、Fixture ＝ 設備。間取り・面積はすべて架空です。"
+    marker: none
+    align: left
+    at: { x: 80, y: 766 }
+    size: { w: 620, h: 18 }
+edges:
+  - from: f1
+    to: f1
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 88, y: 446 }
+      - { x: 262, y: 446 }
+      - { x: 262, y: 470 }
+      - { x: 88, y: 470 }
+  - from: f2
+    to: f2
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 135, y: 458 }
+      - { x: 134.1, y: 461.5 }
+      - { x: 131.5, y: 464.1 }
+      - { x: 128, y: 465 }
+      - { x: 124.5, y: 464.1 }
+      - { x: 121.9, y: 461.5 }
+      - { x: 121, y: 458 }
+      - { x: 121.9, y: 454.5 }
+      - { x: 124.5, y: 451.9 }
+      - { x: 128, y: 451 }
+      - { x: 131.5, y: 451.9 }
+      - { x: 134.1, y: 454.5 }
+  - from: f3
+    to: f3
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 204.5, y: 455 }
+      - { x: 203.9, y: 457.2 }
+      - { x: 202.2, y: 458.9 }
+      - { x: 200, y: 459.5 }
+      - { x: 197.8, y: 458.9 }
+      - { x: 196.1, y: 457.2 }
+      - { x: 195.5, y: 455 }
+      - { x: 196.1, y: 452.8 }
+      - { x: 197.8, y: 451.1 }
+      - { x: 200, y: 450.5 }
+      - { x: 202.2, y: 451.1 }
+      - { x: 203.9, y: 452.8 }
+  - from: f4
+    to: f4
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 220.5, y: 455 }
+      - { x: 219.9, y: 457.2 }
+      - { x: 218.2, y: 458.9 }
+      - { x: 216, y: 459.5 }
+      - { x: 213.8, y: 458.9 }
+      - { x: 212.1, y: 457.2 }
+      - { x: 211.5, y: 455 }
+      - { x: 212.1, y: 452.8 }
+      - { x: 213.8, y: 451.1 }
+      - { x: 216, y: 450.5 }
+      - { x: 218.2, y: 451.1 }
+      - { x: 219.9, y: 452.8 }
+  - from: f5
+    to: f5
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 212.5, y: 464 }
+      - { x: 211.9, y: 466.2 }
+      - { x: 210.2, y: 467.9 }
+      - { x: 208, y: 468.5 }
+      - { x: 205.8, y: 467.9 }
+      - { x: 204.1, y: 466.2 }
+      - { x: 203.5, y: 464 }
+      - { x: 204.1, y: 461.8 }
+      - { x: 205.8, y: 460.1 }
+      - { x: 208, y: 459.5 }
+      - { x: 210.2, y: 460.1 }
+      - { x: 211.9, y: 461.8 }
+  - from: f6
+    to: f6
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 266, y: 446 }
+      - { x: 292, y: 446 }
+      - { x: 292, y: 472 }
+      - { x: 266, y: 472 }
+  - from: f7
+    to: f7
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 144, y: 350 }
+      - { x: 149, y: 351.3 }
+      - { x: 152.7, y: 355 }
+      - { x: 154, y: 360 }
+      - { x: 154, y: 422 }
+      - { x: 152.7, y: 427 }
+      - { x: 149, y: 430.7 }
+      - { x: 144, y: 432 }
+      - { x: 96, y: 432 }
+      - { x: 91, y: 430.7 }
+      - { x: 87.3, y: 427 }
+      - { x: 86, y: 422 }
+      - { x: 86, y: 360 }
+      - { x: 87.3, y: 355 }
+      - { x: 91, y: 351.3 }
+      - { x: 96, y: 350 }
+  - from: f8
+    to: f8
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 166, y: 344 }
+      - { x: 214, y: 344 }
+      - { x: 214, y: 372 }
+      - { x: 166, y: 372 }
+  - from: f9
+    to: f9
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 199.8, y: 349.6 }
+      - { x: 202.6, y: 350.4 }
+      - { x: 204.6, y: 352.4 }
+      - { x: 205.4, y: 355.2 }
+      - { x: 205.4, y: 360.8 }
+      - { x: 204.6, y: 363.6 }
+      - { x: 202.6, y: 365.6 }
+      - { x: 199.8, y: 366.4 }
+      - { x: 180.2, y: 366.4 }
+      - { x: 177.4, y: 365.6 }
+      - { x: 175.4, y: 363.6 }
+      - { x: 174.6, y: 360.8 }
+      - { x: 174.6, y: 355.2 }
+      - { x: 175.4, y: 352.4 }
+      - { x: 177.4, y: 350.4 }
+      - { x: 180.2, y: 349.6 }
+  - from: f10
+    to: f10
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 268, y: 346 }
+      - { x: 309, y: 346 }
+      - { x: 309, y: 388 }
+      - { x: 268, y: 388 }
+  - from: f11
+    to: f11
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 429, y: 281 }
+      - { x: 451, y: 281 }
+      - { x: 451, y: 290 }
+      - { x: 429, y: 290 }
+  - from: f12
+    to: f12
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 440, y: 316 }
+      - { x: 442.871, y: 315.01 }
+      - { x: 445.554, y: 312.192 }
+      - { x: 447.742, y: 307.975 }
+      - { x: 449, y: 303 }
+      - { x: 448.888, y: 298.025 }
+      - { x: 447.174, y: 293.808 }
+      - { x: 444.017, y: 290.99 }
+      - { x: 440, y: 290 }
+      - { x: 435.983, y: 290.99 }
+      - { x: 432.826, y: 293.808 }
+      - { x: 431.112, y: 298.025 }
+      - { x: 431, y: 303 }
+      - { x: 432.258, y: 307.975 }
+      - { x: 434.446, y: 312.192 }
+      - { x: 437.129, y: 315.01 }
+  - from: f13
+    to: f13
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 438, y: 205 }
+      - { x: 451, y: 205 }
+      - { x: 451, y: 276 }
+      - { x: 438, y: 276 }
+  - from: f14
+    to: f14
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 90, y: 205 }
+      - { x: 290, y: 205 }
+      - { x: 290, y: 221 }
+      - { x: 90, y: 221 }
+  - from: f15
+    to: f15
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 460, y: 205 }
+      - { x: 600, y: 205 }
+      - { x: 600, y: 221 }
+      - { x: 460, y: 221 }
+  - from: f16
+    to: f16
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 584, y: 426 }
+      - { x: 600, y: 426 }
+      - { x: 600, y: 540 }
+      - { x: 584, y: 540 }
+  - from: f17
+    to: f17
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 560, y: 612 }
+      - { x: 596, y: 612 }
+      - { x: 596, y: 644 }
+      - { x: 560, y: 644 }

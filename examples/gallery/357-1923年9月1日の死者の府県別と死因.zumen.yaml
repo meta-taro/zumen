@@ -1,0 +1,632 @@
+version: 1
+kind: placement
+arrows: false
+title: 1923 年 9 月 1 日の死者 —— 87% は火災、府県別と死因（関東大震災・諸井・武村 2004 の集計）
+# **10 万 5 千人のうち、9 万 2 千人は火災で亡くなった。**
+#
+# 1923 年（大正 12 年）9 月 1 日、正午 2 分前（11 時 58 分）、関東地震（M7.9）。
+# 土曜の昼で、台所では昼食の支度に火を使っていた。**火元は台所の裸火など**で、
+# **日本海（金沢の西の海上）にあった台風の強風に煽られ、数時間で大規模な延焼**になった
+# （台風の位置は気象庁「関東大震災から100年」特設サイト：9 月 1 日 6 時に金沢の西海上、18 時に三陸海岸へ。取得 2026-09-29）。
+#
+# | 死因 | 人 | % |
+# |---|---|---|
+# | 住家全潰 | 11,086 | 10.5 |
+# | **火災** | **91,781** | **87.1** |
+# | 流失埋没 | 1,013 | 1.0 |
+# | 工場等の被害 | 1,505 | 1.4 |
+# | 合計（行方不明者を含む） | 105,385 | |
+#
+# ## 揺れと死者の場所がずれている
+#
+# 全潰した住家は**神奈川県 63,577 棟、東京府 24,469 棟**（神奈川が 2.6 倍）。
+# 焼失した住家は**東京府 176,505 棟、神奈川県 35,412 棟**（東京が 5.0 倍）。
+# 震源に近い神奈川が強く揺れ、死者は人の多い東京で火に呑まれた。
+# 東京市の死者 68,660 人のうち 65,902 人（96.0%）が火災。
+#
+# **1995 年（見本 356）は 77.0% が窒息・圧死、1923 年は 87.1% が火災。** 同じ「大地震」でも、
+# 昼と夜明け前、木造密集と強風で、人が亡くなる形がまるで違う。
+#
+# ## 数が資料ごとに違う
+#
+# 報告書自身が「資料によって被害実数がまちまちである」と断っている（調査の主体・方法・単位・時期が違う）。
+# この図は報告書が引く 1 つの集計（諸井・武村 2004）だけで描いた。
+# **検索で出てきた要約には「流失埋没 1,010・工場等 1,006」とあったが、表の本体は 1,013・1,505。** 一次資料で直した。
+#
+# ## 描かなかったもの
+#
+# - **地図。** 焼失域・震度の分布は地図の精度で描く手段がこの図に無い
+# - **個人・場所の逸話**（被服廠跡など）。数表に無い話は描かない
+# - 震災後の混乱の中で起きた事件。この図は数表から言えることだけを描く
+#
+# 出典: 中央防災会議 災害教訓の継承に関する専門調査会「1923 関東大震災 報告書 第 1 編」（2006 年）
+# 第 1 章 第 1 節、表 1-1 関東地震による住家被害棟数および死者数の集計（諸井・武村 2004 より引用）。
+nodes:
+  - id: t1
+    label: "① 死者・行方不明者 105,385 人の内訳（1923 年 9 月 1 日 11 時 58 分、M7.9）—— 幅 ＝ 人数"
+    marker: none
+    align: left
+    at: { x: 60, y: 96 }
+    size: { w: 1200, h: 18 }
+  - id: a0
+    label: ""
+    hatch: lines
+    at: { x: 60, y: 128 }
+    size: { w: 116, h: 56 }
+  - id: a1
+    label: ""
+    hatch: solid
+    at: { x: 176, y: 128 }
+    size: { w: 958, h: 56 }
+  - id: a2
+    label: ""
+    hatch: dots
+    at: { x: 1134, y: 128 }
+    size: { w: 10, h: 56 }
+  - id: a3
+    label: ""
+    at: { x: 1144, y: 128 }
+    size: { w: 16, h: 56 }
+  - id: a1l
+    label: "住家全潰\n11,086 人\n10.5%"
+    marker: none
+    align: center
+    at: { x: 60, y: 190 }
+    size: { w: 116, h: 52 }
+  - id: a2l
+    label: "火災　91,781 人　87.1%"
+    marker: none
+    align: center
+    at: { x: 520, y: 190 }
+    size: { w: 300, h: 18 }
+  - id: a34
+    label: "流失埋没 1,013 人（1.0%）・工場等の被害 1,505 人（1.4%）は右端の細い 2 本"
+    marker: none
+    align: right
+    at: { x: 620, y: 214 }
+    size: { w: 540, h: 18 }
+  - id: t2
+    label: "② 府県別（棒の長さ ＝ 死者数。東京府 70,387 人 ＝ 1,000px）"
+    marker: none
+    align: left
+    at: { x: 60, y: 290 }
+    size: { w: 1200, h: 18 }
+  - id: pn0
+    label: "東京府"
+    marker: none
+    align: right
+    at: { x: 60, y: 330 }
+    size: { w: 90, h: 18 }
+  - id: p0_0
+    label: ""
+    hatch: lines
+    at: { x: 160, y: 324 }
+    size: { w: 50, h: 28 }
+  - id: p0_1
+    label: ""
+    hatch: solid
+    at: { x: 210, y: 324 }
+    size: { w: 945, h: 28 }
+  - id: p0_3
+    label: ""
+    at: { x: 1156, y: 324 }
+    size: { w: 4, h: 28 }
+  - id: pv0
+    label: "70,387 人"
+    marker: none
+    align: left
+    at: { x: 1168, y: 330 }
+    size: { w: 120, h: 18 }
+  - id: pn1
+    label: "神奈川県"
+    marker: none
+    align: right
+    at: { x: 60, y: 368 }
+    size: { w: 90, h: 18 }
+  - id: p1_0
+    label: ""
+    hatch: lines
+    at: { x: 160, y: 362 }
+    size: { w: 82, h: 28 }
+  - id: p1_1
+    label: ""
+    hatch: solid
+    at: { x: 242, y: 362 }
+    size: { w: 358, h: 28 }
+  - id: p1_2
+    label: ""
+    hatch: dots
+    at: { x: 600, y: 362 }
+    size: { w: 12, h: 28 }
+  - id: p1_3
+    label: ""
+    at: { x: 612, y: 362 }
+    size: { w: 15, h: 28 }
+  - id: pv1
+    label: "32,838 人"
+    marker: none
+    align: left
+    at: { x: 635, y: 368 }
+    size: { w: 120, h: 18 }
+  - id: k2
+    label: "斜線 ＝ 住家全潰　塗り ＝ 火災　点 ＝ 流失埋没（津波・土砂）　白 ＝ 工場等の被害"
+    marker: none
+    align: left
+    at: { x: 60, y: 404 }
+    size: { w: 1200, h: 18 }
+  - id: pt0_0
+    label: "府県"
+    hatch: solid
+    align: center
+    at: { x: 60, y: 434 }
+    size: { w: 120, h: 28 }
+  - id: pt0_1
+    label: "住家全潰"
+    hatch: solid
+    align: center
+    at: { x: 180, y: 434 }
+    size: { w: 120, h: 28 }
+  - id: pt0_2
+    label: "火災"
+    hatch: solid
+    align: center
+    at: { x: 300, y: 434 }
+    size: { w: 120, h: 28 }
+  - id: pt0_3
+    label: "流失埋没"
+    hatch: solid
+    align: center
+    at: { x: 420, y: 434 }
+    size: { w: 120, h: 28 }
+  - id: pt0_4
+    label: "工場等の被害"
+    hatch: solid
+    align: center
+    at: { x: 540, y: 434 }
+    size: { w: 130, h: 28 }
+  - id: pt0_5
+    label: "合計"
+    hatch: solid
+    align: center
+    at: { x: 670, y: 434 }
+    size: { w: 130, h: 28 }
+  - id: pt1_0
+    label: "東京府"
+    align: center
+    at: { x: 60, y: 462 }
+    size: { w: 120, h: 26 }
+  - id: pt1_1
+    label: "3,546"
+    align: center
+    at: { x: 180, y: 462 }
+    size: { w: 120, h: 26 }
+  - id: pt1_2
+    label: "66,521"
+    align: center
+    at: { x: 300, y: 462 }
+    size: { w: 120, h: 26 }
+  - id: pt1_3
+    label: "6"
+    align: center
+    at: { x: 420, y: 462 }
+    size: { w: 120, h: 26 }
+  - id: pt1_4
+    label: "314"
+    align: center
+    at: { x: 540, y: 462 }
+    size: { w: 130, h: 26 }
+  - id: pt1_5
+    label: "70,387"
+    align: center
+    at: { x: 670, y: 462 }
+    size: { w: 130, h: 26 }
+  - id: pt2_0
+    label: "神奈川県"
+    align: center
+    at: { x: 60, y: 488 }
+    size: { w: 120, h: 26 }
+  - id: pt2_1
+    label: "5,795"
+    align: center
+    at: { x: 180, y: 488 }
+    size: { w: 120, h: 26 }
+  - id: pt2_2
+    label: "25,201"
+    align: center
+    at: { x: 300, y: 488 }
+    size: { w: 120, h: 26 }
+  - id: pt2_3
+    label: "836"
+    align: center
+    at: { x: 420, y: 488 }
+    size: { w: 120, h: 26 }
+  - id: pt2_4
+    label: "1,006"
+    align: center
+    at: { x: 540, y: 488 }
+    size: { w: 130, h: 26 }
+  - id: pt2_5
+    label: "32,838"
+    align: center
+    at: { x: 670, y: 488 }
+    size: { w: 130, h: 26 }
+  - id: pt3_0
+    label: "千葉県"
+    align: center
+    at: { x: 60, y: 514 }
+    size: { w: 120, h: 26 }
+  - id: pt3_1
+    label: "1,255"
+    align: center
+    at: { x: 180, y: 514 }
+    size: { w: 120, h: 26 }
+  - id: pt3_2
+    label: "59"
+    align: center
+    at: { x: 300, y: 514 }
+    size: { w: 120, h: 26 }
+  - id: pt3_3
+    label: "0"
+    align: center
+    at: { x: 420, y: 514 }
+    size: { w: 120, h: 26 }
+  - id: pt3_4
+    label: "32"
+    align: center
+    at: { x: 540, y: 514 }
+    size: { w: 130, h: 26 }
+  - id: pt3_5
+    label: "1,346"
+    align: center
+    at: { x: 670, y: 514 }
+    size: { w: 130, h: 26 }
+  - id: pt4_0
+    label: "静岡県"
+    align: center
+    at: { x: 60, y: 540 }
+    size: { w: 120, h: 26 }
+  - id: pt4_1
+    label: "150"
+    align: center
+    at: { x: 180, y: 540 }
+    size: { w: 120, h: 26 }
+  - id: pt4_2
+    label: "0"
+    align: center
+    at: { x: 300, y: 540 }
+    size: { w: 120, h: 26 }
+  - id: pt4_3
+    label: "171"
+    align: center
+    at: { x: 420, y: 540 }
+    size: { w: 120, h: 26 }
+  - id: pt4_4
+    label: "123"
+    align: center
+    at: { x: 540, y: 540 }
+    size: { w: 130, h: 26 }
+  - id: pt4_5
+    label: "444"
+    align: center
+    at: { x: 670, y: 540 }
+    size: { w: 130, h: 26 }
+  - id: pt5_0
+    label: "埼玉県"
+    align: center
+    at: { x: 60, y: 566 }
+    size: { w: 120, h: 26 }
+  - id: pt5_1
+    label: "315"
+    align: center
+    at: { x: 180, y: 566 }
+    size: { w: 120, h: 26 }
+  - id: pt5_2
+    label: "0"
+    align: center
+    at: { x: 300, y: 566 }
+    size: { w: 120, h: 26 }
+  - id: pt5_3
+    label: "0"
+    align: center
+    at: { x: 420, y: 566 }
+    size: { w: 120, h: 26 }
+  - id: pt5_4
+    label: "28"
+    align: center
+    at: { x: 540, y: 566 }
+    size: { w: 130, h: 26 }
+  - id: pt5_5
+    label: "343"
+    align: center
+    at: { x: 670, y: 566 }
+    size: { w: 130, h: 26 }
+  - id: pt6_0
+    label: "山梨県"
+    align: center
+    at: { x: 60, y: 592 }
+    size: { w: 120, h: 26 }
+  - id: pt6_1
+    label: "20"
+    align: center
+    at: { x: 180, y: 592 }
+    size: { w: 120, h: 26 }
+  - id: pt6_2
+    label: "0"
+    align: center
+    at: { x: 300, y: 592 }
+    size: { w: 120, h: 26 }
+  - id: pt6_3
+    label: "0"
+    align: center
+    at: { x: 420, y: 592 }
+    size: { w: 120, h: 26 }
+  - id: pt6_4
+    label: "2"
+    align: center
+    at: { x: 540, y: 592 }
+    size: { w: 130, h: 26 }
+  - id: pt6_5
+    label: "22"
+    align: center
+    at: { x: 670, y: 592 }
+    size: { w: 130, h: 26 }
+  - id: pt7_0
+    label: "茨城県"
+    align: center
+    at: { x: 60, y: 618 }
+    size: { w: 120, h: 26 }
+  - id: pt7_1
+    label: "5"
+    align: center
+    at: { x: 180, y: 618 }
+    size: { w: 120, h: 26 }
+  - id: pt7_2
+    label: "0"
+    align: center
+    at: { x: 300, y: 618 }
+    size: { w: 120, h: 26 }
+  - id: pt7_3
+    label: "0"
+    align: center
+    at: { x: 420, y: 618 }
+    size: { w: 120, h: 26 }
+  - id: pt7_4
+    label: "0"
+    align: center
+    at: { x: 540, y: 618 }
+    size: { w: 130, h: 26 }
+  - id: pt7_5
+    label: "5"
+    align: center
+    at: { x: 670, y: 618 }
+    size: { w: 130, h: 26 }
+  - id: pt8_0
+    label: "合計"
+    align: center
+    at: { x: 60, y: 644 }
+    size: { w: 120, h: 26 }
+  - id: pt8_1
+    label: "11,086"
+    align: center
+    at: { x: 180, y: 644 }
+    size: { w: 120, h: 26 }
+  - id: pt8_2
+    label: "91,781"
+    align: center
+    at: { x: 300, y: 644 }
+    size: { w: 120, h: 26 }
+  - id: pt8_3
+    label: "1,013"
+    align: center
+    at: { x: 420, y: 644 }
+    size: { w: 120, h: 26 }
+  - id: pt8_4
+    label: "1,505"
+    align: center
+    at: { x: 540, y: 644 }
+    size: { w: 130, h: 26 }
+  - id: pt8_5
+    label: "105,385"
+    align: center
+    at: { x: 670, y: 644 }
+    size: { w: 130, h: 26 }
+  - id: k2b
+    label: "棒は形の見える 2 府県だけ。千葉以下は棒にすると模様が描けないほど短いので、表で読む。長野・栃木・群馬は 0 人。"
+    marker: none
+    align: left
+    at: { x: 60, y: 680 }
+    size: { w: 1200, h: 18 }
+  - id: t3
+    label: "③ 揺れの被害は神奈川が大きく、死者は東京の火災が多い"
+    marker: none
+    align: left
+    at: { x: 60, y: 730 }
+    size: { w: 640, h: 18 }
+  - id: c0_0
+    label: ""
+    hatch: solid
+    align: center
+    at: { x: 60, y: 762 }
+    size: { w: 120, h: 28 }
+  - id: c0_1
+    label: "全潰した住家"
+    hatch: solid
+    align: center
+    at: { x: 180, y: 762 }
+    size: { w: 130, h: 28 }
+  - id: c0_2
+    label: "焼失した住家"
+    hatch: solid
+    align: center
+    at: { x: 310, y: 762 }
+    size: { w: 120, h: 28 }
+  - id: c0_3
+    label: "死者（住家全潰）"
+    hatch: solid
+    align: center
+    at: { x: 430, y: 762 }
+    size: { w: 140, h: 28 }
+  - id: c0_4
+    label: "死者（火災）"
+    hatch: solid
+    align: center
+    at: { x: 570, y: 762 }
+    size: { w: 130, h: 28 }
+  - id: c1_0
+    label: "神奈川県"
+    align: center
+    at: { x: 60, y: 790 }
+    size: { w: 120, h: 28 }
+  - id: c1_1
+    label: "63,577 棟"
+    align: center
+    at: { x: 180, y: 790 }
+    size: { w: 130, h: 28 }
+  - id: c1_2
+    label: "35,412 棟"
+    align: center
+    at: { x: 310, y: 790 }
+    size: { w: 120, h: 28 }
+  - id: c1_3
+    label: "5,795 人"
+    align: center
+    at: { x: 430, y: 790 }
+    size: { w: 140, h: 28 }
+  - id: c1_4
+    label: "25,201 人"
+    align: center
+    at: { x: 570, y: 790 }
+    size: { w: 130, h: 28 }
+  - id: c2_0
+    label: "東京府"
+    align: center
+    at: { x: 60, y: 818 }
+    size: { w: 120, h: 28 }
+  - id: c2_1
+    label: "24,469 棟"
+    align: center
+    at: { x: 180, y: 818 }
+    size: { w: 130, h: 28 }
+  - id: c2_2
+    label: "176,505 棟"
+    align: center
+    at: { x: 310, y: 818 }
+    size: { w: 120, h: 28 }
+  - id: c2_3
+    label: "3,546 人"
+    align: center
+    at: { x: 430, y: 818 }
+    size: { w: 140, h: 28 }
+  - id: c2_4
+    label: "66,521 人"
+    align: center
+    at: { x: 570, y: 818 }
+    size: { w: 130, h: 28 }
+  - id: t3n
+    label: "全潰は神奈川が東京の 2.6 倍。焼失は東京が神奈川の 5.0 倍。"
+    marker: none
+    align: left
+    at: { x: 60, y: 856 }
+    size: { w: 640, h: 18 }
+  - id: t4
+    label: "④ 3 つの市"
+    marker: none
+    align: left
+    at: { x: 740, y: 730 }
+    size: { w: 520, h: 18 }
+  - id: d0_0
+    label: ""
+    hatch: solid
+    align: center
+    at: { x: 740, y: 762 }
+    size: { w: 110, h: 28 }
+  - id: d0_1
+    label: "死者"
+    hatch: solid
+    align: center
+    at: { x: 850, y: 762 }
+    size: { w: 120, h: 28 }
+  - id: d0_2
+    label: "うち火災"
+    hatch: solid
+    align: center
+    at: { x: 970, y: 762 }
+    size: { w: 120, h: 28 }
+  - id: d0_3
+    label: "火災の割合"
+    hatch: solid
+    align: center
+    at: { x: 1090, y: 762 }
+    size: { w: 150, h: 28 }
+  - id: d1_0
+    label: "東京市"
+    align: center
+    at: { x: 740, y: 790 }
+    size: { w: 110, h: 28 }
+  - id: d1_1
+    label: "68,660 人"
+    align: center
+    at: { x: 850, y: 790 }
+    size: { w: 120, h: 28 }
+  - id: d1_2
+    label: "65,902 人"
+    align: center
+    at: { x: 970, y: 790 }
+    size: { w: 120, h: 28 }
+  - id: d1_3
+    label: "96.0%"
+    align: center
+    at: { x: 1090, y: 790 }
+    size: { w: 150, h: 28 }
+  - id: d2_0
+    label: "横浜市"
+    align: center
+    at: { x: 740, y: 818 }
+    size: { w: 110, h: 28 }
+  - id: d2_1
+    label: "26,623 人"
+    align: center
+    at: { x: 850, y: 818 }
+    size: { w: 120, h: 28 }
+  - id: d2_2
+    label: "24,646 人"
+    align: center
+    at: { x: 970, y: 818 }
+    size: { w: 120, h: 28 }
+  - id: d2_3
+    label: "92.6%"
+    align: center
+    at: { x: 1090, y: 818 }
+    size: { w: 150, h: 28 }
+  - id: d3_0
+    label: "横須賀市"
+    align: center
+    at: { x: 740, y: 846 }
+    size: { w: 110, h: 28 }
+  - id: d3_1
+    label: "665 人"
+    align: center
+    at: { x: 850, y: 846 }
+    size: { w: 120, h: 28 }
+  - id: d3_2
+    label: "170 人"
+    align: center
+    at: { x: 970, y: 846 }
+    size: { w: 120, h: 28 }
+  - id: d3_3
+    label: "25.6%"
+    align: center
+    at: { x: 1090, y: 846 }
+    size: { w: 150, h: 28 }
+  - id: t4n
+    label: "火元は台所の裸火など。台風の余波の強風に煽られ、数時間で大規模な延焼になった。"
+    marker: none
+    align: left
+    at: { x: 740, y: 888 }
+    size: { w: 600, h: 18 }
+  - id: t5
+    label: "報告書は「資料によって被害実数がまちまちである」と断っている。この図は 1 つの集計（諸井・武村 2004）だけで描いた。"
+    marker: none
+    align: left
+    at: { x: 60, y: 906 }
+    size: { w: 1200, h: 18 }

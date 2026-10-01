@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>避難行動の判定フローと、浸水深の読み方 — zumen example 221</title>
+<link rel="icon" type="image/svg+xml" href="../../../icon.svg">
+<meta name="theme-color" content="#23232b">
+<meta name="description" content="Deciding whether to leave: five questions answered once, in advance — and flood-depth bands read as floors of your own house, not as metres">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="zumen">
+<meta property="og:locale" content="en_US">
+<meta property="og:url" content="https://meta-taro.github.io/zumen/en/g/221/">
+<meta property="og:title" content="避難行動の判定フローと、浸水深の読み方 — zumen example 221">
+<meta property="og:description" content="Deciding whether to leave: five questions answered once, in advance — and flood-depth bands read as floors of your own house, not as metres">
+<meta property="og:image" content="https://meta-taro.github.io/zumen/og/221.png">
+<meta property="og:image:alt" content="Deciding whether to leave: five questions answered once, in advance — and flood-depth bands read as floors of your own house, not as metres">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="避難行動の判定フローと、浸水深の読み方 — zumen example 221">
+<meta name="twitter:description" content="Deciding whether to leave: five questions answered once, in advance — and flood-depth bands read as floors of your own house, not as metres">
+<meta name="twitter:image" content="https://meta-taro.github.io/zumen/og/221.png">
+<meta name="twitter:image:alt" content="Deciding whether to leave: five questions answered once, in advance — and flood-depth bands read as floors of your own house, not as metres">
+<link rel="stylesheet" href="../../../style.css">
+<link rel="canonical" href="https://meta-taro.github.io/zumen/en/g/221/">
+<link rel="alternate" hreflang="en" href="https://meta-taro.github.io/zumen/en/g/221/">
+<link rel="alternate" hreflang="ja" href="https://meta-taro.github.io/zumen/g/221/">
+<link rel="alternate" hreflang="x-default" href="https://meta-taro.github.io/zumen/g/221/">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="alternate" type="text/markdown" href="https://meta-taro.github.io/zumen/llms.txt" title="llms.txt">
+<link rel="sitemap" type="application/xml" href="https://meta-taro.github.io/zumen/sitemap.xml">
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    "name": "避難行動の判定フローと、浸水深の読み方",
+    "headline": "避難行動の判定フローと、浸水深の読み方",
+    "description": "Deciding whether to leave: five questions answered once, in advance — and flood-depth bands read as floors of your own house, not as metres",
+    "url": "https://meta-taro.github.io/zumen/en/g/221/",
+    "image": {
+      "@type": "ImageObject",
+      "contentUrl": "https://meta-taro.github.io/zumen/gallery/221-%E9%81%BF%E9%9B%A3%E8%A1%8C%E5%8B%95%E3%81%AE%E5%88%A4%E5%AE%9A%E3%81%A8%E6%B5%B8%E6%B0%B4%E6%B7%B1.svg",
+      "caption": "Deciding whether to leave: five questions answered once, in advance — and flood-depth bands read as floors of your own house, not as metres",
+      "description": "Deciding whether to leave: five questions answered once, in advance — and flood-depth bands read as floors of your own house, not as metres",
+      "encodingFormat": "image/svg+xml",
+      "license": "https://opensource.org/licenses/MIT",
+      "acquireLicensePage": "https://github.com/meta-taro/zumen/blob/main/LICENSE",
+      "creditText": "zumen"
+    },
+    "inLanguage": "en",
+    "license": "https://opensource.org/licenses/MIT",
+    "isPartOf": {
+      "@type": "CollectionPage",
+      "name": "Disaster and emergency",
+      "url": "https://meta-taro.github.io/zumen/en/c/bosai/"
+    },
+    "encodingFormat": "text/yaml",
+    "isAccessibleForFree": true
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "zumen",
+        "item": "https://meta-taro.github.io/zumen/en/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "All 368 examples",
+        "item": "https://meta-taro.github.io/zumen/en/all/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Disaster and emergency",
+        "item": "https://meta-taro.github.io/zumen/en/c/bosai/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": "避難行動の判定フローと、浸水深の読み方"
+      }
+    ]
+  }
+]
+</script>
+</head>
+<body class="sub">
+<header class="bar">
+  <!--
+    パンくず（2026-09-24）。入口から現在地まで一本で出す。
+    aria-label を付けて、読み上げでも「ここは道案内」と分かるようにする。
+    区切りの記号は aria-hidden（読み上げると邪魔なだけ）。
+  -->
+  <nav class="crumbs" aria-label="Breadcrumb">
+    <a class="home" href="../../../">zumen</a><span aria-hidden="true">›</span><a href="../../all/">All 368</a><span aria-hidden="true">›</span><a href="../../c/bosai/">Disaster and emergency</a>
+  </nav>
+</header>
+<main>
+<article>
+  <p class="crumb">Disaster and emergency</p>
+  <h1>避難行動の判定フローと、浸水深の読み方</h1>
+  <p class="lead">Deciding whether to leave: five questions answered once, in advance — and flood-depth bands read as floors of your own house, not as metres</p>
+  <figure>
+    <img src="../../../gallery/221-%E9%81%BF%E9%9B%A3%E8%A1%8C%E5%8B%95%E3%81%AE%E5%88%A4%E5%AE%9A%E3%81%A8%E6%B5%B8%E6%B0%B4%E6%B7%B1.svg" alt="Deciding whether to leave: five questions answered once, in advance — and flood-depth bands read as floors of your own house, not as metres" loading="lazy">
+  </figure>
+  <p class="made">This drawing comes from one YAML file. No shape was moved by hand.</p>
+  <h2>What the source says</h2>
+  <p><strong>わからない人が、自分の家の場合を先に決めておくための図。</strong></p>
+  <p>決めるのは、強い避難先を作ることではない。ハザードマップを 1 回見て、5 つの問いに答えるだけ。<strong>ほとんどの道は「立退き避難」に行く</strong> —— 家に留まれるのは例外のほう。</p>
+  <p><strong>浸水深の色分けは、家の階に合わせて切ってある</strong>（0.5m ＝ 1 階の床、3.0m ＝ 2 階の床、5.0m ＝ 2 階が水没）。だから地図の色は「自分の家の何階まで来るか」として読める。</p>
+  <p><strong>2026 年 5 月 29 日から、気象庁の情報にもレベルの数字が付いた</strong>（「レベル 4 大雨危険警報」など。レベル 4 の「危険警報」は新設、「洪水警報・注意報」は廃止）。③の表はその列を足してある。市町村の避難情報（高齢者等避難・避難指示・緊急安全確保）と数字が揃っているので、どちらを見ても同じ段が分かる。<strong>4 つの災害とも、レベル 2〜5 が揃っている</strong>（気象庁の資料で確かめた）：</p>
+  <table class="note">
+  <thead><tr><th></th><th>2</th><th>3</th><th>4</th><th>5</th></tr></thead>
+  <tbody><tr><td>大雨</td><td>大雨注意報</td><td>大雨警報</td><td>大雨危険警報</td><td>大雨特別警報</td></tr><tr><td>土砂災害</td><td>土砂災害注意報</td><td>土砂災害警報</td><td>土砂災害危険警報</td><td>土砂災害特別警報</td></tr><tr><td>河川氾濫</td><td>氾濫注意報</td><td>氾濫警報</td><td>氾濫危険警報</td><td>氾濫特別警報</td></tr><tr><td>高潮</td><td>高潮注意報</td><td>高潮警報</td><td>高潮危険警報</td><td>高潮特別警報</td></tr></tbody>
+</table>
+  <p>名前の頭には「レベル 4」のように数字が付く。市町村ごとの洪水警報・注意報は出なくなった。<strong>最初は「土砂災害にレベル 5 が無い」と書いた解説記事を信じて「無い段もある」と書いていた。</strong>気象庁の資料本体を読んだら、あった。二次資料で食い違ったら、一次資料まで行く。出典：気象庁「新たな防災気象情報について（令和 8 年〜）」。国土交通省 水管理・国土保全局・気象庁「河川氾濫・大雨に関する情報の改善」「土砂災害に関する情報の改善」「高潮に関する情報の改善」（いずれも令和 7 年 12 月、令和 8 年 4 月更新）。</p>
+  <h2>Source (YAML)</h2>
+  <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/221-%E9%81%BF%E9%9B%A3%E8%A1%8C%E5%8B%95%E3%81%AE%E5%88%A4%E5%AE%9A%E3%81%A8%E6%B5%B8%E6%B0%B4%E6%B7%B1.zumen.yaml"><code>examples/gallery/221-避難行動の判定と浸水深.zumen.yaml</code></a></p>
+  <h2>More in this field</h2>
+  <ul class="cards">
+    <li><a href="../22/"><img src="../../../gallery/22-%E9%81%BF%E9%9B%A3%E7%B5%8C%E8%B7%AF%E5%9B%B3.svg" alt="Escape routes on a third floor: two ways out of every room to a staircase, with the travel distance and the fire doors and extinguishers along the way" width="772" height="616" loading="lazy" decoding="async"><span>Escape routes on a third floor: two ways out of every room to a staircase, with the travel distance and the fire doors and extinguishers along the way</span></a></li>
+    <li><a href="../93/"><img src="../../../gallery/93-%E8%8A%B1%E7%81%AB%E5%A4%A7%E4%BC%9A%E3%81%AE%E4%BF%9D%E5%AE%89%E8%B7%9D%E9%9B%A2%E5%9B%B3.svg" alt="Fireworks safety distances, a circle per shell size" width="1550" height="668" loading="lazy" decoding="async"><span>Fireworks safety distances, a circle per shell size</span></a></li>
+    <li><a href="../95/"><img src="../../../gallery/95-%E9%81%BF%E9%9B%A3%E6%89%80%E3%83%AC%E3%82%A4%E3%82%A2%E3%82%A6%E3%83%88.svg" alt="Shelter layout: 3.5 sq m a person, and how many toilets" width="1460" height="666" loading="lazy" decoding="async"><span>Shelter layout: 3.5 sq m a person, and how many toilets</span></a></li>
+    <li><a href="../106/"><img src="../../../gallery/106-%E9%9B%91%E8%B8%8F%E8%AD%A6%E5%82%99%E8%A8%88%E7%94%BB%E5%9B%B3.svg" alt="Crowd plan: how many can flow out against how many come in" width="1548" height="718" loading="lazy" decoding="async"><span>Crowd plan: how many can flow out against how many come in</span></a></li>
+    <li><a href="../119/"><img src="../../../gallery/119-%E6%B6%88%E7%81%AB%E5%99%A8%E3%81%A8%E6%B6%88%E7%81%AB%E6%A0%93%E3%81%AE%E9%85%8D%E7%BD%AE%E5%9B%B3.svg" alt="Extinguishers and hose reels, measured two different ways" width="2110" height="1066" loading="lazy" decoding="async"><span>Extinguishers and hose reels, measured two different ways</span></a></li>
+    <li><a href="../145/"><img src="../../../gallery/145-Sprinkler-layout.svg" alt="Sprinkler layout: area per head and spacing, decided together" width="1084" height="688" loading="lazy" decoding="async"><span>Sprinkler layout: area per head and spacing, decided together</span></a></li>
+    <li><a href="../148/"><img src="../../../gallery/148-Egress-plan.svg" alt="Egress plan: three lengths answering three questions" width="1164" height="650" loading="lazy" decoding="async"><span>Egress plan: three lengths answering three questions</span></a></li>
+    <li><a href="../154/"><img src="../../../gallery/154-Fire-alarm-plan.svg" alt="Fire alarm devices: spacing is a circle, not a square" width="1154" height="610" loading="lazy" decoding="async"><span>Fire alarm devices: spacing is a circle, not a square</span></a></li>
+  </ul>
+  <nav class="steps" aria-label="Previous and next">
+    <a class="step prev" href="../220/" rel="prev"><span>←</span> Fire compartments: the short…</a>
+    <a class="step index" href="../../all/">All 368</a>
+    <a class="step next" href="../222/" rel="next">A single-storey nursery has… <span>→</span></a>
+  </nav>
+</article>
+</main>
+<footer class="foot">
+  <p><a href="https://github.com/meta-taro/zumen">GitHub</a> · MIT · <a href="https://meta-taro.github.io/zumen/g/221/">日本語</a></p>
+</footer>
+</body>
+</html>

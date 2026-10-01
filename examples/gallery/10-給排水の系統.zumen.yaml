@@ -1,0 +1,120 @@
+version: 1
+wrap: true
+title: 住宅の給排水衛生設備系統図
+# **給水は押し、排水は落ちる。** だから太さの決まり方が逆になる。
+#
+# ## 給水は細い（13A・20A）
+#
+# 水道本管の圧力で押すので、**同時に何個使うか**で口径を決める。
+# 全部の器具を足した量では決めない（全部を同時には使わない）。
+#
+# ## 排水は太い（50A・75A）
+#
+# 落ちるだけなので、**勾配と、空気の通り道**が要る。満管になると
+# 封水を引っ張って臭いが上がるため、給水より 2 段も 3 段も太くする。
+#
+# ## ますは、詰まる所に置く
+#
+# 汚水ますは方向が変わる所と合流する所。**掃除できない配管は、詰まったら掘る。**
+pins:
+  kyuto:
+    appearance: primary
+groups:
+  - id: hikikomi
+    label: 引き込み
+  - id: kyusui
+    label: 給水・給湯
+  - id: haisui
+    label: 排水
+nodes:
+  - id: honkan
+    type: network
+    label: 配水本管
+    technology: 呼び径 75A
+    group: hikikomi
+  - id: meter
+    type: generic
+    label: 量水器
+    tag: WM
+    technology: 20A
+    group: hikikomi
+  - id: genatsu
+    type: generic
+    label: 減圧弁
+    tag: PRV
+    technology: 二次側 0.2MPa
+    group: hikikomi
+  - id: kyuto
+    type: cluster
+    label: 給湯器
+    tag: WH-1
+    technology: 24 号・追い焚き
+    group: kyusui
+  - id: daidokoro
+    type: generic
+    label: 台所
+    tag: SK-1
+    technology: 給水 13A・給湯 13A
+    group: kyusui
+  - id: yokushitsu
+    type: generic
+    label: 浴室
+    tag: BT-1
+    technology: 給水 13A・給湯 13A
+    group: kyusui
+  - id: senmen
+    type: generic
+    label: 洗面
+    tag: LV-1
+    technology: 給水 13A・給湯 13A
+    group: kyusui
+  - id: toilet
+    type: generic
+    label: 便所
+    tag: WC-1
+    technology: 給水 13A
+    group: kyusui
+  - id: masu
+    type: generic
+    label: 汚水ます
+    tag: MH-1
+    technology: 塩ビ 内径 200
+    group: haisui
+  - id: gesui
+    type: network
+    label: 公共下水
+    technology: 本管 200A
+    group: haisui
+edges:
+  - from: honkan
+    to: meter
+  - from: meter
+    to: genatsu
+    label: 20A
+  - from: genatsu
+    to: kyuto
+    label: 20A
+  - from: genatsu
+    to: toilet
+    label: 13A
+  - from: kyuto
+    to: daidokoro
+    label: 給湯 13A
+  - from: kyuto
+    to: yokushitsu
+    label: 給湯 13A
+  - from: kyuto
+    to: senmen
+    label: 給湯 13A
+  - from: daidokoro
+    to: masu
+    label: 排水 50A
+  - from: yokushitsu
+    to: masu
+    label: 排水 50A
+  - from: toilet
+    to: masu
+    label: 排水 75A
+  - from: masu
+    to: gesui
+    label: 100A

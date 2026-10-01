@@ -1,0 +1,383 @@
+version: 1
+kind: placement
+arrows: true
+title: ロープ結索の選び方（役目・部位・残る強度）
+# **結索図がまず決めるのは「どこを使うか」。**
+# 1 本のロープの中で、**端・中間（スタンディング）・輪（バイト）は別の扱い**になる ——
+# 中間に輪を作れる結びと、端でしか作れない結びは別物で、
+# 図に「端」と書いていなければ、読む側はどちらとも取れる。
+#
+# **結索は、役目で 3 つに分かれる**（消防の分け方）。
+# **結合**（ロープとロープをつなぐ。本結び／ひとえつなぎ／ふたえつなぎ）、
+# **結着**（柱や物に結び付ける。巻き結び／もやい結び）、
+# **端止め**（端にコブを作る。8 の字結び）。
+# 「よく使う結び 10 選」では選べない —— **先に決まるのは役目**で、
+# 決まれば候補は 2〜3 個に絞れる。**本結びで柱に結ばない**し、
+# **太さの違うロープを本結びでつながない**（ずれて解ける）。
+#
+# **結び目は、必ずロープのいちばん弱い所。**
+# 結ぶと強度は **40〜80%**（クライミングの結びで 60〜80%、もやい結びで約 60%）まで落ちる ——
+# 繊維が急に曲げられ、**外側は伸ばされ内側は潰されて、力が均等にかからなくなる。**
+# **「10kN のロープ」は、結ばない状態での話。**
+#
+# **描けないものは、それらしく描かない。**
+# 結び方の手順図には**線の上下（くぐる・またぐ）**が要り、zumen は交差を切って描けない。
+# 結びごとの正確な強度も、材質と結び方で変わり出典が割れるので入れていない ——
+# **役目・部位・強度の桁**までを、この 1 枚が引き受けている。
+nodes:
+  - id: t1
+    label: "① 結索図の言葉 —— ロープのどこを指しているか"
+    marker: none
+    align: left
+    at: { x: 150, y: 150 }
+    size: { w: 700, h: 20 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 219, y: 239 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 779, y: 239 }
+    size: { w: 2, h: 2 }
+  - id: hasi1
+    label: "端（はし）"
+    marker: none
+    align: center
+    at: { x: 180, y: 196 }
+    size: { w: 120, h: 18 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 239, y: 217 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 223, y: 233 }
+    size: { w: 2, h: 2 }
+  - id: hasi2
+    label: "端"
+    marker: none
+    align: center
+    at: { x: 720, y: 196 }
+    size: { w: 120, h: 18 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 761, y: 217 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 775, y: 233 }
+    size: { w: 2, h: 2 }
+  - id: tyu
+    label: "中間（スタンディング）"
+    marker: none
+    align: center
+    at: { x: 400, y: 256 }
+    size: { w: 220, h: 18 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 380.2, y: 313.8 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 380.2, y: 344.2 }
+    size: { w: 2, h: 2 }
+  - id: bite
+    label: "輪（バイト）—— 折り返して作る"
+    marker: none
+    align: left
+    at: { x: 480, y: 321 }
+    size: { w: 300, h: 18 }
+  - id: ropen
+    label: "1 本のロープの中で、端・中間・輪は別の扱いになる"
+    marker: none
+    align: center
+    at: { x: 150, y: 400 }
+    size: { w: 700, h: 18 }
+  - id: why1
+    label: "結索図がまず決めるのは「どこを使うか」。\n同じ結びでも、端で作るか中間で作るかで手順も強さも変わる ——\n中間に輪を作れる結び（中間者結び）と、端でしか作れない結びは別物。\n図に「端」と書いていなければ、読む側はどちらとも取れる。"
+    at: { x: 150, y: 430 }
+    size: { w: 700, h: 92 }
+  - id: t2
+    label: "② 結索は、役目で 3 つに分かれる"
+    marker: none
+    align: left
+    at: { x: 150, y: 542 }
+    size: { w: 700, h: 20 }
+  - id: h150_572
+    label: "消防の結索の分け方"
+    hatch: solid
+    at: { x: 150, y: 572 }
+    size: { w: 700, h: 24 }
+  - id: x150_596
+    label: "結合（けつごう）"
+    at: { x: 150, y: 596 }
+    size: { w: 200, h: 24 }
+  - id: y150_596
+    label: "ロープとロープをつなぐ"
+    align: left
+    at: { x: 350, y: 596 }
+    size: { w: 500, h: 24 }
+  - id: x150_620
+    label: ""
+    at: { x: 150, y: 620 }
+    size: { w: 200, h: 24 }
+  - id: y150_620
+    label: "本結び／ひとえつなぎ／ふたえつなぎ"
+    align: left
+    at: { x: 350, y: 620 }
+    size: { w: 500, h: 24 }
+  - id: x150_644
+    label: "結着（けっちゃく）"
+    at: { x: 150, y: 644 }
+    size: { w: 200, h: 24 }
+  - id: y150_644
+    label: "柱や物に結び付ける"
+    align: left
+    at: { x: 350, y: 644 }
+    size: { w: 500, h: 24 }
+  - id: x150_668
+    label: ""
+    at: { x: 150, y: 668 }
+    size: { w: 200, h: 24 }
+  - id: y150_668
+    label: "巻き結び／もやい結び"
+    align: left
+    at: { x: 350, y: 668 }
+    size: { w: 500, h: 24 }
+  - id: x150_692
+    label: "端止め"
+    at: { x: 150, y: 692 }
+    size: { w: 200, h: 24 }
+  - id: y150_692
+    label: "端にコブを作って抜け止めにする"
+    align: left
+    at: { x: 350, y: 692 }
+    size: { w: 500, h: 24 }
+  - id: x150_716
+    label: ""
+    at: { x: 150, y: 716 }
+    size: { w: 200, h: 24 }
+  - id: y150_716
+    label: "8 の字結び"
+    align: left
+    at: { x: 350, y: 716 }
+    size: { w: 500, h: 24 }
+  - id: why2
+    label: "「よく使う結び 10 選」では選べない。\n先に決まるのは役目（つなぐのか、結び付けるのか、止めるのか）——\n役目が決まれば候補は 2〜3 個に絞れる。\n本結びで柱に結ばない。太さの違うロープを本結びでつながない（ずれて解ける）。"
+    at: { x: 150, y: 754 }
+    size: { w: 700, h: 92 }
+  - id: t3
+    label: "③ 結び目は、必ずロープのいちばん弱い所"
+    marker: none
+    align: left
+    at: { x: 890, y: 150 }
+    size: { w: 450, h: 20 }
+  - id: g0
+    label: ""
+    hatch: lines
+    at: { x: 920, y: 200 }
+    size: { w: 340, h: 22 }
+  - id: gl0
+    label: "結び目のないロープ"
+    marker: none
+    align: left
+    at: { x: 920, y: 182 }
+    size: { w: 340, h: 18 }
+  - id: gv0
+    label: "100%"
+    marker: none
+    align: left
+    at: { x: 1268, y: 202 }
+    size: { w: 120, h: 18 }
+  - id: g1
+    label: ""
+    hatch: lines
+    at: { x: 920, y: 246 }
+    size: { w: 272, h: 22 }
+  - id: gl1
+    label: "クライミングの結び"
+    marker: none
+    align: left
+    at: { x: 920, y: 228 }
+    size: { w: 340, h: 18 }
+  - id: gv1
+    label: "60 〜 80%"
+    marker: none
+    align: left
+    at: { x: 1200, y: 248 }
+    size: { w: 120, h: 18 }
+  - id: g2
+    label: ""
+    hatch: lines
+    at: { x: 920, y: 292 }
+    size: { w: 204, h: 22 }
+  - id: gl2
+    label: "もやい結び"
+    marker: none
+    align: left
+    at: { x: 920, y: 274 }
+    size: { w: 340, h: 18 }
+  - id: gv2
+    label: "約 60%"
+    marker: none
+    align: left
+    at: { x: 1132, y: 294 }
+    size: { w: 120, h: 18 }
+  - id: g3
+    label: ""
+    hatch: lines
+    at: { x: 920, y: 338 }
+    size: { w: 136, h: 22 }
+  - id: gl3
+    label: "結びによっては"
+    marker: none
+    align: left
+    at: { x: 920, y: 320 }
+    size: { w: 340, h: 18 }
+  - id: gv3
+    label: "40% まで"
+    marker: none
+    align: left
+    at: { x: 1064, y: 340 }
+    size: { w: 120, h: 18 }
+  - id: gn
+    label: "（結びと材質で変わる。目安）"
+    marker: none
+    align: left
+    at: { x: 920, y: 372 }
+    size: { w: 340, h: 18 }
+  - id: why3
+    label: "結んだ時点で、ロープは新品ではなくなる。\n繊維が急に曲げられ、外側は伸ばされ内側は潰される ——\n力が均等にかからなくなるので、結び目から切れる。\n「10kN のロープ」は、結ばない状態での話。"
+    at: { x: 890, y: 400 }
+    size: { w: 450, h: 92 }
+  - id: t4
+    label: "④ この図に描いていないもの"
+    marker: none
+    align: left
+    at: { x: 890, y: 512 }
+    size: { w: 450, h: 20 }
+  - id: h890_542
+    label: "描かなかったもの と 理由"
+    hatch: solid
+    at: { x: 890, y: 542 }
+    size: { w: 450, h: 24 }
+  - id: x890_566
+    label: "結び方の手順図"
+    at: { x: 890, y: 566 }
+    size: { w: 190, h: 24 }
+  - id: y890_566
+    label: "線の上下（くぐる・またぐ）が要る"
+    align: left
+    at: { x: 1080, y: 566 }
+    size: { w: 260, h: 24 }
+  - id: x890_590
+    label: ""
+    at: { x: 890, y: 590 }
+    size: { w: 190, h: 24 }
+  - id: y890_590
+    label: "zumen は線の交差を切って描けない"
+    align: left
+    at: { x: 1080, y: 590 }
+    size: { w: 260, h: 24 }
+  - id: x890_614
+    label: "結びごとの正確な強度"
+    at: { x: 890, y: 614 }
+    size: { w: 190, h: 24 }
+  - id: y890_614
+    label: "材質と結び方で変わり、出典が割れる"
+    align: left
+    at: { x: 1080, y: 614 }
+    size: { w: 260, h: 24 }
+  - id: why4
+    label: "描けないものを、それらしく描かない。\n結索図の要は「どちらがくぐるか」で、\nそこを省いた絵は手順書としては使えない。\n役目・部位・強度のほうは図にできるので、\nこの 1 枚はそこまでを引き受けている。"
+    at: { x: 890, y: 652 }
+    size: { w: 450, h: 128 }
+  - id: r1
+    label: "結索図がまず決めるのは「どこを使うか」です（①）。端・中間・輪は、同じロープの中で別の扱いになります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 860 }
+    size: { w: 1190, h: 18 }
+  - id: r2
+    label: "結索は役目で 3 つに分かれます（②）。つなぐ（結合）・結び付ける（結着）・端を止める（端止め）。"
+    marker: none
+    align: left
+    at: { x: 150, y: 884 }
+    size: { w: 1190, h: 18 }
+  - id: r3
+    label: "役目が決まれば、候補は 2〜3 個に絞れます。 本結びで柱に結ばず、太さの違うロープを本結びでつなぎません。"
+    marker: none
+    align: left
+    at: { x: 150, y: 908 }
+    size: { w: 1190, h: 18 }
+  - id: r4
+    label: "結び目は、必ずロープのいちばん弱い所です（③）。結んだ時点で 40〜80% まで落ちます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 932 }
+    size: { w: 1190, h: 18 }
+  - id: r5
+    label: "繊維が急に曲げられ、外側は伸ばされ内側は潰されます。 力が偏るので、結び目から切れます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 956 }
+    size: { w: 1190, h: 18 }
+  - id: r6
+    label: "「10kN のロープ」は、結ばない状態での話です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 980 }
+    size: { w: 1190, h: 18 }
+  - id: r7
+    label: "描けないものは、それらしく描きません（④）。結び方の手順は線の上下が要るので、この図には入れていません。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1004 }
+    size: { w: 1190, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p2
+    to: p3
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p4
+    to: p5
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p6
+    to: p7
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 385.3, y: 306.4 }
+      - { x: 393.2, y: 297.6 }
+      - { x: 403.3, y: 291.5 }
+      - { x: 414.7, y: 288.3 }
+      - { x: 426.6, y: 288.5 }
+      - { x: 437.9, y: 292 }
+      - { x: 447.8, y: 298.5 }
+      - { x: 455.5, y: 307.5 }
+      - { x: 460.3, y: 318.3 }
+      - { x: 462, y: 330 }
+      - { x: 460.3, y: 341.7 }
+      - { x: 455.5, y: 352.5 }
+      - { x: 447.8, y: 361.5 }
+      - { x: 437.9, y: 368 }
+      - { x: 426.6, y: 371.5 }
+      - { x: 414.7, y: 371.7 }
+      - { x: 403.3, y: 368.5 }
+      - { x: 393.2, y: 362.4 }
+      - { x: 385.3, y: 353.6 }

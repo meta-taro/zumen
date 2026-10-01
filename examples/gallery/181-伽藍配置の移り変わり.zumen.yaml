@@ -1,0 +1,519 @@
+version: 1
+kind: placement
+arrows: false
+title: 伽藍配置の移り変わり（飛鳥寺式から東大寺式まで）
+# **並びそのものが、時代を表す。**
+#
+# いちばん古い飛鳥寺式では、**塔が伽藍の中心**にあった（仏舎利をおさめる塔が主役）。
+# 時代が下るにつれて塔は中心から離れ、**東大寺式では回廊の外**へ出る。
+# 入れかわりに、本尊をまつる**金堂が中心**になる ——
+# **主役が替わったことが、配置に出ている。**
+#
+# 塔だけ面を敷いてある（\`fill\`）。どこへ動いたかを追うため。
+# 下が南（中門・南大門の側）で、5 つとも同じ中軸線にそろえた。
+# 建物の大小と実際の寸法は描き分けていない —— これは**並びの図**。
+palette:
+  塔: "#8c6d3f"
+nodes:
+  - id: asuka_n
+    label: "飛鳥寺式"
+    marker: none
+    align: center
+    at: { x: 70, y: 182 }
+    size: { w: 200, h: 20 }
+  - id: asuka_e
+    label: "6 世紀末"
+    marker: none
+    align: center
+    at: { x: 70, y: 202 }
+    size: { w: 200, h: 16 }
+  - id: e0
+    label: ""
+    marker: none
+    at: { x: 83, y: 259 }
+    size: { w: 2, h: 2 }
+  - id: asuka_t
+    label: "塔"
+    fill: 塔
+    at: { x: 148, y: 315 }
+    size: { w: 44, h: 26 }
+  - id: asuka_k1
+    label: "金堂"
+    at: { x: 148, y: 282 }
+    size: { w: 44, h: 26 }
+  - id: asuka_k2
+    label: "金堂"
+    at: { x: 90, y: 315 }
+    size: { w: 44, h: 26 }
+  - id: asuka_k3
+    label: "金堂"
+    at: { x: 206, y: 315 }
+    size: { w: 44, h: 26 }
+  - id: asuka_m
+    label: "中門"
+    at: { x: 148, y: 434 }
+    size: { w: 44, h: 26 }
+  - id: asuka_c
+    label: "塔が中心。東・北・西に金堂"
+    marker: none
+    align: center
+    at: { x: 62, y: 496 }
+    size: { w: 216, h: 18 }
+  - id: shiten_n
+    label: "四天王寺式"
+    marker: none
+    align: center
+    at: { x: 300, y: 182 }
+    size: { w: 200, h: 20 }
+  - id: shiten_e
+    label: "6〜7 世紀"
+    marker: none
+    align: center
+    at: { x: 300, y: 202 }
+    size: { w: 200, h: 16 }
+  - id: e1
+    label: ""
+    marker: none
+    at: { x: 329, y: 259 }
+    size: { w: 2, h: 2 }
+  - id: shiten_ko
+    label: "講堂"
+    at: { x: 378, y: 248 }
+    size: { w: 44, h: 26 }
+  - id: shiten_k
+    label: "金堂"
+    at: { x: 378, y: 308 }
+    size: { w: 44, h: 26 }
+  - id: shiten_t
+    label: "塔"
+    fill: 塔
+    at: { x: 378, y: 360 }
+    size: { w: 44, h: 26 }
+  - id: shiten_m
+    label: "中門"
+    at: { x: 378, y: 434 }
+    size: { w: 44, h: 26 }
+  - id: shiten_c
+    label: "南北一直線に中門・塔・金堂"
+    marker: none
+    align: center
+    at: { x: 292, y: 496 }
+    size: { w: 216, h: 18 }
+  - id: horyu_n
+    label: "法隆寺式"
+    marker: none
+    align: center
+    at: { x: 530, y: 182 }
+    size: { w: 200, h: 20 }
+  - id: horyu_e
+    label: "7 世紀後半"
+    marker: none
+    align: center
+    at: { x: 530, y: 202 }
+    size: { w: 200, h: 16 }
+  - id: e2
+    label: ""
+    marker: none
+    at: { x: 545, y: 275 }
+    size: { w: 2, h: 2 }
+  - id: horyu_ko
+    label: "講堂"
+    at: { x: 608, y: 248 }
+    size: { w: 44, h: 26 }
+  - id: horyu_t
+    label: "塔"
+    fill: 塔
+    at: { x: 558, y: 326 }
+    size: { w: 44, h: 26 }
+  - id: horyu_k
+    label: "金堂"
+    at: { x: 658, y: 326 }
+    size: { w: 44, h: 26 }
+  - id: horyu_m
+    label: "中門"
+    at: { x: 608, y: 434 }
+    size: { w: 44, h: 26 }
+  - id: horyu_c
+    label: "回廊の中に、塔と金堂が並ぶ"
+    marker: none
+    align: center
+    at: { x: 522, y: 496 }
+    size: { w: 216, h: 18 }
+  - id: yakushi_n
+    label: "薬師寺式"
+    marker: none
+    align: center
+    at: { x: 760, y: 182 }
+    size: { w: 200, h: 20 }
+  - id: yakushi_e
+    label: "8 世紀初め"
+    marker: none
+    align: center
+    at: { x: 760, y: 202 }
+    size: { w: 200, h: 16 }
+  - id: e3
+    label: ""
+    marker: none
+    at: { x: 775, y: 275 }
+    size: { w: 2, h: 2 }
+  - id: yakushi_ko
+    label: "講堂"
+    at: { x: 838, y: 248 }
+    size: { w: 44, h: 26 }
+  - id: yakushi_k
+    label: "金堂"
+    at: { x: 838, y: 302 }
+    size: { w: 44, h: 26 }
+  - id: yakushi_t1
+    label: "塔"
+    fill: 塔
+    at: { x: 784, y: 362 }
+    size: { w: 44, h: 26 }
+  - id: yakushi_t2
+    label: "塔"
+    fill: 塔
+    at: { x: 892, y: 362 }
+    size: { w: 44, h: 26 }
+  - id: yakushi_m
+    label: "中門"
+    at: { x: 838, y: 434 }
+    size: { w: 44, h: 26 }
+  - id: yakushi_c
+    label: "双塔。金堂は中央の奥"
+    marker: none
+    align: center
+    at: { x: 752, y: 496 }
+    size: { w: 216, h: 18 }
+  - id: todai_n
+    label: "東大寺式"
+    marker: none
+    align: center
+    at: { x: 990, y: 182 }
+    size: { w: 200, h: 20 }
+  - id: todai_e
+    label: "8 世紀半ば"
+    marker: none
+    align: center
+    at: { x: 990, y: 202 }
+    size: { w: 200, h: 16 }
+  - id: e4
+    label: ""
+    marker: none
+    at: { x: 1029, y: 269 }
+    size: { w: 2, h: 2 }
+  - id: todai_ko
+    label: "講堂"
+    at: { x: 1068, y: 238 }
+    size: { w: 44, h: 26 }
+  - id: todai_k
+    label: "金堂"
+    at: { x: 1068, y: 292 }
+    size: { w: 44, h: 26 }
+  - id: todai_m
+    label: "中門"
+    at: { x: 1068, y: 354 }
+    size: { w: 44, h: 26 }
+  - id: todai_t1
+    label: "塔"
+    fill: 塔
+    at: { x: 1000, y: 380 }
+    size: { w: 44, h: 26 }
+  - id: todai_t2
+    label: "塔"
+    fill: 塔
+    at: { x: 1136, y: 380 }
+    size: { w: 44, h: 26 }
+  - id: todai_s
+    label: "南大門"
+    at: { x: 1060, y: 438 }
+    size: { w: 60, h: 26 }
+  - id: todai_c
+    label: "双塔が回廊の外へ出る"
+    marker: none
+    align: center
+    at: { x: 982, y: 496 }
+    size: { w: 216, h: 18 }
+  - id: e5
+    label: ""
+    marker: none
+    at: { x: 61, y: 354 }
+    size: { w: 2, h: 2 }
+  - id: axis
+    label: "中軸線（南北）"
+    marker: none
+    align: right
+    at: { x: -80, y: 346 }
+    size: { w: 138, h: 18 }
+  - id: dir
+    label: "下が南（中門・南大門の側）"
+    marker: none
+    align: left
+    at: { x: 40, y: 530 }
+    size: { w: 300, h: 18 }
+  - id: h70_570
+    label: "時代が下るほど、塔が中心から遠ざかる"
+    hatch: solid
+    at: { x: 70, y: 570 }
+    size: { w: 470, h: 22 }
+  - id: a70_592
+    label: "飛鳥寺式"
+    at: { x: 70, y: 592 }
+    size: { w: 150, h: 22 }
+  - id: b70_592
+    label: "6 世紀末　塔が中心。東・北・西に金堂"
+    align: left
+    at: { x: 220, y: 592 }
+    size: { w: 320, h: 22 }
+  - id: a70_614
+    label: "四天王寺式"
+    at: { x: 70, y: 614 }
+    size: { w: 150, h: 22 }
+  - id: b70_614
+    label: "6〜7 世紀　南北一直線に中門・塔・金堂"
+    align: left
+    at: { x: 220, y: 614 }
+    size: { w: 320, h: 22 }
+  - id: a70_636
+    label: "法隆寺式"
+    at: { x: 70, y: 636 }
+    size: { w: 150, h: 22 }
+  - id: b70_636
+    label: "7 世紀後半　回廊の中に、塔と金堂が並ぶ"
+    align: left
+    at: { x: 220, y: 636 }
+    size: { w: 320, h: 22 }
+  - id: a70_658
+    label: "薬師寺式"
+    at: { x: 70, y: 658 }
+    size: { w: 150, h: 22 }
+  - id: b70_658
+    label: "8 世紀初め　双塔。金堂は中央の奥"
+    align: left
+    at: { x: 220, y: 658 }
+    size: { w: 320, h: 22 }
+  - id: a70_680
+    label: "東大寺式"
+    at: { x: 70, y: 680 }
+    size: { w: 150, h: 22 }
+  - id: b70_680
+    label: "8 世紀半ば　双塔が回廊の外へ出る"
+    align: left
+    at: { x: 220, y: 680 }
+    size: { w: 320, h: 22 }
+  - id: h70_716
+    label: "建物の名前"
+    hatch: solid
+    at: { x: 70, y: 716 }
+    size: { w: 470, h: 22 }
+  - id: a70_738
+    label: "塔"
+    at: { x: 70, y: 738 }
+    size: { w: 150, h: 22 }
+  - id: b70_738
+    label: "仏舎利をおさめる。初めは伽藍の中心"
+    align: left
+    at: { x: 220, y: 738 }
+    size: { w: 320, h: 22 }
+  - id: a70_760
+    label: "金堂"
+    at: { x: 70, y: 760 }
+    size: { w: 150, h: 22 }
+  - id: b70_760
+    label: "本尊をまつる。しだいにこちらが中心になる"
+    align: left
+    at: { x: 220, y: 760 }
+    size: { w: 320, h: 22 }
+  - id: a70_782
+    label: "講堂"
+    at: { x: 70, y: 782 }
+    size: { w: 150, h: 22 }
+  - id: b70_782
+    label: "僧が学ぶ。伽藍のいちばん奥（北）"
+    align: left
+    at: { x: 220, y: 782 }
+    size: { w: 320, h: 22 }
+  - id: a70_804
+    label: "中門"
+    at: { x: 70, y: 804 }
+    size: { w: 150, h: 22 }
+  - id: b70_804
+    label: "回廊の南の入口"
+    align: left
+    at: { x: 220, y: 804 }
+    size: { w: 320, h: 22 }
+  - id: a70_826
+    label: "回廊"
+    at: { x: 70, y: 826 }
+    size: { w: 150, h: 22 }
+  - id: b70_826
+    label: "塔と金堂を囲む廊下"
+    align: left
+    at: { x: 220, y: 826 }
+    size: { w: 320, h: 22 }
+  - id: h580_570
+    label: "この図の読み方"
+    hatch: solid
+    at: { x: 580, y: 570 }
+    size: { w: 470, h: 22 }
+  - id: a580_592
+    label: "色"
+    at: { x: 580, y: 592 }
+    size: { w: 150, h: 22 }
+  - id: b580_592
+    label: "塔だけ面を敷いた。どこへ動いたかを追うため"
+    align: left
+    at: { x: 730, y: 592 }
+    size: { w: 320, h: 22 }
+  - id: a580_614
+    label: "向き"
+    at: { x: 580, y: 614 }
+    size: { w: 150, h: 22 }
+  - id: b580_614
+    label: "下が南。中門・南大門のある側"
+    align: left
+    at: { x: 730, y: 614 }
+    size: { w: 320, h: 22 }
+  - id: a580_636
+    label: "中軸線"
+    at: { x: 580, y: 636 }
+    size: { w: 150, h: 22 }
+  - id: b580_636
+    label: "南北の一直線。5 つとも同じ線でそろえた"
+    align: left
+    at: { x: 730, y: 636 }
+    size: { w: 320, h: 22 }
+  - id: a580_658
+    label: "大きさ"
+    at: { x: 580, y: 658 }
+    size: { w: 150, h: 22 }
+  - id: b580_658
+    label: "建物の大小は描き分けていない（並びの図）"
+    align: left
+    at: { x: 730, y: 658 }
+    size: { w: 320, h: 22 }
+  - id: h580_694
+    label: "この図に出ていないもの"
+    hatch: solid
+    at: { x: 580, y: 694 }
+    size: { w: 470, h: 22 }
+  - id: a580_716
+    label: "実際の寸法"
+    at: { x: 580, y: 716 }
+    size: { w: 150, h: 22 }
+  - id: b580_716
+    label: "伽藍ごとに規模が違う。これは並びだけの図"
+    align: left
+    at: { x: 730, y: 716 }
+    size: { w: 320, h: 22 }
+  - id: a580_738
+    label: "付属の建物"
+    at: { x: 580, y: 738 }
+    size: { w: 150, h: 22 }
+  - id: b580_738
+    label: "経蔵・鐘楼・食堂・僧坊"
+    align: left
+    at: { x: 730, y: 738 }
+    size: { w: 320, h: 22 }
+  - id: a580_760
+    label: "再建"
+    at: { x: 580, y: 760 }
+    size: { w: 150, h: 22 }
+  - id: b580_760
+    label: "法隆寺の西院伽藍は再建されたもの"
+    align: left
+    at: { x: 730, y: 760 }
+    size: { w: 320, h: 22 }
+  - id: n1
+    label: "伽藍配置は、寺のどこに何を建てるかの決まりです。並びそのものが、時代を表します。"
+    marker: none
+    align: left
+    at: { x: 70, y: 890 }
+    size: { w: 900, h: 18 }
+  - id: n2
+    label: "いちばん古い飛鳥寺式では、塔が伽藍の中心にありました。仏舎利をおさめる塔が主役だったためです。"
+    marker: none
+    align: left
+    at: { x: 70, y: 912 }
+    size: { w: 900, h: 18 }
+  - id: n3
+    label: "時代が下るにつれて塔は中心から離れ、東大寺式では回廊の外へ出ます。"
+    marker: none
+    align: left
+    at: { x: 70, y: 934 }
+    size: { w: 900, h: 18 }
+  - id: n4
+    label: "入れかわりに、本尊をまつる金堂が中心になります。主役が替わったことが、配置に出ています。"
+    marker: none
+    align: left
+    at: { x: 70, y: 956 }
+    size: { w: 900, h: 18 }
+  - id: n5
+    label: "この図は並びの図で、建物の大きさや実際の寸法は描き分けていません。"
+    marker: none
+    align: left
+    at: { x: 70, y: 978 }
+    size: { w: 900, h: 18 }
+edges:
+  - from: e0
+    to: e0
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 84, y: 260 }
+      - { x: 256, y: 260 }
+      - { x: 256, y: 430 }
+      - { x: 84, y: 430 }
+      - { x: 84, y: 260 }
+  - from: e1
+    to: e1
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 330, y: 260 }
+      - { x: 470, y: 260 }
+      - { x: 470, y: 434 }
+      - { x: 330, y: 434 }
+      - { x: 330, y: 260 }
+  - from: e2
+    to: e2
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 546, y: 276 }
+      - { x: 714, y: 276 }
+      - { x: 714, y: 430 }
+      - { x: 546, y: 430 }
+      - { x: 546, y: 276 }
+  - from: e3
+    to: e3
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 776, y: 276 }
+      - { x: 944, y: 276 }
+      - { x: 944, y: 430 }
+      - { x: 776, y: 430 }
+      - { x: 776, y: 276 }
+  - from: e4
+    to: e4
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 1030, y: 270 }
+      - { x: 1150, y: 270 }
+      - { x: 1150, y: 350 }
+      - { x: 1030, y: 350 }
+      - { x: 1030, y: 270 }
+  - from: e5
+    to: e5
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 62, y: 355 }
+      - { x: 1220, y: 355 }

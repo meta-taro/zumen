@@ -1,0 +1,641 @@
+version: 1
+kind: placement
+arrows: true
+title: 避難場所と避難所 —— 逃げる先と、暮らす先（災害対策基本法・JIS Z 9098:2016）
+# **「避難所」は、逃げる先ではない。**
+#
+# 2013 年の災害対策基本法の改正で、似た名前の 2 つを分けた。
+#
+# | | 指定緊急避難場所 | 指定避難所 |
+# |---|---|---|
+# | 何のため | **命を守る**（切迫した危険から逃げ込む） | **暮らす**（家に戻れない間） |
+# | 根拠 | 第 49 条の 4 | 第 49 条の 7 |
+# | 災害の種類 | **8 種類ごとに指定** | 問わない |
+#
+# 分けた理由は東日本大震災。**区別されておらず、逃げた先の施設を津波が襲って
+# 多数の犠牲が出た**（平成 27 年版 防災白書）。
+#
+# ## 8 種類
+#
+# 洪水／崖崩れ・土石流・地滑り／高潮／地震／津波／大規模な火事（施行令 第 20 条の 4）、
+# 内水氾濫／火山現象（施行規則 第 1 条の 6）。
+#
+# **同じ場所でも、災害ごとに ○ と × が変わる。** ③はそれを架空の町の 3 か所で見せる。
+# 学校は「避難所」として知られているが、川沿いで想定浸水深 3m なら洪水では × —— 
+# 3m は 2 階の床に届く（見本 221 の色分けと同じ切り方）。
+#
+# ## 標識の規格は、法の 8 種類と揃っていない
+#
+# | 規格 | 受け持つ災害 |
+# |---|---|
+# | JIS Z 9098:2016 災害種別避難誘導標識システム | 洪水・内水氾濫・高潮・土石流・崖崩れ・地滑り・大規模な火事 |
+# | JIS Z 9097:2014 津波避難誘導標識システム | 津波 |
+# | —（種別の仕組みは無い） | **地震・火山現象** |
+#
+# JIS Z 9098:2016 は標識を 4 種類（注意・避難情報・避難誘導・避難場所）に分け、
+# **途切れずに続けて置く**（シームレスデザイン）。適・不適は「○」「×」の黒で示す。
+#
+# ## 描かなかったもの
+#
+# - **実在の町の指定。** ③の 3 か所は架空。○ × は市町村が場所ごとに決めて公表するもので、
+#   この図から自分の町の答えは出ない。**自分の町は、市町村の一覧で確かめる**
+# - **図記号そのもの。** JIS Z 8210 の図記号は名前で置いた（Issue 006 のライセンス確認の外）
+# - **避難するかどうかの判定。** それは見本 221（避難行動の判定と浸水深）
+#
+# 何のための図か —— **地図に「避難所」と出ていても、それが今の災害で逃げてよい所かは
+# 別の話**だと分かるため。
+#
+# 出典: 災害対策基本法 第 49 条の 4・第 49 条の 7、同施行令 第 20 条の 4、同施行規則 第 1 条の 6。
+# 内閣府「平成 27 年版 防災白書」第 1 部 第 1 章 第 2 節 2-2。内閣府「指定緊急避難場所の指定に関する手引き」。
+# JIS Z 9098:2016、JIS Z 9097:2014。**JIS Z 8210 の版は確かめていない**（図記号の名前を引いただけ）。
+nodes:
+  - id: t1
+    label: "① 名前が似ているが、別のもの（2013 年の災害対策基本法の改正で分けた）"
+    marker: none
+    align: left
+    at: { x: 60, y: 100 }
+    size: { w: 760, h: 18 }
+  - id: a0_0
+    label: ""
+    hatch: solid
+    align: center
+    at: { x: 60, y: 132 }
+    size: { w: 150, h: 26 }
+  - id: a0_1
+    label: "指定緊急避難場所"
+    hatch: solid
+    align: center
+    at: { x: 210, y: 132 }
+    size: { w: 300, h: 26 }
+  - id: a0_2
+    label: "指定避難所"
+    hatch: solid
+    align: center
+    at: { x: 510, y: 132 }
+    size: { w: 300, h: 26 }
+  - id: a1_0
+    label: "何のため"
+    align: center
+    at: { x: 60, y: 158 }
+    size: { w: 150, h: 26 }
+  - id: a1_1
+    label: "命を守る —— 逃げ込む先"
+    align: center
+    at: { x: 210, y: 158 }
+    size: { w: 300, h: 26 }
+  - id: a1_2
+    label: "暮らす —— 家に戻れない間"
+    align: center
+    at: { x: 510, y: 158 }
+    size: { w: 300, h: 26 }
+  - id: a2_0
+    label: "根拠"
+    align: center
+    at: { x: 60, y: 184 }
+    size: { w: 150, h: 26 }
+  - id: a2_1
+    label: "災害対策基本法 第 49 条の 4"
+    align: center
+    at: { x: 210, y: 184 }
+    size: { w: 300, h: 26 }
+  - id: a2_2
+    label: "同 第 49 条の 7"
+    align: center
+    at: { x: 510, y: 184 }
+    size: { w: 300, h: 26 }
+  - id: a3_0
+    label: "災害の種類"
+    align: center
+    at: { x: 60, y: 210 }
+    size: { w: 150, h: 26 }
+  - id: a3_1
+    label: "8 種類ごとに指定する"
+    align: center
+    at: { x: 210, y: 210 }
+    size: { w: 300, h: 26 }
+  - id: a3_2
+    label: "種類を問わない"
+    align: center
+    at: { x: 510, y: 210 }
+    size: { w: 300, h: 26 }
+  - id: a4_0
+    label: "いる時間"
+    align: center
+    at: { x: 60, y: 236 }
+    size: { w: 150, h: 26 }
+  - id: a4_1
+    label: "危険が去るまで"
+    align: center
+    at: { x: 210, y: 236 }
+    size: { w: 300, h: 26 }
+  - id: a4_2
+    label: "日〜月の単位"
+    align: center
+    at: { x: 510, y: 236 }
+    size: { w: 300, h: 26 }
+  - id: a5_0
+    label: "例"
+    align: center
+    at: { x: 60, y: 262 }
+    size: { w: 150, h: 26 }
+  - id: a5_1
+    label: "高台・広い公園・津波避難ビル"
+    align: center
+    at: { x: 210, y: 262 }
+    size: { w: 300, h: 26 }
+  - id: a5_2
+    label: "学校の体育館・公民館"
+    align: center
+    at: { x: 510, y: 262 }
+    size: { w: 300, h: 26 }
+  - id: t1n
+    label: "分けた理由は東日本大震災。区別が無く、逃げた先の施設を津波が襲って多くの人が亡くなった。"
+    marker: none
+    align: left
+    at: { x: 60, y: 298 }
+    size: { w: 760, h: 18 }
+  - id: t2
+    label: "② 順番がある —— 先に「逃げる」、そのあと家に戻れない人だけが「暮らす」"
+    marker: none
+    align: left
+    at: { x: 60, y: 420 }
+    size: { w: 760, h: 18 }
+  - id: f1
+    label: "危険が迫る"
+    at: { x: 60, y: 456 }
+    size: { w: 130, h: 44 }
+  - id: f2
+    label: "指定緊急避難場所へ\n（その災害で ○ の所）"
+    at: { x: 240, y: 456 }
+    size: { w: 190, h: 44 }
+  - id: f3
+    label: "危険が去る"
+    at: { x: 480, y: 456 }
+    size: { w: 130, h: 44 }
+  - id: f4
+    label: "指定避難所へ\n（家に戻れない人）"
+    at: { x: 660, y: 456 }
+    size: { w: 160, h: 44 }
+  - id: t2n
+    label: "同じ学校が両方を兼ねることは多い。ただし兼ねられるのは、その災害で ○ のときだけ（③）。"
+    marker: none
+    align: left
+    at: { x: 60, y: 518 }
+    size: { w: 760, h: 18 }
+  - id: t3
+    label: "③ 同じ場所でも、災害によって ○ と ✕ が変わる（架空の町の 3 か所）"
+    marker: none
+    align: left
+    at: { x: 60, y: 580 }
+    size: { w: 1200, h: 18 }
+  - id: m0_0
+    label: "場所（架空）"
+    hatch: solid
+    align: center
+    at: { x: 60, y: 612 }
+    size: { w: 300, h: 64 }
+  - id: m0_1
+    label: "洪水"
+    hatch: solid
+    align: center
+    at: { x: 360, y: 612 }
+    size: { w: 66, h: 64 }
+  - id: m0_2
+    label: "崖崩れ\n土石流\n地滑り"
+    hatch: solid
+    align: center
+    at: { x: 426, y: 612 }
+    size: { w: 66, h: 64 }
+  - id: m0_3
+    label: "高潮"
+    hatch: solid
+    align: center
+    at: { x: 492, y: 612 }
+    size: { w: 66, h: 64 }
+  - id: m0_4
+    label: "地震"
+    hatch: solid
+    align: center
+    at: { x: 558, y: 612 }
+    size: { w: 66, h: 64 }
+  - id: m0_5
+    label: "津波"
+    hatch: solid
+    align: center
+    at: { x: 624, y: 612 }
+    size: { w: 66, h: 64 }
+  - id: m0_6
+    label: "大規模\nな火事"
+    hatch: solid
+    align: center
+    at: { x: 690, y: 612 }
+    size: { w: 66, h: 64 }
+  - id: m0_7
+    label: "内水\n氾濫"
+    hatch: solid
+    align: center
+    at: { x: 756, y: 612 }
+    size: { w: 66, h: 64 }
+  - id: m0_8
+    label: "火山\n現象"
+    hatch: solid
+    align: center
+    at: { x: 822, y: 612 }
+    size: { w: 66, h: 64 }
+  - id: m0_9
+    label: "指定避難所\n（暮らす）"
+    hatch: solid
+    align: center
+    at: { x: 888, y: 612 }
+    size: { w: 120, h: 64 }
+  - id: m1_0
+    label: "高台の公園\n標高 30m・広い芝生・建物なし"
+    align: center
+    at: { x: 60, y: 676 }
+    size: { w: 300, h: 46 }
+  - id: m1_1
+    label: "○"
+    align: center
+    at: { x: 360, y: 676 }
+    size: { w: 66, h: 46 }
+  - id: m1_2
+    label: "✕"
+    align: center
+    at: { x: 426, y: 676 }
+    size: { w: 66, h: 46 }
+  - id: m1_3
+    label: "○"
+    align: center
+    at: { x: 492, y: 676 }
+    size: { w: 66, h: 46 }
+  - id: m1_4
+    label: "○"
+    align: center
+    at: { x: 558, y: 676 }
+    size: { w: 66, h: 46 }
+  - id: m1_5
+    label: "○"
+    align: center
+    at: { x: 624, y: 676 }
+    size: { w: 66, h: 46 }
+  - id: m1_6
+    label: "○"
+    align: center
+    at: { x: 690, y: 676 }
+    size: { w: 66, h: 46 }
+  - id: m1_7
+    label: "○"
+    align: center
+    at: { x: 756, y: 676 }
+    size: { w: 66, h: 46 }
+  - id: m1_8
+    label: "対象外"
+    align: center
+    at: { x: 822, y: 676 }
+    size: { w: 66, h: 46 }
+  - id: m1_9
+    label: "✕\n屋根がない"
+    align: center
+    at: { x: 888, y: 676 }
+    size: { w: 120, h: 46 }
+  - id: m2_0
+    label: "川沿いの小学校\n2 階建て・想定浸水深 3m・校庭が狭い"
+    align: center
+    at: { x: 60, y: 722 }
+    size: { w: 300, h: 46 }
+  - id: m2_1
+    label: "✕"
+    align: center
+    at: { x: 360, y: 722 }
+    size: { w: 66, h: 46 }
+  - id: m2_2
+    label: "○"
+    align: center
+    at: { x: 426, y: 722 }
+    size: { w: 66, h: 46 }
+  - id: m2_3
+    label: "✕"
+    align: center
+    at: { x: 492, y: 722 }
+    size: { w: 66, h: 46 }
+  - id: m2_4
+    label: "○"
+    align: center
+    at: { x: 558, y: 722 }
+    size: { w: 66, h: 46 }
+  - id: m2_5
+    label: "✕"
+    align: center
+    at: { x: 624, y: 722 }
+    size: { w: 66, h: 46 }
+  - id: m2_6
+    label: "✕"
+    align: center
+    at: { x: 690, y: 722 }
+    size: { w: 66, h: 46 }
+  - id: m2_7
+    label: "○"
+    align: center
+    at: { x: 756, y: 722 }
+    size: { w: 66, h: 46 }
+  - id: m2_8
+    label: "対象外"
+    align: center
+    at: { x: 822, y: 722 }
+    size: { w: 66, h: 46 }
+  - id: m2_9
+    label: "○"
+    align: center
+    at: { x: 888, y: 722 }
+    size: { w: 120, h: 46 }
+  - id: m3_0
+    label: "海沿いの津波避難ビル\n鉄筋コンクリート 7 階建て"
+    align: center
+    at: { x: 60, y: 768 }
+    size: { w: 300, h: 46 }
+  - id: m3_1
+    label: "○"
+    align: center
+    at: { x: 360, y: 768 }
+    size: { w: 66, h: 46 }
+  - id: m3_2
+    label: "○"
+    align: center
+    at: { x: 426, y: 768 }
+    size: { w: 66, h: 46 }
+  - id: m3_3
+    label: "○"
+    align: center
+    at: { x: 492, y: 768 }
+    size: { w: 66, h: 46 }
+  - id: m3_4
+    label: "○"
+    align: center
+    at: { x: 558, y: 768 }
+    size: { w: 66, h: 46 }
+  - id: m3_5
+    label: "○"
+    align: center
+    at: { x: 624, y: 768 }
+    size: { w: 66, h: 46 }
+  - id: m3_6
+    label: "✕"
+    align: center
+    at: { x: 690, y: 768 }
+    size: { w: 66, h: 46 }
+  - id: m3_7
+    label: "○"
+    align: center
+    at: { x: 756, y: 768 }
+    size: { w: 66, h: 46 }
+  - id: m3_8
+    label: "対象外"
+    align: center
+    at: { x: 822, y: 768 }
+    size: { w: 66, h: 46 }
+  - id: m3_9
+    label: "✕\n民間の建物"
+    align: center
+    at: { x: 888, y: 768 }
+    size: { w: 120, h: 46 }
+  - id: t3n1
+    label: "小学校は「避難所」として誰もが知っているが、洪水と津波では逃げる先にならない —— 3m の水は 2 階の床に届く。"
+    marker: none
+    align: left
+    at: { x: 60, y: 826 }
+    size: { w: 1200, h: 18 }
+  - id: t3n2
+    label: "崖が ✕ の公園は、斜面の上にあるから。火事が ✕ の学校とビルは、広さが足りないから（大規模な火事は、周りの火の熱が届かない広い場所へ逃げる）。"
+    marker: none
+    align: left
+    at: { x: 60, y: 848 }
+    size: { w: 1200, h: 18 }
+  - id: t3n3
+    label: "この町に火山は無いので「対象外」。○ ✕ は地図の色ではなく、市町村が場所ごとに指定して公表している。"
+    marker: none
+    align: left
+    at: { x: 60, y: 870 }
+    size: { w: 1200, h: 18 }
+  - id: t4
+    label: "④ 避難誘導標識の中身（JIS Z 9098:2016 災害種別避難誘導標識システム）"
+    marker: none
+    align: left
+    at: { x: 900, y: 100 }
+    size: { w: 660, h: 18 }
+  - id: sg
+    label: ""
+    at: { x: 900, y: 140 }
+    size: { w: 486, h: 200 }
+  - id: s_arrow
+    label: "→"
+    at: { x: 916, y: 156 }
+    size: { w: 70, h: 70 }
+  - id: s_pict
+    label: "避難場所の\n図記号"
+    at: { x: 996, y: 156 }
+    size: { w: 90, h: 70 }
+  - id: s_h1
+    label: "洪水"
+    at: { x: 1110, y: 156 }
+    size: { w: 80, h: 44 }
+  - id: s_h2
+    label: "津波・\n高潮"
+    at: { x: 1200, y: 156 }
+    size: { w: 80, h: 44 }
+  - id: s_h3
+    label: "土石流"
+    at: { x: 1290, y: 156 }
+    size: { w: 80, h: 44 }
+  - id: s_o1
+    label: "○"
+    at: { x: 1110, y: 202 }
+    size: { w: 80, h: 24 }
+  - id: s_o2
+    label: "○"
+    at: { x: 1200, y: 202 }
+    size: { w: 80, h: 24 }
+  - id: s_o3
+    label: "✕"
+    at: { x: 1290, y: 202 }
+    size: { w: 80, h: 24 }
+  - id: s_name
+    label: "高台公園　Takadai Park"
+    at: { x: 916, y: 244 }
+    size: { w: 454, h: 34 }
+  - id: s_dist
+    label: "350 m"
+    at: { x: 916, y: 286 }
+    size: { w: 454, h: 34 }
+  - id: t4n1
+    label: "矢印・避難場所の図記号・災害種別の図記号・○ ✕・名称（英語を併記）・距離を 1 枚に載せる。"
+    marker: none
+    align: left
+    at: { x: 900, y: 356 }
+    size: { w: 660, h: 18 }
+  - id: t4n2
+    label: "○ ✕ は黒。災害の図記号は JIS Z 8210 から引く（この図では名前で置いた）。"
+    marker: none
+    align: left
+    at: { x: 900, y: 378 }
+    size: { w: 660, h: 18 }
+  - id: t4b
+    label: "④b 標識は 4 種類を、途切れずに続けて置く（シームレス）"
+    marker: none
+    align: left
+    at: { x: 900, y: 420 }
+    size: { w: 660, h: 18 }
+  - id: k1
+    label: "注意\n（ここは危ない）"
+    at: { x: 900, y: 454 }
+    size: { w: 140, h: 50 }
+  - id: k2
+    label: "避難情報\n（地図と現在地）"
+    at: { x: 1060, y: 454 }
+    size: { w: 140, h: 50 }
+  - id: k3
+    label: "避難誘導\n（矢印と距離）"
+    at: { x: 1220, y: 454 }
+    size: { w: 140, h: 50 }
+  - id: k4
+    label: "避難場所\n（着いた）"
+    at: { x: 1380, y: 454 }
+    size: { w: 140, h: 50 }
+  - id: t4bn
+    label: "注意標識があるのは、高潮・土石流・崖崩れ・地滑りだけ。"
+    marker: none
+    align: left
+    at: { x: 900, y: 520 }
+    size: { w: 660, h: 18 }
+  - id: t5
+    label: "⑤ 法の 8 種類と、標識の規格は一致していない"
+    marker: none
+    align: left
+    at: { x: 60, y: 924 }
+    size: { w: 900, h: 18 }
+  - id: c0_0
+    label: "災害の種類（法）"
+    hatch: solid
+    align: center
+    at: { x: 60, y: 956 }
+    size: { w: 300, h: 26 }
+  - id: c0_1
+    label: "標識の規格"
+    hatch: solid
+    align: center
+    at: { x: 360, y: 956 }
+    size: { w: 280, h: 26 }
+  - id: c0_2
+    label: "どう示すか"
+    hatch: solid
+    align: center
+    at: { x: 640, y: 956 }
+    size: { w: 440, h: 26 }
+  - id: c1_0
+    label: "洪水・内水氾濫"
+    align: center
+    at: { x: 60, y: 982 }
+    size: { w: 300, h: 26 }
+  - id: c1_1
+    label: "JIS Z 9098:2016"
+    align: center
+    at: { x: 360, y: 982 }
+    size: { w: 280, h: 26 }
+  - id: c1_2
+    label: "洪水／内水氾濫の図記号 ＋ ○ ✕"
+    align: center
+    at: { x: 640, y: 982 }
+    size: { w: 440, h: 26 }
+  - id: c2_0
+    label: "高潮"
+    align: center
+    at: { x: 60, y: 1008 }
+    size: { w: 300, h: 26 }
+  - id: c2_1
+    label: "JIS Z 9098:2016"
+    align: center
+    at: { x: 360, y: 1008 }
+    size: { w: 280, h: 26 }
+  - id: c2_2
+    label: "津波／高潮の図記号 ＋ ○ ✕"
+    align: center
+    at: { x: 640, y: 1008 }
+    size: { w: 440, h: 26 }
+  - id: c3_0
+    label: "土石流 ／ 崖崩れ・地滑り"
+    align: center
+    at: { x: 60, y: 1034 }
+    size: { w: 300, h: 26 }
+  - id: c3_1
+    label: "JIS Z 9098:2016"
+    align: center
+    at: { x: 360, y: 1034 }
+    size: { w: 280, h: 26 }
+  - id: c3_2
+    label: "それぞれの図記号 ＋ ○ ✕"
+    align: center
+    at: { x: 640, y: 1034 }
+    size: { w: 440, h: 26 }
+  - id: c4_0
+    label: "大規模な火事"
+    align: center
+    at: { x: 60, y: 1060 }
+    size: { w: 300, h: 26 }
+  - id: c4_1
+    label: "JIS Z 9098:2016"
+    align: center
+    at: { x: 360, y: 1060 }
+    size: { w: 280, h: 26 }
+  - id: c4_2
+    label: "大規模な火事の図記号 ＋ ○ ✕"
+    align: center
+    at: { x: 640, y: 1060 }
+    size: { w: 440, h: 26 }
+  - id: c5_0
+    label: "津波"
+    align: center
+    at: { x: 60, y: 1086 }
+    size: { w: 300, h: 26 }
+  - id: c5_1
+    label: "JIS Z 9097:2014"
+    align: center
+    at: { x: 360, y: 1086 }
+    size: { w: 280, h: 26 }
+  - id: c5_2
+    label: "津波避難場所・津波避難ビルの図記号"
+    align: center
+    at: { x: 640, y: 1086 }
+    size: { w: 440, h: 26 }
+  - id: c6_0
+    label: "地震 ／ 火山現象"
+    align: center
+    at: { x: 60, y: 1112 }
+    size: { w: 300, h: 26 }
+  - id: c6_1
+    label: "種別の標識の仕組みは無い"
+    align: center
+    at: { x: 360, y: 1112 }
+    size: { w: 280, h: 26 }
+  - id: c6_2
+    label: "市町村の一覧と地図で確かめる"
+    align: center
+    at: { x: 640, y: 1112 }
+    size: { w: 440, h: 26 }
+  - id: t5n
+    label: "標識に地震の ○ ✕ は出てこない。「地震で ○」かどうかは、指定の一覧か地図で見るしかない。"
+    marker: none
+    align: left
+    at: { x: 60, y: 1150 }
+    size: { w: 1100, h: 18 }
+edges:
+  - from: f1
+    to: f2
+  - from: f2
+    to: f3
+  - from: f3
+    to: f4
+  - from: k1
+    to: k2
+  - from: k2
+    to: k3
+  - from: k3
+    to: k4

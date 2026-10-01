@@ -1,0 +1,84 @@
+version: 1
+direction: down
+wrap: true
+title: 水が蛇口に届くまで（塩素は、2 回入れる）
+# **塩素を入れる所が 2 か所ある。** 順番はこうなっている ——
+# 取水塔 → 沈砂池 → 取水ポンプ → **着水井** → 凝集剤注入 → 薬品混和池 →
+# フロック形成池 → 沈でん池 → **塩素注入（1 回目）** → 濾過池 →
+# **塩素注入（2 回目）** → 配水池 → 送水ポンプ。
+#
+# **1 回目と 2 回目は、目的が違う。**
+# 濾過の前に入れる 1 回目は**処理のため**、配水池へ送る前の 2 回目は
+# **家に着くまで持たせるため** —— 水道の水が塩素くさいのは、後者の名残。
+# 蛇口に着いた時点でまだ効いていなければ、途中で汚れたときに気づけない。
+#
+# **着水井は、勢いを殺すための池。**
+# 取水ポンプで押してきた水をいったん受けて**水位と流量を落ち着かせる** ——
+# ここから先は重力で流す設備が続くので、脈打った流れを渡すと処理が安定しない。
+#
+# **凝集は 2 段になっている。**
+# **薬品混和池**でポリ塩化アルミニウムなどの凝集剤を一気に混ぜ、
+# **フロック形成池**でゆっくりかき混ぜて濁りの粒を育てる ——
+# **速く混ぜる池と、ゆっくり混ぜる池が別々にある。**
+# 大きく育ってからでないと、沈でん池で沈まない。
+#
+# **濾過には 2 通りある。** **緩速濾過**は砂の層の生物膜にゆっくり通す方法、
+# **急速濾過**は凝集・沈でんで濁りを落としてから速く通す方法。
+# 上に書いた流れは急速濾過のもの。
+#
+# **さらに落としたいときは、オゾンと活性炭**（高度浄水処理）を足す。
+nodes:
+  - id: shusui
+    type: generic
+    label: 取水
+    technology: 取水塔・沈砂池・取水ポンプ
+  - id: chakusui
+    type: database
+    label: 着水井
+    technology: 勢いと水位を落ち着かせる
+  - id: gyoshu
+    type: generic
+    label: 凝集剤を入れて混ぜる
+    technology: 薬品混和池 —— 速く混ぜる
+  - id: flock
+    type: generic
+    label: フロックを育てる
+    technology: フロック形成池 —— ゆっくり混ぜる
+  - id: chinden
+    type: database
+    label: 沈でん池
+    technology: 育った粒を沈める
+  - id: en1
+    type: generic
+    label: 塩素注入（1 回目）
+    technology: 処理のため
+  - id: roka
+    type: generic
+    label: 濾過池
+    technology: 急速濾過／緩速濾過
+  - id: en2
+    type: generic
+    label: 塩素注入（2 回目）
+    technology: 家に着くまで持たせるため
+  - id: haisui
+    type: storage
+    label: 配水池 → 送水ポンプ
+    technology: ここから各家庭へ
+edges:
+  - from: shusui
+    to: chakusui
+  - from: chakusui
+    to: gyoshu
+  - from: gyoshu
+    to: flock
+    label: 粒を育てる
+  - from: flock
+    to: chinden
+  - from: chinden
+    to: en1
+  - from: en1
+    to: roka
+  - from: roka
+    to: en2
+  - from: en2
+    to: haisui

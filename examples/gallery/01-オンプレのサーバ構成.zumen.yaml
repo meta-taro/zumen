@@ -1,0 +1,92 @@
+version: 1
+wrap: true
+title: オンプレのサーバ構成
+# **構成図の値打ちは、箱ではなく「どこで切れるか」。**
+# 利用者 → Apache → PHP-FPM → MariaDB と並べると、**止まったときにどこまで届くか**が読める。
+#
+# ## 保管先を外に置く
+#
+# バックアップ先（Wasabi）を同じ箱の中に描くと、
+# **本番機ごと失ったときに戻せない**ことが図から消える。
+# だから保管先は、別の群として離して置く。
+#
+# ## 夜間バッチを描き落とさない
+#
+# 昼間は誰も通らない経路でも、DB を触っている。
+# **図に出ていない経路は、点検されない。**
+# 夜間バッチは DB のダンプも Wasabi へ書き出す（**バックアップの線を描き落とさない**）。
+#
+# ## PHP-FPM を使うなら、mod_php ではない
+#
+# mod_php は PHP を Apache の中で動かす方式、PHP-FPM は別プロセスへ FastCGI で渡す方式。
+# **両方を書くと、どちらで動いているかが図から読めない。**
+# FPM へ渡すのは mod_proxy_fcgi（Apache 2.4 の公式文書が FPM との組み合わせを説明している
+# https://httpd.apache.org/docs/2.4/mod/mod_proxy_fcgi.html 、2026-09-29 取得）。
+pins:
+  db:
+    appearance: primary
+  cron:
+    appearance: muted
+groups:
+  - id: edge
+    label: 外部
+  - id: host
+    label: 本番機（さくら VPS）
+  - id: store
+    label: 保管先
+nodes:
+  - id: users
+    type: internet
+    label: 利用者
+    group: edge
+  - id: httpd
+    type: server
+    label: Apache httpd
+    technology: 2.4 / mod_proxy_fcgi
+    group: host
+  - id: php
+    type: server
+    label: PHP-FPM
+    technology: 8.2
+    group: host
+  - id: cron
+    type: server
+    label: 夜間バッチ
+    technology: systemd timer
+    group: host
+  - id: db
+    type: database
+    label: MariaDB
+    technology: 10.11 / InnoDB
+    group: host
+  - id: mnt
+    type: storage
+    label: /mnt/wasabi
+    technology: s3fs-fuse
+    group: host
+  - id: obj
+    type: storage
+    label: Wasabi
+    technology: ap-northeast-1
+    group: store
+edges:
+  - from: users
+    to: httpd
+    label: HTTPS
+  - from: httpd
+    to: php
+    label: FastCGI
+  - from: php
+    to: db
+  - from: php
+    to: mnt
+    label: 画像
+  - from: cron
+    to: db
+    label: 集計
+  - from: db
+    to: mnt
+    label: 夜間ダンプ
+  - from: mnt
+    to: obj
+    label: s3

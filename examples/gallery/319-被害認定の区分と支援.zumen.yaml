@@ -1,0 +1,346 @@
+version: 1
+kind: placement
+arrows: true
+title: 被害認定の区分は、支援の境目（罹災証明書）
+# **全壊・半壊は、壊れ方の名前ではない。損害割合という 1 本の物差しの、区間の名前。**
+#
+# ## 上の 5 つは 10% きざみ、半分から上は全部「全壊」
+#
+# 一部損壊 10% 未満／準半壊 10〜20%／半壊 20〜30%／中規模半壊 30〜40%／
+# 大規模半壊 40〜50%／**全壊 50% 以上。**
+# **50% から 100% までは、どれだけ壊れていても同じ「全壊」**である。
+#
+# ## 切れ目は、支援の境目として引かれている
+#
+# **災害救助法の応急修理**が届くのは準半壊（10%）から、
+# **被災者生活再建支援法**が届くのは中規模半壊（30%）から。
+# どちらも、はじめからその位置にあったわけではない。
+#
+# ## だから、切れ目は動いてきた
+#
+# 2001 年の運用指針（内閣府）で全壊・半壊が定まり、**2020 年に準半壊**、
+# **2021 年に中規模半壊**が生まれた。
+# 中規模半壊は「半壊なのに支援が届かない」を埋めるために作られた区分で、
+# **壊れ方が増えたのではなく、線を 1 本足した**という話である。
+#
+# 調べる主体も出す主体も市町村。出てくるのは罹災証明書 1 枚だが、後ろにはこの物差しがある。
+#
+# **同じ物差しを、別の向きから見た図が見本 224。**
+# あちらは「どこから測るか」—— 水害では浸水深がそのまま区分になり、
+# 床が地面より高い家と低い家で判定が変わる、という話。
+# こちらは「その区間の名前が、何のために切ってあるか」。
+#
+# 数値は令和 3 年（2021 年）改定の損害判定基準による。
+nodes:
+  - id: t1
+    label: "① 損害割合（住家の経済的被害の割合）を、6 つに切る"
+    marker: none
+    align: left
+    at: { x: 140, y: 150 }
+    size: { w: 700, h: 18 }
+  - id: b0
+    label: "一部損壊"
+    at: { x: 140, y: 190 }
+    size: { w: 100, h: 60 }
+  - id: b1
+    label: "準半壊"
+    at: { x: 240, y: 190 }
+    size: { w: 100, h: 60 }
+  - id: b2
+    label: "半壊"
+    at: { x: 340, y: 190 }
+    size: { w: 100, h: 60 }
+  - id: b3
+    label: "中規模半壊"
+    at: { x: 440, y: 190 }
+    size: { w: 100, h: 60 }
+  - id: b4
+    label: "大規模半壊"
+    at: { x: 540, y: 190 }
+    size: { w: 100, h: 60 }
+  - id: b5
+    label: "全壊"
+    at: { x: 640, y: 190 }
+    size: { w: 500, h: 60 }
+  - id: tk0
+    label: "0%"
+    marker: none
+    align: center
+    at: { x: 110, y: 254 }
+    size: { w: 60, h: 18 }
+  - id: tk10
+    label: "10%"
+    marker: none
+    align: center
+    at: { x: 210, y: 254 }
+    size: { w: 60, h: 18 }
+  - id: tk20
+    label: "20%"
+    marker: none
+    align: center
+    at: { x: 310, y: 254 }
+    size: { w: 60, h: 18 }
+  - id: tk30
+    label: "30%"
+    marker: none
+    align: center
+    at: { x: 410, y: 254 }
+    size: { w: 60, h: 18 }
+  - id: tk40
+    label: "40%"
+    marker: none
+    align: center
+    at: { x: 510, y: 254 }
+    size: { w: 60, h: 18 }
+  - id: tk50
+    label: "50%"
+    marker: none
+    align: center
+    at: { x: 610, y: 254 }
+    size: { w: 60, h: 18 }
+  - id: tk100
+    label: "100%"
+    marker: none
+    align: center
+    at: { x: 1110, y: 254 }
+    size: { w: 60, h: 18 }
+  - id: t2
+    label: "② その切れ目は、どの支援が届くかの境目"
+    marker: none
+    align: left
+    at: { x: 140, y: 300 }
+    size: { w: 700, h: 18 }
+  - id: sup1
+    label: ""
+    hatch: dots
+    at: { x: 240, y: 342 }
+    size: { w: 900, h: 34 }
+  - id: sup1n
+    label: "災害救助法の応急修理 —— 準半壊（10% 以上）から"
+    marker: none
+    align: left
+    at: { x: 250, y: 349 }
+    size: { w: 520, h: 18 }
+  - id: sup2
+    label: ""
+    hatch: lines
+    at: { x: 440, y: 388 }
+    size: { w: 700, h: 34 }
+  - id: sup2n
+    label: "被災者生活再建支援法 —— 中規模半壊（30% 以上）から"
+    marker: none
+    align: left
+    at: { x: 450, y: 395 }
+    size: { w: 520, h: 18 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 239, y: 279 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 239, y: 297 }
+    size: { w: 2, h: 2 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 439, y: 279 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 439, y: 297 }
+    size: { w: 2, h: 2 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 239, y: 319 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 239, y: 341 }
+    size: { w: 2, h: 2 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 439, y: 319 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 439, y: 387 }
+    size: { w: 2, h: 2 }
+  - id: r1
+    label: "・上の 5 つは、どれも 10% きざみ。半分から上は、全部まとめて「全壊」。"
+    marker: none
+    align: left
+    at: { x: 140, y: 452 }
+    size: { w: 900, h: 18 }
+  - id: r2
+    label: "・区分は見た目の派手さではなく、「どの支援が受けられるか」の境目として引かれている。"
+    marker: none
+    align: left
+    at: { x: 140, y: 474 }
+    size: { w: 900, h: 18 }
+  - id: r3
+    label: "・だから切れ目は、災害のたびに動いてきた。 準半壊は 2020 年、中規模半壊は 2021 年に生まれた。"
+    marker: none
+    align: left
+    at: { x: 140, y: 496 }
+    size: { w: 900, h: 18 }
+  - id: r4
+    label: "・市町村が調べ、市町村が出す。 出てくる紙は罹災証明書 1 枚だが、後ろにはこの物差しがある。"
+    marker: none
+    align: left
+    at: { x: 140, y: 518 }
+    size: { w: 900, h: 18 }
+  - id: h140_572
+    label: "被害の程度と、損害判定基準"
+    hatch: solid
+    at: { x: 140, y: 572 }
+    size: { w: 560, h: 24 }
+  - id: x140_596
+    label: "全壊"
+    at: { x: 140, y: 596 }
+    size: { w: 190, h: 24 }
+  - id: y140_596
+    label: "50% 以上"
+    align: left
+    at: { x: 330, y: 596 }
+    size: { w: 370, h: 24 }
+  - id: x140_620
+    label: "大規模半壊"
+    at: { x: 140, y: 620 }
+    size: { w: 190, h: 24 }
+  - id: y140_620
+    label: "40% 以上 50% 未満"
+    align: left
+    at: { x: 330, y: 620 }
+    size: { w: 370, h: 24 }
+  - id: x140_644
+    label: "中規模半壊"
+    at: { x: 140, y: 644 }
+    size: { w: 190, h: 24 }
+  - id: y140_644
+    label: "30% 以上 40% 未満"
+    align: left
+    at: { x: 330, y: 644 }
+    size: { w: 370, h: 24 }
+  - id: x140_668
+    label: "半壊"
+    at: { x: 140, y: 668 }
+    size: { w: 190, h: 24 }
+  - id: y140_668
+    label: "20% 以上 30% 未満"
+    align: left
+    at: { x: 330, y: 668 }
+    size: { w: 370, h: 24 }
+  - id: x140_692
+    label: "準半壊"
+    at: { x: 140, y: 692 }
+    size: { w: 190, h: 24 }
+  - id: y140_692
+    label: "10% 以上 20% 未満"
+    align: left
+    at: { x: 330, y: 692 }
+    size: { w: 370, h: 24 }
+  - id: x140_716
+    label: "一部損壊"
+    at: { x: 140, y: 716 }
+    size: { w: 190, h: 24 }
+  - id: y140_716
+    label: "10% 未満"
+    align: left
+    at: { x: 330, y: 716 }
+    size: { w: 370, h: 24 }
+  - id: h740_572
+    label: "切れ目が動いてきた年"
+    hatch: solid
+    at: { x: 740, y: 572 }
+    size: { w: 540, h: 24 }
+  - id: x740_596
+    label: "1968 年"
+    at: { x: 740, y: 596 }
+    size: { w: 130, h: 24 }
+  - id: y740_596
+    label: "複数の官庁でばらばらだった基準を統一"
+    align: left
+    at: { x: 870, y: 596 }
+    size: { w: 410, h: 24 }
+  - id: x740_620
+    label: "2001 年"
+    at: { x: 740, y: 620 }
+    size: { w: 130, h: 24 }
+  - id: y740_620
+    label: "運用指針。全壊・半壊の基準を定めた"
+    align: left
+    at: { x: 870, y: 620 }
+    size: { w: 410, h: 24 }
+  - id: x740_644
+    label: "2009 年"
+    at: { x: 740, y: 644 }
+    size: { w: 130, h: 24 }
+  - id: y740_644
+    label: "地震編・水害編・風害編の 3 編に"
+    align: left
+    at: { x: 870, y: 644 }
+    size: { w: 410, h: 24 }
+  - id: x740_668
+    label: "2013 年"
+    at: { x: 740, y: 668 }
+    size: { w: 130, h: 24 }
+  - id: y740_668
+    label: "液状化による被害を足した"
+    align: left
+    at: { x: 870, y: 668 }
+    size: { w: 410, h: 24 }
+  - id: x740_692
+    label: "2018 年"
+    at: { x: 740, y: 692 }
+    size: { w: 130, h: 24 }
+  - id: y740_692
+    label: "写真を使う判定法を足した"
+    align: left
+    at: { x: 870, y: 692 }
+    size: { w: 410, h: 24 }
+  - id: x740_716
+    label: "2020 年"
+    at: { x: 740, y: 716 }
+    size: { w: 130, h: 24 }
+  - id: y740_716
+    label: "準半壊と一部損壊に分け、応急修理を 10% 以上へ"
+    align: left
+    at: { x: 870, y: 716 }
+    size: { w: 410, h: 24 }
+  - id: x740_740
+    label: "2021 年"
+    at: { x: 740, y: 740 }
+    size: { w: 130, h: 24 }
+  - id: y740_740
+    label: "中規模半壊を作り、支援法を 30% 以上へ"
+    align: left
+    at: { x: 870, y: 740 }
+    size: { w: 410, h: 24 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p2
+    to: p3
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p4
+    to: p5
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p6
+    to: p7
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }

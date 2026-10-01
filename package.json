@@ -1,0 +1,114 @@
+{
+  "name": "@metataro/zumen",
+  "version": "0.3.3",
+  "publishConfig": {
+    "access": "public"
+  },
+  "type": "module",
+  "description": "AI が描き、人が直し、また AI が理解できる構成図エディタ（Phase 0 / 計測段階）",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.18"
+  },
+  "packageManager": "pnpm@11.1.1",
+  "//exports": "外から呼ぶ口。姉妹プロジェクト（md-business）が囲みを図にするために import する（#240）。指すのは dist で、src ではない。Node は node_modules の中の TypeScript を受け付けないため（実測）。開けるのは書き出しと検査までで、正本への書き込みは CLI / MCP を通す。",
+  "exports": {
+    ".": {
+      "types": "./dist/embed.d.ts",
+      "default": "./dist/embed.js"
+    },
+    "./about": {
+      "types": "./dist/about.d.ts",
+      "default": "./dist/about.js"
+    },
+    "./tools": {
+      "types": "./dist/tools.d.ts",
+      "default": "./dist/tools.js"
+    },
+    "./format": {
+      "types": "./dist/format.d.ts",
+      "default": "./dist/format.js"
+    }
+  },
+  "//files": "取り込む側へ配るもの。実験・テスト・殻は入れない。仕様（spec）は入れる。",
+  "files": [
+    "dist",
+    "!dist/mcp.*",
+    "!dist/live",
+    "CHANGELOG.md",
+    "spec",
+    "LICENSE",
+    "LICENSES.md",
+    "README.md",
+    "README.ja.md",
+    "examples/gallery/*.zumen.yaml",
+    "examples/gallery/index.json",
+    "fonts"
+  ],
+  "scripts": {
+    "app": "tauri dev",
+    "app:build": "tauri build",
+    "build": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\" && tsc -p tsconfig.build.json",
+    "prepublishOnly": "pnpm build && pnpm consume:check",
+    "build:app": "vite build",
+    "consume:check": "node scripts/consume-check.mjs",
+    "coverage": "node --test --experimental-test-coverage --test-coverage-include=src/**/*.ts --test-coverage-lines=95 --test-coverage-branches=88 --test-coverage-functions=92 \"test/**/*.test.ts\"",
+    "d2:conflict": "node experiments/d2/git-conflict.ts",
+    "dev": "vite",
+    "drawio": "node src/cli.ts drawio",
+    "embed": "node src/cli.ts embed",
+    "laps": "node --experimental-strip-types scripts/laps.mjs",
+    "gallery": "node --experimental-strip-types scripts/counts.mjs && node --experimental-strip-types scripts/gallery.mjs && node --experimental-strip-types scripts/pages.mjs",
+    "inspect": "node src/cli.ts inspect",
+    "gallery:check": "node --experimental-strip-types scripts/gallery.mjs --check",
+    "gui:check": "node scripts/gui-check.mjs",
+    "icon": "node scripts/icon.mjs",
+    "mcp": "node src/mcp.ts",
+    "og": "node scripts/og.mjs",
+    "og:samples": "node --experimental-strip-types scripts/og-samples.mjs",
+    "measure": "node src/cli.ts measure",
+    "merge": "node src/cli.ts merge",
+    "merge-driver": "node src/cli.ts merge-driver",
+    "mermaid": "node src/cli.ts mermaid",
+    "qa:verify": "node scripts/qa-verify.mjs",
+    "shot": "node --experimental-strip-types scripts/shot.mjs",
+    "s1": "node experiments/s1/run.ts",
+    "s1:real": "node experiments/s1-real/run.ts",
+    "s3": "node experiments/s3/run.ts",
+    "s3:quality": "node experiments/s3-quality/run.ts",
+    "svg": "node src/cli.ts svg",
+    "tauri": "tauri",
+    "prepare": "git config core.hooksPath .githooks",
+    "test": "node --test \"test/**/*.test.ts\" \"experiments/**/*.test.ts\"",
+    "timelapse": "node src/cli.ts timelapse",
+    "typecheck": "tsc --noEmit",
+    "validate": "node src/cli.ts validate",
+    "version:set": "node scripts/version.mjs",
+    "pages": "node --experimental-strip-types scripts/pages.mjs",
+    "pages:check": "node --experimental-strip-types scripts/pages.mjs --check"
+  },
+  "dependencies": {
+    "elkjs": "^0.12.0",
+    "subset-font": "2.9.0",
+    "yaml": "^2.9.0"
+  },
+  "devDependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "@sveltejs/vite-plugin-svelte": "^6.2.4",
+    "@tauri-apps/api": "^2.11.1",
+    "@tauri-apps/cli": "^2.11.4",
+    "@tauri-apps/plugin-dialog": "^2.7.3",
+    "@types/node": "^22.15.0",
+    "svelte": "^5.57.0",
+    "typescript": "^5.9.0",
+    "vite": "^7.3.6",
+    "zod": "^4.5.4"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [],
+    "minimumReleaseAge": 1440,
+    "ignoredBuiltDependencies": [
+      "esbuild"
+    ]
+  }
+}

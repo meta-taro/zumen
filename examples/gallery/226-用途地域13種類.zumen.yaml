@@ -1,0 +1,565 @@
+version: 1
+kind: placement
+arrows: true
+title: 用途地域 13 種類と、建蔽率・容積率
+scale: { mm: 100 }
+palette:
+  G: "#e0e0e0"
+# **同じ 200m² の敷地でも、用途地域が違えば延べ面積が 8 倍違う。**
+#
+# 13 種類（住居系 8・商業系 2・工業系 3）。
+# **住宅が建てられないのは工業専用地域だけ。**
+#
+# 建蔽率と容積率は「この中から選ぶ」もので、都市計画で 1 つに指定される。
+# だから都市計画図は、**色と数の組**で読む。
+nodes:
+  - id: t1
+    label: "① 13 種類（住居系 8・商業系 2・工業系 3）"
+    marker: none
+    align: left
+    at: { x: 150, y: 200 }
+    size: { w: 620, h: 20 }
+  - id: h0
+    label: "系"
+    hatch: solid
+    at: { x: 150, y: 232 }
+    size: { w: 90, h: 26 }
+  - id: h1
+    label: "用途地域"
+    hatch: solid
+    at: { x: 240, y: 232 }
+    size: { w: 230, h: 26 }
+  - id: h2
+    label: "建蔽率（%）"
+    hatch: solid
+    at: { x: 470, y: 232 }
+    size: { w: 150, h: 26 }
+  - id: h3
+    label: "容積率（%）"
+    hatch: solid
+    at: { x: 620, y: 232 }
+    size: { w: 150, h: 26 }
+  - id: r0_0
+    label: "住居系"
+    at: { x: 150, y: 258 }
+    size: { w: 90, h: 26 }
+  - id: r0_1
+    label: "第一種低層住居専用"
+    at: { x: 240, y: 258 }
+    size: { w: 230, h: 26 }
+  - id: r0_2
+    label: "30/40/50/60"
+    at: { x: 470, y: 258 }
+    size: { w: 150, h: 26 }
+  - id: r0_3
+    label: "50〜200"
+    at: { x: 620, y: 258 }
+    size: { w: 150, h: 26 }
+  - id: r1_0
+    label: ""
+    at: { x: 150, y: 284 }
+    size: { w: 90, h: 26 }
+  - id: r1_1
+    label: "第二種低層住居専用"
+    at: { x: 240, y: 284 }
+    size: { w: 230, h: 26 }
+  - id: r1_2
+    label: "30/40/50/60"
+    at: { x: 470, y: 284 }
+    size: { w: 150, h: 26 }
+  - id: r1_3
+    label: "50〜200"
+    at: { x: 620, y: 284 }
+    size: { w: 150, h: 26 }
+  - id: r2_0
+    label: ""
+    at: { x: 150, y: 310 }
+    size: { w: 90, h: 26 }
+  - id: r2_1
+    label: "田園住居"
+    at: { x: 240, y: 310 }
+    size: { w: 230, h: 26 }
+  - id: r2_2
+    label: "30/40/50/60"
+    at: { x: 470, y: 310 }
+    size: { w: 150, h: 26 }
+  - id: r2_3
+    label: "50〜200"
+    at: { x: 620, y: 310 }
+    size: { w: 150, h: 26 }
+  - id: r3_0
+    label: ""
+    at: { x: 150, y: 336 }
+    size: { w: 90, h: 26 }
+  - id: r3_1
+    label: "第一種中高層住居専用"
+    at: { x: 240, y: 336 }
+    size: { w: 230, h: 26 }
+  - id: r3_2
+    label: "30/40/50/60"
+    at: { x: 470, y: 336 }
+    size: { w: 150, h: 26 }
+  - id: r3_3
+    label: "100〜500"
+    at: { x: 620, y: 336 }
+    size: { w: 150, h: 26 }
+  - id: r4_0
+    label: ""
+    at: { x: 150, y: 362 }
+    size: { w: 90, h: 26 }
+  - id: r4_1
+    label: "第二種中高層住居専用"
+    at: { x: 240, y: 362 }
+    size: { w: 230, h: 26 }
+  - id: r4_2
+    label: "30/40/50/60"
+    at: { x: 470, y: 362 }
+    size: { w: 150, h: 26 }
+  - id: r4_3
+    label: "100〜500"
+    at: { x: 620, y: 362 }
+    size: { w: 150, h: 26 }
+  - id: r5_0
+    label: ""
+    at: { x: 150, y: 388 }
+    size: { w: 90, h: 26 }
+  - id: r5_1
+    label: "第一種住居"
+    at: { x: 240, y: 388 }
+    size: { w: 230, h: 26 }
+  - id: r5_2
+    label: "50/60/80"
+    at: { x: 470, y: 388 }
+    size: { w: 150, h: 26 }
+  - id: r5_3
+    label: "100〜500"
+    at: { x: 620, y: 388 }
+    size: { w: 150, h: 26 }
+  - id: r6_0
+    label: ""
+    at: { x: 150, y: 414 }
+    size: { w: 90, h: 26 }
+  - id: r6_1
+    label: "第二種住居"
+    at: { x: 240, y: 414 }
+    size: { w: 230, h: 26 }
+  - id: r6_2
+    label: "50/60/80"
+    at: { x: 470, y: 414 }
+    size: { w: 150, h: 26 }
+  - id: r6_3
+    label: "100〜500"
+    at: { x: 620, y: 414 }
+    size: { w: 150, h: 26 }
+  - id: r7_0
+    label: ""
+    at: { x: 150, y: 440 }
+    size: { w: 90, h: 26 }
+  - id: r7_1
+    label: "準住居"
+    at: { x: 240, y: 440 }
+    size: { w: 230, h: 26 }
+  - id: r7_2
+    label: "50/60/80"
+    at: { x: 470, y: 440 }
+    size: { w: 150, h: 26 }
+  - id: r7_3
+    label: "100〜500"
+    at: { x: 620, y: 440 }
+    size: { w: 150, h: 26 }
+  - id: r8_0
+    label: "商業系"
+    at: { x: 150, y: 466 }
+    size: { w: 90, h: 26 }
+  - id: r8_1
+    label: "近隣商業"
+    at: { x: 240, y: 466 }
+    size: { w: 230, h: 26 }
+  - id: r8_2
+    label: "60/80"
+    at: { x: 470, y: 466 }
+    size: { w: 150, h: 26 }
+  - id: r8_3
+    label: "100〜500"
+    at: { x: 620, y: 466 }
+    size: { w: 150, h: 26 }
+  - id: r9_0
+    label: ""
+    at: { x: 150, y: 492 }
+    size: { w: 90, h: 26 }
+  - id: r9_1
+    label: "商業"
+    at: { x: 240, y: 492 }
+    size: { w: 230, h: 26 }
+  - id: r9_2
+    label: "80"
+    at: { x: 470, y: 492 }
+    size: { w: 150, h: 26 }
+  - id: r9_3
+    label: "200〜1300"
+    at: { x: 620, y: 492 }
+    size: { w: 150, h: 26 }
+  - id: r10_0
+    label: "工業系"
+    at: { x: 150, y: 518 }
+    size: { w: 90, h: 26 }
+  - id: r10_1
+    label: "準工業"
+    at: { x: 240, y: 518 }
+    size: { w: 230, h: 26 }
+  - id: r10_2
+    label: "50/60/80"
+    at: { x: 470, y: 518 }
+    size: { w: 150, h: 26 }
+  - id: r10_3
+    label: "100〜500"
+    at: { x: 620, y: 518 }
+    size: { w: 150, h: 26 }
+  - id: r11_0
+    label: ""
+    at: { x: 150, y: 544 }
+    size: { w: 90, h: 26 }
+  - id: r11_1
+    label: "工業"
+    at: { x: 240, y: 544 }
+    size: { w: 230, h: 26 }
+  - id: r11_2
+    label: "50/60"
+    at: { x: 470, y: 544 }
+    size: { w: 150, h: 26 }
+  - id: r11_3
+    label: "100〜400"
+    at: { x: 620, y: 544 }
+    size: { w: 150, h: 26 }
+  - id: r12_0
+    label: ""
+    fill: G
+    hatch: solid
+    at: { x: 150, y: 570 }
+    size: { w: 90, h: 26 }
+  - id: r12_1
+    label: "工業専用"
+    fill: G
+    hatch: solid
+    at: { x: 240, y: 570 }
+    size: { w: 230, h: 26 }
+  - id: r12_2
+    label: "30/40/50/60"
+    fill: G
+    hatch: solid
+    at: { x: 470, y: 570 }
+    size: { w: 150, h: 26 }
+  - id: r12_3
+    label: "100〜400"
+    fill: G
+    hatch: solid
+    at: { x: 620, y: 570 }
+    size: { w: 150, h: 26 }
+  - id: n1
+    label: "住宅が建てられないのは、工業専用地域だけ（灰色の行）。"
+    marker: none
+    align: left
+    at: { x: 150, y: 606 }
+    size: { w: 620, h: 18 }
+  - id: n2
+    label: "建蔽率と容積率は「この中から選ぶ」—— 都市計画で 1 つに指定される。"
+    marker: none
+    align: left
+    at: { x: 150, y: 628 }
+    size: { w: 620, h: 18 }
+  - id: n3
+    label: "商業地域だけ建蔽率は 80% 固定で、容積率が 1300% まで伸びる。"
+    marker: none
+    align: left
+    at: { x: 150, y: 650 }
+    size: { w: 620, h: 18 }
+  - id: t2
+    label: "② 同じ 200m² の敷地で（1px ＝ 100mm）"
+    marker: none
+    align: left
+    at: { x: 810, y: 200 }
+    size: { w: 430, h: 20 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 819, y: 699 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 1239, y: 699 }
+    size: { w: 2, h: 2 }
+  - id: c860
+    label: ""
+    at: { x: 860, y: 640 }
+    size: { w: 110, h: 60 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 859, y: 669 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 969, y: 669 }
+    size: { w: 2, h: 2 }
+  - id: c860n
+    label: "第一種低層住居専用"
+    marker: none
+    align: center
+    at: { x: 840, y: 710 }
+    size: { w: 150, h: 18 }
+  - id: c860a
+    label: "建蔽率 50%"
+    marker: none
+    align: center
+    at: { x: 840, y: 732 }
+    size: { w: 150, h: 18 }
+  - id: c860b
+    label: "容積率 100%"
+    marker: none
+    align: center
+    at: { x: 840, y: 754 }
+    size: { w: 150, h: 18 }
+  - id: c860c
+    label: "延べ 200m²"
+    marker: none
+    align: center
+    at: { x: 840, y: 776 }
+    size: { w: 150, h: 18 }
+  - id: c860d
+    label: "2 階"
+    marker: none
+    align: center
+    at: { x: 880, y: 616 }
+    size: { w: 70, h: 18 }
+  - id: c1060
+    label: ""
+    at: { x: 1060, y: 400 }
+    size: { w: 110, h: 300 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 1059, y: 669 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 1169, y: 669 }
+    size: { w: 2, h: 2 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 1059, y: 639 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 1169, y: 639 }
+    size: { w: 2, h: 2 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 1059, y: 609 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 1169, y: 609 }
+    size: { w: 2, h: 2 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 1059, y: 579 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 1169, y: 579 }
+    size: { w: 2, h: 2 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 1059, y: 549 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 1169, y: 549 }
+    size: { w: 2, h: 2 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 1059, y: 519 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 1169, y: 519 }
+    size: { w: 2, h: 2 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 1059, y: 489 }
+    size: { w: 2, h: 2 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 1169, y: 489 }
+    size: { w: 2, h: 2 }
+  - id: p18
+    label: ""
+    marker: none
+    at: { x: 1059, y: 459 }
+    size: { w: 2, h: 2 }
+  - id: p19
+    label: ""
+    marker: none
+    at: { x: 1169, y: 459 }
+    size: { w: 2, h: 2 }
+  - id: p20
+    label: ""
+    marker: none
+    at: { x: 1059, y: 429 }
+    size: { w: 2, h: 2 }
+  - id: p21
+    label: ""
+    marker: none
+    at: { x: 1169, y: 429 }
+    size: { w: 2, h: 2 }
+  - id: c1060n
+    label: "商業"
+    marker: none
+    align: center
+    at: { x: 1040, y: 710 }
+    size: { w: 150, h: 18 }
+  - id: c1060a
+    label: "建蔽率 80%"
+    marker: none
+    align: center
+    at: { x: 1040, y: 732 }
+    size: { w: 150, h: 18 }
+  - id: c1060b
+    label: "容積率 800%"
+    marker: none
+    align: center
+    at: { x: 1040, y: 754 }
+    size: { w: 150, h: 18 }
+  - id: c1060c
+    label: "延べ 1600m²"
+    marker: none
+    align: center
+    at: { x: 1040, y: 776 }
+    size: { w: 150, h: 18 }
+  - id: c1060d
+    label: "10 階"
+    marker: none
+    align: center
+    at: { x: 1080, y: 376 }
+    size: { w: 70, h: 18 }
+  - id: n4
+    label: "延べ面積は 8 倍（200m² と 1,600m²）。"
+    marker: none
+    align: left
+    at: { x: 810, y: 810 }
+    size: { w: 430, h: 18 }
+  - id: n5
+    label: "土地の広さは同じでも、用途地域が違う。"
+    marker: none
+    align: left
+    at: { x: 810, y: 832 }
+    size: { w: 430, h: 18 }
+  - id: n6
+    label: "第一種低層には高さ 10m か 12m の上限もある。"
+    marker: none
+    align: left
+    at: { x: 810, y: 854 }
+    size: { w: 430, h: 18 }
+  - id: r1
+    label: "用途地域は 13 種類。 住居系 8・商業系 2・工業系 3 で、住宅が建てられないのは工業専用地域だけです。"
+    marker: none
+    align: left
+    at: { x: 150, y: 920 }
+    size: { w: 1090, h: 18 }
+  - id: r2
+    label: "建蔽率と容積率は「この中から選ぶ」ものです（①）。地域の名前だけでは数が決まらず、都市計画で 1 つに指定されます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 944 }
+    size: { w: 1090, h: 18 }
+  - id: r3
+    label: "だから都市計画図には、地域の色と一緒に数値が書いてあります。 「第一種低層 50/100」のように、色と数の組で読みます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 968 }
+    size: { w: 1090, h: 18 }
+  - id: r4
+    label: "同じ 200m² でも、延べ面積は 8 倍違います（②）—— 第一種低層で 200m²、商業で 1,600m²。"
+    marker: none
+    align: left
+    at: { x: 150, y: 992 }
+    size: { w: 1090, h: 18 }
+  - id: r5
+    label: "商業地域だけ建蔽率が 80% 固定で、容積率が 1300% まで伸びます。都市の中心をどう使うかが、この 2 行に出ています。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1016 }
+    size: { w: 1090, h: 18 }
+  - id: r6
+    label: "ここから先は、前面道路による容積率の制限（見本 208）・斜線制限（見本 202）・日影規制（見本 214）が重なります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1040 }
+    size: { w: 1090, h: 18 }
+  - id: r7
+    label: "用途地域は「何を建ててよいか」、あとの 3 つは「どんな形にしてよいか」。 順番に効きます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1064 }
+    size: { w: 1090, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p2
+    to: p3
+    curve: none
+    ends: { from: none, to: none }
+  - from: p4
+    to: p5
+    curve: none
+    ends: { from: none, to: none }
+  - from: p6
+    to: p7
+    curve: none
+    ends: { from: none, to: none }
+  - from: p8
+    to: p9
+    curve: none
+    ends: { from: none, to: none }
+  - from: p10
+    to: p11
+    curve: none
+    ends: { from: none, to: none }
+  - from: p12
+    to: p13
+    curve: none
+    ends: { from: none, to: none }
+  - from: p14
+    to: p15
+    curve: none
+    ends: { from: none, to: none }
+  - from: p16
+    to: p17
+    curve: none
+    ends: { from: none, to: none }
+  - from: p18
+    to: p19
+    curve: none
+    ends: { from: none, to: none }
+  - from: p20
+    to: p21
+    curve: none
+    ends: { from: none, to: none }

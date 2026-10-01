@@ -1,0 +1,130 @@
+/*
+ * デザイントークン。
+ *
+ * **値の出どころは姉妹アプリ**
+ * `md-business/apps/desktop/src/lib/styles/tokens.css`（`DESIGN.md`）。
+ * zumen が独自に色を決めない。姉妹側が変わったら、ここを合わせる。
+ *
+ * **図の色は別**（`src/tokens.ts`）。書き出した図は貼り先へ持ち出されるので、
+ * CSS 変数を使えない（`DESIGN.md` §3）。
+ *
+ * ## ライトとダークを 1 つの定義で持つ
+ *
+ * `light-dark()` を使い、**トークンごとに 1 行**にしてある。
+ * ダークの値を別の塊に写すと、片方だけ直してズレる。
+ *
+ * 切り替えは `color-scheme` が決める。
+ *
+ * - 既定（`:root`）は `light dark` = **機械の設定に従う**
+ * - `data-theme="light"` / `"dark"` で人が固定できる
+ *
+ * 機械の設定を見ないと、ブラウザ側の強制ダークで潰れる（実際にそうなった）。
+ */
+
+:root {
+  color-scheme: light dark;
+
+  /* アクセント */
+  --accent: light-dark(#5b5bd6, #7c7cf0);
+  --accent-hover: light-dark(#4f4fc9, #8f8ff5);
+  --accent-subtle: light-dark(#eeeefb, #1e1e3a);
+  --accent-border: light-dark(#d5d5f5, #33335c);
+
+  /* 地・境界・文字 */
+  --bg-app: light-dark(#ffffff, #0f0f13);
+  --bg-subtle: light-dark(#fbfbfd, #141418);
+  --bg-sunken: light-dark(#f4f4f7, #1a1a20);
+  --bg-elevated: light-dark(#ffffff, #1b1b21);
+  --bg-hover: light-dark(#f6f6f9, #1f1f26);
+  --border: light-dark(#e8e8ed, #26262d);
+  --border-strong: light-dark(#d4d4dc, #34343d);
+  --text-primary: light-dark(#1c1c22, #f4f4f6);
+  --text-secondary: light-dark(#63636e, #a0a0ab);
+  --text-tertiary: light-dark(#9b9ba5, #6b6b76);
+  --text-on-accent: #ffffff;
+
+  /* 意味 */
+  --success-bg: light-dark(#e7f6ec, #12291b);
+  --success-fg: light-dark(#1a7f42, #4ade80);
+  --warning-bg: light-dark(#fdf3e2, #2a2109);
+  --warning-fg: light-dark(#9a6a00, #f5c451);
+  --neutral-bg: light-dark(#f0f0f3, #22222a);
+  --neutral-fg: light-dark(#63636e, #a0a0ab);
+  --danger-bg: light-dark(#fcebec, #2a1113);
+  --danger-fg: light-dark(#b4232a, #f2777c);
+
+  /*
+   * 図を置く紙。**テーマで変えない。**
+   *
+   * 図の色は `src/tokens.ts` のライトの値で、書き出しでもその値が使われる
+   * （貼り先に CSS 変数が無いため）。地だけダークにすると、
+   * **画面の図と書き出した図が違って見える。**
+   * この製品で持ち出されるのは書き出したほうなので、画面をそちらへ合わせる。
+   */
+  --canvas: #fbfbfd;
+
+  /* 余白（4px グリッド） */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+
+  /* 角丸 */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-full: 999px;
+
+  /* 影 */
+  --shadow-sm: 0 1px 3px rgba(20, 20, 30, 0.06), 0 1px 2px rgba(20, 20, 30, 0.04);
+  --shadow-md: 0 4px 12px rgba(20, 20, 30, 0.08), 0 2px 4px rgba(20, 20, 30, 0.04);
+
+  /* 文字 */
+  --font: system-ui, -apple-system, 'Hiragino Sans', sans-serif;
+  --font-mono: ui-monospace, 'SFMono-Regular', monospace;
+  --text-2xs: 11px;
+  --text-xs: 12px;
+  --text-sm: 13px;
+  --text-base: 14px;
+  --text-md: 16px;
+
+  /* 動き */
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+  --dur-fast: 120ms;
+  --dur-base: 160ms;
+}
+
+/* 人が固定したとき。`light-dark()` は color-scheme に従う。 */
+:root[data-theme='light'] {
+  color-scheme: light;
+}
+:root[data-theme='dark'] {
+  color-scheme: dark;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 1ms !important;
+    transition-duration: 1ms !important;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  background: var(--bg-app);
+  color: var(--text-primary);
+  font-family: var(--font);
+  font-size: var(--text-base);
+}
+
+#app {
+  height: 100%;
+}

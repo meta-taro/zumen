@@ -1,0 +1,300 @@
+version: 1
+kind: placement
+arrows: false
+title: "Deck framing plan (fictional)"
+scale: { in: 0.5 }
+grid:
+  x:
+    - { id: A, at: 60 }
+    - { id: B, at: 444 }
+  y:
+    - { id: 1, at: 60 }
+    - { id: 2, at: 300 }
+    - { id: 3, at: 348 }
+# **A deck is a load path.** Boards to joists, joists to the ledger and the
+# beam, beam to posts, posts to footings —— seven parts, and leaving one out
+# means the load has nowhere to go.
+#
+# The ledger is the half that fails quietly: **it is bolted to someone else's
+# building**, so it is the one connection the deck does not own.
+#
+# Sizes and spans are fictional; span tables decide them in practice
+# (IRC R507 / AWC DCA 6).
+nodes:
+  - id: house
+    label: ""
+    hatch: cross
+    at: { x: 50, y: 38 }
+    size: { w: 404, h: 22 }
+  - id: ledger
+    label: ""
+    hatch: solid
+    at: { x: 60, y: 60 }
+    size: { w: 384, h: 8 }
+  - id: deck
+    label: ""
+    at: { x: 60, y: 60 }
+    size: { w: 384, h: 288 }
+  - id: j1
+    label: ""
+    hatch: solid
+    at: { x: 74, y: 68 }
+    size: { w: 4, h: 280 }
+  - id: j2
+    label: ""
+    hatch: solid
+    at: { x: 106, y: 68 }
+    size: { w: 4, h: 280 }
+  - id: j3
+    label: ""
+    hatch: solid
+    at: { x: 138, y: 68 }
+    size: { w: 4, h: 280 }
+  - id: j4
+    label: ""
+    hatch: solid
+    at: { x: 170, y: 68 }
+    size: { w: 4, h: 280 }
+  - id: j5
+    label: ""
+    hatch: solid
+    at: { x: 202, y: 68 }
+    size: { w: 4, h: 280 }
+  - id: j6
+    label: ""
+    hatch: solid
+    at: { x: 234, y: 68 }
+    size: { w: 4, h: 280 }
+  - id: j7
+    label: ""
+    hatch: solid
+    at: { x: 266, y: 68 }
+    size: { w: 4, h: 280 }
+  - id: j8
+    label: ""
+    hatch: solid
+    at: { x: 298, y: 68 }
+    size: { w: 4, h: 280 }
+  - id: j9
+    label: ""
+    hatch: solid
+    at: { x: 330, y: 68 }
+    size: { w: 4, h: 280 }
+  - id: j10
+    label: ""
+    hatch: solid
+    at: { x: 362, y: 68 }
+    size: { w: 4, h: 280 }
+  - id: j11
+    label: ""
+    hatch: solid
+    at: { x: 394, y: 68 }
+    size: { w: 4, h: 280 }
+  - id: j12
+    label: ""
+    hatch: solid
+    at: { x: 426, y: 68 }
+    size: { w: 4, h: 280 }
+  - id: rim
+    label: ""
+    hatch: solid
+    at: { x: 60, y: 343 }
+    size: { w: 384, h: 5 }
+  - id: beam
+    label: ""
+    hatch: solid
+    at: { x: 60, y: 300 }
+    size: { w: 384, h: 10 }
+  - id: block
+    label: ""
+    hatch: solid
+    at: { x: 60, y: 177.5 }
+    size: { w: 384, h: 5 }
+  - id: post1
+    label: ""
+    tag: ""
+    marker: circle
+    at: { x: 68, y: 292 }
+    size: { w: 24, h: 24 }
+  - id: post2
+    label: ""
+    tag: ""
+    marker: circle
+    at: { x: 244, y: 292 }
+    size: { w: 24, h: 24 }
+  - id: post3
+    label: ""
+    tag: ""
+    marker: circle
+    at: { x: 420, y: 292 }
+    size: { w: 24, h: 24 }
+  - id: stair
+    label: ""
+    hatch: lines
+    at: { x: 372, y: 348 }
+    size: { w: 72, h: 48 }
+  - id: l6
+    label: "STAIRS"
+    marker: none
+    align: left
+    at: { x: 380, y: 374 }
+    size: { w: 90, h: 18 }
+  - id: g1
+    label: "1  LEDGER, bolted to the band joist"
+    marker: none
+    align: left
+    at: { x: 60, y: 420 }
+    size: { w: 320, h: 18 }
+  - id: g2
+    label: "2  JOISTS 2x10 at 16 in o.c."
+    marker: none
+    align: left
+    at: { x: 60, y: 442 }
+    size: { w: 320, h: 18 }
+  - id: g3
+    label: "3  BLOCKING at mid-span"
+    marker: none
+    align: left
+    at: { x: 60, y: 464 }
+    size: { w: 320, h: 18 }
+  - id: g4
+    label: "4  BEAM 2-2x10 on posts at 8 ft"
+    marker: none
+    align: left
+    at: { x: 60, y: 486 }
+    size: { w: 320, h: 18 }
+  - id: g5
+    label: "5  2 ft cantilever past the beam"
+    marker: none
+    align: left
+    at: { x: 60, y: 508 }
+    size: { w: 320, h: 18 }
+  - id: g6
+    label: "6  FOOTING under every post"
+    marker: none
+    align: left
+    at: { x: 60, y: 530 }
+    size: { w: 320, h: 18 }
+  - id: h40
+    label: "DECK  16 ft x 12 ft  (IRC R507 / DCA 6)"
+    hatch: solid
+    at: { x: 524, y: 40 }
+    size: { w: 430, h: 22 }
+  - id: a62
+    label: "Joists"
+    at: { x: 524, y: 62 }
+    size: { w: 190, h: 22 }
+  - id: b62
+    label: "2x10 at 16 in o.c."
+    align: left
+    at: { x: 714, y: 62 }
+    size: { w: 240, h: 22 }
+  - id: a84
+    label: "Beam"
+    at: { x: 524, y: 84 }
+    size: { w: 190, h: 22 }
+  - id: b84
+    label: "2-2x10, posts at 8 ft"
+    align: left
+    at: { x: 714, y: 84 }
+    size: { w: 240, h: 22 }
+  - id: a106
+    label: "Cantilever"
+    at: { x: 524, y: 106 }
+    size: { w: 190, h: 22 }
+  - id: b106
+    label: "2 ft past the beam"
+    align: left
+    at: { x: 714, y: 106 }
+    size: { w: 240, h: 22 }
+  - id: a128
+    label: "Ledger"
+    at: { x: 524, y: 128 }
+    size: { w: 190, h: 22 }
+  - id: b128
+    label: "bolted to the band joist"
+    align: left
+    at: { x: 714, y: 128 }
+    size: { w: 240, h: 22 }
+  - id: a150
+    label: "Blocking"
+    at: { x: 524, y: 150 }
+    size: { w: 190, h: 22 }
+  - id: b150
+    label: "at mid-span"
+    align: left
+    at: { x: 714, y: 150 }
+    size: { w: 240, h: 22 }
+  - id: a172
+    label: "Footings"
+    at: { x: 524, y: 172 }
+    size: { w: 190, h: 22 }
+  - id: b172
+    label: "under every post"
+    align: left
+    at: { x: 714, y: 172 }
+    size: { w: 240, h: 22 }
+  - id: h208
+    label: "GUARD"
+    hatch: solid
+    at: { x: 524, y: 208 }
+    size: { w: 430, h: 22 }
+  - id: a230
+    label: "Height"
+    at: { x: 524, y: 230 }
+    size: { w: 190, h: 22 }
+  - id: b230
+    label: "36 in minimum"
+    align: left
+    at: { x: 714, y: 230 }
+    size: { w: 240, h: 22 }
+  - id: a252
+    label: "Openings"
+    at: { x: 524, y: 252 }
+    size: { w: 190, h: 22 }
+  - id: b252
+    label: "no 4 in sphere may pass"
+    align: left
+    at: { x: 714, y: 252 }
+    size: { w: 240, h: 22 }
+  - id: h288
+    label: "THE SEVEN PARTS"
+    hatch: solid
+    at: { x: 524, y: 288 }
+    size: { w: 430, h: 22 }
+  - id: a310
+    label: "Ledger, joists, rim"
+    at: { x: 524, y: 310 }
+    size: { w: 190, h: 22 }
+  - id: b310
+    label: "blocking, beam, posts, footings"
+    align: left
+    at: { x: 714, y: 310 }
+    size: { w: 240, h: 22 }
+  - id: a332
+    label: "Leave one out"
+    at: { x: 524, y: 332 }
+    size: { w: 190, h: 22 }
+  - id: b332
+    label: "and the load has nowhere to go"
+    align: left
+    at: { x: 714, y: 332 }
+    size: { w: 240, h: 22 }
+  - id: n1
+    label: "A deck is a load path: boards to joists, joists to the ledger and the beam, beam to posts, posts to footings."
+    marker: none
+    align: left
+    at: { x: 60, y: 570 }
+    size: { w: 780, h: 18 }
+  - id: n2
+    label: "The ledger fails quietly: it is bolted to a building the deck does not own."
+    marker: none
+    align: left
+    at: { x: 60, y: 592 }
+    size: { w: 780, h: 18 }
+  - id: n3
+    label: "Sizes and spans are fictional; span tables decide them in practice."
+    marker: none
+    align: left
+    at: { x: 60, y: 614 }
+    size: { w: 780, h: 18 }

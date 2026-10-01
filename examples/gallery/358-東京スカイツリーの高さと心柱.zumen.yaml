@@ -1,0 +1,651 @@
+version: 1
+kind: placement
+arrows: false
+title: 東京スカイツリーの高さと心柱 —— 634m を実寸の比で（天望デッキ・天望回廊・東京タワーとの比較。非公式）
+# **634m を、1m ＝ 1px の実寸の比で。** 展望台・心柱・ゲイン塔が、どの高さにあるか。
+#
+# 東京スカイツリーは 2012 年開業の自立式電波塔。高さ 634m。
+# 同じ縮尺に東京タワー（333m・1958 年）を並べると、**東京タワーの先端は天望デッキ（フロア 350）より 17m 低い。**
+#
+# ## 公式に出ている数（この図はこれだけで描いた）
+#
+# | | |
+# |---|---|
+# | 天望デッキ | フロア 340・345・350（3 層） |
+# | 天望回廊 | 445m から最高到達点 451.2m へ、スロープを約 110m 歩く |
+# | 心柱 | 鉄筋コンクリートの円筒。直径 8m・高さ 375m。壁の厚さは 100m まで 40cm、100〜375m は 60cm |
+# | 足元 | 一辺 約 68m の正三角形。**315m から上は円** |
+# | ゲイン塔 | アンテナの鉄塔、約 140m |
+# | エレベーター | 地上〜天望デッキ 4 基・分速 600m・約 50 秒、天望デッキ〜天望回廊 2 基・分速 240m・約 30 秒 |
+#
+# ## 心柱制振
+#
+# 心柱と外側の塔体は**構造として分けてあり**、あいだを心柱の 125m から上でオイルダンパーがつなぐ。
+# 2 つが違う周期で揺れて打ち消し合い、**揺れを最大 50% 減らす**（公式）。五重塔の心柱になぞらえた名前。
+#
+# ## 計算してみた所
+#
+# 350m ÷ 分速 600m ＝ 35 秒。公式の「約 50 秒」との差 15 秒は、**加速と減速のぶん**
+# （速さの数字は「いちばん速いとき」の値）。これは図の中で「計算」と分かるように書いた。
+#
+# ## 描かなかったもの
+#
+# - **塔体の輪郭（そり・むくり）。** 公式に寸法が出ているのは足元の一辺と「315m で円」だけで、途中の幅は無い。
+#   推測の曲線を描くと、実物の図のふりをする。だから中心線と、寸法のある所だけ
+# - **公式の案内図・ロゴ。** この図は公開されている数から描き直した非公式の図
+# - **エレベーターの事故などの報道。** 公式の報告が出ていないものは描かない
+#
+# 出典: 東京スカイツリー公式サイト「アウトライン」「02 東京スカイツリーの構造（2）各部紹介・（4）塔体のしくみ」、
+# 「天望デッキ」「天望回廊」。東京タワー公式サイト（メインデッキ 150m・トップデッキ 250m）。
+nodes:
+  - id: t1
+    label: "① 東京スカイツリー 634m と東京タワー 333m を、同じ縮尺で（1m ＝ 1px。非公式の図）"
+    marker: none
+    align: left
+    at: { x: 60, y: 96 }
+    size: { w: 960, h: 18 }
+  - id: ya0
+    label: ""
+    marker: none
+    at: { x: 119, y: 829 }
+    size: { w: 2, h: 2 }
+  - id: yb0
+    label: ""
+    marker: none
+    at: { x: 127, y: 829 }
+    size: { w: 2, h: 2 }
+  - id: yl0
+    label: "0m"
+    marker: none
+    align: right
+    at: { x: 60, y: 821 }
+    size: { w: 54, h: 18 }
+  - id: ya100
+    label: ""
+    marker: none
+    at: { x: 119, y: 729 }
+    size: { w: 2, h: 2 }
+  - id: yb100
+    label: ""
+    marker: none
+    at: { x: 127, y: 729 }
+    size: { w: 2, h: 2 }
+  - id: yl100
+    label: "100m"
+    marker: none
+    align: right
+    at: { x: 60, y: 721 }
+    size: { w: 54, h: 18 }
+  - id: ya200
+    label: ""
+    marker: none
+    at: { x: 119, y: 629 }
+    size: { w: 2, h: 2 }
+  - id: yb200
+    label: ""
+    marker: none
+    at: { x: 127, y: 629 }
+    size: { w: 2, h: 2 }
+  - id: yl200
+    label: "200m"
+    marker: none
+    align: right
+    at: { x: 60, y: 621 }
+    size: { w: 54, h: 18 }
+  - id: ya300
+    label: ""
+    marker: none
+    at: { x: 119, y: 529 }
+    size: { w: 2, h: 2 }
+  - id: yb300
+    label: ""
+    marker: none
+    at: { x: 127, y: 529 }
+    size: { w: 2, h: 2 }
+  - id: yl300
+    label: "300m"
+    marker: none
+    align: right
+    at: { x: 60, y: 521 }
+    size: { w: 54, h: 18 }
+  - id: ya400
+    label: ""
+    marker: none
+    at: { x: 119, y: 429 }
+    size: { w: 2, h: 2 }
+  - id: yb400
+    label: ""
+    marker: none
+    at: { x: 127, y: 429 }
+    size: { w: 2, h: 2 }
+  - id: yl400
+    label: "400m"
+    marker: none
+    align: right
+    at: { x: 60, y: 421 }
+    size: { w: 54, h: 18 }
+  - id: ya500
+    label: ""
+    marker: none
+    at: { x: 119, y: 329 }
+    size: { w: 2, h: 2 }
+  - id: yb500
+    label: ""
+    marker: none
+    at: { x: 127, y: 329 }
+    size: { w: 2, h: 2 }
+  - id: yl500
+    label: "500m"
+    marker: none
+    align: right
+    at: { x: 60, y: 321 }
+    size: { w: 54, h: 18 }
+  - id: ya600
+    label: ""
+    marker: none
+    at: { x: 119, y: 229 }
+    size: { w: 2, h: 2 }
+  - id: yb600
+    label: ""
+    marker: none
+    at: { x: 127, y: 229 }
+    size: { w: 2, h: 2 }
+  - id: yl600
+    label: "600m"
+    marker: none
+    align: right
+    at: { x: 60, y: 221 }
+    size: { w: 54, h: 18 }
+  - id: ya700
+    label: ""
+    marker: none
+    at: { x: 119, y: 129 }
+    size: { w: 2, h: 2 }
+  - id: yb700
+    label: ""
+    marker: none
+    at: { x: 127, y: 129 }
+    size: { w: 2, h: 2 }
+  - id: yl700
+    label: "700m"
+    marker: none
+    align: right
+    at: { x: 60, y: 121 }
+    size: { w: 54, h: 18 }
+  - id: yax0
+    label: ""
+    marker: none
+    at: { x: 127, y: 829 }
+    size: { w: 2, h: 2 }
+  - id: yax1
+    label: ""
+    marker: none
+    at: { x: 127, y: 129 }
+    size: { w: 2, h: 2 }
+  - id: g0
+    label: ""
+    marker: none
+    at: { x: 127, y: 829 }
+    size: { w: 2, h: 2 }
+  - id: g1
+    label: ""
+    marker: none
+    at: { x: 999, y: 829 }
+    size: { w: 2, h: 2 }
+  - id: base
+    label: ""
+    hatch: lines
+    at: { x: 386, y: 824 }
+    size: { w: 68, h: 6 }
+  - id: basel
+    label: "足元は一辺 約 68m の正三角形"
+    marker: none
+    align: center
+    at: { x: 270, y: 838 }
+    size: { w: 300, h: 18 }
+  - id: shinbashira
+    label: ""
+    hatch: solid
+    at: { x: 416, y: 455 }
+    size: { w: 8, h: 369 }
+  - id: da
+    label: ""
+    marker: none
+    at: { x: 389, y: 704 }
+    size: { w: 2, h: 2 }
+  - id: db
+    label: ""
+    marker: none
+    at: { x: 389, y: 454 }
+    size: { w: 2, h: 2 }
+  - id: dl
+    label: "オイルダンパー（125m〜）"
+    marker: none
+    align: right
+    at: { x: 190, y: 571 }
+    size: { w: 196, h: 18 }
+  - id: sl
+    label: "心柱 直径 8m・高さ 375m"
+    marker: none
+    align: left
+    at: { x: 434, y: 621 }
+    size: { w: 220, h: 18 }
+  - id: sl2
+    label: "鉄筋コンクリートの円筒。塔体とは分けてある"
+    marker: none
+    align: left
+    at: { x: 434, y: 641 }
+    size: { w: 320, h: 18 }
+  - id: c315a
+    label: ""
+    marker: none
+    at: { x: 393, y: 514 }
+    size: { w: 2, h: 2 }
+  - id: c315b
+    label: ""
+    marker: none
+    at: { x: 445, y: 514 }
+    size: { w: 2, h: 2 }
+  - id: c315
+    label: "315m から上は断面が円"
+    marker: none
+    align: left
+    at: { x: 452, y: 506 }
+    size: { w: 220, h: 18 }
+  - id: deckL340
+    label: ""
+    hatch: solid
+    at: { x: 390, y: 490 }
+    size: { w: 24, h: 3 }
+  - id: deckR340
+    label: ""
+    hatch: solid
+    at: { x: 426, y: 490 }
+    size: { w: 24, h: 3 }
+  - id: deckL345
+    label: ""
+    hatch: solid
+    at: { x: 390, y: 485 }
+    size: { w: 24, h: 3 }
+  - id: deckR345
+    label: ""
+    hatch: solid
+    at: { x: 426, y: 485 }
+    size: { w: 24, h: 3 }
+  - id: deckL350
+    label: ""
+    hatch: solid
+    at: { x: 390, y: 480 }
+    size: { w: 24, h: 3 }
+  - id: deckR350
+    label: ""
+    hatch: solid
+    at: { x: 426, y: 480 }
+    size: { w: 24, h: 3 }
+  - id: deckl
+    label: "天望デッキ　フロア 340・345・350"
+    marker: none
+    align: left
+    at: { x: 456, y: 466 }
+    size: { w: 280, h: 18 }
+  - id: ga
+    label: ""
+    marker: none
+    at: { x: 393, y: 384 }
+    size: { w: 2, h: 2 }
+  - id: gb
+    label: ""
+    marker: none
+    at: { x: 441, y: 377.8 }
+    size: { w: 2, h: 2 }
+  - id: gl
+    label: "天望回廊　445m → 最高到達点 451.2m（約 110m 歩く）"
+    marker: none
+    align: left
+    at: { x: 456, y: 370 }
+    size: { w: 380, h: 18 }
+  - id: gain
+    label: ""
+    hatch: lines
+    at: { x: 417, y: 196 }
+    size: { w: 6, h: 140 }
+  - id: gainl
+    label: "ゲイン塔（アンテナの鉄塔）約 140m"
+    marker: none
+    align: left
+    at: { x: 432, y: 241 }
+    size: { w: 280, h: 18 }
+  - id: top
+    label: "634m"
+    marker: none
+    align: center
+    at: { x: 390, y: 172 }
+    size: { w: 60, h: 18 }
+  - id: e1a
+    label: ""
+    marker: none
+    at: { x: 359, y: 829 }
+    size: { w: 2, h: 2 }
+  - id: e1b
+    label: ""
+    marker: none
+    at: { x: 359, y: 479 }
+    size: { w: 2, h: 2 }
+  - id: e1l
+    label: "天望シャトル\n分速 600m\n約 50 秒"
+    marker: none
+    align: right
+    at: { x: 260, y: 720 }
+    size: { w: 94, h: 52 }
+  - id: e2a
+    label: ""
+    marker: none
+    at: { x: 359, y: 479 }
+    size: { w: 2, h: 2 }
+  - id: e2b
+    label: ""
+    marker: none
+    at: { x: 359, y: 384 }
+    size: { w: 2, h: 2 }
+  - id: e2l
+    label: "分速 240m\n約 30 秒"
+    marker: none
+    align: right
+    at: { x: 260, y: 412 }
+    size: { w: 94, h: 36 }
+  - id: tt0
+    label: ""
+    marker: none
+    at: { x: 799, y: 829 }
+    size: { w: 2, h: 2 }
+  - id: tt1
+    label: ""
+    marker: none
+    at: { x: 799, y: 496 }
+    size: { w: 2, h: 2 }
+  - id: ttb
+    label: ""
+    hatch: lines
+    at: { x: 760, y: 824 }
+    size: { w: 80, h: 6 }
+  - id: tt150
+    label: ""
+    hatch: solid
+    at: { x: 778, y: 680 }
+    size: { w: 44, h: 3 }
+  - id: tt250
+    label: ""
+    hatch: solid
+    at: { x: 788, y: 580 }
+    size: { w: 24, h: 3 }
+  - id: ttl
+    label: "東京タワー 333m（1958 年）"
+    marker: none
+    align: left
+    at: { x: 810, y: 488 }
+    size: { w: 220, h: 18 }
+  - id: tt150l
+    label: "メインデッキ 150m"
+    marker: none
+    align: left
+    at: { x: 828, y: 671 }
+    size: { w: 160, h: 18 }
+  - id: tt250l
+    label: "トップデッキ 250m"
+    marker: none
+    align: left
+    at: { x: 818, y: 571 }
+    size: { w: 160, h: 18 }
+  - id: tll
+    label: "先端はフロア 350 より 17m 低い"
+    marker: none
+    align: left
+    at: { x: 810, y: 510 }
+    size: { w: 240, h: 18 }
+  - id: t2
+    label: "② 公式に出ている数"
+    marker: none
+    align: left
+    at: { x: 1060, y: 96 }
+    size: { w: 420, h: 18 }
+  - id: k0_0
+    label: "項目"
+    hatch: solid
+    align: center
+    at: { x: 1060, y: 128 }
+    size: { w: 190, h: 26 }
+  - id: k0_1
+    label: "公式の数"
+    hatch: solid
+    align: center
+    at: { x: 1250, y: 128 }
+    size: { w: 270, h: 26 }
+  - id: k1_0
+    label: "高さ"
+    align: center
+    at: { x: 1060, y: 154 }
+    size: { w: 190, h: 26 }
+  - id: k1_1
+    label: "634m"
+    align: center
+    at: { x: 1250, y: 154 }
+    size: { w: 270, h: 26 }
+  - id: k2_0
+    label: "天望デッキ"
+    align: center
+    at: { x: 1060, y: 180 }
+    size: { w: 190, h: 26 }
+  - id: k2_1
+    label: "340・345・350m"
+    align: center
+    at: { x: 1250, y: 180 }
+    size: { w: 270, h: 26 }
+  - id: k3_0
+    label: "天望回廊"
+    align: center
+    at: { x: 1060, y: 206 }
+    size: { w: 190, h: 26 }
+  - id: k3_1
+    label: "445〜450m"
+    align: center
+    at: { x: 1250, y: 206 }
+    size: { w: 270, h: 26 }
+  - id: k4_0
+    label: "最高到達点"
+    align: center
+    at: { x: 1060, y: 232 }
+    size: { w: 190, h: 26 }
+  - id: k4_1
+    label: "451.2m"
+    align: center
+    at: { x: 1250, y: 232 }
+    size: { w: 270, h: 26 }
+  - id: k5_0
+    label: "心柱"
+    align: center
+    at: { x: 1060, y: 258 }
+    size: { w: 190, h: 26 }
+  - id: k5_1
+    label: "直径 8m・高さ 375m"
+    align: center
+    at: { x: 1250, y: 258 }
+    size: { w: 270, h: 26 }
+  - id: k6_0
+    label: "心柱の壁の厚さ"
+    align: center
+    at: { x: 1060, y: 284 }
+    size: { w: 190, h: 26 }
+  - id: k6_1
+    label: "〜100m は 40cm、100〜375m は 60cm"
+    align: center
+    at: { x: 1250, y: 284 }
+    size: { w: 270, h: 26 }
+  - id: k7_0
+    label: "足元"
+    align: center
+    at: { x: 1060, y: 310 }
+    size: { w: 190, h: 26 }
+  - id: k7_1
+    label: "一辺 約 68m の正三角形"
+    align: center
+    at: { x: 1250, y: 310 }
+    size: { w: 270, h: 26 }
+  - id: k8_0
+    label: "円になる高さ"
+    align: center
+    at: { x: 1060, y: 336 }
+    size: { w: 190, h: 26 }
+  - id: k8_1
+    label: "315m"
+    align: center
+    at: { x: 1250, y: 336 }
+    size: { w: 270, h: 26 }
+  - id: k9_0
+    label: "ゲイン塔"
+    align: center
+    at: { x: 1060, y: 362 }
+    size: { w: 190, h: 26 }
+  - id: k9_1
+    label: "約 140m"
+    align: center
+    at: { x: 1250, y: 362 }
+    size: { w: 270, h: 26 }
+  - id: k10_0
+    label: "エレベーター（〜350m）"
+    align: center
+    at: { x: 1060, y: 388 }
+    size: { w: 190, h: 26 }
+  - id: k10_1
+    label: "4 基・分速 600m・約 50 秒"
+    align: center
+    at: { x: 1250, y: 388 }
+    size: { w: 270, h: 26 }
+  - id: k11_0
+    label: "エレベーター（350〜445m）"
+    align: center
+    at: { x: 1060, y: 414 }
+    size: { w: 190, h: 26 }
+  - id: k11_1
+    label: "2 基・分速 240m・約 30 秒"
+    align: center
+    at: { x: 1250, y: 414 }
+    size: { w: 270, h: 26 }
+  - id: k12_0
+    label: "鉄骨の総重量"
+    align: center
+    at: { x: 1060, y: 440 }
+    size: { w: 190, h: 26 }
+  - id: k12_1
+    label: "約 36,000t"
+    align: center
+    at: { x: 1250, y: 440 }
+    size: { w: 270, h: 26 }
+  - id: t3
+    label: "③ 揺れを抑える仕組み（心柱制振）"
+    marker: none
+    align: left
+    at: { x: 1060, y: 520 }
+    size: { w: 420, h: 18 }
+  - id: t3a
+    label: "心柱と塔体を分け、あいだをオイルダンパーでつなぐ。"
+    marker: none
+    align: left
+    at: { x: 1060, y: 552 }
+    size: { w: 460, h: 18 }
+  - id: t3b
+    label: "2 つが違う周期で揺れて打ち消し合い、揺れを最大 50% 減らす。"
+    marker: none
+    align: left
+    at: { x: 1060, y: 574 }
+    size: { w: 460, h: 18 }
+  - id: t3c
+    label: "五重塔の心柱になぞらえた名前。頂部の制振でゲイン塔の揺れは最大 30% 減。"
+    marker: none
+    align: left
+    at: { x: 1060, y: 596 }
+    size: { w: 480, h: 18 }
+  - id: t4
+    label: "④ 計算してみると"
+    marker: none
+    align: left
+    at: { x: 1060, y: 640 }
+    size: { w: 420, h: 18 }
+  - id: t4a
+    label: "350m を分速 600m で割ると 35 秒。実際は約 50 秒 ——"
+    marker: none
+    align: left
+    at: { x: 1060, y: 672 }
+    size: { w: 460, h: 18 }
+  - id: t4b
+    label: "差の 15 秒は、止まっている箱を加速し、また止めるぶん。"
+    marker: none
+    align: left
+    at: { x: 1060, y: 694 }
+    size: { w: 460, h: 18 }
+edges:
+  - from: ya0
+    to: yb0
+    curve: none
+    ends: { from: none, to: none }
+  - from: ya100
+    to: yb100
+    curve: none
+    ends: { from: none, to: none }
+  - from: ya200
+    to: yb200
+    curve: none
+    ends: { from: none, to: none }
+  - from: ya300
+    to: yb300
+    curve: none
+    ends: { from: none, to: none }
+  - from: ya400
+    to: yb400
+    curve: none
+    ends: { from: none, to: none }
+  - from: ya500
+    to: yb500
+    curve: none
+    ends: { from: none, to: none }
+  - from: ya600
+    to: yb600
+    curve: none
+    ends: { from: none, to: none }
+  - from: ya700
+    to: yb700
+    curve: none
+    ends: { from: none, to: none }
+  - from: yax0
+    to: yax1
+    curve: none
+    ends: { from: none, to: none }
+  - from: g0
+    to: g1
+    curve: none
+    ends: { from: none, to: none }
+  - from: da
+    to: db
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: c315a
+    to: c315b
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }
+  - from: ga
+    to: gb
+    curve: none
+    ends: { from: none, to: none }
+  - from: e1a
+    to: e1b
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: e2a
+    to: e2b
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: tt0
+    to: tt1
+    curve: none
+    ends: { from: none, to: none }

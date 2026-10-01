@@ -1,0 +1,452 @@
+version: 1
+kind: placement
+arrows: true
+title: 窯詰めの棚組みと、素焼き・本焼きの詰め方
+scale: { mm: 1 }
+# **棚板 1 枚に支柱 3 本。** 3 点はかならず 1 つの平面に乗る（4 点は乗らないことがある）。
+# 支柱は上下で同じ位置に通す —— 1 本の柱のように見えるのが正しい。
+#
+# **素焼きと本焼きでは、詰め方が逆。** 違いは釉薬 1 つで、
+# **溶けた釉薬は接着剤になる** —— 触れた所でくっつき、棚板に垂れれば取れない。
+nodes:
+  - id: t1
+    label: "① 棚組みの断面（1px ＝ 1mm・窯の内寸は機種による）"
+    marker: none
+    align: left
+    at: { x: 150, y: 200 }
+    size: { w: 500, h: 20 }
+  - id: kiln
+    label: ""
+    at: { x: 170, y: 250 }
+    size: { w: 400, h: 500 }
+  - id: kiln_n
+    label: "例：内寸 400 × 500"
+    marker: none
+    align: left
+    at: { x: 176, y: 256 }
+    size: { w: 200, h: 18 }
+  - id: p635L
+    label: ""
+    hatch: lines
+    at: { x: 185, y: 650 }
+    size: { w: 22, h: 100 }
+  - id: p635R
+    label: ""
+    hatch: lines
+    at: { x: 533, y: 650 }
+    size: { w: 22, h: 100 }
+  - id: b635
+    label: ""
+    hatch: dots
+    at: { x: 180, y: 635 }
+    size: { w: 380, h: 15 }
+  - id: p520L
+    label: ""
+    hatch: lines
+    at: { x: 185, y: 535 }
+    size: { w: 22, h: 100 }
+  - id: p520R
+    label: ""
+    hatch: lines
+    at: { x: 533, y: 535 }
+    size: { w: 22, h: 100 }
+  - id: b520
+    label: ""
+    hatch: dots
+    at: { x: 180, y: 520 }
+    size: { w: 380, h: 15 }
+  - id: p405L
+    label: ""
+    hatch: lines
+    at: { x: 185, y: 420 }
+    size: { w: 22, h: 100 }
+  - id: p405R
+    label: ""
+    hatch: lines
+    at: { x: 533, y: 420 }
+    size: { w: 22, h: 100 }
+  - id: b405
+    label: ""
+    hatch: dots
+    at: { x: 180, y: 405 }
+    size: { w: 380, h: 15 }
+  - id: w0_0
+    label: ""
+    at: { x: 220, y: 672 }
+    size: { w: 110, h: 78 }
+  - id: w0_1
+    label: ""
+    at: { x: 345, y: 672 }
+    size: { w: 105, h: 78 }
+  - id: w0_2
+    label: ""
+    at: { x: 465, y: 672 }
+    size: { w: 55, h: 78 }
+  - id: w1_0
+    label: ""
+    at: { x: 225, y: 561 }
+    size: { w: 85, h: 74 }
+  - id: w1_1
+    label: ""
+    at: { x: 330, y: 561 }
+    size: { w: 85, h: 74 }
+  - id: w1_2
+    label: ""
+    at: { x: 435, y: 561 }
+    size: { w: 85, h: 74 }
+  - id: w2_0
+    label: ""
+    at: { x: 220, y: 460 }
+    size: { w: 120, h: 60 }
+  - id: w2_1
+    label: ""
+    at: { x: 360, y: 460 }
+    size: { w: 110, h: 60 }
+  - id: w2_2
+    label: ""
+    at: { x: 485, y: 460 }
+    size: { w: 35, h: 60 }
+  - id: w3_0
+    label: ""
+    at: { x: 225, y: 335 }
+    size: { w: 95, h: 70 }
+  - id: w3_1
+    label: ""
+    at: { x: 340, y: 335 }
+    size: { w: 95, h: 70 }
+  - id: w3_2
+    label: ""
+    at: { x: 455, y: 335 }
+    size: { w: 65, h: 70 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 195, y: 743 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 195, y: 259 }
+    size: { w: 2, h: 2 }
+  - id: tsu_n
+    label: "支柱は上下で同じ位置に通す（強度）"
+    marker: none
+    align: left
+    at: { x: 150, y: 780 }
+    size: { w: 470, h: 18 }
+  - id: tsu_n2
+    label: "棚板と作品、作品どうしを触れさせない（本焼き）"
+    marker: none
+    align: left
+    at: { x: 150, y: 802 }
+    size: { w: 470, h: 18 }
+  - id: t2
+    label: "② 棚板 1 枚に、支柱 3 本"
+    marker: none
+    align: left
+    at: { x: 700, y: 200 }
+    size: { w: 470, h: 20 }
+  - id: ita
+    label: ""
+    hatch: dots
+    at: { x: 720, y: 246 }
+    size: { w: 360, h: 360 }
+  - id: t_a
+    label: ""
+    hatch: lines
+    at: { x: 728, y: 564 }
+    size: { w: 34, h: 34 }
+  - id: t_b
+    label: ""
+    hatch: lines
+    at: { x: 1038, y: 564 }
+    size: { w: 34, h: 34 }
+  - id: t_c
+    label: ""
+    hatch: lines
+    at: { x: 883, y: 254 }
+    size: { w: 34, h: 34 }
+  - id: ita_n
+    label: "2 本は棚板の角、1 本は反対側の辺の中央。"
+    marker: none
+    align: left
+    at: { x: 700, y: 620 }
+    size: { w: 470, h: 18 }
+  - id: ita_l1
+    label: "3 点は、かならず 1 つの平面に乗ります。 4 点は乗らないことがあり、"
+    marker: none
+    align: left
+    at: { x: 700, y: 646 }
+    size: { w: 470, h: 18 }
+  - id: ita_l2
+    label: "そのとき棚板はガタつきます。だから 3 本。"
+    marker: none
+    align: left
+    at: { x: 700, y: 668 }
+    size: { w: 470, h: 18 }
+  - id: ita_l3
+    label: "この置き方なら、棚板の広さも無駄になりません。"
+    marker: none
+    align: left
+    at: { x: 700, y: 690 }
+    size: { w: 470, h: 18 }
+  - id: t3
+    label: "③ 素焼きと本焼きでは、詰め方が逆"
+    marker: none
+    align: left
+    at: { x: 700, y: 728 }
+    size: { w: 470, h: 20 }
+  - id: f0_0
+    label: ""
+    hatch: solid
+    at: { x: 700, y: 760 }
+    size: { w: 110, h: 28 }
+  - id: f0_1
+    label: "素焼き（約 800℃）"
+    hatch: solid
+    at: { x: 810, y: 760 }
+    size: { w: 180, h: 28 }
+  - id: f0_2
+    label: "本焼き（約 1250℃）"
+    hatch: solid
+    at: { x: 990, y: 760 }
+    size: { w: 180, h: 28 }
+  - id: f1_0
+    label: "重ねる"
+    at: { x: 700, y: 788 }
+    size: { w: 110, h: 28 }
+  - id: f1_1
+    label: "重ねてよい"
+    at: { x: 810, y: 788 }
+    size: { w: 180, h: 28 }
+  - id: f1_2
+    label: "重ねられない"
+    at: { x: 990, y: 788 }
+    size: { w: 180, h: 28 }
+  - id: f2_0
+    label: "触れる"
+    at: { x: 700, y: 816 }
+    size: { w: 110, h: 28 }
+  - id: f2_1
+    label: "触れてよい"
+    at: { x: 810, y: 816 }
+    size: { w: 180, h: 28 }
+  - id: f2_2
+    label: "触れさせない"
+    at: { x: 990, y: 816 }
+    size: { w: 180, h: 28 }
+  - id: f3_0
+    label: "理由"
+    at: { x: 700, y: 844 }
+    size: { w: 110, h: 28 }
+  - id: f3_1
+    label: "まだ釉薬がない"
+    at: { x: 810, y: 844 }
+    size: { w: 180, h: 28 }
+  - id: f3_2
+    label: "溶けた釉薬でくっつく"
+    at: { x: 990, y: 844 }
+    size: { w: 180, h: 28 }
+  - id: f_n1
+    label: "棚板にはアルミナを塗ります。垂れた釉薬が棚板に付くと取れません。"
+    marker: none
+    align: left
+    at: { x: 700, y: 882 }
+    size: { w: 470, h: 18 }
+  - id: f_n2
+    label: "薄く塗らず、ボコボコに。カオリンを 3〜5% 混ぜると、"
+    marker: none
+    align: left
+    at: { x: 700, y: 904 }
+    size: { w: 470, h: 18 }
+  - id: f_n3
+    label: "焼いた後に粉が浮きません。"
+    marker: none
+    align: left
+    at: { x: 700, y: 926 }
+    size: { w: 470, h: 18 }
+  - id: f_n4
+    label: "棚板に触れる面（高台）に釉薬があると、そこでくっつきます。"
+    marker: none
+    align: left
+    at: { x: 700, y: 948 }
+    size: { w: 470, h: 18 }
+  - id: t4
+    label: "④ 温度の道"
+    marker: none
+    align: left
+    at: { x: 150, y: 834 }
+    size: { w: 470, h: 20 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 159, y: 919 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 619, y: 919 }
+    size: { w: 2, h: 2 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 194.4, y: 911 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 194.4, y: 927 }
+    size: { w: 2, h: 2 }
+  - id: k100
+    label: "100℃"
+    marker: none
+    align: center
+    at: { x: 135.4, y: 888 }
+    size: { w: 120, h: 18 }
+  - id: k100w
+    label: "水が抜ける"
+    marker: none
+    align: center
+    at: { x: 115.4, y: 868 }
+    size: { w: 160, h: 18 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 361.8, y: 911 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 361.8, y: 927 }
+    size: { w: 2, h: 2 }
+  - id: k573
+    label: "573℃"
+    marker: none
+    align: center
+    at: { x: 302.8, y: 934 }
+    size: { w: 120, h: 18 }
+  - id: k573w
+    label: "石英転移。急がない"
+    marker: none
+    align: center
+    at: { x: 282.8, y: 954 }
+    size: { w: 160, h: 18 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 442.1, y: 911 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 442.1, y: 927 }
+    size: { w: 2, h: 2 }
+  - id: k800
+    label: "800℃"
+    marker: none
+    align: center
+    at: { x: 383.1, y: 888 }
+    size: { w: 120, h: 18 }
+  - id: k800w
+    label: "素焼き"
+    marker: none
+    align: center
+    at: { x: 363.1, y: 868 }
+    size: { w: 160, h: 18 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 601.3, y: 911 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 601.3, y: 927 }
+    size: { w: 2, h: 2 }
+  - id: k1250
+    label: "1250℃"
+    marker: none
+    align: center
+    at: { x: 542.3, y: 934 }
+    size: { w: 120, h: 18 }
+  - id: k1250w
+    label: "本焼き"
+    marker: none
+    align: center
+    at: { x: 522.3, y: 954 }
+    size: { w: 160, h: 18 }
+  - id: t4n
+    label: "0℃"
+    marker: none
+    align: right
+    at: { x: 120, y: 911 }
+    size: { w: 34, h: 18 }
+  - id: r1
+    label: "棚板 1 枚に支柱 3 本。 3 点はかならず 1 つの平面に乗るので、棚板がガタつきません（4 点は乗らないことがあります）。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1040 }
+    size: { w: 1080, h: 18 }
+  - id: r2
+    label: "支柱は上下で同じ位置に通します。 ずらすと棚板が曲げを受けます —— 1 本の柱のように見えるのが正しい組み方です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1064 }
+    size: { w: 1080, h: 18 }
+  - id: r3
+    label: "素焼きと本焼きでは、詰め方が逆になります。 素焼きは重ねても触れてもよく、本焼きは触れさせられません。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1088 }
+    size: { w: 1080, h: 18 }
+  - id: r4
+    label: "違いは釉薬 1 つです。溶けた釉薬は接着剤になります —— 触れた所でくっつき、棚板に垂れれば取れません。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1112 }
+    size: { w: 1080, h: 18 }
+  - id: r5
+    label: "だから棚板にアルミナを塗り、高台には釉薬を掛けません。 どちらも「棚板に触れる面を、釉薬から守る」ことです。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1136 }
+    size: { w: 1080, h: 18 }
+  - id: r6
+    label: "573℃ は石英転移（体積が変わる点）。昇温でも冷却でもここは急がない —— 急ぐと割れます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1160 }
+    size: { w: 1080, h: 18 }
+  - id: r7
+    label: "窯は上下・前後で温度にむらが出ます。同じ窯でも、置いた場所で焼き上がりが変わります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1184 }
+    size: { w: 1080, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }
+  - from: p2
+    to: p3
+    curve: none
+    ends: { from: none, to: arrow }
+    weight: thick
+  - from: p4
+    to: p5
+    curve: none
+    ends: { from: none, to: none }
+  - from: p6
+    to: p7
+    curve: none
+    ends: { from: none, to: none }
+  - from: p8
+    to: p9
+    curve: none
+    ends: { from: none, to: none }
+  - from: p10
+    to: p11
+    curve: none
+    ends: { from: none, to: none }

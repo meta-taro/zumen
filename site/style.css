@@ -1,0 +1,281 @@
+/**
+ * DL ページの見た目。**日本語と英語のページで同じものを使う。**
+ * 2 か所に書くと、片方だけ直った状態が生まれる（2026-09-16）。
+ */
+  :root {
+    --bg: #ffffff; --bg-subtle: #fbfbfd; --border: #e8e8ed; --border-strong: #d4d4dc;
+    --fg: #1c1c22; --fg-2: #63636e; --fg-3: #9b9ba5; --accent: #5b5bd6; --accent-bg: #eeeefb;
+    --paper: #ffffff;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f0f13; --bg-subtle: #141418; --border: #26262d; --border-strong: #34343d;
+      --fg: #f4f4f6; --fg-2: #a0a0ab; --fg-3: #6b6b76; --accent: #7c7cf0; --accent-bg: #1e1e3a;
+      --paper: #0f0f13;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--fg);
+    font: 16px/1.75 -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 24px; }
+  header { padding: 88px 0 64px; }
+  .mark { display: flex; align-items: center; gap: 12px; margin-bottom: 40px; }
+  .mark img { width: 36px; height: 36px; border-radius: 8px; }
+  .mark b { font-size: 17px; letter-spacing: .02em; }
+  h1 { font-size: 40px; line-height: 1.35; margin: 0 0 20px; letter-spacing: -.01em; }
+  h1 .quiet { color: var(--fg-3); }
+  .lede { font-size: 18px; color: var(--fg-2); margin: 0 0 36px; max-width: 34em; }
+  .cta { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .btn {
+    display: inline-block; padding: 11px 20px; border-radius: 8px; text-decoration: none;
+    border: 1px solid var(--border-strong); color: var(--fg); font-size: 15px;
+  }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .btn:hover { border-color: var(--accent); }
+  .note { color: var(--fg-3); font-size: 14px; }
+  /* **冒頭の 1 枚。** 実物を大きく出すのが、いちばん速い説明。 */
+  .hero { margin: 0 0 8px; }
+  .hero img {
+    display: block; width: 100%; background: var(--paper);
+    border: 1px solid var(--border); border-radius: 12px; padding: 22px;
+  }
+  .hero figcaption { color: var(--fg-3); font-size: 13.5px; margin-top: 12px; }
+  section { padding: 56px 0; border-top: 1px solid var(--border); }
+  h2 { font-size: 13px; letter-spacing: .12em; color: var(--fg-3); margin: 0 0 28px; font-weight: 600; }
+  h3 { font-size: 20px; margin: 0 0 10px; }
+  p { margin: 0 0 16px; }
+  .problem { font-size: 20px; line-height: 1.9; }
+  .problem b { color: var(--fg); }
+  pre {
+    background: var(--bg-subtle); border: 1px solid var(--border); border-radius: 8px;
+    padding: 16px 18px; overflow-x: auto; font-size: 13.5px; line-height: 1.7; margin: 0 0 16px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .92em; }
+  /* 正本の中のコメント。**値より静かに**（読む順を値 → 説明にする）。 */
+  pre .c { color: var(--fg-3); }
+  p code, li code { background: var(--bg-subtle); padding: 1px 5px; border-radius: 4px; border: 1px solid var(--border); }
+  /* **業界で絞り込む。** 見本が増えるほど、全部並べると自分に関係する 1 枚が沈む。
+     JS が動かない環境では、すべて出たままになる（絞り込めないだけで、読めなくならない）。 */
+  /* **93 枚あるので、絞り込みは上に貼り付く。**
+     下まで見に行った人が、選び直すために先頭へ戻らずに済む。 */
+  .filters {
+    display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 22px;
+    position: sticky; top: 0; z-index: 5;
+    background: var(--bg); padding: 10px 0 12px;
+  }
+  .filters button {
+    font: inherit; font-size: 13px; line-height: 1; padding: 9px 14px;
+    color: var(--fg-2); background: var(--bg-subtle);
+    border: 1px solid var(--border); border-radius: 999px; cursor: pointer;
+  }
+  .filters button:hover { color: var(--fg); border-color: var(--fg-2); }
+  .filters button[aria-pressed="true"] {
+    color: var(--paper); background: var(--fg); border-color: var(--fg);
+  }
+  /* **カードの比を固定しない。**
+     図は縦長のもの（間取り・伏図・避難経路）と、極端に横長のもの
+     （業務の流れ・組立ライン）が混ざる。**どちらかに合わせると、もう片方が潰れる。**
+     16:7 にしたときは間取りが横幅の 1/3 まで縮み、4:3 にしたら
+     今度は横長の図が小さくなった（どちらも実機で確認）。
+     いまは高さだけ上限を決めて、**図の形のまま置く。**
+     横長の図（縦横比 1.9 以上）は **2 列ぶち抜き**にして、幅を倍もらう。 */
+  .gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 22px; }
+  .gallery figure { margin: 0; }
+  .gallery figure[data-wide] { grid-column: span 2; }
+  /* **遅れて読み込む絵の場所は、`width` / `height` で先に空けてある**
+     （`scripts/gallery.mjs` が SVG から書く）。93 枚を lazy にしたとき、
+     大きさを書いていないと読み込むたびに下の図が飛んだ（実機で出た）。
+     `height: auto` を書かないと、書いた高さがそのまま出て絵が潰れる。 */
+  .gallery img {
+    display: block; margin: 0 auto; max-width: 100%; max-height: 320px; height: auto;
+    background: var(--paper); border: 1px solid var(--border); border-radius: 10px; padding: 16px;
+    box-sizing: border-box;
+  }
+  @media (max-width: 760px) {
+    .gallery { grid-template-columns: minmax(0, 1fr); }
+    .gallery figure[data-wide] { grid-column: span 1; }
+    /* **狭い画面では、絞り込みを 1 行にして横へ流す。**
+       10 個を折り返すと 5 段になり、貼り付いたまま画面の 1/4 を占める。
+       左右は `.wrap` の余白ぶんはみ出させて、端まで流れるようにする。 */
+    .filters {
+      flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none;
+      margin-left: -24px; margin-right: -24px; padding-left: 24px; padding-right: 24px;
+    }
+    .filters::-webkit-scrollbar { display: none; }
+    .filters button { flex: 0 0 auto; }
+  }
+  .gallery figcaption { color: var(--fg-2); font-size: 13px; margin-top: 10px; }
+  /* **種類の見出し。** 93 枚を 1 列に流すと、どこまでが何の図か分からない。
+     見出しは段組みをぶち抜いて、区切りとして働く。 */
+  .gallery h3.cat {
+    grid-column: 1 / -1; margin: 26px 0 2px; scroll-margin-top: 70px; font-size: 14px; letter-spacing: .04em;
+    color: var(--fg-2); border-bottom: 1px solid var(--border); padding-bottom: 8px;
+    display: flex; align-items: baseline; gap: 10px;
+  }
+  .gallery h3.cat:first-child { margin-top: 0; }
+  /* **`display: flex` は `hidden` より強い。** これを書かないと、
+     絞り込んだときに中身の無い見出しだけが並ぶ（実機で出た）。 */
+  .gallery h3.cat[hidden] { display: none; }
+  .n { font-size: 12px; color: var(--fg-2); opacity: .75; font-weight: 400; }
+  .filters button .n { margin-left: 4px; }
+  .gallery img { cursor: zoom-in; }
+  /* **押すと全体に出す。** 縦長の図は、並べると小さくて読めない。 */
+  dialog#zoom {
+    border: 0; padding: 0; background: transparent; max-width: 96vw; max-height: 96vh;
+  }
+  dialog#zoom::backdrop { background: rgba(0,0,0,.72); }
+  dialog#zoom img {
+    display: block; max-width: 92vw; max-height: 88vh; background: var(--paper);
+    border-radius: 10px; padding: 20px; cursor: zoom-out;
+  }
+  dialog#zoom p { color: #fff; text-align: center; margin: 12px 0 0; font-size: 13px; }
+  .flow { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 20px; }
+  .flow div { border-left: 2px solid var(--border-strong); padding-left: 14px; }
+  .flow b { display: block; margin-bottom: 4px; }
+  .flow span { color: var(--fg-2); font-size: 14px; }
+  .flow .hit { border-left-color: var(--accent); }
+  ul { margin: 0 0 16px; padding-left: 1.25em; }
+  li { margin-bottom: 8px; }
+  .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 32px; }
+  .warn {
+    background: var(--accent-bg); border: 1px solid var(--border); border-radius: 8px;
+    padding: 18px 20px; font-size: 15px;
+  }
+  footer { padding: 48px 0 72px; color: var(--fg-3); font-size: 14px; border-top: 1px solid var(--border); }
+  footer a { color: var(--fg-2); }
+  a { color: var(--accent); }
+
+/**
+ * **言語の切り替え**（2026-09-16）。
+ *
+ * 海外へ出すので、日本語だけの入口にしない。
+ * いま見ているほうは押せない文字で出す ——
+ * 押せるものと押せないものが同じ見た目だと、押してから気づくことになる。
+ */
+.lang { margin-left: auto; display: flex; gap: 10px; font-size: 13px; }
+.lang span { color: var(--fg-3); }
+.lang a { color: var(--fg-2); text-decoration: none; }
+.lang a:hover { color: var(--accent); text-decoration: underline; }
+
+/**
+ * **分野ごと・見本ごとのページ**（2026-09-20。`scripts/pages.mjs`）。
+ *
+ * 見本が 233 枚になったのに、世に出ている入口は 2 つだけだった。
+ * **1 枚ごとに URL が無いと、検索でも言語モデルでも引けない。**
+ *
+ * トップと同じ見た目にはしない —— こちらは**読むためのページ**で、
+ * 勧めるためのページではない。図と、その図の決まりごとだけを置く。
+ */
+body.sub { max-width: 920px; margin: 0 auto; padding: 0 20px; }
+.bar {
+  display: flex; align-items: baseline; gap: 16px;
+  padding: 20px 0 14px; border-bottom: 1px solid var(--border); font-size: 14px;
+}
+.bar .home { font-weight: 700; font-size: 17px; color: var(--fg-1); text-decoration: none; }
+.bar nav a { color: var(--fg-2); }
+body.sub main { padding: 28px 0 8px; }
+body.sub h1 { font-size: 28px; line-height: 1.35; margin: 6px 0 10px; }
+body.sub h2 { font-size: 17px; margin: 34px 0 10px; color: var(--fg-1); }
+body.sub p { line-height: 1.85; color: var(--fg-2); margin: 0 0 12px; }
+.crumb { font-size: 13px; color: var(--fg-3); margin: 0; }
+.lead { font-size: 17px; color: var(--fg-1); }
+.made { font-size: 13px; color: var(--fg-3); }
+body.sub figure {
+  margin: 20px 0 6px; padding: 18px; border: 1px solid var(--border);
+  border-radius: 8px; background: var(--paper);
+}
+body.sub figure img { width: 100%; height: auto; display: block; }
+.near { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+.near a { color: var(--fg-2); }
+.news-h { margin: 0 0 8px; font-size: 14px; color: var(--fg-2); }
+.news { margin: 0 0 28px; font-size: 14px; }
+.news time { color: var(--fg-3); font-variant-numeric: tabular-nums; display: inline-block; min-width: 3.2em; }
+.news li { display: flex; align-items: center; gap: 10px; }
+.news .thumb { width: 72px; height: 48px; flex: none; object-fit: contain; display: block;
+  background: var(--paper); border: 1px solid var(--border); border-radius: 4px; }
+.news span.thumb { background: none; border-color: transparent; }
+.cards { list-style: none; padding: 0; margin: 18px 0 0; display: grid; gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+.cards a { display: block; color: var(--fg-2); text-decoration: none; }
+.cards img {
+  width: 100%; height: auto; display: block; border: 1px solid var(--border);
+  border-radius: 6px; background: var(--paper); padding: 10px;
+}
+.cards span { display: block; margin-top: 8px; font-size: 14px; line-height: 1.6; }
+.cards a:hover span { color: var(--accent); }
+.foot {
+  margin-top: 48px; padding: 20px 0 56px; border-top: 1px solid var(--border);
+  font-size: 13px; color: var(--fg-3);
+}
+.foot a { color: var(--fg-2); }
+
+/** 分野の見出しから、分野ごとのページへ（2026-09-20）。 */
+h3.cat a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--border); }
+h3.cat a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+/**
+ * **徘徊**（2026-09-24）。個別ページから次の見本へ渡り歩く道が無い、という指摘。**意図していなかった。**
+ *
+ * 検索や SNS から 1 枚に降りてきた人が、**隣へ行く道**と
+ * **全部を見渡す道**を持っていなかった。
+ */
+
+/** 見本ページの下。前へ / 全部 / 次へ。 */
+.steps {
+  display: grid; grid-template-columns: 1fr auto 1fr; gap: 12px;
+  align-items: center; margin: 40px 0 0; padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+.step { color: var(--fg-2); text-decoration: none; font-size: 14px; line-height: 1.5; }
+.step:hover { color: var(--accent); }
+.step.next { text-align: right; }
+.step.index { text-align: center; white-space: nowrap; border-bottom: 1px solid var(--border); }
+.step span { color: var(--fg-3, var(--fg-2)); }
+@media (max-width: 560px) {
+  .steps { grid-template-columns: 1fr; gap: 10px; }
+  .step.next, .step.index { text-align: left; }
+}
+
+/** 全部の一覧。**絞り込みは JS だが、一覧そのものは JS 無しで読める。** */
+.sift { margin: 24px 0 8px; display: flex; gap: 14px; align-items: baseline; flex-wrap: wrap; }
+.sift input {
+  flex: 1 1 320px; padding: 10px 14px; font: inherit; font-size: 15px;
+  color: var(--fg); background: var(--bg-2, transparent);
+  border: 1px solid var(--border); border-radius: 8px;
+}
+.sift input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+.hit { margin: 0; color: var(--fg-2); font-size: 14px; white-space: nowrap; }
+.all .field { margin-top: 40px; }
+.all .field h2 { margin: 0; font-size: 17px; }
+.all .field h2 a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--border); }
+.all .field h2 a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+.all .field h2 small { color: var(--fg-2); font-weight: 400; margin-left: 8px; }
+
+/** パンくず（2026-09-24）。入口から現在地まで一本。 */
+.crumbs { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px; }
+.crumbs span { color: var(--fg-3, var(--fg-2)); }
+
+/**
+ * 正本の見出しに書いた表（2026-09-24）。
+ * 前は空行までを 1 段落に繋いでいたので、**表が 1 行に潰れていた**（17 枚・100 行）。
+ */
+table.note { border-collapse: collapse; margin: 18px 0; font-size: 15px; width: 100%; }
+table.note th, table.note td {
+  border: 1px solid var(--border); padding: 8px 12px; text-align: left; vertical-align: top;
+}
+table.note th { color: var(--fg); font-weight: 600; background: var(--bg-2, transparent); }
+table.note td { color: var(--fg-2); }
+
+/** 見出しの無い表（正本に `| | |` と書いてあるもの）。1 列目を見出しの扱いにする。 */
+table.note.bare td:first-child { color: var(--fg); font-weight: 600; white-space: nowrap; }
+
+/** 正本の書き方（バッククォート）を `<code>` にしたので、地の文と見分ける（2026-09-24）。 */
+main code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.92em; padding: 1px 5px; border-radius: 4px;
+  background: var(--bg-2, rgba(128,128,128,0.14)); color: var(--fg);
+}

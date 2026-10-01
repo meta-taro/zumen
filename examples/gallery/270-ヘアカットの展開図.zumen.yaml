@@ -1,0 +1,649 @@
+version: 1
+kind: placement
+arrows: true
+title: ヘアカットの展開図（何 mm ではなく、何度で引き出したか）
+# **展開図が書いているのは「何度に引き出して、どこを切ったか」。**
+# どこを何 mm 切ったかではなく、**何度で引き出したか**が図の主語になる。
+#
+# **0° は全部が 1 本の線に落ちてそろう（ワンレングス）。**
+# **90° は頭皮に直角で、どこも同じ長さになる（セイムレイヤー）。**
+# その間が**グラデーション**（下が短く上が長い）、**90° を超えるとロングレイヤー**
+# （上が短く下が長い）。**引き出した毛は戻るときに元の位置へ帰る** ——
+# 戻った先で段になるかどうかは、**引き出した角度だけで決まっている。**
+#
+# **頭を分けてから切る。** セクション（大きな区分）→ パネル（一度に持つ束）→
+# スライス（パネルの 1 枚）。**1 枚のスライスの中でしか角度は保てない**ので、
+# 厚く取るほど切り口がぼける。セクションの境（一点鎖線）は
+# **「そこで形が変わってよい」という宣言。**
+#
+# **同じ角度でも、ガイドの決め方で形が変わる。**
+# **固定ガイド**は同じ 1 か所へ集めて切るので、**引き寄せた距離がそのまま段差**になり、
+# 重さが集まって広がる形になる。**移動ガイド**は前に切ったパネルを次の基準にするので、
+# 差が積み上がらず均一な段になる。
+#
+# **1 枚に載せるのは 5 つ** —— セクションの境／スライスの向き／引き出す角度／
+# ガイド（固定か移動か）／切り口の向き。**1 つでも欠けると、別の人が切ると違う形になる。**
+# **展開図は、切った結果ではなく切り方の指示書。**
+nodes:
+  - id: t1
+    label: "① 展開図が書いているのは「何度に引き出して、どこを切ったか」"
+    marker: none
+    align: left
+    at: { x: 150, y: 150 }
+    size: { w: 720, h: 20 }
+  - id: h240
+    label: ""
+    marker: circle
+    at: { x: 196, y: 206 }
+    size: { w: 88, h: 88 }
+  - id: hn240
+    label: "頭"
+    marker: none
+    align: center
+    at: { x: 220, y: 241 }
+    size: { w: 40, h: 18 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 239, y: 293 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 239, y: 359 }
+    size: { w: 2, h: 2 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 259, y: 359 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 219, y: 359 }
+    size: { w: 2, h: 2 }
+  - id: d240
+    label: "0°"
+    marker: none
+    align: center
+    at: { x: 200, y: 390 }
+    size: { w: 80, h: 18 }
+  - id: n240
+    label: "ワンレングス"
+    marker: none
+    align: center
+    at: { x: 160, y: 410 }
+    size: { w: 160, h: 18 }
+  - id: s240
+    label: "段が入らない"
+    marker: none
+    align: center
+    at: { x: 160, y: 428 }
+    size: { w: 160, h: 18 }
+  - id: h420
+    label: ""
+    marker: circle
+    at: { x: 376, y: 206 }
+    size: { w: 88, h: 88 }
+  - id: hn420
+    label: "頭"
+    marker: none
+    align: center
+    at: { x: 400, y: 241 }
+    size: { w: 40, h: 18 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 450.1, y: 280.1 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 496.8, y: 326.8 }
+    size: { w: 2, h: 2 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 510.9, y: 312.6 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 482.6, y: 340.9 }
+    size: { w: 2, h: 2 }
+  - id: d420
+    label: "45°"
+    marker: none
+    align: center
+    at: { x: 380, y: 390 }
+    size: { w: 80, h: 18 }
+  - id: n420
+    label: "グラデーション"
+    marker: none
+    align: center
+    at: { x: 340, y: 410 }
+    size: { w: 160, h: 18 }
+  - id: s420
+    label: "下が短く、上が長い"
+    marker: none
+    align: center
+    at: { x: 340, y: 428 }
+    size: { w: 160, h: 18 }
+  - id: h600
+    label: ""
+    marker: circle
+    at: { x: 556, y: 206 }
+    size: { w: 88, h: 88 }
+  - id: hn600
+    label: "頭"
+    marker: none
+    align: center
+    at: { x: 580, y: 241 }
+    size: { w: 40, h: 18 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 643, y: 249 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 709, y: 249 }
+    size: { w: 2, h: 2 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 709, y: 229 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 709, y: 269 }
+    size: { w: 2, h: 2 }
+  - id: d600
+    label: "90°"
+    marker: none
+    align: center
+    at: { x: 560, y: 390 }
+    size: { w: 80, h: 18 }
+  - id: n600
+    label: "セイムレイヤー"
+    marker: none
+    align: center
+    at: { x: 520, y: 410 }
+    size: { w: 160, h: 18 }
+  - id: s600
+    label: "どこも同じ長さ"
+    marker: none
+    align: center
+    at: { x: 520, y: 428 }
+    size: { w: 160, h: 18 }
+  - id: h780
+    label: ""
+    marker: circle
+    at: { x: 736, y: 206 }
+    size: { w: 88, h: 88 }
+  - id: hn780
+    label: "頭"
+    marker: none
+    align: center
+    at: { x: 760, y: 241 }
+    size: { w: 40, h: 18 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 810.1, y: 217.9 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 856.8, y: 171.2 }
+    size: { w: 2, h: 2 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 842.6, y: 157.1 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 870.9, y: 185.4 }
+    size: { w: 2, h: 2 }
+  - id: d780
+    label: "135°"
+    marker: none
+    align: center
+    at: { x: 740, y: 390 }
+    size: { w: 80, h: 18 }
+  - id: n780
+    label: "ロングレイヤー"
+    marker: none
+    align: center
+    at: { x: 700, y: 410 }
+    size: { w: 160, h: 18 }
+  - id: s780
+    label: "上が短く、下が長い"
+    marker: none
+    align: center
+    at: { x: 700, y: 428 }
+    size: { w: 160, h: 18 }
+  - id: why1
+    label: "角度が形を決める。 0° は全部が 1 本の線に落ちてそろい（ワンレングス）、\n90° は頭に沿って同じ長さになる（セイムレイヤー）——\nその間がグラデーション、90° を超えると段が強くなる。\nどこを何 mm 切ったかではなく、何度で引き出したかが図の主語。"
+    at: { x: 150, y: 476 }
+    size: { w: 720, h: 92 }
+  - id: t2
+    label: "② 頭を分けてから切る"
+    marker: none
+    align: left
+    at: { x: 150, y: 596 }
+    size: { w: 720, h: 20 }
+  - id: head2
+    label: ""
+    marker: circle
+    at: { x: 234, y: 620 }
+    size: { w: 192, h: 192 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 233, y: 681 }
+    size: { w: 2, h: 2 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 425, y: 681 }
+    size: { w: 2, h: 2 }
+  - id: p18
+    label: ""
+    marker: none
+    at: { x: 233, y: 745 }
+    size: { w: 2, h: 2 }
+  - id: p19
+    label: ""
+    marker: none
+    at: { x: 425, y: 745 }
+    size: { w: 2, h: 2 }
+  - id: sec1
+    label: "トップ"
+    marker: none
+    align: center
+    at: { x: 270, y: 644 }
+    size: { w: 120, h: 18 }
+  - id: sec2
+    label: "ミドル"
+    marker: none
+    align: center
+    at: { x: 270, y: 704 }
+    size: { w: 120, h: 18 }
+  - id: sec3
+    label: "アンダー"
+    marker: none
+    align: center
+    at: { x: 270, y: 764 }
+    size: { w: 120, h: 18 }
+  - id: p20
+    label: ""
+    marker: none
+    at: { x: 419, y: 695 }
+    size: { w: 2, h: 2 }
+  - id: p21
+    label: ""
+    marker: none
+    at: { x: 495, y: 695 }
+    size: { w: 2, h: 2 }
+  - id: p22
+    label: ""
+    marker: none
+    at: { x: 419, y: 705 }
+    size: { w: 2, h: 2 }
+  - id: p23
+    label: ""
+    marker: none
+    at: { x: 495, y: 705 }
+    size: { w: 2, h: 2 }
+  - id: p24
+    label: ""
+    marker: none
+    at: { x: 419, y: 715 }
+    size: { w: 2, h: 2 }
+  - id: p25
+    label: ""
+    marker: none
+    at: { x: 495, y: 715 }
+    size: { w: 2, h: 2 }
+  - id: p26
+    label: ""
+    marker: none
+    at: { x: 419, y: 725 }
+    size: { w: 2, h: 2 }
+  - id: p27
+    label: ""
+    marker: none
+    at: { x: 495, y: 725 }
+    size: { w: 2, h: 2 }
+  - id: p28
+    label: ""
+    marker: none
+    at: { x: 419, y: 735 }
+    size: { w: 2, h: 2 }
+  - id: p29
+    label: ""
+    marker: none
+    at: { x: 495, y: 735 }
+    size: { w: 2, h: 2 }
+  - id: slice
+    label: "スライス（1 枚ずつ取る）"
+    marker: none
+    align: left
+    at: { x: 502, y: 748 }
+    size: { w: 220, h: 18 }
+  - id: h650_626
+    label: "分けるもの"
+    hatch: solid
+    at: { x: 650, y: 626 }
+    size: { w: 220, h: 24 }
+  - id: x650_650
+    label: "セクション"
+    at: { x: 650, y: 650 }
+    size: { w: 110, h: 24 }
+  - id: y650_650
+    label: "大きな区分"
+    align: left
+    at: { x: 760, y: 650 }
+    size: { w: 110, h: 24 }
+  - id: x650_674
+    label: "パネル"
+    at: { x: 650, y: 674 }
+    size: { w: 110, h: 24 }
+  - id: y650_674
+    label: "一度に持つ束"
+    align: left
+    at: { x: 760, y: 674 }
+    size: { w: 110, h: 24 }
+  - id: x650_698
+    label: "スライス"
+    at: { x: 650, y: 698 }
+    size: { w: 110, h: 24 }
+  - id: y650_698
+    label: "パネルの 1 枚"
+    align: left
+    at: { x: 760, y: 698 }
+    size: { w: 110, h: 24 }
+  - id: why2
+    label: "分けるのは、同じ条件でそろえるため。 1 枚のスライスの中でしか\n角度は保てないので、厚く取るほど切り口がぼける。\nセクションの境（一点鎖線）は、そこで形が変わってよいという宣言 ——\n境を書いていない展開図は、どこまで同じ切り方かが読めない。"
+    at: { x: 150, y: 846 }
+    size: { w: 720, h: 92 }
+  - id: t3
+    label: "③ 角度と仕上がり"
+    marker: none
+    align: left
+    at: { x: 910, y: 150 }
+    size: { w: 440, h: 20 }
+  - id: h910_186
+    label: "引き出す角度と名前"
+    hatch: solid
+    at: { x: 910, y: 186 }
+    size: { w: 440, h: 24 }
+  - id: x910_210
+    label: "0°（自然に落とす）"
+    at: { x: 910, y: 210 }
+    size: { w: 190, h: 24 }
+  - id: y910_210
+    label: "ワンレングス"
+    align: left
+    at: { x: 1100, y: 210 }
+    size: { w: 250, h: 24 }
+  - id: x910_234
+    label: "0° 〜 90° 未満"
+    at: { x: 910, y: 234 }
+    size: { w: 190, h: 24 }
+  - id: y910_234
+    label: "グラデーション"
+    align: left
+    at: { x: 1100, y: 234 }
+    size: { w: 250, h: 24 }
+  - id: x910_258
+    label: "90°（頭皮に直角）"
+    at: { x: 910, y: 258 }
+    size: { w: 190, h: 24 }
+  - id: y910_258
+    label: "セイムレイヤー"
+    align: left
+    at: { x: 1100, y: 258 }
+    size: { w: 250, h: 24 }
+  - id: x910_282
+    label: "90° を超える"
+    at: { x: 910, y: 282 }
+    size: { w: 190, h: 24 }
+  - id: y910_282
+    label: "ロングレイヤー"
+    align: left
+    at: { x: 1100, y: 282 }
+    size: { w: 250, h: 24 }
+  - id: why3
+    label: "同じ長さに切っても、角度が違えば別の形になる。\n引き出した毛は戻るときに元の位置へ帰る ——\n戻った先で段になるかどうかは、\n引き出した角度だけで決まっている。"
+    at: { x: 910, y: 320 }
+    size: { w: 440, h: 92 }
+  - id: t4
+    label: "④ ガイドを動かすか、動かさないか"
+    marker: none
+    align: left
+    at: { x: 910, y: 430 }
+    size: { w: 440, h: 20 }
+  - id: h910_460
+    label: "2 つのガイド"
+    hatch: solid
+    at: { x: 910, y: 460 }
+    size: { w: 440, h: 24 }
+  - id: x910_484
+    label: "固定ガイド"
+    at: { x: 910, y: 484 }
+    size: { w: 190, h: 24 }
+  - id: y910_484
+    label: "同じ 1 か所へ集めて切る"
+    align: left
+    at: { x: 1100, y: 484 }
+    size: { w: 250, h: 24 }
+  - id: x910_508
+    label: ""
+    at: { x: 910, y: 508 }
+    size: { w: 190, h: 24 }
+  - id: y910_508
+    label: "重さが集まり、広がる形になる"
+    align: left
+    at: { x: 1100, y: 508 }
+    size: { w: 250, h: 24 }
+  - id: x910_532
+    label: "移動ガイド"
+    at: { x: 910, y: 532 }
+    size: { w: 190, h: 24 }
+  - id: y910_532
+    label: "前に切ったパネルを次の基準にする"
+    align: left
+    at: { x: 1100, y: 532 }
+    size: { w: 250, h: 24 }
+  - id: x910_556
+    label: ""
+    at: { x: 910, y: 556 }
+    size: { w: 190, h: 24 }
+  - id: y910_556
+    label: "均一な段になり、全体がそろう"
+    align: left
+    at: { x: 1100, y: 556 }
+    size: { w: 250, h: 24 }
+  - id: why4
+    label: "同じ角度でも、ガイドの決め方で形が変わる。\n固定は「1 か所へ引き寄せる」ので、遠いパネルほど長く残る ——\n引き寄せた距離が、そのまま段差になる。\n移動は前の 1 枚だけを見るので、差が積み上がらない。"
+    at: { x: 910, y: 594 }
+    size: { w: 440, h: 92 }
+  - id: t5
+    label: "⑤ 展開図に書くこと"
+    marker: none
+    align: left
+    at: { x: 910, y: 704 }
+    size: { w: 440, h: 20 }
+  - id: h910_734
+    label: "1 枚に載せる項目"
+    hatch: solid
+    at: { x: 910, y: 734 }
+    size: { w: 440, h: 24 }
+  - id: x910_758
+    label: "セクションの境"
+    at: { x: 910, y: 758 }
+    size: { w: 190, h: 24 }
+  - id: y910_758
+    label: "どこで切り方を変えるか"
+    align: left
+    at: { x: 1100, y: 758 }
+    size: { w: 250, h: 24 }
+  - id: x910_782
+    label: "スライスの向き"
+    at: { x: 910, y: 782 }
+    size: { w: 190, h: 24 }
+  - id: y910_782
+    label: "横・縦・斜め"
+    align: left
+    at: { x: 1100, y: 782 }
+    size: { w: 250, h: 24 }
+  - id: x910_806
+    label: "引き出す角度"
+    at: { x: 910, y: 806 }
+    size: { w: 190, h: 24 }
+  - id: y910_806
+    label: "0〜180°"
+    align: left
+    at: { x: 1100, y: 806 }
+    size: { w: 250, h: 24 }
+  - id: x910_830
+    label: "ガイド"
+    at: { x: 910, y: 830 }
+    size: { w: 190, h: 24 }
+  - id: y910_830
+    label: "固定か移動か"
+    align: left
+    at: { x: 1100, y: 830 }
+    size: { w: 250, h: 24 }
+  - id: x910_854
+    label: "切り口の向き"
+    at: { x: 910, y: 854 }
+    size: { w: 190, h: 24 }
+  - id: y910_854
+    label: "毛に直角か、斜めか"
+    align: left
+    at: { x: 1100, y: 854 }
+    size: { w: 250, h: 24 }
+  - id: why5
+    label: "この 5 つがそろって、初めて同じ形が再現できる。\n1 つでも欠けると、別の人が切ったときに違う形になる ——\n展開図は、切った結果ではなく切り方の指示書。"
+    at: { x: 910, y: 892 }
+    size: { w: 440, h: 74 }
+  - id: r1
+    label: "展開図が書いているのは「何度に引き出して、どこを切ったか」です（①）。何 mm 切ったかではありません。"
+    marker: none
+    align: left
+    at: { x: 150, y: 984 }
+    size: { w: 1200, h: 18 }
+  - id: r2
+    label: "0° はワンレングス、90° はセイムレイヤー —— その間がグラデーション、90° を超えるとロングレイヤーです（③）。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1008 }
+    size: { w: 1200, h: 18 }
+  - id: r3
+    label: "引き出した毛は、戻るときに元の位置へ帰ります。 戻った先で段になるかどうかは、引き出した角度だけで決まります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1032 }
+    size: { w: 1200, h: 18 }
+  - id: r4
+    label: "頭を分けてから切ります（②）。セクション・パネル・スライスの 3 段階で、厚く取るほど切り口がぼけます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1056 }
+    size: { w: 1200, h: 18 }
+  - id: r5
+    label: "セクションの境は、そこで形が変わってよいという宣言です。 境を書いていない展開図は、どこまで同じ切り方かが読めません。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1080 }
+    size: { w: 1200, h: 18 }
+  - id: r6
+    label: "同じ角度でも、ガイドの決め方で形が変わります（④）。固定は引き寄せた距離がそのまま段差になり、移動は差が積み上がりません。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1104 }
+    size: { w: 1200, h: 18 }
+  - id: r7
+    label: "5 つがそろって、初めて同じ形が再現できます（⑤）。展開図は、切った結果ではなく切り方の指示書です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1128 }
+    size: { w: 1200, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p2
+    to: p3
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p4
+    to: p5
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p6
+    to: p7
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p8
+    to: p9
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p10
+    to: p11
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p12
+    to: p13
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p14
+    to: p15
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p16
+    to: p17
+    curve: none
+    line: chain
+    ends: { from: none, to: none }
+  - from: p18
+    to: p19
+    curve: none
+    line: chain
+    ends: { from: none, to: none }
+  - from: p20
+    to: p21
+    curve: none
+    ends: { from: none, to: none }
+  - from: p22
+    to: p23
+    curve: none
+    ends: { from: none, to: none }
+  - from: p24
+    to: p25
+    curve: none
+    ends: { from: none, to: none }
+  - from: p26
+    to: p27
+    curve: none
+    ends: { from: none, to: none }
+  - from: p28
+    to: p29
+    curve: none
+    ends: { from: none, to: none }

@@ -1,0 +1,732 @@
+version: 1
+kind: placement
+arrows: true
+title: 賃貸の募集図面（マイソク）—— 1K と、表示規約の 22 項目（架空）
+scale: { mm: 25 }
+wall: { mm: 120, outer: 180 }
+north: { face: up, at: { x: 290, y: 530 } }
+palette:
+  Wall: "#6f6f76"
+  Fixture: "#8f8f97"
+  Room: "#c99a55"
+  Wet: "#5b9bd5"
+  Deck: "#a67c52"
+styles:
+  room: { color: Wall, fill: Room, hatch: rows }
+  wet: { color: Wall, fill: Wet, hatch: grid }
+  entry: { color: Wall, hatch: grid }
+  store: { color: Wall }
+  deck: { color: Deck, fill: Deck, hatch: rows }
+# **マイソク —— 間取りと、法で決まった 22 項目を 1 枚に。**
+#
+# 賃貸の募集図面。不動産会社の店頭・ポータル・FAX で回る紙で、様式がほぼ決まっている。
+#
+# | | |
+# |---|---|
+# | 上 | 家賃の帯（賃料・管理費・敷金・礼金）。借りる人が最初に見る |
+# | 中 | 間取り（帖数・略号 UB／CL／BL／冷）と設備の一覧 |
+# | 下 | 物件概要 —— **表示規約が「必ず書け」と決めた項目** |
+# | 最下 | 仲介する会社の帯。**ここだけ差し替えて、各社が同じ紙を配る**（だから「帯替え」と呼ぶ） |
+#
+# 物件概要の 22 項目は、不動産の表示に関する公正競争規約 施行規則の**別表 9**
+# （中古賃貸マンション・貸家・中古賃貸アパート等）に並ぶ必要な表示事項。
+# 徒歩の分数は**道路距離 80m につき 1 分、1 分未満は 1 分**（同規則 第 9 条）—— 600m は 7.5 分なので 8 分。
+#
+# 出どころ —— 不動産公正取引協議会「不動産の表示に関する公正競争規約・同施行規則」別表 9、第 9 条（9）。
+# **物件・会社・免許番号・金額はすべて架空**（○○ は伏せ字。実在の会社の体裁をとらない）。
+nodes:
+  - id: bk0
+    label: "賃料"
+    align: center
+    hatch: solid
+    at: { x: 60, y: 80 }
+    size: { w: 60, h: 30 }
+  - id: bv0
+    label: "82,000 円"
+    align: center
+    at: { x: 120, y: 80 }
+    size: { w: 90, h: 30 }
+  - id: bk1
+    label: "管理費"
+    align: center
+    hatch: solid
+    at: { x: 210, y: 80 }
+    size: { w: 60, h: 30 }
+  - id: bv1
+    label: "5,000 円"
+    align: center
+    at: { x: 270, y: 80 }
+    size: { w: 90, h: 30 }
+  - id: bk2
+    label: "敷金"
+    align: center
+    hatch: solid
+    at: { x: 360, y: 80 }
+    size: { w: 60, h: 30 }
+  - id: bv2
+    label: "1 ヶ月"
+    align: center
+    at: { x: 420, y: 80 }
+    size: { w: 90, h: 30 }
+  - id: bk3
+    label: "礼金"
+    align: center
+    hatch: solid
+    at: { x: 510, y: 80 }
+    size: { w: 60, h: 30 }
+  - id: bv3
+    label: "なし"
+    align: center
+    at: { x: 570, y: 80 }
+    size: { w: 90, h: 30 }
+  - id: b_type
+    label: "1K　25.20㎡　鉄筋コンクリート造 3 階"
+    marker: none
+    align: left
+    at: { x: 60, y: 124 }
+    size: { w: 360, h: 16 }
+  - id: b_walk
+    label: "○○線「○○」駅 徒歩 8 分（600m）"
+    marker: none
+    align: left
+    at: { x: 60, y: 146 }
+    size: { w: 360, h: 16 }
+  - id: gen
+    label: "玄関"
+    style: entry
+    at: { x: 120, y: 190 }
+    size: { w: 72, h: 52 }
+    openings:
+      - { kind: door, side: top, at: 0.5, width: 32, swing: out }
+      - { kind: open, side: bottom, at: 0.5, width: 40 }
+  - id: kit
+    label: "K"
+    style: room
+    at: { x: 120, y: 242 }
+    size: { w: 72, h: 108 }
+    openings:
+      - { kind: door, side: bottom, at: 0.3, width: 32, hinge: end }
+  - id: ub
+    label: "UB"
+    style: wet
+    at: { x: 192, y: 190 }
+    size: { w: 72, h: 64 }
+    openings:
+      - { kind: slide, side: bottom, at: 0.3, width: 24 }
+  - id: sen
+    label: "洗面"
+    style: wet
+    at: { x: 192, y: 254 }
+    size: { w: 32, h: 48 }
+    openings:
+      - { kind: slide, side: left, at: 0.5, width: 24 }
+  - id: wc
+    label: "WC"
+    style: wet
+    at: { x: 224, y: 254 }
+    size: { w: 40, h: 48 }
+    openings:
+      - { kind: door, side: bottom, at: 0.5, width: 20, swing: out }
+  - id: cl
+    label: "CL"
+    style: store
+    at: { x: 192, y: 302 }
+    size: { w: 72, h: 48 }
+    openings:
+      - { kind: slide, side: bottom, at: 0.5, width: 50 }
+  - id: you
+    label: "洋室"
+    technology: "6.7帖"
+    style: room
+    at: { x: 120, y: 350 }
+    size: { w: 144, h: 120 }
+    openings:
+      - { kind: slide, side: bottom, at: 0.5, width: 70 }
+      - { kind: window, side: right, at: 0.5, width: 40 }
+  - id: bal
+    label: "BL"
+    align: center
+    style: deck
+    at: { x: 120, y: 470 }
+    size: { w: 144, h: 40 }
+  - id: f1
+    label: ""
+    marker: none
+    at: { x: 121, y: 249 }
+    size: { w: 2, h: 2 }
+  - id: f2
+    label: ""
+    marker: none
+    at: { x: 139, y: 265 }
+    size: { w: 2, h: 2 }
+  - id: f3
+    label: ""
+    marker: none
+    at: { x: 137, y: 297 }
+    size: { w: 2, h: 2 }
+  - id: f4
+    label: ""
+    marker: none
+    at: { x: 137, y: 307 }
+    size: { w: 2, h: 2 }
+  - id: f5
+    label: ""
+    marker: none
+    at: { x: 163, y: 317 }
+    size: { w: 2, h: 2 }
+  - id: t_r
+    label: "冷"
+    marker: none
+    align: center
+    at: { x: 164, y: 326 }
+    size: { w: 26, h: 14 }
+  - id: f6
+    label: ""
+    marker: none
+    at: { x: 249, y: 193 }
+    size: { w: 2, h: 2 }
+  - id: f7
+    label: ""
+    marker: none
+    at: { x: 193, y: 255 }
+    size: { w: 2, h: 2 }
+  - id: f8
+    label: ""
+    marker: none
+    at: { x: 212, y: 259 }
+    size: { w: 2, h: 2 }
+  - id: f9
+    label: ""
+    marker: none
+    at: { x: 234, y: 253 }
+    size: { w: 2, h: 2 }
+  - id: f10
+    label: ""
+    marker: none
+    at: { x: 243, y: 281 }
+    size: { w: 2, h: 2 }
+  - id: f11
+    label: ""
+    marker: none
+    at: { x: 155, y: 191 }
+    size: { w: 2, h: 2 }
+  - id: f12
+    label: ""
+    marker: none
+    at: { x: 119, y: 225 }
+    size: { w: 2, h: 2 }
+  - id: f13
+    label: ""
+    marker: none
+    at: { x: 247, y: 477 }
+    size: { w: 2, h: 2 }
+  - id: t_ac
+    label: "室外機"
+    marker: none
+    align: right
+    at: { x: 204, y: 484 }
+    size: { w: 50, h: 14 }
+  - id: eh
+    label: "設備"
+    align: center
+    hatch: solid
+    at: { x: 296, y: 190 }
+    size: { w: 330, h: 24 }
+  - id: eq0
+    label: "バス・トイレ別"
+    align: center
+    at: { x: 296, y: 214 }
+    size: { w: 165, h: 24 }
+  - id: eq1
+    label: "独立洗面台"
+    align: center
+    at: { x: 461, y: 214 }
+    size: { w: 165, h: 24 }
+  - id: eq2
+    label: "室内洗濯機置場"
+    align: center
+    at: { x: 296, y: 238 }
+    size: { w: 165, h: 24 }
+  - id: eq3
+    label: "エアコン 1 基"
+    align: center
+    at: { x: 461, y: 238 }
+    size: { w: 165, h: 24 }
+  - id: eq4
+    label: "オートロック"
+    align: center
+    at: { x: 296, y: 262 }
+    size: { w: 165, h: 24 }
+  - id: eq5
+    label: "宅配ボックス"
+    align: center
+    at: { x: 461, y: 262 }
+    size: { w: 165, h: 24 }
+  - id: eq6
+    label: "フローリング"
+    align: center
+    at: { x: 296, y: 286 }
+    size: { w: 165, h: 24 }
+  - id: eq7
+    label: "インターネット無料"
+    align: center
+    at: { x: 461, y: 286 }
+    size: { w: 165, h: 24 }
+  - id: th0
+    label: "物件概要（表示規約 施行規則 別表 9 の 22 項目）"
+    align: center
+    hatch: solid
+    at: { x: 60, y: 570 }
+    size: { w: 900, h: 24 }
+  - id: tk0
+    label: "1 広告主の名称"
+    align: left
+    at: { x: 60, y: 594 }
+    size: { w: 180, h: 22 }
+  - id: tv0
+    label: "○○不動産（架空）"
+    align: left
+    at: { x: 240, y: 594 }
+    size: { w: 270, h: 22 }
+  - id: tk1
+    label: "2 事務所の所在地"
+    align: left
+    at: { x: 60, y: 616 }
+    size: { w: 180, h: 22 }
+  - id: tv1
+    label: "東京都○○区○○（架空）"
+    align: left
+    at: { x: 240, y: 616 }
+    size: { w: 270, h: 22 }
+  - id: tk2
+    label: "3 電話番号"
+    align: left
+    at: { x: 60, y: 638 }
+    size: { w: 180, h: 22 }
+  - id: tv2
+    label: "03-0000-0000（架空）"
+    align: left
+    at: { x: 240, y: 638 }
+    size: { w: 270, h: 22 }
+  - id: tk3
+    label: "4 宅建業の免許証番号"
+    align: left
+    at: { x: 60, y: 660 }
+    size: { w: 180, h: 22 }
+  - id: tv3
+    label: "○○知事（○）第○○○○○号（架空）"
+    align: left
+    at: { x: 240, y: 660 }
+    size: { w: 270, h: 22 }
+  - id: tk4
+    label: "5 所属団体・公取協加盟"
+    align: left
+    at: { x: 60, y: 682 }
+    size: { w: 180, h: 22 }
+  - id: tv4
+    label: "○○（架空）"
+    align: left
+    at: { x: 240, y: 682 }
+    size: { w: 270, h: 22 }
+  - id: tk5
+    label: "6 取引態様"
+    align: left
+    at: { x: 60, y: 704 }
+    size: { w: 180, h: 22 }
+  - id: tv5
+    label: "媒介（仲介）"
+    align: left
+    at: { x: 240, y: 704 }
+    size: { w: 270, h: 22 }
+  - id: tk6
+    label: "7 物件の所在地"
+    align: left
+    at: { x: 60, y: 726 }
+    size: { w: 180, h: 22 }
+  - id: tv6
+    label: "東京都○○区○○町（町名まで）"
+    align: left
+    at: { x: 240, y: 726 }
+    size: { w: 270, h: 22 }
+  - id: tk7
+    label: "8 交通の利便"
+    align: left
+    at: { x: 60, y: 748 }
+    size: { w: 180, h: 22 }
+  - id: tv7
+    label: "○○線「○○」駅 徒歩 8 分（600m）"
+    align: left
+    at: { x: 240, y: 748 }
+    size: { w: 270, h: 22 }
+  - id: tk8
+    label: "9 構造・階数・所在階"
+    align: left
+    at: { x: 60, y: 770 }
+    size: { w: 180, h: 22 }
+  - id: tv8
+    label: "鉄筋コンクリート造 5 階建て ／ 3 階"
+    align: left
+    at: { x: 240, y: 770 }
+    size: { w: 270, h: 22 }
+  - id: tk9
+    label: "10 専有面積"
+    align: left
+    at: { x: 60, y: 792 }
+    size: { w: 180, h: 22 }
+  - id: tv9
+    label: "25.20㎡（壁芯）"
+    align: left
+    at: { x: 240, y: 792 }
+    size: { w: 270, h: 22 }
+  - id: tk10
+    label: "11 建築年月"
+    align: left
+    at: { x: 60, y: 814 }
+    size: { w: 180, h: 22 }
+  - id: tv10
+    label: "2015 年 3 月"
+    align: left
+    at: { x: 240, y: 814 }
+    size: { w: 270, h: 22 }
+  - id: tk11
+    label: "12 入居可能時期"
+    align: left
+    at: { x: 510, y: 594 }
+    size: { w: 180, h: 22 }
+  - id: tv11
+    label: "即入居可"
+    align: left
+    at: { x: 690, y: 594 }
+    size: { w: 270, h: 22 }
+  - id: tk12
+    label: "13 賃料"
+    align: left
+    at: { x: 510, y: 616 }
+    size: { w: 180, h: 22 }
+  - id: tv12
+    label: "82,000 円"
+    align: left
+    at: { x: 690, y: 616 }
+    size: { w: 270, h: 22 }
+  - id: tk13
+    label: "14 礼金"
+    align: left
+    at: { x: 510, y: 638 }
+    size: { w: 180, h: 22 }
+  - id: tv13
+    label: "なし"
+    align: left
+    at: { x: 690, y: 638 }
+    size: { w: 270, h: 22 }
+  - id: tk14
+    label: "15 敷金"
+    align: left
+    at: { x: 510, y: 660 }
+    size: { w: 180, h: 22 }
+  - id: tv14
+    label: "1 ヶ月（82,000 円）。償却なし"
+    align: left
+    at: { x: 690, y: 660 }
+    size: { w: 270, h: 22 }
+  - id: tk15
+    label: "16 損害保険"
+    align: left
+    at: { x: 510, y: 682 }
+    size: { w: 180, h: 22 }
+  - id: tv15
+    label: "要（2 年 15,000 円）"
+    align: left
+    at: { x: 690, y: 682 }
+    size: { w: 270, h: 22 }
+  - id: tk16
+    label: "17 家賃保証会社"
+    align: left
+    at: { x: 510, y: 704 }
+    size: { w: 180, h: 22 }
+  - id: tv16
+    label: "要（初回 賃料等の 50%）"
+    align: left
+    at: { x: 690, y: 704 }
+    size: { w: 270, h: 22 }
+  - id: tk17
+    label: "18 管理費"
+    align: left
+    at: { x: 510, y: 726 }
+    size: { w: 180, h: 22 }
+  - id: tv17
+    label: "5,000 円"
+    align: left
+    at: { x: 690, y: 726 }
+    size: { w: 270, h: 22 }
+  - id: tk18
+    label: "19 定期建物賃貸借"
+    align: left
+    at: { x: 510, y: 748 }
+    size: { w: 180, h: 22 }
+  - id: tv18
+    label: "普通借家（定期ではない）"
+    align: left
+    at: { x: 690, y: 748 }
+    size: { w: 270, h: 22 }
+  - id: tk19
+    label: "20 契約期間"
+    align: left
+    at: { x: 510, y: 770 }
+    size: { w: 180, h: 22 }
+  - id: tv19
+    label: "2 年"
+    align: left
+    at: { x: 690, y: 770 }
+    size: { w: 270, h: 22 }
+  - id: tk20
+    label: "21 取引条件の有効期限"
+    align: left
+    at: { x: 510, y: 792 }
+    size: { w: 180, h: 22 }
+  - id: tv20
+    label: "2026 年 10 月 31 日"
+    align: left
+    at: { x: 690, y: 792 }
+    size: { w: 270, h: 22 }
+  - id: tk21
+    label: "22 公開日 ／ 次回更新"
+    align: left
+    at: { x: 510, y: 814 }
+    size: { w: 180, h: 22 }
+  - id: tv21
+    label: "2026 年 9 月 29 日 ／ 10 月 13 日"
+    align: left
+    at: { x: 690, y: 814 }
+    size: { w: 270, h: 22 }
+  - id: band
+    label: "○○不動産（架空）　TEL 03-0000-0000　○○知事（○）第○○○○○号　取引態様：媒介"
+    marker: none
+    align: left
+    at: { x: 60, y: 848 }
+    size: { w: 900, h: 18 }
+  - id: n0
+    label: "賃貸の募集図面（マイソク）。上に家賃の帯と間取り、下に物件概要、いちばん下に仲介する会社の帯（ここを差し替えて各社が配る）。"
+    marker: none
+    align: left
+    at: { x: 60, y: 880 }
+    size: { w: 900, h: 16 }
+  - id: n1
+    label: "物件概要の 22 項目は、不動産の表示に関する公正競争規約 施行規則の別表 9（中古賃貸マンション等）が挙げる「必要な表示事項」。"
+    marker: none
+    align: left
+    at: { x: 60, y: 900 }
+    size: { w: 900, h: 16 }
+  - id: n2
+    label: "徒歩の分数は道路距離 80m を 1 分、端数は切り上げ（600m ÷ 80m ＝ 7.5 → 8 分）。帖は 1.62㎡ 以上で数える。"
+    marker: none
+    align: left
+    at: { x: 60, y: 920 }
+    size: { w: 900, h: 16 }
+  - id: n3
+    label: "線 —— Wall ＝ 壁、Fixture ＝ 設備。物件・会社・免許番号・金額はすべて架空です（○○ は伏せ字）。"
+    marker: none
+    align: left
+    at: { x: 60, y: 940 }
+    size: { w: 900, h: 16 }
+edges:
+  - from: f1
+    to: f1
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 122, y: 250 }
+      - { x: 146, y: 250 }
+      - { x: 146, y: 322 }
+      - { x: 122, y: 322 }
+  - from: f2
+    to: f2
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 140, y: 266 }
+      - { x: 139.2, y: 269 }
+      - { x: 137, y: 271.2 }
+      - { x: 134, y: 272 }
+      - { x: 131, y: 271.2 }
+      - { x: 128.8, y: 269 }
+      - { x: 128, y: 266 }
+      - { x: 128.8, y: 263 }
+      - { x: 131, y: 260.8 }
+      - { x: 134, y: 260 }
+      - { x: 137, y: 260.8 }
+      - { x: 139.2, y: 263 }
+  - from: f3
+    to: f3
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 138, y: 298 }
+      - { x: 137.5, y: 300 }
+      - { x: 136, y: 301.5 }
+      - { x: 134, y: 302 }
+      - { x: 132, y: 301.5 }
+      - { x: 130.5, y: 300 }
+      - { x: 130, y: 298 }
+      - { x: 130.5, y: 296 }
+      - { x: 132, y: 294.5 }
+      - { x: 134, y: 294 }
+      - { x: 136, y: 294.5 }
+      - { x: 137.5, y: 296 }
+  - from: f4
+    to: f4
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 138, y: 308 }
+      - { x: 137.5, y: 310 }
+      - { x: 136, y: 311.5 }
+      - { x: 134, y: 312 }
+      - { x: 132, y: 311.5 }
+      - { x: 130.5, y: 310 }
+      - { x: 130, y: 308 }
+      - { x: 130.5, y: 306 }
+      - { x: 132, y: 304.5 }
+      - { x: 134, y: 304 }
+      - { x: 136, y: 304.5 }
+      - { x: 137.5, y: 306 }
+  - from: f5
+    to: f5
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 164, y: 318 }
+      - { x: 190, y: 318 }
+      - { x: 190, y: 346 }
+      - { x: 164, y: 346 }
+  - from: f6
+    to: f6
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 250, y: 194 }
+      - { x: 254, y: 195.1 }
+      - { x: 256.9, y: 198 }
+      - { x: 258, y: 202 }
+      - { x: 258, y: 240 }
+      - { x: 256.9, y: 244 }
+      - { x: 254, y: 246.9 }
+      - { x: 250, y: 248 }
+      - { x: 206, y: 248 }
+      - { x: 202, y: 246.9 }
+      - { x: 199.1, y: 244 }
+      - { x: 198, y: 240 }
+      - { x: 198, y: 202 }
+      - { x: 199.1, y: 198 }
+      - { x: 202, y: 195.1 }
+      - { x: 206, y: 194 }
+  - from: f7
+    to: f7
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 194, y: 256 }
+      - { x: 222, y: 256 }
+      - { x: 222, y: 278 }
+      - { x: 194, y: 278 }
+  - from: f8
+    to: f8
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 212.6, y: 260.4 }
+      - { x: 214.8, y: 261 }
+      - { x: 216.4, y: 262.6 }
+      - { x: 217, y: 264.8 }
+      - { x: 217, y: 269.2 }
+      - { x: 216.4, y: 271.4 }
+      - { x: 214.8, y: 273 }
+      - { x: 212.6, y: 273.6 }
+      - { x: 203.4, y: 273.6 }
+      - { x: 201.2, y: 273 }
+      - { x: 199.6, y: 271.4 }
+      - { x: 199, y: 269.2 }
+      - { x: 199, y: 264.8 }
+      - { x: 199.6, y: 262.6 }
+      - { x: 201.2, y: 261 }
+      - { x: 203.4, y: 260.4 }
+  - from: f9
+    to: f9
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 235.2, y: 254 }
+      - { x: 252.8, y: 254 }
+      - { x: 252.8, y: 261.2 }
+      - { x: 235.2, y: 261.2 }
+  - from: f10
+    to: f10
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 244, y: 282 }
+      - { x: 246.3, y: 281.2 }
+      - { x: 248.4, y: 279 }
+      - { x: 250.2, y: 275.6 }
+      - { x: 251.2, y: 271.6 }
+      - { x: 251.1, y: 267.6 }
+      - { x: 249.7, y: 264.2 }
+      - { x: 247.2, y: 262 }
+      - { x: 244, y: 261.2 }
+      - { x: 240.8, y: 262 }
+      - { x: 238.3, y: 264.2 }
+      - { x: 236.9, y: 267.6 }
+      - { x: 236.8, y: 271.6 }
+      - { x: 237.8, y: 275.6 }
+      - { x: 239.6, y: 279 }
+      - { x: 241.7, y: 281.2 }
+  - from: f11
+    to: f11
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 156, y: 192 }
+      - { x: 190, y: 192 }
+      - { x: 190, y: 204 }
+      - { x: 156, y: 204 }
+  - from: f12
+    to: f12
+    close: false
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 120, y: 226 }
+      - { x: 192, y: 226 }
+  - from: f13
+    to: f13
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 248, y: 478 }
+      - { x: 262, y: 478 }
+      - { x: 262, y: 502 }
+      - { x: 248, y: 502 }

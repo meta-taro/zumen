@@ -1,0 +1,1734 @@
+/**
+ * 自動レイアウト。ELK に任せ、**人が置いた場所だけは動かさない**。
+ *
+ * 原案 §26 の 2（人が微調整した後に Auto Layout と共存できるか）がここ。
+ * 正本に pin が残っていても、描くときに無視されるなら保持したことにならない。
+ *
+ * 採った方針は「ELK に全部組ませてから、pin のノードだけ人の座標へ戻す」。
+ * ELK の interactive 指定で pin を組み立ての入力として渡す手もあるが、
+ * その形は **pin の座標が「ヒント」になり、1 の位まで一致しなくなる**。
+ * 人が置いた場所が数ピクセルずれて返るのは、判定基準 3.1 では失われたと数える。
+ *
+ * 代償として、pin と自動配置が重なりうる。**これは隠さず数えて記録する**
+ * （`overlaps`）。合否には使わない（判定基準 §0 — 綺麗さで判定しない）が、
+ * 実用に耐えるかの材料になる。
+ */
+import ELK from 'elkjs/lib/elk.bundled.js';
+import type { ElkExtendedEdge, ElkNode } from 'elkjs/lib/elk-api.js';
+
+import { asText, getPins, parse } from './format.ts';
+import { directionOf, elkDirection } from './direction.ts';
+import { MARGIN, gridOf, marginFor, northOf, scaleOf } from './grid.ts';
+import { allAxes, slideViews, viewBounds, viewsOf } from './views.ts';
+import { build } from './construct.ts';
+import type { Source as ConstructSource, Stroke } from './construct.ts';
+import type { View } from './views.ts';
+import type { Grid, NorthMark } from './grid.ts';
+import { arrowsOf } from './arrows.ts';
+import { axonOf, project } from './axon.ts';
+import type { Axon } from './axon.ts';
+import { hatchOf } from './hatch.ts';
+import { legsOf, symbolOf } from './symbol.ts';
+import type { Symbol } from './symbol.ts';
+import type { Hatch } from './hatch.ts';
+import { markerOf } from './marker.ts';
+import type { Marker } from './marker.ts';
+import { endsOf } from './ends.ts';
+import { lineOf } from './line.ts';
+import { curveOf, viaOf } from './curve.ts';
+import { floorsOf, verticalOf } from './floor.ts';
+import type { Vertical } from './floor.ts';
+import type { Curve, Point } from './curve.ts';
+import { colorOf, paletteOf as routePalette } from './palette.ts';
+import { weightOf } from './weight.ts';
+import type { Weight } from './weight.ts';
+import type { Line } from './line.ts';
+import type { Ends } from './ends.ts';
+import { radiusOf } from './range.ts';
+import { wallOf } from './wall.ts';
+import type { Wall } from './wall.ts';
+import { wrapOf, wrapOptions } from './wrap.ts';
+import { alignOf } from './align.ts';
+import type { Align } from './align.ts';
+import { writeOf } from './write.ts';
+import type { Write } from './write.ts';
+import { kindOf, measureOf } from './kind.ts';
+import { separate } from './separate.ts';
+import { openingsOf, swingsOf } from './openings.ts';
+import type { Hole } from './openings.ts';
+import { growFor, shapeOf } from './shapes.ts';
+
+export interface Box {
+  id: string;
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+  /** 属するグループ。無所属は null。 */
+  group: string | null;
+  label: string;
+  type: string;
+  /** 体裁の指定。人が与えたものだけが入る。 */
+  appearance: string | null;
+  /** **壁に開く穴**（扉・窓）。平面図でだけ描く。 */
+  openings: Hole[];
+  /**
+   * 版や役割（仕様 §3.1 の `technology`）。**箱の中に副題として描く。**
+   *
+   * 形式にあって検証も通るのに描かれていなかった（Issue #3 の 4）。
+   * 所属や版を書ける唯一の場所なので、描かれないとラベルへ畳むしかなくなる。
+   */
+  technology: string | null;
+  /**
+   * **符号**（仕様 §3.1 の `tag`）。箱の左上に小さく描く。
+   *
+   * 業界の専門性は、形ではなく符号で表されている（D22）。
+   * 構造図の `C1`（柱）・`G1`（大梁）、配管の `2"-CS-101`、電気の盤番号。
+   * **`label` の代わりではない。** 名前と符号は別のもので、図面は両方を出す。
+   */
+  tag: string | null;
+  /**
+   * **範囲を示す円の半径**（px。`src/range.ts`）。
+   *
+   * クレーンの作業半径・影の離隔・消火器の警戒区域。
+   * **物の形ではなく、届く範囲の注記。**
+   */
+  radius: number | null;
+  /** **配置図での印の描き方**（`src/marker.ts`）。既定は矩形。 */
+  marker: Marker;
+  /**
+   * **枠の線種**（`src/line.ts`）。既定は実線。
+   *
+   * 辺だけの語だと思われていたが、**枠にも要る**（2026-09-19）——
+   * 敷地境界線は一点鎖線、仕上がりの内側の安全領域は破線、
+   * 点字の「出ていない点」は点線の丸。
+   * 書いても効かず、**見本 194 で 57 個が黙って落ちていた。**
+   */
+  line: Line;
+  /** **ハッチング**（材料・区域の模様。`src/hatch.ts`）。既定は無地。 */
+  hatch: Hatch;
+  /** **縦組みにするか**（`src/write.ts`）。既定は横組み。 */
+  write: Write;
+  /** **文字の寄せ**（`src/align.ts`）。既定は中央。注記を箇条書きに見せるために要る。 */
+  align: Align;
+  /** **どの階にあるか**（`src/floor.ts`）。書かなければ null。**位置は変えない。** */
+  floor: string | null;
+  /** **電気・電子の図記号**（`src/symbol.ts`）。無ければ null。 */
+  symbol: Symbol | null;
+  /** **路線の色**（`src/palette.ts`）。`palette` に無ければ null。 */
+  color: string | null;
+  /**
+   * **面の色**（`src/palette.ts`）。`palette` に無ければ null。
+   *
+   * `color`（線）とは別。**枠を染めずに、面だけを薄く敷く。**
+   * 淡い色を `color` に書くと、枠（＝壁）まで淡くなって消えるため。
+   */
+  tint: string | null;
+  /** 人が置いた場所か。 */
+  pinned: boolean;
+}
+
+export interface PlacedEdge {
+  /** `from>to`。pin の鍵と同じ。 */
+  id: string;
+  from: string;
+  to: string;
+  label: string | null;
+  /** 実際に通る点の列。両端は箱の縁。 */
+  points: { x: number; y: number }[];
+  /** 人が曲げたか。 */
+  pinned: boolean;
+  /**
+   * **端の記号**（`src/ends.ts`）。ER の多重度・UML の関係・端子。
+   *
+   * **書いていなければ null。** その場合だけ既定の矢印が出る。
+   */
+  ends: Ends | null;
+  /** **線種**（`src/line.ts`）。UML の実現・依存、仮設・計画線。 */
+  line: Line;
+  /** **線の太さ**（`src/weight.ts`）。路線図の路線。 */
+  weight: Weight;
+  /** **通り道の丸め方**（`src/curve.ts`）。道路の平面線形・河川・園路。 */
+  curve: Curve;
+  /** **輪を閉じるか**（`src/curve.ts`）。池・トラック・外形。 */
+  close: boolean;
+  /**
+   * **閉じた輪の中の模様**（`src/hatch.ts`）。既定は無地。
+   *
+   * README が長く「まだ無いもの」に挙げていた**面の塗り**がこれ
+   * （「池の輪郭は描けるが、塗れない」）。2026-09-15。
+   */
+  hatch: Hatch;
+  /** **階をまたぐ動線**（`src/floor.ts`）。階段・ES・EV。 */
+  vertical: Vertical;
+  /** **路線の色**（`src/palette.ts`）。`palette` に無ければ null。 */
+  color: string | null;
+}
+
+export interface Placed {
+  boxes: Box[];
+  groups: Box[];
+  edges: PlacedEdge[];
+  width: number;
+  height: number;
+  /**
+   * **人が置いたものどうしが重なっている組**（Issue 015）。
+   *
+   * 動かしていない。人の指定を動かして重なりを解いたら、
+   * それは手直しを壊したことになる（判定基準 3.1）。**人へ出して選んでもらう。**
+   */
+  collisions: [string, string][];
+  /** **図の題**（`title`）。書かなければ null。**描かないが、SVG の中に入れる。** */
+  title: string | null;
+  /** **階の一覧**（`src/floor.ts`）。下から上へ。書かなければ空。 */
+  floors: string[];
+  /** **折り返したか**（`src/wrap.ts`）。細長い構成図に、もう済んでいる逃げ道を言わないため。 */
+  wrap: boolean;
+  /** **`wrap` を正本に書いたか。** `false` と書いてあるなら、一度試して戻した形かもしれない。 */
+  wrapWritten: boolean;
+  /** **通り芯**（`src/grid.ts`）。書かなければ空。配置図でだけ描く。 */
+  grid: Grid;
+  /**
+   * **1 枚の紙に置いた、2 つ以上の図**（`src/views.ts`。D35）。
+   *
+   * 各階平面図・船の一般配置図・三面図・展開図。
+   * **書かなければ空**で、これまでどおり紙ぜんたいで 1 つの図。
+   */
+  views: View[];
+  /**
+   * **作図の結果**（`src/construct.ts`。D36）。**円と弧だけ。**
+   *
+   * `kind: construction` のときだけ入る。**書かなければ空**。
+   * 座標は正本に無く、**手順から解いたもの**。
+   */
+  strokes: Stroke[];
+  /** **解けなかったところ**（作図）。黙って落とさない。 */
+  troubles: string[];
+  /** 1 px が何 mm か。**書かなければ寸法の数値を出さない。** */
+  mm: number | null;
+  /** **寸法をフィートとインチで書くか**（`scale: { in: … }`）。 */
+  feet: boolean;
+  /** 方位。書かなければ描かない。 */
+  north: NorthMark | null;
+  /** **壁の厚み**（`src/wall.ts`）。書かなければこれまでどおりの線の太さ。 */
+  wall: Wall | null;
+  /** **線に向きがあるか**（`src/arrows.ts`）。既定は真。 */
+  arrows: boolean;
+}
+
+/** 箱の下限と上限。**文字から決めるが、際限なく広げない**（Issue #3 の 2）。 */
+const NODE_WIDTH = 160;
+const NODE_HEIGHT = 60;
+const NODE_MAX_WIDTH = 320;
+/** 文字の左右に空ける分。 */
+const LABEL_PADDING = 24;
+/** 描くときの文字の大きさ（`src/render.ts` と揃える）。 */
+const LABEL_FONT = 15;
+/** 副題（`technology`）の文字の大きさ。 */
+const SUB_FONT = 11;
+/** 符号（`tag`）の文字の大きさ。**副題よりさらに小さい。** */
+const TAG_FONT = 10;
+/** 符号を箱の角から離す分。 */
+export const TAG_INSET = 8;
+/** 同じ 2 点を結ぶ線どうしを開く幅（`fanOut`）。細い箱ではこれより詰める。 */
+const FAN_STEP = 16;
+
+/**
+ * ラベルの見た目の幅を測る。
+ *
+ * **全角は半角の 2 倍**として数える。日本語のラベルが箱に入らず、
+ * 左端のノードでは x が負になって画面外へ切れていた（Issue #3 の 2）。
+ *
+ * 正確な字送りは書体で変わるが、**書体は貼り先が決める**ので正確には測れない
+ * （Issue 007 §3.1）。ここは「入らないよりはまし」を狙う見積もり。
+ */
+export function labelWidth(label: string, font = LABEL_FONT): number {
+  // **2 行以上の名前は、いちばん長い行で測る**（2026-09-18）。
+  // 実物の図面は部屋の名前を積む（`Shoes-in / Closet`）——
+  // つないだ長さで測ると、入る名前まで「入らない」と言うことになる。
+  if (label.includes('\n')) {
+    return Math.max(...label.split('\n').map((line) => labelWidth(line, font)));
+  }
+  let units = 0;
+  for (const ch of label) {
+    // 半角の範囲（ASCII と半角カナ）は 1、それ以外は 2。
+    units += /[\u0020-\u007e\uff61-\uff9f]/.test(ch) ? 1 : 2;
+  }
+  // 半角 1 文字を、字の大きさのおよそ 0.55 倍として見積もる。
+  return Math.ceil((units * font * 0.55) / 2) * 2;
+}
+
+/**
+ * ラベルが入る箱の幅。**下限より狭くせず、上限より広げない。**
+ *
+ * 副題（`technology`）があれば、そちらも入る幅にする。
+ */
+function widthFor(
+  label: string,
+  technology: string | null = null,
+  tag: string | null = null,
+): number {
+  const sub = technology === null ? 0 : labelWidth(technology, SUB_FONT);
+  const needed = Math.max(labelWidth(label), sub) + LABEL_PADDING * 2;
+  // **符号は角に置くので、ラベルとは別に幅が要る**（B5）。
+  // `2"-CS-101-A3` のような配管のライン番号は、部屋名より長い。
+  const code = tag === null ? 0 : labelWidth(tag, TAG_FONT) + TAG_INSET * 2;
+  return Math.min(NODE_MAX_WIDTH, Math.max(NODE_WIDTH, needed, code));
+}
+
+/**
+ * 向きは正本が決める（`src/direction.ts`）。**既定は横。**
+ *
+ * 余白は詰めてある。以前は箱が図の **17〜24%** しか占めておらず、
+ * 8 割が余白だった。**空いているほど良い図ではない。**
+ */
+function layoutOptions(direction: string): Record<string, string> {
+  return { ...LAYOUT_OPTIONS, 'elk.direction': direction };
+}
+
+const LAYOUT_OPTIONS = {
+  'elk.algorithm': 'layered',
+  'elk.direction': 'RIGHT',
+  'elk.spacing.nodeNode': '30',
+  'elk.layered.spacing.nodeNodeBetweenLayers': '56',
+  'elk.padding': '[top=40,left=24,bottom=24,right=24]',
+  /**
+   * **囲みをまたぐ辺を、層の計算に使わせる**（Issue #1）。
+   *
+   * これが無いと、囲みの中と外が別々に並べられ、
+   * **囲みどうしの順序が辺から決まらない。**
+   * 一方向の鎖でも終点が最上段に来て、図の全高を逆流する矢印が生まれ、
+   * 途中のノードの箱を突き抜ける。
+   *
+   * 実測（4 ノード・3 辺・一方向）:
+   *
+   * | | 外部 | 本番 | 保管先 |
+   * |---|---|---|---|
+   * | 無し | 40 | 184 | **40**（最上段へ戻る） |
+   * | 有り | 40 | 238 | **560** |
+   */
+  'elk.hierarchyHandling': 'INCLUDE_CHILDREN',
+  /**
+   * **交差を減らす手間をかける**（2026-09-14）。
+   *
+   * 既定（7）のままだと、**節が増えたときに線が絡む。**
+   * 見本の構成図はどれも 7〜14 節で交差 0 だったが、
+   * **実務規模で試したことがなかった。** 測ったらこうなった。
+   *
+   * | 節 | 既定 | 40 |
+   * |---|---|---|
+   * | 20 | 4 | 4 |
+   * | 40 | 33 | **22** |
+   * | 60 | 88 | **51** |
+   *
+   * **図も小さくなる**（60 節で 1938×2316 → 1696×2036）。
+   * 代償は組み立ての時間 —— 80 節で 36ms → 77ms。
+   * **人が待つのは 1 回だけ**なので、この差は払う。
+   *
+   * ただし**これで実務規模が読めるようになるわけではない。**
+   * 30 節を超えると `tooSmallToPrint` が真になる（印刷でも字が読めない）。
+   * **図を分けるかどうかは意味の判断**なので、機械は指摘だけする。
+   */
+  'elk.layered.thoroughness': '40',
+  /**
+   * **線を直角で引く**（Issue #3 の 1）。
+   *
+   * 以前は中心から中心へ斜めの直線を引いていた。
+   * ノードが増えるほど交差が増え、線が箱の上を通る。
+   * **ELK は箱を避ける経路を計算できるのに、それを捨てて自前で直線を引いていた。**
+   */
+  'elk.edgeRouting': 'ORTHOGONAL',
+};
+
+export async function layout(text: string): Promise<Placed> {
+  const diagram = parse(text);
+  const pins = getPins(diagram);
+  // **作図は並べない**（D36）。座標は手順から解くので、自動配置を通さない。
+  if (String((diagram.doc.toJS() as { kind?: unknown }).kind ?? '') === 'construction') {
+    return construct(diagram.doc.toJS() as Record<string, unknown>, pins);
+  }
+  const nodes = readNodes(diagram);
+  const groupIds = diagram.groupIds();
+
+  const groupLabels = readGroupLabels(diagram);
+  // **路線の色は正本が決める**（`src/palette.ts`）。こちらは色を持たない。
+  const routes = routePalette((diagram.doc.toJS() as { palette?: unknown }).palette);
+  // **向きは正本が決める**（`direction: right | down`。既定は横）。
+  const raw = diagram.doc.toJS() as {
+    direction?: unknown;
+    wrap?: unknown;
+    title?: unknown;
+    floors?: unknown;
+    grid?: unknown;
+    views?: unknown;
+    palette?: unknown;
+    scale?: unknown;
+    north?: unknown;
+    wall?: unknown;
+    arrows?: unknown;
+  };
+  const direction = elkDirection(directionOf(raw.direction));
+  // **折り返すかは正本が決める**（`src/wrap.ts`）。既定は折り返さない。
+  const wrapped = wrapOf(raw.wrap);
+  const wrapWritten = raw.wrap !== undefined && raw.wrap !== null;
+  const wrap = wrapOptions(wrapped);
+  const graph = buildGraph(nodes, groupIds, diagram.edges(), pins, direction, wrap);
+  const laid = await new ELK().layout(graph);
+
+  const boxes: Box[] = [];
+  const groups: Box[] = [];
+  collect(laid, 0, 0, nodes, groupLabels, boxes, groups);
+  const routeMap = collectRoutes(laid, groups, nodes);
+
+  /**
+   * **ELK がどこへ置いたか**を控える（Issue #8）。
+   *
+   * このあと箱は 2 回動く（人の `pins` と、重なりの解消）。
+   * **辺の通り道は ELK が組んだときの位置で計算されている**ので、
+   * 動いた箱に繋がる辺は、そのままだと**元の位置を指したまま宙で切れる。**
+   *
+   * 実際にそうなっていた。同梱の例で `db` を動かしてあり、
+   * **GUI を開いた人が最初に見る図で、箱に線が 1 本も繋がっていなかった。**
+   */
+  const laidAt = new Map(boxes.map((box) => [box.id, { x: box.x, y: box.y }]));
+
+  /**
+   * **AI が書いた置き場所を当てる**（配置図のみ。仕様 §3.1 の `at`）。
+   *
+   * 人の `pins` より先に当てる —— **下に置いて、人の値で上書きされる**ようにする。
+   * `at` が無い要素は、機械が置いた場所のまま（黙って重ねない）。
+   *
+   * 構成図では見ない。置き場所は機械が決めるのが構成図の定義（`src/kind.ts`）。
+   */
+  const inSource = measureOf(kindOf(text)).positionsInSource;
+  /** **書いて置かれた箱。** 動かさないし、接していても重なりとして数えない。 */
+  const written = new Set<string>();
+  if (inSource) {
+    const at = new Map(nodes.filter((n) => n.at !== null).map((n) => [n.id, n.at!]));
+    for (const box of boxes) {
+      const point = at.get(box.id);
+      if (point === undefined) continue;
+      box.x = point.x;
+      box.y = point.y;
+      written.add(box.id);
+    }
+  }
+
+  // 人が置いた場所・付けた体裁へ戻す。ELK が何を決めたかに関わらず、人の値が勝つ。
+  for (const box of boxes) {
+    const pin = pins[box.id];
+    if (pin === undefined) continue;
+    if (pin.position !== undefined) {
+      box.x = pin.position.x;
+      box.y = pin.position.y;
+      box.pinned = true;
+    }
+    // **人が書く場所なので、ここも数字が来る**（`label: 8080`）。Issue #5 と同じ。
+    const label = asText(pin.label);
+    if (label !== null) box.label = label;
+    const appearance = asText(pin.appearance);
+    if (appearance !== null) box.appearance = appearance;
+  }
+
+  /**
+   * 人が置いた場所と重なった機械の箱を退ける（Issue 015）。
+   * **人の箱は 1 px も動かさない。** 動かせない組（人どうし）は返して人へ出す。
+   *
+   * **配置図では退けない**（2026-09-11。店舗のレイアウトを描かせて出た）。
+   * 間取りや売場では、**部屋や棚が接しているのが普通**で、重なりではない。
+   * 退けると、書いた座標が黙って動く —— **配置図では座標そのものが内容。**
+   */
+  const { locked } = separate(boxes, written);
+
+  // 人が枠の外へ動かしたら、枠のほうを広げる。
+  // 人の位置を枠の中へ押し戻すと、それは手直しを壊したことになる（判定基準 3.1）。
+  // 枠は「この範囲が VPC」という意味なので、中身に合わせて動くほうが正しい。
+  fitGroups(boxes, groups, inSource);
+
+  // **動いた箱に繋がる辺だけ引き直す。** 動いていない辺は 1 px も変えない
+  // （ELK の直交ルーティングは、そのままのほうが読める）。
+  const moved = new Set(
+    boxes.filter((box) => {
+      const was = laidAt.get(box.id);
+      return was !== undefined && (was.x !== box.x || was.y !== box.y);
+    }).map((box) => box.id),
+  );
+
+  const rawEdges = readEdges(diagram);
+  const edges = routeEdges(rawEdges, boxes, pins, routeMap, moved);
+  // **色は鍵から引く。** `palette` に無い鍵は使わない（勝手な色を作らない）。
+  for (const [index, line] of edges.entries()) {
+    line.color = colorOf(rawEdges[index]?.colorKey, routes);
+  }
+  for (const box of boxes) {
+    const node = nodes.find((n) => n.id === box.id);
+    box.color = colorOf(node?.color, routes);
+    box.tint = colorOf(node?.fill, routes);
+  }
+  /**
+   * **通り芯と寸法線の分だけ、外側へ空ける**（`src/grid.ts`）。
+   *
+   * 正本の座標は余白を知らないので、**描く直前に全部ずらす。**
+   * 先にずらすと `at` に書いた値と図の座標が食い違い、
+   * 人が「40 と書いたのに 118 にある」と読むことになる。
+   */
+  const grid = gridOf(raw.grid);
+  /**
+   * **図ごとの寸法系**（D35）。余白と紙の大きさは**全部の芯をまとめて**測るが、
+   * 描くのは図ごと（`src/render.ts`）。まとめないと、
+   * 外側の図の符号と寸法が紙からはみ出す。
+   */
+  const views = viewsOf(raw.views);
+  /**
+   * **方位記号は右上の余白に置かれる**（`src/dimensions.ts` の `drawNorth`）。
+   *
+   * 通り芯が無い図では余白が 0 なので、**方位だけ書いた図では紙の外へ出る**
+   * （2026-09-16。見本 112 で「N」が画用紙からはみ出していた）。要る分だけ広げる。
+   */
+  const north = northOf(raw.north);
+  const base = marginFor(allAxes(views, grid));
+  const margin =
+    north === null
+      ? base
+      : { ...base, top: Math.max(base.top, MARGIN.top), right: Math.max(base.right, MARGIN.right) };
+  /**
+   * **ずらす量は「足りない分」だけ。**
+   *
+   * 決まった量だけずらしていたので、**囲み（`groups`）が中の箱より上と左へ
+   * 張り出す分**（名前を書く分）が余白を食い、
+   * **上に並ぶはずの通り芯符号が、まるごと紙の外へ出ていた**
+   * （2026-09-15。見本 27・28・31 で X1〜X6 の丸が 1 つも描かれていなかった）。
+   *
+   * **通り芯の符号は上下・左右の両方に出るのが図面の作法。**
+   * 足りない分だけずらせば、人が書いた座標を動かす量も最小になる。
+   */
+  const inner = { x: 0, y: 0 };
+  if (boxes.length > 0 || groups.length > 0) {
+    inner.x = Math.min(...[...boxes, ...groups].map((b) => b.x));
+    inner.y = Math.min(...[...boxes, ...groups].map((b) => b.y));
+  }
+  const shift = {
+    left: Math.max(0, margin.left - inner.x),
+    top: Math.max(0, margin.top - inner.y),
+  };
+  if (shift.left > 0 || shift.top > 0) {
+    for (const box of [...boxes, ...groups]) {
+      box.x += shift.left;
+      box.y += shift.top;
+    }
+    for (const edge of edges) {
+      for (const point of edge.points) {
+        point.x += shift.left;
+        point.y += shift.top;
+      }
+    }
+    // **通り芯も一緒にずらす。** ここでずらしておけば、描く側は余白を知らずに済む。
+    for (const axis of grid.x) axis.at += shift.left;
+    for (const axis of grid.y) axis.at += shift.top;
+    slideViews(views, shift.left, shift.top);
+  }
+
+  /**
+   * **負の座標を画用紙の中へ入れる。**
+   *
+   * 正本に書いた座標は、原点が左上だとは限らない
+   * （工程表は本体より左に見出しの列を置く）。
+   * SVG に負の画用紙は無いので、**負のときだけ**まとめてずらす。
+   *
+   * **負が無ければ 1 px も動かさない。**
+   * 人が `pins.position` に書いた座標がそのまま出ることは、この製品の保証
+   * （判定基準 3.1 / `test/human-wins.test.ts`）。**近いだけで動かしてはいけない。**
+   *
+   * 負を使った図は、**図ぜんたいがずれる**（相対の位置関係は変わらない）。
+   * 正本の値は動かさない。
+   */
+  const edge = bounds(boxes, groups, edges, grid);
+  const slideX = edge.minX < 0 ? -edge.minX : 0;
+  const slideY = edge.minY < 0 ? -edge.minY : 0;
+  if (slideX > 0 || slideY > 0) {
+    for (const box of [...boxes, ...groups]) {
+      box.x += slideX;
+      box.y += slideY;
+    }
+    for (const line of edges) {
+      for (const point of line.points) {
+        point.x += slideX;
+        point.y += slideY;
+      }
+    }
+    for (const axis of grid.x) axis.at += slideX;
+    for (const axis of grid.y) axis.at += slideY;
+    slideViews(views, slideX, slideY);
+  }
+
+  const size = extent(boxes, groups, edges, allAxes(views, grid), views);
+  const scale = scaleOf(raw.scale);
+  return {
+    boxes,
+    groups,
+    edges,
+    wrap: wrapped,
+    wrapWritten,
+    collisions: locked,
+    title: asText(raw.title),
+    floors: floorsOf(raw.floors),
+    grid,
+    views,
+    // **作図でない図には、円と弧は無い。**
+    strokes: [],
+    troubles: [],
+    mm: scale?.mm ?? null,
+    feet: scale?.feet ?? false,
+    north,
+    wall: wallOf(raw.wall),
+    arrows: arrowsOf(raw.arrows),
+    width: size.width + margin.right,
+    height: size.height + margin.bottom,
+  };
+}
+
+/** グループの枠を、中身を含む大きさへ広げる。 */
+/**
+ * 枠を中身に合わせる。
+ *
+ * 構成図では**広げるだけ** —— 人が枠の外へ動かしたら枠のほうを広げる。
+ * 中へ押し戻すと、それは手直しを壊したことになる（判定基準 3.1）。
+ *
+ * **配置図では縮めもする**（`shrink`）。
+ * `at` で中身が寄ったのに枠が元の大きさのまま残ると、**囲みどうしが重なる**
+ * （2026-09-11。店舗のレイアウトで、売場の枠がバックヤードに飲み込まれた）。
+ */
+function fitGroups(boxes: Box[], groups: Box[], shrink = false): void {
+  /**
+   * 囲みと中身の間。
+   *
+   * **配置図では詰める。** 実物の平面図では、外周の壁が部屋の壁そのもので、
+   * 間に隙間は無い。24px 空けると、建物の周りに廊下があるように見える。
+   * 見出しの分だけは上に残す（囲みの名前を書く場所）。
+   */
+  const PADDING = shrink ? 4 : 24;
+  const TITLE = shrink ? 26 : 40;
+  for (const group of groups) {
+    const children = boxes.filter((box) => box.group === group.id);
+    if (children.length === 0) continue;
+    const around = {
+      left: Math.min(...children.map((c) => c.x - PADDING)),
+      top: Math.min(...children.map((c) => c.y - TITLE)),
+      right: Math.max(...children.map((c) => c.x + c.w + PADDING)),
+      bottom: Math.max(...children.map((c) => c.y + c.h + PADDING)),
+    };
+    const left = shrink ? around.left : Math.min(group.x, around.left);
+    const top = shrink ? around.top : Math.min(group.y, around.top);
+    const right = shrink ? around.right : Math.max(group.x + group.w, around.right);
+    const bottom = shrink ? around.bottom : Math.max(group.y + group.h, around.bottom);
+    group.x = left;
+    group.y = top;
+    group.w = right - left;
+    group.h = bottom - top;
+  }
+}
+
+/** 枠からはみ出した子を返す。合否ではなく観測値。 */
+export function groupEscapes(placed: Placed): string[] {
+  const out: string[] = [];
+  for (const box of placed.boxes) {
+    if (box.group === null) continue;
+    const group = placed.groups.find((g) => g.id === box.group);
+    if (group === undefined) continue;
+    const inside =
+      box.x >= group.x &&
+      box.y >= group.y &&
+      box.x + box.w <= group.x + group.w &&
+      box.y + box.h <= group.y + group.h;
+    if (!inside) out.push(box.id);
+  }
+  return out;
+}
+
+/**
+ * **はみ出して重なっている組**（どちらも相手を含んでいない）。合否ではなく観測値。
+ *
+ * `overlaps` は**入れ子も数える**ので、配置図では鳴りっぱなしになる
+ * ―― 枠の中に節を入れる、区画の中に机を置く、盤の上に石を置く。
+ * **入れ子は意図であることがほとんど**で、見ても直すところが無い。
+ *
+ * **直すところがあるのは、どちらも相手を含んでいない重なり。**
+ * 冷蔵ケースと弁当什器が床の同じ場所を取っている、
+ * 消防車が立入禁止区域へはみ出している、注記が通路の上に乗っている ——
+ * 実際にこの形で**見本 10 枚に間違いが埋まっていた**（2026-09-14）。
+ *
+ * **ただし、わざと重ねる図もある。** 伏図の柱はスラブの上に立ち、
+ * 断面図の水抜管は壁を貫き、碁石は盤の線の上に置く。
+ * だから**合否ではなく観測値**にして、良し悪しは人が決める（`crossings` と同じ）。
+ */
+/** 何も描かない小さな節（折れ線の足場）。`edgesUnderBoxes` が塗らないのと同じ筋。 */
+function anchorOnly(box: Box): boolean {
+  return box.marker === 'none' && box.label === '' && box.w <= 4 && box.h <= 4;
+}
+
+export function straddles(placed: Placed): [string, string][] {
+  const by = new Map(placed.boxes.map((box) => [box.id, box]));
+  return overlaps(placed).filter(([left, right]) => {
+    const a = by.get(left)!;
+    const b = by.get(right)!;
+    // **線の錨は、箱ではない**（2026-09-19）。折れ線や自分自身への辺の端に置く
+    // 2px・`marker: none`・名前なしの節は**何も描かない** —— 通り道の足場であって、
+    // 床の場所を取る物ではない。数えていたせいで **27 組・8 枚**が嘘の観測値になり、
+    // 見本 61 は**その組しか無いのに**「わざと重ねている」へ登録されていた。
+    if (anchorOnly(a) || anchorOnly(b)) return false;
+    const inside = (x: Box, y: Box): boolean =>
+      x.x <= y.x && x.y <= y.y && x.x + x.w >= y.x + y.w && x.y + x.h >= y.y + y.h;
+    return !inside(a, b) && !inside(b, a);
+  });
+}
+
+/**
+ * **またぎの、重なっている大きさ**（2026-09-20）。
+ *
+ * `straddles` は組しか返さないので、**どちらへ何 px 動かせば解けるかが分からない。**
+ * 狭いほうの辺を詰めれば解けるので、**幅と高さの小さいほうが動かす量**になる。
+ */
+export function straddlePlaces(placed: Placed): { a: string; b: string; by: { x: number; y: number } }[] {
+  const by = new Map(placed.boxes.map((box) => [box.id, box]));
+  return straddles(placed).map(([left, right]) => {
+    const a = by.get(left)!;
+    const b = by.get(right)!;
+    return {
+      a: left,
+      b: right,
+      by: {
+        x: Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x),
+        y: Math.min(a.y + a.h, b.y + b.h) - Math.max(a.y, b.y),
+      },
+    };
+  });
+}
+
+/**
+ * **箱の塗りに隠れて消える辺**（`edge` の id と、それを隠す箱の id）。
+ *
+ * `arrows: false` のとき、辺は**箱より先に**描かれる（`src/render.ts`）。
+ * 停車駅案内図の「線の上に駅の印を置く」は、それで成り立っている。
+ *
+ * その代わり、**枠の中へ引いた線は、枠の塗りに隠れて消える。**
+ * 2026-09-14〜15 に 3 回踏んだ —— 見本 97 のカメラの視野、
+ * 見本 101 のスピーカーの指向、見本 111 の速度照査パターン。
+ * どれも**数の検査は 0 のまま**で、ブラウザで開くまで気づかなかった。
+ *
+ * **印の無い箱（`marker: none`）は塗らない**ので、隠さない。
+ * 通り道の足場に置く 2px の点も、これに当たる。
+ */
+export function edgesUnderBoxes(placed: Placed): [string, string][] {
+  if (placed.arrows) return [];
+  const opaque = placed.boxes.filter((box) => box.marker !== 'none');
+  const found: [string, string][] = [];
+  for (const edge of placed.edges) {
+    const cover = opaque.find((box) =>
+      edge.points.every(
+        (p) => p.x > box.x && p.x < box.x + box.w && p.y > box.y && p.y < box.y + box.h,
+      ),
+    );
+    if (cover !== undefined) found.push([edge.id, cover.id]);
+  }
+  return found;
+}
+
+/** 重なっている組を返す。合否ではなく観測値。 */
+/**
+ * **丸い節**（`marker: circle` / `ellipse` で、幅と高さが同じもの）。
+ *
+ * 丸の外接四角は、**四隅が実物より外へ出ている。**
+ * 輪の上に丸を並べると（花火の星、盤上の石、円卓の席）、
+ * 丸どうしは離れているのに四角だけが重なる。
+ */
+function roundOf(box: Box): { cx: number; cy: number; r: number } | null {
+  if (box.marker !== 'circle' && box.marker !== 'ellipse') return null;
+  if (Math.abs(box.w - box.h) > 0.5) return null;
+  return { cx: box.x + box.w / 2, cy: box.y + box.h / 2, r: box.w / 2 };
+}
+
+/**
+ * **紙の上で場所を取り合っているか。**
+ *
+ * 基本は外接四角どうし。ただし**丸は四角ではない**（2026-09-19）——
+ * 丸どうしのときは中心の距離で見る。
+ * 割物花火の断面（見本 212）で、割薬の円と、その外を囲む星 36 個が
+ * **3mm 離れているのに 36 組すべて重なりとして数えられた。**
+ * 四隅の分だけ、丸は四角より小さい。
+ */
+function hits(a: Box, b: Box): boolean {
+  const apart = a.x + a.w <= b.x || b.x + b.w <= a.x || a.y + a.h <= b.y || b.y + b.h <= a.y;
+  if (apart) return false;
+  const [ra, rb] = [roundOf(a), roundOf(b)];
+  if (ra === null || rb === null) return true;
+  return Math.hypot(ra.cx - rb.cx, ra.cy - rb.cy) < ra.r + rb.r;
+}
+
+export function overlaps(placed: Placed): [string, string][] {
+  const found: [string, string][] = [];
+  const boxes = placed.boxes;
+  for (let i = 0; i < boxes.length; i += 1) {
+    for (let j = i + 1; j < boxes.length; j += 1) {
+      const a = boxes[i]!;
+      const b = boxes[j]!;
+      if (hits(a, b)) found.push([a.id, b.id]);
+    }
+  }
+  return found;
+}
+
+/**
+ * 線どうしが交差している数（Issue 004）。**合否ではなく観測値。**
+ *
+ * 交差が多い図は読めない。ただし**少なければ良いとも限らない**ので、
+ * 数えるだけにして、良し悪しは人が決める（Issue 004 の注意 — AI に自己採点させない）。
+ *
+ * 同じ点から出ている線どうしは数えない（扇形に広がるのは交差ではない）。
+ */
+export function crossings(placed: Placed): number {
+  return countCrossings(placed).count;
+}
+
+/**
+ * **どの 2 本が交わっているか**（2026-09-19）。
+ *
+ * `straddles` も `overlappingText` も `edgesUnderBoxes` も組を返すのに、
+ * ここだけが数だった。「2 本交わっています」では、**どれとどれかを自分で探すしかない。**
+ * 同じ 2 本が何か所で交わっても、組は 1 つだけ返す（探すのに要るのは場所ではなく相手）。
+ */
+export function crossingEdges(placed: Placed): [string, string][] {
+  return countCrossings(placed).pairs.map(([a, b]) => [a, b] as [string, string]);
+}
+
+/**
+ * **交わっている場所まで返す**（2026-09-20）。
+ *
+ * 組だけでは足りない。`path()` で引いた折れ線の id は `p16>p17` のような
+ * **書き手が付けていない名前**なので、「どの 2 本か」を言われても図の中で探せない。
+ * **紙の上の座標**が分かれば、その場所を見て直せる
+ * （エスカレーターの引出線を直すとき、自分で台本を書いて座標を出した）。
+ */
+export function crossingPlaces(placed: Placed): { a: string; b: string; at: P }[] {
+  return countCrossings(placed).pairs.map(([a, b, at]) => ({ a, b, at }));
+}
+
+function countCrossings(placed: Placed): { count: number; pairs: [string, string, P][] } {
+  const segments: { seg: [P, P]; id: string }[] = [];
+  for (const edge of placed.edges) {
+    for (let i = 0; i + 1 < edge.points.length; i += 1) {
+      segments.push({ seg: [edge.points[i]!, edge.points[i + 1]!], id: edge.id });
+    }
+  }
+
+  let count = 0;
+  const seen = new Set<string>();
+  const pairs: [string, string, P][] = [];
+  for (let i = 0; i < segments.length; i += 1) {
+    for (let j = i + 1; j < segments.length; j += 1) {
+      if (!intersects(segments[i]!.seg, segments[j]!.seg)) continue;
+      count += 1;
+      const [a, b] = [segments[i]!.id, segments[j]!.id].sort() as [string, string];
+      const key = `${a}\u0000${b}`;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      pairs.push([a, b, meetOf(segments[i]!.seg, segments[j]!.seg)]);
+    }
+  }
+  return { count, pairs };
+}
+
+interface P {
+  x: number;
+  y: number;
+}
+
+/**
+ * **2 本が交わる点。** `intersects` が真のときだけ呼ぶので、平行は来ない。
+ */
+function meetOf([a, b]: [P, P], [c, d]: [P, P]): P {
+  const r = { x: b.x - a.x, y: b.y - a.y };
+  const sg = { x: d.x - c.x, y: d.y - c.y };
+  const den = r.x * sg.y - r.y * sg.x;
+  const t = ((c.x - a.x) * sg.y - (c.y - a.y) * sg.x) / den;
+  return { x: Math.round(a.x + r.x * t), y: Math.round(a.y + r.y * t) };
+}
+
+/**
+ * 線分が交わるか。**端点を共有しているだけなら交差としない。**
+ *
+ * ## T 字は交差ではない（2026-09-15）
+ *
+ * **一方の端点が、もう一方の線の上に乗っているだけ**なら、線は交わっていない ——
+ * **接している。**
+ *
+ * 家系図・系統図・組織図は、**1 本の横棒から何本も落とす**のが正しい書き方で、
+ * 落とし口はその横棒の上にある。これを交差と数えると、
+ * **実物どおりに描いた図ほど交差が増える**ことになり、
+ * 書き手を「棒を分ける」という汚い形へ押しやる
+ * （法定相続情報一覧図・見本 130 で踏んだ）。
+ *
+ * だから**どれか 1 つでも 0 なら、交差としない。**
+ * 0 は「その点が相手の線の上にある」という意味で、**跨いでいない。**
+ */
+function intersects([a, b]: [P, P], [c, d]: [P, P]): boolean {
+  if (same(a, c) || same(a, d) || same(b, c) || same(b, d)) return false;
+  const d1 = side(c, d, a);
+  const d2 = side(c, d, b);
+  const d3 = side(a, b, c);
+  const d4 = side(a, b, d);
+  // **接している（T 字）か、重なっている（同じ向き）。** どちらも跨いでいない。
+  if (d1 === 0 || d2 === 0 || d3 === 0 || d4 === 0) return false;
+  return d1 > 0 !== d2 > 0 && d3 > 0 !== d4 > 0;
+}
+
+function same(a: P, b: P): boolean {
+  return a.x === b.x && a.y === b.y;
+}
+
+function side(a: P, b: P, p: P): number {
+  return (b.x - a.x) * (p.y - a.y) - (b.y - a.y) * (p.x - a.x);
+}
+
+// --- 組み立て --------------------------------------------------------------
+
+interface NodeInfo {
+  id: string;
+  label: string;
+  type: string;
+  group: string | null;
+  /** 版や役割（仕様 §3.1 の `technology`）。無ければ null。 */
+  technology: string | null;
+  /** 符号（仕様 §3.1 の `tag`）。無ければ null。 */
+  tag: string | null;
+  /** 範囲を示す円の半径（px）。無ければ null。 */
+  radius: number | null;
+  /** 印の描き方（`src/marker.ts`）。 */
+  marker: Marker;
+  /** 枠の線種（`src/line.ts`）。 */
+  line: Line;
+  /** 模様（`src/hatch.ts`）。 */
+  hatch: Hatch;
+  /** 縦組みにするか（`src/write.ts`）。 */
+  write: Write;
+  /** 文字の寄せ（`src/align.ts`）。 */
+  align: Align;
+  /** どの階にあるか（`src/floor.ts`）。 */
+  floor: string | null;
+  /** 図記号（`src/symbol.ts`）。 */
+  symbol: Symbol | null;
+  /** 線の色の鍵（`src/palette.ts`）。 */
+  color: unknown;
+  /** 面の色の鍵（`src/palette.ts`）。 */
+  fill: unknown;
+  /**
+   * **AI が書いた置き場所**（仕様 §3.1。配置図で使う）。
+   *
+   * `pins.position`（人）とは別。**人のほうが常に強い**（D5 の向きは変わらない）。
+   * 構成図では見ない —— 置き場所は機械が決める。
+   */
+  at: { x: number; y: number } | null;
+  /**
+   * **AI が書いた大きさ**（仕様 §3.1）。
+   *
+   * 間取りを描かせてみて分かった —— **部屋の大きさが全部同じでは図にならない。**
+   * 16 畳の LDK と便所が同じ箱で出た（2026-09-11）。
+   *
+   * `pins.size`（人）とは別。**人のほうが常に強い。**
+   * 置き場所と違い、**構成図でも効く**（大きさは並べ方と関係ない）。
+   */
+  size: { w: number; h: number } | null;
+  /** **壁に開く穴**（扉・窓）。平面図でだけ使う（`src/openings.ts`）。 */
+  openings: Hole[];
+}
+
+function readNodes(diagram: ReturnType<typeof parse>): NodeInfo[] {
+  const raw = diagram.doc.toJS() as {
+    /** **図ぜんたいに 1 行**（`projection: isometric`）。`src/axon.ts`。 */
+    projection?: unknown;
+    styles?: unknown;
+    nodes?: {
+      style?: unknown;
+      id?: unknown;
+      label?: unknown;
+      type?: unknown;
+      group?: unknown;
+      technology?: unknown;
+      tag?: unknown;
+      radius?: unknown;
+      marker?: unknown;
+  line?: unknown;
+      hatch?: unknown;
+      write?: unknown;
+      align?: unknown;
+      floor?: unknown;
+      symbol?: unknown;
+      color?: unknown;
+      fill?: unknown;
+      at?: unknown;
+      size?: unknown;
+      openings?: unknown;
+    }[];
+  };
+  const axon = axonOf(raw.projection);
+  /**
+   * **見せ方の表**（`styles` ／ `nodes[].style`。2026-09-28）。
+   *
+   * 販売図面の作風の差は間取りではなく見せ方にある。部屋は表の名前だけを持ち、
+   * **部屋に直接書いた値が勝つ**（表は既定で、例外を消さない）。表に書けるのは面・線・模様だけ。
+   */
+  const table = (raw.styles ?? {}) as Record<string, { fill?: unknown; color?: unknown; hatch?: unknown } | undefined>;
+  return (raw.nodes ?? []).map((raw0) => {
+    const look = typeof raw0.style === 'string' ? table[raw0.style] : undefined;
+    const node = look === undefined
+      ? raw0
+      : { ...raw0, fill: raw0.fill ?? look.fill, color: raw0.color ?? look.color, hatch: raw0.hatch ?? look.hatch };
+    const id = asText(node.id) ?? '';
+    return {
+      id,
+      label: asText(node.label) ?? id,
+      type: asText(node.type) ?? 'generic',
+      group: asText(node.group),
+      technology: asText(node.technology),
+      tag: asText(node.tag),
+      radius: radiusOf(node.radius),
+      marker: markerOf(node.marker),
+      line: lineOf(node.line),
+      hatch: hatchOf(node.hatch),
+      write: writeOf(node.write),
+      align: alignOf(node.align),
+      floor: asText(node.floor),
+      symbol: symbolOf(node.symbol),
+      color: node.color,
+      fill: node.fill,
+      at: asPoint(node.at, axon),
+      size: asSize(node.size),
+      openings: openingsOf(node.openings),
+    };
+  });
+}
+
+interface EdgeInfo {
+  id: string;
+  from: string;
+  to: string;
+  label: string | null;
+  /** 端の記号（`src/ends.ts`）。**書いていなければ null**（既定の矢印が出る）。 */
+  ends: Ends | null;
+  /** 線種（`src/line.ts`）。 */
+  line: Line;
+  /** 線の太さ（`src/weight.ts`）。 */
+  weight: Weight;
+  /** 路線の色（`src/palette.ts`）。**引く前は鍵、引いたあとは色。** */
+  color: string | null;
+  /** 色の鍵（引く前）。 */
+  colorKey: unknown;
+  /** 正本が書いた通り道（`src/curve.ts`）。無ければ空。 */
+  via: Point[];
+  /** 丸め方（`src/curve.ts`）。 */
+  curve: Curve;
+  /** 輪を閉じるか（`src/curve.ts`）。 */
+  close: boolean;
+  /**
+   * **閉じた輪の中の模様**（`src/hatch.ts`）。既定は無地。
+   *
+   * 池・敷地・区画のように、**輪郭ではなく面**を表す図で要る。
+   * **閉じていない辺では効かない**（面が無いので塗りようがない）。
+   */
+  hatch: Hatch;
+  /** 階をまたぐ動線（`src/floor.ts`）。 */
+  vertical: Vertical;
+}
+
+/** グループの表示名。無ければ id を使う。 */
+/** `{ x, y }` として読めるものだけ受ける。**読めなければ機械が置く。** */
+function asPoint(raw: unknown, axon: Axon | null = null): { x: number; y: number } | null {
+  if (raw === null || typeof raw !== 'object') return null;
+  const { x, y, z } = raw as { x?: unknown; y?: unknown; z?: unknown };
+  if (typeof x !== 'number' || typeof y !== 'number') return null;
+  if (!Number.isFinite(x) || !Number.isFinite(y)) return null;
+  /**
+   * **`z` を書いていれば、そこで紙へ落とす**（2026-09-25。`src/axon.ts`）。
+   *
+   * ここ 1 か所で済む —— 正本の座標を読むのはこの関数だけなので、
+   * **以降の処理は 2D のまま**で何も変わらない。
+   */
+  if (typeof z !== 'number' || !Number.isFinite(z)) return { x, y };
+  return project({ x, y, z }, axon);
+}
+
+/** `{ w, h }` として読めるものだけ受ける。**読めなければラベルから決める。** */
+function asSize(raw: unknown): { w: number; h: number } | null {
+  if (raw === null || typeof raw !== 'object') return null;
+  const { w, h } = raw as { w?: unknown; h?: unknown };
+  if (typeof w !== 'number' || typeof h !== 'number') return null;
+  if (!Number.isFinite(w) || !Number.isFinite(h) || w <= 0 || h <= 0) return null;
+  return { w, h };
+}
+
+function readGroupLabels(diagram: ReturnType<typeof parse>): Map<string, string> {
+  const raw = diagram.doc.toJS() as { groups?: { id?: unknown; label?: unknown }[] };
+  return new Map(
+    (raw.groups ?? []).map((group) => {
+      const id = asText(group.id) ?? '';
+      return [id, asText(group.label) ?? id];
+    }),
+  );
+}
+
+function readEdges(diagram: ReturnType<typeof parse>): EdgeInfo[] {
+  return diagram.edges().map((edge) => {
+    const from = asText(edge.from) ?? '';
+    const to = asText(edge.to) ?? '';
+    return {
+      id: `${from}>${to}`,
+      from,
+      to,
+      label: asText(edge.label) ?? asText(edge.protocol),
+      ends: endsOf(edge.ends),
+      line: lineOf(edge.line),
+      weight: weightOf(edge.weight),
+      color: null,
+      colorKey: edge.color,
+      via: viaOf(edge.via),
+      curve: curveOf(edge.curve),
+      close: edge.close === true,
+      hatch: hatchOf(edge.hatch),
+      vertical: verticalOf(edge.vertical),
+    };
+  });
+}
+
+/**
+ * **ほとんど同じ点を、1 つに畳む。**
+ *
+ * 自分自身への辺で閉じた形を描くと（見本 97・109）、
+ * 出口の点と入口の点が**同じ節の縁で 1 px ほど離れて並ぶ。**
+ * そのまま `curve: smooth` に渡すと、**2 点の向きから制御点が跳ね**、
+ * 輪の始まりに 8 px ほどの角が出る（2026-09-15。実物を見て見つけた）。
+ *
+ * ```
+ * C 251.7 219.3, 259.8 189.4, 260 181 C 260.2 172.6, 260.8 180, 261 179.8 Z
+ *                              ^^^^^^^ この 2 点が 1 px しか離れていない
+ * ```
+ *
+ * **人が書いた点は畳まない** —— 畳むのは 2.5 px 未満の隣り合わせだけで、
+ * これは「同じ場所」としか言えない距離。
+ */
+const SAME_POINT = 2.5;
+
+function merged(points: Point[]): Point[] {
+  const out: Point[] = [];
+  for (const point of points) {
+    const last = out[out.length - 1];
+    if (last !== undefined && Math.hypot(point.x - last.x, point.y - last.y) < SAME_POINT) continue;
+    out.push(point);
+  }
+  return out;
+}
+
+/**
+ * 線の通り道を決める。
+ *
+ * **人が曲げた線は、その点列をそのまま通す。** 曲げ方は好みではなく
+ * 「この経路で説明したい」という意思なので、機械が引き直さない。
+ * 曲げていない線は、箱の中心どうしを結んで縁で切る。S1 では回り込みまで見ない
+ * （原案 §26 の 3 = Connector routing の品質は Issue 004 の側）。
+ */
+/**
+ * ELK が計算した経路を集める。
+ *
+ * ## 座標の基準に注意
+ *
+ * **辺の座標は「両端の、最も近い共通の親」からの相対**で返る。
+ * 両端が同じ囲みの中なら、その囲みからの相対。またぐなら根からの相対。
+ * ここを取り違えると、線が囲みの位置ぶんずれる。
+ *
+ * v1 は囲みの入れ子を持たない（仕様 §3.3）ので、**同じ囲みか否か**だけで決まる。
+ */
+function collectRoutes(
+  laid: ElkNode,
+  groups: Box[],
+  nodes: NodeInfo[],
+): Map<string, { x: number; y: number }[]> {
+  const groupOf = new Map(nodes.map((node) => [node.id, node.group]));
+  const groupAt = new Map(groups.map((group) => [group.id, group]));
+  const out = new Map<string, { x: number; y: number }[]>();
+
+  for (const edge of (laid as { edges?: ElkExtendedEdge[] }).edges ?? []) {
+    const section = edge.sections?.[0];
+    if (section === undefined) continue;
+
+    const from = edge.sources?.[0];
+    const to = edge.targets?.[0];
+    const shared =
+      from !== undefined && to !== undefined && groupOf.get(from) === groupOf.get(to)
+        ? groupAt.get(groupOf.get(from) ?? '')
+        : undefined;
+    const dx = shared?.x ?? 0;
+    const dy = shared?.y ?? 0;
+
+    out.set(edge.id, [
+      { x: round(section.startPoint.x + dx), y: round(section.startPoint.y + dy) },
+      ...(section.bendPoints ?? []).map((point) => ({
+        x: round(point.x + dx),
+        y: round(point.y + dy),
+      })),
+      { x: round(section.endPoint.x + dx), y: round(section.endPoint.y + dy) },
+    ]);
+  }
+  return out;
+}
+
+function routeEdges(
+  edges: EdgeInfo[],
+  boxes: Box[],
+  pins: Record<string, { waypoints?: { x: number; y: number }[] }>,
+  routes: Map<string, { x: number; y: number }[]>,
+  /** **組んだあとに動いた箱**。ここに触れる辺は、ELK の経路を使わない（Issue #8）。 */
+  moved: Set<string>,
+): PlacedEdge[] {
+  const byId = new Map(boxes.map((box) => [box.id, box]));
+  const spread = fanOut(edges, byId);
+  return edges.map((edge, index) => {
+    const from = byId.get(edge.from);
+    const to = byId.get(edge.to);
+    if (from === undefined || to === undefined) {
+      return { ...edge, points: [], pinned: false };
+    }
+
+    // 人が曲げた線は、人の通り道が勝つ。
+    const waypoints = pins[edge.id]?.waypoints;
+    if (waypoints !== undefined && waypoints.length > 0) {
+      const first = waypoints[0]!;
+      const last = waypoints[waypoints.length - 1]!;
+      return {
+        ...edge,
+        points: [clip(from, first), ...waypoints, clip(to, last)],
+        pinned: true,
+      };
+    }
+
+    // **正本が通り道を書いていれば、そこを通す**（`src/curve.ts`）。
+    // 人の `pins.waypoints` はこの上（上書き）。**書いた順のまま通す。**
+    if (edge.via.length > 0) {
+      const first = edge.via[0]!;
+      const last = edge.via[edge.via.length - 1]!;
+      // **ほとんど同じ点は畳む**（`merged`）。自分自身への辺では、
+      // 出口と入口が同じ節の縁で 1 px ほど離れて並び、曲線が跳ねる。
+      // **自分自身への辺で `close` を書かなければ、戻り線を引かない。**
+      // 閉じた形（池・視野・外形）にも、開いた折れ線（等圧線・地形・縫い代）にも
+      // 同じ書き方を使う。**閉じるかどうかは `close` が言う** —— 2026-09-19。
+      // ここを戻していたため、見本 10 枚に**正本が書いていない線 123 本**が出ていた。
+      const open = edge.from === edge.to && edge.close !== true;
+      const points = merged(
+        open ? [clip(from, first), ...edge.via] : [clip(from, first), ...edge.via, clip(to, last)],
+      );
+      // **輪を閉じる**（`close`）。最後から最初へ戻る —— 池・トラック・外形。
+      if (edge.close) {
+        // 自分自身への辺では、**出口と入口が同じ節の縁**に来る。
+        // 閉じる前に片方を落とさないと、輪の始まりで曲線が跳ねる。
+        const head = points[0]!;
+        const tail = points[points.length - 1]!;
+        if (points.length > 2 && Math.hypot(tail.x - head.x, tail.y - head.y) < SAME_POINT) points.pop();
+        points.push({ ...points[0]! });
+      }
+      return { ...edge, points, pinned: false };
+    }
+
+    // **図記号どうしの配線は直角に曲げる**（`src/symbol.ts`）。
+    //
+    // 回路図の線は必ず直角。斜めの線は「配線」に見えず、
+    // **どこに繋がっているかを目で追えない。**
+    // 足の位置は決まっているので、間で 1 回曲げれば足りる。
+    if (from.symbol !== null || to.symbol !== null) {
+      const a = clip(from, center(to));
+      const b = clip(to, center(from));
+      return { ...edge, points: apart(elbow(a, b), spread.get(index)), pinned: false };
+    }
+
+    // ELK の経路を使う。**箱を避けて回り込む道が入っている。**
+    //
+    // **ただし、端点が動いていたら使わない**（Issue #8）。
+    // その経路は ELK が組んだときの位置で計算されたもので、
+    // 動いた先の箱には届かない。**届かない線を描くくらいなら、直線で結ぶ。**
+    const route = routes.get(`e${index}`);
+    const stale = moved.has(edge.from) || moved.has(edge.to);
+    if (!stale && route !== undefined && route.length >= 2) {
+      return { ...edge, points: route, pinned: false };
+    }
+
+    // 直線で結ぶ。**両端は箱の縁で切る**ので、動かした先へ必ず届く。
+    const straight = nudge(clip(from, center(to)), clip(to, center(from)), from, to);
+    return { ...edge, points: apart(straight, spread.get(index)), pinned: false };
+  });
+}
+
+/**
+ * **壁を共有する箱どうしの線に、向きを持たせる。**
+ *
+ * 2026-09-24（`qa/品質100周` 第 18 周）。見本 45（駅の構内図）を実物で見て見つけた。
+ *
+ * 隣り合う部屋を結ぶと、**両端を縁で切った結果が同じ点になる。**
+ * 長さゼロの線に `marker-end` を付けても、SVG の `orient="auto"` は向きを決められず、
+ * **矢印が全部右を向く** —— 南口 → 改札（左向き）も、改札 → コンコース（下向き）も、
+ * 見た目は同じ「▶」になっていた。
+ *
+ * 全体で **603 本中 18 本 ／ 8 枚**（40・45 が各 4 本、116 が 3 本、28・34 が各 2 本）。
+ *
+ * **見本ごとに逃げず、道具の側で直す**（D40 と同じ筋）。
+ * 重なった点を、**箱の中心どうしを結ぶ向き**に 6px だけ開く。
+ * 線そのものはほぼ見えないままで、変わるのは**矢じりの向き**だけ。
+ */
+function nudge(
+  a: { x: number; y: number },
+  b: { x: number; y: number },
+  from: Box,
+  to: Box,
+): { x: number; y: number }[] {
+  const gap = Math.hypot(b.x - a.x, b.y - a.y);
+  if (gap >= 2) return [a, b];
+  const p = center(from);
+  const q = center(to);
+  const span = Math.hypot(q.x - p.x, q.y - p.y);
+  if (span === 0) return [a, b];
+  const ux = (q.x - p.x) / span;
+  const uy = (q.y - p.y) / span;
+  return [
+    { x: round(a.x - ux * 3), y: round(a.y - uy * 3) },
+    { x: round(b.x + ux * 3), y: round(b.y + uy * 3) },
+  ];
+}
+
+/**
+ * **同じ 2 つの箱を結ぶ線が何本もあるとき、横へずらして分ける。**
+ *
+ * 2026-09-25（`qa/品質100周` 第 51 周）。見本 86（CRUD 管理画面の画面遷移）を実物で見て見つけた。
+ *
+ * 正本には `一覧 → 削除確認（削除）` と `削除確認 → 一覧（削除して戻る）` の
+ * **2 本**が書いてある。ところが 2 つの箱は縦に並んでいるので、
+ * **両方とも同じ直線の上に描かれていた。**
+ *
+ * 出てきた絵は「**両端に矢じりがある 1 本の線**」で、そこにラベルが 2 つ積まれる。
+ * **どちらの言葉がどちらの向きなのか、読んだ人には決められない。**
+ * 遷移図としては、ここが読めないと意味がない。
+ *
+ * 全体で **4 枚**（86・09・44・164）。**見本ごとに逃げず、道具の側で直す。**
+ *
+ * やることは 1 つ —— 束になった線を、**向きと直角の方へ等間隔に開く。**
+ * 開く幅は箱の小さいほうに合わせる（細い箱から線がはみ出さないように）。
+ * 通り道（`via`）や人が曲げた線（`pins`）は**触らない** —— 書いた人が決めている。
+ */
+function fanOut(
+  edges: EdgeInfo[],
+  byId: Map<string, Box>,
+): Map<number, { x: number; y: number }> {
+  const groups = new Map<string, number[]>();
+  edges.forEach((edge, index) => {
+    if (edge.via.length > 0 || edge.from === edge.to) return;
+    if (!byId.has(edge.from) || !byId.has(edge.to)) return;
+    const key = [edge.from, edge.to].sort().join('\u0000');
+    const seen = groups.get(key);
+    if (seen === undefined) groups.set(key, [index]);
+    else seen.push(index);
+  });
+
+  const spread = new Map<number, { x: number; y: number }>();
+  for (const members of groups.values()) {
+    if (members.length < 2) continue;
+    const first = edges[members[0]!]!;
+    const from = byId.get(first.from)!;
+    const to = byId.get(first.to)!;
+    const p = center(from);
+    const q = center(to);
+    const span = Math.hypot(q.x - p.x, q.y - p.y);
+    if (span === 0) continue;
+    // 向きと直角の単位ベクトル
+    const nx = -(q.y - p.y) / span;
+    const ny = (q.x - p.x) / span;
+    // 細い箱から線が出ていかないよう、いちばん小さい辺に合わせる
+    const room = Math.min(from.w, from.h, to.w, to.h) / 3;
+    const step = Math.max(3, Math.min(FAN_STEP, room));
+    members.forEach((index, k) => {
+      const d = (k - (members.length - 1) / 2) * step;
+      spread.set(index, { x: nx * d, y: ny * d });
+    });
+  }
+  return spread;
+}
+
+/** 線をまるごと平行に動かす。`fanOut` が出した分だけ。 */
+function apart(
+  points: { x: number; y: number }[],
+  by: { x: number; y: number } | undefined,
+): { x: number; y: number }[] {
+  if (by === undefined) return points;
+  return points.map((point) => ({ x: round(point.x + by.x), y: round(point.y + by.y) }));
+}
+
+/**
+ * 2 点を直角で結ぶ道。
+ *
+ * 離れている向き（縦か横か）へ先に進み、**真ん中で 1 回曲げる。**
+ * 同じ行・同じ列にあるときは、曲げずに真っすぐ。
+ */
+function elbow(
+  a: { x: number; y: number },
+  b: { x: number; y: number },
+): { x: number; y: number }[] {
+  if (Math.abs(a.x - b.x) < 1 || Math.abs(a.y - b.y) < 1) return [a, b];
+  if (Math.abs(b.x - a.x) >= Math.abs(b.y - a.y)) {
+    const mid = round((a.x + b.x) / 2);
+    return [a, { x: mid, y: a.y }, { x: mid, y: b.y }, b];
+  }
+  const mid = round((a.y + b.y) / 2);
+  return [a, { x: a.x, y: mid }, { x: b.x, y: mid }, b];
+}
+
+function center(box: Box): { x: number; y: number } {
+  return { x: box.x + box.w / 2, y: box.y + box.h / 2 };
+}
+
+/**
+ * 線が箱へ取り付く点。
+ *
+ * **図記号を持つ部品は、足（端子）へ繋がる**（`src/symbol.ts`）。
+ * 抵抗の胴体の真横から線が出ると、回路図に見えない ——
+ * 実物は必ず足の先に繋がっている。
+ *
+ * 2 本足の部品は、**近いほうの足**を自動で選ぶので正本に何も書かなくてよい。
+ * 3 本以上の部品（トランジスタ・オペアンプ）は足に名前が要るが、**まだ入れていない。**
+ */
+function clip(box: Box, toward: { x: number; y: number }): { x: number; y: number } {
+  if (box.symbol !== null) {
+    const legs = legsOf(box.symbol, box);
+    let best = legs[0]!;
+    let near = Infinity;
+    for (const leg of legs) {
+      const d = (leg.x - toward.x) ** 2 + (leg.y - toward.y) ** 2;
+      if (d < near) {
+        near = d;
+        best = leg;
+      }
+    }
+    return { x: round(best.x), y: round(best.y) };
+  }
+  const c = center(box);
+  const dx = toward.x - c.x;
+  const dy = toward.y - c.y;
+  if (dx === 0 && dy === 0) return c;
+  const scale = Math.min(
+    dx === 0 ? Infinity : box.w / 2 / Math.abs(dx),
+    dy === 0 ? Infinity : box.h / 2 / Math.abs(dy),
+  );
+  return { x: round(c.x + dx * scale), y: round(c.y + dy * scale) };
+}
+
+function round(value: number): number {
+  return Math.round(value * 100) / 100;
+}
+
+/**
+ * 描かれるラベル。**人が書き換えていれば、そちらの幅で測る。**
+ *
+ * 幅を測る段階でも `pins` を読むので、**ここでも文字列に寄せる**（Issue #5）。
+ * 描くときだけ直しても、幅の計算がここで落ちる。
+ */
+function labelOf(node: NodeInfo, pins: Record<string, { label?: unknown }>): string {
+  return asText(pins[node.id]?.label) ?? node.label;
+}
+
+function buildGraph(
+  nodes: NodeInfo[],
+  groupIds: string[],
+  edges: { from: string; to: string }[],
+  pins: Record<string, { size?: { w: number; h: number }; label?: unknown }>,
+  direction: string,
+  /** 折り返しの指定（`src/wrap.ts`）。折り返さないなら空。 */
+  wrap: Record<string, string> = {},
+): ElkNode {
+  const options = { ...layoutOptions(direction), ...wrap };
+  const leaf = (node: NodeInfo): ElkNode => ({
+    id: node.id,
+    // 人が変えた大きさは、組み立ての入力の段階で効かせる。
+    // 後から広げると、周りが元の大きさのまま詰められていて重なる。
+    // **ラベルの幅も同じ段階で効かせる**（後から広げると同じことが起きる）。
+    // **形の分だけ広げる**（Issue #9）。円柱は上下に、六角形は左右に余分が要る。
+    // ここで足さないと、形を付けたときにラベルがはみ出す。
+    //
+    // 強さは **人（`pins.size`）> AI（`nodes[].size`）> ラベルから見積もる** の順。
+    width:
+      pins[node.id]?.size?.w ??
+      node.size?.w ??
+      widthFor(labelOf(node, pins), node.technology, node.tag) + growFor(shapeOf(node.type)).w,
+    height:
+      pins[node.id]?.size?.h ??
+      node.size?.h ??
+      (node.technology === null ? NODE_HEIGHT : NODE_HEIGHT + 16) + growFor(shapeOf(node.type)).h,
+  });
+
+  const children: ElkNode[] = groupIds.map((groupId) => ({
+    id: groupId,
+    layoutOptions: options,
+    children: nodes.filter((node) => node.group === groupId).map(leaf),
+  }));
+  children.push(...nodes.filter((node) => node.group === null).map(leaf));
+
+  return {
+    id: 'root',
+    layoutOptions: options,
+    children,
+    edges: edges.map((edge, index) => ({
+      id: `e${index}`,
+      sources: [edge.from],
+      targets: [edge.to],
+    })),
+  };
+}
+
+/** ELK は子の座標を親からの相対で返す。絶対座標へ直しながら拾う。 */
+function collect(
+  node: ElkNode,
+  offsetX: number,
+  offsetY: number,
+  nodes: NodeInfo[],
+  groupLabels: Map<string, string>,
+  boxes: Box[],
+  groups: Box[],
+): void {
+  for (const child of node.children ?? []) {
+    const x = offsetX + (child.x ?? 0);
+    const y = offsetY + (child.y ?? 0);
+    const box: Box = {
+      id: child.id,
+      x,
+      y,
+      w: child.width ?? NODE_WIDTH,
+      h: child.height ?? NODE_HEIGHT,
+      group: groupLabels.has(node.id) ? node.id : null,
+      label: groupLabels.get(child.id) ?? nodes.find((n) => n.id === child.id)?.label ?? child.id,
+      type: nodes.find((n) => n.id === child.id)?.type ?? 'generic',
+      appearance: null,
+      technology: nodes.find((n) => n.id === child.id)?.technology ?? null,
+      tag: nodes.find((n) => n.id === child.id)?.tag ?? null,
+      radius: nodes.find((n) => n.id === child.id)?.radius ?? null,
+      marker: nodes.find((n) => n.id === child.id)?.marker ?? 'box',
+      line: nodes.find((n) => n.id === child.id)?.line ?? 'solid',
+      hatch: nodes.find((n) => n.id === child.id)?.hatch ?? 'none',
+      write: nodes.find((n) => n.id === child.id)?.write ?? 'across',
+      align: nodes.find((n) => n.id === child.id)?.align ?? 'center',
+      floor: nodes.find((n) => n.id === child.id)?.floor ?? null,
+      symbol: nodes.find((n) => n.id === child.id)?.symbol ?? null,
+      color: null,
+      tint: null,
+      openings: nodes.find((n) => n.id === child.id)?.openings ?? [],
+      pinned: false,
+    };
+    if (groupLabels.has(child.id)) {
+      groups.push(box);
+      collect(child, x, y, nodes, groupLabels, boxes, groups);
+      continue;
+    }
+    boxes.push(box);
+  }
+}
+
+/** 図の外周に残す余白。 */
+const PAD = 24;
+
+/**
+ * 図の四隅。
+ *
+ * **左上が原点だと決めてかからない。**
+ * 以前はここで `max` だけを測っていたので、**負の座標に置いたものが
+ * 画用紙の外へ落ちて消えていた**（2026-09-13。工程表の行見出しを
+ * `x: -120` に置いて踏んだ）。
+ *
+ * 負の座標は間違いではない —— **本体より左に見出しの列を置く**のは、
+ * 工程表・座席図・表のある図でふつうの書き方。
+ */
+function bounds(
+  boxes: Box[],
+  groups: Box[],
+  edges: PlacedEdge[] = [],
+  grid: Grid = { x: [], y: [] },
+): { minX: number; minY: number; maxX: number; maxY: number } {
+  const all = [...boxes, ...groups];
+  // **辺の通り道も四隅に入れる。**
+  // 池・グリーン・体の輪郭のように、`via` だけで描く形がある。
+  // 箱しか測っていなかったので、**囲む箱を置き忘れると絵が切れて消えていた**
+  // （2026-09-15。テーピングの図で足の輪郭を描こうとして踏んだ）。
+  const points = edges.flatMap((edge) => edge.points);
+  // **範囲の円も四隅に入れる**（`src/range.ts`）。
+  // 見本 30 の紹介文は「クレーンの作業半径つき」なのに、
+  // **その円が画用紙の左と上で切れていた**（2026-09-15）。
+  const rings = all
+    .filter((b) => b.radius !== null)
+    .map((b) => ({ cx: b.x + b.w / 2, cy: b.y + b.h / 2, r: b.radius! }));
+  // **通り芯も四隅に入れる。** 芯は箱の外まで伸ばして引くもので、
+  // 目盛りの名前は芯の先に出る。見本 71（列車運行図表）では、
+  // **右端の時刻「9:00」が紙の 43px 外**にあって見えなかった（2026-09-15）。
+  const axesX = grid.x.map((axis) => axis.at);
+  const axesY = grid.y.map((axis) => axis.at);
+  // **外開きの扉の扇も四隅に入れる。** 戸は壁の外へ振り出すので、外壁が紙の端にあると
+  // 戸と弧が紙の外へ落ちる（2026-09-30。見本 116 の玄関を外開きにして踏んだ）。
+  const swung = boxes.flatMap((b) =>
+    swingsOf(b, b.openings).flatMap((s) => [
+      { x: s.cx + s.u.x * s.r, y: s.cy + s.u.y * s.r },
+      { x: s.cx + (s.u.x + s.v.x) * s.r, y: s.cy + (s.u.y + s.v.y) * s.r },
+    ]),
+  );
+  points.push(...swung);
+  if (all.length === 0 && points.length === 0) return { minX: 0, minY: 0, maxX: 0, maxY: 0 };
+  const xs = [
+    ...all.map((b) => b.x),
+    ...points.map((p) => p.x),
+    ...rings.map((c) => c.cx - c.r),
+    ...axesX,
+  ];
+  const ys = [
+    ...all.map((b) => b.y),
+    ...points.map((p) => p.y),
+    ...rings.map((c) => c.cy - c.r),
+    ...axesY,
+  ];
+  const rights = [
+    ...all.map((b) => b.x + b.w),
+    ...points.map((p) => p.x),
+    ...rings.map((c) => c.cx + c.r),
+    ...axesX,
+  ];
+  const bottoms = [
+    ...all.map((b) => b.y + b.h),
+    ...points.map((p) => p.y),
+    ...rings.map((c) => c.cy + c.r),
+    ...axesY,
+  ];
+  return {
+    minX: Math.min(...xs),
+    minY: Math.min(...ys),
+    maxX: Math.max(...rights),
+    maxY: Math.max(...bottoms),
+  };
+}
+
+function extent(
+  boxes: Box[],
+  groups: Box[],
+  edges: PlacedEdge[],
+  grid: Grid,
+  views: readonly View[] = [],
+): { width: number; height: number } {
+  const box = bounds(boxes, groups, edges, grid);
+  // **図の枠も紙に入れる**（D35）。節を 1 つも置いていない図があり得る
+  // （名前と寸法だけの枠）ので、箱からは出てこない。
+  const frames = viewBounds(views);
+  const maxX = frames === null ? box.maxX : Math.max(box.maxX, frames.maxX);
+  const maxY = frames === null ? box.maxY : Math.max(box.maxY, frames.maxY);
+  return { width: maxX + PAD, height: maxY + PAD };
+}
+
+/**
+ * 作図を絵にする（D36）。**自動配置を通さない。**
+ *
+ * 人が pin できるのは**定数**（`pins.<名前>.value`）。位置ではない ——
+ * 位置は手順が決めるので、`pins.position` は**検証器が明示で断る**。
+ */
+function construct(raw: Record<string, unknown>, pins: Record<string, unknown>): Placed {
+  const held = new Map<string, number>();
+  for (const [name, pin] of Object.entries(pins)) {
+    const value = (pin as { value?: unknown }).value;
+    if (typeof value === 'number' && Number.isFinite(value)) held.set(name, value);
+  }
+  const built = build(raw as ConstructSource, held);
+  const box = strokeBounds(built.strokes);
+  // **負の座標を紙の中へ入れる。** 作図の原点は左上とは限らない。
+  const dx = box === null ? 0 : Math.max(0, PAD - box.minX);
+  const dy = box === null ? 0 : Math.max(0, PAD - box.minY);
+  const strokes = built.strokes.map((one) =>
+    one.shape === 'segment'
+      ? { ...one, x0: one.x0 + dx, y0: one.y0 + dy, x1: one.x1 + dx, y1: one.y1 + dy }
+      : { ...one, cx: one.cx + dx, cy: one.cy + dy },
+  );
+  const moved = strokeBounds(strokes);
+  return {
+    boxes: [],
+    groups: [],
+    edges: [],
+    wrap: false,
+    wrapWritten: false,
+    collisions: [],
+    title: asText(raw.title),
+    floors: [],
+    grid: { x: [], y: [] },
+    views: [],
+    strokes,
+    troubles: built.troubles,
+    mm: null,
+    feet: false,
+    north: null,
+    wall: null,
+    arrows: false,
+    width: moved === null ? PAD * 2 : moved.maxX + PAD,
+    height: moved === null ? PAD * 2 : moved.maxY + PAD,
+  };
+}
+
+/**
+ * 円と弧が占める四隅。**線の太さと端の玉も入れる**（切れるため）。
+ *
+ * **弧を円で外接しない。** 縦棒は半径 1,794 の円の一部で、
+ * 描かれているのはその 200 ほどの弧でしかない。円で取ると
+ * **紙が 7,473 × 3,685 になった**（実測。2026-09-15）。
+ *
+ * 弧の四隅は、**両端の点**と、**弧が跨いだ軸の向き**（0°/90°/180°/270°）で決まる。
+ */
+function strokeBounds(
+  strokes: readonly Stroke[],
+): { minX: number; minY: number; maxX: number; maxY: number } | null {
+  if (strokes.length === 0) return null;
+  let minX = Infinity;
+  let minY = Infinity;
+  let maxX = -Infinity;
+  let maxY = -Infinity;
+  const add = (x: number, y: number, pad: number): void => {
+    minX = Math.min(minX, x - pad);
+    minY = Math.min(minY, y - pad);
+    maxX = Math.max(maxX, x + pad);
+    maxY = Math.max(maxY, y + pad);
+  };
+  // **跡（trace）は紙を広げない。**
+  //
+  // 作図の跡は、半径 1,794 の円が字の何倍もの大きさで走る。
+  // 紙に入れると**字が豆粒**になる —— 実物の作図プレートも、跡は紙からはみ出している。
+  const solid = strokes.filter((one) => !one.trace);
+  for (const one of solid.length > 0 ? solid : strokes) {
+    const pad = one.weight / 2 + (one.shape === 'arc' && one.terminal !== null ? one.terminal : 0);
+    if (one.shape === 'segment') {
+      add(one.x0, one.y0, pad);
+      add(one.x1, one.y1, pad);
+      continue;
+    }
+    if (one.shape === 'circle') {
+      add(one.cx, one.cy, one.r + pad);
+      continue;
+    }
+    const span = Math.abs(one.a1 - one.a0);
+    if (span >= 360) {
+      add(one.cx, one.cy, one.r + pad);
+      continue;
+    }
+    const lo = Math.min(one.a0, one.a1);
+    const hi = Math.max(one.a0, one.a1);
+    const at = (deg: number): void => {
+      const rad = (deg * Math.PI) / 180;
+      add(one.cx + one.r * Math.cos(rad), one.cy + one.r * Math.sin(rad), pad);
+    };
+    at(one.a0);
+    at(one.a1);
+    // **跨いだ軸だけを足す。** 0°=右 / 90°=下 / 180°=左 / 270°=上。
+    for (const axis of [0, 90, 180, 270, 360, 450, 540, 630]) {
+      if (axis > lo && axis < hi) at(axis);
+    }
+  }
+  return { minX, minY, maxX, maxY };
+}

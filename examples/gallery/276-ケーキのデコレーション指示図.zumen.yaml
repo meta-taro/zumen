@@ -1,0 +1,468 @@
+version: 1
+kind: placement
+arrows: true
+title: ケーキのデコレーション指示図（飾りの数は、切る数で決まる）
+# **飾りの数は「見た目」ではなく、切る数で決まる。**
+# 8 人で分けるなら 8 等分にし、**いちごは等分線の上ではなく、あいだに置く** ——
+# 線の上に置くと切るときに刃が割って、**どちらの皿にも半分ずつ乗る。**
+#
+# **号数は直径（1 号 ＝ 1 寸 ＝ 約 3cm）だが、量は面積で増える。**
+# 4 号 12cm・113cm²／5 号 15cm・177cm²／6 号 18cm・254cm²／
+# 7 号 21cm・346cm²／8 号 24cm・452cm²。
+# **5 号 → 6 号は直径で 1.2 倍でも、面積は 1.44 倍**（15² → 18²）——
+# 「1 号上げる」は「2 割大きくする」ではなく「**4 割増やす**」。
+#
+# **切り分けは中心角で決まる。** 6 号（円周 56.5cm）なら
+# 6 等分で 60°・外周 9.4cm、8 等分で 45°・7.1cm、12 等分で 30°・4.7cm。
+# **外周が 5cm を切ると、先が細くなって切り口が崩れる** ——
+# 人数が増えたら等分を増やすのではなく、**号数を上げる。**
+#
+# **上から見た図だけでは、側面が決まらない。**
+# 同じ上面でも、側面がナッペか絞りかで見た目は別物になる。
+# プレートの向き（文字の天地）も、**箱を開けた人がどちらから見るか**を別に書かないと伝わらない。
+nodes:
+  - id: t1
+    label: "① 飾りの割り付けは、円周を等分して決める（6 号・直径 18cm）"
+    marker: none
+    align: left
+    at: { x: 150, y: 150 }
+    size: { w: 700, h: 20 }
+  - id: cake
+    label: ""
+    marker: circle
+    at: { x: 290, y: 240 }
+    size: { w: 360, h: 360 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 469, y: 327 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 469, y: 239 }
+    size: { w: 2, h: 2 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 534.1, y: 353.9 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 596.3, y: 291.7 }
+    size: { w: 2, h: 2 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 561, y: 419 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 649, y: 419 }
+    size: { w: 2, h: 2 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 534.1, y: 484.1 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 596.3, y: 546.3 }
+    size: { w: 2, h: 2 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 469, y: 511 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 469, y: 599 }
+    size: { w: 2, h: 2 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 403.9, y: 484.1 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 341.7, y: 546.3 }
+    size: { w: 2, h: 2 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 377, y: 419 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 289, y: 419 }
+    size: { w: 2, h: 2 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 403.9, y: 353.9 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 341.7, y: 291.7 }
+    size: { w: 2, h: 2 }
+  - id: b0
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 512.9, y: 272.1 }
+    size: { w: 26, h: 26 }
+  - id: b1
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 591.9, y: 351.1 }
+    size: { w: 26, h: 26 }
+  - id: b2
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 591.9, y: 462.9 }
+    size: { w: 26, h: 26 }
+  - id: b3
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 512.9, y: 541.9 }
+    size: { w: 26, h: 26 }
+  - id: b4
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 401.1, y: 541.9 }
+    size: { w: 26, h: 26 }
+  - id: b5
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 322.1, y: 462.9 }
+    size: { w: 26, h: 26 }
+  - id: b6
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 322.1, y: 351.1 }
+    size: { w: 26, h: 26 }
+  - id: b7
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 401.1, y: 272.1 }
+    size: { w: 26, h: 26 }
+  - id: ichigo
+    label: "いちご 8 個\n（等分線のあいだ）"
+    marker: none
+    align: left
+    at: { x: 666, y: 224 }
+    size: { w: 200, h: 36 }
+  - id: plate
+    label: "プレート"
+    at: { x: 392, y: 398 }
+    size: { w: 156, h: 44 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 289, y: 633 }
+    size: { w: 2, h: 2 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 649, y: 633 }
+    size: { w: 2, h: 2 }
+  - id: dia
+    label: "直径 180mm（6 号 ＝ 6 寸）"
+    marker: none
+    align: center
+    at: { x: 290, y: 640 }
+    size: { w: 360, h: 18 }
+  - id: arc
+    label: "円周 56.5cm ÷ 8 ＝ 7.1cm ごと"
+    marker: none
+    align: left
+    at: { x: 666, y: 380 }
+    size: { w: 210, h: 18 }
+  - id: deg
+    label: "中心角 45°"
+    marker: none
+    align: left
+    at: { x: 666, y: 426 }
+    size: { w: 210, h: 18 }
+  - id: cut
+    label: "切る線と飾りを\n重ねない"
+    marker: none
+    align: right
+    at: { x: 54, y: 380 }
+    size: { w: 220, h: 36 }
+  - id: why1
+    label: "飾りの数は「見た目」ではなく、切る数で決まる。\n8 人で分けるなら 8 等分 —— いちごは等分線の上ではなく、あいだに置く。\n線の上に置くと、切るときに刃がいちごを割り、どちらの皿にも半分ずつ乗る。\n1 個ずつきれいに乗るのは、あいだに置いたときだけ。"
+    at: { x: 150, y: 676 }
+    size: { w: 700, h: 92 }
+  - id: t2
+    label: "② 号数は寸（1 号 ＝ 約 3cm）"
+    marker: none
+    align: left
+    at: { x: 890, y: 150 }
+    size: { w: 450, h: 20 }
+  - id: h890_186
+    label: "号数・直径・面積・人数の目安"
+    hatch: solid
+    at: { x: 890, y: 186 }
+    size: { w: 450, h: 24 }
+  - id: x890_210
+    label: "4 号"
+    at: { x: 890, y: 210 }
+    size: { w: 150, h: 24 }
+  - id: y890_210
+    label: "12cm ／ 113cm² ／ 2 〜 4 人"
+    align: left
+    at: { x: 1040, y: 210 }
+    size: { w: 300, h: 24 }
+  - id: x890_234
+    label: "5 号"
+    at: { x: 890, y: 234 }
+    size: { w: 150, h: 24 }
+  - id: y890_234
+    label: "15cm ／ 177cm² ／ 4 〜 6 人"
+    align: left
+    at: { x: 1040, y: 234 }
+    size: { w: 300, h: 24 }
+  - id: x890_258
+    label: "6 号"
+    at: { x: 890, y: 258 }
+    size: { w: 150, h: 24 }
+  - id: y890_258
+    label: "18cm ／ 254cm² ／ 6 〜 8 人"
+    align: left
+    at: { x: 1040, y: 258 }
+    size: { w: 300, h: 24 }
+  - id: x890_282
+    label: "7 号"
+    at: { x: 890, y: 282 }
+    size: { w: 150, h: 24 }
+  - id: y890_282
+    label: "21cm ／ 346cm² ／ 8 〜 10 人"
+    align: left
+    at: { x: 1040, y: 282 }
+    size: { w: 300, h: 24 }
+  - id: x890_306
+    label: "8 号"
+    at: { x: 890, y: 306 }
+    size: { w: 150, h: 24 }
+  - id: y890_306
+    label: "24cm ／ 452cm² ／ 10 〜 12 人"
+    align: left
+    at: { x: 1040, y: 306 }
+    size: { w: 300, h: 24 }
+  - id: why2
+    label: "号数は直径だが、量は面積で増える。\n5 号 → 6 号は直径で 1.2 倍でも、面積は 1.44 倍（15² → 18²）——\n「1 号上げる」は「2 割大きくする」ではなく「4 割増やす」。\n人数の目安が 2 人ずつ上がるのは、そのため。"
+    at: { x: 890, y: 344 }
+    size: { w: 450, h: 92 }
+  - id: t3
+    label: "③ 切り分けは、中心角で決まる"
+    marker: none
+    align: left
+    at: { x: 890, y: 454 }
+    size: { w: 450, h: 20 }
+  - id: h890_484
+    label: "6 号（直径 18cm・円周 56.5cm）"
+    hatch: solid
+    at: { x: 890, y: 484 }
+    size: { w: 450, h: 24 }
+  - id: x890_508
+    label: "6 等分"
+    at: { x: 890, y: 508 }
+    size: { w: 190, h: 24 }
+  - id: y890_508
+    label: "中心角 60° ／ 外周 9.4cm"
+    align: left
+    at: { x: 1080, y: 508 }
+    size: { w: 260, h: 24 }
+  - id: x890_532
+    label: "8 等分"
+    at: { x: 890, y: 532 }
+    size: { w: 190, h: 24 }
+  - id: y890_532
+    label: "中心角 45° ／ 外周 7.1cm"
+    align: left
+    at: { x: 1080, y: 532 }
+    size: { w: 260, h: 24 }
+  - id: x890_556
+    label: "10 等分"
+    at: { x: 890, y: 556 }
+    size: { w: 190, h: 24 }
+  - id: y890_556
+    label: "中心角 36° ／ 外周 5.7cm"
+    align: left
+    at: { x: 1080, y: 556 }
+    size: { w: 260, h: 24 }
+  - id: x890_580
+    label: "12 等分"
+    at: { x: 890, y: 580 }
+    size: { w: 190, h: 24 }
+  - id: y890_580
+    label: "中心角 30° ／ 外周 4.7cm"
+    align: left
+    at: { x: 1080, y: 580 }
+    size: { w: 260, h: 24 }
+  - id: why3
+    label: "外周が 5cm を切ると、切り口が崩れる。\n先が細くなりすぎて、スポンジが自分の重さで潰れる ——\n人数が増えたら等分を増やすのではなく、号数を上げる。\n12 人なら 6 号を 12 等分ではなく、8 号を 12 等分。"
+    at: { x: 890, y: 618 }
+    size: { w: 450, h: 92 }
+  - id: t4
+    label: "④ デコレーション指示図に書くこと"
+    marker: none
+    align: left
+    at: { x: 150, y: 786 }
+    size: { w: 700, h: 20 }
+  - id: h150_816
+    label: "1 枚に載せる項目"
+    hatch: solid
+    at: { x: 150, y: 816 }
+    size: { w: 700, h: 24 }
+  - id: x150_840
+    label: "号数"
+    at: { x: 150, y: 840 }
+    size: { w: 260, h: 24 }
+  - id: y150_840
+    label: "直径と、切る数"
+    align: left
+    at: { x: 410, y: 840 }
+    size: { w: 440, h: 24 }
+  - id: x150_864
+    label: "飾りの数と位置"
+    at: { x: 150, y: 864 }
+    size: { w: 260, h: 24 }
+  - id: y150_864
+    label: "等分線のどこに置くか"
+    align: left
+    at: { x: 410, y: 864 }
+    size: { w: 440, h: 24 }
+  - id: x150_888
+    label: "プレート"
+    at: { x: 150, y: 888 }
+    size: { w: 260, h: 24 }
+  - id: y150_888
+    label: "大きさと向き（文字の天地）"
+    align: left
+    at: { x: 410, y: 888 }
+    size: { w: 440, h: 24 }
+  - id: x150_912
+    label: "ろうそく"
+    at: { x: 150, y: 912 }
+    size: { w: 260, h: 24 }
+  - id: y150_912
+    label: "本数と立てる位置"
+    align: left
+    at: { x: 410, y: 912 }
+    size: { w: 440, h: 24 }
+  - id: x150_936
+    label: "側面"
+    at: { x: 150, y: 936 }
+    size: { w: 260, h: 24 }
+  - id: y150_936
+    label: "ナッペか、絞りか、貼るか"
+    align: left
+    at: { x: 410, y: 936 }
+    size: { w: 440, h: 24 }
+  - id: why4
+    label: "上から見た図だけでは、側面が決まらない。\n同じ上面でも、側面がナッペか絞りかで見た目は別物になる ——\nプレートの向きも、箱を開けた人がどちらから見るかを別に書かないと伝わらない。"
+    at: { x: 150, y: 974 }
+    size: { w: 700, h: 74 }
+  - id: r1
+    label: "飾りの数は、切る数で決まります（①）。8 人で分けるなら 8 等分で、いちごは等分線のあいだに置きます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1066 }
+    size: { w: 1190, h: 18 }
+  - id: r2
+    label: "線の上に置くと、切るときに刃が割って、どちらの皿にも半分ずつ乗ります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1090 }
+    size: { w: 1190, h: 18 }
+  - id: r3
+    label: "号数は直径ですが、量は面積で増えます（②）。5 号 → 6 号は直径 1.2 倍でも面積は 1.44 倍です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1114 }
+    size: { w: 1190, h: 18 }
+  - id: r4
+    label: "「1 号上げる」は「2 割大きくする」ではなく「4 割増やす」。 人数の目安が 2 人ずつ上がるのはそのためです。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1138 }
+    size: { w: 1190, h: 18 }
+  - id: r5
+    label: "切り分けは中心角で決まります（③）。6 号の 8 等分なら 45°、外周 7.1cm です。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1162 }
+    size: { w: 1190, h: 18 }
+  - id: r6
+    label: "外周が 5cm を切ると切り口が崩れます。 人数が増えたら等分を増やすのではなく、号数を上げます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1186 }
+    size: { w: 1190, h: 18 }
+  - id: r7
+    label: "上から見た図だけでは、側面が決まりません（④）。ナッペか絞りかで、同じ上面でも別物になります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1210 }
+    size: { w: 1190, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    line: chain
+    ends: { from: none, to: none }
+  - from: p2
+    to: p3
+    curve: none
+    line: chain
+    ends: { from: none, to: none }
+  - from: p4
+    to: p5
+    curve: none
+    line: chain
+    ends: { from: none, to: none }
+  - from: p6
+    to: p7
+    curve: none
+    line: chain
+    ends: { from: none, to: none }
+  - from: p8
+    to: p9
+    curve: none
+    line: chain
+    ends: { from: none, to: none }
+  - from: p10
+    to: p11
+    curve: none
+    line: chain
+    ends: { from: none, to: none }
+  - from: p12
+    to: p13
+    curve: none
+    line: chain
+    ends: { from: none, to: none }
+  - from: p14
+    to: p15
+    curve: none
+    line: chain
+    ends: { from: none, to: none }
+  - from: p16
+    to: p17
+    curve: none
+    ends: { from: arrow, to: arrow }

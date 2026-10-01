@@ -1,0 +1,923 @@
+version: 1
+kind: placement
+arrows: true
+title: 昭和の木造 2 階建て —— 応接間のある家（架空）
+scale: { mm: 40 }
+wall: { mm: 120, outer: 150 }
+north: { face: up, at: { x: 560, y: 150 } }
+palette:
+  Wall: "#6f6f76"
+  Fixture: "#8f8f97"
+  LD: "#e8998a"
+  Room: "#c99a55"
+  Wet: "#5b9bd5"
+  Tatami: "#7a9a4a"
+  Green: "#5fa052"
+  Tree: "#4f8f45"
+  Road: "#8a8a92"
+  Lot: "#6f6f76"
+  Deck: "#a67c52"
+  Water: "#4a86b8"
+styles:
+  room: { color: Wall, fill: Room, hatch: rows }
+  living: { color: Wall, fill: LD }
+  wet: { color: Wall, fill: Wet, hatch: grid }
+  entry: { color: Wall, fill: Road, hatch: grid }
+  storage: { color: Wall }
+  stairs: { color: Wall, hatch: rows }
+  tatami: { color: Wall, fill: Tatami }
+  deck: { color: Deck, fill: Deck, hatch: rows }
+  paving: { color: Road, hatch: grid }
+  garden: { color: Green, fill: Green, hatch: dots }
+  tree: { color: Tree, fill: Green }
+  road: { color: Road, fill: Road }
+  lot: { color: Lot }
+# **応接間 —— 家族の奥に通さずに、客を迎える洋間。**
+#
+# 昭和の木造 2 階建てによくある型。玄関のすぐ脇に洋間（応接間）を置き、
+# 客はそこで迎える。家族の暮らし（茶の間・台所）は奥にあり、客の目に触れない。
+# **家の中で「洋」がこの一部屋だけ**、ということが多い。
+#
+# | | |
+# |---|---|
+# | 応接間 | 玄関の脇。ソファを置く洋間。家族はふだん使わない |
+# | 茶の間 | 6 帖。家族が集まり食べる。台所の隣 |
+# | 客間 | 8 帖に押入。泊まり客と冠婚葬祭 |
+# | 2 階 | 子ども部屋ひとつと物干し台。1 階の屋根に載る小さな 2 階 |
+#
+# 畳は 1 枚 0.91m × 1.82m。6 帖（2 間 × 1.5 間）と 8 帖（2 間 × 2 間）の敷き方を描いた。
+#
+# **出どころ** —— よく知られた家族ものの作品の家について語られる「昭和の、応接間のある木造 2 階建て」という考察を手がかりに、
+# **zumen が自分で間取りを組んだ。特定の作品・実在の家の間取りを写したものではない**（名前も出さない）。架空。
+nodes:
+  - id: road
+    label: "4.0m 道路"
+    align: center
+    style: road
+    at: { x: 145, y: 124 }
+    size: { w: 392, h: 100 }
+  - id: lot
+    label: ""
+    style: lot
+    at: { x: 164, y: 224 }
+    size: { w: 354, h: 446 }
+  - id: lot_l
+    label: "敷地 約 234㎡（塀で囲む）"
+    marker: none
+    align: left
+    at: { x: 164, y: 676 }
+    size: { w: 260, h: 16 }
+  - id: gate
+    label: ""
+    style: paving
+    at: { x: 418, y: 224 }
+    size: { w: 41, h: 36 }
+  - id: garden
+    label: ""
+    style: garden
+    at: { x: 177, y: 506 }
+    size: { w: 328, h: 150 }
+  - id: garden_l
+    label: "庭"
+    marker: none
+    align: center
+    at: { x: 464, y: 633 }
+    size: { w: 30, h: 14 }
+  - id: f1
+    label: ""
+    marker: none
+    at: { x: 244, y: 541 }
+    size: { w: 2, h: 2 }
+  - id: hoshi_l
+    label: "物干し"
+    marker: none
+    align: center
+    at: { x: 273, y: 546 }
+    size: { w: 50, h: 14 }
+  - id: tree0
+    label: ""
+    marker: circle
+    style: tree
+    at: { x: 192, y: 602 }
+    size: { w: 34, h: 34 }
+  - id: tree1
+    label: ""
+    marker: circle
+    style: tree
+    at: { x: 450, y: 533 }
+    size: { w: 28, h: 28 }
+  - id: tree2
+    label: ""
+    marker: circle
+    style: tree
+    at: { x: 467, y: 586 }
+    size: { w: 22, h: 22 }
+  - id: tree3
+    label: ""
+    marker: circle
+    style: tree
+    at: { x: 361, y: 612 }
+    size: { w: 24, h: 24 }
+  - id: tree4
+    label: ""
+    marker: circle
+    style: tree
+    at: { x: 181, y: 532 }
+    size: { w: 20, h: 20 }
+  - id: furo
+    label: "風呂"
+    style: wet
+    at: { x: 200, y: 260 }
+    size: { w: 46, h: 46 }
+    openings:
+      - { kind: slide, side: bottom, at: 0.5, width: 26 }
+  - id: datsu
+    label: "脱衣"
+    style: wet
+    at: { x: 200, y: 306 }
+    size: { w: 46, h: 22 }
+    openings:
+      - { kind: slide, side: bottom, at: 0.5, width: 26 }
+  - id: ben
+    label: "便所"
+    style: wet
+    at: { x: 246, y: 260 }
+    size: { w: 22, h: 68 }
+    openings:
+      - { kind: door, side: bottom, at: 0.5, width: 18, swing: out }
+  - id: kit
+    label: "台所"
+    technology: "6.1帖"
+    style: room
+    at: { x: 268, y: 260 }
+    size: { w: 91, h: 68 }
+    openings:
+      - { kind: slide, side: bottom, at: 0.3, width: 36 }
+      - { kind: slide, side: top, at: 0.2, width: 24 }
+  - id: kai
+    label: "階段"
+    style: stairs
+    at: { x: 359, y: 260 }
+    size: { w: 46, h: 68 }
+    openings:
+      - { kind: open, side: bottom, at: 0.5, width: 36 }
+  - id: up1_a
+    label: ""
+    marker: none
+    at: { x: 381, y: 323 }
+    size: { w: 2, h: 2 }
+  - id: up1_b
+    label: ""
+    marker: none
+    at: { x: 381, y: 266 }
+    size: { w: 2, h: 2 }
+  - id: gen
+    label: "玄関"
+    style: entry
+    at: { x: 405, y: 260 }
+    size: { w: 68, h: 68 }
+    openings:
+      - { kind: slide, side: top, at: 0.5, width: 36 }
+      - { kind: open, side: bottom, at: 0.5, width: 50 }
+  - id: cha
+    label: "茶の間"
+    technology: "6.1帖"
+    style: tatami
+    at: { x: 200, y: 328 }
+    size: { w: 91, h: 68 }
+    openings:
+      - { kind: slide, side: right, at: 0.33, width: 30 }
+  - id: oya
+    label: "両親の部屋"
+    technology: "6.1帖"
+    style: tatami
+    at: { x: 200, y: 396 }
+    size: { w: 91, h: 69 }
+    openings:
+      - { kind: slide, side: right, at: 0.5, width: 44 }
+      - { kind: slide, side: bottom, at: 0.5, width: 50 }
+  - id: rouka
+    label: "廊下"
+    style: room
+    at: { x: 291, y: 328 }
+    size: { w: 114, h: 46 }
+    openings:
+      - { kind: open, side: right, at: 0.5, width: 36 }
+  - id: hall
+    label: "ホール"
+    style: room
+    at: { x: 405, y: 328 }
+    size: { w: 68, h: 46 }
+  - id: kyaku
+    label: "客間"
+    technology: "8.2帖"
+    style: tatami
+    at: { x: 291, y: 374 }
+    size: { w: 91, h: 91 }
+    openings:
+      - { kind: slide, side: top, at: 0.5, width: 44 }
+      - { kind: slide, side: bottom, at: 0.5, width: 60 }
+  - id: oshi
+    label: "押入"
+    style: storage
+    at: { x: 382, y: 374 }
+    size: { w: 23, h: 91 }
+  - id: setsu
+    label: "応接間"
+    technology: "6.1帖"
+    style: room
+    at: { x: 405, y: 374 }
+    size: { w: 68, h: 91 }
+    openings:
+      - { kind: door, side: top, at: 0.5, width: 30 }
+      - { kind: window, side: right, at: 0.5, width: 50 }
+      - { kind: window, side: bottom, at: 0.5, width: 40 }
+  - id: engawa
+    label: "縁側"
+    align: center
+    style: deck
+    at: { x: 200, y: 465 }
+    size: { w: 205, h: 27 }
+  - id: f2
+    label: ""
+    marker: none
+    at: { x: 200, y: 329 }
+    size: { w: 2, h: 2 }
+  - id: f3
+    label: ""
+    marker: none
+    at: { x: 246, y: 329 }
+    size: { w: 2, h: 2 }
+  - id: f4
+    label: ""
+    marker: none
+    at: { x: 200, y: 352 }
+    size: { w: 2, h: 2 }
+  - id: f5
+    label: ""
+    marker: none
+    at: { x: 223, y: 352 }
+    size: { w: 2, h: 2 }
+  - id: f6
+    label: ""
+    marker: none
+    at: { x: 269, y: 352 }
+    size: { w: 2, h: 2 }
+  - id: f7
+    label: ""
+    marker: none
+    at: { x: 223, y: 374 }
+    size: { w: 2, h: 2 }
+  - id: f8
+    label: ""
+    marker: none
+    at: { x: 200, y: 397 }
+    size: { w: 2, h: 2 }
+  - id: f9
+    label: ""
+    marker: none
+    at: { x: 246, y: 397 }
+    size: { w: 2, h: 2 }
+  - id: f10
+    label: ""
+    marker: none
+    at: { x: 200, y: 420 }
+    size: { w: 2, h: 2 }
+  - id: f11
+    label: ""
+    marker: none
+    at: { x: 223, y: 420 }
+    size: { w: 2, h: 2 }
+  - id: f12
+    label: ""
+    marker: none
+    at: { x: 269, y: 420 }
+    size: { w: 2, h: 2 }
+  - id: f13
+    label: ""
+    marker: none
+    at: { x: 223, y: 442 }
+    size: { w: 2, h: 2 }
+  - id: f14
+    label: ""
+    marker: none
+    at: { x: 292, y: 374 }
+    size: { w: 2, h: 2 }
+  - id: f15
+    label: ""
+    marker: none
+    at: { x: 337, y: 374 }
+    size: { w: 2, h: 2 }
+  - id: f16
+    label: ""
+    marker: none
+    at: { x: 292, y: 397 }
+    size: { w: 2, h: 2 }
+  - id: f17
+    label: ""
+    marker: none
+    at: { x: 314, y: 397 }
+    size: { w: 2, h: 2 }
+  - id: f18
+    label: ""
+    marker: none
+    at: { x: 314, y: 420 }
+    size: { w: 2, h: 2 }
+  - id: f19
+    label: ""
+    marker: none
+    at: { x: 360, y: 397 }
+    size: { w: 2, h: 2 }
+  - id: f20
+    label: ""
+    marker: none
+    at: { x: 292, y: 442 }
+    size: { w: 2, h: 2 }
+  - id: f21
+    label: ""
+    marker: none
+    at: { x: 337, y: 442 }
+    size: { w: 2, h: 2 }
+  - id: f22
+    label: ""
+    marker: none
+    at: { x: 271, y: 263 }
+    size: { w: 2, h: 2 }
+  - id: f23
+    label: ""
+    marker: none
+    at: { x: 296, y: 271 }
+    size: { w: 2, h: 2 }
+  - id: f24
+    label: ""
+    marker: none
+    at: { x: 340, y: 271 }
+    size: { w: 2, h: 2 }
+  - id: f25
+    label: ""
+    marker: none
+    at: { x: 351, y: 271 }
+    size: { w: 2, h: 2 }
+  - id: f26
+    label: ""
+    marker: none
+    at: { x: 204, y: 264 }
+    size: { w: 2, h: 2 }
+  - id: f27
+    label: ""
+    marker: none
+    at: { x: 250, y: 259 }
+    size: { w: 2, h: 2 }
+  - id: f28
+    label: ""
+    marker: none
+    at: { x: 256, y: 276 }
+    size: { w: 2, h: 2 }
+  - id: f29
+    label: ""
+    marker: none
+    at: { x: 404, y: 304 }
+    size: { w: 2, h: 2 }
+  - id: fl1
+    label: "1F"
+    marker: none
+    align: left
+    at: { x: 200, y: 204 }
+    size: { w: 30, h: 16 }
+  - id: fl2
+    label: "2F"
+    marker: none
+    align: left
+    at: { x: 573, y: 240 }
+    size: { w: 30, h: 16 }
+  - id: kodomo
+    label: "子ども部屋"
+    technology: "6.1帖"
+    style: tatami
+    at: { x: 573, y: 260 }
+    size: { w: 91, h: 68 }
+    openings:
+      - { kind: slide, side: right, at: 0.5, width: 30 }
+      - { kind: window, side: bottom, at: 0.5, width: 50 }
+  - id: f30
+    label: ""
+    marker: none
+    at: { x: 574, y: 260 }
+    size: { w: 2, h: 2 }
+  - id: f31
+    label: ""
+    marker: none
+    at: { x: 619, y: 260 }
+    size: { w: 2, h: 2 }
+  - id: f32
+    label: ""
+    marker: none
+    at: { x: 574, y: 283 }
+    size: { w: 2, h: 2 }
+  - id: f33
+    label: ""
+    marker: none
+    at: { x: 596, y: 283 }
+    size: { w: 2, h: 2 }
+  - id: f34
+    label: ""
+    marker: none
+    at: { x: 642, y: 283 }
+    size: { w: 2, h: 2 }
+  - id: f35
+    label: ""
+    marker: none
+    at: { x: 596, y: 306 }
+    size: { w: 2, h: 2 }
+  - id: oshi2
+    label: "押入"
+    style: storage
+    at: { x: 664, y: 260 }
+    size: { w: 23, h: 68 }
+  - id: kai2
+    label: "階段"
+    style: stairs
+    at: { x: 687, y: 260 }
+    size: { w: 45, h: 68 }
+    openings:
+      - { kind: open, side: left, at: 0.5, width: 30 }
+  - id: up2_a
+    label: ""
+    marker: none
+    at: { x: 727, y: 293 }
+    size: { w: 2, h: 2 }
+  - id: up2_b
+    label: ""
+    marker: none
+    at: { x: 690, y: 293 }
+    size: { w: 2, h: 2 }
+  - id: hoshidai
+    label: "物干し台"
+    align: center
+    style: deck
+    at: { x: 573, y: 328 }
+    size: { w: 159, h: 28 }
+  - id: note2
+    label: "2 階は子ども部屋ひとつ。\n1 階の屋根に載る小さな 2 階。"
+    marker: none
+    align: left
+    at: { x: 573, y: 369 }
+    size: { w: 260, h: 36 }
+  - id: h1
+    label: "木造 2 階建て　4K ＋ 応接間　延床 約 106.8㎡（1F 89.4㎡ ／ 2F 17.4㎡）"
+    marker: none
+    align: left
+    at: { x: 200, y: 94 }
+    size: { w: 560, h: 16 }
+  - id: n0
+    label: "応接間 —— 玄関のすぐ脇の洋間。客を家族の部屋に通さずに済む。昭和の家で「洋」がここにだけあることが多い。"
+    marker: none
+    align: left
+    at: { x: 145, y: 704 }
+    size: { w: 900, h: 16 }
+  - id: n1
+    label: "茶の間と両親の部屋は 6 帖、客間は 8 帖に押入。縁側から南の庭（物干し）へ。台所と水まわりは北。"
+    marker: none
+    align: left
+    at: { x: 145, y: 724 }
+    size: { w: 900, h: 16 }
+  - id: n2
+    label: "考察で語られることの多い昭和の家の型を、zumen が自分で間取りから組んだもの。特定の作品・実在の家を写したものではありません（架空）。"
+    marker: none
+    align: left
+    at: { x: 145, y: 744 }
+    size: { w: 900, h: 16 }
+  - id: n3
+    label: "線 —— Wall ＝ 壁、Fixture ＝ 設備、Tatami ＝ 畳の目地、Tree ＝ 植栽。"
+    marker: none
+    align: left
+    at: { x: 145, y: 764 }
+    size: { w: 900, h: 16 }
+edges:
+  - from: f1
+    to: f1
+    close: false
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 245.5, y: 542.1 }
+      - { x: 345.6, y: 542.1 }
+  - from: up1_a
+    to: up1_b
+    curve: none
+    color: Fixture
+    ends: { from: dot, to: arrow }
+  - from: f2
+    to: f2
+    close: true
+    curve: none
+    color: Tatami
+    ends: { from: none, to: none }
+    via:
+      - { x: 201.5, y: 329.8 }
+      - { x: 244, y: 329.8 }
+      - { x: 244, y: 349.5 }
+      - { x: 201.5, y: 349.5 }
+  - from: f3
+    to: f3
+    close: true
+    curve: none
+    color: Tatami
+    ends: { from: none, to: none }
+    via:
+      - { x: 247, y: 329.8 }
+      - { x: 289.5, y: 329.8 }
+      - { x: 289.5, y: 349.5 }
+      - { x: 247, y: 349.5 }
+  - from: f4
+    to: f4
+    close: true
+    curve: none
+    color: Tatami
+    ends: { from: none, to: none }
+    via:
+      - { x: 201.5, y: 352.5 }
+      - { x: 221.2, y: 352.5 }
+      - { x: 221.2, y: 395 }
+      - { x: 201.5, y: 395 }
+  - from: f5
+    to: f5
+    close: true
+    curve: none
+    color: Tatami
+    ends: { from: none, to: none }
+    via:
+      - { x: 224.2, y: 352.5 }
+      - { x: 266.8, y: 352.5 }
+      - { x: 266.8, y: 372.2 }
+      - { x: 224.2, y: 372.2 }
+  - from: f6
+    to: f6
+    close: true
+    curve: none
+    color: Tatami
+    ends: { from: none, to: none }
+    via:
+      - { x: 269.8, y: 352.5 }
+      - { x: 289.5, y: 352.5 }
+      - { x: 289.5, y: 395 }
+      - { x: 269.8, y: 395 }
+  - from: f7
+    to: f7
+    close: true
+    curve: none
+    color: Tatami
+    ends: { from: none, to: none }
+    via:
+      - { x: 224.2, y: 375.2 }
+      - { x: 266.8, y: 375.2 }
+      - { x: 266.8, y: 395 }
+      - { x: 224.2, y: 395 }
+  - from: f8
+    to: f8
+    close: true
+    curve: none
+    color: Tatami
+    ends: { from: none, to: none }
+    via:
+      - { x: 201.5, y: 398 }
+      - { x: 244, y: 398 }
+      - { x: 244, y: 417.8 }
+      - { x: 201.5, y: 417.8 }
+  - from: f9
+    to: f9
+    close: true
+    curve: none
+    color: Tatami
+    ends: { from: none, to: none }
+    via:
+      - { x: 247, y: 398 }
+      - { x: 289.5, y: 398 }
+      - { x: 289.5, y: 417.8 }
+      - { x: 247, y: 417.8 }
+  - from: f10
+    to: f10
+    close: true
+    curve: none
+    color: Tatami
+    ends: { from: none, to: none }
+    via:
+      - { x: 201.5, y: 420.8 }
+      - { x: 221.2, y: 420.8 }
+      - { x: 221.2, y: 463.2 }
+      - { x: 201.5, y: 463.2 }
+  - from: f11
+    to: f11
+    close: true
+    curve: none
+    color: Tatami
+    ends: { from: none, to: none }
+    via:
+      - { x: 224.2, y: 420.8 }
+      - { x: 266.8, y: 420.8 }
+      - { x: 266.8, y: 440.5 }
+      - { x: 224.2, y: 440.5 }
+  - from: f12
+    to: f12
+    close: true
+    curve: none
+    color: Tatami
+    ends: { from: none, to: none }
+    via:
+      - { x: 269.8, y: 420.8 }
+      - { x: 289.5, y: 420.8 }
+      - { x: 289.5, y: 463.2 }
+      - { x: 269.8, y: 463.2 }
+  - from: f13
+    to: f13
+    close: true
+    curve: none
+    color: Tatami
+    ends: { from: none, to: none }
+    via:
+      - { x: 224.2, y: 443.5 }
+      - { x: 266.8, y: 443.5 }
+      - { x: 266.8, y: 463.2 }
+      - { x: 224.2, y: 463.2 }
+  - from: f14
+    to: f14
+    close: true
+    curve: none
+    color: Tatami
+    ends: { from: none, to: none }
+    via:
+      - { x: 292.5, y: 375.2 }
+      - { x: 335, y: 375.2 }
+      - { x: 335, y: 395 }
+      - { x: 292.5, y: 395 }
+  - from: f15
+    to: f15
+    close: true
+    curve: none
+    color: Tatami
+    ends: { from: none, to: none }
+    via:
+      - { x: 338, y: 375.2 }
+      - { x: 380.5, y: 375.2 }
+      - { x: 380.5, y: 395 }
+      - { x: 338, y: 395 }
+  - from: f16
+    to: f16
+    close: true
+    curve: none
+    color: Tatami
+    ends: { from: none, to: none }
+    via:
+      - { x: 292.5, y: 398 }
+      - { x: 312.2, y: 398 }
+      - { x: 312.2, y: 440.5 }
+      - { x: 292.5, y: 440.5 }
+  - from: f17
+    to: f17
+    close: true
+    curve: none
+    color: Tatami
+    ends: { from: none, to: none }
+    via:
+      - { x: 315.2, y: 398 }
+      - { x: 357.8, y: 398 }
+      - { x: 357.8, y: 417.8 }
+      - { x: 315.2, y: 417.8 }
+  - from: f18
+    to: f18
+    close: true
+    curve: none
+    color: Tatami
+    ends: { from: none, to: none }
+    via:
+      - { x: 315.2, y: 420.8 }
+      - { x: 357.8, y: 420.8 }
+      - { x: 357.8, y: 440.5 }
+      - { x: 315.2, y: 440.5 }
+  - from: f19
+    to: f19
+    close: true
+    curve: none
+    color: Tatami
+    ends: { from: none, to: none }
+    via:
+      - { x: 360.8, y: 398 }
+      - { x: 380.5, y: 398 }
+      - { x: 380.5, y: 440.5 }
+      - { x: 360.8, y: 440.5 }
+  - from: f20
+    to: f20
+    close: true
+    curve: none
+    color: Tatami
+    ends: { from: none, to: none }
+    via:
+      - { x: 292.5, y: 443.5 }
+      - { x: 335, y: 443.5 }
+      - { x: 335, y: 463.2 }
+      - { x: 292.5, y: 463.2 }
+  - from: f21
+    to: f21
+    close: true
+    curve: none
+    color: Tatami
+    ends: { from: none, to: none }
+    via:
+      - { x: 338, y: 443.5 }
+      - { x: 380.5, y: 443.5 }
+      - { x: 380.5, y: 463.2 }
+      - { x: 338, y: 463.2 }
+  - from: f22
+    to: f22
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 272.2, y: 264 }
+      - { x: 355.2, y: 264 }
+      - { x: 355.2, y: 280 }
+      - { x: 272.2, y: 280 }
+  - from: f23
+    to: f23
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 297, y: 272 }
+      - { x: 296.2, y: 275 }
+      - { x: 294, y: 277.2 }
+      - { x: 291, y: 278 }
+      - { x: 288, y: 277.2 }
+      - { x: 285.8, y: 275 }
+      - { x: 285, y: 272 }
+      - { x: 285.8, y: 269 }
+      - { x: 288, y: 266.8 }
+      - { x: 291, y: 266 }
+      - { x: 294, y: 266.8 }
+      - { x: 296.2, y: 269 }
+  - from: f24
+    to: f24
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 340.5, y: 272 }
+      - { x: 340, y: 274 }
+      - { x: 338.5, y: 275.5 }
+      - { x: 336.5, y: 276 }
+      - { x: 334.5, y: 275.5 }
+      - { x: 333, y: 274 }
+      - { x: 332.5, y: 272 }
+      - { x: 333, y: 270 }
+      - { x: 334.5, y: 268.5 }
+      - { x: 336.5, y: 268 }
+      - { x: 338.5, y: 268.5 }
+      - { x: 340, y: 270 }
+  - from: f25
+    to: f25
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 351.9, y: 272 }
+      - { x: 351.3, y: 274 }
+      - { x: 349.9, y: 275.5 }
+      - { x: 347.9, y: 276 }
+      - { x: 345.9, y: 275.5 }
+      - { x: 344.4, y: 274 }
+      - { x: 343.9, y: 272 }
+      - { x: 344.4, y: 270 }
+      - { x: 345.9, y: 268.5 }
+      - { x: 347.9, y: 268 }
+      - { x: 349.9, y: 268.5 }
+      - { x: 351.3, y: 270 }
+  - from: f26
+    to: f26
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 205, y: 265 }
+      - { x: 240.5, y: 265 }
+      - { x: 240.5, y: 297.5 }
+      - { x: 205, y: 297.5 }
+  - from: f27
+    to: f27
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 251.4, y: 260 }
+      - { x: 262.4, y: 260 }
+      - { x: 262.4, y: 264.5 }
+      - { x: 251.4, y: 264.5 }
+  - from: f28
+    to: f28
+    close: true
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 256.9, y: 277.5 }
+      - { x: 258.3, y: 277 }
+      - { x: 259.7, y: 275.6 }
+      - { x: 260.7, y: 273.5 }
+      - { x: 261.4, y: 271 }
+      - { x: 261.3, y: 268.5 }
+      - { x: 260.5, y: 266.4 }
+      - { x: 258.9, y: 265 }
+      - { x: 256.9, y: 264.5 }
+      - { x: 254.9, y: 265 }
+      - { x: 253.3, y: 266.4 }
+      - { x: 252.4, y: 268.5 }
+      - { x: 252.4, y: 271 }
+      - { x: 253, y: 273.5 }
+      - { x: 254.1, y: 275.6 }
+      - { x: 255.4, y: 277 }
+  - from: f29
+    to: f29
+    close: false
+    curve: none
+    color: Fixture
+    ends: { from: none, to: none }
+    via:
+      - { x: 404.8, y: 305.5 }
+      - { x: 473, y: 305.5 }
+  - from: f30
+    to: f30
+    close: true
+    curve: none
+    color: Tatami
+    ends: { from: none, to: none }
+    via:
+      - { x: 574.6, y: 261.5 }
+      - { x: 617.1, y: 261.5 }
+      - { x: 617.1, y: 281.2 }
+      - { x: 574.6, y: 281.2 }
+  - from: f31
+    to: f31
+    close: true
+    curve: none
+    color: Tatami
+    ends: { from: none, to: none }
+    via:
+      - { x: 620.1, y: 261.5 }
+      - { x: 662.6, y: 261.5 }
+      - { x: 662.6, y: 281.2 }
+      - { x: 620.1, y: 281.2 }
+  - from: f32
+    to: f32
+    close: true
+    curve: none
+    color: Tatami
+    ends: { from: none, to: none }
+    via:
+      - { x: 574.6, y: 284.2 }
+      - { x: 594.3, y: 284.2 }
+      - { x: 594.3, y: 326.8 }
+      - { x: 574.6, y: 326.8 }
+  - from: f33
+    to: f33
+    close: true
+    curve: none
+    color: Tatami
+    ends: { from: none, to: none }
+    via:
+      - { x: 597.3, y: 284.2 }
+      - { x: 639.8, y: 284.2 }
+      - { x: 639.8, y: 304 }
+      - { x: 597.3, y: 304 }
+  - from: f34
+    to: f34
+    close: true
+    curve: none
+    color: Tatami
+    ends: { from: none, to: none }
+    via:
+      - { x: 642.8, y: 284.2 }
+      - { x: 662.6, y: 284.2 }
+      - { x: 662.6, y: 326.8 }
+      - { x: 642.8, y: 326.8 }
+  - from: f35
+    to: f35
+    close: true
+    curve: none
+    color: Tatami
+    ends: { from: none, to: none }
+    via:
+      - { x: 597.3, y: 307 }
+      - { x: 639.8, y: 307 }
+      - { x: 639.8, y: 326.8 }
+      - { x: 597.3, y: 326.8 }
+  - from: up2_a
+    to: up2_b
+    curve: none
+    color: Fixture
+    ends: { from: dot, to: arrow }

@@ -1,0 +1,815 @@
+version: 1
+kind: placement
+arrows: false
+title: 2011 年 3 月 11 日の津波 —— 観測点ごとの到達と最大の高さ、予想の引き上げ（気象庁の観測値）
+# **最大波は、予想の引き上げより先に来た。**
+#
+# 2011 年 3 月 11 日 14 時 46 分 18.1 秒、三陸沖で M9.0（モーメントマグニチュード）。
+# 気象庁は 3 分後の 14 時 49 分に大津波警報を出した。**そのとき岩手県に予想した高さは 3m。**
+# 地震の規模を M7.9 と小さく見積もっていたからで、M9.0 に落ち着いたのは 3 月 13 日。
+#
+# | 予報区 | 14:49 | 15:14 | 15:30 |
+# |---|---|---|---|
+# | 岩手県 | 3m | 6m | **10m 以上** |
+# | 宮城県 | 6m | **10m 以上** | |
+# | 福島県 | 3m | 6m | **10m 以上** |
+#
+# 岩手の予想が 10m 以上になった 15:30 には、**大船渡 15:18（8.0m 以上）・釜石 15:21（4.2m 以上）・
+# 宮古 15:26（8.5m 以上）の最大波はもう来ていた。**
+#
+# ## 「以上」の意味
+#
+# 観測値に「以上」が付いているのは、**計器が壊れたか、振り切れたか、データが途中で途切れた**所。
+# 本当の高さはもっと上。①ではそれを斜線の棒にした —— **塗りの棒は「そこまで」、斜線は「少なくともそこまで」。**
+# 相馬の 9.3m 以上がこの表の最大だが、これは検潮所の値で、**陸を駆け上がった高さ（遡上高）ではない。**
+#
+# 釜石・大船渡・石巻市鮎川・相馬は、**第 1 波が 14 時台に始まったが、揺れによる潮位の乱れで時刻を特定できなかった**
+# （報告書の注 *6）。①では 14:46〜15:00 の斜線の帯にした。
+# 岩手県〜千葉県の沿岸は地震で 1.2m〜0.1m 沈んでいて、高さにはその沈みが含まれている可能性がある（同じ報告書の注）。
+#
+# ## その後
+#
+# 第 1 報の「3m」が避難の遅れにつながったと考えられ、**2013 年 3 月 7 日から、M8 を超える巨大地震の第 1 報は
+# 高さを数字で出さず「巨大」「高い」と言う**ようになった。予想される高さは 1m・3m・5m・10m・10m 超の 5 段階。
+#
+# ## 描かなかったもの
+#
+# - **地図。** 観測点の位置は北から南への順だけで表した（位置の正確さを、地図の描き方で損ねないため）
+# - **犠牲者の数。** この図は「いつ、どれだけの高さが来たか」と「何が予想されていたか」だけを描く
+# - **遡上高**（最大 40m 級）。検潮所の値とは測っているものが違うので、混ぜない
+#
+# 出典: 気象庁「災害時地震・津波速報 平成 23 年（2011 年）東北地方太平洋沖地震」（2011 年）
+# 1. 地震・津波概要 —— 表 1-4-1 日本国内の津波観測施設で観測された津波の観測値、図 1-3-1 津波警報等の発表状況。
+# 報告書にも「値は後日変更される場合がある」とある。
+# 気象庁「津波警報の改善のポイント」、内閣府「特集 新しい津波警報」（2013 年 3 月 7 日の運用開始）。
+nodes:
+  - id: t1
+    label: "① 観測点ごとの第 1 波と最大の高さ（2011 年 3 月 11 日・気象庁の観測値。北から南へ）"
+    marker: none
+    align: left
+    at: { x: 60, y: 96 }
+    size: { w: 1300, h: 18 }
+  - id: x1500
+    label: "15:00"
+    marker: none
+    align: center
+    at: { x: 290, y: 918 }
+    size: { w: 48, h: 16 }
+  - id: xa1500
+    label: ""
+    marker: none
+    at: { x: 313, y: 909 }
+    size: { w: 2, h: 2 }
+  - id: xb1500
+    label: ""
+    marker: none
+    at: { x: 313, y: 914 }
+    size: { w: 2, h: 2 }
+  - id: x1530
+    label: "15:30"
+    marker: none
+    align: center
+    at: { x: 386, y: 918 }
+    size: { w: 48, h: 16 }
+  - id: xa1530
+    label: ""
+    marker: none
+    at: { x: 409, y: 909 }
+    size: { w: 2, h: 2 }
+  - id: xb1530
+    label: ""
+    marker: none
+    at: { x: 409, y: 914 }
+    size: { w: 2, h: 2 }
+  - id: x1600
+    label: "16:00"
+    marker: none
+    align: center
+    at: { x: 482, y: 918 }
+    size: { w: 48, h: 16 }
+  - id: xa1600
+    label: ""
+    marker: none
+    at: { x: 505, y: 909 }
+    size: { w: 2, h: 2 }
+  - id: xb1600
+    label: ""
+    marker: none
+    at: { x: 505, y: 914 }
+    size: { w: 2, h: 2 }
+  - id: x1630
+    label: "16:30"
+    marker: none
+    align: center
+    at: { x: 578, y: 918 }
+    size: { w: 48, h: 16 }
+  - id: xa1630
+    label: ""
+    marker: none
+    at: { x: 601, y: 909 }
+    size: { w: 2, h: 2 }
+  - id: xb1630
+    label: ""
+    marker: none
+    at: { x: 601, y: 914 }
+    size: { w: 2, h: 2 }
+  - id: x1700
+    label: "17:00"
+    marker: none
+    align: center
+    at: { x: 674, y: 918 }
+    size: { w: 48, h: 16 }
+  - id: xa1700
+    label: ""
+    marker: none
+    at: { x: 697, y: 909 }
+    size: { w: 2, h: 2 }
+  - id: xb1700
+    label: ""
+    marker: none
+    at: { x: 697, y: 914 }
+    size: { w: 2, h: 2 }
+  - id: x1730
+    label: "17:30"
+    marker: none
+    align: center
+    at: { x: 770, y: 918 }
+    size: { w: 48, h: 16 }
+  - id: xa1730
+    label: ""
+    marker: none
+    at: { x: 793, y: 909 }
+    size: { w: 2, h: 2 }
+  - id: xb1730
+    label: ""
+    marker: none
+    at: { x: 793, y: 914 }
+    size: { w: 2, h: 2 }
+  - id: x1800
+    label: "18:00"
+    marker: none
+    align: center
+    at: { x: 866, y: 918 }
+    size: { w: 48, h: 16 }
+  - id: xa1800
+    label: ""
+    marker: none
+    at: { x: 889, y: 909 }
+    size: { w: 2, h: 2 }
+  - id: xb1800
+    label: ""
+    marker: none
+    at: { x: 889, y: 914 }
+    size: { w: 2, h: 2 }
+  - id: x1830
+    label: "18:30"
+    marker: none
+    align: center
+    at: { x: 962, y: 918 }
+    size: { w: 48, h: 16 }
+  - id: xa1830
+    label: ""
+    marker: none
+    at: { x: 985, y: 909 }
+    size: { w: 2, h: 2 }
+  - id: xb1830
+    label: ""
+    marker: none
+    at: { x: 985, y: 914 }
+    size: { w: 2, h: 2 }
+  - id: x1900
+    label: "19:00"
+    marker: none
+    align: center
+    at: { x: 1058, y: 918 }
+    size: { w: 48, h: 16 }
+  - id: xa1900
+    label: ""
+    marker: none
+    at: { x: 1081, y: 909 }
+    size: { w: 2, h: 2 }
+  - id: xb1900
+    label: ""
+    marker: none
+    at: { x: 1081, y: 914 }
+    size: { w: 2, h: 2 }
+  - id: x1930
+    label: "19:30"
+    marker: none
+    align: center
+    at: { x: 1154, y: 918 }
+    size: { w: 48, h: 16 }
+  - id: xa1930
+    label: ""
+    marker: none
+    at: { x: 1177, y: 909 }
+    size: { w: 2, h: 2 }
+  - id: xb1930
+    label: ""
+    marker: none
+    at: { x: 1177, y: 914 }
+    size: { w: 2, h: 2 }
+  - id: ax0
+    label: ""
+    marker: none
+    at: { x: 249, y: 909 }
+    size: { w: 2, h: 2 }
+  - id: ax1
+    label: ""
+    marker: none
+    at: { x: 1177, y: 909 }
+    size: { w: 2, h: 2 }
+  - id: qa
+    label: ""
+    marker: none
+    at: { x: 268.2, y: 159 }
+    size: { w: 2, h: 2 }
+  - id: qb
+    label: ""
+    marker: none
+    at: { x: 268.2, y: 909 }
+    size: { w: 2, h: 2 }
+  - id: w1a
+    label: ""
+    marker: none
+    at: { x: 277.8, y: 159 }
+    size: { w: 2, h: 2 }
+  - id: w1b
+    label: ""
+    marker: none
+    at: { x: 277.8, y: 909 }
+    size: { w: 2, h: 2 }
+  - id: w2a
+    label: ""
+    marker: none
+    at: { x: 357.8, y: 159 }
+    size: { w: 2, h: 2 }
+  - id: w2b
+    label: ""
+    marker: none
+    at: { x: 357.8, y: 909 }
+    size: { w: 2, h: 2 }
+  - id: w3a
+    label: ""
+    marker: none
+    at: { x: 409, y: 159 }
+    size: { w: 2, h: 2 }
+  - id: w3b
+    label: ""
+    marker: none
+    at: { x: 409, y: 909 }
+    size: { w: 2, h: 2 }
+  - id: ql
+    label: "14:46 地震（M9.0）"
+    marker: none
+    align: right
+    at: { x: 119.2, y: 138 }
+    size: { w: 140, h: 16 }
+  - id: w1l
+    label: "14:49 大津波警報 第 1 報"
+    marker: none
+    align: left
+    at: { x: 282.8, y: 120 }
+    size: { w: 190, h: 16 }
+  - id: w2l
+    label: "15:14 予想を引き上げ"
+    marker: none
+    align: left
+    at: { x: 362.8, y: 138 }
+    size: { w: 160, h: 16 }
+  - id: w3l
+    label: "15:30 岩手・福島も 10m 以上"
+    marker: none
+    align: left
+    at: { x: 414, y: 156 }
+    size: { w: 220, h: 16 }
+  - id: n0
+    label: "八戸（青森）"
+    marker: none
+    align: right
+    at: { x: 60, y: 238 }
+    size: { w: 180, h: 16 }
+  - id: f0
+    label: ""
+    marker: circle
+    at: { x: 377.2, y: 252 }
+    size: { w: 8, h: 8 }
+  - id: b0
+    label: ""
+    hatch: lines
+    at: { x: 684.4, y: 228.7 }
+    size: { w: 8, h: 27.3 }
+  - id: v0
+    label: "4.2m 以上　16:57"
+    marker: none
+    align: left
+    at: { x: 700.4, y: 240 }
+    size: { w: 150, h: 16 }
+  - id: n1
+    label: "宮古（岩手）"
+    marker: none
+    align: right
+    at: { x: 60, y: 310 }
+    size: { w: 180, h: 16 }
+  - id: f1
+    label: ""
+    marker: circle
+    at: { x: 313.2, y: 324 }
+    size: { w: 8, h: 8 }
+  - id: b1
+    label: ""
+    hatch: lines
+    at: { x: 393.2, y: 272.75 }
+    size: { w: 8, h: 55.25 }
+  - id: v1
+    label: "8.5m 以上　15:26"
+    marker: none
+    align: left
+    at: { x: 416, y: 312 }
+    size: { w: 150, h: 16 }
+  - id: n2
+    label: "釜石（岩手）"
+    marker: none
+    align: right
+    at: { x: 60, y: 382 }
+    size: { w: 180, h: 16 }
+  - id: f2
+    label: ""
+    hatch: lines
+    at: { x: 269.2, y: 394 }
+    size: { w: 44.8, h: 6 }
+  - id: b2
+    label: ""
+    hatch: lines
+    at: { x: 377.2, y: 372.7 }
+    size: { w: 8, h: 27.3 }
+  - id: v2
+    label: "4.2m 以上　15:21"
+    marker: none
+    align: left
+    at: { x: 416, y: 384 }
+    size: { w: 150, h: 16 }
+  - id: n3
+    label: "大船渡（岩手）"
+    marker: none
+    align: right
+    at: { x: 60, y: 454 }
+    size: { w: 180, h: 16 }
+  - id: f3
+    label: ""
+    hatch: lines
+    at: { x: 269.2, y: 466 }
+    size: { w: 44.8, h: 6 }
+  - id: b3
+    label: ""
+    hatch: lines
+    at: { x: 367.6, y: 420 }
+    size: { w: 8, h: 52 }
+  - id: v3
+    label: "8.0m 以上　15:18"
+    marker: none
+    align: left
+    at: { x: 416, y: 456 }
+    size: { w: 150, h: 16 }
+  - id: n4
+    label: "石巻市鮎川（宮城）"
+    marker: none
+    align: right
+    at: { x: 60, y: 526 }
+    size: { w: 180, h: 16 }
+  - id: f4
+    label: ""
+    hatch: lines
+    at: { x: 269.2, y: 538 }
+    size: { w: 44.8, h: 6 }
+  - id: b4
+    label: ""
+    hatch: lines
+    at: { x: 393.2, y: 488.1 }
+    size: { w: 8, h: 55.9 }
+  - id: v4
+    label: "8.6m 以上　15:26"
+    marker: none
+    align: left
+    at: { x: 416, y: 528 }
+    size: { w: 150, h: 16 }
+  - id: n5
+    label: "相馬（福島）"
+    marker: none
+    align: right
+    at: { x: 60, y: 598 }
+    size: { w: 180, h: 16 }
+  - id: f5
+    label: ""
+    hatch: lines
+    at: { x: 269.2, y: 610 }
+    size: { w: 44.8, h: 6 }
+  - id: b5
+    label: ""
+    hatch: lines
+    at: { x: 473.2, y: 555.55 }
+    size: { w: 8, h: 60.45 }
+  - id: v5
+    label: "9.3m 以上　15:51"
+    marker: none
+    align: left
+    at: { x: 489.2, y: 600 }
+    size: { w: 150, h: 16 }
+  - id: n6
+    label: "いわき市小名浜（福島）"
+    marker: none
+    align: right
+    at: { x: 60, y: 670 }
+    size: { w: 180, h: 16 }
+  - id: f6
+    label: ""
+    marker: circle
+    at: { x: 335.6, y: 684 }
+    size: { w: 8, h: 8 }
+  - id: b6
+    label: ""
+    hatch: solid
+    at: { x: 434.8, y: 666.355 }
+    size: { w: 8, h: 21.645 }
+  - id: v6
+    label: "3.33m　15:39"
+    marker: none
+    align: left
+    at: { x: 450.8, y: 672 }
+    size: { w: 150, h: 16 }
+  - id: n7
+    label: "大洗（茨城）"
+    marker: none
+    align: right
+    at: { x: 60, y: 742 }
+    size: { w: 180, h: 16 }
+  - id: f7
+    label: ""
+    marker: circle
+    at: { x: 364.4, y: 756 }
+    size: { w: 8, h: 8 }
+  - id: b7
+    label: ""
+    hatch: solid
+    at: { x: 668.4, y: 734 }
+    size: { w: 8, h: 26 }
+  - id: v7
+    label: "4.0m　16:52"
+    marker: none
+    align: left
+    at: { x: 684.4, y: 744 }
+    size: { w: 150, h: 16 }
+  - id: n8
+    label: "銚子（千葉）"
+    marker: none
+    align: right
+    at: { x: 60, y: 814 }
+    size: { w: 180, h: 16 }
+  - id: f8
+    label: ""
+    marker: circle
+    at: { x: 351.6, y: 828 }
+    size: { w: 8, h: 8 }
+  - id: b8
+    label: ""
+    hatch: solid
+    at: { x: 764.4, y: 815.75 }
+    size: { w: 8, h: 16.25 }
+  - id: v8
+    label: "2.5m　17:22"
+    marker: none
+    align: left
+    at: { x: 780.4, y: 816 }
+    size: { w: 150, h: 16 }
+  - id: n9
+    label: "東京晴海（東京）"
+    marker: none
+    align: right
+    at: { x: 60, y: 886 }
+    size: { w: 180, h: 16 }
+  - id: f9
+    label: ""
+    marker: circle
+    at: { x: 630, y: 900 }
+    size: { w: 8, h: 8 }
+  - id: b9
+    label: ""
+    hatch: solid
+    at: { x: 1129.2, y: 894.25 }
+    size: { w: 8, h: 9.75 }
+  - id: v9
+    label: "1.5m　19:16"
+    marker: none
+    align: left
+    at: { x: 1145.2, y: 888 }
+    size: { w: 150, h: 16 }
+  - id: k1
+    label: "○ 第 1 波の始まり　　斜線の帯 ＝ 14 時台に始まったが、揺れで時刻を判別できない"
+    marker: none
+    align: left
+    at: { x: 60, y: 946 }
+    size: { w: 1300, h: 18 }
+  - id: k2
+    label: "棒 ＝ 最大の高さ（1m ＝ 6.5px）。塗り ＝ 測れた値。斜線 ＝「以上」—— 計器が壊れたか振り切れて、本当の高さはもっと上"
+    marker: none
+    align: left
+    at: { x: 60, y: 968 }
+    size: { w: 1300, h: 18 }
+  - id: t2
+    label: "② 予想される高さの推移（津波警報・注意報で発表した値）—— 最大波のほうが先に来た"
+    marker: none
+    align: left
+    at: { x: 60, y: 1016 }
+    size: { w: 1300, h: 18 }
+  - id: p0_0
+    label: "予報区"
+    hatch: solid
+    align: center
+    at: { x: 60, y: 1048 }
+    size: { w: 220, h: 28 }
+  - id: p0_1
+    label: "14:49 第 1 報"
+    hatch: solid
+    align: center
+    at: { x: 280, y: 1048 }
+    size: { w: 130, h: 28 }
+  - id: p0_2
+    label: "15:14"
+    hatch: solid
+    align: center
+    at: { x: 410, y: 1048 }
+    size: { w: 130, h: 28 }
+  - id: p0_3
+    label: "15:30"
+    hatch: solid
+    align: center
+    at: { x: 540, y: 1048 }
+    size: { w: 130, h: 28 }
+  - id: p0_4
+    label: "16:08"
+    hatch: solid
+    align: center
+    at: { x: 670, y: 1048 }
+    size: { w: 130, h: 28 }
+  - id: p0_5
+    label: "その地域の最大（①）"
+    hatch: solid
+    align: center
+    at: { x: 800, y: 1048 }
+    size: { w: 300, h: 28 }
+  - id: p1_0
+    label: "青森県太平洋沿岸"
+    align: center
+    at: { x: 60, y: 1076 }
+    size: { w: 220, h: 28 }
+  - id: p1_1
+    label: "1m"
+    align: center
+    at: { x: 280, y: 1076 }
+    size: { w: 130, h: 28 }
+  - id: p1_2
+    label: "3m"
+    align: center
+    at: { x: 410, y: 1076 }
+    size: { w: 130, h: 28 }
+  - id: p1_3
+    label: "8m"
+    align: center
+    at: { x: 540, y: 1076 }
+    size: { w: 130, h: 28 }
+  - id: p1_4
+    label: "10m 以上"
+    align: center
+    at: { x: 670, y: 1076 }
+    size: { w: 130, h: 28 }
+  - id: p1_5
+    label: "八戸 4.2m 以上　16:57"
+    align: center
+    at: { x: 800, y: 1076 }
+    size: { w: 300, h: 28 }
+  - id: p2_0
+    label: "岩手県"
+    align: center
+    at: { x: 60, y: 1104 }
+    size: { w: 220, h: 28 }
+  - id: p2_1
+    label: "3m"
+    align: center
+    at: { x: 280, y: 1104 }
+    size: { w: 130, h: 28 }
+  - id: p2_2
+    label: "6m"
+    align: center
+    at: { x: 410, y: 1104 }
+    size: { w: 130, h: 28 }
+  - id: p2_3
+    label: "10m 以上"
+    align: center
+    at: { x: 540, y: 1104 }
+    size: { w: 130, h: 28 }
+  - id: p2_4
+    label: ""
+    align: center
+    at: { x: 670, y: 1104 }
+    size: { w: 130, h: 28 }
+  - id: p2_5
+    label: "宮古 8.5m 以上　15:26"
+    align: center
+    at: { x: 800, y: 1104 }
+    size: { w: 300, h: 28 }
+  - id: p3_0
+    label: "宮城県"
+    align: center
+    at: { x: 60, y: 1132 }
+    size: { w: 220, h: 28 }
+  - id: p3_1
+    label: "6m"
+    align: center
+    at: { x: 280, y: 1132 }
+    size: { w: 130, h: 28 }
+  - id: p3_2
+    label: "10m 以上"
+    align: center
+    at: { x: 410, y: 1132 }
+    size: { w: 130, h: 28 }
+  - id: p3_3
+    label: ""
+    align: center
+    at: { x: 540, y: 1132 }
+    size: { w: 130, h: 28 }
+  - id: p3_4
+    label: ""
+    align: center
+    at: { x: 670, y: 1132 }
+    size: { w: 130, h: 28 }
+  - id: p3_5
+    label: "石巻市鮎川 8.6m 以上　15:26"
+    align: center
+    at: { x: 800, y: 1132 }
+    size: { w: 300, h: 28 }
+  - id: p4_0
+    label: "福島県"
+    align: center
+    at: { x: 60, y: 1160 }
+    size: { w: 220, h: 28 }
+  - id: p4_1
+    label: "3m"
+    align: center
+    at: { x: 280, y: 1160 }
+    size: { w: 130, h: 28 }
+  - id: p4_2
+    label: "6m"
+    align: center
+    at: { x: 410, y: 1160 }
+    size: { w: 130, h: 28 }
+  - id: p4_3
+    label: "10m 以上"
+    align: center
+    at: { x: 540, y: 1160 }
+    size: { w: 130, h: 28 }
+  - id: p4_4
+    label: ""
+    align: center
+    at: { x: 670, y: 1160 }
+    size: { w: 130, h: 28 }
+  - id: p4_5
+    label: "相馬 9.3m 以上　15:51"
+    align: center
+    at: { x: 800, y: 1160 }
+    size: { w: 300, h: 28 }
+  - id: p5_0
+    label: "茨城県"
+    align: center
+    at: { x: 60, y: 1188 }
+    size: { w: 220, h: 28 }
+  - id: p5_1
+    label: "2m"
+    align: center
+    at: { x: 280, y: 1188 }
+    size: { w: 130, h: 28 }
+  - id: p5_2
+    label: "4m"
+    align: center
+    at: { x: 410, y: 1188 }
+    size: { w: 130, h: 28 }
+  - id: p5_3
+    label: "10m 以上"
+    align: center
+    at: { x: 540, y: 1188 }
+    size: { w: 130, h: 28 }
+  - id: p5_4
+    label: ""
+    align: center
+    at: { x: 670, y: 1188 }
+    size: { w: 130, h: 28 }
+  - id: p5_5
+    label: "大洗 4.0m　16:52"
+    align: center
+    at: { x: 800, y: 1188 }
+    size: { w: 300, h: 28 }
+  - id: p6_0
+    label: "千葉県九十九里・外房"
+    align: center
+    at: { x: 60, y: 1216 }
+    size: { w: 220, h: 28 }
+  - id: p6_1
+    label: "2m"
+    align: center
+    at: { x: 280, y: 1216 }
+    size: { w: 130, h: 28 }
+  - id: p6_2
+    label: "3m"
+    align: center
+    at: { x: 410, y: 1216 }
+    size: { w: 130, h: 28 }
+  - id: p6_3
+    label: "10m 以上"
+    align: center
+    at: { x: 540, y: 1216 }
+    size: { w: 130, h: 28 }
+  - id: p6_4
+    label: ""
+    align: center
+    at: { x: 670, y: 1216 }
+    size: { w: 130, h: 28 }
+  - id: p6_5
+    label: "銚子 2.5m　17:22"
+    align: center
+    at: { x: 800, y: 1216 }
+    size: { w: 300, h: 28 }
+  - id: p1
+    label: "岩手が 10m 以上に上がった 15:30 には、大船渡 15:18・釜石 15:21・宮古 15:26 の最大波はもう来ていた。空欄は、その前の値のまま。"
+    marker: none
+    align: left
+    at: { x: 60, y: 1256 }
+    size: { w: 1300, h: 18 }
+  - id: p2
+    label: "第 1 報の「3m」が避難の遅れにつながったと考えられ、2013 年 3 月 7 日から、M8 を超える地震の第 1 報は数字を出さず「巨大」と言う。"
+    marker: none
+    align: left
+    at: { x: 60, y: 1278 }
+    size: { w: 1300, h: 18 }
+edges:
+  - from: xa1500
+    to: xb1500
+    curve: none
+    ends: { from: none, to: none }
+  - from: xa1530
+    to: xb1530
+    curve: none
+    ends: { from: none, to: none }
+  - from: xa1600
+    to: xb1600
+    curve: none
+    ends: { from: none, to: none }
+  - from: xa1630
+    to: xb1630
+    curve: none
+    ends: { from: none, to: none }
+  - from: xa1700
+    to: xb1700
+    curve: none
+    ends: { from: none, to: none }
+  - from: xa1730
+    to: xb1730
+    curve: none
+    ends: { from: none, to: none }
+  - from: xa1800
+    to: xb1800
+    curve: none
+    ends: { from: none, to: none }
+  - from: xa1830
+    to: xb1830
+    curve: none
+    ends: { from: none, to: none }
+  - from: xa1900
+    to: xb1900
+    curve: none
+    ends: { from: none, to: none }
+  - from: xa1930
+    to: xb1930
+    curve: none
+    ends: { from: none, to: none }
+  - from: ax0
+    to: ax1
+    curve: none
+    ends: { from: none, to: none }
+  - from: qa
+    to: qb
+    curve: none
+    ends: { from: none, to: none }
+  - from: w1a
+    to: w1b
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: w2a
+    to: w2b
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: w3a
+    to: w3b
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }

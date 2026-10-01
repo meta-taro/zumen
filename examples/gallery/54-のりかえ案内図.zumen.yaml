@@ -1,0 +1,320 @@
+version: 1
+kind: placement
+arrows: false
+title: 架空電鉄 本線 のりかえ案内（K01 港町 — K09 海浜公園）
+# 1 本の路線をまっすぐ伸ばして、駅・駅ナンバリング・のりかえを 1 枚に並べた図。
+# 駅名は縦組み（write: down）—— 駅の間隔を詰めても隣の名前とぶつからない。
+# ふりがなは右の列、字を 1 つずつ積む。ラテン文字を書けば寝る。
+#
+# 色は路線の名前そのもの（DESIGN.md §7 の例外・src/palette.ts）。
+# 色だけに頼らせない —— 駅ナンバリングの K と、のりかえの線名が文字で出ている。
+palette:
+  K: "#e5171f"
+  S: "#0072bc"
+  L: "#009a5b"
+  A: "#d95f02"
+  JR: "#808080"
+nodes:
+  - id: head
+    label: "架空電鉄 本線　ARC RAILWAY LINE K"
+    marker: box
+    hatch: solid
+    color: K
+    at: { x: 20, y: 0 }
+    size: { w: 1080, h: 32 }
+  - id: band
+    label: ""
+    marker: bar
+    color: K
+    at: { x: 20, y: 210 }
+    size: { w: 1080, h: 20 }
+  - id: tick0
+    label: ""
+    marker: bar
+    at: { x: 86, y: 204 }
+    size: { w: 8, h: 32 }
+  - id: no0
+    label: "K01"
+    marker: box
+    hatch: solid
+    color: K
+    at: { x: 70, y: 244 }
+    size: { w: 40, h: 20 }
+  - id: nm0
+    label: "港町"
+    marker: none
+    write: down
+    technology: みなとまち
+    at: { x: 73, y: 274 }
+    size: { w: 34, h: 96 }
+  - id: tick1
+    label: ""
+    marker: bar
+    at: { x: 206, y: 204 }
+    size: { w: 8, h: 32 }
+  - id: no1
+    label: "K02"
+    marker: box
+    hatch: solid
+    color: K
+    at: { x: 190, y: 244 }
+    size: { w: 40, h: 20 }
+  - id: nm1
+    label: "桜台"
+    marker: none
+    write: down
+    technology: さくらだい
+    at: { x: 193, y: 274 }
+    size: { w: 34, h: 96 }
+  - id: tick2
+    label: ""
+    marker: bar
+    at: { x: 326, y: 204 }
+    size: { w: 8, h: 32 }
+  - id: no2
+    label: "K03"
+    marker: box
+    hatch: solid
+    color: K
+    at: { x: 310, y: 244 }
+    size: { w: 40, h: 20 }
+  - id: nm2
+    label: "中央"
+    marker: none
+    write: down
+    technology: ちゅうおう
+    at: { x: 313, y: 274 }
+    size: { w: 34, h: 96 }
+  - id: tick3
+    label: ""
+    marker: bar
+    at: { x: 446, y: 204 }
+    size: { w: 8, h: 32 }
+  - id: no3
+    label: "K04"
+    marker: box
+    hatch: solid
+    color: K
+    at: { x: 430, y: 244 }
+    size: { w: 40, h: 20 }
+  - id: nm3
+    label: "川手"
+    marker: none
+    write: down
+    technology: かわて
+    at: { x: 433, y: 274 }
+    size: { w: 34, h: 96 }
+  - id: tick4
+    label: ""
+    marker: bar
+    at: { x: 566, y: 204 }
+    size: { w: 8, h: 32 }
+  - id: no4
+    label: "K05"
+    marker: box
+    hatch: solid
+    color: K
+    at: { x: 550, y: 244 }
+    size: { w: 40, h: 20 }
+  - id: nm4
+    label: "東浜"
+    marker: none
+    write: down
+    technology: ひがしはま
+    at: { x: 553, y: 274 }
+    size: { w: 34, h: 96 }
+  - id: tick5
+    label: ""
+    marker: bar
+    at: { x: 686, y: 204 }
+    size: { w: 8, h: 32 }
+  - id: no5
+    label: "K06"
+    marker: box
+    hatch: solid
+    color: K
+    at: { x: 670, y: 244 }
+    size: { w: 40, h: 20 }
+  - id: nm5
+    label: "空港前"
+    marker: none
+    write: down
+    technology: くうこうまえ
+    at: { x: 673, y: 274 }
+    size: { w: 34, h: 96 }
+  - id: tick6
+    label: ""
+    marker: bar
+    at: { x: 806, y: 204 }
+    size: { w: 8, h: 32 }
+  - id: no6
+    label: "K07"
+    marker: box
+    hatch: solid
+    color: K
+    at: { x: 790, y: 244 }
+    size: { w: 40, h: 20 }
+  - id: nm6
+    label: "学園前"
+    marker: none
+    write: down
+    technology: がくえんまえ
+    at: { x: 793, y: 274 }
+    size: { w: 34, h: 96 }
+  - id: tick7
+    label: ""
+    marker: bar
+    at: { x: 926, y: 204 }
+    size: { w: 8, h: 32 }
+  - id: no7
+    label: "K08"
+    marker: box
+    hatch: solid
+    color: K
+    at: { x: 910, y: 244 }
+    size: { w: 40, h: 20 }
+  - id: nm7
+    label: "みどり台"
+    marker: none
+    write: down
+    technology: みどりだい
+    at: { x: 913, y: 274 }
+    size: { w: 34, h: 96 }
+  - id: tick8
+    label: ""
+    marker: bar
+    at: { x: 1046, y: 204 }
+    size: { w: 8, h: 32 }
+  - id: no8
+    label: "K09"
+    marker: box
+    hatch: solid
+    color: K
+    at: { x: 1030, y: 244 }
+    size: { w: 40, h: 20 }
+  - id: nm8
+    label: "海浜公園"
+    marker: none
+    write: down
+    technology: かいひんこうえん
+    at: { x: 1033, y: 274 }
+    size: { w: 34, h: 96 }
+  - id: tr0_0
+    label: "JR"
+    marker: circle
+    hatch: solid
+    color: JR
+    at: { x: 77, y: 152 }
+    size: { w: 26, h: 26 }
+  - id: trn0_0
+    label: "JR 線"
+    marker: none
+    at: { x: 106, y: 155 }
+    size: { w: 82, h: 20 }
+  - id: tr2_0
+    label: "L"
+    marker: circle
+    hatch: solid
+    color: L
+    at: { x: 317, y: 152 }
+    size: { w: 26, h: 26 }
+  - id: trn2_0
+    label: "環状線"
+    marker: none
+    at: { x: 346, y: 155 }
+    size: { w: 82, h: 20 }
+  - id: tr2_1
+    label: "JR"
+    marker: circle
+    hatch: solid
+    color: JR
+    at: { x: 317, y: 122 }
+    size: { w: 26, h: 26 }
+  - id: trn2_1
+    label: "JR 線"
+    marker: none
+    at: { x: 346, y: 125 }
+    size: { w: 82, h: 20 }
+  - id: tr2_2
+    label: "S"
+    marker: circle
+    hatch: solid
+    color: S
+    at: { x: 317, y: 92 }
+    size: { w: 26, h: 26 }
+  - id: trn2_2
+    label: "南北線"
+    marker: none
+    at: { x: 346, y: 95 }
+    size: { w: 82, h: 20 }
+  - id: tr4_0
+    label: "S"
+    marker: circle
+    hatch: solid
+    color: S
+    at: { x: 557, y: 152 }
+    size: { w: 26, h: 26 }
+  - id: trn4_0
+    label: "南北線"
+    marker: none
+    at: { x: 586, y: 155 }
+    size: { w: 82, h: 20 }
+  - id: tr5_0
+    label: "JR"
+    marker: circle
+    hatch: solid
+    color: JR
+    at: { x: 677, y: 152 }
+    size: { w: 26, h: 26 }
+  - id: trn5_0
+    label: "JR 線"
+    marker: none
+    at: { x: 706, y: 155 }
+    size: { w: 82, h: 20 }
+  - id: tr5_1
+    label: "A"
+    marker: circle
+    hatch: solid
+    color: A
+    at: { x: 677, y: 122 }
+    size: { w: 26, h: 26 }
+  - id: trn5_1
+    label: "空港連絡線"
+    marker: none
+    at: { x: 706, y: 125 }
+    size: { w: 82, h: 20 }
+  - id: tr8_0
+    label: "L"
+    marker: circle
+    hatch: solid
+    color: L
+    at: { x: 1037, y: 152 }
+    size: { w: 26, h: 26 }
+  - id: trn8_0
+    label: "環状線"
+    marker: none
+    at: { x: 1066, y: 155 }
+    size: { w: 82, h: 20 }
+  - id: sign
+    label: "K"
+    marker: circle
+    hatch: solid
+    color: K
+    at: { x: 1096, y: 380 }
+    size: { w: 56, h: 56 }
+edges:
+  - from: tr0_0
+    to: tick0
+    weight: thin
+  - from: tr2_0
+    to: tick2
+    weight: thin
+  - from: tr4_0
+    to: tick4
+    weight: thin
+  - from: tr5_0
+    to: tick5
+    weight: thin
+  - from: tr8_0
+    to: tick8
+    weight: thin

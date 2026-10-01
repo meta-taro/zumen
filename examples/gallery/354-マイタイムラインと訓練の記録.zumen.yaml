@@ -1,0 +1,494 @@
+version: 1
+kind: placement
+arrows: false
+title: マイ・タイムライン —— 家族の避難の時間割と、訓練で直した所（警戒レベル・2026 年 5 月の気象庁の情報）
+# **避難の「最善」は、その日に誰も出せない。だから平時に決めて、訓練で直す。**
+#
+# マイ・タイムラインは、台風が近づいて川が増水するときに**自分と家族がいつ何をするか**を、
+# 前もって時系列に書いておく表（国土交通省が推している。平成 27 年 9 月の関東・東北豪雨で、
+# 避難の遅れと孤立が出たのを受けて作られた）。
+#
+# ## 表の組み方（国土交通省 関東地方整備局の記入例に揃えた）
+#
+# | | |
+# |---|---|
+# | 横 | 台風直撃の 3 日前・2 日前・1 日前・半日前、氾濫の 5 時間前・3 時間前、氾濫発生 |
+# | 行動 | **7 つの基本行動**から選ぶ —— 台風を調べ始める／川の水位を調べ始める／住んでいる所と上流の雨量を調べ始める／持っていくものを準備する／避難しやすい服装に着替える／安全な所へ移動を始める／避難完了 |
+# | 縦 | 家族の 1 人ずつ（この図で足した。記入例は 1 人分） |
+#
+# **時計ではなく、レベルの数字で動く。**「何日前」は目安で、記入例にも
+# 「タイミングはイメージであり、実際の洪水時とは異なることがある」と書いてある。
+# レベル 3（高齢者等避難）は**避難に時間がかかる人が動き出す合図**。
+# この家族の祖母は、それさえ待たずに半日前に動く —— 訓練で測ったら間に合わなかったから（②）。
+#
+# **2026 年 5 月 29 日から、気象庁の情報にもレベルの数字が付いた。** 大雨の例で
+# レベル 2 大雨注意報／レベル 3 大雨警報／**レベル 4 大雨危険警報（新設）**／レベル 5 大雨特別警報。
+# 見本 221 の③と同じ対応。
+#
+# ## ②が主役
+#
+# 表は 1 回書いて終わりではない。**訓練で測って、直す。** ★ が直した所。
+# **直さなかった所も「測って、直さない」と残す** —— 測ったことが次の訓練の起点になる。
+# 災害の日に開くのは、**最後の訓練で直したこの版**。その日に作り直さない
+# （災害時の画面は、訓練で見たものと同じであるべき）。
+#
+# ## 描かなかったもの
+#
+# - **経路。** 災害前の道路のデータで計算した経路は、塞がった道を案内する。経路は歩いて決めて、地図の側に持つ
+# - **実在の家族・実在の町。** 家族も訓練の値も架空。避難先の ○ ✕ は見本 353 の架空の町に揃えた
+# - **土砂災害・津波の時間割。** 津波は「何日前」が無い（揺れたらすぐ）。この表は台風と川の増水に限る
+#
+# 出典: 国土交通省 関東地方整備局「マイ・タイムライン」（STEP3 マイ・タイムラインを作ってみましょう）、
+# 国土交通省「マイ・タイムライン」。気象庁「新たな防災気象情報について（令和 8 年〜）」。
+nodes:
+  - id: t1
+    label: "① 架空の家族 4 人のマイ・タイムライン —— 時計ではなく、レベルの数字で動く"
+    marker: none
+    align: left
+    at: { x: 60, y: 100 }
+    size: { w: 1200, h: 18 }
+  - id: g0_0
+    label: "いつ（目安）"
+    hatch: solid
+    align: center
+    at: { x: 60, y: 132 }
+    size: { w: 190, h: 44 }
+  - id: g0_1
+    label: "台風直撃\n3 日前"
+    hatch: solid
+    align: center
+    at: { x: 250, y: 132 }
+    size: { w: 140, h: 44 }
+  - id: g0_2
+    label: "台風直撃\n2 日前"
+    hatch: solid
+    align: center
+    at: { x: 390, y: 132 }
+    size: { w: 140, h: 44 }
+  - id: g0_3
+    label: "台風直撃\n1 日前"
+    hatch: solid
+    align: center
+    at: { x: 530, y: 132 }
+    size: { w: 140, h: 44 }
+  - id: g0_4
+    label: "台風直撃\n半日前"
+    hatch: solid
+    align: center
+    at: { x: 670, y: 132 }
+    size: { w: 140, h: 44 }
+  - id: g0_5
+    label: "氾濫\n5 時間前"
+    hatch: solid
+    align: center
+    at: { x: 810, y: 132 }
+    size: { w: 140, h: 44 }
+  - id: g0_6
+    label: "氾濫\n3 時間前"
+    hatch: solid
+    align: center
+    at: { x: 950, y: 132 }
+    size: { w: 140, h: 44 }
+  - id: g0_7
+    label: "氾濫発生"
+    hatch: solid
+    align: center
+    at: { x: 1090, y: 132 }
+    size: { w: 140, h: 44 }
+  - id: g1_0
+    label: "警戒レベル"
+    hatch: solid
+    align: center
+    at: { x: 60, y: 176 }
+    size: { w: 190, h: 28 }
+  - id: g1_1
+    label: "1"
+    align: center
+    at: { x: 250, y: 176 }
+    size: { w: 140, h: 28 }
+  - id: g1_2
+    label: "2"
+    align: center
+    at: { x: 390, y: 176 }
+    size: { w: 140, h: 28 }
+  - id: g1_3
+    label: ""
+    align: center
+    at: { x: 530, y: 176 }
+    size: { w: 140, h: 28 }
+  - id: g1_4
+    label: ""
+    align: center
+    at: { x: 670, y: 176 }
+    size: { w: 140, h: 28 }
+  - id: g1_5
+    label: "3"
+    align: center
+    at: { x: 810, y: 176 }
+    size: { w: 140, h: 28 }
+  - id: g1_6
+    label: "4"
+    align: center
+    at: { x: 950, y: 176 }
+    size: { w: 140, h: 28 }
+  - id: g1_7
+    label: "5"
+    align: center
+    at: { x: 1090, y: 176 }
+    size: { w: 140, h: 28 }
+  - id: g2_0
+    label: "市町村の避難情報"
+    hatch: solid
+    align: center
+    at: { x: 60, y: 204 }
+    size: { w: 190, h: 28 }
+  - id: g2_1
+    label: ""
+    align: center
+    at: { x: 250, y: 204 }
+    size: { w: 140, h: 28 }
+  - id: g2_2
+    label: ""
+    align: center
+    at: { x: 390, y: 204 }
+    size: { w: 140, h: 28 }
+  - id: g2_3
+    label: ""
+    align: center
+    at: { x: 530, y: 204 }
+    size: { w: 140, h: 28 }
+  - id: g2_4
+    label: ""
+    align: center
+    at: { x: 670, y: 204 }
+    size: { w: 140, h: 28 }
+  - id: g2_5
+    label: "高齢者等避難"
+    align: center
+    at: { x: 810, y: 204 }
+    size: { w: 140, h: 28 }
+  - id: g2_6
+    label: "避難指示"
+    align: center
+    at: { x: 950, y: 204 }
+    size: { w: 140, h: 28 }
+  - id: g2_7
+    label: "緊急安全確保"
+    align: center
+    at: { x: 1090, y: 204 }
+    size: { w: 140, h: 28 }
+  - id: g3_0
+    label: "気象庁（大雨の例）"
+    hatch: solid
+    align: center
+    at: { x: 60, y: 232 }
+    size: { w: 190, h: 44 }
+  - id: g3_1
+    label: "早期注意情報"
+    align: center
+    at: { x: 250, y: 232 }
+    size: { w: 140, h: 44 }
+  - id: g3_2
+    label: "レベル 2\n大雨注意報"
+    align: center
+    at: { x: 390, y: 232 }
+    size: { w: 140, h: 44 }
+  - id: g3_3
+    label: ""
+    align: center
+    at: { x: 530, y: 232 }
+    size: { w: 140, h: 44 }
+  - id: g3_4
+    label: ""
+    align: center
+    at: { x: 670, y: 232 }
+    size: { w: 140, h: 44 }
+  - id: g3_5
+    label: "レベル 3\n大雨警報"
+    align: center
+    at: { x: 810, y: 232 }
+    size: { w: 140, h: 44 }
+  - id: g3_6
+    label: "レベル 4\n大雨危険警報"
+    align: center
+    at: { x: 950, y: 232 }
+    size: { w: 140, h: 44 }
+  - id: g3_7
+    label: "レベル 5\n大雨特別警報"
+    align: center
+    at: { x: 1090, y: 232 }
+    size: { w: 140, h: 44 }
+  - id: g4_0
+    label: "祖母（82 歳・杖）"
+    align: center
+    at: { x: 60, y: 276 }
+    size: { w: 190, h: 44 }
+  - id: g4_1
+    label: ""
+    align: center
+    at: { x: 250, y: 276 }
+    size: { w: 140, h: 44 }
+  - id: g4_2
+    label: ""
+    align: center
+    at: { x: 390, y: 276 }
+    size: { w: 140, h: 44 }
+  - id: g4_3
+    label: "★ 持ち出し品を\n用意（薬・眼鏡）"
+    align: center
+    at: { x: 530, y: 276 }
+    size: { w: 140, h: 44 }
+  - id: g4_4
+    label: "★ 移動を始める\n（父の車で長女宅へ）"
+    align: center
+    at: { x: 670, y: 276 }
+    size: { w: 140, h: 44 }
+  - id: g4_5
+    label: "避難完了"
+    align: center
+    at: { x: 810, y: 276 }
+    size: { w: 140, h: 44 }
+  - id: g4_6
+    label: ""
+    align: center
+    at: { x: 950, y: 276 }
+    size: { w: 140, h: 44 }
+  - id: g4_7
+    label: ""
+    align: center
+    at: { x: 1090, y: 276 }
+    size: { w: 140, h: 44 }
+  - id: g5_0
+    label: "父"
+    align: center
+    at: { x: 60, y: 320 }
+    size: { w: 190, h: 44 }
+  - id: g5_1
+    label: "台風を\n調べ始める"
+    align: center
+    at: { x: 250, y: 320 }
+    size: { w: 140, h: 44 }
+  - id: g5_2
+    label: "川の水位を\n調べ始める"
+    align: center
+    at: { x: 390, y: 320 }
+    size: { w: 140, h: 44 }
+  - id: g5_3
+    label: "上流の雨量を\n調べ始める"
+    align: center
+    at: { x: 530, y: 320 }
+    size: { w: 140, h: 44 }
+  - id: g5_4
+    label: "祖母を送る"
+    align: center
+    at: { x: 670, y: 320 }
+    size: { w: 140, h: 44 }
+  - id: g5_5
+    label: "移動を始める"
+    align: center
+    at: { x: 810, y: 320 }
+    size: { w: 140, h: 44 }
+  - id: g5_6
+    label: "避難完了"
+    align: center
+    at: { x: 950, y: 320 }
+    size: { w: 140, h: 44 }
+  - id: g5_7
+    label: ""
+    align: center
+    at: { x: 1090, y: 320 }
+    size: { w: 140, h: 44 }
+  - id: g6_0
+    label: "母"
+    align: center
+    at: { x: 60, y: 364 }
+    size: { w: 190, h: 44 }
+  - id: g6_1
+    label: ""
+    align: center
+    at: { x: 250, y: 364 }
+    size: { w: 140, h: 44 }
+  - id: g6_2
+    label: "★ 持ち出し品を\n詰めておく"
+    align: center
+    at: { x: 390, y: 364 }
+    size: { w: 140, h: 44 }
+  - id: g6_3
+    label: "避難しやすい\n服装を出す"
+    align: center
+    at: { x: 530, y: 364 }
+    size: { w: 140, h: 44 }
+  - id: g6_4
+    label: "長男と着替える"
+    align: center
+    at: { x: 670, y: 364 }
+    size: { w: 140, h: 44 }
+  - id: g6_5
+    label: "移動を始める\n（長男と徒歩）"
+    align: center
+    at: { x: 810, y: 364 }
+    size: { w: 140, h: 44 }
+  - id: g6_6
+    label: "避難完了"
+    align: center
+    at: { x: 950, y: 364 }
+    size: { w: 140, h: 44 }
+  - id: g6_7
+    label: ""
+    align: center
+    at: { x: 1090, y: 364 }
+    size: { w: 140, h: 44 }
+  - id: g7_0
+    label: "長男（10 歳）"
+    align: center
+    at: { x: 60, y: 408 }
+    size: { w: 190, h: 44 }
+  - id: g7_1
+    label: ""
+    align: center
+    at: { x: 250, y: 408 }
+    size: { w: 140, h: 44 }
+  - id: g7_2
+    label: "★ 自分の分を\n詰めておく"
+    align: center
+    at: { x: 390, y: 408 }
+    size: { w: 140, h: 44 }
+  - id: g7_3
+    label: ""
+    align: center
+    at: { x: 530, y: 408 }
+    size: { w: 140, h: 44 }
+  - id: g7_4
+    label: "着替える"
+    align: center
+    at: { x: 670, y: 408 }
+    size: { w: 140, h: 44 }
+  - id: g7_5
+    label: "母と移動"
+    align: center
+    at: { x: 810, y: 408 }
+    size: { w: 140, h: 44 }
+  - id: g7_6
+    label: "避難完了"
+    align: center
+    at: { x: 950, y: 408 }
+    size: { w: 140, h: 44 }
+  - id: g7_7
+    label: ""
+    align: center
+    at: { x: 1090, y: 408 }
+    size: { w: 140, h: 44 }
+  - id: t1n1
+    label: "★ ＝ 訓練のあとで直した所（②）。レベル 5 の列が空いているのは、そこまでに全員が終えているから。"
+    marker: none
+    align: left
+    at: { x: 60, y: 464 }
+    size: { w: 1200, h: 18 }
+  - id: t1n2
+    label: "避難先 —— 祖母は高台の長女宅（親戚宅）、★ ほか 3 人は洪水で ○ の指定緊急避難場所（見本 353 の③）。"
+    marker: none
+    align: left
+    at: { x: 60, y: 486 }
+    size: { w: 1200, h: 18 }
+  - id: t1n3
+    label: "「何日前」は目安（国土交通省の記入例にも「タイミングはイメージ」とある）。動く合図は、時計ではなくレベルの数字。"
+    marker: none
+    align: left
+    at: { x: 60, y: 508 }
+    size: { w: 1200, h: 18 }
+  - id: t2
+    label: "② 訓練で測って、直したこと（架空）"
+    marker: none
+    align: left
+    at: { x: 60, y: 556 }
+    size: { w: 1200, h: 18 }
+  - id: h0_0
+    label: "訓練"
+    hatch: solid
+    align: center
+    at: { x: 60, y: 588 }
+    size: { w: 150, h: 28 }
+  - id: h0_1
+    label: "測ったこと"
+    hatch: solid
+    align: center
+    at: { x: 210, y: 588 }
+    size: { w: 520, h: 28 }
+  - id: h0_2
+    label: "直したこと"
+    hatch: solid
+    align: center
+    at: { x: 730, y: 588 }
+    size: { w: 520, h: 28 }
+  - id: h1_0
+    label: "1 回目（6 月）"
+    align: center
+    at: { x: 60, y: 616 }
+    size: { w: 150, h: 30 }
+  - id: h1_1
+    label: "祖母が歩いて避難場所まで —— 想定 20 分、実測 45 分"
+    align: center
+    at: { x: 210, y: 616 }
+    size: { w: 520, h: 30 }
+  - id: h1_2
+    label: "祖母は歩かない。半日前に父の車で長女宅へ（レベル 3 を待たない）"
+    align: center
+    at: { x: 730, y: 616 }
+    size: { w: 520, h: 30 }
+  - id: h2_0
+    label: "1 回目（6 月）"
+    align: center
+    at: { x: 60, y: 646 }
+    size: { w: 150, h: 30 }
+  - id: h2_1
+    label: "持ち出し品を詰めるのに 25 分。薬と眼鏡が最後まで見つからない"
+    align: center
+    at: { x: 210, y: 646 }
+    size: { w: 520, h: 30 }
+  - id: h2_2
+    label: "2 日前に詰めておく。祖母の分は 1 日前に、薬と眼鏡を入れて確かめる"
+    align: center
+    at: { x: 730, y: 646 }
+    size: { w: 520, h: 30 }
+  - id: h3_0
+    label: "2 回目（9 月）"
+    align: center
+    at: { x: 60, y: 676 }
+    size: { w: 150, h: 30 }
+  - id: h3_1
+    label: "避難場所にしていた川沿いの小学校は、洪水で ✕ だった"
+    align: center
+    at: { x: 210, y: 676 }
+    size: { w: 520, h: 30 }
+  - id: h3_2
+    label: "洪水で ○ の場所へ変えた。避難所（暮らす先）としては小学校のまま"
+    align: center
+    at: { x: 730, y: 676 }
+    size: { w: 520, h: 30 }
+  - id: h4_0
+    label: "2 回目（9 月）"
+    align: center
+    at: { x: 60, y: 706 }
+    size: { w: 150, h: 30 }
+  - id: h4_1
+    label: "長男が自分の荷物を持てるか —— 持てた（4kg）"
+    align: center
+    at: { x: 210, y: 706 }
+    size: { w: 520, h: 30 }
+  - id: h4_2
+    label: "直さない。長男の分は本人が詰める"
+    align: center
+    at: { x: 730, y: 706 }
+    size: { w: 520, h: 30 }
+  - id: t2n1
+    label: "直した所は、次の訓練でもう一度測る。直さなかった所も「測って、直さない」と書いておく。"
+    marker: none
+    align: left
+    at: { x: 60, y: 748 }
+    size: { w: 1200, h: 18 }
+  - id: t2n2
+    label: "災害の日に開くのは、最後の訓練で直したこの版 —— その日に作り直さない。"
+    marker: none
+    align: left
+    at: { x: 60, y: 770 }
+    size: { w: 1200, h: 18 }

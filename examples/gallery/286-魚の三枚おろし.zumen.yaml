@@ -1,0 +1,639 @@
+version: 1
+kind: placement
+arrows: true
+title: 魚の三枚おろし（包丁の向きは、中骨が決める）
+# **三枚おろしは、右の身・左の身・中骨の 3 つに分けること。**
+# 背骨を挟んで左右対称な魚なら、ほぼすべてこの順で下ろせる。
+#
+# **包丁の向きは、中骨に沿わせる向きで決まる。**
+# **腹側は頭から尾へ、背側は尾から頭へ** —— 逆に引くと骨から外れて身を削る。
+# **ウロコは尾から頭へ** 落とす（鱗は頭向きに重なっているので、逆から当てないと起きない）。
+# 頭は**胸びれと腹びれが頭側に残るよう斜めに**落とす。
+#
+# **順番。** ウロコ → 頭 → 腹を開いて内臓と血合いを洗う → 腹側から頭→尾 →
+# 背側から尾→頭 → 中骨に沿って身を外す → 裏返して同じことを繰り返す。
+# **洗うのは内臓を出した直後だけ**で、身にしたあとは洗わない。
+#
+# **三枚にしたあと、身には骨が残る。**
+# **腹骨はすき取り**（身ごとすくうように）、**血合骨は骨抜きで頭の方向へ引く** ——
+# 血合骨は頭のほうへ斜めに生えているので、**向きを間違えると折れる。**
+# 身が割れるのは力ではなく向きの問題。皮を引いて、残るのが**柵**。
+#
+# **枚数は技の名前ではなく、魚の形の言い換え。**
+# ひらめ・かれいが**五枚おろし**なのは体が平たく、背びれと尻びれに沿って
+# 身が 4 つに分かれるから（中骨と合わせて五枚）。
+nodes:
+  - id: t1
+    label: "① 三枚おろし —— 右の身・左の身・中骨の 3 つに分ける"
+    marker: none
+    align: left
+    at: { x: 150, y: 150 }
+    size: { w: 720, h: 20 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 259, y: 339 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 342.6, y: 339 }
+    size: { w: 2, h: 2 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 715, y: 339 }
+    size: { w: 2, h: 2 }
+  - id: nakabone
+    label: "中骨"
+    marker: none
+    align: left
+    at: { x: 507, y: 322 }
+    size: { w: 100, h: 18 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 335, y: 282 }
+    size: { w: 2, h: 2 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 365.4, y: 399.8 }
+    size: { w: 2, h: 2 }
+  - id: atama
+    label: "① 頭を落とす\n胸びれ・腹びれは頭側へ"
+    marker: none
+    align: right
+    at: { x: 130, y: 244 }
+    size: { w: 250, h: 36 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 297, y: 304.8 }
+    size: { w: 2, h: 2 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 342.6, y: 301 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 373, y: 365.6 }
+    size: { w: 2, h: 2 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 696, y: 358 }
+    size: { w: 2, h: 2 }
+  - id: hara
+    label: "③ 腹側から\n頭 → 尾"
+    marker: none
+    align: left
+    at: { x: 745, y: 342 }
+    size: { w: 150, h: 36 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 696, y: 301 }
+    size: { w: 2, h: 2 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 373, y: 297.2 }
+    size: { w: 2, h: 2 }
+  - id: se
+    label: "④ 背側から\n尾 → 頭"
+    marker: none
+    align: left
+    at: { x: 745, y: 278 }
+    size: { w: 150, h: 36 }
+  - id: uroko
+    label: "② ウロコは尾から頭へ"
+    marker: none
+    align: right
+    at: { x: 130, y: 392 }
+    size: { w: 250, h: 18 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 316, y: 373.2 }
+    size: { w: 2, h: 2 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 373, y: 380.8 }
+    size: { w: 2, h: 2 }
+  - id: harabone
+    label: "⑤ 腹骨はすき取る"
+    marker: none
+    align: center
+    at: { x: 374, y: 436 }
+    size: { w: 200, h: 18 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 430, y: 407.4 }
+    size: { w: 2, h: 2 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 426.2, y: 388.4 }
+    size: { w: 2, h: 2 }
+  - id: chiai
+    label: "⑥ 血合骨は骨抜きで頭へ引く"
+    marker: none
+    align: center
+    at: { x: 526, y: 234 }
+    size: { w: 260, h: 18 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 544, y: 304.8 }
+    size: { w: 2, h: 2 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 544, y: 323.8 }
+    size: { w: 2, h: 2 }
+  - id: cap
+    label: "頭は左、背は上に置く（右利きの場合）"
+    marker: none
+    align: center
+    at: { x: 150, y: 470 }
+    size: { w: 720, h: 18 }
+  - id: why1
+    label: "包丁の向きは、中骨に沿わせる向きで決まる。\n腹側は頭から尾へ、背側は尾から頭へ —— 逆に引くと骨から外れて身を削る。\n魚は左右対称なので、同じ手を 2 回繰り返す ——\n背骨を挟んで対称な魚なら、ほぼすべてこの順で下ろせる。"
+    at: { x: 150, y: 500 }
+    size: { w: 720, h: 92 }
+  - id: t2
+    label: "② 順番"
+    marker: none
+    align: left
+    at: { x: 910, y: 150 }
+    size: { w: 440, h: 20 }
+  - id: h910_186
+    label: "三枚おろしの手順"
+    hatch: solid
+    at: { x: 910, y: 186 }
+    size: { w: 440, h: 24 }
+  - id: x910_210
+    label: "1"
+    at: { x: 910, y: 210 }
+    size: { w: 110, h: 24 }
+  - id: y910_210
+    label: "ウロコを尾から頭へ落とす"
+    align: left
+    at: { x: 1020, y: 210 }
+    size: { w: 330, h: 24 }
+  - id: x910_234
+    label: "2"
+    at: { x: 910, y: 234 }
+    size: { w: 110, h: 24 }
+  - id: y910_234
+    label: "頭を斜めに落とす"
+    align: left
+    at: { x: 1020, y: 234 }
+    size: { w: 330, h: 24 }
+  - id: x910_258
+    label: "3"
+    at: { x: 910, y: 258 }
+    size: { w: 110, h: 24 }
+  - id: y910_258
+    label: "腹を開き、内臓と血合いを洗う"
+    align: left
+    at: { x: 1020, y: 258 }
+    size: { w: 330, h: 24 }
+  - id: x910_282
+    label: "4"
+    at: { x: 910, y: 282 }
+    size: { w: 110, h: 24 }
+  - id: y910_282
+    label: "腹側から 頭 → 尾"
+    align: left
+    at: { x: 1020, y: 282 }
+    size: { w: 330, h: 24 }
+  - id: x910_306
+    label: "5"
+    at: { x: 910, y: 306 }
+    size: { w: 110, h: 24 }
+  - id: y910_306
+    label: "背側から 尾 → 頭"
+    align: left
+    at: { x: 1020, y: 306 }
+    size: { w: 330, h: 24 }
+  - id: x910_330
+    label: "6"
+    at: { x: 910, y: 330 }
+    size: { w: 110, h: 24 }
+  - id: y910_330
+    label: "中骨に沿って身を外す"
+    align: left
+    at: { x: 1020, y: 330 }
+    size: { w: 330, h: 24 }
+  - id: x910_354
+    label: "7"
+    at: { x: 910, y: 354 }
+    size: { w: 110, h: 24 }
+  - id: y910_354
+    label: "裏返して同じことを繰り返す"
+    align: left
+    at: { x: 1020, y: 354 }
+    size: { w: 330, h: 24 }
+  - id: why2
+    label: "水気を拭くのが、最初と最後に来る。\n濡れた魚は滑り、濡れた身は傷む ——\n洗うのは内臓を出した直後だけで、\n身にしたあとは洗わない。"
+    at: { x: 910, y: 392 }
+    size: { w: 440, h: 74 }
+  - id: t3
+    label: "③ 三枚にしたあと"
+    marker: none
+    align: left
+    at: { x: 910, y: 484 }
+    size: { w: 440, h: 20 }
+  - id: h910_514
+    label: "身に残るもの"
+    hatch: solid
+    at: { x: 910, y: 514 }
+    size: { w: 440, h: 24 }
+  - id: x910_538
+    label: "腹骨"
+    at: { x: 910, y: 538 }
+    size: { w: 130, h: 24 }
+  - id: y910_538
+    label: "すき取る（身ごとすくう）"
+    align: left
+    at: { x: 1040, y: 538 }
+    size: { w: 310, h: 24 }
+  - id: x910_562
+    label: "血合骨"
+    at: { x: 910, y: 562 }
+    size: { w: 130, h: 24 }
+  - id: y910_562
+    label: "骨抜きで頭の方向へ引く"
+    align: left
+    at: { x: 1040, y: 562 }
+    size: { w: 310, h: 24 }
+  - id: x910_586
+    label: "皮"
+    at: { x: 910, y: 586 }
+    size: { w: 130, h: 24 }
+  - id: y910_586
+    label: "切り口からめくって引く"
+    align: left
+    at: { x: 1040, y: 586 }
+    size: { w: 310, h: 24 }
+  - id: x910_610
+    label: "残るもの"
+    at: { x: 910, y: 610 }
+    size: { w: 130, h: 24 }
+  - id: y910_610
+    label: "柵（さく）"
+    align: left
+    at: { x: 1040, y: 610 }
+    size: { w: 310, h: 24 }
+  - id: why3
+    label: "骨を抜く向きが決まっている。\n血合骨は頭のほうへ斜めに生えているので、\n頭の方向へ引かないと折れる ——\n身が割れるのは、力ではなく向きの問題。"
+    at: { x: 910, y: 648 }
+    size: { w: 440, h: 92 }
+  - id: t4
+    label: "④ 三枚と五枚"
+    marker: none
+    align: left
+    at: { x: 910, y: 758 }
+    size: { w: 440, h: 20 }
+  - id: h910_788
+    label: "魚の形で変わる"
+    hatch: solid
+    at: { x: 910, y: 788 }
+    size: { w: 440, h: 24 }
+  - id: x910_812
+    label: "三枚おろし"
+    at: { x: 910, y: 812 }
+    size: { w: 130, h: 24 }
+  - id: y910_812
+    label: "左右対称な魚（あじ・さば・たい）"
+    align: left
+    at: { x: 1040, y: 812 }
+    size: { w: 310, h: 24 }
+  - id: x910_836
+    label: "五枚おろし"
+    at: { x: 910, y: 836 }
+    size: { w: 130, h: 24 }
+  - id: y910_836
+    label: "ひらめ・かれい"
+    align: left
+    at: { x: 1040, y: 836 }
+    size: { w: 310, h: 24 }
+  - id: x910_860
+    label: "大名おろし"
+    at: { x: 910, y: 860 }
+    size: { w: 130, h: 24 }
+  - id: y910_860
+    label: "中骨に身を残して一気に"
+    align: left
+    at: { x: 1040, y: 860 }
+    size: { w: 310, h: 24 }
+  - id: why4
+    label: "ひらめが五枚なのは、体が平たいから。\n背びれと尻びれに沿って身が 4 つに分かれ、\n中骨と合わせて五枚になる ——\n枚数は技の名前ではなく、魚の形の言い換え。"
+    at: { x: 910, y: 898 }
+    size: { w: 440, h: 92 }
+  - id: t5
+    label: "⑤ 尾のほうから見た切り口 —— どこで 3 つに分かれるか"
+    marker: none
+    align: left
+    at: { x: 150, y: 640 }
+    size: { w: 720, h: 20 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 315, y: 801 }
+    size: { w: 2, h: 2 }
+  - id: honev
+    label: ""
+    marker: circle
+    at: { x: 407, y: 758 }
+    size: { w: 26, h: 26 }
+  - id: p18
+    label: ""
+    marker: none
+    at: { x: 404, y: 709 }
+    size: { w: 2, h: 2 }
+  - id: p19
+    label: ""
+    marker: none
+    at: { x: 404, y: 867 }
+    size: { w: 2, h: 2 }
+  - id: p20
+    label: ""
+    marker: none
+    at: { x: 434, y: 709 }
+    size: { w: 2, h: 2 }
+  - id: p21
+    label: ""
+    marker: none
+    at: { x: 434, y: 867 }
+    size: { w: 2, h: 2 }
+  - id: p22
+    label: ""
+    marker: none
+    at: { x: 465, y: 849 }
+    size: { w: 2, h: 2 }
+  - id: p23
+    label: ""
+    marker: none
+    at: { x: 465, y: 849 }
+    size: { w: 2, h: 2 }
+  - id: migi
+    label: "右の身"
+    marker: none
+    align: center
+    at: { x: 324, y: 768 }
+    size: { w: 72, h: 18 }
+  - id: hidari
+    label: "左の身"
+    marker: none
+    align: center
+    at: { x: 444, y: 768 }
+    size: { w: 72, h: 18 }
+  - id: honelabel
+    label: "中骨（背骨）"
+    marker: none
+    align: right
+    at: { x: 150, y: 692 }
+    size: { w: 150, h: 18 }
+  - id: p24
+    label: ""
+    marker: none
+    at: { x: 307, y: 701 }
+    size: { w: 2, h: 2 }
+  - id: p25
+    label: ""
+    marker: none
+    at: { x: 397, y: 761 }
+    size: { w: 2, h: 2 }
+  - id: fukuro
+    label: "腹腔（内臓の跡）"
+    marker: none
+    align: right
+    at: { x: 150, y: 880 }
+    size: { w: 150, h: 18 }
+  - id: p26
+    label: ""
+    marker: none
+    at: { x: 307, y: 887 }
+    size: { w: 2, h: 2 }
+  - id: p27
+    label: ""
+    marker: none
+    at: { x: 359, y: 867 }
+    size: { w: 2, h: 2 }
+  - id: cap2
+    label: "包丁は中骨の両脇を通る（破線）。骨の上を滑らせて、身だけを外す。"
+    marker: none
+    align: center
+    at: { x: 150, y: 942 }
+    size: { w: 540, h: 18 }
+  - id: h600_690
+    label: "3 つの内訳"
+    hatch: solid
+    at: { x: 600, y: 690 }
+    size: { w: 270, h: 24 }
+  - id: x600_714
+    label: "上身"
+    at: { x: 600, y: 714 }
+    size: { w: 96, h: 24 }
+  - id: y600_714
+    label: "上を向いている側の身"
+    align: left
+    at: { x: 696, y: 714 }
+    size: { w: 174, h: 24 }
+  - id: x600_738
+    label: "下身"
+    at: { x: 600, y: 738 }
+    size: { w: 96, h: 24 }
+  - id: y600_738
+    label: "まな板側の身"
+    align: left
+    at: { x: 696, y: 738 }
+    size: { w: 174, h: 24 }
+  - id: x600_762
+    label: "中骨"
+    at: { x: 600, y: 762 }
+    size: { w: 96, h: 24 }
+  - id: y600_762
+    label: "骨と、骨に残る身"
+    align: left
+    at: { x: 696, y: 762 }
+    size: { w: 174, h: 24 }
+  - id: why5
+    label: "上身のほうがきれいに取れる。\nまな板側の下身は、身が押されて\n中骨に残りやすい —— 大事なほうを\n先に、上身で取る。"
+    at: { x: 600, y: 800 }
+    size: { w: 270, h: 92 }
+  - id: r1
+    label: "三枚おろしは、右の身・左の身・中骨の 3 つに分けることです（①）。左右対称な魚ならほぼすべてこの順で下ろせます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1008 }
+    size: { w: 1200, h: 18 }
+  - id: r2
+    label: "包丁の向きは、中骨に沿わせる向きで決まります。 腹側は頭から尾へ、背側は尾から頭へ —— 逆に引くと身を削ります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1032 }
+    size: { w: 1200, h: 18 }
+  - id: r3
+    label: "ウロコは尾から頭へ落とします（②）。鱗は頭向きに重なっているので、逆から当てないと起きません。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1056 }
+    size: { w: 1200, h: 18 }
+  - id: r4
+    label: "洗うのは内臓を出した直後だけです。 身にしたあとは洗いません。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1080 }
+    size: { w: 1200, h: 18 }
+  - id: r5
+    label: "骨を抜く向きが決まっています（③）。血合骨は頭の方向へ引かないと折れます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1104 }
+    size: { w: 1200, h: 18 }
+  - id: r6
+    label: "枚数は技の名前ではなく、魚の形の言い換えです（④）。ひらめが五枚なのは、体が平たいからです。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1128 }
+    size: { w: 1200, h: 18 }
+edges:
+  - from: p0
+    to: p0
+    curve: none
+    close: true
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 260, y: 340 }
+      - { x: 309.4, y: 294.4 }
+      - { x: 393, y: 264 }
+      - { x: 507, y: 252.6 }
+      - { x: 621, y: 267.8 }
+      - { x: 708.4, y: 298.2 }
+      - { x: 811, y: 256.4 }
+      - { x: 784.4, y: 340 }
+      - { x: 811, y: 423.6 }
+      - { x: 708.4, y: 381.8 }
+      - { x: 602, y: 416 }
+      - { x: 469, y: 423.6 }
+      - { x: 355, y: 397 }
+      - { x: 286.6, y: 366.6 }
+  - from: p1
+    to: p2
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p3
+    to: p4
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p5
+    to: p6
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p7
+    to: p8
+    curve: none
+    line: dashed
+    ends: { from: none, to: arrow }
+  - from: p9
+    to: p10
+    curve: none
+    line: dashed
+    ends: { from: none, to: arrow }
+  - from: p11
+    to: p12
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p13
+    to: p14
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p15
+    to: p16
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p17
+    to: p17
+    curve: none
+    close: true
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 316, y: 802 }
+      - { x: 323.9, y: 762.2 }
+      - { x: 346.5, y: 728.5 }
+      - { x: 380.2, y: 705.9 }
+      - { x: 420, y: 698 }
+      - { x: 459.8, y: 705.9 }
+      - { x: 493.5, y: 728.5 }
+      - { x: 516.1, y: 762.2 }
+      - { x: 524, y: 802 }
+      - { x: 516.1, y: 847.2 }
+      - { x: 493.5, y: 885.4 }
+      - { x: 459.8, y: 911 }
+      - { x: 420, y: 920 }
+      - { x: 380.2, y: 911 }
+      - { x: 346.5, y: 885.4 }
+      - { x: 323.9, y: 847.2 }
+  - from: p18
+    to: p19
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p20
+    to: p21
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p22
+    to: p23
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 464.8, y: 860.2 }
+      - { x: 461.4, y: 870 }
+      - { x: 456, y: 878.7 }
+      - { x: 448.7, y: 886 }
+      - { x: 440, y: 891.4 }
+      - { x: 430.2, y: 894.8 }
+      - { x: 420, y: 896 }
+      - { x: 409.8, y: 894.8 }
+      - { x: 400, y: 891.4 }
+      - { x: 391.3, y: 886 }
+      - { x: 384, y: 878.7 }
+      - { x: 378.6, y: 870 }
+      - { x: 375.2, y: 860.2 }
+      - { x: 374, y: 850 }
+      - { x: 375.2, y: 839.8 }
+      - { x: 378.6, y: 830 }
+      - { x: 384, y: 821.3 }
+      - { x: 391.3, y: 814 }
+      - { x: 400, y: 808.6 }
+      - { x: 409.8, y: 805.2 }
+      - { x: 420, y: 804 }
+      - { x: 430.2, y: 805.2 }
+      - { x: 440, y: 808.6 }
+      - { x: 448.7, y: 814 }
+      - { x: 456, y: 821.3 }
+      - { x: 461.4, y: 830 }
+      - { x: 464.8, y: 839.8 }
+  - from: p24
+    to: p25
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p26
+    to: p27
+    curve: none
+    ends: { from: none, to: arrow }

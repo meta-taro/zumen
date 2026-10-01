@@ -1,0 +1,104 @@
+version: 1
+wrap: true
+title: 組立ラインの工程図（タクト 45 秒・日産 480 個）
+# **工程図の主役は、箱ではなく「タクト」。**
+# 日産 480 個を 6 時間（21,600 秒）で作るなら、**45 秒に 1 個**出さなければならない。
+# 1 工程でもここを超えると、そこから先は待つ。
+#
+# ## だから「手直し台」が工程図に載る
+#
+# 不良を**ラインの中で直す場所**が無いと、1 個の手直しでラインが止まる。
+# 手直し台は逃がし先であって、良し悪しの話ではない。
+#
+# ## 率は、そこを通った数で書く
+#
+# 「不良 2.1%」は**その工程を通った数に対する率**。
+# 全体に対する率と混ぜると、どこを直せばいいのかが読めなくなる。
+pins:
+  kensa:
+    appearance: primary
+  tesagyo:
+    appearance: muted
+groups:
+  - id: zairyo
+    label: 材料
+  - id: line
+    label: 組立ライン
+  - id: dashi
+    label: 出荷判定
+nodes:
+  - id: nyuka
+    type: storage
+    label: 部材倉庫
+    tag: ST-01
+    technology: 先入れ先出し・3 日分
+    group: zairyo
+  - id: kensyu
+    type: generic
+    label: 受入検査
+    tag: OP-05
+    technology: 抜き取り AQL1.0
+    group: zairyo
+  - id: k1
+    type: generic
+    label: プレス
+    tag: OP-10
+    technology: PRS-01・42 秒
+    group: line
+  - id: k2
+    type: generic
+    label: 溶接
+    tag: OP-20
+    technology: WLD-02・45 秒
+    group: line
+  - id: tesagyo
+    type: generic
+    label: 手直し台
+    tag: OP-25
+    technology: 廃止検討・実績 2.1%
+    group: line
+  - id: k3
+    type: generic
+    label: 塗装
+    tag: OP-30
+    technology: PNT-01・38 秒
+    group: line
+  - id: kensa
+    type: cluster
+    label: 全数検査
+    tag: OP-40
+    technology: 画像 2 台・12 秒
+    group: dashi
+  - id: futekigo
+    type: queue
+    label: 不適合品
+    tag: NG
+    technology: 隔離・日次処理
+    group: dashi
+  - id: soko
+    type: storage
+    label: 製品倉庫
+    tag: ST-90
+    group: dashi
+edges:
+  - from: nyuka
+    to: kensyu
+  - from: kensyu
+    to: k1
+    label: 合格のみ
+  - from: k1
+    to: k2
+  - from: k2
+    to: k3
+  - from: k2
+    to: tesagyo
+    label: 不良 2.1%
+  - from: tesagyo
+    to: k3
+  - from: k3
+    to: kensa
+  - from: kensa
+    to: soko
+  - from: kensa
+    to: futekigo
+    label: 不合格 0.6%

@@ -1,0 +1,141 @@
+version: 1
+title: md-business モノレポ構成
+groups:
+  - id: apps
+    label: apps
+  - id: packages
+    label: packages
+nodes:
+  - id: desktop
+    type: generic
+    label: desktop
+    group: apps
+  - id: chrome-extension
+    type: generic
+    label: chrome-extension
+    group: apps
+  - id: google-workspace-addon
+    type: generic
+    label: google-workspace-addon
+    group: apps
+  - id: core
+    type: generic
+    label: core
+    group: packages
+  - id: data-tree
+    type: generic
+    label: data-tree
+    group: packages
+  - id: mcp-server
+    type: server
+    label: mcp-server
+    group: packages
+  - id: renderer-pdf
+    type: generic
+    label: renderer-pdf
+    group: packages
+  - id: schema-invoice
+    type: generic
+    label: invoice
+    group: packages
+  - id: schema-spec
+    type: generic
+    label: spec
+    group: packages
+  - id: schema-test-spec
+    type: generic
+    label: test-spec
+    group: packages
+  - id: schema-db-spec
+    type: generic
+    label: db-spec
+    group: packages
+  - id: schema-nosql-db-spec
+    type: generic
+    label: nosql-db-spec
+    group: packages
+  - id: schema-api-spec
+    type: generic
+    label: api-spec
+    group: packages
+edges:
+  - from: schema-invoice
+    to: core
+  - from: schema-spec
+    to: core
+  - from: schema-test-spec
+    to: core
+  - from: schema-db-spec
+    to: core
+  - from: schema-nosql-db-spec
+    to: core
+  - from: schema-api-spec
+    to: core
+  - from: renderer-pdf
+    to: schema-invoice
+  - from: renderer-pdf
+    to: schema-spec
+  - from: renderer-pdf
+    to: schema-test-spec
+  - from: renderer-pdf
+    to: schema-db-spec
+  - from: renderer-pdf
+    to: schema-nosql-db-spec
+  - from: renderer-pdf
+    to: schema-api-spec
+  - from: mcp-server
+    to: core
+  - from: mcp-server
+    to: data-tree
+  - from: mcp-server
+    to: schema-invoice
+  - from: mcp-server
+    to: schema-spec
+  - from: mcp-server
+    to: schema-test-spec
+  - from: mcp-server
+    to: schema-db-spec
+  - from: mcp-server
+    to: schema-nosql-db-spec
+  - from: mcp-server
+    to: schema-api-spec
+  - from: desktop
+    to: core
+  - from: desktop
+    to: data-tree
+  - from: desktop
+    to: mcp-server
+  - from: desktop
+    to: renderer-pdf
+  - from: desktop
+    to: schema-invoice
+  - from: desktop
+    to: schema-spec
+  - from: desktop
+    to: schema-test-spec
+  - from: desktop
+    to: schema-db-spec
+  - from: desktop
+    to: schema-nosql-db-spec
+  - from: desktop
+    to: schema-api-spec
+  - from: chrome-extension
+    to: core
+  - from: chrome-extension
+    to: renderer-pdf
+  - from: chrome-extension
+    to: schema-invoice
+  - from: chrome-extension
+    to: schema-spec
+  - from: chrome-extension
+    to: schema-test-spec
+  - from: chrome-extension
+    to: schema-db-spec
+  - from: chrome-extension
+    to: schema-nosql-db-spec
+  - from: chrome-extension
+    to: schema-api-spec
+  - from: google-workspace-addon
+    to: core
+  - from: google-workspace-addon
+    to: schema-test-spec

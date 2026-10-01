@@ -1,0 +1,531 @@
+/**
+ * **路線の色**（`palette` と `color`）。
+ *
+ * ## なぜ DESIGN.md §7 の例外を作るのか
+ *
+ * `DESIGN.md` §7 は「**色ではなく形で意味を持たせる**」と決めている
+ * （白黒で印刷しても、色覚特性でも、縮小しても失われないため）。
+ *
+ * 判断（2026-09-13）。
+ *
+ * **色が業界の慣習（文化）であれば、その色の決まりを優先する。**
+ *
+ * 日本の路線図では**色が路線の名前**（銀座線はオレンジ、丸ノ内線は赤）。
+ * 「オレンジの線」と言えば銀座線のことで、**色を落とすと名前が消える。**
+ * ここは §7 が想定した「見た目の飾り」ではなく、**記法そのもの。**
+ *
+ * ## それでも、色だけに頼らせない
+ *
+ * 実物の東京メトロも**色と番号の両方**で読ませている（`G-09` の `G`）。
+ * 色覚特性のある人と、白黒で刷った人が読めなくなるため。
+ *
+ * そこで **`palette` の鍵は路線記号そのもの**にし、
+ * **その記号が図に文字として出ていること**（`tag` の頭）を検証器が見る。
+ * 色を使っているのに記号が出ていなければ知らせる。
+ */
+import assert from 'node:assert/strict';
+import { describe, it } from 'node:test';
+
+import { layout } from '../src/layout.ts';
+import { colorOf, contrastOn, paletteOf as routePalette } from '../src/palette.ts';
+import { render } from '../src/render.ts';
+import { validate } from '../src/validate.ts';
+
+const MAP = `version: 1
+kind: placement
+arrows: false
+palette:
+  G: "#f39700"
+  M: "#e5171f"
+nodes:
+  - id: a
+    label: 浅草
+    tag: G-01
+    color: G
+    marker: circle
+    at: { x: 0, y: 0 }
+    size: { w: 34, h: 34 }
+  - id: b
+    label: 上野
+    tag: G-16
+    color: G
+    marker: circle
+    at: { x: 200, y: 0 }
+    size: { w: 34, h: 34 }
+edges:
+  - from: a
+    to: b
+    color: G
+    weight: thick
+`;
+
+describe('路線の色を読む', () => {
+  it('**正本が色を決める。** こちらは色を持たない', () => {
+    assert.deepEqual(routePalette({ G: '#f39700' }), { G: '#f39700' });
+  });
+
+  it('`#rrggbb` でないものは落とす', () => {
+    assert.deepEqual(routePalette({ G: 'orange', M: '#e5171f' }), { M: '#e5171f' });
+    assert.deepEqual(routePalette({ G: '#fff' }), {});
+    assert.deepEqual(routePalette(undefined), {});
+  });
+
+  it('鍵に無い色は使わない', () => {
+    assert.equal(colorOf('G', { G: '#f39700' }), '#f39700');
+    assert.equal(colorOf('Z', { G: '#f39700' }), null);
+    assert.equal(colorOf(undefined, { G: '#f39700' }), null);
+  });
+
+  it('**地とのコントラストを測れる**（薄い色は線が消える）', () => {
+    assert.ok(contrastOn('#f39700', '#ffffff') > 1.5);
+    assert.ok(contrastOn('#fefefe', '#ffffff') < 1.2);
+  });
+});
+
+describe('路線の色を描く', () => {
+  it('**線が路線の色になる**', async () => {
+    const out = render(await layout(MAP), 'light', 'safe', true);
+    assert.match(out, /<path d="[^"]*"[^>]*stroke="#f39700"/);
+  });
+
+  it('**駅の印も路線の色になる**（線と駅が同じ路線だと分かる）', async () => {
+    const out = render(await layout(MAP), 'light', 'safe', true);
+    assert.match(out, /data-node="a"[\s\S]*?<circle [^>]*stroke="#f39700"/);
+  });
+
+  it('**文字までは染めない。** 地の上で読めなくなる', async () => {
+    const out = render(await layout(MAP), 'light', 'safe', true);
+    assert.ok(!/<text[^>]*fill="#f39700"/.test(out), '文字まで色を付けた');
+  });
+
+  it('色を書かなければ、これまでどおり', async () => {
+    const out = render(await layout(MAP.replace(/    color: G\n/g, '')), 'light', 'safe', true);
+    assert.ok(!out.includes('#f39700'));
+  });
+});
+
+/**
+ * **色だけに頼らせない**（`color-without-code`）。
+ *
+ * 2026-09-14 に**見る場所を変えた。**
+ *
+ * 前は「その節の `tag` が鍵で始まっているか」を節ごとに見ていた。
+ * これには穴が 2 つあった。
+ *
+ * 1. **`tag` が無い節では、一度も鳴らなかった。**
+ *    符号がどこにも無いのがいちばん危ないのに、そこだけ素通りしていた
+ * 2. **`tag` が別の意味を持つ図で、誤って鳴った。**
+ *    積付図（見本 89）の `tag` はリーファーと危険物の印で、揚地の符号ではない。
+ *    それでも「tag に符号が無い」と 6 件鳴った
+ *
+ * **見るべきは節ではなく図ぜんたい。** 色が意味を持つなら、
+ * その符号が**図のどこかに文字として出ていればいい**（凡例でもよい）。
+ * 実物の路線図も、駅ごとに色名を書いてはいない。**凡例に 1 回書いてある。**
+ */
+describe('色だけに頼らせない', () => {
+  it('**鍵が図のどこにも文字として出ていないと知らせる**', () => {
+    const found = validate(MAP.replace('tag: G-01', 'tag: A-01').replace('tag: G-16', 'tag: A-16'));
+    assert.ok(
+      found.some((f) => f.code === 'color-without-code'),
+      '色だけで路線を示しているのに、知らせていない',
+    );
+  });
+
+  it('記号が出ていれば、何も言わない', () => {
+    assert.ok(!validate(MAP).some((f) => f.code === 'color-without-code'));
+  });
+
+  it('**凡例に 1 回出ていれば足りる**（節ごとに書かせない）', () => {
+    const legend = MAP.replace('tag: G-01', 'tag: A-01').replace('tag: G-16', 'tag: A-16').replace(
+      'nodes:\n',
+      'nodes:\n  - id: legend\n    label: "G 銀座線"\n    marker: none\n',
+    );
+    assert.ok(!validate(legend).some((f) => f.code === 'color-without-code'), legend);
+  });
+
+  /**
+   * **下敷きの灰色には、凡例を求めない**（2026-09-19）。
+   *
+   * 見本 211 の表で、例に当たる 1 行を淡く敷こうとしたら
+   * 検証器に「"G" を文字で出せ」と言われた。灰色は白黒に落としても色覚特性でも
+   * 失われないので、求める理由がない。**ただし線の色に使ったら今までどおり言う。**
+   */
+  const GREY = `version: 1
+kind: flow
+arrows: true
+palette:
+  G: "#808080"
+nodes:
+  - id: a
+    label: "見出し"
+  - id: b
+    label: "この行だけ淡く敷く"
+    fill: G
+    hatch: solid
+edges:
+  - from: a
+    to: b
+`;
+
+  it('**面だけに使った無彩色は、凡例を求めない**', () => {
+    const found = validate(GREY);
+    assert.ok(
+      !found.some((f) => f.code === 'color-without-code'),
+      found.map((f) => `${f.code}: ${f.message}`).join('\n'),
+    );
+  });
+
+  it('同じ灰色でも、**線の色に使ったら今までどおり言う**', () => {
+    const found = validate(GREY.replace('    fill: G\n', '    color: G\n'));
+    assert.ok(found.some((f) => f.code === 'color-without-code'), '線の色は意味を運ぶので、凡例が要る');
+  });
+
+  it('無彩色でない面は、これまでどおり凡例を求める', () => {
+    const found = validate(GREY.replace('#808080', '#8a6d3b'));
+    assert.ok(found.some((f) => f.code === 'color-without-code'), '有彩色は白黒で落ちる');
+  });
+
+  it('**`tag` が別の意味を持つ図で、誤って鳴らない**（積付図のリーファー印）', () => {
+    const stow = MAP.replace('tag: G-01', 'tag: R').replace('tag: G-16', 'tag: R');
+    const found = validate(stow.replace('  - id: a\n', '  - id: legend\n    label: "G 銀座線"\n    marker: none\n  - id: a\n'));
+    assert.ok(!found.some((f) => f.code === 'color-without-code'), found.map((f) => f.code).join(','));
+  });
+
+  it('使っていない色は問わない（palette に書いてあるだけ）', () => {
+    const spare = MAP.replace('palette:\n', 'palette:\n  Z: "#1f8ad0"\n');
+    assert.ok(!validate(spare).some((f) => f.code === 'color-without-code'));
+  });
+
+  it('**薄すぎる色を知らせる**（白黒に落とすと消える）', () => {
+    const found = validate(MAP.replace('#f39700', '#fdfdfd'));
+    assert.ok(found.some((f) => f.code === 'color-faint'));
+  });
+
+  it('鍵に無い色を知らせる', () => {
+    assert.ok(validate(MAP.replace('color: G\n    marker', 'color: Z\n    marker')).some((f) => f.code === 'color-unknown'));
+  });
+
+  /**
+   * **読めない色は、値を名指しで知らせる。**
+   *
+   * 2026-09-19。見本 187（木取り図）を作っていて踏んだ ——
+   * `palette` に `#a33` と書いたら「**palette にその鍵がありません**」と言われた。
+   * 鍵はある。**読めなかったのは値のほう。** 嘘の指摘に 1 往復とられた。
+   *
+   * 3 桁も色名も受けないのは決めごと（`src/palette.ts`）。
+   * **受けないなら、受けないと言う。**
+   */
+  it('**`#rrggbb` でない色は、鍵ではなく値を名指しする**', () => {
+    const found = validate(MAP.replace('#f39700', '#f97'));
+    assert.ok(found.some((f) => f.code === 'color-not-hex'), '読めない色を知らせていない');
+    const said = found.find((f) => f.code === 'color-not-hex')!.message;
+    assert.ok(said.includes('#f97'), `値を名指ししていない（${said}）`);
+    assert.ok(!found.some((f) => f.code === 'color-unknown'), '鍵が無いと嘘を言っている');
+  });
+
+  it('どれも warning（読めない図ではない）', () => {
+    const found = validate(MAP.replace('tag: G-01', 'tag: A-01').replace('#f39700', '#fdfdfd'));
+    assert.ok(found.every((f) => f.severity === 'warning'));
+  });
+});
+
+/**
+ * **塗りにも色が乗る。**
+ *
+ * 停車駅案内図の ●（停車）で出た（2026-09-13）。枠だけ色を付けて中を
+ * 既定の墨で塗ったので、**どの種別の ● なのか、色で読めなかった。**
+ * 実物の案内も、●そのものが種別の色をしている。
+ */
+describe('塗りにも色が乗る', () => {
+  const DOT = `version: 1
+kind: placement
+palette:
+  kyuko: "#d95f02"
+nodes:
+  - id: stop
+    label: ""
+    marker: circle
+    hatch: solid
+    color: kyuko
+    at: { x: 0, y: 0 }
+    size: { w: 20, h: 20 }
+`;
+
+  it('**塗りは、その色**（既定の墨で塗らない）', async () => {
+    const out = render(await layout(DOT), 'light', 'safe', true);
+    assert.match(out, /<circle [^>]*fill="#d95f02" fill-opacity="0.82"/);
+  });
+
+  it('色を書かなければ、これまでどおり墨で塗る', async () => {
+    const out = render(await layout(DOT.replace('    color: kyuko\n', '')), 'light', 'safe', true);
+    assert.match(out, /<circle [^>]*fill="#1c1c22" fill-opacity="0.82"/);
+  });
+});
+
+/**
+ * **薄いかどうかは、両方の地で見る。**
+ *
+ * のりかえ案内図の JR の灰色で出た（2026-09-13）。白地では 7:1 あったが、
+ * **暗い地では 2:1 で、ダークの図では見えていなかった。**
+ * zumen は同じ正本から**ライトとダークの両方**を書き出すので、
+ * 片方の地だけで見ていると、もう片方が抜ける。
+ */
+describe('薄い色は、両方の地で見る', () => {
+  const one = (hex: string): string[] =>
+    validate(`version: 1
+kind: placement
+palette:
+  X: "${hex}"
+nodes:
+  - id: a
+    label: あ
+    tag: X
+    color: X
+    at: { x: 0, y: 0 }
+    size: { w: 40, h: 20 }
+`).map((f) => f.code);
+
+  it('**暗い地で沈む色を知らせる**（白地では足りていても）', () => {
+    // 白地に 7.4:1、暗い地に 1.9:1。
+    assert.ok(one('#4a4a52').includes('color-faint'), '暗い地で沈む色を通した');
+  });
+
+  it('白地で沈む色も、これまでどおり知らせる', () => {
+    assert.ok(one('#fdfdfd').includes('color-faint'));
+  });
+
+  it('**両方で読める色は通す**', () => {
+    assert.deepEqual(one('#808080'), [], '両方で読める色を止めた');
+  });
+});
+
+/**
+ * **面の色**（`fill`）。
+ *
+ * 指摘（2026-09-18）。
+ *
+ * 色味も見せる。**明暗の切り替えしかできないと思われると損**になる。
+ *
+ * ここまでの色は**線の色**だった（路線・系統）。実物の販売図面・工程表・
+ * 区画図は、**面を淡く染め分ける** —— 線の色とは別のものが要る。
+ *
+ * ## なぜ `color` を流用しないか
+ *
+ * `color` は枠の線に乗る。淡い色を `color` に書くと、
+ * **枠（＝壁）まで淡くなって消える。** 壁が消えた間取り図は間取り図ではない。
+ *
+ * ## なぜ淡く敷くのか（`TINT`）
+ *
+ * 面は**地を置き換えない。地の上へ薄く敷く。**
+ * こうすると、同じ正本から出るライトでは淡い色、ダークでは沈んだ色になり、
+ * **どちらでも上の文字が読める**（色を不透明で塗ると、片方で必ず潰れる）。
+ * だから `color-faint`（非文字の下限 3:1）は、**面だけに使う鍵には当てない。**
+ */
+describe('面の色（fill）', () => {
+  const ROOM = `version: 1
+kind: placement
+palette:
+  LDK: "#e8a33d"
+nodes:
+  - id: legend
+    label: "LDK は暖色"
+    marker: none
+    at: { x: 0, y: 200 }
+    size: { w: 120, h: 20 }
+  - id: ldk
+    label: LDK
+    fill: LDK
+    at: { x: 0, y: 0 }
+    size: { w: 120, h: 80 }
+`;
+
+  it('**面がその色になる**（淡く敷く）', async () => {
+    const out = render(await layout(ROOM), 'light', 'safe', true);
+    assert.match(out, /fill="#e8a33d" fill-opacity="0\.1[0-9]"/);
+  });
+
+  it('**枠の線は染めない**（壁まで淡くすると、壁が消える）', async () => {
+    const out = render(await layout(ROOM), 'light', 'safe', true);
+    assert.ok(!/stroke="#e8a33d"/.test(out), '枠まで面の色にした');
+  });
+
+  it('**文字も染めない**', async () => {
+    const out = render(await layout(ROOM), 'light', 'safe', true);
+    assert.ok(!/<text[^>]*fill="#e8a33d"/.test(out));
+  });
+
+  it('鍵に無ければ、色を付けない（知らせる）', () => {
+    assert.ok(validate(ROOM.replace('fill: LDK', 'fill: Z')).some((f) => f.code === 'color-unknown'));
+  });
+
+  it('**面の色も、鍵が文字として出ていること**（色だけに頼らせない）', () => {
+    const found = validate(ROOM.replace('    label: "LDK は暖色"', '    label: "凡例"').replace('    label: LDK\n', '    label: 居間\n'));
+    assert.ok(found.some((f) => f.code === 'color-without-code'), found.map((f) => f.code).join(','));
+  });
+
+  it('**面だけに使う鍵は、3:1 を割っても知らせない**（線ではないので沈まない）', () => {
+    const pale = ROOM.replace('#e8a33d', '#fbe6c8');
+    assert.ok(!validate(pale).some((f) => f.code === 'color-faint'), '面の色に線の下限を当てた');
+  });
+
+  it('同じ鍵を線にも使っていれば、これまでどおり知らせる', () => {
+    const pale = ROOM.replace('#e8a33d', '#fbe6c8').replace('    fill: LDK\n', '    fill: LDK\n    color: LDK\n');
+    assert.ok(validate(pale).some((f) => f.code === 'color-faint'));
+  });
+
+  it('ダークでも、面の上の文字は地の色にならない（淡い面に白文字を書かない）', async () => {
+    const out = render(await layout(ROOM), 'dark', 'safe', true);
+    assert.match(out, /fill="#e8a33d" fill-opacity="0\.1[0-9]"/);
+    assert.ok(!/<text[^>]*fill="#0f0f13"/.test(out), 'ダークで文字を地の色にした');
+  });
+});
+
+/**
+ * **面をその色で塗り潰す**（`fill` ＋ `hatch: solid`）。
+ *
+ * モザイクの割り付け図（見本 170）で要った。**あそこは面が中身そのもの**で、
+ * 薄く敷いたのでは色が読めない。かといって `color` に書くと**枠まで染まる** ——
+ * 1 マスずつの区切り線が消えて、どこで切れているか分からなくなる。
+ *
+ * `hatch: solid`（塗り潰し）と組み合わせたときだけ、**面をしっかり塗る**。
+ * 語を足していない —— **すでにある 2 つの語の組み合わせ**で言えている。
+ */
+describe('面を塗り潰す（fill ＋ hatch: solid）', () => {
+  const CELL = `version: 1
+kind: placement
+palette:
+  R: "#c91a09"
+  W: "#ffffff"
+nodes:
+  - id: legend
+    label: "R 赤 ／ W 白"
+    marker: none
+    at: { x: 0, y: 100 }
+    size: { w: 160, h: 20 }
+  - id: c1
+    label: R
+    fill: R
+    hatch: solid
+    at: { x: 0, y: 0 }
+    size: { w: 26, h: 26 }
+  - id: c2
+    label: W
+    fill: W
+    hatch: solid
+    at: { x: 26, y: 0 }
+    size: { w: 26, h: 26 }
+`;
+
+  it('**面がその色で塗り潰される**（薄く敷かない）', async () => {
+    const out = render(await layout(CELL), 'light', 'safe', true);
+    assert.match(out, /fill="#c91a09" fill-opacity="0\.82"/);
+    assert.ok(!/fill="#c91a09" fill-opacity="0\.16"/.test(out), '塗り潰しの上に、さらに薄く敷いた');
+  });
+
+  it('**枠は墨のまま**（マスの区切りが消えない）', async () => {
+    const out = render(await layout(CELL), 'light', 'safe', true);
+    assert.ok(!/stroke="#c91a09"/.test(out), '枠まで面の色にした');
+  });
+
+  /**
+   * **塗りの上の文字は、その塗りの明るさで決める。**
+   *
+   * 塗り潰しの上では文字を地の色にしていた（黒いアスコンの上の黒い字を避けるため）。
+   * **色が入ると、それが裏目に出る** —— 白いマスの上で、文字まで白くなる。
+   * 見るべきは「塗り潰しかどうか」ではなく、**その塗りから遠いインクはどちらか**。
+   */
+  it('**濃い塗りの上では、地の色の文字**（黒の上の黒を避ける）', async () => {
+    const out = render(await layout(CELL), 'light', 'safe', true);
+    const red = out.slice(out.indexOf('data-name="c1"'), out.indexOf('data-name="c2"'));
+    assert.match(red, /<text[^>]*fill="#ffffff"/);
+  });
+
+  it('**淡い塗りの上では、墨の文字**（白の上の白を避ける）', async () => {
+    const out = render(await layout(CELL), 'light', 'safe', true);
+    const white = out.slice(out.indexOf('data-name="c2"'));
+    assert.match(white, /<text[^>]*fill="#1c1c22"/);
+    assert.ok(!/data-name="c2"[\s\S]{0,400}?<text[^>]*fill="#ffffff"/.test(out), '白い塗りに白い字を書いた');
+  });
+
+  it('色を書かない塗り潰しは、これまでどおり地の色の文字', async () => {
+    const plain = CELL.replace(/    fill: [RW]\n/g, '');
+    const out = render(await layout(plain), 'light', 'safe', true);
+    assert.match(out, /<text[^>]*fill="#ffffff"/);
+  });
+});
+
+/**
+ * **どちらの地で沈んだか、いくつだったか**（2026-09-20）。
+ *
+ * 前は「薄すぎます」としか言わず、**ライトで落ちたのかダークで落ちたのかが分からなかった。**
+ * 実物の色を使う図（東京の地下鉄 13 路線・見本 81）では**色を変えられない**ので、
+ * 「白地だけ落ちている」と分かって、はじめて次の手（線を太くする・符号を添える）が選べる。
+ */
+describe('薄い色は、どちらの地で沈んだかを言う', () => {
+  const said = (hex: string): string => {
+    const yaml = `version: 1\nkind: placement\npalette:\n  A: "${hex}"\nnodes:\n  - id: a\n    label: あ\n    color: A\n    at: { x: 0, y: 0 }\n    size: { w: 40, h: 40 }\n`;
+    return validate(yaml).find((f) => f.code === 'color-faint')?.message ?? '';
+  };
+
+  it('**比の数字を両方出す**', () => {
+    assert.match(said('#f19a38'), /白地で 2\.\d\d:1/);
+    assert.match(said('#f19a38'), /暗い地で \d+\.\d\d:1/);
+  });
+
+  it('白地だけ足りないときは、そう言う', () => {
+    assert.match(said('#f19a38'), /白地だけ/);
+  });
+
+  it('暗い地だけ足りないときは、そう言う', () => {
+    assert.match(said('#4a4a52'), /暗い地だけ/);
+  });
+
+  it('**実物の色を変えられないときの逃げ道を書く**（白地だけ落ちたとき）', () => {
+    assert.match(said('#f19a38'), /線を太くする|符号/);
+  });
+
+  it('両方で沈む色には、逃げ道を書かない（色そのものを直すしかない）', () => {
+    const both = said('#7f7f85');
+    if (both !== '') assert.ok(!both.includes('線を太くする'), both);
+  });
+});
+
+/**
+ * **符号が文字で出ているなら、言うことが変わる**（2026-09-21）。
+ *
+ * 測ったら `color-faint` は見本 3 枚・10 件とも**実物の路線色**
+ * （山手線 #9acd32、阪急 #8b0000、東京メトロ各線）で、
+ * **どれも符号が図に文字で出ていた。**
+ * 文言自身が逃げ道として「符号を添えてください」と言っているのに、
+ * **添えてあっても同じ文で鳴り続けていた。**
+ */
+describe('薄い色の言い方', () => {
+  const one = (label: string): string =>
+    [
+      'version: 1', 'kind: placement', 'palette:', '  JY: "#9acd32"', 'nodes:',
+      '  - id: a', `    label: ${JSON.stringify(label)}`, '    color: JY',
+      '    at: { x: 0, y: 0 }', '    size: { w: 200, h: 40 }', '',
+    ].join('\n');
+
+  it('**符号が図に出ていれば、そう言う**', async () => {
+    const { validate } = await import('../src/validate.ts');
+    const found = validate(one('JY 山手線')).find((f) => f.code === 'color-faint');
+    assert.ok(found !== undefined);
+    assert.match(found.message, /符号は図に文字で出ています/, found.message);
+  });
+
+  it('出ていなければ、これまでどおり「添えてください」', async () => {
+    const { validate } = await import('../src/validate.ts');
+    const found = validate(one('路線')).find((f) => f.code === 'color-faint');
+    assert.ok(found !== undefined);
+    assert.match(found.message, /必ず添えて/, found.message);
+  });
+
+  it('どちらでも、比の数は言う', async () => {
+    const { validate } = await import('../src/validate.ts');
+    for (const label of ['JY 山手線', '路線']) {
+      const found = validate(one(label)).find((f) => f.code === 'color-faint')!;
+      assert.match(found.message, /白地で [\d.]+:1/, found.message);
+    }
+  });
+});

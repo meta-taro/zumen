@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EC 商品ページ UI 構造（Desktop 1440 / Mobile 390・レスポンシブ差分つき） — zumen の見本 74</title>
+<link rel="icon" type="image/svg+xml" href="../../icon.svg">
+<meta name="theme-color" content="#23232b">
+<meta name="description" content="EC 商品ページの UI 構造（レスポンシブ差分）。右の表が主役 —— 絵を 2 枚並べるだけでは、何が変わるか言えない。レスポンシブは縮小ではなく構造の変化（横並び→縦並び、Nav→Drawer、下部固定）。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="zumen">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:url" content="https://meta-taro.github.io/zumen/g/74/">
+<meta property="og:title" content="EC 商品ページ UI 構造（Desktop 1440 / Mobile 390・レスポンシブ差分つき） — zumen の見本 74">
+<meta property="og:description" content="EC 商品ページの UI 構造（レスポンシブ差分）。右の表が主役 —— 絵を 2 枚並べるだけでは、何が変わるか言えない。レスポンシブは縮小ではなく構造の変化（横並び→縦並び、Nav→Drawer、下部固定）。">
+<meta property="og:image" content="https://meta-taro.github.io/zumen/og/74.png">
+<meta property="og:image:alt" content="EC 商品ページの UI 構造（Desktop / Mobile）">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="EC 商品ページ UI 構造（Desktop 1440 / Mobile 390・レスポンシブ差分つき） — zumen の見本 74">
+<meta name="twitter:description" content="EC 商品ページの UI 構造（レスポンシブ差分）。右の表が主役 —— 絵を 2 枚並べるだけでは、何が変わるか言えない。レスポンシブは縮小ではなく構造の変化（横並び→縦並び、Nav→Drawer、下部固定）。">
+<meta name="twitter:image" content="https://meta-taro.github.io/zumen/og/74.png">
+<meta name="twitter:image:alt" content="EC 商品ページの UI 構造（Desktop / Mobile）">
+<link rel="stylesheet" href="../../style.css">
+<link rel="canonical" href="https://meta-taro.github.io/zumen/g/74/">
+<link rel="alternate" hreflang="ja" href="https://meta-taro.github.io/zumen/g/74/">
+<link rel="alternate" hreflang="en" href="https://meta-taro.github.io/zumen/en/g/74/">
+<link rel="alternate" hreflang="x-default" href="https://meta-taro.github.io/zumen/g/74/">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="alternate" type="text/markdown" href="https://meta-taro.github.io/zumen/llms.txt" title="llms.txt">
+<link rel="sitemap" type="application/xml" href="https://meta-taro.github.io/zumen/sitemap.xml">
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    "name": "EC 商品ページ UI 構造（Desktop 1440 / Mobile 390・レスポンシブ差分つき）",
+    "headline": "EC 商品ページ UI 構造（Desktop 1440 / Mobile 390・レスポンシブ差分つき）",
+    "description": "EC 商品ページの UI 構造（レスポンシブ差分）。右の表が主役 —— 絵を 2 枚並べるだけでは、何が変わるか言えない。レスポンシブは縮小ではなく構造の変化（横並び→縦並び、Nav→Drawer、下部固定）。",
+    "url": "https://meta-taro.github.io/zumen/g/74/",
+    "image": {
+      "@type": "ImageObject",
+      "contentUrl": "https://meta-taro.github.io/zumen/gallery/74-EC%E5%95%86%E5%93%81%E3%83%9A%E3%83%BC%E3%82%B8%E3%81%AEUI%E6%A7%8B%E9%80%A0.svg",
+      "caption": "EC 商品ページの UI 構造（レスポンシブ差分）",
+      "description": "EC 商品ページの UI 構造（Desktop / Mobile）",
+      "encodingFormat": "image/svg+xml",
+      "license": "https://opensource.org/licenses/MIT",
+      "acquireLicensePage": "https://github.com/meta-taro/zumen/blob/main/LICENSE",
+      "creditText": "zumen"
+    },
+    "inLanguage": "ja",
+    "license": "https://opensource.org/licenses/MIT",
+    "isPartOf": {
+      "@type": "CollectionPage",
+      "name": "UI・画面設計",
+      "url": "https://meta-taro.github.io/zumen/c/ui/"
+    },
+    "encodingFormat": "text/yaml",
+    "isAccessibleForFree": true
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "zumen",
+        "item": "https://meta-taro.github.io/zumen/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "見本 368 枚",
+        "item": "https://meta-taro.github.io/zumen/all/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "UI・画面設計",
+        "item": "https://meta-taro.github.io/zumen/c/ui/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": "EC 商品ページ UI 構造（Desktop 1440 / Mobile 390・レスポンシブ差分つき）"
+      }
+    ]
+  }
+]
+</script>
+</head>
+<body class="sub">
+<header class="bar">
+  <!--
+    パンくず（2026-09-24）。入口から現在地まで一本で出す。
+    aria-label を付けて、読み上げでも「ここは道案内」と分かるようにする。
+    区切りの記号は aria-hidden（読み上げると邪魔なだけ）。
+  -->
+  <nav class="crumbs" aria-label="パンくず">
+    <a class="home" href="../../">zumen</a><span aria-hidden="true">›</span><a href="../../all/">見本 368 枚</a><span aria-hidden="true">›</span><a href="../../c/ui/">UI・画面設計</a>
+  </nav>
+</header>
+<main>
+<article>
+  <p class="crumb">UI・画面設計</p>
+  <h1>EC 商品ページ UI 構造（Desktop 1440 / Mobile 390・レスポンシブ差分つき）</h1>
+  <p class="lead">EC 商品ページの UI 構造（レスポンシブ差分）</p>
+  <figure>
+    <img src="../../gallery/74-EC%E5%95%86%E5%93%81%E3%83%9A%E3%83%BC%E3%82%B8%E3%81%AEUI%E6%A7%8B%E9%80%A0.svg" alt="EC 商品ページの UI 構造（Desktop / Mobile）" loading="lazy">
+  </figure>
+  <p class="made">この図は、下の 1 枚の YAML から描かれています。手で図形を動かしてはいません。</p>
+  <h2>正本に書いてある決まりごと</h2>
+  <p>完成デザインではなく <strong>UI 構造の正本</strong>。色も書体も装飾も持たない。表しているのは「何が・どこに・どの順で・PC と SP でどう変わるか」だけ。</p>
+  <p>右の表が主役 —— <strong>絵を 2 枚並べるだけでは、何が変わるか言えない。</strong>レスポンシブは縮小ではなく構造の変化（横並び→縦並び、Nav→Drawer、下部固定）。</p>
+  <h2>正本（YAML）</h2>
+  <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/74-EC%E5%95%86%E5%93%81%E3%83%9A%E3%83%BC%E3%82%B8%E3%81%AEUI%E6%A7%8B%E9%80%A0.zumen.yaml"><code>examples/gallery/74-EC商品ページのUI構造.zumen.yaml</code></a></p>
+  <h2>同じ分野の見本</h2>
+  <ul class="cards">
+    <li><a href="../75/"><img src="../../gallery/75-%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB%E3%81%A8%E3%83%AF%E3%82%A4%E3%83%A4%E3%83%BC%E3%83%95%E3%83%AC%E3%83%BC%E3%83%A0.svg" alt="ワイヤーフレームつきの画面遷移図。画面を小型のワイヤーフレームで描き、操作と結果でつないだ図" width="1184" height="490" loading="lazy" decoding="async"><span>画面遷移図（ワイヤーフレームつき）</span></a></li>
+    <li><a href="../76/"><img src="../../gallery/76-%E7%AE%A1%E7%90%86%E7%94%BB%E9%9D%A2%E3%81%AE%E3%83%AC%E3%82%B9%E3%83%9D%E3%83%B3%E3%82%B7%E3%83%96%E6%A7%8B%E9%80%A0.svg" alt="管理画面の UI 構造。Desktop・Tablet・Mobile で Sidebar が Drawer に変わる構造の違いを並べた図" width="1654" height="414" loading="lazy" decoding="async"><span>管理画面（Sidebar → Drawer）</span></a></li>
+    <li><a href="../85/"><img src="../../gallery/85-Checkout%E3%81%AE%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB.svg" alt="Checkout の画面遷移（Cart → Address → Payment → Confirm → Complete）" width="1194" height="480" loading="lazy" decoding="async"><span>Checkout の画面遷移（5 段・エラーの戻り先つき）</span></a></li>
+    <li><a href="../86/"><img src="../../gallery/86-CRUD%E7%AE%A1%E7%90%86%E7%94%BB%E9%9D%A2%E3%81%AE%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB.svg" alt="CRUD 管理画面の画面遷移（一覧・作成・編集・削除確認）" width="964" height="676" loading="lazy" decoding="async"><span>CRUD 管理画面の画面遷移（削除は確認を挟む）</span></a></li>
+    <li><a href="../87/"><img src="../../gallery/87-%E3%83%A2%E3%83%90%E3%82%A4%E3%83%AB%E3%82%A2%E3%83%97%E3%83%AA%E3%81%AEUI%E6%A7%8B%E9%80%A0.svg" alt="モバイルアプリの UI 構造。Bottom Navigation の 5 タブと、各タブの画面構成・遷移" width="944" height="584" loading="lazy" decoding="async"><span>モバイルアプリの UI 構造（Bottom Navigation）</span></a></li>
+    <li><a href="../88/"><img src="../../gallery/88-%E3%83%AC%E3%82%B9%E3%83%9D%E3%83%B3%E3%82%B7%E3%83%96LP%E3%81%AEUI%E6%A7%8B%E9%80%A0.svg" alt="レスポンシブ LP の UI 構造（Desktop / Tablet / Mobile）" width="1684" height="486" loading="lazy" decoding="async"><span>レスポンシブ LP の UI 構造（節が消える・増える）</span></a></li>
+    <li><a href="../312/"><img src="../../gallery/312-UI%E3%81%AEComponent%E6%A7%8B%E9%80%A0.svg" alt="商品一覧・商品詳細・カートの 3 画面と、Header・Footer・ProductCard・Price・QuantityStepper・ImageGallery・Button の関係を並べた構成図。1 つの Component に親が何本刺さっているかを書き入れ、共通のものと画面専用のものが読めるようにした図" width="1072" height="404" loading="lazy" decoding="async"><span>UI の Component 構造（木ではなく、網になる）</span></a></li>
+  </ul>
+  <nav class="steps" aria-label="前後の見本">
+    <a class="step prev" href="../73/" rel="prev"><span>←</span> サビキ仕掛け図（6 本針）</a>
+    <a class="step index" href="../../all/">見本 368 枚</a>
+    <a class="step next" href="../75/" rel="next">画面遷移図（ワイヤーフレームつき） <span>→</span></a>
+  </nav>
+</article>
+</main>
+<footer class="foot">
+  <p><a href="https://github.com/meta-taro/zumen">GitHub</a> · MIT · <a href="https://meta-taro.github.io/zumen/en/g/74/">English</a></p>
+</footer>
+</body>
+</html>

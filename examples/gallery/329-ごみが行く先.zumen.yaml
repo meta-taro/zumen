@@ -1,0 +1,84 @@
+version: 1
+wrap: true
+title: ごみが行く先（燃やしても、無くならない）
+# **焼却は「消す」工程ではない。容積を 80〜95% 減らす工程。**
+# 残った灰は最終処分場へ行く —— **この図に「消える」という行き先は 1 つも無い。**
+#
+# ## 誰が処理するかは、法律で分かれている
+#
+# 廃棄物処理法がいう廃棄物は、
+# **ごみ、粗大ごみ、燃え殻、汚泥、ふん尿、廃油、廃酸、廃アルカリ、動物の死体その他の汚物又は不要物。**
+#
+# そのうち**産業廃棄物**は「**事業活動に伴って生じた廃棄物のうち、
+# 燃え殻、汚泥、廃油、廃酸、廃アルカリ、廃プラスチック類その他政令で定める廃棄物**」で、
+# **出した事業者が自分で処理する責任を負う。**
+# それ以外が**一般廃棄物**で、**市町村が集めて処理する。**
+#
+# **同じ紙くずでも、家庭から出れば一般廃棄物、事業所から出れば産業廃棄物**になる ——
+# 物の種類ではなく、**どこから出たか**で分かれている。
+#
+# ## 一連の取り扱い
+#
+# 法が並べているのは**分別・保管・収集・運搬・再生・焼却・処分**。
+# **再生（資源化）が、焼却と並んで最初から入っている。**
+#
+# ## 日本は焼却の国
+#
+# 焼却施設は**1000 か所以上**あり、**全世界の半分以上。**
+# そのうち**40% 近くが焼却発電**をしている。
+#
+# 電子機器のリサイクル率は **17.4%** にとどまる。
+#
+# 下水の側は見本 321、水道は見本 306、食品のたどり方は見本 277。
+nodes:
+  - id: katei
+    label: 家庭から出る
+    technology: 一般廃棄物。市町村が集めて処理する
+  - id: jigyo
+    label: 事業所から出る
+    technology: 産業廃棄物。出した事業者が自分で処理する
+  - id: bunbetsu
+    label: 分別・保管
+    technology: 法が並べる一連の取り扱いの最初
+  - id: shushu
+    label: 収集・運搬
+  - id: shokyaku
+    label: 焼却
+    technology: 容積が 80〜95% 減る。約 4 割が発電もする
+  - id: hasai
+    label: 破砕・選別
+    technology: 大きいものを砕き、使えるものを分ける
+  - id: saisei
+    label: 再生（資源化）
+    technology: 焼却と並んで、法の一連に最初から入っている
+  - id: genryo
+    label: 原料・製品へ戻る
+  - id: hai
+    label: 焼却灰・残さ
+    technology: 減ったが、無くなってはいない
+  - id: umetate
+    label: 最終処分（埋立）
+    technology: この図の、ただ 1 つの行き止まり
+edges:
+  - from: katei
+    to: bunbetsu
+  - from: jigyo
+    to: bunbetsu
+  - from: bunbetsu
+    to: shushu
+  - from: shushu
+    to: shokyaku
+  - from: shushu
+    to: hasai
+  - from: shushu
+    to: saisei
+  - from: shokyaku
+    to: hai
+  - from: hasai
+    to: hai
+  - from: hasai
+    to: saisei
+  - from: saisei
+    to: genryo
+  - from: hai
+    to: umetate

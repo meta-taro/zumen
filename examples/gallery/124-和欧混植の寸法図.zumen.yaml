@@ -1,0 +1,505 @@
+version: 1
+kind: placement
+arrows: true
+title: 和文と欧文を混ぜるときの寸法図（仮想ボディとベースライン）
+# **基準が違うものを、同じ行に並べている。**
+#
+# ## 和文は「中央」、欧文は「ベースライン」
+#
+# 和文は**仮想ボディ**という正方形の中に、**中央**へ来るように設計されている。
+# 欧文は**ベースライン**の上に乗せて揃える。
+#
+# **ベースラインは、仮想ボディの中心と下端の「あいだ」にある。**
+# しかも**書体ごとに位置が違う。**
+# だからそのまま混ぜると行が揃わず、ちぐはぐに見える。
+#
+# ## 直し方
+#
+# **ベースラインシフト**で欧文を動かす。書体ごとに量が違うので、
+# 組み合わせごとに持たせる（合成フォント）。
+# **欧文だけ大きさを変える**こともある —— x ハイトが小さい書体は、
+# 同じ級数でも小さく見えるため。
+#
+# ## 単位
+#
+# **1 級（Q）＝ 1 歯（H）＝ 0.25 mm。**
+# 級は「大きさ」、歯は「送り」。単位は同じでも意味が違う。
+nodes:
+  - id: t1
+    label: "① 和文 1 文字ぶんの拡大（1em ＝ 240 px で描いてある）"
+    marker: none
+    align: left
+    at: { x: 80, y: 124 }
+    size: { w: 480, h: 24 }
+  - id: body
+    label: ""
+    at: { x: 140, y: 170 }
+    size: { w: 240, h: 240 }
+  - id: face
+    label: ""
+    hatch: dots
+    at: { x: 154, y: 184 }
+    size: { w: 212, h: 212 }
+  - id: body_n
+    label: "仮想ボディ（1em）"
+    marker: none
+    align: left
+    at: { x: 396, y: 166 }
+    size: { w: 200, h: 22 }
+  - id: face_n
+    label: "字面（墨が乗る範囲）"
+    marker: none
+    align: left
+    at: { x: 396, y: 192 }
+    size: { w: 220, h: 22 }
+  - id: asca
+    label: ""
+    marker: none
+    at: { x: 99, y: 221 }
+    size: { w: 2, h: 2 }
+  - id: ascb
+    label: ""
+    marker: none
+    at: { x: 387, y: 221 }
+    size: { w: 2, h: 2 }
+  - id: capa
+    label: ""
+    marker: none
+    at: { x: 99, y: 233 }
+    size: { w: 2, h: 2 }
+  - id: capb
+    label: ""
+    marker: none
+    at: { x: 387, y: 233 }
+    size: { w: 2, h: 2 }
+  - id: xha
+    label: ""
+    marker: none
+    at: { x: 99, y: 281 }
+    size: { w: 2, h: 2 }
+  - id: xhb
+    label: ""
+    marker: none
+    at: { x: 387, y: 281 }
+    size: { w: 2, h: 2 }
+  - id: mida
+    label: ""
+    marker: none
+    at: { x: 99, y: 289 }
+    size: { w: 2, h: 2 }
+  - id: midb
+    label: ""
+    marker: none
+    at: { x: 387, y: 289 }
+    size: { w: 2, h: 2 }
+  - id: basea
+    label: ""
+    marker: none
+    at: { x: 99, y: 361 }
+    size: { w: 2, h: 2 }
+  - id: baseb
+    label: ""
+    marker: none
+    at: { x: 387, y: 361 }
+    size: { w: 2, h: 2 }
+  - id: bota
+    label: ""
+    marker: none
+    at: { x: 99, y: 409 }
+    size: { w: 2, h: 2 }
+  - id: botb
+    label: ""
+    marker: none
+    at: { x: 387, y: 409 }
+    size: { w: 2, h: 2 }
+  - id: desca
+    label: ""
+    marker: none
+    at: { x: 99, y: 423 }
+    size: { w: 2, h: 2 }
+  - id: descb
+    label: ""
+    marker: none
+    at: { x: 387, y: 423 }
+    size: { w: 2, h: 2 }
+  - id: l_base
+    label: "ベースライン"
+    marker: none
+    align: left
+    at: { x: 396, y: 352 }
+    size: { w: 200, h: 22 }
+  - id: l_mid
+    label: "仮想ボディの中心"
+    marker: none
+    align: left
+    at: { x: 396, y: 280 }
+    size: { w: 200, h: 22 }
+  - id: l_bot
+    label: "仮想ボディの下端"
+    marker: none
+    align: left
+    at: { x: 396, y: 414 }
+    size: { w: 200, h: 22 }
+  - id: l_xh
+    label: "x ハイト"
+    marker: none
+    align: left
+    at: { x: -10, y: 272 }
+    size: { w: 104, h: 22 }
+  - id: l_cap
+    label: "キャップハイト"
+    marker: none
+    align: left
+    at: { x: -10, y: 224 }
+    size: { w: 104, h: 22 }
+  - id: l_asc
+    label: "アセンダライン"
+    marker: none
+    align: left
+    at: { x: -10, y: 200 }
+    size: { w: 104, h: 22 }
+  - id: l_desc
+    label: "ディセンダ"
+    marker: none
+    align: left
+    at: { x: -10, y: 427 }
+    size: { w: 104, h: 22 }
+  - id: key
+    label: "ベースラインは、仮想ボディの中心と下端の「あいだ」にある。しかも書体ごとに違う"
+    marker: none
+    align: left
+    at: { x: 80, y: 450 }
+    size: { w: 660, h: 22 }
+  - id: t2
+    label: "② 和文と欧文を混ぜた行"
+    marker: none
+    align: left
+    at: { x: 880, y: 124 }
+    size: { w: 400, h: 24 }
+  - id: bloka
+    label: ""
+    marker: none
+    at: { x: 879, y: 243 }
+    size: { w: 2, h: 2 }
+  - id: blokb
+    label: ""
+    marker: none
+    at: { x: 1439, y: 243 }
+    size: { w: 2, h: 2 }
+  - id: blokn
+    label: "ベースライン"
+    marker: none
+    align: left
+    at: { x: 1448, y: 233 }
+    size: { w: 120, h: 22 }
+  - id: jok0
+    label: "和"
+    at: { x: 890, y: 180 }
+    size: { w: 80, h: 80 }
+  - id: jok1
+    label: "文"
+    at: { x: 970, y: 180 }
+    size: { w: 80, h: 80 }
+  - id: eok0
+    label: "A"
+    at: { x: 1050, y: 204 }
+    size: { w: 34, h: 40 }
+  - id: eok1
+    label: "b"
+    at: { x: 1084, y: 204 }
+    size: { w: 34, h: 40 }
+  - id: eok2
+    label: "c"
+    at: { x: 1118, y: 204 }
+    size: { w: 34, h: 40 }
+  - id: jok2
+    label: "の"
+    at: { x: 1152, y: 180 }
+    size: { w: 80, h: 80 }
+  - id: jok3
+    label: "中"
+    at: { x: 1232, y: 180 }
+    size: { w: 80, h: 80 }
+  - id: jok4
+    label: "に"
+    at: { x: 1312, y: 180 }
+    size: { w: 80, h: 80 }
+  - id: nok
+    label: "揃っている —— 欧文がベースラインに乗っている"
+    marker: none
+    align: left
+    at: { x: 880, y: 300 }
+    size: { w: 540, h: 22 }
+  - id: blnga
+    label: ""
+    marker: none
+    at: { x: 879, y: 403 }
+    size: { w: 2, h: 2 }
+  - id: blngb
+    label: ""
+    marker: none
+    at: { x: 1439, y: 403 }
+    size: { w: 2, h: 2 }
+  - id: blngn
+    label: "ベースライン"
+    marker: none
+    align: left
+    at: { x: 1448, y: 393 }
+    size: { w: 120, h: 22 }
+  - id: jng0
+    label: "和"
+    at: { x: 890, y: 340 }
+    size: { w: 80, h: 80 }
+  - id: jng1
+    label: "文"
+    at: { x: 970, y: 340 }
+    size: { w: 80, h: 80 }
+  - id: eng0
+    label: "A"
+    at: { x: 1050, y: 382 }
+    size: { w: 34, h: 40 }
+  - id: eng1
+    label: "b"
+    at: { x: 1084, y: 382 }
+    size: { w: 34, h: 40 }
+  - id: eng2
+    label: "c"
+    at: { x: 1118, y: 382 }
+    size: { w: 34, h: 40 }
+  - id: jng2
+    label: "の"
+    at: { x: 1152, y: 340 }
+    size: { w: 80, h: 80 }
+  - id: jng3
+    label: "中"
+    at: { x: 1232, y: 340 }
+    size: { w: 80, h: 80 }
+  - id: jng4
+    label: "に"
+    at: { x: 1312, y: 340 }
+    size: { w: 80, h: 80 }
+  - id: nng
+    label: "揃っていない —— 欧文だけ沈んで、行がちぐはぐに見える"
+    marker: none
+    align: left
+    at: { x: 880, y: 460 }
+    size: { w: 540, h: 22 }
+  - id: fix
+    label: "直し方：ベースラインシフトで欧文を上げる（書体ごとに量が違う）"
+    marker: none
+    align: left
+    at: { x: 880, y: 496 }
+    size: { w: 560, h: 22 }
+  - id: c_t
+    label: "用語"
+    marker: none
+    align: left
+    at: { x: 80, y: 560 }
+    size: { w: 200, h: 24 }
+  - id: th0
+    label: "語"
+    hatch: solid
+    at: { x: 80, y: 588 }
+    size: { w: 200, h: 26 }
+  - id: th1
+    label: "意味"
+    hatch: solid
+    at: { x: 280, y: 588 }
+    size: { w: 560, h: 26 }
+  - id: tc0_0
+    label: "仮想ボディ"
+    at: { x: 80, y: 614 }
+    size: { w: 200, h: 28 }
+  - id: tc0_1
+    label: "和文の文字が納まる正方形。1 辺が 1em"
+    at: { x: 280, y: 614 }
+    size: { w: 560, h: 28 }
+  - id: tc1_0
+    label: "字面"
+    at: { x: 80, y: 642 }
+    size: { w: 200, h: 28 }
+  - id: tc1_1
+    label: "実際に墨が乗る範囲。仮想ボディより少し小さい"
+    at: { x: 280, y: 642 }
+    size: { w: 560, h: 28 }
+  - id: tc2_0
+    label: "ベースライン"
+    at: { x: 80, y: 670 }
+    size: { w: 200, h: 28 }
+  - id: tc2_1
+    label: "欧文が乗る線。仮想ボディの中心と下端の「あいだ」にあり、書体ごとに違う"
+    at: { x: 280, y: 670 }
+    size: { w: 560, h: 28 }
+  - id: tc3_0
+    label: "x ハイト"
+    at: { x: 80, y: 698 }
+    size: { w: 200, h: 28 }
+  - id: tc3_1
+    label: "小文字 x の高さ。欧文の「見た目の大きさ」を決める"
+    at: { x: 280, y: 698 }
+    size: { w: 560, h: 28 }
+  - id: tc4_0
+    label: "キャップハイト"
+    at: { x: 80, y: 726 }
+    size: { w: 200, h: 28 }
+  - id: tc4_1
+    label: "大文字の高さ"
+    at: { x: 280, y: 726 }
+    size: { w: 560, h: 28 }
+  - id: tc5_0
+    label: "アセンダ／ディセンダ"
+    at: { x: 80, y: 754 }
+    size: { w: 200, h: 28 }
+  - id: tc5_1
+    label: "上／下へ突き出す部分。ディセンダは仮想ボディの外へ出ることがある"
+    at: { x: 280, y: 754 }
+    size: { w: 560, h: 28 }
+  - id: u_t
+    label: "単位"
+    marker: none
+    align: left
+    at: { x: 880, y: 560 }
+    size: { w: 200, h: 24 }
+  - id: uh0
+    label: "単位"
+    hatch: solid
+    at: { x: 880, y: 588 }
+    size: { w: 160, h: 26 }
+  - id: uh1
+    label: "大きさ"
+    hatch: solid
+    at: { x: 1040, y: 588 }
+    size: { w: 200, h: 26 }
+  - id: uh2
+    label: "使い方"
+    hatch: solid
+    at: { x: 1240, y: 588 }
+    size: { w: 320, h: 26 }
+  - id: uc0_0
+    label: "級（Q）"
+    at: { x: 880, y: 614 }
+    size: { w: 160, h: 28 }
+  - id: uc0_1
+    label: "0.25 mm"
+    at: { x: 1040, y: 614 }
+    size: { w: 200, h: 28 }
+  - id: uc0_2
+    label: "文字の大きさ。13Q ＝ 3.25 mm"
+    at: { x: 1240, y: 614 }
+    size: { w: 320, h: 28 }
+  - id: uc1_0
+    label: "歯（H）"
+    at: { x: 880, y: 642 }
+    size: { w: 160, h: 28 }
+  - id: uc1_1
+    label: "0.25 mm"
+    at: { x: 1040, y: 642 }
+    size: { w: 200, h: 28 }
+  - id: uc1_2
+    label: "送りの量。行送り・字送り"
+    at: { x: 1240, y: 642 }
+    size: { w: 320, h: 28 }
+  - id: uc2_0
+    label: "em"
+    at: { x: 880, y: 670 }
+    size: { w: 160, h: 28 }
+  - id: uc2_1
+    label: "文字サイズと同じ"
+    at: { x: 1040, y: 670 }
+    size: { w: 200, h: 28 }
+  - id: uc2_2
+    label: "和文の全角。仮想ボディの 1 辺"
+    at: { x: 1240, y: 670 }
+    size: { w: 320, h: 28 }
+  - id: r_t
+    label: "この図の決まり"
+    marker: none
+    align: left
+    at: { x: 80, y: 814 }
+    size: { w: 200, h: 24 }
+  - id: rn0
+    label: "・和文は仮想ボディの中央、欧文はベースライン基準。基準が違うものを並べている"
+    marker: none
+    align: left
+    at: { x: 80, y: 842 }
+    size: { w: 760, h: 24 }
+  - id: rn1
+    label: "・ベースラインの位置は書体ごとに違う。だから混植は組み合わせごとに調整が要る"
+    marker: none
+    align: left
+    at: { x: 80, y: 868 }
+    size: { w: 760, h: 24 }
+  - id: rn2
+    label: "・揃わないときはベースラインシフトで動かす。書体ごとに量を持たせる（合成フォント）"
+    marker: none
+    align: left
+    at: { x: 80, y: 894 }
+    size: { w: 760, h: 24 }
+  - id: rn3
+    label: "・欧文だけ大きさを変えることもある。x ハイトが小さい書体は上げないと小さく見える"
+    marker: none
+    align: left
+    at: { x: 80, y: 920 }
+    size: { w: 760, h: 24 }
+  - id: rn4
+    label: "・1Q ＝ 1H ＝ 0.25 mm。級は「大きさ」、歯は「送り」で、単位は同じでも意味が違う"
+    marker: none
+    align: left
+    at: { x: 80, y: 946 }
+    size: { w: 760, h: 24 }
+  - id: rn5
+    label: "・ディセンダは仮想ボディの外へ出る。行送りを詰めると下の行にぶつかる"
+    marker: none
+    align: left
+    at: { x: 80, y: 972 }
+    size: { w: 760, h: 24 }
+  - id: rn6
+    label: "・字面は書体ごとに違う。同じ級数でも大きく見える書体と小さく見える書体がある"
+    marker: none
+    align: left
+    at: { x: 80, y: 998 }
+    size: { w: 760, h: 24 }
+edges:
+  - from: asca
+    to: ascb
+    ends: { from: none, to: none }
+    line: dashed
+    weight: thin
+  - from: capa
+    to: capb
+    ends: { from: none, to: none }
+    line: dotted
+    weight: thin
+  - from: xha
+    to: xhb
+    ends: { from: none, to: none }
+    line: dotted
+    weight: thin
+  - from: mida
+    to: midb
+    ends: { from: none, to: none }
+    line: dashed
+    weight: thin
+  - from: basea
+    to: baseb
+    ends: { from: none, to: none }
+    line: solid
+    weight: thick
+  - from: bota
+    to: botb
+    ends: { from: none, to: none }
+    line: dashed
+    weight: thin
+  - from: desca
+    to: descb
+    ends: { from: none, to: none }
+    line: dashed
+    weight: thin
+  - from: bloka
+    to: blokb
+    ends: { from: none, to: none }
+    weight: thick
+  - from: blnga
+    to: blngb
+    ends: { from: none, to: none }
+    weight: thick

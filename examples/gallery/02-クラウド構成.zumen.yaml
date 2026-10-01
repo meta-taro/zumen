@@ -1,0 +1,86 @@
+version: 1
+wrap: true
+title: クラウド構成
+# **クラウド構成図で意味があるのは、箱の名前ではなく「サブネットの線」。**
+# 公開サブネットに置けるのは、外から叩かれてよいものだけ。
+# **web が非公開側の DB を見に行く向きは片道**で、逆は無い。
+#
+# ## マネージドを別の群にする
+#
+# 自分で面倒を見るもの（web）と、預けるもの（PostgreSQL・オブジェクト保管）では、
+# **止まったときに自分でできることが違う。** 群を分けるのは、そこを見せるため。
+#
+# ## ロードバランサは 1 台に描く
+#
+# 実体は冗長でも、図では 1 つ。**冗長を描くと、経路の本数が倍になって読めなくなる。**
+# 冗長は別の図（系統図）で描く。
+#
+# ## web-1 と web-2 は同じ線を持つ
+#
+# ロードバランサの後ろの 2 台は、どちらへ振られても同じ動きをしなければならない。
+# **セッションを Redis に置くのは、そのため** —— web-2 だけ Redis と保管先への線が無いと、
+# web-2 へ振られた利用者はログインが切れ、添付も読めない図になる。
+pins:
+  db:
+    appearance: primary
+groups:
+  - id: pub
+    label: 公開サブネット
+  - id: pri
+    label: 非公開サブネット
+  - id: mgd
+    label: マネージド
+nodes:
+  - id: net
+    type: internet
+    label: インターネット
+  - id: lb
+    type: load-balancer
+    label: ロードバランサ
+    group: pub
+  - id: web1
+    type: container
+    label: web-1
+    technology: node 22
+    group: pri
+  - id: web2
+    type: container
+    label: web-2
+    technology: node 22
+    group: pri
+  - id: kv
+    type: cache
+    label: Redis
+    technology: 7.2
+    group: mgd
+  - id: db
+    type: database
+    label: PostgreSQL
+    technology: 16
+    group: mgd
+  - id: bkt
+    type: storage
+    label: オブジェクト保管
+    group: mgd
+edges:
+  - from: net
+    to: lb
+    label: 443
+  - from: lb
+    to: web1
+  - from: lb
+    to: web2
+  - from: web1
+    to: kv
+    label: セッション
+  - from: web1
+    to: db
+  - from: web2
+    to: db
+  - from: web1
+    to: bkt
+    label: 添付
+  - from: web2
+    to: kv
+  - from: web2
+    to: bkt

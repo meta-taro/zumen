@@ -1,0 +1,251 @@
+version: 1
+kind: placement
+arrows: false
+title: "Septic system site plan (fictional)"
+scale: { in: 6 }
+north: up
+grid:
+  x:
+    - { id: A, at: 60 }
+    - { id: B, at: 280 }
+    - { id: C, at: 460 }
+  y:
+    - { id: 1, at: 60 }
+    - { id: 2, at: 360 }
+# **A plan drawing decided by something vertical** —— how fast water leaves the
+# soil. The perc test gives the loading rate, the bedroom count gives the design
+# flow, and together they give the trench area that the plan then arranges.
+#
+# **The reserve area is drawn and kept empty.** A drainfield is a consumable;
+# the next one has to have somewhere to go.
+#
+# Sizes, soils and setbacks are fictional; local health codes decide them.
+nodes:
+  - id: lot
+    label: ""
+    at: { x: 60, y: 60 }
+    size: { w: 400, h: 300 }
+  - id: house
+    label: "HOUSE"
+    technology: "3 bedrooms"
+    hatch: solid
+    at: { x: 88, y: 84 }
+    size: { w: 88, h: 64 }
+  - id: tank
+    label: "TANK"
+    hatch: dots
+    at: { x: 188, y: 104 }
+    size: { w: 52, h: 24 }
+  - id: dbox
+    label: ""
+    tag: DB
+    at: { x: 248, y: 106 }
+    size: { w: 24, h: 20 }
+  - id: tr0
+    label: ""
+    hatch: lines
+    at: { x: 280, y: 88 }
+    size: { w: 120, h: 6 }
+  - id: tr1
+    label: ""
+    hatch: lines
+    at: { x: 280, y: 104 }
+    size: { w: 120, h: 6 }
+  - id: tr2
+    label: ""
+    hatch: lines
+    at: { x: 280, y: 120 }
+    size: { w: 120, h: 6 }
+  - id: tr3
+    label: ""
+    hatch: lines
+    at: { x: 280, y: 136 }
+    size: { w: 120, h: 6 }
+  - id: reserve
+    label: ""
+    hatch: dots
+    at: { x: 280, y: 152 }
+    size: { w: 120, h: 54 }
+  - id: well
+    label: ""
+    tag: W
+    marker: circle
+    radius: 200
+    at: { x: 120, y: 316 }
+    size: { w: 38, h: 38 }
+  - id: ltr
+    label: "4 trenches, 60 ft, 8 ft on centre"
+    marker: none
+    align: left
+    at: { x: 284, y: 68 }
+    size: { w: 300, h: 18 }
+  - id: ldb
+    label: "DB  distribution box"
+    marker: none
+    align: left
+    at: { x: 188, y: 136 }
+    size: { w: 200, h: 18 }
+  - id: lres
+    label: "RESERVE AREA, kept empty"
+    marker: none
+    align: left
+    at: { x: 284, y: 186 }
+    size: { w: 280, h: 18 }
+  - id: lwell
+    label: "W  well  ·  100'-0\" to the drainfield"
+    marker: none
+    align: left
+    at: { x: 136, y: 308 }
+    size: { w: 300, h: 18 }
+  - id: h60
+    label: "SYSTEM  (fictional)"
+    hatch: solid
+    at: { x: 530, y: 60 }
+    size: { w: 430, h: 22 }
+  - id: a82
+    label: "Tank"
+    at: { x: 530, y: 82 }
+    size: { w: 190, h: 22 }
+  - id: b82
+    label: "1,500 gal for 3 bedrooms"
+    align: left
+    at: { x: 720, y: 82 }
+    size: { w: 240, h: 22 }
+  - id: a104
+    label: "Sizing rule"
+    at: { x: 530, y: 104 }
+    size: { w: 190, h: 22 }
+  - id: b104
+    label: "1,000 gal to 2 beds, +250 each"
+    align: left
+    at: { x: 720, y: 104 }
+    size: { w: 240, h: 22 }
+  - id: a126
+    label: "Trenches"
+    at: { x: 530, y: 126 }
+    size: { w: 190, h: 22 }
+  - id: b126
+    label: "4 at 60 ft, 3 ft wide"
+    align: left
+    at: { x: 720, y: 126 }
+    size: { w: 240, h: 22 }
+  - id: a148
+    label: "Spacing"
+    at: { x: 530, y: 148 }
+    size: { w: 190, h: 22 }
+  - id: b148
+    label: "8 ft on centre (6 to 10)"
+    align: left
+    at: { x: 720, y: 148 }
+    size: { w: 240, h: 22 }
+  - id: a170
+    label: "Depth"
+    at: { x: 530, y: 170 }
+    size: { w: 190, h: 22 }
+  - id: b170
+    label: "pipe 6 to 24 in below grade"
+    align: left
+    at: { x: 720, y: 170 }
+    size: { w: 240, h: 22 }
+  - id: a192
+    label: "Reserve"
+    at: { x: 530, y: 192 }
+    size: { w: 190, h: 22 }
+  - id: b192
+    label: "a second field, left empty"
+    align: left
+    at: { x: 720, y: 192 }
+    size: { w: 240, h: 22 }
+  - id: h228
+    label: "SETBACK"
+    hatch: solid
+    at: { x: 530, y: 228 }
+    size: { w: 430, h: 22 }
+  - id: a250
+    label: "Well to drainfield"
+    at: { x: 530, y: 250 }
+    size: { w: 190, h: 22 }
+  - id: b250
+    label: "100 ft here (50 to 100)"
+    align: left
+    at: { x: 720, y: 250 }
+    size: { w: 240, h: 22 }
+  - id: h286
+    label: "WHAT DECIDES THE SIZE"
+    hatch: solid
+    at: { x: 530, y: 286 }
+    size: { w: 430, h: 22 }
+  - id: a308
+    label: "Perc test"
+    at: { x: 530, y: 308 }
+    size: { w: 190, h: 22 }
+  - id: b308
+    label: "how fast the soil takes water"
+    align: left
+    at: { x: 720, y: 308 }
+    size: { w: 240, h: 22 }
+  - id: a330
+    label: "Design flow"
+    at: { x: 530, y: 330 }
+    size: { w: 190, h: 22 }
+  - id: b330
+    label: "bedrooms, not people"
+    align: left
+    at: { x: 720, y: 330 }
+    size: { w: 240, h: 22 }
+  - id: a352
+    label: "Together"
+    at: { x: 530, y: 352 }
+    size: { w: 190, h: 22 }
+  - id: b352
+    label: "they give the trench area"
+    align: left
+    at: { x: 720, y: 352 }
+    size: { w: 240, h: 22 }
+  - id: h388
+    label: "D-BOX"
+    hatch: solid
+    at: { x: 530, y: 388 }
+    size: { w: 430, h: 22 }
+  - id: a410
+    label: "Every outlet"
+    at: { x: 530, y: 410 }
+    size: { w: 190, h: 22 }
+  - id: b410
+    label: "at the same elevation"
+    align: left
+    at: { x: 720, y: 410 }
+    size: { w: 240, h: 22 }
+  - id: a432
+    label: "Otherwise"
+    at: { x: 530, y: 432 }
+    size: { w: 190, h: 22 }
+  - id: b432
+    label: "one trench takes it all and fails"
+    align: left
+    at: { x: 720, y: 432 }
+    size: { w: 240, h: 22 }
+  - id: n1
+    label: "The drawing is a plan, but the thing that decides it is vertical: how fast water leaves the soil."
+    marker: none
+    align: left
+    at: { x: 60, y: 470 }
+    size: { w: 780, h: 18 }
+  - id: n2
+    label: "The reserve area is drawn and kept empty — a field is a consumable, and the next one needs somewhere to go."
+    marker: none
+    align: left
+    at: { x: 60, y: 492 }
+    size: { w: 780, h: 18 }
+  - id: n3
+    label: "Every outlet of the distribution box sits at the same height, or one trench takes the whole flow."
+    marker: none
+    align: left
+    at: { x: 60, y: 514 }
+    size: { w: 780, h: 18 }
+  - id: n4
+    label: "Sizes, soils and setbacks are fictional; local health codes decide them."
+    marker: none
+    align: left
+    at: { x: 60, y: 536 }
+    size: { w: 780, h: 18 }

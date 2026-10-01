@@ -1,0 +1,432 @@
+version: 1
+kind: placement
+arrows: true
+title: 寿司桶の盛付指示図（器の形が、並べ方を決める）
+# **丸い桶を四角に並べると、必ず誰かに横向きで出る。**
+# 中心から放射に割る（**放射盛り**）と、**どの席から見ても同じ向き**になる ——
+# 長方形の器で**流し盛り**（左上から右下へ流す）が効くのは、見る向きが 1 つだから。
+# **器の形が、並べ方を決めている。**
+#
+# **盛り方は 3 つ。** 流し盛り／放射盛り／**山水盛り**（奥に山、手前に川）。
+# 山水は和食の盛り付けの基本の形で、**奥に高いもの・手前に低いもの**を置くと、
+# 上から見ても立体に見える —— 寿司では**細巻きを積んで山にし、握りを流して川にする。**
+#
+# **シャリの重さは、盛り付けの前に決まっている。**
+# 握り 1 つは**シャリ 15〜20g ＋ ネタ 10〜20g で、合わせて 25〜40g**。
+# 20g と 15g では同じ桶に並ぶ数が変わるので、
+# **桶の割り付けは、シャリの重さを決めてからでないと引けない。**
+# （江戸時代の握りは、いまの 2〜3 倍の大きさだった。）
+#
+# **盛付指示図は、絵心を渡す紙ではない。** 器・型・向き・数と位置・高さの 5 つを書いて、
+# 初めて同じ形が再現できる ——
+# **向きと高さを書かない図は、上から見た配置しか伝えていない。**
+nodes:
+  - id: t1
+    label: "① 桶は丸いので、中心から放射に割る（放射盛り）"
+    marker: none
+    align: left
+    at: { x: 150, y: 150 }
+    size: { w: 700, h: 20 }
+  - id: oke
+    label: ""
+    marker: circle
+    at: { x: 274, y: 224 }
+    size: { w: 392, h: 392 }
+  - id: oken
+    label: "寿司桶（直径 36cm の例）"
+    marker: none
+    align: center
+    at: { x: 280, y: 626 }
+    size: { w: 380, h: 18 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 469, y: 393 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 469, y: 299 }
+    size: { w: 2, h: 2 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 487.4, y: 400.6 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 553.9, y: 334.1 }
+    size: { w: 2, h: 2 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 495, y: 419 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 589, y: 419 }
+    size: { w: 2, h: 2 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 487.4, y: 437.4 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 553.9, y: 503.9 }
+    size: { w: 2, h: 2 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 469, y: 445 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 469, y: 539 }
+    size: { w: 2, h: 2 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 450.6, y: 437.4 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 384.1, y: 503.9 }
+    size: { w: 2, h: 2 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 443, y: 419 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 349, y: 419 }
+    size: { w: 2, h: 2 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 450.6, y: 400.6 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 384.1, y: 334.1 }
+    size: { w: 2, h: 2 }
+  - id: yama1
+    label: ""
+    marker: circle
+    at: { x: 408, y: 252 }
+    size: { w: 30, h: 30 }
+  - id: yama2
+    label: ""
+    marker: circle
+    at: { x: 455, y: 242 }
+    size: { w: 30, h: 30 }
+  - id: yama3
+    label: ""
+    marker: circle
+    at: { x: 502, y: 252 }
+    size: { w: 30, h: 30 }
+  - id: yaman
+    label: "山（奥）——\n細巻きを積んで高くする"
+    marker: none
+    align: left
+    at: { x: 682, y: 234 }
+    size: { w: 200, h: 36 }
+  - id: n0
+    label: ""
+    hatch: lines
+    at: { x: 342, y: 516 }
+    size: { w: 46, h: 26 }
+  - id: n1
+    label: ""
+    hatch: lines
+    at: { x: 394, y: 526 }
+    size: { w: 46, h: 26 }
+  - id: n2
+    label: ""
+    hatch: lines
+    at: { x: 446, y: 516 }
+    size: { w: 46, h: 26 }
+  - id: n3
+    label: ""
+    hatch: lines
+    at: { x: 498, y: 526 }
+    size: { w: 46, h: 26 }
+  - id: n4
+    label: ""
+    hatch: lines
+    at: { x: 550, y: 516 }
+    size: { w: 46, h: 26 }
+  - id: kawan
+    label: "川（手前）——\n低く、流れる向きにそろえる"
+    marker: none
+    align: right
+    at: { x: 38, y: 516 }
+    size: { w: 220, h: 36 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 349, y: 561 }
+    size: { w: 2, h: 2 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 589, y: 561 }
+    size: { w: 2, h: 2 }
+  - id: nagare
+    label: "左上から右下へ"
+    marker: none
+    align: left
+    at: { x: 682, y: 554 }
+    size: { w: 200, h: 18 }
+  - id: naka
+    label: "中心は空けるか、\nガリ・笹を置く"
+    marker: none
+    align: right
+    at: { x: 38, y: 380 }
+    size: { w: 220, h: 36 }
+  - id: why1
+    label: "丸い桶を四角に並べると、必ず誰かに横向きで出る。\n中心から放射に割ると、どの席から見ても同じ向きになる ——\n長方形の皿で流し盛りが効くのは、見る向きが 1 つに決まっているから。\n器の形が、並べ方を決めている。"
+    at: { x: 150, y: 656 }
+    size: { w: 700, h: 92 }
+  - id: t2
+    label: "② 盛り方は 3 つ"
+    marker: none
+    align: left
+    at: { x: 890, y: 150 }
+    size: { w: 450, h: 20 }
+  - id: h890_186
+    label: "盛り付けの型"
+    hatch: solid
+    at: { x: 890, y: 186 }
+    size: { w: 450, h: 24 }
+  - id: x890_210
+    label: "流し盛り"
+    at: { x: 890, y: 210 }
+    size: { w: 150, h: 24 }
+  - id: y890_210
+    label: "左上から右下へ流す。長方形の器"
+    align: left
+    at: { x: 1040, y: 210 }
+    size: { w: 300, h: 24 }
+  - id: x890_234
+    label: "放射盛り"
+    at: { x: 890, y: 234 }
+    size: { w: 150, h: 24 }
+  - id: y890_234
+    label: "中心から放射状に。丸い桶"
+    align: left
+    at: { x: 1040, y: 234 }
+    size: { w: 300, h: 24 }
+  - id: x890_258
+    label: "山水盛り"
+    at: { x: 890, y: 258 }
+    size: { w: 150, h: 24 }
+  - id: y890_258
+    label: "奥に山、手前に川。奥行きを出す"
+    align: left
+    at: { x: 1040, y: 258 }
+    size: { w: 300, h: 24 }
+  - id: why2
+    label: "山水は、和食の盛り付けの基本の形。\n奥に高いもの（山）、手前に低いもの（川）を置くと、\n上から見ても立体に見える ——\n寿司では細巻きを積んで山にし、握りを流して川にする。"
+    at: { x: 890, y: 296 }
+    size: { w: 450, h: 92 }
+  - id: t3
+    label: "③ 一貫の重さ"
+    marker: none
+    align: left
+    at: { x: 890, y: 406 }
+    size: { w: 450, h: 20 }
+  - id: h890_436
+    label: "握り 1 つ"
+    hatch: solid
+    at: { x: 890, y: 436 }
+    size: { w: 450, h: 24 }
+  - id: x890_460
+    label: "シャリ"
+    at: { x: 890, y: 460 }
+    size: { w: 190, h: 24 }
+  - id: y890_460
+    label: "15 〜 20g"
+    align: left
+    at: { x: 1080, y: 460 }
+    size: { w: 260, h: 24 }
+  - id: x890_484
+    label: "ネタ"
+    at: { x: 890, y: 484 }
+    size: { w: 190, h: 24 }
+  - id: y890_484
+    label: "10 〜 20g"
+    align: left
+    at: { x: 1080, y: 484 }
+    size: { w: 260, h: 24 }
+  - id: x890_508
+    label: "合わせて"
+    at: { x: 890, y: 508 }
+    size: { w: 190, h: 24 }
+  - id: y890_508
+    label: "25 〜 40g"
+    align: left
+    at: { x: 1080, y: 508 }
+    size: { w: 260, h: 24 }
+  - id: x890_532
+    label: "江戸時代の握り"
+    at: { x: 890, y: 532 }
+    size: { w: 190, h: 24 }
+  - id: y890_532
+    label: "いまの 2 〜 3 倍"
+    align: left
+    at: { x: 1080, y: 532 }
+    size: { w: 260, h: 24 }
+  - id: why3
+    label: "シャリの重さは、盛り付けの前に決まっている。\n20g と 15g では、同じ桶に並ぶ数が変わる ——\n桶の割り付けは、シャリの重さを決めてからでないと引けない。\n江戸の握りが大きかったのは、急ぐ町人の腹を満たすため。"
+    at: { x: 890, y: 570 }
+    size: { w: 450, h: 92 }
+  - id: t4
+    label: "④ 盛付指示図に書くこと"
+    marker: none
+    align: left
+    at: { x: 150, y: 768 }
+    size: { w: 700, h: 20 }
+  - id: h150_798
+    label: "1 枚に載せる項目"
+    hatch: solid
+    at: { x: 150, y: 798 }
+    size: { w: 700, h: 24 }
+  - id: x150_822
+    label: "器"
+    at: { x: 150, y: 822 }
+    size: { w: 260, h: 24 }
+  - id: y150_822
+    label: "大きさと形（丸か角か）"
+    align: left
+    at: { x: 410, y: 822 }
+    size: { w: 440, h: 24 }
+  - id: x150_846
+    label: "型"
+    at: { x: 150, y: 846 }
+    size: { w: 260, h: 24 }
+  - id: y150_846
+    label: "流し・放射・山水のどれか"
+    align: left
+    at: { x: 410, y: 846 }
+    size: { w: 440, h: 24 }
+  - id: x150_870
+    label: "向き"
+    at: { x: 150, y: 870 }
+    size: { w: 260, h: 24 }
+  - id: y150_870
+    label: "客から見てどちらが手前か"
+    align: left
+    at: { x: 410, y: 870 }
+    size: { w: 440, h: 24 }
+  - id: x150_894
+    label: "数と位置"
+    at: { x: 150, y: 894 }
+    size: { w: 260, h: 24 }
+  - id: y150_894
+    label: "ネタごとの貫数と置く区画"
+    align: left
+    at: { x: 410, y: 894 }
+    size: { w: 440, h: 24 }
+  - id: x150_918
+    label: "高さ"
+    at: { x: 150, y: 918 }
+    size: { w: 260, h: 24 }
+  - id: y150_918
+    label: "山になるものと、低く置くもの"
+    align: left
+    at: { x: 410, y: 918 }
+    size: { w: 440, h: 24 }
+  - id: why4
+    label: "「きれいに盛る」では、店が変われば別の形になる。\n指示図は絵心を渡す紙ではなく、同じ形を再現するための紙 ——\n向きと高さを書かない図は、上から見た配置しか伝えていない。"
+    at: { x: 150, y: 956 }
+    size: { w: 700, h: 74 }
+  - id: r1
+    label: "器の形が、並べ方を決めています（①）。丸い桶を四角に並べると、必ず誰かに横向きで出ます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1048 }
+    size: { w: 1190, h: 18 }
+  - id: r2
+    label: "中心から放射に割ると、どの席から見ても同じ向きになります。 長方形の皿で流し盛りが効くのは、見る向きが 1 つだからです。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1072 }
+    size: { w: 1190, h: 18 }
+  - id: r3
+    label: "盛り方は 3 つです（②）。流し盛り（左上から右下へ）・放射盛り（中心から）・山水盛り（奥に山、手前に川）。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1096 }
+    size: { w: 1190, h: 18 }
+  - id: r4
+    label: "山水は和食の基本の形です。 奥に高いもの、手前に低いものを置くと、上から見ても立体に見えます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1120 }
+    size: { w: 1190, h: 18 }
+  - id: r5
+    label: "シャリの重さは、盛り付けの前に決まっています（③）。15 〜 20g で、20g と 15g では同じ桶に並ぶ数が変わります。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1144 }
+    size: { w: 1190, h: 18 }
+  - id: r6
+    label: "盛付指示図は、絵心を渡す紙ではありません（④）。器・型・向き・数・高さを書いて、初めて同じ形が再現できます。"
+    marker: none
+    align: left
+    at: { x: 150, y: 1168 }
+    size: { w: 1190, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p2
+    to: p3
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p4
+    to: p5
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p6
+    to: p7
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p8
+    to: p9
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p10
+    to: p11
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p12
+    to: p13
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p14
+    to: p15
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p16
+    to: p17
+    curve: none
+    ends: { from: none, to: arrow }

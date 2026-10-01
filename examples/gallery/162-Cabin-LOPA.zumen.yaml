@@ -1,0 +1,964 @@
+version: 1
+kind: placement
+arrows: false
+title: "Cabin layout - LOPA (fictional single aisle)"
+scale: { in: 1 }
+# **A cabin layout is not "how many seats fit".**
+#
+# Every pair of emergency exits carries a number of seats it is allowed to
+# serve (14 CFR 25.807: Type A 110, Type I 45, Type III 35, Type IV 9), and the
+# seat count of the cabin is **the sum of those numbers**. This cabin has a
+# Type I pair forward, a Type III pair over the wing and a Type I pair aft:
+# 45 + 35 + 45 = **125**. It carries 120, so it fits.
+#
+# **The floor is not what limits it.** Add a row and the drawing stays legal
+# only while that sum does; to seat more, you change the exits, not the pitch.
+#
+# At a Type III the rule is about **the passage, not the seat**: 10 in between
+# two-seat rows, 20 in for three-seat rows, and the opening must stay clear for
+# at least the width of the narrowest seat on board - **with every seatback in
+# its most adverse position.** That is why those seats do not recline.
+#
+# 1 px = 1 in. The aircraft, the cabin and the seat count are fictional.
+nodes:
+  - id: hull
+    label: ""
+    at: { x: 80, y: 120 }
+    size: { w: 713, h: 126 }
+  - id: s0_0
+    label: ""
+    at: { x: 120, y: 122 }
+    size: { w: 17, h: 16 }
+  - id: s0_1
+    label: ""
+    at: { x: 120, y: 139 }
+    size: { w: 17, h: 16 }
+  - id: s0_2
+    label: ""
+    at: { x: 120, y: 156 }
+    size: { w: 17, h: 16 }
+  - id: s0_3
+    label: ""
+    at: { x: 120, y: 193 }
+    size: { w: 17, h: 16 }
+  - id: s0_4
+    label: ""
+    at: { x: 120, y: 210 }
+    size: { w: 17, h: 16 }
+  - id: s0_5
+    label: ""
+    at: { x: 120, y: 227 }
+    size: { w: 17, h: 16 }
+  - id: rn0
+    label: "1"
+    marker: none
+    align: left
+    at: { x: 123, y: 98 }
+    size: { w: 20, h: 18 }
+  - id: s1_0
+    label: ""
+    at: { x: 150, y: 122 }
+    size: { w: 17, h: 16 }
+  - id: s1_1
+    label: ""
+    at: { x: 150, y: 139 }
+    size: { w: 17, h: 16 }
+  - id: s1_2
+    label: ""
+    at: { x: 150, y: 156 }
+    size: { w: 17, h: 16 }
+  - id: s1_3
+    label: ""
+    at: { x: 150, y: 193 }
+    size: { w: 17, h: 16 }
+  - id: s1_4
+    label: ""
+    at: { x: 150, y: 210 }
+    size: { w: 17, h: 16 }
+  - id: s1_5
+    label: ""
+    at: { x: 150, y: 227 }
+    size: { w: 17, h: 16 }
+  - id: rn1
+    label: "2"
+    marker: none
+    align: left
+    at: { x: 153, y: 98 }
+    size: { w: 20, h: 18 }
+  - id: s2_0
+    label: ""
+    at: { x: 180, y: 122 }
+    size: { w: 17, h: 16 }
+  - id: s2_1
+    label: ""
+    at: { x: 180, y: 139 }
+    size: { w: 17, h: 16 }
+  - id: s2_2
+    label: ""
+    at: { x: 180, y: 156 }
+    size: { w: 17, h: 16 }
+  - id: s2_3
+    label: ""
+    at: { x: 180, y: 193 }
+    size: { w: 17, h: 16 }
+  - id: s2_4
+    label: ""
+    at: { x: 180, y: 210 }
+    size: { w: 17, h: 16 }
+  - id: s2_5
+    label: ""
+    at: { x: 180, y: 227 }
+    size: { w: 17, h: 16 }
+  - id: rn2
+    label: "3"
+    marker: none
+    align: left
+    at: { x: 183, y: 98 }
+    size: { w: 20, h: 18 }
+  - id: s3_0
+    label: ""
+    at: { x: 210, y: 122 }
+    size: { w: 17, h: 16 }
+  - id: s3_1
+    label: ""
+    at: { x: 210, y: 139 }
+    size: { w: 17, h: 16 }
+  - id: s3_2
+    label: ""
+    at: { x: 210, y: 156 }
+    size: { w: 17, h: 16 }
+  - id: s3_3
+    label: ""
+    at: { x: 210, y: 193 }
+    size: { w: 17, h: 16 }
+  - id: s3_4
+    label: ""
+    at: { x: 210, y: 210 }
+    size: { w: 17, h: 16 }
+  - id: s3_5
+    label: ""
+    at: { x: 210, y: 227 }
+    size: { w: 17, h: 16 }
+  - id: rn3
+    label: "4"
+    marker: none
+    align: left
+    at: { x: 213, y: 98 }
+    size: { w: 20, h: 18 }
+  - id: s4_0
+    label: ""
+    at: { x: 240, y: 122 }
+    size: { w: 17, h: 16 }
+  - id: s4_1
+    label: ""
+    at: { x: 240, y: 139 }
+    size: { w: 17, h: 16 }
+  - id: s4_2
+    label: ""
+    at: { x: 240, y: 156 }
+    size: { w: 17, h: 16 }
+  - id: s4_3
+    label: ""
+    at: { x: 240, y: 193 }
+    size: { w: 17, h: 16 }
+  - id: s4_4
+    label: ""
+    at: { x: 240, y: 210 }
+    size: { w: 17, h: 16 }
+  - id: s4_5
+    label: ""
+    at: { x: 240, y: 227 }
+    size: { w: 17, h: 16 }
+  - id: rn4
+    label: "5"
+    marker: none
+    align: left
+    at: { x: 243, y: 98 }
+    size: { w: 20, h: 18 }
+  - id: s5_0
+    label: ""
+    at: { x: 270, y: 122 }
+    size: { w: 17, h: 16 }
+  - id: s5_1
+    label: ""
+    at: { x: 270, y: 139 }
+    size: { w: 17, h: 16 }
+  - id: s5_2
+    label: ""
+    at: { x: 270, y: 156 }
+    size: { w: 17, h: 16 }
+  - id: s5_3
+    label: ""
+    at: { x: 270, y: 193 }
+    size: { w: 17, h: 16 }
+  - id: s5_4
+    label: ""
+    at: { x: 270, y: 210 }
+    size: { w: 17, h: 16 }
+  - id: s5_5
+    label: ""
+    at: { x: 270, y: 227 }
+    size: { w: 17, h: 16 }
+  - id: rn5
+    label: "6"
+    marker: none
+    align: left
+    at: { x: 273, y: 98 }
+    size: { w: 20, h: 18 }
+  - id: s6_0
+    label: ""
+    at: { x: 300, y: 122 }
+    size: { w: 17, h: 16 }
+  - id: s6_1
+    label: ""
+    at: { x: 300, y: 139 }
+    size: { w: 17, h: 16 }
+  - id: s6_2
+    label: ""
+    at: { x: 300, y: 156 }
+    size: { w: 17, h: 16 }
+  - id: s6_3
+    label: ""
+    at: { x: 300, y: 193 }
+    size: { w: 17, h: 16 }
+  - id: s6_4
+    label: ""
+    at: { x: 300, y: 210 }
+    size: { w: 17, h: 16 }
+  - id: s6_5
+    label: ""
+    at: { x: 300, y: 227 }
+    size: { w: 17, h: 16 }
+  - id: rn6
+    label: "7"
+    marker: none
+    align: left
+    at: { x: 303, y: 98 }
+    size: { w: 20, h: 18 }
+  - id: s7_0
+    label: ""
+    at: { x: 330, y: 122 }
+    size: { w: 17, h: 16 }
+  - id: s7_1
+    label: ""
+    at: { x: 330, y: 139 }
+    size: { w: 17, h: 16 }
+  - id: s7_2
+    label: ""
+    at: { x: 330, y: 156 }
+    size: { w: 17, h: 16 }
+  - id: s7_3
+    label: ""
+    at: { x: 330, y: 193 }
+    size: { w: 17, h: 16 }
+  - id: s7_4
+    label: ""
+    at: { x: 330, y: 210 }
+    size: { w: 17, h: 16 }
+  - id: s7_5
+    label: ""
+    at: { x: 330, y: 227 }
+    size: { w: 17, h: 16 }
+  - id: rn7
+    label: "8"
+    marker: none
+    align: left
+    at: { x: 333, y: 98 }
+    size: { w: 20, h: 18 }
+  - id: s8_0
+    label: ""
+    at: { x: 360, y: 122 }
+    size: { w: 17, h: 16 }
+  - id: s8_1
+    label: ""
+    at: { x: 360, y: 139 }
+    size: { w: 17, h: 16 }
+  - id: s8_2
+    label: ""
+    at: { x: 360, y: 156 }
+    size: { w: 17, h: 16 }
+  - id: s8_3
+    label: ""
+    at: { x: 360, y: 193 }
+    size: { w: 17, h: 16 }
+  - id: s8_4
+    label: ""
+    at: { x: 360, y: 210 }
+    size: { w: 17, h: 16 }
+  - id: s8_5
+    label: ""
+    at: { x: 360, y: 227 }
+    size: { w: 17, h: 16 }
+  - id: rn8
+    label: "9"
+    marker: none
+    align: left
+    at: { x: 363, y: 98 }
+    size: { w: 20, h: 18 }
+  - id: s9_0
+    label: ""
+    at: { x: 390, y: 122 }
+    size: { w: 17, h: 16 }
+  - id: s9_1
+    label: ""
+    at: { x: 390, y: 139 }
+    size: { w: 17, h: 16 }
+  - id: s9_2
+    label: ""
+    at: { x: 390, y: 156 }
+    size: { w: 17, h: 16 }
+  - id: s9_3
+    label: ""
+    at: { x: 390, y: 193 }
+    size: { w: 17, h: 16 }
+  - id: s9_4
+    label: ""
+    at: { x: 390, y: 210 }
+    size: { w: 17, h: 16 }
+  - id: s9_5
+    label: ""
+    at: { x: 390, y: 227 }
+    size: { w: 17, h: 16 }
+  - id: rn9
+    label: "10"
+    marker: none
+    align: left
+    at: { x: 393, y: 98 }
+    size: { w: 20, h: 18 }
+  - id: s10_0
+    label: ""
+    at: { x: 426, y: 122 }
+    size: { w: 17, h: 16 }
+  - id: s10_1
+    label: ""
+    at: { x: 426, y: 139 }
+    size: { w: 17, h: 16 }
+  - id: s10_2
+    label: ""
+    at: { x: 426, y: 156 }
+    size: { w: 17, h: 16 }
+  - id: s10_3
+    label: ""
+    at: { x: 426, y: 193 }
+    size: { w: 17, h: 16 }
+  - id: s10_4
+    label: ""
+    at: { x: 426, y: 210 }
+    size: { w: 17, h: 16 }
+  - id: s10_5
+    label: ""
+    at: { x: 426, y: 227 }
+    size: { w: 17, h: 16 }
+  - id: rn10
+    label: "11"
+    marker: none
+    align: left
+    at: { x: 429, y: 98 }
+    size: { w: 20, h: 18 }
+  - id: s11_0
+    label: ""
+    at: { x: 456, y: 122 }
+    size: { w: 17, h: 16 }
+  - id: s11_1
+    label: ""
+    at: { x: 456, y: 139 }
+    size: { w: 17, h: 16 }
+  - id: s11_2
+    label: ""
+    at: { x: 456, y: 156 }
+    size: { w: 17, h: 16 }
+  - id: s11_3
+    label: ""
+    at: { x: 456, y: 193 }
+    size: { w: 17, h: 16 }
+  - id: s11_4
+    label: ""
+    at: { x: 456, y: 210 }
+    size: { w: 17, h: 16 }
+  - id: s11_5
+    label: ""
+    at: { x: 456, y: 227 }
+    size: { w: 17, h: 16 }
+  - id: rn11
+    label: "12"
+    marker: none
+    align: left
+    at: { x: 459, y: 98 }
+    size: { w: 20, h: 18 }
+  - id: s12_0
+    label: ""
+    at: { x: 486, y: 122 }
+    size: { w: 17, h: 16 }
+  - id: s12_1
+    label: ""
+    at: { x: 486, y: 139 }
+    size: { w: 17, h: 16 }
+  - id: s12_2
+    label: ""
+    at: { x: 486, y: 156 }
+    size: { w: 17, h: 16 }
+  - id: s12_3
+    label: ""
+    at: { x: 486, y: 193 }
+    size: { w: 17, h: 16 }
+  - id: s12_4
+    label: ""
+    at: { x: 486, y: 210 }
+    size: { w: 17, h: 16 }
+  - id: s12_5
+    label: ""
+    at: { x: 486, y: 227 }
+    size: { w: 17, h: 16 }
+  - id: rn12
+    label: "13"
+    marker: none
+    align: left
+    at: { x: 489, y: 98 }
+    size: { w: 20, h: 18 }
+  - id: s13_0
+    label: ""
+    at: { x: 516, y: 122 }
+    size: { w: 17, h: 16 }
+  - id: s13_1
+    label: ""
+    at: { x: 516, y: 139 }
+    size: { w: 17, h: 16 }
+  - id: s13_2
+    label: ""
+    at: { x: 516, y: 156 }
+    size: { w: 17, h: 16 }
+  - id: s13_3
+    label: ""
+    at: { x: 516, y: 193 }
+    size: { w: 17, h: 16 }
+  - id: s13_4
+    label: ""
+    at: { x: 516, y: 210 }
+    size: { w: 17, h: 16 }
+  - id: s13_5
+    label: ""
+    at: { x: 516, y: 227 }
+    size: { w: 17, h: 16 }
+  - id: rn13
+    label: "14"
+    marker: none
+    align: left
+    at: { x: 519, y: 98 }
+    size: { w: 20, h: 18 }
+  - id: s14_0
+    label: ""
+    at: { x: 546, y: 122 }
+    size: { w: 17, h: 16 }
+  - id: s14_1
+    label: ""
+    at: { x: 546, y: 139 }
+    size: { w: 17, h: 16 }
+  - id: s14_2
+    label: ""
+    at: { x: 546, y: 156 }
+    size: { w: 17, h: 16 }
+  - id: s14_3
+    label: ""
+    at: { x: 546, y: 193 }
+    size: { w: 17, h: 16 }
+  - id: s14_4
+    label: ""
+    at: { x: 546, y: 210 }
+    size: { w: 17, h: 16 }
+  - id: s14_5
+    label: ""
+    at: { x: 546, y: 227 }
+    size: { w: 17, h: 16 }
+  - id: rn14
+    label: "15"
+    marker: none
+    align: left
+    at: { x: 549, y: 98 }
+    size: { w: 20, h: 18 }
+  - id: s15_0
+    label: ""
+    at: { x: 576, y: 122 }
+    size: { w: 17, h: 16 }
+  - id: s15_1
+    label: ""
+    at: { x: 576, y: 139 }
+    size: { w: 17, h: 16 }
+  - id: s15_2
+    label: ""
+    at: { x: 576, y: 156 }
+    size: { w: 17, h: 16 }
+  - id: s15_3
+    label: ""
+    at: { x: 576, y: 193 }
+    size: { w: 17, h: 16 }
+  - id: s15_4
+    label: ""
+    at: { x: 576, y: 210 }
+    size: { w: 17, h: 16 }
+  - id: s15_5
+    label: ""
+    at: { x: 576, y: 227 }
+    size: { w: 17, h: 16 }
+  - id: rn15
+    label: "16"
+    marker: none
+    align: left
+    at: { x: 579, y: 98 }
+    size: { w: 20, h: 18 }
+  - id: s16_0
+    label: ""
+    at: { x: 606, y: 122 }
+    size: { w: 17, h: 16 }
+  - id: s16_1
+    label: ""
+    at: { x: 606, y: 139 }
+    size: { w: 17, h: 16 }
+  - id: s16_2
+    label: ""
+    at: { x: 606, y: 156 }
+    size: { w: 17, h: 16 }
+  - id: s16_3
+    label: ""
+    at: { x: 606, y: 193 }
+    size: { w: 17, h: 16 }
+  - id: s16_4
+    label: ""
+    at: { x: 606, y: 210 }
+    size: { w: 17, h: 16 }
+  - id: s16_5
+    label: ""
+    at: { x: 606, y: 227 }
+    size: { w: 17, h: 16 }
+  - id: rn16
+    label: "17"
+    marker: none
+    align: left
+    at: { x: 609, y: 98 }
+    size: { w: 20, h: 18 }
+  - id: s17_0
+    label: ""
+    at: { x: 636, y: 122 }
+    size: { w: 17, h: 16 }
+  - id: s17_1
+    label: ""
+    at: { x: 636, y: 139 }
+    size: { w: 17, h: 16 }
+  - id: s17_2
+    label: ""
+    at: { x: 636, y: 156 }
+    size: { w: 17, h: 16 }
+  - id: s17_3
+    label: ""
+    at: { x: 636, y: 193 }
+    size: { w: 17, h: 16 }
+  - id: s17_4
+    label: ""
+    at: { x: 636, y: 210 }
+    size: { w: 17, h: 16 }
+  - id: s17_5
+    label: ""
+    at: { x: 636, y: 227 }
+    size: { w: 17, h: 16 }
+  - id: rn17
+    label: "18"
+    marker: none
+    align: left
+    at: { x: 639, y: 98 }
+    size: { w: 20, h: 18 }
+  - id: s18_0
+    label: ""
+    at: { x: 666, y: 122 }
+    size: { w: 17, h: 16 }
+  - id: s18_1
+    label: ""
+    at: { x: 666, y: 139 }
+    size: { w: 17, h: 16 }
+  - id: s18_2
+    label: ""
+    at: { x: 666, y: 156 }
+    size: { w: 17, h: 16 }
+  - id: s18_3
+    label: ""
+    at: { x: 666, y: 193 }
+    size: { w: 17, h: 16 }
+  - id: s18_4
+    label: ""
+    at: { x: 666, y: 210 }
+    size: { w: 17, h: 16 }
+  - id: s18_5
+    label: ""
+    at: { x: 666, y: 227 }
+    size: { w: 17, h: 16 }
+  - id: rn18
+    label: "19"
+    marker: none
+    align: left
+    at: { x: 669, y: 98 }
+    size: { w: 20, h: 18 }
+  - id: s19_0
+    label: ""
+    at: { x: 696, y: 122 }
+    size: { w: 17, h: 16 }
+  - id: s19_1
+    label: ""
+    at: { x: 696, y: 139 }
+    size: { w: 17, h: 16 }
+  - id: s19_2
+    label: ""
+    at: { x: 696, y: 156 }
+    size: { w: 17, h: 16 }
+  - id: s19_3
+    label: ""
+    at: { x: 696, y: 193 }
+    size: { w: 17, h: 16 }
+  - id: s19_4
+    label: ""
+    at: { x: 696, y: 210 }
+    size: { w: 17, h: 16 }
+  - id: s19_5
+    label: ""
+    at: { x: 696, y: 227 }
+    size: { w: 17, h: 16 }
+  - id: rn19
+    label: "20"
+    marker: none
+    align: left
+    at: { x: 699, y: 98 }
+    size: { w: 20, h: 18 }
+  - id: aisle
+    label: ""
+    hatch: dots
+    at: { x: 80, y: 173 }
+    size: { w: 713, h: 20 }
+  - id: galley
+    label: ""
+    tag: "GAL"
+    marker: box
+    at: { x: 80, y: 122 }
+    size: { w: 36, h: 49 }
+  - id: lav1
+    label: ""
+    tag: "LAV"
+    marker: box
+    at: { x: 757, y: 122 }
+    size: { w: 36, h: 49 }
+  - id: lav2
+    label: ""
+    tag: "LAV"
+    marker: box
+    at: { x: 757, y: 193 }
+    size: { w: 36, h: 49 }
+  - id: e1L
+    label: ""
+    tag: "I"
+    marker: diamond
+    at: { x: 85, y: 105 }
+    size: { w: 30, h: 30 }
+  - id: e1R
+    label: ""
+    tag: "I"
+    marker: diamond
+    at: { x: 85, y: 231 }
+    size: { w: 30, h: 30 }
+  - id: e3L
+    label: ""
+    tag: "III"
+    marker: diamond
+    at: { x: 405, y: 105 }
+    size: { w: 30, h: 30 }
+  - id: e3R
+    label: ""
+    tag: "III"
+    marker: diamond
+    at: { x: 405, y: 231 }
+    size: { w: 30, h: 30 }
+  - id: e2L
+    label: ""
+    tag: "I"
+    marker: diamond
+    at: { x: 760, y: 105 }
+    size: { w: 30, h: 30 }
+  - id: e2R
+    label: ""
+    tag: "I"
+    marker: diamond
+    at: { x: 760, y: 231 }
+    size: { w: 30, h: 30 }
+  - id: l1
+    label: "NOSE"
+    marker: none
+    align: left
+    at: { x: 28, y: 126 }
+    size: { w: 60, h: 18 }
+  - id: l2
+    label: "TAIL"
+    marker: none
+    align: left
+    at: { x: 817, y: 174 }
+    size: { w: 60, h: 18 }
+  - id: l3
+    label: "exit row  -  wider, and the seatbacks do not recline"
+    marker: none
+    align: left
+    at: { x: 360, y: 262 }
+    size: { w: 360, h: 18 }
+  - id: l4
+    label: "aisle"
+    marker: none
+    align: left
+    at: { x: 20, y: 174 }
+    size: { w: 60, h: 18 }
+  - id: l5
+    label: "20 rows at 3 + 3  =  120 seats"
+    marker: none
+    align: left
+    at: { x: 120, y: 72 }
+    size: { w: 280, h: 18 }
+  - id: h120
+    label: "SEATS PER PAIR OF EXITS  (14 CFR 25.807)"
+    hatch: solid
+    at: { x: 893, y: 120 }
+    size: { w: 440, h: 22 }
+  - id: a142
+    label: "Type A"
+    at: { x: 893, y: 142 }
+    size: { w: 190, h: 22 }
+  - id: b142
+    label: "110"
+    align: left
+    at: { x: 1083, y: 142 }
+    size: { w: 250, h: 22 }
+  - id: a164
+    label: "Type B"
+    at: { x: 893, y: 164 }
+    size: { w: 190, h: 22 }
+  - id: b164
+    label: "75"
+    align: left
+    at: { x: 1083, y: 164 }
+    size: { w: 250, h: 22 }
+  - id: a186
+    label: "Type C"
+    at: { x: 893, y: 186 }
+    size: { w: 190, h: 22 }
+  - id: b186
+    label: "55"
+    align: left
+    at: { x: 1083, y: 186 }
+    size: { w: 250, h: 22 }
+  - id: a208
+    label: "Type I"
+    at: { x: 893, y: 208 }
+    size: { w: 190, h: 22 }
+  - id: b208
+    label: "45"
+    align: left
+    at: { x: 1083, y: 208 }
+    size: { w: 250, h: 22 }
+  - id: a230
+    label: "Type II"
+    at: { x: 893, y: 230 }
+    size: { w: 190, h: 22 }
+  - id: b230
+    label: "40"
+    align: left
+    at: { x: 1083, y: 230 }
+    size: { w: 250, h: 22 }
+  - id: a252
+    label: "Type III"
+    at: { x: 893, y: 252 }
+    size: { w: 190, h: 22 }
+  - id: b252
+    label: "35"
+    align: left
+    at: { x: 1083, y: 252 }
+    size: { w: 250, h: 22 }
+  - id: a274
+    label: "Type IV"
+    at: { x: 893, y: 274 }
+    size: { w: 190, h: 22 }
+  - id: b274
+    label: "9"
+    align: left
+    at: { x: 1083, y: 274 }
+    size: { w: 250, h: 22 }
+  - id: h310
+    label: "SO THE SEAT COUNT IS A SUM"
+    hatch: solid
+    at: { x: 893, y: 310 }
+    size: { w: 440, h: 22 }
+  - id: a332
+    label: "Forward, Type I"
+    at: { x: 893, y: 332 }
+    size: { w: 190, h: 22 }
+  - id: b332
+    label: "45"
+    align: left
+    at: { x: 1083, y: 332 }
+    size: { w: 250, h: 22 }
+  - id: a354
+    label: "Overwing, Type III"
+    at: { x: 893, y: 354 }
+    size: { w: 190, h: 22 }
+  - id: b354
+    label: "35"
+    align: left
+    at: { x: 1083, y: 354 }
+    size: { w: 250, h: 22 }
+  - id: a376
+    label: "Aft, Type I"
+    at: { x: 893, y: 376 }
+    size: { w: 190, h: 22 }
+  - id: b376
+    label: "45"
+    align: left
+    at: { x: 1083, y: 376 }
+    size: { w: 250, h: 22 }
+  - id: a398
+    label: "Ceiling"
+    at: { x: 893, y: 398 }
+    size: { w: 190, h: 22 }
+  - id: b398
+    label: "125 seats"
+    align: left
+    at: { x: 1083, y: 398 }
+    size: { w: 250, h: 22 }
+  - id: a420
+    label: "This cabin"
+    at: { x: 893, y: 420 }
+    size: { w: 190, h: 22 }
+  - id: b420
+    label: "120 - it fits under the ceiling"
+    align: left
+    at: { x: 1083, y: 420 }
+    size: { w: 250, h: 22 }
+  - id: a442
+    label: "Which means"
+    at: { x: 893, y: 442 }
+    size: { w: 190, h: 22 }
+  - id: b442
+    label: "the floor is not what limits it"
+    align: left
+    at: { x: 1083, y: 442 }
+    size: { w: 250, h: 22 }
+  - id: h478
+    label: "AISLE  (25.815, 20 or more seats)"
+    hatch: solid
+    at: { x: 893, y: 478 }
+    size: { w: 440, h: 22 }
+  - id: a500
+    label: "Below 25 in high"
+    at: { x: 893, y: 500 }
+    size: { w: 190, h: 22 }
+  - id: b500
+    label: "15 in wide"
+    align: left
+    at: { x: 1083, y: 500 }
+    size: { w: 250, h: 22 }
+  - id: a522
+    label: "25 in and above"
+    at: { x: 893, y: 522 }
+    size: { w: 190, h: 22 }
+  - id: b522
+    label: "20 in wide"
+    align: left
+    at: { x: 1083, y: 522 }
+    size: { w: 250, h: 22 }
+  - id: h558
+    label: "AT A TYPE III  (25.813)"
+    hatch: solid
+    at: { x: 893, y: 558 }
+    size: { w: 440, h: 22 }
+  - id: a580
+    label: "Two-seat rows"
+    at: { x: 893, y: 580 }
+    size: { w: 190, h: 22 }
+  - id: b580
+    label: "a 10 in passageway"
+    align: left
+    at: { x: 1083, y: 580 }
+    size: { w: 250, h: 22 }
+  - id: a602
+    label: "Three-seat rows"
+    at: { x: 893, y: 602 }
+    size: { w: 190, h: 22 }
+  - id: b602
+    label: "20 in"
+    align: left
+    at: { x: 1083, y: 602 }
+    size: { w: 250, h: 22 }
+  - id: a624
+    label: "Or"
+    at: { x: 893, y: 624 }
+    size: { w: 190, h: 22 }
+  - id: b624
+    label: "two passageways of 6 in"
+    align: left
+    at: { x: 1083, y: 624 }
+    size: { w: 250, h: 22 }
+  - id: a646
+    label: "The opening"
+    at: { x: 893, y: 646 }
+    size: { w: 190, h: 22 }
+  - id: b646
+    label: "unobstructed for at least the width"
+    align: left
+    at: { x: 1083, y: 646 }
+    size: { w: 250, h: 22 }
+  - id: a668
+    label: ""
+    at: { x: 893, y: 668 }
+    size: { w: 190, h: 22 }
+  - id: b668
+    label: "of the narrowest seat on board"
+    align: left
+    at: { x: 1083, y: 668 }
+    size: { w: 250, h: 22 }
+  - id: a690
+    label: "Seatbacks"
+    at: { x: 893, y: 690 }
+    size: { w: 190, h: 22 }
+  - id: b690
+    label: "count in their most adverse position"
+    align: left
+    at: { x: 1083, y: 690 }
+    size: { w: 250, h: 22 }
+  - id: a712
+    label: "Which is why"
+    at: { x: 893, y: 712 }
+    size: { w: 190, h: 22 }
+  - id: b712
+    label: "those seats do not recline"
+    align: left
+    at: { x: 1083, y: 712 }
+    size: { w: 250, h: 22 }
+  - id: n1
+    label: "A cabin layout is not \"how many seats fit\". The number is what the exits allow."
+    marker: none
+    align: left
+    at: { x: 60, y: 336 }
+    size: { w: 640, h: 18 }
+  - id: n2
+    label: "Each pair of exits carries a number, and the seats are the sum: 45 + 35 + 45 = 125 here."
+    marker: none
+    align: left
+    at: { x: 60, y: 358 }
+    size: { w: 640, h: 18 }
+  - id: n3
+    label: "Add a row and the drawing stays legal only while that sum does."
+    marker: none
+    align: left
+    at: { x: 60, y: 380 }
+    size: { w: 640, h: 18 }
+  - id: n4
+    label: "At the Type III the rule is about the passage, not the seat - so the seatbacks cannot recline."
+    marker: none
+    align: left
+    at: { x: 60, y: 402 }
+    size: { w: 640, h: 18 }
+  - id: n5
+    label: "The aircraft, the cabin and the seat count are fictional."
+    marker: none
+    align: left
+    at: { x: 60, y: 424 }
+    size: { w: 640, h: 18 }

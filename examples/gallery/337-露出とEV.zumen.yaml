@@ -1,0 +1,504 @@
+version: 1
+kind: placement
+arrows: true
+title: 露出（同じ明るさに、何通りもある）
+# **明るさを決めているのは、絞りとシャッターの組み合わせではなく、その和。**
+#
+# ## 1 段とは
+#
+# **F 値が √2 倍になるか、露光時間が半分になると、届く光の量が半分になる。**
+# そのとき **EV が 1 大きくなる。**
+#
+# F 値の系列が 1.4・2・2.8・4・5.6・8・11・16 と並んでいるのは、
+# **1 つ進むごとに √2 倍**になるから。
+# シャッター速度が 1/30・1/60・1/125 …と並ぶのは、**1 つ進むごとに半分**になるから。
+# **どちらも「1 段」で同じ量**なので、片方を 1 段動かしたらもう片方を逆に 1 段動かせば、
+# 明るさは変わらない。
+#
+# ## 相反則
+#
+# **F2.8 と 1/500、F4 と 1/250、F5.6 と 1/125 —— どれも 12EV。**
+# 表の中で、**同じ EV の組み合わせは斜めに並ぶ。**
+#
+# **EV ＝ AV ＋ TV**（AV は絞り値、TV は露光時間の段数）。
+# **EV 0 は「F1・1 秒」**と決めてある。
+#
+# ## 同じ EV でも、写るものは同じではない
+#
+# **絞り値が大きいほど被写界深度は深く**、**シャッター速度が遅いほどブレは大きい。**
+# 明るさが同じでも絵は変わるので、**どの組み合わせを選ぶかが撮り方**になる。
+#
+# ## 表の数は、計算で確かめた
+#
+# **AV ＝ 2 log2 F**、**TV ＝ log2（1／t）**。
+# F 値 8 つと速度 8 つを実際に計算すると、**どれも整数から 0.1 以内**に収まる
+# （F1.4 は 0.97、1/60 は 5.91、1/15 は 3.91 —— 系列の数字が丸めてあるため）。
+# 出典の例（F2.8–1/500・F4–1/250・F5.6–1/125）も、3 つとも 12 になる。
+#
+# 光の側の図は見本 264（配光曲線）、レンズの作図は見本 191。
+nodes:
+  - id: t1
+    label: "① 同じ EV になる組み合わせは、斜めに並ぶ（表の中の数が EV）"
+    marker: none
+    align: left
+    at: { x: 140, y: 160 }
+    size: { w: 800, h: 18 }
+  - id: fh
+    label: "絞り（F 値）→"
+    marker: none
+    align: left
+    at: { x: 300, y: 224 }
+    size: { w: 300, h: 18 }
+  - id: th
+    label: "↓ シャッター速度"
+    marker: none
+    align: left
+    at: { x: 140, y: 224 }
+    size: { w: 150, h: 18 }
+  - id: fh0
+    label: "F1.4"
+    hatch: solid
+    at: { x: 300, y: 250 }
+    size: { w: 88, h: 30 }
+  - id: fh1
+    label: "F2"
+    hatch: solid
+    at: { x: 388, y: 250 }
+    size: { w: 88, h: 30 }
+  - id: fh2
+    label: "F2.8"
+    hatch: solid
+    at: { x: 476, y: 250 }
+    size: { w: 88, h: 30 }
+  - id: fh3
+    label: "F4"
+    hatch: solid
+    at: { x: 564, y: 250 }
+    size: { w: 88, h: 30 }
+  - id: fh4
+    label: "F5.6"
+    hatch: solid
+    at: { x: 652, y: 250 }
+    size: { w: 88, h: 30 }
+  - id: fh5
+    label: "F8"
+    hatch: solid
+    at: { x: 740, y: 250 }
+    size: { w: 88, h: 30 }
+  - id: fh6
+    label: "F11"
+    hatch: solid
+    at: { x: 828, y: 250 }
+    size: { w: 88, h: 30 }
+  - id: fh7
+    label: "F16"
+    hatch: solid
+    at: { x: 916, y: 250 }
+    size: { w: 88, h: 30 }
+  - id: th0
+    label: "1/1000"
+    hatch: solid
+    at: { x: 140, y: 280 }
+    size: { w: 160, h: 30 }
+  - id: c0_0
+    label: "11"
+    at: { x: 300, y: 280 }
+    size: { w: 88, h: 30 }
+  - id: c0_1
+    label: "12"
+    hatch: lines
+    at: { x: 388, y: 280 }
+    size: { w: 88, h: 30 }
+  - id: c0_2
+    label: "13"
+    at: { x: 476, y: 280 }
+    size: { w: 88, h: 30 }
+  - id: c0_3
+    label: "14"
+    at: { x: 564, y: 280 }
+    size: { w: 88, h: 30 }
+  - id: c0_4
+    label: "15"
+    at: { x: 652, y: 280 }
+    size: { w: 88, h: 30 }
+  - id: c0_5
+    label: "16"
+    at: { x: 740, y: 280 }
+    size: { w: 88, h: 30 }
+  - id: c0_6
+    label: "17"
+    at: { x: 828, y: 280 }
+    size: { w: 88, h: 30 }
+  - id: c0_7
+    label: "18"
+    at: { x: 916, y: 280 }
+    size: { w: 88, h: 30 }
+  - id: th1
+    label: "1/500"
+    hatch: solid
+    at: { x: 140, y: 310 }
+    size: { w: 160, h: 30 }
+  - id: c1_0
+    label: "10"
+    at: { x: 300, y: 310 }
+    size: { w: 88, h: 30 }
+  - id: c1_1
+    label: "11"
+    at: { x: 388, y: 310 }
+    size: { w: 88, h: 30 }
+  - id: c1_2
+    label: "12"
+    hatch: lines
+    at: { x: 476, y: 310 }
+    size: { w: 88, h: 30 }
+  - id: c1_3
+    label: "13"
+    at: { x: 564, y: 310 }
+    size: { w: 88, h: 30 }
+  - id: c1_4
+    label: "14"
+    at: { x: 652, y: 310 }
+    size: { w: 88, h: 30 }
+  - id: c1_5
+    label: "15"
+    at: { x: 740, y: 310 }
+    size: { w: 88, h: 30 }
+  - id: c1_6
+    label: "16"
+    at: { x: 828, y: 310 }
+    size: { w: 88, h: 30 }
+  - id: c1_7
+    label: "17"
+    at: { x: 916, y: 310 }
+    size: { w: 88, h: 30 }
+  - id: th2
+    label: "1/250"
+    hatch: solid
+    at: { x: 140, y: 340 }
+    size: { w: 160, h: 30 }
+  - id: c2_0
+    label: "9"
+    at: { x: 300, y: 340 }
+    size: { w: 88, h: 30 }
+  - id: c2_1
+    label: "10"
+    at: { x: 388, y: 340 }
+    size: { w: 88, h: 30 }
+  - id: c2_2
+    label: "11"
+    at: { x: 476, y: 340 }
+    size: { w: 88, h: 30 }
+  - id: c2_3
+    label: "12"
+    hatch: lines
+    at: { x: 564, y: 340 }
+    size: { w: 88, h: 30 }
+  - id: c2_4
+    label: "13"
+    at: { x: 652, y: 340 }
+    size: { w: 88, h: 30 }
+  - id: c2_5
+    label: "14"
+    at: { x: 740, y: 340 }
+    size: { w: 88, h: 30 }
+  - id: c2_6
+    label: "15"
+    at: { x: 828, y: 340 }
+    size: { w: 88, h: 30 }
+  - id: c2_7
+    label: "16"
+    at: { x: 916, y: 340 }
+    size: { w: 88, h: 30 }
+  - id: th3
+    label: "1/125"
+    hatch: solid
+    at: { x: 140, y: 370 }
+    size: { w: 160, h: 30 }
+  - id: c3_0
+    label: "8"
+    at: { x: 300, y: 370 }
+    size: { w: 88, h: 30 }
+  - id: c3_1
+    label: "9"
+    at: { x: 388, y: 370 }
+    size: { w: 88, h: 30 }
+  - id: c3_2
+    label: "10"
+    at: { x: 476, y: 370 }
+    size: { w: 88, h: 30 }
+  - id: c3_3
+    label: "11"
+    at: { x: 564, y: 370 }
+    size: { w: 88, h: 30 }
+  - id: c3_4
+    label: "12"
+    hatch: lines
+    at: { x: 652, y: 370 }
+    size: { w: 88, h: 30 }
+  - id: c3_5
+    label: "13"
+    at: { x: 740, y: 370 }
+    size: { w: 88, h: 30 }
+  - id: c3_6
+    label: "14"
+    at: { x: 828, y: 370 }
+    size: { w: 88, h: 30 }
+  - id: c3_7
+    label: "15"
+    at: { x: 916, y: 370 }
+    size: { w: 88, h: 30 }
+  - id: th4
+    label: "1/60"
+    hatch: solid
+    at: { x: 140, y: 400 }
+    size: { w: 160, h: 30 }
+  - id: c4_0
+    label: "7"
+    at: { x: 300, y: 400 }
+    size: { w: 88, h: 30 }
+  - id: c4_1
+    label: "8"
+    at: { x: 388, y: 400 }
+    size: { w: 88, h: 30 }
+  - id: c4_2
+    label: "9"
+    at: { x: 476, y: 400 }
+    size: { w: 88, h: 30 }
+  - id: c4_3
+    label: "10"
+    at: { x: 564, y: 400 }
+    size: { w: 88, h: 30 }
+  - id: c4_4
+    label: "11"
+    at: { x: 652, y: 400 }
+    size: { w: 88, h: 30 }
+  - id: c4_5
+    label: "12"
+    hatch: lines
+    at: { x: 740, y: 400 }
+    size: { w: 88, h: 30 }
+  - id: c4_6
+    label: "13"
+    at: { x: 828, y: 400 }
+    size: { w: 88, h: 30 }
+  - id: c4_7
+    label: "14"
+    at: { x: 916, y: 400 }
+    size: { w: 88, h: 30 }
+  - id: th5
+    label: "1/30"
+    hatch: solid
+    at: { x: 140, y: 430 }
+    size: { w: 160, h: 30 }
+  - id: c5_0
+    label: "6"
+    at: { x: 300, y: 430 }
+    size: { w: 88, h: 30 }
+  - id: c5_1
+    label: "7"
+    at: { x: 388, y: 430 }
+    size: { w: 88, h: 30 }
+  - id: c5_2
+    label: "8"
+    at: { x: 476, y: 430 }
+    size: { w: 88, h: 30 }
+  - id: c5_3
+    label: "9"
+    at: { x: 564, y: 430 }
+    size: { w: 88, h: 30 }
+  - id: c5_4
+    label: "10"
+    at: { x: 652, y: 430 }
+    size: { w: 88, h: 30 }
+  - id: c5_5
+    label: "11"
+    at: { x: 740, y: 430 }
+    size: { w: 88, h: 30 }
+  - id: c5_6
+    label: "12"
+    hatch: lines
+    at: { x: 828, y: 430 }
+    size: { w: 88, h: 30 }
+  - id: c5_7
+    label: "13"
+    at: { x: 916, y: 430 }
+    size: { w: 88, h: 30 }
+  - id: th6
+    label: "1/15"
+    hatch: solid
+    at: { x: 140, y: 460 }
+    size: { w: 160, h: 30 }
+  - id: c6_0
+    label: "5"
+    at: { x: 300, y: 460 }
+    size: { w: 88, h: 30 }
+  - id: c6_1
+    label: "6"
+    at: { x: 388, y: 460 }
+    size: { w: 88, h: 30 }
+  - id: c6_2
+    label: "7"
+    at: { x: 476, y: 460 }
+    size: { w: 88, h: 30 }
+  - id: c6_3
+    label: "8"
+    at: { x: 564, y: 460 }
+    size: { w: 88, h: 30 }
+  - id: c6_4
+    label: "9"
+    at: { x: 652, y: 460 }
+    size: { w: 88, h: 30 }
+  - id: c6_5
+    label: "10"
+    at: { x: 740, y: 460 }
+    size: { w: 88, h: 30 }
+  - id: c6_6
+    label: "11"
+    at: { x: 828, y: 460 }
+    size: { w: 88, h: 30 }
+  - id: c6_7
+    label: "12"
+    hatch: lines
+    at: { x: 916, y: 460 }
+    size: { w: 88, h: 30 }
+  - id: th7
+    label: "1/8"
+    hatch: solid
+    at: { x: 140, y: 490 }
+    size: { w: 160, h: 30 }
+  - id: c7_0
+    label: "4"
+    at: { x: 300, y: 490 }
+    size: { w: 88, h: 30 }
+  - id: c7_1
+    label: "5"
+    at: { x: 388, y: 490 }
+    size: { w: 88, h: 30 }
+  - id: c7_2
+    label: "6"
+    at: { x: 476, y: 490 }
+    size: { w: 88, h: 30 }
+  - id: c7_3
+    label: "7"
+    at: { x: 564, y: 490 }
+    size: { w: 88, h: 30 }
+  - id: c7_4
+    label: "8"
+    at: { x: 652, y: 490 }
+    size: { w: 88, h: 30 }
+  - id: c7_5
+    label: "9"
+    at: { x: 740, y: 490 }
+    size: { w: 88, h: 30 }
+  - id: c7_6
+    label: "10"
+    at: { x: 828, y: 490 }
+    size: { w: 88, h: 30 }
+  - id: c7_7
+    label: "11"
+    at: { x: 916, y: 490 }
+    size: { w: 88, h: 30 }
+  - id: r1
+    label: "・網かけが EV 12。 F2.8 と 1/500、F4 と 1/250、F5.6 と 1/125 —— どれも同じ明るさ。"
+    marker: none
+    align: left
+    at: { x: 140, y: 544 }
+    size: { w: 1160, h: 18 }
+  - id: r2
+    label: "・F 値が √2 倍になるか、露光時間が半分になると、届く光の量が半分になり EV が 1 大きくなる。"
+    marker: none
+    align: left
+    at: { x: 140, y: 568 }
+    size: { w: 1160, h: 18 }
+  - id: r3
+    label: "・EV ＝ AV ＋ TV。 EV 0 は「F1・1 秒」と決めてある。"
+    marker: none
+    align: left
+    at: { x: 140, y: 592 }
+    size: { w: 1160, h: 18 }
+  - id: r4
+    label: "・同じ EV でも、写るものは同じではない —— 絞り値が大きいほど被写界深度は深く、"
+    marker: none
+    align: left
+    at: { x: 140, y: 616 }
+    size: { w: 1160, h: 18 }
+  - id: r5
+    label: "　シャッター速度が遅いほどブレは大きくなる。 だから「どの組み合わせを選ぶか」が撮り方になる。"
+    marker: none
+    align: left
+    at: { x: 140, y: 640 }
+    size: { w: 1160, h: 18 }
+  - id: h140_680
+    label: "1 段（EV 1）動かすとは"
+    hatch: solid
+    at: { x: 140, y: 680 }
+    size: { w: 520, h: 24 }
+  - id: x140_704
+    label: "絞りを 1 段絞る"
+    at: { x: 140, y: 704 }
+    size: { w: 220, h: 24 }
+  - id: y140_704
+    label: "F 値が √2 倍（1.4 → 2 → 2.8 …）"
+    align: left
+    at: { x: 360, y: 704 }
+    size: { w: 300, h: 24 }
+  - id: x140_728
+    label: "シャッターを 1 段速く"
+    at: { x: 140, y: 728 }
+    size: { w: 220, h: 24 }
+  - id: y140_728
+    label: "露光時間が半分（1/125 → 1/250）"
+    align: left
+    at: { x: 360, y: 728 }
+    size: { w: 300, h: 24 }
+  - id: x140_752
+    label: "どちらも"
+    at: { x: 140, y: 752 }
+    size: { w: 220, h: 24 }
+  - id: y140_752
+    label: "届く光の量が半分になる"
+    align: left
+    at: { x: 360, y: 752 }
+    size: { w: 300, h: 24 }
+  - id: h700_680
+    label: "同じ EV でも、変わるもの"
+    hatch: solid
+    at: { x: 700, y: 680 }
+    size: { w: 600, h: 24 }
+  - id: x700_704
+    label: "絞りを開く（F 小）"
+    at: { x: 700, y: 704 }
+    size: { w: 260, h: 24 }
+  - id: y700_704
+    label: "被写界深度が浅い。背景がぼける"
+    align: left
+    at: { x: 960, y: 704 }
+    size: { w: 340, h: 24 }
+  - id: x700_728
+    label: "絞りを絞る（F 大）"
+    at: { x: 700, y: 728 }
+    size: { w: 260, h: 24 }
+  - id: y700_728
+    label: "被写界深度が深い。奥までピントが合う"
+    align: left
+    at: { x: 960, y: 728 }
+    size: { w: 340, h: 24 }
+  - id: x700_752
+    label: "シャッターが速い"
+    at: { x: 700, y: 752 }
+    size: { w: 260, h: 24 }
+  - id: y700_752
+    label: "ブレが小さい。動きが止まる"
+    align: left
+    at: { x: 960, y: 752 }
+    size: { w: 340, h: 24 }
+  - id: x700_776
+    label: "シャッターが遅い"
+    at: { x: 700, y: 776 }
+    size: { w: 260, h: 24 }
+  - id: y700_776
+    label: "ブレが大きい。動きが流れる"
+    align: left
+    at: { x: 960, y: 776 }
+    size: { w: 340, h: 24 }
+edges:

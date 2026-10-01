@@ -1,0 +1,321 @@
+version: 1
+kind: placement
+arrows: false
+title: "Parking lot striping (fictional)"
+scale: { in: 3 }
+grid:
+  x:
+    - { id: A, at: 60 }
+    - { id: B, at: 148 }
+    - { id: C, at: 580 }
+  y:
+    - { id: 1, at: 60 }
+    - { id: 2, at: 132 }
+    - { id: 3, at: 228 }
+    - { id: 4, at: 300 }
+# **The access aisle is not spare tarmac.** It is where the ramp comes down,
+# which is why it is striped, kept clear, and drawn at a size —— 5 ft beside a
+# stall, 8 ft if the van space is the 8 ft kind.
+#
+# Accessible stalls go **on the shortest accessible route to the door**, and a
+# pair can share one aisle, which is why they are drawn together.
+#
+# Counts and dimensions follow the 2010 ADA Standards; the lot is fictional.
+nodes:
+  - id: u0
+    label: ""
+    at: { x: 148, y: 60 }
+    size: { w: 36, h: 72 }
+  - id: u1
+    label: ""
+    at: { x: 184, y: 60 }
+    size: { w: 36, h: 72 }
+  - id: u2
+    label: ""
+    at: { x: 220, y: 60 }
+    size: { w: 36, h: 72 }
+  - id: u3
+    label: ""
+    at: { x: 256, y: 60 }
+    size: { w: 36, h: 72 }
+  - id: u4
+    label: ""
+    at: { x: 292, y: 60 }
+    size: { w: 36, h: 72 }
+  - id: u5
+    label: ""
+    at: { x: 328, y: 60 }
+    size: { w: 36, h: 72 }
+  - id: u6
+    label: ""
+    at: { x: 364, y: 60 }
+    size: { w: 36, h: 72 }
+  - id: u7
+    label: ""
+    at: { x: 400, y: 60 }
+    size: { w: 36, h: 72 }
+  - id: u8
+    label: ""
+    at: { x: 436, y: 60 }
+    size: { w: 36, h: 72 }
+  - id: u9
+    label: ""
+    at: { x: 472, y: 60 }
+    size: { w: 36, h: 72 }
+  - id: u10
+    label: ""
+    at: { x: 508, y: 60 }
+    size: { w: 36, h: 72 }
+  - id: u11
+    label: ""
+    at: { x: 544, y: 60 }
+    size: { w: 36, h: 72 }
+  - id: aisle
+    label: ""
+    hatch: dots
+    at: { x: 60, y: 132 }
+    size: { w: 520, h: 96 }
+  - id: van
+    label: ""
+    tag: "VAN"
+    hatch: lines
+    at: { x: 60, y: 228 }
+    size: { w: 44, h: 72 }
+  - id: va
+    label: ""
+    hatch: cross
+    at: { x: 104, y: 228 }
+    size: { w: 20, h: 72 }
+  - id: acc
+    label: ""
+    tag: "ADA"
+    hatch: lines
+    at: { x: 124, y: 228 }
+    size: { w: 32, h: 72 }
+  - id: aa
+    label: ""
+    hatch: cross
+    at: { x: 156, y: 228 }
+    size: { w: 20, h: 72 }
+  - id: d0
+    label: ""
+    at: { x: 176, y: 228 }
+    size: { w: 36, h: 72 }
+  - id: d1
+    label: ""
+    at: { x: 212, y: 228 }
+    size: { w: 36, h: 72 }
+  - id: d2
+    label: ""
+    at: { x: 248, y: 228 }
+    size: { w: 36, h: 72 }
+  - id: d3
+    label: ""
+    at: { x: 284, y: 228 }
+    size: { w: 36, h: 72 }
+  - id: d4
+    label: ""
+    at: { x: 320, y: 228 }
+    size: { w: 36, h: 72 }
+  - id: d5
+    label: ""
+    at: { x: 356, y: 228 }
+    size: { w: 36, h: 72 }
+  - id: d6
+    label: ""
+    at: { x: 392, y: 228 }
+    size: { w: 36, h: 72 }
+  - id: d7
+    label: ""
+    at: { x: 428, y: 228 }
+    size: { w: 36, h: 72 }
+  - id: d8
+    label: ""
+    at: { x: 464, y: 228 }
+    size: { w: 36, h: 72 }
+  - id: d9
+    label: ""
+    at: { x: 500, y: 228 }
+    size: { w: 36, h: 72 }
+  - id: bldg
+    label: ""
+    hatch: solid
+    at: { x: 60, y: 12 }
+    size: { w: 88, h: 48 }
+  - id: lb
+    label: "ENTRANCE"
+    marker: none
+    align: left
+    at: { x: 68, y: 24 }
+    size: { w: 120, h: 18 }
+  - id: l1
+    label: "stall 9'-0\" x 18'-0\""
+    marker: none
+    align: left
+    at: { x: 156, y: 84 }
+    size: { w: 200, h: 18 }
+  - id: l2
+    label: "drive aisle 24'-0\"  two-way"
+    marker: none
+    align: left
+    at: { x: 164, y: 172 }
+    size: { w: 260, h: 18 }
+  - id: l3
+    label: "van 11'-0\" + 5'-0\" aisle"
+    marker: none
+    align: left
+    at: { x: 68, y: 308 }
+    size: { w: 230, h: 18 }
+  - id: l4
+    label: "accessible 8'-0\" + 5'-0\" aisle"
+    marker: none
+    align: left
+    at: { x: 132, y: 324 }
+    size: { w: 270, h: 18 }
+  - id: h20
+    label: "STRIPING"
+    hatch: solid
+    at: { x: 636, y: 20 }
+    size: { w: 430, h: 22 }
+  - id: a42
+    label: "Standard stall"
+    at: { x: 636, y: 42 }
+    size: { w: 190, h: 22 }
+  - id: b42
+    label: "9'-0\" x 18'-0\""
+    align: left
+    at: { x: 826, y: 42 }
+    size: { w: 240, h: 22 }
+  - id: a64
+    label: "Drive aisle"
+    at: { x: 636, y: 64 }
+    size: { w: 190, h: 22 }
+  - id: b64
+    label: "24'-0\" two-way, 12'-0\" one-way"
+    align: left
+    at: { x: 826, y: 64 }
+    size: { w: 240, h: 22 }
+  - id: a86
+    label: "Accessible stall"
+    at: { x: 636, y: 86 }
+    size: { w: 190, h: 22 }
+  - id: b86
+    label: "8 ft wide + 5 ft access aisle"
+    align: left
+    at: { x: 826, y: 86 }
+    size: { w: 240, h: 22 }
+  - id: a108
+    label: "Van accessible"
+    at: { x: 636, y: 108 }
+    size: { w: 190, h: 22 }
+  - id: b108
+    label: "11 ft + 5 ft, or 8 ft + 8 ft"
+    align: left
+    at: { x: 826, y: 108 }
+    size: { w: 240, h: 22 }
+  - id: h144
+    label: "HOW MANY ACCESSIBLE"
+    hatch: solid
+    at: { x: 636, y: 144 }
+    size: { w: 430, h: 22 }
+  - id: a166
+    label: "1 to 25 spaces"
+    at: { x: 636, y: 166 }
+    size: { w: 190, h: 22 }
+  - id: b166
+    label: "1"
+    align: left
+    at: { x: 826, y: 166 }
+    size: { w: 240, h: 22 }
+  - id: a188
+    label: "26 to 50"
+    at: { x: 636, y: 188 }
+    size: { w: 190, h: 22 }
+  - id: b188
+    label: "2"
+    align: left
+    at: { x: 826, y: 188 }
+    size: { w: 240, h: 22 }
+  - id: a210
+    label: "51 to 75"
+    at: { x: 636, y: 210 }
+    size: { w: 190, h: 22 }
+  - id: b210
+    label: "3"
+    align: left
+    at: { x: 826, y: 210 }
+    size: { w: 240, h: 22 }
+  - id: a232
+    label: "76 to 100"
+    at: { x: 636, y: 232 }
+    size: { w: 190, h: 22 }
+  - id: b232
+    label: "4"
+    align: left
+    at: { x: 826, y: 232 }
+    size: { w: 240, h: 22 }
+  - id: a254
+    label: "Of those"
+    at: { x: 636, y: 254 }
+    size: { w: 190, h: 22 }
+  - id: b254
+    label: "1 in 6 must be van accessible"
+    align: left
+    at: { x: 826, y: 254 }
+    size: { w: 240, h: 22 }
+  - id: h290
+    label: "THIS LOT"
+    hatch: solid
+    at: { x: 636, y: 290 }
+    size: { w: 430, h: 22 }
+  - id: a312
+    label: "Total"
+    at: { x: 636, y: 312 }
+    size: { w: 190, h: 22 }
+  - id: b312
+    label: "24 spaces"
+    align: left
+    at: { x: 826, y: 312 }
+    size: { w: 240, h: 22 }
+  - id: a334
+    label: "Accessible"
+    at: { x: 636, y: 334 }
+    size: { w: 190, h: 22 }
+  - id: b334
+    label: "2, one of them van"
+    align: left
+    at: { x: 826, y: 334 }
+    size: { w: 240, h: 22 }
+  - id: a356
+    label: "Placement"
+    at: { x: 636, y: 356 }
+    size: { w: 190, h: 22 }
+  - id: b356
+    label: "on the shortest route to the door"
+    align: left
+    at: { x: 826, y: 356 }
+    size: { w: 240, h: 22 }
+  - id: n1
+    label: "The access aisle is not spare tarmac: the ramp comes down there, so it is striped and kept clear."
+    marker: none
+    align: left
+    at: { x: 60, y: 404 }
+    size: { w: 780, h: 18 }
+  - id: n2
+    label: "Two accessible stalls may share one aisle, which is why they are drawn as a pair."
+    marker: none
+    align: left
+    at: { x: 60, y: 426 }
+    size: { w: 780, h: 18 }
+  - id: n3
+    label: "Accessible spaces go on the shortest route to the entrance, not in the far corner."
+    marker: none
+    align: left
+    at: { x: 60, y: 448 }
+    size: { w: 780, h: 18 }
+  - id: n4
+    label: "Counts and dimensions follow the 2010 ADA Standards; the lot is fictional."
+    marker: none
+    align: left
+    at: { x: 60, y: 470 }
+    size: { w: 780, h: 18 }

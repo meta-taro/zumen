@@ -1,0 +1,364 @@
+/**
+ * **通り芯と寸法線を描く**（`src/grid.ts` の続き）。
+ *
+ * 実物に合わせた書き方。
+ *
+ * - **通り芯は一点鎖線**で、建物の外まで伸ばす。端に**符号を丸で囲んで**置く
+ * - **寸法線は建物の外**に、内から順に「芯どうしの寸法」「総寸法」の 2 段
+ * - 端は**斜めの短い線**（建築の図面では矢印より斜線が普通）
+ * - 数値は**線の上**に置く。線の上下どちらでもよいが、揃っていないと読めない
+ *
+ * **寸法は通り芯からしか出さない。** 部屋の箱から出すと、
+ * 壁の厚みをどちらに数えるかで値が変わり、**現場で食い違う**。
+ * 実物の図面が通り芯を基準にしているのは、そこを一意にするため。
+ */
+import { CHAIN as LINE_CHAIN } from './line.ts';
+import type { Axis, Grid, NorthMark } from './grid.ts';
+import { CODE_R, MARGIN } from './grid.ts';
+import type { Rect } from './names.ts';
+import { lengthText } from './units.ts';
+
+export interface Frame {
+  /** 図の中身の矩形（余白を足したあとの絶対座標）。 */
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+}
+
+export interface Ink {
+  /** 線の色。 */
+  stroke: string;
+  /** 文字の色。 */
+  text: string;
+  /** 地の色。**数値の下に敷いて線を切る**（実物の図面も数値のところで線が切れる）。 */
+  paper: string;
+  /** 書体。 */
+  font: string;
+}
+
+/**
+ * 一点鎖線。**通り芯の決まりごと**（実線でも破線でもない）。
+ * 人が引く線の `line: chain` と**同じ刻み**（`src/line.ts`）。
+ */
+const CHAIN = LINE_CHAIN;
+/** 文字の手前で芯を切る幅。 */
+const TEXT_GAP = 3;
+/**
+ * **文字の上下に足す見込み。**
+ *
+ * 2026-09-16。矩計図（見本 139）を実物で見て見つけた ——
+ * レベルの線が「柱 105 角 ＠910」の**ベースラインのすぐ下**を通り、
+ * `＠` や `9` の下に出る部分を横切って、**串刺しに見えていた。**
+ * 矩形（ベースラインから字の高さ）には入っていないので、判定は素通りする。
+ *
+ * **字は矩形より下へ出る**（descender）。そのぶんを足してから見る。
+ */
+const TEXT_EDGE = 4;
+/** 符号を囲む丸の半径。 */
+
+function n(value: number): number {
+  return Math.round(value);
+}
+
+/**
+ * 通り芯を描く。
+ *
+ * 座標は**余白を足したあとのもの**（`src/layout.ts` でずらしてある）。
+ * ここで余白を知る必要は無い。
+ */
+export function drawGrid(
+  grid: Grid,
+  frame: Frame,
+  ink: Ink,
+  only?: 'tick' | 'datum',
+  /** **芯を切る場所**（文字が占めている矩形）。`chain` を見よ。 */
+  avoid: readonly Rect[] = [],
+): string {
+  /**
+   * **目盛りと通り芯で、重ねる順が違う**（`src/render.ts`）。
+   *
+   * 通り芯とレベルは**最前面** —— 実物でも一点鎖線は建物を貫いて見える。
+   * **時間の目盛りは帯の下。** 実物の工程表・開放表もそうなっており、
+   * 上に載せると「一般開放」「教室」の文字を串刺しにする（2026-09-15。見本 64）。
+   */
+  const wanted = (mark: string): boolean =>
+    only === undefined || (only === 'tick' ? mark === 'tick' : mark !== 'tick');
+  const parts: string[] = [];
+  const top = frame.y - MARGIN.top + CODE_R + 4;
+  const bottom = frame.y + frame.h + MARGIN.code;
+  const left = frame.x - MARGIN.code;
+  const right = frame.x + frame.w + MARGIN.right - CODE_R - 4;
+
+  for (const axis of grid.x) {
+    if (!wanted(axis.mark)) continue;
+    const x = axis.at;
+    if (axis.mark === 'tick') {
+      // **時間軸。** 目盛りの線と、上に名前だけ（丸で囲むと通り芯に見える）。
+      // 目盛りは帯の下に敷くので、文字で切らない（塗りが隠す）。
+      parts.push(line(x, frame.y - 10, x, frame.y + frame.h, ink.stroke, CHAIN));
+      parts.push(
+        `<text x="${n(x)}" y="${n(frame.y - 16)}" text-anchor="middle" font-family="${ink.font}" font-size="11" fill="${ink.text}">${axis.id}</text>`,
+      );
+      continue;
+    }
+    parts.push(chain(top, bottom, x, true, ink, avoid));
+    parts.push(code(x, top - CODE_R - 2, axis.id, ink));
+    parts.push(code(x, bottom + CODE_R + 2, axis.id, ink));
+  }
+  for (const axis of grid.y) {
+    if (!wanted(axis.mark)) continue;
+    const y = axis.at;
+    if (axis.mark === 'tick') {
+      /**
+       * **目盛りの線は、通り芯の線より短い。**
+       *
+       * 通り芯は符号の丸まで伸ばすが、目盛りは名前が線の外にある。
+       * 長い線を引いてから短い線を重ねていたので、
+       * **長いほうが名前の上を通っていた**（2026-09-13。登山のコースタイム図で、
+       * 標高の数字を線が横切っていた）。横の目盛り（`grid.x`）は 1 本だけで正しかった。
+       */
+      parts.push(line(frame.x - 10, y, frame.x + frame.w, y, ink.stroke, CHAIN));
+      parts.push(
+        `<text x="${n(frame.x - 16)}" y="${n(y + 4)}" text-anchor="end" font-family="${ink.font}" font-size="11" fill="${ink.text}">${axis.id}</text>`,
+      );
+      continue;
+    }
+    parts.push(chain(left, right, y, false, ink, avoid));
+    if (axis.mark === 'level') {
+      // **高さの基準線**（断面図・立面図）。丸ではなく三角と値。
+      parts.push(level(left - 4, y, axis.id, ink, 'left'));
+      parts.push(level(right + 4, y, axis.id, ink, 'right'));
+      continue;
+    }
+    parts.push(code(left - CODE_R - 2, y, axis.id, ink));
+    parts.push(code(right + CODE_R + 2, y, axis.id, ink));
+  }
+  return parts.join('');
+}
+
+/**
+ * 寸法線を描く。**`scale` が無ければ何も描かない。**
+ *
+ * 知らない縮尺で数値を出すより、出さないほうがよい。
+ * 現場では、**寸法が間違っていることの害が、無いことより大きい。**
+ */
+export function drawDimensions(
+  grid: Grid,
+  frame: Frame,
+  mm: number | null,
+  ink: Ink,
+  /** **フィートとインチで書くか**（`scale: { in: … }`。2026-09-16）。 */
+  feet = false,
+): string {
+  if (mm === null) return '';
+  const parts: string[] = [];
+
+  // **時間軸には寸法を引かない。** 名前が既に時刻を言っているので、
+  // 引くと `60 / 60 / 60 / 総 240` という意味のない数字が並ぶ。
+  const spanX = grid.x.filter((axis) => axis.mark !== 'tick');
+  const spanY = grid.y.filter((axis) => axis.mark !== 'tick');
+
+  // 下側 —— 横方向の寸法。
+  if (spanX.length >= 2) {
+    const near = frame.y + frame.h + MARGIN.near;
+    parts.push(chainOf(spanX, near, mm, ink, 'x', feet));
+    // **芯が 2 本なら、総寸法は芯どうしの寸法と同じ。** 同じ数字を 2 段書かない。
+    if (spanX.length > 2) {
+      parts.push(totalOf(spanX, frame.y + frame.h + MARGIN.far, mm, ink, 'x', feet));
+    }
+  }
+  // 左側 —— 縦方向の寸法。
+  if (spanY.length >= 2) {
+    parts.push(chainOf(spanY, frame.x - MARGIN.near, mm, ink, 'y', feet));
+    if (spanY.length > 2) {
+      parts.push(totalOf(spanY, frame.x - MARGIN.far, mm, ink, 'y', feet));
+    }
+  }
+  return parts.join('');
+}
+
+/** 芯どうしの寸法を、隣どうしで並べる。 */
+function chainOf(
+  axes: Axis[],
+  at: number,
+  mm: number,
+  ink: Ink,
+  axis: 'x' | 'y',
+  feet: boolean,
+): string {
+  const parts: string[] = [];
+  for (let i = 0; i + 1 < axes.length; i += 1) {
+    parts.push(segment(axes[i]!.at, axes[i + 1]!.at, at, mm, ink, axis, feet));
+  }
+  return parts.join('');
+}
+
+/** 総寸法。**端から端まで 1 本。** */
+function totalOf(
+  axes: Axis[],
+  at: number,
+  mm: number,
+  ink: Ink,
+  axis: 'x' | 'y',
+  feet: boolean,
+): string {
+  return segment(axes[0]!.at, axes[axes.length - 1]!.at, at, mm, ink, axis, feet);
+}
+
+/**
+ * 寸法 1 本。線・両端の斜線・数値。
+ *
+ * `axis === 'x'` なら `at` は y 座標（下側に水平な線）、
+ * `axis === 'y'` なら `at` は x 座標（左側に垂直な線）。
+ */
+function segment(
+  from: number,
+  to: number,
+  at: number,
+  mm: number,
+  ink: Ink,
+  axis: 'x' | 'y',
+  feet: boolean,
+): string {
+  // **単位は縮尺が決める**（`src/units.ts`）。土木の図をミリで書かない。
+  // **国も縮尺が決める** —— `scale: { in: … }` ならフィートとインチ。
+  const value = lengthText(to - from, mm, feet);
+  const mid = (from + to) / 2;
+  const horizontal = axis === 'x';
+
+  const body = horizontal
+    ? line(from, at, to, at, ink.stroke, null)
+    : line(at, from, at, to, ink.stroke, null);
+
+  // 端の斜線。**建築の図面では矢印より斜線が普通。**
+  const tick = (pos: number): string =>
+    horizontal
+      ? line(pos - 4, at + 4, pos + 4, at - 4, ink.stroke, null)
+      : line(at - 4, pos - 4, at + 4, pos + 4, ink.stroke, null);
+
+  // 数値は線の外側へ。縦のときは 90 度回す（図面の決まり）。
+  //
+  // **数値の下に地の色を敷く。** 通り芯が数値の上を通ると読めない。
+  // 実物の図面でも、数値のところで線が切れている。
+  const width = String(value).length * 6 + 6;
+  const tx = horizontal ? mid : at - 5;
+  const ty = horizontal ? at - 5 : mid;
+  const erase = horizontal
+    ? `<rect x="${n(mid - width / 2)}" y="${n(at - 15)}" width="${n(width)}" height="13" fill="${ink.paper}"/>`
+    : `<rect x="${n(at - 16)}" y="${n(mid - width / 2)}" width="13" height="${n(width)}" fill="${ink.paper}"/>`;
+  const turn = horizontal ? '' : ` transform="rotate(-90 ${n(tx)} ${n(ty)})"`;
+  const label = `<text x="${n(tx)}" y="${n(ty)}" text-anchor="middle" font-family="${ink.font}" font-size="10" fill="${ink.text}"${turn}>${value}</text>`;
+
+  return body + tick(from) + tick(to) + erase + label;
+}
+
+/**
+ * **高さの基準線の印**（`GL±0` / `2FL+3,200`）。
+ *
+ * 実物の断面図では、丸ではなく**塗った三角**を線の上に置き、
+ * その脇に値を書く。**丸は平面の通り芯の記号**なので、
+ * 断面で使うと「この線は通り芯だ」と読まれる。
+ */
+function level(x: number, y: number, id: string, ink: Ink, side: 'left' | 'right'): string {
+  const dir = side === 'left' ? -1 : 1;
+  const tip = x + dir * 2;
+  return (
+    `<path d="M ${n(tip)} ${n(y)} L ${n(tip + dir * 11)} ${n(y - 6)} L ${n(tip + dir * 11)} ${n(y + 6)} Z" fill="${ink.stroke}"/>` +
+    `<text x="${n(x + dir * 15)}" y="${n(y - 5)}" text-anchor="${side === 'left' ? 'end' : 'start'}" font-family="${ink.font}" font-size="10" fill="${ink.text}">${id}</text>`
+  );
+}
+
+/** 符号を丸で囲んで置く。**丸の中は地の色で塗る**（芯の線が文字に重なる）。 */
+function code(x: number, y: number, id: string, ink: Ink): string {
+  return (
+    `<circle cx="${n(x)}" cy="${n(y)}" r="${CODE_R}" fill="${ink.paper}" stroke="${ink.stroke}"/>` +
+    `<text x="${n(x)}" y="${n(y + 4)}" text-anchor="middle" font-family="${ink.font}" font-size="11" fill="${ink.text}">${id}</text>`
+  );
+}
+
+/**
+ * 通り芯を 1 本引く。**文字のところで切る。**
+ *
+ * 2026-09-15。天井伏図（見本 136）を実物で見て気づいた ——
+ * 「点検口 450 角」「LGS @303」を**一点鎖線が串刺しにしていた。**
+ * 数えたら **136 枚のうち 30 枚**が同じ形で、
+ * 「手洗い」「理科室」「蹴上 160・踏面 280」まで貫かれていた。
+ * **どの検査も 0 のままだった**（交差は辺どうし、重なりは箱どうししか見ていない）。
+ *
+ * 実物の図面では、**芯は文字を避けるか、文字のところで切れている。**
+ * 芯が基準線であることと、名前が読めることは両立する ——
+ * 寸法の数値は既にそうしていた（下地の板で線を切っている）。
+ *
+ * **芯を下敷きにする案は採らない。** 箱の塗りは透けないので、
+ * 建物の中で芯が丸ごと消える（`src/render.ts` の層の順にその顛末が書いてある）。
+ * ここで切るのは**文字の矩形だけ**で、壁も部屋も貫いたまま。
+ *
+ * 切った結果**何も残らないなら、切らずに引く。**
+ * 芯が 1 本消えるのは、文字が読みにくいより悪い。
+ */
+function chain(
+  from: number,
+  to: number,
+  at: number,
+  vertical: boolean,
+  ink: Ink,
+  avoid: readonly Rect[],
+): string {
+  const holes: [number, number][] = [];
+  for (const rect of avoid) {
+    const near = (vertical ? rect.x : rect.y) - TEXT_EDGE;
+    const far = (vertical ? rect.x + rect.w : rect.y + rect.h) + TEXT_EDGE;
+    if (at <= near || at >= far) continue;
+    const head = (vertical ? rect.y : rect.x) - TEXT_GAP;
+    const tail = (vertical ? rect.y + rect.h : rect.x + rect.w) + TEXT_GAP;
+    if (tail <= from || head >= to) continue;
+    holes.push([Math.max(head, from), Math.min(tail, to)]);
+  }
+  holes.sort((a, b) => a[0] - b[0]);
+  const spans: [number, number][] = [];
+  let edge = from;
+  for (const [head, tail] of holes) {
+    if (head > edge) spans.push([edge, head]);
+    edge = Math.max(edge, tail);
+  }
+  if (edge < to) spans.push([edge, to]);
+  if (spans.length === 0) spans.push([from, to]);
+  return spans
+    .map(([head, tail]) =>
+      vertical
+        ? line(at, head, at, tail, ink.stroke, CHAIN)
+        : line(head, at, tail, at, ink.stroke, CHAIN),
+    )
+    .join('');
+}
+
+function line(
+  x1: number,
+  y1: number,
+  x2: number,
+  y2: number,
+  stroke: string,
+  dash: string | null,
+): string {
+  const dashed = dash === null ? '' : ` stroke-dasharray="${dash}"`;
+  return `<line x1="${n(x1)}" y1="${n(y1)}" x2="${n(x2)}" y2="${n(y2)}" stroke="${stroke}" stroke-width="1"${dashed}/>`;
+}
+
+/**
+ * 方位記号。**右上に置く。**
+ *
+ * 実物では円の中に矢印と「N」。**向きだけが情報**なので、装飾は足さない。
+ */
+export function drawNorth(north: NorthMark, frame: Frame, ink: Ink): string {
+  // **置き場所が書いてあれば、そこへ。** 書いていなければ紙の右上（これまでどおり）。
+  const cx = north.at === null ? frame.x + frame.w + MARGIN.right / 2 - 6 : north.at.x;
+  const cy = north.at === null ? frame.y - MARGIN.top / 2 : north.at.y;
+  const angle = { up: 0, right: 90, down: 180, left: 270 }[north.face];
+  return (
+    `<g transform="rotate(${angle} ${n(cx)} ${n(cy)})">` +
+    `<path d="M ${n(cx)} ${n(cy - 13)} L ${n(cx + 5)} ${n(cy + 9)} L ${n(cx)} ${n(cy + 4)} L ${n(cx - 5)} ${n(cy + 9)} Z" fill="${ink.stroke}"/>` +
+    '</g>' +
+    `<text x="${n(cx)}" y="${n(cy + 22)}" text-anchor="middle" font-family="${ink.font}" font-size="10" fill="${ink.text}">N</text>`
+  );
+}
