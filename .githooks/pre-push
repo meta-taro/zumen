@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
-# push の前に、公開しないもの（開発の記録・会話・社内の呼び名）が入っていないかを止める。
+# push の前に、公開しないものが入っていないかを止める。
+# 1. 置き場所（全 OSS で同じ検査）: .github/scripts/oss-placement-check.sh
+# 2. 発言者の印・禁止語・commit メッセージ・.claude/ の外の非公開の道: .github/scripts/private-notes-check.sh（CI でも走る）
 # 有効にするのは `pnpm install`（package.json の prepare が core.hooksPath をここへ向ける）。
 set -uo pipefail
 zero=0000000000000000000000000000000000000000
 status=0
+bash .github/scripts/oss-placement-check.sh || status=1
 while read -r local_ref local_sha remote_ref remote_sha; do
   [ "$local_sha" = "$zero" ] && continue # 削除の push
   if [ "$remote_sha" = "$zero" ]; then
