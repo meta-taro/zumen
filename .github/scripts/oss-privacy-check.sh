@@ -37,6 +37,7 @@ SCAN_ALL="${OSS_SCAN_ALL_FILES:-}"
 EMAIL_RE='[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}'
 # 検査スクリプト自身は正規表現やドメイン例を含むため除外する
 SELF_RE='^\.github/(scripts/oss-privacy-check\.sh|workflows/oss-privacy-check\.yml)$'
+export SELF_RE
 
 fail=0
 note() { printf '%s\n' "$*" >&2; }
@@ -102,7 +103,9 @@ scan_to() {
 # 追加行からメールを拾う。**同じ行に複数あっても取りこぼさない。**
 scan_emails() {
   # 拡張子の一覧は **shell 側の `FILE_EXT` が正本**。ここに書き写さない。
-  printf '%s\n' "$added" | awk -F'\t' -v self="$SELF_RE" -v exts="$FILE_EXT" '
+  printf '%s\n' "$added" | awk -F'\t' -v exts="$FILE_EXT" '
+    # self は ENVIRON から読む。`-v` で渡すと `\.` が逃げ文字として読まれ、awk が毎回警告を出していた
+    BEGIN { self = ENVIRON["SELF_RE"] }
     # 末尾がファイルの拡張子なら、住所ではなくファイル名。
     function looks_like_file(found,   tail) {
       tail = tolower(found)
@@ -141,7 +144,9 @@ scan_emails() {
 #
 # 正規表現は使わない。**禁止語に記号が入っていても壊れないため。**
 scan_deny_words() {
-  printf '%s\n' "$added" | awk -F'\t' -v self="$SELF_RE" -v wordsfile="$1" '
+  printf '%s\n' "$added" | awk -F'\t' -v wordsfile="$1" '
+    # self は ENVIRON から読む。`-v` で渡すと `\.` が逃げ文字として読まれ、awk が毎回警告を出していた
+    BEGIN { self = ENVIRON["SELF_RE"] }
     function alnum(c) { return (c >= "a" && c <= "z") || (c >= "0" && c <= "9") }
     function bounded(hay, needle,   from, at, before, after) {
       from = 1
