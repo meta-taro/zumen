@@ -9,6 +9,7 @@ title: 計装ループ図（TIC-101・熱交換器の出口温度制御）
 # 変量の文字（T ＝ 温度）＋機能の文字（I ＝ 指示、C ＝ 調節）＋個別番号。
 # **JIS Z 8204:1983** は、これを直径 10mm の丸の中へ、
 # 上に文字記号・下に個別番号と決めている。
+# 調節計の 4〜20mA を空気の信号へ直すポジショナは**変換器**なので、機能の文字は Y（TY-101。JIS Z 8204:1983 の機能記号）。
 #
 # ## 4〜20mA なのは、0 を空けておくため
 #
@@ -50,9 +51,9 @@ nodes:
     group: genba
   - id: posi
     type: generic
-    label: ポジショナ
-    tag: ZT-101
-    technology: 電空・開度発信
+    label: 電空ポジショナ
+    tag: TY-101
+    technology: 4-20mA → 空気信号
     group: genba
   - id: tic
     type: cluster

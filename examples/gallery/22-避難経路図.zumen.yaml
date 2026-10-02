@@ -11,7 +11,8 @@ north: up
 #
 # ## 歩行距離は、壁を回り込んで測る
 #
-# 21m は直線距離ではなく、**実際に歩く道のり**。
+# 約 11m は直線距離ではなく、**実際に歩く道のり**（事務室の北西の隅 → 扉 → 廊下 → EX-1 の扉。
+# 1px＝25mm で測って 10.9m。いちばん遠い居室の隅から、近いほうの階段の入口まで）。
 # 消火器の歩行距離 20m と同じ測り方で、消火栓の水平距離 25m とは別
 # （見本 119 に、同じ階で 2 つの測り方が並べてある）。
 #
@@ -19,7 +20,7 @@ north: up
 #
 # 火災時は停止するので、格子で塗って「避難に使わない」と示してある。
 # 階段と EV は**竪穴区画**（令 112 条）—— 煙がいちばん速く上がる道だから、
-# 区画して特定防火設備で閉じる（見本 220）。
+# 準耐火構造の床・壁か防火設備で区画する（令 112 条 11 項。特定防火設備でなくてよい）。
 #
 # **防火戸が閉まったあとの経路**は、この図とは変わる（見本 220）。
 grid:
@@ -35,7 +36,7 @@ grid:
     - { id: Y4, at: 400 }
 groups:
   - id: f3
-    label: 3 階　避難口 2 か所　最遠点からの歩行距離 21m　格子＝避難に使わない
+    label: 3 階　避難口 2 か所　最遠点からの歩行距離 約 11m　格子＝避難に使わない
 nodes:
   - id: jimu
     label: 事務室
@@ -109,14 +110,51 @@ nodes:
     group: f3
     openings:
       - { kind: door, side: top, at: 0.5, width: 50 }
+  - id: a_jimu
+    label: ""
+    marker: none
+    at: { x: 231, y: 189 }
+    size: { w: 2, h: 2 }
+  - id: a_kaigi
+    label: ""
+    marker: none
+    at: { x: 369, y: 189 }
+    size: { w: 2, h: 2 }
+  - id: a_shoku
+    label: ""
+    marker: none
+    at: { x: 539, y: 189 }
+    size: { w: 2, h: 2 }
+  - id: a_w
+    label: ""
+    marker: none
+    at: { x: 63, y: 339 }
+    size: { w: 2, h: 2 }
+  - id: a_e
+    label: ""
+    marker: none
+    at: { x: 523, y: 339 }
+    size: { w: 2, h: 2 }
+  - id: a_e2
+    label: ""
+    marker: none
+    at: { x: 541, y: 339 }
+    size: { w: 2, h: 2 }
 edges:
-  - from: jimu
-    to: rouka
-  - from: kaigi
-    to: rouka
-  - from: shokudo
-    to: rouka
-  - from: rouka
-    to: kaidan_w
-  - from: rouka
-    to: kaidan_e
+  - from: a_jimu
+    to: a_w
+    curve: none
+    via:
+      - { x: 232, y: 255 }
+      - { x: 64, y: 255 }
+  - from: a_kaigi
+    to: a_e
+    curve: none
+    via:
+      - { x: 370, y: 250 }
+      - { x: 524, y: 250 }
+  - from: a_shoku
+    to: a_e2
+    curve: none
+    via:
+      - { x: 542, y: 262 }

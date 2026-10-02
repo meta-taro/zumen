@@ -34,7 +34,8 @@ title: 等角図を、座標に z を書いて組む
 #
 # 実物の図面は、奥の物に隠れた辺を**破線**にする。**機械は判定しない**
 # （どれが隠れるかは意味の判断）—— 書いた人が `line: dashed` で書く。
-# ここでは奥の 3 本をそうしてある。
+# ここでは奥の 3 本をそうしてある —— 見えない角 a（x・y が小さく z が 0、紙の上では手前の角 g と重なる）から
+# 出る 3 本（a–b・a–d・a–e）。上面と、x の大きい面、y の大きい面の 9 本が見える。
 nodes:
   - id: a
     label: ""
@@ -115,13 +116,13 @@ nodes:
 edges:
   - from: a
     to: b
+    line: dashed
     ends: { from: none, to: none }
   - from: b
     to: c
     ends: { from: none, to: none }
   - from: c
     to: d
-    line: dashed
     ends: { from: none, to: none }
   - from: d
     to: a
@@ -141,6 +142,7 @@ edges:
     ends: { from: none, to: none }
   - from: a
     to: e
+    line: dashed
     ends: { from: none, to: none }
   - from: b
     to: f
@@ -150,5 +152,4 @@ edges:
     ends: { from: none, to: none }
   - from: d
     to: h
-    line: dashed
     ends: { from: none, to: none }

@@ -1486,11 +1486,11 @@ nodes:
     at: { x: 590, y: 916 }
     size: { w: 120, h: 34 }
   - id: q3a
-    label: "大きいほう"
+    label: "大きさで分ける"
     at: { x: 590, y: 984 }
     size: { w: 140, h: 34 }
   - id: q3b
-    label: "軽いほう"
+    label: "重さで分ける"
     at: { x: 590, y: 1050 }
     size: { w: 140, h: 34 }
   - id: a500
@@ -2010,13 +2010,17 @@ edges:
     label: "ない"
   - from: q3a
     to: a500
+    label: 大きい
     curve: none
   - from: q3a
     to: a100
+    label: 小さい
     curve: none
   - from: q3b
     to: a1
+    label: 軽い
     curve: none
   - from: q3b
     to: a10
+    label: 重い
     curve: none

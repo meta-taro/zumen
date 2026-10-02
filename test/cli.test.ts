@@ -161,7 +161,7 @@ nodes:
    * 書いてあった（見本 129〜134 で 3 枚続けて踏んだときの記述）。
    * **いまは鳴る。** 2026-09-19 に見本 190 を描いていて、
    * 注記が図の名前に乗ったのを検証器が言った ——
-   * **古い記述は、動いている検査を信じさせなくする**（ベースルール §10）。
+   * **古い記述は、動いている検査を信じさせなくする**。
    *
    * 鳴ることをここで留めておく。留めておかないと、また記述だけが古くなる。
    */
@@ -416,7 +416,7 @@ describe('変換の口', () => {
     assert.match(written['z.svg'] ?? '', /^<svg/);
   });
 
-  it('**`--embed-font` を付けたときだけ**、書体が SVG に入る（D44）', async () => {
+  it('**`--embed-font` を付けたときだけ**、書体が SVG に入る', async () => {
     const plain = io({ 'z.zumen.yaml': DIAGRAM });
     await runSvg(['z.zumen.yaml'], plain.read, plain.write);
     assert.doesNotMatch(plain.written['z.svg'] ?? '', /@font-face/);

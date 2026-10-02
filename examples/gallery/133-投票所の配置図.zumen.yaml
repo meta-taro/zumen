@@ -136,7 +136,7 @@ nodes:
     size: { w: 110, h: 56 }
   - id: wheel
     label: 車椅子用記載台
-    technology: 高さ 700・幅 900
+    technology: 車椅子のまま膝が入る
     at: { x: 130, y: 400 }
     size: { w: 140, h: 60 }
   - id: braille
@@ -191,9 +191,18 @@ edges:
     to: kd3
   - from: kd3
     to: kb3
+  # 列の間の通路を通して次の交付係へ回す。斜めに引くと記載台を突っ切る絵になる
   - from: kb1
     to: kf2
+    via:
+      - { x: 636, y: 238 }
+      - { x: 366, y: 238 }
+      - { x: 366, y: 317 }
   - from: kb2
     to: kf3
+    via:
+      - { x: 636, y: 378 }
+      - { x: 366, y: 378 }
+      - { x: 366, y: 457 }
   - from: kb3
     to: out

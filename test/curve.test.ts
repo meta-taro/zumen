@@ -19,7 +19,7 @@
  * ## 値は形の名前だけ
  *
  * `curve: river`（河川）のような**意味の語は足さない**。
- * D22 で断った語彙の増殖が、そこから始まる。
+ * 断っている「業界ごとの語彙の増殖」が、そこから始まる。
  */
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';

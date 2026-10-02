@@ -6,18 +6,18 @@
 <title>等角図を、座標に z を書いて組む — zumen の見本 349</title>
 <link rel="icon" type="image/svg+xml" href="../../icon.svg">
 <meta name="theme-color" content="#23232b">
-<meta name="description" content="等角図を、座標に z を書いて組む。一辺 140 の立方体を等角図で描き、8 つの隅を x・y・z の座標だけで置いて 12 本の辺で結び、奥に隠れる 3 本を破線にした図。x を 100 進めると紙では右へ 86.6・下へ 50、y は左へ 86.6・下へ 50…">
+<meta name="description" content="等角図を、座標に z を書いて組む。実物の図面は、奥の物に隠れた辺を破線にする。機械は判定しない（どれが隠れるかは意味の判断）—— 書いた人が line: dashed で書く。ここでは奥の 3 本をそうしてある —— 見えない角 a（x・y が小さく z が 0…">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="zumen">
 <meta property="og:locale" content="ja_JP">
 <meta property="og:url" content="https://meta-taro.github.io/zumen/g/349/">
 <meta property="og:title" content="等角図を、座標に z を書いて組む — zumen の見本 349">
-<meta property="og:description" content="等角図を、座標に z を書いて組む。一辺 140 の立方体を等角図で描き、8 つの隅を x・y・z の座標だけで置いて 12 本の辺で結び、奥に隠れる 3 本を破線にした図。x を 100 進めると紙では右へ 86.6・下へ 50、y は左へ 86.6・下へ 50…">
+<meta property="og:description" content="等角図を、座標に z を書いて組む。実物の図面は、奥の物に隠れた辺を破線にする。機械は判定しない（どれが隠れるかは意味の判断）—— 書いた人が line: dashed で書く。ここでは奥の 3 本をそうしてある —— 見えない角 a（x・y が小さく z が 0…">
 <meta property="og:image" content="https://meta-taro.github.io/zumen/og/349.png">
 <meta property="og:image:alt" content="一辺 140 の立方体を等角図で描き、8 つの隅を x・y・z の座標だけで置いて 12 本の辺で結び、奥に隠れる 3 本を破線にした図。x を 100 進めると紙では右へ 86.6・下へ 50、y は左へ 86.6・下へ 50、z は真上へ 100 という等角図の約束を…">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="等角図を、座標に z を書いて組む — zumen の見本 349">
-<meta name="twitter:description" content="等角図を、座標に z を書いて組む。一辺 140 の立方体を等角図で描き、8 つの隅を x・y・z の座標だけで置いて 12 本の辺で結び、奥に隠れる 3 本を破線にした図。x を 100 進めると紙では右へ 86.6・下へ 50、y は左へ 86.6・下へ 50…">
+<meta name="twitter:description" content="等角図を、座標に z を書いて組む。実物の図面は、奥の物に隠れた辺を破線にする。機械は判定しない（どれが隠れるかは意味の判断）—— 書いた人が line: dashed で書く。ここでは奥の 3 本をそうしてある —— 見えない角 a（x・y が小さく z が 0…">
 <meta name="twitter:image" content="https://meta-taro.github.io/zumen/og/349.png">
 <meta name="twitter:image:alt" content="一辺 140 の立方体を等角図で描き、8 つの隅を x・y・z の座標だけで置いて 12 本の辺で結び、奥に隠れる 3 本を破線にした図。x を 100 進めると紙では右へ 86.6・下へ 50、y は左へ 86.6・下へ 50、z は真上へ 100 という等角図の約束を…">
 <link rel="stylesheet" href="../../style.css">
@@ -35,7 +35,7 @@
     "@type": "CreativeWork",
     "name": "等角図を、座標に z を書いて組む",
     "headline": "等角図を、座標に z を書いて組む",
-    "description": "等角図を、座標に z を書いて組む。一辺 140 の立方体を等角図で描き、8 つの隅を x・y・z の座標だけで置いて 12 本の辺で結び、奥に隠れる 3 本を破線にした図。x を 100 進めると紙では右へ 86.6・下へ 50、y は左へ 86.6・下へ 50…",
+    "description": "等角図を、座標に z を書いて組む。実物の図面は、奥の物に隠れた辺を破線にする。機械は判定しない（どれが隠れるかは意味の判断）—— 書いた人が line: dashed で書く。ここでは奥の 3 本をそうしてある —— 見えない角 a（x・y が小さく z が 0…",
     "url": "https://meta-taro.github.io/zumen/g/349/",
     "image": {
       "@type": "ImageObject",
@@ -119,7 +119,7 @@
   <p>197（等角図と三面図）は、この掛け算を<strong>人が電卓で出して 104 点を手打ち</strong>している（<code>399 + 100 × cos30° = 485.6</code>）。<strong>ここは z を書くだけ。</strong></p>
   <p><strong><code>projection</code> が落とすのは点の位置だけ。</strong> <code>size: { w, h }</code> の箱は紙の上で軸に平行な長方形のままなので、<strong>立体の面にはならない。</strong>だから立体は<strong>点と線で組む</strong> —— 197 も同じ描き方をしている。</p>
   <p>面を塗りたくなったら、そのとき <code>box</code> を平行四辺形へ落とす話をする。<strong>いまは当たっていないので足さない。</strong></p>
-  <p>実物の図面は、奥の物に隠れた辺を<strong>破線</strong>にする。<strong>機械は判定しない</strong>（どれが隠れるかは意味の判断）—— 書いた人が <code>line: dashed</code> で書く。ここでは奥の 3 本をそうしてある。</p>
+  <p>実物の図面は、奥の物に隠れた辺を<strong>破線</strong>にする。<strong>機械は判定しない</strong>（どれが隠れるかは意味の判断）—— 書いた人が <code>line: dashed</code> で書く。ここでは奥の 3 本をそうしてある —— 見えない角 a（x・y が小さく z が 0、紙の上では手前の角 g と重なる）から出る 3 本（a–b・a–d・a–e）。上面と、x の大きい面、y の大きい面の 9 本が見える。</p>
   <h2>正本（YAML）</h2>
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/349-%E7%AD%89%E8%A7%92%E5%9B%B3%E3%82%92z%E3%81%A7%E7%B5%84%E3%82%80.zumen.yaml"><code>examples/gallery/349-等角図をzで組む.zumen.yaml</code></a></p>
   <h2>同じ分野の見本</h2>

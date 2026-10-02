@@ -43,7 +43,7 @@ styles:
 # | 和室 | 畳 8 枚の敷き方（0.91m × 1.82m）。**畳は広さを数える単位でもある** |
 # | 外構 | 駐車場の車（2.5m × 5.0m）、アプローチの敷石、庭の木、デッキ |
 #
-# 帖は ㎡ ÷ 1.62。延床は 1F・2F とも 5 間 × 4 間 ＝ 9.10m × 7.28m ＝ 66.24㎡。
+# 帖は ㎡ ÷ 1.62 を小数第 1 位で切り捨て（不動産の表示に関する公正競争規約施行規則 第 9 条第 16 号：1 帖 1.62㎡ 以上）。延床は 1F・2F とも 5 間 × 4 間 ＝ 9.10m × 7.28m ＝ 66.24㎡。
 #
 # 見せ方は見本 359〜361 と同じ**見せ方の表（styles）**で書いた。
 # 床の模様は rows（フローリング・デッキ）・grid（タイル・敷石）・dots（庭の土と芝）。
@@ -178,13 +178,21 @@ nodes:
     marker: none
     at: { x: 412.8, y: 175.8 }
     size: { w: 2, h: 2 }
+  # 1 階の WC は台所へ直に開けない。間に小さな前室（ホール）を挟み、LDK から戸を 1 枚隔てて入る。
+  - id: wch
+    label: ""
+    style: room
+    at: { x: 436.5, y: 215.5 }
+    size: { w: 22.7, h: 45.5 }
+    openings:
+      - { kind: slide, side: bottom, at: 0.5, width: 18 }
   - id: wc1
     label: "WC"
     style: wet
     at: { x: 436.5, y: 170 }
     size: { w: 22.7, h: 45.5 }
     openings:
-      - { kind: slide, side: bottom, at: 0.5, width: 18 }
+      - { kind: door, side: bottom, at: 0.5, width: 18, swing: out }
   - id: pan
     label: "Pantry"
     style: storage
@@ -211,13 +219,13 @@ nodes:
   - id: kit
     label: ""
     style: living
-    at: { x: 436.5, y: 215.5 }
-    size: { w: 91, h: 45.5 }
+    at: { x: 459.2, y: 215.5 }
+    size: { w: 68.3, h: 45.5 }
     openings:
-      - { kind: open, side: bottom, at: 0.5, width: 80 }
+      - { kind: open, side: bottom, at: 0.5, width: 60 }
   - id: ldk
     label: "LDK"
-    technology: "16.4帖（K 含む）"
+    technology: "15.3帖（K 含む）"
     style: living
     at: { x: 391, y: 261 }
     size: { w: 136.5, h: 91 }
@@ -226,7 +234,7 @@ nodes:
       - { kind: window, side: right, at: 0.5, width: 50 }
   - id: wa
     label: "和室"
-    technology: "8.2帖"
+    technology: "8.1帖"
     style: tatami
     at: { x: 300, y: 261 }
     size: { w: 91, h: 91 }
@@ -348,7 +356,7 @@ nodes:
     size: { w: 40, h: 16 }
   - id: bed1
     label: "洋室 1"
-    technology: "8.2帖"
+    technology: "8.1帖"
     style: room
     at: { x: 600, y: 170 }
     size: { w: 91, h: 91 }
@@ -393,7 +401,7 @@ nodes:
     size: { w: 136.5, h: 27.3 }
   - id: bed2
     label: "洋室 2"
-    technology: "8.6帖"
+    technology: "8.5帖"
     style: room
     at: { x: 600, y: 288.3 }
     size: { w: 136.5, h: 63.7 }
@@ -402,7 +410,7 @@ nodes:
       - { kind: window, side: bottom, at: 0.4, width: 60 }
   - id: mbed
     label: "主寝室"
-    technology: "12.3帖"
+    technology: "12.2帖"
     style: room
     at: { x: 736.5, y: 215.5 }
     size: { w: 91, h: 136.5 }

@@ -26,7 +26,7 @@ const SCRIPT = new URL('../.github/scripts/oss-privacy-check.sh', import.meta.ur
 const at = (local: string, domain: string): string => `${local}@${domain}`;
 
 const NOREPLY = at('meta-taro', 'users.noreply.github.com');
-/** AI の Co-Authored-By 用。許可リストに 1 個だけ入っている（D8） */
+/** AI の Co-Authored-By 用。許可リストに 1 個だけ入っている */
 const BOT = at('noreply', 'anthropic.com');
 /** BOT と同じドメインの別アドレス。**許可されていないこと**を確かめるために使う */
 const SAME_DOMAIN = at('eve', 'anthropic.com');

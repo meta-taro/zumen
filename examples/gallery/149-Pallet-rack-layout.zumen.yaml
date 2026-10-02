@@ -8,13 +8,15 @@ grid:
     - { id: A, at: 72 }
     - { id: B, at: 360 }
   y:
-    - { id: 1, at: 78 }
-    - { id: 2, at: 123 }
-    - { id: 3, at: 195 }
+    - { id: 1, at: 76.5 }
+    - { id: 2, at: 127.5 }
+    - { id: 3, at: 199.5 }
 # **The truck decides the aisle, and the aisle decides the building.**
 #
 # Aisle width is not a preference: head length + load length + 12 in to
-# manoeuvre + 6 in of pallet overhang. Narrow it and you gain pallet positions
+# manoeuvre + 6 in of pallet overhang. **Aisles and flues are measured between
+# loads, not between uprights** —— with 3 in of overhang front and back, the
+# uprights of a back-to-back pair stand 12 in apart to leave a 6 in flue. Narrow it and you gain pallet positions
 # per square foot —— and you pay for a more expensive truck.
 #
 # **日本語の見本 34（倉庫のロケーション）と対。** あちらは番地の付け方、
@@ -34,33 +36,33 @@ nodes:
   - id: rkB1
     label: ""
     hatch: lines
-    at: { x: 72, y: 102 }
+    at: { x: 72, y: 105 }
     size: { w: 288, h: 21 }
   - id: rkA2
     label: ""
     hatch: lines
-    at: { x: 72, y: 195 }
+    at: { x: 72, y: 201 }
     size: { w: 288, h: 21 }
   - id: rkB2
     label: ""
     hatch: lines
-    at: { x: 72, y: 219 }
+    at: { x: 72, y: 228 }
     size: { w: 288, h: 21 }
   - id: aisle
     label: ""
     hatch: dots
-    at: { x: 72, y: 123 }
+    at: { x: 72, y: 127.5 }
     size: { w: 288, h: 72 }
   - id: p1
     label: ""
     hatch: solid
-    at: { x: 169, y: 79 }
-    size: { w: 20, h: 19 }
+    at: { x: 169, y: 76.5 }
+    size: { w: 20, h: 24 }
   - id: p2
     label: ""
     hatch: solid
-    at: { x: 193, y: 79 }
-    size: { w: 20, h: 19 }
+    at: { x: 193, y: 76.5 }
+    size: { w: 20, h: 24 }
   - id: lb
     label: "one bay 8'-0\"  =  two 40 in pallets"
     marker: none
@@ -77,7 +79,7 @@ nodes:
     label: "6 in flue"
     marker: none
     align: left
-    at: { x: 370, y: 95 }
+    at: { x: 370, y: 92 }
     size: { w: 110, h: 18 }
   - id: h60
     label: "AISLE  (the truck decides)"
@@ -157,7 +159,7 @@ nodes:
     at: { x: 514, y: 272 }
     size: { w: 200, h: 22 }
   - id: b272
-    label: "6 in"
+    label: "6 in between loads"
     align: left
     at: { x: 714, y: 272 }
     size: { w: 220, h: 22 }

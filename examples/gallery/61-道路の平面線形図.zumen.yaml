@@ -5,74 +5,96 @@ title: 市道 3 号線 平面線形図（No.0 〜 No.9・W=8,800）
 # 道路の平面線形。**曲がっていること自体が内容**なので、直角では代用できない。
 # 中心線と両側の車道端を via（通り道）で通し、curve: smooth で丸めている。
 # 車道端の始まりと終わりにも点を置く —— 置かないと、端で道幅が絞れて見える。
-# 測点は 20m ごと。曲線諸元は右下の注記。
+# 測点は 20m ごと。曲線は IP.1 の単曲線 1 つ（R=200m、交角 I=37°47′）で、
+# 接線長 TL＝R·tan(I/2)＝68.4m、曲線長 CL＝R·I＝131.9m。BC は No.1＋10.0（30m）なので
+# EC は 30＋131.9＝161.9m＝No.8＋1.9。図は 1m＝4.5px で、R も測点の間隔もこの縮尺で描いてある。
 nodes:
   - id: st
     label: "起点 No.0"
     marker: circle
-    at: { x: 44, y: 284 }
+    at: { x: 54, y: 284 }
     size: { w: 32, h: 32 }
   - id: en
     label: "終点 No.9"
     marker: circle
-    at: { x: 944, y: 314 }
+    at: { x: 842, y: 267 }
     size: { w: 32, h: 32 }
   - id: la
     label: ""
     marker: none
-    at: { x: 58, y: 276 }
+    at: { x: 62, y: 279 }
     size: { w: 4, h: 4 }
   - id: lb
     label: ""
     marker: none
-    at: { x: 974, y: 313 }
+    at: { x: 862, y: 262 }
     size: { w: 4, h: 4 }
   - id: ra
     label: ""
     marker: none
-    at: { x: 58, y: 320 }
+    at: { x: 74, y: 317 }
     size: { w: 4, h: 4 }
   - id: rb
     label: ""
     marker: none
-    at: { x: 942, y: 343 }
+    at: { x: 849, y: 299 }
     size: { w: 4, h: 4 }
   - id: sta1
     label: "No.1"
     marker: none
-    at: { x: 188, y: 251 }
-    size: { w: 8, h: 8 }
+    at: { x: 120, y: 222 }
+    size: { w: 44, h: 18 }
   - id: sta2
     label: "No.2"
     marker: none
-    at: { x: 314, y: 206 }
-    size: { w: 8, h: 8 }
+    at: { x: 207, y: 194 }
+    size: { w: 44, h: 18 }
   - id: sta3
     label: "No.3"
     marker: none
-    at: { x: 447, y: 104 }
-    size: { w: 8, h: 8 }
+    at: { x: 299, y: 172 }
+    size: { w: 44, h: 18 }
   - id: sta4
     label: "No.4"
     marker: none
-    at: { x: 616, y: 70 }
-    size: { w: 8, h: 8 }
+    at: { x: 392, y: 160 }
+    size: { w: 44, h: 18 }
   - id: sta5
     label: "No.5"
     marker: none
-    at: { x: 775, y: 104 }
-    size: { w: 8, h: 8 }
+    at: { x: 486, y: 157 }
+    size: { w: 44, h: 18 }
   - id: sta6
     label: "No.6"
     marker: none
-    at: { x: 907, y: 202 }
-    size: { w: 8, h: 8 }
+    at: { x: 580, y: 164 }
+    size: { w: 44, h: 18 }
+  - id: sta7
+    label: "No.7"
+    marker: none
+    at: { x: 673, y: 180 }
+    size: { w: 44, h: 18 }
+  - id: sta8
+    label: "No.8"
+    marker: none
+    at: { x: 764, y: 205 }
+    size: { w: 44, h: 18 }
+  - id: m_bc
+    label: "BC"
+    marker: none
+    at: { x: 189, y: 287 }
+    size: { w: 44, h: 18 }
+  - id: m_ec
+    label: "EC"
+    marker: none
+    at: { x: 745, y: 287 }
+    size: { w: 44, h: 18 }
   - id: shogen
-    label: "曲線諸元"
-    tag: BC No.2＋10.0
-    technology: R=200 A=90 TL=68.4 CL=131.9
-    at: { x: 700, y: 330 }
-    size: { w: 220, h: 60 }
+    label: "曲線諸元（IP.1）"
+    tag: BC No.1＋10.0　EC No.8＋1.9
+    technology: I=37°47′ R=200 TL=68.4 CL=131.9
+    at: { x: 560, y: 330 }
+    size: { w: 290, h: 60 }
   - id: haba
     label: "幅員 W=8,800（車道 7,000 ＋ 路肩 900×2）"
     marker: none
@@ -84,31 +106,40 @@ edges:
     curve: smooth
     weight: thick
     via:
-      - { x: 200, y: 300 }
-      - { x: 340, y: 250 }
-      - { x: 470, y: 150 }
-      - { x: 620, y: 120 }
-      - { x: 760, y: 150 }
-      - { x: 880, y: 240 }
+      - { x: 198, y: 256 }
+      - { x: 269, y: 235 }
+      - { x: 341, y: 220 }
+      - { x: 415, y: 211 }
+      - { x: 489, y: 208 }
+      - { x: 563, y: 211 }
+      - { x: 637, y: 220 }
+      - { x: 709, y: 235 }
+      - { x: 781, y: 256 }
   - from: la
     to: lb
     curve: smooth
     line: dashed
     via:
-      - { x: 196, y: 278 }
-      - { x: 329, y: 231 }
-      - { x: 461, y: 130 }
-      - { x: 620, y: 98 }
-      - { x: 769, y: 130 }
-      - { x: 895, y: 224 }
+      - { x: 191, y: 238 }
+      - { x: 264, y: 216 }
+      - { x: 338, y: 200 }
+      - { x: 413, y: 191 }
+      - { x: 489, y: 188 }
+      - { x: 565, y: 191 }
+      - { x: 640, y: 200 }
+      - { x: 714, y: 216 }
+      - { x: 787, y: 238 }
   - from: ra
     to: rb
     curve: smooth
     line: dashed
     via:
-      - { x: 204, y: 322 }
-      - { x: 351, y: 269 }
-      - { x: 479, y: 170 }
-      - { x: 620, y: 142 }
-      - { x: 751, y: 170 }
-      - { x: 865, y: 256 }
+      - { x: 204, y: 275 }
+      - { x: 274, y: 254 }
+      - { x: 345, y: 240 }
+      - { x: 417, y: 231 }
+      - { x: 489, y: 228 }
+      - { x: 562, y: 231 }
+      - { x: 634, y: 240 }
+      - { x: 705, y: 254 }
+      - { x: 774, y: 275 }

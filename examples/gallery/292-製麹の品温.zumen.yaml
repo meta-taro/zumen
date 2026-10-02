@@ -4,7 +4,7 @@ arrows: true
 title: 製麹の品温（時計ではなく、温度で次へ進む）
 # **製麹は、2 日かけて品温を登らせる作業。**
 # 引込（蒸米を麹室へ入れる。約 35℃）→ 種切り・床もみ（麹菌をふる。約 32℃）→
-# **切り返し**（床もみから 10〜12 時間。32〜34℃）→ **盛**（12〜14 時間。約 35℃）→
+# **切り返し**（床もみから 10〜12 時間。32〜34℃）→ **盛**（切り返しから 12〜14 時間。約 35℃）→
 # **仲仕事**（盛から 6〜8 時間。35〜37℃）→ **仕舞仕事**（さらに 4〜6 時間。38〜40℃）→
 # **出麹**（さらに 8〜12 時間。**最高 40〜43℃**）。
 #
@@ -176,7 +176,7 @@ nodes:
   - id: p13
     label: ""
     marker: none
-    at: { x: 633, y: 329 }
+    at: { x: 696, y: 329 }
     size: { w: 2, h: 2 }
   - id: k0
     label: ""
@@ -194,73 +194,73 @@ nodes:
     label: ""
     marker: circle
     hatch: solid
-    at: { x: 295, y: 524 }
+    at: { x: 286, y: 524 }
     size: { w: 12, h: 12 }
   - id: k1n
     label: "種切り・床もみ"
     marker: none
     align: left
-    at: { x: 313, y: 542 }
+    at: { x: 304, y: 542 }
     size: { w: 140, h: 18 }
   - id: k2
     label: ""
     marker: circle
     hatch: solid
-    at: { x: 367, y: 504 }
+    at: { x: 385, y: 504 }
     size: { w: 12, h: 12 }
   - id: k2n
     label: "切り返し"
     marker: none
     align: right
-    at: { x: 273, y: 476 }
+    at: { x: 291, y: 476 }
     size: { w: 140, h: 18 }
   - id: k3
     label: ""
     marker: circle
     hatch: solid
-    at: { x: 385, y: 464 }
+    at: { x: 502, y: 464 }
     size: { w: 12, h: 12 }
   - id: k3n
     label: "盛"
     marker: none
     align: left
-    at: { x: 403, y: 498 }
+    at: { x: 520, y: 478 }
     size: { w: 140, h: 18 }
   - id: k4
     label: ""
     marker: circle
     hatch: solid
-    at: { x: 448, y: 444 }
+    at: { x: 565, y: 444 }
     size: { w: 12, h: 12 }
   - id: k4n
     label: "仲仕事"
     marker: none
     align: right
-    at: { x: 354, y: 414 }
+    at: { x: 430, y: 420 }
     size: { w: 140, h: 18 }
   - id: k5
     label: ""
     marker: circle
     hatch: solid
-    at: { x: 493, y: 384 }
+    at: { x: 610, y: 384 }
     size: { w: 12, h: 12 }
   - id: k5n
     label: "仕舞仕事"
     marker: none
     align: left
-    at: { x: 511, y: 416 }
+    at: { x: 588, y: 418 }
     size: { w: 140, h: 18 }
   - id: k6
     label: ""
     marker: circle
     hatch: solid
-    at: { x: 628, y: 324 }
+    at: { x: 691, y: 324 }
     size: { w: 12, h: 12 }
   - id: k6n
     label: "出麹"
     marker: none
     align: right
-    at: { x: 534, y: 298 }
+    at: { x: 551, y: 298 }
     size: { w: 140, h: 18 }
   - id: cap1
     label: "登りきった所で止める。 40〜43℃ を超えると麹菌が弱り、下げすぎると酵素が出ない。"
@@ -366,7 +366,7 @@ nodes:
     at: { x: 820, y: 258 }
     size: { w: 160, h: 24 }
   - id: y820_258
-    label: "10〜12 時間 ／ 32〜34℃"
+    label: "床もみから 10〜12 時間 ／ 32〜34℃"
     align: left
     at: { x: 980, y: 258 }
     size: { w: 290, h: 24 }
@@ -375,7 +375,7 @@ nodes:
     at: { x: 820, y: 282 }
     size: { w: 160, h: 24 }
   - id: y820_282
-    label: "12〜14 時間 ／ 約 35℃"
+    label: "切り返しから 12〜14 時間 ／ 約 35℃"
     align: left
     at: { x: 980, y: 282 }
     size: { w: 290, h: 24 }
@@ -570,8 +570,8 @@ edges:
     weight: thick
     ends: { from: none, to: none }
     via:
-      - { x: 301, y: 530 }
-      - { x: 373, y: 510 }
-      - { x: 391, y: 470 }
-      - { x: 454, y: 450 }
-      - { x: 499, y: 390 }
+      - { x: 292, y: 530 }
+      - { x: 391, y: 510 }
+      - { x: 508, y: 470 }
+      - { x: 571, y: 450 }
+      - { x: 616, y: 390 }

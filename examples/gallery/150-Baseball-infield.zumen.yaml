@@ -12,12 +12,17 @@ scale: { in: 6 }
 # **The infield is fixed, the outfield is not** —— 400 ft to centre and 325 ft
 # down the lines are minimums, and every park past that is its own shape.
 #
-# Figures follow the published dimensions; the drawing is schematic.
+# Figures follow the published dimensions; the drawing is schematic
+# (bags and plate are drawn oversize so they can be seen). Distances are laid
+# out from the apex of the plate at the bottom of the diamond mark: the bag
+# centres sit 127.3 px (90 ft at 1 px = 6 in) along each axis, the mound centre
+# 59 ft out and the front of the rubber 18 in nearer, at 60 ft 6 in.
+# Source: Official Baseball Rules 2.01, 2.04 and Appendix 2 (MLB; checked 2026-10-02).
 nodes:
   - id: home
     label: ""
     marker: diamond
-    at: { x: 372, y: 592 }
+    at: { x: 372, y: 584 }
     size: { w: 16, h: 16 }
   - id: first
     label: "1B"
@@ -35,7 +40,7 @@ nodes:
     label: ""
     marker: circle
     radius: 18
-    at: { x: 371, y: 470 }
+    at: { x: 371, y: 473 }
     size: { w: 18, h: 18 }
   - id: plate
     label: "HOME"
@@ -61,7 +66,7 @@ nodes:
     label: "90'-0\""
     marker: none
     align: left
-    # **塁線がラベルの上を通っていた**（2026-09-24。qa/品質100周 第 8 周）。
+    # **塁線がラベルの上を通っていた**（2026-09-24）。
     # ホーム〜1B の線は y 510〜528 で x 471〜453 を通る。**外へ 72px 逃がした。**
     # 左右そろえるため、反対側も中心 x 397 の鏡の位置へ動かしてある。
     at: { x: 530, y: 510.36 }
@@ -77,7 +82,7 @@ nodes:
     marker: none
     align: left
     # ホーム〜2B の点線（x 405）が、この字の頭を縦に貫いていた
-    # （2026-09-24。qa/品質100周 第 9 周）。**点線の右へ 24px 逃がした。**
+    # （2026-09-24）。**点線の右へ 24px 逃がした。**
     at: { x: 420, y: 532 }
     size: { w: 220, h: 18 }
   - id: d4

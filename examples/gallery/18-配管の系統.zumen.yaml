@@ -6,8 +6,18 @@ title: 冷却水の系統（P&ID）
 #
 # ## 配管には 1 本ずつ番号が付く
 #
-# `2"-CS-101` のように、**口径・流体の記号・通し番号**を続けて書く。
-# 番号が無いと、現場で「この管」と指させない。
+# `3"-CWS-101` のように、**口径・流体の記号・通し番号**を続けて書く
+# （CWS は冷却水の往き、CWR は還り）。番号が無いと、現場で「この管」と指させない。
+#
+# ## ストレーナはポンプの吸込側
+#
+# 異物を羽根車へ入れないために置くので、**ポンプの手前**に付ける。
+# 吸込管は吐出管より細くしない（吸込側の抵抗はキャビテーションに直結する）。
+#
+# ## ループは 2 つある
+#
+# 製造ラインを回る**二次側**（冷却水槽 → ポンプ → 熱交換器 → 機械 → 槽へ還る）と、
+# その熱を冷却塔へ捨てる**一次側**。熱交換器が 2 つのループを分けている。
 #
 # ## ポンプが 2 台あるのは、1 台が予備だから
 #
@@ -30,6 +40,12 @@ nodes:
     tag: TK-101
     technology: 40 m³
     group: pit
+  - id: st101
+    type: generic
+    label: ストレーナ（吸込側）
+    tag: ST-101
+    technology: 各ポンプへ 3"-CWS-101／102
+    group: kikai
   - id: p101a
     type: generic
     label: 循環ポンプ
@@ -42,11 +58,6 @@ nodes:
     tag: P-101B
     technology: 3.7kW・予備
     group: kikai
-  - id: st101
-    type: generic
-    label: ストレーナ
-    tag: ST-101
-    group: kikai
   - id: hx101
     type: cluster
     label: 熱交換器
@@ -58,6 +69,11 @@ nodes:
     label: 冷却塔
     tag: CT-101
     group: kikai
+  - id: p102
+    type: generic
+    label: 冷却塔ポンプ
+    tag: P-102
+    group: kikai
   - id: tic
     type: generic
     label: 温度調節
@@ -65,40 +81,47 @@ nodes:
     group: kikai
   - id: mold
     type: generic
-    label: 成形機
+    label: 成形機（金型）
     tag: M-201
     group: process
-  - id: oven
+  - id: hyd
     type: generic
-    label: 乾燥炉
-    tag: OV-202
+    label: 油圧ユニット（油冷却器）
+    tag: HU-202
     group: process
 edges:
   - from: tk101
-    to: p101a
-    label: 2"-CS-101
-  - from: tk101
-    to: p101b
-    label: 2"-CS-102
-  - from: p101a
     to: st101
-  - from: p101b
-    to: st101
+    label: 4"-CWS-100
   - from: st101
+    to: p101a
+  - from: st101
+    to: p101b
+  - from: p101a
     to: hx101
-    label: 3"-CS-110
+    label: 3"-CWS-110
+  - from: p101b
+    to: hx101
+  - from: hx101
+    to: mold
+    label: 2"-CWS-201
+  - from: hx101
+    to: hyd
+    label: 2"-CWS-202
+  - from: mold
+    to: tk101
+    label: 2"-CWR-201
+  - from: hyd
+    to: tk101
+    label: 2"-CWR-202
+  - from: ct101
+    to: p102
+    label: 一次側
+  - from: p102
+    to: hx101
   - from: hx101
     to: ct101
-    label: 冷却
-  - from: ct101
-    to: tk101
-    label: 返り
+    label: 一次側 還り
   - from: tic
     to: hx101
     label: 制御
-  - from: hx101
-    to: mold
-    label: 3"-CS-201
-  - from: hx101
-    to: oven
-    label: 2"-CS-202

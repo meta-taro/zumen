@@ -13,6 +13,8 @@ title: 架空の鉄道 路線図（日本式・駅ナンバリング／水平・
 # **角度を 3 つ（水平・垂直・45 度）に絞るのは、折れ点を減らすため。**
 # 線が素直なほど、**折れていない所＝乗換駅**が目に入る。
 # 駅ナンバリングは、色が読めない人にも、路線名を読めない人にも同じように効く。
+# 乗換駅は路線ごとに番号を持つ（中央は H03 と S03）が、この図では丸に 1 つだけ書いた。
+# ◎ は 2 路線以上が止まる駅（桜台・中央・川手・港南）。
 palette:
   H: "#0072bc"
   S: "#e5171f"
@@ -32,14 +34,15 @@ nodes:
     label: 桜台
     tag: H02
     color: H
-    marker: circle
-    at: { x: 160, y: 240 }
-    size: { w: 34, h: 34 }
+    technology: L 線乗換
+    marker: double
+    at: { x: 155, y: 235 }
+    size: { w: 44, h: 44 }
   - id: chuo
     label: 中央
     tag: H03
     color: H
-    technology: 3 線乗換
+    technology: 2 線乗換
     marker: double
     at: { x: 280, y: 235 }
     size: { w: 44, h: 44 }
@@ -47,9 +50,10 @@ nodes:
     label: 川手
     tag: H04
     color: H
-    marker: circle
-    at: { x: 405, y: 240 }
-    size: { w: 34, h: 34 }
+    technology: L 線乗換
+    marker: double
+    at: { x: 400, y: 235 }
+    size: { w: 44, h: 44 }
   - id: higashi
     label: 東浜
     tag: H05
@@ -73,15 +77,15 @@ nodes:
     size: { w: 34, h: 34 }
   - id: minami1
     label: 南口
-    tag: S11
+    tag: S04
     color: S
     marker: circle
     at: { x: 285, y: 350 }
     size: { w: 34, h: 34 }
   - id: minami2
     label: 港南
-    tag: S12
-    technology: 環状線乗換
+    tag: S05
+    technology: L 線乗換
     color: S
     marker: double
     at: { x: 280, y: 445 }

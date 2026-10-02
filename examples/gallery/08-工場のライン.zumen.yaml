@@ -27,17 +27,17 @@ groups:
   - id: dashi
     label: 出荷判定
 nodes:
-  - id: nyuka
-    type: storage
-    label: 部材倉庫
-    tag: ST-01
-    technology: 先入れ先出し・3 日分
-    group: zairyo
   - id: kensyu
     type: generic
     label: 受入検査
     tag: OP-05
     technology: 抜き取り AQL1.0
+    group: zairyo
+  - id: nyuka
+    type: storage
+    label: 部材倉庫
+    tag: ST-01
+    technology: 先入れ先出し・3 日分
     group: zairyo
   - id: k1
     type: generic
@@ -81,11 +81,12 @@ nodes:
     tag: ST-90
     group: dashi
 edges:
-  - from: nyuka
-    to: kensyu
+  # **受入検査は倉庫に入れる前。** 検査前の部材が棚に混ざると、先入れ先出しで不良が先に出る
   - from: kensyu
-    to: k1
+    to: nyuka
     label: 合格のみ
+  - from: nyuka
+    to: k1
   - from: k1
     to: k2
   - from: k2

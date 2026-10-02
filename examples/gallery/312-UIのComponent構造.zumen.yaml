@@ -12,7 +12,7 @@ title: UI の Component 構造（木ではなく、網になる）
 # 直すと**刺さっている画面ぜんぶに効く**ので、直す前にここを見る。
 # 親が 1 本だけなら、その画面だけの都合で変えてよい。
 #
-# **これが「完成 UI ではなく構造を残す」ということ**（`.claude/rules/UIワイヤーフレームの方針.md` §11）。
+# **これが「完成 UI ではなく構造を残す」ということ。**
 # 見た目は何度でも作り直されるが、**画面と Component と、その関係は残る。**
 # この図を正として「React / Vue / Flutter で実装してください」と渡せる。
 #
@@ -52,7 +52,7 @@ nodes:
   - id: price
     type: generic
     label: Price
-    technology: 親 2 —— 表示の規則を 1 か所に
+    technology: 親 3 —— 表示の規則を 1 か所に
   - id: qty
     type: generic
     label: QuantityStepper
@@ -64,7 +64,7 @@ nodes:
   - id: button
     type: generic
     label: Button
-    technology: 親 3 —— いちばん奥の部品
+    technology: 親 4 —— いちばん奥の部品
 edges:
   - from: list
     to: header
@@ -79,6 +79,11 @@ edges:
   - from: detail
     to: card
     label: 関連商品
+  # 詳細ページは本体の価格と「カートに入れる」を自分で持つ（関連商品のカードとは別）
+  - from: detail
+    to: price
+  - from: detail
+    to: button
   - from: detail
     to: footer
   - from: cart

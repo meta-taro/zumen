@@ -6,18 +6,18 @@
 <title>地籍図（線ではなく、点の座標でできている） — zumen の見本 271</title>
 <link rel="icon" type="image/svg+xml" href="../../icon.svg">
 <meta name="theme-color" content="#23232b">
-<meta name="description" content="地籍図（線ではなく、点の座標でできている）。面積は、測るのではなく計算する（座標法）。4 点 (0.00, 0.00) (18.20, 0.00) (20.50, 14.60) (1.80, 13.10) なら、Σ（x_i × y_i+1 − x_i+1 × y_i）＝ 507.99…">
+<meta name="description" content="地籍図（線ではなく、点の座標でできている）。面積は、測るのではなく計算する（座標法）。平面直角座標系は X 軸が北、Y 軸が東（数学の x・y と逆。平成 14 年国土交通省告示第 9 号）。4 点 (X, Y) ＝ (0.00, 0.00) (0.00, 18.20) (14.60…">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="zumen">
 <meta property="og:locale" content="ja_JP">
 <meta property="og:url" content="https://meta-taro.github.io/zumen/g/271/">
 <meta property="og:title" content="地籍図（線ではなく、点の座標でできている） — zumen の見本 271">
-<meta property="og:description" content="地籍図（線ではなく、点の座標でできている）。面積は、測るのではなく計算する（座標法）。4 点 (0.00, 0.00) (18.20, 0.00) (20.50, 14.60) (1.80, 13.10) なら、Σ（x_i × y_i+1 − x_i+1 × y_i）＝ 507.99…">
+<meta property="og:description" content="地籍図（線ではなく、点の座標でできている）。面積は、測るのではなく計算する（座標法）。平面直角座標系は X 軸が北、Y 軸が東（数学の x・y と逆。平成 14 年国土交通省告示第 9 号）。4 点 (X, Y) ＝ (0.00, 0.00) (0.00, 18.20) (14.60…">
 <meta property="og:image" content="https://meta-taro.github.io/zumen/og/271.png">
 <meta property="og:image:alt" content="地籍図の例。3 筆の区画に地番・地目・面積、筆界点と図根点、道路と方位・縮尺を入れた図と、座標法による面積計算、地籍調査の流れ、公図との違い、筆界と所有権界の違い">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="地籍図（線ではなく、点の座標でできている） — zumen の見本 271">
-<meta name="twitter:description" content="地籍図（線ではなく、点の座標でできている）。面積は、測るのではなく計算する（座標法）。4 点 (0.00, 0.00) (18.20, 0.00) (20.50, 14.60) (1.80, 13.10) なら、Σ（x_i × y_i+1 − x_i+1 × y_i）＝ 507.99…">
+<meta name="twitter:description" content="地籍図（線ではなく、点の座標でできている）。面積は、測るのではなく計算する（座標法）。平面直角座標系は X 軸が北、Y 軸が東（数学の x・y と逆。平成 14 年国土交通省告示第 9 号）。4 点 (X, Y) ＝ (0.00, 0.00) (0.00, 18.20) (14.60…">
 <meta name="twitter:image" content="https://meta-taro.github.io/zumen/og/271.png">
 <meta name="twitter:image:alt" content="地籍図の例。3 筆の区画に地番・地目・面積、筆界点と図根点、道路と方位・縮尺を入れた図と、座標法による面積計算、地籍調査の流れ、公図との違い、筆界と所有権界の違い">
 <link rel="stylesheet" href="../../style.css">
@@ -35,7 +35,7 @@
     "@type": "CreativeWork",
     "name": "地籍図（線ではなく、点の座標でできている）",
     "headline": "地籍図（線ではなく、点の座標でできている）",
-    "description": "地籍図（線ではなく、点の座標でできている）。面積は、測るのではなく計算する（座標法）。4 点 (0.00, 0.00) (18.20, 0.00) (20.50, 14.60) (1.80, 13.10) なら、Σ（x_i × y_i+1 − x_i+1 × y_i）＝ 507.99…",
+    "description": "地籍図（線ではなく、点の座標でできている）。面積は、測るのではなく計算する（座標法）。平面直角座標系は X 軸が北、Y 軸が東（数学の x・y と逆。平成 14 年国土交通省告示第 9 号）。4 点 (X, Y) ＝ (0.00, 0.00) (0.00, 18.20) (14.60…",
     "url": "https://meta-taro.github.io/zumen/g/271/",
     "image": {
       "@type": "ImageObject",
@@ -111,7 +111,7 @@
   <p class="made">この図は、下の 1 枚の YAML から描かれています。手で図形を動かしてはいません。</p>
   <h2>正本に書いてある決まりごと</h2>
   <p><strong>地籍図は「絵」ではなく、点の座標の集まり。</strong> 筆界点を平面直角座標系の (X, Y) で持ち、<strong>線はその点を結んだ結果</strong> —— だから図から測るのではなく、<strong>座標から面積が計算で出る。</strong></p>
-  <p><strong>面積は、測るのではなく計算する（座標法）。</strong>4 点 (0.00, 0.00) (18.20, 0.00) (20.50, 14.60) (1.80, 13.10) なら、Σ（x_i × y_i+1 − x_i+1 × y_i）＝ 507.99、<strong>÷ 2 で 254.00m²。</strong><strong>同じ点を使えば、誰が計算しても同じ面積になる</strong> ——登記簿の地積が地籍調査で変わるのは<strong>測り方が変わったから</strong>で、土地が増えたわけではない。</p>
+  <p><strong>面積は、測るのではなく計算する（座標法）。</strong>平面直角座標系は <strong>X 軸が北、Y 軸が東</strong>（数学の x・y と逆。平成 14 年国土交通省告示第 9 号）。4 点 (X, Y) ＝ (0.00, 0.00) (0.00, 18.20) (14.60, 20.50) (13.10, 1.80) なら、Σ X_i（Y_i+1 − Y_i−1）＝ −507.99（左回りに番号を振ったので負。大きさを使う）、÷ 2 ＝ 253.995。<strong>地積は宅地なら 0.01m² 未満を切り捨てる</strong>（不動産登記規則 第 100 条）ので <strong>253.99m²</strong>（四捨五入の 254.00 ではない）。<strong>同じ点を使えば、誰が計算しても同じ面積になる</strong> ——登記簿の地積が地籍調査で変わるのは<strong>測り方が変わったから</strong>で、土地が増えたわけではない。</p>
   <p><strong>流れは 準備 → 一筆地調査 → 地籍測量 → 閲覧 → 認証 → 登記所送付。</strong><strong>立会いが 2 番目に来るのが、この調査の性格</strong> ——測ってから所有者に見せるのではなく、<strong>所有者が立ち会って境界を確認してから測る。</strong>認証された成果は登記所へ送られ、<strong>地籍図は不動産登記法 14 条の地図</strong>として備え付けられる。</p>
   <p><strong>公図と地籍図は別のもの。</strong> 公図は地籍調査に基づかない「地図に準ずる図面」で、精度は地籍図のほうが高い —— <strong>現地と合わない図面が、今も登記所にある。</strong></p>
   <p><strong>筆界は、話し合いでは動かせない。</strong> 筆界は公法上の境界で、当事者の合意では動かない（動かすには分筆・合筆の登記が要る）。所有権界は私法上の境界で、合意で動かせる。<strong>一筆地調査の立会いは、合意を作る場ではなく、もとからある筆界を確認する場。</strong></p>

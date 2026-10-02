@@ -9,7 +9,9 @@ title: 雑踏警備計画図（花火大会・駅から会場まで／400 × 200
 # ## 狭い場所へ、両方向から流し込まない
 #
 # 2001 年の明石花火大会歩道橋事故は、**狭い歩道橋に両方向の流れが入った**ことが
-# 原因のひとつだった。この計画では**往路と復路を分けて一方通行**にする。
+# 原因のひとつだった（明石市民夏まつり事故調査委員会の報告書、2002 年）。この計画では**往路と復路を分けて一方通行**にする
+# （歩道橋は往路だけ。復路は地上を戻り、途中の公園を退避場所にする。公園からも駅前広場へ
+# 抜けられるので行き止まりにならない）。地上で道路を横断する所は誘導員が流れを止めて渡す。
 #
 # ## 数で決める
 #
@@ -35,10 +37,15 @@ nodes:
     at: { x: 170, y: 230 }
     size: { w: 150, h: 130 }
   - id: bridge
-    label: "歩道橋 幅 6m"
+    label: ""
     hatch: cross
-    at: { x: 330, y: 250 }
-    size: { w: 150, h: 50 }
+    at: { x: 370, y: 230 }
+    size: { w: 80, h: 12 }
+  - id: bridge_n
+    label: "歩道橋 幅 6m・長さ 40m（往路だけ）"
+    marker: none
+    at: { x: 250, y: 160 }
+    size: { w: 240, h: 20 }
   - id: road_go
     label: "往路（会場へ・一方通行）"
     hatch: lines
@@ -286,5 +293,15 @@ edges:
     to: road_back
     ends: { from: none, to: arrow }
   - from: road_back
+    to: plaza
+    ends: { from: none, to: arrow }
+    via:
+      - { x: 470, y: 320 }
+      - { x: 330, y: 320 }
+  - from: road_back
     to: park
     line: dashed
+  - from: park
+    to: plaza
+    line: dashed
+    ends: { from: none, to: arrow }

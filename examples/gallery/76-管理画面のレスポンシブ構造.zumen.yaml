@@ -92,9 +92,12 @@ nodes:
     marker: box
     at: { x: 798, y: 138 }
     size: { w: 184, h: 150 }
+  # **Mobile では詳細はこの画面に無い**（別画面へ遷移する）。在る部品と同じ実線で描くと、
+  # 画面の中に詳細の欄があるように読めるので、破線にして「ここには無い」を示す
   - id: m_pane
-    label: "詳細は別画面へ"
+    label: "詳細 → 別画面へ遷移"
     marker: box
+    line: dashed
     at: { x: 798, y: 296 }
     size: { w: 184, h: 44 }
   - id: m_bottom

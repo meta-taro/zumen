@@ -1,5 +1,5 @@
 /**
- * **作図**（`kind: construction`。D36 / 仕様 `docs/specs/011-作図の骨格.md`）。
+ * **作図**（`kind: construction`。仕様 §3.6）。
  *
  * ## ここがこの版の芯
  *
@@ -19,7 +19,7 @@
  * ## ここに描画を持ち込まない
  *
  * 出すのは**円と弧の座標**まで。SVG は `src/render.ts` が書く。
- * そうしておくと、**立てずに測れる**（ベースルール §9）。
+ * そうしておくと、**立てずに測れる**。
  */
 import { messages } from './messages.ts';
 
@@ -73,7 +73,7 @@ export type Stroke =
     };
 
 export interface Built {
-  /** 名前 → 値（定数と長さ）。**人が pin できるのはここ**（D36）。 */
+  /** 名前 → 値（定数と長さ）。**人が pin できるのはここ**。 */
   lengths: Map<string, number>;
   points: Map<string, Point>;
   circles: Map<string, { cx: number; cy: number; r: number }>;
@@ -351,7 +351,7 @@ export function build(
     troubles.push(error instanceof Error ? error.message : String(error));
   };
 
-  // 1. 定数。**語で書ける値はここで解く。** 人が pin していればそちらが勝つ（D36）。
+  // 1. 定数。**語で書ける値はここで解く。** 人が pin していればそちらが勝つ。
   for (const [name, value] of [...asMap(raw.let), ...asMap(raw.lengths)]) {
     if (lengths.has(name)) {
       troubles.push(m.duplicate(name));
@@ -657,7 +657,7 @@ export function inkBounds(strokes: readonly Stroke[]): { left: number; right: nu
   let left = Infinity;
   let right = -Infinity;
   /**
-   * **跡（`trace`）は送り幅に数えない**（2026-09-24。`qa/品質100周` 第 24 周）。
+   * **跡（`trace`）は送り幅に数えない**（2026-09-24）。
    *
    * 紙の大きさは既に跡を除いていた（`src/layout.ts`）が、**ここが除いていなかった。**
    * 見本 128（ロゴの作図）で跡を出したら、**横が 2,576 → 49,069px** になった ——

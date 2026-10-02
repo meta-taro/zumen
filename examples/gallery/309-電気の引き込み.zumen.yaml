@@ -11,8 +11,8 @@ title: 電気の引き込み（家に来ているのは 100V ではない）
 # 電柱を通り、**柱上変圧器**で低圧に落ちて家へ入る。
 # 20kV・30kV 級の配電線路や、11.4kV の三相 4 線式もある。
 #
-# **50kVA を境に、引き込みの形が変わる。**
-# **50kVA を超え 2,000kVA 以下**なら**高圧引込** ——
+# **契約電力 50kW を境に、引き込みの形が変わる。**
+# **50kW 以上 2,000kW 未満**なら**高圧引込**（6,000V）——
 # 電力会社の柱上変圧器ではなく、**需要家が自分で変圧器を持つ**
 # （店やビルの屋上・敷地にあるキュービクルがそれ）。
 # **「大きい建物にキュービクルがある」のは、契約の大きさが境を越えているから。**
@@ -21,6 +21,10 @@ title: 電気の引き込み（家に来ているのは 100V ではない）
 # **単相 3 線式 200/100V**（一般家庭）／**三相 3 線式 200V**（動力。モーター）／
 # **単相 2 線式 100V**（古い引き込み）／**三相 4 線式 415/240V**。
 # **同じ「低圧」でも、来ている線の本数と電圧の組み合わせが違う。**
+#
+# 境の値は一般送配電事業者の託送供給等約款の供給電圧の区分（契約電力 50kW 未満は低圧、
+# 50kW 以上 2,000kW 未満は高圧 6,000V）。照合（2026-10-02）：ENEOS Power「低圧と高圧の違い」
+#   https://www.eneos-power.co.jp/article/power-company/high-low-voltage-difference/
 nodes:
   - id: hensho
     type: generic
@@ -33,7 +37,7 @@ nodes:
   - id: wakare
     type: generic
     label: 契約の大きさで分かれる
-    technology: 境は 50kVA
+    technology: 境は契約電力 50kW
   - id: chujo
     type: generic
     label: 柱上変圧器
@@ -41,7 +45,7 @@ nodes:
   - id: cubicle
     type: generic
     label: 需要家の変圧器（キュービクル）
-    technology: 50kVA 超〜2,000kVA 以下
+    technology: 50kW 以上〜2,000kW 未満
   - id: tanso3
     type: generic
     label: 単相 3 線式 200/100V
@@ -60,10 +64,10 @@ edges:
     to: wakare
   - from: wakare
     to: chujo
-    label: 50kVA 以下
+    label: 50kW 未満
   - from: wakare
     to: cubicle
-    label: 50kVA を超える
+    label: 50kW 以上
   - from: chujo
     to: tanso3
   - from: chujo

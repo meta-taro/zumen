@@ -1,8 +1,8 @@
 version: 1
 kind: placement
-title: 展示会の会場（1 マス = 1800mm を 30px として）
+title: 展示会の会場（1px ＝ 60mm。1 小間 3m × 3m）
 # **展示会の会場図は、区画を売るための図。**
-# 1 小間（ブース）の寸法が決まっていて、**主通路に面した区画ほど値が高い。**
+# 1 小間（ブース）の寸法が決まっていて（国内の展示会は 3m × 3m が多い。会場により 2.97m など）、**主通路に面した区画ほど値が高い。**
 # だから通路の引き方が、そのまま売上の設計になる。
 #
 # ## 通路の幅は、逃げるために決まる
@@ -29,36 +29,36 @@ nodes:
     group: hall
   - id: stage
     type: generic
-    label: ステージ
-    technology: 200 席
+    label: ステージと客席
+    technology: 客席 200
     at: { x: 40, y: 60 }
     size: { w: 320, h: 200 }
     group: hall
   - id: a1
     type: generic
     label: A 区画
-    technology: 6 小間
+    technology: 16 小間（4 × 4）
     at: { x: 400, y: 60 }
     size: { w: 200, h: 200 }
     group: hall
   - id: a2
     type: generic
     label: B 区画
-    technology: 6 小間
+    technology: 16 小間（4 × 4）
     at: { x: 640, y: 60 }
     size: { w: 200, h: 200 }
     group: hall
   - id: tsuuro
     type: generic
     label: 主通路
-    technology: 幅 3.6m
+    technology: 幅 4.8m
     at: { x: 40, y: 300 }
     size: { w: 800, h: 80 }
     group: hall
   - id: c1
     type: generic
     label: C 区画
-    technology: 8 小間
+    technology: 10 小間（5 × 2）
     at: { x: 240, y: 420 }
     size: { w: 280, h: 140 }
     group: hall
@@ -77,11 +77,27 @@ nodes:
 edges:
   - from: uketsuke
     to: tsuuro
+    via:
+      - { x: 120, y: 420 }
+      - { x: 120, y: 380 }
   - from: tsuuro
     to: a1
+    via:
+      - { x: 500, y: 300 }
+      - { x: 500, y: 260 }
   - from: tsuuro
     to: a2
+    via:
+      - { x: 740, y: 300 }
+      - { x: 740, y: 260 }
   - from: tsuuro
     to: c1
-  - from: c1
+    via:
+      - { x: 380, y: 380 }
+      - { x: 380, y: 420 }
+  # 非常口へは主通路から行く。区画や休憩所を通り抜けさせない
+  - from: tsuuro
     to: hijou
+    via:
+      - { x: 800, y: 380 }
+      - { x: 800, y: 420 }

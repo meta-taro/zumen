@@ -5,7 +5,7 @@ title: 一般配置図（499 総トン型 内航貨物船／架空の船）
 # General Arrangement（GA）。**造船で最初に描かれ、最後まで参照される 1 枚。**
 #
 # 実物の GA は「甲板ごとの平面図を縦に積み、いちばん上に側面図を置く」形をしている。
-# **1 枚の紙に図が 5 つ 6 つ載る**ので、寸法系は図ごとに要る（D35。views）。
+# **1 枚の紙に図が 5 つ 6 つ載る**ので、寸法系は図ごとに要る（views）。
 #
 # 横の基準は**肋骨番号（フレームナンバー）**。FR.0 を船尾垂線 A.P. に置き、
 # 船首へ向かって増やす —— **番号の向きは造船所で違う**ので、図に断る必要がある。
@@ -47,9 +47,9 @@ views:
     scale: { mm: 30 }
     grid:
       x:
-        - { id: FR.6, at: 1160 }
-        - { id: FR.12, at: 1340 }
-        - { id: FR.18, at: 1520 }
+        - { id: FR.8, at: 1160 }
+        - { id: FR.17, at: 1340 }
+        - { id: FR.26, at: 1520 }
   # **上甲板には肋骨番号を書かない。** 上の側面図と縦に揃えてあるので、
   # 実物の一般配置図でも番号は側面図といちばん下の図にしか入らない。
   - id: upper
@@ -119,8 +119,9 @@ nodes:
   - id: p_wheel
     label: 操舵室
     tag: W/H
-    at: { x: 205, y: 34 }
-    size: { w: 130, h: 36 }
+    # FR.8〜FR.26（18 肋骨 × 600 ＝ 10.8 m）。右の詳細図と同じ範囲
+    at: { x: 180, y: 34 }
+    size: { w: 180, h: 36 }
   - id: p_funnel
     label: 煙突
     at: { x: 150, y: 70 }
@@ -257,53 +258,43 @@ nodes:
     at: { x: 890, y: 550 }
     size: { w: 110, h: 30 }
   # --- 二重底・タンク配置 -------------------------------------------------
+  # **平面図なので、タンクは船の幅いっぱい（型幅 10 m ＝ 167 px）に描く。**
+  # 二重底のタンクは貨物倉・機関室の**下**にあるので、この図に貨物倉は出ない
+  # （タンクを片舷の帯にして貨物倉と並べると、左右非対称の船に読める）。
   - id: t_apt
     label: 船尾タンク
     technology: 清水
     tag: F.W.T.
     hatch: dots
-    at: { x: 62, y: 700 }
-    size: { w: 118, h: 87 }
-  - id: t_er
-    label: 機関室
-    tag: E/R
-    hatch: lines
-    at: { x: 180, y: 700 }
-    size: { w: 210, h: 87 }
+    at: { x: 62, y: 660 }
+    size: { w: 118, h: 167 }
   - id: t_fo
     label: 燃料油タンク
+    technology: 機関室の下
     tag: F.O.T.
     hatch: solid
     at: { x: 180, y: 660 }
-    size: { w: 210, h: 40 }
+    size: { w: 210, h: 167 }
   - id: t_wb2
     label: 第 2 バラストタンク
+    technology: 第 2 貨物倉の下
     tag: W.B.T.(2)
     hatch: dots
     at: { x: 390, y: 660 }
-    size: { w: 230, h: 40 }
-  - id: t_hold2
-    label: 第 2 貨物倉
-    tag: No.2 C.H.
-    at: { x: 390, y: 700 }
-    size: { w: 230, h: 87 }
+    size: { w: 230, h: 167 }
   - id: t_wb1
     label: 第 1 バラストタンク
+    technology: 第 1 貨物倉の下
     tag: W.B.T.(1)
     hatch: dots
     at: { x: 620, y: 660 }
-    size: { w: 230, h: 40 }
-  - id: t_hold1
-    label: 第 1 貨物倉
-    tag: No.1 C.H.
-    at: { x: 620, y: 700 }
-    size: { w: 230, h: 87 }
+    size: { w: 230, h: 167 }
   - id: t_fpt
     label: 船首タンク
     tag: F.P.T.
     hatch: dots
-    at: { x: 850, y: 700 }
-    size: { w: 200, h: 87 }
+    at: { x: 850, y: 660 }
+    size: { w: 200, h: 167 }
   # --- 主要目と注記 -------------------------------------------------------
   - id: spec_t
     label: 主要目（Principal Particulars）

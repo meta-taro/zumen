@@ -10,6 +10,8 @@ title: 閉鎖循環式陸上養殖の系統図（換水率 5%/日以下）
 # 魚が出すのはアンモニア。**そのままだと毒**なので、
 # 硝化細菌が **NH4⁺ → NO2⁻ → NO3⁻** と酸化して毒を弱める。
 # ただし硝酸は溜まる一方なので、**脱窒槽で N2 ガスにして空へ逃がす。**
+# 脱窒槽は**主流から一部を分けて流す側流**に置く。脱窒は酸素の無い所でしか進まないので、
+# 全量を通すと魚へ戻る水の酸素まで落ちる。
 # ここまでやるから、換水率を 5%/日以下にできる。
 #
 # ## 順番に意味がある
@@ -40,7 +42,7 @@ nodes:
   - id: denit
     label: 脱窒槽（貧酸素）
     type: storage
-    technology: NO3⁻ → N2 ガス
+    technology: NO3⁻ → N2 ガス・側流
   - id: co2
     label: 脱炭酸塔
     technology: CO2 を抜く（pH が下がるため）
@@ -77,10 +79,13 @@ edges:
   - from: skim
     to: nitri
   - from: nitri
-    to: denit
-    label: 硝酸
-  - from: denit
     to: co2
+  - from: nitri
+    to: denit
+    label: 一部
+  - from: denit
+    to: nitri
+    label: 戻す
   - from: co2
     to: ph
   - from: ph

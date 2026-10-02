@@ -1,7 +1,7 @@
 version: 1
 kind: placement
 arrows: true
-title: バブル期の建売 2 階建て —— 狭い敷地に 3LDK ＋ 和室（架空）
+title: バブル期の建売 2 階建て —— 狭い敷地に 4LDK ＋ S（和室つき・架空）
 scale: { mm: 40 }
 wall: { mm: 120, outer: 150 }
 north: { face: up, at: { x: 590, y: 150 } }
@@ -32,7 +32,8 @@ styles:
   tree: { color: Tree, fill: Green }
   road: { color: Road, fill: Road }
   lot: { color: Lot }
-# **建売 —— 狭い敷地に、駐車場と庭と 4LDK を詰める。**
+# **建売 —— 狭い敷地に、駐車場と庭と 4LDK ＋ S を詰める。**
+# 納戸は採光の足りない部屋なので居室に数えず「S」（サービスルーム）と書く（不動産の表示に関する公正競争規約施行規則）。
 #
 # 土地と建物を一緒に売る家（建売）。都市の近郊で、狭い敷地にも「車 1 台・小さな庭・部屋数」を揃える型。
 #
@@ -58,7 +59,7 @@ nodes:
     at: { x: 175, y: 537 }
     size: { w: 337, h: 127 }
   - id: lot_l
-    label: "敷地 約 132㎡"
+    label: "敷地 約 164㎡"
     marker: none
     align: left
     at: { x: 203, y: 153 }
@@ -339,7 +340,7 @@ nodes:
     size: { w: 2, h: 2 }
   - id: shin
     label: "洋室 2"
-    technology: "8.2帖"
+    technology: "8.1帖"
     style: room
     at: { x: 685, y: 200 }
     size: { w: 91, h: 91 }
@@ -377,13 +378,13 @@ nodes:
     at: { x: 552, y: 203 }
     size: { w: 2, h: 2 }
   - id: h1
-    label: "木造 2 階建て　4LDK（和室つき）　延床 約 132.5㎡（1F 66.2㎡ ／ 2F 66.2㎡）"
+    label: "木造 2 階建て　4LDK ＋ S（和室つき）　延床 約 132.5㎡（1F 66.2㎡ ／ 2F 66.2㎡）"
     marker: none
     align: left
     at: { x: 203, y: 103 }
     size: { w: 560, h: 16 }
   - id: n0
-    label: "建売 —— 土地と建物を一緒に売る家。狭い敷地に、前の駐車場・小さな庭・3LDK ＋ 和室を詰める。"
+    label: "建売 —— 土地と建物を一緒に売る家。狭い敷地に、前の駐車場・小さな庭・4LDK ＋ S（和室つき）を詰める。"
     marker: none
     align: left
     at: { x: 175, y: 684 }

@@ -13,9 +13,9 @@
 |---|---|---|
 | [elkjs](https://github.com/kieler/elkjs) | **EPL-2.0 OR GPL-3.0-or-later** | 自動レイアウト。**未改変のまま依存として使う**（フォークしない・ソースを取り込まない） |
 | [yaml](https://github.com/eemeli/yaml) | ISC | 正本の読み書き |
-| [subset-font](https://github.com/papandreou/subset-font) | BSD-3-Clause | 書体の切り出し（`--embed-font`。D44）。依存に fontverter（BSD-3-Clause）・harfbuzzjs・wawoff2・woff2sfnt-sfnt2woff・p-limit（いずれも MIT） |
+| [subset-font](https://github.com/papandreou/subset-font) | BSD-3-Clause | 書体の切り出し（`--embed-font`。書き出すときだけ埋め込む）。依存に fontverter（BSD-3-Clause）・harfbuzzjs・wawoff2・woff2sfnt-sfnt2woff・p-limit（いずれも MIT） |
 
-## 書体について（D44）
+## 書体について
 
 `fonts/NotoSansJP-VF.woff2` は **Noto Sans JP**（可変・太さ 100〜900）を WOFF2 に変換したもの。
 **SIL Open Font License 1.1**（本文は `fonts/OFL.txt`）。予約書体名は `Source`。
@@ -31,7 +31,6 @@ EPL の対象部分のソースを入手可能にすることを求める。
 zumen は npm から取得した**未改変の elkjs をそのまま使う**ため、対象部分のソースは
 上記のリポジトリで公開されたままである。
 
-判断の経緯は `.claude/decisions.md` の D6。
 
 > **これは法的助言ではない。** 配布の前に、ライセンスの最終確認は人が行うこと。
 
@@ -40,7 +39,7 @@ zumen は npm から取得した**未改変の elkjs をそのまま使う**た�
 **クラウド各社の公式アイコン（AWS / Azure / Google Cloud / Cloudflare / Docker /
 Kubernetes）は同梱しない。** 各社とも改変を明確に禁じており、
 **第三者の作図ツールへの同梱を明示的に許可した文はどこにも無い**ため。
-調査は `docs/specs/006-図形とアイコンのライセンス.md`、判断は `.claude/decisions.md` の D7。
+各社の利用条件を調べたうえでの判断。
 
 | 種別 | ライセンス | 扱い |
 |---|---|---|

@@ -8,8 +8,10 @@ title: 駅 構内図（1F 改札階・B1F ホーム階）
 # **「2 階を合わせた全長 36m＋36m」という意味のない数字**が出たため。
 # 通り芯も 2 階分を貫いた。scale が無いので壁の厚みも効かなかった。
 #
-# **views（D35）で図ごとの寸法系を持てるようになった**ので、
+# **views で図ごとの寸法系を持てるようになった**ので、
 # 階を囲み（groups）ではなく図（views）にして、寸法と通り芯を入れ直した。
+# 階段・EV・エスカレータは島式ホームの上にある（線路との間に挟まない）。
+# エスカレータ ESC-1 は 1 基なので、両階とも同じ向き（上り：B1F → 1F）。
 # 通り芯の符号 X1〜X4・Y1〜Y5 は**両方の階で同じ**（同じ建物の芯なので当然）。
 # それでも寸法は図ごとに測られる —— そこが views の役目。
 scale: { mm: 100 }
@@ -100,7 +102,7 @@ nodes:
   - id: esc1
     label: エスカレータ
     tag: ESC-1
-    technology: 上り・B1F へ
+    technology: 上り・B1F から
     at: { x: 220, y: 140 }
     size: { w: 140, h: 60 }
   - id: kaidan2
@@ -120,23 +122,25 @@ nodes:
   - id: esc2
     label: エスカレータ
     tag: ESC-1
-    technology: 下り・1F へ
+    technology: 上り・1F へ
     at: { x: 920, y: 140 }
     size: { w: 140, h: 60 }
   - id: home1
-    label: 1・2 番線
+    label: ""
     tag: P-1
-    technology: 島式・有効長 200m
     at: { x: 700, y: 60 }
-    size: { w: 360, h: 80 }
+    size: { w: 360, h: 140 }
+  - id: home1_name
+    label: "1・2 番線（島式ホーム）\n有効長 200m のうち中央の 36m"
+    marker: none
+    at: { x: 720, y: 75 }
+    size: { w: 320, h: 50 }
   - id: track_n
-    label: 下り線
-    technology: 軌道中心 間隔 4,000
+    label: 下り線（1 番線）
     at: { x: 700, y: 0 }
     size: { w: 360, h: 60 }
   - id: track_s
-    label: 上り線
-    technology: 軌道中心 間隔 4,000
+    label: 上り線（2 番線）
     at: { x: 700, y: 200 }
     size: { w: 360, h: 60 }
 edges:

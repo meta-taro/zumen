@@ -116,7 +116,7 @@ describe('SNS のカード', () => {
     assert.match(en, /property="og:locale" content="en_US"/);
   });
 
-  it('**絵が実際にある**（参照だけ足して置き忘れない。ベースルール §23）', () => {
+  it('**絵が実際にある**（参照だけ足して置き忘れない）', () => {
     for (const path of ['site/og.png', 'site/en/og.png']) {
       const png = readFileSync(path);
       assert.equal(png.subarray(1, 4).toString(), 'PNG', `${path} が PNG でない`);
@@ -282,7 +282,7 @@ describe('見本のページ', () => {
 });
 
 /**
- * **指しているのに無い絵を止める**（2026-09-22。91 周目。ベースルール §23）。
+ * **指しているのに無い絵を止める**（2026-09-22）。
  *
  * この日、見本ごとの共有カード（`site/og/NN.png`）を足した。
  * **カードは重いので、見本が増えた直後は追いついていない**ことがある ——

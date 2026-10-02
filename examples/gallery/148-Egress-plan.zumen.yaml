@@ -26,8 +26,12 @@ grid:
 # sprinkler plan get read together（見本 145）.
 #
 # **Occupant load decides how many exits; travel distance decides where.**
-# 48 people would allow a single exit; the conference room pushes the floor
-# past 49, so two are required.
+# Counted once each: the business area is 7,200 - 600 = 6,600 sq ft gross (44 people)
+# and the conference room 600 sq ft net at 15 (40 people), 84 in all. A business floor
+# may have a single exit only up to 49 people on a first story (29 on a second story,
+# none above), so 84 needs two on any story.
+# Limits: IBC 2021 Table 1006.2.1 (common path), 1020.5 (dead end), Table 1017.2
+# (exit access travel: B, sprinklered 300 ft), Table 1006.3.4(2) (single exit).
 #
 # **日本語の見本 22（避難経路図）と対。**
 #
@@ -157,7 +161,7 @@ nodes:
     at: { x: 610, y: 126 }
     size: { w: 210, h: 22 }
   - id: b126
-    label: "250 ft  —  here 100 ft"
+    label: "300 ft  —  here 100 ft"
     align: left
     at: { x: 820, y: 126 }
     size: { w: 220, h: 22 }
@@ -180,7 +184,7 @@ nodes:
     at: { x: 610, y: 206 }
     size: { w: 210, h: 22 }
   - id: b206
-    label: "7,200 sq ft  =  48"
+    label: "6,600 sq ft  =  44"
     align: left
     at: { x: 820, y: 206 }
     size: { w: 220, h: 22 }
@@ -198,7 +202,7 @@ nodes:
     at: { x: 610, y: 250 }
     size: { w: 210, h: 22 }
   - id: b250
-    label: "88 occupants"
+    label: "84 occupants"
     align: left
     at: { x: 820, y: 250 }
     size: { w: 220, h: 22 }
@@ -217,20 +221,20 @@ nodes:
     at: { x: 610, y: 308 }
     size: { w: 430, h: 22 }
   - id: a330
-    label: "48 alone would allow one"
+    label: "44 alone: one exit only"
     at: { x: 610, y: 330 }
     size: { w: 210, h: 22 }
   - id: b330
-    label: "if the common path stayed short"
+    label: "on a first story (49 max)"
     align: left
     at: { x: 820, y: 330 }
     size: { w: 220, h: 22 }
   - id: a352
-    label: "88 with the conference room"
+    label: "84 with the conference room"
     at: { x: 610, y: 352 }
     size: { w: 210, h: 22 }
   - id: b352
-    label: "puts the floor over 49, so two"
+    label: "is over 49, so two"
     align: left
     at: { x: 820, y: 352 }
     size: { w: 220, h: 22 }

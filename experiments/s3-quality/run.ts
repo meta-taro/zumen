@@ -1,10 +1,10 @@
 /**
- * 文章の指示 1 本から、説明に使える図が出るか（Issue 004 / S3）。`pnpm s3:quality` で回す。
+ * 文章の指示 1 本から、説明に使える図が出るか（S3）。`pnpm s3:quality` で回す。
  *
  * ## 鍵は要らない
  *
- * 手元の `claude` CLI を子プロセスで叩く（D16）。**zumen は API の鍵を持たない。**
- * 製品としての AI 連携は MCP 経由で、鍵はエージェント側にある（D13）。
+ * 手元の `claude` CLI を子プロセスで叩く。**zumen は API の鍵を持たない。**
+ * 製品としての AI 連携は MCP 経由で、鍵はエージェント側にある。
  *
  * ## AI に自己採点させない
  *
@@ -17,7 +17,7 @@
  * - どれだけ時間がかかったか
  *
  * **「説明に使えるか」は人が書く。** 出力の表に空欄を用意し、AI は埋めない
- * （ベースルール §19 / Issue 004 の注意）。
+ * （AI が代筆しない）。
  *
  * ## 綺麗に出た例だけを残さない
  *
@@ -208,7 +208,7 @@ async function measure(item: Case): Promise<Result> {
   };
 }
 
-/** 規模で破綻しないかを見る（原案 §26 の 5）。**AI は使わない。組み立てて測るだけ。** */
+/** 規模で破綻しないかを見る。**AI は使わない。組み立てて測るだけ。** */
 async function scale(count: number): Promise<{ count: number; seconds: number; overlaps: number }> {
   const nodes = Array.from({ length: count }, (_, i) => `  - id: n${i}\n    label: N${i}`);
   const edges = Array.from({ length: count - 1 }, (_, i) => `  - from: n${i}\n    to: n${i + 1}`);
@@ -245,12 +245,12 @@ function report(results: Result[], scales: { count: number; seconds: number; ove
   const lines = [
     '# 生成品質の実測（自動生成 — `pnpm s3:quality`）',
     '',
-    '**文章の指示 1 本**から図を出し、機械で数えられるものだけを測った（Issue 004 / S3）。',
+    '**文章の指示 1 本**から図を出し、機械で数えられるものだけを測った（S3）。',
     '',
     '**AI に自己採点させていない。** 「説明に使えるか」の欄は空のままで、',
-    '**実物を見た人が記入する**（ベースルール §19）。',
+    '**実物を見た人が記入する**（AI が代筆しない）。',
     '',
-    '生成は手元の `claude` CLI（D16）。**zumen は API の鍵を持たない。**',
+    '生成は手元の `claude` CLI。**zumen は API の鍵を持たない。**',
     '',
     '## 1. 出たもの',
     '',
@@ -297,7 +297,7 @@ function report(results: Result[], scales: { count: number; seconds: number; ove
       ? '**この回は破綻しなかった。**'
       : `**破綻したもの: ${dense.map((r) => r.key).join(', ')}**`,
     '',
-    '## 2. 規模で破綻しないか（原案 §26 の 5）',
+    '## 2. 規模で破綻しないか',
     '',
     '**ここは AI を使わない。** 一本道のグラフを組み立てて、レイアウトだけを測る。',
     '',

@@ -6,18 +6,18 @@
 <title>受変電設備の単線結線図 — zumen の見本 19</title>
 <link rel="icon" type="image/svg+xml" href="../../icon.svg">
 <meta name="theme-color" content="#23232b">
-<meta name="description" content="受変電の結線（単線結線図）。「単線」は、線が 1 本という意味ではない。三相 3 線も、単相 3 線も、1 本の線で描く。この図が運ぶのは電線の本数ではなく、機器の順番と、系統の分かれ方。">
+<meta name="description" content="受変電の結線（単線結線図）。並びは 区分開閉器 → 断路器 → 取引用計器用変成器 → 主遮断装置 → 変圧器ごとの開閉器。変圧器の合計が 300kVA を超えると、開閉器＋限流ヒューズ（PF・S 形）では受けられず、遮断器で切る CB 形になる…">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="zumen">
 <meta property="og:locale" content="ja_JP">
 <meta property="og:url" content="https://meta-taro.github.io/zumen/g/19/">
 <meta property="og:title" content="受変電設備の単線結線図 — zumen の見本 19">
-<meta property="og:description" content="受変電の結線（単線結線図）。「単線」は、線が 1 本という意味ではない。三相 3 線も、単相 3 線も、1 本の線で描く。この図が運ぶのは電線の本数ではなく、機器の順番と、系統の分かれ方。">
+<meta property="og:description" content="受変電の結線（単線結線図）。並びは 区分開閉器 → 断路器 → 取引用計器用変成器 → 主遮断装置 → 変圧器ごとの開閉器。変圧器の合計が 300kVA を超えると、開閉器＋限流ヒューズ（PF・S 形）では受けられず、遮断器で切る CB 形になる…">
 <meta property="og:image" content="https://meta-taro.github.io/zumen/og/19.png">
 <meta property="og:image:alt" content="受変電設備の単線結線図。引込から断路器・遮断器・変圧器・低圧盤までを 1 本の線で表した図">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="受変電設備の単線結線図 — zumen の見本 19">
-<meta name="twitter:description" content="受変電の結線（単線結線図）。「単線」は、線が 1 本という意味ではない。三相 3 線も、単相 3 線も、1 本の線で描く。この図が運ぶのは電線の本数ではなく、機器の順番と、系統の分かれ方。">
+<meta name="twitter:description" content="受変電の結線（単線結線図）。並びは 区分開閉器 → 断路器 → 取引用計器用変成器 → 主遮断装置 → 変圧器ごとの開閉器。変圧器の合計が 300kVA を超えると、開閉器＋限流ヒューズ（PF・S 形）では受けられず、遮断器で切る CB 形になる…">
 <meta name="twitter:image" content="https://meta-taro.github.io/zumen/og/19.png">
 <meta name="twitter:image:alt" content="受変電設備の単線結線図。引込から断路器・遮断器・変圧器・低圧盤までを 1 本の線で表した図">
 <link rel="stylesheet" href="../../style.css">
@@ -35,7 +35,7 @@
     "@type": "CreativeWork",
     "name": "受変電設備の単線結線図",
     "headline": "受変電設備の単線結線図",
-    "description": "受変電の結線（単線結線図）。「単線」は、線が 1 本という意味ではない。三相 3 線も、単相 3 線も、1 本の線で描く。この図が運ぶのは電線の本数ではなく、機器の順番と、系統の分かれ方。",
+    "description": "受変電の結線（単線結線図）。並びは 区分開閉器 → 断路器 → 取引用計器用変成器 → 主遮断装置 → 変圧器ごとの開閉器。変圧器の合計が 300kVA を超えると、開閉器＋限流ヒューズ（PF・S 形）では受けられず、遮断器で切る CB 形になる…",
     "url": "https://meta-taro.github.io/zumen/g/19/",
     "image": {
       "@type": "ImageObject",
@@ -111,20 +111,21 @@
   <p class="made">この図は、下の 1 枚の YAML から描かれています。手で図形を動かしてはいません。</p>
   <h2>正本に書いてある決まりごと</h2>
   <p><strong>「単線」は、線が 1 本という意味ではない。</strong>三相 3 線も、単相 3 線も、<strong>1 本の線で描く。</strong>この図が運ぶのは電線の本数ではなく、<strong>機器の順番と、系統の分かれ方</strong>。</p>
-  <p>6.6kV をそのまま受けて、自分の変圧器で 400V / 200V へ落とす。<strong>引込柱から先は需要家の持ち物</strong>（責任分界点）。だから保護も点検も自分でやる。</p>
+  <p>6.6kV をそのまま受けて、自分の変圧器で 400V / 200V へ落とす。<strong>区分開閉器（PAS）から先は需要家の持ち物</strong>（責任分界点）。だから保護も点検も自分でやる。</p>
+  <p>並びは 区分開閉器 → 断路器 → 取引用計器用変成器 → <strong>主遮断装置</strong> → 変圧器ごとの開閉器。変圧器の合計が 300kVA を超えると、開閉器＋限流ヒューズ（PF・S 形）では受けられず、<strong>遮断器で切る CB 形</strong>になる。この図は 300＋150＝450kVA なので VCB を置く。変圧器ごとの開閉器は、限流ヒューズ付きの負荷開閉器（LBS・PF 付）。出典：日本電気技術者協会「高圧自家用受電設備の保護について」https://www.jeea.or.jp/course/contents/05204/ （取得 2026-09-29）</p>
   <p>発電機は常用の系統と並ばない。<strong>自動切替（ATS）で切り替わった先</strong>の非常用分電盤だけが生きる。何を非常用にするかは、この図で決まる。</p>
   <h2>正本（YAML）</h2>
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/19-%E5%8F%97%E5%A4%89%E9%9B%BB%E3%81%AE%E7%B5%90%E7%B7%9A.zumen.yaml"><code>examples/gallery/19-受変電の結線.zumen.yaml</code></a></p>
   <h2>同じ分野の見本</h2>
   <ul class="cards">
     <li><a href="../06/"><img src="../../gallery/06-%E5%AE%B6%E3%81%AE%E9%9B%BB%E6%B0%97%E7%B3%BB%E7%B5%B1.svg" alt="住宅の電気系統。引込から分電盤、各回路のブレーカーと部屋のコンセント・照明までの系統" width="1024" height="904" loading="lazy" decoding="async"><span>住宅の電気系統</span></a></li>
-    <li><a href="../10/"><img src="../../gallery/10-%E7%B5%A6%E6%8E%92%E6%B0%B4%E3%81%AE%E7%B3%BB%E7%B5%B1.svg" alt="住宅の給排水系統。給水・給湯・排水・通気の 4 系統を、水栓と器具ごとに分けた図" width="1190" height="774" loading="lazy" decoding="async"><span>住宅の給排水</span></a></li>
-    <li><a href="../18/"><img src="../../gallery/18-%E9%85%8D%E7%AE%A1%E3%81%AE%E7%B3%BB%E7%B5%B1.svg" alt="冷却水の配管系統図（P&amp;amp;ID）。ポンプ・熱交換器・弁と計器の記号を、線種で分けた配管でつないだ図" width="1282" height="715" loading="lazy" decoding="async"><span>配管の系統（P&amp;amp;ID）</span></a></li>
-    <li><a href="../35/"><img src="../../gallery/35-%E9%85%8D%E6%B0%B4%E7%B3%BB%E7%B5%B1%E5%9B%B3.svg" alt="上水道の配水系統図。浄水場から配水池・配水幹線・給水区域までの系統と、区域ごとの標高" width="1235" height="683" loading="lazy" decoding="async"><span>配水系統図（上水道）</span></a></li>
-    <li><a href="../38/"><img src="../../gallery/38-%E8%A8%88%E8%A3%85%E3%83%AB%E3%83%BC%E3%83%97%E5%9B%B3.svg" alt="計装ループ図（TIC-101）。検出端から変換器・調節計・操作端までの信号を、計器番号つきでつないだ図" width="1484" height="679" loading="lazy" decoding="async"><span>計装ループ図（TIC-101）</span></a></li>
+    <li><a href="../10/"><img src="../../gallery/10-%E7%B5%A6%E6%8E%92%E6%B0%B4%E3%81%AE%E7%B3%BB%E7%B5%B1.svg" alt="住宅の給排水系統。給水・給湯・排水・通気の 4 系統を、水栓と器具ごとに分けた図" width="1375" height="691" loading="lazy" decoding="async"><span>住宅の給排水</span></a></li>
+    <li><a href="../18/"><img src="../../gallery/18-%E9%85%8D%E7%AE%A1%E3%81%AE%E7%B3%BB%E7%B5%B1.svg" alt="冷却水の配管系統図（P&amp;amp;ID）。ポンプ・熱交換器・弁と計器の記号を、線種で分けた配管でつないだ図" width="1448" height="803" loading="lazy" decoding="async"><span>配管の系統（P&amp;amp;ID）</span></a></li>
+    <li><a href="../35/"><img src="../../gallery/35-%E9%85%8D%E6%B0%B4%E7%B3%BB%E7%B5%B1%E5%9B%B3.svg" alt="上水道の配水系統図。浄水場から配水池・配水幹線・給水区域までの系統と、区域ごとの標高" width="1235" height="729" loading="lazy" decoding="async"><span>配水系統図（上水道）</span></a></li>
+    <li><a href="../38/"><img src="../../gallery/38-%E8%A8%88%E8%A3%85%E3%83%AB%E3%83%BC%E3%83%97%E5%9B%B3.svg" alt="計装ループ図（TIC-101）。検出端から変換器・調節計・操作端までの信号を、計器番号つきでつないだ図" width="1488" height="679" loading="lazy" decoding="async"><span>計装ループ図（TIC-101）</span></a></li>
     <li><a href="../44/"><img src="../../gallery/44-%E4%BA%BA%E5%B7%A5%E8%A1%9B%E6%98%9F%E3%81%AE%E7%B3%BB%E7%B5%B1%E5%9B%B3.svg" alt="150kg 級人工衛星の系統図。電源・通信・姿勢制御・データ処理・ミッション機器のつながり" width="2012" height="857" loading="lazy" decoding="async"><span>人工衛星の系統図（150kg 級）</span></a></li>
     <li><a href="../50/"><img src="../../gallery/50-%E9%9B%BB%E5%AD%90%E5%9B%9E%E8%B7%AF%E5%9B%B3.svg" alt="LED 点灯回路の電子回路図。電源・抵抗・LED・スイッチを IEC／JIS 記号で描いた図" width="766" height="319" loading="lazy" decoding="async"><span>電子回路図（IEC／JIS 記号）</span></a></li>
-    <li><a href="../103/"><img src="../../gallery/103-%E9%99%B8%E4%B8%8A%E9%A4%8A%E6%AE%96%E3%81%AE%E5%BE%AA%E7%92%B0%E7%B3%BB%E7%B5%B1%E5%9B%B3.svg" alt="閉鎖循環式陸上養殖の系統図。水槽から物理ろ過・生物ろ過・脱窒・殺菌を通って戻る水の道" width="1618" height="420" loading="lazy" decoding="async"><span>陸上養殖の循環系統図（水を捨てずに直す）</span></a></li>
+    <li><a href="../103/"><img src="../../gallery/103-%E9%99%B8%E4%B8%8A%E9%A4%8A%E6%AE%96%E3%81%AE%E5%BE%AA%E7%92%B0%E7%B3%BB%E7%B5%B1%E5%9B%B3.svg" alt="閉鎖循環式陸上養殖の系統図。水槽から物理ろ過・生物ろ過・脱窒・殺菌を通って戻る水の道" width="1664" height="535" loading="lazy" decoding="async"><span>陸上養殖の循環系統図（水を捨てずに直す）</span></a></li>
   </ul>
   <nav class="steps" aria-label="前後の見本">
     <a class="step prev" href="../18/" rel="prev"><span>←</span> 配管の系統（P&amp;amp;ID）</a>

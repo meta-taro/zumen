@@ -170,7 +170,14 @@ edges:
     to: err_stock
     label: "在庫切れ"
     line: dashed
+    # 確認画面の下から出して、支払い画面の上を通らない（線が箱を横切ると、そこから出たように読める）
+    via:
+      - { x: 800, y: 300 }
+      - { x: 180, y: 300 }
   - from: c4
     to: err_pay
     label: "決済失敗"
     line: dashed
+    via:
+      - { x: 880, y: 330 }
+      - { x: 660, y: 330 }

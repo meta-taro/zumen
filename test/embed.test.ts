@@ -1,5 +1,5 @@
 /**
- * Markdown への埋め込み（Issue 012 / D4 の着地点）。
+ * Markdown への埋め込み（着地点は Markdown 本文への埋め込み）。
  *
  * md-business を触る前に、**こちら側だけで囲み → 描画を通す**。
  * 囲みの拾い方は md-business の `fencedBlocks.ts` と同じ規則にしてあるので、

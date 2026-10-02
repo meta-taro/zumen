@@ -28,8 +28,10 @@ views:
 # the fire from the anchor point, so a name on the radio is a place on the map.
 #
 # Every map product carries **STANDL-SGD** - scale, title, author, north arrow,
-# date, legend, source, grid, datum. IAP maps are drawn at 1:24,000 and carried
-# in a pocket.
+# date, legend, source, grid, datum. IAP maps carry a bar scale and are sized
+# to the IAP page; there is no one fixed scale.
+# Escape routes are dotted with an arrow, so they cannot be read as unfinished line.
+# STANDL follows NWCG PMS 936 (Standards for Geospatial Operations), checked 2026-10-02.
 #
 # The fire, the divisions and the points are fictional.
 nodes:
@@ -382,7 +384,7 @@ nodes:
     at: { x: 620, y: 710 }
     size: { w: 150, h: 22 }
   - id: b710
-    label: "1:24,000 - it is carried in a pocket"
+    label: "a bar scale, sized to the IAP page"
     align: left
     at: { x: 770, y: 710 }
     size: { w: 290, h: 22 }
@@ -473,7 +475,9 @@ edges:
     to: icp
   - from: dpa
     to: sz
-    line: dashed
+    line: dotted
+    ends: { to: arrow }
   - from: dpb
     to: dp2
-    line: dashed
+    line: dotted
+    ends: { to: arrow }

@@ -1,6 +1,6 @@
 version: 1
 kind: placement
-arrows: false
+arrows: true
 scale: { mm: 1 }
 title: おせち三段重の詰め方（6.5 寸・市松／段取り／升掛）
 # 1 px = 1 mm。**どこに何を詰めるか**の図。品数と型に決まりがある。
@@ -19,7 +19,7 @@ title: おせち三段重の詰め方（6.5 寸・市松／段取り／升掛）
 # 詰め方の型は 市松・段取り・升掛・七宝・末広の 5 つ。
 # **末広（扇）と七宝（円の重なり）は、面を塗った曲線**が要るので、
 # いまの zumen では描けない（README の「まだ無いもの」に書いてある）。
-# ここでは矩形で割れる 3 つを描いた。
+# ここでは直線で割れる 3 つを描いた。升掛は重箱を斜めに仕切って奇数の帯に分ける型（手綱とも）。
 nodes:
   - id: a_c
     label: "一の重 —— 市松（9 品）"
@@ -136,31 +136,19 @@ nodes:
     marker: box
     at: { x: 690, y: 170 }
     size: { w: 195, h: 195 }
-  - id: c0
-    label: "里芋"
-    hatch: dots
-    at: { x: 690, y: 170 }
-    size: { w: 65, h: 195 }
-  - id: c1
-    label: "にんじん"
-    hatch: none
-    at: { x: 755, y: 170 }
-    size: { w: 65, h: 65 }
-  - id: c2
-    label: "ごぼう"
-    hatch: lines
-    at: { x: 755, y: 235 }
-    size: { w: 65, h: 65 }
-  - id: c3
-    label: "れんこん"
-    hatch: none
-    at: { x: 755, y: 300 }
-    size: { w: 65, h: 65 }
-  - id: c4
-    label: "しいたけ"
-    hatch: dots
-    at: { x: 820, y: 170 }
-    size: { w: 65, h: 195 }
+  - { id: d0a, label: "", marker: none, at: { x: 767, y: 169 }, size: { w: 2, h: 2 } }
+  - { id: d0b, label: "", marker: none, at: { x: 689, y: 247 }, size: { w: 2, h: 2 } }
+  - { id: d1a, label: "", marker: none, at: { x: 845, y: 169 }, size: { w: 2, h: 2 } }
+  - { id: d1b, label: "", marker: none, at: { x: 689, y: 325 }, size: { w: 2, h: 2 } }
+  - { id: d2a, label: "", marker: none, at: { x: 884, y: 208 }, size: { w: 2, h: 2 } }
+  - { id: d2b, label: "", marker: none, at: { x: 728, y: 364 }, size: { w: 2, h: 2 } }
+  - { id: d3a, label: "", marker: none, at: { x: 884, y: 286 }, size: { w: 2, h: 2 } }
+  - { id: d3b, label: "", marker: none, at: { x: 806, y: 364 }, size: { w: 2, h: 2 } }
+  - { id: c0, label: "里芋", marker: none, align: center, at: { x: 692, y: 189 }, size: { w: 72, h: 18 } }
+  - { id: c1, label: "にんじん", marker: none, align: center, at: { x: 712, y: 219 }, size: { w: 72, h: 18 } }
+  - { id: c2, label: "ごぼう", marker: none, align: center, at: { x: 751, y: 258 }, size: { w: 72, h: 18 } }
+  - { id: c3, label: "れんこん", marker: none, align: center, at: { x: 790, y: 297 }, size: { w: 72, h: 18 } }
+  - { id: c4, label: "椎茸", marker: none, align: center, at: { x: 837, y: 328 }, size: { w: 44, h: 18 } }
   - id: note_pat
     label: "末広（扇）と七宝（円の重なり）は、面を塗った曲線が要るので、いまの zumen では描けない。"
     marker: none
@@ -366,3 +354,9 @@ nodes:
     align: left
     at: { x: 1010, y: 604 }
     size: { w: 260, h: 24 }
+
+edges:
+  - { from: d0a, to: d0b, curve: none, ends: { from: none, to: none } }
+  - { from: d1a, to: d1b, curve: none, ends: { from: none, to: none } }
+  - { from: d2a, to: d2b, curve: none, ends: { from: none, to: none } }
+  - { from: d3a, to: d3b, curve: none, ends: { from: none, to: none } }

@@ -24,7 +24,7 @@ RANGE="${2:-}"
 SELF='.github/scripts/private-notes-check.sh'
 
 # 公開しない道（.gitignore の「公開しないもの」と揃える）
-PRIVATE_PATHS='^(\.claude/|CLAUDE\.md$|qa/|docs/(origin|handoff|specs|feedback|test-specs)/|\.private-deny-words$|test/(laps|quality-laps)\.test\.ts$|scripts/laps\.mjs$)'
+PRIVATE_PATHS='^(\.claude/|CLAUDE\.md$|PRD\.md$|qa/|docs/(origin|handoff|specs|feedback|test-specs)/|\.private-deny-words$|test/(laps|quality-laps)\.test\.ts$|scripts/laps\.mjs$)'
 # 会話の記録の印。発言者を名指す語が出たら、その周りは会話の書き写しになっている
 MARKS='オーナー'
 

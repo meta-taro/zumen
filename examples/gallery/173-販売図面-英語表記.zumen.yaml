@@ -15,6 +15,7 @@ north: { face: up, at: { x: 734, y: 574 } }
 # **部屋は白のまま**（面を敷くのは Living だけ）、
 # **家具を描かない**（置き家具は買う人が決める。描くと間取りの話でなくなる）、
 # **面積を㎡・帖（J）・坪（T）の 3 つで言う**。
+# 帖（J）は ㎡ ÷ 1.62 を小数第 1 位で切り捨て（不動産の表示に関する公正競争規約施行規則 第 9 条第 16 号：1 帖 1.62㎡ 以上）。
 #
 # 色は無彩色 2 つだけ。線に \`color\`（Wall・Fixture）、面に \`fill\`（Living）。
 # 1 px = 20 mm。間取り・面積・物件は架空。
@@ -30,7 +31,7 @@ nodes:
     size: { w: 630, h: 400 }
   - id: kit
     label: "Kitchen"
-    technology: "7.28㎡ (4.5J)"
+    technology: "7.28㎡ (4.4J)"
     color: Wall
     at: { x: 70, y: 214 }
     size: { w: 140, h: 130 }
@@ -125,7 +126,7 @@ nodes:
       - { kind: slide, side: bottom, at: 0.72, width: 110 }
   - id: bed1
     label: "Bedroom"
-    technology: "14.08㎡ (8.7J)"
+    technology: "14.08㎡ (8.6J)"
     color: Wall
     at: { x: 340, y: 394 }
     size: { w: 160, h: 220 }
@@ -134,7 +135,7 @@ nodes:
       - { kind: slide, side: bottom, at: 0.5, width: 80 }
   - id: mbed
     label: "Master\nBedroom"
-    technology: "17.60㎡ (10.9J)"
+    technology: "17.60㎡ (10.8J)"
     color: Wall
     at: { x: 500, y: 394 }
     size: { w: 200, h: 220 }
@@ -436,7 +437,7 @@ nodes:
     at: { x: 780, y: 178 }
     size: { w: 150, h: 22 }
   - id: b178
-    label: "㎡ ÷ 1.62。表示規約の下限"
+    label: "㎡ ÷ 1.62 を切り捨て（下限）"
     align: left
     at: { x: 930, y: 178 }
     size: { w: 250, h: 22 }

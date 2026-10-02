@@ -1,8 +1,8 @@
 /**
- * 画面の組み立て（D12。Tauri + Svelte）。
+ * 画面の組み立て（Tauri + Svelte）。
  *
  * **中核（`src/`）は画面を知らない。** ここから `src/` を呼ぶ向きだけにする。
- * 逆向きの import が生まれたら、GUI を捨てられなくなる（ベースルール §9）。
+ * 逆向きの import が生まれたら、GUI を捨てられなくなる。
  */
 import { svelte } from '@sveltejs/vite-plugin-svelte';
 import { defineConfig } from 'vite';

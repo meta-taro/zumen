@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# OSS 公開リポの個人情報混入チェック（product-baseline §32）
+# OSS 公開リポの個人情報混入チェック
 #
 # 使い方:
 #   .github/scripts/oss-privacy-check.sh <BASE> <HEAD>   # 範囲の commit + 差分を検査
@@ -353,7 +353,7 @@ fi
 # --- 結果 -------------------------------------------------------------------
 if [ "$fail" -ne 0 ]; then
   note ""
-  note "個人情報の混入が疑われます（product-baseline §32）。"
+  note "個人情報の混入が疑われます。"
   note "  - 追加行が原因: 当該行を修正して commit し直す"
   note "  - commit author/message が原因: history に焼き付くため rebase での書き換えが要る。"
   note "    公開後に気づいた場合は force push の可否を含めてリポジトリの管理者へ Issue で確認する"

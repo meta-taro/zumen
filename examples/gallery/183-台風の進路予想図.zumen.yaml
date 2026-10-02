@@ -9,6 +9,10 @@ title: 台風の進路予想図（予報円と暴風警戒域・架空）
 # 暴風域は平均風速 25m/s 以上、強風域は 15m/s 以上。
 #
 # 色は暴風域と強風域だけに敷く（気象庁の図と同じ考え）。
+# 線の種類も気象庁の台風経路図にそろえた：予報円は破線、暴風警戒域は実線。
+# 気象庁の図では暴風警戒域を時刻ごとの円にせず、外側を 1 本の線でつないで描く
+# （この図は作られ方を見せるため、時刻ごとの円のまま残した）。
+# 出典：気象庁「台風経路図の見方」https://www.jma.go.jp/jma/kishou/know/typhoon/7-1.html（取得 2026-10-02）。
 # 1px ＝ 3.6km。台風・進路・数値は架空。
 palette:
   暴風域: "#b03a2e"
@@ -237,7 +241,7 @@ nodes:
     at: { x: 900, y: 394 }
     size: { w: 160, h: 22 }
   - id: b394
-    label: "予報円の外側が暴風警戒域"
+    label: "予報円そのもの（気象庁の図も破線）"
     align: left
     at: { x: 1060, y: 394 }
     size: { w: 310, h: 22 }
@@ -246,7 +250,7 @@ nodes:
     at: { x: 900, y: 416 }
     size: { w: 160, h: 22 }
   - id: b416
-    label: "予報円そのもの"
+    label: "暴風警戒域（気象庁は外側を 1 本の線でつなぐ）"
     align: left
     at: { x: 1060, y: 416 }
     size: { w: 310, h: 22 }
@@ -353,7 +357,6 @@ edges:
   - from: e1
     to: e1
     curve: none
-    line: dashed
     ends: { from: none, to: none }
     via:
       - { x: 506.4, y: 340 }
@@ -408,7 +411,6 @@ edges:
   - from: e2
     to: e2
     curve: none
-    line: dashed
     ends: { from: none, to: none }
     via:
       - { x: 386, y: 440.8 }
@@ -463,7 +465,6 @@ edges:
   - from: e3
     to: e3
     curve: none
-    line: dashed
     ends: { from: none, to: none }
     via:
       - { x: 276.8, y: 536 }
@@ -518,6 +519,7 @@ edges:
   - from: e4
     to: e4
     curve: none
+    line: dashed
     ends: { from: none, to: none }
     via:
       - { x: 234.8, y: 536 }
@@ -572,6 +574,7 @@ edges:
   - from: e5
     to: e5
     curve: none
+    line: dashed
     ends: { from: none, to: none }
     via:
       - { x: 338.4, y: 440.8 }
@@ -626,6 +629,7 @@ edges:
   - from: e6
     to: e6
     curve: none
+    line: dashed
     ends: { from: none, to: none }
     via:
       - { x: 456, y: 340 }

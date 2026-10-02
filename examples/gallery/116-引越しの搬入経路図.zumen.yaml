@@ -1,10 +1,10 @@
-# **表を横に置いたせいで紙が横長になっていた**（2026-09-24。qa/品質100周 第 20 周）。
+# **表を横に置いたせいで紙が横長になっていた**（2026-09-24）。
 # 紙 2044 × 640px（3.2 : 1）で、A4 横（1.41 : 1）にも収まらない。
 # 間取り図が読めない大きさになるので、**表を間取り図の下へ積んだ。**
 # 横長でよいのは「対象そのものが横長」のとき（見本 29 の編成図・128 のロゴ）。
 # あわせて、左端が紙の縁に接していた（玄関の箱が切れていた）ので 36px 逃がした。
 #
-# **縦に積んだら「A3 に印刷しても字が読めません」で止められた。**
+# **縦に積むと、A3 に印刷しても字が読めなかった。**
 # 副題（`technology`）は 10px 固定で正本から上げられないので、
 # **紙の丈を詰める**（間取り図と表の間を 96px 縮めた）。比 0.0082 → 0.0089。
 version: 1
@@ -43,8 +43,11 @@ nodes:
     at: { x: 156, y: 330 }
     size: { w: 400, h: 85 }
     openings:
-      - { kind: door, side: top, at: 0.25, width: 72 }
-      - { kind: door, side: right, at: 0.5, width: 72 }
+      # 居室の戸は部屋の側へ開く（廊下へ開くと、開けたとき廊下を塞ぐ）
+      - { kind: door, side: top, at: 0.25, width: 72, swing: out }
+      - { kind: door, side: right, at: 0.5, width: 72, swing: out }
+      # 玄関とのあいだは戸が無い（上がり框だけ）
+      - { kind: open, side: left, at: 0.5, width: 80 }
   - id: yoshitsu
     label: ""
     at: { x: 186, y: 60 }
@@ -72,10 +75,23 @@ nodes:
     hatch: lines
     at: { x: 560, y: 124 }
     size: { w: 69, h: 70 }
+  - id: senmen
+    label: ""
+    marker: box
+    at: { x: 156, y: 415 }
+    size: { w: 130, h: 100 }
+    openings:
+      - { kind: door, side: top, at: 0.27, width: 60 }
+  - id: senmen_n
+    label: "洗面室"
+    marker: none
+    align: left
+    at: { x: 160, y: 488 }
+    size: { w: 56, h: 22 }
   - id: sentaku
     label: "洗濯機"
     hatch: lines
-    at: { x: 160, y: 334 }
+    at: { x: 222, y: 419 }
     size: { w: 60, h: 64 }
   - id: sofa
     label: "ソファ（3 人）"
@@ -119,8 +135,8 @@ nodes:
     label: "廊下の曲がり —— 対角 1,200"
     marker: none
     align: left
-    at: { x: 160, y: 436 }
-    size: { w: 300, h: 22 }
+    at: { x: 296, y: 470 }
+    size: { w: 230, h: 22 }
   - id: d5
     label: "天井高 2,400（照明の出っ張り −80）"
     marker: none
@@ -293,7 +309,7 @@ nodes:
     at: { x: 206, y: 748 }
     size: { w: 200, h: 28 }
   - id: tc6_2
-    label: "天井高 2400"
+    label: "廊下の曲がり（長さ 2000）"
     at: { x: 406, y: 748 }
     size: { w: 180, h: 28 }
   - id: tc6_3
@@ -371,12 +387,17 @@ nodes:
     at: { x: 36, y: 1076 }
     size: { w: 620, h: 24 }
 edges:
+  # **搬入経路**（太線）：玄関 → 廊下 → 各室の戸
   - from: genkan
-    to: rouka
-    weight: thick
-  - from: rouka
     to: living
     weight: thick
-  - from: rouka
+    via:
+      - { x: 150, y: 372 }
+      - { x: 556, y: 372 }
+  - from: genkan
     to: yoshitsu
     weight: thick
+    via:
+      - { x: 150, y: 372 }
+      - { x: 256, y: 372 }
+      - { x: 256, y: 330 }

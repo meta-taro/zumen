@@ -1,5 +1,5 @@
 /**
- * 形式の検証器（Issue 014 / 仕様 §8）。
+ * 形式の検証器（仕様 §8）。
  *
  * **弾くための道具ではない。** v1 の規則は「知らないキーは捨てずに保つ」（§9）なので、
  * 知らないものを見つけても失敗にしない。ここが確かめるのは 2 つだけ。
@@ -167,7 +167,7 @@ function checkVersion(doc: Document, add: Add, m: Messages, at: At): void {
 function checkNodes(doc: Document, add: Add, m: Messages, at: At): Set<string> | undefined {
   const node = doc.get('nodes', true);
   if (node === undefined || node === null) {
-    // **作図には節が無い**（D36）。あるのは円と弧だけ。
+    // **作図には節が無い**。あるのは円と弧だけ。
     if (String(doc.get('kind') ?? '') === 'construction') return new Set();
     add('error', 'nodes-missing', m.nodesMissing, 1);
     return undefined;
@@ -481,14 +481,14 @@ function checkSharedIds(doc: Document, add: Add, m: Messages, at: At): void {
 }
 
 /**
- * **作図**（`kind: construction`。D36）。
+ * **作図**（`kind: construction`）。
  *
  * ## いちばん大事な検査 —— **位置の pin を黙殺しない**
  *
  * この図では位置を手順が決めるので、`pins.position` は効かない。
  * **黙って消えるのが唯一の本当の事故**（姉妹側の条件。2026-09-15）——
  * 人が箱を動かして、次の生成で何も言わずに戻るのは、
- * 利用者から見ると **D5 が壊れたのと区別が付かない。**
+ * 利用者から見ると **「人の指定が勝つ」が壊れたのと区別が付かない。**
  *
  * だから**上書きでも黙殺でもなく、明示で断る。**
  * 何を代わりに直せばよいか（＝`let` の定数）まで言う。
@@ -535,7 +535,7 @@ function checkConstruction(doc: Document, add: Add, m: Messages, at: At): void {
 }
 
 /**
- * **1 枚に複数の図**（`views`。D35）。
+ * **1 枚に複数の図**（`views`）。
  *
  * 落ちたことを黙らない —— 形が揃っていない図は描かれないので、
  * **書いたのに出ない**という、いちばん分かりにくい壊れ方をする。

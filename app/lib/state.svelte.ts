@@ -1,10 +1,10 @@
 /**
- * 画面の状態。**中核（`src/`）を呼ぶ向きだけにする**（D12 / ベースルール §9）。
+ * 画面の状態。**中核（`src/`）を呼ぶ向きだけにする**（中核は画面を知らない。差し替えるものは境界の外）。
  *
  * ここに置くのは「いま何を見ているか」だけで、
  * **判断は中核が持つ**（マージ・競合・検証・計測）。
  *
- * 操作は 8 つに限ってある（D11）。**増やす前に `docs/specs/005-承認のための最小GUI.md` を読む。**
+ * 操作は承認に要る 8 つに限ってある。**承認に紐づかない操作は増やさない。**
  */
 import { diffLines, condense, hasChange } from '../../src/diff.ts';
 import type { DiffLine } from '../../src/diff.ts';
@@ -22,7 +22,7 @@ import { hasError, validate } from '../../src/validate.ts';
 import type { Finding } from '../../src/validate.ts';
 
 export class Session {
-  /** 正本。**書き換わるのは常にこちら**（D5）。 */
+  /** 正本。**書き換わるのは常にこちら**（AI の出力は提案）。 */
   text = $state('');
   /** 開いているファイルの名前。保存先が分からないときは null。 */
   name = $state<string | null>(null);
@@ -30,7 +30,7 @@ export class Session {
    * 開いている図の道。**殻（Tauri）の中でだけ分かる。**
    *
    * ブラウザで開いたときは名前しか無い。エージェントへ
-   * 「どの図を映しているか」を伝えるのに要る（D34）。
+   * 「どの図を映しているか」を伝えるのに要る。
    */
   path = $state<string | null>(null);
   /** 保存していない変更があるか。 */
@@ -43,7 +43,7 @@ export class Session {
 
   /**
    * 提案を当てた結果。**まだ正本に入れていない。**
-   * 適用してから見せるのでは、承認ではなく事後報告になる（D11 の操作 6）。
+   * 適用してから見せるのでは、承認ではなく事後報告になる（8 操作の 6）。
    */
   pending = $state<{ text: string; conflicts: Conflict[] } | null>(null);
 
@@ -74,9 +74,9 @@ export class Session {
   /**
    * 戻る／進むのための控え。**正本のテキストをそのまま積む。**
    *
-   * D11 では「Undo は作らない。正本が Git にあるので二重管理になる」と決めていた。
+   * 当初は「Undo は作らない。正本が Git にあるので二重管理になる」と決めていた。
    * **自動保存を入れると判断が変わる** — 保存しないという逃げ道が消えるので、
-   * 取り消しが要る（D19）。
+   * 取り消しが要る。
    *
    * 二重管理にならないのは、**積むのが正本そのもの**だから。
    * 作図操作の履歴ではないので、正本と食い違いようがない。
@@ -113,7 +113,7 @@ export class Session {
     return hasError(this.findings);
   }
 
-  /** 「9 割」の数字（D3）。読めない図では出さない。 */
+  /** 「9 割」の数字（自力率）。読めない図では出さない。 */
   get measurement(): Measurement | null {
     if (this.text === '' || this.broken) return null;
     try {
@@ -177,7 +177,7 @@ export class Session {
    * **人が「見た」と印を付けた。**
    *
    * **この口は画面にしか無い。** MCP にも `src/tools.ts` にも開けていない。
-   * 開けた瞬間、**AI が自分の絵を自分で承認できる**（D18 で閉じたのと同じ穴）。
+   * 開けた瞬間、**AI が自分の絵を自分で承認できる**（AI が採用する口を開けないのと同じ理由）。
    *
    * ここを押せるのは、**画面に図が出ている人だけ**。それが唯一の担保。
    */
@@ -190,10 +190,10 @@ export class Session {
   }
 
   /**
-   * 人が要素を動かした（D11 の操作 4）。
+   * 人が要素を動かした（8 操作の 4）。
    *
    * **これが人の手直しの最小形。** 結果は `pins.position` に入り、
-   * 次の提案でも壊れない（D5）。
+   * 次の提案でも壊れない（提案は人の正本へマージする）。
    */
   async place(id: string, x: number, y: number): Promise<void> {
     this.#remember();
@@ -206,9 +206,9 @@ export class Session {
   }
 
   /**
-   * 提案を受け取る（D11 の操作 5）。**当てた結果を作るだけで、正本は変えない。**
+   * 提案を受け取る（8 操作の 5）。**当てた結果を作るだけで、正本は変えない。**
    *
-   * v0 では AI の API を呼ばない。**鍵の投入は人の作業**（ベースルール §14）。
+   * v0 では AI の API を呼ばない。**鍵の投入は人の作業**。
    */
   propose(proposalText: string): void {
     this.pending = merge(this.text, proposalText);
@@ -230,7 +230,7 @@ export class Session {
   }
 
   /**
-   * 競合を決着させる（D11 の操作 7）。
+   * 競合を決着させる（8 操作の 7）。
    *
    * **決めた結果は正本へ書く。** 実行中の変数に持つと、
    * 次に開いたときに同じことを聞き直す（S1 の判定基準 3.3）。
@@ -270,12 +270,12 @@ export class Session {
     await this.refresh();
   }
 
-  /** 選ぶ（D11 の操作 3）。同じものを押したら外す。 */
+  /** 選ぶ（8 操作の 3）。同じものを押したら外す。 */
   select(id: string | null): void {
     this.selected = this.selected === id ? null : id;
   }
 
-  /** 見る（D11 の操作 2）。**編集ではなく閲覧。** */
+  /** 見る（8 操作の 2）。**編集ではなく閲覧。** */
   zoomBy(factor: number): void {
     this.zoom = Math.min(4, Math.max(0.2, this.zoom * factor));
     this.#touched = true;
@@ -312,7 +312,7 @@ export class Session {
   }
 
   /**
-   * 図ぜんぶが見える大きさにする（D11 の操作 2「見る」）。
+   * 図ぜんぶが見える大きさにする（8 操作の 2「見る」）。
    *
    * **拡大はしない。** 小さい図を引き伸ばすと、線の太さの意味が変わる
    * （人の指定は太さで示している。`DESIGN.md` §2.3）。

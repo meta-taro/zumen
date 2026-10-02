@@ -13,6 +13,14 @@ title: 給食厨房の区域と一方通行（HACCP）
 #
 # 加熱で菌を殺しても、ゆっくり冷ませば増える温度帯を長く通る。
 # **急速冷却が工程図に載るのは、時間そのものが管理点だから。**
+#
+# ## 冷却は清潔作業区域
+#
+# 区域の区分は、汚染作業区域（検収場・原材料の保管場・下処理場）、
+# 準清潔作業区域（調理場）、清潔作業区域（**放冷・調製場**・製品の保管場）。
+# 加熱したあと冷ますものは、清潔作業区域へ渡して冷ます。
+# 出典：厚生労働省「大量調理施設衛生管理マニュアル」（加熱は中心 75℃ で 1 分以上、
+# 冷却は 30 分以内に中心 20℃ 付近、調理後 2 時間以内の喫食、区域の区分）。取得 2026-10-02
 groups:
   - id: osen
     label: 汚染作業区域（格子）
@@ -52,41 +60,40 @@ nodes:
     at: { x: 250, y: 40 }
     size: { w: 170, h: 170 }
     group: junsei
-  - id: reikyaku
-    label: 急速冷却
+  - id: hoon
+    label: 保温
     tag: B-02
-    technology: 30 分で 20℃
+    technology: 65℃ 以上
     hatch: lines
     at: { x: 250, y: 230 }
     size: { w: 170, h: 110 }
     group: junsei
-  - id: hoon
-    label: 保温
-    tag: B-03
-    technology: 65℃ 以上
-    hatch: lines
-    at: { x: 250, y: 360 }
-    size: { w: 170, h: 90 }
-    group: junsei
+  - id: reikyaku
+    label: 急速冷却（放冷）
+    tag: C-01
+    technology: 30 分で中心 20℃ 付近
+    at: { x: 480, y: 40 }
+    size: { w: 160, h: 90 }
+    group: seiketsu
   - id: moritsuke
     label: 盛付
-    tag: C-01
+    tag: C-02
     technology: 手袋・マスク
-    at: { x: 480, y: 40 }
-    size: { w: 160, h: 140 }
+    at: { x: 480, y: 150 }
+    size: { w: 160, h: 110 }
     group: seiketsu
   - id: haizen
     label: 配膳
-    tag: C-02
-    at: { x: 480, y: 200 }
-    size: { w: 160, h: 110 }
+    tag: C-03
+    at: { x: 480, y: 280 }
+    size: { w: 160, h: 80 }
     group: seiketsu
   - id: hakobi
     label: 搬出
-    tag: C-03
-    technology: 2 時間以内
-    at: { x: 480, y: 330 }
-    size: { w: 160, h: 110 }
+    tag: C-04
+    technology: 2 時間以内に喫食
+    at: { x: 480, y: 380 }
+    size: { w: 160, h: 70 }
     group: seiketsu
 edges:
   - from: kenpin
@@ -96,17 +103,11 @@ edges:
     label: 一方通行
   - from: kanetsu
     to: reikyaku
+    label: 一方通行
   - from: kanetsu
     to: hoon
-    # **急速冷却を通らない経路。** まっすぐ下ろすと、線が「急速冷却」の名前を
-    # 串刺しにする（2026-09-16。実物を見て見つけた）。区域の中は通したまま、
-    # 文字の右へ逃がす。
-    via:
-      - { x: 268, y: 200 }
-      - { x: 268, y: 350 }
   - from: reikyaku
     to: moritsuke
-    label: 一方通行
   - from: hoon
     to: moritsuke
   - from: moritsuke

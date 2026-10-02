@@ -1,9 +1,9 @@
 <!--
-  適用前の差分（D11 の操作 6）。
+  適用前の差分（8 操作の 6）。
 
   **図の上に重ねない**（`DESIGN.md` §2.5）。
   重ねると変わった部分の境目が読めないうえ、
-  正本が `git diff` で読める形（D2）と見え方が食い違う。
+  正本が `git diff` で読める形と見え方が食い違う。
 -->
 <script lang="ts">
   import { messages } from '../../src/messages.ts';
@@ -11,10 +11,10 @@ import type { Session } from './state.svelte.ts';
 
   interface Props {
     session: Session;
-    /** エージェントが添えた一言（D34）。人の提案には無い。 */
+    /** エージェントが添えた一言。人の提案には無い。 */
     note?: string | null;
     /**
-     * 人が答えたことを、線の向こうへ返す（D34）。
+     * 人が答えたことを、線の向こうへ返す。
      *
      * **ここを通らない限り、エージェントは `applied` を見ない。**
      * エージェント側に、この呼び出しへ届く道は無い。

@@ -1,6 +1,6 @@
 version: 1
 kind: placement
-title: 手術室 機器配置図（OR-3・清潔度クラス 100,000）
+title: 手術室 機器配置図（OR-3）
 # **手術室の配置図は、清潔と不潔を分けるための図。**
 # 室圧 ＋15Pa は**中の空気を外へ押し出す**ためで、
 # 廊下の埃が入らないようにしている。前室があるのは、その圧を保つため。
@@ -14,86 +14,126 @@ title: 手術室 機器配置図（OR-3・清潔度クラス 100,000）
 #
 # 医療ガスと電気は壁・天井から来るので**位置が固定**される。
 # 麻酔器と器械台は動かせる。図で分けて描くのは、そこが手術の型で変わるから。
+#
+# ## 機器は部屋ではない
+#
+# 手術室は 1 室（7.2m × 6.6m ≒ 48m²）。前室と手洗いコーナーはその外に付く。
+# 麻酔器は患者の頭側、器械台は足側、医療ガスは天井のペンダント、
+# 非接地配線の絶縁監視盤（ISP）は壁付け。手術室の電源は非接地配線方式（JIS T 1022 医用室）。
 # 1 px = 25 mm
+# JIS T 1022 の**版は確かめていない**。
 scale: { mm: 25 }
 wall: { mm: 150, outer: 200 }
 grid:
   x:
     - { id: X1, at: 0 }
-    - { id: X2, at: 280 }
-    - { id: X3, at: 480 }
+    - { id: X2, at: 120 }
+    - { id: X3, at: 288 }
   y:
     - { id: Y1, at: 0 }
-    - { id: Y2, at: 120 }
-    - { id: Y3, at: 400 }
+    - { id: Y2, at: 80 }
+    - { id: Y3, at: 344 }
 pins:
   daizai:
     appearance: primary
-groups:
-  - id: or3
-    label: OR-3　48 m²　CH＝2,900　層流吹出　室圧 ＋15Pa
 nodes:
   - id: zenshitsu
     label: 前室
     technology: 器材搬入・6 m²
     at: { x: 0, y: 0 }
-    size: { w: 280, h: 120 }
-    group: or3
+    size: { w: 120, h: 80 }
     openings:
-      - { kind: slide, side: bottom, at: 0.5, width: 70 }
-      - { kind: slide, side: left, at: 0.5, width: 50 }
+      - { kind: slide, side: bottom, at: 0.5, width: 50 }
+      - { kind: slide, side: left, at: 0.5, width: 40 }
   - id: tearai
     label: 手洗いコーナー
     technology: 自動水栓 3
-    at: { x: 280, y: 0 }
-    size: { w: 200, h: 120 }
-    group: or3
+    at: { x: 120, y: 0 }
+    size: { w: 168, h: 80 }
     openings:
-      - { kind: open, side: bottom, at: 0.5, width: 60 }
+      - { kind: open, side: bottom, at: 0.5, width: 50 }
+  - id: or3
+    label: ""
+    at: { x: 0, y: 80 }
+    size: { w: 288, h: 264 }
+  - id: orn
+    label: "OR-3　48 m²　CH＝2,900\n垂直層流・室圧 ＋15Pa"
+    marker: none
+    align: left
+    at: { x: 8, y: 300 }
+    size: { w: 170, h: 36 }
+  - { id: s1, label: "", marker: none, at: { x: 83, y: 151 }, size: { w: 2, h: 2 } }
+  - { id: s2, label: "", marker: none, at: { x: 203, y: 151 }, size: { w: 2, h: 2 } }
+  - { id: s3, label: "", marker: none, at: { x: 203, y: 271 }, size: { w: 2, h: 2 } }
+  - { id: s4, label: "", marker: none, at: { x: 83, y: 271 }, size: { w: 2, h: 2 } }
+  - id: soun
+    label: "層流吹出（天井 3m 角）"
+    marker: none
+    align: center
+    at: { x: 64, y: 130 }
+    size: { w: 160, h: 18 }
   - id: daizai
-    label: 手術台
+    label: ""
     tag: OT-1
-    technology: 電動・X 線透過
-    at: { x: 150, y: 190 }
-    size: { w: 180, h: 110 }
-    group: or3
-    radius: 60
+    hatch: dots
+    at: { x: 104, y: 200 }
+    size: { w: 80, h: 24 }
+  - id: daizain
+    label: "手術台（頭は左）"
+    marker: none
+    align: center
+    at: { x: 84, y: 280 }
+    size: { w: 120, h: 18 }
   - id: mueito
-    label: 無影灯
-    tag: SL-1/2
-    technology: 天吊 2 灯
-    at: { x: 150, y: 120 }
-    size: { w: 180, h: 60 }
-    group: or3
+    label: ""
+    marker: none
+    line: dashed
+    radius: 40
+    at: { x: 142, y: 210 }
+    size: { w: 4, h: 4 }
   - id: masui
-    label: 麻酔器
-    tag: AN-1
-    technology: 頭側・ガス 4 口
-    at: { x: 0, y: 120 }
-    size: { w: 140, h: 130 }
-    group: or3
-  - id: kikaidai
-    label: 器械台
-    tag: IT-1/2
-    technology: 清潔野・2 台
-    at: { x: 0, y: 250 }
-    size: { w: 140, h: 150 }
-    group: or3
+    label: ""
+    hatch: lines
+    at: { x: 52, y: 198 }
+    size: { w: 28, h: 28 }
   - id: gas
-    label: 医療ガス
-    tag: MG-1
-    technology: O2／N2O／空気／吸引
-    at: { x: 340, y: 120 }
-    size: { w: 140, h: 130 }
-    group: or3
+    label: ""
+    hatch: solid
+    at: { x: 52, y: 162 }
+    size: { w: 28, h: 28 }
+  - id: kikai1
+    label: ""
+    at: { x: 212, y: 190 }
+    size: { w: 28, h: 56 }
+  - id: kikai2
+    label: ""
+    at: { x: 244, y: 190 }
+    size: { w: 28, h: 56 }
   - id: denki
-    label: 電気設備
-    tag: ISP-1
-    technology: 非接地配線・IT 系統
-    at: { x: 340, y: 250 }
-    size: { w: 140, h: 150 }
-    group: or3
+    label: ""
+    hatch: solid
+    at: { x: 276, y: 280 }
+    size: { w: 8, h: 40 }
+  - { id: masuin, label: "AN-1", marker: none, align: right, at: { x: 4, y: 203 }, size: { w: 44, h: 18 } }
+  - { id: gasn, label: "MG-1", marker: none, align: right, at: { x: 4, y: 167 }, size: { w: 44, h: 18 } }
+  - { id: kikain, label: "IT-1／IT-2", marker: none, align: center, at: { x: 206, y: 250 }, size: { w: 72, h: 18 } }
+  - id: denkin
+    label: "ISP-1"
+    marker: none
+    align: right
+    at: { x: 220, y: 292 }
+    size: { w: 52, h: 18 }
+  - id: lg
+    label: "OT-1 手術台（電動・X 線透過）\n破線の円 無影灯 SL-1/2（天吊 2 灯）\nAN-1 麻酔器（頭側）\nMG-1 医療ガス（天井ペンダント）O2／N2O／空気／吸引\nIT-1/2 器械台（清潔野・足側）\nISP-1 絶縁監視盤（非接地配線・IT 系統）"
+    marker: none
+    align: left
+    at: { x: 310, y: 90 }
+    size: { w: 370, h: 110 }
 edges:
+  - { from: s1, to: s2, curve: none, line: dashed, ends: { from: none, to: none } }
+  - { from: s2, to: s3, curve: none, line: dashed, ends: { from: none, to: none } }
+  - { from: s3, to: s4, curve: none, line: dashed, ends: { from: none, to: none } }
+  - { from: s4, to: s1, curve: none, line: dashed, ends: { from: none, to: none } }
   - from: zenshitsu
     to: daizai
   - from: tearai

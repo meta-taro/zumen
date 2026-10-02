@@ -21,6 +21,12 @@ title: 三審制（同じ「3 回」でも、通る裁判所が違う）
 # 同じ 2 つの裁判所のあいだでも、**何審目から来たかで名前が変わる。**
 #
 # 家庭裁判所は家事事件と少年事件を扱い、その上は高等裁判所。
+# 人事訴訟の判決には**控訴**、家事審判・少年の保護処分の決定には**抗告**（裁判所法 16 条）。
+#
+# 簡裁 1 審の民事で高裁が上告審になったときも、憲法違反を理由に
+# **特別上告**として最高裁へ行く道は残る（民事訴訟法 327 条）。図では省いた。
+#
+# 出典：裁判所法 16 条・24 条・33 条（e-Gov 法令検索、2026-10-02 照合）。
 nodes:
   - id: kanni
     type: generic
@@ -38,7 +44,7 @@ nodes:
     type: generic
     label: 高等裁判所
   - id: saikou
-    type: database
+    type: generic
     label: 最高裁判所
     technology: 憲法違反などに限られる
 edges:
@@ -53,7 +59,7 @@ edges:
     label: 刑事
   - from: katei
     to: kousai
-    label: 控訴
+    label: 控訴・抗告
   - from: kousai
     to: saikou
     label: 上告

@@ -45,6 +45,11 @@ nodes:
     label: 与信の確認
     technology: 人が見る
     group: naka
+  - id: hold
+    type: queue
+    label: 与信保留
+    technology: 通らなければここで止まる。営業が顧客へ連絡
+    group: naka
   - id: stock
     type: storage
     label: 在庫
@@ -71,7 +76,10 @@ edges:
     to: check
   - from: check
     to: stock
-    label: 引き当て
+    label: 通れば引き当て
+  - from: check
+    to: hold
+    line: dashed
   - from: stock
     to: pick
   - from: pick
