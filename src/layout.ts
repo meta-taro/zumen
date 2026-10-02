@@ -733,6 +733,57 @@ export function edgesUnderBoxes(placed: Placed): [string, string][] {
   return found;
 }
 
+/**
+ * **辺が、関係の無い箱を突き抜けている組**（`[辺, 箱]`）。合否ではなく観測値。
+ *
+ * 2026-10-02、見本の見直しで 3 つの分野から同じ要望が出た。
+ * アレルゲン動線（見本 115）で、B ラインへの矢印が**アレルゲンを使わない A ラインの箱を突き抜けていた**。
+ * 交差（辺どうし）も重なり（箱どうし）も、辺と箱の組は見ていなかった。
+ *
+ * 数えないもの —— 辺の両端の箱、辺の端点を中に含む箱（区画の中を走る経路、囲みの中の結線）、
+ * 折れ点を中に置いた箱（わざと通している）、印を描かない箱（`marker: none`。文字だけの節や見えない杭）。
+ */
+export function edgesThroughBoxes(placed: Placed): [string, string][] {
+  const found: [string, string][] = [];
+  const inside = (b: Box, p: { x: number; y: number }): boolean =>
+    p.x > b.x && p.x < b.x + b.w && p.y > b.y && p.y < b.y + b.h;
+  for (const edge of placed.edges) {
+    if (edge.points.length < 2) continue;
+    const first = edge.points[0]!;
+    const last = edge.points[edge.points.length - 1]!;
+    for (const box of placed.boxes) {
+      if (box.marker === 'none' || box.id === edge.from || box.id === edge.to) continue;
+      if (inside(box, first) || inside(box, last)) continue;
+      // **折れ点（via）を中に置いた箱は、わざと通している**（路線図の停車駅 —— 1 本の辺が駅の丸を順に通る）
+      if (edge.points.slice(1, -1).some((p) => inside(box, p))) continue;
+      // 2px 内側の矩形を、どれかの線分が 4px 以上通っていれば「突き抜け」
+      const r = { x0: box.x + 2, y0: box.y + 2, x1: box.x + box.w - 2, y1: box.y + box.h - 2 };
+      if (r.x1 <= r.x0 || r.y1 <= r.y0) continue;
+      let through = false;
+      for (let i = 1; i < edge.points.length && !through; i += 1) {
+        const a = edge.points[i - 1]!;
+        const c = edge.points[i]!;
+        let t0 = 0;
+        let t1 = 1;
+        const dx = c.x - a.x;
+        const dy = c.y - a.y;
+        const clip = (p: number, q: number): boolean => {
+          if (p === 0) return q >= 0;
+          const t = q / p;
+          if (p < 0) { if (t > t1) return false; if (t > t0) t0 = t; }
+          else { if (t < t0) return false; if (t < t1) t1 = t; }
+          return true;
+        };
+        if (clip(-dx, a.x - r.x0) && clip(dx, r.x1 - a.x) && clip(-dy, a.y - r.y0) && clip(dy, r.y1 - a.y)) {
+          through = (t1 - t0) * Math.hypot(dx, dy) >= 4;
+        }
+      }
+      if (through) found.push([edge.id, box.id]);
+    }
+  }
+  return found;
+}
+
 /** 重なっている組を返す。合否ではなく観測値。 */
 /**
  * **丸い節**（`marker: circle` / `ellipse` で、幅と高さが同じもの）。

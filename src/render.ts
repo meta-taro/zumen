@@ -182,6 +182,22 @@ export function render(
         underOf(box, placed, names),
       ),
     ),
+    // **建具は、壁をすべて描いてから**（`renderNode` の `holes`）。
+    ...(plan
+      ? stack(placed.boxes, plan)
+          .map((box) =>
+            renderNode(
+              box,
+              palette,
+              plan,
+              outerIds.has(box.id) ? (outerWall ?? wall) : wall,
+              null,
+              'none',
+              'holes',
+            ),
+          )
+          .filter(Boolean)
+      : []),
     // **向きのある矢印は、図の上に載せる注記。**
     //
     // 部屋の塗りは透けないので、下に置くと**隣どうしの矢印が完全に消える。**
@@ -888,7 +904,7 @@ function renderNode(
   wall: number | null = null,
   name: Plan | null = null,
   under: Hatch = 'none',
-  part: 'body' | 'text' = 'body',
+  part: 'body' | 'holes' | 'text' = 'body',
 ): string {
   const style = lookOf(box.appearance, palette);
   const attributes = [
@@ -1004,6 +1020,12 @@ function renderNode(
       ? drawOpenings(box, box.openings, style.stroke, style.fill, paint.strokeWidth)
       : '';
 
+  // **建具は、すべての箱の壁を描いたあとで描く**（下の `holes` の層）。
+  // 箱ごとに描くと、後から描く小さい箱（収納・浴室）の壁が、先に描いた部屋の扉や開口を
+  // 塗り戻して消していた —— 2026-10-02、平面図 17 枚で 85 か所。扇の検査では見つからない。
+  if (part === 'holes') {
+    return holes === '' ? '' : `<g data-holes="${escapeAttr(box.id)}">${holes}</g>`;
+  }
   if (part === 'text') {
     // **符号も、塗り潰した面の上では地の色にする**（`ink`）。
     // 本文だけ反転させて符号を置き去りにすると、符号が塗りに沈む
@@ -1017,7 +1039,7 @@ function renderNode(
     if (words.length === 0) return '';
     return [`<g data-name="${escapeAttr(box.id)}">`, ...words, '</g>'].join('');
   }
-  return [`<g ${attributes} data-shape="${kind}">`, shape, tint, pattern, holes, '</g>'].join('');
+  return [`<g ${attributes} data-shape="${kind}">`, shape, tint, pattern, '</g>'].join('');
 }
 
 /**

@@ -76,9 +76,9 @@ edges:
     to: header
   - from: detail
     to: gallery
+  # 「関連商品」は線に付けると隣の Footer への線に乗って読み違えるので、ProductCard の副題に書いてある
   - from: detail
     to: card
-    label: 関連商品
   # 詳細ページは本体の価格と「カートに入れる」を自分で持つ（関連商品のカードとは別）
   - from: detail
     to: price

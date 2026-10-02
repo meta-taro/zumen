@@ -46,21 +46,23 @@ nodes:
     style: hall
     at: { x: 100, y: 333 }
     size: { w: 400, h: 367 }
-    openings:
-      - { kind: double, side: right, at: 0.7, width: 40 }
+  # ラウンジから、レーンの脇の通路（幅 0.78m）を通ってボウリングの助走路へ。ジムへは両開き、エントリーへは開口
+  # 2026-10-02 まで、ボウリングにはどこからも入れず、ジムとエントリーへの開口は 2 つの部屋の境にまたがっていた
   - id: lounge
     label: "Club Lounge"
     style: hall
     at: { x: 500, y: 333 }
     size: { w: 300, h: 267 }
     openings:
-      - { kind: open, side: right, at: 0.5, width: 60 }
+      - { kind: double, side: left, at: 0.685, width: 40, swing: out }
+      - { kind: open, side: top, at: 0.27, width: 40 }
   - id: entry
     label: "Entry Lounge"
     style: hall
     at: { x: 800, y: 333 }
     size: { w: 300, h: 134 }
     openings:
+      - { kind: open, side: left, at: 0.597, width: 60 }
       - { kind: double, side: right, at: 0.5, width: 36 }
   - id: wc
     label: "Bathroom"

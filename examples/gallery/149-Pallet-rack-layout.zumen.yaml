@@ -13,8 +13,9 @@ grid:
     - { id: 3, at: 199.5 }
 # **The truck decides the aisle, and the aisle decides the building.**
 #
-# Aisle width is not a preference: head length + load length + 12 in to
-# manoeuvre + 6 in of pallet overhang. **Aisles and flues are measured between
+# Aisle width is not a preference: head length + load length + about 12 in to
+# manoeuvre (right-angle stacking). The overhang is not added again, because
+# **aisles and flues are measured between
 # loads, not between uprights** —— with 3 in of overhang front and back, the
 # uprights of a back-to-back pair stand 12 in apart to leave a 6 in flue. Narrow it and you gain pallet positions
 # per square foot —— and you pay for a more expensive truck.
@@ -26,8 +27,8 @@ grid:
 nodes:
   - id: bldg
     label: ""
-    at: { x: 60, y: 60 }
-    size: { w: 384, h: 216 }
+    at: { x: 60, y: 36 }
+    size: { w: 384, h: 240 }
   - id: rkA1
     label: ""
     hatch: lines
@@ -67,7 +68,7 @@ nodes:
     label: "one bay 8'-0\"  =  two 40 in pallets"
     marker: none
     align: left
-    at: { x: 138, y: 54 }
+    at: { x: 138, y: 57 }
     size: { w: 260, h: 18 }
   - id: la
     label: "aisle 12'-0\"  (sit-down counterbalance)"
@@ -187,7 +188,7 @@ nodes:
     at: { x: 714, y: 352 }
     size: { w: 220, h: 22 }
   - id: n1
-    label: "Aisle width is not a preference: head length + load + 12 in to manoeuvre + 6 in of overhang."
+    label: "Aisle width is not a preference: head length + load + about 12 in to manoeuvre, load face to load face."
     marker: none
     align: left
     at: { x: 60, y: 396 }

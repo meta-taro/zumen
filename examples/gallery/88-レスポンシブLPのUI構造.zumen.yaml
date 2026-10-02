@@ -24,11 +24,17 @@ nodes:
     marker: box
     at: { x: 60, y: 90 }
     size: { w: 340, h: 372 }
+  # Desktop の Hero は横 2 分割。絵でも 2 つに分けて描く（Tablet・Mobile の縦積みと描き分ける）
   - id: d_s0
-    label: "Hero 横 2 分割（見出し＋申込｜画像）"
+    label: "Hero 左：見出し＋申込"
     hatch: lines
     at: { x: 68, y: 98 }
-    size: { w: 324, h: 54 }
+    size: { w: 196, h: 54 }
+  - id: d_s0b
+    label: "Hero 右：画像"
+    hatch: lines
+    at: { x: 268, y: 98 }
+    size: { w: 124, h: 54 }
   - id: d_s1
     label: "実績 3 カラム"
     at: { x: 68, y: 158 }

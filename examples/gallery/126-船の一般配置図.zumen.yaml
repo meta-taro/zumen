@@ -33,9 +33,9 @@ views:
         - { id: FR.80, at: 900 }
         - { id: FR.95, at: 1050 }
       y:
-        - { id: "航海船橋甲板 10,400", at: 70, mark: level }
-        - { id: "上甲板 5,200", at: 156, mark: level }
-        - { id: "満載喫水 4,000", at: 176, mark: level }
+        - { id: "航海船橋甲板 10,400", at: 69.667, mark: level }
+        - { id: "上甲板 5,200", at: 156.333, mark: level }
+        - { id: "満載喫水 4,000", at: 176.333, mark: level }
         - { id: "基線 B.L.±0", at: 243, mark: level }
   # **側面図の右端にもレベル名が出る**（符号は左右の両方に出るのが図面の作法）。
   # 最初は側面図の真横へ置いていて、**その名前がこの図に乗っていた** ——
@@ -94,8 +94,9 @@ nodes:
     label: 船尾タンク
     tag: A.P.T.
     hatch: dots
+    # 船尾タンクは軸より上。下はプロペラと舵の入る開き（アパーチャ）
     at: { x: 80, y: 156 }
-    size: { w: 100, h: 87 }
+    size: { w: 100, h: 36 }
   - id: p_fpt
     label: 船首タンク
     tag: F.P.T.
@@ -134,14 +135,16 @@ nodes:
   - id: p_rudder
     label: 舵
     write: down
-    at: { x: 58, y: 196 }
+    # A.P. は舵頭材の中心に取る（FR.0 ＝ x 100）
+    at: { x: 90, y: 194 }
     size: { w: 20, h: 47 }
   - id: p_prop
     label: ""
     marker: circle
     tag: P
-    at: { x: 88, y: 205 }
-    size: { w: 34, h: 34 }
+    # φ2,800 ＝ 46.7 px。舵の前
+    at: { x: 114, y: 194 }
+    size: { w: 46, h: 46 }
   # --- 航海船橋甲板（詳細。1 px ＝ 30 mm） --------------------------------
   - id: b_wheel
     label: 操舵室
@@ -398,7 +401,7 @@ nodes:
     at: { x: 1160, y: 956 }
     size: { w: 520, h: 22 }
   - id: note5
-    label: ・船尾の丸印 P は 4 翼プロペラ（φ2,800）。その後方が舵
+    label: ・丸印 P は 4 翼プロペラ（φ2,800）。後方の舵の頭材の中心が A.P.
     marker: none
     align: left
     at: { x: 1160, y: 978 }
@@ -411,14 +414,16 @@ nodes:
     size: { w: 520, h: 22 }
 edges:
   # 船体の外形（側面）。**閉じた輪を via で引く**（仕様 §3.0.15）。
+  # 船尾は、プロペラと舵の入る開き（アパーチャ）を外へ残す。
   - from: p_hull
     to: p_hull
     close: true
     curve: none
     via:
       - { x: 60, y: 156 }
-      - { x: 60, y: 226 }
-      - { x: 96, y: 243 }
+      - { x: 60, y: 192 }
+      - { x: 168, y: 192 }
+      - { x: 172, y: 243 }
       - { x: 980, y: 243 }
       - { x: 1046, y: 226 }
       - { x: 1093, y: 176 }

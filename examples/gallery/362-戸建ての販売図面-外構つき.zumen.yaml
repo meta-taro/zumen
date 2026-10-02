@@ -164,19 +164,27 @@ nodes:
   - id: st1
     label: "階段"
     style: stairs
+    at: { x: 413.75, y: 170 }
+    size: { w: 22.75, h: 91 }
+  # 階段は半間の直階段。北の端から上がり、2 階では南の端（廊下）に着く。西の半間は Hall と LDK をつなぐ通路で、北の端で階段の上り口に入る。
+  # 2026-10-02 まで 1 間幅の階段を南（LDK）から北へ上がる形にしていて、2 階では北の外壁に突き当たり、廊下へ出られなかった
+  - id: ps1
+    label: ""
+    style: room
     at: { x: 391, y: 170 }
-    size: { w: 45.5, h: 91 }
+    size: { w: 22.75, h: 91 }
     openings:
-      - { kind: open, side: bottom, at: 0.5, width: 40 }
+      - { kind: open, side: right, at: 0.12, width: 20 }
+      - { kind: open, side: bottom, at: 0.5, width: 20 }
   - id: up1_a
     label: ""
     marker: none
-    at: { x: 412.8, y: 255.4 }
+    at: { x: 424.1, y: 175.8 }
     size: { w: 2, h: 2 }
   - id: up1_b
     label: ""
     marker: none
-    at: { x: 412.8, y: 175.8 }
+    at: { x: 424.1, y: 255.4 }
     size: { w: 2, h: 2 }
   # 1 階の WC は台所へ直に開けない。間に小さな前室（ホール）を挟み、LDK から戸を 1 枚隔てて入る。
   - id: wch
@@ -356,29 +364,29 @@ nodes:
     size: { w: 40, h: 16 }
   - id: bed1
     label: "洋室 1"
-    technology: "8.1帖"
+    technology: "10.2帖"
     style: room
     at: { x: 600, y: 170 }
-    size: { w: 91, h: 91 }
+    size: { w: 113.75, h: 91 }
     openings:
       - { kind: door, side: bottom, at: 0.8, width: 30 }
       - { kind: window, side: left, at: 0.5, width: 50 }
   - id: st2
     label: "階段"
     style: stairs
-    at: { x: 691, y: 170 }
-    size: { w: 45.5, h: 91 }
+    at: { x: 713.75, y: 170 }
+    size: { w: 22.75, h: 91 }
     openings:
-      - { kind: open, side: bottom, at: 0.5, width: 40 }
+      - { kind: open, side: bottom, at: 0.5, width: 20 }
   - id: up2_a
     label: ""
     marker: none
-    at: { x: 712.8, y: 255.4 }
+    at: { x: 724.1, y: 175.8 }
     size: { w: 2, h: 2 }
   - id: up2_b
     label: ""
     marker: none
-    at: { x: 712.8, y: 175.8 }
+    at: { x: 724.1, y: 255.4 }
     size: { w: 2, h: 2 }
   - id: wc2
     label: "WC"

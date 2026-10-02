@@ -11,6 +11,11 @@ title: 駅 構内図（1F 改札階・B1F ホーム階）
 # **views で図ごとの寸法系を持てるようになった**ので、
 # 階を囲み（groups）ではなく図（views）にして、寸法と通り芯を入れ直した。
 # 階段・EV・エスカレータは島式ホームの上にある（線路との間に挟まない）。
+# しかもホームの**中ほど**に置き、両側に歩ける幅（各 4m）を残す —— 昇降口をホームの縁に
+# 付けると、その前を歩けなくなる。EV は上下の階で同じ位置（昇降路は 1 本）なので、
+# B1F は線路とホームを 4m 南へずらして、EV・階段の位置を 1F に合わせている。
+# 改札（G-1）より内側のコンコースは改札内なので、みどりの窓口は置かない（窓口は改札外に置く）。
+# 矢印は、入る人（出入口 → 改札 → コンコース）と、エスカレータで上がってくる人の向き。
 # エスカレータ ESC-1 は 1 基なので、両階とも同じ向き（上り：B1F → 1F）。
 # 通り芯の符号 X1〜X4・Y1〜Y5 は**両方の階で同じ**（同じ建物の芯なので当然）。
 # それでも寸法は図ごとに測られる —— そこが views の役目。
@@ -36,7 +41,7 @@ views:
   - id: b1
     title: B1F ホーム階（GL−6,000）
     at: { x: 700, y: 0 }
-    size: { w: 360, h: 260 }
+    size: { w: 360, h: 300 }
     scale: { mm: 100 }
     grid:
       x:
@@ -49,7 +54,7 @@ views:
         - { id: Y2, at: 60 }
         - { id: Y3, at: 140 }
         - { id: Y4, at: 200 }
-        - { id: Y5, at: 260 }
+        - { id: Y5, at: 300 }
 pins:
   kaisatsu:
     appearance: primary
@@ -78,7 +83,7 @@ nodes:
       - { kind: double, side: top, at: 0.5, width: 40 }
   - id: concourse
     label: コンコース
-    technology: 有効 6,000・みどりの窓口
+    technology: 有効 6,000
     at: { x: 0, y: 60 }
     size: { w: 250, h: 80 }
   - id: wc1
@@ -127,21 +132,20 @@ nodes:
     size: { w: 140, h: 60 }
   - id: home1
     label: ""
-    tag: P-1
-    at: { x: 700, y: 60 }
+    at: { x: 700, y: 100 }
     size: { w: 360, h: 140 }
   - id: home1_name
-    label: "1・2 番線（島式ホーム）\n有効長 200m のうち中央の 36m"
+    label: "P-1　1・2 番線（島式ホーム）\n有効長 200m のうち中央の 36m"
     marker: none
-    at: { x: 720, y: 75 }
-    size: { w: 320, h: 50 }
+    at: { x: 720, y: 101 }
+    size: { w: 320, h: 38 }
   - id: track_n
     label: 下り線（1 番線）
-    at: { x: 700, y: 0 }
+    at: { x: 700, y: 40 }
     size: { w: 360, h: 60 }
   - id: track_s
     label: 上り線（2 番線）
-    at: { x: 700, y: 200 }
+    at: { x: 700, y: 240 }
     size: { w: 360, h: 60 }
 edges:
   - from: kitaguchi
@@ -150,5 +154,5 @@ edges:
     to: kaisatsu
   - from: kaisatsu
     to: concourse
-  - from: concourse
-    to: esc1
+  - from: esc1
+    to: concourse

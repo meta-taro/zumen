@@ -36,12 +36,19 @@ nodes:
     label: "3B"
     at: { x: 239.72, y: 459.72 }
     size: { w: 26, h: 26 }
+  # マウンドの中心（本塁後端から 59 ft ＝ 118 px）。円は直径 18 ft。
   - id: mound
     label: ""
     marker: circle
-    radius: 18
-    at: { x: 371, y: 473 }
-    size: { w: 18, h: 18 }
+    line: dashed
+    at: { x: 362, y: 464 }
+    size: { w: 36, h: 36 }
+  # 投手板（24 × 6 in の板）。前端が本塁後端から 60 ft 6 in ＝ y 479。塁と同じく大きめに描く。
+  - id: rubberplate
+    label: ""
+    hatch: solid
+    at: { x: 373, y: 476 }
+    size: { w: 14, h: 3 }
   - id: plate
     label: "HOME"
     marker: none
@@ -50,7 +57,7 @@ nodes:
   - id: rub
     label: "rubber"
     marker: none
-    at: { x: 394, y: 470 }
+    at: { x: 402, y: 470 }
     size: { w: 80, h: 18 }
   - id: f1
     label: ""
@@ -183,7 +190,7 @@ nodes:
     at: { x: 880, y: 354 }
     size: { w: 220, h: 22 }
   - id: n1
-    label: "The infield is the same at every level above little league; the outfield is where parks differ."
+    label: "The infield is the same for MLB, NCAA and high school; the outfield is where parks differ."
     marker: none
     align: left
     at: { x: 60, y: 670 }

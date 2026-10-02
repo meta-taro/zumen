@@ -42,7 +42,7 @@ nodes:
     technology: 100 万円以上・月 1 回
   - id: kaketsu
     type: storage
-    label: 可決・保管
+    label: 決裁済み・保管
   - id: sashimodoshi
     type: queue
     label: 差し戻し
@@ -54,6 +54,7 @@ edges:
   - from: bucho
     to: keiri
     label: 100 万円未満
+  # 「100 万円以上」は線に付けると、隣の「100 万円未満」の線に乗って読み違えるので、役員会の副題に書く
   - from: bucho
     to: yakuin
   - from: keiri

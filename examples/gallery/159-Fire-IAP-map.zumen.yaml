@@ -15,7 +15,7 @@ views:
         - { id: "W 121°08'", at: 440, mark: tick }
       y:
         - { id: "N 44°06'", at: 180, mark: tick }
-        - { id: "N 44°05'", at: 300, mark: tick }
+        - { id: "N 44°05'", at: 291, mark: tick }
 # **A fire map is not a picture of the fire.**
 #
 # It is where the day is assigned and **where the way out is written**. So the
@@ -30,11 +30,24 @@ views:
 # Every map product carries **STANDL-SGD** - scale, title, author, north arrow,
 # date, legend, source, grid, datum. IAP maps carry a bar scale and are sized
 # to the IAP page; there is no one fixed scale.
+# Grid: 2' of longitude = 160 px and 1' of latitude = 111 px, the ratio at 44°N
+# (cos 44.1° = 0.718), so the bar scale below holds in both directions:
+# 2' of longitude there is 2.66 km, so 1 km = 60 px.
 # Escape routes are dotted with an arrow, so they cannot be read as unfinished line.
 # STANDL follows NWCG PMS 936 (Standards for Geospatial Operations), checked 2026-10-02.
 #
 # The fire, the divisions and the points are fictional.
 nodes:
+  - id: bar
+    label: ""
+    hatch: solid
+    at: { x: 250, y: 414 }
+    size: { w: 60, h: 6 }
+  - id: bar_n
+    label: "0 - 1 km"
+    marker: none
+    at: { x: 314, y: 408 }
+    size: { w: 70, h: 18 }
   - id: conta
     label: ""
     marker: none

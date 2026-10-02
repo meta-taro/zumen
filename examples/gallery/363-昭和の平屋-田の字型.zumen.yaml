@@ -408,11 +408,20 @@ nodes:
     size: { w: 23, h: 46 }
     openings:
       - { kind: open, side: left, at: 0.5, width: 40 }
+  # 押入は座敷の側へ襖で開く（2026-10-02 まで開口が無く、どこからも使えなかった）
   - id: oshi
-    label: "押入"
+    label: ""
     style: storage
     at: { x: 382, y: 445 }
     size: { w: 23, h: 45 }
+    openings:
+      - { kind: slide, side: left, at: 0.5, width: 36 }
+  # 押入の名前は、襖の線（箱の内側へ 5px）に乗らないよう右へ寄せて置く
+  - id: l_oshi
+    label: 押入
+    marker: none
+    at: { x: 396, y: 447 }
+    size: { w: 9, h: 41 }
   - id: kodomo
     label: "子ども部屋"
     technology: "10.1帖"

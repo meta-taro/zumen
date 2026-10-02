@@ -19,6 +19,8 @@ title: 能舞台（床板の向きが、場所を分ける）
 #
 # **橋掛りは通路ではない。** 歌舞伎の花道と同じように**演技の場**として重んじられ、
 # 本舞台へ**約 110 度**の角度で取り付く（正面の客から見やすい角度）。
+# （角度は ja.wikipedia「能舞台」の「舞台に対してだいたい 110 度前後」。2026-10-02 確認。
+#  絵は奥へ約 20° 振って描いた。橋掛りの長さは紙に収めるため縮めてあり、縮尺どおりではない）
 # 橋掛りには**一の松・二の松・三の松**が並び、演技のときの目印になる
 # （いまは照明の都合で造木が多い）。
 #
@@ -69,50 +71,50 @@ nodes:
   - id: p0
     label: ""
     marker: none
-    at: { x: 357.1, y: 425.1 }
+    at: { x: 359.5, y: 416.6 }
     size: { w: 2, h: 2 }
   - id: hashi
     label: "橋掛り"
     marker: none
     align: center
-    at: { x: 216, y: 378 }
+    at: { x: 198, y: 398 }
     size: { w: 90, h: 18 }
   - id: m0
     label: ""
     marker: circle
-    at: { x: 264.2, y: 449.4 }
+    at: { x: 272.8, y: 472.6 }
     size: { w: 28, h: 28 }
   - id: m1
     label: ""
     marker: circle
-    at: { x: 213.3, y: 410.8 }
+    at: { x: 208.6, y: 449.2 }
     size: { w: 28, h: 28 }
   - id: m2
     label: ""
     marker: circle
-    at: { x: 162.3, y: 372.1 }
+    at: { x: 144.3, y: 425.8 }
     size: { w: 28, h: 28 }
   - id: matsu
     label: "一の松・二の松・三の松\n舞台に近いほうから。演技の目印"
     marker: none
     align: right
-    at: { x: 120, y: 494 }
+    at: { x: 52, y: 506 }
     size: { w: 215, h: 36 }
   - id: maku
     label: ""
     hatch: solid
-    at: { x: 124, y: 268 }
-    size: { w: 68, h: 12 }
+    at: { x: 108, y: 338 }
+    size: { w: 12, h: 58 }
   - id: makun
     label: "揚幕（五色の布）"
     marker: none
     align: right
-    at: { x: -38, y: 262 }
+    at: { x: -56, y: 300 }
     size: { w: 160, h: 18 }
   - id: kagamima
     label: "鏡の間"
     line: dashed
-    at: { x: 98, y: 196 }
+    at: { x: -22, y: 328 }
     size: { w: 120, h: 60 }
   - id: shite
     label: ""
@@ -434,10 +436,10 @@ edges:
     close: true
     ends: { from: none, to: none }
     via:
-      - { x: 358.1, y: 426.1 }
-      - { x: 176.1, y: 288.1 }
-      - { x: 139.9, y: 335.9 }
-      - { x: 321.9, y: 473.9 }
+      - { x: 360.5, y: 417.6 }
+      - { x: 146.2, y: 339.6 }
+      - { x: 125.7, y: 396 }
+      - { x: 340, y: 474 }
   - from: p1
     to: p2
     curve: none

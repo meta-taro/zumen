@@ -25,6 +25,7 @@ title: 石油が製品に分かれるまで（分けるだけでは、足りな�
 # ## 最後に整える
 #
 # **水素化精製**で硫黄などの不純物を除き、**接触改質**でガソリンのオクタン価を上げる。
+# 改質に回すナフサも、先に水素化精製で硫黄を除く（改質の触媒が硫黄で効かなくなるため）。
 # **分ける → 壊す → 整える**の 3 段で、ようやく製品になる。
 #
 # 出典：石油連盟「製油所の精製工程」https://www.paj.gr.jp/statis/faq/67
@@ -46,7 +47,7 @@ nodes:
     technology: 塔の底に残る重油の留分
   - id: genatsu
     label: 減圧蒸留装置
-    technology: 圧を下げて、さらに軽油を搾る
+    technology: 圧を下げて、残渣油から減圧軽油を搾る
   - id: vgo
     label: 減圧軽油
     technology: 軽質と重質に分かれる
@@ -90,8 +91,6 @@ edges:
     to: coker
   - from: keishitsu
     to: seisei
-  - from: keishitsu
-    to: kaishitsu
   - from: fcc
     to: seisei
   - from: hydro
@@ -100,5 +99,8 @@ edges:
     to: seisei
   - from: seisei
     to: seihin
+  # 接触改質の触媒（白金）は硫黄で効かなくなるので、ナフサは水素化精製で硫黄を除いてから改質へ
+  - from: seisei
+    to: kaishitsu
   - from: kaishitsu
     to: seihin

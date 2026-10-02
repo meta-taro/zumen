@@ -299,3 +299,41 @@ describe('扉の扇を inspect が見る（doorSwings）', () => {
     assert.ok(seen.doorSwings.some(([door]) => door === 'wc'), '外開きの扇にある流し台を拾っていない');
   });
 });
+
+describe('辺が、関係の無い箱を突き抜けている（edgesThroughBoxes）', () => {
+  const plan = (via = ''): string =>
+    `version: 1\nkind: placement\narrows: true\nnodes:\n` +
+    `  - { id: a, label: A, at: { x: 0, y: 0 }, size: { w: 60, h: 40 } }\n` +
+    `  - { id: b, label: B, at: { x: 300, y: 0 }, size: { w: 60, h: 40 } }\n` +
+    `  - { id: m, label: M, at: { x: 150, y: 0 }, size: { w: 60, h: 40 } }\n` +
+    `edges:\n  - from: a\n    to: b\n` + via;
+
+  it('**両端でない箱の上を通れば拾う**（A → B の線が M を突き抜ける）', async () => {
+    const { inspect } = await import('../src/tools.ts');
+    const seen = await inspect(plan());
+    assert.deepEqual(seen.edgesThroughBoxes, [['a>b', 'm']]);
+  });
+
+  it('**折れ点を中に置いた箱は、わざと通しているので数えない**（路線図の停車駅）', async () => {
+    const { inspect } = await import('../src/tools.ts');
+    const seen = await inspect(plan('    via:\n      - { x: 180, y: 20 }\n'));
+    assert.deepEqual(seen.edgesThroughBoxes, []);
+  });
+});
+
+describe('建具は、すべての壁の後に描く', () => {
+  it('**後から描く小さい箱の壁が、先の部屋の扉を消さない**', async () => {
+    const { render } = await import('../src/render.ts');
+    const { layout } = await import('../src/layout.ts');
+    // 大きい部屋の右の壁に扉。右隣に小さい収納（後から描かれる）
+    const text =
+      `version: 1\nkind: placement\nnodes:\n` +
+      `  - id: room\n    label: 洋室\n    at: { x: 0, y: 0 }\n    size: { w: 200, h: 160 }\n    openings:\n      - { kind: door, side: right, at: 0.5, width: 40 }\n` +
+      `  - id: cl\n    label: CL\n    at: { x: 200, y: 40 }\n    size: { w: 60, h: 80 }\n`;
+    const svg = render(await layout(text), 'light', 'safe', true);
+    const door = svg.indexOf('data-holes="room"');
+    const closet = svg.indexOf('data-node="cl"');
+    assert.ok(door > 0 && closet > 0, '扉か収納が描かれていない');
+    assert.ok(door > closet, '扉が収納の壁より先に描かれている（収納の壁が扉を消す）');
+  });
+});

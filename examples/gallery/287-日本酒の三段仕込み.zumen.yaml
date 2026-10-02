@@ -16,7 +16,7 @@ title: 日本酒の三段仕込み（糖化と発酵が、同じタンクで同�
 #
 # **三段仕込みは、4 日で 3 回に分けて足す。**
 # 1 日目 初添（総米の 1/6）→ 2 日目 **踊（何も足さずに 1 日待つ）** →
-# 3 日目 仲添（2/6）→ 4 日目 留添（3/6）。**1 : 2 : 3 で倍々に増える。**
+# 3 日目 仲添（2/6）→ 4 日目 留添（3/6）。**足す量が 1 : 2 : 3 で、タンクの中は 1 → 3 → 6 と増える。**
 #
 # **なぜ一度に入れないか。** 酒母は乳酸で酸性にして雑菌を締め出した液で、
 # そこへ一度に全量を足すと**酸が薄まって雑菌が動く。**
@@ -52,7 +52,7 @@ nodes:
   - id: hatsuzoe
     type: generic
     label: 初添（1 日目）
-    technology: 総米の 1/6
+    technology: 総米の 1/6（麹・掛米・水）
     group: shikomi
   - id: odori
     type: generic
@@ -62,12 +62,12 @@ nodes:
   - id: nakazoe
     type: generic
     label: 仲添（3 日目）
-    technology: 総米の 2/6
+    technology: 総米の 2/6（麹・掛米・水）
     group: shikomi
   - id: tomezoe
     type: generic
     label: 留添（4 日目）
-    technology: 総米の 3/6
+    technology: 総米の 3/6（麹・掛米・水）
     group: shikomi
   - id: moromi
     type: database

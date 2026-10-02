@@ -19,6 +19,11 @@ north: { face: up, at: { x: 734, y: 574 } }
 #
 # 色は無彩色 2 つだけ。線に \`color\`（Wall・Fixture）、面に \`fill\`（Living）。
 # 1 px = 20 mm。間取り・面積・物件は架空。
+#
+# 2026-10-02 に動線を組み直した。前は玄関から LDK・キッチンへ入る戸が無く、
+# 洗面（Dressing）は便所（Lav.）の中を、寝室は物入（Sto.）の中を、主寝室はその寝室の中を通らないと入れなかった。
+# いまは 玄関 → Hall → LDK、廊下 → Lav.・Dressing・寝室、廊下の枝 → 主寝室。
+# 主寝室の 15.92㎡ は北東の WIC（1.2 × 1.4 m）を除いた広さ（17.60 − 1.68）。
 palette:
   Wall: "#6b6b72"
   Fixture: "#8f8f97"
@@ -43,68 +48,58 @@ nodes:
     color: Wall
     at: { x: 210, y: 164 }
     size: { w: 80, h: 50 }
+    openings:
+      - { kind: door, side: bottom, at: 0.22, width: 30 }
   - id: ent
     label: "Entrance"
     color: Wall
     at: { x: 210, y: 214 }
     size: { w: 80, h: 80 }
     openings:
-      - { kind: door, side: top, at: 0.22, width: 30, swing: out }
-      - { kind: door, side: right, at: 0.86, width: 24 }
+      - { kind: door, side: right, at: 0.3, width: 24 }
   - id: sic
-    label: "Shoes-in\nCloset"
+    label: "Hall"
     color: Wall
     at: { x: 210, y: 294 }
     size: { w: 80, h: 50 }
     openings:
-      - { kind: slide, side: right, at: 0.5, width: 30 }
+      - { kind: open, side: top, at: 0.5, width: 50 }
+      - { kind: door, side: bottom, at: 0.5, width: 34, swing: out }
   - id: cor
     label: "Corridor"
     color: Wall
     at: { x: 290, y: 214 }
-    size: { w: 210, h: 70 }
-  - id: pan
-    label: "Sto."
+    size: { w: 270, h: 70 }
+    openings:
+      - { kind: door, side: right, at: 0.7, width: 32, swing: out }
+  - id: lav
+    label: "Lav."
     color: Wall
     at: { x: 290, y: 284 }
     size: { w: 50, h: 60 }
     openings:
-      - { kind: slide, side: top, at: 0.5, width: 28 }
-  - id: lav
-    label: "Lav."
-    color: Wall
-    at: { x: 340, y: 284 }
-    size: { w: 70, h: 50 }
-    openings:
-      - { kind: door, side: top, at: 0.2, width: 26 }
+      - { kind: door, side: top, at: 0.5, width: 26, swing: out }
   - id: dre
     label: "Dressing"
     color: Wall
-    at: { x: 340, y: 334 }
-    size: { w: 70, h: 60 }
+    at: { x: 340, y: 284 }
+    size: { w: 70, h: 110 }
     openings:
-      - { kind: slide, side: top, at: 0.2, width: 26 }
+      - { kind: slide, side: top, at: 0.75, width: 30 }
+      - { kind: slide, side: right, at: 0.45, width: 30 }
   - id: bath
     label: "Bath Room\n1822"
     color: Wall
     at: { x: 410, y: 284 }
     size: { w: 90, h: 110 }
-    openings:
-      - { kind: slide, side: left, at: 0.75, width: 30 }
-  - id: sto
-    label: "Sto."
-    color: Wall
-    at: { x: 500, y: 214 }
-    size: { w: 60, h: 70 }
-    openings:
-      - { kind: slide, side: left, at: 0.5, width: 28 }
   - id: wic
-    label: "Walk-in\nCloset"
+    label: ""
     color: Wall
     at: { x: 500, y: 284 }
     size: { w: 60, h: 110 }
     openings:
-      - { kind: door, side: bottom, at: 0.5, width: 26 }
+      - { kind: open, side: top, at: 0.5, width: 50 }
+      - { kind: door, side: bottom, at: 0.5, width: 32, swing: out }
   - id: bed2
     label: "Bedroom"
     technology: "10.08㎡ (6.2J)"
@@ -112,7 +107,6 @@ nodes:
     at: { x: 560, y: 214 }
     size: { w: 140, h: 180 }
     openings:
-      - { kind: door, side: left, at: 0.25, width: 32 }
       - { kind: window, side: right, at: 0.5, width: 90 }
   - id: ldk
     label: "Living Dining\nRoom"
@@ -121,9 +115,6 @@ nodes:
     fill: Living
     at: { x: 70, y: 344 }
     size: { w: 270, h: 270 }
-    openings:
-      - { kind: slide, side: bottom, at: 0.28, width: 110 }
-      - { kind: slide, side: bottom, at: 0.72, width: 110 }
   - id: bed1
     label: "Bedroom"
     technology: "14.08㎡ (8.6J)"
@@ -132,27 +123,38 @@ nodes:
     size: { w: 160, h: 220 }
     openings:
       - { kind: door, side: left, at: 0.2, width: 32 }
-      - { kind: slide, side: bottom, at: 0.5, width: 80 }
   - id: mbed
     label: "Master\nBedroom"
-    technology: "17.60㎡ (10.8J)"
+    technology: "15.92㎡ (9.8J)"
     color: Wall
     at: { x: 500, y: 394 }
     size: { w: 200, h: 220 }
+  # Walk-in Closet は主寝室の北東の隅（1.2 × 1.4 m）。出窓（Bay）に掛からない高さで止める。主寝室の 15.92㎡ はこれを除いた広さ
+  - id: wic2
+    label: WIC
+    color: Wall
+    at: { x: 640, y: 394 }
+    size: { w: 60, h: 70 }
     openings:
-      - { kind: door, side: top, at: 0.7, width: 32 }
-      - { kind: slide, side: bottom, at: 0.6, width: 90 }
+      - { kind: slide, side: left, at: 0.6, width: 30 }
   - id: bay
     label: ""
     color: Wall
     at: { x: 700, y: 464 }
     size: { w: 20, h: 100 }
+    openings:
+      - { kind: window, side: left, at: 0.5, width: 90 }
   - id: bal
     label: "Balcony"
     color: Wall
     hatch: rows
     at: { x: 70, y: 614 }
     size: { w: 630, h: 80 }
+    openings:
+      - { kind: slide, side: top, at: 0.12, width: 110 }
+      - { kind: slide, side: top, at: 0.3086, width: 110 }
+      - { kind: slide, side: top, at: 0.5556, width: 80 }
+      - { kind: slide, side: top, at: 0.873, width: 90 }
   - id: col0
     label: ""
     color: Wall
@@ -253,72 +255,42 @@ nodes:
   - id: s11
     label: ""
     marker: none
-    at: { x: 343, y: 337 }
+    at: { x: 343, y: 370 }
     size: { w: 2, h: 2 }
   - id: s12
     label: ""
     marker: none
-    at: { x: 381.5, y: 347.5 }
+    at: { x: 381.5, y: 380.5 }
     size: { w: 2, h: 2 }
   - id: s13
     label: ""
     marker: none
-    at: { x: 343, y: 372 }
+    at: { x: 343, y: 287 }
     size: { w: 2, h: 2 }
   - id: s14
     label: ""
     marker: none
-    at: { x: 364, y: 381.5 }
+    at: { x: 364, y: 296.5 }
     size: { w: 2, h: 2 }
   - id: s15
     label: ""
     marker: none
-    at: { x: 402.5, y: 299 }
+    at: { x: 327.5, y: 335.5 }
     size: { w: 2, h: 2 }
   - id: s16
     label: ""
     marker: none
-    at: { x: 390.6, y: 309 }
-    size: { w: 2, h: 2 }
-  - id: s17
-    label: ""
-    marker: none
-    at: { x: 214, y: 296 }
-    size: { w: 2, h: 2 }
-  - id: s18
-    label: ""
-    marker: none
-    at: { x: 214, y: 302 }
+    at: { x: 315.6, y: 306 }
     size: { w: 2, h: 2 }
   - id: s19
     label: ""
     marker: none
-    at: { x: 504, y: 288 }
+    at: { x: 644, y: 398 }
     size: { w: 2, h: 2 }
   - id: s20
     label: ""
     marker: none
-    at: { x: 504, y: 306 }
-    size: { w: 2, h: 2 }
-  - id: s21
-    label: ""
-    marker: none
-    at: { x: 294, y: 287 }
-    size: { w: 2, h: 2 }
-  - id: s22
-    label: ""
-    marker: none
-    at: { x: 294, y: 300 }
-    size: { w: 2, h: 2 }
-  - id: s23
-    label: ""
-    marker: none
-    at: { x: 504, y: 217 }
-    size: { w: 2, h: 2 }
-  - id: s24
-    label: ""
-    marker: none
-    at: { x: 504, y: 230 }
+    at: { x: 644, y: 416 }
     size: { w: 2, h: 2 }
   - id: s25
     label: ""
@@ -329,16 +301,6 @@ nodes:
     label: ""
     marker: none
     at: { x: 566.5, y: 236 }
-    size: { w: 2, h: 2 }
-  - id: s27
-    label: ""
-    marker: none
-    at: { x: 506.5, y: 398 }
-    size: { w: 2, h: 2 }
-  - id: s28
-    label: ""
-    marker: none
-    at: { x: 506.5, y: 415 }
     size: { w: 2, h: 2 }
   - id: s36
     label: ""
@@ -499,11 +461,11 @@ nodes:
     at: { x: 780, y: 360 }
     size: { w: 400, h: 22 }
   - id: a382
-    label: "Sto."
+    label: "WIC"
     at: { x: 780, y: 382 }
     size: { w: 150, h: 22 }
   - id: b382
-    label: "Storage（物入）"
+    label: "Walk-in Closet"
     align: left
     at: { x: 930, y: 382 }
     size: { w: 250, h: 22 }
@@ -850,10 +812,10 @@ edges:
     color: Fixture
     ends: { from: none, to: none }
     via:
-      - { x: 344, y: 338 }
-      - { x: 406, y: 338 }
-      - { x: 406, y: 359 }
-      - { x: 344, y: 359 }
+      - { x: 344, y: 371 }
+      - { x: 406, y: 371 }
+      - { x: 406, y: 392 }
+      - { x: 344, y: 392 }
   - from: s12
     to: s12
     close: true
@@ -861,20 +823,20 @@ edges:
     color: Fixture
     ends: { from: none, to: none }
     via:
-      - { x: 382.5, y: 348.5 }
-      - { x: 381.8, y: 351.8 }
-      - { x: 379.7, y: 354.4 }
-      - { x: 376.7, y: 355.8 }
-      - { x: 373.3, y: 355.8 }
-      - { x: 370.3, y: 354.4 }
-      - { x: 368.2, y: 351.8 }
-      - { x: 367.5, y: 348.5 }
-      - { x: 368.2, y: 345.2 }
-      - { x: 370.3, y: 342.6 }
-      - { x: 373.3, y: 341.2 }
-      - { x: 376.7, y: 341.2 }
-      - { x: 379.7, y: 342.6 }
-      - { x: 381.8, y: 345.2 }
+      - { x: 382.5, y: 381.5 }
+      - { x: 381.8, y: 384.8 }
+      - { x: 379.7, y: 387.4 }
+      - { x: 376.7, y: 388.8 }
+      - { x: 373.3, y: 388.8 }
+      - { x: 370.3, y: 387.4 }
+      - { x: 368.2, y: 384.8 }
+      - { x: 367.5, y: 381.5 }
+      - { x: 368.2, y: 378.2 }
+      - { x: 370.3, y: 375.6 }
+      - { x: 373.3, y: 374.2 }
+      - { x: 376.7, y: 374.2 }
+      - { x: 379.7, y: 375.6 }
+      - { x: 381.8, y: 378.2 }
   - from: s13
     to: s13
     close: true
@@ -882,10 +844,10 @@ edges:
     color: Fixture
     ends: { from: none, to: none }
     via:
-      - { x: 344, y: 373 }
-      - { x: 375, y: 373 }
-      - { x: 375, y: 392 }
-      - { x: 344, y: 392 }
+      - { x: 344, y: 288 }
+      - { x: 375, y: 288 }
+      - { x: 375, y: 307 }
+      - { x: 344, y: 307 }
   - from: s14
     to: s14
     close: true
@@ -893,20 +855,20 @@ edges:
     color: Fixture
     ends: { from: none, to: none }
     via:
-      - { x: 365, y: 382.5 }
-      - { x: 364.5, y: 384.9 }
-      - { x: 362.9, y: 386.8 }
-      - { x: 360.7, y: 387.9 }
-      - { x: 358.3, y: 387.9 }
-      - { x: 356.1, y: 386.8 }
-      - { x: 354.5, y: 384.9 }
-      - { x: 354, y: 382.5 }
-      - { x: 354.5, y: 380.1 }
-      - { x: 356.1, y: 378.2 }
-      - { x: 358.3, y: 377.1 }
-      - { x: 360.7, y: 377.1 }
-      - { x: 362.9, y: 378.2 }
-      - { x: 364.5, y: 380.1 }
+      - { x: 365, y: 297.5 }
+      - { x: 364.5, y: 299.9 }
+      - { x: 362.9, y: 301.8 }
+      - { x: 360.7, y: 302.9 }
+      - { x: 358.3, y: 302.9 }
+      - { x: 356.1, y: 301.8 }
+      - { x: 354.5, y: 299.9 }
+      - { x: 354, y: 297.5 }
+      - { x: 354.5, y: 295.1 }
+      - { x: 356.1, y: 293.2 }
+      - { x: 358.3, y: 292.1 }
+      - { x: 360.7, y: 292.1 }
+      - { x: 362.9, y: 293.2 }
+      - { x: 364.5, y: 295.1 }
   - from: s15
     to: s15
     close: true
@@ -914,20 +876,20 @@ edges:
     color: Fixture
     ends: { from: none, to: none }
     via:
-      - { x: 403.5, y: 300 }
-      - { x: 402.9, y: 302.8 }
-      - { x: 401.1, y: 305.1 }
-      - { x: 398.4, y: 306.3 }
-      - { x: 395.6, y: 306.3 }
-      - { x: 392.9, y: 305.1 }
-      - { x: 391.1, y: 302.8 }
-      - { x: 390.5, y: 300 }
-      - { x: 391.1, y: 297.2 }
-      - { x: 392.9, y: 294.9 }
-      - { x: 395.6, y: 293.7 }
-      - { x: 398.4, y: 293.7 }
-      - { x: 401.1, y: 294.9 }
-      - { x: 402.9, y: 297.2 }
+      - { x: 328.5, y: 336.5 }
+      - { x: 327.9, y: 339.3 }
+      - { x: 326.1, y: 341.6 }
+      - { x: 323.4, y: 342.8 }
+      - { x: 320.6, y: 342.8 }
+      - { x: 317.9, y: 341.6 }
+      - { x: 316.1, y: 339.3 }
+      - { x: 315.5, y: 336.5 }
+      - { x: 316.1, y: 333.7 }
+      - { x: 317.9, y: 331.4 }
+      - { x: 320.6, y: 330.2 }
+      - { x: 323.4, y: 330.2 }
+      - { x: 326.1, y: 331.4 }
+      - { x: 327.9, y: 333.7 }
   - from: s16
     to: s16
     close: true
@@ -935,36 +897,14 @@ edges:
     color: Fixture
     ends: { from: none, to: none }
     via:
-      - { x: 391.6, y: 310 }
-      - { x: 402.4, y: 310 }
-      - { x: 406, y: 313.6 }
-      - { x: 406, y: 327.4 }
-      - { x: 402.4, y: 331 }
-      - { x: 391.6, y: 331 }
-      - { x: 388, y: 327.4 }
-      - { x: 388, y: 313.6 }
-  - from: s17
-    to: s17
-    close: true
-    curve: none
-    color: Fixture
-    ends: { from: none, to: none }
-    via:
-      - { x: 215, y: 297 }
-      - { x: 285, y: 297 }
-      - { x: 285, y: 299.5 }
-      - { x: 215, y: 299.5 }
-  - from: s18
-    to: s18
-    close: true
-    curve: none
-    color: Fixture
-    ends: { from: none, to: none }
-    via:
-      - { x: 215, y: 303 }
-      - { x: 285, y: 303 }
-      - { x: 285, y: 305.5 }
-      - { x: 215, y: 305.5 }
+      - { x: 316.6, y: 307 }
+      - { x: 327.4, y: 307 }
+      - { x: 331, y: 310.6 }
+      - { x: 331, y: 324.4 }
+      - { x: 327.4, y: 328 }
+      - { x: 316.6, y: 328 }
+      - { x: 313, y: 324.4 }
+      - { x: 313, y: 310.6 }
   - from: s19
     to: s19
     close: true
@@ -972,10 +912,10 @@ edges:
     color: Fixture
     ends: { from: none, to: none }
     via:
-      - { x: 505, y: 289 }
-      - { x: 555, y: 289 }
-      - { x: 555, y: 304 }
-      - { x: 505, y: 304 }
+      - { x: 645, y: 399 }
+      - { x: 695, y: 399 }
+      - { x: 695, y: 414 }
+      - { x: 645, y: 414 }
   - from: s20
     to: s20
     close: true
@@ -983,54 +923,10 @@ edges:
     color: Fixture
     ends: { from: none, to: none }
     via:
-      - { x: 505, y: 307 }
-      - { x: 555, y: 307 }
-      - { x: 555, y: 309.5 }
-      - { x: 505, y: 309.5 }
-  - from: s21
-    to: s21
-    close: true
-    curve: none
-    color: Fixture
-    ends: { from: none, to: none }
-    via:
-      - { x: 295, y: 288 }
-      - { x: 335, y: 288 }
-      - { x: 335, y: 298 }
-      - { x: 295, y: 298 }
-  - from: s22
-    to: s22
-    close: true
-    curve: none
-    color: Fixture
-    ends: { from: none, to: none }
-    via:
-      - { x: 295, y: 301 }
-      - { x: 335, y: 301 }
-      - { x: 335, y: 303.5 }
-      - { x: 295, y: 303.5 }
-  - from: s23
-    to: s23
-    close: true
-    curve: none
-    color: Fixture
-    ends: { from: none, to: none }
-    via:
-      - { x: 505, y: 218 }
-      - { x: 555, y: 218 }
-      - { x: 555, y: 228 }
-      - { x: 505, y: 228 }
-  - from: s24
-    to: s24
-    close: true
-    curve: none
-    color: Fixture
-    ends: { from: none, to: none }
-    via:
-      - { x: 505, y: 231 }
-      - { x: 555, y: 231 }
-      - { x: 555, y: 233.5 }
-      - { x: 505, y: 233.5 }
+      - { x: 645, y: 417 }
+      - { x: 695, y: 417 }
+      - { x: 695, y: 419.5 }
+      - { x: 645, y: 419.5 }
   - from: s25
     to: s25
     close: true
@@ -1053,28 +949,6 @@ edges:
       - { x: 632.5, y: 237 }
       - { x: 632.5, y: 239.5 }
       - { x: 567.5, y: 239.5 }
-  - from: s27
-    to: s27
-    close: true
-    curve: none
-    color: Fixture
-    ends: { from: none, to: none }
-    via:
-      - { x: 507.5, y: 399 }
-      - { x: 572.5, y: 399 }
-      - { x: 572.5, y: 414 }
-      - { x: 507.5, y: 414 }
-  - from: s28
-    to: s28
-    close: true
-    curve: none
-    color: Fixture
-    ends: { from: none, to: none }
-    via:
-      - { x: 507.5, y: 416 }
-      - { x: 572.5, y: 416 }
-      - { x: 572.5, y: 418.5 }
-      - { x: 507.5, y: 418.5 }
   - from: s36
     to: s36
     close: true

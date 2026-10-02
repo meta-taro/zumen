@@ -27,6 +27,14 @@ title: 物流倉庫 ロケーション図（中量棚 2 列・パレットラッ
 #   （または オーバーヘッドドア）で、平面表示記号の両開き戸ではない。zumen にシャッターの記号が
 #   まだ無いので、開口として描き、説明にシャッターと書く。開口 2,500、中心間 4,250。
 # - C 列（パレットラック）は 1 間口に 1,100 のパレット 2 枚で約 2,700。15,000 に 5 間口。
+#
+# ## 2026-10-02 見直しで直したこと
+#
+# - **通路が基幹通路から壁で仕切られていた**（どの通路にも入れない図だった）。通路と基幹通路の間、
+#   棚の面と通路の間を開口にした。棚は斜線で、床（通路）と分けて描く。
+# - **保管区画から検品・出荷へ出る道が無かった**（検品エリアの口は C 列のラックに開いていた）。
+#   C 列を B 列と背中合わせにして、フォーク通路を検品・出荷バースに面させた。寸法の合計 7,400 は同じ。
+# - 流れの向きを「検品 → 出荷バース」にした（以前は出荷バースから検品へ向いていた）。
 scale: { mm: 25 }
 wall: { mm: 150, outer: 250 }
 north: up
@@ -46,41 +54,59 @@ nodes:
   - id: tanaA
     label: A 列
     tag: A-01〜A-08
+    hatch: lines
     technology: 中量棚 W1800×D600×H2100・4 段
     at: { x: 0, y: 0 }
     size: { w: 600, h: 24 }
     group: soko
+    openings:
+      - { kind: open, side: bottom, at: 0.5, width: 590 }
   - id: tsuroA
     label: 通路（台車）
     technology: 有効 2,400
     at: { x: 0, y: 24 }
     size: { w: 600, h: 96 }
     group: soko
+    openings:
+      - { kind: open, side: right, at: 0.5, width: 86 }
   - id: tanaB
     label: B 列
     tag: B-01〜B-08
+    hatch: lines
     technology: 中量棚 W1800×D600×H2100・4 段
     at: { x: 0, y: 120 }
     size: { w: 600, h: 24 }
     group: soko
-  - id: tsuroB
-    label: 通路（フォーク）
-    technology: 有効 2,800・リーチフォーク
-    at: { x: 0, y: 144 }
-    size: { w: 600, h: 112 }
-    group: soko
+    openings:
+      - { kind: open, side: top, at: 0.5, width: 590 }
+  # C 列は B 列と背中合わせ。フォーク通路に面する
   - id: tanaC
     label: C 列　パレットラック D1,000・2 段
     tag: C-01〜C-05
-    at: { x: 0, y: 256 }
+    hatch: lines
+    at: { x: 0, y: 144 }
     size: { w: 600, h: 40 }
     group: soko
+    openings:
+      - { kind: open, side: bottom, at: 0.5, width: 590 }
+  - id: tsuroB
+    label: 通路（フォーク）
+    technology: 有効 2,800・リーチフォーク
+    at: { x: 0, y: 184 }
+    size: { w: 600, h: 112 }
+    group: soko
+    openings:
+      - { kind: open, side: right, at: 0.5, width: 100 }
+      - { kind: open, side: top, at: 0.5, width: 590 }
   - id: mainT
     label: 基幹通路
     technology: 有効 4,000・双方向
     at: { x: 600, y: 0 }
     size: { w: 160, h: 296 }
     group: soko
+    openings:
+      - { kind: open, side: left, at: 0.243, width: 86 }
+      - { kind: open, side: left, at: 0.811, width: 100 }
   - id: kenpin
     label: 検品エリア
     tag: QC
@@ -89,7 +115,7 @@ nodes:
     size: { w: 260, h: 124 }
     group: soko
     openings:
-      - { kind: open, side: top, at: 0.5, width: 80 }
+      - { kind: open, side: top, at: 0.5, width: 220 }
   - id: shukka
     label: 出荷バース
     tag: DK-1/2
@@ -98,6 +124,7 @@ nodes:
     size: { w: 340, h: 124 }
     group: soko
     openings:
+      - { kind: open, side: top, at: 0.5, width: 300 }
       - { kind: open, side: bottom, at: 0.25, width: 100 }
       - { kind: open, side: bottom, at: 0.75, width: 100 }
   - id: jimu
@@ -109,7 +136,7 @@ nodes:
     openings:
       - { kind: door, side: left, at: 0.5, width: 34 }
 edges:
-  - from: shukka
-    to: kenpin
+  - from: kenpin
+    to: shukka
   - from: mainT
     to: tsuroA

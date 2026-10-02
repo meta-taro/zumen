@@ -222,10 +222,18 @@ nodes:
       - { kind: slide, side: top, at: 0.5, width: 44 }
       - { kind: slide, side: bottom, at: 0.5, width: 60 }
   - id: oshi
-    label: "押入"
+    label: ""
     style: storage
     at: { x: 382, y: 374 }
     size: { w: 23, h: 91 }
+    openings:
+      - { kind: slide, side: left, at: 0.5, width: 60 }
+  # 客間の押入。襖は客間の側（2026-10-02 まで開口が無かった）。名前は襖の線に乗らないよう右へ寄せる
+  - id: l_oshi
+    label: 押入
+    marker: none
+    at: { x: 396, y: 399 }
+    size: { w: 9, h: 41 }
   - id: setsu
     label: "応接間"
     technology: "6.1帖"
@@ -398,62 +406,65 @@ nodes:
     label: "子ども部屋"
     technology: "6.1帖"
     style: tatami
-    at: { x: 573, y: 260 }
+    at: { x: 596, y: 260 }
     size: { w: 91, h: 68 }
     openings:
-      - { kind: slide, side: right, at: 0.5, width: 30 }
       - { kind: window, side: bottom, at: 0.5, width: 50 }
   - id: f30
     label: ""
     marker: none
-    at: { x: 574, y: 260 }
+    at: { x: 597, y: 260 }
     size: { w: 2, h: 2 }
   - id: f31
     label: ""
     marker: none
-    at: { x: 619, y: 260 }
+    at: { x: 642, y: 260 }
     size: { w: 2, h: 2 }
   - id: f32
     label: ""
     marker: none
-    at: { x: 574, y: 283 }
+    at: { x: 597, y: 283 }
     size: { w: 2, h: 2 }
   - id: f33
     label: ""
     marker: none
-    at: { x: 596, y: 283 }
+    at: { x: 619, y: 283 }
     size: { w: 2, h: 2 }
   - id: f34
     label: ""
     marker: none
-    at: { x: 642, y: 283 }
+    at: { x: 665, y: 283 }
     size: { w: 2, h: 2 }
   - id: f35
     label: ""
     marker: none
-    at: { x: 596, y: 306 }
+    at: { x: 619, y: 306 }
     size: { w: 2, h: 2 }
   - id: oshi2
     label: "押入"
     style: storage
-    at: { x: 664, y: 260 }
+    at: { x: 573, y: 260 }
     size: { w: 23, h: 68 }
+    openings:
+      - { kind: slide, side: right, at: 0.5, width: 40 }
+  # 2 階の階段は 1 階と同じ向き（南から北へ上がる）。北の端で子ども部屋に着く。
+  # 2026-10-02 まで、2 階だけ矢印が東から西を向き、上がった先が押入だった
   - id: kai2
     label: "階段"
     style: stairs
     at: { x: 687, y: 260 }
     size: { w: 45, h: 68 }
     openings:
-      - { kind: open, side: left, at: 0.5, width: 30 }
+      - { kind: open, side: left, at: 0.2, width: 24 }
   - id: up2_a
     label: ""
     marker: none
-    at: { x: 727, y: 293 }
+    at: { x: 709.5, y: 323 }
     size: { w: 2, h: 2 }
   - id: up2_b
     label: ""
     marker: none
-    at: { x: 690, y: 293 }
+    at: { x: 709.5, y: 266 }
     size: { w: 2, h: 2 }
   - id: hoshidai
     label: "物干し台"
@@ -468,7 +479,7 @@ nodes:
     at: { x: 573, y: 369 }
     size: { w: 260, h: 36 }
   - id: h1
-    label: "木造 2 階建て　4K ＋ 応接間　延床 約 106.8㎡（1F 89.4㎡ ／ 2F 17.4㎡）"
+    label: "木造 2 階建て　4K ＋ 応接間　延床 約 106.8㎡（1F 89.5㎡ ／ 2F 17.3㎡）"
     marker: none
     align: left
     at: { x: 200, y: 94 }
@@ -861,10 +872,10 @@ edges:
     color: Tatami
     ends: { from: none, to: none }
     via:
-      - { x: 574.6, y: 261.5 }
-      - { x: 617.1, y: 261.5 }
-      - { x: 617.1, y: 281.2 }
-      - { x: 574.6, y: 281.2 }
+      - { x: 597.6, y: 261.5 }
+      - { x: 640.1, y: 261.5 }
+      - { x: 640.1, y: 281.2 }
+      - { x: 597.6, y: 281.2 }
   - from: f31
     to: f31
     close: true
@@ -872,10 +883,10 @@ edges:
     color: Tatami
     ends: { from: none, to: none }
     via:
-      - { x: 620.1, y: 261.5 }
-      - { x: 662.6, y: 261.5 }
-      - { x: 662.6, y: 281.2 }
-      - { x: 620.1, y: 281.2 }
+      - { x: 643.1, y: 261.5 }
+      - { x: 685.6, y: 261.5 }
+      - { x: 685.6, y: 281.2 }
+      - { x: 643.1, y: 281.2 }
   - from: f32
     to: f32
     close: true
@@ -883,10 +894,10 @@ edges:
     color: Tatami
     ends: { from: none, to: none }
     via:
-      - { x: 574.6, y: 284.2 }
-      - { x: 594.3, y: 284.2 }
-      - { x: 594.3, y: 326.8 }
-      - { x: 574.6, y: 326.8 }
+      - { x: 597.6, y: 284.2 }
+      - { x: 617.3, y: 284.2 }
+      - { x: 617.3, y: 326.8 }
+      - { x: 597.6, y: 326.8 }
   - from: f33
     to: f33
     close: true
@@ -894,10 +905,10 @@ edges:
     color: Tatami
     ends: { from: none, to: none }
     via:
-      - { x: 597.3, y: 284.2 }
-      - { x: 639.8, y: 284.2 }
-      - { x: 639.8, y: 304 }
-      - { x: 597.3, y: 304 }
+      - { x: 620.3, y: 284.2 }
+      - { x: 662.8, y: 284.2 }
+      - { x: 662.8, y: 304 }
+      - { x: 620.3, y: 304 }
   - from: f34
     to: f34
     close: true
@@ -905,10 +916,10 @@ edges:
     color: Tatami
     ends: { from: none, to: none }
     via:
-      - { x: 642.8, y: 284.2 }
-      - { x: 662.6, y: 284.2 }
-      - { x: 662.6, y: 326.8 }
-      - { x: 642.8, y: 326.8 }
+      - { x: 665.8, y: 284.2 }
+      - { x: 685.6, y: 284.2 }
+      - { x: 685.6, y: 326.8 }
+      - { x: 665.8, y: 326.8 }
   - from: f35
     to: f35
     close: true
@@ -916,10 +927,10 @@ edges:
     color: Tatami
     ends: { from: none, to: none }
     via:
-      - { x: 597.3, y: 307 }
-      - { x: 639.8, y: 307 }
-      - { x: 639.8, y: 326.8 }
-      - { x: 597.3, y: 326.8 }
+      - { x: 620.3, y: 307 }
+      - { x: 662.8, y: 307 }
+      - { x: 662.8, y: 326.8 }
+      - { x: 620.3, y: 326.8 }
   - from: up2_a
     to: up2_b
     curve: none

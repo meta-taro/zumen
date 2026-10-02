@@ -102,13 +102,13 @@ nodes:
     openings:
       - { kind: door, side: right, at: 0.25, width: 30 }
       - { kind: window, side: bottom, at: 0.5, width: 70 }
+  # 浴室へは洗面（脱衣）から入る。戸は洗面の側に付ける（2026-10-02 まで浴室の戸が廊下に開いていた）
+  # 箱は 64 × 112px ＝ 1.6 × 2.8m。前は「1822」（ユニットバスの内寸 1.8 × 2.2m）と書いていたが、寸法と合わないので外した
   - id: bath
-    label: "Bath\n(1822)"
+    label: "Bath"
     style: wet
     at: { x: 286, y: 388 }
     size: { w: 64, h: 112 }
-    openings:
-      - { kind: door, side: left, at: 0.2, width: 28 }
   - id: wash
     label: "Wash"
     style: wet
@@ -116,6 +116,7 @@ nodes:
     size: { w: 64, h: 112 }
     openings:
       - { kind: slide, side: top, at: 0.2, width: 28 }
+      - { kind: slide, side: left, at: 0.72, width: 28 }
   - id: wic
     label: "WIC"
     style: store
