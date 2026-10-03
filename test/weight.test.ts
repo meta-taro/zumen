@@ -18,8 +18,8 @@
  * 値は太さの名前だけ（`marker` `hatch` `ends` `line` と同じ約束）。
  * **`weight: subway`（地下鉄）のような意味の語は足さない。**
  *
- * これは **D23 のあとで最初に書くテスト**なので、
- * **実装より先に書いて red を確かめる**（`.claude/decisions.md` の D23）。
+ * これは **テストを測る方針にしてから最初に書くテスト**なので、
+ * **実装より先に書いて red を確かめる**。
  */
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';

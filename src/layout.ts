@@ -1,7 +1,7 @@
 /**
  * 自動レイアウト。ELK に任せ、**人が置いた場所だけは動かさない**。
  *
- * 原案 §26 の 2（人が微調整した後に Auto Layout と共存できるか）がここ。
+ * 人が微調整した後に Auto Layout と共存できるか、がここ。
  * 正本に pin が残っていても、描くときに無視されるなら保持したことにならない。
  *
  * 採った方針は「ELK に全部組ませてから、pin のノードだけ人の座標へ戻す」。
@@ -82,7 +82,7 @@ export interface Box {
   /**
    * **符号**（仕様 §3.1 の `tag`）。箱の左上に小さく描く。
    *
-   * 業界の専門性は、形ではなく符号で表されている（D22）。
+   * 業界の専門性は、形ではなく符号で表されている。
    * 構造図の `C1`（柱）・`G1`（大梁）、配管の `2"-CS-101`、電気の盤番号。
    * **`label` の代わりではない。** 名前と符号は別のもので、図面は両方を出す。
    */
@@ -172,7 +172,7 @@ export interface Placed {
   width: number;
   height: number;
   /**
-   * **人が置いたものどうしが重なっている組**（Issue 015）。
+   * **人が置いたものどうしが重なっている組**。
    *
    * 動かしていない。人の指定を動かして重なりを解いたら、
    * それは手直しを壊したことになる（判定基準 3.1）。**人へ出して選んでもらう。**
@@ -189,14 +189,14 @@ export interface Placed {
   /** **通り芯**（`src/grid.ts`）。書かなければ空。配置図でだけ描く。 */
   grid: Grid;
   /**
-   * **1 枚の紙に置いた、2 つ以上の図**（`src/views.ts`。D35）。
+   * **1 枚の紙に置いた、2 つ以上の図**（`src/views.ts`）。
    *
    * 各階平面図・船の一般配置図・三面図・展開図。
    * **書かなければ空**で、これまでどおり紙ぜんたいで 1 つの図。
    */
   views: View[];
   /**
-   * **作図の結果**（`src/construct.ts`。D36）。**円と弧だけ。**
+   * **作図の結果**（`src/construct.ts`）。**円と弧だけ。**
    *
    * `kind: construction` のときだけ入る。**書かなければ空**。
    * 座標は正本に無く、**手順から解いたもの**。
@@ -240,7 +240,7 @@ const FAN_STEP = 16;
  * 左端のノードでは x が負になって画面外へ切れていた（Issue #3 の 2）。
  *
  * 正確な字送りは書体で変わるが、**書体は貼り先が決める**ので正確には測れない
- * （Issue 007 §3.1）。ここは「入らないよりはまし」を狙う見積もり。
+ * 。ここは「入らないよりはまし」を狙う見積もり。
  */
 export function labelWidth(label: string, font = LABEL_FONT): number {
   // **2 行以上の名前は、いちばん長い行で測る**（2026-09-18）。
@@ -343,7 +343,7 @@ const LAYOUT_OPTIONS = {
 export async function layout(text: string): Promise<Placed> {
   const diagram = parse(text);
   const pins = getPins(diagram);
-  // **作図は並べない**（D36）。座標は手順から解くので、自動配置を通さない。
+  // **作図は並べない**。座標は手順から解くので、自動配置を通さない。
   if (String((diagram.doc.toJS() as { kind?: unknown }).kind ?? '') === 'construction') {
     return construct(diagram.doc.toJS() as Record<string, unknown>, pins);
   }
@@ -431,7 +431,7 @@ export async function layout(text: string): Promise<Placed> {
   }
 
   /**
-   * 人が置いた場所と重なった機械の箱を退ける（Issue 015）。
+   * 人が置いた場所と重なった機械の箱を退ける。
    * **人の箱は 1 px も動かさない。** 動かせない組（人どうし）は返して人へ出す。
    *
    * **配置図では退けない**（2026-09-11。店舗のレイアウトを描かせて出た）。
@@ -474,7 +474,7 @@ export async function layout(text: string): Promise<Placed> {
    */
   const grid = gridOf(raw.grid);
   /**
-   * **図ごとの寸法系**（D35）。余白と紙の大きさは**全部の芯をまとめて**測るが、
+   * **図ごとの寸法系**。余白と紙の大きさは**全部の芯をまとめて**測るが、
    * 描くのは図ごと（`src/render.ts`）。まとめないと、
    * 外側の図の符号と寸法が紙からはみ出す。
    */
@@ -733,6 +733,57 @@ export function edgesUnderBoxes(placed: Placed): [string, string][] {
   return found;
 }
 
+/**
+ * **辺が、関係の無い箱を突き抜けている組**（`[辺, 箱]`）。合否ではなく観測値。
+ *
+ * 2026-10-02、見本の見直しで 3 つの分野から同じ要望が出た。
+ * アレルゲン動線（見本 115）で、B ラインへの矢印が**アレルゲンを使わない A ラインの箱を突き抜けていた**。
+ * 交差（辺どうし）も重なり（箱どうし）も、辺と箱の組は見ていなかった。
+ *
+ * 数えないもの —— 辺の両端の箱、辺の端点を中に含む箱（区画の中を走る経路、囲みの中の結線）、
+ * 折れ点を中に置いた箱（わざと通している）、印を描かない箱（`marker: none`。文字だけの節や見えない杭）。
+ */
+export function edgesThroughBoxes(placed: Placed): [string, string][] {
+  const found: [string, string][] = [];
+  const inside = (b: Box, p: { x: number; y: number }): boolean =>
+    p.x > b.x && p.x < b.x + b.w && p.y > b.y && p.y < b.y + b.h;
+  for (const edge of placed.edges) {
+    if (edge.points.length < 2) continue;
+    const first = edge.points[0]!;
+    const last = edge.points[edge.points.length - 1]!;
+    for (const box of placed.boxes) {
+      if (box.marker === 'none' || box.id === edge.from || box.id === edge.to) continue;
+      if (inside(box, first) || inside(box, last)) continue;
+      // **折れ点（via）を中に置いた箱は、わざと通している**（路線図の停車駅 —— 1 本の辺が駅の丸を順に通る）
+      if (edge.points.slice(1, -1).some((p) => inside(box, p))) continue;
+      // 2px 内側の矩形を、どれかの線分が 4px 以上通っていれば「突き抜け」
+      const r = { x0: box.x + 2, y0: box.y + 2, x1: box.x + box.w - 2, y1: box.y + box.h - 2 };
+      if (r.x1 <= r.x0 || r.y1 <= r.y0) continue;
+      let through = false;
+      for (let i = 1; i < edge.points.length && !through; i += 1) {
+        const a = edge.points[i - 1]!;
+        const c = edge.points[i]!;
+        let t0 = 0;
+        let t1 = 1;
+        const dx = c.x - a.x;
+        const dy = c.y - a.y;
+        const clip = (p: number, q: number): boolean => {
+          if (p === 0) return q >= 0;
+          const t = q / p;
+          if (p < 0) { if (t > t1) return false; if (t > t0) t0 = t; }
+          else { if (t < t0) return false; if (t < t1) t1 = t; }
+          return true;
+        };
+        if (clip(-dx, a.x - r.x0) && clip(dx, r.x1 - a.x) && clip(-dy, a.y - r.y0) && clip(dy, r.y1 - a.y)) {
+          through = (t1 - t0) * Math.hypot(dx, dy) >= 4;
+        }
+      }
+      if (through) found.push([edge.id, box.id]);
+    }
+  }
+  return found;
+}
+
 /** 重なっている組を返す。合否ではなく観測値。 */
 /**
  * **丸い節**（`marker: circle` / `ellipse` で、幅と高さが同じもの）。
@@ -778,10 +829,10 @@ export function overlaps(placed: Placed): [string, string][] {
 }
 
 /**
- * 線どうしが交差している数（Issue 004）。**合否ではなく観測値。**
+ * 線どうしが交差している数。**合否ではなく観測値。**
  *
  * 交差が多い図は読めない。ただし**少なければ良いとも限らない**ので、
- * 数えるだけにして、良し悪しは人が決める（Issue 004 の注意 — AI に自己採点させない）。
+ * 数えるだけにして、良し悪しは人が決める（注意 — AI に自己採点させない）。
  *
  * 同じ点から出ている線どうしは数えない（扇形に広がるのは交差ではない）。
  */
@@ -923,7 +974,7 @@ interface NodeInfo {
   /**
    * **AI が書いた置き場所**（仕様 §3.1。配置図で使う）。
    *
-   * `pins.position`（人）とは別。**人のほうが常に強い**（D5 の向きは変わらない）。
+   * `pins.position`（人）とは別。**人のほうが常に強い**（AI の出力は提案、の向きは変わらない）。
    * 構成図では見ない —— 置き場所は機械が決める。
    */
   at: { x: number; y: number } | null;
@@ -1132,7 +1183,7 @@ function merged(points: Point[]): Point[] {
  * **人が曲げた線は、その点列をそのまま通す。** 曲げ方は好みではなく
  * 「この経路で説明したい」という意思なので、機械が引き直さない。
  * 曲げていない線は、箱の中心どうしを結んで縁で切る。S1 では回り込みまで見ない
- * （原案 §26 の 3 = Connector routing の品質は Issue 004 の側）。
+ * （Connector routing の品質は生成品質の側）。
  */
 /**
  * ELK が計算した経路を集める。
@@ -1266,7 +1317,7 @@ function routeEdges(
 /**
  * **壁を共有する箱どうしの線に、向きを持たせる。**
  *
- * 2026-09-24（`qa/品質100周` 第 18 周）。見本 45（駅の構内図）を実物で見て見つけた。
+ * 2026-09-24。見本 45（駅の構内図）を実物で見て見つけた。
  *
  * 隣り合う部屋を結ぶと、**両端を縁で切った結果が同じ点になる。**
  * 長さゼロの線に `marker-end` を付けても、SVG の `orient="auto"` は向きを決められず、
@@ -1275,7 +1326,7 @@ function routeEdges(
  *
  * 全体で **603 本中 18 本 ／ 8 枚**（40・45 が各 4 本、116 が 3 本、28・34 が各 2 本）。
  *
- * **見本ごとに逃げず、道具の側で直す**（D40 と同じ筋）。
+ * **見本ごとに逃げず、道具の側で直す**（自分自身への辺を `close` 無しで閉じないのと同じ筋）。
  * 重なった点を、**箱の中心どうしを結ぶ向き**に 6px だけ開く。
  * 線そのものはほぼ見えないままで、変わるのは**矢じりの向き**だけ。
  */
@@ -1302,7 +1353,7 @@ function nudge(
 /**
  * **同じ 2 つの箱を結ぶ線が何本もあるとき、横へずらして分ける。**
  *
- * 2026-09-25（`qa/品質100周` 第 51 周）。見本 86（CRUD 管理画面の画面遷移）を実物で見て見つけた。
+ * 2026-09-25。見本 86（CRUD 管理画面の画面遷移）を実物で見て見つけた。
  *
  * 正本には `一覧 → 削除確認（削除）` と `削除確認 → 一覧（削除して戻る）` の
  * **2 本**が書いてある。ところが 2 つの箱は縦に並んでいるので、
@@ -1619,7 +1670,7 @@ function extent(
   views: readonly View[] = [],
 ): { width: number; height: number } {
   const box = bounds(boxes, groups, edges, grid);
-  // **図の枠も紙に入れる**（D35）。節を 1 つも置いていない図があり得る
+  // **図の枠も紙に入れる**。節を 1 つも置いていない図があり得る
   // （名前と寸法だけの枠）ので、箱からは出てこない。
   const frames = viewBounds(views);
   const maxX = frames === null ? box.maxX : Math.max(box.maxX, frames.maxX);
@@ -1628,7 +1679,7 @@ function extent(
 }
 
 /**
- * 作図を絵にする（D36）。**自動配置を通さない。**
+ * 作図を絵にする。**自動配置を通さない。**
  *
  * 人が pin できるのは**定数**（`pins.<名前>.value`）。位置ではない ——
  * 位置は手順が決めるので、`pins.position` は**検証器が明示で断る**。

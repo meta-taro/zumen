@@ -8,7 +8,16 @@ title: 受変電設備の単線結線図
 # ## 高圧受電は、変圧を自分でやるということ
 #
 # 6.6kV をそのまま受けて、自分の変圧器で 400V / 200V へ落とす。
-# **引込柱から先は需要家の持ち物**（責任分界点）。だから保護も点検も自分でやる。
+# **区分開閉器（PAS）から先は需要家の持ち物**（責任分界点）。だから保護も点検も自分でやる。
+#
+# ## 主遮断装置は、変圧器の合計で形が決まる
+#
+# 並びは 区分開閉器 → 断路器 → 取引用計器用変成器 → **主遮断装置** → 変圧器ごとの開閉器。
+# 変圧器の合計が 300kVA を超えると、開閉器＋限流ヒューズ（PF・S 形）では受けられず、
+# **遮断器で切る CB 形**になる。この図は 300＋150＝450kVA なので VCB を置く。
+# 変圧器ごとの開閉器は、限流ヒューズ付きの負荷開閉器（LBS・PF 付）。
+# 出典：日本電気技術者協会「高圧自家用受電設備の保護について」
+# https://www.jeea.or.jp/course/contents/05204/ （取得 2026-09-29）
 #
 # ## 非常用は、自動切替の先にしか無い
 #
@@ -27,25 +36,40 @@ groups:
 nodes:
   - id: intake
     type: network
-    label: 引込柱
-    tag: DS-1
+    label: 区分開閉器（引込柱）
+    tag: PAS
     technology: 6.6kV 三相 3 線
+    group: koatsu
+  - id: ds
+    type: generic
+    label: 断路器
+    tag: DS
     group: koatsu
   - id: vct
     type: generic
-    label: 計器用変成器
+    label: 取引用計器用変成器
     tag: VCT
+    group: koatsu
+  - id: vcb
+    type: generic
+    label: 主遮断装置（真空遮断器）
+    tag: VCB
     group: koatsu
   - id: lbs
     type: generic
-    label: 高圧交流負荷開閉器
+    label: 負荷開閉器（PF 付）
     tag: LBS-1
+    group: koatsu
+  - id: lbs2
+    type: generic
+    label: 負荷開閉器（PF 付）
+    tag: LBS-2
     group: koatsu
   - id: tr1
     type: cluster
     label: 変圧器
     tag: T-1
-    technology: 500kVA
+    technology: 300kVA
     group: koatsu
   - id: tr2
     type: cluster
@@ -83,12 +107,18 @@ nodes:
     group: hijo
 edges:
   - from: intake
+    to: ds
+  - from: ds
     to: vct
   - from: vct
+    to: vcb
+  - from: vcb
     to: lbs
+  - from: vcb
+    to: lbs2
   - from: lbs
     to: tr1
-  - from: lbs
+  - from: lbs2
     to: tr2
   - from: tr1
     to: mcc1

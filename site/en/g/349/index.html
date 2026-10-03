@@ -119,7 +119,7 @@
   <p>197（等角図と三面図）は、この掛け算を<strong>人が電卓で出して 104 点を手打ち</strong>している（<code>399 + 100 × cos30° = 485.6</code>）。<strong>ここは z を書くだけ。</strong></p>
   <p><strong><code>projection</code> が落とすのは点の位置だけ。</strong> <code>size: { w, h }</code> の箱は紙の上で軸に平行な長方形のままなので、<strong>立体の面にはならない。</strong>だから立体は<strong>点と線で組む</strong> —— 197 も同じ描き方をしている。</p>
   <p>面を塗りたくなったら、そのとき <code>box</code> を平行四辺形へ落とす話をする。<strong>いまは当たっていないので足さない。</strong></p>
-  <p>実物の図面は、奥の物に隠れた辺を<strong>破線</strong>にする。<strong>機械は判定しない</strong>（どれが隠れるかは意味の判断）—— 書いた人が <code>line: dashed</code> で書く。ここでは奥の 3 本をそうしてある。</p>
+  <p>実物の図面は、奥の物に隠れた辺を<strong>破線</strong>にする。<strong>機械は判定しない</strong>（どれが隠れるかは意味の判断）—— 書いた人が <code>line: dashed</code> で書く。ここでは奥の 3 本をそうしてある —— 見えない角 a（x・y が小さく z が 0、紙の上では手前の角 g と重なる）から出る 3 本（a–b・a–d・a–e）。上面と、x の大きい面、y の大きい面の 9 本が見える。</p>
   <h2>Source (YAML)</h2>
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/349-%E7%AD%89%E8%A7%92%E5%9B%B3%E3%82%92z%E3%81%A7%E7%B5%84%E3%82%80.zumen.yaml"><code>examples/gallery/349-等角図をzで組む.zumen.yaml</code></a></p>
   <h2>More in this field</h2>

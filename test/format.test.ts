@@ -2,7 +2,7 @@
  * **正本の読み書き**（`spec/zumen-format-v1.md`）。
  *
  * ここで測るのは「人が書いたものが、機械が触っても残るか」の下地。
- * コメントとキー順が保存で壊れると、判定基準の Tier B（原案 §26 の 9）が落ちる。
+ * コメントとキー順が保存で壊れると、判定基準の Tier Bが落ちる。
  */
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';

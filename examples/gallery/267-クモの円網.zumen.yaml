@@ -19,9 +19,14 @@ title: クモの円網の作り方（縦糸は歩く道、横糸だけが粘る�
 # **横糸は、網の下側のほうが数が多い**（こしきは中心より上に来る）。
 # なぜそうなるのかを書いた資料は見つけられなかったので、ここには理由を書いていない。
 #
-# **張り替えは高い。** ジョロウグモが網を全部張り替えると**約 2 日分の養分**を使うので、
-# **破れた所だけ補修する。** オニグモは夜に張って明け方に片付ける ——
-# **きれいな円網は、張ったばかりの網。**
+# **張り替え方は種で違う。** ジョロウグモは網全体をあまり張り替えず、壊れた所や横半分だけを作り直す。
+# 足場糸も切らずに残す（横糸の間のジグザグ）。② の「足場糸を切る」は、オニグモのような円網の一般形。
+# オニグモは夕方に張って朝にたたむのが基本だが、地域差がある。
+#
+# 出典（2026-10-02 確認）：
+#   富山市科学博物館「じょろうぐも」（横糸は中央から下に多く、上にはほとんど無い）
+#     https://www.tsm.toyama.toyama.jp/_ex/curators/negoro/zyorougumo.htm
+#   ja.wikipedia「ジョロウグモ」（部分的な張り替え・足場糸が残る）／「オニグモ」（夕方に張り朝にたたむ。地域差）
 nodes:
   - id: t1
     label: "① 円網の部位 —— 縦糸は歩く道、横糸だけが粘る"
@@ -62,7 +67,7 @@ nodes:
   - id: p6
     label: ""
     marker: none
-    at: { x: 469, y: 677.4 }
+    at: { x: 469, y: 640 }
     size: { w: 2, h: 2 }
   - id: sasae
     label: "支持糸（枝や柱へ）"
@@ -309,8 +314,8 @@ nodes:
   - id: shita
     label: "下のほうが横糸が多い"
     marker: none
-    align: center
-    at: { x: 360, y: 616 }
+    align: left
+    at: { x: 482, y: 616 }
     size: { w: 240, h: 18 }
   - id: why1
     label: "クモが自分の網にくっつかないのは、歩く糸が粘らないから。\n縦糸（放射糸）と足場糸は粘らず、粘るのは横糸だけ ——\nクモは縦糸の上だけを歩く。横糸には粘球がほぼ等間隔に並んでいて、\n獲物はそこで止まる。"
@@ -428,31 +433,31 @@ nodes:
     at: { x: 890, y: 618 }
     size: { w: 440, h: 92 }
   - id: t4
-    label: "④ 張り替えは高い"
+    label: "④ 張り替え方・直し方は、種で違う"
     marker: none
     align: left
     at: { x: 150, y: 764 }
     size: { w: 700, h: 20 }
   - id: h150_794
-    label: "ジョロウグモの網"
+    label: "種ごとの違い"
     hatch: solid
     at: { x: 150, y: 794 }
     size: { w: 700, h: 24 }
   - id: x150_818
-    label: "全部張り替える"
+    label: "ジョロウグモ"
     at: { x: 150, y: 818 }
     size: { w: 240, h: 24 }
   - id: y150_818
-    label: "約 2 日分の養分"
+    label: "全体はあまり張り替えず、壊れた所や半分だけ作り直す"
     align: left
     at: { x: 390, y: 818 }
     size: { w: 460, h: 24 }
   - id: x150_842
-    label: "実際にやること"
+    label: "ジョロウグモの足場糸"
     at: { x: 150, y: 842 }
     size: { w: 240, h: 24 }
   - id: y150_842
-    label: "破れた所だけ補修"
+    label: "切らずに残す（横糸の間のジグザグ）"
     align: left
     at: { x: 390, y: 842 }
     size: { w: 460, h: 24 }
@@ -461,12 +466,12 @@ nodes:
     at: { x: 150, y: 866 }
     size: { w: 240, h: 24 }
   - id: y150_866
-    label: "夜に張り、明け方に片付ける"
+    label: "夕方に張り、朝にたたむのが基本（地域差あり）"
     align: left
     at: { x: 390, y: 866 }
     size: { w: 460, h: 24 }
   - id: why4
-    label: "網は、作り直すより直したほうが安い。\nだから、破れたままの網や、繕った跡のある網が普通に見つかる ——\nきれいな円網は、張ったばかりの網。"
+    label: "② の「足場糸を切る」は、オニグモのような円網の一般形。\nジョロウグモは足場糸を残し、網を部分ごとに作り直す ——\n同じ円網でも、張り方と直し方は種で違う。"
     at: { x: 150, y: 904 }
     size: { w: 700, h: 74 }
   - id: r1
@@ -500,17 +505,57 @@ nodes:
     at: { x: 150, y: 1092 }
     size: { w: 1180, h: 18 }
   - id: r6
-    label: "張り替えは高くつきます（④）。ジョロウグモが全部張り替えると約 2 日分の養分なので、破れた所だけ補修します。"
+    label: "張り替え方は種で違います（④）。ジョロウグモは網全体をあまり張り替えず、壊れた所や半分だけを作り直します。"
     marker: none
     align: left
     at: { x: 150, y: 1116 }
     size: { w: 1180, h: 18 }
   - id: r7
-    label: "きれいな円網は、張ったばかりの網です。"
+    label: "オニグモは夕方に張って朝にたたむのが基本ですが、地域によってはたたまないこともあります。"
     marker: none
     align: left
     at: { x: 150, y: 1140 }
     size: { w: 1180, h: 18 }
+  - id: q1
+    label: ""
+    marker: none
+    at: { x: 275, y: 287 }
+    size: { w: 2, h: 2 }
+  - id: q2
+    label: ""
+    marker: none
+    at: { x: 388, y: 339 }
+    size: { w: 2, h: 2 }
+  - id: q3
+    label: ""
+    marker: none
+    at: { x: 633, y: 214 }
+    size: { w: 2, h: 2 }
+  - id: q4
+    label: ""
+    marker: none
+    at: { x: 592, y: 294 }
+    size: { w: 2, h: 2 }
+  - id: q5
+    label: ""
+    marker: none
+    at: { x: 665, y: 488 }
+    size: { w: 2, h: 2 }
+  - id: q6
+    label: ""
+    marker: none
+    at: { x: 482, y: 489 }
+    size: { w: 2, h: 2 }
+  - id: q7
+    label: ""
+    marker: none
+    at: { x: 665, y: 547 }
+    size: { w: 2, h: 2 }
+  - id: q8
+    label: ""
+    marker: none
+    at: { x: 585, y: 480 }
+    size: { w: 2, h: 2 }
 edges:
   - from: p0
     to: p0
@@ -1024,3 +1069,19 @@ edges:
     via:
       - { x: 478, y: 464 }
       - { x: 462, y: 478 }
+  - from: q1
+    to: q2
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: q3
+    to: q4
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: q5
+    to: q6
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: q7
+    to: q8
+    curve: none
+    ends: { from: none, to: arrow }

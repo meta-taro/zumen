@@ -111,8 +111,8 @@ nodes:
     style: wet
     at: { x: 192, y: 190 }
     size: { w: 72, h: 64 }
-    openings:
-      - { kind: slide, side: bottom, at: 0.3, width: 24 }
+  # 洗面（脱衣）から UB と WC へ入る。戸は小さい箱（洗面）の側に付ける
+  # 2026-10-02 まで、UB の戸は洗面と WC の境にまたがり、WC の戸は CL（収納）の中へ開いていた
   - id: sen
     label: "洗面"
     style: wet
@@ -120,13 +120,13 @@ nodes:
     size: { w: 32, h: 48 }
     openings:
       - { kind: slide, side: left, at: 0.5, width: 24 }
+      - { kind: slide, side: top, at: 0.5, width: 24 }
+      - { kind: slide, side: right, at: 0.6, width: 20 }
   - id: wc
     label: "WC"
     style: wet
     at: { x: 224, y: 254 }
     size: { w: 40, h: 48 }
-    openings:
-      - { kind: door, side: bottom, at: 0.5, width: 20, swing: out }
   - id: cl
     label: "CL"
     style: store
@@ -136,7 +136,7 @@ nodes:
       - { kind: slide, side: bottom, at: 0.5, width: 50 }
   - id: you
     label: "洋室"
-    technology: "6.7帖"
+    technology: "6.6帖"
     style: room
     at: { x: 120, y: 350 }
     size: { w: 144, h: 120 }

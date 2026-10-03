@@ -1,9 +1,9 @@
 /**
- * エージェントへ開く口の中身（D13 / D18）。
+ * エージェントへ開く口の中身（読みと提案まで）。
  *
  * **MCP の話をここに持ち込まない。** ここは純粋な処理で、
  * MCP サーバ（`src/mcp.ts`）はこれを呼ぶだけ。
- * そうしておくと、**MCP を立てずにテストできる**（ベースルール §9）。
+ * そうしておくと、**MCP を立てずにテストできる**。
  *
  * ## 開けているもの / 開けていないもの
  *
@@ -19,7 +19,7 @@
  * ## エージェントが自分で直せるだけの情報を返す
  *
  * 返さないと、エージェントは当て推量で書く。
- * 実際、交差が 143 本ある図を出しても気づけなかった（Issue 004）。
+ * 実際、交差が 143 本ある図を出しても気づけなかった。
  */
 import { execFileSync } from 'node:child_process';
 import { readFileSync, writeFileSync, existsSync, readdirSync, statSync, mkdtempSync, rmSync } from 'node:fs';
@@ -30,7 +30,7 @@ import { toDrawio } from './drawio.ts';
 import { placeEdgeLabels } from './edge-labels.ts';
 import { embedFont } from './font.ts';
 import { getPins, parse } from './format.ts';
-import { crossingEdges, crossings, edgesUnderBoxes, groupEscapes, layout, overlaps, straddles } from './layout.ts';
+import { crossingEdges, crossings, edgesThroughBoxes, edgesUnderBoxes, groupEscapes, layout, overlaps, straddles } from './layout.ts';
 import { messages } from './messages.ts';
 import { PASS_LINE, measure } from './measure.ts';
 import { merge } from './merge.ts';
@@ -61,7 +61,7 @@ import type { Intent, Theme } from './tokens.ts';
 import { hasError, validate } from './validate.ts';
 import type { Finding } from './validate.ts';
 
-/** 図の正本の付け方（D13 §4）。**この名前でないとマージドライバが効かない。** */
+/** 図の正本の付け方。**この名前でないとマージドライバが効かない。** */
 const SUFFIX = '.zumen.yaml';
 
 export interface Io {
@@ -220,14 +220,14 @@ export interface Inspection {
    * **置き場所が正本に書いてあるか**（配置図）。
    *
    * 真なら、機械は並べ直さない。**`nodes[].at` に書くこと。**
-   * `pins` は人のものなので、そこへは書かない（D5）。
+   * `pins` は人のものなので、そこへは書かない（人の指定が勝つ）。
    */
   positionsInSource: boolean;
-  /** 「9 割」（D3）。合格線は `passLine`。 */
+  /** 「9 割」（自力率）。合格線は `passLine`。 */
   autonomy: number | null;
   layoutAutonomy: number | null;
   passLine: number;
-  /** **読みにくさの目安。** 交差がエッジ数を超えたら、目で追えない（Issue 004）。 */
+  /** **読みにくさの目安。** 交差がエッジ数を超えたら、目で追えない。 */
   tooTangled: boolean;
   /**
    * **書いたのに絵に出ないラベルの、辺の id。**
@@ -272,6 +272,8 @@ export interface Inspection {
    * （2026-09-14。見本 86 で注記が枠の上に乗ったまま出ていた）。
    */
   overlappingText: [string, string][];
+  /** 辺が、関係の無い箱を突き抜けている組（`[辺, 箱]`）。 */
+  edgesThroughBoxes: [string, string][];
   /** 開き戸の扇に乗っている文字・設備（`[扉のある箱, 乗っている箱]`）。 */
   doorSwings: [string, string][];
   /**
@@ -289,7 +291,7 @@ export interface Inspection {
    * 両方が空なら、**誰もこの図を見ていない。**
    *
    * 自力率 100% には 2 通りある ──「AI が描いて人が直す必要が無かった」と
-   * 「**誰も見ていない**」。後者はこの製品の失敗そのもの（PRD §4）。
+   * 「**誰も見ていない**」。後者はこの製品の失敗そのもの。
    *
    * **ここへ書く口は開けていない。** 開けた瞬間、AI が自分の絵を自分で承認できる。
    * 人が GUI で印を付けるまで false のままにしておくこと。
@@ -361,6 +363,7 @@ export async function inspect(source: string): Promise<Inspection> {
       hiddenTags: [],
       overlappingText: [],
       doorSwings: [],
+      edgesThroughBoxes: [],
       edgesUnderBoxes: [],
       kind: 'structure',
       positionsInSource: false,
@@ -412,6 +415,7 @@ export async function inspect(source: string): Promise<Inspection> {
         : [],
     hiddenTags: kindOf(source) === 'placement' ? hiddenTags(placed.boxes) : [],
     edgesUnderBoxes: edgesUnderBoxes(placed),
+    edgesThroughBoxes: edgesThroughBoxes(placed),
     overlappingText:
       kindOf(source) === 'placement'
         ? overlappingText(placed.boxes, planNames(placed.boxes, extentOf(placed.boxes), placed.edges, placed.groups))
@@ -448,7 +452,7 @@ export interface WriteResult {
 }
 
 /**
- * 新しい図を作る（D18）。
+ * 新しい図を作る。
  *
  * **既にファイルがあれば失敗する。** 上書きの経路にしない。
  * 形式に適合しないものは書かない（**壊れた図をディスクに残さない**）。
@@ -469,7 +473,7 @@ export function create(path: string, source: string, io: Io = realIo): WriteResu
 }
 
 /**
- * 提案を、人の正本へ入れる（D5）。
+ * 提案を、人の正本へ入れる。
  *
  * **提案から `pins` を読まない。** 競合は適用せずに返す。
  * **この口を通る限り、人の指定は壊れない。**
@@ -502,7 +506,7 @@ export interface ExportOptions {
   /** 主役の強さ（svg にだけ効く）。**渡さなければ `safe`。** */
   intent?: Intent;
   /**
-   * **書体を SVG の中へ入れる**（D44。svg と png にだけ効く）。どの端末で開いても同じ字形になる。
+   * **書体を SVG の中へ入れる**（svg と png にだけ効く）。どの端末で開いても同じ字形になる。
    * 訓練用の束や、地図の吹き出しに画像として出す図に使う。渡さなければ入れない。
    */
   embedFont?: boolean;
@@ -602,13 +606,13 @@ export async function exportAs(
 }
 
 /**
- * **図が育つところを 1 本にする**（D34 の隣。2026-09-16）。
+ * **図が育つところを 1 本にする**（画面と繋ぐ線の隣。2026-09-16）。
  *
  * これまで、この絵を作るには**画面録画**が要った ——
  * 画面の前に人が座っていないと作れない。**リモートで作れない機能は、無いのと同じ。**
  *
  * ここでは段（正本の並び）から、動く SVG と、紙を揃えた連番を作る。
- * **符号化器は同梱しない**（ベースルール §1・§12）。mp4 が要るなら、
+ * **符号化器は同梱しない**（依存を増やさない）。mp4 が要るなら、
  * 手元の道具で作る手順を文字で返す。
  */
 export async function filmOf(

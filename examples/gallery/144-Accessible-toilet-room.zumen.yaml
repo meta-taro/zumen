@@ -25,9 +25,11 @@ nodes:
     at: { x: 60, y: 60 }
     size: { w: 384, h: 336 }
     openings:
-      # Hinge at the top end, swinging in. The pull side keeps 18 in beyond
-      # the latch (y 312) and the swing stays clear of the WC clearance (x 290).
-      - { kind: door, side: right, at: 0.3214, width: 144 }
+      # Hinge at the top end, swinging OUT. An in-swing would cross the
+      # lavatory clearance (603.2.3 allows that only under exception 2).
+      # Swinging out, the pull side (60 in deep, 18 in beyond the latch,
+      # Table 404.2.4.1) is in the corridor; inside is the push side.
+      - { kind: door, side: right, at: 0.3214, width: 144, swing: out, hinge: start }
   # The water closet sits with its tank on the LEFT wall (the rear wall);
   # the TOP wall is the side wall. 604.3.1: 60 in from the side wall,
   # 56 in from the rear wall.
@@ -79,61 +81,61 @@ nodes:
     label: "Water closet centerline 16-18 in from the side wall (604.2)"
     marker: none
     align: left
-    at: { x: 508, y: 62 }
+    at: { x: 620, y: 62 }
     size: { w: 520, h: 18 }
   - id: m2
     label: "Clear floor space 60 in x 56 in, any approach (604.3.1)"
     marker: none
     align: left
-    at: { x: 508, y: 90 }
+    at: { x: 620, y: 90 }
     size: { w: 520, h: 18 }
   - id: m3
     label: "Side grab bar 42 in min (604.5.1)"
     marker: none
     align: left
-    at: { x: 508, y: 118 }
+    at: { x: 620, y: 118 }
     size: { w: 520, h: 18 }
   - id: m4
     label: "Rear grab bar 36 in min (604.5.2)"
     marker: none
     align: left
-    at: { x: 508, y: 146 }
+    at: { x: 620, y: 146 }
     size: { w: 520, h: 18 }
   - id: m5
     label: "Grab bars 33-36 in above the floor (609.4)"
     marker: none
     align: left
-    at: { x: 508, y: 174 }
+    at: { x: 620, y: 174 }
     size: { w: 520, h: 18 }
   - id: m6
     label: "Lavatory rim 34 in max, knee 27 in (606.3)"
     marker: none
     align: left
-    at: { x: 508, y: 202 }
+    at: { x: 620, y: 202 }
     size: { w: 520, h: 18 }
   - id: m7
     label: "Clear floor at the lavatory 30 in x 48 in (305.3)"
     marker: none
     align: left
-    at: { x: 508, y: 230 }
+    at: { x: 620, y: 230 }
     size: { w: 520, h: 18 }
   - id: m8
     label: "Turning space: a 60 in circle (304.3.1)"
     marker: none
     align: left
-    at: { x: 508, y: 258 }
+    at: { x: 620, y: 258 }
     size: { w: 520, h: 18 }
   - id: m9
-    label: "Door pull side: 60 in deep, 18 in beyond the latch (404.2.4.1)"
+    label: "Door swings out: pull side outside, 18 in beyond the latch (404.2.4.1)"
     marker: none
     align: left
-    at: { x: 508, y: 286 }
+    at: { x: 620, y: 286 }
     size: { w: 520, h: 18 }
   - id: m10
-    label: "Swing may cross a fixture clearance in a single-user room (603.2.3 ex 2)"
+    label: "The swing crosses no fixture clearance (603.2.3)"
     marker: none
     align: left
-    at: { x: 508, y: 310 }
+    at: { x: 620, y: 310 }
     size: { w: 520, h: 18 }
   - id: lwc
     label: "WC"

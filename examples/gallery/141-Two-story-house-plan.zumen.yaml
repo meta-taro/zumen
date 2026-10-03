@@ -12,7 +12,7 @@ title: "Two-story house, first and second floor (fictional)"
 # The hatched rooms on the first floor (FOYER and GREAT ROOM) are two storeys
 # tall. **The same area on the second floor is marked OPEN TO BELOW** and lines
 # up with them —— that pair is how a two-storey volume is written on a set of
-# plans. `views`（D35）で 2 面を 1 枚に置き、通り芯を両方へ同じ位置で付けてある。
+# plans. `views` で 2 面を 1 枚に置き、通り芯を両方へ同じ位置で付けてある。
 #
 # 16 risers at about 7 9/16 in (9 ft ceiling + floor framing) need 15 treads
 # at 10 in = 12'-6" of run, so the stair box is 100 px (12'-6") long.
@@ -65,8 +65,11 @@ nodes:
     openings:
       - { kind: open, side: top, at: 0.5, width: 112 }
       - { kind: door, side: bottom, at: 0.25, width: 22 }
+  # The mudroom sits next to the great room so the garage door leads into the house through it.
+  # The powder room opens off the mudroom, not the garage. (Fixed 2026-10-02: the mudroom led only outside,
+  # and the powder room and utility opened straight into the garage.)
   - id: mud
-    label: "MUDROOM"
+    label: "UTILITY"
     at: { x: 60, y: 220 }
     size: { w: 64, h: 64 }
     openings:
@@ -76,13 +79,14 @@ nodes:
     at: { x: 124, y: 220 }
     size: { w: 40, h: 64 }
     openings:
-      - { kind: door, side: top, at: 0.5, width: 18 }
+      - { kind: door, side: right, at: 0.82, width: 18 }
   - id: util
-    label: "UTILITY"
+    label: "MUDROOM"
     at: { x: 164, y: 220 }
     size: { w: 56, h: 64 }
     openings:
       - { kind: door, side: top, at: 0.5, width: 20 }
+      - { kind: open, side: right, at: 0.5, width: 36 }
   - id: foyer
     label: "FOYER"
     hatch: lines
@@ -97,6 +101,8 @@ nodes:
     technology: "UP 16R"
     at: { x: 268, y: 60 }
     size: { w: 40, h: 100 }
+    openings:
+      - { kind: open, side: left, at: 0.2, width: 30 }
   - id: dining
     label: "DINING"
     technology: "13'-0\" x 11'-0\""
@@ -119,6 +125,8 @@ nodes:
     size: { w: 104, h: 72 }
     openings:
       - { kind: window, side: right, at: 0.5, width: 36 }
+      - { kind: open, side: top, at: 0.5, width: 60 }
+      - { kind: open, side: left, at: 0.583, width: 48 }
   - id: pantry
     label: "PANTRY"
     at: { x: 308, y: 220 }
@@ -133,7 +141,7 @@ nodes:
       - { kind: window, side: top, at: 0.5, width: 40 }
       - { kind: door, side: bottom, at: 0.818, width: 20 }
   - id: bed3
-    label: "BEDROOM 3"
+    label: "BEDROOM\n3"
     at: { x: 768, y: 60 }
     size: { w: 72, h: 88 }
     openings:
@@ -145,18 +153,21 @@ nodes:
     size: { w: 56, h: 72 }
     openings:
       - { kind: door, side: right, at: 0.2, width: 18 }
+  # Openings are repeated on the box drawn later (the smaller one), so the wall it paints does not close them.
+  # The laundry door opens to the hall (it used to open into the bath).
   - id: hall
     label: "HALL"
     at: { x: 736, y: 148 }
     size: { w: 104, h: 72 }
     openings:
-      - { kind: open, side: right, at: 0.4167, width: 36 }
+      - { kind: open, side: top, at: 0.1538, width: 20 }
+      - { kind: open, side: top, at: 0.6538, width: 20 }
   - id: laundry
     label: "LAUNDRY"
     at: { x: 680, y: 220 }
     size: { w: 88, h: 64 }
     openings:
-      - { kind: door, side: top, at: 0.5, width: 20 }
+      - { kind: door, side: top, at: 0.818, width: 20 }
   - id: linen
     label: "LINEN"
     at: { x: 768, y: 220 }
@@ -211,6 +222,8 @@ nodes:
     size: { w: 88, h: 36 }
     openings:
       - { kind: open, side: top, at: 0.773, width: 40 }
+      - { kind: open, side: left, at: 0.5, width: 36 }
+      - { kind: open, side: right, at: 0.333, width: 20 }
   - id: n1
     label: "The hatched rooms are two storeys tall. On the second floor the same area is marked OPEN TO BELOW."
     marker: none

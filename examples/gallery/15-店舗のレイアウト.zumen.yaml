@@ -29,6 +29,13 @@ nodes:
     at: { x: 40, y: 380 }
     size: { w: 90, h: 60 }
     group: uriba
+  - id: zasshi
+    type: generic
+    label: 雑誌
+    technology: 窓ぎわ
+    at: { x: 40, y: 120 }
+    size: { w: 60, h: 230 }
+    group: uriba
   - id: reji
     type: generic
     label: レジ
@@ -74,10 +81,23 @@ nodes:
     size: { w: 160, h: 120 }
     group: back
 edges:
+  # **客の動線**：入口 → 雑誌の前を通って奥へ → 冷蔵ケース → 戻ってレジ
   - from: iriguchi
+    to: reizou
+    label: 客の動線
+    via:
+      - { x: 125, y: 380 }
+      - { x: 125, y: 100 }
+      - { x: 475, y: 100 }
+      - { x: 475, y: 250 }
+  - from: reizou
     to: reji
-  - from: souko
-    to: tana1
+    via:
+      - { x: 475, y: 345 }
+      - { x: 225, y: 345 }
+  # **補充の動線**：冷蔵ケースは裏（ウォークイン）から入れるので、客の動線と交わらない。
+  # 常温の棚への品出しは売場を通る（客の少ない時間に行う）ので、ここには線を引かない
   - from: souko
     to: reizou
+    line: dashed
     label: 補充

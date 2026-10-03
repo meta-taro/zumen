@@ -35,7 +35,8 @@ styles:
 # **田の字型 —— 襖を外せば広間になる家。**
 #
 # 昭和の木造平屋に多い型。8 帖の和室 4 つ（茶の間・寝間・次の間・座敷）を襖で仕切って田の字に並べ、
-# 南に縁側を通す。**部屋ごとの廊下が無く、縁側と隣の部屋を通って行き来する。**
+# 南に縁側を通す。**4 つの和室には部屋ごとの廊下が無く、縁側と隣の部屋を通って行き来する。**
+# ただし便所と風呂は、玄関から入る北の廊下に面して置く（和室を通らずに行ける）。
 # 襖をすべて外せば 32 帖の広間 —— 冠婚葬祭を家でした頃は、この広さが要った。
 #
 # | | |
@@ -43,9 +44,13 @@ styles:
 # | 座敷 | 床の間（と押入）を持つ、いちばん格の高い部屋。客を通す |
 # | 茶の間 | 家族が食べて集まる部屋。台所の隣 |
 # | 縁側 | 廊下を兼ねる板張り。庭に開く |
-# | 水まわり | 北に寄せる（日の当たる南を部屋に使う）|
+# | 水まわり | 北に寄せ、廊下から入る（日の当たる南を部屋に使う）|
 #
-# 畳は 1 枚 0.91m × 1.82m（半間 × 1 間）。8 帖の敷き方は、4 枚の角が 1 点に集まらないように回す。
+# 畳は 1 枚 0.91m × 1.82m（半間 × 1 間）。
+# 帖数は、不動産の表示に関する公正競争規約施行規則 第 9 条第 16 号（1 帖 1.62㎡ 以上）に合わせて書いた。
+# 8 帖の和室は 3.64m 角 ＝ 13.25㎡ で、÷1.62 ＝ 8.18 → 切り捨てて 8.1 帖（8.2 と書くと 1 帖 1.62㎡ を割る）。
+# 便所を北の廊下側に置くのは、中廊下型住宅（廊下を挟んで南に居室、北に台所・便所）と同じ考え方
+# （講談社『家とインテリアの用語がわかる辞典』「中廊下型住宅」）。玄関は引戸、便所の開き戸は廊下へ外開き。8 帖の敷き方は、4 枚の角が 1 点に集まらないように回す。
 #
 # **出どころ** —— よく知られた家族ものの作品の家について語られる「昭和の田の字型の平屋」という考察を手がかりに、
 # **zumen が自分で間取りを組んだ。特定の作品・実在の家の間取りを写したものではない**（名前も出さない）。架空。
@@ -62,7 +67,7 @@ nodes:
     at: { x: 164, y: 204 }
     size: { w: 409, h: 446 }
   - id: lot_l
-    label: "敷地 約 267㎡（塀で囲む）"
+    label: "敷地 約 292㎡（塀で囲む）"
     marker: none
     align: left
     at: { x: 164, y: 656 }
@@ -142,31 +147,31 @@ nodes:
   - id: furo
     label: "風呂"
     style: wet
-    at: { x: 291, y: 240 }
+    at: { x: 360, y: 240 }
     size: { w: 45, h: 46 }
     openings:
       - { kind: slide, side: bottom, at: 0.5, width: 26 }
   - id: datsu
     label: "脱衣"
     style: wet
-    at: { x: 291, y: 286 }
+    at: { x: 360, y: 286 }
     size: { w: 45, h: 22 }
     openings:
-      - { kind: slide, side: bottom, at: 0.5, width: 26 }
+      - { kind: slide, side: bottom, at: 0.74, width: 18 }
   - id: ben
     label: "便所"
     style: wet
-    at: { x: 336, y: 240 }
+    at: { x: 405, y: 240 }
     size: { w: 23, h: 68 }
     openings:
       - { kind: door, side: bottom, at: 0.5, width: 18, swing: out }
   - id: mono
     label: "物置"
     style: storage
-    at: { x: 359, y: 240 }
+    at: { x: 291, y: 240 }
     size: { w: 69, h: 68 }
     openings:
-      - { kind: slide, side: right, at: 0.5, width: 30 }
+      - { kind: slide, side: left, at: 0.5, width: 30 }
   - id: gen
     label: "玄関"
     style: entry
@@ -184,7 +189,7 @@ nodes:
       - { kind: slide, side: left, at: 0.5, width: 30 }
   - id: cha
     label: "茶の間"
-    technology: "8.2帖"
+    technology: "8.1帖"
     style: tatami
     at: { x: 200, y: 308 }
     size: { w: 91, h: 91 }
@@ -193,7 +198,7 @@ nodes:
       - { kind: slide, side: bottom, at: 0.5, width: 60 }
   - id: nema
     label: "寝間"
-    technology: "8.2帖"
+    technology: "8.1帖"
     style: tatami
     at: { x: 291, y: 308 }
     size: { w: 91, h: 91 }
@@ -201,7 +206,7 @@ nodes:
       - { kind: slide, side: right, at: 0.15, width: 24 }
   - id: tsugi
     label: "次の間"
-    technology: "8.2帖"
+    technology: "8.1帖"
     style: tatami
     at: { x: 200, y: 399 }
     size: { w: 91, h: 91 }
@@ -210,7 +215,7 @@ nodes:
       - { kind: slide, side: bottom, at: 0.5, width: 70 }
   - id: zashiki
     label: "座敷"
-    technology: "8.2帖"
+    technology: "8.1帖"
     style: tatami
     at: { x: 291, y: 399 }
     size: { w: 91, h: 91 }
@@ -383,7 +388,7 @@ nodes:
     size: { w: 136, h: 28 }
   - id: shosai
     label: "書斎"
-    technology: "7.2帖"
+    technology: "7.0帖"
     style: room
     at: { x: 382, y: 336 }
     size: { w: 114, h: 63 }
@@ -401,14 +406,25 @@ nodes:
     style: storage
     at: { x: 382, y: 399 }
     size: { w: 23, h: 46 }
+    openings:
+      - { kind: open, side: left, at: 0.5, width: 40 }
+  # 押入は座敷の側へ襖で開く（2026-10-02 まで開口が無く、どこからも使えなかった）
   - id: oshi
-    label: "押入"
+    label: ""
     style: storage
     at: { x: 382, y: 445 }
     size: { w: 23, h: 45 }
+    openings:
+      - { kind: slide, side: left, at: 0.5, width: 36 }
+  # 押入の名前は、襖の線（箱の内側へ 5px）に乗らないよう右へ寄せて置く
+  - id: l_oshi
+    label: 押入
+    marker: none
+    at: { x: 396, y: 447 }
+    size: { w: 9, h: 41 }
   - id: kodomo
     label: "子ども部屋"
-    technology: "10.2帖"
+    technology: "10.1帖"
     style: room
     at: { x: 405, y: 399 }
     size: { w: 113, h: 91 }
@@ -444,17 +460,17 @@ nodes:
   - id: f38
     label: ""
     marker: none
-    at: { x: 295, y: 244 }
+    at: { x: 364, y: 244 }
     size: { w: 2, h: 2 }
   - id: f39
     label: ""
     marker: none
-    at: { x: 341, y: 239 }
+    at: { x: 410, y: 239 }
     size: { w: 2, h: 2 }
   - id: f40
     label: ""
     marker: none
-    at: { x: 347, y: 256 }
+    at: { x: 416, y: 256 }
     size: { w: 2, h: 2 }
   - id: f41
     label: ""
@@ -462,7 +478,7 @@ nodes:
     at: { x: 426, y: 280 }
     size: { w: 2, h: 2 }
   - id: h1
-    label: "木造平屋　5K ＋ 書斎　延床 約 127.5㎡（縁側を除く）"
+    label: "木造平屋　5K ＋ 書斎　延床 約 127.2㎡（縁側を除く）"
     marker: none
     align: left
     at: { x: 200, y: 74 }
@@ -480,7 +496,7 @@ nodes:
     at: { x: 145, y: 704 }
     size: { w: 980, h: 16 }
   - id: n2
-    label: "玄関は北の道路側。塀で敷地を囲み、門から玄関までを敷石でつなぐ。"
+    label: "玄関は北の道路側。便所と風呂へは玄関からの廊下で、和室を通らずに行ける。門から玄関までは敷石。"
     marker: none
     align: left
     at: { x: 145, y: 724 }
@@ -949,10 +965,10 @@ edges:
     color: Fixture
     ends: { from: none, to: none }
     via:
-      - { x: 296, y: 245 }
-      - { x: 331.5, y: 245 }
-      - { x: 331.5, y: 277.5 }
-      - { x: 296, y: 277.5 }
+      - { x: 365, y: 245 }
+      - { x: 400.5, y: 245 }
+      - { x: 400.5, y: 277.5 }
+      - { x: 365, y: 277.5 }
   - from: f39
     to: f39
     close: true
@@ -960,10 +976,10 @@ edges:
     color: Fixture
     ends: { from: none, to: none }
     via:
-      - { x: 342.4, y: 240 }
-      - { x: 353.4, y: 240 }
-      - { x: 353.4, y: 244.5 }
-      - { x: 342.4, y: 244.5 }
+      - { x: 411.4, y: 240 }
+      - { x: 422.4, y: 240 }
+      - { x: 422.4, y: 244.5 }
+      - { x: 411.4, y: 244.5 }
   - from: f40
     to: f40
     close: true
@@ -971,22 +987,22 @@ edges:
     color: Fixture
     ends: { from: none, to: none }
     via:
-      - { x: 347.9, y: 257.5 }
-      - { x: 349.3, y: 257 }
-      - { x: 350.7, y: 255.6 }
-      - { x: 351.7, y: 253.5 }
-      - { x: 352.4, y: 251 }
-      - { x: 352.3, y: 248.5 }
-      - { x: 351.5, y: 246.4 }
-      - { x: 349.9, y: 245 }
-      - { x: 347.9, y: 244.5 }
-      - { x: 345.9, y: 245 }
-      - { x: 344.3, y: 246.4 }
-      - { x: 343.4, y: 248.5 }
-      - { x: 343.4, y: 251 }
-      - { x: 344, y: 253.5 }
-      - { x: 345.1, y: 255.6 }
-      - { x: 346.4, y: 257 }
+      - { x: 416.9, y: 257.5 }
+      - { x: 418.3, y: 257 }
+      - { x: 419.7, y: 255.6 }
+      - { x: 420.7, y: 253.5 }
+      - { x: 421.4, y: 251 }
+      - { x: 421.3, y: 248.5 }
+      - { x: 420.5, y: 246.4 }
+      - { x: 418.9, y: 245 }
+      - { x: 416.9, y: 244.5 }
+      - { x: 414.9, y: 245 }
+      - { x: 413.3, y: 246.4 }
+      - { x: 412.4, y: 248.5 }
+      - { x: 412.4, y: 251 }
+      - { x: 413, y: 253.5 }
+      - { x: 414.1, y: 255.6 }
+      - { x: 415.4, y: 257 }
   - from: f41
     to: f41
     close: false

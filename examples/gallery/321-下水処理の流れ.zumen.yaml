@@ -18,7 +18,7 @@ title: 下水処理の流れ（標準活性汚泥法）
 #
 # ## この図を構成図で描こうとして、やめた
 #
-# **戻る線が、機械の並べ方を壊した**（決まり 33）。
+# **戻る線が、機械の並べ方を壊した**。
 # 最終沈殿池が反応タンクより前の段へ引かれ、
 # **水の道が沈砂池 → 最初沈殿池 → 濃縮（汚泥の道）と読める絵**になった。
 # 折り返しても、groups を外しても直らない。
@@ -34,9 +34,11 @@ title: 下水処理の流れ（標準活性汚泥法）
 #
 # ## 数
 #
-# 令和 6 年度末の**下水道処理人口普及率は 81.8%**。
+# 令和 7 年度末の**下水道処理人口普及率は 82.2%**。
 # 浄化槽なども足した汚水処理人口普及率は 94.0%
-# （下水道 82.2%・浄化槽 9.5%・農業集落排水など 2.2%）。
+# （下水道 82.2%・浄化槽 9.5%・農業集落排水など 2.2%・コミュニティ・プラント 0.1%）。
+# 出典：国土交通省・農林水産省・環境省「令和 7 年度末の汚水処理人口普及状況について」
+# （2026-08-24 発表、https://www.mlit.go.jp/report/press/mizukokudo13_hh_000756.html 、取得 2026-10-02）
 #
 # 上水の側は見本 306。
 nodes:
@@ -99,15 +101,15 @@ nodes:
   - id: hn
     label: "6〜8 時間・微生物が食べる"
     marker: none
-    align: center
-    at: { x: 940, y: 290 }
-    size: { w: 200, h: 18 }
+    align: left
+    at: { x: 950, y: 290 }
+    size: { w: 172, h: 18 }
   - id: un
     label: "活性汚泥を沈める"
     marker: none
-    align: center
-    at: { x: 1160, y: 290 }
-    size: { w: 180, h: 18 }
+    align: left
+    at: { x: 1170, y: 290 }
+    size: { w: 112, h: 18 }
   - id: dn
     label: "塩素など・河川や海へ"
     marker: none
@@ -214,12 +216,12 @@ nodes:
   - id: p16
     label: ""
     marker: none
-    at: { x: 1249, y: 285 }
+    at: { x: 1289, y: 285 }
     size: { w: 2, h: 2 }
   - id: p17
     label: ""
     marker: none
-    at: { x: 1039, y: 285 }
+    at: { x: 1125, y: 285 }
     size: { w: 2, h: 2 }
   - id: hen
     label: "返送汚泥"
@@ -296,7 +298,7 @@ nodes:
   - id: p24
     label: ""
     marker: none
-    at: { x: 1299, y: 285 }
+    at: { x: 1315, y: 285 }
     size: { w: 2, h: 2 }
   - id: p25
     label: ""
@@ -378,7 +380,7 @@ nodes:
     at: { x: 260, y: 728 }
     size: { w: 440, h: 24 }
   - id: h740_560
-    label: "どれだけ届いているか（令和 6 年度末）"
+    label: "どれだけ届いているか（令和 7 年度末）"
     hatch: solid
     at: { x: 740, y: 560 }
     size: { w: 560, h: 24 }
@@ -387,7 +389,7 @@ nodes:
     at: { x: 740, y: 584 }
     size: { w: 260, h: 24 }
   - id: y740_584
-    label: "81.8%"
+    label: "82.2%"
     align: left
     at: { x: 1000, y: 584 }
     size: { w: 300, h: 24 }
@@ -484,8 +486,8 @@ edges:
     curve: none
     ends: { from: none, to: arrow }
     via:
-      - { x: 1250, y: 360 }
-      - { x: 1040, y: 360 }
+      - { x: 1290, y: 360 }
+      - { x: 1126, y: 360 }
   - from: p18
     to: p19
     curve: none
@@ -503,5 +505,5 @@ edges:
     curve: none
     ends: { from: none, to: arrow }
     via:
-      - { x: 1300, y: 430 }
+      - { x: 1316, y: 430 }
       - { x: 870, y: 430 }

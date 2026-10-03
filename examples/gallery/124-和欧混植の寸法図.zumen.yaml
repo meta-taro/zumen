@@ -10,6 +10,11 @@ title: 和文と欧文を混ぜるときの寸法図（仮想ボディとベー�
 # 欧文は**ベースライン**の上に乗せて揃える。
 #
 # **ベースラインは、仮想ボディの中心と下端の「あいだ」にある。**
+# 和文 OpenType フォントでは、仮想ボディ（ideographic em-box）の下端を −120、
+# 上端を 880（1em ＝ 1000）に置くことが多い —— ベースラインは下端から 0.12em 上。
+# この図もその比で描いた（キャップハイト 0.7em・x ハイト 0.5em・ディセンダ 0.2em は欧文の目安）。
+# 出典：Microsoft「OpenType specification —— Baseline tags」の Ideographic em-box の例
+# （https://learn.microsoft.com/en-us/typography/opentype/spec/baselinetags 、2026-10-02 照合）。
 # しかも**書体ごとに位置が違う。**
 # だからそのまま混ぜると行が揃わず、ちぐはぐに見える。
 #
@@ -55,32 +60,32 @@ nodes:
   - id: asca
     label: ""
     marker: none
-    at: { x: 99, y: 221 }
+    at: { x: 99, y: 200 }
     size: { w: 2, h: 2 }
   - id: ascb
     label: ""
     marker: none
-    at: { x: 387, y: 221 }
+    at: { x: 387, y: 200 }
     size: { w: 2, h: 2 }
   - id: capa
     label: ""
     marker: none
-    at: { x: 99, y: 233 }
+    at: { x: 99, y: 212 }
     size: { w: 2, h: 2 }
   - id: capb
     label: ""
     marker: none
-    at: { x: 387, y: 233 }
+    at: { x: 387, y: 212 }
     size: { w: 2, h: 2 }
   - id: xha
     label: ""
     marker: none
-    at: { x: 99, y: 281 }
+    at: { x: 99, y: 260 }
     size: { w: 2, h: 2 }
   - id: xhb
     label: ""
     marker: none
-    at: { x: 387, y: 281 }
+    at: { x: 387, y: 260 }
     size: { w: 2, h: 2 }
   - id: mida
     label: ""
@@ -95,12 +100,12 @@ nodes:
   - id: basea
     label: ""
     marker: none
-    at: { x: 99, y: 361 }
+    at: { x: 99, y: 380 }
     size: { w: 2, h: 2 }
   - id: baseb
     label: ""
     marker: none
-    at: { x: 387, y: 361 }
+    at: { x: 387, y: 380 }
     size: { w: 2, h: 2 }
   - id: bota
     label: ""
@@ -115,18 +120,18 @@ nodes:
   - id: desca
     label: ""
     marker: none
-    at: { x: 99, y: 423 }
+    at: { x: 99, y: 428 }
     size: { w: 2, h: 2 }
   - id: descb
     label: ""
     marker: none
-    at: { x: 387, y: 423 }
+    at: { x: 387, y: 428 }
     size: { w: 2, h: 2 }
   - id: l_base
     label: "ベースライン"
     marker: none
     align: left
-    at: { x: 396, y: 352 }
+    at: { x: 396, y: 370 }
     size: { w: 200, h: 22 }
   - id: l_mid
     label: "仮想ボディの中心"
@@ -138,31 +143,31 @@ nodes:
     label: "仮想ボディの下端"
     marker: none
     align: left
-    at: { x: 396, y: 414 }
+    at: { x: 396, y: 398 }
     size: { w: 200, h: 22 }
   - id: l_xh
     label: "x ハイト"
     marker: none
     align: left
-    at: { x: -10, y: 272 }
+    at: { x: -10, y: 250 }
     size: { w: 104, h: 22 }
   - id: l_cap
     label: "キャップハイト"
     marker: none
     align: left
-    at: { x: -10, y: 224 }
+    at: { x: -10, y: 204 }
     size: { w: 104, h: 22 }
   - id: l_asc
     label: "アセンダライン"
     marker: none
     align: left
-    at: { x: -10, y: 200 }
+    at: { x: -10, y: 180 }
     size: { w: 104, h: 22 }
   - id: l_desc
     label: "ディセンダ"
     marker: none
     align: left
-    at: { x: -10, y: 427 }
+    at: { x: -10, y: 418 }
     size: { w: 104, h: 22 }
   - id: key
     label: "ベースラインは、仮想ボディの中心と下端の「あいだ」にある。しかも書体ごとに違う"

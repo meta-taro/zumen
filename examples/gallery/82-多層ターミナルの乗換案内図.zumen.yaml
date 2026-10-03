@@ -8,7 +8,8 @@ title: 多層ターミナルの乗換案内図（架空駅・1F / B1 / B2 と縦
 # 縦動線は edges[].vertical（stair / escalator / elevator。JIS Z 8210:2022（追補 1:2024） の語）。
 # 同じ階どうしを結ぶと検証器が知らせる —— またがないものは縦動線ではない。
 #
-# 太い矢印が案内する経路：JR 中央改札 → ES → B1 中央通路 → 階段 → B2 南行ホーム。
+# 太い矢印が案内する経路：JR 中央改札 → ES → B1 中央通路 → 地下鉄 北改札 → 階段 → B2 南行ホーム。
+# 地下鉄の改札は B1（コンコース階）に置いた —— 乗り換えは必ず改札を通る。
 # **1 枚の中に、向きのある線と無い線が混ざる**ので、縦動線は ends で矢印を消してある。
 #
 # 凡例と注記には floor を書いていない —— **階に属さないものは、どの枠にも入らない。**
@@ -76,9 +77,9 @@ nodes:
   - id: m_gate
     label: "地下鉄 北改札"
     hatch: solid
-    floor: B2
-    at: { x: 60, y: 670 }
-    size: { w: 160, h: 40 }
+    floor: B1
+    at: { x: 372, y: 458 }
+    size: { w: 106, h: 30 }
   - id: m_home_n
     label: "北行ホーム（3 番）"
     hatch: lines
@@ -94,8 +95,8 @@ nodes:
   - id: m_gate2
     label: "地下鉄 南改札"
     marker: box
-    floor: B2
-    at: { x: 610, y: 670 }
+    floor: B1
+    at: { x: 600, y: 500 }
     size: { w: 160, h: 40 }
   - id: es_1
     label: "ES"
@@ -166,10 +167,10 @@ nodes:
     at: { x: 60, y: 910 }
     size: { w: 560, h: 26 }
   - id: route
-    label: "太い矢印＝案内する経路（JR 中央改札 → ES → B1 中央通路 → ST → B2 南行ホーム）"
+    label: "太い矢印＝案内する経路（JR 中央改札 → ES → B1 中央通路 → 地下鉄 北改札 → ST → B2 南行ホーム）"
     marker: none
     at: { x: 60, y: 940 }
-    size: { w: 620, h: 26 }
+    size: { w: 680, h: 26 }
 edges:
   - from: es_1
     to: es_b1
@@ -208,6 +209,11 @@ edges:
     to: b1_pass
     weight: thick
   - from: b1_pass
+    to: m_gate
+    weight: thick
+    via:
+      - { x: 425, y: 432 }
+  - from: m_gate
     to: st_b1
     weight: thick
   - from: st_b2

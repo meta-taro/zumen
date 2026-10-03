@@ -10,8 +10,6 @@ coverage/
 # ローカル秘密控え（🟡 識別子のみ・🔴 token/key は置かない）— commit 禁止
 SECRETS.local.md
 
-# ベースルール完全版（内部事例を含むため公開しない）— commit 禁止
-.claude/rules/product-baseline.full.md
 
 # 画面のビルド成果物
 app-dist/
@@ -29,16 +27,25 @@ site/gallery/
 # 見本を出して見るための PNG（qa/品質100周.md。見るためだけのもので、正本ではない）
 qa/shots/
 
-# 作業メモ（会話の記録を含むので公開しない。手元にだけ置く。2026-09-30）
-.claude/project-status.md
-.claude/sample-ideas.md
-.claude/archive/
-.claude/posts/
+# .claude/ は記録を置かない。公開してよいのは設定と配布物だけ（全 OSS で同じ形。2026-10-01）
+/.claude/*
+!/.claude/tools/
+!/.claude/rules/
+!/.claude/templates/
+!/.claude/hooks/
+!/.claude/commands/
+!/.claude/agents/
+!/.claude/skills/
+!/.claude/settings.json
+# 許可した場所の中でも、このリポの rules・templates は運用の記録を含むので出さない
+/.claude/rules/*
+/.claude/templates/*
+# ベースルール完全版（内部事例を含むため公開しない）
+/.claude/rules/product-baseline.full.md
 
-# 公開しないもの（開発の記録・判断・進捗・会話を含みうる）。手元にだけ置く。2026-10-01
-# .github/scripts/private-notes-check.sh が、これらが追跡されていたら push を止める
-.claude/
+# .claude/ の外の、公開しないもの（開発の記録・判断・進捗）。手元にだけ置く
 CLAUDE.md
+PRD.md
 qa/
 docs/origin/
 docs/handoff/

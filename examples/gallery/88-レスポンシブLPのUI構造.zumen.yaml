@@ -2,8 +2,8 @@ version: 1
 kind: placement
 arrows: false
 title: LP の UI 構造（Desktop / Tablet / Mobile で Section 構造が変わる）
-# 完成デザインではなく **UI 構造の正本**（UI 方針 §0）。
-# 右の表が主役 —— **絵を 3 枚並べるだけでは、何が変わるか言えない**（UI 方針 §2）。
+# 完成デザインではなく **UI 構造の正本**。
+# 右の表が主役 —— **絵を 3 枚並べるだけでは、何が変わるか言えない。**
 # レスポンシブは縮小ではなく、**節そのものが消えたり増えたりする**こと。
 #
 # **LP は上から下へ読む 1 本道なので、節の順序そのものが情報。**
@@ -24,11 +24,17 @@ nodes:
     marker: box
     at: { x: 60, y: 90 }
     size: { w: 340, h: 372 }
+  # Desktop の Hero は横 2 分割。絵でも 2 つに分けて描く（Tablet・Mobile の縦積みと描き分ける）
   - id: d_s0
-    label: "Hero（見出し＋申込ボタン）"
+    label: "Hero 左：見出し＋申込"
     hatch: lines
     at: { x: 68, y: 98 }
-    size: { w: 324, h: 54 }
+    size: { w: 196, h: 54 }
+  - id: d_s0b
+    label: "Hero 右：画像"
+    hatch: lines
+    at: { x: 268, y: 98 }
+    size: { w: 124, h: 54 }
   - id: d_s1
     label: "実績 3 カラム"
     at: { x: 68, y: 158 }
@@ -65,7 +71,7 @@ nodes:
     at: { x: 440, y: 90 }
     size: { w: 250, h: 340 }
   - id: t_s0
-    label: "Hero（見出し＋申込ボタン）"
+    label: "Hero 縦積み（見出し＋申込）"
     hatch: lines
     at: { x: 448, y: 98 }
     size: { w: 234, h: 48 }

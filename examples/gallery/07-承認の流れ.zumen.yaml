@@ -1,5 +1,5 @@
 version: 1
-wrap: true
+wrap: false
 title: 稟議の流れ
 # **稟議の図は、通る道ではなく「戻る道」を描くための図。**
 # 差し戻しがどこへ返るか（起案者か、一つ前か）が決まっていないと、
@@ -14,6 +14,8 @@ title: 稟議の流れ
 #
 # 同じ線上にあっても、**止める権限があるかどうかは別**。
 # そこを描き分けないと、経理が「承認しない」と言えるのかが読めない。
+# この図では、決裁の後に**どちらの道も経理を通り**、経理からは差し戻しの線を出さない
+# （確認者は止められない）。差し戻しの線が出ているのは承認者だけ。
 direction: down
 pins:
   bucho:
@@ -29,17 +31,18 @@ nodes:
   - id: bucho
     type: generic
     label: 部長
-    technology: 100 万円以上はここで止まる
+    technology: 100 万円未満はここで決裁
   - id: keiri
     type: generic
     label: 経理
+    technology: 確認者（差し戻す権限なし）
   - id: yakuin
     type: generic
     label: 役員会
-    technology: 月 1 回
+    technology: 100 万円以上・月 1 回
   - id: kaketsu
     type: storage
-    label: 可決・保管
+    label: 決裁済み・保管
   - id: sashimodoshi
     type: queue
     label: 差し戻し
@@ -51,15 +54,25 @@ edges:
   - from: bucho
     to: keiri
     label: 100 万円未満
+  # 「100 万円以上」は線に付けると、隣の「100 万円未満」の線に乗って読み違えるので、役員会の副題に書く
   - from: bucho
     to: yakuin
-    label: 100 万円以上
   - from: keiri
     to: kaketsu
+    label: 確認済み
   - from: yakuin
-    to: kaketsu
+    to: keiri
+    label: 可決
   - from: kacho
     to: sashimodoshi
     label: 要件不足
   - from: sashimodoshi
     to: kian
+  - from: bucho
+    to: sashimodoshi
+    line: dashed
+    label: 差し戻し
+  - from: yakuin
+    to: sashimodoshi
+    line: dashed
+    label: 否決

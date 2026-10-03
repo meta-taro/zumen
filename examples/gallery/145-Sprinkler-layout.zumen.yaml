@@ -18,8 +18,9 @@ grid:
 # for, and how far apart heads may sit. Light hazard allows **225 sq ft** and
 # **15 ft**; this grid uses 12 x 12 ft, so each head carries 144 sq ft.
 #
-# **The wall rule follows from the spacing:** no more than half of it, here
-# 7 ft 6 in. Widen the grid and the heads move away from the walls as well.
+# **The wall rule follows from the allowable spacing, not from this grid:**
+# no more than half of the 15 ft table value, i.e. 7 ft 6 in (NFPA 13, 10.2.5.2.1).
+# The heads sit 6 ft from the walls only because half of a 12 ft grid keeps coverage even.
 #
 # **日本語の見本 136（天井伏図）・119（消火器と消火栓）と対。**
 #
@@ -144,7 +145,7 @@ nodes:
     at: { x: 500, y: 90 }
     size: { w: 460, h: 18 }
   - id: m3
-    label: "6 ft from the walls — half the spacing is the limit (7 ft 6 in)"
+    label: "6 ft from the walls; limit is half the allowable spacing, 7 ft 6 in"
     marker: none
     align: left
     at: { x: 500, y: 118 }
@@ -180,7 +181,7 @@ nodes:
     at: { x: 60, y: 420 }
     size: { w: 700, h: 18 }
   - id: n2
-    label: "The wall limit is half the spacing, so widening the grid moves the heads off the walls too."
+    label: "The wall limit is half the allowable spacing (7 ft 6 in), not half of this grid."
     marker: none
     align: left
     at: { x: 60, y: 442 }

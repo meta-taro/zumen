@@ -7,8 +7,10 @@ title: ミキサー 1 チャンネルの信号の道（順番が音を決める�
 # ## 順番
 #
 # 入力（マイク／ライン）→ **HA（ヘッドアンプ）**→ フィルタ（HPF / LPF）→ **EQ** →
-# ダイナミクス → **インサート** → **AUX SEND** → PAN POT → **フェーダー** →
+# ダイナミクス → **インサート** → **AUX SEND** → **フェーダー** → PAN POT →
 # BUS / GROUP → マスター。
+# PAN はフェーダーの後ろ（定位を決めてから左右のバスへ振り分ける）。
+# AUX は ① ではプリの位置に描いた。ポストの AUX はフェーダーの後ろから取る（②）。
 #
 # **HA で利得を合わせるのが先**なのは、そこで決まった余裕が以降の段すべてに効くから。
 # **フィルタが EQ より前**なのは、要らない帯域を先に落としておくため。
@@ -190,13 +192,13 @@ nodes:
     size: { w: 2, h: 2 }
   - id: pan
     label: "PAN POT"
-    at: { x: 300, y: 632 }
+    at: { x: 300, y: 688 }
     size: { w: 230, h: 42 }
   - id: pann
     label: "ステレオの定位を決める"
     marker: none
     align: left
-    at: { x: 546, y: 644 }
+    at: { x: 546, y: 700 }
     size: { w: 300, h: 18 }
   - id: p14
     label: ""
@@ -210,13 +212,13 @@ nodes:
     size: { w: 2, h: 2 }
   - id: fad
     label: "フェーダー"
-    at: { x: 300, y: 688 }
+    at: { x: 300, y: 632 }
     size: { w: 230, h: 42 }
   - id: fadn
     label: "音量を調整する"
     marker: none
     align: left
-    at: { x: 546, y: 700 }
+    at: { x: 546, y: 644 }
     size: { w: 300, h: 18 }
   - id: p16
     label: ""
@@ -262,7 +264,7 @@ nodes:
   - id: p20
     label: ""
     marker: none
-    at: { x: 414, y: 680 }
+    at: { x: 414, y: 623 }
     size: { w: 2, h: 2 }
   - id: p21
     label: ""
@@ -420,4 +422,4 @@ edges:
     curve: none
     ends: { from: none, to: arrow }
     via:
-      - { x: 200, y: 681 }
+      - { x: 200, y: 624 }

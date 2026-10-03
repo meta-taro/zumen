@@ -2,7 +2,7 @@ version: 1
 wrap: true
 title: 店舗の在庫と発注
 # **在庫の図は、モノの流れと数字の流れを分けて描く。**
-# 配送待ち → 店舗在庫 はモノ。販売実績 → 需要予測 → 発注の判断 は数字。
+# 仕入先 → 配送待ち → 店舗在庫 はモノ（太線）。販売実績 → 在庫 → 発注の判断 は数字（細線）。
 # **止まる理由が違う**ので、同じ線で描くと切り分けられない。
 #
 # ## 棚卸しが要るのは、数字がずれるから
@@ -34,16 +34,16 @@ nodes:
     type: database
     label: 店舗在庫
     group: mise
-  - id: tanaoroshi
-    type: generic
-    label: 棚卸し
-    technology: 月 1
-    group: mise
   - id: hachu
     type: cluster
     label: 発注の判断
     technology: 基準を下回ったら
-    group: honbu
+    group: mise
+  - id: tanaoroshi
+    type: generic
+    label: 棚卸し
+    technology: 月 1・実数で帳簿を補正
+    group: mise
   - id: honbuzaiko
     type: database
     label: 全店在庫
@@ -55,10 +55,12 @@ nodes:
   - id: shiire
     type: generic
     label: 仕入先
+    technology: 発注を受ける
     group: torihiki
   - id: butsuryu
     type: queue
     label: 配送待ち
+    technology: 店舗へ入荷
     group: torihiki
 edges:
   - from: pos
@@ -66,18 +68,23 @@ edges:
     label: 販売実績
   - from: tanaoroshi
     to: zaiko
-    label: 実数で補正
   - from: zaiko
     to: honbuzaiko
   - from: honbuzaiko
     to: hachu
   - from: yosoku
     to: hachu
+    label: 推奨数
   - from: hachu
     to: shiire
-    label: 発注
+  # **モノの流れは太線**（仕入先 → 配送待ち → 店舗在庫）。ほかの細線は数字の流れ
   - from: shiire
     to: butsuryu
-  - from: butsuryu
-    to: zaiko
-    label: 入荷
+    weight: thick
+  # 入荷は配送待ち → 店舗在庫。輪（在庫 → 発注 → 仕入先 → 配送 → 在庫）を自動配置が切るときに
+  # 線が交わるので、辺は店舗在庫の側から書き、矢じりを店舗在庫（from）に付ける。
+  # 「発注」「入荷」の文字は長い線の別の所に付いて読み違えるので、箱の副題に書いた
+  - from: zaiko
+    to: butsuryu
+    weight: thick
+    ends: { from: arrow, to: none }

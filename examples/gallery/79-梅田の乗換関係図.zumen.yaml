@@ -67,7 +67,7 @@ nodes:
     at: { x: 400, y: 560 }
     size: { w: 170, h: 54 }
   - id: note
-    label: "◯ の中は事業者の記号。駅名が違うので「乗換」と気づきにくいのが梅田の特徴。"
+    label: "枠の左上は事業者・路線の記号。駅名が違うので「乗換」と気づきにくいのが梅田の特徴。"
     marker: none
     at: { x: 150, y: 620 }
     size: { w: 620, h: 26 }
@@ -89,10 +89,17 @@ edges:
     to: k
     label: "5 分"
     line: dashed
+    via:
+      - { x: 300, y: 500 }
+      - { x: 300, y: 587 }
   - from: jr
     to: k
     label: "10 分"
     line: dashed
+    via:
+      - { x: 650, y: 330 }
+      - { x: 650, y: 540 }
+      - { x: 540, y: 540 }
   - from: jr
     to: m
     label: "4 分"
@@ -109,6 +116,10 @@ edges:
     to: m
     label: "4 分"
     line: dashed
+    via:
+      - { x: 710, y: 140 }
+      - { x: 710, y: 370 }
+      - { x: 560, y: 370 }
   - from: hs
     to: y
     label: "5 分"
@@ -117,3 +128,5 @@ edges:
     to: k
     label: "9 分"
     line: dashed
+    via:
+      - { x: 770, y: 600 }

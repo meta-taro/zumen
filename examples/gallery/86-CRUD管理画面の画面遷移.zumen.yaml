@@ -136,11 +136,13 @@ nodes:
     label: "やめる"
     at: { x: 68, y: 578 }
     size: { w: 244, h: 24 }
+  # Toast は画面ではない。保存すると一覧へ戻り、その一覧の上に出る
+  # （Toast から一覧へ線を引くと、作成の画面を横切ってしまうので、行き先は文字で書く）
   - id: toast
-    label: "Toast「保存しました」"
+    label: "一覧へ戻り Toast「保存しました」"
     marker: box
-    at: { x: 720, y: 330 }
-    size: { w: 220, h: 36 }
+    at: { x: 680, y: 330 }
+    size: { w: 260, h: 36 }
   - id: note
     label: "削除は確認を挟む。保存・削除のあとは必ず一覧へ戻る（作りっぱなしにしない）。"
     marker: none
@@ -167,8 +169,4 @@ edges:
   - from: d
     to: l
     label: "削除して戻る"
-    line: dashed
-  - from: toast
-    to: l
-    label: "一覧へ"
     line: dashed

@@ -8,7 +8,8 @@
 #   1. 道   … 公開しない道（.claude/ など。下の PRIVATE_PATHS）が追跡されていないか
 #   2. 印   … 追跡中のファイルの中身と commit メッセージに、会話の記録の印が無いか（下の MARKS）
 #   3. 禁止語 … 社内の呼び名・個人名（大文字小文字は区別する。表記の揺れは一覧に並べる）。**一覧そのものは公開しない**。
-#              CI は secrets の OSS_DENY_WORDS、手元は .private-deny-words（.gitignore 済み）から読む
+#              手元の .private-deny-words（.gitignore 済み）から読む。CI では配らない（一覧を secret でも配らない方針）。
+#              環境変数 OSS_DENY_WORDS があればそれを使う
 #
 # 使い方:
 #   private-notes-check.sh [<commit>] [<range>]
@@ -23,7 +24,7 @@ RANGE="${2:-}"
 SELF='.github/scripts/private-notes-check.sh'
 
 # 公開しない道（.gitignore の「公開しないもの」と揃える）
-PRIVATE_PATHS='^(\.claude/|CLAUDE\.md$|qa/|docs/(origin|handoff|specs|feedback|test-specs)/|\.private-deny-words$|test/(laps|quality-laps)\.test\.ts$|scripts/laps\.mjs$)'
+PRIVATE_PATHS='^(\.claude/|CLAUDE\.md$|PRD\.md$|qa/|docs/(origin|handoff|specs|feedback|test-specs)/|\.private-deny-words$|test/(laps|quality-laps)\.test\.ts$|scripts/laps\.mjs$)'
 # 会話の記録の印。発言者を名指す語が出たら、その周りは会話の書き写しになっている
 MARKS='オーナー'
 
@@ -63,7 +64,8 @@ if [ -n "$words" ]; then
     scan "deny-word#$n" "$w"
   done <<< "$words"
 else
-  say "INFO 禁止語の一覧が無いので、禁止語の検査は飛ばした（CI は secrets の OSS_DENY_WORDS、手元は .private-deny-words）"
+  # CI では一覧を配らない方針なので黙って飛ばす。手元で一覧が無いときだけ知らせる
+  [ -z "${GITHUB_ACTIONS:-}" ] && say "INFO 禁止語の一覧（.private-deny-words）が無いので、禁止語の検査は飛ばした"
 fi
 
 # commit メッセージ

@@ -48,7 +48,7 @@ nodes:
   - id: kousei
     type: generic
     label: 校正
-    technology: 2 名で読む
+    technology: 2 名で読む。赤字は原稿へ戻す
     group: seisaku
   - id: kamishita
     type: generic
@@ -75,7 +75,7 @@ edges:
   - from: genba
     to: shitagaki
   - from: shashin
-    to: shitagaki
+    to: kousei
     label: 選定
   - from: shitagaki
     to: kousei
@@ -87,3 +87,9 @@ edges:
     to: web
   - from: web
     to: sns
+  # **戻り線。** 校正 → 原稿の向きで書くと、自動配置が輪を切るときに
+  # 原稿を校正の後ろへ回してしまう。だから辺は原稿 → 校正で書き、矢じりを原稿の側に付ける。
+  - from: shitagaki
+    to: kousei
+    line: dashed
+    ends: { from: arrow, to: none }

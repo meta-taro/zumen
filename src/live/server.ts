@@ -1,12 +1,12 @@
 /**
- * 線の出入口（D34）。**`node:http` だけで立てる。**
+ * 線の出入口。**`node:http` だけで立てる。**
  *
  * ## なぜ WebSocket にしないか
  *
  * 要るのは「サーバから画面へ押す」と「画面からサーバへ送る」の 2 方向だけで、
  * どちらも **SSE（`text/event-stream`）と POST** で足りる。
  * WebSocket にすると `ws` を入れることになる。**依存は少ないほうがよい**
- * （ベースルール §1・§12）。ブラウザにも殻にも `EventSource` と `fetch` がある。
+ * （依存を増やさない）。ブラウザにも殻にも `EventSource` と `fetch` がある。
  *
  * ## 口
  *
@@ -20,7 +20,7 @@
  *
  * **127.0.0.1 にしか bind しない。** 加えて `Origin` を見る（`protocol.ts`）。
  * これは鍵ではない。**同じ機械の別プログラムは詐称できる**ので、
- * 秘密を載せる線にはしない。止めるべき条件は D34 に書いた。
+ * 秘密を載せる線にはしない。
  */
 import { createServer } from 'node:http';
 import type { IncomingMessage, Server, ServerResponse } from 'node:http';

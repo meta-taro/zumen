@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# OSS 公開リポの個人情報混入チェック（product-baseline §32）
+# OSS 公開リポの個人情報混入チェック
 #
 # 使い方:
 #   .github/scripts/oss-privacy-check.sh <BASE> <HEAD>   # 範囲の commit + 差分を検査
@@ -11,7 +11,7 @@
 #   OSS_ALLOWED_EMAIL_DOMAINS       追加行・commit message で許可するメールの許可リスト（空白区切り）
 #                                   ドメインだけ書くとそのドメイン全体を許可する。
 #                                   "@" を含めて書くとそのアドレスだけを許可する（推奨）
-#   OSS_DENY_WORDS                  禁止語（実名等）を 1 行 1 語。CI では secrets から渡す
+#   OSS_DENY_WORDS                  禁止語（実名等）を 1 行 1 語。手元で使う（CI では配らない方針）
 #   OSS_SCAN_ALL_FILES              1 なら、差分ではなく**追跡中の全ファイルの中身**を見る。
 #                                   公開へ切り替える前の確認に使う（差分検査は最初の
 #                                   commit の中身を含まないため）
@@ -37,6 +37,7 @@ SCAN_ALL="${OSS_SCAN_ALL_FILES:-}"
 EMAIL_RE='[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}'
 # 検査スクリプト自身は正規表現やドメイン例を含むため除外する
 SELF_RE='^\.github/(scripts/oss-privacy-check\.sh|workflows/oss-privacy-check\.yml)$'
+export SELF_RE
 
 fail=0
 note() { printf '%s\n' "$*" >&2; }
@@ -102,7 +103,9 @@ scan_to() {
 # 追加行からメールを拾う。**同じ行に複数あっても取りこぼさない。**
 scan_emails() {
   # 拡張子の一覧は **shell 側の `FILE_EXT` が正本**。ここに書き写さない。
-  printf '%s\n' "$added" | awk -F'\t' -v self="$SELF_RE" -v exts="$FILE_EXT" '
+  printf '%s\n' "$added" | awk -F'\t' -v exts="$FILE_EXT" '
+    # self は ENVIRON から読む。`-v` で渡すと `\.` が逃げ文字として読まれ、awk が毎回警告を出していた
+    BEGIN { self = ENVIRON["SELF_RE"] }
     # 末尾がファイルの拡張子なら、住所ではなくファイル名。
     function looks_like_file(found,   tail) {
       tail = tolower(found)
@@ -141,7 +144,9 @@ scan_emails() {
 #
 # 正規表現は使わない。**禁止語に記号が入っていても壊れないため。**
 scan_deny_words() {
-  printf '%s\n' "$added" | awk -F'\t' -v self="$SELF_RE" -v wordsfile="$1" '
+  printf '%s\n' "$added" | awk -F'\t' -v wordsfile="$1" '
+    # self は ENVIRON から読む。`-v` で渡すと `\.` が逃げ文字として読まれ、awk が毎回警告を出していた
+    BEGIN { self = ENVIRON["SELF_RE"] }
     function alnum(c) { return (c >= "a" && c <= "z") || (c >= "0" && c <= "9") }
     function bounded(hay, needle,   from, at, before, after) {
       from = 1
@@ -227,7 +232,8 @@ else
 fi
 
 if [ -z "$DENY_WORDS" ]; then
-  note "INFO OSS_DENY_WORDS が空のため禁止語検査はスキップします（fork からの PR では GitHub 仕様上 secrets が渡らず常に空になります）"
+  # CI では禁止語の一覧を配らない方針なので、黙って飛ばす（手元では一覧が無いことを知らせる）
+  [ -z "${GITHUB_ACTIONS:-}" ] && note "INFO OSS_DENY_WORDS が空のため禁止語検査はスキップします"
 fi
 
 # --- 1. commit の author / committer（メール + 表示名） ---------------------
@@ -347,7 +353,7 @@ fi
 # --- 結果 -------------------------------------------------------------------
 if [ "$fail" -ne 0 ]; then
   note ""
-  note "個人情報の混入が疑われます（product-baseline §32）。"
+  note "個人情報の混入が疑われます。"
   note "  - 追加行が原因: 当該行を修正して commit し直す"
   note "  - commit author/message が原因: history に焼き付くため rebase での書き換えが要る。"
   note "    公開後に気づいた場合は force push の可否を含めてリポジトリの管理者へ Issue で確認する"

@@ -1,5 +1,5 @@
 /**
- * 自動レイアウトと人の pin の共存（原案 §26 の 2）。
+ * 自動レイアウトと人の pin の共存。
  *
  * 正本に pin が残っていても、描くときに無視されるなら保持したことにならない。
  * ここでは「pin の座標がそのまま出るか」と「自動配置と重なっていないか」を見る。
@@ -147,7 +147,7 @@ nodes:
   });
 });
 
-describe('重なりを解く（Issue 015）', () => {
+describe('重なりを解く', () => {
   /** 人が `to` の真上へ `id` を動かした状況。 */
   async function stackOn(id: string, to: string): Promise<Awaited<ReturnType<typeof layout>>> {
     const first = await layout(R0);

@@ -3,13 +3,13 @@
  *
  * ここが見張るのは絵の良し悪しではなく、**壊れ方が静かな 2 つ**。
  *
- * 1. **参照されているのに存在しないアセット**（ベースルール §23）。
+ * 1. **参照されているのに存在しないアセット**。
  *    `tauri.conf.json` が指すファイルが無くても、`pnpm test` も
  *    `pnpm dev` も通る。**壊れるのは配布物を作ったときだけ**で、気づくのが遅い
  * 2. **正本が 2 つに増えること。** SVG と PNG の両方を人が直すようになると、
  *    片方だけ直った状態が生まれ、どちらが正しいか誰も言えなくなる
  *
- * 配色は**人が決めたもの**（2026-09-07）。AI が変えない（ベースルール §11 / §15）。
+ * 配色は**人が決めたもの**（2026-09-07）。AI が変えない。
  */
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
@@ -57,7 +57,7 @@ describe('アイコンの正本', () => {
   });
 });
 
-describe('**参照されているのに存在しないアセット**（ベースルール §23）', () => {
+describe('**参照されているのに存在しないアセット**', () => {
   const conf = JSON.parse(readFileSync(join(ROOT, 'src-tauri/tauri.conf.json'), 'utf8')) as {
     bundle?: { icon?: string[] };
   };
@@ -102,7 +102,7 @@ describe('**参照されているのに存在しないアセット**（ベース
     );
   });
 
-  it('デスクトップだけなので、iOS / Android は置かない（D1 / PRD §4）', () => {
+  it('デスクトップだけなので、iOS / Android は置かない', () => {
     for (const dir of ['android', 'ios']) {
       assert.equal(existsSync(join(ROOT, 'src-tauri/icons', dir)), false, `${dir} が残っている`);
     }

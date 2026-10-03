@@ -14,6 +14,8 @@ title: 配水系統図（配水区 A・給水人口 12,000 人）
 #
 # **仕切弁**は断水の範囲を区切る（故障した区間だけ止める）。
 # **空気弁**は管の高い所にたまる空気を抜く（残ると水が流れない）。
+# **消火栓**は配水管から枝を出して付ける。水は消火栓を通って家へ行くのではない。
+# 空気弁も同じで、管の上に付けるもの —— 水が空気弁を通って給水区へ行くのではない。
 # どちらも位置に意味があるので、系統図では省けない。
 pins:
   haisuichi:
@@ -66,7 +68,7 @@ nodes:
     type: generic
     label: 消火栓
     tag: FH-23
-    technology: 単口 φ65
+    technology: 単口 φ65・配水管から分岐
     group: haisui
   - id: kuA
     type: network
@@ -81,7 +83,7 @@ nodes:
   - id: kuC
     type: network
     label: 給水区 A-3
-    technology: 3,100 人・高台
+    technology: 3,100 人・低地
     group: kyusui
 edges:
   - from: jousuijou
@@ -93,17 +95,19 @@ edges:
     to: shikiri
     label: DIP φ300
   - from: shikiri
-    to: kuuki
-    label: DIP φ300
-  - from: kuuki
-    to: shoka
-    label: DIP φ200
-  - from: shoka
     to: kuA
-    label: PE φ150
-  - from: shoka
+    label: DIP φ200
+  - from: shikiri
     to: kuB
-    label: PE φ150
+    label: DIP φ200
+  - from: shikiri
+    to: kuuki
+    label: 管頂部
+    line: dashed
+  - from: shikiri
+    to: shoka
+    label: 枝
+    line: dashed
   - from: haisuichi
     to: genatsu
     label: DIP φ200

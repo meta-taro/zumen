@@ -6,9 +6,9 @@
  * 1. **人の指定が描画まで届いていることが、出力から確かめられる**こと。
  *    大きさ・ラベル・体裁・線の曲げ方を、目でも機械でも読める形で出す
  * 2. **どれが人の指定かが見える**こと（`data-pinned`）。
- *    見えないと、AI が戻したことに人が気づけない（PRD §2 の動かした点 2）
+ *    見えないと、AI が戻したことに人が気づけない（GUI は差分を見せる場、という方針）
  *
- * ## 貼り先で崩れないための約束（Issue 007）
+ * ## 貼り先で崩れないための約束
  *
  * 図は単体で見るものではなく、**資料に貼るもの**。貼り先で崩れると人は手作業に戻る。
  * そこで、**使う SVG の機能を意図的に狭めている。**
@@ -22,7 +22,7 @@
  *   ここでは `marker-end` しか使わないので SVG 1.1 の `auto` で足りる
  * - `width` / `height` と `viewBox` の両方を書く。片方だけだと寸法を決められない貼り先がある
  *
- * 詳細と、回避できないものは `docs/specs/007-貼り先で崩れないか.md`。
+ * 実際に貼って確かめるのは人。
  */
 import { drawDimensions, drawGrid, drawNorth } from './dimensions.ts';
 import type { Frame, Ink } from './dimensions.ts';
@@ -61,7 +61,7 @@ import type { Intent, Palette, Theme } from './tokens.ts';
  * 書かないと貼り先の既定に委ねることになり、**日本語のラベルが豆腐（□）になり得る。**
  * これは体裁の指定ではなく、**壊れないための最低限**。
  *
- * どの書体を使うかは人が決める領域なので（ベースルール §11）、
+ * どの書体を使うかは人が決める領域なので、
  * 具体的な書体名はここに書かない。**`DESIGN.md` が決まったら差し替える。**
  */
 const FONT = 'sans-serif';
@@ -78,7 +78,7 @@ const EDGE_FONT = 11;
  * 自動配置は `490.66666666666663` のような値を返す。そのまま書くと、
  *
  * - 貼り先へ渡す寸法が不安定になる
- * - **Markdown へ埋め込むときの data URI が無駄に膨らむ**（D4 の着地点）
+ * - **Markdown へ埋め込むときの data URI が無駄に膨らむ**（Markdown へ埋め込むのが着地点）
  * - 差分が読めない（1 px 動いただけで長い小数が並ぶ）
  *
  * 図の見え方は 1 px 未満しか変わらない。`src/drawio.ts` と同じ扱いに揃えてある。
@@ -182,6 +182,22 @@ export function render(
         underOf(box, placed, names),
       ),
     ),
+    // **建具は、壁をすべて描いてから**（`renderNode` の `holes`）。
+    ...(plan
+      ? stack(placed.boxes, plan)
+          .map((box) =>
+            renderNode(
+              box,
+              palette,
+              plan,
+              outerIds.has(box.id) ? (outerWall ?? wall) : wall,
+              null,
+              'none',
+              'holes',
+            ),
+          )
+          .filter(Boolean)
+      : []),
     // **向きのある矢印は、図の上に載せる注記。**
     //
     // 部屋の塗りは透けないので、下に置くと**隣どうしの矢印が完全に消える。**
@@ -245,7 +261,7 @@ export function render(
      * 2026-09-15 まで敷いていなかった。`-dark.svg` をそのまま開くと、
      * **箱の外に書いた注記が 1 行も見えなかった** ——
      * 文字は明るい灰で正しいのに、**白い紙の上では白い字**になる。
-     * 紹介ページは暗い背景の上に置いているので気づかない（D33）。
+     * 紹介ページは暗い背景の上に置いているので気づかない。
      */
     `<rect data-paper="1" x="0" y="0" width="${size(paper.w)}" height="${size(paper.h)}" fill="${palette.paper}"/>`,
     ...under,
@@ -256,7 +272,7 @@ export function render(
     // 実物では一点鎖線が**建物を貫いて**見えている。基準線なので、
     // 隠れたら基準として使えない。
     ...(plan && drawsDatum(placed) ? [gridLayer(placed, palette, 'datum', avoid), marks].filter(Boolean) : []),
-    // **作図の円と弧**（`src/construct.ts`。D36）。
+    // **作図の円と弧**（`src/construct.ts`）。
     //
     // 跡（`trace`）を先に敷いて、形を上に描く。
     // **作図図では跡を消さない** —— 消すと、どう作ったかが読めなくなる。
@@ -269,7 +285,7 @@ export function render(
 }
 
 /**
- * 作図を描く（D36）。**円と弧しか無い。**
+ * 作図を描く。**円と弧しか無い。**
  *
  * ## なぜ折れ線にしないか
  *
@@ -347,7 +363,7 @@ function stack(boxes: Box[], plan: boolean): Box[] {
  * 基準線が隠れたら、基準として使えない。
  */
 /**
- * 基準線か、図の名前を描く図か（D35）。
+ * 基準線か、図の名前を描く図か。
  *
  * **紙ぜんたいの `grid` が空でも描く。** `views` の中に芯があれば通り芯と寸法、
  * 芯が無くても**図の名前**は出る。
@@ -562,7 +578,7 @@ function gridLayer(
 ): string {
   const frame = frameOf(placed);
   const ink = inkOf(palette);
-  // **図が 2 つ以上あれば、芯はその図の中だけを走る**（D35）。
+  // **図が 2 つ以上あれば、芯はその図の中だけを走る**。
   // 紙ぜんたいを貫くと、隣の図を串刺しにする。
   const body =
     drawGrid(placed.grid, frame, ink, only, avoid) +
@@ -579,7 +595,7 @@ function dimensionLayer(placed: Placed, palette: Palette): string {
   const ink = inkOf(palette);
   const north = placed.north === null ? '' : drawNorth(placed.north, frame, ink);
   /**
-   * **寸法は図ごとに測る**（D35）。
+   * **寸法は図ごとに測る**。
    *
    * 1 組しか持っていなかったので、1 枚に 2 つの図を置くと**通しで測っていた** ——
    * 見本 45（駅の構内図）で「**2 階を合わせた全長 82,000**」という
@@ -888,7 +904,7 @@ function renderNode(
   wall: number | null = null,
   name: Plan | null = null,
   under: Hatch = 'none',
-  part: 'body' | 'text' = 'body',
+  part: 'body' | 'holes' | 'text' = 'body',
 ): string {
   const style = lookOf(box.appearance, palette);
   const attributes = [
@@ -1004,6 +1020,12 @@ function renderNode(
       ? drawOpenings(box, box.openings, style.stroke, style.fill, paint.strokeWidth)
       : '';
 
+  // **建具は、すべての箱の壁を描いたあとで描く**（下の `holes` の層）。
+  // 箱ごとに描くと、後から描く小さい箱（収納・浴室）の壁が、先に描いた部屋の扉や開口を
+  // 塗り戻して消していた —— 2026-10-02、平面図 17 枚で 85 か所。扇の検査では見つからない。
+  if (part === 'holes') {
+    return holes === '' ? '' : `<g data-holes="${escapeAttr(box.id)}">${holes}</g>`;
+  }
   if (part === 'text') {
     // **符号も、塗り潰した面の上では地の色にする**（`ink`）。
     // 本文だけ反転させて符号を置き去りにすると、符号が塗りに沈む
@@ -1017,11 +1039,11 @@ function renderNode(
     if (words.length === 0) return '';
     return [`<g data-name="${escapeAttr(box.id)}">`, ...words, '</g>'].join('');
   }
-  return [`<g ${attributes} data-shape="${kind}">`, shape, tint, pattern, holes, '</g>'].join('');
+  return [`<g ${attributes} data-shape="${kind}">`, shape, tint, pattern, '</g>'].join('');
 }
 
 /**
- * **符号**（`tag`）。箱の左上へ小さく置く（B5 / D22）。
+ * **符号**（`tag`）。箱の左上へ小さく置く（業界の専門性は形ではなく符号で表す）。
  *
  * 中央のラベルと重ねない。図面では名前と符号が**別々に**書かれていて、
  * 読み手は符号だけを拾って断面リストと突き合わせる。

@@ -19,7 +19,11 @@ title: アイコンのキーライン図（24dp グリッド／Material Design �
 #
 # **角丸は外側の角だけ**（内側を丸めると太さが痩せて見える）。
 # **線でできた記号はストロークを 2dp で揃える。**
-# **三角は面積が小さく見える**ので、キーラインいっぱいまで使う。
+# **キーラインは上限であって、全部をいっぱいに描くわけではない。**
+# 実物のシステムアイコンでは、再生（play_arrow）の三角は 11 × 14dp（パス M8 5v14l11-7z）、
+# 追加（add）の十字は 14 × 14dp・太さ 2dp（M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z）。
+# 出典：google/material-design-icons の src/av/play_arrow・src/content/add の 24px.svg
+# （https://github.com/google/material-design-icons 、Apache License 2.0、2026-10-02 照合）。
 #
 # **アイコンは 1 つずつ作らない。** キーラインの上で、一式として作る。
 nodes:
@@ -1009,10 +1013,10 @@ nodes:
   - id: playa
     label: ""
     marker: none
-    at: { x: 859, y: 173 }
+    at: { x: 895, y: 209 }
     size: { w: 2, h: 2 }
   - id: p2n
-    label: "三角は同じ寸法でも小さく見える。キーラインまで使う"
+    label: "実物の再生は 11 × 14dp（M8 5v14l11-7z）"
     marker: none
     align: left
     at: { x: 800, y: 450 }
@@ -1025,15 +1029,15 @@ nodes:
   - id: cva
     label: ""
     marker: none
-    at: { x: 1291, y: 173 }
+    at: { x: 1291, y: 209 }
     size: { w: 2, h: 2 }
   - id: cha
     label: ""
     marker: none
-    at: { x: 1183, y: 281 }
+    at: { x: 1219, y: 281 }
     size: { w: 2, h: 2 }
   - id: p3n
-    label: "ストロークは 2dp。長さは live area いっぱいの 20dp"
+    label: "実物の追加は 14 × 14dp・太さ 2dp"
     marker: none
     align: left
     at: { x: 1160, y: 450 }
@@ -1192,7 +1196,7 @@ nodes:
     at: { x: 80, y: 964 }
     size: { w: 700, h: 24 }
   - id: rn5
-    label: "・三角は面積が小さく見えるので、キーラインいっぱいまで使う"
+    label: "・キーラインは上限。実物の再生・追加はそれより小さく描かれている（③④）"
     marker: none
     align: left
     at: { x: 80, y: 990 }
@@ -1833,8 +1837,8 @@ edges:
     curve: none
     hatch: solid
     via:
-      - { x: 1052, y: 294 }
-      - { x: 860, y: 414 }
+      - { x: 1028, y: 294 }
+      - { x: 896, y: 378 }
   - from: aca
     to: aca
     close: true
@@ -1897,9 +1901,9 @@ edges:
     curve: none
     hatch: solid
     via:
-      - { x: 1316, y: 174 }
-      - { x: 1316, y: 414 }
-      - { x: 1292, y: 414 }
+      - { x: 1316, y: 210 }
+      - { x: 1316, y: 378 }
+      - { x: 1292, y: 378 }
   - from: cha
     to: cha
     close: true
@@ -1907,6 +1911,6 @@ edges:
     curve: none
     hatch: solid
     via:
-      - { x: 1424, y: 282 }
-      - { x: 1424, y: 306 }
-      - { x: 1184, y: 306 }
+      - { x: 1388, y: 282 }
+      - { x: 1388, y: 306 }
+      - { x: 1220, y: 306 }

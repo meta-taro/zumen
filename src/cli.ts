@@ -1,9 +1,9 @@
 /**
- * コマンドの口。検証（Issue 014）と Git のマージドライバ（Issue 011）。
+ * コマンドの口。検証と Git のマージドライバ。
  *
  * 表示だけを持ち、判断は持たない。**判断は `src/validate.ts` にある。**
  * ここを厚くすると、同じ検査を GUI から呼びたくなったときに動かせなくなる
- * （ベースルール §9）。
+ * （境界の外に出しておく）。
  *
  * 終了コードの約束。
  *
@@ -756,7 +756,7 @@ export async function runInspect(paths: string[], read = readFileSync): Promise<
     const over = straddles(placed);
     const quiet =
       crossed.length === 0 && over.length === 0 &&
-      seen.overlappingText.length === 0 && seen.edgesUnderBoxes.length === 0 && seen.doorSwings.length === 0 &&
+      seen.overlappingText.length === 0 && seen.edgesUnderBoxes.length === 0 && seen.doorSwings.length === 0 && seen.edgesThroughBoxes.length === 0 &&
       seen.hiddenLabels.length === 0 && seen.crowdedNames.length === 0 &&
       seen.adriftNames.length === 0 && seen.hiddenTags.length === 0;
     if (quiet) lines.push(m.inspectClean);
@@ -794,6 +794,9 @@ export async function runInspect(paths: string[], read = readFileSync): Promise<
     }
     if (seen.overlappingText.length > 0) {
       lines.push(m.inspectOverlaps(seen.overlappingText.length, pairs(seen.overlappingText)));
+    }
+    if (seen.edgesThroughBoxes.length > 0) {
+      lines.push(m.inspectThroughBoxes(seen.edgesThroughBoxes.length, pairs(seen.edgesThroughBoxes)));
     }
     if (seen.doorSwings.length > 0) {
       lines.push(m.inspectDoorSwings(seen.doorSwings.length, pairs(seen.doorSwings)));
@@ -888,7 +891,7 @@ function pairs(list: [string, string][], limit = 6): string {
 }
 
 /**
- * 「9 割」を測る（Issue 003 / D3）。
+ * 「9 割」を測る（自力率）。
  *
  * **合格しなくても 1 は返さない。** これは検査ではなく物差しで、
  * ここで CI を落とすと、**数字を良くするために指標のほうを歪める**動機が生まれる。
@@ -923,7 +926,7 @@ export function runMeasure(paths: string[], read = readFileSync): RunResult {
   lines.push(short === 0 ? m.measurePassed(paths.length, line) : m.measureFailed(short, line));
   // **物差しは同じ向き**（2026-09-11 に考え直した）。種類は、置き場所の出どころだけ言う。
   if (placed > 0) lines.push(m.measurePlacement(placed));
-  // **誰も見ていない図があることを黙らない**（ベースルール §29）。
+  // **誰も見ていない図があることを黙らない**。
   // AI は活動量なら無人で出せる。人が関与していないことは、言わないと気づかれない。
   //
   // **自力率 100% には 2 通りある。** 誰も見ていない 100% と、
@@ -972,7 +975,7 @@ async function convert(
 export async function runSvg(paths: string[], read = readFileSync, write = writeFileSync): Promise<RunResult> {
   const theme = paths.includes('--dark') ? 'dark' : 'light';
   const intent = paths.includes('--vivid') ? 'vivid' : 'safe';
-  // **書体を埋め込むのは頼まれたときだけ**（D44）。訓練用の束や地図の吹き出しへ渡す図に使う。
+  // **書体を埋め込むのは頼まれたときだけ**。訓練用の束や地図の吹き出しへ渡す図に使う。
   const withFont = paths.includes('--embed-font');
   const files = paths.filter((part) => !part.startsWith('--'));
   return convert(
@@ -1027,7 +1030,7 @@ export async function runMermaid(paths: string[], read = readFileSync, write = w
 }
 
 /**
- * Markdown の囲みを図へ差し替える（D4 の着地点）。
+ * Markdown の囲みを図へ差し替える（着地点は Markdown 本文への埋め込み）。
  *
  * **描けない囲みは、理由をその位置に出して指定を残す**（`src/embed.ts` の作法）。
  * 黙って空にすると、書いた人は「描けている」と思ったまま気づかない。
@@ -1053,11 +1056,11 @@ export async function runEmbed(paths: string[], read = readFileSync, write = wri
 }
 
 /**
- * AI の提案を人の正本へ入れる（D5）。
+ * AI の提案を人の正本へ入れる。
  *
  * **競合は適用しない。** 決めるのは人であって、ここではない。
  * 決着（`resolve`）を CLI に置かないのも同じ理由で、
- * **承認は画面と人の仕事**（D11）。
+ * **承認は画面と人の仕事**。
  */
 export function runMerge(paths: string[], read = readFileSync, write = writeFileSync): RunResult {
   const m = messages().cli;

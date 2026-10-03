@@ -204,6 +204,19 @@ nodes:
     hatch: lines
     at: { x: 196, y: 594 }
     size: { w: 68, h: 30 }
+  # M1・M2 を緊結する支持物（屋上スラブに打った丸環アンカー）。L とは別の支持物にする。
+  - id: a1
+    label: ""
+    tag: A1
+    hatch: lines
+    at: { x: 140, y: 656 }
+    size: { w: 48, h: 18 }
+  - id: a2
+    label: ""
+    tag: A2
+    hatch: lines
+    at: { x: 240, y: 656 }
+    size: { w: 48, h: 18 }
   - id: m1
     label: ""
     tag: M1
@@ -338,7 +351,7 @@ nodes:
     at: { x: 470, y: 342 }
     size: { w: 190, h: 24 }
   - id: s2v
-    label: 架台とハト小屋。ぐらつき・腐食なしを確認
+    label: 架台・ハト小屋・丸環 2 か所。ぐらつき・腐食なし
     align: left
     at: { x: 660, y: 342 }
     size: { w: 330, h: 24 }
@@ -401,7 +414,7 @@ nodes:
     at: { x: 470, y: 546 }
     size: { w: 520, h: 22 }
   - id: n0b
-    label: ・立面の降下 1 は M1・L1、降下 2 は M2・L2
+    label: ・降下 1 は M1（丸環 A1）・L1（架台）、降下 2 は M2（A2）・L2（ハト小屋）
     marker: none
     align: left
     at: { x: 470, y: 568 }

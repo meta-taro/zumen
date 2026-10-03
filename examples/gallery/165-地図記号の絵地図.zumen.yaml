@@ -20,7 +20,7 @@ north: up
 #
 # この図では、**zumen に地図記号を 1 つも足していない。**
 # 文字の記号（文・〒・卍・×）はその文字をそのまま書き、
-# **鳥居は細い箱 4 本、田は短い縦線 2 本 1 組、畑は V 字の線、果樹園は丸、
+# **鳥居は細い箱 4 本、田は短い縦線 2 本 1 組、畑は V 字の線、果樹園は丸に短い軸、
 # 茶畑は黒い丸 3 つ**を組んで作った —— いまの道具で組めるかを見るため。
 #
 # **区画を模様（hatch）で塗るのはやめた**（2026-09-18）。
@@ -109,96 +109,118 @@ nodes:
     marker: circle
     at: { x: 460, y: 476 }
     size: { w: 14, h: 14 }
+  - id: k400_326_stem
+    label: ""
+    hatch: solid
+    at: { x: 466, y: 470 }
+    size: { w: 2, h: 6 }
   - id: k440_326
     label: ""
     marker: circle
     at: { x: 500, y: 476 }
     size: { w: 14, h: 14 }
+  - id: k440_326_stem
+    label: ""
+    hatch: solid
+    at: { x: 506, y: 470 }
+    size: { w: 2, h: 6 }
   - id: k400_366
     label: ""
     marker: circle
     at: { x: 460, y: 516 }
     size: { w: 14, h: 14 }
+  # 果樹園は丸の上に短い軸（実の柄）。リンゴや梨の実を横から見た形
+  - id: k400_366_stem
+    label: ""
+    hatch: solid
+    at: { x: 466, y: 510 }
+    size: { w: 2, h: 6 }
   - id: k440_366
     label: ""
     marker: circle
     at: { x: 500, y: 516 }
     size: { w: 14, h: 14 }
+  - id: k440_366_stem
+    label: ""
+    hatch: solid
+    at: { x: 506, y: 510 }
+    size: { w: 2, h: 6 }
   - id: c530_330
     label: ""
     hatch: solid
     marker: circle
-    at: { x: 590, y: 480 }
+    at: { x: 590, y: 502 }
     size: { w: 8, h: 8 }
   - id: c550_330
     label: ""
     hatch: solid
     marker: circle
-    at: { x: 610, y: 480 }
+    at: { x: 610, y: 502 }
     size: { w: 8, h: 8 }
+  # 茶畑は ∴（上に 1 つ、下に 2 つ）。2026-10-02 まで ∵ に逆さまに置いていた（国土地理院「こんなにいっぱい！地図記号」）
   - id: c540_352
     label: ""
     hatch: solid
     marker: circle
-    at: { x: 600, y: 502 }
+    at: { x: 600, y: 480 }
     size: { w: 8, h: 8 }
   - id: c590_330
     label: ""
     hatch: solid
     marker: circle
-    at: { x: 650, y: 480 }
+    at: { x: 650, y: 502 }
     size: { w: 8, h: 8 }
   - id: c610_330
     label: ""
     hatch: solid
     marker: circle
-    at: { x: 670, y: 480 }
+    at: { x: 670, y: 502 }
     size: { w: 8, h: 8 }
   - id: c600_352
     label: ""
     hatch: solid
     marker: circle
-    at: { x: 660, y: 502 }
+    at: { x: 660, y: 480 }
     size: { w: 8, h: 8 }
   - id: v250_330a
     label: ""
     marker: none
-    at: { x: 299, y: 479 }
+    at: { x: 319, y: 479 }
     size: { w: 2, h: 2 }
   - id: v250_330b
     label: ""
     marker: none
-    at: { x: 317, y: 479 }
+    at: { x: 337, y: 479 }
     size: { w: 2, h: 2 }
   - id: v290_330a
     label: ""
     marker: none
-    at: { x: 339, y: 479 }
+    at: { x: 359, y: 479 }
     size: { w: 2, h: 2 }
   - id: v290_330b
     label: ""
     marker: none
-    at: { x: 357, y: 479 }
+    at: { x: 377, y: 479 }
     size: { w: 2, h: 2 }
   - id: v250_370a
     label: ""
     marker: none
-    at: { x: 299, y: 519 }
+    at: { x: 319, y: 519 }
     size: { w: 2, h: 2 }
   - id: v250_370b
     label: ""
     marker: none
-    at: { x: 317, y: 519 }
+    at: { x: 337, y: 519 }
     size: { w: 2, h: 2 }
   - id: v290_370a
     label: ""
     marker: none
-    at: { x: 339, y: 519 }
+    at: { x: 359, y: 519 }
     size: { w: 2, h: 2 }
   - id: v290_370b
     label: ""
     marker: none
-    at: { x: 357, y: 519 }
+    at: { x: 377, y: 519 }
     size: { w: 2, h: 2 }
   - id: l_ta
     label: "田"
@@ -555,19 +577,19 @@ edges:
     to: v250_330b
     ends: { from: none, to: none }
     via:
-      - { x: 309, y: 492 }
+      - { x: 329, y: 492 }
   - from: v290_330a
     to: v290_330b
     ends: { from: none, to: none }
     via:
-      - { x: 349, y: 492 }
+      - { x: 369, y: 492 }
   - from: v250_370a
     to: v250_370b
     ends: { from: none, to: none }
     via:
-      - { x: 309, y: 532 }
+      - { x: 329, y: 532 }
   - from: v290_370a
     to: v290_370b
     ends: { from: none, to: none }
     via:
-      - { x: 349, y: 532 }
+      - { x: 369, y: 532 }

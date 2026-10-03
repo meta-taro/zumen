@@ -29,7 +29,7 @@ styles:
 # | 半径 | R ＝ (c²/4 ＋ s²) ÷ 2s ＝ 7.975m |
 # | 面積（弓形） | R²·acos((R−s)/R) − (R−s)·√(2Rs − s²) ＝ 16.64㎡ |
 #
-# 専有 143.00㎡（43.26 坪）。帖（J）は ㎡ ÷ 1.62。LDK はキッチンを含めて 50.60㎡。
+# 専有 143.00㎡（43.26 坪）。帖（J）は ㎡ ÷ 1.62 を小数第 1 位で切り捨て（不動産の表示に関する公正競争規約施行規則 第 9 条第 16 号：1 帖 1.62㎡ 以上）。LDK はキッチンを含めて 50.60㎡。
 # 部屋は白、面は LDK だけ、壁と柱はウォームグレー、家具は描かない（高級賃貸・分譲の型）。
 #
 # 出どころ —— 実在の高級マンションの販売図面（提供資料、2026-09-28）の曲面のバルコニー。**間取り・面積・物件はすべて架空。**
@@ -102,13 +102,13 @@ nodes:
     openings:
       - { kind: door, side: right, at: 0.25, width: 30 }
       - { kind: window, side: bottom, at: 0.5, width: 70 }
+  # 浴室へは洗面（脱衣）から入る。戸は洗面の側に付ける（2026-10-02 まで浴室の戸が廊下に開いていた）
+  # 箱は 64 × 112px ＝ 1.6 × 2.8m。前は「1822」（ユニットバスの内寸 1.8 × 2.2m）と書いていたが、寸法と合わないので外した
   - id: bath
-    label: "Bath\n(1822)"
+    label: "Bath"
     style: wet
     at: { x: 286, y: 388 }
     size: { w: 64, h: 112 }
-    openings:
-      - { kind: door, side: left, at: 0.2, width: 28 }
   - id: wash
     label: "Wash"
     style: wet
@@ -116,6 +116,7 @@ nodes:
     size: { w: 64, h: 112 }
     openings:
       - { kind: slide, side: top, at: 0.2, width: 28 }
+      - { kind: slide, side: left, at: 0.72, width: 28 }
   - id: wic
     label: "WIC"
     style: store
@@ -125,7 +126,7 @@ nodes:
       - { kind: door, side: bottom, at: 0.2, width: 26 }
   - id: mbed
     label: "Master Bedroom"
-    technology: "18.40㎡ (11.4J)"
+    technology: "18.40㎡ (11.3J)"
     style: room
     at: { x: 286, y: 500 }
     size: { w: 184, h: 160 }

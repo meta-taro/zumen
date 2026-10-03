@@ -7,13 +7,21 @@ title: 牛枝肉の部分肉分割図（JMGA の 13 部位）
 # ## 目分量では割らない
 #
 # **境目は骨の位置で決まっている。** 例えばリブロースとサーロインの境は
-# 最後肋骨のところ。**規格で決まっているから、どこで買っても同じものが届く。**
+# 第 10・第 11 胸椎の間（背線にほぼ直角に切る）、かたロースとリブロースの境は第 6・第 7 胸椎の間。
+# **規格で決まっているから、どこで買っても同じものが届く。**
+# 出典：日本食肉格付協会「牛部分肉取引規格」https://www.jmga.or.jp/standard/beef-partial/ （取得 2026-10-02）
 #
 # ## ヒレはサーロインの中に描く
 #
 # **ヒレはサーロインの内側**（背骨の下）にある。
 # 側面図では重なるので、**サーロインの中へ入れて**描いた ——
 # 入れ子なので `straddles`（はみ出した重なり）にはならない。
+#
+# ## 位置は模式（並べ方は体の前後・上下）
+#
+# 背の列は前から ネック・かたロース・リブロース・サーロイン・らんいち。
+# かたはかたロースの下、前のすねはその下。かたばら・ともばらは腹側。
+# 後ろ脚は前側がしんたま、後ろ側がそともも。**うちももは脚の内側**なので側面図では見えず、ここでは下に並べた。後ろのすねはいちばん下。
 #
 # ## 歩留まりは書かない
 #
@@ -28,74 +36,74 @@ nodes:
     label: "ネック"
     hatch: none
     at: { x: 70, y: 150 }
-    size: { w: 88, h: 90 }
+    size: { w: 88, h: 70 }
   - id: kata
     label: "かた"
     hatch: none
-    at: { x: 158, y: 150 }
-    size: { w: 120, h: 90 }
+    at: { x: 70, y: 220 }
+    size: { w: 230, h: 90 }
   - id: kataro
     label: "かたロース"
     hatch: lines
-    at: { x: 278, y: 150 }
-    size: { w: 150, h: 90 }
+    at: { x: 158, y: 150 }
+    size: { w: 190, h: 70 }
   - id: ribro
     label: "リブロース"
     hatch: lines
-    at: { x: 428, y: 150 }
-    size: { w: 140, h: 90 }
+    at: { x: 348, y: 150 }
+    size: { w: 140, h: 70 }
   - id: sirloin
     label: "サーロイン"
     hatch: lines
-    at: { x: 568, y: 150 }
-    size: { w: 140, h: 90 }
+    at: { x: 488, y: 150 }
+    size: { w: 160, h: 70 }
   - id: ranichi
     label: "らんいち"
     hatch: none
-    at: { x: 708, y: 150 }
-    size: { w: 130, h: 90 }
+    at: { x: 648, y: 150 }
+    size: { w: 190, h: 70 }
   - id: sune_f
     label: "すね"
     hatch: none
-    at: { x: 70, y: 240 }
-    size: { w: 88, h: 90 }
+    at: { x: 150, y: 310 }
+    size: { w: 110, h: 80 }
   - id: katabara
     label: "かたばら"
     hatch: dots
-    at: { x: 158, y: 240 }
-    size: { w: 190, h: 90 }
+    at: { x: 300, y: 220 }
+    size: { w: 188, h: 90 }
   - id: tomobara
     label: "ともばら"
     hatch: dots
-    at: { x: 348, y: 240 }
-    size: { w: 220, h: 90 }
+    at: { x: 488, y: 220 }
+    size: { w: 160, h: 90 }
   - id: uchimomo
     label: "うちもも"
     hatch: none
-    at: { x: 568, y: 240 }
-    size: { w: 140, h: 90 }
+    at: { x: 648, y: 290 }
+    size: { w: 190, h: 70 }
   - id: sune_r
     label: "すね"
     hatch: none
-    at: { x: 708, y: 240 }
-    size: { w: 130, h: 90 }
+    at: { x: 700, y: 360 }
+    size: { w: 110, h: 40 }
   - id: shintama
     label: "しんたま"
-    at: { x: 568, y: 330 }
-    size: { w: 70, h: 70 }
+    at: { x: 648, y: 220 }
+    size: { w: 72, h: 70 }
   - id: sotomomo
     label: "そともも"
-    at: { x: 638, y: 330 }
-    size: { w: 200, h: 70 }
+    at: { x: 720, y: 220 }
+    size: { w: 118, h: 70 }
   - id: hire
     label: "ヒレ"
     hatch: cross
-    at: { x: 568, y: 212 }
-    size: { w: 110, h: 28 }
+    at: { x: 520, y: 197 }
+    size: { w: 118, h: 22 }
   - id: hire_n
     label: "ヒレはサーロインの内側にある（背骨の下）"
     marker: none
-    at: { x: 370, y: 406 }
+    at: { x: 330, y: 410 }
     size: { w: 320, h: 24 }
   - id: head
     label: "← 頭"
@@ -341,7 +349,7 @@ nodes:
     at: { x: 1340, y: 430 }
     size: { w: 260, h: 26 }
   - id: n0
-    label: "・境目は骨の位置で決まっている（例：リブロースとサーロインの境は最後肋骨のところ）。"
+    label: "・境目は骨の位置で決まっている（例：リブロースとサーロインは第 10・11 胸椎の間）。"
     marker: none
     align: left
     at: { x: 920, y: 472 }

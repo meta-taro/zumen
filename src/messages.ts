@@ -14,7 +14,7 @@
  * `src/` の中で、この階層より外に日本語の文字列リテラルを置くと red になる。
  *
  * 日本語の文面を直すときは `ja` を直接書き換えてよい。**テストは文面に依存していない。**
- * 書き方の約束は `docs/specs/文言の規則.md`。
+ * 利用者が次に何をすればよいかまで書く。
  */
 
 /** 対応するロケール。増やすときは `catalogs` に足す。 */
@@ -47,7 +47,7 @@ const ja = {
    * 画面（`app/`）。
    *
    * **画面の文言もここに置く。** 置かないと、多言語化が画面で効かない
-   * （D9 の穴。2026-09-07 に塞いだ）。
+   * （文字列を 1 か所に集める決まりの穴。2026-09-07 に塞いだ）。
    */
   app: {
     /** 人が「見た」と印を付ける（仕様 §3.5）。**この口は画面にしかない。** */
@@ -71,7 +71,7 @@ const ja = {
     fit: '全体',
     fitHint: '図ぜんぶが見える大きさにする（F）',
 
-    /** エージェントと繋がる線（D34）。**繋がっていないことを黙らない。** */
+    /** エージェントと繋がる線。**繋がっていないことを黙らない。** */
     liveOn: 'エージェントと繋がっています',
     liveOff: 'エージェントと繋がっていません',
     liveConnecting: 'エージェントを探しています…',
@@ -105,7 +105,7 @@ const ja = {
 
     warningsHeading: '気にしたほうがよいこと',
 
-    /** **人どうしが重なった**（Issue 015）。動かしていないので、人が選ぶ。 */
+    /** **人どうしが重なった**。動かしていないので、人が選ぶ。 */
     collisionsHeading: '重なったまま',
     collision: (a: string, b: string) =>
       `"${a}" と "${b}" は、どちらも人が置いた位置で重なっています。動かしていません。`,
@@ -149,7 +149,7 @@ const ja = {
     conflictPosition: (human: string, ai: string) => `人の指定 ${human} / 提案 ${ai}`,
     conflictSuppressed: (ai: string) => `提案 ${ai}。人が自分の指定を採ると決めているので聞き直しません。`,
     mergedClean2: '食い違いはありません。',
-    /** 「9 割」の測り方は `docs/specs/003-9割の定義.md`。 */
+    /** 「9 割」の測り方は `src/measure.ts`。 */
     inspected: (path: string) => `${path}`,
     /**
      * **どちらの図かを、最初に言う**（2026-09-20）。
@@ -203,6 +203,8 @@ const ja = {
     straddleAllSame: (x: string, y: string) => `どれも 横 ${x}px ／ 縦 ${y}px`,
     inspectStraddles: (count: number, pairs: string) => `  **またぎ ${count}**（${pairs}）`,
     inspectOverlaps: (count: number, pairs: string) => `  **文字の重なり ${count}**（${pairs}）`,
+    inspectThroughBoxes: (count: number, pairs: string) =>
+      `  **箱を突き抜けている線 ${count}**（${pairs}）—— 線が関係の無い箱の上を通っている。経路（via）を回すか、中身がそうならそのままでよい`,
     inspectDoorSwings: (count: number, pairs: string) =>
       `  **扉の扇に乗っているもの ${count}**（${pairs}）—— 開けると当たる、または戸が文字の下に隠れる。蝶番の側（hinge）・開く向き（swing）・位置（at）か、乗っている物を動かす`,
     inspectUnderBoxes: (count: number, pairs: string) => `  **箱に隠れた辺 ${count}**（${pairs}）`,
@@ -268,11 +270,11 @@ const ja = {
       `${path} — 自力率 ${autonomy} / 配置の自力率 ${layout}`,
     measurePassed: (count: number, line: string) => `${count} 件すべてが合格ライン ${line} に届いています。`,
     /**
-     * **誰も見ていない図があることを黙らない**（ベースルール §29）。
+     * **誰も見ていない図があることを黙らない**。
      *
      * AI は commit もテスト通過も無人で出せる。**人が見ていないことは、
      * 言わない限り誰も気づかない。** 図は理解を共有するために描くので、
-     * 誰も見ていない図は、この製品が無くても得られる（PRD §4）。
+     * 誰も見ていない図は、この製品が無くても得られる。
      *
      * 手直しが 0 件の図は必ず自力率 100% になるので、
      * **数字だけ出すと「AI が上手い」と読まれる**（Issue #3 の指摘）。
@@ -380,7 +382,7 @@ const ja = {
       '人が置いた位置・大きさ・ラベル・体裁を返す。読むだけで、書き換える口は無い。ここを避けて構造だけを直すこと。',
     inspectTitle: '図を検査する',
     inspectDesc:
-      '読めるか・要素の数・線の交差・箱の重なり・囲みからのはみ出し・図の大きさ・「9 割」を返す。書いたら必ずこれを見ること。tooTangled は「交差の数が辺の数より多い」という意味で、**それ自体は欠陥ではない**（見本 333 枚で真になる 19 枚は、キーライン図・クモの円網・歯車の基準円・目盛りの格子など、**19 枚とも線が交わること自体が中身**だった）。真のときは、**その図が線の重なりで出来ているのか、ただ絡んでいるのかを自分で見分けること。**hiddenLabels に辺の id があれば、そのラベルは置き場が無くて絵に出ていない（短くするか、辺を減らす）。**kind を必ず見ること** — placement（配置図）では positionsInSource が真で、**置き場所は自分で書く**（nodes[].at に { x, y }）。機械は並べ直さない。**大きさも nodes[].size に書ける**（{ w, h }。構成図でも効く）—— 間取りのように大きさが意味を持つ図では、書かないと全部同じ箱になる。pins は人のものなので書かないこと。tooSmallToProject が真なら、投影すると字が読めない大きさ。**ただし tooSmallToPrint が偽なら、その図は「印刷して読む図」で、投影に向かないだけ**（路線図・査定図・仕込図・積付図はここに入る。見本 95 枚のうち 36 枚がこれ）。**両方が真のときだけ、本当に直すところがある。** 直すときは **文字を大きくしないこと**（図が伸びて比がさらに下がる）。**まず wrap: true を試すこと** —— 横一列に伸びているだけなら、折り返すと収まる（8 個の鎖で比 13.9 → 2.2）。それでも足りなければ、図を分けられないかを人へ聞くこと。crowdedNames に id があれば、その名前は箱に入りきらず、外へ出した先も空いていない（他の箱に重なって出ている）。箱を大きくするか、technology を短くすること。**消してはいない** —— 部屋の名前が消えるのは、重なるより悪いため。adriftNames に id があれば、**幅のある箱から名前が出ていっている**（表の欄なら、値が欄から離れて行が空に見える）。hiddenTags に id があれば、**書いた符号（tag）が印に入りきらず描かれていない** —— 印を大きくするか符号を短くすること（黙って落としている）。crossingEdges に組があれば、**その 2 本の線が交わっている**（crossings は交差の数、crossingEdges はどの辺どうしか）。straddles に組があれば、**その 2 つの箱がはみ出して重なっている**（どちらも相手を含んでいない）。物どうしが同じ場所を取っている状態で、入れ子（overlaps）とは別。ただし伏図の柱・断面の水抜管・盤の上の石のように、**わざと重ねる図もある**。overlappingText に組があれば、**その 2 つの文字が重なって描かれている**（配置図だけ）。箱の重なり（overlaps）は枠の中に節を入れる図では当たり前だが、**文字の重なりはほぼ必ず間違い**。器の名前を器の真ん中に書くと中身の名前に乗るので、**器の名前は端の欄へ出すこと**。doorSwings に組があれば、**開き戸の扇（開くときに通る範囲）に文字か設備が乗っている** —— 開けると当たるか、戸が名前の下に隠れる。hinge（蝶番の側 start / end）・swing（in / out。日本の玄関は外開き）・at を変えるか、乗っている物を動かすこと。edgesUnderBoxes に組があれば、**その辺は箱の塗りに隠れて描かれない** —— arrows: false は線を箱より先に描くので、枠の中へ引いた線は消える。線を上に出すなら arrows: true にすること。reviewed が偽なら、まだ誰もこの図を見ていない。',
+      '読めるか・要素の数・線の交差・箱の重なり・囲みからのはみ出し・図の大きさ・「9 割」を返す。書いたら必ずこれを見ること。tooTangled は「交差の数が辺の数より多い」という意味で、**それ自体は欠陥ではない**（見本 333 枚で真になる 19 枚は、キーライン図・クモの円網・歯車の基準円・目盛りの格子など、**19 枚とも線が交わること自体が中身**だった）。真のときは、**その図が線の重なりで出来ているのか、ただ絡んでいるのかを自分で見分けること。**hiddenLabels に辺の id があれば、そのラベルは置き場が無くて絵に出ていない（短くするか、辺を減らす）。**kind を必ず見ること** — placement（配置図）では positionsInSource が真で、**置き場所は自分で書く**（nodes[].at に { x, y }）。機械は並べ直さない。**大きさも nodes[].size に書ける**（{ w, h }。構成図でも効く）—— 間取りのように大きさが意味を持つ図では、書かないと全部同じ箱になる。pins は人のものなので書かないこと。tooSmallToProject が真なら、投影すると字が読めない大きさ。**ただし tooSmallToPrint が偽なら、その図は「印刷して読む図」で、投影に向かないだけ**（路線図・査定図・仕込図・積付図はここに入る。見本 95 枚のうち 36 枚がこれ）。**両方が真のときだけ、本当に直すところがある。** 直すときは **文字を大きくしないこと**（図が伸びて比がさらに下がる）。**まず wrap: true を試すこと** —— 横一列に伸びているだけなら、折り返すと収まる（8 個の鎖で比 13.9 → 2.2）。それでも足りなければ、図を分けられないかを人へ聞くこと。crowdedNames に id があれば、その名前は箱に入りきらず、外へ出した先も空いていない（他の箱に重なって出ている）。箱を大きくするか、technology を短くすること。**消してはいない** —— 部屋の名前が消えるのは、重なるより悪いため。adriftNames に id があれば、**幅のある箱から名前が出ていっている**（表の欄なら、値が欄から離れて行が空に見える）。hiddenTags に id があれば、**書いた符号（tag）が印に入りきらず描かれていない** —— 印を大きくするか符号を短くすること（黙って落としている）。crossingEdges に組があれば、**その 2 本の線が交わっている**（crossings は交差の数、crossingEdges はどの辺どうしか）。straddles に組があれば、**その 2 つの箱がはみ出して重なっている**（どちらも相手を含んでいない）。物どうしが同じ場所を取っている状態で、入れ子（overlaps）とは別。ただし伏図の柱・断面の水抜管・盤の上の石のように、**わざと重ねる図もある**。overlappingText に組があれば、**その 2 つの文字が重なって描かれている**（配置図だけ）。箱の重なり（overlaps）は枠の中に節を入れる図では当たり前だが、**文字の重なりはほぼ必ず間違い**。器の名前を器の真ん中に書くと中身の名前に乗るので、**器の名前は端の欄へ出すこと**。doorSwings に組があれば、**開き戸の扇（開くときに通る範囲）に文字か設備が乗っている** —— 開けると当たるか、戸が名前の下に隠れる。hinge（蝶番の側 start / end）・swing（in / out。日本の玄関は外開き）・at を変えるか、乗っている物を動かすこと。edgesThroughBoxes に組があれば、**その線が、両端でも囲みでもない箱の上を通っている**（矢印が別の工程や区画を突き抜けて見える）。via で回すか、中身がそうならそのままでよい。edgesUnderBoxes に組があれば、**その辺は箱の塗りに隠れて描かれない** —— arrows: false は線を箱より先に描くので、枠の中へ引いた線は消える。線を上に出すなら arrows: true にすること。reviewed が偽なら、まだ誰もこの図を見ていない。',
     inspectSource: '図の中身。path とどちらか',
     inspectPath: '図の道。source とどちらか',
     createTitle: '新しい図を作る',
@@ -411,7 +413,7 @@ const ja = {
       '書体（Noto Sans JP の、その図で使う字だけ）を SVG の中へ入れる（svg と png にだけ効く）。どの端末で開いても同じ字形になる。訓練用の束や、地図の吹き出しに画像として出す図に使う。1 枚あたり数十 KB 増える。省略すると入れない。',
     needSourceOrPath: 'source か path のどちらかが要ります',
 
-    // --- 画面と繋ぐ（D34）。**承認の線は動かさない。** ---
+    // --- 画面と繋ぐ。**承認の線は動かさない。** ---
     liveStatusTitle: '画面と繋がっているか',
     liveStatusDesc:
       'デスクトップアプリが線の向こうに居るか、いま何を映しているかを返す。**zumen_live_* を使う前にこれを見ること。**繋がっていなければ、提案はファイルへ入れる口（zumen_propose）を使う。screens が 0 なら、人はこの画面を見ていない。',
@@ -580,7 +582,7 @@ const ja = {
       '**辺にラベルを書くなら、まず direction: down を試す（構成図。ラベルのある **38 枚で測り直した・2026-09-21**）。1 つの節へ線が集まると、right では入らないラベルが出る —— **38 枚を両方で組むと、消えるラベルは right が 17 本、down は 0 本。** down がラベルを増やしたことは 0 回、**減らしたのが 9 枚**（患者の動線・特許の手続・三審制・日本酒の三段仕込み・立体構造を決めるまで・本が読者に届くまで・治験の三つの相・電気の引き込み・軽減税率の判定）。**25 枚で測った前回は 2 枚だったので、down の効きは増えている。** ただし紙は **28/38（74%）** で right のほうが小さいので、ラベルが全部出ているなら right でよい（**前回は 92% だったので、こちらの利点は薄まった**）。審級・組織・系統のように「上下」がある図は down、工程のように「前後」がある図は right** が読みやすい。',
       '**groups を付けると、紙が大きくなる**（構成図。囲みのある見本 21 枚・2026-09-21 に測り直した）。**21 枚すべてで、groups を外すと紙が小さくなった** —— 面積で **32〜94%、中央値 51%**（いちばん縮むのは 11 取材から公開まで、縮まないのは 287 日本酒の三段仕込み）。**交差は 21 枚とも、囲みがあっても 0 だった**ので「囲み＝交差」ではない。戻る線（差し戻し・再申請・分割）の有無と縮み方にも、はっきりした関係は見えない。囲みは**「同時に在るもの」（VPC・階・区域）を言うために付ける**もので、**付けるほど紙は伸びる** —— 投影に載せる図なら、囲みを外すか数を減らすこと。',
       '配置図では部屋や棚が接しているのが普通で、隙間を空けない。壁は隣どうしで共有する。',
-      '**注記を何行も並べるなら align: left を書く。** 文字は既定で箱の中央へ置かれるので、行の長さが違うと行頭が揃わず、箇条書きが階段状になる（実物を見るまで気づかない。数の検査は「読めるか」しか見ていない）。**箱の幅を文字に合わせて揃えようとしない** —— 幅の見積もりは行ごとに ±20px ずれる（D32）。',
+      '**注記を何行も並べるなら align: left を書く。** 文字は既定で箱の中央へ置かれるので、行の長さが違うと行頭が揃わず、箇条書きが階段状になる（実物を見るまで気づかない。数の検査は「読めるか」しか見ていない）。**箱の幅を文字に合わせて揃えようとしない** —— 幅の見積もりは行ごとに ±20px ずれる。',
       '**表の欄は、値が入る幅にする。** 幅のある箱で名前が入りきらないと、文字が欄の外へ出て行が空に見える（zumen_inspect の adriftNames と validate の name-adrift が知らせる）。',
       '**中に箱を入れる器には、名前を真ん中に書かない。** 器の名前は中央へ置かれるので、中の箱の名前に乗る（Header の上に Global Navigation が重なる、区画の名前にトラップが乗る）。器は label を空にして、名前だけの節（marker: none）を端へ置くこと。zumen_inspect の overlappingText と validate の text-overlap が、置いてみないと分からないこの重なりを知らせる。',
       '**物どうしを、床の同じ場所に置かない。** 冷蔵ケースと弁当什器、クレーンと車輌通路、消防車と立入禁止区域 —— 入れ子（箱の中に箱）は意図だが、はみ出した重なりはたいてい間違い。zumen_inspect の straddles が知らせる。わざと重ねる図（伏図の柱とスラブ、断面の水抜管、盤の上の石）もあるので、合否ではなく観測値。',
@@ -958,7 +960,7 @@ const ja = {
   },
 
   /** Mermaid への書き出し（`src/mermaid.ts`） */
-  /** **作図**（`src/construct.ts`。D36）。 */
+  /** **作図**（`src/construct.ts`）。 */
   construct: {
     exprUnreadable: (text: string) => `式が読めません: ${text}`,
     exprLeftover: (text: string) => `式の後ろに余りがあります: ${text}`,
@@ -1108,6 +1110,8 @@ const en: Catalog = {
     straddleAllSame: (x: string, y: string) => `all of them ${x}px across / ${y}px down`,
     inspectStraddles: (count: number, pairs: string) => `  **${count} straddles** (${pairs})`,
     inspectOverlaps: (count: number, pairs: string) => `  **${count} text overlaps** (${pairs})`,
+    inspectThroughBoxes: (count: number, pairs: string) =>
+      `  **${count} edges run through unrelated boxes** (${pairs}) — reroute with via, or leave it if that is the content`,
     inspectDoorSwings: (count: number, pairs: string) =>
       `  **${count} things in a door swing** (${pairs}) — the door would hit them, or the leaf hides under text. Move the hinge, the swing, the position (at), or the thing`,
     inspectUnderBoxes: (count: number, pairs: string) => `  **${count} edges buried under boxes** (${pairs})`,
@@ -1208,7 +1212,7 @@ const en: Catalog = {
       'Returns the positions, sizes, labels and appearance a person set. Read only; there is no way to write here. Leave it alone and change the structure instead.',
     inspectTitle: 'Inspect a diagram',
     inspectDesc:
-      'Returns readability, element counts, edge crossings, box overlaps, group escapes, size, and the autonomy figure. Always look at this after writing. tooTangled only means there are more crossings than edges, which is **not a defect in itself**: of the 333 examples, the 19 where it is true are keyline grids, a spider web, gear pitch circles and measuring graticules — in all 19 the crossing lines *are* the drawing. When it is true, judge for yourself whether the drawing is made of overlapping lines or merely knotted. Any edge id in hiddenLabels has a label that did not fit and is not drawn — shorten it or use fewer edges. **Always check kind**: for a placement drawing positionsInSource is true, meaning you write the positions yourself (nodes[].at as { x, y }) and the machine will not re-arrange them. You can also set sizes with nodes[].size ({ w, h }, which works for structure diagrams too) — without it every room comes out the same size. Never write pins — those belong to the person. If tooSmallToProject is true the text is too small to read when projected. **If tooSmallToPrint is false, the drawing is simply one to be printed rather than projected** (transit maps, appraisal charts, lighting plots and stowage plans land here — 36 of the 95 examples do). **Only when both are true is there really something to fix.** Do NOT fix it by enlarging the text (that grows the diagram and lowers the ratio further). **Try wrap: true first** — if the diagram is just one long row, wrapping brings it back (a chain of 8 goes from 13.9 to 2.2). If that is not enough, ask the person whether the diagram can be split. Any id in crowdedNames has a name that did not fit its box and had nowhere free outside it, so it is drawn overlapping something. Make the box bigger or shorten technology. It is NOT dropped — a room losing its name is worse than an overlap. Any id in adriftNames is a wide box whose name did not fit and is drawn outside it — in a table that leaves the row looking empty. Any id in hiddenTags has a tag that does not fit its marker and is not drawn — make the marker bigger or shorten the tag. Any pair in crossingEdges is two edges that cross (crossings is the count, crossingEdges names which edges). Any pair in straddles is two boxes overlapping without either containing the other: two things taking the same place on the floor (distinct from nesting, which `overlaps` also counts). Some drawings layer on purpose (a column on a slab, a stone on a board). Any pair in overlappingText is two labels drawn on top of each other (placement drawings only). Any pair in edgesUnderBoxes is an edge that is hidden under a box fill: with arrows: false, lines are drawn before boxes, so a line drawn inside a filled box disappears. Set arrows: true to bring the lines above the boxes. Any pair in doorSwings is text or a fixture sitting inside the swing of a door (the quarter circle it sweeps): the door would hit it, or the leaf hides under a name. Change hinge (start / end), swing (in / out — Japanese front doors open out) or at, or move the thing. Overlapping boxes are often intended (a frame around sections), but overlapping text almost never is. A container that holds children should not repeat its name in the middle — move it to an edge cell. If reviewed is false, nobody has looked at this diagram yet.',
+      'Returns readability, element counts, edge crossings, box overlaps, group escapes, size, and the autonomy figure. Always look at this after writing. tooTangled only means there are more crossings than edges, which is **not a defect in itself**: of the 333 examples, the 19 where it is true are keyline grids, a spider web, gear pitch circles and measuring graticules — in all 19 the crossing lines *are* the drawing. When it is true, judge for yourself whether the drawing is made of overlapping lines or merely knotted. Any edge id in hiddenLabels has a label that did not fit and is not drawn — shorten it or use fewer edges. **Always check kind**: for a placement drawing positionsInSource is true, meaning you write the positions yourself (nodes[].at as { x, y }) and the machine will not re-arrange them. You can also set sizes with nodes[].size ({ w, h }, which works for structure diagrams too) — without it every room comes out the same size. Never write pins — those belong to the person. If tooSmallToProject is true the text is too small to read when projected. **If tooSmallToPrint is false, the drawing is simply one to be printed rather than projected** (transit maps, appraisal charts, lighting plots and stowage plans land here — 36 of the 95 examples do). **Only when both are true is there really something to fix.** Do NOT fix it by enlarging the text (that grows the diagram and lowers the ratio further). **Try wrap: true first** — if the diagram is just one long row, wrapping brings it back (a chain of 8 goes from 13.9 to 2.2). If that is not enough, ask the person whether the diagram can be split. Any id in crowdedNames has a name that did not fit its box and had nowhere free outside it, so it is drawn overlapping something. Make the box bigger or shorten technology. It is NOT dropped — a room losing its name is worse than an overlap. Any id in adriftNames is a wide box whose name did not fit and is drawn outside it — in a table that leaves the row looking empty. Any id in hiddenTags has a tag that does not fit its marker and is not drawn — make the marker bigger or shorten the tag. Any pair in crossingEdges is two edges that cross (crossings is the count, crossingEdges names which edges). Any pair in straddles is two boxes overlapping without either containing the other: two things taking the same place on the floor (distinct from nesting, which `overlaps` also counts). Some drawings layer on purpose (a column on a slab, a stone on a board). Any pair in overlappingText is two labels drawn on top of each other (placement drawings only). Any pair in edgesThroughBoxes is an edge running across a box that is neither its end nor its container (an arrow seems to pass through another step or zone); reroute with via, or leave it if that is the content. Any pair in edgesUnderBoxes is an edge that is hidden under a box fill: with arrows: false, lines are drawn before boxes, so a line drawn inside a filled box disappears. Set arrows: true to bring the lines above the boxes. Any pair in doorSwings is text or a fixture sitting inside the swing of a door (the quarter circle it sweeps): the door would hit it, or the leaf hides under a name. Change hinge (start / end), swing (in / out — Japanese front doors open out) or at, or move the thing. Overlapping boxes are often intended (a frame around sections), but overlapping text almost never is. A container that holds children should not repeat its name in the middle — move it to an edge cell. If reviewed is false, nobody has looked at this diagram yet.',
     inspectSource: 'The diagram body. Either this or path',
     inspectPath: 'Path to the diagram. Either this or source',
     createTitle: 'Create a new diagram',

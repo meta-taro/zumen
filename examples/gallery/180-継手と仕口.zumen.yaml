@@ -116,12 +116,6 @@ nodes:
     marker: none
     at: { x: 216.4, y: 583 }
     size: { w: 2, h: 2 }
-  - id: 金輪継ぎ（かなわつぎ）_p
-    label: "込み栓（2 本打ち）"
-    marker: none
-    align: left
-    at: { x: 76, y: 680 }
-    size: { w: 180, h: 18 }
   - id: e15
     label: ""
     marker: none
@@ -144,66 +138,78 @@ nodes:
     align: left
     at: { x: 76, y: 422 }
     size: { w: 420, h: 20 }
+  # 番付は通り（線）に名前を付け、柱は線の交点に立つ。2026-10-02 まで、柱の丸が升目の中にあり、横の名前は線・縦の名前は升目に付いていて読み方が揃っていなかった
   - id: nx0
     label: "い"
     marker: none
     align: center
-    at: { x: 200, y: 736 }
+    at: { x: 166, y: 736 }
     size: { w: 34, h: 16 }
   - id: nx1
     label: "ろ"
     marker: none
     align: center
-    at: { x: 234, y: 736 }
+    at: { x: 200, y: 736 }
     size: { w: 34, h: 16 }
   - id: nx2
     label: "は"
     marker: none
     align: center
-    at: { x: 268, y: 736 }
+    at: { x: 234, y: 736 }
     size: { w: 34, h: 16 }
   - id: nx3
     label: "に"
     marker: none
     align: center
-    at: { x: 302, y: 736 }
+    at: { x: 268, y: 736 }
     size: { w: 34, h: 16 }
   - id: nx4
     label: "ほ"
     marker: none
     align: center
-    at: { x: 336, y: 736 }
+    at: { x: 302, y: 736 }
     size: { w: 34, h: 16 }
   - id: nx5
     label: "へ"
     marker: none
     align: center
+    at: { x: 336, y: 736 }
+    size: { w: 34, h: 16 }
+  - id: nx6
+    label: と
+    marker: none
     at: { x: 370, y: 736 }
     size: { w: 34, h: 16 }
   - id: ny0
     label: "一"
     marker: none
     align: right
-    at: { x: 160, y: 768 }
+    at: { x: 146, y: 752 }
     size: { w: 34, h: 16 }
   - id: ny1
     label: "二"
     marker: none
     align: right
-    at: { x: 160, y: 802 }
+    at: { x: 146, y: 786 }
     size: { w: 34, h: 16 }
   - id: ny2
     label: "三"
     marker: none
     align: right
-    at: { x: 160, y: 836 }
+    at: { x: 146, y: 820 }
     size: { w: 34, h: 16 }
   - id: ny3
     label: "四"
     marker: none
     align: right
-    at: { x: 160, y: 870 }
+    at: { x: 146, y: 854 }
     size: { w: 34, h: 16 }
+  - id: ny4
+    label: 五
+    marker: none
+    at: { x: 146, y: 888 }
+    size: { w: 34, h: 16 }
+    align: right
   - id: e17
     label: ""
     marker: none
@@ -266,19 +272,19 @@ nodes:
     size: { w: 2, h: 2 }
   - id: e29
     label: ""
-    marker: none
-    at: { x: 241, y: 810 }
-    size: { w: 2, h: 2 }
+    marker: circle
+    at: { x: 209, y: 786 }
+    size: { w: 16, h: 16 }
   - id: e30
     label: ""
-    marker: none
-    at: { x: 309, y: 844 }
-    size: { w: 2, h: 2 }
+    marker: circle
+    at: { x: 277, y: 820 }
+    size: { w: 16, h: 16 }
   - id: e31
     label: ""
-    marker: none
-    at: { x: 343, y: 776 }
-    size: { w: 2, h: 2 }
+    marker: circle
+    at: { x: 311, y: 752 }
+    size: { w: 16, h: 16 }
   - id: n_t
     label: "番付（柱の位置の呼び方）"
     marker: none
@@ -644,46 +650,6 @@ edges:
     via:
       - { x: 160, y: 476 }
       - { x: 580, y: 476 }
-  - from: e14
-    to: e14
-    curve: none
-    ends: { from: none, to: none }
-    via:
-      - { x: 217.4, y: 584 }
-      - { x: 216.7, y: 587 }
-      - { x: 214.8, y: 589.5 }
-      - { x: 212, y: 590.8 }
-      - { x: 208.8, y: 590.8 }
-      - { x: 206, y: 589.5 }
-      - { x: 204.1, y: 587 }
-      - { x: 203.4, y: 584 }
-      - { x: 204.1, y: 581 }
-      - { x: 206, y: 578.5 }
-      - { x: 208.8, y: 577.2 }
-      - { x: 212, y: 577.2 }
-      - { x: 214.8, y: 578.5 }
-      - { x: 216.7, y: 581 }
-      - { x: 217.4, y: 584 }
-  - from: e15
-    to: e15
-    curve: none
-    ends: { from: none, to: none }
-    via:
-      - { x: 536.6, y: 584 }
-      - { x: 535.9, y: 587 }
-      - { x: 534, y: 589.5 }
-      - { x: 531.2, y: 590.8 }
-      - { x: 528, y: 590.8 }
-      - { x: 525.2, y: 589.5 }
-      - { x: 523.3, y: 587 }
-      - { x: 522.6, y: 584 }
-      - { x: 523.3, y: 581 }
-      - { x: 525.2, y: 578.5 }
-      - { x: 528, y: 577.2 }
-      - { x: 531.2, y: 577.2 }
-      - { x: 534, y: 578.5 }
-      - { x: 535.9, y: 581 }
-      - { x: 536.6, y: 584 }
   - from: e16
     to: e16
     curve: none
@@ -790,63 +756,3 @@ edges:
     via:
       - { x: 183, y: 896 }
       - { x: 387, y: 896 }
-  - from: e29
-    to: e29
-    curve: none
-    ends: { from: none, to: none }
-    via:
-      - { x: 242, y: 811 }
-      - { x: 241.2, y: 814.5 }
-      - { x: 239, y: 817.3 }
-      - { x: 235.8, y: 818.8 }
-      - { x: 232.2, y: 818.8 }
-      - { x: 229, y: 817.3 }
-      - { x: 226.8, y: 814.5 }
-      - { x: 226, y: 811 }
-      - { x: 226.8, y: 807.5 }
-      - { x: 229, y: 804.7 }
-      - { x: 232.2, y: 803.2 }
-      - { x: 235.8, y: 803.2 }
-      - { x: 239, y: 804.7 }
-      - { x: 241.2, y: 807.5 }
-      - { x: 242, y: 811 }
-  - from: e30
-    to: e30
-    curve: none
-    ends: { from: none, to: none }
-    via:
-      - { x: 310, y: 845 }
-      - { x: 309.2, y: 848.5 }
-      - { x: 307, y: 851.3 }
-      - { x: 303.8, y: 852.8 }
-      - { x: 300.2, y: 852.8 }
-      - { x: 297, y: 851.3 }
-      - { x: 294.8, y: 848.5 }
-      - { x: 294, y: 845 }
-      - { x: 294.8, y: 841.5 }
-      - { x: 297, y: 838.7 }
-      - { x: 300.2, y: 837.2 }
-      - { x: 303.8, y: 837.2 }
-      - { x: 307, y: 838.7 }
-      - { x: 309.2, y: 841.5 }
-      - { x: 310, y: 845 }
-  - from: e31
-    to: e31
-    curve: none
-    ends: { from: none, to: none }
-    via:
-      - { x: 344, y: 777 }
-      - { x: 343.2, y: 780.5 }
-      - { x: 341, y: 783.3 }
-      - { x: 337.8, y: 784.8 }
-      - { x: 334.2, y: 784.8 }
-      - { x: 331, y: 783.3 }
-      - { x: 328.8, y: 780.5 }
-      - { x: 328, y: 777 }
-      - { x: 328.8, y: 773.5 }
-      - { x: 331, y: 770.7 }
-      - { x: 334.2, y: 769.2 }
-      - { x: 337.8, y: 769.2 }
-      - { x: 341, y: 770.7 }
-      - { x: 343.2, y: 773.5 }
-      - { x: 344, y: 777 }

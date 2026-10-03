@@ -1,6 +1,6 @@
 name: oss-privacy-check
 
-# OSS 公開リポの個人情報混入チェック（product-baseline §32）
+# OSS 公開リポの個人情報混入チェック
 # 実名・個人メールが commit history に入ると、後から消すには history 書き換えと
 # force push が要る＝実質不可逆。push / PR の時点で機械的に止める。
 
@@ -17,7 +17,7 @@ on:
   # 初回 push は比較の基準が無く commit 検査がスキップされるので、
   # 最初のあたりが未検査のまま残りうる。
   #
-  # ここを手で回せば、**禁止語の一覧（secret）を手元へ出さずに**全履歴を見られる。
+  # ここを手で回せば、全履歴（メール・公開しない道・会話の印）をまとめて見られる。
   workflow_dispatch:
     inputs:
       full_history:
@@ -49,10 +49,9 @@ jobs:
           fetch-depth: 0
 
       - name: 個人情報混入チェック
+        # 禁止語（実名・社内の呼び名）は CI では見ない。一覧を secret で配らない方針（2026-10-01）。
+        # 禁止語で止めるのは手元の pre-push（.githooks/pre-push と .private-deny-words）。ここはメールと道と印を見る。
         env:
-          # 実名などの禁止語は、リポジトリに置くとそれ自体が公開になるため secrets から渡す。
-          # 未設定なら禁止語検査はスキップされ、メール検査だけが走る。
-          OSS_DENY_WORDS: ${{ secrets.OSS_DENY_WORDS }}
           OSS_ALLOWED_AUTHOR_EMAIL_REGEX: ${{ vars.OSS_ALLOWED_AUTHOR_EMAIL_REGEX }}
           OSS_ALLOWED_EMAIL_DOMAINS: ${{ vars.OSS_ALLOWED_EMAIL_DOMAINS }}
           BASE_SHA: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
@@ -71,9 +70,8 @@ jobs:
           bash .github/scripts/oss-privacy-check.sh "$BASE_SHA" "$HEAD_SHA"
 
       - name: 公開しないもの（開発の記録・会話・社内の呼び名）が入っていないか
+        # 道（.claude/ など）と印（会話の記録）は一覧が要らないので、ここで必ず効く。禁止語は手元の pre-push が見る
         env:
-          # 社内の呼び名・個人名の一覧は公開しないので secrets から渡す（手元は .private-deny-words）
-          OSS_DENY_WORDS: ${{ secrets.OSS_DENY_WORDS }}
           BASE_SHA: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
           HEAD_SHA: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
         run: |

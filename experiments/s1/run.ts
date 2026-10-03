@@ -1,13 +1,13 @@
 /**
  * S1 の往復を実際に回して、記録を残す。
  *
- * `pnpm s1` で走る。外部サービスへは繋がない（ベースルール §4）。
+ * `pnpm s1` で走る。外部サービスへは繋がない。
  * AI の役は決め打ちの書き換えで演じる。**保持・反映・競合は機構の性質**であって、
  * 言語モデルの出力ゆらぎの性質ではないため（判定基準 §8）。
  * ただしそれだけでは「丸ごと書き直された場合」を測れないので、
  * 実在の AI が書き直したものを模した提案（fixtures/real-ai-*.yaml）でも 1 周回す。
  *
- * 残すもの（Issue 001 完了条件）— 指示の全文・前後の正本・差分・SVG・3 軸の測定値。
+ * 残すもの（完了条件）— 指示の全文・前後の正本・差分・SVG・3 軸の測定値。
  */
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
@@ -131,7 +131,7 @@ interface RoundRecord {
   conflicts: Conflict[];
   resolvedAs: 'human' | 'ai' | null;
   overlaps: [string, string][];
-  /** 枠からはみ出した子。原案 §26 の 2（pin と自動レイアウトの共存）の観測値。 */
+  /** 枠からはみ出した子。pin と自動レイアウトの共存の観測値。 */
   escapes: string[];
 }
 
@@ -294,9 +294,8 @@ function report(records: RoundRecord[]): string {
   const lines = [
     '# S1 往復ログ（自動生成 — `pnpm s1`）',
     '',
-    '判定基準: `docs/specs/s1-判定基準-手直しの保持.md`',
     '',
-    '**この表は測定値であって判定ではない。** 判定は `.claude/issues/001-*.md` の結果欄に書く。',
+    '**この表は測定値であって判定ではない。** 判定は実物を見た人が書く。',
     '',
     '| 往復 | 保持 Tier A | 保持 Tier B | 反映 | 競合 | 重なり | 枠外 |',
     '|---|---|---|---|---|---|---|',

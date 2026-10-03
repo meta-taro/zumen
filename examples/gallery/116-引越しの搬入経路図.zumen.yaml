@@ -1,10 +1,10 @@
-# **表を横に置いたせいで紙が横長になっていた**（2026-09-24。qa/品質100周 第 20 周）。
+# **表を横に置いたせいで紙が横長になっていた**（2026-09-24）。
 # 紙 2044 × 640px（3.2 : 1）で、A4 横（1.41 : 1）にも収まらない。
 # 間取り図が読めない大きさになるので、**表を間取り図の下へ積んだ。**
 # 横長でよいのは「対象そのものが横長」のとき（見本 29 の編成図・128 のロゴ）。
 # あわせて、左端が紙の縁に接していた（玄関の箱が切れていた）ので 36px 逃がした。
 #
-# **縦に積んだら「A3 に印刷しても字が読めません」で止められた。**
+# **縦に積むと、A3 に印刷しても字が読めなかった。**
 # 副題（`technology`）は 10px 固定で正本から上げられないので、
 # **紙の丈を詰める**（間取り図と表の間を 96px 縮めた）。比 0.0082 → 0.0089。
 version: 1
@@ -30,21 +30,34 @@ scale: { mm: 10 }
 # 取っ手と脚が入っていないことがある。**下見で実測して mm で書く。**
 # 「だいたい」は当日に止まる。
 nodes:
+  # 玄関から上がると、廊下が直角に曲がる（L 字。どちらの脚も有効 850）
   - id: genkan
     label: "玄関"
     technology: 1.2 × 1.2 m
-    at: { x: 36, y: 300 }
+    at: { x: 36, y: 415 }
     size: { w: 120, h: 120 }
     openings:
       - { kind: door, side: left, at: 0.5, width: 78, swing: out }
+      # 廊下とのあいだは戸が無い（上がり框だけ）
+      - { kind: open, side: right, at: 0.42, width: 80 }
   - id: rouka
     label: "廊下"
     technology: 有効 850
     at: { x: 156, y: 330 }
     size: { w: 400, h: 85 }
     openings:
-      - { kind: door, side: top, at: 0.25, width: 72 }
-      - { kind: door, side: right, at: 0.5, width: 72 }
+      # 居室の戸は部屋の側へ開く（廊下へ開くと、開けたとき廊下を塞ぐ）
+      - { kind: door, side: top, at: 0.4, width: 72, swing: out }
+      - { kind: door, side: right, at: 0.5, width: 72, swing: out }
+      - { kind: open, side: bottom, at: 0.106, width: 80 }
+  # 廊下の縦の脚（玄関側）
+  - id: rouka2
+    label: ""
+    at: { x: 156, y: 415 }
+    size: { w: 85, h: 100 }
+    openings:
+      - { kind: open, side: top, at: 0.5, width: 80 }
+      - { kind: open, side: left, at: 0.5, width: 80 }
   - id: yoshitsu
     label: ""
     at: { x: 186, y: 60 }
@@ -72,10 +85,23 @@ nodes:
     hatch: lines
     at: { x: 560, y: 124 }
     size: { w: 69, h: 70 }
+  - id: senmen
+    label: ""
+    marker: box
+    at: { x: 241, y: 415 }
+    size: { w: 140, h: 100 }
+    openings:
+      - { kind: door, side: top, at: 0.27, width: 72 }
+  - id: senmen_n
+    label: "洗面室"
+    marker: none
+    align: left
+    at: { x: 245, y: 490 }
+    size: { w: 56, h: 22 }
   - id: sentaku
     label: "洗濯機"
     hatch: lines
-    at: { x: 160, y: 334 }
+    at: { x: 317, y: 447 }
     size: { w: 60, h: 64 }
   - id: sofa
     label: "ソファ（3 人）"
@@ -101,13 +127,13 @@ nodes:
     label: "有効 780"
     marker: none
     align: left
-    at: { x: 36, y: 432 }
+    at: { x: 36, y: 540 }
     size: { w: 120, h: 22 }
   - id: d2
     label: "有効 720"
     marker: none
     align: left
-    at: { x: 366, y: 300 }
+    at: { x: 360, y: 300 }
     size: { w: 90, h: 22 }
   - id: d3
     label: "有効 720"
@@ -116,11 +142,11 @@ nodes:
     at: { x: 466, y: 436 }
     size: { w: 90, h: 22 }
   - id: d4
-    label: "廊下の曲がり —— 対角 1,200"
+    label: "廊下の曲がり\n対角 1,200"
     marker: none
-    align: left
-    at: { x: 160, y: 436 }
-    size: { w: 300, h: 22 }
+    align: right
+    at: { x: 30, y: 345 }
+    size: { w: 120, h: 40 }
   - id: d5
     label: "天井高 2,400（照明の出っ張り −80）"
     marker: none
@@ -137,246 +163,253 @@ nodes:
     label: "搬入の可否（下見の実測による）"
     marker: none
     align: left
-    at: { x: 36, y: 524 }
+    at: { x: 36, y: 564 }
     size: { w: 400, h: 24 }
   - id: th0
     label: "家具"
     hatch: solid
-    at: { x: 36, y: 554 }
+    at: { x: 36, y: 594 }
     size: { w: 170, h: 26 }
   - id: th1
     label: "寸法 W × D × H"
     hatch: solid
-    at: { x: 206, y: 554 }
+    at: { x: 206, y: 594 }
     size: { w: 200, h: 26 }
   - id: th2
     label: "いちばん狭い所"
     hatch: solid
-    at: { x: 406, y: 554 }
+    at: { x: 406, y: 594 }
     size: { w: 180, h: 26 }
   - id: th3
     label: "判定"
     hatch: solid
-    at: { x: 586, y: 554 }
+    at: { x: 586, y: 594 }
     size: { w: 70, h: 26 }
   - id: th4
     label: "対策"
     hatch: solid
-    at: { x: 656, y: 554 }
+    at: { x: 656, y: 594 }
     size: { w: 280, h: 26 }
   - id: tc0_0
     label: "冷蔵庫"
-    at: { x: 36, y: 580 }
+    at: { x: 36, y: 620 }
     size: { w: 170, h: 28 }
   - id: tc0_1
     label: "685 × 700 × 1833"
-    at: { x: 206, y: 580 }
+    at: { x: 206, y: 620 }
     size: { w: 200, h: 28 }
   - id: tc0_2
-    label: "玄関ドア 有効 780"
-    at: { x: 406, y: 580 }
+    label: "LD の戸 有効 720"
+    at: { x: 406, y: 620 }
     size: { w: 180, h: 28 }
   - id: tc0_3
     label: "通る"
-    at: { x: 586, y: 580 }
+    at: { x: 586, y: 620 }
     size: { w: 70, h: 28 }
   - id: tc0_4
     label: "立てたまま。取っ手を外すと 645"
-    at: { x: 656, y: 580 }
+    at: { x: 656, y: 620 }
     size: { w: 280, h: 28 }
   - id: tc1_0
     label: "洗濯機"
-    at: { x: 36, y: 608 }
+    at: { x: 36, y: 648 }
     size: { w: 170, h: 28 }
   - id: tc1_1
     label: "600 × 640 × 1050"
-    at: { x: 206, y: 608 }
+    at: { x: 206, y: 648 }
     size: { w: 200, h: 28 }
   - id: tc1_2
     label: "洗面室ドア 有効 720"
-    at: { x: 406, y: 608 }
+    at: { x: 406, y: 648 }
     size: { w: 180, h: 28 }
   - id: tc1_3
     label: "通る"
-    at: { x: 586, y: 608 }
+    at: { x: 586, y: 648 }
     size: { w: 70, h: 28 }
   - id: tc1_4
     label: "そのまま"
-    at: { x: 656, y: 608 }
+    at: { x: 656, y: 648 }
     size: { w: 280, h: 28 }
   - id: tc2_0
     label: "ソファ（3 人）"
-    at: { x: 36, y: 636 }
+    at: { x: 36, y: 676 }
     size: { w: 170, h: 28 }
   - id: tc2_1
     label: "1900 × 850 × 700"
-    at: { x: 206, y: 636 }
+    at: { x: 206, y: 676 }
     size: { w: 200, h: 28 }
   - id: tc2_2
     label: "廊下の曲がり 対角 1200"
-    at: { x: 406, y: 636 }
+    at: { x: 406, y: 676 }
     size: { w: 180, h: 28 }
   - id: tc2_3
     label: "要工夫"
-    at: { x: 586, y: 636 }
+    at: { x: 586, y: 676 }
     size: { w: 70, h: 28 }
   - id: tc2_4
     label: "立てて運ぶ（天井高 2400 で立つ）"
-    at: { x: 656, y: 636 }
+    at: { x: 656, y: 676 }
     size: { w: 280, h: 28 }
   - id: tc3_0
     label: "ダイニングテーブル"
-    at: { x: 36, y: 664 }
+    at: { x: 36, y: 704 }
     size: { w: 170, h: 28 }
   - id: tc3_1
     label: "1500 × 800 × 720"
-    at: { x: 206, y: 664 }
+    at: { x: 206, y: 704 }
     size: { w: 200, h: 28 }
   - id: tc3_2
     label: "廊下の曲がり 対角 1200"
-    at: { x: 406, y: 664 }
+    at: { x: 406, y: 704 }
     size: { w: 180, h: 28 }
   - id: tc3_3
     label: "要工夫"
-    at: { x: 586, y: 664 }
+    at: { x: 586, y: 704 }
     size: { w: 70, h: 28 }
   - id: tc3_4
     label: "脚を外して天板だけ通す"
-    at: { x: 656, y: 664 }
+    at: { x: 656, y: 704 }
     size: { w: 280, h: 28 }
   - id: tc4_0
     label: "ダブルベッド"
-    at: { x: 36, y: 692 }
+    at: { x: 36, y: 732 }
     size: { w: 170, h: 28 }
   - id: tc4_1
     label: "1400 × 1950 × 250"
-    at: { x: 206, y: 692 }
+    at: { x: 206, y: 732 }
     size: { w: 200, h: 28 }
   - id: tc4_2
     label: "洋室ドア 有効 720"
-    at: { x: 406, y: 692 }
+    at: { x: 406, y: 732 }
     size: { w: 180, h: 28 }
   - id: tc4_3
     label: "要工夫"
-    at: { x: 586, y: 692 }
+    at: { x: 586, y: 732 }
     size: { w: 70, h: 28 }
   - id: tc4_4
     label: "分解。マットレスは立てて曲げる"
-    at: { x: 656, y: 692 }
+    at: { x: 656, y: 732 }
     size: { w: 280, h: 28 }
   - id: tc5_0
     label: "本棚"
-    at: { x: 36, y: 720 }
+    at: { x: 36, y: 760 }
     size: { w: 170, h: 28 }
   - id: tc5_1
     label: "900 × 300 × 1800"
-    at: { x: 206, y: 720 }
+    at: { x: 206, y: 760 }
     size: { w: 200, h: 28 }
   - id: tc5_2
     label: "洋室ドア 有効 720"
-    at: { x: 406, y: 720 }
+    at: { x: 406, y: 760 }
     size: { w: 180, h: 28 }
   - id: tc5_3
     label: "通る"
-    at: { x: 586, y: 720 }
+    at: { x: 586, y: 760 }
     size: { w: 70, h: 28 }
   - id: tc5_4
     label: "立てたまま。棚板は抜く"
-    at: { x: 656, y: 720 }
+    at: { x: 656, y: 760 }
     size: { w: 280, h: 28 }
   - id: tc6_0
     label: "食器棚"
-    at: { x: 36, y: 748 }
+    at: { x: 36, y: 788 }
     size: { w: 170, h: 28 }
   - id: tc6_1
     label: "1200 × 450 × 2000"
-    at: { x: 206, y: 748 }
+    at: { x: 206, y: 788 }
     size: { w: 200, h: 28 }
   - id: tc6_2
-    label: "天井高 2400"
-    at: { x: 406, y: 748 }
+    label: "廊下の曲がり（長さ 2000）"
+    at: { x: 406, y: 788 }
     size: { w: 180, h: 28 }
   - id: tc6_3
     label: "通らない"
-    at: { x: 586, y: 748 }
+    at: { x: 586, y: 788 }
     size: { w: 70, h: 28 }
   - id: tc6_4
     label: "吊り上げ（窓 1800 × 1100 から）"
-    at: { x: 656, y: 748 }
+    at: { x: 656, y: 788 }
     size: { w: 280, h: 28 }
   - id: r_t
     label: "下見で見るところ"
     marker: none
     align: left
-    at: { x: 36, y: 802 }
+    at: { x: 36, y: 842 }
     size: { w: 240, h: 24 }
   - id: rn0
     label: "・ドアは有効開口で見る。枠の内法から建具の厚みを引いた寸法"
     marker: none
     align: left
-    at: { x: 36, y: 830 }
+    at: { x: 36, y: 870 }
     size: { w: 620, h: 24 }
   - id: rn1
     label: "・廊下の曲がりは対角で見る。まっすぐの幅だけ見ると入らない"
     marker: none
     align: left
-    at: { x: 36, y: 856 }
+    at: { x: 36, y: 896 }
     size: { w: 620, h: 24 }
   - id: rn2
     label: "・立てれば通ることが多い。天井高と、照明・梁の出っ張りを確かめる"
     marker: none
     align: left
-    at: { x: 36, y: 882 }
+    at: { x: 36, y: 922 }
     size: { w: 620, h: 24 }
   - id: rn3
     label: "・エレベーターは内寸・天井高・扉の有効幅。長尺物は扉の対角を見る"
     marker: none
     align: left
-    at: { x: 36, y: 908 }
+    at: { x: 36, y: 948 }
     size: { w: 620, h: 24 }
   - id: rn4
     label: "・階段は踊り場の回転が効く。段の上の有効高さも見る"
     marker: none
     align: left
-    at: { x: 36, y: 934 }
+    at: { x: 36, y: 974 }
     size: { w: 620, h: 24 }
   - id: rn5
     label: "・入らないものは吊り上げ。窓の開口・手すり・クレーンの据え場所を決めておく"
     marker: none
     align: left
-    at: { x: 36, y: 960 }
+    at: { x: 36, y: 1000 }
     size: { w: 620, h: 24 }
   - id: rn6
     label: "・養生は通る所すべて（床・壁・角・ドア枠・エレベーター内）"
     marker: none
     align: left
-    at: { x: 36, y: 986 }
+    at: { x: 36, y: 1026 }
     size: { w: 620, h: 24 }
   - id: rn7
     label: "・カタログ寸法には取っ手と脚が入っていないことがある。下見で実測する"
     marker: none
     align: left
-    at: { x: 36, y: 1012 }
+    at: { x: 36, y: 1052 }
     size: { w: 620, h: 24 }
   - id: rn8
     label: "・実測は mm で書く。「だいたい」は当日に止まる"
     marker: none
     align: left
-    at: { x: 36, y: 1038 }
+    at: { x: 36, y: 1078 }
     size: { w: 620, h: 24 }
   - id: leg
     label: "網掛け ＝ 運び入れる家具　　太線 ＝ 搬入経路　　寸法はすべて mm"
     marker: none
     align: left
-    at: { x: 36, y: 1076 }
+    at: { x: 36, y: 1116 }
     size: { w: 620, h: 24 }
 edges:
+  # **搬入経路**（太線）：玄関 → 廊下 → 各室の戸
   - from: genkan
-    to: rouka
-    weight: thick
-  - from: rouka
     to: living
     weight: thick
-  - from: rouka
+    via:
+      - { x: 198, y: 465 }
+      - { x: 198, y: 372 }
+      - { x: 556, y: 372 }
+  - from: genkan
     to: yoshitsu
     weight: thick
+    via:
+      - { x: 198, y: 465 }
+      - { x: 198, y: 372 }
+      - { x: 316, y: 372 }
+      - { x: 316, y: 330 }

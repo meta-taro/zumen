@@ -100,7 +100,7 @@ function groupMembership(before: string, after: string): Retention {
   return { kept, total, lost };
 }
 
-/** コメントと並び順（原案 §26 の 9）。 */
+/** コメントと並び順。 */
 function textShape(before: string, after: string): Retention {
   const lost: string[] = [];
 

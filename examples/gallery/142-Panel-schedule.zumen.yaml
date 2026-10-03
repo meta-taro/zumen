@@ -13,6 +13,11 @@ title: "Panel schedule — LP-1 (fictional)"
 # The VA figures here are connected load; **demand factors (NEC Article 220)**
 # are applied before sizing the feeder.
 #
+# **A two-pole load is written half on each pole.** The dryer is 5,000 VA
+# (NEC 220.54 minimum), so 2,500 + 2,500; at 240 V that is 20.8 A on a 30/2.
+# Check every two-pole row: (VA on both poles) ÷ 240 V must sit under the trip,
+# and continuous loads (water heater, air handler) under 80 % of it.
+#
 # **日本語の見本 19（受変電の結線）と対**。あちらは単線結線で系統を、
 # こちらは回路表で分岐を書く。
 #
@@ -319,7 +324,7 @@ nodes:
     at: { x: 452, y: 284 }
     size: { w: 52, h: 22 }
   - id: r14v
-    label: "5000"
+    label: "2500"
     at: { x: 504, y: 284 }
     size: { w: 58, h: 22 }
   - id: r14d
@@ -355,7 +360,7 @@ nodes:
     at: { x: 452, y: 306 }
     size: { w: 52, h: 22 }
   - id: r16v
-    label: "5000"
+    label: "2500"
     at: { x: 504, y: 306 }
     size: { w: 58, h: 22 }
   - id: r16d
@@ -369,7 +374,7 @@ nodes:
     at: { x: 60, y: 328 }
     size: { w: 210, h: 22 }
   - id: l17v
-    label: "4500"
+    label: "2250"
     at: { x: 270, y: 328 }
     size: { w: 58, h: 22 }
   - id: l17t
@@ -391,7 +396,7 @@ nodes:
     at: { x: 452, y: 328 }
     size: { w: 52, h: 22 }
   - id: r18v
-    label: "3600"
+    label: "2400"
     at: { x: 504, y: 328 }
     size: { w: 58, h: 22 }
   - id: r18d
@@ -405,7 +410,7 @@ nodes:
     at: { x: 60, y: 350 }
     size: { w: 210, h: 22 }
   - id: l19v
-    label: "4500"
+    label: "2250"
     at: { x: 270, y: 350 }
     size: { w: 58, h: 22 }
   - id: l19t
@@ -427,7 +432,7 @@ nodes:
     at: { x: 452, y: 350 }
     size: { w: 52, h: 22 }
   - id: r20v
-    label: "3600"
+    label: "2400"
     at: { x: 504, y: 350 }
     size: { w: 58, h: 22 }
   - id: r20d
@@ -463,7 +468,7 @@ nodes:
     at: { x: 452, y: 372 }
     size: { w: 52, h: 22 }
   - id: r22v
-    label: "4800"
+    label: "2800"
     at: { x: 504, y: 372 }
     size: { w: 58, h: 22 }
   - id: r22d
@@ -499,7 +504,7 @@ nodes:
     at: { x: 452, y: 394 }
     size: { w: 52, h: 22 }
   - id: r24v
-    label: "4800"
+    label: "2800"
     at: { x: 504, y: 394 }
     size: { w: 58, h: 22 }
   - id: r24d
@@ -616,12 +621,12 @@ nodes:
     at: { x: 562, y: 460 }
     size: { w: 210, h: 22 }
   - id: tA
-    label: "Phase A  31,180 VA"
+    label: "Phase A  23,230 VA"
     hatch: lines
     at: { x: 60, y: 482 }
     size: { w: 356, h: 22 }
   - id: tB
-    label: "Phase B  31,000 VA"
+    label: "Phase B  23,050 VA"
     hatch: lines
     at: { x: 416, y: 482 }
     size: { w: 356, h: 22 }

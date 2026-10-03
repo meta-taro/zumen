@@ -76,7 +76,7 @@ describe('render', () => {
   });
 
   it('人が置いたノードには印が付く（画面で見分けられる）', async () => {
-    // どれが人の指定かが見えないと、AI が戻したことに気づけない（PRD §2 の動かした点 2）。
+    // どれが人の指定かが見えないと、AI が戻したことに気づけない（GUI は差分を見せる場、という方針）。
     const svg = await svgOf(pinned('db', { position: { x: 620, y: 410 } }));
     assert.match(svg, /data-node="db"[^>]*data-pinned="true"/);
   });

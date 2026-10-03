@@ -77,7 +77,7 @@ nodes:
   - id: masu
     type: generic
     label: 汚水ます
-    tag: MH-1
+    tag: No.1
     technology: 塩ビ 内径 200
     group: haisui
   - id: gesui
@@ -96,7 +96,16 @@ edges:
     label: 20A
   - from: genatsu
     to: toilet
-    label: 13A
+    label: 給水 13A
+  - from: genatsu
+    to: daidokoro
+    label: 給水 13A
+  - from: genatsu
+    to: yokushitsu
+    label: 給水 13A
+  - from: genatsu
+    to: senmen
+    label: 給水 13A
   - from: kyuto
     to: daidokoro
     label: 給湯 13A
@@ -112,6 +121,9 @@ edges:
   - from: yokushitsu
     to: masu
     label: 排水 50A
+  - from: senmen
+    to: masu
+    label: 排水 40A
   - from: toilet
     to: masu
     label: 排水 75A

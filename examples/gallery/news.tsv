@@ -4,6 +4,7 @@
 # feat は、使う人から見てできることが増えたものだけ（CHANGELOG の「できることが増えます」と同じ線）。内部の整理は書かない。
 # CHANGELOG の「未リリース」で増えた項目には `<!-- news: 名前 -->` を付け、ここに同じ名前の feat を置く。
 # **いちばん新しい見本がここに無いと、テストが落ちる**（test/news.test.ts）。
+2026-10-02	feat	edge-through	検査（inspect）が、線が関係の無い箱を突き抜けているところを知らせる	inspect now reports edges that run through unrelated boxes
 2026-09-30	feat	door-check	検査（inspect）が、開き戸の扇に乗っている名前・設備を知らせる	inspect now reports names and fixtures inside a door swing
 2026-09-30	feat	door-swing	開き戸の開く向き（swing: out）と蝶番の側（hinge）。日本の玄関と便所は外開き	Door swing (swing: out) and hinge side (hinge). Japanese front doors and toilets open outward
 2026-09-30	fix	362	玄関を外開きに、便所の扉が台所の流し台に開いていたのを直した	The front door now opens outward; the toilet door no longer opens onto the kitchen counter

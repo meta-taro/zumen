@@ -23,7 +23,7 @@
  *
  * ## 往復はしない
  *
- * 書き出しであって取り込みではない（PRD §4）。**正本は `.zumen.yaml` の側。**
+ * 書き出しであって取り込みではない。**正本は `.zumen.yaml` の側。**
  */
 import type { Line } from './line.ts';
 import type { Box, Placed, PlacedEdge } from './layout.ts';

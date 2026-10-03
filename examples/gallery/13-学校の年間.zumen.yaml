@@ -3,7 +3,7 @@ wrap: true
 title: 入学までの流れ
 # **この図の中身は、合格発表から先の分かれ方。**
 # 合格・補欠・不合格で道が分かれ、**補欠は「繰り上げ」で合格へ合流する。**
-# 合流があるので、入学手続きの締切は補欠の人数が決まるまで動かせない。
+# 繰り上げは、入学手続きの締切で辞退の数（空いた席）が分かってから動く —— 補欠の行き先は、合格者の手続き次第。
 #
 # ## 手続きをしないと入学にならない
 #
@@ -34,9 +34,11 @@ nodes:
     type: cluster
     label: 選考
     technology: 学力・面接
+  # 分かれ目は**合格発表**（選考 → 3 本の線）。箱は「合格」という結果で、補欠も繰り上げでここへ合流する
   - id: goukaku
     type: generic
-    label: 合格発表
+    label: 合格
+    technology: 発表で通知・繰り上げも含む
   - id: tetsuzuki
     type: generic
     label: 入学手続き
@@ -46,6 +48,9 @@ nodes:
   - id: nyugaku
     type: storage
     label: 入学
+  - id: fugoukaku
+    type: generic
+    label: 不合格
 edges:
   - from: setsumei
     to: shutsugan
@@ -55,7 +60,7 @@ edges:
     to: senko
   - from: senko
     to: goukaku
-    label: 合格
+    label: 発表で合格
   - from: senko
     to: hoketsu
     label: 補欠
@@ -66,3 +71,11 @@ edges:
     to: tetsuzuki
   - from: tetsuzuki
     to: nyugaku
+  - from: senko
+    to: fugoukaku
+    line: dashed
+    label: 不合格
+  - from: hoketsu
+    to: fugoukaku
+    line: dashed
+    label: 繰り上げなし

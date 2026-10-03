@@ -8,7 +8,7 @@
  *
  * いまの自力率は「**人が触った要素が少ないほど良い**」という向き。
  * 構成図ではこれが正しい —— 人が図形を並べ直しているなら、
- * それは高機能な作図ソフトであって、この製品ではない（D3）。
+ * それは高機能な作図ソフトであって、この製品ではない。
  *
  * **配置図では逆になる。**
  *
@@ -49,7 +49,7 @@ describe('図の種類', () => {
   });
 
   it('**増やすのは、測り方が増えるときだけ**', () => {
-    // 3 つ目（construction。D36）は**座標を持たない**ので、
+    // 3 つ目（construction）は**座標を持たない**ので、
     // 「置き場所を人が決めた割合」という問いが成立しない ＝ 測り方が別。
     assert.deepEqual([...KINDS], ['structure', 'placement', 'construction']);
   });
@@ -132,7 +132,7 @@ describe('**AI が位置を書ける**（`nodes[].at`）', () => {
     assert.equal(got.layoutAutonomy, 1);
   });
 
-  it('**人の `pins` が、AI の `at` より強い**（D5 の向きは変わらない）', async () => {
+  it('**人の `pins` が、AI の `at` より強い**（AI の出力は提案、の向きは変わらない）', async () => {
     const { layout } = await import('../src/layout.ts');
     const source = AT.replace('nodes:', 'pins:\n  a:\n    position: { x: 700, y: 500 }\n\nnodes:');
     const placed = await layout(source);

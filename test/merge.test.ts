@@ -4,7 +4,7 @@
  * AI が出すのは提案（semantics だけ）で、正本は人が持っているものを書き換える。
  * この向きにしないと、AI が丸ごと書き直した時点で人の手直しもコメントも消える。
  *
- * 判定基準（docs/specs/s1-判定基準-手直しの保持.md）の 3 軸に沿って並べる。
+ * S1 の判定基準の 3 軸に沿って並べる。
  */
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';

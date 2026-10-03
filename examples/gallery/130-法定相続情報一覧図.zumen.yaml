@@ -30,7 +30,7 @@ title: 法定相続情報一覧図（被相続人 甲野太郎 法定相続情�
 #
 # ## 器の名前を器の真ん中に書かない
 #
-# 人の欄は中に何行も入るので、枠の名前を中央に置くと中身に乗る（D29）。
+# 人の欄は中に何行も入るので、枠の名前を中央に置くと中身に乗る。
 # **枠は名前を持たず、氏名は中の 1 行目として置く。**
 #
 # 出どころ —— 法務局「法定相続情報証明制度の具体的な手続について」ほか。
@@ -92,6 +92,12 @@ nodes:
     align: left
     at: { x: 46, y: 199 }
     size: { w: 178, h: 15 }
+  # 子への線は、夫婦の二重線の中ほどから下ろす（法務局の記載例と同じ）
+  - id: jn
+    label: ""
+    marker: none
+    at: { x: 238, y: 137 }
+    size: { w: 2, h: 2 }
   - id: sp
     label: ""
     at: { x: 248, y: 100 }
@@ -253,21 +259,24 @@ edges:
     curve: none
     via:
       - { x: 239, y: 138 }
-  - from: bo
+  - from: jn
     to: c1
     curve: none
+    ends: { from: none, to: none }
     via:
-      - { x: 135, y: 242 }
+      - { x: 239, y: 242 }
       - { x: 94, y: 242 }
-  - from: bo
+  - from: jn
     to: c2
     curve: none
+    ends: { from: none, to: none }
     via:
-      - { x: 135, y: 242 }
+      - { x: 239, y: 242 }
       - { x: 210, y: 242 }
-  - from: bo
+  - from: jn
     to: c3
     curve: none
+    ends: { from: none, to: none }
     via:
-      - { x: 135, y: 242 }
+      - { x: 239, y: 242 }
       - { x: 326, y: 242 }

@@ -11,7 +11,7 @@
  * ## 何をするか
  *
  * dev サーバと headless Chrome を**自分で立てて**、CDP で 8 操作を通す。
- * 人に手作業を頼まない（ベースルール §29 の裏返し。
+ * 人に手作業を頼まない（人にしかできない工程だけを人に渡す。
  * **AI ができることを人へ渡さない**）。
  *
  * Chrome が無い環境では**確認できなかったと言って終わる**（黙って通さない）。
@@ -84,7 +84,7 @@ async function run() {
     { stdio: 'ignore' },
   );
 
-  // **線も自分で立てる**（D34）。画面が繋ぎにいく先が無いと、9 が試せない。
+  // **線も自分で立てる**。画面が繋ぎにいく先が無いと、9 が試せない。
   let line = null;
   try {
     line = await serve(LIVE_PORT, createHub());
@@ -265,7 +265,7 @@ async function walk(line) {
     (await evaluate(`window.zumen.text.includes('locked: true')`)) === true,
   );
 
-  // 8-2. 重なりを解く（Issue 015）
+  // 8-2. 重なりを解く
   // 図の左上（他のノードが並んでいるあたり）へわざと置く。
   await evaluate("window.zumen.place('backup', 24, 24)");
   await until("window.zumen.placed.boxes.some((b) => b.id === 'backup' && b.x === 24)");
@@ -290,7 +290,7 @@ async function walk(line) {
     `)) === true,
   );
 
-  // --- 戻る / 進む（D19） ---
+  // --- 戻る / 進む ---
   const textBefore = await evaluate('window.zumen.text');
   await evaluate("window.zumen.place('lb', 111, 222)");
   await until("window.zumen.text.includes('x: 111')");
@@ -315,7 +315,7 @@ async function walk(line) {
   await until("window.zumen.text.includes('x: 333')");
   check('進む — 新しく変えたら消える（分岐を作らない）', (await evaluate('window.zumen.canRedo')) === false);
 
-  // --- 自動保存（D19） ---
+  // --- 自動保存 ---
   //
   // **保存先が決まっていないときは自動保存しない。** 決まっていないと
   // 保存のたびにダイアログが出て作業が止まる。ここでは決まっていない状態なので、
@@ -334,8 +334,8 @@ async function walk(line) {
   // --- 「見た」の印（仕様 §3.5） ---
   //
   // **この口は画面にしか無い。** MCP に開けると AI が自分の絵を自分で承認できる。
-  // ここが押されないまま自力率 100% が出るのが、この製品の失敗そのもの
-  // （PRD §4 / ベースルール §29）。**押せること**と**意味が変われば外れること**を見る。
+  // ここが押されないまま自力率 100% が出るのが、この製品の失敗そのもの。
+  // **押せること**と**意味が変われば外れること**を見る。
   check('見た — 最初は誰も見ていない', (await evaluate('window.zumen.review.reviewed')) === false);
 
   const reviewButton = `[...document.querySelectorAll('button')].find((b) => b.className.includes('review'))`;
@@ -359,7 +359,7 @@ async function walk(line) {
     (await evaluate('window.zumen.review.stale')) === true,
   );
 
-  // 9 線 —— エージェントと繋がる（D34）
+  // 9 線 —— エージェントと繋がる
   //
   // **ここがこの版の勝負どころ。** 提案が画面に降りて、差分が出て、
   // 人が押したことだけが線の向こうへ返ること。

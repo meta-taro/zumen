@@ -122,7 +122,7 @@ function axesOf(raw: unknown): Axis[] {
     const mark = (item as Record<string, unknown>).mark;
     out.push({ id: label, at, mark: mark === 'level' || mark === 'tick' ? mark : 'code' });
   }
-  // **同じ入力から同じ絵**（D2）。書いた順に依らず、位置の順で並べる。
+  // **同じ入力から同じ絵**（差分が読めるように）。書いた順に依らず、位置の順で並べる。
   return out.sort((a, b) => a.at - b.at);
 }
 

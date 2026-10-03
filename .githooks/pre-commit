@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# commit の前に、作業の記録が入っていないかを止める（全 OSS で同じ検査）。
+# 有効にするのは `pnpm install`（package.json の prepare が core.hooksPath をここへ向ける）。
+exec bash .github/scripts/oss-placement-check.sh

@@ -1,5 +1,5 @@
 /**
- * **作図**（D36 / `src/construct.ts`）。
+ * **作図**（`src/construct.ts`）。
  *
  * ## ここでいちばん見たいもの
  *
@@ -124,7 +124,7 @@ describe('組み立て', () => {
     assert.equal(Math.round(got.lengths.get('shoulder')! * 1000) / 1000, 61.803);
   });
 
-  it('**人が pin した定数が勝つ**（D36。手直しはここに効く）', () => {
+  it('**人が pin した定数が勝つ**（手直しはここに効く）', () => {
     const got = build(GOLDEN, new Map([['R', 200]]));
     assert.equal(got.lengths.get('R'), 200);
     // **R を 1 つ変えると、全部が比を保ったまま動く。**

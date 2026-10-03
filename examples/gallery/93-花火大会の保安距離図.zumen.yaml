@@ -3,7 +3,7 @@ kind: placement
 arrows: false
 north: up
 scale: { mm: 2000 }
-title: 花火大会 打揚配置・保安距離図（10 号・5 号・3 号／第 3 種場所）
+title: 花火大会 打揚配置・保安距離図（10 号・5 号・3 号／第 2 種消費場所）
 # 1 px = 2 m。**円が図の中身**で、飾りではない。
 #
 # ## 保安距離は「人を入れない距離」
@@ -13,6 +13,15 @@ title: 花火大会 打揚配置・保安距離図（10 号・5 号・3 号／�
 # **消費場所から通路等までの水平最短距離**。
 #
 # **円の中に、観覧席・通路・建物を入れない。** これが図を描く理由そのもの。
+#
+# ## 消費場所の区分で距離が変わる
+# 同基準 第 2 は消費場所を 3 つに分ける。観覧席のある花火大会は「観賞用煙火その他観衆が多い」
+# 場所なので第 1 種（周辺に人家等が密集）か第 2 種（密集していない）。第 3 種は信号雷など
+# 観衆が少ない場所で、観覧席のある大会には使えない。この図は川の中州で人家が密集していない
+# 前提なので第 2 種。表と円は第 2 種の列の値（3 号のスターマインは割物の距離で見る）。
+# 出典: 埼玉県「埼玉県煙火消費技術基準」第 2・第 3・第 5・別表 1
+#   https://www.pref.saitama.lg.jp/a0403/enkasyouhi.html（取得 2026-10-02）
+# 保安距離の外側には立入禁止区域を設け、警備を置く（同基準 第 5）。
 #
 # ## 号数は玉の直径
 #
@@ -44,26 +53,26 @@ nodes:
   - id: nakasu_n
     label: "中州（打揚場所）"
     marker: none
-    at: { x: 306, y: 186 }
+    at: { x: 306, y: 304 }
     size: { w: 180, h: 22 }
   - id: tsutsuA
     label: ""
     marker: circle
-    radius: 100
+    radius: 110
     tag: A
     at: { x: 330, y: 258 }
     size: { w: 26, h: 26 }
   - id: tsutsuB
     label: ""
     marker: circle
-    radius: 60
+    radius: 80
     tag: B
     at: { x: 430, y: 258 }
     size: { w: 26, h: 26 }
   - id: tsutsuC
     label: ""
     marker: circle
-    radius: 40
+    radius: 50
     tag: C
     at: { x: 520, y: 258 }
     size: { w: 26, h: 26 }
@@ -88,22 +97,22 @@ nodes:
   - id: honbu
     label: "本部・打上責任者"
     hatch: solid
-    at: { x: 60, y: 130 }
-    size: { w: 150, h: 40 }
+    at: { x: 60, y: 122 }
+    size: { w: 150, h: 36 }
   - id: kyugo
     label: "救護所"
-    at: { x: 216, y: 130 }
-    size: { w: 66, h: 40 }
+    at: { x: 216, y: 122 }
+    size: { w: 66, h: 36 }
   - id: shobo
     label: "消防車・水利"
-    at: { x: 286, y: 130 }
-    size: { w: 120, h: 40 }
+    at: { x: 286, y: 122 }
+    size: { w: 120, h: 36 }
   - id: fuko
     label: "風向計（南西 3.2m/s）"
-    at: { x: 640, y: 130 }
-    size: { w: 180, h: 40 }
+    at: { x: 640, y: 122 }
+    size: { w: 180, h: 36 }
   - id: tb_t
-    label: "保安距離（第 3 種場所・埼玉県基準 別表 1）"
+    label: "保安距離（第 2 種消費場所・埼玉県基準 別表 1）"
     marker: none
     at: { x: 860, y: 44 }
     size: { w: 420, h: 24 }
@@ -145,7 +154,7 @@ nodes:
     at: { x: 1030, y: 102 }
     size: { w: 80, h: 26 }
   - id: tc0_3
-    label: "30 m 以上"
+    label: "40 m 以上"
     at: { x: 1110, y: 102 }
     size: { w: 110, h: 26 }
   - id: tc0_4
@@ -165,7 +174,7 @@ nodes:
     at: { x: 1030, y: 128 }
     size: { w: 80, h: 26 }
   - id: tc1_3
-    label: "40 m 以上"
+    label: "60 m 以上"
     at: { x: 1110, y: 128 }
     size: { w: 110, h: 26 }
   - id: tc1_4
@@ -185,7 +194,7 @@ nodes:
     at: { x: 1030, y: 154 }
     size: { w: 80, h: 26 }
   - id: tc2_3
-    label: "80 m 以上"
+    label: "100 m 以上"
     at: { x: 1110, y: 154 }
     size: { w: 110, h: 26 }
   - id: tc2_4
@@ -205,7 +214,7 @@ nodes:
     at: { x: 1030, y: 180 }
     size: { w: 80, h: 26 }
   - id: tc3_3
-    label: "100 m 以上"
+    label: "110 m 以上"
     at: { x: 1110, y: 180 }
     size: { w: 110, h: 26 }
   - id: tc3_4
@@ -225,7 +234,7 @@ nodes:
     at: { x: 1030, y: 206 }
     size: { w: 80, h: 26 }
   - id: tc4_3
-    label: "120 m 以上"
+    label: "160 m 以上"
     at: { x: 1110, y: 206 }
     size: { w: 110, h: 26 }
   - id: tc4_4
@@ -245,7 +254,7 @@ nodes:
     at: { x: 1030, y: 232 }
     size: { w: 80, h: 26 }
   - id: tc5_3
-    label: "150 m 以上"
+    label: "200 m 以上"
     at: { x: 1110, y: 232 }
     size: { w: 110, h: 26 }
   - id: tc5_4
@@ -265,7 +274,7 @@ nodes:
     at: { x: 1030, y: 258 }
     size: { w: 80, h: 26 }
   - id: tc6_3
-    label: "170 m 以上"
+    label: "200 m 以上"
     at: { x: 1110, y: 258 }
     size: { w: 110, h: 26 }
   - id: tc6_4
@@ -285,7 +294,7 @@ nodes:
     at: { x: 1030, y: 284 }
     size: { w: 80, h: 26 }
   - id: tc7_3
-    label: "200 m 以上"
+    label: "220 m 以上"
     at: { x: 1110, y: 284 }
     size: { w: 110, h: 26 }
   - id: tc7_4
@@ -305,7 +314,7 @@ nodes:
     at: { x: 1030, y: 310 }
     size: { w: 80, h: 26 }
   - id: tc8_3
-    label: "300 m 以上"
+    label: "400 m 以上"
     at: { x: 1110, y: 310 }
     size: { w: 110, h: 26 }
   - id: tc8_4
@@ -367,7 +376,7 @@ nodes:
     at: { x: 860, y: 520 }
     size: { w: 40, h: 24 }
   - id: lgb0
-    label: "10 号（30cm）× 12 発。保安距離 200 m ＝ 図の円 100 px"
+    label: "10 号（30cm）× 12 発。保安距離 220 m ＝ 図の円 110 px"
     marker: none
     align: left
     at: { x: 906, y: 520 }
@@ -378,7 +387,7 @@ nodes:
     at: { x: 860, y: 548 }
     size: { w: 40, h: 24 }
   - id: lgb1
-    label: "5 号（15cm）× 40 発。保安距離 120 m"
+    label: "5 号（15cm）× 40 発。保安距離 160 m（割物）"
     marker: none
     align: left
     at: { x: 906, y: 548 }
@@ -389,7 +398,7 @@ nodes:
     at: { x: 860, y: 576 }
     size: { w: 40, h: 24 }
   - id: lgb2
-    label: "3 号（9cm）スターマイン。保安距離 80 m"
+    label: "3 号（9cm）スターマイン。保安距離 100 m（割物で見る）"
     marker: none
     align: left
     at: { x: 906, y: 576 }

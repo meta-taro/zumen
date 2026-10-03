@@ -9,7 +9,7 @@ palette:
   銀: "#8a8a8a"
 views:
   - id: tama
-    title: ① 玉の断面（1px ＝ 1mm・実寸 300mm）
+    title: ① 玉の断面（1px ＝ 1mm・玉は約 300mm）
     at: { x: 130, y: 94 }
     size: { w: 660, h: 610 }
     scale: { mm: 1 }
@@ -25,6 +25,12 @@ views:
 #
 # 星は芯に薬を掛け重ねた層で、**燃えるのは掛けた順の逆**（菊 → 紅 → 銀）。
 # 作った順と、見える順が逆になる図。
+#
+# 号数は打揚筒の内径を寸で表したもの（10 号 ＝ 1 尺 ＝ 30.3cm）。玉はそれより少し小さい。
+# 打揚高・開花直径は目安（10 号で約 330m・280〜300m）。
+#   照合（2026-10-02）：ハナビディア「花火の号数とは？」（号数は筒の内径が基準、10 号は内径 30.3cm）
+#   https://www.hanabidia.com/size-of-fireworks/
+#   同ページの表は 10 号の玉の直径 29.5cm・開花直径 320m。開花直径は資料で幅があるので表は目安。
 nodes:
   - id: tama
     label: ""
@@ -284,7 +290,7 @@ nodes:
   - id: p6
     label: ""
     marker: none
-    at: { x: 339, y: 453 }
+    at: { x: 365, y: 445 }
     size: { w: 2, h: 2 }
   - id: p7
     label: ""
@@ -306,7 +312,7 @@ nodes:
   - id: p8
     label: ""
     marker: none
-    at: { x: 443, y: 603 }
+    at: { x: 451, y: 572 }
     size: { w: 2, h: 2 }
   - id: p9
     label: ""
@@ -455,7 +461,7 @@ nodes:
     at: { x: 1040, y: 360 }
     size: { w: 200, h: 18 }
   - id: t3
-    label: "③ 号数と、上がる高さ・開く大きさ"
+    label: "③ 号数と、上がる高さ・開く大きさ（目安。資料で幅がある）"
     marker: none
     align: left
     at: { x: 800, y: 444 }
@@ -466,7 +472,7 @@ nodes:
     at: { x: 800, y: 472 }
     size: { w: 80, h: 24 }
   - id: g0_1
-    label: "玉の外径"
+    label: "筒の内径（約）"
     hatch: solid
     at: { x: 880, y: 472 }
     size: { w: 110, h: 24 }
@@ -485,7 +491,7 @@ nodes:
     at: { x: 800, y: 496 }
     size: { w: 80, h: 24 }
   - id: g1_1
-    label: "5.6cm"
+    label: "6.1cm"
     at: { x: 880, y: 496 }
     size: { w: 110, h: 24 }
   - id: g1_2
@@ -501,7 +507,7 @@ nodes:
     at: { x: 800, y: 520 }
     size: { w: 80, h: 24 }
   - id: g2_1
-    label: "9.0cm"
+    label: "9.1cm"
     at: { x: 880, y: 520 }
     size: { w: 110, h: 24 }
   - id: g2_2
@@ -517,7 +523,7 @@ nodes:
     at: { x: 800, y: 544 }
     size: { w: 80, h: 24 }
   - id: g3_1
-    label: "12.0cm"
+    label: "12.1cm"
     at: { x: 880, y: 544 }
     size: { w: 110, h: 24 }
   - id: g3_2
@@ -533,7 +539,7 @@ nodes:
     at: { x: 800, y: 568 }
     size: { w: 80, h: 24 }
   - id: g4_1
-    label: "15.0cm"
+    label: "15.2cm"
     at: { x: 880, y: 568 }
     size: { w: 110, h: 24 }
   - id: g4_2
@@ -549,7 +555,7 @@ nodes:
     at: { x: 800, y: 592 }
     size: { w: 80, h: 24 }
   - id: g5_1
-    label: "21.0cm"
+    label: "21.2cm"
     at: { x: 880, y: 592 }
     size: { w: 110, h: 24 }
   - id: g5_2
@@ -565,7 +571,7 @@ nodes:
     at: { x: 800, y: 616 }
     size: { w: 80, h: 24 }
   - id: g6_1
-    label: "30.0cm"
+    label: "30.3cm"
     at: { x: 880, y: 616 }
     size: { w: 110, h: 24 }
   - id: g6_2
@@ -577,13 +583,13 @@ nodes:
     at: { x: 1110, y: 616 }
     size: { w: 130, h: 24 }
   - id: n3
-    label: "号数は玉の直径の寸。1 号 ＝ 1 寸 ＝ 約 3cm。"
+    label: "号数は打揚筒の内径の寸（1 号 ＝ 1 寸 ≒ 3cm）。玉は少し小さい。"
     marker: none
     align: left
     at: { x: 800, y: 648 }
     size: { w: 440, h: 18 }
   - id: n3b
-    label: "この断面は 10 号玉（尺玉）—— 外径 30cm が、直径 300m に開く。"
+    label: "この断面は 10 号玉（尺玉）。径約 29.5cm の玉が約 300m に開く。"
     marker: none
     align: left
     at: { x: 800, y: 670 }

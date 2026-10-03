@@ -46,22 +46,34 @@ nodes:
     label: "事務室 A"
     at: { x: 140, y: 200 }
     size: { w: 460, h: 260 }
+    openings:
+      - { kind: door, side: bottom, at: 0.174, width: 40 }
+      - { kind: door, side: bottom, at: 0.913, width: 40 }
   - id: r2
     label: "事務室 B"
     at: { x: 620, y: 200 }
     size: { w: 480, h: 260 }
+    openings:
+      - { kind: door, side: bottom, at: 0.083, width: 40 }
+      - { kind: door, side: bottom, at: 0.708, width: 40 }
   - id: r3
     label: "会議室"
     at: { x: 140, y: 520 }
     size: { w: 300, h: 240 }
+    openings:
+      - { kind: door, side: top, at: 0.200, width: 40 }
   - id: r4
     label: "倉庫"
     at: { x: 460, y: 520 }
     size: { w: 300, h: 240 }
+    openings:
+      - { kind: door, side: top, at: 0.467, width: 40 }
   - id: r5
     label: "機械室"
     at: { x: 780, y: 520 }
     size: { w: 320, h: 240 }
+    openings:
+      - { kind: door, side: top, at: 0.812, width: 40 }
   - id: kaidan
     label: "階段"
     hatch: lines
@@ -120,27 +132,22 @@ nodes:
   - id: far
     label: ""
     marker: circle
-    at: { x: 160, y: 220 }
+    at: { x: 790, y: 730 }
     size: { w: 20, h: 20 }
   - id: walk_n
-    label: "歩行距離 18.4 m（壁を回り込んだ道のり）"
+    label: "歩行距離 18.9 m（扉を通る道のり）"
     marker: none
     align: left
-    at: { x: 390, y: 210 }
-    size: { w: 330, h: 22 }
-  - id: door
-    label: ""
-    hatch: solid
-    at: { x: 350, y: 452 }
-    size: { w: 40, h: 5 }
+    at: { x: 800, y: 560 }
+    size: { w: 230, h: 22 }
   - id: far_n
     label: "いちばん遠い所"
     marker: none
     align: left
-    at: { x: 160, y: 246 }
-    size: { w: 150, h: 22 }
+    at: { x: 814, y: 729 }
+    size: { w: 130, h: 22 }
   - id: c_t
-    label: "どこまで届くか（消防法施行令）"
+    label: "どこまで届くか（消防法施行令・施行規則）"
     marker: none
     align: left
     at: { x: 1180, y: 40 }
@@ -307,9 +314,7 @@ nodes:
     size: { w: 640, h: 24 }
 edges:
   - from: far
-    to: ex1
+    to: ex3
     weight: thick
     via:
-      - { x: 370, y: 200 }
-      - { x: 370, y: 490 }
-      - { x: 220, y: 490 }
+      - { x: 1040, y: 520 }

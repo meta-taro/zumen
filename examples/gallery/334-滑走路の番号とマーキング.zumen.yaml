@@ -3,7 +3,7 @@ kind: placement
 arrows: true
 title: 滑走路の番号とマーキング（番号は方位そのもの）
 # **滑走路の番号は名前ではなく、方位である。**
-# **磁北からの方位角を 1／10 した数** —— 01 から 36 まで。
+# **磁北から右回りに測った方位角を 1／10 した数（四捨五入）** —— 01 から 36 まで。
 #
 # ## 両端で 18 違う
 #
@@ -22,11 +22,17 @@ title: 滑走路の番号とマーキング（番号は方位そのもの）
 # **磁北は動く。** 方位がずれれば番号も変わるので、**塗り替える。**
 # 地図の記号と違い、**地面に書いてある数字のほうが動く。**
 #
-# ## マーキング
+# ## 標識（名前は航空局の設置基準のもの）
 #
-# 末端標識（太い白線の束）・滑走路番号・中心線・固定距離標識（接地の目標）・滑走終了線。
-# **ブラストパッドは黄色の山形模様**、
-# **ずらした末端（ディスプレイスドスレッシュホールド）は白色の矢印**で示す。
+# 滑走路進入端標識（滑走路の向きに沿った縦縞の束。本数は幅で決まり、30m なら 8 本）・
+# 指示標識（滑走路番号）・滑走路中心線標識・目標点標識（進入端から 150m 以上）。
+# **過走帯標識は黄色の山形模様**（山の先は滑走路を向く）、
+# **移設滑走路進入端標識（ずらした進入端）は中心線上の矢印**で示す。
+# 接地帯標識（進入端から 150〜922.5m の縦縞）はこの図では省いた。
+#
+# 出典：国土交通省航空局「陸上空港の施設の設置基準と解説」（令和 6 年 4 月一部改正）
+# 3.12.3 滑走路標識・3.12.4 過走帯標識 https://www.mlit.go.jp/koku/content/001736131.pdf
+# （取得 2026-10-02）。指示標識の数字は方位の 1／10 を四捨五入し、1 桁なら頭に 0 を付ける。
 #
 # 長さの比は模式。 道路の平面線形は見本 61、地図記号は見本 165。
 nodes:
@@ -43,52 +49,84 @@ nodes:
     size: { w: 1100, h: 130 }
   - id: tha0
     label: ""
-    at: { x: 230, y: 314 }
-    size: { w: 4, h: 102 }
+    hatch: solid
+    at: { x: 228, y: 312 }
+    size: { w: 46, h: 8 }
   - id: tha1
     label: ""
-    at: { x: 238, y: 314 }
-    size: { w: 4, h: 102 }
+    hatch: solid
+    at: { x: 228, y: 325 }
+    size: { w: 46, h: 8 }
   - id: tha2
     label: ""
-    at: { x: 246, y: 314 }
-    size: { w: 4, h: 102 }
+    hatch: solid
+    at: { x: 228, y: 338 }
+    size: { w: 46, h: 8 }
   - id: tha3
     label: ""
-    at: { x: 254, y: 314 }
-    size: { w: 4, h: 102 }
+    hatch: solid
+    at: { x: 228, y: 351 }
+    size: { w: 46, h: 8 }
   - id: tha4
     label: ""
-    at: { x: 262, y: 314 }
-    size: { w: 4, h: 102 }
+    hatch: solid
+    at: { x: 228, y: 371 }
+    size: { w: 46, h: 8 }
   - id: tha5
     label: ""
-    at: { x: 270, y: 314 }
-    size: { w: 4, h: 102 }
+    hatch: solid
+    at: { x: 228, y: 384 }
+    size: { w: 46, h: 8 }
+  - id: tha6
+    label: ""
+    hatch: solid
+    at: { x: 228, y: 397 }
+    size: { w: 46, h: 8 }
+  - id: tha7
+    label: ""
+    hatch: solid
+    at: { x: 228, y: 410 }
+    size: { w: 46, h: 8 }
   - id: thb0
     label: ""
-    at: { x: 1262, y: 314 }
-    size: { w: 4, h: 102 }
+    hatch: solid
+    at: { x: 1250, y: 312 }
+    size: { w: 46, h: 8 }
   - id: thb1
     label: ""
-    at: { x: 1270, y: 314 }
-    size: { w: 4, h: 102 }
+    hatch: solid
+    at: { x: 1250, y: 325 }
+    size: { w: 46, h: 8 }
   - id: thb2
     label: ""
-    at: { x: 1278, y: 314 }
-    size: { w: 4, h: 102 }
+    hatch: solid
+    at: { x: 1250, y: 338 }
+    size: { w: 46, h: 8 }
   - id: thb3
     label: ""
-    at: { x: 1286, y: 314 }
-    size: { w: 4, h: 102 }
+    hatch: solid
+    at: { x: 1250, y: 351 }
+    size: { w: 46, h: 8 }
   - id: thb4
     label: ""
-    at: { x: 1294, y: 314 }
-    size: { w: 4, h: 102 }
+    hatch: solid
+    at: { x: 1250, y: 371 }
+    size: { w: 46, h: 8 }
   - id: thb5
     label: ""
-    at: { x: 1302, y: 314 }
-    size: { w: 4, h: 102 }
+    hatch: solid
+    at: { x: 1250, y: 384 }
+    size: { w: 46, h: 8 }
+  - id: thb6
+    label: ""
+    hatch: solid
+    at: { x: 1250, y: 397 }
+    size: { w: 46, h: 8 }
+  - id: thb7
+    label: ""
+    hatch: solid
+    at: { x: 1250, y: 410 }
+    size: { w: 46, h: 8 }
   - id: cl380
     label: ""
     hatch: solid
@@ -227,37 +265,37 @@ nodes:
     at: { x: 193, y: 421 }
     size: { w: 2, h: 2 }
   - id: la
-    label: "末端標識"
+    label: "滑走路進入端標識"
     marker: none
     align: center
-    at: { x: 200, y: 444 }
-    size: { w: 110, h: 18 }
+    at: { x: 170, y: 444 }
+    size: { w: 150, h: 18 }
   - id: lb
-    label: "滑走路番号"
+    label: "指示標識（番号）"
     marker: none
     align: center
     at: { x: 326, y: 444 }
     size: { w: 140, h: 18 }
   - id: lc
-    label: "固定距離標識"
+    label: "目標点標識"
     marker: none
     align: center
     at: { x: 440, y: 466 }
     size: { w: 160, h: 18 }
   - id: ld
-    label: "中心線"
+    label: "滑走路中心線標識"
     marker: none
     align: left
     at: { x: 640, y: 444 }
     size: { w: 120, h: 18 }
   - id: le
-    label: "ブラストパッド（黄色の山形）"
+    label: "過走帯標識（黄色の山形）"
     marker: none
     align: left
     at: { x: 120, y: 246 }
     size: { w: 280, h: 18 }
   - id: lf
-    label: "滑走終了線・末端標識"
+    label: "反対向きの滑走路進入端標識"
     marker: none
     align: right
     at: { x: 1110, y: 444 }
@@ -269,7 +307,7 @@ nodes:
     at: { x: 280, y: 270 }
     size: { w: 200, h: 18 }
   - id: t2
-    label: "② 番号は、磁北からの方位角を 1／10 したもの（01〜36）"
+    label: "② 番号は、磁北から右回りに測った方位角を 1／10 し、四捨五入したもの（01〜36）"
     marker: none
     align: left
     at: { x: 140, y: 500 }
@@ -299,30 +337,30 @@ nodes:
     at: { x: 140, y: 602 }
     size: { w: 1150, h: 18 }
   - id: h140_700
-    label: "滑走路のマーキング"
+    label: "滑走路の標識"
     hatch: solid
     at: { x: 140, y: 700 }
     size: { w: 640, h: 24 }
   - id: x140_724
-    label: "末端標識"
+    label: "滑走路進入端標識"
     at: { x: 140, y: 724 }
     size: { w: 200, h: 24 }
   - id: y140_724
-    label: "滑走路の端。太い白線を並べる"
+    label: "着陸に使える部分の始まり。縦縞（幅 30m なら 8 本）"
     align: left
     at: { x: 340, y: 724 }
     size: { w: 440, h: 24 }
   - id: x140_748
-    label: "滑走路番号"
+    label: "指示標識"
     at: { x: 140, y: 748 }
     size: { w: 200, h: 24 }
   - id: y140_748
-    label: "磁北からの方位角の 1／10"
+    label: "滑走路番号。方位の 1／10"
     align: left
     at: { x: 340, y: 748 }
     size: { w: 440, h: 24 }
   - id: x140_772
-    label: "中心線"
+    label: "滑走路中心線標識"
     at: { x: 140, y: 772 }
     size: { w: 200, h: 24 }
   - id: y140_772
@@ -331,20 +369,20 @@ nodes:
     at: { x: 340, y: 772 }
     size: { w: 440, h: 24 }
   - id: x140_796
-    label: "固定距離標識"
+    label: "目標点標識"
     at: { x: 140, y: 796 }
     size: { w: 200, h: 24 }
   - id: y140_796
-    label: "接地の目標。中心線の両側に置く"
+    label: "着陸の目標。進入端から 150m 以上"
     align: left
     at: { x: 340, y: 796 }
     size: { w: 440, h: 24 }
   - id: x140_820
-    label: "滑走終了線"
+    label: "接地帯標識"
     at: { x: 140, y: 820 }
     size: { w: 200, h: 24 }
   - id: y140_820
-    label: "使える部分の終わり"
+    label: "進入端から 150〜922.5m の縦縞（この図では省略）"
     align: left
     at: { x: 340, y: 820 }
     size: { w: 440, h: 24 }
@@ -354,11 +392,11 @@ nodes:
     at: { x: 870, y: 700 }
     size: { w: 640, h: 24 }
   - id: x870_724
-    label: "番号の範囲"
+    label: "番号の丸め"
     at: { x: 870, y: 724 }
     size: { w: 200, h: 24 }
   - id: y870_724
-    label: "01〜36"
+    label: "四捨五入。1 桁なら頭に 0（例 05）"
     align: left
     at: { x: 1070, y: 724 }
     size: { w: 440, h: 24 }
@@ -381,7 +419,7 @@ nodes:
     at: { x: 1070, y: 772 }
     size: { w: 440, h: 24 }
   - id: x870_796
-    label: "ブラストパッド"
+    label: "過走帯標識"
     at: { x: 870, y: 796 }
     size: { w: 200, h: 24 }
   - id: y870_796
@@ -390,11 +428,11 @@ nodes:
     at: { x: 1070, y: 796 }
     size: { w: 440, h: 24 }
   - id: x870_820
-    label: "ずらした末端"
+    label: "移設滑走路進入端標識"
     at: { x: 870, y: 820 }
     size: { w: 200, h: 24 }
   - id: y870_820
-    label: "白色の矢印（ディスプレイスドスレッシュホールド）"
+    label: "ずらした進入端。中心線上の矢印"
     align: left
     at: { x: 1070, y: 820 }
     size: { w: 440, h: 24 }

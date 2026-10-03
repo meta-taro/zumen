@@ -138,7 +138,7 @@ pnpm dev                      # the GUI in a browser (http://localhost:5173)
 pnpm app                      # the desktop app (Tauri; needs Rust)
 
 pnpm gui:check                # drive the eight operations for real (needs Chrome)
-pnpm qa:verify                # read back human verification evidence (see qa/README.md)
+pnpm qa:verify                # read back human verification evidence (git-qa)
 
 pnpm svg examples/gallery/25-路線図.zumen.yaml out.svg
 pnpm svg examples/gallery/25-路線図.zumen.yaml out.svg --embed-font   # carry the typeface inside, so it looks the same on every device
@@ -195,7 +195,6 @@ binds to 127.0.0.1 only and added no dependencies.
 
 | | |
 |---|---|
-| [`PRD.md`](PRD.md) | what this product is for, and what it refuses to do |
 | [`spec/zumen-format-v1.md`](spec/zumen-format-v1.md) | the file format |
 | [`DESIGN.md`](DESIGN.md) | visual decisions (written by a human, not by the AI) |
 | [`CHANGELOG.md`](CHANGELOG.md) | what changed, in terms of behaviour |

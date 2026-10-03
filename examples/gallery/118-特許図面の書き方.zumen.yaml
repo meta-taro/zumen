@@ -2,8 +2,11 @@ version: 1
 kind: placement
 arrows: true
 title: 特許図面の書き方（様式第 30／架空の「蓋付き容器」）
-scale: { mm: 0.5 }
+# 縮尺は 1 px ＝ 0.5 mm で描いているが、特許図面には縮尺を書かないので scale は置かない（置くと縮尺の帯が出る）。
 # **図面そのものに決まりがある図面。**
+#
+# 出典：特許法施行規則 様式第 30（第 25 条関係）の備考 2・4・6・7・8
+# （特許庁「出願の手続」第四節 図面の作成方法 https://www.jpo.go.jp/system/laws/rule/guideline/document/syutugan_tetuzuki/02_04.pdf 、2026-10-02 照合）。
 #
 # ## 決まりは形ではなく、書き方にかかる
 #
@@ -105,11 +108,17 @@ nodes:
     marker: none
     at: { x: 412, y: 246 }
     size: { w: 22, h: 22 }
+  # 収納部の符号は外に置き、引出線を空所の中まで引く（符号に線を掛けない）
   - id: n6
     label: "6"
     marker: none
-    at: { x: 260, y: 290 }
+    at: { x: 412, y: 300 }
     size: { w: 22, h: 22 }
+  - id: void_pt
+    label: ""
+    marker: none
+    at: { x: 300, y: 318 }
+    size: { w: 2, h: 2 }
   - id: f2
     label: "【図 2】　平面図"
     marker: none
@@ -120,9 +129,9 @@ nodes:
     label: ""
     at: { x: 160, y: 450 }
     size: { w: 220, h: 160 }
+  # **平面図は外から見た図なので、斜線を引かない**（平行斜線は切断面だけ。様式第 30 備考 8）
   - id: p_lid
     label: ""
-    hatch: cross
     at: { x: 172, y: 462 }
     size: { w: 196, h: 136 }
   - id: p_hinge
@@ -132,7 +141,6 @@ nodes:
     size: { w: 12, h: 12 }
   - id: p_claw
     label: ""
-    hatch: solid
     at: { x: 368, y: 514 }
     size: { w: 14, h: 34 }
   - id: m2
@@ -380,7 +388,7 @@ edges:
     weight: thin
     ends: { from: none, to: none }
   - from: n6
-    to: void
+    to: void_pt
     weight: thin
     ends: { from: none, to: none }
   - from: m2

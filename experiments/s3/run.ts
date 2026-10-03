@@ -1,5 +1,5 @@
 /**
- * 「9 割」の基準線を取る（Issue 003 / D3）。`pnpm s3` で再生成できる。
+ * 「9 割」の基準線を取る。`pnpm s3` で再生成できる。
  *
  * **この時点で数字が良いことに意味は無い。** 意味があるのは、
  * **後から下がっていないことを確かめられる**ことのほう。
@@ -9,7 +9,7 @@
  * 1. **基準の図**（`fixtures/`）— 実在の構成から起こした 2 枚。手直し前の姿
  * 2. **S1 の往復の結果**（`experiments/s1/results/`）— **人が実際に手を入れた後**の姿。
  *    基準線として意味を持つのはこちら
- * 3. **わざと並べ直した図** — **指標が悪化することの確認**（Issue 003 の完了条件）
+ * 3. **わざと並べ直した図** — **指標が悪化することの確認**（完了条件）
  */
 import { mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -85,7 +85,7 @@ function report(base: Row[], rounds: Row[], wrecked: Row[]): string {
     '意味があるのは、**後から下がっていないことを確かめられる**ことのほう。',
     '',
     `合格ライン: **自力率・配置の自力率とも ${percent(PASS_LINE)} 以上**。`,
-    '定義は `docs/specs/003-9割の定義.md`、実装は `src/measure.ts`。',
+    '実装は `src/measure.ts`。',
     '',
     '## 1. 基準の図（手直し前）',
     '',
@@ -103,7 +103,7 @@ function report(base: Row[], rounds: Row[], wrecked: Row[]): string {
     '',
     '## 3. わざと全部を並べ直した場合',
     '',
-    '**指標が悪化することの確認**（Issue 003 の完了条件）。',
+    '**指標が悪化することの確認**（完了条件）。',
     '悪化しない指標は、この企画では役に立たない。',
     '',
     ...table(wrecked),

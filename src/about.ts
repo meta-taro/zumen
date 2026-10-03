@@ -54,7 +54,7 @@ export interface About {
   doors: string[];
   /** **開けていない口と、その理由。** */
   closed: Closed[];
-  /** **頼まれても作らないもの**（PRD §4）。 */
+  /** **頼まれても作らないもの**。 */
   notDoing: string[];
   /** 版ごとに変わったこと。**新しいものが先。** */
   releases: Release[];
@@ -183,7 +183,7 @@ export const DOORS = [
   'zumen_propose',
   'zumen_export',
   'zumen_timelapse',
-  // 画面と繋ぐ線（D34）。**提案を採用する口は、ここに無い。**
+  // 画面と繋ぐ線。**提案を採用する口は、ここに無い。**
   'zumen_live_status',
   'zumen_live_read',
   'zumen_live_point',

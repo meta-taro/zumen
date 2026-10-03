@@ -161,9 +161,12 @@ edges:
   - from: s2
     to: s3
     label: カード
+  # 「カートに入れる」は**画面を変えずに** Toast を出す（下の破線）。
+  # Cart へ行くのは Header のカートを押したとき —— 同じボタンから実線と破線を両方出すと、
+  # 押したら移るのか留まるのかが読めない
   - from: s3
     to: s4
-    label: 追加
+    label: Header のカート
   - from: s3
     to: toast
     label: success

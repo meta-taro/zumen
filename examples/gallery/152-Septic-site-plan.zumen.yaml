@@ -16,7 +16,8 @@ grid:
 # soil. The perc test gives the loading rate, the bedroom count gives the design
 # flow, and together they give the trench area that the plan then arranges.
 #
-# **The reserve area is drawn and kept empty.** A drainfield is a consumable;
+# **The reserve area is drawn and kept empty** —— and it keeps the same well setback as the
+# field in use, because one day it will be the field in use. A drainfield is a consumable;
 # the next one has to have somewhere to go.
 #
 # Sizes, soils and setbacks are fictional; local health codes decide them.
@@ -71,7 +72,7 @@ nodes:
     tag: W
     marker: circle
     radius: 200
-    at: { x: 120, y: 316 }
+    at: { x: 86, y: 316 }
     size: { w: 38, h: 38 }
   - id: ltr
     label: "4 trenches, 60 ft, 8 ft on centre"
@@ -107,7 +108,7 @@ nodes:
     at: { x: 530, y: 82 }
     size: { w: 190, h: 22 }
   - id: b82
-    label: "1,500 gal for 3 bedrooms"
+    label: "1,250 gal for 3 bedrooms"
     align: left
     at: { x: 720, y: 82 }
     size: { w: 240, h: 22 }

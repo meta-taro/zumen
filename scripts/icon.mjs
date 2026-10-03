@@ -62,7 +62,7 @@ execFileSync('pnpm', ['exec', 'tauri', 'icon', png, '-o', join(ROOT, 'src-tauri/
   stdio: 'inherit',
 });
 
-// この製品はデスクトップだけ（D1 / PRD §4）。**要らないものを置いたままにしない。**
+// この製品はデスクトップだけ。**要らないものを置いたままにしない。**
 execFileSync('rm', ['-rf', join(ROOT, 'src-tauri/icons/android'), join(ROOT, 'src-tauri/icons/ios')]);
 
 console.log('src-tauri/icons/ を作り直しました。');

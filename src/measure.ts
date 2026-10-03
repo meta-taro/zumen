@@ -1,5 +1,5 @@
 /**
- * 「AI が 9 割描けた」を数える（Issue 003 / D3）。
+ * 「AI が 9 割描けた」を数える。
  *
  * **この数字が無いと、出来上がりが従来の作図ソフトと同じでも気づけない。**
  * 機能が増えるほど「使える」ようには見える。だが人が図形を並べ直しているなら、
@@ -21,7 +21,7 @@
  *
  * ## 数えないもの
  *
- * **人の作業時間を数えない。** 測っているのは製品であって人ではない（Issue 003 の注意）。
+ * **人の作業時間を数えない。** 測っているのは製品であって人ではない（注意）。
  */
 import { getPins, parse } from './format.ts';
 import { kindOf } from './kind.ts';
@@ -34,7 +34,7 @@ const GEOMETRY_KEYS = ['position', 'size', 'waypoints'] as const;
 /** 人が中身を直した印。 */
 const CONTENT_KEYS = ['label', 'appearance'] as const;
 
-/** 合格ライン。**9 割**（原案の掲げる「AI が 9 割描き、人が 1 割直す」そのもの）。 */
+/** 合格ライン。**9 割**（「AI が 9 割描き、人が 1 割直す」そのもの）。 */
 export const PASS_LINE = 0.9;
 
 export interface Measurement {
@@ -72,7 +72,7 @@ export function measure(text: string): Measurement {
   const diagram = parse(text);
   const pins = getPins(diagram);
   /**
-   * **作図は数えるものが違う**（D36 / 仕様 `docs/specs/003-9割の定義.md`）。
+   * **作図は数えるものが違う**。
    *
    * 座標を持たない図なので「置き場所を人が決めた割合」という問いが成立しない。
    * 数えるのは**定数**で、向きは同じ —— **人が pin した数が少ないほど、AI が自力。**
@@ -137,7 +137,7 @@ export function percent(value: number): string {
 }
 
 /**
- * 作図の「9 割」（D36）。**定数のうち、人が pin した割合を引く。**
+ * 作図の「9 割」。**定数のうち、人が pin した割合を引く。**
  *
  * `structure` / `placement` の数え方は 1 つも変えていない ——
  * **過去の数字と地続きにする**ため（仕様 003）。

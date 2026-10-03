@@ -7,7 +7,12 @@ title: 架空電鉄 中央駅 配線略図（2 面 4 線・待避可能／引上
 # 実際の高さや距離ではない（略図なので縮尺を持たない）。
 #
 # 1・4 番線が本線、2・3 番線が待避線。両端の分岐器で出入りする。
-# 分岐器の番号（11・12・21・22）と信号機の識別は、実物と同じく図の中に書く。
+# 日本の鉄道は左側通行なので、左が上り方の図では**下り線が上、上り線が下**に来る。
+# 信号機も進行方向の左側に立つ（下り用は線の上、上り用は線の下）。
+# 引上線は上下本線の間に置き、両方の本線から分岐器（13・14）で入れる ——
+# 下りで着いた列車が引上線で折り返して上りへ出るには、両方につながっている必要がある。
+# 13 と 14 から来た線が合わさる所も分岐器（15）—— 線が分かれる・合わさる所は、どこも分岐器になる。
+# 分岐器の番号（11〜15・21・22）と信号機の識別は、実物と同じく図の中に書く。
 #
 # **信号機の図記号は JIS E 3012:2022（鉄道信号用図記号）で決まっているが、まだ持っていない。**
 # ここでは丸と識別名で代用している（凡例で対応を言う）。
@@ -26,12 +31,12 @@ nodes:
   - id: wr
     label: ""
     marker: none
-    at: { x: 1077, y: 147 }
+    at: { x: 1257, y: 147 }
     size: { w: 6, h: 6 }
   - id: wr4
     label: ""
     marker: none
-    at: { x: 1077, y: 347 }
+    at: { x: 1257, y: 347 }
     size: { w: 6, h: 6 }
   - id: jl1
     label: ""
@@ -55,26 +60,31 @@ nodes:
     size: { w: 6, h: 6 }
   - id: hik2
     label: ""
+    marker: diamond
+    at: { x: 1039, y: 239 }
+    size: { w: 22, h: 22 }
+  - id: sw15n
+    label: "15"
     marker: none
-    at: { x: 1197, y: 347 }
-    size: { w: 6, h: 6 }
+    at: { x: 1064, y: 264 }
+    size: { w: 32, h: 22 }
   - id: n1
-    label: "1 番線（上り本線）"
+    label: "1 番線（下り本線）"
     marker: none
     at: { x: 20, y: 137 }
     size: { w: 190, h: 26 }
   - id: n2
-    label: "2 番線（上り待避）"
+    label: "2 番線（下り待避）"
     marker: none
     at: { x: 20, y: 197 }
     size: { w: 190, h: 26 }
   - id: n3
-    label: "3 番線（下り待避）"
+    label: "3 番線（上り待避）"
     marker: none
     at: { x: 20, y: 277 }
     size: { w: 190, h: 26 }
   - id: n4
-    label: "4 番線（下り本線）"
+    label: "4 番線（上り本線）"
     marker: none
     at: { x: 20, y: 337 }
     size: { w: 190, h: 26 }
@@ -138,6 +148,26 @@ nodes:
     marker: none
     at: { x: 884, y: 380 }
     size: { w: 32, h: 22 }
+  - id: sw13
+    label: ""
+    marker: diamond
+    at: { x: 989, y: 139 }
+    size: { w: 22, h: 22 }
+  - id: sw13n
+    label: "13"
+    marker: none
+    at: { x: 984, y: 116 }
+    size: { w: 32, h: 22 }
+  - id: sw14
+    label: ""
+    marker: diamond
+    at: { x: 989, y: 339 }
+    size: { w: 22, h: 22 }
+  - id: sw14n
+    label: "14"
+    marker: none
+    at: { x: 984, y: 380 }
+    size: { w: 32, h: 22 }
   - id: s_in_u
     label: "場内 下 1L"
     marker: circle
@@ -148,7 +178,7 @@ nodes:
     label: "場内 上 1R"
     marker: circle
     hatch: solid
-    at: { x: 947, y: 383 }
+    at: { x: 1097, y: 383 }
     size: { w: 26, h: 26 }
   - id: s_out1
     label: "出発 1L"
@@ -177,17 +207,17 @@ nodes:
   - id: stop
     label: ""
     marker: bar
-    at: { x: 1200, y: 336 }
+    at: { x: 1200, y: 236 }
     size: { w: 16, h: 28 }
   - id: stopn
     label: "車止め"
     marker: none
-    at: { x: 1160, y: 302 }
+    at: { x: 1160, y: 270 }
     size: { w: 100, h: 22 }
   - id: hikiage
     label: "引上線（折返し・2 両まで）"
     marker: none
-    at: { x: 1020, y: 390 }
+    at: { x: 1062, y: 210 }
     size: { w: 240, h: 22 }
   - id: dir_l
     label: "← 港町方（上り）"
@@ -252,5 +282,9 @@ edges:
     via:
       - { x: 430, y: 290 }
       - { x: 810, y: 290 }
-  - from: wr4
+  - from: sw13
     to: hik2
+  - from: sw14
+    to: hik2
+  - from: hik2
+    to: stop

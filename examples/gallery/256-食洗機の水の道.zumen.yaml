@@ -173,9 +173,8 @@ nodes:
     size: { w: 130, h: 18 }
   - id: drain
     label: "排水ポンプ\n（工程ごとに捨てる）"
-    line: dashed
-    at: { x: 660, y: 408 }
-    size: { w: 130, h: 54 }
+    at: { x: 652, y: 408 }
+    size: { w: 140, h: 54 }
   - id: p16
     label: ""
     marker: none
@@ -184,7 +183,7 @@ nodes:
   - id: p17
     label: ""
     marker: none
-    at: { x: 659, y: 434 }
+    at: { x: 651, y: 434 }
     size: { w: 2, h: 2 }
   - id: why1
     label: "手洗いは、使った水をその場で捨てる。 食洗機は溜めた水を回し続ける ——\n数 L を何十回も回すので、食器に当たる水は入れた水の何倍にもなる。"
@@ -367,6 +366,11 @@ nodes:
     align: left
     at: { x: 150, y: 1004 }
     size: { w: 1090, h: 18 }
+  - id: p18
+    label: ""
+    marker: none
+    at: { x: 339, y: 247 }
+    size: { w: 2, h: 2 }
 edges:
   - from: p0
     to: p1
@@ -407,3 +411,9 @@ edges:
     curve: none
     line: dashed
     ends: { from: none, to: arrow }
+  - from: p14
+    to: p18
+    curve: none
+    ends: { from: none, to: arrow }
+    via:
+      - { x: 125, y: 248 }
