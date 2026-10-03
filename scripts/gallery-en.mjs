@@ -69,7 +69,7 @@ export function englishFirst(items) {
 /** 名前 → 英語の 1 行。**alt にもこれを使う**（飾りを入れない）。 */
 export const CAPTIONS_EN = {
   // 鉄道・交通
-  '25-路線図': 'A transit map of six lines told apart by colour and letter code, with interchange stations marked by a double circle rather than by name',
+  '25-路線図': 'A fictional transit map of three lines told apart by colour and station numbering, drawn only in horizontal, vertical and 45° segments, with interchange stations marked by a double circle',
   '78-山手線の路線図': 'The Yamanote loop drawn with its thirty stations evenly spaced rather than to scale, each one carrying the lines you can change to',
   '81-東京の地下鉄13路線': 'Thirteen Tokyo subway lines on one map of the central area, each told apart by its letter code as well as its colour',
   '79-梅田の乗換関係図': 'Seven stations all called Umeda, and the walk between them',
@@ -88,13 +88,13 @@ export const CAPTIONS_EN = {
   '57-登山のコースタイム図': 'A hiking profile with distance across and elevation up, annotated with how long each section takes to walk',
   '334-滑走路の番号とマーキング': 'A runway number is not a name but a bearing: the magnetic heading divided by ten. Use the same strip from the other end and the heading differs by 180 degrees, so the two numbers always differ by 18 and the runway is called 16/34. Because magnetic north drifts, the number painted on the ground is not permanent — when the bearing moves far enough, it gets repainted.',
   '102-ドローンの飛行計画図': 'Drone flight plan and the area kept clear of people',
-  '61-道路の平面線形図': 'A road alignment where straights, circular curves and transition curves join up, annotated with chainage and the parameters of each curve',
-  '37-配送ルート': 'Delivery rounds for three two-tonne vans: the order of calls, the stops themselves, and the area each van covers',
+  '61-道路の平面線形図': 'A road alignment where straights and a circular curve join up, with the intersection point and tangents, chainage ticks and the curve parameters; the centreline is a chain line and the road edges are solid',
+  '37-配送ルート': 'Delivery rounds for one two-tonne van split into a morning and an afternoon run: the order of calls and the stops themselves',
 
   // 建築・土木
   '14-間取り': 'A two-bedroom apartment plan with room dimensions, which way each door swings, and where the wet rooms and storage sit',
   '24-校舎の平面図': 'School floor plan (walls, door swings, grid lines, dimensions)',
-  '32-ホテルの基準階': 'The typical floor of a business hotel with twelve rooms, the corridor, the fire stairs and the lifts',
+  '32-ホテルの基準階': 'The typical floor of a business hotel with nine rooms, a central corridor, two direct stairs, and two lifts with their hall',
   '134-梁の配筋図': 'Beam reinforcement: the last moment it can be changed is before the pour',
   '17-躯体の伏図': 'A reinforced concrete framing plan for a second floor, with the grid lines and the mark of every column, girder, beam and slab',
   '136-天井伏図': 'Reflected ceiling plan: you look up by drawing it looking down',
@@ -192,8 +192,8 @@ export const CAPTIONS_EN = {
   '298-交通信号機': 'Green sits at the end of the row because red has to sit where it is most visible: the order of the colours is not an aesthetic choice but a ranking of how badly each one would be missed — and the arrows below follow the same logic, left turn under green, straight under amber, right turn under red',
   '297-郵便物の規格': 'Standard mail is not a size of envelope but the name of four conditions met together — length, width, thickness and weight — and breaking any one of them moves the item to a different price table entirely; the 1cm thickness limit is really the line between what a sorting machine can swallow and what it cannot',
   '296-献血から輸血まで': 'One donation splits into three products that keep for wildly different times — red cells 28 days cold, plasma a year frozen, platelets just four days at room temperature — which is why plasma can be stockpiled and platelets cannot, and why the shortage people talk about is almost always the four-day one',
-  '295-土俵': 'Four of the sixteen bales that make the 4.55m ring are pushed one bale-width outwards, so a wrestler whose heel lands there is still in — and the sand raked around the outside is not decoration but the instrument of judgement, since a foot that left the ring leaves a print',
-  '294-能舞台': 'Which way the floorboards run is what separates one area from another: the chorus sits where the boards run lengthwise like the main stage, the musicians where they run crosswise — and the four pillars are not decoration but the only way a masked actor, who can see almost nothing, knows where he is standing',
+  '295-土俵': 'The 4.55m ring is sixteen bales plus four tokudawara set one bale-width further out, so a wrestler whose heel lands on one is still in — and the sand raked around the outside is not decoration but the instrument of judgement, since a foot that left the ring leaves a print',
+  '294-能舞台': 'Which way the floorboards run is what separates one area from another: the chorus sits where the boards run lengthwise like the main stage, the musicians where they run crosswise — and the four pillars are not decoration but the landmarks a masked actor, who can see very little, uses to know where they are standing',
   '293-立体構造を決めるまで': 'Diffraction records only intensities, never phases, so a crystallographer has to fetch the phases from somewhere else — a known structure, anomalous scattering, or a heavy-atom derivative — whereas cryo-EM has no phase problem at all and pays instead by having to average tens of thousands of particles',
   '292-製麹の品温': 'Growing koji is two days of walking a temperature up and stopping it at the top: the mould heats itself as it grows, so the maker cannot hold the temperature down — only decide how often to break the rice up, and the shape of that climb is the recipe',
   '291-たんぱく質のトポロジー図': 'Throw away every length and only the fold is left: a TOPS cartoon draws helices as circles and strands as triangles, and whether a connecting line stops at the edge of a symbol or runs into its centre is what tells you which end of the strand it joins — so two proteins of very different size can share one diagram',
@@ -249,7 +249,7 @@ export const CAPTIONS_EN = {
   '336-航海灯': 'At night you see no hull, only coloured lights, so the arcs are cut to make the colours alone fix her heading. Each sidelight covers 112.5 degrees and the sternlight 135 — exactly 360 with no overlap. Green alone means she crosses to your right, red alone to your left, both means head on, and a white sternlight means you are overtaking.',
   '223-海図の読み方': 'A nautical chart carries three datums at once: depths from the lowest water, clearances from the highest, and light heights from the mean — each taken at its worst case',
   '222-平屋の保育園の避難計画': 'A single-storey nursery has no upstairs, so the plan is half about the building next door — and three people coming out to help halves the time the children spend outside',
-  '331-緊急地震速報': 'An earthquake early warning does not predict anything; it borrows the gap between the fast P wave and the slow S wave. Three seconds of waveform are needed to size the quake and the processing takes seconds more, and those costs are the same however far away the epicentre is — so the warning time is only what is left over, and directly beneath a shallow quake there is nothing left.',
+  '331-緊急地震速報': 'An earthquake early warning does not predict anything; it borrows the gap between the fast P wave and the slow S wave. Detection, analysis and delivery take a few seconds, and that cost is the same however far away the epicentre is — so the warning time is only what is left over, and directly beneath a shallow quake there is nothing left.',
   '221-避難行動の判定と浸水深': 'Deciding whether to leave: five questions answered once, in advance — and flood-depth bands read as floors of your own house, not as metres',
   '220-防火区画と避難経路': 'Fire compartments: the shortcut you use every day is the one that closes — a drill map must show the route after the shutters come down, not before',
   '219-算数数学の問題図': 'Figures in maths problems: the marks carry the meaning — equal ticks, right-angle squares, parallel chevrons — and only the given values are written on the figure',

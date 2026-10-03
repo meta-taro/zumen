@@ -4,8 +4,9 @@ title: サーバ室 ラック配置図（ホットアイル・コールドアイ
 # 1 px = 20 mm。ラック 600×1000、コールドアイル 1,200、ホットアイル 900。
 # 列（斜線）は機器、アイルは通路で、列とアイルの間に壁は無い（以前は壁で仕切っていて、
 # 空気も人もアイルへ出入りできない図だった）。入退室・通路・搬入口からアイルの端へ入る。
-# A 列の背面は外壁に寄せてあり、背面の保守通路は取っていない（架空の小部屋の割り切り）。
-# 列の長さ 300px ＝ 6,000mm ＝ **幅 600 のラックが 10 台**。部屋は 510 × 360px ＝ 10.2 × 7.2 m ≒ 73 m²。
+# **4 列とも背面にホットアイルがある。** 以前は A 列の背面が外壁に付いていて、
+# 吐いた熱気の逃げ場も、背面（電源・配線）へ回る通路も無かった。A 列の後ろに 900 を足し、部屋を 900 広げた。
+# 列の長さ 300px ＝ 6,000mm ＝ **幅 600 のラックが 10 台**。部屋は 555 × 360px ＝ 11.1 × 7.2 m ≒ 80 m²。
 #
 # ## 数を突き合わせる（空調は IT の負荷より大きくなければならない）
 #
@@ -28,30 +29,41 @@ north: up
 grid:
   x:
     - { id: X1, at: 40 }
-    - { id: X2, at: 190 }
-    - { id: X3, at: 400 }
-    - { id: X4, at: 550 }
+    - { id: X2, at: 245 }
+    - { id: X3, at: 445 }
+    - { id: X4, at: 595 }
   y:
     - { id: Y1, at: 40 }
     - { id: Y2, at: 340 }
 groups:
   - id: room
-    label: サーバ室　約 73 m²（10.2 × 7.2 m）　二重床 H=600　N+1 空調
+    label: サーバ室　約 80 m²（11.1 × 7.2 m）　二重床 H=600　N+1 空調
 nodes:
+  # A 列の背面のホットアイル（外壁との間）
+  - id: hot0
+    label: ホットアイル
+    technology: 有効 900
+    at: { x: 40, y: 40 }
+    size: { w: 45, h: 300 }
+    group: room
+    openings:
+      - { kind: open, side: right, at: 0.5, width: 296 }
+      - { kind: open, side: bottom, at: 0.5, width: 41 }
   - id: rowa
     label: A 列
     tag: R-A
     hatch: lines
     technology: 42U×10・6.0kW/ラック
-    at: { x: 40, y: 40 }
+    at: { x: 85, y: 40 }
     size: { w: 50, h: 300 }
     group: room
     openings:
+      - { kind: open, side: left, at: 0.5, width: 296 }
       - { kind: open, side: right, at: 0.5, width: 296 }
   - id: cold1
     label: コールドアイル
     technology: 有効 1,200
-    at: { x: 90, y: 40 }
+    at: { x: 135, y: 40 }
     size: { w: 60, h: 300 }
     group: room
     openings:
@@ -63,7 +75,7 @@ nodes:
     tag: R-B
     hatch: lines
     technology: 42U×10・5.2kW/ラック
-    at: { x: 150, y: 40 }
+    at: { x: 195, y: 40 }
     size: { w: 50, h: 300 }
     group: room
     openings:
@@ -72,7 +84,7 @@ nodes:
   - id: hot1
     label: ホットアイル
     technology: 有効 900
-    at: { x: 200, y: 40 }
+    at: { x: 245, y: 40 }
     size: { w: 45, h: 300 }
     group: room
     openings:
@@ -84,7 +96,7 @@ nodes:
     tag: R-C
     hatch: lines
     technology: 42U×10・4.8kW/ラック
-    at: { x: 245, y: 40 }
+    at: { x: 290, y: 40 }
     size: { w: 50, h: 300 }
     group: room
     openings:
@@ -93,7 +105,7 @@ nodes:
   - id: cold2
     label: コールドアイル
     technology: 有効 1,200
-    at: { x: 295, y: 40 }
+    at: { x: 340, y: 40 }
     size: { w: 60, h: 300 }
     group: room
     openings:
@@ -105,7 +117,7 @@ nodes:
     tag: R-D
     hatch: lines
     technology: 42U×10・空き 2・3.0kW/ラック
-    at: { x: 355, y: 40 }
+    at: { x: 400, y: 40 }
     size: { w: 50, h: 300 }
     group: room
     openings:
@@ -115,7 +127,7 @@ nodes:
   - id: hot2
     label: ホットアイル
     technology: 有効 900
-    at: { x: 405, y: 40 }
+    at: { x: 450, y: 40 }
     size: { w: 45, h: 300 }
     group: room
     openings:
@@ -125,7 +137,7 @@ nodes:
     label: UPS（15 分）
     tag: UPS-1/2
     technology: 250kVA×2・2N
-    at: { x: 450, y: 40 }
+    at: { x: 495, y: 40 }
     size: { w: 100, h: 120 }
     group: room
     openings:
@@ -134,14 +146,14 @@ nodes:
     label: 分電盤
     tag: PDB-1
     technology: 主幹 400A
-    at: { x: 450, y: 160 }
+    at: { x: 495, y: 160 }
     size: { w: 100, h: 80 }
     group: room
   - id: ac
     label: 空調機
     tag: CRAC-1〜4
     technology: 70kW×4・N+1
-    at: { x: 450, y: 240 }
+    at: { x: 495, y: 240 }
     size: { w: 100, h: 100 }
     group: room
   - id: iriguchi
@@ -149,29 +161,30 @@ nodes:
     tag: SD-1
     technology: 生体認証・共連れ検知
     at: { x: 40, y: 340 }
-    size: { w: 150, h: 60 }
+    size: { w: 205, h: 60 }
     group: room
     openings:
-      - { kind: door, side: bottom, at: 0.2, width: 50 }
-      - { kind: open, side: top, at: 0.533, width: 56 }
+      - { kind: door, side: bottom, at: 0.87, width: 48 }
+      - { kind: open, side: top, at: 0.11, width: 41 }
+      - { kind: open, side: top, at: 0.61, width: 56 }
       - { kind: open, side: right, at: 0.5, width: 56 }
   # 入退室から搬入口までの通路。各アイルの端につながる
   - id: tsuro
     label: 通路
-    at: { x: 190, y: 340 }
-    size: { w: 210, h: 60 }
+    at: { x: 245, y: 340 }
+    size: { w: 200, h: 60 }
     group: room
     openings:
-      - { kind: open, side: top, at: 0.164, width: 41 }
-      - { kind: open, side: top, at: 0.5, width: 56 }
+      - { kind: open, side: top, at: 0.1125, width: 41 }
+      - { kind: open, side: top, at: 0.625, width: 56 }
       - { kind: open, side: right, at: 0.5, width: 56 }
   - id: hansyutsu
     label: 搬入口
     tag: SD-2
     technology: 有効 W1,200×H2,100
-    at: { x: 400, y: 340 }
+    at: { x: 445, y: 340 }
     size: { w: 150, h: 60 }
     group: room
     openings:
       - { kind: double, side: bottom, at: 0.5, width: 70, swing: out }
-      - { kind: open, side: top, at: 0.15, width: 41 }
+      - { kind: open, side: top, at: 0.183, width: 41 }

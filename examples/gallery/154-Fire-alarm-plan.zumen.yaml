@@ -12,7 +12,7 @@ grid:
     - { id: 2, at: 164 }
     - { id: 3, at: 204 }
     - { id: 4, at: 300 }
-# **Spacing is a circle, not a square.** The listed 30 ft is the side of the
+# **Spacing is a circle, not a square.** The nominal 30 ft is the side of the
 # square that fits inside the circle a detector actually covers, so the real
 # reach is **21 ft** —— and in a corridor narrow enough to have no corners to
 # waste, heads may sit **41 ft** apart. The odd number is the rule working.
@@ -20,6 +20,16 @@ grid:
 # **日本語の見本 136（天井伏図）と対**（同じ天井に、別の決まりで物を置く）。
 #
 # Devices, spacing and the floor are fictional.
+#
+# Rules checked against NFPA 72 (2025 ed.), read 2026-10-04 from the copy
+# incorporated by reference: https://archive.org/details/pub.cfr.nfpa.72.2025
+#   17.7.4.2.3.1  ceilings up to 40 ft: nominal 30 ft, half of it to walls,
+#                 or every point within 0.7 x 30 ft
+#   A.17.7.5.1    not closer than 36 in to a supply diffuser or return air opening
+#                 (annex: advisory)
+# The 4 in "dead air" corner (17.6.3.1.3.1) is a heat-detector rule; smoke
+# detectors may sit on the ceiling or on a sidewall within 12 in of it
+# (17.7.4.2.1), so it is not listed here.
 nodes:
   - id: floor
     label: ""
@@ -151,12 +161,12 @@ nodes:
     at: { x: 76, y: 306 }
     size: { w: 340, h: 18 }
   - id: h60
-    label: "SMOKE DETECTORS  (NFPA 72)"
+    label: "SMOKE DETECTORS  (NFPA 72, 2025 ed.)"
     hatch: solid
     at: { x: 600, y: 60 }
     size: { w: 430, h: 22 }
   - id: a82
-    label: "Listed spacing"
+    label: "Nominal spacing"
     at: { x: 600, y: 82 }
     size: { w: 190, h: 22 }
   - id: b82
@@ -196,7 +206,7 @@ nodes:
     at: { x: 600, y: 170 }
     size: { w: 190, h: 22 }
   - id: b170
-    label: "the 30 ft spacing holds to 28 ft"
+    label: "30 ft applies up to 40 ft high"
     align: left
     at: { x: 790, y: 170 }
     size: { w: 240, h: 22 }
@@ -215,11 +225,11 @@ nodes:
     at: { x: 790, y: 228 }
     size: { w: 240, h: 22 }
   - id: a250
-    label: "Ceiling and wall corner"
+    label: "Return air openings"
     at: { x: 600, y: 250 }
     size: { w: 190, h: 22 }
   - id: b250
-    label: "4 in"
+    label: "3 ft"
     align: left
     at: { x: 790, y: 250 }
     size: { w: 240, h: 22 }

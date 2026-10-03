@@ -22,8 +22,13 @@ title: 雑踏警備計画図（花火大会・駅から会場まで／400 × 200
 #
 # ## 密度が意味を持つ
 #
-# 6〜7 人/m² で、人は自分の意思で動けなくなり、**群衆が流体のように振る舞う。**
-# 密度の表は目安で、一次資料（規格・公的な手引き）の数値とは照らし合わせていない。
+# 歩いている群集は 1.2 人/m² から追い越せなくなって遅くなり、**4 人/m² で止まる。**
+# 立ち止まった群集は 7 人/m² で肩や肘に圧力を感じ、11 人/m² を超えると苦痛で悲鳴が起き、
+# 限界は 13 人/m² とされる。表の値は兵庫県警察「雑踏警備の手引き」第 3 章
+#（群集の歩行速度、雑踏密度の客観的判断基準）による。
+#   https://www.police.pref.hyogo.lg.jp/zattou/index.htm （第 3 章 tebi_data/s3.pdf、取得 2026-10-04）
+# 流量の 1.0 m/s・2 人/m² はこの計画の仮定。手引きも「幅 1m を毎秒通る人数は、服装・環境・
+# 群集密度・心理で変わる」としているので、当日の実測で見直す。
 # 「将棋倒しで先頭が支えられる人数」は出典を確かめられなかったので、図から外した。
 #
 # 場所は架空。
@@ -124,7 +129,7 @@ nodes:
     at: { x: 70, y: 466 }
     size: { w: 520, h: 24 }
   - id: tb_t
-    label: "群集密度と、そのとき起きること"
+    label: "群集密度と、そのとき起きること（雑踏警備の手引き）"
     marker: none
     at: { x: 980, y: 60 }
     size: { w: 440, h: 24 }
@@ -139,19 +144,19 @@ nodes:
     at: { x: 1110, y: 92 }
     size: { w: 330, h: 26 }
   - id: tc0_0
-    label: "1〜2 人/m²"
+    label: "1.2 人/m² 以上"
     at: { x: 980, y: 118 }
     size: { w: 130, h: 28 }
   - id: tc0_1
-    label: "触れずに自由に動ける"
+    label: "追い越せなくなり、歩く速さが落ち始める"
     at: { x: 1110, y: 118 }
     size: { w: 330, h: 28 }
   - id: tc1_0
-    label: "3〜4 人/m²"
+    label: "4 人/m² 以上"
     at: { x: 980, y: 146 }
     size: { w: 130, h: 28 }
   - id: tc1_1
-    label: "危険性は低い"
+    label: "歩けなくなり、止まる"
     at: { x: 1110, y: 146 }
     size: { w: 330, h: 28 }
   - id: tc2_0
@@ -159,120 +164,136 @@ nodes:
     at: { x: 980, y: 174 }
     size: { w: 130, h: 28 }
   - id: tc2_1
-    label: "個人の移動が制限される"
+    label: "立ち止まり：隣同士の衣服がふれあう"
     at: { x: 1110, y: 174 }
     size: { w: 330, h: 28 }
   - id: tc3_0
-    label: "6〜7 人/m²"
+    label: "7 人/m²"
     at: { x: 980, y: 202 }
     size: { w: 130, h: 28 }
   - id: tc3_1
-    label: "押し合う。流体のように振る舞う"
+    label: "肩や肘に圧力を感じる"
     at: { x: 1110, y: 202 }
+    size: { w: 330, h: 28 }
+  - id: tc4_0
+    label: "10 人/m²"
+    at: { x: 980, y: 230 }
+    size: { w: 130, h: 28 }
+  - id: tc4_1
+    label: "四方からの体圧で、手の上げ下げが困難"
+    at: { x: 1110, y: 230 }
+    size: { w: 330, h: 28 }
+  - id: tc5_0
+    label: "11 人/m² 以上"
+    at: { x: 980, y: 258 }
+    size: { w: 130, h: 28 }
+  - id: tc5_1
+    label: "体の自由がきかず苦痛（悲鳴）。限界 13 人"
+    at: { x: 1110, y: 258 }
     size: { w: 330, h: 28 }
   - id: cap_t
     label: "歩道橋が流せる量（この計画の根拠）"
     marker: none
-    at: { x: 980, y: 246 }
+    at: { x: 980, y: 302 }
     size: { w: 440, h: 24 }
   - id: ca0
     label: "広さ"
     hatch: solid
-    at: { x: 980, y: 274 }
+    at: { x: 980, y: 330 }
     size: { w: 130, h: 26 }
   - id: cb0
     label: "幅 6m × 長さ 40m ＝ 240 m²"
-    at: { x: 1110, y: 274 }
+    at: { x: 1110, y: 330 }
     size: { w: 330, h: 26 }
   - id: ca1
     label: "上限の人数"
     hatch: solid
-    at: { x: 980, y: 300 }
+    at: { x: 980, y: 356 }
     size: { w: 130, h: 26 }
   - id: cb1
-    label: "4 人/m² なら 960 人まで"
-    at: { x: 1110, y: 300 }
+    label: "4 人/m² で歩けなくなる ＝ 960 人で止まる"
+    at: { x: 1110, y: 356 }
     size: { w: 330, h: 26 }
   - id: ca2
     label: "流す速さ"
     hatch: solid
-    at: { x: 980, y: 326 }
+    at: { x: 980, y: 382 }
     size: { w: 130, h: 26 }
   - id: cb2
     label: "一方通行で 1.0 m/s"
-    at: { x: 1110, y: 326 }
+    at: { x: 1110, y: 382 }
     size: { w: 330, h: 26 }
   - id: ca3
     label: "流量"
     hatch: solid
-    at: { x: 980, y: 352 }
+    at: { x: 980, y: 408 }
     size: { w: 130, h: 26 }
   - id: cb3
     label: "6m × 1.0m/s × 2 人/m² ＝ 12 人/秒"
-    at: { x: 1110, y: 352 }
+    at: { x: 1110, y: 408 }
     size: { w: 330, h: 26 }
   - id: ca4
     label: "1 分あたり"
     hatch: solid
-    at: { x: 980, y: 378 }
+    at: { x: 980, y: 434 }
     size: { w: 130, h: 26 }
   - id: cb4
     label: "720 人/分"
-    at: { x: 1110, y: 378 }
+    at: { x: 1110, y: 434 }
     size: { w: 330, h: 26 }
   - id: ca5
     label: "入ってくる量"
     hatch: solid
-    at: { x: 980, y: 404 }
+    at: { x: 980, y: 460 }
     size: { w: 130, h: 26 }
   - id: cb5
     label: "列車 1 本 1,000 人 ÷ 5 分 ＝ 200 人/分"
-    at: { x: 1110, y: 404 }
+    at: { x: 1110, y: 460 }
     size: { w: 330, h: 26 }
   - id: ca6
     label: "判定"
     hatch: solid
-    at: { x: 980, y: 430 }
+    at: { x: 980, y: 486 }
     size: { w: 130, h: 26 }
   - id: cb6
     label: "流せる > 入ってくる。溜まらない"
-    at: { x: 1110, y: 430 }
+    at: { x: 1110, y: 486 }
     size: { w: 330, h: 26 }
   - id: n0
     label: "・狭い場所へ、両方向から流し込まない。 往路と復路を分ける。"
     marker: none
     align: left
-    at: { x: 980, y: 472 }
+    at: { x: 980, y: 528 }
     size: { w: 398, h: 24 }
   - id: n1
     label: "・2001 年の明石花火大会歩道橋事故は、狭い歩道橋に両方向の流れが入った。"
     marker: none
     align: left
-    at: { x: 980, y: 498 }
+    at: { x: 980, y: 554 }
     size: { w: 478, h: 24 }
   - id: n2
     label: "・滞留を作らない。 立ち止まる理由（屋台・写真）を狭窄部の近くに置かない。"
     marker: none
     align: left
-    at: { x: 980, y: 524 }
+    at: { x: 980, y: 580 }
     size: { w: 490, h: 24 }
   - id: n3
     label: "・入ってくる量 ＜ 流せる量。逆になったら、手前で止める（列車を待たせる）。"
     marker: none
     align: left
-    at: { x: 980, y: 550 }
+    at: { x: 980, y: 606 }
     size: { w: 498, h: 24 }
   - id: n4
     label: "・警備員は狭くなる所と、流れが分かれる所に置く。見通せる位置に。"
     marker: none
     align: left
-    at: { x: 980, y: 576 }
+    at: { x: 980, y: 632 }
     size: { w: 432, h: 24 }
   - id: n5
     label: "・退避場所は経路の途中に取る。行き止まりへ逃がさない。"
     marker: none
     align: left
-    at: { x: 980, y: 602 }
+    at: { x: 980, y: 658 }
     size: { w: 366, h: 24 }
 edges:
   - from: stn

@@ -26,6 +26,10 @@ grid:
 # sprinkler plan get read together（見本 145）.
 #
 # **Occupant load decides how many exits; travel distance decides where.**
+# Lengths are measured on the drawing at 1 px = 3 in: the dead end runs 20 ft
+# from the corridor edge; from its far end it is 24 ft to the corridor centre
+# (common path, where two ways open), then 12 ft to STAIR B, so 36 ft of exit
+# access travel (88 ft the other way to STAIR A).
 # Counted once each: the business area is 7,200 - 600 = 6,600 sq ft gross (44 people)
 # and the conference room 600 sq ft net at 15 (40 people), 84 in all. A business floor
 # may have a single exit only up to 49 people on a first story (29 on a second story,
@@ -91,7 +95,7 @@ nodes:
     size: { w: 56, h: 104 }
   - id: dead
     label: "DEAD END"
-    technology: "18 ft"
+    technology: "20 ft"
     hatch: cross
     at: { x: 420, y: 196 }
     size: { w: 80, h: 80 }
@@ -116,7 +120,7 @@ nodes:
     at: { x: 108, y: 180 }
     size: { w: 2, h: 2 }
   - id: d1
-    label: "common path 46'-0\""
+    label: "common path 24'-0\""
     marker: none
     align: left
     at: { x: 428, y: 284 }
@@ -143,7 +147,7 @@ nodes:
     at: { x: 610, y: 82 }
     size: { w: 210, h: 22 }
   - id: b82
-    label: "100 ft  —  here 46 ft"
+    label: "100 ft  —  here 24 ft"
     align: left
     at: { x: 820, y: 82 }
     size: { w: 220, h: 22 }
@@ -152,7 +156,7 @@ nodes:
     at: { x: 610, y: 104 }
     size: { w: 210, h: 22 }
   - id: b104
-    label: "50 ft  —  here 18 ft"
+    label: "50 ft  —  here 20 ft"
     align: left
     at: { x: 820, y: 104 }
     size: { w: 220, h: 22 }
@@ -161,7 +165,7 @@ nodes:
     at: { x: 610, y: 126 }
     size: { w: 210, h: 22 }
   - id: b126
-    label: "300 ft  —  here 100 ft"
+    label: "300 ft  —  here 36 ft"
     align: left
     at: { x: 820, y: 126 }
     size: { w: 220, h: 22 }

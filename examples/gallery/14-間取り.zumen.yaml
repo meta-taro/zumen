@@ -10,6 +10,12 @@ title: 2LDK 平面詳細図（1 階）
 # 人が歩くだけなら 750 で足りるが、**冷蔵庫と洗濯機が通る**必要がある。
 # 曲がり角では対角の寸法が効くので、直線の幅だけでは決まらない。
 #
+# ## どの部屋にも、廊下から戸 1 枚で入れる
+#
+# 便所・洗面・洋室・和室は、どれも幅 900 の廊下に面して戸を付けた。
+# 2026-10-04 まで便所の戸が LDK に、洋室の戸も LDK に開いていて、
+# **食事をする部屋を通らないと便所に入れなかった。** 廊下を X2 の通りまで寄せて直した。
+#
 # ## 納戸に窓が無いのは、居室にしないため
 #
 # 採光の基準（床面積の 1/7）を満たせない部屋は、居室と呼べない。
@@ -19,7 +25,7 @@ title: 2LDK 平面詳細図（1 階）
 # ## 畳数は、壁心の面積を 1.62 で割った数
 #
 # 不動産の表示に関する公正競争規約施行規則 第 9 条第 16 号（畳 1 枚 = 1.62 m² 以上）。
-# LDK は 4,800 × 4,200 ＝ 20.16 m² ＝ 12.4 畳。2026-09-29 まで 16 畳・和室 6 畳・洋室 5.4 畳と書いていたが、
+# LDK は 3,900 × 4,200 ＝ 16.38 m² ＝ 10.1 畳（端数は切り捨て）。2026-09-29 まで 16 畳・和室 6 畳・洋室 5.4 畳と書いていたが、
 # **通り芯の寸法から検算すると合わなかった**ので、寸法のほうを正として直した
 # （出典 https://www.sfkoutori.or.jp/webkanri/kanri/wp-content/uploads/2019/01/kiyak_zenbun.pdf 取得 2026-09-29）。
 scale: { mm: 15 }
@@ -29,7 +35,7 @@ north: up
 grid:
   x:
     - { id: X1, at: 40 }
-    - { id: X2, at: 240 }
+    - { id: X2, at: 300 }
     - { id: X3, at: 360 }
     - { id: X4, at: 480 }
   y:
@@ -44,43 +50,55 @@ nodes:
   - id: ldk
     type: generic
     label: LDK
-    technology: 12.4 畳
+    technology: 10.1 畳
     at: { x: 40, y: 40 }
-    size: { w: 320, h: 280 }
+    size: { w: 260, h: 280 }
     group: f1
     openings:
-      - { kind: window, side: top, at: 0.25, width: 90 }
-      - { kind: window, side: top, at: 0.72, width: 90 }
-      - { kind: slide, side: bottom, at: 0.22, width: 80 }
-      # 便所の外開きの戸と振りが当たるので、廊下への出入りは引戸にした
-      - { kind: slide, side: bottom, at: 0.83, width: 70 }
+      - { kind: window, side: top, at: 0.3, width: 90 }
+      - { kind: window, side: top, at: 0.75, width: 90 }
   - id: washitsu
     type: generic
     label: 和室
-    technology: 4.4 畳
+    technology: 5.7 畳
     at: { x: 40, y: 320 }
-    size: { w: 200, h: 160 }
+    size: { w: 260, h: 160 }
     group: f1
     openings:
       - { kind: window, side: left, at: 0.5, width: 90 }
+      - { kind: slide, side: top, at: 0.35, width: 90 }
   - id: hall
     type: generic
     label: 廊下
-    at: { x: 240, y: 320 }
-    size: { w: 120, h: 160 }
+    at: { x: 300, y: 160 }
+    size: { w: 60, h: 320 }
     group: f1
     openings:
-      - { kind: slide, side: left, at: 0.75, width: 70 }
-      - { kind: door, side: right, at: 0.22, width: 60 }
-      - { kind: open, side: bottom, at: 0.5, width: 80 }
+      # LDK・和室・洋室・便所・洗面へ、それぞれ戸 1 枚
+      - { kind: door, side: left, at: 0.3, width: 54, swing: out }
+      - { kind: slide, side: left, at: 0.8, width: 60 }
+      - { kind: door, side: right, at: 0.14, width: 54, swing: out }
+      - { kind: door, side: right, at: 0.38, width: 50 }
+      - { kind: slide, side: right, at: 0.62, width: 54 }
+      - { kind: open, side: bottom, at: 0.5, width: 50 }
+  - id: monoire
+    type: generic
+    label: 物入
+    technology: 1.62 m²
+    at: { x: 300, y: 40 }
+    size: { w: 60, h: 120 }
+    group: f1
+    openings:
+      - { kind: slide, side: bottom, at: 0.5, width: 50 }
   - id: genkan
     type: generic
     label: 玄関
-    technology: 2.16 m²
-    at: { x: 240, y: 480 }
-    size: { w: 120, h: 80 }
+    technology: 2.88 m²
+    at: { x: 200, y: 480 }
+    size: { w: 160, h: 80 }
     group: f1
     openings:
+      - { kind: open, side: top, at: 0.8125, width: 50 }
       - { kind: door, side: bottom, at: 0.5, width: 54, swing: out }
   - id: yoshitsu
     type: generic
@@ -91,13 +109,12 @@ nodes:
     group: f1
     openings:
       - { kind: window, side: right, at: 0.5, width: 90 }
-      - { kind: door, side: left, at: 0.8, width: 60 }
   - id: shunou
     type: generic
     label: 納戸
-    technology: 3.6 m²
+    technology: 2.88 m²
     at: { x: 40, y: 480 }
-    size: { w: 200, h: 80 }
+    size: { w: 160, h: 80 }
     group: f1
     openings:
       - { kind: slide, side: top, at: 0.5, width: 80 }
@@ -125,5 +142,3 @@ nodes:
     at: { x: 360, y: 240 }
     size: { w: 120, h: 80 }
     group: f1
-    openings:
-      - { kind: door, side: left, at: 0.5, width: 60, swing: out }
