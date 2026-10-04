@@ -456,3 +456,11 @@ describe('端の記号を線に収める', () => {
     assert.equal(edgeStrokeWidth(normal, false), 1, '構成図は 1px');
   });
 });
+
+describe('丸の中を、線が通って見えない', () => {
+  it('**丸は地の色で塗る**（白丸。中抜きだと線が透けて ⊕ に見える）', async () => {
+    const { drawEnd } = await import('../src/ends.ts');
+    const svg = drawEnd('dot', { x: 0, y: 0 }, { x: 0, y: 100 }, '#222222', '#fafafa');
+    assert.match(svg, /<circle [^>]*fill="#fafafa"/);
+  });
+});

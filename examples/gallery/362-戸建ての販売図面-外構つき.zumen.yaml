@@ -416,15 +416,30 @@ nodes:
     openings:
       - { kind: door, side: top, at: 0.85, width: 28 }
       - { kind: window, side: bottom, at: 0.4, width: 60 }
-  - id: mbed
-    label: "主寝室"
-    technology: "12.2帖"
+  # 2 階の WC は、廊下の枝（hall3）から入る。2026-10-04 まで WC の戸が主寝室の中に開いていて、
+  # 洋室 1・2 の人は主寝室を通らないと 2 階の便所へ行けなかった。主寝室は 2.73m × 5.46m ＝ 14.91㎡ ÷ 1.62 ＝ 9.2 帖（切り捨て）
+  - id: hall3
+    label: ""
     style: room
     at: { x: 736.5, y: 215.5 }
-    size: { w: 91, h: 136.5 }
+    size: { w: 22.7, h: 72.8 }
     openings:
-      - { kind: door, side: left, at: 0.45, width: 26 }
-      - { kind: window, side: bottom, at: 0.5, width: 50 }
+      - { kind: open, side: left, at: 0.8125, width: 22 }
+  - id: cl2
+    label: ""
+    style: storage
+    at: { x: 736.5, y: 288.3 }
+    size: { w: 22.7, h: 63.7 }
+  - id: mbed
+    label: "主寝室"
+    technology: "9.2帖"
+    style: room
+    at: { x: 759.2, y: 215.5 }
+    size: { w: 68.3, h: 136.5 }
+    openings:
+      - { kind: door, side: left, at: 0.27, width: 24 }
+      - { kind: slide, side: left, at: 0.77, width: 34 }
+      - { kind: window, side: bottom, at: 0.5, width: 44 }
   - id: bal2
     label: "Balcony"
     align: center

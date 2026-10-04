@@ -174,7 +174,9 @@ export function drawEnd(
 
   if (dotted) {
     parts.push(
-      `<circle cx="${n(tip.x + ux * 5 * k)}" cy="${n(tip.y + uy * 5 * k)}" r="${n2(4 * k)}" fill="none" stroke="${stroke}" stroke-width="1.2"/>`,
+      // **中を地の色で塗る**（2026-10-04）。中抜き（fill="none"）だと、線が丸の中を通って ⊕ に見えた
+      // （階段の昇り表示の起点。JIS A 0150 は白丸）。ER の「0」も白抜きの丸なので、同じ形でよい。
+      `<circle cx="${n(tip.x + ux * 5 * k)}" cy="${n(tip.y + uy * 5 * k)}" r="${n2(4 * k)}" fill="${paper}" stroke="${stroke}" stroke-width="1.2"/>`,
     );
   }
 

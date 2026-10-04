@@ -30,6 +30,7 @@ import { toDrawio } from './drawio.ts';
 import { placeEdgeLabels } from './edge-labels.ts';
 import { embedFont } from './font.ts';
 import { getPins, parse } from './format.ts';
+import { roomAccess, type AccessIssue } from './access.ts';
 import { crossingEdges, crossings, edgesThroughBoxes, edgesUnderBoxes, groupEscapes, layout, overlaps, straddles } from './layout.ts';
 import { messages } from './messages.ts';
 import { PASS_LINE, measure } from './measure.ts';
@@ -272,6 +273,8 @@ export interface Inspection {
    * （2026-09-14。見本 86 で注記が枠の上に乗ったまま出ていた）。
    */
   overlappingText: [string, string][];
+  /** 通り道から入れない部屋（`[部屋, 理由]`。配置図だけ）。 */
+  roomAccess: [string, AccessIssue][];
   /** 辺が、関係の無い箱を突き抜けている組（`[辺, 箱]`）。 */
   edgesThroughBoxes: [string, string][];
   /** 開き戸の扇に乗っている文字・設備（`[扉のある箱, 乗っている箱]`）。 */
@@ -364,6 +367,7 @@ export async function inspect(source: string): Promise<Inspection> {
       overlappingText: [],
       doorSwings: [],
       edgesThroughBoxes: [],
+      roomAccess: [],
       edgesUnderBoxes: [],
       kind: 'structure',
       positionsInSource: false,
@@ -416,6 +420,7 @@ export async function inspect(source: string): Promise<Inspection> {
     hiddenTags: kindOf(source) === 'placement' ? hiddenTags(placed.boxes) : [],
     edgesUnderBoxes: edgesUnderBoxes(placed),
     edgesThroughBoxes: edgesThroughBoxes(placed),
+    roomAccess: kindOf(source) === 'placement' ? roomAccess(placed.boxes) : [],
     overlappingText:
       kindOf(source) === 'placement'
         ? overlappingText(placed.boxes, planNames(placed.boxes, extentOf(placed.boxes), placed.edges, placed.groups))

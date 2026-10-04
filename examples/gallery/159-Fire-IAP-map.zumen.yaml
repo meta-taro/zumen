@@ -27,8 +27,9 @@ views:
 # zones are on this sheet, or they do not exist. Divisions are lettered round
 # the fire from the anchor point, so a name on the radio is a place on the map.
 #
-# Every map product carries **STANDL-SGD** - scale, title, author, north arrow,
-# date, legend, source, grid, datum. IAP maps carry a bar scale and are sized
+# Every map product carries **STANDL** - scale, title, author, north arrow,
+# date, legend. Source, grid and datum (SGD) are added here as good practice;
+# that addition was not checked against the standard itself. IAP maps carry a bar scale and are sized
 # to the IAP page; there is no one fixed scale.
 # Grid: 2' of longitude = 160 px and 1' of latitude = 111 px, the ratio at 44°N
 # (cos 44.1° = 0.718), so the bar scale below holds in both directions:
@@ -361,7 +362,7 @@ nodes:
     at: { x: 770, y: 586 }
     size: { w: 290, h: 22 }
   - id: h622
-    label: "WHAT EVERY MAP CARRIES  (STANDL-SGD)"
+    label: "WHAT EVERY MAP CARRIES  (STANDL)"
     hatch: solid
     at: { x: 620, y: 622 }
     size: { w: 440, h: 22 }
@@ -384,11 +385,11 @@ nodes:
     at: { x: 770, y: 666 }
     size: { w: 290, h: 22 }
   - id: a688
-    label: "S G D"
+    label: "also"
     at: { x: 620, y: 688 }
     size: { w: 150, h: 22 }
   - id: b688
-    label: "source, grid, datum"
+    label: "source, grid, datum (good practice)"
     align: left
     at: { x: 770, y: 688 }
     size: { w: 290, h: 22 }

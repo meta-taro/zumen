@@ -9,7 +9,7 @@
         {
           "name": "25-路線図",
           "caption": "鉄道の路線図",
-          "captionEn": "A transit map of six lines told apart by colour and letter code, with interchange stations marked by a double circle rather than by name",
+          "captionEn": "A fictional transit map of three lines told apart by colour and station numbering, drawn only in horizontal, vertical and 45° segments, with interchange stations marked by a double circle",
           "kind": "placement",
           "scales": 0,
           "uses": [
@@ -298,7 +298,7 @@
         {
           "name": "61-道路の平面線形図",
           "caption": "道路の平面線形図（曲線）",
-          "captionEn": "A road alignment where straights, circular curves and transition curves join up, annotated with chainage and the parameters of each curve",
+          "captionEn": "A road alignment where straights and a circular curve join up, with the intersection point and tangents, chainage ticks and the curve parameters; the centreline is a chain line and the road edges are solid",
           "kind": "placement",
           "scales": 0,
           "uses": [
@@ -315,7 +315,7 @@
         {
           "name": "37-配送ルート",
           "caption": "配送ルート（2t 車 1 台・午前便と午後便）",
-          "captionEn": "Delivery rounds for three two-tonne vans: the order of calls, the stops themselves, and the area each van covers",
+          "captionEn": "Delivery rounds for one two-tonne van split into a morning and an afternoon run: the order of calls and the stops themselves",
           "kind": "structure",
           "scales": 0,
           "uses": [
@@ -497,6 +497,9 @@
             "tag",
             "technology",
             "openings",
+            "via",
+            "close",
+            "ends",
             "groups"
           ]
         },
@@ -752,8 +755,8 @@
         },
         {
           "name": "32-ホテルの基準階",
-          "caption": "ホテルの基準階（客室 12 室）",
-          "captionEn": "The typical floor of a business hotel with twelve rooms, the corridor, the fire stairs and the lifts",
+          "caption": "ホテルの基準階（客室 9 室・直通階段 2）",
+          "captionEn": "The typical floor of a business hotel with nine rooms, a central corridor, two direct stairs, and two lifts with their hall",
           "kind": "placement",
           "scales": 1,
           "uses": [
@@ -1663,7 +1666,7 @@
         {
           "name": "331-緊急地震速報",
           "caption": "緊急地震速報（猶予は「残り」でしかない）",
-          "captionEn": "An earthquake early warning does not predict anything; it borrows the gap between the fast P wave and the slow S wave. Three seconds of waveform are needed to size the quake and the processing takes seconds more, and those costs are the same however far away the epicentre is — so the warning time is only what is left over, and directly beneath a shallow quake there is nothing left.",
+          "captionEn": "An earthquake early warning does not predict anything; it borrows the gap between the fast P wave and the slow S wave. Detection, analysis and delivery take a few seconds, and that cost is the same however far away the epicentre is — so the warning time is only what is left over, and directly beneath a shallow quake there is nothing left.",
           "kind": "placement",
           "scales": 0,
           "uses": [
@@ -3521,6 +3524,8 @@
           "uses": [
             "tag",
             "technology",
+            "via",
+            "line",
             "align",
             "groups",
             "pins"
@@ -3541,6 +3546,7 @@
             "technology",
             "openings",
             "radius",
+            "via",
             "line",
             "align",
             "pins"
@@ -3555,7 +3561,6 @@
           "uses": [
             "technology",
             "line",
-            "wrap",
             "groups",
             "pins"
           ]
@@ -4576,8 +4581,8 @@
       "items": [
         {
           "name": "295-土俵",
-          "caption": "土俵（数はどれも、体の大きさから出ている）",
-          "captionEn": "Four of the sixteen bales that make the 4.55m ring are pushed one bale-width outwards, so a wrestler whose heel lands there is still in — and the sand raked around the outside is not decoration but the instrument of judgement, since a foot that left the ring leaves a print",
+          "caption": "土俵（俵 66 で組み、徳俵だけが外へ出る）",
+          "captionEn": "The 4.55m ring is sixteen bales plus four tokudawara set one bale-width further out, so a wrestler whose heel lands on one is still in — and the sand raked around the outside is not decoration but the instrument of judgement, since a foot that left the ring leaves a print",
           "kind": "placement",
           "scales": 1,
           "uses": [
@@ -4846,7 +4851,7 @@
         {
           "name": "294-能舞台",
           "caption": "能舞台（床板の向きが、場所を分ける）",
-          "captionEn": "Which way the floorboards run is what separates one area from another: the chorus sits where the boards run lengthwise like the main stage, the musicians where they run crosswise — and the four pillars are not decoration but the only way a masked actor, who can see almost nothing, knows where he is standing",
+          "captionEn": "Which way the floorboards run is what separates one area from another: the chorus sits where the boards run lengthwise like the main stage, the musicians where they run crosswise — and the four pillars are not decoration but the landmarks a masked actor, who can see very little, uses to know where they are standing",
           "kind": "placement",
           "scales": 1,
           "uses": [

@@ -8,7 +8,10 @@ title: たんぱく質のトポロジー図（TOPS）—— 長さを捨てて�
 # おおよその向きだけを残す。
 #
 # **線がどこに入るかで、向きが決まる。**
-# **記号の中心まで引いた線は手前（上）の端に、縁で止めた線は奥（下）の端につながる**（TOPS の決まり）。
+# **記号の中心まで引いた線は手前（上）の端に、縁で止めた線は奥（下）の端につながる**（TOPS の決まり。
+# Michalopoulos ほか「TOPS: an enhanced database of protein structural topology」Nucleic Acids Res. 2004
+# の「connecting lines drawn to the centre of the symbol indicate connection to the top, and those drawn
+# to the edge indicate connection to the base」。https://pmc.ncbi.nlm.nih.gov/articles/PMC308794/ 取得 2026-10-04）。
 # N 側が縁で C 側が中心なら**上向き**（三角も上向きに描く）、
 # N 側が中心で C 側が縁なら**下向き**（三角も下向き）。
 #
@@ -21,6 +24,7 @@ title: たんぱく質のトポロジー図（TOPS）—— 長さを捨てて�
 # β-α-β-α-β の単位が 2 つで、**α / β / α の三層サンドイッチ**。
 # **β3 から β4 へ、シートの反対側へ渡る**（crossover）のがこの畳み方の印で、
 # 順に並べるだけではこの形にならない。
+# 渡りの途中にヘリックスが入るかどうかは、たんぱく質ごとに確かめていないので、図では渡りを線 1 本で描いた。
 #
 # いちばんよく保たれるのは**最初の β-α-β**（β1 と αA のあいだの Gly に富むループ。
 # 指紋は **GxGxxG** —— 側鎖の無い Gly が、燐酸の近くでの急な折り返しを許す）で、
@@ -265,7 +269,7 @@ nodes:
     at: { x: 692, y: 248 }
     size: { w: 100, h: 18 }
   - id: cross
-    label: "渡り（crossover）—— β3 から、シートの反対側の β4 へ"
+    label: "渡り（crossover）—— β3 から、シートの反対側の β4 へ（途中の要素は略）"
     marker: none
     align: center
     at: { x: 140, y: 546 }

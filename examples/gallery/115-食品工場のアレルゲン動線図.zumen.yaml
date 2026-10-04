@@ -154,10 +154,10 @@ nodes:
     at: { x: 1136, y: 178 }
     size: { w: 176, h: 56 }
   - id: r17
-    label: "廃棄物 搬出"
+    label: "廃棄物\n搬出"
     hatch: cross
-    at: { x: 1136, y: 290 }
-    size: { w: 176, h: 56 }
+    at: { x: -64, y: 252 }
+    size: { w: 56, h: 56 }
   - id: kuma
     label: "更衣室・手洗い・エアシャワー（サニタリー室）"
     hatch: solid
@@ -425,12 +425,10 @@ edges:
   - from: r15
     to: r16
     weight: thick
+  # 廃棄物は汚染作業区域から、いちばん近い外へ直接出す（清潔区の前を通さない）
   - from: r4
     to: r17
     line: dotted
-    via:
-      - { x: 66, y: 400 }
-      - { x: 1224, y: 400 }
   - from: pa0
     to: pb0
     line: dashed
