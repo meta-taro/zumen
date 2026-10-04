@@ -31,12 +31,12 @@ describe('出典（sources）', () => {
     assert.ok(h(credited) > h(plain));
   });
 
-  it('**名前と取得日が無ければ知らせる**', () => {
-    const codes = validate(doc('sources:\n  - { name: 気象庁 }\n  - { url: https://x.example }\n')).map((f) => f.code);
+  it('**名前が無ければ、また URL のある出典に取得日が無ければ知らせる**（書籍・規格は取得日を求めない）', () => {
+    const codes = validate(doc('sources:\n  - { name: 気象庁, url: https://www.jma.go.jp/ }\n  - { url: https://x.example }\n')).map((f) => f.code);
     assert.ok(codes.includes('source-date-missing'));
     assert.ok(codes.includes('source-name-missing'));
     assert.deepEqual(
-      validate(doc('sources:\n  - { name: 気象庁, retrieved: 2026-09-29 }\n')).filter((f) => f.code.startsWith('source')),
+      validate(doc('sources:\n  - { name: 気象庁, retrieved: 2026-09-29 }\n  - { name: JIS A 0150:1999 建築製図通則 }\n')).filter((f) => f.code.startsWith('source')),
       [],
     );
   });

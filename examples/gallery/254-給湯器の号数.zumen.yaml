@@ -2,6 +2,16 @@ version: 1
 kind: placement
 arrows: true
 title: 給湯器の号数（流量ではなく、熱量）
+sources:
+  - name: "ノーリツ 技術資料（JIS S 2109 の号数の定義）"
+    url: "https://www.noritz.co.jp/product/kyutoki/efficiency_GQ-CWZ_190412.pdf"
+    retrieved: 2026-09-29
+  - name: "リンナイ「号数（能力）について」"
+    url: "https://rinnai.jp/products/waterheater/gas/about/power/"
+    retrieved: 2026-09-29
+  - name: "リンナイ Q&A（給湯の湯の飲用）"
+    url: "https://faq.rinnai.co.jp/faq/show/1158"
+    retrieved: 2026-09-29
 # **号数は「流量」ではなく「熱量」。**
 # 1 号 ＝ **水温を 25℃ 上げた湯を、毎分 1L 出せる能力**
 # ＝ 1 × 25 × 4.186 ÷ 60 ＝ **1.744 kW**（約 1,500 kcal/h）。

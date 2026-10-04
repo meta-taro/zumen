@@ -2,6 +2,15 @@ version: 1
 kind: placement
 arrows: true
 title: 空気清浄機の中身（「8 畳」は 8 畳用という意味ではない）
+sources:
+  - name: "日本電機工業会「JEM 1467 家庭用空気清浄機」"
+    url: "https://www.jema-net.or.jp/engineering/JEM_JEM-TR/JEM1467.html"
+    retrieved: 2026-10-04
+  - name: "日本電機工業会「空気清浄機 Q&A」（適用床面積）"
+    url: "https://www.jema-net.or.jp/living/kuusei/qa.html"
+    retrieved: 2026-09-29
+  - name: "JIS Z 8122（HEPA の定義。ニッタ株式会社 FAQ で文言を確認）"
+    retrieved: 2026-09-29
 # **プレフィルタは必ずいちばん前。** この図はプレ（大きなゴミ）→ 集じん（HEPA）→ 脱臭 → ファン（集じんと脱臭の順は機種で違う）。
 # **プレで大きなゴミを止めないと、HEPA が数か月で詰まる。**
 # プレは洗えるが **HEPA は洗えない**（繊維の隙間が壊れて性能が落ちる）——

@@ -1333,7 +1333,7 @@ sources:
 |---|---|---|
 | `name` | ○ | 出典の名前（発行元と資料名） |
 | `url` | | 出典の場所。描いた名前がそこへのリンクになる |
-| `retrieved` | | 取得日（`YYYY-MM-DD`）。**書かなければ `source-date-missing` で知らせる**（いつの数かが分からなくなる） |
+| `retrieved` | | 取得日（`YYYY-MM-DD`）。**`url` を書いた出典で取得日が無ければ `source-date-missing` で知らせる**（Web の資料は書き換わる）。書籍・規格は版や発行年を `name` に書く |
 | `license` | | 利用の条件（`CC BY 4.0` など） |
 
 描く形は `出典：名前（取得日 取得）　ライセンス`。物差しより下、紙のいちばん下に 1 件 1 行。
@@ -1870,7 +1870,7 @@ Mermaid も draw.io も、落ちたものを先頭のコメントに列挙する
 | `opening-swing-unknown` | 建具の開く向きが `in` / `out` か |
 | `sources-not-list` | `sources` が一覧か |
 | `source-name-missing` | 出典に `name` があるか |
-| `source-date-missing` | 出典に取得日（`retrieved`）があるか |
+| `source-date-missing` | `url` のある出典に取得日（`retrieved`）があるか |
 | `source-date-format` | 取得日が `YYYY-MM-DD` か |
 | `area-text-mismatch` | 箱に書いた面積（㎡）・帖数が、箱の大きさと縮尺（`scale: { mm }`）から出る値と合うか。帖は 1.62㎡ で割って小数 1 桁を切り捨て。中に入れ子にした部屋は引く。「含む」「合計」の面積と文字だけの節は見ない |
 | `opening-hinge-unknown` | 建具の蝶番の側が `start` / `end` か |

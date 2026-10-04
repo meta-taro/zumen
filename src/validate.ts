@@ -150,8 +150,10 @@ function checkSources(doc: Document, add: Add, m: Messages, at: At): void {
     }
     const date = isMap(item) ? item.get('retrieved') : undefined;
     const text = date instanceof Date ? date.toISOString().slice(0, 10) : date === undefined || date === null ? '' : String(date);
-    if (text === '') add('warning', 'source-date-missing', m.sourceDateMissing(name), at(item));
-    else if (!/^\d{4}-\d{2}-\d{2}$/.test(text)) add('warning', 'source-date-format', m.sourceDateFormat(name, text), at(item));
+    // 取得日を求めるのは Web の資料（url あり）だけ。書籍・規格は版や発行年を名前に書く
+    const url = isMap(item) ? item.get('url') : undefined;
+    if (text === '' && typeof url === 'string' && url.trim() !== '') add('warning', 'source-date-missing', m.sourceDateMissing(name), at(item));
+    else if (text !== '' && !/^\d{4}-\d{2}-\d{2}$/.test(text)) add('warning', 'source-date-format', m.sourceDateFormat(name, text), at(item));
   });
 }
 
