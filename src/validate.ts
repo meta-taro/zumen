@@ -115,6 +115,7 @@ export function validate(text: string): Finding[] {
   checkGeometry(doc, add, m, at);
   checkGridAndScale(doc, add, m, at);
   checkAreaText(doc, add, m, at);
+  checkSources(doc, add, m, at);
   checkViews(doc, add, m, at);
   checkConstruction(doc, add, m, at);
   checkSharedIds(doc, add, m, at);
@@ -128,6 +129,30 @@ export function validate(text: string): Finding[] {
   checkRoundTrip(doc, text, add, m);
 
   return found;
+}
+
+/**
+ * **出典**（`sources`。`src/sources.ts`）。名前と取得日が無ければ知らせる。
+ * 実在のデータを描いた図は、出典と日付を図に出すと決めている —— 日付の無い出典は、いつの数かが分からない。
+ */
+function checkSources(doc: Document, add: Add, m: Messages, at: At): void {
+  const raw = doc.get('sources', true);
+  if (raw === undefined || raw === null) return;
+  if (!isSeq(raw)) {
+    add('warning', 'sources-not-list', m.sourcesNotList, at(raw));
+    return;
+  }
+  raw.items.forEach((item, i) => {
+    const name = isMap(item) ? item.get('name') : undefined;
+    if (typeof name !== 'string' || name.trim() === '') {
+      add('warning', 'source-name-missing', m.sourceNameMissing(String(i + 1)), at(item));
+      return;
+    }
+    const date = isMap(item) ? item.get('retrieved') : undefined;
+    const text = date instanceof Date ? date.toISOString().slice(0, 10) : date === undefined || date === null ? '' : String(date);
+    if (text === '') add('warning', 'source-date-missing', m.sourceDateMissing(name), at(item));
+    else if (!/^\d{4}-\d{2}-\d{2}$/.test(text)) add('warning', 'source-date-format', m.sourceDateFormat(name, text), at(item));
+  });
 }
 
 /**

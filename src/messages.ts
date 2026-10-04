@@ -36,6 +36,14 @@ const ja = {
     untitledDiagram: '構成図',
   },
 
+  /** 図の中に描く文言（`src/render.ts`） */
+  figure: {
+    /** 出典の 1 行（`sources`）。 */
+    source: (body: string) => `出典：${body}`,
+    /** 取得日。 */
+    retrieved: (date: string) => `（${date} 取得）`,
+  },
+
   /** 正本の読み書き（`src/format.ts`） */
   format: {
     /** 構文誤りに行番号を添える。行が分からないこともあるので、そのときは付けない。 */
@@ -674,6 +682,10 @@ const ja = {
       `ノード "${id}" の建具 "${word}" は v1 が定めたものではありません（door / double / slide / window / open）。この建具は描かれません。`,
     openingSideUnknown: (id: string, word: string) =>
       `ノード "${id}" の建具が辺 "${word}" に付いています（top / right / bottom / left）。この建具は描かれません。`,
+    sourcesNotList: '`sources` は一覧（- { name, url, retrieved, license }）で書いてください。この出典は描かれません。',
+    sourceNameMissing: (index: string) => `出典の ${index} 件目に name がありません。名前の無い出典は描かれません。`,
+    sourceDateMissing: (name: string) => `出典「${name}」に取得日（retrieved: YYYY-MM-DD）がありません。いつの数かが分からなくなります。`,
+    sourceDateFormat: (name: string, text: string) => `出典「${name}」の取得日 "${text}" は YYYY-MM-DD の形ではありません。`,
     areaSqmMismatch: (id: string, written: string, expected: string) =>
       `ノード "${id}" に ${written}㎡ と書いてありますが、箱の大きさと縮尺から出る値は ${expected}㎡ です。箱の大きさか、書いた数を直してください。`,
     areaMatMismatch: (id: string, written: string, most: string) =>
@@ -1010,6 +1022,10 @@ const en: Catalog = {
   embed: {
     renderFailed: (reason: string) => `Could not draw the diagram: ${reason}`,
     untitledDiagram: 'Diagram',
+  },
+  figure: {
+    source: (body: string) => `Source: ${body}`,
+    retrieved: (date: string) => ` (retrieved ${date})`,
   },
   format: {
     atLine: (line: number, reason: string) => `line ${line}: ${reason}`,
@@ -1486,6 +1502,10 @@ const en: Catalog = {
       `Node "${id}" has an opening "${word}" that v1 does not define (door / double / slide / window / open). It is not drawn.`,
     openingSideUnknown: (id: string, word: string) =>
       `Node "${id}" has an opening on side "${word}" (top / right / bottom / left). It is not drawn.`,
+    sourcesNotList: 'Write `sources` as a list (- { name, url, retrieved, license }). These sources are not drawn.',
+    sourceNameMissing: (index: string) => `Source ${index} has no name. A source without a name is not drawn.`,
+    sourceDateMissing: (name: string) => `Source "${name}" has no retrieval date (retrieved: YYYY-MM-DD). Readers cannot tell when the figures were taken.`,
+    sourceDateFormat: (name: string, text: string) => `The retrieval date "${text}" of source "${name}" is not in YYYY-MM-DD form.`,
     areaSqmMismatch: (id: string, written: string, expected: string) =>
       `Node "${id}" says ${written} m², but its size and the scale give ${expected} m². Fix the box size or the number.`,
     areaMatMismatch: (id: string, written: string, most: string) =>

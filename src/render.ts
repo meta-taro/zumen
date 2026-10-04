@@ -47,6 +47,8 @@ import { drawShape, shapeOf, textShift } from './shapes.ts';
 import { placeEdgeLabels } from './edge-labels.ts';
 import type { EdgeLabel } from './edge-labels.ts';
 import { TAG_INSET, labelWidth } from './layout.ts';
+import { messages } from './messages.ts';
+import { SOURCE_FONT, SOURCE_LINE, type Source } from './sources.ts';
 import type { Box, Placed, PlacedEdge } from './layout.ts';
 import { hasAxes } from './views.ts';
 import type { View } from './views.ts';
@@ -240,7 +242,10 @@ export function render(
    */
   const marks = plan && drawsDatum(placed) ? dimensionLayer(placed, palette) : '';
   // **縮尺の物差し**（2026-09-25）。実寸で描いた図にだけ出る。
-  const bar = scaleBar(placed, frameOf(placed), paper.h, inkOf(palette));
+  // 出典の行があれば、物差しはその上へ
+  const sourceRoom = placed.sources.length > 0 ? placed.sources.length * SOURCE_LINE + 8 : 0;
+  const bar = scaleBar(placed, frameOf(placed), paper.h - sourceRoom, inkOf(palette));
+  const credits = sourceLayer(placed, paper.h, inkOf(palette));
   const avoid = plan && drawsDatum(placed) ? wordRects(under.join('') + marks) : [];
   const parts = [
     `<svg xmlns="http://www.w3.org/2000/svg" width="${size(paper.w)}" height="${size(paper.h)}" viewBox="0 0 ${size(paper.w)} ${size(paper.h)}">`,
@@ -279,6 +284,8 @@ export function render(
     ...(placed.strokes.length > 0 ? [strokeLayer(placed, palette)] : []),
     // **物差しはいちばん最後。** 図の上に置く（下に敷くと部屋の塗りで消える）。
     bar,
+    // 出典の層は、書いたときだけ（無い図の出力を 1 行も変えない）
+    ...(credits === '' ? [] : [credits]),
     '</svg>',
   ];
   return parts.join('\n');
@@ -692,7 +699,37 @@ function paperFor(placed: Placed, plans: Map<string, Plan>): { w: number; h: num
   // **縮尺の物差しのぶん、紙を下へ伸ばす**（2026-09-25）。
   // 伸ばさずに枠の中へ置いたら、**通り芯の丸と重なった**（見本 14 で踏んだ）。
   if (placed.mm !== null && placed.mm > 0) h += 42;
+  // **出典の行のぶん、さらに下へ伸ばす**（`src/sources.ts`）。物差しより下、紙のいちばん下に置く
+  const lines = sourceLines(placed.sources);
+  if (lines.length > 0) {
+    h += lines.length * SOURCE_LINE + 8;
+    for (const line of lines) w = Math.max(w, PAD_LEFT + labelWidth(line, SOURCE_FONT) + 12);
+  }
   return { w, h };
+}
+
+/** 出典の左端（物差しと揃える）。 */
+const PAD_LEFT = 20;
+
+/** 出典を 1 件 1 行の文に。 */
+function sourceLines(sources: readonly Source[]): string[] {
+  const m = messages().figure;
+  return sources.map((s) =>
+    m.source([s.name, s.retrieved === null ? '' : m.retrieved(s.retrieved), s.license === null ? '' : `　${s.license}`].join('')),
+  );
+}
+
+/** 出典の行を描く。名前に URL があれば、そこへ繋ぐ。 */
+function sourceLayer(placed: Placed, paperH: number, ink: Ink): string {
+  const lines = sourceLines(placed.sources);
+  if (lines.length === 0) return '';
+  const top = paperH - lines.length * SOURCE_LINE - 4;
+  const rows = lines.map((line, i) => {
+    const t = `<text x="${PAD_LEFT}" y="${n(top + (i + 1) * SOURCE_LINE - 3)}" font-family="${ink.font}" font-size="${SOURCE_FONT}" fill="${ink.text}">${escapeText(line)}</text>`;
+    const url = placed.sources[i]!.url;
+    return url === null ? t : `<a href="${escapeAttr(url)}">${t}</a>`;
+  });
+  return `<g data-name="sources">${rows.join('')}</g>`;
 }
 
 /**

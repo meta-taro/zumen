@@ -125,6 +125,7 @@ AI が `at` に置けるので、「人が触った要素が少ないほど良�
 |---|---|---|---|
 | `version` | ○ | 整数 | 形式の版。v1 では `1` |
 | `title` | | 文字列 | 図の題。**絵には描かないが、SVG の `<title>` と Markdown の代替文字になる** |
+| `sources` | | 一覧 | **出典**（§3.0.20）。図の下端に 1 件 1 行で描く |
 | `kind` | | 文字列 | **図の種類**（§2.3）。`structure`（既定）か `placement` |
 | `direction` | | 文字列 | 流れる向き。`right`（既定）か `down` |
 | `groups` | | 並び | 囲み（VPC・サブネット等） |
@@ -1316,6 +1317,28 @@ nodes:
 | 差し替え | **`styles` と `palette` だけを変えれば、間取りを 1 行も変えずに作風が変わる** |
 | 検査 | 表に無い名前（`style-unknown`）、表に書けない語（`style-key-unknown`）、`palette` に無い鍵（`color-unknown`）|
 
+
+#### 3.0.20 出典（`sources`）
+
+**実在のデータを描いた図は、出典と取得日を図そのものに出す。** 正本のコメントに書くだけでは、
+SVG を 1 枚だけ貼る使い方で出典が消える（2026-10-04 に足した）。
+
+```yaml
+sources:
+  - { name: 気象庁「津波警報・注意報の発表状況」, url: https://www.jma.go.jp/, retrieved: 2026-09-29 }
+  - { name: 国土交通省「〇〇」, retrieved: 2026-09-29, license: CC BY 4.0 }
+```
+
+| キー | 必須 | 意味 |
+|---|---|---|
+| `name` | ○ | 出典の名前（発行元と資料名） |
+| `url` | | 出典の場所。描いた名前がそこへのリンクになる |
+| `retrieved` | | 取得日（`YYYY-MM-DD`）。**書かなければ `source-date-missing` で知らせる**（いつの数かが分からなくなる） |
+| `license` | | 利用の条件（`CC BY 4.0` など） |
+
+描く形は `出典：名前（取得日 取得）　ライセンス`。物差しより下、紙のいちばん下に 1 件 1 行。
+`name` の無い項目は描かない（`source-name-missing`）。
+
 #### 3.1.2 建具（`openings`）
 
 **配置図（`kind: placement`）でだけ効く。** 間取り図を実物と並べたとき、
@@ -1845,6 +1868,10 @@ Mermaid も draw.io も、落ちたものを先頭のコメントに列挙する
 | `opening-kind-unknown` | 建具が `door` / `double` / `slide` / `window` / `open` か |
 | `opening-side-unknown` | 建具の辺が `top` / `right` / `bottom` / `left` か |
 | `opening-swing-unknown` | 建具の開く向きが `in` / `out` か |
+| `sources-not-list` | `sources` が一覧か |
+| `source-name-missing` | 出典に `name` があるか |
+| `source-date-missing` | 出典に取得日（`retrieved`）があるか |
+| `source-date-format` | 取得日が `YYYY-MM-DD` か |
 | `area-text-mismatch` | 箱に書いた面積（㎡）・帖数が、箱の大きさと縮尺（`scale: { mm }`）から出る値と合うか。帖は 1.62㎡ で割って小数 1 桁を切り捨て。中に入れ子にした部屋は引く。「含む」「合計」の面積と文字だけの節は見ない |
 | `opening-hinge-unknown` | 建具の蝶番の側が `start` / `end` か |
 | `opening-ignored` | **構成図に建具を書いていないか** |

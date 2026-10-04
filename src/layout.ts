@@ -55,6 +55,7 @@ import type { Write } from './write.ts';
 import { kindOf, measureOf } from './kind.ts';
 import { separate } from './separate.ts';
 import { openingsOf, swingsOf } from './openings.ts';
+import { sourcesOf, type Source } from './sources.ts';
 import type { Hole } from './openings.ts';
 import { growFor, shapeOf } from './shapes.ts';
 
@@ -180,6 +181,8 @@ export interface Placed {
   collisions: [string, string][];
   /** **図の題**（`title`）。書かなければ null。**描かないが、SVG の中に入れる。** */
   title: string | null;
+  /** **出典**（`src/sources.ts`）。図の下端に 1 行ずつ描く。書かなければ空。 */
+  sources: Source[];
   /** **階の一覧**（`src/floor.ts`）。下から上へ。書かなければ空。 */
   floors: string[];
   /** **折り返したか**（`src/wrap.ts`）。細長い構成図に、もう済んでいる逃げ道を言わないため。 */
@@ -366,6 +369,7 @@ export async function layout(text: string): Promise<Placed> {
     north?: unknown;
     wall?: unknown;
     arrows?: unknown;
+    sources?: unknown;
   };
   const direction = elkDirection(directionOf(raw.direction));
   // **折り返すかは正本が決める**（`src/wrap.ts`）。既定は折り返さない。
@@ -571,6 +575,7 @@ export async function layout(text: string): Promise<Placed> {
     wrapWritten,
     collisions: locked,
     title: asText(raw.title),
+    sources: sourcesOf(raw.sources),
     floors: floorsOf(raw.floors),
     grid,
     views,
@@ -1709,6 +1714,7 @@ function construct(raw: Record<string, unknown>, pins: Record<string, unknown>):
     wrapWritten: false,
     collisions: [],
     title: asText(raw.title),
+    sources: sourcesOf(raw.sources),
     floors: [],
     grid: { x: [], y: [] },
     views: [],

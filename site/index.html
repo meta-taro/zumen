@@ -55,7 +55,7 @@
         "ja",
         "en"
       ],
-      "description": "テキスト（YAML 1 枚）を正本にする作図ツール。AI が図を描き直しても、人が手で直した所（pins）は消えない。見本 368 枚、検査 98 項目、MCP サーバー同梱。",
+      "description": "テキスト（YAML 1 枚）を正本にする作図ツール。AI が図を描き直しても、人が手で直した所（pins）は消えない。見本 368 枚、検査 102 項目、MCP サーバー同梱。",
       "license": "https://opensource.org/licenses/MIT",
       "isAccessibleForFree": true,
       "offers": {
@@ -76,7 +76,7 @@
         "人の手直し（pins）は再生成で壊れない",
         "正本は 1 枚の YAML（人も AI も読み書きできる）",
         "SVG・Mermaid・draw.io・Markdown 埋め込みへ書き出し",
-        "描かれないものを名指しする検査 98 項目",
+        "描かれないものを名指しする検査 102 項目",
         "MCP サーバー（エージェントが仕様を読んで描ける）",
         "Git のマージドライバ（同じ図を 2 人で直しても構造で解ける）"
       ]
@@ -168,6 +168,7 @@
   <!-- news -->
   <p class="news-h">お知らせ（<a href="feed.xml">フィード</a>）</p>
   <ul class="near news">
+    <li><span class="thumb" aria-hidden="true"></span><time datetime="2026-10-04">10/4</time>機能追加 <a href="https://github.com/meta-taro/zumen/blob/main/CHANGELOG.md">変更の記録</a> 出典を図の中に出せる（sources）。名前・取得日・ライセンスを図の下端に、URL はリンクに</li>
     <li><span class="thumb" aria-hidden="true"></span><time datetime="2026-10-04">10/4</time>機能追加 <a href="https://github.com/meta-taro/zumen/blob/main/CHANGELOG.md">変更の記録</a> 検査（validate）が、箱に書いた面積・帖数を箱の大きさと照らす（帖は切り捨て）</li>
     <li><span class="thumb" aria-hidden="true"></span><time datetime="2026-10-04">10/4</time>機能追加 <a href="https://github.com/meta-taro/zumen/blob/main/CHANGELOG.md">変更の記録</a> 検査（inspect）が、通り道から入れない部屋（便所へ居間を横切るなど）を知らせる</li>
     <li><span class="thumb" aria-hidden="true"></span><time datetime="2026-10-02">10/2</time>機能追加 <a href="https://github.com/meta-taro/zumen/blob/main/CHANGELOG.md">変更の記録</a> 検査（inspect）が、線が関係の無い箱を突き抜けているところを知らせる</li>
@@ -175,7 +176,6 @@
     <li><span class="thumb" aria-hidden="true"></span><time datetime="2026-09-30">9/30</time>機能追加 <a href="https://github.com/meta-taro/zumen/blob/main/CHANGELOG.md">変更の記録</a> 開き戸の開く向き（swing: out）と蝶番の側（hinge）。日本の玄関と便所は外開き</li>
     <li><a href="g/362/" tabindex="-1" aria-hidden="true"><img class="thumb" src="gallery/362-%E6%88%B8%E5%BB%BA%E3%81%A6%E3%81%AE%E8%B2%A9%E5%A3%B2%E5%9B%B3%E9%9D%A2-%E5%A4%96%E6%A7%8B%E3%81%A4%E3%81%8D.svg" alt="" width="72" height="48" loading="lazy" decoding="async"></a><time datetime="2026-09-30">9/30</time>更新 <a href="g/362/">見本 362</a> 玄関を外開きに、便所の扉が台所の流し台に開いていたのを直した</li>
     <li><a href="g/318/" tabindex="-1" aria-hidden="true"><img class="thumb" src="gallery/318-%E5%87%A6%E6%96%B9%E7%AE%8B%E3%81%AE%E8%AA%AD%E3%81%BF%E6%96%B9.svg" alt="" width="72" height="48" loading="lazy" decoding="async"></a><time datetime="2026-09-29">9/29</time>更新 <a href="g/318/">見本 318</a> 旧来の書き方の量は 1 日量（1 回量と説明していた）</li>
-    <li><a href="g/132/" tabindex="-1" aria-hidden="true"><img class="thumb" src="gallery/132-%E3%82%AF%E3%83%AC%E3%83%BC%E3%83%B3%E6%8F%9A%E9%87%8D%E8%A8%88%E7%94%BB%E5%9B%B3.svg" alt="" width="72" height="48" loading="lazy" decoding="async"></a><time datetime="2026-09-29">9/29</time>更新 <a href="g/132/">見本 132</a> 図の半径ではクレーンの定格を超えていた。置き場を半径 10m の内側へ</li>
   </ul>
   <!-- /news -->
   <div class="filters" role="group" aria-label="種類で絞り込む">
