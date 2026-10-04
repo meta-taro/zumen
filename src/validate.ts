@@ -32,6 +32,7 @@ import { WRITES } from './write.ts';
 import { TO_STRING_OPTIONS } from './format.ts';
 import { messages } from './messages.ts';
 import { HINGES, OPENINGS, SIDES, SWINGS } from './openings.ts';
+import { areaIssues } from './area.ts';
 
 /**
  * `error` は読めない文書。`warning` は読めるが、人が見たほうがよいもの。
@@ -113,6 +114,7 @@ export function validate(text: string): Finding[] {
   checkDeclarations(doc, add, m, at);
   checkGeometry(doc, add, m, at);
   checkGridAndScale(doc, add, m, at);
+  checkAreaText(doc, add, m, at);
   checkViews(doc, add, m, at);
   checkConstruction(doc, add, m, at);
   checkSharedIds(doc, add, m, at);
@@ -126,6 +128,37 @@ export function validate(text: string): Finding[] {
   checkRoundTrip(doc, text, add, m);
 
   return found;
+}
+
+/**
+ * **書いた面積と帖数を、箱の大きさと照らす**（`src/area.ts`）。縮尺（mm）がある配置図だけ。
+ */
+function checkAreaText(doc: Document, add: Add, m: Messages, at: At): void {
+  const scale = doc.get('scale', true);
+  const mm = isMap(scale) ? scale.get('mm') : undefined;
+  if (!isPositive(mm)) return;
+  const items = seqOf(doc, 'nodes');
+  const nodes: { id: string; text: string; x: number; y: number; w: number; h: number; drawn: boolean }[] = [];
+  const where = new Map<string, unknown>();
+  for (const item of items) {
+    const size = item.get('size', true);
+    const w = isMap(size) ? size.get('w') : undefined;
+    const h = isMap(size) ? size.get('h') : undefined;
+    if (!isPositive(w) || !isPositive(h)) continue;
+    const id = String(item.get('id') ?? '');
+    const text = `${String(item.get('label') ?? '')} ${String(item.get('technology') ?? '')}`;
+    const pos = item.get('at', true);
+    const x = isMap(pos) ? Number(pos.get('x')) : NaN;
+    const y = isMap(pos) ? Number(pos.get('y')) : NaN;
+    if (!Number.isFinite(x) || !Number.isFinite(y)) continue;
+    nodes.push({ id, text, x, y, w: w as number, h: h as number, drawn: String(item.get('marker') ?? '') !== 'none' });
+    where.set(id, item);
+  }
+  for (const issue of areaIssues(nodes, mm as number)) {
+    add('warning', 'area-text-mismatch', issue.unit === 'sqm'
+      ? m.areaSqmMismatch(issue.id, String(issue.written), issue.expected.toFixed(2))
+      : m.areaMatMismatch(issue.id, String(issue.written), issue.expected.toFixed(1)), at(where.get(issue.id) as never));
+  }
 }
 
 /** `error` を 1 つでも含むか。**警告だけなら通す。** */

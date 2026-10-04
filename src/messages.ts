@@ -674,6 +674,10 @@ const ja = {
       `ノード "${id}" の建具 "${word}" は v1 が定めたものではありません（door / double / slide / window / open）。この建具は描かれません。`,
     openingSideUnknown: (id: string, word: string) =>
       `ノード "${id}" の建具が辺 "${word}" に付いています（top / right / bottom / left）。この建具は描かれません。`,
+    areaSqmMismatch: (id: string, written: string, expected: string) =>
+      `ノード "${id}" に ${written}㎡ と書いてありますが、箱の大きさと縮尺から出る値は ${expected}㎡ です。箱の大きさか、書いた数を直してください。`,
+    areaMatMismatch: (id: string, written: string, most: string) =>
+      `ノード "${id}" に ${written}帖 と書いてありますが、箱の大きさと縮尺から出せるのは ${most}帖 までです（1 帖 1.62㎡ 以上で、小数 1 桁を切り捨て）。`,
     openingSwingUnknown: (id: string, word: string) =>
       `ノード "${id}" の建具の開く向きが "${word}" です（in / out）。内開き（in）として描きます。`,
     openingHingeUnknown: (id: string, word: string) =>
@@ -1482,6 +1486,10 @@ const en: Catalog = {
       `Node "${id}" has an opening "${word}" that v1 does not define (door / double / slide / window / open). It is not drawn.`,
     openingSideUnknown: (id: string, word: string) =>
       `Node "${id}" has an opening on side "${word}" (top / right / bottom / left). It is not drawn.`,
+    areaSqmMismatch: (id: string, written: string, expected: string) =>
+      `Node "${id}" says ${written} m², but its size and the scale give ${expected} m². Fix the box size or the number.`,
+    areaMatMismatch: (id: string, written: string, most: string) =>
+      `Node "${id}" says ${written} jō, but its size and the scale allow at most ${most} jō (a jō counts only from 1.62 m², rounded down to one decimal).`,
     openingSwingUnknown: (id: string, word: string) =>
       `Node "${id}" has an opening that swings "${word}" (in / out). It is drawn swinging in.`,
     openingHingeUnknown: (id: string, word: string) =>

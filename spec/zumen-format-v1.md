@@ -1845,6 +1845,7 @@ Mermaid も draw.io も、落ちたものを先頭のコメントに列挙する
 | `opening-kind-unknown` | 建具が `door` / `double` / `slide` / `window` / `open` か |
 | `opening-side-unknown` | 建具の辺が `top` / `right` / `bottom` / `left` か |
 | `opening-swing-unknown` | 建具の開く向きが `in` / `out` か |
+| `area-text-mismatch` | 箱に書いた面積（㎡）・帖数が、箱の大きさと縮尺（`scale: { mm }`）から出る値と合うか。帖は 1.62㎡ で割って小数 1 桁を切り捨て。中に入れ子にした部屋は引く。「含む」「合計」の面積と文字だけの節は見ない |
 | `opening-hinge-unknown` | 建具の蝶番の側が `start` / `end` か |
 | `opening-ignored` | **構成図に建具を書いていないか** |
 | `kind-unknown` | `structure` / `placement` か |
