@@ -85,7 +85,10 @@ export function placeEdgeLabels(
   const placed: EdgeLabel[] = [];
   for (const edge of edges) {
     if (edge.label === null || edge.points.length < 2) continue;
-    const spot = findSpot(edge, edge.label, [...boxes, ...titles], placed);
+    // **まず別の辺の上に乗らない場所を探し、無ければ前と同じ探し方**（名札を落とさない）
+    const spot =
+      findSpot(edge, edge.label, [...boxes, ...titles], placed, edges) ??
+      findSpot(edge, edge.label, [...boxes, ...titles], placed);
     if (spot !== null) placed.push(spot);
   }
   return placed;
@@ -96,6 +99,8 @@ function findSpot(
   text: string,
   boxes: Box[],
   taken: EdgeLabel[],
+  /** 渡したら、ほかの辺の上に乗る場所も避ける（2026-10-05）。 */
+  others: readonly PlacedEdge[] = [],
 ): EdgeLabel | null {
   const w = labelWidth(text, FONT);
   for (const ratio of SPOTS) {
@@ -104,6 +109,7 @@ function findSpot(
       const candidate: EdgeLabel = { id: edge.id, text, x: point.x, y: point.y + side, w };
       if (boxes.some((box) => hitsBox(candidate, box))) continue;
       if (taken.some((other) => hitsLabel(candidate, other))) continue;
+      if (others.some((other) => other.id !== edge.id && runsUnder(other, candidate))) continue;
       return candidate;
     }
   }
@@ -146,4 +152,48 @@ function hitsBox(label: EdgeLabel, box: Box): boolean {
 
 function hitsLabel(a: EdgeLabel, b: EdgeLabel): boolean {
   return Math.abs(a.x - b.x) < (a.w + b.w) / 2 && Math.abs(a.y - b.y) < LINE;
+}
+
+/**
+ * **辺の名札の下を、別の辺が通っている組**（`[通っている辺, 名札の辺]`）。合否ではなく観測値。
+ *
+ * 2026-10-05。献血の流れ（見本 296）で、名札「成分献血（血小板）」の下を遠心分離へ行く線が通り、
+ * **血小板を遠心分離するように読めた**（2 回続けて同じ型）。名札の重なり（overlappingText）も
+ * 線と注記（linesOverText）も、辺の名札と別の辺の組は見ていなかった。
+ */
+export function edgesUnderLabels(
+  edges: readonly PlacedEdge[],
+  labels: readonly EdgeLabel[],
+): [string, string][] {
+  const found: [string, string][] = [];
+  for (const label of labels) {
+    for (const edge of edges) {
+      if (edge.id !== label.id && runsUnder(edge, label)) found.push([edge.id, label.id]);
+    }
+  }
+  return found;
+}
+
+/** 辺のどれかの線分が、名札の字の上を 6px 以上通るか。 */
+function runsUnder(edge: PlacedEdge, label: EdgeLabel, height = 12): boolean {
+  const r = { x0: label.x - label.w / 2 + 1, y0: label.y - height + 1, x1: label.x + label.w / 2 - 1, y1: label.y + 2 };
+  for (let i = 1; i < edge.points.length; i += 1) {
+    const a = edge.points[i - 1]!;
+    const c = edge.points[i]!;
+    let t0 = 0;
+    let t1 = 1;
+    const dx = c.x - a.x;
+    const dy = c.y - a.y;
+    const clip = (p: number, q: number): boolean => {
+      if (p === 0) return q >= 0;
+      const t = q / p;
+      if (p < 0) { if (t > t1) return false; if (t > t0) t0 = t; }
+      else { if (t < t0) return false; if (t < t1) t1 = t; }
+      return true;
+    };
+    if (clip(-dx, a.x - r.x0) && clip(dx, r.x1 - a.x) && clip(-dy, a.y - r.y0) && clip(dy, r.y1 - a.y)) {
+      if ((t1 - t0) * Math.hypot(dx, dy) >= 6) return true;
+    }
+  }
+  return false;
 }

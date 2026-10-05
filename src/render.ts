@@ -713,7 +713,9 @@ const PAD_LEFT = 20;
 
 /** 出典を 1 件 1 行の文に。 */
 function sourceLines(sources: readonly Source[]): string[] {
-  const m = messages().figure;
+  // **図の言葉に合わせる。** 出典の名前にかなも漢字も無ければ英語の図とみなす（英語の図で「出典：」と出ていた）
+  const japanese = sources.some((s) => /[\u3040-\u30ff\u4e00-\u9fff]/.test(s.name));
+  const m = messages(japanese ? 'ja' : 'en').figure;
   return sources.map((s) =>
     m.source([s.name, s.retrieved === null ? '' : m.retrieved(s.retrieved), s.license === null ? '' : `　${s.license}`].join('')),
   );

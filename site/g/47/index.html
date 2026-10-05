@@ -6,18 +6,18 @@
 <title>状態遷移図（注文の状態・UML） — zumen の見本 47</title>
 <link rel="icon" type="image/svg+xml" href="../../icon.svg">
 <meta name="theme-color" content="#23232b">
-<meta name="description" content="状態遷移図（UML）。UML の開始は塗りつぶした黒丸だけ、終了は二重丸（黒丸を円で囲む）だけで、箱には入れない。この図では、構成図の箱の中に ● と ◉ を置いて代えている（箱そのものは状態ではない）。">
+<meta name="description" content="状態遷移図（UML）。終わりの状態が 2 つある（完了と取消）。取消へは受付済と入金済の 2 か所から来る（下書きは捨てるだけ、出荷済からは返品という別の流れになる）。どの状態から取消へ行けるかを描き切るのが、この図の本番。">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="zumen">
 <meta property="og:locale" content="ja_JP">
 <meta property="og:url" content="https://meta-taro.github.io/zumen/g/47/">
 <meta property="og:title" content="状態遷移図（注文の状態・UML） — zumen の見本 47">
-<meta property="og:description" content="状態遷移図（UML）。UML の開始は塗りつぶした黒丸だけ、終了は二重丸（黒丸を円で囲む）だけで、箱には入れない。この図では、構成図の箱の中に ● と ◉ を置いて代えている（箱そのものは状態ではない）。">
+<meta property="og:description" content="状態遷移図（UML）。終わりの状態が 2 つある（完了と取消）。取消へは受付済と入金済の 2 か所から来る（下書きは捨てるだけ、出荷済からは返品という別の流れになる）。どの状態から取消へ行けるかを描き切るのが、この図の本番。">
 <meta property="og:image" content="https://meta-taro.github.io/zumen/og/47.png">
 <meta property="og:image:alt" content="UML 状態遷移図。状態と遷移、イベントとガード条件、開始と終了の擬似状態">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="状態遷移図（注文の状態・UML） — zumen の見本 47">
-<meta name="twitter:description" content="状態遷移図（UML）。UML の開始は塗りつぶした黒丸だけ、終了は二重丸（黒丸を円で囲む）だけで、箱には入れない。この図では、構成図の箱の中に ● と ◉ を置いて代えている（箱そのものは状態ではない）。">
+<meta name="twitter:description" content="状態遷移図（UML）。終わりの状態が 2 つある（完了と取消）。取消へは受付済と入金済の 2 か所から来る（下書きは捨てるだけ、出荷済からは返品という別の流れになる）。どの状態から取消へ行けるかを描き切るのが、この図の本番。">
 <meta name="twitter:image" content="https://meta-taro.github.io/zumen/og/47.png">
 <meta name="twitter:image:alt" content="UML 状態遷移図。状態と遷移、イベントとガード条件、開始と終了の擬似状態">
 <link rel="stylesheet" href="../../style.css">
@@ -35,7 +35,7 @@
     "@type": "CreativeWork",
     "name": "状態遷移図（注文の状態・UML）",
     "headline": "状態遷移図（注文の状態・UML）",
-    "description": "状態遷移図（UML）。UML の開始は塗りつぶした黒丸だけ、終了は二重丸（黒丸を円で囲む）だけで、箱には入れない。この図では、構成図の箱の中に ● と ◉ を置いて代えている（箱そのものは状態ではない）。",
+    "description": "状態遷移図（UML）。終わりの状態が 2 つある（完了と取消）。取消へは受付済と入金済の 2 か所から来る（下書きは捨てるだけ、出荷済からは返品という別の流れになる）。どの状態から取消へ行けるかを描き切るのが、この図の本番。",
     "url": "https://meta-taro.github.io/zumen/g/47/",
     "image": {
       "@type": "ImageObject",
@@ -112,7 +112,7 @@
   <h2>正本に書いてある決まりごと</h2>
   <p><strong>状態遷移図は、状態ではなく「遷移」を数える図。</strong>状態が 6 つでも、そこへ入る道と出る道が何本あるかで、作る手間が決まる。</p>
   <p>「入金［与信 OK］」のように、<strong>同じ操作でも条件で行き先が変わる。</strong>条件を書かないと、実装したときに分岐が現れて図と合わなくなる。</p>
-  <p>終わりの状態が 2 つある（完了と取消）。<strong>どの状態から取消へ行けるかを描き切る</strong>のが、この図の本番。</p>
+  <p>終わりの状態が 2 つある（完了と取消）。取消へは受付済と入金済の 2 か所から来る（下書きは捨てるだけ、出荷済からは返品という別の流れになる）。<strong>どの状態から取消へ行けるかを描き切る</strong>のが、この図の本番。</p>
   <p>UML の開始は<strong>塗りつぶした黒丸だけ</strong>、終了は<strong>二重丸（黒丸を円で囲む）だけ</strong>で、箱には入れない。この図では、構成図の箱の中に ● と ◉ を置いて代えている（箱そのものは状態ではない）。</p>
   <h2>正本（YAML）</h2>
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/47-%E7%8A%B6%E6%85%8B%E9%81%B7%E7%A7%BB%E5%9B%B3.zumen.yaml"><code>examples/gallery/47-状態遷移図.zumen.yaml</code></a></p>

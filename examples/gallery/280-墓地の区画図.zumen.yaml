@@ -10,6 +10,8 @@ title: 墓地の区画図（番号は、たどり方を指している）
 #
 # **広さは ㎡ で表す。** **4.0m² なら間口 2m × 奥行 2m**、**3.0m² なら 2m × 1.5m。**
 # 区画の形は正方形とはかぎらず、**同じ面積でも、置ける墓石の大きさは間口で決まる。**
+# **間口は通路に面した幅、奥行は通路から奥への長さ。** この図は通路が縦に通るので、間口は縦、奥行は横。
+# （以前は横を間口と書いていて、「2m × 1.5m」の区画が通路に 1.5m しか面していなかった。）
 #
 # **買うのは、土地ではない。** 取得するのは**永代使用権**（使う権利）で、
 # 土地の所有権ではない —— 区画ごとの登記はなく、**管理料が毎年かかる。**
@@ -53,26 +55,26 @@ nodes:
     size: { w: 120, h: 18 }
   - id: p01
     label: ""
-    at: { x: 230, y: 394 }
-    size: { w: 120, h: 90 }
+    at: { x: 260, y: 394 }
+    size: { w: 90, h: 120 }
   - id: n01
     label: "1-5-12-26"
     marker: none
     align: center
-    at: { x: 230, y: 402 }
-    size: { w: 120, h: 18 }
+    at: { x: 260, y: 402 }
+    size: { w: 90, h: 18 }
   - id: a01
     label: "3.0m²"
     marker: none
     align: center
-    at: { x: 230, y: 424 }
-    size: { w: 120, h: 18 }
+    at: { x: 260, y: 424 }
+    size: { w: 90, h: 18 }
   - id: m01
     label: "2m × 1.5m"
     marker: none
     align: center
-    at: { x: 230, y: 458 }
-    size: { w: 120, h: 18 }
+    at: { x: 260, y: 488 }
+    size: { w: 90, h: 18 }
   - id: p10
     label: ""
     at: { x: 440, y: 250 }
@@ -98,30 +100,30 @@ nodes:
   - id: p11
     label: ""
     at: { x: 440, y: 394 }
-    size: { w: 120, h: 90 }
+    size: { w: 90, h: 120 }
   - id: n11
     label: "1-5-13-26"
     marker: none
     align: center
     at: { x: 440, y: 402 }
-    size: { w: 120, h: 18 }
+    size: { w: 90, h: 18 }
   - id: a11
     label: "3.0m²"
     marker: none
     align: center
     at: { x: 440, y: 424 }
-    size: { w: 120, h: 18 }
+    size: { w: 90, h: 18 }
   - id: m11
     label: "2m × 1.5m"
     marker: none
     align: center
-    at: { x: 440, y: 458 }
-    size: { w: 120, h: 18 }
+    at: { x: 440, y: 488 }
+    size: { w: 90, h: 18 }
   - id: road
     label: ""
     hatch: lines
     at: { x: 354, y: 250 }
-    size: { w: 82, h: 234 }
+    size: { w: 82, h: 264 }
   - id: roadn
     label: "通路"
     marker: none
@@ -139,7 +141,7 @@ nodes:
     at: { x: 349, y: 223 }
     size: { w: 2, h: 2 }
   - id: ma
-    label: "間口 2m"
+    label: "奥行 2m"
     marker: none
     align: center
     at: { x: 230, y: 200 }
@@ -155,7 +157,7 @@ nodes:
     at: { x: 203, y: 369 }
     size: { w: 2, h: 2 }
   - id: oku
-    label: "奥行\n2m"
+    label: "間口\n2m"
     marker: none
     align: right
     at: { x: 100, y: 290 }
@@ -170,11 +172,11 @@ nodes:
     label: "1 px ＝ 約 17mm"
     marker: none
     align: center
-    at: { x: 150, y: 504 }
+    at: { x: 150, y: 534 }
     size: { w: 700, h: 18 }
   - id: why1
     label: "番号は場所を指すのではなく、たどり方を指している。\n「1-5-12-25」は区 → 地区 → 列 → 番の順で、上から順にたどると現地に着く ——\n通し番号にすると、区画を足したときに全部振り直しになる。\n墓地は数十年かけて区画を足していくので、階層でないと続かない。"
-    at: { x: 150, y: 534 }
+    at: { x: 150, y: 564 }
     size: { w: 700, h: 92 }
   - id: t2
     label: "② 広さは ㎡ で表す"
