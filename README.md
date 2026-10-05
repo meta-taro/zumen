@@ -87,6 +87,13 @@ edges:
     to: waiting
 ```
 
+For floor plans and other placement drawings, the source can also say:
+
+- **Doors** — single, double, sliding, window, plain opening; which way a door swings (`swing: out`) and which side it is hinged (`hinge`)
+- **Style tables** (`styles`) — rooms carry only a style name; swap the table and the same plan takes another house style
+- **Floor patterns** — `rows` (boards across), `columns` (boards lengthwise), `grid` (tiles)
+- **Sources** (`sources`) — name, retrieval date and licence are drawn along the bottom of the figure, with the URL as a link, so the attribution travels with a single SVG
+
 The full specification is [`spec/zumen-format-v1.md`](spec/zumen-format-v1.md).
 It is written so that **another implementation could read and write the same files** —
 the spec is deliberately separate from this implementation.
@@ -101,6 +108,9 @@ This is **not finished software.** It is being built in the open, small step by 
 - Export to Mermaid, draw.io XML, and embedding into Markdown
 - A validator (102 checks) that explains, in the writer's terms, what will not be drawn —
   including one that lays the drawing out and reports labels that would collide
+- Checks that read the drawing the way a professional would: things sitting inside a door's
+  swing, lines running through boxes they do not connect, rooms that cannot be reached from a
+  corridor, and areas or jō counts that do not match the box size and scale
 - A Git merge driver so two people editing the same diagram merge structurally
 - An MCP server, so an agent can read the spec and write diagrams
 - A minimal desktop GUI (Tauri) limited to **eight operations** — enough to approve or
