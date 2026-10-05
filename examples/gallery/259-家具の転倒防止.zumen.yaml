@@ -2,6 +2,16 @@ version: 1
 kind: placement
 arrows: true
 title: 家具の転倒防止（倒れやすさに、重さは関係ない）
+sources:
+  - name: "気象庁「計測震度の算出方法」"
+    url: "https://www.jma.go.jp/jma/kishou/know/jishin/kyoshin/kaisetsu/calc_sindo.html"
+    retrieved: 2026-09-29
+  - name: "気象庁「震度と加速度」"
+    url: "https://www.jma.go.jp/jma/kishou/know/jishin/kyoshin/kaisetsu/comp.html"
+    retrieved: 2026-09-29
+  - name: "東京消防庁「家具類の転倒・落下・移動防止対策」"
+    url: "https://www.tfd.metro.tokyo.lg.jp/lfe/bou_topic/kaguten/measures_house.html"
+    retrieved: 2026-09-29
 # **倒れ始める条件に、重さは入らない。**
 # m·a·h ＞ m·g·(d/2) の両辺から m が消えるので、
 # **a / g ＝ (奥行 ÷ 2) ÷ 重心の高さ** —— 奥行と重心の高さだけで決まる。

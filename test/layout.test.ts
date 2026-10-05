@@ -96,6 +96,7 @@ describe('overlaps', () => {
       wall: null,
       arrows: true,
       title: null,
+      sources: [],
       floors: [],
       wrap: false,
       wrapWritten: false,
