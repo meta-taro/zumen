@@ -87,7 +87,8 @@ ZUMEN_LOCALE=en pnpm mcp
 
 | | 中身 |
 |---|---|
-| `zumen-windows` | `zumen.exe`（**置いてそのまま起動できる**）／ `.msi` ／ `setup.exe` |
+| `zumen-windows-x64` | Windows（Intel・AMD）用。`zumen-windows-x64.exe`（**置いてそのまま起動できる**）／ `.msi` ／ `setup.exe` |
+| `zumen-windows-arm64` | Windows（ARM。Snapdragon など）用。`zumen-windows-arm64.exe`（**置いてそのまま起動できる**）／ `.msi` ／ `setup.exe` |
 | `zumen-macos` | `zumen-macos-app.tar.gz`（**展開してそのまま起動できる**）／ `.dmg` |
 
 **mac 版は Apple Silicon 用だけ**（`aarch64`）。`macos-latest` の runner がそれなので、
@@ -109,7 +110,7 @@ Rust と、その機械の WebView が要る（[Tauri 2 の前提条件](https:/
 
 ### 配布物を作る仕組み
 
-`.github/workflows/release.yml` が `macos-latest` と `windows-latest` の両方を回す。
+`.github/workflows/release.yml` が `macos-latest` と、Windows の x64（`windows-latest`）・ARM64（`windows-11-arm`。交差ビルドではなく ARM の機械で建てる）を回す。
 **`develop` への push・タグ・手動**のどれでも動く。
 
 **以前はタグと手動だけだった**ので、一度も回っておらず、

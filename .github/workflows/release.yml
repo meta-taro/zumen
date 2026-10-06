@@ -3,7 +3,7 @@ name: release
 # **配布物を作る。** タグを打ったときと、手で回したとき。
 #
 # この Mac 単体では Windows 版を作れない（Tauri はクロスビルドを実質サポートしない）。
-# **CI で `macos-latest` と `windows-latest` の両方を回す。**
+# **CI で `macos-latest` と、Windows の x64（`windows-latest`）・ARM64（`windows-11-arm`）を回す。**
 # 姉妹プロジェクト warifu が同じ形で作っているので、そこへ揃える。
 #
 # ## 署名について
@@ -166,8 +166,20 @@ jobs:
             zumen-macos-app.tar.gz
           if-no-files-found: error
 
+  # **Windows は x64 と ARM64 の 2 本**（2026-10-06。最初のリリースから ARM64 を出す）。
+  #
+  # ARM の Windows（Snapdragon など）では x64 の配布物が入らない席があった。
+  # **交差ビルドはしない。** ARM64 は ARM の機械（windows-11-arm）でそのまま建てる。
   windows:
-    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: windows-latest
+            arch: x64
+          - runner: windows-11-arm
+            arch: arm64
+    runs-on: ${{ matrix.runner }}
     steps:
       - uses: actions/checkout@v7
 
@@ -183,6 +195,8 @@ jobs:
         with:
           workspaces: src-tauri
 
+      # ARM の Windows でも、ARM 用の部品（rollup・tauri の CLI）は入る。pnpm は optional の依存を
+      # node_modules/.pnpm/ の下に置くので、トップの node_modules を見て「無い」と読まないこと（--force は要らない）
       - run: pnpm install --frozen-lockfile
 
       - name: 画面を束ねる
@@ -200,6 +214,12 @@ jobs:
             \( -name '*.msi' -o -name '*.exe' \) -exec ls -l {} \;
           ls -l src-tauri/target/release/zumen.exe
 
+      # **置いてそのまま起動できる exe は、形の名前を付けて分ける。**
+      # 同じ zumen.exe が 2 つ並ぶと、Release で取り違える（後から貼ったほうで上書きもされる）
+      - name: 形の名前を付ける
+        shell: bash
+        run: cp src-tauri/target/release/zumen.exe "zumen-windows-${{ matrix.arch }}.exe"
+
       # **インストーラだけでは足りない**（Issue #7）。
       #
       # 署名していない `.msi` / `setup.exe` は
@@ -208,11 +228,11 @@ jobs:
       # `bundle/` の下だけを拾っていたので、これまで上げていなかった。
       - uses: actions/upload-artifact@v4
         with:
-          name: zumen-windows
+          name: zumen-windows-${{ matrix.arch }}
           path: |
             src-tauri/target/release/bundle/**/*.msi
             src-tauri/target/release/bundle/**/*.exe
-            src-tauri/target/release/zumen.exe
+            zumen-windows-${{ matrix.arch }}.exe
           if-no-files-found: error
 
   # --- タグを打ったときだけ、Release へ貼る ---------------------------------
@@ -247,9 +267,13 @@ jobs:
             | Windows | 「WindowsによってPCが保護されました」 | 詳細情報 → 実行。または署名の要らない `zumen.exe` を使う |
             | mac | 「壊れているため開けません」 | 右クリック → 開く。または `xattr -d com.apple.quarantine` |
 
-            **`zumen.exe` と `zumen-macos-app.tar.gz` は、置いてそのまま起動できます。**
+            **`zumen-windows-x64.exe`・`zumen-windows-arm64.exe`・`zumen-macos-app.tar.gz` は、置いてそのまま起動できます。**
             インストーラ（`.msi` / `setup.exe` / `.dmg`）より確実です。
 
-            mac 版は Apple Silicon 用だけです。
+            | | 選ぶもの |
+            |---|---|
+            | Windows（Intel・AMD） | 名前に `x64` が入っているもの |
+            | Windows（ARM。Snapdragon など） | 名前に `arm64` が入っているもの |
+            | mac | Apple Silicon 用だけです |
 
             変更の記録は [CHANGELOG.md](../blob/develop/CHANGELOG.md)。
