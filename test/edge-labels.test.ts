@@ -45,6 +45,9 @@ function edge(id: string, label: string | null, points: [number, number][]): Pla
     hatch: 'none' as const,
   vertical: 'none' as const,
     color: null,
+    casing: null,
+    hatchColor: null,
+    offset: 0,
     points: points.map(([x, y]) => ({ x, y })),
   };
 }
@@ -52,7 +55,7 @@ function edge(id: string, label: string | null, points: [number, number][]): Pla
 function box(id: string, x: number, y: number, w = 160, h = 60): Box {
   return { id, label: id, x, y, w, h, group: null, type: 'server', appearance: null, technology: null, openings: [], tag: null, radius: null, marker: 'box', line: 'solid', hatch: 'none',
   write: 'across' as const, align: 'center' as const,
-  floor: null, symbol: null, color: null, tint: null, pinned: false };
+  floor: null, symbol: null, color: null, tint: null, hatchColor: null, pinned: false };
 }
 
 describe('線に沿った中央へ置く', () => {

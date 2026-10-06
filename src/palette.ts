@@ -53,6 +53,20 @@ export function colorOf(key: unknown, palette: Palette): string | null {
   return palette[key] ?? null;
 }
 
+/**
+ * **地の色**を指す語（`edges[].casing` ／ `hatch_color`）。
+ *
+ * 路線図の白い縁取りは「白」ではなく**地の色**で、ダークで描けば暗い色になる。
+ * 色の値ではなくこの語のまま持っておき、**描く側がテーマの地の色に置き換える。**
+ */
+export const PAPER = 'paper';
+
+/** 縁取り・模様の色を引く。`paper` は地の色の語のまま、それ以外は `palette` の鍵。 */
+export function paintOf(key: unknown, palette: Palette): string | null {
+  if (key === PAPER) return PAPER;
+  return colorOf(key, palette);
+}
+
 /** 相対輝度（WCAG）。`src/tokens.ts` と同じ式。 */
 function luminance(hex: string): number {
   const parts = [1, 3, 5]

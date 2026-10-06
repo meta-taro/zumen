@@ -39,7 +39,8 @@ import { curveOf, viaOf } from './curve.ts';
 import { floorsOf, verticalOf } from './floor.ts';
 import type { Vertical } from './floor.ts';
 import type { Curve, Point } from './curve.ts';
-import { colorOf, paletteOf as routePalette } from './palette.ts';
+import { colorOf, paintOf, paletteOf as routePalette } from './palette.ts';
+import { offsetLine } from './offset.ts';
 import { weightOf } from './weight.ts';
 import type { Weight } from './weight.ts';
 import type { Line } from './line.ts';
@@ -125,6 +126,11 @@ export interface Box {
    * 淡い色を `color` に書くと、枠（＝壁）まで淡くなって消えるため。
    */
   tint: string | null;
+  /**
+   * **模様の色**（`nodes[].hatch_color`）。`palette` の鍵の色か `paper`（地の色）。
+   * 書かなければ null で、模様はこれまでどおり面の色・枠の色で描く。
+   */
+  hatchColor: string | null;
   /** 人が置いた場所か。 */
   pinned: boolean;
 }
@@ -164,6 +170,15 @@ export interface PlacedEdge {
   vertical: Vertical;
   /** **路線の色**（`src/palette.ts`）。`palette` に無ければ null。 */
   color: string | null;
+  /**
+   * **線の縁取り**（`edges[].casing`）。`palette` の鍵の色か `paper`（地の色）。
+   * 書かなければ null（縁を描かない）。
+   */
+  casing: string | null;
+  /** **閉じた輪の中の模様の色**（`edges[].hatch_color`）。書かなければ null。 */
+  hatchColor: string | null;
+  /** **並走する線のずらし**（px。`src/offset.ts`）。書かなければ 0。 */
+  offset: number;
 }
 
 export interface Placed {
@@ -463,11 +478,18 @@ export async function layout(text: string): Promise<Placed> {
   // **色は鍵から引く。** `palette` に無い鍵は使わない（勝手な色を作らない）。
   for (const [index, line] of edges.entries()) {
     line.color = colorOf(rawEdges[index]?.colorKey, routes);
+    // **縁取りと模様の色**も鍵から引く。`paper` は地の色の語のまま（描く側がテーマで置き換える）。
+    line.casing = paintOf(rawEdges[index]?.casingKey, routes);
+    line.hatchColor = paintOf(rawEdges[index]?.hatchColorKey, routes);
+    // **並走する線は、通り道を引いたあとでずらす**（`src/offset.ts`）。
+    // ずらしたあとの点を持つので、ラベル・端の記号・検査もずらした線に沿う。
+    if (line.offset !== 0) line.points = offsetLine(line.points, line.offset, line.close);
   }
   for (const box of boxes) {
     const node = nodes.find((n) => n.id === box.id);
     box.color = colorOf(node?.color, routes);
     box.tint = colorOf(node?.fill, routes);
+    box.hatchColor = paintOf(node?.hatchColor, routes);
   }
   /**
    * **通り芯と寸法線の分だけ、外側へ空ける**（`src/grid.ts`）。
@@ -976,6 +998,8 @@ interface NodeInfo {
   color: unknown;
   /** 面の色の鍵（`src/palette.ts`）。 */
   fill: unknown;
+  /** 模様の色の鍵（`paper` か palette の鍵）。 */
+  hatchColor: unknown;
   /**
    * **AI が書いた置き場所**（仕様 §3.1。配置図で使う）。
    *
@@ -1020,6 +1044,7 @@ function readNodes(diagram: ReturnType<typeof parse>): NodeInfo[] {
       symbol?: unknown;
       color?: unknown;
       fill?: unknown;
+      hatch_color?: unknown;
       at?: unknown;
       size?: unknown;
       openings?: unknown;
@@ -1056,6 +1081,7 @@ function readNodes(diagram: ReturnType<typeof parse>): NodeInfo[] {
       symbol: symbolOf(node.symbol),
       color: node.color,
       fill: node.fill,
+      hatchColor: node.hatch_color,
       at: asPoint(node.at, axon),
       size: asSize(node.size),
       openings: openingsOf(node.openings),
@@ -1093,6 +1119,16 @@ interface EdgeInfo {
   hatch: Hatch;
   /** 階をまたぐ動線（`src/floor.ts`）。 */
   vertical: Vertical;
+  /** 縁取りの色。**引く前は null、引いたあとは色か `paper`。** */
+  casing: string | null;
+  /** 縁取りの色の鍵（引く前）。 */
+  casingKey: unknown;
+  /** 閉じた輪の中の模様の色。**引く前は null。** */
+  hatchColor: string | null;
+  /** 模様の色の鍵（引く前）。 */
+  hatchColorKey: unknown;
+  /** 並走する線のずらし（px）。数でなければ 0。 */
+  offset: number;
 }
 
 /** グループの表示名。無ければ id を使う。 */
@@ -1150,6 +1186,11 @@ function readEdges(diagram: ReturnType<typeof parse>): EdgeInfo[] {
       close: edge.close === true,
       hatch: hatchOf(edge.hatch),
       vertical: verticalOf(edge.vertical),
+      casing: null,
+      casingKey: edge.casing,
+      hatchColor: null,
+      hatchColorKey: edge.hatch_color,
+      offset: typeof edge.offset === 'number' && Number.isFinite(edge.offset) ? edge.offset : 0,
     };
   });
 }
@@ -1576,6 +1617,7 @@ function collect(
       symbol: nodes.find((n) => n.id === child.id)?.symbol ?? null,
       color: null,
       tint: null,
+      hatchColor: null,
       openings: nodes.find((n) => n.id === child.id)?.openings ?? [],
       pinned: false,
     };

@@ -57,6 +57,12 @@ export interface Edge {
   /** 閉じた輪の中の模様（`src/hatch.ts`）。**閉じていない辺では効かない。** */
   hatch?: unknown;
   vertical?: unknown;
+  /** 線の縁取りの色（`paper` か palette の鍵）。 */
+  casing?: unknown;
+  /** 閉じた輪の中の模様の色（`paper` か palette の鍵）。 */
+  hatch_color?: unknown;
+  /** 並走する線のずらし（px。進む向きの右が正。`src/offset.ts`）。 */
+  offset?: unknown;
 }
 
 /**
@@ -122,6 +128,12 @@ export class Diagram {
       if (hatch !== undefined && hatch !== null) edge.hatch = hatch;
       const vertical = item.get('vertical');
       if (vertical !== undefined && vertical !== null) edge.vertical = vertical;
+      const casing = item.get('casing');
+      if (casing !== undefined && casing !== null) edge.casing = casing;
+      const hatchColor = item.get('hatch_color');
+      if (hatchColor !== undefined && hatchColor !== null) edge.hatch_color = hatchColor;
+      const offset = item.get('offset');
+      if (offset !== undefined && offset !== null) edge.offset = offset;
       return edge;
     });
   }

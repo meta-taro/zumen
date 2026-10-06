@@ -29,7 +29,7 @@ import type { Frame, Ink } from './dimensions.ts';
 import { CODE_R, MARGIN, hasGrid } from './grid.ts';
 import { drawEnd, hasEnds } from './ends.ts';
 import { drawHatch, drawHatchIn, drawTint } from './hatch.ts';
-import { contrastOn, TINT } from './palette.ts';
+import { contrastOn, PAPER, TINT } from './palette.ts';
 import type { Hatch } from './hatch.ts';
 import { pathOf } from './curve.ts';
 import { ALIGN_INSET, anchorOf } from './align.ts';
@@ -1006,7 +1006,8 @@ function renderNode(
   // **模様にも面の色が乗る。** `fill` ＋ `hatch: solid` は
   // 「**この面をその色で塗り潰す**」——モザイクの割り付け図のように、
   // 面が中身そのものである図で要る（薄く敷いたのでは色が読めない）。
-  const face = box.tint ?? box.color ?? style.stroke;
+  // **模様の色を書いていれば、模様だけその色**（`nodes[].hatch_color`）。枠の色は変えない。
+  const face = paintFor(box.hatchColor, palette) ?? box.tint ?? box.color ?? style.stroke;
   const pattern = plan ? drawHatch(box.hatch, box, face, box.marker, box.id) : '';
 
   // **面の色**（`nodes[].fill`。`src/palette.ts`）。**枠も文字も染めずに、面だけ。**
@@ -1485,16 +1486,35 @@ function renderEdge(
        */
       const face =
         edge.close && edge.hatch !== 'none' && edge.points.length > 2
-          ? drawHatchIn(edge.hatch, path, boundsOf(edge.points), edge.color ?? palette.edge.stroke, edge.id)
+          ? drawHatchIn(
+              edge.hatch,
+              path,
+              boundsOf(edge.points),
+              paintFor(edge.hatchColor, palette) ?? edge.color ?? palette.edge.stroke,
+              edge.id,
+            )
           : '';
+      /**
+       * **線の縁取り**（`edges[].casing`）。線の下に、左右 1.5px ずつ太い線を別の色で敷く。
+       *
+       * 路線図では、路線が重なる所で**上を通る線の縁が、下の線を白く切る**。
+       * 辺は書いた順に描くので、**後に書いた辺の縁が、先に書いた辺の上に乗る。**
+       * 縁は破線にしない・矢じりを付けない（線の模様ではなく、線の下敷き）。
+       */
+      const outer = doubled(edge.line) ? width + DOUBLE_GAP * 2 : width;
+      const casing =
+        edge.casing === null
+          ? ''
+          : `<path d="${path}" fill="none" stroke="${paintFor(edge.casing, palette)}" stroke-width="${n(outer + CASING * 2)}"${round}/>`;
       // **二重線は、同じ道を 2 回描く**（`src/line.ts`）。
       // 太い線の上に地の色の細い線を重ねると、線が 2 本に見える。
       // 平行線を計算し直さないので、折れ線でも曲線でも同じやり方で効く。
       if (!doubled(edge.line)) {
-        return [face, `<path d="${path}" fill="none" stroke="${stroke}" stroke-width="${width}"${round}${dash}${head}/>`];
+        return [face, casing, `<path d="${path}" fill="none" stroke="${stroke}" stroke-width="${width}"${round}${dash}${head}/>`];
       }
       return [
         face,
+        casing,
         `<path d="${path}" fill="none" stroke="${stroke}" stroke-width="${n(width + DOUBLE_GAP * 2)}"${round}${head}/>`,
         `<path d="${path}" fill="none" stroke="${palette.paper}" stroke-width="${n(width)}"${round}/>`,
       ];
@@ -1546,6 +1566,15 @@ function roomForEnds(edge: PlacedEdge): number {
   }
   const both = (edge.ends?.from ?? 'none') !== 'none' && (edge.ends?.to ?? 'none') !== 'none';
   return both ? length / 2 : length;
+}
+
+/** 縁取りの片側の幅（px）。線の左右に 1 本ずつ。 */
+const CASING = 1.5;
+
+/** `paper`（地の色の語）をテーマの地の色に置き換える。書かなければ null。 */
+function paintFor(paint: string | null, palette: Palette): string | null {
+  if (paint === null) return null;
+  return paint === PAPER ? palette.paper : paint;
 }
 
 /** 点列の外接矩形（閉じた輪の中を塗るのに使う）。 */

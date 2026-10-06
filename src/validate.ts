@@ -22,7 +22,7 @@ import { ENDS } from './ends.ts';
 import { LINES } from './line.ts';
 import { CURVES, viaOf } from './curve.ts';
 import { VERTICALS, floorsOf } from './floor.ts';
-import { achromatic, faintOn, faintWhere, paletteOf as routePalette } from './palette.ts';
+import { achromatic, faintOn, faintWhere, PAPER, paletteOf as routePalette } from './palette.ts';
 import { WEIGHTS, weightOf, type Weight } from './weight.ts';
 import { HATCHES } from './hatch.ts';
 import { SYMBOLS } from './symbol.ts';
@@ -782,7 +782,7 @@ function checkGeometry(doc: Document, add: Add, m: Messages, at: At): void {
      * 敷地境界線を太くしようとして `weight: thick` と書き、
      * **何も言われないまま細い線が出た**（見本 214 を描いていて踏んだ）。
      */
-    for (const key of ['weight', 'curve', 'ends', 'via', 'close'] as const) {
+    for (const key of ['weight', 'curve', 'ends', 'via', 'close', 'casing', 'offset'] as const) {
       const wrote = item.get(key, true);
       if (wrote !== undefined && wrote !== null) {
         add('warning', 'node-edge-key-ignored', m.nodeEdgeKeyIgnored(id, key), at(wrote));
@@ -847,6 +847,7 @@ function checkGeometry(doc: Document, add: Add, m: Messages, at: At): void {
         add('warning', 'hatch-ignored', m.hatchIgnored(id), at(item.get('hatch', true)));
       }
     }
+    checkHatchColor(doc, item, id, add, m, at);
 
     checkOpenings(item, id, placement, add, m, at);
   }
@@ -1019,6 +1020,19 @@ function checkColors(doc: Document, add: Add, m: Messages, at: At): void {
   for (const item of seqOf(doc, 'nodes')) {
     const key = item.get('fill');
     if (key !== undefined && key !== null) tints.add(String(key));
+  }
+  /**
+   * **縁取りと模様の色も、地には乗らない**（`casing` ／ `hatch_color`）。
+   * 縁は線の下、模様は面の上に描くので、地との比べ方は当たらない ——
+   * 黒い縁は暗い地で沈むが、そのときも縁の内側の線は読める。
+   */
+  for (const kind of ['nodes', 'edges'] as const) {
+    for (const item of seqOf(doc, kind)) {
+      for (const field of ['casing', 'hatch_color'] as const) {
+        const key = item.get(field);
+        if (key !== undefined && key !== null) tints.add(String(key));
+      }
+    }
   }
   /**
    * **見せ方の表（`styles`）の中の色も数える**（2026-09-28）。
@@ -1201,6 +1215,56 @@ const NODE_ONLY_KEYS = [
   'style',
 ] as const;
 
+/**
+ * **`palette` に書いた鍵**（値が読めるかどうかは問わない）。
+ * 値が読めない鍵は `color-not-hex` が 1 度だけ言うので、ここでは重ねて言わない。
+ */
+function paletteKeys(doc: Document): Set<string> {
+  const raw = doc.get('palette', true);
+  return new Set(isMap(raw) ? raw.items.map((entry) => String(entry.key?.toString() ?? '')) : []);
+}
+
+/** 縁取り・模様の色として読めるか（`paper` か、palette の鍵）。 */
+function paintKnown(doc: Document, value: unknown): boolean {
+  return value === PAPER || (typeof value === 'string' && paletteKeys(doc).has(value));
+}
+
+/**
+ * **模様の色**（`nodes[].hatch_color` ／ `edges[].hatch_color`）。
+ *
+ * 読めない色は無視して、模様は枠の色で描かれる。**模様が無ければ、色を付ける相手が無い。**
+ * どちらも黙って落とすと、書いた側は「効かない」理由が分からない。
+ */
+function checkHatchColor(doc: Document, item: YAMLMap, name: string, add: Add, m: Messages, at: At): void {
+  const value = item.get('hatch_color');
+  if (value === undefined || value === null) return;
+  const where = at(item.get('hatch_color', true));
+  if (!paintKnown(doc, value)) {
+    add('warning', 'hatch-color-unknown', m.hatchColorUnknown(name, String(value)), where);
+    return;
+  }
+  const hatch = item.get('hatch');
+  if (hatch === undefined || hatch === null || String(hatch) === 'none') {
+    add('warning', 'hatch-color-ignored', m.hatchColorIgnored(name), where);
+  }
+}
+
+/**
+ * **線の縁取りと、並走のずらし**（`edges[].casing` ／ `edges[].offset`）。
+ *
+ * 縁取りの色が読めなければ縁は描かれない。ずらしが数でなければずらさない。
+ */
+function checkRailStyles(doc: Document, item: YAMLMap, name: string, add: Add, m: Messages, at: At): void {
+  const casing = item.get('casing');
+  if (casing !== undefined && casing !== null && !paintKnown(doc, casing)) {
+    add('warning', 'casing-unknown', m.casingUnknown(name, String(casing)), at(item.get('casing', true)));
+  }
+  const offset = item.get('offset');
+  if (offset !== undefined && offset !== null && (typeof offset !== 'number' || !Number.isFinite(offset))) {
+    add('warning', 'offset-not-number', m.offsetNotNumber(name, String(offset)), at(item.get('offset', true)));
+  }
+}
+
 /** そのノードが何階にあるか。無ければ null。 */
 function floorOfNode(doc: Document, id: string): string | null {
   for (const item of seqOf(doc, 'nodes')) {
@@ -1281,6 +1345,8 @@ function checkEnds(doc: Document, add: Add, m: Messages, at: At): void {
         add('warning', 'edge-hatch-ignored', m.edgeHatchIgnored(name), at(item.get('hatch', true)));
       }
     }
+    checkHatchColor(doc, item, name, add, m, at);
+    checkRailStyles(doc, item, name, add, m, at);
     const via = item.get('via', true);
     if (via !== undefined && via !== null) {
       if (!placement) {

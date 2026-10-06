@@ -171,6 +171,7 @@ nodes:
 | `style` | | **見せ方の表（`styles`）の名前**。面・線・模様をまとめて受け取る。部屋に直接書いた値が勝つ（§3.0.19） |
 | `color` | | **`palette` の鍵**。枠の線と `hatch: solid` の塗りに乗る（§3.0.13） |
 | `fill` | | **`palette` の鍵**。**面だけ**を薄く敷く。枠も文字も染めない（§3.0.13） |
+| `hatch_color` | | **模様の色**（`paper` か `palette` の鍵）。`hatch` の模様だけに乗る（§3.0.21） |
 | `label` の改行 | | **名前を 2 行以上で書ける**（`"Shoes-in\nCloset"`）。配置図で箱に収まるときだけ積む |
 | `floor` | | **どの階にあるか**（`floors` の名前）。**位置は変えない**（§3.0.16） |
 | その他 | | 自由。読み手は知らないキーを**捨てずに保つ** |
@@ -1339,6 +1340,82 @@ sources:
 描く形は `出典：名前（取得日 取得）　ライセンス`。物差しより下、紙のいちばん下に 1 件 1 行。
 `name` の無い項目は描かない（`source-name-missing`）。
 
+#### 3.0.21 路線図の線（`edges[].casing` ／ `hatch_color` ／ `edges[].offset`）
+
+鉄道の路線図・停車駅案内は、線を 3 つのやり方で描き分ける。
+
+- **縁取り** —— 路線の縁に別の色の細い縁を付ける。**重なる所では、上を通る線の縁が下の線を地の色で切る**
+  ので、どちらが上を通っているかが読める
+- **模様の色** —— 同じ色の面に、別の色の縞を入れる（見分けにくい路線色を、色以外でも分ける）
+- **並走のずらし** —— 同じ駅の間を 2 つの路線が並んで走る所を、重ねずに少しずらして平行に描く
+
+```yaml
+version: 1
+kind: placement
+arrows: false
+palette:
+  G: "#f39700"
+  M: "#e60012"
+  Ink: "#111111"
+nodes:
+  - id: a
+    label: 西
+    marker: circle
+    at: { x: 0, y: 100 }
+    size: { w: 20, h: 20 }
+  - id: b
+    label: 東
+    marker: circle
+    at: { x: 300, y: 100 }
+    size: { w: 20, h: 20 }
+  - id: c
+    label: 北
+    marker: circle
+    at: { x: 150, y: 0 }
+    size: { w: 20, h: 20 }
+  - id: d
+    label: 南
+    marker: circle
+    at: { x: 150, y: 200 }
+    size: { w: 20, h: 20 }
+edges:
+  - from: a
+    to: b
+    label: G 線
+    color: G
+    weight: thick
+    casing: Ink
+    offset: -4
+  - from: a
+    to: b
+    label: M 線
+    color: M
+    weight: thick
+    casing: Ink
+    offset: 4
+  - from: c
+    to: d
+    label: M 線（支線）
+    color: M
+    weight: thick
+    casing: paper
+```
+
+| キー | 書く所 | 値 | 描き方 |
+|---|---|---|---|
+| `casing` | 辺 | `paper` か `palette` の鍵 | **線の下に、線より左右 1.5px ずつ太い線をその色で敷く。** `paper` は地の色（ダークでは暗い地の色）。縁は破線にせず、矢じりも付けない |
+| `hatch_color` | 節・閉じた辺 | `paper` か `palette` の鍵 | **`hatch` の模様だけをその色で描く。** 枠・輪郭の色（`color`）は変えない。書かなければこれまでどおり枠と同じ色 |
+| `offset` | 辺 | 数（px） | **進む向き（`from` → `to`）の右へずらす。負なら左**（紙の座標は y が下向きなので、東へ進む線の右は南）。折れ点でも平行を保つ —— 線分ごとにずらし、折れ点は隣り合う線分の交点に置く |
+
+- **描く順は辺の順。** 後に書いた辺の縁が、先に書いた辺の線の上に乗る。交わる所で下を通る線を切りたいなら、
+  上を通る辺を後に書いて `casing: paper` にする
+- `offset` は通り道を引いたあとでずらすので、**ラベル・端の記号もずらした線に沿う**
+- 同じ `from` と `to` の辺を 2 本書くと、`pins` の鍵（`<from>>​<to>`）は同じになる（§5.2）。
+  人が通り道を曲げたい辺どうしは、間に駅を置くなどして組を分ける
+- 読めない値は描かない（`casing-unknown` ／ `hatch-color-unknown` ／ `offset-not-number`）。
+  `hatch` の無い所に書いた `hatch_color` は `hatch-color-ignored` で知らせる
+- 縁と模様にだけ使う `palette` の鍵には、線の薄さの下限（`color-faint`）を当てない。縁は線の下、模様は面の上に乗り、地とは比べないため
+
 #### 3.1.2 建具（`openings`）
 
 **配置図（`kind: placement`）でだけ効く。** 間取り図を実物と並べたとき、
@@ -1494,6 +1571,9 @@ edges:
 | `vertical` | | **階をまたぐ動線**（`stair` / `escalator` / `elevator`）。§3.0.16 |
 | `color` | | **`palette` の鍵**（§3.0.13） |
 | `fill` | | **`palette` の鍵**。面の色（§3.0.13） |
+| `casing` | | **線の縁取り**（`paper` か `palette` の鍵）。線より左右 1.5px ずつ太い線を下に敷く（§3.0.21） |
+| `hatch_color` | | **閉じた輪の中の模様の色**（`paper` か `palette` の鍵。§3.0.21） |
+| `offset` | | **並走する線のずらし**（px。進む向きの右が正、左が負。§3.0.21） |
 | その他 | | 自由。読み手は知らないキーを**捨てずに保つ** |
 
 **通り道を人が上書きするときは `pins.<from>><to>.waypoints`**（§3.4）。
@@ -1908,7 +1988,7 @@ Mermaid も draw.io も、落ちたものを先頭のコメントに列挙する
 | `ends-too-long` | **端の記号（矢じり・鳥の足・菱形）のほうが線より長いか**（記号は線に収まるよう縮めて描くが、線そのものは見えない） |
 | `label-too-tall` | **折り返した名前が箱の高さに入りきらないか**（名前は上下の真ん中から積むので、上下へはみ出す） |
 | `structure-too-thin` | **構成図の縦横の比が 4 : 1 を超えていないか**（貼った先で幅に合わせて縮むので、細長いほど字が小さくなる） |
-| `node-edge-key-ignored` | **辺だけの語（`weight` / `curve` / `ends` / `via` / `close`）を節に書いていないか** |
+| `node-edge-key-ignored` | **辺だけの語（`weight` / `curve` / `ends` / `via` / `close` / `casing` / `offset`）を節に書いていないか** |
 | `edge-node-key-ignored` | **節だけの語（`at` / `size` / `marker` / `tag` ほか）を辺に書いていないか** |
 | `align-unknown` | `left` / `center` / `right` か |
 | `align-ignored` | **構成図に `align` を書いていないか** |
@@ -1939,6 +2019,10 @@ Mermaid も draw.io も、落ちたものを先頭のコメントに列挙する
 | `name-crowded` | **入りきらない名前の行き先があるか**（重なるか、紙の縁で切れる） |
 | `too-small-to-print` | **A3 に印刷して字が読める大きさか**（割ったら紙を小さくする。文字は大きくしない）。**長辺の向きと、その両端にいる要素の id** まで言う |
 | `weight-unknown` | 太さが `thin` / `normal` / `thick` か |
+| `casing-unknown` | **縁取りの色が `paper` か `palette` の鍵か**（読めなければ縁を描かない） |
+| `hatch-color-unknown` | **模様の色が `paper` か `palette` の鍵か**（読めなければ枠の色で描く） |
+| `hatch-color-ignored` | **`hatch` の無い所に `hatch_color` を書いていないか** |
+| `offset-not-number` | **`offset` が px の数か**（数でなければずらさない） |
 
 **どれも `error` にしない。** 弾くと、v1 の「捨てずに保つ」を壊す。
 

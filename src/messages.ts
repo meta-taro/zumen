@@ -858,6 +858,14 @@ const ja = {
       `エッジ ${edge} に fill がありますが、辺に fill はありません（面の色は nodes[].fill）。**閉じた輪の中を塗るのは hatch で、その色は color** です —— close: true ＋ hatch: solid ＋ color: <palette の鍵> と書いてください。いまは塗られません。`,
     edgeHatchIgnored: (edge: string) =>
       `エッジ ${edge} に hatch がありますが、close: true でないので効きません。閉じていない辺には面が無く、塗りようがありません。`,
+    casingUnknown: (edge: string, key: string) =>
+      `エッジ ${edge} の casing が "${key}" ですが、palette にその鍵がありません。縁取りは描かれません。地の色の縁なら paper、それ以外は palette の鍵を書いてください。`,
+    hatchColorUnknown: (target: string, key: string) =>
+      `${target} の hatch_color が "${key}" ですが、palette にその鍵がありません。模様はこれまでどおり枠の色で描きます。地の色なら paper、それ以外は palette の鍵を書いてください。`,
+    hatchColorIgnored: (target: string) =>
+      `${target} に hatch_color がありますが、hatch が無いので効きません。模様の色は、hatch で描く模様にだけ付きます。`,
+    offsetNotNumber: (edge: string, value: string) =>
+      `エッジ ${edge} の offset が "${value}" になっています。px の数で書いてください（進む向きの右が正、左が負）。ずらさずに描きます。`,
     nameCrowded: (id: string) =>
       `ノード "${id}" の名前は箱に入りきらず、外へ出した先も空いていません（**他の要素に重なる**か、**紙の縁で切れます**）。箱を大きくするか、名前を **\`\\n\`** で折り返すか、文字を短くしてください（消してはいません —— 名前が消えるのは、重なるより悪いためです）。`,
     /**
@@ -1645,6 +1653,14 @@ const en: Catalog = {
       `Edge ${edge} has fill, but edges have no fill (that is nodes[].fill). **A closed loop is filled with hatch, and its colour is color** — write close: true, hatch: solid and color: <a palette key>. Nothing is filled as written.`,
     edgeHatchIgnored: (edge: string) =>
       `Edge ${edge} has a hatch, but without close: true there is no face to fill, so it does nothing.`,
+    casingUnknown: (edge: string, key: string) =>
+      `Edge ${edge} has casing "${key}", but palette has no such key. No casing is drawn. Write paper for a casing in the ground colour, or a palette key.`,
+    hatchColorUnknown: (target: string, key: string) =>
+      `${target} has hatch_color "${key}", but palette has no such key. The pattern is drawn in the outline colour as before. Write paper for the ground colour, or a palette key.`,
+    hatchColorIgnored: (target: string) =>
+      `${target} has hatch_color but no hatch, so it does nothing. The pattern colour applies only to a pattern drawn with hatch.`,
+    offsetNotNumber: (edge: string, value: string) =>
+      `Edge ${edge} has offset "${value}". Write it as a number of px (positive to the right of the direction of travel, negative to the left). It is drawn without the offset.`,
     nameCrowded: (id: string) =>
       `The name on node "${id}" does not fit its box and there is no free room outside either: it either lands on something else or is cut off at the edge of the sheet. Make the box bigger, break the name with **\`\\n\`**, or shorten the text. It is NOT dropped: losing a name is worse than an overlap.`,
     adriftCell: 'In a table that leaves the row looking empty.',
