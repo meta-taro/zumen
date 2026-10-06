@@ -195,9 +195,9 @@ jobs:
         with:
           workspaces: src-tauri
 
-      # **ARM の Windows では、ARM 用の部品（rollup・tauri の CLI）が入らないことがある**（lockfile には入っている）。
-      # 入り直させるために --force を付ける
-      - run: pnpm install --frozen-lockfile ${{ matrix.arch == 'arm64' && '--force' || '' }}
+      # ARM の Windows でも、ARM 用の部品（rollup・tauri の CLI）は入る。pnpm は optional の依存を
+      # node_modules/.pnpm/ の下に置くので、トップの node_modules を見て「無い」と読まないこと（--force は要らない）
+      - run: pnpm install --frozen-lockfile
 
       - name: 画面を束ねる
         run: pnpm build:app
