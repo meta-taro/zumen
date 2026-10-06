@@ -38,6 +38,9 @@
 
 ### できることが増えます
 
+- **Windows の ARM64 版を作るようになりました。**<!-- news: windows-arm64 --> ARM の Windows（Snapdragon など）でも、デスクトップ版が入ります。
+  x64 と ARM64 は名前で分けます（`zumen-windows-x64.exe` ／ `zumen-windows-arm64.exe`、インストーラも名前に `x64` ／ `arm64`）。ARM64 は ARM の機械でそのまま建てます。
+
 - **`inspect` が、辺の名札の下を別の辺が通っているところを知らせるようになりました**（`edgesUnderLabels`）。<!-- news: label-under -->
   名札がどちらの線のものか読み違える形です（献血の流れの図で、血小板を遠心分離するように読めていました）。
 
