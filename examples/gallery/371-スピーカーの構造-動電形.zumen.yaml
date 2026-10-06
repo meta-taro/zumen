@@ -1,0 +1,821 @@
+version: 1
+kind: placement
+arrows: true
+title: スピーカーの構造（動電形 —— 磁石とコイルとコーン）
+sources:
+  - name: "JIS C 5532:2014 音響システム用スピーカ（附属書 C.1.1 動電（可動線輪）形スピーカ・28 設計データ）"
+# **音は、コイルが磁石から受ける力で出ている。**
+#
+# いちばん多いスピーカーは動電形（ダイナミック）。JIS C 5532:2014 は
+# 「静磁界中におかれた導体に流した電流によって生じる力で振動板を駆動するスピーカ」と定めている。
+#
+# ## 何のための図か
+#
+# 部品の名前と、**どれが動いてどれが止まっているか**、そして**どの向きに力がかかるか**を 1 枚で言う。
+# 断面で描くのは、磁気回路が中にあって外からは見えないから。
+#
+# ## 描いたもの
+#
+# - ① 外形 30cm ほどの外磁形（リング状のフェライト磁石を鉄の板で挟む形）を、軸で切った断面。1px ＝ 0.4mm
+# - ② ギャップの拡大。1px ＝ 0.1mm。コイルの線の断面に ⊗（電流が紙の奥へ）を描いた
+# - 力の向き：B（ギャップの中で外から中心へ）と I（紙の奥へ）から、F ＝ I L × B は上（前）を向く。
+#   磁石の上を N として描いた。逆に着磁すれば向きは逆になるが、「電流と力が比例する」ことは変わらない
+#
+# 寸法（コイル高 14mm・プレート厚 10mm・ギャップ 2mm など）は説明のための**例**で、特定の製品ではない。
+# JIS C 5532:2014 の「設計データ」は、エアギャップの磁束密度・総磁束・ボイスコイルの巻数と長さ・
+# ギャップの幅・ボイスコイルの最大振幅（Xp-p）を挙げる —— 図の部品はこの項目と対応している。
+#
+# ## 照らした決まり
+#
+# - 断面の模様：鉄（プレート・ポール）は斜線、磁石は点で分けた（材料が違う）
+# - 部品の番号は右半分にだけ振った。左は同じ形（軸対称）
+# - 部品名のうち「ダンパー」「ダストキャップ」「錦糸線」は業界の慣用名で、JIS C 5532:2014 の本文では確かめていない
+#
+# ## 描かなかったもの
+#
+# - 箱（エンクロージャ）—— JIS C 5532:2014 附属書 C.3 の別の話
+# - ネオジム磁石の内磁形・ホーン（コンプレッションドライバー）—— 形が違う。1 枚に混ぜない
+# - 周波数特性・インピーダンス —— 測る話で、構造の図ではない
+#
+# PA の配置は見本 101・370、マイクの指向性は見本 327、イコライザーは見本 372。
+views:
+  - id: sec
+    title: ① 断面（軸で切る・1px ＝ 0.4mm）
+    at: { x: 40, y: 60 }
+    size: { w: 900, h: 470 }
+    scale: { mm: 0.4 }
+  - id: gap
+    title: ② 磁気ギャップの拡大（1px ＝ 0.1mm）
+    at: { x: 980, y: 60 }
+    size: { w: 560, h: 380 }
+    scale: { mm: 0.1 }
+nodes:
+  - id: bpR
+    label: ""
+    hatch: lines
+    at: { x: 535, y: 455 }
+    size: { w: 172.5, h: 25 }
+  - id: bpL
+    label: ""
+    hatch: lines
+    at: { x: 332.5, y: 455 }
+    size: { w: 172.5, h: 25 }
+  - id: poleR
+    label: ""
+    hatch: lines
+    at: { x: 535, y: 355 }
+    size: { w: 40, h: 99 }
+  - id: poleL
+    label: ""
+    hatch: lines
+    at: { x: 465, y: 355 }
+    size: { w: 40, h: 99 }
+  - id: magR
+    label: ""
+    hatch: dots
+    at: { x: 595, y: 380 }
+    size: { w: 112.5, h: 74 }
+  - id: magL
+    label: ""
+    hatch: dots
+    at: { x: 332.5, y: 380 }
+    size: { w: 112.5, h: 74 }
+  - id: tpR
+    label: ""
+    hatch: lines
+    at: { x: 580, y: 355 }
+    size: { w: 127.5, h: 24 }
+  - id: tpL
+    label: ""
+    hatch: lines
+    at: { x: 332.5, y: 355 }
+    size: { w: 127.5, h: 24 }
+  - id: vcR
+    label: ""
+    hatch: solid
+    at: { x: 576, y: 350 }
+    size: { w: 3, h: 35 }
+  - id: vcL
+    label: ""
+    hatch: solid
+    at: { x: 461, y: 350 }
+    size: { w: 3, h: 35 }
+  - id: bobR
+    label: ""
+    at: { x: 576.5, y: 265 }
+    size: { w: 2, h: 84 }
+  - id: bobL
+    label: ""
+    at: { x: 461.5, y: 265 }
+    size: { w: 2, h: 84 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 589, y: 350.2 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 911.5, y: 161.5 }
+    size: { w: 2, h: 2 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 449, y: 350.2 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 126.5, y: 161.5 }
+    size: { w: 2, h: 2 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 579.5, y: 279 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 721, y: 279 }
+    size: { w: 2, h: 2 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 458.5, y: 279 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 317, y: 279 }
+    size: { w: 2, h: 2 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 579.5, y: 262.5 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 839, y: 178.2 }
+    size: { w: 2, h: 2 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 458.5, y: 262.5 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 199, y: 178.2 }
+    size: { w: 2, h: 2 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 840.5, y: 177.5 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 867.8, y: 174 }
+    size: { w: 2, h: 2 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 197.5, y: 177.5 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 170.2, y: 174 }
+    size: { w: 2, h: 2 }
+  - id: gkR
+    label: ""
+    at: { x: 872.5, y: 170 }
+    size: { w: 37.5, h: 6 }
+  - id: gkL
+    label: ""
+    at: { x: 130, y: 170 }
+    size: { w: 37.5, h: 6 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 434, y: 255 }
+    size: { w: 2, h: 2 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 604, y: 255 }
+    size: { w: 2, h: 2 }
+  - id: p18
+    label: ""
+    marker: none
+    at: { x: 582.8, y: 266 }
+    size: { w: 2, h: 2 }
+  - id: p19
+    label: ""
+    marker: none
+    at: { x: 764, y: 248 }
+    size: { w: 2, h: 2 }
+  - id: term
+    label: ""
+    hatch: solid
+    at: { x: 767.5, y: 249.5 }
+    size: { w: 30, h: 12.5 }
+  - id: n1
+    label: "①"
+    marker: none
+    align: center
+    at: { x: 511, y: 236 }
+    size: { w: 18, h: 18 }
+  - id: n2
+    label: "②"
+    marker: none
+    align: center
+    at: { x: 666, y: 213.5 }
+    size: { w: 18, h: 18 }
+  - id: n3
+    label: "③"
+    marker: none
+    align: center
+    at: { x: 846, y: 142.2 }
+    size: { w: 18, h: 18 }
+  - id: n4
+    label: "④"
+    marker: none
+    align: center
+    at: { x: 741, y: 316 }
+    size: { w: 18, h: 18 }
+  - id: n5
+    label: "⑤"
+    marker: none
+    align: center
+    at: { x: 641, y: 288.5 }
+    size: { w: 18, h: 18 }
+  - id: n6
+    label: "⑥"
+    marker: none
+    align: center
+    at: { x: 591, y: 323.5 }
+    size: { w: 18, h: 18 }
+  - id: n7
+    label: "⑦"
+    marker: none
+    align: center
+    at: { x: 721, y: 358.5 }
+    size: { w: 18, h: 18 }
+  - id: n8
+    label: "⑧"
+    marker: none
+    align: center
+    at: { x: 721, y: 408.5 }
+    size: { w: 18, h: 18 }
+  - id: n9
+    label: "⑨"
+    marker: none
+    align: center
+    at: { x: 721, y: 458.5 }
+    size: { w: 18, h: 18 }
+  - id: n10
+    label: "⑩"
+    marker: none
+    align: center
+    at: { x: 511, y: 493.5 }
+    size: { w: 18, h: 18 }
+  - id: n11
+    label: "⑪"
+    marker: none
+    align: center
+    at: { x: 803.5, y: 258.5 }
+    size: { w: 18, h: 18 }
+  - id: front
+    label: "前（客席・聞く人の側）↑"
+    marker: none
+    align: left
+    at: { x: 690, y: 105 }
+    size: { w: 200, h: 16 }
+  - id: g_pole
+    label: ""
+    hatch: lines
+    at: { x: 1000, y: 160 }
+    size: { w: 60, h: 200 }
+  - id: g_tp
+    label: ""
+    hatch: lines
+    at: { x: 1080, y: 160 }
+    size: { w: 80, h: 100 }
+  - id: g_mag
+    label: ""
+    hatch: dots
+    at: { x: 1142, y: 262 }
+    size: { w: 18, h: 98 }
+  - id: g_bob
+    label: ""
+    at: { x: 1063, y: 110 }
+    size: { w: 3, h: 190 }
+  - id: g_w0
+    label: ""
+    marker: circle
+    hatch: cross
+    at: { x: 1067, y: 270.5 }
+    size: { w: 9, h: 9 }
+  - id: g_w1
+    label: ""
+    marker: circle
+    hatch: cross
+    at: { x: 1067, y: 260.5 }
+    size: { w: 9, h: 9 }
+  - id: g_w2
+    label: ""
+    marker: circle
+    hatch: cross
+    at: { x: 1067, y: 250.5 }
+    size: { w: 9, h: 9 }
+  - id: g_w3
+    label: ""
+    marker: circle
+    hatch: cross
+    at: { x: 1067, y: 240.5 }
+    size: { w: 9, h: 9 }
+  - id: g_w4
+    label: ""
+    marker: circle
+    hatch: cross
+    at: { x: 1067, y: 230.5 }
+    size: { w: 9, h: 9 }
+  - id: g_w5
+    label: ""
+    marker: circle
+    hatch: cross
+    at: { x: 1067, y: 220.5 }
+    size: { w: 9, h: 9 }
+  - id: g_w6
+    label: ""
+    marker: circle
+    hatch: cross
+    at: { x: 1067, y: 210.5 }
+    size: { w: 9, h: 9 }
+  - id: g_w7
+    label: ""
+    marker: circle
+    hatch: cross
+    at: { x: 1067, y: 200.5 }
+    size: { w: 9, h: 9 }
+  - id: g_w8
+    label: ""
+    marker: circle
+    hatch: cross
+    at: { x: 1067, y: 190.5 }
+    size: { w: 9, h: 9 }
+  - id: g_w9
+    label: ""
+    marker: circle
+    hatch: cross
+    at: { x: 1067, y: 180.5 }
+    size: { w: 9, h: 9 }
+  - id: g_w10
+    label: ""
+    marker: circle
+    hatch: cross
+    at: { x: 1067, y: 170.5 }
+    size: { w: 9, h: 9 }
+  - id: g_w11
+    label: ""
+    marker: circle
+    hatch: cross
+    at: { x: 1067, y: 160.5 }
+    size: { w: 9, h: 9 }
+  - id: g_w12
+    label: ""
+    marker: circle
+    hatch: cross
+    at: { x: 1067, y: 150.5 }
+    size: { w: 9, h: 9 }
+  - id: g_w13
+    label: ""
+    marker: circle
+    hatch: cross
+    at: { x: 1067, y: 140.5 }
+    size: { w: 9, h: 9 }
+  - id: g_l_pole
+    label: "ポール（S 側へ戻る）"
+    marker: none
+    align: left
+    at: { x: 1000, y: 370 }
+    size: { w: 160, h: 16 }
+  - id: g_l_tp
+    label: "トッププレート"
+    marker: none
+    align: left
+    at: { x: 1164, y: 200 }
+    size: { w: 110, h: 16 }
+  - id: g_l_gap
+    label: "ギャップ 2mm（コイルが入る）"
+    marker: none
+    align: left
+    at: { x: 1000, y: 78 }
+    size: { w: 200, h: 16 }
+  - id: g_l_mag
+    label: "磁石（上が N）"
+    marker: none
+    align: left
+    at: { x: 1164, y: 300 }
+    size: { w: 110, h: 16 }
+  - id: p20
+    label: ""
+    marker: none
+    at: { x: 1379, y: 139 }
+    size: { w: 2, h: 2 }
+  - id: p21
+    label: ""
+    marker: none
+    at: { x: 1309, y: 139 }
+    size: { w: 2, h: 2 }
+  - id: v_b
+    label: "B 磁束：外から中心へ"
+    marker: none
+    align: left
+    at: { x: 1390, y: 132 }
+    size: { w: 170, h: 16 }
+  - id: v_i
+    label: ""
+    marker: circle
+    hatch: cross
+    at: { x: 1336, y: 180 }
+    size: { w: 16, h: 16 }
+  - id: v_it
+    label: "I 電流：紙の奥へ（⊗）"
+    marker: none
+    align: left
+    at: { x: 1390, y: 180 }
+    size: { w: 170, h: 16 }
+  - id: p22
+    label: ""
+    marker: none
+    at: { x: 1343, y: 289 }
+    size: { w: 2, h: 2 }
+  - id: p23
+    label: ""
+    marker: none
+    at: { x: 1343, y: 219 }
+    size: { w: 2, h: 2 }
+  - id: v_f
+    label: "F 力：上（コーンを前へ）"
+    marker: none
+    align: left
+    at: { x: 1390, y: 246 }
+    size: { w: 190, h: 16 }
+  - id: v_rule
+    label: "F ＝ B × I × L\n（フレミングの左手）"
+    marker: none
+    align: left
+    at: { x: 1310, y: 306 }
+    size: { w: 200, h: 34 }
+  - id: v_rev
+    label: "電流が逆なら力も逆。\n交流なら前後に振れる"
+    marker: none
+    align: left
+    at: { x: 1310, y: 350 }
+    size: { w: 200, h: 34 }
+  - id: tb_t
+    label: "部品"
+    marker: none
+    align: left
+    at: { x: 980, y: 540 }
+    size: { w: 200, h: 18 }
+  - id: tbh0
+    label: "番号"
+    hatch: solid
+    at: { x: 980, y: 564 }
+    size: { w: 52, h: 26 }
+  - id: tbh1
+    label: "部品"
+    hatch: solid
+    at: { x: 1032, y: 564 }
+    size: { w: 260, h: 26 }
+  - id: tbh2
+    label: "役目"
+    hatch: solid
+    at: { x: 1292, y: 564 }
+    size: { w: 300, h: 26 }
+  - id: tbh3
+    label: "動くか"
+    hatch: solid
+    at: { x: 1592, y: 564 }
+    size: { w: 80, h: 26 }
+  - id: tbc0_0
+    label: "①"
+    at: { x: 980, y: 590 }
+    size: { w: 52, h: 24 }
+  - id: tbc0_1
+    label: "ダストキャップ"
+    at: { x: 1032, y: 590 }
+    size: { w: 260, h: 24 }
+  - id: tbc0_2
+    label: "中心をふさぎ、ごみを入れない"
+    at: { x: 1292, y: 590 }
+    size: { w: 300, h: 24 }
+  - id: tbc0_3
+    label: "動く"
+    at: { x: 1592, y: 590 }
+    size: { w: 80, h: 24 }
+  - id: tbc1_0
+    label: "②"
+    at: { x: 980, y: 614 }
+    size: { w: 52, h: 24 }
+  - id: tbc1_1
+    label: "コーン（振動板）"
+    at: { x: 1032, y: 614 }
+    size: { w: 260, h: 24 }
+  - id: tbc1_2
+    label: "空気を押して音にする"
+    at: { x: 1292, y: 614 }
+    size: { w: 300, h: 24 }
+  - id: tbc1_3
+    label: "動く"
+    at: { x: 1592, y: 614 }
+    size: { w: 80, h: 24 }
+  - id: tbc2_0
+    label: "③"
+    at: { x: 980, y: 638 }
+    size: { w: 52, h: 24 }
+  - id: tbc2_1
+    label: "エッジ"
+    at: { x: 1032, y: 638 }
+    size: { w: 260, h: 24 }
+  - id: tbc2_2
+    label: "コーンの外周を支え、前後に動かす"
+    at: { x: 1292, y: 638 }
+    size: { w: 300, h: 24 }
+  - id: tbc2_3
+    label: "動く"
+    at: { x: 1592, y: 638 }
+    size: { w: 80, h: 24 }
+  - id: tbc3_0
+    label: "④"
+    at: { x: 980, y: 662 }
+    size: { w: 52, h: 24 }
+  - id: tbc3_1
+    label: "フレーム"
+    at: { x: 1032, y: 662 }
+    size: { w: 260, h: 24 }
+  - id: tbc3_2
+    label: "全部を留める骨組み"
+    at: { x: 1292, y: 662 }
+    size: { w: 300, h: 24 }
+  - id: tbc3_3
+    label: "止まる"
+    at: { x: 1592, y: 662 }
+    size: { w: 80, h: 24 }
+  - id: tbc4_0
+    label: "⑤"
+    at: { x: 980, y: 686 }
+    size: { w: 52, h: 24 }
+  - id: tbc4_1
+    label: "ダンパー"
+    at: { x: 1032, y: 686 }
+    size: { w: 260, h: 24 }
+  - id: tbc4_2
+    label: "ボイスコイルを中心に保ち、戻す"
+    at: { x: 1292, y: 686 }
+    size: { w: 300, h: 24 }
+  - id: tbc4_3
+    label: "動く"
+    at: { x: 1592, y: 686 }
+    size: { w: 80, h: 24 }
+  - id: tbc5_0
+    label: "⑥"
+    at: { x: 980, y: 710 }
+    size: { w: 52, h: 24 }
+  - id: tbc5_1
+    label: "ボイスコイル（ボビン）"
+    at: { x: 1032, y: 710 }
+    size: { w: 260, h: 24 }
+  - id: tbc5_2
+    label: "電流が流れ、力を受ける"
+    at: { x: 1292, y: 710 }
+    size: { w: 300, h: 24 }
+  - id: tbc5_3
+    label: "動く"
+    at: { x: 1592, y: 710 }
+    size: { w: 80, h: 24 }
+  - id: tbc6_0
+    label: "⑦"
+    at: { x: 980, y: 734 }
+    size: { w: 52, h: 24 }
+  - id: tbc6_1
+    label: "トッププレート"
+    at: { x: 1032, y: 734 }
+    size: { w: 260, h: 24 }
+  - id: tbc6_2
+    label: "磁束をギャップへ集める（鉄）"
+    at: { x: 1292, y: 734 }
+    size: { w: 300, h: 24 }
+  - id: tbc6_3
+    label: "止まる"
+    at: { x: 1592, y: 734 }
+    size: { w: 80, h: 24 }
+  - id: tbc7_0
+    label: "⑧"
+    at: { x: 980, y: 758 }
+    size: { w: 52, h: 24 }
+  - id: tbc7_1
+    label: "マグネット"
+    at: { x: 1032, y: 758 }
+    size: { w: 260, h: 24 }
+  - id: tbc7_2
+    label: "磁束を作る（フェライト）"
+    at: { x: 1292, y: 758 }
+    size: { w: 300, h: 24 }
+  - id: tbc7_3
+    label: "止まる"
+    at: { x: 1592, y: 758 }
+    size: { w: 80, h: 24 }
+  - id: tbc8_0
+    label: "⑨"
+    at: { x: 980, y: 782 }
+    size: { w: 52, h: 24 }
+  - id: tbc8_1
+    label: "ヨーク（バックプレートとポール）"
+    at: { x: 1032, y: 782 }
+    size: { w: 260, h: 24 }
+  - id: tbc8_2
+    label: "磁束を中心へ戻す（鉄）"
+    at: { x: 1292, y: 782 }
+    size: { w: 300, h: 24 }
+  - id: tbc8_3
+    label: "止まる"
+    at: { x: 1592, y: 782 }
+    size: { w: 80, h: 24 }
+  - id: tbc9_0
+    label: "⑩"
+    at: { x: 980, y: 806 }
+    size: { w: 52, h: 24 }
+  - id: tbc9_1
+    label: "通気孔"
+    at: { x: 1032, y: 806 }
+    size: { w: 260, h: 24 }
+  - id: tbc9_2
+    label: "コイルの裏の空気を逃がす"
+    at: { x: 1292, y: 806 }
+    size: { w: 300, h: 24 }
+  - id: tbc9_3
+    label: ""
+    at: { x: 1592, y: 806 }
+    size: { w: 80, h: 24 }
+  - id: tbc10_0
+    label: "⑪"
+    at: { x: 980, y: 830 }
+    size: { w: 52, h: 24 }
+  - id: tbc10_1
+    label: "端子と錦糸線"
+    at: { x: 1032, y: 830 }
+    size: { w: 260, h: 24 }
+  - id: tbc10_2
+    label: "アンプからの電流をコイルへ"
+    at: { x: 1292, y: 830 }
+    size: { w: 300, h: 24 }
+  - id: tbc10_3
+    label: "線は動く"
+    at: { x: 1592, y: 830 }
+    size: { w: 80, h: 24 }
+  - id: t0
+    label: "動電形スピーカーは、磁石が作る磁界の中のコイルに電流を流し、その力で振動板を動かす（JIS C 5532:2014）。"
+    marker: none
+    align: left
+    at: { x: 60, y: 690 }
+    size: { w: 900, h: 18 }
+  - id: t1
+    label: "磁束の道：磁石の上（N）→ トッププレート → ギャップを横切って → ポール → バックプレート → 磁石の下（S）。"
+    marker: none
+    align: left
+    at: { x: 60, y: 716 }
+    size: { w: 900, h: 18 }
+  - id: t2
+    label: "ギャップの中で磁束は外から中心へ向く。そこを流れる電流は円周の向き。力はその両方に直角で、軸の向き（前後）になる。"
+    marker: none
+    align: left
+    at: { x: 60, y: 742 }
+    size: { w: 900, h: 18 }
+  - id: t3
+    label: "アンプの交流が向きを変えるたびに、コイルとコーンは前後に振れ、空気を押し引きして音になる。"
+    marker: none
+    align: left
+    at: { x: 60, y: 768 }
+    size: { w: 900, h: 18 }
+  - id: t4
+    label: "ダンパーとエッジはばね。止まる所（中心）へ戻しつつ、軸の向きにだけ動けるようにする。"
+    marker: none
+    align: left
+    at: { x: 60, y: 794 }
+    size: { w: 900, h: 18 }
+  - id: t5
+    label: "コイルの高さ 14mm に対してトッププレートは 10mm。はみ出した分だけ（片側 2mm）、動いても力が変わらない。"
+    marker: none
+    align: left
+    at: { x: 60, y: 820 }
+    size: { w: 900, h: 18 }
+  - id: t6
+    label: "コーンの裏から出る音は表と逆向き。箱（エンクロージャ）に入れて裏の音を切る —— 箱はこの図では描いていない。"
+    marker: none
+    align: left
+    at: { x: 60, y: 846 }
+    size: { w: 900, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 720, y: 351.2 }
+      - { x: 720, y: 315 }
+      - { x: 730, y: 280 }
+      - { x: 870, y: 177.5 }
+      - { x: 912.5, y: 177.5 }
+  - from: p2
+    to: p3
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 320, y: 351.2 }
+      - { x: 320, y: 315 }
+      - { x: 310, y: 280 }
+      - { x: 170, y: 177.5 }
+      - { x: 127.5, y: 177.5 }
+  - from: p4
+    to: p5
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 590, y: 272.5 }
+      - { x: 605, y: 287.5 }
+      - { x: 620, y: 272.5 }
+      - { x: 635, y: 287.5 }
+      - { x: 650, y: 272.5 }
+      - { x: 665, y: 287.5 }
+      - { x: 680, y: 272.5 }
+      - { x: 695, y: 287.5 }
+      - { x: 710, y: 272.5 }
+  - from: p6
+    to: p7
+    curve: none
+    ends: { from: none, to: none }
+    via:
+      - { x: 450, y: 272.5 }
+      - { x: 435, y: 287.5 }
+      - { x: 420, y: 272.5 }
+      - { x: 405, y: 287.5 }
+      - { x: 390, y: 272.5 }
+      - { x: 375, y: 287.5 }
+      - { x: 360, y: 272.5 }
+      - { x: 345, y: 287.5 }
+      - { x: 330, y: 272.5 }
+  - from: p8
+    to: p9
+    curve: none
+    ends: { from: none, to: none }
+  - from: p10
+    to: p11
+    curve: none
+    ends: { from: none, to: none }
+  - from: p12
+    to: p13
+    curve: smooth
+    ends: { from: none, to: none }
+    via:
+      - { x: 847.5, y: 166.2 }
+      - { x: 855, y: 162.5 }
+      - { x: 862.5, y: 166.2 }
+  - from: p14
+    to: p15
+    curve: smooth
+    ends: { from: none, to: none }
+    via:
+      - { x: 192.5, y: 166.2 }
+      - { x: 185, y: 162.5 }
+      - { x: 177.5, y: 166.2 }
+  - from: p16
+    to: p17
+    curve: smooth
+    ends: { from: none, to: none }
+    via:
+      - { x: 470, y: 232.5 }
+      - { x: 520, y: 225 }
+      - { x: 570, y: 232.5 }
+  - from: p18
+    to: p19
+    curve: smooth
+    ends: { from: none, to: none }
+    via:
+      - { x: 670, y: 264.5 }
+  - from: p20
+    to: p21
+    curve: none
+    weight: thick
+    ends: { from: none, to: arrow }
+  - from: p22
+    to: p23
+    curve: none
+    weight: thick
+    ends: { from: none, to: arrow }

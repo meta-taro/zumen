@@ -1,0 +1,565 @@
+version: 1
+kind: placement
+arrows: false
+title: 路線図（JR 西日本型）—— 色名の頭文字を路線記号にする（架空の瀬波エリア）
+sources:
+  - name: "西日本旅客鉄道 ニュースリリース「近畿エリア・広島エリアに『路線記号』を導入します」（2014 年 8 月 6 日）"
+    url: "https://www.westjr.co.jp/press/article/2014/08/page_5993.html"
+    retrieved: 2026-10-06
+  - name: "国土交通省「公共交通機関の旅客施設に関する移動等円滑化整備ガイドライン（旅客施設編）」令和 7 年 9 月版 2. 誘導案内設備（p.80 表示方法・p.102〜103 参考 2-2-5）"
+    url: "https://www.mlit.go.jp/sogoseisaku/barrierfree/content/001913508.pdf"
+    retrieved: 2026-10-06
+# 中心駅から放射状に伸びる路線を、**色の四角に白い 1 文字の路線記号**で読ませる路線図。
+#
+# ## JR 西日本型とは
+# 2014 年 8 月 6 日の発表で、広島エリアは「広島駅を中心に広がる 5 つの路線に新たなラインカラーを
+# 設定するとともに、**ラインカラーの色名称の頭文字を路線記号とします**」とした（Blue の B、Red の R…）。
+# 実物の路線図では、**記号は線の端（終着駅の外）に置かれ**、路線名に色名を英語で添える
+# （Kabe Line (Blue) のように）。**主要駅は黒い箱に白抜き**、その他の駅は線の上の小さな印。
+# 同じ山陽線でも、広島を境に西と東で色と記号が違う —— **記号は行き先の方面を示す**
+# （発表の共通コンセプト「行先路線に該当する路線記号を表示すること」）。この図の瀬戸本線（G と O）がそれ。
+#
+# ## 色の選び方（ガイドライン p.80・参考 2-2-5 に照らした）
+# - 見分けにくい組：赤と黒・赤と緑・緑と茶・黄緑と黄・紫と青・赤と茶・水色とピンク・オレンジと黄緑。
+# - 実物の広島エリアは赤（R）と緑（G）が広島駅で隣り合い、紫（P）と青（B）も同じ図にある
+#   —— 記号の文字があるので読めるが、**新しく決めるなら組そのものを避ける**。この図は後者。
+# - 赤を使わず、緑は青みに寄せた（「やむを得ず緑を使う場合は青緑」）。
+# - 青の隣に紫を置かない。代わりに赤紫（マゼンタ）（「やむを得ず青を用いる場合には赤紫」）。
+#   記号の文字も色名の頭文字なので M（Magenta）。
+# - 黄は使わない（白い文字を黄の四角に乗せると「黄と白」の組になる）。
+# - **黒い箱が青い線に接する所（横瀬）は「青と黒」に当たる**。ガイドラインの文は図色と地色（文字と地）の
+#   組の話で、この箱の中は白抜きなので守れている。ただし境目の白い細線（縁取り）はまだ描けない。
+#
+# ## 描かなかったもの（理由）
+# - 線と箱の白い縁取り：参考 2-2-5「色と色の境界には白または黒の細線」。道具がまだ縁取りを持たない。
+# - 駅番号：2014 年の発表は路線記号だけ。この図も記号までにした。
+# - 新幹線・他社線：作風の説明に要らない。
+#
+# ## 架空であること
+# 路線・駅・色・記号はすべて架空。実在の事業者の図をなぞったものではなく、社名・ロゴも入れていない。
+# 線は水平・垂直・45° だけ（日本の路線図の決まり）。駅の間隔は実際の距離ではない。
+# palette の鍵は路線記号そのもの（G・O・B・M）—— 鍵が図の中に文字で出る。
+palette:
+  G: "#00966b"
+  O: "#dd6b00"
+  B: "#0068b7"
+  M: "#c7177e"
+  主要駅: "#1a1a1a"
+nodes:
+  - id: senami
+    label: "瀬波"
+    technology: Senami
+    marker: box
+    hatch: solid
+    fill: 主要駅
+    at: { x: 710, y: 326 }
+    size: { w: 100, h: 48 }
+  - id: yokose
+    label: "横瀬"
+    technology: Yokose
+    marker: box
+    hatch: solid
+    fill: 主要駅
+    at: { x: 514, y: 326 }
+    size: { w: 92, h: 48 }
+  - id: higashiminato
+    label: "東港"
+    technology: Higashi-minato
+    marker: box
+    hatch: solid
+    fill: 主要駅
+    at: { x: 904, y: 326 }
+    size: { w: 112, h: 48 }
+  - id: nishiura
+    label: "西浦"
+    technology: Nishiura
+    marker: box
+    hatch: solid
+    fill: 主要駅
+    at: { x: 84, y: 446 }
+    size: { w: 92, h: 48 }
+  - id: yamabe
+    label: "山辺"
+    technology: Yamabe
+    marker: box
+    hatch: solid
+    fill: 主要駅
+    at: { x: 214, y: 116 }
+    size: { w: 92, h: 48 }
+  - id: higashiyama
+    label: "東山"
+    technology: Higashiyama
+    marker: box
+    hatch: solid
+    fill: 主要駅
+    at: { x: 1356, y: 206 }
+    size: { w: 108, h: 48 }
+  - id: minato
+    label: "港"
+    technology: Minato
+    marker: box
+    hatch: solid
+    fill: 主要駅
+    at: { x: 1234, y: 556 }
+    size: { w: 92, h: 48 }
+  - id: nishisenami
+    label: ""
+    marker: circle
+    color: G
+    at: { x: 653, y: 341 }
+    size: { w: 18, h: 18 }
+  - id: nishisenami_nm
+    label: "西瀬波"
+    technology: Nishi-senami
+    marker: none
+    at: { x: 620, y: 366 }
+    size: { w: 84, h: 38 }
+  - id: nitta
+    label: ""
+    marker: circle
+    color: G
+    at: { x: 461, y: 341 }
+    size: { w: 18, h: 18 }
+  - id: nitta_nm
+    label: "新田"
+    technology: Nitta
+    marker: none
+    at: { x: 428, y: 294 }
+    size: { w: 84, h: 38 }
+  - id: furuichi
+    label: ""
+    marker: circle
+    color: G
+    at: { x: 351, y: 401 }
+    size: { w: 18, h: 18 }
+  - id: furuichi_nm
+    label: "古市"
+    technology: Furuichi
+    marker: none
+    align: left
+    at: { x: 378, y: 391 }
+    size: { w: 84, h: 38 }
+  - id: miyashita
+    label: ""
+    marker: circle
+    color: G
+    at: { x: 221, y: 461 }
+    size: { w: 18, h: 18 }
+  - id: miyashita_nm
+    label: "宮下"
+    technology: Miyashita
+    marker: none
+    at: { x: 188, y: 486 }
+    size: { w: 84, h: 38 }
+  - id: kitayokose
+    label: ""
+    marker: circle
+    color: B
+    at: { x: 551, y: 271 }
+    size: { w: 18, h: 18 }
+  - id: kitayokose_nm
+    label: "北横瀬"
+    technology: Kita-yokose
+    marker: none
+    align: left
+    at: { x: 578, y: 261 }
+    size: { w: 84, h: 38 }
+  - id: asa
+    label: ""
+    marker: circle
+    color: B
+    at: { x: 501, y: 181 }
+    size: { w: 18, h: 18 }
+  - id: asa_nm
+    label: "安佐"
+    technology: Asa
+    marker: none
+    align: left
+    at: { x: 528, y: 171 }
+    size: { w: 84, h: 38 }
+  - id: nakayama
+    label: ""
+    marker: circle
+    color: B
+    at: { x: 361, y: 131 }
+    size: { w: 18, h: 18 }
+  - id: nakayama_nm
+    label: "中山"
+    technology: Nakayama
+    marker: none
+    at: { x: 328, y: 156 }
+    size: { w: 84, h: 38 }
+  - id: higashisenami
+    label: ""
+    marker: circle
+    color: O
+    at: { x: 849, y: 341 }
+    size: { w: 18, h: 18 }
+  - id: higashisenami_nm
+    label: "東瀬波"
+    technology: Higashi-senami
+    marker: none
+    at: { x: 816, y: 366 }
+    size: { w: 84, h: 38 }
+  - id: kawara
+    label: ""
+    marker: circle
+    color: O
+    at: { x: 1051, y: 341 }
+    size: { w: 18, h: 18 }
+  - id: kawara_nm
+    label: "川原"
+    technology: Kawara
+    marker: none
+    at: { x: 1018, y: 294 }
+    size: { w: 84, h: 38 }
+  - id: takadai
+    label: ""
+    marker: circle
+    color: O
+    at: { x: 1161, y: 281 }
+    size: { w: 18, h: 18 }
+  - id: takadai_nm
+    label: "高台"
+    technology: Takadai
+    marker: none
+    align: left
+    at: { x: 1188, y: 271 }
+    size: { w: 84, h: 38 }
+  - id: togeshita
+    label: ""
+    marker: circle
+    color: O
+    at: { x: 1301, y: 221 }
+    size: { w: 18, h: 18 }
+  - id: togeshita_nm
+    label: "峠下"
+    technology: Togeshita
+    marker: none
+    at: { x: 1268, y: 174 }
+    size: { w: 84, h: 38 }
+  - id: minamimachi
+    label: ""
+    marker: circle
+    color: M
+    at: { x: 951, y: 411 }
+    size: { w: 18, h: 18 }
+  - id: minamimachi_nm
+    label: "南町"
+    technology: Minamimachi
+    marker: none
+    align: left
+    at: { x: 978, y: 401 }
+    size: { w: 84, h: 38 }
+  - id: hamada
+    label: ""
+    marker: circle
+    color: M
+    at: { x: 1011, y: 511 }
+    size: { w: 18, h: 18 }
+  - id: hamada_nm
+    label: "浜田"
+    technology: Hamada
+    marker: none
+    align: left
+    at: { x: 1038, y: 501 }
+    size: { w: 84, h: 38 }
+  - id: kaigan
+    label: ""
+    marker: circle
+    color: M
+    at: { x: 1161, y: 571 }
+    size: { w: 18, h: 18 }
+  - id: kaigan_nm
+    label: "海岸通"
+    technology: Kaigandori
+    marker: none
+    at: { x: 1128, y: 596 }
+    size: { w: 84, h: 38 }
+  - id: sq_g
+    label: "G"
+    marker: box
+    hatch: solid
+    color: G
+    at: { x: 22, y: 452 }
+    size: { w: 36, h: 36 }
+  - id: ln_g
+    label: "瀬戸本線\nSeto Line (Green)"
+    marker: none
+    align: left
+    at: { x: 20, y: 502 }
+    size: { w: 150, h: 40 }
+  - id: sq_b
+    label: "B"
+    marker: box
+    hatch: solid
+    color: B
+    at: { x: 152, y: 122 }
+    size: { w: 36, h: 36 }
+  - id: ln_b
+    label: "山辺線\nYamabe Line (Blue)"
+    marker: none
+    align: left
+    at: { x: 130, y: 68 }
+    size: { w: 180, h: 40 }
+  - id: sq_o
+    label: "O"
+    marker: box
+    hatch: solid
+    color: O
+    at: { x: 1482, y: 212 }
+    size: { w: 36, h: 36 }
+  - id: ln_o
+    label: "瀬戸本線\nSeto Line (Orange)"
+    marker: none
+    align: left
+    at: { x: 1380, y: 150 }
+    size: { w: 170, h: 40 }
+  - id: sq_m
+    label: "M"
+    marker: box
+    hatch: solid
+    color: M
+    at: { x: 1352, y: 562 }
+    size: { w: 36, h: 36 }
+  - id: ln_m
+    label: "港線\nMinato Line (Magenta)"
+    marker: none
+    align: left
+    at: { x: 1300, y: 612 }
+    size: { w: 190, h: 40 }
+  - id: lg_title
+    label: "路線記号と色名（凡例）　Line symbols and colour names"
+    marker: none
+    align: left
+    at: { x: 40, y: 690 }
+    size: { w: 600, h: 22 }
+  - id: lg_sq_G
+    label: "G"
+    marker: box
+    hatch: solid
+    color: G
+    at: { x: 40, y: 722 }
+    size: { w: 36, h: 36 }
+  - id: lg_G
+    label: "瀬戸本線（西浦—瀬波）　Seto Line (Green)　みどり"
+    marker: none
+    align: left
+    at: { x: 88, y: 729 }
+    size: { w: 560, h: 22 }
+  - id: lg_sq_O
+    label: "O"
+    marker: box
+    hatch: solid
+    color: O
+    at: { x: 40, y: 766 }
+    size: { w: 36, h: 36 }
+  - id: lg_O
+    label: "瀬戸本線（瀬波—東山）　Seto Line (Orange)　オレンジ"
+    marker: none
+    align: left
+    at: { x: 88, y: 773 }
+    size: { w: 560, h: 22 }
+  - id: lg_sq_B
+    label: "B"
+    marker: box
+    hatch: solid
+    color: B
+    at: { x: 40, y: 810 }
+    size: { w: 36, h: 36 }
+  - id: lg_B
+    label: "山辺線　Yamabe Line (Blue)　あお"
+    marker: none
+    align: left
+    at: { x: 88, y: 817 }
+    size: { w: 560, h: 22 }
+  - id: lg_sq_M
+    label: "M"
+    marker: box
+    hatch: solid
+    color: M
+    at: { x: 40, y: 854 }
+    size: { w: 36, h: 36 }
+  - id: lg_M
+    label: "港線　Minato Line (Magenta)　あかむらさき"
+    marker: none
+    align: left
+    at: { x: 88, y: 861 }
+    size: { w: 560, h: 22 }
+  - id: lg_major
+    label: "駅名"
+    technology: Station
+    marker: box
+    hatch: solid
+    fill: 主要駅
+    at: { x: 40, y: 894 }
+    size: { w: 72, h: 44 }
+  - id: lg_major_t
+    label: "黒い箱に白抜き：主要駅（乗換駅・終着駅）"
+    marker: none
+    align: left
+    at: { x: 124, y: 905 }
+    size: { w: 420, h: 22 }
+  - id: note0
+    label: "この作風の決まり"
+    marker: none
+    align: left
+    at: { x: 700, y: 690 }
+    size: { w: 800, h: 22 }
+  - id: note1
+    label: "1. 路線記号は色の四角に白い 1 文字。文字は色名の英語の頭文字（Blue＝B）"
+    marker: none
+    align: left
+    at: { x: 700, y: 716 }
+    size: { w: 800, h: 22 }
+  - id: note2
+    label: "　 記号を読めば色が分かり、色が見えなくても記号で呼べる"
+    marker: none
+    align: left
+    at: { x: 700, y: 742 }
+    size: { w: 800, h: 22 }
+  - id: note3
+    label: "2. 色と記号は中心駅から伸びる方面ごとに振る（瀬戸本線は瀬波を境に G と O）"
+    marker: none
+    align: left
+    at: { x: 700, y: 768 }
+    size: { w: 800, h: 22 }
+  - id: note4
+    label: "3. 路線名に色名を併記する：Yamabe Line (Blue)"
+    marker: none
+    align: left
+    at: { x: 700, y: 794 }
+    size: { w: 800, h: 22 }
+  - id: note5
+    label: "4. 主要駅は黒い箱に白抜き、その他の駅は線の上の小さな丸"
+    marker: none
+    align: left
+    at: { x: 700, y: 820 }
+    size: { w: 800, h: 22 }
+  - id: note6
+    label: "5. 線は太く、水平・垂直・45° だけ。駅の間隔は実際の距離ではない"
+    marker: none
+    align: left
+    at: { x: 700, y: 846 }
+    size: { w: 800, h: 22 }
+  - id: note7
+    label: "6. 見分けにくい組（赤と緑・紫と青・オレンジと黄緑）を入れない。"
+    marker: none
+    align: left
+    at: { x: 700, y: 872 }
+    size: { w: 800, h: 22 }
+  - id: note8
+    label: "　 青の隣は紫ではなく赤紫（マゼンタ）、緑は青みに寄せる"
+    marker: none
+    align: left
+    at: { x: 700, y: 898 }
+    size: { w: 800, h: 22 }
+  - id: drop0
+    label: "描かなかったもの：線の白い縁取り（色の境の細線）／ 新幹線・他社線 ／ 駅番号（この図は路線記号まで）"
+    marker: none
+    align: left
+    at: { x: 700, y: 936 }
+    size: { w: 800, h: 22 }
+  - id: drop1
+    label: "路線・駅・色・記号はすべて架空。実在の事業者の図をなぞったものではない。"
+    marker: none
+    align: left
+    at: { x: 700, y: 962 }
+    size: { w: 800, h: 22 }
+edges:
+  - from: nishiura
+    to: miyashita
+    weight: thick
+    color: G
+  - from: miyashita
+    to: furuichi
+    weight: thick
+    color: G
+    via:
+      - { x: 300, y: 470 }
+  - from: furuichi
+    to: nitta
+    weight: thick
+    color: G
+    via:
+      - { x: 420, y: 350 }
+  - from: nitta
+    to: yokose
+    weight: thick
+    color: G
+  - from: yokose
+    to: nishisenami
+    weight: thick
+    color: G
+  - from: nishisenami
+    to: senami
+    weight: thick
+    color: G
+  - from: yokose
+    to: kitayokose
+    weight: thick
+    color: B
+  - from: kitayokose
+    to: asa
+    weight: thick
+    color: B
+    via:
+      - { x: 560, y: 240 }
+  - from: asa
+    to: nakayama
+    weight: thick
+    color: B
+    via:
+      - { x: 460, y: 140 }
+  - from: nakayama
+    to: yamabe
+    weight: thick
+    color: B
+  - from: senami
+    to: higashisenami
+    weight: thick
+    color: O
+  - from: higashisenami
+    to: higashiminato
+    weight: thick
+    color: O
+  - from: higashiminato
+    to: kawara
+    weight: thick
+    color: O
+  - from: kawara
+    to: takadai
+    weight: thick
+    color: O
+    via:
+      - { x: 1110, y: 350 }
+  - from: takadai
+    to: togeshita
+    weight: thick
+    color: O
+    via:
+      - { x: 1230, y: 230 }
+  - from: togeshita
+    to: higashiyama
+    weight: thick
+    color: O
+  - from: higashiminato
+    to: minamimachi
+    weight: thick
+    color: M
+  - from: minamimachi
+    to: hamada
+    weight: thick
+    color: M
+    via:
+      - { x: 960, y: 460 }
+  - from: hamada
+    to: kaigan
+    weight: thick
+    color: M
+    via:
+      - { x: 1080, y: 580 }
+  - from: kaigan
+    to: minato
+    weight: thick
+    color: M

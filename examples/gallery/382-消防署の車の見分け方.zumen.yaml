@@ -1,0 +1,636 @@
+version: 1
+kind: placement
+arrows: false
+title: 消防署の車の見分け方（積んでいるもの・乗る人数・置く数）
+sources:
+  - { name: "消防庁「消防力の整備指針」（平成 12 年消防庁告示第 1 号）第 5・7・8・13〜15・27〜30 条", url: "https://www.fdma.go.jp/laws/kokuji/post4/", retrieved: 2026-10-06 }
+  - { name: "e-Gov 法令検索「救助隊の編成、装備及び配置の基準を定める省令」第 2・3 条・別表第一", url: "https://laws.e-gov.go.jp/api/1/lawdata/361M50000008022", retrieved: 2026-10-06 }
+  - { name: "e-Gov 法令検索「動力消防ポンプの技術上の規格を定める省令」別表", url: "https://laws.e-gov.go.jp/api/1/lawdata/361M50000008024", retrieved: 2026-10-06 }
+  - { name: "国土交通省「道路運送車両の保安基準の細目を定める告示」第 231 条", url: "https://www.mlit.go.jp/jidosha/content/S231.pdf", retrieved: 2026-10-06 }
+  - { name: "株式会社モリタ 消防ポンプ自動車・水槽付消防車・化学消防車の仕様と「よくいただくご質問」", url: "https://www.morita119.jp/fire_engine/pump/001spec.html", retrieved: 2026-10-06 }
+palette:
+  朱色: "#e8452f"
+  赤色: "#d7000f"
+# **消防署の車の見分け方。** 子どもが「赤い車がいっぱいあるけど、何が違うの」と聞いたときの答え。
+# 見分けどころ（積んでいるもの）に加えて、**何人乗るか**と**どれだけ置くか**を、
+# 消防庁の「消防力の整備指針」の条で添えた。**数は全部、条文か仕様表から取った。**
+#
+# ## 図の中身
+# 7 種類の車を、簡略した形（箱）と 4 行で並べる。
+# - 見分けどころ：積んでいるもの（メーカーの仕様・説明と、救助省令 別表第一）
+# - 乗る人：整備指針 第 27〜30 条（ポンプ車・はしご車・化学車は 5 人、条件つきで 4 人。救急 3 人。救助 5 人。指揮 3 人以上）
+# - 置く数：整備指針 第 5・7・8・13〜15 条、救助省令 第 3 条
+# - 色：消防自動車は朱色、救急自動車は白色（細目告示 第 231 条 3 号。見本 381）
+#
+# ## 気をつけたこと
+# - 「水槽付消防ポンプ自動車」は**消防ポンプ自動車の一種**として扱われる（メーカーの仕様表の分け方）。
+#   整備指針に水槽付だけの人数の条は無いので、**人数と台数は書かない**（空けておく）
+# - ポンプの性能は**規格省令の別表**：A-2 級は**0.85MPa で毎分 2.0m³ 以上**
+# - 吸水口・吐水口の数は**ある 1 機種の例**（吸水口 2・中継口 2・吐水口 4、車体の両側）。機種で違う
+# - 救助隊の人数は、救助省令（第 2 条）が「5 人以上で編成するよう努める」、整備指針（第 29 条）が「救助工作車 1 台につき 5 人」
+#
+# ## 描かなかったもの
+# - **実在の車の外観・消防本部の名前・消防章・車体の文字**（本物に見えるものを作らない）
+# - 救急車の**車内の配置** —— 患者室の寸法を決めた公開の一次資料を見つけられなかった
+# - 空港用化学消防車・特殊車（整備指針 第 16 条）—— 地域の実情で置く車で、決まった数が無い
+#
+# 出典（2026-10-06 に読んだ）：消防力の整備指針（消防庁の告示ページ）、救助省令・動力消防ポンプ規格省令（e-Gov）、
+# 細目告示 第 231 条（国土交通省）、モリタの仕様表と FAQ。
+nodes:
+  - id: t0
+    label: "赤い車は朱色（消防自動車の色。告示が決めている）、救急自動車は白色。「○条」は消防庁「消防力の整備指針」の条。"
+    marker: none
+    align: left
+    at: { x: 40, y: 30 }
+    size: { w: 1240, h: 20 }
+  - id: k0n
+    label: "消防ポンプ自動車"
+    marker: none
+    align: left
+    at: { x: 40, y: 70 }
+    size: { w: 290, h: 20 }
+  - id: v0_cab
+    label: ""
+    hatch: solid
+    fill: 朱色
+    at: { x: 50, y: 150 }
+    size: { w: 60, h: 60 }
+  - id: v0_body
+    label: ""
+    hatch: solid
+    fill: 朱色
+    at: { x: 110, y: 160 }
+    size: { w: 200, h: 50 }
+  - id: v0_lamp
+    label: ""
+    hatch: solid
+    color: 赤色
+    at: { x: 64, y: 138 }
+    size: { w: 32, h: 12 }
+  - id: v0_w0
+    label: ""
+    marker: circle
+    at: { x: 64, y: 210 }
+    size: { w: 32, h: 32 }
+  - id: v0_w1
+    label: ""
+    marker: circle
+    at: { x: 250, y: 210 }
+    size: { w: 32, h: 32 }
+  - id: v0_o1
+    label: ""
+    marker: circle
+    at: { x: 170, y: 176 }
+    size: { w: 14, h: 14 }
+  - id: v0_o2
+    label: ""
+    marker: circle
+    at: { x: 200, y: 176 }
+    size: { w: 14, h: 14 }
+  - id: v0_o3
+    label: ""
+    marker: circle
+    at: { x: 230, y: 176 }
+    size: { w: 14, h: 14 }
+  - id: k0h0
+    label: "見分け"
+    marker: none
+    align: left
+    at: { x: 40, y: 260 }
+    size: { w: 70, h: 20 }
+  - id: k0b0
+    label: "車体の両側に吸水口と吐水口\n（例：吸水口 2・吐水口 4）"
+    marker: none
+    align: left
+    at: { x: 110, y: 260 }
+    size: { w: 220, h: 40 }
+  - id: k0h1
+    label: "ポンプ"
+    marker: none
+    align: left
+    at: { x: 40, y: 310 }
+    size: { w: 70, h: 20 }
+  - id: k0b1
+    label: "A-2 級なら 0.85MPa で\n毎分 2.0m³ 以上（規格省令）"
+    marker: none
+    align: left
+    at: { x: 110, y: 310 }
+    size: { w: 220, h: 40 }
+  - id: k0h2
+    label: "乗る人"
+    marker: none
+    align: left
+    at: { x: 40, y: 360 }
+    size: { w: 70, h: 20 }
+  - id: k0b2
+    label: "5 人（条件つきで 4 人）27 条"
+    marker: none
+    align: left
+    at: { x: 110, y: 360 }
+    size: { w: 220, h: 20 }
+  - id: k0h3
+    label: "置く数"
+    marker: none
+    align: left
+    at: { x: 40, y: 390 }
+    size: { w: 70, h: 20 }
+  - id: k0b3
+    label: "市街地の人口で決める 5 条"
+    marker: none
+    align: left
+    at: { x: 110, y: 390 }
+    size: { w: 220, h: 20 }
+  - id: k1n
+    label: "水槽付消防ポンプ自動車"
+    marker: none
+    align: left
+    at: { x: 350, y: 70 }
+    size: { w: 290, h: 20 }
+  - id: v1_cab
+    label: ""
+    hatch: solid
+    fill: 朱色
+    at: { x: 360, y: 150 }
+    size: { w: 60, h: 60 }
+  - id: v1_body
+    label: ""
+    hatch: solid
+    fill: 朱色
+    at: { x: 420, y: 150 }
+    size: { w: 200, h: 60 }
+  - id: v1_lamp
+    label: ""
+    hatch: solid
+    color: 赤色
+    at: { x: 374, y: 138 }
+    size: { w: 32, h: 12 }
+  - id: v1_w0
+    label: ""
+    marker: circle
+    at: { x: 374, y: 210 }
+    size: { w: 32, h: 32 }
+  - id: v1_w1
+    label: ""
+    marker: circle
+    at: { x: 560, y: 210 }
+    size: { w: 32, h: 32 }
+  - id: v1_tk
+    label: "水槽"
+    at: { x: 450, y: 160 }
+    size: { w: 120, h: 40 }
+  - id: k1h0
+    label: "見分け"
+    marker: none
+    align: left
+    at: { x: 350, y: 260 }
+    size: { w: 70, h: 20 }
+  - id: k1b0
+    label: "水を積んでいる\n（例：1,500〜2,000L）"
+    marker: none
+    align: left
+    at: { x: 420, y: 260 }
+    size: { w: 220, h: 40 }
+  - id: k1h1
+    label: "わけ"
+    marker: none
+    align: left
+    at: { x: 350, y: 310 }
+    size: { w: 70, h: 20 }
+  - id: k1b1
+    label: "着いてすぐ放水できる。\n2,000L で約 5 分（メーカー）"
+    marker: none
+    align: left
+    at: { x: 420, y: 310 }
+    size: { w: 220, h: 40 }
+  - id: k1h2
+    label: "分類"
+    marker: none
+    align: left
+    at: { x: 350, y: 360 }
+    size: { w: 70, h: 20 }
+  - id: k1b2
+    label: "消防ポンプ自動車の一種"
+    marker: none
+    align: left
+    at: { x: 420, y: 360 }
+    size: { w: 220, h: 20 }
+  - id: k2n
+    label: "はしご自動車"
+    marker: none
+    align: left
+    at: { x: 660, y: 70 }
+    size: { w: 290, h: 20 }
+  - id: v2_cab
+    label: ""
+    hatch: solid
+    fill: 朱色
+    at: { x: 670, y: 150 }
+    size: { w: 60, h: 60 }
+  - id: v2_body
+    label: ""
+    hatch: solid
+    fill: 朱色
+    at: { x: 730, y: 160 }
+    size: { w: 200, h: 50 }
+  - id: v2_lamp
+    label: ""
+    hatch: solid
+    color: 赤色
+    at: { x: 684, y: 138 }
+    size: { w: 32, h: 12 }
+  - id: v2_w0
+    label: ""
+    marker: circle
+    at: { x: 684, y: 210 }
+    size: { w: 32, h: 32 }
+  - id: v2_w1
+    label: ""
+    marker: circle
+    at: { x: 870, y: 210 }
+    size: { w: 32, h: 32 }
+  - id: v2_ld
+    label: ""
+    hatch: columns
+    at: { x: 690, y: 116 }
+    size: { w: 230, h: 14 }
+  - id: v2_bk
+    label: ""
+    at: { x: 664, y: 108 }
+    size: { w: 24, h: 24 }
+  - id: v2_tt
+    label: ""
+    at: { x: 870, y: 146 }
+    size: { w: 50, h: 14 }
+  - id: k2h0
+    label: "見分け"
+    marker: none
+    align: left
+    at: { x: 660, y: 260 }
+    size: { w: 70, h: 20 }
+  - id: k2b0
+    label: "はしご・バスケット・\nターンテーブル（見本 380）"
+    marker: none
+    align: left
+    at: { x: 730, y: 260 }
+    size: { w: 220, h: 40 }
+  - id: k2h1
+    label: "乗る人"
+    marker: none
+    align: left
+    at: { x: 660, y: 310 }
+    size: { w: 70, h: 20 }
+  - id: k2b1
+    label: "5 人（条件つきで 4 人）27 条"
+    marker: none
+    align: left
+    at: { x: 730, y: 310 }
+    size: { w: 220, h: 20 }
+  - id: k2h2
+    label: "置く数"
+    marker: none
+    align: left
+    at: { x: 660, y: 340 }
+    size: { w: 70, h: 20 }
+  - id: k2b2
+    label: "高さ 15m 以上の建物が\nおおむね 10 棟ある署に\n1 台以上 7 条"
+    marker: none
+    align: left
+    at: { x: 730, y: 340 }
+    size: { w: 220, h: 60 }
+  - id: k3n
+    label: "化学消防車"
+    marker: none
+    align: left
+    at: { x: 970, y: 70 }
+    size: { w: 290, h: 20 }
+  - id: v3_cab
+    label: ""
+    hatch: solid
+    fill: 朱色
+    at: { x: 980, y: 150 }
+    size: { w: 60, h: 60 }
+  - id: v3_body
+    label: ""
+    hatch: solid
+    fill: 朱色
+    at: { x: 1040, y: 160 }
+    size: { w: 200, h: 50 }
+  - id: v3_lamp
+    label: ""
+    hatch: solid
+    color: 赤色
+    at: { x: 994, y: 138 }
+    size: { w: 32, h: 12 }
+  - id: v3_w0
+    label: ""
+    marker: circle
+    at: { x: 994, y: 210 }
+    size: { w: 32, h: 32 }
+  - id: v3_w1
+    label: ""
+    marker: circle
+    at: { x: 1180, y: 210 }
+    size: { w: 32, h: 32 }
+  - id: v3_tr
+    label: ""
+    at: { x: 1100, y: 140 }
+    size: { w: 40, h: 20 }
+  - id: v3_fm
+    label: "泡原液槽"
+    at: { x: 1070, y: 168 }
+    size: { w: 140, h: 32 }
+  - id: k3h0
+    label: "見分け"
+    marker: none
+    align: left
+    at: { x: 970, y: 260 }
+    size: { w: 70, h: 20 }
+  - id: k3b0
+    label: "泡原液槽と泡混合装置。\nポンプ車より計器が多い"
+    marker: none
+    align: left
+    at: { x: 1040, y: 260 }
+    size: { w: 220, h: 40 }
+  - id: k3h1
+    label: "わけ"
+    marker: none
+    align: left
+    at: { x: 970, y: 310 }
+    size: { w: 70, h: 20 }
+  - id: k3b1
+    label: "水では消せない油の火事"
+    marker: none
+    align: left
+    at: { x: 1040, y: 310 }
+    size: { w: 220, h: 20 }
+  - id: k3h2
+    label: "乗る人"
+    marker: none
+    align: left
+    at: { x: 970, y: 340 }
+    size: { w: 70, h: 20 }
+  - id: k3b2
+    label: "5 人（条件つきで 4 人）27 条"
+    marker: none
+    align: left
+    at: { x: 1040, y: 340 }
+    size: { w: 220, h: 20 }
+  - id: k3h3
+    label: "置く数"
+    marker: none
+    align: left
+    at: { x: 970, y: 370 }
+    size: { w: 70, h: 20 }
+  - id: k3b3
+    label: "危険物の施設の数で決める\n8 条"
+    marker: none
+    align: left
+    at: { x: 1040, y: 370 }
+    size: { w: 220, h: 40 }
+  - id: k4n
+    label: "救助工作車"
+    marker: none
+    align: left
+    at: { x: 40, y: 490 }
+    size: { w: 290, h: 20 }
+  - id: v4_cab
+    label: ""
+    hatch: solid
+    fill: 朱色
+    at: { x: 50, y: 570 }
+    size: { w: 60, h: 60 }
+  - id: v4_body
+    label: ""
+    hatch: solid
+    fill: 朱色
+    at: { x: 110, y: 570 }
+    size: { w: 200, h: 60 }
+  - id: v4_lamp
+    label: ""
+    hatch: solid
+    color: 赤色
+    at: { x: 64, y: 558 }
+    size: { w: 32, h: 12 }
+  - id: v4_w0
+    label: ""
+    marker: circle
+    at: { x: 64, y: 630 }
+    size: { w: 32, h: 32 }
+  - id: v4_w1
+    label: ""
+    marker: circle
+    at: { x: 250, y: 630 }
+    size: { w: 32, h: 32 }
+  - id: v4_sh
+    label: "器具の棚"
+    hatch: rows
+    at: { x: 130, y: 578 }
+    size: { w: 160, h: 44 }
+  - id: k4h0
+    label: "見分け"
+    marker: none
+    align: left
+    at: { x: 40, y: 680 }
+    size: { w: 70, h: 20 }
+  - id: k4b0
+    label: "救助器具を積む棚\n（油圧スプレッダー・\n油圧切断機・エンジン\nカッターなど）"
+    marker: none
+    align: left
+    at: { x: 110, y: 680 }
+    size: { w: 220, h: 80 }
+  - id: k4h1
+    label: "乗る人"
+    marker: none
+    align: left
+    at: { x: 40, y: 770 }
+    size: { w: 70, h: 20 }
+  - id: k4b1
+    label: "5 人 29 条"
+    marker: none
+    align: left
+    at: { x: 110, y: 770 }
+    size: { w: 220, h: 20 }
+  - id: k4h2
+    label: "置く数"
+    marker: none
+    align: left
+    at: { x: 40, y: 800 }
+    size: { w: 70, h: 20 }
+  - id: k4b2
+    label: "消防署の数と同じ\n（救助省令 3 条・\n整備指針 14 条）"
+    marker: none
+    align: left
+    at: { x: 110, y: 800 }
+    size: { w: 220, h: 60 }
+  - id: k5n
+    label: "救急自動車"
+    marker: none
+    align: left
+    at: { x: 350, y: 490 }
+    size: { w: 290, h: 20 }
+  - id: v5_cab
+    label: ""
+    at: { x: 360, y: 580 }
+    size: { w: 60, h: 50 }
+  - id: v5_body
+    label: ""
+    at: { x: 420, y: 550 }
+    size: { w: 200, h: 80 }
+  - id: v5_lamp
+    label: ""
+    hatch: solid
+    color: 赤色
+    at: { x: 374, y: 568 }
+    size: { w: 32, h: 12 }
+  - id: v5_w0
+    label: ""
+    marker: circle
+    at: { x: 374, y: 630 }
+    size: { w: 32, h: 32 }
+  - id: v5_w1
+    label: ""
+    marker: circle
+    at: { x: 560, y: 630 }
+    size: { w: 32, h: 32 }
+  - id: k5h0
+    label: "見分け"
+    marker: none
+    align: left
+    at: { x: 350, y: 680 }
+    size: { w: 70, h: 20 }
+  - id: k5b0
+    label: "白色の車体（告示）"
+    marker: none
+    align: left
+    at: { x: 420, y: 680 }
+    size: { w: 220, h: 20 }
+  - id: k5h1
+    label: "乗る人"
+    marker: none
+    align: left
+    at: { x: 350, y: 710 }
+    size: { w: 70, h: 20 }
+  - id: k5b1
+    label: "3 人 28 条"
+    marker: none
+    align: left
+    at: { x: 420, y: 710 }
+    size: { w: 220, h: 20 }
+  - id: k5h2
+    label: "置く数"
+    marker: none
+    align: left
+    at: { x: 350, y: 740 }
+    size: { w: 70, h: 20 }
+  - id: k5b2
+    label: "人口 10 万までは\nおおむね 2 万人に 1 台\n13 条"
+    marker: none
+    align: left
+    at: { x: 420, y: 740 }
+    size: { w: 220, h: 60 }
+  - id: k6n
+    label: "指揮車"
+    marker: none
+    align: left
+    at: { x: 660, y: 490 }
+    size: { w: 290, h: 20 }
+  - id: v6_top
+    label: ""
+    hatch: solid
+    fill: 朱色
+    at: { x: 740, y: 576 }
+    size: { w: 120, h: 24 }
+  - id: v6_body
+    label: ""
+    hatch: solid
+    fill: 朱色
+    at: { x: 680, y: 600 }
+    size: { w: 240, h: 30 }
+  - id: v6_lamp
+    label: ""
+    hatch: solid
+    color: 赤色
+    at: { x: 780, y: 564 }
+    size: { w: 40, h: 12 }
+  - id: v6_w0
+    label: ""
+    marker: circle
+    at: { x: 706, y: 630 }
+    size: { w: 32, h: 32 }
+  - id: v6_w1
+    label: ""
+    marker: circle
+    at: { x: 860, y: 630 }
+    size: { w: 32, h: 32 }
+  - id: k6h0
+    label: "見分け"
+    marker: none
+    align: left
+    at: { x: 660, y: 680 }
+    size: { w: 70, h: 20 }
+  - id: k6b0
+    label: "現場で指揮をとる"
+    marker: none
+    align: left
+    at: { x: 730, y: 680 }
+    size: { w: 220, h: 20 }
+  - id: k6h1
+    label: "乗る人"
+    marker: none
+    align: left
+    at: { x: 660, y: 710 }
+    size: { w: 70, h: 20 }
+  - id: k6b1
+    label: "3 人以上（大きな施設の\nある署は 4 人以上）30 条"
+    marker: none
+    align: left
+    at: { x: 730, y: 710 }
+    size: { w: 220, h: 40 }
+  - id: k6h2
+    label: "置く数"
+    marker: none
+    align: left
+    at: { x: 660, y: 760 }
+    size: { w: 70, h: 20 }
+  - id: k6b2
+    label: "消防署の数と同じ 15 条"
+    marker: none
+    align: left
+    at: { x: 730, y: 760 }
+    size: { w: 220, h: 20 }
+  - id: lg0
+    label: "読み方"
+    marker: none
+    align: left
+    at: { x: 970, y: 490 }
+    size: { w: 290, h: 20 }
+  - id: lg1
+    label: "屋根の赤色の箱 ＝ 赤色の警光灯\n（緊急自動車はどれも付ける）"
+    marker: none
+    align: left
+    at: { x: 970, y: 530 }
+    size: { w: 290, h: 40 }
+  - id: lg2
+    label: "○ ＝ 吸水口・吐水口（ポンプ車）"
+    marker: none
+    align: left
+    at: { x: 970, y: 586 }
+    size: { w: 290, h: 20 }
+  - id: lg3
+    label: "縦縞 ＝ はしご、横縞 ＝ 器具の棚"
+    marker: none
+    align: left
+    at: { x: 970, y: 616 }
+    size: { w: 290, h: 20 }
+  - id: lg4
+    label: "人数の「条件つき」は、ホースを\n延ばす負担を軽くする装置などが\nあるとき（27 条のただし書き）"
+    marker: none
+    align: left
+    at: { x: 970, y: 650 }
+    size: { w: 290, h: 60 }
+  - id: lg5
+    label: "水槽付の人数・台数は、\n整備指針に別の条が無いので\n書いていない"
+    marker: none
+    align: left
+    at: { x: 970, y: 726 }
+    size: { w: 290, h: 60 }

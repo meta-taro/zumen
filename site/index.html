@@ -23,14 +23,14 @@
 <meta property="og:locale:alternate" content="en_US">
 <meta property="og:url" content="https://meta-taro.github.io/zumen/">
 <meta property="og:title" content="zumen — AI が描き、人が直し、その直しが壊れない図">
-<meta property="og:description" content="構成が変わるたびに図形を動かし直すのをやめる。テキスト正本の作図ツール。見本 368 枚・MIT。">
+<meta property="og:description" content="構成が変わるたびに図形を動かし直すのをやめる。テキスト正本の作図ツール。見本 388 枚・MIT。">
 <meta property="og:image" content="https://meta-taro.github.io/zumen/og.png">
 <meta property="og:image:width" content="2400">
 <meta property="og:image:height" content="1260">
 <meta property="og:image:alt" content="歯周チャートと路線図。どちらも zumen が YAML から描いたもの。">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="zumen — AI が描き、人が直し、その直しが壊れない図">
-<meta name="twitter:description" content="構成が変わるたびに図形を動かし直すのをやめる。テキスト正本の作図ツール。見本 368 枚・MIT。">
+<meta name="twitter:description" content="構成が変わるたびに図形を動かし直すのをやめる。テキスト正本の作図ツール。見本 388 枚・MIT。">
 <meta name="twitter:image" content="https://meta-taro.github.io/zumen/og.png">
 <link rel="alternate" type="application/atom+xml" href="feed.xml" title="zumen —— 新しく足した見本・直した見本">
 <link rel="stylesheet" href="style.css">
@@ -55,7 +55,7 @@
         "ja",
         "en"
       ],
-      "description": "テキスト（YAML 1 枚）を正本にする作図ツール。AI が図を描き直しても、人が手で直した所（pins）は消えない。見本 368 枚、検査 102 項目、MCP サーバー同梱。",
+      "description": "テキスト（YAML 1 枚）を正本にする作図ツール。AI が図を描き直しても、人が手で直した所（pins）は消えない。見本 388 枚、検査 106 項目、MCP サーバー同梱。",
       "license": "https://opensource.org/licenses/MIT",
       "isAccessibleForFree": true,
       "offers": {
@@ -76,7 +76,7 @@
         "人の手直し（pins）は再生成で壊れない",
         "正本は 1 枚の YAML（人も AI も読み書きできる）",
         "SVG・Mermaid・draw.io・Markdown 埋め込みへ書き出し",
-        "描かれないものを名指しする検査 102 項目",
+        "描かれないものを名指しする検査 106 項目",
         "MCP サーバー（エージェントが仕様を読んで描ける）",
         "Git のマージドライバ（同じ図を 2 人で直しても構造で解ける）"
       ]
@@ -86,7 +86,7 @@
       "name": "zumen",
       "url": "https://meta-taro.github.io/zumen/",
       "inLanguage": "ja",
-      "description": "AI が描き、人が直し、その直しが次の生成で壊れない図。見本 368 枚。"
+      "description": "AI が描き、人が直し、その直しが次の生成で壊れない図。見本 388 枚。"
     }
   ]
 }
@@ -158,7 +158,7 @@
     岩手の予想が 10m 以上に上がる前に、最大波はもう来ていました。
     有名な建物も、公開されている数のまま —— 東京スカイツリーの 634m を 1m ＝ 1px で（<a href="g/358/">見本 358</a>）。
     <b>作風も差し替えられます。</b>同じ間取りのまま、見せ方の表だけを替えて、グレースケール・色分け・その合わせ技に（<a href="g/359/">359</a>・<a href="g/360/">360</a>・<a href="g/361/">361</a>）。
-    <br>下の <b>368 枚はすべて、同じ 11 語の語彙</b>で書いたものです。
+    <br>下の <b>388 枚はすべて、同じ 11 語の語彙</b>で書いたものです。
     業界ごとの図形は 1 つも足していません。専門性は形ではなく<b>符号</b>
     （<code>C1</code> <code>G1</code> <code>2"-CS-101</code> <code>LBS-1</code>）で
     表されているからです。
@@ -168,35 +168,38 @@
   <!-- news -->
   <p class="news-h">お知らせ（<a href="feed.xml">フィード</a>）</p>
   <ul class="near news">
-    <li><span class="thumb" aria-hidden="true"></span><time datetime="2026-10-06">10/6</time>機能追加 <a href="https://github.com/meta-taro/zumen/blob/main/CHANGELOG.md">変更の記録</a> Windows の ARM64 版（Snapdragon など）も作る。x64 と名前で分ける</li>
-    <li><span class="thumb" aria-hidden="true"></span><time datetime="2026-10-05">10/5</time>機能追加 <a href="https://github.com/meta-taro/zumen/blob/main/CHANGELOG.md">変更の記録</a> 検査（inspect）が、辺の名札の下を別の辺が通っているところを知らせる。名札は別の辺を避けて置く</li>
-    <li><span class="thumb" aria-hidden="true"></span><time datetime="2026-10-04">10/4</time>機能追加 <a href="https://github.com/meta-taro/zumen/blob/main/CHANGELOG.md">変更の記録</a> 出典を図の中に出せる（sources）。名前・取得日・ライセンスを図の下端に、URL はリンクに</li>
-    <li><span class="thumb" aria-hidden="true"></span><time datetime="2026-10-04">10/4</time>機能追加 <a href="https://github.com/meta-taro/zumen/blob/main/CHANGELOG.md">変更の記録</a> 検査（validate）が、箱に書いた面積・帖数を箱の大きさと照らす（帖は切り捨て）</li>
-    <li><span class="thumb" aria-hidden="true"></span><time datetime="2026-10-04">10/4</time>機能追加 <a href="https://github.com/meta-taro/zumen/blob/main/CHANGELOG.md">変更の記録</a> 検査（inspect）が、通り道から入れない部屋（便所へ居間を横切るなど）を知らせる</li>
-    <li><span class="thumb" aria-hidden="true"></span><time datetime="2026-10-02">10/2</time>機能追加 <a href="https://github.com/meta-taro/zumen/blob/main/CHANGELOG.md">変更の記録</a> 検査（inspect）が、線が関係の無い箱を突き抜けているところを知らせる</li>
-    <li><span class="thumb" aria-hidden="true"></span><time datetime="2026-09-30">9/30</time>機能追加 <a href="https://github.com/meta-taro/zumen/blob/main/CHANGELOG.md">変更の記録</a> 検査（inspect）が、開き戸の扇に乗っている名前・設備を知らせる</li>
-    <li><span class="thumb" aria-hidden="true"></span><time datetime="2026-09-30">9/30</time>機能追加 <a href="https://github.com/meta-taro/zumen/blob/main/CHANGELOG.md">変更の記録</a> 開き戸の開く向き（swing: out）と蝶番の側（hinge）。日本の玄関と便所は外開き</li>
+    <li><a href="g/388/" tabindex="-1" aria-hidden="true"><img class="thumb" src="gallery/388-%E8%B7%AF%E7%B7%9A%E5%9B%B3-JR%E8%A5%BF%E6%97%A5%E6%9C%AC%E5%9E%8B-%E8%89%B2%E5%90%8D%E3%81%AE%E9%A0%AD%E6%96%87%E5%AD%97%E3%81%AE%E8%B7%AF%E7%B7%9A%E8%A8%98%E5%8F%B7.svg" alt="" width="72" height="48" loading="lazy" decoding="async"></a><time datetime="2026-10-06">10/6</time>追加 <a href="g/388/">見本 388</a> 路線図（JR 西日本型・色名の頭文字）</li>
+    <li><a href="g/387/" tabindex="-1" aria-hidden="true"><img class="thumb" src="gallery/387-%E5%81%9C%E8%BB%8A%E9%A7%85%E6%A1%88%E5%86%85-%E4%BA%AC%E6%88%90%E5%9E%8B-%E8%89%B2%E5%90%8D%E3%82%92%E6%B7%BB%E3%81%88%E3%82%8B.svg" alt="" width="72" height="48" loading="lazy" decoding="async"></a><time datetime="2026-10-06">10/6</time>追加 <a href="g/387/">見本 387</a> 停車駅案内（京成型・色名を添える）</li>
+    <li><a href="g/386/" tabindex="-1" aria-hidden="true"><img class="thumb" src="gallery/386-%E3%83%95%E3%82%A7%E3%83%B3%E3%82%B7%E3%83%B3%E3%82%B0%E3%81%AE%E3%83%94%E3%82%B9%E3%83%88-%E4%B8%8B%E3%81%8C%E3%82%8C%E3%82%8B%E3%81%AE%E3%81%AF5m.svg" alt="" width="72" height="48" loading="lazy" decoding="async"></a><time datetime="2026-10-06">10/6</time>追加 <a href="g/386/">見本 386</a> フェンシングのピスト（構えて 2m、下がれるのは 5m）</li>
+    <li><a href="g/385/" tabindex="-1" aria-hidden="true"><img class="thumb" src="gallery/385-%E3%82%AB%E3%83%BC%E3%83%AA%E3%83%B3%E3%82%B0%E3%81%AE%E3%82%B7%E3%83%BC%E3%83%88-%E3%83%86%E3%82%A3%E3%83%BC%E3%81%8B%E3%82%89%E6%B8%AC%E3%82%8B%E7%B7%9A.svg" alt="" width="72" height="48" loading="lazy" decoding="async"></a><time datetime="2026-10-06">10/6</time>追加 <a href="g/385/">見本 385</a> カーリングのシート（線はすべてティーの中心から測る）</li>
+    <li><a href="g/384/" tabindex="-1" aria-hidden="true"><img class="thumb" src="gallery/384-%E7%AB%B6%E6%B3%B3%E3%81%AE50m%E3%83%97%E3%83%BC%E3%83%AB-5m%E3%81%A815m%E3%81%AE%E5%8D%B0.svg" alt="" width="72" height="48" loading="lazy" decoding="async"></a><time datetime="2026-10-06">10/6</time>追加 <a href="g/384/">見本 384</a> 競泳の 50m プール（5m と 15m の印は、何を見るためにあるか）</li>
+    <li><a href="g/383/" tabindex="-1" aria-hidden="true"><img class="thumb" src="gallery/383-%E3%82%A2%E3%83%A1%E3%83%AA%E3%82%AB%E3%83%B3%E3%83%95%E3%83%83%E3%83%88%E3%83%9C%E3%83%BC%E3%83%AB%E3%81%AE%E3%83%95%E3%82%A3%E3%83%BC%E3%83%AB%E3%83%89-NFL%E3%81%A8NCAA%E3%81%AE%E3%83%8F%E3%83%83%E3%82%B7%E3%83%A5.svg" alt="" width="72" height="48" loading="lazy" decoding="async"></a><time datetime="2026-10-06">10/6</time>追加 <a href="g/383/">見本 383</a> アメリカンフットボールのフィールド（NFL と NCAA はハッシュの位置が違う）</li>
+    <li><a href="g/382/" tabindex="-1" aria-hidden="true"><img class="thumb" src="gallery/382-%E6%B6%88%E9%98%B2%E7%BD%B2%E3%81%AE%E8%BB%8A%E3%81%AE%E8%A6%8B%E5%88%86%E3%81%91%E6%96%B9.svg" alt="" width="72" height="48" loading="lazy" decoding="async"></a><time datetime="2026-10-06">10/6</time>追加 <a href="g/382/">見本 382</a> 消防署の車（見分けどころと、何人乗るか・何台置くか）</li>
+    <li><a href="g/381/" tabindex="-1" aria-hidden="true"><img class="thumb" src="gallery/381-%E7%B7%8A%E6%80%A5%E8%87%AA%E5%8B%95%E8%BB%8A%E3%81%AE%E6%B1%BA%E3%81%BE%E3%82%8A.svg" alt="" width="72" height="48" loading="lazy" decoding="async"></a><time datetime="2026-10-06">10/6</time>追加 <a href="g/381/">見本 381</a> 緊急自動車（赤い光とサイレンは法令、パトカーの白黒は法令ではない）</li>
   </ul>
   <!-- /news -->
   <div class="filters" role="group" aria-label="種類で絞り込む">
-    <button type="button" data-pick="all" aria-pressed="true">すべて <span class="n">368</span></button>
-    <button type="button" data-pick="tetsudo" aria-pressed="false">鉄道・交通 <span class="n">22</span></button>
-    <button type="button" data-pick="kenchiku" aria-pressed="false">建築・土木 <span class="n">78</span></button>
-    <button type="button" data-pick="bosai" aria-pressed="false">防災・災害 <span class="n">28</span></button>
-    <button type="button" data-pick="manabi" aria-pressed="false">学び・図学 <span class="n">24</span></button>
-    <button type="button" data-pick="ongaku" aria-pressed="false">楽器・音響 <span class="n">10</span></button>
+    <button type="button" data-pick="all" aria-pressed="true">すべて <span class="n">388</span></button>
+    <button type="button" data-pick="tetsudo" aria-pressed="false">鉄道・交通 <span class="n">25</span></button>
+    <button type="button" data-pick="kenchiku" aria-pressed="false">建築・土木 <span class="n">81</span></button>
+    <button type="button" data-pick="bosai" aria-pressed="false">防災・災害 <span class="n">30</span></button>
+    <button type="button" data-pick="manabi" aria-pressed="false">学び・図学 <span class="n">28</span></button>
+    <button type="button" data-pick="ongaku" aria-pressed="false">楽器・音響 <span class="n">12</span></button>
     <button type="button" data-pick="kaden" aria-pressed="false">家電・家具 <span class="n">33</span></button>
     <button type="button" data-pick="setsubi" aria-pressed="false">設備・電気 <span class="n">19</span></button>
     <button type="button" data-pick="iryo" aria-pressed="false">医療・食品・農 <span class="n">37</span></button>
     <button type="button" data-pick="tenpo" aria-pressed="false">店舗・物流 <span class="n">22</span></button>
     <button type="button" data-pick="gyomu" aria-pressed="false">業務・組織 <span class="n">32</span></button>
-    <button type="button" data-pick="moyooshi" aria-pressed="false">催し・遊び <span class="n">33</span></button>
+    <button type="button" data-pick="moyooshi" aria-pressed="false">催し・遊び <span class="n">39</span></button>
     <button type="button" data-pick="ui" aria-pressed="false">UI・画面設計 <span class="n">8</span></button>
     <button type="button" data-pick="it" aria-pressed="false">IT・ソフトウェア <span class="n">22</span></button>
   </div>
   <div class="gallery">
-    <h3 class="cat" data-cat="tetsudo"><a href="c/tetsudo/">鉄道・交通</a><span class="n">22</span></h3>
+    <h3 class="cat" data-cat="tetsudo"><a href="c/tetsudo/">鉄道・交通</a><span class="n">25</span></h3>
     <figure data-cat="tetsudo"><picture><source srcset="gallery/25-路線図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="583" height="531" src="gallery/25-路線図.svg" alt="架空の鉄道の路線図（3 路線を色と駅ナンバリングで分け、乗換駅を二重丸で示した模式図。水平・垂直・45 度の線だけで描く）"></picture><figcaption>鉄道の路線図</figcaption></figure>
+    <figure data-cat="tetsudo"><picture><source srcset="gallery/388-路線図-JR西日本型-色名の頭文字の路線記号-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1574" height="1044" src="gallery/388-路線図-JR西日本型-色名の頭文字の路線記号.svg" alt="架空の地方都市圏の路線図。色の四角に色名の頭文字（G・O・B・M）を白く抜いた路線記号を線の端に置き、主要駅を黒い箱に白抜きで示した図"></picture><figcaption>路線図（JR 西日本型・色名の頭文字）</figcaption></figure>
+    <figure data-cat="tetsudo"><picture><source srcset="gallery/387-停車駅案内-京成型-色名を添える-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1512" height="928" src="gallery/387-停車駅案内-京成型-色名を添える.svg" alt="架空の私鉄の停車駅案内。4 種別の帯に白い丸で停車駅を示し、帯の頭と凡例に「あか Red」のように色名を添えて、色だけに頼らない作りにした図"></picture><figcaption>停車駅案内（京成型・色名を添える）</figcaption></figure>
+    <figure data-wide data-cat="tetsudo"><picture><source srcset="gallery/379-線路の断面-軌間とカント-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1792" height="860" src="gallery/379-線路の断面-軌間とカント.svg" alt="レール・まくらぎ・道床（バラスト）・路盤の線路の断面を、狭軌 1,067mm と標準軌 1,435mm で同じ縮尺に並べ、1,067mm の曲線（R＝600m・80km/h）で外軌を 90mm 上げたカントの断面と、省令と解釈基準の軌間・カント・施工基面・最小曲線半径の数を添えた図"></picture><figcaption>線路の断面（軌間 1,067／1,435 とカント）</figcaption></figure>
     <figure data-cat="tetsudo"><picture><source srcset="gallery/78-山手線の路線図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1022" height="1000" src="gallery/78-山手線の路線図.svg" alt="JR 山手線の路線図。環状 30 駅を等間隔に並べ、主要な乗換路線を駅ごとに添えた図"></picture><figcaption>山手線の路線図（環状・30 駅）</figcaption></figure>
     <figure data-cat="tetsudo"><picture><source srcset="gallery/81-東京の地下鉄13路線-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1120" height="922" src="gallery/81-東京の地下鉄13路線.svg" alt="東京の地下鉄 13 路線 都心部の路線図"></picture><figcaption>東京の地下鉄 13 路線（メトロ 9 ＋ 都営 4）</figcaption></figure>
     <figure data-cat="tetsudo"><picture><source srcset="gallery/79-梅田の乗換関係図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="864" height="702" src="gallery/79-梅田の乗換関係図.svg" alt="梅田の乗換関係図。同じ「梅田」を名乗る 7 駅の位置関係と、駅間の徒歩の所要時間"></picture><figcaption>梅田の乗換関係図（同じ梅田に 7 駅）</figcaption></figure>
@@ -218,7 +221,10 @@
     <figure data-cat="tetsudo"><picture><source srcset="gallery/102-ドローンの飛行計画図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1340" height="790" src="gallery/102-ドローンの飛行計画図.svg" alt="ドローンの飛行計画図。飛行範囲と高度、人を入れない立入管理措置の範囲、離着陸点と緊急着陸点"></picture><figcaption>ドローンの飛行計画図（人を入れない範囲）</figcaption></figure>
     <figure data-wide data-cat="tetsudo"><picture><source srcset="gallery/61-道路の平面線形図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="900" height="442" src="gallery/61-道路の平面線形図.svg" alt="市道の平面線形図。直線と円曲線のつながりを、交点（IP）・接線・測点と曲線諸元つきで示した図。中心線は一点鎖線、道路の端は実線"></picture><figcaption>道路の平面線形図（曲線）</figcaption></figure>
     <figure data-cat="tetsudo"><picture><source srcset="gallery/37-配送ルート-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1164" height="628" src="gallery/37-配送ルート.svg" alt="配送ルート図。2t 車 1 台の午前便と午後便の巡回順と立寄先を分けた図"></picture><figcaption>配送ルート（2t 車 1 台・午前便と午後便）</figcaption></figure>
-    <h3 class="cat" data-cat="kenchiku"><a href="c/kenchiku/">建築・土木</a><span class="n">78</span></h3>
+    <h3 class="cat" data-cat="kenchiku"><a href="c/kenchiku/">建築・土木</a><span class="n">81</span></h3>
+    <figure data-cat="kenchiku"><picture><source srcset="gallery/381-緊急自動車の決まり-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1304" height="1384" src="gallery/381-緊急自動車の決まり.svg" alt="消防自動車（朱色）・救急自動車（白色）・パトカー（白黒）を簡略形で並べ、朱色と白色は細目告示 第 231 条が決めているが、警察自動車はその決まりから外れるのでパトカーの白黒は告示の決まりではないことを示した図。サイレンの音量を前端から 20m・地上 1m で 90〜120dB と測る配置、交差点付近では交差点を避けて左に寄って一時停止する譲り方（道路交通法 第 40 条）の平面、どこで決まっているかの表を添えている"></picture><figcaption>緊急自動車（赤い光とサイレンは法令、パトカーの白黒は法令ではない）</figcaption></figure>
+    <figure data-cat="kenchiku"><picture><source srcset="gallery/378-インターチェンジの形-料金所とループ-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1594" height="1291" src="gallery/378-インターチェンジの形-料金所とループ.svg" alt="トランペット型・ダイヤモンド型・クローバー型・ダブルトランペット型のインターチェンジを、左側通行・同じ縮尺（ループ半径 56m）で並べた平面の模式図。料金所を 1 か所に集める形、ランプ端の平面交差、4 つのループと織り込み、道路構造令の立体交差と連結路の決まり、ランプの曲線半径の目安を添えた図"></picture><figcaption>インターチェンジの形（料金所とループで決まる）</figcaption></figure>
+    <figure data-cat="kenchiku"><picture><source srcset="gallery/377-瀬戸大橋の6橋-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1662" height="926" src="gallery/377-瀬戸大橋の6橋.svg" alt="瀬戸大橋の 6 橋（下津井瀬戸大橋・櫃石島橋・岩黒島橋・与島橋・北備讃瀬戸大橋・南備讃瀬戸大橋）を本州から四国へ並べた側面の模式図。吊橋 3・斜張橋 2・トラス橋 1 を支間割どおりに置き、塔頂高と桁下高、北備讃と南備讃が共用するアンカレイジ、上段が道路・下段が鉄道の 2 層の補剛桁の断面と、6 橋の諸元表を添えた図"></picture><figcaption>瀬戸大橋の 6 橋（吊橋・斜張橋・トラス橋が連なる 2 層の併用橋）</figcaption></figure>
     <figure data-cat="kenchiku"><picture><source srcset="gallery/358-東京スカイツリーの高さと心柱-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1564" height="902" src="gallery/358-東京スカイツリーの高さと心柱.svg" alt="東京スカイツリー（634m）と東京タワー（333m）を 1m ＝ 1px の同じ縮尺で並べた縦の図。天望デッキ（フロア 340・345・350）、天望回廊（445m から最高到達点 451.2m）、直径 8m・高さ 375m の心柱と 125m から上のオイルダンパー、315m から上が円になること、約 140m のゲイン塔、分速 600m と 240m のエレベーターを示し、公式に出ている数の表と心柱制振の説明を添えた非公式の図。東京タワーの先端は天望デッキのフロア 350 より 17m 低い"></picture><figcaption>東京スカイツリー（634m を実寸の比で。心柱は 375m）</figcaption></figure>
     <figure data-cat="kenchiku"><picture><source srcset="gallery/288-茶室の四畳半と八炉-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1354" height="1333" src="gallery/288-茶室の四畳半と八炉.svg" alt="四畳半（本勝手・四畳半切）の平面図。畳 4 枚が半畳を囲んで風車に回る敷き方に、点前畳・貴人畳・客畳・通い畳・半畳の名前、1 尺 4 寸角の炉、床の間、にじり口・茶道口・給仕口を入れた図と、炉の切り方 4 通り（四畳半切・台目切・向切・隅炉）の小図、畳の名前・八炉の法・尺と mm の寸法表"></picture><figcaption>茶室の四畳半と八炉（畳が部屋を決める）</figcaption></figure>
     <figure data-cat="kenchiku"><picture><source srcset="gallery/302-道路標識-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1304" height="1140" src="gallery/302-道路標識.svg" alt="本標識 4 種類の形と色を実際の色で描いた図。黄地に黒の菱形（警戒標識・一辺 45cm）、赤地に白の円（規制標識）、赤地に白の逆三角（一時停止）、青地に白（指示標識・一般道の案内標識）、緑地に白（高速道路の案内標識）と、4 種類の形と色・ウィーン標識条約の原則・補助標識の表"></picture><figcaption>道路標識（形と色で、読む前に種類が分かる）</figcaption></figure>
@@ -297,7 +303,9 @@
     <figure data-cat="kenchiku"><picture><source srcset="gallery/27-圃場整備の平面図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="912" height="804" src="gallery/27-圃場整備の平面図.svg" alt="ほ場整備の平面図。30a 区画の割り付けと、用水路・排水路・農道の系統"></picture><figcaption>ほ場整備の平面図（30a 区画）</figcaption></figure>
     <figure data-cat="kenchiku"><picture><source srcset="gallery/62-寺院庭園の平面図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1020" height="656" src="gallery/62-寺院庭園の平面図.svg" alt="池泉回遊式の寺院庭園平面図。池（点の模様）と回遊の園路（破線）、白砂敷・苔地、石灯籠・手水鉢、松・桜・楓・椿の植栽を閉じた曲線で描いた図"></picture><figcaption>寺院庭園の平面図（閉じた曲線）</figcaption></figure>
     <figure data-cat="kenchiku"><picture><source srcset="gallery/41-露地の平面図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="832" height="736" src="gallery/41-露地の平面図.svg" alt="露地（茶庭）の平面図。外露地と内露地、飛石・蹲踞・中門・腰掛待合の配置と植栽"></picture><figcaption>露地（茶庭）の平面図・植栽図</figcaption></figure>
-    <h3 class="cat" data-cat="bosai"><a href="c/bosai/">防災・災害</a><span class="n">28</span></h3>
+    <h3 class="cat" data-cat="bosai"><a href="c/bosai/">防災・災害</a><span class="n">30</span></h3>
+    <figure data-cat="bosai"><picture><source srcset="gallery/382-消防署の車の見分け方-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1304" height="962" src="gallery/382-消防署の車の見分け方.svg" alt="消防ポンプ自動車・水槽付消防ポンプ自動車・はしご自動車・化学消防車・救助工作車・救急自動車・指揮車の 7 種を簡略形で並べ、それぞれの見分けどころ（吸水口・水槽・はしご・泡原液槽・救助器具の棚・白い車体）と、乗る人数（5 人・3 人など）と置く数の決まりを消防力の整備指針の条で添えた図"></picture><figcaption>消防署の車（見分けどころと、何人乗るか・何台置くか）</figcaption></figure>
+    <figure data-cat="bosai"><picture><source srcset="gallery/380-はしご車の装備と伸びる長さ-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1328" height="1120" src="gallery/380-はしご車の装備と伸びる長さ.svg" alt="はしご車の上の装備（キャブ・ターンテーブル・4 連のはしご・バスケット・ジャッキ）を簡略形で示し、はしごの角度が −17〜75° で車より低い所へも伸びること、15m 級から 54m 級までの 6 機種の最大地上高を 1px＝100mm の棒で並べ、長い機種ほど最大作業半径が小さい（25m 級 21.0m → 54m 級 16.2m）ことを示した図。仕様の表と、置く所（高さ 15m 以上の建物がおおむね 10 棟）・乗る人（5 人）などの決まりの表を添えている"></picture><figcaption>はしご車（長いはしごほど、横へは届かない）</figcaption></figure>
     <figure data-cat="bosai"><picture><source srcset="gallery/278-ロープ結索の選び方-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1412" height="1046" src="gallery/278-ロープ結索の選び方.svg" alt="ロープの端・中間・輪（バイト）の呼び分けと、結索を役目で 3 つ（結合・結着・端止め）に分けた表、結び目で強度が 40〜80% まで落ちることを示した棒、描かなかったものとその理由"></picture><figcaption>ロープ結索（結び目は、必ずいちばん弱い所）</figcaption></figure>
     <figure data-cat="bosai"><picture><source srcset="gallery/220-防火区画と避難経路-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1264" height="1078" src="gallery/220-防火区画と避難経路.svg" alt="防火区画（令 112 条）と、防火シャッターが閉まったあとの避難経路・防煙垂れ壁と排煙口"></picture><figcaption>防火区画（訓練で大事なのは、いつもの近道が閉まること）</figcaption></figure>
     <figure data-cat="bosai"><picture><source srcset="gallery/331-緊急地震速報-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1584" height="890" src="gallery/331-緊急地震速報.svg" alt="緊急地震速報で失われる時間の内訳を、海溝型と直下型の 2 本の帯で並べた図。P 波を観測点が検知するまで、解析と伝達の数秒程度、そして残りが猶予（数秒〜数十秒）という順に積み、海溝型では猶予が残り、直下型では発表より先に大きな揺れが来ることを示した図と、引かれる分の表、警報の基準（最大予測震度 5 弱以上・予測震度 4 以上の地域）の表"></picture><figcaption>緊急地震速報（猶予は「残り」でしかない）</figcaption></figure>
@@ -326,7 +334,11 @@
     <figure data-cat="bosai"><picture><source srcset="gallery/185-地上天気図の読み方-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1504" height="910" src="gallery/185-地上天気図の読み方.svg" alt="地上天気図の読み方（等圧線と前線記号・架空の気圧配置）"></picture><figcaption>地上天気図（記号を見れば、前線がどちらへ動くか分かる）</figcaption></figure>
     <figure data-wide data-cat="bosai"><picture><source srcset="gallery/93-花火大会の保安距離図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1550" height="690" src="gallery/93-花火大会の保安距離図.svg" alt="花火大会の打揚配置と保安距離図。号数ごとの保安距離を同心円で描き、観覧席と立入禁止区域を重ねた図"></picture><figcaption>花火大会の保安距離図（号数ごとの円）</figcaption></figure>
     <figure data-wide data-cat="bosai"><picture><source srcset="gallery/106-雑踏警備計画図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1548" height="770" src="gallery/106-雑踏警備計画図.svg" alt="雑踏警備計画図（花火大会・駅から会場まで）"></picture><figcaption>雑踏警備計画図（流せる量と入ってくる量）</figcaption></figure>
-    <h3 class="cat" data-cat="manabi"><a href="c/manabi/">学び・図学</a><span class="n">24</span></h3>
+    <h3 class="cat" data-cat="manabi"><a href="c/manabi/">学び・図学</a><span class="n">28</span></h3>
+    <figure data-cat="manabi"><picture><source srcset="gallery/376-水面の波の干渉-線の本数-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1396" height="1300" src="gallery/376-水面の波の干渉-線の本数.svg" alt="同じ波を出す 2 つの波源から広がる山と谷の円と、強め合う線（腹線）5 本・弱め合う線（節線）4 本を双曲線で描いた水面の干渉の図。距離の差が波長の整数倍で強め合い、半端で弱め合うことと、線の本数が波源の間隔と波長の比で決まること（d＝2.4λ で 5 本）を表と数直線で示している"></picture><figcaption>水面の波の干渉（線の本数は、波源の間隔と波長で決まる）</figcaption></figure>
+    <figure data-cat="manabi"><picture><source srcset="gallery/375-波長と周期-音と光の波長の幅-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1480" height="1316" src="gallery/375-波長と周期-音と光の波長の幅.svg" alt="波の形のグラフ（横軸が位置）で波長と振幅（山から谷は 2A で振幅ではない）を、揺れのグラフ（横軸が時刻）で周期を示し、f＝1/T と v＝fλ の表を添えた図。人に聞こえる音（17mm〜17m）と目に見える光（380〜750nm）を 1 本の対数の物差しに並べ、可視光の帯とマルハナバチが見える範囲も描いている"></picture><figcaption>波長・振幅・周期・振動数（音と光の波長を 1 本の物差しで）</figcaption></figure>
+    <figure data-cat="manabi"><picture><source srcset="gallery/374-昆虫の翅脈-コムストック・ニーダム式-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1544" height="1034" src="gallery/374-昆虫の翅脈-コムストック・ニーダム式.svg" alt="一般化した昆虫の翅に、コムストック・ニーダム式の縦脈（C・Sc・R・M・Cu・A と枝の番号）、横脈（h・r・s・r-m・m・m-cu）、翅室の名前を書き込んだ図。翅室は前側の脈の名前で呼ぶことなど、呼び方の決まりを表にしている"></picture><figcaption>昆虫の翅脈（コムストック・ニーダム式）</figcaption></figure>
+    <figure data-cat="manabi"><picture><source srcset="gallery/373-昆虫の複眼-連立像眼と重複像眼-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1414" height="1394" src="gallery/373-昆虫の複眼-連立像眼と重複像眼.svg" alt="昆虫の複眼の図。六角の小眼面の並びと、個眼 1 つの縦断面（角膜レンズ・円錐晶体・一次と二次の色素細胞・視細胞・感桿・基底膜）と輪切りを描き、光を 1 つのレンズだけから受ける連立像眼と、明帯を通してたくさんのレンズの光を 1 本の感桿に集める重複像眼の光の通り道を並べ、個眼の数（大型のトンボ 約 3 万、ショウジョウバエ 760）の表を添えている"></picture><figcaption>昆虫の複眼（連立像眼と重複像眼）</figcaption></figure>
     <figure data-cat="manabi"><picture><source srcset="gallery/351-宇宙は無重力ではない-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1574" height="957" src="gallery/351-宇宙は無重力ではない.svg" alt="高さ 0〜2000km について地球が引く力を地表を 100% として描いた曲線と、高度 400km の ISS がその 88.5% を受けていることを示した図。落ち続けることで浮く仕組みを、1 秒で 7.66km 進むあいだに 4.34m 落ち、その先で地球の面も 4.34m 下がるという図で示し、地表・カーマン線・ISS・GPS 衛星・静止衛星・月の高さごとの重力、微小重力と呼ぶ理由（重心から 10m で 2.6 × 10⁻⁶ g の勾配）、放物線飛行や落下塔の表を添えている"></picture><figcaption>宇宙は無重力ではない（ISS の高さでも 88.5%）</figcaption></figure>
     <figure data-cat="manabi"><picture><source srcset="gallery/268-人口ピラミッドの読み方-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1354" height="1186" src="gallery/268-人口ピラミッドの読み方.svg" alt="人口ピラミッドの模式図（5 歳きざみ・男女左右）に団塊の世代と団塊ジュニアのふくらみ、丙午のへこみ、65 歳と 15 歳の境を入れた図と、3 つの型・3 区分の割合・支える側の比"></picture><figcaption>人口ピラミッド（段は年齢、意味は生まれた年）</figcaption></figure>
     <figure data-cat="manabi"><picture><source srcset="gallery/267-クモの円網-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1354" height="1218" src="gallery/267-クモの円網.svg" alt="クモの円網の構造図。枠糸・支持糸・縦糸（放射糸）・足場らせん・粘着らせん・こしき・白帯の位置と、張る順番、縦糸と横糸の違い、張り替えに要る養分"></picture><figcaption>クモの円網（縦糸は歩く道、横糸だけが粘る）</figcaption></figure>
@@ -351,7 +363,9 @@
     <figure data-cat="manabi"><picture><source srcset="gallery/352-網点で濃さを出す-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1604" height="886" src="gallery/352-網点で濃さを出す.svg" alt="同じ間隔の点の大きさだけで陰影を付けた球を、1 辺 6・10・14 点の 3 通りで描いた図。網点 0% から 100% まで 10% きざみの升目と、丸は 78.5% で隣と触れること、丸・角・楕円の点が繋がる %（トーンジャンプ）の表、新聞 85・雑誌 150・商業 175・美術 300 の線数の表、C 15°・M 75°・Y 0°・K 45° の網点角度の表、7° 違いで出るうなりと 30° 離すと消えることを重ねた網で示している"></picture><figcaption>網点（印刷は濃さを作れない。点の大きさを目に混ぜさせる）</figcaption></figure>
     <figure data-cat="manabi"><picture><source srcset="gallery/337-露出とEV-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1324" height="846" src="gallery/337-露出とEV.svg" alt="絞り（F1.4 から F16）を横、シャッター速度（1/1000 から 1/8）を縦に取り、各マスに EV を書き入れた表。EV 12 になる組み合わせ（F2.8 と 1/500、F4 と 1/250、F5.6 と 1/125 など）が斜めに並ぶことを網かけで示した図と、1 段動かすとは何かの表、同じ EV でも被写界深度とブレが変わることの表"></picture><figcaption>露出（同じ明るさに、何通りもある）</figcaption></figure>
     <figure data-cat="manabi"><picture><source srcset="gallery/191-凸レンズの作図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1394" height="1264" src="gallery/191-凸レンズの作図.svg" alt="凸レンズの作図（3 本の作図線・実像と虚像）"></picture><figcaption>凸レンズ（引く線は 3 本。2 本で像が決まる）</figcaption></figure>
-    <h3 class="cat" data-cat="ongaku"><a href="c/ongaku/">楽器・音響</a><span class="n">10</span></h3>
+    <h3 class="cat" data-cat="ongaku"><a href="c/ongaku/">楽器・音響</a><span class="n">12</span></h3>
+    <figure data-wide data-cat="ongaku"><picture><source srcset="gallery/372-イコライザーの仕組み-GEQとPEQ-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="2086" height="1030" src="gallery/372-イコライザーの仕組み-GEQとPEQ.svg" alt="31 バンドのグラフィックイコライザーのつまみを 1/3 オクターブの公称中心周波数の対数軸に並べた図と、その設定で実際にかかる特性の曲線、パラメトリックイコライザー 3 バンドの特性曲線、2 つの違いの表、中心周波数の厳密値・公称値・帯域端の表"></picture><figcaption>イコライザーの仕組み（GEQ は決まった 31 本、PEQ は中心と幅を選ぶ）</figcaption></figure>
+    <figure data-cat="ongaku"><picture><source srcset="gallery/371-スピーカーの構造-動電形-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1696" height="910" src="gallery/371-スピーカーの構造-動電形.svg" alt="外磁形コーンスピーカーの軸断面に、ダストキャップ・コーン・エッジ・フレーム・ダンパー・ボイスコイル・トッププレート・マグネット・ヨーク・通気孔・端子の番号を振った図と、磁気ギャップの拡大（コイル線の断面に電流の向き ⊗）、磁束 B・電流 I・力 F の向き、部品ごとの役目と動くかどうかの表"></picture><figcaption>スピーカーの構造（磁石とコイルとコーン）</figcaption></figure>
     <figure data-cat="ongaku"><picture><source srcset="gallery/350-トロンボーンのポジション-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1634" height="946" src="gallery/350-トロンボーンのポジション.svg" alt="トロンボーンのスライド 7 ポジションを実寸の目盛りで並べた図。1 番と 2 番は 85mm、6 番と 7 番は 113mm 離れており、間隔が隣へ行くたび 1.0595 倍（12 乗根 2）に開くこと、各ポジションで出る第 1〜第 8 倍音の音名を升目で示し、E2 の下にある出ない 5 音の穴と、F 管を足しても C2 が 47mm・B1 が 198mm 足りずスライドが尽きることの表"></picture><figcaption>トロンボーンのポジション（ギターのフレットと同じ 12√2 が、逆を向く）</figcaption></figure>
     <figure data-cat="ongaku"><picture><source srcset="gallery/317-オーケストラの配置と音量-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1304" height="1062" src="gallery/317-オーケストラの配置と音量.svg" alt="客席側から見たオーケストラの配置図。前列に第 1 ヴァイオリン・第 2 ヴァイオリン・ヴィオラ・チェロ、チェロの後ろにコントラバス、その後ろに木管 2 列・金管・打楽器を並べた図と、対向配置（両翼配置）の並び、弦の順・前後の並び・二管三管の編成の表"></picture><figcaption>オーケストラの配置（配置そのものが、音量の調整）</figcaption></figure>
     <figure data-cat="ongaku"><picture><source srcset="gallery/311-ピアノの鍵盤-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1304" height="1162" src="gallery/311-ピアノの鍵盤.svg" alt="ピアノの鍵盤 2 オクターブぶんを描き、黒鍵が 2 つの組と 3 つの組に分かれること、白鍵にドレミファソラシを振った図と、88 鍵が 7 オクターブ（白 49・黒 35）＋ 下の A0・A#0・B0 ＋ 上の C8 で白 52・黒 36 になる内訳、弦の本数と張力、3 本のペダルの表"></picture><figcaption>ピアノの鍵盤（88 は、7 オクターブ ＋ 4 鍵）</figcaption></figure>
@@ -510,7 +524,13 @@
     <figure data-wide data-cat="gyomu"><picture><source srcset="gallery/128-ロゴの作図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="2576" height="267" src="gallery/128-ロゴの作図.svg" alt="ロゴの作図（murmuraura。円と比だけ・座標を書かない正本から）"></picture><figcaption>ロゴの作図（**正本に座標が 1 つも無い**。5.4 KB）</figcaption></figure>
     <figure data-wide data-cat="gyomu"><picture><source srcset="gallery/127-ロゴのコンストラクション図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1470" height="676" src="gallery/127-ロゴのコンストラクション図.svg" alt="ロゴのコンストラクション図（黄金比の作図・φ の階段・手引書の下限）"></picture><figcaption>ロゴのコンストラクション図（コンパスと定規だけで作れる）</figcaption></figure>
     <figure data-cat="gyomu"><picture><source srcset="gallery/124-和欧混植の寸法図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1602" height="1068" src="gallery/124-和欧混植の寸法図.svg" alt="和文と欧文を混ぜるときの寸法図（仮想ボディとベースライン）"></picture><figcaption>和欧混植の寸法図（基準が違うものを並べている）</figcaption></figure>
-    <h3 class="cat" data-cat="moyooshi"><a href="c/moyooshi/">催し・遊び</a><span class="n">33</span></h3>
+    <h3 class="cat" data-cat="moyooshi"><a href="c/moyooshi/">催し・遊び</a><span class="n">39</span></h3>
+    <figure data-cat="moyooshi"><picture><source srcset="gallery/386-フェンシングのピスト-下がれるのは5m-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1524" height="1072" src="gallery/386-フェンシングのピスト-下がれるのは5m.svg" alt="フェンシングのピスト（14m × 1.5m）を上から見た図。センターライン・オンガードライン・後ろの限界線の 5 本と最後の 2m、両端の延長、構えの位置、寸法と、台に載せたときの断面、線を越えたときの決まりの表"></picture><figcaption>フェンシングのピスト（構えて 2m、下がれるのは 5m）</figcaption></figure>
+    <figure data-cat="moyooshi"><picture><source srcset="gallery/385-カーリングのシート-ティーから測る線-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1504" height="1118" src="gallery/385-カーリングのシート-ティーから測る線.svg" alt="カーリングのシート（45.720m × 4.750m）の全体と片側の拡大。ハウスの 4 つの円、ティーライン・ホッグライン・バックライン・センターライン・ハックとハックライン・コーテシーライン、フリーガードゾーンと、ティーの中心から測った寸法、線が決める競技規則の表"></picture><figcaption>カーリングのシート（線はすべてティーの中心から測る）</figcaption></figure>
+    <figure data-cat="moyooshi"><picture><source srcset="gallery/384-競泳の50mプール-5mと15mの印-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1504" height="1128" src="gallery/384-競泳の50mプール-5mと15mの印.svg" alt="オリンピックの 50m プール（2.5m × 8 レーン ＋ 外側の空き 2.5m）を上から見た図。規則の色のコースロープ、両端 5m の赤い浮き、15m と 25m の浮き、背泳ぎの旗、15m の印、床のラインとタッチ板と、スタート側の断面（水深 2.5m、台の高さ、旗の綱 1.8m）、施設と泳ぎの決まりの表"></picture><figcaption>競泳の 50m プール（5m と 15m の印は、何を見るためにあるか）</figcaption></figure>
+    <figure data-cat="moyooshi"><picture><source srcset="gallery/383-アメリカンフットボールのフィールド-NFLとNCAAのハッシュ-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1604" height="1152" src="gallery/383-アメリカンフットボールのフィールド-NFLとNCAAのハッシュ.svg" alt="アメリカンフットボールのフィールド（360 ft × 160 ft）を上から見た図。5 yd ごとのヤード線、1 yd ごとのハッシュ、エンドゾーン、数字、トライの線、ゴールポスト、パイロンと、フィールドを横に切ってゴールポストの内のり 18'6" と NFL（サイドラインから 70'9"）・NCAA（60 ft）のハッシュを並べた図、両者の違いの表"></picture><figcaption>アメリカンフットボールのフィールド（NFL と NCAA はハッシュの位置が違う）</figcaption></figure>
+    <figure data-cat="moyooshi"><picture><source srcset="gallery/370-ドームライブのPA断面-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="2134" height="1240" src="gallery/370-ドームライブのPA断面.svg" alt="ドーム公演の PA をセンターラインで切った縦断面。ラインアレイ 16 台の角度と、各箱の軸が床のどこへ届くかの矢印、フロントフィル・サブウーファー・モニター・FOH・ディレイ塔、届く範囲の帯と屋根の最高部 61.69m。台形の箱が開いて客席へ凸に曲がる吊りの詳細と、距離 2 倍ごとに点音源 −6dB・線音源 −3dB の表"></picture><figcaption>ドーム公演の PA 断面（ラインアレイの開き角と届く範囲）</figcaption></figure>
+    <figure data-cat="moyooshi"><picture><source srcset="gallery/369-ドームライブの照明仕込図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="2097" height="1186" src="gallery/369-ドームライブの照明仕込図.svg" alt="ドーム規模のライブの照明仕込図。グラウンドの外形（両翼 100m・中堅 122m の公表寸法から起こした近似）にステージ・FOH・フォロースポットを置いたキープランと、トラス 3 本と床に吊った 50 台の器具を USITT RP-2 の記法（チャンネルは丸・回路は六角形・ムービングライトは振り幅の点線の円）で番号とともに描いた仕込図、記法の凡例、チャンネル・ユニバース・アドレスのパッチ表"></picture><figcaption>ドーム公演の照明仕込図（USITT RP-2 の記法とパッチ表）</figcaption></figure>
     <figure data-cat="moyooshi"><picture><source srcset="gallery/295-土俵-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1350" height="1224" src="gallery/295-土俵.svg" alt="土俵を上から見た図（上が北）。一辺 6.7m（22 尺）の土の台に直径 4.55m（15 尺）の勝負俵、東西南北に出っ張る徳俵、蛇の目の砂、幅 6cm・長さ 90cm を 70cm 間隔で引いた仕切り線、四隅の四色の房を入れた図と、地面から 60cm の高さの断面、俵の数・寸法・房と方角の表"></picture><figcaption>土俵（俵 66 で組み、徳俵だけが外へ出る）</figcaption></figure>
     <figure data-cat="moyooshi"><picture><source srcset="gallery/283-中継の決まり-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1364" height="1112" src="gallery/283-中継の決まり.svg" alt="駅伝の中継所（中継線と、たすきを外してよい手前 400m・掛ける中継後 200m）と、リレーのテークオーバーゾーン 30m（手前 20m・後ろ 10m）を並べた図と、たすきの寸法・掛け方の表"></picture><figcaption>中継の決まり（駅伝のたすきと、リレーのバトン）</figcaption></figure>
     <figure data-cat="moyooshi"><picture><source srcset="gallery/281-ネイルの指示図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1364" height="1022" src="gallery/281-ネイルの指示図.svg" alt="左右 10 本の爪を幅の違いが分かるように並べ、指ごとのチップ番号を入れた指示図。チップ番号と横幅の対応、サイズが合わないときに起きること、指示図に載せる項目"></picture><figcaption>ネイルの指示図（10 本は、同じデザインの 10 個ではない）</figcaption></figure>
@@ -581,13 +601,13 @@
     <b>図には 2 通りあります。</b>
     <b>位置を書かない図</b>（構成図。系統図・組織図・クラス図など <span data-count="auto">46</span> 枚）は、
     文章だけから出ます —— 並びと線の引き方は機械が決めます。
-    <b>位置を書く図</b>（配置図。間取り・仕込図・積付図など <span data-count="placed">322</span> 枚）は、
+    <b>位置を書く図</b>（配置図。間取り・仕込図・積付図など <span data-count="placed">342</span> 枚）は、
     座標を正本に書きます —— <b>どこにあるかが図の中身</b>だからです。
     どちらも<b>書くのは絵ではなく文章</b>なので、次の生成で同じものが出ます。
     <br>
     消えたラベル 0・箱からはみ出した名前 0。線の交差も 0 です
     （<b>交差が中身の図</b> —— 運行図表・地下鉄の立体交差・ノモグラムなど
-    <span data-count="crossing">64</span> 枚を除く）。
+    <span data-count="crossing">67</span> 枚を除く）。
     <br>
     <b>描いてある構成は例のために組んだもの</b>で、実在のものではありません。
     正本は <a href="https://github.com/meta-taro/zumen/tree/develop/examples/gallery">examples/gallery/</a>

@@ -1,0 +1,1899 @@
+version: 1
+kind: placement
+arrows: true
+title: ドーム公演の照明仕込図（Light Plot ＋ パッチ表 —— USITT RP-2 の記法で）
+sources:
+  - name: "株式会社東京ドーム「東京ドームについて」（施設概要）"
+    url: "https://www.tokyo-dome.co.jp/dome/about/"
+    retrieved: 2026-10-06
+  - name: "USITT RP-2, Recommended Practice for Theatrical Lighting Design Graphics (2006)"
+    url: "https://web.archive.org/web/20120603011301/http://old.usitt.org/documents/nf/rp-22006.pdf"
+    retrieved: 2026-10-06
+  - name: "ESTA TSP「Published Documents」ANSI E1.11（USITT DMX512-A）"
+    url: "https://tsp.esta.org/tsp/documents/published_docs.php"
+    retrieved: 2026-10-06
+# **5 万人の会場でも、仕込図が言うことは劇場と同じ** —— どこに・何を・何番で吊るか。
+# 違うのは数で、器具が 100 台を超え、ムービングライトが主になると、
+# **回路と調光器の代わりにユニバースとアドレス**を管理することになる。
+#
+# ## 何のための図か
+#
+# 仕込む当日、電気の担当がこの紙だけで吊って、つないで、卓に呼び出せるようにする。
+# 中ホールの仕込図（見本 77）は電球の器具だけだった。この図は**ムービングライトのアドレス**まで持つ。
+#
+# ## USITT RP-2（2006）から取ったもの
+#
+# | | 決まり |
+# |---|---|
+# | 記法 | チャンネルは丸、回路は六角形、調光器は長方形、色は器具の前（6.14） |
+# | ムービングライト | 本体の形 ＋ 振り幅を点線の円で（6.8.2） |
+# | LED | 色の数だけ点を打つ（6.16） |
+# | 吊り点 | 円に十字（6.13 Rigging Point） |
+# | 吊り位置の番号 | 客席側から奥へ（2.3.1）。左右に分かれる位置は SL を先に |
+# | 器具の番号 | バトン（横に渡した吊り物）の上は SL から SR へ（2.3.2） |
+# | 高さ | 床から吊り位置まで（2.1 Trim measurements） |
+# | 線 | センターラインは一点鎖線（6.18） |
+# | 色の銘柄 | R＝Rosco、L＝Lee、G＝GAM（5.1） |
+# | アドレス | 決まりは無い。「設計者が筋の通った書き方を決める」（6.0） |
+#
+# 器具の形は RP-2 の絵（電球の器具の輪郭）そのものではない。zumen には器具の輪郭を描く語が無いので、
+# **振り幅の点線の円 ＋ 中の形（四角＝スポット、楕円＝ウォッシュ、菱形＝ビーム）**で分け、凡例で言った。
+# RP-2 も「新しい器具は形を作ってよい、ただし凡例で言うこと」としている（6.0）。
+#
+# ## DMX512
+#
+# 1 系統（ユニバース）に 512 スロット（ANSI E1.11、名前の 512）。器具は自分の先頭アドレスから
+# 決まった数のスロットを使う。**1 台がユニバースの境目をまたがないように**割り付ける。
+# この図の割り付けは 1＝320、2＝420、3＝368、4＝6。
+#
+# ## 会場
+#
+# 東京ドームの公表値：建築面積 46,755m²、グラウンド面積 13,000m²、両翼 100m、中堅 122m、
+# 屋根の最高部はグラウンド面から 61.690m、空気膜構造（膜の屋根を 28 本のケーブルが押さえる）。
+# 外野フェンスの線は、ポール 2 本と中堅の 3 点（公表値）に、間の 4 点（中堅から 15° で 117m、30° で 108m。**推定**）を足した曲線で**近似**した。実物の形はこの曲線ではない。
+# ファウル地域とスタンドは寸法が公表されていないので描いていない。
+#
+# ## 架空のところ
+#
+# 公演・ステージの大きさ（48 × 18m）・トラスの高さ・器具の台数と種類・チャンネル・アドレス・色は**架空**。
+# 屋根から吊ってよいかは確かめていない。だから、地上から立てたタワー（グラウンドサポート）で受ける形にした。
+#
+# ## 描かなかったもの
+#
+# - フォーカス（どこを照らすか）—— RP-2 では「載せてもよい」。ムービングライトは本番中に動くので、平面図では言えない
+# - 電源の容量と配線の経路 —— 別の図（電源系統）の話
+# - 実在の製品名・型番 —— 器具は種類（スポット・ウォッシュ・ビーム）で書いた
+# - 吊り荷重と吊り点の強度 —— 構造の計算が要り、架空の数字を書くと害になる
+# - 照明の断面図（Lighting Section）—— PA の断面は見本 370
+#
+# 中ホールの仕込図は見本 77、PA の配置は見本 101（野外）と 370（ドームの断面）。
+views:
+  - id: key
+    title: ① キープラン（会場ぜんたい・1px ＝ 0.4m）
+    at: { x: 60, y: 100 }
+    size: { w: 480, h: 490 }
+    scale: { mm: 400 }
+    grid:
+      x:
+        - { id: CL, at: 280 }
+  - id: rig
+    title: ② 仕込図（ステージの上・1px ＝ 50mm）
+    at: { x: 600, y: 100 }
+    size: { w: 1060, h: 490 }
+    scale: { mm: 50 }
+    grid:
+      x:
+        - { id: SR, at: 770 }
+        - { id: CL, at: 1130 }
+        - { id: SL, at: 1490 }
+nodes:
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 279, y: 539 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 102.2, y: 362.2 }
+    size: { w: 2, h: 2 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 279, y: 539 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 455.8, y: 362.2 }
+    size: { w: 2, h: 2 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 102.2, y: 362.2 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 455.8, y: 362.2 }
+    size: { w: 2, h: 2 }
+  - id: k_home
+    label: "本塁"
+    marker: none
+    align: center
+    at: { x: 260, y: 544 }
+    size: { w: 40, h: 16 }
+  - id: k_fence
+    label: "外野フェンス（中堅 122m・両翼 100m）"
+    marker: none
+    align: center
+    at: { x: 145, y: 201 }
+    size: { w: 270, h: 16 }
+  - id: k_lp
+    label: "左翼ポール"
+    marker: none
+    align: right
+    at: { x: 19.2, y: 355.2 }
+    size: { w: 80, h: 16 }
+  - id: k_rp
+    label: "右翼ポール"
+    marker: none
+    align: left
+    at: { x: 460.8, y: 355.2 }
+    size: { w: 80, h: 16 }
+  - id: k_stage
+    label: ""
+    hatch: lines
+    at: { x: 220, y: 275 }
+    size: { w: 120, h: 45 }
+  - id: k_stage_n
+    label: "ステージ 48 × 18m"
+    marker: none
+    align: left
+    at: { x: 344, y: 287 }
+    size: { w: 140, h: 16 }
+  - id: k_foh
+    label: ""
+    hatch: cross
+    at: { x: 267.5, y: 400 }
+    size: { w: 25, h: 15 }
+  - id: k_foh_n
+    label: "FOH（ステージ端から 35m）"
+    marker: none
+    align: left
+    at: { x: 297.5, y: 399 }
+    size: { w: 190, h: 16 }
+  - id: k_FS4
+    label: "FS4"
+    at: { x: 202, y: 566 }
+    size: { w: 28, h: 14 }
+  - id: k_FS2
+    label: "FS2"
+    at: { x: 240, y: 566 }
+    size: { w: 28, h: 14 }
+  - id: k_FS1
+    label: "FS1"
+    at: { x: 292, y: 566 }
+    size: { w: 28, h: 14 }
+  - id: k_FS3
+    label: "FS3"
+    at: { x: 330, y: 566 }
+    size: { w: 28, h: 14 }
+  - id: k_fs_n
+    label: "フォロースポット（スタンド。位置は模式）"
+    marker: none
+    align: center
+    at: { x: 130, y: 586 }
+    size: { w: 300, h: 16 }
+  - id: k_note
+    label: "外形は公表寸法から\n起こした近似"
+    marker: none
+    align: left
+    at: { x: 70, y: 470 }
+    size: { w: 130, h: 34 }
+  - id: stage
+    label: ""
+    at: { x: 650, y: 150 }
+    size: { w: 960, h: 360 }
+  - id: stage_us
+    label: "US（ステージ奥）"
+    marker: none
+    align: left
+    at: { x: 656, y: 154 }
+    size: { w: 130, h: 16 }
+  - id: stage_ds
+    label: "DS（客席側）"
+    marker: none
+    align: left
+    at: { x: 656, y: 488 }
+    size: { w: 100, h: 16 }
+  - id: trn_T3
+    label: "TRUSS 3\n+16.0m"
+    marker: none
+    align: left
+    at: { x: 672, y: 249 }
+    size: { w: 74, h: 32 }
+  - id: rp_T30
+    label: ""
+    marker: circle
+    hatch: cross
+    at: { x: 755, y: 258 }
+    size: { w: 14, h: 14 }
+  - id: rp_T31
+    label: ""
+    marker: circle
+    hatch: cross
+    at: { x: 1491, y: 258 }
+    size: { w: 14, h: 14 }
+  - id: trn_T2
+    label: "TRUSS 2\n+15.0m"
+    marker: none
+    align: left
+    at: { x: 672, y: 329 }
+    size: { w: 74, h: 32 }
+  - id: rp_T20
+    label: ""
+    marker: circle
+    hatch: cross
+    at: { x: 755, y: 338 }
+    size: { w: 14, h: 14 }
+  - id: rp_T21
+    label: ""
+    marker: circle
+    hatch: cross
+    at: { x: 1491, y: 338 }
+    size: { w: 14, h: 14 }
+  - id: trn_T1
+    label: "TRUSS 1\n+14.0m"
+    marker: none
+    align: left
+    at: { x: 672, y: 404 }
+    size: { w: 74, h: 32 }
+  - id: rp_T10
+    label: ""
+    marker: circle
+    hatch: cross
+    at: { x: 755, y: 413 }
+    size: { w: 14, h: 14 }
+  - id: rp_T11
+    label: ""
+    marker: circle
+    hatch: cross
+    at: { x: 1491, y: 413 }
+    size: { w: 14, h: 14 }
+  - id: t1u1_s
+    label: ""
+    marker: circle
+    line: dashed
+    at: { x: 1449.5, y: 402 }
+    size: { w: 36, h: 36 }
+  - id: t1u1_b
+    label: "1"
+    at: { x: 1456.5, y: 410 }
+    size: { w: 22, h: 20 }
+  - id: t1c1
+    label: ""
+    marker: circle
+    tag: "101"
+    at: { x: 1454.5, y: 440 }
+    size: { w: 26, h: 26 }
+  - id: t1u2_s
+    label: ""
+    marker: circle
+    line: dashed
+    at: { x: 1404.5, y: 402 }
+    size: { w: 36, h: 36 }
+  - id: t1u2_b
+    label: "2"
+    marker: ellipse
+    at: { x: 1408.5, y: 410 }
+    size: { w: 28, h: 20 }
+  - id: t1c2
+    label: ""
+    marker: circle
+    tag: "102"
+    at: { x: 1409.5, y: 440 }
+    size: { w: 26, h: 26 }
+  - id: t1u3_s
+    label: ""
+    marker: circle
+    line: dashed
+    at: { x: 1359.5, y: 402 }
+    size: { w: 36, h: 36 }
+  - id: t1u3_b
+    label: "3"
+    at: { x: 1366.5, y: 410 }
+    size: { w: 22, h: 20 }
+  - id: t1c3
+    label: ""
+    marker: circle
+    tag: "103"
+    at: { x: 1364.5, y: 440 }
+    size: { w: 26, h: 26 }
+  - id: t1u4_s
+    label: ""
+    marker: circle
+    line: dashed
+    at: { x: 1314.5, y: 402 }
+    size: { w: 36, h: 36 }
+  - id: t1u4_b
+    label: "4"
+    marker: ellipse
+    at: { x: 1318.5, y: 410 }
+    size: { w: 28, h: 20 }
+  - id: t1c4
+    label: ""
+    marker: circle
+    tag: "104"
+    at: { x: 1319.5, y: 440 }
+    size: { w: 26, h: 26 }
+  - id: t1u5_s
+    label: ""
+    marker: circle
+    line: dashed
+    at: { x: 1269.5, y: 402 }
+    size: { w: 36, h: 36 }
+  - id: t1u5_b
+    label: "5"
+    at: { x: 1276.5, y: 410 }
+    size: { w: 22, h: 20 }
+  - id: t1c5
+    label: ""
+    marker: circle
+    tag: "105"
+    at: { x: 1274.5, y: 440 }
+    size: { w: 26, h: 26 }
+  - id: t1u6_s
+    label: ""
+    marker: circle
+    line: dashed
+    at: { x: 1224.5, y: 402 }
+    size: { w: 36, h: 36 }
+  - id: t1u6_b
+    label: "6"
+    marker: ellipse
+    at: { x: 1228.5, y: 410 }
+    size: { w: 28, h: 20 }
+  - id: t1c6
+    label: ""
+    marker: circle
+    tag: "106"
+    at: { x: 1229.5, y: 440 }
+    size: { w: 26, h: 26 }
+  - id: t1u7_s
+    label: ""
+    marker: circle
+    line: dashed
+    at: { x: 1179.5, y: 402 }
+    size: { w: 36, h: 36 }
+  - id: t1u7_b
+    label: "7"
+    at: { x: 1186.5, y: 410 }
+    size: { w: 22, h: 20 }
+  - id: t1c7
+    label: ""
+    marker: circle
+    tag: "107"
+    at: { x: 1184.5, y: 440 }
+    size: { w: 26, h: 26 }
+  - id: t1u8_s
+    label: ""
+    marker: circle
+    line: dashed
+    at: { x: 1134.5, y: 402 }
+    size: { w: 36, h: 36 }
+  - id: t1u8_b
+    label: "8"
+    marker: ellipse
+    at: { x: 1138.5, y: 410 }
+    size: { w: 28, h: 20 }
+  - id: t1c8
+    label: ""
+    marker: circle
+    tag: "108"
+    at: { x: 1139.5, y: 440 }
+    size: { w: 26, h: 26 }
+  - id: t1u9_s
+    label: ""
+    marker: circle
+    line: dashed
+    at: { x: 1089.5, y: 402 }
+    size: { w: 36, h: 36 }
+  - id: t1u9_b
+    label: "9"
+    at: { x: 1096.5, y: 410 }
+    size: { w: 22, h: 20 }
+  - id: t1c9
+    label: ""
+    marker: circle
+    tag: "109"
+    at: { x: 1094.5, y: 440 }
+    size: { w: 26, h: 26 }
+  - id: t1u10_s
+    label: ""
+    marker: circle
+    line: dashed
+    at: { x: 1044.5, y: 402 }
+    size: { w: 36, h: 36 }
+  - id: t1u10_b
+    label: "10"
+    marker: ellipse
+    at: { x: 1048.5, y: 410 }
+    size: { w: 28, h: 20 }
+  - id: t1c10
+    label: ""
+    marker: circle
+    tag: "110"
+    at: { x: 1049.5, y: 440 }
+    size: { w: 26, h: 26 }
+  - id: t1u11_s
+    label: ""
+    marker: circle
+    line: dashed
+    at: { x: 999.5, y: 402 }
+    size: { w: 36, h: 36 }
+  - id: t1u11_b
+    label: "11"
+    at: { x: 1006.5, y: 410 }
+    size: { w: 22, h: 20 }
+  - id: t1c11
+    label: ""
+    marker: circle
+    tag: "111"
+    at: { x: 1004.5, y: 440 }
+    size: { w: 26, h: 26 }
+  - id: t1u12_s
+    label: ""
+    marker: circle
+    line: dashed
+    at: { x: 954.5, y: 402 }
+    size: { w: 36, h: 36 }
+  - id: t1u12_b
+    label: "12"
+    marker: ellipse
+    at: { x: 958.5, y: 410 }
+    size: { w: 28, h: 20 }
+  - id: t1c12
+    label: ""
+    marker: circle
+    tag: "112"
+    at: { x: 959.5, y: 440 }
+    size: { w: 26, h: 26 }
+  - id: t1u13_s
+    label: ""
+    marker: circle
+    line: dashed
+    at: { x: 909.5, y: 402 }
+    size: { w: 36, h: 36 }
+  - id: t1u13_b
+    label: "13"
+    at: { x: 916.5, y: 410 }
+    size: { w: 22, h: 20 }
+  - id: t1c13
+    label: ""
+    marker: circle
+    tag: "113"
+    at: { x: 914.5, y: 440 }
+    size: { w: 26, h: 26 }
+  - id: t1u14_s
+    label: ""
+    marker: circle
+    line: dashed
+    at: { x: 864.5, y: 402 }
+    size: { w: 36, h: 36 }
+  - id: t1u14_b
+    label: "14"
+    marker: ellipse
+    at: { x: 868.5, y: 410 }
+    size: { w: 28, h: 20 }
+  - id: t1c14
+    label: ""
+    marker: circle
+    tag: "114"
+    at: { x: 869.5, y: 440 }
+    size: { w: 26, h: 26 }
+  - id: t1u15_s
+    label: ""
+    marker: circle
+    line: dashed
+    at: { x: 819.5, y: 402 }
+    size: { w: 36, h: 36 }
+  - id: t1u15_b
+    label: "15"
+    at: { x: 826.5, y: 410 }
+    size: { w: 22, h: 20 }
+  - id: t1c15
+    label: ""
+    marker: circle
+    tag: "115"
+    at: { x: 824.5, y: 440 }
+    size: { w: 26, h: 26 }
+  - id: t1u16_s
+    label: ""
+    marker: circle
+    line: dashed
+    at: { x: 774.5, y: 402 }
+    size: { w: 36, h: 36 }
+  - id: t1u16_b
+    label: "16"
+    marker: ellipse
+    at: { x: 778.5, y: 410 }
+    size: { w: 28, h: 20 }
+  - id: t1c16
+    label: ""
+    marker: circle
+    tag: "116"
+    at: { x: 779.5, y: 440 }
+    size: { w: 26, h: 26 }
+  - id: tr_T1_0
+    label: ""
+    hatch: solid
+    at: { x: 770, y: 417 }
+    size: { w: 4.5, h: 6 }
+  - id: tr_T1_1
+    label: ""
+    hatch: solid
+    at: { x: 810.5, y: 417 }
+    size: { w: 9, h: 6 }
+  - id: tr_T1_2
+    label: ""
+    hatch: solid
+    at: { x: 855.5, y: 417 }
+    size: { w: 9, h: 6 }
+  - id: tr_T1_3
+    label: ""
+    hatch: solid
+    at: { x: 900.5, y: 417 }
+    size: { w: 9, h: 6 }
+  - id: tr_T1_4
+    label: ""
+    hatch: solid
+    at: { x: 945.5, y: 417 }
+    size: { w: 9, h: 6 }
+  - id: tr_T1_5
+    label: ""
+    hatch: solid
+    at: { x: 990.5, y: 417 }
+    size: { w: 9, h: 6 }
+  - id: tr_T1_6
+    label: ""
+    hatch: solid
+    at: { x: 1035.5, y: 417 }
+    size: { w: 9, h: 6 }
+  - id: tr_T1_7
+    label: ""
+    hatch: solid
+    at: { x: 1080.5, y: 417 }
+    size: { w: 9, h: 6 }
+  - id: tr_T1_8
+    label: ""
+    hatch: solid
+    at: { x: 1125.5, y: 417 }
+    size: { w: 9, h: 6 }
+  - id: tr_T1_9
+    label: ""
+    hatch: solid
+    at: { x: 1170.5, y: 417 }
+    size: { w: 9, h: 6 }
+  - id: tr_T1_10
+    label: ""
+    hatch: solid
+    at: { x: 1215.5, y: 417 }
+    size: { w: 9, h: 6 }
+  - id: tr_T1_11
+    label: ""
+    hatch: solid
+    at: { x: 1260.5, y: 417 }
+    size: { w: 9, h: 6 }
+  - id: tr_T1_12
+    label: ""
+    hatch: solid
+    at: { x: 1305.5, y: 417 }
+    size: { w: 9, h: 6 }
+  - id: tr_T1_13
+    label: ""
+    hatch: solid
+    at: { x: 1350.5, y: 417 }
+    size: { w: 9, h: 6 }
+  - id: tr_T1_14
+    label: ""
+    hatch: solid
+    at: { x: 1395.5, y: 417 }
+    size: { w: 9, h: 6 }
+  - id: tr_T1_15
+    label: ""
+    hatch: solid
+    at: { x: 1440.5, y: 417 }
+    size: { w: 9, h: 6 }
+  - id: tr_T1_16
+    label: ""
+    hatch: solid
+    at: { x: 1485.5, y: 417 }
+    size: { w: 4.5, h: 6 }
+  - id: t2u1_s
+    label: ""
+    marker: circle
+    line: dashed
+    at: { x: 1442, y: 327 }
+    size: { w: 36, h: 36 }
+  - id: t2u1_b
+    label: "1"
+    marker: diamond
+    at: { x: 1445, y: 332 }
+    size: { w: 30, h: 26 }
+  - id: t2c1
+    label: ""
+    marker: circle
+    tag: "201"
+    at: { x: 1447, y: 365 }
+    size: { w: 26, h: 26 }
+  - id: t2u2_s
+    label: ""
+    marker: circle
+    line: dashed
+    at: { x: 1382, y: 327 }
+    size: { w: 36, h: 36 }
+  - id: t2u2_b
+    label: "2"
+    marker: diamond
+    at: { x: 1385, y: 332 }
+    size: { w: 30, h: 26 }
+  - id: t2c2
+    label: ""
+    marker: circle
+    tag: "202"
+    at: { x: 1387, y: 365 }
+    size: { w: 26, h: 26 }
+  - id: t2u3_s
+    label: ""
+    marker: circle
+    line: dashed
+    at: { x: 1322, y: 327 }
+    size: { w: 36, h: 36 }
+  - id: t2u3_b
+    label: "3"
+    marker: diamond
+    at: { x: 1325, y: 332 }
+    size: { w: 30, h: 26 }
+  - id: t2c3
+    label: ""
+    marker: circle
+    tag: "203"
+    at: { x: 1327, y: 365 }
+    size: { w: 26, h: 26 }
+  - id: t2u4_s
+    label: ""
+    marker: circle
+    line: dashed
+    at: { x: 1262, y: 327 }
+    size: { w: 36, h: 36 }
+  - id: t2u4_b
+    label: "4"
+    marker: diamond
+    at: { x: 1265, y: 332 }
+    size: { w: 30, h: 26 }
+  - id: t2c4
+    label: ""
+    marker: circle
+    tag: "204"
+    at: { x: 1267, y: 365 }
+    size: { w: 26, h: 26 }
+  - id: t2u5_s
+    label: ""
+    marker: circle
+    line: dashed
+    at: { x: 1202, y: 327 }
+    size: { w: 36, h: 36 }
+  - id: t2u5_b
+    label: "5"
+    marker: diamond
+    at: { x: 1205, y: 332 }
+    size: { w: 30, h: 26 }
+  - id: t2c5
+    label: ""
+    marker: circle
+    tag: "205"
+    at: { x: 1207, y: 365 }
+    size: { w: 26, h: 26 }
+  - id: t2u6_s
+    label: ""
+    marker: circle
+    line: dashed
+    at: { x: 1142, y: 327 }
+    size: { w: 36, h: 36 }
+  - id: t2u6_b
+    label: "6"
+    marker: diamond
+    at: { x: 1145, y: 332 }
+    size: { w: 30, h: 26 }
+  - id: t2c6
+    label: ""
+    marker: circle
+    tag: "206"
+    at: { x: 1147, y: 365 }
+    size: { w: 26, h: 26 }
+  - id: t2u7_s
+    label: ""
+    marker: circle
+    line: dashed
+    at: { x: 1082, y: 327 }
+    size: { w: 36, h: 36 }
+  - id: t2u7_b
+    label: "7"
+    marker: diamond
+    at: { x: 1085, y: 332 }
+    size: { w: 30, h: 26 }
+  - id: t2c7
+    label: ""
+    marker: circle
+    tag: "207"
+    at: { x: 1087, y: 365 }
+    size: { w: 26, h: 26 }
+  - id: t2u8_s
+    label: ""
+    marker: circle
+    line: dashed
+    at: { x: 1022, y: 327 }
+    size: { w: 36, h: 36 }
+  - id: t2u8_b
+    label: "8"
+    marker: diamond
+    at: { x: 1025, y: 332 }
+    size: { w: 30, h: 26 }
+  - id: t2c8
+    label: ""
+    marker: circle
+    tag: "208"
+    at: { x: 1027, y: 365 }
+    size: { w: 26, h: 26 }
+  - id: t2u9_s
+    label: ""
+    marker: circle
+    line: dashed
+    at: { x: 962, y: 327 }
+    size: { w: 36, h: 36 }
+  - id: t2u9_b
+    label: "9"
+    marker: diamond
+    at: { x: 965, y: 332 }
+    size: { w: 30, h: 26 }
+  - id: t2c9
+    label: ""
+    marker: circle
+    tag: "209"
+    at: { x: 967, y: 365 }
+    size: { w: 26, h: 26 }
+  - id: t2u10_s
+    label: ""
+    marker: circle
+    line: dashed
+    at: { x: 902, y: 327 }
+    size: { w: 36, h: 36 }
+  - id: t2u10_b
+    label: "10"
+    marker: diamond
+    at: { x: 905, y: 332 }
+    size: { w: 30, h: 26 }
+  - id: t2c10
+    label: ""
+    marker: circle
+    tag: "210"
+    at: { x: 907, y: 365 }
+    size: { w: 26, h: 26 }
+  - id: t2u11_s
+    label: ""
+    marker: circle
+    line: dashed
+    at: { x: 842, y: 327 }
+    size: { w: 36, h: 36 }
+  - id: t2u11_b
+    label: "11"
+    marker: diamond
+    at: { x: 845, y: 332 }
+    size: { w: 30, h: 26 }
+  - id: t2c11
+    label: ""
+    marker: circle
+    tag: "211"
+    at: { x: 847, y: 365 }
+    size: { w: 26, h: 26 }
+  - id: t2u12_s
+    label: ""
+    marker: circle
+    line: dashed
+    at: { x: 782, y: 327 }
+    size: { w: 36, h: 36 }
+  - id: t2u12_b
+    label: "12"
+    marker: diamond
+    at: { x: 785, y: 332 }
+    size: { w: 30, h: 26 }
+  - id: t2c12
+    label: ""
+    marker: circle
+    tag: "212"
+    at: { x: 787, y: 365 }
+    size: { w: 26, h: 26 }
+  - id: tr_T2_0
+    label: ""
+    hatch: solid
+    at: { x: 770, y: 342 }
+    size: { w: 12, h: 6 }
+  - id: tr_T2_1
+    label: ""
+    hatch: solid
+    at: { x: 818, y: 342 }
+    size: { w: 24, h: 6 }
+  - id: tr_T2_2
+    label: ""
+    hatch: solid
+    at: { x: 878, y: 342 }
+    size: { w: 24, h: 6 }
+  - id: tr_T2_3
+    label: ""
+    hatch: solid
+    at: { x: 938, y: 342 }
+    size: { w: 24, h: 6 }
+  - id: tr_T2_4
+    label: ""
+    hatch: solid
+    at: { x: 998, y: 342 }
+    size: { w: 24, h: 6 }
+  - id: tr_T2_5
+    label: ""
+    hatch: solid
+    at: { x: 1058, y: 342 }
+    size: { w: 24, h: 6 }
+  - id: tr_T2_6
+    label: ""
+    hatch: solid
+    at: { x: 1118, y: 342 }
+    size: { w: 24, h: 6 }
+  - id: tr_T2_7
+    label: ""
+    hatch: solid
+    at: { x: 1178, y: 342 }
+    size: { w: 24, h: 6 }
+  - id: tr_T2_8
+    label: ""
+    hatch: solid
+    at: { x: 1238, y: 342 }
+    size: { w: 24, h: 6 }
+  - id: tr_T2_9
+    label: ""
+    hatch: solid
+    at: { x: 1298, y: 342 }
+    size: { w: 24, h: 6 }
+  - id: tr_T2_10
+    label: ""
+    hatch: solid
+    at: { x: 1358, y: 342 }
+    size: { w: 24, h: 6 }
+  - id: tr_T2_11
+    label: ""
+    hatch: solid
+    at: { x: 1418, y: 342 }
+    size: { w: 24, h: 6 }
+  - id: tr_T2_12
+    label: ""
+    hatch: solid
+    at: { x: 1478, y: 342 }
+    size: { w: 12, h: 6 }
+  - id: t3u1_s
+    label: ""
+    marker: circle
+    line: dashed
+    at: { x: 1442, y: 247 }
+    size: { w: 36, h: 36 }
+  - id: t3u1_b
+    label: "1"
+    marker: ellipse
+    at: { x: 1446, y: 255 }
+    size: { w: 28, h: 20 }
+  - id: t3c1
+    label: ""
+    marker: circle
+    tag: "301"
+    at: { x: 1447, y: 285 }
+    size: { w: 26, h: 26 }
+  - id: t3u2_b
+    label: "2"
+    at: { x: 1389, y: 254 }
+    size: { w: 22, h: 22 }
+  - id: t3g2
+    label: "L106"
+    marker: none
+    align: center
+    at: { x: 1379, y: 278 }
+    size: { w: 42, h: 16 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 1383, y: 240 }
+    size: { w: 2, h: 2 }
+  - id: t3h2
+    label: "31"
+    marker: none
+    align: center
+    at: { x: 1389, y: 233 }
+    size: { w: 22, h: 16 }
+  - id: t3c2
+    label: ""
+    marker: circle
+    tag: "302"
+    at: { x: 1387, y: 203 }
+    size: { w: 26, h: 26 }
+  - id: t3u3_s
+    label: ""
+    marker: circle
+    line: dashed
+    at: { x: 1322, y: 247 }
+    size: { w: 36, h: 36 }
+  - id: t3u3_b
+    label: "3"
+    marker: ellipse
+    at: { x: 1326, y: 255 }
+    size: { w: 28, h: 20 }
+  - id: t3c3
+    label: ""
+    marker: circle
+    tag: "303"
+    at: { x: 1327, y: 285 }
+    size: { w: 26, h: 26 }
+  - id: t3u4_b
+    label: "4"
+    at: { x: 1269, y: 254 }
+    size: { w: 22, h: 22 }
+  - id: t3g4
+    label: "L119"
+    marker: none
+    align: center
+    at: { x: 1259, y: 278 }
+    size: { w: 42, h: 16 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 1263, y: 240 }
+    size: { w: 2, h: 2 }
+  - id: t3h4
+    label: "32"
+    marker: none
+    align: center
+    at: { x: 1269, y: 233 }
+    size: { w: 22, h: 16 }
+  - id: t3c4
+    label: ""
+    marker: circle
+    tag: "304"
+    at: { x: 1267, y: 203 }
+    size: { w: 26, h: 26 }
+  - id: t3u5_s
+    label: ""
+    marker: circle
+    line: dashed
+    at: { x: 1202, y: 247 }
+    size: { w: 36, h: 36 }
+  - id: t3u5_b
+    label: "5"
+    marker: ellipse
+    at: { x: 1206, y: 255 }
+    size: { w: 28, h: 20 }
+  - id: t3c5
+    label: ""
+    marker: circle
+    tag: "305"
+    at: { x: 1207, y: 285 }
+    size: { w: 26, h: 26 }
+  - id: t3u6_b
+    label: "6"
+    at: { x: 1149, y: 254 }
+    size: { w: 22, h: 22 }
+  - id: t3g6
+    label: "L106"
+    marker: none
+    align: center
+    at: { x: 1139, y: 278 }
+    size: { w: 42, h: 16 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 1143, y: 240 }
+    size: { w: 2, h: 2 }
+  - id: t3h6
+    label: "33"
+    marker: none
+    align: center
+    at: { x: 1149, y: 233 }
+    size: { w: 22, h: 16 }
+  - id: t3c6
+    label: ""
+    marker: circle
+    tag: "306"
+    at: { x: 1147, y: 203 }
+    size: { w: 26, h: 26 }
+  - id: t3u7_s
+    label: ""
+    marker: circle
+    line: dashed
+    at: { x: 1082, y: 247 }
+    size: { w: 36, h: 36 }
+  - id: t3u7_b
+    label: "7"
+    marker: ellipse
+    at: { x: 1086, y: 255 }
+    size: { w: 28, h: 20 }
+  - id: t3c7
+    label: ""
+    marker: circle
+    tag: "307"
+    at: { x: 1087, y: 285 }
+    size: { w: 26, h: 26 }
+  - id: t3u8_b
+    label: "8"
+    at: { x: 1029, y: 254 }
+    size: { w: 22, h: 22 }
+  - id: t3g8
+    label: "L119"
+    marker: none
+    align: center
+    at: { x: 1019, y: 278 }
+    size: { w: 42, h: 16 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 1023, y: 240 }
+    size: { w: 2, h: 2 }
+  - id: t3h8
+    label: "34"
+    marker: none
+    align: center
+    at: { x: 1029, y: 233 }
+    size: { w: 22, h: 16 }
+  - id: t3c8
+    label: ""
+    marker: circle
+    tag: "308"
+    at: { x: 1027, y: 203 }
+    size: { w: 26, h: 26 }
+  - id: t3u9_s
+    label: ""
+    marker: circle
+    line: dashed
+    at: { x: 962, y: 247 }
+    size: { w: 36, h: 36 }
+  - id: t3u9_b
+    label: "9"
+    marker: ellipse
+    at: { x: 966, y: 255 }
+    size: { w: 28, h: 20 }
+  - id: t3c9
+    label: ""
+    marker: circle
+    tag: "309"
+    at: { x: 967, y: 285 }
+    size: { w: 26, h: 26 }
+  - id: t3u10_b
+    label: "10"
+    at: { x: 909, y: 254 }
+    size: { w: 22, h: 22 }
+  - id: t3g10
+    label: "L106"
+    marker: none
+    align: center
+    at: { x: 899, y: 278 }
+    size: { w: 42, h: 16 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 903, y: 240 }
+    size: { w: 2, h: 2 }
+  - id: t3h10
+    label: "35"
+    marker: none
+    align: center
+    at: { x: 909, y: 233 }
+    size: { w: 22, h: 16 }
+  - id: t3c10
+    label: ""
+    marker: circle
+    tag: "310"
+    at: { x: 907, y: 203 }
+    size: { w: 26, h: 26 }
+  - id: t3u11_s
+    label: ""
+    marker: circle
+    line: dashed
+    at: { x: 842, y: 247 }
+    size: { w: 36, h: 36 }
+  - id: t3u11_b
+    label: "11"
+    marker: ellipse
+    at: { x: 846, y: 255 }
+    size: { w: 28, h: 20 }
+  - id: t3c11
+    label: ""
+    marker: circle
+    tag: "311"
+    at: { x: 847, y: 285 }
+    size: { w: 26, h: 26 }
+  - id: t3u12_b
+    label: "12"
+    at: { x: 789, y: 254 }
+    size: { w: 22, h: 22 }
+  - id: t3g12
+    label: "L119"
+    marker: none
+    align: center
+    at: { x: 779, y: 278 }
+    size: { w: 42, h: 16 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 783, y: 240 }
+    size: { w: 2, h: 2 }
+  - id: t3h12
+    label: "36"
+    marker: none
+    align: center
+    at: { x: 789, y: 233 }
+    size: { w: 22, h: 16 }
+  - id: t3c12
+    label: ""
+    marker: circle
+    tag: "312"
+    at: { x: 787, y: 203 }
+    size: { w: 26, h: 26 }
+  - id: tr_T3_0
+    label: ""
+    hatch: solid
+    at: { x: 770, y: 262 }
+    size: { w: 19, h: 6 }
+  - id: tr_T3_1
+    label: ""
+    hatch: solid
+    at: { x: 811, y: 262 }
+    size: { w: 31, h: 6 }
+  - id: tr_T3_2
+    label: ""
+    hatch: solid
+    at: { x: 878, y: 262 }
+    size: { w: 31, h: 6 }
+  - id: tr_T3_3
+    label: ""
+    hatch: solid
+    at: { x: 931, y: 262 }
+    size: { w: 31, h: 6 }
+  - id: tr_T3_4
+    label: ""
+    hatch: solid
+    at: { x: 998, y: 262 }
+    size: { w: 31, h: 6 }
+  - id: tr_T3_5
+    label: ""
+    hatch: solid
+    at: { x: 1051, y: 262 }
+    size: { w: 31, h: 6 }
+  - id: tr_T3_6
+    label: ""
+    hatch: solid
+    at: { x: 1118, y: 262 }
+    size: { w: 31, h: 6 }
+  - id: tr_T3_7
+    label: ""
+    hatch: solid
+    at: { x: 1171, y: 262 }
+    size: { w: 31, h: 6 }
+  - id: tr_T3_8
+    label: ""
+    hatch: solid
+    at: { x: 1238, y: 262 }
+    size: { w: 31, h: 6 }
+  - id: tr_T3_9
+    label: ""
+    hatch: solid
+    at: { x: 1291, y: 262 }
+    size: { w: 31, h: 6 }
+  - id: tr_T3_10
+    label: ""
+    hatch: solid
+    at: { x: 1358, y: 262 }
+    size: { w: 31, h: 6 }
+  - id: tr_T3_11
+    label: ""
+    hatch: solid
+    at: { x: 1411, y: 262 }
+    size: { w: 31, h: 6 }
+  - id: tr_T3_12
+    label: ""
+    hatch: solid
+    at: { x: 1478, y: 262 }
+    size: { w: 12, h: 6 }
+  - id: fl1
+    label: ""
+    hatch: dots
+    at: { x: 1425, y: 164 }
+    size: { w: 40, h: 9 }
+  - id: flc1
+    label: ""
+    marker: circle
+    tag: "401"
+    at: { x: 1432, y: 177 }
+    size: { w: 26, h: 26 }
+  - id: fl2
+    label: ""
+    hatch: dots
+    at: { x: 1335, y: 164 }
+    size: { w: 40, h: 9 }
+  - id: flc2
+    label: ""
+    marker: circle
+    tag: "402"
+    at: { x: 1342, y: 177 }
+    size: { w: 26, h: 26 }
+  - id: fl3
+    label: ""
+    hatch: dots
+    at: { x: 1245, y: 164 }
+    size: { w: 40, h: 9 }
+  - id: flc3
+    label: ""
+    marker: circle
+    tag: "403"
+    at: { x: 1252, y: 177 }
+    size: { w: 26, h: 26 }
+  - id: fl4
+    label: ""
+    hatch: dots
+    at: { x: 1155, y: 164 }
+    size: { w: 40, h: 9 }
+  - id: flc4
+    label: ""
+    marker: circle
+    tag: "404"
+    at: { x: 1162, y: 177 }
+    size: { w: 26, h: 26 }
+  - id: fl5
+    label: ""
+    hatch: dots
+    at: { x: 1065, y: 164 }
+    size: { w: 40, h: 9 }
+  - id: flc5
+    label: ""
+    marker: circle
+    tag: "405"
+    at: { x: 1072, y: 177 }
+    size: { w: 26, h: 26 }
+  - id: fl6
+    label: ""
+    hatch: dots
+    at: { x: 975, y: 164 }
+    size: { w: 40, h: 9 }
+  - id: flc6
+    label: ""
+    marker: circle
+    tag: "406"
+    at: { x: 982, y: 177 }
+    size: { w: 26, h: 26 }
+  - id: fl7
+    label: ""
+    hatch: dots
+    at: { x: 885, y: 164 }
+    size: { w: 40, h: 9 }
+  - id: flc7
+    label: ""
+    marker: circle
+    tag: "407"
+    at: { x: 892, y: 177 }
+    size: { w: 26, h: 26 }
+  - id: fl8
+    label: ""
+    hatch: dots
+    at: { x: 795, y: 164 }
+    size: { w: 40, h: 9 }
+  - id: flc8
+    label: ""
+    marker: circle
+    tag: "408"
+    at: { x: 802, y: 177 }
+    size: { w: 26, h: 26 }
+  - id: fl_n
+    label: "FLOOR（床置き）"
+    marker: none
+    align: left
+    at: { x: 1496, y: 160 }
+    size: { w: 108, h: 16 }
+  - id: key_t
+    label: "記法（USITT RP-2 の 6.14 に合わせた）"
+    marker: none
+    align: left
+    at: { x: 1675, y: 110 }
+    size: { w: 300, h: 18 }
+  - id: kp_ch
+    label: ""
+    marker: circle
+    tag: "302"
+    at: { x: 1702, y: 144 }
+    size: { w: 26, h: 26 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 1698, y: 191 }
+    size: { w: 2, h: 2 }
+  - id: kp_hex
+    label: "31"
+    marker: none
+    align: center
+    at: { x: 1704, y: 184 }
+    size: { w: 22, h: 16 }
+  - id: kp_par
+    label: "2"
+    at: { x: 1704, y: 206 }
+    size: { w: 22, h: 22 }
+  - id: kp_col
+    label: "L106"
+    marker: none
+    align: center
+    at: { x: 1694, y: 232 }
+    size: { w: 42, h: 16 }
+  - id: kpl_ch
+    label: "← チャンネル（丸）：卓で呼ぶ番号"
+    marker: none
+    align: left
+    at: { x: 1749, y: 149 }
+    size: { w: 260, h: 16 }
+  - id: kpl_hex
+    label: "← 回路（六角形）。調光器は表へ"
+    marker: none
+    align: left
+    at: { x: 1749, y: 184 }
+    size: { w: 240, h: 16 }
+  - id: kpl_par
+    label: "← PAR と Unit 番号（SL から数える）"
+    marker: none
+    align: left
+    at: { x: 1749, y: 209 }
+    size: { w: 260, h: 16 }
+  - id: kpl_col
+    label: "← 色（L＝Lee）。レンズの側に書く"
+    marker: none
+    align: left
+    at: { x: 1749, y: 232 }
+    size: { w: 250, h: 16 }
+  - id: km_s
+    label: ""
+    marker: circle
+    line: dashed
+    at: { x: 1697, y: 292 }
+    size: { w: 36, h: 36 }
+  - id: km_b
+    label: "1"
+    at: { x: 1704, y: 300 }
+    size: { w: 22, h: 20 }
+  - id: km_ch
+    label: ""
+    marker: circle
+    tag: "101"
+    at: { x: 1702, y: 332 }
+    size: { w: 26, h: 26 }
+  - id: kml_s
+    label: "← 点線の円：振り幅"
+    marker: none
+    align: left
+    at: { x: 1749, y: 290 }
+    size: { w: 160, h: 16 }
+  - id: kml_u
+    label: "← 中の形が種類、数字が Unit"
+    marker: none
+    align: left
+    at: { x: 1749, y: 308 }
+    size: { w: 230, h: 16 }
+  - id: kml_ch
+    label: "← チャンネル。アドレスは表で引く"
+    marker: none
+    align: left
+    at: { x: 1749, y: 336 }
+    size: { w: 260, h: 16 }
+  - id: lg0_s
+    label: ""
+    marker: circle
+    line: dashed
+    at: { x: 1677, y: 402 }
+    size: { w: 36, h: 36 }
+  - id: lg0_b
+    label: ""
+    at: { x: 1684, y: 410 }
+    size: { w: 22, h: 20 }
+  - id: lgn0
+    label: "スポット"
+    marker: none
+    align: left
+    at: { x: 1715, y: 412 }
+    size: { w: 72, h: 16 }
+  - id: lg1_s
+    label: ""
+    marker: circle
+    line: dashed
+    at: { x: 1787, y: 402 }
+    size: { w: 36, h: 36 }
+  - id: lg1_b
+    label: ""
+    marker: ellipse
+    at: { x: 1791, y: 410 }
+    size: { w: 28, h: 20 }
+  - id: lgn1
+    label: "ウォッシュ"
+    marker: none
+    align: left
+    at: { x: 1825, y: 412 }
+    size: { w: 72, h: 16 }
+  - id: lg2_s
+    label: ""
+    marker: circle
+    line: dashed
+    at: { x: 1897, y: 402 }
+    size: { w: 36, h: 36 }
+  - id: lg2_b
+    label: ""
+    marker: diamond
+    at: { x: 1900, y: 407 }
+    size: { w: 30, h: 26 }
+  - id: lgn2
+    label: "ビーム"
+    marker: none
+    align: left
+    at: { x: 1935, y: 412 }
+    size: { w: 72, h: 16 }
+  - id: lg_par
+    label: ""
+    at: { x: 1687, y: 456 }
+    size: { w: 16, h: 22 }
+  - id: lgn_par
+    label: "PAR64"
+    marker: none
+    align: left
+    at: { x: 1717, y: 459 }
+    size: { w: 60, h: 16 }
+  - id: lg_led
+    label: ""
+    hatch: dots
+    at: { x: 1795, y: 462 }
+    size: { w: 36, h: 9 }
+  - id: lgn_led
+    label: "LED バー（点 4 つ＝4 色）"
+    marker: none
+    align: left
+    at: { x: 1837, y: 459 }
+    size: { w: 180, h: 16 }
+  - id: lg_rp
+    label: ""
+    marker: circle
+    hatch: cross
+    at: { x: 1688, y: 494 }
+    size: { w: 14, h: 14 }
+  - id: lgn_rp
+    label: "吊り点（地上から立てたタワーで受ける）"
+    marker: none
+    align: left
+    at: { x: 1717, y: 493 }
+    size: { w: 270, h: 16 }
+  - id: tb_t
+    label: "パッチ表（チャンネル・ユニバース・アドレス）"
+    marker: none
+    align: left
+    at: { x: 60, y: 740 }
+    size: { w: 400, h: 18 }
+  - id: tbh0
+    label: "位置"
+    hatch: solid
+    at: { x: 60, y: 766 }
+    size: { w: 84, h: 26 }
+  - id: tbh1
+    label: "高さ"
+    hatch: solid
+    at: { x: 144, y: 766 }
+    size: { w: 64, h: 26 }
+  - id: tbh2
+    label: "器具"
+    hatch: solid
+    at: { x: 208, y: 766 }
+    size: { w: 140, h: 26 }
+  - id: tbh3
+    label: "Unit"
+    hatch: solid
+    at: { x: 348, y: 766 }
+    size: { w: 78, h: 26 }
+  - id: tbh4
+    label: "Ch"
+    hatch: solid
+    at: { x: 426, y: 766 }
+    size: { w: 96, h: 26 }
+  - id: tbh5
+    label: "使う数"
+    hatch: solid
+    at: { x: 522, y: 766 }
+    size: { w: 60, h: 26 }
+  - id: tbh6
+    label: "ユニバース／アドレス"
+    hatch: solid
+    at: { x: 582, y: 766 }
+    size: { w: 220, h: 26 }
+  - id: tbh7
+    label: "色"
+    hatch: solid
+    at: { x: 802, y: 766 }
+    size: { w: 150, h: 26 }
+  - id: tbc0_0
+    label: "TRUSS 1"
+    at: { x: 60, y: 792 }
+    size: { w: 84, h: 24 }
+  - id: tbc0_1
+    label: "+14.0m"
+    at: { x: 144, y: 792 }
+    size: { w: 64, h: 24 }
+  - id: tbc0_2
+    label: "スポット ×8"
+    at: { x: 208, y: 792 }
+    size: { w: 140, h: 24 }
+  - id: tbc0_3
+    label: "1・3 … 15"
+    at: { x: 348, y: 792 }
+    size: { w: 78, h: 24 }
+  - id: tbc0_4
+    label: "101 … 115"
+    at: { x: 426, y: 792 }
+    size: { w: 96, h: 24 }
+  - id: tbc0_5
+    label: "40"
+    at: { x: 522, y: 792 }
+    size: { w: 60, h: 24 }
+  - id: tbc0_6
+    label: "1/001 〜 1/320（40 ずつ）"
+    at: { x: 582, y: 792 }
+    size: { w: 220, h: 24 }
+  - id: tbc0_7
+    label: "CMY 内蔵"
+    at: { x: 802, y: 792 }
+    size: { w: 150, h: 24 }
+  - id: tbc1_0
+    label: "TRUSS 1"
+    at: { x: 60, y: 816 }
+    size: { w: 84, h: 24 }
+  - id: tbc1_1
+    label: "+14.0m"
+    at: { x: 144, y: 816 }
+    size: { w: 64, h: 24 }
+  - id: tbc1_2
+    label: "ウォッシュ ×8"
+    at: { x: 208, y: 816 }
+    size: { w: 140, h: 24 }
+  - id: tbc1_3
+    label: "2・4 … 16"
+    at: { x: 348, y: 816 }
+    size: { w: 78, h: 24 }
+  - id: tbc1_4
+    label: "102 … 116"
+    at: { x: 426, y: 816 }
+    size: { w: 96, h: 24 }
+  - id: tbc1_5
+    label: "30"
+    at: { x: 522, y: 816 }
+    size: { w: 60, h: 24 }
+  - id: tbc1_6
+    label: "2/001 〜 2/240（30 ずつ）"
+    at: { x: 582, y: 816 }
+    size: { w: 220, h: 24 }
+  - id: tbc1_7
+    label: "CMY 内蔵"
+    at: { x: 802, y: 816 }
+    size: { w: 150, h: 24 }
+  - id: tbc2_0
+    label: "TRUSS 2"
+    at: { x: 60, y: 840 }
+    size: { w: 84, h: 24 }
+  - id: tbc2_1
+    label: "+15.0m"
+    at: { x: 144, y: 840 }
+    size: { w: 64, h: 24 }
+  - id: tbc2_2
+    label: "ビーム ×12"
+    at: { x: 208, y: 840 }
+    size: { w: 140, h: 24 }
+  - id: tbc2_3
+    label: "1 … 12"
+    at: { x: 348, y: 840 }
+    size: { w: 78, h: 24 }
+  - id: tbc2_4
+    label: "201 … 212"
+    at: { x: 426, y: 840 }
+    size: { w: 96, h: 24 }
+  - id: tbc2_5
+    label: "20"
+    at: { x: 522, y: 840 }
+    size: { w: 60, h: 24 }
+  - id: tbc2_6
+    label: "3/001 〜 3/240（20 ずつ）"
+    at: { x: 582, y: 840 }
+    size: { w: 220, h: 24 }
+  - id: tbc2_7
+    label: "色の円盤"
+    at: { x: 802, y: 840 }
+    size: { w: 150, h: 24 }
+  - id: tbc3_0
+    label: "TRUSS 3"
+    at: { x: 60, y: 864 }
+    size: { w: 84, h: 24 }
+  - id: tbc3_1
+    label: "+16.0m"
+    at: { x: 144, y: 864 }
+    size: { w: 64, h: 24 }
+  - id: tbc3_2
+    label: "ウォッシュ ×6"
+    at: { x: 208, y: 864 }
+    size: { w: 140, h: 24 }
+  - id: tbc3_3
+    label: "1・3 … 11"
+    at: { x: 348, y: 864 }
+    size: { w: 78, h: 24 }
+  - id: tbc3_4
+    label: "301 … 311"
+    at: { x: 426, y: 864 }
+    size: { w: 96, h: 24 }
+  - id: tbc3_5
+    label: "30"
+    at: { x: 522, y: 864 }
+    size: { w: 60, h: 24 }
+  - id: tbc3_6
+    label: "2/241 〜 2/420（30 ずつ）"
+    at: { x: 582, y: 864 }
+    size: { w: 220, h: 24 }
+  - id: tbc3_7
+    label: "CMY 内蔵"
+    at: { x: 802, y: 864 }
+    size: { w: 150, h: 24 }
+  - id: tbc4_0
+    label: "TRUSS 3"
+    at: { x: 60, y: 888 }
+    size: { w: 84, h: 24 }
+  - id: tbc4_1
+    label: "+16.0m"
+    at: { x: 144, y: 888 }
+    size: { w: 64, h: 24 }
+  - id: tbc4_2
+    label: "PAR64 ×6"
+    at: { x: 208, y: 888 }
+    size: { w: 140, h: 24 }
+  - id: tbc4_3
+    label: "2・4 … 12"
+    at: { x: 348, y: 888 }
+    size: { w: 78, h: 24 }
+  - id: tbc4_4
+    label: "302 … 312"
+    at: { x: 426, y: 888 }
+    size: { w: 96, h: 24 }
+  - id: tbc4_5
+    label: "1"
+    at: { x: 522, y: 888 }
+    size: { w: 60, h: 24 }
+  - id: tbc4_6
+    label: "回路 31〜36 → 4/001 〜 4/006"
+    at: { x: 582, y: 888 }
+    size: { w: 220, h: 24 }
+  - id: tbc4_7
+    label: "L106・L119"
+    at: { x: 802, y: 888 }
+    size: { w: 150, h: 24 }
+  - id: tbc5_0
+    label: "FLOOR"
+    at: { x: 60, y: 912 }
+    size: { w: 84, h: 24 }
+  - id: tbc5_1
+    label: "床"
+    at: { x: 144, y: 912 }
+    size: { w: 64, h: 24 }
+  - id: tbc5_2
+    label: "LED バー ×8"
+    at: { x: 208, y: 912 }
+    size: { w: 140, h: 24 }
+  - id: tbc5_3
+    label: "1 … 8"
+    at: { x: 348, y: 912 }
+    size: { w: 78, h: 24 }
+  - id: tbc5_4
+    label: "401 … 408"
+    at: { x: 426, y: 912 }
+    size: { w: 96, h: 24 }
+  - id: tbc5_5
+    label: "16"
+    at: { x: 522, y: 912 }
+    size: { w: 60, h: 24 }
+  - id: tbc5_6
+    label: "3/241 〜 3/368（16 ずつ）"
+    at: { x: 582, y: 912 }
+    size: { w: 220, h: 24 }
+  - id: tbc5_7
+    label: "RGBW"
+    at: { x: 802, y: 912 }
+    size: { w: 150, h: 24 }
+  - id: tbc6_0
+    label: "スタンド"
+    at: { x: 60, y: 936 }
+    size: { w: 84, h: 24 }
+  - id: tbc6_1
+    label: ""
+    at: { x: 144, y: 936 }
+    size: { w: 64, h: 24 }
+  - id: tbc6_2
+    label: "フォロースポット ×4"
+    at: { x: 208, y: 936 }
+    size: { w: 140, h: 24 }
+  - id: tbc6_3
+    label: "FS1 … FS4"
+    at: { x: 348, y: 936 }
+    size: { w: 78, h: 24 }
+  - id: tbc6_4
+    label: ""
+    at: { x: 426, y: 936 }
+    size: { w: 96, h: 24 }
+  - id: tbc6_5
+    label: ""
+    at: { x: 522, y: 936 }
+    size: { w: 60, h: 24 }
+  - id: tbc6_6
+    label: "手で操作（DMX に載せない）"
+    at: { x: 582, y: 936 }
+    size: { w: 220, h: 24 }
+  - id: tbc6_7
+    label: "人が入れる"
+    at: { x: 802, y: 936 }
+    size: { w: 150, h: 24 }
+  - id: tb_sum
+    label: "ユニバースごとの使用数：1＝320 ／ 2＝420 ／ 3＝368 ／ 4＝6 —— どれも 512 に収まる（DMX512 の 1 系統）"
+    marker: none
+    align: left
+    at: { x: 60, y: 968 }
+    size: { w: 760, h: 18 }
+  - id: tb_rule
+    label: "1 台の先頭アドレス ＝ 前の台の先頭 ＋ 前の台が使う数。1 台がユニバースの境目をまたがないように切る"
+    marker: none
+    align: left
+    at: { x: 60, y: 990 }
+    size: { w: 760, h: 18 }
+  - id: n0
+    label: "照明仕込図（Light Plot）は、吊る人がこの紙だけで仕込めるように描く。器具の位置・種類・番号・チャンネル・回路・色を 1 枚に載せる。"
+    marker: none
+    align: left
+    at: { x: 1000, y: 740 }
+    size: { w: 1000, h: 18 }
+  - id: n1
+    label: "番号の向きは決まっている（USITT RP-2）。トラスは客席側（DS）から奥へ 1・2・3。バトンの上の器具は SL から SR へ 1・2・3 ……"
+    marker: none
+    align: left
+    at: { x: 1000, y: 766 }
+    size: { w: 1000, h: 18 }
+  - id: n2
+    label: "客席側を下にした平面では、演者は下を向いて立つ。だから SL（演者の左）は図の右。Unit 1 は図の右端にいる。"
+    marker: none
+    align: left
+    at: { x: 1000, y: 792 }
+    size: { w: 1000, h: 18 }
+  - id: n3
+    label: "高さは床から吊り位置まで（RP-2 の決め）。ムービングライトの点線の円は振り幅。記号は読めるように縮尺より大きく描いた。"
+    marker: none
+    align: left
+    at: { x: 1000, y: 818 }
+    size: { w: 1000, h: 18 }
+  - id: n4
+    label: "回路（六角形）と調光器（長方形）は電球の器具だけに要る。ムービングライトは電源を常に入れ、アドレスで直接操る。"
+    marker: none
+    align: left
+    at: { x: 1000, y: 844 }
+    size: { w: 1000, h: 18 }
+  - id: n5
+    label: "アドレスの書き方（1/041 など）は RP-2 に決まりが無く「設計者が決める」とある。ここでは ユニバース／先頭アドレス と書いた。"
+    marker: none
+    align: left
+    at: { x: 1000, y: 870 }
+    size: { w: 1000, h: 18 }
+  - id: n6
+    label: "フォロースポットの投光距離は約 100m（本塁の後ろ 12m から、本塁から 88m のステージ端まで）。"
+    marker: none
+    align: left
+    at: { x: 1000, y: 896 }
+    size: { w: 1000, h: 18 }
+  - id: n7
+    label: "会場の外形（中堅 122m・両翼 100m・ステージを置いたグラウンド）は公表寸法から起こした。公演・ステージ・器具の配置は架空。"
+    marker: none
+    align: left
+    at: { x: 1000, y: 922 }
+    size: { w: 1000, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p2
+    to: p3
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p4
+    to: p5
+    curve: smooth
+    ends: { from: none, to: none }
+    via:
+      - { x: 145, y: 306.2 }
+      - { x: 204.3, y: 257.5 }
+      - { x: 280, y: 235 }
+      - { x: 355.7, y: 257.5 }
+      - { x: 415, y: 306.2 }
+  - from: p6
+    to: p6
+    close: true
+    ends: { from: none, to: none }
+    via:
+      - { x: 1391, y: 231 }
+      - { x: 1409, y: 231 }
+      - { x: 1416, y: 241 }
+      - { x: 1409, y: 251 }
+      - { x: 1391, y: 251 }
+  - from: p7
+    to: p7
+    close: true
+    ends: { from: none, to: none }
+    via:
+      - { x: 1271, y: 231 }
+      - { x: 1289, y: 231 }
+      - { x: 1296, y: 241 }
+      - { x: 1289, y: 251 }
+      - { x: 1271, y: 251 }
+  - from: p8
+    to: p8
+    close: true
+    ends: { from: none, to: none }
+    via:
+      - { x: 1151, y: 231 }
+      - { x: 1169, y: 231 }
+      - { x: 1176, y: 241 }
+      - { x: 1169, y: 251 }
+      - { x: 1151, y: 251 }
+  - from: p9
+    to: p9
+    close: true
+    ends: { from: none, to: none }
+    via:
+      - { x: 1031, y: 231 }
+      - { x: 1049, y: 231 }
+      - { x: 1056, y: 241 }
+      - { x: 1049, y: 251 }
+      - { x: 1031, y: 251 }
+  - from: p10
+    to: p10
+    close: true
+    ends: { from: none, to: none }
+    via:
+      - { x: 911, y: 231 }
+      - { x: 929, y: 231 }
+      - { x: 936, y: 241 }
+      - { x: 929, y: 251 }
+      - { x: 911, y: 251 }
+  - from: p11
+    to: p11
+    close: true
+    ends: { from: none, to: none }
+    via:
+      - { x: 791, y: 231 }
+      - { x: 809, y: 231 }
+      - { x: 816, y: 241 }
+      - { x: 809, y: 251 }
+      - { x: 791, y: 251 }
+  - from: p12
+    to: p12
+    close: true
+    ends: { from: none, to: none }
+    via:
+      - { x: 1706, y: 182 }
+      - { x: 1724, y: 182 }
+      - { x: 1731, y: 192 }
+      - { x: 1724, y: 202 }
+      - { x: 1706, y: 202 }

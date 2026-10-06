@@ -1,0 +1,751 @@
+version: 1
+kind: placement
+arrows: false
+title: はしご車の装備と伸びる長さ（長いはしごほど、横へは届かない）
+sources:
+  - { name: "株式会社モリタ「はしご付消防自動車」仕様（15m・25m・30m/35m・40m・54m）", url: "https://www.morita119.jp/fire_engine/ladder/003spec.html", retrieved: 2026-10-06 }
+  - { name: "株式会社モリタ「よくいただくご質問」はしご車 Q1〜Q8", url: "https://www.morita119.jp/faq/index.html", retrieved: 2026-10-06 }
+  - { name: "消防庁「消防力の整備指針」（平成 12 年消防庁告示第 1 号）第 7 条・第 27 条", url: "https://www.fdma.go.jp/laws/kokuji/post4/", retrieved: 2026-10-06 }
+palette:
+  朱色: "#e8452f"
+# **はしご車の図。何がどこに付いていて、はしごがどこまで届くか。**
+# 小中学生が「はしご車は何 m まで届くの」と聞いたときに、**高さだけでなく横の届き方も**答えるための図。
+#
+# ## 図の中身
+#
+# ① 車の上の装備（簡略した形。**実在の車の外観はなぞっていない**）
+#    はしごは**縮めて寝かせた状態**で車の上に載り、根もとが**ターンテーブル**（回る台）。
+#    先にバスケット。現場では**ジャッキ（アウトリガ）**を張り出して車体を支え、傾きを直してからはしごを起こす。
+# ② はしごの角度：**−17〜75°**。**下向き（俯角）にも伸びる**ので、川や崖の下のように
+#    車より低い所にいる人へも届く（メーカーの説明）。
+# ③ 長さの比べ：6 機種の**最大地上高**を 1px ＝ 100mm で並べた。
+#    **長い機種ほど最大作業半径（横への届き）が小さい**（25m 級 21.0m → 54m 級 16.2m）。
+#    重さと揺れを抑えるため、と読めるが、メーカーは理由を書いていないので図には書かない。
+# ④ 仕様の表（あるメーカー 1 社の公開仕様。**他社は数が違う**）
+# ⑤ 決まりの表：置く場所（高さ 15m 以上の建物が多い所）と、乗る人数（5 人）は**消防庁の整備指針**が決めている。
+#
+# ## 「連」と「段」
+# メーカーの仕様は「4 連構成」と書く。はしごが **4 本重なっていて、引き出して伸ばす**という意味で、
+# 子どもに言う「4 段」は横桟（足を掛ける棒）の数ではない。横桟の本数は公開されていないので描かない。
+#
+# ## 描かなかったもの
+# - **実在の車の外観・消防本部の名前・消防章・ナンバー**（本物に見えるものを作らない）
+# - ジャッキ（アウトリガ）の**張り出し幅と本数** —— 公開仕様に無い。点線で「ここに張り出す」とだけ描いた
+# - はしごの**横桟の本数**・油圧の回路 —— 公開資料で確かめられない
+# - 54m がビル何階か —— メーカーは「18 階」と書くが、階高を仮定した数なので表にだけ添える
+#
+# 出典（2026-10-06 に読んだ）：モリタ はしご付消防自動車の仕様表（001/002/003/004/008spec）と FAQ、
+# 消防庁「消防力の整備指針」第 7 条（はしご自動車の配置）・第 27 条 3 項（隊員の数）。
+nodes:
+  - id: t1
+    label: "① 車の上の装備（簡略した形。寸法は 30m 級の例：全長 約 9,840mm）"
+    marker: none
+    align: left
+    at: { x: 40, y: 40 }
+    size: { w: 640, h: 20 }
+  - id: ground1
+    label: ""
+    hatch: lines
+    at: { x: 40, y: 330 }
+    size: { w: 640, h: 10 }
+  - id: cab
+    label: "キャブ"
+    technology: "隊員が乗る"
+    hatch: solid
+    fill: 朱色
+    at: { x: 90, y: 186 }
+    size: { w: 110, h: 100 }
+  - id: body
+    label: "車体"
+    hatch: solid
+    fill: 朱色
+    at: { x: 200, y: 236 }
+    size: { w: 380, h: 50 }
+  - id: tt
+    label: "ターンテーブル"
+    at: { x: 450, y: 204 }
+    size: { w: 120, h: 32 }
+  - id: ladder
+    label: "はしご（4 連を縮めて寝かせた）"
+    hatch: columns
+    at: { x: 110, y: 162 }
+    size: { w: 450, h: 22 }
+  - id: basket
+    label: ""
+    at: { x: 62, y: 146 }
+    size: { w: 46, h: 40 }
+  - id: w0
+    label: ""
+    marker: circle
+    at: { x: 115, y: 286 }
+    size: { w: 44, h: 44 }
+  - id: w1
+    label: ""
+    marker: circle
+    at: { x: 400, y: 286 }
+    size: { w: 44, h: 44 }
+  - id: w2
+    label: ""
+    marker: circle
+    at: { x: 490, y: 286 }
+    size: { w: 44, h: 44 }
+  - id: jk0
+    label: ""
+    line: dashed
+    at: { x: 230, y: 286 }
+    size: { w: 30, h: 44 }
+  - id: jk1
+    label: ""
+    line: dashed
+    at: { x: 545, y: 286 }
+    size: { w: 30, h: 44 }
+  - id: n_basket
+    label: "バスケット（4 人・約 360kg）"
+    marker: none
+    align: left
+    at: { x: 40, y: 80 }
+    size: { w: 230, h: 20 }
+  - id: pb0
+    label: ""
+    marker: none
+    at: { x: 84, y: 99 }
+    size: { w: 2, h: 2 }
+  - id: pb1
+    label: ""
+    marker: none
+    at: { x: 84, y: 145 }
+    size: { w: 2, h: 2 }
+  - id: n_tt
+    label: "回る台。\nはしごの根もと"
+    marker: none
+    align: left
+    at: { x: 588, y: 200 }
+    size: { w: 106, h: 40 }
+  - id: pt0
+    label: ""
+    marker: none
+    at: { x: 589, y: 219 }
+    size: { w: 2, h: 2 }
+  - id: pt1
+    label: ""
+    marker: none
+    at: { x: 570, y: 219 }
+    size: { w: 2, h: 2 }
+  - id: n_jk
+    label: "破線 ＝ ジャッキ（アウトリガ）。張り出して車体を支え、傾きを直す（最大 7〜11°）"
+    marker: none
+    align: left
+    at: { x: 40, y: 350 }
+    size: { w: 640, h: 20 }
+  - id: n_pump
+    label: "水ポンプは、積む機種と積まない機種がある（同じ 30m 級でも）"
+    marker: none
+    align: left
+    at: { x: 40, y: 376 }
+    size: { w: 640, h: 20 }
+  - id: n_col
+    label: "塗りは朱色 ―― 消防自動車の車体の色は告示が決めている（見本 381）"
+    marker: none
+    align: left
+    at: { x: 40, y: 402 }
+    size: { w: 640, h: 20 }
+  - id: t2
+    label: "② はしごの角度は −17〜75°（下へも伸びる）"
+    marker: none
+    align: left
+    at: { x: 40, y: 432 }
+    size: { w: 640, h: 20 }
+  - id: ground2
+    label: ""
+    hatch: lines
+    at: { x: 40, y: 650 }
+    size: { w: 260, h: 10 }
+  - id: tt2
+    label: ""
+    hatch: solid
+    fill: 朱色
+    at: { x: 160, y: 600 }
+    size: { w: 80, h: 30 }
+  - id: low
+    label: "車より低い所（川や崖の下）"
+    hatch: lines
+    at: { x: 320, y: 700 }
+    size: { w: 360, h: 16 }
+  - id: piv
+    label: ""
+    marker: none
+    at: { x: 199, y: 599 }
+    size: { w: 2, h: 2 }
+  - id: a75
+    label: ""
+    marker: none
+    at: { x: 235, y: 464 }
+    size: { w: 2, h: 2 }
+  - id: a0
+    label: ""
+    marker: none
+    at: { x: 339, y: 599 }
+    size: { w: 2, h: 2 }
+  - id: am17
+    label: ""
+    marker: none
+    at: { x: 333, y: 640 }
+    size: { w: 2, h: 2 }
+  - id: l75
+    label: "75°（いちばん立てた）"
+    marker: none
+    align: left
+    at: { x: 250, y: 461 }
+    size: { w: 200, h: 20 }
+  - id: l0
+    label: "0°（水平）"
+    marker: none
+    align: left
+    at: { x: 348, y: 588 }
+    size: { w: 120, h: 20 }
+  - id: lm17
+    label: "−17°（車より低い所へ）"
+    marker: none
+    align: left
+    at: { x: 342, y: 637 }
+    size: { w: 210, h: 20 }
+  - id: t3
+    label: "③ 最大地上高を比べる（1px ＝ 100mm）"
+    marker: none
+    align: left
+    at: { x: 720, y: 40 }
+    size: { w: 560, h: 20 }
+  - id: ground3
+    label: ""
+    hatch: lines
+    at: { x: 720, y: 640 }
+    size: { w: 560, h: 10 }
+  - id: bar0
+    label: ""
+    hatch: solid
+    fill: 朱色
+    at: { x: 880, y: 487 }
+    size: { w: 40, h: 153 }
+  - id: bh0
+    label: "15.34m"
+    marker: none
+    align: center
+    at: { x: 866, y: 465 }
+    size: { w: 68, h: 20 }
+  - id: bn0
+    label: "15m 級"
+    marker: none
+    align: center
+    at: { x: 866, y: 654 }
+    size: { w: 68, h: 20 }
+  - id: br0
+    label: "3 連"
+    marker: none
+    align: center
+    at: { x: 866, y: 674 }
+    size: { w: 68, h: 20 }
+  - id: bw0
+    label: "横 9.5m"
+    marker: none
+    align: center
+    at: { x: 866, y: 694 }
+    size: { w: 68, h: 20 }
+  - id: bar1
+    label: ""
+    hatch: solid
+    fill: 朱色
+    at: { x: 954, y: 381 }
+    size: { w: 40, h: 259 }
+  - id: bh1
+    label: "25.9m"
+    marker: none
+    align: center
+    at: { x: 940, y: 359 }
+    size: { w: 68, h: 20 }
+  - id: bn1
+    label: "25m 級"
+    marker: none
+    align: center
+    at: { x: 940, y: 654 }
+    size: { w: 68, h: 20 }
+  - id: br1
+    label: "4 連"
+    marker: none
+    align: center
+    at: { x: 940, y: 674 }
+    size: { w: 68, h: 20 }
+  - id: bw1
+    label: "横 21.0m"
+    marker: none
+    align: center
+    at: { x: 940, y: 694 }
+    size: { w: 68, h: 20 }
+  - id: bar2
+    label: ""
+    hatch: solid
+    fill: 朱色
+    at: { x: 1028, y: 335 }
+    size: { w: 40, h: 305 }
+  - id: bh2
+    label: "30.5m"
+    marker: none
+    align: center
+    at: { x: 1014, y: 313 }
+    size: { w: 68, h: 20 }
+  - id: bn2
+    label: "30m 級"
+    marker: none
+    align: center
+    at: { x: 1014, y: 654 }
+    size: { w: 68, h: 20 }
+  - id: br2
+    label: "4 連"
+    marker: none
+    align: center
+    at: { x: 1014, y: 674 }
+    size: { w: 68, h: 20 }
+  - id: bw2
+    label: "横 20.2m"
+    marker: none
+    align: center
+    at: { x: 1014, y: 694 }
+    size: { w: 68, h: 20 }
+  - id: bar3
+    label: ""
+    hatch: solid
+    fill: 朱色
+    at: { x: 1102, y: 278 }
+    size: { w: 40, h: 362 }
+  - id: bh3
+    label: "36.2m"
+    marker: none
+    align: center
+    at: { x: 1088, y: 256 }
+    size: { w: 68, h: 20 }
+  - id: bn3
+    label: "35m 級"
+    marker: none
+    align: center
+    at: { x: 1088, y: 654 }
+    size: { w: 68, h: 20 }
+  - id: br3
+    label: "5 連"
+    marker: none
+    align: center
+    at: { x: 1088, y: 674 }
+    size: { w: 68, h: 20 }
+  - id: bw3
+    label: "横 18.0m"
+    marker: none
+    align: center
+    at: { x: 1088, y: 694 }
+    size: { w: 68, h: 20 }
+  - id: bar4
+    label: ""
+    hatch: solid
+    fill: 朱色
+    at: { x: 1176, y: 235 }
+    size: { w: 40, h: 405 }
+  - id: bh4
+    label: "40.5m"
+    marker: none
+    align: center
+    at: { x: 1162, y: 213 }
+    size: { w: 68, h: 20 }
+  - id: bn4
+    label: "40m 級"
+    marker: none
+    align: center
+    at: { x: 1162, y: 654 }
+    size: { w: 68, h: 20 }
+  - id: br4
+    label: "5 連"
+    marker: none
+    align: center
+    at: { x: 1162, y: 674 }
+    size: { w: 68, h: 20 }
+  - id: bw4
+    label: "横 17.0m"
+    marker: none
+    align: center
+    at: { x: 1162, y: 694 }
+    size: { w: 68, h: 20 }
+  - id: bar5
+    label: ""
+    hatch: solid
+    fill: 朱色
+    at: { x: 1250, y: 93 }
+    size: { w: 40, h: 547 }
+  - id: bh5
+    label: "54.7m"
+    marker: none
+    align: center
+    at: { x: 1236, y: 71 }
+    size: { w: 68, h: 20 }
+  - id: bn5
+    label: "54m 級"
+    marker: none
+    align: center
+    at: { x: 1236, y: 654 }
+    size: { w: 68, h: 20 }
+  - id: br5
+    label: "6 連"
+    marker: none
+    align: center
+    at: { x: 1236, y: 674 }
+    size: { w: 68, h: 20 }
+  - id: bw5
+    label: "横 16.2m"
+    marker: none
+    align: center
+    at: { x: 1236, y: 694 }
+    size: { w: 68, h: 20 }
+  - id: bld
+    label: "建物"
+    technology: "高さ 15m"
+    hatch: grid
+    at: { x: 730, y: 490 }
+    size: { w: 80, h: 150 }
+  - id: h15a
+    label: ""
+    marker: none
+    at: { x: 810, y: 489 }
+    size: { w: 2, h: 2 }
+  - id: h15b
+    label: ""
+    marker: none
+    at: { x: 877, y: 489 }
+    size: { w: 2, h: 2 }
+  - id: n15
+    label: "15m 以上は\n中高層建築物\n（整備指針 第 7 条）"
+    marker: none
+    align: left
+    at: { x: 720, y: 420 }
+    size: { w: 142, h: 60 }
+  - id: n3
+    label: "「横」は最大作業半径。長い機種ほど、横へは届かない。"
+    marker: none
+    align: left
+    at: { x: 720, y: 724 }
+    size: { w: 560, h: 20 }
+  - id: t4
+    label: "④ あるメーカーの公開仕様（はしご先端の横桟まで。15m 級だけバスケット前面まで）"
+    marker: none
+    align: left
+    at: { x: 40, y: 790 }
+    size: { w: 1240, h: 20 }
+  - id: s0_0
+    label: "機種"
+    hatch: solid
+    at: { x: 40, y: 820 }
+    size: { w: 110, h: 24 }
+  - id: s0_1
+    label: "連"
+    hatch: solid
+    at: { x: 150, y: 820 }
+    size: { w: 80, h: 24 }
+  - id: s0_2
+    label: "最大地上高"
+    hatch: solid
+    at: { x: 230, y: 820 }
+    size: { w: 130, h: 24 }
+  - id: s0_3
+    label: "最大作業半径"
+    hatch: solid
+    at: { x: 360, y: 820 }
+    size: { w: 150, h: 24 }
+  - id: s0_4
+    label: "起伏角度"
+    hatch: solid
+    at: { x: 510, y: 820 }
+    size: { w: 130, h: 24 }
+  - id: s0_5
+    label: "バスケット"
+    hatch: solid
+    at: { x: 640, y: 820 }
+    size: { w: 130, h: 24 }
+  - id: s1_0
+    label: "15m 級"
+    align: center
+    at: { x: 40, y: 844 }
+    size: { w: 110, h: 24 }
+  - id: s1_1
+    label: "3 連"
+    align: center
+    at: { x: 150, y: 844 }
+    size: { w: 80, h: 24 }
+  - id: s1_2
+    label: "15.34m"
+    align: right
+    at: { x: 230, y: 844 }
+    size: { w: 130, h: 24 }
+  - id: s1_3
+    label: "9.5m"
+    align: right
+    at: { x: 360, y: 844 }
+    size: { w: 150, h: 24 }
+  - id: s1_4
+    label: "−10〜75°"
+    align: center
+    at: { x: 510, y: 844 }
+    size: { w: 130, h: 24 }
+  - id: s1_5
+    label: "200kg"
+    align: right
+    at: { x: 640, y: 844 }
+    size: { w: 130, h: 24 }
+  - id: s2_0
+    label: "25m 級"
+    align: center
+    at: { x: 40, y: 868 }
+    size: { w: 110, h: 24 }
+  - id: s2_1
+    label: "4 連"
+    align: center
+    at: { x: 150, y: 868 }
+    size: { w: 80, h: 24 }
+  - id: s2_2
+    label: "25.9m"
+    align: right
+    at: { x: 230, y: 868 }
+    size: { w: 130, h: 24 }
+  - id: s2_3
+    label: "21.0m"
+    align: right
+    at: { x: 360, y: 868 }
+    size: { w: 150, h: 24 }
+  - id: s2_4
+    label: "−17〜75°"
+    align: center
+    at: { x: 510, y: 868 }
+    size: { w: 130, h: 24 }
+  - id: s2_5
+    label: "450kg"
+    align: right
+    at: { x: 640, y: 868 }
+    size: { w: 130, h: 24 }
+  - id: s3_0
+    label: "30m 級"
+    align: center
+    at: { x: 40, y: 892 }
+    size: { w: 110, h: 24 }
+  - id: s3_1
+    label: "4 連"
+    align: center
+    at: { x: 150, y: 892 }
+    size: { w: 80, h: 24 }
+  - id: s3_2
+    label: "30.5m"
+    align: right
+    at: { x: 230, y: 892 }
+    size: { w: 130, h: 24 }
+  - id: s3_3
+    label: "20.2m"
+    align: right
+    at: { x: 360, y: 892 }
+    size: { w: 150, h: 24 }
+  - id: s3_4
+    label: "−17〜75°"
+    align: center
+    at: { x: 510, y: 892 }
+    size: { w: 130, h: 24 }
+  - id: s3_5
+    label: "450kg"
+    align: right
+    at: { x: 640, y: 892 }
+    size: { w: 130, h: 24 }
+  - id: s4_0
+    label: "35m 級"
+    align: center
+    at: { x: 40, y: 916 }
+    size: { w: 110, h: 24 }
+  - id: s4_1
+    label: "5 連"
+    align: center
+    at: { x: 150, y: 916 }
+    size: { w: 80, h: 24 }
+  - id: s4_2
+    label: "36.2m"
+    align: right
+    at: { x: 230, y: 916 }
+    size: { w: 130, h: 24 }
+  - id: s4_3
+    label: "18.0m"
+    align: right
+    at: { x: 360, y: 916 }
+    size: { w: 150, h: 24 }
+  - id: s4_4
+    label: "−17〜75°"
+    align: center
+    at: { x: 510, y: 916 }
+    size: { w: 130, h: 24 }
+  - id: s4_5
+    label: "450kg"
+    align: right
+    at: { x: 640, y: 916 }
+    size: { w: 130, h: 24 }
+  - id: s5_0
+    label: "40m 級"
+    align: center
+    at: { x: 40, y: 940 }
+    size: { w: 110, h: 24 }
+  - id: s5_1
+    label: "5 連"
+    align: center
+    at: { x: 150, y: 940 }
+    size: { w: 80, h: 24 }
+  - id: s5_2
+    label: "40.5m"
+    align: right
+    at: { x: 230, y: 940 }
+    size: { w: 130, h: 24 }
+  - id: s5_3
+    label: "17.0m"
+    align: right
+    at: { x: 360, y: 940 }
+    size: { w: 150, h: 24 }
+  - id: s5_4
+    label: "−17〜75°"
+    align: center
+    at: { x: 510, y: 940 }
+    size: { w: 130, h: 24 }
+  - id: s5_5
+    label: "450kg"
+    align: right
+    at: { x: 640, y: 940 }
+    size: { w: 130, h: 24 }
+  - id: s6_0
+    label: "54m 級"
+    align: center
+    at: { x: 40, y: 964 }
+    size: { w: 110, h: 24 }
+  - id: s6_1
+    label: "6 連"
+    align: center
+    at: { x: 150, y: 964 }
+    size: { w: 80, h: 24 }
+  - id: s6_2
+    label: "54.7m"
+    align: right
+    at: { x: 230, y: 964 }
+    size: { w: 130, h: 24 }
+  - id: s6_3
+    label: "16.2m"
+    align: right
+    at: { x: 360, y: 964 }
+    size: { w: 150, h: 24 }
+  - id: s6_4
+    label: "−10〜75°"
+    align: center
+    at: { x: 510, y: 964 }
+    size: { w: 130, h: 24 }
+  - id: s6_5
+    label: "270kg"
+    align: right
+    at: { x: 640, y: 964 }
+    size: { w: 130, h: 24 }
+  - id: t5
+    label: "⑤ 決まりと目安"
+    marker: none
+    align: left
+    at: { x: 840, y: 820 }
+    size: { w: 440, h: 20 }
+  - id: k0_0
+    label: "事項"
+    hatch: solid
+    at: { x: 840, y: 850 }
+    size: { w: 110, h: 24 }
+  - id: k0_1
+    label: "中身"
+    hatch: solid
+    at: { x: 950, y: 850 }
+    size: { w: 330, h: 24 }
+  - id: k1_0
+    label: "置く所"
+    align: center
+    at: { x: 840, y: 874 }
+    size: { w: 110, h: 24 }
+  - id: k1_1
+    label: "15m 以上の建物がおおむね 10 棟ある署に 1 台"
+    align: left
+    at: { x: 950, y: 874 }
+    size: { w: 330, h: 24 }
+  - id: k2_0
+    label: "乗る人"
+    align: center
+    at: { x: 840, y: 898 }
+    size: { w: 110, h: 24 }
+  - id: k2_1
+    label: "5 人（自動停止装置などがあれば 4 人）"
+    align: left
+    at: { x: 950, y: 898 }
+    size: { w: 330, h: 24 }
+  - id: k3_0
+    label: "バスケット"
+    align: center
+    at: { x: 840, y: 922 }
+    size: { w: 110, h: 24 }
+  - id: k3_1
+    label: "1 人 90kg として 4 人（約 360kg）"
+    align: left
+    at: { x: 950, y: 922 }
+    size: { w: 330, h: 24 }
+  - id: k4_0
+    label: "風"
+    align: center
+    at: { x: 840, y: 946 }
+    size: { w: 110, h: 24 }
+  - id: k4_1
+    label: "風速 10m までなら一般に使える"
+    align: left
+    at: { x: 950, y: 946 }
+    size: { w: 330, h: 24 }
+  - id: k5_0
+    label: "長さの上限"
+    align: center
+    at: { x: 840, y: 970 }
+    size: { w: 110, h: 24 }
+  - id: k5_1
+    label: "25t を超えると日本の道を走れない"
+    align: left
+    at: { x: 950, y: 970 }
+    size: { w: 330, h: 24 }
+  - id: k6_0
+    label: "54m"
+    align: center
+    at: { x: 840, y: 994 }
+    size: { w: 110, h: 24 }
+  - id: k6_1
+    label: "国内最長（ビル 18 階ほど）"
+    align: left
+    at: { x: 950, y: 994 }
+    size: { w: 330, h: 24 }
+  - id: n5
+    label: "置く所・乗る人は消防庁の整備指針。他はメーカーの説明。"
+    marker: none
+    align: left
+    at: { x: 840, y: 1026 }
+    size: { w: 440, h: 20 }
+edges:
+  - from: pb0
+    to: pb1
+    ends: { from: none, to: arrow }
+  - from: pt0
+    to: pt1
+    ends: { from: none, to: arrow }
+  - from: piv
+    to: a75
+    ends: { from: none, to: none }
+    weight: thick
+  - from: piv
+    to: a0
+    ends: { from: none, to: none }
+    line: dashed
+  - from: piv
+    to: am17
+    ends: { from: none, to: none }
+    weight: thick
+  - from: h15a
+    to: h15b
+    ends: { from: none, to: none }
+    line: dashed

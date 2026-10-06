@@ -1,0 +1,2310 @@
+version: 1
+kind: placement
+arrows: false
+title: 瀬戸大橋の 6 橋 —— 吊橋・斜張橋・トラス橋が連なる 2 層の道路・鉄道併用橋（側面の模式と諸元）
+sources:
+  - name: "本州四国連絡高速道路株式会社「瀬戸大橋 —— 瀬戸大橋６橋（下津井瀬戸大橋・櫃石島橋・岩黒島橋・与島橋・北備讃瀬戸大橋・南備讃瀬戸大橋）」"
+    url: "https://www.jb-honshi.co.jp/seto-ohashi/shoukai/6kyou.html"
+    retrieved: 2026-10-06
+  - name: "本州四国連絡高速道路株式会社「瀬戸中央自動車道」「開通から20周年まで」「補剛桁の架設」"
+    url: "https://www.jb-honshi.co.jp/seto-ohashi/shoukai/"
+    retrieved: 2026-10-06
+# **瀬戸大橋は 1 本の橋ではない。** 海峡部 9.4km に連なる 6 つの橋の総称で、
+# 形式が 3 つ（吊橋・斜張橋・トラス橋）混ざり、どれも上段が道路・下段が鉄道の 2 層になっている。
+# この図は、その並びと形式、支間の割り方と高さを 1 枚で読むための側面の模式図。
+#
+# ## 何のための図か
+#
+# 理解のための図。「瀬戸大橋」と一口に呼ばれるものが、どんな橋の組み合わせでできているか ——
+# どこが吊橋で、どこが斜張橋で、なぜ北備讃と南備讃のあいだにアンカレイジが 1 つしかないか。
+#
+# ## 描き方
+#
+# - 横 1px＝6m、縦 1px＝1m。**高さを 6 倍に強調した**（同じ縮尺だと塔が 30px にしかならず、形式が読めない）
+# - 橋の長さ（支間割）と塔頂高・桁下高は公式頁の数どおりに置いた。**橋と橋のあいだは詰めた**（長さの数が無い）
+# - 北備讃と南備讃は、共用アンカレイジ（BB4A）で**継ぎ目なく**つないだ。ここは実物も 1 基
+# - 吊橋はケーブルとハンガー、斜張橋は塔から桁へのケーブル、トラス橋は上弦・下弦と斜材で形式を描き分けた
+# - 下津井瀬戸大橋は**側径間を吊らない**ので、側径間のケーブルにハンガーを描かず、桁は塔から少しだけ張り出した
+#
+# ## 公式頁の数（この図はこれだけで描いた）
+#
+# | | 形式 | 橋長 | 支間割 | 塔頂高（T.P.） | 桁下高（略最高高潮面） |
+# |---|---|---|---|---|---|
+# | 下津井瀬戸大橋 | 張出径間付単径間補剛トラス吊橋 | 1,400m | 230+940+230 | 149m | 31m |
+# | 櫃石島橋 | 3 径間連続鋼トラス斜張橋 | 790m | 185+420+185 | 152m | 32m |
+# | 岩黒島橋 | 3 径間連続鋼トラス斜張橋 | 790m | 185+420+185 | 161m | 41m |
+# | 与島橋 | 2 径間及び 3 径間連続トラス橋 | 850m | (125+137)+(175+245+165)=847m | —— | 45m |
+# | 北備讃瀬戸大橋 | 3 径間連続補剛トラス吊橋 | 1,538m | 274+990+274 | 184m | 65m |
+# | 南備讃瀬戸大橋 | 3 径間連続補剛トラス吊橋 | 1,648m | 274+1,100+274 | 194m | 65m |
+#
+# 瀬戸中央自動車道：延長 37.3km、第一種第 2 級、設計速度 100km/h、4 車線、昭和 63 年 4 月開通（開通式 1988 年 4 月 10 日）。
+# ルートは道路 37.3km・鉄道 32.4km。海峡部 9.4km の 6 橋を総称して瀬戸大橋。
+# 補剛桁は上が鋼床版（道路）、下が下路床組（鉄道）。電力・通信ケーブル、管理路、外面作業車の軌条も添架（補剛桁の架設の頁の説明図）。
+#
+# ## 計算した所
+#
+# 6 橋の橋梁区間長 1,447＋792＋792＋854＋1,611＋1,723＝7,219m。9.4km との差 約 2.2km が橋のあいだ。
+# 与島橋の支点は 0・125・262・437・682・847m（橋脚 4 基 YB1P〜YB4P と両端）。
+#
+# ## 描かなかったもの
+#
+# - **ケーブルのたるみ（サグ）の量・斜張橋のケーブルの本数・トラスの高さ。** 公式頁に数が無い。形式が分かる形だけを描き、注記で「模式」と言った
+# - **鉄道の線路の数。** 公式頁で確かめられなかった（下段が鉄道であることだけを描いた）
+# - **橋と橋のあいだの高架橋・島の地形。** 長さの数が無い
+# - **基礎（ケーソン）と水深。** 南備讃の番の州側は水深 50m の大水深基礎だが、図が海の中まで広がり、6 橋の並びが読めなくなる
+# - **公式のロゴ・写真・案内図。** これは公開されている数から描き直した非公式の図
+#
+# 出典：本州四国連絡高速道路株式会社「瀬戸大橋」の頁（瀬戸大橋６橋・各橋の諸元、瀬戸中央自動車道、開通から20周年まで、補剛桁の架設）。2026-10-06 取得。
+nodes:
+  - id: honshu
+    label: "鷲羽山\n（本州）"
+    marker: none
+    at: { x: 40, y: 510 }
+    size: { w: 60, h: 36 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 147, y: 589 }
+    size: { w: 2, h: 2 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 147, y: 558 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 147, y: 440 }
+    size: { w: 2, h: 2 }
+  - id: th_sma
+    label: "149m"
+    marker: none
+    at: { x: 126, y: 417 }
+    size: { w: 44, h: 16 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 304, y: 589 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 304, y: 558 }
+    size: { w: 2, h: 2 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 304, y: 440 }
+    size: { w: 2, h: 2 }
+  - id: th_smb
+    label: "149m"
+    marker: none
+    at: { x: 283, y: 417 }
+    size: { w: 44, h: 16 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 158, y: 472 }
+    size: { w: 2, h: 2 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 158, y: 556 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 169, y: 497 }
+    size: { w: 2, h: 2 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 169, y: 556 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 180, y: 517 }
+    size: { w: 2, h: 2 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 180, y: 556 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 191, y: 533 }
+    size: { w: 2, h: 2 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 191, y: 556 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 202, y: 545 }
+    size: { w: 2, h: 2 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 202, y: 556 }
+    size: { w: 2, h: 2 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 213, y: 552 }
+    size: { w: 2, h: 2 }
+  - id: p18
+    label: ""
+    marker: none
+    at: { x: 213, y: 556 }
+    size: { w: 2, h: 2 }
+  - id: p19
+    label: ""
+    marker: none
+    at: { x: 224, y: 555 }
+    size: { w: 2, h: 2 }
+  - id: p20
+    label: ""
+    marker: none
+    at: { x: 224, y: 556 }
+    size: { w: 2, h: 2 }
+  - id: p21
+    label: ""
+    marker: none
+    at: { x: 235, y: 553 }
+    size: { w: 2, h: 2 }
+  - id: p22
+    label: ""
+    marker: none
+    at: { x: 235, y: 556 }
+    size: { w: 2, h: 2 }
+  - id: p23
+    label: ""
+    marker: none
+    at: { x: 246, y: 547 }
+    size: { w: 2, h: 2 }
+  - id: p24
+    label: ""
+    marker: none
+    at: { x: 246, y: 556 }
+    size: { w: 2, h: 2 }
+  - id: p25
+    label: ""
+    marker: none
+    at: { x: 257, y: 537 }
+    size: { w: 2, h: 2 }
+  - id: p26
+    label: ""
+    marker: none
+    at: { x: 257, y: 556 }
+    size: { w: 2, h: 2 }
+  - id: p27
+    label: ""
+    marker: none
+    at: { x: 268, y: 521 }
+    size: { w: 2, h: 2 }
+  - id: p28
+    label: ""
+    marker: none
+    at: { x: 268, y: 556 }
+    size: { w: 2, h: 2 }
+  - id: p29
+    label: ""
+    marker: none
+    at: { x: 279, y: 502 }
+    size: { w: 2, h: 2 }
+  - id: p30
+    label: ""
+    marker: none
+    at: { x: 279, y: 556 }
+    size: { w: 2, h: 2 }
+  - id: p31
+    label: ""
+    marker: none
+    at: { x: 290, y: 478 }
+    size: { w: 2, h: 2 }
+  - id: p32
+    label: ""
+    marker: none
+    at: { x: 290, y: 556 }
+    size: { w: 2, h: 2 }
+  - id: an_sms
+    label: ""
+    hatch: solid
+    at: { x: 104, y: 553 }
+    size: { w: 12, h: 37 }
+  - id: p33
+    label: ""
+    marker: none
+    at: { x: 109, y: 552 }
+    size: { w: 2, h: 2 }
+  - id: an_sme
+    label: ""
+    hatch: solid
+    at: { x: 337, y: 553 }
+    size: { w: 12, h: 37 }
+  - id: p34
+    label: ""
+    marker: none
+    at: { x: 342, y: 552 }
+    size: { w: 2, h: 2 }
+  - id: p35
+    label: ""
+    marker: none
+    at: { x: 138, y: 558 }
+    size: { w: 2, h: 2 }
+  - id: p36
+    label: ""
+    marker: none
+    at: { x: 313, y: 558 }
+    size: { w: 2, h: 2 }
+  - id: nm_sm
+    label: "下津井瀬戸大橋"
+    marker: none
+    at: { x: 110, y: 600 }
+    size: { w: 233, h: 18 }
+  - id: kd_sm
+    label: "吊橋"
+    marker: none
+    at: { x: 110, y: 620 }
+    size: { w: 233, h: 18 }
+  - id: is1
+    label: "櫃石島"
+    marker: none
+    at: { x: 351, y: 550 }
+    size: { w: 48, h: 16 }
+  - id: p37
+    label: ""
+    marker: none
+    at: { x: 435, y: 589 }
+    size: { w: 2, h: 2 }
+  - id: p38
+    label: ""
+    marker: none
+    at: { x: 435, y: 557 }
+    size: { w: 2, h: 2 }
+  - id: p39
+    label: ""
+    marker: none
+    at: { x: 435, y: 437 }
+    size: { w: 2, h: 2 }
+  - id: th_hia
+    label: "152m"
+    marker: none
+    at: { x: 414, y: 414 }
+    size: { w: 44, h: 16 }
+  - id: p40
+    label: ""
+    marker: none
+    at: { x: 505, y: 589 }
+    size: { w: 2, h: 2 }
+  - id: p41
+    label: ""
+    marker: none
+    at: { x: 505, y: 557 }
+    size: { w: 2, h: 2 }
+  - id: p42
+    label: ""
+    marker: none
+    at: { x: 505, y: 437 }
+    size: { w: 2, h: 2 }
+  - id: th_hib
+    label: "152m"
+    marker: none
+    at: { x: 484, y: 414 }
+    size: { w: 44, h: 16 }
+  - id: p43
+    label: ""
+    marker: none
+    at: { x: 404, y: 589 }
+    size: { w: 2, h: 2 }
+  - id: p44
+    label: ""
+    marker: none
+    at: { x: 404, y: 557 }
+    size: { w: 2, h: 2 }
+  - id: p45
+    label: ""
+    marker: none
+    at: { x: 536, y: 589 }
+    size: { w: 2, h: 2 }
+  - id: p46
+    label: ""
+    marker: none
+    at: { x: 536, y: 557 }
+    size: { w: 2, h: 2 }
+  - id: p47
+    label: ""
+    marker: none
+    at: { x: 435, y: 457 }
+    size: { w: 2, h: 2 }
+  - id: p48
+    label: ""
+    marker: none
+    at: { x: 426, y: 557 }
+    size: { w: 2, h: 2 }
+  - id: p49
+    label: ""
+    marker: none
+    at: { x: 435, y: 450 }
+    size: { w: 2, h: 2 }
+  - id: p50
+    label: ""
+    marker: none
+    at: { x: 417, y: 557 }
+    size: { w: 2, h: 2 }
+  - id: p51
+    label: ""
+    marker: none
+    at: { x: 435, y: 443 }
+    size: { w: 2, h: 2 }
+  - id: p52
+    label: ""
+    marker: none
+    at: { x: 407, y: 557 }
+    size: { w: 2, h: 2 }
+  - id: p53
+    label: ""
+    marker: none
+    at: { x: 435, y: 457 }
+    size: { w: 2, h: 2 }
+  - id: p54
+    label: ""
+    marker: none
+    at: { x: 446, y: 557 }
+    size: { w: 2, h: 2 }
+  - id: p55
+    label: ""
+    marker: none
+    at: { x: 435, y: 450 }
+    size: { w: 2, h: 2 }
+  - id: p56
+    label: ""
+    marker: none
+    at: { x: 456, y: 557 }
+    size: { w: 2, h: 2 }
+  - id: p57
+    label: ""
+    marker: none
+    at: { x: 435, y: 443 }
+    size: { w: 2, h: 2 }
+  - id: p58
+    label: ""
+    marker: none
+    at: { x: 467, y: 557 }
+    size: { w: 2, h: 2 }
+  - id: p59
+    label: ""
+    marker: none
+    at: { x: 505, y: 457 }
+    size: { w: 2, h: 2 }
+  - id: p60
+    label: ""
+    marker: none
+    at: { x: 495, y: 557 }
+    size: { w: 2, h: 2 }
+  - id: p61
+    label: ""
+    marker: none
+    at: { x: 505, y: 450 }
+    size: { w: 2, h: 2 }
+  - id: p62
+    label: ""
+    marker: none
+    at: { x: 484, y: 557 }
+    size: { w: 2, h: 2 }
+  - id: p63
+    label: ""
+    marker: none
+    at: { x: 505, y: 443 }
+    size: { w: 2, h: 2 }
+  - id: p64
+    label: ""
+    marker: none
+    at: { x: 473, y: 557 }
+    size: { w: 2, h: 2 }
+  - id: p65
+    label: ""
+    marker: none
+    at: { x: 505, y: 457 }
+    size: { w: 2, h: 2 }
+  - id: p66
+    label: ""
+    marker: none
+    at: { x: 514, y: 557 }
+    size: { w: 2, h: 2 }
+  - id: p67
+    label: ""
+    marker: none
+    at: { x: 505, y: 450 }
+    size: { w: 2, h: 2 }
+  - id: p68
+    label: ""
+    marker: none
+    at: { x: 524, y: 557 }
+    size: { w: 2, h: 2 }
+  - id: p69
+    label: ""
+    marker: none
+    at: { x: 505, y: 443 }
+    size: { w: 2, h: 2 }
+  - id: p70
+    label: ""
+    marker: none
+    at: { x: 534, y: 557 }
+    size: { w: 2, h: 2 }
+  - id: p71
+    label: ""
+    marker: none
+    at: { x: 404, y: 557 }
+    size: { w: 2, h: 2 }
+  - id: p72
+    label: ""
+    marker: none
+    at: { x: 536, y: 557 }
+    size: { w: 2, h: 2 }
+  - id: nm_hi
+    label: "櫃石島橋"
+    marker: none
+    at: { x: 405, y: 600 }
+    size: { w: 132, h: 18 }
+  - id: kd_hi
+    label: "斜張橋"
+    marker: none
+    at: { x: 405, y: 620 }
+    size: { w: 132, h: 18 }
+  - id: is2
+    label: "岩黒島"
+    marker: none
+    at: { x: 545, y: 550 }
+    size: { w: 48, h: 16 }
+  - id: p73
+    label: ""
+    marker: none
+    at: { x: 629, y: 589 }
+    size: { w: 2, h: 2 }
+  - id: p74
+    label: ""
+    marker: none
+    at: { x: 629, y: 548 }
+    size: { w: 2, h: 2 }
+  - id: p75
+    label: ""
+    marker: none
+    at: { x: 629, y: 428 }
+    size: { w: 2, h: 2 }
+  - id: th_iwa
+    label: "161m"
+    marker: none
+    at: { x: 608, y: 405 }
+    size: { w: 44, h: 16 }
+  - id: p76
+    label: ""
+    marker: none
+    at: { x: 699, y: 589 }
+    size: { w: 2, h: 2 }
+  - id: p77
+    label: ""
+    marker: none
+    at: { x: 699, y: 548 }
+    size: { w: 2, h: 2 }
+  - id: p78
+    label: ""
+    marker: none
+    at: { x: 699, y: 428 }
+    size: { w: 2, h: 2 }
+  - id: th_iwb
+    label: "161m"
+    marker: none
+    at: { x: 678, y: 405 }
+    size: { w: 44, h: 16 }
+  - id: p79
+    label: ""
+    marker: none
+    at: { x: 598, y: 589 }
+    size: { w: 2, h: 2 }
+  - id: p80
+    label: ""
+    marker: none
+    at: { x: 598, y: 548 }
+    size: { w: 2, h: 2 }
+  - id: p81
+    label: ""
+    marker: none
+    at: { x: 730, y: 589 }
+    size: { w: 2, h: 2 }
+  - id: p82
+    label: ""
+    marker: none
+    at: { x: 730, y: 548 }
+    size: { w: 2, h: 2 }
+  - id: p83
+    label: ""
+    marker: none
+    at: { x: 629, y: 448 }
+    size: { w: 2, h: 2 }
+  - id: p84
+    label: ""
+    marker: none
+    at: { x: 620, y: 548 }
+    size: { w: 2, h: 2 }
+  - id: p85
+    label: ""
+    marker: none
+    at: { x: 629, y: 441 }
+    size: { w: 2, h: 2 }
+  - id: p86
+    label: ""
+    marker: none
+    at: { x: 610, y: 548 }
+    size: { w: 2, h: 2 }
+  - id: p87
+    label: ""
+    marker: none
+    at: { x: 629, y: 434 }
+    size: { w: 2, h: 2 }
+  - id: p88
+    label: ""
+    marker: none
+    at: { x: 600, y: 548 }
+    size: { w: 2, h: 2 }
+  - id: p89
+    label: ""
+    marker: none
+    at: { x: 629, y: 448 }
+    size: { w: 2, h: 2 }
+  - id: p90
+    label: ""
+    marker: none
+    at: { x: 639, y: 548 }
+    size: { w: 2, h: 2 }
+  - id: p91
+    label: ""
+    marker: none
+    at: { x: 629, y: 441 }
+    size: { w: 2, h: 2 }
+  - id: p92
+    label: ""
+    marker: none
+    at: { x: 650, y: 548 }
+    size: { w: 2, h: 2 }
+  - id: p93
+    label: ""
+    marker: none
+    at: { x: 629, y: 434 }
+    size: { w: 2, h: 2 }
+  - id: p94
+    label: ""
+    marker: none
+    at: { x: 661, y: 548 }
+    size: { w: 2, h: 2 }
+  - id: p95
+    label: ""
+    marker: none
+    at: { x: 699, y: 448 }
+    size: { w: 2, h: 2 }
+  - id: p96
+    label: ""
+    marker: none
+    at: { x: 688, y: 548 }
+    size: { w: 2, h: 2 }
+  - id: p97
+    label: ""
+    marker: none
+    at: { x: 699, y: 441 }
+    size: { w: 2, h: 2 }
+  - id: p98
+    label: ""
+    marker: none
+    at: { x: 678, y: 548 }
+    size: { w: 2, h: 2 }
+  - id: p99
+    label: ""
+    marker: none
+    at: { x: 699, y: 434 }
+    size: { w: 2, h: 2 }
+  - id: p100
+    label: ""
+    marker: none
+    at: { x: 667, y: 548 }
+    size: { w: 2, h: 2 }
+  - id: p101
+    label: ""
+    marker: none
+    at: { x: 699, y: 448 }
+    size: { w: 2, h: 2 }
+  - id: p102
+    label: ""
+    marker: none
+    at: { x: 708, y: 548 }
+    size: { w: 2, h: 2 }
+  - id: p103
+    label: ""
+    marker: none
+    at: { x: 699, y: 441 }
+    size: { w: 2, h: 2 }
+  - id: p104
+    label: ""
+    marker: none
+    at: { x: 717, y: 548 }
+    size: { w: 2, h: 2 }
+  - id: p105
+    label: ""
+    marker: none
+    at: { x: 699, y: 434 }
+    size: { w: 2, h: 2 }
+  - id: p106
+    label: ""
+    marker: none
+    at: { x: 727, y: 548 }
+    size: { w: 2, h: 2 }
+  - id: p107
+    label: ""
+    marker: none
+    at: { x: 598, y: 548 }
+    size: { w: 2, h: 2 }
+  - id: p108
+    label: ""
+    marker: none
+    at: { x: 730, y: 548 }
+    size: { w: 2, h: 2 }
+  - id: nm_iw
+    label: "岩黒島橋"
+    marker: none
+    at: { x: 599, y: 600 }
+    size: { w: 132, h: 18 }
+  - id: kd_iw
+    label: "斜張橋"
+    marker: none
+    at: { x: 599, y: 620 }
+    size: { w: 132, h: 18 }
+  - id: is3
+    label: "羽佐島"
+    marker: none
+    at: { x: 739, y: 550 }
+    size: { w: 48, h: 16 }
+  - id: p109
+    label: ""
+    marker: none
+    at: { x: 812, y: 589 }
+    size: { w: 2, h: 2 }
+  - id: p110
+    label: ""
+    marker: none
+    at: { x: 812, y: 544 }
+    size: { w: 2, h: 2 }
+  - id: p111
+    label: ""
+    marker: none
+    at: { x: 835, y: 589 }
+    size: { w: 2, h: 2 }
+  - id: p112
+    label: ""
+    marker: none
+    at: { x: 835, y: 544 }
+    size: { w: 2, h: 2 }
+  - id: p113
+    label: ""
+    marker: none
+    at: { x: 864, y: 589 }
+    size: { w: 2, h: 2 }
+  - id: p114
+    label: ""
+    marker: none
+    at: { x: 864, y: 544 }
+    size: { w: 2, h: 2 }
+  - id: p115
+    label: ""
+    marker: none
+    at: { x: 905, y: 589 }
+    size: { w: 2, h: 2 }
+  - id: p116
+    label: ""
+    marker: none
+    at: { x: 905, y: 544 }
+    size: { w: 2, h: 2 }
+  - id: p117
+    label: ""
+    marker: none
+    at: { x: 792, y: 589 }
+    size: { w: 2, h: 2 }
+  - id: p118
+    label: ""
+    marker: none
+    at: { x: 792, y: 544 }
+    size: { w: 2, h: 2 }
+  - id: p119
+    label: ""
+    marker: none
+    at: { x: 933, y: 589 }
+    size: { w: 2, h: 2 }
+  - id: p120
+    label: ""
+    marker: none
+    at: { x: 933, y: 544 }
+    size: { w: 2, h: 2 }
+  - id: p121
+    label: ""
+    marker: none
+    at: { x: 792, y: 544 }
+    size: { w: 2, h: 2 }
+  - id: p122
+    label: ""
+    marker: none
+    at: { x: 933, y: 544 }
+    size: { w: 2, h: 2 }
+  - id: p123
+    label: ""
+    marker: none
+    at: { x: 792, y: 534 }
+    size: { w: 2, h: 2 }
+  - id: p124
+    label: ""
+    marker: none
+    at: { x: 933, y: 534 }
+    size: { w: 2, h: 2 }
+  - id: p125
+    label: ""
+    marker: none
+    at: { x: 792, y: 544 }
+    size: { w: 2, h: 2 }
+  - id: p126
+    label: ""
+    marker: none
+    at: { x: 801, y: 534 }
+    size: { w: 2, h: 2 }
+  - id: p127
+    label: ""
+    marker: none
+    at: { x: 801, y: 534 }
+    size: { w: 2, h: 2 }
+  - id: p128
+    label: ""
+    marker: none
+    at: { x: 810, y: 544 }
+    size: { w: 2, h: 2 }
+  - id: p129
+    label: ""
+    marker: none
+    at: { x: 810, y: 544 }
+    size: { w: 2, h: 2 }
+  - id: p130
+    label: ""
+    marker: none
+    at: { x: 820, y: 534 }
+    size: { w: 2, h: 2 }
+  - id: p131
+    label: ""
+    marker: none
+    at: { x: 820, y: 534 }
+    size: { w: 2, h: 2 }
+  - id: p132
+    label: ""
+    marker: none
+    at: { x: 829, y: 544 }
+    size: { w: 2, h: 2 }
+  - id: p133
+    label: ""
+    marker: none
+    at: { x: 829, y: 544 }
+    size: { w: 2, h: 2 }
+  - id: p134
+    label: ""
+    marker: none
+    at: { x: 839, y: 534 }
+    size: { w: 2, h: 2 }
+  - id: p135
+    label: ""
+    marker: none
+    at: { x: 839, y: 534 }
+    size: { w: 2, h: 2 }
+  - id: p136
+    label: ""
+    marker: none
+    at: { x: 848, y: 544 }
+    size: { w: 2, h: 2 }
+  - id: p137
+    label: ""
+    marker: none
+    at: { x: 848, y: 544 }
+    size: { w: 2, h: 2 }
+  - id: p138
+    label: ""
+    marker: none
+    at: { x: 858, y: 534 }
+    size: { w: 2, h: 2 }
+  - id: p139
+    label: ""
+    marker: none
+    at: { x: 858, y: 534 }
+    size: { w: 2, h: 2 }
+  - id: p140
+    label: ""
+    marker: none
+    at: { x: 867, y: 544 }
+    size: { w: 2, h: 2 }
+  - id: p141
+    label: ""
+    marker: none
+    at: { x: 867, y: 544 }
+    size: { w: 2, h: 2 }
+  - id: p142
+    label: ""
+    marker: none
+    at: { x: 876, y: 534 }
+    size: { w: 2, h: 2 }
+  - id: p143
+    label: ""
+    marker: none
+    at: { x: 876, y: 534 }
+    size: { w: 2, h: 2 }
+  - id: p144
+    label: ""
+    marker: none
+    at: { x: 886, y: 544 }
+    size: { w: 2, h: 2 }
+  - id: p145
+    label: ""
+    marker: none
+    at: { x: 886, y: 544 }
+    size: { w: 2, h: 2 }
+  - id: p146
+    label: ""
+    marker: none
+    at: { x: 895, y: 534 }
+    size: { w: 2, h: 2 }
+  - id: p147
+    label: ""
+    marker: none
+    at: { x: 895, y: 534 }
+    size: { w: 2, h: 2 }
+  - id: p148
+    label: ""
+    marker: none
+    at: { x: 905, y: 544 }
+    size: { w: 2, h: 2 }
+  - id: p149
+    label: ""
+    marker: none
+    at: { x: 905, y: 544 }
+    size: { w: 2, h: 2 }
+  - id: p150
+    label: ""
+    marker: none
+    at: { x: 914, y: 534 }
+    size: { w: 2, h: 2 }
+  - id: p151
+    label: ""
+    marker: none
+    at: { x: 914, y: 534 }
+    size: { w: 2, h: 2 }
+  - id: p152
+    label: ""
+    marker: none
+    at: { x: 923, y: 544 }
+    size: { w: 2, h: 2 }
+  - id: p153
+    label: ""
+    marker: none
+    at: { x: 923, y: 544 }
+    size: { w: 2, h: 2 }
+  - id: p154
+    label: ""
+    marker: none
+    at: { x: 933, y: 534 }
+    size: { w: 2, h: 2 }
+  - id: nm_yo
+    label: "与島橋"
+    marker: none
+    at: { x: 793, y: 600 }
+    size: { w: 141, h: 18 }
+  - id: kd_yo
+    label: "トラス橋"
+    marker: none
+    at: { x: 793, y: 620 }
+    size: { w: 141, h: 18 }
+  - id: is4
+    label: "与島"
+    marker: none
+    at: { x: 942, y: 550 }
+    size: { w: 48, h: 16 }
+  - id: p155
+    label: ""
+    marker: none
+    at: { x: 1040, y: 589 }
+    size: { w: 2, h: 2 }
+  - id: p156
+    label: ""
+    marker: none
+    at: { x: 1040, y: 524 }
+    size: { w: 2, h: 2 }
+  - id: p157
+    label: ""
+    marker: none
+    at: { x: 1040, y: 405 }
+    size: { w: 2, h: 2 }
+  - id: th_kba
+    label: "184m"
+    marker: none
+    at: { x: 1020, y: 382 }
+    size: { w: 44, h: 16 }
+  - id: p158
+    label: ""
+    marker: none
+    at: { x: 1206, y: 589 }
+    size: { w: 2, h: 2 }
+  - id: p159
+    label: ""
+    marker: none
+    at: { x: 1206, y: 524 }
+    size: { w: 2, h: 2 }
+  - id: p160
+    label: ""
+    marker: none
+    at: { x: 1206, y: 405 }
+    size: { w: 2, h: 2 }
+  - id: th_kbb
+    label: "184m"
+    marker: none
+    at: { x: 1184, y: 382 }
+    size: { w: 44, h: 16 }
+  - id: p161
+    label: ""
+    marker: none
+    at: { x: 1052, y: 435 }
+    size: { w: 2, h: 2 }
+  - id: p162
+    label: ""
+    marker: none
+    at: { x: 1052, y: 522 }
+    size: { w: 2, h: 2 }
+  - id: p163
+    label: ""
+    marker: none
+    at: { x: 1062, y: 460 }
+    size: { w: 2, h: 2 }
+  - id: p164
+    label: ""
+    marker: none
+    at: { x: 1062, y: 522 }
+    size: { w: 2, h: 2 }
+  - id: p165
+    label: ""
+    marker: none
+    at: { x: 1074, y: 480 }
+    size: { w: 2, h: 2 }
+  - id: p166
+    label: ""
+    marker: none
+    at: { x: 1074, y: 522 }
+    size: { w: 2, h: 2 }
+  - id: p167
+    label: ""
+    marker: none
+    at: { x: 1084, y: 496 }
+    size: { w: 2, h: 2 }
+  - id: p168
+    label: ""
+    marker: none
+    at: { x: 1084, y: 522 }
+    size: { w: 2, h: 2 }
+  - id: p169
+    label: ""
+    marker: none
+    at: { x: 1096, y: 508 }
+    size: { w: 2, h: 2 }
+  - id: p170
+    label: ""
+    marker: none
+    at: { x: 1096, y: 522 }
+    size: { w: 2, h: 2 }
+  - id: p171
+    label: ""
+    marker: none
+    at: { x: 1106, y: 516 }
+    size: { w: 2, h: 2 }
+  - id: p172
+    label: ""
+    marker: none
+    at: { x: 1106, y: 522 }
+    size: { w: 2, h: 2 }
+  - id: p173
+    label: ""
+    marker: none
+    at: { x: 1118, y: 520 }
+    size: { w: 2, h: 2 }
+  - id: p174
+    label: ""
+    marker: none
+    at: { x: 1118, y: 522 }
+    size: { w: 2, h: 2 }
+  - id: p175
+    label: ""
+    marker: none
+    at: { x: 1128, y: 520 }
+    size: { w: 2, h: 2 }
+  - id: p176
+    label: ""
+    marker: none
+    at: { x: 1128, y: 522 }
+    size: { w: 2, h: 2 }
+  - id: p177
+    label: ""
+    marker: none
+    at: { x: 1140, y: 516 }
+    size: { w: 2, h: 2 }
+  - id: p178
+    label: ""
+    marker: none
+    at: { x: 1140, y: 522 }
+    size: { w: 2, h: 2 }
+  - id: p179
+    label: ""
+    marker: none
+    at: { x: 1150, y: 508 }
+    size: { w: 2, h: 2 }
+  - id: p180
+    label: ""
+    marker: none
+    at: { x: 1150, y: 522 }
+    size: { w: 2, h: 2 }
+  - id: p181
+    label: ""
+    marker: none
+    at: { x: 1162, y: 496 }
+    size: { w: 2, h: 2 }
+  - id: p182
+    label: ""
+    marker: none
+    at: { x: 1162, y: 522 }
+    size: { w: 2, h: 2 }
+  - id: p183
+    label: ""
+    marker: none
+    at: { x: 1172, y: 480 }
+    size: { w: 2, h: 2 }
+  - id: p184
+    label: ""
+    marker: none
+    at: { x: 1172, y: 522 }
+    size: { w: 2, h: 2 }
+  - id: p185
+    label: ""
+    marker: none
+    at: { x: 1184, y: 460 }
+    size: { w: 2, h: 2 }
+  - id: p186
+    label: ""
+    marker: none
+    at: { x: 1184, y: 522 }
+    size: { w: 2, h: 2 }
+  - id: p187
+    label: ""
+    marker: none
+    at: { x: 1194, y: 435 }
+    size: { w: 2, h: 2 }
+  - id: p188
+    label: ""
+    marker: none
+    at: { x: 1194, y: 522 }
+    size: { w: 2, h: 2 }
+  - id: an_kbs
+    label: ""
+    hatch: solid
+    at: { x: 990, y: 519 }
+    size: { w: 12, h: 71 }
+  - id: p189
+    label: ""
+    marker: none
+    at: { x: 995, y: 518 }
+    size: { w: 2, h: 2 }
+  - id: an_kbe
+    label: ""
+    hatch: solid
+    at: { x: 1246, y: 519 }
+    size: { w: 12, h: 71 }
+  - id: p190
+    label: ""
+    marker: none
+    at: { x: 1251, y: 518 }
+    size: { w: 2, h: 2 }
+  - id: p191
+    label: ""
+    marker: none
+    at: { x: 1010, y: 493 }
+    size: { w: 2, h: 2 }
+  - id: p192
+    label: ""
+    marker: none
+    at: { x: 1010, y: 522 }
+    size: { w: 2, h: 2 }
+  - id: p193
+    label: ""
+    marker: none
+    at: { x: 1021, y: 467 }
+    size: { w: 2, h: 2 }
+  - id: p194
+    label: ""
+    marker: none
+    at: { x: 1021, y: 522 }
+    size: { w: 2, h: 2 }
+  - id: p195
+    label: ""
+    marker: none
+    at: { x: 1032, y: 436 }
+    size: { w: 2, h: 2 }
+  - id: p196
+    label: ""
+    marker: none
+    at: { x: 1032, y: 522 }
+    size: { w: 2, h: 2 }
+  - id: p197
+    label: ""
+    marker: none
+    at: { x: 1220, y: 455 }
+    size: { w: 2, h: 2 }
+  - id: p198
+    label: ""
+    marker: none
+    at: { x: 1220, y: 522 }
+    size: { w: 2, h: 2 }
+  - id: p199
+    label: ""
+    marker: none
+    at: { x: 1232, y: 483 }
+    size: { w: 2, h: 2 }
+  - id: p200
+    label: ""
+    marker: none
+    at: { x: 1232, y: 522 }
+    size: { w: 2, h: 2 }
+  - id: p201
+    label: ""
+    marker: none
+    at: { x: 1242, y: 506 }
+    size: { w: 2, h: 2 }
+  - id: p202
+    label: ""
+    marker: none
+    at: { x: 1242, y: 522 }
+    size: { w: 2, h: 2 }
+  - id: p203
+    label: ""
+    marker: none
+    at: { x: 995, y: 524 }
+    size: { w: 2, h: 2 }
+  - id: p204
+    label: ""
+    marker: none
+    at: { x: 1251, y: 524 }
+    size: { w: 2, h: 2 }
+  - id: nm_kb
+    label: "北備讃瀬戸大橋"
+    marker: none
+    at: { x: 996, y: 600 }
+    size: { w: 256, h: 18 }
+  - id: kd_kb
+    label: "吊橋"
+    marker: none
+    at: { x: 996, y: 620 }
+    size: { w: 256, h: 18 }
+  - id: p205
+    label: ""
+    marker: none
+    at: { x: 1297, y: 589 }
+    size: { w: 2, h: 2 }
+  - id: p206
+    label: ""
+    marker: none
+    at: { x: 1297, y: 524 }
+    size: { w: 2, h: 2 }
+  - id: p207
+    label: ""
+    marker: none
+    at: { x: 1297, y: 395 }
+    size: { w: 2, h: 2 }
+  - id: th_mba
+    label: "194m"
+    marker: none
+    at: { x: 1276, y: 372 }
+    size: { w: 44, h: 16 }
+  - id: p208
+    label: ""
+    marker: none
+    at: { x: 1480, y: 589 }
+    size: { w: 2, h: 2 }
+  - id: p209
+    label: ""
+    marker: none
+    at: { x: 1480, y: 524 }
+    size: { w: 2, h: 2 }
+  - id: p210
+    label: ""
+    marker: none
+    at: { x: 1480, y: 395 }
+    size: { w: 2, h: 2 }
+  - id: th_mbb
+    label: "194m"
+    marker: none
+    at: { x: 1459, y: 372 }
+    size: { w: 44, h: 16 }
+  - id: p211
+    label: ""
+    marker: none
+    at: { x: 1308, y: 425 }
+    size: { w: 2, h: 2 }
+  - id: p212
+    label: ""
+    marker: none
+    at: { x: 1308, y: 522 }
+    size: { w: 2, h: 2 }
+  - id: p213
+    label: ""
+    marker: none
+    at: { x: 1319, y: 449 }
+    size: { w: 2, h: 2 }
+  - id: p214
+    label: ""
+    marker: none
+    at: { x: 1319, y: 522 }
+    size: { w: 2, h: 2 }
+  - id: p215
+    label: ""
+    marker: none
+    at: { x: 1330, y: 470 }
+    size: { w: 2, h: 2 }
+  - id: p216
+    label: ""
+    marker: none
+    at: { x: 1330, y: 522 }
+    size: { w: 2, h: 2 }
+  - id: p217
+    label: ""
+    marker: none
+    at: { x: 1341, y: 487 }
+    size: { w: 2, h: 2 }
+  - id: p218
+    label: ""
+    marker: none
+    at: { x: 1341, y: 522 }
+    size: { w: 2, h: 2 }
+  - id: p219
+    label: ""
+    marker: none
+    at: { x: 1352, y: 501 }
+    size: { w: 2, h: 2 }
+  - id: p220
+    label: ""
+    marker: none
+    at: { x: 1352, y: 522 }
+    size: { w: 2, h: 2 }
+  - id: p221
+    label: ""
+    marker: none
+    at: { x: 1363, y: 511 }
+    size: { w: 2, h: 2 }
+  - id: p222
+    label: ""
+    marker: none
+    at: { x: 1363, y: 522 }
+    size: { w: 2, h: 2 }
+  - id: p223
+    label: ""
+    marker: none
+    at: { x: 1374, y: 518 }
+    size: { w: 2, h: 2 }
+  - id: p224
+    label: ""
+    marker: none
+    at: { x: 1374, y: 522 }
+    size: { w: 2, h: 2 }
+  - id: p225
+    label: ""
+    marker: none
+    at: { x: 1385, y: 521 }
+    size: { w: 2, h: 2 }
+  - id: p226
+    label: ""
+    marker: none
+    at: { x: 1385, y: 522 }
+    size: { w: 2, h: 2 }
+  - id: p227
+    label: ""
+    marker: none
+    at: { x: 1396, y: 520 }
+    size: { w: 2, h: 2 }
+  - id: p228
+    label: ""
+    marker: none
+    at: { x: 1396, y: 522 }
+    size: { w: 2, h: 2 }
+  - id: p229
+    label: ""
+    marker: none
+    at: { x: 1407, y: 516 }
+    size: { w: 2, h: 2 }
+  - id: p230
+    label: ""
+    marker: none
+    at: { x: 1407, y: 522 }
+    size: { w: 2, h: 2 }
+  - id: p231
+    label: ""
+    marker: none
+    at: { x: 1418, y: 508 }
+    size: { w: 2, h: 2 }
+  - id: p232
+    label: ""
+    marker: none
+    at: { x: 1418, y: 522 }
+    size: { w: 2, h: 2 }
+  - id: p233
+    label: ""
+    marker: none
+    at: { x: 1429, y: 497 }
+    size: { w: 2, h: 2 }
+  - id: p234
+    label: ""
+    marker: none
+    at: { x: 1429, y: 522 }
+    size: { w: 2, h: 2 }
+  - id: p235
+    label: ""
+    marker: none
+    at: { x: 1440, y: 482 }
+    size: { w: 2, h: 2 }
+  - id: p236
+    label: ""
+    marker: none
+    at: { x: 1440, y: 522 }
+    size: { w: 2, h: 2 }
+  - id: p237
+    label: ""
+    marker: none
+    at: { x: 1451, y: 464 }
+    size: { w: 2, h: 2 }
+  - id: p238
+    label: ""
+    marker: none
+    at: { x: 1451, y: 522 }
+    size: { w: 2, h: 2 }
+  - id: p239
+    label: ""
+    marker: none
+    at: { x: 1462, y: 442 }
+    size: { w: 2, h: 2 }
+  - id: p240
+    label: ""
+    marker: none
+    at: { x: 1462, y: 522 }
+    size: { w: 2, h: 2 }
+  - id: p241
+    label: ""
+    marker: none
+    at: { x: 1473, y: 416 }
+    size: { w: 2, h: 2 }
+  - id: p242
+    label: ""
+    marker: none
+    at: { x: 1473, y: 522 }
+    size: { w: 2, h: 2 }
+  - id: an_mbe
+    label: ""
+    hatch: solid
+    at: { x: 1521, y: 519 }
+    size: { w: 12, h: 71 }
+  - id: p243
+    label: ""
+    marker: none
+    at: { x: 1526, y: 518 }
+    size: { w: 2, h: 2 }
+  - id: p244
+    label: ""
+    marker: none
+    at: { x: 1266, y: 490 }
+    size: { w: 2, h: 2 }
+  - id: p245
+    label: ""
+    marker: none
+    at: { x: 1266, y: 522 }
+    size: { w: 2, h: 2 }
+  - id: p246
+    label: ""
+    marker: none
+    at: { x: 1277, y: 462 }
+    size: { w: 2, h: 2 }
+  - id: p247
+    label: ""
+    marker: none
+    at: { x: 1277, y: 522 }
+    size: { w: 2, h: 2 }
+  - id: p248
+    label: ""
+    marker: none
+    at: { x: 1288, y: 428 }
+    size: { w: 2, h: 2 }
+  - id: p249
+    label: ""
+    marker: none
+    at: { x: 1288, y: 522 }
+    size: { w: 2, h: 2 }
+  - id: p250
+    label: ""
+    marker: none
+    at: { x: 1495, y: 448 }
+    size: { w: 2, h: 2 }
+  - id: p251
+    label: ""
+    marker: none
+    at: { x: 1495, y: 522 }
+    size: { w: 2, h: 2 }
+  - id: p252
+    label: ""
+    marker: none
+    at: { x: 1506, y: 479 }
+    size: { w: 2, h: 2 }
+  - id: p253
+    label: ""
+    marker: none
+    at: { x: 1506, y: 522 }
+    size: { w: 2, h: 2 }
+  - id: p254
+    label: ""
+    marker: none
+    at: { x: 1517, y: 504 }
+    size: { w: 2, h: 2 }
+  - id: p255
+    label: ""
+    marker: none
+    at: { x: 1517, y: 522 }
+    size: { w: 2, h: 2 }
+  - id: p256
+    label: ""
+    marker: none
+    at: { x: 1251, y: 524 }
+    size: { w: 2, h: 2 }
+  - id: p257
+    label: ""
+    marker: none
+    at: { x: 1526, y: 524 }
+    size: { w: 2, h: 2 }
+  - id: nm_mb
+    label: "南備讃瀬戸大橋"
+    marker: none
+    at: { x: 1252, y: 600 }
+    size: { w: 275, h: 18 }
+  - id: kd_mb
+    label: "吊橋"
+    marker: none
+    at: { x: 1252, y: 620 }
+    size: { w: 275, h: 18 }
+  - id: shikoku
+    label: "番の州\n（四国）"
+    marker: none
+    at: { x: 1539, y: 510 }
+    size: { w: 60, h: 36 }
+  - id: bb4a
+    label: "↑ 共用アンカレイジ（BB4A）"
+    marker: none
+    align: left
+    at: { x: 1192, y: 638 }
+    size: { w: 200, h: 16 }
+  - id: p258
+    label: ""
+    marker: none
+    at: { x: 9, y: 589 }
+    size: { w: 2, h: 2 }
+  - id: p259
+    label: ""
+    marker: none
+    at: { x: 1636, y: 589 }
+    size: { w: 2, h: 2 }
+  - id: sea
+    label: "海面"
+    marker: none
+    at: { x: 1597, y: 594 }
+    size: { w: 40, h: 16 }
+  - id: t1
+    label: "① 6 橋の並び —— 本州（左）から四国（右）へ。横 1px＝6m、縦 1px＝1m（高さを 6 倍に強調。橋と橋のあいだは詰めた）"
+    marker: none
+    align: left
+    at: { x: 110, y: 340 }
+    size: { w: 1300, h: 18 }
+  - id: t2
+    label: "② 補剛桁の断面（模式。寸法は描かない）"
+    marker: none
+    align: left
+    at: { x: 110, y: 104 }
+    size: { w: 330, h: 18 }
+  - id: p260
+    label: ""
+    marker: none
+    at: { x: 149, y: 163 }
+    size: { w: 2, h: 2 }
+  - id: p261
+    label: ""
+    marker: none
+    at: { x: 149, y: 293 }
+    size: { w: 2, h: 2 }
+  - id: p262
+    label: ""
+    marker: none
+    at: { x: 389, y: 163 }
+    size: { w: 2, h: 2 }
+  - id: p263
+    label: ""
+    marker: none
+    at: { x: 389, y: 293 }
+    size: { w: 2, h: 2 }
+  - id: deck_r
+    label: ""
+    hatch: solid
+    at: { x: 150, y: 164 }
+    size: { w: 240, h: 8 }
+  - id: deck_t
+    label: ""
+    hatch: solid
+    at: { x: 150, y: 286 }
+    size: { w: 240, h: 8 }
+  - id: lb_r
+    label: "鋼床版 —— 道路 4 車線（上段）"
+    marker: none
+    at: { x: 150, y: 142 }
+    size: { w: 240, h: 18 }
+  - id: lb_t
+    label: "下路床組 —— 鉄道（下段）"
+    marker: none
+    at: { x: 150, y: 300 }
+    size: { w: 240, h: 18 }
+  - id: p264
+    label: ""
+    marker: none
+    at: { x: 157, y: 175 }
+    size: { w: 2, h: 2 }
+  - id: p265
+    label: ""
+    marker: none
+    at: { x: 269, y: 281 }
+    size: { w: 2, h: 2 }
+  - id: p266
+    label: ""
+    marker: none
+    at: { x: 381, y: 175 }
+    size: { w: 2, h: 2 }
+  - id: lb_s
+    label: "主構\n（トラス）"
+    marker: none
+    at: { x: 110, y: 211 }
+    size: { w: 36, h: 36 }
+  - id: n0
+    label: "・瀬戸大橋は 1 本の橋ではない。海峡部 9.4km に連なる 6 橋の総称（瀬戸中央自動車道・JR 瀬戸大橋線。1988 年 4 月 10 日開通）"
+    marker: none
+    align: left
+    at: { x: 530, y: 104 }
+    size: { w: 960, h: 18 }
+  - id: n1
+    label: "・形式が 3 つ混ざる —— 吊橋 3（下津井瀬戸・北備讃瀬戸・南備讃瀬戸）、斜張橋 2（櫃石島・岩黒島）、トラス橋 1（与島）"
+    marker: none
+    align: left
+    at: { x: 530, y: 126 }
+    size: { w: 960, h: 18 }
+  - id: n2
+    label: "・どの橋も 2 層の道路・鉄道併用橋。上段が道路（4 車線・設計速度 100km/h）、下段が鉄道"
+    marker: none
+    align: left
+    at: { x: 530, y: 148 }
+    size: { w: 960, h: 18 }
+  - id: n3
+    label: "・中央支間がいちばん長いのは南備讃瀬戸大橋の 1,100m。塔頂も 194m でいちばん高い"
+    marker: none
+    align: left
+    at: { x: 530, y: 170 }
+    size: { w: 960, h: 18 }
+  - id: n4
+    label: "・北備讃と南備讃は、あいだのアンカレイジ（BB4A）を共用。ケーブルを空中で交差させ、両側の引張力を釣り合わせて小さくした"
+    marker: none
+    align: left
+    at: { x: 530, y: 192 }
+    size: { w: 960, h: 18 }
+  - id: n5
+    label: "・下津井瀬戸大橋は側径間を吊らない（張出径間付き単径間吊橋）。地形の都合で、側径間に桁を張り出した"
+    marker: none
+    align: left
+    at: { x: 530, y: 214 }
+    size: { w: 960, h: 18 }
+  - id: n6
+    label: "・6 橋の橋梁区間長の和は 7,219m（計算）。9.4km との差の約 2.2km は橋と橋のあいだで、この図では詰めて描いた"
+    marker: none
+    align: left
+    at: { x: 530, y: 236 }
+    size: { w: 960, h: 18 }
+  - id: n7
+    label: "・塔頂高は T.P.±0 から、桁下高は略最高高潮面から測った値（公式頁のまま）。2 つの基準面の差は描いていない"
+    marker: none
+    align: left
+    at: { x: 530, y: 258 }
+    size: { w: 960, h: 18 }
+  - id: n8
+    label: "・ケーブルのたるみ・斜張橋のケーブルの本数・トラスの高さは模式。公式頁に数が無いので、形だけを描いた"
+    marker: none
+    align: left
+    at: { x: 530, y: 280 }
+    size: { w: 960, h: 18 }
+  - id: tb0_0
+    label: "項目"
+    hatch: solid
+    at: { x: 110, y: 666 }
+    size: { w: 90, h: 24 }
+  - id: tb0_1
+    label: "下津井瀬戸大橋"
+    hatch: solid
+    at: { x: 200, y: 666 }
+    size: { w: 208, h: 24 }
+  - id: tb0_2
+    label: "櫃石島橋"
+    hatch: solid
+    at: { x: 408, y: 666 }
+    size: { w: 208, h: 24 }
+  - id: tb0_3
+    label: "岩黒島橋"
+    hatch: solid
+    at: { x: 616, y: 666 }
+    size: { w: 208, h: 24 }
+  - id: tb0_4
+    label: "与島橋"
+    hatch: solid
+    at: { x: 824, y: 666 }
+    size: { w: 208, h: 24 }
+  - id: tb0_5
+    label: "北備讃瀬戸大橋"
+    hatch: solid
+    at: { x: 1032, y: 666 }
+    size: { w: 208, h: 24 }
+  - id: tb0_6
+    label: "南備讃瀬戸大橋"
+    hatch: solid
+    at: { x: 1240, y: 666 }
+    size: { w: 208, h: 24 }
+  - id: tb1_0
+    label: "形式"
+    hatch: solid
+    at: { x: 110, y: 690 }
+    size: { w: 90, h: 40 }
+  - id: tb1_1
+    label: "張出径間付単径間\n補剛トラス吊橋"
+    at: { x: 200, y: 690 }
+    size: { w: 208, h: 40 }
+  - id: tb1_2
+    label: "3 径間連続\n鋼トラス斜張橋"
+    at: { x: 408, y: 690 }
+    size: { w: 208, h: 40 }
+  - id: tb1_3
+    label: "3 径間連続\n鋼トラス斜張橋"
+    at: { x: 616, y: 690 }
+    size: { w: 208, h: 40 }
+  - id: tb1_4
+    label: "2 径間及び 3 径間\n連続トラス橋"
+    at: { x: 824, y: 690 }
+    size: { w: 208, h: 40 }
+  - id: tb1_5
+    label: "3 径間連続\n補剛トラス吊橋"
+    at: { x: 1032, y: 690 }
+    size: { w: 208, h: 40 }
+  - id: tb1_6
+    label: "3 径間連続\n補剛トラス吊橋"
+    at: { x: 1240, y: 690 }
+    size: { w: 208, h: 40 }
+  - id: tb2_0
+    label: "橋長"
+    hatch: solid
+    at: { x: 110, y: 730 }
+    size: { w: 90, h: 24 }
+  - id: tb2_1
+    label: "1,400m"
+    at: { x: 200, y: 730 }
+    size: { w: 208, h: 24 }
+  - id: tb2_2
+    label: "790m"
+    at: { x: 408, y: 730 }
+    size: { w: 208, h: 24 }
+  - id: tb2_3
+    label: "790m"
+    at: { x: 616, y: 730 }
+    size: { w: 208, h: 24 }
+  - id: tb2_4
+    label: "850m"
+    at: { x: 824, y: 730 }
+    size: { w: 208, h: 24 }
+  - id: tb2_5
+    label: "1,538m"
+    at: { x: 1032, y: 730 }
+    size: { w: 208, h: 24 }
+  - id: tb2_6
+    label: "1,648m"
+    at: { x: 1240, y: 730 }
+    size: { w: 208, h: 24 }
+  - id: tb3_0
+    label: "支間割"
+    hatch: solid
+    at: { x: 110, y: 754 }
+    size: { w: 90, h: 40 }
+  - id: tb3_1
+    label: "230+940+230"
+    at: { x: 200, y: 754 }
+    size: { w: 208, h: 40 }
+  - id: tb3_2
+    label: "185+420+185"
+    at: { x: 408, y: 754 }
+    size: { w: 208, h: 40 }
+  - id: tb3_3
+    label: "185+420+185"
+    at: { x: 616, y: 754 }
+    size: { w: 208, h: 40 }
+  - id: tb3_4
+    label: "(125+137)\n+(175+245+165)"
+    at: { x: 824, y: 754 }
+    size: { w: 208, h: 40 }
+  - id: tb3_5
+    label: "274+990+274"
+    at: { x: 1032, y: 754 }
+    size: { w: 208, h: 40 }
+  - id: tb3_6
+    label: "274+1,100+274"
+    at: { x: 1240, y: 754 }
+    size: { w: 208, h: 40 }
+  - id: tb4_0
+    label: "塔頂高"
+    hatch: solid
+    at: { x: 110, y: 794 }
+    size: { w: 90, h: 24 }
+  - id: tb4_1
+    label: "149m"
+    at: { x: 200, y: 794 }
+    size: { w: 208, h: 24 }
+  - id: tb4_2
+    label: "152m"
+    at: { x: 408, y: 794 }
+    size: { w: 208, h: 24 }
+  - id: tb4_3
+    label: "161m"
+    at: { x: 616, y: 794 }
+    size: { w: 208, h: 24 }
+  - id: tb4_4
+    label: "——"
+    at: { x: 824, y: 794 }
+    size: { w: 208, h: 24 }
+  - id: tb4_5
+    label: "184m"
+    at: { x: 1032, y: 794 }
+    size: { w: 208, h: 24 }
+  - id: tb4_6
+    label: "194m"
+    at: { x: 1240, y: 794 }
+    size: { w: 208, h: 24 }
+  - id: tb5_0
+    label: "桁下高"
+    hatch: solid
+    at: { x: 110, y: 818 }
+    size: { w: 90, h: 24 }
+  - id: tb5_1
+    label: "31m"
+    at: { x: 200, y: 818 }
+    size: { w: 208, h: 24 }
+  - id: tb5_2
+    label: "32m"
+    at: { x: 408, y: 818 }
+    size: { w: 208, h: 24 }
+  - id: tb5_3
+    label: "41m"
+    at: { x: 616, y: 818 }
+    size: { w: 208, h: 24 }
+  - id: tb5_4
+    label: "45m"
+    at: { x: 824, y: 818 }
+    size: { w: 208, h: 24 }
+  - id: tb5_5
+    label: "65m"
+    at: { x: 1032, y: 818 }
+    size: { w: 208, h: 24 }
+  - id: tb5_6
+    label: "65m"
+    at: { x: 1240, y: 818 }
+    size: { w: 208, h: 24 }
+  - id: tnote
+    label: "支間割・ケーブル支間割の単位は m。与島橋は塔の無い桁橋なので塔頂高は無い"
+    marker: none
+    align: left
+    at: { x: 110, y: 848 }
+    size: { w: 900, h: 18 }
+edges:
+  - from: p1
+    to: p2
+  - from: p2
+    to: p3
+  - from: p4
+    to: p5
+  - from: p5
+    to: p6
+  - from: p3
+    to: p6
+    curve: smooth
+    via:
+      - { x: 164, y: 482 }
+      - { x: 180, y: 513 }
+      - { x: 195, y: 536 }
+      - { x: 211, y: 549 }
+      - { x: 227, y: 554 }
+      - { x: 242, y: 549 }
+      - { x: 258, y: 536 }
+      - { x: 274, y: 513 }
+      - { x: 289, y: 482 }
+  - from: p7
+    to: p8
+    weight: thin
+  - from: p9
+    to: p10
+    weight: thin
+  - from: p11
+    to: p12
+    weight: thin
+  - from: p13
+    to: p14
+    weight: thin
+  - from: p15
+    to: p16
+    weight: thin
+  - from: p17
+    to: p18
+    weight: thin
+  - from: p19
+    to: p20
+    weight: thin
+  - from: p21
+    to: p22
+    weight: thin
+  - from: p23
+    to: p24
+    weight: thin
+  - from: p25
+    to: p26
+    weight: thin
+  - from: p27
+    to: p28
+    weight: thin
+  - from: p29
+    to: p30
+    weight: thin
+  - from: p31
+    to: p32
+    weight: thin
+  - from: p33
+    to: p3
+  - from: p34
+    to: p6
+  - from: p35
+    to: p2
+  - from: p2
+    to: p5
+  - from: p5
+    to: p36
+  - from: p37
+    to: p38
+  - from: p38
+    to: p39
+  - from: p40
+    to: p41
+  - from: p41
+    to: p42
+  - from: p43
+    to: p44
+  - from: p45
+    to: p46
+  - from: p47
+    to: p48
+    weight: thin
+  - from: p49
+    to: p50
+    weight: thin
+  - from: p51
+    to: p52
+    weight: thin
+  - from: p53
+    to: p54
+    weight: thin
+  - from: p55
+    to: p56
+    weight: thin
+  - from: p57
+    to: p58
+    weight: thin
+  - from: p59
+    to: p60
+    weight: thin
+  - from: p61
+    to: p62
+    weight: thin
+  - from: p63
+    to: p64
+    weight: thin
+  - from: p65
+    to: p66
+    weight: thin
+  - from: p67
+    to: p68
+    weight: thin
+  - from: p69
+    to: p70
+    weight: thin
+  - from: p71
+    to: p38
+  - from: p38
+    to: p41
+  - from: p41
+    to: p72
+  - from: p73
+    to: p74
+  - from: p74
+    to: p75
+  - from: p76
+    to: p77
+  - from: p77
+    to: p78
+  - from: p79
+    to: p80
+  - from: p81
+    to: p82
+  - from: p83
+    to: p84
+    weight: thin
+  - from: p85
+    to: p86
+    weight: thin
+  - from: p87
+    to: p88
+    weight: thin
+  - from: p89
+    to: p90
+    weight: thin
+  - from: p91
+    to: p92
+    weight: thin
+  - from: p93
+    to: p94
+    weight: thin
+  - from: p95
+    to: p96
+    weight: thin
+  - from: p97
+    to: p98
+    weight: thin
+  - from: p99
+    to: p100
+    weight: thin
+  - from: p101
+    to: p102
+    weight: thin
+  - from: p103
+    to: p104
+    weight: thin
+  - from: p105
+    to: p106
+    weight: thin
+  - from: p107
+    to: p74
+  - from: p74
+    to: p77
+  - from: p77
+    to: p108
+  - from: p109
+    to: p110
+  - from: p111
+    to: p112
+  - from: p113
+    to: p114
+  - from: p115
+    to: p116
+  - from: p117
+    to: p118
+  - from: p119
+    to: p120
+  - from: p121
+    to: p122
+  - from: p123
+    to: p124
+  - from: p125
+    to: p126
+    weight: thin
+  - from: p127
+    to: p128
+    weight: thin
+  - from: p129
+    to: p130
+    weight: thin
+  - from: p131
+    to: p132
+    weight: thin
+  - from: p133
+    to: p134
+    weight: thin
+  - from: p135
+    to: p136
+    weight: thin
+  - from: p137
+    to: p138
+    weight: thin
+  - from: p139
+    to: p140
+    weight: thin
+  - from: p141
+    to: p142
+    weight: thin
+  - from: p143
+    to: p144
+    weight: thin
+  - from: p145
+    to: p146
+    weight: thin
+  - from: p147
+    to: p148
+    weight: thin
+  - from: p149
+    to: p150
+    weight: thin
+  - from: p151
+    to: p152
+    weight: thin
+  - from: p153
+    to: p154
+    weight: thin
+  - from: p155
+    to: p156
+  - from: p156
+    to: p157
+  - from: p158
+    to: p159
+  - from: p159
+    to: p160
+  - from: p157
+    to: p160
+    curve: smooth
+    via:
+      - { x: 1058, y: 447 }
+      - { x: 1074, y: 479 }
+      - { x: 1091, y: 502 }
+      - { x: 1108, y: 515 }
+      - { x: 1124, y: 520 }
+      - { x: 1140, y: 515 }
+      - { x: 1157, y: 502 }
+      - { x: 1174, y: 479 }
+      - { x: 1190, y: 447 }
+  - from: p161
+    to: p162
+    weight: thin
+  - from: p163
+    to: p164
+    weight: thin
+  - from: p165
+    to: p166
+    weight: thin
+  - from: p167
+    to: p168
+    weight: thin
+  - from: p169
+    to: p170
+    weight: thin
+  - from: p171
+    to: p172
+    weight: thin
+  - from: p173
+    to: p174
+    weight: thin
+  - from: p175
+    to: p176
+    weight: thin
+  - from: p177
+    to: p178
+    weight: thin
+  - from: p179
+    to: p180
+    weight: thin
+  - from: p181
+    to: p182
+    weight: thin
+  - from: p183
+    to: p184
+    weight: thin
+  - from: p185
+    to: p186
+    weight: thin
+  - from: p187
+    to: p188
+    weight: thin
+  - from: p189
+    to: p157
+    curve: smooth
+    via:
+      - { x: 1003, y: 507 }
+      - { x: 1011, y: 492 }
+      - { x: 1019, y: 474 }
+      - { x: 1026, y: 454 }
+      - { x: 1034, y: 432 }
+  - from: p191
+    to: p192
+    weight: thin
+  - from: p193
+    to: p194
+    weight: thin
+  - from: p195
+    to: p196
+    weight: thin
+  - from: p190
+    to: p160
+    curve: smooth
+    via:
+      - { x: 1245, y: 507 }
+      - { x: 1237, y: 492 }
+      - { x: 1229, y: 474 }
+      - { x: 1222, y: 454 }
+      - { x: 1214, y: 432 }
+  - from: p197
+    to: p198
+    weight: thin
+  - from: p199
+    to: p200
+    weight: thin
+  - from: p201
+    to: p202
+    weight: thin
+  - from: p203
+    to: p156
+  - from: p156
+    to: p159
+  - from: p159
+    to: p204
+  - from: p205
+    to: p206
+  - from: p206
+    to: p207
+  - from: p208
+    to: p209
+  - from: p209
+    to: p210
+  - from: p207
+    to: p210
+    curve: smooth
+    via:
+      - { x: 1316, y: 441 }
+      - { x: 1334, y: 475 }
+      - { x: 1353, y: 500 }
+      - { x: 1371, y: 515 }
+      - { x: 1390, y: 520 }
+      - { x: 1408, y: 515 }
+      - { x: 1426, y: 500 }
+      - { x: 1444, y: 475 }
+      - { x: 1463, y: 441 }
+  - from: p211
+    to: p212
+    weight: thin
+  - from: p213
+    to: p214
+    weight: thin
+  - from: p215
+    to: p216
+    weight: thin
+  - from: p217
+    to: p218
+    weight: thin
+  - from: p219
+    to: p220
+    weight: thin
+  - from: p221
+    to: p222
+    weight: thin
+  - from: p223
+    to: p224
+    weight: thin
+  - from: p225
+    to: p226
+    weight: thin
+  - from: p227
+    to: p228
+    weight: thin
+  - from: p229
+    to: p230
+    weight: thin
+  - from: p231
+    to: p232
+    weight: thin
+  - from: p233
+    to: p234
+    weight: thin
+  - from: p235
+    to: p236
+    weight: thin
+  - from: p237
+    to: p238
+    weight: thin
+  - from: p239
+    to: p240
+    weight: thin
+  - from: p241
+    to: p242
+    weight: thin
+  - from: p190
+    to: p207
+    curve: smooth
+    via:
+      - { x: 1260, y: 505 }
+      - { x: 1267, y: 489 }
+      - { x: 1275, y: 470 }
+      - { x: 1283, y: 448 }
+      - { x: 1290, y: 423 }
+  - from: p244
+    to: p245
+    weight: thin
+  - from: p246
+    to: p247
+    weight: thin
+  - from: p248
+    to: p249
+    weight: thin
+  - from: p243
+    to: p210
+    curve: smooth
+    via:
+      - { x: 1519, y: 505 }
+      - { x: 1512, y: 489 }
+      - { x: 1504, y: 470 }
+      - { x: 1496, y: 448 }
+      - { x: 1489, y: 423 }
+  - from: p250
+    to: p251
+    weight: thin
+  - from: p252
+    to: p253
+    weight: thin
+  - from: p254
+    to: p255
+    weight: thin
+  - from: p256
+    to: p206
+  - from: p206
+    to: p209
+  - from: p209
+    to: p257
+  - from: p258
+    to: p259
+    line: dashed
+  - from: p260
+    to: p261
+  - from: p262
+    to: p263
+  - from: p264
+    to: p265
+    weight: thin
+  - from: p265
+    to: p266
+    weight: thin

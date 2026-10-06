@@ -1,0 +1,1369 @@
+version: 1
+kind: placement
+arrows: false
+title: インターチェンジの形 —— トランペット・ダイヤモンド・クローバー・ダブルトランペット（左側通行。どの型をどこに使うか、ランプの曲線半径）
+sources:
+  - name: "道路構造令（昭和 45 年政令第 320 号）第 15 条・第 16 条・第 28 条（e-Gov 法令検索）"
+    url: "https://laws.e-gov.go.jp/law/345CO0000000320"
+    retrieved: 2026-10-06
+  - name: "道路交通法（昭和 35 年法律第 105 号）第 17 条 4 項（e-Gov 法令検索）"
+    url: "https://laws.e-gov.go.jp/law/335AC0000000105"
+    retrieved: 2026-10-06
+  - name: "California Department of Transportation, Highway Design Manual, Chapter 500 Traffic Interchanges（Topic 502・Index 504.3）"
+    url: "https://dot.ca.gov/-/media/dot-media/programs/design/documents/chp0500-a11y.pdf"
+    retrieved: 2026-10-06
+  - name: "国土交通省道路局有料道路課「スマートICに関する社会実験の概要と今後の取り組みについて」（HIDO『ITS』）"
+    url: "https://www.hido.or.jp/itsapq/jsp/auth/trab/no81/smart1.pdf"
+    retrieved: 2026-10-06
+# **インターチェンジの形は、交差する道の種類と、料金所をどこに置くかで決まる。**
+# 4 つの型を同じ縮尺（1px＝2m）・同じ向き（本線を横、日本の左側通行）で並べ、
+# 「右へ渡る動き」がどこで跨ぎ、どこでループになるかを読めるようにした。
+#
+# ## 何のための図か
+#
+# 理解のための図。高速道路の出入口がなぜトランペットの形をしているか、
+# 一般道とつなぐ所がなぜダイヤモンドで、なぜ日本にはクローバーが少ないか —— を形で読む。
+#
+# ## 描き方の決まり
+#
+# - **左側通行**（道路交通法 第 17 条 4 項）。本線は上の線が東向き（右へ）、下の線が西向き（左へ）。
+#   出口は本線の左から分かれ、入口は左から合流する。米国の図を鏡に写しただけでは右側通行の図になるので、
+#   **ループの回り方と、どの象限に何が来るかを左側通行で組み直した**
+# - **上を通る道を切らずに描き、下を通る道を切る**（平面図の立体交差の描き方）。ランプが本線を跨ぐ所で本線を切った
+# - ループは 270° 回って右折の向きへ出る。半径は 28px＝56m（カリフォルニア州の設計便覧のループ 150〜200ft の中ほど）
+# - クローバー型は、北東の象限の 1 組（ループ 1 本と外側のランプ 1 本）を 90° ずつ回して 4 象限に置いた。
+#   左側通行の 4 回対称は「東向き→南向き→西向き→北向き」で閉じる
+# - ダブルトランペット型は、上のトランペットを 180° 回した 2 つ目を一般道の側に置いた（裏返すと右側通行になるので、回した）
+#
+# ## 一次資料
+#
+# - 道路構造令 第 28 条：車線 4 以上の普通道路が交差するときは立体交差。交差する道路をつなぐ道路を「連結路」。
+#   連結路には第 5〜8 条・第 12・13・15・16 条・第 18〜20 条・第 22・25 条を当てない
+# - 道路構造令 第 15 条：本線の曲線半径（設計速度 120→710／570、100→460／380、80→280／230、60→150／120、50→100／80、40→60／50）
+# - カリフォルニア州交通局 設計便覧 第 500 章：型は diamond・loop・directional・hook の組み合わせ。
+#   diamond は最も単純で費用が小さく、容量はランプ端の交差点で決まる。four-quadrant cloverleaf はループ間の
+#   織り込みが短く容量が限られる（一般道とのICでは望ましくない。高速道路どうしなら集散路をつける）。
+#   trumpet は交差する道が高速道路で終わるときに使う。ループは半径 150〜200ft、直結は最小 850ft、望ましくは 1,150ft。
+#   ランプの設計速度は、端が全部曲がる交差点なら 25mph 以上、出口の分岐端は 50mph 以上
+# - 国交省 有料道路課：従来の IC は料金所を集約する（スマート IC は ETC 専用で集約しない）。日本の平均 IC 間隔は約 10km
+#
+# ## 描かなかったもの
+#
+# - **実在のインターチェンジの名前と形。** 公式の平面図をなぞらない。型の説明だけの架空の配置
+# - **日本の連結路の設計速度と最小曲線半径の表。** 『道路構造令の解説と運用』（日本道路協会）にあるが、
+#   手元で一次資料を読めていない。米国の値は「米国の値」と書いて載せた
+# - **加減速車線の長さ・テーパー・ノーズの形。** 図の粗さでは読めず、数を確かめていない
+# - **ジャンクション（高速道路どうし）の直結型・タービン型。** 4 つの型で「右折をどう処理するか」の違いは言い切れている
+#
+# ## 計算した所
+#
+# 第 15 条の表は R＝V²／127(i＋f) の形と合う：100km/h・460m で i＋f＝10000／(127×460)≒0.171。
+# 1ft＝0.3048m：150ft＝45.7m、200ft＝61.0m、850ft＝259.1m、1,150ft＝350.5m。25mph＝40.2km/h、50mph＝80.5km/h。
+nodes:
+  - id: ta
+    label: "① トランペット型 —— 1 本の道が本線で終わる所"
+    marker: none
+    align: left
+    at: { x: 70, y: 125 }
+    size: { w: 360, h: 18 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 253, y: 321 }
+    size: { w: 2, h: 2 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 241, y: 353 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 241, y: 413 }
+    size: { w: 2, h: 2 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 227, y: 413 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 227, y: 303 }
+    size: { w: 2, h: 2 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 367, y: 321 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 367, y: 337 }
+    size: { w: 2, h: 2 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 99, y: 337 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 69, y: 321 }
+    size: { w: 2, h: 2 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 219, y: 321 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 249, y: 321 }
+    size: { w: 2, h: 2 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 429, y: 321 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 429, y: 337 }
+    size: { w: 2, h: 2 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 249, y: 337 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 219, y: 337 }
+    size: { w: 2, h: 2 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 69, y: 337 }
+    size: { w: 2, h: 2 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 399, y: 321 }
+    size: { w: 2, h: 2 }
+  - id: p18
+    label: ""
+    marker: none
+    at: { x: 425, y: 321 }
+    size: { w: 2, h: 2 }
+  - id: p19
+    label: ""
+    marker: none
+    at: { x: 99, y: 337 }
+    size: { w: 2, h: 2 }
+  - id: p20
+    label: ""
+    marker: none
+    at: { x: 73, y: 337 }
+    size: { w: 2, h: 2 }
+  - id: p21
+    label: ""
+    marker: none
+    at: { x: 241, y: 447 }
+    size: { w: 2, h: 2 }
+  - id: p22
+    label: ""
+    marker: none
+    at: { x: 227, y: 447 }
+    size: { w: 2, h: 2 }
+  - id: tollA
+    label: "料金所"
+    hatch: solid
+    at: { x: 199, y: 448 }
+    size: { w: 72, h: 18 }
+  - id: p23
+    label: ""
+    marker: none
+    at: { x: 241, y: 465 }
+    size: { w: 2, h: 2 }
+  - id: p24
+    label: ""
+    marker: none
+    at: { x: 241, y: 519 }
+    size: { w: 2, h: 2 }
+  - id: p25
+    label: ""
+    marker: none
+    at: { x: 227, y: 519 }
+    size: { w: 2, h: 2 }
+  - id: p26
+    label: ""
+    marker: none
+    at: { x: 227, y: 465 }
+    size: { w: 2, h: 2 }
+  - id: ta_l
+    label: "ループ\nR≒56m"
+    marker: none
+    at: { x: 243, y: 263 }
+    size: { w: 54, h: 38 }
+  - id: ta_g
+    label: "一般道へ"
+    marker: none
+    at: { x: 195, y: 524 }
+    size: { w: 80, h: 18 }
+  - id: ta_m
+    label: "本線"
+    marker: none
+    at: { x: 370, y: 290 }
+    size: { w: 40, h: 18 }
+  - id: tb
+    label: "② ダイヤモンド型 —— 一般道とつなぐ。ランプの端は平面交差"
+    marker: none
+    align: left
+    at: { x: 520, y: 125 }
+    size: { w: 400, h: 18 }
+  - id: p27
+    label: ""
+    marker: none
+    at: { x: 519, y: 321 }
+    size: { w: 2, h: 2 }
+  - id: p28
+    label: ""
+    marker: none
+    at: { x: 549, y: 321 }
+    size: { w: 2, h: 2 }
+  - id: p29
+    label: ""
+    marker: none
+    at: { x: 685, y: 321 }
+    size: { w: 2, h: 2 }
+  - id: p30
+    label: ""
+    marker: none
+    at: { x: 713, y: 321 }
+    size: { w: 2, h: 2 }
+  - id: p31
+    label: ""
+    marker: none
+    at: { x: 849, y: 321 }
+    size: { w: 2, h: 2 }
+  - id: p32
+    label: ""
+    marker: none
+    at: { x: 879, y: 321 }
+    size: { w: 2, h: 2 }
+  - id: p33
+    label: ""
+    marker: none
+    at: { x: 879, y: 337 }
+    size: { w: 2, h: 2 }
+  - id: p34
+    label: ""
+    marker: none
+    at: { x: 849, y: 337 }
+    size: { w: 2, h: 2 }
+  - id: p35
+    label: ""
+    marker: none
+    at: { x: 713, y: 337 }
+    size: { w: 2, h: 2 }
+  - id: p36
+    label: ""
+    marker: none
+    at: { x: 685, y: 337 }
+    size: { w: 2, h: 2 }
+  - id: p37
+    label: ""
+    marker: none
+    at: { x: 549, y: 337 }
+    size: { w: 2, h: 2 }
+  - id: p38
+    label: ""
+    marker: none
+    at: { x: 519, y: 337 }
+    size: { w: 2, h: 2 }
+  - id: p39
+    label: ""
+    marker: none
+    at: { x: 851, y: 321 }
+    size: { w: 2, h: 2 }
+  - id: p40
+    label: ""
+    marker: none
+    at: { x: 877, y: 321 }
+    size: { w: 2, h: 2 }
+  - id: p41
+    label: ""
+    marker: none
+    at: { x: 547, y: 337 }
+    size: { w: 2, h: 2 }
+  - id: p42
+    label: ""
+    marker: none
+    at: { x: 521, y: 337 }
+    size: { w: 2, h: 2 }
+  - id: p43
+    label: ""
+    marker: none
+    at: { x: 693, y: 189 }
+    size: { w: 2, h: 2 }
+  - id: p44
+    label: ""
+    marker: none
+    at: { x: 693, y: 259 }
+    size: { w: 2, h: 2 }
+  - id: p45
+    label: ""
+    marker: none
+    at: { x: 693, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: p46
+    label: ""
+    marker: none
+    at: { x: 693, y: 469 }
+    size: { w: 2, h: 2 }
+  - id: p47
+    label: ""
+    marker: none
+    at: { x: 705, y: 189 }
+    size: { w: 2, h: 2 }
+  - id: p48
+    label: ""
+    marker: none
+    at: { x: 705, y: 259 }
+    size: { w: 2, h: 2 }
+  - id: p49
+    label: ""
+    marker: none
+    at: { x: 705, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: p50
+    label: ""
+    marker: none
+    at: { x: 705, y: 469 }
+    size: { w: 2, h: 2 }
+  - id: tb_x0
+    label: "平面交差"
+    marker: none
+    align: left
+    at: { x: 716, y: 251 }
+    size: { w: 64, h: 18 }
+  - id: tb_x1
+    label: "平面交差"
+    marker: none
+    align: left
+    at: { x: 716, y: 391 }
+    size: { w: 64, h: 18 }
+  - id: tb_c
+    label: "一般道"
+    marker: none
+    at: { x: 670, y: 474 }
+    size: { w: 60, h: 18 }
+  - id: tc
+    label: "③ クローバー型 —— 右折を 4 つのループで、左折を外側のランプで"
+    marker: none
+    align: left
+    at: { x: 950, y: 125 }
+    size: { w: 460, h: 18 }
+  - id: p51
+    label: ""
+    marker: none
+    at: { x: 1169, y: 321 }
+    size: { w: 2, h: 2 }
+  - id: p52
+    label: ""
+    marker: none
+    at: { x: 1157, y: 303 }
+    size: { w: 2, h: 2 }
+  - id: p53
+    label: ""
+    marker: none
+    at: { x: 1157, y: 179 }
+    size: { w: 2, h: 2 }
+  - id: p54
+    label: ""
+    marker: none
+    at: { x: 1314, y: 321 }
+    size: { w: 2, h: 2 }
+  - id: p55
+    label: ""
+    marker: none
+    at: { x: 1157, y: 349 }
+    size: { w: 2, h: 2 }
+  - id: p56
+    label: ""
+    marker: none
+    at: { x: 1175, y: 337 }
+    size: { w: 2, h: 2 }
+  - id: p57
+    label: ""
+    marker: none
+    at: { x: 1299, y: 337 }
+    size: { w: 2, h: 2 }
+  - id: p58
+    label: ""
+    marker: none
+    at: { x: 1157, y: 494 }
+    size: { w: 2, h: 2 }
+  - id: p59
+    label: ""
+    marker: none
+    at: { x: 1129, y: 337 }
+    size: { w: 2, h: 2 }
+  - id: p60
+    label: ""
+    marker: none
+    at: { x: 1141, y: 355 }
+    size: { w: 2, h: 2 }
+  - id: p61
+    label: ""
+    marker: none
+    at: { x: 1141, y: 479 }
+    size: { w: 2, h: 2 }
+  - id: p62
+    label: ""
+    marker: none
+    at: { x: 984, y: 337 }
+    size: { w: 2, h: 2 }
+  - id: p63
+    label: ""
+    marker: none
+    at: { x: 1141, y: 309 }
+    size: { w: 2, h: 2 }
+  - id: p64
+    label: ""
+    marker: none
+    at: { x: 1123, y: 321 }
+    size: { w: 2, h: 2 }
+  - id: p65
+    label: ""
+    marker: none
+    at: { x: 999, y: 321 }
+    size: { w: 2, h: 2 }
+  - id: p66
+    label: ""
+    marker: none
+    at: { x: 1141, y: 164 }
+    size: { w: 2, h: 2 }
+  - id: p67
+    label: ""
+    marker: none
+    at: { x: 969, y: 321 }
+    size: { w: 2, h: 2 }
+  - id: p68
+    label: ""
+    marker: none
+    at: { x: 999, y: 321 }
+    size: { w: 2, h: 2 }
+  - id: p69
+    label: ""
+    marker: none
+    at: { x: 1123, y: 321 }
+    size: { w: 2, h: 2 }
+  - id: p70
+    label: ""
+    marker: none
+    at: { x: 1135, y: 321 }
+    size: { w: 2, h: 2 }
+  - id: p71
+    label: ""
+    marker: none
+    at: { x: 1163, y: 321 }
+    size: { w: 2, h: 2 }
+  - id: p72
+    label: ""
+    marker: none
+    at: { x: 1329, y: 321 }
+    size: { w: 2, h: 2 }
+  - id: p73
+    label: ""
+    marker: none
+    at: { x: 1329, y: 337 }
+    size: { w: 2, h: 2 }
+  - id: p74
+    label: ""
+    marker: none
+    at: { x: 1299, y: 337 }
+    size: { w: 2, h: 2 }
+  - id: p75
+    label: ""
+    marker: none
+    at: { x: 1175, y: 337 }
+    size: { w: 2, h: 2 }
+  - id: p76
+    label: ""
+    marker: none
+    at: { x: 1163, y: 337 }
+    size: { w: 2, h: 2 }
+  - id: p77
+    label: ""
+    marker: none
+    at: { x: 1135, y: 337 }
+    size: { w: 2, h: 2 }
+  - id: p78
+    label: ""
+    marker: none
+    at: { x: 1129, y: 337 }
+    size: { w: 2, h: 2 }
+  - id: p79
+    label: ""
+    marker: none
+    at: { x: 984, y: 337 }
+    size: { w: 2, h: 2 }
+  - id: p80
+    label: ""
+    marker: none
+    at: { x: 969, y: 337 }
+    size: { w: 2, h: 2 }
+  - id: p81
+    label: ""
+    marker: none
+    at: { x: 1157, y: 149 }
+    size: { w: 2, h: 2 }
+  - id: p82
+    label: ""
+    marker: none
+    at: { x: 1157, y: 309 }
+    size: { w: 2, h: 2 }
+  - id: p83
+    label: ""
+    marker: none
+    at: { x: 1157, y: 349 }
+    size: { w: 2, h: 2 }
+  - id: p84
+    label: ""
+    marker: none
+    at: { x: 1157, y: 494 }
+    size: { w: 2, h: 2 }
+  - id: p85
+    label: ""
+    marker: none
+    at: { x: 1157, y: 509 }
+    size: { w: 2, h: 2 }
+  - id: p86
+    label: ""
+    marker: none
+    at: { x: 1141, y: 509 }
+    size: { w: 2, h: 2 }
+  - id: p87
+    label: ""
+    marker: none
+    at: { x: 1141, y: 479 }
+    size: { w: 2, h: 2 }
+  - id: p88
+    label: ""
+    marker: none
+    at: { x: 1141, y: 355 }
+    size: { w: 2, h: 2 }
+  - id: p89
+    label: ""
+    marker: none
+    at: { x: 1141, y: 309 }
+    size: { w: 2, h: 2 }
+  - id: p90
+    label: ""
+    marker: none
+    at: { x: 1141, y: 164 }
+    size: { w: 2, h: 2 }
+  - id: p91
+    label: ""
+    marker: none
+    at: { x: 1141, y: 149 }
+    size: { w: 2, h: 2 }
+  - id: tc_l
+    label: "ループ\nR≒56m"
+    marker: none
+    at: { x: 1173, y: 263 }
+    size: { w: 54, h: 38 }
+  - id: td
+    label: "④ ダブルトランペット型 —— 2 つのトランペットのあいだに料金所を 1 か所"
+    marker: none
+    align: left
+    at: { x: 70, y: 615 }
+    size: { w: 560, h: 18 }
+  - id: p92
+    label: ""
+    marker: none
+    at: { x: 253, y: 811 }
+    size: { w: 2, h: 2 }
+  - id: p93
+    label: ""
+    marker: none
+    at: { x: 241, y: 843 }
+    size: { w: 2, h: 2 }
+  - id: p94
+    label: ""
+    marker: none
+    at: { x: 241, y: 903 }
+    size: { w: 2, h: 2 }
+  - id: p95
+    label: ""
+    marker: none
+    at: { x: 227, y: 903 }
+    size: { w: 2, h: 2 }
+  - id: p96
+    label: ""
+    marker: none
+    at: { x: 227, y: 793 }
+    size: { w: 2, h: 2 }
+  - id: p97
+    label: ""
+    marker: none
+    at: { x: 367, y: 811 }
+    size: { w: 2, h: 2 }
+  - id: p98
+    label: ""
+    marker: none
+    at: { x: 367, y: 827 }
+    size: { w: 2, h: 2 }
+  - id: p99
+    label: ""
+    marker: none
+    at: { x: 99, y: 827 }
+    size: { w: 2, h: 2 }
+  - id: p100
+    label: ""
+    marker: none
+    at: { x: 69, y: 811 }
+    size: { w: 2, h: 2 }
+  - id: p101
+    label: ""
+    marker: none
+    at: { x: 219, y: 811 }
+    size: { w: 2, h: 2 }
+  - id: p102
+    label: ""
+    marker: none
+    at: { x: 249, y: 811 }
+    size: { w: 2, h: 2 }
+  - id: p103
+    label: ""
+    marker: none
+    at: { x: 429, y: 811 }
+    size: { w: 2, h: 2 }
+  - id: p104
+    label: ""
+    marker: none
+    at: { x: 429, y: 827 }
+    size: { w: 2, h: 2 }
+  - id: p105
+    label: ""
+    marker: none
+    at: { x: 249, y: 827 }
+    size: { w: 2, h: 2 }
+  - id: p106
+    label: ""
+    marker: none
+    at: { x: 219, y: 827 }
+    size: { w: 2, h: 2 }
+  - id: p107
+    label: ""
+    marker: none
+    at: { x: 69, y: 827 }
+    size: { w: 2, h: 2 }
+  - id: p108
+    label: ""
+    marker: none
+    at: { x: 399, y: 811 }
+    size: { w: 2, h: 2 }
+  - id: p109
+    label: ""
+    marker: none
+    at: { x: 425, y: 811 }
+    size: { w: 2, h: 2 }
+  - id: p110
+    label: ""
+    marker: none
+    at: { x: 99, y: 827 }
+    size: { w: 2, h: 2 }
+  - id: p111
+    label: ""
+    marker: none
+    at: { x: 73, y: 827 }
+    size: { w: 2, h: 2 }
+  - id: p112
+    label: ""
+    marker: none
+    at: { x: 215, y: 1117 }
+    size: { w: 2, h: 2 }
+  - id: p113
+    label: ""
+    marker: none
+    at: { x: 227, y: 1085 }
+    size: { w: 2, h: 2 }
+  - id: p114
+    label: ""
+    marker: none
+    at: { x: 227, y: 1025 }
+    size: { w: 2, h: 2 }
+  - id: p115
+    label: ""
+    marker: none
+    at: { x: 241, y: 1025 }
+    size: { w: 2, h: 2 }
+  - id: p116
+    label: ""
+    marker: none
+    at: { x: 241, y: 1135 }
+    size: { w: 2, h: 2 }
+  - id: p117
+    label: ""
+    marker: none
+    at: { x: 101, y: 1117 }
+    size: { w: 2, h: 2 }
+  - id: p118
+    label: ""
+    marker: none
+    at: { x: 101, y: 1101 }
+    size: { w: 2, h: 2 }
+  - id: p119
+    label: ""
+    marker: none
+    at: { x: 369, y: 1101 }
+    size: { w: 2, h: 2 }
+  - id: p120
+    label: ""
+    marker: none
+    at: { x: 399, y: 1117 }
+    size: { w: 2, h: 2 }
+  - id: p121
+    label: ""
+    marker: none
+    at: { x: 249, y: 1117 }
+    size: { w: 2, h: 2 }
+  - id: p122
+    label: ""
+    marker: none
+    at: { x: 219, y: 1117 }
+    size: { w: 2, h: 2 }
+  - id: p123
+    label: ""
+    marker: none
+    at: { x: 39, y: 1117 }
+    size: { w: 2, h: 2 }
+  - id: p124
+    label: ""
+    marker: none
+    at: { x: 39, y: 1101 }
+    size: { w: 2, h: 2 }
+  - id: p125
+    label: ""
+    marker: none
+    at: { x: 219, y: 1101 }
+    size: { w: 2, h: 2 }
+  - id: p126
+    label: ""
+    marker: none
+    at: { x: 249, y: 1101 }
+    size: { w: 2, h: 2 }
+  - id: p127
+    label: ""
+    marker: none
+    at: { x: 399, y: 1101 }
+    size: { w: 2, h: 2 }
+  - id: p128
+    label: ""
+    marker: none
+    at: { x: 69, y: 1117 }
+    size: { w: 2, h: 2 }
+  - id: p129
+    label: ""
+    marker: none
+    at: { x: 43, y: 1117 }
+    size: { w: 2, h: 2 }
+  - id: p130
+    label: ""
+    marker: none
+    at: { x: 369, y: 1101 }
+    size: { w: 2, h: 2 }
+  - id: p131
+    label: ""
+    marker: none
+    at: { x: 395, y: 1101 }
+    size: { w: 2, h: 2 }
+  - id: p132
+    label: ""
+    marker: none
+    at: { x: 241, y: 957 }
+    size: { w: 2, h: 2 }
+  - id: p133
+    label: ""
+    marker: none
+    at: { x: 227, y: 957 }
+    size: { w: 2, h: 2 }
+  - id: tollD
+    label: "料金所"
+    hatch: solid
+    at: { x: 199, y: 958 }
+    size: { w: 72, h: 18 }
+  - id: p134
+    label: ""
+    marker: none
+    at: { x: 241, y: 975 }
+    size: { w: 2, h: 2 }
+  - id: p135
+    label: ""
+    marker: none
+    at: { x: 241, y: 1025 }
+    size: { w: 2, h: 2 }
+  - id: p136
+    label: ""
+    marker: none
+    at: { x: 227, y: 1025 }
+    size: { w: 2, h: 2 }
+  - id: p137
+    label: ""
+    marker: none
+    at: { x: 227, y: 975 }
+    size: { w: 2, h: 2 }
+  - id: td_m1
+    label: "高速道路（有料）"
+    marker: none
+    at: { x: 350, y: 776 }
+    size: { w: 120, h: 18 }
+  - id: td_m2
+    label: "バイパスなど（無料）"
+    marker: none
+    at: { x: -10, y: 1138 }
+    size: { w: 140, h: 18 }
+  - id: n0
+    label: "■ 型を決めるもの —— 料金所の数、平面交差を残すか、ループの交通量、用地"
+    marker: none
+    align: left
+    at: { x: 660, y: 640 }
+    size: { w: 900, h: 18 }
+  - id: n1
+    label: "・日本は左側通行（道路交通法 第 17 条 4 項）。出口も入口も本線の左から。右へ渡る動き（右折）が、跨ぐかループになる"
+    marker: none
+    align: left
+    at: { x: 660, y: 664 }
+    size: { w: 900, h: 18 }
+  - id: n2
+    label: "・トランペット型は、ランプが 1 本の道に集まる。料金所を 1 か所に集約できる（国交省：従来の IC は料金所を集約する）"
+    marker: none
+    align: left
+    at: { x: 660, y: 688 }
+    size: { w: 900, h: 18 }
+  - id: n3
+    label: "・ダブルトランペット型は、高速道路と一般道の両方を立体交差にし、あいだの 1 本に料金所を置く形"
+    marker: none
+    align: left
+    at: { x: 660, y: 712 }
+    size: { w: 900, h: 18 }
+  - id: n4
+    label: "・ダイヤモンド型は用地が小さく安いが、ランプの端が一般道との平面交差になる（容量はそこで決まる）"
+    marker: none
+    align: left
+    at: { x: 660, y: 736 }
+    size: { w: 900, h: 18 }
+  - id: n5
+    label: "・クローバー型は全部の動きが信号なしで流れるが、ループの出入口のあいだで車線変更が交錯する（織り込み）"
+    marker: none
+    align: left
+    at: { x: 660, y: 760 }
+    size: { w: 900, h: 18 }
+  - id: n6
+    label: "■ ランプの曲線半径（米国カリフォルニア州の設計便覧の値。1ft＝0.3048m で換算）"
+    marker: none
+    align: left
+    at: { x: 660, y: 784 }
+    size: { w: 900, h: 18 }
+  - id: n7
+    label: "・ループ：半径 150〜200ft（46〜61m）が普通。図のループは R＝28px＝56m"
+    marker: none
+    align: left
+    at: { x: 660, y: 808 }
+    size: { w: 900, h: 18 }
+  - id: n8
+    label: "・直結（ダイレクト）ランプ：最小 850ft（259m）、交通運用上は 1,150ft（351m）以上が望ましい"
+    marker: none
+    align: left
+    at: { x: 660, y: 832 }
+    size: { w: 900, h: 18 }
+  - id: n9
+    label: "・ランプの設計速度：端が全部曲がる交差点なら 25mph（40km/h）以上、出口の分岐点では 50mph（80km/h）以上"
+    marker: none
+    align: left
+    at: { x: 660, y: 856 }
+    size: { w: 900, h: 18 }
+  - id: n10
+    label: "■ 日本の道路構造令"
+    marker: none
+    align: left
+    at: { x: 660, y: 880 }
+    size: { w: 900, h: 18 }
+  - id: n11
+    label: "・車線 4 以上の道路どうしは立体交差（第 28 条 1 項）。つなぐ道を「連結路」と呼ぶ（同 3 項）"
+    marker: none
+    align: left
+    at: { x: 660, y: 904 }
+    size: { w: 900, h: 18 }
+  - id: n12
+    label: "・連結路には第 15 条（曲線半径）・第 16 条（片勾配）などを当てない（同 4 項）。値は別の運用で決める"
+    marker: none
+    align: left
+    at: { x: 660, y: 928 }
+    size: { w: 900, h: 18 }
+  - id: n13
+    label: "・本線の曲線半径（第 15 条）：設計速度 120km/h→710m（特例 570）、100→460（380）、80→280（230）、60→150（120）"
+    marker: none
+    align: left
+    at: { x: 660, y: 952 }
+    size: { w: 900, h: 18 }
+  - id: n14
+    label: "・どれも遠心力の釣り合い R＝V²／127(i＋f) の形（i 片勾配、f 横すべり摩擦）。100km/h・460m なら i＋f≒0.17（計算）"
+    marker: none
+    align: left
+    at: { x: 660, y: 976 }
+    size: { w: 900, h: 18 }
+  - id: scale
+    label: "縮尺：1px＝2m（ループの半径だけを合わせた。ランプの長さ・本線との間隔は模式）。▶ は本線の進む向き"
+    marker: none
+    align: left
+    at: { x: 70, y: 556 }
+    size: { w: 900, h: 18 }
+edges:
+  - from: p1
+    to: p2
+    curve: smooth
+    via:
+      - { x: 263, y: 315 }
+      - { x: 270, y: 310 }
+      - { x: 283, y: 307 }
+      - { x: 293, y: 298 }
+      - { x: 298, y: 286 }
+      - { x: 297, y: 273 }
+      - { x: 290, y: 262 }
+      - { x: 279, y: 255 }
+      - { x: 266, y: 254 }
+      - { x: 254, y: 259 }
+      - { x: 245, y: 269 }
+      - { x: 242, y: 282 }
+      - { x: 242, y: 308 }
+  - from: p2
+    to: p3
+  - from: p4
+    to: p5
+  - from: p5
+    to: p6
+    curve: smooth
+    via:
+      - { x: 228, y: 290 }
+      - { x: 224, y: 282 }
+      - { x: 229, y: 262 }
+      - { x: 241, y: 246 }
+      - { x: 260, y: 237 }
+      - { x: 280, y: 237 }
+      - { x: 299, y: 246 }
+      - { x: 311, y: 262 }
+      - { x: 316, y: 282 }
+      - { x: 320, y: 306 }
+      - { x: 338, y: 318 }
+  - from: p7
+    to: p3
+    curve: smooth
+    via:
+      - { x: 320, y: 348 }
+      - { x: 278, y: 368 }
+      - { x: 254, y: 392 }
+  - from: p4
+    to: p8
+    curve: smooth
+    via:
+      - { x: 214, y: 390 }
+      - { x: 186, y: 362 }
+      - { x: 146, y: 344 }
+  - from: p9
+    to: p10
+  - from: p11
+    to: p1
+  - from: p1
+    to: p6
+  - from: p6
+    to: p12
+  - from: p13
+    to: p7
+  - from: p7
+    to: p14
+  - from: p15
+    to: p8
+  - from: p8
+    to: p16
+  - from: p17
+    to: p18
+    ends: { from: none, to: arrow }
+  - from: p19
+    to: p20
+    ends: { from: none, to: arrow }
+  - from: p3
+    to: p21
+  - from: p22
+    to: p4
+  - from: p23
+    to: p24
+  - from: p25
+    to: p26
+  - from: p27
+    to: p28
+  - from: p28
+    to: p29
+  - from: p30
+    to: p31
+  - from: p31
+    to: p32
+  - from: p33
+    to: p34
+  - from: p34
+    to: p35
+  - from: p36
+    to: p37
+  - from: p37
+    to: p38
+  - from: p39
+    to: p40
+    ends: { from: none, to: arrow }
+  - from: p41
+    to: p42
+    ends: { from: none, to: arrow }
+  - from: p43
+    to: p44
+  - from: p44
+    to: p45
+  - from: p45
+    to: p46
+  - from: p47
+    to: p48
+  - from: p48
+    to: p49
+  - from: p49
+    to: p50
+  - from: p28
+    to: p44
+    curve: smooth
+    via:
+      - { x: 604, y: 308 }
+      - { x: 650, y: 282 }
+  - from: p48
+    to: p31
+    curve: smooth
+    via:
+      - { x: 750, y: 282 }
+      - { x: 796, y: 308 }
+  - from: p34
+    to: p49
+    curve: smooth
+    via:
+      - { x: 796, y: 352 }
+      - { x: 750, y: 378 }
+  - from: p45
+    to: p37
+    curve: smooth
+    via:
+      - { x: 650, y: 378 }
+      - { x: 604, y: 352 }
+  - from: p51
+    to: p52
+    curve: smooth
+    via:
+      - { x: 1186, y: 316 }
+      - { x: 1200, y: 310 }
+      - { x: 1213, y: 307 }
+      - { x: 1223, y: 298 }
+      - { x: 1228, y: 286 }
+      - { x: 1227, y: 273 }
+      - { x: 1220, y: 262 }
+      - { x: 1209, y: 255 }
+      - { x: 1196, y: 254 }
+      - { x: 1184, y: 259 }
+      - { x: 1175, y: 269 }
+      - { x: 1172, y: 282 }
+      - { x: 1164, y: 296 }
+  - from: p53
+    to: p54
+    curve: smooth
+    via:
+      - { x: 1166, y: 202 }
+      - { x: 1190, y: 222 }
+      - { x: 1230, y: 238 }
+      - { x: 1254, y: 264 }
+      - { x: 1268, y: 294 }
+      - { x: 1286, y: 314 }
+  - from: p55
+    to: p56
+    curve: smooth
+    via:
+      - { x: 1164, y: 366 }
+      - { x: 1170, y: 380 }
+      - { x: 1173, y: 393 }
+      - { x: 1182, y: 403 }
+      - { x: 1194, y: 408 }
+      - { x: 1207, y: 407 }
+      - { x: 1218, y: 400 }
+      - { x: 1225, y: 389 }
+      - { x: 1226, y: 376 }
+      - { x: 1221, y: 364 }
+      - { x: 1211, y: 355 }
+      - { x: 1198, y: 352 }
+      - { x: 1184, y: 344 }
+  - from: p57
+    to: p58
+    curve: smooth
+    via:
+      - { x: 1278, y: 346 }
+      - { x: 1258, y: 370 }
+      - { x: 1242, y: 410 }
+      - { x: 1216, y: 434 }
+      - { x: 1186, y: 448 }
+      - { x: 1166, y: 466 }
+  - from: p59
+    to: p60
+    curve: smooth
+    via:
+      - { x: 1114, y: 344 }
+      - { x: 1100, y: 350 }
+      - { x: 1087, y: 353 }
+      - { x: 1077, y: 362 }
+      - { x: 1072, y: 374 }
+      - { x: 1073, y: 387 }
+      - { x: 1080, y: 398 }
+      - { x: 1091, y: 405 }
+      - { x: 1104, y: 406 }
+      - { x: 1116, y: 401 }
+      - { x: 1125, y: 391 }
+      - { x: 1128, y: 378 }
+      - { x: 1136, y: 364 }
+  - from: p61
+    to: p62
+    curve: smooth
+    via:
+      - { x: 1134, y: 458 }
+      - { x: 1110, y: 438 }
+      - { x: 1070, y: 422 }
+      - { x: 1046, y: 396 }
+      - { x: 1032, y: 366 }
+      - { x: 1014, y: 346 }
+  - from: p63
+    to: p64
+    curve: smooth
+    via:
+      - { x: 1136, y: 294 }
+      - { x: 1130, y: 280 }
+      - { x: 1127, y: 267 }
+      - { x: 1118, y: 257 }
+      - { x: 1106, y: 252 }
+      - { x: 1093, y: 253 }
+      - { x: 1082, y: 260 }
+      - { x: 1075, y: 271 }
+      - { x: 1074, y: 284 }
+      - { x: 1079, y: 296 }
+      - { x: 1089, y: 305 }
+      - { x: 1102, y: 308 }
+      - { x: 1116, y: 316 }
+  - from: p65
+    to: p66
+    curve: smooth
+    via:
+      - { x: 1022, y: 314 }
+      - { x: 1042, y: 290 }
+      - { x: 1058, y: 250 }
+      - { x: 1084, y: 226 }
+      - { x: 1114, y: 212 }
+      - { x: 1134, y: 194 }
+  - from: p67
+    to: p68
+  - from: p68
+    to: p69
+  - from: p69
+    to: p70
+  - from: p71
+    to: p51
+  - from: p51
+    to: p54
+  - from: p54
+    to: p72
+  - from: p73
+    to: p74
+  - from: p74
+    to: p75
+  - from: p75
+    to: p76
+  - from: p77
+    to: p78
+  - from: p78
+    to: p79
+  - from: p79
+    to: p80
+  - from: p81
+    to: p53
+  - from: p53
+    to: p52
+  - from: p52
+    to: p82
+  - from: p82
+    to: p83
+  - from: p83
+    to: p84
+  - from: p84
+    to: p85
+  - from: p86
+    to: p87
+  - from: p87
+    to: p88
+  - from: p88
+    to: p89
+  - from: p89
+    to: p90
+  - from: p90
+    to: p91
+  - from: p92
+    to: p93
+    curve: smooth
+    via:
+      - { x: 263, y: 805 }
+      - { x: 270, y: 800 }
+      - { x: 283, y: 797 }
+      - { x: 293, y: 788 }
+      - { x: 298, y: 776 }
+      - { x: 297, y: 763 }
+      - { x: 290, y: 752 }
+      - { x: 279, y: 745 }
+      - { x: 266, y: 744 }
+      - { x: 254, y: 749 }
+      - { x: 245, y: 759 }
+      - { x: 242, y: 772 }
+      - { x: 242, y: 798 }
+  - from: p93
+    to: p94
+  - from: p95
+    to: p96
+  - from: p96
+    to: p97
+    curve: smooth
+    via:
+      - { x: 228, y: 780 }
+      - { x: 224, y: 772 }
+      - { x: 229, y: 752 }
+      - { x: 241, y: 736 }
+      - { x: 260, y: 727 }
+      - { x: 280, y: 727 }
+      - { x: 299, y: 736 }
+      - { x: 311, y: 752 }
+      - { x: 316, y: 772 }
+      - { x: 320, y: 796 }
+      - { x: 338, y: 808 }
+  - from: p98
+    to: p94
+    curve: smooth
+    via:
+      - { x: 320, y: 838 }
+      - { x: 278, y: 858 }
+      - { x: 254, y: 882 }
+  - from: p95
+    to: p99
+    curve: smooth
+    via:
+      - { x: 214, y: 880 }
+      - { x: 186, y: 852 }
+      - { x: 146, y: 834 }
+  - from: p100
+    to: p101
+  - from: p102
+    to: p92
+  - from: p92
+    to: p97
+  - from: p97
+    to: p103
+  - from: p104
+    to: p98
+  - from: p98
+    to: p105
+  - from: p106
+    to: p99
+  - from: p99
+    to: p107
+  - from: p108
+    to: p109
+    ends: { from: none, to: arrow }
+  - from: p110
+    to: p111
+    ends: { from: none, to: arrow }
+  - from: p112
+    to: p113
+    curve: smooth
+    via:
+      - { x: 207, y: 1125 }
+      - { x: 200, y: 1130 }
+      - { x: 187, y: 1133 }
+      - { x: 177, y: 1142 }
+      - { x: 172, y: 1154 }
+      - { x: 173, y: 1167 }
+      - { x: 180, y: 1178 }
+      - { x: 191, y: 1185 }
+      - { x: 204, y: 1186 }
+      - { x: 216, y: 1181 }
+      - { x: 225, y: 1171 }
+      - { x: 228, y: 1158 }
+      - { x: 228, y: 1132 }
+  - from: p113
+    to: p114
+  - from: p115
+    to: p116
+  - from: p116
+    to: p117
+    curve: smooth
+    via:
+      - { x: 242, y: 1150 }
+      - { x: 246, y: 1158 }
+      - { x: 241, y: 1178 }
+      - { x: 229, y: 1194 }
+      - { x: 210, y: 1203 }
+      - { x: 190, y: 1203 }
+      - { x: 171, y: 1194 }
+      - { x: 159, y: 1178 }
+      - { x: 154, y: 1158 }
+      - { x: 150, y: 1134 }
+      - { x: 132, y: 1122 }
+  - from: p118
+    to: p114
+    curve: smooth
+    via:
+      - { x: 150, y: 1092 }
+      - { x: 192, y: 1072 }
+      - { x: 216, y: 1048 }
+  - from: p115
+    to: p119
+    curve: smooth
+    via:
+      - { x: 256, y: 1050 }
+      - { x: 284, y: 1078 }
+      - { x: 324, y: 1096 }
+  - from: p120
+    to: p121
+  - from: p122
+    to: p112
+  - from: p112
+    to: p117
+  - from: p117
+    to: p123
+  - from: p124
+    to: p118
+  - from: p118
+    to: p125
+  - from: p126
+    to: p119
+  - from: p119
+    to: p127
+  - from: p128
+    to: p129
+    ends: { from: none, to: arrow }
+  - from: p130
+    to: p131
+    ends: { from: none, to: arrow }
+  - from: p94
+    to: p132
+  - from: p133
+    to: p95
+  - from: p134
+    to: p135
+  - from: p136
+    to: p137

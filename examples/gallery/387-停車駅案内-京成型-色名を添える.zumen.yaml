@@ -1,0 +1,604 @@
+version: 1
+kind: placement
+arrows: false
+title: 停車駅案内（京成型）—— 種別の色に色名を添える（架空の私鉄 KR 線）
+sources:
+  - name: "国土交通省「公共交通機関の旅客施設に関する移動等円滑化整備ガイドライン（旅客施設編）」令和 7 年 9 月版 2. 誘導案内設備（p.80 表示方法・p.102〜103 参考 2-2-5・p.113 京成電鉄の例）"
+    url: "https://www.mlit.go.jp/sogoseisaku/barrierfree/content/001913508.pdf"
+    retrieved: 2026-10-06
+  - name: "同 鉄軌道駅（種別ごとの停車駅がわかる案内）"
+    url: "https://www.mlit.go.jp/sogoseisaku/barrierfree/content/001913510.pdf"
+    retrieved: 2026-10-06
+# ホームと車内に貼る「どの種別が、どの駅に停まるか」の案内。
+# 見本 52 と同じ並べ方（行が種別、列が駅、白い丸が停車）に、**京成型の作風**を足した版。
+#
+# ## 京成型とは
+# 国交省のガイドライン p.113 が「列車種別の線の色に色名を表示した例」として載せている作風。
+# 種別の色の札に **「みどり Green」「あか Red」のように色名をかなと英語で書く**。
+# 色が見分けにくい人でも、**色名を読めば「あかの電車に乗る」と言い合える**。
+# ガイドラインの言い方では「路線、車両種別等を色により表示する場合には、文字を併記する等
+# 色だけに頼らない表示方法にも配慮する」（p.80）・「凡例等には、それぞれの色名を明記する」（参考 2-2-5）。
+#
+# ## 色の選び方（ガイドライン p.80・参考 2-2-5 に照らした）
+# - 見分けにくい組：赤と黒・赤と緑・緑と茶・黄緑と黄・紫と青・赤と茶・水色とピンク。
+#   **この 4 色（あか・あお・あおみどり・はいいろ）はどの組にも当たらない。**
+# - 「やむを得ず緑を使う場合は、緑ではなく青緑」→ 緑の代わりに **あおみどり**。
+# - 「濃い赤を用いず朱色やオレンジに近い赤」→ あかは **朱寄り**（#e8380d）。
+# - 「青と黒、黄と白の組合せは用いない」→ **黒と黄は使わない**（白い丸を黄の帯に置くと黄と白になる）。
+# - 「色と色の境界には白または黒の細線」「色付きの線は極力太く」→ 帯は太く、帯の間に白い隙間。
+# 実物の京成は普通を「くろ」にしている。色を変えにくい既存の路線は、**色名の併記で補っている**
+# —— 新しく決めるなら、そもそも見分けにくい組を選ばない。この図は後者。
+#
+# ## 描かなかったもの（理由）
+# - 中国語・韓国語の併記：実物は 4 言語。ガイドラインは英語を○、他言語を◇（望ましい）としている。
+#   この図では英語までにした（文字の量で帯の読みやすさを落とさないため）。
+# - 乗換駅を縦に貫く灰色の帯・同じ色の破線の帯（阪急型）：重なり順と模様の色を道具がまだ持たない。
+#
+# ## 架空であること
+# 路線（KR 線）・駅・停車駅・色はすべて架空。実在の事業者の図をなぞったものではなく、社名・ロゴも入れていない。
+# 色は「この図のためのもの」（DESIGN.md §7 の例外）。palette の鍵は色名そのもの —— 鍵が図の中に文字で出る。
+palette:
+  あか: "#e8380d"
+  あお: "#0068b7"
+  あおみどり: "#00957a"
+  はいいろ: "#77777a"
+nodes:
+  - id: legend
+    label: ""
+    at: { x: 40, y: 30 }
+    size: { w: 1420, h: 112 }
+  - id: legend_title
+    label: "種別の色と色名（凡例）　Train types and their colour names"
+    marker: none
+    align: left
+    at: { x: 56, y: 38 }
+    size: { w: 700, h: 22 }
+  - id: chip_ltd
+    label: "あか\nRed"
+    marker: box
+    hatch: solid
+    color: あか
+    at: { x: 56, y: 72 }
+    size: { w: 104, h: 56 }
+  - id: legend_ltd
+    label: "特急\nLimited Express"
+    marker: none
+    align: left
+    at: { x: 172, y: 74 }
+    size: { w: 200, h: 52 }
+  - id: chip_exp
+    label: "あお\nBlue"
+    marker: box
+    hatch: solid
+    color: あお
+    at: { x: 406, y: 72 }
+    size: { w: 104, h: 56 }
+  - id: legend_exp
+    label: "急行\nExpress"
+    marker: none
+    align: left
+    at: { x: 522, y: 74 }
+    size: { w: 200, h: 52 }
+  - id: chip_semi
+    label: "あおみどり\nTeal"
+    marker: box
+    hatch: solid
+    color: あおみどり
+    at: { x: 756, y: 72 }
+    size: { w: 104, h: 56 }
+  - id: legend_semi
+    label: "準急\nSemi Express"
+    marker: none
+    align: left
+    at: { x: 872, y: 74 }
+    size: { w: 200, h: 52 }
+  - id: chip_local
+    label: "はいいろ\nGray"
+    marker: box
+    hatch: solid
+    color: はいいろ
+    at: { x: 1106, y: 72 }
+    size: { w: 104, h: 56 }
+  - id: legend_local
+    label: "普通\nLocal"
+    marker: none
+    align: left
+    at: { x: 1222, y: 74 }
+    size: { w: 200, h: 52 }
+  - id: head_ltd
+    label: "あか"
+    marker: box
+    hatch: solid
+    color: あか
+    at: { x: 40, y: 186 }
+    size: { w: 112, h: 34 }
+  - id: name_ltd
+    label: "特急"
+    marker: none
+    at: { x: 160, y: 186 }
+    size: { w: 100, h: 34 }
+  - id: band_ltd
+    label: ""
+    marker: bar
+    color: あか
+    at: { x: 280, y: 186 }
+    size: { w: 1046, h: 34 }
+  - id: ltd_01
+    label: ""
+    marker: circle
+    at: { x: 319, y: 192 }
+    size: { w: 22, h: 22 }
+  - id: ltd_03
+    label: ""
+    marker: circle
+    at: { x: 491, y: 192 }
+    size: { w: 22, h: 22 }
+  - id: ltd_05
+    label: ""
+    marker: circle
+    at: { x: 663, y: 192 }
+    size: { w: 22, h: 22 }
+  - id: ltd_08
+    label: ""
+    marker: circle
+    at: { x: 921, y: 192 }
+    size: { w: 22, h: 22 }
+  - id: ltd_12
+    label: ""
+    marker: circle
+    at: { x: 1265, y: 192 }
+    size: { w: 22, h: 22 }
+  - id: en_ltd
+    label: "Limited Express"
+    marker: none
+    align: left
+    at: { x: 1338, y: 186 }
+    size: { w: 150, h: 34 }
+  - id: head_exp
+    label: "あお"
+    marker: box
+    hatch: solid
+    color: あお
+    at: { x: 40, y: 234 }
+    size: { w: 112, h: 34 }
+  - id: name_exp
+    label: "急行"
+    marker: none
+    at: { x: 160, y: 234 }
+    size: { w: 100, h: 34 }
+  - id: band_exp
+    label: ""
+    marker: bar
+    color: あお
+    at: { x: 280, y: 234 }
+    size: { w: 1046, h: 34 }
+  - id: exp_01
+    label: ""
+    marker: circle
+    at: { x: 319, y: 240 }
+    size: { w: 22, h: 22 }
+  - id: exp_03
+    label: ""
+    marker: circle
+    at: { x: 491, y: 240 }
+    size: { w: 22, h: 22 }
+  - id: exp_05
+    label: ""
+    marker: circle
+    at: { x: 663, y: 240 }
+    size: { w: 22, h: 22 }
+  - id: exp_06
+    label: ""
+    marker: circle
+    at: { x: 749, y: 240 }
+    size: { w: 22, h: 22 }
+  - id: exp_08
+    label: ""
+    marker: circle
+    at: { x: 921, y: 240 }
+    size: { w: 22, h: 22 }
+  - id: exp_10
+    label: ""
+    marker: circle
+    at: { x: 1093, y: 240 }
+    size: { w: 22, h: 22 }
+  - id: exp_11
+    label: ""
+    marker: circle
+    at: { x: 1179, y: 240 }
+    size: { w: 22, h: 22 }
+  - id: exp_12
+    label: ""
+    marker: circle
+    at: { x: 1265, y: 240 }
+    size: { w: 22, h: 22 }
+  - id: en_exp
+    label: "Express"
+    marker: none
+    align: left
+    at: { x: 1338, y: 234 }
+    size: { w: 150, h: 34 }
+  - id: head_semi
+    label: "あおみどり"
+    marker: box
+    hatch: solid
+    color: あおみどり
+    at: { x: 40, y: 282 }
+    size: { w: 112, h: 34 }
+  - id: name_semi
+    label: "準急"
+    marker: none
+    at: { x: 160, y: 282 }
+    size: { w: 100, h: 34 }
+  - id: band_semi
+    label: ""
+    marker: bar
+    color: あおみどり
+    at: { x: 280, y: 282 }
+    size: { w: 1046, h: 34 }
+  - id: semi_01
+    label: ""
+    marker: circle
+    at: { x: 319, y: 288 }
+    size: { w: 22, h: 22 }
+  - id: semi_03
+    label: ""
+    marker: circle
+    at: { x: 491, y: 288 }
+    size: { w: 22, h: 22 }
+  - id: semi_05
+    label: ""
+    marker: circle
+    at: { x: 663, y: 288 }
+    size: { w: 22, h: 22 }
+  - id: semi_06
+    label: ""
+    marker: circle
+    at: { x: 749, y: 288 }
+    size: { w: 22, h: 22 }
+  - id: semi_07
+    label: ""
+    marker: circle
+    at: { x: 835, y: 288 }
+    size: { w: 22, h: 22 }
+  - id: semi_08
+    label: ""
+    marker: circle
+    at: { x: 921, y: 288 }
+    size: { w: 22, h: 22 }
+  - id: semi_09
+    label: ""
+    marker: circle
+    at: { x: 1007, y: 288 }
+    size: { w: 22, h: 22 }
+  - id: semi_10
+    label: ""
+    marker: circle
+    at: { x: 1093, y: 288 }
+    size: { w: 22, h: 22 }
+  - id: semi_11
+    label: ""
+    marker: circle
+    at: { x: 1179, y: 288 }
+    size: { w: 22, h: 22 }
+  - id: semi_12
+    label: ""
+    marker: circle
+    at: { x: 1265, y: 288 }
+    size: { w: 22, h: 22 }
+  - id: en_semi
+    label: "Semi Express"
+    marker: none
+    align: left
+    at: { x: 1338, y: 282 }
+    size: { w: 150, h: 34 }
+  - id: head_local
+    label: "はいいろ"
+    marker: box
+    hatch: solid
+    color: はいいろ
+    at: { x: 40, y: 330 }
+    size: { w: 112, h: 34 }
+  - id: name_local
+    label: "普通"
+    marker: none
+    at: { x: 160, y: 330 }
+    size: { w: 100, h: 34 }
+  - id: band_local
+    label: ""
+    marker: bar
+    color: はいいろ
+    at: { x: 280, y: 330 }
+    size: { w: 1046, h: 34 }
+  - id: local_01
+    label: ""
+    marker: circle
+    at: { x: 319, y: 336 }
+    size: { w: 22, h: 22 }
+  - id: local_02
+    label: ""
+    marker: circle
+    at: { x: 405, y: 336 }
+    size: { w: 22, h: 22 }
+  - id: local_03
+    label: ""
+    marker: circle
+    at: { x: 491, y: 336 }
+    size: { w: 22, h: 22 }
+  - id: local_04
+    label: ""
+    marker: circle
+    at: { x: 577, y: 336 }
+    size: { w: 22, h: 22 }
+  - id: local_05
+    label: ""
+    marker: circle
+    at: { x: 663, y: 336 }
+    size: { w: 22, h: 22 }
+  - id: local_06
+    label: ""
+    marker: circle
+    at: { x: 749, y: 336 }
+    size: { w: 22, h: 22 }
+  - id: local_07
+    label: ""
+    marker: circle
+    at: { x: 835, y: 336 }
+    size: { w: 22, h: 22 }
+  - id: local_08
+    label: ""
+    marker: circle
+    at: { x: 921, y: 336 }
+    size: { w: 22, h: 22 }
+  - id: local_09
+    label: ""
+    marker: circle
+    at: { x: 1007, y: 336 }
+    size: { w: 22, h: 22 }
+  - id: local_10
+    label: ""
+    marker: circle
+    at: { x: 1093, y: 336 }
+    size: { w: 22, h: 22 }
+  - id: local_11
+    label: ""
+    marker: circle
+    at: { x: 1179, y: 336 }
+    size: { w: 22, h: 22 }
+  - id: local_12
+    label: ""
+    marker: circle
+    at: { x: 1265, y: 336 }
+    size: { w: 22, h: 22 }
+  - id: en_local
+    label: "Local"
+    marker: none
+    align: left
+    at: { x: 1338, y: 330 }
+    size: { w: 150, h: 34 }
+  - id: no01
+    label: ""
+    tag: KR01
+    marker: circle
+    at: { x: 308, y: 386 }
+    size: { w: 44, h: 44 }
+  - id: nm01
+    label: "港浜"
+    technology: Minatohama
+    marker: none
+    write: down
+    at: { x: 310, y: 452 }
+    size: { w: 40, h: 96 }
+  - id: no02
+    label: ""
+    tag: KR02
+    marker: circle
+    at: { x: 394, y: 386 }
+    size: { w: 44, h: 44 }
+  - id: nm02
+    label: "汐見台"
+    technology: Shiomidai
+    marker: none
+    write: down
+    at: { x: 396, y: 452 }
+    size: { w: 40, h: 96 }
+  - id: no03
+    label: ""
+    tag: KR03
+    marker: circle
+    at: { x: 480, y: 386 }
+    size: { w: 44, h: 44 }
+  - id: nm03
+    label: "桜橋"
+    technology: Sakurabashi
+    marker: none
+    write: down
+    at: { x: 482, y: 452 }
+    size: { w: 40, h: 96 }
+  - id: no04
+    label: ""
+    tag: KR04
+    marker: circle
+    at: { x: 566, y: 386 }
+    size: { w: 44, h: 44 }
+  - id: nm04
+    label: "本町"
+    technology: Honmachi
+    marker: none
+    write: down
+    at: { x: 568, y: 452 }
+    size: { w: 40, h: 96 }
+  - id: no05
+    label: ""
+    tag: KR05
+    marker: circle
+    at: { x: 652, y: 386 }
+    size: { w: 44, h: 44 }
+  - id: nm05
+    label: "中原"
+    technology: Nakahara
+    marker: none
+    write: down
+    at: { x: 654, y: 452 }
+    size: { w: 40, h: 96 }
+  - id: no06
+    label: ""
+    tag: KR06
+    marker: circle
+    at: { x: 738, y: 386 }
+    size: { w: 44, h: 44 }
+  - id: nm06
+    label: "東和田"
+    technology: Higashi-wada
+    marker: none
+    write: down
+    at: { x: 740, y: 452 }
+    size: { w: 40, h: 96 }
+  - id: no07
+    label: ""
+    tag: KR07
+    marker: circle
+    at: { x: 824, y: 386 }
+    size: { w: 44, h: 44 }
+  - id: nm07
+    label: "緑ヶ丘"
+    technology: Midorigaoka
+    marker: none
+    write: down
+    at: { x: 826, y: 452 }
+    size: { w: 40, h: 96 }
+  - id: no08
+    label: ""
+    tag: KR08
+    marker: circle
+    at: { x: 910, y: 386 }
+    size: { w: 44, h: 44 }
+  - id: nm08
+    label: "小川"
+    technology: Ogawa
+    marker: none
+    write: down
+    at: { x: 912, y: 452 }
+    size: { w: 40, h: 96 }
+  - id: no09
+    label: ""
+    tag: KR09
+    marker: circle
+    at: { x: 996, y: 386 }
+    size: { w: 44, h: 44 }
+  - id: nm09
+    label: "西谷"
+    technology: Nishiya
+    marker: none
+    write: down
+    at: { x: 998, y: 452 }
+    size: { w: 40, h: 96 }
+  - id: no10
+    label: ""
+    tag: KR10
+    marker: circle
+    at: { x: 1082, y: 386 }
+    size: { w: 44, h: 44 }
+  - id: nm10
+    label: "高原"
+    technology: Takahara
+    marker: none
+    write: down
+    at: { x: 1084, y: 452 }
+    size: { w: 40, h: 96 }
+  - id: no11
+    label: ""
+    tag: KR11
+    marker: circle
+    at: { x: 1168, y: 386 }
+    size: { w: 44, h: 44 }
+  - id: nm11
+    label: "学園都市"
+    technology: Gakuen-toshi
+    marker: none
+    write: down
+    at: { x: 1170, y: 452 }
+    size: { w: 40, h: 96 }
+  - id: no12
+    label: ""
+    tag: KR12
+    marker: circle
+    at: { x: 1254, y: 386 }
+    size: { w: 44, h: 44 }
+  - id: nm12
+    label: "山の手"
+    technology: Yamanote
+    marker: none
+    write: down
+    at: { x: 1256, y: 452 }
+    size: { w: 40, h: 96 }
+  - id: xfer03
+    label: "地下鉄 M 線\nSubway M Line"
+    marker: box
+    at: { x: 452, y: 560 }
+    size: { w: 100, h: 40 }
+  - id: xfer08
+    label: "小川線\nOgawa Line"
+    marker: box
+    at: { x: 882, y: 560 }
+    size: { w: 100, h: 40 }
+  - id: xfer_head
+    label: "のりかえ　Transfer"
+    marker: none
+    align: left
+    at: { x: 40, y: 568 }
+    size: { w: 180, h: 24 }
+  - id: note0
+    label: "この作風の決まり（国土交通省 バリアフリー整備ガイドライン 旅客施設編 令和 7 年 9 月版 による）"
+    marker: none
+    align: left
+    at: { x: 40, y: 624 }
+    size: { w: 1300, h: 22 }
+  - id: note1
+    label: "1. 色だけに頼らない。帯の頭と凡例に色名（あか／Red）を書く —— 色が見分けられない人も「あかの電車」と言い合える"
+    marker: none
+    align: left
+    at: { x: 40, y: 650 }
+    size: { w: 1300, h: 22 }
+  - id: note2
+    label: "2. 見分けにくい組（赤と緑・紫と青・水色とピンク・赤と黒・緑と茶）を同じ図に入れない。緑の代わりに青緑"
+    marker: none
+    align: left
+    at: { x: 40, y: 676 }
+    size: { w: 1300, h: 22 }
+  - id: note3
+    label: "3. 赤は濃い赤ではなく朱に寄せる。黒は使わない（青と黒・赤と黒の組を避ける）"
+    marker: none
+    align: left
+    at: { x: 40, y: 702 }
+    size: { w: 1300, h: 22 }
+  - id: note4
+    label: "4. 帯は太く、帯と帯の間に白い隙間を空けて境目を見せる"
+    marker: none
+    align: left
+    at: { x: 40, y: 728 }
+    size: { w: 1300, h: 22 }
+  - id: note5
+    label: "5. 停車は白い丸、通過は帯だけ。読むのは色ではなく「丸があるか」"
+    marker: none
+    align: left
+    at: { x: 40, y: 754 }
+    size: { w: 1300, h: 22 }
+  - id: note6
+    label: "6. 種別名と駅名に英語を併記し、駅名はヘボン式ローマ字で書く"
+    marker: none
+    align: left
+    at: { x: 40, y: 780 }
+    size: { w: 1300, h: 22 }
+  - id: drop0
+    label: "描かなかったもの：中国語・韓国語の併記（実物は 4 言語）／ 乗換駅を縦に貫く灰色の帯 ／ 同じ色の破線で別の種別を示す帯。"
+    marker: none
+    align: left
+    at: { x: 40, y: 820 }
+    size: { w: 1300, h: 22 }
+  - id: drop1
+    label: "路線・駅・種別の停車駅・色はすべて架空。実在の事業者の図をなぞったものではない。"
+    marker: none
+    align: left
+    at: { x: 40, y: 846 }
+    size: { w: 1300, h: 22 }
