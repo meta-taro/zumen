@@ -73,6 +73,26 @@ nodes:
     size: { w: 80, h: 60 }
     openings:
       - { kind: door, side: left, at: 0.5, width: 30, swing: out }
+  # **配管は PS（パイプスペース）で縦に通す。** 水回りは 2 か所に分かれるので PS も 2 か所 ——
+  # 便所の PS と、浴室・洗面・キッチンが共有する PS。MB は電気・ガス・水道のメーターの箱
+  - id: ps1
+    label: ""
+    tag: "PS"
+    style: room
+    at: { x: 430, y: 310 }
+    size: { w: 25, h: 30 }
+  - id: ps2
+    label: ""
+    tag: "PS"
+    style: room
+    at: { x: 162, y: 410 }
+    size: { w: 30, h: 30 }
+  - id: mb
+    label: ""
+    tag: "MB"
+    style: room
+    at: { x: 377, y: 202 }
+    size: { w: 20, h: 22 }
   - id: bed1
     label: "Master\nBedroom"
     technology: "13.20㎡ (8.1J)"
