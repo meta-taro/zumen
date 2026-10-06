@@ -17,6 +17,7 @@ import type { Document, Node, YAMLMap } from 'yaml';
 
 import { DIRECTIONS as DIRECTION_WORDS } from './direction.ts';
 import { KINDS as KIND_WORDS } from './kind.ts';
+import { ownerOf, pointEnd } from './image.ts';
 import { MARKS, NORTHS } from './grid.ts';
 import { ENDS } from './ends.ts';
 import { LINES } from './line.ts';
@@ -929,10 +930,12 @@ function checkEdges(doc: Document, nodeIds: Set<string>, add: Add, m: Messages, 
       add('error', 'edge-endpoint-missing', m.edgeEndpointMissing(position), at(item));
       continue;
     }
-    const key = `${String(from)}>${String(to)}`;
+    // **画像の中の点**（`{ node, at }`）は、読むときと同じ 1 語へ寄せる（`src/image.ts`）。
+    const word = (raw: unknown) => pointEnd(isMap(raw) ? raw.toJSON() : null) ?? String(raw);
+    const key = `${word(from)}>${word(to)}`;
     keys.add(key);
-    for (const end of [String(from), String(to)]) {
-      if (nodeIds.has(end)) continue;
+    for (const end of [word(from), word(to)]) {
+      if (nodeIds.has(ownerOf(end))) continue;
       add('error', 'edge-endpoint-unknown', m.edgeEndpointUnknown(key, end), at(item));
     }
     /**

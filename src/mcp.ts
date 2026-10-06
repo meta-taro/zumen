@@ -32,6 +32,7 @@ import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { z } from 'zod';
 
+import { dirname } from 'node:path';
 import { about } from './about.ts';
 import { catalogue, search, source } from './examples.ts';
 import { isEntry } from './entry.ts';
@@ -261,8 +262,10 @@ export function buildServer(hub: Hub = createHub()): McpServer {
     async ({ kind, source, path, theme, intent, embedFont }) => {
       const body = bodyOf(source, path);
       // **png は絵で返す。** 文字で返しても、描いたものを見たことにならない。
-      if (kind === 'png') return picture(await pngOf(body, { theme, intent, embedFont }));
-      return text(await exportAs(body, kind, { theme, intent, embedFont }));
+      // **画像は、パスで渡された正本の横から読む**（`source` だけなら読まない）。
+      const dir = path === undefined ? undefined : dirname(path);
+      if (kind === 'png') return picture(await pngOf(body, { theme, intent, embedFont, dir }));
+      return text(await exportAs(body, kind, { theme, intent, embedFont, dir }));
     },
   );
 

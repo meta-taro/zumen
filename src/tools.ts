@@ -27,6 +27,7 @@ import { tmpdir } from 'node:os';
 import { join, relative, resolve } from 'node:path';
 
 import { toDrawio } from './drawio.ts';
+import { loadImages } from './image-files.ts';
 import { edgesUnderLabels, placeEdgeLabels } from './edge-labels.ts';
 import { embedFont } from './font.ts';
 import { getPins, parse } from './format.ts';
@@ -514,6 +515,8 @@ export interface ExportOptions {
   theme?: Theme;
   /** 主役の強さ（svg にだけ効く）。**渡さなければ `safe`。** */
   intent?: Intent;
+  /** **正本のフォルダ。** 敷く画像（`nodes[].image`）をここから読む。渡さなければ読まない。 */
+  dir?: string;
   /**
    * **書体を SVG の中へ入れる**（svg と png にだけ効く）。どの端末で開いても同じ字形になる。
    * 訓練用の束や、地図の吹き出しに画像として出す図に使う。渡さなければ入れない。
@@ -608,7 +611,8 @@ export async function exportAs(
   if (kind === 'mermaid') return toMermaid(source);
   // png はここでは扱わない（絵は文字ではないので `pngOf` が返す）。
   if (kind === 'png') return (await pngOf(source, options)).note;
-  const placed = await layout(source);
+  // **画像は正本のフォルダから読む**（`src/image-files.ts`）。フォルダが分からなければ、パスのまま敷く。
+  const placed = await layout(source, options.dir === undefined ? undefined : loadImages(source, options.dir));
   if (kind === 'drawio') return toDrawio(placed, titleOf(source));
   const svg = render(placed, options.theme, options.intent, kindOf(source) === 'placement');
   return options.embedFont === true ? embedFont(svg) : svg;

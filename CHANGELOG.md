@@ -18,6 +18,10 @@
 
 ### できることが増えます
 
+- **画面のキャプチャを敷いて、番号つきの引き出し線で仕様を書き込めるようになりました**（`nodes[].image` ／ `to: { node, at }` ／ `edges[].callout`）。<!-- news: image-callout -->
+  `image: ./shots/home.png` で節に png / jpg / webp を敷き、`to: { node: sp, at: { x: 195, y: 28 } }` で画像の中の点（元の画像の px）を指します。
+  `callout: 1` で両端に同じ番号の丸が出ます。画像は SVG の中へ埋めるので、貼った先でも消えません。正本のフォルダの外は読みません。
+
 - **鉄道の案内図の線を描き分けられるようになりました**（`edges[].casing` ／ `hatch_color` ／ `edges[].offset`）。<!-- news: rail-styles -->
   `casing: paper` で線に地の色の縁を付け、交わる所で上を通る線の縁が下の線を切ります（`casing: <palette の鍵>` ならその色の縁）。
   `hatch_color` で模様の線だけを枠と別の色にできます。`offset: 4` で辺を進む向きの右へ 4px ずらし、並走する路線を平行に描けます（折れ点でも平行のまま）。

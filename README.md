@@ -92,6 +92,7 @@ For floor plans and other placement drawings, the source can also say:
 - **Doors** — single, double, sliding, window, plain opening; which way a door swings (`swing: out`) and which side it is hinged (`hinge`)
 - **Style tables** (`styles`) — rooms carry only a style name; swap the table and the same plan takes another house style
 - **Floor patterns** — `rows` (boards across), `columns` (boards lengthwise), `grid` (tiles)
+- **Screenshots with numbered callouts** (`image`, `to: { node, at }`, `callout`) — lay a PNG / JPEG / WebP capture under the drawing and point into it in the image's own pixels, so the points stay put when you scale it; the image is embedded in the SVG
 - **Sources** (`sources`) — name, retrieval date and licence are drawn along the bottom of the figure, with the URL as a link, so the attribution travels with a single SVG
 
 The full specification is [`spec/zumen-format-v1.md`](spec/zumen-format-v1.md).

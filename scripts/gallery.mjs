@@ -15,6 +15,7 @@ import { CATEGORIES } from './gallery-categories.mjs';
 import { CAPTIONS_EN, GROUPS_EN, ORDER_EN, englishFirst } from './gallery-en.mjs';
 import { kindOf } from '../src/kind.ts';
 import { crossings, layout } from '../src/layout.ts';
+import { loadImages } from '../src/image-files.ts';
 import { render } from '../src/render.ts';
 
 const DIR = 'examples/gallery';
@@ -44,7 +45,7 @@ const stale = [];
 const tally = { auto: 0, placed: 0, crossing: 0 };
 for (const file of readdirSync(DIR).filter((f) => f.endsWith('.zumen.yaml')).sort()) {
   const text = readFileSync(join(DIR, file), 'utf8');
-  const placed = await layout(text);
+  const placed = await layout(text, loadImages(text, DIR));
   const plan = kindOf(text) === 'placement';
   if (plan) tally.placed += 1;
   else tally.auto += 1;
