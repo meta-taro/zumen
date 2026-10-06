@@ -112,7 +112,7 @@
   <h2>What the source says</h2>
   <p><strong>状態遷移図は、状態ではなく「遷移」を数える図。</strong>状態が 6 つでも、そこへ入る道と出る道が何本あるかで、作る手間が決まる。</p>
   <p>「入金［与信 OK］」のように、<strong>同じ操作でも条件で行き先が変わる。</strong>条件を書かないと、実装したときに分岐が現れて図と合わなくなる。</p>
-  <p>終わりの状態が 2 つある（完了と取消）。<strong>どの状態から取消へ行けるかを描き切る</strong>のが、この図の本番。</p>
+  <p>終わりの状態が 2 つある（完了と取消）。取消へは受付済と入金済の 2 か所から来る（下書きは捨てるだけ、出荷済からは返品という別の流れになる）。<strong>どの状態から取消へ行けるかを描き切る</strong>のが、この図の本番。</p>
   <p>UML の開始は<strong>塗りつぶした黒丸だけ</strong>、終了は<strong>二重丸（黒丸を円で囲む）だけ</strong>で、箱には入れない。この図では、構成図の箱の中に ● と ◉ を置いて代えている（箱そのものは状態ではない）。</p>
   <h2>Source (YAML)</h2>
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/47-%E7%8A%B6%E6%85%8B%E9%81%B7%E7%A7%BB%E5%9B%B3.zumen.yaml"><code>examples/gallery/47-状態遷移図.zumen.yaml</code></a></p>

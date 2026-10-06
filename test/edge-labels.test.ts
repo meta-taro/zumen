@@ -260,3 +260,23 @@ edges:
     assert.equal(Number(m[4]), 14);
   });
 });
+
+describe('辺の名札の下を、別の辺が通っていない', () => {
+  it('**名札の下を通る辺を拾う**（edgesUnderLabels）', async () => {
+    const { edgesUnderLabels } = await import('../src/edge-labels.ts');
+    const label = { id: 'a>b', text: 'ラベル', x: 100, y: 50, w: 60 };
+    const crossing = { id: 'c>d', points: [{ x: 100, y: 0 }, { x: 100, y: 100 }] } as never;
+    const away = { id: 'e>f', points: [{ x: 300, y: 0 }, { x: 300, y: 100 }] } as never;
+    assert.deepEqual(edgesUnderLabels([crossing, away], [label]), [['c>d', 'a>b']]);
+  });
+
+  it('**名札は、別の辺の上に乗らない場所を先に探す**', async () => {
+    const { placeEdgeLabels, edgesUnderLabels } = await import('../src/edge-labels.ts');
+    // 横の辺 a>b に名札。その真ん中を縦の辺 c>d が通る
+    const ab = { id: 'a>b', from: 'a', to: 'b', label: '名札', points: [{ x: 0, y: 100 }, { x: 400, y: 100 }] } as never;
+    const cd = { id: 'c>d', from: 'c', to: 'd', label: null, points: [{ x: 200, y: 0 }, { x: 200, y: 200 }] } as never;
+    const labels = placeEdgeLabels([ab, cd], []);
+    assert.equal(labels.length, 1, '名札が落ちた');
+    assert.deepEqual(edgesUnderLabels([ab, cd], labels), [], '名札が別の辺の上に乗っている');
+  });
+});

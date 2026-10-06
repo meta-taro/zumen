@@ -3,7 +3,9 @@ kind: placement
 arrows: true
 title: ビリヤードのダイヤモンドシステム（スリークッション）
 sources:
-  - name: "Polster & Ross によるダイヤモンドシステムの解説"
+  - name: "D. Alciatore「VEPS GEMS – Part XI: Corner-5 System Intro」Billiards Digest 2010 年 11 月号"
+    url: "https://billiards.colostate.edu/bd_articles/2010/nov10.pdf"
+    retrieved: 2026-10-05
 scale: { mm: 5 }
 # **台のふちのダイヤは飾りではない。目盛りである。**
 #
@@ -12,7 +14,7 @@ scale: { mm: 5 }
 #
 # | | |
 # |---|---|
-# | A | 手玉の位置（左の目盛り。1 1/2 から **1/2 きざみ**）|
+# | A | 手玉を通る線を手前へ延ばした所（左の目盛り。角が 5、**1/2 きざみ**）|
 # | B | 狙う点（右のクッション。**1 きざみ**）|
 # | C | 到達点（左の目盛り。**1 きざみ**）|
 #
@@ -23,8 +25,12 @@ scale: { mm: 5 }
 # **数字は当たりを付けるためのもので、当てるのは腕。**
 #
 # 1 px ＝ 5 mm。台はキャロムの内寸 2,840 × 1,420 mm。
-# 出どころ —— ダイヤモンドシステムの解説（Polster & Ross）。球と撞き方は架空。
-# A と C の目盛りの数字の振り方は流儀（システム）で違い、競技団体の教本の頁では確かめていない。
+# 目盛りの振り方は「コーナー 5」方式（Corner-5 System）。A は手玉の位置そのものではなく、
+# **手玉を通る狙いの線を手前のクッションまで延ばした所**で、角が 5、長い辺のダイヤごとに 1/2 ずつ減り
+# （4.5・4・3.5 …）、短い辺のダイヤごとに 1 ずつ増える（6・7・8）。B（第 1 クッション）と C（第 3 クッション）は
+# 奥の短い辺に近いダイヤから 1・2・3 …。式は C ＝ A − B。転がる手玉に順ヒネリを付けたときの目安。
+# 出典：D. Alciatore「VEPS GEMS – Part XI: Corner-5 System Intro」Billiards Digest 2010 年 11 月号
+# https://billiards.colostate.edu/bd_articles/2010/nov10.pdf （取得 2026-10-05）。球と撞き方は架空。
 nodes:
   - id: table
     label: ""
@@ -156,16 +162,16 @@ nodes:
     at: { x: 348, y: 87 }
     size: { w: 10, h: 10 }
   - id: hA
-    label: "A 手玉"
+    label: "A 手玉の線"
     marker: none
     align: left
-    at: { x: 22, y: 64 }
-    size: { w: 70, h: 18 }
+    at: { x: 10, y: 64 }
+    size: { w: 82, h: 18 }
   - id: hC
     label: "C 到達"
     marker: none
     align: left
-    at: { x: 84, y: 64 }
+    at: { x: 98, y: 64 }
     size: { w: 60, h: 18 }
   - id: hB
     label: "B 狙う"
@@ -379,7 +385,7 @@ nodes:
     at: { x: 574, y: 206 }
     size: { w: 150, h: 22 }
   - id: b206
-    label: "手玉の位置（左。1 1/2 から 1/2 きざみ）"
+    label: "手玉を通る線を手前へ延ばした所（角が 5）"
     align: left
     at: { x: 724, y: 206 }
     size: { w: 310, h: 22 }
@@ -508,7 +514,7 @@ nodes:
     at: { x: 60, y: 768 }
     size: { w: 700, h: 18 }
   - id: z2
-    label: "手玉の位置 A から、狙う点 B を引くと、到達点 C になる —— これがダイヤモンドシステムです。"
+    label: "手玉を通る線の出どころ A から狙う点 B を引くと、到達点 C になる —— 角を 5 と数える「コーナー 5」方式。"
     marker: none
     align: left
     at: { x: 60, y: 790 }
@@ -526,7 +532,7 @@ nodes:
     at: { x: 60, y: 834 }
     size: { w: 700, h: 18 }
   - id: z5
-    label: "線は A・B・C を通る道筋の模式です。球・撞き方・台は架空、目盛りの数字の振り方は流儀で違います。"
+    label: "線は A・B・C を通る道筋の模式です。数字は、転がる手玉に順ヒネリを付けたときの目安です。"
     marker: none
     align: left
     at: { x: 60, y: 856 }

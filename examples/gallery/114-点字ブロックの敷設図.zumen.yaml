@@ -2,6 +2,10 @@ version: 1
 kind: placement
 arrows: true
 title: 点字ブロックの敷設図（歩道・階段・横断歩道／JIS T 9251:2014）
+sources:
+  - name: "国土交通省「道路の移動等円滑化に関するガイドライン」第 7 章"
+    url: "https://www.mlit.go.jp/road/road/traffic/bf/kijun/kijun.html"
+    retrieved: 2026-10-04
 scale: { mm: 10 }
 # **足の裏と白杖だけで読む図面。** だから形が 2 種類しかない。
 #
@@ -24,13 +28,19 @@ scale: { mm: 10 }
 #
 # 黄色で、周囲の舗装と輝度の差をつける。**弱視の人はこれを見て歩く。**
 #
+# ## 突起の向きを、模様の向きで描く
+#
+# 線状ブロックは模様の線を**進む向きにそろえて**描いた（東西に進む所は横線、南北に進む枝は縦線）。斜線にすると向きが読めない。
+# 横断歩道は歩道の外（車道）にあり、白線は**車の進む向き（南北）**に長いので縦線で描いた。
+# 2026-10-05 まで、線状も横断歩道も斜線で、歩道の箱が横断歩道の下まで続いていた。
+#
 # **点字そのものは見本 189・194。** こちらは床に敷く側（点状と線状の使い分けと寸法）。
 
 nodes:
   - id: hodo
     label: ""
     at: { x: 0, y: 330 }
-    size: { w: 1080, h: 200 }
+    size: { w: 900, h: 200 }
   - id: hodo_n
     label: "歩道　有効幅員 2.0 m"
     marker: none
@@ -39,7 +49,7 @@ nodes:
     size: { w: 220, h: 22 }
   - id: s1
     label: ""
-    hatch: lines
+    hatch: rows
     at: { x: 60, y: 440 }
     size: { w: 90, h: 30 }
   - id: t1
@@ -49,7 +59,7 @@ nodes:
     size: { w: 60, h: 30 }
   - id: s2
     label: ""
-    hatch: lines
+    hatch: rows
     at: { x: 210, y: 440 }
     size: { w: 240, h: 30 }
   - id: t2
@@ -59,7 +69,7 @@ nodes:
     size: { w: 60, h: 30 }
   - id: s3
     label: ""
-    hatch: lines
+    hatch: rows
     at: { x: 510, y: 440 }
     size: { w: 270, h: 30 }
   - id: t3
@@ -84,7 +94,7 @@ nodes:
     size: { w: 30, h: 30 }
   - id: b1
     label: ""
-    hatch: lines
+    hatch: columns
     at: { x: 150, y: 360 }
     size: { w: 30, h: 80 }
   - id: deiri_n
@@ -120,7 +130,7 @@ nodes:
     size: { w: 180, h: 60 }
   - id: b2
     label: ""
-    hatch: lines
+    hatch: columns
     at: { x: 450, y: 390 }
     size: { w: 60, h: 50 }
   - id: kaidan_n
@@ -137,7 +147,7 @@ nodes:
     size: { w: 400, h: 22 }
   - id: oudan
     label: ""
-    hatch: lines
+    hatch: columns
     at: { x: 900, y: 330 }
     size: { w: 140, h: 200 }
   - id: oudan_n
@@ -201,7 +211,7 @@ nodes:
     size: { w: 340, h: 22 }
   - id: d2
     label: ""
-    hatch: lines
+    hatch: rows
     at: { x: 560, y: 634 }
     size: { w: 120, h: 70 }
   - id: d2n

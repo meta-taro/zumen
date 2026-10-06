@@ -27,7 +27,7 @@ import { tmpdir } from 'node:os';
 import { join, relative, resolve } from 'node:path';
 
 import { toDrawio } from './drawio.ts';
-import { placeEdgeLabels } from './edge-labels.ts';
+import { edgesUnderLabels, placeEdgeLabels } from './edge-labels.ts';
 import { embedFont } from './font.ts';
 import { getPins, parse } from './format.ts';
 import { roomAccess, type AccessIssue } from './access.ts';
@@ -275,6 +275,8 @@ export interface Inspection {
   overlappingText: [string, string][];
   /** 通り道から入れない部屋（`[部屋, 理由]`。配置図だけ）。 */
   roomAccess: [string, AccessIssue][];
+  /** 辺の名札の下を別の辺が通っている組（`[通っている辺, 名札の辺]`）。 */
+  edgesUnderLabels: [string, string][];
   /** 辺が、関係の無い箱を突き抜けている組（`[辺, 箱]`）。 */
   edgesThroughBoxes: [string, string][];
   /** 開き戸の扇に乗っている文字・設備（`[扉のある箱, 乗っている箱]`）。 */
@@ -367,6 +369,7 @@ export async function inspect(source: string): Promise<Inspection> {
       overlappingText: [],
       doorSwings: [],
       edgesThroughBoxes: [],
+      edgesUnderLabels: [],
       roomAccess: [],
       edgesUnderBoxes: [],
       kind: 'structure',
@@ -420,6 +423,7 @@ export async function inspect(source: string): Promise<Inspection> {
     hiddenTags: kindOf(source) === 'placement' ? hiddenTags(placed.boxes) : [],
     edgesUnderBoxes: edgesUnderBoxes(placed),
     edgesThroughBoxes: edgesThroughBoxes(placed),
+    edgesUnderLabels: edgesUnderLabels(placed.edges, placeEdgeLabels(placed.edges, placed.boxes, placed.groups)),
     roomAccess: kindOf(source) === 'placement' ? roomAccess(placed.boxes) : [],
     overlappingText:
       kindOf(source) === 'placement'

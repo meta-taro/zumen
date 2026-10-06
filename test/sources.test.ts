@@ -41,3 +41,12 @@ describe('出典（sources）', () => {
     );
   });
 });
+
+describe('出典の行は、図の言葉で出す', () => {
+  it('**英語の出典なら Source: で出す**', async () => {
+    const text =
+      'version: 1\nkind: placement\nsources:\n  - { name: NFPA 72 (2025), retrieved: 2026-10-05 }\nnodes:\n  - id: a\n    label: Room\n    at: { x: 0, y: 0 }\n    size: { w: 300, h: 200 }\n';
+    const svg = render(await layout(text), 'light', 'safe', true);
+    assert.match(svg, />Source: NFPA 72 \(2025\) \(retrieved 2026-10-05\)</);
+  });
+});

@@ -2,6 +2,10 @@ version: 1
 kind: placement
 arrows: false
 title: "Fire alarm device plan (fictional)"
+sources:
+  - name: "NFPA 72, National Fire Alarm and Signaling Code, 2025 ed. (17.7.4.2.3.1, A.17.7.5.1; copy incorporated by reference)"
+    url: "https://archive.org/details/pub.cfr.nfpa.72.2025"
+    retrieved: 2026-10-04
 scale: { in: 3 }
 grid:
   x:
@@ -15,7 +19,7 @@ grid:
 # **Spacing is a circle, not a square.** The nominal 30 ft is the side of the
 # square that fits inside the circle a detector actually covers, so the real
 # reach is **21 ft** —— and in a corridor narrow enough to have no corners to
-# waste, heads may sit **41 ft** apart. The odd number is the rule working.
+# waste, detectors may sit **41 ft** apart. The odd number is the rule working.
 #
 # **日本語の見本 136（天井伏図）と対**（同じ天井に、別の決まりで物を置く）。
 #
@@ -188,7 +192,7 @@ nodes:
     at: { x: 600, y: 126 }
     size: { w: 190, h: 22 }
   - id: b126
-    label: "every point within 21 ft of a head"
+    label: "all within 21 ft of a detector"
     align: left
     at: { x: 790, y: 126 }
     size: { w: 240, h: 22 }
@@ -263,13 +267,13 @@ nodes:
     at: { x: 60, y: 356 }
     size: { w: 700, h: 18 }
   - id: n2
-    label: "So the real reach is 21 ft, and a narrow corridor lets the heads sit 41 ft apart."
+    label: "So the real reach is 21 ft, and a narrow corridor lets the detectors sit 41 ft apart."
     marker: none
     align: left
     at: { x: 60, y: 378 }
     size: { w: 700, h: 18 }
   - id: n3
-    label: "Only one reach circle is drawn; nine would leave no drawing to read."
+    label: "Only one reach circle is drawn; eleven would leave no drawing to read."
     marker: none
     align: left
     at: { x: 60, y: 400 }

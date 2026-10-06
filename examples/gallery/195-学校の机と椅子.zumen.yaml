@@ -2,6 +2,10 @@ version: 1
 kind: placement
 arrows: true
 title: 学校の机と椅子（JIS S 1021:2011）
+sources:
+  - name: "JIS S 1021:2011「学校用家具—教室用机・いす」表 3・表 4（kikakurui.com）"
+    url: "https://kikakurui.com/s/S1021-2011-01.html"
+    retrieved: 2026-10-04
 scale: { mm: 5 }
 # **大きさは学年ではなく、身長で決まる。**
 #
@@ -16,7 +20,7 @@ scale: { mm: 5 }
 # 規格本文の表 3（机）・表 4（椅子）で 7 つの号すべてを確かめた（kikakurui.com の JIS S 1021:2011、
 # https://kikakurui.com/s/S1021-2011-01.html 2026-10-04）。表には ほかに 0 号（標準身長 900・机面 400・座面 220。高さだけを規定）がある。
 #
-# 事務用は別の規格（机は JIS S 1010、いすは JIS S 1011）。高さ 700 は確かめていない。
+# 事務用は別の規格（机は JIS S 1010、いすは JIS S 1011）。高さは確かめていないので、図には規格の番号だけを書く（2026-10-05 まで「高さ 700 が目安」と書いていた）。
 # JIS S 1010・JIS S 1011 の**版は確かめていない**。
 
 nodes:
@@ -748,7 +752,7 @@ nodes:
     at: { x: 880, y: 844 }
     size: { w: 200, h: 24 }
   - id: y844
-    label: "JIS S 1010（事務用机。高さ 700 が目安）"
+    label: "机 JIS S 1010・いす JIS S 1011"
     align: left
     at: { x: 1080, y: 844 }
     size: { w: 270, h: 24 }
