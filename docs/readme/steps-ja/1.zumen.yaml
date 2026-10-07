@@ -1,0 +1,33 @@
+version: 1
+kind: placement
+title: 注文の流れ
+nodes:
+  - id: note
+    label: "① AI が描く"
+    marker: none
+    align: left
+    at: { x: 20, y: 10 }
+    size: { w: 360, h: 24 }
+  - id: web
+    label: Web 画面
+    at: { x: 20, y: 70 }
+    size: { w: 110, h: 40 }
+  - id: api
+    label: 注文 API
+    at: { x: 190, y: 70 }
+    size: { w: 110, h: 40 }
+  - id: db
+    label: 注文 DB
+    at: { x: 190, y: 170 }
+    size: { w: 110, h: 40 }
+  - id: pay
+    label: 決済サービス
+    at: { x: 360, y: 70 }
+    size: { w: 110, h: 40 }
+edges:
+  - from: web
+    to: api
+  - from: api
+    to: db
+  - from: api
+    to: pay

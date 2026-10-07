@@ -2,8 +2,49 @@
 
 # zumen
 
-**A desktop diagram tool whose source of truth is plain text, built so that AI can draw
-and a human can correct — and the correction survives the next regeneration.**
+<p align="center">
+  <img src="https://meta-taro.github.io/zumen/readme/hero-en.svg" width="560" alt="Four steps: the AI draws an order-flow diagram; a person moves the Order DB box to the left; the AI is asked again and adds a Stock API; the box the person moved is still where they put it">
+</p>
+
+**Let an AI draw the diagram, fix what you want by hand, ask the AI again — and your fix is still there.**
+
+Diagrams are plain text (YAML). Where you move things is stored in a `pins:` block the AI is not allowed to write,
+so however many times the AI redraws, your corrections survive.
+
+## When it helps
+
+| | The problem | With zumen |
+|---|---|---|
+| **A team whose architecture keeps changing** | Updating the diagram is tedious, so the diagram drifts into fiction | Say what changed; the AI updates the diagram, and the layout you tidied stays |
+| **Specialists drawing on paper, Excel or PowerPoint** (lighting plots, pallet patterns, periodontal charts, property flyers…) | No dedicated software, or it is expensive; every redraw is by hand | The AI reads 389 worked examples and draws in the same notation — symbols, dimensions, legends |
+| **Anyone writing a spec together with an AI** | Hard to check whether the AI's drawing is right, or what it changed | Every AI rewrite arrives as a **diff; nothing changes until a person presses apply** |
+
+## What you see
+
+**1. Open — the boxes a person moved are drawn with a heavier outline**
+
+<img src="https://meta-taro.github.io/zumen/readme/gui-open-en.png" width="720" alt="The zumen window with an order-flow diagram; only the Order DB box, which a person moved, has a heavier outline">
+
+**2. Load the AI's proposal — the change shows as a diff, and nothing is applied until you say so**
+
+<img src="https://meta-taro.github.io/zumen/readme/gui-diff-en.png" width="720" alt="The zumen window with a Look before applying panel on the right showing the added Stock API lines in green, above Apply to the source of truth and Cancel buttons">
+
+## Try it in a minute
+
+| You want to | Do this |
+|---|---|
+| **View and correct diagrams in the app** | Download from [Releases](https://github.com/meta-taro/zumen/releases/latest) (Windows x64 / ARM64, macOS Apple silicon). **Not code-signed yet**, so the plain executables (`zumen-windows-*.exe`, `zumen-macos-app.tar.gz`) are the safest bet |
+| **Let an AI agent draw** (MCP) | Run the four lines below and add `pnpm mcp` to your agent's MCP config ([details](https://github.com/meta-taro/zumen/blob/develop/docs/install.md)) |
+| **Render SVG from your own code** | `pnpm add @metataro/zumen` and `toSvg(source)` |
+
+```bash
+git clone https://github.com/meta-taro/zumen.git && cd zumen
+corepack enable && pnpm install
+pnpm dev     # the window, in a browser (http://localhost:5173)
+pnpm mcp     # for an agent
+```
+
+## Why
 
 The hard part is not the first diagram. It is the second one, and the tenth:
 *"the architecture changed, so the diagram has to change."*
@@ -42,6 +83,14 @@ survives a regeneration in **210/210 of the example drawings**, whatever their s
 **[→ Browse the gallery](https://meta-taro.github.io/zumen/)**
 
 Reading this as an agent? [`llms.txt`](https://meta-taro.github.io/zumen/llms.txt) is the short version — what it does, what it does not do, and where the spec is.
+
+
+| | | |
+|---|---|---|
+| <img src="https://meta-taro.github.io/zumen/gallery/81-東京の地下鉄13路線.svg" width="260" alt="Tokyo subway map, 13 lines"> | <img src="https://meta-taro.github.io/zumen/gallery/369-ドームライブの照明仕込図.svg" width="260" alt="Stadium concert lighting plot in USITT RP-2 notation"> | <img src="https://meta-taro.github.io/zumen/gallery/72-歯周チャート.svg" width="260" alt="Periodontal chart, 32 teeth by 6 sites"> |
+| Subway network (13 lines, offsets where lines share track) | Concert lighting plot (USITT RP-2) | Periodontal chart |
+| <img src="https://meta-taro.github.io/zumen/gallery/359-販売図面の作風-グレースケール.svg" width="260" alt="Japanese property sales flyer floor plan"> | <img src="https://meta-taro.github.io/zumen/gallery/383-アメリカンフットボールのフィールド-NFLとNCAAのハッシュ.svg" width="260" alt="American football field with NFL and NCAA hash marks"> | <img src="https://meta-taro.github.io/zumen/gallery/212-割物花火の断面.svg" width="260" alt="Cross-section of a Japanese spherical firework shell"> |
+| Property sales flyer | Football field (NFL vs NCAA hashes) | Firework shell, in section |
 
 They are deliberately not all boxes and arrows. Among them:
 
@@ -139,7 +188,7 @@ This is **not finished software.** It is being built in the open, small step by 
   Measured: the *contour* of a leg draws fine as a closed smooth curve; eight thick
   lines laid over it do not read
 
-## Try it
+## Commands
 
 Requires Node 22.18+ and [pnpm](https://pnpm.io/).
 
