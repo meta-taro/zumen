@@ -110,17 +110,35 @@ nodes:
 
   it('**`<title>` が、svg のいちばん最初の子になる**（読み上げの順）', async () => {
     const out = render(await layout(SRC), 'light', 'safe', false);
-    assert.match(out, /^<svg [^>]*>\s*<title>中央本町商店街 店舗案内図<\/title>/);
+    assert.match(out, /^<svg [^>]*>\s*<title[^>]*>中央本町商店街 店舗案内図<\/title>/);
   });
 
   it('題が無ければ、`<title>` を出さない（空の題を作らない）', async () => {
     const out = render(await layout(SRC.replace(/^title: .*\n/m, '')), 'light', 'safe', false);
-    assert.ok(!out.includes('<title>'), '題が無いのに出した');
+    assert.ok(!out.includes('<title'), '題が無いのに出した');
+    assert.ok(!out.includes('role="img"'), '題の無い図に、指す先の無い aria を付けた');
+  });
+
+  it('**読み上げに 1 枚の絵として渡す**（`role="img"` と、題を指す `aria-labelledby`）', async () => {
+    const out = render(await layout(SRC), 'light', 'safe', false);
+    const id = /^<svg [^>]*role="img" aria-labelledby="([^"]+)"/.exec(out)?.[1];
+    assert.ok(id !== undefined, 'role と aria-labelledby が無い');
+    assert.ok(out.includes(`<title id="${id}">`), 'aria-labelledby が題を指していない');
+  });
+
+  it('**同じページに貼る図どうしで、題の id がぶつからない**（ライトとダーク・別の図）', async () => {
+    const idOf = (svg: string) => /aria-labelledby="([^"]+)"/.exec(svg)?.[1];
+    const light = render(await layout(SRC), 'light', 'safe', false);
+    const dark = render(await layout(SRC), 'dark', 'safe', false);
+    const other = render(await layout(SRC.replace('店舗案内図', '駐車場案内図')), 'light', 'safe', false);
+    assert.notEqual(idOf(light), idOf(dark));
+    assert.notEqual(idOf(light), idOf(other));
+    assert.equal(idOf(light), idOf(render(await layout(SRC), 'light', 'safe', false)), '書き出すたびに変わる');
   });
 
   it('題の記号は逃がす（図が壊れない）', async () => {
     const out = render(await layout(SRC.replace('中央本町商店街 店舗案内図', 'A & B <試作>')), 'light', 'safe', false);
-    assert.match(out, /<title>A &amp; B &lt;試作&gt;<\/title>/);
+    assert.match(out, /<title[^>]*>A &amp; B &lt;試作&gt;<\/title>/);
   });
 
   it('配置図でも入る', async () => {
@@ -130,7 +148,7 @@ nodes:
       'safe',
       true,
     );
-    assert.match(out, /<title>平面図<\/title>/);
+    assert.match(out, /<title[^>]*>平面図<\/title>/);
   });
 });
 

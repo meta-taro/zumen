@@ -1,4 +1,4 @@
-*Read this in [English](README.md).*
+*Read this in [English](https://github.com/meta-taro/zumen/blob/develop/README.md).*
 
 # zumen（図面）
 
@@ -15,7 +15,7 @@
 > 操作は、AI の書き換えを人が承認するのに要る 8 つに限ってあります。
 > **編集機能をそろえることが目的ではありません。**
 >
-> 保存形式の仕様は [`spec/zumen-format-v1.md`](spec/zumen-format-v1.md) にあります。
+> 保存形式の仕様は [`spec/zumen-format-v1.md`](https://github.com/meta-taro/zumen/blob/develop/spec/zumen-format-v1.md) にあります。
 
 ## 作れる図
 
@@ -27,14 +27,14 @@
 
 | | |
 |---|---|
-| <img src="examples/gallery/02-クラウド構成.svg" width="320"> | <img src="examples/gallery/14-間取り.svg" width="240"> |
+| <img src="https://meta-taro.github.io/zumen/gallery/02-クラウド構成.svg" width="320"> | <img src="https://meta-taro.github.io/zumen/gallery/14-間取り.svg" width="240"> |
 | クラウド構成 | 間取り（2LDK・1 階） |
-| <img src="examples/gallery/17-躯体の伏図.svg" width="240"> | <img src="examples/gallery/18-配管の系統.svg" width="320"> |
+| <img src="https://meta-taro.github.io/zumen/gallery/17-躯体の伏図.svg" width="240"> | <img src="https://meta-taro.github.io/zumen/gallery/18-配管の系統.svg" width="320"> |
 | 躯体の伏図（RC 造） | 配管の系統（P&ID） |
-| <img src="examples/gallery/22-避難経路図.svg" width="320"> | <img src="examples/gallery/23-厨房の動線.svg" width="320"> |
+| <img src="https://meta-taro.github.io/zumen/gallery/22-避難経路図.svg" width="320"> | <img src="https://meta-taro.github.io/zumen/gallery/23-厨房の動線.svg" width="320"> |
 | 避難経路図 | 厨房の区域と動線（HACCP） |
 
-**388 枚を [`examples/gallery/`](examples/gallery/) に置いてあります。**
+**389 枚を [`examples/gallery/`](https://github.com/meta-taro/zumen/tree/develop/examples/gallery/) に置いてあります。**
 [紹介のページ](https://meta-taro.github.io/zumen/)に全部並べてあり、業界で絞り込めます。
 
 **業界ごとの図形は 1 つも足していません。** `type` は 11 語のままです。
@@ -175,7 +175,7 @@ pnpm merge    <正本> <提案>        # AI の提案を正本へ入れる（競
 **まず `zumen_about` を 1 回。** 何をする道具か・**どの口が開いていないか**・版ごとに何が変わったかを返します。
 **試して断られる往復が減ります。**
 
-開いている口は 15 個。`zumen_spec`（形式を教える）／**`zumen_examples`（同梱の見本 388 枚の目次と正本を返す）**／
+開いている口は 15 個。`zumen_spec`（形式を教える）／**`zumen_examples`（同梱の見本 389 枚の目次と正本を返す）**／
 `zumen_create`（**ゼロから作る。既にあれば失敗**）／
 `zumen_propose`（**提案の `pins` は読まない**）／`zumen_inspect`（交差・重なり・**置けずに消えたラベル**・**投影で読める大きさか**・**人が見たか**・「9 割」を返す）ほか。
 
@@ -218,7 +218,7 @@ pnpm merge    <正本> <提案>        # AI の提案を正本へ入れる（競
 線は **127.0.0.1 にしか開きません**（新しい依存は 0）。
 繋がっていなければ、エージェントは**黙って別のことをせず断ります**。
 
-別の機械で使う手順は [`docs/install.md`](docs/install.md)。
+別の機械で使う手順は [`docs/install.md`](https://github.com/meta-taro/zumen/blob/develop/docs/install.md)。
 
 **単体で完結します。**姉妹プロジェクト（md-business）への依存はありません。
 
@@ -271,7 +271,7 @@ git config merge.zumen.driver "node $(pwd)/src/cli.ts merge-driver %O %A %B"
   2 人が同じノードを別の場所へ動かしたときは衝突します。
   黙って片方を採ると、人の直しが消えたことに誰も気づきません
 
-実測は [`experiments/d2/results/git-conflict.md`](experiments/d2/results/git-conflict.md)
+実測は [`experiments/d2/results/git-conflict.md`](https://github.com/meta-taro/zumen/blob/develop/experiments/d2/results/git-conflict.md)
 （`pnpm d2:conflict` で再生成できます）。
 
 ## 何を作らないか
@@ -316,7 +316,7 @@ pnpm measure <図のファイル> ...
 | **誰も見ていない** | **この製品の失敗そのもの** |
 
 手直しの量だけでは区別できないので、**人が「見た」と印を付ける場所**を正本に持っています
-（`review`。[仕様 §3.5](spec/zumen-format-v1.md)）。`pnpm measure` は分けて言います。
+（`review`。[仕様 §3.5](https://github.com/meta-taro/zumen/blob/develop/spec/zumen-format-v1.md)）。`pnpm measure` は分けて言います。
 
 ```
 うち 1 件はまだ誰も見ていません。この 100% は「AI が上手い」ではなく
@@ -336,7 +336,7 @@ pnpm measure <図のファイル> ...
 成績として読まれないよう、そのときは `pnpm measure` が
 「まだ人の手直しがありません」と断ります。
 
-現状値は [`experiments/s3/results/baseline.md`](experiments/s3/results/baseline.md)。
+現状値は [`experiments/s3/results/baseline.md`](https://github.com/meta-taro/zumen/blob/develop/experiments/s3/results/baseline.md)。
 **現状は S1 の往復 8 回中 3 回が合格ラインを割っています。**
 指標を甘くして通すことはしません。
 
@@ -365,7 +365,7 @@ pnpm measure <図のファイル> ...
 太い線を 8 本重ねたら輪郭が埋もれました。**同じ壁はロープの結索図にもあります**。
 
 保存形式は決まりました。**正本は zumen 独自の YAML** で、仕様を実装から分離して
-[`spec/zumen-format-v1.md`](spec/zumen-format-v1.md) に置いてあります。
+[`spec/zumen-format-v1.md`](https://github.com/meta-taro/zumen/blob/develop/spec/zumen-format-v1.md) に置いてあります。
 Mermaid への書き出しを持つので、この製品が終わっても図は読めます。
 
 既存の作図 OSS を部品として組み込まず、独立したデスクトップアプリとして作っています。
@@ -376,9 +376,9 @@ Mermaid への書き出しを持つので、この製品が終わっても図は
 
 ## ライセンス
 
-MIT（[`LICENSE`](LICENSE)）。
+MIT（[`LICENSE`](https://github.com/meta-taro/zumen/blob/develop/LICENSE)）。
 
-依存ライブラリのライセンスは [`LICENSES.md`](LICENSES.md) にあります。
+依存ライブラリのライセンスは [`LICENSES.md`](https://github.com/meta-taro/zumen/blob/develop/LICENSES.md) にあります。
 `elkjs` が EPL-2.0 OR GPL-3.0-or-later なので、**未改変のまま依存として使います**。
 
 **クラウド各社の公式アイコンは同梱していません。**

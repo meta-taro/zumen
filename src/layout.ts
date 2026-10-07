@@ -14,6 +14,8 @@
  * 実用に耐えるかの材料になる。
  */
 import { ownerOf, pointRef } from './image.ts';
+import { shiftSolid, solidBounds, solidOf, solidsIntersect } from './solid.ts';
+import type { Solid } from './solid.ts';
 import type { ImageInfo, Images } from './image.ts';
 import ELK from 'elkjs/lib/elk.bundled.js';
 import type { ElkExtendedEdge, ElkNode } from 'elkjs/lib/elk-api.js';
@@ -137,6 +139,8 @@ export interface Box {
   pinned: boolean;
   /** **下に敷く画像**（`nodes[].image`。`src/image.ts`）。無ければ持たない。 */
   image?: ImageInfo;
+  /** **立体**（`nodes[].height` ＋ `projection`。`src/solid.ts`）。紙の座標。無ければ持たない。 */
+  solid?: Solid;
 }
 
 export interface PlacedEdge {
@@ -479,6 +483,28 @@ export async function layout(
    * 間取りや売場では、**部屋や棚が接しているのが普通**で、重なりではない。
    * 退けると、書いた座標が黙って動く —— **配置図では座標そのものが内容。**
    */
+  /**
+   * **立体を紙へ落とす**（`src/solid.ts`）。箱は立体の外接矩形にする ——
+   * 紙の大きさ・余白は箱から測るので、立体がはみ出さない。
+   */
+  const axon = axonOf((diagram.doc.toJS() as { projection?: unknown }).projection);
+  for (const box of boxes) {
+    const node = nodes.find((n) => n.id === box.id);
+    if (node?.height == null || node.ground === null || node.size === null) continue;
+    const solid = solidOf(node.ground, node.size, node.height, axon);
+    if (solid === null) continue;
+    // **人が動かした立体は、人の位置が勝つ**（判定基準 3.1）。
+    // `pins.position` は紙の座標で、外接矩形の左上を指す。立体ごと、そこまでずらす。
+    const pin = pins[box.id]?.position;
+    if (pin !== undefined) {
+      const was = solidBounds(solid);
+      shiftSolid(solid, pin.x - was.x, pin.y - was.y);
+    }
+    box.solid = solid;
+    Object.assign(box, solidBounds(solid));
+    written.add(box.id);
+  }
+
   const { locked } = separate(boxes, written);
 
   // 人が枠の外へ動かしたら、枠のほうを広げる。
@@ -563,6 +589,7 @@ export async function layout(
     for (const box of [...boxes, ...groups]) {
       box.x += shift.left;
       box.y += shift.top;
+      if (box.solid !== undefined) shiftSolid(box.solid, shift.left, shift.top);
     }
     for (const edge of edges) {
       for (const point of edge.points) {
@@ -597,6 +624,7 @@ export async function layout(
     for (const box of [...boxes, ...groups]) {
       box.x += slideX;
       box.y += slideY;
+      if (box.solid !== undefined) shiftSolid(box.solid, slideX, slideY);
     }
     for (const line of edges) {
       for (const point of line.points) {
@@ -871,6 +899,12 @@ export function overlaps(placed: Placed): [string, string][] {
     for (let j = i + 1; j < boxes.length; j += 1) {
       const a = boxes[i]!;
       const b = boxes[j]!;
+      // **立体どうしは、紙の上の外接矩形ではなく立体そのもので見る**（`src/solid.ts`）。
+      // 等角図では、積んだ箱・並べた箱の外接矩形は必ず重なる。重なりは食い込んでいるときだけ。
+      if (a.solid !== undefined && b.solid !== undefined) {
+        if (solidsIntersect(a.solid, b.solid)) found.push([a.id, b.id]);
+        continue;
+      }
       if (hits(a, b)) found.push([a.id, b.id]);
     }
   }
@@ -908,6 +942,65 @@ export function crossingEdges(placed: Placed): [string, string][] {
  * **紙の上の座標**が分かれば、その場所を見て直せる
  * （エスカレーターの引出線を直すとき、自分で台本を書いて座標を出した）。
  */
+/**
+ * **別々の辺が、同じ道を重なって走っている所**（2026-10-07）。
+ *
+ * 交差（`crossings`）は 1 点で交わるだけなので、どちらの線も追える。
+ * **重なって走ると、2 本が 1 本に見える** —— どこで分かれたのか、どちらがどこへ行くのかが消える。
+ * 作図の決まりとしては「並走するなら 12px 以上離す」（`edges[].offset` がその道具）。
+ *
+ * 見るのは**色の違う 2 本**が**ほぼ同じ直線の上**（離れ 1.5px 未満・向きの差 1° 未満）で、**重なりが 8px 以上**の組。
+ * 端で接するだけ・同じ辺の中の重なり・同じ色どうし（共有する幹）は数えない。
+ */
+export function stackedEdges(placed: Placed): { a: string; b: string; px: number }[] {
+  const segments: { seg: [P, P]; id: string; color: string | null }[] = [];
+  for (const edge of placed.edges) {
+    for (let i = 0; i + 1 < edge.points.length; i += 1) {
+      segments.push({ seg: [edge.points[i]!, edge.points[i + 1]!], id: edge.id, color: edge.color });
+    }
+  }
+  const best = new Map<string, { a: string; b: string; px: number }>();
+  for (let i = 0; i < segments.length; i += 1) {
+    for (let j = i + 1; j < segments.length; j += 1) {
+      const s = segments[i]!;
+      const t = segments[j]!;
+      // **同じ色どうしは数えない。** 家系図の婚姻線から子へ分かれる幹、配管の本管と枝のように、
+      // 同じ色で道を共有するのは作図の作法そのもの。困るのは**下の線の色が消える**ときだけ。
+      if (s.id === t.id || s.color === t.color) continue;
+      const px = sharedRun(s.seg, t.seg);
+      if (px < STACK_MIN) continue;
+      const [a, b] = [s.id, t.id].sort() as [string, string];
+      const key = `${a}\u0000${b}`;
+      const was = best.get(key);
+      if (was === undefined || was.px < px) best.set(key, { a, b, px: Math.round(px) });
+    }
+  }
+  return [...best.values()];
+}
+
+/** 重なって走るとみなす長さ（px）。これより短いのは、端どうしが寄っただけ。 */
+const STACK_MIN = 8;
+
+/** 2 本の線分が同じ直線の上で重なっている長さ。同じ直線でなければ 0。 */
+function sharedRun([p, q]: [P, P], [r, s]: [P, P]): number {
+  const dx = q.x - p.x;
+  const dy = q.y - p.y;
+  const len = Math.hypot(dx, dy);
+  const other = Math.hypot(s.x - r.x, s.y - r.y);
+  if (len === 0 || other === 0) return 0;
+  // 向きがほぼ同じ（逆向きも同じ直線）。
+  const cross = Math.abs(dx * (s.y - r.y) - dy * (s.x - r.x)) / (len * other);
+  if (cross > Math.sin(Math.PI / 180)) return 0;
+  // 直線からの離れ。
+  const off = (pt: P) => Math.abs(dx * (pt.y - p.y) - dy * (pt.x - p.x)) / len;
+  if (off(r) >= 1.5 || off(s) >= 1.5) return 0;
+  // 直線の上へ落として、区間の重なり。
+  const along = (pt: P) => (dx * (pt.x - p.x) + dy * (pt.y - p.y)) / len;
+  const lo = Math.max(0, Math.min(along(r), along(s)));
+  const hi = Math.min(len, Math.max(along(r), along(s)));
+  return Math.max(0, hi - lo);
+}
+
 export function crossingPlaces(placed: Placed): { a: string; b: string; at: P }[] {
   return countCrossings(placed).pairs.map(([a, b, at]) => ({ a, b, at }));
 }
@@ -1043,6 +1136,10 @@ interface NodeInfo {
   openings: Hole[];
   /** **下に敷く画像のパス**（正本からの相対）。無ければ null。 */
   image: string | null;
+  /** **立体の高さ**（`height`）。書かなければ null。 */
+  height: number | null;
+  /** **投影する前の床の位置**（`at` の x・y・z。z は書かなければ 0）。高さのある節だけ。 */
+  ground: { x: number; y: number; z: number } | null;
 }
 
 function readNodes(diagram: ReturnType<typeof parse>): NodeInfo[] {
@@ -1073,6 +1170,7 @@ function readNodes(diagram: ReturnType<typeof parse>): NodeInfo[] {
       size?: unknown;
       openings?: unknown;
       image?: unknown;
+      height?: unknown;
     }[];
   };
   const axon = axonOf(raw.projection);
@@ -1111,6 +1209,8 @@ function readNodes(diagram: ReturnType<typeof parse>): NodeInfo[] {
       size: asSize(node.size),
       openings: openingsOf(node.openings),
       image: asText(node.image),
+      height: heightOf(node.height),
+      ground: heightOf(node.height) === null ? null : groundOf(node.at),
     };
   });
 }
@@ -1174,6 +1274,19 @@ function asPoint(raw: unknown, axon: Axon | null = null): { x: number; y: number
    */
   if (typeof z !== 'number' || !Number.isFinite(z)) return { x, y };
   return project({ x, y, z }, axon);
+}
+
+/** 高さ（正の数）。読めなければ null。 */
+function heightOf(raw: unknown): number | null {
+  return typeof raw === 'number' && Number.isFinite(raw) && raw > 0 ? raw : null;
+}
+
+/** 投影する前の `at`。z は書かなければ 0。 */
+function groundOf(raw: unknown): { x: number; y: number; z: number } | null {
+  if (raw === null || typeof raw !== 'object') return null;
+  const { x, y, z } = raw as { x?: unknown; y?: unknown; z?: unknown };
+  if (typeof x !== 'number' || typeof y !== 'number') return null;
+  return { x, y, z: typeof z === 'number' && Number.isFinite(z) ? z : 0 };
 }
 
 /** `{ w, h }` として読めるものだけ受ける。**読めなければラベルから決める。** */

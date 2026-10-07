@@ -32,7 +32,7 @@ import { edgesUnderLabels, placeEdgeLabels } from './edge-labels.ts';
 import { embedFont } from './font.ts';
 import { getPins, parse } from './format.ts';
 import { roomAccess, type AccessIssue } from './access.ts';
-import { crossingEdges, crossings, edgesThroughBoxes, edgesUnderBoxes, groupEscapes, layout, overlaps, straddles } from './layout.ts';
+import { crossingEdges, crossings, edgesThroughBoxes, edgesUnderBoxes, groupEscapes, layout, overlaps, stackedEdges, straddles } from './layout.ts';
 import { messages } from './messages.ts';
 import { PASS_LINE, measure } from './measure.ts';
 import { merge } from './merge.ts';
@@ -280,6 +280,8 @@ export interface Inspection {
   edgesUnderLabels: [string, string][];
   /** 辺が、関係の無い箱を突き抜けている組（`[辺, 箱]`）。 */
   edgesThroughBoxes: [string, string][];
+  /** 色の違う 2 本が同じ道を重なって走っている組（`[辺, 辺]`）。 */
+  stackedEdges: [string, string][];
   /** 開き戸の扇に乗っている文字・設備（`[扉のある箱, 乗っている箱]`）。 */
   doorSwings: [string, string][];
   /**
@@ -370,6 +372,7 @@ export async function inspect(source: string): Promise<Inspection> {
       overlappingText: [],
       doorSwings: [],
       edgesThroughBoxes: [],
+      stackedEdges: [],
       edgesUnderLabels: [],
       roomAccess: [],
       edgesUnderBoxes: [],
@@ -424,6 +427,7 @@ export async function inspect(source: string): Promise<Inspection> {
     hiddenTags: kindOf(source) === 'placement' ? hiddenTags(placed.boxes) : [],
     edgesUnderBoxes: edgesUnderBoxes(placed),
     edgesThroughBoxes: edgesThroughBoxes(placed),
+    stackedEdges: stackedEdges(placed).map(({ a, b }) => [a, b]),
     edgesUnderLabels: edgesUnderLabels(placed.edges, placeEdgeLabels(placed.edges, placed.boxes, placed.groups)),
     roomAccess: kindOf(source) === 'placement' ? roomAccess(placed.boxes) : [],
     overlappingText:

@@ -1,4 +1,4 @@
-*日本語版は [README.ja.md](README.ja.md) にあります（詳しい版）。*
+*日本語版は [README.ja.md](https://github.com/meta-taro/zumen/blob/develop/README.ja.md) にあります（詳しい版）。*
 
 # zumen
 
@@ -36,8 +36,8 @@ survives a regeneration in **210/210 of the example drawings**, whatever their s
 
 ## What it looks like
 
-388 example drawings, all generated from the YAML sources in
-[`examples/gallery/`](examples/gallery/):
+389 example drawings, all generated from the YAML sources in
+[`examples/gallery/`](https://github.com/meta-taro/zumen/tree/develop/examples/gallery/):
 
 **[→ Browse the gallery](https://meta-taro.github.io/zumen/)**
 
@@ -95,7 +95,7 @@ For floor plans and other placement drawings, the source can also say:
 - **Screenshots with numbered callouts** (`image`, `to: { node, at }`, `callout`) — lay a PNG / JPEG / WebP capture under the drawing and point into it in the image's own pixels, so the points stay put when you scale it; the image is embedded in the SVG
 - **Sources** (`sources`) — name, retrieval date and licence are drawn along the bottom of the figure, with the URL as a link, so the attribution travels with a single SVG
 
-The full specification is [`spec/zumen-format-v1.md`](spec/zumen-format-v1.md).
+The full specification is [`spec/zumen-format-v1.md`](https://github.com/meta-taro/zumen/blob/develop/spec/zumen-format-v1.md).
 It is written so that **another implementation could read and write the same files** —
 the spec is deliberately separate from this implementation.
 
@@ -107,7 +107,7 @@ This is **not finished software.** It is being built in the open, small step by 
 
 - Reading and writing the source, automatic layout, SVG output (light/dark)
 - Export to Mermaid, draw.io XML, and embedding into Markdown
-- A validator (106 checks) that explains, in the writer's terms, what will not be drawn —
+- A validator (108 checks) that explains, in the writer's terms, what will not be drawn —
   including one that lays the drawing out and reports labels that would collide
 - Checks that read the drawing the way a professional would: things sitting inside a door's
   swing, lines running through boxes they do not connect, rooms that cannot be reached from a
@@ -206,11 +206,11 @@ binds to 127.0.0.1 only and added no dependencies.
 
 | | |
 |---|---|
-| [`spec/zumen-format-v1.md`](spec/zumen-format-v1.md) | the file format |
-| [`DESIGN.md`](DESIGN.md) | visual decisions (written by a human, not by the AI) |
-| [`CHANGELOG.md`](CHANGELOG.md) | what changed, in terms of behaviour |
-| [`CONTRIBUTING.md`](CONTRIBUTING.md) | how to work on this |
-| [`README.ja.md`](README.ja.md) | the longer Japanese version |
+| [`spec/zumen-format-v1.md`](https://github.com/meta-taro/zumen/blob/develop/spec/zumen-format-v1.md) | the file format |
+| [`DESIGN.md`](https://github.com/meta-taro/zumen/blob/develop/DESIGN.md) | visual decisions (written by a human, not by the AI) |
+| [`CHANGELOG.md`](https://github.com/meta-taro/zumen/blob/develop/CHANGELOG.md) | what changed, in terms of behaviour |
+| [`CONTRIBUTING.md`](https://github.com/meta-taro/zumen/blob/develop/CONTRIBUTING.md) | how to work on this |
+| [`README.ja.md`](https://github.com/meta-taro/zumen/blob/develop/README.ja.md) | the longer Japanese version |
 
 ## Name
 
@@ -219,4 +219,4 @@ an electrician or a signal engineer works from. Not an illustration. A document.
 
 ## Licence
 
-[MIT](LICENSE). Third-party notices are in [`LICENSES.md`](LICENSES.md).
+[MIT](https://github.com/meta-taro/zumen/blob/develop/LICENSE). Third-party notices are in [`LICENSES.md`](https://github.com/meta-taro/zumen/blob/develop/LICENSES.md).

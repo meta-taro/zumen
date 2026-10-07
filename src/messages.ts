@@ -217,6 +217,8 @@ const ja = {
       `  **通り道から入れない部屋 ${count}**（${list}）—— 建具（openings）の位置か、部屋の並びを見直す`,
     inspectUnderLabels: (count: number, pairs: string) =>
       `  **名札の下を通る線 ${count}**（${pairs}）—— 辺の名札が、別の辺の上に乗っている。名札がどちらの線のものか読み違える。経路（via）を回すか、名札を短くする`,
+    inspectStacked: (count: number, pairs: string) =>
+      `  **重なって走る色違いの線 ${count}**（${pairs}）—— 下の線の色が消え、どこで分かれたか追えない。並走なら offset で 5px 以上ずらす。中身がそうなら（上から重ねる印・共有する境界）そのままでよい`,
     inspectThroughBoxes: (count: number, pairs: string) =>
       `  **箱を突き抜けている線 ${count}**（${pairs}）—— 線が関係の無い箱の上を通っている。経路（via）を回すか、中身がそうならそのままでよい`,
     inspectDoorSwings: (count: number, pairs: string) =>
@@ -676,6 +678,9 @@ const ja = {
      */
     nodeAtInvalid: (id: string) =>
       `ノード "${id}" の at が { x: 数, y: 数 } になっていません。置き場所は無視されます。`,
+    nodeHeightInvalid: (id: string) => `ノード "${id}" の height が正の数ではありません。立体の高さ（px）を書きます。`,
+    nodeHeightIgnored: (id: string) =>
+      `ノード "${id}" に height がありますが、効いていません。立体になるのは、配置図（kind: placement）で projection を書き、at と size のある節だけです。`,
     nodeAtIgnored: (id: string) =>
       `ノード "${id}" に at がありますが、構成図では効きません。置き場所は機械が決めます（kind: placement で効きます）。`,
     nodeSizeInvalid: (id: string) =>
@@ -1150,6 +1155,8 @@ const en: Catalog = {
       `  **${count} rooms cannot be reached from a corridor** (${list}) — move the openings or rearrange the rooms`,
     inspectUnderLabels: (count: number, pairs: string) =>
       `  **${count} edges run under another edge's label** (${pairs}) — the label may be read as belonging to the wrong line. Reroute with via, or shorten the label`,
+    inspectStacked: (count: number, pairs: string) =>
+      `  **${count} pairs of differently coloured edges run on top of each other** (${pairs}) — the lower colour disappears and nobody can tell where they part. Pull parallel routes apart with offset (5px or more), or leave it if that is the content (a mark laid over a line, a shared boundary)`,
     inspectThroughBoxes: (count: number, pairs: string) =>
       `  **${count} edges run through unrelated boxes** (${pairs}) — reroute with via, or leave it if that is the content`,
     inspectDoorSwings: (count: number, pairs: string) =>
@@ -1506,6 +1513,9 @@ const en: Catalog = {
 
     nodeAtInvalid: (id: string) =>
       `Node "${id}" has an at that is not { x: number, y: number }. The position is ignored.`,
+    nodeHeightInvalid: (id: string) => `Node "${id}" has a height that is not a positive number. Write the solid's height in px.`,
+    nodeHeightIgnored: (id: string) =>
+      `Node "${id}" has a height, but it has no effect. Only nodes with at and size in a placement diagram (kind: placement) that sets projection become solids.`,
     nodeAtIgnored: (id: string) =>
       `Node "${id}" has an at, but it has no effect on a structure diagram (positions are computed). Use kind: placement.`,
     nodeSizeInvalid: (id: string) =>

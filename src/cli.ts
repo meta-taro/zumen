@@ -758,7 +758,7 @@ export async function runInspect(paths: string[], read = readFileSync): Promise<
     const over = straddles(placed);
     const quiet =
       crossed.length === 0 && over.length === 0 &&
-      seen.overlappingText.length === 0 && seen.edgesUnderBoxes.length === 0 && seen.doorSwings.length === 0 && seen.edgesThroughBoxes.length === 0 && seen.roomAccess.length === 0 && seen.edgesUnderLabels.length === 0 &&
+      seen.overlappingText.length === 0 && seen.edgesUnderBoxes.length === 0 && seen.doorSwings.length === 0 && seen.edgesThroughBoxes.length === 0 && seen.stackedEdges.length === 0 && seen.roomAccess.length === 0 && seen.edgesUnderLabels.length === 0 &&
       seen.hiddenLabels.length === 0 && seen.crowdedNames.length === 0 &&
       seen.adriftNames.length === 0 && seen.hiddenTags.length === 0;
     if (quiet) lines.push(m.inspectClean);
@@ -805,6 +805,9 @@ export async function runInspect(paths: string[], read = readFileSync): Promise<
     }
     if (seen.edgesThroughBoxes.length > 0) {
       lines.push(m.inspectThroughBoxes(seen.edgesThroughBoxes.length, pairs(seen.edgesThroughBoxes)));
+    }
+    if (seen.stackedEdges.length > 0) {
+      lines.push(m.inspectStacked(seen.stackedEdges.length, pairs(seen.stackedEdges)));
     }
     if (seen.doorSwings.length > 0) {
       lines.push(m.inspectDoorSwings(seen.doorSwings.length, pairs(seen.doorSwings)));
