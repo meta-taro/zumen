@@ -217,6 +217,8 @@ const ja = {
       `  **通り道から入れない部屋 ${count}**（${list}）—— 建具（openings）の位置か、部屋の並びを見直す`,
     inspectUnderLabels: (count: number, pairs: string) =>
       `  **名札の下を通る線 ${count}**（${pairs}）—— 辺の名札が、別の辺の上に乗っている。名札がどちらの線のものか読み違える。経路（via）を回すか、名札を短くする`,
+    inspectStacked: (count: number, pairs: string) =>
+      `  **重なって走る色違いの線 ${count}**（${pairs}）—— 下の線の色が消え、どこで分かれたか追えない。並走なら offset で 5px 以上ずらす。中身がそうなら（上から重ねる印・共有する境界）そのままでよい`,
     inspectThroughBoxes: (count: number, pairs: string) =>
       `  **箱を突き抜けている線 ${count}**（${pairs}）—— 線が関係の無い箱の上を通っている。経路（via）を回すか、中身がそうならそのままでよい`,
     inspectDoorSwings: (count: number, pairs: string) =>
@@ -1150,6 +1152,8 @@ const en: Catalog = {
       `  **${count} rooms cannot be reached from a corridor** (${list}) — move the openings or rearrange the rooms`,
     inspectUnderLabels: (count: number, pairs: string) =>
       `  **${count} edges run under another edge's label** (${pairs}) — the label may be read as belonging to the wrong line. Reroute with via, or shorten the label`,
+    inspectStacked: (count: number, pairs: string) =>
+      `  **${count} pairs of differently coloured edges run on top of each other** (${pairs}) — the lower colour disappears and nobody can tell where they part. Pull parallel routes apart with offset (5px or more), or leave it if that is the content (a mark laid over a line, a shared boundary)`,
     inspectThroughBoxes: (count: number, pairs: string) =>
       `  **${count} edges run through unrelated boxes** (${pairs}) — reroute with via, or leave it if that is the content`,
     inspectDoorSwings: (count: number, pairs: string) =>

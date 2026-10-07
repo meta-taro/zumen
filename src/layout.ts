@@ -908,6 +908,65 @@ export function crossingEdges(placed: Placed): [string, string][] {
  * **紙の上の座標**が分かれば、その場所を見て直せる
  * （エスカレーターの引出線を直すとき、自分で台本を書いて座標を出した）。
  */
+/**
+ * **別々の辺が、同じ道を重なって走っている所**（2026-10-07）。
+ *
+ * 交差（`crossings`）は 1 点で交わるだけなので、どちらの線も追える。
+ * **重なって走ると、2 本が 1 本に見える** —— どこで分かれたのか、どちらがどこへ行くのかが消える。
+ * 作図の決まりとしては「並走するなら 12px 以上離す」（`edges[].offset` がその道具）。
+ *
+ * 見るのは**色の違う 2 本**が**ほぼ同じ直線の上**（離れ 1.5px 未満・向きの差 1° 未満）で、**重なりが 8px 以上**の組。
+ * 端で接するだけ・同じ辺の中の重なり・同じ色どうし（共有する幹）は数えない。
+ */
+export function stackedEdges(placed: Placed): { a: string; b: string; px: number }[] {
+  const segments: { seg: [P, P]; id: string; color: string | null }[] = [];
+  for (const edge of placed.edges) {
+    for (let i = 0; i + 1 < edge.points.length; i += 1) {
+      segments.push({ seg: [edge.points[i]!, edge.points[i + 1]!], id: edge.id, color: edge.color });
+    }
+  }
+  const best = new Map<string, { a: string; b: string; px: number }>();
+  for (let i = 0; i < segments.length; i += 1) {
+    for (let j = i + 1; j < segments.length; j += 1) {
+      const s = segments[i]!;
+      const t = segments[j]!;
+      // **同じ色どうしは数えない。** 家系図の婚姻線から子へ分かれる幹、配管の本管と枝のように、
+      // 同じ色で道を共有するのは作図の作法そのもの。困るのは**下の線の色が消える**ときだけ。
+      if (s.id === t.id || s.color === t.color) continue;
+      const px = sharedRun(s.seg, t.seg);
+      if (px < STACK_MIN) continue;
+      const [a, b] = [s.id, t.id].sort() as [string, string];
+      const key = `${a}\u0000${b}`;
+      const was = best.get(key);
+      if (was === undefined || was.px < px) best.set(key, { a, b, px: Math.round(px) });
+    }
+  }
+  return [...best.values()];
+}
+
+/** 重なって走るとみなす長さ（px）。これより短いのは、端どうしが寄っただけ。 */
+const STACK_MIN = 8;
+
+/** 2 本の線分が同じ直線の上で重なっている長さ。同じ直線でなければ 0。 */
+function sharedRun([p, q]: [P, P], [r, s]: [P, P]): number {
+  const dx = q.x - p.x;
+  const dy = q.y - p.y;
+  const len = Math.hypot(dx, dy);
+  const other = Math.hypot(s.x - r.x, s.y - r.y);
+  if (len === 0 || other === 0) return 0;
+  // 向きがほぼ同じ（逆向きも同じ直線）。
+  const cross = Math.abs(dx * (s.y - r.y) - dy * (s.x - r.x)) / (len * other);
+  if (cross > Math.sin(Math.PI / 180)) return 0;
+  // 直線からの離れ。
+  const off = (pt: P) => Math.abs(dx * (pt.y - p.y) - dy * (pt.x - p.x)) / len;
+  if (off(r) >= 1.5 || off(s) >= 1.5) return 0;
+  // 直線の上へ落として、区間の重なり。
+  const along = (pt: P) => (dx * (pt.x - p.x) + dy * (pt.y - p.y)) / len;
+  const lo = Math.max(0, Math.min(along(r), along(s)));
+  const hi = Math.min(len, Math.max(along(r), along(s)));
+  return Math.max(0, hi - lo);
+}
+
 export function crossingPlaces(placed: Placed): { a: string; b: string; at: P }[] {
   return countCrossings(placed).pairs.map(([a, b, at]) => ({ a, b, at }));
 }

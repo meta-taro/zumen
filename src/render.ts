@@ -256,8 +256,18 @@ export function render(
   const bar = scaleBar(placed, frameOf(placed), paper.h - sourceRoom, inkOf(palette));
   const credits = sourceLayer(placed, paper.h, inkOf(palette));
   const avoid = plan && drawsDatum(placed) ? wordRects(under.join('') + marks) : [];
+  /**
+   * **読み上げに「1 枚の絵」として渡す**（`role="img"` と、題を指す `aria-labelledby`）。
+   *
+   * `<title>` を入れただけでは、読み上げは中の文字を 1 語ずつ拾いにいく ——
+   * 平面図なら「LDK」「洋室」「6.0帖」が題より先に、順不同で読まれる。
+   * 題の id は**題と地の色から決める。** 1 つのページに図を何枚も貼る（紹介ページ・Markdown の本文）ので、
+   * 固定の `title` では id がぶつかり、別の図の題を読んでしまう。
+   */
+  const titleId = placed.title === null || placed.title === '' ? null : `zumen-title-${hashOf(`${placed.title}\u0000${theme}`)}`;
+  const label = titleId === null ? '' : ` role="img" aria-labelledby="${titleId}"`;
   const parts = [
-    `<svg xmlns="http://www.w3.org/2000/svg" width="${size(paper.w)}" height="${size(paper.h)}" viewBox="0 0 ${size(paper.w)} ${size(paper.h)}">`,
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${size(paper.w)}" height="${size(paper.h)}" viewBox="0 0 ${size(paper.w)} ${size(paper.h)}"${label}>`,
     /**
      * **図の題は、絵の中には描かないが SVG の中には入れる。**
      *
@@ -266,7 +276,7 @@ export function render(
      * **絵を見られない人と機械には、何の図かが届く**（読み上げ・貼り先の説明）。
      * いちばん最初の子に置く —— 読み上げの順がそこで決まる。
      */
-    placed.title === null || placed.title === '' ? '' : `<title>${escapeText(placed.title)}</title>`,
+    titleId === null ? '' : `<title id="${titleId}">${escapeText(placed.title!)}</title>`,
     // （物差しは下で、いちばん最後に出す）
     `<defs>${arrowMarkers(placed, plan, palette).join('')}</defs>`,
     /**
@@ -1672,4 +1682,14 @@ function escapeText(value: string): string {
 
 function escapeAttr(value: string): string {
   return escapeText(value);
+}
+
+/** 短い札（FNV-1a 32bit の 16 進）。同じ入力なら同じ札 —— 書き出すたびに差分を出さない。 */
+function hashOf(text: string): string {
+  let h = 0x811c9dc5;
+  for (let i = 0; i < text.length; i += 1) {
+    h ^= text.charCodeAt(i);
+    h = Math.imul(h, 0x01000193) >>> 0;
+  }
+  return h.toString(16).padStart(8, '0');
 }
