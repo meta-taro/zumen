@@ -1,0 +1,2883 @@
+version: 1
+kind: placement
+arrows: true
+title: 昆虫の複眼（個眼のつくりと、連立像眼・重複像眼）
+sources:
+  - name: "Lu W., Kronforst M.R. (2026) Cellular innovations and diversity in the lepidopteran compound eye. J Comp Physiol A（PMC12467619）"
+    url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC12467619/"
+    retrieved: 2026-10-06
+  - name: "Stöckl A. et al. (2022) Allometric scaling of a superposition eye ... hawkmoths. Proc R Soc B（PMC9326294）"
+    url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC9326294/"
+    retrieved: 2026-10-06
+  - name: "Cezário R.R. et al. (2025) Polarized vision in the eyes of ... dragonflies and damselflies. Naturwissenschaften（PMC11750933）"
+    url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC11750933/"
+    retrieved: 2026-10-06
+  - name: "en.wikipedia「Ommatidium」「Drosophila melanogaster」"
+    url: "https://en.wikipedia.org/wiki/Ommatidium"
+    retrieved: 2026-10-06
+palette:
+  光: "#b56d00"
+  色素: "#8f5a3a"
+# **昆虫の複眼は、六角のレンズを持つ小さな目（個眼）の集まり。** 個眼 1 つの中で、光は角膜レンズ → 円錐晶体 → 感桿と進む。
+# その先で、**光を 1 つのレンズからだけ受ける「連立像眼」**と、**たくさんのレンズから 1 か所へ集める「重複像眼」**に分かれる。
+# **何のための図か：** 「虫の目はたくさんの目の集まり」で止まらず、1 つの個眼の中身と、昼と夜で目の作りが違う理由まで読めるようにする。
+#
+# ## 決まり（照らしたもの）
+#
+# - 個眼の断面はふつう六角（en.wikipedia「Ommatidium」）
+# - **角膜と円錐晶体は円錐細胞が作る**（Lu & Kronforst 2026）。円錐細胞は 4 つ（en.wikipedia「Ommatidium」）
+# - **一次色素細胞は円錐を包み、二次色素細胞は円錐の下半分から基底膜までを包んで、隣の個眼からの光を遮る**（Lu & Kronforst 2026。モンシロチョウの記述）
+# - 典型的な昆虫の個眼の視細胞は 8 個（ショウジョウバエ R1〜R8）。チョウでは底のほうにだけある 9 個目（R9）がある（同上）
+# - **連立像眼では、各個眼は色素で光学的に仕切られ、決まった角度の光だけが感桿に届く**（同上 図 1）。連立像眼の例にハチ・アリ・チョウ・ハエ（Stöckl ほか 2022）
+# - **重複像眼では、レンズと感桿の間に色素の無い明帯があり、いくつもの個眼の光が明帯を通って 1 本の感桿に集まる**（同上。Exner 1891 を引く）
+# - **重複像眼は夜の虫に多いが、昼の例外がある**。ホシホウジャク（Macroglossum stellatarum）は昼に飛ぶ重複像眼で、**明るさは 1 つのレンズの約 200 倍**（Stöckl ほか 2022）。ガと甲虫の多くが重複像眼（同上）
+# - 大型のトンボ（不均翅亜目）の個眼は最大 約 30,000（Cezário ほか 2025。en.wikipedia「Ommatidium」も同じ値）
+# - ショウジョウバエ 760（en.wikipedia「Drosophila melanogaster」）。シミの仲間（総尾目 Zygentoma）は「ほんの数個」（en.wikipedia「Ommatidium」）
+#
+# ## 描き方
+#
+# ① は六角を並べただけの模式で、大きさは実物どおりではない（個眼の直径は種と目の場所で大きく違う）。
+# ② は連立像眼 1 つの縦断面。A–A の輪切りは**融合した感桿**（視細胞の光を受ける部分が 1 本にまとまる型）で描いた。
+# ③ は**光の通り道を言うための模式**。個眼の角度・数・深さは実物の比ではない。重複像眼の光は、レンズと円錐で曲がる所を 1 本の直線で代用した。
+#
+# ## 描かなかったもの（理由）
+#
+# - **ハエの神経重複像眼**: 光学的には連立像眼の一種で、視細胞ごとの感桿が分かれ、神経のつなぎ方で像を重ねる。別の図にする
+# - **トンボの目の上と下の違い**: 上の個眼は空を背にした獲物を見るのに特化し、偏光を感じる縁の帯もある。1 枚に入れると個眼の図が埋もれる
+# - **紫外線の色覚**: 見本 375（波長の物差し）にハチの見える範囲を書いた
+# - **個眼の直径の数値**: 一次資料で種ごとの値を確かめていないので、数を書いていない
+#
+# 出典（2026-10-06 取得）：
+#   Lu & Kronforst (2026) J Comp Physiol A, doi:10.1007/s00359-025-01751-8
+#   Stöckl ほか (2022) Proc R Soc B, doi:10.1098/rspb.2022.0758
+#   Cezário ほか (2025) Naturwissenschaften, doi:10.1007/s00114-025-01959-3
+#   en.wikipedia「Ommatidium」「Drosophila melanogaster」
+nodes:
+  - id: t1
+    label: "① 表面 —— 六角の面（小眼面）が隙間なく並ぶ"
+    marker: none
+    align: left
+    at: { x: 80, y: 90 }
+    size: { w: 420, h: 18 }
+  - id: t1b
+    label: "　1 つの面が 1 つの個眼のレンズ"
+    marker: none
+    align: left
+    at: { x: 80, y: 112 }
+    size: { w: 420, h: 18 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 109, y: 148 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 145.4, y: 148 }
+    size: { w: 2, h: 2 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 181.7, y: 148 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 218.1, y: 148 }
+    size: { w: 2, h: 2 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 254.5, y: 148 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 290.9, y: 148 }
+    size: { w: 2, h: 2 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 327.2, y: 148 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 363.6, y: 148 }
+    size: { w: 2, h: 2 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 127.2, y: 179.5 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 163.6, y: 179.5 }
+    size: { w: 2, h: 2 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 199.9, y: 179.5 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 236.3, y: 179.5 }
+    size: { w: 2, h: 2 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 272.7, y: 179.5 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 309.1, y: 179.5 }
+    size: { w: 2, h: 2 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 345.4, y: 179.5 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 381.8, y: 179.5 }
+    size: { w: 2, h: 2 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 109, y: 211 }
+    size: { w: 2, h: 2 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 145.4, y: 211 }
+    size: { w: 2, h: 2 }
+  - id: p18
+    label: ""
+    marker: none
+    at: { x: 181.7, y: 211 }
+    size: { w: 2, h: 2 }
+  - id: p19
+    label: ""
+    marker: none
+    at: { x: 218.1, y: 211 }
+    size: { w: 2, h: 2 }
+  - id: p20
+    label: ""
+    marker: none
+    at: { x: 254.5, y: 211 }
+    size: { w: 2, h: 2 }
+  - id: p21
+    label: ""
+    marker: none
+    at: { x: 290.9, y: 211 }
+    size: { w: 2, h: 2 }
+  - id: p22
+    label: ""
+    marker: none
+    at: { x: 327.2, y: 211 }
+    size: { w: 2, h: 2 }
+  - id: p23
+    label: ""
+    marker: none
+    at: { x: 363.6, y: 211 }
+    size: { w: 2, h: 2 }
+  - id: p24
+    label: ""
+    marker: none
+    at: { x: 127.2, y: 242.5 }
+    size: { w: 2, h: 2 }
+  - id: p25
+    label: ""
+    marker: none
+    at: { x: 163.6, y: 242.5 }
+    size: { w: 2, h: 2 }
+  - id: p26
+    label: ""
+    marker: none
+    at: { x: 199.9, y: 242.5 }
+    size: { w: 2, h: 2 }
+  - id: p27
+    label: ""
+    marker: none
+    at: { x: 236.3, y: 242.5 }
+    size: { w: 2, h: 2 }
+  - id: p28
+    label: ""
+    marker: none
+    at: { x: 272.7, y: 242.5 }
+    size: { w: 2, h: 2 }
+  - id: p29
+    label: ""
+    marker: none
+    at: { x: 309.1, y: 242.5 }
+    size: { w: 2, h: 2 }
+  - id: p30
+    label: ""
+    marker: none
+    at: { x: 345.4, y: 242.5 }
+    size: { w: 2, h: 2 }
+  - id: p31
+    label: ""
+    marker: none
+    at: { x: 381.8, y: 242.5 }
+    size: { w: 2, h: 2 }
+  - id: p32
+    label: ""
+    marker: none
+    at: { x: 109, y: 274 }
+    size: { w: 2, h: 2 }
+  - id: p33
+    label: ""
+    marker: none
+    at: { x: 145.4, y: 274 }
+    size: { w: 2, h: 2 }
+  - id: p34
+    label: ""
+    marker: none
+    at: { x: 181.7, y: 274 }
+    size: { w: 2, h: 2 }
+  - id: p35
+    label: ""
+    marker: none
+    at: { x: 218.1, y: 274 }
+    size: { w: 2, h: 2 }
+  - id: p36
+    label: ""
+    marker: none
+    at: { x: 254.5, y: 274 }
+    size: { w: 2, h: 2 }
+  - id: p37
+    label: ""
+    marker: none
+    at: { x: 290.9, y: 274 }
+    size: { w: 2, h: 2 }
+  - id: p38
+    label: ""
+    marker: none
+    at: { x: 327.2, y: 274 }
+    size: { w: 2, h: 2 }
+  - id: p39
+    label: ""
+    marker: none
+    at: { x: 363.6, y: 274 }
+    size: { w: 2, h: 2 }
+  - id: p40
+    label: ""
+    marker: none
+    at: { x: 127.2, y: 305.5 }
+    size: { w: 2, h: 2 }
+  - id: p41
+    label: ""
+    marker: none
+    at: { x: 163.6, y: 305.5 }
+    size: { w: 2, h: 2 }
+  - id: p42
+    label: ""
+    marker: none
+    at: { x: 199.9, y: 305.5 }
+    size: { w: 2, h: 2 }
+  - id: p43
+    label: ""
+    marker: none
+    at: { x: 236.3, y: 305.5 }
+    size: { w: 2, h: 2 }
+  - id: p44
+    label: ""
+    marker: none
+    at: { x: 272.7, y: 305.5 }
+    size: { w: 2, h: 2 }
+  - id: p45
+    label: ""
+    marker: none
+    at: { x: 309.1, y: 305.5 }
+    size: { w: 2, h: 2 }
+  - id: p46
+    label: ""
+    marker: none
+    at: { x: 345.4, y: 305.5 }
+    size: { w: 2, h: 2 }
+  - id: p47
+    label: ""
+    marker: none
+    at: { x: 381.8, y: 305.5 }
+    size: { w: 2, h: 2 }
+  - id: p48
+    label: ""
+    marker: none
+    at: { x: 109, y: 337 }
+    size: { w: 2, h: 2 }
+  - id: p49
+    label: ""
+    marker: none
+    at: { x: 145.4, y: 337 }
+    size: { w: 2, h: 2 }
+  - id: p50
+    label: ""
+    marker: none
+    at: { x: 181.7, y: 337 }
+    size: { w: 2, h: 2 }
+  - id: p51
+    label: ""
+    marker: none
+    at: { x: 218.1, y: 337 }
+    size: { w: 2, h: 2 }
+  - id: p52
+    label: ""
+    marker: none
+    at: { x: 254.5, y: 337 }
+    size: { w: 2, h: 2 }
+  - id: p53
+    label: ""
+    marker: none
+    at: { x: 290.9, y: 337 }
+    size: { w: 2, h: 2 }
+  - id: p54
+    label: ""
+    marker: none
+    at: { x: 327.2, y: 337 }
+    size: { w: 2, h: 2 }
+  - id: p55
+    label: ""
+    marker: none
+    at: { x: 363.6, y: 337 }
+    size: { w: 2, h: 2 }
+  - id: pick
+    label: "太線の六角 ＝ 個眼 1 つ\n（右の ② は、この 1 つを縦に切った面）"
+    marker: none
+    align: left
+    at: { x: 90, y: 399 }
+    size: { w: 320, h: 36 }
+  - id: t2
+    label: "② 個眼 1 つの縦断面（昼の虫の連立像眼）"
+    marker: none
+    align: left
+    at: { x: 520, y: 90 }
+    size: { w: 460, h: 18 }
+  - id: p56
+    label: ""
+    marker: none
+    at: { x: 601, y: 165 }
+    size: { w: 2, h: 2 }
+  - id: p57
+    label: ""
+    marker: none
+    at: { x: 609, y: 185 }
+    size: { w: 2, h: 2 }
+  - id: p58
+    label: ""
+    marker: none
+    at: { x: 601, y: 185 }
+    size: { w: 2, h: 2 }
+  - id: p59
+    label: ""
+    marker: none
+    at: { x: 670, y: 185 }
+    size: { w: 2, h: 2 }
+  - id: rhab
+    label: ""
+    at: { x: 636, y: 286 }
+    size: { w: 8, h: 244 }
+    hatch: solid
+  - id: rcL
+    label: ""
+    at: { x: 614, y: 286 }
+    size: { w: 22, h: 244 }
+  - id: rcR
+    label: ""
+    at: { x: 644, y: 286 }
+    size: { w: 22, h: 244 }
+  - id: spL
+    label: ""
+    at: { x: 596, y: 236 }
+    size: { w: 16, h: 294 }
+    hatch: dots
+  - id: spR
+    label: ""
+    at: { x: 668, y: 236 }
+    size: { w: 16, h: 294 }
+    hatch: dots
+  - id: p60
+    label: ""
+    marker: none
+    at: { x: 569, y: 535 }
+    size: { w: 2, h: 2 }
+  - id: p61
+    label: ""
+    marker: none
+    at: { x: 709, y: 535 }
+    size: { w: 2, h: 2 }
+  - id: p62
+    label: ""
+    marker: none
+    at: { x: 627, y: 537 }
+    size: { w: 2, h: 2 }
+  - id: p63
+    label: ""
+    marker: none
+    at: { x: 627, y: 579 }
+    size: { w: 2, h: 2 }
+  - id: p64
+    label: ""
+    marker: none
+    at: { x: 639, y: 537 }
+    size: { w: 2, h: 2 }
+  - id: p65
+    label: ""
+    marker: none
+    at: { x: 639, y: 579 }
+    size: { w: 2, h: 2 }
+  - id: p66
+    label: ""
+    marker: none
+    at: { x: 651, y: 537 }
+    size: { w: 2, h: 2 }
+  - id: p67
+    label: ""
+    marker: none
+    at: { x: 651, y: 579 }
+    size: { w: 2, h: 2 }
+  - id: p68
+    label: ""
+    marker: none
+    at: { x: 639, y: 97 }
+    size: { w: 2, h: 2 }
+  - id: p69
+    label: ""
+    marker: none
+    at: { x: 639, y: 143 }
+    size: { w: 2, h: 2 }
+  - id: light
+    label: "光"
+    marker: none
+    align: left
+    at: { x: 600, y: 110 }
+    size: { w: 30, h: 18 }
+  - id: p70
+    label: ""
+    marker: none
+    at: { x: 680, y: 165 }
+    size: { w: 2, h: 2 }
+  - id: p71
+    label: ""
+    marker: none
+    at: { x: 753, y: 166 }
+    size: { w: 2, h: 2 }
+  - id: c_lens
+    label: "角膜レンズ（六角の面。光を集める）"
+    marker: none
+    align: left
+    at: { x: 760, y: 158 }
+    size: { w: 330, h: 18 }
+  - id: p72
+    label: ""
+    marker: none
+    at: { x: 669, y: 215 }
+    size: { w: 2, h: 2 }
+  - id: p73
+    label: ""
+    marker: none
+    at: { x: 753, y: 216 }
+    size: { w: 2, h: 2 }
+  - id: c_ppc
+    label: "一次色素細胞（円錐の上半分を包む）"
+    marker: none
+    align: left
+    at: { x: 760, y: 208 }
+    size: { w: 330, h: 18 }
+  - id: p74
+    label: ""
+    marker: none
+    at: { x: 651, y: 259 }
+    size: { w: 2, h: 2 }
+  - id: p75
+    label: ""
+    marker: none
+    at: { x: 753, y: 262 }
+    size: { w: 2, h: 2 }
+  - id: c_cone
+    label: "円錐晶体（4 つの細胞が作る、レンズの続き）"
+    marker: none
+    align: left
+    at: { x: 760, y: 254 }
+    size: { w: 330, h: 18 }
+  - id: p76
+    label: ""
+    marker: none
+    at: { x: 683, y: 329 }
+    size: { w: 2, h: 2 }
+  - id: p77
+    label: ""
+    marker: none
+    at: { x: 753, y: 324 }
+    size: { w: 2, h: 2 }
+  - id: c_spc
+    label: "二次色素細胞（円錐の下から底まで。隣の光を遮る）"
+    marker: none
+    align: left
+    at: { x: 760, y: 316 }
+    size: { w: 330, h: 18 }
+  - id: p78
+    label: ""
+    marker: none
+    at: { x: 665, y: 399 }
+    size: { w: 2, h: 2 }
+  - id: p79
+    label: ""
+    marker: none
+    at: { x: 753, y: 390 }
+    size: { w: 2, h: 2 }
+  - id: c_rc
+    label: "視細胞（光を受ける細胞。8〜9 個）"
+    marker: none
+    align: left
+    at: { x: 760, y: 382 }
+    size: { w: 330, h: 18 }
+  - id: p80
+    label: ""
+    marker: none
+    at: { x: 641, y: 449 }
+    size: { w: 2, h: 2 }
+  - id: p81
+    label: ""
+    marker: none
+    at: { x: 753, y: 448 }
+    size: { w: 2, h: 2 }
+  - id: c_rh
+    label: "感桿（視細胞の光を受ける部分が束になった棒）"
+    marker: none
+    align: left
+    at: { x: 760, y: 440 }
+    size: { w: 330, h: 18 }
+  - id: p82
+    label: ""
+    marker: none
+    at: { x: 709, y: 535 }
+    size: { w: 2, h: 2 }
+  - id: p83
+    label: ""
+    marker: none
+    at: { x: 753, y: 534 }
+    size: { w: 2, h: 2 }
+  - id: c_bm
+    label: "基底膜"
+    marker: none
+    align: left
+    at: { x: 760, y: 526 }
+    size: { w: 330, h: 18 }
+  - id: p84
+    label: ""
+    marker: none
+    at: { x: 651, y: 569 }
+    size: { w: 2, h: 2 }
+  - id: p85
+    label: ""
+    marker: none
+    at: { x: 753, y: 568 }
+    size: { w: 2, h: 2 }
+  - id: c_ax
+    label: "神経（脳の視葉へ）"
+    marker: none
+    align: left
+    at: { x: 760, y: 560 }
+    size: { w: 330, h: 18 }
+  - id: aa
+    label: "A"
+    marker: none
+    align: center
+    at: { x: 574, y: 412 }
+    size: { w: 20, h: 18 }
+  - id: p86
+    label: ""
+    marker: none
+    at: { x: 587, y: 420 }
+    size: { w: 2, h: 2 }
+  - id: p87
+    label: ""
+    marker: none
+    at: { x: 691, y: 420 }
+    size: { w: 2, h: 2 }
+  - id: aa2
+    label: "A"
+    marker: none
+    align: center
+    at: { x: 692, y: 412 }
+    size: { w: 20, h: 18 }
+  - id: t2c
+    label: "A–A の輪切り"
+    marker: none
+    align: center
+    at: { x: 1170, y: 140 }
+    size: { w: 140, h: 18 }
+  - id: xs_o
+    label: ""
+    marker: circle
+    at: { x: 1170, y: 230 }
+    size: { w: 140, h: 140 }
+  - id: p88
+    label: ""
+    marker: none
+    at: { x: 1250.1, y: 303.6 }
+    size: { w: 2, h: 2 }
+  - id: p89
+    label: ""
+    marker: none
+    at: { x: 1303.7, y: 325.8 }
+    size: { w: 2, h: 2 }
+  - id: p90
+    label: ""
+    marker: none
+    at: { x: 1243.6, y: 310.1 }
+    size: { w: 2, h: 2 }
+  - id: p91
+    label: ""
+    marker: none
+    at: { x: 1265.8, y: 363.7 }
+    size: { w: 2, h: 2 }
+  - id: p92
+    label: ""
+    marker: none
+    at: { x: 1234.4, y: 310.1 }
+    size: { w: 2, h: 2 }
+  - id: p93
+    label: ""
+    marker: none
+    at: { x: 1212.2, y: 363.7 }
+    size: { w: 2, h: 2 }
+  - id: p94
+    label: ""
+    marker: none
+    at: { x: 1227.9, y: 303.6 }
+    size: { w: 2, h: 2 }
+  - id: p95
+    label: ""
+    marker: none
+    at: { x: 1174.3, y: 325.8 }
+    size: { w: 2, h: 2 }
+  - id: p96
+    label: ""
+    marker: none
+    at: { x: 1227.9, y: 294.4 }
+    size: { w: 2, h: 2 }
+  - id: p97
+    label: ""
+    marker: none
+    at: { x: 1174.3, y: 272.2 }
+    size: { w: 2, h: 2 }
+  - id: p98
+    label: ""
+    marker: none
+    at: { x: 1234.4, y: 287.9 }
+    size: { w: 2, h: 2 }
+  - id: p99
+    label: ""
+    marker: none
+    at: { x: 1212.2, y: 234.3 }
+    size: { w: 2, h: 2 }
+  - id: p100
+    label: ""
+    marker: none
+    at: { x: 1243.6, y: 287.9 }
+    size: { w: 2, h: 2 }
+  - id: p101
+    label: ""
+    marker: none
+    at: { x: 1265.8, y: 234.3 }
+    size: { w: 2, h: 2 }
+  - id: p102
+    label: ""
+    marker: none
+    at: { x: 1250.1, y: 294.4 }
+    size: { w: 2, h: 2 }
+  - id: p103
+    label: ""
+    marker: none
+    at: { x: 1303.7, y: 272.2 }
+    size: { w: 2, h: 2 }
+  - id: xs_r
+    label: ""
+    marker: circle
+    at: { x: 1228, y: 288 }
+    size: { w: 24, h: 24 }
+    hatch: solid
+  - id: xs_n
+    label: "視細胞 8 個が、真ん中の感桿を囲む\n（チョウは 9 個目が底のほうだけにある）"
+    marker: none
+    align: center
+    at: { x: 1090, y: 382 }
+    size: { w: 300, h: 36 }
+  - id: t3
+    label: "③ 2 つの型 —— 光を 1 つのレンズだけから受けるか、たくさんのレンズから集めるか"
+    marker: none
+    align: left
+    at: { x: 80, y: 640 }
+    size: { w: 1000, h: 18 }
+  - id: p104
+    label: ""
+    marker: none
+    at: { x: 174.1, y: 757.6 }
+    size: { w: 2, h: 2 }
+  - id: p105
+    label: ""
+    marker: none
+    at: { x: 483.9, y: 757.6 }
+    size: { w: 2, h: 2 }
+  - id: p106
+    label: ""
+    marker: none
+    at: { x: 247.3, y: 895.4 }
+    size: { w: 2, h: 2 }
+  - id: p107
+    label: ""
+    marker: none
+    at: { x: 410.7, y: 895.4 }
+    size: { w: 2, h: 2 }
+  - id: p108
+    label: ""
+    marker: none
+    at: { x: 181.9, y: 760.3 }
+    size: { w: 2, h: 2 }
+  - id: p109
+    label: ""
+    marker: none
+    at: { x: 213.5, y: 789.6 }
+    size: { w: 2, h: 2 }
+  - id: p110
+    label: ""
+    marker: none
+    at: { x: 255.8, y: 884.6 }
+    size: { w: 2, h: 2 }
+  - id: p111
+    label: ""
+    marker: none
+    at: { x: 223.5, y: 742.7 }
+    size: { w: 2, h: 2 }
+  - id: p112
+    label: ""
+    marker: none
+    at: { x: 250.7, y: 776 }
+    size: { w: 2, h: 2 }
+  - id: p113
+    label: ""
+    marker: none
+    at: { x: 279.4, y: 876 }
+    size: { w: 2, h: 2 }
+  - id: p114
+    label: ""
+    marker: none
+    at: { x: 267.2, y: 731 }
+    size: { w: 2, h: 2 }
+  - id: p115
+    label: ""
+    marker: none
+    at: { x: 289.5, y: 767.8 }
+    size: { w: 2, h: 2 }
+  - id: p116
+    label: ""
+    marker: none
+    at: { x: 303.9, y: 870.8 }
+    size: { w: 2, h: 2 }
+  - id: p117
+    label: ""
+    marker: none
+    at: { x: 312, y: 725.4 }
+    size: { w: 2, h: 2 }
+  - id: p118
+    label: ""
+    marker: none
+    at: { x: 329, y: 765 }
+    size: { w: 2, h: 2 }
+  - id: p119
+    label: ""
+    marker: none
+    at: { x: 329, y: 869 }
+    size: { w: 2, h: 2 }
+  - id: p120
+    label: ""
+    marker: none
+    at: { x: 357.2, y: 726.2 }
+    size: { w: 2, h: 2 }
+  - id: p121
+    label: ""
+    marker: none
+    at: { x: 368.5, y: 767.8 }
+    size: { w: 2, h: 2 }
+  - id: p122
+    label: ""
+    marker: none
+    at: { x: 354.1, y: 870.8 }
+    size: { w: 2, h: 2 }
+  - id: p123
+    label: ""
+    marker: none
+    at: { x: 401.9, y: 733.3 }
+    size: { w: 2, h: 2 }
+  - id: p124
+    label: ""
+    marker: none
+    at: { x: 407.3, y: 776 }
+    size: { w: 2, h: 2 }
+  - id: p125
+    label: ""
+    marker: none
+    at: { x: 378.6, y: 876 }
+    size: { w: 2, h: 2 }
+  - id: p126
+    label: ""
+    marker: none
+    at: { x: 445.1, y: 746.5 }
+    size: { w: 2, h: 2 }
+  - id: p127
+    label: ""
+    marker: none
+    at: { x: 444.5, y: 789.6 }
+    size: { w: 2, h: 2 }
+  - id: p128
+    label: ""
+    marker: none
+    at: { x: 402.2, y: 884.6 }
+    size: { w: 2, h: 2 }
+  - id: p129
+    label: ""
+    marker: none
+    at: { x: 176, y: 761.2 }
+    size: { w: 2, h: 2 }
+  - id: p130
+    label: ""
+    marker: none
+    at: { x: 244.5, y: 890.1 }
+    size: { w: 2, h: 2 }
+  - id: p131
+    label: ""
+    marker: none
+    at: { x: 217.5, y: 742.7 }
+    size: { w: 2, h: 2 }
+  - id: p132
+    label: ""
+    marker: none
+    at: { x: 267.4, y: 879.9 }
+    size: { w: 2, h: 2 }
+  - id: p133
+    label: ""
+    marker: none
+    at: { x: 261.2, y: 730.1 }
+    size: { w: 2, h: 2 }
+  - id: p134
+    label: ""
+    marker: none
+    at: { x: 291.6, y: 872.9 }
+    size: { w: 2, h: 2 }
+  - id: p135
+    label: ""
+    marker: none
+    at: { x: 306.3, y: 723.8 }
+    size: { w: 2, h: 2 }
+  - id: p136
+    label: ""
+    marker: none
+    at: { x: 316.4, y: 869.4 }
+    size: { w: 2, h: 2 }
+  - id: p137
+    label: ""
+    marker: none
+    at: { x: 351.7, y: 723.8 }
+    size: { w: 2, h: 2 }
+  - id: p138
+    label: ""
+    marker: none
+    at: { x: 341.6, y: 869.4 }
+    size: { w: 2, h: 2 }
+  - id: p139
+    label: ""
+    marker: none
+    at: { x: 396.8, y: 730.1 }
+    size: { w: 2, h: 2 }
+  - id: p140
+    label: ""
+    marker: none
+    at: { x: 366.4, y: 872.9 }
+    size: { w: 2, h: 2 }
+  - id: p141
+    label: ""
+    marker: none
+    at: { x: 440.5, y: 742.7 }
+    size: { w: 2, h: 2 }
+  - id: p142
+    label: ""
+    marker: none
+    at: { x: 390.6, y: 879.9 }
+    size: { w: 2, h: 2 }
+  - id: p143
+    label: ""
+    marker: none
+    at: { x: 482, y: 761.2 }
+    size: { w: 2, h: 2 }
+  - id: p144
+    label: ""
+    marker: none
+    at: { x: 413.5, y: 890.1 }
+    size: { w: 2, h: 2 }
+  - id: p145
+    label: ""
+    marker: none
+    at: { x: 283.1, y: 662.2 }
+    size: { w: 2, h: 2 }
+  - id: p146
+    label: ""
+    marker: none
+    at: { x: 283.1, y: 720.2 }
+    size: { w: 2, h: 2 }
+  - id: p147
+    label: ""
+    marker: none
+    at: { x: 283.1, y: 726.2 }
+    size: { w: 2, h: 2 }
+  - id: p148
+    label: ""
+    marker: none
+    at: { x: 303.4, y: 756.1 }
+    size: { w: 2, h: 2 }
+  - id: p149
+    label: ""
+    marker: none
+    at: { x: 329, y: 659 }
+    size: { w: 2, h: 2 }
+  - id: p150
+    label: ""
+    marker: none
+    at: { x: 329, y: 717 }
+    size: { w: 2, h: 2 }
+  - id: p151
+    label: ""
+    marker: none
+    at: { x: 329, y: 723 }
+    size: { w: 2, h: 2 }
+  - id: p152
+    label: ""
+    marker: none
+    at: { x: 329, y: 869 }
+    size: { w: 2, h: 2 }
+  - id: p153
+    label: ""
+    marker: none
+    at: { x: 374.9, y: 662.2 }
+    size: { w: 2, h: 2 }
+  - id: p154
+    label: ""
+    marker: none
+    at: { x: 374.9, y: 720.2 }
+    size: { w: 2, h: 2 }
+  - id: p155
+    label: ""
+    marker: none
+    at: { x: 374.9, y: 726.2 }
+    size: { w: 2, h: 2 }
+  - id: p156
+    label: ""
+    marker: none
+    at: { x: 354.6, y: 756.1 }
+    size: { w: 2, h: 2 }
+  - id: ap_t
+    label: "連立像眼（昼の虫に多い：ハチ・アリ・チョウ・ハエ）"
+    marker: none
+    align: center
+    at: { x: 100, y: 680 }
+    size: { w: 460, h: 18 }
+  - id: ap_1
+    label: "真上からの光は、真上を向いた個眼にだけ届く。\n斜めに入った光は色素の壁で吸われる（┤）。"
+    marker: none
+    align: center
+    at: { x: 100, y: 940 }
+    size: { w: 460, h: 36 }
+  - id: p157
+    label: ""
+    marker: none
+    at: { x: 774.1, y: 757.6 }
+    size: { w: 2, h: 2 }
+  - id: p158
+    label: ""
+    marker: none
+    at: { x: 1083.9, y: 757.6 }
+    size: { w: 2, h: 2 }
+  - id: p159
+    label: ""
+    marker: none
+    at: { x: 866.1, y: 930.7 }
+    size: { w: 2, h: 2 }
+  - id: p160
+    label: ""
+    marker: none
+    at: { x: 991.9, y: 930.7 }
+    size: { w: 2, h: 2 }
+  - id: p161
+    label: ""
+    marker: none
+    at: { x: 781.9, y: 760.3 }
+    size: { w: 2, h: 2 }
+  - id: p162
+    label: ""
+    marker: none
+    at: { x: 851.7, y: 875.4 }
+    size: { w: 2, h: 2 }
+  - id: p163
+    label: ""
+    marker: none
+    at: { x: 872.1, y: 921.1 }
+    size: { w: 2, h: 2 }
+  - id: p164
+    label: ""
+    marker: none
+    at: { x: 823.5, y: 742.7 }
+    size: { w: 2, h: 2 }
+  - id: p165
+    label: ""
+    marker: none
+    at: { x: 876.6, y: 866.4 }
+    size: { w: 2, h: 2 }
+  - id: p166
+    label: ""
+    marker: none
+    at: { x: 890.4, y: 914.4 }
+    size: { w: 2, h: 2 }
+  - id: p167
+    label: ""
+    marker: none
+    at: { x: 867.2, y: 731 }
+    size: { w: 2, h: 2 }
+  - id: p168
+    label: ""
+    marker: none
+    at: { x: 902.6, y: 860.8 }
+    size: { w: 2, h: 2 }
+  - id: p169
+    label: ""
+    marker: none
+    at: { x: 909.5, y: 910.4 }
+    size: { w: 2, h: 2 }
+  - id: p170
+    label: ""
+    marker: none
+    at: { x: 912, y: 725.4 }
+    size: { w: 2, h: 2 }
+  - id: p171
+    label: ""
+    marker: none
+    at: { x: 929, y: 859 }
+    size: { w: 2, h: 2 }
+  - id: p172
+    label: ""
+    marker: none
+    at: { x: 929, y: 909 }
+    size: { w: 2, h: 2 }
+  - id: p173
+    label: ""
+    marker: none
+    at: { x: 957.2, y: 726.2 }
+    size: { w: 2, h: 2 }
+  - id: p174
+    label: ""
+    marker: none
+    at: { x: 955.4, y: 860.8 }
+    size: { w: 2, h: 2 }
+  - id: p175
+    label: ""
+    marker: none
+    at: { x: 948.5, y: 910.4 }
+    size: { w: 2, h: 2 }
+  - id: p176
+    label: ""
+    marker: none
+    at: { x: 1001.9, y: 733.3 }
+    size: { w: 2, h: 2 }
+  - id: p177
+    label: ""
+    marker: none
+    at: { x: 981.4, y: 866.4 }
+    size: { w: 2, h: 2 }
+  - id: p178
+    label: ""
+    marker: none
+    at: { x: 967.6, y: 914.4 }
+    size: { w: 2, h: 2 }
+  - id: p179
+    label: ""
+    marker: none
+    at: { x: 1045.1, y: 746.5 }
+    size: { w: 2, h: 2 }
+  - id: p180
+    label: ""
+    marker: none
+    at: { x: 1006.3, y: 875.4 }
+    size: { w: 2, h: 2 }
+  - id: p181
+    label: ""
+    marker: none
+    at: { x: 985.9, y: 921.1 }
+    size: { w: 2, h: 2 }
+  - id: p182
+    label: ""
+    marker: none
+    at: { x: 776, y: 761.2 }
+    size: { w: 2, h: 2 }
+  - id: p183
+    label: ""
+    marker: none
+    at: { x: 795.7, y: 798.2 }
+    size: { w: 2, h: 2 }
+  - id: p184
+    label: ""
+    marker: none
+    at: { x: 817.5, y: 742.7 }
+    size: { w: 2, h: 2 }
+  - id: p185
+    label: ""
+    marker: none
+    at: { x: 831.9, y: 782.1 }
+    size: { w: 2, h: 2 }
+  - id: p186
+    label: ""
+    marker: none
+    at: { x: 861.2, y: 730.1 }
+    size: { w: 2, h: 2 }
+  - id: p187
+    label: ""
+    marker: none
+    at: { x: 870, y: 771.2 }
+    size: { w: 2, h: 2 }
+  - id: p188
+    label: ""
+    marker: none
+    at: { x: 906.3, y: 723.8 }
+    size: { w: 2, h: 2 }
+  - id: p189
+    label: ""
+    marker: none
+    at: { x: 909.2, y: 765.7 }
+    size: { w: 2, h: 2 }
+  - id: p190
+    label: ""
+    marker: none
+    at: { x: 951.7, y: 723.8 }
+    size: { w: 2, h: 2 }
+  - id: p191
+    label: ""
+    marker: none
+    at: { x: 948.8, y: 765.7 }
+    size: { w: 2, h: 2 }
+  - id: p192
+    label: ""
+    marker: none
+    at: { x: 996.8, y: 730.1 }
+    size: { w: 2, h: 2 }
+  - id: p193
+    label: ""
+    marker: none
+    at: { x: 988, y: 771.2 }
+    size: { w: 2, h: 2 }
+  - id: p194
+    label: ""
+    marker: none
+    at: { x: 1040.5, y: 742.7 }
+    size: { w: 2, h: 2 }
+  - id: p195
+    label: ""
+    marker: none
+    at: { x: 1026.1, y: 782.1 }
+    size: { w: 2, h: 2 }
+  - id: p196
+    label: ""
+    marker: none
+    at: { x: 1082, y: 761.2 }
+    size: { w: 2, h: 2 }
+  - id: p197
+    label: ""
+    marker: none
+    at: { x: 1062.3, y: 798.2 }
+    size: { w: 2, h: 2 }
+  - id: p198
+    label: ""
+    marker: none
+    at: { x: 838, y: 671.8 }
+    size: { w: 2, h: 2 }
+  - id: p199
+    label: ""
+    marker: none
+    at: { x: 838, y: 729.8 }
+    size: { w: 2, h: 2 }
+  - id: p200
+    label: ""
+    marker: none
+    at: { x: 838, y: 735.8 }
+    size: { w: 2, h: 2 }
+  - id: p201
+    label: ""
+    marker: none
+    at: { x: 929, y: 859 }
+    size: { w: 2, h: 2 }
+  - id: p202
+    label: ""
+    marker: none
+    at: { x: 883.1, y: 662.2 }
+    size: { w: 2, h: 2 }
+  - id: p203
+    label: ""
+    marker: none
+    at: { x: 883.1, y: 720.2 }
+    size: { w: 2, h: 2 }
+  - id: p204
+    label: ""
+    marker: none
+    at: { x: 883.1, y: 726.2 }
+    size: { w: 2, h: 2 }
+  - id: p205
+    label: ""
+    marker: none
+    at: { x: 929, y: 859 }
+    size: { w: 2, h: 2 }
+  - id: p206
+    label: ""
+    marker: none
+    at: { x: 929, y: 659 }
+    size: { w: 2, h: 2 }
+  - id: p207
+    label: ""
+    marker: none
+    at: { x: 929, y: 717 }
+    size: { w: 2, h: 2 }
+  - id: p208
+    label: ""
+    marker: none
+    at: { x: 929, y: 723 }
+    size: { w: 2, h: 2 }
+  - id: p209
+    label: ""
+    marker: none
+    at: { x: 929, y: 859 }
+    size: { w: 2, h: 2 }
+  - id: p210
+    label: ""
+    marker: none
+    at: { x: 974.9, y: 662.2 }
+    size: { w: 2, h: 2 }
+  - id: p211
+    label: ""
+    marker: none
+    at: { x: 974.9, y: 720.2 }
+    size: { w: 2, h: 2 }
+  - id: p212
+    label: ""
+    marker: none
+    at: { x: 974.9, y: 726.2 }
+    size: { w: 2, h: 2 }
+  - id: p213
+    label: ""
+    marker: none
+    at: { x: 929, y: 859 }
+    size: { w: 2, h: 2 }
+  - id: p214
+    label: ""
+    marker: none
+    at: { x: 1020, y: 671.8 }
+    size: { w: 2, h: 2 }
+  - id: p215
+    label: ""
+    marker: none
+    at: { x: 1020, y: 729.8 }
+    size: { w: 2, h: 2 }
+  - id: p216
+    label: ""
+    marker: none
+    at: { x: 1020, y: 735.8 }
+    size: { w: 2, h: 2 }
+  - id: p217
+    label: ""
+    marker: none
+    at: { x: 929, y: 859 }
+    size: { w: 2, h: 2 }
+  - id: sp_t
+    label: "重複像眼（夜の虫に多い：ガ・甲虫の多く。昼のホシホウジャクも）"
+    marker: none
+    align: center
+    at: { x: 660, y: 680 }
+    size: { w: 540, h: 18 }
+  - id: sp_1
+    label: "いくつものレンズの光が、色素の無い「明帯」を通って\n1 本の感桿に集まる —— 暗くても見える。"
+    marker: none
+    align: center
+    at: { x: 700, y: 980 }
+    size: { w: 460, h: 36 }
+  - id: sp_cz
+    label: "明帯"
+    marker: none
+    align: left
+    at: { x: 1080, y: 800 }
+    size: { w: 50, h: 18 }
+  - id: p218
+    label: ""
+    marker: none
+    at: { x: 1075, y: 808 }
+    size: { w: 2, h: 2 }
+  - id: p219
+    label: ""
+    marker: none
+    at: { x: 1011.1, y: 823.5 }
+    size: { w: 2, h: 2 }
+  - id: p220
+    label: ""
+    marker: none
+    at: { x: 79, y: 1048 }
+    size: { w: 2, h: 2 }
+  - id: p221
+    label: ""
+    marker: none
+    at: { x: 129, y: 1048 }
+    size: { w: 2, h: 2 }
+  - id: lg1
+    label: "光"
+    marker: none
+    align: left
+    at: { x: 138, y: 1040 }
+    size: { w: 40, h: 18 }
+  - id: p222
+    label: ""
+    marker: none
+    at: { x: 199, y: 1048 }
+    size: { w: 2, h: 2 }
+  - id: p223
+    label: ""
+    marker: none
+    at: { x: 249, y: 1048 }
+    size: { w: 2, h: 2 }
+  - id: lg2
+    label: "色素（光を吸う壁）"
+    marker: none
+    align: left
+    at: { x: 258, y: 1040 }
+    size: { w: 160, h: 18 }
+  - id: p224
+    label: ""
+    marker: none
+    at: { x: 439, y: 1048 }
+    size: { w: 2, h: 2 }
+  - id: p225
+    label: ""
+    marker: none
+    at: { x: 489, y: 1048 }
+    size: { w: 2, h: 2 }
+  - id: lg3
+    label: "感桿"
+    marker: none
+    align: left
+    at: { x: 498, y: 1040 }
+    size: { w: 60, h: 18 }
+  - id: lg4
+    label: "③ は形を言うための模式。個眼の数と角度は実物どおりではない。"
+    marker: none
+    align: left
+    at: { x: 600, y: 1040 }
+    size: { w: 600, h: 18 }
+  - id: nh
+    label: "個眼の数（片方の目）"
+    at: { x: 80, y: 1090 }
+    size: { w: 520, h: 24 }
+    hatch: solid
+  - id: na0
+    label: "大型のトンボ"
+    at: { x: 80, y: 1114 }
+    size: { w: 260, h: 24 }
+  - id: nb0
+    label: "最大 約 30,000"
+    at: { x: 340, y: 1114 }
+    size: { w: 260, h: 24 }
+    align: left
+  - id: na1
+    label: "ショウジョウバエ"
+    at: { x: 80, y: 1138 }
+    size: { w: 260, h: 24 }
+  - id: nb1
+    label: "約 760"
+    at: { x: 340, y: 1138 }
+    size: { w: 260, h: 24 }
+    align: left
+  - id: na2
+    label: "シミの仲間（総尾目）"
+    at: { x: 80, y: 1162 }
+    size: { w: 260, h: 24 }
+  - id: nb2
+    label: "ほんの数個"
+    at: { x: 340, y: 1162 }
+    size: { w: 260, h: 24 }
+    align: left
+  - id: cmph
+    label: "2 つの型の違い"
+    at: { x: 680, y: 1090 }
+    size: { w: 660, h: 24 }
+    hatch: solid
+  - id: cmpa0
+    label: "光の通り道"
+    at: { x: 680, y: 1114 }
+    size: { w: 140, h: 24 }
+  - id: cmpb0
+    label: "連立：1 つのレンズ → 真下の感桿 ／ 重複：何百のレンズ → 1 本の感桿"
+    at: { x: 820, y: 1114 }
+    size: { w: 520, h: 24 }
+    align: left
+  - id: cmpa1
+    label: "色素"
+    at: { x: 680, y: 1138 }
+    size: { w: 140, h: 24 }
+  - id: cmpb1
+    label: "連立：感桿まで包む ／ 重複：円錐のまわりだけ。下は明帯"
+    at: { x: 820, y: 1138 }
+    size: { w: 520, h: 24 }
+    align: left
+  - id: cmpa2
+    label: "得意"
+    at: { x: 680, y: 1162 }
+    size: { w: 140, h: 24 }
+  - id: cmpb2
+    label: "連立：明るい所でくっきり ／ 重複：暗い所で明るく"
+    at: { x: 820, y: 1162 }
+    size: { w: 520, h: 24 }
+    align: left
+  - id: cmpa3
+    label: "明るさ"
+    at: { x: 680, y: 1186 }
+    size: { w: 140, h: 24 }
+  - id: cmpb3
+    label: "ホシホウジャクは 1 つのレンズの約 200 倍の光を集める"
+    at: { x: 820, y: 1186 }
+    size: { w: 520, h: 24 }
+    align: left
+  - id: z0
+    label: "昆虫の目（複眼）は、六角の小さな目（個眼）がたくさん集まってできています。大型のトンボでは片方の目に約 3 万個。"
+    marker: none
+    align: left
+    at: { x: 80, y: 1240 }
+    size: { w: 1200, h: 18 }
+  - id: z1
+    label: "個眼は、角膜レンズ → 円錐晶体 → 視細胞の束（感桿）の順に光を通し、まわりを色素細胞が包んでいます。"
+    marker: none
+    align: left
+    at: { x: 80, y: 1264 }
+    size: { w: 1200, h: 18 }
+  - id: z2
+    label: "昼の虫に多い「連立像眼」は 1 つのレンズの光だけを使い、夜の虫に多い「重複像眼」はたくさんのレンズの光を 1 か所に集めます。"
+    marker: none
+    align: left
+    at: { x: 80, y: 1288 }
+    size: { w: 1200, h: 18 }
+edges:
+  - from: p0
+    to: p0
+    curve: none
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 110, y: 149 }
+      - { x: 128.2, y: 159.5 }
+      - { x: 128.2, y: 180.5 }
+      - { x: 110, y: 191 }
+      - { x: 91.8, y: 180.5 }
+      - { x: 91.8, y: 159.5 }
+  - from: p1
+    to: p1
+    curve: none
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 146.4, y: 149 }
+      - { x: 164.6, y: 159.5 }
+      - { x: 164.6, y: 180.5 }
+      - { x: 146.4, y: 191 }
+      - { x: 128.2, y: 180.5 }
+      - { x: 128.2, y: 159.5 }
+  - from: p2
+    to: p2
+    curve: none
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 182.7, y: 149 }
+      - { x: 200.9, y: 159.5 }
+      - { x: 200.9, y: 180.5 }
+      - { x: 182.7, y: 191 }
+      - { x: 164.6, y: 180.5 }
+      - { x: 164.6, y: 159.5 }
+  - from: p3
+    to: p3
+    curve: none
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 219.1, y: 149 }
+      - { x: 237.3, y: 159.5 }
+      - { x: 237.3, y: 180.5 }
+      - { x: 219.1, y: 191 }
+      - { x: 200.9, y: 180.5 }
+      - { x: 200.9, y: 159.5 }
+  - from: p4
+    to: p4
+    curve: none
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 255.5, y: 149 }
+      - { x: 273.7, y: 159.5 }
+      - { x: 273.7, y: 180.5 }
+      - { x: 255.5, y: 191 }
+      - { x: 237.3, y: 180.5 }
+      - { x: 237.3, y: 159.5 }
+  - from: p5
+    to: p5
+    curve: none
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 291.9, y: 149 }
+      - { x: 310.1, y: 159.5 }
+      - { x: 310.1, y: 180.5 }
+      - { x: 291.9, y: 191 }
+      - { x: 273.7, y: 180.5 }
+      - { x: 273.7, y: 159.5 }
+  - from: p6
+    to: p6
+    curve: none
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 328.2, y: 149 }
+      - { x: 346.4, y: 159.5 }
+      - { x: 346.4, y: 180.5 }
+      - { x: 328.2, y: 191 }
+      - { x: 310.1, y: 180.5 }
+      - { x: 310.1, y: 159.5 }
+  - from: p7
+    to: p7
+    curve: none
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 364.6, y: 149 }
+      - { x: 382.8, y: 159.5 }
+      - { x: 382.8, y: 180.5 }
+      - { x: 364.6, y: 191 }
+      - { x: 346.4, y: 180.5 }
+      - { x: 346.4, y: 159.5 }
+  - from: p8
+    to: p8
+    curve: none
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 128.2, y: 180.5 }
+      - { x: 146.4, y: 191 }
+      - { x: 146.4, y: 212 }
+      - { x: 128.2, y: 222.5 }
+      - { x: 110, y: 212 }
+      - { x: 110, y: 191 }
+  - from: p9
+    to: p9
+    curve: none
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 164.6, y: 180.5 }
+      - { x: 182.7, y: 191 }
+      - { x: 182.7, y: 212 }
+      - { x: 164.6, y: 222.5 }
+      - { x: 146.4, y: 212 }
+      - { x: 146.4, y: 191 }
+  - from: p10
+    to: p10
+    curve: none
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 200.9, y: 180.5 }
+      - { x: 219.1, y: 191 }
+      - { x: 219.1, y: 212 }
+      - { x: 200.9, y: 222.5 }
+      - { x: 182.7, y: 212 }
+      - { x: 182.7, y: 191 }
+  - from: p11
+    to: p11
+    curve: none
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 237.3, y: 180.5 }
+      - { x: 255.5, y: 191 }
+      - { x: 255.5, y: 212 }
+      - { x: 237.3, y: 222.5 }
+      - { x: 219.1, y: 212 }
+      - { x: 219.1, y: 191 }
+  - from: p12
+    to: p12
+    curve: none
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 273.7, y: 180.5 }
+      - { x: 291.9, y: 191 }
+      - { x: 291.9, y: 212 }
+      - { x: 273.7, y: 222.5 }
+      - { x: 255.5, y: 212 }
+      - { x: 255.5, y: 191 }
+  - from: p13
+    to: p13
+    curve: none
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 310.1, y: 180.5 }
+      - { x: 328.2, y: 191 }
+      - { x: 328.2, y: 212 }
+      - { x: 310.1, y: 222.5 }
+      - { x: 291.9, y: 212 }
+      - { x: 291.9, y: 191 }
+  - from: p14
+    to: p14
+    curve: none
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 346.4, y: 180.5 }
+      - { x: 364.6, y: 191 }
+      - { x: 364.6, y: 212 }
+      - { x: 346.4, y: 222.5 }
+      - { x: 328.2, y: 212 }
+      - { x: 328.2, y: 191 }
+  - from: p15
+    to: p15
+    curve: none
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 382.8, y: 180.5 }
+      - { x: 401, y: 191 }
+      - { x: 401, y: 212 }
+      - { x: 382.8, y: 222.5 }
+      - { x: 364.6, y: 212 }
+      - { x: 364.6, y: 191 }
+  - from: p16
+    to: p16
+    curve: none
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 110, y: 212 }
+      - { x: 128.2, y: 222.5 }
+      - { x: 128.2, y: 243.5 }
+      - { x: 110, y: 254 }
+      - { x: 91.8, y: 243.5 }
+      - { x: 91.8, y: 222.5 }
+  - from: p17
+    to: p17
+    curve: none
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 146.4, y: 212 }
+      - { x: 164.6, y: 222.5 }
+      - { x: 164.6, y: 243.5 }
+      - { x: 146.4, y: 254 }
+      - { x: 128.2, y: 243.5 }
+      - { x: 128.2, y: 222.5 }
+  - from: p18
+    to: p18
+    curve: none
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 182.7, y: 212 }
+      - { x: 200.9, y: 222.5 }
+      - { x: 200.9, y: 243.5 }
+      - { x: 182.7, y: 254 }
+      - { x: 164.6, y: 243.5 }
+      - { x: 164.6, y: 222.5 }
+  - from: p19
+    to: p19
+    curve: none
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 219.1, y: 212 }
+      - { x: 237.3, y: 222.5 }
+      - { x: 237.3, y: 243.5 }
+      - { x: 219.1, y: 254 }
+      - { x: 200.9, y: 243.5 }
+      - { x: 200.9, y: 222.5 }
+  - from: p20
+    to: p20
+    curve: none
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 255.5, y: 212 }
+      - { x: 273.7, y: 222.5 }
+      - { x: 273.7, y: 243.5 }
+      - { x: 255.5, y: 254 }
+      - { x: 237.3, y: 243.5 }
+      - { x: 237.3, y: 222.5 }
+  - from: p21
+    to: p21
+    curve: none
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 291.9, y: 212 }
+      - { x: 310.1, y: 222.5 }
+      - { x: 310.1, y: 243.5 }
+      - { x: 291.9, y: 254 }
+      - { x: 273.7, y: 243.5 }
+      - { x: 273.7, y: 222.5 }
+  - from: p22
+    to: p22
+    curve: none
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 328.2, y: 212 }
+      - { x: 346.4, y: 222.5 }
+      - { x: 346.4, y: 243.5 }
+      - { x: 328.2, y: 254 }
+      - { x: 310.1, y: 243.5 }
+      - { x: 310.1, y: 222.5 }
+  - from: p23
+    to: p23
+    curve: none
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 364.6, y: 212 }
+      - { x: 382.8, y: 222.5 }
+      - { x: 382.8, y: 243.5 }
+      - { x: 364.6, y: 254 }
+      - { x: 346.4, y: 243.5 }
+      - { x: 346.4, y: 222.5 }
+  - from: p24
+    to: p24
+    curve: none
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 128.2, y: 243.5 }
+      - { x: 146.4, y: 254 }
+      - { x: 146.4, y: 275 }
+      - { x: 128.2, y: 285.5 }
+      - { x: 110, y: 275 }
+      - { x: 110, y: 254 }
+  - from: p25
+    to: p25
+    curve: none
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 164.6, y: 243.5 }
+      - { x: 182.7, y: 254 }
+      - { x: 182.7, y: 275 }
+      - { x: 164.6, y: 285.5 }
+      - { x: 146.4, y: 275 }
+      - { x: 146.4, y: 254 }
+  - from: p26
+    to: p26
+    curve: none
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 200.9, y: 243.5 }
+      - { x: 219.1, y: 254 }
+      - { x: 219.1, y: 275 }
+      - { x: 200.9, y: 285.5 }
+      - { x: 182.7, y: 275 }
+      - { x: 182.7, y: 254 }
+  - from: p27
+    to: p27
+    curve: none
+    close: true
+    weight: thick
+    hatch: dots
+    ends: { from: none, to: none }
+    via:
+      - { x: 237.3, y: 243.5 }
+      - { x: 255.5, y: 254 }
+      - { x: 255.5, y: 275 }
+      - { x: 237.3, y: 285.5 }
+      - { x: 219.1, y: 275 }
+      - { x: 219.1, y: 254 }
+  - from: p28
+    to: p28
+    curve: none
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 273.7, y: 243.5 }
+      - { x: 291.9, y: 254 }
+      - { x: 291.9, y: 275 }
+      - { x: 273.7, y: 285.5 }
+      - { x: 255.5, y: 275 }
+      - { x: 255.5, y: 254 }
+  - from: p29
+    to: p29
+    curve: none
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 310.1, y: 243.5 }
+      - { x: 328.2, y: 254 }
+      - { x: 328.2, y: 275 }
+      - { x: 310.1, y: 285.5 }
+      - { x: 291.9, y: 275 }
+      - { x: 291.9, y: 254 }
+  - from: p30
+    to: p30
+    curve: none
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 346.4, y: 243.5 }
+      - { x: 364.6, y: 254 }
+      - { x: 364.6, y: 275 }
+      - { x: 346.4, y: 285.5 }
+      - { x: 328.2, y: 275 }
+      - { x: 328.2, y: 254 }
+  - from: p31
+    to: p31
+    curve: none
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 382.8, y: 243.5 }
+      - { x: 401, y: 254 }
+      - { x: 401, y: 275 }
+      - { x: 382.8, y: 285.5 }
+      - { x: 364.6, y: 275 }
+      - { x: 364.6, y: 254 }
+  - from: p32
+    to: p32
+    curve: none
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 110, y: 275 }
+      - { x: 128.2, y: 285.5 }
+      - { x: 128.2, y: 306.5 }
+      - { x: 110, y: 317 }
+      - { x: 91.8, y: 306.5 }
+      - { x: 91.8, y: 285.5 }
+  - from: p33
+    to: p33
+    curve: none
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 146.4, y: 275 }
+      - { x: 164.6, y: 285.5 }
+      - { x: 164.6, y: 306.5 }
+      - { x: 146.4, y: 317 }
+      - { x: 128.2, y: 306.5 }
+      - { x: 128.2, y: 285.5 }
+  - from: p34
+    to: p34
+    curve: none
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 182.7, y: 275 }
+      - { x: 200.9, y: 285.5 }
+      - { x: 200.9, y: 306.5 }
+      - { x: 182.7, y: 317 }
+      - { x: 164.6, y: 306.5 }
+      - { x: 164.6, y: 285.5 }
+  - from: p35
+    to: p35
+    curve: none
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 219.1, y: 275 }
+      - { x: 237.3, y: 285.5 }
+      - { x: 237.3, y: 306.5 }
+      - { x: 219.1, y: 317 }
+      - { x: 200.9, y: 306.5 }
+      - { x: 200.9, y: 285.5 }
+  - from: p36
+    to: p36
+    curve: none
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 255.5, y: 275 }
+      - { x: 273.7, y: 285.5 }
+      - { x: 273.7, y: 306.5 }
+      - { x: 255.5, y: 317 }
+      - { x: 237.3, y: 306.5 }
+      - { x: 237.3, y: 285.5 }
+  - from: p37
+    to: p37
+    curve: none
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 291.9, y: 275 }
+      - { x: 310.1, y: 285.5 }
+      - { x: 310.1, y: 306.5 }
+      - { x: 291.9, y: 317 }
+      - { x: 273.7, y: 306.5 }
+      - { x: 273.7, y: 285.5 }
+  - from: p38
+    to: p38
+    curve: none
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 328.2, y: 275 }
+      - { x: 346.4, y: 285.5 }
+      - { x: 346.4, y: 306.5 }
+      - { x: 328.2, y: 317 }
+      - { x: 310.1, y: 306.5 }
+      - { x: 310.1, y: 285.5 }
+  - from: p39
+    to: p39
+    curve: none
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 364.6, y: 275 }
+      - { x: 382.8, y: 285.5 }
+      - { x: 382.8, y: 306.5 }
+      - { x: 364.6, y: 317 }
+      - { x: 346.4, y: 306.5 }
+      - { x: 346.4, y: 285.5 }
+  - from: p40
+    to: p40
+    curve: none
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 128.2, y: 306.5 }
+      - { x: 146.4, y: 317 }
+      - { x: 146.4, y: 338 }
+      - { x: 128.2, y: 348.5 }
+      - { x: 110, y: 338 }
+      - { x: 110, y: 317 }
+  - from: p41
+    to: p41
+    curve: none
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 164.6, y: 306.5 }
+      - { x: 182.7, y: 317 }
+      - { x: 182.7, y: 338 }
+      - { x: 164.6, y: 348.5 }
+      - { x: 146.4, y: 338 }
+      - { x: 146.4, y: 317 }
+  - from: p42
+    to: p42
+    curve: none
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 200.9, y: 306.5 }
+      - { x: 219.1, y: 317 }
+      - { x: 219.1, y: 338 }
+      - { x: 200.9, y: 348.5 }
+      - { x: 182.7, y: 338 }
+      - { x: 182.7, y: 317 }
+  - from: p43
+    to: p43
+    curve: none
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 237.3, y: 306.5 }
+      - { x: 255.5, y: 317 }
+      - { x: 255.5, y: 338 }
+      - { x: 237.3, y: 348.5 }
+      - { x: 219.1, y: 338 }
+      - { x: 219.1, y: 317 }
+  - from: p44
+    to: p44
+    curve: none
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 273.7, y: 306.5 }
+      - { x: 291.9, y: 317 }
+      - { x: 291.9, y: 338 }
+      - { x: 273.7, y: 348.5 }
+      - { x: 255.5, y: 338 }
+      - { x: 255.5, y: 317 }
+  - from: p45
+    to: p45
+    curve: none
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 310.1, y: 306.5 }
+      - { x: 328.2, y: 317 }
+      - { x: 328.2, y: 338 }
+      - { x: 310.1, y: 348.5 }
+      - { x: 291.9, y: 338 }
+      - { x: 291.9, y: 317 }
+  - from: p46
+    to: p46
+    curve: none
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 346.4, y: 306.5 }
+      - { x: 364.6, y: 317 }
+      - { x: 364.6, y: 338 }
+      - { x: 346.4, y: 348.5 }
+      - { x: 328.2, y: 338 }
+      - { x: 328.2, y: 317 }
+  - from: p47
+    to: p47
+    curve: none
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 382.8, y: 306.5 }
+      - { x: 401, y: 317 }
+      - { x: 401, y: 338 }
+      - { x: 382.8, y: 348.5 }
+      - { x: 364.6, y: 338 }
+      - { x: 364.6, y: 317 }
+  - from: p48
+    to: p48
+    curve: none
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 110, y: 338 }
+      - { x: 128.2, y: 348.5 }
+      - { x: 128.2, y: 369.5 }
+      - { x: 110, y: 380 }
+      - { x: 91.8, y: 369.5 }
+      - { x: 91.8, y: 348.5 }
+  - from: p49
+    to: p49
+    curve: none
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 146.4, y: 338 }
+      - { x: 164.6, y: 348.5 }
+      - { x: 164.6, y: 369.5 }
+      - { x: 146.4, y: 380 }
+      - { x: 128.2, y: 369.5 }
+      - { x: 128.2, y: 348.5 }
+  - from: p50
+    to: p50
+    curve: none
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 182.7, y: 338 }
+      - { x: 200.9, y: 348.5 }
+      - { x: 200.9, y: 369.5 }
+      - { x: 182.7, y: 380 }
+      - { x: 164.6, y: 369.5 }
+      - { x: 164.6, y: 348.5 }
+  - from: p51
+    to: p51
+    curve: none
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 219.1, y: 338 }
+      - { x: 237.3, y: 348.5 }
+      - { x: 237.3, y: 369.5 }
+      - { x: 219.1, y: 380 }
+      - { x: 200.9, y: 369.5 }
+      - { x: 200.9, y: 348.5 }
+  - from: p52
+    to: p52
+    curve: none
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 255.5, y: 338 }
+      - { x: 273.7, y: 348.5 }
+      - { x: 273.7, y: 369.5 }
+      - { x: 255.5, y: 380 }
+      - { x: 237.3, y: 369.5 }
+      - { x: 237.3, y: 348.5 }
+  - from: p53
+    to: p53
+    curve: none
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 291.9, y: 338 }
+      - { x: 310.1, y: 348.5 }
+      - { x: 310.1, y: 369.5 }
+      - { x: 291.9, y: 380 }
+      - { x: 273.7, y: 369.5 }
+      - { x: 273.7, y: 348.5 }
+  - from: p54
+    to: p54
+    curve: none
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 328.2, y: 338 }
+      - { x: 346.4, y: 348.5 }
+      - { x: 346.4, y: 369.5 }
+      - { x: 328.2, y: 380 }
+      - { x: 310.1, y: 369.5 }
+      - { x: 310.1, y: 348.5 }
+  - from: p55
+    to: p55
+    curve: none
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 364.6, y: 338 }
+      - { x: 382.8, y: 348.5 }
+      - { x: 382.8, y: 369.5 }
+      - { x: 364.6, y: 380 }
+      - { x: 346.4, y: 369.5 }
+      - { x: 346.4, y: 348.5 }
+  - from: p56
+    to: p56
+    curve: smooth
+    close: true
+    weight: thick
+    hatch: dots
+    ends: { from: none, to: none }
+    via:
+      - { x: 602, y: 166 }
+      - { x: 620, y: 154 }
+      - { x: 640, y: 150 }
+      - { x: 660, y: 154 }
+      - { x: 678, y: 166 }
+      - { x: 660, y: 180 }
+      - { x: 640, y: 184 }
+      - { x: 620, y: 180 }
+  - from: p57
+    to: p57
+    curve: none
+    close: true
+    weight: normal
+    hatch: lines
+    ends: { from: none, to: none }
+    via:
+      - { x: 610, y: 186 }
+      - { x: 670, y: 186 }
+      - { x: 644, y: 286 }
+      - { x: 636, y: 286 }
+  - from: p58
+    to: p58
+    curve: none
+    close: true
+    hatch: solid
+    ends: { from: none, to: none }
+    via:
+      - { x: 602, y: 186 }
+      - { x: 609, y: 186 }
+      - { x: 622.5, y: 236 }
+      - { x: 614, y: 236 }
+  - from: p59
+    to: p59
+    curve: none
+    close: true
+    hatch: solid
+    ends: { from: none, to: none }
+    via:
+      - { x: 671, y: 186 }
+      - { x: 678, y: 186 }
+      - { x: 666, y: 236 }
+      - { x: 657.5, y: 236 }
+  - from: p60
+    to: p61
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p62
+    to: p63
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p64
+    to: p65
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p66
+    to: p67
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p68
+    to: p69
+    curve: none
+    weight: thick
+    color: 光
+    ends: { from: none, to: arrow }
+  - from: p70
+    to: p71
+    curve: none
+    weight: thin
+    ends: { from: dot, to: none }
+  - from: p72
+    to: p73
+    curve: none
+    weight: thin
+    ends: { from: dot, to: none }
+  - from: p74
+    to: p75
+    curve: none
+    weight: thin
+    ends: { from: dot, to: none }
+  - from: p76
+    to: p77
+    curve: none
+    weight: thin
+    ends: { from: dot, to: none }
+  - from: p78
+    to: p79
+    curve: none
+    weight: thin
+    ends: { from: dot, to: none }
+  - from: p80
+    to: p81
+    curve: none
+    weight: thin
+    ends: { from: dot, to: none }
+  - from: p82
+    to: p83
+    curve: none
+    weight: thin
+    ends: { from: dot, to: none }
+  - from: p84
+    to: p85
+    curve: none
+    weight: thin
+    ends: { from: dot, to: none }
+  - from: p86
+    to: p87
+    curve: none
+    line: chain
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p88
+    to: p89
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p90
+    to: p91
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p92
+    to: p93
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p94
+    to: p95
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p96
+    to: p97
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p98
+    to: p99
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p100
+    to: p101
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p102
+    to: p103
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p104
+    to: p105
+    curve: smooth
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 199.3, y: 747 }
+      - { x: 224.4, y: 737.4 }
+      - { x: 250.2, y: 729.8 }
+      - { x: 276.5, y: 724.4 }
+      - { x: 303.2, y: 721.1 }
+      - { x: 330, y: 720 }
+      - { x: 356.8, y: 721.1 }
+      - { x: 383.5, y: 724.4 }
+      - { x: 409.8, y: 729.8 }
+      - { x: 435.6, y: 737.4 }
+      - { x: 460.7, y: 747 }
+  - from: p106
+    to: p107
+    curve: smooth
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 261.1, y: 890.2 }
+      - { x: 274.3, y: 885.2 }
+      - { x: 287.9, y: 881.2 }
+      - { x: 301.8, y: 878.3 }
+      - { x: 315.8, y: 876.6 }
+      - { x: 330, y: 876 }
+      - { x: 344.2, y: 876.6 }
+      - { x: 358.2, y: 878.3 }
+      - { x: 372.1, y: 881.2 }
+      - { x: 385.7, y: 885.2 }
+      - { x: 398.9, y: 890.2 }
+  - from: p108
+    to: p108
+    curve: none
+    close: true
+    weight: thin
+    hatch: lines
+    ends: { from: none, to: none }
+    via:
+      - { x: 182.9, y: 761.3 }
+      - { x: 213.9, y: 747.5 }
+      - { x: 217.2, y: 789.4 }
+      - { x: 211.8, y: 791.8 }
+  - from: p109
+    to: p110
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p111
+    to: p111
+    curve: none
+    close: true
+    weight: thin
+    hatch: lines
+    ends: { from: none, to: none }
+    via:
+      - { x: 224.5, y: 743.7 }
+      - { x: 257.1, y: 734.3 }
+      - { x: 254.6, y: 776.2 }
+      - { x: 248.9, y: 777.8 }
+  - from: p112
+    to: p113
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p114
+    to: p114
+    curve: none
+    close: true
+    weight: thin
+    hatch: lines
+    ends: { from: none, to: none }
+    via:
+      - { x: 268.2, y: 732 }
+      - { x: 301.8, y: 727.2 }
+      - { x: 293.4, y: 768.4 }
+      - { x: 287.5, y: 769.2 }
+  - from: p115
+    to: p116
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p117
+    to: p117
+    curve: none
+    close: true
+    weight: thin
+    hatch: lines
+    ends: { from: none, to: none }
+    via:
+      - { x: 313, y: 726.4 }
+      - { x: 347, y: 726.4 }
+      - { x: 333, y: 766 }
+      - { x: 327, y: 766 }
+  - from: p118
+    to: p119
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p120
+    to: p120
+    curve: none
+    close: true
+    weight: thin
+    hatch: lines
+    ends: { from: none, to: none }
+    via:
+      - { x: 358.2, y: 727.2 }
+      - { x: 391.8, y: 732 }
+      - { x: 372.5, y: 769.2 }
+      - { x: 366.6, y: 768.4 }
+  - from: p121
+    to: p122
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p123
+    to: p123
+    curve: none
+    close: true
+    weight: thin
+    hatch: lines
+    ends: { from: none, to: none }
+    via:
+      - { x: 402.9, y: 734.3 }
+      - { x: 435.5, y: 743.7 }
+      - { x: 411.1, y: 777.8 }
+      - { x: 405.4, y: 776.2 }
+  - from: p124
+    to: p125
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p126
+    to: p126
+    curve: none
+    close: true
+    weight: thin
+    hatch: lines
+    ends: { from: none, to: none }
+    via:
+      - { x: 446.1, y: 747.5 }
+      - { x: 477.1, y: 761.3 }
+      - { x: 448.2, y: 791.8 }
+      - { x: 442.8, y: 789.4 }
+  - from: p127
+    to: p128
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p129
+    to: p130
+    curve: none
+    line: solid
+    weight: thick
+    color: 色素
+    ends: { from: none, to: none }
+  - from: p131
+    to: p132
+    curve: none
+    line: solid
+    weight: thick
+    color: 色素
+    ends: { from: none, to: none }
+  - from: p133
+    to: p134
+    curve: none
+    line: solid
+    weight: thick
+    color: 色素
+    ends: { from: none, to: none }
+  - from: p135
+    to: p136
+    curve: none
+    line: solid
+    weight: thick
+    color: 色素
+    ends: { from: none, to: none }
+  - from: p137
+    to: p138
+    curve: none
+    line: solid
+    weight: thick
+    color: 色素
+    ends: { from: none, to: none }
+  - from: p139
+    to: p140
+    curve: none
+    line: solid
+    weight: thick
+    color: 色素
+    ends: { from: none, to: none }
+  - from: p141
+    to: p142
+    curve: none
+    line: solid
+    weight: thick
+    color: 色素
+    ends: { from: none, to: none }
+  - from: p143
+    to: p144
+    curve: none
+    line: solid
+    weight: thick
+    color: 色素
+    ends: { from: none, to: none }
+  - from: p145
+    to: p146
+    curve: none
+    color: 光
+    ends: { from: none, to: arrow }
+  - from: p147
+    to: p148
+    curve: none
+    color: 光
+    ends: { from: none, to: bar }
+  - from: p149
+    to: p150
+    curve: none
+    color: 光
+    ends: { from: none, to: arrow }
+  - from: p151
+    to: p152
+    curve: none
+    color: 光
+    ends: { from: none, to: arrow }
+  - from: p153
+    to: p154
+    curve: none
+    color: 光
+    ends: { from: none, to: arrow }
+  - from: p155
+    to: p156
+    curve: none
+    color: 光
+    ends: { from: none, to: bar }
+  - from: p157
+    to: p158
+    curve: smooth
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 799.3, y: 747 }
+      - { x: 824.4, y: 737.4 }
+      - { x: 850.2, y: 729.8 }
+      - { x: 876.5, y: 724.4 }
+      - { x: 903.2, y: 721.1 }
+      - { x: 930, y: 720 }
+      - { x: 956.8, y: 721.1 }
+      - { x: 983.5, y: 724.4 }
+      - { x: 1009.8, y: 729.8 }
+      - { x: 1035.6, y: 737.4 }
+      - { x: 1060.7, y: 747 }
+  - from: p159
+    to: p160
+    curve: smooth
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 876.9, y: 927 }
+      - { x: 887.1, y: 923 }
+      - { x: 897.6, y: 920 }
+      - { x: 908.3, y: 917.8 }
+      - { x: 919.1, y: 916.4 }
+      - { x: 930, y: 916 }
+      - { x: 940.9, y: 916.4 }
+      - { x: 951.7, y: 917.8 }
+      - { x: 962.4, y: 920 }
+      - { x: 972.9, y: 923 }
+      - { x: 983.1, y: 927 }
+  - from: p161
+    to: p161
+    curve: none
+    close: true
+    weight: thin
+    hatch: lines
+    ends: { from: none, to: none }
+    via:
+      - { x: 782.9, y: 761.3 }
+      - { x: 813.9, y: 747.5 }
+      - { x: 817.2, y: 789.4 }
+      - { x: 811.8, y: 791.8 }
+  - from: p162
+    to: p163
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p164
+    to: p164
+    curve: none
+    close: true
+    weight: thin
+    hatch: lines
+    ends: { from: none, to: none }
+    via:
+      - { x: 824.5, y: 743.7 }
+      - { x: 857.1, y: 734.3 }
+      - { x: 854.6, y: 776.2 }
+      - { x: 848.9, y: 777.8 }
+  - from: p165
+    to: p166
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p167
+    to: p167
+    curve: none
+    close: true
+    weight: thin
+    hatch: lines
+    ends: { from: none, to: none }
+    via:
+      - { x: 868.2, y: 732 }
+      - { x: 901.8, y: 727.2 }
+      - { x: 893.4, y: 768.4 }
+      - { x: 887.5, y: 769.2 }
+  - from: p168
+    to: p169
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p170
+    to: p170
+    curve: none
+    close: true
+    weight: thin
+    hatch: lines
+    ends: { from: none, to: none }
+    via:
+      - { x: 913, y: 726.4 }
+      - { x: 947, y: 726.4 }
+      - { x: 933, y: 766 }
+      - { x: 927, y: 766 }
+  - from: p171
+    to: p172
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p173
+    to: p173
+    curve: none
+    close: true
+    weight: thin
+    hatch: lines
+    ends: { from: none, to: none }
+    via:
+      - { x: 958.2, y: 727.2 }
+      - { x: 991.8, y: 732 }
+      - { x: 972.5, y: 769.2 }
+      - { x: 966.6, y: 768.4 }
+  - from: p174
+    to: p175
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p176
+    to: p176
+    curve: none
+    close: true
+    weight: thin
+    hatch: lines
+    ends: { from: none, to: none }
+    via:
+      - { x: 1002.9, y: 734.3 }
+      - { x: 1035.5, y: 743.7 }
+      - { x: 1011.1, y: 777.8 }
+      - { x: 1005.4, y: 776.2 }
+  - from: p177
+    to: p178
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p179
+    to: p179
+    curve: none
+    close: true
+    weight: thin
+    hatch: lines
+    ends: { from: none, to: none }
+    via:
+      - { x: 1046.1, y: 747.5 }
+      - { x: 1077.1, y: 761.3 }
+      - { x: 1048.2, y: 791.8 }
+      - { x: 1042.8, y: 789.4 }
+  - from: p180
+    to: p181
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p182
+    to: p183
+    curve: none
+    line: solid
+    weight: thick
+    color: 色素
+    ends: { from: none, to: none }
+  - from: p184
+    to: p185
+    curve: none
+    line: solid
+    weight: thick
+    color: 色素
+    ends: { from: none, to: none }
+  - from: p186
+    to: p187
+    curve: none
+    line: solid
+    weight: thick
+    color: 色素
+    ends: { from: none, to: none }
+  - from: p188
+    to: p189
+    curve: none
+    line: solid
+    weight: thick
+    color: 色素
+    ends: { from: none, to: none }
+  - from: p190
+    to: p191
+    curve: none
+    line: solid
+    weight: thick
+    color: 色素
+    ends: { from: none, to: none }
+  - from: p192
+    to: p193
+    curve: none
+    line: solid
+    weight: thick
+    color: 色素
+    ends: { from: none, to: none }
+  - from: p194
+    to: p195
+    curve: none
+    line: solid
+    weight: thick
+    color: 色素
+    ends: { from: none, to: none }
+  - from: p196
+    to: p197
+    curve: none
+    line: solid
+    weight: thick
+    color: 色素
+    ends: { from: none, to: none }
+  - from: p198
+    to: p199
+    curve: none
+    color: 光
+    ends: { from: none, to: arrow }
+  - from: p200
+    to: p201
+    curve: none
+    color: 光
+    ends: { from: none, to: none }
+  - from: p202
+    to: p203
+    curve: none
+    color: 光
+    ends: { from: none, to: arrow }
+  - from: p204
+    to: p205
+    curve: none
+    color: 光
+    ends: { from: none, to: none }
+  - from: p206
+    to: p207
+    curve: none
+    color: 光
+    ends: { from: none, to: arrow }
+  - from: p208
+    to: p209
+    curve: none
+    color: 光
+    ends: { from: none, to: arrow }
+  - from: p210
+    to: p211
+    curve: none
+    color: 光
+    ends: { from: none, to: arrow }
+  - from: p212
+    to: p213
+    curve: none
+    color: 光
+    ends: { from: none, to: none }
+  - from: p214
+    to: p215
+    curve: none
+    color: 光
+    ends: { from: none, to: arrow }
+  - from: p216
+    to: p217
+    curve: none
+    color: 光
+    ends: { from: none, to: none }
+  - from: p218
+    to: p219
+    curve: none
+    weight: thin
+    ends: { from: none, to: dot }
+  - from: p220
+    to: p221
+    curve: none
+    color: 光
+    ends: { from: none, to: arrow }
+  - from: p222
+    to: p223
+    curve: none
+    weight: thick
+    color: 色素
+    ends: { from: none, to: none }
+  - from: p224
+    to: p225
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }

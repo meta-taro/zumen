@@ -1,0 +1,982 @@
+version: 1
+kind: placement
+arrows: true
+scale: { mm: 60 }
+title: カーリングのシート（線はすべてティーの中心から測る）
+sources:
+  - name: "World Curling「The Rules of Curling and Rules of Competition」（2026 年 9 月 1 日版）R1・R2・R5・R6・R8・R12"
+    url: https://worldcurling.org/competitions/rules/
+    retrieved: 2026-10-06
+# **線は、すべてティー（ハウスの中心の穴）から測る。**
+# ティーラインはシートの中央から 17.375m、そこから手前へ 6.401m がホッグライン（内側の縁）、
+# 先へ 1.829m がバックライン（外側の縁）、3.658m がハックライン。
+# **バックラインの外側の縁は、ハウスのいちばん外の円（半径 1.829m）と同じ所にある。**
+#
+# **何のための図か。** 製氷・施設の担当と審判が、ペブルを撒く前に線とハウスの位置を
+# 規則書の数で確かめるための図。作戦（どこへ置くか）は描かない。
+#
+# **描いたもの。** ①シート全体（1 px ＝ 60 mm）：45.720m × 4.750m、両端のハウス・ティーライン・
+# ホッグライン・バックライン・ハックライン、センターライン。
+# ②片側の拡大（1 px ＝ 20 mm）：ハウスの 4 つの円、ホッグライン（幅 102mm を幅のまま）、
+# コーテシーライン、ハック 2 つ（センターラインから 76mm、幅 152mm、ハックラインから 203mm まで）、
+# バックボード、フリーガードゾーン（ホッグラインの内側の縁からティーラインまで、ハウスを除く —— R6(a)）。
+#
+# **長さと幅は規則の限度で描いた。** 長さは「45.720m 以上」、幅は「4.750m 以下」—— どちらも限度の値。
+# 既存の施設で足りなければ 44.501m・4.420m まで縮めてよい（R1(a)）。
+# 縮めても、ティーから測る線の位置は変わらない（変わるのはハックからバックボードまでの余り）。
+# **描かなかったもの（理由）。**
+# - ハウスの色（赤・青）—— 規則は円の半径しか決めていない。色は施設ごと
+# - 車いすカーリングの線（センターラインの両側 457mm の細い線 —— R1(c)）—— 種目が違う。表に入れなかった
+# - ストーン（円周 914mm 以下）—— 置くと作戦の図になる
+# - ノーティックゾーン（R7）—— FGZ の中でセンターラインに触れている石の話で、線ではない
+# 出典（取得 2026-10-06）：World Curling, The Rules of Curling and Rules of Competition, 1 September 2026。
+# R1(a)(b)(d)(e)（寸法）、R2(f)(g)（ホッグを越えない石・バックラインを越えた石は外す）、R5(e)（ホッグの前に手を離す）、
+# R6(a)(b)（FGZ）、R8(e)（相手の石はティーラインの後ろでだけ掃ける）、R12(b)（得点）。
+nodes:
+  - id: t1
+    label: "① シートの全体 —— 1 px ＝ 60 mm。長さ 45.720m 以上・幅 4.750m 以下"
+    marker: none
+    align: left
+    at: { x: 120, y: 150 }
+    size: { w: 800, h: 20 }
+  - id: sheet
+    label: ""
+    at: { x: 120, y: 236 }
+    size: { w: 762, h: 79.17 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 210.42, y: 235 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 210.42, y: 314.17 }
+    size: { w: 2, h: 2 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 179.93, y: 235 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 179.93, y: 314.17 }
+    size: { w: 2, h: 2 }
+  - id: n6
+    label: ""
+    hatch: solid
+    at: { x: 318.1, y: 236 }
+    size: { w: 2, h: 79.17 }
+  - id: n7
+    label: ""
+    marker: circle
+    at: { x: 180.93, y: 245.1 }
+    size: { w: 60.97, h: 60.97 }
+  - id: n8
+    label: ""
+    marker: circle
+    at: { x: 191.1, y: 255.27 }
+    size: { w: 40.63, h: 40.63 }
+  - id: n9
+    label: ""
+    marker: circle
+    at: { x: 201.25, y: 265.42 }
+    size: { w: 20.33, h: 20.33 }
+  - id: n10
+    label: ""
+    marker: circle
+    at: { x: 208.88, y: 273.05 }
+    size: { w: 5.07, h: 5.07 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 149.45, y: 270.77 }
+    size: { w: 2, h: 2 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 149.45, y: 278.39 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 789.58, y: 235 }
+    size: { w: 2, h: 2 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 789.58, y: 314.17 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 820.07, y: 235 }
+    size: { w: 2, h: 2 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 820.07, y: 314.17 }
+    size: { w: 2, h: 2 }
+  - id: n17
+    label: ""
+    hatch: solid
+    at: { x: 682.2, y: 236 }
+    size: { w: 2, h: 79.17 }
+  - id: n18
+    label: ""
+    marker: circle
+    at: { x: 760.1, y: 245.1 }
+    size: { w: 60.97, h: 60.97 }
+  - id: n19
+    label: ""
+    marker: circle
+    at: { x: 770.27, y: 255.27 }
+    size: { w: 40.63, h: 40.63 }
+  - id: n20
+    label: ""
+    marker: circle
+    at: { x: 780.42, y: 265.42 }
+    size: { w: 20.33, h: 20.33 }
+  - id: n21
+    label: ""
+    marker: circle
+    at: { x: 788.05, y: 273.05 }
+    size: { w: 5.07, h: 5.07 }
+  - id: p22
+    label: ""
+    marker: none
+    at: { x: 850.55, y: 270.77 }
+    size: { w: 2, h: 2 }
+  - id: p23
+    label: ""
+    marker: none
+    at: { x: 850.55, y: 278.39 }
+    size: { w: 2, h: 2 }
+  - id: p24
+    label: ""
+    marker: none
+    at: { x: 149.45, y: 274.58 }
+    size: { w: 2, h: 2 }
+  - id: p25
+    label: ""
+    marker: none
+    at: { x: 179.93, y: 274.58 }
+    size: { w: 2, h: 2 }
+  - id: p26
+    label: ""
+    marker: none
+    at: { x: 179.93, y: 274.58 }
+    size: { w: 2, h: 2 }
+  - id: p27
+    label: ""
+    marker: none
+    at: { x: 210.42, y: 274.58 }
+    size: { w: 2, h: 2 }
+  - id: p28
+    label: ""
+    marker: none
+    at: { x: 210.42, y: 274.58 }
+    size: { w: 2, h: 2 }
+  - id: p29
+    label: ""
+    marker: none
+    at: { x: 789.58, y: 274.58 }
+    size: { w: 2, h: 2 }
+  - id: p30
+    label: ""
+    marker: none
+    at: { x: 789.58, y: 274.58 }
+    size: { w: 2, h: 2 }
+  - id: p31
+    label: ""
+    marker: none
+    at: { x: 820.07, y: 274.58 }
+    size: { w: 2, h: 2 }
+  - id: p32
+    label: ""
+    marker: none
+    at: { x: 820.07, y: 274.58 }
+    size: { w: 2, h: 2 }
+  - id: p33
+    label: ""
+    marker: none
+    at: { x: 850.55, y: 274.58 }
+    size: { w: 2, h: 2 }
+  - id: t34
+    label: "中央"
+    marker: none
+    align: center
+    at: { x: 471, y: 212 }
+    size: { w: 60, h: 18 }
+  - id: p35
+    label: ""
+    marker: none
+    at: { x: 500, y: 229 }
+    size: { w: 2, h: 2 }
+  - id: p36
+    label: ""
+    marker: none
+    at: { x: 500, y: 235 }
+    size: { w: 2, h: 2 }
+  - id: p37
+    label: ""
+    marker: none
+    at: { x: 210.42, y: 328.17 }
+    size: { w: 2, h: 2 }
+  - id: p38
+    label: ""
+    marker: none
+    at: { x: 789.58, y: 328.17 }
+    size: { w: 2, h: 2 }
+  - id: t39
+    label: "ティーとティーの間 34.750m（中央から 17.375m ずつ）"
+    marker: none
+    align: center
+    at: { x: 301, y: 335.17 }
+    size: { w: 400, h: 18 }
+  - id: p40
+    label: ""
+    marker: none
+    at: { x: 119, y: 364.17 }
+    size: { w: 2, h: 2 }
+  - id: p41
+    label: ""
+    marker: none
+    at: { x: 881, y: 364.17 }
+    size: { w: 2, h: 2 }
+  - id: t42
+    label: "バックボードの内側から 45.720m 以上（150 ft）"
+    marker: none
+    align: center
+    at: { x: 301, y: 371.17 }
+    size: { w: 400, h: 18 }
+  - id: t43
+    label: "②で拡大する範囲"
+    marker: none
+    align: center
+    at: { x: 697.67, y: 206 }
+    size: { w: 140, h: 18 }
+  - id: p44
+    label: ""
+    marker: none
+    at: { x: 655, y: 227 }
+    size: { w: 2, h: 2 }
+  - id: p45
+    label: ""
+    marker: none
+    at: { x: 881, y: 227 }
+    size: { w: 2, h: 2 }
+  - id: t46
+    label: "② 片側の拡大（ホッグラインからバックボードまで）—— 1 px ＝ 20 mm（①の 3 倍）"
+    marker: none
+    align: left
+    at: { x: 120, y: 480 }
+    size: { w: 800, h: 20 }
+  - id: p47
+    label: ""
+    marker: none
+    at: { x: 202.7, y: 583 }
+    size: { w: 2, h: 2 }
+  - id: p48
+    label: ""
+    marker: none
+    at: { x: 202.7, y: 820.5 }
+    size: { w: 2, h: 2 }
+  - id: t49
+    label: "フリーガードゾーン（FGZ）"
+    marker: none
+    align: left
+    at: { x: 213.7, y: 606 }
+    size: { w: 200, h: 18 }
+  - id: p50
+    label: ""
+    marker: none
+    at: { x: 119, y: 583 }
+    size: { w: 2, h: 2 }
+  - id: p51
+    label: ""
+    marker: none
+    at: { x: 797, y: 583 }
+    size: { w: 2, h: 2 }
+  - id: p52
+    label: ""
+    marker: none
+    at: { x: 119, y: 820.5 }
+    size: { w: 2, h: 2 }
+  - id: p53
+    label: ""
+    marker: none
+    at: { x: 797, y: 820.5 }
+    size: { w: 2, h: 2 }
+  - id: p54
+    label: ""
+    marker: none
+    at: { x: 797, y: 583 }
+    size: { w: 2, h: 2 }
+  - id: p55
+    label: ""
+    marker: none
+    at: { x: 797, y: 820.5 }
+    size: { w: 2, h: 2 }
+  - id: hog
+    label: ""
+    hatch: solid
+    at: { x: 198.6, y: 584 }
+    size: { w: 5.1, h: 237.5 }
+  - id: p56
+    label: ""
+    marker: none
+    at: { x: 136.65, y: 583 }
+    size: { w: 2, h: 2 }
+  - id: p57
+    label: ""
+    marker: none
+    at: { x: 136.65, y: 590.6 }
+    size: { w: 2, h: 2 }
+  - id: p58
+    label: ""
+    marker: none
+    at: { x: 136.65, y: 812.9 }
+    size: { w: 2, h: 2 }
+  - id: p59
+    label: ""
+    marker: none
+    at: { x: 136.65, y: 820.5 }
+    size: { w: 2, h: 2 }
+  - id: n60
+    label: ""
+    marker: circle
+    at: { x: 432.3, y: 611.3 }
+    size: { w: 182.9, h: 182.9 }
+  - id: n61
+    label: ""
+    marker: circle
+    at: { x: 462.8, y: 641.8 }
+    size: { w: 121.9, h: 121.9 }
+  - id: n62
+    label: ""
+    marker: circle
+    at: { x: 493.25, y: 672.25 }
+    size: { w: 61, h: 61 }
+  - id: n63
+    label: ""
+    marker: circle
+    at: { x: 516.15, y: 695.15 }
+    size: { w: 15.2, h: 15.2 }
+  - id: p64
+    label: ""
+    marker: none
+    at: { x: 522.75, y: 583 }
+    size: { w: 2, h: 2 }
+  - id: p65
+    label: ""
+    marker: none
+    at: { x: 522.75, y: 820.5 }
+    size: { w: 2, h: 2 }
+  - id: p66
+    label: ""
+    marker: none
+    at: { x: 614.2, y: 583 }
+    size: { w: 2, h: 2 }
+  - id: p67
+    label: ""
+    marker: none
+    at: { x: 614.2, y: 820.5 }
+    size: { w: 2, h: 2 }
+  - id: p68
+    label: ""
+    marker: none
+    at: { x: 119, y: 701.75 }
+    size: { w: 2, h: 2 }
+  - id: p69
+    label: ""
+    marker: none
+    at: { x: 522.75, y: 701.75 }
+    size: { w: 2, h: 2 }
+  - id: p70
+    label: ""
+    marker: none
+    at: { x: 522.75, y: 701.75 }
+    size: { w: 2, h: 2 }
+  - id: p71
+    label: ""
+    marker: none
+    at: { x: 614.2, y: 701.75 }
+    size: { w: 2, h: 2 }
+  - id: p72
+    label: ""
+    marker: none
+    at: { x: 614.2, y: 701.75 }
+    size: { w: 2, h: 2 }
+  - id: p73
+    label: ""
+    marker: none
+    at: { x: 705.65, y: 701.75 }
+    size: { w: 2, h: 2 }
+  - id: p74
+    label: ""
+    marker: none
+    at: { x: 705.65, y: 690.33 }
+    size: { w: 2, h: 2 }
+  - id: p75
+    label: ""
+    marker: none
+    at: { x: 705.65, y: 713.17 }
+    size: { w: 2, h: 2 }
+  - id: n76
+    label: ""
+    hatch: solid
+    at: { x: 696.5, y: 691.35 }
+    size: { w: 10.15, h: 7.6 }
+  - id: n77
+    label: ""
+    hatch: solid
+    at: { x: 696.5, y: 706.55 }
+    size: { w: 10.15, h: 7.6 }
+  - id: t78
+    label: "ホッグライン"
+    marker: none
+    align: center
+    at: { x: 149.15, y: 537 }
+    size: { w: 104, h: 18 }
+  - id: p79
+    label: ""
+    marker: none
+    at: { x: 200.15, y: 555 }
+    size: { w: 2, h: 2 }
+  - id: p80
+    label: ""
+    marker: none
+    at: { x: 200.15, y: 581 }
+    size: { w: 2, h: 2 }
+  - id: t81
+    label: "ティーライン"
+    marker: none
+    align: center
+    at: { x: 471.75, y: 537 }
+    size: { w: 104, h: 18 }
+  - id: p82
+    label: ""
+    marker: none
+    at: { x: 522.75, y: 555 }
+    size: { w: 2, h: 2 }
+  - id: p83
+    label: ""
+    marker: none
+    at: { x: 522.75, y: 581 }
+    size: { w: 2, h: 2 }
+  - id: t84
+    label: "ハックとハックライン"
+    marker: none
+    align: center
+    at: { x: 622.65, y: 537 }
+    size: { w: 168, h: 18 }
+  - id: p85
+    label: ""
+    marker: none
+    at: { x: 705.65, y: 555 }
+    size: { w: 2, h: 2 }
+  - id: p86
+    label: ""
+    marker: none
+    at: { x: 705.65, y: 581 }
+    size: { w: 2, h: 2 }
+  - id: t87
+    label: "コーテシーライン"
+    marker: none
+    align: center
+    at: { x: 69.65, y: 507 }
+    size: { w: 136, h: 18 }
+  - id: p88
+    label: ""
+    marker: none
+    at: { x: 136.65, y: 525 }
+    size: { w: 2, h: 2 }
+  - id: p89
+    label: ""
+    marker: none
+    at: { x: 136.65, y: 581 }
+    size: { w: 2, h: 2 }
+  - id: t90
+    label: "バックライン"
+    marker: none
+    align: center
+    at: { x: 563.2, y: 507 }
+    size: { w: 104, h: 18 }
+  - id: p91
+    label: ""
+    marker: none
+    at: { x: 614.2, y: 525 }
+    size: { w: 2, h: 2 }
+  - id: p92
+    label: ""
+    marker: none
+    at: { x: 614.2, y: 581 }
+    size: { w: 2, h: 2 }
+  - id: t93
+    label: "バックボード"
+    marker: none
+    align: center
+    at: { x: 746, y: 507 }
+    size: { w: 104, h: 18 }
+  - id: p94
+    label: ""
+    marker: none
+    at: { x: 797, y: 525 }
+    size: { w: 2, h: 2 }
+  - id: p95
+    label: ""
+    marker: none
+    at: { x: 797, y: 581 }
+    size: { w: 2, h: 2 }
+  - id: p96
+    label: ""
+    marker: none
+    at: { x: 202.7, y: 838.5 }
+    size: { w: 2, h: 2 }
+  - id: p97
+    label: ""
+    marker: none
+    at: { x: 522.75, y: 838.5 }
+    size: { w: 2, h: 2 }
+  - id: t98
+    label: "6.401m（内側の縁まで）"
+    marker: none
+    align: center
+    at: { x: 203.7, y: 845.5 }
+    size: { w: 320.05, h: 18 }
+  - id: p99
+    label: ""
+    marker: none
+    at: { x: 522.75, y: 838.5 }
+    size: { w: 2, h: 2 }
+  - id: p100
+    label: ""
+    marker: none
+    at: { x: 614.2, y: 838.5 }
+    size: { w: 2, h: 2 }
+  - id: t101
+    label: "1.829m"
+    marker: none
+    align: center
+    at: { x: 523.75, y: 845.5 }
+    size: { w: 91.45, h: 18 }
+  - id: p102
+    label: ""
+    marker: none
+    at: { x: 522.75, y: 878.5 }
+    size: { w: 2, h: 2 }
+  - id: p103
+    label: ""
+    marker: none
+    at: { x: 705.65, y: 878.5 }
+    size: { w: 2, h: 2 }
+  - id: t104
+    label: "3.658m"
+    marker: none
+    align: center
+    at: { x: 523.75, y: 885.5 }
+    size: { w: 182.9, h: 18 }
+  - id: t105
+    label: "ハウス：半径 1.829・1.219・0.610m、中心の円 0.152m 以上"
+    marker: none
+    align: left
+    at: { x: 120, y: 885.5 }
+    size: { w: 390, h: 18 }
+  - id: t106
+    label: "③ 線の位置（R1）"
+    marker: none
+    align: left
+    at: { x: 980, y: 150 }
+    size: { w: 500, h: 20 }
+  - id: h107
+    label: "ティーの中心から測る"
+    hatch: solid
+    at: { x: 980, y: 186 }
+    size: { w: 500, h: 24 }
+  - id: c108
+    label: "ティーライン"
+    at: { x: 980, y: 210 }
+    size: { w: 130, h: 24 }
+  - id: c109
+    label: "中心がシートの中央から 17.375m（57 ft）"
+    align: left
+    at: { x: 1110, y: 210 }
+    size: { w: 370, h: 24 }
+  - id: c110
+    label: "バックライン"
+    at: { x: 980, y: 234 }
+    size: { w: 130, h: 24 }
+  - id: c111
+    label: "外側の縁が 1.829m（6 ft）"
+    align: left
+    at: { x: 1110, y: 234 }
+    size: { w: 370, h: 24 }
+  - id: c112
+    label: "ホッグライン"
+    at: { x: 980, y: 258 }
+    size: { w: 130, h: 24 }
+  - id: c113
+    label: "内側の縁が 6.401m（21 ft）・幅 102mm"
+    align: left
+    at: { x: 1110, y: 258 }
+    size: { w: 370, h: 24 }
+  - id: c114
+    label: "センターライン"
+    at: { x: 980, y: 282 }
+    size: { w: 130, h: 24 }
+  - id: c115
+    label: "ティーの先へ 3.658m（12 ft）"
+    align: left
+    at: { x: 1110, y: 282 }
+    size: { w: 370, h: 24 }
+  - id: c116
+    label: "ハックライン"
+    at: { x: 980, y: 306 }
+    size: { w: 130, h: 24 }
+  - id: c117
+    label: "センターラインの端・長さ 457mm"
+    align: left
+    at: { x: 1110, y: 306 }
+    size: { w: 370, h: 24 }
+  - id: c118
+    label: "ハック"
+    at: { x: 980, y: 330 }
+    size: { w: 130, h: 24 }
+  - id: c119
+    label: "センターラインから 76mm に 2 つ・幅 152mm 以下"
+    align: left
+    at: { x: 1110, y: 330 }
+    size: { w: 370, h: 24 }
+  - id: c120
+    label: "コーテシーライン"
+    at: { x: 980, y: 354 }
+    size: { w: 130, h: 24 }
+  - id: c121
+    label: "ホッグラインの 1.219m 外・長さ 152mm"
+    align: left
+    at: { x: 1110, y: 354 }
+    size: { w: 370, h: 24 }
+  - id: c122
+    label: "ハウス"
+    at: { x: 980, y: 378 }
+    size: { w: 130, h: 24 }
+  - id: c123
+    label: "半径 1.829・1.219・0.610m、中心 0.152m 以上"
+    align: left
+    at: { x: 1110, y: 378 }
+    size: { w: 370, h: 24 }
+  - id: c124
+    label: "線の幅"
+    at: { x: 980, y: 402 }
+    size: { w: 130, h: 24 }
+  - id: c125
+    label: "ホッグライン以外は 13mm 以下"
+    align: left
+    at: { x: 1110, y: 402 }
+    size: { w: 370, h: 24 }
+  - id: why126
+    label: "バックラインの外側の縁は、ハウスのいちばん外の円と\n同じ 1.829m。ハウスの後ろの端に、線が接している。"
+    at: { x: 980, y: 440 }
+    size: { w: 500, h: 38 }
+  - id: t127
+    label: "④ 線が決めること"
+    marker: none
+    align: left
+    at: { x: 980, y: 496 }
+    size: { w: 500, h: 20 }
+  - id: h128
+    label: "競技の規則"
+    hatch: solid
+    at: { x: 980, y: 532 }
+    size: { w: 500, h: 24 }
+  - id: c129
+    label: "投げる側のホッグ"
+    at: { x: 980, y: 556 }
+    size: { w: 130, h: 24 }
+  - id: c130
+    label: "それまでに手を離す（R5(e)）"
+    align: left
+    at: { x: 1110, y: 556 }
+    size: { w: 370, h: 24 }
+  - id: c131
+    label: "向こうのホッグ"
+    at: { x: 980, y: 580 }
+    size: { w: 130, h: 24 }
+  - id: c132
+    label: "越えて止まらなければ外す（R2(f)）"
+    align: left
+    at: { x: 1110, y: 580 }
+    size: { w: 370, h: 24 }
+  - id: c133
+    label: "バックライン"
+    at: { x: 980, y: 604 }
+    size: { w: 130, h: 24 }
+  - id: c134
+    label: "完全に越えたら外す（R2(g)）"
+    align: left
+    at: { x: 1110, y: 604 }
+    size: { w: 370, h: 24 }
+  - id: c135
+    label: "ティーライン"
+    at: { x: 980, y: 628 }
+    size: { w: 130, h: 24 }
+  - id: c136
+    label: "相手の石を掃けるのは、その後ろだけ（R8(e)）"
+    align: left
+    at: { x: 1110, y: 628 }
+    size: { w: 370, h: 24 }
+  - id: c137
+    label: "FGZ"
+    at: { x: 980, y: 652 }
+    size: { w: 130, h: 24 }
+  - id: c138
+    label: "6 投目より前に、相手の石を外へ出せない（R6）"
+    align: left
+    at: { x: 1110, y: 652 }
+    size: { w: 370, h: 24 }
+  - id: c139
+    label: "ハウス"
+    at: { x: 980, y: 676 }
+    size: { w: 130, h: 24 }
+  - id: c140
+    label: "中か触れている石で、相手より近い数が点（R12(b)）"
+    align: left
+    at: { x: 1110, y: 676 }
+    size: { w: 370, h: 24 }
+  - id: t141
+    label: "線はすべて、ティーの中心から測ります（③）。ティーはシートの中央から 17.375m、ホッグラインはその 6.401m 手前、バックラインは 1.829m 先です。"
+    marker: none
+    align: left
+    at: { x: 120, y: 940 }
+    size: { w: 1360, h: 18 }
+  - id: t142
+    label: "バックラインの外側の縁は、ハウスの外の円（半径 1.829m）と同じ所にあります（②）。"
+    marker: none
+    align: left
+    at: { x: 120, y: 964 }
+    size: { w: 1360, h: 18 }
+  - id: t143
+    label: "ホッグラインからティーラインまでのハウスの外が、フリーガードゾーンです（②④）。6 投目より前は、相手の石をここから外へ出せません。"
+    marker: none
+    align: left
+    at: { x: 120, y: 988 }
+    size: { w: 1360, h: 18 }
+  - id: t144
+    label: "点になるのは、ハウスの中か触れている石のうち、相手のどの石よりもティーに近いものです（④）。"
+    marker: none
+    align: left
+    at: { x: 120, y: 1012 }
+    size: { w: 1360, h: 18 }
+edges:
+  - from: p2
+    to: p3
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p4
+    to: p5
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p11
+    to: p12
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p13
+    to: p14
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p15
+    to: p16
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p22
+    to: p23
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p24
+    to: p25
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p26
+    to: p27
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p28
+    to: p29
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p30
+    to: p31
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p32
+    to: p33
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p35
+    to: p36
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p37
+    to: p38
+    curve: none
+    weight: thin
+    ends: { from: arrow, to: arrow }
+  - from: p40
+    to: p41
+    curve: none
+    weight: thin
+    ends: { from: arrow, to: arrow }
+  - from: p44
+    to: p45
+    curve: none
+    line: dashed
+    weight: thin
+    ends: { from: bar, to: bar }
+  - from: p47
+    to: p47
+    curve: none
+    close: true
+    hatch: dots
+    line: dotted
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 523.75, y: 584 }
+      - { x: 523.75, y: 611.3 }
+      - { x: 507.87, y: 612.69 }
+      - { x: 492.47, y: 616.82 }
+      - { x: 478.02, y: 623.55 }
+      - { x: 464.97, y: 632.7 }
+      - { x: 453.7, y: 643.97 }
+      - { x: 444.55, y: 657.02 }
+      - { x: 437.82, y: 671.47 }
+      - { x: 433.69, y: 686.87 }
+      - { x: 432.3, y: 702.75 }
+      - { x: 203.7, y: 702.75 }
+      - { x: 203.7, y: 584 }
+  - from: p48
+    to: p48
+    curve: none
+    close: true
+    hatch: dots
+    line: dotted
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 523.75, y: 821.5 }
+      - { x: 523.75, y: 794.2 }
+      - { x: 507.87, y: 792.81 }
+      - { x: 492.47, y: 788.68 }
+      - { x: 478.02, y: 781.95 }
+      - { x: 464.97, y: 772.8 }
+      - { x: 453.7, y: 761.53 }
+      - { x: 444.55, y: 748.48 }
+      - { x: 437.82, y: 734.03 }
+      - { x: 433.69, y: 718.63 }
+      - { x: 432.3, y: 702.75 }
+      - { x: 203.7, y: 702.75 }
+      - { x: 203.7, y: 821.5 }
+  - from: p50
+    to: p51
+    curve: none
+    ends: { from: none, to: none }
+  - from: p52
+    to: p53
+    curve: none
+    ends: { from: none, to: none }
+  - from: p54
+    to: p55
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p56
+    to: p57
+    curve: none
+    ends: { from: none, to: none }
+  - from: p58
+    to: p59
+    curve: none
+    ends: { from: none, to: none }
+  - from: p64
+    to: p65
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p66
+    to: p67
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p68
+    to: p69
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p70
+    to: p71
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p72
+    to: p73
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p74
+    to: p75
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p79
+    to: p80
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p82
+    to: p83
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p85
+    to: p86
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p88
+    to: p89
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p91
+    to: p92
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p94
+    to: p95
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p96
+    to: p97
+    curve: none
+    weight: thin
+    ends: { from: arrow, to: arrow }
+  - from: p99
+    to: p100
+    curve: none
+    weight: thin
+    ends: { from: arrow, to: arrow }
+  - from: p102
+    to: p103
+    curve: none
+    weight: thin
+    ends: { from: arrow, to: arrow }

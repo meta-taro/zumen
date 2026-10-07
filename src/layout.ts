@@ -13,6 +13,8 @@
  * （`overlaps`）。合否には使わない（判定基準 §0 — 綺麗さで判定しない）が、
  * 実用に耐えるかの材料になる。
  */
+import { ownerOf, pointRef } from './image.ts';
+import type { ImageInfo, Images } from './image.ts';
 import ELK from 'elkjs/lib/elk.bundled.js';
 import type { ElkExtendedEdge, ElkNode } from 'elkjs/lib/elk-api.js';
 
@@ -39,7 +41,8 @@ import { curveOf, viaOf } from './curve.ts';
 import { floorsOf, verticalOf } from './floor.ts';
 import type { Vertical } from './floor.ts';
 import type { Curve, Point } from './curve.ts';
-import { colorOf, paletteOf as routePalette } from './palette.ts';
+import { colorOf, paintOf, paletteOf as routePalette } from './palette.ts';
+import { offsetLine } from './offset.ts';
 import { weightOf } from './weight.ts';
 import type { Weight } from './weight.ts';
 import type { Line } from './line.ts';
@@ -125,8 +128,15 @@ export interface Box {
    * 淡い色を `color` に書くと、枠（＝壁）まで淡くなって消えるため。
    */
   tint: string | null;
+  /**
+   * **模様の色**（`nodes[].hatch_color`）。`palette` の鍵の色か `paper`（地の色）。
+   * 書かなければ null で、模様はこれまでどおり面の色・枠の色で描く。
+   */
+  hatchColor: string | null;
   /** 人が置いた場所か。 */
   pinned: boolean;
+  /** **下に敷く画像**（`nodes[].image`。`src/image.ts`）。無ければ持たない。 */
+  image?: ImageInfo;
 }
 
 export interface PlacedEdge {
@@ -164,6 +174,17 @@ export interface PlacedEdge {
   vertical: Vertical;
   /** **路線の色**（`src/palette.ts`）。`palette` に無ければ null。 */
   color: string | null;
+  /**
+   * **線の縁取り**（`edges[].casing`）。`palette` の鍵の色か `paper`（地の色）。
+   * 書かなければ null（縁を描かない）。
+   */
+  casing: string | null;
+  /** **閉じた輪の中の模様の色**（`edges[].hatch_color`）。書かなければ null。 */
+  hatchColor: string | null;
+  /** **並走する線のずらし**（px。`src/offset.ts`）。書かなければ 0。 */
+  offset: number;
+  /** **引き出し線の番号**（`edges[].callout`）。両端に丸に数字を出す。書かなければ持たない。 */
+  callout?: string;
 }
 
 export interface Placed {
@@ -343,7 +364,11 @@ const LAYOUT_OPTIONS = {
   'elk.edgeRouting': 'ORTHOGONAL',
 };
 
-export async function layout(text: string): Promise<Placed> {
+export async function layout(
+  text: string,
+  /** **読んでおいた画像**（`src/image-files.ts`）。渡さなければ、画像は書いたパスのまま敷く。 */
+  images: Images = new Map(),
+): Promise<Placed> {
   const diagram = parse(text);
   const pins = getPins(diagram);
   // **作図は並べない**。座標は手順から解くので、自動配置を通さない。
@@ -351,6 +376,11 @@ export async function layout(text: string): Promise<Placed> {
     return construct(diagram.doc.toJS() as Record<string, unknown>, pins);
   }
   const nodes = readNodes(diagram);
+  // **画像は、大きさを書かなければ元の大きさで敷く。**
+  for (const node of nodes) {
+    const image = node.image === null ? undefined : images.get(node.image);
+    if (image !== undefined && node.size === null) node.size = { w: image.w, h: image.h };
+  }
   const groupIds = diagram.groupIds();
 
   const groupLabels = readGroupLabels(diagram);
@@ -383,6 +413,13 @@ export async function layout(text: string): Promise<Placed> {
   const groups: Box[] = [];
   collect(laid, 0, 0, nodes, groupLabels, boxes, groups);
   const routeMap = collectRoutes(laid, groups, nodes);
+  for (const box of boxes) {
+    const src = nodes.find((n) => n.id === box.id)?.image ?? null;
+    if (src === null) continue;
+    // **読めなかった画像は、書いたパスのまま敷く**（SVG の横に置けば見える）。
+    // 大きさが分からないので、点の座標は箱の px として読む。
+    box.image = images.get(src) ?? { href: src, w: box.w, h: box.h };
+  }
 
   /**
    * **ELK がどこへ置いたか**を控える（Issue #8）。
@@ -463,11 +500,18 @@ export async function layout(text: string): Promise<Placed> {
   // **色は鍵から引く。** `palette` に無い鍵は使わない（勝手な色を作らない）。
   for (const [index, line] of edges.entries()) {
     line.color = colorOf(rawEdges[index]?.colorKey, routes);
+    // **縁取りと模様の色**も鍵から引く。`paper` は地の色の語のまま（描く側がテーマで置き換える）。
+    line.casing = paintOf(rawEdges[index]?.casingKey, routes);
+    line.hatchColor = paintOf(rawEdges[index]?.hatchColorKey, routes);
+    // **並走する線は、通り道を引いたあとでずらす**（`src/offset.ts`）。
+    // ずらしたあとの点を持つので、ラベル・端の記号・検査もずらした線に沿う。
+    if (line.offset !== 0) line.points = offsetLine(line.points, line.offset, line.close);
   }
   for (const box of boxes) {
     const node = nodes.find((n) => n.id === box.id);
     box.color = colorOf(node?.color, routes);
     box.tint = colorOf(node?.fill, routes);
+    box.hatchColor = paintOf(node?.hatchColor, routes);
   }
   /**
    * **通り芯と寸法線の分だけ、外側へ空ける**（`src/grid.ts`）。
@@ -757,7 +801,7 @@ export function edgesThroughBoxes(placed: Placed): [string, string][] {
     const first = edge.points[0]!;
     const last = edge.points[edge.points.length - 1]!;
     for (const box of placed.boxes) {
-      if (box.marker === 'none' || box.id === edge.from || box.id === edge.to) continue;
+      if (box.marker === 'none' || box.id === ownerOf(edge.from) || box.id === ownerOf(edge.to)) continue;
       if (inside(box, first) || inside(box, last)) continue;
       // **折れ点（via）を中に置いた箱は、わざと通している**（路線図の停車駅 —— 1 本の辺が駅の丸を順に通る）
       if (edge.points.slice(1, -1).some((p) => inside(box, p))) continue;
@@ -976,6 +1020,8 @@ interface NodeInfo {
   color: unknown;
   /** 面の色の鍵（`src/palette.ts`）。 */
   fill: unknown;
+  /** 模様の色の鍵（`paper` か palette の鍵）。 */
+  hatchColor: unknown;
   /**
    * **AI が書いた置き場所**（仕様 §3.1。配置図で使う）。
    *
@@ -995,6 +1041,8 @@ interface NodeInfo {
   size: { w: number; h: number } | null;
   /** **壁に開く穴**（扉・窓）。平面図でだけ使う（`src/openings.ts`）。 */
   openings: Hole[];
+  /** **下に敷く画像のパス**（正本からの相対）。無ければ null。 */
+  image: string | null;
 }
 
 function readNodes(diagram: ReturnType<typeof parse>): NodeInfo[] {
@@ -1020,9 +1068,11 @@ function readNodes(diagram: ReturnType<typeof parse>): NodeInfo[] {
       symbol?: unknown;
       color?: unknown;
       fill?: unknown;
+      hatch_color?: unknown;
       at?: unknown;
       size?: unknown;
       openings?: unknown;
+      image?: unknown;
     }[];
   };
   const axon = axonOf(raw.projection);
@@ -1056,9 +1106,11 @@ function readNodes(diagram: ReturnType<typeof parse>): NodeInfo[] {
       symbol: symbolOf(node.symbol),
       color: node.color,
       fill: node.fill,
+      hatchColor: node.hatch_color,
       at: asPoint(node.at, axon),
       size: asSize(node.size),
       openings: openingsOf(node.openings),
+      image: asText(node.image),
     };
   });
 }
@@ -1093,6 +1145,18 @@ interface EdgeInfo {
   hatch: Hatch;
   /** 階をまたぐ動線（`src/floor.ts`）。 */
   vertical: Vertical;
+  /** 縁取りの色。**引く前は null、引いたあとは色か `paper`。** */
+  casing: string | null;
+  /** 縁取りの色の鍵（引く前）。 */
+  casingKey: unknown;
+  /** 閉じた輪の中の模様の色。**引く前は null。** */
+  hatchColor: string | null;
+  /** 模様の色の鍵（引く前）。 */
+  hatchColorKey: unknown;
+  /** 並走する線のずらし（px）。数でなければ 0。 */
+  offset: number;
+  /** 引き出し線の番号。書かなければ持たない。 */
+  callout?: string;
 }
 
 /** グループの表示名。無ければ id を使う。 */
@@ -1150,6 +1214,12 @@ function readEdges(diagram: ReturnType<typeof parse>): EdgeInfo[] {
       close: edge.close === true,
       hatch: hatchOf(edge.hatch),
       vertical: verticalOf(edge.vertical),
+      casing: null,
+      casingKey: edge.casing,
+      hatchColor: null,
+      hatchColorKey: edge.hatch_color,
+      offset: typeof edge.offset === 'number' && Number.isFinite(edge.offset) ? edge.offset : 0,
+      ...(asText(edge.callout) === null ? {} : { callout: asText(edge.callout)! }),
     };
   });
 }
@@ -1246,8 +1316,8 @@ function routeEdges(
   const byId = new Map(boxes.map((box) => [box.id, box]));
   const spread = fanOut(edges, byId);
   return edges.map((edge, index) => {
-    const from = byId.get(edge.from);
-    const to = byId.get(edge.to);
+    const from = byId.get(edge.from) ?? pointBox(edge.from, byId);
+    const to = byId.get(edge.to) ?? pointBox(edge.to, byId);
     if (from === undefined || to === undefined) {
       return { ...edge, points: [], pinned: false };
     }
@@ -1290,6 +1360,10 @@ function routeEdges(
       }
       return { ...edge, points, pinned: false };
     }
+
+    // **画像の中の点へは、引き出し線で結ぶ**（注記の端 → 少し横へ → 点）。
+    const leader = leaderLine(edge, from, to);
+    if (leader !== null) return { ...edge, points: leader, pinned: false };
 
     // **図記号どうしの配線は直角に曲げる**（`src/symbol.ts`）。
     //
@@ -1479,6 +1553,55 @@ function clip(box: Box, toward: { x: number; y: number }): { x: number; y: numbe
   return { x: round(c.x + dx * scale), y: round(c.y + dy * scale) };
 }
 
+/**
+ * **画像の中の点を、大きさ 0 の箱にする。** 画像の節が無ければ undefined。
+ *
+ * 点は元の画像の px で書くので、**箱の大きさとの比で拡げる**
+ * —— 390px のキャプチャを 195px で敷いても、同じ部品を指したまま。
+ */
+function pointBox(end: string, byId: Map<string, Box>): Box | undefined {
+  const ref = pointRef(end);
+  if (ref === null) return undefined;
+  const owner = byId.get(ref.node);
+  if (owner === undefined) return undefined;
+  const sx = owner.w / (owner.image?.w ?? owner.w);
+  const sy = owner.h / (owner.image?.h ?? owner.h);
+  const { image: _image, ...rest } = owner;
+  return {
+    ...rest,
+    id: end,
+    x: round(owner.x + ref.x * sx),
+    y: round(owner.y + ref.y * sy),
+    w: 0,
+    h: 0,
+    symbol: null,
+  };
+}
+
+/** 引き出し線が注記から横へ出る長さ（px）。 */
+const LEADER_STUB = 16;
+
+/**
+ * **引き出し線の通り道。** 片方の端だけが画像の中の点のときに限る（それ以外は null）。
+ *
+ * 画面仕様書の作法どおり、**注記の縁の真ん中から横へ少し出して、そこから点へ**向かう。
+ * 注記の縁から直接斜めに引くと、並んだ注記どうしで線の出どころが揃わず、
+ * どの注記の線かを目で追えない。
+ */
+function leaderLine(edge: EdgeInfo, from: Box, to: Box): Point[] | null {
+  const fromPoint = pointRef(edge.from) !== null;
+  const toPoint = pointRef(edge.to) !== null;
+  if (fromPoint === toPoint) return null;
+  const note = toPoint ? from : to;
+  const spot = toPoint ? to : from;
+  const left = spot.x < note.x + note.w / 2;
+  const a = { x: left ? note.x : note.x + note.w, y: round(note.y + note.h / 2) };
+  const b = { x: a.x + (left ? -LEADER_STUB : LEADER_STUB), y: a.y };
+  const tip = { x: spot.x, y: spot.y };
+  const line = Math.abs(tip.y - a.y) < 0.5 ? [a, tip] : [a, b, tip];
+  return toPoint ? line : line.reverse();
+}
+
 function round(value: number): number {
   return Math.round(value * 100) / 100;
 }
@@ -1535,8 +1658,9 @@ function buildGraph(
     children,
     edges: edges.map((edge, index) => ({
       id: `e${index}`,
-      sources: [edge.from],
-      targets: [edge.to],
+      // **画像の中の点は、その画像の節として組む**（`src/image.ts`）。
+      sources: [ownerOf(edge.from)],
+      targets: [ownerOf(edge.to)],
     })),
   };
 }
@@ -1576,6 +1700,7 @@ function collect(
       symbol: nodes.find((n) => n.id === child.id)?.symbol ?? null,
       color: null,
       tint: null,
+      hatchColor: null,
       openings: nodes.find((n) => n.id === child.id)?.openings ?? [],
       pinned: false,
     };

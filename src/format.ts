@@ -18,6 +18,7 @@
  */
 import { isMap, isSeq, parseDocument } from 'yaml';
 import type { Document, YAMLMap } from 'yaml';
+import { pointEnd } from './image.ts';
 import { messages } from './messages.ts';
 
 /** 人が与えた指定。AI はこの節を書かない。 */
@@ -57,6 +58,14 @@ export interface Edge {
   /** 閉じた輪の中の模様（`src/hatch.ts`）。**閉じていない辺では効かない。** */
   hatch?: unknown;
   vertical?: unknown;
+  /** 線の縁取りの色（`paper` か palette の鍵）。 */
+  casing?: unknown;
+  /** 閉じた輪の中の模様の色（`paper` か palette の鍵）。 */
+  hatch_color?: unknown;
+  /** 並走する線のずらし（px。進む向きの右が正。`src/offset.ts`）。 */
+  offset?: unknown;
+  /** 引き出し線の番号（丸に数字を両端に出す。`src/image.ts`）。 */
+  callout?: unknown;
 }
 
 /**
@@ -99,7 +108,12 @@ export class Diagram {
 
   edges(): Edge[] {
     return this.seq('edges').map((item) => {
-      const edge: Edge = { from: String(item.get('from')), to: String(item.get('to')) };
+      // **画像の中の点**（`{ node, at: [x, y] }`）は 1 語へ寄せる（`src/image.ts`）。
+      const end = (key: string) => {
+        const raw = item.get(key, true);
+        return pointEnd(isMap(raw) ? raw.toJSON() : null) ?? String(item.get(key));
+      };
+      const edge: Edge = { from: end('from'), to: end('to') };
       const label = item.get('label');
       if (label !== undefined && label !== null) edge.label = String(label);
       const protocol = item.get('protocol');
@@ -122,6 +136,14 @@ export class Diagram {
       if (hatch !== undefined && hatch !== null) edge.hatch = hatch;
       const vertical = item.get('vertical');
       if (vertical !== undefined && vertical !== null) edge.vertical = vertical;
+      const casing = item.get('casing');
+      if (casing !== undefined && casing !== null) edge.casing = casing;
+      const hatchColor = item.get('hatch_color');
+      if (hatchColor !== undefined && hatchColor !== null) edge.hatch_color = hatchColor;
+      const offset = item.get('offset');
+      if (offset !== undefined && offset !== null) edge.offset = offset;
+      const callout = item.get('callout');
+      if (callout !== undefined && callout !== null) edge.callout = callout;
       return edge;
     });
   }

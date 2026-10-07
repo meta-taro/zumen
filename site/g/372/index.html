@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>イコライザーの仕組み（GEQ は決まった 31 本、PEQ は中心と幅を選ぶ） — zumen の見本 372</title>
+<link rel="icon" type="image/svg+xml" href="../../icon.svg">
+<meta name="theme-color" content="#23232b">
+<meta name="description" content="イコライザーの仕組み（GEQ は決まった 31 本、PEQ は中心と幅を選ぶ）。JIS C 1514:2002（IEC 61260:1995）は、オクターブ比を 10 のべきで G ＝ 10^(3/10) と決め、基準を厳密に 1000Hz とする…">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="zumen">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:url" content="https://meta-taro.github.io/zumen/g/372/">
+<meta property="og:title" content="イコライザーの仕組み（GEQ は決まった 31 本、PEQ は中心と幅を選ぶ） — zumen の見本 372">
+<meta property="og:description" content="イコライザーの仕組み（GEQ は決まった 31 本、PEQ は中心と幅を選ぶ）。JIS C 1514:2002（IEC 61260:1995）は、オクターブ比を 10 のべきで G ＝ 10^(3/10) と決め、基準を厳密に 1000Hz とする…">
+<meta property="og:image" content="https://meta-taro.github.io/zumen/og.png">
+<meta property="og:image:alt" content="31 バンドのグラフィックイコライザーのつまみを 1/3 オクターブの公称中心周波数の対数軸に並べた図と、その設定で実際にかかる特性の曲線、パラメトリックイコライザー 3 バンドの特性曲線、2 つの違いの表、中心周波数の厳密値・公称値・帯域端の表">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="イコライザーの仕組み（GEQ は決まった 31 本、PEQ は中心と幅を選ぶ） — zumen の見本 372">
+<meta name="twitter:description" content="イコライザーの仕組み（GEQ は決まった 31 本、PEQ は中心と幅を選ぶ）。JIS C 1514:2002（IEC 61260:1995）は、オクターブ比を 10 のべきで G ＝ 10^(3/10) と決め、基準を厳密に 1000Hz とする…">
+<meta name="twitter:image" content="https://meta-taro.github.io/zumen/og.png">
+<meta name="twitter:image:alt" content="31 バンドのグラフィックイコライザーのつまみを 1/3 オクターブの公称中心周波数の対数軸に並べた図と、その設定で実際にかかる特性の曲線、パラメトリックイコライザー 3 バンドの特性曲線、2 つの違いの表、中心周波数の厳密値・公称値・帯域端の表">
+<link rel="stylesheet" href="../../style.css">
+<link rel="canonical" href="https://meta-taro.github.io/zumen/g/372/">
+<link rel="alternate" hreflang="ja" href="https://meta-taro.github.io/zumen/g/372/">
+<link rel="alternate" hreflang="en" href="https://meta-taro.github.io/zumen/en/g/372/">
+<link rel="alternate" hreflang="x-default" href="https://meta-taro.github.io/zumen/g/372/">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="alternate" type="text/markdown" href="https://meta-taro.github.io/zumen/llms.txt" title="llms.txt">
+<link rel="sitemap" type="application/xml" href="https://meta-taro.github.io/zumen/sitemap.xml">
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    "name": "イコライザーの仕組み（GEQ は決まった 31 本、PEQ は中心と幅を選ぶ）",
+    "headline": "イコライザーの仕組み（GEQ は決まった 31 本、PEQ は中心と幅を選ぶ）",
+    "description": "イコライザーの仕組み（GEQ は決まった 31 本、PEQ は中心と幅を選ぶ）。JIS C 1514:2002（IEC 61260:1995）は、オクターブ比を 10 のべきで G ＝ 10^(3/10) と決め、基準を厳密に 1000Hz とする…",
+    "url": "https://meta-taro.github.io/zumen/g/372/",
+    "image": {
+      "@type": "ImageObject",
+      "contentUrl": "https://meta-taro.github.io/zumen/gallery/372-%E3%82%A4%E3%82%B3%E3%83%A9%E3%82%A4%E3%82%B6%E3%83%BC%E3%81%AE%E4%BB%95%E7%B5%84%E3%81%BF-GEQ%E3%81%A8PEQ.svg",
+      "caption": "イコライザーの仕組み（GEQ は決まった 31 本、PEQ は中心と幅を選ぶ）",
+      "description": "31 バンドのグラフィックイコライザーのつまみを 1/3 オクターブの公称中心周波数の対数軸に並べた図と、その設定で実際にかかる特性の曲線、パラメトリックイコライザー 3 バンドの特性曲線、2 つの違いの表、中心周波数の厳密値・公称値・帯域端の表",
+      "encodingFormat": "image/svg+xml",
+      "license": "https://opensource.org/licenses/MIT",
+      "acquireLicensePage": "https://github.com/meta-taro/zumen/blob/main/LICENSE",
+      "creditText": "zumen"
+    },
+    "inLanguage": "ja",
+    "license": "https://opensource.org/licenses/MIT",
+    "isPartOf": {
+      "@type": "CollectionPage",
+      "name": "楽器・音響",
+      "url": "https://meta-taro.github.io/zumen/c/ongaku/"
+    },
+    "encodingFormat": "text/yaml",
+    "isAccessibleForFree": true
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "zumen",
+        "item": "https://meta-taro.github.io/zumen/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "見本 388 枚",
+        "item": "https://meta-taro.github.io/zumen/all/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "楽器・音響",
+        "item": "https://meta-taro.github.io/zumen/c/ongaku/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": "イコライザーの仕組み（GEQ は決まった 31 本、PEQ は中心と幅を選ぶ）"
+      }
+    ]
+  }
+]
+</script>
+</head>
+<body class="sub">
+<header class="bar">
+  <!--
+    パンくず（2026-09-24）。入口から現在地まで一本で出す。
+    aria-label を付けて、読み上げでも「ここは道案内」と分かるようにする。
+    区切りの記号は aria-hidden（読み上げると邪魔なだけ）。
+  -->
+  <nav class="crumbs" aria-label="パンくず">
+    <a class="home" href="../../">zumen</a><span aria-hidden="true">›</span><a href="../../all/">見本 388 枚</a><span aria-hidden="true">›</span><a href="../../c/ongaku/">楽器・音響</a>
+  </nav>
+</header>
+<main>
+<article>
+  <p class="crumb">楽器・音響</p>
+  <h1>イコライザーの仕組み（GEQ は決まった 31 本、PEQ は中心と幅を選ぶ）</h1>
+  <p class="lead">イコライザーの仕組み（GEQ は決まった 31 本、PEQ は中心と幅を選ぶ）</p>
+  <figure>
+    <img src="../../gallery/372-%E3%82%A4%E3%82%B3%E3%83%A9%E3%82%A4%E3%82%B6%E3%83%BC%E3%81%AE%E4%BB%95%E7%B5%84%E3%81%BF-GEQ%E3%81%A8PEQ.svg" alt="31 バンドのグラフィックイコライザーのつまみを 1/3 オクターブの公称中心周波数の対数軸に並べた図と、その設定で実際にかかる特性の曲線、パラメトリックイコライザー 3 バンドの特性曲線、2 つの違いの表、中心周波数の厳密値・公称値・帯域端の表" loading="lazy">
+  </figure>
+  <p class="made">この図は、下の 1 枚の YAML から描かれています。手で図形を動かしてはいません。</p>
+  <h2>正本に書いてある決まりごと</h2>
+  <p><strong>イコライザーは、どこを（周波数）・どれだけ（ゲイン）・どの幅で（Q）変えるかの 3 つ。</strong>グラフィック EQ はそのうち「どれだけ」だけを動かし、パラメトリック EQ は 3 つとも動かす。</p>
+  <p>JIS C 1514:2002（IEC 61260:1995）は、オクターブ比を 10 のべきで G ＝ 10^(3/10) と決め、基準を厳密に 1000Hz とする。1/3 オクターブの厳密な中心は fm ＝ 1000 × G^(x/3) ＝ 1000 × 10^(x/10)（x は整数）。帯域の端は f1 ＝ fm × G^(−1/6)、f2 ＝ fm × G^(+1/6)（＝ 10^(±1/20) 倍）。公称値は厳密値を丸めたもので、JIS C 1514:2002 の引用規格に ISO 266:1997（Preferred frequencies）がある。例：x ＝ 7 の厳密値 5,011.872Hz、公称 5,000Hz（JIS C 1514:2002 3.5 備考 3）。20Hz（x ＝ −17）から 20kHz（x ＝ 13）まで 31 本。</p>
+  <p>② ③の曲線はアナログのピーキングフィルタ（Audio EQ Cookbook の peakingEQ と同じ形、A ＝ 10^(dB/40)）の振幅で、各バンドを直列につないだもの（dB で足す）として計算した。実機の GEQ は回路で重なり方が違うので、<strong>深さは目安</strong>。1/3 オクターブの Q は 1/Q ＝ 2 sinh((ln2/2) × 1/3) から 4.318。</p>
+  <p>つまみの設定（200・250・315Hz を下げ、3.15kHz を上げる）と PEQ の 3 バンドは説明のための例。</p>
+  <p>- シェルビング（低域・高域をまとめて上げ下げする形）とハイパス —— 形が違う。PEQ の 3 バンドはピーキングだけにした- 位相の変化 —— EQ は位相も動かすが、この図は大きさだけ- 製品のパネル —— 実在の機種の配置をなぞらない</p>
+  <p>EQ がミキサーのどこにあるかは見本 343、スピーカーの構造は見本 371、PA の配置は見本 101・370。</p>
+  <h2>正本（YAML）</h2>
+  <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/372-%E3%82%A4%E3%82%B3%E3%83%A9%E3%82%A4%E3%82%B6%E3%83%BC%E3%81%AE%E4%BB%95%E7%B5%84%E3%81%BF-GEQ%E3%81%A8PEQ.zumen.yaml"><code>examples/gallery/372-イコライザーの仕組み-GEQとPEQ.zumen.yaml</code></a></p>
+  <h2>同じ分野の見本</h2>
+  <ul class="cards">
+    <li><a href="../204/"><img src="../../gallery/204-%E3%82%AE%E3%82%BF%E3%83%BC%E3%81%AE%E3%83%95%E3%83%AC%E3%83%83%E3%83%88%E4%BD%8D%E7%BD%AE.svg" alt="ギターのフレット位置（12√2）とサドルの補正" width="1344" height="1176" loading="lazy" decoding="async"><span>フレット（等間隔ではない。12 でちょうど半分）</span></a></li>
+    <li><a href="../205/"><img src="../../gallery/205-%E3%83%9B%E3%83%BC%E3%83%AB%E3%81%AE%E5%88%9D%E6%9C%9F%E5%8F%8D%E5%B0%84.svg" alt="ホールの断面と初期反射（行程差と遅れ・残響時間）" width="1464" height="1076" loading="lazy" decoding="async"><span>初期反射（遅れは、距離の差そのもの。1ms ＝ 0.34m）</span></a></li>
+    <li><a href="../206/"><img src="../../gallery/206-%E3%83%94%E3%82%A2%E3%83%8E%E3%81%AE%E3%82%A2%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3.svg" alt="グランドピアノのアクション（脱進の前と瞬間・模式）" width="1844" height="1034" loading="lazy" decoding="async"><span>ピアノ（ハンマーは、最後は誰も押していない）</span></a></li>
+    <li><a href="../210/"><img src="../../gallery/210-%E6%A5%BD%E8%AD%9C%E3%81%AE%E5%AF%B8%E6%B3%95.svg" alt="楽譜の寸法（五線の間隔を単位にした符頭・符尾・連桁・調号）" width="1254" height="1376" loading="lazy" decoding="async"><span>楽譜（五線の間隔が、すべての寸法の単位）</span></a></li>
+    <li><a href="../310/"><img src="../../gallery/310-%E3%82%AE%E3%82%BF%E3%83%BC%E3%81%AE%E3%83%95%E3%83%AC%E3%83%83%E3%83%88%E4%BD%8D%E7%BD%AE%E3%81%AF%E7%AD%89%E6%AF%94.svg" alt="弦長 648mm のギター指板を 12 フレットまで実寸（1px ＝ 0.9mm）で描き、間隔がだんだん狭くなること、12 フレットがちょうど半分（324.0mm）であることを示した図と、フレット位置の式 弦長 ×（1 − 2 の −n/12 乗）、半音の比 2^(1/12) ＝ 1.059463、昔からの「17.817 で割る」との一致の表" width="1304" height="1128" loading="lazy" decoding="async"><span>ギターのフレット位置（等分するのは、差ではなく比）</span></a></li>
+    <li><a href="../311/"><img src="../../gallery/311-%E3%83%94%E3%82%A2%E3%83%8E%E3%81%AE%E9%8D%B5%E7%9B%A4.svg" alt="ピアノの鍵盤 2 オクターブぶんを描き、黒鍵が 2 つの組と 3 つの組に分かれること、白鍵にドレミファソラシを振った図と、88 鍵が 7 オクターブ（白 49・黒 35）＋ 下の A0・A#0・B0 ＋ 上の C8 で白 52・黒 36 になる内訳、弦の本数と張力、3 本のペダルの表" width="1304" height="1162" loading="lazy" decoding="async"><span>ピアノの鍵盤（88 は、7 オクターブ ＋ 4 鍵）</span></a></li>
+    <li><a href="../317/"><img src="../../gallery/317-%E3%82%AA%E3%83%BC%E3%82%B1%E3%82%B9%E3%83%88%E3%83%A9%E3%81%AE%E9%85%8D%E7%BD%AE%E3%81%A8%E9%9F%B3%E9%87%8F.svg" alt="客席側から見たオーケストラの配置図。前列に第 1 ヴァイオリン・第 2 ヴァイオリン・ヴィオラ・チェロ、チェロの後ろにコントラバス、その後ろに木管 2 列・金管・打楽器を並べた図と、対向配置（両翼配置）の並び、弦の順・前後の並び・二管三管の編成の表" width="1304" height="1062" loading="lazy" decoding="async"><span>オーケストラの配置（配置そのものが、音量の調整）</span></a></li>
+    <li><a href="../327/"><img src="../../gallery/327-%E3%83%9E%E3%82%A4%E3%82%AF%E3%81%AE%E6%8C%87%E5%90%91%E6%80%A7.svg" alt="極座標で描いたマイクの指向特性図 3 枚。r ＝ 1 の無指向性、r ＝（1 ＋ cos θ）／ 2 のカーディオイド（真後ろが 0）、r ＝ cos θ の双指向性（真横が 0）を、0.25 きざみの同心円と 0°・90°・180°・270° の十字の上に重ねた図と、3 つが r ＝ A ＋（1 − A）cos θ の両端と真ん中であること、感度が 0 になる向きを式から解いた表、ダイナミックとコンデンサの違いの表" width="1410" height="960" loading="lazy" decoding="async"><span>マイクの指向性（3 つは、1 つの式の両端と真ん中）</span></a></li>
+  </ul>
+  <nav class="steps" aria-label="前後の見本">
+    <a class="step prev" href="../371/" rel="prev"><span>←</span> スピーカーの構造（磁石とコイルとコーン）</a>
+    <a class="step index" href="../../all/">見本 388 枚</a>
+    <a class="step next" href="../373/" rel="next">昆虫の複眼（連立像眼と重複像眼） <span>→</span></a>
+  </nav>
+</article>
+</main>
+<footer class="foot">
+  <p><a href="https://github.com/meta-taro/zumen">GitHub</a> · MIT · <a href="https://meta-taro.github.io/zumen/en/g/372/">English</a></p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,1775 @@
+version: 1
+kind: placement
+arrows: true
+scale: { mm: 80 }
+title: 競泳の 50m プール（5m と 15m の印は、何を見るためにあるか）
+palette:
+  緑: "#2e8b57"
+  青: "#1f5fbf"
+  黄: "#9c7c00"
+  赤: "#d62828"
+sources:
+  - name: "World Aquatics「Competition Regulations」（2026 年 2 月施行）Part Two Swimming Rules §15 Swimming Facilities and Equipment、§2.9・§5・§6・§8"
+    url: https://www.worldaquatics.com/rules/competition-regulations
+    retrieved: 2026-10-06
+# **50m は、壁と壁ではなく、タッチ板とタッチ板の間。**
+# 板を両端に付けるプールは、壁と壁を 50.020〜50.030m に造る（§15.2.1.2）。
+#
+# **何のための図か。** 施設の担当と審判が、ロープ・旗・床の線を据える位置を
+# 規則の数で確かめるための図。泳法の指導や、記録の判定の手順は描かない。
+#
+# **描いたもの（①平面 1 px ＝ 80 mm）。** オリンピックの 8 レーン（2.5m × 8 ＋ 外側の空き 2.5m × 2、幅 25m）、
+# コースロープ 9 本とその色（1・8 は緑、2・3・6・7 は青、4・5 は黄 —— §15.7.6.1）、
+# 両端 5.0m の赤い浮き（§15.7.7）、15m と 25m の色を変えた浮き（§15.7.9・15.7.10）、
+# 背泳ぎの旗の綱（壁から 5.0m。頭の上にあるので破線 —— §15.9.1）、プールの両側の 15m の印、
+# 床のライン（幅 0.25m で描いた。2〜48m、両端に 1m の横線 —— §15.13.1・15.13.2）と 15m の横線 0.5m（§15.13.4）、
+# 両端のタッチ板（幅 2.4m —— §15.16.4。厚さ 0.01m は 3px で描いた）、スタート台。
+# **②断面（1 px ＝ 20 mm）。** スタート側の 0〜7m。水深 2.5m（§15.4.1）、その他の大会の最小（1.0m、
+# スタート台を使うなら壁から 1.0〜6.0m は 1.35m —— §15.4.3・15.8.4）、スタート台の高さ 0.5〜0.75m（§15.8.1）、
+# タッチ板の上 0.3m・下 0.6m（§15.16.4.2）、旗の綱の高さ 1.8m（§15.9.1）。
+#
+# 断面のプールの縁（デッキ）の高さは規則に無いので、タッチ板の上端（水面上 0.3m）に揃えて描いた。
+#
+# **レーン 1 を下（スタート側から見て右手）に置いた。** §15.8.6 は 10 レーンのプールで
+# 「0 をスタート側から見て右手」を勧めている。8 レーンの向きは規則に無いので、同じ向きに揃えた。
+# **描かなかったもの（理由）。**
+# - 旗そのもの（三角 0.20 × 0.40m を 0.25m おき —— §15.9.2）—— 1 px ＝ 80 mm では 3px になり、点にしか見えない。表に数だけ書いた
+# - 壁の的線（target line）・背泳ぎのレッジ・排水溝 —— 平面では壁の厚みに入ってしまう
+# - 10 レーンの世界選手権の割り方（2.5m × 8 ＋ 2.4m × 2 ＋ 0.1m の空き —— §15.6.2.1）—— 1 枚に 2 つの割り方を重ねると読めない
+# - 水温（25〜28℃）・照度（1500 lx）・水の流れ —— 平面に場所を持たない
+# 出典（取得 2026-10-06）：World Aquatics Competition Regulations（In force as from February 2026）Part Two Swimming Rules
+# §15.1〜15.16（施設）、§2.9（背泳ぎの旗は種目の前に泳法審判が確かめる）、§5・§6・§8（15m までに頭を出す）。
+# 施設の基準は、旧 FINA の Facilities Rules（FR）ではなく、いまはこの Part Two §15 に書かれている。
+nodes:
+  - id: t1
+    label: "① 50m プールの平面（オリンピックの 8 レーン）—— 1 px ＝ 80 mm"
+    marker: none
+    align: left
+    at: { x: 140, y: 150 }
+    size: { w: 760, h: 20 }
+  - id: pool
+    label: ""
+    at: { x: 210, y: 240 }
+    size: { w: 625, h: 312.5 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 209, y: 270.25 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 834, y: 270.25 }
+    size: { w: 2, h: 2 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 209, y: 270.25 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 271.5, y: 270.25 }
+    size: { w: 2, h: 2 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 771.5, y: 270.25 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 834, y: 270.25 }
+    size: { w: 2, h: 2 }
+  - id: n8
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 394.5, y: 268.25 }
+    size: { w: 6, h: 6 }
+  - id: n9
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 519.5, y: 268.25 }
+    size: { w: 6, h: 6 }
+  - id: n10
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 644.5, y: 268.25 }
+    size: { w: 6, h: 6 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 209, y: 301.5 }
+    size: { w: 2, h: 2 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 834, y: 301.5 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 209, y: 301.5 }
+    size: { w: 2, h: 2 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 271.5, y: 301.5 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 771.5, y: 301.5 }
+    size: { w: 2, h: 2 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 834, y: 301.5 }
+    size: { w: 2, h: 2 }
+  - id: n17
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 394.5, y: 299.5 }
+    size: { w: 6, h: 6 }
+  - id: n18
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 519.5, y: 299.5 }
+    size: { w: 6, h: 6 }
+  - id: n19
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 644.5, y: 299.5 }
+    size: { w: 6, h: 6 }
+  - id: p20
+    label: ""
+    marker: none
+    at: { x: 209, y: 332.75 }
+    size: { w: 2, h: 2 }
+  - id: p21
+    label: ""
+    marker: none
+    at: { x: 834, y: 332.75 }
+    size: { w: 2, h: 2 }
+  - id: p22
+    label: ""
+    marker: none
+    at: { x: 209, y: 332.75 }
+    size: { w: 2, h: 2 }
+  - id: p23
+    label: ""
+    marker: none
+    at: { x: 271.5, y: 332.75 }
+    size: { w: 2, h: 2 }
+  - id: p24
+    label: ""
+    marker: none
+    at: { x: 771.5, y: 332.75 }
+    size: { w: 2, h: 2 }
+  - id: p25
+    label: ""
+    marker: none
+    at: { x: 834, y: 332.75 }
+    size: { w: 2, h: 2 }
+  - id: n26
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 394.5, y: 330.75 }
+    size: { w: 6, h: 6 }
+  - id: n27
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 519.5, y: 330.75 }
+    size: { w: 6, h: 6 }
+  - id: n28
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 644.5, y: 330.75 }
+    size: { w: 6, h: 6 }
+  - id: p29
+    label: ""
+    marker: none
+    at: { x: 209, y: 364 }
+    size: { w: 2, h: 2 }
+  - id: p30
+    label: ""
+    marker: none
+    at: { x: 834, y: 364 }
+    size: { w: 2, h: 2 }
+  - id: p31
+    label: ""
+    marker: none
+    at: { x: 209, y: 364 }
+    size: { w: 2, h: 2 }
+  - id: p32
+    label: ""
+    marker: none
+    at: { x: 271.5, y: 364 }
+    size: { w: 2, h: 2 }
+  - id: p33
+    label: ""
+    marker: none
+    at: { x: 771.5, y: 364 }
+    size: { w: 2, h: 2 }
+  - id: p34
+    label: ""
+    marker: none
+    at: { x: 834, y: 364 }
+    size: { w: 2, h: 2 }
+  - id: n35
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 394.5, y: 362 }
+    size: { w: 6, h: 6 }
+  - id: n36
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 519.5, y: 362 }
+    size: { w: 6, h: 6 }
+  - id: n37
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 644.5, y: 362 }
+    size: { w: 6, h: 6 }
+  - id: p38
+    label: ""
+    marker: none
+    at: { x: 209, y: 395.25 }
+    size: { w: 2, h: 2 }
+  - id: p39
+    label: ""
+    marker: none
+    at: { x: 834, y: 395.25 }
+    size: { w: 2, h: 2 }
+  - id: p40
+    label: ""
+    marker: none
+    at: { x: 209, y: 395.25 }
+    size: { w: 2, h: 2 }
+  - id: p41
+    label: ""
+    marker: none
+    at: { x: 271.5, y: 395.25 }
+    size: { w: 2, h: 2 }
+  - id: p42
+    label: ""
+    marker: none
+    at: { x: 771.5, y: 395.25 }
+    size: { w: 2, h: 2 }
+  - id: p43
+    label: ""
+    marker: none
+    at: { x: 834, y: 395.25 }
+    size: { w: 2, h: 2 }
+  - id: n44
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 394.5, y: 393.25 }
+    size: { w: 6, h: 6 }
+  - id: n45
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 519.5, y: 393.25 }
+    size: { w: 6, h: 6 }
+  - id: n46
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 644.5, y: 393.25 }
+    size: { w: 6, h: 6 }
+  - id: p47
+    label: ""
+    marker: none
+    at: { x: 209, y: 426.5 }
+    size: { w: 2, h: 2 }
+  - id: p48
+    label: ""
+    marker: none
+    at: { x: 834, y: 426.5 }
+    size: { w: 2, h: 2 }
+  - id: p49
+    label: ""
+    marker: none
+    at: { x: 209, y: 426.5 }
+    size: { w: 2, h: 2 }
+  - id: p50
+    label: ""
+    marker: none
+    at: { x: 271.5, y: 426.5 }
+    size: { w: 2, h: 2 }
+  - id: p51
+    label: ""
+    marker: none
+    at: { x: 771.5, y: 426.5 }
+    size: { w: 2, h: 2 }
+  - id: p52
+    label: ""
+    marker: none
+    at: { x: 834, y: 426.5 }
+    size: { w: 2, h: 2 }
+  - id: n53
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 394.5, y: 424.5 }
+    size: { w: 6, h: 6 }
+  - id: n54
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 519.5, y: 424.5 }
+    size: { w: 6, h: 6 }
+  - id: n55
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 644.5, y: 424.5 }
+    size: { w: 6, h: 6 }
+  - id: p56
+    label: ""
+    marker: none
+    at: { x: 209, y: 457.75 }
+    size: { w: 2, h: 2 }
+  - id: p57
+    label: ""
+    marker: none
+    at: { x: 834, y: 457.75 }
+    size: { w: 2, h: 2 }
+  - id: p58
+    label: ""
+    marker: none
+    at: { x: 209, y: 457.75 }
+    size: { w: 2, h: 2 }
+  - id: p59
+    label: ""
+    marker: none
+    at: { x: 271.5, y: 457.75 }
+    size: { w: 2, h: 2 }
+  - id: p60
+    label: ""
+    marker: none
+    at: { x: 771.5, y: 457.75 }
+    size: { w: 2, h: 2 }
+  - id: p61
+    label: ""
+    marker: none
+    at: { x: 834, y: 457.75 }
+    size: { w: 2, h: 2 }
+  - id: n62
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 394.5, y: 455.75 }
+    size: { w: 6, h: 6 }
+  - id: n63
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 519.5, y: 455.75 }
+    size: { w: 6, h: 6 }
+  - id: n64
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 644.5, y: 455.75 }
+    size: { w: 6, h: 6 }
+  - id: p65
+    label: ""
+    marker: none
+    at: { x: 209, y: 489 }
+    size: { w: 2, h: 2 }
+  - id: p66
+    label: ""
+    marker: none
+    at: { x: 834, y: 489 }
+    size: { w: 2, h: 2 }
+  - id: p67
+    label: ""
+    marker: none
+    at: { x: 209, y: 489 }
+    size: { w: 2, h: 2 }
+  - id: p68
+    label: ""
+    marker: none
+    at: { x: 271.5, y: 489 }
+    size: { w: 2, h: 2 }
+  - id: p69
+    label: ""
+    marker: none
+    at: { x: 771.5, y: 489 }
+    size: { w: 2, h: 2 }
+  - id: p70
+    label: ""
+    marker: none
+    at: { x: 834, y: 489 }
+    size: { w: 2, h: 2 }
+  - id: n71
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 394.5, y: 487 }
+    size: { w: 6, h: 6 }
+  - id: n72
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 519.5, y: 487 }
+    size: { w: 6, h: 6 }
+  - id: n73
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 644.5, y: 487 }
+    size: { w: 6, h: 6 }
+  - id: p74
+    label: ""
+    marker: none
+    at: { x: 209, y: 520.25 }
+    size: { w: 2, h: 2 }
+  - id: p75
+    label: ""
+    marker: none
+    at: { x: 834, y: 520.25 }
+    size: { w: 2, h: 2 }
+  - id: p76
+    label: ""
+    marker: none
+    at: { x: 209, y: 520.25 }
+    size: { w: 2, h: 2 }
+  - id: p77
+    label: ""
+    marker: none
+    at: { x: 271.5, y: 520.25 }
+    size: { w: 2, h: 2 }
+  - id: p78
+    label: ""
+    marker: none
+    at: { x: 771.5, y: 520.25 }
+    size: { w: 2, h: 2 }
+  - id: p79
+    label: ""
+    marker: none
+    at: { x: 834, y: 520.25 }
+    size: { w: 2, h: 2 }
+  - id: n80
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 394.5, y: 518.25 }
+    size: { w: 6, h: 6 }
+  - id: n81
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 519.5, y: 518.25 }
+    size: { w: 6, h: 6 }
+  - id: n82
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 644.5, y: 518.25 }
+    size: { w: 6, h: 6 }
+  - id: n83
+    label: ""
+    hatch: solid
+    at: { x: 236.5, y: 504.12 }
+    size: { w: 160, h: 3 }
+  - id: n84
+    label: ""
+    hatch: solid
+    at: { x: 398.5, y: 504.12 }
+    size: { w: 248, h: 3 }
+  - id: n85
+    label: ""
+    hatch: solid
+    at: { x: 648.5, y: 504.12 }
+    size: { w: 160, h: 3 }
+  - id: n86
+    label: ""
+    hatch: solid
+    at: { x: 233.5, y: 499.38 }
+    size: { w: 3, h: 12.5 }
+  - id: n87
+    label: ""
+    hatch: solid
+    at: { x: 808.5, y: 499.38 }
+    size: { w: 3, h: 12.5 }
+  - id: n88
+    label: ""
+    hatch: solid
+    at: { x: 396.5, y: 502.5 }
+    size: { w: 2, h: 6.25 }
+  - id: n89
+    label: ""
+    hatch: solid
+    at: { x: 646.5, y: 502.5 }
+    size: { w: 2, h: 6.25 }
+  - id: n90
+    label: ""
+    hatch: solid
+    at: { x: 210, y: 490.62 }
+    size: { w: 3, h: 30 }
+  - id: n91
+    label: ""
+    hatch: solid
+    at: { x: 832, y: 490.62 }
+    size: { w: 3, h: 30 }
+  - id: n92
+    label: ""
+    at: { x: 200.62, y: 500.94 }
+    size: { w: 9.38, h: 9.38 }
+  - id: t93
+    label: "1"
+    marker: none
+    align: center
+    at: { x: 170, y: 496.62 }
+    size: { w: 22, h: 18 }
+  - id: n94
+    label: ""
+    hatch: solid
+    at: { x: 236.5, y: 472.88 }
+    size: { w: 160, h: 3 }
+  - id: n95
+    label: ""
+    hatch: solid
+    at: { x: 398.5, y: 472.88 }
+    size: { w: 248, h: 3 }
+  - id: n96
+    label: ""
+    hatch: solid
+    at: { x: 648.5, y: 472.88 }
+    size: { w: 160, h: 3 }
+  - id: n97
+    label: ""
+    hatch: solid
+    at: { x: 233.5, y: 468.12 }
+    size: { w: 3, h: 12.5 }
+  - id: n98
+    label: ""
+    hatch: solid
+    at: { x: 808.5, y: 468.12 }
+    size: { w: 3, h: 12.5 }
+  - id: n99
+    label: ""
+    hatch: solid
+    at: { x: 396.5, y: 471.25 }
+    size: { w: 2, h: 6.25 }
+  - id: n100
+    label: ""
+    hatch: solid
+    at: { x: 646.5, y: 471.25 }
+    size: { w: 2, h: 6.25 }
+  - id: n101
+    label: ""
+    hatch: solid
+    at: { x: 210, y: 459.38 }
+    size: { w: 3, h: 30 }
+  - id: n102
+    label: ""
+    hatch: solid
+    at: { x: 832, y: 459.38 }
+    size: { w: 3, h: 30 }
+  - id: n103
+    label: ""
+    at: { x: 200.62, y: 469.69 }
+    size: { w: 9.38, h: 9.38 }
+  - id: t104
+    label: "2"
+    marker: none
+    align: center
+    at: { x: 170, y: 465.38 }
+    size: { w: 22, h: 18 }
+  - id: n105
+    label: ""
+    hatch: solid
+    at: { x: 236.5, y: 441.62 }
+    size: { w: 160, h: 3 }
+  - id: n106
+    label: ""
+    hatch: solid
+    at: { x: 398.5, y: 441.62 }
+    size: { w: 248, h: 3 }
+  - id: n107
+    label: ""
+    hatch: solid
+    at: { x: 648.5, y: 441.62 }
+    size: { w: 160, h: 3 }
+  - id: n108
+    label: ""
+    hatch: solid
+    at: { x: 233.5, y: 436.88 }
+    size: { w: 3, h: 12.5 }
+  - id: n109
+    label: ""
+    hatch: solid
+    at: { x: 808.5, y: 436.88 }
+    size: { w: 3, h: 12.5 }
+  - id: n110
+    label: ""
+    hatch: solid
+    at: { x: 396.5, y: 440 }
+    size: { w: 2, h: 6.25 }
+  - id: n111
+    label: ""
+    hatch: solid
+    at: { x: 646.5, y: 440 }
+    size: { w: 2, h: 6.25 }
+  - id: n112
+    label: ""
+    hatch: solid
+    at: { x: 210, y: 428.12 }
+    size: { w: 3, h: 30 }
+  - id: n113
+    label: ""
+    hatch: solid
+    at: { x: 832, y: 428.12 }
+    size: { w: 3, h: 30 }
+  - id: n114
+    label: ""
+    at: { x: 200.62, y: 438.44 }
+    size: { w: 9.38, h: 9.38 }
+  - id: t115
+    label: "3"
+    marker: none
+    align: center
+    at: { x: 170, y: 434.12 }
+    size: { w: 22, h: 18 }
+  - id: n116
+    label: ""
+    hatch: solid
+    at: { x: 236.5, y: 410.38 }
+    size: { w: 160, h: 3 }
+  - id: n117
+    label: ""
+    hatch: solid
+    at: { x: 398.5, y: 410.38 }
+    size: { w: 248, h: 3 }
+  - id: n118
+    label: ""
+    hatch: solid
+    at: { x: 648.5, y: 410.38 }
+    size: { w: 160, h: 3 }
+  - id: n119
+    label: ""
+    hatch: solid
+    at: { x: 233.5, y: 405.62 }
+    size: { w: 3, h: 12.5 }
+  - id: n120
+    label: ""
+    hatch: solid
+    at: { x: 808.5, y: 405.62 }
+    size: { w: 3, h: 12.5 }
+  - id: n121
+    label: ""
+    hatch: solid
+    at: { x: 396.5, y: 408.75 }
+    size: { w: 2, h: 6.25 }
+  - id: n122
+    label: ""
+    hatch: solid
+    at: { x: 646.5, y: 408.75 }
+    size: { w: 2, h: 6.25 }
+  - id: n123
+    label: ""
+    hatch: solid
+    at: { x: 210, y: 396.88 }
+    size: { w: 3, h: 30 }
+  - id: n124
+    label: ""
+    hatch: solid
+    at: { x: 832, y: 396.88 }
+    size: { w: 3, h: 30 }
+  - id: n125
+    label: ""
+    at: { x: 200.62, y: 407.19 }
+    size: { w: 9.38, h: 9.38 }
+  - id: t126
+    label: "4"
+    marker: none
+    align: center
+    at: { x: 170, y: 402.88 }
+    size: { w: 22, h: 18 }
+  - id: n127
+    label: ""
+    hatch: solid
+    at: { x: 236.5, y: 379.12 }
+    size: { w: 160, h: 3 }
+  - id: n128
+    label: ""
+    hatch: solid
+    at: { x: 398.5, y: 379.12 }
+    size: { w: 248, h: 3 }
+  - id: n129
+    label: ""
+    hatch: solid
+    at: { x: 648.5, y: 379.12 }
+    size: { w: 160, h: 3 }
+  - id: n130
+    label: ""
+    hatch: solid
+    at: { x: 233.5, y: 374.38 }
+    size: { w: 3, h: 12.5 }
+  - id: n131
+    label: ""
+    hatch: solid
+    at: { x: 808.5, y: 374.38 }
+    size: { w: 3, h: 12.5 }
+  - id: n132
+    label: ""
+    hatch: solid
+    at: { x: 396.5, y: 377.5 }
+    size: { w: 2, h: 6.25 }
+  - id: n133
+    label: ""
+    hatch: solid
+    at: { x: 646.5, y: 377.5 }
+    size: { w: 2, h: 6.25 }
+  - id: n134
+    label: ""
+    hatch: solid
+    at: { x: 210, y: 365.62 }
+    size: { w: 3, h: 30 }
+  - id: n135
+    label: ""
+    hatch: solid
+    at: { x: 832, y: 365.62 }
+    size: { w: 3, h: 30 }
+  - id: n136
+    label: ""
+    at: { x: 200.62, y: 375.94 }
+    size: { w: 9.38, h: 9.38 }
+  - id: t137
+    label: "5"
+    marker: none
+    align: center
+    at: { x: 170, y: 371.62 }
+    size: { w: 22, h: 18 }
+  - id: n138
+    label: ""
+    hatch: solid
+    at: { x: 236.5, y: 347.88 }
+    size: { w: 160, h: 3 }
+  - id: n139
+    label: ""
+    hatch: solid
+    at: { x: 398.5, y: 347.88 }
+    size: { w: 248, h: 3 }
+  - id: n140
+    label: ""
+    hatch: solid
+    at: { x: 648.5, y: 347.88 }
+    size: { w: 160, h: 3 }
+  - id: n141
+    label: ""
+    hatch: solid
+    at: { x: 233.5, y: 343.12 }
+    size: { w: 3, h: 12.5 }
+  - id: n142
+    label: ""
+    hatch: solid
+    at: { x: 808.5, y: 343.12 }
+    size: { w: 3, h: 12.5 }
+  - id: n143
+    label: ""
+    hatch: solid
+    at: { x: 396.5, y: 346.25 }
+    size: { w: 2, h: 6.25 }
+  - id: n144
+    label: ""
+    hatch: solid
+    at: { x: 646.5, y: 346.25 }
+    size: { w: 2, h: 6.25 }
+  - id: n145
+    label: ""
+    hatch: solid
+    at: { x: 210, y: 334.38 }
+    size: { w: 3, h: 30 }
+  - id: n146
+    label: ""
+    hatch: solid
+    at: { x: 832, y: 334.38 }
+    size: { w: 3, h: 30 }
+  - id: n147
+    label: ""
+    at: { x: 200.62, y: 344.69 }
+    size: { w: 9.38, h: 9.38 }
+  - id: t148
+    label: "6"
+    marker: none
+    align: center
+    at: { x: 170, y: 340.38 }
+    size: { w: 22, h: 18 }
+  - id: n149
+    label: ""
+    hatch: solid
+    at: { x: 236.5, y: 316.62 }
+    size: { w: 160, h: 3 }
+  - id: n150
+    label: ""
+    hatch: solid
+    at: { x: 398.5, y: 316.62 }
+    size: { w: 248, h: 3 }
+  - id: n151
+    label: ""
+    hatch: solid
+    at: { x: 648.5, y: 316.62 }
+    size: { w: 160, h: 3 }
+  - id: n152
+    label: ""
+    hatch: solid
+    at: { x: 233.5, y: 311.88 }
+    size: { w: 3, h: 12.5 }
+  - id: n153
+    label: ""
+    hatch: solid
+    at: { x: 808.5, y: 311.88 }
+    size: { w: 3, h: 12.5 }
+  - id: n154
+    label: ""
+    hatch: solid
+    at: { x: 396.5, y: 315 }
+    size: { w: 2, h: 6.25 }
+  - id: n155
+    label: ""
+    hatch: solid
+    at: { x: 646.5, y: 315 }
+    size: { w: 2, h: 6.25 }
+  - id: n156
+    label: ""
+    hatch: solid
+    at: { x: 210, y: 303.12 }
+    size: { w: 3, h: 30 }
+  - id: n157
+    label: ""
+    hatch: solid
+    at: { x: 832, y: 303.12 }
+    size: { w: 3, h: 30 }
+  - id: n158
+    label: ""
+    at: { x: 200.62, y: 313.44 }
+    size: { w: 9.38, h: 9.38 }
+  - id: t159
+    label: "7"
+    marker: none
+    align: center
+    at: { x: 170, y: 309.12 }
+    size: { w: 22, h: 18 }
+  - id: n160
+    label: ""
+    hatch: solid
+    at: { x: 236.5, y: 285.38 }
+    size: { w: 160, h: 3 }
+  - id: n161
+    label: ""
+    hatch: solid
+    at: { x: 398.5, y: 285.38 }
+    size: { w: 248, h: 3 }
+  - id: n162
+    label: ""
+    hatch: solid
+    at: { x: 648.5, y: 285.38 }
+    size: { w: 160, h: 3 }
+  - id: n163
+    label: ""
+    hatch: solid
+    at: { x: 233.5, y: 280.62 }
+    size: { w: 3, h: 12.5 }
+  - id: n164
+    label: ""
+    hatch: solid
+    at: { x: 808.5, y: 280.62 }
+    size: { w: 3, h: 12.5 }
+  - id: n165
+    label: ""
+    hatch: solid
+    at: { x: 396.5, y: 283.75 }
+    size: { w: 2, h: 6.25 }
+  - id: n166
+    label: ""
+    hatch: solid
+    at: { x: 646.5, y: 283.75 }
+    size: { w: 2, h: 6.25 }
+  - id: n167
+    label: ""
+    hatch: solid
+    at: { x: 210, y: 271.88 }
+    size: { w: 3, h: 30 }
+  - id: n168
+    label: ""
+    hatch: solid
+    at: { x: 832, y: 271.88 }
+    size: { w: 3, h: 30 }
+  - id: n169
+    label: ""
+    at: { x: 200.62, y: 282.19 }
+    size: { w: 9.38, h: 9.38 }
+  - id: t170
+    label: "8"
+    marker: none
+    align: center
+    at: { x: 170, y: 277.88 }
+    size: { w: 22, h: 18 }
+  - id: t171
+    label: "空き 2.5m"
+    marker: none
+    align: left
+    at: { x: 845, y: 246.62 }
+    size: { w: 80, h: 18 }
+  - id: t172
+    label: "空き 2.5m"
+    marker: none
+    align: left
+    at: { x: 845, y: 527.88 }
+    size: { w: 80, h: 18 }
+  - id: t173
+    label: "レーン"
+    marker: none
+    align: center
+    at: { x: 146, y: 245.25 }
+    size: { w: 60, h: 18 }
+  - id: n174
+    label: ""
+    marker: triangle-down
+    at: { x: 269.5, y: 244.81 }
+    size: { w: 6, h: 6 }
+  - id: n175
+    label: ""
+    marker: triangle-down
+    at: { x: 269.5, y: 260.44 }
+    size: { w: 6, h: 6 }
+  - id: n176
+    label: ""
+    marker: triangle-down
+    at: { x: 269.5, y: 276.06 }
+    size: { w: 6, h: 6 }
+  - id: n177
+    label: ""
+    marker: triangle-down
+    at: { x: 269.5, y: 291.69 }
+    size: { w: 6, h: 6 }
+  - id: n178
+    label: ""
+    marker: triangle-down
+    at: { x: 269.5, y: 307.31 }
+    size: { w: 6, h: 6 }
+  - id: n179
+    label: ""
+    marker: triangle-down
+    at: { x: 269.5, y: 322.94 }
+    size: { w: 6, h: 6 }
+  - id: n180
+    label: ""
+    marker: triangle-down
+    at: { x: 269.5, y: 338.56 }
+    size: { w: 6, h: 6 }
+  - id: n181
+    label: ""
+    marker: triangle-down
+    at: { x: 269.5, y: 354.19 }
+    size: { w: 6, h: 6 }
+  - id: n182
+    label: ""
+    marker: triangle-down
+    at: { x: 269.5, y: 369.81 }
+    size: { w: 6, h: 6 }
+  - id: n183
+    label: ""
+    marker: triangle-down
+    at: { x: 269.5, y: 385.44 }
+    size: { w: 6, h: 6 }
+  - id: n184
+    label: ""
+    marker: triangle-down
+    at: { x: 269.5, y: 401.06 }
+    size: { w: 6, h: 6 }
+  - id: n185
+    label: ""
+    marker: triangle-down
+    at: { x: 269.5, y: 416.69 }
+    size: { w: 6, h: 6 }
+  - id: n186
+    label: ""
+    marker: triangle-down
+    at: { x: 269.5, y: 432.31 }
+    size: { w: 6, h: 6 }
+  - id: n187
+    label: ""
+    marker: triangle-down
+    at: { x: 269.5, y: 447.94 }
+    size: { w: 6, h: 6 }
+  - id: n188
+    label: ""
+    marker: triangle-down
+    at: { x: 269.5, y: 463.56 }
+    size: { w: 6, h: 6 }
+  - id: n189
+    label: ""
+    marker: triangle-down
+    at: { x: 269.5, y: 479.19 }
+    size: { w: 6, h: 6 }
+  - id: n190
+    label: ""
+    marker: triangle-down
+    at: { x: 269.5, y: 494.81 }
+    size: { w: 6, h: 6 }
+  - id: n191
+    label: ""
+    marker: triangle-down
+    at: { x: 269.5, y: 510.44 }
+    size: { w: 6, h: 6 }
+  - id: n192
+    label: ""
+    marker: triangle-down
+    at: { x: 269.5, y: 526.06 }
+    size: { w: 6, h: 6 }
+  - id: n193
+    label: ""
+    marker: triangle-down
+    at: { x: 269.5, y: 541.69 }
+    size: { w: 6, h: 6 }
+  - id: n194
+    label: ""
+    hatch: solid
+    at: { x: 270.5, y: 220 }
+    size: { w: 4, h: 4 }
+  - id: n195
+    label: ""
+    hatch: solid
+    at: { x: 270.5, y: 568.5 }
+    size: { w: 4, h: 4 }
+  - id: n196
+    label: ""
+    marker: triangle-down
+    at: { x: 769.5, y: 244.81 }
+    size: { w: 6, h: 6 }
+  - id: n197
+    label: ""
+    marker: triangle-down
+    at: { x: 769.5, y: 260.44 }
+    size: { w: 6, h: 6 }
+  - id: n198
+    label: ""
+    marker: triangle-down
+    at: { x: 769.5, y: 276.06 }
+    size: { w: 6, h: 6 }
+  - id: n199
+    label: ""
+    marker: triangle-down
+    at: { x: 769.5, y: 291.69 }
+    size: { w: 6, h: 6 }
+  - id: n200
+    label: ""
+    marker: triangle-down
+    at: { x: 769.5, y: 307.31 }
+    size: { w: 6, h: 6 }
+  - id: n201
+    label: ""
+    marker: triangle-down
+    at: { x: 769.5, y: 322.94 }
+    size: { w: 6, h: 6 }
+  - id: n202
+    label: ""
+    marker: triangle-down
+    at: { x: 769.5, y: 338.56 }
+    size: { w: 6, h: 6 }
+  - id: n203
+    label: ""
+    marker: triangle-down
+    at: { x: 769.5, y: 354.19 }
+    size: { w: 6, h: 6 }
+  - id: n204
+    label: ""
+    marker: triangle-down
+    at: { x: 769.5, y: 369.81 }
+    size: { w: 6, h: 6 }
+  - id: n205
+    label: ""
+    marker: triangle-down
+    at: { x: 769.5, y: 385.44 }
+    size: { w: 6, h: 6 }
+  - id: n206
+    label: ""
+    marker: triangle-down
+    at: { x: 769.5, y: 401.06 }
+    size: { w: 6, h: 6 }
+  - id: n207
+    label: ""
+    marker: triangle-down
+    at: { x: 769.5, y: 416.69 }
+    size: { w: 6, h: 6 }
+  - id: n208
+    label: ""
+    marker: triangle-down
+    at: { x: 769.5, y: 432.31 }
+    size: { w: 6, h: 6 }
+  - id: n209
+    label: ""
+    marker: triangle-down
+    at: { x: 769.5, y: 447.94 }
+    size: { w: 6, h: 6 }
+  - id: n210
+    label: ""
+    marker: triangle-down
+    at: { x: 769.5, y: 463.56 }
+    size: { w: 6, h: 6 }
+  - id: n211
+    label: ""
+    marker: triangle-down
+    at: { x: 769.5, y: 479.19 }
+    size: { w: 6, h: 6 }
+  - id: n212
+    label: ""
+    marker: triangle-down
+    at: { x: 769.5, y: 494.81 }
+    size: { w: 6, h: 6 }
+  - id: n213
+    label: ""
+    marker: triangle-down
+    at: { x: 769.5, y: 510.44 }
+    size: { w: 6, h: 6 }
+  - id: n214
+    label: ""
+    marker: triangle-down
+    at: { x: 769.5, y: 526.06 }
+    size: { w: 6, h: 6 }
+  - id: n215
+    label: ""
+    marker: triangle-down
+    at: { x: 769.5, y: 541.69 }
+    size: { w: 6, h: 6 }
+  - id: n216
+    label: ""
+    hatch: solid
+    at: { x: 770.5, y: 220 }
+    size: { w: 4, h: 4 }
+  - id: n217
+    label: ""
+    hatch: solid
+    at: { x: 770.5, y: 568.5 }
+    size: { w: 4, h: 4 }
+  - id: n218
+    label: ""
+    marker: triangle
+    hatch: solid
+    at: { x: 392.5, y: 556.5 }
+    size: { w: 10, h: 9 }
+  - id: n219
+    label: ""
+    marker: triangle-down
+    hatch: solid
+    at: { x: 392.5, y: 227 }
+    size: { w: 10, h: 9 }
+  - id: n220
+    label: ""
+    marker: triangle
+    hatch: solid
+    at: { x: 642.5, y: 556.5 }
+    size: { w: 10, h: 9 }
+  - id: n221
+    label: ""
+    marker: triangle-down
+    hatch: solid
+    at: { x: 642.5, y: 227 }
+    size: { w: 10, h: 9 }
+  - id: t222
+    label: "5m"
+    marker: none
+    align: center
+    at: { x: 247.5, y: 194 }
+    size: { w: 50, h: 18 }
+  - id: t223
+    label: "15m"
+    marker: none
+    align: center
+    at: { x: 372.5, y: 194 }
+    size: { w: 50, h: 18 }
+  - id: t224
+    label: "25m"
+    marker: none
+    align: center
+    at: { x: 497.5, y: 194 }
+    size: { w: 50, h: 18 }
+  - id: t225
+    label: "15m"
+    marker: none
+    align: center
+    at: { x: 622.5, y: 194 }
+    size: { w: 50, h: 18 }
+  - id: t226
+    label: "5m"
+    marker: none
+    align: center
+    at: { x: 747.5, y: 194 }
+    size: { w: 50, h: 18 }
+  - id: t227
+    label: "スタート側"
+    marker: none
+    align: center
+    at: { x: 180, y: 582.5 }
+    size: { w: 100, h: 18 }
+  - id: t228
+    label: "ターン側"
+    marker: none
+    align: center
+    at: { x: 775, y: 582.5 }
+    size: { w: 100, h: 18 }
+  - id: p229
+    label: ""
+    marker: none
+    at: { x: 209, y: 611.5 }
+    size: { w: 2, h: 2 }
+  - id: p230
+    label: ""
+    marker: none
+    at: { x: 834, y: 611.5 }
+    size: { w: 2, h: 2 }
+  - id: t231
+    label: "50.000m（タッチ板とタッチ板の間。＋0.010／−0）"
+    marker: none
+    align: center
+    at: { x: 310, y: 618.5 }
+    size: { w: 440, h: 18 }
+  - id: t232
+    label: "② スタート側の断面（0〜7m）—— 1 px ＝ 20 mm（①の 4 倍）"
+    marker: none
+    align: left
+    at: { x: 140, y: 650 }
+    size: { w: 760, h: 20 }
+  - id: deck
+    label: ""
+    hatch: lines
+    at: { x: 280, y: 755 }
+    size: { w: 50, h: 152 }
+  - id: t233
+    label: "プールの壁"
+    marker: none
+    align: right
+    at: { x: 40, y: 821 }
+    size: { w: 230, h: 18 }
+  - id: floor
+    label: ""
+    hatch: lines
+    at: { x: 330, y: 895 }
+    size: { w: 350, h: 12 }
+  - id: p234
+    label: ""
+    marker: none
+    at: { x: 329, y: 769 }
+    size: { w: 2, h: 2 }
+  - id: p235
+    label: ""
+    marker: none
+    at: { x: 679, y: 769 }
+    size: { w: 2, h: 2 }
+  - id: t236
+    label: "水面"
+    marker: none
+    align: left
+    at: { x: 686, y: 761 }
+    size: { w: 50, h: 18 }
+  - id: t237
+    label: "水深 2.5m 以上（オリンピック・世界選手権）"
+    marker: none
+    align: left
+    at: { x: 450, y: 869 }
+    size: { w: 300, h: 18 }
+  - id: p238
+    label: ""
+    marker: none
+    at: { x: 329, y: 819 }
+    size: { w: 2, h: 2 }
+  - id: p239
+    label: ""
+    marker: none
+    at: { x: 379, y: 819 }
+    size: { w: 2, h: 2 }
+  - id: p240
+    label: ""
+    marker: none
+    at: { x: 379, y: 819 }
+    size: { w: 2, h: 2 }
+  - id: p241
+    label: ""
+    marker: none
+    at: { x: 379, y: 836.5 }
+    size: { w: 2, h: 2 }
+  - id: p242
+    label: ""
+    marker: none
+    at: { x: 379, y: 836.5 }
+    size: { w: 2, h: 2 }
+  - id: p243
+    label: ""
+    marker: none
+    at: { x: 629, y: 836.5 }
+    size: { w: 2, h: 2 }
+  - id: p244
+    label: ""
+    marker: none
+    at: { x: 629, y: 836.5 }
+    size: { w: 2, h: 2 }
+  - id: p245
+    label: ""
+    marker: none
+    at: { x: 629, y: 819 }
+    size: { w: 2, h: 2 }
+  - id: p246
+    label: ""
+    marker: none
+    at: { x: 629, y: 819 }
+    size: { w: 2, h: 2 }
+  - id: p247
+    label: ""
+    marker: none
+    at: { x: 679, y: 819 }
+    size: { w: 2, h: 2 }
+  - id: t248
+    label: "その他の大会の最小（台を使うなら 1.0〜6.0m は 1.35m）"
+    marker: none
+    align: left
+    at: { x: 385, y: 841.5 }
+    size: { w: 440, h: 18 }
+  - id: block
+    label: ""
+    hatch: solid
+    at: { x: 305, y: 732.5 }
+    size: { w: 25, h: 6 }
+  - id: n249
+    label: ""
+    hatch: solid
+    at: { x: 312, y: 738.5 }
+    size: { w: 5, h: 16.5 }
+  - id: t250
+    label: "スタート台（水面上 0.5〜0.75m）"
+    marker: none
+    align: right
+    at: { x: 40, y: 726.5 }
+    size: { w: 255, h: 18 }
+  - id: touch
+    label: ""
+    hatch: solid
+    at: { x: 330, y: 755 }
+    size: { w: 3, h: 45 }
+  - id: t251
+    label: "タッチ板（上 0.3m・下 0.6m）"
+    marker: none
+    align: left
+    at: { x: 345, y: 731 }
+    size: { w: 220, h: 18 }
+  - id: p252
+    label: ""
+    marker: none
+    at: { x: 348, y: 748 }
+    size: { w: 2, h: 2 }
+  - id: p253
+    label: ""
+    marker: none
+    at: { x: 334, y: 761.5 }
+    size: { w: 2, h: 2 }
+  - id: p254
+    label: ""
+    marker: none
+    at: { x: 579, y: 769 }
+    size: { w: 2, h: 2 }
+  - id: p255
+    label: ""
+    marker: none
+    at: { x: 579, y: 679 }
+    size: { w: 2, h: 2 }
+  - id: n256
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 576, y: 676 }
+    size: { w: 8, h: 8 }
+  - id: t257
+    label: "背泳ぎの旗の綱（壁から 5.0m・水面上 1.8m）"
+    marker: none
+    align: left
+    at: { x: 590, y: 671 }
+    size: { w: 350, h: 18 }
+  - id: t258
+    label: "③ 何がどこにあるか（Part Two §15）"
+    marker: none
+    align: left
+    at: { x: 960, y: 150 }
+    size: { w: 520, h: 20 }
+  - id: h259
+    label: "施設の決まり"
+    hatch: solid
+    at: { x: 960, y: 186 }
+    size: { w: 520, h: 24 }
+  - id: c260
+    label: "長さ"
+    at: { x: 960, y: 210 }
+    size: { w: 140, h: 24 }
+  - id: c261
+    label: "タッチ板の間で 50.000m（＋0.010・−0）"
+    align: left
+    at: { x: 1100, y: 210 }
+    size: { w: 380, h: 24 }
+  - id: c262
+    label: "幅・水深"
+    at: { x: 960, y: 234 }
+    size: { w: 140, h: 24 }
+  - id: c263
+    label: "オリンピックは幅 25m 以上・水深 2.5m 以上"
+    align: left
+    at: { x: 1100, y: 234 }
+    size: { w: 380, h: 24 }
+  - id: c264
+    label: "レーン"
+    at: { x: 960, y: 258 }
+    size: { w: 140, h: 24 }
+  - id: c265
+    label: "8 本 × 2.5m、外側に 2.5m の空き"
+    align: left
+    at: { x: 1100, y: 258 }
+    size: { w: 380, h: 24 }
+  - id: c266
+    label: "コースロープの色"
+    at: { x: 960, y: 282 }
+    size: { w: 140, h: 24 }
+  - id: c267
+    label: "1・8 は緑、2・3・6・7 は青、4・5 は黄"
+    align: left
+    at: { x: 1100, y: 282 }
+    size: { w: 380, h: 24 }
+  - id: c268
+    label: "赤い浮き"
+    at: { x: 960, y: 306 }
+    size: { w: 140, h: 24 }
+  - id: c269
+    label: "両端から 5.0m"
+    align: left
+    at: { x: 1100, y: 306 }
+    size: { w: 380, h: 24 }
+  - id: c270
+    label: "色を変えた浮き"
+    at: { x: 960, y: 330 }
+    size: { w: 140, h: 24 }
+  - id: c271
+    label: "両端から 15m と、まん中の 25m"
+    align: left
+    at: { x: 1100, y: 330 }
+    size: { w: 380, h: 24 }
+  - id: c272
+    label: "背泳ぎの旗"
+    at: { x: 960, y: 354 }
+    size: { w: 140, h: 24 }
+  - id: c273
+    label: "壁から 5.0m・水面上 1.8m の綱に三角旗"
+    align: left
+    at: { x: 1100, y: 354 }
+    size: { w: 380, h: 24 }
+  - id: c274
+    label: "15m の印"
+    at: { x: 960, y: 378 }
+    size: { w: 140, h: 24 }
+  - id: c275
+    label: "プールの両側と、床の 0.5m の横線"
+    align: left
+    at: { x: 1100, y: 378 }
+    size: { w: 380, h: 24 }
+  - id: c276
+    label: "床のライン"
+    at: { x: 960, y: 402 }
+    size: { w: 140, h: 24 }
+  - id: c277
+    label: "幅 0.2〜0.3m・長さ 46m、端に 1m の横線"
+    align: left
+    at: { x: 1100, y: 402 }
+    size: { w: 380, h: 24 }
+  - id: c278
+    label: "タッチ板"
+    at: { x: 960, y: 426 }
+    size: { w: 140, h: 24 }
+  - id: c279
+    label: "幅 2.4m 以上・高さ 0.9m（上 0.3・下 0.6）"
+    align: left
+    at: { x: 1100, y: 426 }
+    size: { w: 380, h: 24 }
+  - id: c280
+    label: "スタート台"
+    at: { x: 960, y: 450 }
+    size: { w: 140, h: 24 }
+  - id: c281
+    label: "水面上 0.5〜0.75m・0.5m 角以上・10° まで"
+    align: left
+    at: { x: 1100, y: 450 }
+    size: { w: 380, h: 24 }
+  - id: why282
+    label: "床のラインは、壁の 2m 手前で止まり、1m の横線で T になる。\n背泳ぎの旗は、名前のとおり「背泳ぎのターンの目印」\n（Backstroke turn indicators）。水面の上 1.8m に張る。"
+    at: { x: 960, y: 488 }
+    size: { w: 520, h: 56 }
+  - id: t283
+    label: "④ 印と、その印で見るもの"
+    marker: none
+    align: left
+    at: { x: 960, y: 562 }
+    size: { w: 520, h: 20 }
+  - id: h284
+    label: "泳ぎの決まり（Part Two §5・6・8）"
+    hatch: solid
+    at: { x: 960, y: 598 }
+    size: { w: 520, h: 24 }
+  - id: c285
+    label: "15m"
+    at: { x: 960, y: 622 }
+    size: { w: 140, h: 44 }
+  - id: c286
+    label: "自由形・背泳ぎ・バタフライは、スタートと\nターンのあと 15m までに頭が水面に出る"
+    align: left
+    at: { x: 1100, y: 622 }
+    size: { w: 380, h: 44 }
+  - id: c287
+    label: "5m の旗"
+    at: { x: 960, y: 666 }
+    size: { w: 140, h: 44 }
+  - id: c288
+    label: "背泳ぎのターンの目印（旗の名が Backstroke\nturn indicators）。種目の前に審判が確かめる"
+    align: left
+    at: { x: 1100, y: 666 }
+    size: { w: 380, h: 44 }
+  - id: t289
+    label: "50m は、壁と壁ではなくタッチ板とタッチ板の間で測ります（①③）。両端に板を付けるなら、壁と壁は 50.020〜50.030m にします。"
+    marker: none
+    align: left
+    at: { x: 140, y: 950 }
+    size: { w: 1340, h: 18 }
+  - id: t290
+    label: "オリンピックは 2.5m のレーンが 8 本、その外側に 2.5m の空きを 1 本ずつ置きます。コースロープは 1・8 が緑、2・3・6・7 が青、4・5 が黄です（③）。"
+    marker: none
+    align: left
+    at: { x: 140, y: 974 }
+    size: { w: 1340, h: 18 }
+  - id: t291
+    label: "壁から 5m に赤い浮きと背泳ぎの旗、15m に色を変えた浮きと両側の印、床の横線があります（①②）。"
+    marker: none
+    align: left
+    at: { x: 140, y: 998 }
+    size: { w: 1340, h: 18 }
+  - id: t292
+    label: "15m は潜ってよい距離の上限です。自由形・背泳ぎ・バタフライは、スタートとターンのあと 15m までに頭を出します（④）。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1022 }
+    size: { w: 1340, h: 18 }
+edges:
+  - from: p2
+    to: p3
+    curve: none
+    color: 緑
+    ends: { from: none, to: none }
+  - from: p4
+    to: p5
+    curve: none
+    color: 赤
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p6
+    to: p7
+    curve: none
+    color: 赤
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p11
+    to: p12
+    curve: none
+    color: 青
+    ends: { from: none, to: none }
+  - from: p13
+    to: p14
+    curve: none
+    color: 赤
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p15
+    to: p16
+    curve: none
+    color: 赤
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p20
+    to: p21
+    curve: none
+    color: 青
+    ends: { from: none, to: none }
+  - from: p22
+    to: p23
+    curve: none
+    color: 赤
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p24
+    to: p25
+    curve: none
+    color: 赤
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p29
+    to: p30
+    curve: none
+    color: 黄
+    ends: { from: none, to: none }
+  - from: p31
+    to: p32
+    curve: none
+    color: 赤
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p33
+    to: p34
+    curve: none
+    color: 赤
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p38
+    to: p39
+    curve: none
+    color: 黄
+    ends: { from: none, to: none }
+  - from: p40
+    to: p41
+    curve: none
+    color: 赤
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p42
+    to: p43
+    curve: none
+    color: 赤
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p47
+    to: p48
+    curve: none
+    color: 黄
+    ends: { from: none, to: none }
+  - from: p49
+    to: p50
+    curve: none
+    color: 赤
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p51
+    to: p52
+    curve: none
+    color: 赤
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p56
+    to: p57
+    curve: none
+    color: 青
+    ends: { from: none, to: none }
+  - from: p58
+    to: p59
+    curve: none
+    color: 赤
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p60
+    to: p61
+    curve: none
+    color: 赤
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p65
+    to: p66
+    curve: none
+    color: 青
+    ends: { from: none, to: none }
+  - from: p67
+    to: p68
+    curve: none
+    color: 赤
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p69
+    to: p70
+    curve: none
+    color: 赤
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p74
+    to: p75
+    curve: none
+    color: 緑
+    ends: { from: none, to: none }
+  - from: p76
+    to: p77
+    curve: none
+    color: 赤
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p78
+    to: p79
+    curve: none
+    color: 赤
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p229
+    to: p230
+    curve: none
+    weight: thin
+    ends: { from: arrow, to: arrow }
+  - from: p234
+    to: p235
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p238
+    to: p239
+    curve: none
+    line: dashed
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p240
+    to: p241
+    curve: none
+    line: dashed
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p242
+    to: p243
+    curve: none
+    line: dashed
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p244
+    to: p245
+    curve: none
+    line: dashed
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p246
+    to: p247
+    curve: none
+    line: dashed
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p252
+    to: p253
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p254
+    to: p255
+    curve: none
+    line: dashed
+    weight: thin
+    ends: { from: none, to: none }

@@ -1,0 +1,888 @@
+version: 1
+kind: placement
+arrows: true
+title: ドーム公演の PA 断面（ラインアレイの開き角と、音が届く範囲）
+sources:
+  - name: "株式会社東京ドーム「東京ドームについて」（施設概要）"
+    url: "https://www.tokyo-dome.co.jp/dome/about/"
+    retrieved: 2026-10-06
+  - name: "JIS C 5532:2014 音響システム用スピーカ（附属書 C「柱（線）状スピーカシステム」・20.1 特性感度）"
+# **縦に切ると、PA は「どこへ向けるか」の図になる。**
+#
+# 平面の PA 配置図（見本 101）は、スピーカーの位置と遅らせる量を言った。
+# この図は**断面**で、ラインアレイの箱 1 台ずつの向きと、それが床のどこへ届くかを言う。
+# 照明の仕込図（見本 369）と**同じ公演・同じ会場**（ステージ端から本塁まで 88m、FOH はステージ端から 35m）。
+#
+# ## ラインアレイ
+#
+# JIS C 5532:2014 は「柱（線）状スピーカシステム」を「指向性をもつように、複数個のスピーカを直線状に配置した
+# スピーカシステム」と定めている。箱は前の角どうしを留め、後ろの開きで角度を付ける。
+# **下の箱ほど下を向くので、列は客席に向かって凸の曲線になる**（下の端は奥へ巻く）。
+#
+# 箱の角度（水平から下向き）は 12・12.5・13・14・15・16・17.5・19・21・23・26・29・33・38・44・52°。
+# 1 番の軸は 87.6m 先、16 番は 8.8m 先で耳の高さ（1.2m）に届く（計算）。
+#
+# ## 落ち方
+#
+# 点音源は距離が 2 倍で −6dB（20 log 2）。線音源は近い所で −3dB（10 log 2）。
+# ラインアレイが遠くまで揃って届くのはこのため —— ただし「近い所」の範囲は周波数と列の長さで変わる。
+# 特性感度は 1W・1m の音圧で決める（JIS C 5532:2014 の 20.1）。この図は**差だけ**を書き、dB の絶対値は書いていない。
+#
+# ## ディレイ
+#
+# 遅らせる量 ＝ メインの中心（ステージ端の 0.9m 奥・+17.5m）からディレイの前面（51.0m・+7.25m）までの距離 52.9m ÷ 343.5m/s ＝ 154ms。
+# 音速は c ＝ 331.5 ＋ 0.6 × 気温（℃）、20℃ で 343.5m/s。
+# 先に届いたほうから聞こえるので、計算値に少し足す話は見本 101。
+#
+# ## 会場
+#
+# 屋根の最高部はグラウンド面から 61.690m（公表値）。屋根は空気膜構造。
+# 屋根の形・スタンドの形は公表されていないので描いていない（最高部の高さだけを線で示した）。
+#
+# ## 架空のところ
+#
+# 公演・ステージの大きさ・吊り高さ・箱の数と角度・ディレイの位置は**架空**。
+# メイン L・R は CL の左右に吊るので、この断面（CL で切った）には**投影**して描いた。
+# 吊りの塔も左右にあり、断面には描いていない。
+#
+# ## 描かなかったもの
+#
+# - 製品名・型番と、dB の絶対値 —— 機種で変わり、架空の数字は害になる
+# - 周波数ごとの指向性 —— 低音ほど広がる。1 枚の扇では言えない
+# - 屋根からの反射の時間 —— 膜の形が分からないので計算できない
+# - 吊り荷重 —— 構造の計算が要る
+#
+# 平面の PA 配置は見本 101、照明は見本 369、ホールの反射は見本 205、ミキサーは見本 343。
+views:
+  - id: sec
+    title: ① 縦断面（CL で切る・1px ＝ 0.125m）
+    at: { x: 60, y: 80 }
+    size: { w: 1000, h: 650 }
+    scale: { mm: 125 }
+    grid:
+      x:
+        - { id: 端, at: 260 }
+        - { id: FOH, at: 540 }
+        - { id: DL, at: 660 }
+        - { id: 本塁, at: 964 }
+      y:
+        - { id: 屋根, at: 126.5 }
+        - { id: 吊り, at: 460 }
+        - { id: GL, at: 620 }
+  - id: det
+    title: ② メインの吊り（1px ＝ 20mm）
+    at: { x: 1180, y: 60 }
+    size: { w: 600, h: 440 }
+    scale: { mm: 20 }
+nodes:
+  - id: ground
+    label: ""
+    hatch: lines
+    at: { x: 100, y: 620 }
+    size: { w: 896, h: 10 }
+  - id: stage
+    label: "ステージ（床 +2.0m）"
+    at: { x: 116, y: 604 }
+    size: { w: 143, h: 15 }
+  - id: perf
+    label: ""
+    marker: box
+    at: { x: 225.6, y: 590 }
+    size: { w: 4.8, h: 13.6 }
+  - id: perf_n
+    label: "演者"
+    marker: none
+    align: right
+    at: { x: 185.6, y: 588 }
+    size: { w: 36, h: 16 }
+  - id: wedge
+    label: ""
+    at: { x: 241.6, y: 599 }
+    size: { w: 7.2, h: 3.2 }
+  - id: wedge_n
+    label: "モニター（演者へ向ける）"
+    marker: none
+    align: left
+    at: { x: 71.6, y: 570 }
+    size: { w: 180, h: 16 }
+  - id: ff
+    label: ""
+    hatch: solid
+    at: { x: 252.8, y: 598.6 }
+    size: { w: 6.4, h: 4 }
+  - id: ff_n
+    label: "フロントフィル"
+    marker: none
+    align: left
+    at: { x: 264.8, y: 559.6 }
+    size: { w: 100, h: 16 }
+  - id: sub
+    label: ""
+    hatch: lines
+    at: { x: 262.4, y: 610.4 }
+    size: { w: 12.8, h: 8.6 }
+  - id: sub_n
+    label: "サブウーファー"
+    marker: none
+    align: left
+    at: { x: 280.4, y: 592.4 }
+    size: { w: 100, h: 16 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 259, y: 459 }
+    size: { w: 2, h: 2 }
+  - id: main_n
+    label: "メイン（ラインアレイ 16 台）\n上端 +20.0m"
+    marker: none
+    align: left
+    at: { x: 62, y: 422 }
+    size: { w: 200, h: 34 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 261.8, y: 461 }
+    size: { w: 2, h: 2 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 959.8, y: 609.4 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 256.7, y: 480.3 }
+    size: { w: 2, h: 2 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 631.5, y: 609.4 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 252, y: 491.1 }
+    size: { w: 2, h: 2 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 465.4, y: 609.4 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 248.7, y: 496.2 }
+    size: { w: 2, h: 2 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 393.6, y: 609.4 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 244.2, y: 500.7 }
+    size: { w: 2, h: 2 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 329.1, y: 609.4 }
+    size: { w: 2, h: 2 }
+  - id: foh
+    label: "FOH"
+    hatch: cross
+    at: { x: 532, y: 605.6 }
+    size: { w: 48, h: 13.4 }
+  - id: tower
+    label: ""
+    hatch: solid
+    at: { x: 656.8, y: 556 }
+    size: { w: 4, h: 63 }
+  - id: delay
+    label: ""
+    at: { x: 661.6, y: 556 }
+    size: { w: 6.4, h: 12 }
+  - id: delay_n
+    label: "ディレイ（タワー +6.5〜8.0m）"
+    marker: none
+    align: left
+    at: { x: 673.6, y: 526 }
+    size: { w: 210, h: 16 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 667.8, y: 561 }
+    size: { w: 2, h: 2 }
+  - id: bf
+    label: ""
+    hatch: dots
+    at: { x: 260, y: 642 }
+    size: { w: 72, h: 14 }
+  - id: bf_n
+    label: "フロントフィル 0〜9m"
+    marker: none
+    align: right
+    at: { x: 30, y: 641 }
+    size: { w: 220, h: 16 }
+  - id: bm
+    label: ""
+    hatch: dots
+    at: { x: 332, y: 664 }
+    size: { w: 632, h: 14 }
+  - id: bm_n
+    label: "メイン 9〜88m"
+    marker: none
+    align: right
+    at: { x: 30, y: 663 }
+    size: { w: 220, h: 16 }
+  - id: bd
+    label: ""
+    hatch: dots
+    at: { x: 700, y: 686 }
+    size: { w: 264, h: 14 }
+  - id: bd_n
+    label: "ディレイ 55〜88m（重ねて足す）"
+    marker: none
+    align: right
+    at: { x: 30, y: 685 }
+    size: { w: 220, h: 16 }
+  - id: roof_n
+    label: "屋根の最高部（グラウンド面から 61.690m）—— 膜の屋根。ここへ当てた音は遅れて返る"
+    marker: none
+    align: left
+    at: { x: 380, y: 132.5 }
+    size: { w: 600, h: 16 }
+  - id: ear_n
+    label: "矢印の先は耳の高さ（床から 1.2m）。上の 1 本は 88m 先（本塁）まで届く"
+    marker: none
+    align: left
+    at: { x: 530, y: 444 }
+    size: { w: 520, h: 16 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 1498, y: 119.3 }
+    size: { w: 2, h: 2 }
+  - id: bx1
+    label: "1　12°　88m"
+    marker: none
+    align: left
+    at: { x: 1510.4, y: 124.2 }
+    size: { w: 120, h: 14 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 1494.4, y: 136.4 }
+    size: { w: 2, h: 2 }
+  - id: bx2
+    label: "2　12.5°　82m"
+    marker: none
+    align: left
+    at: { x: 1508.3, y: 141.7 }
+    size: { w: 120, h: 14 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 1490.6, y: 153.5 }
+    size: { w: 2, h: 2 }
+  - id: bx3
+    label: "3　13°　78m"
+    marker: none
+    align: left
+    at: { x: 1506, y: 159.3 }
+    size: { w: 120, h: 14 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 1486.6, y: 170.5 }
+    size: { w: 2, h: 2 }
+  - id: bx4
+    label: "4　14°　70m"
+    marker: none
+    align: left
+    at: { x: 1503.5, y: 177 }
+    size: { w: 120, h: 14 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 1482.4, y: 187.5 }
+    size: { w: 2, h: 2 }
+  - id: bx5
+    label: "5　15°　64m"
+    marker: none
+    align: left
+    at: { x: 1500.7, y: 194.6 }
+    size: { w: 120, h: 14 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 1477.9, y: 204.4 }
+    size: { w: 2, h: 2 }
+  - id: bx6
+    label: "6　16°　59m"
+    marker: none
+    align: left
+    at: { x: 1497.5, y: 212.3 }
+    size: { w: 120, h: 14 }
+  - id: p18
+    label: ""
+    marker: none
+    at: { x: 1473, y: 221.2 }
+    size: { w: 2, h: 2 }
+  - id: bx7
+    label: "7　17.5°　52m"
+    marker: none
+    align: left
+    at: { x: 1493.9, y: 230.1 }
+    size: { w: 120, h: 14 }
+  - id: p19
+    label: ""
+    marker: none
+    at: { x: 1467.8, y: 237.9 }
+    size: { w: 2, h: 2 }
+  - id: bx8
+    label: "8　19°　47m"
+    marker: none
+    align: left
+    at: { x: 1489.8, y: 247.8 }
+    size: { w: 120, h: 14 }
+  - id: p20
+    label: ""
+    marker: none
+    at: { x: 1462.1, y: 254.4 }
+    size: { w: 2, h: 2 }
+  - id: bx9
+    label: "9　21°　41m"
+    marker: none
+    align: left
+    at: { x: 1485.1, y: 265.6 }
+    size: { w: 120, h: 14 }
+  - id: p21
+    label: ""
+    marker: none
+    at: { x: 1455.8, y: 270.7 }
+    size: { w: 2, h: 2 }
+  - id: bx10
+    label: "10　23°　36m"
+    marker: none
+    align: left
+    at: { x: 1479.7, y: 283.3 }
+    size: { w: 120, h: 14 }
+  - id: p22
+    label: ""
+    marker: none
+    at: { x: 1448.9, y: 286.7 }
+    size: { w: 2, h: 2 }
+  - id: bx11
+    label: "11　26°　30m"
+    marker: none
+    align: left
+    at: { x: 1473.4, y: 301.3 }
+    size: { w: 120, h: 14 }
+  - id: p23
+    label: ""
+    marker: none
+    at: { x: 1441.3, y: 302.4 }
+    size: { w: 2, h: 2 }
+  - id: bx12
+    label: "12　29°　26m"
+    marker: none
+    align: left
+    at: { x: 1466, y: 319 }
+    size: { w: 120, h: 14 }
+  - id: p24
+    label: ""
+    marker: none
+    at: { x: 1432.8, y: 317.6 }
+    size: { w: 2, h: 2 }
+  - id: bx13
+    label: "13　33°　21m"
+    marker: none
+    align: left
+    at: { x: 1457.3, y: 336.7 }
+    size: { w: 120, h: 14 }
+  - id: p25
+    label: ""
+    marker: none
+    at: { x: 1423.3, y: 332.2 }
+    size: { w: 2, h: 2 }
+  - id: bx14
+    label: "14　38°　17m"
+    marker: none
+    align: left
+    at: { x: 1446.8, y: 354.3 }
+    size: { w: 120, h: 14 }
+  - id: p26
+    label: ""
+    marker: none
+    at: { x: 1412.5, y: 345.9 }
+    size: { w: 2, h: 2 }
+  - id: bx15
+    label: "15　44°　13m"
+    marker: none
+    align: left
+    at: { x: 1434.2, y: 371.3 }
+    size: { w: 120, h: 14 }
+  - id: p27
+    label: ""
+    marker: none
+    at: { x: 1400.4, y: 358.3 }
+    size: { w: 2, h: 2 }
+  - id: bx16
+    label: "16　52°　9m"
+    marker: none
+    align: left
+    at: { x: 1418.6, y: 387.7 }
+    size: { w: 120, h: 14 }
+  - id: det_n1
+    label: "角度は水平から下向き。箱は奥が細い台形"
+    marker: none
+    align: left
+    at: { x: 1190, y: 440 }
+    size: { w: 300, h: 16 }
+  - id: det_n2
+    label: "隣との開きは上で 0.5°、下で 8°"
+    marker: none
+    align: left
+    at: { x: 1190, y: 462 }
+    size: { w: 300, h: 16 }
+  - id: t1_t
+    label: "機器と受け持ち"
+    marker: none
+    align: left
+    at: { x: 60, y: 880 }
+    size: { w: 300, h: 18 }
+  - id: t1h0
+    label: "機器"
+    hatch: solid
+    at: { x: 60, y: 906 }
+    size: { w: 190, h: 26 }
+  - id: t1h1
+    label: "置く所"
+    hatch: solid
+    at: { x: 250, y: 906 }
+    size: { w: 190, h: 26 }
+  - id: t1h2
+    label: "高さ"
+    hatch: solid
+    at: { x: 440, y: 906 }
+    size: { w: 100, h: 26 }
+  - id: t1h3
+    label: "受け持ち"
+    hatch: solid
+    at: { x: 540, y: 906 }
+    size: { w: 210, h: 26 }
+  - id: t1c0_0
+    label: "メイン L・R"
+    at: { x: 60, y: 932 }
+    size: { w: 190, h: 24 }
+  - id: t1c0_1
+    label: "ステージ端の左右に吊る"
+    at: { x: 250, y: 932 }
+    size: { w: 190, h: 24 }
+  - id: t1c0_2
+    label: "+15.0〜20.0m"
+    at: { x: 440, y: 932 }
+    size: { w: 100, h: 24 }
+  - id: t1c0_3
+    label: "床 9〜88m"
+    at: { x: 540, y: 932 }
+    size: { w: 210, h: 24 }
+  - id: t1c1_0
+    label: "サブウーファー"
+    at: { x: 60, y: 956 }
+    size: { w: 190, h: 24 }
+  - id: t1c1_1
+    label: "ステージ前の床"
+    at: { x: 250, y: 956 }
+    size: { w: 190, h: 24 }
+  - id: t1c1_2
+    label: "床"
+    at: { x: 440, y: 956 }
+    size: { w: 100, h: 24 }
+  - id: t1c1_3
+    label: "低音（全体）"
+    at: { x: 540, y: 956 }
+    size: { w: 210, h: 24 }
+  - id: t1c2_0
+    label: "フロントフィル"
+    at: { x: 60, y: 980 }
+    size: { w: 190, h: 24 }
+  - id: t1c2_1
+    label: "ステージの縁"
+    at: { x: 250, y: 980 }
+    size: { w: 190, h: 24 }
+  - id: t1c2_2
+    label: "+2.0m"
+    at: { x: 440, y: 980 }
+    size: { w: 100, h: 24 }
+  - id: t1c2_3
+    label: "最前列 0〜9m"
+    at: { x: 540, y: 980 }
+    size: { w: 210, h: 24 }
+  - id: t1c3_0
+    label: "ディレイ"
+    at: { x: 60, y: 1004 }
+    size: { w: 190, h: 24 }
+  - id: t1c3_1
+    label: "床から 50m のタワー"
+    at: { x: 250, y: 1004 }
+    size: { w: 190, h: 24 }
+  - id: t1c3_2
+    label: "+6.5〜8.0m"
+    at: { x: 440, y: 1004 }
+    size: { w: 100, h: 24 }
+  - id: t1c3_3
+    label: "55〜88m に足す"
+    at: { x: 540, y: 1004 }
+    size: { w: 210, h: 24 }
+  - id: t1c4_0
+    label: "モニター"
+    at: { x: 60, y: 1028 }
+    size: { w: 190, h: 24 }
+  - id: t1c4_1
+    label: "演者の足元"
+    at: { x: 250, y: 1028 }
+    size: { w: 190, h: 24 }
+  - id: t1c4_2
+    label: "+2.0m"
+    at: { x: 440, y: 1028 }
+    size: { w: 100, h: 24 }
+  - id: t1c4_3
+    label: "演者（客席へは向けない）"
+    at: { x: 540, y: 1028 }
+    size: { w: 210, h: 24 }
+  - id: t1c5_0
+    label: "FOH"
+    at: { x: 60, y: 1052 }
+    size: { w: 190, h: 24 }
+  - id: t1c5_1
+    label: "床から 35m"
+    at: { x: 250, y: 1052 }
+    size: { w: 190, h: 24 }
+  - id: t1c5_2
+    label: "床"
+    at: { x: 440, y: 1052 }
+    size: { w: 100, h: 24 }
+  - id: t1c5_3
+    label: "メインを聞いて混ぜる席"
+    at: { x: 540, y: 1052 }
+    size: { w: 210, h: 24 }
+  - id: t2_t
+    label: "距離が 2 倍になるごとの落ち方"
+    marker: none
+    align: left
+    at: { x: 800, y: 880 }
+    size: { w: 300, h: 18 }
+  - id: t2h0
+    label: "距離"
+    hatch: solid
+    at: { x: 800, y: 906 }
+    size: { w: 120, h: 26 }
+  - id: t2h1
+    label: "点音源（−6dB／2 倍）"
+    hatch: solid
+    at: { x: 920, y: 906 }
+    size: { w: 260, h: 26 }
+  - id: t2h2
+    label: "線音源（−3dB／2 倍・近い所）"
+    hatch: solid
+    at: { x: 1180, y: 906 }
+    size: { w: 310, h: 26 }
+  - id: t2c0_0
+    label: "11m"
+    at: { x: 800, y: 932 }
+    size: { w: 120, h: 24 }
+  - id: t2c0_1
+    label: "0 dB"
+    at: { x: 920, y: 932 }
+    size: { w: 260, h: 24 }
+  - id: t2c0_2
+    label: "0 dB"
+    at: { x: 1180, y: 932 }
+    size: { w: 310, h: 24 }
+  - id: t2c1_0
+    label: "22m"
+    at: { x: 800, y: 956 }
+    size: { w: 120, h: 24 }
+  - id: t2c1_1
+    label: "−6 dB"
+    at: { x: 920, y: 956 }
+    size: { w: 260, h: 24 }
+  - id: t2c1_2
+    label: "−3 dB"
+    at: { x: 1180, y: 956 }
+    size: { w: 310, h: 24 }
+  - id: t2c2_0
+    label: "44m"
+    at: { x: 800, y: 980 }
+    size: { w: 120, h: 24 }
+  - id: t2c2_1
+    label: "−12 dB"
+    at: { x: 920, y: 980 }
+    size: { w: 260, h: 24 }
+  - id: t2c2_2
+    label: "−6 dB"
+    at: { x: 1180, y: 980 }
+    size: { w: 310, h: 24 }
+  - id: t2c3_0
+    label: "88m"
+    at: { x: 800, y: 1004 }
+    size: { w: 120, h: 24 }
+  - id: t2c3_1
+    label: "−18 dB"
+    at: { x: 920, y: 1004 }
+    size: { w: 260, h: 24 }
+  - id: t2c3_2
+    label: "−9 dB"
+    at: { x: 1180, y: 1004 }
+    size: { w: 310, h: 24 }
+  - id: n0
+    label: "PA の断面は、スピーカーがどこを向き、どこまで届くかを決める図。平面（見本 101）では高さが言えない。"
+    marker: none
+    align: left
+    at: { x: 1100, y: 640 }
+    size: { w: 880, h: 18 }
+  - id: n1
+    label: "ラインアレイは箱を縦に吊り、箱ごとに下向きの角度を変える。上の箱は遠く、下の箱は手前を受け持つ。"
+    marker: none
+    align: left
+    at: { x: 1100, y: 666 }
+    size: { w: 880, h: 18 }
+  - id: n2
+    label: "1 台の箱（点音源）は距離が 2 倍で −6dB。縦に並べた列（線音源）は、近い所では −3dB で済む。"
+    marker: none
+    align: left
+    at: { x: 1100, y: 692 }
+    size: { w: 880, h: 18 }
+  - id: n3
+    label: "それでも後ろは足りない。だから途中にディレイを立て、メインが届いた時刻に合わせて遅らせて鳴らす。"
+    marker: none
+    align: left
+    at: { x: 1100, y: 718 }
+    size: { w: 880, h: 18 }
+  - id: n4
+    label: "遅らせる量 ＝ メインからディレイまでの距離 ÷ 音速。52.9m ÷ 343.5m/s（20℃）＝ 154ms。"
+    marker: none
+    align: left
+    at: { x: 1100, y: 744 }
+    size: { w: 880, h: 18 }
+  - id: n5
+    label: "上の箱を上へ向けすぎると、膜の屋根で返った音が遅れて届く。いちばん上の箱も床（本塁）に向けた。"
+    marker: none
+    align: left
+    at: { x: 1100, y: 770 }
+    size: { w: 880, h: 18 }
+  - id: n6
+    label: "ステージの縁で、メインの真下は抜ける。そこをフロントフィルが埋める。モニターは演者の方を向く。"
+    marker: none
+    align: left
+    at: { x: 1100, y: 796 }
+    size: { w: 880, h: 18 }
+  - id: n7
+    label: "FOH はメインが届く範囲の中に置く —— 混ぜる人は、客と同じ音を聞いて決める。"
+    marker: none
+    align: left
+    at: { x: 1100, y: 822 }
+    size: { w: 880, h: 18 }
+edges:
+  - from: p0
+    to: p0
+    close: true
+    hatch: solid
+    ends: { from: none, to: none }
+    via:
+      - { x: 259.4, y: 462.7 }
+      - { x: 258.8, y: 465.5 }
+      - { x: 258.2, y: 468.2 }
+      - { x: 257.5, y: 470.9 }
+      - { x: 256.8, y: 473.6 }
+      - { x: 256, y: 476.3 }
+      - { x: 255.2, y: 479 }
+      - { x: 254.3, y: 481.6 }
+      - { x: 253.3, y: 484.2 }
+      - { x: 252.2, y: 486.8 }
+      - { x: 250.9, y: 489.3 }
+      - { x: 249.6, y: 491.8 }
+      - { x: 248, y: 494.1 }
+      - { x: 246.3, y: 496.3 }
+      - { x: 244.4, y: 498.4 }
+      - { x: 242.2, y: 500.1 }
+      - { x: 239.2, y: 496.3 }
+      - { x: 241.4, y: 494.6 }
+      - { x: 242.9, y: 493 }
+      - { x: 244.3, y: 491.2 }
+      - { x: 245.5, y: 489.2 }
+      - { x: 246.7, y: 487 }
+      - { x: 247.8, y: 484.7 }
+      - { x: 248.8, y: 482.4 }
+      - { x: 249.8, y: 479.9 }
+      - { x: 250.6, y: 477.4 }
+      - { x: 251.4, y: 474.9 }
+      - { x: 252.2, y: 472.3 }
+      - { x: 252.9, y: 469.7 }
+      - { x: 253.5, y: 467 }
+      - { x: 254.1, y: 464.4 }
+      - { x: 254.7, y: 461.7 }
+      - { x: 255.3, y: 459 }
+  - from: p1
+    to: p2
+    curve: none
+    weight: thin
+    ends: { from: none, to: arrow }
+  - from: p3
+    to: p4
+    curve: none
+    weight: thin
+    ends: { from: none, to: arrow }
+  - from: p5
+    to: p6
+    curve: none
+    weight: thin
+    ends: { from: none, to: arrow }
+  - from: p7
+    to: p8
+    curve: none
+    weight: thin
+    ends: { from: none, to: arrow }
+  - from: p9
+    to: p10
+    curve: none
+    weight: thin
+    ends: { from: none, to: arrow }
+  - from: p11
+    to: p11
+    close: true
+    line: dashed
+    ends: { from: none, to: none }
+    via:
+      - { x: 708, y: 610.4 }
+      - { x: 940, y: 610.4 }
+  - from: p12
+    to: p12
+    close: true
+    ends: { from: none, to: none }
+    via:
+      - { x: 1495.6, y: 136.4 }
+      - { x: 1468.5, y: 128 }
+      - { x: 1470.9, y: 117 }
+  - from: p13
+    to: p13
+    close: true
+    ends: { from: none, to: none }
+    via:
+      - { x: 1491.8, y: 153.5 }
+      - { x: 1464.8, y: 144.9 }
+      - { x: 1467.3, y: 133.9 }
+  - from: p14
+    to: p14
+    close: true
+    ends: { from: none, to: none }
+    via:
+      - { x: 1487.9, y: 170.5 }
+      - { x: 1461, y: 161.7 }
+      - { x: 1463.5, y: 150.7 }
+  - from: p15
+    to: p15
+    close: true
+    ends: { from: none, to: none }
+    via:
+      - { x: 1483.7, y: 187.5 }
+      - { x: 1456.9, y: 178.2 }
+      - { x: 1459.6, y: 167.2 }
+  - from: p16
+    to: p16
+    close: true
+    ends: { from: none, to: none }
+    via:
+      - { x: 1479.1, y: 204.4 }
+      - { x: 1452.6, y: 194.6 }
+      - { x: 1455.5, y: 183.7 }
+  - from: p17
+    to: p17
+    close: true
+    ends: { from: none, to: none }
+    via:
+      - { x: 1474.3, y: 221.2 }
+      - { x: 1447.9, y: 210.9 }
+      - { x: 1451, y: 200.1 }
+  - from: p18
+    to: p18
+    close: true
+    ends: { from: none, to: none }
+    via:
+      - { x: 1469.1, y: 237.9 }
+      - { x: 1443, y: 226.9 }
+      - { x: 1446.4, y: 216.2 }
+  - from: p19
+    to: p19
+    close: true
+    ends: { from: none, to: none }
+    via:
+      - { x: 1463.4, y: 254.4 }
+      - { x: 1437.6, y: 242.8 }
+      - { x: 1441.3, y: 232.1 }
+  - from: p20
+    to: p20
+    close: true
+    ends: { from: none, to: none }
+    via:
+      - { x: 1457.2, y: 270.7 }
+      - { x: 1431.8, y: 258.2 }
+      - { x: 1435.8, y: 247.7 }
+  - from: p21
+    to: p21
+    close: true
+    ends: { from: none, to: none }
+    via:
+      - { x: 1450.4, y: 286.8 }
+      - { x: 1425.4, y: 273.4 }
+      - { x: 1429.8, y: 263 }
+  - from: p22
+    to: p22
+    close: true
+    ends: { from: none, to: none }
+    via:
+      - { x: 1442.7, y: 302.5 }
+      - { x: 1418.5, y: 287.8 }
+      - { x: 1423.5, y: 277.7 }
+  - from: p23
+    to: p23
+    close: true
+    ends: { from: none, to: none }
+    via:
+      - { x: 1434.3, y: 317.8 }
+      - { x: 1410.9, y: 301.9 }
+      - { x: 1416.4, y: 292 }
+  - from: p24
+    to: p24
+    close: true
+    ends: { from: none, to: none }
+    via:
+      - { x: 1424.8, y: 332.4 }
+      - { x: 1402.6, y: 314.9 }
+      - { x: 1408.7, y: 305.4 }
+  - from: p25
+    to: p25
+    close: true
+    ends: { from: none, to: none }
+    via:
+      - { x: 1414.1, y: 346.2 }
+      - { x: 1393.5, y: 326.8 }
+      - { x: 1400.4, y: 317.9 }
+  - from: p26
+    to: p26
+    close: true
+    ends: { from: none, to: none }
+    via:
+      - { x: 1402.1, y: 358.7 }
+      - { x: 1383.6, y: 337.3 }
+      - { x: 1391.4, y: 329.2 }
+  - from: p27
+    to: p27
+    close: true
+    ends: { from: none, to: none }
+    via:
+      - { x: 1388.4, y: 369.5 }
+      - { x: 1373.1, y: 345.7 }
+      - { x: 1382, y: 338.7 }

@@ -1,0 +1,582 @@
+version: 1
+kind: placement
+arrows: true
+title: 緊急自動車の決まり（赤い光とサイレンは法令、パトカーの白黒は法令ではない）
+sources:
+  - { name: "国土交通省「道路運送車両の保安基準の細目を定める告示」第 231 条（緊急自動車）", url: "https://www.mlit.go.jp/jidosha/content/S231.pdf", retrieved: 2026-10-06 }
+  - { name: "e-Gov 法令検索「道路運送車両の保安基準」第 49 条", url: "https://laws.e-gov.go.jp/api/1/lawdata/326M50000800067", retrieved: 2026-10-06 }
+  - { name: "e-Gov 法令検索「道路交通法」第 39 条・第 40 条", url: "https://laws.e-gov.go.jp/api/1/lawdata/335AC0000000105", retrieved: 2026-10-06 }
+  - { name: "e-Gov 法令検索「道路交通法施行令」第 12 条・第 13 条・第 14 条・第 14 条の 3・第 14 条の 4", url: "https://laws.e-gov.go.jp/api/1/lawdata/335CO0000000270", retrieved: 2026-10-06 }
+  - { name: "株式会社モリタ「よくいただくご質問」消防車全般 Q3・Q6", url: "https://www.morita119.jp/faq/index.html", retrieved: 2026-10-06 }
+palette:
+  朱色: "#e8452f"
+  赤色: "#d7000f"
+  黒: "#666666"
+  道: "#8a8a8a"
+# **緊急自動車の決まり。どれが法令で、どれが法令ではないか。**
+# 子どもは「消防車は赤、パトカーは白黒、救急車は白」を同じ種類の決まりだと思っている。
+# 実際は**決まっている場所が違う。** この図は、それを 1 枚で分ける。
+#
+# ## 法令で決まっていること（細目告示 第 231 条）
+# - 警光灯は**前方 300m から点灯が確認できる赤色**（1 号）
+# - サイレンは**前方 20m で 90dB 以上 120dB 以下**。測るマイクは車両中心線上・前端から 20m・**地上 1m**、
+#   C 特性、エンジンを止めて測る（2 号）
+# - 車体の色は**消防自動車が朱色、その他の緊急自動車は白色**（3 号）。**大部分**がその色なら適合（4 号）
+# - **警察自動車は、白色の決まりから外れている**（3 号ただし書き）。
+#   だから**パトカーの白黒の塗り分けは、保安基準の決まりではない。** 覆面の車が走れるのもこのため。
+#   白黒を何が決めているか（警察の内部の定めか）は、一次資料で**確かめていない**ので図には書かない。
+# - 告示は**色の名前（朱色・白色）しか書いていない。** 色の値は決めていないので、図の朱色は近似の色。
+#
+# ## 走るとき・譲るとき（道路交通法・施行令）
+# - 緊急の用務で走るときは**サイレンを鳴らし、かつ赤色の警光灯をつける**（施行令 14 条）。
+#   ただし警察用自動車が速度違反を取り締まるときは、サイレンを鳴らさないことがある
+# - 一般道路の最高速度は **80km/h**（施行令 12 条 3 項）
+# - 交差点やその付近では、ほかの車は**交差点を避け、道路の左側に寄って一時停止**（道交法 40 条 1 項）。
+#   それ以外の場所では**左に寄って進路を譲る**（同 2 項）
+# - **黄色の灯火**は道路維持作業用自動車のもの（施行令 14 条の 3）。緊急自動車ではない
+# - 「鐘」は、消防用自動車**以外**の消防用車両が「サイレン又は鐘」を鳴らす決まり（施行令 14 条の 4）。
+#   消防自動車が帰りに鐘だけを鳴らすのは**慣行**（メーカーの説明。地域によって鳴らさない）
+#
+# ## なぜ消防車は赤いのか
+# メーカーは「輸入した消防車が赤色だったので、保安基準を決めるときに朱色にしたのが一般的な理由のようです」と書く。
+# **「ようです」なので、理由としては描かない。** 図に書くのは、どこで決まっているかだけ。
+#
+# ## 描かなかったもの
+# - **公的機関の章（旭日章・消防章）、車体の文字、実在の車の外観** —— 本物に見えるものを作らない。車は箱で描いた
+# - 警光灯の**数と取り付け位置** —— 告示は色と見える距離だけを決めている
+# - サイレンの**音の形（ウー・ピーポー）** —— 告示は音量だけを決めている
+#
+# 出典（2026-10-06 に読んだ）：細目告示 第 231 条（国土交通省の条文 PDF。第 153 条・第 75 条も同文）、
+# 保安基準 第 49 条、道路交通法 第 39〜40 条、同施行令 第 12〜14 条の 4（e-Gov）、モリタ FAQ。
+nodes:
+  - id: t1
+    label: "① 車体の色 —— 決めているのは告示（細目告示 第 231 条 3 号）"
+    marker: none
+    align: left
+    at: { x: 40, y: 40 }
+    size: { w: 900, h: 20 }
+  - id: f_cab
+    label: ""
+    hatch: solid
+    color: 朱色
+    at: { x: 40, y: 110 }
+    size: { w: 80, h: 70 }
+  - id: f_body
+    label: ""
+    hatch: solid
+    color: 朱色
+    at: { x: 120, y: 130 }
+    size: { w: 220, h: 50 }
+  - id: f_lamp
+    label: ""
+    hatch: solid
+    color: 赤色
+    at: { x: 60, y: 96 }
+    size: { w: 40, h: 14 }
+  - id: f_w0
+    label: ""
+    marker: circle
+    at: { x: 70, y: 180 }
+    size: { w: 36, h: 36 }
+  - id: f_w1
+    label: ""
+    marker: circle
+    at: { x: 270, y: 180 }
+    size: { w: 36, h: 36 }
+  - id: a_cab
+    label: ""
+    at: { x: 470, y: 120 }
+    size: { w: 70, h: 60 }
+  - id: a_body
+    label: ""
+    at: { x: 540, y: 100 }
+    size: { w: 230, h: 80 }
+  - id: a_lamp
+    label: ""
+    hatch: solid
+    color: 赤色
+    at: { x: 560, y: 86 }
+    size: { w: 40, h: 14 }
+  - id: a_w0
+    label: ""
+    marker: circle
+    at: { x: 500, y: 180 }
+    size: { w: 36, h: 36 }
+  - id: a_w1
+    label: ""
+    marker: circle
+    at: { x: 700, y: 180 }
+    size: { w: 36, h: 36 }
+  - id: p_top
+    label: ""
+    at: { x: 970, y: 126 }
+    size: { w: 140, h: 26 }
+  - id: p_up
+    label: ""
+    at: { x: 900, y: 152 }
+    size: { w: 300, h: 14 }
+  - id: p_low
+    label: ""
+    hatch: solid
+    color: 黒
+    at: { x: 900, y: 166 }
+    size: { w: 300, h: 14 }
+  - id: p_lamp
+    label: ""
+    hatch: solid
+    color: 赤色
+    at: { x: 1010, y: 112 }
+    size: { w: 60, h: 14 }
+  - id: p_w0
+    label: ""
+    marker: circle
+    at: { x: 930, y: 180 }
+    size: { w: 36, h: 36 }
+  - id: p_w1
+    label: ""
+    marker: circle
+    at: { x: 1130, y: 180 }
+    size: { w: 36, h: 36 }
+  - id: c0a
+    label: "消防自動車 ＝ 朱色"
+    marker: none
+    align: left
+    at: { x: 40, y: 230 }
+    size: { w: 380, h: 20 }
+  - id: c0b
+    label: "告示が決めている（3 号）"
+    marker: none
+    align: left
+    at: { x: 40, y: 254 }
+    size: { w: 380, h: 20 }
+  - id: c1a
+    label: "救急自動車 ＝ 白色"
+    marker: none
+    align: left
+    at: { x: 470, y: 230 }
+    size: { w: 380, h: 20 }
+  - id: c1b
+    label: "告示が決めている（3 号）"
+    marker: none
+    align: left
+    at: { x: 470, y: 254 }
+    size: { w: 380, h: 20 }
+  - id: c2a
+    label: "パトカー ＝ 白と黒"
+    marker: none
+    align: left
+    at: { x: 900, y: 230 }
+    size: { w: 380, h: 20 }
+  - id: c2b
+    label: "告示の決まりではない"
+    marker: none
+    align: left
+    at: { x: 900, y: 254 }
+    size: { w: 380, h: 20 }
+  - id: c2c
+    label: "警察自動車は白色の決まりから外れる（3 号ただし書き）。\nだから覆面の車も緊急自動車になれる。"
+    marker: none
+    align: left
+    at: { x: 900, y: 278 }
+    size: { w: 380, h: 40 }
+  - id: c0c
+    label: "大部分がその色ならよい（4 号）。\n告示は色の名前だけで、色の値は決めていない。"
+    marker: none
+    align: left
+    at: { x: 40, y: 278 }
+    size: { w: 400, h: 40 }
+  - id: c1c
+    label: "屋根の赤色の箱 ＝ 警光灯。\n色は 3 台とも赤色（1 号）。"
+    marker: none
+    align: left
+    at: { x: 470, y: 278 }
+    size: { w: 380, h: 40 }
+  - id: t2
+    label: "② サイレンの音の大きさの測り方（1px ＝ 50mm）"
+    marker: none
+    align: left
+    at: { x: 40, y: 380 }
+    size: { w: 700, h: 20 }
+  - id: g2
+    label: ""
+    hatch: lines
+    at: { x: 40, y: 540 }
+    size: { w: 640, h: 10 }
+  - id: sc
+    label: "緊急自動車"
+    at: { x: 60, y: 500 }
+    size: { w: 160, h: 40 }
+  - id: sl
+    label: ""
+    hatch: solid
+    color: 赤色
+    at: { x: 120, y: 488 }
+    size: { w: 40, h: 12 }
+  - id: mic
+    label: ""
+    marker: circle
+    at: { x: 614, y: 514 }
+    size: { w: 12, h: 12 }
+  - id: m0
+    label: ""
+    marker: none
+    at: { x: 619, y: 526 }
+    size: { w: 2, h: 2 }
+  - id: m1
+    label: ""
+    marker: none
+    at: { x: 619, y: 539 }
+    size: { w: 2, h: 2 }
+  - id: d0
+    label: ""
+    marker: none
+    at: { x: 219, y: 469 }
+    size: { w: 2, h: 2 }
+  - id: d1
+    label: ""
+    marker: none
+    at: { x: 619, y: 469 }
+    size: { w: 2, h: 2 }
+  - id: d2
+    label: ""
+    marker: none
+    at: { x: 219, y: 479 }
+    size: { w: 2, h: 2 }
+  - id: d3
+    label: ""
+    marker: none
+    at: { x: 219, y: 538 }
+    size: { w: 2, h: 2 }
+  - id: dl
+    label: "前端から 20m"
+    marker: none
+    align: center
+    at: { x: 370, y: 444 }
+    size: { w: 120, h: 20 }
+  - id: ml
+    label: "マイク（地上 1m）"
+    marker: none
+    align: center
+    at: { x: 540, y: 484 }
+    size: { w: 140, h: 20 }
+  - id: n2a
+    label: "ここで 90dB 以上 120dB 以下（C 特性・エンジンは止める）"
+    marker: none
+    align: left
+    at: { x: 40, y: 562 }
+    size: { w: 640, h: 20 }
+  - id: n2b
+    label: "警光灯は前方 300m から点いているのが分かる赤色（この縮尺で 6,000px 先）"
+    marker: none
+    align: left
+    at: { x: 40, y: 588 }
+    size: { w: 640, h: 20 }
+  - id: n2c
+    label: "走るときは、サイレンを鳴らし、かつ赤色の警光灯をつける（施行令 14 条）"
+    marker: none
+    align: left
+    at: { x: 40, y: 614 }
+    size: { w: 640, h: 20 }
+  - id: t3
+    label: "③ 譲り方（道路交通法 第 40 条）"
+    marker: none
+    align: left
+    at: { x: 780, y: 380 }
+    size: { w: 500, h: 20 }
+  - id: rn
+    label: ""
+    fill: 道
+    at: { x: 960, y: 420 }
+    size: { w: 160, h: 110 }
+  - id: rs
+    label: ""
+    fill: 道
+    at: { x: 960, y: 650 }
+    size: { w: 160, h: 190 }
+  - id: rw
+    label: ""
+    fill: 道
+    at: { x: 800, y: 530 }
+    size: { w: 160, h: 120 }
+  - id: re
+    label: ""
+    fill: 道
+    at: { x: 1120, y: 530 }
+    size: { w: 160, h: 120 }
+  - id: rc
+    label: "交差点"
+    at: { x: 960, y: 530 }
+    size: { w: 160, h: 120 }
+  - id: cn0
+    label: ""
+    marker: none
+    at: { x: 1039, y: 420 }
+    size: { w: 2, h: 2 }
+  - id: cn1
+    label: ""
+    marker: none
+    at: { x: 1039, y: 528 }
+    size: { w: 2, h: 2 }
+  - id: cs0
+    label: ""
+    marker: none
+    at: { x: 1039, y: 650 }
+    size: { w: 2, h: 2 }
+  - id: cs1
+    label: ""
+    marker: none
+    at: { x: 1039, y: 838 }
+    size: { w: 2, h: 2 }
+  - id: car1
+    label: "車"
+    at: { x: 966, y: 660 }
+    size: { w: 40, h: 60 }
+  - id: emg
+    label: "緊急"
+    color: 赤色
+    at: { x: 994, y: 760 }
+    size: { w: 40, h: 60 }
+  - id: ea0
+    label: ""
+    marker: none
+    at: { x: 1013, y: 757 }
+    size: { w: 2, h: 2 }
+  - id: ea1
+    label: ""
+    marker: none
+    at: { x: 1013, y: 725 }
+    size: { w: 2, h: 2 }
+  - id: car2
+    label: "車"
+    at: { x: 1074, y: 456 }
+    size: { w: 40, h: 60 }
+  - id: l3a
+    label: "交差点を避け、\n左に寄って\n一時停止（1 項）"
+    marker: none
+    align: left
+    at: { x: 800, y: 670 }
+    size: { w: 150, h: 60 }
+  - id: l3b
+    label: "その車から見て\n左（東）へ寄る"
+    marker: none
+    align: left
+    at: { x: 1130, y: 464 }
+    size: { w: 120, h: 40 }
+  - id: l3c
+    label: "交差点の付近でないところでは、\n左に寄って進路を譲る（2 項）"
+    marker: none
+    align: left
+    at: { x: 780, y: 850 }
+    size: { w: 500, h: 40 }
+  - id: t4
+    label: "④ どこで決まっているか"
+    marker: none
+    align: left
+    at: { x: 40, y: 940 }
+    size: { w: 1240, h: 20 }
+  - id: r0_0
+    label: "事項"
+    hatch: solid
+    at: { x: 40, y: 970 }
+    size: { w: 170, h: 26 }
+  - id: r0_1
+    label: "中身"
+    hatch: solid
+    at: { x: 210, y: 970 }
+    size: { w: 620, h: 26 }
+  - id: r0_2
+    label: "決めているもの"
+    hatch: solid
+    at: { x: 830, y: 970 }
+    size: { w: 450, h: 26 }
+  - id: r1_0
+    label: "警光灯"
+    align: center
+    at: { x: 40, y: 996 }
+    size: { w: 170, h: 26 }
+  - id: r1_1
+    label: "前方 300m から点灯が確認できる赤色"
+    align: left
+    at: { x: 210, y: 996 }
+    size: { w: 620, h: 26 }
+  - id: r1_2
+    label: "細目告示 第 231 条 1 号（保安基準 第 49 条）"
+    align: left
+    at: { x: 830, y: 996 }
+    size: { w: 450, h: 26 }
+  - id: r2_0
+    label: "サイレン"
+    align: center
+    at: { x: 40, y: 1022 }
+    size: { w: 170, h: 26 }
+  - id: r2_1
+    label: "前方 20m で 90dB 以上 120dB 以下"
+    align: left
+    at: { x: 210, y: 1022 }
+    size: { w: 620, h: 26 }
+  - id: r2_2
+    label: "細目告示 第 231 条 2 号"
+    align: left
+    at: { x: 830, y: 1022 }
+    size: { w: 450, h: 26 }
+  - id: r3_0
+    label: "消防自動車の色"
+    align: center
+    at: { x: 40, y: 1048 }
+    size: { w: 170, h: 26 }
+  - id: r3_1
+    label: "朱色"
+    align: left
+    at: { x: 210, y: 1048 }
+    size: { w: 620, h: 26 }
+  - id: r3_2
+    label: "細目告示 第 231 条 3 号"
+    align: left
+    at: { x: 830, y: 1048 }
+    size: { w: 450, h: 26 }
+  - id: r4_0
+    label: "その他の色"
+    align: center
+    at: { x: 40, y: 1074 }
+    size: { w: 170, h: 26 }
+  - id: r4_1
+    label: "白色（救急自動車など）"
+    align: left
+    at: { x: 210, y: 1074 }
+    size: { w: 620, h: 26 }
+  - id: r4_2
+    label: "細目告示 第 231 条 3 号"
+    align: left
+    at: { x: 830, y: 1074 }
+    size: { w: 450, h: 26 }
+  - id: r5_0
+    label: "パトカーの白黒"
+    align: center
+    at: { x: 40, y: 1100 }
+    size: { w: 170, h: 26 }
+  - id: r5_1
+    label: "警察自動車は白色の決まりから外れる"
+    align: left
+    at: { x: 210, y: 1100 }
+    size: { w: 620, h: 26 }
+  - id: r5_2
+    label: "告示の決まりではない（何が決めるかは未確認）"
+    align: left
+    at: { x: 830, y: 1100 }
+    size: { w: 450, h: 26 }
+  - id: r6_0
+    label: "走るとき"
+    align: center
+    at: { x: 40, y: 1126 }
+    size: { w: 170, h: 26 }
+  - id: r6_1
+    label: "サイレンを鳴らし、かつ赤色の警光灯をつける"
+    align: left
+    at: { x: 210, y: 1126 }
+    size: { w: 620, h: 26 }
+  - id: r6_2
+    label: "道路交通法施行令 第 14 条"
+    align: left
+    at: { x: 830, y: 1126 }
+    size: { w: 450, h: 26 }
+  - id: r7_0
+    label: "速さ"
+    align: center
+    at: { x: 40, y: 1152 }
+    size: { w: 170, h: 26 }
+  - id: r7_1
+    label: "一般道路で 80km/h まで"
+    align: left
+    at: { x: 210, y: 1152 }
+    size: { w: 620, h: 26 }
+  - id: r7_2
+    label: "道路交通法施行令 第 12 条 3 項"
+    align: left
+    at: { x: 830, y: 1152 }
+    size: { w: 450, h: 26 }
+  - id: r8_0
+    label: "赤信号"
+    align: center
+    at: { x: 40, y: 1178 }
+    size: { w: 170, h: 26 }
+  - id: r8_1
+    label: "止まらなくてよいが、徐行する"
+    align: left
+    at: { x: 210, y: 1178 }
+    size: { w: 620, h: 26 }
+  - id: r8_2
+    label: "道路交通法 第 39 条 2 項"
+    align: left
+    at: { x: 830, y: 1178 }
+    size: { w: 450, h: 26 }
+  - id: r9_0
+    label: "譲り方"
+    align: center
+    at: { x: 40, y: 1204 }
+    size: { w: 170, h: 26 }
+  - id: r9_1
+    label: "交差点付近は避けて左で一時停止、その他は左へ"
+    align: left
+    at: { x: 210, y: 1204 }
+    size: { w: 620, h: 26 }
+  - id: r9_2
+    label: "道路交通法 第 40 条"
+    align: left
+    at: { x: 830, y: 1204 }
+    size: { w: 450, h: 26 }
+  - id: r10_0
+    label: "黄色の灯火"
+    align: center
+    at: { x: 40, y: 1230 }
+    size: { w: 170, h: 26 }
+  - id: r10_1
+    label: "道路維持作業用自動車（緊急自動車ではない）"
+    align: left
+    at: { x: 210, y: 1230 }
+    size: { w: 620, h: 26 }
+  - id: r10_2
+    label: "道路交通法施行令 第 14 条の 3"
+    align: left
+    at: { x: 830, y: 1230 }
+    size: { w: 450, h: 26 }
+  - id: r11_0
+    label: "帰りの鐘"
+    align: center
+    at: { x: 40, y: 1256 }
+    size: { w: 170, h: 26 }
+  - id: r11_1
+    label: "鐘だけ鳴らして帰る（地域による）"
+    align: left
+    at: { x: 210, y: 1256 }
+    size: { w: 620, h: 26 }
+  - id: r11_2
+    label: "慣行（メーカーの説明）"
+    align: left
+    at: { x: 830, y: 1256 }
+    size: { w: 450, h: 26 }
+edges:
+  - from: m0
+    to: m1
+    ends: { from: none, to: none }
+    line: dashed
+  - from: d0
+    to: d1
+    ends: { from: none, to: arrow }
+    line: dashed
+  - from: d2
+    to: d3
+    ends: { from: none, to: none }
+    line: dotted
+  - from: cn0
+    to: cn1
+    ends: { from: none, to: none }
+    line: dashed
+  - from: cs0
+    to: cs1
+    ends: { from: none, to: none }
+    line: dashed
+  - from: ea0
+    to: ea1
+    ends: { from: none, to: arrow }
+    weight: thick
+    color: 赤色

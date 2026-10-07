@@ -28,8 +28,9 @@ import { drawDimensions, drawGrid, drawNorth } from './dimensions.ts';
 import type { Frame, Ink } from './dimensions.ts';
 import { CODE_R, MARGIN, hasGrid } from './grid.ts';
 import { drawEnd, hasEnds } from './ends.ts';
+import { ownerOf, pointRef } from './image.ts';
 import { drawHatch, drawHatchIn, drawTint } from './hatch.ts';
-import { contrastOn, TINT } from './palette.ts';
+import { contrastOn, PAPER, TINT } from './palette.ts';
 import type { Hatch } from './hatch.ts';
 import { pathOf } from './curve.ts';
 import { ALIGN_INSET, anchorOf } from './align.ts';
@@ -173,7 +174,9 @@ export function render(
     // 構成図の辺も同じで、箱が辺の端を隠すことで繋がって見える。
     ...(plan && placed.arrows
       ? []
-      : placed.edges.map((edge) => renderEdge(edge, labels.get(edge.id) ?? null, palette, plan, placed.arrows))),
+      : placed.edges
+          .filter((edge) => !overImage(edge))
+          .map((edge) => renderEdge(edge, labels.get(edge.id) ?? null, palette, plan, placed.arrows))),
     ...stack(placed.boxes, plan).map((box) =>
       renderNode(
         box,
@@ -210,6 +213,12 @@ export function render(
     ...(plan && placed.arrows
       ? placed.edges.map((edge) => renderEdge(edge, labels.get(edge.id) ?? null, palette, true, true))
       : []),
+    // **画像を指す引き出し線は、画像の上に載せる**（`src/image.ts`）。下に敷くと画像が線を隠す。
+    ...(plan && placed.arrows
+      ? []
+      : placed.edges
+          .filter(overImage)
+          .map((edge) => renderEdge(edge, labels.get(edge.id) ?? null, palette, plan, placed.arrows))),
     // **範囲の円は、箱の上・寸法の下**（`src/range.ts`）。
     //
     // 箱の下に敷くと、クレーンの作業半径が資材置場の塗りで切れる。
@@ -510,7 +519,7 @@ export function linesOverText(
     for (let i = 0; i + 1 < edge.points.length; i += 1) {
       for (const word of words) {
         // **自分が刺さっている注記は数えない。** 辺の端はそこに着くのが正しい。
-        if (edge.from === word.box || edge.to === word.box) continue;
+        if (ownerOf(edge.from) === word.box || ownerOf(edge.to) === word.box) continue;
         const px = insideLength(edge.points[i]!, edge.points[i + 1]!, word.rect);
         if (px >= 40) {
           found.push({ edge: edge.id, box: word.box, text: word.text, px: Math.round(px) });
@@ -889,7 +898,7 @@ function underOf(box: Box, placed: Placed, names: Map<string, Plan>): Hatch {
   const rect = textRectOf(box, plan);
   if (rect === null) return 'none';
   for (const edge of placed.edges) {
-    if (edge.from === box.id || edge.to === box.id) continue;
+    if (ownerOf(edge.from) === box.id || ownerOf(edge.to) === box.id) continue;
     for (let i = 0; i + 1 < edge.points.length; i += 1) {
       if (insideLength(edge.points[i]!, edge.points[i + 1]!, rect) > 0) return 'lines';
     }
@@ -993,7 +1002,9 @@ function renderNode(
   // **図記号があれば、枠を描かずに記号だけを描く**（`src/symbol.ts`）。
   // 抵抗やコンデンサに枠は無い —— 枠があると「箱の中に部品がある」ように見える。
   const shape =
-    box.symbol !== null
+    box.image !== undefined
+      ? drawImage(box, box.image, paint.stroke)
+      : box.symbol !== null
       ? drawSymbol(box.symbol, box, { stroke: style.stroke, paper: palette.paper })
       : plan
         ? drawMarker(box.marker, box, paint)
@@ -1006,7 +1017,8 @@ function renderNode(
   // **模様にも面の色が乗る。** `fill` ＋ `hatch: solid` は
   // 「**この面をその色で塗り潰す**」——モザイクの割り付け図のように、
   // 面が中身そのものである図で要る（薄く敷いたのでは色が読めない）。
-  const face = box.tint ?? box.color ?? style.stroke;
+  // **模様の色を書いていれば、模様だけその色**（`nodes[].hatch_color`）。枠の色は変えない。
+  const face = paintFor(box.hatchColor, palette) ?? box.tint ?? box.color ?? style.stroke;
   const pattern = plan ? drawHatch(box.hatch, box, face, box.marker, box.id) : '';
 
   // **面の色**（`nodes[].fill`。`src/palette.ts`）。**枠も文字も染めずに、面だけ。**
@@ -1064,6 +1076,11 @@ function renderNode(
   // 塗り戻して消していた —— 2026-10-02、平面図 17 枚で 85 か所。扇の検査では見つからない。
   if (part === 'holes') {
     return holes === '' ? '' : `<g data-holes="${escapeAttr(box.id)}">${holes}</g>`;
+  }
+  if (part === 'text' && box.image !== undefined) {
+    // **画像の上には名前を書かない**（キャプチャの中身を隠す）。名前は画像の上の縁の外へ。
+    if (box.label === '') return '';
+    return `<g data-name="${escapeAttr(box.id)}"><text x="${n(box.x)}" y="${n(box.y - IMAGE_CAPTION_GAP)}" font-family="${FONT}" font-size="${IMAGE_CAPTION_FONT}" fill="${ink.text}">${escapeText(box.label)}</text></g>`;
   }
   if (part === 'text') {
     // **符号も、塗り潰した面の上では地の色にする**（`ink`）。
@@ -1474,7 +1491,7 @@ function renderEdge(
       // 矢印は「こちらへ向かう」意味だが、輪は出発点へ戻る ——
       // 池の輪郭に矢印が付くと、水が一方向へ流れているように読める。
       const head =
-        arrows && !edge.close && !hasEnds(edge.ends)
+        arrows && !edge.close && !hasEnds(edge.ends) && edge.callout === undefined && !overImage(edge)
           ? ` marker-end="url(#${arrowId(headScaleOf(edge, width))})"`
           : '';
       const stroke = edge.color ?? palette.edge.stroke;
@@ -1485,16 +1502,35 @@ function renderEdge(
        */
       const face =
         edge.close && edge.hatch !== 'none' && edge.points.length > 2
-          ? drawHatchIn(edge.hatch, path, boundsOf(edge.points), edge.color ?? palette.edge.stroke, edge.id)
+          ? drawHatchIn(
+              edge.hatch,
+              path,
+              boundsOf(edge.points),
+              paintFor(edge.hatchColor, palette) ?? edge.color ?? palette.edge.stroke,
+              edge.id,
+            )
           : '';
+      /**
+       * **線の縁取り**（`edges[].casing`）。線の下に、左右 1.5px ずつ太い線を別の色で敷く。
+       *
+       * 路線図では、路線が重なる所で**上を通る線の縁が、下の線を白く切る**。
+       * 辺は書いた順に描くので、**後に書いた辺の縁が、先に書いた辺の上に乗る。**
+       * 縁は破線にしない・矢じりを付けない（線の模様ではなく、線の下敷き）。
+       */
+      const outer = doubled(edge.line) ? width + DOUBLE_GAP * 2 : width;
+      const casing =
+        edge.casing === null
+          ? ''
+          : `<path d="${path}" fill="none" stroke="${paintFor(edge.casing, palette)}" stroke-width="${n(outer + CASING * 2)}"${round}/>`;
       // **二重線は、同じ道を 2 回描く**（`src/line.ts`）。
       // 太い線の上に地の色の細い線を重ねると、線が 2 本に見える。
       // 平行線を計算し直さないので、折れ線でも曲線でも同じやり方で効く。
       if (!doubled(edge.line)) {
-        return [face, `<path d="${path}" fill="none" stroke="${stroke}" stroke-width="${width}"${round}${dash}${head}/>`];
+        return [face, casing, `<path d="${path}" fill="none" stroke="${stroke}" stroke-width="${width}"${round}${dash}${head}/>`];
       }
       return [
         face,
+        casing,
         `<path d="${path}" fill="none" stroke="${stroke}" stroke-width="${n(width + DOUBLE_GAP * 2)}"${round}${head}/>`,
         `<path d="${path}" fill="none" stroke="${palette.paper}" stroke-width="${n(width)}"${round}/>`,
       ];
@@ -1526,9 +1562,65 @@ function renderEdge(
           palette.paper,
           roomForEnds(edge),
         ),
+    calloutMarks(edge, palette),
     label,
     '</g>',
   ].join('');
+}
+
+/** 画像の名前の字の大きさと、画像の縁からの間（px）。 */
+const IMAGE_CAPTION_FONT = 12;
+const IMAGE_CAPTION_GAP = 6;
+/** 引き出し線の先の点の半径と、番号の丸の最小の半径（px）。 */
+const CALLOUT_DOT = 3;
+const CALLOUT_RADIUS = 9;
+const CALLOUT_FONT = 11;
+
+/** 片方の端が画像の中の点の辺（引き出し線）。 */
+function overImage(edge: PlacedEdge): boolean {
+  return pointRef(edge.from) !== null || pointRef(edge.to) !== null || edge.callout !== undefined;
+}
+
+/**
+ * **画像を敷く**（`nodes[].image`）。縁に細い枠を引く —— 白い画面のキャプチャは、
+ * 枠が無いと白い紙との境が見えない。
+ */
+function drawImage(box: Box, image: { href: string }, stroke: string): string {
+  return [
+    `<image href="${escapeAttr(image.href)}" x="${n(box.x)}" y="${n(box.y)}" width="${n(box.w)}" height="${n(box.h)}" preserveAspectRatio="none"/>`,
+    `<rect x="${n(box.x)}" y="${n(box.y)}" width="${n(box.w)}" height="${n(box.h)}" fill="none" stroke="${stroke}" stroke-width="1"/>`,
+  ].join('');
+}
+
+/**
+ * **引き出し線の印**：画像の中の点に黒い点、番号を書いていれば**両端に同じ番号の丸。**
+ *
+ * 画面仕様書では、画面の側の番号と注記の側の番号を突き合わせて読む。
+ * 片方にしか番号が無いと、線を目で辿るしかない（線が交差したら辿れない）。
+ */
+function calloutMarks(edge: PlacedEdge, palette: Palette): string {
+  if (edge.points.length < 2) return '';
+  const first = edge.points[0]!;
+  const last = edge.points[edge.points.length - 1]!;
+  const spot = pointRef(edge.from) !== null ? first : last;
+  const note = spot === first ? last : first;
+  const ink = edge.color ?? palette.edge.stroke;
+  const marks: string[] = [];
+  if (overImage(edge) && (pointRef(edge.from) !== null || pointRef(edge.to) !== null)) {
+    marks.push(`<circle cx="${n(spot.x)}" cy="${n(spot.y)}" r="${CALLOUT_DOT}" fill="${ink}"/>`);
+  }
+  if (edge.callout === undefined) return marks.join('');
+  const r = Math.max(CALLOUT_RADIUS, labelWidth(edge.callout, CALLOUT_FONT) / 2 + 4);
+  const badge = (at: { x: number; y: number }) =>
+    `<circle data-callout="${escapeAttr(edge.callout!)}" cx="${n(at.x)}" cy="${n(at.y)}" r="${n(r)}" fill="${ink}" stroke="${palette.paper}" stroke-width="1.5"/>` +
+    `<text x="${n(at.x)}" y="${n(at.y + CALLOUT_FONT * 0.36)}" text-anchor="middle" font-family="${FONT}" font-size="${CALLOUT_FONT}" font-weight="700" fill="${palette.paper}">${escapeText(edge.callout!)}</text>`;
+  // **点の側の丸は、点から少し離して線の上に置く**（点そのものを丸で隠さない）。
+  const toward = spot === first ? edge.points[1]! : edge.points[edge.points.length - 2]!;
+  const span = Math.hypot(toward.x - spot.x, toward.y - spot.y);
+  const lift = span > r * 3 ? r + CALLOUT_DOT + 4 : 0;
+  const near = span === 0 ? spot : { x: spot.x + ((toward.x - spot.x) / span) * lift, y: spot.y + ((toward.y - spot.y) / span) * lift };
+  marks.push(badge(near), badge(note));
+  return marks.join('');
 }
 
 /**
@@ -1546,6 +1638,15 @@ function roomForEnds(edge: PlacedEdge): number {
   }
   const both = (edge.ends?.from ?? 'none') !== 'none' && (edge.ends?.to ?? 'none') !== 'none';
   return both ? length / 2 : length;
+}
+
+/** 縁取りの片側の幅（px）。線の左右に 1 本ずつ。 */
+const CASING = 1.5;
+
+/** `paper`（地の色の語）をテーマの地の色に置き換える。書かなければ null。 */
+function paintFor(paint: string | null, palette: Palette): string | null {
+  if (paint === null) return null;
+  return paint === PAPER ? palette.paper : paint;
 }
 
 /** 点列の外接矩形（閉じた輪の中を塗るのに使う）。 */

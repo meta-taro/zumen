@@ -1,0 +1,679 @@
+version: 1
+kind: placement
+arrows: true
+scale: { mm: 25 }
+title: フェンシングのピスト（構えて 2m、下がれるのは 5m）
+palette:
+  2m: "#e3a33b"
+sources:
+  - name: "FIE「Technical Rules」（2026 年 8 月版）t.17〜t.19・t.22・t.33〜t.36"
+    url: https://fie.org/fie/documents/rules
+    retrieved: 2026-10-06
+  - name: "FIE「Material Rules」（2026 年 8 月版）m.57"
+    url: https://fie.org/fie/documents/rules
+    retrieved: 2026-10-06
+# **センターラインから後ろの限界線まで 7m ＝ 構えの 2m ＋ 下がれる 5m。**
+# オンガードライン（中央から 2m）で構えれば、どちらの選手も両足で後ろの限界線を越えずに
+# 5m 下がれる（t.18.2）。**14m という長さは、この 5m から決まっている。**
+#
+# **何のための図か。** 会場の設営と審判が、ピストの線と延長・台・採点器の台の位置を
+# 規則の数で確かめるための図。技（突き・払い）や、有効面の判定は描かない。
+#
+# **描いたもの。** ①平面（1 px ＝ 25 mm）：長さ 14m・幅 1.5m のピスト、5 本の線（センターラインは破線、
+# オンガードライン ±2m、後ろの限界線 ±7m —— t.19）、最後の 2m（色を変える —— t.19.4。色は規則に無いので
+# 橙で描いた）、両端の延長（1.5〜2m のうち 2m で描いた —— m.57.4）、構えの位置（t.22.3・22.4。点で示した）。
+# ②台の断面（1 px ＝ 10 mm）：高さ 50cm 以下、ピストより両側 25cm 以上広い（m.57.3b）。
+#
+# **描かなかったもの（理由）。**
+# - 主審の立ち位置・選手の左右（t.22.1 は「先に呼ばれた選手が主審の右」とだけ言う）—— 主審の位置の数が規則に無い
+# - 台の両端の坂の勾配 —— 「ゆるい坂」とだけあり、数が無い
+# - 採点器の台（ピストの縁から 1〜5m —— t.18.4）—— 距離だけで、どちら側に置くかも台の大きさも規則に無い。表に数だけ書いた
+# - 子機（slave score machine）—— 延長の縁から 5m 以上離すとだけあり、台の図から外れる
+# - 有効面・剣の寸法 —— ピストの図ではない
+# 出典（取得 2026-10-06）：FIE Technical Rules（August 2026）t.17・t.18（幅 1.50m、長さ 14m・誤差 4cm、
+# 2m の所から 5m 下がれる、採点器の台は 1〜5m）、t.19（5 本の線と最後の 2m）、t.22（構え）、
+# t.33〜t.36（横・後ろの限界を越えたとき）。FIE Material Rules（August 2026）m.57（導電性の床 17〜18m、
+# 延長 1.50〜2m、台の高さ 50cm 以下・両側 25cm 以上）。
+nodes:
+  - id: t1
+    label: "① ピストの平面 —— 1 px ＝ 25 mm。長さ 14m・幅 1.5m、両端に 1.5〜2m の延長"
+    marker: none
+    align: left
+    at: { x: 120, y: 150 }
+    size: { w: 780, h: 20 }
+  - id: ext1
+    label: ""
+    at: { x: 120, y: 280 }
+    size: { w: 80, h: 60 }
+  - id: ext2
+    label: ""
+    at: { x: 760, y: 280 }
+    size: { w: 80, h: 60 }
+  - id: piste
+    label: ""
+    at: { x: 200, y: 280 }
+    size: { w: 560, h: 60 }
+  - id: w1
+    label: ""
+    fill: 2m
+    at: { x: 200, y: 280 }
+    size: { w: 80, h: 60 }
+  - id: w2
+    label: ""
+    fill: 2m
+    at: { x: 680, y: 280 }
+    size: { w: 80, h: 60 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 479, y: 279 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 479, y: 339 }
+    size: { w: 2, h: 2 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 399, y: 279 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 399, y: 339 }
+    size: { w: 2, h: 2 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 559, y: 279 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 559, y: 339 }
+    size: { w: 2, h: 2 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 199, y: 279 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 199, y: 339 }
+    size: { w: 2, h: 2 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 759, y: 279 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 759, y: 339 }
+    size: { w: 2, h: 2 }
+  - id: n12
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 390, y: 306 }
+    size: { w: 8, h: 8 }
+  - id: n13
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 562, y: 306 }
+    size: { w: 8, h: 8 }
+  - id: t14
+    label: "後ろの限界線"
+    marker: none
+    align: center
+    at: { x: 148, y: 233 }
+    size: { w: 104, h: 18 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 199, y: 251 }
+    size: { w: 2, h: 2 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 199, y: 277 }
+    size: { w: 2, h: 2 }
+  - id: t17
+    label: "オンガードライン"
+    marker: none
+    align: center
+    at: { x: 332, y: 233 }
+    size: { w: 136, h: 18 }
+  - id: p18
+    label: ""
+    marker: none
+    at: { x: 399, y: 251 }
+    size: { w: 2, h: 2 }
+  - id: p19
+    label: ""
+    marker: none
+    at: { x: 399, y: 277 }
+    size: { w: 2, h: 2 }
+  - id: t20
+    label: "センターライン（破線）"
+    marker: none
+    align: center
+    at: { x: 388, y: 203 }
+    size: { w: 184, h: 18 }
+  - id: p21
+    label: ""
+    marker: none
+    at: { x: 479, y: 221 }
+    size: { w: 2, h: 2 }
+  - id: p22
+    label: ""
+    marker: none
+    at: { x: 479, y: 277 }
+    size: { w: 2, h: 2 }
+  - id: t23
+    label: "オンガードライン"
+    marker: none
+    align: center
+    at: { x: 492, y: 233 }
+    size: { w: 136, h: 18 }
+  - id: p24
+    label: ""
+    marker: none
+    at: { x: 559, y: 251 }
+    size: { w: 2, h: 2 }
+  - id: p25
+    label: ""
+    marker: none
+    at: { x: 559, y: 277 }
+    size: { w: 2, h: 2 }
+  - id: t26
+    label: "後ろの限界線"
+    marker: none
+    align: center
+    at: { x: 708, y: 233 }
+    size: { w: 104, h: 18 }
+  - id: p27
+    label: ""
+    marker: none
+    at: { x: 759, y: 251 }
+    size: { w: 2, h: 2 }
+  - id: p28
+    label: ""
+    marker: none
+    at: { x: 759, y: 277 }
+    size: { w: 2, h: 2 }
+  - id: t29
+    label: "延長"
+    marker: none
+    align: center
+    at: { x: 135, y: 346 }
+    size: { w: 50, h: 18 }
+  - id: t30
+    label: "延長"
+    marker: none
+    align: center
+    at: { x: 775, y: 346 }
+    size: { w: 50, h: 18 }
+  - id: t31
+    label: "最後の2m\n（色を変える）"
+    marker: none
+    align: center
+    at: { x: 190, y: 344 }
+    size: { w: 100, h: 40 }
+  - id: t32
+    label: "最後の2m\n（色を変える）"
+    marker: none
+    align: center
+    at: { x: 670, y: 344 }
+    size: { w: 100, h: 40 }
+  - id: t33
+    label: "● 構えの位置（前足をオンガードラインのすぐ後ろ、幅の中央）"
+    marker: none
+    align: left
+    at: { x: 340, y: 390 }
+    size: { w: 440, h: 18 }
+  - id: p34
+    label: ""
+    marker: none
+    at: { x: 399, y: 431 }
+    size: { w: 2, h: 2 }
+  - id: p35
+    label: ""
+    marker: none
+    at: { x: 479, y: 431 }
+    size: { w: 2, h: 2 }
+  - id: t36
+    label: "2m"
+    marker: none
+    align: center
+    at: { x: 400, y: 436 }
+    size: { w: 80, h: 18 }
+  - id: p37
+    label: ""
+    marker: none
+    at: { x: 479, y: 431 }
+    size: { w: 2, h: 2 }
+  - id: p38
+    label: ""
+    marker: none
+    at: { x: 559, y: 431 }
+    size: { w: 2, h: 2 }
+  - id: t39
+    label: "2m"
+    marker: none
+    align: center
+    at: { x: 480, y: 436 }
+    size: { w: 80, h: 18 }
+  - id: p40
+    label: ""
+    marker: none
+    at: { x: 559, y: 431 }
+    size: { w: 2, h: 2 }
+  - id: p41
+    label: ""
+    marker: none
+    at: { x: 759, y: 431 }
+    size: { w: 2, h: 2 }
+  - id: t42
+    label: "下がれるのは 5m"
+    marker: none
+    align: center
+    at: { x: 560, y: 436 }
+    size: { w: 200, h: 18 }
+  - id: p43
+    label: ""
+    marker: none
+    at: { x: 199, y: 431 }
+    size: { w: 2, h: 2 }
+  - id: p44
+    label: ""
+    marker: none
+    at: { x: 399, y: 431 }
+    size: { w: 2, h: 2 }
+  - id: t45
+    label: "下がれるのは 5m"
+    marker: none
+    align: center
+    at: { x: 200, y: 436 }
+    size: { w: 200, h: 18 }
+  - id: p46
+    label: ""
+    marker: none
+    at: { x: 199, y: 471 }
+    size: { w: 2, h: 2 }
+  - id: p47
+    label: ""
+    marker: none
+    at: { x: 759, y: 471 }
+    size: { w: 2, h: 2 }
+  - id: t48
+    label: "14m（全長の誤差は合わせて 4cm まで）"
+    marker: none
+    align: center
+    at: { x: 320, y: 476 }
+    size: { w: 320, h: 18 }
+  - id: p49
+    label: ""
+    marker: none
+    at: { x: 119, y: 511 }
+    size: { w: 2, h: 2 }
+  - id: p50
+    label: ""
+    marker: none
+    at: { x: 839, y: 511 }
+    size: { w: 2, h: 2 }
+  - id: t51
+    label: "導電性の床は 17〜18m（延長 1.5〜2m ずつ）"
+    marker: none
+    align: center
+    at: { x: 320, y: 516 }
+    size: { w: 320, h: 18 }
+  - id: p52
+    label: ""
+    marker: none
+    at: { x: 855, y: 279 }
+    size: { w: 2, h: 2 }
+  - id: p53
+    label: ""
+    marker: none
+    at: { x: 855, y: 339 }
+    size: { w: 2, h: 2 }
+  - id: t54
+    label: "1.5m"
+    marker: none
+    align: left
+    at: { x: 864, y: 301 }
+    size: { w: 50, h: 18 }
+  - id: t55
+    label: "② 台に載せたときの断面（幅の向き）—— 1 px ＝ 10 mm（①の 2.5 倍）"
+    marker: none
+    align: left
+    at: { x: 120, y: 640 }
+    size: { w: 780, h: 20 }
+  - id: ground
+    label: ""
+    hatch: lines
+    at: { x: 220, y: 780 }
+    size: { w: 360, h: 12 }
+  - id: podium
+    label: ""
+    hatch: dots
+    at: { x: 300, y: 730 }
+    size: { w: 200, h: 50 }
+  - id: piste2
+    label: ""
+    hatch: solid
+    at: { x: 325, y: 726 }
+    size: { w: 150, h: 4 }
+  - id: t56
+    label: "ピスト 1.5m"
+    marker: none
+    align: center
+    at: { x: 325, y: 700 }
+    size: { w: 150, h: 18 }
+  - id: t57
+    label: "25cm 以上"
+    marker: none
+    align: center
+    at: { x: 225, y: 700 }
+    size: { w: 90, h: 18 }
+  - id: t58
+    label: "25cm 以上"
+    marker: none
+    align: center
+    at: { x: 485, y: 700 }
+    size: { w: 90, h: 18 }
+  - id: p59
+    label: ""
+    marker: none
+    at: { x: 515, y: 729 }
+    size: { w: 2, h: 2 }
+  - id: p60
+    label: ""
+    marker: none
+    at: { x: 515, y: 779 }
+    size: { w: 2, h: 2 }
+  - id: t61
+    label: "高さ 50cm 以下"
+    marker: none
+    align: left
+    at: { x: 524, y: 746 }
+    size: { w: 130, h: 18 }
+  - id: t62
+    label: "台の両端は、床までゆるい坂にする。導電性の床は台の幅いっぱいに敷く。"
+    marker: none
+    align: left
+    at: { x: 120, y: 810 }
+    size: { w: 760, h: 18 }
+  - id: t63
+    label: "③ ピストの寸法（t.17〜t.19、m.57）"
+    marker: none
+    align: left
+    at: { x: 980, y: 150 }
+    size: { w: 520, h: 20 }
+  - id: h64
+    label: "規則の値"
+    hatch: solid
+    at: { x: 980, y: 186 }
+    size: { w: 520, h: 24 }
+  - id: c65
+    label: "長さ"
+    at: { x: 980, y: 210 }
+    size: { w: 140, h: 24 }
+  - id: c66
+    label: "14m（全長で誤差 4cm まで）"
+    align: left
+    at: { x: 1120, y: 210 }
+    size: { w: 380, h: 24 }
+  - id: c67
+    label: "幅"
+    at: { x: 980, y: 234 }
+    size: { w: 140, h: 24 }
+  - id: c68
+    label: "1.5m（試合に使う部分）"
+    align: left
+    at: { x: 1120, y: 234 }
+    size: { w: 380, h: 24 }
+  - id: c69
+    label: "センターライン"
+    at: { x: 980, y: 258 }
+    size: { w: 140, h: 24 }
+  - id: c70
+    label: "幅いっぱいに破線"
+    align: left
+    at: { x: 1120, y: 258 }
+    size: { w: 380, h: 24 }
+  - id: c71
+    label: "オンガードライン"
+    at: { x: 980, y: 282 }
+    size: { w: 140, h: 24 }
+  - id: c72
+    label: "センターラインから 2m ずつ"
+    align: left
+    at: { x: 1120, y: 282 }
+    size: { w: 380, h: 24 }
+  - id: c73
+    label: "後ろの限界線"
+    at: { x: 980, y: 306 }
+    size: { w: 140, h: 24 }
+  - id: c74
+    label: "センターラインから 7m ずつ"
+    align: left
+    at: { x: 1120, y: 306 }
+    size: { w: 380, h: 24 }
+  - id: c75
+    label: "最後の 2m"
+    at: { x: 980, y: 330 }
+    size: { w: 140, h: 24 }
+  - id: c76
+    label: "限界線の手前 2m、できれば色を変える"
+    align: left
+    at: { x: 1120, y: 330 }
+    size: { w: 380, h: 24 }
+  - id: c77
+    label: "延長"
+    at: { x: 980, y: 354 }
+    size: { w: 140, h: 24 }
+  - id: c78
+    label: "両端に 1.5〜2m（導電性の床は 17〜18m）"
+    align: left
+    at: { x: 1120, y: 354 }
+    size: { w: 380, h: 24 }
+  - id: c79
+    label: "台"
+    at: { x: 980, y: 378 }
+    size: { w: 140, h: 24 }
+  - id: c80
+    label: "高さ 50cm 以下、ピストより 25cm 以上広く"
+    align: left
+    at: { x: 1120, y: 378 }
+    size: { w: 380, h: 24 }
+  - id: c81
+    label: "採点器の台"
+    at: { x: 980, y: 402 }
+    size: { w: 140, h: 24 }
+  - id: c82
+    label: "ピストの縁から 1〜5m"
+    align: left
+    at: { x: 1120, y: 402 }
+    size: { w: 380, h: 24 }
+  - id: why83
+    label: "7m ＝ 構えの 2m ＋ 下がれる 5m。\nオンガードラインで構えれば、どちらの選手も\n両足で後ろの限界線を越えずに 5m 下がれる（t.18.2）。"
+    at: { x: 980, y: 440 }
+    size: { w: 520, h: 56 }
+  - id: t84
+    label: "④ 線を越えたら（t.22・t.33〜t.36）"
+    marker: none
+    align: left
+    at: { x: 980, y: 514 }
+    size: { w: 520, h: 20 }
+  - id: h85
+    label: "審判の決まり"
+    hatch: solid
+    at: { x: 980, y: 550 }
+    size: { w: 520, h: 24 }
+  - id: c86
+    label: "構え"
+    at: { x: 980, y: 574 }
+    size: { w: 140, h: 24 }
+  - id: c87
+    label: "前足をオンガードラインのすぐ後ろ、幅の中央"
+    align: left
+    at: { x: 1120, y: 574 }
+    size: { w: 380, h: 24 }
+  - id: c88
+    label: "有効な突きのあと"
+    at: { x: 980, y: 598 }
+    size: { w: 140, h: 24 }
+  - id: c89
+    label: "ピストの中央で構え直す"
+    align: left
+    at: { x: 1120, y: 598 }
+    size: { w: 380, h: 24 }
+  - id: c90
+    label: "後ろの限界線"
+    at: { x: 980, y: 622 }
+    size: { w: 140, h: 24 }
+  - id: c91
+    label: "両足で完全に越えたら、1 本取られる"
+    align: left
+    at: { x: 1120, y: 622 }
+    size: { w: 380, h: 24 }
+  - id: c92
+    label: "横の縁"
+    at: { x: 980, y: 646 }
+    size: { w: 140, h: 24 }
+  - id: c93
+    label: "片足でも出たら止め、出た所から 1m 下げる"
+    align: left
+    at: { x: 1120, y: 646 }
+    size: { w: 380, h: 24 }
+  - id: c94
+    label: "下げて越えたら"
+    at: { x: 980, y: 670 }
+    size: { w: 140, h: 24 }
+  - id: c95
+    label: "両足が後ろの限界線の外なら、1 本取られる"
+    align: left
+    at: { x: 1120, y: 670 }
+    size: { w: 380, h: 24 }
+  - id: c96
+    label: "押されて出た"
+    at: { x: 980, y: 694 }
+    size: { w: 140, h: 24 }
+  - id: c97
+    label: "罰は無い"
+    align: left
+    at: { x: 1120, y: 694 }
+    size: { w: 380, h: 24 }
+  - id: t98
+    label: "ピストは長さ 14m・幅 1.5m で、線は 5 本です（①③）。センターライン、その 2m 先のオンガードライン、7m 先の後ろの限界線。"
+    marker: none
+    align: left
+    at: { x: 120, y: 880 }
+    size: { w: 1360, h: 18 }
+  - id: t99
+    label: "オンガードラインで構えると、後ろの限界線まで 5m 下がれます（①）。最後の 2m は、できれば色を変えて、自分の位置が分かるようにします。"
+    marker: none
+    align: left
+    at: { x: 120, y: 904 }
+    size: { w: 1360, h: 18 }
+  - id: t100
+    label: "両足で後ろの限界線を越えると 1 本取られます。横に出たら 1m 下げられ、それで限界線を越えても 1 本取られます（④）。"
+    marker: none
+    align: left
+    at: { x: 120, y: 928 }
+    size: { w: 1360, h: 18 }
+  - id: t101
+    label: "両端に 1.5〜2m の延長を足すので、導電性の床は 17〜18m になります。台に載せるときは高さ 50cm 以下です（②③）。"
+    marker: none
+    align: left
+    at: { x: 120, y: 952 }
+    size: { w: 1360, h: 18 }
+edges:
+  - from: p2
+    to: p3
+    curve: none
+    line: dashed
+    ends: { from: none, to: none }
+  - from: p4
+    to: p5
+    curve: none
+    ends: { from: none, to: none }
+  - from: p6
+    to: p7
+    curve: none
+    ends: { from: none, to: none }
+  - from: p8
+    to: p9
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p10
+    to: p11
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p15
+    to: p16
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p18
+    to: p19
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p21
+    to: p22
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p24
+    to: p25
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p27
+    to: p28
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p34
+    to: p35
+    curve: none
+    weight: thin
+    ends: { from: arrow, to: arrow }
+  - from: p37
+    to: p38
+    curve: none
+    weight: thin
+    ends: { from: arrow, to: arrow }
+  - from: p40
+    to: p41
+    curve: none
+    weight: thin
+    ends: { from: arrow, to: arrow }
+  - from: p43
+    to: p44
+    curve: none
+    weight: thin
+    ends: { from: arrow, to: arrow }
+  - from: p46
+    to: p47
+    curve: none
+    weight: thin
+    ends: { from: arrow, to: arrow }
+  - from: p49
+    to: p50
+    curve: none
+    weight: thin
+    ends: { from: arrow, to: arrow }
+  - from: p52
+    to: p53
+    curve: none
+    weight: thin
+    ends: { from: arrow, to: arrow }
+  - from: p59
+    to: p60
+    curve: none
+    weight: thin
+    ends: { from: arrow, to: arrow }

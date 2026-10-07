@@ -1,0 +1,457 @@
+version: 1
+kind: placement
+arrows: false
+title: 線路の断面 —— レール・まくらぎ・道床・路盤と、軌間 1,067mm／1,435mm、曲線のカント（省令と解釈基準の数）
+sources:
+  - name: "鉄道に関する技術上の基準を定める省令（平成 13 年国土交通省令第 151 号）第 2 条・第 12 条・第 15 条・第 16 条・第 21 条（e-Gov 法令検索）"
+    url: "https://laws.e-gov.go.jp/law/413M60000800151"
+    retrieved: 2026-10-06
+  - name: "国土交通省「鉄道に関する技術上の基準を定める省令の解釈基準」Ⅲ－1・Ⅲ－3・Ⅲ－4・Ⅲ－5・Ⅲ－10（Internet Archive 2023 年の写しで閲覧）"
+    url: "https://www.mlit.go.jp/common/001398980.pdf"
+    retrieved: 2026-10-06
+# **線路は、上から レール → まくらぎ → 道床（バラスト） → 路盤 の 4 層。**
+# 2 本のレールの間隔（軌間）が、JR の在来線は 1,067mm、新幹線は 1,435mm。
+# 曲線では外側のレールを上げ（カント）、車体を内へ傾けて遠心力と釣り合わせる。
+#
+# ## 何のための図か
+#
+# 理解のための図。線路の断面の名前と、軌間とカントの数がどの決まりから来ているかを 1 枚で読む。
+#
+# ## 決まりの出どころ
+#
+# - **省令は性能で書いてある。** 軌間は「車両の安全な走行及び安定した走行を確保することができるもの」（第 12 条）、
+#   カントは「車両の転覆の危険が生じないよう、軌間、曲線半径、運転速度等に応じた」もの（第 15 条）。数は書いていない
+# - **数は解釈基準が示す。** 普通鉄道の軌間は 0.762・1.067・1.372・1.435m、新幹線は 1.435m（Ⅲ－1）。
+#   カントは C＝GV²／127R を標準とし、C＝G²／6H 以下（Ⅲ－4）
+# - 軌間の測り方は省令の定義どおり：**軌道中心線が直線の区間で、レール頭部間の最短距離**（第 2 条 4 号）。
+#   だから寸法線はレール頭部の内側どうしに引いた
+#
+# ## 計算した所
+#
+# - 1,435 − 1,067 ＝ 368mm。中心をそろえると片側 184mm
+# - カント：G＝1,067、V＝80km/h、R＝600m → 1,067×6,400／76,200 ＝ 89.6mm ≒ 90mm
+# - 傾き：sin θ ＝ 90／1,067 → θ ≒ 4.8°（② はこの角度で、内軌の頭頂を中心に回して描いた）
+# - 施工基面の拡大：y＝α·C ＝ 3.35×90 ≒ 302mm（1,067mm の α＝3.35）
+#
+# ## 描き方
+#
+# - 縮尺 1px＝6mm。**数で描いたのは軌間とカントだけ。** レールの形・まくらぎの長さと厚さ・道床と路盤の厚さ・
+#   道床の肩幅と法勾配は、軌道構造の設計標準（解釈基準Ⅲ－12 が「鉄道構造物等設計標準（軌道構造）」に委ねている）を
+#   読めていないので**模式**。図にも「模式」と書いた
+# - 道床（砕石）は点、路盤は斜線、まくらぎとレールは塗り潰し（見本 43 の舗装構成と同じ割り当て）
+# - 軌道中心線は一点鎖線
+#
+# ## 描かなかったもの
+#
+# - **スラブ軌道・直結軌道。** 新幹線に多いが、どの線区が何かを一次資料で確かめていない。① の 1,435mm もバラスト軌道で描いた
+# - **建築限界・車両限界の輪郭。** 解釈基準の図表にあるが、輪郭の座標を読み取れていない
+# - **レールの種類（50kgN・60kg など）とまくらぎの間隔。** 設計標準の数を確かめていない
+# - **緩和曲線でのカントの逓減。** 断面では表せない（平面と縦断の話）
+#
+# 出典：鉄道に関する技術上の基準を定める省令（e-Gov、2026-10-06 取得）。同 解釈基準（国土交通省。原本の URL は 2026-10-06 に 404 で、
+# Internet Archive の 2023 年の写しを読んだ）。
+nodes:
+  - id: t_a
+    label: "① 狭軌 1,067mm（JR の在来線など）"
+    marker: none
+    at: { x: 120, y: 112 }
+    size: { w: 600, h: 18 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 330, y: 215 }
+    size: { w: 2, h: 2 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 508, y: 215 }
+    size: { w: 2, h: 2 }
+  - id: g_a
+    label: "軌間 1,067"
+    marker: none
+    at: { x: 360, y: 190 }
+    size: { w: 120, h: 18 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 419, y: 159 }
+    size: { w: 2, h: 2 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 419, y: 199 }
+    size: { w: 2, h: 2 }
+  - id: r_a0
+    label: ""
+    hatch: solid
+    at: { x: 320, y: 230 }
+    size: { w: 11, h: 25 }
+  - id: r_a1
+    label: ""
+    hatch: solid
+    at: { x: 509, y: 230 }
+    size: { w: 11, h: 25 }
+  - id: s_a
+    label: ""
+    hatch: solid
+    at: { x: 253, y: 255 }
+    size: { w: 333, h: 28 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 186, y: 254 }
+    size: { w: 2, h: 2 }
+  - id: rb_a
+    label: ""
+    hatch: lines
+    at: { x: 31, y: 325 }
+    size: { w: 779, h: 50 }
+  - id: l1_a
+    label: "← レール"
+    marker: none
+    align: left
+    at: { x: 528, y: 232 }
+    size: { w: 90, h: 18 }
+  - id: l2_a
+    label: "← まくらぎ"
+    marker: none
+    align: left
+    at: { x: 595, y: 259 }
+    size: { w: 100, h: 18 }
+  - id: l3_a
+    label: "← 道床（バラスト）"
+    marker: none
+    align: left
+    at: { x: 730, y: 280 }
+    size: { w: 160, h: 18 }
+  - id: l4_a
+    label: "路盤"
+    marker: none
+    at: { x: 390, y: 341 }
+    size: { w: 60, h: 18 }
+  - id: l5_a
+    label: "施工基面 ↓"
+    marker: none
+    align: left
+    at: { x: 31, y: 301 }
+    size: { w: 90, h: 18 }
+  - id: t_b
+    label: "① 標準軌 1,435mm（新幹線・一部の私鉄）"
+    marker: none
+    at: { x: 960, y: 112 }
+    size: { w: 600, h: 18 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 1139, y: 215 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 1379, y: 215 }
+    size: { w: 2, h: 2 }
+  - id: g_b
+    label: "軌間 1,435"
+    marker: none
+    at: { x: 1200, y: 190 }
+    size: { w: 120, h: 18 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 1259, y: 159 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 1259, y: 199 }
+    size: { w: 2, h: 2 }
+  - id: r_b0
+    label: ""
+    hatch: solid
+    at: { x: 1129, y: 230 }
+    size: { w: 11, h: 25 }
+  - id: r_b1
+    label: ""
+    hatch: solid
+    at: { x: 1380, y: 230 }
+    size: { w: 11, h: 25 }
+  - id: s_b
+    label: ""
+    hatch: solid
+    at: { x: 1060, y: 255 }
+    size: { w: 400, h: 28 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 992, y: 254 }
+    size: { w: 2, h: 2 }
+  - id: rb_b
+    label: ""
+    hatch: lines
+    at: { x: 837, y: 325 }
+    size: { w: 845, h: 50 }
+  - id: l1_b
+    label: "← レール"
+    marker: none
+    align: left
+    at: { x: 1399, y: 232 }
+    size: { w: 90, h: 18 }
+  - id: l2_b
+    label: "← まくらぎ"
+    marker: none
+    align: left
+    at: { x: 1468, y: 259 }
+    size: { w: 100, h: 18 }
+  - id: l3_b
+    label: "← 道床（バラスト）"
+    marker: none
+    align: left
+    at: { x: 1604, y: 280 }
+    size: { w: 160, h: 18 }
+  - id: l4_b
+    label: "路盤"
+    marker: none
+    at: { x: 1230, y: 341 }
+    size: { w: 60, h: 18 }
+  - id: l5_b
+    label: "施工基面 ↓"
+    marker: none
+    align: left
+    at: { x: 837, y: 301 }
+    size: { w: 90, h: 18 }
+  - id: diff
+    label: "差は 368mm —— 片側 184mm ずつ外へ"
+    marker: none
+    at: { x: 780, y: 170 }
+    size: { w: 260, h: 18 }
+  - id: t2
+    label: "② 曲線ではカントを付ける（1,067mm・R＝600m・平均速度 80km/h の計算例）"
+    marker: none
+    at: { x: 90, y: 470 }
+    size: { w: 700, h: 18 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 255, y: 630 }
+    size: { w: 2, h: 2 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 190, y: 630 }
+    size: { w: 2, h: 2 }
+  - id: rb_c
+    label: ""
+    hatch: lines
+    at: { x: -4, y: 707 }
+    size: { w: 848, h: 50 }
+  - id: l4_c
+    label: "路盤"
+    marker: none
+    at: { x: 390, y: 723 }
+    size: { w: 60, h: 18 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 333, y: 599 }
+    size: { w: 2, h: 2 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 504, y: 599 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 499, y: 599 }
+    size: { w: 2, h: 2 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 499, y: 584 }
+    size: { w: 2, h: 2 }
+  - id: cl
+    label: "C＝90mm"
+    marker: none
+    align: right
+    at: { x: 408, y: 555 }
+    size: { w: 84, h: 18 }
+  - id: in
+    label: "← 曲線の中心側（内軌）"
+    marker: none
+    align: right
+    at: { x: 81, y: 560 }
+    size: { w: 200, h: 18 }
+  - id: out
+    label: "外軌（曲線の外側）→"
+    marker: none
+    align: left
+    at: { x: 548, y: 541 }
+    size: { w: 180, h: 18 }
+  - id: why
+    label: "外のレールを上げ、車体を内へ傾けて遠心力と釣り合わせる"
+    marker: none
+    at: { x: 90, y: 771 }
+    size: { w: 660, h: 18 }
+  - id: n0
+    label: "■ 鉄道に関する技術上の基準を定める省令（平成 13 年国土交通省令第 151 号）"
+    marker: none
+    align: left
+    at: { x: 900, y: 470 }
+    size: { w: 820, h: 18 }
+  - id: n1
+    label: "・軌間＝軌道中心線が直線の区間で、レール頭部間の最短距離（第 2 条 4 号）"
+    marker: none
+    align: left
+    at: { x: 900, y: 494 }
+    size: { w: 820, h: 18 }
+  - id: n2
+    label: "・軌間・カント・スラック・施工基面の幅は、性能で書いてある（第 12・15・16・21 条）。数は解釈基準が示す"
+    marker: none
+    align: left
+    at: { x: 900, y: 518 }
+    size: { w: 820, h: 18 }
+  - id: n3
+    label: "■ 同 解釈基準（国土交通省）"
+    marker: none
+    align: left
+    at: { x: 900, y: 542 }
+    size: { w: 820, h: 18 }
+  - id: n4
+    label: "・普通鉄道の軌間は 0.762m・1.067m・1.372m・1.435m、新幹線は 1.435m（Ⅲ－1）"
+    marker: none
+    align: left
+    at: { x: 900, y: 566 }
+    size: { w: 820, h: 18 }
+  - id: n5
+    label: "・カントは C＝G·V²／(127·R) を標準（G 軌間 mm、V 平均速度 km/h、R 半径 m）。上限は C＝G²／(6·H)（H 重心高 mm）"
+    marker: none
+    align: left
+    at: { x: 900, y: 590 }
+    size: { w: 820, h: 18 }
+  - id: n6
+    label: "　→ 計算例：1,067×80²／(127×600)＝89.6 ≒ 90mm"
+    marker: none
+    align: left
+    at: { x: 900, y: 614 }
+    size: { w: 820, h: 18 }
+  - id: n7
+    label: "・曲線の施工基面の幅は y＝α·C だけ広げる。α は 1,067mm で 3.35、1,435mm で 3.06（新幹線は 2.94）"
+    marker: none
+    align: left
+    at: { x: 900, y: 638 }
+    size: { w: 820, h: 18 }
+  - id: n8
+    label: "　→ 計算例：3.35×90 ≒ 302mm 広げる"
+    marker: none
+    align: left
+    at: { x: 900, y: 662 }
+    size: { w: 820, h: 18 }
+  - id: n9
+    label: "・最小曲線半径：普通鉄道 160m（0.762m は 100m）、新幹線 400m（Ⅲ－3）"
+    marker: none
+    align: left
+    at: { x: 900, y: 686 }
+    size: { w: 820, h: 18 }
+  - id: n10
+    label: "・施工基面の幅：新幹線は盛土・切取で 3m 以上。普通鉄道の高架橋等は 2.75m 以上。待避する側は建築限界から 0.6m 以上"
+    marker: none
+    align: left
+    at: { x: 900, y: 710 }
+    size: { w: 820, h: 18 }
+  - id: n11
+    label: "・スラックの最大値は 25mm（0.762m の鉄道は 16mm）"
+    marker: none
+    align: left
+    at: { x: 900, y: 734 }
+    size: { w: 820, h: 18 }
+  - id: n12
+    label: "■ 模式のところ"
+    marker: none
+    align: left
+    at: { x: 900, y: 758 }
+    size: { w: 820, h: 18 }
+  - id: n13
+    label: "・レールの形、まくらぎの長さと厚さ、道床と路盤の厚さ、道床の肩幅と法勾配は模式（軌道構造は別の設計標準による）"
+    marker: none
+    align: left
+    at: { x: 900, y: 782 }
+    size: { w: 820, h: 18 }
+  - id: scale
+    label: "縮尺：1px＝6mm（軌間とカントだけが数の値。ほかは模式）"
+    marker: none
+    align: left
+    at: { x: 60, y: 60 }
+    size: { w: 600, h: 18 }
+edges:
+  - from: p1
+    to: p2
+    weight: thin
+    ends: { from: bar, to: bar }
+  - from: p3
+    to: p4
+    line: chain
+    weight: thin
+  - from: p5
+    to: p5
+    close: true
+    via:
+      - { x: 653, y: 255 }
+      - { x: 779, y: 325 }
+      - { x: 61, y: 325 }
+    ends: { from: none, to: none }
+    hatch: dots
+  - from: p6
+    to: p7
+    weight: thin
+    ends: { from: bar, to: bar }
+  - from: p8
+    to: p9
+    line: chain
+    weight: thin
+  - from: p10
+    to: p10
+    close: true
+    via:
+      - { x: 1527, y: 255 }
+      - { x: 1653, y: 325 }
+      - { x: 867, y: 325 }
+    ends: { from: none, to: none }
+    hatch: dots
+  - from: p11
+    to: p11
+    close: true
+    via:
+      - { x: 322, y: 626 }
+      - { x: 320, y: 601 }
+      - { x: 331, y: 600 }
+      - { x: 333, y: 625 }
+      - { x: 510, y: 610 }
+      - { x: 508, y: 585 }
+      - { x: 519, y: 584 }
+      - { x: 521, y: 609 }
+      - { x: 588, y: 603 }
+      - { x: 590, y: 632 }
+      - { x: 258, y: 660 }
+    ends: { from: none, to: none }
+    hatch: solid
+  - from: p12
+    to: p12
+    close: true
+    via:
+      - { x: 256, y: 631 }
+      - { x: 258, y: 660 }
+      - { x: 590, y: 632 }
+      - { x: 588, y: 603 }
+      - { x: 657, y: 603 }
+      - { x: 844, y: 707 }
+      - { x: 55, y: 707 }
+    ends: { from: none, to: none }
+    hatch: dots
+  - from: p13
+    to: p14
+    line: dashed
+    weight: thin
+  - from: p15
+    to: p16
+    weight: thin
+    ends: { from: bar, to: bar }

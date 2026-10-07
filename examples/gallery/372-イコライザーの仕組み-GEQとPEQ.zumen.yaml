@@ -1,0 +1,2428 @@
+version: 1
+kind: placement
+arrows: true
+title: イコライザーの仕組み（GEQ は決まった 31 本、PEQ は中心と幅を選ぶ）
+sources:
+  - name: "JIS C 1514:2002 オクターブ及び 1/N オクターブバンドフィルタ（IEC 61260:1995）3.2〜3.7"
+  - name: "JIS C 1513:2002 音響・振動用オクターブ及び 1/3 オクターブバンド分析器 付表 1 中心周波数"
+  - name: "W3C「Audio EQ Cookbook」（Working Group Note, 2021-06-08）peakingEQ"
+    url: "https://www.w3.org/TR/audio-eq-cookbook/"
+    retrieved: 2026-10-06
+# **イコライザーは、どこを（周波数）・どれだけ（ゲイン）・どの幅で（Q）変えるかの 3 つ。**
+# グラフィック EQ はそのうち「どれだけ」だけを動かし、パラメトリック EQ は 3 つとも動かす。
+#
+# ## 31 本の中心周波数
+#
+# JIS C 1514:2002（IEC 61260:1995）は、オクターブ比を 10 のべきで G ＝ 10^(3/10) と決め、基準を厳密に 1000Hz とする。
+# 1/3 オクターブの厳密な中心は fm ＝ 1000 × G^(x/3) ＝ 1000 × 10^(x/10)（x は整数）。
+# 帯域の端は f1 ＝ fm × G^(−1/6)、f2 ＝ fm × G^(+1/6)（＝ 10^(±1/20) 倍）。
+# 公称値は厳密値を丸めたもので、JIS C 1514:2002 の引用規格に ISO 266:1997（Preferred frequencies）がある。
+# 例：x ＝ 7 の厳密値 5,011.872Hz、公称 5,000Hz（JIS C 1514:2002 3.5 備考 3）。
+# 20Hz（x ＝ −17）から 20kHz（x ＝ 13）まで 31 本。
+#
+# ## 計算したもの
+#
+# ② ③の曲線はアナログのピーキングフィルタ（Audio EQ Cookbook の peakingEQ と同じ形、A ＝ 10^(dB/40)）の振幅で、
+# 各バンドを直列につないだもの（dB で足す）として計算した。実機の GEQ は回路で重なり方が違うので、
+# **深さは目安**。1/3 オクターブの Q は 1/Q ＝ 2 sinh((ln2/2) × 1/3) から 4.318。
+#
+# ## 架空のところ
+#
+# つまみの設定（200・250・315Hz を下げ、3.15kHz を上げる）と PEQ の 3 バンドは説明のための例。
+#
+# ## 描かなかったもの
+#
+# - シェルビング（低域・高域をまとめて上げ下げする形）とハイパス —— 形が違う。PEQ の 3 バンドはピーキングだけにした
+# - 位相の変化 —— EQ は位相も動かすが、この図は大きさだけ
+# - 製品のパネル —— 実在の機種の配置をなぞらない
+#
+# EQ がミキサーのどこにあるかは見本 343、スピーカーの構造は見本 371、PA の配置は見本 101・370。
+nodes:
+  - id: g_ax_p
+    label: "+12dB"
+    marker: none
+    align: right
+    at: { x: 100, y: 142 }
+    size: { w: 60, h: 16 }
+  - id: g_ax_0
+    label: "0"
+    marker: none
+    align: right
+    at: { x: 100, y: 262 }
+    size: { w: 60, h: 16 }
+  - id: g_ax_m
+    label: "−12dB"
+    marker: none
+    align: right
+    at: { x: 100, y: 382 }
+    size: { w: 60, h: 16 }
+  - id: p0
+    label: ""
+    marker: none
+    at: { x: 168.7, y: 149 }
+    size: { w: 2, h: 2 }
+  - id: p1
+    label: ""
+    marker: none
+    at: { x: 168.7, y: 263 }
+    size: { w: 2, h: 2 }
+  - id: p2
+    label: ""
+    marker: none
+    at: { x: 168.7, y: 275 }
+    size: { w: 2, h: 2 }
+  - id: p3
+    label: ""
+    marker: none
+    at: { x: 168.7, y: 389 }
+    size: { w: 2, h: 2 }
+  - id: k0
+    label: ""
+    hatch: solid
+    at: { x: 161.7, y: 265 }
+    size: { w: 16, h: 10 }
+  - id: f0
+    label: "20"
+    marker: none
+    align: center
+    at: { x: 147.7, y: 398 }
+    size: { w: 44, h: 16 }
+  - id: p4
+    label: ""
+    marker: none
+    at: { x: 202, y: 149 }
+    size: { w: 2, h: 2 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 202, y: 263 }
+    size: { w: 2, h: 2 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 202, y: 275 }
+    size: { w: 2, h: 2 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 202, y: 389 }
+    size: { w: 2, h: 2 }
+  - id: k1
+    label: ""
+    hatch: solid
+    at: { x: 195, y: 265 }
+    size: { w: 16, h: 10 }
+  - id: f1
+    label: "25"
+    marker: none
+    align: center
+    at: { x: 181, y: 416 }
+    size: { w: 44, h: 16 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 235.3, y: 149 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 235.3, y: 263 }
+    size: { w: 2, h: 2 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 235.3, y: 275 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 235.3, y: 389 }
+    size: { w: 2, h: 2 }
+  - id: k2
+    label: ""
+    hatch: solid
+    at: { x: 228.3, y: 265 }
+    size: { w: 16, h: 10 }
+  - id: f2
+    label: "31.5"
+    marker: none
+    align: center
+    at: { x: 214.3, y: 398 }
+    size: { w: 44, h: 16 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 268.7, y: 149 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 268.7, y: 263 }
+    size: { w: 2, h: 2 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 268.7, y: 275 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 268.7, y: 389 }
+    size: { w: 2, h: 2 }
+  - id: k3
+    label: ""
+    hatch: solid
+    at: { x: 261.7, y: 265 }
+    size: { w: 16, h: 10 }
+  - id: f3
+    label: "40"
+    marker: none
+    align: center
+    at: { x: 247.7, y: 416 }
+    size: { w: 44, h: 16 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 302, y: 149 }
+    size: { w: 2, h: 2 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 302, y: 263 }
+    size: { w: 2, h: 2 }
+  - id: p18
+    label: ""
+    marker: none
+    at: { x: 302, y: 275 }
+    size: { w: 2, h: 2 }
+  - id: p19
+    label: ""
+    marker: none
+    at: { x: 302, y: 389 }
+    size: { w: 2, h: 2 }
+  - id: k4
+    label: ""
+    hatch: solid
+    at: { x: 295, y: 265 }
+    size: { w: 16, h: 10 }
+  - id: f4
+    label: "50"
+    marker: none
+    align: center
+    at: { x: 281, y: 398 }
+    size: { w: 44, h: 16 }
+  - id: p20
+    label: ""
+    marker: none
+    at: { x: 335.3, y: 149 }
+    size: { w: 2, h: 2 }
+  - id: p21
+    label: ""
+    marker: none
+    at: { x: 335.3, y: 263 }
+    size: { w: 2, h: 2 }
+  - id: p22
+    label: ""
+    marker: none
+    at: { x: 335.3, y: 275 }
+    size: { w: 2, h: 2 }
+  - id: p23
+    label: ""
+    marker: none
+    at: { x: 335.3, y: 389 }
+    size: { w: 2, h: 2 }
+  - id: k5
+    label: ""
+    hatch: solid
+    at: { x: 328.3, y: 265 }
+    size: { w: 16, h: 10 }
+  - id: f5
+    label: "63"
+    marker: none
+    align: center
+    at: { x: 314.3, y: 416 }
+    size: { w: 44, h: 16 }
+  - id: p24
+    label: ""
+    marker: none
+    at: { x: 368.7, y: 149 }
+    size: { w: 2, h: 2 }
+  - id: p25
+    label: ""
+    marker: none
+    at: { x: 368.7, y: 263 }
+    size: { w: 2, h: 2 }
+  - id: p26
+    label: ""
+    marker: none
+    at: { x: 368.7, y: 275 }
+    size: { w: 2, h: 2 }
+  - id: p27
+    label: ""
+    marker: none
+    at: { x: 368.7, y: 389 }
+    size: { w: 2, h: 2 }
+  - id: k6
+    label: ""
+    hatch: solid
+    at: { x: 361.7, y: 265 }
+    size: { w: 16, h: 10 }
+  - id: f6
+    label: "80"
+    marker: none
+    align: center
+    at: { x: 347.7, y: 398 }
+    size: { w: 44, h: 16 }
+  - id: p28
+    label: ""
+    marker: none
+    at: { x: 402, y: 149 }
+    size: { w: 2, h: 2 }
+  - id: p29
+    label: ""
+    marker: none
+    at: { x: 402, y: 263 }
+    size: { w: 2, h: 2 }
+  - id: p30
+    label: ""
+    marker: none
+    at: { x: 402, y: 275 }
+    size: { w: 2, h: 2 }
+  - id: p31
+    label: ""
+    marker: none
+    at: { x: 402, y: 389 }
+    size: { w: 2, h: 2 }
+  - id: k7
+    label: ""
+    hatch: solid
+    at: { x: 395, y: 265 }
+    size: { w: 16, h: 10 }
+  - id: f7
+    label: "100"
+    marker: none
+    align: center
+    at: { x: 381, y: 416 }
+    size: { w: 44, h: 16 }
+  - id: p32
+    label: ""
+    marker: none
+    at: { x: 435.3, y: 149 }
+    size: { w: 2, h: 2 }
+  - id: p33
+    label: ""
+    marker: none
+    at: { x: 435.3, y: 263 }
+    size: { w: 2, h: 2 }
+  - id: p34
+    label: ""
+    marker: none
+    at: { x: 435.3, y: 275 }
+    size: { w: 2, h: 2 }
+  - id: p35
+    label: ""
+    marker: none
+    at: { x: 435.3, y: 389 }
+    size: { w: 2, h: 2 }
+  - id: k8
+    label: ""
+    hatch: solid
+    at: { x: 428.3, y: 265 }
+    size: { w: 16, h: 10 }
+  - id: f8
+    label: "125"
+    marker: none
+    align: center
+    at: { x: 414.3, y: 398 }
+    size: { w: 44, h: 16 }
+  - id: p36
+    label: ""
+    marker: none
+    at: { x: 468.7, y: 149 }
+    size: { w: 2, h: 2 }
+  - id: p37
+    label: ""
+    marker: none
+    at: { x: 468.7, y: 263 }
+    size: { w: 2, h: 2 }
+  - id: p38
+    label: ""
+    marker: none
+    at: { x: 468.7, y: 275 }
+    size: { w: 2, h: 2 }
+  - id: p39
+    label: ""
+    marker: none
+    at: { x: 468.7, y: 389 }
+    size: { w: 2, h: 2 }
+  - id: k9
+    label: ""
+    hatch: solid
+    at: { x: 461.7, y: 265 }
+    size: { w: 16, h: 10 }
+  - id: f9
+    label: "160"
+    marker: none
+    align: center
+    at: { x: 447.7, y: 416 }
+    size: { w: 44, h: 16 }
+  - id: p40
+    label: ""
+    marker: none
+    at: { x: 502, y: 149 }
+    size: { w: 2, h: 2 }
+  - id: p41
+    label: ""
+    marker: none
+    at: { x: 502, y: 293 }
+    size: { w: 2, h: 2 }
+  - id: p42
+    label: ""
+    marker: none
+    at: { x: 502, y: 305 }
+    size: { w: 2, h: 2 }
+  - id: p43
+    label: ""
+    marker: none
+    at: { x: 502, y: 389 }
+    size: { w: 2, h: 2 }
+  - id: k10
+    label: ""
+    hatch: solid
+    at: { x: 495, y: 295 }
+    size: { w: 16, h: 10 }
+  - id: f10
+    label: "200"
+    marker: none
+    align: center
+    at: { x: 481, y: 398 }
+    size: { w: 44, h: 16 }
+  - id: p44
+    label: ""
+    marker: none
+    at: { x: 535.3, y: 149 }
+    size: { w: 2, h: 2 }
+  - id: p45
+    label: ""
+    marker: none
+    at: { x: 535.3, y: 323 }
+    size: { w: 2, h: 2 }
+  - id: p46
+    label: ""
+    marker: none
+    at: { x: 535.3, y: 335 }
+    size: { w: 2, h: 2 }
+  - id: p47
+    label: ""
+    marker: none
+    at: { x: 535.3, y: 389 }
+    size: { w: 2, h: 2 }
+  - id: k11
+    label: ""
+    hatch: solid
+    at: { x: 528.3, y: 325 }
+    size: { w: 16, h: 10 }
+  - id: f11
+    label: "250"
+    marker: none
+    align: center
+    at: { x: 514.3, y: 416 }
+    size: { w: 44, h: 16 }
+  - id: p48
+    label: ""
+    marker: none
+    at: { x: 568.7, y: 149 }
+    size: { w: 2, h: 2 }
+  - id: p49
+    label: ""
+    marker: none
+    at: { x: 568.7, y: 293 }
+    size: { w: 2, h: 2 }
+  - id: p50
+    label: ""
+    marker: none
+    at: { x: 568.7, y: 305 }
+    size: { w: 2, h: 2 }
+  - id: p51
+    label: ""
+    marker: none
+    at: { x: 568.7, y: 389 }
+    size: { w: 2, h: 2 }
+  - id: k12
+    label: ""
+    hatch: solid
+    at: { x: 561.7, y: 295 }
+    size: { w: 16, h: 10 }
+  - id: f12
+    label: "315"
+    marker: none
+    align: center
+    at: { x: 547.7, y: 398 }
+    size: { w: 44, h: 16 }
+  - id: p52
+    label: ""
+    marker: none
+    at: { x: 602, y: 149 }
+    size: { w: 2, h: 2 }
+  - id: p53
+    label: ""
+    marker: none
+    at: { x: 602, y: 263 }
+    size: { w: 2, h: 2 }
+  - id: p54
+    label: ""
+    marker: none
+    at: { x: 602, y: 275 }
+    size: { w: 2, h: 2 }
+  - id: p55
+    label: ""
+    marker: none
+    at: { x: 602, y: 389 }
+    size: { w: 2, h: 2 }
+  - id: k13
+    label: ""
+    hatch: solid
+    at: { x: 595, y: 265 }
+    size: { w: 16, h: 10 }
+  - id: f13
+    label: "400"
+    marker: none
+    align: center
+    at: { x: 581, y: 416 }
+    size: { w: 44, h: 16 }
+  - id: p56
+    label: ""
+    marker: none
+    at: { x: 635.3, y: 149 }
+    size: { w: 2, h: 2 }
+  - id: p57
+    label: ""
+    marker: none
+    at: { x: 635.3, y: 263 }
+    size: { w: 2, h: 2 }
+  - id: p58
+    label: ""
+    marker: none
+    at: { x: 635.3, y: 275 }
+    size: { w: 2, h: 2 }
+  - id: p59
+    label: ""
+    marker: none
+    at: { x: 635.3, y: 389 }
+    size: { w: 2, h: 2 }
+  - id: k14
+    label: ""
+    hatch: solid
+    at: { x: 628.3, y: 265 }
+    size: { w: 16, h: 10 }
+  - id: f14
+    label: "500"
+    marker: none
+    align: center
+    at: { x: 614.3, y: 398 }
+    size: { w: 44, h: 16 }
+  - id: p60
+    label: ""
+    marker: none
+    at: { x: 668.7, y: 149 }
+    size: { w: 2, h: 2 }
+  - id: p61
+    label: ""
+    marker: none
+    at: { x: 668.7, y: 263 }
+    size: { w: 2, h: 2 }
+  - id: p62
+    label: ""
+    marker: none
+    at: { x: 668.7, y: 275 }
+    size: { w: 2, h: 2 }
+  - id: p63
+    label: ""
+    marker: none
+    at: { x: 668.7, y: 389 }
+    size: { w: 2, h: 2 }
+  - id: k15
+    label: ""
+    hatch: solid
+    at: { x: 661.7, y: 265 }
+    size: { w: 16, h: 10 }
+  - id: f15
+    label: "630"
+    marker: none
+    align: center
+    at: { x: 647.7, y: 416 }
+    size: { w: 44, h: 16 }
+  - id: p64
+    label: ""
+    marker: none
+    at: { x: 702, y: 149 }
+    size: { w: 2, h: 2 }
+  - id: p65
+    label: ""
+    marker: none
+    at: { x: 702, y: 263 }
+    size: { w: 2, h: 2 }
+  - id: p66
+    label: ""
+    marker: none
+    at: { x: 702, y: 275 }
+    size: { w: 2, h: 2 }
+  - id: p67
+    label: ""
+    marker: none
+    at: { x: 702, y: 389 }
+    size: { w: 2, h: 2 }
+  - id: k16
+    label: ""
+    hatch: solid
+    at: { x: 695, y: 265 }
+    size: { w: 16, h: 10 }
+  - id: f16
+    label: "800"
+    marker: none
+    align: center
+    at: { x: 681, y: 398 }
+    size: { w: 44, h: 16 }
+  - id: p68
+    label: ""
+    marker: none
+    at: { x: 735.3, y: 149 }
+    size: { w: 2, h: 2 }
+  - id: p69
+    label: ""
+    marker: none
+    at: { x: 735.3, y: 263 }
+    size: { w: 2, h: 2 }
+  - id: p70
+    label: ""
+    marker: none
+    at: { x: 735.3, y: 275 }
+    size: { w: 2, h: 2 }
+  - id: p71
+    label: ""
+    marker: none
+    at: { x: 735.3, y: 389 }
+    size: { w: 2, h: 2 }
+  - id: k17
+    label: ""
+    hatch: solid
+    at: { x: 728.3, y: 265 }
+    size: { w: 16, h: 10 }
+  - id: f17
+    label: "1k"
+    marker: none
+    align: center
+    at: { x: 714.3, y: 416 }
+    size: { w: 44, h: 16 }
+  - id: p72
+    label: ""
+    marker: none
+    at: { x: 768.7, y: 149 }
+    size: { w: 2, h: 2 }
+  - id: p73
+    label: ""
+    marker: none
+    at: { x: 768.7, y: 263 }
+    size: { w: 2, h: 2 }
+  - id: p74
+    label: ""
+    marker: none
+    at: { x: 768.7, y: 275 }
+    size: { w: 2, h: 2 }
+  - id: p75
+    label: ""
+    marker: none
+    at: { x: 768.7, y: 389 }
+    size: { w: 2, h: 2 }
+  - id: k18
+    label: ""
+    hatch: solid
+    at: { x: 761.7, y: 265 }
+    size: { w: 16, h: 10 }
+  - id: f18
+    label: "1.25k"
+    marker: none
+    align: center
+    at: { x: 747.7, y: 398 }
+    size: { w: 44, h: 16 }
+  - id: p76
+    label: ""
+    marker: none
+    at: { x: 802, y: 149 }
+    size: { w: 2, h: 2 }
+  - id: p77
+    label: ""
+    marker: none
+    at: { x: 802, y: 263 }
+    size: { w: 2, h: 2 }
+  - id: p78
+    label: ""
+    marker: none
+    at: { x: 802, y: 275 }
+    size: { w: 2, h: 2 }
+  - id: p79
+    label: ""
+    marker: none
+    at: { x: 802, y: 389 }
+    size: { w: 2, h: 2 }
+  - id: k19
+    label: ""
+    hatch: solid
+    at: { x: 795, y: 265 }
+    size: { w: 16, h: 10 }
+  - id: f19
+    label: "1.6k"
+    marker: none
+    align: center
+    at: { x: 781, y: 416 }
+    size: { w: 44, h: 16 }
+  - id: p80
+    label: ""
+    marker: none
+    at: { x: 835.3, y: 149 }
+    size: { w: 2, h: 2 }
+  - id: p81
+    label: ""
+    marker: none
+    at: { x: 835.3, y: 263 }
+    size: { w: 2, h: 2 }
+  - id: p82
+    label: ""
+    marker: none
+    at: { x: 835.3, y: 275 }
+    size: { w: 2, h: 2 }
+  - id: p83
+    label: ""
+    marker: none
+    at: { x: 835.3, y: 389 }
+    size: { w: 2, h: 2 }
+  - id: k20
+    label: ""
+    hatch: solid
+    at: { x: 828.3, y: 265 }
+    size: { w: 16, h: 10 }
+  - id: f20
+    label: "2k"
+    marker: none
+    align: center
+    at: { x: 814.3, y: 398 }
+    size: { w: 44, h: 16 }
+  - id: p84
+    label: ""
+    marker: none
+    at: { x: 868.7, y: 149 }
+    size: { w: 2, h: 2 }
+  - id: p85
+    label: ""
+    marker: none
+    at: { x: 868.7, y: 263 }
+    size: { w: 2, h: 2 }
+  - id: p86
+    label: ""
+    marker: none
+    at: { x: 868.7, y: 275 }
+    size: { w: 2, h: 2 }
+  - id: p87
+    label: ""
+    marker: none
+    at: { x: 868.7, y: 389 }
+    size: { w: 2, h: 2 }
+  - id: k21
+    label: ""
+    hatch: solid
+    at: { x: 861.7, y: 265 }
+    size: { w: 16, h: 10 }
+  - id: f21
+    label: "2.5k"
+    marker: none
+    align: center
+    at: { x: 847.7, y: 416 }
+    size: { w: 44, h: 16 }
+  - id: p88
+    label: ""
+    marker: none
+    at: { x: 902, y: 149 }
+    size: { w: 2, h: 2 }
+  - id: p89
+    label: ""
+    marker: none
+    at: { x: 902, y: 233 }
+    size: { w: 2, h: 2 }
+  - id: p90
+    label: ""
+    marker: none
+    at: { x: 902, y: 245 }
+    size: { w: 2, h: 2 }
+  - id: p91
+    label: ""
+    marker: none
+    at: { x: 902, y: 389 }
+    size: { w: 2, h: 2 }
+  - id: k22
+    label: ""
+    hatch: solid
+    at: { x: 895, y: 235 }
+    size: { w: 16, h: 10 }
+  - id: f22
+    label: "3.15k"
+    marker: none
+    align: center
+    at: { x: 881, y: 398 }
+    size: { w: 44, h: 16 }
+  - id: p92
+    label: ""
+    marker: none
+    at: { x: 935.3, y: 149 }
+    size: { w: 2, h: 2 }
+  - id: p93
+    label: ""
+    marker: none
+    at: { x: 935.3, y: 263 }
+    size: { w: 2, h: 2 }
+  - id: p94
+    label: ""
+    marker: none
+    at: { x: 935.3, y: 275 }
+    size: { w: 2, h: 2 }
+  - id: p95
+    label: ""
+    marker: none
+    at: { x: 935.3, y: 389 }
+    size: { w: 2, h: 2 }
+  - id: k23
+    label: ""
+    hatch: solid
+    at: { x: 928.3, y: 265 }
+    size: { w: 16, h: 10 }
+  - id: f23
+    label: "4k"
+    marker: none
+    align: center
+    at: { x: 914.3, y: 416 }
+    size: { w: 44, h: 16 }
+  - id: p96
+    label: ""
+    marker: none
+    at: { x: 968.7, y: 149 }
+    size: { w: 2, h: 2 }
+  - id: p97
+    label: ""
+    marker: none
+    at: { x: 968.7, y: 263 }
+    size: { w: 2, h: 2 }
+  - id: p98
+    label: ""
+    marker: none
+    at: { x: 968.7, y: 275 }
+    size: { w: 2, h: 2 }
+  - id: p99
+    label: ""
+    marker: none
+    at: { x: 968.7, y: 389 }
+    size: { w: 2, h: 2 }
+  - id: k24
+    label: ""
+    hatch: solid
+    at: { x: 961.7, y: 265 }
+    size: { w: 16, h: 10 }
+  - id: f24
+    label: "5k"
+    marker: none
+    align: center
+    at: { x: 947.7, y: 398 }
+    size: { w: 44, h: 16 }
+  - id: p100
+    label: ""
+    marker: none
+    at: { x: 1002, y: 149 }
+    size: { w: 2, h: 2 }
+  - id: p101
+    label: ""
+    marker: none
+    at: { x: 1002, y: 263 }
+    size: { w: 2, h: 2 }
+  - id: p102
+    label: ""
+    marker: none
+    at: { x: 1002, y: 275 }
+    size: { w: 2, h: 2 }
+  - id: p103
+    label: ""
+    marker: none
+    at: { x: 1002, y: 389 }
+    size: { w: 2, h: 2 }
+  - id: k25
+    label: ""
+    hatch: solid
+    at: { x: 995, y: 265 }
+    size: { w: 16, h: 10 }
+  - id: f25
+    label: "6.3k"
+    marker: none
+    align: center
+    at: { x: 981, y: 416 }
+    size: { w: 44, h: 16 }
+  - id: p104
+    label: ""
+    marker: none
+    at: { x: 1035.3, y: 149 }
+    size: { w: 2, h: 2 }
+  - id: p105
+    label: ""
+    marker: none
+    at: { x: 1035.3, y: 263 }
+    size: { w: 2, h: 2 }
+  - id: p106
+    label: ""
+    marker: none
+    at: { x: 1035.3, y: 275 }
+    size: { w: 2, h: 2 }
+  - id: p107
+    label: ""
+    marker: none
+    at: { x: 1035.3, y: 389 }
+    size: { w: 2, h: 2 }
+  - id: k26
+    label: ""
+    hatch: solid
+    at: { x: 1028.3, y: 265 }
+    size: { w: 16, h: 10 }
+  - id: f26
+    label: "8k"
+    marker: none
+    align: center
+    at: { x: 1014.3, y: 398 }
+    size: { w: 44, h: 16 }
+  - id: p108
+    label: ""
+    marker: none
+    at: { x: 1068.7, y: 149 }
+    size: { w: 2, h: 2 }
+  - id: p109
+    label: ""
+    marker: none
+    at: { x: 1068.7, y: 263 }
+    size: { w: 2, h: 2 }
+  - id: p110
+    label: ""
+    marker: none
+    at: { x: 1068.7, y: 275 }
+    size: { w: 2, h: 2 }
+  - id: p111
+    label: ""
+    marker: none
+    at: { x: 1068.7, y: 389 }
+    size: { w: 2, h: 2 }
+  - id: k27
+    label: ""
+    hatch: solid
+    at: { x: 1061.7, y: 265 }
+    size: { w: 16, h: 10 }
+  - id: f27
+    label: "10k"
+    marker: none
+    align: center
+    at: { x: 1047.7, y: 416 }
+    size: { w: 44, h: 16 }
+  - id: p112
+    label: ""
+    marker: none
+    at: { x: 1102, y: 149 }
+    size: { w: 2, h: 2 }
+  - id: p113
+    label: ""
+    marker: none
+    at: { x: 1102, y: 263 }
+    size: { w: 2, h: 2 }
+  - id: p114
+    label: ""
+    marker: none
+    at: { x: 1102, y: 275 }
+    size: { w: 2, h: 2 }
+  - id: p115
+    label: ""
+    marker: none
+    at: { x: 1102, y: 389 }
+    size: { w: 2, h: 2 }
+  - id: k28
+    label: ""
+    hatch: solid
+    at: { x: 1095, y: 265 }
+    size: { w: 16, h: 10 }
+  - id: f28
+    label: "12.5k"
+    marker: none
+    align: center
+    at: { x: 1081, y: 398 }
+    size: { w: 44, h: 16 }
+  - id: p116
+    label: ""
+    marker: none
+    at: { x: 1135.3, y: 149 }
+    size: { w: 2, h: 2 }
+  - id: p117
+    label: ""
+    marker: none
+    at: { x: 1135.3, y: 263 }
+    size: { w: 2, h: 2 }
+  - id: p118
+    label: ""
+    marker: none
+    at: { x: 1135.3, y: 275 }
+    size: { w: 2, h: 2 }
+  - id: p119
+    label: ""
+    marker: none
+    at: { x: 1135.3, y: 389 }
+    size: { w: 2, h: 2 }
+  - id: k29
+    label: ""
+    hatch: solid
+    at: { x: 1128.3, y: 265 }
+    size: { w: 16, h: 10 }
+  - id: f29
+    label: "16k"
+    marker: none
+    align: center
+    at: { x: 1114.3, y: 416 }
+    size: { w: 44, h: 16 }
+  - id: p120
+    label: ""
+    marker: none
+    at: { x: 1168.7, y: 149 }
+    size: { w: 2, h: 2 }
+  - id: p121
+    label: ""
+    marker: none
+    at: { x: 1168.7, y: 263 }
+    size: { w: 2, h: 2 }
+  - id: p122
+    label: ""
+    marker: none
+    at: { x: 1168.7, y: 275 }
+    size: { w: 2, h: 2 }
+  - id: p123
+    label: ""
+    marker: none
+    at: { x: 1168.7, y: 389 }
+    size: { w: 2, h: 2 }
+  - id: k30
+    label: ""
+    hatch: solid
+    at: { x: 1161.7, y: 265 }
+    size: { w: 16, h: 10 }
+  - id: f30
+    label: "20k"
+    marker: none
+    align: center
+    at: { x: 1147.7, y: 398 }
+    size: { w: 44, h: 16 }
+  - id: gv10
+    label: "−3"
+    marker: none
+    align: left
+    at: { x: 511, y: 292 }
+    size: { w: 30, h: 16 }
+  - id: gv11
+    label: "−6"
+    marker: none
+    align: left
+    at: { x: 544.3, y: 322 }
+    size: { w: 30, h: 16 }
+  - id: gv12
+    label: "−3"
+    marker: none
+    align: left
+    at: { x: 577.7, y: 292 }
+    size: { w: 30, h: 16 }
+  - id: gv22
+    label: "+3"
+    marker: none
+    align: left
+    at: { x: 911, y: 232 }
+    size: { w: 30, h: 16 }
+  - id: p124
+    label: ""
+    marker: none
+    at: { x: 159, y: 671 }
+    size: { w: 2, h: 2 }
+  - id: p125
+    label: ""
+    marker: none
+    at: { x: 159, y: 479 }
+    size: { w: 2, h: 2 }
+  - id: p126
+    label: ""
+    marker: none
+    at: { x: 159, y: 671 }
+    size: { w: 2, h: 2 }
+  - id: p127
+    label: ""
+    marker: none
+    at: { x: 1189, y: 671 }
+    size: { w: 2, h: 2 }
+  - id: r_ax_p
+    label: "+9dB"
+    marker: none
+    align: right
+    at: { x: 100, y: 482 }
+    size: { w: 60, h: 16 }
+  - id: r_ax_0
+    label: "0"
+    marker: none
+    align: right
+    at: { x: 100, y: 572 }
+    size: { w: 60, h: 16 }
+  - id: r_ax_m
+    label: "−9dB"
+    marker: none
+    align: right
+    at: { x: 100, y: 654 }
+    size: { w: 60, h: 16 }
+  - id: r_t20
+    label: "20"
+    marker: none
+    align: center
+    at: { x: 148, y: 678 }
+    size: { w: 44, h: 16 }
+  - id: r_t100
+    label: "100"
+    marker: none
+    align: center
+    at: { x: 381, y: 678 }
+    size: { w: 44, h: 16 }
+  - id: r_t1000
+    label: "1k"
+    marker: none
+    align: center
+    at: { x: 714.3, y: 678 }
+    size: { w: 44, h: 16 }
+  - id: r_t10000
+    label: "10k"
+    marker: none
+    align: center
+    at: { x: 1047.7, y: 678 }
+    size: { w: 44, h: 16 }
+  - id: r_t20000
+    label: "20k"
+    marker: none
+    align: center
+    at: { x: 1148, y: 678 }
+    size: { w: 44, h: 16 }
+  - id: p128
+    label: ""
+    marker: none
+    at: { x: 169, y: 579 }
+    size: { w: 2, h: 2 }
+  - id: p129
+    label: ""
+    marker: none
+    at: { x: 1169, y: 579 }
+    size: { w: 2, h: 2 }
+  - id: r_n1
+    label: "隣り合う 3 本を下げると、谷は 1 本ぶんより深く広くなる（いちばん深い所 −7.2dB）"
+    marker: none
+    align: left
+    at: { x: 190, y: 480 }
+    size: { w: 640, h: 16 }
+  - id: p130
+    label: ""
+    marker: none
+    at: { x: 1249, y: 391 }
+    size: { w: 2, h: 2 }
+  - id: p131
+    label: ""
+    marker: none
+    at: { x: 1249, y: 139 }
+    size: { w: 2, h: 2 }
+  - id: p132
+    label: ""
+    marker: none
+    at: { x: 1249, y: 391 }
+    size: { w: 2, h: 2 }
+  - id: p133
+    label: ""
+    marker: none
+    at: { x: 2059, y: 391 }
+    size: { w: 2, h: 2 }
+  - id: p_ax_p
+    label: "+12dB"
+    marker: none
+    align: right
+    at: { x: 1180, y: 142 }
+    size: { w: 60, h: 16 }
+  - id: p_ax_0
+    label: "0"
+    marker: none
+    align: right
+    at: { x: 1180, y: 262 }
+    size: { w: 60, h: 16 }
+  - id: p_ax_m
+    label: "−12dB"
+    marker: none
+    align: right
+    at: { x: 1180, y: 374 }
+    size: { w: 60, h: 16 }
+  - id: p_t20
+    label: "20"
+    marker: none
+    align: center
+    at: { x: 1238, y: 398 }
+    size: { w: 44, h: 16 }
+  - id: p_t100
+    label: "100"
+    marker: none
+    align: center
+    at: { x: 1419.7, y: 398 }
+    size: { w: 44, h: 16 }
+  - id: p_t1000
+    label: "1k"
+    marker: none
+    align: center
+    at: { x: 1679.7, y: 398 }
+    size: { w: 44, h: 16 }
+  - id: p_t10000
+    label: "10k"
+    marker: none
+    align: center
+    at: { x: 1939.7, y: 398 }
+    size: { w: 44, h: 16 }
+  - id: p_t20000
+    label: "20k"
+    marker: none
+    align: center
+    at: { x: 2018, y: 398 }
+    size: { w: 44, h: 16 }
+  - id: p134
+    label: ""
+    marker: none
+    at: { x: 1259, y: 269 }
+    size: { w: 2, h: 2 }
+  - id: p135
+    label: ""
+    marker: none
+    at: { x: 2039, y: 256.3 }
+    size: { w: 2, h: 2 }
+  - id: pl1
+    label: "① 250Hz −6dB Q4.3"
+    marker: none
+    align: left
+    at: { x: 1405.2, y: 342 }
+    size: { w: 160, h: 16 }
+  - id: pl2
+    label: "② 2.7kHz −9dB Q10"
+    marker: none
+    align: left
+    at: { x: 1663.9, y: 366 }
+    size: { w: 160, h: 16 }
+  - id: pl3
+    label: "③ 8kHz +4dB Q0.7"
+    marker: none
+    align: left
+    at: { x: 1876.5, y: 178 }
+    size: { w: 160, h: 16 }
+  - id: p_n
+    label: "② の 2.7kHz は 2.5k と 3.15k の間 —— GEQ には無い周波数"
+    marker: none
+    align: left
+    at: { x: 1280, y: 156 }
+    size: { w: 420, h: 16 }
+  - id: t1_t
+    label: "グラフィック EQ と パラメトリック EQ"
+    marker: none
+    align: left
+    at: { x: 1260, y: 470 }
+    size: { w: 400, h: 18 }
+  - id: t1h0
+    label: ""
+    hatch: solid
+    at: { x: 1260, y: 494 }
+    size: { w: 150, h: 26 }
+  - id: t1h1
+    label: "グラフィック（GEQ）"
+    hatch: solid
+    at: { x: 1410, y: 494 }
+    size: { w: 300, h: 26 }
+  - id: t1h2
+    label: "パラメトリック（PEQ）"
+    hatch: solid
+    at: { x: 1710, y: 494 }
+    size: { w: 330, h: 26 }
+  - id: t1c0_0
+    label: "動かせるもの"
+    at: { x: 1260, y: 520 }
+    size: { w: 150, h: 24 }
+  - id: t1c0_1
+    label: "各バンドの上げ下げだけ"
+    at: { x: 1410, y: 520 }
+    size: { w: 300, h: 24 }
+  - id: t1c0_2
+    label: "中心 f0・幅 Q・上げ下げ"
+    at: { x: 1710, y: 520 }
+    size: { w: 330, h: 24 }
+  - id: t1c1_0
+    label: "周波数"
+    at: { x: 1260, y: 544 }
+    size: { w: 150, h: 24 }
+  - id: t1c1_1
+    label: "決まった 31 本（1/3 oct）"
+    at: { x: 1410, y: 544 }
+    size: { w: 300, h: 24 }
+  - id: t1c1_2
+    label: "どこでも選べる"
+    at: { x: 1710, y: 544 }
+    size: { w: 330, h: 24 }
+  - id: t1c2_0
+    label: "幅"
+    at: { x: 1260, y: 568 }
+    size: { w: 150, h: 24 }
+  - id: t1c2_1
+    label: "決まっている（1/3 oct）"
+    at: { x: 1410, y: 568 }
+    size: { w: 300, h: 24 }
+  - id: t1c2_2
+    label: "Q で広く・狭く"
+    at: { x: 1710, y: 568 }
+    size: { w: 330, h: 24 }
+  - id: t1c3_0
+    label: "つまみの並び"
+    at: { x: 1260, y: 592 }
+    size: { w: 150, h: 24 }
+  - id: t1c3_1
+    label: "そのまま周波数特性の絵"
+    at: { x: 1410, y: 592 }
+    size: { w: 300, h: 24 }
+  - id: t1c3_2
+    label: "数字で読む"
+    at: { x: 1710, y: 592 }
+    size: { w: 330, h: 24 }
+  - id: t1c4_0
+    label: "よく使う所"
+    at: { x: 1260, y: 616 }
+    size: { w: 150, h: 24 }
+  - id: t1c4_1
+    label: "会場・モニターの補正"
+    at: { x: 1410, y: 616 }
+    size: { w: 300, h: 24 }
+  - id: t1c4_2
+    label: "チャンネルごとの音作り"
+    at: { x: 1710, y: 616 }
+    size: { w: 330, h: 24 }
+  - id: t2_t
+    label: "中心周波数：厳密値と公称値（1/3 oct の一部）"
+    marker: none
+    align: left
+    at: { x: 1260, y: 666 }
+    size: { w: 420, h: 18 }
+  - id: t2h0
+    label: "x"
+    hatch: solid
+    at: { x: 1260, y: 690 }
+    size: { w: 70, h: 26 }
+  - id: t2h1
+    label: "厳密 1000×10^(x/10)"
+    hatch: solid
+    at: { x: 1330, y: 690 }
+    size: { w: 230, h: 26 }
+  - id: t2h2
+    label: "公称"
+    hatch: solid
+    at: { x: 1560, y: 690 }
+    size: { w: 120, h: 26 }
+  - id: t2h3
+    label: "帯域 f1〜f2"
+    hatch: solid
+    at: { x: 1680, y: 690 }
+    size: { w: 360, h: 26 }
+  - id: t2c0_0
+    label: "−15"
+    at: { x: 1260, y: 716 }
+    size: { w: 70, h: 24 }
+  - id: t2c0_1
+    label: "31.6 Hz"
+    at: { x: 1330, y: 716 }
+    size: { w: 230, h: 24 }
+  - id: t2c0_2
+    label: "31.5"
+    at: { x: 1560, y: 716 }
+    size: { w: 120, h: 24 }
+  - id: t2c0_3
+    label: "28.2 〜 35.5 Hz"
+    at: { x: 1680, y: 716 }
+    size: { w: 360, h: 24 }
+  - id: t2c1_0
+    label: "−12"
+    at: { x: 1260, y: 740 }
+    size: { w: 70, h: 24 }
+  - id: t2c1_1
+    label: "63.1 Hz"
+    at: { x: 1330, y: 740 }
+    size: { w: 230, h: 24 }
+  - id: t2c1_2
+    label: "63"
+    at: { x: 1560, y: 740 }
+    size: { w: 120, h: 24 }
+  - id: t2c1_3
+    label: "56.2 〜 70.8 Hz"
+    at: { x: 1680, y: 740 }
+    size: { w: 360, h: 24 }
+  - id: t2c2_0
+    label: "−9"
+    at: { x: 1260, y: 764 }
+    size: { w: 70, h: 24 }
+  - id: t2c2_1
+    label: "126 Hz"
+    at: { x: 1330, y: 764 }
+    size: { w: 230, h: 24 }
+  - id: t2c2_2
+    label: "125"
+    at: { x: 1560, y: 764 }
+    size: { w: 120, h: 24 }
+  - id: t2c2_3
+    label: "112 〜 141 Hz"
+    at: { x: 1680, y: 764 }
+    size: { w: 360, h: 24 }
+  - id: t2c3_0
+    label: "−6"
+    at: { x: 1260, y: 788 }
+    size: { w: 70, h: 24 }
+  - id: t2c3_1
+    label: "251 Hz"
+    at: { x: 1330, y: 788 }
+    size: { w: 230, h: 24 }
+  - id: t2c3_2
+    label: "250"
+    at: { x: 1560, y: 788 }
+    size: { w: 120, h: 24 }
+  - id: t2c3_3
+    label: "224 〜 282 Hz"
+    at: { x: 1680, y: 788 }
+    size: { w: 360, h: 24 }
+  - id: t2c4_0
+    label: "−3"
+    at: { x: 1260, y: 812 }
+    size: { w: 70, h: 24 }
+  - id: t2c4_1
+    label: "501 Hz"
+    at: { x: 1330, y: 812 }
+    size: { w: 230, h: 24 }
+  - id: t2c4_2
+    label: "500"
+    at: { x: 1560, y: 812 }
+    size: { w: 120, h: 24 }
+  - id: t2c4_3
+    label: "447 〜 562 Hz"
+    at: { x: 1680, y: 812 }
+    size: { w: 360, h: 24 }
+  - id: t2c5_0
+    label: "0"
+    at: { x: 1260, y: 836 }
+    size: { w: 70, h: 24 }
+  - id: t2c5_1
+    label: "1,000 Hz"
+    at: { x: 1330, y: 836 }
+    size: { w: 230, h: 24 }
+  - id: t2c5_2
+    label: "1k"
+    at: { x: 1560, y: 836 }
+    size: { w: 120, h: 24 }
+  - id: t2c5_3
+    label: "891 〜 1,122 Hz"
+    at: { x: 1680, y: 836 }
+    size: { w: 360, h: 24 }
+  - id: t2c6_0
+    label: "3"
+    at: { x: 1260, y: 860 }
+    size: { w: 70, h: 24 }
+  - id: t2c6_1
+    label: "1,995 Hz"
+    at: { x: 1330, y: 860 }
+    size: { w: 230, h: 24 }
+  - id: t2c6_2
+    label: "2k"
+    at: { x: 1560, y: 860 }
+    size: { w: 120, h: 24 }
+  - id: t2c6_3
+    label: "1,778 〜 2,239 Hz"
+    at: { x: 1680, y: 860 }
+    size: { w: 360, h: 24 }
+  - id: t2c7_0
+    label: "6"
+    at: { x: 1260, y: 884 }
+    size: { w: 70, h: 24 }
+  - id: t2c7_1
+    label: "3,981 Hz"
+    at: { x: 1330, y: 884 }
+    size: { w: 230, h: 24 }
+  - id: t2c7_2
+    label: "4k"
+    at: { x: 1560, y: 884 }
+    size: { w: 120, h: 24 }
+  - id: t2c7_3
+    label: "3,548 〜 4,467 Hz"
+    at: { x: 1680, y: 884 }
+    size: { w: 360, h: 24 }
+  - id: t2c8_0
+    label: "9"
+    at: { x: 1260, y: 908 }
+    size: { w: 70, h: 24 }
+  - id: t2c8_1
+    label: "7,943 Hz"
+    at: { x: 1330, y: 908 }
+    size: { w: 230, h: 24 }
+  - id: t2c8_2
+    label: "8k"
+    at: { x: 1560, y: 908 }
+    size: { w: 120, h: 24 }
+  - id: t2c8_3
+    label: "7,079 〜 8,913 Hz"
+    at: { x: 1680, y: 908 }
+    size: { w: 360, h: 24 }
+  - id: t2c9_0
+    label: "12"
+    at: { x: 1260, y: 932 }
+    size: { w: 70, h: 24 }
+  - id: t2c9_1
+    label: "15,849 Hz"
+    at: { x: 1330, y: 932 }
+    size: { w: 230, h: 24 }
+  - id: t2c9_2
+    label: "16k"
+    at: { x: 1560, y: 932 }
+    size: { w: 120, h: 24 }
+  - id: t2c9_3
+    label: "14,125 〜 17,783 Hz"
+    at: { x: 1680, y: 932 }
+    size: { w: 360, h: 24 }
+  - id: n0
+    label: "イコライザーは、周波数ごとに音量を上げ下げする道具。どこを・どれだけ・どの幅で変えるかの 3 つで決まる。"
+    marker: none
+    align: left
+    at: { x: 60, y: 730 }
+    size: { w: 1130, h: 18 }
+  - id: n1
+    label: "1/3 オクターブの中心は 1000Hz を基準に 10^(1/10) 倍ずつ並ぶ（JIS C 1514:2002 ＝ IEC 61260:1995、公称値は ISO 266:1997）。"
+    marker: none
+    align: left
+    at: { x: 60, y: 756 }
+    size: { w: 1130, h: 18 }
+  - id: n2
+    label: "10 本で 10 倍、3 本でほぼ 2 倍（1 オクターブ）。20Hz〜20kHz にちょうど 31 本入る —— 31 バンドの GEQ はこの数。"
+    marker: none
+    align: left
+    at: { x: 60, y: 782 }
+    size: { w: 1130, h: 18 }
+  - id: n3
+    label: "帯域の端は中心の 10^(±1/20) 倍（約 0.89 倍と 1.12 倍）。隣の帯域と隙間なくつながる。"
+    marker: none
+    align: left
+    at: { x: 60, y: 808 }
+    size: { w: 1130, h: 18 }
+  - id: n4
+    label: "1/3 オクターブの幅を Q で言うと 4.32（1/Q ＝ 2 sinh(ln2/2 × 1/3)）。Q が大きいほど細い。"
+    marker: none
+    align: left
+    at: { x: 60, y: 834 }
+    size: { w: 1130, h: 18 }
+  - id: n5
+    label: "GEQ のつまみの並びは、そのまま周波数特性の絵に見える。ただし隣のバンドと重なるので、合成はつまみの線より深くなる。"
+    marker: none
+    align: left
+    at: { x: 60, y: 860 }
+    size: { w: 1130, h: 18 }
+  - id: n6
+    label: "ハウリングは 1 つの周波数で起きる。2.7kHz のように GEQ の間に落ちたら、PEQ の細い Q で狙う。"
+    marker: none
+    align: left
+    at: { x: 60, y: 886 }
+    size: { w: 1130, h: 18 }
+  - id: v1
+    label: "① グラフィック EQ（31 バンド）のつまみ —— 下の数字は 1/3 オクターブの公称中心周波数（Hz）"
+    marker: none
+    align: left
+    at: { x: 170, y: 112 }
+    size: { w: 760, h: 18 }
+  - id: v2
+    label: "② ①の設定で実際にかかる特性（各バンドを Q4.32 のピーキングとして重ねた計算）"
+    marker: none
+    align: left
+    at: { x: 170, y: 452 }
+    size: { w: 720, h: 18 }
+  - id: v3
+    label: "③ パラメトリック EQ（3 バンド）の特性"
+    marker: none
+    align: left
+    at: { x: 1260, y: 112 }
+    size: { w: 400, h: 18 }
+edges:
+  - from: p0
+    to: p1
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p2
+    to: p3
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p4
+    to: p5
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p6
+    to: p7
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p8
+    to: p9
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p10
+    to: p11
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p12
+    to: p13
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p14
+    to: p15
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p16
+    to: p17
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p18
+    to: p19
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p20
+    to: p21
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p22
+    to: p23
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p24
+    to: p25
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p26
+    to: p27
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p28
+    to: p29
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p30
+    to: p31
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p32
+    to: p33
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p34
+    to: p35
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p36
+    to: p37
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p38
+    to: p39
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p40
+    to: p41
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p42
+    to: p43
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p44
+    to: p45
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p46
+    to: p47
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p48
+    to: p49
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p50
+    to: p51
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p52
+    to: p53
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p54
+    to: p55
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p56
+    to: p57
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p58
+    to: p59
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p60
+    to: p61
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p62
+    to: p63
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p64
+    to: p65
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p66
+    to: p67
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p68
+    to: p69
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p70
+    to: p71
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p72
+    to: p73
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p74
+    to: p75
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p76
+    to: p77
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p78
+    to: p79
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p80
+    to: p81
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p82
+    to: p83
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p84
+    to: p85
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p86
+    to: p87
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p88
+    to: p89
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p90
+    to: p91
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p92
+    to: p93
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p94
+    to: p95
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p96
+    to: p97
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p98
+    to: p99
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p100
+    to: p101
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p102
+    to: p103
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p104
+    to: p105
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p106
+    to: p107
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p108
+    to: p109
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p110
+    to: p111
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p112
+    to: p113
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p114
+    to: p115
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p116
+    to: p117
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p118
+    to: p119
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p120
+    to: p121
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p122
+    to: p123
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p124
+    to: p125
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p126
+    to: p127
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p128
+    to: p129
+    curve: smooth
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 174.2, y: 580 }
+      - { x: 178.3, y: 580.1 }
+      - { x: 182.5, y: 580.1 }
+      - { x: 186.7, y: 580.1 }
+      - { x: 190.8, y: 580.1 }
+      - { x: 195, y: 580.1 }
+      - { x: 199.2, y: 580.1 }
+      - { x: 203.3, y: 580.1 }
+      - { x: 207.5, y: 580.1 }
+      - { x: 211.7, y: 580.1 }
+      - { x: 215.8, y: 580.1 }
+      - { x: 220, y: 580.1 }
+      - { x: 224.2, y: 580.1 }
+      - { x: 228.3, y: 580.1 }
+      - { x: 232.5, y: 580.1 }
+      - { x: 236.7, y: 580.1 }
+      - { x: 240.8, y: 580.1 }
+      - { x: 245, y: 580.1 }
+      - { x: 249.2, y: 580.1 }
+      - { x: 253.3, y: 580.1 }
+      - { x: 257.5, y: 580.2 }
+      - { x: 261.7, y: 580.2 }
+      - { x: 265.8, y: 580.2 }
+      - { x: 270, y: 580.2 }
+      - { x: 274.2, y: 580.2 }
+      - { x: 278.3, y: 580.2 }
+      - { x: 282.5, y: 580.2 }
+      - { x: 286.7, y: 580.2 }
+      - { x: 290.8, y: 580.3 }
+      - { x: 295, y: 580.3 }
+      - { x: 299.2, y: 580.3 }
+      - { x: 303.3, y: 580.3 }
+      - { x: 307.5, y: 580.3 }
+      - { x: 311.7, y: 580.4 }
+      - { x: 315.8, y: 580.4 }
+      - { x: 320, y: 580.4 }
+      - { x: 324.2, y: 580.4 }
+      - { x: 328.3, y: 580.5 }
+      - { x: 332.5, y: 580.5 }
+      - { x: 336.7, y: 580.5 }
+      - { x: 340.8, y: 580.6 }
+      - { x: 345, y: 580.6 }
+      - { x: 349.2, y: 580.6 }
+      - { x: 353.3, y: 580.7 }
+      - { x: 357.5, y: 580.7 }
+      - { x: 361.7, y: 580.8 }
+      - { x: 365.8, y: 580.8 }
+      - { x: 370, y: 580.9 }
+      - { x: 374.2, y: 581 }
+      - { x: 378.3, y: 581.1 }
+      - { x: 382.5, y: 581.1 }
+      - { x: 386.7, y: 581.2 }
+      - { x: 390.8, y: 581.3 }
+      - { x: 395, y: 581.4 }
+      - { x: 399.2, y: 581.6 }
+      - { x: 403.3, y: 581.7 }
+      - { x: 407.5, y: 581.8 }
+      - { x: 411.7, y: 582 }
+      - { x: 415.8, y: 582.2 }
+      - { x: 420, y: 582.4 }
+      - { x: 424.2, y: 582.7 }
+      - { x: 428.3, y: 582.9 }
+      - { x: 432.5, y: 583.2 }
+      - { x: 436.7, y: 583.6 }
+      - { x: 440.8, y: 584 }
+      - { x: 445, y: 584.5 }
+      - { x: 449.2, y: 585.1 }
+      - { x: 453.3, y: 585.8 }
+      - { x: 457.5, y: 586.6 }
+      - { x: 461.7, y: 587.6 }
+      - { x: 465.8, y: 588.9 }
+      - { x: 470, y: 590.4 }
+      - { x: 474.2, y: 592.4 }
+      - { x: 478.3, y: 595 }
+      - { x: 482.5, y: 598.4 }
+      - { x: 486.7, y: 602.7 }
+      - { x: 490.8, y: 608.1 }
+      - { x: 495, y: 614.4 }
+      - { x: 499.2, y: 620.4 }
+      - { x: 503, y: 624.1 }
+      - { x: 503.3, y: 624.3 }
+      - { x: 507.5, y: 625.3 }
+      - { x: 511.7, y: 625 }
+      - { x: 515.8, y: 625.6 }
+      - { x: 520, y: 628.4 }
+      - { x: 524.2, y: 634 }
+      - { x: 528.3, y: 641.7 }
+      - { x: 532.5, y: 649.2 }
+      - { x: 536.3, y: 652 }
+      - { x: 536.7, y: 652 }
+      - { x: 540.8, y: 648.1 }
+      - { x: 545, y: 640.4 }
+      - { x: 549.2, y: 632.9 }
+      - { x: 553.3, y: 627.8 }
+      - { x: 557.5, y: 625.4 }
+      - { x: 561.7, y: 625.1 }
+      - { x: 565.8, y: 625.3 }
+      - { x: 569.7, y: 624.1 }
+      - { x: 570, y: 623.8 }
+      - { x: 574.2, y: 619.5 }
+      - { x: 578.3, y: 613.3 }
+      - { x: 582.5, y: 607.2 }
+      - { x: 586.7, y: 601.9 }
+      - { x: 590.8, y: 597.7 }
+      - { x: 595, y: 594.5 }
+      - { x: 599.2, y: 592.1 }
+      - { x: 603.3, y: 590.1 }
+      - { x: 607.5, y: 588.6 }
+      - { x: 611.7, y: 587.4 }
+      - { x: 615.8, y: 586.4 }
+      - { x: 620, y: 585.6 }
+      - { x: 624.2, y: 585 }
+      - { x: 628.3, y: 584.4 }
+      - { x: 632.5, y: 583.9 }
+      - { x: 636.7, y: 583.5 }
+      - { x: 640.8, y: 583.1 }
+      - { x: 645, y: 582.8 }
+      - { x: 649.2, y: 582.6 }
+      - { x: 653.3, y: 582.3 }
+      - { x: 657.5, y: 582.1 }
+      - { x: 661.7, y: 581.9 }
+      - { x: 665.8, y: 581.8 }
+      - { x: 670, y: 581.6 }
+      - { x: 674.2, y: 581.5 }
+      - { x: 678.3, y: 581.3 }
+      - { x: 682.5, y: 581.2 }
+      - { x: 686.7, y: 581.1 }
+      - { x: 690.8, y: 581 }
+      - { x: 695, y: 580.9 }
+      - { x: 699.2, y: 580.9 }
+      - { x: 703.3, y: 580.8 }
+      - { x: 707.5, y: 580.7 }
+      - { x: 711.7, y: 580.6 }
+      - { x: 715.8, y: 580.6 }
+      - { x: 720, y: 580.5 }
+      - { x: 724.2, y: 580.5 }
+      - { x: 728.3, y: 580.4 }
+      - { x: 732.5, y: 580.4 }
+      - { x: 736.7, y: 580.3 }
+      - { x: 740.8, y: 580.3 }
+      - { x: 745, y: 580.2 }
+      - { x: 749.2, y: 580.2 }
+      - { x: 753.3, y: 580.1 }
+      - { x: 757.5, y: 580.1 }
+      - { x: 761.7, y: 580 }
+      - { x: 765.8, y: 580 }
+      - { x: 770, y: 579.9 }
+      - { x: 774.2, y: 579.9 }
+      - { x: 778.3, y: 579.8 }
+      - { x: 782.5, y: 579.8 }
+      - { x: 786.7, y: 579.7 }
+      - { x: 790.8, y: 579.7 }
+      - { x: 795, y: 579.6 }
+      - { x: 799.2, y: 579.5 }
+      - { x: 803.3, y: 579.5 }
+      - { x: 807.5, y: 579.4 }
+      - { x: 811.7, y: 579.3 }
+      - { x: 815.8, y: 579.2 }
+      - { x: 820, y: 579.1 }
+      - { x: 824.2, y: 578.9 }
+      - { x: 828.3, y: 578.8 }
+      - { x: 832.5, y: 578.6 }
+      - { x: 836.7, y: 578.4 }
+      - { x: 840.8, y: 578.2 }
+      - { x: 845, y: 577.9 }
+      - { x: 849.2, y: 577.5 }
+      - { x: 853.3, y: 577.1 }
+      - { x: 857.5, y: 576.6 }
+      - { x: 861.7, y: 575.9 }
+      - { x: 865.8, y: 575 }
+      - { x: 870, y: 573.9 }
+      - { x: 874.2, y: 572.5 }
+      - { x: 878.3, y: 570.6 }
+      - { x: 882.5, y: 568.1 }
+      - { x: 886.7, y: 564.7 }
+      - { x: 890.8, y: 560.5 }
+      - { x: 895, y: 555.7 }
+      - { x: 899.2, y: 551.6 }
+      - { x: 903, y: 550 }
+      - { x: 903.3, y: 550.1 }
+      - { x: 907.5, y: 552.1 }
+      - { x: 911.7, y: 556.4 }
+      - { x: 915.8, y: 561.2 }
+      - { x: 920, y: 565.3 }
+      - { x: 924.2, y: 568.5 }
+      - { x: 928.3, y: 570.9 }
+      - { x: 932.5, y: 572.7 }
+      - { x: 936.7, y: 574.1 }
+      - { x: 940.8, y: 575.1 }
+      - { x: 945, y: 576 }
+      - { x: 949.2, y: 576.6 }
+      - { x: 953.3, y: 577.1 }
+      - { x: 957.5, y: 577.5 }
+      - { x: 961.7, y: 577.8 }
+      - { x: 965.8, y: 578.1 }
+      - { x: 970, y: 578.3 }
+      - { x: 974.2, y: 578.5 }
+      - { x: 978.3, y: 578.7 }
+      - { x: 982.5, y: 578.8 }
+      - { x: 986.7, y: 579 }
+      - { x: 990.8, y: 579.1 }
+      - { x: 995, y: 579.2 }
+      - { x: 999.2, y: 579.2 }
+      - { x: 1003.3, y: 579.3 }
+      - { x: 1007.5, y: 579.4 }
+      - { x: 1011.7, y: 579.4 }
+      - { x: 1015.8, y: 579.5 }
+      - { x: 1020, y: 579.5 }
+      - { x: 1024.2, y: 579.5 }
+      - { x: 1028.3, y: 579.6 }
+      - { x: 1032.5, y: 579.6 }
+      - { x: 1036.7, y: 579.6 }
+      - { x: 1040.8, y: 579.7 }
+      - { x: 1045, y: 579.7 }
+      - { x: 1049.2, y: 579.7 }
+      - { x: 1053.3, y: 579.7 }
+      - { x: 1057.5, y: 579.8 }
+      - { x: 1061.7, y: 579.8 }
+      - { x: 1065.8, y: 579.8 }
+      - { x: 1070, y: 579.8 }
+      - { x: 1074.2, y: 579.8 }
+      - { x: 1078.3, y: 579.8 }
+      - { x: 1082.5, y: 579.8 }
+      - { x: 1086.7, y: 579.9 }
+      - { x: 1090.8, y: 579.9 }
+      - { x: 1095, y: 579.9 }
+      - { x: 1099.2, y: 579.9 }
+      - { x: 1103.3, y: 579.9 }
+      - { x: 1107.5, y: 579.9 }
+      - { x: 1111.7, y: 579.9 }
+      - { x: 1115.8, y: 579.9 }
+      - { x: 1120, y: 579.9 }
+      - { x: 1124.2, y: 579.9 }
+      - { x: 1128.3, y: 579.9 }
+      - { x: 1132.5, y: 579.9 }
+      - { x: 1136.7, y: 579.9 }
+      - { x: 1140.8, y: 579.9 }
+      - { x: 1145, y: 579.9 }
+      - { x: 1149.2, y: 579.9 }
+      - { x: 1153.3, y: 579.9 }
+      - { x: 1157.5, y: 579.9 }
+      - { x: 1161.7, y: 580 }
+      - { x: 1165.8, y: 580 }
+  - from: p130
+    to: p131
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p132
+    to: p133
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p134
+    to: p135
+    curve: smooth
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 1263.2, y: 270 }
+      - { x: 1266.5, y: 270 }
+      - { x: 1269.8, y: 270 }
+      - { x: 1273, y: 270 }
+      - { x: 1276.2, y: 270 }
+      - { x: 1279.5, y: 270 }
+      - { x: 1282.8, y: 270 }
+      - { x: 1286, y: 270 }
+      - { x: 1289.2, y: 270 }
+      - { x: 1292.5, y: 270 }
+      - { x: 1295.8, y: 270 }
+      - { x: 1299, y: 270 }
+      - { x: 1302.2, y: 270 }
+      - { x: 1305.5, y: 270.1 }
+      - { x: 1308.8, y: 270.1 }
+      - { x: 1312, y: 270.1 }
+      - { x: 1315.2, y: 270.1 }
+      - { x: 1318.5, y: 270.1 }
+      - { x: 1321.8, y: 270.1 }
+      - { x: 1325, y: 270.1 }
+      - { x: 1328.2, y: 270.1 }
+      - { x: 1331.5, y: 270.1 }
+      - { x: 1334.8, y: 270.1 }
+      - { x: 1338, y: 270.1 }
+      - { x: 1341.2, y: 270.1 }
+      - { x: 1344.5, y: 270.1 }
+      - { x: 1347.8, y: 270.1 }
+      - { x: 1351, y: 270.1 }
+      - { x: 1354.2, y: 270.1 }
+      - { x: 1357.5, y: 270.1 }
+      - { x: 1360.8, y: 270.1 }
+      - { x: 1364, y: 270.1 }
+      - { x: 1367.2, y: 270.2 }
+      - { x: 1370.5, y: 270.2 }
+      - { x: 1373.8, y: 270.2 }
+      - { x: 1377, y: 270.2 }
+      - { x: 1380.2, y: 270.2 }
+      - { x: 1383.5, y: 270.2 }
+      - { x: 1386.8, y: 270.2 }
+      - { x: 1390, y: 270.2 }
+      - { x: 1393.2, y: 270.3 }
+      - { x: 1396.5, y: 270.3 }
+      - { x: 1399.8, y: 270.3 }
+      - { x: 1403, y: 270.3 }
+      - { x: 1406.2, y: 270.3 }
+      - { x: 1409.5, y: 270.4 }
+      - { x: 1412.8, y: 270.4 }
+      - { x: 1416, y: 270.4 }
+      - { x: 1419.2, y: 270.5 }
+      - { x: 1422.5, y: 270.5 }
+      - { x: 1425.8, y: 270.5 }
+      - { x: 1429, y: 270.6 }
+      - { x: 1432.2, y: 270.6 }
+      - { x: 1435.5, y: 270.7 }
+      - { x: 1438.8, y: 270.7 }
+      - { x: 1442, y: 270.8 }
+      - { x: 1445.2, y: 270.8 }
+      - { x: 1448.5, y: 270.9 }
+      - { x: 1451.8, y: 271 }
+      - { x: 1455, y: 271.1 }
+      - { x: 1458.2, y: 271.2 }
+      - { x: 1461.5, y: 271.3 }
+      - { x: 1464.8, y: 271.4 }
+      - { x: 1468, y: 271.5 }
+      - { x: 1471.2, y: 271.7 }
+      - { x: 1474.5, y: 271.9 }
+      - { x: 1477.8, y: 272.1 }
+      - { x: 1481, y: 272.3 }
+      - { x: 1484.2, y: 272.6 }
+      - { x: 1487.5, y: 272.9 }
+      - { x: 1490.8, y: 273.2 }
+      - { x: 1494, y: 273.6 }
+      - { x: 1497.2, y: 274.2 }
+      - { x: 1500.5, y: 274.8 }
+      - { x: 1503.8, y: 275.5 }
+      - { x: 1507, y: 276.4 }
+      - { x: 1510.2, y: 277.5 }
+      - { x: 1513.5, y: 278.9 }
+      - { x: 1516.8, y: 280.7 }
+      - { x: 1520, y: 283 }
+      - { x: 1523.2, y: 285.9 }
+      - { x: 1526.5, y: 289.9 }
+      - { x: 1529.8, y: 295.1 }
+      - { x: 1533, y: 301.9 }
+      - { x: 1536.2, y: 310.4 }
+      - { x: 1539.5, y: 319.9 }
+      - { x: 1540, y: 321.3 }
+      - { x: 1540.6, y: 323.1 }
+      - { x: 1541.3, y: 324.7 }
+      - { x: 1541.9, y: 326.2 }
+      - { x: 1542.6, y: 327.5 }
+      - { x: 1542.8, y: 327.8 }
+      - { x: 1543.2, y: 328.5 }
+      - { x: 1543.9, y: 329.3 }
+      - { x: 1544.5, y: 329.8 }
+      - { x: 1545.2, y: 329.9 }
+      - { x: 1545.8, y: 329.8 }
+      - { x: 1546, y: 329.7 }
+      - { x: 1546.5, y: 329.3 }
+      - { x: 1547.1, y: 328.5 }
+      - { x: 1547.8, y: 327.5 }
+      - { x: 1548.4, y: 326.2 }
+      - { x: 1549.1, y: 324.7 }
+      - { x: 1549.2, y: 324.3 }
+      - { x: 1549.7, y: 323.1 }
+      - { x: 1550.4, y: 321.3 }
+      - { x: 1552.5, y: 315.2 }
+      - { x: 1555.8, y: 306 }
+      - { x: 1559, y: 298.3 }
+      - { x: 1562.2, y: 292.3 }
+      - { x: 1565.5, y: 287.7 }
+      - { x: 1568.8, y: 284.3 }
+      - { x: 1572, y: 281.7 }
+      - { x: 1575.2, y: 279.7 }
+      - { x: 1578.5, y: 278.1 }
+      - { x: 1581.8, y: 276.8 }
+      - { x: 1585, y: 275.8 }
+      - { x: 1588.2, y: 275 }
+      - { x: 1591.5, y: 274.3 }
+      - { x: 1594.8, y: 273.7 }
+      - { x: 1598, y: 273.3 }
+      - { x: 1601.2, y: 272.9 }
+      - { x: 1604.5, y: 272.5 }
+      - { x: 1607.8, y: 272.2 }
+      - { x: 1611, y: 272 }
+      - { x: 1614.2, y: 271.7 }
+      - { x: 1617.5, y: 271.5 }
+      - { x: 1620.8, y: 271.3 }
+      - { x: 1624, y: 271.2 }
+      - { x: 1627.2, y: 271 }
+      - { x: 1630.5, y: 270.9 }
+      - { x: 1633.8, y: 270.8 }
+      - { x: 1637, y: 270.7 }
+      - { x: 1640.2, y: 270.6 }
+      - { x: 1643.5, y: 270.5 }
+      - { x: 1646.8, y: 270.4 }
+      - { x: 1650, y: 270.3 }
+      - { x: 1653.2, y: 270.2 }
+      - { x: 1656.5, y: 270.1 }
+      - { x: 1659.8, y: 270.1 }
+      - { x: 1663, y: 270 }
+      - { x: 1666.2, y: 269.9 }
+      - { x: 1669.5, y: 269.8 }
+      - { x: 1672.8, y: 269.8 }
+      - { x: 1676, y: 269.7 }
+      - { x: 1679.2, y: 269.6 }
+      - { x: 1682.5, y: 269.6 }
+      - { x: 1685.8, y: 269.5 }
+      - { x: 1689, y: 269.4 }
+      - { x: 1692.2, y: 269.3 }
+      - { x: 1695.5, y: 269.3 }
+      - { x: 1698.8, y: 269.2 }
+      - { x: 1702, y: 269.1 }
+      - { x: 1705.2, y: 269 }
+      - { x: 1708.5, y: 269 }
+      - { x: 1711.8, y: 268.9 }
+      - { x: 1715, y: 268.8 }
+      - { x: 1718.2, y: 268.7 }
+      - { x: 1721.5, y: 268.6 }
+      - { x: 1724.8, y: 268.5 }
+      - { x: 1728, y: 268.4 }
+      - { x: 1731.2, y: 268.3 }
+      - { x: 1734.5, y: 268.2 }
+      - { x: 1737.8, y: 268.1 }
+      - { x: 1741, y: 268 }
+      - { x: 1744.2, y: 267.9 }
+      - { x: 1747.5, y: 267.8 }
+      - { x: 1750.8, y: 267.7 }
+      - { x: 1754, y: 267.6 }
+      - { x: 1757.2, y: 267.6 }
+      - { x: 1760.5, y: 267.5 }
+      - { x: 1763.8, y: 267.4 }
+      - { x: 1767, y: 267.4 }
+      - { x: 1770.2, y: 267.4 }
+      - { x: 1773.5, y: 267.4 }
+      - { x: 1776.8, y: 267.5 }
+      - { x: 1780, y: 267.6 }
+      - { x: 1783.2, y: 267.9 }
+      - { x: 1786.5, y: 268.4 }
+      - { x: 1789.8, y: 269.2 }
+      - { x: 1793, y: 270.5 }
+      - { x: 1796.2, y: 272.6 }
+      - { x: 1799.5, y: 276.1 }
+      - { x: 1802.8, y: 282.2 }
+      - { x: 1806, y: 293.5 }
+      - { x: 1808.7, y: 309.9 }
+      - { x: 1809.2, y: 314.5 }
+      - { x: 1809.3, y: 315.3 }
+      - { x: 1810, y: 321.1 }
+      - { x: 1810.6, y: 327.4 }
+      - { x: 1811.3, y: 334 }
+      - { x: 1811.9, y: 340.3 }
+      - { x: 1812.5, y: 345.1 }
+      - { x: 1812.6, y: 345.7 }
+      - { x: 1813.2, y: 349.5 }
+      - { x: 1813.9, y: 350.8 }
+      - { x: 1814.5, y: 349.3 }
+      - { x: 1815.2, y: 345.3 }
+      - { x: 1815.8, y: 340.5 }
+      - { x: 1815.8, y: 339.7 }
+      - { x: 1816.5, y: 333.1 }
+      - { x: 1817.1, y: 326.4 }
+      - { x: 1817.8, y: 319.9 }
+      - { x: 1818.4, y: 313.8 }
+      - { x: 1819, y: 309 }
+      - { x: 1819.1, y: 308.3 }
+      - { x: 1822.2, y: 288.7 }
+      - { x: 1825.5, y: 277.4 }
+      - { x: 1828.8, y: 270.7 }
+      - { x: 1832, y: 266.5 }
+      - { x: 1835.2, y: 263.5 }
+      - { x: 1838.5, y: 261.2 }
+      - { x: 1841.8, y: 259.4 }
+      - { x: 1845, y: 257.8 }
+      - { x: 1848.2, y: 256.4 }
+      - { x: 1851.5, y: 255.1 }
+      - { x: 1854.8, y: 253.9 }
+      - { x: 1858, y: 252.7 }
+      - { x: 1861.2, y: 251.5 }
+      - { x: 1864.5, y: 250.3 }
+      - { x: 1867.8, y: 249.2 }
+      - { x: 1871, y: 248 }
+      - { x: 1874.2, y: 246.8 }
+      - { x: 1877.5, y: 245.6 }
+      - { x: 1880.8, y: 244.4 }
+      - { x: 1884, y: 243.2 }
+      - { x: 1887.2, y: 242.1 }
+      - { x: 1890.5, y: 240.9 }
+      - { x: 1893.8, y: 239.7 }
+      - { x: 1897, y: 238.6 }
+      - { x: 1900.2, y: 237.4 }
+      - { x: 1903.5, y: 236.4 }
+      - { x: 1906.8, y: 235.3 }
+      - { x: 1910, y: 234.4 }
+      - { x: 1913.2, y: 233.5 }
+      - { x: 1916.5, y: 232.7 }
+      - { x: 1919.8, y: 232 }
+      - { x: 1923, y: 231.4 }
+      - { x: 1926.2, y: 230.9 }
+      - { x: 1929.5, y: 230.5 }
+      - { x: 1931.3, y: 230.3 }
+      - { x: 1932, y: 230.3 }
+      - { x: 1932.6, y: 230.3 }
+      - { x: 1932.8, y: 230.3 }
+      - { x: 1933.3, y: 230.2 }
+      - { x: 1933.9, y: 230.2 }
+      - { x: 1934.6, y: 230.2 }
+      - { x: 1935.2, y: 230.2 }
+      - { x: 1935.9, y: 230.2 }
+      - { x: 1936, y: 230.2 }
+      - { x: 1936.5, y: 230.2 }
+      - { x: 1937.2, y: 230.2 }
+      - { x: 1937.8, y: 230.2 }
+      - { x: 1938.5, y: 230.2 }
+      - { x: 1939.1, y: 230.2 }
+      - { x: 1939.2, y: 230.2 }
+      - { x: 1939.8, y: 230.2 }
+      - { x: 1940.4, y: 230.2 }
+      - { x: 1941.1, y: 230.3 }
+      - { x: 1941.7, y: 230.3 }
+      - { x: 1942.5, y: 230.4 }
+      - { x: 1945.8, y: 230.7 }
+      - { x: 1949, y: 231.1 }
+      - { x: 1952.2, y: 231.6 }
+      - { x: 1955.5, y: 232.3 }
+      - { x: 1958.8, y: 233 }
+      - { x: 1962, y: 233.9 }
+      - { x: 1965.2, y: 234.8 }
+      - { x: 1968.5, y: 235.8 }
+      - { x: 1971.8, y: 236.8 }
+      - { x: 1975, y: 237.9 }
+      - { x: 1978.2, y: 238.9 }
+      - { x: 1981.5, y: 240.1 }
+      - { x: 1984.8, y: 241.2 }
+      - { x: 1988, y: 242.3 }
+      - { x: 1991.2, y: 243.4 }
+      - { x: 1994.5, y: 244.6 }
+      - { x: 1997.8, y: 245.7 }
+      - { x: 2001, y: 246.7 }
+      - { x: 2004.2, y: 247.8 }
+      - { x: 2007.5, y: 248.8 }
+      - { x: 2010.8, y: 249.8 }
+      - { x: 2014, y: 250.8 }
+      - { x: 2017.2, y: 251.7 }
+      - { x: 2020.5, y: 252.6 }
+      - { x: 2023.8, y: 253.4 }
+      - { x: 2027, y: 254.3 }
+      - { x: 2030.2, y: 255.1 }
+      - { x: 2033.5, y: 255.8 }
+      - { x: 2036.8, y: 256.6 }

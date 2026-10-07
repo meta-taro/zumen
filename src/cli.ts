@@ -16,6 +16,8 @@
  * **`merge-driver` の 1 は失敗ではなく、Git への「人が見る必要がある」の合図。**
  */
 import { readFileSync, writeFileSync } from 'node:fs';
+import { dirname } from 'node:path';
+import { loadImages } from './image-files.ts';
 
 import { toDrawio } from './drawio.ts';
 import { tooThinForPattern } from './hatch.ts';
@@ -598,7 +600,7 @@ export async function runDrawio(
     return { code: 1, lines: [m.fileUnreadable(input, error instanceof Error ? error.message : String(error))] };
   }
 
-  const placed = await layout(text);
+  const placed = await layout(text, loadImages(text, dirname(input)));
   write(target, toDrawio(placed, titleOf(text) ?? input));
   return { code: 0, lines: [m.wrote(target)] };
 }
@@ -948,7 +950,8 @@ async function convert(
   paths: string[],
   usage: string,
   extension: string,
-  transform: (text: string) => string | Promise<string>,
+  /** 2 つめは読んだ正本のパス（画像を正本の横から読むため。`src/image-files.ts`）。 */
+  transform: (text: string, input: string) => string | Promise<string>,
   read: typeof readFileSync,
   write: typeof writeFileSync,
 ): Promise<RunResult> {
@@ -968,7 +971,7 @@ async function convert(
   } catch (error) {
     return { code: 1, lines: [m.fileUnreadable(input, error instanceof Error ? error.message : String(error))] };
   }
-  write(target, await transform(text));
+  write(target, await transform(text, input));
   return { code: 0, lines: [m.wrote(target)] };
 }
 
@@ -988,8 +991,9 @@ export async function runSvg(paths: string[], read = readFileSync, write = write
     files,
     messages().cli.usageSvg,
     '.svg',
-    async (text) => {
-      const svg = render(await layout(text), theme, intent, kindOf(text) === 'placement');
+    async (text, input) => {
+      const placed = await layout(text, loadImages(text, dirname(input)));
+      const svg = render(placed, theme, intent, kindOf(text) === 'placement');
       return withFont ? embedFont(svg) : svg;
     },
     read,

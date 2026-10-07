@@ -1,0 +1,2906 @@
+version: 1
+kind: placement
+arrows: true
+scale: { in: 6 }
+title: アメリカンフットボールのフィールド（NFL と NCAA はハッシュの位置が違う）
+sources:
+  - name: "NFL「2026 Official Playing Rules of the National Football League」Rule 1 Sections 1–3、Field Markings 10"
+    url: https://operations.nfl.com/the-rules/nfl-rulebook/
+    retrieved: 2026-10-06
+  - name: "NCAA「2023 and 2024 Football Rules and Interpretations」Rule 1-2-1・1-2-5・1-2-6、Rule 8-3-2"
+    url: https://www.ncaapublications.com/productdownloads/FR23.pdf
+    retrieved: 2026-10-06
+# **ハッシュ（インバウンズライン）の位置が、NFL と NCAA でいちばん違う。**
+# NFL はサイドラインから 70'9"、NCAA は 60 ft（どちらも内側を向いた縁まで）。
+# 幅 160 ft から引くと、ハッシュの間は **NFL 18'6"・NCAA 40 ft。**
+# **NFL の 18'6" は、ゴールポストの内のり 18'6" と同じ。** ハッシュに置かれた球も、
+# ポストの内のりを延ばした線の上にある。NCAA のハッシュは、その延長より 10'9" 外。
+#
+# **何のための図か。** 審判・施設の担当が、ラインを引く前に「どこに何があるか」を
+# 規則書の数で確かめるための図。試合の作戦（隊形・プレー）は描かない。
+#
+# **描いたもの。** 全長 360 ft × 幅 160 ft、両端 10 yd のエンドゾーン、5 yd ごとのヤード線、
+# 1 yd ごとのハッシュ（インバウンズの 2 列とサイドラインぞいの 2 列）、ゴールラインの幅 8 in、
+# 10 yd ごとの数字（下端が 12 yd）、トライの線（2 yd・長さ 1 yd）、ゴールポストのクロスバー（18'6"）、パイロン。
+#
+# **描かなかったもの（理由）。**
+# - 数字の脇の矢印・チームエリア・コーチの線・ベンチ —— 線を引く寸法は規則にあるが、本題（ハッシュ）から外れる
+# - NFL の支柱がエンドラインからどれだけ下がるか —— 規則に数が無い（offset とだけある）。支柱は模式の長さ
+# - NFL のエンドラインのパイロン（各 2 本）の位置 —— 規則は「エンドライン上に 2 本」としか言わない。隅に描いた
+# - NCAA の全長・幅 —— 本文ではなく Appendix D の図で与えている。図は NFL の 360 ft × 160 ft で描いた
+# - ロゴ・装飾 —— 規則が「ラインを隠さない」条件で認めているだけで、寸法は無い
+#
+# **1 px ＝ 6 in（1 ft ＝ 2 px）。** ハッシュは長さ 2 ft ＝ 4 px、幅は 1 px で描いた（実物の 4 in は 0.67 px）。
+# 数字は線をはさんで 1 字ずつ置いた（実物も線が 2 字の間を通る）。「下端が 12 yd」の下端はサイドライン側と読み、
+# 12〜14 yd の帯に置いた（数字の字の大きさは見やすさのため帯より少し大きい）。
+# 出典（取得 2026-10-06）：NFL 2026 Official Playing Rules Rule 1 Section 1 Article 1（360 × 160 ft、ゴールラインはエンドラインから 10 yd、
+# サイドゾーンは 70'9"）、Section 2 Article 1〜4（ヤード線・ハッシュ 2 ft・ゴールライン 8 in・数字・トライの線 2 yd）、
+# Section 3（クロスバー 18'6"・上面 10 ft・支柱はクロスバーの上 35 ft・金色・1 本柱でオフセット）、Field Markings 10（NFL 70'9"／カレッジ 60'）、
+# Rule 11 Section 3 Article 1（トライはキック 15 yd・パスとラン 2 yd）。
+# NCAA 2023 and 2024 Football Rules and Interpretations Rule 1-2-1-i・k（数字の上端 9 yd・ハッシュ 60 ft・24 in）、1-2-2（内側の縁から測る）、
+# 1-2-5（2 本の柱・地面から 30 ft 以上・内のり 18'6"・クロスバー 10 ft）、1-2-6（パイロン 8 か所 ＋ ハッシュの延長に 3 ft 離して 4）、
+# 8-3-2-c（トライは相手の 3 yd 線、ハッシュの中間）。NCAA の 2025 年以降の版は有料のため、無料で読める最新の 2023-24 年版で照らした。
+nodes:
+  - id: t1
+    label: "① フィールドの平面（NFL）—— 1 px ＝ 6 in。360 ft × 160 ft"
+    marker: none
+    align: left
+    at: { x: 140, y: 150 }
+    size: { w: 840, h: 20 }
+  - id: border
+    label: ""
+    line: dashed
+    at: { x: 248, y: 224 }
+    size: { w: 744, h: 344 }
+  - id: field
+    label: ""
+    at: { x: 260, y: 236 }
+    size: { w: 720, h: 320 }
+  - id: ez1
+    label: ""
+    at: { x: 260, y: 236 }
+    size: { w: 60, h: 320 }
+  - id: t2
+    label: "エンドゾーン（10 yd）"
+    marker: none
+    align: center
+    at: { x: 210, y: 572 }
+    size: { w: 160, h: 18 }
+  - id: ez2
+    label: ""
+    at: { x: 920, y: 236 }
+    size: { w: 60, h: 320 }
+  - id: t3
+    label: "エンドゾーン（10 yd）"
+    marker: none
+    align: center
+    at: { x: 870, y: 572 }
+    size: { w: 160, h: 18 }
+  - id: t4
+    label: "ハッシュ"
+    marker: none
+    align: center
+    at: { x: 920, y: 353.5 }
+    size: { w: 60, h: 18 }
+  - id: t5
+    label: "ハッシュ"
+    marker: none
+    align: center
+    at: { x: 920, y: 420.5 }
+    size: { w: 60, h: 18 }
+  - id: t6
+    label: "トライ"
+    marker: none
+    align: right
+    at: { x: 264, y: 387 }
+    size: { w: 50, h: 18 }
+  - id: p7
+    label: ""
+    marker: none
+    at: { x: 319, y: 235 }
+    size: { w: 2, h: 2 }
+  - id: p8
+    label: ""
+    marker: none
+    at: { x: 319, y: 555 }
+    size: { w: 2, h: 2 }
+  - id: p9
+    label: ""
+    marker: none
+    at: { x: 349, y: 235 }
+    size: { w: 2, h: 2 }
+  - id: p10
+    label: ""
+    marker: none
+    at: { x: 349, y: 555 }
+    size: { w: 2, h: 2 }
+  - id: p11
+    label: ""
+    marker: none
+    at: { x: 379, y: 235 }
+    size: { w: 2, h: 2 }
+  - id: p12
+    label: ""
+    marker: none
+    at: { x: 379, y: 555 }
+    size: { w: 2, h: 2 }
+  - id: p13
+    label: ""
+    marker: none
+    at: { x: 409, y: 235 }
+    size: { w: 2, h: 2 }
+  - id: p14
+    label: ""
+    marker: none
+    at: { x: 409, y: 555 }
+    size: { w: 2, h: 2 }
+  - id: p15
+    label: ""
+    marker: none
+    at: { x: 439, y: 235 }
+    size: { w: 2, h: 2 }
+  - id: p16
+    label: ""
+    marker: none
+    at: { x: 439, y: 555 }
+    size: { w: 2, h: 2 }
+  - id: p17
+    label: ""
+    marker: none
+    at: { x: 469, y: 235 }
+    size: { w: 2, h: 2 }
+  - id: p18
+    label: ""
+    marker: none
+    at: { x: 469, y: 555 }
+    size: { w: 2, h: 2 }
+  - id: p19
+    label: ""
+    marker: none
+    at: { x: 499, y: 235 }
+    size: { w: 2, h: 2 }
+  - id: p20
+    label: ""
+    marker: none
+    at: { x: 499, y: 555 }
+    size: { w: 2, h: 2 }
+  - id: p21
+    label: ""
+    marker: none
+    at: { x: 529, y: 235 }
+    size: { w: 2, h: 2 }
+  - id: p22
+    label: ""
+    marker: none
+    at: { x: 529, y: 555 }
+    size: { w: 2, h: 2 }
+  - id: p23
+    label: ""
+    marker: none
+    at: { x: 559, y: 235 }
+    size: { w: 2, h: 2 }
+  - id: p24
+    label: ""
+    marker: none
+    at: { x: 559, y: 555 }
+    size: { w: 2, h: 2 }
+  - id: p25
+    label: ""
+    marker: none
+    at: { x: 589, y: 235 }
+    size: { w: 2, h: 2 }
+  - id: p26
+    label: ""
+    marker: none
+    at: { x: 589, y: 555 }
+    size: { w: 2, h: 2 }
+  - id: p27
+    label: ""
+    marker: none
+    at: { x: 619, y: 235 }
+    size: { w: 2, h: 2 }
+  - id: p28
+    label: ""
+    marker: none
+    at: { x: 619, y: 555 }
+    size: { w: 2, h: 2 }
+  - id: p29
+    label: ""
+    marker: none
+    at: { x: 649, y: 235 }
+    size: { w: 2, h: 2 }
+  - id: p30
+    label: ""
+    marker: none
+    at: { x: 649, y: 555 }
+    size: { w: 2, h: 2 }
+  - id: p31
+    label: ""
+    marker: none
+    at: { x: 679, y: 235 }
+    size: { w: 2, h: 2 }
+  - id: p32
+    label: ""
+    marker: none
+    at: { x: 679, y: 555 }
+    size: { w: 2, h: 2 }
+  - id: p33
+    label: ""
+    marker: none
+    at: { x: 709, y: 235 }
+    size: { w: 2, h: 2 }
+  - id: p34
+    label: ""
+    marker: none
+    at: { x: 709, y: 555 }
+    size: { w: 2, h: 2 }
+  - id: p35
+    label: ""
+    marker: none
+    at: { x: 739, y: 235 }
+    size: { w: 2, h: 2 }
+  - id: p36
+    label: ""
+    marker: none
+    at: { x: 739, y: 555 }
+    size: { w: 2, h: 2 }
+  - id: p37
+    label: ""
+    marker: none
+    at: { x: 769, y: 235 }
+    size: { w: 2, h: 2 }
+  - id: p38
+    label: ""
+    marker: none
+    at: { x: 769, y: 555 }
+    size: { w: 2, h: 2 }
+  - id: p39
+    label: ""
+    marker: none
+    at: { x: 799, y: 235 }
+    size: { w: 2, h: 2 }
+  - id: p40
+    label: ""
+    marker: none
+    at: { x: 799, y: 555 }
+    size: { w: 2, h: 2 }
+  - id: p41
+    label: ""
+    marker: none
+    at: { x: 829, y: 235 }
+    size: { w: 2, h: 2 }
+  - id: p42
+    label: ""
+    marker: none
+    at: { x: 829, y: 555 }
+    size: { w: 2, h: 2 }
+  - id: p43
+    label: ""
+    marker: none
+    at: { x: 859, y: 235 }
+    size: { w: 2, h: 2 }
+  - id: p44
+    label: ""
+    marker: none
+    at: { x: 859, y: 555 }
+    size: { w: 2, h: 2 }
+  - id: p45
+    label: ""
+    marker: none
+    at: { x: 889, y: 235 }
+    size: { w: 2, h: 2 }
+  - id: p46
+    label: ""
+    marker: none
+    at: { x: 889, y: 555 }
+    size: { w: 2, h: 2 }
+  - id: p47
+    label: ""
+    marker: none
+    at: { x: 919, y: 235 }
+    size: { w: 2, h: 2 }
+  - id: p48
+    label: ""
+    marker: none
+    at: { x: 919, y: 555 }
+    size: { w: 2, h: 2 }
+  - id: n49
+    label: ""
+    hatch: solid
+    at: { x: 325.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n50
+    label: ""
+    hatch: solid
+    at: { x: 325.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n51
+    label: ""
+    hatch: solid
+    at: { x: 325.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n52
+    label: ""
+    hatch: solid
+    at: { x: 325.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n53
+    label: ""
+    hatch: solid
+    at: { x: 331.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n54
+    label: ""
+    hatch: solid
+    at: { x: 331.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n55
+    label: ""
+    hatch: solid
+    at: { x: 331.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n56
+    label: ""
+    hatch: solid
+    at: { x: 331.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n57
+    label: ""
+    hatch: solid
+    at: { x: 337.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n58
+    label: ""
+    hatch: solid
+    at: { x: 337.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n59
+    label: ""
+    hatch: solid
+    at: { x: 337.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n60
+    label: ""
+    hatch: solid
+    at: { x: 337.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n61
+    label: ""
+    hatch: solid
+    at: { x: 343.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n62
+    label: ""
+    hatch: solid
+    at: { x: 343.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n63
+    label: ""
+    hatch: solid
+    at: { x: 343.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n64
+    label: ""
+    hatch: solid
+    at: { x: 343.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n65
+    label: ""
+    hatch: solid
+    at: { x: 355.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n66
+    label: ""
+    hatch: solid
+    at: { x: 355.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n67
+    label: ""
+    hatch: solid
+    at: { x: 355.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n68
+    label: ""
+    hatch: solid
+    at: { x: 355.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n69
+    label: ""
+    hatch: solid
+    at: { x: 361.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n70
+    label: ""
+    hatch: solid
+    at: { x: 361.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n71
+    label: ""
+    hatch: solid
+    at: { x: 361.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n72
+    label: ""
+    hatch: solid
+    at: { x: 361.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n73
+    label: ""
+    hatch: solid
+    at: { x: 367.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n74
+    label: ""
+    hatch: solid
+    at: { x: 367.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n75
+    label: ""
+    hatch: solid
+    at: { x: 367.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n76
+    label: ""
+    hatch: solid
+    at: { x: 367.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n77
+    label: ""
+    hatch: solid
+    at: { x: 373.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n78
+    label: ""
+    hatch: solid
+    at: { x: 373.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n79
+    label: ""
+    hatch: solid
+    at: { x: 373.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n80
+    label: ""
+    hatch: solid
+    at: { x: 373.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n81
+    label: ""
+    hatch: solid
+    at: { x: 385.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n82
+    label: ""
+    hatch: solid
+    at: { x: 385.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n83
+    label: ""
+    hatch: solid
+    at: { x: 385.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n84
+    label: ""
+    hatch: solid
+    at: { x: 385.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n85
+    label: ""
+    hatch: solid
+    at: { x: 391.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n86
+    label: ""
+    hatch: solid
+    at: { x: 391.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n87
+    label: ""
+    hatch: solid
+    at: { x: 391.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n88
+    label: ""
+    hatch: solid
+    at: { x: 391.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n89
+    label: ""
+    hatch: solid
+    at: { x: 397.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n90
+    label: ""
+    hatch: solid
+    at: { x: 397.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n91
+    label: ""
+    hatch: solid
+    at: { x: 397.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n92
+    label: ""
+    hatch: solid
+    at: { x: 397.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n93
+    label: ""
+    hatch: solid
+    at: { x: 403.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n94
+    label: ""
+    hatch: solid
+    at: { x: 403.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n95
+    label: ""
+    hatch: solid
+    at: { x: 403.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n96
+    label: ""
+    hatch: solid
+    at: { x: 403.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n97
+    label: ""
+    hatch: solid
+    at: { x: 415.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n98
+    label: ""
+    hatch: solid
+    at: { x: 415.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n99
+    label: ""
+    hatch: solid
+    at: { x: 415.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n100
+    label: ""
+    hatch: solid
+    at: { x: 415.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n101
+    label: ""
+    hatch: solid
+    at: { x: 421.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n102
+    label: ""
+    hatch: solid
+    at: { x: 421.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n103
+    label: ""
+    hatch: solid
+    at: { x: 421.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n104
+    label: ""
+    hatch: solid
+    at: { x: 421.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n105
+    label: ""
+    hatch: solid
+    at: { x: 427.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n106
+    label: ""
+    hatch: solid
+    at: { x: 427.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n107
+    label: ""
+    hatch: solid
+    at: { x: 427.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n108
+    label: ""
+    hatch: solid
+    at: { x: 427.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n109
+    label: ""
+    hatch: solid
+    at: { x: 433.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n110
+    label: ""
+    hatch: solid
+    at: { x: 433.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n111
+    label: ""
+    hatch: solid
+    at: { x: 433.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n112
+    label: ""
+    hatch: solid
+    at: { x: 433.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n113
+    label: ""
+    hatch: solid
+    at: { x: 445.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n114
+    label: ""
+    hatch: solid
+    at: { x: 445.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n115
+    label: ""
+    hatch: solid
+    at: { x: 445.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n116
+    label: ""
+    hatch: solid
+    at: { x: 445.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n117
+    label: ""
+    hatch: solid
+    at: { x: 451.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n118
+    label: ""
+    hatch: solid
+    at: { x: 451.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n119
+    label: ""
+    hatch: solid
+    at: { x: 451.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n120
+    label: ""
+    hatch: solid
+    at: { x: 451.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n121
+    label: ""
+    hatch: solid
+    at: { x: 457.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n122
+    label: ""
+    hatch: solid
+    at: { x: 457.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n123
+    label: ""
+    hatch: solid
+    at: { x: 457.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n124
+    label: ""
+    hatch: solid
+    at: { x: 457.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n125
+    label: ""
+    hatch: solid
+    at: { x: 463.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n126
+    label: ""
+    hatch: solid
+    at: { x: 463.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n127
+    label: ""
+    hatch: solid
+    at: { x: 463.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n128
+    label: ""
+    hatch: solid
+    at: { x: 463.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n129
+    label: ""
+    hatch: solid
+    at: { x: 475.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n130
+    label: ""
+    hatch: solid
+    at: { x: 475.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n131
+    label: ""
+    hatch: solid
+    at: { x: 475.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n132
+    label: ""
+    hatch: solid
+    at: { x: 475.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n133
+    label: ""
+    hatch: solid
+    at: { x: 481.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n134
+    label: ""
+    hatch: solid
+    at: { x: 481.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n135
+    label: ""
+    hatch: solid
+    at: { x: 481.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n136
+    label: ""
+    hatch: solid
+    at: { x: 481.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n137
+    label: ""
+    hatch: solid
+    at: { x: 487.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n138
+    label: ""
+    hatch: solid
+    at: { x: 487.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n139
+    label: ""
+    hatch: solid
+    at: { x: 487.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n140
+    label: ""
+    hatch: solid
+    at: { x: 487.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n141
+    label: ""
+    hatch: solid
+    at: { x: 493.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n142
+    label: ""
+    hatch: solid
+    at: { x: 493.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n143
+    label: ""
+    hatch: solid
+    at: { x: 493.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n144
+    label: ""
+    hatch: solid
+    at: { x: 493.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n145
+    label: ""
+    hatch: solid
+    at: { x: 505.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n146
+    label: ""
+    hatch: solid
+    at: { x: 505.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n147
+    label: ""
+    hatch: solid
+    at: { x: 505.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n148
+    label: ""
+    hatch: solid
+    at: { x: 505.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n149
+    label: ""
+    hatch: solid
+    at: { x: 511.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n150
+    label: ""
+    hatch: solid
+    at: { x: 511.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n151
+    label: ""
+    hatch: solid
+    at: { x: 511.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n152
+    label: ""
+    hatch: solid
+    at: { x: 511.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n153
+    label: ""
+    hatch: solid
+    at: { x: 517.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n154
+    label: ""
+    hatch: solid
+    at: { x: 517.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n155
+    label: ""
+    hatch: solid
+    at: { x: 517.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n156
+    label: ""
+    hatch: solid
+    at: { x: 517.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n157
+    label: ""
+    hatch: solid
+    at: { x: 523.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n158
+    label: ""
+    hatch: solid
+    at: { x: 523.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n159
+    label: ""
+    hatch: solid
+    at: { x: 523.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n160
+    label: ""
+    hatch: solid
+    at: { x: 523.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n161
+    label: ""
+    hatch: solid
+    at: { x: 535.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n162
+    label: ""
+    hatch: solid
+    at: { x: 535.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n163
+    label: ""
+    hatch: solid
+    at: { x: 535.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n164
+    label: ""
+    hatch: solid
+    at: { x: 535.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n165
+    label: ""
+    hatch: solid
+    at: { x: 541.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n166
+    label: ""
+    hatch: solid
+    at: { x: 541.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n167
+    label: ""
+    hatch: solid
+    at: { x: 541.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n168
+    label: ""
+    hatch: solid
+    at: { x: 541.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n169
+    label: ""
+    hatch: solid
+    at: { x: 547.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n170
+    label: ""
+    hatch: solid
+    at: { x: 547.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n171
+    label: ""
+    hatch: solid
+    at: { x: 547.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n172
+    label: ""
+    hatch: solid
+    at: { x: 547.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n173
+    label: ""
+    hatch: solid
+    at: { x: 553.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n174
+    label: ""
+    hatch: solid
+    at: { x: 553.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n175
+    label: ""
+    hatch: solid
+    at: { x: 553.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n176
+    label: ""
+    hatch: solid
+    at: { x: 553.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n177
+    label: ""
+    hatch: solid
+    at: { x: 565.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n178
+    label: ""
+    hatch: solid
+    at: { x: 565.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n179
+    label: ""
+    hatch: solid
+    at: { x: 565.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n180
+    label: ""
+    hatch: solid
+    at: { x: 565.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n181
+    label: ""
+    hatch: solid
+    at: { x: 571.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n182
+    label: ""
+    hatch: solid
+    at: { x: 571.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n183
+    label: ""
+    hatch: solid
+    at: { x: 571.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n184
+    label: ""
+    hatch: solid
+    at: { x: 571.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n185
+    label: ""
+    hatch: solid
+    at: { x: 577.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n186
+    label: ""
+    hatch: solid
+    at: { x: 577.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n187
+    label: ""
+    hatch: solid
+    at: { x: 577.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n188
+    label: ""
+    hatch: solid
+    at: { x: 577.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n189
+    label: ""
+    hatch: solid
+    at: { x: 583.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n190
+    label: ""
+    hatch: solid
+    at: { x: 583.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n191
+    label: ""
+    hatch: solid
+    at: { x: 583.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n192
+    label: ""
+    hatch: solid
+    at: { x: 583.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n193
+    label: ""
+    hatch: solid
+    at: { x: 595.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n194
+    label: ""
+    hatch: solid
+    at: { x: 595.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n195
+    label: ""
+    hatch: solid
+    at: { x: 595.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n196
+    label: ""
+    hatch: solid
+    at: { x: 595.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n197
+    label: ""
+    hatch: solid
+    at: { x: 601.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n198
+    label: ""
+    hatch: solid
+    at: { x: 601.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n199
+    label: ""
+    hatch: solid
+    at: { x: 601.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n200
+    label: ""
+    hatch: solid
+    at: { x: 601.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n201
+    label: ""
+    hatch: solid
+    at: { x: 607.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n202
+    label: ""
+    hatch: solid
+    at: { x: 607.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n203
+    label: ""
+    hatch: solid
+    at: { x: 607.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n204
+    label: ""
+    hatch: solid
+    at: { x: 607.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n205
+    label: ""
+    hatch: solid
+    at: { x: 613.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n206
+    label: ""
+    hatch: solid
+    at: { x: 613.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n207
+    label: ""
+    hatch: solid
+    at: { x: 613.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n208
+    label: ""
+    hatch: solid
+    at: { x: 613.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n209
+    label: ""
+    hatch: solid
+    at: { x: 625.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n210
+    label: ""
+    hatch: solid
+    at: { x: 625.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n211
+    label: ""
+    hatch: solid
+    at: { x: 625.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n212
+    label: ""
+    hatch: solid
+    at: { x: 625.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n213
+    label: ""
+    hatch: solid
+    at: { x: 631.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n214
+    label: ""
+    hatch: solid
+    at: { x: 631.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n215
+    label: ""
+    hatch: solid
+    at: { x: 631.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n216
+    label: ""
+    hatch: solid
+    at: { x: 631.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n217
+    label: ""
+    hatch: solid
+    at: { x: 637.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n218
+    label: ""
+    hatch: solid
+    at: { x: 637.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n219
+    label: ""
+    hatch: solid
+    at: { x: 637.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n220
+    label: ""
+    hatch: solid
+    at: { x: 637.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n221
+    label: ""
+    hatch: solid
+    at: { x: 643.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n222
+    label: ""
+    hatch: solid
+    at: { x: 643.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n223
+    label: ""
+    hatch: solid
+    at: { x: 643.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n224
+    label: ""
+    hatch: solid
+    at: { x: 643.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n225
+    label: ""
+    hatch: solid
+    at: { x: 655.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n226
+    label: ""
+    hatch: solid
+    at: { x: 655.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n227
+    label: ""
+    hatch: solid
+    at: { x: 655.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n228
+    label: ""
+    hatch: solid
+    at: { x: 655.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n229
+    label: ""
+    hatch: solid
+    at: { x: 661.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n230
+    label: ""
+    hatch: solid
+    at: { x: 661.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n231
+    label: ""
+    hatch: solid
+    at: { x: 661.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n232
+    label: ""
+    hatch: solid
+    at: { x: 661.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n233
+    label: ""
+    hatch: solid
+    at: { x: 667.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n234
+    label: ""
+    hatch: solid
+    at: { x: 667.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n235
+    label: ""
+    hatch: solid
+    at: { x: 667.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n236
+    label: ""
+    hatch: solid
+    at: { x: 667.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n237
+    label: ""
+    hatch: solid
+    at: { x: 673.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n238
+    label: ""
+    hatch: solid
+    at: { x: 673.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n239
+    label: ""
+    hatch: solid
+    at: { x: 673.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n240
+    label: ""
+    hatch: solid
+    at: { x: 673.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n241
+    label: ""
+    hatch: solid
+    at: { x: 685.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n242
+    label: ""
+    hatch: solid
+    at: { x: 685.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n243
+    label: ""
+    hatch: solid
+    at: { x: 685.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n244
+    label: ""
+    hatch: solid
+    at: { x: 685.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n245
+    label: ""
+    hatch: solid
+    at: { x: 691.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n246
+    label: ""
+    hatch: solid
+    at: { x: 691.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n247
+    label: ""
+    hatch: solid
+    at: { x: 691.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n248
+    label: ""
+    hatch: solid
+    at: { x: 691.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n249
+    label: ""
+    hatch: solid
+    at: { x: 697.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n250
+    label: ""
+    hatch: solid
+    at: { x: 697.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n251
+    label: ""
+    hatch: solid
+    at: { x: 697.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n252
+    label: ""
+    hatch: solid
+    at: { x: 697.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n253
+    label: ""
+    hatch: solid
+    at: { x: 703.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n254
+    label: ""
+    hatch: solid
+    at: { x: 703.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n255
+    label: ""
+    hatch: solid
+    at: { x: 703.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n256
+    label: ""
+    hatch: solid
+    at: { x: 703.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n257
+    label: ""
+    hatch: solid
+    at: { x: 715.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n258
+    label: ""
+    hatch: solid
+    at: { x: 715.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n259
+    label: ""
+    hatch: solid
+    at: { x: 715.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n260
+    label: ""
+    hatch: solid
+    at: { x: 715.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n261
+    label: ""
+    hatch: solid
+    at: { x: 721.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n262
+    label: ""
+    hatch: solid
+    at: { x: 721.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n263
+    label: ""
+    hatch: solid
+    at: { x: 721.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n264
+    label: ""
+    hatch: solid
+    at: { x: 721.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n265
+    label: ""
+    hatch: solid
+    at: { x: 727.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n266
+    label: ""
+    hatch: solid
+    at: { x: 727.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n267
+    label: ""
+    hatch: solid
+    at: { x: 727.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n268
+    label: ""
+    hatch: solid
+    at: { x: 727.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n269
+    label: ""
+    hatch: solid
+    at: { x: 733.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n270
+    label: ""
+    hatch: solid
+    at: { x: 733.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n271
+    label: ""
+    hatch: solid
+    at: { x: 733.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n272
+    label: ""
+    hatch: solid
+    at: { x: 733.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n273
+    label: ""
+    hatch: solid
+    at: { x: 745.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n274
+    label: ""
+    hatch: solid
+    at: { x: 745.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n275
+    label: ""
+    hatch: solid
+    at: { x: 745.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n276
+    label: ""
+    hatch: solid
+    at: { x: 745.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n277
+    label: ""
+    hatch: solid
+    at: { x: 751.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n278
+    label: ""
+    hatch: solid
+    at: { x: 751.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n279
+    label: ""
+    hatch: solid
+    at: { x: 751.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n280
+    label: ""
+    hatch: solid
+    at: { x: 751.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n281
+    label: ""
+    hatch: solid
+    at: { x: 757.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n282
+    label: ""
+    hatch: solid
+    at: { x: 757.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n283
+    label: ""
+    hatch: solid
+    at: { x: 757.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n284
+    label: ""
+    hatch: solid
+    at: { x: 757.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n285
+    label: ""
+    hatch: solid
+    at: { x: 763.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n286
+    label: ""
+    hatch: solid
+    at: { x: 763.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n287
+    label: ""
+    hatch: solid
+    at: { x: 763.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n288
+    label: ""
+    hatch: solid
+    at: { x: 763.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n289
+    label: ""
+    hatch: solid
+    at: { x: 775.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n290
+    label: ""
+    hatch: solid
+    at: { x: 775.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n291
+    label: ""
+    hatch: solid
+    at: { x: 775.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n292
+    label: ""
+    hatch: solid
+    at: { x: 775.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n293
+    label: ""
+    hatch: solid
+    at: { x: 781.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n294
+    label: ""
+    hatch: solid
+    at: { x: 781.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n295
+    label: ""
+    hatch: solid
+    at: { x: 781.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n296
+    label: ""
+    hatch: solid
+    at: { x: 781.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n297
+    label: ""
+    hatch: solid
+    at: { x: 787.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n298
+    label: ""
+    hatch: solid
+    at: { x: 787.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n299
+    label: ""
+    hatch: solid
+    at: { x: 787.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n300
+    label: ""
+    hatch: solid
+    at: { x: 787.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n301
+    label: ""
+    hatch: solid
+    at: { x: 793.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n302
+    label: ""
+    hatch: solid
+    at: { x: 793.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n303
+    label: ""
+    hatch: solid
+    at: { x: 793.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n304
+    label: ""
+    hatch: solid
+    at: { x: 793.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n305
+    label: ""
+    hatch: solid
+    at: { x: 805.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n306
+    label: ""
+    hatch: solid
+    at: { x: 805.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n307
+    label: ""
+    hatch: solid
+    at: { x: 805.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n308
+    label: ""
+    hatch: solid
+    at: { x: 805.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n309
+    label: ""
+    hatch: solid
+    at: { x: 811.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n310
+    label: ""
+    hatch: solid
+    at: { x: 811.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n311
+    label: ""
+    hatch: solid
+    at: { x: 811.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n312
+    label: ""
+    hatch: solid
+    at: { x: 811.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n313
+    label: ""
+    hatch: solid
+    at: { x: 817.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n314
+    label: ""
+    hatch: solid
+    at: { x: 817.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n315
+    label: ""
+    hatch: solid
+    at: { x: 817.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n316
+    label: ""
+    hatch: solid
+    at: { x: 817.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n317
+    label: ""
+    hatch: solid
+    at: { x: 823.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n318
+    label: ""
+    hatch: solid
+    at: { x: 823.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n319
+    label: ""
+    hatch: solid
+    at: { x: 823.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n320
+    label: ""
+    hatch: solid
+    at: { x: 823.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n321
+    label: ""
+    hatch: solid
+    at: { x: 835.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n322
+    label: ""
+    hatch: solid
+    at: { x: 835.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n323
+    label: ""
+    hatch: solid
+    at: { x: 835.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n324
+    label: ""
+    hatch: solid
+    at: { x: 835.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n325
+    label: ""
+    hatch: solid
+    at: { x: 841.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n326
+    label: ""
+    hatch: solid
+    at: { x: 841.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n327
+    label: ""
+    hatch: solid
+    at: { x: 841.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n328
+    label: ""
+    hatch: solid
+    at: { x: 841.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n329
+    label: ""
+    hatch: solid
+    at: { x: 847.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n330
+    label: ""
+    hatch: solid
+    at: { x: 847.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n331
+    label: ""
+    hatch: solid
+    at: { x: 847.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n332
+    label: ""
+    hatch: solid
+    at: { x: 847.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n333
+    label: ""
+    hatch: solid
+    at: { x: 853.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n334
+    label: ""
+    hatch: solid
+    at: { x: 853.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n335
+    label: ""
+    hatch: solid
+    at: { x: 853.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n336
+    label: ""
+    hatch: solid
+    at: { x: 853.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n337
+    label: ""
+    hatch: solid
+    at: { x: 865.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n338
+    label: ""
+    hatch: solid
+    at: { x: 865.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n339
+    label: ""
+    hatch: solid
+    at: { x: 865.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n340
+    label: ""
+    hatch: solid
+    at: { x: 865.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n341
+    label: ""
+    hatch: solid
+    at: { x: 871.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n342
+    label: ""
+    hatch: solid
+    at: { x: 871.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n343
+    label: ""
+    hatch: solid
+    at: { x: 871.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n344
+    label: ""
+    hatch: solid
+    at: { x: 871.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n345
+    label: ""
+    hatch: solid
+    at: { x: 877.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n346
+    label: ""
+    hatch: solid
+    at: { x: 877.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n347
+    label: ""
+    hatch: solid
+    at: { x: 877.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n348
+    label: ""
+    hatch: solid
+    at: { x: 877.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n349
+    label: ""
+    hatch: solid
+    at: { x: 883.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n350
+    label: ""
+    hatch: solid
+    at: { x: 883.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n351
+    label: ""
+    hatch: solid
+    at: { x: 883.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n352
+    label: ""
+    hatch: solid
+    at: { x: 883.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n353
+    label: ""
+    hatch: solid
+    at: { x: 895.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n354
+    label: ""
+    hatch: solid
+    at: { x: 895.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n355
+    label: ""
+    hatch: solid
+    at: { x: 895.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n356
+    label: ""
+    hatch: solid
+    at: { x: 895.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n357
+    label: ""
+    hatch: solid
+    at: { x: 901.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n358
+    label: ""
+    hatch: solid
+    at: { x: 901.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n359
+    label: ""
+    hatch: solid
+    at: { x: 901.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n360
+    label: ""
+    hatch: solid
+    at: { x: 901.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n361
+    label: ""
+    hatch: solid
+    at: { x: 907.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n362
+    label: ""
+    hatch: solid
+    at: { x: 907.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n363
+    label: ""
+    hatch: solid
+    at: { x: 907.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n364
+    label: ""
+    hatch: solid
+    at: { x: 907.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n365
+    label: ""
+    hatch: solid
+    at: { x: 913.5, y: 373.5 }
+    size: { w: 1, h: 4 }
+  - id: n366
+    label: ""
+    hatch: solid
+    at: { x: 913.5, y: 414.5 }
+    size: { w: 1, h: 4 }
+  - id: n367
+    label: ""
+    hatch: solid
+    at: { x: 913.5, y: 237.34 }
+    size: { w: 1, h: 4 }
+  - id: n368
+    label: ""
+    hatch: solid
+    at: { x: 913.5, y: 550.66 }
+    size: { w: 1, h: 4 }
+  - id: n369
+    label: "1"
+    marker: none
+    at: { x: 365, y: 304 }
+    size: { w: 14, h: 20 }
+  - id: n370
+    label: "0"
+    marker: none
+    at: { x: 381, y: 304 }
+    size: { w: 14, h: 20 }
+  - id: n371
+    label: "1"
+    marker: none
+    at: { x: 365, y: 468 }
+    size: { w: 14, h: 20 }
+  - id: n372
+    label: "0"
+    marker: none
+    at: { x: 381, y: 468 }
+    size: { w: 14, h: 20 }
+  - id: n373
+    label: "2"
+    marker: none
+    at: { x: 425, y: 304 }
+    size: { w: 14, h: 20 }
+  - id: n374
+    label: "0"
+    marker: none
+    at: { x: 441, y: 304 }
+    size: { w: 14, h: 20 }
+  - id: n375
+    label: "2"
+    marker: none
+    at: { x: 425, y: 468 }
+    size: { w: 14, h: 20 }
+  - id: n376
+    label: "0"
+    marker: none
+    at: { x: 441, y: 468 }
+    size: { w: 14, h: 20 }
+  - id: n377
+    label: "3"
+    marker: none
+    at: { x: 485, y: 304 }
+    size: { w: 14, h: 20 }
+  - id: n378
+    label: "0"
+    marker: none
+    at: { x: 501, y: 304 }
+    size: { w: 14, h: 20 }
+  - id: n379
+    label: "3"
+    marker: none
+    at: { x: 485, y: 468 }
+    size: { w: 14, h: 20 }
+  - id: n380
+    label: "0"
+    marker: none
+    at: { x: 501, y: 468 }
+    size: { w: 14, h: 20 }
+  - id: n381
+    label: "4"
+    marker: none
+    at: { x: 545, y: 304 }
+    size: { w: 14, h: 20 }
+  - id: n382
+    label: "0"
+    marker: none
+    at: { x: 561, y: 304 }
+    size: { w: 14, h: 20 }
+  - id: n383
+    label: "4"
+    marker: none
+    at: { x: 545, y: 468 }
+    size: { w: 14, h: 20 }
+  - id: n384
+    label: "0"
+    marker: none
+    at: { x: 561, y: 468 }
+    size: { w: 14, h: 20 }
+  - id: n385
+    label: "5"
+    marker: none
+    at: { x: 605, y: 304 }
+    size: { w: 14, h: 20 }
+  - id: n386
+    label: "0"
+    marker: none
+    at: { x: 621, y: 304 }
+    size: { w: 14, h: 20 }
+  - id: n387
+    label: "5"
+    marker: none
+    at: { x: 605, y: 468 }
+    size: { w: 14, h: 20 }
+  - id: n388
+    label: "0"
+    marker: none
+    at: { x: 621, y: 468 }
+    size: { w: 14, h: 20 }
+  - id: n389
+    label: "4"
+    marker: none
+    at: { x: 665, y: 304 }
+    size: { w: 14, h: 20 }
+  - id: n390
+    label: "0"
+    marker: none
+    at: { x: 681, y: 304 }
+    size: { w: 14, h: 20 }
+  - id: n391
+    label: "4"
+    marker: none
+    at: { x: 665, y: 468 }
+    size: { w: 14, h: 20 }
+  - id: n392
+    label: "0"
+    marker: none
+    at: { x: 681, y: 468 }
+    size: { w: 14, h: 20 }
+  - id: n393
+    label: "3"
+    marker: none
+    at: { x: 725, y: 304 }
+    size: { w: 14, h: 20 }
+  - id: n394
+    label: "0"
+    marker: none
+    at: { x: 741, y: 304 }
+    size: { w: 14, h: 20 }
+  - id: n395
+    label: "3"
+    marker: none
+    at: { x: 725, y: 468 }
+    size: { w: 14, h: 20 }
+  - id: n396
+    label: "0"
+    marker: none
+    at: { x: 741, y: 468 }
+    size: { w: 14, h: 20 }
+  - id: n397
+    label: "2"
+    marker: none
+    at: { x: 785, y: 304 }
+    size: { w: 14, h: 20 }
+  - id: n398
+    label: "0"
+    marker: none
+    at: { x: 801, y: 304 }
+    size: { w: 14, h: 20 }
+  - id: n399
+    label: "2"
+    marker: none
+    at: { x: 785, y: 468 }
+    size: { w: 14, h: 20 }
+  - id: n400
+    label: "0"
+    marker: none
+    at: { x: 801, y: 468 }
+    size: { w: 14, h: 20 }
+  - id: n401
+    label: "1"
+    marker: none
+    at: { x: 845, y: 304 }
+    size: { w: 14, h: 20 }
+  - id: n402
+    label: "0"
+    marker: none
+    at: { x: 861, y: 304 }
+    size: { w: 14, h: 20 }
+  - id: n403
+    label: "1"
+    marker: none
+    at: { x: 845, y: 468 }
+    size: { w: 14, h: 20 }
+  - id: n404
+    label: "0"
+    marker: none
+    at: { x: 861, y: 468 }
+    size: { w: 14, h: 20 }
+  - id: p405
+    label: ""
+    marker: none
+    at: { x: 331, y: 392 }
+    size: { w: 2, h: 2 }
+  - id: p406
+    label: ""
+    marker: none
+    at: { x: 331, y: 398 }
+    size: { w: 2, h: 2 }
+  - id: p407
+    label: ""
+    marker: none
+    at: { x: 907, y: 392 }
+    size: { w: 2, h: 2 }
+  - id: p408
+    label: ""
+    marker: none
+    at: { x: 907, y: 398 }
+    size: { w: 2, h: 2 }
+  - id: p409
+    label: ""
+    marker: none
+    at: { x: 259, y: 376.5 }
+    size: { w: 2, h: 2 }
+  - id: p410
+    label: ""
+    marker: none
+    at: { x: 259, y: 413.5 }
+    size: { w: 2, h: 2 }
+  - id: p411
+    label: ""
+    marker: none
+    at: { x: 259, y: 395 }
+    size: { w: 2, h: 2 }
+  - id: p412
+    label: ""
+    marker: none
+    at: { x: 245, y: 395 }
+    size: { w: 2, h: 2 }
+  - id: p413
+    label: ""
+    marker: none
+    at: { x: 979, y: 376.5 }
+    size: { w: 2, h: 2 }
+  - id: p414
+    label: ""
+    marker: none
+    at: { x: 979, y: 413.5 }
+    size: { w: 2, h: 2 }
+  - id: p415
+    label: ""
+    marker: none
+    at: { x: 979, y: 395 }
+    size: { w: 2, h: 2 }
+  - id: p416
+    label: ""
+    marker: none
+    at: { x: 993, y: 395 }
+    size: { w: 2, h: 2 }
+  - id: n417
+    label: ""
+    hatch: solid
+    at: { x: 260, y: 236 }
+    size: { w: 4, h: 4 }
+  - id: n418
+    label: ""
+    hatch: solid
+    at: { x: 260, y: 552 }
+    size: { w: 4, h: 4 }
+  - id: n419
+    label: ""
+    hatch: solid
+    at: { x: 320, y: 236 }
+    size: { w: 4, h: 4 }
+  - id: n420
+    label: ""
+    hatch: solid
+    at: { x: 320, y: 552 }
+    size: { w: 4, h: 4 }
+  - id: n421
+    label: ""
+    hatch: solid
+    at: { x: 916, y: 236 }
+    size: { w: 4, h: 4 }
+  - id: n422
+    label: ""
+    hatch: solid
+    at: { x: 916, y: 552 }
+    size: { w: 4, h: 4 }
+  - id: n423
+    label: ""
+    hatch: solid
+    at: { x: 976, y: 236 }
+    size: { w: 4, h: 4 }
+  - id: n424
+    label: ""
+    hatch: solid
+    at: { x: 976, y: 552 }
+    size: { w: 4, h: 4 }
+  - id: t425
+    label: "ゴールポスト（内のり 18'6\"）"
+    marker: none
+    align: right
+    at: { x: 20, y: 387 }
+    size: { w: 196, h: 18 }
+  - id: p426
+    label: ""
+    marker: none
+    at: { x: 219, y: 395 }
+    size: { w: 2, h: 2 }
+  - id: p427
+    label: ""
+    marker: none
+    at: { x: 244, y: 395 }
+    size: { w: 2, h: 2 }
+  - id: t428
+    label: "パイロン"
+    marker: none
+    align: right
+    at: { x: 30, y: 600 }
+    size: { w: 200, h: 18 }
+  - id: p429
+    label: ""
+    marker: none
+    at: { x: 233, y: 608 }
+    size: { w: 2, h: 2 }
+  - id: p430
+    label: ""
+    marker: none
+    at: { x: 260, y: 554 }
+    size: { w: 2, h: 2 }
+  - id: t431
+    label: "② フィールドを横に切って比べる —— 幅 160 ft のどこにハッシュがあるか（1 px ＝ 6 in）"
+    marker: none
+    align: left
+    at: { x: 140, y: 660 }
+    size: { w: 840, h: 20 }
+  - id: t432
+    label: "ゴールポスト"
+    marker: none
+    align: right
+    at: { x: 100, y: 711 }
+    size: { w: 140, h: 18 }
+  - id: t433
+    label: "NFL"
+    marker: none
+    align: right
+    at: { x: 100, y: 781 }
+    size: { w: 140, h: 18 }
+  - id: t434
+    label: "NCAA"
+    marker: none
+    align: right
+    at: { x: 100, y: 851 }
+    size: { w: 140, h: 18 }
+  - id: p435
+    label: ""
+    marker: none
+    at: { x: 259, y: 719 }
+    size: { w: 2, h: 2 }
+  - id: p436
+    label: ""
+    marker: none
+    at: { x: 579, y: 719 }
+    size: { w: 2, h: 2 }
+  - id: p437
+    label: ""
+    marker: none
+    at: { x: 400.5, y: 719 }
+    size: { w: 2, h: 2 }
+  - id: p438
+    label: ""
+    marker: none
+    at: { x: 437.5, y: 719 }
+    size: { w: 2, h: 2 }
+  - id: n439
+    label: ""
+    hatch: solid
+    at: { x: 400, y: 704 }
+    size: { w: 3, h: 16 }
+  - id: n440
+    label: ""
+    hatch: solid
+    at: { x: 437, y: 704 }
+    size: { w: 3, h: 16 }
+  - id: t441
+    label: "18'6\""
+    marker: none
+    align: center
+    at: { x: 395.5, y: 686 }
+    size: { w: 49, h: 18 }
+  - id: p442
+    label: ""
+    marker: none
+    at: { x: 400.5, y: 723 }
+    size: { w: 2, h: 2 }
+  - id: p443
+    label: ""
+    marker: none
+    at: { x: 400.5, y: 795 }
+    size: { w: 2, h: 2 }
+  - id: p444
+    label: ""
+    marker: none
+    at: { x: 400.5, y: 831 }
+    size: { w: 2, h: 2 }
+  - id: p445
+    label: ""
+    marker: none
+    at: { x: 400.5, y: 869 }
+    size: { w: 2, h: 2 }
+  - id: p446
+    label: ""
+    marker: none
+    at: { x: 437.5, y: 723 }
+    size: { w: 2, h: 2 }
+  - id: p447
+    label: ""
+    marker: none
+    at: { x: 437.5, y: 795 }
+    size: { w: 2, h: 2 }
+  - id: p448
+    label: ""
+    marker: none
+    at: { x: 437.5, y: 831 }
+    size: { w: 2, h: 2 }
+  - id: p449
+    label: ""
+    marker: none
+    at: { x: 437.5, y: 869 }
+    size: { w: 2, h: 2 }
+  - id: n450
+    label: ""
+    hatch: solid
+    at: { x: 258.5, y: 782 }
+    size: { w: 3, h: 16 }
+  - id: n451
+    label: ""
+    hatch: solid
+    at: { x: 578.5, y: 782 }
+    size: { w: 3, h: 16 }
+  - id: n452
+    label: ""
+    hatch: solid
+    at: { x: 397.5, y: 784 }
+    size: { w: 4, h: 12 }
+  - id: n453
+    label: ""
+    hatch: solid
+    at: { x: 438.5, y: 784 }
+    size: { w: 4, h: 12 }
+  - id: p454
+    label: ""
+    marker: none
+    at: { x: 261, y: 803 }
+    size: { w: 2, h: 2 }
+  - id: p455
+    label: ""
+    marker: none
+    at: { x: 399.5, y: 803 }
+    size: { w: 2, h: 2 }
+  - id: p456
+    label: ""
+    marker: none
+    at: { x: 438.5, y: 803 }
+    size: { w: 2, h: 2 }
+  - id: p457
+    label: ""
+    marker: none
+    at: { x: 577, y: 803 }
+    size: { w: 2, h: 2 }
+  - id: t458
+    label: "70'9\""
+    marker: none
+    align: center
+    at: { x: 260, y: 810 }
+    size: { w: 141.5, h: 18 }
+  - id: t459
+    label: "70'9\""
+    marker: none
+    align: center
+    at: { x: 438.5, y: 810 }
+    size: { w: 141.5, h: 18 }
+  - id: t460
+    label: "18'6\""
+    marker: none
+    align: center
+    at: { x: 401.5, y: 810 }
+    size: { w: 37, h: 18 }
+  - id: n461
+    label: ""
+    hatch: solid
+    at: { x: 258.5, y: 852 }
+    size: { w: 3, h: 16 }
+  - id: n462
+    label: ""
+    hatch: solid
+    at: { x: 578.5, y: 852 }
+    size: { w: 3, h: 16 }
+  - id: n463
+    label: ""
+    hatch: solid
+    at: { x: 376, y: 854 }
+    size: { w: 4, h: 12 }
+  - id: n464
+    label: ""
+    hatch: solid
+    at: { x: 460, y: 854 }
+    size: { w: 4, h: 12 }
+  - id: p465
+    label: ""
+    marker: none
+    at: { x: 261, y: 873 }
+    size: { w: 2, h: 2 }
+  - id: p466
+    label: ""
+    marker: none
+    at: { x: 378, y: 873 }
+    size: { w: 2, h: 2 }
+  - id: p467
+    label: ""
+    marker: none
+    at: { x: 460, y: 873 }
+    size: { w: 2, h: 2 }
+  - id: p468
+    label: ""
+    marker: none
+    at: { x: 577, y: 873 }
+    size: { w: 2, h: 2 }
+  - id: t469
+    label: "60 ft"
+    marker: none
+    align: center
+    at: { x: 260, y: 880 }
+    size: { w: 120, h: 18 }
+  - id: t470
+    label: "60 ft"
+    marker: none
+    align: center
+    at: { x: 460, y: 880 }
+    size: { w: 120, h: 18 }
+  - id: t471
+    label: "40 ft"
+    marker: none
+    align: center
+    at: { x: 380, y: 880 }
+    size: { w: 80, h: 18 }
+  - id: t472
+    label: "サイドライン"
+    marker: none
+    align: center
+    at: { x: 215, y: 906 }
+    size: { w: 90, h: 18 }
+  - id: t473
+    label: "サイドライン"
+    marker: none
+    align: center
+    at: { x: 535, y: 906 }
+    size: { w: 90, h: 18 }
+  - id: t474
+    label: "NFL のハッシュの間は、ゴールポストの内のりと同じ 18'6\"。"
+    marker: none
+    align: left
+    at: { x: 620, y: 730 }
+    size: { w: 380, h: 18 }
+  - id: t475
+    label: "ハッシュの上に置いた球から見ても、"
+    marker: none
+    align: left
+    at: { x: 620, y: 754 }
+    size: { w: 380, h: 18 }
+  - id: t476
+    label: "ポストの内のりの延長の上にいる。"
+    marker: none
+    align: left
+    at: { x: 620, y: 778 }
+    size: { w: 380, h: 18 }
+  - id: t477
+    label: "NCAA は 40 ft と広い。ハッシュに置かれた球は、"
+    marker: none
+    align: left
+    at: { x: 620, y: 814 }
+    size: { w: 380, h: 18 }
+  - id: t478
+    label: "内のりの延長より 10'9\" 外 —— 角度をつけて蹴る。"
+    marker: none
+    align: left
+    at: { x: 620, y: 838 }
+    size: { w: 380, h: 18 }
+  - id: t479
+    label: "③ NFL と NCAA で違うところ"
+    marker: none
+    align: left
+    at: { x: 1060, y: 150 }
+    size: { w: 520, h: 20 }
+  - id: h480
+    label: "規則書の値"
+    hatch: solid
+    at: { x: 1060, y: 186 }
+    size: { w: 520, h: 24 }
+  - id: c481
+    label: ""
+    at: { x: 1060, y: 210 }
+    size: { w: 100, h: 24 }
+  - id: c482
+    label: "NFL"
+    align: left
+    at: { x: 1160, y: 210 }
+    size: { w: 220, h: 24 }
+  - id: c483
+    label: "NCAA"
+    align: left
+    at: { x: 1380, y: 210 }
+    size: { w: 200, h: 24 }
+  - id: c484
+    label: "ハッシュの位置"
+    at: { x: 1060, y: 234 }
+    size: { w: 100, h: 24 }
+  - id: c485
+    label: "サイドラインから 70'9\""
+    align: left
+    at: { x: 1160, y: 234 }
+    size: { w: 220, h: 24 }
+  - id: c486
+    label: "サイドラインから 60 ft"
+    align: left
+    at: { x: 1380, y: 234 }
+    size: { w: 200, h: 24 }
+  - id: c487
+    label: "ハッシュの間"
+    at: { x: 1060, y: 258 }
+    size: { w: 100, h: 24 }
+  - id: c488
+    label: "18'6\""
+    align: left
+    at: { x: 1160, y: 258 }
+    size: { w: 220, h: 24 }
+  - id: c489
+    label: "40 ft"
+    align: left
+    at: { x: 1380, y: 258 }
+    size: { w: 200, h: 24 }
+  - id: c490
+    label: "ハッシュの長さ"
+    at: { x: 1060, y: 282 }
+    size: { w: 100, h: 24 }
+  - id: c491
+    label: "2 ft（幅 4 in）"
+    align: left
+    at: { x: 1160, y: 282 }
+    size: { w: 220, h: 24 }
+  - id: c492
+    label: "24 in"
+    align: left
+    at: { x: 1380, y: 282 }
+    size: { w: 200, h: 24 }
+  - id: c493
+    label: "トライの位置"
+    at: { x: 1060, y: 306 }
+    size: { w: 100, h: 24 }
+  - id: c494
+    label: "パス・ラン 2 yd・キック 15 yd"
+    align: left
+    at: { x: 1160, y: 306 }
+    size: { w: 220, h: 24 }
+  - id: c495
+    label: "3 yd（ハッシュの中間）"
+    align: left
+    at: { x: 1380, y: 306 }
+    size: { w: 200, h: 24 }
+  - id: c496
+    label: "ポストの高さ"
+    at: { x: 1060, y: 330 }
+    size: { w: 100, h: 24 }
+  - id: c497
+    label: "クロスバーの上 35 ft"
+    align: left
+    at: { x: 1160, y: 330 }
+    size: { w: 220, h: 24 }
+  - id: c498
+    label: "地面から 30 ft 以上"
+    align: left
+    at: { x: 1380, y: 330 }
+    size: { w: 200, h: 24 }
+  - id: c499
+    label: "ポストの色"
+    at: { x: 1060, y: 354 }
+    size: { w: 100, h: 24 }
+  - id: c500
+    label: "明るい金色・支柱 1 本"
+    align: left
+    at: { x: 1160, y: 354 }
+    size: { w: 220, h: 24 }
+  - id: c501
+    label: "白か黄"
+    align: left
+    at: { x: 1380, y: 354 }
+    size: { w: 200, h: 24 }
+  - id: c502
+    label: "数字"
+    at: { x: 1060, y: 378 }
+    size: { w: 100, h: 24 }
+  - id: c503
+    label: "下端がサイドラインから 12 yd"
+    align: left
+    at: { x: 1160, y: 378 }
+    size: { w: 220, h: 24 }
+  - id: c504
+    label: "上端が 9 yd（推奨）"
+    align: left
+    at: { x: 1380, y: 378 }
+    size: { w: 200, h: 24 }
+  - id: c505
+    label: "パイロン"
+    at: { x: 1060, y: 402 }
+    size: { w: 100, h: 24 }
+  - id: c506
+    label: "ゴールライン 4・エンドライン 4"
+    align: left
+    at: { x: 1160, y: 402 }
+    size: { w: 220, h: 24 }
+  - id: c507
+    label: "角 8 ＋ ハッシュの延長 4"
+    align: left
+    at: { x: 1380, y: 402 }
+    size: { w: 200, h: 24 }
+  - id: why508
+    label: "測るのは、境界の線の内側の縁から。\nハッシュの「70'9\"」も「60 ft」も、\nフィールドの内側を向いた縁までの距離。"
+    at: { x: 1060, y: 440 }
+    size: { w: 520, h: 56 }
+  - id: t509
+    label: "④ 両方で同じところ"
+    marker: none
+    align: left
+    at: { x: 1060, y: 514 }
+    size: { w: 520, h: 20 }
+  - id: h510
+    label: "寸法"
+    hatch: solid
+    at: { x: 1060, y: 550 }
+    size: { w: 520, h: 24 }
+  - id: c511
+    label: "全長・幅"
+    at: { x: 1060, y: 574 }
+    size: { w: 130, h: 24 }
+  - id: c512
+    label: "360 ft（120 yd）× 160 ft"
+    align: left
+    at: { x: 1190, y: 574 }
+    size: { w: 390, h: 24 }
+  - id: c513
+    label: "エンドゾーン"
+    at: { x: 1060, y: 598 }
+    size: { w: 130, h: 24 }
+  - id: c514
+    label: "ゴールラインからエンドラインまで 10 yd"
+    align: left
+    at: { x: 1190, y: 598 }
+    size: { w: 390, h: 24 }
+  - id: c515
+    label: "ヤード線"
+    at: { x: 1060, y: 622 }
+    size: { w: 130, h: 24 }
+  - id: c516
+    label: "5 yd ごと・幅 4 in"
+    align: left
+    at: { x: 1190, y: 622 }
+    size: { w: 390, h: 24 }
+  - id: c517
+    label: "ゴールライン"
+    at: { x: 1060, y: 646 }
+    size: { w: 130, h: 24 }
+  - id: c518
+    label: "NFL は幅 8 in（NCAA は 4 か 8 in）"
+    align: left
+    at: { x: 1190, y: 646 }
+    size: { w: 390, h: 24 }
+  - id: c519
+    label: "クロスバー"
+    at: { x: 1060, y: 670 }
+    size: { w: 130, h: 24 }
+  - id: c520
+    label: "上面が地面から 10 ft"
+    align: left
+    at: { x: 1190, y: 670 }
+    size: { w: 390, h: 24 }
+  - id: c521
+    label: "ポストの内のり"
+    at: { x: 1060, y: 694 }
+    size: { w: 130, h: 24 }
+  - id: c522
+    label: "18'6\"（エンドラインの面の上）"
+    align: left
+    at: { x: 1190, y: 694 }
+    size: { w: 390, h: 24 }
+  - id: why523
+    label: "ゴールラインの幅は、まるごとエンドゾーンの中。\n球がラインの手前の縁に届けば、タッチダウン。"
+    at: { x: 1060, y: 732 }
+    size: { w: 520, h: 38 }
+  - id: t524
+    label: "NFL のハッシュはサイドラインから 70'9\"、NCAA は 60 ft です（③）。どちらも内側の縁までを測ります。"
+    marker: none
+    align: left
+    at: { x: 140, y: 960 }
+    size: { w: 1440, h: 18 }
+  - id: t525
+    label: "NFL のハッシュの間 18'6\" は、ゴールポストの内のり 18'6\" と同じ幅です（②）。NCAA は 40 ft あり、ハッシュは内のりの延長の外にあります。"
+    marker: none
+    align: left
+    at: { x: 140, y: 984 }
+    size: { w: 1440, h: 18 }
+  - id: t526
+    label: "フィールドは 360 ft × 160 ft、両端の 10 yd がエンドゾーンです（①④）。ヤード線は 5 yd ごと、その間を 1 yd ごとのハッシュが刻みます。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1008 }
+    size: { w: 1440, h: 18 }
+  - id: t527
+    label: "トライは NFL がパス・ランで 2 yd・キックで 15 yd、NCAA は 3 yd から始めます（③）。"
+    marker: none
+    align: left
+    at: { x: 140, y: 1032 }
+    size: { w: 1440, h: 18 }
+edges:
+  - from: p7
+    to: p8
+    curve: none
+    ends: { from: none, to: none }
+  - from: p9
+    to: p10
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p11
+    to: p12
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p13
+    to: p14
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p15
+    to: p16
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p17
+    to: p18
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p19
+    to: p20
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p21
+    to: p22
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p23
+    to: p24
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p25
+    to: p26
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p27
+    to: p28
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p29
+    to: p30
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p31
+    to: p32
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p33
+    to: p34
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p35
+    to: p36
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p37
+    to: p38
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p39
+    to: p40
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p41
+    to: p42
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p43
+    to: p44
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p45
+    to: p46
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p47
+    to: p48
+    curve: none
+    ends: { from: none, to: none }
+  - from: p405
+    to: p406
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p407
+    to: p408
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p409
+    to: p410
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p411
+    to: p412
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p413
+    to: p414
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p415
+    to: p416
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p426
+    to: p427
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p429
+    to: p430
+    curve: none
+    ends: { from: none, to: arrow }
+  - from: p435
+    to: p436
+    curve: none
+    line: dotted
+    ends: { from: none, to: none }
+  - from: p437
+    to: p438
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+  - from: p442
+    to: p443
+    curve: none
+    line: dashed
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p444
+    to: p445
+    curve: none
+    line: dashed
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p446
+    to: p447
+    curve: none
+    line: dashed
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p448
+    to: p449
+    curve: none
+    line: dashed
+    weight: thin
+    ends: { from: none, to: none }
+  - from: p454
+    to: p455
+    curve: none
+    weight: thin
+    ends: { from: arrow, to: arrow }
+  - from: p456
+    to: p457
+    curve: none
+    weight: thin
+    ends: { from: arrow, to: arrow }
+  - from: p465
+    to: p466
+    curve: none
+    weight: thin
+    ends: { from: arrow, to: arrow }
+  - from: p467
+    to: p468
+    curve: none
+    weight: thin
+    ends: { from: arrow, to: arrow }
