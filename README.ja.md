@@ -2,20 +2,52 @@
 
 # zumen（図面）
 
-**AI に構成図を描かせる、テキスト正本のデスクトップ作図ツール。**
-勝負するのは 1 枚目ではなく **2 枚目以降**――「構成が変わったので図を直す」場面です。
+<p align="center">
+  <img src="https://meta-taro.github.io/zumen/readme/hero-ja.svg" width="560" alt="AI が構成図を描き、人が「注文 DB」の箱を左へ動かし、もう一度 AI に頼んで「在庫 API」を足しても、人が動かした箱はその場に残る、の 4 段の動く図">
+</p>
 
-> **いまは測る段階を終えて、土台を作っている途中です。GUI はまだありません。**
-> 動くのは、正本の読み書き・自動レイアウト・SVG 描画・Mermaid 書き出し・
-> draw.io 書き出し・Markdown への埋め込み・形式の検証・Git のマージドライバ・
-> 「9 割」の計測、そして**承認のための最小 GUI（第 1 段階）**まで。
->
-> GUI は `pnpm app` でデスクトップアプリとして立ちます。
-> **殻が無くても `pnpm dev` でブラウザで動きます。**
-> 操作は、AI の書き換えを人が承認するのに要る 8 つに限ってあります。
-> **編集機能をそろえることが目的ではありません。**
->
-> 保存形式の仕様は [`spec/zumen-format-v1.md`](https://github.com/meta-taro/zumen/blob/develop/spec/zumen-format-v1.md) にあります。
+**AI に図を描かせて、人が直す。もう一度 AI に頼んでも、人が直したところは崩れない。**
+
+図はテキスト（YAML）で持ちます。人が動かした位置は `pins:` という、AI が書き込めない欄に残るので、
+AI が図を何度描き直しても、人の直しは消えません。
+
+## こんなときに
+
+| | 困っていること | zumen だと |
+|---|---|---|
+| **構成が変わるたびに図を直す開発チーム** | 図の更新が面倒で、図だけが古くなっていく | 変わったことを文章で頼めば AI が図を直す。人が整えた配置はそのまま |
+| **専門図面を紙・Excel・PowerPoint で描いている現場**（照明の仕込図・積付図・歯周チャート・販売図面…） | 専用ソフトが無いか、あっても高い。描き直しが毎回手作業 | 389 枚の見本を AI が読んで、同じ書き方で描く。記号・寸法・凡例まで |
+| **AI と一緒に仕様をまとめる人** | AI が出した図が正しいか、どこが変わったかを確かめにくい | AI の書き換えは**差分で出て、人が「入れる」を押すまで正本は変わらない** |
+
+## 画面
+
+**① 開く —— 人が動かした箱は、太い枠で見分けられる**
+
+<img src="https://meta-taro.github.io/zumen/readme/gui-open-ja.png" width="720" alt="zumen の画面。注文の流れの図が開いていて、人が動かした「注文 DB」の箱だけ枠が太い">
+
+**② AI の提案を読む —— 変わるところが差分で出る。「正本へ入れる」を押すまで何も変わらない**
+
+<img src="https://meta-taro.github.io/zumen/readme/gui-diff-ja.png" width="720" alt="zumen の画面。右に「入れる前に見る」の欄があり、AI が足した「在庫 API」の行が緑で出ている。下に「正本へ入れる」と「やめる」のボタン">
+
+## すぐ試す
+
+| やりたいこと | 手順 |
+|---|---|
+| **アプリで見る・直す** | [Releases](https://github.com/meta-taro/zumen/releases/latest) から落とす（Windows x64 / ARM64・macOS Apple Silicon）。**署名はまだ無い**ので、素の実行ファイル（`zumen-windows-*.exe` ／ `zumen-macos-app.tar.gz`）が確実です |
+| **AI エージェントに描かせる**（MCP） | 下の 4 行で立てて、エージェントの MCP 設定に `pnpm mcp` を足す（[詳しく](https://github.com/meta-taro/zumen/blob/develop/docs/install.md)） |
+| **自分のコードから SVG にする** | `pnpm add @metataro/zumen`（[使い方](#ライブラリとして使う)） |
+
+```bash
+git clone https://github.com/meta-taro/zumen.git && cd zumen
+corepack enable && pnpm install
+pnpm dev     # ブラウザで画面が開く（http://localhost:5173）
+pnpm mcp     # エージェントから使う
+```
+
+いまはアルファです。動くのは、正本の読み書き・自動レイアウト・SVG／Mermaid／draw.io への書き出し・
+Markdown への埋め込み・形式の検証・Git のマージドライバ、そして**承認のための画面**まで。
+画面の操作は、AI の書き換えを人が承認するのに要る 8 つに絞ってあります（**編集機能をそろえることが目的ではありません**）。
+保存形式の仕様は [`spec/zumen-format-v1.md`](https://github.com/meta-taro/zumen/blob/develop/spec/zumen-format-v1.md) にあります。
 
 ## 作れる図
 

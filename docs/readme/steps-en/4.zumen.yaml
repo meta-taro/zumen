@@ -1,0 +1,42 @@
+version: 1
+kind: placement
+title: Order flow
+nodes:
+  - id: note
+    label: "4. Your fix is still there"
+    marker: none
+    align: left
+    at: { x: 20, y: 10 }
+    size: { w: 360, h: 24 }
+  - id: web
+    label: Web app
+    at: { x: 20, y: 70 }
+    size: { w: 110, h: 40 }
+  - id: api
+    label: Order API
+    at: { x: 190, y: 70 }
+    size: { w: 110, h: 40 }
+  - id: db
+    label: Order DB
+    at: { x: 190, y: 170 }
+    size: { w: 110, h: 40 }
+  - id: pay
+    label: Payments
+    at: { x: 360, y: 70 }
+    size: { w: 110, h: 40 }
+  - id: inv
+    label: Stock API
+    at: { x: 360, y: 170 }
+    size: { w: 110, h: 40 }
+edges:
+  - from: web
+    to: api
+  - from: api
+    to: db
+  - from: api
+    to: pay
+  - from: api
+    to: inv
+pins:
+  db:
+    position: { x: 40, y: 170 }

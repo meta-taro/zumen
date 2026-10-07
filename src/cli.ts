@@ -15,7 +15,7 @@
  *
  * **`merge-driver` の 1 は失敗ではなく、Git への「人が見る必要がある」の合図。**
  */
-import { readFileSync, writeFileSync } from 'node:fs';
+import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname } from 'node:path';
 import { loadImages } from './image-files.ts';
 
@@ -1022,6 +1022,8 @@ export async function runTimelapse(
   if (files.length < 2) return { lines: [m.usageTimelapse], code: 1 };
   const steps = files.map((file) => String(read(file, 'utf8')));
   const film = await timelapse(steps, { hold, out });
+  // **置き場が無ければ作る。** 無いまま書くと、描き終えたあとで ENOENT で落ちていた。
+  if (write === writeFileSync) mkdirSync(out, { recursive: true });
   write(`${out}/timelapse.svg`, film.svg);
   film.frames.forEach((frame, index) => {
     write(`${out}/step-${String(index + 1).padStart(3, '0')}.svg`, frame);

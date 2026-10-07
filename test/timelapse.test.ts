@@ -86,3 +86,20 @@ describe('タイムラプス', () => {
     assert.match(out.recipe, /\/tmp\/zl/);
   });
 });
+
+describe('置き場', () => {
+  it('**--out の置き場が無ければ作る**（無いまま書いて落ちない）', async () => {
+    const { mkdtempSync, existsSync, writeFileSync: put } = await import('node:fs');
+    const { tmpdir } = await import('node:os');
+    const { join } = await import('node:path');
+    const { runTimelapse } = await import('../src/cli.ts');
+    const dir = mkdtempSync(join(tmpdir(), 'zumen-tl-'));
+    const step = (label: string) => `version: 1\nnodes:\n  - id: a\n    label: ${label}\n`;
+    put(join(dir, '1.zumen.yaml'), step('一'));
+    put(join(dir, '2.zumen.yaml'), step('二'));
+    const out = join(dir, 'まだ無い', '置き場');
+    const result = await runTimelapse([join(dir, '1.zumen.yaml'), join(dir, '2.zumen.yaml'), '--out', out]);
+    assert.equal(result.code, 0);
+    assert.ok(existsSync(join(out, 'timelapse.svg')));
+  });
+});
