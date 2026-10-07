@@ -29,6 +29,8 @@ import type { Frame, Ink } from './dimensions.ts';
 import { CODE_R, MARGIN, hasGrid } from './grid.ts';
 import { drawEnd, hasEnds } from './ends.ts';
 import { ownerOf, pointRef } from './image.ts';
+import { paintOrder } from './solid.ts';
+import type { Solid } from './solid.ts';
 import { drawHatch, drawHatchIn, drawTint } from './hatch.ts';
 import { contrastOn, PAPER, TINT } from './palette.ts';
 import type { Hatch } from './hatch.ts';
@@ -378,7 +380,8 @@ function drawStroke(one: Stroke, ink: string): string {
  */
 function stack(boxes: Box[], plan: boolean): Box[] {
   if (!plan) return boxes;
-  return [...boxes].sort((a, b) => b.w * b.h - a.w * a.h);
+  // **立体は、平面の箱のあとに奥から手前へ**（`src/solid.ts`）。
+  return paintOrder([...boxes].sort((a, b) => b.w * b.h - a.w * a.h));
 }
 
 /**
@@ -1012,7 +1015,9 @@ function renderNode(
   // **図記号があれば、枠を描かずに記号だけを描く**（`src/symbol.ts`）。
   // 抵抗やコンデンサに枠は無い —— 枠があると「箱の中に部品がある」ように見える。
   const shape =
-    box.image !== undefined
+    box.solid !== undefined
+      ? drawSolid(box.solid, paint.stroke, box.tint, palette.paper)
+      : box.image !== undefined
       ? drawImage(box, box.image, paint.stroke)
       : box.symbol !== null
       ? drawSymbol(box.symbol, box, { stroke: style.stroke, paper: palette.paper })
@@ -1029,14 +1034,15 @@ function renderNode(
   // 面が中身そのものである図で要る（薄く敷いたのでは色が読めない）。
   // **模様の色を書いていれば、模様だけその色**（`nodes[].hatch_color`）。枠の色は変えない。
   const face = paintFor(box.hatchColor, palette) ?? box.tint ?? box.color ?? style.stroke;
-  const pattern = plan ? drawHatch(box.hatch, box, face, box.marker, box.id) : '';
+  // **立体には外接矩形の模様・面の色を敷かない**（上の面の色は `drawSolid` が乗せる）。
+  const pattern = plan && box.solid === undefined ? drawHatch(box.hatch, box, face, box.marker, box.id) : '';
 
   // **面の色**（`nodes[].fill`。`src/palette.ts`）。**枠も文字も染めずに、面だけ。**
   // 地の上へ薄く敷くので、ライトでは淡く、ダークでは沈んで出る ——
   // どちらの地でも、上に載る文字がそのまま読める。
   //
   // **塗り潰しと重ねない。** 塗り潰しは既にその色で塗ってある。
-  const tint = box.tint === null || box.hatch === 'solid' ? '' : drawTint(box, box.tint, TINT, box.marker);
+  const tint = box.tint === null || box.hatch === 'solid' || box.solid !== undefined ? '' : drawTint(box, box.tint, TINT, box.marker);
 
   // **塗り潰した面の上では、文字を地の色にする。**
   // 黒く塗ったアスコンの上に黒い文字を書くと読めない
@@ -1086,6 +1092,16 @@ function renderNode(
   // 塗り戻して消していた —— 2026-10-02、平面図 17 枚で 85 か所。扇の検査では見つからない。
   if (part === 'holes') {
     return holes === '' ? '' : `<g data-holes="${escapeAttr(box.id)}">${holes}</g>`;
+  }
+  if (part === 'text' && box.solid !== undefined) {
+    // **立体の名前は、上の面の真ん中に**（箱＝外接矩形の真ん中は、立体の外に出ることがある）。
+    if (box.label === '') return '';
+    const { x, y } = box.solid.label;
+    const lines = box.label.split('\n');
+    const top = y - ((lines.length - 1) * SOLID_FONT * 1.2) / 2 + SOLID_FONT * 0.35;
+    return `<g data-name="${escapeAttr(box.id)}">${lines
+      .map((line, i) => `<text x="${n(x)}" y="${n(top + i * SOLID_FONT * 1.2)}" text-anchor="middle" font-family="${FONT}" font-size="${SOLID_FONT}" fill="${ink.text}">${escapeText(line)}</text>`)
+      .join('')}</g>`;
   }
   if (part === 'text' && box.image !== undefined) {
     // **画像の上には名前を書かない**（キャプチャの中身を隠す）。名前は画像の上の縁の外へ。
@@ -1575,6 +1591,30 @@ function renderEdge(
     calloutMarks(edge, palette),
     label,
     '</g>',
+  ].join('');
+}
+
+/** 立体の名前の字の大きさ（px）。 */
+const SOLID_FONT = 11;
+/** 立体の内側の稜線と輪郭の太さ（px）。**細 : 太 = 1 : 2**（JIS B 0001:2019 6.2 の比）。 */
+const SOLID_CREASE = 0.75;
+const SOLID_OUTLINE = 1.5;
+
+/**
+ * **立体を描く**（`src/solid.ts`）：見える面を塗り（側面 → 上）、稜線を細く、輪郭を太く。
+ * 面の塗りが、奥に描いた立体の線を隠す。上の面にだけ面の色（`fill`）を乗せる。
+ */
+function drawSolid(solid: Solid, stroke: string, tint: string | null, paper: string): string {
+  const path = (points: { x: number; y: number }[]) =>
+    `M ${points.map((p) => `${n(p.x)} ${n(p.y)}`).join(' L ')} Z`;
+  const top = solid.faces.find((f) => f.top);
+  return [
+    ...solid.faces.map(
+      (f) => `<path d="${path(f.points)}" fill="${paper}" stroke="${stroke}" stroke-width="${SOLID_CREASE}" stroke-linejoin="round"/>`,
+    ),
+    // 面の色は、平面の箱と同じく薄く敷く（`drawTint` と同じ濃さ）。
+    tint === null || top === undefined ? '' : `<path d="${path(top.points)}" fill="${tint}" fill-opacity="${TINT}" stroke="none"/>`,
+    `<path d="${path(solid.hull)}" fill="none" stroke="${stroke}" stroke-width="${SOLID_OUTLINE}" stroke-linejoin="round"/>`,
   ].join('');
 }
 

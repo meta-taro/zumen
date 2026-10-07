@@ -1,0 +1,540 @@
+version: 1
+kind: placement
+arrows: false
+projection: isometric
+scale: { mm: 5 }
+title: パレット積付図（交互列積みを等角図で —— 段ごとに 90° 回す）
+sources:
+  - name: "JIS Z 0601:2001 プールパレット（表 1 寸法・最大積載質量、7.1 木製の各部の寸法図）"
+    url: "https://kikakurui.com/z0/Z0601-2001-01.html"
+    retrieved: 2026-10-07
+  - name: "JIS Z 0111:2006 物流用語（パレット積付けパターン、付図 2〜6）"
+    url: "https://kikakurui.com/z0/Z0111-2006-01.html"
+    retrieved: 2026-10-07
+  - name: "JIS Z 0651:2002 パレットシステム設計基準（5.1 最大寸法、5.3 全高、6.1 積載面利用率、表 2 積付けパターン）"
+    url: "https://kikakurui.com/z0/Z0651-2002-01.html"
+    retrieved: 2026-10-07
+  - name: "JIS Z 0105:2015 包装貨物－包装モジュール寸法（1 適用範囲：1,100 × 1,100 に対するモジュール 550 × 366）"
+    url: "https://kikakurui.com/z0/Z0105-2015-01.html"
+    retrieved: 2026-10-07
+# 1 px = 5 mm。**同じ 6 箱を、段ごとに 90° 回して積む**（交互列積み）。
+# 見本 98 は 4 つの積み方を平面で比べた。**ここは 1 つの積み方を、立体と段ごとの平面で読む** ——
+# JIS Z 0111:2006 の付図そのものが、この形（等角図の下に、奇数段と偶数段の平面を並べる）で描いてある。
+#
+# ## この図にあるもの
+# ① 等角図：パレットは JIS Z 0601:2001 の木製 T11 の寸法図どおり —— 上下の板 7 枚ずつ（150・120×5・150、すき間 33/34、厚さ 22）、
+#    けた 3 本（幅 50・高さ 100）。寸法図は 2 枚あり（もう 1 枚は板 120 × 7、すき間 43/44）、
+#    **どちらが A 形かは図の題が画像に写っておらず確かめていない。**
+#    **けたに直交する手前の面に、フォークの差込口が 2 つ開く**（両面使用形二方差し）。右の面は外側のけたと板の木口で、差せない。
+#    箱は 4 段 24 箱。立体は機械が奥から手前へ重ねる（`height`）。
+# ② ③ 奇数段と偶数段の平面。**下が差込口の側**（等角図の左手前の面）。
+# ④ 数と、照らした決まり。
+#
+# ## 交互列積みとは
+# JIS Z 0111:2006 の「パレット積付けパターン」は、積付け効率と荷崩れ防止を考えて決める配列方式で、
+# 基本はブロック積み・交互列積み・れんが積み・ピンホイール積み・スプリット積みの 5 つ。
+# 付図 3（交互列積み）は、奇数段と偶数段で**同じ並びを 90° 回した**平面を並べている。
+# **段の継ぎ目（目地）が上下で交差する**ので、上の箱が下の箱どうしを押さえてつなぐ。
+# ブロック積み（付図 2）は奇数段も偶数段も同じ並びで、目地が縦に通る。
+#
+# ## 箱は架空
+# 平面 550 × 366 は JIS Z 0105:2015 が 1,100 × 1,100 に対して決めたモジュールそのもの（1,100 の 1/2 × 1/3）。
+# 3 × 366 ＝ 1,098 なので、366 の向きに 2 mm 余る。**高さ 250 mm と質量 12 kg は説明のための架空の値。**
+#
+# ## 照らした数（JIS Z 0651:2002）
+# - 5.1 パレタイズド貨物のプランビューサイズの最大は、パレットの長さ・幅それぞれに 40 mm を足したもの → T11 なら 1,140 × 1,140
+# - 5.3 全高（パレットを含む）は 2,200 mm 以下
+# - 6.1 c) 積載面利用率は 85 % 以上 → この図は 6 × 550 × 366 ÷ 1,100² ＝ 99.8 %
+#
+# ## 描かなかったもの（理由）
+# - 荷崩れ防止（ストレッチフィルム・バンド・角当て）：JIS Z 0651:2002 5.5 は「適切な荷崩れ防止を行う」とだけ書く。方法は確かめていない
+# - 段数の上限・箱の圧縮強度：箱の材質と中身で決まる。架空の箱では決められない
+# - JIS Z 0651:2002 表 2 の「記号」：表は画像で、形を確かめていない
+# - 実物の倉庫・出荷の様式：事業者ごとに違う。確かめていない
+palette:
+  奇数段: "#2f6fb0"
+  偶数段: "#c2702a"
+nodes:
+  - id: db0
+    label: ""
+    at: { x: 454, y: 164, z: 0 }
+    size: { w: 220, h: 30 }
+    height: 4.4
+  - id: db1
+    label: ""
+    at: { x: 454, y: 200.6, z: 0 }
+    size: { w: 220, h: 24 }
+    height: 4.4
+  - id: db2
+    label: ""
+    at: { x: 454, y: 231.4, z: 0 }
+    size: { w: 220, h: 24 }
+    height: 4.4
+  - id: db3
+    label: ""
+    at: { x: 454, y: 262, z: 0 }
+    size: { w: 220, h: 24 }
+    height: 4.4
+  - id: db4
+    label: ""
+    at: { x: 454, y: 292.6, z: 0 }
+    size: { w: 220, h: 24 }
+    height: 4.4
+  - id: db5
+    label: ""
+    at: { x: 454, y: 323.4, z: 0 }
+    size: { w: 220, h: 24 }
+    height: 4.4
+  - id: db6
+    label: ""
+    at: { x: 454, y: 354, z: 0 }
+    size: { w: 220, h: 30 }
+    height: 4.4
+  - id: st0
+    label: ""
+    at: { x: 454, y: 164, z: 4.4 }
+    size: { w: 10, h: 220 }
+    height: 20
+  - id: st1
+    label: ""
+    at: { x: 559, y: 164, z: 4.4 }
+    size: { w: 10, h: 220 }
+    height: 20
+  - id: st2
+    label: ""
+    at: { x: 664, y: 164, z: 4.4 }
+    size: { w: 10, h: 220 }
+    height: 20
+  - id: tb0
+    label: ""
+    at: { x: 454, y: 164, z: 24.4 }
+    size: { w: 220, h: 30 }
+    height: 4.4
+  - id: tb1
+    label: ""
+    at: { x: 454, y: 200.6, z: 24.4 }
+    size: { w: 220, h: 24 }
+    height: 4.4
+  - id: tb2
+    label: ""
+    at: { x: 454, y: 231.4, z: 24.4 }
+    size: { w: 220, h: 24 }
+    height: 4.4
+  - id: tb3
+    label: ""
+    at: { x: 454, y: 262, z: 24.4 }
+    size: { w: 220, h: 24 }
+    height: 4.4
+  - id: tb4
+    label: ""
+    at: { x: 454, y: 292.6, z: 24.4 }
+    size: { w: 220, h: 24 }
+    height: 4.4
+  - id: tb5
+    label: ""
+    at: { x: 454, y: 323.4, z: 24.4 }
+    size: { w: 220, h: 24 }
+    height: 4.4
+  - id: tb6
+    label: ""
+    at: { x: 454, y: 354, z: 24.4 }
+    size: { w: 220, h: 30 }
+    height: 4.4
+  - id: c1_0
+    label: ""
+    at: { x: 454, y: 164, z: 28.8 }
+    size: { w: 110, h: 73.2 }
+    height: 50
+  - id: c1_1
+    label: ""
+    at: { x: 564, y: 164, z: 28.8 }
+    size: { w: 110, h: 73.2 }
+    height: 50
+  - id: c1_2
+    label: ""
+    at: { x: 454, y: 237.2, z: 28.8 }
+    size: { w: 110, h: 73.2 }
+    height: 50
+  - id: c1_3
+    label: ""
+    at: { x: 564, y: 237.2, z: 28.8 }
+    size: { w: 110, h: 73.2 }
+    height: 50
+  - id: c1_4
+    label: ""
+    at: { x: 454, y: 310.4, z: 28.8 }
+    size: { w: 110, h: 73.2 }
+    height: 50
+  - id: c1_5
+    label: ""
+    at: { x: 564, y: 310.4, z: 28.8 }
+    size: { w: 110, h: 73.2 }
+    height: 50
+  - id: c2_0
+    label: ""
+    at: { x: 454, y: 164, z: 78.8 }
+    size: { w: 73.2, h: 110 }
+    height: 50
+  - id: c2_1
+    label: ""
+    at: { x: 527.2, y: 164, z: 78.8 }
+    size: { w: 73.2, h: 110 }
+    height: 50
+  - id: c2_2
+    label: ""
+    at: { x: 600.4, y: 164, z: 78.8 }
+    size: { w: 73.2, h: 110 }
+    height: 50
+  - id: c2_3
+    label: ""
+    at: { x: 454, y: 274, z: 78.8 }
+    size: { w: 73.2, h: 110 }
+    height: 50
+  - id: c2_4
+    label: ""
+    at: { x: 527.2, y: 274, z: 78.8 }
+    size: { w: 73.2, h: 110 }
+    height: 50
+  - id: c2_5
+    label: ""
+    at: { x: 600.4, y: 274, z: 78.8 }
+    size: { w: 73.2, h: 110 }
+    height: 50
+  - id: c3_0
+    label: ""
+    at: { x: 454, y: 164, z: 128.8 }
+    size: { w: 110, h: 73.2 }
+    height: 50
+  - id: c3_1
+    label: ""
+    at: { x: 564, y: 164, z: 128.8 }
+    size: { w: 110, h: 73.2 }
+    height: 50
+  - id: c3_2
+    label: ""
+    at: { x: 454, y: 237.2, z: 128.8 }
+    size: { w: 110, h: 73.2 }
+    height: 50
+  - id: c3_3
+    label: ""
+    at: { x: 564, y: 237.2, z: 128.8 }
+    size: { w: 110, h: 73.2 }
+    height: 50
+  - id: c3_4
+    label: ""
+    at: { x: 454, y: 310.4, z: 128.8 }
+    size: { w: 110, h: 73.2 }
+    height: 50
+  - id: c3_5
+    label: ""
+    at: { x: 564, y: 310.4, z: 128.8 }
+    size: { w: 110, h: 73.2 }
+    height: 50
+  - id: c4_0
+    label: ""
+    at: { x: 454, y: 164, z: 178.8 }
+    size: { w: 73.2, h: 110 }
+    height: 50
+  - id: c4_1
+    label: ""
+    at: { x: 527.2, y: 164, z: 178.8 }
+    size: { w: 73.2, h: 110 }
+    height: 50
+  - id: c4_2
+    label: ""
+    at: { x: 600.4, y: 164, z: 178.8 }
+    size: { w: 73.2, h: 110 }
+    height: 50
+  - id: c4_3
+    label: ""
+    at: { x: 454, y: 274, z: 178.8 }
+    size: { w: 73.2, h: 110 }
+    height: 50
+  - id: c4_4
+    label: ""
+    at: { x: 527.2, y: 274, z: 178.8 }
+    size: { w: 73.2, h: 110 }
+    height: 50
+  - id: c4_5
+    label: ""
+    at: { x: 600.4, y: 274, z: 178.8 }
+    size: { w: 73.2, h: 110 }
+    height: 50
+  - id: t1
+    label: "① 等角図 —— T11 に 550 × 366 の箱を交互列積みで 4 段（1 px = 5 mm）"
+    marker: none
+    align: left
+    at: { x: 40, y: 30 }
+    size: { w: 700, h: 20 }
+  - id: lk4
+    label: "4 段目（偶数段）"
+    marker: none
+    align: left
+    at: { x: 453.7, y: 206.2 }
+    size: { w: 130, h: 18 }
+  - id: lk3
+    label: "3 段目（奇数段）"
+    marker: none
+    align: left
+    at: { x: 453.7, y: 256.2 }
+    size: { w: 130, h: 18 }
+  - id: lk2
+    label: "2 段目（偶数段）"
+    marker: none
+    align: left
+    at: { x: 453.7, y: 306.2 }
+    size: { w: 130, h: 18 }
+  - id: lk1
+    label: "1 段目（奇数段）"
+    marker: none
+    align: left
+    at: { x: 453.7, y: 356.2 }
+    size: { w: 130, h: 18 }
+  - id: lp
+    label: "T11 パレット"
+    marker: none
+    align: left
+    at: { x: 453.7, y: 395.6 }
+    size: { w: 130, h: 18 }
+  - id: lf
+    label: "手前の面に差込口が 2 つ（二方差し）"
+    marker: none
+    align: left
+    at: { x: 40, y: 543 }
+    size: { w: 300, h: 18 }
+  - id: pt1
+    label: "② 奇数段（1・3 段目）2 × 3"
+    marker: none
+    align: left
+    at: { x: 640, y: 80 }
+    size: { w: 240, h: 20 }
+  - id: pp1
+    label: ""
+    marker: box
+    at: { x: 640, y: 110 }
+    size: { w: 220, h: 220 }
+  - id: p1_0
+    label: "550×366"
+    fill: 奇数段
+    at: { x: 640, y: 110 }
+    size: { w: 110, h: 73.2 }
+  - id: p1_1
+    label: "550×366"
+    fill: 奇数段
+    at: { x: 750, y: 110 }
+    size: { w: 110, h: 73.2 }
+  - id: p1_2
+    label: "550×366"
+    fill: 奇数段
+    at: { x: 640, y: 183.2 }
+    size: { w: 110, h: 73.2 }
+  - id: p1_3
+    label: "550×366"
+    fill: 奇数段
+    at: { x: 750, y: 183.2 }
+    size: { w: 110, h: 73.2 }
+  - id: p1_4
+    label: "550×366"
+    fill: 奇数段
+    at: { x: 640, y: 256.4 }
+    size: { w: 110, h: 73.2 }
+  - id: p1_5
+    label: "550×366"
+    fill: 奇数段
+    at: { x: 750, y: 256.4 }
+    size: { w: 110, h: 73.2 }
+  - id: pf1
+    label: "上下の辺が差込口の側"
+    marker: none
+    at: { x: 640, y: 336 }
+    size: { w: 220, h: 18 }
+  - id: pt2
+    label: "③ 偶数段（2・4 段目）3 × 2"
+    marker: none
+    align: left
+    at: { x: 900, y: 80 }
+    size: { w: 240, h: 20 }
+  - id: pp2
+    label: ""
+    marker: box
+    at: { x: 900, y: 110 }
+    size: { w: 220, h: 220 }
+  - id: p2_0
+    label: "366×550"
+    fill: 偶数段
+    at: { x: 900, y: 110 }
+    size: { w: 73.2, h: 110 }
+  - id: p2_1
+    label: "366×550"
+    fill: 偶数段
+    at: { x: 973.2, y: 110 }
+    size: { w: 73.2, h: 110 }
+  - id: p2_2
+    label: "366×550"
+    fill: 偶数段
+    at: { x: 1046.4, y: 110 }
+    size: { w: 73.2, h: 110 }
+  - id: p2_3
+    label: "366×550"
+    fill: 偶数段
+    at: { x: 900, y: 220 }
+    size: { w: 73.2, h: 110 }
+  - id: p2_4
+    label: "366×550"
+    fill: 偶数段
+    at: { x: 973.2, y: 220 }
+    size: { w: 73.2, h: 110 }
+  - id: p2_5
+    label: "366×550"
+    fill: 偶数段
+    at: { x: 1046.4, y: 220 }
+    size: { w: 73.2, h: 110 }
+  - id: pf2
+    label: "上下の辺が差込口の側"
+    marker: none
+    at: { x: 900, y: 336 }
+    size: { w: 220, h: 18 }
+  - id: pn1
+    label: "・段の継ぎ目（目地）が上下でずれる —— 上の箱が下の 2〜4 箱にまたがって押さえる。"
+    marker: none
+    align: left
+    at: { x: 640, y: 370 }
+    size: { w: 580, h: 18 }
+  - id: pn2
+    label: "・1 段 6 箱の形は同じで、向きだけを 90° 変える（JIS Z 0111:2006 付図 3）。"
+    marker: none
+    align: left
+    at: { x: 640, y: 394 }
+    size: { w: 580, h: 18 }
+  - id: pn3
+    label: "・ブロック積みは目地が縦に通り、段どうしがつながらない。"
+    marker: none
+    align: left
+    at: { x: 640, y: 418 }
+    size: { w: 580, h: 18 }
+  - id: t4
+    label: "④ この積付けの数と、照らした決まり（箱の寸法と質量は架空）"
+    marker: none
+    align: left
+    at: { x: 40, y: 600 }
+    size: { w: 700, h: 20 }
+  - id: r0_0
+    label: "項目"
+    hatch: solid
+    at: { x: 40, y: 630 }
+    size: { w: 170, h: 24 }
+  - id: r0_1
+    label: "この図"
+    hatch: solid
+    at: { x: 210, y: 630 }
+    size: { w: 330, h: 24 }
+  - id: r0_2
+    label: "決まり（出典）"
+    hatch: solid
+    at: { x: 540, y: 630 }
+    size: { w: 560, h: 24 }
+  - id: r1_0
+    label: "パレット"
+    align: left
+    at: { x: 40, y: 654 }
+    size: { w: 170, h: 24 }
+  - id: r1_1
+    label: "T11 木製 1,100×1,100×144"
+    align: left
+    at: { x: 210, y: 654 }
+    size: { w: 330, h: 24 }
+  - id: r1_2
+    label: "JIS Z 0601:2001 表 1・7.1 の寸法図"
+    align: left
+    at: { x: 540, y: 654 }
+    size: { w: 560, h: 24 }
+  - id: r2_0
+    label: "最大積載質量"
+    align: left
+    at: { x: 40, y: 678 }
+    size: { w: 170, h: 24 }
+  - id: r2_1
+    label: "288 kg（12 kg × 24 箱）"
+    align: left
+    at: { x: 210, y: 678 }
+    size: { w: 330, h: 24 }
+  - id: r2_2
+    label: "1 t 以下（JIS Z 0601:2001 表 1）"
+    align: left
+    at: { x: 540, y: 678 }
+    size: { w: 560, h: 24 }
+  - id: r3_0
+    label: "箱の平面"
+    align: left
+    at: { x: 40, y: 702 }
+    size: { w: 170, h: 24 }
+  - id: r3_1
+    label: "550 × 366（高さ 250）"
+    align: left
+    at: { x: 210, y: 702 }
+    size: { w: 330, h: 24 }
+  - id: r3_2
+    label: "T11 のモジュール（JIS Z 0105:2015）"
+    align: left
+    at: { x: 540, y: 702 }
+    size: { w: 560, h: 24 }
+  - id: r4_0
+    label: "1 段の箱"
+    align: left
+    at: { x: 40, y: 726 }
+    size: { w: 170, h: 24 }
+  - id: r4_1
+    label: "6 箱（2 × 3 ／ 3 × 2）"
+    align: left
+    at: { x: 210, y: 726 }
+    size: { w: 330, h: 24 }
+  - id: r4_2
+    label: "交互列積み（JIS Z 0111:2006 付図 3）"
+    align: left
+    at: { x: 540, y: 726 }
+    size: { w: 560, h: 24 }
+  - id: r5_0
+    label: "積載面利用率"
+    align: left
+    at: { x: 40, y: 750 }
+    size: { w: 170, h: 24 }
+  - id: r5_1
+    label: "99.8 %"
+    align: left
+    at: { x: 210, y: 750 }
+    size: { w: 330, h: 24 }
+  - id: r5_2
+    label: "85 % 以上（JIS Z 0651:2002 6.1 c）"
+    align: left
+    at: { x: 540, y: 750 }
+    size: { w: 560, h: 24 }
+  - id: r6_0
+    label: "全高"
+    align: left
+    at: { x: 40, y: 774 }
+    size: { w: 170, h: 24 }
+  - id: r6_1
+    label: "1,144 mm（144 ＋ 250 × 4）"
+    align: left
+    at: { x: 210, y: 774 }
+    size: { w: 330, h: 24 }
+  - id: r6_2
+    label: "2,200 mm 以下（JIS Z 0651:2002 5.3）"
+    align: left
+    at: { x: 540, y: 774 }
+    size: { w: 560, h: 24 }
+  - id: r7_0
+    label: "平面の最大"
+    align: left
+    at: { x: 40, y: 798 }
+    size: { w: 170, h: 24 }
+  - id: r7_1
+    label: "1,100 × 1,098"
+    align: left
+    at: { x: 210, y: 798 }
+    size: { w: 330, h: 24 }
+  - id: r7_2
+    label: "1,140 × 1,140 まで（JIS Z 0651:2002 5.1）"
+    align: left
+    at: { x: 540, y: 798 }
+    size: { w: 560, h: 24 }

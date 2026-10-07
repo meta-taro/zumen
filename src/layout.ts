@@ -14,6 +14,8 @@
  * 実用に耐えるかの材料になる。
  */
 import { ownerOf, pointRef } from './image.ts';
+import { shiftSolid, solidBounds, solidOf, solidsIntersect } from './solid.ts';
+import type { Solid } from './solid.ts';
 import type { ImageInfo, Images } from './image.ts';
 import ELK from 'elkjs/lib/elk.bundled.js';
 import type { ElkExtendedEdge, ElkNode } from 'elkjs/lib/elk-api.js';
@@ -137,6 +139,8 @@ export interface Box {
   pinned: boolean;
   /** **下に敷く画像**（`nodes[].image`。`src/image.ts`）。無ければ持たない。 */
   image?: ImageInfo;
+  /** **立体**（`nodes[].height` ＋ `projection`。`src/solid.ts`）。紙の座標。無ければ持たない。 */
+  solid?: Solid;
 }
 
 export interface PlacedEdge {
@@ -479,6 +483,28 @@ export async function layout(
    * 間取りや売場では、**部屋や棚が接しているのが普通**で、重なりではない。
    * 退けると、書いた座標が黙って動く —— **配置図では座標そのものが内容。**
    */
+  /**
+   * **立体を紙へ落とす**（`src/solid.ts`）。箱は立体の外接矩形にする ——
+   * 紙の大きさ・余白は箱から測るので、立体がはみ出さない。
+   */
+  const axon = axonOf((diagram.doc.toJS() as { projection?: unknown }).projection);
+  for (const box of boxes) {
+    const node = nodes.find((n) => n.id === box.id);
+    if (node?.height == null || node.ground === null || node.size === null) continue;
+    const solid = solidOf(node.ground, node.size, node.height, axon);
+    if (solid === null) continue;
+    // **人が動かした立体は、人の位置が勝つ**（判定基準 3.1）。
+    // `pins.position` は紙の座標で、外接矩形の左上を指す。立体ごと、そこまでずらす。
+    const pin = pins[box.id]?.position;
+    if (pin !== undefined) {
+      const was = solidBounds(solid);
+      shiftSolid(solid, pin.x - was.x, pin.y - was.y);
+    }
+    box.solid = solid;
+    Object.assign(box, solidBounds(solid));
+    written.add(box.id);
+  }
+
   const { locked } = separate(boxes, written);
 
   // 人が枠の外へ動かしたら、枠のほうを広げる。
@@ -563,6 +589,7 @@ export async function layout(
     for (const box of [...boxes, ...groups]) {
       box.x += shift.left;
       box.y += shift.top;
+      if (box.solid !== undefined) shiftSolid(box.solid, shift.left, shift.top);
     }
     for (const edge of edges) {
       for (const point of edge.points) {
@@ -597,6 +624,7 @@ export async function layout(
     for (const box of [...boxes, ...groups]) {
       box.x += slideX;
       box.y += slideY;
+      if (box.solid !== undefined) shiftSolid(box.solid, slideX, slideY);
     }
     for (const line of edges) {
       for (const point of line.points) {
@@ -871,6 +899,12 @@ export function overlaps(placed: Placed): [string, string][] {
     for (let j = i + 1; j < boxes.length; j += 1) {
       const a = boxes[i]!;
       const b = boxes[j]!;
+      // **立体どうしは、紙の上の外接矩形ではなく立体そのもので見る**（`src/solid.ts`）。
+      // 等角図では、積んだ箱・並べた箱の外接矩形は必ず重なる。重なりは食い込んでいるときだけ。
+      if (a.solid !== undefined && b.solid !== undefined) {
+        if (solidsIntersect(a.solid, b.solid)) found.push([a.id, b.id]);
+        continue;
+      }
       if (hits(a, b)) found.push([a.id, b.id]);
     }
   }
@@ -1102,6 +1136,10 @@ interface NodeInfo {
   openings: Hole[];
   /** **下に敷く画像のパス**（正本からの相対）。無ければ null。 */
   image: string | null;
+  /** **立体の高さ**（`height`）。書かなければ null。 */
+  height: number | null;
+  /** **投影する前の床の位置**（`at` の x・y・z。z は書かなければ 0）。高さのある節だけ。 */
+  ground: { x: number; y: number; z: number } | null;
 }
 
 function readNodes(diagram: ReturnType<typeof parse>): NodeInfo[] {
@@ -1132,6 +1170,7 @@ function readNodes(diagram: ReturnType<typeof parse>): NodeInfo[] {
       size?: unknown;
       openings?: unknown;
       image?: unknown;
+      height?: unknown;
     }[];
   };
   const axon = axonOf(raw.projection);
@@ -1170,6 +1209,8 @@ function readNodes(diagram: ReturnType<typeof parse>): NodeInfo[] {
       size: asSize(node.size),
       openings: openingsOf(node.openings),
       image: asText(node.image),
+      height: heightOf(node.height),
+      ground: heightOf(node.height) === null ? null : groundOf(node.at),
     };
   });
 }
@@ -1233,6 +1274,19 @@ function asPoint(raw: unknown, axon: Axon | null = null): { x: number; y: number
    */
   if (typeof z !== 'number' || !Number.isFinite(z)) return { x, y };
   return project({ x, y, z }, axon);
+}
+
+/** 高さ（正の数）。読めなければ null。 */
+function heightOf(raw: unknown): number | null {
+  return typeof raw === 'number' && Number.isFinite(raw) && raw > 0 ? raw : null;
+}
+
+/** 投影する前の `at`。z は書かなければ 0。 */
+function groundOf(raw: unknown): { x: number; y: number; z: number } | null {
+  if (raw === null || typeof raw !== 'object') return null;
+  const { x, y, z } = raw as { x?: unknown; y?: unknown; z?: unknown };
+  if (typeof x !== 'number' || typeof y !== 'number') return null;
+  return { x, y, z: typeof z === 'number' && Number.isFinite(z) ? z : 0 };
 }
 
 /** `{ w, h }` として読めるものだけ受ける。**読めなければラベルから決める。** */

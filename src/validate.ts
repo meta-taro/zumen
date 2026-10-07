@@ -704,6 +704,16 @@ function checkGeometry(doc: Document, add: Add, m: Messages, at: At): void {
       }
     }
 
+    // **立体の高さ**（`src/solid.ts`）。配置図で、投影を書き、置き場所と大きさがあるときだけ効く。
+    const height = item.get('height', true);
+    if (height !== undefined && height !== null) {
+      if (!isPositive(item.get('height'))) {
+        add('warning', 'node-height-invalid', m.nodeHeightInvalid(id), at(height));
+      } else if (!placement || doc.get('projection') === undefined || point == null || size == null) {
+        add('warning', 'node-height-ignored', m.nodeHeightIgnored(id), at(height));
+      }
+    }
+
     const radius = item.get('radius', true);
     if (radius !== undefined && radius !== null) {
       if (!isPositive(isMap(radius) ? undefined : item.get('radius'))) {

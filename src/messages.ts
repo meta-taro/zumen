@@ -678,6 +678,9 @@ const ja = {
      */
     nodeAtInvalid: (id: string) =>
       `ノード "${id}" の at が { x: 数, y: 数 } になっていません。置き場所は無視されます。`,
+    nodeHeightInvalid: (id: string) => `ノード "${id}" の height が正の数ではありません。立体の高さ（px）を書きます。`,
+    nodeHeightIgnored: (id: string) =>
+      `ノード "${id}" に height がありますが、効いていません。立体になるのは、配置図（kind: placement）で projection を書き、at と size のある節だけです。`,
     nodeAtIgnored: (id: string) =>
       `ノード "${id}" に at がありますが、構成図では効きません。置き場所は機械が決めます（kind: placement で効きます）。`,
     nodeSizeInvalid: (id: string) =>
@@ -1510,6 +1513,9 @@ const en: Catalog = {
 
     nodeAtInvalid: (id: string) =>
       `Node "${id}" has an at that is not { x: number, y: number }. The position is ignored.`,
+    nodeHeightInvalid: (id: string) => `Node "${id}" has a height that is not a positive number. Write the solid's height in px.`,
+    nodeHeightIgnored: (id: string) =>
+      `Node "${id}" has a height, but it has no effect. Only nodes with at and size in a placement diagram (kind: placement) that sets projection become solids.`,
     nodeAtIgnored: (id: string) =>
       `Node "${id}" has an at, but it has no effect on a structure diagram (positions are computed). Use kind: placement.`,
     nodeSizeInvalid: (id: string) =>

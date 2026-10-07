@@ -36,7 +36,7 @@ survives a regeneration in **210/210 of the example drawings**, whatever their s
 
 ## What it looks like
 
-388 example drawings, all generated from the YAML sources in
+389 example drawings, all generated from the YAML sources in
 [`examples/gallery/`](https://github.com/meta-taro/zumen/tree/develop/examples/gallery/):
 
 **[→ Browse the gallery](https://meta-taro.github.io/zumen/)**
@@ -107,7 +107,7 @@ This is **not finished software.** It is being built in the open, small step by 
 
 - Reading and writing the source, automatic layout, SVG output (light/dark)
 - Export to Mermaid, draw.io XML, and embedding into Markdown
-- A validator (106 checks) that explains, in the writer's terms, what will not be drawn —
+- A validator (108 checks) that explains, in the writer's terms, what will not be drawn —
   including one that lays the drawing out and reports labels that would collide
 - Checks that read the drawing the way a professional would: things sitting inside a door's
   swing, lines running through boxes they do not connect, rooms that cannot be reached from a

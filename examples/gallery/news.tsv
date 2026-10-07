@@ -4,6 +4,8 @@
 # feat は、使う人から見てできることが増えたものだけ（CHANGELOG の「できることが増えます」と同じ線）。内部の整理は書かない。
 # CHANGELOG の「未リリース」で増えた項目には `<!-- news: 名前 -->` を付け、ここに同じ名前の feat を置く。
 # **いちばん新しい見本がここに無いと、テストが落ちる**（test/news.test.ts）。
+2026-10-07	new	389
+2026-10-07	feat	solids	軸測投影の図で、箱に高さ（height）を書くと立体で描く。輪郭は太く、奥から手前へ重ねる	In axonometric drawings, a box with a height is drawn as a solid: thick outline, thin inner edges, painted back to front
 2026-10-07	feat	svg-a11y	SVG を読み上げに 1 枚の絵として渡す（role="img" と、題を指す aria-labelledby）	SVGs are announced as a single image with their title (role="img" and aria-labelledby)
 2026-10-07	feat	stacked-edges	検査（inspect）が、色の違う線が同じ道を重なって走っている所を知らせる（並走は offset でずらす）	inspect now reports differently coloured edges running on top of each other (pull parallel routes apart with offset)
 2026-10-06	feat	image-callout	画面のキャプチャを敷いて、番号つきの引き出し線で仕様を書ける（image ／ 画像の中の点 ／ callout）	Lay a screenshot under the drawing and annotate it with numbered leader lines (image, points inside the image, callout)
