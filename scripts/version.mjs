@@ -39,11 +39,24 @@ function edit(name, change) {
   const before = readFileSync(path, 'utf8');
   const after = change(before);
   if (after === before) {
+    // **もうその版になっているなら、飛ばす**（2026-10-07）。途中まで手で上げた版の続きを
+    // このコマンドで揃えられないと、package.json だけ 0.5.0・殻は 0.4.0 のまま残った。
+    if (alreadyAt(name, before)) {
+      console.log(`  ${name}（もう ${next}）`);
+      return;
+    }
     console.error(`${name} を書き換えられませんでした。手で直してください。`);
     process.exit(1);
   }
   writeFileSync(path, after);
   console.log(`  ${name}`);
+}
+
+/** その版がもう書いてあるか（CHANGELOG はその版の見出しがあるか）。 */
+function alreadyAt(name, text) {
+  if (name === 'CHANGELOG.md') return new RegExp(`^## ${next.replace(/\./g, '\\.')} — `, 'm').test(text);
+  if (name === 'src-tauri/Cargo.toml') return text.includes(`version = "${next}"`);
+  return new RegExp(`^\\s*"version":\\s*"${next.replace(/\./g, '\\.')}"`, 'm').test(text);
 }
 
 console.log(`版を ${next} にします。`);
