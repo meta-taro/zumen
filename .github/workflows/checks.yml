@@ -124,6 +124,8 @@ jobs:
       # MCP だけの包み（@metataro/zumen-mcp）。入れた先の node_modules/.bin から起動して、MCP として話せるか。
       - name: MCP の包みを入れて、起動して話す
         run: pnpm mcp:check
+        # 止まったまま何時間も待たない（2026-10-10、Windows で 1 時間半止まった）。
+        timeout-minutes: 15
 
   # 画面。**「ビルドが通る」と「動く」は別**なので、実際に動かす。
   #

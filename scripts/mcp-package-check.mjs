@@ -40,8 +40,17 @@ console.log('入れる…');
 run('pnpm install --silent --ignore-workspace', work);
 
 console.log('起動して話す…');
-const bin = join(work, 'node_modules', '.bin', process.platform === 'win32' ? 'zumen-mcp.cmd' : 'zumen-mcp');
-const child = spawn(bin, [], { cwd: work, stdio: ['pipe', 'pipe', 'pipe'], shell: process.platform === 'win32' });
+// **入れた包みの bin を、Node で直接起動する。** Windows の `.bin/zumen-mcp.cmd` はシェル経由でしか起動できず、
+// 終わるときに止まるのがシェルだけで中の Node が残り、**検査が終わらなくなった**（2026-10-10、CI で 1 時間半）。
+// 確かめたいのは「.bin の置き場から起動されても立つか」なので、bin のファイルを外から起動すれば足りる。
+const bin = join(work, 'node_modules', ...NAME.split('/'), 'bin', 'zumen-mcp.js');
+const child = spawn(process.execPath, [bin], { cwd: work, stdio: ['pipe', 'pipe', 'pipe'] });
+// **何があっても 2 分で終わる。** 返事を待つ所で止まっても、検査は落ちて終わる（止まったままにしない）。
+const watchdog = setTimeout(() => {
+  console.error('**2 分たっても終わらないので止めました。**');
+  child.kill('SIGKILL');
+  process.exit(1);
+}, 120000);
 let buffer = '';
 const replies = new Map();
 child.stdout.on('data', (chunk) => {
@@ -81,11 +90,15 @@ try {
   const body = JSON.stringify((await reply(3)).result ?? {});
   if (!body.includes('version: 1')) failures.push(`zumen_examples が見本の中身を返さない（包みに見本が入っていない）: ${body.slice(0, 200)}`);
 } finally {
-  child.kill();
+  clearTimeout(watchdog);
+  child.kill('SIGKILL');
 }
 
 if (failures.length > 0) {
   console.error(`**通りませんでした**:\n- ${failures.join('\n- ')}`);
   process.exit(1);
 }
+// **ここで終わる。** 子の入出力が開いたままだと、Node が終わらずに待ち続ける。
+process.exitCode = 0;
 console.log(`${NAME} を入れて起動し、MCP として話せました（initialize ・ tools/list ・ zumen_examples）。`);
+process.exit(0);
