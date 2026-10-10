@@ -16,9 +16,11 @@
 
 ## 未リリース
 
+## 0.6.0 — 2026-10-10
+
 ### できることが増えます
 
-- **MCP サーバを 1 行で入れられるようになります**（新しい包み `@metataro/zumen-mcp`）。<!-- news: mcp-package -->
+- **MCP サーバを 1 行で入れられるようになりました**（新しい包み `@metataro/zumen-mcp`）。<!-- news: mcp-package -->
   `claude mcp add zumen -- npx -y @metataro/zumen-mcp`。clone も手書きのパスも要りません。
   本体の包み（`@metataro/zumen`）は依存 3 つのまま、MCP SDK を入れません —— MCP が要る人だけがこちらを入れます。
 
@@ -29,6 +31,10 @@
 - **節にリンクを付けられるようになりました**（`nodes[].link`）。<!-- news: node-link -->
   SVG では箱と名前を `<a href>` で包み、押すとそこへ飛びます（Markdown に埋めた図から、本文の節や別の図へ）。
   `http:` ・ `https:` ・ `mailto:` と相対パスだけを通し、`javascript:` などは描きません（`node-link-invalid`）。Mermaid へは `click` で写します。
+
+### 直したもの
+
+- **npm の頁の説明を英語にし、keywords を付けました**（diagram-as-code・mcp・claude-code など 13 語）。homepage は紹介ページを指します。
 
 ## 0.5.0 — 2026-10-07
 
