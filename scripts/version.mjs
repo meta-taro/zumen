@@ -64,6 +64,9 @@ console.log(`版を ${next} にします。`);
 // 1. package.json — 先頭の "version" だけ。依存の版を触らない。
 edit('package.json', (text) => text.replace(/^(\s*"version":\s*")[^"]+(")/m, `$1${next}$2`));
 
+// 1b. packages/zumen-mcp/package.json — MCP だけの包み。本体と同じ版で出す。
+edit('packages/zumen-mcp/package.json', (text) => text.replace(/^(\s*"version":\s*")[^"]+(")/m, `$1${next}$2`));
+
 // 2. src-tauri/tauri.conf.json
 edit('src-tauri/tauri.conf.json', (text) =>
   text.replace(/^(\s*"version":\s*")[^"]+(")/m, `$1${next}$2`),

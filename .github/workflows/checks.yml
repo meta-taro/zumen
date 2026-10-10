@@ -121,6 +121,10 @@ jobs:
       - name: 組み立てて、別のところから import して呼ぶ
         run: pnpm consume:check
 
+      # MCP だけの包み（@metataro/zumen-mcp）。入れた先の node_modules/.bin から起動して、MCP として話せるか。
+      - name: MCP の包みを入れて、起動して話す
+        run: pnpm mcp:check
+
   # 画面。**「ビルドが通る」と「動く」は別**なので、実際に動かす。
   #
   # 実際、`process is not defined` で画面が丸ごと動かないまま

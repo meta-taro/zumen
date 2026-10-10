@@ -1,0 +1,24 @@
+{
+  "name": "@metataro/zumen-mcp",
+  "version": "0.5.0",
+  "description": "MCP server for zumen — AI-editable diagrams as code. Lets Claude Code and other agents read the spec, browse 389 worked examples, propose edits as diffs a human applies, inspect and export (SVG, PNG, Mermaid, draw.io).",
+  "type": "module",
+  "license": "MIT",
+  "keywords": ["mcp", "mcp-server", "claude-code", "diagram-as-code", "diagram", "ai-agent", "yaml", "svg"],
+  "repository": { "type": "git", "url": "git+https://github.com/meta-taro/zumen.git", "directory": "packages/zumen-mcp" },
+  "homepage": "https://meta-taro.github.io/zumen/",
+  "bugs": { "url": "https://github.com/meta-taro/zumen/issues" },
+  "engines": { "node": ">=22.18" },
+  "bin": { "zumen-mcp": "./bin/zumen-mcp.js" },
+  "scripts": {
+    "prepublishOnly": "cd ../.. && pnpm build && node scripts/mcp-package.mjs"
+  },
+  "files": ["bin", "dist", "spec", "fonts", "examples/gallery/*.zumen.yaml", "examples/gallery/index.json", "CHANGELOG.md", "LICENSE", "LICENSES.md", "README.md"],
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "elkjs": "^0.12.0",
+    "subset-font": "2.9.0",
+    "yaml": "^2.9.0",
+    "zod": "^4.5.4"
+  }
+}

@@ -386,9 +386,17 @@ async function openLine(hub: Hub): Promise<LiveServer | null> {
   }
 }
 
-// 直接叩かれたときだけ立てる。import しても副作用が出ないようにしておく。
-if (isEntry(import.meta.url, process.argv[1])) {
+/**
+ * **MCP サーバを立てる**（stdio）。`@metataro/zumen-mcp` のコマンド（`packages/zumen-mcp/bin`）もこれを呼ぶ。
+ *
+ * コマンドは `node_modules/.bin` の置き場から起動されるので、下の `isEntry`（いま走っているのが
+ * このファイルか）は成り立たない。**入口を関数にして、どこから呼んでも同じに立つようにする。**
+ */
+export async function startMcp(): Promise<void> {
   const hub = createHub();
   await openLine(hub);
   await buildServer(hub).connect(new StdioServerTransport());
 }
+
+// 直接叩かれたときだけ立てる。import しても副作用が出ないようにしておく。
+if (isEntry(import.meta.url, process.argv[1])) await startMcp();

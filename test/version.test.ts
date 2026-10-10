@@ -1,5 +1,5 @@
 /**
- * **版が 4 か所で揃っていること。**
+ * **版が 5 か所で揃っていること。**
  *
  * ## なぜ要るか
  *
@@ -27,9 +27,10 @@ import { describe, it } from 'node:test';
 const ROOT = new URL('../', import.meta.url).pathname;
 const read = (name: string): string => readFileSync(join(ROOT, name), 'utf8');
 
-/** 版が書いてある 4 か所。**1 つ増えたらここへ足すこと。** */
+/** 版が書いてある 5 か所。**1 つ増えたらここへ足すこと。**（2026-10-10 に MCP の包みを足した） */
 function versions(): Record<string, string | null> {
   const pkg = JSON.parse(read('package.json')) as { version: string };
+  const mcp = JSON.parse(read('packages/zumen-mcp/package.json')) as { version: string };
   const tauri = JSON.parse(read('src-tauri/tauri.conf.json')) as { version: string };
 
   const cargo = /^version = "([^"]+)"/m.exec(read('src-tauri/Cargo.toml'));
@@ -38,6 +39,7 @@ function versions(): Record<string, string | null> {
 
   return {
     'package.json': pkg.version,
+    'packages/zumen-mcp/package.json': mcp.version,
     'src-tauri/tauri.conf.json': tauri.version,
     'src-tauri/Cargo.toml': cargo?.[1] ?? null,
     'src-tauri/Cargo.lock': lock?.[1] ?? null,
@@ -47,13 +49,13 @@ function versions(): Record<string, string | null> {
 describe('版', () => {
   const found = versions();
 
-  it('4 か所すべてから読める', () => {
+  it('5 か所すべてから読める', () => {
     for (const [where, value] of Object.entries(found)) {
       assert.notEqual(value, null, `${where} から版を読めない`);
     }
   });
 
-  it('**4 か所が揃っている**（3 か所だけ直して CI で落ちた）', () => {
+  it('**5 か所が揃っている**（3 か所だけ直して CI で落ちた）', () => {
     const unique = [...new Set(Object.values(found))];
     assert.equal(unique.length, 1, JSON.stringify(found, null, 2));
   });
@@ -73,7 +75,7 @@ describe('版を上げる道具', () => {
     assert.match(pkg.scripts?.['version:set'] ?? '', /scripts\/version\.mjs/);
   });
 
-  it('**4 か所すべてを触る**（1 つでも漏れたら、また CI で落ちる）', () => {
+  it('**5 か所すべてを触る**（1 つでも漏れたら、また CI で落ちる）', () => {
     const source = read('scripts/version.mjs');
     for (const where of Object.keys(versions())) {
       assert.ok(source.includes(where), `${where} を触っていない`);

@@ -18,6 +18,10 @@
 
 ### できることが増えます
 
+- **MCP サーバを 1 行で入れられるようになります**（新しい包み `@metataro/zumen-mcp`）。<!-- news: mcp-package -->
+  `claude mcp add zumen -- npx -y @metataro/zumen-mcp`。clone も手書きのパスも要りません。
+  本体の包み（`@metataro/zumen`）は依存 3 つのまま、MCP SDK を入れません —— MCP が要る人だけがこちらを入れます。
+
 - **変更前と変更後を並べた絵を出せるようになりました**（`pnpm compare <変更前> <変更後> [書き出し先.svg]`）。<!-- news: compare -->
   同じ縮尺で左右に並べ、足された節に「新」、消えた節に「消」、人が `pins` で置いた節に「人」を付けます。
   AI が描き直しても人の直しが残っていることを、YAML を読まない人にも絵で見せられます（図の上に重ねません）。

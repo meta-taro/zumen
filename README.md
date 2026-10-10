@@ -36,7 +36,7 @@ so however many times the AI redraws, your corrections survive.
 | You want to | Do this |
 |---|---|
 | **View and correct diagrams in the app** | Download from [Releases](https://github.com/meta-taro/zumen/releases/latest) (Windows x64 / ARM64, macOS Apple silicon). **Not code-signed yet**, so the plain executables (`zumen-windows-*.exe`, `zumen-macos-app.tar.gz`) are the safest bet |
-| **Let an AI agent draw** (MCP) | Run the four lines below and add `pnpm mcp` to your agent's MCP config ([details](https://github.com/meta-taro/zumen/blob/develop/docs/install.md)) |
+| **Let an AI agent draw** (MCP) | `claude mcp add zumen -- npx -y @metataro/zumen-mcp` (from 0.6.0; until then, run the four lines below and add `pnpm mcp` to your agent's MCP config — [details](https://github.com/meta-taro/zumen/blob/develop/docs/install.md)) |
 | **Render SVG from your own code** | `pnpm add @metataro/zumen` and `toSvg(source)` |
 
 ```bash
