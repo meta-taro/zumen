@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>zumen — the AI draws it, you fix one thing, and your fix survives</title>
+<title>zumen — AI-editable diagrams as code: the AI draws, you fix one thing, your fix survives</title>
 <!--
   **同じ見た目・同じ動きを 2 か所に書かない**（2026-09-16）。
   CSS と JS は日本語のページと共有する。文だけがここにある。
@@ -11,7 +11,7 @@
 <link rel="icon" type="image/svg+xml" href="../icon.svg">
 <link rel="apple-touch-icon" href="../icon-180.png">
 <meta name="theme-color" content="#23232b">
-<meta name="description" content="Stop dragging shapes every time the architecture changes. A diagram editor whose source of truth is text. It competes on the second drawing, not the first.">
+<meta name="description" content="AI-editable diagrams as code: an AI agent (Claude Code and others, via MCP) draws from one YAML file, you fix the layout by hand, and your fix survives the next regeneration. Desktop editor; exports SVG, Mermaid and draw.io. 389 example drawings, MIT.">
 <!--
   **The card that shows when the link is posted** (OGP / Twitter card, 2026-09-17).
   The picture is built from the examples themselves by `pnpm og` (`scripts/og.mjs`).
@@ -22,14 +22,14 @@
 <meta property="og:locale:alternate" content="ja_JP">
 <meta property="og:url" content="https://meta-taro.github.io/zumen/en/">
 <meta property="og:title" content="zumen — the AI draws it, you fix one thing, and your fix survives">
-<meta property="og:description" content="Stop dragging shapes every time the architecture changes. Diagrams whose source of truth is text. 163 examples, MIT.">
+<meta property="og:description" content="AI-editable diagrams as code: an AI agent (Claude Code and others, via MCP) draws from one YAML file, you fix the layout by hand, and your fix survives the next regeneration. Desktop editor; exports SVG, Mermaid and draw.io. 389 example drawings, MIT.">
 <meta property="og:image" content="https://meta-taro.github.io/zumen/en/og.png">
 <meta property="og:image:width" content="2400">
 <meta property="og:image:height" content="1260">
 <meta property="og:image:alt" content="Wall framing and a wildland fire IAP map, both drawn by zumen from YAML.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="zumen — the AI draws it, you fix one thing, and your fix survives">
-<meta name="twitter:description" content="Stop dragging shapes every time the architecture changes. Diagrams whose source of truth is text. 163 examples, MIT.">
+<meta name="twitter:description" content="AI-editable diagrams as code: an AI agent (Claude Code and others, via MCP) draws from one YAML file, you fix the layout by hand, and your fix survives the next regeneration. Desktop editor; exports SVG, Mermaid and draw.io. 389 example drawings, MIT.">
 <meta name="twitter:image" content="https://meta-taro.github.io/zumen/en/og.png">
 <link rel="alternate" type="application/atom+xml" href="feed.xml" title="zumen — new and corrected examples">
 <link rel="stylesheet" href="../style.css">
@@ -55,6 +55,7 @@
         "en"
       ],
       "description": "A diagram tool whose source of truth is one YAML file: when the AI redraws, the one thing a human fixed (pins) survives. 389 example drawings, 108 checks, MCP server included.",
+      "keywords": "diagram as code, AI-editable architecture diagrams, MCP server, Claude Code, YAML, SVG, Mermaid, draw.io, floor plans, professional drawings",
       "license": "https://opensource.org/licenses/MIT",
       "isAccessibleForFree": true,
       "offers": {

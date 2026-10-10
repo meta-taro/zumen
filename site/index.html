@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>zumen — AI が描き、人が直し、その直しが壊れない構成図</title>
+<title>zumen — AI が描き、人が直し、その直しが壊れない構成図（diagram as code・MCP）</title>
 <!--
   **アプリと同じアイコン。** タブで見分けが付かないと、
   複数の図を開いているときにどれがどれか分からない（`app/icon.svg` が正本）。
@@ -11,7 +11,7 @@
 <link rel="icon" type="image/svg+xml" href="icon.svg">
 <link rel="apple-touch-icon" href="icon-180.png">
 <meta name="theme-color" content="#23232b">
-<meta name="description" content="構成が変わるたびに図形を動かし直すのをやめる。テキスト正本の構成図エディタ。1 枚目ではなく 2 枚目以降で勝負します。">
+<meta name="description" content="AI エージェント（Claude Code など）が MCP で図を描き、人が手で直した位置は次の生成でも崩れない。YAML を正本にする diagram as code のデスクトップ作図ツール。SVG・Mermaid・draw.io へ書き出し。見本 389 枚・MIT。">
 <!--
   **SNS に貼ったときに出るカード**（OGP / Twitter card。2026-09-17）。
   絵は `pnpm og` が見本そのものから作る（`scripts/og.mjs`）。
@@ -23,14 +23,14 @@
 <meta property="og:locale:alternate" content="en_US">
 <meta property="og:url" content="https://meta-taro.github.io/zumen/">
 <meta property="og:title" content="zumen — AI が描き、人が直し、その直しが壊れない図">
-<meta property="og:description" content="構成が変わるたびに図形を動かし直すのをやめる。テキスト正本の作図ツール。見本 389 枚・MIT。">
+<meta property="og:description" content="AI エージェント（Claude Code など）が MCP で図を描き、人が手で直した位置は次の生成でも崩れない。YAML を正本にする diagram as code のデスクトップ作図ツール。SVG・Mermaid・draw.io へ書き出し。見本 389 枚・MIT。">
 <meta property="og:image" content="https://meta-taro.github.io/zumen/og.png">
 <meta property="og:image:width" content="2400">
 <meta property="og:image:height" content="1260">
 <meta property="og:image:alt" content="歯周チャートと路線図。どちらも zumen が YAML から描いたもの。">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="zumen — AI が描き、人が直し、その直しが壊れない図">
-<meta name="twitter:description" content="構成が変わるたびに図形を動かし直すのをやめる。テキスト正本の作図ツール。見本 389 枚・MIT。">
+<meta name="twitter:description" content="AI エージェント（Claude Code など）が MCP で図を描き、人が手で直した位置は次の生成でも崩れない。YAML を正本にする diagram as code のデスクトップ作図ツール。SVG・Mermaid・draw.io へ書き出し。見本 389 枚・MIT。">
 <meta name="twitter:image" content="https://meta-taro.github.io/zumen/og.png">
 <link rel="alternate" type="application/atom+xml" href="feed.xml" title="zumen —— 新しく足した見本・直した見本">
 <link rel="stylesheet" href="style.css">
@@ -56,6 +56,7 @@
         "en"
       ],
       "description": "テキスト（YAML 1 枚）を正本にする作図ツール。AI が図を描き直しても、人が手で直した所（pins）は消えない。見本 389 枚、検査 108 項目、MCP サーバー同梱。",
+      "keywords": "diagram as code, AI-editable architecture diagrams, MCP server, Claude Code, YAML, SVG, Mermaid, draw.io, 構成図, 間取り, 専門図面",
       "license": "https://opensource.org/licenses/MIT",
       "isAccessibleForFree": true,
       "offers": {

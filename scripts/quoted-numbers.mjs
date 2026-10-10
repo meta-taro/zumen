@@ -20,7 +20,7 @@ export const QUOTES = [
   ['README.md', /A validator \((\d+) checks\)/, 'checks'],
   ['scripts/og.mjs', /見本 (\d+) 枚 ／ テキスト正本/, 'samples'],
   ['scripts/og.mjs', /(\d+) example drawings &middot; diagrams as text/, 'samples'],
-  ['site/index.html', /テキスト正本の作図ツール。見本 (\d+) 枚・MIT。/, 'samples'],
+  ['site/index.html', /draw\.io へ書き出し。見本 (\d+) 枚・MIT。/, 'samples'],
   ['site/index.html', /見本 (\d+) 枚、検査 \d+ 項目/, 'samples'],
   ['site/index.html', /見本 \d+ 枚、検査 (\d+) 項目/, 'checks'],
   ['site/index.html', /描かれないものを名指しする検査 (\d+) 項目/, 'checks'],

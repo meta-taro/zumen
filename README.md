@@ -8,6 +8,8 @@
 
 **Let an AI draw the diagram, fix what you want by hand, ask the AI again — and your fix is still there.**
 
+*AI-editable diagrams as code: a desktop editor with an MCP server for Claude Code and other agents. One YAML file is the source of truth; it renders SVG and exports Mermaid and draw.io.*
+
 Diagrams are plain text (YAML). Where you move things is stored in a `pins:` block the AI is not allowed to write,
 so however many times the AI redraws, your corrections survive.
 
