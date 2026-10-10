@@ -388,8 +388,8 @@ describe('命令の振り分け', () => {
   it('命令が無ければ 2 で、使い方を全部出す', async () => {
     const result = await run([]);
     assert.equal(result.code, 2);
-    // **口が増えたら 1 行増える**（2026-09-16 に timelapse を足した）。
-    assert.equal(result.lines.length, 10);
+    // **口が増えたら 1 行増える**（2026-09-16 に timelapse、2026-10-10 に compare を足した）。
+    assert.equal(result.lines.length, 11);
   });
 });
 

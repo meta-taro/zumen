@@ -43,6 +43,15 @@ const ja = {
     /** 取得日。 */
     retrieved: (date: string) => `（${date} 取得）`,
   },
+  /** 変更前と変更後を並べた絵（`src/compare.ts`）。 */
+  compare: {
+    title: '変更前と変更後',
+    before: '変更前',
+    after: '変更後',
+    added: '新',
+    removed: '消',
+    human: '人',
+  },
 
   /** 正本の読み書き（`src/format.ts`） */
   format: {
@@ -146,6 +155,9 @@ const ja = {
     timelapseWrote: (steps: number, seconds: number, path: string) =>
       `${steps} 段 ${seconds} 秒のタイムラプスを ${path} へ書きました（連番の SVG も同じ場所）。`,
     usageMermaid: '使い方: pnpm mermaid <図のファイル> [書き出し先]',
+    usageCompare: '使い方: pnpm compare <変更前> <変更後> [書き出し先.svg] [--dark]',
+    compared: (target: string, added: number, removed: number, kept: number) =>
+      `${target} へ書き出しました（足された節 ${added}・消えた節 ${removed}・人の直しが残った節 ${kept}）。`,
     usageEmbed: '使い方: pnpm embed <Markdown のファイル> [書き出し先]',
     usageMerge: '使い方: pnpm merge <正本> <提案>',
     /** 囲みが 1 つも無い Markdown。**黙って何もしない、をしない。** */
@@ -678,6 +690,8 @@ const ja = {
      */
     nodeAtInvalid: (id: string) =>
       `ノード "${id}" の at が { x: 数, y: 数 } になっていません。置き場所は無視されます。`,
+    nodeLinkInvalid: (id: string) =>
+      `ノード "${id}" の link を描きません。http: ・ https: ・ mailto: か、スキームの無い相対パス（./別の図.zumen.yaml・#見出し）だけを通します（javascript: などは通しません）。`,
     nodeHeightInvalid: (id: string) => `ノード "${id}" の height が正の数ではありません。立体の高さ（px）を書きます。`,
     nodeHeightIgnored: (id: string) =>
       `ノード "${id}" に height がありますが、効いていません。立体になるのは、配置図（kind: placement）で projection を書き、at と size のある節だけです。`,
@@ -1042,6 +1056,14 @@ const en: Catalog = {
     source: (body: string) => `Source: ${body}`,
     retrieved: (date: string) => ` (retrieved ${date})`,
   },
+  compare: {
+    title: 'Before and after',
+    before: 'Before',
+    after: 'After',
+    added: 'new',
+    removed: 'gone',
+    human: 'you',
+  },
   format: {
     atLine: (line: number, reason: string) => `line ${line}: ${reason}`,
   },
@@ -1124,6 +1146,9 @@ const en: Catalog = {
     timelapseWrote: (steps: number, seconds: number, path: string) =>
       `Wrote a ${seconds}s timelapse of ${steps} steps to ${path} (numbered SVGs are beside it).`,
     usageMermaid: 'Usage: pnpm mermaid <diagram file> [output path]',
+    usageCompare: 'Usage: pnpm compare <before> <after> [output.svg] [--dark]',
+    compared: (target: string, added: number, removed: number, kept: number) =>
+      `Wrote ${target} (${added} nodes added, ${removed} removed, ${kept} human placements kept).`,
     usageEmbed: 'Usage: pnpm embed <markdown file> [output path]',
     usageMerge: 'Usage: pnpm merge <source of truth> <proposal>',
     embedNoBlocks: (path: string) => `${path} has no zumen blocks.`,
@@ -1513,6 +1538,8 @@ const en: Catalog = {
 
     nodeAtInvalid: (id: string) =>
       `Node "${id}" has an at that is not { x: number, y: number }. The position is ignored.`,
+    nodeLinkInvalid: (id: string) =>
+      `Node "${id}" has a link that will not be drawn. Only http:, https:, mailto: and scheme-less relative paths (./other.zumen.yaml, #heading) are allowed — not javascript: and the like.`,
     nodeHeightInvalid: (id: string) => `Node "${id}" has a height that is not a positive number. Write the solid's height in px.`,
     nodeHeightIgnored: (id: string) =>
       `Node "${id}" has a height, but it has no effect. Only nodes with at and size in a placement diagram (kind: placement) that sets projection become solids.`,

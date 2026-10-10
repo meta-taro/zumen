@@ -18,6 +18,7 @@ import type { Document, Node, YAMLMap } from 'yaml';
 import { DIRECTIONS as DIRECTION_WORDS } from './direction.ts';
 import { KINDS as KIND_WORDS } from './kind.ts';
 import { ownerOf, pointEnd } from './image.ts';
+import { linkOf } from './link.ts';
 import { MARKS, NORTHS } from './grid.ts';
 import { ENDS } from './ends.ts';
 import { LINES } from './line.ts';
@@ -702,6 +703,12 @@ function checkGeometry(doc: Document, add: Add, m: Messages, at: At): void {
       if (!isMap(size) || !isPositive(size.get('w')) || !isPositive(size.get('h'))) {
         add('warning', 'node-size-invalid', m.nodeSizeInvalid(id), at(size));
       }
+    }
+
+    // **リンク**（`src/link.ts`）。通さない書き方（javascript: など）は描かない。
+    const link = item.get('link', true);
+    if (link !== undefined && link !== null && linkOf(item.get('link')) === null) {
+      add('warning', 'node-link-invalid', m.nodeLinkInvalid(id), at(link));
     }
 
     // **立体の高さ**（`src/solid.ts`）。配置図で、投影を書き、置き場所と大きさがあるときだけ効く。

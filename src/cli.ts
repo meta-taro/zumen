@@ -17,6 +17,7 @@
  */
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname } from 'node:path';
+import { compare } from './compare.ts';
 import { loadImages } from './image-files.ts';
 
 import { toDrawio } from './drawio.ts';
@@ -1045,6 +1046,29 @@ export async function runMermaid(paths: string[], read = readFileSync, write = w
 }
 
 /**
+ * **変更前と変更後を並べた絵**（`pnpm compare <変更前> <変更後> [書き出し先.svg]`。`src/compare.ts`）。
+ */
+export async function runCompare(paths: string[], read = readFileSync, write = writeFileSync): Promise<RunResult> {
+  const m = messages().cli;
+  const theme = paths.includes('--dark') ? 'dark' : 'light';
+  const [before, after, output] = paths.filter((part) => !part.startsWith('--'));
+  if (before === undefined || after === undefined) return { code: 2, lines: [m.usageCompare] };
+  let texts: [string, string];
+  try {
+    texts = [String(read(before, 'utf8')), String(read(after, 'utf8'))];
+  } catch (error) {
+    return { code: 1, lines: [m.fileUnreadable(`${before} / ${after}`, error instanceof Error ? error.message : String(error))] };
+  }
+  const target = output ?? `${after.replace(/\.zumen\.yaml$|\.ya?ml$/, '')}.compare.svg`;
+  const result = await compare(texts[0], texts[1], {
+    theme,
+    images: { before: loadImages(texts[0], dirname(before)), after: loadImages(texts[1], dirname(after)) },
+  });
+  write(target, result.svg);
+  return { code: 0, lines: [m.compared(target, result.added.length, result.removed.length, result.kept.length)] };
+}
+
+/**
  * Markdown の囲みを図へ差し替える（着地点は Markdown 本文への埋め込み）。
  *
  * **描けない囲みは、理由をその位置に出して指定を残す**（`src/embed.ts` の作法）。
@@ -1119,6 +1143,7 @@ export async function run(argv: string[]): Promise<RunResult> {
   if (command === 'inspect') return runInspect(rest);
   if (command === 'svg') return runSvg(rest);
   if (command === 'mermaid') return runMermaid(rest);
+  if (command === 'compare') return runCompare(rest);
   if (command === 'timelapse') return runTimelapse(rest);
   if (command === 'embed') return runEmbed(rest);
   if (command === 'merge') return runMerge(rest);
@@ -1130,6 +1155,7 @@ export async function run(argv: string[]): Promise<RunResult> {
     m.usageSvg,
     m.usageTimelapse,
     m.usageMermaid,
+    m.usageCompare,
     m.usageDrawio,
     m.usageEmbed,
     m.usageMerge,
