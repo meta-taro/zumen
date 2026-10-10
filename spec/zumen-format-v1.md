@@ -173,6 +173,7 @@ nodes:
 | `fill` | | **`palette` の鍵**。**面だけ**を薄く敷く。枠も文字も染めない（§3.0.13） |
 | `hatch_color` | | **模様の色**（`paper` か `palette` の鍵）。`hatch` の模様だけに乗る（§3.0.21） |
 | `image` | | **下に敷く画像**（正本からの相対パス。png / jpg / webp）。§3.0.22 |
+| `link` | | **リンク**。押すとそこへ飛ぶ（http(s)・mailto・相対パス。§3.0.24） |
 | `height` | | **立体の高さ**（px）。`projection` のある配置図で、箱を角柱として描く（§3.0.23） |
 | `label` の改行 | | **名前を 2 行以上で書ける**（`"Shoes-in\nCloset"`）。配置図で箱に収まるときだけ積む |
 | `floor` | | **どの階にあるか**（`floors` の名前）。**位置は変えない**（§3.0.16） |
@@ -1493,6 +1494,44 @@ nodes:
 - 投影の無い図・構成図・`at` か `size` の無い節では効かない（`node-height-ignored`）。床の板のような薄いものも、`height` を小さく書いて立体にする
   （`height` の無い節は、隅の 1 点だけが投影され、形は平面のまま）
 
+#### 3.0.24 リンク（`nodes[].link`）
+
+節に `link` を書くと、**SVG では形と名前を `<a href>` で包む**（押すとそこへ飛ぶ）。
+図を Markdown の本文に埋めたとき、箱から本文の節・別の図・外の文書へ渡れる。
+
+```yaml
+version: 1
+nodes:
+  - id: db
+    label: 注文 DB
+    link: ./order-db.zumen.yaml
+  - id: api
+    label: 注文 API
+    link: https://example.com/api#orders
+```
+
+| 書き方 | 通すか |
+|---|---|
+| `http:` ／ `https:` ／ `mailto:` | 通す |
+| スキームの無い相対パス（`./別の図.zumen.yaml`・`docs/x.md`・`#見出し`） | 通す（相対の基準は、SVG を置いた場所） |
+| `javascript:` ・ `data:` ・ `file:` など、上以外のスキーム | **通さない**（描かず、`node-link-invalid` で知らせる） |
+
+- **URL を持つだけ。** 別の図の中身は取り込まない
+- Mermaid へは `click <id> href "<link>"` で写す。draw.io へはまだ写さない
+
+#### 3.0.25 変更前と変更後を並べる（`pnpm compare`）
+
+正本の書き方は増えない。**2 つの正本から 1 枚の SVG を作る道具**。
+
+| 印 | どこに | 意味 |
+|---|---|---|
+| 太枠と「新」 | 変更後 | 変更後にだけある節（id で見る） |
+| 点線の枠と「消」 | 変更前 | 変更前にだけある節 |
+| 「人」 | 両方 | 両方で `pins.<id>.position` を持つ節 —— 人の置いた位置が残っている |
+
+- 左右に並べ、**重ねない**。位置の差（動いた量）は数えない —— 人が置いた節は動かないのが保証で、AI が置いた節は動いてよい
+- 画像（`image`）はそれぞれの正本の横から読む
+
 #### 3.1.2 建具（`openings`）
 
 **配置図（`kind: placement`）でだけ効く。** 間取り図を実物と並べたとき、
@@ -2022,6 +2061,7 @@ Mermaid も draw.io も、落ちたものを先頭のコメントに列挙する
 | `pin-orphan` | **`pins` が指す要素が正本に無い**（消さずに知らせる。§3.4） |
 | `node-at-invalid` | `at` が `{ x: 数, y: 数 }` か |
 | `node-at-ignored` | **構成図に `at` を書いていないか**（置き場所は機械が決める） |
+| `node-link-invalid` | **`link` が通る書き方か**（`javascript:` などは描かない。§3.0.24） |
 | `node-height-invalid` | **`height` が正の数か**（§3.0.23） |
 | `node-height-ignored` | **`height` が効く所に書いてあるか**（配置図・`projection`・`at`・`size` が揃っていないと立体にならない。§3.0.23） |
 | `node-size-invalid` | `size` が `{ w: 正の数, h: 正の数 }` か |

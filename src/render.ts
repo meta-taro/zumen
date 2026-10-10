@@ -1093,6 +1093,11 @@ function renderNode(
   if (part === 'holes') {
     return holes === '' ? '' : `<g data-holes="${escapeAttr(box.id)}">${holes}</g>`;
   }
+  // **リンクのある節は、形も名前も <a> で包む**（`src/link.ts`）。どちらを押しても飛ぶ。
+  if (box.link !== undefined) {
+    const inner = renderNode({ ...box, link: undefined }, palette, plan, wall, name, under, part);
+    return inner === '' ? '' : `<a href="${escapeAttr(box.link)}">${inner}</a>`;
+  }
   if (part === 'text' && box.solid !== undefined) {
     // **立体の名前は、上の面の真ん中に**（箱＝外接矩形の真ん中は、立体の外に出ることがある）。
     if (box.label === '') return '';

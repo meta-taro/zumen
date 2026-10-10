@@ -8,6 +8,8 @@
 
 **AI に図を描かせて、人が直す。もう一度 AI に頼んでも、人が直したところは崩れない。**
 
+*AI が編集できる diagram as code。Claude Code などのエージェントが MCP で描くデスクトップ作図ツールです。正本は YAML 1 枚で、SVG に描き、Mermaid と draw.io へ書き出せます。*
+
 図はテキスト（YAML）で持ちます。人が動かした位置は `pins:` という、AI が書き込めない欄に残るので、
 AI が図を何度描き直しても、人の直しは消えません。
 
@@ -34,7 +36,7 @@ AI が図を何度描き直しても、人の直しは消えません。
 | やりたいこと | 手順 |
 |---|---|
 | **アプリで見る・直す** | [Releases](https://github.com/meta-taro/zumen/releases/latest) から落とす（Windows x64 / ARM64・macOS Apple Silicon）。**署名はまだ無い**ので、素の実行ファイル（`zumen-windows-*.exe` ／ `zumen-macos-app.tar.gz`）が確実です |
-| **AI エージェントに描かせる**（MCP） | 下の 4 行で立てて、エージェントの MCP 設定に `pnpm mcp` を足す（[詳しく](https://github.com/meta-taro/zumen/blob/develop/docs/install.md)） |
+| **AI エージェントに描かせる**（MCP） | `claude mcp add zumen -- npx -y @metataro/zumen-mcp`（0.6.0 から。それまでは下の 4 行で立てて、エージェントの MCP 設定に `pnpm mcp` を足す ——[詳しく](https://github.com/meta-taro/zumen/blob/develop/docs/install.md)） |
 | **自分のコードから SVG にする** | `pnpm add @metataro/zumen`（[使い方](#ライブラリとして使う)） |
 
 ```bash

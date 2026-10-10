@@ -8,6 +8,8 @@
 
 **Let an AI draw the diagram, fix what you want by hand, ask the AI again — and your fix is still there.**
 
+*AI-editable diagrams as code: a desktop editor with an MCP server for Claude Code and other agents. One YAML file is the source of truth; it renders SVG and exports Mermaid and draw.io.*
+
 Diagrams are plain text (YAML). Where you move things is stored in a `pins:` block the AI is not allowed to write,
 so however many times the AI redraws, your corrections survive.
 
@@ -34,7 +36,7 @@ so however many times the AI redraws, your corrections survive.
 | You want to | Do this |
 |---|---|
 | **View and correct diagrams in the app** | Download from [Releases](https://github.com/meta-taro/zumen/releases/latest) (Windows x64 / ARM64, macOS Apple silicon). **Not code-signed yet**, so the plain executables (`zumen-windows-*.exe`, `zumen-macos-app.tar.gz`) are the safest bet |
-| **Let an AI agent draw** (MCP) | Run the four lines below and add `pnpm mcp` to your agent's MCP config ([details](https://github.com/meta-taro/zumen/blob/develop/docs/install.md)) |
+| **Let an AI agent draw** (MCP) | `claude mcp add zumen -- npx -y @metataro/zumen-mcp` (from 0.6.0; until then, run the four lines below and add `pnpm mcp` to your agent's MCP config — [details](https://github.com/meta-taro/zumen/blob/develop/docs/install.md)) |
 | **Render SVG from your own code** | `pnpm add @metataro/zumen` and `toSvg(source)` |
 
 ```bash
@@ -156,7 +158,7 @@ This is **not finished software.** It is being built in the open, small step by 
 
 - Reading and writing the source, automatic layout, SVG output (light/dark)
 - Export to Mermaid, draw.io XML, and embedding into Markdown
-- A validator (108 checks) that explains, in the writer's terms, what will not be drawn —
+- A validator (109 checks) that explains, in the writer's terms, what will not be drawn —
   including one that lays the drawing out and reports labels that would collide
 - Checks that read the drawing the way a professional would: things sitting inside a door's
   swing, lines running through boxes they do not connect, rooms that cannot be reached from a

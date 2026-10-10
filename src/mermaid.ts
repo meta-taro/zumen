@@ -11,6 +11,7 @@
  * **落ちるものは黙って落とさない。** Mermaid には人が置いた位置を書く場所が無い。
  * 落ちた指定を先頭のコメントに列挙して、何が失われたかを読める形にする。
  */
+import { linkOf } from './link.ts';
 import { asText, getPins, parse } from './format.ts';
 import { directionOf } from './direction.ts';
 import { kindOf } from './kind.ts';
@@ -48,6 +49,7 @@ export function toMermaid(text: string): string {
       group?: string;
       technology?: unknown;
       tag?: unknown;
+      link?: unknown;
     }[];
   };
   // 人が直したラベルと体裁は Mermaid でも表せる。**表せるものは落とさない。**
@@ -97,6 +99,13 @@ export function toMermaid(text: string): string {
     }
     for (const node of styled) lines.push(`  class ${node.id} ${node.appearance}`);
   }
+
+  // **リンクは Mermaid の click で表せる**（`src/link.ts` を通ったものだけ）。
+  const linked = (raw.nodes ?? []).flatMap((node) => {
+    const link = linkOf(node.link);
+    return link === null ? [] : [`  click ${node.id} href ${quote(link)}`];
+  });
+  if (linked.length > 0) lines.push('', ...linked);
 
   lines.push('');
   for (const edge of diagram.edges()) {

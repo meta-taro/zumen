@@ -14,6 +14,7 @@
  * 実用に耐えるかの材料になる。
  */
 import { ownerOf, pointRef } from './image.ts';
+import { linkOf } from './link.ts';
 import { shiftSolid, solidBounds, solidOf, solidsIntersect } from './solid.ts';
 import type { Solid } from './solid.ts';
 import type { ImageInfo, Images } from './image.ts';
@@ -141,6 +142,8 @@ export interface Box {
   image?: ImageInfo;
   /** **立体**（`nodes[].height` ＋ `projection`。`src/solid.ts`）。紙の座標。無ければ持たない。 */
   solid?: Solid;
+  /** **リンク**（`nodes[].link`。`src/link.ts`）。通らない書き方なら持たない。 */
+  link?: string;
 }
 
 export interface PlacedEdge {
@@ -417,6 +420,10 @@ export async function layout(
   const groups: Box[] = [];
   collect(laid, 0, 0, nodes, groupLabels, boxes, groups);
   const routeMap = collectRoutes(laid, groups, nodes);
+  for (const box of boxes) {
+    const link = nodes.find((n) => n.id === box.id)?.link ?? null;
+    if (link !== null) box.link = link;
+  }
   for (const box of boxes) {
     const src = nodes.find((n) => n.id === box.id)?.image ?? null;
     if (src === null) continue;
@@ -1138,6 +1145,8 @@ interface NodeInfo {
   image: string | null;
   /** **立体の高さ**（`height`）。書かなければ null。 */
   height: number | null;
+  /** **リンク**（`link`）。通らない書き方・書いていなければ null。 */
+  link: string | null;
   /** **投影する前の床の位置**（`at` の x・y・z。z は書かなければ 0）。高さのある節だけ。 */
   ground: { x: number; y: number; z: number } | null;
 }
@@ -1171,6 +1180,7 @@ function readNodes(diagram: ReturnType<typeof parse>): NodeInfo[] {
       openings?: unknown;
       image?: unknown;
       height?: unknown;
+      link?: unknown;
     }[];
   };
   const axon = axonOf(raw.projection);
@@ -1210,6 +1220,7 @@ function readNodes(diagram: ReturnType<typeof parse>): NodeInfo[] {
       openings: openingsOf(node.openings),
       image: asText(node.image),
       height: heightOf(node.height),
+      link: linkOf(node.link),
       ground: heightOf(node.height) === null ? null : groundOf(node.at),
     };
   });

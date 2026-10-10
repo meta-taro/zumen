@@ -19,6 +19,15 @@ GUI は承認のための窓であって、描くための入口ではない。
 
 ## A. MCP サーバ
 
+### いちばん早い（0.6.0 から）
+
+```bash
+claude mcp add zumen -- npx -y @metataro/zumen-mcp
+```
+
+ほかの MCP クライアントでは、`npx -y @metataro/zumen-mcp` を stdio のサーバとして登録する。
+**clone は要らない。** 下は、0.6.0 より前か、手元のソースで動かしたいとき。
+
 ### 要るもの
 
 - **Node 22 以上**だけ。

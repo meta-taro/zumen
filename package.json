@@ -5,15 +5,30 @@
     "access": "public"
   },
   "type": "module",
-  "description": "AI が描き、人が直し、また AI が理解できる構成図エディタ（Phase 0 / 計測段階）",
+  "description": "AI-editable diagrams as code: an AI agent draws from YAML via MCP (Claude Code and others), a human fixes the layout, and the fix survives regeneration. Renders SVG; exports Mermaid and draw.io.",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/meta-taro/zumen.git"
   },
-  "homepage": "https://github.com/meta-taro/zumen#readme",
+  "homepage": "https://meta-taro.github.io/zumen/",
   "bugs": {
     "url": "https://github.com/meta-taro/zumen/issues"
   },
+  "keywords": [
+    "diagram-as-code",
+    "diagram",
+    "architecture-diagram",
+    "mcp",
+    "mcp-server",
+    "claude-code",
+    "ai-agent",
+    "yaml",
+    "svg",
+    "mermaid",
+    "drawio",
+    "floor-plan",
+    "tauri"
+  ],
   "license": "MIT",
   "engines": {
     "node": ">=22.18"
@@ -90,6 +105,9 @@
     "prepare": "git config core.hooksPath .githooks",
     "test": "node --test \"test/**/*.test.ts\" \"experiments/**/*.test.ts\"",
     "timelapse": "node src/cli.ts timelapse",
+    "compare": "node src/cli.ts compare",
+    "mcp:package": "node scripts/mcp-package.mjs",
+    "mcp:check": "node scripts/mcp-package-check.mjs",
     "typecheck": "tsc --noEmit",
     "validate": "node src/cli.ts validate",
     "version:set": "node scripts/version.mjs",

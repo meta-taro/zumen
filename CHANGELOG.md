@@ -16,6 +16,20 @@
 
 ## 未リリース
 
+### できることが増えます
+
+- **MCP サーバを 1 行で入れられるようになります**（新しい包み `@metataro/zumen-mcp`）。<!-- news: mcp-package -->
+  `claude mcp add zumen -- npx -y @metataro/zumen-mcp`。clone も手書きのパスも要りません。
+  本体の包み（`@metataro/zumen`）は依存 3 つのまま、MCP SDK を入れません —— MCP が要る人だけがこちらを入れます。
+
+- **変更前と変更後を並べた絵を出せるようになりました**（`pnpm compare <変更前> <変更後> [書き出し先.svg]`）。<!-- news: compare -->
+  同じ縮尺で左右に並べ、足された節に「新」、消えた節に「消」、人が `pins` で置いた節に「人」を付けます。
+  AI が描き直しても人の直しが残っていることを、YAML を読まない人にも絵で見せられます（図の上に重ねません）。
+
+- **節にリンクを付けられるようになりました**（`nodes[].link`）。<!-- news: node-link -->
+  SVG では箱と名前を `<a href>` で包み、押すとそこへ飛びます（Markdown に埋めた図から、本文の節や別の図へ）。
+  `http:` ・ `https:` ・ `mailto:` と相対パスだけを通し、`javascript:` などは描きません（`node-link-invalid`）。Mermaid へは `click` で写します。
+
 ## 0.5.0 — 2026-10-07
 
 ### できることが増えます
