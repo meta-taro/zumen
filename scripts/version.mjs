@@ -67,6 +67,11 @@ edit('package.json', (text) => text.replace(/^(\s*"version":\s*")[^"]+(")/m, `$1
 // 1b. packages/zumen-mcp/package.json — MCP だけの包み。本体と同じ版で出す。
 edit('packages/zumen-mcp/package.json', (text) => text.replace(/^(\s*"version":\s*")[^"]+(")/m, `$1${next}$2`));
 
+// 1c. packages/zumen-mcp/server.json — MCP Registry に出す名乗り。本体の版と、包みの版の 2 か所。
+edit('packages/zumen-mcp/server.json', (text) =>
+  text.replace(/"version": "[^"]+"/g, `"version": "${next}"`),
+);
+
 // 2. src-tauri/tauri.conf.json
 edit('src-tauri/tauri.conf.json', (text) =>
   text.replace(/^(\s*"version":\s*")[^"]+(")/m, `$1${next}$2`),

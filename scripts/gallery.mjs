@@ -153,7 +153,8 @@ const counted = {
  * カードの説明・構造化データ（JSON-LD）・`llms.txt` にも枚数が入っている。
  * **手で直す場所が増えるほど、どこかが古くなる** —— 見つけるのは人に見せたあと。
  */
-const STAMPED = ['site/index.html', 'site/en/index.html', 'site/llms.txt', 'scripts/og.mjs'];
+// README は「210/210」のまま 389 枚まで古くなっていた（2026-10-13。記事の下書きで数を引いて気づいた）。
+const STAMPED = ['site/index.html', 'site/en/index.html', 'site/llms.txt', 'scripts/og.mjs', 'README.md'];
 for (const path of STAMPED) {
   const was = readFileSync(path, 'utf8');
   const now = was

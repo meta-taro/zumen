@@ -16,6 +16,12 @@
 
 ## 未リリース
 
+## 0.6.1 — 2026-10-13
+
+### 直したもの
+
+- **MCP の包み（`@metataro/zumen-mcp`）を、公式の MCP Registry に載せられるようにしました**（`mcpName: io.github.meta-taro/zumen` と `server.json`）。中身は 0.6.0 と同じです。
+
 ## 0.6.0 — 2026-10-10
 
 ### できることが増えます
