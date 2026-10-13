@@ -17,6 +17,7 @@ export const QUOTES = [
   ['README.ja.md', /同梱の見本 (\d+) 枚の目次と正本を返す/, 'samples'],
   ['README.ja.md', /開いている口は (\d+) 個/, 'doors'],
   ['README.md', /(\d+) example drawings, all generated/, 'samples'],
+  ['README.md', /\d+\/(\d+) of the example drawings/, 'samples'],
   ['README.md', /A validator \((\d+) checks\)/, 'checks'],
   ['scripts/og.mjs', /見本 (\d+) 枚 ／ テキスト正本/, 'samples'],
   ['scripts/og.mjs', /(\d+) example drawings &middot; diagrams as text/, 'samples'],
