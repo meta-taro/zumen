@@ -1,0 +1,2981 @@
+version: 1
+kind: placement
+arrows: false
+title: 地点の天気と予想最高気温（地図に札・前日差つき・架空）
+sources:
+  - name: "気象庁 予報用語「時に関する用語」"
+    url: https://www.jma.go.jp/jma/kishou/know/yougo_hp/toki.html
+    retrieved: 2026-10-15
+  - name: "気象庁「ホームページにおける気象情報の配色に関する設定指針」"
+    url: https://www.jma.go.jp/jma/kishou/info/colorguide/HPColorGuide_202007.pdf
+    retrieved: 2026-10-15
+  - name: "Natural Earth 1:50m Land（パブリックドメイン）"
+    url: https://www.naturalearthdata.com/
+    retrieved: 2026-10-15
+# **地図の上の札は、地点ごとの 1 行の表。** 名前・天気マーク・予想最高気温・前日差を、その地点のそばに置く。
+#
+# 札は地点そのものに重ねず、そばへずらして**細い線で本当の位置（点）とつなぐ** ——
+# 札を地点の上に置くと、密な所（近畿・中国）で札どうしが重なる。テレビの図は札をおおよその位置に置くだけのことが多い。
+# 沖縄は本土から離れているので、左上の枠へずらして**同じ縮尺**で描いた（枠でずらしたことを書く）。
+#
+# 前日差は「きのうの最高との差」。同じ 23℃ でも −3 なら涼しくなった日と読める。
+# 最高気温は赤の札（数字は染めない）。天気マークは見本 390 と同じ形と配色（気象庁の配色指針）。
+#
+# 札の置き場所は、**海岸線が札の文字の下を通らない**ところを探して決めた。
+# 線の上の文字には読めるように地の色の下敷きが付き、赤い札の中に白い四角が出るため。
+# 地点の位置は実在の都市の経緯度。天気・気温・前日差は架空。
+# 陸は Natural Earth 1:50m（パブリックドメイン）。国境は描いていない。テレビ局の様式は写していない。
+palette:
+  陸: "#d4e6c3"
+  晴れ: "#ffaa00"
+  くもり: "#aaaaaa"
+  雨: "#0041ff"
+  最高: "#ff2800"
+nodes:
+  - id: a0
+    label: ""
+    marker: none
+    at: { x: -1, y: -1 }
+    size: { w: 2, h: 2 }
+  - id: a1
+    label: ""
+    marker: none
+    at: { x: 598, y: 1.5 }
+    size: { w: 2, h: 2 }
+  - id: a2
+    label: ""
+    marker: none
+    at: { x: 686.9, y: 89.9 }
+    size: { w: 2, h: 2 }
+  - id: a3
+    label: ""
+    marker: none
+    at: { x: 591.6, y: 238.9 }
+    size: { w: 2, h: 2 }
+  - id: a4
+    label: ""
+    marker: none
+    at: { x: 327.7, y: 602.7 }
+    size: { w: 2, h: 2 }
+  - id: a5
+    label: ""
+    marker: none
+    at: { x: 189.7, y: 612.1 }
+    size: { w: 2, h: 2 }
+  - id: a6
+    label: ""
+    marker: none
+    at: { x: 310.9, y: 576.7 }
+    size: { w: 2, h: 2 }
+  - id: a7
+    label: ""
+    marker: none
+    at: { x: 794.5, y: 22.1 }
+    size: { w: 2, h: 2 }
+  - id: a8
+    label: ""
+    marker: none
+    at: { x: 761.1, y: 85.3 }
+    size: { w: 2, h: 2 }
+  - id: a9
+    label: ""
+    marker: none
+    at: { x: 750.4, y: 59.8 }
+    size: { w: 2, h: 2 }
+  - id: a10
+    label: ""
+    marker: none
+    at: { x: 127.3, y: 774.2 }
+    size: { w: 2, h: 2 }
+  - id: a11
+    label: ""
+    marker: none
+    at: { x: 149.3, y: 765.5 }
+    size: { w: 2, h: 2 }
+  - id: a12
+    label: ""
+    marker: none
+    at: { x: 68.2, y: 643 }
+    size: { w: 2, h: 2 }
+  - id: a13
+    label: ""
+    marker: none
+    at: { x: 117, y: 674.6 }
+    size: { w: 2, h: 2 }
+  - id: a14
+    label: ""
+    marker: none
+    at: { x: 134, y: 664.1 }
+    size: { w: 2, h: 2 }
+  - id: a15
+    label: ""
+    marker: none
+    at: { x: 273, y: 480.4 }
+    size: { w: 2, h: 2 }
+  - id: a16
+    label: ""
+    marker: none
+    at: { x: 480.3, y: 403.7 }
+    size: { w: 2, h: 2 }
+  - id: a17
+    label: ""
+    marker: none
+    at: { x: 516.7, y: 189.4 }
+    size: { w: 2, h: 2 }
+  - id: a18
+    label: ""
+    marker: none
+    at: { x: 562.2, y: 29.8 }
+    size: { w: 2, h: 2 }
+  - id: a19
+    label: ""
+    marker: none
+    at: { x: 569.3, y: 39.6 }
+    size: { w: 2, h: 2 }
+  - id: a20
+    label: ""
+    marker: none
+    at: { x: 551.3, y: 646.7 }
+    size: { w: 2, h: 2 }
+  - id: a21
+    label: ""
+    marker: none
+    at: { x: 529.9, y: 561.5 }
+    size: { w: 2, h: 2 }
+  - id: a22
+    label: ""
+    marker: none
+    at: { x: 328.9, y: 586.5 }
+    size: { w: 2, h: 2 }
+  - id: a23
+    label: ""
+    marker: none
+    at: { x: 78.4, y: 633.5 }
+    size: { w: 2, h: 2 }
+  - id: a24
+    label: ""
+    marker: none
+    at: { x: 97.3, y: 620.8 }
+    size: { w: 2, h: 2 }
+  - id: a25
+    label: ""
+    marker: none
+    at: { x: 114.1, y: 591.2 }
+    size: { w: 2, h: 2 }
+  - id: a26
+    label: ""
+    marker: none
+    at: { x: 100.8, y: 567.1 }
+    size: { w: 2, h: 2 }
+  - id: a27
+    label: ""
+    marker: none
+    at: { x: 102.1, y: 554.8 }
+    size: { w: 2, h: 2 }
+  - id: a28
+    label: ""
+    marker: none
+    at: { x: 236.4, y: 587.8 }
+    size: { w: 2, h: 2 }
+  - id: a29
+    label: ""
+    marker: none
+    at: { x: 230.4, y: 602.2 }
+    size: { w: 2, h: 2 }
+  - id: a30
+    label: ""
+    marker: none
+    at: { x: 73.7, y: 529.3 }
+    size: { w: 2, h: 2 }
+  - id: a31
+    label: ""
+    marker: none
+    at: { x: 43.2, y: 534.9 }
+    size: { w: 2, h: 2 }
+  - id: a32
+    label: ""
+    marker: none
+    at: { x: 8.1, y: 377.7 }
+    size: { w: 2, h: 2 }
+  - id: a33
+    label: ""
+    marker: none
+    at: { x: 103.4, y: 702.4 }
+    size: { w: 2, h: 2 }
+  - id: a34
+    label: ""
+    marker: none
+    at: { x: 182.7, y: 409.1 }
+    size: { w: 2, h: 2 }
+  - id: a35
+    label: ""
+    marker: none
+    at: { x: 454.4, y: 12.3 }
+    size: { w: 2, h: 2 }
+  - id: a36
+    label: ""
+    marker: none
+    at: { x: 15, y: 15 }
+    size: { w: 2, h: 2 }
+  - id: a37
+    label: ""
+    marker: none
+    at: { x: 113.1, y: 87.3 }
+    size: { w: 2, h: 2 }
+  - id: a38
+    label: ""
+    marker: none
+    at: { x: 171.9, y: 15 }
+    size: { w: 2, h: 2 }
+  - id: pt0
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 580.5, y: 141.7 }
+    size: { w: 6, h: 6 }
+  - id: a39
+    label: ""
+    marker: none
+    at: { x: 582.5, y: 143.7 }
+    size: { w: 2, h: 2 }
+  - id: cn0
+    label: 札幌
+    hatch: solid
+    at: { x: 471.5, y: 96.7 }
+    size: { w: 84, h: 20 }
+  - id: a40
+    label: ""
+    marker: none
+    at: { x: 483.3, y: 122.3 }
+    size: { w: 2, h: 2 }
+  - id: a41
+    label: ""
+    marker: none
+    at: { x: 494.6, y: 140.9 }
+    size: { w: 2, h: 2 }
+  - id: a42
+    label: ""
+    marker: none
+    at: { x: 499.4, y: 140.9 }
+    size: { w: 2, h: 2 }
+  - id: ct0
+    label: "18\n−6"
+    hatch: solid
+    fill: 最高
+    at: { x: 507.5, y: 116.7 }
+    size: { w: 48, h: 36 }
+  - id: pt1
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 687.4, y: 134.7 }
+    size: { w: 6, h: 6 }
+  - id: a43
+    label: ""
+    marker: none
+    at: { x: 689.4, y: 136.7 }
+    size: { w: 2, h: 2 }
+  - id: cn1
+    label: 釧路
+    hatch: solid
+    at: { x: 568.4, y: 59.7 }
+    size: { w: 84, h: 20 }
+  - id: a44
+    label: ""
+    marker: none
+    at: { x: 580.2, y: 85.2 }
+    size: { w: 2, h: 2 }
+  - id: a45
+    label: ""
+    marker: none
+    at: { x: 591, y: 107.4 }
+    size: { w: 2, h: 2 }
+  - id: ct1
+    label: "18\n−1"
+    hatch: solid
+    fill: 最高
+    at: { x: 604.4, y: 79.7 }
+    size: { w: 48, h: 36 }
+  - id: pt2
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 566.1, y: 252.2 }
+    size: { w: 6, h: 6 }
+  - id: a46
+    label: ""
+    marker: none
+    at: { x: 568.1, y: 254.2 }
+    size: { w: 2, h: 2 }
+  - id: cn2
+    label: 青森
+    hatch: solid
+    at: { x: 447.1, y: 197.2 }
+    size: { w: 84, h: 20 }
+  - id: a47
+    label: ""
+    marker: none
+    at: { x: 458.9, y: 222.7 }
+    size: { w: 2, h: 2 }
+  - id: a48
+    label: ""
+    marker: none
+    at: { x: 470.3, y: 241.3 }
+    size: { w: 2, h: 2 }
+  - id: a49
+    label: ""
+    marker: none
+    at: { x: 475, y: 241.3 }
+    size: { w: 2, h: 2 }
+  - id: ct2
+    label: "21\n−2"
+    hatch: solid
+    fill: 最高
+    at: { x: 483.1, y: 217.2 }
+    size: { w: 48, h: 36 }
+  - id: pt3
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 585.4, y: 306.3 }
+    size: { w: 6, h: 6 }
+  - id: a50
+    label: ""
+    marker: none
+    at: { x: 587.4, y: 308.3 }
+    size: { w: 2, h: 2 }
+  - id: cn3
+    label: 盛岡
+    hatch: solid
+    at: { x: 626.4, y: 241.3 }
+    size: { w: 84, h: 20 }
+  - id: a51
+    label: ""
+    marker: none
+    at: { x: 638.2, y: 266.9 }
+    size: { w: 2, h: 2 }
+  - id: a52
+    label: ""
+    marker: none
+    at: { x: 649, y: 289.1 }
+    size: { w: 2, h: 2 }
+  - id: ct3
+    label: "20\n+1"
+    hatch: solid
+    fill: 最高
+    at: { x: 662.4, y: 261.3 }
+    size: { w: 48, h: 36 }
+  - id: pt4
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 579.5, y: 378.3 }
+    size: { w: 6, h: 6 }
+  - id: a53
+    label: ""
+    marker: none
+    at: { x: 581.5, y: 380.3 }
+    size: { w: 2, h: 2 }
+  - id: cn4
+    label: 仙台
+    hatch: solid
+    at: { x: 630.5, y: 373.3 }
+    size: { w: 84, h: 20 }
+  - id: a54
+    label: ""
+    marker: none
+    at: { x: 642.3, y: 398.8 }
+    size: { w: 2, h: 2 }
+  - id: a55
+    label: ""
+    marker: none
+    at: { x: 653.2, y: 421 }
+    size: { w: 2, h: 2 }
+  - id: ct4
+    label: "23\n−1"
+    hatch: solid
+    fill: 最高
+    at: { x: 666.5, y: 393.3 }
+    size: { w: 48, h: 36 }
+  - id: pt5
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 507.4, y: 400.6 }
+    size: { w: 6, h: 6 }
+  - id: a56
+    label: ""
+    marker: none
+    at: { x: 509.4, y: 402.6 }
+    size: { w: 2, h: 2 }
+  - id: cn5
+    label: 新潟
+    hatch: solid
+    at: { x: 378.4, y: 285.6 }
+    size: { w: 84, h: 20 }
+  - id: a57
+    label: ""
+    marker: none
+    at: { x: 390.2, y: 311.2 }
+    size: { w: 2, h: 2 }
+  - id: a58
+    label: ""
+    marker: none
+    at: { x: 401, y: 333.4 }
+    size: { w: 2, h: 2 }
+  - id: ct5
+    label: "23\n+1"
+    hatch: solid
+    fill: 最高
+    at: { x: 414.4, y: 305.6 }
+    size: { w: 48, h: 36 }
+  - id: pt6
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 475.3, y: 464.9 }
+    size: { w: 6, h: 6 }
+  - id: a59
+    label: ""
+    marker: none
+    at: { x: 477.3, y: 466.9 }
+    size: { w: 2, h: 2 }
+  - id: cn6
+    label: 長野
+    hatch: solid
+    at: { x: 436.3, y: 499.9 }
+    size: { w: 84, h: 20 }
+  - id: a60
+    label: ""
+    marker: none
+    at: { x: 452.3, y: 525 }
+    size: { w: 2, h: 2 }
+  - id: ct6
+    label: "21\n−1"
+    hatch: solid
+    fill: 最高
+    at: { x: 472.3, y: 519.9 }
+    size: { w: 48, h: 36 }
+  - id: pt7
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 539.2, y: 511.8 }
+    size: { w: 6, h: 6 }
+  - id: a61
+    label: ""
+    marker: none
+    at: { x: 541.2, y: 513.8 }
+    size: { w: 2, h: 2 }
+  - id: cn7
+    label: 東京
+    hatch: solid
+    at: { x: 627.2, y: 501.8 }
+    size: { w: 84, h: 20 }
+  - id: a62
+    label: ""
+    marker: none
+    at: { x: 630, y: 540 }
+    size: { w: 2, h: 2 }
+  - id: a63
+    label: ""
+    marker: none
+    at: { x: 655.1, y: 542.2 }
+    size: { w: 2, h: 2 }
+  - id: ct7
+    label: "23\n−3"
+    hatch: solid
+    fill: 最高
+    at: { x: 663.2, y: 521.8 }
+    size: { w: 48, h: 36 }
+  - id: pt8
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 411.9, y: 469.9 }
+    size: { w: 6, h: 6 }
+  - id: a64
+    label: ""
+    marker: none
+    at: { x: 413.9, y: 471.9 }
+    size: { w: 2, h: 2 }
+  - id: cn8
+    label: 金沢
+    hatch: solid
+    at: { x: 312.9, y: 374.9 }
+    size: { w: 84, h: 20 }
+  - id: a65
+    label: ""
+    marker: none
+    at: { x: 328.9, y: 400 }
+    size: { w: 2, h: 2 }
+  - id: ct8
+    label: "23\n−3"
+    hatch: solid
+    fill: 最高
+    at: { x: 348.9, y: 394.9 }
+    size: { w: 48, h: 36 }
+  - id: pt9
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 423.3, y: 540.7 }
+    size: { w: 6, h: 6 }
+  - id: a66
+    label: ""
+    marker: none
+    at: { x: 425.3, y: 542.7 }
+    size: { w: 2, h: 2 }
+  - id: cn9
+    label: 名古屋
+    hatch: solid
+    at: { x: 394.3, y: 595.7 }
+    size: { w: 84, h: 20 }
+  - id: a67
+    label: ""
+    marker: none
+    at: { x: 410.3, y: 620.8 }
+    size: { w: 2, h: 2 }
+  - id: ct9
+    label: "26\n+1"
+    hatch: solid
+    fill: 最高
+    at: { x: 430.3, y: 615.7 }
+    size: { w: 48, h: 36 }
+  - id: pt10
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 363.2, y: 565.2 }
+    size: { w: 6, h: 6 }
+  - id: a68
+    label: ""
+    marker: none
+    at: { x: 365.2, y: 567.2 }
+    size: { w: 2, h: 2 }
+  - id: cn10
+    label: 大阪
+    hatch: solid
+    at: { x: 304.2, y: 640.2 }
+    size: { w: 84, h: 20 }
+  - id: a69
+    label: ""
+    marker: none
+    at: { x: 320.2, y: 665.3 }
+    size: { w: 2, h: 2 }
+  - id: ct10
+    label: "25\n−2"
+    hatch: solid
+    fill: 最高
+    at: { x: 340.2, y: 660.2 }
+    size: { w: 48, h: 36 }
+  - id: pt11
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 261.7, y: 520 }
+    size: { w: 6, h: 6 }
+  - id: a70
+    label: ""
+    marker: none
+    at: { x: 263.7, y: 522 }
+    size: { w: 2, h: 2 }
+  - id: cn11
+    label: 松江
+    hatch: solid
+    at: { x: 122.7, y: 410 }
+    size: { w: 84, h: 20 }
+  - id: a71
+    label: ""
+    marker: none
+    at: { x: 138.7, y: 435.1 }
+    size: { w: 2, h: 2 }
+  - id: ct11
+    label: "24\n+1"
+    hatch: solid
+    fill: 最高
+    at: { x: 158.7, y: 430 }
+    size: { w: 48, h: 36 }
+  - id: pt12
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 296.3, y: 564.1 }
+    size: { w: 6, h: 6 }
+  - id: a72
+    label: ""
+    marker: none
+    at: { x: 298.3, y: 566.1 }
+    size: { w: 2, h: 2 }
+  - id: cn12
+    label: 岡山
+    hatch: solid
+    at: { x: 287.3, y: 469.1 }
+    size: { w: 84, h: 20 }
+  - id: a73
+    label: ""
+    marker: none
+    at: { x: 303.3, y: 494.2 }
+    size: { w: 2, h: 2 }
+  - id: ct12
+    label: "25\n±0"
+    hatch: solid
+    fill: 最高
+    at: { x: 323.3, y: 489.1 }
+    size: { w: 48, h: 36 }
+  - id: pt13
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 232.7, y: 573.4 }
+    size: { w: 6, h: 6 }
+  - id: a74
+    label: ""
+    marker: none
+    at: { x: 234.7, y: 575.4 }
+    size: { w: 2, h: 2 }
+  - id: cn13
+    label: 広島
+    hatch: solid
+    at: { x: 179.7, y: 632.4 }
+    size: { w: 84, h: 20 }
+  - id: a75
+    label: ""
+    marker: none
+    at: { x: 195.7, y: 657.5 }
+    size: { w: 2, h: 2 }
+  - id: ct13
+    label: "25\n±0"
+    hatch: solid
+    fill: 最高
+    at: { x: 215.7, y: 652.4 }
+    size: { w: 48, h: 36 }
+  - id: pt14
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 275.8, y: 620.3 }
+    size: { w: 6, h: 6 }
+  - id: a76
+    label: ""
+    marker: none
+    at: { x: 277.8, y: 622.3 }
+    size: { w: 2, h: 2 }
+  - id: cn14
+    label: 高知
+    hatch: solid
+    at: { x: 206.8, y: 695.3 }
+    size: { w: 84, h: 20 }
+  - id: a77
+    label: ""
+    marker: none
+    at: { x: 222.8, y: 720.4 }
+    size: { w: 2, h: 2 }
+  - id: ct14
+    label: "26\n−3"
+    hatch: solid
+    fill: 最高
+    at: { x: 242.8, y: 715.3 }
+    size: { w: 48, h: 36 }
+  - id: pt15
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 139.9, y: 606.8 }
+    size: { w: 6, h: 6 }
+  - id: a78
+    label: ""
+    marker: none
+    at: { x: 141.9, y: 608.8 }
+    size: { w: 2, h: 2 }
+  - id: cn15
+    label: 福岡
+    hatch: solid
+    at: { x: 100.9, y: 521.8 }
+    size: { w: 84, h: 20 }
+  - id: a79
+    label: ""
+    marker: none
+    at: { x: 116.9, y: 546.9 }
+    size: { w: 2, h: 2 }
+  - id: ct15
+    label: "25\n+1"
+    hatch: solid
+    fill: 最高
+    at: { x: 136.9, y: 541.8 }
+    size: { w: 48, h: 36 }
+  - id: pt16
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 135.1, y: 712 }
+    size: { w: 6, h: 6 }
+  - id: a80
+    label: ""
+    marker: none
+    at: { x: 137.1, y: 714 }
+    size: { w: 2, h: 2 }
+  - id: cn16
+    label: 鹿児島
+    hatch: solid
+    at: { x: 26.1, y: 707 }
+    size: { w: 84, h: 20 }
+  - id: a81
+    label: ""
+    marker: none
+    at: { x: 42.1, y: 732.1 }
+    size: { w: 2, h: 2 }
+  - id: ct16
+    label: "27\n−1"
+    hatch: solid
+    fill: 最高
+    at: { x: 62.1, y: 727 }
+    size: { w: 48, h: 36 }
+  - id: pt99
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 95.3, y: 96.8 }
+    size: { w: 6, h: 6 }
+  - id: a82
+    label: ""
+    marker: none
+    at: { x: 97.3, y: 98.8 }
+    size: { w: 2, h: 2 }
+  - id: cn99
+    label: 那覇
+    hatch: solid
+    at: { x: 116.3, y: 31.8 }
+    size: { w: 84, h: 20 }
+  - id: a83
+    label: ""
+    marker: none
+    at: { x: 128.1, y: 57.3 }
+    size: { w: 2, h: 2 }
+  - id: a84
+    label: ""
+    marker: none
+    at: { x: 139, y: 79.5 }
+    size: { w: 2, h: 2 }
+  - id: ct99
+    label: "28\n−1"
+    hatch: solid
+    fill: 最高
+    at: { x: 152.3, y: 51.8 }
+    size: { w: 48, h: 36 }
+  - id: inl
+    label: 沖縄は位置をずらして表示
+    marker: none
+    align: left
+    at: { x: 16, y: 170 }
+    size: { w: 190, h: 18 }
+  - id: lgh
+    label: 札の読み方
+    hatch: solid
+    at: { x: 940, y: 0 }
+    size: { w: 360, h: 26 }
+  - id: ex_n
+    label: 地点
+    hatch: solid
+    at: { x: 956, y: 40 }
+    size: { w: 84, h: 20 }
+  - id: a85
+    label: ""
+    marker: none
+    at: { x: 967.8, y: 65.5 }
+    size: { w: 2, h: 2 }
+  - id: a86
+    label: ""
+    marker: none
+    at: { x: 978.6, y: 87.7 }
+    size: { w: 2, h: 2 }
+  - id: ex_t
+    label: "25\n+1"
+    hatch: solid
+    fill: 最高
+    at: { x: 992, y: 60 }
+    size: { w: 48, h: 36 }
+  - id: ex_1
+    label: 地点の名前
+    marker: none
+    align: left
+    at: { x: 1060, y: 39 }
+    size: { w: 240, h: 22 }
+  - id: ex_2
+    label: 左：天気マーク
+    marker: none
+    align: left
+    at: { x: 1060, y: 64 }
+    size: { w: 240, h: 22 }
+  - id: ex_3
+    label: 右：予想最高気温（℃）と前日差
+    marker: none
+    align: left
+    at: { x: 1060, y: 86 }
+    size: { w: 240, h: 22 }
+  - id: mk
+    label: 天気マーク
+    hatch: solid
+    at: { x: 940, y: 122 }
+    size: { w: 360, h: 26 }
+  - id: a87
+    label: ""
+    marker: none
+    at: { x: 979, y: 157.4 }
+    size: { w: 2, h: 2 }
+  - id: mks
+    label: 晴れ
+    marker: none
+    align: left
+    at: { x: 1030, y: 160 }
+    size: { w: 270, h: 22 }
+  - id: a88
+    label: ""
+    marker: none
+    at: { x: 964.8, y: 225.3 }
+    size: { w: 2, h: 2 }
+  - id: mkc
+    label: くもり
+    marker: none
+    align: left
+    at: { x: 1030, y: 208 }
+    size: { w: 270, h: 22 }
+  - id: a89
+    label: ""
+    marker: none
+    at: { x: 966.1, y: 263.6 }
+    size: { w: 2, h: 2 }
+  - id: a90
+    label: ""
+    marker: none
+    at: { x: 979, y: 263.6 }
+    size: { w: 2, h: 2 }
+  - id: mkr
+    label: 雨
+    marker: none
+    align: left
+    at: { x: 1030, y: 256 }
+    size: { w: 270, h: 22 }
+  - id: a91
+    label: ""
+    marker: none
+    at: { x: 974.2, y: 301.9 }
+    size: { w: 2, h: 2 }
+  - id: a92
+    label: ""
+    marker: none
+    at: { x: 987.1, y: 323.2 }
+    size: { w: 2, h: 2 }
+  - id: a93
+    label: ""
+    marker: none
+    at: { x: 992.6, y: 323.2 }
+    size: { w: 2, h: 2 }
+  - id: mksr
+    label: 晴れ 時々 雨
+    marker: none
+    align: left
+    at: { x: 1030, y: 304 }
+    size: { w: 270, h: 22 }
+  - id: rule
+    label: 決まり（気象庁）
+    hatch: solid
+    at: { x: 940, y: 350 }
+    size: { w: 360, h: 26 }
+  - id: rk0
+    label: 最高気温
+    at: { x: 940, y: 376 }
+    size: { w: 90, h: 24 }
+  - id: rv0
+    label: 日中（9 時〜18 時）の最高
+    align: left
+    at: { x: 1030, y: 376 }
+    size: { w: 270, h: 24 }
+  - id: rk1
+    label: 前日差
+    at: { x: 940, y: 400 }
+    size: { w: 90, h: 24 }
+  - id: rv1
+    label: きのうの最高との差
+    align: left
+    at: { x: 1030, y: 400 }
+    size: { w: 270, h: 24 }
+  - id: rk2
+    label: 時々
+    at: { x: 940, y: 424 }
+    size: { w: 90, h: 24 }
+  - id: rv2
+    label: 途切れ途切れ、合計が 1/2 未満
+    align: left
+    at: { x: 1030, y: 424 }
+    size: { w: 270, h: 24 }
+  - id: rk3
+    label: 雨・雪
+    at: { x: 940, y: 448 }
+    size: { w: 90, h: 24 }
+  - id: rv3
+    label: 短くても優先してマークに出す
+    align: left
+    at: { x: 1030, y: 448 }
+    size: { w: 270, h: 24 }
+  - id: n0
+    label: 地点ごとに、きょうの天気と予想最高気温を札にして地図に置いた図です。札は地点のそばに置き、細い線で本当の位置（点）とつないでいます。
+    marker: none
+    align: left
+    at: { x: 0, y: 848 }
+    size: { w: 1200, h: 18 }
+  - id: n1
+    label: 前日差は、きのうの最高気温との差です。数字が同じ 23℃ でも、−3 なら「きのうより涼しい」と読めます。
+    marker: none
+    align: left
+    at: { x: 0, y: 870 }
+    size: { w: 1200, h: 18 }
+  - id: n2
+    label: 沖縄は本土から離れているので、左上の枠へずらして同じ縮尺で描いています。
+    marker: none
+    align: left
+    at: { x: 0, y: 892 }
+    size: { w: 1200, h: 18 }
+  - id: n3
+    label: 天気・気温・前日差はすべて架空です。陸は Natural Earth（パブリックドメイン）を間引いたもので、国境は描いていません。テレビ局の様式は写していません。
+    marker: none
+    align: left
+    at: { x: 0, y: 914 }
+    size: { w: 1200, h: 18 }
+edges:
+  - from: a0
+    to: a0
+    curve: none
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 900, y: 0 }
+      - { x: 900, y: 820 }
+      - { x: 0, y: 820 }
+  - from: a1
+    to: a1
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 陸
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 597, y: 6.6 }
+      - { x: 591.9, y: 0 }
+      - { x: 599.9, y: 0 }
+  - from: a2
+    to: a2
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 陸
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 698.8, y: 89.9 }
+      - { x: 714.7, y: 68.6 }
+      - { x: 715.6, y: 68.7 }
+      - { x: 715.7, y: 73.4 }
+      - { x: 710.5, y: 91.7 }
+      - { x: 710.3, y: 96.8 }
+      - { x: 712.4, y: 101.4 }
+      - { x: 715.5, y: 105.1 }
+      - { x: 721.8, y: 117.6 }
+      - { x: 727.1, y: 117.9 }
+      - { x: 732.7, y: 111.8 }
+      - { x: 738.3, y: 111 }
+      - { x: 731.7, y: 116.7 }
+      - { x: 728.4, y: 122.9 }
+      - { x: 722.9, y: 123.6 }
+      - { x: 709.2, y: 134.1 }
+      - { x: 699.4, y: 138.1 }
+      - { x: 687.6, y: 137.8 }
+      - { x: 684, y: 138.8 }
+      - { x: 676.6, y: 144.2 }
+      - { x: 664.5, y: 159.4 }
+      - { x: 660.1, y: 168.7 }
+      - { x: 657.7, y: 178.7 }
+      - { x: 657.7, y: 185.3 }
+      - { x: 655.4, y: 189.7 }
+      - { x: 650.8, y: 189.1 }
+      - { x: 628, y: 179.9 }
+      - { x: 603.1, y: 166.5 }
+      - { x: 587.4, y: 169.4 }
+      - { x: 573.1, y: 180.4 }
+      - { x: 562.5, y: 170.7 }
+      - { x: 554.4, y: 171 }
+      - { x: 550.1, y: 177.3 }
+      - { x: 549.6, y: 184.3 }
+      - { x: 557.3, y: 191.7 }
+      - { x: 564.8, y: 191.9 }
+      - { x: 580.9, y: 206 }
+      - { x: 575.6, y: 209.7 }
+      - { x: 568.9, y: 209.1 }
+      - { x: 563.1, y: 206.7 }
+      - { x: 557.3, y: 214.1 }
+      - { x: 553.9, y: 221.8 }
+      - { x: 549.9, y: 225.1 }
+      - { x: 545.6, y: 227 }
+      - { x: 543.2, y: 226.6 }
+      - { x: 539.5, y: 219.8 }
+      - { x: 542.8, y: 203.2 }
+      - { x: 540.5, y: 195.8 }
+      - { x: 534.4, y: 190.1 }
+      - { x: 532, y: 185.9 }
+      - { x: 531.2, y: 180.7 }
+      - { x: 532.2, y: 171.2 }
+      - { x: 533.1, y: 167.9 }
+      - { x: 540.8, y: 163.4 }
+      - { x: 551.5, y: 152.1 }
+      - { x: 553.1, y: 147.3 }
+      - { x: 549.6, y: 141.8 }
+      - { x: 549.1, y: 135.3 }
+      - { x: 552.3, y: 133.4 }
+      - { x: 564.3, y: 139.1 }
+      - { x: 575.6, y: 139.5 }
+      - { x: 581.1, y: 138.2 }
+      - { x: 583.5, y: 134.1 }
+      - { x: 584.5, y: 129.1 }
+      - { x: 583, y: 116.6 }
+      - { x: 590.1, y: 97.9 }
+      - { x: 589.7, y: 86.2 }
+      - { x: 592.3, y: 75.5 }
+      - { x: 592.1, y: 64.3 }
+      - { x: 589.1, y: 53.8 }
+      - { x: 583.7, y: 43.9 }
+      - { x: 585.6, y: 32.1 }
+      - { x: 590.8, y: 29.9 }
+      - { x: 594.1, y: 26.2 }
+      - { x: 611.7, y: 43 }
+      - { x: 622.7, y: 56.5 }
+      - { x: 636.7, y: 68.7 }
+      - { x: 644.6, y: 74.5 }
+      - { x: 658, y: 81.5 }
+      - { x: 662.1, y: 85.3 }
+      - { x: 673.9, y: 85.3 }
+  - from: a3
+    to: a3
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 陸
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 596.8, y: 263.5 }
+      - { x: 604.2, y: 269.7 }
+      - { x: 610.5, y: 278.2 }
+      - { x: 620, y: 302.2 }
+      - { x: 621, y: 320.2 }
+      - { x: 619.4, y: 336.2 }
+      - { x: 617.3, y: 337.5 }
+      - { x: 615, y: 341.3 }
+      - { x: 610.7, y: 343.8 }
+      - { x: 607.2, y: 354.7 }
+      - { x: 606.7, y: 368.1 }
+      - { x: 605.5, y: 372.9 }
+      - { x: 591.7, y: 377.2 }
+      - { x: 586.6, y: 387.1 }
+      - { x: 585.6, y: 392 }
+      - { x: 591.9, y: 421.2 }
+      - { x: 591.8, y: 439.1 }
+      - { x: 590.8, y: 444.9 }
+      - { x: 584.2, y: 453.2 }
+      - { x: 582.1, y: 459.2 }
+      - { x: 578.6, y: 471.1 }
+      - { x: 577.3, y: 485.1 }
+      - { x: 579.8, y: 493.8 }
+      - { x: 586.2, y: 504.3 }
+      - { x: 591.4, y: 510.2 }
+      - { x: 580.2, y: 515.7 }
+      - { x: 574.8, y: 522.3 }
+      - { x: 572.9, y: 537.3 }
+      - { x: 569.8, y: 540.9 }
+      - { x: 559.4, y: 547.5 }
+      - { x: 553.9, y: 555 }
+      - { x: 550.6, y: 554.4 }
+      - { x: 548.6, y: 552.3 }
+      - { x: 550.4, y: 549.5 }
+      - { x: 550.1, y: 538 }
+      - { x: 548.9, y: 534.7 }
+      - { x: 552.1, y: 532.1 }
+      - { x: 553.5, y: 528 }
+      - { x: 559.2, y: 521.6 }
+      - { x: 559.5, y: 519.3 }
+      - { x: 554.7, y: 515.3 }
+      - { x: 548.3, y: 516.2 }
+      - { x: 546.4, y: 518.6 }
+      - { x: 546, y: 524.7 }
+      - { x: 541.2, y: 529.3 }
+      - { x: 542.1, y: 533.9 }
+      - { x: 545.6, y: 537.2 }
+      - { x: 542.9, y: 542.6 }
+      - { x: 541.3, y: 543.1 }
+      - { x: 538, y: 538 }
+      - { x: 534.1, y: 535.3 }
+      - { x: 524.7, y: 536.8 }
+      - { x: 521.2, y: 540.4 }
+      - { x: 519.4, y: 546.3 }
+      - { x: 520, y: 553.6 }
+      - { x: 518.7, y: 559.7 }
+      - { x: 511, y: 570.9 }
+      - { x: 508.5, y: 571.4 }
+      - { x: 505.1, y: 567.4 }
+      - { x: 506.4, y: 553.1 }
+      - { x: 510.6, y: 550.3 }
+      - { x: 507, y: 546.8 }
+      - { x: 502.7, y: 545.5 }
+      - { x: 496.7, y: 547.6 }
+      - { x: 494, y: 552.8 }
+      - { x: 483.4, y: 566.2 }
+      - { x: 480.8, y: 573.3 }
+      - { x: 471.8, y: 571.2 }
+      - { x: 453.2, y: 570.2 }
+      - { x: 432.7, y: 574.6 }
+      - { x: 433.4, y: 572.6 }
+      - { x: 442.3, y: 568.3 }
+      - { x: 441.8, y: 564.7 }
+      - { x: 431.5, y: 565.1 }
+      - { x: 428.5, y: 561.5 }
+      - { x: 427.3, y: 562.5 }
+      - { x: 427.7, y: 567.4 }
+      - { x: 426.4, y: 568 }
+      - { x: 424.6, y: 566.8 }
+      - { x: 423.9, y: 554.1 }
+      - { x: 425.7, y: 551.1 }
+      - { x: 423.8, y: 549.9 }
+      - { x: 421.8, y: 550.4 }
+      - { x: 417, y: 553.8 }
+      - { x: 410.2, y: 569.5 }
+      - { x: 413.7, y: 574.2 }
+      - { x: 425, y: 582.3 }
+      - { x: 423.8, y: 588 }
+      - { x: 410.5, y: 591.4 }
+      - { x: 401.2, y: 595.5 }
+      - { x: 382.8, y: 627.3 }
+      - { x: 373.1, y: 631.1 }
+      - { x: 362.6, y: 627.3 }
+      - { x: 358.2, y: 618.4 }
+      - { x: 351, y: 608.9 }
+      - { x: 349.2, y: 603.2 }
+      - { x: 349.8, y: 594.1 }
+      - { x: 348.5, y: 588.5 }
+      - { x: 357.6, y: 582.1 }
+      - { x: 362.2, y: 575.5 }
+      - { x: 362.5, y: 571.8 }
+      - { x: 360, y: 569.9 }
+      - { x: 346.6, y: 570.6 }
+      - { x: 341.8, y: 568.9 }
+      - { x: 334, y: 563.2 }
+      - { x: 327.3, y: 562.7 }
+      - { x: 312.9, y: 565 }
+      - { x: 300.5, y: 574 }
+      - { x: 296.5, y: 575.5 }
+      - { x: 288, y: 575.5 }
+      - { x: 277.9, y: 577.6 }
+      - { x: 264.5, y: 583.6 }
+      - { x: 259.3, y: 581.8 }
+      - { x: 248.6, y: 584.9 }
+      - { x: 243.5, y: 585 }
+      - { x: 233.8, y: 578.6 }
+      - { x: 229, y: 579.7 }
+      - { x: 225.4, y: 584.6 }
+      - { x: 219.8, y: 604.4 }
+      - { x: 203.3, y: 591.8 }
+      - { x: 191.7, y: 592.4 }
+      - { x: 180.9, y: 595 }
+      - { x: 174.4, y: 590.6 }
+      - { x: 167.5, y: 592.2 }
+      - { x: 167.9, y: 577.3 }
+      - { x: 173.5, y: 571 }
+      - { x: 188.5, y: 571.5 }
+      - { x: 200.3, y: 562.1 }
+      - { x: 211.4, y: 557.3 }
+      - { x: 229.8, y: 543.5 }
+      - { x: 246, y: 530.1 }
+      - { x: 249.8, y: 524.6 }
+      - { x: 259.5, y: 520.6 }
+      - { x: 269.5, y: 518.8 }
+      - { x: 274.1, y: 519.2 }
+      - { x: 278.3, y: 524.5 }
+      - { x: 288.5, y: 522.4 }
+      - { x: 303.7, y: 523.5 }
+      - { x: 313.6, y: 522.3 }
+      - { x: 323.9, y: 518.3 }
+      - { x: 341.7, y: 517.2 }
+      - { x: 354, y: 513.3 }
+      - { x: 357.8, y: 514.7 }
+      - { x: 356.2, y: 521.3 }
+      - { x: 360.1, y: 524.9 }
+      - { x: 374.8, y: 526.4 }
+      - { x: 384.3, y: 521.3 }
+      - { x: 392.4, y: 513.2 }
+      - { x: 389.5, y: 507.6 }
+      - { x: 388.9, y: 501.7 }
+      - { x: 391.5, y: 495.2 }
+      - { x: 395.3, y: 489.9 }
+      - { x: 403.7, y: 482.9 }
+      - { x: 417.8, y: 463.6 }
+      - { x: 419.9, y: 453 }
+      - { x: 418.8, y: 440.5 }
+      - { x: 423.8, y: 431.2 }
+      - { x: 443, y: 424.1 }
+      - { x: 443.6, y: 428.4 }
+      - { x: 436.2, y: 436.2 }
+      - { x: 427, y: 441.8 }
+      - { x: 426, y: 444.6 }
+      - { x: 429.9, y: 449.2 }
+      - { x: 430.8, y: 458.8 }
+      - { x: 435.1, y: 462 }
+      - { x: 440.1, y: 463.1 }
+      - { x: 444, y: 462.2 }
+      - { x: 450.9, y: 452.9 }
+      - { x: 467, y: 447 }
+      - { x: 483.3, y: 438.9 }
+      - { x: 495.6, y: 425.7 }
+      - { x: 505.1, y: 406.6 }
+      - { x: 519.2, y: 397.8 }
+      - { x: 523.6, y: 393.1 }
+      - { x: 528.9, y: 372.6 }
+      - { x: 539, y: 353.1 }
+      - { x: 542.4, y: 335.6 }
+      - { x: 546.7, y: 326.3 }
+      - { x: 547.2, y: 315.7 }
+      - { x: 546.5, y: 309.5 }
+      - { x: 544, y: 304.4 }
+      - { x: 542, y: 303 }
+      - { x: 536.9, y: 303.6 }
+      - { x: 534.2, y: 301.6 }
+      - { x: 534.6, y: 299.7 }
+      - { x: 539, y: 298.2 }
+      - { x: 540.2, y: 296.3 }
+      - { x: 543.5, y: 284.3 }
+      - { x: 539.3, y: 267.9 }
+      - { x: 543, y: 261 }
+      - { x: 549.3, y: 258.6 }
+      - { x: 552, y: 255 }
+      - { x: 553.9, y: 247 }
+      - { x: 552.4, y: 239.5 }
+      - { x: 553.4, y: 237.3 }
+      - { x: 554.8, y: 235.9 }
+      - { x: 563.8, y: 237.1 }
+      - { x: 566.7, y: 251.8 }
+      - { x: 569.4, y: 254.7 }
+      - { x: 571.4, y: 254.4 }
+      - { x: 573.8, y: 249.5 }
+      - { x: 576, y: 248.8 }
+      - { x: 583, y: 251.2 }
+      - { x: 586.6, y: 245.7 }
+      - { x: 587.5, y: 240 }
+      - { x: 586.5, y: 235 }
+      - { x: 584.7, y: 233.3 }
+      - { x: 570.4, y: 239.4 }
+      - { x: 570, y: 233.8 }
+      - { x: 572.6, y: 222.6 }
+      - { x: 574.1, y: 221.2 }
+      - { x: 578.4, y: 222.3 }
+      - { x: 586.8, y: 227.7 }
+      - { x: 593.5, y: 224.7 }
+      - { x: 592.8, y: 232.3 }
+  - from: a4
+    to: a4
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 陸
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 330.3, y: 606.6 }
+      - { x: 329.3, y: 610.8 }
+      - { x: 332, y: 612.3 }
+      - { x: 323.5, y: 616.7 }
+      - { x: 315.8, y: 622.7 }
+      - { x: 309.5, y: 631.3 }
+      - { x: 306.4, y: 641.2 }
+      - { x: 297.1, y: 630.2 }
+      - { x: 292.7, y: 627.6 }
+      - { x: 283.1, y: 626.1 }
+      - { x: 267.5, y: 633.1 }
+      - { x: 260.3, y: 647.2 }
+      - { x: 258.2, y: 649.9 }
+      - { x: 254.3, y: 652 }
+      - { x: 252.1, y: 659.4 }
+      - { x: 247, y: 663.6 }
+      - { x: 236.9, y: 662.4 }
+      - { x: 240.4, y: 655.3 }
+      - { x: 231.1, y: 653.8 }
+      - { x: 231.3, y: 649.1 }
+      - { x: 228.7, y: 646.1 }
+      - { x: 231.1, y: 642.8 }
+      - { x: 233.3, y: 634.2 }
+      - { x: 228.8, y: 631.8 }
+      - { x: 229.6, y: 626.6 }
+      - { x: 223.8, y: 626.9 }
+      - { x: 214.9, y: 630.2 }
+      - { x: 212.6, y: 630 }
+      - { x: 227.9, y: 622.2 }
+      - { x: 240.7, y: 613.9 }
+      - { x: 248, y: 598.6 }
+      - { x: 254.8, y: 593.7 }
+      - { x: 257.2, y: 594.2 }
+      - { x: 262.8, y: 603 }
+      - { x: 272.3, y: 601.1 }
+      - { x: 277.6, y: 601.6 }
+      - { x: 282.5, y: 599.6 }
+      - { x: 284.5, y: 597 }
+      - { x: 285.5, y: 593.6 }
+      - { x: 284, y: 587.9 }
+      - { x: 288.5, y: 588.5 }
+      - { x: 299.2, y: 583.3 }
+      - { x: 304.7, y: 583 }
+      - { x: 322.3, y: 591.3 }
+      - { x: 328.5, y: 591 }
+      - { x: 328, y: 600.5 }
+  - from: a5
+    to: a5
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 陸
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 194.5, y: 611.9 }
+      - { x: 197.1, y: 612.9 }
+      - { x: 200.2, y: 617.6 }
+      - { x: 190.7, y: 631.4 }
+      - { x: 206.3, y: 633.9 }
+      - { x: 203.5, y: 640.9 }
+      - { x: 207.6, y: 645 }
+      - { x: 205.6, y: 648.7 }
+      - { x: 209.6, y: 651.9 }
+      - { x: 209.2, y: 653.8 }
+      - { x: 195.9, y: 668 }
+      - { x: 192.1, y: 674.4 }
+      - { x: 180.2, y: 704.3 }
+      - { x: 179.1, y: 715.6 }
+      - { x: 172.1, y: 729.1 }
+      - { x: 160.2, y: 726.2 }
+      - { x: 158.3, y: 729.2 }
+      - { x: 160.5, y: 736 }
+      - { x: 150.7, y: 742.7 }
+      - { x: 140.3, y: 746.8 }
+      - { x: 140.5, y: 744.4 }
+      - { x: 144.4, y: 739.6 }
+      - { x: 146.5, y: 733.8 }
+      - { x: 144.4, y: 717 }
+      - { x: 148.9, y: 714.9 }
+      - { x: 148.4, y: 710.5 }
+      - { x: 143, y: 709.2 }
+      - { x: 137.7, y: 717 }
+      - { x: 135.8, y: 722.3 }
+      - { x: 136, y: 725.4 }
+      - { x: 139.9, y: 733.1 }
+      - { x: 136.8, y: 737.6 }
+      - { x: 119.9, y: 729.5 }
+      - { x: 118.2, y: 723 }
+      - { x: 125.1, y: 721.6 }
+      - { x: 127.3, y: 713.7 }
+      - { x: 125.5, y: 708.4 }
+      - { x: 122.3, y: 704.2 }
+      - { x: 123.9, y: 700 }
+      - { x: 124.6, y: 687.2 }
+      - { x: 130.5, y: 685.1 }
+      - { x: 134.4, y: 681.5 }
+      - { x: 143.2, y: 669.8 }
+      - { x: 147.7, y: 661.7 }
+      - { x: 141.6, y: 659 }
+      - { x: 145.2, y: 655.3 }
+      - { x: 144.8, y: 650.1 }
+      - { x: 140.8, y: 643.3 }
+      - { x: 139.1, y: 635.6 }
+      - { x: 133.3, y: 630.4 }
+      - { x: 128, y: 633.6 }
+      - { x: 129.5, y: 638.7 }
+      - { x: 128.6, y: 647.1 }
+      - { x: 135.2, y: 647.9 }
+      - { x: 136.2, y: 653.1 }
+      - { x: 134.9, y: 655.8 }
+      - { x: 130.6, y: 656.6 }
+      - { x: 126.9, y: 652.4 }
+      - { x: 122.7, y: 650.7 }
+      - { x: 117.9, y: 652.7 }
+      - { x: 108.8, y: 659.6 }
+      - { x: 112.4, y: 651.8 }
+      - { x: 107.4, y: 643.2 }
+      - { x: 107, y: 636.8 }
+      - { x: 108.2, y: 633.5 }
+      - { x: 112, y: 638 }
+      - { x: 113.6, y: 643.1 }
+      - { x: 116.5, y: 645.6 }
+      - { x: 120.5, y: 646.1 }
+      - { x: 117.4, y: 636.7 }
+      - { x: 105, y: 623.8 }
+      - { x: 107.1, y: 618.4 }
+      - { x: 109.4, y: 617.5 }
+      - { x: 117.1, y: 620.8 }
+      - { x: 118, y: 618.1 }
+      - { x: 117.1, y: 614.7 }
+      - { x: 128.3, y: 611.6 }
+      - { x: 132.9, y: 608.1 }
+      - { x: 137.6, y: 608.7 }
+      - { x: 141.7, y: 607.3 }
+      - { x: 148, y: 597.5 }
+      - { x: 158.5, y: 593.7 }
+      - { x: 163.8, y: 594.8 }
+      - { x: 168.4, y: 597.7 }
+      - { x: 171.9, y: 608.6 }
+      - { x: 176.6, y: 612.8 }
+      - { x: 182.2, y: 614.9 }
+      - { x: 187.1, y: 614.8 }
+  - from: a6
+    to: a6
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 陸
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 309.6, y: 574.9 }
+      - { x: 317.8, y: 575.1 }
+      - { x: 316, y: 578.1 }
+      - { x: 312.4, y: 580 }
+  - from: a7
+    to: a7
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 陸
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 791.5, y: 25.4 }
+      - { x: 787.2, y: 25.3 }
+      - { x: 785.3, y: 32.5 }
+      - { x: 778.2, y: 41.5 }
+      - { x: 775.8, y: 47.9 }
+      - { x: 772.4, y: 49.6 }
+      - { x: 766.7, y: 56.8 }
+      - { x: 767, y: 51.5 }
+      - { x: 772.7, y: 43.2 }
+      - { x: 772.3, y: 38.3 }
+      - { x: 774.6, y: 33.5 }
+      - { x: 779.9, y: 28.2 }
+      - { x: 783.1, y: 21.9 }
+      - { x: 786.1, y: 19.9 }
+      - { x: 789, y: 14.6 }
+      - { x: 792.5, y: 12.2 }
+      - { x: 791.4, y: 8.8 }
+      - { x: 792.3, y: 4.6 }
+      - { x: 793.7, y: 4.6 }
+      - { x: 797.7, y: 9.5 }
+      - { x: 800.2, y: 9.2 }
+      - { x: 806.4, y: 6.8 }
+      - { x: 810.8, y: 0 }
+      - { x: 822.2, y: 0 }
+      - { x: 821.2, y: 1.7 }
+      - { x: 815, y: 3.3 }
+      - { x: 804.9, y: 10.2 }
+      - { x: 797.8, y: 18.7 }
+  - from: a8
+    to: a8
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 陸
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 768.7, y: 82.9 }
+      - { x: 771.7, y: 85.1 }
+      - { x: 765, y: 90.6 }
+      - { x: 762.2, y: 89.9 }
+      - { x: 762, y: 87.2 }
+  - from: a9
+    to: a9
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 陸
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 747.3, y: 66.1 }
+      - { x: 741.4, y: 68.7 }
+      - { x: 735.7, y: 76.5 }
+      - { x: 731.9, y: 85 }
+      - { x: 726.4, y: 90.5 }
+      - { x: 726.7, y: 99.2 }
+      - { x: 722.2, y: 96.4 }
+      - { x: 721.2, y: 93 }
+      - { x: 722, y: 89.9 }
+      - { x: 730.3, y: 78.9 }
+      - { x: 739.5, y: 56.7 }
+      - { x: 742.7, y: 56.3 }
+      - { x: 748.3, y: 58.9 }
+      - { x: 755.3, y: 57 }
+      - { x: 754, y: 60.4 }
+  - from: a10
+    to: a10
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 陸
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 135.9, y: 781.4 }
+      - { x: 132.9, y: 786.7 }
+      - { x: 127.5, y: 787.3 }
+      - { x: 124.7, y: 785.7 }
+      - { x: 122.8, y: 778.8 }
+  - from: a11
+    to: a11
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 陸
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 155.4, y: 759 }
+      - { x: 156.4, y: 758.6 }
+      - { x: 157.2, y: 760.7 }
+      - { x: 155.2, y: 768.5 }
+      - { x: 151.6, y: 774.2 }
+      - { x: 149.3, y: 781.2 }
+      - { x: 145.2, y: 781.4 }
+      - { x: 145.4, y: 778.2 }
+      - { x: 149.4, y: 771.6 }
+  - from: a12
+    to: a12
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 陸
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 70.9, y: 650.2 }
+      - { x: 66.2, y: 650.3 }
+      - { x: 64, y: 652.7 }
+      - { x: 61.6, y: 651.4 }
+      - { x: 60.1, y: 648.1 }
+      - { x: 61.8, y: 641.8 }
+      - { x: 63.3, y: 643.5 }
+      - { x: 67.9, y: 643.1 }
+  - from: a13
+    to: a13
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 陸
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 116.7, y: 672.6 }
+      - { x: 119.3, y: 666.4 }
+      - { x: 119.2, y: 663.5 }
+      - { x: 126.3, y: 663.3 }
+      - { x: 127.3, y: 666.1 }
+      - { x: 126.4, y: 674.1 }
+      - { x: 120.5, y: 679.3 }
+      - { x: 116.8, y: 680.7 }
+      - { x: 115.2, y: 677.9 }
+  - from: a14
+    to: a14
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 陸
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 139.1, y: 666.2 }
+      - { x: 135, y: 670.6 }
+      - { x: 131.1, y: 670.4 }
+      - { x: 129.1, y: 667.9 }
+  - from: a15
+    to: a15
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 陸
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 277.8, y: 479.2 }
+      - { x: 281.1, y: 484.2 }
+      - { x: 280.5, y: 486.4 }
+      - { x: 278.5, y: 488.2 }
+      - { x: 275, y: 487.3 }
+      - { x: 273.1, y: 484.4 }
+  - from: a16
+    to: a16
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 陸
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 482.5, y: 399.9 }
+      - { x: 479.5, y: 399.7 }
+      - { x: 479.6, y: 395.5 }
+      - { x: 487.7, y: 384.6 }
+      - { x: 489.3, y: 383.4 }
+      - { x: 489.6, y: 386.2 }
+      - { x: 487.6, y: 395.5 }
+      - { x: 492.5, y: 395.9 }
+      - { x: 489.6, y: 404.1 }
+      - { x: 483.6, y: 408.3 }
+      - { x: 478.9, y: 408.1 }
+      - { x: 481.1, y: 406.8 }
+  - from: a17
+    to: a17
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 陸
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 522.2, y: 188.5 }
+      - { x: 520.5, y: 195.3 }
+      - { x: 518, y: 196 }
+      - { x: 517, y: 192.4 }
+  - from: a18
+    to: a18
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 陸
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 565.1, y: 31.4 }
+      - { x: 565.7, y: 33.7 }
+      - { x: 564.9, y: 39.9 }
+      - { x: 562.2, y: 30.8 }
+  - from: a19
+    to: a19
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 陸
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 574.5, y: 43.6 }
+      - { x: 575.2, y: 44.9 }
+      - { x: 574.2, y: 46.4 }
+      - { x: 571.9, y: 46.9 }
+      - { x: 569, y: 45.2 }
+      - { x: 568.5, y: 42.7 }
+  - from: a20
+    to: a20
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 陸
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 556.6, y: 649.2 }
+      - { x: 554.6, y: 651.8 }
+      - { x: 552, y: 648.7 }
+  - from: a21
+    to: a21
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 陸
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 533.2, y: 562.4 }
+      - { x: 534.6, y: 564.9 }
+      - { x: 534.3, y: 567.3 }
+      - { x: 530.8, y: 565.4 }
+  - from: a22
+    to: a22
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 陸
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 337.4, y: 578.5 }
+      - { x: 342.9, y: 575 }
+      - { x: 344.8, y: 575.1 }
+      - { x: 340.3, y: 582.5 }
+      - { x: 341.3, y: 588.3 }
+      - { x: 336.5, y: 592.5 }
+      - { x: 332.4, y: 592.1 }
+      - { x: 330.5, y: 590 }
+  - from: a23
+    to: a23
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 陸
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 83.8, y: 626.4 }
+      - { x: 84.8, y: 633.4 }
+      - { x: 86, y: 634.1 }
+      - { x: 82.4, y: 637.1 }
+      - { x: 80.3, y: 641.5 }
+      - { x: 79.1, y: 641.9 }
+      - { x: 77.6, y: 635.2 }
+  - from: a24
+    to: a24
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 陸
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 100.5, y: 618.2 }
+      - { x: 105.4, y: 617.2 }
+      - { x: 101.1, y: 624 }
+      - { x: 97.7, y: 626 }
+      - { x: 95.5, y: 625.7 }
+      - { x: 97.9, y: 623.1 }
+  - from: a25
+    to: a25
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 陸
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 117.5, y: 594.1 }
+      - { x: 117.8, y: 598.3 }
+      - { x: 114.5, y: 600.1 }
+      - { x: 112.5, y: 598.2 }
+      - { x: 114.2, y: 593.7 }
+  - from: a26
+    to: a26
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 陸
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 98.2, y: 576.1 }
+      - { x: 95.1, y: 577.8 }
+      - { x: 94.4, y: 574.4 }
+      - { x: 96.8, y: 565.5 }
+  - from: a27
+    to: a27
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 陸
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 103.5, y: 551.4 }
+      - { x: 109.4, y: 548 }
+      - { x: 110.3, y: 550.1 }
+      - { x: 109.4, y: 555.7 }
+      - { x: 104.6, y: 561.5 }
+      - { x: 103.1, y: 567.2 }
+      - { x: 99.4, y: 563.2 }
+  - from: a28
+    to: a28
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 陸
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 238.3, y: 588.4 }
+      - { x: 239.6, y: 591.5 }
+      - { x: 238.2, y: 593.5 }
+      - { x: 234.4, y: 592.6 }
+      - { x: 236.1, y: 590.9 }
+  - from: a29
+    to: a29
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 陸
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 229.1, y: 604.7 }
+      - { x: 222.6, y: 602.8 }
+      - { x: 222.9, y: 598.9 }
+      - { x: 225.4, y: 599.3 }
+      - { x: 227.4, y: 601.4 }
+      - { x: 233, y: 601.6 }
+  - from: a30
+    to: a30
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 陸
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 78.7, y: 526.9 }
+      - { x: 81, y: 527 }
+      - { x: 80.2, y: 538.1 }
+      - { x: 75.8, y: 540.7 }
+      - { x: 70.1, y: 533.2 }
+  - from: a31
+    to: a31
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 陸
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 43.2, y: 535.8 }
+      - { x: 42.7, y: 528.4 }
+      - { x: 46.5, y: 526.6 }
+      - { x: 51.3, y: 529.6 }
+      - { x: 51.9, y: 533.5 }
+      - { x: 50.6, y: 538.4 }
+      - { x: 47.6, y: 538.2 }
+      - { x: 46.4, y: 534.7 }
+  - from: a32
+    to: a32
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 陸
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 8.8, y: 372.3 }
+      - { x: 10.9, y: 370.1 }
+      - { x: 13.8, y: 372.7 }
+      - { x: 14.4, y: 375.2 }
+      - { x: 13, y: 381.7 }
+      - { x: 9.5, y: 380.1 }
+  - from: a33
+    to: a33
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 陸
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 98.9, y: 708.2 }
+      - { x: 100.4, y: 704.2 }
+      - { x: 104.4, y: 701 }
+  - from: a34
+    to: a34
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 陸
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 186.4, y: 409.5 }
+      - { x: 187.5, y: 410.9 }
+      - { x: 186.5, y: 413.4 }
+      - { x: 184.5, y: 414.7 }
+      - { x: 182.4, y: 411.3 }
+  - from: a35
+    to: a35
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 陸
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 452.7, y: 18.5 }
+      - { x: 444.2, y: 27 }
+      - { x: 435, y: 38.8 }
+      - { x: 423.5, y: 49.4 }
+      - { x: 411.8, y: 65.9 }
+      - { x: 404.7, y: 73.2 }
+      - { x: 400.8, y: 81.7 }
+      - { x: 391.6, y: 87 }
+      - { x: 379.4, y: 106 }
+      - { x: 377.5, y: 112.5 }
+      - { x: 369.6, y: 119.5 }
+      - { x: 364.8, y: 127 }
+      - { x: 324.3, y: 153.3 }
+      - { x: 313.3, y: 158.3 }
+      - { x: 309, y: 158.2 }
+      - { x: 293.4, y: 163.6 }
+      - { x: 290, y: 162.1 }
+      - { x: 288, y: 157.8 }
+      - { x: 283.3, y: 158.2 }
+      - { x: 278.1, y: 153.8 }
+      - { x: 273.4, y: 153.6 }
+      - { x: 270.2, y: 151.5 }
+      - { x: 263.8, y: 152.3 }
+      - { x: 266.3, y: 135.3 }
+      - { x: 265.7, y: 131.6 }
+      - { x: 255, y: 140.1 }
+      - { x: 252.1, y: 141 }
+      - { x: 249.3, y: 140.8 }
+      - { x: 250.7, y: 137.2 }
+      - { x: 255.2, y: 132.3 }
+      - { x: 252.7, y: 131.1 }
+      - { x: 247.4, y: 132.8 }
+      - { x: 236.5, y: 144.4 }
+      - { x: 231.3, y: 152.3 }
+      - { x: 227.5, y: 154.4 }
+      - { x: 222.1, y: 161 }
+      - { x: 214.6, y: 159.8 }
+      - { x: 208.1, y: 157.2 }
+      - { x: 206.3, y: 157.8 }
+      - { x: 210, y: 164.7 }
+      - { x: 205.3, y: 173.8 }
+      - { x: 201.7, y: 175.9 }
+      - { x: 195.4, y: 173.9 }
+      - { x: 186.8, y: 178.7 }
+      - { x: 184.3, y: 182.6 }
+      - { x: 177.5, y: 187 }
+      - { x: 171.7, y: 195.4 }
+      - { x: 166.8, y: 199.4 }
+      - { x: 163.5, y: 204.7 }
+      - { x: 162.8, y: 209.6 }
+      - { x: 164.9, y: 214.9 }
+      - { x: 164.6, y: 219.2 }
+      - { x: 161.5, y: 227.7 }
+      - { x: 161.4, y: 237.2 }
+      - { x: 159.7, y: 240.7 }
+      - { x: 145.3, y: 245.3 }
+      - { x: 141.4, y: 248 }
+      - { x: 135.2, y: 255.6 }
+      - { x: 124.4, y: 260.7 }
+      - { x: 118.8, y: 261.9 }
+      - { x: 114.6, y: 267.3 }
+      - { x: 110.4, y: 270 }
+      - { x: 101.9, y: 273.5 }
+      - { x: 94.5, y: 272.5 }
+      - { x: 89, y: 273.5 }
+      - { x: 84.5, y: 277.7 }
+      - { x: 72.3, y: 281.5 }
+      - { x: 70.1, y: 285.5 }
+      - { x: 69, y: 297.1 }
+      - { x: 67.3, y: 301 }
+      - { x: 65, y: 299.5 }
+      - { x: 63.5, y: 300.6 }
+      - { x: 61.3, y: 304.1 }
+      - { x: 61, y: 308.5 }
+      - { x: 75, y: 317.1 }
+      - { x: 80.6, y: 327.4 }
+      - { x: 92.7, y: 340.3 }
+      - { x: 100.2, y: 367 }
+      - { x: 113.6, y: 394.3 }
+      - { x: 122.1, y: 416 }
+      - { x: 124, y: 427.3 }
+      - { x: 124.1, y: 443.5 }
+      - { x: 121.8, y: 448.6 }
+      - { x: 121.2, y: 457.1 }
+      - { x: 118, y: 464.3 }
+      - { x: 116.6, y: 478.1 }
+      - { x: 118.6, y: 480.7 }
+      - { x: 123.6, y: 479.1 }
+      - { x: 113.5, y: 506.3 }
+      - { x: 102.8, y: 521.3 }
+      - { x: 92.5, y: 524.1 }
+      - { x: 84.7, y: 523.4 }
+      - { x: 78.5, y: 521.1 }
+      - { x: 72.9, y: 521.3 }
+      - { x: 68.3, y: 525 }
+      - { x: 68.3, y: 532.6 }
+      - { x: 54.1, y: 527.1 }
+      - { x: 52.4, y: 522.2 }
+      - { x: 49.9, y: 522 }
+      - { x: 45.1, y: 524 }
+      - { x: 38.4, y: 523.5 }
+      - { x: 34.7, y: 526.3 }
+      - { x: 38.1, y: 532.5 }
+      - { x: 36.5, y: 535.4 }
+      - { x: 32.7, y: 536.5 }
+      - { x: 29.4, y: 528 }
+      - { x: 24.3, y: 528.1 }
+      - { x: 23, y: 532.1 }
+      - { x: 25.7, y: 538.7 }
+      - { x: 17.8, y: 545.9 }
+      - { x: 12.2, y: 540.6 }
+      - { x: 13.6, y: 537.7 }
+      - { x: 16.9, y: 535.3 }
+      - { x: 17.1, y: 530.4 }
+      - { x: 6.7, y: 536.4 }
+      - { x: 0, y: 543.6 }
+      - { x: 0, y: 476.6 }
+      - { x: 4.3, y: 475.1 }
+      - { x: 6.7, y: 470.1 }
+      - { x: 2.8, y: 466.8 }
+      - { x: 5.5, y: 462.5 }
+      - { x: 0.7, y: 453.7 }
+      - { x: 3.9, y: 438.2 }
+      - { x: 3.5, y: 426.9 }
+      - { x: 0, y: 427.8 }
+      - { x: 0, y: 412.9 }
+      - { x: 10.1, y: 411.3 }
+      - { x: 13.9, y: 415 }
+      - { x: 17.7, y: 416.3 }
+      - { x: 20.1, y: 423.1 }
+      - { x: 20.7, y: 421.3 }
+      - { x: 25.3, y: 418.1 }
+      - { x: 21.3, y: 415.6 }
+      - { x: 18.4, y: 403.8 }
+      - { x: 21, y: 399.1 }
+      - { x: 16.9, y: 390.5 }
+      - { x: 18.1, y: 385.4 }
+      - { x: 15.9, y: 376.5 }
+      - { x: 19.3, y: 373.7 }
+      - { x: 9.8, y: 367 }
+      - { x: 2.8, y: 368.3 }
+      - { x: 0, y: 371.4 }
+      - { x: 0, y: 0 }
+      - { x: 464.7, y: 0 }
+  - from: a36
+    to: a36
+    curve: none
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 206, y: 16 }
+      - { x: 206, y: 166 }
+      - { x: 16, y: 166 }
+  - from: a37
+    to: a37
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 陸
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 109.7, y: 88.4 }
+      - { x: 109.3, y: 91.8 }
+      - { x: 110.6, y: 95 }
+      - { x: 107.7, y: 95.1 }
+      - { x: 104.2, y: 98.2 }
+      - { x: 104, y: 104 }
+      - { x: 99.8, y: 106.5 }
+      - { x: 95.9, y: 106 }
+      - { x: 97, y: 100.2 }
+      - { x: 101.6, y: 94.7 }
+      - { x: 102.8, y: 87.7 }
+      - { x: 107.6, y: 86.7 }
+      - { x: 115, y: 80.6 }
+      - { x: 112.6, y: 78.1 }
+      - { x: 114, y: 74.8 }
+      - { x: 118.2, y: 76.2 }
+      - { x: 120.4, y: 78.7 }
+      - { x: 123.2, y: 77.7 }
+      - { x: 130.2, y: 71.5 }
+      - { x: 132.8, y: 67 }
+      - { x: 136, y: 71.5 }
+      - { x: 134.2, y: 76.4 }
+      - { x: 131, y: 79.8 }
+      - { x: 125.9, y: 81.6 }
+      - { x: 123.6, y: 84.3 }
+      - { x: 119, y: 84.7 }
+  - from: a38
+    to: a38
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 陸
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 175.3, y: 16 }
+      - { x: 177.3, y: 23.5 }
+      - { x: 176, y: 26.1 }
+      - { x: 173.8, y: 26.9 }
+      - { x: 171.3, y: 25.1 }
+      - { x: 171.4, y: 18.7 }
+  - from: a39
+    to: a39
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 557.5, y: 144.7 }
+  - from: a40
+    to: a40
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 晴れ
+    ends: { from: none, to: none }
+    via:
+      - { x: 486.6, y: 126.5 }
+      - { x: 490.4, y: 125.8 }
+      - { x: 489.8, y: 129.7 }
+      - { x: 493, y: 131.9 }
+      - { x: 489.8, y: 134.2 }
+      - { x: 490.4, y: 138.1 }
+      - { x: 486.6, y: 137.4 }
+      - { x: 484.3, y: 140.6 }
+      - { x: 482, y: 137.4 }
+      - { x: 478.2, y: 138.1 }
+      - { x: 478.9, y: 134.2 }
+      - { x: 475.6, y: 131.9 }
+      - { x: 478.9, y: 129.7 }
+      - { x: 478.2, y: 125.8 }
+      - { x: 482, y: 126.5 }
+  - from: a41
+    to: a41
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 雨
+    ends: { from: none, to: none }
+    via:
+      - { x: 495.8, y: 140.9 }
+      - { x: 496.3, y: 140 }
+      - { x: 497, y: 139.2 }
+      - { x: 498, y: 138.6 }
+      - { x: 499.2, y: 138.2 }
+      - { x: 500.4, y: 138.1 }
+      - { x: 501.6, y: 138.2 }
+      - { x: 502.8, y: 138.6 }
+      - { x: 503.8, y: 139.2 }
+      - { x: 504.6, y: 140 }
+      - { x: 505, y: 140.9 }
+      - { x: 505.2, y: 141.9 }
+      - { x: 503.6, y: 141.2 }
+      - { x: 502, y: 141.9 }
+      - { x: 500.4, y: 141.2 }
+      - { x: 498.8, y: 141.9 }
+      - { x: 497.2, y: 141.2 }
+  - from: a42
+    to: a42
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 500.4, y: 146.9 }
+      - { x: 499.8, y: 147.7 }
+      - { x: 498.9, y: 147.2 }
+  - from: a43
+    to: a43
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 654.4, y: 117.7 }
+  - from: a44
+    to: a44
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 晴れ
+    ends: { from: none, to: none }
+    via:
+      - { x: 583.5, y: 89.4 }
+      - { x: 587.3, y: 88.7 }
+      - { x: 586.7, y: 92.6 }
+      - { x: 589.9, y: 94.9 }
+      - { x: 586.7, y: 97.1 }
+      - { x: 587.3, y: 101 }
+      - { x: 583.5, y: 100.3 }
+      - { x: 581.2, y: 103.5 }
+      - { x: 578.9, y: 100.3 }
+      - { x: 575.1, y: 101 }
+      - { x: 575.7, y: 97.1 }
+      - { x: 572.5, y: 94.9 }
+      - { x: 575.7, y: 92.6 }
+      - { x: 575.1, y: 88.7 }
+      - { x: 578.9, y: 89.4 }
+  - from: a45
+    to: a45
+    curve: smooth
+    close: true
+    hatch: solid
+    hatch_color: くもり
+    ends: { from: none, to: none }
+    via:
+      - { x: 591.8, y: 106.8 }
+      - { x: 593.4, y: 105.7 }
+      - { x: 594.8, y: 104 }
+      - { x: 597.3, y: 103.1 }
+      - { x: 599.5, y: 104.2 }
+      - { x: 601.2, y: 104.6 }
+      - { x: 602.8, y: 106.2 }
+      - { x: 602.6, y: 108.4 }
+  - from: a46
+    to: a46
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 533.1, y: 255.2 }
+  - from: a47
+    to: a47
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 晴れ
+    ends: { from: none, to: none }
+    via:
+      - { x: 462.2, y: 227 }
+      - { x: 466.1, y: 226.3 }
+      - { x: 465.4, y: 230.2 }
+      - { x: 468.6, y: 232.4 }
+      - { x: 465.4, y: 234.7 }
+      - { x: 466.1, y: 238.5 }
+      - { x: 462.2, y: 237.9 }
+      - { x: 459.9, y: 241.1 }
+      - { x: 457.7, y: 237.9 }
+      - { x: 453.8, y: 238.5 }
+      - { x: 454.5, y: 234.7 }
+      - { x: 451.3, y: 232.4 }
+      - { x: 454.5, y: 230.2 }
+      - { x: 453.8, y: 226.3 }
+      - { x: 457.7, y: 227 }
+  - from: a48
+    to: a48
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 雨
+    ends: { from: none, to: none }
+    via:
+      - { x: 471.4, y: 241.4 }
+      - { x: 471.9, y: 240.4 }
+      - { x: 472.7, y: 239.6 }
+      - { x: 473.7, y: 239 }
+      - { x: 474.8, y: 238.7 }
+      - { x: 476, y: 238.5 }
+      - { x: 477.3, y: 238.7 }
+      - { x: 478.4, y: 239 }
+      - { x: 479.4, y: 239.6 }
+      - { x: 480.2, y: 240.4 }
+      - { x: 480.7, y: 241.4 }
+      - { x: 480.8, y: 242.3 }
+      - { x: 479.2, y: 241.7 }
+      - { x: 477.6, y: 242.3 }
+      - { x: 476, y: 241.7 }
+      - { x: 474.5, y: 242.3 }
+      - { x: 472.9, y: 241.7 }
+  - from: a49
+    to: a49
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 476, y: 247.4 }
+      - { x: 475.4, y: 248.1 }
+      - { x: 474.5, y: 247.6 }
+  - from: a50
+    to: a50
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 624.4, y: 299.3 }
+  - from: a51
+    to: a51
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 晴れ
+    ends: { from: none, to: none }
+    via:
+      - { x: 641.4, y: 271.1 }
+      - { x: 645.3, y: 270.4 }
+      - { x: 644.6, y: 274.3 }
+      - { x: 647.8, y: 276.5 }
+      - { x: 644.6, y: 278.8 }
+      - { x: 645.3, y: 282.7 }
+      - { x: 641.4, y: 282 }
+      - { x: 639.2, y: 285.2 }
+      - { x: 636.9, y: 282 }
+      - { x: 633, y: 282.7 }
+      - { x: 633.7, y: 278.8 }
+      - { x: 630.5, y: 276.5 }
+      - { x: 633.7, y: 274.3 }
+      - { x: 633, y: 270.4 }
+      - { x: 636.9, y: 271.1 }
+  - from: a52
+    to: a52
+    curve: smooth
+    close: true
+    hatch: solid
+    hatch_color: くもり
+    ends: { from: none, to: none }
+    via:
+      - { x: 649.7, y: 288.5 }
+      - { x: 651.4, y: 287.4 }
+      - { x: 652.8, y: 285.7 }
+      - { x: 655.3, y: 284.8 }
+      - { x: 657.5, y: 285.9 }
+      - { x: 659.2, y: 286.3 }
+      - { x: 660.8, y: 287.9 }
+      - { x: 660.5, y: 290.1 }
+  - from: a53
+    to: a53
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 628.5, y: 381.3 }
+  - from: a54
+    to: a54
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 晴れ
+    ends: { from: none, to: none }
+    via:
+      - { x: 645.6, y: 403 }
+      - { x: 649.5, y: 402.4 }
+      - { x: 648.8, y: 406.2 }
+      - { x: 652, y: 408.5 }
+      - { x: 648.8, y: 410.7 }
+      - { x: 649.5, y: 414.6 }
+      - { x: 645.6, y: 413.9 }
+      - { x: 643.3, y: 417.2 }
+      - { x: 641.1, y: 413.9 }
+      - { x: 637.2, y: 414.6 }
+      - { x: 637.9, y: 410.7 }
+      - { x: 634.6, y: 408.5 }
+      - { x: 637.9, y: 406.2 }
+      - { x: 637.2, y: 402.4 }
+      - { x: 641.1, y: 403 }
+  - from: a55
+    to: a55
+    curve: smooth
+    close: true
+    hatch: solid
+    hatch_color: くもり
+    ends: { from: none, to: none }
+    via:
+      - { x: 653.9, y: 420.5 }
+      - { x: 655.5, y: 419.4 }
+      - { x: 656.9, y: 417.7 }
+      - { x: 659.4, y: 416.7 }
+      - { x: 661.6, y: 417.8 }
+      - { x: 663.3, y: 418.3 }
+      - { x: 665, y: 419.8 }
+      - { x: 664.7, y: 422 }
+  - from: a56
+    to: a56
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 464.4, y: 343.6 }
+  - from: a57
+    to: a57
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 晴れ
+    ends: { from: none, to: none }
+    via:
+      - { x: 393.4, y: 315.4 }
+      - { x: 397.3, y: 314.7 }
+      - { x: 396.6, y: 318.6 }
+      - { x: 399.8, y: 320.8 }
+      - { x: 396.6, y: 323.1 }
+      - { x: 397.3, y: 327 }
+      - { x: 393.4, y: 326.3 }
+      - { x: 391.2, y: 329.5 }
+      - { x: 388.9, y: 326.3 }
+      - { x: 385, y: 327 }
+      - { x: 385.7, y: 323.1 }
+      - { x: 382.5, y: 320.8 }
+      - { x: 385.7, y: 318.6 }
+      - { x: 385, y: 314.7 }
+      - { x: 388.9, y: 315.4 }
+  - from: a58
+    to: a58
+    curve: smooth
+    close: true
+    hatch: solid
+    hatch_color: くもり
+    ends: { from: none, to: none }
+    via:
+      - { x: 401.7, y: 332.8 }
+      - { x: 403.4, y: 331.7 }
+      - { x: 404.8, y: 330 }
+      - { x: 407.3, y: 329.1 }
+      - { x: 409.5, y: 330.2 }
+      - { x: 411.1, y: 330.6 }
+      - { x: 412.8, y: 332.2 }
+      - { x: 412.5, y: 334.4 }
+  - from: a59
+    to: a59
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 478.3, y: 497.9 }
+  - from: a60
+    to: a60
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 晴れ
+    ends: { from: none, to: none }
+    via:
+      - { x: 456.4, y: 530.4 }
+      - { x: 461.7, y: 529.4 }
+      - { x: 460.8, y: 534.8 }
+      - { x: 465.2, y: 537.9 }
+      - { x: 460.8, y: 540.9 }
+      - { x: 461.7, y: 546.3 }
+      - { x: 456.4, y: 545.3 }
+      - { x: 453.3, y: 549.8 }
+      - { x: 450.2, y: 545.3 }
+      - { x: 444.9, y: 546.3 }
+      - { x: 445.8, y: 540.9 }
+      - { x: 441.4, y: 537.9 }
+      - { x: 445.8, y: 534.8 }
+      - { x: 444.9, y: 529.4 }
+      - { x: 450.2, y: 530.4 }
+  - from: a61
+    to: a61
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 625.2, y: 514.8 }
+  - from: a62
+    to: a62
+    curve: smooth
+    close: true
+    hatch: solid
+    hatch_color: くもり
+    ends: { from: none, to: none }
+    via:
+      - { x: 630.5, y: 538.3 }
+      - { x: 633.3, y: 536.5 }
+      - { x: 635.7, y: 533.5 }
+      - { x: 640, y: 531.9 }
+      - { x: 643.9, y: 533.8 }
+      - { x: 646.7, y: 534.6 }
+      - { x: 649.6, y: 537.3 }
+      - { x: 649.1, y: 541 }
+  - from: a63
+    to: a63
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 晴れ
+    ends: { from: none, to: none }
+    via:
+      - { x: 657.4, y: 545 }
+      - { x: 659.7, y: 544.6 }
+      - { x: 659.3, y: 546.9 }
+      - { x: 661.2, y: 548.2 }
+      - { x: 659.3, y: 549.5 }
+      - { x: 659.7, y: 551.8 }
+      - { x: 657.4, y: 551.4 }
+      - { x: 656.1, y: 553.2 }
+      - { x: 654.8, y: 551.4 }
+      - { x: 652.6, y: 551.8 }
+      - { x: 653, y: 549.5 }
+      - { x: 651.1, y: 548.2 }
+      - { x: 653, y: 546.9 }
+      - { x: 652.6, y: 544.6 }
+      - { x: 654.8, y: 545 }
+  - from: a64
+    to: a64
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 398.9, y: 432.9 }
+  - from: a65
+    to: a65
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 晴れ
+    ends: { from: none, to: none }
+    via:
+      - { x: 333, y: 405.4 }
+      - { x: 338.4, y: 404.5 }
+      - { x: 337.4, y: 409.8 }
+      - { x: 341.8, y: 412.9 }
+      - { x: 337.4, y: 416 }
+      - { x: 338.4, y: 421.3 }
+      - { x: 333, y: 420.4 }
+      - { x: 329.9, y: 424.8 }
+      - { x: 326.8, y: 420.4 }
+      - { x: 321.5, y: 421.3 }
+      - { x: 322.5, y: 416 }
+      - { x: 318, y: 412.9 }
+      - { x: 322.5, y: 409.8 }
+      - { x: 321.5, y: 404.5 }
+      - { x: 326.8, y: 405.4 }
+  - from: a66
+    to: a66
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 426.3, y: 593.7 }
+  - from: a67
+    to: a67
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 晴れ
+    ends: { from: none, to: none }
+    via:
+      - { x: 414.4, y: 626.2 }
+      - { x: 419.7, y: 625.3 }
+      - { x: 418.8, y: 630.6 }
+      - { x: 423.2, y: 633.7 }
+      - { x: 418.8, y: 636.8 }
+      - { x: 419.7, y: 642.1 }
+      - { x: 414.4, y: 641.2 }
+      - { x: 411.3, y: 645.6 }
+      - { x: 408.2, y: 641.2 }
+      - { x: 402.9, y: 642.1 }
+      - { x: 403.8, y: 636.8 }
+      - { x: 399.4, y: 633.7 }
+      - { x: 403.8, y: 630.6 }
+      - { x: 402.9, y: 625.3 }
+      - { x: 408.2, y: 626.2 }
+  - from: a68
+    to: a68
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 366.2, y: 638.2 }
+  - from: a69
+    to: a69
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 晴れ
+    ends: { from: none, to: none }
+    via:
+      - { x: 324.3, y: 670.7 }
+      - { x: 329.6, y: 669.8 }
+      - { x: 328.7, y: 675.1 }
+      - { x: 333.1, y: 678.2 }
+      - { x: 328.7, y: 681.3 }
+      - { x: 329.6, y: 686.6 }
+      - { x: 324.3, y: 685.7 }
+      - { x: 321.2, y: 690.1 }
+      - { x: 318.1, y: 685.7 }
+      - { x: 312.8, y: 686.6 }
+      - { x: 313.7, y: 681.3 }
+      - { x: 309.3, y: 678.2 }
+      - { x: 313.7, y: 675.1 }
+      - { x: 312.8, y: 669.8 }
+      - { x: 318.1, y: 670.7 }
+  - from: a70
+    to: a70
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 208.7, y: 468 }
+  - from: a71
+    to: a71
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 晴れ
+    ends: { from: none, to: none }
+    via:
+      - { x: 142.8, y: 440.6 }
+      - { x: 148.1, y: 439.6 }
+      - { x: 147.2, y: 444.9 }
+      - { x: 151.6, y: 448 }
+      - { x: 147.2, y: 451.1 }
+      - { x: 148.1, y: 456.5 }
+      - { x: 142.8, y: 455.5 }
+      - { x: 139.7, y: 459.9 }
+      - { x: 136.6, y: 455.5 }
+      - { x: 131.3, y: 456.5 }
+      - { x: 132.2, y: 451.1 }
+      - { x: 127.8, y: 448 }
+      - { x: 132.2, y: 444.9 }
+      - { x: 131.3, y: 439.6 }
+      - { x: 136.6, y: 440.6 }
+  - from: a72
+    to: a72
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 299.3, y: 527.1 }
+  - from: a73
+    to: a73
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 晴れ
+    ends: { from: none, to: none }
+    via:
+      - { x: 307.4, y: 499.6 }
+      - { x: 312.7, y: 498.7 }
+      - { x: 311.7, y: 504 }
+      - { x: 316.2, y: 507.1 }
+      - { x: 311.7, y: 510.2 }
+      - { x: 312.7, y: 515.5 }
+      - { x: 307.4, y: 514.5 }
+      - { x: 304.3, y: 519 }
+      - { x: 301.2, y: 514.5 }
+      - { x: 295.8, y: 515.5 }
+      - { x: 296.8, y: 510.2 }
+      - { x: 292.4, y: 507.1 }
+      - { x: 296.8, y: 504 }
+      - { x: 295.8, y: 498.7 }
+      - { x: 301.2, y: 499.6 }
+  - from: a74
+    to: a74
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 235.7, y: 630.4 }
+  - from: a75
+    to: a75
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 晴れ
+    ends: { from: none, to: none }
+    via:
+      - { x: 199.8, y: 662.9 }
+      - { x: 205.1, y: 661.9 }
+      - { x: 204.1, y: 667.3 }
+      - { x: 208.6, y: 670.4 }
+      - { x: 204.1, y: 673.5 }
+      - { x: 205.1, y: 678.8 }
+      - { x: 199.8, y: 677.8 }
+      - { x: 196.7, y: 682.3 }
+      - { x: 193.6, y: 677.8 }
+      - { x: 188.2, y: 678.8 }
+      - { x: 189.2, y: 673.5 }
+      - { x: 184.8, y: 670.4 }
+      - { x: 189.2, y: 667.3 }
+      - { x: 188.2, y: 661.9 }
+      - { x: 193.6, y: 662.9 }
+  - from: a76
+    to: a76
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 278.8, y: 693.3 }
+  - from: a77
+    to: a77
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 晴れ
+    ends: { from: none, to: none }
+    via:
+      - { x: 226.9, y: 725.8 }
+      - { x: 232.2, y: 724.9 }
+      - { x: 231.2, y: 730.2 }
+      - { x: 235.7, y: 733.3 }
+      - { x: 231.2, y: 736.4 }
+      - { x: 232.2, y: 741.7 }
+      - { x: 226.9, y: 740.8 }
+      - { x: 223.8, y: 745.2 }
+      - { x: 220.7, y: 740.8 }
+      - { x: 215.4, y: 741.7 }
+      - { x: 216.3, y: 736.4 }
+      - { x: 211.9, y: 733.3 }
+      - { x: 216.3, y: 730.2 }
+      - { x: 215.4, y: 724.9 }
+      - { x: 220.7, y: 725.8 }
+  - from: a78
+    to: a78
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 142.9, y: 579.8 }
+  - from: a79
+    to: a79
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 晴れ
+    ends: { from: none, to: none }
+    via:
+      - { x: 121, y: 552.3 }
+      - { x: 126.3, y: 551.3 }
+      - { x: 125.4, y: 556.7 }
+      - { x: 129.8, y: 559.8 }
+      - { x: 125.4, y: 562.8 }
+      - { x: 126.3, y: 568.2 }
+      - { x: 121, y: 567.2 }
+      - { x: 117.9, y: 571.7 }
+      - { x: 114.8, y: 567.2 }
+      - { x: 109.5, y: 568.2 }
+      - { x: 110.4, y: 562.8 }
+      - { x: 106, y: 559.8 }
+      - { x: 110.4, y: 556.7 }
+      - { x: 109.5, y: 551.3 }
+      - { x: 114.8, y: 552.3 }
+  - from: a80
+    to: a80
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 112.1, y: 715 }
+  - from: a81
+    to: a81
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 晴れ
+    ends: { from: none, to: none }
+    via:
+      - { x: 46.1, y: 737.6 }
+      - { x: 51.5, y: 736.6 }
+      - { x: 50.5, y: 741.9 }
+      - { x: 55, y: 745 }
+      - { x: 50.5, y: 748.1 }
+      - { x: 51.5, y: 753.5 }
+      - { x: 46.1, y: 752.5 }
+      - { x: 43.1, y: 756.9 }
+      - { x: 40, y: 752.5 }
+      - { x: 34.6, y: 753.5 }
+      - { x: 35.6, y: 748.1 }
+      - { x: 31.2, y: 745 }
+      - { x: 35.6, y: 741.9 }
+      - { x: 34.6, y: 736.6 }
+      - { x: 40, y: 737.6 }
+  - from: a82
+    to: a82
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 114.3, y: 89.8 }
+  - from: a83
+    to: a83
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 晴れ
+    ends: { from: none, to: none }
+    via:
+      - { x: 131.4, y: 61.5 }
+      - { x: 135.3, y: 60.9 }
+      - { x: 134.6, y: 64.7 }
+      - { x: 137.8, y: 67 }
+      - { x: 134.6, y: 69.2 }
+      - { x: 135.3, y: 73.1 }
+      - { x: 131.4, y: 72.4 }
+      - { x: 129.1, y: 75.7 }
+      - { x: 126.9, y: 72.4 }
+      - { x: 123, y: 73.1 }
+      - { x: 123.7, y: 69.2 }
+      - { x: 120.4, y: 67 }
+      - { x: 123.7, y: 64.7 }
+      - { x: 123, y: 60.9 }
+      - { x: 126.9, y: 61.5 }
+  - from: a84
+    to: a84
+    curve: smooth
+    close: true
+    hatch: solid
+    hatch_color: くもり
+    ends: { from: none, to: none }
+    via:
+      - { x: 139.7, y: 79 }
+      - { x: 141.3, y: 77.9 }
+      - { x: 142.7, y: 76.2 }
+      - { x: 145.2, y: 75.2 }
+      - { x: 147.4, y: 76.3 }
+      - { x: 149.1, y: 76.8 }
+      - { x: 150.8, y: 78.3 }
+      - { x: 150.5, y: 80.5 }
+  - from: a85
+    to: a85
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 晴れ
+    ends: { from: none, to: none }
+    via:
+      - { x: 971.1, y: 69.7 }
+      - { x: 974.9, y: 69.1 }
+      - { x: 974.3, y: 72.9 }
+      - { x: 977.5, y: 75.2 }
+      - { x: 974.3, y: 77.5 }
+      - { x: 974.9, y: 81.3 }
+      - { x: 971.1, y: 80.7 }
+      - { x: 968.8, y: 83.9 }
+      - { x: 966.5, y: 80.7 }
+      - { x: 962.7, y: 81.3 }
+      - { x: 963.3, y: 77.5 }
+      - { x: 960.1, y: 75.2 }
+      - { x: 963.3, y: 72.9 }
+      - { x: 962.7, y: 69.1 }
+      - { x: 966.5, y: 69.7 }
+  - from: a86
+    to: a86
+    curve: smooth
+    close: true
+    hatch: solid
+    hatch_color: くもり
+    ends: { from: none, to: none }
+    via:
+      - { x: 979.4, y: 87.2 }
+      - { x: 981, y: 86.1 }
+      - { x: 982.4, y: 84.4 }
+      - { x: 984.9, y: 83.4 }
+      - { x: 987.1, y: 84.5 }
+      - { x: 988.8, y: 85 }
+      - { x: 990.4, y: 86.6 }
+      - { x: 990.2, y: 88.7 }
+  - from: a87
+    to: a87
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 晴れ
+    ends: { from: none, to: none }
+    via:
+      - { x: 983.5, y: 163.5 }
+      - { x: 989.6, y: 162.4 }
+      - { x: 988.5, y: 168.5 }
+      - { x: 993.6, y: 172 }
+      - { x: 988.5, y: 175.5 }
+      - { x: 989.6, y: 181.6 }
+      - { x: 983.5, y: 180.5 }
+      - { x: 980, y: 185.6 }
+      - { x: 976.5, y: 180.5 }
+      - { x: 970.4, y: 181.6 }
+      - { x: 971.5, y: 175.5 }
+      - { x: 966.4, y: 172 }
+      - { x: 971.5, y: 168.5 }
+      - { x: 970.4, y: 162.4 }
+      - { x: 976.5, y: 163.5 }
+  - from: a88
+    to: a88
+    curve: smooth
+    close: true
+    hatch: solid
+    hatch_color: くもり
+    ends: { from: none, to: none }
+    via:
+      - { x: 965, y: 222.1 }
+      - { x: 969.5, y: 219.2 }
+      - { x: 973.3, y: 214.5 }
+      - { x: 980, y: 212 }
+      - { x: 986, y: 214.9 }
+      - { x: 990.5, y: 216.2 }
+      - { x: 995, y: 220.4 }
+      - { x: 994.2, y: 226.3 }
+  - from: a89
+    to: a89
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 雨
+    ends: { from: none, to: none }
+    via:
+      - { x: 967.5, y: 261.9 }
+      - { x: 968.8, y: 259.4 }
+      - { x: 970.9, y: 257.3 }
+      - { x: 973.5, y: 255.6 }
+      - { x: 976.7, y: 254.6 }
+      - { x: 980, y: 254.3 }
+      - { x: 983.3, y: 254.6 }
+      - { x: 986.5, y: 255.6 }
+      - { x: 989.1, y: 257.3 }
+      - { x: 991.2, y: 259.4 }
+      - { x: 992.5, y: 261.9 }
+      - { x: 992.9, y: 264.6 }
+      - { x: 988.6, y: 262.8 }
+      - { x: 984.3, y: 264.6 }
+      - { x: 980, y: 262.8 }
+      - { x: 975.7, y: 264.6 }
+      - { x: 971.4, y: 262.8 }
+  - from: a90
+    to: a90
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 980, y: 278.2 }
+      - { x: 978.4, y: 280.2 }
+      - { x: 975.9, y: 278.9 }
+  - from: a91
+    to: a91
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 晴れ
+    ends: { from: none, to: none }
+    via:
+      - { x: 977.8, y: 306.6 }
+      - { x: 982.2, y: 305.8 }
+      - { x: 981.4, y: 310.2 }
+      - { x: 985.1, y: 312.8 }
+      - { x: 981.4, y: 315.4 }
+      - { x: 982.2, y: 319.8 }
+      - { x: 977.8, y: 319 }
+      - { x: 975.2, y: 322.7 }
+      - { x: 972.6, y: 319 }
+      - { x: 968.2, y: 319.8 }
+      - { x: 969, y: 315.4 }
+      - { x: 965.3, y: 312.8 }
+      - { x: 969, y: 310.2 }
+      - { x: 968.2, y: 305.8 }
+      - { x: 972.6, y: 306.6 }
+  - from: a92
+    to: a92
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 雨
+    ends: { from: none, to: none }
+    via:
+      - { x: 988.3, y: 323 }
+      - { x: 988.9, y: 322 }
+      - { x: 989.7, y: 321.1 }
+      - { x: 990.9, y: 320.4 }
+      - { x: 992.2, y: 319.9 }
+      - { x: 993.6, y: 319.8 }
+      - { x: 995, y: 319.9 }
+      - { x: 996.3, y: 320.4 }
+      - { x: 997.5, y: 321.1 }
+      - { x: 998.3, y: 322 }
+      - { x: 998.9, y: 323 }
+      - { x: 999.1, y: 324.2 }
+      - { x: 997.2, y: 323.4 }
+      - { x: 995.4, y: 324.2 }
+      - { x: 993.6, y: 323.4 }
+      - { x: 991.8, y: 324.2 }
+      - { x: 990, y: 323.4 }
+  - from: a93
+    to: a93
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 993.6, y: 329.9 }
+      - { x: 992.9, y: 330.8 }
+      - { x: 991.9, y: 330.2 }
