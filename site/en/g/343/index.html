@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ミキサー 1 チャンネルの信号の道（順番が音を決める） — zumen example 343</title>
+<title>Signal path of one mixer channel (the order shapes the sound) — zumen example 343</title>
 <link rel="icon" type="image/svg+xml" href="../../../icon.svg">
 <meta name="theme-color" content="#23232b">
 <meta name="description" content="The same control means different things depending on where in the chain it sits…">
@@ -11,12 +11,12 @@
 <meta property="og:site_name" content="zumen">
 <meta property="og:locale" content="en_US">
 <meta property="og:url" content="https://meta-taro.github.io/zumen/en/g/343/">
-<meta property="og:title" content="ミキサー 1 チャンネルの信号の道（順番が音を決める） — zumen example 343">
+<meta property="og:title" content="Signal path of one mixer channel (the order shapes the sound) — zumen example 343">
 <meta property="og:description" content="The same control means different things depending on where in the chain it sits…">
 <meta property="og:image" content="https://meta-taro.github.io/zumen/og/343.png">
 <meta property="og:image:alt" content="The same control means different things depending on where in the chain it sits…">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="ミキサー 1 チャンネルの信号の道（順番が音を決める） — zumen example 343">
+<meta name="twitter:title" content="Signal path of one mixer channel (the order shapes the sound) — zumen example 343">
 <meta name="twitter:description" content="The same control means different things depending on where in the chain it sits…">
 <meta name="twitter:image" content="https://meta-taro.github.io/zumen/og/343.png">
 <meta name="twitter:image:alt" content="The same control means different things depending on where in the chain it sits…">
@@ -33,8 +33,8 @@
   {
     "@context": "https://schema.org",
     "@type": "CreativeWork",
-    "name": "ミキサー 1 チャンネルの信号の道（順番が音を決める）",
-    "headline": "ミキサー 1 チャンネルの信号の道（順番が音を決める）",
+    "name": "Signal path of one mixer channel (the order shapes the sound)",
+    "headline": "Signal path of one mixer channel (the order shapes the sound)",
     "description": "The same control means different things depending on where in the chain it sits…",
     "url": "https://meta-taro.github.io/zumen/en/g/343/",
     "image": {
@@ -82,7 +82,7 @@
       {
         "@type": "ListItem",
         "position": 4,
-        "name": "ミキサー 1 チャンネルの信号の道（順番が音を決める）"
+        "name": "Signal path of one mixer channel (the order shapes the sound)"
       }
     ]
   }
@@ -103,13 +103,14 @@
 <main>
 <article>
   <p class="crumb">Instruments and acoustics</p>
-  <h1>ミキサー 1 チャンネルの信号の道（順番が音を決める）</h1>
+  <h1>Signal path of one mixer channel (the order shapes the sound)</h1>
   <p class="lead">The same control means different things depending on where in the chain it sits. An aux send taken before the fader keeps its level when the engineer moves the fader, which is what a performer monitor needs; taken after, it follows the fader, which is what a reverb needs. Insert is in series and cuts the path open; aux is in parallel and branches away and back.</p>
   <figure>
     <img src="../../../gallery/343-%E3%83%9F%E3%82%AD%E3%82%B5%E3%83%BC%E3%81%AE%E4%BF%A1%E5%8F%B7%E3%81%AE%E9%81%93.svg" alt="The same control means different things depending on where in the chain it sits. An aux send taken before the fader keeps its level when the engineer moves the fader, which is what a performer monitor needs; taken after, it follows the fader, which is what a reverb needs. Insert is in series and cuts the path open; aux is in parallel and branches away and back." loading="lazy">
   </figure>
   <p class="made">This drawing comes from one YAML file. No shape was moved by hand.</p>
-  <h2>What the source says</h2>
+  <h2>Notes in the source (in Japanese)</h2>
+  <div lang="ja">
   <p><strong>同じ機能でも、道のどこに置くかで別のものになる。</strong></p>
   <p>入力（マイク／ライン）→ <strong>HA（ヘッドアンプ）</strong>→ フィルタ（HPF / LPF）→ <strong>EQ</strong> →ダイナミクス → <strong>インサート</strong> → <strong>AUX SEND</strong> → <strong>フェーダー</strong> → PAN POT →BUS / GROUP → マスター。PAN はフェーダーの後ろ（定位を決めてから左右のバスへ振り分ける）。AUX は ① ではプリの位置に描いた。ポストの AUX はフェーダーの後ろから取る（②）。</p>
   <p><strong>HA で利得を合わせるのが先</strong>なのは、そこで決まった余裕が以降の段すべてに効くから。<strong>フィルタが EQ より前</strong>なのは、要らない帯域を先に落としておくため。</p>
@@ -119,6 +120,7 @@
   <p><strong>インサートは直列。</strong> 道を切って、そこへ外部機器を挟む。通った音がそのまま先へ行く。<strong>AUX は並列。</strong> 枝分かれして送り、戻してくる。インサートは PRE か POST を選べる。</p>
   <p><strong>Pre Fader Listening</strong> —— フェーダーで音量を調整される<strong>前段</strong>の信号をソロで聞く。卓のフェーダーを下げていても聞けるので、<strong>送り出す前に確かめられる。</strong></p>
   <p>PA の配置は見本 101、ホールの反射は見本 205、マイクの指向性は見本 327。</p>
+  </div>
   <h2>Source (YAML)</h2>
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/343-%E3%83%9F%E3%82%AD%E3%82%B5%E3%83%BC%E3%81%AE%E4%BF%A1%E5%8F%B7%E3%81%AE%E9%81%93.zumen.yaml"><code>examples/gallery/343-ミキサーの信号の道.zumen.yaml</code></a></p>
   <h2>More in this field</h2>

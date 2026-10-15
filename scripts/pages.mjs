@@ -28,6 +28,7 @@ import { join } from 'node:path';
 
 import { CATEGORIES } from './gallery-categories.mjs';
 import { CAPTIONS_EN, GROUPS_EN } from './gallery-en.mjs';
+import { TITLES_EN } from './titles-en.mjs';
 
 const DIR = 'examples/gallery';
 const SITE = 'https://meta-taro.github.io/zumen';
@@ -155,6 +156,7 @@ for (const group of CATEGORIES) {
       no,
       name: item.name,
       title: text.match(/^title:\s*(.+)$/m)?.[1]?.replace(/^["']|["']$/g, '') ?? item.name,
+      titleEn: TITLES_EN[item.name],
       caption: item.caption,
       alt: item.alt,
       en: CAPTIONS_EN[item.name] ?? item.caption,
@@ -179,6 +181,14 @@ for (const group of CATEGORIES) {
   }
 }
 SAMPLES.sort((a, b) => Number(a.no) - Number(b.no));
+/**
+ * **英語のページの題**（2026-10-15）。
+ *
+ * 英語のページで `<h1>`・`<title>`・`og:title`・構造化データの題が**日本語のまま**だった
+ * （英語にしていたのはキャプションだけ）。題が日本語の見本は `titles-en.mjs` から引き、
+ * 題がもともと英語の見本はそのまま使う。
+ */
+const titleOf = (s, lang) => (lang === 'ja' ? s.title : s.titleEn ?? s.title);
 const byGroup = new Map(CATEGORIES.map((g) => [g.key, SAMPLES.filter((s) => s.group.key === g.key)]));
 
 /** ページの殻。**どのページも同じ形**にして、差は中身だけにする。 */
@@ -301,7 +311,7 @@ function samplePage(s, lang) {
 
   const t = lang === 'ja'
     ? { title: `${s.title} — zumen の見本 ${s.no}`, desc: summary, note: '正本に書いてある決まりごと', src: '正本（YAML）', near: '同じ分野の見本', made: 'この図は、下の 1 枚の YAML から描かれています。手で図形を動かしてはいません。' }
-    : { title: `${s.title} — zumen example ${s.no}`, desc: summary, note: 'What the source says', src: 'Source (YAML)', near: 'More in this field', made: 'This drawing comes from one YAML file. No shape was moved by hand.' };
+    : { title: `${titleOf(s, lang)} — zumen example ${s.no}`, desc: summary, note: 'Notes in the source (in Japanese)', src: 'Source (YAML)', near: 'More in this field', made: 'This drawing comes from one YAML file. No shape was moved by hand.' };
   const near = (byGroup.get(s.group.key) ?? []).filter((x) => x.no !== s.no).slice(0, 8);
   /**
    * **前へ・次へ**（2026-09-24。見本から見本へ渡り歩く道が無いという指摘）。
@@ -323,13 +333,13 @@ function samplePage(s, lang) {
   </nav>`;
   const body = `<article>
   <p class="crumb">${esc(lang === 'ja' ? s.group.label : GROUPS_EN[s.group.key] ?? s.group.label)}</p>
-  <h1>${esc(s.title)}</h1>
+  <h1>${esc(titleOf(s, lang))}</h1>
   <p class="lead">${strong(lang === 'ja' ? s.caption : s.en)}</p>
   <figure>
     <img src="../../${lang === 'ja' ? '' : '../'}gallery/${encodeURIComponent(s.name)}.svg" alt="${esc(lang === 'ja' ? s.alt : s.en)}" loading="lazy">
   </figure>
   <p class="made">${esc(t.made)}</p>
-  ${s.note.length === 0 ? '' : `<h2>${esc(t.note)}</h2>\n  ${s.note.map((p) => (typeof p === 'string' ? `<p>${strong(p)}</p>` : tableOf(p.table))).join('\n  ')}`}
+  ${s.note.length === 0 ? '' : `<h2>${esc(t.note)}</h2>\n  ${lang === 'ja' ? '' : '<div lang="ja">\n  '}${s.note.map((p) => (typeof p === 'string' ? `<p>${strong(p)}</p>` : tableOf(p.table))).join('\n  ')}${lang === 'ja' ? '' : '\n  </div>'}`}
   <h2>${esc(t.src)}</h2>
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/${encodeURIComponent(s.name)}.zumen.yaml"><code>examples/gallery/${esc(s.name)}.zumen.yaml</code></a></p>
   ${near.length === 0 ? '' : `<h2>${esc(t.near)}</h2>
@@ -375,8 +385,8 @@ ${near.map((x) => `    <li><a href="../${x.no}/"><img src="../../${lang === 'ja'
       {
         '@context': 'https://schema.org',
         '@type': 'CreativeWork',
-        name: s.title,
-        headline: s.title,
+        name: titleOf(s, lang),
+        headline: titleOf(s, lang),
         description: summary,
         url: `${SITE}${lang === 'ja' ? '' : '/en'}/g/${s.no}/`,
         image: {
@@ -412,7 +422,7 @@ ${near.map((x) => `    <li><a href="../${x.no}/"><img src="../../${lang === 'ja'
             name: lang === 'ja' ? s.group.label : GROUPS_EN[s.group.key] ?? s.group.label,
             item: `${SITE}${lang === 'ja' ? '' : '/en'}/c/${s.group.key}/`,
           },
-          { '@type': 'ListItem', position: 4, name: s.title },
+          { '@type': 'ListItem', position: 4, name: titleOf(s, lang) },
         ],
       },
     ],
@@ -509,7 +519,7 @@ ${items.map((s) => `    <li><a href="../../${lang === 'ja' ? '' : '../'}g/${s.no
         inLanguage: lang,
         hasPart: items.map((s) => ({
           '@type': 'CreativeWork',
-          name: s.title,
+          name: titleOf(s, lang),
           url: `${SITE}${lang === 'ja' ? '' : '/en'}/g/${s.no}/`,
           image: `${SITE}/gallery/${encodeURIComponent(s.name)}.svg`,
         })),

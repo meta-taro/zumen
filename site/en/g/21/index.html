@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>受注管理のテーブル関係（ER・鳥の足記法） — zumen example 21</title>
+<title>Order management table relationships (ER diagram, crow's foot notation) — zumen example 21</title>
 <link rel="icon" type="image/svg+xml" href="../../../icon.svg">
 <meta name="theme-color" content="#23232b">
 <meta name="description" content="An order management ER diagram with primary and foreign keys, and the one-to-many relationships drawn as crow feet">
@@ -11,12 +11,12 @@
 <meta property="og:site_name" content="zumen">
 <meta property="og:locale" content="en_US">
 <meta property="og:url" content="https://meta-taro.github.io/zumen/en/g/21/">
-<meta property="og:title" content="受注管理のテーブル関係（ER・鳥の足記法） — zumen example 21">
+<meta property="og:title" content="Order management table relationships (ER diagram, crow's foot notation) — zumen example 21">
 <meta property="og:description" content="An order management ER diagram with primary and foreign keys, and the one-to-many relationships drawn as crow feet">
 <meta property="og:image" content="https://meta-taro.github.io/zumen/og/21.png">
 <meta property="og:image:alt" content="An order management ER diagram with primary and foreign keys, and the one-to-many relationships drawn as crow feet">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="受注管理のテーブル関係（ER・鳥の足記法） — zumen example 21">
+<meta name="twitter:title" content="Order management table relationships (ER diagram, crow's foot notation) — zumen example 21">
 <meta name="twitter:description" content="An order management ER diagram with primary and foreign keys, and the one-to-many relationships drawn as crow feet">
 <meta name="twitter:image" content="https://meta-taro.github.io/zumen/og/21.png">
 <meta name="twitter:image:alt" content="An order management ER diagram with primary and foreign keys, and the one-to-many relationships drawn as crow feet">
@@ -33,8 +33,8 @@
   {
     "@context": "https://schema.org",
     "@type": "CreativeWork",
-    "name": "受注管理のテーブル関係（ER・鳥の足記法）",
-    "headline": "受注管理のテーブル関係（ER・鳥の足記法）",
+    "name": "Order management table relationships (ER diagram, crow's foot notation)",
+    "headline": "Order management table relationships (ER diagram, crow's foot notation)",
     "description": "An order management ER diagram with primary and foreign keys, and the one-to-many relationships drawn as crow feet",
     "url": "https://meta-taro.github.io/zumen/en/g/21/",
     "image": {
@@ -82,7 +82,7 @@
       {
         "@type": "ListItem",
         "position": 4,
-        "name": "受注管理のテーブル関係（ER・鳥の足記法）"
+        "name": "Order management table relationships (ER diagram, crow's foot notation)"
       }
     ]
   }
@@ -103,13 +103,14 @@
 <main>
 <article>
   <p class="crumb">IT and software</p>
-  <h1>受注管理のテーブル関係（ER・鳥の足記法）</h1>
+  <h1>Order management table relationships (ER diagram, crow's foot notation)</h1>
   <p class="lead">An order management ER diagram with primary and foreign keys, and the one-to-many relationships drawn as crow feet</p>
   <figure>
     <img src="../../../gallery/21-%E3%83%86%E3%83%BC%E3%83%96%E3%83%AB%E3%81%AE%E9%96%A2%E4%BF%82.svg" alt="An order management ER diagram with primary and foreign keys, and the one-to-many relationships drawn as crow feet" loading="lazy">
   </figure>
   <p class="made">This drawing comes from one YAML file. No shape was moved by hand.</p>
-  <h2>What the source says</h2>
+  <h2>Notes in the source (in Japanese)</h2>
+  <div lang="ja">
   <p><strong>鳥の足（crow's foot）は、線の端の形が「何個つながるか」を言う。</strong>線そのものではなく、<strong>端</strong>を読む図。</p>
   <table class="note">
   <thead><tr><th>端の形</th><th>意味</th></tr></thead>
@@ -120,6 +121,7 @@
   <p>受注 1 件に明細は何行でも付く。<strong>同じ表に入れると、受注の日付が行の数だけ重複する。</strong>表を分ける理由は、たいていこの「個数の違い」にある。</p>
   <p>商品は 1 つでも、価格は時期で変わる。<strong>過去の受注は、そのときの価格で残す。</strong></p>
   <p>鳥の足記法（IE 記法）の実体は<strong>矩形</strong>。円柱は「データベース（格納庫）」の記号なので、表 1 つずつを円柱にすると「DB が 8 個ある」と読まれる。<strong>在庫（商品×倉庫）の 2 本も、矢印ではなく端の形で言う</strong>（商品 1 に対して在庫行は 0 以上）。</p>
+  </div>
   <h2>Source (YAML)</h2>
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/21-%E3%83%86%E3%83%BC%E3%83%96%E3%83%AB%E3%81%AE%E9%96%A2%E4%BF%82.zumen.yaml"><code>examples/gallery/21-テーブルの関係.zumen.yaml</code></a></p>
   <h2>More in this field</h2>

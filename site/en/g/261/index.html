@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>電源タップの定格（つないでも足し算にならない） — zumen example 261</title>
+<title>Power strip ratings — chaining them does not add up — zumen example 261</title>
 <link rel="icon" type="image/svg+xml" href="../../../icon.svg">
 <meta name="theme-color" content="#23232b">
 <meta name="description" content="Chaining power strips does not add up: the wall socket caps the whole chain at 15A, the flex gauge caps it lower still (0.75sq means 7A)…">
@@ -11,12 +11,12 @@
 <meta property="og:site_name" content="zumen">
 <meta property="og:locale" content="en_US">
 <meta property="og:url" content="https://meta-taro.github.io/zumen/en/g/261/">
-<meta property="og:title" content="電源タップの定格（つないでも足し算にならない） — zumen example 261">
+<meta property="og:title" content="Power strip ratings — chaining them does not add up — zumen example 261">
 <meta property="og:description" content="Chaining power strips does not add up: the wall socket caps the whole chain at 15A, the flex gauge caps it lower still (0.75sq means 7A)…">
 <meta property="og:image" content="https://meta-taro.github.io/zumen/og/261.png">
 <meta property="og:image:alt" content="Chaining power strips does not add up: the wall socket caps the whole chain at 15A, the flex gauge caps it lower still (0.75sq means 7A)…">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="電源タップの定格（つないでも足し算にならない） — zumen example 261">
+<meta name="twitter:title" content="Power strip ratings — chaining them does not add up — zumen example 261">
 <meta name="twitter:description" content="Chaining power strips does not add up: the wall socket caps the whole chain at 15A, the flex gauge caps it lower still (0.75sq means 7A)…">
 <meta name="twitter:image" content="https://meta-taro.github.io/zumen/og/261.png">
 <meta name="twitter:image:alt" content="Chaining power strips does not add up: the wall socket caps the whole chain at 15A, the flex gauge caps it lower still (0.75sq means 7A)…">
@@ -33,8 +33,8 @@
   {
     "@context": "https://schema.org",
     "@type": "CreativeWork",
-    "name": "電源タップの定格（つないでも足し算にならない）",
-    "headline": "電源タップの定格（つないでも足し算にならない）",
+    "name": "Power strip ratings — chaining them does not add up",
+    "headline": "Power strip ratings — chaining them does not add up",
     "description": "Chaining power strips does not add up: the wall socket caps the whole chain at 15A, the flex gauge caps it lower still (0.75sq means 7A)…",
     "url": "https://meta-taro.github.io/zumen/en/g/261/",
     "image": {
@@ -82,7 +82,7 @@
       {
         "@type": "ListItem",
         "position": 4,
-        "name": "電源タップの定格（つないでも足し算にならない）"
+        "name": "Power strip ratings — chaining them does not add up"
       }
     ]
   }
@@ -103,13 +103,14 @@
 <main>
 <article>
   <p class="crumb">Appliances and furniture</p>
-  <h1>電源タップの定格（つないでも足し算にならない）</h1>
+  <h1>Power strip ratings — chaining them does not add up</h1>
   <p class="lead">Chaining power strips does not add up: the wall socket caps the whole chain at 15A, the flex gauge caps it lower still (0.75sq means 7A), and the 20A branch breaker trips after the 15A strip has already overheated</p>
   <figure>
     <img src="../../../gallery/261-%E9%9B%BB%E6%BA%90%E3%82%BF%E3%83%83%E3%83%97%E3%81%AE%E5%AE%9A%E6%A0%BC.svg" alt="Chaining power strips does not add up: the wall socket caps the whole chain at 15A, the flex gauge caps it lower still (0.75sq means 7A), and the 20A branch breaker trips after the 15A strip has already overheated" loading="lazy">
   </figure>
   <p class="made">This drawing comes from one YAML file. No shape was moved by hand.</p>
-  <h2>What the source says</h2>
+  <h2>Notes in the source (in Japanese)</h2>
+  <div lang="ja">
   <p><strong>タップをつないでも、容量は増えない。</strong>壁のコンセント 1 口が 15A なら、その先に何個足しても合計は 15A のまま。</p>
   <p><strong>上限を決めるのは、いちばん細い所。</strong> タップ本体が 15A でも、途中に挟んだ延長コードが<strong>0.75sq なら 7A（700W）</strong>がその道筋の上限（1.25sq で 12A、2.0sq で 17A）。</p>
   <p><strong>熱を作るものだけが、桁違いに食う。</strong> 電子レンジ 1,400W、ホットプレート 1,300W、ドライヤー 1,200W に対して、<strong>テレビ 150W、ノート PC 65W、スマホ充電 20W</strong> —— 2 桁ちがう。危ないのは「数」ではなく、<strong>熱を作るものが 2 つ乗ったとき。</strong></p>
@@ -117,6 +118,7 @@
   <p><strong>ブレーカーは、タップを守らない。</strong> タップは 15A、分岐ブレーカーは 20A。ホットプレート 1,300W ＋ こたつ 600W ＝ <strong>1,900W（19A）</strong>は、ブレーカーが落ちない値 —— <strong>落ちないまま、タップだけが熱を持ち続ける。</strong></p>
   <p><strong>トラッキングは、使っていなくても起きる。</strong> 差さっていれば刃の間に電圧はかかっていて、ほこりと湿気で炭化し、発火する。<strong>家具の裏の見えないコンセントがいちばん危ない。</strong></p>
   <p>コードの許容電流（周囲温度 30℃ 以下、ビニル 60℃）0.75mm² 7A／1.25mm² 12A／2.0mm² 17A は、古河電工メタルケーブル「コードの許容電流」表で照合（2026-10-02）。https://www.furukawa-mc.jp/products/cable/clist/clist04.html巻いたリールの 5A と、家電の消費電力は目安（機種・製品で違う）。</p>
+  </div>
   <h2>Source (YAML)</h2>
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/261-%E9%9B%BB%E6%BA%90%E3%82%BF%E3%83%83%E3%83%97%E3%81%AE%E5%AE%9A%E6%A0%BC.zumen.yaml"><code>examples/gallery/261-電源タップの定格.zumen.yaml</code></a></p>
   <h2>More in this field</h2>

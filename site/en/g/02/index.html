@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>クラウド構成 — zumen example 02</title>
+<title>Cloud architecture — zumen example 02</title>
 <link rel="icon" type="image/svg+xml" href="../../../icon.svg">
 <meta name="theme-color" content="#23232b">
 <meta name="description" content="A cloud architecture showing the VPC and its subnets, and where the load balancer, application, database and object store sit">
@@ -11,12 +11,12 @@
 <meta property="og:site_name" content="zumen">
 <meta property="og:locale" content="en_US">
 <meta property="og:url" content="https://meta-taro.github.io/zumen/en/g/02/">
-<meta property="og:title" content="クラウド構成 — zumen example 02">
+<meta property="og:title" content="Cloud architecture — zumen example 02">
 <meta property="og:description" content="A cloud architecture showing the VPC and its subnets, and where the load balancer, application, database and object store sit">
 <meta property="og:image" content="https://meta-taro.github.io/zumen/og/02.png">
 <meta property="og:image:alt" content="A cloud architecture showing the VPC and its subnets, and where the load balancer, application, database and object store sit">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="クラウド構成 — zumen example 02">
+<meta name="twitter:title" content="Cloud architecture — zumen example 02">
 <meta name="twitter:description" content="A cloud architecture showing the VPC and its subnets, and where the load balancer, application, database and object store sit">
 <meta name="twitter:image" content="https://meta-taro.github.io/zumen/og/02.png">
 <meta name="twitter:image:alt" content="A cloud architecture showing the VPC and its subnets, and where the load balancer, application, database and object store sit">
@@ -33,8 +33,8 @@
   {
     "@context": "https://schema.org",
     "@type": "CreativeWork",
-    "name": "クラウド構成",
-    "headline": "クラウド構成",
+    "name": "Cloud architecture",
+    "headline": "Cloud architecture",
     "description": "A cloud architecture showing the VPC and its subnets, and where the load balancer, application, database and object store sit",
     "url": "https://meta-taro.github.io/zumen/en/g/02/",
     "image": {
@@ -82,7 +82,7 @@
       {
         "@type": "ListItem",
         "position": 4,
-        "name": "クラウド構成"
+        "name": "Cloud architecture"
       }
     ]
   }
@@ -103,17 +103,19 @@
 <main>
 <article>
   <p class="crumb">IT and software</p>
-  <h1>クラウド構成</h1>
+  <h1>Cloud architecture</h1>
   <p class="lead">A cloud architecture showing the VPC and its subnets, and where the load balancer, application, database and object store sit</p>
   <figure>
     <img src="../../../gallery/02-%E3%82%AF%E3%83%A9%E3%82%A6%E3%83%89%E6%A7%8B%E6%88%90.svg" alt="A cloud architecture showing the VPC and its subnets, and where the load balancer, application, database and object store sit" loading="lazy">
   </figure>
   <p class="made">This drawing comes from one YAML file. No shape was moved by hand.</p>
-  <h2>What the source says</h2>
+  <h2>Notes in the source (in Japanese)</h2>
+  <div lang="ja">
   <p><strong>クラウド構成図で意味があるのは、箱の名前ではなく「サブネットの線」。</strong>公開サブネットに置けるのは、外から叩かれてよいものだけ。<strong>web が非公開側の DB を見に行く向きは片道</strong>で、逆は無い。</p>
   <p>自分で面倒を見るもの（web）と、預けるもの（PostgreSQL・オブジェクト保管）では、<strong>止まったときに自分でできることが違う。</strong> 群を分けるのは、そこを見せるため。</p>
   <p>実体は冗長でも、図では 1 つ。<strong>冗長を描くと、経路の本数が倍になって読めなくなる。</strong>冗長は別の図（系統図）で描く。</p>
   <p>ロードバランサの後ろの 2 台は、どちらへ振られても同じ動きをしなければならない。<strong>セッションを Redis に置くのは、そのため</strong> —— web-2 だけ Redis と保管先への線が無いと、web-2 へ振られた利用者はログインが切れ、添付も読めない図になる。</p>
+  </div>
   <h2>Source (YAML)</h2>
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/02-%E3%82%AF%E3%83%A9%E3%82%A6%E3%83%89%E6%A7%8B%E6%88%90.zumen.yaml"><code>examples/gallery/02-クラウド構成.zumen.yaml</code></a></p>
   <h2>More in this field</h2>

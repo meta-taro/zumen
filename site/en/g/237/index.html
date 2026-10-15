@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>基板の層を増やすのは、GND を近づけるため — zumen example 237</title>
+<title>More PCB layers bring the ground plane closer — zumen example 237</title>
 <link rel="icon" type="image/svg+xml" href="../../../icon.svg">
 <meta name="theme-color" content="#23232b">
 <meta name="description" content="Adding layers is not only about routing: it brings the ground plane close, and the same 50 ohms goes from a 2.85mm trace to a 0.34mm one">
@@ -11,12 +11,12 @@
 <meta property="og:site_name" content="zumen">
 <meta property="og:locale" content="en_US">
 <meta property="og:url" content="https://meta-taro.github.io/zumen/en/g/237/">
-<meta property="og:title" content="基板の層を増やすのは、GND を近づけるため — zumen example 237">
+<meta property="og:title" content="More PCB layers bring the ground plane closer — zumen example 237">
 <meta property="og:description" content="Adding layers is not only about routing: it brings the ground plane close, and the same 50 ohms goes from a 2.85mm trace to a 0.34mm one">
 <meta property="og:image" content="https://meta-taro.github.io/zumen/og/237.png">
 <meta property="og:image:alt" content="Adding layers is not only about routing: it brings the ground plane close, and the same 50 ohms goes from a 2.85mm trace to a 0.34mm one">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="基板の層を増やすのは、GND を近づけるため — zumen example 237">
+<meta name="twitter:title" content="More PCB layers bring the ground plane closer — zumen example 237">
 <meta name="twitter:description" content="Adding layers is not only about routing: it brings the ground plane close, and the same 50 ohms goes from a 2.85mm trace to a 0.34mm one">
 <meta name="twitter:image" content="https://meta-taro.github.io/zumen/og/237.png">
 <meta name="twitter:image:alt" content="Adding layers is not only about routing: it brings the ground plane close, and the same 50 ohms goes from a 2.85mm trace to a 0.34mm one">
@@ -33,8 +33,8 @@
   {
     "@context": "https://schema.org",
     "@type": "CreativeWork",
-    "name": "基板の層を増やすのは、GND を近づけるため",
-    "headline": "基板の層を増やすのは、GND を近づけるため",
+    "name": "More PCB layers bring the ground plane closer",
+    "headline": "More PCB layers bring the ground plane closer",
     "description": "Adding layers is not only about routing: it brings the ground plane close, and the same 50 ohms goes from a 2.85mm trace to a 0.34mm one",
     "url": "https://meta-taro.github.io/zumen/en/g/237/",
     "image": {
@@ -82,7 +82,7 @@
       {
         "@type": "ListItem",
         "position": 4,
-        "name": "基板の層を増やすのは、GND を近づけるため"
+        "name": "More PCB layers bring the ground plane closer"
       }
     ]
   }
@@ -103,18 +103,20 @@
 <main>
 <article>
   <p class="crumb">IT and software</p>
-  <h1>基板の層を増やすのは、GND を近づけるため</h1>
+  <h1>More PCB layers bring the ground plane closer</h1>
   <p class="lead">Adding layers is not only about routing: it brings the ground plane close, and the same 50 ohms goes from a 2.85mm trace to a 0.34mm one</p>
   <figure>
     <img src="../../../gallery/237-%E5%9F%BA%E6%9D%BF%E3%81%AE%E5%B1%A4%E6%A7%8B%E6%88%90.svg" alt="Adding layers is not only about routing: it brings the ground plane close, and the same 50 ohms goes from a 2.85mm trace to a 0.34mm one" loading="lazy">
   </figure>
   <p class="made">This drawing comes from one YAML file. No shape was moved by hand.</p>
-  <h2>What the source says</h2>
+  <h2>Notes in the source (in Japanese)</h2>
+  <div lang="ja">
   <p><strong>層を増やすのは、配線を通すためだけではない。</strong>GND を信号の真下に近づけて、<strong>線を細くするため</strong>。</p>
   <p>同じ 50Ω が、2 層（GND まで 1.53mm）では約 2.85mm、4 層（GND まで 0.2mm）では約 0.33mm —— <strong>8.5 倍の差</strong>。2 層で 3mm の線は、部品の足の間隔（2.54mm）より太くて引けない。</p>
   <p><strong>特性インピーダンスは線幅だけでは決まらない</strong> —— GND までの厚み h とセット。板厚 1.6mm は同じでも、どこに GND を置くかで線幅が変わる。</p>
   <p>線幅は目安式から解いた（h ＝ 1.53mm で 2.85mm は、実務で言われる 2.9〜3.1mm と一致する）。</p>
   <p>目安式は IPC-2141A のマイクロストリップの式（0.1 ＜ w/h ＜ 2.0 で使える。ここでは w/h ＝ 1.86 と 1.67 で範囲内）。εr 4.3・t 0.035mm・Z₀ 50Ω で解き直して一致を確かめた（2026-09-29）。</p>
+  </div>
   <h2>Source (YAML)</h2>
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/237-%E5%9F%BA%E6%9D%BF%E3%81%AE%E5%B1%A4%E6%A7%8B%E6%88%90.zumen.yaml"><code>examples/gallery/237-基板の層構成.zumen.yaml</code></a></p>
   <h2>More in this field</h2>

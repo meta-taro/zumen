@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>事務所のネットワーク構成（VLAN10 と VLAN20） — zumen example 04</title>
+<title>Office network layout (VLAN 10 and VLAN 20) — zumen example 04</title>
 <link rel="icon" type="image/svg+xml" href="../../../icon.svg">
 <meta name="theme-color" content="#23232b">
 <meta name="description" content="A network layout of the links and equipment between sites, with the address range carried by each segment">
@@ -11,12 +11,12 @@
 <meta property="og:site_name" content="zumen">
 <meta property="og:locale" content="en_US">
 <meta property="og:url" content="https://meta-taro.github.io/zumen/en/g/04/">
-<meta property="og:title" content="事務所のネットワーク構成（VLAN10 と VLAN20） — zumen example 04">
+<meta property="og:title" content="Office network layout (VLAN 10 and VLAN 20) — zumen example 04">
 <meta property="og:description" content="A network layout of the links and equipment between sites, with the address range carried by each segment">
 <meta property="og:image" content="https://meta-taro.github.io/zumen/og/04.png">
 <meta property="og:image:alt" content="A network layout of the links and equipment between sites, with the address range carried by each segment">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="事務所のネットワーク構成（VLAN10 と VLAN20） — zumen example 04">
+<meta name="twitter:title" content="Office network layout (VLAN 10 and VLAN 20) — zumen example 04">
 <meta name="twitter:description" content="A network layout of the links and equipment between sites, with the address range carried by each segment">
 <meta name="twitter:image" content="https://meta-taro.github.io/zumen/og/04.png">
 <meta name="twitter:image:alt" content="A network layout of the links and equipment between sites, with the address range carried by each segment">
@@ -33,8 +33,8 @@
   {
     "@context": "https://schema.org",
     "@type": "CreativeWork",
-    "name": "事務所のネットワーク構成（VLAN10 と VLAN20）",
-    "headline": "事務所のネットワーク構成（VLAN10 と VLAN20）",
+    "name": "Office network layout (VLAN 10 and VLAN 20)",
+    "headline": "Office network layout (VLAN 10 and VLAN 20)",
     "description": "A network layout of the links and equipment between sites, with the address range carried by each segment",
     "url": "https://meta-taro.github.io/zumen/en/g/04/",
     "image": {
@@ -82,7 +82,7 @@
       {
         "@type": "ListItem",
         "position": 4,
-        "name": "事務所のネットワーク構成（VLAN10 と VLAN20）"
+        "name": "Office network layout (VLAN 10 and VLAN 20)"
       }
     ]
   }
@@ -103,18 +103,20 @@
 <main>
 <article>
   <p class="crumb">IT and software</p>
-  <h1>事務所のネットワーク構成（VLAN10 と VLAN20）</h1>
+  <h1>Office network layout (VLAN 10 and VLAN 20)</h1>
   <p class="lead">A network layout of the links and equipment between sites, with the address range carried by each segment</p>
   <figure>
     <img src="../../../gallery/04-%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%E6%A7%8B%E6%88%90.svg" alt="A network layout of the links and equipment between sites, with the address range carried by each segment" loading="lazy">
   </figure>
   <p class="made">This drawing comes from one YAML file. No shape was moved by hand.</p>
-  <h2>What the source says</h2>
+  <h2>Notes in the source (in Japanese)</h2>
+  <div lang="ja">
   <p>無線は破線、有線は実線（線種で区別する。色は使わない）。<strong>構成図で意味があるのは、箱ではなく VLAN の線。</strong>事務所（VLAN10）と DMZ（VLAN20）を分けてあるので、<strong>公開 Web が乗っ取られても、事務 PC へは直接行けない。</strong></p>
   <p>事務所は 192.168.10.0/24、DMZ は 192.168.20.0/24。<strong>題に片方だけ書くと、DMZ が同じ網に見える。</strong></p>
   <p>ファイアウォールは <strong>DMZ の枠の外</strong>に置く。DMZ の中に描くと、外と内を仕切る装置が公開側の網の一員に見えてしまう。</p>
   <p>外・DMZ・内の 3 方向を持つ。<strong>どの向きの通信を許すか</strong>が設定の中身で、図はその向きを描くために要る。</p>
   <p>来客に貸すなら別の VLAN を切る。<strong>同じ AP でも、どの VLAN に載せるかで意味が変わる。</strong></p>
+  </div>
   <h2>Source (YAML)</h2>
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/04-%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%E6%A7%8B%E6%88%90.zumen.yaml"><code>examples/gallery/04-ネットワーク構成.zumen.yaml</code></a></p>
   <h2>More in this field</h2>

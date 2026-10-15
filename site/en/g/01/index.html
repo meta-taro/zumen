@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>オンプレのサーバ構成 — zumen example 01</title>
+<title>On-premise server layout — zumen example 01</title>
 <link rel="icon" type="image/svg+xml" href="../../../icon.svg">
 <meta name="theme-color" content="#23232b">
 <meta name="description" content="An on-premise server layout rack by rack, with the redundant power feeds and network links drawn as separate paths">
@@ -11,12 +11,12 @@
 <meta property="og:site_name" content="zumen">
 <meta property="og:locale" content="en_US">
 <meta property="og:url" content="https://meta-taro.github.io/zumen/en/g/01/">
-<meta property="og:title" content="オンプレのサーバ構成 — zumen example 01">
+<meta property="og:title" content="On-premise server layout — zumen example 01">
 <meta property="og:description" content="An on-premise server layout rack by rack, with the redundant power feeds and network links drawn as separate paths">
 <meta property="og:image" content="https://meta-taro.github.io/zumen/og/01.png">
 <meta property="og:image:alt" content="An on-premise server layout rack by rack, with the redundant power feeds and network links drawn as separate paths">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="オンプレのサーバ構成 — zumen example 01">
+<meta name="twitter:title" content="On-premise server layout — zumen example 01">
 <meta name="twitter:description" content="An on-premise server layout rack by rack, with the redundant power feeds and network links drawn as separate paths">
 <meta name="twitter:image" content="https://meta-taro.github.io/zumen/og/01.png">
 <meta name="twitter:image:alt" content="An on-premise server layout rack by rack, with the redundant power feeds and network links drawn as separate paths">
@@ -33,8 +33,8 @@
   {
     "@context": "https://schema.org",
     "@type": "CreativeWork",
-    "name": "オンプレのサーバ構成",
-    "headline": "オンプレのサーバ構成",
+    "name": "On-premise server layout",
+    "headline": "On-premise server layout",
     "description": "An on-premise server layout rack by rack, with the redundant power feeds and network links drawn as separate paths",
     "url": "https://meta-taro.github.io/zumen/en/g/01/",
     "image": {
@@ -82,7 +82,7 @@
       {
         "@type": "ListItem",
         "position": 4,
-        "name": "オンプレのサーバ構成"
+        "name": "On-premise server layout"
       }
     ]
   }
@@ -103,17 +103,19 @@
 <main>
 <article>
   <p class="crumb">IT and software</p>
-  <h1>オンプレのサーバ構成</h1>
+  <h1>On-premise server layout</h1>
   <p class="lead">An on-premise server layout rack by rack, with the redundant power feeds and network links drawn as separate paths</p>
   <figure>
     <img src="../../../gallery/01-%E3%82%AA%E3%83%B3%E3%83%97%E3%83%AC%E3%81%AE%E3%82%B5%E3%83%BC%E3%83%90%E6%A7%8B%E6%88%90.svg" alt="An on-premise server layout rack by rack, with the redundant power feeds and network links drawn as separate paths" loading="lazy">
   </figure>
   <p class="made">This drawing comes from one YAML file. No shape was moved by hand.</p>
-  <h2>What the source says</h2>
+  <h2>Notes in the source (in Japanese)</h2>
+  <div lang="ja">
   <p><strong>構成図の値打ちは、箱ではなく「どこで切れるか」。</strong>利用者 → Apache → PHP-FPM → MariaDB と並べると、<strong>止まったときにどこまで届くか</strong>が読める。</p>
   <p>バックアップ先（Wasabi）を同じ箱の中に描くと、<strong>本番機ごと失ったときに戻せない</strong>ことが図から消える。だから保管先は、別の群として離して置く。</p>
   <p>昼間は誰も通らない経路でも、DB を触っている。<strong>図に出ていない経路は、点検されない。</strong>夜間バッチは DB のダンプも Wasabi へ書き出す（<strong>バックアップの線を描き落とさない</strong>）。</p>
   <p>mod_php は PHP を Apache の中で動かす方式、PHP-FPM は別プロセスへ FastCGI で渡す方式。<strong>両方を書くと、どちらで動いているかが図から読めない。</strong>FPM へ渡すのは mod_proxy_fcgi（Apache 2.4 の公式文書が FPM との組み合わせを説明しているhttps://httpd.apache.org/docs/2.4/mod/mod_proxy_fcgi.html 、2026-09-29 取得）。</p>
+  </div>
   <h2>Source (YAML)</h2>
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/01-%E3%82%AA%E3%83%B3%E3%83%97%E3%83%AC%E3%81%AE%E3%82%B5%E3%83%BC%E3%83%90%E6%A7%8B%E6%88%90.zumen.yaml"><code>examples/gallery/01-オンプレのサーバ構成.zumen.yaml</code></a></p>
   <h2>More in this field</h2>

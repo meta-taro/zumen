@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>イコライザーの仕組み（GEQ は決まった 31 本、PEQ は中心と幅を選ぶ） — zumen example 372</title>
+<title>How equalizers work (a GEQ has 31 fixed bands, a PEQ lets you choose centre and width) — zumen example 372</title>
 <link rel="icon" type="image/svg+xml" href="../../../icon.svg">
 <meta name="theme-color" content="#23232b">
 <meta name="description" content="A graphic EQ moves only the level of 31 fixed bands, whose centres are 1000 Hz times powers of 10^(1/10); a parametric EQ also lets you choose the cen…">
@@ -11,12 +11,12 @@
 <meta property="og:site_name" content="zumen">
 <meta property="og:locale" content="en_US">
 <meta property="og:url" content="https://meta-taro.github.io/zumen/en/g/372/">
-<meta property="og:title" content="イコライザーの仕組み（GEQ は決まった 31 本、PEQ は中心と幅を選ぶ） — zumen example 372">
+<meta property="og:title" content="How equalizers work (a GEQ has 31 fixed bands, a PEQ lets you choose centre and width) — zumen example 372">
 <meta property="og:description" content="A graphic EQ moves only the level of 31 fixed bands, whose centres are 1000 Hz times powers of 10^(1/10); a parametric EQ also lets you choose the cen…">
 <meta property="og:image" content="https://meta-taro.github.io/zumen/og.png">
 <meta property="og:image:alt" content="A graphic EQ moves only the level of 31 fixed bands, whose centres are 1000 Hz times powers of 10^(1/10); a parametric EQ also lets you choo…">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="イコライザーの仕組み（GEQ は決まった 31 本、PEQ は中心と幅を選ぶ） — zumen example 372">
+<meta name="twitter:title" content="How equalizers work (a GEQ has 31 fixed bands, a PEQ lets you choose centre and width) — zumen example 372">
 <meta name="twitter:description" content="A graphic EQ moves only the level of 31 fixed bands, whose centres are 1000 Hz times powers of 10^(1/10); a parametric EQ also lets you choose the cen…">
 <meta name="twitter:image" content="https://meta-taro.github.io/zumen/og.png">
 <meta name="twitter:image:alt" content="A graphic EQ moves only the level of 31 fixed bands, whose centres are 1000 Hz times powers of 10^(1/10); a parametric EQ also lets you choo…">
@@ -33,8 +33,8 @@
   {
     "@context": "https://schema.org",
     "@type": "CreativeWork",
-    "name": "イコライザーの仕組み（GEQ は決まった 31 本、PEQ は中心と幅を選ぶ）",
-    "headline": "イコライザーの仕組み（GEQ は決まった 31 本、PEQ は中心と幅を選ぶ）",
+    "name": "How equalizers work (a GEQ has 31 fixed bands, a PEQ lets you choose centre and width)",
+    "headline": "How equalizers work (a GEQ has 31 fixed bands, a PEQ lets you choose centre and width)",
     "description": "A graphic EQ moves only the level of 31 fixed bands, whose centres are 1000 Hz times powers of 10^(1/10); a parametric EQ also lets you choose the cen…",
     "url": "https://meta-taro.github.io/zumen/en/g/372/",
     "image": {
@@ -82,7 +82,7 @@
       {
         "@type": "ListItem",
         "position": 4,
-        "name": "イコライザーの仕組み（GEQ は決まった 31 本、PEQ は中心と幅を選ぶ）"
+        "name": "How equalizers work (a GEQ has 31 fixed bands, a PEQ lets you choose centre and width)"
       }
     ]
   }
@@ -103,19 +103,21 @@
 <main>
 <article>
   <p class="crumb">Instruments and acoustics</p>
-  <h1>イコライザーの仕組み（GEQ は決まった 31 本、PEQ は中心と幅を選ぶ）</h1>
+  <h1>How equalizers work (a GEQ has 31 fixed bands, a PEQ lets you choose centre and width)</h1>
   <p class="lead">A graphic EQ moves only the level of 31 fixed bands, whose centres are 1000 Hz times powers of 10^(1/10); a parametric EQ also lets you choose the centre and the width. Pulling three neighbouring sliders cuts deeper than any one of them, and a feedback tone that falls between two graphic bands is a job for a narrow parametric band.</p>
   <figure>
     <img src="../../../gallery/372-%E3%82%A4%E3%82%B3%E3%83%A9%E3%82%A4%E3%82%B6%E3%83%BC%E3%81%AE%E4%BB%95%E7%B5%84%E3%81%BF-GEQ%E3%81%A8PEQ.svg" alt="A graphic EQ moves only the level of 31 fixed bands, whose centres are 1000 Hz times powers of 10^(1/10); a parametric EQ also lets you choose the centre and the width. Pulling three neighbouring sliders cuts deeper than any one of them, and a feedback tone that falls between two graphic bands is a job for a narrow parametric band." loading="lazy">
   </figure>
   <p class="made">This drawing comes from one YAML file. No shape was moved by hand.</p>
-  <h2>What the source says</h2>
+  <h2>Notes in the source (in Japanese)</h2>
+  <div lang="ja">
   <p><strong>イコライザーは、どこを（周波数）・どれだけ（ゲイン）・どの幅で（Q）変えるかの 3 つ。</strong>グラフィック EQ はそのうち「どれだけ」だけを動かし、パラメトリック EQ は 3 つとも動かす。</p>
   <p>JIS C 1514:2002（IEC 61260:1995）は、オクターブ比を 10 のべきで G ＝ 10^(3/10) と決め、基準を厳密に 1000Hz とする。1/3 オクターブの厳密な中心は fm ＝ 1000 × G^(x/3) ＝ 1000 × 10^(x/10)（x は整数）。帯域の端は f1 ＝ fm × G^(−1/6)、f2 ＝ fm × G^(+1/6)（＝ 10^(±1/20) 倍）。公称値は厳密値を丸めたもので、JIS C 1514:2002 の引用規格に ISO 266:1997（Preferred frequencies）がある。例：x ＝ 7 の厳密値 5,011.872Hz、公称 5,000Hz（JIS C 1514:2002 3.5 備考 3）。20Hz（x ＝ −17）から 20kHz（x ＝ 13）まで 31 本。</p>
   <p>② ③の曲線はアナログのピーキングフィルタ（Audio EQ Cookbook の peakingEQ と同じ形、A ＝ 10^(dB/40)）の振幅で、各バンドを直列につないだもの（dB で足す）として計算した。実機の GEQ は回路で重なり方が違うので、<strong>深さは目安</strong>。1/3 オクターブの Q は 1/Q ＝ 2 sinh((ln2/2) × 1/3) から 4.318。</p>
   <p>つまみの設定（200・250・315Hz を下げ、3.15kHz を上げる）と PEQ の 3 バンドは説明のための例。</p>
   <p>- シェルビング（低域・高域をまとめて上げ下げする形）とハイパス —— 形が違う。PEQ の 3 バンドはピーキングだけにした- 位相の変化 —— EQ は位相も動かすが、この図は大きさだけ- 製品のパネル —— 実在の機種の配置をなぞらない</p>
   <p>EQ がミキサーのどこにあるかは見本 343、スピーカーの構造は見本 371、PA の配置は見本 101・370。</p>
+  </div>
   <h2>Source (YAML)</h2>
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/372-%E3%82%A4%E3%82%B3%E3%83%A9%E3%82%A4%E3%82%B6%E3%83%BC%E3%81%AE%E4%BB%95%E7%B5%84%E3%81%BF-GEQ%E3%81%A8PEQ.zumen.yaml"><code>examples/gallery/372-イコライザーの仕組み-GEQとPEQ.zumen.yaml</code></a></p>
   <h2>More in this field</h2>

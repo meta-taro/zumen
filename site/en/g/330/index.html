@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>データセンターの気流（通路を分けるのは、熱気を吸わせないため） — zumen example 330</title>
+<title>Data center airflow (aisles are separated so exhaust is not drawn back in) — zumen example 330</title>
 <link rel="icon" type="image/svg+xml" href="../../../icon.svg">
 <meta name="theme-color" content="#23232b">
 <meta name="description" content="If every rack faces the same way, each row breathes in the exhaust of the row in front…">
@@ -11,12 +11,12 @@
 <meta property="og:site_name" content="zumen">
 <meta property="og:locale" content="en_US">
 <meta property="og:url" content="https://meta-taro.github.io/zumen/en/g/330/">
-<meta property="og:title" content="データセンターの気流（通路を分けるのは、熱気を吸わせないため） — zumen example 330">
+<meta property="og:title" content="Data center airflow (aisles are separated so exhaust is not drawn back in) — zumen example 330">
 <meta property="og:description" content="If every rack faces the same way, each row breathes in the exhaust of the row in front…">
 <meta property="og:image" content="https://meta-taro.github.io/zumen/og/330.png">
 <meta property="og:image:alt" content="If every rack faces the same way, each row breathes in the exhaust of the row in front…">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="データセンターの気流（通路を分けるのは、熱気を吸わせないため） — zumen example 330">
+<meta name="twitter:title" content="Data center airflow (aisles are separated so exhaust is not drawn back in) — zumen example 330">
 <meta name="twitter:description" content="If every rack faces the same way, each row breathes in the exhaust of the row in front…">
 <meta name="twitter:image" content="https://meta-taro.github.io/zumen/og/330.png">
 <meta name="twitter:image:alt" content="If every rack faces the same way, each row breathes in the exhaust of the row in front…">
@@ -33,8 +33,8 @@
   {
     "@context": "https://schema.org",
     "@type": "CreativeWork",
-    "name": "データセンターの気流（通路を分けるのは、熱気を吸わせないため）",
-    "headline": "データセンターの気流（通路を分けるのは、熱気を吸わせないため）",
+    "name": "Data center airflow (aisles are separated so exhaust is not drawn back in)",
+    "headline": "Data center airflow (aisles are separated so exhaust is not drawn back in)",
     "description": "If every rack faces the same way, each row breathes in the exhaust of the row in front…",
     "url": "https://meta-taro.github.io/zumen/en/g/330/",
     "image": {
@@ -82,7 +82,7 @@
       {
         "@type": "ListItem",
         "position": 4,
-        "name": "データセンターの気流（通路を分けるのは、熱気を吸わせないため）"
+        "name": "Data center airflow (aisles are separated so exhaust is not drawn back in)"
       }
     ]
   }
@@ -103,13 +103,14 @@
 <main>
 <article>
   <p class="crumb">IT and software</p>
-  <h1>データセンターの気流（通路を分けるのは、熱気を吸わせないため）</h1>
+  <h1>Data center airflow (aisles are separated so exhaust is not drawn back in)</h1>
   <p class="lead">If every rack faces the same way, each row breathes in the exhaust of the row in front. Turning alternate rows around creates a cold aisle between the fronts and a hot aisle between the backs, so cold air rises through floor grilles into the fronts and hot air leaves the backs for the ceiling. Air cooling tops out around 15kW a rack, and PUE of 1.0 is the theoretical floor.</p>
   <figure>
     <img src="../../../gallery/330-%E3%83%87%E3%83%BC%E3%82%BF%E3%82%BB%E3%83%B3%E3%82%BF%E3%83%BC%E3%81%AE%E6%B0%97%E6%B5%81.svg" alt="If every rack faces the same way, each row breathes in the exhaust of the row in front. Turning alternate rows around creates a cold aisle between the fronts and a hot aisle between the backs, so cold air rises through floor grilles into the fronts and hot air leaves the backs for the ceiling. Air cooling tops out around 15kW a rack, and PUE of 1.0 is the theoretical floor." loading="lazy">
   </figure>
   <p class="made">This drawing comes from one YAML file. No shape was moved by hand.</p>
-  <h2>What the source says</h2>
+  <h2>Notes in the source (in Japanese)</h2>
+  <div lang="ja">
   <p><strong>ラックを全部同じ向きに並べると、前の列が出した熱気を次の列が吸い込む。</strong>だから<strong>1 列おきに向きを返して</strong>、前面どうしの通路（コールドアイル）と背面どうしの通路（ホットアイル）を作る。</p>
   <p>空調機（CRAC）が<strong>床下（フリーアクセスフロア）</strong>へ冷気を送り、<strong>コールドアイルの穴あきパネル</strong>から上がって、両側のラックの<strong>前面</strong>から吸い込まれる。背面から出た熱気は<strong>ホットアイル</strong>を通って天井へ戻る。</p>
   <p><strong>吸気温度が上がる。</strong> 同じ風量では冷えないので空調をさらに回すことになり、<strong>PUE が上がる。</strong> 通路を分けるのは、風量を増やさずに吸気温度を下げるための置き方。</p>
@@ -118,6 +119,7 @@
   <p>寒い土地では外気をそのまま使える。空調の電力が減るが、減り方は土地と設備で違う（以前は出典の無い「ある事例で約 4 割」を書いていたので外した）。</p>
   <p><strong>この節の数は、一次資料で確かめていない</strong>（2026-09-29 の見直しで出典を辿れなかった）。空冷の上限は資料によって 15〜20kW／ラックと幅があり、封じ込め（コンテインメント）の有無でも変わる。表の見出しを「出典に書かれている値」から「目安」に改めた。平均の PUE（1.54）は見本 241 に出典つきで載せている。</p>
   <p>電力の系統は見本 241、ラックと 1U は見本 235、PoE は見本 236。</p>
+  </div>
   <h2>Source (YAML)</h2>
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/330-%E3%83%87%E3%83%BC%E3%82%BF%E3%82%BB%E3%83%B3%E3%82%BF%E3%83%BC%E3%81%AE%E6%B0%97%E6%B5%81.zumen.yaml"><code>examples/gallery/330-データセンターの気流.zumen.yaml</code></a></p>
   <h2>More in this field</h2>

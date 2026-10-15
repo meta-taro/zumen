@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>配光曲線と照度計算（lm は器具の話、lx は机の上の話） — zumen example 264</title>
+<title>Light distribution curve and illuminance calculation — lm describes the fitting, lx the desk — zumen example 264</title>
 <link rel="icon" type="image/svg+xml" href="../../../icon.svg">
 <meta name="theme-color" content="#23232b">
 <meta name="description" content="The lumens on the box describe the fitting, not the desk: a polar candela plot is the only document that connects them…">
@@ -11,12 +11,12 @@
 <meta property="og:site_name" content="zumen">
 <meta property="og:locale" content="en_US">
 <meta property="og:url" content="https://meta-taro.github.io/zumen/en/g/264/">
-<meta property="og:title" content="配光曲線と照度計算（lm は器具の話、lx は机の上の話） — zumen example 264">
+<meta property="og:title" content="Light distribution curve and illuminance calculation — lm describes the fitting, lx the desk — zumen example 264">
 <meta property="og:description" content="The lumens on the box describe the fitting, not the desk: a polar candela plot is the only document that connects them…">
 <meta property="og:image" content="https://meta-taro.github.io/zumen/og/264.png">
 <meta property="og:image:alt" content="The lumens on the box describe the fitting, not the desk: a polar candela plot is the only document that connects them…">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="配光曲線と照度計算（lm は器具の話、lx は机の上の話） — zumen example 264">
+<meta name="twitter:title" content="Light distribution curve and illuminance calculation — lm describes the fitting, lx the desk — zumen example 264">
 <meta name="twitter:description" content="The lumens on the box describe the fitting, not the desk: a polar candela plot is the only document that connects them…">
 <meta name="twitter:image" content="https://meta-taro.github.io/zumen/og/264.png">
 <meta name="twitter:image:alt" content="The lumens on the box describe the fitting, not the desk: a polar candela plot is the only document that connects them…">
@@ -33,8 +33,8 @@
   {
     "@context": "https://schema.org",
     "@type": "CreativeWork",
-    "name": "配光曲線と照度計算（lm は器具の話、lx は机の上の話）",
-    "headline": "配光曲線と照度計算（lm は器具の話、lx は机の上の話）",
+    "name": "Light distribution curve and illuminance calculation — lm describes the fitting, lx the desk",
+    "headline": "Light distribution curve and illuminance calculation — lm describes the fitting, lx the desk",
     "description": "The lumens on the box describe the fitting, not the desk: a polar candela plot is the only document that connects them…",
     "url": "https://meta-taro.github.io/zumen/en/g/264/",
     "image": {
@@ -82,7 +82,7 @@
       {
         "@type": "ListItem",
         "position": 4,
-        "name": "配光曲線と照度計算（lm は器具の話、lx は机の上の話）"
+        "name": "Light distribution curve and illuminance calculation — lm describes the fitting, lx the desk"
       }
     ]
   }
@@ -103,19 +103,21 @@
 <main>
 <article>
   <p class="crumb">Services and electrical</p>
-  <h1>配光曲線と照度計算（lm は器具の話、lx は机の上の話）</h1>
+  <h1>Light distribution curve and illuminance calculation — lm describes the fitting, lx the desk</h1>
   <p class="lead">The lumens on the box describe the fitting, not the desk: a polar candela plot is the only document that connects them, and at 2.5m a spot that gives 400lx underneath gives 110lx just 1.4m to the side</p>
   <figure>
     <img src="../../../gallery/264-%E9%85%8D%E5%85%89%E6%9B%B2%E7%B7%9A%E3%81%A8%E7%85%A7%E5%BA%A6%E8%A8%88%E7%AE%97.svg" alt="The lumens on the box describe the fitting, not the desk: a polar candela plot is the only document that connects them, and at 2.5m a spot that gives 400lx underneath gives 110lx just 1.4m to the side" loading="lazy">
   </figure>
   <p class="made">This drawing comes from one YAML file. No shape was moved by hand.</p>
-  <h2>What the source says</h2>
+  <h2>Notes in the source (in Japanese)</h2>
+  <div lang="ja">
   <p><strong>配光曲線は、方向ごとの光度（cd）を、下向きに開いた極座標で読む図。</strong><strong>集光は真下 2,500cd・60° で 39cd</strong>（cos⁶ の配光）、<strong>拡散は真下 1,000cd・60° でも 500cd</strong>（cos の配光）。全部足した量は Φ ＝ 2π × I₀ ÷ (n＋1) で、集光 約 2,200lm・拡散 約 3,100lm ——<strong>lm は拡散のほうが 4 割多いのに、真下の明るさは集光が 2.5 倍。</strong></p>
   <p><strong>単位が 4 つあるのは、測る場所が違うから。</strong> 光束 lm は器具から出ていく総量、光度 cd はある向きへの強さ、照度 lx は面が受け取った量、輝度 cd/m² は目に見えるまぶしさ。<strong>買うときに見るのは lm、設計で要るのは lx</strong> —— 配光曲線は、その 2 つをつなぐ唯一の資料。</p>
   <p><strong>逐点法。</strong> <code>E ＝ I × cosθ ÷ R²</code> —— 高さ 2.5m の集光器具なら、真下 400lx が <strong>1.4m 横へずれただけで 110lx</strong>（4 分の 1）。落ちる原因は、距離の 2 乗と、斜めに当たる cos の 2 つ。</p>
   <p><strong>光束法。</strong> <code>E ＝ F × N × U × M ÷ A</code> —— 5,000lm のシーリング 1 台で 12 畳（20m²）なら<strong>120lx</strong>。U（照明率）と M（保守率）で、<strong>出した光の半分は着く前に消える。</strong></p>
   <p><strong>要る明るさは、部屋ではなく作業で決まる。</strong><strong>JIS Z 9110:2024 は 2024 年の改正（:2024）で総則だけになり、屋内の数値は JIS Z 9125:2023 へ移った</strong> ——古い早見表は「JIS Z 9110:2010 の表」として同じ数字を載せているが、いまの出どころは Z 9125。事務室 750lx・会議室 500lx に対して、<strong>居間の全般は 50lx</strong> —— 団らん 200lx、読書 500lx。<strong>手元だけ 500lx にして部屋は暗いままにする</strong>のがタスク・アンビエントで、1 灯で部屋ぜんぶを明るくする方法では、この差を作れない。</p>
   <p>現行版は <strong>JIS Z 9110:2024（2024-12-20 改正）</strong>。数値の出どころは JIS Z 9125:2023 のほう。出典：日本規格協会 JIS Z 9110:2024 の書誌（webdesk.jsa.or.jp、取得 2026-09-29）、パナソニック「JIS Z 9110:2024 改正」解説 https://www2.panasonic.biz/jp/lighting/plam/jis-z9110/ （旧版は :2010、住宅も Z 9125:2023 へ。取得 2026-10-02）</p>
+  </div>
   <h2>Source (YAML)</h2>
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/264-%E9%85%8D%E5%85%89%E6%9B%B2%E7%B7%9A%E3%81%A8%E7%85%A7%E5%BA%A6%E8%A8%88%E7%AE%97.zumen.yaml"><code>examples/gallery/264-配光曲線と照度計算.zumen.yaml</code></a></p>
   <h2>More in this field</h2>

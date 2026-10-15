@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>状態遷移図（注文の状態・UML） — zumen example 47</title>
+<title>State transition diagram (order states, UML) — zumen example 47</title>
 <link rel="icon" type="image/svg+xml" href="../../../icon.svg">
 <meta name="theme-color" content="#23232b">
 <meta name="description" content="A UML state machine with transitions, the events and guards that fire them, and the pseudostates that begin and end it">
@@ -11,12 +11,12 @@
 <meta property="og:site_name" content="zumen">
 <meta property="og:locale" content="en_US">
 <meta property="og:url" content="https://meta-taro.github.io/zumen/en/g/47/">
-<meta property="og:title" content="状態遷移図（注文の状態・UML） — zumen example 47">
+<meta property="og:title" content="State transition diagram (order states, UML) — zumen example 47">
 <meta property="og:description" content="A UML state machine with transitions, the events and guards that fire them, and the pseudostates that begin and end it">
 <meta property="og:image" content="https://meta-taro.github.io/zumen/og/47.png">
 <meta property="og:image:alt" content="A UML state machine with transitions, the events and guards that fire them, and the pseudostates that begin and end it">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="状態遷移図（注文の状態・UML） — zumen example 47">
+<meta name="twitter:title" content="State transition diagram (order states, UML) — zumen example 47">
 <meta name="twitter:description" content="A UML state machine with transitions, the events and guards that fire them, and the pseudostates that begin and end it">
 <meta name="twitter:image" content="https://meta-taro.github.io/zumen/og/47.png">
 <meta name="twitter:image:alt" content="A UML state machine with transitions, the events and guards that fire them, and the pseudostates that begin and end it">
@@ -33,8 +33,8 @@
   {
     "@context": "https://schema.org",
     "@type": "CreativeWork",
-    "name": "状態遷移図（注文の状態・UML）",
-    "headline": "状態遷移図（注文の状態・UML）",
+    "name": "State transition diagram (order states, UML)",
+    "headline": "State transition diagram (order states, UML)",
     "description": "A UML state machine with transitions, the events and guards that fire them, and the pseudostates that begin and end it",
     "url": "https://meta-taro.github.io/zumen/en/g/47/",
     "image": {
@@ -82,7 +82,7 @@
       {
         "@type": "ListItem",
         "position": 4,
-        "name": "状態遷移図（注文の状態・UML）"
+        "name": "State transition diagram (order states, UML)"
       }
     ]
   }
@@ -103,17 +103,19 @@
 <main>
 <article>
   <p class="crumb">IT and software</p>
-  <h1>状態遷移図（注文の状態・UML）</h1>
+  <h1>State transition diagram (order states, UML)</h1>
   <p class="lead">A UML state machine with transitions, the events and guards that fire them, and the pseudostates that begin and end it</p>
   <figure>
     <img src="../../../gallery/47-%E7%8A%B6%E6%85%8B%E9%81%B7%E7%A7%BB%E5%9B%B3.svg" alt="A UML state machine with transitions, the events and guards that fire them, and the pseudostates that begin and end it" loading="lazy">
   </figure>
   <p class="made">This drawing comes from one YAML file. No shape was moved by hand.</p>
-  <h2>What the source says</h2>
+  <h2>Notes in the source (in Japanese)</h2>
+  <div lang="ja">
   <p><strong>状態遷移図は、状態ではなく「遷移」を数える図。</strong>状態が 6 つでも、そこへ入る道と出る道が何本あるかで、作る手間が決まる。</p>
   <p>「入金［与信 OK］」のように、<strong>同じ操作でも条件で行き先が変わる。</strong>条件を書かないと、実装したときに分岐が現れて図と合わなくなる。</p>
   <p>終わりの状態が 2 つある（完了と取消）。取消へは受付済と入金済の 2 か所から来る（下書きは捨てるだけ、出荷済からは返品という別の流れになる）。<strong>どの状態から取消へ行けるかを描き切る</strong>のが、この図の本番。</p>
   <p>UML の開始は<strong>塗りつぶした黒丸だけ</strong>、終了は<strong>二重丸（黒丸を円で囲む）だけ</strong>で、箱には入れない。この図では、構成図の箱の中に ● と ◉ を置いて代えている（箱そのものは状態ではない）。</p>
+  </div>
   <h2>Source (YAML)</h2>
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/47-%E7%8A%B6%E6%85%8B%E9%81%B7%E7%A7%BB%E5%9B%B3.zumen.yaml"><code>examples/gallery/47-状態遷移図.zumen.yaml</code></a></p>
   <h2>More in this field</h2>
