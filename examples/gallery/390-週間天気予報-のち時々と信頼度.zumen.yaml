@@ -1,0 +1,2720 @@
+version: 1
+kind: placement
+arrows: false
+title: 週間天気予報（地点 × 7 日。のち・時々・信頼度・架空）
+sources:
+  - name: "気象庁「週間天気予報」"
+    url: https://www.jma.go.jp/jma/kishou/know/kurashi/shukan.html
+    retrieved: 2026-10-15
+  - name: "気象庁 予報用語「時に関する用語」"
+    url: https://www.jma.go.jp/jma/kishou/know/yougo_hp/toki.html
+    retrieved: 2026-10-15
+  - name: "気象庁「ホームページにおける気象情報の配色に関する設定指針」"
+    url: https://www.jma.go.jp/jma/kishou/info/colorguide/HPColorGuide_202007.pdf
+    retrieved: 2026-10-15
+# **週間天気予報は、地点 × 日の表。** 横に読めば 1 週間の移り変わり、縦に読めば同じ日の東西の差。
+#
+# 1 マスに載るのは、天気マーク・降水確率（10% 単位）・最高気温・最低気温。
+# **最高は赤、最低は青の札**にして、数字の色ではなく札の色で分ける（zumen は文字を染めない）。
+#
+# **マーク 1 つで言えない日は 2 つで言う。**
+# - のち … 予報期間の前と後で天気が違う。左から右へ、斜めの線で分ける
+# - 時々 … 途切れ途切れで、合計が期間の 1/2 未満。右下に小さく添える
+# - 雨や雪は、短くても優先してマークに出す
+#
+# **信頼度（A・B・C）は 3 日目から。** 降水の有無の適中率 A 88%・B 73%・C 58%、
+# 翌日の発表で変わる率 A 1%・B 6%・C 16%（気象庁）。1・2 日目は空欄。
+#
+# マークの色は気象庁の配色指針（天気分布予報の晴れ・くもり・雨）。
+# 太陽は 16 角の星、雲は 3 つのこぶ、雨は傘 —— どれも閉じた辺（`hatch: solid` ＋ `hatch_color`）で描いた。
+# 地点の天気と気温は架空。テレビ局・民間気象会社の様式（色・字体・ロゴ）は写していない。
+palette:
+  晴れ: "#ffaa00"
+  くもり: "#aaaaaa"
+  雨: "#0041ff"
+  最高: "#ff2800"
+  最低: "#0041ff"
+nodes:
+  - id: corner
+    label: 地点
+    hatch: solid
+    at: { x: 0, y: 0 }
+    size: { w: 84, h: 40 }
+  - id: d0
+    label: 15 木
+    hatch: solid
+    at: { x: 84, y: 0 }
+    size: { w: 104, h: 40 }
+  - id: d1
+    label: 16 金
+    hatch: solid
+    at: { x: 188, y: 0 }
+    size: { w: 104, h: 40 }
+  - id: d2
+    label: 17 土
+    hatch: solid
+    at: { x: 292, y: 0 }
+    size: { w: 104, h: 40 }
+  - id: d3
+    label: 18 日
+    hatch: solid
+    at: { x: 396, y: 0 }
+    size: { w: 104, h: 40 }
+  - id: d4
+    label: 19 月
+    hatch: solid
+    at: { x: 500, y: 0 }
+    size: { w: 104, h: 40 }
+  - id: d5
+    label: 20 火
+    hatch: solid
+    at: { x: 604, y: 0 }
+    size: { w: 104, h: 40 }
+  - id: d6
+    label: 21 水
+    hatch: solid
+    at: { x: 708, y: 0 }
+    size: { w: 104, h: 40 }
+  - id: c0
+    label: 札幌
+    at: { x: 0, y: 40 }
+    size: { w: 84, h: 112 }
+  - id: a0
+    label: ""
+    marker: none
+    at: { x: 127.2, y: 47.7 }
+    size: { w: 2, h: 2 }
+  - id: a1
+    label: ""
+    marker: none
+    at: { x: 148.2, y: 82.3 }
+    size: { w: 2, h: 2 }
+  - id: a2
+    label: ""
+    marker: none
+    at: { x: 157.1, y: 82.3 }
+    size: { w: 2, h: 2 }
+  - id: p0_0
+    label: 30%
+    marker: none
+    at: { x: 88, y: 98 }
+    size: { w: 96, h: 18 }
+  - id: h0_0
+    label: "18"
+    hatch: solid
+    fill: 最高
+    at: { x: 92, y: 120 }
+    size: { w: 42, h: 24 }
+  - id: l0_0
+    label: ""
+    marker: none
+    at: { x: 138, y: 120 }
+    size: { w: 42, h: 24 }
+  - id: a3
+    label: ""
+    marker: none
+    at: { x: 207.8, y: 72 }
+    size: { w: 2, h: 2 }
+  - id: a4
+    label: ""
+    marker: none
+    at: { x: 257.7, y: 59.6 }
+    size: { w: 2, h: 2 }
+  - id: a5
+    label: ""
+    marker: none
+    at: { x: 241.6, y: 48.2 }
+    size: { w: 2, h: 2 }
+  - id: p0_1
+    label: 20%
+    marker: none
+    at: { x: 192, y: 98 }
+    size: { w: 96, h: 18 }
+  - id: h0_1
+    label: "15"
+    hatch: solid
+    fill: 最高
+    at: { x: 196, y: 120 }
+    size: { w: 42, h: 24 }
+  - id: l0_1
+    label: "9"
+    hatch: solid
+    fill: 最低
+    at: { x: 242, y: 120 }
+    size: { w: 42, h: 24 }
+  - id: a6
+    label: ""
+    marker: none
+    at: { x: 335.2, y: 47.7 }
+    size: { w: 2, h: 2 }
+  - id: a7
+    label: ""
+    marker: none
+    at: { x: 355.3, y: 89 }
+    size: { w: 2, h: 2 }
+  - id: p0_2
+    label: 10%
+    marker: none
+    at: { x: 296, y: 98 }
+    size: { w: 96, h: 18 }
+  - id: h0_2
+    label: "16"
+    hatch: solid
+    fill: 最高
+    at: { x: 300, y: 120 }
+    size: { w: 42, h: 24 }
+  - id: l0_2
+    label: "9"
+    hatch: solid
+    fill: 最低
+    at: { x: 346, y: 120 }
+    size: { w: 42, h: 24 }
+  - id: a8
+    label: ""
+    marker: none
+    at: { x: 423.9, y: 79.3 }
+    size: { w: 2, h: 2 }
+  - id: p0_3
+    label: 30%
+    marker: none
+    at: { x: 400, y: 98 }
+    size: { w: 96, h: 18 }
+  - id: h0_3
+    label: "17"
+    hatch: solid
+    fill: 最高
+    at: { x: 404, y: 120 }
+    size: { w: 42, h: 24 }
+  - id: l0_3
+    label: "6"
+    hatch: solid
+    fill: 最低
+    at: { x: 450, y: 120 }
+    size: { w: 42, h: 24 }
+  - id: a9
+    label: ""
+    marker: none
+    at: { x: 519.8, y: 72 }
+    size: { w: 2, h: 2 }
+  - id: a10
+    label: ""
+    marker: none
+    at: { x: 558.4, y: 68.6 }
+    size: { w: 2, h: 2 }
+  - id: a11
+    label: ""
+    marker: none
+    at: { x: 569.7, y: 68.6 }
+    size: { w: 2, h: 2 }
+  - id: a12
+    label: ""
+    marker: none
+    at: { x: 553.6, y: 48.2 }
+    size: { w: 2, h: 2 }
+  - id: p0_4
+    label: 60%
+    marker: none
+    at: { x: 504, y: 98 }
+    size: { w: 96, h: 18 }
+  - id: h0_4
+    label: "18"
+    hatch: solid
+    fill: 最高
+    at: { x: 508, y: 120 }
+    size: { w: 42, h: 24 }
+  - id: l0_4
+    label: "11"
+    hatch: solid
+    fill: 最低
+    at: { x: 554, y: 120 }
+    size: { w: 42, h: 24 }
+  - id: a13
+    label: ""
+    marker: none
+    at: { x: 631.9, y: 79.3 }
+    size: { w: 2, h: 2 }
+  - id: p0_5
+    label: 40%
+    marker: none
+    at: { x: 608, y: 98 }
+    size: { w: 96, h: 18 }
+  - id: h0_5
+    label: "17"
+    hatch: solid
+    fill: 最高
+    at: { x: 612, y: 120 }
+    size: { w: 42, h: 24 }
+  - id: l0_5
+    label: "9"
+    hatch: solid
+    fill: 最低
+    at: { x: 658, y: 120 }
+    size: { w: 42, h: 24 }
+  - id: a14
+    label: ""
+    marker: none
+    at: { x: 734.4, y: 71.3 }
+    size: { w: 2, h: 2 }
+  - id: a15
+    label: ""
+    marker: none
+    at: { x: 772.2, y: 82.3 }
+    size: { w: 2, h: 2 }
+  - id: a16
+    label: ""
+    marker: none
+    at: { x: 781.1, y: 82.3 }
+    size: { w: 2, h: 2 }
+  - id: p0_6
+    label: 50%
+    marker: none
+    at: { x: 712, y: 98 }
+    size: { w: 96, h: 18 }
+  - id: h0_6
+    label: "15"
+    hatch: solid
+    fill: 最高
+    at: { x: 716, y: 120 }
+    size: { w: 42, h: 24 }
+  - id: l0_6
+    label: "8"
+    hatch: solid
+    fill: 最低
+    at: { x: 762, y: 120 }
+    size: { w: 42, h: 24 }
+  - id: c1
+    label: 仙台
+    at: { x: 0, y: 152 }
+    size: { w: 84, h: 112 }
+  - id: a17
+    label: ""
+    marker: none
+    at: { x: 127.2, y: 159.7 }
+    size: { w: 2, h: 2 }
+  - id: a18
+    label: ""
+    marker: none
+    at: { x: 147.3, y: 201 }
+    size: { w: 2, h: 2 }
+  - id: p1_0
+    label: 10%
+    marker: none
+    at: { x: 88, y: 210 }
+    size: { w: 96, h: 18 }
+  - id: h1_0
+    label: "23"
+    hatch: solid
+    fill: 最高
+    at: { x: 92, y: 232 }
+    size: { w: 42, h: 24 }
+  - id: l1_0
+    label: ""
+    marker: none
+    at: { x: 138, y: 232 }
+    size: { w: 42, h: 24 }
+  - id: a19
+    label: ""
+    marker: none
+    at: { x: 231.2, y: 159.7 }
+    size: { w: 2, h: 2 }
+  - id: a20
+    label: ""
+    marker: none
+    at: { x: 251.3, y: 201 }
+    size: { w: 2, h: 2 }
+  - id: p1_1
+    label: 10%
+    marker: none
+    at: { x: 192, y: 210 }
+    size: { w: 96, h: 18 }
+  - id: h1_1
+    label: "25"
+    hatch: solid
+    fill: 最高
+    at: { x: 196, y: 232 }
+    size: { w: 42, h: 24 }
+  - id: l1_1
+    label: "13"
+    hatch: solid
+    fill: 最低
+    at: { x: 242, y: 232 }
+    size: { w: 42, h: 24 }
+  - id: a21
+    label: ""
+    marker: none
+    at: { x: 335.2, y: 159.7 }
+    size: { w: 2, h: 2 }
+  - id: a22
+    label: ""
+    marker: none
+    at: { x: 355.3, y: 201 }
+    size: { w: 2, h: 2 }
+  - id: p1_2
+    label: 10%
+    marker: none
+    at: { x: 296, y: 210 }
+    size: { w: 96, h: 18 }
+  - id: h1_2
+    label: "23"
+    hatch: solid
+    fill: 最高
+    at: { x: 300, y: 232 }
+    size: { w: 42, h: 24 }
+  - id: l1_2
+    label: "12"
+    hatch: solid
+    fill: 最低
+    at: { x: 346, y: 232 }
+    size: { w: 42, h: 24 }
+  - id: a23
+    label: ""
+    marker: none
+    at: { x: 439.2, y: 159.7 }
+    size: { w: 2, h: 2 }
+  - id: a24
+    label: ""
+    marker: none
+    at: { x: 459.3, y: 201 }
+    size: { w: 2, h: 2 }
+  - id: p1_3
+    label: 20%
+    marker: none
+    at: { x: 400, y: 210 }
+    size: { w: 96, h: 18 }
+  - id: h1_3
+    label: "21"
+    hatch: solid
+    fill: 最高
+    at: { x: 404, y: 232 }
+    size: { w: 42, h: 24 }
+  - id: l1_3
+    label: "10"
+    hatch: solid
+    fill: 最低
+    at: { x: 450, y: 232 }
+    size: { w: 42, h: 24 }
+  - id: a25
+    label: ""
+    marker: none
+    at: { x: 526.4, y: 183.3 }
+    size: { w: 2, h: 2 }
+  - id: a26
+    label: ""
+    marker: none
+    at: { x: 564.2, y: 194.3 }
+    size: { w: 2, h: 2 }
+  - id: a27
+    label: ""
+    marker: none
+    at: { x: 573.1, y: 194.3 }
+    size: { w: 2, h: 2 }
+  - id: p1_4
+    label: 50%
+    marker: none
+    at: { x: 504, y: 210 }
+    size: { w: 96, h: 18 }
+  - id: h1_4
+    label: "25"
+    hatch: solid
+    fill: 最高
+    at: { x: 508, y: 232 }
+    size: { w: 42, h: 24 }
+  - id: l1_4
+    label: "15"
+    hatch: solid
+    fill: 最低
+    at: { x: 554, y: 232 }
+    size: { w: 42, h: 24 }
+  - id: a28
+    label: ""
+    marker: none
+    at: { x: 630.4, y: 183.3 }
+    size: { w: 2, h: 2 }
+  - id: a29
+    label: ""
+    marker: none
+    at: { x: 668.2, y: 194.3 }
+    size: { w: 2, h: 2 }
+  - id: a30
+    label: ""
+    marker: none
+    at: { x: 677.1, y: 194.3 }
+    size: { w: 2, h: 2 }
+  - id: p1_5
+    label: 50%
+    marker: none
+    at: { x: 608, y: 210 }
+    size: { w: 96, h: 18 }
+  - id: h1_5
+    label: "21"
+    hatch: solid
+    fill: 最高
+    at: { x: 612, y: 232 }
+    size: { w: 42, h: 24 }
+  - id: l1_5
+    label: "15"
+    hatch: solid
+    fill: 最低
+    at: { x: 658, y: 232 }
+    size: { w: 42, h: 24 }
+  - id: a31
+    label: ""
+    marker: none
+    at: { x: 735.9, y: 191.3 }
+    size: { w: 2, h: 2 }
+  - id: p1_6
+    label: 40%
+    marker: none
+    at: { x: 712, y: 210 }
+    size: { w: 96, h: 18 }
+  - id: h1_6
+    label: "20"
+    hatch: solid
+    fill: 最高
+    at: { x: 716, y: 232 }
+    size: { w: 42, h: 24 }
+  - id: l1_6
+    label: "13"
+    hatch: solid
+    fill: 最低
+    at: { x: 762, y: 232 }
+    size: { w: 42, h: 24 }
+  - id: c2
+    label: 東京
+    at: { x: 0, y: 264 }
+    size: { w: 84, h: 112 }
+  - id: a32
+    label: ""
+    marker: none
+    at: { x: 110.4, y: 295.3 }
+    size: { w: 2, h: 2 }
+  - id: a33
+    label: ""
+    marker: none
+    at: { x: 157.1, y: 299.2 }
+    size: { w: 2, h: 2 }
+  - id: p2_0
+    label: 20%
+    marker: none
+    at: { x: 88, y: 322 }
+    size: { w: 96, h: 18 }
+  - id: h2_0
+    label: "23"
+    hatch: solid
+    fill: 最高
+    at: { x: 92, y: 344 }
+    size: { w: 42, h: 24 }
+  - id: l2_0
+    label: ""
+    marker: none
+    at: { x: 138, y: 344 }
+    size: { w: 42, h: 24 }
+  - id: a34
+    label: ""
+    marker: none
+    at: { x: 231.2, y: 271.7 }
+    size: { w: 2, h: 2 }
+  - id: a35
+    label: ""
+    marker: none
+    at: { x: 251.3, y: 313 }
+    size: { w: 2, h: 2 }
+  - id: p2_1
+    label: 10%
+    marker: none
+    at: { x: 192, y: 322 }
+    size: { w: 96, h: 18 }
+  - id: h2_1
+    label: "26"
+    hatch: solid
+    fill: 最高
+    at: { x: 196, y: 344 }
+    size: { w: 42, h: 24 }
+  - id: l2_1
+    label: "17"
+    hatch: solid
+    fill: 最低
+    at: { x: 242, y: 344 }
+    size: { w: 42, h: 24 }
+  - id: a36
+    label: ""
+    marker: none
+    at: { x: 335.2, y: 271.7 }
+    size: { w: 2, h: 2 }
+  - id: a37
+    label: ""
+    marker: none
+    at: { x: 355.3, y: 313 }
+    size: { w: 2, h: 2 }
+  - id: p2_2
+    label: 10%
+    marker: none
+    at: { x: 296, y: 322 }
+    size: { w: 96, h: 18 }
+  - id: h2_2
+    label: "25"
+    hatch: solid
+    fill: 最高
+    at: { x: 300, y: 344 }
+    size: { w: 42, h: 24 }
+  - id: l2_2
+    label: "17"
+    hatch: solid
+    fill: 最低
+    at: { x: 346, y: 344 }
+    size: { w: 42, h: 24 }
+  - id: a38
+    label: ""
+    marker: none
+    at: { x: 422.4, y: 295.3 }
+    size: { w: 2, h: 2 }
+  - id: a39
+    label: ""
+    marker: none
+    at: { x: 469.1, y: 299.2 }
+    size: { w: 2, h: 2 }
+  - id: p2_3
+    label: 20%
+    marker: none
+    at: { x: 400, y: 322 }
+    size: { w: 96, h: 18 }
+  - id: h2_3
+    label: "23"
+    hatch: solid
+    fill: 最高
+    at: { x: 404, y: 344 }
+    size: { w: 42, h: 24 }
+  - id: l2_3
+    label: "16"
+    hatch: solid
+    fill: 最低
+    at: { x: 450, y: 344 }
+    size: { w: 42, h: 24 }
+  - id: a40
+    label: ""
+    marker: none
+    at: { x: 527.9, y: 303.3 }
+    size: { w: 2, h: 2 }
+  - id: p2_4
+    label: 40%
+    marker: none
+    at: { x: 504, y: 322 }
+    size: { w: 96, h: 18 }
+  - id: h2_4
+    label: "26"
+    hatch: solid
+    fill: 最高
+    at: { x: 508, y: 344 }
+    size: { w: 42, h: 24 }
+  - id: l2_4
+    label: "19"
+    hatch: solid
+    fill: 最低
+    at: { x: 554, y: 344 }
+    size: { w: 42, h: 24 }
+  - id: a41
+    label: ""
+    marker: none
+    at: { x: 631.9, y: 303.3 }
+    size: { w: 2, h: 2 }
+  - id: p2_5
+    label: 40%
+    marker: none
+    at: { x: 608, y: 322 }
+    size: { w: 96, h: 18 }
+  - id: h2_5
+    label: "25"
+    hatch: solid
+    fill: 最高
+    at: { x: 612, y: 344 }
+    size: { w: 42, h: 24 }
+  - id: l2_5
+    label: "19"
+    hatch: solid
+    fill: 最低
+    at: { x: 658, y: 344 }
+    size: { w: 42, h: 24 }
+  - id: a42
+    label: ""
+    marker: none
+    at: { x: 735.9, y: 303.3 }
+    size: { w: 2, h: 2 }
+  - id: p2_6
+    label: 30%
+    marker: none
+    at: { x: 712, y: 322 }
+    size: { w: 96, h: 18 }
+  - id: h2_6
+    label: "23"
+    hatch: solid
+    fill: 最高
+    at: { x: 716, y: 344 }
+    size: { w: 42, h: 24 }
+  - id: l2_6
+    label: "17"
+    hatch: solid
+    fill: 最低
+    at: { x: 762, y: 344 }
+    size: { w: 42, h: 24 }
+  - id: c3
+    label: 大阪
+    at: { x: 0, y: 376 }
+    size: { w: 84, h: 112 }
+  - id: a43
+    label: ""
+    marker: none
+    at: { x: 135, y: 382.9 }
+    size: { w: 2, h: 2 }
+  - id: p3_0
+    label: 0%
+    marker: none
+    at: { x: 88, y: 434 }
+    size: { w: 96, h: 18 }
+  - id: h3_0
+    label: "25"
+    hatch: solid
+    fill: 最高
+    at: { x: 92, y: 456 }
+    size: { w: 42, h: 24 }
+  - id: l3_0
+    label: ""
+    marker: none
+    at: { x: 138, y: 456 }
+    size: { w: 42, h: 24 }
+  - id: a44
+    label: ""
+    marker: none
+    at: { x: 239, y: 382.9 }
+    size: { w: 2, h: 2 }
+  - id: p3_1
+    label: 10%
+    marker: none
+    at: { x: 192, y: 434 }
+    size: { w: 96, h: 18 }
+  - id: h3_1
+    label: "26"
+    hatch: solid
+    fill: 最高
+    at: { x: 196, y: 456 }
+    size: { w: 42, h: 24 }
+  - id: l3_1
+    label: "16"
+    hatch: solid
+    fill: 最低
+    at: { x: 242, y: 456 }
+    size: { w: 42, h: 24 }
+  - id: a45
+    label: ""
+    marker: none
+    at: { x: 335.2, y: 383.7 }
+    size: { w: 2, h: 2 }
+  - id: a46
+    label: ""
+    marker: none
+    at: { x: 355.3, y: 425 }
+    size: { w: 2, h: 2 }
+  - id: p3_2
+    label: 10%
+    marker: none
+    at: { x: 296, y: 434 }
+    size: { w: 96, h: 18 }
+  - id: h3_2
+    label: "27"
+    hatch: solid
+    fill: 最高
+    at: { x: 300, y: 456 }
+    size: { w: 42, h: 24 }
+  - id: l3_2
+    label: "18"
+    hatch: solid
+    fill: 最低
+    at: { x: 346, y: 456 }
+    size: { w: 42, h: 24 }
+  - id: a47
+    label: ""
+    marker: none
+    at: { x: 422.4, y: 407.3 }
+    size: { w: 2, h: 2 }
+  - id: a48
+    label: ""
+    marker: none
+    at: { x: 469.1, y: 411.2 }
+    size: { w: 2, h: 2 }
+  - id: p3_3
+    label: 20%
+    marker: none
+    at: { x: 400, y: 434 }
+    size: { w: 96, h: 18 }
+  - id: h3_3
+    label: "26"
+    hatch: solid
+    fill: 最高
+    at: { x: 404, y: 456 }
+    size: { w: 42, h: 24 }
+  - id: l3_3
+    label: "18"
+    hatch: solid
+    fill: 最低
+    at: { x: 450, y: 456 }
+    size: { w: 42, h: 24 }
+  - id: a49
+    label: ""
+    marker: none
+    at: { x: 526.4, y: 407.3 }
+    size: { w: 2, h: 2 }
+  - id: a50
+    label: ""
+    marker: none
+    at: { x: 564.2, y: 418.3 }
+    size: { w: 2, h: 2 }
+  - id: a51
+    label: ""
+    marker: none
+    at: { x: 573.1, y: 418.3 }
+    size: { w: 2, h: 2 }
+  - id: p3_4
+    label: 50%
+    marker: none
+    at: { x: 504, y: 434 }
+    size: { w: 96, h: 18 }
+  - id: h3_4
+    label: "27"
+    hatch: solid
+    fill: 最高
+    at: { x: 508, y: 456 }
+    size: { w: 42, h: 24 }
+  - id: l3_4
+    label: "20"
+    hatch: solid
+    fill: 最低
+    at: { x: 554, y: 456 }
+    size: { w: 42, h: 24 }
+  - id: a52
+    label: ""
+    marker: none
+    at: { x: 630.4, y: 407.3 }
+    size: { w: 2, h: 2 }
+  - id: a53
+    label: ""
+    marker: none
+    at: { x: 668.2, y: 418.3 }
+    size: { w: 2, h: 2 }
+  - id: a54
+    label: ""
+    marker: none
+    at: { x: 677.1, y: 418.3 }
+    size: { w: 2, h: 2 }
+  - id: p3_5
+    label: 50%
+    marker: none
+    at: { x: 608, y: 434 }
+    size: { w: 96, h: 18 }
+  - id: h3_5
+    label: "25"
+    hatch: solid
+    fill: 最高
+    at: { x: 612, y: 456 }
+    size: { w: 42, h: 24 }
+  - id: l3_5
+    label: "19"
+    hatch: solid
+    fill: 最低
+    at: { x: 658, y: 456 }
+    size: { w: 42, h: 24 }
+  - id: a55
+    label: ""
+    marker: none
+    at: { x: 735.9, y: 415.3 }
+    size: { w: 2, h: 2 }
+  - id: p3_6
+    label: 30%
+    marker: none
+    at: { x: 712, y: 434 }
+    size: { w: 96, h: 18 }
+  - id: h3_6
+    label: "23"
+    hatch: solid
+    fill: 最高
+    at: { x: 716, y: 456 }
+    size: { w: 42, h: 24 }
+  - id: l3_6
+    label: "17"
+    hatch: solid
+    fill: 最低
+    at: { x: 762, y: 456 }
+    size: { w: 42, h: 24 }
+  - id: c4
+    label: 福岡
+    at: { x: 0, y: 488 }
+    size: { w: 84, h: 112 }
+  - id: a56
+    label: ""
+    marker: none
+    at: { x: 135, y: 494.9 }
+    size: { w: 2, h: 2 }
+  - id: p4_0
+    label: 0%
+    marker: none
+    at: { x: 88, y: 546 }
+    size: { w: 96, h: 18 }
+  - id: h4_0
+    label: "25"
+    hatch: solid
+    fill: 最高
+    at: { x: 92, y: 568 }
+    size: { w: 42, h: 24 }
+  - id: l4_0
+    label: ""
+    marker: none
+    at: { x: 138, y: 568 }
+    size: { w: 42, h: 24 }
+  - id: a57
+    label: ""
+    marker: none
+    at: { x: 231.2, y: 495.7 }
+    size: { w: 2, h: 2 }
+  - id: a58
+    label: ""
+    marker: none
+    at: { x: 251.3, y: 537 }
+    size: { w: 2, h: 2 }
+  - id: p4_1
+    label: 10%
+    marker: none
+    at: { x: 192, y: 546 }
+    size: { w: 96, h: 18 }
+  - id: h4_1
+    label: "26"
+    hatch: solid
+    fill: 最高
+    at: { x: 196, y: 568 }
+    size: { w: 42, h: 24 }
+  - id: l4_1
+    label: "15"
+    hatch: solid
+    fill: 最低
+    at: { x: 242, y: 568 }
+    size: { w: 42, h: 24 }
+  - id: a59
+    label: ""
+    marker: none
+    at: { x: 335.2, y: 495.7 }
+    size: { w: 2, h: 2 }
+  - id: a60
+    label: ""
+    marker: none
+    at: { x: 355.3, y: 537 }
+    size: { w: 2, h: 2 }
+  - id: p4_2
+    label: 10%
+    marker: none
+    at: { x: 296, y: 546 }
+    size: { w: 96, h: 18 }
+  - id: h4_2
+    label: "28"
+    hatch: solid
+    fill: 最高
+    at: { x: 300, y: 568 }
+    size: { w: 42, h: 24 }
+  - id: l4_2
+    label: "18"
+    hatch: solid
+    fill: 最低
+    at: { x: 346, y: 568 }
+    size: { w: 42, h: 24 }
+  - id: a61
+    label: ""
+    marker: none
+    at: { x: 422.4, y: 519.3 }
+    size: { w: 2, h: 2 }
+  - id: a62
+    label: ""
+    marker: none
+    at: { x: 469.1, y: 523.2 }
+    size: { w: 2, h: 2 }
+  - id: p4_3
+    label: 20%
+    marker: none
+    at: { x: 400, y: 546 }
+    size: { w: 96, h: 18 }
+  - id: h4_3
+    label: "30"
+    hatch: solid
+    fill: 最高
+    at: { x: 404, y: 568 }
+    size: { w: 42, h: 24 }
+  - id: l4_3
+    label: "18"
+    hatch: solid
+    fill: 最低
+    at: { x: 450, y: 568 }
+    size: { w: 42, h: 24 }
+  - id: a63
+    label: ""
+    marker: none
+    at: { x: 526.4, y: 519.3 }
+    size: { w: 2, h: 2 }
+  - id: a64
+    label: ""
+    marker: none
+    at: { x: 564.2, y: 530.3 }
+    size: { w: 2, h: 2 }
+  - id: a65
+    label: ""
+    marker: none
+    at: { x: 573.1, y: 530.3 }
+    size: { w: 2, h: 2 }
+  - id: p4_4
+    label: 50%
+    marker: none
+    at: { x: 504, y: 546 }
+    size: { w: 96, h: 18 }
+  - id: h4_4
+    label: "26"
+    hatch: solid
+    fill: 最高
+    at: { x: 508, y: 568 }
+    size: { w: 42, h: 24 }
+  - id: l4_4
+    label: "19"
+    hatch: solid
+    fill: 最低
+    at: { x: 554, y: 568 }
+    size: { w: 42, h: 24 }
+  - id: a66
+    label: ""
+    marker: none
+    at: { x: 631.9, y: 527.3 }
+    size: { w: 2, h: 2 }
+  - id: p4_5
+    label: 40%
+    marker: none
+    at: { x: 608, y: 546 }
+    size: { w: 96, h: 18 }
+  - id: h4_5
+    label: "24"
+    hatch: solid
+    fill: 最高
+    at: { x: 612, y: 568 }
+    size: { w: 42, h: 24 }
+  - id: l4_5
+    label: "18"
+    hatch: solid
+    fill: 最低
+    at: { x: 658, y: 568 }
+    size: { w: 42, h: 24 }
+  - id: a67
+    label: ""
+    marker: none
+    at: { x: 735.9, y: 527.3 }
+    size: { w: 2, h: 2 }
+  - id: p4_6
+    label: 30%
+    marker: none
+    at: { x: 712, y: 546 }
+    size: { w: 96, h: 18 }
+  - id: h4_6
+    label: "22"
+    hatch: solid
+    fill: 最高
+    at: { x: 716, y: 568 }
+    size: { w: 42, h: 24 }
+  - id: l4_6
+    label: "16"
+    hatch: solid
+    fill: 最低
+    at: { x: 762, y: 568 }
+    size: { w: 42, h: 24 }
+  - id: a68
+    label: ""
+    marker: none
+    at: { x: 85, y: 151 }
+    size: { w: 2, h: 2 }
+  - id: a69
+    label: ""
+    marker: none
+    at: { x: 85, y: 263 }
+    size: { w: 2, h: 2 }
+  - id: a70
+    label: ""
+    marker: none
+    at: { x: 85, y: 375 }
+    size: { w: 2, h: 2 }
+  - id: a71
+    label: ""
+    marker: none
+    at: { x: 85, y: 487 }
+    size: { w: 2, h: 2 }
+  - id: a72
+    label: ""
+    marker: none
+    at: { x: 85, y: 599 }
+    size: { w: 2, h: 2 }
+  - id: trust
+    label: 信頼度
+    hatch: solid
+    at: { x: 0, y: 600 }
+    size: { w: 84, h: 34 }
+  - id: t0
+    label: ""
+    at: { x: 84, y: 600 }
+    size: { w: 104, h: 34 }
+  - id: t1
+    label: ""
+    at: { x: 188, y: 600 }
+    size: { w: 104, h: 34 }
+  - id: t2
+    label: A
+    at: { x: 292, y: 600 }
+    size: { w: 104, h: 34 }
+  - id: t3
+    label: B
+    at: { x: 396, y: 600 }
+    size: { w: 104, h: 34 }
+  - id: t4
+    label: B
+    at: { x: 500, y: 600 }
+    size: { w: 104, h: 34 }
+  - id: t5
+    label: C
+    at: { x: 604, y: 600 }
+    size: { w: 104, h: 34 }
+  - id: t6
+    label: C
+    at: { x: 708, y: 600 }
+    size: { w: 104, h: 34 }
+  - id: lg
+    label: 天気マーク
+    hatch: solid
+    at: { x: 860, y: 0 }
+    size: { w: 420, h: 26 }
+  - id: lgk晴
+    label: ""
+    marker: none
+    at: { x: 860, y: 26 }
+    size: { w: 64, h: 52 }
+  - id: a73
+    label: ""
+    marker: none
+    at: { x: 891, y: 34 }
+    size: { w: 2, h: 2 }
+  - id: lgt晴
+    label: 晴れ
+    align: left
+    at: { x: 924, y: 26 }
+    size: { w: 356, h: 52 }
+  - id: lgk曇
+    label: ""
+    marker: none
+    at: { x: 860, y: 78 }
+    size: { w: 64, h: 52 }
+  - id: a74
+    label: ""
+    marker: none
+    at: { x: 873.2, y: 110.9 }
+    size: { w: 2, h: 2 }
+  - id: lgt曇
+    label: くもり
+    align: left
+    at: { x: 924, y: 78 }
+    size: { w: 356, h: 52 }
+  - id: lgk雨
+    label: ""
+    marker: none
+    at: { x: 860, y: 130 }
+    size: { w: 64, h: 52 }
+  - id: a75
+    label: ""
+    marker: none
+    at: { x: 874.9, y: 150.8 }
+    size: { w: 2, h: 2 }
+  - id: a76
+    label: ""
+    marker: none
+    at: { x: 891, y: 150.8 }
+    size: { w: 2, h: 2 }
+  - id: lgt雨
+    label: 雨
+    align: left
+    at: { x: 924, y: 130 }
+    size: { w: 356, h: 52 }
+  - id: lgknochi
+    label: ""
+    marker: none
+    at: { x: 860, y: 182 }
+    size: { w: 64, h: 56 }
+  - id: a77
+    label: ""
+    marker: none
+    at: { x: 876.6, y: 197.8 }
+    size: { w: 2, h: 2 }
+  - id: a78
+    label: ""
+    marker: none
+    at: { x: 895.8, y: 215.3 }
+    size: { w: 2, h: 2 }
+  - id: a79
+    label: ""
+    marker: none
+    at: { x: 893, y: 193 }
+    size: { w: 2, h: 2 }
+  - id: lgtnochi
+    label: 晴れ のち くもり
+    align: left
+    at: { x: 924, y: 182 }
+    size: { w: 356, h: 56 }
+  - id: lgktoki
+    label: ""
+    marker: none
+    at: { x: 860, y: 238 }
+    size: { w: 64, h: 56 }
+  - id: a80
+    label: ""
+    marker: none
+    at: { x: 885, y: 248.6 }
+    size: { w: 2, h: 2 }
+  - id: a81
+    label: ""
+    marker: none
+    at: { x: 900.5, y: 280.3 }
+    size: { w: 2, h: 2 }
+  - id: lgttoki
+    label: 晴れ 時々 くもり
+    align: left
+    at: { x: 924, y: 238 }
+    size: { w: 356, h: 56 }
+  - id: lgh
+    label: 最高
+    hatch: solid
+    fill: 最高
+    at: { x: 860, y: 294 }
+    size: { w: 64, h: 28 }
+  - id: lght
+    label: 最高気温（℃）
+    align: left
+    at: { x: 924, y: 294 }
+    size: { w: 356, h: 28 }
+  - id: lgl
+    label: 最低
+    hatch: solid
+    fill: 最低
+    at: { x: 860, y: 322 }
+    size: { w: 64, h: 28 }
+  - id: lglt
+    label: 最低気温（℃）。1 日目は空欄
+    align: left
+    at: { x: 924, y: 322 }
+    size: { w: 356, h: 28 }
+  - id: yogo
+    label: 予報用語（気象庁）
+    hatch: solid
+    at: { x: 860, y: 366 }
+    size: { w: 420, h: 26 }
+  - id: yogok0
+    label: のち
+    at: { x: 860, y: 392 }
+    size: { w: 64, h: 24 }
+  - id: yogov0
+    label: 予報期間の前と後で天気が変わる
+    align: left
+    at: { x: 924, y: 392 }
+    size: { w: 356, h: 24 }
+  - id: yogok1
+    label: 時々
+    at: { x: 860, y: 416 }
+    size: { w: 64, h: 24 }
+  - id: yogov1
+    label: 途切れ途切れに起こり、合計が期間の 1/2 未満
+    align: left
+    at: { x: 924, y: 416 }
+    size: { w: 356, h: 24 }
+  - id: yogok2
+    label: 一時
+    at: { x: 860, y: 440 }
+    size: { w: 64, h: 24 }
+  - id: yogov2
+    label: 続けて起こり、期間の 1/4 未満
+    align: left
+    at: { x: 924, y: 440 }
+    size: { w: 356, h: 24 }
+  - id: shin
+    label: 信頼度（3 日目から）
+    hatch: solid
+    at: { x: 860, y: 480 }
+    size: { w: 420, h: 26 }
+  - id: shink0
+    label: A
+    at: { x: 860, y: 506 }
+    size: { w: 64, h: 24 }
+  - id: shinv0
+    label: 降水の有無の適中率 88%・翌日に変わる 1%
+    align: left
+    at: { x: 924, y: 506 }
+    size: { w: 356, h: 24 }
+  - id: shink1
+    label: B
+    at: { x: 860, y: 530 }
+    size: { w: 64, h: 24 }
+  - id: shinv1
+    label: 適中率 73%・翌日に変わる 6%
+    align: left
+    at: { x: 924, y: 530 }
+    size: { w: 356, h: 24 }
+  - id: shink2
+    label: C
+    at: { x: 860, y: 554 }
+    size: { w: 64, h: 24 }
+  - id: shinv2
+    label: 適中率 58%・翌日に変わる 16%
+    align: left
+    at: { x: 924, y: 554 }
+    size: { w: 356, h: 24 }
+  - id: n0
+    label: 週間天気予報は、地点を縦、日を横に並べた表です。横に読めば 1 週間の移り変わり、縦に読めば同じ日の東西の差が分かります。
+    marker: none
+    align: left
+    at: { x: 0, y: 664 }
+    size: { w: 1100, h: 18 }
+  - id: n1
+    label: 1 つのマークで言えない日は、2 つで言います。斜めの線で分けたら「のち」（左から右へ変わる）、右下の小さいマークは「時々」です。
+    marker: none
+    align: left
+    at: { x: 0, y: 686 }
+    size: { w: 1100, h: 18 }
+  - id: n2
+    label: 雨や雪は、降る時間が短くても優先してマークに出します。傘が付いていたら、傘を持つかを考える日です。
+    marker: none
+    align: left
+    at: { x: 0, y: 708 }
+    size: { w: 1100, h: 18 }
+  - id: n3
+    label: 信頼度は 3 日目以降の「降るか降らないか」の当たりやすさです。C の日は、翌日の発表で変わりやすいので見直してください。
+    marker: none
+    align: left
+    at: { x: 0, y: 730 }
+    size: { w: 1100, h: 18 }
+  - id: n4
+    label: 1 日目に最低気温が無いのは、発表のときには朝の最低がもう過ぎているからです。
+    marker: none
+    align: left
+    at: { x: 0, y: 752 }
+    size: { w: 1100, h: 18 }
+  - id: n5
+    label: 地点の天気と気温は架空です。様式は気象庁の決まり（予報用語・信頼度・配色）に合わせ、テレビ局の様式は写していません。
+    marker: none
+    align: left
+    at: { x: 0, y: 774 }
+    size: { w: 1100, h: 18 }
+edges:
+  - from: a0
+    to: a0
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 晴れ
+    ends: { from: none, to: none }
+    via:
+      - { x: 132.4, y: 54.7 }
+      - { x: 139.6, y: 53.4 }
+      - { x: 138.3, y: 60.6 }
+      - { x: 144.3, y: 64.8 }
+      - { x: 138.3, y: 69 }
+      - { x: 139.6, y: 76.2 }
+      - { x: 132.4, y: 74.9 }
+      - { x: 128.2, y: 80.9 }
+      - { x: 124, y: 74.9 }
+      - { x: 116.8, y: 76.2 }
+      - { x: 118.1, y: 69 }
+      - { x: 112.1, y: 64.8 }
+      - { x: 118.1, y: 60.6 }
+      - { x: 116.8, y: 53.4 }
+      - { x: 124, y: 54.7 }
+  - from: a1
+    to: a1
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 雨
+    ends: { from: none, to: none }
+    via:
+      - { x: 149.5, y: 81.4 }
+      - { x: 150.4, y: 79.7 }
+      - { x: 151.8, y: 78.2 }
+      - { x: 153.7, y: 77.1 }
+      - { x: 155.8, y: 76.4 }
+      - { x: 158.1, y: 76.1 }
+      - { x: 160.4, y: 76.4 }
+      - { x: 162.5, y: 77.1 }
+      - { x: 164.4, y: 78.2 }
+      - { x: 165.8, y: 79.7 }
+      - { x: 166.7, y: 81.4 }
+      - { x: 167, y: 83.3 }
+      - { x: 164, y: 82 }
+      - { x: 161.1, y: 83.3 }
+      - { x: 158.1, y: 82 }
+      - { x: 155.1, y: 83.3 }
+      - { x: 152.2, y: 82 }
+  - from: a2
+    to: a2
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 158.1, y: 92.6 }
+      - { x: 157, y: 94 }
+      - { x: 155.3, y: 93.1 }
+  - from: a3
+    to: a3
+    curve: smooth
+    close: true
+    hatch: solid
+    hatch_color: くもり
+    ends: { from: none, to: none }
+    via:
+      - { x: 208.1, y: 69.3 }
+      - { x: 212.1, y: 66.7 }
+      - { x: 215.4, y: 62.6 }
+      - { x: 221.3, y: 60.4 }
+      - { x: 226.5, y: 63 }
+      - { x: 230.5, y: 64.1 }
+      - { x: 234.4, y: 67.8 }
+      - { x: 233.8, y: 73 }
+  - from: a4
+    to: a4
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 晴れ
+    ends: { from: none, to: none }
+    via:
+      - { x: 261.8, y: 65.1 }
+      - { x: 267.2, y: 64.1 }
+      - { x: 266.2, y: 69.5 }
+      - { x: 270.7, y: 72.6 }
+      - { x: 266.2, y: 75.7 }
+      - { x: 267.2, y: 81.1 }
+      - { x: 261.8, y: 80.1 }
+      - { x: 258.7, y: 84.6 }
+      - { x: 255.6, y: 80.1 }
+      - { x: 250.3, y: 81.1 }
+      - { x: 251.2, y: 75.7 }
+      - { x: 246.8, y: 72.6 }
+      - { x: 251.2, y: 69.5 }
+      - { x: 250.3, y: 64.1 }
+      - { x: 255.6, y: 65.1 }
+  - from: a5
+    to: a5
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 237.4, y: 90.8 }
+  - from: a6
+    to: a6
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 晴れ
+    ends: { from: none, to: none }
+    via:
+      - { x: 340.4, y: 54.7 }
+      - { x: 347.6, y: 53.4 }
+      - { x: 346.3, y: 60.6 }
+      - { x: 352.3, y: 64.8 }
+      - { x: 346.3, y: 69 }
+      - { x: 347.6, y: 76.2 }
+      - { x: 340.4, y: 74.9 }
+      - { x: 336.2, y: 80.9 }
+      - { x: 332, y: 74.9 }
+      - { x: 324.8, y: 76.2 }
+      - { x: 326.1, y: 69 }
+      - { x: 320.1, y: 64.8 }
+      - { x: 326.1, y: 60.6 }
+      - { x: 324.8, y: 53.4 }
+      - { x: 332, y: 54.7 }
+  - from: a7
+    to: a7
+    curve: smooth
+    close: true
+    hatch: solid
+    hatch_color: くもり
+    ends: { from: none, to: none }
+    via:
+      - { x: 355.8, y: 87.1 }
+      - { x: 358.9, y: 85 }
+      - { x: 361.5, y: 81.8 }
+      - { x: 366.1, y: 80.1 }
+      - { x: 370.2, y: 82.1 }
+      - { x: 373.3, y: 83 }
+      - { x: 376.4, y: 85.9 }
+      - { x: 375.9, y: 90 }
+  - from: a8
+    to: a8
+    curve: smooth
+    close: true
+    hatch: solid
+    hatch_color: くもり
+    ends: { from: none, to: none }
+    via:
+      - { x: 423.7, y: 73.4 }
+      - { x: 431, y: 68.6 }
+      - { x: 437.1, y: 61.1 }
+      - { x: 448, y: 57 }
+      - { x: 457.7, y: 61.8 }
+      - { x: 465, y: 63.8 }
+      - { x: 472.3, y: 70.7 }
+      - { x: 471.1, y: 80.3 }
+  - from: a9
+    to: a9
+    curve: smooth
+    close: true
+    hatch: solid
+    hatch_color: くもり
+    ends: { from: none, to: none }
+    via:
+      - { x: 520.1, y: 69.3 }
+      - { x: 524.1, y: 66.7 }
+      - { x: 527.4, y: 62.6 }
+      - { x: 533.3, y: 60.4 }
+      - { x: 538.5, y: 63 }
+      - { x: 542.5, y: 64.1 }
+      - { x: 546.4, y: 67.8 }
+      - { x: 545.8, y: 73 }
+  - from: a10
+    to: a10
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 雨
+    ends: { from: none, to: none }
+    via:
+      - { x: 559.7, y: 67.3 }
+      - { x: 560.9, y: 65.1 }
+      - { x: 562.7, y: 63.2 }
+      - { x: 565, y: 61.7 }
+      - { x: 567.8, y: 60.8 }
+      - { x: 570.7, y: 60.5 }
+      - { x: 573.7, y: 60.8 }
+      - { x: 576.4, y: 61.7 }
+      - { x: 578.8, y: 63.2 }
+      - { x: 580.6, y: 65.1 }
+      - { x: 581.7, y: 67.3 }
+      - { x: 582.1, y: 69.6 }
+      - { x: 578.3, y: 68 }
+      - { x: 574.5, y: 69.6 }
+      - { x: 570.7, y: 68 }
+      - { x: 566.9, y: 69.6 }
+      - { x: 563.1, y: 68 }
+  - from: a11
+    to: a11
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 570.7, y: 81.6 }
+      - { x: 569.3, y: 83.4 }
+      - { x: 567.1, y: 82.2 }
+  - from: a12
+    to: a12
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 549.4, y: 90.8 }
+  - from: a13
+    to: a13
+    curve: smooth
+    close: true
+    hatch: solid
+    hatch_color: くもり
+    ends: { from: none, to: none }
+    via:
+      - { x: 631.7, y: 73.4 }
+      - { x: 639, y: 68.6 }
+      - { x: 645.1, y: 61.1 }
+      - { x: 656, y: 57 }
+      - { x: 665.7, y: 61.8 }
+      - { x: 673, y: 63.8 }
+      - { x: 680.3, y: 70.7 }
+      - { x: 679.1, y: 80.3 }
+  - from: a14
+    to: a14
+    curve: smooth
+    close: true
+    hatch: solid
+    hatch_color: くもり
+    ends: { from: none, to: none }
+    via:
+      - { x: 734.5, y: 67.3 }
+      - { x: 739.8, y: 63.8 }
+      - { x: 744.2, y: 58.3 }
+      - { x: 752.2, y: 55.3 }
+      - { x: 759.3, y: 58.8 }
+      - { x: 764.6, y: 60.3 }
+      - { x: 769.9, y: 65.3 }
+      - { x: 769, y: 72.3 }
+  - from: a15
+    to: a15
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 雨
+    ends: { from: none, to: none }
+    via:
+      - { x: 773.5, y: 81.4 }
+      - { x: 774.4, y: 79.7 }
+      - { x: 775.8, y: 78.2 }
+      - { x: 777.7, y: 77.1 }
+      - { x: 779.8, y: 76.4 }
+      - { x: 782.1, y: 76.1 }
+      - { x: 784.4, y: 76.4 }
+      - { x: 786.5, y: 77.1 }
+      - { x: 788.4, y: 78.2 }
+      - { x: 789.8, y: 79.7 }
+      - { x: 790.7, y: 81.4 }
+      - { x: 791, y: 83.3 }
+      - { x: 788, y: 82 }
+      - { x: 785.1, y: 83.3 }
+      - { x: 782.1, y: 82 }
+      - { x: 779.1, y: 83.3 }
+      - { x: 776.2, y: 82 }
+  - from: a16
+    to: a16
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 782.1, y: 92.6 }
+      - { x: 781, y: 94 }
+      - { x: 779.3, y: 93.1 }
+  - from: a17
+    to: a17
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 晴れ
+    ends: { from: none, to: none }
+    via:
+      - { x: 132.4, y: 166.7 }
+      - { x: 139.6, y: 165.4 }
+      - { x: 138.3, y: 172.6 }
+      - { x: 144.3, y: 176.8 }
+      - { x: 138.3, y: 181 }
+      - { x: 139.6, y: 188.2 }
+      - { x: 132.4, y: 186.9 }
+      - { x: 128.2, y: 192.9 }
+      - { x: 124, y: 186.9 }
+      - { x: 116.8, y: 188.2 }
+      - { x: 118.1, y: 181 }
+      - { x: 112.1, y: 176.8 }
+      - { x: 118.1, y: 172.6 }
+      - { x: 116.8, y: 165.4 }
+      - { x: 124, y: 166.7 }
+  - from: a18
+    to: a18
+    curve: smooth
+    close: true
+    hatch: solid
+    hatch_color: くもり
+    ends: { from: none, to: none }
+    via:
+      - { x: 147.8, y: 199.1 }
+      - { x: 150.9, y: 197 }
+      - { x: 153.5, y: 193.8 }
+      - { x: 158.1, y: 192.1 }
+      - { x: 162.2, y: 194.1 }
+      - { x: 165.3, y: 195 }
+      - { x: 168.4, y: 197.9 }
+      - { x: 167.9, y: 202 }
+  - from: a19
+    to: a19
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 晴れ
+    ends: { from: none, to: none }
+    via:
+      - { x: 236.4, y: 166.7 }
+      - { x: 243.6, y: 165.4 }
+      - { x: 242.3, y: 172.6 }
+      - { x: 248.3, y: 176.8 }
+      - { x: 242.3, y: 181 }
+      - { x: 243.6, y: 188.2 }
+      - { x: 236.4, y: 186.9 }
+      - { x: 232.2, y: 192.9 }
+      - { x: 228, y: 186.9 }
+      - { x: 220.8, y: 188.2 }
+      - { x: 222.1, y: 181 }
+      - { x: 216.1, y: 176.8 }
+      - { x: 222.1, y: 172.6 }
+      - { x: 220.8, y: 165.4 }
+      - { x: 228, y: 166.7 }
+  - from: a20
+    to: a20
+    curve: smooth
+    close: true
+    hatch: solid
+    hatch_color: くもり
+    ends: { from: none, to: none }
+    via:
+      - { x: 251.8, y: 199.1 }
+      - { x: 254.9, y: 197 }
+      - { x: 257.5, y: 193.8 }
+      - { x: 262.1, y: 192.1 }
+      - { x: 266.2, y: 194.1 }
+      - { x: 269.3, y: 195 }
+      - { x: 272.4, y: 197.9 }
+      - { x: 271.9, y: 202 }
+  - from: a21
+    to: a21
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 晴れ
+    ends: { from: none, to: none }
+    via:
+      - { x: 340.4, y: 166.7 }
+      - { x: 347.6, y: 165.4 }
+      - { x: 346.3, y: 172.6 }
+      - { x: 352.3, y: 176.8 }
+      - { x: 346.3, y: 181 }
+      - { x: 347.6, y: 188.2 }
+      - { x: 340.4, y: 186.9 }
+      - { x: 336.2, y: 192.9 }
+      - { x: 332, y: 186.9 }
+      - { x: 324.8, y: 188.2 }
+      - { x: 326.1, y: 181 }
+      - { x: 320.1, y: 176.8 }
+      - { x: 326.1, y: 172.6 }
+      - { x: 324.8, y: 165.4 }
+      - { x: 332, y: 166.7 }
+  - from: a22
+    to: a22
+    curve: smooth
+    close: true
+    hatch: solid
+    hatch_color: くもり
+    ends: { from: none, to: none }
+    via:
+      - { x: 355.8, y: 199.1 }
+      - { x: 358.9, y: 197 }
+      - { x: 361.5, y: 193.8 }
+      - { x: 366.1, y: 192.1 }
+      - { x: 370.2, y: 194.1 }
+      - { x: 373.3, y: 195 }
+      - { x: 376.4, y: 197.9 }
+      - { x: 375.9, y: 202 }
+  - from: a23
+    to: a23
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 晴れ
+    ends: { from: none, to: none }
+    via:
+      - { x: 444.4, y: 166.7 }
+      - { x: 451.6, y: 165.4 }
+      - { x: 450.3, y: 172.6 }
+      - { x: 456.3, y: 176.8 }
+      - { x: 450.3, y: 181 }
+      - { x: 451.6, y: 188.2 }
+      - { x: 444.4, y: 186.9 }
+      - { x: 440.2, y: 192.9 }
+      - { x: 436, y: 186.9 }
+      - { x: 428.8, y: 188.2 }
+      - { x: 430.1, y: 181 }
+      - { x: 424.1, y: 176.8 }
+      - { x: 430.1, y: 172.6 }
+      - { x: 428.8, y: 165.4 }
+      - { x: 436, y: 166.7 }
+  - from: a24
+    to: a24
+    curve: smooth
+    close: true
+    hatch: solid
+    hatch_color: くもり
+    ends: { from: none, to: none }
+    via:
+      - { x: 459.8, y: 199.1 }
+      - { x: 462.9, y: 197 }
+      - { x: 465.5, y: 193.8 }
+      - { x: 470.1, y: 192.1 }
+      - { x: 474.2, y: 194.1 }
+      - { x: 477.3, y: 195 }
+      - { x: 480.4, y: 197.9 }
+      - { x: 479.9, y: 202 }
+  - from: a25
+    to: a25
+    curve: smooth
+    close: true
+    hatch: solid
+    hatch_color: くもり
+    ends: { from: none, to: none }
+    via:
+      - { x: 526.5, y: 179.3 }
+      - { x: 531.8, y: 175.8 }
+      - { x: 536.2, y: 170.3 }
+      - { x: 544.2, y: 167.3 }
+      - { x: 551.3, y: 170.8 }
+      - { x: 556.6, y: 172.3 }
+      - { x: 561.9, y: 177.3 }
+      - { x: 561, y: 184.3 }
+  - from: a26
+    to: a26
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 雨
+    ends: { from: none, to: none }
+    via:
+      - { x: 565.5, y: 193.4 }
+      - { x: 566.4, y: 191.7 }
+      - { x: 567.8, y: 190.2 }
+      - { x: 569.7, y: 189.1 }
+      - { x: 571.8, y: 188.4 }
+      - { x: 574.1, y: 188.1 }
+      - { x: 576.4, y: 188.4 }
+      - { x: 578.5, y: 189.1 }
+      - { x: 580.4, y: 190.2 }
+      - { x: 581.8, y: 191.7 }
+      - { x: 582.7, y: 193.4 }
+      - { x: 583, y: 195.3 }
+      - { x: 580, y: 194 }
+      - { x: 577.1, y: 195.3 }
+      - { x: 574.1, y: 194 }
+      - { x: 571.1, y: 195.3 }
+      - { x: 568.2, y: 194 }
+  - from: a27
+    to: a27
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 574.1, y: 204.6 }
+      - { x: 573, y: 206 }
+      - { x: 571.3, y: 205.1 }
+  - from: a28
+    to: a28
+    curve: smooth
+    close: true
+    hatch: solid
+    hatch_color: くもり
+    ends: { from: none, to: none }
+    via:
+      - { x: 630.5, y: 179.3 }
+      - { x: 635.8, y: 175.8 }
+      - { x: 640.2, y: 170.3 }
+      - { x: 648.2, y: 167.3 }
+      - { x: 655.3, y: 170.8 }
+      - { x: 660.6, y: 172.3 }
+      - { x: 665.9, y: 177.3 }
+      - { x: 665, y: 184.3 }
+  - from: a29
+    to: a29
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 雨
+    ends: { from: none, to: none }
+    via:
+      - { x: 669.5, y: 193.4 }
+      - { x: 670.4, y: 191.7 }
+      - { x: 671.8, y: 190.2 }
+      - { x: 673.7, y: 189.1 }
+      - { x: 675.8, y: 188.4 }
+      - { x: 678.1, y: 188.1 }
+      - { x: 680.4, y: 188.4 }
+      - { x: 682.5, y: 189.1 }
+      - { x: 684.4, y: 190.2 }
+      - { x: 685.8, y: 191.7 }
+      - { x: 686.7, y: 193.4 }
+      - { x: 687, y: 195.3 }
+      - { x: 684, y: 194 }
+      - { x: 681.1, y: 195.3 }
+      - { x: 678.1, y: 194 }
+      - { x: 675.1, y: 195.3 }
+      - { x: 672.2, y: 194 }
+  - from: a30
+    to: a30
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 678.1, y: 204.6 }
+      - { x: 677, y: 206 }
+      - { x: 675.3, y: 205.1 }
+  - from: a31
+    to: a31
+    curve: smooth
+    close: true
+    hatch: solid
+    hatch_color: くもり
+    ends: { from: none, to: none }
+    via:
+      - { x: 735.7, y: 185.4 }
+      - { x: 743, y: 180.6 }
+      - { x: 749.1, y: 173.1 }
+      - { x: 760, y: 169 }
+      - { x: 769.7, y: 173.8 }
+      - { x: 777, y: 175.8 }
+      - { x: 784.3, y: 182.7 }
+      - { x: 783.1, y: 192.3 }
+  - from: a32
+    to: a32
+    curve: smooth
+    close: true
+    hatch: solid
+    hatch_color: くもり
+    ends: { from: none, to: none }
+    via:
+      - { x: 110.5, y: 291.3 }
+      - { x: 115.8, y: 287.8 }
+      - { x: 120.2, y: 282.3 }
+      - { x: 128.2, y: 279.3 }
+      - { x: 135.3, y: 282.8 }
+      - { x: 140.6, y: 284.3 }
+      - { x: 145.9, y: 289.3 }
+      - { x: 145, y: 296.3 }
+  - from: a33
+    to: a33
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 晴れ
+    ends: { from: none, to: none }
+    via:
+      - { x: 160.5, y: 303.7 }
+      - { x: 164.7, y: 303 }
+      - { x: 164, y: 307.2 }
+      - { x: 167.5, y: 309.6 }
+      - { x: 164, y: 312 }
+      - { x: 164.7, y: 316.2 }
+      - { x: 160.5, y: 315.5 }
+      - { x: 158.1, y: 319 }
+      - { x: 155.7, y: 315.5 }
+      - { x: 151.5, y: 316.2 }
+      - { x: 152.2, y: 312 }
+      - { x: 148.7, y: 309.6 }
+      - { x: 152.2, y: 307.2 }
+      - { x: 151.5, y: 303 }
+      - { x: 155.7, y: 303.7 }
+  - from: a34
+    to: a34
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 晴れ
+    ends: { from: none, to: none }
+    via:
+      - { x: 236.4, y: 278.7 }
+      - { x: 243.6, y: 277.4 }
+      - { x: 242.3, y: 284.6 }
+      - { x: 248.3, y: 288.8 }
+      - { x: 242.3, y: 293 }
+      - { x: 243.6, y: 300.2 }
+      - { x: 236.4, y: 298.9 }
+      - { x: 232.2, y: 304.9 }
+      - { x: 228, y: 298.9 }
+      - { x: 220.8, y: 300.2 }
+      - { x: 222.1, y: 293 }
+      - { x: 216.1, y: 288.8 }
+      - { x: 222.1, y: 284.6 }
+      - { x: 220.8, y: 277.4 }
+      - { x: 228, y: 278.7 }
+  - from: a35
+    to: a35
+    curve: smooth
+    close: true
+    hatch: solid
+    hatch_color: くもり
+    ends: { from: none, to: none }
+    via:
+      - { x: 251.8, y: 311.1 }
+      - { x: 254.9, y: 309 }
+      - { x: 257.5, y: 305.8 }
+      - { x: 262.1, y: 304.1 }
+      - { x: 266.2, y: 306.1 }
+      - { x: 269.3, y: 307 }
+      - { x: 272.4, y: 309.9 }
+      - { x: 271.9, y: 314 }
+  - from: a36
+    to: a36
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 晴れ
+    ends: { from: none, to: none }
+    via:
+      - { x: 340.4, y: 278.7 }
+      - { x: 347.6, y: 277.4 }
+      - { x: 346.3, y: 284.6 }
+      - { x: 352.3, y: 288.8 }
+      - { x: 346.3, y: 293 }
+      - { x: 347.6, y: 300.2 }
+      - { x: 340.4, y: 298.9 }
+      - { x: 336.2, y: 304.9 }
+      - { x: 332, y: 298.9 }
+      - { x: 324.8, y: 300.2 }
+      - { x: 326.1, y: 293 }
+      - { x: 320.1, y: 288.8 }
+      - { x: 326.1, y: 284.6 }
+      - { x: 324.8, y: 277.4 }
+      - { x: 332, y: 278.7 }
+  - from: a37
+    to: a37
+    curve: smooth
+    close: true
+    hatch: solid
+    hatch_color: くもり
+    ends: { from: none, to: none }
+    via:
+      - { x: 355.8, y: 311.1 }
+      - { x: 358.9, y: 309 }
+      - { x: 361.5, y: 305.8 }
+      - { x: 366.1, y: 304.1 }
+      - { x: 370.2, y: 306.1 }
+      - { x: 373.3, y: 307 }
+      - { x: 376.4, y: 309.9 }
+      - { x: 375.9, y: 314 }
+  - from: a38
+    to: a38
+    curve: smooth
+    close: true
+    hatch: solid
+    hatch_color: くもり
+    ends: { from: none, to: none }
+    via:
+      - { x: 422.5, y: 291.3 }
+      - { x: 427.8, y: 287.8 }
+      - { x: 432.2, y: 282.3 }
+      - { x: 440.2, y: 279.3 }
+      - { x: 447.3, y: 282.8 }
+      - { x: 452.6, y: 284.3 }
+      - { x: 457.9, y: 289.3 }
+      - { x: 457, y: 296.3 }
+  - from: a39
+    to: a39
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 晴れ
+    ends: { from: none, to: none }
+    via:
+      - { x: 472.5, y: 303.7 }
+      - { x: 476.7, y: 303 }
+      - { x: 476, y: 307.2 }
+      - { x: 479.5, y: 309.6 }
+      - { x: 476, y: 312 }
+      - { x: 476.7, y: 316.2 }
+      - { x: 472.5, y: 315.5 }
+      - { x: 470.1, y: 319 }
+      - { x: 467.7, y: 315.5 }
+      - { x: 463.5, y: 316.2 }
+      - { x: 464.2, y: 312 }
+      - { x: 460.7, y: 309.6 }
+      - { x: 464.2, y: 307.2 }
+      - { x: 463.5, y: 303 }
+      - { x: 467.7, y: 303.7 }
+  - from: a40
+    to: a40
+    curve: smooth
+    close: true
+    hatch: solid
+    hatch_color: くもり
+    ends: { from: none, to: none }
+    via:
+      - { x: 527.7, y: 297.4 }
+      - { x: 535, y: 292.6 }
+      - { x: 541.1, y: 285.1 }
+      - { x: 552, y: 281 }
+      - { x: 561.7, y: 285.8 }
+      - { x: 569, y: 287.8 }
+      - { x: 576.3, y: 294.7 }
+      - { x: 575.1, y: 304.3 }
+  - from: a41
+    to: a41
+    curve: smooth
+    close: true
+    hatch: solid
+    hatch_color: くもり
+    ends: { from: none, to: none }
+    via:
+      - { x: 631.7, y: 297.4 }
+      - { x: 639, y: 292.6 }
+      - { x: 645.1, y: 285.1 }
+      - { x: 656, y: 281 }
+      - { x: 665.7, y: 285.8 }
+      - { x: 673, y: 287.8 }
+      - { x: 680.3, y: 294.7 }
+      - { x: 679.1, y: 304.3 }
+  - from: a42
+    to: a42
+    curve: smooth
+    close: true
+    hatch: solid
+    hatch_color: くもり
+    ends: { from: none, to: none }
+    via:
+      - { x: 735.7, y: 297.4 }
+      - { x: 743, y: 292.6 }
+      - { x: 749.1, y: 285.1 }
+      - { x: 760, y: 281 }
+      - { x: 769.7, y: 285.8 }
+      - { x: 777, y: 287.8 }
+      - { x: 784.3, y: 294.7 }
+      - { x: 783.1, y: 304.3 }
+  - from: a43
+    to: a43
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 晴れ
+    ends: { from: none, to: none }
+    via:
+      - { x: 141.8, y: 392.1 }
+      - { x: 151.6, y: 390.4 }
+      - { x: 149.9, y: 400.2 }
+      - { x: 158.1, y: 406 }
+      - { x: 149.9, y: 411.8 }
+      - { x: 151.6, y: 421.6 }
+      - { x: 141.8, y: 419.9 }
+      - { x: 136, y: 428.1 }
+      - { x: 130.2, y: 419.9 }
+      - { x: 120.4, y: 421.6 }
+      - { x: 122.1, y: 411.8 }
+      - { x: 113.9, y: 406 }
+      - { x: 122.1, y: 400.2 }
+      - { x: 120.4, y: 390.4 }
+      - { x: 130.2, y: 392.1 }
+  - from: a44
+    to: a44
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 晴れ
+    ends: { from: none, to: none }
+    via:
+      - { x: 245.8, y: 392.1 }
+      - { x: 255.6, y: 390.4 }
+      - { x: 253.9, y: 400.2 }
+      - { x: 262.1, y: 406 }
+      - { x: 253.9, y: 411.8 }
+      - { x: 255.6, y: 421.6 }
+      - { x: 245.8, y: 419.9 }
+      - { x: 240, y: 428.1 }
+      - { x: 234.2, y: 419.9 }
+      - { x: 224.4, y: 421.6 }
+      - { x: 226.1, y: 411.8 }
+      - { x: 217.9, y: 406 }
+      - { x: 226.1, y: 400.2 }
+      - { x: 224.4, y: 390.4 }
+      - { x: 234.2, y: 392.1 }
+  - from: a45
+    to: a45
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 晴れ
+    ends: { from: none, to: none }
+    via:
+      - { x: 340.4, y: 390.7 }
+      - { x: 347.6, y: 389.4 }
+      - { x: 346.3, y: 396.6 }
+      - { x: 352.3, y: 400.8 }
+      - { x: 346.3, y: 405 }
+      - { x: 347.6, y: 412.2 }
+      - { x: 340.4, y: 410.9 }
+      - { x: 336.2, y: 416.9 }
+      - { x: 332, y: 410.9 }
+      - { x: 324.8, y: 412.2 }
+      - { x: 326.1, y: 405 }
+      - { x: 320.1, y: 400.8 }
+      - { x: 326.1, y: 396.6 }
+      - { x: 324.8, y: 389.4 }
+      - { x: 332, y: 390.7 }
+  - from: a46
+    to: a46
+    curve: smooth
+    close: true
+    hatch: solid
+    hatch_color: くもり
+    ends: { from: none, to: none }
+    via:
+      - { x: 355.8, y: 423.1 }
+      - { x: 358.9, y: 421 }
+      - { x: 361.5, y: 417.8 }
+      - { x: 366.1, y: 416.1 }
+      - { x: 370.2, y: 418.1 }
+      - { x: 373.3, y: 419 }
+      - { x: 376.4, y: 421.9 }
+      - { x: 375.9, y: 426 }
+  - from: a47
+    to: a47
+    curve: smooth
+    close: true
+    hatch: solid
+    hatch_color: くもり
+    ends: { from: none, to: none }
+    via:
+      - { x: 422.5, y: 403.3 }
+      - { x: 427.8, y: 399.8 }
+      - { x: 432.2, y: 394.3 }
+      - { x: 440.2, y: 391.3 }
+      - { x: 447.3, y: 394.8 }
+      - { x: 452.6, y: 396.3 }
+      - { x: 457.9, y: 401.3 }
+      - { x: 457, y: 408.3 }
+  - from: a48
+    to: a48
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 晴れ
+    ends: { from: none, to: none }
+    via:
+      - { x: 472.5, y: 415.7 }
+      - { x: 476.7, y: 415 }
+      - { x: 476, y: 419.2 }
+      - { x: 479.5, y: 421.6 }
+      - { x: 476, y: 424 }
+      - { x: 476.7, y: 428.2 }
+      - { x: 472.5, y: 427.5 }
+      - { x: 470.1, y: 431 }
+      - { x: 467.7, y: 427.5 }
+      - { x: 463.5, y: 428.2 }
+      - { x: 464.2, y: 424 }
+      - { x: 460.7, y: 421.6 }
+      - { x: 464.2, y: 419.2 }
+      - { x: 463.5, y: 415 }
+      - { x: 467.7, y: 415.7 }
+  - from: a49
+    to: a49
+    curve: smooth
+    close: true
+    hatch: solid
+    hatch_color: くもり
+    ends: { from: none, to: none }
+    via:
+      - { x: 526.5, y: 403.3 }
+      - { x: 531.8, y: 399.8 }
+      - { x: 536.2, y: 394.3 }
+      - { x: 544.2, y: 391.3 }
+      - { x: 551.3, y: 394.8 }
+      - { x: 556.6, y: 396.3 }
+      - { x: 561.9, y: 401.3 }
+      - { x: 561, y: 408.3 }
+  - from: a50
+    to: a50
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 雨
+    ends: { from: none, to: none }
+    via:
+      - { x: 565.5, y: 417.4 }
+      - { x: 566.4, y: 415.7 }
+      - { x: 567.8, y: 414.2 }
+      - { x: 569.7, y: 413.1 }
+      - { x: 571.8, y: 412.4 }
+      - { x: 574.1, y: 412.1 }
+      - { x: 576.4, y: 412.4 }
+      - { x: 578.5, y: 413.1 }
+      - { x: 580.4, y: 414.2 }
+      - { x: 581.8, y: 415.7 }
+      - { x: 582.7, y: 417.4 }
+      - { x: 583, y: 419.3 }
+      - { x: 580, y: 418 }
+      - { x: 577.1, y: 419.3 }
+      - { x: 574.1, y: 418 }
+      - { x: 571.1, y: 419.3 }
+      - { x: 568.2, y: 418 }
+  - from: a51
+    to: a51
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 574.1, y: 428.6 }
+      - { x: 573, y: 430 }
+      - { x: 571.3, y: 429.1 }
+  - from: a52
+    to: a52
+    curve: smooth
+    close: true
+    hatch: solid
+    hatch_color: くもり
+    ends: { from: none, to: none }
+    via:
+      - { x: 630.5, y: 403.3 }
+      - { x: 635.8, y: 399.8 }
+      - { x: 640.2, y: 394.3 }
+      - { x: 648.2, y: 391.3 }
+      - { x: 655.3, y: 394.8 }
+      - { x: 660.6, y: 396.3 }
+      - { x: 665.9, y: 401.3 }
+      - { x: 665, y: 408.3 }
+  - from: a53
+    to: a53
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 雨
+    ends: { from: none, to: none }
+    via:
+      - { x: 669.5, y: 417.4 }
+      - { x: 670.4, y: 415.7 }
+      - { x: 671.8, y: 414.2 }
+      - { x: 673.7, y: 413.1 }
+      - { x: 675.8, y: 412.4 }
+      - { x: 678.1, y: 412.1 }
+      - { x: 680.4, y: 412.4 }
+      - { x: 682.5, y: 413.1 }
+      - { x: 684.4, y: 414.2 }
+      - { x: 685.8, y: 415.7 }
+      - { x: 686.7, y: 417.4 }
+      - { x: 687, y: 419.3 }
+      - { x: 684, y: 418 }
+      - { x: 681.1, y: 419.3 }
+      - { x: 678.1, y: 418 }
+      - { x: 675.1, y: 419.3 }
+      - { x: 672.2, y: 418 }
+  - from: a54
+    to: a54
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 678.1, y: 428.6 }
+      - { x: 677, y: 430 }
+      - { x: 675.3, y: 429.1 }
+  - from: a55
+    to: a55
+    curve: smooth
+    close: true
+    hatch: solid
+    hatch_color: くもり
+    ends: { from: none, to: none }
+    via:
+      - { x: 735.7, y: 409.4 }
+      - { x: 743, y: 404.6 }
+      - { x: 749.1, y: 397.1 }
+      - { x: 760, y: 393 }
+      - { x: 769.7, y: 397.8 }
+      - { x: 777, y: 399.8 }
+      - { x: 784.3, y: 406.7 }
+      - { x: 783.1, y: 416.3 }
+  - from: a56
+    to: a56
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 晴れ
+    ends: { from: none, to: none }
+    via:
+      - { x: 141.8, y: 504.1 }
+      - { x: 151.6, y: 502.4 }
+      - { x: 149.9, y: 512.2 }
+      - { x: 158.1, y: 518 }
+      - { x: 149.9, y: 523.8 }
+      - { x: 151.6, y: 533.6 }
+      - { x: 141.8, y: 531.9 }
+      - { x: 136, y: 540.1 }
+      - { x: 130.2, y: 531.9 }
+      - { x: 120.4, y: 533.6 }
+      - { x: 122.1, y: 523.8 }
+      - { x: 113.9, y: 518 }
+      - { x: 122.1, y: 512.2 }
+      - { x: 120.4, y: 502.4 }
+      - { x: 130.2, y: 504.1 }
+  - from: a57
+    to: a57
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 晴れ
+    ends: { from: none, to: none }
+    via:
+      - { x: 236.4, y: 502.7 }
+      - { x: 243.6, y: 501.4 }
+      - { x: 242.3, y: 508.6 }
+      - { x: 248.3, y: 512.8 }
+      - { x: 242.3, y: 517 }
+      - { x: 243.6, y: 524.2 }
+      - { x: 236.4, y: 522.9 }
+      - { x: 232.2, y: 528.9 }
+      - { x: 228, y: 522.9 }
+      - { x: 220.8, y: 524.2 }
+      - { x: 222.1, y: 517 }
+      - { x: 216.1, y: 512.8 }
+      - { x: 222.1, y: 508.6 }
+      - { x: 220.8, y: 501.4 }
+      - { x: 228, y: 502.7 }
+  - from: a58
+    to: a58
+    curve: smooth
+    close: true
+    hatch: solid
+    hatch_color: くもり
+    ends: { from: none, to: none }
+    via:
+      - { x: 251.8, y: 535.1 }
+      - { x: 254.9, y: 533 }
+      - { x: 257.5, y: 529.8 }
+      - { x: 262.1, y: 528.1 }
+      - { x: 266.2, y: 530.1 }
+      - { x: 269.3, y: 531 }
+      - { x: 272.4, y: 533.9 }
+      - { x: 271.9, y: 538 }
+  - from: a59
+    to: a59
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 晴れ
+    ends: { from: none, to: none }
+    via:
+      - { x: 340.4, y: 502.7 }
+      - { x: 347.6, y: 501.4 }
+      - { x: 346.3, y: 508.6 }
+      - { x: 352.3, y: 512.8 }
+      - { x: 346.3, y: 517 }
+      - { x: 347.6, y: 524.2 }
+      - { x: 340.4, y: 522.9 }
+      - { x: 336.2, y: 528.9 }
+      - { x: 332, y: 522.9 }
+      - { x: 324.8, y: 524.2 }
+      - { x: 326.1, y: 517 }
+      - { x: 320.1, y: 512.8 }
+      - { x: 326.1, y: 508.6 }
+      - { x: 324.8, y: 501.4 }
+      - { x: 332, y: 502.7 }
+  - from: a60
+    to: a60
+    curve: smooth
+    close: true
+    hatch: solid
+    hatch_color: くもり
+    ends: { from: none, to: none }
+    via:
+      - { x: 355.8, y: 535.1 }
+      - { x: 358.9, y: 533 }
+      - { x: 361.5, y: 529.8 }
+      - { x: 366.1, y: 528.1 }
+      - { x: 370.2, y: 530.1 }
+      - { x: 373.3, y: 531 }
+      - { x: 376.4, y: 533.9 }
+      - { x: 375.9, y: 538 }
+  - from: a61
+    to: a61
+    curve: smooth
+    close: true
+    hatch: solid
+    hatch_color: くもり
+    ends: { from: none, to: none }
+    via:
+      - { x: 422.5, y: 515.3 }
+      - { x: 427.8, y: 511.8 }
+      - { x: 432.2, y: 506.3 }
+      - { x: 440.2, y: 503.3 }
+      - { x: 447.3, y: 506.8 }
+      - { x: 452.6, y: 508.3 }
+      - { x: 457.9, y: 513.3 }
+      - { x: 457, y: 520.3 }
+  - from: a62
+    to: a62
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 晴れ
+    ends: { from: none, to: none }
+    via:
+      - { x: 472.5, y: 527.7 }
+      - { x: 476.7, y: 527 }
+      - { x: 476, y: 531.2 }
+      - { x: 479.5, y: 533.6 }
+      - { x: 476, y: 536 }
+      - { x: 476.7, y: 540.2 }
+      - { x: 472.5, y: 539.5 }
+      - { x: 470.1, y: 543 }
+      - { x: 467.7, y: 539.5 }
+      - { x: 463.5, y: 540.2 }
+      - { x: 464.2, y: 536 }
+      - { x: 460.7, y: 533.6 }
+      - { x: 464.2, y: 531.2 }
+      - { x: 463.5, y: 527 }
+      - { x: 467.7, y: 527.7 }
+  - from: a63
+    to: a63
+    curve: smooth
+    close: true
+    hatch: solid
+    hatch_color: くもり
+    ends: { from: none, to: none }
+    via:
+      - { x: 526.5, y: 515.3 }
+      - { x: 531.8, y: 511.8 }
+      - { x: 536.2, y: 506.3 }
+      - { x: 544.2, y: 503.3 }
+      - { x: 551.3, y: 506.8 }
+      - { x: 556.6, y: 508.3 }
+      - { x: 561.9, y: 513.3 }
+      - { x: 561, y: 520.3 }
+  - from: a64
+    to: a64
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 雨
+    ends: { from: none, to: none }
+    via:
+      - { x: 565.5, y: 529.4 }
+      - { x: 566.4, y: 527.7 }
+      - { x: 567.8, y: 526.2 }
+      - { x: 569.7, y: 525.1 }
+      - { x: 571.8, y: 524.4 }
+      - { x: 574.1, y: 524.1 }
+      - { x: 576.4, y: 524.4 }
+      - { x: 578.5, y: 525.1 }
+      - { x: 580.4, y: 526.2 }
+      - { x: 581.8, y: 527.7 }
+      - { x: 582.7, y: 529.4 }
+      - { x: 583, y: 531.3 }
+      - { x: 580, y: 530 }
+      - { x: 577.1, y: 531.3 }
+      - { x: 574.1, y: 530 }
+      - { x: 571.1, y: 531.3 }
+      - { x: 568.2, y: 530 }
+  - from: a65
+    to: a65
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 574.1, y: 540.6 }
+      - { x: 573, y: 542 }
+      - { x: 571.3, y: 541.1 }
+  - from: a66
+    to: a66
+    curve: smooth
+    close: true
+    hatch: solid
+    hatch_color: くもり
+    ends: { from: none, to: none }
+    via:
+      - { x: 631.7, y: 521.4 }
+      - { x: 639, y: 516.6 }
+      - { x: 645.1, y: 509.1 }
+      - { x: 656, y: 505 }
+      - { x: 665.7, y: 509.8 }
+      - { x: 673, y: 511.8 }
+      - { x: 680.3, y: 518.7 }
+      - { x: 679.1, y: 528.3 }
+  - from: a67
+    to: a67
+    curve: smooth
+    close: true
+    hatch: solid
+    hatch_color: くもり
+    ends: { from: none, to: none }
+    via:
+      - { x: 735.7, y: 521.4 }
+      - { x: 743, y: 516.6 }
+      - { x: 749.1, y: 509.1 }
+      - { x: 760, y: 505 }
+      - { x: 769.7, y: 509.8 }
+      - { x: 777, y: 511.8 }
+      - { x: 784.3, y: 518.7 }
+      - { x: 783.1, y: 528.3 }
+  - from: a68
+    to: a68
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 812, y: 152 }
+  - from: a69
+    to: a69
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 812, y: 264 }
+  - from: a70
+    to: a70
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 812, y: 376 }
+  - from: a71
+    to: a71
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 812, y: 488 }
+  - from: a72
+    to: a72
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 812, y: 600 }
+  - from: a73
+    to: a73
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 晴れ
+    ends: { from: none, to: none }
+    via:
+      - { x: 896.4, y: 41.3 }
+      - { x: 904, y: 40 }
+      - { x: 902.7, y: 47.6 }
+      - { x: 909, y: 52 }
+      - { x: 902.7, y: 56.4 }
+      - { x: 904, y: 64 }
+      - { x: 896.4, y: 62.7 }
+      - { x: 892, y: 69 }
+      - { x: 887.6, y: 62.7 }
+      - { x: 880, y: 64 }
+      - { x: 881.3, y: 56.4 }
+      - { x: 875, y: 52 }
+      - { x: 881.3, y: 47.6 }
+      - { x: 880, y: 40 }
+      - { x: 887.6, y: 41.3 }
+  - from: a74
+    to: a74
+    curve: smooth
+    close: true
+    hatch: solid
+    hatch_color: くもり
+    ends: { from: none, to: none }
+    via:
+      - { x: 873.3, y: 106.6 }
+      - { x: 878.9, y: 102.9 }
+      - { x: 883.6, y: 97.1 }
+      - { x: 892, y: 94 }
+      - { x: 899.5, y: 97.7 }
+      - { x: 905.1, y: 99.3 }
+      - { x: 910.7, y: 104.5 }
+      - { x: 909.8, y: 111.9 }
+  - from: a75
+    to: a75
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 雨
+    ends: { from: none, to: none }
+    via:
+      - { x: 876.4, y: 148.4 }
+      - { x: 878, y: 145.3 }
+      - { x: 880.6, y: 142.6 }
+      - { x: 883.9, y: 140.6 }
+      - { x: 887.8, y: 139.3 }
+      - { x: 892, y: 138.8 }
+      - { x: 896.2, y: 139.3 }
+      - { x: 900.1, y: 140.6 }
+      - { x: 903.4, y: 142.6 }
+      - { x: 906, y: 145.3 }
+      - { x: 907.6, y: 148.4 }
+      - { x: 908.2, y: 151.8 }
+      - { x: 902.8, y: 149.5 }
+      - { x: 897.4, y: 151.8 }
+      - { x: 892, y: 149.5 }
+      - { x: 886.6, y: 151.8 }
+      - { x: 881.2, y: 149.5 }
+  - from: a76
+    to: a76
+    curve: none
+    weight: thick
+    ends: { from: none, to: none }
+    via:
+      - { x: 892, y: 168.8 }
+      - { x: 890, y: 171.3 }
+      - { x: 886.9, y: 169.6 }
+  - from: a77
+    to: a77
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 晴れ
+    ends: { from: none, to: none }
+    via:
+      - { x: 880, y: 202.2 }
+      - { x: 884.1, y: 201.5 }
+      - { x: 883.4, y: 205.6 }
+      - { x: 886.8, y: 208 }
+      - { x: 883.4, y: 210.4 }
+      - { x: 884.1, y: 214.5 }
+      - { x: 880, y: 213.8 }
+      - { x: 877.6, y: 217.2 }
+      - { x: 875.2, y: 213.8 }
+      - { x: 871.1, y: 214.5 }
+      - { x: 871.8, y: 210.4 }
+      - { x: 868.4, y: 208 }
+      - { x: 871.8, y: 205.6 }
+      - { x: 871.1, y: 201.5 }
+      - { x: 875.2, y: 202.2 }
+  - from: a78
+    to: a78
+    curve: smooth
+    close: true
+    hatch: solid
+    hatch_color: くもり
+    ends: { from: none, to: none }
+    via:
+      - { x: 896.3, y: 213.4 }
+      - { x: 899.3, y: 211.4 }
+      - { x: 901.8, y: 208.3 }
+      - { x: 906.4, y: 206.6 }
+      - { x: 910.4, y: 208.6 }
+      - { x: 913.5, y: 209.4 }
+      - { x: 916.5, y: 212.3 }
+      - { x: 916, y: 216.3 }
+  - from: a79
+    to: a79
+    curve: none
+    weight: thin
+    ends: { from: none, to: none }
+    via:
+      - { x: 890, y: 226 }
+  - from: a80
+    to: a80
+    curve: none
+    close: true
+    hatch: solid
+    hatch_color: 晴れ
+    ends: { from: none, to: none }
+    via:
+      - { x: 889.2, y: 254.2 }
+      - { x: 894.8, y: 253.2 }
+      - { x: 893.8, y: 258.8 }
+      - { x: 898.4, y: 262 }
+      - { x: 893.8, y: 265.2 }
+      - { x: 894.8, y: 270.8 }
+      - { x: 889.2, y: 269.8 }
+      - { x: 886, y: 274.4 }
+      - { x: 882.8, y: 269.8 }
+      - { x: 877.2, y: 270.8 }
+      - { x: 878.2, y: 265.2 }
+      - { x: 873.6, y: 262 }
+      - { x: 878.2, y: 258.8 }
+      - { x: 877.2, y: 253.2 }
+      - { x: 882.8, y: 254.2 }
+  - from: a81
+    to: a81
+    curve: smooth
+    close: true
+    hatch: solid
+    hatch_color: くもり
+    ends: { from: none, to: none }
+    via:
+      - { x: 901.1, y: 279.1 }
+      - { x: 903.5, y: 277.6 }
+      - { x: 905.4, y: 275.1 }
+      - { x: 909, y: 273.8 }
+      - { x: 912.2, y: 275.3 }
+      - { x: 914.5, y: 276 }
+      - { x: 916.9, y: 278.2 }
+      - { x: 916.5, y: 281.3 }

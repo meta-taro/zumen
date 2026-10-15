@@ -5,7 +5,7 @@
 1 周目の測定（`../run-2026-10-13.md`）で、「MCP で作図」の問いに出ていたのは
 **公式の MCP 頁・GitHub の README・比較や一覧の記事**の 3 層だった。zumen はどこにも載っていない。
 
-## 1. 公式の MCP Registry（いちばん先に）
+## 1. 公式の MCP Registry（いちばん先に）—— **2026-10-13 に載った**（io.github.meta-taro/zumen 0.6.1）
 
 ほかの一覧（Glama・mcp.so・PulseMCP など）の多くは、公式の Registry を読んで載せる。**ここに載れば下流へ広がる。**
 
@@ -14,6 +14,7 @@
 ```bash
 brew install mcp-publisher
 cd packages/zumen-mcp
+mcp-publisher validate          # 認証不要。先に通す
 mcp-publisher login github      # meta-taro のアカウントで認証（GitHub の画面が開く）
 mcp-publisher publish           # server.json を送る
 ```
