@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>網点 —— 点の大きさで濃さを出す（線数・点の形・角度） — zumen example 352</title>
+<title>Halftone — tone from dot size (screen ruling, dot shape and angle) — zumen example 352</title>
 <link rel="icon" type="image/svg+xml" href="../../../icon.svg">
 <meta name="theme-color" content="#23232b">
 <meta name="description" content="A press cannot print grey: it lays ink or it does not. Halftone varies the size of evenly spaced dots and lets the eye mix them…">
@@ -11,12 +11,12 @@
 <meta property="og:site_name" content="zumen">
 <meta property="og:locale" content="en_US">
 <meta property="og:url" content="https://meta-taro.github.io/zumen/en/g/352/">
-<meta property="og:title" content="網点 —— 点の大きさで濃さを出す（線数・点の形・角度） — zumen example 352">
+<meta property="og:title" content="Halftone — tone from dot size (screen ruling, dot shape and angle) — zumen example 352">
 <meta property="og:description" content="A press cannot print grey: it lays ink or it does not. Halftone varies the size of evenly spaced dots and lets the eye mix them…">
 <meta property="og:image" content="https://meta-taro.github.io/zumen/og/352.png">
 <meta property="og:image:alt" content="A press cannot print grey: it lays ink or it does not. Halftone varies the size of evenly spaced dots and lets the eye mix them…">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="網点 —— 点の大きさで濃さを出す（線数・点の形・角度） — zumen example 352">
+<meta name="twitter:title" content="Halftone — tone from dot size (screen ruling, dot shape and angle) — zumen example 352">
 <meta name="twitter:description" content="A press cannot print grey: it lays ink or it does not. Halftone varies the size of evenly spaced dots and lets the eye mix them…">
 <meta name="twitter:image" content="https://meta-taro.github.io/zumen/og/352.png">
 <meta name="twitter:image:alt" content="A press cannot print grey: it lays ink or it does not. Halftone varies the size of evenly spaced dots and lets the eye mix them…">
@@ -33,8 +33,8 @@
   {
     "@context": "https://schema.org",
     "@type": "CreativeWork",
-    "name": "網点 —— 点の大きさで濃さを出す（線数・点の形・角度）",
-    "headline": "網点 —— 点の大きさで濃さを出す（線数・点の形・角度）",
+    "name": "Halftone — tone from dot size (screen ruling, dot shape and angle)",
+    "headline": "Halftone — tone from dot size (screen ruling, dot shape and angle)",
     "description": "A press cannot print grey: it lays ink or it does not. Halftone varies the size of evenly spaced dots and lets the eye mix them…",
     "url": "https://meta-taro.github.io/zumen/en/g/352/",
     "image": {
@@ -82,7 +82,7 @@
       {
         "@type": "ListItem",
         "position": 4,
-        "name": "網点 —— 点の大きさで濃さを出す（線数・点の形・角度）"
+        "name": "Halftone — tone from dot size (screen ruling, dot shape and angle)"
       }
     ]
   }
@@ -103,13 +103,14 @@
 <main>
 <article>
   <p class="crumb">Learning and geometry</p>
-  <h1>網点 —— 点の大きさで濃さを出す（線数・点の形・角度）</h1>
+  <h1>Halftone — tone from dot size (screen ruling, dot shape and angle)</h1>
   <p class="lead">A press cannot print grey: it lays ink or it does not. Halftone varies the size of evenly spaced dots and lets the eye mix them. A shaded sphere at three screen rulings, round dots touching at 78.5 per cent, where round, square and elliptical dots join, rulings from newspapers (85 lpi) to fine art (300), and why the inks sit 30 degrees apart: screens 7 degrees apart beat into moiré.</p>
   <figure>
     <img src="../../../gallery/352-%E7%B6%B2%E7%82%B9%E3%81%A7%E6%BF%83%E3%81%95%E3%82%92%E5%87%BA%E3%81%99.svg" alt="A press cannot print grey: it lays ink or it does not. Halftone varies the size of evenly spaced dots and lets the eye mix them. A shaded sphere at three screen rulings, round dots touching at 78.5 per cent, where round, square and elliptical dots join, rulings from newspapers (85 lpi) to fine art (300), and why the inks sit 30 degrees apart: screens 7 degrees apart beat into moiré." loading="lazy">
   </figure>
   <p class="made">This drawing comes from one YAML file. No shape was moved by hand.</p>
-  <h2>What the source says</h2>
+  <h2>Notes in the source (in Japanese)</h2>
+  <div lang="ja">
   <p><strong>印刷は、濃い薄いを作れない。</strong> インクを置くか置かないかの 2 つしかない。中間の濃さは、<strong>点の大きさを変えて目に混ぜさせる</strong>ことで作る。これが網点。</p>
   <p>「50% の網点」は、<strong>点が升目の半分を覆っている</strong>ということ。升目に丸を描くと、面積 <strong>78.5%</strong> でちょうど隣と触れる。刷ると点は太る（<strong>ドットゲイン</strong>）ので、紙の上では <strong>70% あたりで繋がる。</strong></p>
   <p>繋がった瞬間、そこだけ急に濃くなる（<strong>トーンジャンプ</strong>）。</p>
@@ -131,6 +132,7 @@
   <p><strong>点はインク、地は紙。</strong> 暗い画面では色が入れ替わるので、「白い」「黒い」ではなく「インク」「紙」で書いてある（見た目の明暗は画面の側で逆になる）。</p>
   <p>①の球は<strong>計算して置いた。</strong> 法線と光の向きの内積（ランバート）で濃さを出し、<strong>点の面積がその濃さに等しくなる</strong>ように半径を <code>√(濃さ/π) × 間隔</code> にしてある。3 枚は<strong>同じ式で、間隔だけが違う。</strong></p>
   <p>見本 337（露出と EV）、見本 170（レゴのモザイク割り付け）も、連続した濃さを離散の粒へ落とす話。</p>
+  </div>
   <h2>Source (YAML)</h2>
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/352-%E7%B6%B2%E7%82%B9%E3%81%A7%E6%BF%83%E3%81%95%E3%82%92%E5%87%BA%E3%81%99.zumen.yaml"><code>examples/gallery/352-網点で濃さを出す.zumen.yaml</code></a></p>
   <h2>More in this field</h2>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CRUD 管理画面の画面遷移（一覧 → 作成 / 編集 / 削除確認） — zumen example 86</title>
+<title>CRUD admin screen flow (List → Create / Edit / Delete confirmation) — zumen example 86</title>
 <link rel="icon" type="image/svg+xml" href="../../../icon.svg">
 <meta name="theme-color" content="#23232b">
 <meta name="description" content="CRUD admin flow: delete goes through a confirmation">
@@ -11,12 +11,12 @@
 <meta property="og:site_name" content="zumen">
 <meta property="og:locale" content="en_US">
 <meta property="og:url" content="https://meta-taro.github.io/zumen/en/g/86/">
-<meta property="og:title" content="CRUD 管理画面の画面遷移（一覧 → 作成 / 編集 / 削除確認） — zumen example 86">
+<meta property="og:title" content="CRUD admin screen flow (List → Create / Edit / Delete confirmation) — zumen example 86">
 <meta property="og:description" content="CRUD admin flow: delete goes through a confirmation">
 <meta property="og:image" content="https://meta-taro.github.io/zumen/og/86.png">
 <meta property="og:image:alt" content="CRUD admin flow: delete goes through a confirmation">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="CRUD 管理画面の画面遷移（一覧 → 作成 / 編集 / 削除確認） — zumen example 86">
+<meta name="twitter:title" content="CRUD admin screen flow (List → Create / Edit / Delete confirmation) — zumen example 86">
 <meta name="twitter:description" content="CRUD admin flow: delete goes through a confirmation">
 <meta name="twitter:image" content="https://meta-taro.github.io/zumen/og/86.png">
 <meta name="twitter:image:alt" content="CRUD admin flow: delete goes through a confirmation">
@@ -33,8 +33,8 @@
   {
     "@context": "https://schema.org",
     "@type": "CreativeWork",
-    "name": "CRUD 管理画面の画面遷移（一覧 → 作成 / 編集 / 削除確認）",
-    "headline": "CRUD 管理画面の画面遷移（一覧 → 作成 / 編集 / 削除確認）",
+    "name": "CRUD admin screen flow (List → Create / Edit / Delete confirmation)",
+    "headline": "CRUD admin screen flow (List → Create / Edit / Delete confirmation)",
     "description": "CRUD admin flow: delete goes through a confirmation",
     "url": "https://meta-taro.github.io/zumen/en/g/86/",
     "image": {
@@ -82,7 +82,7 @@
       {
         "@type": "ListItem",
         "position": 4,
-        "name": "CRUD 管理画面の画面遷移（一覧 → 作成 / 編集 / 削除確認）"
+        "name": "CRUD admin screen flow (List → Create / Edit / Delete confirmation)"
       }
     ]
   }
@@ -103,16 +103,18 @@
 <main>
 <article>
   <p class="crumb">UI and screen design</p>
-  <h1>CRUD 管理画面の画面遷移（一覧 → 作成 / 編集 / 削除確認）</h1>
+  <h1>CRUD admin screen flow (List → Create / Edit / Delete confirmation)</h1>
   <p class="lead">CRUD admin flow: delete goes through a confirmation</p>
   <figure>
     <img src="../../../gallery/86-CRUD%E7%AE%A1%E7%90%86%E7%94%BB%E9%9D%A2%E3%81%AE%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB.svg" alt="CRUD admin flow: delete goes through a confirmation" loading="lazy">
   </figure>
   <p class="made">This drawing comes from one YAML file. No shape was moved by hand.</p>
-  <h2>What the source says</h2>
+  <h2>Notes in the source (in Japanese)</h2>
+  <div lang="ja">
   <p>管理画面の型。<strong>一覧が中心</strong>で、そこから作成・編集・削除へ出て、必ず戻る。破線＝操作の結果。削除は<strong>確認を挟んでからでないと消えない</strong>。</p>
   <p><strong>戻り先が全部「一覧」なのが、この型の肝。</strong> 作成した直後に詳細へ飛ばすと、続けて 10 件登録する人が毎回戻る操作をすることになる。管理画面を使うのは<strong>同じ作業を何十回も繰り返す人</strong>なので、1 回あたり 1 操作の差が、そのまま作業時間の差になる。</p>
   <p><strong>確認を挟むのは削除だけ。</strong> 作成・編集は取り消せるが、削除は取り消せない ——取り消せる操作にまで確認を出すと、人は確認を読まずに押すようになる。</p>
+  </div>
   <h2>Source (YAML)</h2>
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/86-CRUD%E7%AE%A1%E7%90%86%E7%94%BB%E9%9D%A2%E3%81%AE%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB.zumen.yaml"><code>examples/gallery/86-CRUD管理画面の画面遷移.zumen.yaml</code></a></p>
   <h2>More in this field</h2>

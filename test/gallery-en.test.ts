@@ -14,6 +14,8 @@ import { describe, it } from 'node:test';
 import { CATEGORIES } from '../scripts/gallery-categories.mjs';
 // @ts-expect-error 同上
 import { CAPTIONS_EN, GROUPS_EN, ORDER_EN } from '../scripts/gallery-en.mjs';
+// @ts-expect-error 同上
+import { TITLES_EN } from '../scripts/titles-en.mjs';
 
 /** `.mjs` は型を持たないので、ここで形だけ言う。 */
 interface Item {
@@ -124,6 +126,54 @@ describe('英語のページの代替テキスト', () => {
       const japanese = alts.filter((text) => /[ぁ-んァ-ヶ一-龠]/.test(text));
       assert.deepEqual(japanese, [], `${path} の alt に日本語が残っている`);
     }
+  });
+});
+
+/**
+ * **英語のページの題が、日本語のままだった**（2026-10-15）。
+ *
+ * 英語にしていたのはキャプションだけで、`<h1>`・`<title>`・`og:title`・構造化データには
+ * 正本の `title:`（日本語）をそのまま出していた。**396 枚のうち 372 枚。**
+ * 「ページが開くか（200）」しか見ていなかったので、人に言われるまで気づかなかった。
+ */
+describe('英語のページの題', () => {
+  const titles = TITLES_EN as Record<string, string>;
+  const JA = /[ぁ-んァ-ヶ一-龠]/;
+  const titleOf = (name: string): string => {
+    const text = readFileSync(`examples/gallery/${name}.zumen.yaml`, 'utf8');
+    return text.match(/^title:\s*(.+)$/m)?.[1] ?? name;
+  };
+
+  it('**題が日本語の見本には、英語の題がある**', () => {
+    const missing = names.filter((name) => JA.test(titleOf(name)) && titles[name] === undefined);
+    assert.deepEqual(missing, [], '英語の題が無い見本（scripts/titles-en.mjs に足す）');
+  });
+
+  it('**使われていない英語の題が残っていない**', () => {
+    const extra = Object.keys(titles).filter((name) => !names.includes(name) || !JA.test(titleOf(name)));
+    assert.deepEqual(extra, []);
+  });
+
+  it('**英語の題に日本語を書いていない**', () => {
+    const japanese = Object.entries(titles).filter(([, text]) => JA.test(text)).map(([name]) => name);
+    assert.deepEqual(japanese, []);
+  });
+
+  it('**英語の見本ページの見出しに、日本語が残っていない**（h1・title・og:title・構造化データ）', () => {
+    const pages = readdirSync('site/en/g');
+    assert.ok(pages.length >= names.length, '英語の見本ページが足りない');
+    const bad: string[] = [];
+    for (const no of pages) {
+      const page = readFileSync(`site/en/g/${no}/index.html`, 'utf8');
+      const heads = [
+        /<h1>([^<]*)<\/h1>/.exec(page)?.[1] ?? '',
+        /<title>([^<]*)<\/title>/.exec(page)?.[1] ?? '',
+        /<meta property="og:title" content="([^"]*)"/.exec(page)?.[1] ?? '',
+        ...[...page.matchAll(/"(?:name|headline)": "([^"]*)"/g)].map((m) => m[1] ?? ''),
+      ];
+      if (heads.some((text) => JA.test(text))) bad.push(no);
+    }
+    assert.deepEqual(bad, [], '英語のページの見出しに日本語が残っている');
   });
 });
 

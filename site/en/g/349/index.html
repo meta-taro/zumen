@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>等角図を、座標に z を書いて組む — zumen example 349</title>
+<title>Building an isometric drawing by writing z in the coordinates — zumen example 349</title>
 <link rel="icon" type="image/svg+xml" href="../../../icon.svg">
 <meta name="theme-color" content="#23232b">
 <meta name="description" content="A cube in isometric projection whose source contains no paper coordinates at all — only x, y and z…">
@@ -11,12 +11,12 @@
 <meta property="og:site_name" content="zumen">
 <meta property="og:locale" content="en_US">
 <meta property="og:url" content="https://meta-taro.github.io/zumen/en/g/349/">
-<meta property="og:title" content="等角図を、座標に z を書いて組む — zumen example 349">
+<meta property="og:title" content="Building an isometric drawing by writing z in the coordinates — zumen example 349">
 <meta property="og:description" content="A cube in isometric projection whose source contains no paper coordinates at all — only x, y and z…">
 <meta property="og:image" content="https://meta-taro.github.io/zumen/og/349.png">
 <meta property="og:image:alt" content="A cube in isometric projection whose source contains no paper coordinates at all — only x, y and z…">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="等角図を、座標に z を書いて組む — zumen example 349">
+<meta name="twitter:title" content="Building an isometric drawing by writing z in the coordinates — zumen example 349">
 <meta name="twitter:description" content="A cube in isometric projection whose source contains no paper coordinates at all — only x, y and z…">
 <meta name="twitter:image" content="https://meta-taro.github.io/zumen/og/349.png">
 <meta name="twitter:image:alt" content="A cube in isometric projection whose source contains no paper coordinates at all — only x, y and z…">
@@ -33,8 +33,8 @@
   {
     "@context": "https://schema.org",
     "@type": "CreativeWork",
-    "name": "等角図を、座標に z を書いて組む",
-    "headline": "等角図を、座標に z を書いて組む",
+    "name": "Building an isometric drawing by writing z in the coordinates",
+    "headline": "Building an isometric drawing by writing z in the coordinates",
     "description": "A cube in isometric projection whose source contains no paper coordinates at all — only x, y and z…",
     "url": "https://meta-taro.github.io/zumen/en/g/349/",
     "image": {
@@ -82,7 +82,7 @@
       {
         "@type": "ListItem",
         "position": 4,
-        "name": "等角図を、座標に z を書いて組む"
+        "name": "Building an isometric drawing by writing z in the coordinates"
       }
     ]
   }
@@ -103,13 +103,14 @@
 <main>
 <article>
   <p class="crumb">Appliances and furniture</p>
-  <h1>等角図を、座標に z を書いて組む</h1>
+  <h1>Building an isometric drawing by writing z in the coordinates</h1>
   <p class="lead">A cube in isometric projection whose source contains no paper coordinates at all — only x, y and z. The drawing engine applies the projection: a hundred along x moves 86.6 right and 50 down, y the same to the left, z straight up. The three edges hidden behind the solid are dashed because the author said so; the machine does not decide what is hidden.</p>
   <figure>
     <img src="../../../gallery/349-%E7%AD%89%E8%A7%92%E5%9B%B3%E3%82%92z%E3%81%A7%E7%B5%84%E3%82%80.svg" alt="A cube in isometric projection whose source contains no paper coordinates at all — only x, y and z. The drawing engine applies the projection: a hundred along x moves 86.6 right and 50 down, y the same to the left, z straight up. The three edges hidden behind the solid are dashed because the author said so; the machine does not decide what is hidden." loading="lazy">
   </figure>
   <p class="made">This drawing comes from one YAML file. No shape was moved by hand.</p>
-  <h2>What the source says</h2>
+  <h2>Notes in the source (in Japanese)</h2>
+  <div lang="ja">
   <p><strong>この正本には、紙の座標が 1 つも無い。</strong> 書いてあるのは立体の <strong>x・y・z</strong> だけで、紙へ落とすのは機械（<code>projection: isometric</code>）。</p>
   <p><strong>軸のあいだは 120°、2 本は水平から 30°。</strong> だから 3 方向を同じ物差しで測れる。</p>
   <table class="note">
@@ -120,6 +121,7 @@
   <p><strong><code>projection</code> が落とすのは点の位置だけ。</strong> <code>size: { w, h }</code> の箱は紙の上で軸に平行な長方形のままなので、<strong>立体の面にはならない。</strong>だから立体は<strong>点と線で組む</strong> —— 197 も同じ描き方をしている。</p>
   <p>面を塗りたくなったら、そのとき <code>box</code> を平行四辺形へ落とす話をする。<strong>いまは当たっていないので足さない。</strong></p>
   <p>実物の図面は、奥の物に隠れた辺を<strong>破線</strong>にする。<strong>機械は判定しない</strong>（どれが隠れるかは意味の判断）—— 書いた人が <code>line: dashed</code> で書く。ここでは奥の 3 本をそうしてある —— 見えない角 a（x・y が小さく z が 0、紙の上では手前の角 g と重なる）から出る 3 本（a–b・a–d・a–e）。上面と、x の大きい面、y の大きい面の 9 本が見える。</p>
+  </div>
   <h2>Source (YAML)</h2>
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/349-%E7%AD%89%E8%A7%92%E5%9B%B3%E3%82%92z%E3%81%A7%E7%B5%84%E3%82%80.zumen.yaml"><code>examples/gallery/349-等角図をzで組む.zumen.yaml</code></a></p>
   <h2>More in this field</h2>

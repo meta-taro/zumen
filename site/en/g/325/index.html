@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ハブ・スイッチ・アクセスポイント（どこまで届くか） — zumen example 325</title>
+<title>Hub, switch and access point (how far a frame travels) — zumen example 325</title>
 <link rel="icon" type="image/svg+xml" href="../../../icon.svg">
 <meta name="theme-color" content="#23232b">
 <meta name="description" content="Wire the same four machines three ways, send one frame from A to B, and the difference is how far it travels: a repeater hub copies it to every other…">
@@ -11,12 +11,12 @@
 <meta property="og:site_name" content="zumen">
 <meta property="og:locale" content="en_US">
 <meta property="og:url" content="https://meta-taro.github.io/zumen/en/g/325/">
-<meta property="og:title" content="ハブ・スイッチ・アクセスポイント（どこまで届くか） — zumen example 325">
+<meta property="og:title" content="Hub, switch and access point (how far a frame travels) — zumen example 325">
 <meta property="og:description" content="Wire the same four machines three ways, send one frame from A to B, and the difference is how far it travels: a repeater hub copies it to every other…">
 <meta property="og:image" content="https://meta-taro.github.io/zumen/og/325.png">
 <meta property="og:image:alt" content="Wire the same four machines three ways, send one frame from A to B, and the difference is how far it travels: a repeater hub copies it to ev…">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="ハブ・スイッチ・アクセスポイント（どこまで届くか） — zumen example 325">
+<meta name="twitter:title" content="Hub, switch and access point (how far a frame travels) — zumen example 325">
 <meta name="twitter:description" content="Wire the same four machines three ways, send one frame from A to B, and the difference is how far it travels: a repeater hub copies it to every other…">
 <meta name="twitter:image" content="https://meta-taro.github.io/zumen/og/325.png">
 <meta name="twitter:image:alt" content="Wire the same four machines three ways, send one frame from A to B, and the difference is how far it travels: a repeater hub copies it to ev…">
@@ -33,8 +33,8 @@
   {
     "@context": "https://schema.org",
     "@type": "CreativeWork",
-    "name": "ハブ・スイッチ・アクセスポイント（どこまで届くか）",
-    "headline": "ハブ・スイッチ・アクセスポイント（どこまで届くか）",
+    "name": "Hub, switch and access point (how far a frame travels)",
+    "headline": "Hub, switch and access point (how far a frame travels)",
     "description": "Wire the same four machines three ways, send one frame from A to B, and the difference is how far it travels: a repeater hub copies it to every other…",
     "url": "https://meta-taro.github.io/zumen/en/g/325/",
     "image": {
@@ -82,7 +82,7 @@
       {
         "@type": "ListItem",
         "position": 4,
-        "name": "ハブ・スイッチ・アクセスポイント（どこまで届くか）"
+        "name": "Hub, switch and access point (how far a frame travels)"
       }
     ]
   }
@@ -103,13 +103,14 @@
 <main>
 <article>
   <p class="crumb">IT and software</p>
-  <h1>ハブ・スイッチ・アクセスポイント（どこまで届くか）</h1>
+  <h1>Hub, switch and access point (how far a frame travels)</h1>
   <p class="lead">Wire the same four machines three ways, send one frame from A to B, and the difference is how far it travels: a repeater hub copies it to every other port, a switch sends it only to the port it has learned B is on, and over the air everyone in range receives it. The dashed outlines are collision domains, and only the switch cuts them apart.</p>
   <figure>
     <img src="../../../gallery/325-%E3%83%8F%E3%83%96%E3%81%A8%E3%82%B9%E3%82%A4%E3%83%83%E3%83%81%E3%81%A8%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88.svg" alt="Wire the same four machines three ways, send one frame from A to B, and the difference is how far it travels: a repeater hub copies it to every other port, a switch sends it only to the port it has learned B is on, and over the air everyone in range receives it. The dashed outlines are collision domains, and only the switch cuts them apart." loading="lazy">
   </figure>
   <p class="made">This drawing comes from one YAML file. No shape was moved by hand.</p>
-  <h2>What the source says</h2>
+  <h2>Notes in the source (in Japanese)</h2>
+  <div lang="ja">
   <p><strong>同じ 4 台をつないで、A が B 宛てに 1 つ送る。</strong> 違いはそこに全部出る。</p>
   <p>レイヤ 1（物理層）の装置で、<strong>受けたポート以外の全ポートへそのまま出す。</strong>C も D も受け取ってから、自分宛てでないので捨てる。<strong>衝突ドメインは 1 つ</strong>なので、同時に送れるのは 1 台だけ（半二重・CSMA/CD）。</p>
   <p>レイヤ 2（データリンク層）の装置で、<strong>MAC アドレスの表を持っている。</strong></p>
@@ -120,6 +121,7 @@
   <p><strong>隠れ端末</strong> —— A と D がどちらも AP には届くのに、互いの電波は届かないと、A が送っている最中でも D のキャリアセンスは「空いている」と判断して送ってしまう。802.11 は RTS/CTS でこれを避ける。</p>
   <p>ストア&amp;フォワードはフレームを全部受けて FCS（CRC）を確かめてから送る。カットスルーは宛先 MAC を読んだ時点で送る。<strong>フラグメントフリーは先頭 64 バイトまで受けてから送る</strong> —— 衝突の破片（64 バイト未満）は捨てられるが、CRC は見ていない（以前「CRC を見てから送る」と書いていたのは誤り）。出典：Cisco Networking Academy CCNA R&amp;S ITN 5.3.1.6「Cut-Through Switching」（2026-09-29 取得）</p>
   <p>結線の色は見本 324、ラックと 1U は見本 235、PoE は見本 236。</p>
+  </div>
   <h2>Source (YAML)</h2>
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/325-%E3%83%8F%E3%83%96%E3%81%A8%E3%82%B9%E3%82%A4%E3%83%83%E3%83%81%E3%81%A8%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88.zumen.yaml"><code>examples/gallery/325-ハブとスイッチとアクセスポイント.zumen.yaml</code></a></p>
   <h2>More in this field</h2>

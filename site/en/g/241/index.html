@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>データセンターの電力系統（単線結線図・2N） — zumen example 241</title>
+<title>Data centre power system (single-line diagram, 2N) — zumen example 241</title>
 <link rel="icon" type="image/svg+xml" href="../../../icon.svg">
 <meta name="theme-color" content="#23232b">
 <meta name="description" content="2N does not mean doubling: it means two paths that never join before the equipment…">
@@ -11,12 +11,12 @@
 <meta property="og:site_name" content="zumen">
 <meta property="og:locale" content="en_US">
 <meta property="og:url" content="https://meta-taro.github.io/zumen/en/g/241/">
-<meta property="og:title" content="データセンターの電力系統（単線結線図・2N） — zumen example 241">
+<meta property="og:title" content="Data centre power system (single-line diagram, 2N) — zumen example 241">
 <meta property="og:description" content="2N does not mean doubling: it means two paths that never join before the equipment…">
 <meta property="og:image" content="https://meta-taro.github.io/zumen/og/241.png">
 <meta property="og:image:alt" content="2N does not mean doubling: it means two paths that never join before the equipment…">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="データセンターの電力系統（単線結線図・2N） — zumen example 241">
+<meta name="twitter:title" content="Data centre power system (single-line diagram, 2N) — zumen example 241">
 <meta name="twitter:description" content="2N does not mean doubling: it means two paths that never join before the equipment…">
 <meta name="twitter:image" content="https://meta-taro.github.io/zumen/og/241.png">
 <meta name="twitter:image:alt" content="2N does not mean doubling: it means two paths that never join before the equipment…">
@@ -33,8 +33,8 @@
   {
     "@context": "https://schema.org",
     "@type": "CreativeWork",
-    "name": "データセンターの電力系統（単線結線図・2N）",
-    "headline": "データセンターの電力系統（単線結線図・2N）",
+    "name": "Data centre power system (single-line diagram, 2N)",
+    "headline": "Data centre power system (single-line diagram, 2N)",
     "description": "2N does not mean doubling: it means two paths that never join before the equipment…",
     "url": "https://meta-taro.github.io/zumen/en/g/241/",
     "image": {
@@ -82,7 +82,7 @@
       {
         "@type": "ListItem",
         "position": 4,
-        "name": "データセンターの電力系統（単線結線図・2N）"
+        "name": "Data centre power system (single-line diagram, 2N)"
       }
     ]
   }
@@ -103,13 +103,14 @@
 <main>
 <article>
   <p class="crumb">IT and software</p>
-  <h1>データセンターの電力系統（単線結線図・2N）</h1>
+  <h1>Data centre power system (single-line diagram, 2N)</h1>
   <p class="lead">2N does not mean doubling: it means two paths that never join before the equipment, because one shared point is a single point of failure — and the UPS is not a power source, just the bridge over the 10 seconds the generator needs</p>
   <figure>
     <img src="../../../gallery/241-%E3%83%87%E3%83%BC%E3%82%BF%E3%82%BB%E3%83%B3%E3%82%BF%E3%83%BC%E3%81%AE%E9%9B%BB%E5%8A%9B%E7%B3%BB%E7%B5%B1.svg" alt="2N does not mean doubling: it means two paths that never join before the equipment, because one shared point is a single point of failure — and the UPS is not a power source, just the bridge over the 10 seconds the generator needs" loading="lazy">
   </figure>
   <p class="made">This drawing comes from one YAML file. No shape was moved by hand.</p>
-  <h2>What the source says</h2>
+  <h2>Notes in the source (in Japanese)</h2>
+  <div lang="ja">
   <p><strong>2N とは、二重にすることではない。</strong>受電からサーバーの口まで、<strong>2 本の道が一度も交わらない</strong>こと。1 か所でも合流していれば、そこが単一障害点になる。</p>
   <p><strong>発電機は ATS へつなぐ。</strong> 商用は受変電を通って ATS へ、発電機は ATS へ直接入り、ATS がどちらかを選ぶ（以前は発電機の線が受変電に入っていて、切り替える場所が読めなかった）。</p>
   <p><strong>STS はサーバーの下流ではなく、両系の途中から取る。</strong> 2 電源の機器は A・B から直接取り、1 電源の機器だけが STS（両系から入って 1 本で出す）の先につながる。</p>
@@ -118,6 +119,7 @@
   <p><strong>PUE は比</strong>（ISO/IEC 30134-2）。全施設の電力 ÷ IT 機器の電力。2025 年の加重平均は 1.54 ＝ IT が使えるのは全体の 65%。</p>
   <p><strong>ISO/IEC 30134-2 の版は確かめていない</strong>（-2 は部の番号で、版ではない）。</p>
   <p>PUE の年ごとの値は Uptime Institute Global Data Center Survey（2025 年版で 1.54、6 年続けて横ばい）。https://uptimeinstitute.com/resources/research-and-reports/uptime-institute-global-data-center-survey-results-2025 （2026-09-29 取得）Tier の可用性（99.671〜99.995%）は Uptime Institute の白書「Tier Classifications Define Site Infrastructure Performance」に出る値。<strong>いまの Tier Standard: Topology の本文に % が載っているかは確かめていない</strong>（登録が要る）。年あたりの時間は % から計算した（99.741% → 0.259% × 8,760 時間 ＝ 22.7 時間）。</p>
+  </div>
   <h2>Source (YAML)</h2>
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/241-%E3%83%87%E3%83%BC%E3%82%BF%E3%82%BB%E3%83%B3%E3%82%BF%E3%83%BC%E3%81%AE%E9%9B%BB%E5%8A%9B%E7%B3%BB%E7%B5%B1.zumen.yaml"><code>examples/gallery/241-データセンターの電力系統.zumen.yaml</code></a></p>
   <h2>More in this field</h2>

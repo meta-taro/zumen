@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Checkout の画面遷移（カート → 住所 → 支払い → 確認 → 完了） — zumen example 85</title>
+<title>Checkout screen flow (Cart → Address → Payment → Confirmation → Complete) — zumen example 85</title>
 <link rel="icon" type="image/svg+xml" href="../../../icon.svg">
 <meta name="theme-color" content="#23232b">
 <meta name="description" content="Checkout flow, five steps and where errors return to">
@@ -11,12 +11,12 @@
 <meta property="og:site_name" content="zumen">
 <meta property="og:locale" content="en_US">
 <meta property="og:url" content="https://meta-taro.github.io/zumen/en/g/85/">
-<meta property="og:title" content="Checkout の画面遷移（カート → 住所 → 支払い → 確認 → 完了） — zumen example 85">
+<meta property="og:title" content="Checkout screen flow (Cart → Address → Payment → Confirmation → Complete) — zumen example 85">
 <meta property="og:description" content="Checkout flow, five steps and where errors return to">
 <meta property="og:image" content="https://meta-taro.github.io/zumen/og/85.png">
 <meta property="og:image:alt" content="Checkout flow, five steps and where errors return to">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Checkout の画面遷移（カート → 住所 → 支払い → 確認 → 完了） — zumen example 85">
+<meta name="twitter:title" content="Checkout screen flow (Cart → Address → Payment → Confirmation → Complete) — zumen example 85">
 <meta name="twitter:description" content="Checkout flow, five steps and where errors return to">
 <meta name="twitter:image" content="https://meta-taro.github.io/zumen/og/85.png">
 <meta name="twitter:image:alt" content="Checkout flow, five steps and where errors return to">
@@ -33,8 +33,8 @@
   {
     "@context": "https://schema.org",
     "@type": "CreativeWork",
-    "name": "Checkout の画面遷移（カート → 住所 → 支払い → 確認 → 完了）",
-    "headline": "Checkout の画面遷移（カート → 住所 → 支払い → 確認 → 完了）",
+    "name": "Checkout screen flow (Cart → Address → Payment → Confirmation → Complete)",
+    "headline": "Checkout screen flow (Cart → Address → Payment → Confirmation → Complete)",
     "description": "Checkout flow, five steps and where errors return to",
     "url": "https://meta-taro.github.io/zumen/en/g/85/",
     "image": {
@@ -82,7 +82,7 @@
       {
         "@type": "ListItem",
         "position": 4,
-        "name": "Checkout の画面遷移（カート → 住所 → 支払い → 確認 → 完了）"
+        "name": "Checkout screen flow (Cart → Address → Payment → Confirmation → Complete)"
       }
     ]
   }
@@ -103,16 +103,18 @@
 <main>
 <article>
   <p class="crumb">UI and screen design</p>
-  <h1>Checkout の画面遷移（カート → 住所 → 支払い → 確認 → 完了）</h1>
+  <h1>Checkout screen flow (Cart → Address → Payment → Confirmation → Complete)</h1>
   <p class="lead">Checkout flow, five steps and where errors return to</p>
   <figure>
     <img src="../../../gallery/85-Checkout%E3%81%AE%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB.svg" alt="Checkout flow, five steps and where errors return to" loading="lazy">
   </figure>
   <p class="made">This drawing comes from one YAML file. No shape was moved by hand.</p>
-  <h2>What the source says</h2>
+  <h2>Notes in the source (in Japanese)</h2>
+  <div lang="ja">
   <p>完成デザインではなく <strong>UI 構造の正本</strong>。買い物かごから完了までの 5 画面と、途中で分かれる道（在庫切れ・決済失敗）を 1 枚に。実線＝進む、破線＝操作の結果。<strong>戻れる／戻れないが読めることが要点。</strong></p>
   <p><strong>確認画面が 1 枚要るのは、押したら取り消せない操作の直前だから。</strong>住所や支払い方法は何度でも直せるが、<strong>決済は 1 回きり</strong> ——その境目がどこかを、図の上で指させることが、この 1 枚の仕事。</p>
   <p><strong>在庫切れと決済失敗は、戻る先が違う。</strong>在庫切れはカートまで戻るが、決済失敗は支払い画面に留まる ——「失敗したら戻る」とだけ書いた図では、この違いが実装に伝わらない。</p>
+  </div>
   <h2>Source (YAML)</h2>
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/85-Checkout%E3%81%AE%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB.zumen.yaml"><code>examples/gallery/85-Checkoutの画面遷移.zumen.yaml</code></a></p>
   <h2>More in this field</h2>

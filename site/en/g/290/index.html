@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ラマチャンドランプロット（主鎖の形は、角 2 つでほぼ決まる） — zumen example 290</title>
+<title>Ramachandran plot — two angles almost fix the backbone shape — zumen example 290</title>
 <link rel="icon" type="image/svg+xml" href="../../../icon.svg">
 <meta name="theme-color" content="#23232b">
 <meta name="description" content="Two angles per residue are almost the whole story of a protein backbone: the peptide bond is a partial double bond so omega barely turns…">
@@ -11,12 +11,12 @@
 <meta property="og:site_name" content="zumen">
 <meta property="og:locale" content="en_US">
 <meta property="og:url" content="https://meta-taro.github.io/zumen/en/g/290/">
-<meta property="og:title" content="ラマチャンドランプロット（主鎖の形は、角 2 つでほぼ決まる） — zumen example 290">
+<meta property="og:title" content="Ramachandran plot — two angles almost fix the backbone shape — zumen example 290">
 <meta property="og:description" content="Two angles per residue are almost the whole story of a protein backbone: the peptide bond is a partial double bond so omega barely turns…">
 <meta property="og:image" content="https://meta-taro.github.io/zumen/og/290.png">
 <meta property="og:image:alt" content="Two angles per residue are almost the whole story of a protein backbone: the peptide bond is a partial double bond so omega barely turns…">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="ラマチャンドランプロット（主鎖の形は、角 2 つでほぼ決まる） — zumen example 290">
+<meta name="twitter:title" content="Ramachandran plot — two angles almost fix the backbone shape — zumen example 290">
 <meta name="twitter:description" content="Two angles per residue are almost the whole story of a protein backbone: the peptide bond is a partial double bond so omega barely turns…">
 <meta name="twitter:image" content="https://meta-taro.github.io/zumen/og/290.png">
 <meta name="twitter:image:alt" content="Two angles per residue are almost the whole story of a protein backbone: the peptide bond is a partial double bond so omega barely turns…">
@@ -33,8 +33,8 @@
   {
     "@context": "https://schema.org",
     "@type": "CreativeWork",
-    "name": "ラマチャンドランプロット（主鎖の形は、角 2 つでほぼ決まる）",
-    "headline": "ラマチャンドランプロット（主鎖の形は、角 2 つでほぼ決まる）",
+    "name": "Ramachandran plot — two angles almost fix the backbone shape",
+    "headline": "Ramachandran plot — two angles almost fix the backbone shape",
     "description": "Two angles per residue are almost the whole story of a protein backbone: the peptide bond is a partial double bond so omega barely turns…",
     "url": "https://meta-taro.github.io/zumen/en/g/290/",
     "image": {
@@ -82,7 +82,7 @@
       {
         "@type": "ListItem",
         "position": 4,
-        "name": "ラマチャンドランプロット（主鎖の形は、角 2 つでほぼ決まる）"
+        "name": "Ramachandran plot — two angles almost fix the backbone shape"
       }
     ]
   }
@@ -103,19 +103,21 @@
 <main>
 <article>
   <p class="crumb">Learning and geometry</p>
-  <h1>ラマチャンドランプロット（主鎖の形は、角 2 つでほぼ決まる）</h1>
+  <h1>Ramachandran plot — two angles almost fix the backbone shape</h1>
   <p class="lead">Two angles per residue are almost the whole story of a protein backbone: the peptide bond is a partial double bond so omega barely turns, leaving phi and psi, and each secondary structure lands in its own patch of the plot — which is why structure validation is done on six separate plots, since glycine and proline are allowed quite different places</p>
   <figure>
     <img src="../../../gallery/290-%E3%83%A9%E3%83%9E%E3%83%81%E3%83%A3%E3%83%B3%E3%83%89%E3%83%A9%E3%83%B3%E3%83%97%E3%83%AD%E3%83%83%E3%83%88.svg" alt="Two angles per residue are almost the whole story of a protein backbone: the peptide bond is a partial double bond so omega barely turns, leaving phi and psi, and each secondary structure lands in its own patch of the plot — which is why structure validation is done on six separate plots, since glycine and proline are allowed quite different places" loading="lazy">
   </figure>
   <p class="made">This drawing comes from one YAML file. No shape was moved by hand.</p>
-  <h2>What the source says</h2>
+  <h2>Notes in the source (in Japanese)</h2>
+  <div lang="ja">
   <p><strong>たんぱく質の主鎖の形は、残基あたり 2 つの角でほぼ決まる。</strong><strong>φ</strong>（ファイ）と <strong>ψ</strong>（プサイ）—— どちらも主鎖の二面角。3 つ目の <strong>ω</strong>（オメガ。ペプチド結合まわり）は<strong>部分二重結合性のため平面に保たれ、ふつう 180 度からほとんど動かない。</strong> だから軸が 2 本で足りる。</p>
   <p><strong>二次構造は、プロットの決まった場所に出る。</strong>右巻き α ヘリックスは <strong>φ −57 ／ ψ −47</strong>、平行 β シートは <strong>φ −119 ／ ψ +113</strong>、逆平行 β シートは <strong>φ −139 ／ ψ +135</strong>。左巻き α ヘリックスは右巻きの鏡像なので、符号を反転した位置に来る ——ただし<strong>出てくる残基はほとんどグリシン</strong>で、側鎖が水素 1 個しかなく、ぶつかる相手が無いから。</p>
   <p><strong>1 枚では足りない。</strong> MolProbity・Phenix・wwPDB は<strong>一般／Ile・Val／Gly／pre-Pro／trans Pro／cis Pro の 6 枚</strong>を使い分ける。グリシンは側鎖が水素だけで<strong>最も広く</strong>、プロリンは五員環が Cα と主鎖 N をつないでいて<strong>φ が縛られる</strong> —— 1 枚で全部を測ると、グリシンは外れていないのに外れ扱いになり、プロリンは外れているのに通ってしまう。</p>
   <p><strong>検証に出る数。</strong> 好まれる領域は高品質な構造の <strong>98%</strong>、許容される領域は <strong>99.95%</strong>。<strong>clashscore</strong> は 0.4Å 以上の原子の重なりの数を 1000 原子あたりに直した値で、<strong>MolProbity score</strong> はそれと非 favored 率・不良ロタマー率の対数加重。参照データは <strong>2018 年に更新</strong>された（Protein Sci. 27 (2018) 293、PMC5734394。2026-09-29 確認）——いまは <strong>Top8000</strong>：分解能 <strong>2.0Å 未満</strong>・相同 70% で絞った <strong>7,957 本の鎖</strong>。以前の版（2003 年）は 1.8Å 以下・約 10 万残基で、<strong>版が違うと外れ値の数も変わる。</strong></p>
   <p><strong>外れ値は「間違い」ではなく「説明が要る所」。</strong> 歪んだ残基は実在するので、0 にするのが目的ではなく、電子密度で裏が取れるかどうかを見る。</p>
   <p>図の領域はおおよその位置。実際の境目は高分解能の構造を集めた分布から引く。</p>
+  </div>
   <h2>Source (YAML)</h2>
   <p><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/290-%E3%83%A9%E3%83%9E%E3%83%81%E3%83%A3%E3%83%B3%E3%83%89%E3%83%A9%E3%83%B3%E3%83%97%E3%83%AD%E3%83%83%E3%83%88.zumen.yaml"><code>examples/gallery/290-ラマチャンドランプロット.zumen.yaml</code></a></p>
   <h2>More in this field</h2>
