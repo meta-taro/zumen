@@ -382,4 +382,5 @@ export const TITLES_EN = {
   '394-天気分布予報-格子と3時刻': 'Weather distribution forecast (20 km grid, three times side by side; fictional)',
   '395-週間天気図-6日を並べる': 'Weekly weather charts (six days of forecast charts side by side; fictional)',
   '396-雷ナウキャスト-活動度と60分先': 'Lightning nowcast (activity levels 1–4, Tohoku, now and 30 and 60 minutes ahead; fictional)',
+  '397-津波警報と注意報-沿岸を線で塗る': 'Tsunami warnings and advisories (coastlines coloured; first bulletin and update; fictional)',
 };
