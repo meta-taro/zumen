@@ -384,4 +384,5 @@ export const TITLES_EN = {
   '396-雷ナウキャスト-活動度と60分先': 'Lightning nowcast (activity levels 1–4, Tohoku, now and 30 and 60 minutes ahead; fictional)',
   '397-津波警報と注意報-沿岸を線で塗る': 'Tsunami warnings and advisories (coastlines coloured; first bulletin and update; fictional)',
   '398-東の50Hzと西の60Hz-周波数変換所': 'East 50 Hz and west 60 Hz (four frequency converter stations linking 2.1 GW)',
+  '399-震度の分布-各地の震度と推計震度': 'Seismic intensity distribution (station readings and estimated intensity map; fictional)',
 };
