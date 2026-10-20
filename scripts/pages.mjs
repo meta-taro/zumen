@@ -361,7 +361,10 @@ ${near.map((x) => `    <li><a href="../${x.no}/"><img src="../../${lang === 'ja'
      * カードは重いので、見本が増えた直後は追いついていないことがある。
      * そのときは全体のカード（`site/og.png`）に落ちる —— 空の枠よりまし。
      */
-    image: existsSync(`site/og/${s.no}.png`) ? `${SITE}/og/${s.no}.png` : undefined,
+    // 英語のページには英語の帯のカード（`site/en/og/`）。無ければ日本語のカードへ落ちる。
+    image: lang === 'en' && existsSync(`site/en/og/${s.no}.png`)
+      ? `${SITE}/en/og/${s.no}.png`
+      : existsSync(`site/og/${s.no}.png`) ? `${SITE}/og/${s.no}.png` : undefined,
     imageAlt: fit(lang === 'ja' ? s.alt : s.en, 140),
     /**
      * **パンくずは通しで出す**（2026-09-24。指摘）。
