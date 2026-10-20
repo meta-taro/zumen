@@ -386,4 +386,5 @@ export const TITLES_EN = {
   '398-東の50Hzと西の60Hz-周波数変換所': 'East 50 Hz and west 60 Hz (four frequency converter stations linking 2.1 GW)',
   '399-震度の分布-各地の震度と推計震度': 'Seismic intensity distribution (station readings and estimated intensity map; fictional)',
   '400-大圏航路と等角航路-東京からニューヨーク': 'Great circle and rhumb line (Tokyo to New York on Mercator and azimuthal equidistant maps)',
+  '401-キキクル-土砂のメッシュと洪水の川': 'KiKiKuru risk maps (landslide on a 1 km mesh, flooding along the rivers; fictional town)',
 };
