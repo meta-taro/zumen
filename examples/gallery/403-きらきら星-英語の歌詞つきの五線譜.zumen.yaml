@@ -1,0 +1,1711 @@
+version: 1
+kind: placement
+arrows: true
+title: きらきら星（英語の歌詞つきの五線譜・フランス民謡）
+sources:
+  - name: "Wikipedia「Twinkle, Twinkle, Little Star」（旋律の譜）"
+    url: https://en.wikipedia.org/wiki/Twinkle,_Twinkle,_Little_Star
+    retrieved: 2026-10-20
+  - name: "Steinberg「Bravura」のメタデータ（SMuFL の engravingDefaults・glyphBBoxes）"
+    url: https://github.com/steinbergmedia/bravura/blob/master/redist/Bravura.json
+    retrieved: 2026-10-20
+  - name: "Steinberg「Dorico」General placement conventions for lyrics（歌詞は五線の下、符頭に揃える）"
+    url: https://archive.steinberg.help/dorico/v1/en/dorico/topics/notation_reference/notation_reference_lyrics_general_placement_conventions_c.html
+    retrieved: 2026-10-20
+  - name: "LilyPond「Extenders and hyphens」（ハイフンは音節の真ん中）"
+    url: https://lilypond.org/doc/v2.25/Documentation/notation/common-notation-for-vocal-music
+    retrieved: 2026-10-20
+  - name: "W3C Music Notation CG「SMuFL」engravingDefaults"
+    url: https://w3c-cg.github.io/smufl/latest/specification/engravingdefaults.html
+    retrieved: 2026-10-20
+# **楽譜は、五線の間隔（1 space）を物差しにした図面。** 普通の楽譜を 1 枚、決まりどおりに組む。
+#
+# 決まり（SMuFL の Bravura の engravingDefaults、取得 2026-10-20）——
+# 五線 0.13・符尾 0.12・加線 0.16（はみ出し 0.4）・小節線 0.16・終止線の太線 0.5（間 0.4）space。
+# 符頭は 1.18 × 1 space、符尾は 3.5 space。ト音記号はソの線から上 4.39・下 2.63、幅 2.68 space。
+# 旋律と歌詞の区切りは Wikipedia の譜のソース（LilyPond）と同じ。歌詞は英語の原詩（Jane Taylor 1806）。日本語の訳詞は付けない（著作権）。
+# 歌詞は五線の下、1 音 1 音節は符頭の真ん中に揃え（句読点は数えない）、語の切れ目のハイフンは音節の真ん中に置く。
+nodes:
+  - id: l0
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 60, y: 129.4 }
+    size: { w: 1000, h: 1.3 }
+  - id: l1
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 60, y: 139.4 }
+    size: { w: 1000, h: 1.3 }
+  - id: l2
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 60, y: 149.4 }
+    size: { w: 1000, h: 1.3 }
+  - id: l3
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 60, y: 159.4 }
+    size: { w: 1000, h: 1.3 }
+  - id: l4
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 60, y: 169.4 }
+    size: { w: 1000, h: 1.3 }
+  - id: p5
+    label: ""
+    marker: none
+    at: { x: 70, y: 180 }
+    size: { w: 2, h: 2 }
+  - id: p6
+    label: ""
+    marker: none
+    at: { x: 77.5, y: 160.5 }
+    size: { w: 2, h: 2 }
+  - id: t7
+    label: "4"
+    marker: none
+    align: center
+    at: { x: 98, y: 132 }
+    size: { w: 18, h: 16 }
+  - id: t8
+    label: "4"
+    marker: none
+    align: center
+    at: { x: 98, y: 152 }
+    size: { w: 18, h: 16 }
+  - id: snl9
+    label: "音名"
+    marker: none
+    align: right
+    at: { x: 10, y: 218 }
+    size: { w: 40, h: 16 }
+  - id: ld10
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 141, y: 179.2 }
+    size: { w: 19.8, h: 1.6 }
+  - id: h11
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 145, y: 175 }
+    size: { w: 11.8, h: 10 }
+  - id: s12
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 155.6, y: 145 }
+    size: { w: 1.2, h: 35 }
+  - id: ly13
+    label: "Twin"
+    marker: none
+    align: center
+    at: { x: 120.9, y: 194 }
+    size: { w: 60, h: 16 }
+  - id: so14
+    label: "ド"
+    marker: none
+    align: center
+    at: { x: 128.9, y: 218 }
+    size: { w: 44, h: 16 }
+  - id: ld15
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 191.6, y: 179.2 }
+    size: { w: 19.8, h: 1.6 }
+  - id: h16
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 195.6, y: 175 }
+    size: { w: 11.8, h: 10 }
+  - id: s17
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 206.2, y: 145 }
+    size: { w: 1.2, h: 35 }
+  - id: ly18
+    label: "kle,"
+    marker: none
+    align: center
+    at: { x: 173.3, y: 194 }
+    size: { w: 60, h: 16 }
+  - id: so19
+    label: "ド"
+    marker: none
+    align: center
+    at: { x: 179.5, y: 218 }
+    size: { w: 44, h: 16 }
+  - id: h20
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 246.3, y: 155 }
+    size: { w: 11.8, h: 10 }
+  - id: s21
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 256.9, y: 125 }
+    size: { w: 1.2, h: 35 }
+  - id: ly22
+    label: "twin"
+    marker: none
+    align: center
+    at: { x: 222.2, y: 194 }
+    size: { w: 60, h: 16 }
+  - id: so23
+    label: "ソ"
+    marker: none
+    align: center
+    at: { x: 230.2, y: 218 }
+    size: { w: 44, h: 16 }
+  - id: h24
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 296.9, y: 155 }
+    size: { w: 11.8, h: 10 }
+  - id: s25
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 307.5, y: 125 }
+    size: { w: 1.2, h: 35 }
+  - id: ly26
+    label: "kle,"
+    marker: none
+    align: center
+    at: { x: 274.5, y: 194 }
+    size: { w: 60, h: 16 }
+  - id: so27
+    label: "ソ"
+    marker: none
+    align: center
+    at: { x: 280.8, y: 218 }
+    size: { w: 44, h: 16 }
+  - id: hy28
+    label: "-"
+    marker: none
+    align: center
+    at: { x: 167.2, y: 194 }
+    size: { w: 18, h: 16 }
+  - id: hy29
+    label: "-"
+    marker: none
+    align: center
+    at: { x: 268.5, y: 194 }
+    size: { w: 18, h: 16 }
+  - id: b30
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 360.9, y: 129.4 }
+    size: { w: 1.6, h: 41.3 }
+  - id: h31
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 377.5, y: 150 }
+    size: { w: 11.8, h: 10 }
+  - id: s32
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 388.1, y: 120 }
+    size: { w: 1.2, h: 35 }
+  - id: ly33
+    label: "lit"
+    marker: none
+    align: center
+    at: { x: 353.4, y: 194 }
+    size: { w: 60, h: 16 }
+  - id: so34
+    label: "ラ"
+    marker: none
+    align: center
+    at: { x: 361.4, y: 218 }
+    size: { w: 44, h: 16 }
+  - id: h35
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 433.8, y: 150 }
+    size: { w: 11.8, h: 10 }
+  - id: s36
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 444.4, y: 120 }
+    size: { w: 1.2, h: 35 }
+  - id: ly37
+    label: "tle"
+    marker: none
+    align: center
+    at: { x: 409.7, y: 194 }
+    size: { w: 60, h: 16 }
+  - id: so38
+    label: "ラ"
+    marker: none
+    align: center
+    at: { x: 417.7, y: 218 }
+    size: { w: 44, h: 16 }
+  - id: h39
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 490, y: 155 }
+    size: { w: 11.8, h: 10 }
+  - id: hi40
+    label: ""
+    marker: ellipse
+    hatch: solid
+    hatch_color: paper
+    at: { x: 492.4, y: 157.2 }
+    size: { w: 7, h: 5.6 }
+  - id: s41
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 500.6, y: 125 }
+    size: { w: 1.2, h: 35 }
+  - id: ly42
+    label: "star,"
+    marker: none
+    align: center
+    at: { x: 467.7, y: 194 }
+    size: { w: 60, h: 16 }
+  - id: so43
+    label: "ソ"
+    marker: none
+    align: center
+    at: { x: 473.9, y: 218 }
+    size: { w: 44, h: 16 }
+  - id: hy44
+    label: "-"
+    marker: none
+    align: center
+    at: { x: 402.5, y: 194 }
+    size: { w: 18, h: 16 }
+  - id: b45
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 593.4, y: 129.4 }
+    size: { w: 1.6, h: 41.3 }
+  - id: h46
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 610, y: 160 }
+    size: { w: 11.8, h: 10 }
+  - id: s47
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 620.6, y: 130 }
+    size: { w: 1.2, h: 35 }
+  - id: ly48
+    label: "How"
+    marker: none
+    align: center
+    at: { x: 585.9, y: 194 }
+    size: { w: 60, h: 16 }
+  - id: so49
+    label: "ファ"
+    marker: none
+    align: center
+    at: { x: 593.9, y: 218 }
+    size: { w: 44, h: 16 }
+  - id: h50
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 660.6, y: 160 }
+    size: { w: 11.8, h: 10 }
+  - id: s51
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 671.2, y: 130 }
+    size: { w: 1.2, h: 35 }
+  - id: ly52
+    label: "I"
+    marker: none
+    align: center
+    at: { x: 636.5, y: 194 }
+    size: { w: 60, h: 16 }
+  - id: so53
+    label: "ファ"
+    marker: none
+    align: center
+    at: { x: 644.5, y: 218 }
+    size: { w: 44, h: 16 }
+  - id: h54
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 711.3, y: 165 }
+    size: { w: 11.8, h: 10 }
+  - id: s55
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 721.8, y: 135 }
+    size: { w: 1.2, h: 35 }
+  - id: ly56
+    label: "won"
+    marker: none
+    align: center
+    at: { x: 687.2, y: 194 }
+    size: { w: 60, h: 16 }
+  - id: so57
+    label: "ミ"
+    marker: none
+    align: center
+    at: { x: 695.2, y: 218 }
+    size: { w: 44, h: 16 }
+  - id: h58
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 761.9, y: 165 }
+    size: { w: 11.8, h: 10 }
+  - id: s59
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 772.5, y: 135 }
+    size: { w: 1.2, h: 35 }
+  - id: ly60
+    label: "der"
+    marker: none
+    align: center
+    at: { x: 737.8, y: 194 }
+    size: { w: 60, h: 16 }
+  - id: so61
+    label: "ミ"
+    marker: none
+    align: center
+    at: { x: 745.8, y: 218 }
+    size: { w: 44, h: 16 }
+  - id: hy62
+    label: "-"
+    marker: none
+    align: center
+    at: { x: 733.5, y: 194 }
+    size: { w: 18, h: 16 }
+  - id: b63
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 825.9, y: 129.4 }
+    size: { w: 1.6, h: 41.3 }
+  - id: h64
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 842.5, y: 170 }
+    size: { w: 11.8, h: 10 }
+  - id: s65
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 853.1, y: 140 }
+    size: { w: 1.2, h: 35 }
+  - id: ly66
+    label: "what"
+    marker: none
+    align: center
+    at: { x: 818.4, y: 194 }
+    size: { w: 60, h: 16 }
+  - id: so67
+    label: "レ"
+    marker: none
+    align: center
+    at: { x: 826.4, y: 218 }
+    size: { w: 44, h: 16 }
+  - id: h68
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 898.8, y: 170 }
+    size: { w: 11.8, h: 10 }
+  - id: s69
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 909.4, y: 140 }
+    size: { w: 1.2, h: 35 }
+  - id: ly70
+    label: "you"
+    marker: none
+    align: center
+    at: { x: 874.7, y: 194 }
+    size: { w: 60, h: 16 }
+  - id: so71
+    label: "レ"
+    marker: none
+    align: center
+    at: { x: 882.7, y: 218 }
+    size: { w: 44, h: 16 }
+  - id: ld72
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 951, y: 179.2 }
+    size: { w: 19.8, h: 1.6 }
+  - id: h73
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 955, y: 175 }
+    size: { w: 11.8, h: 10 }
+  - id: hi74
+    label: ""
+    marker: ellipse
+    hatch: solid
+    hatch_color: paper
+    at: { x: 957.4, y: 177.2 }
+    size: { w: 7, h: 5.6 }
+  - id: s75
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 965.6, y: 145 }
+    size: { w: 1.2, h: 35 }
+  - id: ly76
+    label: "are!"
+    marker: none
+    align: center
+    at: { x: 932.7, y: 194 }
+    size: { w: 60, h: 16 }
+  - id: so77
+    label: "ド"
+    marker: none
+    align: center
+    at: { x: 938.9, y: 218 }
+    size: { w: 44, h: 16 }
+  - id: b78
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 1058.4, y: 129.4 }
+    size: { w: 1.6, h: 41.3 }
+  - id: l79
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 60, y: 269.4 }
+    size: { w: 1000, h: 1.3 }
+  - id: l80
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 60, y: 279.4 }
+    size: { w: 1000, h: 1.3 }
+  - id: l81
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 60, y: 289.4 }
+    size: { w: 1000, h: 1.3 }
+  - id: l82
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 60, y: 299.4 }
+    size: { w: 1000, h: 1.3 }
+  - id: l83
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 60, y: 309.4 }
+    size: { w: 1000, h: 1.3 }
+  - id: p84
+    label: ""
+    marker: none
+    at: { x: 70, y: 320 }
+    size: { w: 2, h: 2 }
+  - id: p85
+    label: ""
+    marker: none
+    at: { x: 77.5, y: 300.5 }
+    size: { w: 2, h: 2 }
+  - id: mn86
+    label: "5"
+    marker: none
+    align: left
+    at: { x: 58, y: 248 }
+    size: { w: 14, h: 16 }
+  - id: snl87
+    label: "音名"
+    marker: none
+    align: right
+    at: { x: 10, y: 358 }
+    size: { w: 40, h: 16 }
+  - id: h88
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 120, y: 295 }
+    size: { w: 11.8, h: 10 }
+  - id: s89
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 130.6, y: 265 }
+    size: { w: 1.2, h: 35 }
+  - id: ly90
+    label: "Up"
+    marker: none
+    align: center
+    at: { x: 95.9, y: 334 }
+    size: { w: 60, h: 16 }
+  - id: so91
+    label: "ソ"
+    marker: none
+    align: center
+    at: { x: 103.9, y: 358 }
+    size: { w: 44, h: 16 }
+  - id: h92
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 172.2, y: 295 }
+    size: { w: 11.8, h: 10 }
+  - id: s93
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 182.8, y: 265 }
+    size: { w: 1.2, h: 35 }
+  - id: ly94
+    label: "a"
+    marker: none
+    align: center
+    at: { x: 148.1, y: 334 }
+    size: { w: 60, h: 16 }
+  - id: so95
+    label: "ソ"
+    marker: none
+    align: center
+    at: { x: 156.1, y: 358 }
+    size: { w: 44, h: 16 }
+  - id: h96
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 224.4, y: 300 }
+    size: { w: 11.8, h: 10 }
+  - id: s97
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 235, y: 270 }
+    size: { w: 1.2, h: 35 }
+  - id: ly98
+    label: "bove"
+    marker: none
+    align: center
+    at: { x: 200.3, y: 334 }
+    size: { w: 60, h: 16 }
+  - id: so99
+    label: "ファ"
+    marker: none
+    align: center
+    at: { x: 208.3, y: 358 }
+    size: { w: 44, h: 16 }
+  - id: h100
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 276.6, y: 300 }
+    size: { w: 11.8, h: 10 }
+  - id: s101
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 287.2, y: 270 }
+    size: { w: 1.2, h: 35 }
+  - id: ly102
+    label: "the"
+    marker: none
+    align: center
+    at: { x: 252.5, y: 334 }
+    size: { w: 60, h: 16 }
+  - id: so103
+    label: "ファ"
+    marker: none
+    align: center
+    at: { x: 260.5, y: 358 }
+    size: { w: 44, h: 16 }
+  - id: hy104
+    label: "-"
+    marker: none
+    align: center
+    at: { x: 195.2, y: 334 }
+    size: { w: 18, h: 16 }
+  - id: b105
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 342.2, y: 269.4 }
+    size: { w: 1.6, h: 41.3 }
+  - id: h106
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 358.8, y: 305 }
+    size: { w: 11.8, h: 10 }
+  - id: s107
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 369.4, y: 275 }
+    size: { w: 1.2, h: 35 }
+  - id: ly108
+    label: "world"
+    marker: none
+    align: center
+    at: { x: 334.7, y: 334 }
+    size: { w: 60, h: 16 }
+  - id: so109
+    label: "ミ"
+    marker: none
+    align: center
+    at: { x: 342.7, y: 358 }
+    size: { w: 44, h: 16 }
+  - id: h110
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 416.7, y: 305 }
+    size: { w: 11.8, h: 10 }
+  - id: s111
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 427.3, y: 275 }
+    size: { w: 1.2, h: 35 }
+  - id: ly112
+    label: "so"
+    marker: none
+    align: center
+    at: { x: 392.6, y: 334 }
+    size: { w: 60, h: 16 }
+  - id: so113
+    label: "ミ"
+    marker: none
+    align: center
+    at: { x: 400.6, y: 358 }
+    size: { w: 44, h: 16 }
+  - id: h114
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 474.7, y: 310 }
+    size: { w: 11.8, h: 10 }
+  - id: hi115
+    label: ""
+    marker: ellipse
+    hatch: solid
+    hatch_color: paper
+    at: { x: 477.1, y: 312.2 }
+    size: { w: 7, h: 5.6 }
+  - id: s116
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 485.3, y: 280 }
+    size: { w: 1.2, h: 35 }
+  - id: ly117
+    label: "high,"
+    marker: none
+    align: center
+    at: { x: 452.4, y: 334 }
+    size: { w: 60, h: 16 }
+  - id: so118
+    label: "レ"
+    marker: none
+    align: center
+    at: { x: 458.6, y: 358 }
+    size: { w: 44, h: 16 }
+  - id: b119
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 580.9, y: 269.4 }
+    size: { w: 1.6, h: 41.3 }
+  - id: h120
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 597.5, y: 295 }
+    size: { w: 11.8, h: 10 }
+  - id: s121
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 608.1, y: 265 }
+    size: { w: 1.2, h: 35 }
+  - id: ly122
+    label: "Like"
+    marker: none
+    align: center
+    at: { x: 573.4, y: 334 }
+    size: { w: 60, h: 16 }
+  - id: so123
+    label: "ソ"
+    marker: none
+    align: center
+    at: { x: 581.4, y: 358 }
+    size: { w: 44, h: 16 }
+  - id: h124
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 649.7, y: 295 }
+    size: { w: 11.8, h: 10 }
+  - id: s125
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 660.3, y: 265 }
+    size: { w: 1.2, h: 35 }
+  - id: ly126
+    label: "a"
+    marker: none
+    align: center
+    at: { x: 625.6, y: 334 }
+    size: { w: 60, h: 16 }
+  - id: so127
+    label: "ソ"
+    marker: none
+    align: center
+    at: { x: 633.6, y: 358 }
+    size: { w: 44, h: 16 }
+  - id: h128
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 701.9, y: 300 }
+    size: { w: 11.8, h: 10 }
+  - id: s129
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 712.5, y: 270 }
+    size: { w: 1.2, h: 35 }
+  - id: ly130
+    label: "dia"
+    marker: none
+    align: center
+    at: { x: 677.8, y: 334 }
+    size: { w: 60, h: 16 }
+  - id: so131
+    label: "ファ"
+    marker: none
+    align: center
+    at: { x: 685.8, y: 358 }
+    size: { w: 44, h: 16 }
+  - id: h132
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 754.1, y: 300 }
+    size: { w: 11.8, h: 10 }
+  - id: s133
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 764.7, y: 270 }
+    size: { w: 1.2, h: 35 }
+  - id: ly134
+    label: "mond"
+    marker: none
+    align: center
+    at: { x: 730, y: 334 }
+    size: { w: 60, h: 16 }
+  - id: so135
+    label: "ファ"
+    marker: none
+    align: center
+    at: { x: 738, y: 358 }
+    size: { w: 44, h: 16 }
+  - id: hy136
+    label: "-"
+    marker: none
+    align: center
+    at: { x: 724.9, y: 334 }
+    size: { w: 18, h: 16 }
+  - id: b137
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 819.7, y: 269.4 }
+    size: { w: 1.6, h: 41.3 }
+  - id: h138
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 836.3, y: 305 }
+    size: { w: 11.8, h: 10 }
+  - id: s139
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 846.9, y: 275 }
+    size: { w: 1.2, h: 35 }
+  - id: ly140
+    label: "in"
+    marker: none
+    align: center
+    at: { x: 812.2, y: 334 }
+    size: { w: 60, h: 16 }
+  - id: so141
+    label: "ミ"
+    marker: none
+    align: center
+    at: { x: 820.2, y: 358 }
+    size: { w: 44, h: 16 }
+  - id: h142
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 894.2, y: 305 }
+    size: { w: 11.8, h: 10 }
+  - id: s143
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 904.8, y: 275 }
+    size: { w: 1.2, h: 35 }
+  - id: ly144
+    label: "the"
+    marker: none
+    align: center
+    at: { x: 870.1, y: 334 }
+    size: { w: 60, h: 16 }
+  - id: so145
+    label: "ミ"
+    marker: none
+    align: center
+    at: { x: 878.1, y: 358 }
+    size: { w: 44, h: 16 }
+  - id: h146
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 952.2, y: 310 }
+    size: { w: 11.8, h: 10 }
+  - id: hi147
+    label: ""
+    marker: ellipse
+    hatch: solid
+    hatch_color: paper
+    at: { x: 954.6, y: 312.2 }
+    size: { w: 7, h: 5.6 }
+  - id: s148
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 962.8, y: 280 }
+    size: { w: 1.2, h: 35 }
+  - id: ly149
+    label: "sky."
+    marker: none
+    align: center
+    at: { x: 929.9, y: 334 }
+    size: { w: 60, h: 16 }
+  - id: so150
+    label: "レ"
+    marker: none
+    align: center
+    at: { x: 936.1, y: 358 }
+    size: { w: 44, h: 16 }
+  - id: b151
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 1058.4, y: 269.4 }
+    size: { w: 1.6, h: 41.3 }
+  - id: l152
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 60, y: 409.4 }
+    size: { w: 1000, h: 1.3 }
+  - id: l153
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 60, y: 419.4 }
+    size: { w: 1000, h: 1.3 }
+  - id: l154
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 60, y: 429.4 }
+    size: { w: 1000, h: 1.3 }
+  - id: l155
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 60, y: 439.4 }
+    size: { w: 1000, h: 1.3 }
+  - id: l156
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 60, y: 449.4 }
+    size: { w: 1000, h: 1.3 }
+  - id: p157
+    label: ""
+    marker: none
+    at: { x: 70, y: 460 }
+    size: { w: 2, h: 2 }
+  - id: p158
+    label: ""
+    marker: none
+    at: { x: 77.5, y: 440.5 }
+    size: { w: 2, h: 2 }
+  - id: mn159
+    label: "9"
+    marker: none
+    align: left
+    at: { x: 58, y: 388 }
+    size: { w: 14, h: 16 }
+  - id: snl160
+    label: "音名"
+    marker: none
+    align: right
+    at: { x: 10, y: 498 }
+    size: { w: 40, h: 16 }
+  - id: ld161
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 116, y: 459.2 }
+    size: { w: 19.8, h: 1.6 }
+  - id: h162
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 120, y: 455 }
+    size: { w: 11.8, h: 10 }
+  - id: s163
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 130.6, y: 425 }
+    size: { w: 1.2, h: 35 }
+  - id: ly164
+    label: "Twin"
+    marker: none
+    align: center
+    at: { x: 95.9, y: 474 }
+    size: { w: 60, h: 16 }
+  - id: so165
+    label: "ド"
+    marker: none
+    align: center
+    at: { x: 103.9, y: 498 }
+    size: { w: 44, h: 16 }
+  - id: ld166
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 168.2, y: 459.2 }
+    size: { w: 19.8, h: 1.6 }
+  - id: h167
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 172.2, y: 455 }
+    size: { w: 11.8, h: 10 }
+  - id: s168
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 182.8, y: 425 }
+    size: { w: 1.2, h: 35 }
+  - id: ly169
+    label: "kle,"
+    marker: none
+    align: center
+    at: { x: 149.8, y: 474 }
+    size: { w: 60, h: 16 }
+  - id: so170
+    label: "ド"
+    marker: none
+    align: center
+    at: { x: 156.1, y: 498 }
+    size: { w: 44, h: 16 }
+  - id: h171
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 224.4, y: 435 }
+    size: { w: 11.8, h: 10 }
+  - id: s172
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 235, y: 405 }
+    size: { w: 1.2, h: 35 }
+  - id: ly173
+    label: "twin"
+    marker: none
+    align: center
+    at: { x: 200.3, y: 474 }
+    size: { w: 60, h: 16 }
+  - id: so174
+    label: "ソ"
+    marker: none
+    align: center
+    at: { x: 208.3, y: 498 }
+    size: { w: 44, h: 16 }
+  - id: h175
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 276.6, y: 435 }
+    size: { w: 11.8, h: 10 }
+  - id: s176
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 287.2, y: 405 }
+    size: { w: 1.2, h: 35 }
+  - id: ly177
+    label: "kle,"
+    marker: none
+    align: center
+    at: { x: 254.2, y: 474 }
+    size: { w: 60, h: 16 }
+  - id: so178
+    label: "ソ"
+    marker: none
+    align: center
+    at: { x: 260.5, y: 498 }
+    size: { w: 44, h: 16 }
+  - id: hy179
+    label: "-"
+    marker: none
+    align: center
+    at: { x: 143, y: 474 }
+    size: { w: 18, h: 16 }
+  - id: hy180
+    label: "-"
+    marker: none
+    align: center
+    at: { x: 247.4, y: 474 }
+    size: { w: 18, h: 16 }
+  - id: b181
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 342.2, y: 409.4 }
+    size: { w: 1.6, h: 41.3 }
+  - id: h182
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 358.8, y: 430 }
+    size: { w: 11.8, h: 10 }
+  - id: s183
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 369.4, y: 400 }
+    size: { w: 1.2, h: 35 }
+  - id: ly184
+    label: "lit"
+    marker: none
+    align: center
+    at: { x: 334.7, y: 474 }
+    size: { w: 60, h: 16 }
+  - id: so185
+    label: "ラ"
+    marker: none
+    align: center
+    at: { x: 342.7, y: 498 }
+    size: { w: 44, h: 16 }
+  - id: h186
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 416.7, y: 430 }
+    size: { w: 11.8, h: 10 }
+  - id: s187
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 427.3, y: 400 }
+    size: { w: 1.2, h: 35 }
+  - id: ly188
+    label: "tle"
+    marker: none
+    align: center
+    at: { x: 392.6, y: 474 }
+    size: { w: 60, h: 16 }
+  - id: so189
+    label: "ラ"
+    marker: none
+    align: center
+    at: { x: 400.6, y: 498 }
+    size: { w: 44, h: 16 }
+  - id: h190
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 474.7, y: 435 }
+    size: { w: 11.8, h: 10 }
+  - id: hi191
+    label: ""
+    marker: ellipse
+    hatch: solid
+    hatch_color: paper
+    at: { x: 477.1, y: 437.2 }
+    size: { w: 7, h: 5.6 }
+  - id: s192
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 485.3, y: 405 }
+    size: { w: 1.2, h: 35 }
+  - id: ly193
+    label: "star,"
+    marker: none
+    align: center
+    at: { x: 452.4, y: 474 }
+    size: { w: 60, h: 16 }
+  - id: so194
+    label: "ソ"
+    marker: none
+    align: center
+    at: { x: 458.6, y: 498 }
+    size: { w: 44, h: 16 }
+  - id: hy195
+    label: "-"
+    marker: none
+    align: center
+    at: { x: 384.6, y: 474 }
+    size: { w: 18, h: 16 }
+  - id: b196
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 580.9, y: 409.4 }
+    size: { w: 1.6, h: 41.3 }
+  - id: h197
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 597.5, y: 440 }
+    size: { w: 11.8, h: 10 }
+  - id: s198
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 608.1, y: 410 }
+    size: { w: 1.2, h: 35 }
+  - id: ly199
+    label: "How"
+    marker: none
+    align: center
+    at: { x: 573.4, y: 474 }
+    size: { w: 60, h: 16 }
+  - id: so200
+    label: "ファ"
+    marker: none
+    align: center
+    at: { x: 581.4, y: 498 }
+    size: { w: 44, h: 16 }
+  - id: h201
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 649.7, y: 440 }
+    size: { w: 11.8, h: 10 }
+  - id: s202
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 660.3, y: 410 }
+    size: { w: 1.2, h: 35 }
+  - id: ly203
+    label: "I"
+    marker: none
+    align: center
+    at: { x: 625.6, y: 474 }
+    size: { w: 60, h: 16 }
+  - id: so204
+    label: "ファ"
+    marker: none
+    align: center
+    at: { x: 633.6, y: 498 }
+    size: { w: 44, h: 16 }
+  - id: h205
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 701.9, y: 445 }
+    size: { w: 11.8, h: 10 }
+  - id: s206
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 712.5, y: 415 }
+    size: { w: 1.2, h: 35 }
+  - id: ly207
+    label: "won"
+    marker: none
+    align: center
+    at: { x: 677.8, y: 474 }
+    size: { w: 60, h: 16 }
+  - id: so208
+    label: "ミ"
+    marker: none
+    align: center
+    at: { x: 685.8, y: 498 }
+    size: { w: 44, h: 16 }
+  - id: h209
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 754.1, y: 445 }
+    size: { w: 11.8, h: 10 }
+  - id: s210
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 764.7, y: 415 }
+    size: { w: 1.2, h: 35 }
+  - id: ly211
+    label: "der"
+    marker: none
+    align: center
+    at: { x: 730, y: 474 }
+    size: { w: 60, h: 16 }
+  - id: so212
+    label: "ミ"
+    marker: none
+    align: center
+    at: { x: 738, y: 498 }
+    size: { w: 44, h: 16 }
+  - id: hy213
+    label: "-"
+    marker: none
+    align: center
+    at: { x: 724.9, y: 474 }
+    size: { w: 18, h: 16 }
+  - id: b214
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 819.7, y: 409.4 }
+    size: { w: 1.6, h: 41.3 }
+  - id: h215
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 836.3, y: 450 }
+    size: { w: 11.8, h: 10 }
+  - id: s216
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 846.9, y: 420 }
+    size: { w: 1.2, h: 35 }
+  - id: ly217
+    label: "what"
+    marker: none
+    align: center
+    at: { x: 812.2, y: 474 }
+    size: { w: 60, h: 16 }
+  - id: so218
+    label: "レ"
+    marker: none
+    align: center
+    at: { x: 820.2, y: 498 }
+    size: { w: 44, h: 16 }
+  - id: h219
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 894.2, y: 450 }
+    size: { w: 11.8, h: 10 }
+  - id: s220
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 904.8, y: 420 }
+    size: { w: 1.2, h: 35 }
+  - id: ly221
+    label: "you"
+    marker: none
+    align: center
+    at: { x: 870.1, y: 474 }
+    size: { w: 60, h: 16 }
+  - id: so222
+    label: "レ"
+    marker: none
+    align: center
+    at: { x: 878.1, y: 498 }
+    size: { w: 44, h: 16 }
+  - id: ld223
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 948.2, y: 459.2 }
+    size: { w: 19.8, h: 1.6 }
+  - id: h224
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 952.2, y: 455 }
+    size: { w: 11.8, h: 10 }
+  - id: hi225
+    label: ""
+    marker: ellipse
+    hatch: solid
+    hatch_color: paper
+    at: { x: 954.6, y: 457.2 }
+    size: { w: 7, h: 5.6 }
+  - id: s226
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 962.8, y: 425 }
+    size: { w: 1.2, h: 35 }
+  - id: ly227
+    label: "are!"
+    marker: none
+    align: center
+    at: { x: 929.9, y: 474 }
+    size: { w: 60, h: 16 }
+  - id: so228
+    label: "ド"
+    marker: none
+    align: center
+    at: { x: 936.1, y: 498 }
+    size: { w: 44, h: 16 }
+  - id: b229
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 1055, y: 409.4 }
+    size: { w: 5, h: 41.3 }
+  - id: b230
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 1049.4, y: 409.4 }
+    size: { w: 1.6, h: 41.3 }
+  - id: t231
+    label: "きらきら星"
+    marker: none
+    align: center
+    at: { x: 400, y: 60 }
+    size: { w: 320, h: 18 }
+  - id: t232
+    label: "フランス民謡（旋律は 1761 年に出版）"
+    marker: none
+    align: right
+    at: { x: 760, y: 88 }
+    size: { w: 300, h: 16 }
+  - id: t233
+    label: "ハ長調・4/4 拍子"
+    marker: none
+    align: left
+    at: { x: 60, y: 88 }
+    size: { w: 200, h: 16 }
+  - id: t234
+    label: "詞 Jane Taylor（1806）"
+    marker: none
+    align: right
+    at: { x: 760, y: 108 }
+    size: { w: 300, h: 16 }
+  - id: th235
+    label: "この楽譜で守った浄書の決まり（1 space ＝ 五線の間隔。数値は SMuFL の Bravura が示す既定値）"
+    marker: box
+    hatch: solid
+    at: { x: 60, y: 560 }
+    size: { w: 1000, h: 24 }
+  - id: ta236
+    label: "五線"
+    marker: box
+    at: { x: 60, y: 584 }
+    size: { w: 200, h: 24 }
+  - id: tb237
+    label: "線の太さ 0.13 space。高さ 4 space を音符・記号すべての物差しにする"
+    marker: box
+    align: left
+    at: { x: 260, y: 584 }
+    size: { w: 800, h: 24 }
+  - id: ta238
+    label: "符頭"
+    marker: box
+    at: { x: 60, y: 608 }
+    size: { w: 200, h: 24 }
+  - id: tb239
+    label: "横 1.18 × 縦 1 space。4 分音符は黒く塗り、2 分音符は白抜き"
+    marker: box
+    align: left
+    at: { x: 260, y: 608 }
+    size: { w: 800, h: 24 }
+  - id: ta240
+    label: "符尾"
+    marker: box
+    at: { x: 60, y: 632 }
+    size: { w: 200, h: 24 }
+  - id: tb241
+    label: "太さ 0.12・長さ 3.5 space。真ん中の線より下の音は上向きで、符頭の右に付く"
+    marker: box
+    align: left
+    at: { x: 260, y: 632 }
+    size: { w: 800, h: 24 }
+  - id: ta242
+    label: "加線"
+    marker: box
+    at: { x: 60, y: 656 }
+    size: { w: 200, h: 24 }
+  - id: tb243
+    label: "五線の外のド（C4）に。太さ 0.16 space、符頭より左右 0.4 space ずつ長く"
+    marker: box
+    align: left
+    at: { x: 260, y: 656 }
+    size: { w: 800, h: 24 }
+  - id: ta244
+    label: "小節線・終止線"
+    marker: box
+    at: { x: 60, y: 680 }
+    size: { w: 200, h: 24 }
+  - id: tb245
+    label: "小節線は 0.16 space。曲の終わりは細い線と太い線（0.5 space）を 0.4 space 離して並べる"
+    marker: box
+    align: left
+    at: { x: 260, y: 680 }
+    size: { w: 800, h: 24 }
+  - id: ta246
+    label: "ト音記号"
+    marker: box
+    at: { x: 60, y: 704 }
+    size: { w: 200, h: 24 }
+  - id: tb247
+    label: "渦が第 2 線（ソ）を巻く。段ごとに書く。幅 2.7、ソの線から上 4.4・下 2.6 space"
+    marker: box
+    align: left
+    at: { x: 260, y: 704 }
+    size: { w: 800, h: 24 }
+  - id: ta248
+    label: "拍子記号"
+    marker: box
+    at: { x: 60, y: 728 }
+    size: { w: 200, h: 24 }
+  - id: tb249
+    label: "4/4 は数字を上下 2 段に、各 2 space の高さで。最初の段だけに書く"
+    marker: box
+    align: left
+    at: { x: 260, y: 728 }
+    size: { w: 800, h: 24 }
+  - id: ta250
+    label: "小節番号"
+    marker: box
+    at: { x: 60, y: 752 }
+    size: { w: 200, h: 24 }
+  - id: tb251
+    label: "2 段目からは段の頭に、その段の最初の小節の番号（5・9）を書く"
+    marker: box
+    align: left
+    at: { x: 260, y: 752 }
+    size: { w: 800, h: 24 }
+  - id: ta252
+    label: "音の間隔"
+    marker: box
+    at: { x: 60, y: 776 }
+    size: { w: 200, h: 24 }
+  - id: tb253
+    label: "長さに比例させない。2 分音符の幅は 4 分音符の 2 倍にせず、1.6 倍に詰める"
+    marker: box
+    align: left
+    at: { x: 260, y: 776 }
+    size: { w: 800, h: 24 }
+  - id: ta254
+    label: "歌詞の位置"
+    marker: box
+    at: { x: 60, y: 800 }
+    size: { w: 200, h: 24 }
+  - id: tb255
+    label: "五線の下に。1 つの音で歌う音節は、その符頭の真ん中に揃える"
+    marker: box
+    align: left
+    at: { x: 260, y: 800 }
+    size: { w: 800, h: 24 }
+  - id: ta256
+    label: "句読点"
+    marker: box
+    at: { x: 60, y: 824 }
+    size: { w: 200, h: 24 }
+  - id: tb257
+    label: "揃えるのは語の部分だけ。kle, の「,」は数えず、右へはみ出させる"
+    marker: box
+    align: left
+    at: { x: 260, y: 824 }
+    size: { w: 800, h: 24 }
+  - id: ta258
+    label: "ハイフン"
+    marker: box
+    at: { x: 60, y: 848 }
+    size: { w: 200, h: 24 }
+  - id: tb259
+    label: "1 つの語を音節に切った所（Twin-kle・won-der・a-bove・dia-mond）は、2 つの音節の真ん中に - を置く"
+    marker: box
+    align: left
+    at: { x: 260, y: 848 }
+    size: { w: 800, h: 24 }
+  - id: th260
+    label: "描かなかったもの（理由）"
+    marker: box
+    hatch: solid
+    at: { x: 60, y: 892 }
+    size: { w: 1000, h: 24 }
+  - id: ta261
+    label: "日本語の歌詞"
+    marker: box
+    at: { x: 60, y: 916 }
+    size: { w: 200, h: 24 }
+  - id: tb262
+    label: "訳詞には著作権が残るものがあるので付けない。英語の原詩（Jane Taylor、1806 年）を付け、音名を下に添えた"
+    marker: box
+    align: left
+    at: { x: 260, y: 916 }
+    size: { w: 800, h: 24 }
+  - id: ta263
+    label: "休符・旗・スラー・伸ばし線"
+    marker: box
+    at: { x: 60, y: 940 }
+    size: { w: 200, h: 24 }
+  - id: tb264
+    label: "この曲は 4 分音符と 2 分音符だけで、1 音節を 2 つ以上の音で歌う所も無い。休符・旗・スラー・伸ばし線は出てこない"
+    marker: box
+    align: left
+    at: { x: 260, y: 940 }
+    size: { w: 800, h: 24 }
+  - id: ta265
+    label: "符頭の傾き"
+    marker: box
+    at: { x: 60, y: 964 }
+    size: { w: 200, h: 24 }
+  - id: tb266
+    label: "本物の符頭は少し右上がりに傾くが、zumen の楕円は傾けられないので横長の楕円で代えた"
+    marker: box
+    align: left
+    at: { x: 260, y: 964 }
+    size: { w: 800, h: 24 }
+  - id: ta267
+    label: "ト音記号の太さ"
+    marker: box
+    at: { x: 60, y: 988 }
+    size: { w: 200, h: 24 }
+  - id: tb268
+    label: "文字の 𝄞 は字体によって出ないので、通り道を通る曲線（smooth）で描いた。線の強弱は無い"
+    marker: box
+    align: left
+    at: { x: 260, y: 988 }
+    size: { w: 800, h: 24 }
+  - id: n269
+    label: "「きらきら星」の旋律を、五線譜の浄書の決まりどおりに組んだ図です（12 小節、ハ長調、4/4 拍子）。"
+    marker: none
+    align: left
+    at: { x: 60, y: 1032 }
+    size: { w: 1000, h: 18 }
+  - id: n270
+    label: "旋律は、1761 年にフランスで出版された「Ah! vous dirai-je, maman」。歌詞は Jane Taylor の詩「The Star」（1806 年）の第 1 連。どちらも著作権切れ。"
+    marker: none
+    align: left
+    at: { x: 60, y: 1054 }
+    size: { w: 1000, h: 18 }
+  - id: n271
+    label: "五線も音符も、zumen の共通の部品（細い帯・楕円・曲線）だけで描いています。楽譜専用の部品は使っていません。"
+    marker: none
+    align: left
+    at: { x: 60, y: 1076 }
+    size: { w: 1000, h: 18 }
+edges:
+  - from: p5
+    to: p6
+    curve: smooth
+    ends: { from: none, to: none }
+    via:
+      - { x: 75, y: 186 }
+      - { x: 81, y: 183.5 }
+      - { x: 82, y: 176 }
+      - { x: 80, y: 155 }
+      - { x: 78, y: 130 }
+      - { x: 78.5, y: 121 }
+      - { x: 82, y: 116.5 }
+      - { x: 85.5, y: 122.5 }
+      - { x: 83, y: 132 }
+      - { x: 75, y: 141 }
+      - { x: 68.5, y: 152 }
+      - { x: 69, y: 164.5 }
+      - { x: 78, y: 171 }
+      - { x: 87.5, y: 167.5 }
+      - { x: 90, y: 159 }
+      - { x: 84, y: 152.5 }
+      - { x: 77.5, y: 155.5 }
+  - from: p84
+    to: p85
+    curve: smooth
+    ends: { from: none, to: none }
+    via:
+      - { x: 75, y: 326 }
+      - { x: 81, y: 323.5 }
+      - { x: 82, y: 316 }
+      - { x: 80, y: 295 }
+      - { x: 78, y: 270 }
+      - { x: 78.5, y: 261 }
+      - { x: 82, y: 256.5 }
+      - { x: 85.5, y: 262.5 }
+      - { x: 83, y: 272 }
+      - { x: 75, y: 281 }
+      - { x: 68.5, y: 292 }
+      - { x: 69, y: 304.5 }
+      - { x: 78, y: 311 }
+      - { x: 87.5, y: 307.5 }
+      - { x: 90, y: 299 }
+      - { x: 84, y: 292.5 }
+      - { x: 77.5, y: 295.5 }
+  - from: p157
+    to: p158
+    curve: smooth
+    ends: { from: none, to: none }
+    via:
+      - { x: 75, y: 466 }
+      - { x: 81, y: 463.5 }
+      - { x: 82, y: 456 }
+      - { x: 80, y: 435 }
+      - { x: 78, y: 410 }
+      - { x: 78.5, y: 401 }
+      - { x: 82, y: 396.5 }
+      - { x: 85.5, y: 402.5 }
+      - { x: 83, y: 412 }
+      - { x: 75, y: 421 }
+      - { x: 68.5, y: 432 }
+      - { x: 69, y: 444.5 }
+      - { x: 78, y: 451 }
+      - { x: 87.5, y: 447.5 }
+      - { x: 90, y: 439 }
+      - { x: 84, y: 432.5 }
+      - { x: 77.5, y: 435.5 }
