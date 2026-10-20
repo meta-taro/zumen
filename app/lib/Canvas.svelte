@@ -52,6 +52,16 @@
    * 一覧に「db」と書いてあっても図のどちらか判別できない。
    */
   const inConflict = $derived(new Set(session.conflicts.map((c) => c.elementId)));
+  /**
+   * **紙の点のグリッド。** 図と一緒に動き、一緒に伸び縮みする（紙に打った点に見せる）。
+   * 縮めて点が詰まりすぎたら、間隔を倍にする。**書き出しには出ない**（画面だけの下地）。
+   */
+  const grid = $derived.by(() => {
+    let step = 20;
+    while (step * session.zoom < 12) step *= 2;
+    const size = step * session.zoom;
+    return `background-size: ${size}px ${size}px; background-position: ${session.panX}px ${session.panY}px`;
+  });
 
   /** 掴んでいるもの。掴んでいる間だけ座標を持つ。 */
   let dragging = $state<{ id: string; dx: number; dy: number } | null>(null);
@@ -213,6 +223,7 @@
   onpointerup={release}
   onpointercancel={release}
   onwheel={wheel}
+  style={grid}
 >
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
@@ -296,6 +307,13 @@
             text-anchor="middle" font-size="11" fill={TEXT.edge}
           >{box.technology}</text>
         {/if}
+        {#if session.selected === box.id}
+          <!-- 選択の輪。**枠の外に、淡いアクセントで。** 枠の太さ（人の指定の印）には触らない。 -->
+          <rect
+            x={pos.x - 4} y={pos.y - 4} width={box.w + 8} height={box.h + 8}
+            rx={plan ? 2 : 9} fill="none" stroke="var(--accent-border)" stroke-width="4" pointer-events="none"
+          />
+        {/if}
         {#if inConflict.has(box.id)}
           <!--
             競合の印（`DESIGN.md` §2.4）。**枠の外に添える。**
@@ -305,6 +323,11 @@
             x={pos.x - 5} y={pos.y - 5} width={box.w + 10} height={box.h + 10}
             rx="9" fill="none" stroke="var(--warning-fg)" stroke-width="2" stroke-dasharray="4 3"
           />
+          <!-- 「競合」の札。右上の角に。**線の種類（破線）だけでは何の印か読めない。** -->
+          <g class="chip" aria-hidden="true">
+            <rect x={pos.x + box.w - 30} y={pos.y - 15} width="40" height="18" rx="9" fill="var(--warning-bg)" stroke="var(--warning-fg)" />
+            <text x={pos.x + box.w - 10} y={pos.y - 2} text-anchor="middle" font-size="11" font-weight="700" fill="var(--warning-fg)">{messages().app.conflictsHeading}</text>
+          </g>
         {/if}
         {#if session.selected === box.id}
           <!-- 選択の印は左端の 2px バー（姉妹アプリ §5.7 と同じ作法） -->
@@ -386,16 +409,26 @@
 {/if}
 
 <style>
+  /*
+    **紙の中はライトに固定**（DESIGN.md §2.6）。`color-scheme: light` にすると、
+    紙の上で使うトークン（選択のアクセント・競合の warning）もライトの値で解ける。
+    外の枠がダークでも、紙の上の印は書き出しと同じ地の上で読める濃さになる。
+  */
   .surface {
+    color-scheme: light;
     width: 100%;
     height: 100%;
     display: block;
-    background: var(--canvas);
+    background-color: var(--canvas);
+    background-image: radial-gradient(var(--border-strong) 1px, transparent 1px);
     touch-action: none;
     cursor: grab;
   }
   .node {
     cursor: move;
+  }
+  .chip {
+    pointer-events: none;
   }
   .surface.inking,
   .surface.inking .node {
@@ -420,6 +453,7 @@
     user-select: none;
   }
   .note-draft {
+    color-scheme: light;
     position: absolute;
     min-width: 12em;
     font-size: 13px;
