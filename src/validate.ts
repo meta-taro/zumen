@@ -35,6 +35,7 @@ import { TO_STRING_OPTIONS } from './format.ts';
 import { messages } from './messages.ts';
 import { HINGES, OPENINGS, SIDES, SWINGS } from './openings.ts';
 import { areaIssues } from './area.ts';
+import { inkOf, isMarkupColor, isMarkupWidth, pointOf } from './markup.ts';
 
 /**
  * `error` は読めない文書。`warning` は読めるが、人が見たほうがよいもの。
@@ -118,6 +119,7 @@ export function validate(text: string): Finding[] {
   checkGridAndScale(doc, add, m, at);
   checkAreaText(doc, add, m, at);
   checkSources(doc, add, m, at);
+  checkMarkup(doc, nodeIds, add, m, at);
   checkViews(doc, add, m, at);
   checkConstruction(doc, add, m, at);
   checkSharedIds(doc, add, m, at);
@@ -156,6 +158,32 @@ function checkSources(doc: Document, add: Add, m: Messages, at: At): void {
     const url = isMap(item) ? item.get('url') : undefined;
     if (text === '' && typeof url === 'string' && url.trim() !== '') add('warning', 'source-date-missing', m.sourceDateMissing(name), at(item));
     else if (text !== '' && !/^\d{4}-\d{2}-\d{2}$/.test(text)) add('warning', 'source-date-format', m.sourceDateFormat(name, text), at(item));
+  });
+}
+
+/**
+ * **赤入れ**（`markup`。`src/markup.ts`）。図には効かないので、読めない項目は描かれないだけ —— それを知らせる。
+ * 結んだ箱が無い赤入れは**行き先の無い赤入れ**として知らせる（`pins` の迷子と同じく、黙って捨てない）。
+ */
+function checkMarkup(doc: Document, nodeIds: ReadonlySet<string>, add: Add, m: Messages, at: At): void {
+  const raw = doc.get('markup', true);
+  if (raw === undefined || raw === null) return;
+  if (!isSeq(raw)) {
+    add('warning', 'markup-not-list', m.markupNotList, at(raw));
+    return;
+  }
+  raw.items.forEach((item, i) => {
+    const n = String(i + 1);
+    const r = (isMap(item) ? item.toJSON() : null) as Record<string, unknown> | null;
+    if (r === null || (!('ink' in r) && !('note' in r))) {
+      add('warning', 'markup-kind', m.markupKind(n), at(item));
+      return;
+    }
+    if ('ink' in r && inkOf(r.ink) === null) add('warning', 'markup-ink-short', m.markupInkShort(n), at(item));
+    if (!('ink' in r) && pointOf(r.at) === null) add('warning', 'markup-note-at', m.markupNoteAt(n), at(item));
+    if (r.color !== undefined && !isMarkupColor(r.color)) add('warning', 'markup-color', m.markupColor(n, String(r.color)), at(item));
+    if (r.width !== undefined && !isMarkupWidth(r.width)) add('warning', 'markup-width', m.markupWidth(n, String(r.width)), at(item));
+    if (typeof r.on === 'string' && !nodeIds.has(r.on)) add('warning', 'markup-orphaned', m.markupOrphaned(n, r.on), at(item));
   });
 }
 

@@ -69,9 +69,10 @@ import type { Conflict } from '../../src/merge.ts';
 
 <style>
   h2 {
-    font-size: var(--text-sm);
+    font-size: var(--text-xs);
     color: var(--text-secondary);
     font-weight: 500;
+    letter-spacing: 0.04em;
     margin: 0 0 var(--space-3);
     display: flex;
     align-items: center;
@@ -143,7 +144,7 @@ import type { Conflict } from '../../src/merge.ts';
     font: inherit;
     font-size: var(--text-sm);
     padding: var(--space-1) var(--space-3);
-    height: 28px;
+    height: 32px;
     border-radius: var(--radius-md);
     border: 1px solid var(--border-strong);
     background: var(--bg-elevated);
