@@ -13,6 +13,7 @@
   import sample from '../examples/本番構成.zumen.yaml?raw';
   import { percent } from '../src/measure.ts';
   import { messages } from '../src/messages.ts';
+  import { MARKUP_COLORS, MARKUP_WIDTHS } from '../src/markup.ts';
   import Canvas from './lib/Canvas.svelte';
   import Conflicts from './lib/Conflicts.svelte';
   import Diff from './lib/Diff.svelte';
@@ -45,6 +46,17 @@
    *
    * ここで測った大きさを渡すと、**開いた図が画面に収まる**（`Session.fit`）。
    */
+  /** 赤入れの道具の板を開いているか。閉じたら道具も置く（箱を掴める状態へ戻す）。 */
+  let markupOpen = $state(false);
+  function toggleMarkup(): void {
+    markupOpen = !markupOpen;
+    session.markupTool = markupOpen ? 'pen' : 'none';
+  }
+  const MARKUP_COLOR_KEYS = ['red', 'blue', 'green', 'black', 'orange'] as const;
+  const MARKUP_WIDTH_KEYS = ['thin', 'normal', 'thick'] as const;
+  const colorName = { red: m.markupRed, blue: m.markupBlue, green: m.markupGreen, black: m.markupBlack, orange: m.markupOrange };
+  const widthName = { thin: m.markupThin, normal: m.markupNormal, thick: m.markupThick };
+
   let canvasW = $state(0);
   let canvasH = $state(0);
   $effect(() => {
@@ -334,6 +346,11 @@
       <button class="fit" onclick={() => session.fit()} disabled={session.placed === null} title={m.fitHint}>
         {m.fit}
       </button>
+      <span class="gap"></span>
+      <!-- **赤入れ**（仕様 §3.7、D46）。図には効かない書き込み。板を開いている間だけ道具を持つ。 -->
+      <button class="markup-toggle" class:on={markupOpen} onclick={toggleMarkup} disabled={session.placed === null} title={m.markupHint}>
+        ✎ {m.markup}
+      </button>
     </div>
   </header>
 
@@ -341,6 +358,35 @@
     <div class="canvas" bind:clientWidth={canvasW} bind:clientHeight={canvasH}>
       {#if session.placed !== null}
         <Canvas {session} placed={session.placed} />
+        {#if markupOpen}
+          <div class="markup-tools" role="toolbar" aria-label={m.markup}>
+            <div class="row">
+              {#each [['pen', m.markupPen], ['note', m.markupNote], ['erase', m.markupErase]] as [tool, label] (tool)}
+                <button class:on={session.markupTool === tool} onclick={() => (session.markupTool = tool as 'pen' | 'note' | 'erase')}>{label}</button>
+              {/each}
+            </div>
+            <div class="row" aria-label={m.markupColor}>
+              {#each MARKUP_COLOR_KEYS as key (key)}
+                <button
+                  class="swatch" class:on={session.markupColor === key}
+                  style="--swatch: {MARKUP_COLORS[key]}" title={colorName[key]} aria-label={colorName[key]}
+                  onclick={() => (session.markupColor = key)}
+                ></button>
+              {/each}
+            </div>
+            <div class="row" aria-label={m.markupWidth}>
+              {#each MARKUP_WIDTH_KEYS as key (key)}
+                <button class="width" class:on={session.markupWidth === key} title={widthName[key]} onclick={() => (session.markupWidth = key)}>
+                  <svg width="28" height="12" aria-hidden="true"><line x1="3" y1="6" x2="25" y2="6" stroke="currentColor" stroke-width={MARKUP_WIDTHS[key]} stroke-linecap="round" /></svg>
+                  <span class="sr">{widthName[key]}</span>
+                </button>
+              {/each}
+            </div>
+            <label class="row show">
+              <input type="checkbox" bind:checked={session.showMarkup} /> {m.markupShow}
+            </label>
+          </div>
+        {/if}
       {:else if session.broken}
         <div class="empty">
           <p><strong>{m.unreadable}</strong></p>
@@ -444,12 +490,17 @@
     display: flex;
     align-items: baseline;
     gap: var(--space-3);
+    min-width: 0;
   }
   .name {
+    white-space: nowrap;
     color: var(--text-secondary);
     font-size: var(--text-sm);
   }
   .state {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     color: var(--text-tertiary);
     font-size: var(--text-xs);
     font-variant-numeric: tabular-nums;
@@ -458,6 +509,10 @@
     display: flex;
     align-items: center;
     gap: var(--space-2);
+    flex-shrink: 0;
+  }
+  .actions button {
+    white-space: nowrap;
   }
   /** 線の状態。**押せない**（見るだけ）ので、ボタンの形にしない。 */
   .live {
@@ -528,6 +583,52 @@
   .canvas {
     min-width: 0;
     position: relative;
+  }
+  .markup-tools {
+    position: absolute;
+    top: var(--space-3);
+    left: var(--space-3);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-2);
+    background: var(--bg-app);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 0.12);
+  }
+  .markup-tools .row {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+  }
+  .markup-tools button.on,
+  .markup-toggle.on {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .markup-tools .swatch {
+    width: 22px;
+    height: 22px;
+    padding: 0;
+    border-radius: 50%;
+    background: var(--swatch);
+  }
+  .markup-tools .swatch.on {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+  .markup-tools .show {
+    color: var(--text-primary);
+    font-size: 12px;
+    gap: 6px;
+  }
+  .sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
   }
   aside {
     border-left: 1px solid var(--border);

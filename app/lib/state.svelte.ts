@@ -19,6 +19,11 @@ import type { Measurement } from '../../src/measure.ts';
 import { merge, resolve } from '../../src/merge.ts';
 import type { Conflict } from '../../src/merge.ts';
 import { hasError, validate } from '../../src/validate.ts';
+import { addMarkup, markupOf, placeMarkup, removeMarkup, strokeOf } from '../../src/markup.ts';
+import type { MarkupColor, MarkupWidth, PlacedMarkup, Point } from '../../src/markup.ts';
+
+/** 赤入れの道具。`none` のときは、いつもどおり箱を掴める。 */
+export type MarkupTool = 'none' | 'pen' | 'note' | 'erase';
 import type { Finding } from '../../src/validate.ts';
 
 export class Session {
@@ -46,6 +51,16 @@ export class Session {
    * 適用してから見せるのでは、承認ではなく事後報告になる（8 操作の 6）。
    */
   pending = $state<{ text: string; conflicts: Conflict[] } | null>(null);
+
+  /**
+   * **赤入れ**（仕様 §3.7、D46）。図には効かない、人へ伝えるための手書きと付箋。
+   * 道具を選んでいる間は、箱を掴まない・紙を動かさない（ペンの線と取り違えないため）。
+   */
+  markupTool = $state<MarkupTool>('none');
+  markupColor = $state<MarkupColor>('red');
+  markupWidth = $state<MarkupWidth>('normal');
+  /** 赤入れを見せるか。**隠しても消えない**（正本には残る）。 */
+  showMarkup = $state(true);
 
   zoom = $state(1);
   panX = $state(0);
@@ -267,6 +282,62 @@ export class Session {
     this.text = next;
     this.dirty = true;
     this.historyVersion += 1;
+    await this.refresh();
+  }
+
+  /** 紙の上の赤入れ。箱に結んだものは箱の今の位置から測る。 */
+  get markup(): PlacedMarkup[] {
+    if (this.text === '' || this.broken || this.placed === null) return [];
+    try {
+      return placeMarkup(markupOf(parse(this.text).doc.toJSON()?.markup), this.placed.boxes);
+    } catch {
+      return [];
+    }
+  }
+
+  /**
+   * 書き始めた点の下にある箱（いちばん上のもの）。**そこに結ぶ** —— 箱が動いても赤入れがついていく。
+   * 箱の外なら紙の座標のまま。
+   */
+  #boxAt(p: Point): { id: string; x: number; y: number } | null {
+    const boxes = this.placed?.boxes ?? [];
+    for (let i = boxes.length - 1; i >= 0; i--) {
+      const b = boxes[i];
+      if (p.x >= b.x && p.x <= b.x + b.w && p.y >= b.y && p.y <= b.y + b.h) return b;
+    }
+    return null;
+  }
+
+  /** ペンで 1 本引いた（紙の座標の点の並び）。 */
+  async addInk(raw: Point[]): Promise<void> {
+    if (raw.length < 2 || this.broken) return;
+    const box = this.#boxAt(raw[0]);
+    const local = raw.map((p) => (box === null ? p : { x: p.x - box.x, y: p.y - box.y }));
+    const points = strokeOf(local);
+    if (points.length < 2) return;
+    this.#remember();
+    this.text = addMarkup(this.text, { kind: 'ink', points, color: this.markupColor, width: this.markupWidth, on: box?.id ?? null });
+    this.dirty = true;
+    await this.refresh();
+  }
+
+  /** 付箋を貼った。 */
+  async addNote(text: string, at: Point): Promise<void> {
+    const body = text.trim();
+    if (body === '' || this.broken) return;
+    const box = this.#boxAt(at);
+    const local = box === null ? at : { x: at.x - box.x, y: at.y - box.y };
+    this.#remember();
+    this.text = addMarkup(this.text, { kind: 'note', text: body, at: local, color: this.markupColor, width: 'normal', on: box?.id ?? null });
+    this.dirty = true;
+    await this.refresh();
+  }
+
+  /** 赤入れを 1 件消した（正本の中の何件目か）。 */
+  async eraseMarkup(index: number): Promise<void> {
+    this.#remember();
+    this.text = removeMarkup(this.text, index);
+    this.dirty = true;
     await this.refresh();
   }
 

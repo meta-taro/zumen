@@ -14,6 +14,8 @@
   import type { Box, Placed } from '../../src/layout.ts';
   import { messages } from '../../src/messages.ts';
   import { EDGE, GROUP, STROKE_WIDTH, TEXT, lookOf } from '../../src/tokens.ts';
+  import { MARKUP_COLORS, MARKUP_WIDTHS, placeMarkup } from '../../src/markup.ts';
+  import type { Point } from '../../src/markup.ts';
   import type { Session } from './state.svelte.ts';
 
   interface Props {
@@ -67,6 +69,12 @@
   }
 
   function grab(event: PointerEvent, box: Box): void {
+    // 赤入れの道具を持っている間は箱を掴まない。紙の側（`press`）へ渡す。
+    if (session.markupTool !== 'none') {
+      // 箱へフォーカスも移さない（枠に印が出て、掴んだように見える）。
+      event.preventDefault();
+      return;
+    }
     event.stopPropagation();
     session.select(box.id);
     const point = toDiagram(event);
@@ -75,6 +83,10 @@
   }
 
   function move(event: PointerEvent): void {
+    if (drawing !== null) {
+      drawing = [...drawing, toDiagram(event)];
+      return;
+    }
     if (panning !== null) {
       session.panBy(event.clientX - panning.x, event.clientY - panning.y);
       panning = { x: event.clientX, y: event.clientY };
@@ -89,6 +101,12 @@
   let preview = $state<{ id: string; x: number; y: number } | null>(null);
 
   async function release(): Promise<void> {
+    if (drawing !== null) {
+      const stroke = drawing;
+      drawing = null;
+      await session.addInk(stroke);
+      return;
+    }
     panning = null;
     if (dragging === null || preview === null) {
       dragging = null;
@@ -100,6 +118,71 @@
     preview = null;
     await session.place(id, x, y);
   }
+
+  /**
+   * **赤入れ**（仕様 §3.7）。描いている途中の線と、打っている途中の付箋。
+   * 離した・確定した時点で正本へ書く（箱を動かすのと同じ）。
+   */
+  let drawing = $state<Point[] | null>(null);
+  let draft = $state<{ at: Point; left: number; top: number } | null>(null);
+  let draftText = $state('');
+
+  /** 紙を押した。赤入れの道具を持っていればそちらへ、無ければ紙を動かす。 */
+  function press(event: PointerEvent): void {
+    const tool = session.markupTool;
+    if (tool === 'pen') {
+      drawing = [toDiagram(event)];
+      surface?.setPointerCapture(event.pointerId);
+      return;
+    }
+    if (tool === 'note') {
+      const rect = surface?.getBoundingClientRect();
+      if (rect === undefined) return;
+      event.preventDefault();
+      draftText = '';
+      draft = { at: toDiagram(event), left: event.clientX - rect.left, top: event.clientY - rect.top };
+      return;
+    }
+    if (tool === 'erase') return;
+    startPan(event);
+  }
+
+  /** 出した付箋の欄へ、押した指が離れてから文字の入る先を移す（押した直後だと紙に取られる）。 */
+  function focusNow(node: HTMLInputElement): void {
+    setTimeout(() => node.focus(), 0);
+  }
+
+  async function commitNote(): Promise<void> {
+    if (draft === null) return;
+    const { at } = draft;
+    const text = draftText;
+    draft = null;
+    await session.addNote(text, at);
+  }
+
+  function noteKey(event: KeyboardEvent): void {
+    if (event.key === 'Enter' && !event.isComposing) {
+      event.preventDefault();
+      void commitNote();
+    } else if (event.key === 'Escape') {
+      draft = null;
+    }
+  }
+
+  function erase(event: PointerEvent, index: number): void {
+    if (session.markupTool !== 'erase') return;
+    event.stopPropagation();
+    void session.eraseMarkup(index);
+  }
+
+  /** 付箋の幅のめやす（全角 13px・半角 7.5px）。 */
+  const noteWidth = (text: string): number => [...text].reduce((w, ch) => w + (ch.charCodeAt(0) > 0xff ? 13 : 7.5), 12);
+
+  /** 紙の上の赤入れ。**掴んでいる箱に結んだものは、仮の位置についていく。** */
+  const marks = $derived(
+    session.showMarkup ? placeMarkup(session.markup.map((m) => m.item), placed.boxes.map((b) => ({ id: b.id, ...at(b) }))) : [],
+  );
+  const path = (points: Point[]): string => 'M ' + points.map((p) => `${p.x} ${p.y}`).join(' L ');
 
   function startPan(event: PointerEvent): void {
     session.select(null);
@@ -124,7 +207,8 @@
   class="surface"
   role="application"
   aria-label={messages().app.canvasLabel}
-  onpointerdown={startPan}
+  class:inking={session.markupTool !== 'none'}
+  onpointerdown={press}
   onpointermove={move}
   onpointerup={release}
   onpointercancel={release}
@@ -249,8 +333,57 @@
         </g>
       </g>
     {/each}
+
+    <!--
+      **赤入れ**（仕様 §3.7、D46）。図の上に 1 枚かぶせる面。**図には効かない** —— 書き出しにも出ない。
+      行き先の無い赤入れ（結んだ箱が消えた）は、薄く・破線で出す。黙って消さない。
+    -->
+    {#if session.showMarkup}
+      <g class="markup" class:erasing={session.markupTool === 'erase'}>
+        {#each marks as mk (mk.index)}
+          {@const color = MARKUP_COLORS[mk.item.color]}
+          {#if mk.item.kind === 'ink' && 'points' in mk}
+            <g class="mark" class:orphaned={mk.orphaned} onpointerdown={(event) => erase(event, mk.index)} role="presentation">
+              <path class="hit" d={path(mk.points)} />
+              <path
+                d={path(mk.points)} fill="none" stroke={color} stroke-width={MARKUP_WIDTHS[mk.item.width]}
+                stroke-linecap="round" stroke-linejoin="round" stroke-dasharray={mk.orphaned ? '6 4' : 'none'}
+              />
+            </g>
+          {:else if mk.item.kind === 'note' && 'at' in mk}
+            {@const w = noteWidth(mk.item.text)}
+            <g class="mark" class:orphaned={mk.orphaned} onpointerdown={(event) => erase(event, mk.index)} role="presentation">
+              <rect
+                x={mk.at.x} y={mk.at.y} width={w} height="24" rx="3"
+                fill="var(--canvas)" stroke={color} stroke-width="1.5" stroke-dasharray={mk.orphaned ? '4 3' : 'none'}
+              />
+              <text x={mk.at.x + 6} y={mk.at.y + 17} font-size="13" fill={color}>{mk.item.text}</text>
+            </g>
+          {/if}
+        {/each}
+        {#if drawing !== null && drawing.length > 1}
+          <path
+            d={path(drawing)} fill="none" stroke={MARKUP_COLORS[session.markupColor]}
+            stroke-width={MARKUP_WIDTHS[session.markupWidth]} stroke-linecap="round" stroke-linejoin="round"
+          />
+        {/if}
+      </g>
+    {/if}
   </g>
 </svg>
+
+{#if draft !== null}
+  <!-- 付箋の文字。Enter で貼る、Esc でやめる。外を押しても貼る。 -->
+  <input
+    use:focusNow
+    class="note-draft"
+    style="left: {draft.left}px; top: {draft.top}px; color: {MARKUP_COLORS[session.markupColor]}"
+    bind:value={draftText}
+    onkeydown={noteKey}
+    onblur={() => void commitNote()}
+    placeholder={messages().app.markupNotePlaceholder}
+  />
+{/if}
 
 <style>
   .surface {
@@ -263,6 +396,37 @@
   }
   .node {
     cursor: move;
+  }
+  .surface.inking,
+  .surface.inking .node {
+    cursor: crosshair;
+  }
+  .markup .mark {
+    pointer-events: none;
+  }
+  .markup .mark.orphaned {
+    opacity: 0.55;
+  }
+  .markup .hit {
+    fill: none;
+    stroke: transparent;
+    stroke-width: 12;
+  }
+  .markup.erasing .mark {
+    pointer-events: all;
+    cursor: pointer;
+  }
+  .markup .mark text {
+    user-select: none;
+  }
+  .note-draft {
+    position: absolute;
+    min-width: 12em;
+    font-size: 13px;
+    padding: 3px 6px;
+    border: 1.5px solid currentColor;
+    border-radius: 3px;
+    background: var(--canvas);
   }
   /** 掴めることの印。**ホバーしている間だけ。** 静止時は図を汚さない。 */
   .grips {
