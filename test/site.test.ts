@@ -324,6 +324,25 @@ describe('指している絵が、ちゃんと在る', () => {
     assert.deepEqual([...new Set(missing)], []);
   });
 
+  /**
+   * **見本のページは、その見本のカードを指す**（2026-10-20）。
+   *
+   * カードが無いと全体のカード（`og.png`）へ黙って落ちる。**404 にはならないので、上の検査は通る。**
+   * 見本 369〜403 の 35 枚がそうなっていて、X に貼るとどれも同じカードに見えた。
+   * 英語のページは英語の帯のカード（`en/og/`）を指す —— 日本語の帯だと英語で貼ったときに題が日本語で出る。
+   */
+  it('**見本のページは、全体のカードに落ちていない**（英語は英語のカード）', () => {
+    const wrong: string[] = [];
+    for (const html of htmls) {
+      const page = /site\/(en\/)?g\/(\d+)\/index\.html$/.exec(html.pathname);
+      if (page === null) continue;
+      const want = `${SITE}/${page[1] ?? ''}og/${page[2]}.png`;
+      const got = /og:image" content="([^"]+)"/.exec(readFileSync(html, 'utf8'))?.[1];
+      if (got !== want) wrong.push(`${html.pathname.split('/site/')[1]} → ${got}`);
+    }
+    assert.deepEqual(wrong, []);
+  });
+
   it('**貼ってある図が、すべて正本に在る**', () => {
     const gallery = new URL('../examples/gallery/', import.meta.url);
     const missing: string[] = [];

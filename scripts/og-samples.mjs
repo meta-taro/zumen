@@ -27,6 +27,10 @@ import { fileURLToPath } from 'node:url';
 import { promisify } from 'node:util';
 // @ts-expect-error 組み立て用のスクリプトは型を持たない
 import { CATEGORIES } from './gallery-categories.mjs';
+// @ts-expect-error 組み立て用のスクリプトは型を持たない
+import { GROUPS_EN } from './gallery-en.mjs';
+// @ts-expect-error 組み立て用のスクリプトは型を持たない
+import { TITLES_EN } from './titles-en.mjs';
 
 const run = promisify(execFile);
 const ROOT = fileURLToPath(new URL('../', import.meta.url));
@@ -50,20 +54,36 @@ if (chrome === undefined) {
 
 const all = process.argv.includes('--all');
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-const outDir = join(ROOT, 'site/og');
-mkdirSync(outDir, { recursive: true });
+/**
+ * **英語のページには、英語の帯のカード**（2026-10-20）。
+ *
+ * 1 枚を両方の言葉で使い回していたので、英語のページを X に貼ると
+ * **帯の題と分野が日本語で出ていた。** 帯だけ言葉を替えて、`site/en/og/` へ別に描く。
+ * 図そのもの（帯の上）は同じ。
+ */
+const LANGS = [
+  { lang: 'ja', dir: join(ROOT, 'site/og') },
+  { lang: 'en', dir: join(ROOT, 'site/en/og') },
+];
+for (const { dir } of LANGS) mkdirSync(dir, { recursive: true });
 const tmp = mkdtempSync(join(tmpdir(), 'zumen-ogs-'));
 
 const jobs = [];
-for (const group of CATEGORIES) {
-  for (const item of group.items) {
-    const no = item.name.split('-')[0];
-    const svgPath = join(ROOT, 'examples/gallery', `${item.name}.svg`);
-    const out = join(outDir, `${no}.png`);
-    if (!existsSync(svgPath)) continue;
-    // **SVG より新しければ飛ばす。** 2 回目からは足したぶんだけ。
-    if (!all && existsSync(out) && statSync(out).mtimeMs >= statSync(svgPath).mtimeMs) continue;
-    jobs.push({ no, name: item.name, svgPath, out, caption: item.caption, group: group.label });
+for (const { lang, dir } of LANGS) {
+  for (const group of CATEGORIES) {
+    for (const item of group.items) {
+      const no = item.name.split('-')[0];
+      const svgPath = join(ROOT, 'examples/gallery', `${item.name}.svg`);
+      const out = join(dir, `${no}.png`);
+      if (!existsSync(svgPath)) continue;
+      // **SVG より新しければ飛ばす。** 2 回目からは足したぶんだけ。
+      if (!all && existsSync(out) && statSync(out).mtimeMs >= statSync(svgPath).mtimeMs) continue;
+      jobs.push(
+        lang === 'ja'
+          ? { lang, no, name: item.name, svgPath, out, caption: item.caption, group: group.label, label: `見本 ${no}` }
+          : { lang, no, name: item.name, svgPath, out, caption: TITLES_EN[item.name] ?? item.caption, group: GROUPS_EN[group.key] ?? group.label, label: `Example ${no}` },
+      );
+    }
   }
 }
 
@@ -73,15 +93,17 @@ for (const group of CATEGORIES) {
  * 残すと、消したはずの見本の絵だけが配られ続ける
  * （`scripts/pages.mjs` が古いページを消すのと同じ理由）。
  */
-const live = new Set(jobs.map((job) => `${job.no}.png`));
+const live = new Set();
 for (const group of CATEGORIES) {
   for (const item of group.items) live.add(`${item.name.split('-')[0]}.png`);
 }
 let dropped = 0;
-for (const name of readdirSync(outDir)) {
-  if (live.has(name)) continue;
-  rmSync(join(outDir, name));
-  dropped += 1;
+for (const { dir } of LANGS) {
+  for (const name of readdirSync(dir)) {
+    if (live.has(name)) continue;
+    rmSync(join(dir, name));
+    dropped += 1;
+  }
 }
 if (dropped > 0) console.log(`見本の無い共有カードを ${dropped} 枚 片付けました。`);
 
@@ -123,7 +145,7 @@ function crop(text) {
 function card(job) {
   const svg = crop(readFileSync(job.svgPath, 'utf8')).replace(/<svg /, '<svg preserveAspectRatio="xMidYMin meet" ');
   return `<!doctype html>
-<html lang="ja"><head><meta charset="utf-8"><style>
+<html lang="${job.lang}"><head><meta charset="utf-8"><style>
   * { box-sizing: border-box; margin: 0; }
   body {
     width: ${W}px; height: ${H}px; background: #fff; overflow: hidden;
@@ -143,7 +165,7 @@ function card(job) {
 <div class="shot">${svg}</div>
 <div class="band">
   <div class="cap">${esc(job.caption)}</div>
-  <div class="who"><b>zumen</b>${esc(job.group)} ／ 見本 ${esc(job.no)}</div>
+  <div class="who"><b>zumen</b>${esc(job.group)} ／ ${esc(job.label)}</div>
 </div>
 </body></html>`;
 }
@@ -163,7 +185,7 @@ function card(job) {
  *    **走る本数ぶんだけ**作って使い回す。
  */
 function shoot(job, lane) {
-  const page = join(tmp, `${job.no}.html`);
+  const page = join(tmp, `${job.lang}-${job.no}.html`);
   writeFileSync(page, card(job));
   const child = spawn(chrome, [
     '--headless',
