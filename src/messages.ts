@@ -1178,7 +1178,7 @@ const en: Catalog = {
     reviewNoneHint: 'Press "Reviewed?" at the top right once you have. Only a person can.',
     reviewDoneHint: 'The meaning has not changed since then.',
     reviewStaleTitle: 'Changed since it was reviewed',
-    autonomyMark: 'The tick marks 90%.',
+    autonomyMark: ' The tick marks 90%.',
     keysLabel: 'Keys',
     keyReset: '100%',
     keyZoom: 'Zoom',
