@@ -47,9 +47,17 @@ const CANDIDATES = [
   '/usr/bin/chromium',
 ].filter((path) => typeof path === 'string' && path.length > 0);
 const chrome = CANDIDATES.find((path) => existsSync(path));
+/**
+ * **`pnpm gallery` の中からは `--soft` で呼ぶ**（2026-10-24）。
+ *
+ * カードは紹介ページ（`pages.mjs`）より先に要る —— 無いまま組むと、ページは全体の `og.png` に落ちる。
+ * 見本を足すたびに「gallery → og:samples → gallery」と 2 回回していたので、gallery の中で先に描く。
+ * Chrome が無い機械では止めずに知らせるだけにする（抜けは `test/site.test.ts` が落とす）。
+ */
+const soft = process.argv.includes('--soft');
 if (chrome === undefined) {
   console.error('Chrome が見つかりません。CHROME_PATH を渡すか、Chrome を入れてください。');
-  process.exit(1);
+  process.exit(soft ? 0 : 1);
 }
 
 const all = process.argv.includes('--all');
