@@ -1,0 +1,1338 @@
+version: 1
+kind: placement
+arrows: true
+title: ギターのコード表と TAB 譜（同じ押さえ方を、2 つの書き方で）
+sources:
+  - name: "Wikipedia「Tablature」（TAB 譜の数字・奏法の印・弦の並びは決まっていないこと）"
+    url: https://en.wikipedia.org/wiki/Tablature
+    retrieved: 2026-10-24
+  - name: "Guitar Pro Blog「How to Read Guitar Chord Diagrams」（コード表の向き・ナット・× と ○・指の番号）"
+    url: https://blog.guitar-pro.com/?p=48303
+    retrieved: 2026-10-24
+  - name: "For Dummies「How to Read a Guitar Chord Diagram」（指の番号は人差し指が 1）"
+    url: https://www.dummies.com/article/academics-the-arts/music/instruments/guitar/how-to-read-a-guitar-chord-diagram-198024/
+    retrieved: 2026-10-24
+  - name: "Tokyo Guitar Press「コード表の読み方」（横向きの表は 1 弦が上・ナットが左）"
+    url: https://tokyoguitarpress.com/chorddiagram/
+    retrieved: 2026-10-24
+# **同じ押さえ方を、向きの違う 2 つの書き方で。** コード表は 6 弦が左、TAB 譜は 1 弦が上。
+#
+# 決まり（取得 2026-10-24）——
+# コード表：縦が弦（左が 6 弦）、横がフレット、太い線がナット。上に × と ○、下に指の番号（1 人差し指〜4 小指）。
+# ナットが無い所から始まるときは、最初の段の横に「2fr」のようにフレットの番号を書く。
+# TAB 譜：線が弦で、いちばん上が 1 弦（高い e）。数字はフレット、0 は開放。並びは決まっていないので、左に弦の名前を書く。
+nodes:
+  - id: t0
+    label: "ギターのコード表と TAB 譜"
+    marker: none
+    align: center
+    at: { x: 330, y: 50 }
+    size: { w: 420, h: 18 }
+  - id: t1
+    label: "標準の調弦（6 弦から E・A・D・G・B・E）"
+    marker: none
+    align: left
+    at: { x: 60, y: 84 }
+    size: { w: 400, h: 16 }
+  - id: t2
+    label: "同じ押さえ方を、上はコード表、下は TAB 譜で書いた"
+    marker: none
+    align: right
+    at: { x: 560, y: 84 }
+    size: { w: 500, h: 16 }
+  - id: cn3
+    label: "C"
+    marker: none
+    align: center
+    at: { x: 120, y: 114 }
+    size: { w: 60, h: 18 }
+  - id: s4
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 94.4, y: 170 }
+    size: { w: 1.2, h: 120 }
+  - id: s5
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 116.4, y: 170 }
+    size: { w: 1.2, h: 120 }
+  - id: s6
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 138.4, y: 170 }
+    size: { w: 1.2, h: 120 }
+  - id: s7
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 160.4, y: 170 }
+    size: { w: 1.2, h: 120 }
+  - id: s8
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 182.4, y: 170 }
+    size: { w: 1.2, h: 120 }
+  - id: s9
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 204.4, y: 170 }
+    size: { w: 1.2, h: 120 }
+  - id: nut10
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 94.4, y: 165 }
+    size: { w: 111.2, h: 6 }
+  - id: f11
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 94.4, y: 193.4 }
+    size: { w: 111.2, h: 1.2 }
+  - id: f12
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 94.4, y: 217.4 }
+    size: { w: 111.2, h: 1.2 }
+  - id: f13
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 94.4, y: 241.4 }
+    size: { w: 111.2, h: 1.2 }
+  - id: f14
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 94.4, y: 265.4 }
+    size: { w: 111.2, h: 1.2 }
+  - id: f15
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 94.4, y: 289.4 }
+    size: { w: 111.2, h: 1.2 }
+  - id: mx16
+    label: "×"
+    marker: none
+    align: center
+    at: { x: 85, y: 142 }
+    size: { w: 20, h: 16 }
+  - id: op17
+    label: "○"
+    marker: none
+    align: center
+    at: { x: 151, y: 142 }
+    size: { w: 20, h: 16 }
+  - id: op18
+    label: "○"
+    marker: none
+    align: center
+    at: { x: 195, y: 142 }
+    size: { w: 20, h: 16 }
+  - id: d19
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 110, y: 223 }
+    size: { w: 14, h: 14 }
+  - id: d20
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 132, y: 199 }
+    size: { w: 14, h: 14 }
+  - id: d21
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 176, y: 175 }
+    size: { w: 14, h: 14 }
+  - id: fg22
+    label: "3"
+    marker: none
+    align: center
+    at: { x: 110, y: 296 }
+    size: { w: 14, h: 14 }
+  - id: fg23
+    label: "2"
+    marker: none
+    align: center
+    at: { x: 132, y: 296 }
+    size: { w: 14, h: 14 }
+  - id: fg24
+    label: "1"
+    marker: none
+    align: center
+    at: { x: 176, y: 296 }
+    size: { w: 14, h: 14 }
+  - id: cn25
+    label: "G"
+    marker: none
+    align: center
+    at: { x: 280, y: 114 }
+    size: { w: 60, h: 18 }
+  - id: s26
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 254.4, y: 170 }
+    size: { w: 1.2, h: 120 }
+  - id: s27
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 276.4, y: 170 }
+    size: { w: 1.2, h: 120 }
+  - id: s28
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 298.4, y: 170 }
+    size: { w: 1.2, h: 120 }
+  - id: s29
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 320.4, y: 170 }
+    size: { w: 1.2, h: 120 }
+  - id: s30
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 342.4, y: 170 }
+    size: { w: 1.2, h: 120 }
+  - id: s31
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 364.4, y: 170 }
+    size: { w: 1.2, h: 120 }
+  - id: nut32
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 254.4, y: 165 }
+    size: { w: 111.2, h: 6 }
+  - id: f33
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 254.4, y: 193.4 }
+    size: { w: 111.2, h: 1.2 }
+  - id: f34
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 254.4, y: 217.4 }
+    size: { w: 111.2, h: 1.2 }
+  - id: f35
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 254.4, y: 241.4 }
+    size: { w: 111.2, h: 1.2 }
+  - id: f36
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 254.4, y: 265.4 }
+    size: { w: 111.2, h: 1.2 }
+  - id: f37
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 254.4, y: 289.4 }
+    size: { w: 111.2, h: 1.2 }
+  - id: op38
+    label: "○"
+    marker: none
+    align: center
+    at: { x: 289, y: 142 }
+    size: { w: 20, h: 16 }
+  - id: op39
+    label: "○"
+    marker: none
+    align: center
+    at: { x: 311, y: 142 }
+    size: { w: 20, h: 16 }
+  - id: op40
+    label: "○"
+    marker: none
+    align: center
+    at: { x: 333, y: 142 }
+    size: { w: 20, h: 16 }
+  - id: d41
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 248, y: 223 }
+    size: { w: 14, h: 14 }
+  - id: d42
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 270, y: 199 }
+    size: { w: 14, h: 14 }
+  - id: d43
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 358, y: 223 }
+    size: { w: 14, h: 14 }
+  - id: fg44
+    label: "2"
+    marker: none
+    align: center
+    at: { x: 248, y: 296 }
+    size: { w: 14, h: 14 }
+  - id: fg45
+    label: "1"
+    marker: none
+    align: center
+    at: { x: 270, y: 296 }
+    size: { w: 14, h: 14 }
+  - id: fg46
+    label: "3"
+    marker: none
+    align: center
+    at: { x: 358, y: 296 }
+    size: { w: 14, h: 14 }
+  - id: cn47
+    label: "Am"
+    marker: none
+    align: center
+    at: { x: 440, y: 114 }
+    size: { w: 60, h: 18 }
+  - id: s48
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 414.4, y: 170 }
+    size: { w: 1.2, h: 120 }
+  - id: s49
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 436.4, y: 170 }
+    size: { w: 1.2, h: 120 }
+  - id: s50
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 458.4, y: 170 }
+    size: { w: 1.2, h: 120 }
+  - id: s51
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 480.4, y: 170 }
+    size: { w: 1.2, h: 120 }
+  - id: s52
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 502.4, y: 170 }
+    size: { w: 1.2, h: 120 }
+  - id: s53
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 524.4, y: 170 }
+    size: { w: 1.2, h: 120 }
+  - id: nut54
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 414.4, y: 165 }
+    size: { w: 111.2, h: 6 }
+  - id: f55
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 414.4, y: 193.4 }
+    size: { w: 111.2, h: 1.2 }
+  - id: f56
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 414.4, y: 217.4 }
+    size: { w: 111.2, h: 1.2 }
+  - id: f57
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 414.4, y: 241.4 }
+    size: { w: 111.2, h: 1.2 }
+  - id: f58
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 414.4, y: 265.4 }
+    size: { w: 111.2, h: 1.2 }
+  - id: f59
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 414.4, y: 289.4 }
+    size: { w: 111.2, h: 1.2 }
+  - id: mx60
+    label: "×"
+    marker: none
+    align: center
+    at: { x: 405, y: 142 }
+    size: { w: 20, h: 16 }
+  - id: op61
+    label: "○"
+    marker: none
+    align: center
+    at: { x: 427, y: 142 }
+    size: { w: 20, h: 16 }
+  - id: op62
+    label: "○"
+    marker: none
+    align: center
+    at: { x: 515, y: 142 }
+    size: { w: 20, h: 16 }
+  - id: d63
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 452, y: 199 }
+    size: { w: 14, h: 14 }
+  - id: d64
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 474, y: 199 }
+    size: { w: 14, h: 14 }
+  - id: d65
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 496, y: 175 }
+    size: { w: 14, h: 14 }
+  - id: fg66
+    label: "2"
+    marker: none
+    align: center
+    at: { x: 452, y: 296 }
+    size: { w: 14, h: 14 }
+  - id: fg67
+    label: "3"
+    marker: none
+    align: center
+    at: { x: 474, y: 296 }
+    size: { w: 14, h: 14 }
+  - id: fg68
+    label: "1"
+    marker: none
+    align: center
+    at: { x: 496, y: 296 }
+    size: { w: 14, h: 14 }
+  - id: cn69
+    label: "F"
+    marker: none
+    align: center
+    at: { x: 600, y: 114 }
+    size: { w: 60, h: 18 }
+  - id: s70
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 574.4, y: 170 }
+    size: { w: 1.2, h: 120 }
+  - id: s71
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 596.4, y: 170 }
+    size: { w: 1.2, h: 120 }
+  - id: s72
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 618.4, y: 170 }
+    size: { w: 1.2, h: 120 }
+  - id: s73
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 640.4, y: 170 }
+    size: { w: 1.2, h: 120 }
+  - id: s74
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 662.4, y: 170 }
+    size: { w: 1.2, h: 120 }
+  - id: s75
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 684.4, y: 170 }
+    size: { w: 1.2, h: 120 }
+  - id: nut76
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 574.4, y: 165 }
+    size: { w: 111.2, h: 6 }
+  - id: f77
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 574.4, y: 193.4 }
+    size: { w: 111.2, h: 1.2 }
+  - id: f78
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 574.4, y: 217.4 }
+    size: { w: 111.2, h: 1.2 }
+  - id: f79
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 574.4, y: 241.4 }
+    size: { w: 111.2, h: 1.2 }
+  - id: f80
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 574.4, y: 265.4 }
+    size: { w: 111.2, h: 1.2 }
+  - id: f81
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 574.4, y: 289.4 }
+    size: { w: 111.2, h: 1.2 }
+  - id: bar82
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 568, y: 176 }
+    size: { w: 124, h: 12 }
+  - id: d83
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 590, y: 223 }
+    size: { w: 14, h: 14 }
+  - id: d84
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 612, y: 223 }
+    size: { w: 14, h: 14 }
+  - id: d85
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 634, y: 199 }
+    size: { w: 14, h: 14 }
+  - id: fg86
+    label: "1"
+    marker: none
+    align: center
+    at: { x: 568, y: 296 }
+    size: { w: 14, h: 14 }
+  - id: fg87
+    label: "3"
+    marker: none
+    align: center
+    at: { x: 590, y: 296 }
+    size: { w: 14, h: 14 }
+  - id: fg88
+    label: "4"
+    marker: none
+    align: center
+    at: { x: 612, y: 296 }
+    size: { w: 14, h: 14 }
+  - id: fg89
+    label: "2"
+    marker: none
+    align: center
+    at: { x: 634, y: 296 }
+    size: { w: 14, h: 14 }
+  - id: fg90
+    label: "1"
+    marker: none
+    align: center
+    at: { x: 656, y: 296 }
+    size: { w: 14, h: 14 }
+  - id: fg91
+    label: "1"
+    marker: none
+    align: center
+    at: { x: 678, y: 296 }
+    size: { w: 14, h: 14 }
+  - id: cn92
+    label: "Bm"
+    marker: none
+    align: center
+    at: { x: 760, y: 114 }
+    size: { w: 60, h: 18 }
+  - id: s93
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 734.4, y: 170 }
+    size: { w: 1.2, h: 120 }
+  - id: s94
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 756.4, y: 170 }
+    size: { w: 1.2, h: 120 }
+  - id: s95
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 778.4, y: 170 }
+    size: { w: 1.2, h: 120 }
+  - id: s96
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 800.4, y: 170 }
+    size: { w: 1.2, h: 120 }
+  - id: s97
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 822.4, y: 170 }
+    size: { w: 1.2, h: 120 }
+  - id: s98
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 844.4, y: 170 }
+    size: { w: 1.2, h: 120 }
+  - id: f99
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 734.4, y: 169.4 }
+    size: { w: 111.2, h: 1.2 }
+  - id: f100
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 734.4, y: 193.4 }
+    size: { w: 111.2, h: 1.2 }
+  - id: f101
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 734.4, y: 217.4 }
+    size: { w: 111.2, h: 1.2 }
+  - id: f102
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 734.4, y: 241.4 }
+    size: { w: 111.2, h: 1.2 }
+  - id: f103
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 734.4, y: 265.4 }
+    size: { w: 111.2, h: 1.2 }
+  - id: f104
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 734.4, y: 289.4 }
+    size: { w: 111.2, h: 1.2 }
+  - id: fr105
+    label: "2fr"
+    marker: none
+    align: left
+    at: { x: 857, y: 174 }
+    size: { w: 36, h: 16 }
+  - id: mx106
+    label: "×"
+    marker: none
+    align: center
+    at: { x: 725, y: 142 }
+    size: { w: 20, h: 16 }
+  - id: bar107
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 750, y: 176 }
+    size: { w: 102, h: 12 }
+  - id: d108
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 772, y: 223 }
+    size: { w: 14, h: 14 }
+  - id: d109
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 794, y: 223 }
+    size: { w: 14, h: 14 }
+  - id: d110
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 816, y: 199 }
+    size: { w: 14, h: 14 }
+  - id: fg111
+    label: "1"
+    marker: none
+    align: center
+    at: { x: 750, y: 296 }
+    size: { w: 14, h: 14 }
+  - id: fg112
+    label: "3"
+    marker: none
+    align: center
+    at: { x: 772, y: 296 }
+    size: { w: 14, h: 14 }
+  - id: fg113
+    label: "4"
+    marker: none
+    align: center
+    at: { x: 794, y: 296 }
+    size: { w: 14, h: 14 }
+  - id: fg114
+    label: "2"
+    marker: none
+    align: center
+    at: { x: 816, y: 296 }
+    size: { w: 14, h: 14 }
+  - id: fg115
+    label: "1"
+    marker: none
+    align: center
+    at: { x: 838, y: 296 }
+    size: { w: 14, h: 14 }
+  - id: lb116
+    label: "指"
+    marker: none
+    align: right
+    at: { x: 36, y: 295 }
+    size: { w: 36, h: 16 }
+  - id: lb117
+    label: "弦"
+    marker: none
+    align: right
+    at: { x: 36, y: 315 }
+    size: { w: 36, h: 16 }
+  - id: sn118
+    label: "6"
+    marker: none
+    align: center
+    at: { x: 88, y: 316 }
+    size: { w: 14, h: 14 }
+  - id: sn119
+    label: "5"
+    marker: none
+    align: center
+    at: { x: 110, y: 316 }
+    size: { w: 14, h: 14 }
+  - id: sn120
+    label: "4"
+    marker: none
+    align: center
+    at: { x: 132, y: 316 }
+    size: { w: 14, h: 14 }
+  - id: sn121
+    label: "3"
+    marker: none
+    align: center
+    at: { x: 154, y: 316 }
+    size: { w: 14, h: 14 }
+  - id: sn122
+    label: "2"
+    marker: none
+    align: center
+    at: { x: 176, y: 316 }
+    size: { w: 14, h: 14 }
+  - id: sn123
+    label: "1"
+    marker: none
+    align: center
+    at: { x: 198, y: 316 }
+    size: { w: 14, h: 14 }
+  - id: tl124
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 100, y: 379.4 }
+    size: { w: 960, h: 1.2 }
+  - id: tl125
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 100, y: 393.4 }
+    size: { w: 960, h: 1.2 }
+  - id: tl126
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 100, y: 407.4 }
+    size: { w: 960, h: 1.2 }
+  - id: tl127
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 100, y: 421.4 }
+    size: { w: 960, h: 1.2 }
+  - id: tl128
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 100, y: 435.4 }
+    size: { w: 960, h: 1.2 }
+  - id: tl129
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 100, y: 449.4 }
+    size: { w: 960, h: 1.2 }
+  - id: tb130
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 99.2, y: 379.4 }
+    size: { w: 1.6, h: 71.2 }
+  - id: tn131
+    label: "e"
+    marker: none
+    align: right
+    at: { x: 56, y: 372 }
+    size: { w: 36, h: 16 }
+  - id: tn132
+    label: "B"
+    marker: none
+    align: right
+    at: { x: 56, y: 386 }
+    size: { w: 36, h: 16 }
+  - id: tn133
+    label: "G"
+    marker: none
+    align: right
+    at: { x: 56, y: 400 }
+    size: { w: 36, h: 16 }
+  - id: tn134
+    label: "D"
+    marker: none
+    align: right
+    at: { x: 56, y: 414 }
+    size: { w: 36, h: 16 }
+  - id: tn135
+    label: "A"
+    marker: none
+    align: right
+    at: { x: 56, y: 428 }
+    size: { w: 36, h: 16 }
+  - id: tn136
+    label: "E"
+    marker: none
+    align: right
+    at: { x: 56, y: 442 }
+    size: { w: 36, h: 16 }
+  - id: tab137
+    label: "T"
+    marker: none
+    hatch: solid
+    hatch_color: paper
+    at: { x: 106, y: 383 }
+    size: { w: 14, h: 18 }
+  - id: tab138
+    label: "A"
+    marker: none
+    hatch: solid
+    hatch_color: paper
+    at: { x: 106, y: 405 }
+    size: { w: 14, h: 18 }
+  - id: tab139
+    label: "B"
+    marker: none
+    hatch: solid
+    hatch_color: paper
+    at: { x: 106, y: 427 }
+    size: { w: 14, h: 18 }
+  - id: tv140
+    label: "3"
+    marker: none
+    hatch: solid
+    hatch_color: paper
+    at: { x: 143, y: 429 }
+    size: { w: 14, h: 14 }
+  - id: tv141
+    label: "2"
+    marker: none
+    hatch: solid
+    hatch_color: paper
+    at: { x: 143, y: 415 }
+    size: { w: 14, h: 14 }
+  - id: tv142
+    label: "0"
+    marker: none
+    hatch: solid
+    hatch_color: paper
+    at: { x: 143, y: 401 }
+    size: { w: 14, h: 14 }
+  - id: tv143
+    label: "1"
+    marker: none
+    hatch: solid
+    hatch_color: paper
+    at: { x: 143, y: 387 }
+    size: { w: 14, h: 14 }
+  - id: tv144
+    label: "0"
+    marker: none
+    hatch: solid
+    hatch_color: paper
+    at: { x: 143, y: 373 }
+    size: { w: 14, h: 14 }
+  - id: tv145
+    label: "3"
+    marker: none
+    hatch: solid
+    hatch_color: paper
+    at: { x: 303, y: 443 }
+    size: { w: 14, h: 14 }
+  - id: tv146
+    label: "2"
+    marker: none
+    hatch: solid
+    hatch_color: paper
+    at: { x: 303, y: 429 }
+    size: { w: 14, h: 14 }
+  - id: tv147
+    label: "0"
+    marker: none
+    hatch: solid
+    hatch_color: paper
+    at: { x: 303, y: 415 }
+    size: { w: 14, h: 14 }
+  - id: tv148
+    label: "0"
+    marker: none
+    hatch: solid
+    hatch_color: paper
+    at: { x: 303, y: 401 }
+    size: { w: 14, h: 14 }
+  - id: tv149
+    label: "0"
+    marker: none
+    hatch: solid
+    hatch_color: paper
+    at: { x: 303, y: 387 }
+    size: { w: 14, h: 14 }
+  - id: tv150
+    label: "3"
+    marker: none
+    hatch: solid
+    hatch_color: paper
+    at: { x: 303, y: 373 }
+    size: { w: 14, h: 14 }
+  - id: tv151
+    label: "0"
+    marker: none
+    hatch: solid
+    hatch_color: paper
+    at: { x: 463, y: 429 }
+    size: { w: 14, h: 14 }
+  - id: tv152
+    label: "2"
+    marker: none
+    hatch: solid
+    hatch_color: paper
+    at: { x: 463, y: 415 }
+    size: { w: 14, h: 14 }
+  - id: tv153
+    label: "2"
+    marker: none
+    hatch: solid
+    hatch_color: paper
+    at: { x: 463, y: 401 }
+    size: { w: 14, h: 14 }
+  - id: tv154
+    label: "1"
+    marker: none
+    hatch: solid
+    hatch_color: paper
+    at: { x: 463, y: 387 }
+    size: { w: 14, h: 14 }
+  - id: tv155
+    label: "0"
+    marker: none
+    hatch: solid
+    hatch_color: paper
+    at: { x: 463, y: 373 }
+    size: { w: 14, h: 14 }
+  - id: tv156
+    label: "1"
+    marker: none
+    hatch: solid
+    hatch_color: paper
+    at: { x: 623, y: 443 }
+    size: { w: 14, h: 14 }
+  - id: tv157
+    label: "3"
+    marker: none
+    hatch: solid
+    hatch_color: paper
+    at: { x: 623, y: 429 }
+    size: { w: 14, h: 14 }
+  - id: tv158
+    label: "3"
+    marker: none
+    hatch: solid
+    hatch_color: paper
+    at: { x: 623, y: 415 }
+    size: { w: 14, h: 14 }
+  - id: tv159
+    label: "2"
+    marker: none
+    hatch: solid
+    hatch_color: paper
+    at: { x: 623, y: 401 }
+    size: { w: 14, h: 14 }
+  - id: tv160
+    label: "1"
+    marker: none
+    hatch: solid
+    hatch_color: paper
+    at: { x: 623, y: 387 }
+    size: { w: 14, h: 14 }
+  - id: tv161
+    label: "1"
+    marker: none
+    hatch: solid
+    hatch_color: paper
+    at: { x: 623, y: 373 }
+    size: { w: 14, h: 14 }
+  - id: tv162
+    label: "2"
+    marker: none
+    hatch: solid
+    hatch_color: paper
+    at: { x: 783, y: 429 }
+    size: { w: 14, h: 14 }
+  - id: tv163
+    label: "4"
+    marker: none
+    hatch: solid
+    hatch_color: paper
+    at: { x: 783, y: 415 }
+    size: { w: 14, h: 14 }
+  - id: tv164
+    label: "4"
+    marker: none
+    hatch: solid
+    hatch_color: paper
+    at: { x: 783, y: 401 }
+    size: { w: 14, h: 14 }
+  - id: tv165
+    label: "3"
+    marker: none
+    hatch: solid
+    hatch_color: paper
+    at: { x: 783, y: 387 }
+    size: { w: 14, h: 14 }
+  - id: tv166
+    label: "2"
+    marker: none
+    hatch: solid
+    hatch_color: paper
+    at: { x: 783, y: 373 }
+    size: { w: 14, h: 14 }
+  - id: lk167
+    label: "奏法の印"
+    marker: none
+    align: left
+    at: { x: 840, y: 350 }
+    size: { w: 170, h: 16 }
+  - id: tv168
+    label: "5"
+    marker: none
+    hatch: solid
+    hatch_color: paper
+    at: { x: 843, y: 401 }
+    size: { w: 14, h: 14 }
+  - id: tv169
+    label: "h"
+    marker: none
+    hatch: solid
+    hatch_color: paper
+    at: { x: 857, y: 401 }
+    size: { w: 14, h: 14 }
+  - id: tv170
+    label: "7"
+    marker: none
+    hatch: solid
+    hatch_color: paper
+    at: { x: 871, y: 401 }
+    size: { w: 14, h: 14 }
+  - id: tv171
+    label: "p"
+    marker: none
+    hatch: solid
+    hatch_color: paper
+    at: { x: 885, y: 401 }
+    size: { w: 14, h: 14 }
+  - id: tv172
+    label: "5"
+    marker: none
+    hatch: solid
+    hatch_color: paper
+    at: { x: 899, y: 401 }
+    size: { w: 14, h: 14 }
+  - id: tv173
+    label: "5"
+    marker: none
+    hatch: solid
+    hatch_color: paper
+    at: { x: 927, y: 387 }
+    size: { w: 14, h: 14 }
+  - id: tv174
+    label: "/"
+    marker: none
+    hatch: solid
+    hatch_color: paper
+    at: { x: 941, y: 387 }
+    size: { w: 14, h: 14 }
+  - id: tv175
+    label: "7"
+    marker: none
+    hatch: solid
+    hatch_color: paper
+    at: { x: 955, y: 387 }
+    size: { w: 14, h: 14 }
+  - id: tv176
+    label: "7"
+    marker: none
+    hatch: solid
+    hatch_color: paper
+    at: { x: 983, y: 387 }
+    size: { w: 14, h: 14 }
+  - id: tv177
+    label: "b"
+    marker: none
+    hatch: solid
+    hatch_color: paper
+    at: { x: 997, y: 387 }
+    size: { w: 14, h: 14 }
+  - id: tv178
+    label: "9"
+    marker: none
+    hatch: solid
+    hatch_color: paper
+    at: { x: 1011, y: 387 }
+    size: { w: 14, h: 14 }
+  - id: te179
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 1055, y: 379.4 }
+    size: { w: 5, h: 71.2 }
+  - id: te180
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 1049.4, y: 379.4 }
+    size: { w: 1.6, h: 71.2 }
+  - id: th181
+    label: "コード表の読み方"
+    marker: box
+    at: { x: 60, y: 500 }
+    size: { w: 1000, h: 24 }
+  - id: ta182
+    label: "向き（縦向き）"
+    marker: box
+    at: { x: 60, y: 524 }
+    size: { w: 200, h: 24 }
+  - id: tb183
+    label: "ギターを立てて正面から見た向き。縦の線が弦で、左端が 6 弦（低い E）、右端が 1 弦（高い e）。横の線がフレット"
+    marker: box
+    align: left
+    at: { x: 260, y: 524 }
+    size: { w: 800, h: 24 }
+  - id: ta184
+    label: "向き（横向き）"
+    marker: box
+    at: { x: 60, y: 548 }
+    size: { w: 200, h: 24 }
+  - id: tb185
+    label: "日本の教本・歌本には、横向きの表も多い。ナットが左、1 弦が上で、TAB 譜と同じ向き。フレットの番号は下に書く"
+    marker: box
+    align: left
+    at: { x: 260, y: 548 }
+    size: { w: 800, h: 24 }
+  - id: ta186
+    label: "いちばん上の太い線"
+    marker: box
+    at: { x: 60, y: 572 }
+    size: { w: 200, h: 24 }
+  - id: tb187
+    label: "ナット（弦の端）。太い線があれば 1 フレットから。無ければ、横の「2fr」が最初の段のフレットの番号"
+    marker: box
+    align: left
+    at: { x: 260, y: 572 }
+    size: { w: 800, h: 24 }
+  - id: ta188
+    label: "× と ○"
+    marker: box
+    at: { x: 60, y: 596 }
+    size: { w: 200, h: 24 }
+  - id: tb189
+    label: "× はその弦を弾かない、○ は押さえずに弾く（開放弦）。どちらも書いていない弦は、黒丸の所を押さえる"
+    marker: box
+    align: left
+    at: { x: 260, y: 596 }
+    size: { w: 800, h: 24 }
+  - id: ta190
+    label: "黒丸と下の数字"
+    marker: box
+    at: { x: 60, y: 620 }
+    size: { w: 200, h: 24 }
+  - id: tb191
+    label: "黒丸が押さえる所（フレットとフレットの間）。下の数字が使う指で、1 人差し指・2 中指・3 薬指・4 小指"
+    marker: box
+    align: left
+    at: { x: 260, y: 620 }
+    size: { w: 800, h: 24 }
+  - id: ta192
+    label: "横に長い丸"
+    marker: box
+    at: { x: 60, y: 644 }
+    size: { w: 200, h: 24 }
+  - id: tb193
+    label: "セーハ。1 本の指（ふつう人差し指）で、何本もの弦をまとめて押さえる。F は 6 本とも、Bm は 5 弦から 1 弦まで"
+    marker: box
+    align: left
+    at: { x: 260, y: 644 }
+    size: { w: 800, h: 24 }
+  - id: th194
+    label: "TAB 譜の読み方"
+    marker: box
+    at: { x: 60, y: 688 }
+    size: { w: 1000, h: 24 }
+  - id: ta195
+    label: "向き"
+    marker: box
+    at: { x: 60, y: 712 }
+    size: { w: 200, h: 24 }
+  - id: tb196
+    label: "6 本の線が弦で、いちばん上が 1 弦（高い e）。縦向きのコード表と並びが逆になる。左に弦の名前を書いて、向きを示す"
+    marker: box
+    align: left
+    at: { x: 260, y: 712 }
+    size: { w: 800, h: 24 }
+  - id: ta197
+    label: "数字"
+    marker: box
+    at: { x: 60, y: 736 }
+    size: { w: 200, h: 24 }
+  - id: tb198
+    label: "押さえるフレットの番号。0 は開放弦。縦に並んだ数字は同時に弾き、左から右へ順に弾く"
+    marker: box
+    align: left
+    at: { x: 260, y: 736 }
+    size: { w: 800, h: 24 }
+  - id: ta199
+    label: "音の長さ"
+    marker: box
+    at: { x: 60, y: 760 }
+    size: { w: 200, h: 24 }
+  - id: tb200
+    label: "TAB 譜だけでは決まらない。リズムは五線譜を上に添えるか、数字に符尾を付けて書く"
+    marker: box
+    align: left
+    at: { x: 260, y: 760 }
+    size: { w: 800, h: 24 }
+  - id: ta201
+    label: "h と p"
+    marker: box
+    at: { x: 60, y: 784 }
+    size: { w: 200, h: 24 }
+  - id: tb202
+    label: "h はハンマリング・オン（弾かずに指で叩いて鳴らす）、p はプリング・オフ（指をはじいて離して鳴らす）"
+    marker: box
+    align: left
+    at: { x: 260, y: 784 }
+    size: { w: 800, h: 24 }
+  - id: ta203
+    label: "/ と b"
+    marker: box
+    at: { x: 60, y: 808 }
+    size: { w: 200, h: 24 }
+  - id: tb204
+    label: "/ はスライド（押さえたまま滑らせる）。7b9 は 7 フレットで弦を押し上げ、9 フレットの高さ（1 音）まで上げるチョーキング"
+    marker: box
+    align: left
+    at: { x: 260, y: 808 }
+    size: { w: 800, h: 24 }
+  - id: th205
+    label: "描かなかったもの（理由）"
+    marker: box
+    at: { x: 60, y: 852 }
+    size: { w: 1000, h: 24 }
+  - id: ta206
+    label: "リズム"
+    marker: box
+    at: { x: 60, y: 876 }
+    size: { w: 200, h: 24 }
+  - id: tb207
+    label: "音の長さは TAB 譜の数字に書けない。コードの押さえ方を見せるのが目的なので、五線譜は付けなかった"
+    marker: box
+    align: left
+    at: { x: 260, y: 876 }
+    size: { w: 800, h: 24 }
+  - id: ta208
+    label: "ほかの押さえ方"
+    marker: box
+    at: { x: 60, y: 900 }
+    size: { w: 200, h: 24 }
+  - id: tb209
+    label: "G は 3 本の指で押さえる形（2・1・3）にした。4 本の指で押さえる形などもあり、本によって違う"
+    marker: box
+    align: left
+    at: { x: 260, y: 900 }
+    size: { w: 800, h: 24 }
+  - id: ta210
+    label: "曲"
+    marker: box
+    at: { x: 60, y: 924 }
+    size: { w: 200, h: 24 }
+  - id: tb211
+    label: "実在の曲の TAB 譜は写さない（著作権）。並べたのは、どの教本にも載っている基本のコードだけ"
+    marker: box
+    align: left
+    at: { x: 260, y: 924 }
+    size: { w: 800, h: 24 }
+  - id: n212
+    label: "ギターのコード表と TAB 譜を、決まりどおりに描いた図です。同じ押さえ方を、上下に縦をそろえて並べています。"
+    marker: none
+    align: left
+    at: { x: 60, y: 968 }
+    size: { w: 1000, h: 18 }
+  - id: n213
+    label: "縦向きのコード表は 6 弦が左、TAB 譜は 1 弦が上で、並びの向きが逆です。弦の名前や番号を添えて、向きを示します。"
+    marker: none
+    align: left
+    at: { x: 60, y: 990 }
+    size: { w: 1000, h: 18 }
+  - id: n214
+    label: "弦・フレット・音符の代わりの数字も、zumen の共通の部品（細い帯・楕円・文字）だけで描いています。"
+    marker: none
+    align: left
+    at: { x: 60, y: 1012 }
+    size: { w: 1000, h: 18 }

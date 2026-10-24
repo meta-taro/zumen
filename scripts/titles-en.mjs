@@ -387,6 +387,8 @@ export const TITLES_EN = {
   '399-震度の分布-各地の震度と推計震度': 'Seismic intensity distribution (station readings and estimated intensity map; fictional)',
   '400-大圏航路と等角航路-東京からニューヨーク': 'Great circle and rhumb line (Tokyo to New York on Mercator and azimuthal equidistant maps)',
   '401-キキクル-土砂のメッシュと洪水の川': 'KiKiKuru risk maps (landslide on a 1 km mesh, flooding along the rivers; fictional town)',
+  '405-単線図から複線図へ': 'From a one-line plan to a full wiring diagram (Japanese electrician exam rules)',
+  '404-ギターのコード表とTAB譜': 'Guitar chord boxes and TAB (one fingering, two notations that face opposite ways)',
   '403-きらきら星-英語の歌詞つきの五線譜': 'Twinkle, Twinkle, Little Star (a staff score with English lyrics)',
   '402-時差の世界地図-経度の帯と国が決めた時': 'World time zones (the 15-degree bands, and the times countries actually keep)',
 };
