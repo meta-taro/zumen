@@ -34,7 +34,8 @@ import { z } from 'zod';
 
 import { dirname } from 'node:path';
 import { about } from './about.ts';
-import { catalogue, search, source } from './examples.ts';
+import { catalogue, nearby, search, source } from './examples.ts';
+import { parse } from './format.ts';
 import { isEntry } from './entry.ts';
 import { messages } from './messages.ts';
 import { mkdirSync, writeFileSync } from 'node:fs';
@@ -89,9 +90,38 @@ function picture(made: { image: string | null; note: string }): {
   };
 }
 
+/**
+ * **作った直後に、題に近い見本を添える**（`src/examples.ts` の `nearby`）。
+ *
+ * 見本を探して読むかどうかを、頼む人の書き方に任せない。Copilot に照明仕込図を頼んだら、
+ * 見本 77（舞台照明仕込図）を読まずに描き、1 サスを一番奥に置いた（2026-10-28）。
+ */
+export function withNearby<T extends { ok: boolean }>(result: T, body: string): T | (T & { nearExamples: unknown[]; next: string }) {
+  if (!result.ok) return result;
+  const book = catalogue();
+  if (book === null) return result;
+  const found = nearby(book, titleOf(body));
+  if (found.length === 0) return result;
+  return {
+    ...result,
+    nearExamples: found.map((item) => ({ name: item.name, caption: item.caption })),
+    next: messages().mcp.createNearby(found.map((item) => item.name).join(', ')),
+  };
+}
+
+function titleOf(body: string): string {
+  try {
+    return String((parse(body).doc.toJS() as { title?: unknown }).title ?? '');
+  } catch {
+    // 読めない正本は create が先に断る。ここでは近い見本を出さないだけ。
+    return '';
+  }
+}
+
 export function buildServer(hub: Hub = createHub()): McpServer {
-  const server = new McpServer({ name: 'zumen', version: '0.0.0' });
   const m = messages().mcp;
+  // **つないだ直後に、手順を 1 回だけ渡す。** 頼み方に関係なく、見本を読んでから描くように。
+  const server = new McpServer({ name: 'zumen', version: '0.0.0' }, { instructions: m.instructions });
 
   // --- この道具の説明 ------------------------------------------------------
   //
@@ -225,7 +255,7 @@ export function buildServer(hub: Hub = createHub()): McpServer {
         source: z.string().describe(m.createSource),
       },
     },
-    ({ path, source }) => json(create(path, source)),
+    ({ path, source }) => json(withNearby(create(path, source), source)),
   );
 
   server.registerTool(

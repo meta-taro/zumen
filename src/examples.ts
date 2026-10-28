@@ -86,16 +86,70 @@ export function source(
   }
 }
 
-/** 目次を絞る。名前・一行（和英）に当たる語で。 */
+/**
+ * 目次を絞る。名前・一行（和英）・道具に当たる語で。
+ *
+ * **語を並べてもよい**（空白・読点・中黒で区切る）。どれかに当たれば出し、
+ * 当たった語の多い順に並べる。丸ごと一致だけを見ていた頃は、
+ * エージェントが「劇場 照明 仕込」と並べると 0 件になり、見本を読まずに描いた（2026-10-28）。
+ */
 export function search(book: Catalogue, query: string): Category[] {
-  const needle = query.trim().toLowerCase();
-  if (needle === '') return book.categories;
+  const terms = query
+    .toLowerCase()
+    .split(/[\s、，,・／/]+/)
+    .filter((term) => term !== '');
+  if (terms.length === 0) return book.categories;
+
+  const score = (item: Example): number => {
+    const hay = `${item.name} ${item.caption} ${item.captionEn} ${item.kind} ${item.uses.join(' ')}`.toLowerCase();
+    return terms.filter((term) => hay.includes(term)).length;
+  };
   return book.categories
-    .map((group) => ({
-      ...group,
-      items: group.items.filter((item) =>
-        `${item.name} ${item.caption} ${item.captionEn} ${item.kind} ${item.uses.join(' ')}`.toLowerCase().includes(needle),
-      ),
-    }))
-    .filter((group) => group.items.length > 0);
+    .map((group) => {
+      const items = group.items
+        .map((item) => ({ item, hits: score(item) }))
+        .filter((found) => found.hits > 0)
+        .sort((a, b) => b.hits - a.hits);
+      return { group: { ...group, items: items.map((found) => found.item) }, best: items[0]?.hits ?? 0 };
+    })
+    .filter((found) => found.group.items.length > 0)
+    .sort((a, b) => b.best - a.best)
+    .map((found) => found.group);
+}
+
+/** 近いと見なす下限（見本の名前の 2 文字の並びのうち、題に入っている割合）。 */
+const NEAR = 0.3;
+
+/**
+ * **図の題から、近い見本を 3 枚まで出す**（`zumen_create` が作った直後に返す）。
+ *
+ * 見本を読むかどうかを、頼む人の書き方に任せない。題に「照明仕込図」とあれば、
+ * 一次資料で確かめた仕込図の見本が、作った時点で必ず目に入るようにする。
+ *
+ * 比べるのは見本の名前（番号を除く）の 2 文字の並び。日本語は語の切れ目が無いので、
+ * 語ではなく 2 文字ずつで見る。似ていなければ何も出さない。
+ */
+export function nearby(book: Catalogue, title: string, limit = 3): Example[] {
+  const have = pairs(title);
+  if (have.size === 0) return [];
+  return book.categories
+    .flatMap((group) => group.items)
+    .map((item) => {
+      const want = pairs(item.name.replace(/^\d+-/, ''));
+      let common = 0;
+      for (const pair of want) if (have.has(pair)) common += 1;
+      return { item, ratio: want.size === 0 ? 0 : common / want.size };
+    })
+    .filter((found) => found.ratio >= NEAR)
+    .sort((a, b) => b.ratio - a.ratio)
+    .slice(0, limit)
+    .map((found) => found.item);
+}
+
+/** 2 文字ずつの並び。空白と記号は外す（「照明 仕込図」と「照明仕込図」を同じに見る）。 */
+function pairs(text: string): Set<string> {
+  const letters = [...text.toLowerCase().replace(/[\s\p{P}\p{S}]/gu, '')];
+  const out = new Set<string>();
+  for (let i = 0; i + 1 < letters.length; i += 1) out.add(letters[i]! + letters[i + 1]!);
+  return out;
 }

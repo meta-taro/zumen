@@ -24,7 +24,7 @@ import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { InMemoryTransport } from '@modelcontextprotocol/sdk/inMemory.js';
 
 import { DOORS } from '../src/about.ts';
-import { buildServer } from '../src/mcp.ts';
+import { buildServer, withNearby } from '../src/mcp.ts';
 
 async function connect(): Promise<Client> {
   const [clientSide, serverSide] = InMemoryTransport.createLinkedPair();
@@ -173,5 +173,30 @@ describe('MCP の口', () => {
     const out = JSON.parse(body(await client.callTool({ name: 'zumen_about', arguments: {} })));
     assert.ok(typeof out === 'object' && out !== null);
     await client.close();
+  });
+});
+
+describe('頼み方に関係なく、見本へ連れて行く（2026-10-28）', () => {
+  it('**つないだ直後の案内で、見本を探して読んでから描くよう伝える**', async () => {
+    const client = await connect();
+    const instructions = client.getInstructions() ?? '';
+    assert.match(instructions, /zumen_examples/);
+    assert.match(instructions, /zumen_spec/);
+  });
+
+  it('**作った直後に、題に近い見本を添える**', () => {
+    const result = withNearby({ ok: true, path: 'a.zumen.yaml' }, 'version: 1\ntitle: 劇場 舞台照明仕込図\nnodes: []\n');
+    assert.ok('nearExamples' in result);
+    const names = (result as { nearExamples: { name: string }[] }).nearExamples.map((e) => e.name);
+    assert.equal(names[0], '77-舞台照明仕込図');
+    assert.match((result as { next: string }).next, /zumen_examples/);
+  });
+
+  it('近い見本が無ければ、何も足さない', () => {
+    assert.deepEqual(withNearby({ ok: true, path: 'a.zumen.yaml' }, 'version: 1\ntitle: qqqq\nnodes: []\n'), { ok: true, path: 'a.zumen.yaml' });
+  });
+
+  it('作れなかったときは、近い見本を出さない（先に直すことがある）', () => {
+    assert.deepEqual(withNearby({ ok: false, path: 'a.zumen.yaml' }, 'title: 舞台照明仕込図\n'), { ok: false, path: 'a.zumen.yaml' });
   });
 });

@@ -10,7 +10,7 @@ import assert from 'node:assert/strict';
 import { readdirSync, readFileSync } from 'node:fs';
 import { describe, it } from 'node:test';
 
-import { catalogue, search, source } from '../src/examples.ts';
+import { catalogue, nearby, search, source } from '../src/examples.ts';
 
 const dir = new URL('../examples/gallery/', import.meta.url);
 const files = readdirSync(dir).filter((f) => f.endsWith('.zumen.yaml'));
@@ -139,6 +139,36 @@ describe('見本を絞る', () => {
 
   it('空の語なら、そのまま全部', () => {
     assert.equal(search(catalogue()!, '  ').length, catalogue()!.categories.length);
+  });
+
+  it('**語を並べても引ける**（どれかに当たれば出し、当たった数の多い順）', () => {
+    // 丸ごと一致しか見ていなかった頃は、Copilot の「劇場 照明 仕込」が 0 件だった（2026-10-28）。
+    const found = search(catalogue()!, '劇場 照明 仕込図').flatMap((g) => g.items.map((i) => i.name));
+    assert.ok(found.includes('77-舞台照明仕込図'), found.join(' '));
+    const ranked = search(catalogue()!, '劇場 照明 仕込図').flatMap((g) => g.items);
+    assert.equal(ranked[0]!.name.endsWith('照明仕込図'), true, `先頭が ${ranked[0]!.name}`);
+  });
+
+  it('読点・中黒でも区切る', () => {
+    const found = search(catalogue()!, '照明、型紙').flatMap((g) => g.items.map((i) => i.name));
+    assert.ok(found.some((n) => n.includes('照明')) && found.length >= 4);
+  });
+});
+
+describe('題から近い見本を出す（作った直後に、頼み方に関係なく目に入るように）', () => {
+  it('**題に見本の名前が入っていれば、それを先頭に出す**', () => {
+    const near = nearby(catalogue()!, '劇場 舞台照明仕込図（Lighting Plot）').map((i) => i.name);
+    assert.equal(near[0], '77-舞台照明仕込図');
+    assert.ok(near.includes('369-ドームライブの照明仕込図'), near.join(' '));
+  });
+
+  it('多くても 3 枚', () => {
+    assert.ok(nearby(catalogue()!, '照明仕込図 型紙 査定図 点字ブロック').length <= 3);
+  });
+
+  it('**似ていなければ出さない**（手当たり次第に並べると、読まれなくなる）', () => {
+    assert.deepEqual(nearby(catalogue()!, 'qqqq'), []);
+    assert.deepEqual(nearby(catalogue()!, ''), []);
   });
 });
 

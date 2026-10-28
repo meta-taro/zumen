@@ -453,6 +453,13 @@ const ja = {
       '新しい図を作る。既にファイルがあれば失敗する（上書きの経路にしない）。形式に適合しないものは書かない。既存の図を変えるなら zumen_propose を使うこと。',
     createPath: '作る場所。.zumen.yaml で終わること',
     createSource: '図の中身',
+    createNearby: (names: string) =>
+      `この図に近い見本があります（${names}）。zumen_examples に name を渡して読み、その分野の決まり（記号・並び順・用語・表の組み方）がこの図で守れているかを照らしてから、zumen_propose で直してください。`,
+    instructions:
+      'zumen は、業界の人が実務で使う専門図面（仕込図・査定図・歯周チャート・配線図など）を YAML の正本から描く道具です。' +
+      '図を描く前に、(1) zumen_spec で書き方を読み、(2) zumen_examples に分野の語（例：「照明 仕込図」）を渡して近い見本を探し、' +
+      '(3) 近いものの正本を name で読んで、記号・並び順・用語・表の組み方を真似てください。見本はその分野の一次資料で確かめてあります。' +
+      '描いたら zumen_inspect で検査し、zumen_export の png で絵を見てください。既にある図は zumen_propose で直します（人の手直しは壊れません）。',
     proposeTitle: '提案を正本へ入れる',
     proposeDesc:
       '既にある図へ提案を入れる。提案の pins は読まないので、人の手直しは壊れない。人の指定と食い違うところは適用せず、競合として返す。競合を決めるのは人であって、あなたではない。',
@@ -1367,6 +1374,13 @@ const en: Catalog = {
       'Creates a new diagram. Fails if the file already exists (this is not an overwrite path). Nothing is written unless it conforms to the format. To change an existing diagram, use zumen_propose.',
     createPath: 'Where to create it. Must end with .zumen.yaml',
     createSource: 'The diagram body',
+    createNearby: (names: string) =>
+      `There are bundled examples close to this diagram (${names}). Read them with zumen_examples (pass name), check that this diagram follows the same conventions of the field (symbols, ordering, terms, how the tables are laid out), then fix it with zumen_propose.`,
+    instructions:
+      'zumen draws the specialist drawings people use at work (lighting plots, appraisal charts, periodontal charts, wiring diagrams…) from a YAML source. ' +
+      'Before drawing: (1) read zumen_spec for the syntax, (2) call zumen_examples with words for the field (e.g. "lighting plot") to find close examples, ' +
+      '(3) read the closest ones by name and follow their symbols, ordering, terms and table layout — they were checked against primary sources. ' +
+      'After drawing, run zumen_inspect and look at a png from zumen_export. Change an existing diagram with zumen_propose (hand edits survive).',
     proposeTitle: 'Apply a proposal to the source of truth',
     proposeDesc:
       'Applies a proposal to an existing diagram. The pins in your proposal are not read, so hand edits survive. Anything that disagrees with a hand edit is not applied and comes back as a conflict. Conflicts are decided by a person, not by you.',
