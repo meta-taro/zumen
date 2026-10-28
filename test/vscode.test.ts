@@ -148,3 +148,35 @@ describe('VS Code: エージェントへつなぐ', () => {
     assert.match(entry, /terminal\.sendText\(claudeCodeCommand\([^)]*\), false\)/);
   });
 });
+
+describe('VS Code: 保存', async () => {
+  const { PNG_SCALE, pngBytes, saveName, svgSize } = await import('../packages/zumen-vscode/src/save.ts');
+
+  it('保存の名前は正本の名前を引き継ぐ', () => {
+    assert.equal(saveName('bunden.zumen.yaml', 'svg'), 'bunden.svg');
+    assert.equal(saveName('plot.zumen.yml', 'png'), 'plot.png');
+    assert.equal(saveName('note.yaml', 'svg'), 'note.svg');
+    assert.equal(saveName('.zumen.yaml', 'png'), 'diagram.png');
+  });
+
+  it('PNG は data URL の中身だけを受ける', () => {
+    assert.deepEqual(Array.from(pngBytes('data:image/png;base64,AQID')!), [1, 2, 3]);
+    assert.equal(pngBytes('data:text/html;base64,AQID'), null);
+    assert.equal(pngBytes('AQID'), null);
+  });
+
+  it('PNG の大きさは viewBox から読み、2 倍で作る', async () => {
+    assert.deepEqual(svgSize('<svg viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg"></svg>'), { width: 640, height: 480 });
+    assert.equal(svgSize('<svg width="10"></svg>'), null);
+    assert.equal(svgSize('<svg viewBox="0 0 0 10"></svg>'), null);
+    assert.equal(PNG_SCALE, 2);
+    const drawn = await draw(R0, 'light');
+    assert.ok(drawn.ok && svgSize(drawn.svg) !== null, '実際に描いた図から大きさが読める');
+  });
+
+  it('保存のボタンが枠にある', () => {
+    const html = page({ script: 's', cspSource: 'c', nonce: 'n' });
+    assert.match(html, /id="save-svg"/);
+    assert.match(html, /id="save-png"/);
+  });
+});

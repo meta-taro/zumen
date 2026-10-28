@@ -3,7 +3,7 @@
  *
  * やることは 4 つだけ。
  *
- * 1. `.zumen.yaml` を開いているとき、横に図を出す（`zumen.openPreview`）
+ * 1. `.zumen.yaml` を開いているとき、横に図を出す（`zumen.openPreview`）。SVG・PNG で保存できる
  * 2. Markdown プレビューの ```` ```zumen ```` を図の置き場にする（`extendMarkdownIt`）
  * 3. 同梱した MCP サーバを、Copilot に名乗る（VS Code 1.101 以降。それより前は黙って飛ばす）
  * 4. 端末のエージェントへつなぐ 1 行を、端末に置く（`zumen.connectTerminalAgents`。Enter は人が押す）
@@ -16,6 +16,7 @@ import * as vscode from 'vscode';
 import { claudeCodeCommand, launcher, RUN_AS_NODE } from './agents.ts';
 import { zumenFence, type MarkdownItLike } from './fence.ts';
 import { nonce, page } from './page.ts';
+import { pngBytes, saveName, type SaveFormat } from './save.ts';
 
 const VIEW_TYPE = 'zumen.preview';
 const MCP_PROVIDER = 'zumen.mcp';
@@ -101,8 +102,9 @@ async function openPreview(context: vscode.ExtensionContext, uri?: vscode.Uri): 
   const send = (): void => void panel.webview.postMessage({ type: 'source', source: document.getText() });
 
   const listeners = [
-    panel.webview.onDidReceiveMessage((message: { type?: string }) => {
+    panel.webview.onDidReceiveMessage((message: { type?: string; format?: SaveFormat; data?: string }) => {
       if (message.type === 'ready') send();
+      if (message.type === 'save' && typeof message.data === 'string') void saveDiagram(document.uri, message.format, message.data);
     }),
     // 保存を待たず、打つたびに描き直す。描くのは画面側なので、ここは文字を渡すだけ。
     vscode.workspace.onDidChangeTextDocument((event) => {
@@ -110,6 +112,21 @@ async function openPreview(context: vscode.ExtensionContext, uri?: vscode.Uri): 
     }),
   ];
   panel.onDidDispose(() => listeners.forEach((listener) => listener.dispose()));
+}
+
+/** 保存先は人が選ぶ。既定は正本の隣・同じ名前。 */
+async function saveDiagram(source: vscode.Uri, format: SaveFormat | undefined, data: string): Promise<void> {
+  if (format !== 'svg' && format !== 'png') return;
+  const bytes = format === 'svg' ? new TextEncoder().encode(data) : pngBytes(data);
+  if (bytes === null) return;
+
+  const target = await vscode.window.showSaveDialog({
+    defaultUri: vscode.Uri.joinPath(source, '..', saveName(basename(source), format)),
+    filters: format === 'svg' ? { SVG: ['svg'] } : { PNG: ['png'] },
+  });
+  if (target === undefined) return;
+  await vscode.workspace.fs.writeFile(target, bytes);
+  void vscode.window.showInformationMessage(`zumen: saved ${basename(target)}`);
 }
 
 function basename(uri: vscode.Uri): string {

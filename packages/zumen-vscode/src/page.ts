@@ -32,9 +32,14 @@ export function page({ script, cspSource, nonce }: PageParts): string {
   .zumen-error { margin-bottom: 12px; padding: 8px 12px; border-left: 3px solid var(--vscode-inputValidation-errorBorder, #be1100);
     background: var(--vscode-inputValidation-errorBackground, transparent); font-family: var(--vscode-editor-font-family); white-space: pre-wrap; }
   .stale { opacity: 0.45; }
+  #tools { display: flex; gap: 8px; margin-bottom: 12px; }
+  #tools button { font: inherit; padding: 4px 10px; border: 1px solid var(--vscode-button-border, transparent);
+    color: var(--vscode-button-secondaryForeground); background: var(--vscode-button-secondaryBackground); border-radius: 2px; cursor: pointer; }
+  #tools button:hover { background: var(--vscode-button-secondaryHoverBackground); }
 </style>
 </head>
 <body>
+<div id="tools"><button id="save-svg" type="button">Save SVG</button><button id="save-png" type="button">Save PNG</button></div>
 <div id="status"></div>
 <div id="diagram"></div>
 <script nonce="${nonce}" src="${script}"></script>
