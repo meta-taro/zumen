@@ -1,0 +1,41 @@
+{
+  "name": "zumen",
+  "displayName": "zumen",
+  "description": "Preview zumen diagrams (.zumen.yaml) beside the editor, and draw ```zumen blocks in the Markdown preview.",
+  "version": "0.1.0",
+  "//version": "試作。本体（0.6.x）とは版を揃えない。Marketplace に出すと決めたら、本体と揃えるかをそこで決める。",
+  "publisher": "meta-taro",
+  "license": "MIT",
+  "private": true,
+  "repository": { "type": "git", "url": "git+https://github.com/meta-taro/zumen.git", "directory": "packages/zumen-vscode" },
+  "homepage": "https://meta-taro.github.io/zumen/",
+  "engines": { "vscode": "^1.95.0" },
+  "categories": ["Visualization"],
+  "main": "./dist/extension.js",
+  "activationEvents": ["onLanguage:markdown"],
+  "//capabilities": "正本を読んで描くだけで、フォルダの中のものを走らせない。だから信頼していないフォルダでも動かしてよい。",
+  "capabilities": { "untrustedWorkspaces": { "supported": true }, "virtualWorkspaces": true },
+  "contributes": {
+    "commands": [
+      {
+        "command": "zumen.openPreview",
+        "title": "zumen: Open Preview to the Side",
+        "icon": "$(open-preview)"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        { "command": "zumen.openPreview", "when": "resourceFilename =~ /\\.zumen\\.ya?ml$/", "group": "navigation" }
+      ],
+      "explorer/context": [
+        { "command": "zumen.openPreview", "when": "resourceFilename =~ /\\.zumen\\.ya?ml$/" }
+      ],
+      "commandPalette": [
+        { "command": "zumen.openPreview", "when": "resourceFilename =~ /\\.zumen\\.ya?ml$/" }
+      ]
+    },
+    "markdown.markdownItPlugins": true,
+    "markdown.previewScripts": ["./dist/markdown.js"],
+    "markdown.previewStyles": ["./media/markdown.css"]
+  }
+}
