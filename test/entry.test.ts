@@ -8,6 +8,9 @@
  * 配布して別の機械で試してもらう以上、ここは当てずっぽうにしない。
  */
 import assert from 'node:assert/strict';
+import { mkdtempSync, realpathSync, rmSync, symlinkSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { describe, it } from 'node:test';
 import { pathToFileURL } from 'node:url';
 
@@ -32,6 +35,21 @@ describe('入口の判定', () => {
   it('入口が無ければ偽（import されただけ）', () => {
     assert.equal(isEntry(pathToFileURL(HERE).href, undefined), false);
     assert.equal(isEntry(pathToFileURL(HERE).href, ''), false);
+  });
+
+  it('**つないだ道（シンボリックリンク）から叩かれても真**', () => {
+    // Node は入口の道をたどって実体の url にするが、`argv[1]` はつないだ道のまま来る。
+    // VS Code の拡張をつないで入れたとき、MCP サーバが黙って終わった（2026-10-28）。
+    const dir = mkdtempSync(join(tmpdir(), 'zumen-entry-'));
+    const real = join(dir, 'real.js');
+    const link = join(dir, 'link.js');
+    writeFileSync(real, '');
+    symlinkSync(real, link);
+    try {
+      assert.equal(isEntry(pathToFileURL(realpathSync(real)).href, link), true);
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+    }
   });
 
   it('file: でない url でも落ちない', () => {
