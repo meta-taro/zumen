@@ -8,6 +8,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { describe, it } from 'node:test';
 
+import { claudeCodeCommand, launcher, shellQuote } from '../packages/zumen-vscode/src/agents.ts';
 import { draw, failure, themeOf } from '../packages/zumen-vscode/src/draw.ts';
 import { escapeHtml, isZumenFence, placeholder, zumenFence, type FenceRule, type FenceToken } from '../packages/zumen-vscode/src/fence.ts';
 import { nonce, page } from '../packages/zumen-vscode/src/page.ts';
@@ -108,7 +109,42 @@ describe('VS Code: 拡張の名乗り', () => {
     for (const file of ['extension.js', 'preview.js', 'markdown.js']) assert.match(build, new RegExp(`'${file}'`));
   });
 
+  it('Copilot へ名乗る口が、名乗りと入口で同じ名前', () => {
+    assert.deepEqual(manifest.contributes.mcpServerDefinitionProviders, [{ id: 'zumen.mcp', label: 'zumen' }]);
+    const entry = readFileSync(new URL('../packages/zumen-vscode/src/extension.ts', import.meta.url), 'utf8');
+    assert.match(entry, /const MCP_PROVIDER = 'zumen\.mcp';/);
+  });
+
   it('公開しない（Marketplace へ出すかは人が決める）', () => {
     assert.equal(manifest.private, true);
+  });
+});
+
+describe('VS Code: エージェントへつなぐ', () => {
+  it('起動用のファイルは、VS Code の実行環境を Node として動かす（使う人に Node を入れてもらわない）', () => {
+    const made = launcher('/Applications/Visual Studio Code.app/Contents/MacOS/Code Helper', '/ext/server/dist/mcp.js', 'darwin');
+    assert.equal(made.name, 'zumen-mcp');
+    assert.match(made.body, /^#!\/bin\/sh\n/);
+    assert.match(made.body, /ELECTRON_RUN_AS_NODE=1 exec '\/Applications\/Visual Studio Code\.app\/Contents\/MacOS\/Code Helper' '\/ext\/server\/dist\/mcp\.js' "\$@"/);
+  });
+
+  it('Windows では .cmd にする', () => {
+    const made = launcher('C:\\VS Code\\Code.exe', 'C:\\ext\\mcp.js', 'win32');
+    assert.equal(made.name, 'zumen-mcp.cmd');
+    assert.equal(made.body, '@echo off\r\nset ELECTRON_RUN_AS_NODE=1\r\n"C:\\VS Code\\Code.exe" "C:\\ext\\mcp.js" %*\r\n');
+  });
+
+  it('Claude Code へ登録する 1 行は、利用者の範囲（user）で、道を引用符で包む', () => {
+    assert.equal(claudeCodeCommand("/home/a b/zumen-mcp", 'linux'), "claude mcp add --scope user zumen -- '/home/a b/zumen-mcp'");
+    assert.equal(claudeCodeCommand('C:\\x\\zumen-mcp.cmd', 'win32'), 'claude mcp add --scope user zumen -- "C:\\x\\zumen-mcp.cmd"');
+  });
+
+  it('単一引用符を含む道でも、シェルに割られない', () => {
+    assert.equal(shellQuote("it's"), "'it'\\''s'");
+  });
+
+  it('拡張は Enter を押さない（人の設定を書き換える 1 行は、人が打つ）', () => {
+    const entry = readFileSync(new URL('../packages/zumen-vscode/src/extension.ts', import.meta.url), 'utf8');
+    assert.match(entry, /terminal\.sendText\(claudeCodeCommand\([^)]*\), false\)/);
   });
 });
