@@ -112,6 +112,7 @@
     "validate": "node src/cli.ts validate",
     "version:set": "node scripts/version.mjs",
     "vscode:build": "node scripts/vscode-build.mjs",
+    "vscode:package": "node scripts/vscode-build.mjs && cd packages/zumen-vscode && pnpm dlx @vscode/vsce@4.0.0 package --no-dependencies",
     "pages": "node --experimental-strip-types scripts/pages.mjs",
     "pages:check": "node --experimental-strip-types scripts/pages.mjs --check"
   },

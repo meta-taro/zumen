@@ -5,7 +5,7 @@
  * **入口を薄く保ち、判断はここで試せる側に置く。**
  */
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { describe, it } from 'node:test';
 
 import { claudeCodeCommand, launcher, shellQuote } from '../packages/zumen-vscode/src/agents.ts';
@@ -115,8 +115,18 @@ describe('VS Code: 拡張の名乗り', () => {
     assert.match(entry, /const MCP_PROVIDER = 'zumen\.mcp';/);
   });
 
-  it('公開しない（Marketplace へ出すかは人が決める）', () => {
-    assert.equal(manifest.private, true);
+  it('Marketplace に出す形がそろっている（アイコン・権利・変更の記録）', () => {
+    const dir = new URL('../packages/zumen-vscode/', import.meta.url);
+    for (const file of [manifest.icon, 'LICENSE', 'README.md', 'CHANGELOG.md']) {
+      assert.ok(existsSync(new URL(file, dir)), `${file} が無い`);
+    }
+    assert.equal(manifest.license, 'MIT');
+  });
+
+  it('配る包みに元のコードを入れない', () => {
+    const ignore = readFileSync(new URL('../packages/zumen-vscode/.vscodeignore', import.meta.url), 'utf8');
+    assert.match(ignore, /^src\/\*\*$/m);
+    assert.match(ignore, /^\*\*\/\*\.ts$/m);
   });
 });
 

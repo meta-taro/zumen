@@ -82,9 +82,19 @@ async function connectTerminalAgents(context: vscode.ExtensionContext, server: s
   if (picked === copy) await vscode.env.clipboard.writeText(file);
 }
 
+/** 開いているプレビュー（正本ごとに 1 つ）。開き直したら、新しく作らずに前へ出す。 */
+const previews = new Map<string, vscode.WebviewPanel>();
+
 async function openPreview(context: vscode.ExtensionContext, uri?: vscode.Uri): Promise<void> {
   const document = uri ? await vscode.workspace.openTextDocument(uri) : vscode.window.activeTextEditor?.document;
   if (document === undefined) return;
+
+  const key = document.uri.toString();
+  const open = previews.get(key);
+  if (open !== undefined) {
+    open.reveal(undefined, true);
+    return;
+  }
 
   const dist = vscode.Uri.joinPath(context.extensionUri, 'dist');
   const panel = vscode.window.createWebviewPanel(
@@ -111,7 +121,11 @@ async function openPreview(context: vscode.ExtensionContext, uri?: vscode.Uri): 
       if (event.document.uri.toString() === document.uri.toString()) send();
     }),
   ];
-  panel.onDidDispose(() => listeners.forEach((listener) => listener.dispose()));
+  previews.set(key, panel);
+  panel.onDidDispose(() => {
+    previews.delete(key);
+    listeners.forEach((listener) => listener.dispose());
+  });
 }
 
 /** 保存先は人が選ぶ。既定は正本の隣・同じ名前。 */
