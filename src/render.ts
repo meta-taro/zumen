@@ -41,7 +41,7 @@ import { DOUBLE_GAP, dashOf, doubled } from './line.ts';
 import { roundedOf, widthOf } from './weight.ts';
 import { drawMarker } from './marker.ts';
 import { drawSymbol } from './symbol.ts';
-import { NAME_FONT, SUB_FONT, planNames, tagFits, textRectOf } from './names.ts';
+import { NAME_FONT, SUB_FONT, planNames, tagFits, tagSpot, textRectOf } from './names.ts';
 import type { Plan, Rect } from './names.ts';
 import { drawRange, ringOf } from './range.ts';
 import { wallFits, wallWidth } from './wall.ts';
@@ -1149,36 +1149,20 @@ function nodeTag(
   // 「出なかった符号」を知らせるので、ここと同じ物差しでないと嘘になる。
   if (!tagFits(box)) return [];
   /**
-   * **印の中の符号は、印の真ん中。**
+   * **印の中の符号は、印の真ん中。三角は底の側**（置き場は `src/names.ts` の `tagSpot`）。
    *
    * 左上へ寄せていたので、二重丸（乗換駅）の**内側の丸が駅番号を横切っていた**
    * （2026-09-13）。実物の路線図の駅番号は丸の中央にある。
    * 矩形はこれまでどおり左上（伏図の部材符号は隅にある）。
-   */
-  // **菱形も真ん中へ。** 角に置くと、斜めの辺が文字を横切る
-  // （2026-09-15。防虫の定点配置図で `ST-2` が線に食われていた）。
-  const round =
-    box.marker === 'circle' ||
-    box.marker === 'double' ||
-    box.marker === 'ellipse' ||
-    box.marker === 'diamond' ||
-    // **三角も、四隅が実物より外へ出ている**（菱形と同じ理由。2026-09-20）。
-    box.marker === 'triangle' ||
-    box.marker === 'triangle-down';
-  /**
-   * **名前が無ければ、符号が中身そのもの。**
    *
-   * 符号は本来「名前の脇に添える小さな字」だが、名前が無い箱では
-   * **符号しか書いていない** —— 舞台照明の器具番号、花火の筒場、
-   * ダンスの踊り手、定点の番号。見本 8 枚・78 個がこの形だった。
-   * 副題の色と大きさで描くと、**図の主役がいちばん薄い字**になる（2026-09-15）。
+   * **名前が無ければ、符号が中身そのもの**で、名前の大きさと色で描く ——
+   * 舞台照明の器具番号、花火の筒場、ダンスの踊り手、定点の番号（2026-09-15）。
    */
-  const alone = box.label === '' && box.technology === null;
-  const font = alone ? NAME_FONT : 10;
-  const color = alone ? style.text : subtitleOn(style, palette);
-  if (round || alone) {
-    const cx = box.x + box.w / 2;
-    const cy = box.y + box.h / 2 + (alone ? font / 3 : 4);
+  const spot = tagSpot(box);
+  if (spot !== null) {
+    const alone = box.label === '' && box.technology === null;
+    const color = alone ? style.text : subtitleOn(style, palette);
+    const { cx, baseline: cy, font } = spot;
     const cover =
       halo === null
         ? ''

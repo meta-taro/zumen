@@ -491,6 +491,56 @@ nodes:
     assert.match(out, /<text x="\d+" y="\d+" text-anchor="middle"[^>]*>H03</, '中央寄せになっていない');
   });
 
+  /**
+   * **三角の符号は、幅のある底の側へ置く**（2026-10-28）。
+   *
+   * Copilot に描かせた照明仕込図で、LED パー（三角）の器具番号「05」「10」が
+   * 斜めの辺に串刺しになっていた。真ん中に置くと、上ほど細い三角の辺が字の上を通る。
+   */
+  for (const [marker, label] of [['triangle', '上向き'], ['triangle-down', '下向き']] as const) {
+    it(`**${label}の三角の符号は、三角の内側に収まる**`, async () => {
+      const source = `version: 1
+kind: placement
+nodes:
+  - id: c
+    label: ""
+    tag: "05"
+    marker: ${marker}
+    at: { x: 0, y: 0 }
+    size: { w: 34, h: 34 }
+`;
+      const placed = await layout(source);
+      const box = placed.boxes.find((b) => b.id === 'c')!;
+      const out = render(placed, 'light', 'safe', true);
+      const found = out.match(/<text x="([\d.]+)" y="([\d.]+)"[^>]*font-size="(\d+)"[^>]*>05</)!;
+      const [cx, baseline, font] = [Number(found[1]), Number(found[2]), Number(found[3])];
+      const half = (0.55 * font * 2) / 2;
+      // 字の上端と下端で、三角の幅が字の幅より広いこと。
+      const widthAt = (y: number): number =>
+        marker === 'triangle' ? (box.w * (y - box.y)) / box.h : box.w * (1 - (y - box.y) / box.h);
+      for (const y of [baseline - font * 0.85, baseline]) {
+        assert.ok(widthAt(y) / 2 >= half, `y=${y} で三角の幅 ${widthAt(y).toFixed(1)} が字の幅 ${(half * 2).toFixed(1)} より狭い`);
+      }
+      assert.ok(Math.abs(cx - (box.x + box.w / 2)) <= 1, '符号が横にずれている');
+    });
+  }
+
+  // 照明仕込図の 28px の三角に「05」は入らない（字の上端で三角の幅が字より狭い）。
+  // 辺に食わせて描くより、入らないと知らせて印を大きくしてもらう。
+  it('**三角に入らない符号は、入らないと知らせる**（黙って辺に食わせない）', async () => {
+    const out = await inspect(`version: 1
+kind: placement
+nodes:
+  - id: small
+    label: ""
+    tag: "105"
+    marker: triangle
+    at: { x: 0, y: 0 }
+    size: { w: 24, h: 24 }
+`);
+    assert.deepEqual(out.hiddenTags, ['small']);
+  });
+
   it('印が無い箱の符号は、これまでどおり左上', async () => {
     const placed = await layout(STATION.replace('    marker: double\n', ''));
     const box = placed.boxes.find((b) => b.id === 'c')!;
