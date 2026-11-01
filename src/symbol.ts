@@ -53,7 +53,7 @@ import type { Rect } from './openings.ts';
 /**
  * 描ける記号。**IEC／JIS の形**（抵抗は長方形。ジグザグの ANSI 形は採らない）。
  *
- * **13 で止めている。** 増やすときは、上の「止める条件」を読むこと。
+ * **14 で止めている。** 増やすときは、上の「止める条件」を読むこと。
  */
 export const SYMBOLS = [
   'resistor',
