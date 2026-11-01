@@ -767,11 +767,15 @@ const ja = {
     openingIgnored: (id: string) =>
       `ノード "${id}" に openings がありますが、構成図では描かれません（kind: placement で描かれます）。`,
     kindUnknown: (word: string) =>
-      `kind が "${word}" になっています（structure / placement）。構成図として描きます。`,
+      `kind が "${word}" になっています（structure / placement / construction）。構成図として描きます。`,
     directionUnknown: (word: string) =>
       `direction が "${word}" になっています（right / down）。既定の横で描きます。`,
     wrapNotBoolean: (found: string) =>
       `wrap が ${found} になっています。折り返すのは true と書いたときだけです。`,
+    arrowsNotBoolean: (found: string) =>
+      `arrows が ${found} になっています。矢印を消すのは false と書いたときだけです（"false" のように引用符で囲むと矢印が出ます）。`,
+    projectionUnknown: (word: string) =>
+      `projection が "${word}" になっています（isometric / dimetric / cabinet / cavalier）。投影せずに平面で描きます。`,
     gridAxisInvalid: (position: number) =>
       `通り芯の ${position} 番目が { id: 符号, at: 数 } になっていません。この芯は描かれません。`,
     gridIgnored:
@@ -1662,11 +1666,15 @@ const en: Catalog = {
     openingIgnored: (id: string) =>
       `Node "${id}" has openings, but they are not drawn on a structure diagram. Use kind: placement.`,
     kindUnknown: (word: string) =>
-      `kind is "${word}" (structure / placement). Drawing it as a structure diagram.`,
+      `kind is "${word}" (structure / placement / construction). Drawing it as a structure diagram.`,
     directionUnknown: (word: string) =>
       `direction is "${word}" (right / down). Drawing it in the default horizontal direction.`,
     wrapNotBoolean: (found: string) =>
       `wrap is ${found}. Wrapping happens only when it is written as true.`,
+    arrowsNotBoolean: (found: string) =>
+      `arrows is ${found}. Arrows are removed only when it is written as false (a quoted "false" still draws them).`,
+    projectionUnknown: (word: string) =>
+      `projection is "${word}" (isometric / dimetric / cabinet / cavalier). Drawing it flat, without projection.`,
     gridAxisInvalid: (position: number) =>
       `Axis ${position} of grid is not { id: code, at: number }. It is not drawn.`,
     gridIgnored: 'grid is present, but grid lines are not drawn on a structure diagram. Use kind: placement.',

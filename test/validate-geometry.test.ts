@@ -108,6 +108,18 @@ describe('図ぜんたいの宣言を見る', () => {
   it('**真偽でない wrap を知らせる。** `wrap: "true"` は折り返さない', () => {
     assert.ok(codes('version: 1\nwrap: "true"\nnodes:\n  - id: a\n').includes('wrap-not-boolean'));
   });
+
+  it('**真偽でない arrows を知らせる。** `arrows: "false"` は矢印が出る', () => {
+    assert.ok(codes('version: 1\narrows: "false"\nnodes:\n  - id: a\n').includes('arrows-not-boolean'));
+    assert.ok(!codes('version: 1\narrows: false\nnodes:\n  - id: a\n').includes('arrows-not-boolean'));
+  });
+
+  it('**知らない projection を知らせる。** 投影されず平面で出る', () => {
+    assert.ok(codes('version: 1\nkind: placement\nprojection: oblique\nnodes:\n  - id: a\n').includes('projection-unknown'));
+    for (const word of ['isometric', 'dimetric', 'cabinet', 'cavalier']) {
+      assert.ok(!codes(`version: 1\nkind: placement\nprojection: ${word}\nnodes:\n  - id: a\n`).includes('projection-unknown'), word);
+    }
+  });
 });
 
 /**
@@ -413,6 +425,11 @@ edges:
 
   it('**節に `weight` を書いたら知らせる**（枠の太さの語は無い）', () => {
     const out = validate(FLOW.replace('    label: "A"\n', '    label: "A"\n    weight: thick\n'));
+    assert.ok(out.some((f) => f.code === 'node-edge-key-ignored'), out.map((f) => f.code).join(','));
+  });
+
+  it('**節に `vertical` を書いたら知らせる**（縦動線は階をまたぐ辺の語）', () => {
+    const out = validate(FLOW.replace('    label: "A"\n', '    label: "A"\n    vertical: stair\n'));
     assert.ok(out.some((f) => f.code === 'node-edge-key-ignored'), out.map((f) => f.code).join(','));
   });
 

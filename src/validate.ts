@@ -26,6 +26,7 @@ import { CURVES, viaOf } from './curve.ts';
 import { VERTICALS, floorsOf } from './floor.ts';
 import { achromatic, faintOn, faintWhere, PAPER, paletteOf as routePalette } from './palette.ts';
 import { WEIGHTS, weightOf, type Weight } from './weight.ts';
+import { axonOf } from './axon.ts';
 import { HATCHES } from './hatch.ts';
 import { SYMBOLS } from './symbol.ts';
 import { MARKERS } from './marker.ts';
@@ -297,7 +298,7 @@ function checkNodes(doc: Document, add: Add, m: Messages, at: At): Set<string> |
 }
 
 /**
- * 図ぜんたいの宣言（`kind` / `direction` / `wrap`）。
+ * 図ぜんたいの宣言（`kind` / `direction` / `wrap` / `arrows` / `projection`）。
  *
  * **どれも警告。** 知らない語を書いても描画側は既定へ落ちるので、読めない文書ではない。
  * ただし**黙って落とすと、書いた側は「効かない」理由が分からない。**
@@ -321,6 +322,18 @@ function checkDeclarations(doc: Document, add: Add, m: Messages, at: At): void {
   const wrap = doc.get('wrap');
   if (wrap !== undefined && wrap !== null && typeof wrap !== 'boolean') {
     add('warning', 'wrap-not-boolean', m.wrapNotBoolean(String(wrap)), at(doc.get('wrap', true)));
+  }
+
+  // **矢印**（`src/arrows.ts`）。消えるのは `false` と書いたときだけ。`"false"` は矢印が出る。
+  const arrows = doc.get('arrows');
+  if (arrows !== undefined && arrows !== null && typeof arrows !== 'boolean') {
+    add('warning', 'arrows-not-boolean', m.arrowsNotBoolean(String(arrows)), at(doc.get('arrows', true)));
+  }
+
+  // **軸測投影**（`src/axon.ts`）。知らない語は投影されず、平面のまま出る。
+  const projection = doc.get('projection');
+  if (projection !== undefined && projection !== null && axonOf(projection) === null) {
+    add('warning', 'projection-unknown', m.projectionUnknown(String(projection)), at(doc.get('projection', true)));
   }
 }
 
@@ -828,7 +841,7 @@ function checkGeometry(doc: Document, add: Add, m: Messages, at: At): void {
      * 敷地境界線を太くしようとして `weight: thick` と書き、
      * **何も言われないまま細い線が出た**（見本 214 を描いていて踏んだ）。
      */
-    for (const key of ['weight', 'curve', 'ends', 'via', 'close', 'casing', 'offset'] as const) {
+    for (const key of ['weight', 'curve', 'ends', 'via', 'close', 'casing', 'offset', 'vertical'] as const) {
       const wrote = item.get(key, true);
       if (wrote !== undefined && wrote !== null) {
         add('warning', 'node-edge-key-ignored', m.nodeEdgeKeyIgnored(id, key), at(wrote));
