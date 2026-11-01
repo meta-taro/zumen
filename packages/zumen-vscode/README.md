@@ -1,6 +1,10 @@
 # zumen for VS Code
 
-Diagrams as code in VS Code: specialist drawings (lighting plots, floor plans, wiring diagrams, appraisal charts…) from one YAML file, drawn by you or by your agent. Nothing else to install: no Node, no npm.
+Diagrams as code in VS Code: specialist drawings (lighting plots, floor plans, wiring diagrams, warehouse layouts, appraisal charts…) from one YAML file, drawn by you or by your agent. Nothing else to install: no Node, no npm.
+
+**What it solves:** ask Copilot or Claude Code for a diagram and get one you can still edit by hand. The source is plain text, so you review it in a git diff, and the agent proposes later changes as diffs instead of redrawing over your fixes.
+
+![A stadium lighting plot drawn with zumen: truss positions, channels, circuits and a patch table](https://meta-taro.github.io/zumen/og/369.png)
 
 ## What it does
 
@@ -22,5 +26,12 @@ From this repository:
 pnpm install
 pnpm vscode:package   # writes zumen-vscode-<version>.vsix
 ```
+
+## Links
+
+- [Gallery and docs](https://meta-taro.github.io/zumen/) — every example has its own page with the source
+- [GitHub](https://github.com/meta-taro/zumen) — the format spec, the desktop app and issues
+- [npm: @metataro/zumen](https://www.npmjs.com/package/@metataro/zumen) — the CLI and MCP server outside VS Code
+- [md-business](https://marketplace.visualstudio.com/items?itemName=meta-taro.md-business-vscode) — Markdown business documents that embed zumen diagrams
 
 MIT.
