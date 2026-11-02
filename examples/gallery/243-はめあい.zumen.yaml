@@ -1,6 +1,7 @@
 version: 1
 kind: placement
 arrows: true
+scale: { mm: 0.0003125, unit: um }
 title: はめあい（JIS B 0401-1:2016 ＝ ISO 286-1:2010・φ30 の例）
 # **同じ φ30 でも、記号で役目が変わる。** H7/g6 はすべり動き、H7/p6 はプレスで入れて止める。
 #
@@ -15,6 +16,9 @@ title: はめあい（JIS B 0401-1:2016 ＝ ISO 286-1:2010・φ30 の例）
 # 穴は工具（ドリル・リーマ）の寸法に引きずられるが、軸は旋盤で削り分けられる。
 #
 # 数値は「18 を超え 30 以下」の欄（単位 μm）。
+#
+# **②は 1 px ＝ 0.3125 μm（1 μm ＝ 3.2 px）で描いた。** 公差域の幅（IT7 ＝ 21 μm・IT6 ＝ 13 μm）は
+# dims で測らせている —— 箱の幅を直せば、数値も追ってくる。
 #
 
 #
@@ -68,16 +72,6 @@ nodes:
     align: left
     at: { x: 150, y: 396 }
     size: { w: 640, h: 20 }
-  - id: p0
-    label: ""
-    marker: none
-    at: { x: 429, y: 439 }
-    size: { w: 2, h: 2 }
-  - id: p1
-    label: ""
-    marker: none
-    at: { x: 429, y: 807 }
-    size: { w: 2, h: 2 }
   - id: zero
     label: "基準の線（0）"
     marker: none
@@ -422,9 +416,19 @@ nodes:
     align: left
     at: { x: 150, y: 1228 }
     size: { w: 1090, h: 18 }
-edges:
-  - from: p0
-    to: p1
-    curve: none
+paths:
+  - id: zero-line
+    points: [ [ 430, 441 ], [ 430, 807 ] ]
     line: chain
     ends: { from: none, to: none }
+dims:
+  - id: it7
+    from: { node: hole, side: left }
+    to: { node: hole, side: right }
+    offset: 4
+    text: "IT7 {}"
+  - id: it6
+    from: { node: s1, side: left }
+    to: { node: s1, side: right }
+    offset: 4
+    text: "IT6 {}"
