@@ -1,0 +1,9 @@
+{
+  "//": "拡張の型を確かめるだけ（束ねるのは scripts/chrome-build.mjs）。ページの上で動くので DOM を入れる。",
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
+    "types": ["node"]
+  },
+  "include": ["src/**/*.ts"]
+}
