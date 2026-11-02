@@ -13,6 +13,7 @@
 import { readFileSync } from 'node:fs';
 import { isAbsolute, join, normalize, sep } from 'node:path';
 import { parse } from './format.ts';
+import { expandParts } from './parts.ts';
 import { imageSize } from './image.ts';
 import type { Images } from './image.ts';
 
@@ -25,7 +26,8 @@ const MIME = { png: 'image/png', jpeg: 'image/jpeg', webp: 'image/webp' } as con
 export function imagePaths(text: string): string[] {
   let raw: { nodes?: { image?: unknown }[] };
   try {
-    raw = parse(text).doc.toJS() as typeof raw;
+    // 置いた部品の中の画像も読む（`src/parts.ts`）
+    raw = parse(expandParts(text)).doc.toJS() as typeof raw;
   } catch {
     // 読めない正本は、図を組む側（`layout`）が理由つきで止める。ここで二重に言わない。
     return [];

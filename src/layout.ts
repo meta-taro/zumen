@@ -47,6 +47,7 @@ import type { Curve, Point } from './curve.ts';
 import { colorOf, paintOf, paletteOf as routePalette } from './palette.ts';
 import { offsetLine } from './offset.ts';
 import { readPaths, routePaths } from './paths.ts';
+import { expandParts } from './parts.ts';
 import { readDims, routeDims, rulerAt } from './dims.ts';
 import type { Unit } from './units.ts';
 import { weightOf } from './weight.ts';
@@ -397,10 +398,15 @@ const LAYOUT_OPTIONS = {
 };
 
 export async function layout(
-  text: string,
+  source: string,
   /** **読んでおいた画像**（`src/image-files.ts`）。渡さなければ、画像は書いたパスのまま敷く。 */
   images: Images = new Map(),
 ): Promise<Placed> {
+  /**
+   * **置いた部品は、ここで展開する**（`parts` / `place`。`src/parts.ts`）。
+   * ここから先は、展開したあとのふつうの節・線・寸法しか見ない。置いたものが無ければ同じ文字列。
+   */
+  const text = expandParts(source);
   const diagram = parse(text);
   const pins = getPins(diagram);
   // **作図は並べない**。座標は手順から解くので、自動配置を通さない。

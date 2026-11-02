@@ -4,6 +4,7 @@
 # feat は、使う人から見てできることが増えたものだけ（CHANGELOG の「できることが増えます」と同じ線）。内部の整理は書かない。
 # CHANGELOG の「未リリース」で増えた項目には `<!-- news: 名前 -->` を付け、ここに同じ名前の feat を置く。
 # **いちばん新しい見本がここに無いと、テストが落ちる**（test/news.test.ts）。
+2026-11-02	feat	parts	部品を定義して使い回す（parts / place）。同じ形を 1 回書けば、格子に並べても、向きを変えても、置いたものごとに番号を変えても置ける	Parts defined once and placed many times (parts / place): grids, quarter turns and per-instance labels without writing the same nodes again
 2026-11-02	feat	dims	2 点を指して引く寸法（dims）。測る点を書けば、数値は縮尺から機械が出し、手書きの数値が図とずれれば知らせる	Dimensions between two named points (dims): the value comes from the scale, and a hand-written figure that disagrees with the drawing is flagged
 2026-11-02	feat	paths	節に属さない線と形（paths）。寸法線・テープ・輪郭・弧・扇形を、見えない点を置かずに座標で書ける	Free lines and shapes (paths): dimension lines, tape strips, outlines, arcs and wedges written in coordinates, with no invisible anchor nodes
 2026-10-24	new	405

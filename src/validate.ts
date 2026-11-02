@@ -24,6 +24,20 @@ import { ENDS } from './ends.ts';
 import { LINES } from './line.ts';
 import { CURVES, viaOf } from './curve.ts';
 import { arcOf, pointsOf } from './paths.ts';
+import {
+  FIXED_KEYS,
+  PART_KEYS,
+  PLACE_KEYS,
+  ROTATE_KEPT_KEYS,
+  expandDocument,
+  gridOf,
+  membersOf,
+  mentionsParts,
+  nameOf,
+  pointOf as placePointOf,
+  rotationOf,
+} from './parts.ts';
+import type { Expansion } from './parts.ts';
 import { DIM_ENDS, dimLabel, dimPointOf, dimValue, measureDim, rulerAt, textDiffers } from './dims.ts';
 import type { Rect } from './dims.ts';
 import { UNITS } from './units.ts';
@@ -91,7 +105,7 @@ const EDGE_KEY = /^(.+)>(.+)$/;
 
 export function validate(text: string): Finding[] {
   const lines = new LineCounter();
-  const doc = parseDocument(text, { lineCounter: lines });
+  let doc = parseDocument(text, { lineCounter: lines });
   const at = (node: unknown): number | undefined => {
     const range = (node as Node | undefined)?.range;
     if (range === undefined || range === null) return undefined;
@@ -116,6 +130,19 @@ export function validate(text: string): Finding[] {
   }
 
   checkVersion(doc, add, m, at);
+  /**
+   * **置いた部品は、展開した写しの上で検査する**（`parts` / `place`。`src/parts.ts`）。
+   * 部品そのものの書き方は正本（`source`）で見て、節・線・寸法の検査は展開したもの（`doc`）で見る。
+   * 写しの節は部品の定義の行を持ったままなので、指摘は定義の行を指す。書き戻しの検査だけは正本で見る。
+   */
+  const source = doc;
+  let firstOfCopies = Number.POSITIVE_INFINITY;
+  if (mentionsParts(text)) {
+    doc = parseDocument(text);
+    const expansion = expandDocument(doc);
+    checkParts(source, expansion, add, m, at);
+    firstOfCopies = found.length;
+  }
   const nodeIds = checkNodes(doc, add, m, at);
   if (nodeIds === undefined) return found;
 
@@ -139,9 +166,30 @@ export function validate(text: string): Finding[] {
   const pathIds = checkPaths(doc, nodeIds, add, m, at);
   const dimIds = checkDims(doc, nodeIds, pathIds, add, m, at);
   checkPins(doc, nodeIds, edgeKeys, add, m, at, pathIds, dimIds);
-  checkRoundTrip(doc, text, add, m);
+  checkRoundTrip(source, text, add, m);
 
-  return found;
+  return onceForEachPart(source, found, firstOfCopies, at);
+}
+
+/**
+ * **同じ定義から出た同じ指摘は 1 回だけ**（置いた数だけ同じことを言わない）。
+ * 部品の定義の行を指す指摘を、印と行の組で 1 つにまとめる。
+ */
+function onceForEachPart(source: Document, found: Finding[], first: number, at: At): Finding[] {
+  if (first === Number.POSITIVE_INFINITY) return found;
+  const parts = source.get('parts', true);
+  const range = (parts as Node | undefined)?.range;
+  if (range === undefined || range === null) return found;
+  const top = at(parts) ?? 0;
+  const bottom = at({ range: [range[1], range[1], range[1]] }) ?? top;
+  const seen = new Set<string>();
+  return found.filter((finding, index) => {
+    if (index < first || finding.line === undefined || finding.line < top || finding.line > bottom) return true;
+    const key = `${finding.code}@${finding.line}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
 }
 
 /**
@@ -1456,6 +1504,148 @@ function checkEnds(doc: Document, add: Add, m: Messages, at: At): void {
       if (!END_WORDS.has(String(value))) {
         add('warning', 'ends-unknown', m.endsUnknown(name, String(value)), at(ends));
       }
+    }
+  }
+}
+
+/**
+ * **部品と、置き方**（`parts` / `place`。`src/parts.ts`）。
+ *
+ * 置けないもの（部品が無い・名前が無い・位置が読めない・格子が読めない）は描かれないので、黙って落とさずに言う。
+ * 中の節・線・寸法の書き方は、ここでは見ない —— 展開した写しを、いつもの検査が見る。
+ */
+function checkParts(doc: Document, expansion: Expansion, add: Add, m: Messages, at: At): void {
+  const rawParts = doc.get('parts', true);
+  const rawPlace = doc.get('place', true);
+  const hasParts = rawParts !== undefined && rawParts !== null;
+  const hasPlace = rawPlace !== undefined && rawPlace !== null;
+  if (!hasParts && !hasPlace) return;
+  if (String(doc.get('kind') ?? '') !== 'placement') {
+    add('warning', 'parts-ignored', m.partsIgnored, at(hasParts ? rawParts : rawPlace));
+    return;
+  }
+  let parts: YAMLMap | null = null;
+  if (hasParts && !isMap(rawParts)) add('warning', 'parts-not-map', m.partsNotMap, at(rawParts));
+  if (isMap(rawParts)) {
+    parts = rawParts;
+    for (const pair of rawParts.items) checkPart(String(isScalar(pair.key) ? pair.key.value : pair.key), pair.value, add, m, at);
+  }
+  if (!hasPlace) return;
+  if (!isSeq(rawPlace)) {
+    add('warning', 'place-not-list', m.placeNotList, at(rawPlace));
+    return;
+  }
+  const seen = new Set<string>();
+  rawPlace.items.forEach((item, index) => {
+    const as = isMap(item) ? nameOf(item.get('as')) : null;
+    const label = as ?? m.placeNth(index + 1);
+    if (!isMap(item)) {
+      add('warning', 'place-part-unknown', m.placePartUnknown(label, ''), at(item));
+      return;
+    }
+    for (const pair of item.items) {
+      const key = String(isScalar(pair.key) ? pair.key.value : pair.key);
+      if (!(PLACE_KEYS as readonly string[]).includes(key)) add('warning', 'place-key-unknown', m.placeKeyUnknown(label, key), at(pair.key));
+    }
+    const part = parts?.get(item.get('part'), true);
+    if (!isMap(part)) add('warning', 'place-part-unknown', m.placePartUnknown(label, String(item.get('part') ?? '')), at(item));
+    if (as === null) add('warning', 'place-as-invalid', m.placeAsInvalid(index + 1, String(item.get('as') ?? '')), at(item));
+    else if (seen.has(as)) add('warning', 'place-as-duplicated', m.placeAsDuplicated(as), at(item));
+    if (as !== null) seen.add(as);
+    const where = item.get('at', true);
+    if (placePointOf(isMap(where) ? where.toJSON() : null) === null) add('warning', 'place-at-invalid', m.placeAtInvalid(label), at(where ?? item));
+    const grid = item.get('grid', true);
+    if (grid !== undefined && grid !== null && gridOf(isMap(grid) ? grid.toJSON() : null) === null) {
+      add('warning', 'place-grid-invalid', m.placeGridInvalid(label), at(grid));
+    }
+    const rotate = rotationOf(item.get('rotate'));
+    if (rotate === null) add('warning', 'place-rotate-invalid', m.placeRotateInvalid(label, String(item.get('rotate'))), at(item.get('rotate', true)));
+    const members = membersOf(part);
+    if (rotate !== null && rotate !== 0) {
+      const kept = members.flatMap((member) => rotateKept(member.item, rotate).map((key) => `${member.id}.${key}`));
+      if (kept.length > 0) add('warning', 'place-rotate-partial', m.placeRotatePartial(label, kept.join(' / ')), at(item.get('rotate', true)));
+    }
+    checkPlaceSet(item.get('set', true), new Set(members.map((member) => member.id)), label, add, m, at);
+  });
+  for (const collision of expansion.collisions) {
+    add('warning', 'place-id-collision', m.placeIdCollision(collision.id), at(collision.item));
+  }
+  checkInstancePins(doc, expansion, add, m, at);
+}
+
+/** 部品 1 つ。**辺と、部品の中の部品は持たない**（この版では）。 */
+function checkPart(name: string, part: unknown, add: Add, m: Messages, at: At): void {
+  if (!isMap(part)) {
+    add('warning', 'part-empty', m.partEmpty(name), at(part));
+    return;
+  }
+  for (const pair of part.items) {
+    const key = String(isScalar(pair.key) ? pair.key.value : pair.key);
+    if ((PART_KEYS as readonly string[]).includes(key)) continue;
+    if (key === 'place' || key === 'parts') add('warning', 'part-nested', m.partNested(name), at(pair.key));
+    else add('warning', 'part-key-unknown', m.partKeyUnknown(name, key), at(pair.key));
+  }
+  const ids = new Set<string>();
+  for (const kind of PART_KEYS) {
+    const list = part.get(kind, true);
+    if (!isSeq(list)) continue;
+    list.items.forEach((item, index) => {
+      const raw = isMap(item) ? item.get('id') : undefined;
+      const id = nameOf(raw);
+      if (id === null) {
+        add('warning', 'part-member-id-invalid', m.partMemberIdInvalid(name, kind, index + 1, raw == null ? '' : String(raw)), at(item));
+        return;
+      }
+      if (ids.has(id)) add('warning', 'part-member-id-duplicated', m.partMemberIdDuplicated(name, id), at(item));
+      ids.add(id);
+    });
+  }
+  if (ids.size === 0) add('warning', 'part-empty', m.partEmpty(name), at(part));
+}
+
+/** 回しても向きが変わらない語（`openings` ほか。90 度では三角の向きも返せない）。 */
+function rotateKept(item: YAMLMap, rotate: number): string[] {
+  const kept: string[] = ROTATE_KEPT_KEYS.filter((key) => item.get(key) !== undefined && item.get(key) !== null);
+  const marker = item.get('marker');
+  if (rotate !== 180 && (marker === 'triangle' || marker === 'triangle-down')) kept.push('marker');
+  return kept;
+}
+
+/** `set`。**中に無い名前・形の語は当てない。** */
+function checkPlaceSet(set: unknown, members: ReadonlySet<string>, label: string, add: Add, m: Messages, at: At): void {
+  if (set === undefined || set === null) return;
+  if (!isMap(set)) {
+    add('warning', 'place-set-invalid', m.placeSetInvalid(label), at(set));
+    return;
+  }
+  for (const pair of set.items) {
+    const id = String(isScalar(pair.key) ? pair.key.value : pair.key);
+    if (!members.has(id)) {
+      add('warning', 'place-set-member-unknown', m.placeSetMemberUnknown(label, id), at(pair.key));
+      continue;
+    }
+    if (!isMap(pair.value)) {
+      add('warning', 'place-set-invalid', m.placeSetInvalid(label), at(pair.value ?? pair.key));
+      continue;
+    }
+    for (const field of pair.value.items) {
+      const key = String(isScalar(field.key) ? field.key.value : field.key);
+      if ((FIXED_KEYS as readonly string[]).includes(key)) add('warning', 'place-set-key-fixed', m.placeSetKeyFixed(label, id, key), at(field.key));
+    }
+  }
+}
+
+/** **置いたもの全体の pin**（`pins.<as>`）。効くのは `position` だけ。 */
+function checkInstancePins(doc: Document, expansion: Expansion, add: Add, m: Messages, at: At): void {
+  const pins = doc.get('pins', true);
+  if (!isMap(pins)) return;
+  const names = new Set([...expansion.instances.map((instance) => instance.name), ...expansion.grids]);
+  for (const pair of pins.items) {
+    const key = String(isScalar(pair.key) ? pair.key.value : pair.key);
+    if (!names.has(key) || !isMap(pair.value)) continue;
+    for (const field of pair.value.items) {
+      const name = String(isScalar(field.key) ? field.key.value : field.key);
+      if (name !== 'position' && name !== 'locked') add('warning', 'pin-instance-key-ignored', m.pinInstanceKeyIgnored(key, name), at(field.key));
     }
   }
 }

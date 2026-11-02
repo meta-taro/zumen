@@ -203,11 +203,11 @@ for (const target of PAGES) {
  * 書き方は `zumen_spec` にあるが、**効いている実物**は見本の中にしかない。
  */
 const USES = [
-  ['views', /^views:/m], ['scale', /^\s*scale: \{/m], ['grid', /^\s*grid:/m],
+  ['views', /^views:/m], ['scale', /^\s*scale: \{/m], ['grid', /^\s*grid:(?! \{ cols)/m],
   ['north', /^north:/m], ['wall', /^wall:/m], ['floors', /^floors:/m],
   ['palette', /^palette:/m], ['fill', /^\s+fill: /m], ['color', /^\s+color: /m],
   ['hatch', /^\s+hatch: /m], ['marker', /^\s+marker: (?!none)/m], ['symbol', /^\s+symbol: /m],
-  ['tag', /^\s+tag: /m], ['technology', /^\s+technology: /m], ['openings', /^\s+openings:/m],
+  ['tag', /^\s+tag: |[{,] tag: /m], ['technology', /^\s+technology: /m], ['openings', /^\s+openings:/m],
   ['radius', /^\s+radius: /m], ['via', /^\s+via:/m], ['close', /^\s+close: true/m],
   ['curve', /^\s+curve: smooth/m], ['line', /^\s+line: (?!solid)/m], ['chain', /^\s+line: chain/m],
   ['double', /^\s+line: double/m], ['weight', /^\s+weight: /m], ['ends', /^\s+ends:/m],
@@ -217,6 +217,8 @@ const USES = [
   ['paths', /^paths:/m], ['arc', /^\s+arc: \{/m],
   // **2 点を指して引く寸法**（仕様 §3.0.27）。数値を機械に出させた実物を、ここから引けるように。
   ['dims', /^dims:/m], ['scale-unit', /^scale: \{[^}]*unit: /m],
+  // **部品を定義して使い回す**（仕様 §3.0.28）。同じ形を何度も置いた実物を、ここから引けるように。
+  ['parts', /^parts:/m], ['place-grid', /^\s+.*grid: \{ cols:/m], ['rotate', /^\s+.*rotate: (90|180|270)\b/m],
 ];
 const usesOf = (text) => USES.filter(([, re]) => re.test(text)).map(([name]) => name);
 /** **配置図か構成図か。** まねる相手を選ぶとき、題材より先に効く。 */

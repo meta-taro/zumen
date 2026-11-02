@@ -654,10 +654,23 @@ const ja = {
       '    text: "<文字。{} に機械の数値が入る>"          # 省けば数値だけ。{} を書かなければ人の文字だけ',
       '    exact: false                                  # 略図。人の数値と図のずれを知らせない',
       '    ends: <arrow（既定）| tick>',
+      'parts:             # 部品を定義して使い回す。kind: placement でだけ効く。中の座標は部品の原点（左上）から',
+      '  <部品の名前>:',
+      '    nodes: [ … ]                                  # 節・paths・dims と同じ書き方。中の id に . と > は使わない（辺は持たない）',
+      '    paths: [ … ]',
+      '    dims: [ … ]                                   # { node, side } は中の節を指せる',
+      'place:             # 部品を置く。展開した節は書いた順に並ぶ（nodes より前に書けば前に。描く順は大きいものから）',
+      '  - part: <部品の名前>',
+      '    as: <置いたものの名前>                        # 中は <as>.<id>（辺の from / to・pins の鍵）',
+      '    at: { x: <左>, y: <上> }',
+      '    set: { <中の id>: { label: <文字>, … } }      # この 1 つだけ変える所。形（at / size / points / arc / from / to）は変えられない',
+      '    grid: { cols: <列>, rows: <行>, step: { x: <px>, y: <px> } }   # 格子に並べる。名前は <as>.<行>.<列>.<id>（0 から）',
+      '    rotate: <90 | 180 | 270>                       # 原点を中心に時計回り。文字は回さない',
     ].join('\n'),
     /** **守らせたいこと。** 実測では毎回 pins を書いてきたので、明示する。 */
     rules: [
       'pins は書かない。人が手で決めたことを置く節で、書いても採られない。',
+      '**同じ形を何度も置くなら parts で 1 回定義して place で置く**（器具・石・座席・マス目）。同じ節を置く数だけ書かない —— 形を直すとき、1 つ書き漏らすとその 1 つだけ違う形で出る。置いたものごとに違う所（Ch 番号など）だけを set に書く。格子に並ぶなら grid。**配置図でだけ効く。** 表（Hookup・凡例の表）は部品で組まない。',
       '**寸法は dims で書く**（通り芯の無い図。機械・競技場・断面・家具）。寸法線を paths で引いて数値を注記に手で書かない —— 図形を直しても数値が追ってこない。測る点は [ x, y ] か { node, side } で明示し、数値は縮尺から機械が出す（text の {} に入る）。建築の平面図は、これまでどおり grid（通り芯）から。',
       '**節に属さない線（寸法線・テープ・輪郭・扇形）は paths で書く。** 名前も枠も無い 2×2 の節を置いて辺で結ばない —— 点が節として数えられ、人の手直しが p17>p18 のような読めない鍵に付く。paths は id を鍵にし、points（[ x, y ] の並び）か arc（中心・半径・角度）で書く。線の語は辺と同じ。**配置図でだけ効く。**',
       'kind: placement（配置図）では、置き場所を自分で書く。機械は並べ直さない。間取り・伏図・売場・避難経路はこちら。nodes[].at と nodes[].size の両方を書くこと。大きさを書かないと、便所と 16 畳の LDK が同じ箱で出る。',
@@ -1021,6 +1034,47 @@ const ja = {
       `dims の "${id}" に ${key} がありますが、寸法では効きません。${key === 'label' ? '文字は text に書きます（{} に機械の数値が入る）。' : key === 'points' || key === 'via' ? '測る点は from と to に書きます。' : '寸法に書けるのは id / from / to / along / offset / text / exact / ends です。'}`,
     pinOffsetInvalid: (id: string) =>
       `pins の "${id}" の offset が px の数になっていません。人の値は使わず、正本の offset で描きます。`,
+    partsNotMap: 'parts が写像になっていません。部品は parts: { <名前>: { nodes: …, paths: …, dims: … } } と書きます。',
+    placeNotList: 'place が一覧になっていません。置き方は - { part: <部品の名前>, as: <置いたものの名前>, at: { x, y } } を並べて書きます。',
+    partsIgnored:
+      'parts / place（部品を定義して使い回す）がありますが、配置図でしか展開されません（kind: placement で描かれます）。構成図は置き場所を機械が決めるので、部品の中の座標に意味がありません。',
+    partEmpty: (name: string) =>
+      `部品 "${name}" に中身がありません（nodes / paths / dims に id のあるものが 1 つも無い）。置いても何も描かれません。`,
+    partKeyUnknown: (name: string, key: string) =>
+      `部品 "${name}" に ${key} がありますが、部品に書けるのは nodes / paths / dims だけです。${key === 'edges' ? '部品の中の線は paths で書きます（節から節へ引く辺は、置いたあとに edges で L1.body のように書けます）。' : ''}この ${key} は使いません。`,
+    partNested: (name: string) =>
+      `部品 "${name}" の中に部品を置こうとしています。この版では、部品の中に部品は置けません（展開が 1 段で済むように）。中身を直に書いてください。`,
+    partMemberIdInvalid: (name: string, kind: string, position: number, id: string) =>
+      `部品 "${name}" の ${kind} の ${position} 番目${id === '' ? 'に id がありません' : `の id "${id}" が使えません（. と > は名前の区切りに使うので、中の名前には使えない）`}。これは置かれません。`,
+    partMemberIdDuplicated: (name: string, id: string) =>
+      `部品 "${name}" の中に、同じ id が 2 つあります（"${id}"）。nodes / paths / dims をまたいで 1 つの名前です。置くのは先に書いたほうだけです。`,
+    placeNth: (position: number) => `place の ${position} 番目`,
+    placeKeyUnknown: (label: string, key: string) =>
+      `${label.startsWith('place') ? label : `置いたもの "${label}"`} に ${key} がありますが、置き方に書けるのは part / as / at / set / grid / rotate だけです。${key === 'size' ? '大きさは部品の中で決めます。' : ''}この ${key} は使いません。`,
+    placePartUnknown: (label: string, part: string) =>
+      `${label.startsWith('place') ? label : `置いたもの "${label}"`} の部品${part === '' ? 'が書かれていません' : ` "${part}" が parts にありません`}。これは置かれません。`,
+    placeAsInvalid: (position: number, as: string) =>
+      `place の ${position} 番目${as === '' ? 'に as（置いたものの名前）がありません' : `の as "${as}" が使えません（. と > は名前の区切りに使う）`}。中の名前（<as>.<id>）が作れないので、これは置かれません。`,
+    placeAsDuplicated: (as: string) =>
+      `place に同じ as が 2 つあります（"${as}"）。中の名前が被るので、置くのは先に書いたほうだけです。`,
+    placeAtInvalid: (label: string) =>
+      `${label.startsWith('place') ? label : `置いたもの "${label}"`} の at が読めません（{ x, y } の数）。どこに置くか決められないので、これは置かれません。`,
+    placeGridInvalid: (label: string) =>
+      `置いたもの "${label}" の grid が読めません。{ cols: <正の整数>, rows: <正の整数>, step: { x: <px>, y: <px> } } で、マスは 10,000 までです。これは置かれません。`,
+    placeRotateInvalid: (label: string, word: string) =>
+      `置いたもの "${label}" の rotate が "${word}" になっています。回せるのは 90 / 180 / 270（時計回り）だけです。回さずに置きます。`,
+    placeRotatePartial: (label: string, keys: string) =>
+      `置いたもの "${label}" を回しましたが、${keys} は向きを持ったまま回りません（建具・立体・画像・図記号、90 度の三角）。形と向きが食い違って見えたら、回した向きの部品を別に作ってください。`,
+    placeSetInvalid: (label: string) =>
+      `置いたもの "${label}" の set が読めません。set: { <中の id>: { <語>: <値> } } と書きます。`,
+    placeSetMemberUnknown: (label: string, id: string) =>
+      `置いたもの "${label}" の set が、部品に無い名前 "${id}" を指しています。何も変わりません。`,
+    placeSetKeyFixed: (label: string, id: string, key: string) =>
+      `置いたもの "${label}" の set で "${id}" の ${key} を変えようとしていますが、形（id / at / size / points / arc / from / to）は部品のものなので、置いたものごとには変えられません。違う形なら、部品を別に作ってください。`,
+    placeIdCollision: (id: string) =>
+      `展開した名前 "${id}" が、いまある節・paths・dims の id と同じです。人の手直し（pins）の鍵がどちらを指すか読めないので、これは置かれません。名前を変えてください。`,
+    pinInstanceKeyIgnored: (key: string, field: string) =>
+      `pins の "${key}" は置いたもの全体の手直しで、効くのは position（全体を動かす）だけです。${field} は使いません。中の 1 つを直すなら pins の "${key}.<中の id>" に書きます。`,
     nameCrowded: (id: string) =>
       `ノード "${id}" の名前は箱に入りきらず、外へ出した先も空いていません（**他の要素に重なる**か、**紙の縁で切れます**）。箱を大きくするか、名前を **\`\\n\`** で折り返すか、文字を短くしてください（消してはいません —— 名前が消えるのは、重なるより悪いためです）。`,
     /**
@@ -1652,9 +1706,22 @@ const en: Catalog = {
       '    text: "<words; {} becomes the measured value>"  # omitted = the value alone; without {} only your words are shown',
       '    exact: false                                  # a sketch: do not warn when your figure differs from the drawing',
       '    ends: <arrow (default) | tick>',
+      'parts:             # parts defined once and placed many times; only with kind: placement. Coordinates inside are from the part origin (top left)',
+      '  <part name>:',
+      '    nodes: [ … ]                                  # written like nodes / paths / dims; member ids cannot contain . or > (no edges)',
+      '    paths: [ … ]',
+      '    dims: [ … ]                                   # { node, side } can point at a member',
+      'place:             # place parts; expanded nodes keep the order written (before nodes if written before them; larger boxes are still drawn first)',
+      '  - part: <part name>',
+      '    as: <instance name>                           # members become <as>.<id> (for edge from / to and pins keys)',
+      '    at: { x: <left>, y: <top> }',
+      '    set: { <member id>: { label: <text>, … } }    # what differs per instance; the shape (at / size / points / arc / from / to) cannot',
+      '    grid: { cols: <columns>, rows: <rows>, step: { x: <px>, y: <px> } }   # lay out in a grid; names are <as>.<row>.<col>.<id> (from 0)',
+      '    rotate: <90 | 180 | 270>                       # clockwise about the origin; text stays upright',
     ].join('\n'),
     rules: [
       'Do not write pins. That section holds what a person decided by hand; anything you write there is dropped.',
+      '**When the same shape appears many times, define it once under parts and place it with place** (fixtures, stones, seats, grid cells). Do not write the same nodes once per copy — when the shape changes, one missed copy comes out different. Put only what differs per instance (a channel number) under set; use grid for a regular grid. **Only in placement drawings.** Do not build tables (hookups, legends) out of parts.',
       '**Write dimensions as dims** (drawings with no grid: machine parts, sports fields, sections, furniture). Do not draw the dimension line as a path and type the figure into a note — the figure will not follow when the shape changes. Name the measured points as [ x, y ] or { node, side }; the machine works out the value from the scale (it goes where text has {}). Building plans still take their dimensions from grid.',
       '**Write lines that belong to no node (dimension lines, tape strips, outlines, wedges) as paths.** Do not place nameless 2×2 nodes and join them with edges — the dots get counted as nodes and the human\'s edits end up on unreadable keys like p17>p18. A path is keyed by its id and written as points (a list of [ x, y ]) or arc (centre, radius, angles); its line words are the same as an edge\'s. **Only in placement drawings.**',
       'With kind: placement you place things yourself; the machine does not lay them out. Floor plans, framing plans, store layouts and escape routes are placement. Write both nodes[].at and nodes[].size. Without sizes, a toilet and a 16-mat living room come out the same box.',
@@ -1972,6 +2039,47 @@ const en: Catalog = {
       `Dimension "${id}" has ${key}, which does nothing on a dimension. ${key === 'label' ? 'Write the words in text ({} becomes the measured value).' : key === 'points' || key === 'via' ? 'The measured points go in from and to.' : 'A dimension takes id / from / to / along / offset / text / exact / ends.'}`,
     pinOffsetInvalid: (id: string) =>
       `The offset under pins "${id}" is not a number of px. The human value is not used; the dimension is drawn from the source offset.`,
+    partsNotMap: 'parts is not a mapping. Write parts as parts: { <name>: { nodes: …, paths: …, dims: … } }.',
+    placeNotList: 'place is not a list. Write each placement as - { part: <part name>, as: <instance name>, at: { x, y } }.',
+    partsIgnored:
+      'There are parts / place (parts defined once and placed many times), but they are expanded only in placement drawings (kind: placement). In a structure drawing the machine decides where things go, so the coordinates inside a part mean nothing.',
+    partEmpty: (name: string) =>
+      `Part "${name}" is empty (no nodes / paths / dims with an id). Placing it draws nothing.`,
+    partKeyUnknown: (name: string, key: string) =>
+      `Part "${name}" has ${key}, but a part takes only nodes / paths / dims. ${key === 'edges' ? 'Lines inside a part are paths (edges between placed nodes go under edges, as L1.body). ' : ''}This ${key} is not used.`,
+    partNested: (name: string) =>
+      `Part "${name}" tries to place a part inside itself. Parts cannot nest in this version (expansion stays one level deep). Write the contents directly.`,
+    partMemberIdInvalid: (name: string, kind: string, position: number, id: string) =>
+      `Item ${position} under ${kind} of part "${name}" ${id === '' ? 'has no id' : `has id "${id}", which cannot be used (. and > separate names, so they cannot appear in a member id)`}. It is not placed.`,
+    partMemberIdDuplicated: (name: string, id: string) =>
+      `Part "${name}" has two members with the id "${id}" (nodes / paths / dims share one set of names). Only the first one is placed.`,
+    placeNth: (position: number) => `place item ${position}`,
+    placeKeyUnknown: (label: string, key: string) =>
+      `${label.startsWith('place') ? label : `Instance "${label}"`} has ${key}, but a placement takes only part / as / at / set / grid / rotate. ${key === 'size' ? 'The size belongs to the part. ' : ''}This ${key} is not used.`,
+    placePartUnknown: (label: string, part: string) =>
+      `${label.startsWith('place') ? label : `Instance "${label}"`} ${part === '' ? 'names no part' : `names part "${part}", which is not under parts`}. It is not placed.`,
+    placeAsInvalid: (position: number, as: string) =>
+      `place item ${position} ${as === '' ? 'has no as (the instance name)' : `has as "${as}", which cannot be used (. and > separate names)`}. Its member names (<as>.<id>) cannot be made, so it is not placed.`,
+    placeAsDuplicated: (as: string) =>
+      `Two place items share the as "${as}". Their member names would collide, so only the first one is placed.`,
+    placeAtInvalid: (label: string) =>
+      `The at of ${label.startsWith('place') ? label : `instance "${label}"`} cannot be read (numbers { x, y }). There is nowhere to put it, so it is not placed.`,
+    placeGridInvalid: (label: string) =>
+      `The grid of instance "${label}" cannot be read. It is { cols: <positive integer>, rows: <positive integer>, step: { x: <px>, y: <px> } }, up to 10,000 cells. It is not placed.`,
+    placeRotateInvalid: (label: string, word: string) =>
+      `Instance "${label}" has rotate "${word}". It can only turn 90 / 180 / 270 (clockwise). It is placed unturned.`,
+    placeRotatePartial: (label: string, keys: string) =>
+      `Instance "${label}" is turned, but ${keys} keep their direction (openings, solids, images, symbols, and triangles at 90 degrees). If the shape and its direction look wrong, make a separate part drawn the other way.`,
+    placeSetInvalid: (label: string) =>
+      `The set of instance "${label}" cannot be read. Write set: { <member id>: { <word>: <value> } }.`,
+    placeSetMemberUnknown: (label: string, id: string) =>
+      `The set of instance "${label}" names "${id}", which is not in the part. Nothing changes.`,
+    placeSetKeyFixed: (label: string, id: string, key: string) =>
+      `The set of instance "${label}" tries to change ${key} of "${id}", but the shape (id / at / size / points / arc / from / to) belongs to the part and cannot differ per instance. If the shape differs, make another part.`,
+    placeIdCollision: (id: string) =>
+      `The expanded name "${id}" is already the id of a node, a path or a dimension. A human edit (pins) could not tell which one it is for, so it is not placed. Rename one of them.`,
+    pinInstanceKeyIgnored: (key: string, field: string) =>
+      `pins "${key}" is an edit to the whole instance; only position (moving all of it) works there. ${field} is not used. To fix one member, write it under pins "${key}.<member id>".`,
     nameCrowded: (id: string) =>
       `The name on node "${id}" does not fit its box and there is no free room outside either: it either lands on something else or is cut off at the edge of the sheet. Make the box bigger, break the name with **\`\\n\`**, or shorten the text. It is NOT dropped: losing a name is worse than an overlap.`,
     adriftCell: 'In a table that leaves the row looking empty.',
