@@ -28,7 +28,7 @@ import { widthOf } from './weight.ts';
 import { renderZumenBlocks, replaceZumenBlocks } from './embed.ts';
 import { embedFont } from './font.ts';
 import { mergeThreeWay } from './git-merge.ts';
-import { crossingPlaces, edgesUnderBoxes, layout, straddlePlaces, straddles } from './layout.ts';
+import { crossingPlaces, edgesUnderBoxes, layout, lineName, straddlePlaces, straddles } from './layout.ts';
 import { PASS_LINE, measure, percent } from './measure.ts';
 import { merge } from './merge.ts';
 import type { Conflict } from './merge.ts';
@@ -287,7 +287,7 @@ export async function placedFindings(text: string): Promise<Finding[]> {
         severity: 'warning' as const,
         code: 'line-too-short',
         message: messages().validate.lineTooShort(
-          `${edge.from} → ${edge.to}`,
+          lineName(edge),
           edge.line,
           String(Math.round(length)),
           String(need),
@@ -346,7 +346,7 @@ export async function placedFindings(text: string): Promise<Finding[]> {
         severity: 'warning' as const,
         code: 'ends-too-long',
         message: messages().validate.endsTooLong(
-          `${edge.from} → ${edge.to}`,
+          lineName(edge),
           String(Math.round(length)),
           String(Math.round(need)),
           apart <= 20
@@ -826,7 +826,7 @@ export async function runInspect(paths: string[], read = readFileSync): Promise<
       // **どの言葉が消えたかまで出す。** id だけでは、書いた文字を探しに戻ることになる。
       const said = seen.hiddenLabels.map((id) => {
         const edge = placed.edges.find((e) => e.id === id);
-        return edge?.label == null ? id : m.hiddenLabelText(`${edge.from} → ${edge.to}`, edge.label);
+        return edge?.label == null ? id : m.hiddenLabelText(lineName(edge), edge.label);
       });
       lines.push(m.inspectHiddenLabels(seen.hiddenLabels.length, names(said)));
     }

@@ -46,6 +46,7 @@ import type { Vertical } from './floor.ts';
 import type { Curve, Point } from './curve.ts';
 import { colorOf, paintOf, paletteOf as routePalette } from './palette.ts';
 import { offsetLine } from './offset.ts';
+import { readPaths, routePaths } from './paths.ts';
 import { weightOf } from './weight.ts';
 import type { Weight } from './weight.ts';
 import type { Line } from './line.ts';
@@ -192,6 +193,16 @@ export interface PlacedEdge {
   offset: number;
   /** **引き出し線の番号**（`edges[].callout`）。両端に丸に数字を出す。書かなければ持たない。 */
   callout?: string;
+  /**
+   * **節に属さない線**（`paths`。`src/paths.ts`）。`from` / `to` は空で、両端は点のまま。
+   * 辺と同じ道で描くので、ここに並ぶ。**辺ではない** —— 数えるときは分ける。
+   */
+  path?: true;
+}
+
+/** 人へ見せる線の名前。辺は `from → to`、`paths` は自分の id。 */
+export function lineName(edge: PlacedEdge): string {
+  return edge.path === true ? edge.id : `${edge.from} → ${edge.to}`;
 }
 
 export interface Placed {
@@ -530,12 +541,20 @@ export async function layout(
 
   const rawEdges = readEdges(diagram);
   const edges = routeEdges(rawEdges, boxes, pins, routeMap, moved);
+  /**
+   * **節に属さない線**（`paths`。`src/paths.ts`）。**配置図でだけ描く。**
+   * 辺のあとに並べて、ここから先は辺と同じ扱い（色・ずらし・余白・描く層）。
+   * 構成図では座標に意味が無いので描かない（検証器が `paths-ignored` で言う）。
+   */
+  const rawPaths = kindOf(text) === 'placement' ? readPaths((diagram.doc.toJS() as { paths?: unknown }).paths) : [];
+  edges.push(...routePaths(rawPaths, pins as Record<string, { points?: unknown }>));
+  const keys: { colorKey: unknown; casingKey: unknown; hatchColorKey: unknown }[] = [...rawEdges, ...rawPaths];
   // **色は鍵から引く。** `palette` に無い鍵は使わない（勝手な色を作らない）。
   for (const [index, line] of edges.entries()) {
-    line.color = colorOf(rawEdges[index]?.colorKey, routes);
+    line.color = colorOf(keys[index]?.colorKey, routes);
     // **縁取りと模様の色**も鍵から引く。`paper` は地の色の語のまま（描く側がテーマで置き換える）。
-    line.casing = paintOf(rawEdges[index]?.casingKey, routes);
-    line.hatchColor = paintOf(rawEdges[index]?.hatchColorKey, routes);
+    line.casing = paintOf(keys[index]?.casingKey, routes);
+    line.hatchColor = paintOf(keys[index]?.hatchColorKey, routes);
     // **並走する線は、通り道を引いたあとでずらす**（`src/offset.ts`）。
     // ずらしたあとの点を持つので、ラベル・端の記号・検査もずらした線に沿う。
     if (line.offset !== 0) line.points = offsetLine(line.points, line.offset, line.close);

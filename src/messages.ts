@@ -639,10 +639,17 @@ const ja = {
       '                                              # **from と to を同じ節にして via を並べると、',
       '                                              # 扇形（カメラの視野・照明の照射）も描ける**',
       '    vertical: <none（既定）| stair | escalator | elevator>      # 階をまたぐ動線（JIS Z 8210）',
+      'paths:             # 節に属さない線と形。kind: placement でだけ効く（見えない点を置いて辺で結ばない）',
+      '  - id: <英数字とハイフン。文書内で一意。節の id と被らない>',
+      '    points: [ [ <x>, <y> ], [ <x>, <y> ], ... ]   # 括弧の内側に空白を入れる。{ x, y } でもよい',
+      '    arc: { center: [ <x>, <y> ], r: <px>, from: <度>, to: <度> }   # points の代わりに弧。0 度が右、時計回り',
+      '    close: <true | sector>                        # true は閉じる（弧は弦で）。sector は扇形（中心へ戻る）',
+      '    # 線の語は辺と同じ: line / weight / color / ends / curve / hatch / hatch_color / casing / label',
     ].join('\n'),
     /** **守らせたいこと。** 実測では毎回 pins を書いてきたので、明示する。 */
     rules: [
       'pins は書かない。人が手で決めたことを置く節で、書いても採られない。',
+      '**節に属さない線（寸法線・テープ・輪郭・扇形）は paths で書く。** 名前も枠も無い 2×2 の節を置いて辺で結ばない —— 点が節として数えられ、人の手直しが p17>p18 のような読めない鍵に付く。paths は id を鍵にし、points（[ x, y ] の並び）か arc（中心・半径・角度）で書く。線の語は辺と同じ。**配置図でだけ効く。**',
       'kind: placement（配置図）では、置き場所を自分で書く。機械は並べ直さない。間取り・伏図・売場・避難経路はこちら。nodes[].at と nodes[].size の両方を書くこと。大きさを書かないと、便所と 16 畳の LDK が同じ箱で出る。',
       '建築の図（間取り・伏図・平面詳細図）を描くなら、grid（通り芯）と scale を必ず書く。寸法の数値が出ない図は、現場では使えない。通り芯は壁や柱の芯に置き、符号は X1 / Y1 のように付ける。',
       '断面図・立面図も kind: placement で描く（測り方は同じ。y を高さとして読む）。横の基準線は mark: level にして、id に GL±0 や 2FL+3,200 と書く。方位は書かない。',
@@ -938,6 +945,33 @@ const ja = {
       `${target} に hatch_color がありますが、hatch が無いので効きません。模様の色は、hatch で描く模様にだけ付きます。`,
     offsetNotNumber: (edge: string, value: string) =>
       `エッジ ${edge} の offset が "${value}" になっています。px の数で書いてください（進む向きの右が正、左が負）。ずらさずに描きます。`,
+    pathsNotList: 'paths が一覧になっていません。節に属さない線は - id: … を並べて書きます。',
+    pathsIgnored:
+      'paths（節に属さない線）がありますが、配置図でしか描かれません（kind: placement で描かれます）。構成図は置き場所を機械が決めるので、座標で書いた線は意味を持ちません。',
+    pathIdMissing: (position: number) =>
+      `paths の ${position} 番目に id がありません。この線は描かれません。id は人の手直し（pins）の鍵になります。`,
+    pathIdDuplicated: (id: string) =>
+      `paths に同じ id が 2 つあります（"${id}"）。描くのは先に書いたほうだけです。人の手直し（pins）がどちらの線のものか読めません。`,
+    pathIdSharedWithNode: (id: string) =>
+      `paths の "${id}" が、節の id と同じです。人の手直し（pins）の鍵が、節と線のどちらを指すか読めません。名前を変えてください。`,
+    pathShapeMissing: (id: string) =>
+      `paths の "${id}" に points も arc もありません。形が無いので描かれません。点を並べるなら points: [ [ x, y ], … ]、弧なら arc: { center: [ x, y ], r, from, to } です。`,
+    pathShapeBoth: (id: string) =>
+      `paths の "${id}" に points と arc の両方があります。どちらの形か決められないので描かれません。1 つにしてください。`,
+    pathPointsShort: (id: string) =>
+      `paths の "${id}" の points が 2 つ未満です。線になりません。`,
+    pathPointsInvalid: (id: string) =>
+      `paths の "${id}" の points に、点として読めないものがあります。[ x, y ] か { x, y } の並びで書いてください。この線は描かれません。`,
+    pathArcInvalid: (id: string) =>
+      `paths の "${id}" の arc が読めません。arc: { center: [ x, y ], r: 正の数, from: 度, to: 度 } で書きます（0 度が右、時計回り。from と to は同じにせず、差は 360 度まで）。この線は描かれません。`,
+    pathCloseInvalid: (id: string) =>
+      `paths の "${id}" の close が読めません。true（閉じる）か false です。sector（扇形。中心へ戻る）は arc にだけ書けます。いまは閉じずに描きます。`,
+    pathHatchIgnored: (id: string) =>
+      `paths の "${id}" に hatch がありますが、閉じていない（close: true でも sector でもない）ので効きません。閉じていない線には面が無く、塗りようがありません。`,
+    pathKeyIgnored: (id: string, key: string) =>
+      `paths の "${id}" に ${key} がありますが、節に属さない線では効きません。${key === 'via' ? '通る点は points に並べます。' : key === 'from' || key === 'to' ? '端は points の最初と最後の点です。節から節へ引くなら edges に書きます。' : '線に書けるのは line / weight / color / ends / curve / close / hatch / hatch_color / casing / label です。'}`,
+    pinPointsInvalid: (id: string) =>
+      `pins の "${id}" の points が読めません（[ x, y ] か { x, y } を 2 つ以上）。人の点は使わず、正本の形で描きます。`,
     nameCrowded: (id: string) =>
       `ノード "${id}" の名前は箱に入りきらず、外へ出した先も空いていません（**他の要素に重なる**か、**紙の縁で切れます**）。箱を大きくするか、名前を **\`\\n\`** で折り返すか、文字を短くしてください（消してはいません —— 名前が消えるのは、重なるより悪いためです）。`,
     /**
@@ -1094,6 +1128,8 @@ const ja = {
      */
     lossPlacement:
       'この正本は**配置図**です。どこに何があるかが中身ですが、**Mermaid には位置と大きさの器がありません** —— 以下は位置を失った箱の一覧で、元の図とは別のものです。図として使うなら SVG か draw.io で書き出してください。',
+    lossPaths: (count: number) =>
+      `節に属さない線（paths）が ${count} 本あります。Mermaid の線は節から節へしか引けないので、**ここには出ていません。**`,
     geometryDroppedHeading: '【注意】Mermaid には位置・大きさ・線の曲げ方を書く場所が無い。',
     geometryDroppedDetail: '次の手直しは、この書き出しでは失われている。正本は .zumen.yaml の側。',
   },
@@ -1550,9 +1586,16 @@ const en: Catalog = {
       '                                              # **from and to on the same node, plus via,',
       '                                              # draws a sector (a camera field of view)**',
       '    vertical: <none (default) | stair | escalator | elevator>   # level change (JIS Z 8210)',
+      'paths:             # lines and shapes that belong to no node; only with kind: placement (no invisible anchor nodes)',
+      '  - id: <letters, digits, hyphens; unique; not the id of a node>',
+      '    points: [ [ <x>, <y> ], [ <x>, <y> ], ... ]   # spaces inside the brackets; { x, y } also works',
+      '    arc: { center: [ <x>, <y> ], r: <px>, from: <deg>, to: <deg> }   # an arc instead of points; 0 = right, clockwise',
+      '    close: <true | sector>                        # true closes it (an arc by its chord); sector returns to the centre',
+      '    # same line words as edges: line / weight / color / ends / curve / hatch / hatch_color / casing / label',
     ].join('\n'),
     rules: [
       'Do not write pins. That section holds what a person decided by hand; anything you write there is dropped.',
+      '**Write lines that belong to no node (dimension lines, tape strips, outlines, wedges) as paths.** Do not place nameless 2×2 nodes and join them with edges — the dots get counted as nodes and the human\'s edits end up on unreadable keys like p17>p18. A path is keyed by its id and written as points (a list of [ x, y ]) or arc (centre, radius, angles); its line words are the same as an edge\'s. **Only in placement drawings.**',
       'With kind: placement you place things yourself; the machine does not lay them out. Floor plans, framing plans, store layouts and escape routes are placement. Write both nodes[].at and nodes[].size. Without sizes, a toilet and a 16-mat living room come out the same box.',
       'For an architectural drawing, always write grid and scale. A drawing with no dimension figures cannot be used on site. Put the grid lines on the centre of walls and columns, and code them X1 / Y1.',
       'Sections and elevations also use kind: placement (the measure is the same; read y as height). Mark the horizontal reference lines with mark: level and write the id as GL±0 or 2FL+3,200. Do not write north.',
@@ -1802,6 +1845,33 @@ const en: Catalog = {
       `${target} has hatch_color but no hatch, so it does nothing. The pattern colour applies only to a pattern drawn with hatch.`,
     offsetNotNumber: (edge: string, value: string) =>
       `Edge ${edge} has offset "${value}". Write it as a number of px (positive to the right of the direction of travel, negative to the left). It is drawn without the offset.`,
+    pathsNotList: 'paths is not a list. Write free lines as a list of - id: … entries.',
+    pathsIgnored:
+      'There are paths (lines that belong to no node), but they are drawn only in placement drawings (kind: placement). In a structure drawing the machine decides where things go, so lines written in coordinates mean nothing.',
+    pathIdMissing: (position: number) =>
+      `Path ${position} has no id, so it is not drawn. The id is the key for the human's edits (pins).`,
+    pathIdDuplicated: (id: string) =>
+      `Two paths share the id "${id}". Only the first one is drawn, and a human edit (pins) cannot tell which line it belongs to.`,
+    pathIdSharedWithNode: (id: string) =>
+      `Path "${id}" has the same id as a node. A human edit (pins) cannot tell whether it is for the node or the line. Rename one of them.`,
+    pathShapeMissing: (id: string) =>
+      `Path "${id}" has neither points nor arc, so it has no shape and is not drawn. Write points: [ [ x, y ], … ] for a line of points, or arc: { center: [ x, y ], r, from, to } for an arc.`,
+    pathShapeBoth: (id: string) =>
+      `Path "${id}" has both points and arc, so its shape is ambiguous and it is not drawn. Keep one.`,
+    pathPointsShort: (id: string) =>
+      `Path "${id}" has fewer than two points, so it is not a line.`,
+    pathPointsInvalid: (id: string) =>
+      `Path "${id}" has something in points that is not a point. Write a list of [ x, y ] or { x, y }. The line is not drawn.`,
+    pathArcInvalid: (id: string) =>
+      `The arc of path "${id}" cannot be read. Write arc: { center: [ x, y ], r: <positive>, from: <degrees>, to: <degrees> } (0 degrees points right and angles run clockwise; from and to must differ, by at most 360). The line is not drawn.`,
+    pathCloseInvalid: (id: string) =>
+      `The close of path "${id}" cannot be read. It is true (closed) or false; sector (a wedge back to the centre) is only for arcs. It is drawn open.`,
+    pathHatchIgnored: (id: string) =>
+      `Path "${id}" has a hatch, but it is not closed (neither close: true nor sector), so there is no face to fill and it does nothing.`,
+    pathKeyIgnored: (id: string, key: string) =>
+      `Path "${id}" has ${key}, which does nothing on a free line. ${key === 'via' ? 'List the points it passes through under points.' : key === 'from' || key === 'to' ? 'Its ends are the first and last points. To join two nodes, write an edge.' : 'A path takes line / weight / color / ends / curve / close / hatch / hatch_color / casing / label.'}`,
+    pinPointsInvalid: (id: string) =>
+      `The points under pins "${id}" cannot be read (two or more [ x, y ] or { x, y }). The human points are not used; the line is drawn from the source.`,
     nameCrowded: (id: string) =>
       `The name on node "${id}" does not fit its box and there is no free room outside either: it either lands on something else or is cut off at the edge of the sheet. Make the box bigger, break the name with **\`\\n\`**, or shorten the text. It is NOT dropped: losing a name is worse than an overlap.`,
     adriftCell: 'In a table that leaves the row looking empty.',
@@ -1899,6 +1969,8 @@ const en: Catalog = {
   mermaid: {
     lossPlacement:
       'This source is a **placement drawing**: what matters is where things are, and **Mermaid has no place for positions or sizes**. What follows is a list of boxes with the geometry gone — it is not the same drawing. Export to SVG or draw.io if you need the drawing itself.',
+    lossPaths: (count: number) =>
+      `There are ${count} free lines (paths). Mermaid lines only run from node to node, so **they are not in this export.**`,
     geometryDroppedHeading:
       'NOTE: Mermaid has nowhere to put positions, sizes, or edge waypoints.',
     geometryDroppedDetail:

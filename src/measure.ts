@@ -30,7 +30,7 @@ import { reviewOf } from './review.ts';
 import type { Pin } from './format.ts';
 
 /** 人が幾何を決めた印。ここが増えると「人が並べ直している」。 */
-const GEOMETRY_KEYS = ['position', 'size', 'waypoints'] as const;
+const GEOMETRY_KEYS = ['position', 'size', 'waypoints', 'points'] as const;
 /** 人が中身を直した印。 */
 const CONTENT_KEYS = ['label', 'appearance'] as const;
 
@@ -80,13 +80,19 @@ export function measure(text: string): Measurement {
    * **横に並べない。** `kind` で読み分けてもらう。
    */
   if (kindOf(text) === 'construction') return constants(text, diagram, pins);
-  const elements = diagram.nodeIds().length + diagram.edges().length;
+  /**
+   * **節に属さない線（`paths`）も 1 本で 1 要素**（配置図でだけ。構成図では描かれない）。
+   * 見えない点 2 つと辺 1 本で 3 要素に数えていた線が、1 要素になる。
+   */
+  const paths = kindOf(text) === 'placement' ? diagram.pathIds() : [];
+  const elements = diagram.nodeIds().length + diagram.edges().length + paths.length;
 
   // 迷子の pin（どの要素も指していない）は数えない。**居ない要素の手直しは、
   // 手直し率を押し上げるだけで、実際の図の状態を表さない。**
   const alive = new Set([
     ...diagram.nodeIds(),
     ...diagram.edges().map((edge) => `${edge.from}>${edge.to}`),
+    ...paths,
   ]);
   const entries = Object.entries(pins).filter(([key]) => alive.has(key));
 

@@ -23,6 +23,7 @@ import { MARKS, NORTHS } from './grid.ts';
 import { ENDS } from './ends.ts';
 import { LINES } from './line.ts';
 import { CURVES, viaOf } from './curve.ts';
+import { arcOf, pointsOf } from './paths.ts';
 import { VERTICALS, floorsOf } from './floor.ts';
 import { achromatic, faintOn, faintWhere, PAPER, paletteOf as routePalette } from './palette.ts';
 import { WEIGHTS, weightOf, type Weight } from './weight.ts';
@@ -130,7 +131,8 @@ export function validate(text: string): Finding[] {
   checkColors(doc, add, m, at);
   checkStyles(doc, add, m, at);
   const edgeKeys = checkEdges(doc, nodeIds, add, m, at);
-  checkPins(doc, nodeIds, edgeKeys, add, m, at);
+  const pathIds = checkPaths(doc, nodeIds, add, m, at);
+  checkPins(doc, nodeIds, edgeKeys, add, m, at, pathIds);
   checkRoundTrip(doc, text, add, m);
 
   return found;
@@ -227,6 +229,11 @@ export function hasError(findings: Finding[]): boolean {
 type Add = (severity: Severity, code: string, message: string, line?: number) => void;
 type Messages = ReturnType<typeof messages>['validate'];
 type At = (node: unknown) => number | undefined;
+
+/** **線を持つもの**（辺と、節に属さない線 `paths`）。色・太さ・名前の検査は同じに見る。 */
+function linesOf(doc: Document): YAMLMap[] {
+  return [...seqOf(doc, 'edges'), ...seqOf(doc, 'paths')];
+}
 
 function seqOf(doc: Document, key: string): YAMLMap[] {
   const node = doc.get(key, true);
@@ -463,7 +470,7 @@ function checkNumberText(doc: Document, add: Add, m: Messages, at: At): void {
     if (written === '' || written === String(node.value)) return;
     add('warning', 'number-text-changed', m.numberTextChanged(id, key, written, String(node.value)), at(node));
   };
-  for (const part of ['nodes', 'edges'] as const) {
+  for (const part of ['nodes', 'edges', 'paths'] as const) {
     for (const item of seqOf(doc, part)) {
       const id = String(item.get('id') ?? item.get('from') ?? '');
       for (const key of ['label', 'technology', 'tag', 'title']) look(item, key, id);
@@ -537,6 +544,9 @@ function checkLabelMarkdown(doc: Document, add: Add, m: Messages, at: At): void 
   }
   for (const item of seqOf(doc, 'edges')) {
     scan(item, edgeNameOf(item), ['label']);
+  }
+  for (const item of seqOf(doc, 'paths')) {
+    scan(item, String(item.get('id') ?? ''), ['label']);
   }
   for (const item of seqOf(doc, 'views')) {
     scan(item, String(item.get('id') ?? ''), ['title']);
@@ -1068,8 +1078,8 @@ function checkColors(doc: Document, add: Add, m: Messages, at: At): void {
     const key = item.get('color');
     if (key !== undefined && key !== null) onLines.add(String(key));
   }
-  // **太さの話は辺にしか効かない。** 節の枠に `weight` は無い。
-  for (const item of seqOf(doc, 'edges')) {
+  // **太さの話は辺にしか効かない。** 節の枠に `weight` は無い（節に属さない線 `paths` は辺と同じ）。
+  for (const item of linesOf(doc)) {
     const key = item.get('color');
     if (key === undefined || key === null) continue;
     onLines.add(String(key));
@@ -1087,7 +1097,7 @@ function checkColors(doc: Document, add: Add, m: Messages, at: At): void {
    * 縁は線の下、模様は面の上に描くので、地との比べ方は当たらない ——
    * 黒い縁は暗い地で沈むが、そのときも縁の内側の線は読める。
    */
-  for (const kind of ['nodes', 'edges'] as const) {
+  for (const kind of ['nodes', 'edges', 'paths'] as const) {
     for (const item of seqOf(doc, kind)) {
       for (const field of ['casing', 'hatch_color'] as const) {
         const key = item.get(field);
@@ -1125,7 +1135,7 @@ function checkColors(doc: Document, add: Add, m: Messages, at: At): void {
       if (value !== undefined && value !== null) asText.push(String(value));
     }
   }
-  for (const item of seqOf(doc, 'edges')) {
+  for (const item of linesOf(doc)) {
     const value = item.get('label');
     if (value !== undefined && value !== null) asText.push(String(value));
   }
@@ -1197,6 +1207,11 @@ function checkColors(doc: Document, add: Add, m: Messages, at: At): void {
     const label = item.get('label');
     if (label !== undefined && label !== null) written.push(String(label));
     seen(item, `${String(item.get('from'))}>${String(item.get('to'))}`);
+  }
+  for (const item of seqOf(doc, 'paths')) {
+    const label = item.get('label');
+    if (label !== undefined && label !== null) written.push(String(label));
+    seen(item, String(item.get('id') ?? ''));
   }
 
   for (const [key, item] of used) {
@@ -1437,6 +1452,109 @@ function checkEnds(doc: Document, add: Add, m: Messages, at: At): void {
   }
 }
 
+/**
+ * **節に属さない線と形**（`paths`。`src/paths.ts`）。
+ *
+ * 描けないもの（id が無い・形が読めない）は描かれないので、**黙って落とさずに言う。**
+ * 線の語（線種・太さ・端・丸め方・模様・色）は辺と同じ印で見る —— 語が同じなら、間違い方も同じ。
+ * 返すのは id の集合（`pins` の鍵として迷子にしないため）。
+ */
+function checkPaths(doc: Document, nodeIds: ReadonlySet<string>, add: Add, m: Messages, at: At): Set<string> {
+  const ids = new Set<string>();
+  const raw = doc.get('paths', true);
+  if (raw === undefined || raw === null) return ids;
+  if (!isSeq(raw)) {
+    add('warning', 'paths-not-list', m.pathsNotList, at(raw));
+    return ids;
+  }
+  if (String(doc.get('kind') ?? '') !== 'placement') {
+    add('warning', 'paths-ignored', m.pathsIgnored, at(raw));
+  }
+  let position = 0;
+  for (const item of raw.items) {
+    position += 1;
+    const rawId = isMap(item) ? item.get('id') : undefined;
+    if (!isMap(item) || rawId === undefined || rawId === null || String(rawId) === '') {
+      add('warning', 'path-id-missing', m.pathIdMissing(position), at(item));
+      continue;
+    }
+    const id = String(rawId);
+    if (ids.has(id)) add('warning', 'path-id-duplicated', m.pathIdDuplicated(id), at(item));
+    else if (nodeIds.has(id)) add('warning', 'path-id-shared-with-node', m.pathIdSharedWithNode(id), at(item));
+    ids.add(id);
+    checkPathShape(item, id, add, m, at);
+    checkPathWords(doc, item, id, add, m, at);
+  }
+  return ids;
+}
+
+/** 形（`points` か `arc` のどちらか 1 つ）と、閉じ方（`close`）。 */
+function checkPathShape(item: YAMLMap, id: string, add: Add, m: Messages, at: At): void {
+  const points = item.get('points', true);
+  const arc = item.get('arc', true);
+  const hasPoints = points !== undefined && points !== null;
+  const hasArc = arc !== undefined && arc !== null;
+  if (!hasPoints && !hasArc) add('warning', 'path-shape-missing', m.pathShapeMissing(id), at(item));
+  if (hasPoints && hasArc) add('warning', 'path-shape-both', m.pathShapeBoth(id), at(arc));
+  if (hasPoints) {
+    const read = pointsOf(isSeq(points) ? points.toJSON() : null);
+    if (read === null) add('warning', 'path-points-invalid', m.pathPointsInvalid(id), at(points));
+    else if (read.length < 2) add('warning', 'path-points-short', m.pathPointsShort(id), at(points));
+  }
+  if (hasArc && arcOf(isMap(arc) ? arc.toJSON() : null) === null) {
+    add('warning', 'path-arc-invalid', m.pathArcInvalid(id), at(arc));
+  }
+  const close = item.get('close');
+  const closed = close === true || (close === 'sector' && hasArc);
+  if (close !== undefined && close !== null && typeof close !== 'boolean' && !closed) {
+    add('warning', 'path-close-invalid', m.pathCloseInvalid(id), at(item.get('close', true)));
+  }
+  const hatch = item.get('hatch');
+  if (hatch !== undefined && hatch !== null && String(hatch) !== 'none') {
+    if (!HATCHES.includes(String(hatch) as (typeof HATCHES)[number])) {
+      add('warning', 'hatch-unknown', m.hatchUnknown(id, String(hatch)), at(item.get('hatch', true)));
+    } else if (!closed) {
+      add('warning', 'path-hatch-ignored', m.pathHatchIgnored(id), at(item.get('hatch', true)));
+    }
+  }
+}
+
+/** **線に書いても効かない語**（辺の端・通り道、節だけの語）。 */
+const PATH_IGNORED_KEYS = ['from', 'to', 'via', 'offset', 'vertical', 'callout', 'fill', ...NODE_ONLY_KEYS] as const;
+
+/** 線の語。**辺と同じ印で見る**（`checkEnds`）。 */
+function checkPathWords(doc: Document, item: YAMLMap, id: string, add: Add, m: Messages, at: At): void {
+  for (const key of PATH_IGNORED_KEYS) {
+    const wrote = item.get(key, true);
+    if (wrote !== undefined && wrote !== null) add('warning', 'path-key-ignored', m.pathKeyIgnored(id, key), at(wrote));
+  }
+  const curve = item.get('curve');
+  if (curve !== undefined && curve !== null && !CURVE_WORDS.has(String(curve))) {
+    add('warning', 'curve-unknown', m.curveUnknown(id, String(curve)), at(item.get('curve', true)));
+  }
+  const line = item.get('line');
+  if (line !== undefined && line !== null && !LINE_WORDS.has(String(line))) {
+    add('warning', 'line-unknown', m.lineUnknown(id, String(line)), at(item.get('line', true)));
+  }
+  const weight = item.get('weight');
+  if (weight !== undefined && weight !== null && !WEIGHT_WORDS.has(String(weight))) {
+    add('warning', 'weight-unknown', m.weightUnknown(id, String(weight)), at(item.get('weight', true)));
+  }
+  const casing = item.get('casing');
+  if (casing !== undefined && casing !== null && !paintKnown(doc, casing)) {
+    add('warning', 'casing-unknown', m.casingUnknown(id, String(casing)), at(item.get('casing', true)));
+  }
+  checkHatchColor(doc, item, id, add, m, at);
+  const ends = item.get('ends', true);
+  if (!isMap(ends)) return;
+  for (const side of ['from', 'to']) {
+    const value = ends.get(side);
+    if (value !== undefined && value !== null && !END_WORDS.has(String(value))) {
+      add('warning', 'ends-unknown', m.endsUnknown(id, String(value)), at(ends));
+    }
+  }
+}
+
 function checkPins(
   doc: Document,
   nodeIds: Set<string>,
@@ -1444,6 +1562,7 @@ function checkPins(
   add: Add,
   m: Messages,
   at: At,
+  pathIds: ReadonlySet<string> = new Set(),
 ): void {
   const pins = doc.get('pins', true);
   if (!isMap(pins)) return;
@@ -1459,6 +1578,18 @@ function checkPins(
       }
     }
 
+    /**
+     * **節に属さない線**（`paths`）の手直しは、線の id を鍵にする（`pins.<id>.points`）。
+     * 読めない点は使われないので、黙って落とさずに言う。
+     */
+    if (pathIds.has(key)) {
+      const points = target?.get('points', true);
+      if (points !== undefined && points !== null) {
+        const read = pointsOf(isSeq(points) ? points.toJSON() : null);
+        if (read === null || read.length < 2) add('warning', 'pin-points-invalid', m.pinPointsInvalid(key), at(points));
+      }
+      continue;
+    }
     const isEdge = EDGE_KEY.test(key);
     const known = isEdge ? edgeKeys.has(key) : nodeIds.has(key);
     if (known) continue;

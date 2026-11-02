@@ -31,6 +31,11 @@ export interface Pin {
   /** 人が手で曲げたエッジの経路。エッジの pin は `from>to` を鍵にする。 */
   waypoints?: { x: number; y: number }[];
   /**
+   * 人が描き直した**節に属さない線**の点（`paths`。鍵は線の `id`）。
+   * `[x, y]` でも `{ x, y }` でも書ける。**正本の `points` / `arc` より勝つ。**
+   */
+  points?: unknown[];
+  /**
    * 人が「AI の再配置より自分の位置を採る」と決めた印。
    * 決定を正本へ書いておかないと、次に開いたときに同じことを聞き直すことになる。
    */
@@ -100,6 +105,14 @@ export class Diagram {
 
   nodeIds(): string[] {
     return this.seq('nodes').map((item) => String(item.get('id')));
+  }
+
+  /** **節に属さない線**（`paths`）の id。id の無いものは数えない。 */
+  pathIds(): string[] {
+    return this.seq('paths')
+      .map((item) => item.get('id'))
+      .filter((id) => id !== undefined && id !== null)
+      .map((id) => String(id));
   }
 
   groupIds(): string[] {

@@ -54,7 +54,7 @@
         "ja",
         "en"
       ],
-      "description": "A diagram tool whose source of truth is one YAML file: when the AI redraws, the one thing a human fixed (pins) survives. 405 example drawings, 118 checks, MCP server included.",
+      "description": "A diagram tool whose source of truth is one YAML file: when the AI redraws, the one thing a human fixed (pins) survives. 405 example drawings, 132 checks, MCP server included.",
       "keywords": "diagram as code, AI-editable architecture diagrams, MCP server, Claude Code, YAML, SVG, Mermaid, draw.io, floor plans, professional drawings",
       "license": "https://opensource.org/licenses/MIT",
       "isAccessibleForFree": true,
@@ -76,7 +76,7 @@
         "A human's pinned edits survive regeneration",
         "The source of truth is one YAML file, readable and writable by hand",
         "Exports SVG, Mermaid, draw.io XML and Markdown embedding",
-        "118 checks that name what will not be drawn",
+        "132 checks that name what will not be drawn",
         "An MCP server, so an agent can read the spec and write drawings",
         "A Git merge driver, so two people editing one drawing merge structurally"
       ]
@@ -168,6 +168,7 @@
   <!-- news -->
   <p class="news-h">News（<a href="feed.xml">feed</a>）</p>
   <ul class="near news">
+    <li><span class="thumb" aria-hidden="true"></span><time datetime="2026-11-02">11/2</time>Feature <a href="https://github.com/meta-taro/zumen/blob/main/CHANGELOG.md">Changelog</a> Free lines and shapes (paths): dimension lines, tape strips, outlines, arcs and wedges written in coordinates, with no invisible anchor nodes</li>
     <li><a href="g/405/" tabindex="-1" aria-hidden="true"><img class="thumb" src="../gallery/405-%E5%8D%98%E7%B7%9A%E5%9B%B3%E3%81%8B%E3%82%89%E8%A4%87%E7%B7%9A%E5%9B%B3%E3%81%B8.svg" alt="" width="72" height="48" loading="lazy" decoding="async"></a><time datetime="2026-10-24">10/24</time>New <a href="g/405/">Example 405</a> How a Japanese electrician turns a one-line wiring plan into a full wiring diagram. The plan shows only where…</li>
     <li><a href="g/404/" tabindex="-1" aria-hidden="true"><img class="thumb" src="../gallery/404-%E3%82%AE%E3%82%BF%E3%83%BC%E3%81%AE%E3%82%B3%E3%83%BC%E3%83%89%E8%A1%A8%E3%81%A8TAB%E8%AD%9C.svg" alt="" width="72" height="48" loading="lazy" decoding="async"></a><time datetime="2026-10-24">10/24</time>New <a href="g/404/">Example 404</a> Five basic guitar chords (C, G, Am, F, Bm) written twice and lined up: chord boxes on top, TAB below. In the …</li>
     <li><a href="g/403/" tabindex="-1" aria-hidden="true"><img class="thumb" src="../gallery/403-%E3%81%8D%E3%82%89%E3%81%8D%E3%82%89%E6%98%9F-%E8%8B%B1%E8%AA%9E%E3%81%AE%E6%AD%8C%E8%A9%9E%E3%81%A4%E3%81%8D%E3%81%AE%E4%BA%94%E7%B7%9A%E8%AD%9C.svg" alt="" width="72" height="48" loading="lazy" decoding="async"></a><time datetime="2026-10-20">10/20</time>New <a href="g/403/">Example 403</a> An ordinary score: Twinkle, Twinkle, Little Star in C major, 4/4, on three staves, with Jane Taylor's 1806 wo…</li>
@@ -175,7 +176,6 @@
     <li><span class="thumb" aria-hidden="true"></span><time datetime="2026-10-20">10/20</time>Feature <a href="https://github.com/meta-taro/zumen/blob/main/CHANGELOG.md">Changelog</a> Markup on the diagram (pen and sticky notes) in colours and widths of your choice; it never changes the diagram and follows the box it is tied to</li>
     <li><a href="g/402/" tabindex="-1" aria-hidden="true"><img class="thumb" src="../gallery/402-%E6%99%82%E5%B7%AE%E3%81%AE%E4%B8%96%E7%95%8C%E5%9C%B0%E5%9B%B3-%E7%B5%8C%E5%BA%A6%E3%81%AE%E5%B8%AF%E3%81%A8%E5%9B%BD%E3%81%8C%E6%B1%BA%E3%82%81%E3%81%9F%E6%99%82.svg" alt="" width="72" height="48" loading="lazy" decoding="async"></a><time datetime="2026-10-20">10/20</time>New <a href="g/402/">Example 402</a> Every 15 degrees of longitude is an hour, but clocks follow borders. Twenty cities from the IANA tz database …</li>
     <li><a href="g/401/" tabindex="-1" aria-hidden="true"><img class="thumb" src="../gallery/401-%E3%82%AD%E3%82%AD%E3%82%AF%E3%83%AB-%E5%9C%9F%E7%A0%82%E3%81%AE%E3%83%A1%E3%83%83%E3%82%B7%E3%83%A5%E3%81%A8%E6%B4%AA%E6%B0%B4%E3%81%AE%E5%B7%9D.svg" alt="" width="72" height="48" loading="lazy" decoding="async"></a><time datetime="2026-10-20">10/20</time>New <a href="g/401/">Example 401</a> JMA's KiKiKuru risk maps for a fictional town: the landslide map paints a 1 km mesh yellow, red, purple and b…</li>
-    <li><a href="g/400/" tabindex="-1" aria-hidden="true"><img class="thumb" src="../gallery/400-%E5%A4%A7%E5%9C%8F%E8%88%AA%E8%B7%AF%E3%81%A8%E7%AD%89%E8%A7%92%E8%88%AA%E8%B7%AF-%E6%9D%B1%E4%BA%AC%E3%81%8B%E3%82%89%E3%83%8B%E3%83%A5%E3%83%BC%E3%83%A8%E3%83%BC%E3%82%AF.svg" alt="" width="72" height="48" loading="lazy" decoding="async"></a><time datetime="2026-10-16">10/16</time>New <a href="g/400/">Example 400</a> Tokyo to New York two ways on two projections: on Mercator the shortest great-circle route arcs up over Alask…</li>
   </ul>
   <!-- /news -->
   <div class="filters" role="group" aria-label="Filter by kind">

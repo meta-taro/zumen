@@ -193,6 +193,8 @@ export interface Inspection {
   findings: Finding[];
   nodes: number;
   edges: number;
+  /** **節に属さない線**（`paths`）。辺にも節にも数えない。 */
+  paths: number;
   groups: number;
   /** 線どうしの交差。**多いと読めない。** */
   crossings: number;
@@ -351,6 +353,7 @@ export async function inspect(source: string): Promise<Inspection> {
       findings,
       nodes: 0,
       edges: 0,
+      paths: 0,
       groups: 0,
       crossings: 0,
       overlaps: [],
@@ -402,7 +405,8 @@ export async function inspect(source: string): Promise<Inspection> {
     readable: true,
     findings,
     nodes: placed.boxes.length,
-    edges: placed.edges.length,
+    edges: placed.edges.filter((e) => e.path !== true).length,
+    paths: placed.edges.filter((e) => e.path === true).length,
     groups: placed.groups.length,
     crossings: crossed,
     overlaps: overlaps(placed),
