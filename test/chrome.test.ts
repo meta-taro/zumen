@@ -8,7 +8,7 @@ import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
 import { describe, it } from 'node:test';
 
-import { compareHtml, drawHtml } from '../packages/zumen-chrome/src/draw.ts';
+import { compareHtml, countsOf, drawHtml } from '../packages/zumen-chrome/src/draw.ts';
 import {
   FENCE_SELECTOR,
   escapeHtml,
@@ -72,6 +72,11 @@ describe('Chrome: PR の差分', () => {
     assert.equal(isZumenFile('x/y.yaml'), false);
   });
 
+  it('印の中身を字でも言う（多ければ頭の 5 つ）', () => {
+    assert.equal(countsOf({ added: ['cdn', 'cache'], removed: [], kept: ['db'] }), '新 2（cdn, cache） ／ 消 0 ／ 人の直しが残った 1（db）');
+    assert.match(countsOf({ added: ['a', 'b', 'c', 'd', 'e', 'f', 'g'], removed: [], kept: [] }), /新 7（a, b, c, d, e ほか 2）/);
+  });
+
   it('raw の URL は、日本語の名前を区切りごとに逃がす（/ は残す）', () => {
     assert.equal(rawUrl('o', 'r', A, 'examples/間取り.zumen.yaml'), `/o/r/raw/${A}/examples/%E9%96%93%E5%8F%96%E3%82%8A.zumen.yaml`);
   });
@@ -79,7 +84,7 @@ describe('Chrome: PR の差分', () => {
   it('変更前と変更後を並べ、数を添える。片方が無ければある方だけ', async () => {
     const after = R0.replace(/^nodes:\n/m, 'nodes:\n  - id: cdn\n    label: CDN\n');
     const both = await compareHtml(R0, after, 'light');
-    assert.match(both, /新 1 ／ 消 0/);
+    assert.match(both, /新 1（cdn） ／ 消 0 ／/);
     assert.match(both, /<svg/);
     assert.match(await compareHtml(null, R0, 'light'), /新しく足された/);
     assert.match(await compareHtml(R0, null, 'dark'), /消された/);

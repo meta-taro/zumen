@@ -33,6 +33,8 @@ interface Drawer {
 }
 
 const SOURCE_ATTRIBUTE = 'data-zumen-source';
+/** 図を欄の幅に収める。 */
+const FIT = 'max-width:100%;height:auto;display:block';
 /** 差分の欄の鍵（commit 2 つとファイル）。GitHub は差分の入れ物を別のファイルに使い回すので、鍵で見分ける。 */
 const COMPARE_ATTRIBUTE = 'data-zumen-compare';
 /** 差分の欄が持つ、変更前と変更後の正本。 */
@@ -72,7 +74,18 @@ async function fill(panel: HTMLElement, theme: Theme): Promise<void> {
     ? await draw.compareHtml(pair.before, pair.after, theme)
     : await draw.drawHtml(panel.getAttribute(SOURCE_ATTRIBUTE) ?? '', theme);
   const svg = body.querySelector('svg');
-  if (svg !== null) svg.style.cssText = 'max-width:100%;height:auto;display:block';
+  if (svg === null) return;
+  svg.style.cssText = FIT;
+  // 前後の比較は 2 枚並ぶので、欄の幅に収めると「新」「人」の印が読めない。元の大きさでは 1 画面に入らない
+  // （2026-11-02、PR の実物で 3188 px）。**収めて全体を見せ、押すと元の大きさ**にする。印の中身は上の行に字で出す。
+  if (pair) {
+    svg.style.cursor = 'zoom-in';
+    svg.addEventListener('click', () => {
+      const zoomed = svg.style.maxWidth === 'none';
+      svg.style.cssText = zoomed ? FIT : 'display:block;max-width:none';
+      svg.style.cursor = zoomed ? 'zoom-in' : 'zoom-out';
+    });
+  }
 }
 
 /** まだ欄の無い正本に、欄を足す。 */

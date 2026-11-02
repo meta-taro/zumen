@@ -30,11 +30,23 @@ export async function compareHtml(before: string | null, after: string | null, t
   if (after === null || after.trim() === '') return summary('removed') + (await drawHtml(before, theme));
   try {
     const result = await compare(before, after, { theme });
-    const counts = `新 ${result.added.length} ／ 消 ${result.removed.length} ／ 人の直しが残った ${result.kept.length}`;
-    return `<p style="margin:0 0 8px;font-size:12px">${escapeHtml(counts)}</p>${result.svg}`;
+    return `<p style="margin:0 0 8px;font-size:12px">${escapeHtml(countsOf(result))}</p>${result.svg}`;
   } catch (error) {
     return failure(error instanceof Error ? error.message : String(error));
   }
+}
+
+/**
+ * 印の数と、どの節か。**図を欄に収めると印が読めない**ので、字でも言う（`content.ts`）。
+ * 名前は正本の id（YAML の差分と突き合わせられる）。多いときは頭の 5 つまで。
+ */
+export function countsOf(result: { added: string[]; removed: string[]; kept: string[] }): string {
+  const names = (ids: string[]) => (ids.length === 0 ? '' : `（${ids.slice(0, 5).join(', ')}${ids.length > 5 ? ` ほか ${ids.length - 5}` : ''}）`);
+  return [
+    `新 ${result.added.length}${names(result.added)}`,
+    `消 ${result.removed.length}${names(result.removed)}`,
+    `人の直しが残った ${result.kept.length}${names(result.kept)}`,
+  ].join(' ／ ');
 }
 
 function summary(kind: 'added' | 'removed'): string {
