@@ -1,0 +1,49 @@
+<!doctype html>
+<!--
+  ツールバーのアイコンを押したときの案内。**押して使う機能は無い**ので、使い方と、試せる実物を置く。
+  初めて入れた人が、GitHub のどこを開けば図が出るのか分からないまま終わらないように（2026-11-02）。
+  台本は置かない（拡張の画面は外の台本も中の台本も走らせない決まり。リンクだけで足りる）。
+-->
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>zumen</title>
+<style>
+  :root { color-scheme: light dark; --fg: #1f2328; --muted: #59636e; --line: #d0d7de; --link: #0969da; --bg: #ffffff; }
+  @media (prefers-color-scheme: dark) { :root { --fg: #f0f6fc; --muted: #9198a1; --line: #3d444d; --link: #4493f8; --bg: #0d1117; } }
+  body { margin: 0; width: 320px; padding: 14px 16px; font: 13px/1.5 system-ui, sans-serif; color: var(--fg); background: var(--bg); }
+  h1 { font-size: 15px; margin: 0 0 6px; }
+  p { margin: 0 0 10px; }
+  .muted { color: var(--muted); font-size: 12px; }
+  h2 { font-size: 12px; margin: 12px 0 4px; color: var(--muted); font-weight: 600; }
+  ul { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+  li { border-bottom: 1px solid var(--line); }
+  a { display: block; padding: 6px 0; color: var(--link); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  a small { display: block; color: var(--muted); }
+</style>
+</head>
+<body>
+  <h1>zumen — diagrams on GitHub</h1>
+  <p>github.com で zumen のファイルや PR を開くと、そのページの中に図が出ます。押すボタンはありません。<br>
+    見えるのは、この拡張を入れた人の画面だけです（GitHub には何も保存しません）。<br>
+    <span class="muted">Open a zumen file or a pull request on github.com and the diagram appears in the page. Only you see it — nothing is saved to GitHub.</span></p>
+  <p class="muted">・<b>PR の差分：変わった図を、変更前と変更後で並べる</b>（足した節に「新」、消えた節に「消」、人が置いた節に「人」）<br>・*.zumen.yaml のファイル表示<br>・README・Issue・PR の ```zumen ブロック<br>図の欄は「▾」でたためます。GitHub の外へは何も送りません。</p>
+
+  <h2>試す / Try it</h2>
+  <ul>
+    <li><a href="https://github.com/meta-taro/zumen/pull/24/changes" target="_blank" rel="noopener">見本の PR（AI が節を足した）<small>変わった図を前後で並べる / before and after in a pull request</small></a></li>
+    <li><a href="https://github.com/meta-taro/zumen/blob/main/examples/%E8%A8%AD%E8%A8%88%E6%9B%B8%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB.md" target="_blank" rel="noopener">設計書サンプル.md<small>Markdown の中の ```zumen ブロック</small></a></li>
+    <li><a href="https://github.com/meta-taro/zumen/blob/main/examples/%E6%9C%AC%E7%95%AA%E6%A7%8B%E6%88%90.zumen.yaml" target="_blank" rel="noopener">本番構成.zumen.yaml<small>サーバ構成図 / server architecture</small></a></li>
+    <li><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/369-%E3%83%89%E3%83%BC%E3%83%A0%E3%83%A9%E3%82%A4%E3%83%96%E3%81%AE%E7%85%A7%E6%98%8E%E4%BB%95%E8%BE%BC%E5%9B%B3.zumen.yaml" target="_blank" rel="noopener">ドームライブの照明仕込図<small>lighting plot</small></a></li>
+    <li><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/14-%E9%96%93%E5%8F%96%E3%82%8A.zumen.yaml" target="_blank" rel="noopener">間取り<small>floor plan</small></a></li>
+    <li><a href="https://github.com/meta-taro/zumen/blob/main/examples/gallery/34-%E5%80%89%E5%BA%AB%E3%81%AE%E3%83%AD%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3.zumen.yaml" target="_blank" rel="noopener">倉庫のロケーション<small>warehouse layout</small></a></li>
+  </ul>
+
+  <h2>もっと / More</h2>
+  <ul>
+    <li><a href="https://meta-taro.github.io/zumen/" target="_blank" rel="noopener">見本の一覧（400 枚以上）<small>Gallery of 400+ specialist diagrams</small></a></li>
+    <li><a href="https://marketplace.visualstudio.com/items?itemName=meta-taro.zumen-vscode" target="_blank" rel="noopener">VS Code 拡張で書く<small>Write them in VS Code with Copilot or Claude Code</small></a></li>
+  </ul>
+</body>
+</html>

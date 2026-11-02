@@ -20,6 +20,14 @@ describe('同梱の見本の目次', () => {
     assert.notEqual(catalogue(), null, 'examples/gallery/index.json が読めない');
   });
 
+  /**
+   * **外から読まれる形式なので、形の版を持つ**（2026-11-02）。
+   * md-business の拡張がこの目次を読む。形を変えたら版を上げ、読む側が壊れたと気づけるようにする。
+   */
+  it('**形の版（format）が 1**', () => {
+    assert.equal(catalogue()!.format, 1);
+  });
+
   it('**枚数が実物と合っている**', () => {
     assert.equal(catalogue()!.count, files.length);
   });

@@ -132,6 +132,10 @@ jobs:
         run: pnpm vscode:check
         timeout-minutes: 15
 
+      # Chrome 拡張。型が通り、配る形（見張り役と描画の本体の 2 本）に束ねられるか。
+      - name: Chrome の拡張を型で確かめて束ねる
+        run: pnpm exec tsc --noEmit -p packages/zumen-chrome && pnpm chrome:build
+
   # 画面。**「ビルドが通る」と「動く」は別**なので、実際に動かす。
   #
   # 実際、`process is not defined` で画面が丸ごと動かないまま

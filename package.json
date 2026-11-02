@@ -111,6 +111,8 @@
     "typecheck": "tsc --noEmit",
     "validate": "node src/cli.ts validate",
     "version:set": "node scripts/version.mjs",
+    "chrome:build": "node scripts/chrome-build.mjs",
+    "chrome:package": "node scripts/chrome-build.mjs --zip",
     "vscode:build": "node scripts/vscode-build.mjs",
     "vscode:check": "node scripts/vscode-check.mjs",
     "vscode:package": "node scripts/vscode-build.mjs && cd packages/zumen-vscode && pnpm dlx @vscode/vsce@4.0.0 package --no-dependencies",

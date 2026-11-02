@@ -234,6 +234,8 @@ const scalesOf = (text) =>
   new Set([...text.matchAll(/^\s*scale: \{[^}]*\}/gm)].map((m) => m[0].trim().replace(/\s+/g, ''))).size;
 
 const index = {
+  // **形の版。** 外（md-business の拡張など）からも読まれるので、形を変えたら上げる。
+  format: 1,
   count: readdirSync(DIR).filter((f) => f.endsWith('.zumen.yaml')).length,
   categories: CATEGORIES.map((group) => ({
     key: group.key,

@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "zumen — diagrams on GitHub",
+  "short_name": "zumen",
+  "description": "Review diagram changes in GitHub pull requests: zumen diagrams before and after, side by side. Nothing leaves GitHub.",
+  "version": "0.1.0",
+  "homepage_url": "https://meta-taro.github.io/zumen/",
+  "action": { "default_title": "zumen", "default_popup": "popup.html" },
+  "icons": { "16": "icon-16.png", "48": "icon-48.png", "128": "icon-128.png" },
+  "content_scripts": [
+    { "matches": ["https://github.com/*"], "js": ["content.js"], "run_at": "document_idle" }
+  ],
+  "web_accessible_resources": [
+    { "resources": ["draw.js"], "matches": ["https://github.com/*"], "use_dynamic_url": true }
+  ]
+}

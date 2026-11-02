@@ -46,6 +46,8 @@ export interface Category {
 }
 
 export interface Catalogue {
+  /** 形の版。外（md-business の拡張など）からも読まれるので、形を変えたら上げる。 */
+  format: number;
   count: number;
   categories: Category[];
 }
