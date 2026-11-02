@@ -106,6 +106,10 @@ const ja = {
       `提案は (${x}, ${y})。自分の指定を採ると決めてあるので、聞き直しません。`,
     conflictPosition: (humanX: number, humanY: number, aiX: number, aiY: number) =>
       `人の指定 (${humanX}, ${humanY}) / 提案 (${aiX}, ${aiY})`,
+    conflictValue: (human: string, ai: string) => `人の指定 ${human} / 提案 ${ai}`,
+    conflictValueSuppressed: (ai: string) => `提案は ${ai}。自分の指定を採ると決めてあるので、聞き直しません。`,
+    conflictKind: (human: string, ai: string) =>
+      `図の種類が違います（正本 ${human} / 提案 ${ai}）。種類が変わると座標と手直しの読み方ごと変わるので、入れていません。`,
 
     diffHeading: '入れる前に見る',
     noChange: '変わるところはありません。',
@@ -203,6 +207,7 @@ const ja = {
     conflictRemoved: '提案では消えていますが、人が指定した要素なので残しました。',
     conflictPosition: (human: string, ai: string) => `人の指定 ${human} / 提案 ${ai}`,
     conflictSuppressed: (ai: string) => `提案 ${ai}。人が自分の指定を採ると決めているので聞き直しません。`,
+    conflictKind: (human: string, ai: string) => `図の種類が違います（正本 ${human} / 提案 ${ai}）。入れていません。`,
     mergedClean2: '食い違いはありません。',
     /** 「9 割」の測り方は `src/measure.ts`。 */
     inspected: (path: string) => `${path}`,
@@ -1297,6 +1302,10 @@ const en: Catalog = {
       `The proposal says (${x}, ${y}). You chose your own placement, so this is not asked again.`,
     conflictPosition: (humanX: number, humanY: number, aiX: number, aiY: number) =>
       `yours (${humanX}, ${humanY}) / proposal (${aiX}, ${aiY})`,
+    conflictValue: (human: string, ai: string) => `yours ${human} / proposal ${ai}`,
+    conflictValueSuppressed: (ai: string) => `The proposal says ${ai}. You chose your own value, so this is not asked again.`,
+    conflictKind: (human: string, ai: string) =>
+      `The diagram kind differs (yours ${human} / proposal ${ai}). Changing it changes how coordinates and hand edits are read, so it was not applied.`,
 
     diffHeading: 'Look before applying',
     noChange: 'Nothing changes.',
@@ -1384,6 +1393,7 @@ const en: Catalog = {
     conflictRemoved: 'The proposal drops it, but a person placed it, so it was kept.',
     conflictPosition: (human: string, ai: string) => `hand edit ${human} / proposal ${ai}`,
     conflictSuppressed: (ai: string) => `proposal ${ai}. The person chose their own placement, so this is not asked again.`,
+    conflictKind: (human: string, ai: string) => `The diagram kind differs (yours ${human} / proposal ${ai}). Not applied.`,
     mergedClean2: 'No disagreements.',
     inspected: (path: string) => `${path}`,
     inspectCounts: (nodes: number, edges: number, kind: string) => `  ${nodes} nodes / ${edges} edges / ${kind}`,

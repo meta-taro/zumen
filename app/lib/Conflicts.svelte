@@ -18,7 +18,7 @@ import type { Conflict } from '../../src/merge.ts';
 
   function tone(conflict: Conflict): string {
     if (conflict.kind === 'pin-orphaned') return 'danger';
-    if (conflict.kind === 'position-suppressed') return 'neutral';
+    if (conflict.kind === 'position-suppressed' || conflict.kind === 'value-suppressed') return 'neutral';
     return 'warning';
   }
 
@@ -29,6 +29,9 @@ import type { Conflict } from '../../src/merge.ts';
     if (conflict.kind === 'position-suppressed') {
       return m.conflictSuppressed(conflict.ai.x, conflict.ai.y);
     }
+    if (conflict.kind === 'value-suppressed') return m.conflictValueSuppressed(String(conflict.ai));
+    if (conflict.kind === 'value-proposed') return m.conflictValue(String(conflict.human), String(conflict.ai));
+    if (conflict.kind === 'kind-proposed') return m.conflictKind(conflict.human, conflict.ai);
     return m.conflictPosition(conflict.human.x, conflict.human.y, conflict.ai.x, conflict.ai.y);
   }
 </script>
@@ -51,7 +54,7 @@ import type { Conflict } from '../../src/merge.ts';
             onclick={() => session.select(conflict.elementId)}
           >{conflict.elementId}</button>
           <p>{detail(conflict)}</p>
-          {#if conflict.kind !== 'position-suppressed'}
+          {#if conflict.kind !== 'position-suppressed' && conflict.kind !== 'value-suppressed'}
             <div class="choose">
               <button onclick={() => session.decide(conflict, 'human')}>{m.takeMine}</button>
               <button onclick={() => session.decide(conflict, 'ai')}>{m.takeProposal}</button>

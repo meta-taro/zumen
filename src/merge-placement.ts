@@ -266,7 +266,7 @@ function removeMember(diagram: Diagram, as: string, id: string): void {
  *
  * 素の値から作り直すと `[ 0, 50 ]` が縦に崩れ、書き戻しの検査（`round-trip-changed`）で落ちる。
  */
-function updateFieldsAsWritten(item: YAMLMap, proposed: YAMLMap, skip: ReadonlySet<string> = new Set()): void {
+export function updateFieldsAsWritten(item: YAMLMap, proposed: YAMLMap, skip: ReadonlySet<string> = new Set()): void {
   const before = item.toJSON() as Record<string, unknown>;
   const next = proposed.toJSON() as Record<string, unknown>;
   for (const [key, value] of Object.entries(next)) {
@@ -280,7 +280,7 @@ function updateFieldsAsWritten(item: YAMLMap, proposed: YAMLMap, skip: ReadonlyS
   }
 }
 
-function cloneOf(node: unknown): unknown {
+export function cloneOf(node: unknown): unknown {
   if (typeof node === 'object' && node !== null && 'clone' in node) {
     return (node as { clone(): unknown }).clone();
   }
@@ -288,14 +288,14 @@ function cloneOf(node: unknown): unknown {
 }
 
 /** 足す節を、`before` に挙げた節のうち最初に見つかったものの前へ入れる。無ければ末尾。 */
-function insertSection(doc: Document, root: YAMLMap, key: string, value: unknown, before: readonly string[]): void {
+export function insertSection(doc: Document, root: YAMLMap, key: string, value: unknown, before: readonly string[]): void {
   const pair = doc.createPair(key, value) as Pair;
   const at = root.items.findIndex((item) => before.includes(keyText(item.key)));
   if (at === -1) root.items.push(pair);
   else root.items.splice(at, 0, pair);
 }
 
-function rootOf(diagram: Diagram): YAMLMap | null {
+export function rootOf(diagram: Diagram): YAMLMap | null {
   const contents = diagram.doc.contents;
   return isMap(contents) ? contents : null;
 }
@@ -316,7 +316,7 @@ function keysOf(seq: YAMLSeq | null, key: string): string[] {
     .map((value) => String(value));
 }
 
-function keyText(key: unknown): string {
+export function keyText(key: unknown): string {
   return isScalar(key) ? String(key.value) : String(key);
 }
 

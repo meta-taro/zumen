@@ -40,6 +40,8 @@ export interface Pin {
    * **正本の `offset` より勝つ。**
    */
   offset?: unknown;
+  /** 人が決めた**作図の定数**（`kind: construction` の `let` / `lengths`。鍵は定数の名前）。正本の値より勝つ（§3.6）。 */
+  value?: number;
   /**
    * 人が「AI の再配置より自分の位置を採る」と決めた印。
    * 決定を正本へ書いておかないと、次に開いたときに同じことを聞き直すことになる。

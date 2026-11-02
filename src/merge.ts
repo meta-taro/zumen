@@ -12,6 +12,8 @@
  * 3. **値が同じキーには触らない。** 触ると人が直していない行に差分が出る
  *
  * 配置図の節（`paths` / `dims` / `parts` / `place` / `scale`）も同じ規則で入れる（`src/merge-placement.ts`）。
+ * 図の設定と作図の節（`title` / `palette` / `grid` / `let` …）も同じ（`src/merge-settings.ts`）。
+ * **`review` と `markup` も提案から読まない**（`pins` と同じく、人だけが書く）。
  */
 import { isMap, isSeq } from 'yaml';
 import type { YAMLMap, YAMLSeq } from 'yaml';
@@ -19,6 +21,7 @@ import type { YAMLMap, YAMLSeq } from 'yaml';
 import { deletePin, getPins, parse, serialize, setPin } from './format.ts';
 import type { Diagram, Pin } from './format.ts';
 import { mergePlacement, mergeScale, pinsOfPlace, placeOf, placesOf, removePlacementElement } from './merge-placement.ts';
+import { mergeSettings, takeConstant, takeKind } from './merge-settings.ts';
 
 export type Position = { x: number; y: number };
 
@@ -31,7 +34,16 @@ export type Conflict =
   /** pin を持つノードに AI が別の位置を出してきた。まだ決まっていない。 */
   | { kind: 'position-proposed'; elementId: string; human: Position; ai: Position }
   /** 同じ提案だが、人が既に「自分の位置を採る」と決めている。聞き直さない。 */
-  | { kind: 'position-suppressed'; elementId: string; ai: Position };
+  | { kind: 'position-suppressed'; elementId: string; ai: Position }
+  /** 人が pin した作図の定数（`pins.<名前>.value`）に、AI が別の値を出してきた（§3.6）。 */
+  | { kind: 'value-proposed'; elementId: string; human: number; ai: number | string }
+  /** 同じ提案だが、人が既に「自分の値を採る」と決めている。聞き直さない。 */
+  | { kind: 'value-suppressed'; elementId: string; ai: number | string }
+  /**
+   * 提案が図の種類（`kind`）を変えてきた。**入れない。** 種類が変わると、正本の座標・pin の読み方ごと変わる。
+   * 書く場所（pin）が無いので、人が `kind` を変えない限り、同じ提案ではまた聞く。
+   */
+  | { kind: 'kind-proposed'; elementId: 'kind'; human: string; ai: string };
 
 export interface MergeResult {
   text: string;
@@ -47,6 +59,7 @@ export function merge(currentText: string, proposalText: string): MergeResult {
   const pins = getPins(current);
   const conflicts: Conflict[] = [];
 
+  mergeSettings(current, proposal, pins, conflicts);
   const proposalNodes = itemsById(proposal, 'nodes', 'id');
   const kept = mergeNodes(current, proposalNodes, pins, conflicts);
   mergeGroups(current, proposal);
@@ -66,8 +79,19 @@ export function merge(currentText: string, proposalText: string): MergeResult {
  * 同じことを聞き直す羽目になる（判定基準 3.3 の「持続」）。
  */
 export function resolve(text: string, conflict: Conflict, choice: 'human' | 'ai'): string {
+  if (conflict.kind === 'kind-proposed' && choice === 'human') return text;
   const doc = parse(text);
   const id = conflict.elementId;
+
+  if (conflict.kind === 'kind-proposed') {
+    takeKind(doc, conflict.ai);
+    return serialize(doc);
+  }
+  if (conflict.kind === 'value-proposed' || conflict.kind === 'value-suppressed') {
+    if (choice === 'ai') takeConstant(doc, id, conflict.ai);
+    else lockPin(doc, id);
+    return serialize(doc);
+  }
 
   if (conflict.kind === 'pin-orphaned') {
     if (choice === 'ai') removeElement(doc, id);
@@ -93,8 +117,10 @@ function mergeNodes(
   pins: Record<string, Pin>,
   conflicts: Conflict[],
 ): Set<string> {
-  const seq = getSeq(current, 'nodes');
   const kept = new Set<string>();
+  // 作図（`kind: construction`）には節が無い。読むだけで `nodes: []` を生やさない
+  if (readSeq(current, 'nodes') === null && proposalNodes.size === 0) return kept;
+  const seq = getSeq(current, 'nodes');
   const remaining: unknown[] = [];
 
   for (const item of seq.items) {

@@ -1130,6 +1130,9 @@ function describe(conflict: Conflict): string {
   const point = (value: { x: number; y: number }): string => `(${value.x}, ${value.y})`;
   if (conflict.kind === 'pin-orphaned') return m.conflictRemoved;
   if (conflict.kind === 'position-suppressed') return m.conflictSuppressed(point(conflict.ai));
+  if (conflict.kind === 'value-suppressed') return m.conflictSuppressed(String(conflict.ai));
+  if (conflict.kind === 'value-proposed') return m.conflictPosition(String(conflict.human), String(conflict.ai));
+  if (conflict.kind === 'kind-proposed') return m.conflictKind(conflict.human, conflict.ai);
   return m.conflictPosition(point(conflict.human), point(conflict.ai));
 }
 
