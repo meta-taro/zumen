@@ -15,6 +15,7 @@ import { linkOf } from './link.ts';
 import { asText, getPins, parse } from './format.ts';
 import { directionOf } from './direction.ts';
 import { kindOf } from './kind.ts';
+import { expandParts } from './parts.ts';
 import type { Pin } from './format.ts';
 import { messages } from './messages.ts';
 import { APPEARANCE } from './tokens.ts';
@@ -36,7 +37,12 @@ const CLASS_DEFS: Record<string, string> = Object.fromEntries(
   Object.entries(APPEARANCE).map(([word, look]) => [word, `fill:${look.fill},stroke:${look.stroke}`]),
 );
 
-export function toMermaid(text: string): string {
+export function toMermaid(source: string): string {
+  /**
+   * **置いた部品は展開して出す**（`parts` / `place`。`src/parts.ts`）。
+   * 中の名前の `.`（`L1.body`）は Mermaid の名前に使えないので、`_` に置き換える（`mermaidId`）。
+   */
+  const text = expandParts(source);
   const diagram = parse(text);
   const raw = diagram.doc.toJS() as {
     title?: string;
@@ -56,7 +62,7 @@ export function toMermaid(text: string): string {
   // 落とすのは、Mermaid に書く場所が無いもの（位置・大きさ・線の曲げ方）だけ。
   const pins = getPins(diagram);
   const nodes: NodeInfo[] = (raw.nodes ?? []).map((node) => ({
-    id: node.id,
+    id: mermaidId(node.id),
     label: asText(pins[node.id]?.label) ?? asText(node.label) ?? node.id,
     type: node.type ?? 'generic',
     group: node.group ?? null,
@@ -75,6 +81,15 @@ export function toMermaid(text: string): string {
    * 「落ちる」では済まず**別のもの**になる。draw.io には注記があるのに、ここには無かった。
    */
   if (kindOf(text) === 'placement') lines.push(`%% ${messages().mermaid.lossPlacement}`);
+  /**
+   * **節に属さない線**（`paths`）。Mermaid の線は節から節へしか引けないので、器が無い。
+   * 黙って落とさず、何本落ちたかを書く。
+   */
+  const paths = (diagram.doc.toJS() as { paths?: unknown }).paths;
+  if (Array.isArray(paths) && paths.length > 0) lines.push(`%% ${messages().mermaid.lossPaths(paths.length)}`);
+  // **寸法**（`dims`）も同じ。線の器が無いので、数値ごと落ちる。
+  const dims = (diagram.doc.toJS() as { dims?: unknown }).dims;
+  if (Array.isArray(dims) && dims.length > 0) lines.push(`%% ${messages().mermaid.lossDims(dims.length)}`);
   lines.push(...droppedNotes(pins));
   // **向きは正本が決める**（`src/direction.ts`。既定は横）。
   // ここを `TD` で固定していたので、**同じ正本から SVG は横、Mermaid は縦**が出ていた。
@@ -103,7 +118,7 @@ export function toMermaid(text: string): string {
   // **リンクは Mermaid の click で表せる**（`src/link.ts` を通ったものだけ）。
   const linked = (raw.nodes ?? []).flatMap((node) => {
     const link = linkOf(node.link);
-    return link === null ? [] : [`  click ${node.id} href ${quote(link)}`];
+    return link === null ? [] : [`  click ${mermaidId(node.id)} href ${quote(link)}`];
   });
   if (linked.length > 0) lines.push('', ...linked);
 
@@ -112,8 +127,8 @@ export function toMermaid(text: string): string {
     const label = edge.label ?? edge.protocol;
     lines.push(
       label === undefined
-        ? `  ${edge.from} --> ${edge.to}`
-        : `  ${edge.from} -->|${quote(label)}| ${edge.to}`,
+        ? `  ${mermaidId(edge.from)} --> ${mermaidId(edge.to)}`
+        : `  ${mermaidId(edge.from)} -->|${quote(label)}| ${mermaidId(edge.to)}`,
     );
   }
   return `${lines.join('\n')}\n`;
@@ -142,8 +157,13 @@ function droppedNotes(pins: Record<string, Pin>): string[] {
   ];
 }
 
+/** **Mermaid の名前に `.` は使えない**（置いた部品の中の名前 `L1.body`）。`_` に置き換える。 */
+function mermaidId(id: unknown): string {
+  return String(id).replaceAll('.', '_');
+}
+
 /** Mermaid に書く場所が無いもの。ラベルと体裁は表せるのでここに入れない。 */
-const LAYOUT_FIELDS = ['position', 'size', 'waypoints'] as const;
+const LAYOUT_FIELDS = ['position', 'size', 'waypoints', 'points', 'offset'] as const;
 
 function hasLayout(pin: Pin): boolean {
   return LAYOUT_FIELDS.some((field) => pin[field] !== undefined);

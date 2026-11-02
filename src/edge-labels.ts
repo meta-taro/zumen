@@ -105,8 +105,7 @@ function findSpot(
   const w = labelWidth(text, FONT);
   for (const ratio of SPOTS) {
     const point = along(edge.points, ratio);
-    for (const side of SIDES) {
-      const candidate: EdgeLabel = { id: edge.id, text, x: point.x, y: point.y + side, w };
+    for (const candidate of beside(edge, text, w, point)) {
       if (boxes.some((box) => hitsBox(candidate, box))) continue;
       if (taken.some((other) => hitsLabel(candidate, other))) continue;
       if (others.some((other) => other.id !== edge.id && runsUnder(other, candidate))) continue;
@@ -114,6 +113,28 @@ function findSpot(
     }
   }
   return null;
+}
+
+/**
+ * 線のどちら側に置くかの候補。ふつうの辺は**上、なければ下**（`SIDES`）。
+ *
+ * **寸法の数値（`dims`）は、線の外側に、線から離して置く**（`labelSide`。2026-11-02）。
+ * 上下にずらすだけだと、**縦の寸法線では数値が線の真上に乗る** —— 板が線を切り、
+ * 横の物に重なれば置き場が無くなる。外側を先に、だめなら内側。
+ */
+function beside(edge: PlacedEdge, text: string, w: number, point: { x: number; y: number }): EdgeLabel[] {
+  const side = edge.labelSide;
+  if (side === undefined) return SIDES.map((lift) => ({ id: edge.id, text, x: point.x, y: point.y + lift, w }));
+  return [1, -1].map((sign) => {
+    const nx = side.x * sign;
+    const ny = side.y * sign;
+    // 線から LIFT だけ離し、さらに文字の半分（向きに応じて幅か高さ）だけ外へ。
+    const reach = LIFT + (Math.abs(nx) * w) / 2 + (Math.abs(ny) * LINE) / 2;
+    const cx = point.x + nx * reach;
+    const cy = point.y + ny * reach;
+    // 当たり判定の矩形は、ベースラインの LINE - 3 上から 3 下まで。真ん中はベースラインの 4 上。
+    return { id: edge.id, text, x: cx, y: cy + LINE / 2 - 3, w };
+  });
 }
 
 /** 折れ線を弧長で辿り、割合の位置の点を返す。 */

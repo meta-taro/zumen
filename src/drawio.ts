@@ -162,6 +162,7 @@ function dashStyle(line: Line): string {
 }
 
 function edge(placedEdge: PlacedEdge): string {
+  if (placedEdge.path === true) return freeLine(placedEdge);
   // 両端は箱の縁の点。draw.io は source / target から自分で引くので、中間だけ渡す。
   const waypoints = placedEdge.points.slice(1, -1);
   const style = `edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;${dashStyle(placedEdge.line)}`;
@@ -192,6 +193,33 @@ function edge(placedEdge: PlacedEdge): string {
 
   if (open === undefined) return cell.join('\n');
   return [open, ...cell, '        </object>'].join('\n');
+}
+
+/**
+ * **節に属さない線**（`paths`。`src/paths.ts`）。
+ *
+ * draw.io の辺は、繋ぐ節が無くても**端を点で持てる**（`sourcePoint` / `targetPoint`）。
+ * だから辺として出す —— 開いた人は、ふつうの線として端をつまんで動かせる。
+ * 直角に曲げる指定（`orthogonalEdgeStyle`）は付けない。書いた点をそのまま結ぶ。
+ * 閉じた形は、最後に最初の点へ戻る線として出る（draw.io の辺は面を持たないので、模様は落ちる）。
+ */
+function freeLine(line: PlacedEdge): string {
+  const first = line.points[0];
+  const last = line.points[line.points.length - 1];
+  const style = `rounded=0;html=1;endArrow=none;startArrow=none;${dashStyle(line.line)}`;
+  const value = line.label === null ? '' : ` value="${escapeXml(line.label)}"`;
+  const out = [`        <mxCell id="${escapeXml(line.id)}"${value} style="${style}" edge="1" parent="1">`];
+  out.push('          <mxGeometry relative="1" as="geometry">');
+  if (first !== undefined) out.push(`            <mxPoint x="${px(first.x)}" y="${px(first.y)}" as="sourcePoint" />`);
+  if (last !== undefined) out.push(`            <mxPoint x="${px(last.x)}" y="${px(last.y)}" as="targetPoint" />`);
+  const middle = line.points.slice(1, -1);
+  if (middle.length > 0) {
+    out.push('            <Array as="points">');
+    for (const point of middle) out.push(`              <mxPoint x="${px(point.x)}" y="${px(point.y)}" />`);
+    out.push('            </Array>');
+  }
+  out.push('          </mxGeometry>', '        </mxCell>');
+  return out.join('\n');
 }
 
 function escapeXml(value: string): string {

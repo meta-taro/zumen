@@ -106,6 +106,10 @@ const ja = {
       `提案は (${x}, ${y})。自分の指定を採ると決めてあるので、聞き直しません。`,
     conflictPosition: (humanX: number, humanY: number, aiX: number, aiY: number) =>
       `人の指定 (${humanX}, ${humanY}) / 提案 (${aiX}, ${aiY})`,
+    conflictValue: (human: string, ai: string) => `人の指定 ${human} / 提案 ${ai}`,
+    conflictValueSuppressed: (ai: string) => `提案は ${ai}。自分の指定を採ると決めてあるので、聞き直しません。`,
+    conflictKind: (human: string, ai: string) =>
+      `図の種類が違います（正本 ${human} / 提案 ${ai}）。種類が変わると座標と手直しの読み方ごと変わるので、入れていません。`,
 
     diffHeading: '入れる前に見る',
     noChange: '変わるところはありません。',
@@ -203,6 +207,7 @@ const ja = {
     conflictRemoved: '提案では消えていますが、人が指定した要素なので残しました。',
     conflictPosition: (human: string, ai: string) => `人の指定 ${human} / 提案 ${ai}`,
     conflictSuppressed: (ai: string) => `提案 ${ai}。人が自分の指定を採ると決めているので聞き直しません。`,
+    conflictKind: (human: string, ai: string) => `図の種類が違います（正本 ${human} / 提案 ${ai}）。入れていません。`,
     mergedClean2: '食い違いはありません。',
     /** 「9 割」の測り方は `src/measure.ts`。 */
     inspected: (path: string) => `${path}`,
@@ -453,6 +458,13 @@ const ja = {
       '新しい図を作る。既にファイルがあれば失敗する（上書きの経路にしない）。形式に適合しないものは書かない。既存の図を変えるなら zumen_propose を使うこと。',
     createPath: '作る場所。.zumen.yaml で終わること',
     createSource: '図の中身',
+    createNearby: (names: string) =>
+      `この図に近い見本があります（${names}）。zumen_examples に name を渡して読み、その分野の決まり（記号・並び順・用語・表の組み方）がこの図で守れているかを照らしてから、zumen_propose で直してください。`,
+    instructions:
+      'zumen は、業界の人が実務で使う専門図面（仕込図・査定図・歯周チャート・配線図など）を YAML の正本から描く道具です。' +
+      '図を描く前に、(1) zumen_spec で書き方を読み、(2) zumen_examples に分野の語（例：「照明 仕込図」）を渡して近い見本を探し、' +
+      '(3) 近いものの正本を name で読んで、記号・並び順・用語・表の組み方を真似てください。見本はその分野の一次資料で確かめてあります。' +
+      '描いたら zumen_inspect で検査し、zumen_export の png で絵を見てください。既にある図は zumen_propose で直します（人の手直しは壊れません）。',
     proposeTitle: '提案を正本へ入れる',
     proposeDesc:
       '既にある図へ提案を入れる。提案の pins は読まないので、人の手直しは壊れない。人の指定と食い違うところは適用せず、競合として返す。競合を決めるのは人であって、あなたではない。',
@@ -606,7 +618,7 @@ const ja = {
       '    at:   { x: <左>, y: <上> }        # kind: placement でだけ効く',
       '    openings:                          # kind: placement でだけ効く（建具）',
       '      - { kind: <openings から>, side: <sides から>, at: <0〜1>, width: <px> }',
-      'scale: { mm: <1px が何 mm か> }      # 寸法の数値を出すのに要る',
+      'scale: { mm: <1px が何 mm か>, unit: <mm | m | um> }   # 寸法の数値を出すのに要る。unit は図ぜんたいの単位（省けば縮尺が決める）',
       'north: <up / right / down / left>    # 方位記号',
       'wall: { mm: <間仕切の厚み>, outer: <外壁の厚み> }   # 平面図の壁を塗り潰す',
       'styles:                               # 見せ方の表。差し替えるだけで作風が変わる（販売図面の色分け・グレースケール）',
@@ -632,10 +644,40 @@ const ja = {
       '                                              # **from と to を同じ節にして via を並べると、',
       '                                              # 扇形（カメラの視野・照明の照射）も描ける**',
       '    vertical: <none（既定）| stair | escalator | elevator>      # 階をまたぐ動線（JIS Z 8210）',
+      'paths:             # 節に属さない線と形。kind: placement でだけ効く（見えない点を置いて辺で結ばない）',
+      '  - id: <英数字とハイフン。文書内で一意。節の id と被らない>',
+      '    points: [ [ <x>, <y> ], [ <x>, <y> ], ... ]   # 括弧の内側に空白を入れる。{ x, y } でもよい',
+      '    arc: { center: [ <x>, <y> ], r: <px>, from: <度>, to: <度> }   # points の代わりに弧。0 度が右、時計回り',
+      '    close: <true | sector>                        # true は閉じる（弧は弦で）。sector は扇形（中心へ戻る）',
+      '    # 線の語は辺と同じ: line / weight / color / ends / curve / hatch / hatch_color / casing / label',
+      'dims:              # 2 点を指して引く寸法。kind: placement でだけ効く（通り芯の無い図。建築は grid から）',
+      '  - id: <英数字とハイフン。文書内で一意。節・paths の id と被らない>',
+      '    from: [ <x>, <y> ]                            # 点か、箱の辺 { node: <節の id>, side: <left | right | top | bottom> }',
+      '    to: { node: <節の id>, side: <left | right | top | bottom> }',
+      '    along: <x | y>                                # 水平・垂直の成分だけ。省けば辺が決め、点だけなら from → to に沿う',
+      '    offset: <px>                                  # 測る物の外側から寸法線まで。正は進む向きの右',
+      '    text: "<文字。{} に機械の数値が入る>"          # 省けば数値だけ。{} を書かなければ人の文字だけ',
+      '    exact: false                                  # 略図。人の数値と図のずれを知らせない',
+      '    ends: <arrow（既定）| tick>',
+      'parts:             # 部品を定義して使い回す。kind: placement でだけ効く。中の座標は部品の原点（左上）から',
+      '  <部品の名前>:',
+      '    nodes: [ … ]                                  # 節・paths・dims と同じ書き方。中の id に . と > は使わない（辺は持たない）',
+      '    paths: [ … ]',
+      '    dims: [ … ]                                   # { node, side } は中の節を指せる',
+      'place:             # 部品を置く。展開した節は書いた順に並ぶ（nodes より前に書けば前に。描く順は大きいものから）',
+      '  - part: <部品の名前>',
+      '    as: <置いたものの名前>                        # 中は <as>.<id>（辺の from / to・pins の鍵）',
+      '    at: { x: <左>, y: <上> }',
+      '    set: { <中の id>: { label: <文字>, … } }      # この 1 つだけ変える所。形（at / size / points / arc / from / to）は変えられない',
+      '    grid: { cols: <列>, rows: <行>, step: { x: <px>, y: <px> } }   # 格子に並べる。名前は <as>.<行>.<列>.<id>（0 から）',
+      '    rotate: <90 | 180 | 270>                       # 原点を中心に時計回り。文字は回さない',
     ].join('\n'),
     /** **守らせたいこと。** 実測では毎回 pins を書いてきたので、明示する。 */
     rules: [
       'pins は書かない。人が手で決めたことを置く節で、書いても採られない。',
+      '**同じ形を何度も置くなら parts で 1 回定義して place で置く**（器具・石・座席・マス目）。同じ節を置く数だけ書かない —— 形を直すとき、1 つ書き漏らすとその 1 つだけ違う形で出る。置いたものごとに違う所（Ch 番号など）だけを set に書く。格子に並ぶなら grid。**配置図でだけ効く。** 表（Hookup・凡例の表）は部品で組まない。',
+      '**寸法は dims で書く**（通り芯の無い図。機械・競技場・断面・家具）。寸法線を paths で引いて数値を注記に手で書かない —— 図形を直しても数値が追ってこない。測る点は [ x, y ] か { node, side } で明示し、数値は縮尺から機械が出す（text の {} に入る）。建築の平面図は、これまでどおり grid（通り芯）から。',
+      '**節に属さない線（寸法線・テープ・輪郭・扇形）は paths で書く。** 名前も枠も無い 2×2 の節を置いて辺で結ばない —— 点が節として数えられ、人の手直しが p17>p18 のような読めない鍵に付く。paths は id を鍵にし、points（[ x, y ] の並び）か arc（中心・半径・角度）で書く。線の語は辺と同じ。**配置図でだけ効く。**',
       'kind: placement（配置図）では、置き場所を自分で書く。機械は並べ直さない。間取り・伏図・売場・避難経路はこちら。nodes[].at と nodes[].size の両方を書くこと。大きさを書かないと、便所と 16 畳の LDK が同じ箱で出る。',
       '建築の図（間取り・伏図・平面詳細図）を描くなら、grid（通り芯）と scale を必ず書く。寸法の数値が出ない図は、現場では使えない。通り芯は壁や柱の芯に置き、符号は X1 / Y1 のように付ける。',
       '断面図・立面図も kind: placement で描く（測り方は同じ。y を高さとして読む）。横の基準線は mark: level にして、id に GL±0 や 2FL+3,200 と書く。方位は書かない。',
@@ -760,11 +802,15 @@ const ja = {
     openingIgnored: (id: string) =>
       `ノード "${id}" に openings がありますが、構成図では描かれません（kind: placement で描かれます）。`,
     kindUnknown: (word: string) =>
-      `kind が "${word}" になっています（structure / placement）。構成図として描きます。`,
+      `kind が "${word}" になっています（structure / placement / construction）。構成図として描きます。`,
     directionUnknown: (word: string) =>
       `direction が "${word}" になっています（right / down）。既定の横で描きます。`,
     wrapNotBoolean: (found: string) =>
       `wrap が ${found} になっています。折り返すのは true と書いたときだけです。`,
+    arrowsNotBoolean: (found: string) =>
+      `arrows が ${found} になっています。矢印を消すのは false と書いたときだけです（"false" のように引用符で囲むと矢印が出ます）。`,
+    projectionUnknown: (word: string) =>
+      `projection が "${word}" になっています（isometric / dimetric / cabinet / cavalier）。投影せずに平面で描きます。`,
     gridAxisInvalid: (position: number) =>
       `通り芯の ${position} 番目が { id: 符号, at: 数 } になっていません。この芯は描かれません。`,
     gridIgnored:
@@ -927,6 +973,113 @@ const ja = {
       `${target} に hatch_color がありますが、hatch が無いので効きません。模様の色は、hatch で描く模様にだけ付きます。`,
     offsetNotNumber: (edge: string, value: string) =>
       `エッジ ${edge} の offset が "${value}" になっています。px の数で書いてください（進む向きの右が正、左が負）。ずらさずに描きます。`,
+    pathsNotList: 'paths が一覧になっていません。節に属さない線は - id: … を並べて書きます。',
+    pathsIgnored:
+      'paths（節に属さない線）がありますが、配置図でしか描かれません（kind: placement で描かれます）。構成図は置き場所を機械が決めるので、座標で書いた線は意味を持ちません。',
+    pathIdMissing: (position: number) =>
+      `paths の ${position} 番目に id がありません。この線は描かれません。id は人の手直し（pins）の鍵になります。`,
+    pathIdDuplicated: (id: string) =>
+      `paths に同じ id が 2 つあります（"${id}"）。描くのは先に書いたほうだけです。人の手直し（pins）がどちらの線のものか読めません。`,
+    pathIdSharedWithNode: (id: string) =>
+      `paths の "${id}" が、節の id と同じです。人の手直し（pins）の鍵が、節と線のどちらを指すか読めません。名前を変えてください。`,
+    pathShapeMissing: (id: string) =>
+      `paths の "${id}" に points も arc もありません。形が無いので描かれません。点を並べるなら points: [ [ x, y ], … ]、弧なら arc: { center: [ x, y ], r, from, to } です。`,
+    pathShapeBoth: (id: string) =>
+      `paths の "${id}" に points と arc の両方があります。どちらの形か決められないので描かれません。1 つにしてください。`,
+    pathPointsShort: (id: string) =>
+      `paths の "${id}" の points が 2 つ未満です。線になりません。`,
+    pathPointsInvalid: (id: string) =>
+      `paths の "${id}" の points に、点として読めないものがあります。[ x, y ] か { x, y } の並びで書いてください。この線は描かれません。`,
+    pathArcInvalid: (id: string) =>
+      `paths の "${id}" の arc が読めません。arc: { center: [ x, y ], r: 正の数, from: 度, to: 度 } で書きます（0 度が右、時計回り。from と to は同じにせず、差は 360 度まで）。この線は描かれません。`,
+    pathCloseInvalid: (id: string) =>
+      `paths の "${id}" の close が読めません。true（閉じる）か false です。sector（扇形。中心へ戻る）は arc にだけ書けます。いまは閉じずに描きます。`,
+    pathHatchIgnored: (id: string) =>
+      `paths の "${id}" に hatch がありますが、閉じていない（close: true でも sector でもない）ので効きません。閉じていない線には面が無く、塗りようがありません。`,
+    pathKeyIgnored: (id: string, key: string) =>
+      `paths の "${id}" に ${key} がありますが、節に属さない線では効きません。${key === 'via' ? '通る点は points に並べます。' : key === 'from' || key === 'to' ? '端は points の最初と最後の点です。節から節へ引くなら edges に書きます。' : '線に書けるのは line / weight / color / ends / curve / close / hatch / hatch_color / casing / label です。'}`,
+    pinPointsInvalid: (id: string) =>
+      `pins の "${id}" の points が読めません（[ x, y ] か { x, y } を 2 つ以上）。人の点は使わず、正本の形で描きます。`,
+    scaleUnitInvalid: (unit: string) =>
+      `scale の unit が "${unit}" になっています。書けるのは mm / m / um（μm）です。この単位は使わず、縮尺が単位を決めます。`,
+    scaleUnitOnInch: (unit: string) =>
+      `scale の unit（"${unit}"）は、ミリの縮尺（scale: { mm: … }）にだけ付きます。インチの縮尺は、いつもフィートとインチで書きます。`,
+    dimsNotList: 'dims が一覧になっていません。寸法は - id: … を並べて書きます。',
+    dimsIgnored:
+      'dims（2 点を指して引く寸法）がありますが、配置図でしか描かれません（kind: placement で描かれます）。構成図は置き場所を機械が決めるので、測る点に意味がありません。',
+    dimIdMissing: (position: number) =>
+      `dims の ${position} 番目に id がありません。この寸法は描かれません。id は人の手直し（pins）の鍵になります。`,
+    dimIdDuplicated: (id: string) =>
+      `dims に同じ id が 2 つあります（"${id}"）。描くのは先に書いたほうだけです。`,
+    dimIdShared: (id: string) =>
+      `dims の "${id}" が、節か paths の id と同じです。人の手直し（pins）の鍵が、どれを指すか読めません。名前を変えてください。`,
+    dimEndInvalid: (id: string, key: string) =>
+      `dims の "${id}" の ${key} が読めません。点なら [ x, y ]、箱の辺なら { node: <節の id>, side: left | right | top | bottom } です。この寸法は描かれません。`,
+    dimNodeUnknown: (id: string, node: string) =>
+      `dims の "${id}" が、無い節 "${node}" の辺を指しています。この寸法は描かれません。`,
+    dimSideMismatch: (id: string) =>
+      `dims の "${id}" は、何を測るか決められません。left / right の辺は横の位置（x）、top / bottom の辺は縦の位置（y）しか持ちません。両端の辺の向きと along を揃えてください。この寸法は描かれません。`,
+    dimZeroLength: (id: string) =>
+      `dims の "${id}" は、測る長さが 0 です（同じ点か、along の向きに離れていない）。この寸法は描かれません。`,
+    dimAlongInvalid: (id: string, word: string) =>
+      `dims の "${id}" の along が "${word}" になっています。x（水平の成分）か y（垂直の成分）です。省いたときと同じに測ります。`,
+    dimOffsetInvalid: (id: string, word: string) =>
+      `dims の "${id}" の offset が "${word}" になっています。px の数で書いてください（測る物の外側から。正は進む向きの右）。0 として描きます。`,
+    dimEndsUnknown: (id: string, word: string) =>
+      `dims の "${id}" の ends が "${word}" になっています。arrow（矢印。既定）か tick（斜線）です。矢印で描きます。`,
+    dimExactInvalid: (id: string, word: string) =>
+      `dims の "${id}" の exact が "${word}" になっています。略図なら false と書きます（真偽値）。`,
+    dimSketchValue: (id: string) =>
+      `dims の "${id}" は exact: false（略図）なのに、機械の数値を出しています（text に {} がある、または text が無い）。略図から測った数値は実寸ではありません。人の数値を text に書いてください。`,
+    dimNoScale: (count: number) =>
+      `dims が ${count} 本ありますが、scale が無いので数値を出しません（text の文字だけ描きます）。知らない縮尺で数値を書くより、出さないほうがよいためです。scale: { mm: … } を書いてください。`,
+    dimTextDiffers: (id: string, text: string, value: string) =>
+      `dims の "${id}" の文字「${text}」の数が、図から測った ${value} と 1 % 以上違います。図か数値のどちらかが間違っています。図を直すか、数値を機械に出させる（text に {} を書く）か、略図なら exact: false と書いてください。`,
+    dimKeyIgnored: (id: string, key: string) =>
+      `dims の "${id}" に ${key} がありますが、寸法では効きません。${key === 'label' ? '文字は text に書きます（{} に機械の数値が入る）。' : key === 'points' || key === 'via' ? '測る点は from と to に書きます。' : '寸法に書けるのは id / from / to / along / offset / text / exact / ends です。'}`,
+    pinOffsetInvalid: (id: string) =>
+      `pins の "${id}" の offset が px の数になっていません。人の値は使わず、正本の offset で描きます。`,
+    partsNotMap: 'parts が写像になっていません。部品は parts: { <名前>: { nodes: …, paths: …, dims: … } } と書きます。',
+    placeNotList: 'place が一覧になっていません。置き方は - { part: <部品の名前>, as: <置いたものの名前>, at: { x, y } } を並べて書きます。',
+    partsIgnored:
+      'parts / place（部品を定義して使い回す）がありますが、配置図でしか展開されません（kind: placement で描かれます）。構成図は置き場所を機械が決めるので、部品の中の座標に意味がありません。',
+    partEmpty: (name: string) =>
+      `部品 "${name}" に中身がありません（nodes / paths / dims に id のあるものが 1 つも無い）。置いても何も描かれません。`,
+    partKeyUnknown: (name: string, key: string) =>
+      `部品 "${name}" に ${key} がありますが、部品に書けるのは nodes / paths / dims だけです。${key === 'edges' ? '部品の中の線は paths で書きます（節から節へ引く辺は、置いたあとに edges で L1.body のように書けます）。' : ''}この ${key} は使いません。`,
+    partNested: (name: string) =>
+      `部品 "${name}" の中に部品を置こうとしています。この版では、部品の中に部品は置けません（展開が 1 段で済むように）。中身を直に書いてください。`,
+    partMemberIdInvalid: (name: string, kind: string, position: number, id: string) =>
+      `部品 "${name}" の ${kind} の ${position} 番目${id === '' ? 'に id がありません' : `の id "${id}" が使えません（. と > は名前の区切りに使うので、中の名前には使えない）`}。これは置かれません。`,
+    partMemberIdDuplicated: (name: string, id: string) =>
+      `部品 "${name}" の中に、同じ id が 2 つあります（"${id}"）。nodes / paths / dims をまたいで 1 つの名前です。置くのは先に書いたほうだけです。`,
+    placeNth: (position: number) => `place の ${position} 番目`,
+    placeKeyUnknown: (label: string, key: string) =>
+      `${label.startsWith('place') ? label : `置いたもの "${label}"`} に ${key} がありますが、置き方に書けるのは part / as / at / set / grid / rotate だけです。${key === 'size' ? '大きさは部品の中で決めます。' : ''}この ${key} は使いません。`,
+    placePartUnknown: (label: string, part: string) =>
+      `${label.startsWith('place') ? label : `置いたもの "${label}"`} の部品${part === '' ? 'が書かれていません' : ` "${part}" が parts にありません`}。これは置かれません。`,
+    placeAsInvalid: (position: number, as: string) =>
+      `place の ${position} 番目${as === '' ? 'に as（置いたものの名前）がありません' : `の as "${as}" が使えません（. と > は名前の区切りに使う）`}。中の名前（<as>.<id>）が作れないので、これは置かれません。`,
+    placeAsDuplicated: (as: string) =>
+      `place に同じ as が 2 つあります（"${as}"）。中の名前が被るので、置くのは先に書いたほうだけです。`,
+    placeAtInvalid: (label: string) =>
+      `${label.startsWith('place') ? label : `置いたもの "${label}"`} の at が読めません（{ x, y } の数）。どこに置くか決められないので、これは置かれません。`,
+    placeGridInvalid: (label: string) =>
+      `置いたもの "${label}" の grid が読めません。{ cols: <正の整数>, rows: <正の整数>, step: { x: <px>, y: <px> } } で、マスは 10,000 までです。これは置かれません。`,
+    placeRotateInvalid: (label: string, word: string) =>
+      `置いたもの "${label}" の rotate が "${word}" になっています。回せるのは 90 / 180 / 270（時計回り）だけです。回さずに置きます。`,
+    placeRotatePartial: (label: string, keys: string) =>
+      `置いたもの "${label}" を回しましたが、${keys} は向きを持ったまま回りません（建具・立体・画像・図記号、90 度の三角）。形と向きが食い違って見えたら、回した向きの部品を別に作ってください。`,
+    placeSetInvalid: (label: string) =>
+      `置いたもの "${label}" の set が読めません。set: { <中の id>: { <語>: <値> } } と書きます。`,
+    placeSetMemberUnknown: (label: string, id: string) =>
+      `置いたもの "${label}" の set が、部品に無い名前 "${id}" を指しています。何も変わりません。`,
+    placeSetKeyFixed: (label: string, id: string, key: string) =>
+      `置いたもの "${label}" の set で "${id}" の ${key} を変えようとしていますが、形（id / at / size / points / arc / from / to）は部品のものなので、置いたものごとには変えられません。違う形なら、部品を別に作ってください。`,
+    placeIdCollision: (id: string) =>
+      `展開した名前 "${id}" が、いまある節・paths・dims の id と同じです。人の手直し（pins）の鍵がどちらを指すか読めないので、これは置かれません。名前を変えてください。`,
+    pinInstanceKeyIgnored: (key: string, field: string) =>
+      `pins の "${key}" は置いたもの全体の手直しで、効くのは position（全体を動かす）だけです。${field} は使いません。中の 1 つを直すなら pins の "${key}.<中の id>" に書きます。`,
     nameCrowded: (id: string) =>
       `ノード "${id}" の名前は箱に入りきらず、外へ出した先も空いていません（**他の要素に重なる**か、**紙の縁で切れます**）。箱を大きくするか、名前を **\`\\n\`** で折り返すか、文字を短くしてください（消してはいません —— 名前が消えるのは、重なるより悪いためです）。`,
     /**
@@ -1083,6 +1236,10 @@ const ja = {
      */
     lossPlacement:
       'この正本は**配置図**です。どこに何があるかが中身ですが、**Mermaid には位置と大きさの器がありません** —— 以下は位置を失った箱の一覧で、元の図とは別のものです。図として使うなら SVG か draw.io で書き出してください。',
+    lossPaths: (count: number) =>
+      `節に属さない線（paths）が ${count} 本あります。Mermaid の線は節から節へしか引けないので、**ここには出ていません。**`,
+    lossDims: (count: number) =>
+      `寸法（dims）が ${count} 本あります。Mermaid の線は節から節へしか引けないので、**ここには出ていません**（数値も）。`,
     geometryDroppedHeading: '【注意】Mermaid には位置・大きさ・線の曲げ方を書く場所が無い。',
     geometryDroppedDetail: '次の手直しは、この書き出しでは失われている。正本は .zumen.yaml の側。',
   },
@@ -1145,6 +1302,10 @@ const en: Catalog = {
       `The proposal says (${x}, ${y}). You chose your own placement, so this is not asked again.`,
     conflictPosition: (humanX: number, humanY: number, aiX: number, aiY: number) =>
       `yours (${humanX}, ${humanY}) / proposal (${aiX}, ${aiY})`,
+    conflictValue: (human: string, ai: string) => `yours ${human} / proposal ${ai}`,
+    conflictValueSuppressed: (ai: string) => `The proposal says ${ai}. You chose your own value, so this is not asked again.`,
+    conflictKind: (human: string, ai: string) =>
+      `The diagram kind differs (yours ${human} / proposal ${ai}). Changing it changes how coordinates and hand edits are read, so it was not applied.`,
 
     diffHeading: 'Look before applying',
     noChange: 'Nothing changes.',
@@ -1232,6 +1393,7 @@ const en: Catalog = {
     conflictRemoved: 'The proposal drops it, but a person placed it, so it was kept.',
     conflictPosition: (human: string, ai: string) => `hand edit ${human} / proposal ${ai}`,
     conflictSuppressed: (ai: string) => `proposal ${ai}. The person chose their own placement, so this is not asked again.`,
+    conflictKind: (human: string, ai: string) => `The diagram kind differs (yours ${human} / proposal ${ai}). Not applied.`,
     mergedClean2: 'No disagreements.',
     inspected: (path: string) => `${path}`,
     inspectCounts: (nodes: number, edges: number, kind: string) => `  ${nodes} nodes / ${edges} edges / ${kind}`,
@@ -1367,6 +1529,13 @@ const en: Catalog = {
       'Creates a new diagram. Fails if the file already exists (this is not an overwrite path). Nothing is written unless it conforms to the format. To change an existing diagram, use zumen_propose.',
     createPath: 'Where to create it. Must end with .zumen.yaml',
     createSource: 'The diagram body',
+    createNearby: (names: string) =>
+      `There are bundled examples close to this diagram (${names}). Read them with zumen_examples (pass name), check that this diagram follows the same conventions of the field (symbols, ordering, terms, how the tables are laid out), then fix it with zumen_propose.`,
+    instructions:
+      'zumen draws the specialist drawings people use at work (lighting plots, appraisal charts, periodontal charts, wiring diagrams…) from a YAML source. ' +
+      'Before drawing: (1) read zumen_spec for the syntax, (2) call zumen_examples with words for the field (e.g. "lighting plot") to find close examples, ' +
+      '(3) read the closest ones by name and follow their symbols, ordering, terms and table layout — they were checked against primary sources. ' +
+      'After drawing, run zumen_inspect and look at a png from zumen_export. Change an existing diagram with zumen_propose (hand edits survive).',
     proposeTitle: 'Apply a proposal to the source of truth',
     proposeDesc:
       'Applies a proposal to an existing diagram. The pins in your proposal are not read, so hand edits survive. Anything that disagrees with a hand edit is not applied and comes back as a conflict. Conflicts are decided by a person, not by you.',
@@ -1506,7 +1675,7 @@ const en: Catalog = {
       '    at:   { x: <left>, y: <top> }       # only with kind: placement',
       '    openings:                            # only with kind: placement',
       '      - { kind: <from openings>, side: <from sides>, at: <0..1>, width: <px> }',
-      'scale: { mm: <how many mm one pixel is> }   # required for dimension figures',
+      'scale: { mm: <how many mm one pixel is>, unit: <mm | m | um> }   # required for dimension figures; unit picks one unit for the whole drawing (omit it and the scale decides)',
       'north: <up / right / down / left>',
       'wall: { mm: <partition thickness>, outer: <outer wall thickness> }  # poché walls',
       'styles:                               # style table: swap it to change the house style (colour-coded or greyscale sales plans)',
@@ -1532,9 +1701,39 @@ const en: Catalog = {
       '                                              # **from and to on the same node, plus via,',
       '                                              # draws a sector (a camera field of view)**',
       '    vertical: <none (default) | stair | escalator | elevator>   # level change (JIS Z 8210)',
+      'paths:             # lines and shapes that belong to no node; only with kind: placement (no invisible anchor nodes)',
+      '  - id: <letters, digits, hyphens; unique; not the id of a node>',
+      '    points: [ [ <x>, <y> ], [ <x>, <y> ], ... ]   # spaces inside the brackets; { x, y } also works',
+      '    arc: { center: [ <x>, <y> ], r: <px>, from: <deg>, to: <deg> }   # an arc instead of points; 0 = right, clockwise',
+      '    close: <true | sector>                        # true closes it (an arc by its chord); sector returns to the centre',
+      '    # same line words as edges: line / weight / color / ends / curve / hatch / hatch_color / casing / label',
+      'dims:              # dimensions between two named points; only with kind: placement (drawings with no grid; buildings use grid)',
+      '  - id: <letters, digits, hyphens; unique; not the id of a node or a path>',
+      '    from: [ <x>, <y> ]                            # a point, or a side of a box { node: <node id>, side: <left | right | top | bottom> }',
+      '    to: { node: <node id>, side: <left | right | top | bottom> }',
+      '    along: <x | y>                                # only the horizontal / vertical part; omitted, the sides decide, or from → to for two points',
+      '    offset: <px>                                  # from the outside of what is measured to the dimension line; positive = right of travel',
+      '    text: "<words; {} becomes the measured value>"  # omitted = the value alone; without {} only your words are shown',
+      '    exact: false                                  # a sketch: do not warn when your figure differs from the drawing',
+      '    ends: <arrow (default) | tick>',
+      'parts:             # parts defined once and placed many times; only with kind: placement. Coordinates inside are from the part origin (top left)',
+      '  <part name>:',
+      '    nodes: [ … ]                                  # written like nodes / paths / dims; member ids cannot contain . or > (no edges)',
+      '    paths: [ … ]',
+      '    dims: [ … ]                                   # { node, side } can point at a member',
+      'place:             # place parts; expanded nodes keep the order written (before nodes if written before them; larger boxes are still drawn first)',
+      '  - part: <part name>',
+      '    as: <instance name>                           # members become <as>.<id> (for edge from / to and pins keys)',
+      '    at: { x: <left>, y: <top> }',
+      '    set: { <member id>: { label: <text>, … } }    # what differs per instance; the shape (at / size / points / arc / from / to) cannot',
+      '    grid: { cols: <columns>, rows: <rows>, step: { x: <px>, y: <px> } }   # lay out in a grid; names are <as>.<row>.<col>.<id> (from 0)',
+      '    rotate: <90 | 180 | 270>                       # clockwise about the origin; text stays upright',
     ].join('\n'),
     rules: [
       'Do not write pins. That section holds what a person decided by hand; anything you write there is dropped.',
+      '**When the same shape appears many times, define it once under parts and place it with place** (fixtures, stones, seats, grid cells). Do not write the same nodes once per copy — when the shape changes, one missed copy comes out different. Put only what differs per instance (a channel number) under set; use grid for a regular grid. **Only in placement drawings.** Do not build tables (hookups, legends) out of parts.',
+      '**Write dimensions as dims** (drawings with no grid: machine parts, sports fields, sections, furniture). Do not draw the dimension line as a path and type the figure into a note — the figure will not follow when the shape changes. Name the measured points as [ x, y ] or { node, side }; the machine works out the value from the scale (it goes where text has {}). Building plans still take their dimensions from grid.',
+      '**Write lines that belong to no node (dimension lines, tape strips, outlines, wedges) as paths.** Do not place nameless 2×2 nodes and join them with edges — the dots get counted as nodes and the human\'s edits end up on unreadable keys like p17>p18. A path is keyed by its id and written as points (a list of [ x, y ]) or arc (centre, radius, angles); its line words are the same as an edge\'s. **Only in placement drawings.**',
       'With kind: placement you place things yourself; the machine does not lay them out. Floor plans, framing plans, store layouts and escape routes are placement. Write both nodes[].at and nodes[].size. Without sizes, a toilet and a 16-mat living room come out the same box.',
       'For an architectural drawing, always write grid and scale. A drawing with no dimension figures cannot be used on site. Put the grid lines on the centre of walls and columns, and code them X1 / Y1.',
       'Sections and elevations also use kind: placement (the measure is the same; read y as height). Mark the horizontal reference lines with mark: level and write the id as GL±0 or 2FL+3,200. Do not write north.',
@@ -1648,11 +1847,15 @@ const en: Catalog = {
     openingIgnored: (id: string) =>
       `Node "${id}" has openings, but they are not drawn on a structure diagram. Use kind: placement.`,
     kindUnknown: (word: string) =>
-      `kind is "${word}" (structure / placement). Drawing it as a structure diagram.`,
+      `kind is "${word}" (structure / placement / construction). Drawing it as a structure diagram.`,
     directionUnknown: (word: string) =>
       `direction is "${word}" (right / down). Drawing it in the default horizontal direction.`,
     wrapNotBoolean: (found: string) =>
       `wrap is ${found}. Wrapping happens only when it is written as true.`,
+    arrowsNotBoolean: (found: string) =>
+      `arrows is ${found}. Arrows are removed only when it is written as false (a quoted "false" still draws them).`,
+    projectionUnknown: (word: string) =>
+      `projection is "${word}" (isometric / dimetric / cabinet / cavalier). Drawing it flat, without projection.`,
     gridAxisInvalid: (position: number) =>
       `Axis ${position} of grid is not { id: code, at: number }. It is not drawn.`,
     gridIgnored: 'grid is present, but grid lines are not drawn on a structure diagram. Use kind: placement.',
@@ -1780,6 +1983,113 @@ const en: Catalog = {
       `${target} has hatch_color but no hatch, so it does nothing. The pattern colour applies only to a pattern drawn with hatch.`,
     offsetNotNumber: (edge: string, value: string) =>
       `Edge ${edge} has offset "${value}". Write it as a number of px (positive to the right of the direction of travel, negative to the left). It is drawn without the offset.`,
+    pathsNotList: 'paths is not a list. Write free lines as a list of - id: … entries.',
+    pathsIgnored:
+      'There are paths (lines that belong to no node), but they are drawn only in placement drawings (kind: placement). In a structure drawing the machine decides where things go, so lines written in coordinates mean nothing.',
+    pathIdMissing: (position: number) =>
+      `Path ${position} has no id, so it is not drawn. The id is the key for the human's edits (pins).`,
+    pathIdDuplicated: (id: string) =>
+      `Two paths share the id "${id}". Only the first one is drawn, and a human edit (pins) cannot tell which line it belongs to.`,
+    pathIdSharedWithNode: (id: string) =>
+      `Path "${id}" has the same id as a node. A human edit (pins) cannot tell whether it is for the node or the line. Rename one of them.`,
+    pathShapeMissing: (id: string) =>
+      `Path "${id}" has neither points nor arc, so it has no shape and is not drawn. Write points: [ [ x, y ], … ] for a line of points, or arc: { center: [ x, y ], r, from, to } for an arc.`,
+    pathShapeBoth: (id: string) =>
+      `Path "${id}" has both points and arc, so its shape is ambiguous and it is not drawn. Keep one.`,
+    pathPointsShort: (id: string) =>
+      `Path "${id}" has fewer than two points, so it is not a line.`,
+    pathPointsInvalid: (id: string) =>
+      `Path "${id}" has something in points that is not a point. Write a list of [ x, y ] or { x, y }. The line is not drawn.`,
+    pathArcInvalid: (id: string) =>
+      `The arc of path "${id}" cannot be read. Write arc: { center: [ x, y ], r: <positive>, from: <degrees>, to: <degrees> } (0 degrees points right and angles run clockwise; from and to must differ, by at most 360). The line is not drawn.`,
+    pathCloseInvalid: (id: string) =>
+      `The close of path "${id}" cannot be read. It is true (closed) or false; sector (a wedge back to the centre) is only for arcs. It is drawn open.`,
+    pathHatchIgnored: (id: string) =>
+      `Path "${id}" has a hatch, but it is not closed (neither close: true nor sector), so there is no face to fill and it does nothing.`,
+    pathKeyIgnored: (id: string, key: string) =>
+      `Path "${id}" has ${key}, which does nothing on a free line. ${key === 'via' ? 'List the points it passes through under points.' : key === 'from' || key === 'to' ? 'Its ends are the first and last points. To join two nodes, write an edge.' : 'A path takes line / weight / color / ends / curve / close / hatch / hatch_color / casing / label.'}`,
+    pinPointsInvalid: (id: string) =>
+      `The points under pins "${id}" cannot be read (two or more [ x, y ] or { x, y }). The human points are not used; the line is drawn from the source.`,
+    scaleUnitInvalid: (unit: string) =>
+      `scale has unit "${unit}". It can be mm / m / um (μm). This unit is not used; the scale decides the unit.`,
+    scaleUnitOnInch: (unit: string) =>
+      `scale unit ("${unit}") only goes with a millimetre scale (scale: { mm: … }). An inch scale always writes feet and inches.`,
+    dimsNotList: 'dims is not a list. Write dimensions as a list of - id: … entries.',
+    dimsIgnored:
+      'There are dims (dimensions between two points), but they are drawn only in placement drawings (kind: placement). In a structure drawing the machine decides where things go, so the measured points mean nothing.',
+    dimIdMissing: (position: number) =>
+      `Dimension ${position} has no id, so it is not drawn. The id is the key for the human's edits (pins).`,
+    dimIdDuplicated: (id: string) =>
+      `Two dims share the id "${id}". Only the first one is drawn.`,
+    dimIdShared: (id: string) =>
+      `Dimension "${id}" has the same id as a node or a path. A human edit (pins) cannot tell which one it is for. Rename it.`,
+    dimEndInvalid: (id: string, key: string) =>
+      `The ${key} of dimension "${id}" cannot be read. A point is [ x, y ]; a side of a box is { node: <node id>, side: left | right | top | bottom }. The dimension is not drawn.`,
+    dimNodeUnknown: (id: string, node: string) =>
+      `Dimension "${id}" points at a side of "${node}", which is not a node. The dimension is not drawn.`,
+    dimSideMismatch: (id: string) =>
+      `Dimension "${id}" does not say what to measure. A left / right side only has a horizontal position (x) and a top / bottom side only a vertical one (y); make the two sides and along agree. The dimension is not drawn.`,
+    dimZeroLength: (id: string) =>
+      `Dimension "${id}" measures nothing (the same point, or no distance in the direction of along). It is not drawn.`,
+    dimAlongInvalid: (id: string, word: string) =>
+      `Dimension "${id}" has along "${word}". It is x (the horizontal part) or y (the vertical part). It is measured as if along were omitted.`,
+    dimOffsetInvalid: (id: string, word: string) =>
+      `Dimension "${id}" has offset "${word}". Write a number of px (from the outside of what is measured; positive to the right of travel). It is drawn with 0.`,
+    dimEndsUnknown: (id: string, word: string) =>
+      `Dimension "${id}" has ends "${word}". It is arrow (the default) or tick (an oblique stroke). Arrows are drawn.`,
+    dimExactInvalid: (id: string, word: string) =>
+      `Dimension "${id}" has exact "${word}". For a sketch, write false (a boolean).`,
+    dimSketchValue: (id: string) =>
+      `Dimension "${id}" is exact: false (a sketch) but still prints the measured value (text has {} or there is no text). A value measured from a sketch is not the real size. Write your own figure in text.`,
+    dimNoScale: (count: number) =>
+      `There are ${count} dims but no scale, so no values are printed (only the words in text are drawn). Printing a value from an unknown scale is worse than printing none. Add scale: { mm: … }.`,
+    dimTextDiffers: (id: string, text: string, value: string) =>
+      `The figure in "${text}" on dimension "${id}" is more than 1% away from the ${value} measured on the drawing. Either the drawing or the figure is wrong. Fix the drawing, let the machine print the value (write {} in text), or mark a sketch with exact: false.`,
+    dimKeyIgnored: (id: string, key: string) =>
+      `Dimension "${id}" has ${key}, which does nothing on a dimension. ${key === 'label' ? 'Write the words in text ({} becomes the measured value).' : key === 'points' || key === 'via' ? 'The measured points go in from and to.' : 'A dimension takes id / from / to / along / offset / text / exact / ends.'}`,
+    pinOffsetInvalid: (id: string) =>
+      `The offset under pins "${id}" is not a number of px. The human value is not used; the dimension is drawn from the source offset.`,
+    partsNotMap: 'parts is not a mapping. Write parts as parts: { <name>: { nodes: …, paths: …, dims: … } }.',
+    placeNotList: 'place is not a list. Write each placement as - { part: <part name>, as: <instance name>, at: { x, y } }.',
+    partsIgnored:
+      'There are parts / place (parts defined once and placed many times), but they are expanded only in placement drawings (kind: placement). In a structure drawing the machine decides where things go, so the coordinates inside a part mean nothing.',
+    partEmpty: (name: string) =>
+      `Part "${name}" is empty (no nodes / paths / dims with an id). Placing it draws nothing.`,
+    partKeyUnknown: (name: string, key: string) =>
+      `Part "${name}" has ${key}, but a part takes only nodes / paths / dims. ${key === 'edges' ? 'Lines inside a part are paths (edges between placed nodes go under edges, as L1.body). ' : ''}This ${key} is not used.`,
+    partNested: (name: string) =>
+      `Part "${name}" tries to place a part inside itself. Parts cannot nest in this version (expansion stays one level deep). Write the contents directly.`,
+    partMemberIdInvalid: (name: string, kind: string, position: number, id: string) =>
+      `Item ${position} under ${kind} of part "${name}" ${id === '' ? 'has no id' : `has id "${id}", which cannot be used (. and > separate names, so they cannot appear in a member id)`}. It is not placed.`,
+    partMemberIdDuplicated: (name: string, id: string) =>
+      `Part "${name}" has two members with the id "${id}" (nodes / paths / dims share one set of names). Only the first one is placed.`,
+    placeNth: (position: number) => `place item ${position}`,
+    placeKeyUnknown: (label: string, key: string) =>
+      `${label.startsWith('place') ? label : `Instance "${label}"`} has ${key}, but a placement takes only part / as / at / set / grid / rotate. ${key === 'size' ? 'The size belongs to the part. ' : ''}This ${key} is not used.`,
+    placePartUnknown: (label: string, part: string) =>
+      `${label.startsWith('place') ? label : `Instance "${label}"`} ${part === '' ? 'names no part' : `names part "${part}", which is not under parts`}. It is not placed.`,
+    placeAsInvalid: (position: number, as: string) =>
+      `place item ${position} ${as === '' ? 'has no as (the instance name)' : `has as "${as}", which cannot be used (. and > separate names)`}. Its member names (<as>.<id>) cannot be made, so it is not placed.`,
+    placeAsDuplicated: (as: string) =>
+      `Two place items share the as "${as}". Their member names would collide, so only the first one is placed.`,
+    placeAtInvalid: (label: string) =>
+      `The at of ${label.startsWith('place') ? label : `instance "${label}"`} cannot be read (numbers { x, y }). There is nowhere to put it, so it is not placed.`,
+    placeGridInvalid: (label: string) =>
+      `The grid of instance "${label}" cannot be read. It is { cols: <positive integer>, rows: <positive integer>, step: { x: <px>, y: <px> } }, up to 10,000 cells. It is not placed.`,
+    placeRotateInvalid: (label: string, word: string) =>
+      `Instance "${label}" has rotate "${word}". It can only turn 90 / 180 / 270 (clockwise). It is placed unturned.`,
+    placeRotatePartial: (label: string, keys: string) =>
+      `Instance "${label}" is turned, but ${keys} keep their direction (openings, solids, images, symbols, and triangles at 90 degrees). If the shape and its direction look wrong, make a separate part drawn the other way.`,
+    placeSetInvalid: (label: string) =>
+      `The set of instance "${label}" cannot be read. Write set: { <member id>: { <word>: <value> } }.`,
+    placeSetMemberUnknown: (label: string, id: string) =>
+      `The set of instance "${label}" names "${id}", which is not in the part. Nothing changes.`,
+    placeSetKeyFixed: (label: string, id: string, key: string) =>
+      `The set of instance "${label}" tries to change ${key} of "${id}", but the shape (id / at / size / points / arc / from / to) belongs to the part and cannot differ per instance. If the shape differs, make another part.`,
+    placeIdCollision: (id: string) =>
+      `The expanded name "${id}" is already the id of a node, a path or a dimension. A human edit (pins) could not tell which one it is for, so it is not placed. Rename one of them.`,
+    pinInstanceKeyIgnored: (key: string, field: string) =>
+      `pins "${key}" is an edit to the whole instance; only position (moving all of it) works there. ${field} is not used. To fix one member, write it under pins "${key}.<member id>".`,
     nameCrowded: (id: string) =>
       `The name on node "${id}" does not fit its box and there is no free room outside either: it either lands on something else or is cut off at the edge of the sheet. Make the box bigger, break the name with **\`\\n\`**, or shorten the text. It is NOT dropped: losing a name is worse than an overlap.`,
     adriftCell: 'In a table that leaves the row looking empty.',
@@ -1877,6 +2187,10 @@ const en: Catalog = {
   mermaid: {
     lossPlacement:
       'This source is a **placement drawing**: what matters is where things are, and **Mermaid has no place for positions or sizes**. What follows is a list of boxes with the geometry gone — it is not the same drawing. Export to SVG or draw.io if you need the drawing itself.',
+    lossPaths: (count: number) =>
+      `There are ${count} free lines (paths). Mermaid lines only run from node to node, so **they are not in this export.**`,
+    lossDims: (count: number) =>
+      `There are ${count} dimensions (dims). Mermaid lines only run from node to node, so **they are not in this export** (nor are their values).`,
     geometryDroppedHeading:
       'NOTE: Mermaid has nowhere to put positions, sizes, or edge waypoints.',
     geometryDroppedDetail:

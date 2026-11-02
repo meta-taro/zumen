@@ -1183,13 +1183,17 @@
           "caption": "はめあい（同じ φ30 でも、記号で回るか外れないかが変わる）",
           "captionEn": "The same 30mm turns into a running fit or a permanent one depending on two letters: H7/g6 leaves 7 to 41 microns of clearance, H7/p6 always bites by at least 1 micron",
           "kind": "placement",
-          "scales": 0,
+          "scales": 1,
           "uses": [
+            "scale",
             "hatch",
             "line",
             "chain",
             "ends",
-            "align"
+            "align",
+            "paths",
+            "dims",
+            "scale-unit"
           ]
         },
         {
@@ -3988,11 +3992,11 @@
           "scales": 0,
           "uses": [
             "hatch",
-            "via",
             "line",
             "weight",
             "ends",
-            "align"
+            "align",
+            "paths"
           ]
         },
         {
@@ -4610,8 +4614,7 @@
             "technology",
             "via",
             "close",
-            "align",
-            "vertical"
+            "align"
           ]
         },
         {
@@ -5133,8 +5136,9 @@
           "caption": "フェンシングのピスト（構えて 2m、下がれるのは 5m）",
           "captionEn": "A fencing piste from the FIE rules: the on-guard lines are 2m from the centre and the rear limits 7m, so each fencer has exactly 5m to retreat before both feet cross the line and a touch is lost",
           "kind": "placement",
-          "scales": 1,
+          "scales": 2,
           "uses": [
+            "views",
             "scale",
             "palette",
             "fill",
@@ -5143,7 +5147,10 @@
             "line",
             "weight",
             "ends",
-            "align"
+            "align",
+            "paths",
+            "dims",
+            "scale-unit"
           ]
         },
         {
@@ -5535,7 +5542,8 @@
             "grid",
             "hatch",
             "marker",
-            "tag"
+            "tag",
+            "parts"
           ]
         },
         {
@@ -5631,7 +5639,9 @@
           "scales": 0,
           "uses": [
             "hatch",
-            "marker"
+            "marker",
+            "parts",
+            "place-grid"
           ]
         },
         {

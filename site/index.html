@@ -55,7 +55,7 @@
         "ja",
         "en"
       ],
-      "description": "テキスト（YAML 1 枚）を正本にする作図ツール。AI が図を描き直しても、人が手で直した所（pins）は消えない。見本 405 枚、検査 116 項目、MCP サーバー同梱。",
+      "description": "テキスト（YAML 1 枚）を正本にする作図ツール。AI が図を描き直しても、人が手で直した所（pins）は消えない。見本 405 枚、検査 172 項目、MCP サーバー同梱。",
       "keywords": "diagram as code, AI-editable architecture diagrams, MCP server, Claude Code, YAML, SVG, Mermaid, draw.io, 構成図, 間取り, 専門図面",
       "license": "https://opensource.org/licenses/MIT",
       "isAccessibleForFree": true,
@@ -77,7 +77,7 @@
         "人の手直し（pins）は再生成で壊れない",
         "正本は 1 枚の YAML（人も AI も読み書きできる）",
         "SVG・Mermaid・draw.io・Markdown 埋め込みへ書き出し",
-        "描かれないものを名指しする検査 116 項目",
+        "描かれないものを名指しする検査 172 項目",
         "MCP サーバー（エージェントが仕様を読んで描ける）",
         "Git のマージドライバ（同じ図を 2 人で直しても構造で解ける）"
       ]
@@ -169,14 +169,14 @@
   <!-- news -->
   <p class="news-h">お知らせ（<a href="feed.xml">フィード</a>）</p>
   <ul class="near news">
+    <li><span class="thumb" aria-hidden="true"></span><time datetime="2026-11-02">11/2</time>機能追加 <a href="https://github.com/meta-taro/zumen/blob/main/CHANGELOG.md">変更の記録</a> 部品を定義して使い回す（parts / place）。同じ形を 1 回書けば、格子に並べても、向きを変えても、置いたものごとに番号を変えても置ける</li>
+    <li><span class="thumb" aria-hidden="true"></span><time datetime="2026-11-02">11/2</time>機能追加 <a href="https://github.com/meta-taro/zumen/blob/main/CHANGELOG.md">変更の記録</a> 2 点を指して引く寸法（dims）。測る点を書けば、数値は縮尺から機械が出し、手書きの数値が図とずれれば知らせる</li>
+    <li><span class="thumb" aria-hidden="true"></span><time datetime="2026-11-02">11/2</time>機能追加 <a href="https://github.com/meta-taro/zumen/blob/main/CHANGELOG.md">変更の記録</a> 節に属さない線と形（paths）。寸法線・テープ・輪郭・弧・扇形を、見えない点を置かずに座標で書ける</li>
     <li><a href="g/405/" tabindex="-1" aria-hidden="true"><img class="thumb" src="gallery/405-%E5%8D%98%E7%B7%9A%E5%9B%B3%E3%81%8B%E3%82%89%E8%A4%87%E7%B7%9A%E5%9B%B3%E3%81%B8.svg" alt="" width="72" height="48" loading="lazy" decoding="async"></a><time datetime="2026-10-24">10/24</time>追加 <a href="g/405/">見本 405</a> 単線図から複線図へ（白は接地側へ、黒はスイッチへ、返り線で結ぶ）</li>
     <li><a href="g/404/" tabindex="-1" aria-hidden="true"><img class="thumb" src="gallery/404-%E3%82%AE%E3%82%BF%E3%83%BC%E3%81%AE%E3%82%B3%E3%83%BC%E3%83%89%E8%A1%A8%E3%81%A8TAB%E8%AD%9C.svg" alt="" width="72" height="48" loading="lazy" decoding="async"></a><time datetime="2026-10-24">10/24</time>追加 <a href="g/404/">見本 404</a> ギターのコード表と TAB 譜（同じ押さえ方を、向きの逆な 2 つの書き方で）</li>
     <li><a href="g/403/" tabindex="-1" aria-hidden="true"><img class="thumb" src="gallery/403-%E3%81%8D%E3%82%89%E3%81%8D%E3%82%89%E6%98%9F-%E8%8B%B1%E8%AA%9E%E3%81%AE%E6%AD%8C%E8%A9%9E%E3%81%A4%E3%81%8D%E3%81%AE%E4%BA%94%E7%B7%9A%E8%AD%9C.svg" alt="" width="72" height="48" loading="lazy" decoding="async"></a><time datetime="2026-10-20">10/20</time>追加 <a href="g/403/">見本 403</a> きらきら星（英語の歌詞つきの五線譜）</li>
     <li><span class="thumb" aria-hidden="true"></span><time datetime="2026-10-20">10/20</time>機能追加 <a href="https://github.com/meta-taro/zumen/blob/main/CHANGELOG.md">変更の記録</a> 画面を整えた。人が見たか・AI の提案を読んでいる途中か・人が決めた数と AI が置いた数が、いつも見える</li>
     <li><span class="thumb" aria-hidden="true"></span><time datetime="2026-10-20">10/20</time>機能追加 <a href="https://github.com/meta-taro/zumen/blob/main/CHANGELOG.md">変更の記録</a> 図の上に赤入れ（ペンと付箋）。色と太さを選べ、図には効かない。箱に結ぶと箱についていく</li>
-    <li><a href="g/402/" tabindex="-1" aria-hidden="true"><img class="thumb" src="gallery/402-%E6%99%82%E5%B7%AE%E3%81%AE%E4%B8%96%E7%95%8C%E5%9C%B0%E5%9B%B3-%E7%B5%8C%E5%BA%A6%E3%81%AE%E5%B8%AF%E3%81%A8%E5%9B%BD%E3%81%8C%E6%B1%BA%E3%82%81%E3%81%9F%E6%99%82.svg" alt="" width="72" height="48" loading="lazy" decoding="async"></a><time datetime="2026-10-20">10/20</time>追加 <a href="g/402/">見本 402</a> 時差の世界地図（経度の帯と、国が決めた時）</li>
-    <li><a href="g/401/" tabindex="-1" aria-hidden="true"><img class="thumb" src="gallery/401-%E3%82%AD%E3%82%AD%E3%82%AF%E3%83%AB-%E5%9C%9F%E7%A0%82%E3%81%AE%E3%83%A1%E3%83%83%E3%82%B7%E3%83%A5%E3%81%A8%E6%B4%AA%E6%B0%B4%E3%81%AE%E5%B7%9D.svg" alt="" width="72" height="48" loading="lazy" decoding="async"></a><time datetime="2026-10-20">10/20</time>追加 <a href="g/401/">見本 401</a> キキクル（土砂はメッシュ、洪水は川の流路）</li>
-    <li><a href="g/400/" tabindex="-1" aria-hidden="true"><img class="thumb" src="gallery/400-%E5%A4%A7%E5%9C%8F%E8%88%AA%E8%B7%AF%E3%81%A8%E7%AD%89%E8%A7%92%E8%88%AA%E8%B7%AF-%E6%9D%B1%E4%BA%AC%E3%81%8B%E3%82%89%E3%83%8B%E3%83%A5%E3%83%BC%E3%83%A8%E3%83%BC%E3%82%AF.svg" alt="" width="72" height="48" loading="lazy" decoding="async"></a><time datetime="2026-10-16">10/16</time>追加 <a href="g/400/">見本 400</a> 大圏航路と等角航路（地図の直線は最短とは限らない）</li>
   </ul>
   <!-- /news -->
   <div class="filters" role="group" aria-label="種類で絞り込む">
@@ -269,7 +269,7 @@
     <figure data-cat="kenchiku"><picture><source srcset="gallery/328-ゼーゲルコーン-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1404" height="890" src="gallery/328-ゼーゲルコーン.svg" alt="窯に立てる示温体（ゼーゲルコーン）を、8° に傾けて立てた状態・途中まで曲がった状態・先が台と同じ高さまで倒れた状態の 3 段階で横から描いた図。大コーン 6.35cm と小コーン 2.86cm の高さ比較、番号と相当温度（毎時 60℃ でコーン 022 が 590℃・06 が 998℃・04 が 1,063℃・6 が 1,222℃・10 が 1,285℃）の表、熱電対との違いの表"></picture><figcaption>ゼーゲルコーン（温度ではなく、熱量を読む）</figcaption></figure>
     <figure data-cat="kenchiku"><picture><source srcset="gallery/218-窯詰めの棚組み-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1254" height="1268" src="gallery/218-窯詰めの棚組み.svg" alt="窯詰めの棚組み（棚板と支柱 3 本・素焼きと本焼きの詰め方・温度の道）"></picture><figcaption>窯詰め（棚板 1 枚に支柱 3 本。3 点は必ず平面に乗る）</figcaption></figure>
     <figure data-cat="kenchiku"><picture><source srcset="gallery/333-歯車のかみ合い-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1464" height="968" src="gallery/333-歯車のかみ合い.svg" alt="モジュール 3・歯数 20 と 30 の平歯車を、中心距離 75mm でかみ合わせて描いた図。歯底円までを本体として歯を並べ、基準円（ピッチ円）を破線で重ねて 2 つの基準円が接する所をかみ合い点として示した図と、基準円直径 m×z・歯先円直径 m(z+2)・歯底円直径 m(z−2.5)・中心距離 m(z1+z2)/2 の表、かみ合う条件（同じモジュール・同じ圧力角 20 度）と回転比 1.5 : 1 の表"></picture><figcaption>歯車のかみ合い（決めているのは直径ではなく、モジュール）</figcaption></figure>
-    <figure data-cat="kenchiku"><picture><source srcset="gallery/243-はめあい-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1264" height="1270" src="gallery/243-はめあい.svg" alt="はめあい（JIS B 0401 ＝ ISO 286）φ30 の H7 と f7〜p6 を数直線で並べ、すきま・しまりの μm まで出した図"></picture><figcaption>はめあい（同じ φ30 でも、記号で回るか外れないかが変わる）</figcaption></figure>
+    <figure data-cat="kenchiku"><picture><source srcset="gallery/243-はめあい-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1264" height="1312" src="gallery/243-はめあい.svg" alt="はめあい（JIS B 0401 ＝ ISO 286）φ30 の H7 と f7〜p6 を数直線で並べ、すきま・しまりの μm まで出した図"></picture><figcaption>はめあい（同じ φ30 でも、記号で回るか外れないかが変わる）</figcaption></figure>
     <figure data-cat="kenchiku"><picture><source srcset="gallery/242-溶接記号-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1264" height="1402" src="gallery/242-溶接記号.svg" alt="溶接記号（JIS Z 3021）の組み立てと、基線の上下が示す面・基本記号・のど厚 a と脚長 z"></picture><figcaption>溶接記号（基線の下が矢の側、上がその反対側）</figcaption></figure>
     <figure data-cat="kenchiku"><picture><source srcset="gallery/238-板金の展開図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1264" height="978" src="gallery/238-板金の展開図.svg" alt="板金の展開長（外側寸法 − 伸び値）と中立面・図面に書くこと"></picture><figcaption>板金（外側寸法を足しただけでは合わない）</figcaption></figure>
     <figure data-cat="kenchiku"><picture><source srcset="gallery/187-合板の木取り図-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1594" height="1096" src="gallery/187-合板の木取り図.svg" alt="合板 1 枚からの木取り図（サブロク 910×1820・カットリストと歩留まり）"></picture><figcaption>木取り図（面積が足りることと、取れることは別）</figcaption></figure>

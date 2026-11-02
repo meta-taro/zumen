@@ -1,0 +1,9 @@
+{
+  "//": "拡張の型を確かめるだけ（束ねるのは scripts/vscode-build.mjs）。画面側の台本があるので DOM を入れる。",
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
+    "types": ["node", "vscode"]
+  },
+  "include": ["src/**/*.ts"]
+}

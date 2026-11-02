@@ -25,12 +25,13 @@
  */
 import { getPins, parse } from './format.ts';
 import { kindOf } from './kind.ts';
+import { expansionOf, mentionsParts } from './parts.ts';
 import type { Kind } from './kind.ts';
 import { reviewOf } from './review.ts';
 import type { Pin } from './format.ts';
 
 /** 人が幾何を決めた印。ここが増えると「人が並べ直している」。 */
-const GEOMETRY_KEYS = ['position', 'size', 'waypoints'] as const;
+const GEOMETRY_KEYS = ['position', 'size', 'waypoints', 'points', 'offset'] as const;
 /** 人が中身を直した印。 */
 const CONTENT_KEYS = ['label', 'appearance'] as const;
 
@@ -80,18 +81,44 @@ export function measure(text: string): Measurement {
    * **横に並べない。** `kind` で読み分けてもらう。
    */
   if (kindOf(text) === 'construction') return constants(text, diagram, pins);
-  const elements = diagram.nodeIds().length + diagram.edges().length;
+  /**
+   * **節に属さない線（`paths`）も 1 本で 1 要素**（配置図でだけ。構成図では描かれない）。
+   * 見えない点 2 つと辺 1 本で 3 要素に数えていた線が、1 要素になる。
+   */
+  const paths = kindOf(text) === 'placement' ? diagram.pathIds() : [];
+  /** **寸法（`dims`）も 1 本で 1 要素**（寸法線と補助線 2 本で 3 要素にしない）。 */
+  const dims = kindOf(text) === 'placement' ? diagram.dimIds() : [];
+  /**
+   * **置いた部品は、置いたもの 1 つで 1 要素**（`parts` / `place`。配置図でだけ。格子はマスごと）。
+   * 人がつかむのは器具で、器具の中の丸ではない —— 中の節の数で数えると、
+   * 部品を細かく描くほど手直し率が下がって見える。全体を動かしても中を直しても、その 1 つに数える。
+   */
+  const parts = kindOf(text) === 'placement' && mentionsParts(text) ? expansionOf(text) : null;
+  const owner = new Map<string, string>();
+  for (const instance of parts?.instances ?? []) {
+    owner.set(instance.name, instance.name);
+    for (const id of instance.ids) owner.set(id, instance.name);
+  }
+  // 格子ぜんたいを動かした pin は、1 つの手直しに数える
+  for (const grid of parts?.grids ?? []) owner.set(grid, grid);
+  const elements =
+    diagram.nodeIds().length + diagram.edges().length + paths.length + dims.length + (parts?.instances.length ?? 0);
 
   // 迷子の pin（どの要素も指していない）は数えない。**居ない要素の手直しは、
   // 手直し率を押し上げるだけで、実際の図の状態を表さない。**
   const alive = new Set([
     ...diagram.nodeIds(),
     ...diagram.edges().map((edge) => `${edge.from}>${edge.to}`),
+    ...paths,
+    ...dims,
   ]);
-  const entries = Object.entries(pins).filter(([key]) => alive.has(key));
+  const elementOf = (key: string): string | undefined => (alive.has(key) ? key : owner.get(key));
+  const entries = Object.entries(pins).filter(([key]) => elementOf(key) !== undefined);
+  const count = (keys: readonly (keyof Pin)[]): number =>
+    new Set(entries.filter(([, pin]) => hasAny(pin, keys)).map(([key]) => elementOf(key))).size;
 
-  const touched = entries.filter(([, pin]) => hasAny(pin, [...GEOMETRY_KEYS, ...CONTENT_KEYS])).length;
-  const placed = entries.filter(([, pin]) => hasAny(pin, GEOMETRY_KEYS)).length;
+  const touched = count([...GEOMETRY_KEYS, ...CONTENT_KEYS]);
+  const placed = count(GEOMETRY_KEYS);
 
   const seen = reviewOf(text);
   const kind = kindOf(text);

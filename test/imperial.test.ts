@@ -55,7 +55,7 @@ describe('フィートとインチ', () => {
 
 describe('縮尺が単位を決める', () => {
   it('`scale: { mm: 40 }` は 1 px = 40 mm のミリ', () => {
-    assert.deepEqual(scaleOf({ mm: 40 }), { mm: 40, feet: false });
+    assert.deepEqual(scaleOf({ mm: 40 }), { mm: 40, feet: false, unit: null });
   });
 
   it('**`scale: { in: 1.5 }` は 1 px = 1.5 インチのフィート表記**', () => {
@@ -71,7 +71,7 @@ describe('縮尺が単位を決める', () => {
   });
 
   it('**両方書いたら mm を採る**（黙って混ぜない）', () => {
-    assert.deepEqual(scaleOf({ mm: 40, in: 1.5 }), { mm: 40, feet: false });
+    assert.deepEqual(scaleOf({ mm: 40, in: 1.5 }), { mm: 40, feet: false, unit: null });
   });
 });
 

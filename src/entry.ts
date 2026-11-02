@@ -15,6 +15,7 @@
  *
  * 配布して別の機械で試してもらう以上、ここは当てずっぽうにしない。
  */
+import { realpathSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -29,9 +30,22 @@ import { fileURLToPath } from 'node:url';
 export function isEntry(url: string, argv1: string | undefined): boolean {
   if (argv1 === undefined || argv1 === '') return false;
   try {
-    return resolve(fileURLToPath(url)) === resolve(argv1);
+    return real(fileURLToPath(url)) === real(argv1);
   } catch {
     // file: 以外の url（試験や束ねた後）では、入口ではないものとして扱う。
     return false;
+  }
+}
+
+/**
+ * **つないだ道（シンボリックリンク）は実体へたどる。** Node は入口の `import.meta.url` を
+ * 実体の道にするが、`argv[1]` はつないだ道のまま来る。比べる前に両方そろえる。
+ * 無い道（テストの架空の道など）は、そのまま正規化だけする。
+ */
+function real(path: string): string {
+  try {
+    return realpathSync(path);
+  } catch {
+    return resolve(path);
   }
 }

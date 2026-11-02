@@ -28,6 +28,8 @@ import { join, relative, resolve } from 'node:path';
 
 import { toDrawio } from './drawio.ts';
 import { loadImages } from './image-files.ts';
+import { DIM_ENDS, DIM_SIDES } from './dims.ts';
+import { UNITS } from './units.ts';
 import { edgesUnderLabels, placeEdgeLabels } from './edge-labels.ts';
 import { embedFont } from './font.ts';
 import { getPins, parse } from './format.ts';
@@ -131,6 +133,12 @@ export function spec(): {
   weights: string[];
   /** 方位（`src/grid.ts`）。 */
   norths: string[];
+  /** **図ぜんたいの単位**（`scale.unit`。`src/units.ts`）。書かなければ縮尺が決める。 */
+  units: string[];
+  /** **寸法（`dims`）の端で指せる箱の辺**（`src/dims.ts`）。 */
+  dimSides: string[];
+  /** 寸法の端の形（`dims[].ends`）。 */
+  dimEnds: string[];
   /** **書き出せる形**。`png` は絵そのもの（Chrome があるときだけ）。 */
   exports: string[];
   appearances: string[];
@@ -170,6 +178,9 @@ export function spec(): {
     symbols: [...SYMBOLS],
     weights: [...WEIGHTS],
     norths: [...NORTHS],
+    units: [...UNITS],
+    dimSides: [...DIM_SIDES],
+    dimEnds: [...DIM_ENDS],
     exports: ['svg', 'png', 'mermaid', 'drawio'],
     appearances: Object.keys(APPEARANCE),
     rules: m.rules,
@@ -193,6 +204,10 @@ export interface Inspection {
   findings: Finding[];
   nodes: number;
   edges: number;
+  /** **節に属さない線**（`paths`）。辺にも節にも数えない。 */
+  paths: number;
+  /** **2 点を指して引く寸法**（`dims`）。寸法線と補助線をまとめて 1 本に数える。 */
+  dims: number;
   groups: number;
   /** 線どうしの交差。**多いと読めない。** */
   crossings: number;
@@ -351,6 +366,8 @@ export async function inspect(source: string): Promise<Inspection> {
       findings,
       nodes: 0,
       edges: 0,
+      paths: 0,
+      dims: 0,
       groups: 0,
       crossings: 0,
       overlaps: [],
@@ -402,7 +419,9 @@ export async function inspect(source: string): Promise<Inspection> {
     readable: true,
     findings,
     nodes: placed.boxes.length,
-    edges: placed.edges.length,
+    edges: placed.edges.filter((e) => e.path !== true).length,
+    paths: placed.edges.filter((e) => e.path === true && e.dim === undefined).length,
+    dims: new Set(placed.edges.flatMap((e) => (e.dim === undefined ? [] : [e.dim]))).size,
     groups: placed.groups.length,
     crossings: crossed,
     overlaps: overlaps(placed),

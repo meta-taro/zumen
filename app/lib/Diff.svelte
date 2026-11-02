@@ -78,8 +78,17 @@ import type { Session } from './state.svelte.ts';
               <span class="side human"><small>{m.humanSide}</small>({conflict.human.x}, {conflict.human.y})</span>
               <span class="side ai"><small>{m.proposalSide}</small>({conflict.ai.x}, {conflict.ai.y})</span>
             </div>
+          {:else if conflict.kind === 'value-proposed'}
+            <div class="sides">
+              <span class="side human"><small>{m.humanSide}</small>{conflict.human}</span>
+              <span class="side ai"><small>{m.proposalSide}</small>{conflict.ai}</span>
+            </div>
           {:else if conflict.kind === 'position-suppressed'}
             <p>{m.conflictSuppressed(conflict.ai.x, conflict.ai.y)}</p>
+          {:else if conflict.kind === 'value-suppressed'}
+            <p>{m.conflictValueSuppressed(String(conflict.ai))}</p>
+          {:else if conflict.kind === 'kind-proposed'}
+            <p>{m.conflictKind(conflict.human, conflict.ai)}</p>
           {:else}
             <p class="danger">{m.conflictRemoved}</p>
           {/if}

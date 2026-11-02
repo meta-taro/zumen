@@ -1,0 +1,48 @@
+{
+  "name": "zumen-vscode",
+  "displayName": "zumen",
+  "description": "AI diagram generator and diagrams as code for VS Code — let Copilot or Claude Code draw specialist diagrams (lighting plots, floor plans, wiring, warehouse layouts) from one YAML file, with a live preview, SVG/PNG export and ```zumen blocks in Markdown.",
+  "version": "0.2.0",
+  "//version": "本体（0.6.x）と揃えるかは、最初に出すときに人が決める（D47）。",
+  "publisher": "meta-taro",
+  "license": "MIT",
+  "repository": { "type": "git", "url": "git+https://github.com/meta-taro/zumen.git", "directory": "packages/zumen-vscode" },
+  "homepage": "https://meta-taro.github.io/zumen/",
+  "engines": { "vscode": "^1.95.0" },
+  "categories": ["Visualization", "AI"],
+  "icon": "media/icon.png",
+  "galleryBanner": { "color": "#ffffff", "theme": "light" },
+  "keywords": ["diagram", "diagram-as-code", "ai diagram", "diagram generator", "architecture diagram", "network diagram", "wiring diagram", "floor plan", "lighting plot", "markdown", "mcp", "copilot", "claude code", "yaml", "svg"],
+  "main": "./dist/extension.js",
+  "activationEvents": ["onStartupFinished"],
+  "//capabilities": "正本を読んで描くだけで、フォルダの中のものを走らせない。だから信頼していないフォルダでも動かしてよい。",
+  "capabilities": { "untrustedWorkspaces": { "supported": true }, "virtualWorkspaces": true },
+  "contributes": {
+    "commands": [
+      {
+        "command": "zumen.openPreview",
+        "title": "zumen: Open Preview to the Side",
+        "icon": "$(open-preview)"
+      },
+      {
+        "command": "zumen.connectTerminalAgents",
+        "title": "zumen: Connect Terminal Agents (Claude Code…)"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        { "command": "zumen.openPreview", "when": "resourceFilename =~ /\\.zumen\\.ya?ml$/", "group": "navigation" }
+      ],
+      "explorer/context": [
+        { "command": "zumen.openPreview", "when": "resourceFilename =~ /\\.zumen\\.ya?ml$/" }
+      ],
+      "commandPalette": [
+        { "command": "zumen.openPreview", "when": "resourceFilename =~ /\\.zumen\\.ya?ml$/" }
+      ]
+    },
+    "mcpServerDefinitionProviders": [{ "id": "zumen.mcp", "label": "zumen" }],
+    "markdown.markdownItPlugins": true,
+    "markdown.previewScripts": ["./dist/markdown.js"],
+    "markdown.previewStyles": ["./media/markdown.css"]
+  }
+}

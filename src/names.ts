@@ -526,20 +526,45 @@ const TAG_GAP = 8;
  */
 export function tagFits(box: Box): boolean {
   if (box.tag === null) return true;
-  // **菱形も真ん中へ**（`src/render.ts` と揃える）。角に置くと斜めの辺が文字を横切る。
+  const spot = tagSpot(box);
+  if (spot !== null) return labelWidth(box.tag, spot.font) <= spot.room;
+  return labelWidth(box.tag, TAG_FONT) <= box.w - TAG_GAP;
+}
+
+/**
+ * **印の中の符号を、どこへ置くか**（`src/render.ts` と `tagFits` が同じ物差しを使う）。
+ *
+ * 丸・菱形は真ん中。左上へ寄せると、二重丸の内側の丸や菱形の斜めの辺が字を横切る。
+ * **三角は、幅のある底の側へ**（2026-10-28）。真ん中に置くと、上ほど細い三角の辺が
+ * 字の上を通る —— Copilot に描かせた照明仕込図で、LED パー（三角）の器具番号が串刺しになっていた。
+ * `room` は字の上端と下端のうち狭いほうでの、三角の中の幅。
+ *
+ * 印の中に置かない箱（四角で名前のあるもの）は null —— 符号は左上の隅へ置く。
+ */
+export function tagSpot(box: Box): { cx: number; baseline: number; font: number; room: number } | null {
   const round =
     box.marker === 'circle' ||
     box.marker === 'double' ||
     box.marker === 'ellipse' ||
     box.marker === 'diamond' ||
-    // **三角も、四隅が実物より外へ出ている**（菱形と同じ理由。2026-09-20）。
     box.marker === 'triangle' ||
     box.marker === 'triangle-down';
-  // **名前が無ければ、符号は名前の大きさで描く**（`src/render.ts`）。
-  // 物差しも合わせないと、「入る」と言って隣へはみ出す。
+  // **名前が無ければ、符号は名前の大きさで描く**（符号が中身そのもの）。
   const alone = box.label === '' && box.technology === null;
-  const room = round || alone ? box.w - 4 : box.w - TAG_GAP;
-  return labelWidth(box.tag, alone ? NAME_FONT : TAG_FONT) <= room;
+  if (!round && !alone) return null;
+
+  const font = alone ? NAME_FONT : TAG_FONT;
+  const cx = box.x + box.w / 2;
+  const cap = font * 0.85;
+  if (box.marker === 'triangle') {
+    const baseline = box.y + box.h - 3;
+    return { cx, baseline, font, room: (box.w * (baseline - cap - box.y)) / box.h - 4 };
+  }
+  if (box.marker === 'triangle-down') {
+    const baseline = box.y + 3 + cap;
+    return { cx, baseline, font, room: box.w * (1 - (baseline - box.y) / box.h) - 4 };
+  }
+  return { cx, baseline: box.y + box.h / 2 + (alone ? font / 3 : 4), font, room: box.w - 4 };
 }
 
 /**

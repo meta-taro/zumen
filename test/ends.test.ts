@@ -36,7 +36,7 @@ describe('端の記号を読む', () => {
   it('**形の名前だけで閉じる。意味の語は無い**', () => {
     assert.deepEqual(
       [...ENDS],
-      ['none', 'arrow', 'bar', 'crow', 'dot', 'dot-bar', 'dot-crow', 'triangle', 'diamond', 'solid-diamond'],
+      ['none', 'arrow', 'bar', 'crow', 'dot', 'dot-bar', 'dot-crow', 'triangle', 'diamond', 'solid-diamond', 'tick'],
     );
     // 意味の語は受けない（ER の `one-to-many`、UML の `generalization`）。
     assert.deepEqual(endsOf({ from: 'one-to-many' }), { from: 'none', to: 'none' });
@@ -144,6 +144,7 @@ describe('図に載せる', () => {
       'triangle',
       'diamond',
       'solid-diamond',
+      'tick',
     ]);
     assert.match(spec().shape, /ends:/);
   });

@@ -35,6 +35,32 @@
  * **どちらで書くかも、やはり縮尺が言う**（`scale: { in: 1.5 }`）。
  */
 
+/**
+ * **図ぜんたいの単位を、正本が選ぶ**（`scale.unit`。2026-11-02）。
+ *
+ * 縮尺で決めると、競技場や家具（1 px が 25 mm）は `14,000` になる。
+ * 実物の競技規則は **`14 m`** と書く。逆に、粗い縮尺でもミリで書きたい図もある。
+ * はめあいの公差域は **μm** で書く（JIS B 0401 の表がそう）。
+ *
+ * **選べるのは図ぜんたいで 1 つ。** 1 つの図に mm と m を混ぜない決めは変えない ——
+ * 選んだ単位は、通り芯の寸法・`dims`・範囲の円・物差しのすべてに効く。
+ *
+ * | 値 | 書き方 |
+ * |---|---|
+ * | `mm` | `14,000`（縮尺が粗くてもミリ） |
+ * | `m` | `14 m` ／ `13.95 m`（ミリの縮尺なら cm まで） |
+ * | `um` | `21 μm`（1 μm に満たない縮尺なら小数 1 桁まで） |
+ *
+ * **インチの縮尺（`scale.in`）には付けない。** フィートとインチの書き方は 1 つしか無い。
+ */
+export const UNITS = ['mm', 'm', 'um'] as const;
+export type Unit = (typeof UNITS)[number];
+
+/** 単位を読む。**読めなければ null**（縮尺が決める。検証器が `scale-unit-invalid` で言う）。 */
+export function unitOf(raw: unknown): Unit | null {
+  return UNITS.includes(raw as Unit) ? (raw as Unit) : null;
+}
+
 /** 1 インチのミリ。 */
 export const INCH = 25.4;
 
@@ -51,25 +77,45 @@ export function inMetres(mm: number): boolean {
  *
  * mm は 3 桁ごとに区切る（`7,000`）。m は小数 1 桁まで（`60.0` / `2.5`）。
  */
-export function lengthText(px: number, mm: number, feet = false): string {
+export function lengthText(px: number, mm: number, feet = false, unit: Unit | null = null): string {
   const value = Math.abs(px) * mm;
   if (feet) return feetText(value);
-  if (!inMetres(mm)) {
-    /**
-     * **1px が 1mm 未満の図では、小数が意味を持つ**（2026-09-19。見本 194 の点字）。
-     *
-     * ミリの整数に丸めると、点字の点間隔 **2.6mm が「3」**になる。
-     * 2.6 も 3.4 も同じ「3」になってしまい、**規格の図面としては書いていないのと同じ。**
-     * どちらで書くかは、ここでも縮尺が言う —— 1:1 より拡大した図だけ、小数 1 桁まで。
-     */
-    const fine = mm < 1;
-    const rounded = fine ? Math.round(value * 10) / 10 : Math.round(value);
-    return rounded.toLocaleString('en-US', { maximumFractionDigits: 1 });
-  }
+  if (unit === 'um') return micronText(value, mm);
+  if (unit === 'm' || (unit === null && inMetres(mm))) return metreText(value, mm);
+  /**
+   * **1px が 1mm 未満の図では、小数が意味を持つ**（2026-09-19。見本 194 の点字）。
+   *
+   * ミリの整数に丸めると、点字の点間隔 **2.6mm が「3」**になる。
+   * 2.6 も 3.4 も同じ「3」になってしまい、**規格の図面としては書いていないのと同じ。**
+   * どちらで書くかは、ここでも縮尺が言う —— 1:1 より拡大した図だけ、小数 1 桁まで。
+   */
+  const fine = mm < 1;
+  const rounded = fine ? Math.round(value * 10) / 10 : Math.round(value);
+  return rounded.toLocaleString('en-US', { maximumFractionDigits: 1 });
+}
+
+/**
+ * m で書く。**整数なら小数点を書かない**（200 m を 200.0 m と書く図面は無い）。
+ *
+ * 1 px が 100 mm 以上の図は小数 1 桁まで（これより細かい値を縮尺が持っていない）。
+ * **ミリの縮尺で m を選んだ図は cm まで** —— ピストの `13.95 m` を `14 m` に丸めると、
+ * 図と規則の値のずれが数値から消える。
+ */
+function metreText(value: number, mm: number): string {
   const metres = value / 1000;
-  // **整数なら小数点を書かない。** 200 m を 200.0 m と書く図面は無い。
+  if (!inMetres(mm)) {
+    const rounded = Math.round(metres * 100) / 100;
+    return `${rounded} m`;
+  }
   const rounded = Math.round(metres * 10) / 10;
   return Number.isInteger(rounded) ? `${rounded} m` : `${rounded.toFixed(1)} m`;
+}
+
+/** μm で書く。**1 px が 1 μm に満たない図だけ、小数 1 桁まで。** */
+function micronText(value: number, mm: number): string {
+  const microns = value * 1000;
+  const rounded = mm * 1000 < 1 ? Math.round(microns * 10) / 10 : Math.round(microns);
+  return `${rounded.toLocaleString('en-US', { maximumFractionDigits: 1 })} μm`;
 }
 
 /**
