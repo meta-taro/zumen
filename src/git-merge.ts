@@ -22,15 +22,39 @@
  * 人の直しが片方だけ消え、しかも**消えたことが誰にも見えない**。
  */
 import { TO_STRING_OPTIONS } from './format.ts';
-import { Document, YAMLSeq, isMap, isSeq, parseDocument } from 'yaml';
+import { Document, YAMLSeq, isMap, isScalar, isSeq, parseDocument } from 'yaml';
 import type { Pair, YAMLMap } from 'yaml';
 
-/** 要素を数える単位。`root` は `version` / `title` のような最上位の値。 */
-export type Section = 'root' | 'groups' | 'nodes' | 'edges' | 'pins';
+/** 要素を照合する鍵の出し方。並びの節ごとに決まっている（仕様 §5・§6.2 と同じ鍵）。 */
+const LISTS = {
+  groups: (item: YAMLMap) => String(item.get('id')),
+  nodes: (item: YAMLMap) => String(item.get('id')),
+  edges: (item: YAMLMap) => `${String(item.get('from'))}>${String(item.get('to'))}`,
+  paths: (item: YAMLMap) => String(item.get('id')),
+  dims: (item: YAMLMap) => String(item.get('id')),
+  place: (item: YAMLMap) => String(item.get('as')),
+  views: (item: YAMLMap) => String(item.get('id')),
+} as const;
+
+/**
+ * 鍵ごとに見る写像の節。`pins` は手直しの鍵、`parts` は部品の名前、
+ * `let` / `lengths` は作図の定数、`palette` / `styles` は色と見せ方の名前。
+ */
+const MAPS = ['pins', 'parts', 'let', 'lengths', 'palette', 'styles'] as const;
+
+type ListSection = keyof typeof LISTS;
+type MapSection = (typeof MAPS)[number];
+
+/**
+ * 要素を数える単位。`root` は、それ以外の最上位の値（`version` / `title` / `scale` / `grid` / `steps` …）を
+ * 鍵ごとに丸ごと見る。
+ */
+export type Section = 'root' | ListSection | MapSection;
+type Keyed = Exclude<Section, 'root'>;
 
 export interface ThreeWayConflict {
   section: Section;
-  /** ノードの `id`、エッジの `from>to`、`pins` の鍵、最上位のキー。 */
+  /** 要素の `id`、エッジの `from>to`、置き方の `as`、写像の鍵、最上位のキー。 */
   key: string;
   /** ours 側の姿。**消したのなら `undefined`。** */
   ours: string | undefined;
@@ -43,9 +67,14 @@ export interface ThreeWayResult {
   conflicts: ThreeWayConflict[];
 }
 
-const SECTIONS: readonly Exclude<Section, 'root'>[] = ['groups', 'nodes', 'edges', 'pins'];
-/** 最上位で 3-way に見る値。並びと写像はそれぞれの節で扱う。 */
-const ROOT_KEYS = ['version', 'title'] as const;
+const SECTIONS: readonly Keyed[] = [...(Object.keys(LISTS) as ListSection[]), ...MAPS];
+const SECTION_SET: ReadonlySet<string> = new Set(SECTIONS);
+
+/** 要素 1 つ。`start` は、競合で囲み始める位置（並びの要素なら要素、写像なら鍵）。 */
+interface Entry {
+  node: unknown;
+  start: number | undefined;
+}
 
 export function mergeThreeWay(baseText: string, oursText: string, theirsText: string): ThreeWayResult {
   const base = parseDocument(baseText);
@@ -63,31 +92,67 @@ export function mergeThreeWay(baseText: string, oursText: string, theirsText: st
 
 // --- 最上位 ----------------------------------------------------------------
 
+/**
+ * 節でない最上位の値は、鍵ごとに丸ごと見る。
+ *
+ * **鍵の一覧で絞らない。** 絞ると、節を足すたびに theirs の変更が黙って消える穴が開く
+ * （`scale` / `paths` / `dims` がまさにそれだった）。
+ */
 function mergeRoot(base: Document, ours: Document, theirs: Document, conflicts: ThreeWayConflict[]): void {
-  for (const key of ROOT_KEYS) {
-    const b = json(base.get(key));
-    const o = json(ours.get(key));
-    const t = json(theirs.get(key));
+  const keys = union(rootEntries(base), rootEntries(ours), rootEntries(theirs)).filter((key) => !SECTION_SET.has(key));
+  for (const key of keys) {
+    const b = json(base.get(key, true));
+    const o = json(ours.get(key, true));
+    const t = json(theirs.get(key, true));
     if (o === t) continue;
     if (b === o) {
-      if (theirs.get(key) === undefined) ours.delete(key);
-      else ours.set(key, theirs.get(key, true));
+      const next = theirs.get(key, true);
+      if (!theirs.has(key)) ours.delete(key);
+      else if (ours.has(key)) ours.set(key, next);
+      else insertLike(ours, theirs, key, next);
       continue;
     }
     if (b === t) continue;
-    conflicts.push({ section: 'root', key, ours: scalarText(key, ours), theirs: scalarText(key, theirs) });
+    conflicts.push({ section: 'root', key, ours: renderPair(ours, key), theirs: renderPair(theirs, key) });
   }
 }
 
-function scalarText(key: string, doc: Document): string | undefined {
-  const value = doc.get(key);
-  return value === undefined ? undefined : `${key}: ${String(value)}`;
+function rootEntries(doc: Document): Map<string, unknown> {
+  const out = new Map<string, unknown>();
+  if (!isMap(doc.contents)) return out;
+  for (const pair of doc.contents.items as Pair[]) out.set(keyText(pair.key), pair.value);
+  return out;
+}
+
+/**
+ * ours に無い最上位の鍵を、theirs で直後にある鍵の前へ入れる。
+ * 末尾へ足すと、`pins` の後ろに設定が生える。
+ */
+function insertLike(ours: Document, theirs: Document, key: string, value: unknown): void {
+  const root = ours.contents;
+  if (!isMap(root)) {
+    ours.set(key, value);
+    return;
+  }
+  const order = [...rootEntries(theirs).keys()];
+  const later = new Set(order.slice(order.indexOf(key) + 1));
+  const pair = ours.createPair(key, value) as Pair;
+  const at = (root.items as Pair[]).findIndex((item) => later.has(keyText(item.key)));
+  if (at === -1) root.items.push(pair);
+  else root.items.splice(at, 0, pair);
+}
+
+function renderPair(doc: Document, key: string): string | undefined {
+  if (!doc.has(key)) return undefined;
+  const holder = new Document({});
+  (holder.contents as YAMLMap).set(key, doc.get(key, true));
+  return holder.toString(TO_STRING_OPTIONS).trimEnd();
 }
 
 // --- 節ごと ----------------------------------------------------------------
 
 function mergeSection(
-  section: Exclude<Section, 'root'>,
+  section: Keyed,
   base: Document,
   ours: Document,
   theirs: Document,
@@ -98,13 +163,13 @@ function mergeSection(
   const t = elements(theirs, section);
 
   for (const key of union(b, o, t)) {
-    const bj = json(b.get(key)?.toJSON());
-    const oj = json(o.get(key)?.toJSON());
-    const tj = json(t.get(key)?.toJSON());
+    const bj = json(b.get(key)?.node);
+    const oj = json(o.get(key)?.node);
+    const tj = json(t.get(key)?.node);
 
     if (oj === tj) continue;
     if (bj === oj) {
-      adopt(section, key, ours, o.get(key), t.get(key));
+      adopt(section, key, ours, theirs, o.get(key)?.node, t.get(key)?.node);
       continue;
     }
     if (bj === tj) continue;
@@ -113,26 +178,33 @@ function mergeSection(
     conflicts.push({
       section,
       key,
-      ours: render(section, o.get(key), key),
-      theirs: render(section, t.get(key), key),
+      ours: render(section, o.get(key)?.node, key),
+      theirs: render(section, t.get(key)?.node, key),
     });
   }
 }
 
 /** ours 側が base のままなら、theirs の変更をそのまま採る。 */
 function adopt(
-  section: Exclude<Section, 'root'>,
+  section: Keyed,
   key: string,
   ours: Document,
-  oursElement: YAMLMap | undefined,
-  theirsElement: YAMLMap | undefined,
+  theirs: Document,
+  oursElement: unknown,
+  theirsElement: unknown,
 ): void {
   if (theirsElement === undefined) {
     removeElement(ours, section, key);
     return;
   }
   if (oursElement === undefined) {
-    addElement(ours, section, key, theirsElement);
+    addElement(ours, theirs, section, key, theirsElement);
+    return;
+  }
+  if (!isMap(oursElement) || !isMap(theirsElement)) {
+    // 写像の値が数や文字（作図の定数・色）なら、丸ごと差し替える
+    const node = ours.get(section, true);
+    if (isMap(node)) node.set(key, theirsElement);
     return;
   }
   // 値が変わったキーだけを差し替える。**同じ値を書き直すと、そのキーのコメントが入れ替わる。**
@@ -152,15 +224,20 @@ function adopt(
 
 // --- 要素の出し入れ --------------------------------------------------------
 
-/** 節の要素を鍵で引けるようにする。鍵は `pins` なら写像の鍵、他は id かエッジの組。 */
-function elements(doc: Document, section: Exclude<Section, 'root'>): Map<string, YAMLMap> {
-  const out = new Map<string, YAMLMap>();
+function isList(section: Keyed): section is ListSection {
+  return section in LISTS;
+}
+
+/** 節の要素を鍵で引けるようにする。鍵は写像なら写像の鍵、並びなら id・`as`・エッジの組。 */
+function elements(doc: Document, section: Keyed): Map<string, Entry> {
+  const out = new Map<string, Entry>();
   const node = doc.get(section, true);
 
-  if (section === 'pins') {
+  if (!isList(section)) {
     if (!isMap(node)) return out;
     for (const item of node.items as Pair[]) {
-      if (isMap(item.value)) out.set(String(item.key), item.value);
+      const at = (item.key as { range?: [number, number, number] } | null)?.range;
+      out.set(keyText(item.key), { node: item.value, start: node.flow === true ? undefined : at?.[0] });
     }
     return out;
   }
@@ -168,58 +245,48 @@ function elements(doc: Document, section: Exclude<Section, 'root'>): Map<string,
   if (!isSeq(node)) return out;
   for (const item of node.items) {
     if (!isMap(item)) continue;
-    out.set(keyOf(section, item), item);
+    out.set(LISTS[section](item), { node: item, start: node.flow === true ? undefined : item.range?.[0] });
   }
   return out;
 }
 
-function keyOf(section: Exclude<Section, 'root'>, item: YAMLMap): string {
-  if (section === 'edges') return `${String(item.get('from'))}>${String(item.get('to'))}`;
-  return String(item.get('id'));
-}
-
-function removeElement(doc: Document, section: Exclude<Section, 'root'>, key: string): void {
+function removeElement(doc: Document, section: Keyed, key: string): void {
   const node = doc.get(section, true);
-  if (section === 'pins') {
+  if (!isList(section)) {
     if (isMap(node)) node.delete(key);
     return;
   }
   if (!isSeq(node)) return;
-  node.items = node.items.filter((item) => !(isMap(item) && keyOf(section, item) === key));
+  node.items = node.items.filter((item) => !(isMap(item) && LISTS[section](item) === key));
 }
 
 /**
  * theirs だけが足した要素を入れる。
  *
  * **末尾へ足す。** ours の並び順は人が読む順序なので、途中へ差し込まない
- * （仕様 §3.1）。節そのものが無ければ作る。
+ * （仕様 §3.1）。節そのものが無ければ、theirs で直後にある節の前へ作る。
  */
-function addElement(
-  doc: Document,
-  section: Exclude<Section, 'root'>,
-  key: string,
-  element: YAMLMap,
-): void {
+function addElement(doc: Document, theirs: Document, section: Keyed, key: string, element: unknown): void {
   // **theirs の節をそのまま入れる。** 書き方（flow style・コメント）を保つため、
   // JSON へ落として作り直さない。
   const node = doc.get(section, true);
 
-  if (section === 'pins') {
+  if (!isList(section)) {
     if (isMap(node)) node.set(key, element);
-    else doc.set(section, doc.createNode({ [key]: element.toJSON() }));
+    else insertLike(doc, theirs, section, doc.createNode({ [key]: plain(element) }));
     return;
   }
-  element.spaceBefore = true;
+  if (isMap(element)) element.spaceBefore = true;
   if (isSeq(node)) node.items.push(element);
-  else doc.set(section, doc.createNode([element.toJSON()]));
+  else insertLike(doc, theirs, section, doc.createNode([plain(element)]));
 }
 
 // --- 競合の見せ方 ----------------------------------------------------------
 
 /** 要素 1 つを YAML の断片として起こす。コメントは持っているぶんだけ付いてくる。 */
-function render(section: Exclude<Section, 'root'>, element: YAMLMap | undefined, key: string): string | undefined {
+function render(section: Keyed, element: unknown, key: string): string | undefined {
   if (element === undefined) return undefined;
-  if (section === 'pins') {
+  if (!isList(section)) {
     const holder = new Document({});
     (holder.contents as YAMLMap).set(key, element);
     return holder.toString(TO_STRING_OPTIONS).trimEnd();
@@ -264,25 +331,6 @@ function markConflicts(merged: string, conflicts: ThreeWayConflict[]): string {
   return out;
 }
 
-/**
- * `start` より前で、`<鍵>:` だけが書かれている行の行頭を返す。
- *
- * `pins` の要素は、鍵の行と中身の行に分かれている。中身の行から囲むと
- * **鍵が競合の外に取り残され、解いたあとに壊れた YAML が残る。**
- */
-function lineStartOfKey(text: string, start: number, key: string): number | undefined {
-  let cursor = start;
-  while (cursor > 0) {
-    const previous = text.lastIndexOf('\n', cursor - 2);
-    const lineStart = previous + 1;
-    const line = text.slice(lineStart, cursor - 1);
-    if (line.trim() === `${key}:`) return lineStart;
-    if (lineStart === 0) return undefined;
-    cursor = lineStart;
-  }
-  return undefined;
-}
-
 /** その位置の行頭にある空白の数。 */
 function indentOf(text: string, start: number): number {
   const line = text.slice(start, text.indexOf('\n', start) === -1 ? undefined : text.indexOf('\n', start));
@@ -302,27 +350,57 @@ function block(ours: string, theirs: string | undefined): string {
   return ['<<<<<<< ours', ours, '=======', theirs ?? '', '>>>>>>> theirs'].filter((line) => line !== '').join('\n');
 }
 
-/** マージ後のテキストの中で、その要素が占めている行の範囲を探す。 */
+/**
+ * マージ後のテキストの中で、その要素が占めている行の範囲を探す。
+ *
+ * 写像の要素は、鍵の行から囲む。中身の行から囲むと、**鍵が競合の外に取り残され、
+ * 解いたあとに壊れた YAML が残る。** 1 行（flow）の中の要素は囲めないので、末尾へ回す。
+ */
 function locate(
   doc: Document,
   text: string,
   conflict: ThreeWayConflict,
 ): { start: number; end: number } | undefined {
-  if (conflict.ours === undefined || conflict.section === 'root') return undefined;
-  const element = elements(doc, conflict.section).get(conflict.key);
-  const range = element?.range;
-  if (range === undefined || range === null) return undefined;
-  // 並びの要素は `- ` が、`pins` の要素は鍵の行が範囲の外に出る。行頭まで戻して揃える。
-  const start = text.lastIndexOf('\n', range[0]) + 1;
-  if (conflict.section !== 'pins') return { start, end: range[1] };
-  // `pins` は鍵の行から囲まないと、`db:` だけが競合の外に取り残される。
-  return { start: lineStartOfKey(text, start, conflict.key) ?? start, end: range[1] };
+  if (conflict.ours === undefined) return undefined;
+  const entry = conflict.section === 'root' ? rootEntry(doc, conflict.key) : elements(doc, conflict.section).get(conflict.key);
+  const end = (entry?.node as { range?: [number, number, number] } | null | undefined)?.range?.[1];
+  if (entry?.start === undefined || end === undefined) return undefined;
+  return { start: text.lastIndexOf('\n', entry.start) + 1, end: lineEnd(text, end) };
+}
+
+/**
+ * 値が行の途中で終わるなら（`R: 110 # 註`）、その行の終わりまで囲む。
+ * 値の終わりで切ると、行の残り（註）が印の外の 1 行に取り残される。
+ */
+function lineEnd(text: string, end: number): number {
+  if (end === 0 || text[end - 1] === '\n') return end;
+  const next = text.indexOf('\n', end);
+  return next === -1 ? text.length : next + 1;
+}
+
+function rootEntry(doc: Document, key: string): Entry | undefined {
+  if (!isMap(doc.contents)) return undefined;
+  const pair = (doc.contents.items as Pair[]).find((item) => keyText(item.key) === key);
+  if (pair === undefined) return undefined;
+  return { node: pair.value, start: (pair.key as { range?: [number, number, number] } | null)?.range?.[0] };
 }
 
 // --- 小道具 ----------------------------------------------------------------
 
+/** 比べる用。YAML の節は素の値へ落とす。 */
 function json(value: unknown): string {
-  return JSON.stringify(value ?? null);
+  return JSON.stringify(plain(value) ?? null);
+}
+
+function plain(node: unknown): unknown {
+  if (typeof node === 'object' && node !== null && 'toJSON' in node) {
+    return (node as { toJSON(): unknown }).toJSON();
+  }
+  return node;
+}
+
+function keyText(key: unknown): string {
+  return isScalar(key) ? String(key.value) : String(key);
 }
 
 function union(...maps: Map<string, unknown>[]): string[] {

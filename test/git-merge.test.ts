@@ -147,3 +147,134 @@ describe('人が書いていない行に差分を出さない', () => {
     assert.match(result.text, /# 監視は本番と同じ VPC に置く/);
   });
 });
+
+/**
+ * 節（nodes / edges）以外の節。**直す前は、ドライバが `version` / `title` / `groups` / `nodes` / `edges` / `pins`
+ * しか見ていなかった。** 2 人が別々に線（`paths`）を直しても、片方（theirs）の直しは黙って消え、
+ * 同じ線を別々に直しても競合にならず、ours が黙って勝っていた。
+ */
+const PLACED = [
+  'version: 1',
+  'kind: placement',
+  'scale: { mm: 25 }',
+  'palette:',
+  '  A: "#111111"',
+  '  B: "#222222"',
+  'parts:',
+  '  par64:',
+  '    nodes:',
+  '      - { id: body, at: { x: 0, y: 0 }, size: { w: 24, h: 24 } }',
+  'place:',
+  '  - { part: par64, as: L1, at: { x: 120, y: 80 } }',
+  '  - { part: par64, as: L2, at: { x: 300, y: 80 } }',
+  'paths:',
+  '  - id: anchor',
+  '    points: [ [ 0, 0 ], [ 100, 0 ] ]',
+  '  - id: tape',
+  '    points: [ [ 0, 50 ], [ 100, 50 ] ]',
+  'dims:',
+  '  - { id: length, from: [ 0, 0 ], to: [ 100, 0 ], offset: 20 }',
+  'nodes:',
+  '  - { id: stage, label: 舞台, at: { x: 0, y: 200 }, size: { w: 400, h: 120 } }',
+  '',
+].join('\n');
+
+function edit(from: string, to: string): string {
+  assert.ok(PLACED.includes(from), `元に無い: ${from}`);
+  return PLACED.replace(from, to);
+}
+
+describe('配置図の節と設定も 3-way で見る', () => {
+  it('2 人が別々の線（paths）を直したら、両方残る', () => {
+    const ours = edit('[ [ 0, 0 ], [ 100, 0 ] ]', '[ [ 0, 5 ], [ 100, 5 ] ]');
+    const theirs = edit('[ [ 0, 50 ], [ 100, 50 ] ]', '[ [ 0, 60 ], [ 100, 60 ] ]');
+    const result = mergeThreeWay(PLACED, ours, theirs);
+    assert.deepEqual(result.conflicts, []);
+    assert.match(result.text, /\[ \[ 0, 5 \], \[ 100, 5 \] \]/);
+    assert.match(result.text, /\[ \[ 0, 60 \], \[ 100, 60 \] \]/);
+  });
+
+  it('同じ線を別々に直したら、ぶつかったまま返す', () => {
+    const ours = edit('[ [ 0, 0 ], [ 100, 0 ] ]', '[ [ 0, 5 ], [ 100, 5 ] ]');
+    const theirs = edit('[ [ 0, 0 ], [ 100, 0 ] ]', '[ [ 0, 9 ], [ 100, 9 ] ]');
+    const result = mergeThreeWay(PLACED, ours, theirs);
+    assert.deepEqual(result.conflicts.map((c) => [c.section, c.key]), [['paths', 'anchor']]);
+    assert.match(result.text, /^<<<<<<< ours$/m);
+  });
+
+  it('寸法（dims）・置き方（place）・部品（parts）も鍵で照合する', () => {
+    const ours = edit('offset: 20', 'offset: 30').replace('as: L1, at: { x: 120', 'as: L1, at: { x: 130');
+    const theirs = edit('as: L2, at: { x: 300', 'as: L2, at: { x: 310').replace(
+      '      - { id: body',
+      '      - { id: ch, at: { x: 2, y: 28 }, size: { w: 20, h: 12 } }\n      - { id: body',
+    );
+    const result = mergeThreeWay(PLACED, ours, theirs);
+    assert.deepEqual(result.conflicts, []);
+    assert.match(result.text, /offset: 30/);
+    assert.match(result.text, /x: 130/);
+    assert.match(result.text, /x: 310/);
+    assert.match(result.text, /id: ch/);
+  });
+
+  it('同じ置き方を別々に動かしたら、ぶつかったまま返す', () => {
+    const result = mergeThreeWay(
+      PLACED,
+      edit('as: L1, at: { x: 120', 'as: L1, at: { x: 130'),
+      edit('as: L1, at: { x: 120', 'as: L1, at: { x: 140'),
+    );
+    assert.deepEqual(result.conflicts.map((c) => [c.section, c.key]), [['place', 'L1']]);
+  });
+
+  it('縮尺（scale）を片方だけが変えたら、その変更が残る', () => {
+    const result = mergeThreeWay(PLACED, PLACED, edit('scale: { mm: 25 }', 'scale: { mm: 20 }'));
+    assert.deepEqual(result.conflicts, []);
+    assert.match(result.text, /scale: \{ mm: 20 \}/);
+  });
+
+  it('縮尺を別々に変えたら、ぶつかったまま返す（片方を黙って採らない）', () => {
+    const result = mergeThreeWay(PLACED, edit('scale: { mm: 25 }', 'scale: { mm: 20 }'), edit('scale: { mm: 25 }', 'scale: { mm: 30 }'));
+    assert.deepEqual(result.conflicts.map((c) => [c.section, c.key]), [['root', 'scale']]);
+    assert.match(result.text, /mm: 20/);
+    assert.match(result.text, /mm: 30/);
+  });
+
+  it('色の鍵（palette）は鍵ごとに見る。別々の鍵なら両方残る', () => {
+    const result = mergeThreeWay(PLACED, edit('A: "#111111"', 'A: "#aaaaaa"'), edit('B: "#222222"', 'B: "#bbbbbb"'));
+    assert.deepEqual(result.conflicts, []);
+    assert.match(result.text, /A: "#aaaaaa"/);
+    assert.match(result.text, /B: "#bbbbbb"/);
+  });
+
+  it('作図の定数（let）を別々に変えたら、ぶつかったまま返す', () => {
+    const base = ['version: 1', 'kind: construction', 'let:', '  R: 100', '  H: 200', ''].join('\n');
+    const result = mergeThreeWay(base, base.replace('R: 100', 'R: 110'), base.replace('R: 100', 'R: 120'));
+    assert.deepEqual(result.conflicts.map((c) => [c.section, c.key]), [['let', 'R']]);
+    const both = mergeThreeWay(base, base.replace('R: 100', 'R: 110'), base.replace('H: 200', 'H: 220'));
+    assert.deepEqual(both.conflicts, []);
+    assert.match(both.text, /R: 110/);
+    assert.match(both.text, /H: 220/);
+  });
+
+  it('片方だけが足した設定（title 以外の最上位の鍵）が入る', () => {
+    const result = mergeThreeWay(PLACED, PLACED, edit('kind: placement', 'kind: placement\nnorth: left'));
+    assert.deepEqual(result.conflicts, []);
+    assert.match(result.text, /^north: left$/m);
+  });
+
+  it('解けた結果は、形式として読める', () => {
+    const ours = edit('[ [ 0, 0 ], [ 100, 0 ] ]', '[ [ 0, 5 ], [ 100, 5 ] ]');
+    const theirs = edit('offset: 20', 'offset: 30');
+    assert.equal(hasError(validate(mergeThreeWay(PLACED, ours, theirs).text)), false);
+  });
+
+  it('最上位の値の競合は、その場で囲む（ours 側を採ると、そのまま読める。鍵が 2 つ残らない）', () => {
+    const base = ['version: 1', 'title: 元 # 註', 'nodes:', '  - id: a', ''].join('\n');
+    const result = mergeThreeWay(base, base.replace('元', '甲'), base.replace('元', '乙'));
+    const keptOurs = result.text.replace(/<<<<<<< ours\n([\s\S]*?)=======\n[\s\S]*?>>>>>>> theirs\n/g, '$1');
+    assert.equal(keptOurs, base.replace('元', '甲'));
+  });
+
+  it('何も変わっていなければ、本文はそのまま', () => {
+    assert.equal(mergeThreeWay(PLACED, PLACED, PLACED).text, PLACED);
+  });
+});
