@@ -8,8 +8,18 @@ import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
 import { describe, it } from 'node:test';
 
-import { drawHtml } from '../packages/zumen-chrome/src/draw.ts';
-import { FENCE_SELECTOR, escapeHtml, isZumenBlobPath, themeOf } from '../packages/zumen-chrome/src/github.ts';
+import { compareHtml, drawHtml } from '../packages/zumen-chrome/src/draw.ts';
+import {
+  FENCE_SELECTOR,
+  escapeHtml,
+  isZumenBlobPath,
+  isZumenFile,
+  pathsOf,
+  pullOf,
+  rawUrl,
+  revisionsOf,
+  themeOf,
+} from '../packages/zumen-chrome/src/github.ts';
 
 const R0 = readFileSync(new URL('fixtures/r0.zumen.yaml', import.meta.url), 'utf8');
 const manifest = JSON.parse(readFileSync(new URL('../packages/zumen-chrome/manifest.json', import.meta.url), 'utf8'));
@@ -25,6 +35,54 @@ describe('Chrome: どのページに正本があるか', () => {
 
   it('Markdown の囲みは lang="zumen" の pre（GitHub の実物で確かめた形）', () => {
     assert.equal(FENCE_SELECTOR, 'pre[lang="zumen"]');
+  });
+});
+
+describe('Chrome: PR の差分', () => {
+  const A = 'a'.repeat(40);
+  const B = 'b'.repeat(40);
+  const C = 'c'.repeat(40);
+  const embedded = (comparison: unknown) => JSON.stringify({ payload: { pullRequestsChangesRoute: { comparison } } });
+
+  it('PR の差分の画面だけを拾う（/changes も古い /files も）', () => {
+    assert.deepEqual(pullOf('/meta-taro/zumen/pull/22/changes'), { owner: 'meta-taro', repo: 'zumen', number: 22 });
+    assert.deepEqual(pullOf('/a/b/pull/3/files'), { owner: 'a', repo: 'b', number: 3 });
+    assert.equal(pullOf('/a/b/pull/3'), null, '会話の画面は描かない');
+    assert.equal(pullOf('/a/b/pull/3/commits'), null);
+  });
+
+  it('いま出ている差分の 2 つの commit を読む（絞っていればそちら）', () => {
+    assert.deepEqual(revisionsOf(embedded({ fullDiff: { baseOid: A, headOid: B }, selectedRange: null })), { base: A, head: B });
+    assert.deepEqual(
+      revisionsOf(embedded({ fullDiff: { baseOid: A, headOid: B }, selectedRange: { baseOid: C, headOid: B } })),
+      { base: C, head: B },
+    );
+  });
+
+  it('形が読めなければ描かない（違う commit で描くより、描かないほうがよい）', () => {
+    assert.equal(revisionsOf('not json'), null);
+    assert.equal(revisionsOf(embedded({ fullDiff: { baseOid: 'main', headOid: B } })), null);
+    assert.equal(revisionsOf(JSON.stringify({ payload: {} })), null);
+  });
+
+  it('見出しの向きの印を外し、改名は前と後に分ける', () => {
+    assert.deepEqual(pathsOf('\u200eexamples/a.zumen.yaml\u200e'), { before: 'examples/a.zumen.yaml', after: 'examples/a.zumen.yaml' });
+    assert.deepEqual(pathsOf('\u200eold.zumen.yaml → new.zumen.yaml\u200e'), { before: 'old.zumen.yaml', after: 'new.zumen.yaml' });
+    assert.equal(isZumenFile('x/y.zumen.yml'), true);
+    assert.equal(isZumenFile('x/y.yaml'), false);
+  });
+
+  it('raw の URL は、日本語の名前を区切りごとに逃がす（/ は残す）', () => {
+    assert.equal(rawUrl('o', 'r', A, 'examples/間取り.zumen.yaml'), `/o/r/raw/${A}/examples/%E9%96%93%E5%8F%96%E3%82%8A.zumen.yaml`);
+  });
+
+  it('変更前と変更後を並べ、数を添える。片方が無ければある方だけ', async () => {
+    const after = R0.replace(/^nodes:\n/m, 'nodes:\n  - id: cdn\n    label: CDN\n');
+    const both = await compareHtml(R0, after, 'light');
+    assert.match(both, /新 1 ／ 消 0/);
+    assert.match(both, /<svg/);
+    assert.match(await compareHtml(null, R0, 'light'), /新しく足された/);
+    assert.match(await compareHtml(R0, null, 'dark'), /消された/);
   });
 });
 

@@ -6,6 +6,7 @@
  *
  * **描けなかったら、理由を出す。** 黙って何も出さないと、書いた人は気づかない。
  */
+import { compare } from '../../../src/compare.ts';
 import { kindOf } from '../../../src/kind.ts';
 import { layout } from '../../../src/layout.ts';
 import { render } from '../../../src/render.ts';
@@ -18,6 +19,27 @@ export async function drawHtml(source: string, theme: Theme): Promise<string> {
   } catch (error) {
     return failure(error instanceof Error ? error.message : String(error));
   }
+}
+
+/**
+ * 変更前と変更後を並べる（`src/compare.ts`。足した節に「新」、消えた節に「消」、人が置いた節に「人」）。
+ * 片方が無い（足したファイル・消したファイル）ときは、ある方だけを描く。
+ */
+export async function compareHtml(before: string | null, after: string | null, theme: Theme): Promise<string> {
+  if (before === null || before.trim() === '') return after === null ? failure('empty') : summary('added') + (await drawHtml(after, theme));
+  if (after === null || after.trim() === '') return summary('removed') + (await drawHtml(before, theme));
+  try {
+    const result = await compare(before, after, { theme });
+    const counts = `新 ${result.added.length} ／ 消 ${result.removed.length} ／ 人の直しが残った ${result.kept.length}`;
+    return `<p style="margin:0 0 8px;font-size:12px">${escapeHtml(counts)}</p>${result.svg}`;
+  } catch (error) {
+    return failure(error instanceof Error ? error.message : String(error));
+  }
+}
+
+function summary(kind: 'added' | 'removed'): string {
+  const text = kind === 'added' ? 'このファイルは新しく足された（変更前は無い）' : 'このファイルは消された（変更後は無い）';
+  return `<p style="margin:0 0 8px;font-size:12px">${text}</p>`;
 }
 
 function failure(message: string): string {
