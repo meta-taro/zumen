@@ -37,6 +37,7 @@
  */
 
 import { lengthText } from './units.ts';
+import type { Unit } from './units.ts';
 
 /** 範囲の円。書かなければ描かない。 */
 export function radiusOf(raw: unknown): number | null {
@@ -59,6 +60,8 @@ export function ringOf(
   mm: number | null,
   /** **フィートとインチで書くか**（2026-09-16）。 */
   feet = false,
+  /** **図ぜんたいの単位**（`scale.unit`）。 */
+  unit: Unit | null = null,
 ): Ring | null {
   if (box.radius === null) return null;
   return {
@@ -66,7 +69,7 @@ export function ringOf(
     cy: box.y + box.h / 2,
     r: box.radius,
     // **単位は縮尺が決める**（`src/units.ts`）。200 m の円に `R=200,000` と書かない。
-    label: mm === null ? null : `R=${lengthText(box.radius, mm, feet)}`,
+    label: mm === null ? null : `R=${lengthText(box.radius, mm, feet, unit)}`,
   };
 }
 

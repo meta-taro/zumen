@@ -24,6 +24,11 @@ import { ENDS } from './ends.ts';
 import { LINES } from './line.ts';
 import { CURVES, viaOf } from './curve.ts';
 import { arcOf, pointsOf } from './paths.ts';
+import { DIM_ENDS, dimLabel, dimPointOf, dimValue, measureDim, rulerAt, textDiffers } from './dims.ts';
+import type { Rect } from './dims.ts';
+import { UNITS } from './units.ts';
+import { scaleOf } from './grid.ts';
+import { viewsOf } from './views.ts';
 import { VERTICALS, floorsOf } from './floor.ts';
 import { achromatic, faintOn, faintWhere, PAPER, paletteOf as routePalette } from './palette.ts';
 import { WEIGHTS, weightOf, type Weight } from './weight.ts';
@@ -132,7 +137,8 @@ export function validate(text: string): Finding[] {
   checkStyles(doc, add, m, at);
   const edgeKeys = checkEdges(doc, nodeIds, add, m, at);
   const pathIds = checkPaths(doc, nodeIds, add, m, at);
-  checkPins(doc, nodeIds, edgeKeys, add, m, at, pathIds);
+  const dimIds = checkDims(doc, nodeIds, pathIds, add, m, at);
+  checkPins(doc, nodeIds, edgeKeys, add, m, at, pathIds, dimIds);
   checkRoundTrip(doc, text, add, m);
 
   return found;
@@ -390,6 +396,7 @@ function checkGridAndScale(doc: Document, add: Add, m: Messages, at: At): void {
     } else {
       add('warning', 'scale-invalid', m.scaleInvalid(String(mm ?? inches)), at(scale));
     }
+    checkScaleUnit(scale, add, m, at);
   }
 
   // **壁の厚みも mm で書く。** 縮尺が無ければ px にできない。
@@ -694,6 +701,7 @@ function checkViews(doc: Document, add: Add, m: Messages, at: At): void {
     if (isMap(item) && item.get('grid', true) !== undefined && item.get('grid', true) !== null) {
       withGrid += 1;
     }
+    if (isMap(item)) checkScaleUnit(item.get('scale', true), add, m, at);
   }
 
   /**
@@ -1555,6 +1563,181 @@ function checkPathWords(doc: Document, item: YAMLMap, id: string, add: Add, m: M
   }
 }
 
+/**
+ * **図ぜんたいの単位**（`scale.unit`。`src/units.ts`）。`mm` / `m` / `um` で、**ミリの縮尺にだけ付く。**
+ * 読めない単位は使わず、縮尺が決める（黙って捨てずに言う）。
+ */
+function checkScaleUnit(scale: unknown, add: Add, m: Messages, at: At): void {
+  if (!isMap(scale)) return;
+  const unit = scale.get('unit');
+  if (unit === undefined || unit === null) return;
+  const where = at(scale.get('unit', true));
+  if (!UNITS.includes(String(unit) as (typeof UNITS)[number])) {
+    add('warning', 'scale-unit-invalid', m.scaleUnitInvalid(String(unit)), where);
+  } else if (!isPositive(scale.get('mm'))) {
+    add('warning', 'scale-unit-invalid', m.scaleUnitOnInch(String(unit)), where);
+  }
+}
+
+/** 寸法に書ける語。**これ以外は効かない**（`dim-key-ignored`）。 */
+const DIM_KEYS = new Set(['id', 'from', 'to', 'along', 'offset', 'text', 'exact', 'ends']);
+
+/**
+ * **2 点を指して引く寸法**（`dims`。`src/dims.ts`）。
+ *
+ * 描けないもの（id が無い・端が読めない・測れない）は描かれないので、**黙って落とさずに言う。**
+ * **人の数値が図と 1 % 以上違えば言う**（`dim-text-differs`）—— 図形を直しても数値が追ってこない、
+ * を見つけるために入れた。測るのは正本の箱（人の `pins` を当てたもの）で、縮尺はその点の図の縮尺。
+ * 返すのは id の集合（`pins` の鍵として迷子にしないため）。
+ */
+function checkDims(
+  doc: Document,
+  nodeIds: ReadonlySet<string>,
+  pathIds: ReadonlySet<string>,
+  add: Add,
+  m: Messages,
+  at: At,
+): Set<string> {
+  const ids = new Set<string>();
+  const raw = doc.get('dims', true);
+  if (raw === undefined || raw === null) return ids;
+  if (!isSeq(raw)) {
+    add('warning', 'dims-not-list', m.dimsNotList, at(raw));
+    return ids;
+  }
+  if (String(doc.get('kind') ?? '') !== 'placement') {
+    add('warning', 'dims-ignored', m.dimsIgnored, at(raw));
+  }
+  const boxes = sourceBoxes(doc);
+  const all = doc.toJS() as { scale?: unknown; views?: unknown };
+  const views = viewsOf(all.views);
+  const sheet = scaleOf(all.scale);
+  let unscaled = 0;
+  let position = 0;
+  for (const item of raw.items) {
+    position += 1;
+    const rawId = isMap(item) ? item.get('id') : undefined;
+    if (!isMap(item) || rawId === undefined || rawId === null || String(rawId) === '') {
+      add('warning', 'dim-id-missing', m.dimIdMissing(position), at(item));
+      continue;
+    }
+    const id = String(rawId);
+    if (ids.has(id)) add('warning', 'dim-id-duplicated', m.dimIdDuplicated(id), at(item));
+    else if (nodeIds.has(id) || pathIds.has(id)) add('warning', 'dim-id-shared', m.dimIdShared(id), at(item));
+    ids.add(id);
+    checkDimWords(item, id, add, m, at);
+    const ends = checkDimEnds(item, id, nodeIds, add, m, at);
+    if (ends === null) continue;
+    const dim = { id, ...ends, along: dimAlong(item), offset: 0, text: dimText(item), exact: item.get('exact') !== false, ends: 'arrow' as const };
+    const measured = measureDim(dim, (node) => boxes.get(node) ?? null);
+    if (measured === 'side-mismatch') {
+      add('warning', 'dim-side-mismatch', m.dimSideMismatch(id), at(item));
+      continue;
+    }
+    if (measured === 'zero-length') {
+      add('warning', 'dim-zero-length', m.dimZeroLength(id), at(item));
+      continue;
+    }
+    // 知らない節は `checkDimEnds` が言った。箱の大きさが読めない節は、ここでは測らない。
+    if (measured === 'node-unknown') continue;
+    const middle = { x: (measured.from.x + measured.to.x) / 2, y: (measured.from.y + measured.to.y) / 2 };
+    const ruler = rulerAt(middle, views, sheet);
+    if (ruler === null) {
+      unscaled += 1;
+      continue;
+    }
+    if (dim.exact && dim.text !== null && !dim.text.includes('{}') && textDiffers(dim.text, measured.length, ruler)) {
+      const value = dimLabel(null, dimValue(measured.length, ruler)) ?? '';
+      add('warning', 'dim-text-differs', m.dimTextDiffers(id, dim.text, value), at(item.get('text', true)));
+    }
+  }
+  if (unscaled > 0) add('warning', 'dim-no-scale', m.dimNoScale(unscaled), at(raw));
+  return ids;
+}
+
+/** 端（`from` / `to`）。**どちらも読めて、知っている節を指していれば**読んだものを返す。 */
+function checkDimEnds(
+  item: YAMLMap,
+  id: string,
+  nodeIds: ReadonlySet<string>,
+  add: Add,
+  m: Messages,
+  at: At,
+): { from: NonNullable<ReturnType<typeof dimPointOf>>; to: NonNullable<ReturnType<typeof dimPointOf>> } | null {
+  const read: ReturnType<typeof dimPointOf>[] = [];
+  for (const key of ['from', 'to'] as const) {
+    const node = item.get(key, true);
+    const end = dimPointOf(isMap(node) || isSeq(node) ? node.toJSON() : undefined);
+    read.push(end);
+    if (end === null) {
+      add('warning', 'dim-end-invalid', m.dimEndInvalid(id, key), at(node) ?? at(item));
+    } else if ('node' in end && !nodeIds.has(end.node)) {
+      add('warning', 'dim-node-unknown', m.dimNodeUnknown(id, end.node), at(node));
+      read[read.length - 1] = null;
+    }
+  }
+  const [from, to] = read;
+  return from == null || to == null ? null : { from, to };
+}
+
+/** 寸法の語（`along` / `offset` / `ends` / `exact`）と、寸法に効かない語。 */
+function checkDimWords(item: YAMLMap, id: string, add: Add, m: Messages, at: At): void {
+  for (const pair of item.items) {
+    const key = String(isScalar(pair.key) ? pair.key.value : pair.key);
+    if (!DIM_KEYS.has(key)) add('warning', 'dim-key-ignored', m.dimKeyIgnored(id, key), at(pair.value) ?? at(item));
+  }
+  const along = item.get('along');
+  if (along !== undefined && along !== null && along !== 'x' && along !== 'y') {
+    add('warning', 'dim-along-invalid', m.dimAlongInvalid(id, String(along)), at(item.get('along', true)));
+  }
+  const offset = item.get('offset');
+  if (offset !== undefined && offset !== null && !isNumber(offset)) {
+    add('warning', 'dim-offset-invalid', m.dimOffsetInvalid(id, String(offset)), at(item.get('offset', true)));
+  }
+  const ends = item.get('ends');
+  if (ends !== undefined && ends !== null && !DIM_ENDS.includes(String(ends) as (typeof DIM_ENDS)[number])) {
+    add('warning', 'dim-ends-unknown', m.dimEndsUnknown(id, String(ends)), at(item.get('ends', true)));
+  }
+  const exact = item.get('exact');
+  if (exact !== undefined && exact !== null && typeof exact !== 'boolean') {
+    add('warning', 'dim-exact-invalid', m.dimExactInvalid(id, String(exact)), at(item.get('exact', true)));
+  }
+  // **略図に `{}`**（書かなければ `{}` と同じ）。略図から測った数を、実寸として出すことになる。
+  const text = dimText(item);
+  if (exact === false && (text === null || text.includes('{}'))) {
+    add('warning', 'dim-sketch-value', m.dimSketchValue(id), at(item.get('exact', true)));
+  }
+}
+
+function dimAlong(item: YAMLMap): 'x' | 'y' | null {
+  const along = item.get('along');
+  return along === 'x' || along === 'y' ? along : null;
+}
+
+function dimText(item: YAMLMap): string | null {
+  const text = item.get('text');
+  return typeof text === 'string' || typeof text === 'number' ? String(text) : null;
+}
+
+/**
+ * **正本の箱**（配置図の `at` ／ `size`。人の `pins.position` ／ `size` が勝つ）。
+ * 寸法を測るためだけに使う。どちらかが読めない節は入れない（測れない）。
+ */
+function sourceBoxes(doc: Document): Map<string, Rect> {
+  const pins = (doc.toJS() as { pins?: Record<string, { position?: unknown; size?: unknown }> }).pins ?? {};
+  const out = new Map<string, Rect>();
+  for (const item of seqOf(doc, 'nodes')) {
+    const id = String(item.get('id') ?? '');
+    const node = item.toJSON() as { at?: unknown; size?: unknown };
+    const pin = pins[id] ?? {};
+    const point = (pin.position ?? node.at) as { x?: unknown; y?: unknown } | undefined;
+    const size = (pin.size ?? node.size) as { w?: unknown; h?: unknown } | undefined;
+    if (!isNumber(point?.x) || !isNumber(point?.y) || !isNumber(size?.w) || !isNumber(size?.h)) continue;
+    out.set(id, { x: point!.x as number, y: point!.y as number, w: size!.w as number, h: size!.h as number });
+  }
+  return out;
+}
+
 function checkPins(
   doc: Document,
   nodeIds: Set<string>,
@@ -1563,6 +1746,7 @@ function checkPins(
   m: Messages,
   at: At,
   pathIds: ReadonlySet<string> = new Set(),
+  dimIds: ReadonlySet<string> = new Set(),
 ): void {
   const pins = doc.get('pins', true);
   if (!isMap(pins)) return;
@@ -1587,6 +1771,14 @@ function checkPins(
       if (points !== undefined && points !== null) {
         const read = pointsOf(isSeq(points) ? points.toJSON() : null);
         if (read === null || read.length < 2) add('warning', 'pin-points-invalid', m.pinPointsInvalid(key), at(points));
+      }
+      continue;
+    }
+    /** **寸法**（`dims`）の手直しは、寸法線の位置（`pins.<id>.offset`）。数でなければ使わない。 */
+    if (dimIds.has(key)) {
+      const offset = target?.get('offset', true);
+      if (offset !== undefined && offset !== null && !isNumber(target?.get('offset'))) {
+        add('warning', 'pin-offset-invalid', m.pinOffsetInvalid(key), at(offset));
       }
       continue;
     }

@@ -477,6 +477,9 @@ describe('見本どうしの参照', () => {
 describe('閉じた語彙と、それを使った見本', () => {
   /** **まだ実物が無い語と、その理由。** 空にするのが目標。 */
   const NO_SAMPLE_YET: Record<string, string> = {
+    // 2026-11-02 に足した（`dims` の `ends: tick`）。建築の寸法は通り芯から出す（斜線は通り芯の寸法が描く）ので、
+    // 使うのは通り芯の無い建築寄りの図（家具・建具の詳細）。書き換えた 386（競技場）と 243（機械）は矢印が決まり。
+    'ends: tick': '寸法の斜線。通り芯の無い建築寄りの図（家具・建具の詳細）を描くときに使う',
   };
 
   it('**どの値も、どこかの見本で使われている**', async () => {
@@ -500,7 +503,8 @@ describe('閉じた語彙と、それを使った見本', () => {
     census('marker', MARKERS, (w) => new RegExp(`marker:\\s*${only(w)}`));
     census('hatch', HATCHES, (w) => new RegExp(`hatch:\\s*${only(w)}`));
     census('line', LINES, (w) => new RegExp(`line:\\s*${only(w)}`));
-    census('ends', ENDS, (w) => new RegExp(`(?:from|to):\\s*${only(w)}`));
+    // 寸法（`dims`）は端を 1 語で書く（`ends: tick`）。
+    census('ends', ENDS, (w) => new RegExp(`(?:from|to|ends):\\s*${only(w)}`));
     assert.deepEqual(unused.filter((u) => NO_SAMPLE_YET[u] === undefined), []);
   });
 

@@ -47,6 +47,8 @@ import type { Curve, Point } from './curve.ts';
 import { colorOf, paintOf, paletteOf as routePalette } from './palette.ts';
 import { offsetLine } from './offset.ts';
 import { readPaths, routePaths } from './paths.ts';
+import { readDims, routeDims, rulerAt } from './dims.ts';
+import type { Unit } from './units.ts';
 import { weightOf } from './weight.ts';
 import type { Weight } from './weight.ts';
 import type { Line } from './line.ts';
@@ -198,6 +200,16 @@ export interface PlacedEdge {
    * 辺と同じ道で描くので、ここに並ぶ。**辺ではない** —— 数えるときは分ける。
    */
   path?: true;
+  /**
+   * **寸法**（`dims`。`src/dims.ts`）。寸法線と寸法補助線に、寸法の `id` を持つ。
+   * 描き方は `paths` と同じ（`path: true` も持つ）。数えるときに分ける。
+   */
+  dim?: string;
+  /**
+   * **ラベルを置く側**（単位ベクトル。`src/edge-labels.ts`）。寸法の数値を、線の外側へ出す。
+   * 書かなければ、これまでどおり線の上か下。
+   */
+  labelSide?: Point;
 }
 
 /** 人へ見せる線の名前。辺は `from → to`、`paths` は自分の id。 */
@@ -250,6 +262,8 @@ export interface Placed {
   mm: number | null;
   /** **寸法をフィートとインチで書くか**（`scale: { in: … }`）。 */
   feet: boolean;
+  /** **図ぜんたいの単位**（`scale.unit`。`src/units.ts`）。書かなければ null で、縮尺が決める。 */
+  unit: Unit | null;
   /** 方位。書かなければ描かない。 */
   north: NorthMark | null;
   /** **壁の厚み**（`src/wall.ts`）。書かなければこれまでどおりの線の太さ。 */
@@ -548,6 +562,23 @@ export async function layout(
    */
   const rawPaths = kindOf(text) === 'placement' ? readPaths((diagram.doc.toJS() as { paths?: unknown }).paths) : [];
   edges.push(...routePaths(rawPaths, pins as Record<string, { points?: unknown }>));
+  /**
+   * **2 点を指して引く寸法**（`dims`。`src/dims.ts`）。**配置図でだけ描く。**
+   * 線にしたあとは `paths` と同じ扱い。測るのは**人が動かしたあとの箱**、縮尺は**その点の図の縮尺**。
+   */
+  const scale = scaleOf(raw.scale);
+  if (kindOf(text) === 'placement') {
+    const byId = new Map(boxes.map((box) => [box.id, box]));
+    const sourceViews = viewsOf(raw.views);
+    edges.push(
+      ...routeDims(
+        readDims((diagram.doc.toJS() as { dims?: unknown }).dims),
+        (id) => byId.get(id) ?? null,
+        pins as Record<string, { offset?: unknown }>,
+        (point) => rulerAt(point, sourceViews, scale),
+      ),
+    );
+  }
   const keys: { colorKey: unknown; casingKey: unknown; hatchColorKey: unknown }[] = [...rawEdges, ...rawPaths];
   // **色は鍵から引く。** `palette` に無い鍵は使わない（勝手な色を作らない）。
   for (const [index, line] of edges.entries()) {
@@ -664,7 +695,6 @@ export async function layout(
   }
 
   const size = extent(boxes, groups, edges, allAxes(views, grid), views);
-  const scale = scaleOf(raw.scale);
   return {
     boxes,
     groups,
@@ -682,6 +712,7 @@ export async function layout(
     troubles: [],
     mm: scale?.mm ?? null,
     feet: scale?.feet ?? false,
+    unit: scale?.unit ?? null,
     north,
     wall: wallOf(raw.wall),
     arrows: arrowsOf(raw.arrows),
@@ -1990,6 +2021,7 @@ function construct(raw: Record<string, unknown>, pins: Record<string, unknown>):
     troubles: built.troubles,
     mm: null,
     feet: false,
+    unit: null,
     north: null,
     wall: null,
     arrows: false,

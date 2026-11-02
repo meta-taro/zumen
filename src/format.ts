@@ -36,6 +36,11 @@ export interface Pin {
    */
   points?: unknown[];
   /**
+   * 人が動かした**寸法線の位置**（`dims`。鍵は寸法の `id`）。測る物の外側からの px。
+   * **正本の `offset` より勝つ。**
+   */
+  offset?: unknown;
+  /**
    * 人が「AI の再配置より自分の位置を採る」と決めた印。
    * 決定を正本へ書いておかないと、次に開いたときに同じことを聞き直すことになる。
    */
@@ -110,6 +115,14 @@ export class Diagram {
   /** **節に属さない線**（`paths`）の id。id の無いものは数えない。 */
   pathIds(): string[] {
     return this.seq('paths')
+      .map((item) => item.get('id'))
+      .filter((id) => id !== undefined && id !== null)
+      .map((id) => String(id));
+  }
+
+  /** **2 点を指して引く寸法**（`dims`）の id。id の無いものは数えない。 */
+  dimIds(): string[] {
+    return this.seq('dims')
       .map((item) => item.get('id'))
       .filter((id) => id !== undefined && id !== null)
       .map((id) => String(id));

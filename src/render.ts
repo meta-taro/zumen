@@ -44,6 +44,7 @@ import { drawSymbol } from './symbol.ts';
 import { NAME_FONT, SUB_FONT, planNames, tagFits, tagSpot, textRectOf } from './names.ts';
 import type { Plan, Rect } from './names.ts';
 import { drawRange, ringOf } from './range.ts';
+import type { Unit } from './units.ts';
 import { wallFits, wallWidth } from './wall.ts';
 import { drawOpenings } from './openings.ts';
 import { drawShape, shapeOf, textShift } from './shapes.ts';
@@ -225,7 +226,7 @@ export function render(
     //
     // 箱の下に敷くと、クレーンの作業半径が資材置場の塗りで切れる。
     // 寸法より上に出すと、破線の円が数値を横切る。
-    ...(plan ? placed.boxes.map((box) => renderRange(box, placed.mm, palette, placed.feet)) : []),
+    ...(plan ? placed.boxes.map((box) => renderRange(box, placed.mm, palette, placed.feet, placed.unit)) : []),
     // **節の文字は、いちばん最後**（`renderNode` の `part`）。
     //
     // 辺も範囲の円も箱より上に描くので、文字を箱と同じ層に置くと
@@ -635,13 +636,20 @@ function dimensionLayer(placed: Placed, palette: Palette): string {
   const perView = placed.views
     .map(
       (view) =>
-        drawDimensions(view.grid, view, view.mm ?? placed.mm, ink, view.mm === null ? placed.feet : view.feet) +
+        drawDimensions(
+          view.grid,
+          view,
+          view.mm ?? placed.mm,
+          ink,
+          view.mm === null ? placed.feet : view.feet,
+          view.mm === null ? placed.unit : view.unit,
+        ) +
         viewTitle(view, ink),
     )
     .join('');
   return (
     '<g data-dimensions="true">' +
-    drawDimensions(placed.grid, frame, placed.mm, ink, placed.feet) +
+    drawDimensions(placed.grid, frame, placed.mm, ink, placed.feet, placed.unit) +
     perView +
     north +
     '</g>'
@@ -820,9 +828,15 @@ function scaleBar(placed: Placed, frame: Frame, paperH: number, ink: Ink): strin
     const w = px / 4;
     return `<rect x="${n(x + i * w)}" y="${n(y)}" width="${n(w)}" height="${h}" fill="${i % 2 === 0 ? ink.stroke : ink.paper}" stroke="${ink.stroke}" stroke-width="0.8"/>`;
   });
-  const unit = real >= 1000 ? 'm' : 'mm';
+  /**
+   * **単位は寸法と同じものを使う**（`scale.unit`。2026-11-02）。
+   * 寸法が `14 m` と書いてある図の物差しが `mm` だと、同じ紙に単位が 2 つ並ぶ。
+   * 書いていなければ、これまでどおり長さで選ぶ。
+   */
+  const unit = placed.unit === 'um' ? 'μm' : placed.unit ?? (real >= 1000 ? 'm' : 'mm');
+  const per = unit === 'm' ? 1 / 1000 : unit === 'μm' ? 1000 : 1;
   const show = (v: number): string => {
-    const n = unit === 'm' ? v / 1000 : v;
+    const n = v * per;
     return Number.isInteger(n) ? String(n) : String(Math.round(n * 10) / 10);
   };
   /**
@@ -857,8 +871,8 @@ function inkOf(palette: Palette): Ink {
 }
 
 /** 範囲を示す円（`src/range.ts`）。書かなければ何も出さない。 */
-function renderRange(box: Box, mm: number | null, palette: Palette, feet = false): string {
-  const ring = ringOf(box, mm, feet);
+function renderRange(box: Box, mm: number | null, palette: Palette, feet = false, unit: Unit | null = null): string {
+  const ring = ringOf(box, mm, feet, unit);
   if (ring === null) return '';
   return `<g data-range="${escapeAttr(box.id)}">${drawRange(ring, palette.edge.stroke, palette.text.group, FONT)}</g>`;
 }

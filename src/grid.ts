@@ -35,7 +35,8 @@
  * 表題欄は図ではなく用紙の話で、貼り先（資料・Markdown）が持っている。
  */
 import { labelWidth } from './layout.ts';
-import { INCH } from './units.ts';
+import { INCH, unitOf } from './units.ts';
+import type { Unit } from './units.ts';
 import type { Box } from './layout.ts';
 
 /** 基準線の印。 */
@@ -141,6 +142,11 @@ export interface Scale {
   mm: number;
   /** 寸法をフィートとインチで書くか（`scale: { in: … }` と書いたとき）。 */
   feet: boolean;
+  /**
+   * **図ぜんたいの単位**（`scale.unit`。`src/units.ts`）。書かなければ null で、縮尺が決める。
+   * **ミリの縮尺にだけ付く**（インチの縮尺には付けない。検証器が `scale-unit-invalid` で言う）。
+   */
+  unit: Unit | null;
 }
 
 /**
@@ -150,16 +156,17 @@ export interface Scale {
  * |---|---|---|
  * | `scale: { mm: 40 }` | 40 mm | `14,000` |
  * | `scale: { in: 1.5 }` | 1.5 インチ | `46'-0"` |
+ * | `scale: { mm: 25, unit: m }` | 25 mm | `14 m`（単位を正本が選ぶ） |
  *
  * **両方書いてあったらミリを採る。** 黙って混ぜるより、片方を無視して
  * 検証器に言わせるほうが、書いた側が気づける（`scale-both-units`）。
  */
 export function scaleOf(raw: unknown): Scale | null {
   if (raw === null || typeof raw !== 'object') return null;
-  const { mm, in: inches } = raw as Record<string, unknown>;
-  if (typeof mm === 'number' && Number.isFinite(mm) && mm > 0) return { mm, feet: false };
+  const { mm, in: inches, unit } = raw as Record<string, unknown>;
+  if (typeof mm === 'number' && Number.isFinite(mm) && mm > 0) return { mm, feet: false, unit: unitOf(unit) };
   if (typeof inches === 'number' && Number.isFinite(inches) && inches > 0) {
-    return { mm: inches * INCH, feet: true };
+    return { mm: inches * INCH, feet: true, unit: null };
   }
   return null;
 }

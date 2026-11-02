@@ -81,6 +81,9 @@ export function toMermaid(text: string): string {
    */
   const paths = (diagram.doc.toJS() as { paths?: unknown }).paths;
   if (Array.isArray(paths) && paths.length > 0) lines.push(`%% ${messages().mermaid.lossPaths(paths.length)}`);
+  // **寸法**（`dims`）も同じ。線の器が無いので、数値ごと落ちる。
+  const dims = (diagram.doc.toJS() as { dims?: unknown }).dims;
+  if (Array.isArray(dims) && dims.length > 0) lines.push(`%% ${messages().mermaid.lossDims(dims.length)}`);
   lines.push(...droppedNotes(pins));
   // **向きは正本が決める**（`src/direction.ts`。既定は横）。
   // ここを `TD` で固定していたので、**同じ正本から SVG は横、Mermaid は縦**が出ていた。
@@ -149,7 +152,7 @@ function droppedNotes(pins: Record<string, Pin>): string[] {
 }
 
 /** Mermaid に書く場所が無いもの。ラベルと体裁は表せるのでここに入れない。 */
-const LAYOUT_FIELDS = ['position', 'size', 'waypoints', 'points'] as const;
+const LAYOUT_FIELDS = ['position', 'size', 'waypoints', 'points', 'offset'] as const;
 
 function hasLayout(pin: Pin): boolean {
   return LAYOUT_FIELDS.some((field) => pin[field] !== undefined);

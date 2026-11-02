@@ -104,6 +104,7 @@ describe('overlaps', () => {
       strokes: [],
       troubles: [],
       feet: false,
+      unit: null,
     };
     assert.deepEqual(overlaps(placed), [['a', 'b']]);
   });

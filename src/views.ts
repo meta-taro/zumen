@@ -38,6 +38,7 @@
  */
 import { gridOf, hasGrid, scaleOf } from './grid.ts';
 import type { Grid } from './grid.ts';
+import type { Unit } from './units.ts';
 
 /** 紙の上の 1 つの図。 */
 export interface View {
@@ -61,6 +62,8 @@ export interface View {
   mm: number | null;
   /** **この図だけフィートで書くか**（`scale: { in: … }`）。 */
   feet: boolean;
+  /** **この図の単位**（`scale.unit`）。縮尺を書いていない図は、紙ぜんたいのものを使う。 */
+  unit: Unit | null;
 }
 
 export const NO_VIEWS: readonly View[] = [];
@@ -103,6 +106,7 @@ function viewOf(raw: unknown): View | null {
     grid: gridOf(body.grid),
     mm: scale?.mm ?? null,
     feet: scale?.feet ?? false,
+    unit: scale?.unit ?? null,
   };
 }
 

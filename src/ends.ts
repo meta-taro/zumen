@@ -36,6 +36,7 @@
  * | `triangle` | 中抜きの三角 | UML の汎化（継承）・実現 |
  * | `diamond` | 中抜きの菱形 | UML の集約 |
  * | `solid-diamond` | 塗った菱形 | UML のコンポジション |
+ * | `tick` | 斜めの短い線 | 寸法線の端（建築の図面。通り芯の寸法と同じ形） |
  *
  * **端の記号を書いた辺には、既定の矢印を付けない。** 記号が矢印の代わりになる
  * （両方出すと、向きが二重に言われて読めなくなる）。
@@ -52,6 +53,7 @@ export const ENDS = [
   'triangle',
   'diamond',
   'solid-diamond',
+  'tick',
 ] as const;
 export type End = (typeof ENDS)[number];
 
@@ -103,6 +105,7 @@ export function endRoom(kind: End): number {
   if (kind === 'crow') return 12;
   if (kind === 'arrow') return 10;
   if (kind === 'triangle') return 12;
+  if (kind === 'tick') return 4;
   return 14; // diamond / solid-diamond
 }
 
@@ -220,6 +223,19 @@ export function drawEnd(
     parts.push(
       `<path d="M ${n(tip.x)} ${n(tip.y)} L ${n(back2.x + px * 6 * k)} ${n(back2.y + py * 6 * k)} ` +
         `L ${n(back2.x - px * 6 * k)} ${n(back2.y - py * 6 * k)} Z" fill="${paper}" stroke="${stroke}" stroke-width="1.2"/>`,
+    );
+  }
+
+  if (kind === 'tick') {
+    /**
+     * **斜線**（`dims` の `ends: tick`。2026-11-02）。端の点を通り、線から 45 度。
+     * 通り芯の寸法（`src/dimensions.ts`）と同じ大きさと傾き（横の線なら ／、縦の線なら ＼）。
+     * 内向きと直交の向きを足すので、始点と終点で同じ向きに傾く（内向きも直交も、端で揃って裏返る）。
+     */
+    const sx = -ux * 4 + px * 4;
+    const sy = -uy * 4 + py * 4;
+    parts.push(
+      `<line x1="${n(tip.x + sx)}" y1="${n(tip.y + sy)}" x2="${n(tip.x - sx)}" y2="${n(tip.y - sy)}" stroke="${stroke}" stroke-width="1"/>`,
     );
   }
 

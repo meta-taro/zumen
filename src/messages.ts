@@ -613,7 +613,7 @@ const ja = {
       '    at:   { x: <左>, y: <上> }        # kind: placement でだけ効く',
       '    openings:                          # kind: placement でだけ効く（建具）',
       '      - { kind: <openings から>, side: <sides から>, at: <0〜1>, width: <px> }',
-      'scale: { mm: <1px が何 mm か> }      # 寸法の数値を出すのに要る',
+      'scale: { mm: <1px が何 mm か>, unit: <mm | m | um> }   # 寸法の数値を出すのに要る。unit は図ぜんたいの単位（省けば縮尺が決める）',
       'north: <up / right / down / left>    # 方位記号',
       'wall: { mm: <間仕切の厚み>, outer: <外壁の厚み> }   # 平面図の壁を塗り潰す',
       'styles:                               # 見せ方の表。差し替えるだけで作風が変わる（販売図面の色分け・グレースケール）',
@@ -645,10 +645,20 @@ const ja = {
       '    arc: { center: [ <x>, <y> ], r: <px>, from: <度>, to: <度> }   # points の代わりに弧。0 度が右、時計回り',
       '    close: <true | sector>                        # true は閉じる（弧は弦で）。sector は扇形（中心へ戻る）',
       '    # 線の語は辺と同じ: line / weight / color / ends / curve / hatch / hatch_color / casing / label',
+      'dims:              # 2 点を指して引く寸法。kind: placement でだけ効く（通り芯の無い図。建築は grid から）',
+      '  - id: <英数字とハイフン。文書内で一意。節・paths の id と被らない>',
+      '    from: [ <x>, <y> ]                            # 点か、箱の辺 { node: <節の id>, side: <left | right | top | bottom> }',
+      '    to: { node: <節の id>, side: <left | right | top | bottom> }',
+      '    along: <x | y>                                # 水平・垂直の成分だけ。省けば辺が決め、点だけなら from → to に沿う',
+      '    offset: <px>                                  # 測る物の外側から寸法線まで。正は進む向きの右',
+      '    text: "<文字。{} に機械の数値が入る>"          # 省けば数値だけ。{} を書かなければ人の文字だけ',
+      '    exact: false                                  # 略図。人の数値と図のずれを知らせない',
+      '    ends: <arrow（既定）| tick>',
     ].join('\n'),
     /** **守らせたいこと。** 実測では毎回 pins を書いてきたので、明示する。 */
     rules: [
       'pins は書かない。人が手で決めたことを置く節で、書いても採られない。',
+      '**寸法は dims で書く**（通り芯の無い図。機械・競技場・断面・家具）。寸法線を paths で引いて数値を注記に手で書かない —— 図形を直しても数値が追ってこない。測る点は [ x, y ] か { node, side } で明示し、数値は縮尺から機械が出す（text の {} に入る）。建築の平面図は、これまでどおり grid（通り芯）から。',
       '**節に属さない線（寸法線・テープ・輪郭・扇形）は paths で書く。** 名前も枠も無い 2×2 の節を置いて辺で結ばない —— 点が節として数えられ、人の手直しが p17>p18 のような読めない鍵に付く。paths は id を鍵にし、points（[ x, y ] の並び）か arc（中心・半径・角度）で書く。線の語は辺と同じ。**配置図でだけ効く。**',
       'kind: placement（配置図）では、置き場所を自分で書く。機械は並べ直さない。間取り・伏図・売場・避難経路はこちら。nodes[].at と nodes[].size の両方を書くこと。大きさを書かないと、便所と 16 畳の LDK が同じ箱で出る。',
       '建築の図（間取り・伏図・平面詳細図）を描くなら、grid（通り芯）と scale を必ず書く。寸法の数値が出ない図は、現場では使えない。通り芯は壁や柱の芯に置き、符号は X1 / Y1 のように付ける。',
@@ -972,6 +982,45 @@ const ja = {
       `paths の "${id}" に ${key} がありますが、節に属さない線では効きません。${key === 'via' ? '通る点は points に並べます。' : key === 'from' || key === 'to' ? '端は points の最初と最後の点です。節から節へ引くなら edges に書きます。' : '線に書けるのは line / weight / color / ends / curve / close / hatch / hatch_color / casing / label です。'}`,
     pinPointsInvalid: (id: string) =>
       `pins の "${id}" の points が読めません（[ x, y ] か { x, y } を 2 つ以上）。人の点は使わず、正本の形で描きます。`,
+    scaleUnitInvalid: (unit: string) =>
+      `scale の unit が "${unit}" になっています。書けるのは mm / m / um（μm）です。この単位は使わず、縮尺が単位を決めます。`,
+    scaleUnitOnInch: (unit: string) =>
+      `scale の unit（"${unit}"）は、ミリの縮尺（scale: { mm: … }）にだけ付きます。インチの縮尺は、いつもフィートとインチで書きます。`,
+    dimsNotList: 'dims が一覧になっていません。寸法は - id: … を並べて書きます。',
+    dimsIgnored:
+      'dims（2 点を指して引く寸法）がありますが、配置図でしか描かれません（kind: placement で描かれます）。構成図は置き場所を機械が決めるので、測る点に意味がありません。',
+    dimIdMissing: (position: number) =>
+      `dims の ${position} 番目に id がありません。この寸法は描かれません。id は人の手直し（pins）の鍵になります。`,
+    dimIdDuplicated: (id: string) =>
+      `dims に同じ id が 2 つあります（"${id}"）。描くのは先に書いたほうだけです。`,
+    dimIdShared: (id: string) =>
+      `dims の "${id}" が、節か paths の id と同じです。人の手直し（pins）の鍵が、どれを指すか読めません。名前を変えてください。`,
+    dimEndInvalid: (id: string, key: string) =>
+      `dims の "${id}" の ${key} が読めません。点なら [ x, y ]、箱の辺なら { node: <節の id>, side: left | right | top | bottom } です。この寸法は描かれません。`,
+    dimNodeUnknown: (id: string, node: string) =>
+      `dims の "${id}" が、無い節 "${node}" の辺を指しています。この寸法は描かれません。`,
+    dimSideMismatch: (id: string) =>
+      `dims の "${id}" は、何を測るか決められません。left / right の辺は横の位置（x）、top / bottom の辺は縦の位置（y）しか持ちません。両端の辺の向きと along を揃えてください。この寸法は描かれません。`,
+    dimZeroLength: (id: string) =>
+      `dims の "${id}" は、測る長さが 0 です（同じ点か、along の向きに離れていない）。この寸法は描かれません。`,
+    dimAlongInvalid: (id: string, word: string) =>
+      `dims の "${id}" の along が "${word}" になっています。x（水平の成分）か y（垂直の成分）です。省いたときと同じに測ります。`,
+    dimOffsetInvalid: (id: string, word: string) =>
+      `dims の "${id}" の offset が "${word}" になっています。px の数で書いてください（測る物の外側から。正は進む向きの右）。0 として描きます。`,
+    dimEndsUnknown: (id: string, word: string) =>
+      `dims の "${id}" の ends が "${word}" になっています。arrow（矢印。既定）か tick（斜線）です。矢印で描きます。`,
+    dimExactInvalid: (id: string, word: string) =>
+      `dims の "${id}" の exact が "${word}" になっています。略図なら false と書きます（真偽値）。`,
+    dimSketchValue: (id: string) =>
+      `dims の "${id}" は exact: false（略図）なのに、機械の数値を出しています（text に {} がある、または text が無い）。略図から測った数値は実寸ではありません。人の数値を text に書いてください。`,
+    dimNoScale: (count: number) =>
+      `dims が ${count} 本ありますが、scale が無いので数値を出しません（text の文字だけ描きます）。知らない縮尺で数値を書くより、出さないほうがよいためです。scale: { mm: … } を書いてください。`,
+    dimTextDiffers: (id: string, text: string, value: string) =>
+      `dims の "${id}" の文字「${text}」の数が、図から測った ${value} と 1 % 以上違います。図か数値のどちらかが間違っています。図を直すか、数値を機械に出させる（text に {} を書く）か、略図なら exact: false と書いてください。`,
+    dimKeyIgnored: (id: string, key: string) =>
+      `dims の "${id}" に ${key} がありますが、寸法では効きません。${key === 'label' ? '文字は text に書きます（{} に機械の数値が入る）。' : key === 'points' || key === 'via' ? '測る点は from と to に書きます。' : '寸法に書けるのは id / from / to / along / offset / text / exact / ends です。'}`,
+    pinOffsetInvalid: (id: string) =>
+      `pins の "${id}" の offset が px の数になっていません。人の値は使わず、正本の offset で描きます。`,
     nameCrowded: (id: string) =>
       `ノード "${id}" の名前は箱に入りきらず、外へ出した先も空いていません（**他の要素に重なる**か、**紙の縁で切れます**）。箱を大きくするか、名前を **\`\\n\`** で折り返すか、文字を短くしてください（消してはいません —— 名前が消えるのは、重なるより悪いためです）。`,
     /**
@@ -1130,6 +1179,8 @@ const ja = {
       'この正本は**配置図**です。どこに何があるかが中身ですが、**Mermaid には位置と大きさの器がありません** —— 以下は位置を失った箱の一覧で、元の図とは別のものです。図として使うなら SVG か draw.io で書き出してください。',
     lossPaths: (count: number) =>
       `節に属さない線（paths）が ${count} 本あります。Mermaid の線は節から節へしか引けないので、**ここには出ていません。**`,
+    lossDims: (count: number) =>
+      `寸法（dims）が ${count} 本あります。Mermaid の線は節から節へしか引けないので、**ここには出ていません**（数値も）。`,
     geometryDroppedHeading: '【注意】Mermaid には位置・大きさ・線の曲げ方を書く場所が無い。',
     geometryDroppedDetail: '次の手直しは、この書き出しでは失われている。正本は .zumen.yaml の側。',
   },
@@ -1560,7 +1611,7 @@ const en: Catalog = {
       '    at:   { x: <left>, y: <top> }       # only with kind: placement',
       '    openings:                            # only with kind: placement',
       '      - { kind: <from openings>, side: <from sides>, at: <0..1>, width: <px> }',
-      'scale: { mm: <how many mm one pixel is> }   # required for dimension figures',
+      'scale: { mm: <how many mm one pixel is>, unit: <mm | m | um> }   # required for dimension figures; unit picks one unit for the whole drawing (omit it and the scale decides)',
       'north: <up / right / down / left>',
       'wall: { mm: <partition thickness>, outer: <outer wall thickness> }  # poché walls',
       'styles:                               # style table: swap it to change the house style (colour-coded or greyscale sales plans)',
@@ -1592,9 +1643,19 @@ const en: Catalog = {
       '    arc: { center: [ <x>, <y> ], r: <px>, from: <deg>, to: <deg> }   # an arc instead of points; 0 = right, clockwise',
       '    close: <true | sector>                        # true closes it (an arc by its chord); sector returns to the centre',
       '    # same line words as edges: line / weight / color / ends / curve / hatch / hatch_color / casing / label',
+      'dims:              # dimensions between two named points; only with kind: placement (drawings with no grid; buildings use grid)',
+      '  - id: <letters, digits, hyphens; unique; not the id of a node or a path>',
+      '    from: [ <x>, <y> ]                            # a point, or a side of a box { node: <node id>, side: <left | right | top | bottom> }',
+      '    to: { node: <node id>, side: <left | right | top | bottom> }',
+      '    along: <x | y>                                # only the horizontal / vertical part; omitted, the sides decide, or from → to for two points',
+      '    offset: <px>                                  # from the outside of what is measured to the dimension line; positive = right of travel',
+      '    text: "<words; {} becomes the measured value>"  # omitted = the value alone; without {} only your words are shown',
+      '    exact: false                                  # a sketch: do not warn when your figure differs from the drawing',
+      '    ends: <arrow (default) | tick>',
     ].join('\n'),
     rules: [
       'Do not write pins. That section holds what a person decided by hand; anything you write there is dropped.',
+      '**Write dimensions as dims** (drawings with no grid: machine parts, sports fields, sections, furniture). Do not draw the dimension line as a path and type the figure into a note — the figure will not follow when the shape changes. Name the measured points as [ x, y ] or { node, side }; the machine works out the value from the scale (it goes where text has {}). Building plans still take their dimensions from grid.',
       '**Write lines that belong to no node (dimension lines, tape strips, outlines, wedges) as paths.** Do not place nameless 2×2 nodes and join them with edges — the dots get counted as nodes and the human\'s edits end up on unreadable keys like p17>p18. A path is keyed by its id and written as points (a list of [ x, y ]) or arc (centre, radius, angles); its line words are the same as an edge\'s. **Only in placement drawings.**',
       'With kind: placement you place things yourself; the machine does not lay them out. Floor plans, framing plans, store layouts and escape routes are placement. Write both nodes[].at and nodes[].size. Without sizes, a toilet and a 16-mat living room come out the same box.',
       'For an architectural drawing, always write grid and scale. A drawing with no dimension figures cannot be used on site. Put the grid lines on the centre of walls and columns, and code them X1 / Y1.',
@@ -1872,6 +1933,45 @@ const en: Catalog = {
       `Path "${id}" has ${key}, which does nothing on a free line. ${key === 'via' ? 'List the points it passes through under points.' : key === 'from' || key === 'to' ? 'Its ends are the first and last points. To join two nodes, write an edge.' : 'A path takes line / weight / color / ends / curve / close / hatch / hatch_color / casing / label.'}`,
     pinPointsInvalid: (id: string) =>
       `The points under pins "${id}" cannot be read (two or more [ x, y ] or { x, y }). The human points are not used; the line is drawn from the source.`,
+    scaleUnitInvalid: (unit: string) =>
+      `scale has unit "${unit}". It can be mm / m / um (μm). This unit is not used; the scale decides the unit.`,
+    scaleUnitOnInch: (unit: string) =>
+      `scale unit ("${unit}") only goes with a millimetre scale (scale: { mm: … }). An inch scale always writes feet and inches.`,
+    dimsNotList: 'dims is not a list. Write dimensions as a list of - id: … entries.',
+    dimsIgnored:
+      'There are dims (dimensions between two points), but they are drawn only in placement drawings (kind: placement). In a structure drawing the machine decides where things go, so the measured points mean nothing.',
+    dimIdMissing: (position: number) =>
+      `Dimension ${position} has no id, so it is not drawn. The id is the key for the human's edits (pins).`,
+    dimIdDuplicated: (id: string) =>
+      `Two dims share the id "${id}". Only the first one is drawn.`,
+    dimIdShared: (id: string) =>
+      `Dimension "${id}" has the same id as a node or a path. A human edit (pins) cannot tell which one it is for. Rename it.`,
+    dimEndInvalid: (id: string, key: string) =>
+      `The ${key} of dimension "${id}" cannot be read. A point is [ x, y ]; a side of a box is { node: <node id>, side: left | right | top | bottom }. The dimension is not drawn.`,
+    dimNodeUnknown: (id: string, node: string) =>
+      `Dimension "${id}" points at a side of "${node}", which is not a node. The dimension is not drawn.`,
+    dimSideMismatch: (id: string) =>
+      `Dimension "${id}" does not say what to measure. A left / right side only has a horizontal position (x) and a top / bottom side only a vertical one (y); make the two sides and along agree. The dimension is not drawn.`,
+    dimZeroLength: (id: string) =>
+      `Dimension "${id}" measures nothing (the same point, or no distance in the direction of along). It is not drawn.`,
+    dimAlongInvalid: (id: string, word: string) =>
+      `Dimension "${id}" has along "${word}". It is x (the horizontal part) or y (the vertical part). It is measured as if along were omitted.`,
+    dimOffsetInvalid: (id: string, word: string) =>
+      `Dimension "${id}" has offset "${word}". Write a number of px (from the outside of what is measured; positive to the right of travel). It is drawn with 0.`,
+    dimEndsUnknown: (id: string, word: string) =>
+      `Dimension "${id}" has ends "${word}". It is arrow (the default) or tick (an oblique stroke). Arrows are drawn.`,
+    dimExactInvalid: (id: string, word: string) =>
+      `Dimension "${id}" has exact "${word}". For a sketch, write false (a boolean).`,
+    dimSketchValue: (id: string) =>
+      `Dimension "${id}" is exact: false (a sketch) but still prints the measured value (text has {} or there is no text). A value measured from a sketch is not the real size. Write your own figure in text.`,
+    dimNoScale: (count: number) =>
+      `There are ${count} dims but no scale, so no values are printed (only the words in text are drawn). Printing a value from an unknown scale is worse than printing none. Add scale: { mm: … }.`,
+    dimTextDiffers: (id: string, text: string, value: string) =>
+      `The figure in "${text}" on dimension "${id}" is more than 1% away from the ${value} measured on the drawing. Either the drawing or the figure is wrong. Fix the drawing, let the machine print the value (write {} in text), or mark a sketch with exact: false.`,
+    dimKeyIgnored: (id: string, key: string) =>
+      `Dimension "${id}" has ${key}, which does nothing on a dimension. ${key === 'label' ? 'Write the words in text ({} becomes the measured value).' : key === 'points' || key === 'via' ? 'The measured points go in from and to.' : 'A dimension takes id / from / to / along / offset / text / exact / ends.'}`,
+    pinOffsetInvalid: (id: string) =>
+      `The offset under pins "${id}" is not a number of px. The human value is not used; the dimension is drawn from the source offset.`,
     nameCrowded: (id: string) =>
       `The name on node "${id}" does not fit its box and there is no free room outside either: it either lands on something else or is cut off at the edge of the sheet. Make the box bigger, break the name with **\`\\n\`**, or shorten the text. It is NOT dropped: losing a name is worse than an overlap.`,
     adriftCell: 'In a table that leaves the row looking empty.',
@@ -1971,6 +2071,8 @@ const en: Catalog = {
       'This source is a **placement drawing**: what matters is where things are, and **Mermaid has no place for positions or sizes**. What follows is a list of boxes with the geometry gone — it is not the same drawing. Export to SVG or draw.io if you need the drawing itself.',
     lossPaths: (count: number) =>
       `There are ${count} free lines (paths). Mermaid lines only run from node to node, so **they are not in this export.**`,
+    lossDims: (count: number) =>
+      `There are ${count} dimensions (dims). Mermaid lines only run from node to node, so **they are not in this export** (nor are their values).`,
     geometryDroppedHeading:
       'NOTE: Mermaid has nowhere to put positions, sizes, or edge waypoints.',
     geometryDroppedDetail:

@@ -215,6 +215,8 @@ const USES = [
   ['vertical', /^\s+vertical: /m], ['pins', /^pins:/m],
   // **節に属さない線**（仕様 §3.0.26）。見えない点を置かずに書いた実物を、ここから引けるように。
   ['paths', /^paths:/m], ['arc', /^\s+arc: \{/m],
+  // **2 点を指して引く寸法**（仕様 §3.0.27）。数値を機械に出させた実物を、ここから引けるように。
+  ['dims', /^dims:/m], ['scale-unit', /^scale: \{[^}]*unit: /m],
 ];
 const usesOf = (text) => USES.filter(([, re]) => re.test(text)).map(([name]) => name);
 /** **配置図か構成図か。** まねる相手を選ぶとき、題材より先に効く。 */
