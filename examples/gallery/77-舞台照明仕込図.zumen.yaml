@@ -12,6 +12,46 @@ title: 架空ホール 中ホール 舞台照明仕込図（Light Plot ＋ Chann
 grid:
   x:
     - { id: "CL", at: 360, mark: tick }
+parts:
+  # 器具は種類ごとに部品（parts）にした。形（印と模様）は部品の 1 か所で決め、
+  # 置くたびに変わる Ch（tag）だけを set に書く。器具の中の名前は f1.body のようになる。
+  # パーライト
+  parlight:
+    nodes:
+      - { id: body, label: "", marker: ellipse, hatch: dots, at: { x: 0, y: 0 }, size: { w: 26, h: 26 } }
+  # フレネル
+  fresnel:
+    nodes:
+      - { id: body, label: "", marker: circle, hatch: cross, at: { x: 0, y: 0 }, size: { w: 26, h: 26 } }
+  # エリプソ
+  ellipsoidal:
+    nodes:
+      - { id: body, label: "", marker: box, hatch: lines, at: { x: 0, y: 0 }, size: { w: 26, h: 26 } }
+  # ホリゾント
+  cyc:
+    nodes:
+      - { id: body, label: "", marker: bar, hatch: solid, at: { x: 0, y: 0 }, size: { w: 26, h: 26 } }
+place:
+  - { part: parlight, as: f1, at: { x: 107, y: 137 }, set: { body: { tag: 1 } } }
+  - { part: parlight, as: f2, at: { x: 227, y: 137 }, set: { body: { tag: 2 } } }
+  - { part: parlight, as: f3, at: { x: 347, y: 137 }, set: { body: { tag: 3 } } }
+  - { part: parlight, as: f4, at: { x: 467, y: 137 }, set: { body: { tag: 4 } } }
+  - { part: parlight, as: f5, at: { x: 587, y: 137 }, set: { body: { tag: 5 } } }
+  - { part: fresnel, as: f11, at: { x: 107, y: 201 }, set: { body: { tag: 11 } } }
+  - { part: fresnel, as: f12, at: { x: 227, y: 201 }, set: { body: { tag: 12 } } }
+  - { part: fresnel, as: f13, at: { x: 347, y: 201 }, set: { body: { tag: 13 } } }
+  - { part: fresnel, as: f14, at: { x: 467, y: 201 }, set: { body: { tag: 14 } } }
+  - { part: fresnel, as: f15, at: { x: 587, y: 201 }, set: { body: { tag: 15 } } }
+  - { part: ellipsoidal, as: f21, at: { x: 107, y: 265 }, set: { body: { tag: 21 } } }
+  - { part: ellipsoidal, as: f22, at: { x: 227, y: 265 }, set: { body: { tag: 22 } } }
+  - { part: ellipsoidal, as: f23, at: { x: 347, y: 265 }, set: { body: { tag: 23 } } }
+  - { part: ellipsoidal, as: f24, at: { x: 467, y: 265 }, set: { body: { tag: 24 } } }
+  - { part: ellipsoidal, as: f25, at: { x: 587, y: 265 }, set: { body: { tag: 25 } } }
+  - { part: ellipsoidal, as: f31, at: { x: 187, y: 439 }, set: { body: { tag: 31 } } }
+  - { part: ellipsoidal, as: f32, at: { x: 347, y: 439 }, set: { body: { tag: 32 } } }
+  - { part: ellipsoidal, as: f33, at: { x: 507, y: 439 }, set: { body: { tag: 33 } } }
+  - { part: cyc, as: f41, at: { x: 227, y: 97 }, set: { body: { tag: 41 } } }
+  - { part: cyc, as: f42, at: { x: 467, y: 97 }, set: { body: { tag: 42 } } }
 nodes:
   - id: stage
     label: ""
@@ -73,146 +113,6 @@ nodes:
     marker: none
     at: { x: 0, y: 438 }
     size: { w: 72, h: 28 }
-  - id: f1
-    label: ""
-    marker: ellipse
-    hatch: dots
-    tag: 1
-    at: { x: 107, y: 137 }
-    size: { w: 26, h: 26 }
-  - id: f2
-    label: ""
-    marker: ellipse
-    hatch: dots
-    tag: 2
-    at: { x: 227, y: 137 }
-    size: { w: 26, h: 26 }
-  - id: f3
-    label: ""
-    marker: ellipse
-    hatch: dots
-    tag: 3
-    at: { x: 347, y: 137 }
-    size: { w: 26, h: 26 }
-  - id: f4
-    label: ""
-    marker: ellipse
-    hatch: dots
-    tag: 4
-    at: { x: 467, y: 137 }
-    size: { w: 26, h: 26 }
-  - id: f5
-    label: ""
-    marker: ellipse
-    hatch: dots
-    tag: 5
-    at: { x: 587, y: 137 }
-    size: { w: 26, h: 26 }
-  - id: f11
-    label: ""
-    marker: circle
-    hatch: cross
-    tag: 11
-    at: { x: 107, y: 201 }
-    size: { w: 26, h: 26 }
-  - id: f12
-    label: ""
-    marker: circle
-    hatch: cross
-    tag: 12
-    at: { x: 227, y: 201 }
-    size: { w: 26, h: 26 }
-  - id: f13
-    label: ""
-    marker: circle
-    hatch: cross
-    tag: 13
-    at: { x: 347, y: 201 }
-    size: { w: 26, h: 26 }
-  - id: f14
-    label: ""
-    marker: circle
-    hatch: cross
-    tag: 14
-    at: { x: 467, y: 201 }
-    size: { w: 26, h: 26 }
-  - id: f15
-    label: ""
-    marker: circle
-    hatch: cross
-    tag: 15
-    at: { x: 587, y: 201 }
-    size: { w: 26, h: 26 }
-  - id: f21
-    label: ""
-    marker: box
-    hatch: lines
-    tag: 21
-    at: { x: 107, y: 265 }
-    size: { w: 26, h: 26 }
-  - id: f22
-    label: ""
-    marker: box
-    hatch: lines
-    tag: 22
-    at: { x: 227, y: 265 }
-    size: { w: 26, h: 26 }
-  - id: f23
-    label: ""
-    marker: box
-    hatch: lines
-    tag: 23
-    at: { x: 347, y: 265 }
-    size: { w: 26, h: 26 }
-  - id: f24
-    label: ""
-    marker: box
-    hatch: lines
-    tag: 24
-    at: { x: 467, y: 265 }
-    size: { w: 26, h: 26 }
-  - id: f25
-    label: ""
-    marker: box
-    hatch: lines
-    tag: 25
-    at: { x: 587, y: 265 }
-    size: { w: 26, h: 26 }
-  - id: f31
-    label: ""
-    marker: box
-    hatch: lines
-    tag: 31
-    at: { x: 187, y: 439 }
-    size: { w: 26, h: 26 }
-  - id: f32
-    label: ""
-    marker: box
-    hatch: lines
-    tag: 32
-    at: { x: 347, y: 439 }
-    size: { w: 26, h: 26 }
-  - id: f33
-    label: ""
-    marker: box
-    hatch: lines
-    tag: 33
-    at: { x: 507, y: 439 }
-    size: { w: 26, h: 26 }
-  - id: f41
-    label: ""
-    marker: bar
-    hatch: solid
-    tag: 41
-    at: { x: 227, y: 97 }
-    size: { w: 26, h: 26 }
-  - id: f42
-    label: ""
-    marker: bar
-    hatch: solid
-    tag: 42
-    at: { x: 467, y: 97 }
-    size: { w: 26, h: 26 }
   - id: ht
     label: "Channel Hookup（チャンネル一覧）"
     marker: none
