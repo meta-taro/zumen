@@ -19,6 +19,10 @@ nodes:
     type: internet
     label: Internet
 
+  - id: cdn
+    type: cdn
+    label: CDN
+
   - id: lb
     type: load-balancer
     label: Load Balancer
@@ -52,14 +56,22 @@ nodes:
     label: MariaDB Replica
     group: vpc
 
+  - id: cache
+    type: cache
+    label: Redis
+    group: vpc
+
   - id: backup
     type: storage
     label: Backup Storage
 
 edges:
   - from: internet
-    to: lb
+    to: cdn
     protocol: HTTPS
+
+  - from: cdn
+    to: lb
 
   - from: lb
     to: web01
@@ -72,6 +84,12 @@ edges:
 
   - from: web02
     to: db
+
+  - from: web01
+    to: cache
+
+  - from: web02
+    to: cache
 
   - from: db
     to: replica
