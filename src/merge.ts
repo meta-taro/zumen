@@ -10,17 +10,23 @@
  * 1. **`pins` は提案から読まない。** AI が書いてきても採らない。人の指定は人のもの
  * 2. **黙って上書きしない。** 人の指定とぶつかったら、適用せずに競合として返す
  * 3. **値が同じキーには触らない。** 触ると人が直していない行に差分が出る
+ *
+ * 配置図の節（`paths` / `dims` / `parts` / `place` / `scale`）も同じ規則で入れる（`src/merge-placement.ts`）。
  */
 import { isMap, isSeq } from 'yaml';
 import type { YAMLMap, YAMLSeq } from 'yaml';
 
 import { deletePin, getPins, parse, serialize, setPin } from './format.ts';
 import type { Diagram, Pin } from './format.ts';
+import { mergePlacement, mergeScale, pinsOfPlace, placeOf, placesOf, removePlacementElement } from './merge-placement.ts';
 
 export type Position = { x: number; y: number };
 
 export type Conflict =
-  /** pin を持つノード／エッジを AI が消そうとした。消さずに残して聞く。 */
+  /**
+   * pin を持つものを AI が消そうとした。消さずに残して聞く。
+   * `elementId` はノード・線・寸法の `id`、エッジの `from>to`、置いたものの `as`、部品の中の `<as>.<id>`。
+   */
   | { kind: 'pin-orphaned'; elementId: string; reason: 'removed' }
   /** pin を持つノードに AI が別の位置を出してきた。まだ決まっていない。 */
   | { kind: 'position-proposed'; elementId: string; human: Position; ai: Position }
@@ -44,7 +50,10 @@ export function merge(currentText: string, proposalText: string): MergeResult {
   const proposalNodes = itemsById(proposal, 'nodes', 'id');
   const kept = mergeNodes(current, proposalNodes, pins, conflicts);
   mergeGroups(current, proposal);
-  mergeEdges(current, proposal, kept, pins, conflicts);
+  mergeScale(current, proposal);
+  const keptPlaces = mergePlacement(current, proposal, pins, conflicts);
+  const proposalPlaces = new Set(placesOf(proposal));
+  mergeEdges(current, proposal, { nodes: kept, places: keptPlaces, proposalPlaces }, pins, conflicts);
   applyPositionIntents(current, proposalNodes, pins, conflicts);
 
   return { text: serialize(current), conflicts };
@@ -61,13 +70,8 @@ export function resolve(text: string, conflict: Conflict, choice: 'human' | 'ai'
   const id = conflict.elementId;
 
   if (conflict.kind === 'pin-orphaned') {
-    if (choice === 'ai') {
-      if (id.includes('>')) removeEdge(doc, id);
-      else removeNode(doc, id);
-      deletePin(doc, id);
-    } else {
-      lockPin(doc, id);
-    }
+    if (choice === 'ai') removeElement(doc, id);
+    else lockPins(doc, id);
     return serialize(doc);
   }
 
@@ -156,10 +160,17 @@ function edgeKey(item: YAMLMap): string {
   return `${String(item.get('from'))}>${String(item.get('to'))}`;
 }
 
+/** 線の端が、merge のあとも居るか。置いたものの中（`L1.body`）は、置いたもの（`L1`）で見る。 */
+interface KeptEnds {
+  nodes: Set<string>;
+  places: Set<string>;
+  proposalPlaces: Set<string>;
+}
+
 function mergeEdges(
   current: Diagram,
   proposal: Diagram,
-  keptNodes: Set<string>,
+  kept: KeptEnds,
   pins: Record<string, Pin>,
   conflicts: Conflict[],
 ): void {
@@ -170,6 +181,8 @@ function mergeEdges(
   if (readSeq(current, 'edges') === null && proposed.size === 0) return;
   const seq = getSeq(current, 'edges');
   const proposalIds = new Set(proposal.nodeIds());
+  const stays = (id: string) => kept.nodes.has(id) || kept.places.has(placeOf(id));
+  const inProposal = (id: string) => proposalIds.has(id) || kept.proposalPlaces.has(placeOf(id));
 
   const remaining: unknown[] = [];
   for (const item of seq.items) {
@@ -186,8 +199,8 @@ function mergeEdges(
       // 競合で残したノードに繋がる線は、ノードと一緒に残す。片端の無い線を作らない。
       const from = String(item.get('from'));
       const to = String(item.get('to'));
-      const bothStillProposed = proposalIds.has(from) && proposalIds.has(to);
-      if (keptNodes.has(from) && keptNodes.has(to) && !bothStillProposed) {
+      const bothStillProposed = inProposal(from) && inProposal(to);
+      if (stays(from) && stays(to) && !bothStillProposed) {
         remaining.push(item);
       }
       continue;
@@ -321,6 +334,19 @@ function removeEdge(diagram: Diagram, id: string): void {
   edges.items = edges.items.filter(
     (item) => !(isMap(item) && String(item.get('from')) === from && String(item.get('to')) === to),
   );
+}
+
+function removeElement(diagram: Diagram, id: string): void {
+  if (id.includes('>')) removeEdge(diagram, id);
+  else if (!removePlacementElement(diagram, id)) removeNode(diagram, id);
+  deletePin(diagram, id);
+}
+
+/** 置いたものは、中の手直し（`pins.<as>.…`）にも全部印を付ける。どれか 1 つ残すと、また聞かれる。 */
+function lockPins(diagram: Diagram, id: string): void {
+  const isPlace = !id.includes('>') && placesOf(diagram).includes(id);
+  const keys = isPlace ? pinsOfPlace(getPins(diagram), id) : [id];
+  for (const key of keys) lockPin(diagram, key);
 }
 
 function lockPin(diagram: Diagram, id: string): void {
