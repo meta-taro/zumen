@@ -30,7 +30,10 @@ function currentTheme(): Theme {
 function panelFor(source: string): HTMLDetailsElement {
   const panel = document.createElement('details');
   panel.open = true;
-  panel.className = PANEL_CLASS;
+  // **ページの自動翻訳に、図の文字と見出しを訳させない**（GitHub の囲みと同じ notranslate）。
+  // 訳すと、図の名前が正本とずれる（2026-11-02、実物で「zumen」が「ズメン」になった）。
+  panel.className = `${PANEL_CLASS} notranslate`;
+  panel.translate = false;
   panel.setAttribute(SOURCE_ATTRIBUTE, source);
   panel.style.cssText = 'margin:0 0 16px;border:1px solid var(--borderColor-default,#d0d7de);border-radius:6px;padding:8px 12px';
   panel.innerHTML = '<summary style="cursor:pointer;font-weight:600">zumen</summary><div style="overflow:auto;margin-top:8px">…</div>';
