@@ -139,6 +139,11 @@ describe('Chrome: manifest', () => {
     assert.equal(manifest.action.default_popup, 'popup.html');
   });
 
+  /** ウェブストアは 132 字を超える説明を受け付けない（2026-11-02、上げたときに断られた）。 */
+  it('説明は 132 字まで', () => {
+    assert.ok(manifest.description.length <= 132, `${manifest.description.length} 字`);
+  });
+
   it('版は package.json と揃っている', () => {
     const pkg = JSON.parse(readFileSync(new URL('../packages/zumen-chrome/package.json', import.meta.url), 'utf8'));
     assert.equal(manifest.version, pkg.version);
