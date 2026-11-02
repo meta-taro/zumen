@@ -5,6 +5,7 @@
   "description": "See zumen diagrams on GitHub: *.zumen.yaml files and ```zumen blocks in Markdown are drawn above the source. Works offline, nothing is sent.",
   "version": "0.1.0",
   "homepage_url": "https://meta-taro.github.io/zumen/",
+  "action": { "default_title": "zumen", "default_popup": "popup.html" },
   "icons": { "16": "icon-16.png", "48": "icon-48.png", "128": "icon-128.png" },
   "content_scripts": [
     { "matches": ["https://github.com/*"], "js": ["content.js"], "run_at": "document_idle" }

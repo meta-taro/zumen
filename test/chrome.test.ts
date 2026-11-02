@@ -5,7 +5,7 @@
  * **入口を薄く保ち、判断はここで試せる側に置く。**
  */
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { describe, it } from 'node:test';
 
 import { drawHtml } from '../packages/zumen-chrome/src/draw.ts';
@@ -62,6 +62,18 @@ describe('Chrome: manifest', () => {
     assert.deepEqual(manifest.content_scripts.map((c: { matches: string[] }) => c.matches).flat(), ['https://github.com/*']);
     assert.equal(manifest.permissions, undefined);
     assert.equal(manifest.host_permissions, undefined);
+  });
+
+  /**
+   * **案内に置いた「試す」の先が、リポジトリに実在する。** 見本を改名するとリンクだけ切れる
+   * （参照だけ残って中身が無い、と同じ壊れ方。ベースルール §23）。
+   */
+  it('ポップアップの「試す」のリンク先が、リポジトリにある', () => {
+    const popup = readFileSync(new URL('../packages/zumen-chrome/popup.html', import.meta.url), 'utf8');
+    const paths = [...popup.matchAll(/href="https:\/\/github\.com\/meta-taro\/zumen\/blob\/main\/([^"]+)"/g)].map((m) => decodeURIComponent(m[1]!));
+    assert.ok(paths.length >= 3, '試せる実物を置く');
+    for (const path of paths) assert.ok(existsSync(new URL(`../${path}`, import.meta.url)), `${path} が無い`);
+    assert.equal(manifest.action.default_popup, 'popup.html');
   });
 
   it('版は package.json と揃っている', () => {

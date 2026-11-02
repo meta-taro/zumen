@@ -39,7 +39,7 @@ for (const bundle of bundles) {
   console.log(`zumen-chrome: ${bundle.fileName}`);
 }
 
-cpSync(resolve(root, 'manifest.json'), resolve(dist, 'manifest.json'));
+for (const name of ['manifest.json', 'popup.html']) cpSync(resolve(root, name), resolve(dist, name));
 for (const size of [16, 48, 128]) cpSync(resolve(root, `media/icon-${size}.png`), resolve(dist, `icon-${size}.png`));
 cpSync(resolve(root, 'LICENSE'), resolve(dist, 'LICENSE'));
 
