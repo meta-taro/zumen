@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.0
+
+- Bundles zumen 0.7.0: free lines and shapes (`paths`), dimensions measured from two points (`dims`), and reusable parts (`parts` / `place`) now draw in the preview and in ```` ```zumen ```` blocks.
+- Agents' proposals now carry every section of the source (titles, grids, views, constants, paths, dims, parts); before, changes outside nodes and edges were dropped. A human's pinned edits still win.
+
 ## 0.1.1
 
 - Marketplace page: says what it solves, shows an example, and links the gallery, GitHub, npm and md-business. No change to the extension itself.
