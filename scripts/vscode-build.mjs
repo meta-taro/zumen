@@ -1,13 +1,14 @@
 /**
  * VS Code の拡張（`packages/zumen-vscode`）を 1 本ずつ束ねる。
  *
- * 束ねるのは 3 本。**行き先が違うので、束ね方も違う。**
+ * 束ねるのは 4 本。**行き先が違うので、束ね方も違う。**
  *
  * | 出力 | どこで動くか | 形 |
  * |---|---|---|
  * | `dist/extension.js` | 拡張の本体（Node） | CommonJS（Node 向けに束ねると名前は `.js` に決まる）。`vscode` は外に出す |
  * | `dist/preview.js` | `.zumen.yaml` の横の画面 | ブラウザ向けの 1 本 |
  * | `dist/markdown.js` | Markdown プレビューの中 | ブラウザ向けの 1 本 |
+ * | `dist/gallery.js` | エクスプローラーの「zumen」の欄 | ブラウザ向けの 1 本 |
  *
  * 道具は画面（`app/`）と同じ vite。**束ねるためだけに道具を足さない。**
  */
@@ -24,6 +25,7 @@ const bundles = [
   { entry: 'src/extension.ts', name: 'extension', format: 'cjs', fileName: 'extension.js', node: true },
   { entry: 'src/preview-webview.ts', name: 'preview', format: 'iife', fileName: 'preview.js', node: false },
   { entry: 'src/markdown-preview.ts', name: 'markdown', format: 'iife', fileName: 'markdown.js', node: false },
+  { entry: 'src/gallery-webview.ts', name: 'gallery', format: 'iife', fileName: 'gallery.js', node: false },
 ];
 
 for (const bundle of bundles) {

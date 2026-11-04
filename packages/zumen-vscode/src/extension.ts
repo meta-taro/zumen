@@ -1,12 +1,13 @@
 /**
  * VS Code の拡張の入口。**ここは薄く保つ。**
  *
- * やることは 4 つだけ。
+ * やることは 5 つだけ。
  *
  * 1. `.zumen.yaml` を開いているとき、横に図を出す（`zumen.openPreview`）。SVG・PNG で保存できる
  * 2. Markdown プレビューの ```` ```zumen ```` を図の置き場にする（`extendMarkdownIt`）
  * 3. 同梱した MCP サーバを、Copilot に名乗る（VS Code 1.101 以降。それより前は黙って飛ばす）
  * 4. 端末のエージェントへつなぐ 1 行を、端末に置く（`zumen.connectTerminalAgents`。Enter は人が押す）
+ * 5. エクスプローラーに、ワークスペースの図をサムネイルで並べて探せる欄を置く（`zumen.gallery`）
  *
  * **正本を書き換える口は作らない。** 直すのは人がエディタで行う。
  * エージェントも MCP の `zumen_propose` で差分を出すだけで、入れるのは人。
@@ -15,11 +16,15 @@ import { chmodSync, mkdirSync, writeFileSync } from 'node:fs';
 import * as vscode from 'vscode';
 import { claudeCodeCommand, launcher, RUN_AS_NODE } from './agents.ts';
 import { zumenFence, type MarkdownItLike } from './fence.ts';
+import { MAX_BYTES, MAX_FILES, titleOf, type GalleryFile } from './gallery.ts';
+import { galleryPage } from './gallery-page.ts';
 import { nonce, page } from './page.ts';
 import { pngBytes, saveName, type SaveFormat } from './save.ts';
 
 const VIEW_TYPE = 'zumen.preview';
 const MCP_PROVIDER = 'zumen.mcp';
+const GALLERY_VIEW = 'zumen.gallery';
+const ZUMEN_GLOB = '**/*.zumen.{yaml,yml}';
 
 export function activate(context: vscode.ExtensionContext): { extendMarkdownIt: <T extends MarkdownItLike>(md: T) => T } {
   const server = vscode.Uri.joinPath(context.extensionUri, 'server', 'dist', 'mcp.js').fsPath;
@@ -28,6 +33,7 @@ export function activate(context: vscode.ExtensionContext): { extendMarkdownIt: 
   context.subscriptions.push(
     vscode.commands.registerCommand('zumen.openPreview', (uri?: vscode.Uri) => openPreview(context, uri)),
     vscode.commands.registerCommand('zumen.connectTerminalAgents', () => connectTerminalAgents(context, server)),
+    vscode.window.registerWebviewViewProvider(GALLERY_VIEW, { resolveWebviewView: (view) => resolveGallery(context, view) }),
   );
   registerMcp(context, server, version);
   // 拡張の場所は版ごとに変わる。起動用のファイルは毎回書き直す。
@@ -80,6 +86,62 @@ async function connectTerminalAgents(context: vscode.ExtensionContext, server: s
     copy,
   );
   if (picked === copy) await vscode.env.clipboard.writeText(file);
+}
+
+/**
+ * エクスプローラーの「zumen」の欄。ワークスペースの `*.zumen.yaml` を読んで画面へ渡し、
+ * 押されたら、その正本をエディタで開いて横に図を出す。**ファイルが増減・変わったら渡し直す。**
+ */
+function resolveGallery(context: vscode.ExtensionContext, view: vscode.WebviewView): void {
+  const dist = vscode.Uri.joinPath(context.extensionUri, 'dist');
+  view.webview.options = { enableScripts: true, localResourceRoots: [dist] };
+  view.webview.html = galleryPage({
+    script: view.webview.asWebviewUri(vscode.Uri.joinPath(dist, 'gallery.js')).toString(),
+    cspSource: view.webview.cspSource,
+    nonce: nonce(),
+  });
+
+  const send = async (): Promise<void> => {
+    const { files, more } = await collectGallery();
+    void view.webview.postMessage({ type: 'files', files, more });
+  };
+  let pending: ReturnType<typeof setTimeout> | undefined;
+  const later = (): void => {
+    if (pending !== undefined) clearTimeout(pending);
+    pending = setTimeout(() => void send(), 500);
+  };
+
+  const watcher = vscode.workspace.createFileSystemWatcher(ZUMEN_GLOB);
+  const listeners = [
+    watcher,
+    watcher.onDidCreate(later),
+    watcher.onDidChange(later),
+    watcher.onDidDelete(later),
+    vscode.workspace.onDidChangeWorkspaceFolders(later),
+    view.webview.onDidReceiveMessage(async (message: { type?: string; key?: string }) => {
+      if (message.type === 'ready') void send();
+      if (message.type !== 'open' || typeof message.key !== 'string') return;
+      const uri = vscode.Uri.parse(message.key);
+      await vscode.window.showTextDocument(uri, { preview: true });
+      await openPreview(context, uri);
+    }),
+  ];
+  view.onDidDispose(() => listeners.forEach((listener) => listener.dispose()));
+}
+
+async function collectGallery(): Promise<{ files: GalleryFile[]; more: number }> {
+  const uris = await vscode.workspace.findFiles(ZUMEN_GLOB, '**/node_modules/**', MAX_FILES + 1);
+  const picked = uris.slice(0, MAX_FILES);
+  const files = await Promise.all(
+    picked.map(async (uri): Promise<GalleryFile> => {
+      const path = vscode.workspace.asRelativePath(uri);
+      const bytes = await vscode.workspace.fs.readFile(uri);
+      // 大きすぎる正本は、中身では探さない（一覧には載せる）。
+      const source = bytes.byteLength > MAX_BYTES ? '' : new TextDecoder().decode(bytes);
+      return { key: uri.toString(), path, title: titleOf(source, path), source };
+    }),
+  );
+  return { files, more: uris.length > MAX_FILES ? uris.length - MAX_FILES : 0 };
 }
 
 /** 開いているプレビュー（正本ごとに 1 つ）。開き直したら、新しく作らずに前へ出す。 */

@@ -13,6 +13,7 @@ Diagrams as code in VS Code: specialist drawings (lighting plots, floor plans, w
 3. **The zumen MCP tools for agent mode.** The MCP server ships inside the extension and runs on VS Code's own runtime.
    - **Copilot** (VS Code 1.101 or later) finds it automatically. Ask it to draw a diagram: it reads the spec and the bundled worked examples, creates the file, and proposes later edits as diffs.
    - **Terminal agents** (Claude Code and others): run **zumen: Connect Terminal Agents**. A terminal opens with `claude mcp add …` typed in; press Enter. Other agents can register the launcher path it shows as an MCP (stdio) server.
+4. **Every diagram in the workspace, in the Explorer.** The **zumen** view lists each `*.zumen.yaml` as a card with a thumbnail. Type in its search box to filter by title, path, or anything in the source (a label, an id, a section name); click a card to open the file with its preview. Up to 500 files are listed; sources over 512 KB are listed but not searched.
 
 The extension never writes your source. Agents propose; you apply.
 

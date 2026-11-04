@@ -11,6 +11,8 @@ import { describe, it } from 'node:test';
 import { claudeCodeCommand, launcher, shellQuote } from '../packages/zumen-vscode/src/agents.ts';
 import { draw, failure, themeOf } from '../packages/zumen-vscode/src/draw.ts';
 import { escapeHtml, isZumenFence, placeholder, zumenFence, type FenceRule, type FenceToken } from '../packages/zumen-vscode/src/fence.ts';
+import { search, titleOf, type GalleryFile } from '../packages/zumen-vscode/src/gallery.ts';
+import { galleryPage } from '../packages/zumen-vscode/src/gallery-page.ts';
 import { nonce, page } from '../packages/zumen-vscode/src/page.ts';
 import { collectZumenBlocks } from '../src/embed.ts';
 
@@ -188,5 +190,43 @@ describe('VS Code: 保存', async () => {
     const html = page({ script: 's', cspSource: 'c', nonce: 'n' });
     assert.match(html, /id="save-svg"/);
     assert.match(html, /id="save-png"/);
+  });
+});
+
+describe('VS Code: エクスプローラーの図の一覧', () => {
+  const file = (path: string, source: string): GalleryFile => ({ key: `file:///${path}`, path, title: titleOf(source, path), source });
+  const files = [
+    file('docs/infra/本番構成.zumen.yaml', 'title: 本番構成\nnodes:\n  - id: db\n    label: MariaDB\n'),
+    file('docs/stage/plot.zumen.yaml', "title: 'Light plot'\nparts:\n  par: {}\n"),
+    file('notes/untitled.zumen.yml', 'nodes: []\n'),
+  ];
+
+  it('題は正本の title、無ければファイル名（引用符は外す）', () => {
+    assert.deepEqual(files.map((f) => f.title), ['本番構成', 'Light plot', 'untitled']);
+  });
+
+  it('中身（ラベル・節の名前）でも探せる。語は全部を含むものだけ、大文字小文字は見ない', () => {
+    assert.deepEqual(search(files, 'mariadb').map((f) => f.title), ['本番構成']);
+    assert.deepEqual(search(files, 'parts').map((f) => f.title), ['Light plot']);
+    assert.deepEqual(search(files, 'docs mariadb').map((f) => f.title), ['本番構成']);
+    assert.deepEqual(search(files, 'docs nothing'), []);
+  });
+
+  it('空なら全部、場所の順。題か場所に当たったものを先に出す', () => {
+    assert.deepEqual(search(files, '').map((f) => f.path), files.map((f) => f.path));
+    const both = [file('a/x.zumen.yaml', 'title: A\nnodes: [{ id: stage }]\n'), file('b/stage.zumen.yaml', 'title: B\n')];
+    assert.deepEqual(search(both, 'stage').map((f) => f.title), ['B', 'A']);
+  });
+
+  it('欄の HTML は、同梱の台本 1 本だけを nonce 付きで許す', () => {
+    const html = galleryPage({ script: 'vscode-resource:/gallery.js', cspSource: 'vscode-resource:', nonce: 'N0NCE' });
+    assert.match(html, /script-src 'nonce-N0NCE'/);
+    assert.match(html, /default-src 'none'/);
+    assert.equal((html.match(/<script /g) ?? []).length, 1);
+  });
+
+  it('package.json に欄が載っている（エクスプローラーの webview）', () => {
+    const pkg = JSON.parse(readFileSync(new URL('../packages/zumen-vscode/package.json', import.meta.url), 'utf8'));
+    assert.deepEqual(pkg.contributes.views.explorer, [{ type: 'webview', id: 'zumen.gallery', name: 'zumen' }]);
   });
 });

@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- **zumen** view in the Explorer: every `*.zumen.yaml` in the workspace as a card with a thumbnail. Search by title, path or anything in the source (labels, ids, sections); click a card to open the file with its preview.
+
 ## 0.2.0
 
 - Bundles zumen 0.7.0: free lines and shapes (`paths`), dimensions measured from two points (`dims`), and reusable parts (`parts` / `place`) now draw in the preview and in ```` ```zumen ```` blocks.
