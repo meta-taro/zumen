@@ -2,6 +2,8 @@
 
 A Chrome extension that draws [zumen](https://meta-taro.github.io/zumen/) diagrams on github.com.
 
+**Install:** [Chrome Web Store](https://chromewebstore.google.com/detail/hfbganpoflmbpjcjaealnoceaeilelbe)
+
 - **Pull requests:** for every changed `*.zumen.yaml`, the diagram before and after the change, side by side. Added nodes are marked 新, removed nodes 消, and nodes a person placed by hand (`pins`) 人 — so you can see that an AI rewrite kept the human edits.
 - `*.zumen.yaml` files: the diagram appears above the source.
 - ```` ```zumen ```` blocks in Markdown (README, issues, pull requests): the diagram appears above each block.
@@ -19,6 +21,7 @@ pnpm chrome:package    # also writes zumen-chrome-<version>.zip for the Chrome W
 
 ## Links
 
+- Chrome Web Store: https://chromewebstore.google.com/detail/hfbganpoflmbpjcjaealnoceaeilelbe
 - Gallery of diagrams: https://meta-taro.github.io/zumen/
 - Source: https://github.com/meta-taro/zumen
 - VS Code extension: https://marketplace.visualstudio.com/items?itemName=meta-taro.zumen-vscode
