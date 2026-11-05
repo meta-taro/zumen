@@ -1,0 +1,615 @@
+version: 1
+kind: placement
+title: 日本語検定と日本語能力試験（測る相手が違う 2 つの「日本語」の試験）
+sources:
+  - name: "日本語検定委員会「検定概要」（受検級・受検時間・レベル・認定基準。JLPT とは別の検定）"
+    url: https://www.nihongokentei.jp/exam/
+    retrieved: 2026-11-05
+  - name: "日本語検定委員会「パンフレット」（領域：敬語・文法・語彙・言葉の意味・表記・漢字・総合問題）"
+    url: https://www.nihongokentei.jp/common/pdf/about/pamph.pdf
+    retrieved: 2026-11-05
+  - name: "日本語能力試験 JLPT「試験科目と試験時間」"
+    url: https://www.jlpt.jp/guideline/testsections.html
+    retrieved: 2026-11-05
+  - name: "日本語能力試験 JLPT「得点区分・合否判定・結果通知」（合格点と基準点）"
+    url: https://www.jlpt.jp/guideline/results.html
+    retrieved: 2026-11-05
+  - name: "日本語能力試験 JLPT「日本語能力試験について」（主催は国際交流基金と日本国際教育支援協会）"
+    url: https://www.jlpt.jp/about/index.html
+    retrieved: 2026-11-05
+# **同じ「日本語」の試験でも、受ける人が違う。** JLPT は日本語を母語としない人のため。日本語検定は別の検定で、級を学年と社会人の段階で示す。
+# 左右の級を横に並べても、対応はしない（どちらが難しいか、ではない）。
+#
+# 決まり（取得 2026-11-05）——
+# 日本語検定：受検級 1〜7 級。1〜3 級 60 分、4〜7 級 50 分。総合得点率で認定（1 級 80% 程度・2〜7 級 70% 程度）、
+#   届かなくても 1 つ下の割合（準 1 級 70%・準 2〜準 7 級 60%）で「準」の級に認定。令和 7 年度第 1 回から領域別 50% の基準は撤廃。
+# JLPT：N1〜N5。総合 0〜180 点で合格点以上、かつ得点区分ごとに基準点以上（N1〜N3 は 3 区分 各 19/60、N4・N5 は 38/120 と 19/60）。
+nodes:
+  - id: title
+    label: "日本語検定と日本語能力試験（JLPT）"
+    marker: none
+    align: center
+    at: { x: 40, y: 34 }
+    size: { w: 1180, h: 22 }
+  - id: lead
+    label: "JLPT は日本語を母語としない人のための試験。日本語検定はそれとは別の検定で、級を日本の学校の学年と社会人の段階で示す。左右の級は対応しない"
+    marker: none
+    align: center
+    at: { x: 40, y: 66 }
+    size: { w: 1180, h: 16 }
+  - id: nk_head
+    label: "日本語検定（日本語検定委員会）"
+    marker: none
+    align: left
+    at: { x: 40, y: 106 }
+    size: { w: 520, h: 18 }
+  - id: nk_h_grade
+    label: "受検級"
+    marker: none
+    align: left
+    at: { x: 40, y: 134 }
+    size: { w: 60, h: 14 }
+  - id: nk_h_level
+    label: "レベル"
+    marker: none
+    align: left
+    at: { x: 100, y: 134 }
+    size: { w: 150, h: 14 }
+  - id: nk_h_time
+    label: "受検時間"
+    marker: none
+    align: left
+    at: { x: 254, y: 134 }
+    size: { w: 144, h: 14 }
+  - id: nk_h_cert
+    label: "認定（総合得点率）"
+    marker: none
+    align: left
+    at: { x: 410, y: 134 }
+    size: { w: 180, h: 14 }
+  - id: nk_g1
+    label: "1級"
+    marker: none
+    align: left
+    at: { x: 40, y: 164 }
+    size: { w: 60, h: 16 }
+  - id: nk_l1
+    label: "社会人上級"
+    marker: none
+    align: left
+    at: { x: 100, y: 164 }
+    size: { w: 150, h: 16 }
+  - id: nk_t1
+    label: "60 分"
+    marker: box
+    at: { x: 254, y: 160 }
+    size: { w: 144, h: 24 }
+  - id: nk_c1
+    label: "1級 80% 程度・準1級 70% 程度"
+    marker: none
+    align: left
+    at: { x: 410, y: 164 }
+    size: { w: 200, h: 16 }
+  - id: nk_g2
+    label: "2級"
+    marker: none
+    align: left
+    at: { x: 40, y: 208 }
+    size: { w: 60, h: 16 }
+  - id: nk_l2
+    label: "大学卒業〜社会人中級"
+    marker: none
+    align: left
+    at: { x: 100, y: 208 }
+    size: { w: 150, h: 16 }
+  - id: nk_t2
+    label: "60 分"
+    marker: box
+    at: { x: 254, y: 204 }
+    size: { w: 144, h: 24 }
+  - id: nk_c2
+    label: "2級 70% 程度・準2級 60% 程度"
+    marker: none
+    align: left
+    at: { x: 410, y: 208 }
+    size: { w: 200, h: 16 }
+  - id: nk_g3
+    label: "3級"
+    marker: none
+    align: left
+    at: { x: 40, y: 252 }
+    size: { w: 60, h: 16 }
+  - id: nk_l3
+    label: "高校卒業〜社会人基礎"
+    marker: none
+    align: left
+    at: { x: 100, y: 252 }
+    size: { w: 150, h: 16 }
+  - id: nk_t3
+    label: "60 分"
+    marker: box
+    at: { x: 254, y: 248 }
+    size: { w: 144, h: 24 }
+  - id: nk_c3
+    label: "3級 70% 程度・準3級 60% 程度"
+    marker: none
+    align: left
+    at: { x: 410, y: 252 }
+    size: { w: 200, h: 16 }
+  - id: nk_g4
+    label: "4級"
+    marker: none
+    align: left
+    at: { x: 40, y: 296 }
+    size: { w: 60, h: 16 }
+  - id: nk_l4
+    label: "中学校卒業"
+    marker: none
+    align: left
+    at: { x: 100, y: 296 }
+    size: { w: 150, h: 16 }
+  - id: nk_t4
+    label: "50 分"
+    marker: box
+    at: { x: 254, y: 292 }
+    size: { w: 120, h: 24 }
+  - id: nk_c4
+    label: "4級 70% 程度・準4級 60% 程度"
+    marker: none
+    align: left
+    at: { x: 410, y: 296 }
+    size: { w: 200, h: 16 }
+  - id: nk_g5
+    label: "5級"
+    marker: none
+    align: left
+    at: { x: 40, y: 340 }
+    size: { w: 60, h: 16 }
+  - id: nk_l5
+    label: "小学校卒業"
+    marker: none
+    align: left
+    at: { x: 100, y: 340 }
+    size: { w: 150, h: 16 }
+  - id: nk_t5
+    label: "50 分"
+    marker: box
+    at: { x: 254, y: 336 }
+    size: { w: 120, h: 24 }
+  - id: nk_c5
+    label: "5級 70% 程度・準5級 60% 程度"
+    marker: none
+    align: left
+    at: { x: 410, y: 340 }
+    size: { w: 200, h: 16 }
+  - id: nk_g6
+    label: "6級"
+    marker: none
+    align: left
+    at: { x: 40, y: 384 }
+    size: { w: 60, h: 16 }
+  - id: nk_l6
+    label: "小学校4年生"
+    marker: none
+    align: left
+    at: { x: 100, y: 384 }
+    size: { w: 150, h: 16 }
+  - id: nk_t6
+    label: "50 分"
+    marker: box
+    at: { x: 254, y: 380 }
+    size: { w: 120, h: 24 }
+  - id: nk_c6
+    label: "6級 70% 程度・準6級 60% 程度"
+    marker: none
+    align: left
+    at: { x: 410, y: 384 }
+    size: { w: 200, h: 16 }
+  - id: nk_g7
+    label: "7級"
+    marker: none
+    align: left
+    at: { x: 40, y: 428 }
+    size: { w: 60, h: 16 }
+  - id: nk_l7
+    label: "小学校2年生"
+    marker: none
+    align: left
+    at: { x: 100, y: 428 }
+    size: { w: 150, h: 16 }
+  - id: nk_t7
+    label: "50 分"
+    marker: box
+    at: { x: 254, y: 424 }
+    size: { w: 120, h: 24 }
+  - id: nk_c7
+    label: "7級 70% 程度・準7級 60% 程度"
+    marker: none
+    align: left
+    at: { x: 410, y: 428 }
+    size: { w: 200, h: 16 }
+  - id: jl_head
+    label: "日本語能力試験 JLPT（国際交流基金・日本国際教育支援協会）"
+    marker: none
+    align: left
+    at: { x: 640, y: 106 }
+    size: { w: 580, h: 18 }
+  - id: jl_h_level
+    label: "レベル"
+    marker: none
+    align: left
+    at: { x: 640, y: 134 }
+    size: { w: 60, h: 14 }
+  - id: jl_h_time
+    label: "試験科目と時間（横の長さが時間）／その下に合格に要る点"
+    marker: none
+    align: left
+    at: { x: 700, y: 134 }
+    size: { w: 520, h: 14 }
+  - id: jl_l1
+    label: "N1"
+    marker: none
+    align: left
+    at: { x: 640, y: 164 }
+    size: { w: 60, h: 16 }
+  - id: jl_s1_1
+    label: ""
+    marker: box
+    hatch: cross
+    at: { x: 700, y: 160 }
+    size: { w: 264, h: 24 }
+  - id: jl_s1_2
+    label: ""
+    marker: box
+    at: { x: 964, y: 160 }
+    size: { w: 132, h: 24 }
+  - id: jl_m1_1
+    label: "言語知識・読解 110 分"
+    marker: none
+    align: left
+    at: { x: 700, y: 186 }
+    size: { w: 264, h: 14 }
+  - id: jl_m1_2
+    label: "聴解 55 分"
+    marker: none
+    align: left
+    at: { x: 964, y: 186 }
+    size: { w: 132, h: 14 }
+  - id: jl_p1
+    label: "総合 100/180 以上、3 区分とも 19/60 以上"
+    marker: none
+    align: left
+    at: { x: 700, y: 202 }
+    size: { w: 520, h: 14 }
+  - id: jl_l2
+    label: "N2"
+    marker: none
+    align: left
+    at: { x: 640, y: 226 }
+    size: { w: 60, h: 16 }
+  - id: jl_s2_1
+    label: ""
+    marker: box
+    hatch: cross
+    at: { x: 700, y: 222 }
+    size: { w: 252, h: 24 }
+  - id: jl_s2_2
+    label: ""
+    marker: box
+    at: { x: 952, y: 222 }
+    size: { w: 120, h: 24 }
+  - id: jl_m2_1
+    label: "言語知識・読解 105 分"
+    marker: none
+    align: left
+    at: { x: 700, y: 248 }
+    size: { w: 252, h: 14 }
+  - id: jl_m2_2
+    label: "聴解 50 分"
+    marker: none
+    align: left
+    at: { x: 952, y: 248 }
+    size: { w: 120, h: 14 }
+  - id: jl_p2
+    label: "総合 90/180 以上、3 区分とも 19/60 以上"
+    marker: none
+    align: left
+    at: { x: 700, y: 264 }
+    size: { w: 520, h: 14 }
+  - id: jl_l3
+    label: "N3"
+    marker: none
+    align: left
+    at: { x: 640, y: 288 }
+    size: { w: 60, h: 16 }
+  - id: jl_s3_1
+    label: ""
+    marker: box
+    hatch: dots
+    at: { x: 700, y: 284 }
+    size: { w: 72, h: 24 }
+  - id: jl_s3_2
+    label: ""
+    marker: box
+    hatch: lines
+    at: { x: 772, y: 284 }
+    size: { w: 168, h: 24 }
+  - id: jl_s3_3
+    label: ""
+    marker: box
+    at: { x: 940, y: 284 }
+    size: { w: 96, h: 24 }
+  - id: jl_m3_1
+    label: "30 分"
+    marker: none
+    align: left
+    at: { x: 700, y: 310 }
+    size: { w: 72, h: 14 }
+  - id: jl_m3_2
+    label: "文法・読解 70 分"
+    marker: none
+    align: left
+    at: { x: 772, y: 310 }
+    size: { w: 168, h: 14 }
+  - id: jl_m3_3
+    label: "聴解 40 分"
+    marker: none
+    align: left
+    at: { x: 940, y: 310 }
+    size: { w: 96, h: 14 }
+  - id: jl_p3
+    label: "総合 95/180 以上、3 区分とも 19/60 以上"
+    marker: none
+    align: left
+    at: { x: 700, y: 326 }
+    size: { w: 520, h: 14 }
+  - id: jl_l4
+    label: "N4"
+    marker: none
+    align: left
+    at: { x: 640, y: 350 }
+    size: { w: 60, h: 16 }
+  - id: jl_s4_1
+    label: ""
+    marker: box
+    hatch: dots
+    at: { x: 700, y: 346 }
+    size: { w: 60, h: 24 }
+  - id: jl_s4_2
+    label: ""
+    marker: box
+    hatch: lines
+    at: { x: 760, y: 346 }
+    size: { w: 132, h: 24 }
+  - id: jl_s4_3
+    label: ""
+    marker: box
+    at: { x: 892, y: 346 }
+    size: { w: 84, h: 24 }
+  - id: jl_m4_1
+    label: "25 分"
+    marker: none
+    align: left
+    at: { x: 700, y: 372 }
+    size: { w: 60, h: 14 }
+  - id: jl_m4_2
+    label: "文法・読解 55 分"
+    marker: none
+    align: left
+    at: { x: 760, y: 372 }
+    size: { w: 132, h: 14 }
+  - id: jl_m4_3
+    label: "聴解 35 分"
+    marker: none
+    align: left
+    at: { x: 892, y: 372 }
+    size: { w: 84, h: 14 }
+  - id: jl_p4
+    label: "総合 90/180 以上、言語知識・読解 38/120・聴解 19/60 以上"
+    marker: none
+    align: left
+    at: { x: 700, y: 388 }
+    size: { w: 520, h: 14 }
+  - id: jl_l5
+    label: "N5"
+    marker: none
+    align: left
+    at: { x: 640, y: 412 }
+    size: { w: 60, h: 16 }
+  - id: jl_s5_1
+    label: ""
+    marker: box
+    hatch: dots
+    at: { x: 700, y: 408 }
+    size: { w: 48, h: 24 }
+  - id: jl_s5_2
+    label: ""
+    marker: box
+    hatch: lines
+    at: { x: 748, y: 408 }
+    size: { w: 96, h: 24 }
+  - id: jl_s5_3
+    label: ""
+    marker: box
+    at: { x: 844, y: 408 }
+    size: { w: 72, h: 24 }
+  - id: jl_m5_1
+    label: "20 分"
+    marker: none
+    align: left
+    at: { x: 700, y: 434 }
+    size: { w: 48, h: 14 }
+  - id: jl_m5_2
+    label: "40 分"
+    marker: none
+    align: left
+    at: { x: 748, y: 434 }
+    size: { w: 96, h: 14 }
+  - id: jl_m5_3
+    label: "聴解 30 分"
+    marker: none
+    align: left
+    at: { x: 844, y: 434 }
+    size: { w: 72, h: 14 }
+  - id: jl_p5
+    label: "総合 80/180 以上、言語知識・読解 38/120・聴解 19/60 以上"
+    marker: none
+    align: left
+    at: { x: 700, y: 450 }
+    size: { w: 520, h: 14 }
+  - id: lg1
+    label: ""
+    marker: box
+    hatch: dots
+    at: { x: 640, y: 476 }
+    size: { w: 30, h: 14 }
+  - id: lgt1
+    label: "言語知識（文字・語彙）"
+    marker: none
+    align: left
+    at: { x: 680, y: 475 }
+    size: { w: 540, h: 16 }
+  - id: lg2
+    label: ""
+    marker: box
+    hatch: lines
+    at: { x: 640, y: 498 }
+    size: { w: 30, h: 14 }
+  - id: lgt2
+    label: "言語知識（文法）・読解"
+    marker: none
+    align: left
+    at: { x: 680, y: 497 }
+    size: { w: 540, h: 16 }
+  - id: lg3
+    label: ""
+    marker: box
+    hatch: cross
+    at: { x: 640, y: 520 }
+    size: { w: 30, h: 14 }
+  - id: lgt3
+    label: "言語知識（文字・語彙・文法）・読解（N1・N2 は 1 科目）"
+    marker: none
+    align: left
+    at: { x: 680, y: 519 }
+    size: { w: 540, h: 16 }
+  - id: lg4
+    label: ""
+    marker: box
+    at: { x: 640, y: 542 }
+    size: { w: 30, h: 14 }
+  - id: lgt4
+    label: "聴解"
+    marker: none
+    align: left
+    at: { x: 680, y: 541 }
+    size: { w: 540, h: 16 }
+  - id: nk_note
+    label: "日本語検定は 1 科目。届かなくても 1 つ下の割合なら「準」の級に認定される"
+    marker: none
+    align: left
+    at: { x: 40, y: 476 }
+    size: { w: 560, h: 16 }
+  - id: nk_note2
+    label: "令和 7 年度第 1 回から、領域ごとの得点率の基準は無くなり、総合得点率だけで認定"
+    marker: none
+    align: left
+    at: { x: 40, y: 498 }
+    size: { w: 560, h: 16 }
+  - id: ta0
+    label: ""
+    marker: box
+    at: { x: 40, y: 586 }
+    size: { w: 140, h: 26 }
+  - id: tb0
+    label: "日本語検定"
+    marker: box
+    align: center
+    at: { x: 180, y: 586 }
+    size: { w: 520, h: 26 }
+  - id: tc0
+    label: "日本語能力試験（JLPT）"
+    marker: box
+    align: center
+    at: { x: 700, y: 586 }
+    size: { w: 520, h: 26 }
+  - id: ta1
+    label: "受ける人"
+    marker: box
+    at: { x: 40, y: 612 }
+    size: { w: 140, h: 26 }
+  - id: tb1
+    label: "小学生から社会人まで。級を学年と社会人の段階で示す"
+    marker: box
+    align: left
+    at: { x: 180, y: 612 }
+    size: { w: 520, h: 26 }
+  - id: tc1
+    label: "日本語を母語としない人"
+    marker: box
+    align: left
+    at: { x: 700, y: 612 }
+    size: { w: 520, h: 26 }
+  - id: ta2
+    label: "段階"
+    marker: box
+    at: { x: 40, y: 638 }
+    size: { w: 140, h: 26 }
+  - id: tb2
+    label: "1〜7 級（受けた級か、1 つ下の「準」の級に認定）"
+    marker: box
+    align: left
+    at: { x: 180, y: 638 }
+    size: { w: 520, h: 26 }
+  - id: tc2
+    label: "N1〜N5（N1 がいちばん難しい）"
+    marker: box
+    align: left
+    at: { x: 700, y: 638 }
+    size: { w: 520, h: 26 }
+  - id: ta3
+    label: "測るもの"
+    marker: box
+    at: { x: 40, y: 664 }
+    size: { w: 140, h: 26 }
+  - id: tb3
+    label: "敬語・文法・語彙・言葉の意味・表記・漢字と、総合問題"
+    marker: box
+    align: left
+    at: { x: 180, y: 664 }
+    size: { w: 520, h: 26 }
+  - id: tc3
+    label: "言語知識（文字・語彙・文法）・読解・聴解"
+    marker: box
+    align: left
+    at: { x: 700, y: 664 }
+    size: { w: 520, h: 26 }
+  - id: ta4
+    label: "結果"
+    marker: box
+    at: { x: 40, y: 690 }
+    size: { w: 140, h: 26 }
+  - id: tb4
+    label: "総合得点率で認定。領域ごとの得点率も返る"
+    marker: box
+    align: left
+    at: { x: 180, y: 690 }
+    size: { w: 520, h: 26 }
+  - id: tc4
+    label: "総合得点が合格点以上、かつ区分ごとに基準点以上で合格"
+    marker: box
+    align: left
+    at: { x: 700, y: 690 }
+    size: { w: 520, h: 26 }
+  - id: nodraw
+    label: "描かなかったもの：問題の中身と数（公式の試験案内に問題数が無い）、受検料、試験日、JLPT の「認定の目安」の文。"
+    marker: none
+    align: left
+    at: { x: 40, y: 738 }
+    size: { w: 1180, h: 16 }
+  - id: src
+    label: "時間・認定基準・合格点は、日本語検定委員会と日本語能力試験の公式ページから引きました。"
+    marker: none
+    align: left
+    at: { x: 40, y: 762 }
+    size: { w: 1180, h: 16 }
