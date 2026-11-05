@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.3.0
 
 - **zumen** view in the Explorer: every `*.zumen.yaml` in the workspace as a card with a thumbnail. Search by title, path or anything in the source (labels, ids, sections); click a card to open the file with its preview.
 
