@@ -5,11 +5,17 @@ sources:
   - name: "IIBC「テストの形式と構成」（リスニング約 45 分・100 問、リーディング 75 分・100 問、Part 1〜7 の名前・問題数・形式）"
     url: https://www.iibc-global.org/toeic/test/lr/about/format.html
     retrieved: 2026-11-05
+  - name: "ETS「TOEIC Listening and Reading Test Examinee Handbook」（Part 3 は 13 の会話 × 3 問・Part 4 は 10 のトーク × 3 問・Part 7 は 10 文書 と 2〜3 文書 × 5 セット・図表の設問・テキストメッセージのやり取り）"
+    url: https://www.in.ets.org/content/dam/ets-india/pdfs/toeic/toeic-listening-reading-test-examinee-handbook.pdf
+    retrieved: 2026-11-05
   - name: "IIBC「TOEIC L&R について」（結果は合格・不合格ではなく、トータル 10〜990 点のスコア）"
     url: https://www.iibc-global.org/toeic/test/lr/about.html
     retrieved: 2026-11-05
   - name: "IIBC「テスト結果を確認する」（リスニング 5〜495 点・リーディング 5〜495 点・トータル 10〜990 点、5 点刻み）"
     url: https://www.iibc-global.org/toeic/test/lr/guide04.html
+    retrieved: 2026-11-05
+  - name: "日本英語検定協会「英検 CSE スコア」（成績表は全級で合否に加えて CSE スコアを表示）"
+    url: https://www.eiken.or.jp/cse/
     retrieved: 2026-11-05
   - name: "日本英語検定協会「各級の過去問・試験内容」（英検は級ごとの合否・二次は面接。見本 407 と同じ出典）"
     url: https://www.eiken.or.jp/eiken/exam/grade_2/
@@ -324,7 +330,7 @@ nodes:
     at: { x: 340, y: 452 }
     size: { w: 80, h: 24 }
   - id: pd2
-    label: "2〜3 人の会話。1 つに設問 3 つ"
+    label: "2〜3 人の会話。13 の会話 × 3 問。一部は図表を見て答える"
     marker: box
     align: left
     at: { x: 420, y: 452 }
@@ -346,7 +352,7 @@ nodes:
     at: { x: 340, y: 476 }
     size: { w: 80, h: 24 }
   - id: pd3
-    label: "アナウンスなどの短いトーク。1 つに設問 3 つ"
+    label: "アナウンスなどの短いトーク。10 のトーク × 3 問"
     marker: box
     align: left
     at: { x: 420, y: 476 }
@@ -412,7 +418,7 @@ nodes:
     at: { x: 340, y: 548 }
     size: { w: 80, h: 24 }
   - id: pd6
-    label: "文書 1 つに設問数問"
+    label: "10 文書、各 2〜4 問"
     marker: box
     align: left
     at: { x: 420, y: 548 }
@@ -434,7 +440,7 @@ nodes:
     at: { x: 340, y: 572 }
     size: { w: 80, h: 24 }
   - id: pd7
-    label: "関連する文書を読み合わせる"
+    label: "2 つまたは 3 つの文書 × 5 セット、各 5 問"
     marker: box
     align: left
     at: { x: 420, y: 572 }
@@ -526,7 +532,7 @@ nodes:
     at: { x: 170, y: 776 }
     size: { w: 445, h: 24 }
   - id: ec1
-    label: "級ごとに合格・不合格"
+    label: "級ごとの合否（英検 CSE スコアも出る）"
     marker: box
     align: left
     at: { x: 615, y: 776 }
@@ -577,20 +583,26 @@ nodes:
     at: { x: 170, y: 848 }
     size: { w: 445, h: 24 }
   - id: ec4
-    label: "マークシート＋英作文、面接"
+    label: "3 級以上はマークシート＋英作文、面接"
     marker: box
     align: left
     at: { x: 615, y: 848 }
     size: { w: 445, h: 24 }
-  - id: nodraw
-    label: "描かなかったもの：問題文と選択肢（著作権）、Part ごとの時間（公表されていない）、形式が変わった年ごとの違い、正答数からスコアを出すしかた。"
+  - id: forms
+    label: "文書の形：記事・E メールのほか、チャットやテキストメッセージのやり取りも出る。Part 3・4 には、問題用紙の図表を見て答える設問もある。"
     marker: none
     align: left
     at: { x: 60, y: 894 }
     size: { w: 1000, h: 16 }
-  - id: src
-    label: "問題数・時間・スコアの範囲は、TOEIC を日本で実施している IIBC（国際ビジネスコミュニケーション協会）の公式ページから引きました。"
+  - id: nodraw
+    label: "描かなかったもの：問題文と選択肢（著作権）、Part ごとの時間（公表されていない）、形式が変わった年ごとの違い、正答数からスコアを出すしかた。"
     marker: none
     align: left
     at: { x: 60, y: 918 }
+    size: { w: 1000, h: 16 }
+  - id: src
+    label: "数字は、TOEIC を日本で実施する IIBC（国際ビジネスコミュニケーション協会）の公式ページと、ETS のハンドブックから引きました。"
+    marker: none
+    align: left
+    at: { x: 60, y: 942 }
     size: { w: 1000, h: 16 }
