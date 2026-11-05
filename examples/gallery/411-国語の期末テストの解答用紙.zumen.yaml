@@ -1,0 +1,871 @@
+version: 1
+kind: placement
+title: 国語の期末テストの解答用紙（縦書きで、右から左へ。記述は原稿用紙のマス目）
+sources:
+  - name: "Z会作文クラブ「原稿用紙の使い方」（段落は 1 マス下げる・句読点は 1 マスに 1 つで右上・行頭に書かず最後のマスに一緒か欄外・小さい字も 1 マス・会話の終わりの。と」は 1 マスに一緒）"
+    url: https://service.zkai.co.jp/el/course/sakubun_club/sakubun-kakikata/genkouyoushi.html
+    retrieved: 2026-11-05
+  - name: "ベネッセ教育情報「作文の書き方のコツは？原稿用紙の使い方のルール」（会話文は行を変えて書くことが多い・書き方は教科書によって違うので学校の指導に従う）"
+    url: https://benesse.jp/kyouiku/202303/20230331-1.html
+    retrieved: 2026-11-05
+# **国語の解答用紙は、縦書きで右から左へ進む。** ほかの 4 教科と逆向き。
+#
+# 決まり（Z会・ベネッセ、取得 2026-11-05）——
+# 段落の書き出しは 1 マスあける。句読点は 1 マスに 1 つ、マスの右上。行頭には書かない（行末なら最後のマスに一緒か欄外）。
+# 小さい「っ」も 1 マス。会話は行を変えて「」で、終わりの。と」は 1 マスに一緒。
+# 用紙は架空。どの学校・出版社の様式の写しでもない。記述の例文も、この図のために書いたもの。
+nodes:
+  - id: title
+    label: "第 2 学期 期末テスト　国語　解答用紙（架空の様式）"
+    marker: none
+    align: center
+    at: { x: 40, y: 30 }
+    size: { w: 1180, h: 22 }
+  - id: hk0
+    label: "年"
+    marker: box
+    at: { x: 40, y: 70 }
+    size: { w: 50, h: 32 }
+  - id: hv0
+    label: ""
+    marker: box
+    at: { x: 90, y: 70 }
+    size: { w: 60, h: 32 }
+  - id: hk1
+    label: "組"
+    marker: box
+    at: { x: 160, y: 70 }
+    size: { w: 50, h: 32 }
+  - id: hv1
+    label: ""
+    marker: box
+    at: { x: 210, y: 70 }
+    size: { w: 60, h: 32 }
+  - id: hk2
+    label: "番"
+    marker: box
+    at: { x: 280, y: 70 }
+    size: { w: 50, h: 32 }
+  - id: hv2
+    label: ""
+    marker: box
+    at: { x: 330, y: 70 }
+    size: { w: 60, h: 32 }
+  - id: hk3
+    label: "氏名"
+    marker: box
+    at: { x: 400, y: 70 }
+    size: { w: 50, h: 32 }
+  - id: hv3
+    label: ""
+    marker: box
+    at: { x: 450, y: 70 }
+    size: { w: 220, h: 32 }
+  - id: hk4
+    label: "得点"
+    marker: box
+    at: { x: 680, y: 70 }
+    size: { w: 50, h: 32 }
+  - id: hv4
+    label: "／100"
+    marker: box
+    align: right
+    at: { x: 730, y: 70 }
+    size: { w: 120, h: 32 }
+  - id: dir
+    label: "一から順に、右から左へ"
+    marker: none
+    align: right
+    at: { x: 960, y: 78 }
+    size: { w: 260, h: 16 }
+  - id: frame
+    label: ""
+    marker: box
+    at: { x: 40, y: 120 }
+    size: { w: 1180, h: 580 }
+  - id: s1_0
+    label: "一"
+    marker: none
+    align: center
+    at: { x: 1180, y: 140 }
+    size: { w: 20, h: 20 }
+  - id: s1k0_0
+    label: "読"
+    marker: none
+    align: center
+    at: { x: 1150, y: 140 }
+    size: { w: 20, h: 20 }
+  - id: s1k0_1
+    label: "み"
+    marker: none
+    align: center
+    at: { x: 1150, y: 160 }
+    size: { w: 20, h: 20 }
+  - id: s1n00_0
+    label: "①"
+    marker: none
+    align: center
+    at: { x: 1118, y: 140 }
+    size: { w: 20, h: 20 }
+  - id: s1b00
+    label: ""
+    marker: box
+    at: { x: 1114, y: 164 }
+    size: { w: 26, h: 110 }
+  - id: s1n01_0
+    label: "②"
+    marker: none
+    align: center
+    at: { x: 1082, y: 140 }
+    size: { w: 20, h: 20 }
+  - id: s1b01
+    label: ""
+    marker: box
+    at: { x: 1078, y: 164 }
+    size: { w: 26, h: 110 }
+  - id: s1n02_0
+    label: "③"
+    marker: none
+    align: center
+    at: { x: 1046, y: 140 }
+    size: { w: 20, h: 20 }
+  - id: s1b02
+    label: ""
+    marker: box
+    at: { x: 1042, y: 164 }
+    size: { w: 26, h: 110 }
+  - id: s1n03_0
+    label: "④"
+    marker: none
+    align: center
+    at: { x: 1010, y: 140 }
+    size: { w: 20, h: 20 }
+  - id: s1b03
+    label: ""
+    marker: box
+    at: { x: 1006, y: 164 }
+    size: { w: 26, h: 110 }
+  - id: s1how0
+    label: "ひらがなで"
+    marker: none
+    align: center
+    at: { x: 1010, y: 310 }
+    size: { w: 120, h: 14 }
+  - id: s1k1_0
+    label: "書"
+    marker: none
+    align: center
+    at: { x: 980, y: 140 }
+    size: { w: 20, h: 20 }
+  - id: s1k1_1
+    label: "き"
+    marker: none
+    align: center
+    at: { x: 980, y: 160 }
+    size: { w: 20, h: 20 }
+  - id: s1n10_0
+    label: "①"
+    marker: none
+    align: center
+    at: { x: 948, y: 140 }
+    size: { w: 20, h: 20 }
+  - id: s1b10
+    label: ""
+    marker: box
+    at: { x: 944, y: 164 }
+    size: { w: 26, h: 110 }
+  - id: s1n11_0
+    label: "②"
+    marker: none
+    align: center
+    at: { x: 912, y: 140 }
+    size: { w: 20, h: 20 }
+  - id: s1b11
+    label: ""
+    marker: box
+    at: { x: 908, y: 164 }
+    size: { w: 26, h: 110 }
+  - id: s1n12_0
+    label: "③"
+    marker: none
+    align: center
+    at: { x: 876, y: 140 }
+    size: { w: 20, h: 20 }
+  - id: s1b12
+    label: ""
+    marker: box
+    at: { x: 872, y: 164 }
+    size: { w: 26, h: 110 }
+  - id: s1n13_0
+    label: "④"
+    marker: none
+    align: center
+    at: { x: 840, y: 140 }
+    size: { w: 20, h: 20 }
+  - id: s1b13
+    label: ""
+    marker: box
+    at: { x: 836, y: 164 }
+    size: { w: 26, h: 110 }
+  - id: s1how1
+    label: "漢字で"
+    marker: none
+    align: center
+    at: { x: 840, y: 310 }
+    size: { w: 120, h: 14 }
+  - id: s2_0
+    label: "二"
+    marker: none
+    align: center
+    at: { x: 800, y: 140 }
+    size: { w: 20, h: 20 }
+  - id: s2n0_0
+    label: "問"
+    marker: none
+    align: center
+    at: { x: 768, y: 140 }
+    size: { w: 20, h: 20 }
+  - id: s2n0_1
+    label: "一"
+    marker: none
+    align: center
+    at: { x: 768, y: 160 }
+    size: { w: 20, h: 20 }
+  - id: s2b0
+    label: ""
+    marker: box
+    at: { x: 764, y: 184 }
+    size: { w: 26, h: 26 }
+  - id: s2n1_0
+    label: "問"
+    marker: none
+    align: center
+    at: { x: 732, y: 140 }
+    size: { w: 20, h: 20 }
+  - id: s2n1_1
+    label: "二"
+    marker: none
+    align: center
+    at: { x: 732, y: 160 }
+    size: { w: 20, h: 20 }
+  - id: s2b1
+    label: ""
+    marker: box
+    at: { x: 728, y: 184 }
+    size: { w: 26, h: 26 }
+  - id: s2n2_0
+    label: "問"
+    marker: none
+    align: center
+    at: { x: 696, y: 140 }
+    size: { w: 20, h: 20 }
+  - id: s2n2_1
+    label: "三"
+    marker: none
+    align: center
+    at: { x: 696, y: 160 }
+    size: { w: 20, h: 20 }
+  - id: s2b2
+    label: ""
+    marker: box
+    at: { x: 692, y: 184 }
+    size: { w: 26, h: 26 }
+  - id: s2n3_0
+    label: "問"
+    marker: none
+    align: center
+    at: { x: 660, y: 140 }
+    size: { w: 20, h: 20 }
+  - id: s2n3_1
+    label: "四"
+    marker: none
+    align: center
+    at: { x: 660, y: 160 }
+    size: { w: 20, h: 20 }
+  - id: s2b3
+    label: ""
+    marker: box
+    at: { x: 656, y: 184 }
+    size: { w: 26, h: 26 }
+  - id: s2how
+    label: "記号で（ア〜エ）"
+    marker: none
+    align: center
+    at: { x: 670, y: 220 }
+    size: { w: 120, h: 14 }
+  - id: s3_0
+    label: "三"
+    marker: none
+    align: center
+    at: { x: 620, y: 140 }
+    size: { w: 20, h: 20 }
+  - id: s3n_0
+    label: "問"
+    marker: none
+    align: center
+    at: { x: 588, y: 140 }
+    size: { w: 20, h: 20 }
+  - id: s3n_1
+    label: "一"
+    marker: none
+    align: center
+    at: { x: 588, y: 160 }
+    size: { w: 20, h: 20 }
+  - id: s3m0
+    label: ""
+    marker: box
+    at: { x: 584, y: 184 }
+    size: { w: 24, h: 24 }
+  - id: s3m1
+    label: ""
+    marker: box
+    at: { x: 584, y: 208 }
+    size: { w: 24, h: 24 }
+  - id: s3m2
+    label: ""
+    marker: box
+    at: { x: 584, y: 232 }
+    size: { w: 24, h: 24 }
+  - id: s3m3
+    label: ""
+    marker: box
+    at: { x: 584, y: 256 }
+    size: { w: 24, h: 24 }
+  - id: s3m4
+    label: ""
+    marker: box
+    at: { x: 584, y: 280 }
+    size: { w: 24, h: 24 }
+  - id: s3m5
+    label: ""
+    marker: box
+    at: { x: 584, y: 304 }
+    size: { w: 24, h: 24 }
+  - id: s3m6
+    label: ""
+    marker: box
+    at: { x: 584, y: 328 }
+    size: { w: 24, h: 24 }
+  - id: s3m7
+    label: ""
+    marker: box
+    at: { x: 584, y: 352 }
+    size: { w: 24, h: 24 }
+  - id: s3m8
+    label: ""
+    marker: box
+    at: { x: 584, y: 376 }
+    size: { w: 24, h: 24 }
+  - id: s3m9
+    label: ""
+    marker: box
+    at: { x: 584, y: 400 }
+    size: { w: 24, h: 24 }
+  - id: s3how
+    label: "十字で\n抜き出す\n句読点も\n一字に数える"
+    marker: none
+    align: center
+    at: { x: 553, y: 432 }
+    size: { w: 90, h: 64 }
+  - id: s4_0
+    label: "四"
+    marker: none
+    align: center
+    at: { x: 520, y: 140 }
+    size: { w: 20, h: 20 }
+  - id: s4n_0
+    label: "問"
+    marker: none
+    align: center
+    at: { x: 488, y: 140 }
+    size: { w: 20, h: 20 }
+  - id: s4n_1
+    label: "一"
+    marker: none
+    align: center
+    at: { x: 488, y: 160 }
+    size: { w: 20, h: 20 }
+  - id: g0_0
+    label: ""
+    marker: box
+    at: { x: 460, y: 184 }
+    size: { w: 32, h: 32 }
+  - id: g0_1
+    label: "ぼ"
+    marker: box
+    at: { x: 460, y: 216 }
+    size: { w: 32, h: 32 }
+  - id: g0_2
+    label: "く"
+    marker: box
+    at: { x: 460, y: 248 }
+    size: { w: 32, h: 32 }
+  - id: g0_3
+    label: "は"
+    marker: box
+    at: { x: 460, y: 280 }
+    size: { w: 32, h: 32 }
+  - id: g0_4
+    label: "走"
+    marker: box
+    at: { x: 460, y: 312 }
+    size: { w: 32, h: 32 }
+  - id: g0_5
+    label: "っ"
+    marker: box
+    at: { x: 460, y: 344 }
+    size: { w: 32, h: 32 }
+  - id: g0_6
+    label: "た"
+    marker: box
+    at: { x: 460, y: 376 }
+    size: { w: 32, h: 32 }
+  - id: g0_7
+    label: "が"
+    marker: box
+    at: { x: 460, y: 408 }
+    size: { w: 32, h: 32 }
+  - id: g0_8
+    label: "︑"
+    marker: box
+    at: { x: 460, y: 440 }
+    size: { w: 32, h: 32 }
+  - id: g0_9
+    label: "電"
+    marker: box
+    at: { x: 460, y: 472 }
+    size: { w: 32, h: 32 }
+  - id: g0_10
+    label: "車"
+    marker: box
+    at: { x: 460, y: 504 }
+    size: { w: 32, h: 32 }
+  - id: g0_11
+    label: "は"
+    marker: box
+    at: { x: 460, y: 536 }
+    size: { w: 32, h: 32 }
+  - id: g0_12
+    label: "去"
+    marker: box
+    at: { x: 460, y: 568 }
+    size: { w: 32, h: 32 }
+  - id: g0_13
+    label: "っ"
+    marker: box
+    at: { x: 460, y: 600 }
+    size: { w: 32, h: 32 }
+  - id: g0_14
+    label: "た"
+    marker: box
+    at: { x: 460, y: 632 }
+    size: { w: 32, h: 32 }
+  - id: g1_0
+    label: "﹁"
+    marker: box
+    at: { x: 428, y: 184 }
+    size: { w: 32, h: 32 }
+  - id: g1_1
+    label: "ま"
+    marker: box
+    at: { x: 428, y: 216 }
+    size: { w: 32, h: 32 }
+  - id: g1_2
+    label: "だ"
+    marker: box
+    at: { x: 428, y: 248 }
+    size: { w: 32, h: 32 }
+  - id: g1_3
+    label: "次"
+    marker: box
+    at: { x: 428, y: 280 }
+    size: { w: 32, h: 32 }
+  - id: g1_4
+    label: "が"
+    marker: box
+    at: { x: 428, y: 312 }
+    size: { w: 32, h: 32 }
+  - id: g1_5
+    label: "あ"
+    marker: box
+    at: { x: 428, y: 344 }
+    size: { w: 32, h: 32 }
+  - id: g1_6
+    label: "る"
+    marker: box
+    at: { x: 428, y: 376 }
+    size: { w: 32, h: 32 }
+  - id: g1_7
+    label: "よ"
+    marker: box
+    at: { x: 428, y: 408 }
+    size: { w: 32, h: 32 }
+  - id: g1_8
+    label: "﹂"
+    marker: box
+    at: { x: 428, y: 440 }
+    size: { w: 32, h: 32 }
+  - id: g1_9
+    label: ""
+    marker: box
+    at: { x: 428, y: 472 }
+    size: { w: 32, h: 32 }
+  - id: g1_10
+    label: ""
+    marker: box
+    at: { x: 428, y: 504 }
+    size: { w: 32, h: 32 }
+  - id: g1_11
+    label: ""
+    marker: box
+    at: { x: 428, y: 536 }
+    size: { w: 32, h: 32 }
+  - id: g1_12
+    label: ""
+    marker: box
+    at: { x: 428, y: 568 }
+    size: { w: 32, h: 32 }
+  - id: g1_13
+    label: ""
+    marker: box
+    at: { x: 428, y: 600 }
+    size: { w: 32, h: 32 }
+  - id: g1_14
+    label: ""
+    marker: box
+    at: { x: 428, y: 632 }
+    size: { w: 32, h: 32 }
+  - id: g2_0
+    label: "と"
+    marker: box
+    at: { x: 396, y: 184 }
+    size: { w: 32, h: 32 }
+  - id: g2_1
+    label: "母"
+    marker: box
+    at: { x: 396, y: 216 }
+    size: { w: 32, h: 32 }
+  - id: g2_2
+    label: "が"
+    marker: box
+    at: { x: 396, y: 248 }
+    size: { w: 32, h: 32 }
+  - id: g2_3
+    label: "笑"
+    marker: box
+    at: { x: 396, y: 280 }
+    size: { w: 32, h: 32 }
+  - id: g2_4
+    label: "っ"
+    marker: box
+    at: { x: 396, y: 312 }
+    size: { w: 32, h: 32 }
+  - id: g2_5
+    label: "た"
+    marker: box
+    at: { x: 396, y: 344 }
+    size: { w: 32, h: 32 }
+  - id: g2_6
+    label: "︒"
+    marker: box
+    at: { x: 396, y: 376 }
+    size: { w: 32, h: 32 }
+  - id: g2_7
+    label: ""
+    marker: box
+    at: { x: 396, y: 408 }
+    size: { w: 32, h: 32 }
+  - id: g2_8
+    label: ""
+    marker: box
+    at: { x: 396, y: 440 }
+    size: { w: 32, h: 32 }
+  - id: g2_9
+    label: ""
+    marker: box
+    at: { x: 396, y: 472 }
+    size: { w: 32, h: 32 }
+  - id: g2_10
+    label: ""
+    marker: box
+    at: { x: 396, y: 504 }
+    size: { w: 32, h: 32 }
+  - id: g2_11
+    label: ""
+    marker: box
+    at: { x: 396, y: 536 }
+    size: { w: 32, h: 32 }
+  - id: g2_12
+    label: ""
+    marker: box
+    at: { x: 396, y: 568 }
+    size: { w: 32, h: 32 }
+  - id: g2_13
+    label: ""
+    marker: box
+    at: { x: 396, y: 600 }
+    size: { w: 32, h: 32 }
+  - id: g2_14
+    label: ""
+    marker: box
+    at: { x: 396, y: 632 }
+    size: { w: 32, h: 32 }
+  - id: g3_0
+    label: ""
+    marker: box
+    at: { x: 364, y: 184 }
+    size: { w: 32, h: 32 }
+  - id: g3_1
+    label: ""
+    marker: box
+    at: { x: 364, y: 216 }
+    size: { w: 32, h: 32 }
+  - id: g3_2
+    label: ""
+    marker: box
+    at: { x: 364, y: 248 }
+    size: { w: 32, h: 32 }
+  - id: g3_3
+    label: ""
+    marker: box
+    at: { x: 364, y: 280 }
+    size: { w: 32, h: 32 }
+  - id: g3_4
+    label: ""
+    marker: box
+    at: { x: 364, y: 312 }
+    size: { w: 32, h: 32 }
+  - id: g3_5
+    label: ""
+    marker: box
+    at: { x: 364, y: 344 }
+    size: { w: 32, h: 32 }
+  - id: g3_6
+    label: ""
+    marker: box
+    at: { x: 364, y: 376 }
+    size: { w: 32, h: 32 }
+  - id: g3_7
+    label: ""
+    marker: box
+    at: { x: 364, y: 408 }
+    size: { w: 32, h: 32 }
+  - id: g3_8
+    label: ""
+    marker: box
+    at: { x: 364, y: 440 }
+    size: { w: 32, h: 32 }
+  - id: g3_9
+    label: ""
+    marker: box
+    at: { x: 364, y: 472 }
+    size: { w: 32, h: 32 }
+  - id: g3_10
+    label: ""
+    marker: box
+    at: { x: 364, y: 504 }
+    size: { w: 32, h: 32 }
+  - id: g3_11
+    label: ""
+    marker: box
+    at: { x: 364, y: 536 }
+    size: { w: 32, h: 32 }
+  - id: g3_12
+    label: ""
+    marker: box
+    at: { x: 364, y: 568 }
+    size: { w: 32, h: 32 }
+  - id: g3_13
+    label: ""
+    marker: box
+    at: { x: 364, y: 600 }
+    size: { w: 32, h: 32 }
+  - id: g3_14
+    label: ""
+    marker: box
+    at: { x: 364, y: 632 }
+    size: { w: 32, h: 32 }
+  - id: dot_end
+    label: ""
+    marker: circle
+    at: { x: 483, y: 655 }
+    size: { w: 6, h: 6 }
+  - id: dot_kagi
+    label: ""
+    marker: circle
+    at: { x: 451, y: 443 }
+    size: { w: 6, h: 6 }
+  - id: total15
+    label: "15"
+    marker: none
+    align: center
+    at: { x: 460, y: 666 }
+    size: { w: 32, h: 14 }
+  - id: total30
+    label: "30"
+    marker: none
+    align: center
+    at: { x: 428, y: 666 }
+    size: { w: 32, h: 14 }
+  - id: total45
+    label: "45"
+    marker: none
+    align: center
+    at: { x: 396, y: 666 }
+    size: { w: 32, h: 14 }
+  - id: total60
+    label: "60"
+    marker: none
+    align: center
+    at: { x: 364, y: 666 }
+    size: { w: 32, h: 14 }
+  - id: s4how
+    label: "六十字以内（15 マス × 4 行）"
+    marker: none
+    align: center
+    at: { x: 320, y: 686 }
+    size: { w: 210, h: 14 }
+  - id: c1
+    label: "①"
+    marker: none
+    align: center
+    at: { x: 492, y: 190 }
+    size: { w: 20, h: 20 }
+  - id: c2
+    label: "②"
+    marker: none
+    align: center
+    at: { x: 492, y: 350 }
+    size: { w: 20, h: 20 }
+  - id: c3
+    label: "③"
+    marker: none
+    align: center
+    at: { x: 492, y: 446 }
+    size: { w: 20, h: 20 }
+  - id: c4
+    label: "④"
+    marker: none
+    align: center
+    at: { x: 492, y: 638 }
+    size: { w: 20, h: 20 }
+  - id: sep0
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 826, y: 134 }
+    size: { w: 1.2, h: 560 }
+  - id: sep1
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 648, y: 134 }
+    size: { w: 1.2, h: 560 }
+  - id: sep2
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 548, y: 134 }
+    size: { w: 1.2, h: 560 }
+  - id: rhead
+    label: "原稿用紙の決まり（四の記述の欄。丸数字はマスの横の番号）"
+    marker: none
+    align: left
+    at: { x: 40, y: 720 }
+    size: { w: 1180, h: 18 }
+  - id: rn0
+    label: "①"
+    marker: box
+    at: { x: 40, y: 744 }
+    size: { w: 40, h: 26 }
+  - id: rt0
+    label: "段落の書き出しは 1 マスあける（1 行目の上の空き）"
+    marker: box
+    align: left
+    at: { x: 80, y: 744 }
+    size: { w: 1140, h: 26 }
+  - id: rn1
+    label: "②"
+    marker: box
+    at: { x: 40, y: 770 }
+    size: { w: 40, h: 26 }
+  - id: rt1
+    label: "小さい「っ」「ゃ」も 1 マス使い、マスの右側（右上寄り）に書く"
+    marker: box
+    align: left
+    at: { x: 80, y: 770 }
+    size: { w: 1140, h: 26 }
+  - id: rn2
+    label: "③"
+    marker: box
+    at: { x: 40, y: 796 }
+    size: { w: 40, h: 26 }
+  - id: rt2
+    label: "句読点も 1 マスに 1 つ、マスの右上。句読点と閉じかぎ」は、行の頭には書かない"
+    marker: box
+    align: left
+    at: { x: 80, y: 796 }
+    size: { w: 1140, h: 26 }
+  - id: rn3
+    label: "④"
+    marker: box
+    at: { x: 40, y: 822 }
+    size: { w: 40, h: 26 }
+  - id: rt3
+    label: "行末で句読点のマスが無いときは、最後のマスに前の字と一緒に入れる（欄外に書くやり方もある）"
+    marker: box
+    align: left
+    at: { x: 80, y: 822 }
+    size: { w: 1140, h: 26 }
+  - id: rn4
+    label: "⑤"
+    marker: box
+    at: { x: 40, y: 848 }
+    size: { w: 40, h: 26 }
+  - id: rt4
+    label: "会話は行を変えて「」で書き、終わりの。と」は 1 マスに一緒（2 行目）。」の前の。を書かない先生もいる"
+    marker: box
+    align: left
+    at: { x: 80, y: 848 }
+    size: { w: 1140, h: 26 }
+  - id: rn5
+    label: "⑥"
+    marker: box
+    at: { x: 40, y: 874 }
+    size: { w: 40, h: 26 }
+  - id: rt5
+    label: "会話が 2 行以上になるとき、2 行目の頭を 1 マスあけるやり方と、あけないやり方がある（例文では出てこない）"
+    marker: box
+    align: left
+    at: { x: 80, y: 874 }
+    size: { w: 1140, h: 26 }
+  - id: c5
+    label: "⑤"
+    marker: none
+    align: center
+    at: { x: 431, y: 162 }
+    size: { w: 20, h: 20 }
+  - id: rvar
+    label: "細かい決まり（とくに④⑤⑥）は教科書や先生で違う。迷ったら、授業で習った書き方に従う。"
+    marker: none
+    align: left
+    at: { x: 40, y: 908 }
+    size: { w: 1180, h: 16 }
+  - id: nodraw
+    label: "描かなかったもの：問題文と本文（著作権があるので、問いは「問一」とだけ書いた）、配点、作文の題名と名前、数字・ダッシュ・三点リーダーの書き方。"
+    marker: none
+    align: left
+    at: { x: 40, y: 936 }
+    size: { w: 1180, h: 16 }
+  - id: nodraw2
+    label: "句読点は縦書き用の字形（︑︒）で書いた。小さい「っ」は、マスの右側に寄せる書き方が描けないので中央に置いた。"
+    marker: none
+    align: left
+    at: { x: 40, y: 960 }
+    size: { w: 1180, h: 16 }
+  - id: note2
+    label: "原稿用紙の決まりは Z会とベネッセの解説から引きました。記述の例文は、この図のために書いた架空の文です。"
+    marker: none
+    align: left
+    at: { x: 40, y: 984 }
+    size: { w: 1180, h: 16 }

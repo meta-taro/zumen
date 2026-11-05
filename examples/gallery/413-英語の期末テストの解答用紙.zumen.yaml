@@ -1,0 +1,627 @@
+version: 1
+kind: placement
+title: 英語の期末テストの解答用紙（4 線の罫・並べかえ・語数を数える英作文）
+sources:
+  - name: "神奈川県教育委員会「令和 6 年度 公立高等学校入学者選抜 学力検査 英語 問題」（リスニングは放送の指示にしたがう・メモ可、短縮形は 1 語・符号は語数に含めない、活字体でも筆記体でもよい）"
+    url: https://www.pref.kanagawa.jp/documents/107635/r6eigo_zen_mon.pdf
+    retrieved: 2026-11-05
+  - name: "神奈川県教育委員会「令和 7 年度 リスニングテスト放送台本」（対話は 2 回ずつ、英文は 2 回放送します）"
+    url: https://www.pref.kanagawa.jp/documents/118043/1_r7eigo_daihon.pdf
+    retrieved: 2026-11-05
+  - name: "羽島市立中央中学校「英語 1 年生・アルファベットの書き方」（4 線の名前、第 3 線が基線、大文字は基線より上、小文字は 3 つの組）"
+    url: https://www.hashima-gifu.ed.jp/chuou-jh/blog/pdf/301e5a209879cbadcc1235432953472b2c63f645.pdf
+    retrieved: 2026-11-05
+  - name: "宮城県総合教育センター「指導・支援アイデア 書くこと 3」（4 線と基線・語を 1 文字分空けて区切る・大文字で書くとき・文末の . や ?・読点の代わりの ,）"
+    url: https://www.edu-c.pref.miyagi.jp/midori/gaikokugo/eigo2021/img/file213.pdf
+    retrieved: 2026-11-05
+# **英語の解答用紙だけにあるのは、4 線の罫と、語数を数える欄。**
+#
+# 決まり（取得 2026-11-05）——
+# 4 線は上からアセンダライン・ミーンライン・ベースライン（基線、太線や赤線）・ディセンダライン（羽島市立中央中学校）。
+# 大文字は第 1〜第 3 線、x 高さの小文字は第 2〜第 3 線、b d f h k l は第 1 線まで、g j p q y は第 4 線まで。
+# 短縮形は 1 語、符号は語数に含めない（神奈川県 R6）。記入例は 12 語：I'm / going / to / visit / Kyoto / and / I / want / to / see / old / temples。
+nodes:
+  - id: title
+    label: "英語 期末テスト 解答用紙（架空の様式）"
+    marker: none
+    align: left
+    at: { x: 40, y: 30 }
+    size: { w: 400, h: 22 }
+  - id: hk_年
+    label: "年"
+    marker: box
+    at: { x: 470, y: 26 }
+    size: { w: 44, h: 30 }
+  - id: hv_年
+    label: ""
+    marker: box
+    at: { x: 514, y: 26 }
+    size: { w: 60, h: 30 }
+  - id: hk_組
+    label: "組"
+    marker: box
+    at: { x: 574, y: 26 }
+    size: { w: 44, h: 30 }
+  - id: hv_組
+    label: ""
+    marker: box
+    at: { x: 618, y: 26 }
+    size: { w: 60, h: 30 }
+  - id: hk_番号
+    label: "番号"
+    marker: box
+    at: { x: 678, y: 26 }
+    size: { w: 44, h: 30 }
+  - id: hv_番号
+    label: ""
+    marker: box
+    at: { x: 722, y: 26 }
+    size: { w: 70, h: 30 }
+  - id: hk_氏名
+    label: "氏名"
+    marker: box
+    at: { x: 792, y: 26 }
+    size: { w: 44, h: 30 }
+  - id: hv_氏名
+    label: ""
+    marker: box
+    at: { x: 836, y: 26 }
+    size: { w: 200, h: 30 }
+  - id: score_k
+    label: "得点"
+    marker: box
+    at: { x: 1036, y: 26 }
+    size: { w: 44, h: 30 }
+  - id: score_v
+    label: ""
+    marker: box
+    at: { x: 1080, y: 26 }
+    size: { w: 60, h: 30 }
+  - id: scorenote
+    label: "／100"
+    marker: none
+    align: right
+    at: { x: 1080, y: 58 }
+    size: { w: 60, h: 14 }
+  - id: sk_1
+    label: "小計"
+    marker: box
+    at: { x: 1030, y: 90 }
+    size: { w: 50, h: 22 }
+  - id: sv_1
+    label: ""
+    marker: box
+    at: { x: 1080, y: 90 }
+    size: { w: 60, h: 22 }
+  - id: s1
+    label: "1　リスニング（放送の指示にしたがって答える。記号を書く）"
+    marker: none
+    align: left
+    at: { x: 40, y: 92 }
+    size: { w: 700, h: 18 }
+  - id: s1_n0
+    label: "(1)"
+    marker: box
+    at: { x: 40, y: 116 }
+    size: { w: 44, h: 36 }
+  - id: s1_a0
+    label: ""
+    marker: box
+    at: { x: 84, y: 116 }
+    size: { w: 110, h: 36 }
+  - id: s1_n1
+    label: "(2)"
+    marker: box
+    at: { x: 220, y: 116 }
+    size: { w: 44, h: 36 }
+  - id: s1_a1
+    label: ""
+    marker: box
+    at: { x: 264, y: 116 }
+    size: { w: 110, h: 36 }
+  - id: s1_n2
+    label: "(3)"
+    marker: box
+    at: { x: 400, y: 116 }
+    size: { w: 44, h: 36 }
+  - id: s1_a2
+    label: ""
+    marker: box
+    at: { x: 444, y: 116 }
+    size: { w: 110, h: 36 }
+  - id: s1_n3
+    label: "(4)"
+    marker: box
+    at: { x: 580, y: 116 }
+    size: { w: 44, h: 36 }
+  - id: s1_a3
+    label: ""
+    marker: box
+    at: { x: 624, y: 116 }
+    size: { w: 110, h: 36 }
+  - id: s1note
+    label: "放送の回数は、問題ごとに放送で言う"
+    marker: none
+    align: left
+    at: { x: 770, y: 116 }
+    size: { w: 370, h: 16 }
+  - id: s1note2
+    label: "（神奈川県は対話も英文も 2 回ずつ）。メモをとってよい"
+    marker: none
+    align: left
+    at: { x: 770, y: 136 }
+    size: { w: 370, h: 16 }
+  - id: sk_2
+    label: "小計"
+    marker: box
+    at: { x: 1030, y: 166 }
+    size: { w: 50, h: 22 }
+  - id: sv_2
+    label: ""
+    marker: box
+    at: { x: 1080, y: 166 }
+    size: { w: 60, h: 22 }
+  - id: s2
+    label: "2　並べかえ（ア〜オを正しい順に並べ、記号を書く）"
+    marker: none
+    align: left
+    at: { x: 40, y: 168 }
+    size: { w: 700, h: 18 }
+  - id: s2_n0
+    label: "(1)"
+    marker: box
+    at: { x: 40, y: 192 }
+    size: { w: 44, h: 36 }
+  - id: s2_0_0
+    label: ""
+    marker: box
+    at: { x: 84, y: 192 }
+    size: { w: 90, h: 36 }
+  - id: s2_0_1
+    label: ""
+    marker: box
+    at: { x: 174, y: 192 }
+    size: { w: 90, h: 36 }
+  - id: s2_0_2
+    label: ""
+    marker: box
+    at: { x: 264, y: 192 }
+    size: { w: 90, h: 36 }
+  - id: s2_0_3
+    label: ""
+    marker: box
+    at: { x: 354, y: 192 }
+    size: { w: 90, h: 36 }
+  - id: s2_0_4
+    label: ""
+    marker: box
+    at: { x: 444, y: 192 }
+    size: { w: 90, h: 36 }
+  - id: s2_n1
+    label: "(2)"
+    marker: box
+    at: { x: 590, y: 192 }
+    size: { w: 44, h: 36 }
+  - id: s2_1_0
+    label: ""
+    marker: box
+    at: { x: 634, y: 192 }
+    size: { w: 90, h: 36 }
+  - id: s2_1_1
+    label: ""
+    marker: box
+    at: { x: 724, y: 192 }
+    size: { w: 90, h: 36 }
+  - id: s2_1_2
+    label: ""
+    marker: box
+    at: { x: 814, y: 192 }
+    size: { w: 90, h: 36 }
+  - id: s2_1_3
+    label: ""
+    marker: box
+    at: { x: 904, y: 192 }
+    size: { w: 90, h: 36 }
+  - id: s2_1_4
+    label: ""
+    marker: box
+    at: { x: 994, y: 192 }
+    size: { w: 90, h: 36 }
+  - id: s2how
+    label: "左から順に、1 つの欄に記号 1 つ"
+    marker: none
+    align: left
+    at: { x: 40, y: 234 }
+    size: { w: 900, h: 14 }
+  - id: sk_3
+    label: "小計"
+    marker: box
+    at: { x: 1030, y: 268 }
+    size: { w: 50, h: 22 }
+  - id: sv_3
+    label: ""
+    marker: box
+    at: { x: 1080, y: 268 }
+    size: { w: 60, h: 22 }
+  - id: s3
+    label: "3　英作文（条件：10 語以上の英文 1 文で書く）"
+    marker: none
+    align: left
+    at: { x: 40, y: 270 }
+    size: { w: 700, h: 18 }
+  - id: s3_row0_l1
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 40, y: 303.6 }
+    size: { w: 900, h: 0.8 }
+  - id: s3_row0_l2
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 40, y: 317.6 }
+    size: { w: 900, h: 0.8 }
+  - id: s3_row0_l3
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 40, y: 331.2 }
+    size: { w: 900, h: 1.6 }
+  - id: s3_row0_l4
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 40, y: 345.6 }
+    size: { w: 900, h: 0.8 }
+  - id: s3_row1_l1
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 40, y: 365.6 }
+    size: { w: 900, h: 0.8 }
+  - id: s3_row1_l2
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 40, y: 379.6 }
+    size: { w: 900, h: 0.8 }
+  - id: s3_row1_l3
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 40, y: 393.2 }
+    size: { w: 900, h: 1.6 }
+  - id: s3_row1_l4
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 40, y: 407.6 }
+    size: { w: 900, h: 0.8 }
+  - id: s3_row2_l1
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 40, y: 427.6 }
+    size: { w: 900, h: 0.8 }
+  - id: s3_row2_l2
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 40, y: 441.6 }
+    size: { w: 900, h: 0.8 }
+  - id: s3_row2_l3
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 40, y: 455.2 }
+    size: { w: 900, h: 1.6 }
+  - id: s3_row2_l4
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 40, y: 469.6 }
+    size: { w: 900, h: 0.8 }
+  - id: s3_wk
+    label: "語数"
+    marker: box
+    at: { x: 980, y: 304 }
+    size: { w: 70, h: 36 }
+  - id: s3_wv
+    label: ""
+    marker: box
+    at: { x: 1050, y: 304 }
+    size: { w: 60, h: 36 }
+  - id: s3_wu
+    label: "語"
+    marker: none
+    align: left
+    at: { x: 1112, y: 314 }
+    size: { w: 28, h: 16 }
+  - id: s3_ex
+    label: "語数の数え方の例：I'm going to visit Kyoto, and I want to see old temples.　→ 12 語"
+    marker: none
+    align: left
+    at: { x: 40, y: 506 }
+    size: { w: 900, h: 16 }
+  - id: s3_ex2
+    label: "「I'm」は 1 語。「,」と「.」は数えない"
+    marker: none
+    align: left
+    at: { x: 40, y: 528 }
+    size: { w: 900, h: 14 }
+  - id: s4
+    label: "英語を書く 4 線（解答欄の罫は、この 4 本。第 3 線は太い線や赤い線）"
+    marker: none
+    align: left
+    at: { x: 40, y: 570 }
+    size: { w: 700, h: 18 }
+  - id: g_l1_0
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 330, y: 609.6 }
+    size: { w: 26, h: 0.8 }
+  - id: g_l1_1
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 374, y: 609.6 }
+    size: { w: 182, h: 0.8 }
+  - id: g_l1_2
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 574, y: 609.6 }
+    size: { w: 182, h: 0.8 }
+  - id: g_l1_3
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 774, y: 609.6 }
+    size: { w: 182, h: 0.8 }
+  - id: g_l1_4
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 974, y: 609.6 }
+    size: { w: 166, h: 0.8 }
+  - id: g_l2_0
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 330, y: 635.6 }
+    size: { w: 26, h: 0.8 }
+  - id: g_l2_1
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 374, y: 635.6 }
+    size: { w: 182, h: 0.8 }
+  - id: g_l2_2
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 574, y: 635.6 }
+    size: { w: 182, h: 0.8 }
+  - id: g_l2_3
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 774, y: 635.6 }
+    size: { w: 182, h: 0.8 }
+  - id: g_l2_4
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 974, y: 635.6 }
+    size: { w: 166, h: 0.8 }
+  - id: g_l3_0
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 330, y: 661.2 }
+    size: { w: 26, h: 1.6 }
+  - id: g_l3_1
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 374, y: 661.2 }
+    size: { w: 182, h: 1.6 }
+  - id: g_l3_2
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 574, y: 661.2 }
+    size: { w: 182, h: 1.6 }
+  - id: g_l3_3
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 774, y: 661.2 }
+    size: { w: 182, h: 1.6 }
+  - id: g_l3_4
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 974, y: 661.2 }
+    size: { w: 166, h: 1.6 }
+  - id: g_l4_0
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 330, y: 687.6 }
+    size: { w: 26, h: 0.8 }
+  - id: g_l4_1
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 374, y: 687.6 }
+    size: { w: 182, h: 0.8 }
+  - id: g_l4_2
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 574, y: 687.6 }
+    size: { w: 182, h: 0.8 }
+  - id: g_l4_3
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 774, y: 687.6 }
+    size: { w: 182, h: 0.8 }
+  - id: g_l4_4
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 974, y: 687.6 }
+    size: { w: 166, h: 0.8 }
+  - id: gname0
+    label: "第 1 線（アセンダライン）"
+    marker: none
+    align: right
+    at: { x: 40, y: 602 }
+    size: { w: 280, h: 16 }
+  - id: gname1
+    label: "第 2 線（ミーンライン）"
+    marker: none
+    align: right
+    at: { x: 40, y: 628 }
+    size: { w: 280, h: 16 }
+  - id: gname2
+    label: "第 3 線＝基線（ベースライン）"
+    marker: none
+    align: right
+    at: { x: 40, y: 654 }
+    size: { w: 280, h: 16 }
+  - id: gname3
+    label: "第 4 線（ディセンダライン）"
+    marker: none
+    align: right
+    at: { x: 40, y: 680 }
+    size: { w: 280, h: 16 }
+  - id: bar_cap
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 360, y: 610 }
+    size: { w: 10, h: 52 }
+  - id: bar_x
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 560, y: 636 }
+    size: { w: 10, h: 26 }
+  - id: bar_asc
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 760, y: 610 }
+    size: { w: 10, h: 52 }
+  - id: bar_desc
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 960, y: 636 }
+    size: { w: 10, h: 52 }
+  - id: lab_cap
+    label: "大文字 A B C …"
+    marker: none
+    align: left
+    at: { x: 340, y: 706 }
+    size: { w: 196, h: 16 }
+  - id: sub_cap
+    label: "第 1〜第 3 線。下に出ない"
+    marker: none
+    align: left
+    at: { x: 340, y: 726 }
+    size: { w: 196, h: 16 }
+  - id: lab_x
+    label: "a c e m n o r s u v w x z"
+    marker: none
+    align: left
+    at: { x: 540, y: 706 }
+    size: { w: 196, h: 16 }
+  - id: sub_x
+    label: "第 2 線〜第 3 線"
+    marker: none
+    align: left
+    at: { x: 540, y: 726 }
+    size: { w: 196, h: 16 }
+  - id: lab_asc
+    label: "b d f h i k l t"
+    marker: none
+    align: left
+    at: { x: 740, y: 706 }
+    size: { w: 196, h: 16 }
+  - id: sub_asc
+    label: "第 3 線から上へ、第 1 線まで"
+    marker: none
+    align: left
+    at: { x: 740, y: 726 }
+    size: { w: 196, h: 16 }
+  - id: lab_desc
+    label: "g j p q y"
+    marker: none
+    align: left
+    at: { x: 940, y: 706 }
+    size: { w: 240, h: 16 }
+  - id: sub_desc
+    label: "第 2〜第 4 線（第 3 線より下へ）"
+    marker: none
+    align: left
+    at: { x: 940, y: 726 }
+    size: { w: 240, h: 16 }
+  - id: nh
+    label: "書くときの決まり"
+    marker: none
+    align: left
+    at: { x: 40, y: 776 }
+    size: { w: 700, h: 16 }
+  - id: n0
+    label: "・短縮形（I'm や don't など）は 1 語と数え、符号（, など）は語数に含めない（神奈川県の問題の条件）"
+    marker: none
+    align: left
+    at: { x: 40, y: 800 }
+    size: { w: 1100, h: 16 }
+  - id: n1
+    label: "・文の先頭・人の名前・地名・自分を表す I は大文字で書く（宮城県総合教育センター）"
+    marker: none
+    align: left
+    at: { x: 40, y: 822 }
+    size: { w: 1100, h: 16 }
+  - id: n2
+    label: "・単語は 1 つずつ区切り、語と語のあいだを 1 文字分ほど空けて書く（同）"
+    marker: none
+    align: left
+    at: { x: 40, y: 844 }
+    size: { w: 1100, h: 16 }
+  - id: n3
+    label: "・文の終わりには「.」や「?」を書く。読点の代わりに「,」を書く（同）"
+    marker: none
+    align: left
+    at: { x: 40, y: 866 }
+    size: { w: 1100, h: 16 }
+  - id: n4
+    label: "・英語で答えるときは、活字体でも筆記体でもかまわない（神奈川県の注意事項）"
+    marker: none
+    align: left
+    at: { x: 40, y: 888 }
+    size: { w: 1100, h: 16 }
+  - id: n5
+    label: "・大文字はすべて基線（第 3 線）より上に書く。小文字は 3 つの組で高さが違う。i と t も b d f h k l と同じ組（羽島市立中央中学校）"
+    marker: none
+    align: left
+    at: { x: 40, y: 910 }
+    size: { w: 1100, h: 16 }
+  - id: nodraw
+    label: "描かなかったもの：手書きの字の形そのもの、観点別（知識・技能／思考・判断・表現）の欄（様式の出典が無い）、放送が 1 回だけの県の例（一次資料で確かめていない）。"
+    marker: none
+    align: left
+    at: { x: 40, y: 942 }
+    size: { w: 1100, h: 16 }
+  - id: nodraw2
+    label: "問題文・英文は伏せた。用紙は架空の様式で、実在の学校・県の解答用紙の写しではない。並べかえの答え方は学校ごとに違う。"
+    marker: none
+    align: left
+    at: { x: 40, y: 964 }
+    size: { w: 1100, h: 16 }

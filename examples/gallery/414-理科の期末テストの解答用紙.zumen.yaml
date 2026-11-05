@@ -1,0 +1,639 @@
+version: 1
+kind: placement
+title: 理科の期末テストの解答用紙（点で打って直線を引くグラフ・電気用図記号の回路図・化学反応式。記入例つき）
+sources:
+  - name: "宮城県総合教育センター「グラフのかき方」系統表（中学校：変化させた量を横軸・測定値は ● や ×・なるべく近くを通るなめらかな曲線か直線）"
+    url: https://www.edu-c.pref.miyagi.jp/midori/science/jugyo-sien/jugyouan/2015/keitouhyou/graph.pdf
+    retrieved: 2026-11-05
+  - name: "神奈川県教育委員会「令和 8 年度 公立高等学校入学者選抜 学力検査 理科 問題」（単位を〔 〕で書く表・回路図の選択肢の記号・化学反応式）"
+    url: https://www.pref.kanagawa.jp/documents/131902/4_r8rika_zen_mon.pdf
+    retrieved: 2026-11-05
+  - name: "岡山県立倉敷工業高等学校「令和 2 年度 特別入学者選抜 検査問題（電気科）」（電流 I〔A〕を縦軸・電圧 V〔V〕を横軸にグラフをかく・回路図をかく）"
+    url: https://www.kurako.okayama-c.ed.jp/nyuushi_jouhou/kakomon/R2/R02E-q.pdf
+    retrieved: 2026-11-05
+  - name: "香川県教育委員会「中理 2 年 補充 No.2 電流の測定」（電流計の＋端子は電源の＋極側、－端子は－極側）"
+    url: https://www.pref.kagawa.lg.jp/documents/14703/j2_ri_ho_02.pdf
+    retrieved: 2026-11-05
+  - name: "ウィキブックス「中学校理科 第1分野/電流と磁界」（二次資料：回路記号の電池は線が長いほうが＋極）"
+    url: https://ja.wikibooks.org/wiki/%E4%B8%AD%E5%AD%A6%E6%A0%A1%E7%90%86%E7%A7%91_%E7%AC%AC1%E5%88%86%E9%87%8E/%E9%9B%BB%E6%B5%81%E3%81%A8%E7%A3%81%E7%95%8C
+    retrieved: 2026-11-05
+# **理科の解答用紙は、点で打つグラフと、記号で書く回路図がある。** どちらも線そのものが答え。
+#
+# 決まり（取得 2026-11-05）——
+# グラフ：横軸に変化させた量、縦軸に変化した量、見出しと単位。測定値は ●、折れ線にせず近くを通る直線（宮城県）。
+# 単位は〔 〕（神奈川県）。回路図：電流計は直列、電圧計は並列（神奈川県の正しい選択肢と同じつなぎ方）。
+# グラフの直線は I ＝ 0.1 V。原点 (0, 0) と (6 V, 0.6 A) を通る。測定値はどれも直線から 0.01 A 以内。
+nodes:
+  - id: title
+    label: "理科 期末テスト 解答用紙（架空の様式）"
+    marker: none
+    align: left
+    at: { x: 40, y: 30 }
+    size: { w: 400, h: 22 }
+  - id: hk_年
+    label: "年"
+    marker: box
+    at: { x: 470, y: 26 }
+    size: { w: 44, h: 30 }
+  - id: hv_年
+    label: ""
+    marker: box
+    at: { x: 514, y: 26 }
+    size: { w: 60, h: 30 }
+  - id: hk_組
+    label: "組"
+    marker: box
+    at: { x: 574, y: 26 }
+    size: { w: 44, h: 30 }
+  - id: hv_組
+    label: ""
+    marker: box
+    at: { x: 618, y: 26 }
+    size: { w: 60, h: 30 }
+  - id: hk_番号
+    label: "番号"
+    marker: box
+    at: { x: 678, y: 26 }
+    size: { w: 44, h: 30 }
+  - id: hv_番号
+    label: ""
+    marker: box
+    at: { x: 722, y: 26 }
+    size: { w: 70, h: 30 }
+  - id: hk_氏名
+    label: "氏名"
+    marker: box
+    at: { x: 792, y: 26 }
+    size: { w: 44, h: 30 }
+  - id: hv_氏名
+    label: ""
+    marker: box
+    at: { x: 836, y: 26 }
+    size: { w: 200, h: 30 }
+  - id: score_k
+    label: "得点"
+    marker: box
+    at: { x: 1056, y: 26 }
+    size: { w: 44, h: 30 }
+  - id: score_v
+    label: ""
+    marker: box
+    at: { x: 1100, y: 26 }
+    size: { w: 60, h: 30 }
+  - id: scorenote
+    label: "／100"
+    marker: none
+    align: right
+    at: { x: 1118, y: 40 }
+    size: { w: 40, h: 13 }
+  - id: s1
+    label: "1　記号・語句（答えだけを書く）"
+    marker: none
+    align: left
+    at: { x: 40, y: 92 }
+    size: { w: 400, h: 18 }
+  - id: s1_sk
+    label: "小計"
+    marker: box
+    at: { x: 1036, y: 90 }
+    size: { w: 44, h: 22 }
+  - id: s1_sv
+    label: ""
+    marker: box
+    at: { x: 1080, y: 90 }
+    size: { w: 40, h: 22 }
+  - id: s1_sp
+    label: "／20"
+    marker: none
+    align: left
+    at: { x: 1122, y: 93 }
+    size: { w: 36, h: 14 }
+  - id: s1_n0
+    label: "(1)"
+    marker: box
+    at: { x: 40, y: 118 }
+    size: { w: 44, h: 40 }
+  - id: s1_a0
+    label: ""
+    marker: box
+    at: { x: 84, y: 118 }
+    size: { w: 226, h: 40 }
+  - id: s1_n1
+    label: "(2)"
+    marker: box
+    at: { x: 320, y: 118 }
+    size: { w: 44, h: 40 }
+  - id: s1_a1
+    label: ""
+    marker: box
+    at: { x: 364, y: 118 }
+    size: { w: 226, h: 40 }
+  - id: s1_n2
+    label: "(3)"
+    marker: box
+    at: { x: 600, y: 118 }
+    size: { w: 44, h: 40 }
+  - id: s1_a2
+    label: ""
+    marker: box
+    at: { x: 644, y: 118 }
+    size: { w: 226, h: 40 }
+  - id: s1_n3
+    label: "(4)"
+    marker: box
+    at: { x: 880, y: 118 }
+    size: { w: 44, h: 40 }
+  - id: s1_a3
+    label: ""
+    marker: box
+    at: { x: 924, y: 118 }
+    size: { w: 226, h: 40 }
+  - id: s2
+    label: "2　グラフ（記入例）"
+    marker: none
+    align: left
+    at: { x: 40, y: 172 }
+    size: { w: 300, h: 18 }
+  - id: s2_sk
+    label: "小計"
+    marker: box
+    at: { x: 456, y: 170 }
+    size: { w: 44, h: 22 }
+  - id: s2_sv
+    label: ""
+    marker: box
+    at: { x: 500, y: 170 }
+    size: { w: 40, h: 22 }
+  - id: s2_sp
+    label: "／25"
+    marker: none
+    align: left
+    at: { x: 542, y: 173 }
+    size: { w: 36, h: 14 }
+  - id: s2_box
+    label: ""
+    marker: box
+    at: { x: 40, y: 198 }
+    size: { w: 540, h: 360 }
+  - id: g0
+    label: "0"
+    marker: none
+    align: right
+    at: { x: 108, y: 502 }
+    size: { w: 14, h: 12 }
+  - id: gxn1
+    label: "1"
+    marker: none
+    align: center
+    at: { x: 180, y: 502 }
+    size: { w: 20, h: 12 }
+  - id: gxn2
+    label: "2"
+    marker: none
+    align: center
+    at: { x: 240, y: 502 }
+    size: { w: 20, h: 12 }
+  - id: gxn3
+    label: "3"
+    marker: none
+    align: center
+    at: { x: 300, y: 502 }
+    size: { w: 20, h: 12 }
+  - id: gxn4
+    label: "4"
+    marker: none
+    align: center
+    at: { x: 360, y: 502 }
+    size: { w: 20, h: 12 }
+  - id: gxn5
+    label: "5"
+    marker: none
+    align: center
+    at: { x: 420, y: 502 }
+    size: { w: 20, h: 12 }
+  - id: gxn6
+    label: "6"
+    marker: none
+    align: center
+    at: { x: 480, y: 502 }
+    size: { w: 20, h: 12 }
+  - id: gyn1
+    label: "0.1"
+    marker: none
+    align: right
+    at: { x: 94, y: 452 }
+    size: { w: 28, h: 12 }
+  - id: gyn2
+    label: "0.2"
+    marker: none
+    align: right
+    at: { x: 94, y: 412 }
+    size: { w: 28, h: 12 }
+  - id: gyn3
+    label: "0.3"
+    marker: none
+    align: right
+    at: { x: 94, y: 372 }
+    size: { w: 28, h: 12 }
+  - id: gyn4
+    label: "0.4"
+    marker: none
+    align: right
+    at: { x: 94, y: 332 }
+    size: { w: 28, h: 12 }
+  - id: gyn5
+    label: "0.5"
+    marker: none
+    align: right
+    at: { x: 94, y: 292 }
+    size: { w: 28, h: 12 }
+  - id: gyn6
+    label: "0.6"
+    marker: none
+    align: right
+    at: { x: 94, y: 252 }
+    size: { w: 28, h: 12 }
+  - id: gxl
+    label: "電圧〔V〕"
+    marker: none
+    align: right
+    at: { x: 420, y: 520 }
+    size: { w: 80, h: 14 }
+  - id: gyl
+    label: "電流〔A〕"
+    marker: none
+    align: left
+    at: { x: 80, y: 234 }
+    size: { w: 80, h: 14 }
+  - id: gp0
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 186, y: 450 }
+    size: { w: 8, h: 8 }
+  - id: gp1
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 246, y: 418 }
+    size: { w: 8, h: 8 }
+  - id: gp2
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 306, y: 370 }
+    size: { w: 8, h: 8 }
+  - id: gp3
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 366, y: 334 }
+    size: { w: 8, h: 8 }
+  - id: gp4
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 426, y: 298 }
+    size: { w: 8, h: 8 }
+  - id: s2n1
+    label: "● で打ち、折れ線にせず、測定点の近くを通る直線を引く（この例は原点を通る）"
+    marker: none
+    align: left
+    at: { x: 52, y: 538 }
+    size: { w: 520, h: 14 }
+  - id: s3
+    label: "3　回路図（記入例）"
+    marker: none
+    align: left
+    at: { x: 620, y: 172 }
+    size: { w: 300, h: 18 }
+  - id: s3_sk
+    label: "小計"
+    marker: box
+    at: { x: 1036, y: 170 }
+    size: { w: 44, h: 22 }
+  - id: s3_sv
+    label: ""
+    marker: box
+    at: { x: 1080, y: 170 }
+    size: { w: 40, h: 22 }
+  - id: s3_sp
+    label: "／15"
+    marker: none
+    align: left
+    at: { x: 1122, y: 173 }
+    size: { w: 36, h: 14 }
+  - id: s3_box
+    label: ""
+    marker: box
+    at: { x: 620, y: 198 }
+    size: { w: 540, h: 360 }
+  - id: bat_l
+    label: "電源装置"
+    marker: none
+    align: center
+    at: { x: 766, y: 232 }
+    size: { w: 80, h: 14 }
+  - id: sw_a
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 917, y: 269 }
+    size: { w: 6, h: 6 }
+  - id: sw_l
+    label: "スイッチ"
+    marker: none
+    align: center
+    at: { x: 914, y: 228 }
+    size: { w: 64, h: 14 }
+  - id: ammeter
+    label: "A"
+    marker: circle
+    align: center
+    at: { x: 1034, y: 326 }
+    size: { w: 32, h: 32 }
+  - id: am_l
+    label: "電流計"
+    marker: none
+    align: left
+    at: { x: 1072, y: 334 }
+    size: { w: 60, h: 14 }
+  - id: heater
+    label: ""
+    marker: box
+    at: { x: 850, y: 402 }
+    size: { w: 80, h: 20 }
+  - id: heater_l
+    label: "電熱線"
+    marker: none
+    align: center
+    at: { x: 860, y: 378 }
+    size: { w: 60, h: 14 }
+  - id: voltmeter
+    label: "V"
+    marker: circle
+    align: center
+    at: { x: 874, y: 466 }
+    size: { w: 32, h: 32 }
+  - id: jn_a
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 817, y: 409 }
+    size: { w: 6, h: 6 }
+  - id: jn_b
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 957, y: 409 }
+    size: { w: 6, h: 6 }
+  - id: vm_l
+    label: "電圧計"
+    marker: none
+    align: left
+    at: { x: 912, y: 496 }
+    size: { w: 60, h: 14 }
+  - id: s3n1
+    label: "電流計は回路に直列、電圧計は電熱線に並列につなぐ"
+    marker: none
+    align: left
+    at: { x: 632, y: 524 }
+    size: { w: 520, h: 14 }
+  - id: s4
+    label: "4　化学式・化学反応式"
+    marker: none
+    align: left
+    at: { x: 40, y: 584 }
+    size: { w: 400, h: 18 }
+  - id: s4_sk
+    label: "小計"
+    marker: box
+    at: { x: 1036, y: 582 }
+    size: { w: 44, h: 22 }
+  - id: s4_sv
+    label: ""
+    marker: box
+    at: { x: 1080, y: 582 }
+    size: { w: 40, h: 22 }
+  - id: s4_sp
+    label: "／20"
+    marker: none
+    align: left
+    at: { x: 1122, y: 585 }
+    size: { w: 36, h: 14 }
+  - id: s4_k1
+    label: "化学式"
+    marker: box
+    at: { x: 40, y: 610 }
+    size: { w: 90, h: 40 }
+  - id: s4_v1
+    label: ""
+    marker: box
+    at: { x: 130, y: 610 }
+    size: { w: 250, h: 40 }
+  - id: s4_k2
+    label: "化学反応式"
+    marker: box
+    at: { x: 400, y: 610 }
+    size: { w: 110, h: 40 }
+  - id: s4_v2
+    label: ""
+    marker: box
+    at: { x: 510, y: 610 }
+    size: { w: 650, h: 40 }
+  - id: s4_ex
+    label: "記入例：2H₂ ＋ O₂ → 2H₂O（左右で原子の種類と数をそろえる。小さい数字は右下）"
+    marker: none
+    align: left
+    at: { x: 520, y: 656 }
+    size: { w: 640, h: 14 }
+  - id: s5
+    label: "5　記述（理由を書く）"
+    marker: none
+    align: left
+    at: { x: 40, y: 690 }
+    size: { w: 400, h: 18 }
+  - id: s5_sk
+    label: "小計"
+    marker: box
+    at: { x: 1036, y: 688 }
+    size: { w: 44, h: 22 }
+  - id: s5_sv
+    label: ""
+    marker: box
+    at: { x: 1080, y: 688 }
+    size: { w: 40, h: 22 }
+  - id: s5_sp
+    label: "／20"
+    marker: none
+    align: left
+    at: { x: 1122, y: 691 }
+    size: { w: 36, h: 14 }
+  - id: s5_k
+    label: "（理由）"
+    marker: box
+    at: { x: 40, y: 716 }
+    size: { w: 90, h: 80 }
+  - id: s5_v
+    label: ""
+    marker: box
+    at: { x: 130, y: 716 }
+    size: { w: 1030, h: 80 }
+  - id: nh
+    label: "解答上の注意（県の指導資料・入試問題から）"
+    marker: none
+    align: left
+    at: { x: 40, y: 820 }
+    size: { w: 700, h: 16 }
+  - id: n0
+    label: "・グラフは、変化させた量を横軸、変化した量を縦軸にとり、軸の見出しと単位を書く（宮城県総合教育センター）"
+    marker: none
+    align: left
+    at: { x: 40, y: 844 }
+    size: { w: 1120, h: 16 }
+  - id: n1
+    label: "・測定値は ● や × で記入し、すべての点のなるべく近くを通るなめらかな曲線か直線を引く。小学校の折れ線グラフとは違う（同上）"
+    marker: none
+    align: left
+    at: { x: 40, y: 866 }
+    size: { w: 1120, h: 16 }
+  - id: n2
+    label: "・単位は〔 〕で囲む。例：電圧〔V〕、電流〔A〕、水温〔℃〕（神奈川県の問題）"
+    marker: none
+    align: left
+    at: { x: 40, y: 888 }
+    size: { w: 1120, h: 16 }
+  - id: n3
+    label: "・回路図は電気用図記号で書く。電源は長い線と短い線（長い線が＋極）、スイッチ、電熱線は長方形、電流計は Ⓐ、電圧計は Ⓥ（神奈川県の問題の選択肢。＋極はウィキブックス）"
+    marker: none
+    align: left
+    at: { x: 40, y: 910 }
+    size: { w: 1120, h: 16 }
+  - id: n4
+    label: "・電流計・電圧計の＋端子は電源の＋極側に、－端子は－極側につなぐ（香川県の中 2 補充プリント）"
+    marker: none
+    align: left
+    at: { x: 40, y: 932 }
+    size: { w: 1120, h: 16 }
+  - id: nodraw
+    label: "描かなかったもの：数値の丸め方（「小数第 1 位まで」などは問題ごとに指示され、決まった様式が見つからなかった）、部分点の配り方、観点別の欄。"
+    marker: none
+    align: left
+    at: { x: 40, y: 964 }
+    size: { w: 1120, h: 16 }
+  - id: nodraw2
+    label: "問題文は伏せた。測定値は架空。用紙は架空の様式で、実在の学校・県の解答用紙の写しではない。"
+    marker: none
+    align: left
+    at: { x: 40, y: 986 }
+    size: { w: 1120, h: 16 }
+paths:
+  - id: gv1
+    points: [ [ 190, 498 ], [ 190, 258 ] ]
+    weight: thin
+    line: dashed
+    ends: { from: none, to: none }
+  - id: gv2
+    points: [ [ 250, 498 ], [ 250, 258 ] ]
+    weight: thin
+    line: dashed
+    ends: { from: none, to: none }
+  - id: gv3
+    points: [ [ 310, 498 ], [ 310, 258 ] ]
+    weight: thin
+    line: dashed
+    ends: { from: none, to: none }
+  - id: gv4
+    points: [ [ 370, 498 ], [ 370, 258 ] ]
+    weight: thin
+    line: dashed
+    ends: { from: none, to: none }
+  - id: gv5
+    points: [ [ 430, 498 ], [ 430, 258 ] ]
+    weight: thin
+    line: dashed
+    ends: { from: none, to: none }
+  - id: gv6
+    points: [ [ 490, 498 ], [ 490, 258 ] ]
+    weight: thin
+    line: dashed
+    ends: { from: none, to: none }
+  - id: gh1
+    points: [ [ 130, 458 ], [ 490, 458 ] ]
+    weight: thin
+    line: dashed
+    ends: { from: none, to: none }
+  - id: gh2
+    points: [ [ 130, 418 ], [ 490, 418 ] ]
+    weight: thin
+    line: dashed
+    ends: { from: none, to: none }
+  - id: gh3
+    points: [ [ 130, 378 ], [ 490, 378 ] ]
+    weight: thin
+    line: dashed
+    ends: { from: none, to: none }
+  - id: gh4
+    points: [ [ 130, 338 ], [ 490, 338 ] ]
+    weight: thin
+    line: dashed
+    ends: { from: none, to: none }
+  - id: gh5
+    points: [ [ 130, 298 ], [ 490, 298 ] ]
+    weight: thin
+    line: dashed
+    ends: { from: none, to: none }
+  - id: gh6
+    points: [ [ 130, 258 ], [ 490, 258 ] ]
+    weight: thin
+    line: dashed
+    ends: { from: none, to: none }
+  - id: xaxis
+    points: [ [ 130, 498 ], [ 490, 498 ] ]
+    ends: { from: none, to: none }
+  - id: yaxis
+    points: [ [ 130, 498 ], [ 130, 258 ] ]
+    ends: { from: none, to: none }
+  - id: fit
+    points: [ [ 130, 498 ], [ 490, 258 ] ]
+    ends: { from: none, to: none }
+  - id: bat_p
+    points: [ [ 800, 254 ], [ 800, 290 ] ]
+    ends: { from: none, to: none }
+  - id: bat_n
+    points: [ [ 812, 263 ], [ 812, 281 ] ]
+    weight: thick
+    ends: { from: none, to: none }
+  - id: sw_lever
+    points: [ [ 920, 272 ], [ 964, 250 ] ]
+    ends: { from: none, to: none }
+  - id: w_top1
+    points: [ [ 730, 272 ], [ 800, 272 ] ]
+    ends: { from: none, to: none }
+  - id: w_top2
+    points: [ [ 812, 272 ], [ 920, 272 ] ]
+    ends: { from: none, to: none }
+  - id: w_top3
+    points: [ [ 966, 272 ], [ 1050, 272 ] ]
+    ends: { from: none, to: none }
+  - id: w_r1
+    points: [ [ 1050, 272 ], [ 1050, 326 ] ]
+    ends: { from: none, to: none }
+  - id: w_r2
+    points: [ [ 1050, 358 ], [ 1050, 412 ] ]
+    ends: { from: none, to: none }
+  - id: w_l
+    points: [ [ 730, 272 ], [ 730, 412 ] ]
+    ends: { from: none, to: none }
+  - id: w_b1
+    points: [ [ 730, 412 ], [ 850, 412 ] ]
+    ends: { from: none, to: none }
+  - id: w_b2
+    points: [ [ 930, 412 ], [ 1050, 412 ] ]
+    ends: { from: none, to: none }
+  - id: w_v1
+    points: [ [ 820, 412 ], [ 820, 482 ], [ 874, 482 ] ]
+    ends: { from: none, to: none }
+  - id: w_v2
+    points: [ [ 906, 482 ], [ 960, 482 ], [ 960, 412 ] ]
+    ends: { from: none, to: none }

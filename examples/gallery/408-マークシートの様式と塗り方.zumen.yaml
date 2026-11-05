@@ -1,0 +1,973 @@
+version: 1
+kind: placement
+title: マークシートの様式と塗り方（架空の解答用紙・受験番号・タイミングマーク・良い例と悪い例）
+palette:
+  ドロップアウトカラー: "#d9627a"
+  薄い: "#8f8f8f"
+sources:
+  - name: "埼玉県教育委員会「令和 9 年度 マークシート方式及び記述式による学力検査を受検するときの注意について」（HB または B の鉛筆・良い例と悪い例・受検番号の塗り間違い 4 例・0 が上で 9 が下）"
+    url: https://www.pref.saitama.lg.jp/documents/257619/r9gakuryokukensashiryou.pdf
+    retrieved: 2026-11-05
+  - name: "大学入試センター「令和 8 年度 大学入学共通テスト 受験上の注意」（黒鉛筆 H・F・HB に限る・プラスチック製の消しゴム・薄い／一部だけ／消し跡は読み取れないことがある）"
+    url: https://www.dnc.ac.jp/albums/abm.php?d=4&f=abm00005930.pdf
+    retrieved: 2026-11-05
+  - name: "US 5,140,139「Preparing mark/read documents…」（タイミングマークは用紙の片側の縁に間隔をおいて刷る）"
+    url: https://patents.google.com/patent/US5140139A/en
+    retrieved: 2026-11-05
+  - name: "東京都教育委員会「マークシート方式による学力検査」（多少はみ出しても大丈夫・悪い例・HB 又は B）"
+    url: https://www.kyoiku.metro.tokyo.lg.jp/documents/d/kyoiku/12_47
+    retrieved: 2026-11-05
+  - name: "US 7,864,986「Optical mark reading…」（ドロップアウトカラーは人には見えるが、読み取りでは消える。薄い青や赤）"
+    url: https://patents.google.com/patent/US7864986B2/en
+    retrieved: 2026-11-05
+# **人が読む色と、機械が読む黒を分けて刷る。** 楕円と数字はドロップアウトカラー（読み取りで消える）、
+# 読み取り機は、タイミングマークで決まる位置の黒を読む。
+#
+# 決まり（取得 2026-11-05）——
+# 受験番号は左から手で書き、その下の同じけたの数字を塗る。マーク欄は 0 が上、9 が下（埼玉県教育委員会）。
+# 鉛筆は試験ごとに決まる：大学入学共通テストは黒鉛筆 H・F・HB のみ、埼玉県の公立高校は HB または B（シャープペンシル可）。
+# 用紙は架空。実在の試験の解答用紙の写しではない。
+nodes:
+  - id: title
+    label: "マークシートの様式と塗り方"
+    marker: none
+    align: center
+    at: { x: 40, y: 36 }
+    size: { w: 1180, h: 22 }
+  - id: lead
+    label: "架空の解答用紙。楕円と数字は読み取りで消える色（ドロップアウトカラー）で刷る。読み取り機は、タイミングマークで決まる位置が黒いかを読む"
+    marker: none
+    align: center
+    at: { x: 40, y: 66 }
+    size: { w: 1180, h: 16 }
+  - id: sheet
+    label: ""
+    marker: box
+    at: { x: 40, y: 100 }
+    size: { w: 560, h: 640 }
+  - id: sheet_name
+    label: "解答用紙（見本・架空）"
+    marker: none
+    align: left
+    at: { x: 90, y: 108 }
+    size: { w: 300, h: 16 }
+  - id: id_head
+    label: "受験番号"
+    marker: none
+    align: left
+    at: { x: 90, y: 136 }
+    size: { w: 120, h: 16 }
+  - id: id_how
+    label: "① 数字を手で書く → ② 同じけたの数字を塗る"
+    marker: none
+    align: left
+    at: { x: 250, y: 136 }
+    size: { w: 330, h: 16 }
+  - id: idbox0
+    label: "2"
+    marker: box
+    at: { x: 105, y: 162 }
+    size: { w: 30, h: 28 }
+  - id: id0_0
+    label: "0"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 113, y: 205 }
+    size: { w: 14, h: 22 }
+  - id: id0_1
+    label: "1"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 113, y: 231 }
+    size: { w: 14, h: 22 }
+  - id: id0_2
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 113, y: 257 }
+    size: { w: 14, h: 22 }
+  - id: id0_3
+    label: "3"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 113, y: 283 }
+    size: { w: 14, h: 22 }
+  - id: id0_4
+    label: "4"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 113, y: 309 }
+    size: { w: 14, h: 22 }
+  - id: id0_5
+    label: "5"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 113, y: 335 }
+    size: { w: 14, h: 22 }
+  - id: id0_6
+    label: "6"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 113, y: 361 }
+    size: { w: 14, h: 22 }
+  - id: id0_7
+    label: "7"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 113, y: 387 }
+    size: { w: 14, h: 22 }
+  - id: id0_8
+    label: "8"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 113, y: 413 }
+    size: { w: 14, h: 22 }
+  - id: id0_9
+    label: "9"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 113, y: 439 }
+    size: { w: 14, h: 22 }
+  - id: idbox1
+    label: "4"
+    marker: box
+    at: { x: 145, y: 162 }
+    size: { w: 30, h: 28 }
+  - id: id1_0
+    label: "0"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 153, y: 205 }
+    size: { w: 14, h: 22 }
+  - id: id1_1
+    label: "1"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 153, y: 231 }
+    size: { w: 14, h: 22 }
+  - id: id1_2
+    label: "2"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 153, y: 257 }
+    size: { w: 14, h: 22 }
+  - id: id1_3
+    label: "3"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 153, y: 283 }
+    size: { w: 14, h: 22 }
+  - id: id1_4
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 153, y: 309 }
+    size: { w: 14, h: 22 }
+  - id: id1_5
+    label: "5"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 153, y: 335 }
+    size: { w: 14, h: 22 }
+  - id: id1_6
+    label: "6"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 153, y: 361 }
+    size: { w: 14, h: 22 }
+  - id: id1_7
+    label: "7"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 153, y: 387 }
+    size: { w: 14, h: 22 }
+  - id: id1_8
+    label: "8"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 153, y: 413 }
+    size: { w: 14, h: 22 }
+  - id: id1_9
+    label: "9"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 153, y: 439 }
+    size: { w: 14, h: 22 }
+  - id: idbox2
+    label: "8"
+    marker: box
+    at: { x: 185, y: 162 }
+    size: { w: 30, h: 28 }
+  - id: id2_0
+    label: "0"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 193, y: 205 }
+    size: { w: 14, h: 22 }
+  - id: id2_1
+    label: "1"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 193, y: 231 }
+    size: { w: 14, h: 22 }
+  - id: id2_2
+    label: "2"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 193, y: 257 }
+    size: { w: 14, h: 22 }
+  - id: id2_3
+    label: "3"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 193, y: 283 }
+    size: { w: 14, h: 22 }
+  - id: id2_4
+    label: "4"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 193, y: 309 }
+    size: { w: 14, h: 22 }
+  - id: id2_5
+    label: "5"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 193, y: 335 }
+    size: { w: 14, h: 22 }
+  - id: id2_6
+    label: "6"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 193, y: 361 }
+    size: { w: 14, h: 22 }
+  - id: id2_7
+    label: "7"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 193, y: 387 }
+    size: { w: 14, h: 22 }
+  - id: id2_8
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 193, y: 413 }
+    size: { w: 14, h: 22 }
+  - id: id2_9
+    label: "9"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 193, y: 439 }
+    size: { w: 14, h: 22 }
+  - id: idbox3
+    label: "6"
+    marker: box
+    at: { x: 225, y: 162 }
+    size: { w: 30, h: 28 }
+  - id: id3_0
+    label: "0"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 233, y: 205 }
+    size: { w: 14, h: 22 }
+  - id: id3_1
+    label: "1"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 233, y: 231 }
+    size: { w: 14, h: 22 }
+  - id: id3_2
+    label: "2"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 233, y: 257 }
+    size: { w: 14, h: 22 }
+  - id: id3_3
+    label: "3"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 233, y: 283 }
+    size: { w: 14, h: 22 }
+  - id: id3_4
+    label: "4"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 233, y: 309 }
+    size: { w: 14, h: 22 }
+  - id: id3_5
+    label: "5"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 233, y: 335 }
+    size: { w: 14, h: 22 }
+  - id: id3_6
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 233, y: 361 }
+    size: { w: 14, h: 22 }
+  - id: id3_7
+    label: "7"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 233, y: 387 }
+    size: { w: 14, h: 22 }
+  - id: id3_8
+    label: "8"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 233, y: 413 }
+    size: { w: 14, h: 22 }
+  - id: id3_9
+    label: "9"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 233, y: 439 }
+    size: { w: 14, h: 22 }
+  - id: id_top
+    label: "0 が上"
+    marker: none
+    align: left
+    at: { x: 290, y: 208 }
+    size: { w: 120, h: 16 }
+  - id: id_bottom
+    label: "9 がいちばん下"
+    marker: none
+    align: left
+    at: { x: 290, y: 442 }
+    size: { w: 160, h: 16 }
+  - id: ans_head
+    label: "解答欄"
+    marker: none
+    align: left
+    at: { x: 90, y: 478 }
+    size: { w: 120, h: 16 }
+  - id: ans_col0
+    label: "1"
+    marker: none
+    align: center
+    at: { x: 183, y: 478 }
+    size: { w: 26, h: 16 }
+  - id: ans_col1
+    label: "2"
+    marker: none
+    align: center
+    at: { x: 223, y: 478 }
+    size: { w: 26, h: 16 }
+  - id: ans_col2
+    label: "3"
+    marker: none
+    align: center
+    at: { x: 263, y: 478 }
+    size: { w: 26, h: 16 }
+  - id: ans_col3
+    label: "4"
+    marker: none
+    align: center
+    at: { x: 303, y: 478 }
+    size: { w: 26, h: 16 }
+  - id: qno0
+    label: "問 1"
+    marker: box
+    at: { x: 90, y: 501 }
+    size: { w: 70, h: 22 }
+  - id: a0_0
+    label: "1"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 189, y: 501 }
+    size: { w: 14, h: 22 }
+  - id: a0_1
+    label: "2"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 229, y: 501 }
+    size: { w: 14, h: 22 }
+  - id: a0_2
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 269, y: 501 }
+    size: { w: 14, h: 22 }
+  - id: a0_3
+    label: "4"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 309, y: 501 }
+    size: { w: 14, h: 22 }
+  - id: qno1
+    label: "問 2"
+    marker: box
+    at: { x: 90, y: 529 }
+    size: { w: 70, h: 22 }
+  - id: a1_0
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 189, y: 529 }
+    size: { w: 14, h: 22 }
+  - id: a1_1
+    label: "2"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 229, y: 529 }
+    size: { w: 14, h: 22 }
+  - id: a1_2
+    label: "3"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 269, y: 529 }
+    size: { w: 14, h: 22 }
+  - id: a1_3
+    label: "4"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 309, y: 529 }
+    size: { w: 14, h: 22 }
+  - id: qno2
+    label: "問 3"
+    marker: box
+    at: { x: 90, y: 557 }
+    size: { w: 70, h: 22 }
+  - id: a2_0
+    label: "1"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 189, y: 557 }
+    size: { w: 14, h: 22 }
+  - id: a2_1
+    label: "2"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 229, y: 557 }
+    size: { w: 14, h: 22 }
+  - id: a2_2
+    label: "3"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 269, y: 557 }
+    size: { w: 14, h: 22 }
+  - id: a2_3
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 309, y: 557 }
+    size: { w: 14, h: 22 }
+  - id: qno3
+    label: "問 4"
+    marker: box
+    at: { x: 90, y: 585 }
+    size: { w: 70, h: 22 }
+  - id: a3_0
+    label: "1"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 189, y: 585 }
+    size: { w: 14, h: 22 }
+  - id: a3_1
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 229, y: 585 }
+    size: { w: 14, h: 22 }
+  - id: a3_2
+    label: "3"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 269, y: 585 }
+    size: { w: 14, h: 22 }
+  - id: a3_3
+    label: "4"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 309, y: 585 }
+    size: { w: 14, h: 22 }
+  - id: qno4
+    label: "問 5"
+    marker: box
+    at: { x: 90, y: 613 }
+    size: { w: 70, h: 22 }
+  - id: a4_0
+    label: "1"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 189, y: 613 }
+    size: { w: 14, h: 22 }
+  - id: a4_1
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 229, y: 613 }
+    size: { w: 14, h: 22 }
+  - id: a4_2
+    label: "3"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 269, y: 613 }
+    size: { w: 14, h: 22 }
+  - id: a4_3
+    label: "4"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 309, y: 613 }
+    size: { w: 14, h: 22 }
+  - id: qno5
+    label: "問 6"
+    marker: box
+    at: { x: 90, y: 641 }
+    size: { w: 70, h: 22 }
+  - id: a5_0
+    label: "1"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 189, y: 641 }
+    size: { w: 14, h: 22 }
+  - id: a5_1
+    label: "2"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 229, y: 641 }
+    size: { w: 14, h: 22 }
+  - id: a5_2
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 269, y: 641 }
+    size: { w: 14, h: 22 }
+  - id: a5_3
+    label: "4"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 309, y: 641 }
+    size: { w: 14, h: 22 }
+  - id: qno6
+    label: "問 7"
+    marker: box
+    at: { x: 90, y: 669 }
+    size: { w: 70, h: 22 }
+  - id: a6_0
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 189, y: 669 }
+    size: { w: 14, h: 22 }
+  - id: a6_1
+    label: "2"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 229, y: 669 }
+    size: { w: 14, h: 22 }
+  - id: a6_2
+    label: "3"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 269, y: 669 }
+    size: { w: 14, h: 22 }
+  - id: a6_3
+    label: "4"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 309, y: 669 }
+    size: { w: 14, h: 22 }
+  - id: qno7
+    label: "問 8"
+    marker: box
+    at: { x: 90, y: 697 }
+    size: { w: 70, h: 22 }
+  - id: a7_0
+    label: "1"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 189, y: 697 }
+    size: { w: 14, h: 22 }
+  - id: a7_1
+    label: "2"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 229, y: 697 }
+    size: { w: 14, h: 22 }
+  - id: a7_2
+    label: "3"
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 269, y: 697 }
+    size: { w: 14, h: 22 }
+  - id: a7_3
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 309, y: 697 }
+    size: { w: 14, h: 22 }
+  - id: ans_note
+    label: "1 問に 1 つだけ塗る"
+    marker: none
+    align: left
+    at: { x: 380, y: 590 }
+    size: { w: 200, h: 16 }
+  - id: tm0
+    label: ""
+    marker: box
+    hatch: solid
+    at: { x: 48, y: 213 }
+    size: { w: 18, h: 6 }
+  - id: tm1
+    label: ""
+    marker: box
+    hatch: solid
+    at: { x: 48, y: 239 }
+    size: { w: 18, h: 6 }
+  - id: tm2
+    label: ""
+    marker: box
+    hatch: solid
+    at: { x: 48, y: 265 }
+    size: { w: 18, h: 6 }
+  - id: tm3
+    label: ""
+    marker: box
+    hatch: solid
+    at: { x: 48, y: 291 }
+    size: { w: 18, h: 6 }
+  - id: tm4
+    label: ""
+    marker: box
+    hatch: solid
+    at: { x: 48, y: 317 }
+    size: { w: 18, h: 6 }
+  - id: tm5
+    label: ""
+    marker: box
+    hatch: solid
+    at: { x: 48, y: 343 }
+    size: { w: 18, h: 6 }
+  - id: tm6
+    label: ""
+    marker: box
+    hatch: solid
+    at: { x: 48, y: 369 }
+    size: { w: 18, h: 6 }
+  - id: tm7
+    label: ""
+    marker: box
+    hatch: solid
+    at: { x: 48, y: 395 }
+    size: { w: 18, h: 6 }
+  - id: tm8
+    label: ""
+    marker: box
+    hatch: solid
+    at: { x: 48, y: 421 }
+    size: { w: 18, h: 6 }
+  - id: tm9
+    label: ""
+    marker: box
+    hatch: solid
+    at: { x: 48, y: 447 }
+    size: { w: 18, h: 6 }
+  - id: tm10
+    label: ""
+    marker: box
+    hatch: solid
+    at: { x: 48, y: 509 }
+    size: { w: 18, h: 6 }
+  - id: tm11
+    label: ""
+    marker: box
+    hatch: solid
+    at: { x: 48, y: 537 }
+    size: { w: 18, h: 6 }
+  - id: tm12
+    label: ""
+    marker: box
+    hatch: solid
+    at: { x: 48, y: 565 }
+    size: { w: 18, h: 6 }
+  - id: tm13
+    label: ""
+    marker: box
+    hatch: solid
+    at: { x: 48, y: 593 }
+    size: { w: 18, h: 6 }
+  - id: tm14
+    label: ""
+    marker: box
+    hatch: solid
+    at: { x: 48, y: 621 }
+    size: { w: 18, h: 6 }
+  - id: tm15
+    label: ""
+    marker: box
+    hatch: solid
+    at: { x: 48, y: 649 }
+    size: { w: 18, h: 6 }
+  - id: tm16
+    label: ""
+    marker: box
+    hatch: solid
+    at: { x: 48, y: 677 }
+    size: { w: 18, h: 6 }
+  - id: tm17
+    label: ""
+    marker: box
+    hatch: solid
+    at: { x: 48, y: 705 }
+    size: { w: 18, h: 6 }
+  - id: tm_label
+    label: "← タイミングマーク（黒で刷る。読み取り機は、これで行の位置を決める）"
+    marker: none
+    align: left
+    at: { x: 100, y: 724 }
+    size: { w: 490, h: 16 }
+  - id: ex_head
+    label: "塗り方"
+    marker: none
+    align: left
+    at: { x: 640, y: 116 }
+    size: { w: 200, h: 16 }
+  - id: ex0
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 653, y: 145 }
+    size: { w: 14, h: 22 }
+  - id: ext0
+    label: "良い例：濃く、はっきり、楕円の中を全部塗る"
+    marker: none
+    align: left
+    at: { x: 690, y: 148 }
+    size: { w: 420, h: 16 }
+  - id: ex1
+    label: ""
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 653, y: 197 }
+    size: { w: 14, h: 22 }
+  - id: ex1m
+    label: ""
+    marker: box
+    hatch: solid
+    at: { x: 655, y: 207 }
+    size: { w: 10, h: 2 }
+  - id: ext1
+    label: "悪い例：線を引くだけ"
+    marker: none
+    align: left
+    at: { x: 690, y: 200 }
+    size: { w: 420, h: 16 }
+  - id: ex2
+    label: ""
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 653, y: 249 }
+    size: { w: 14, h: 22 }
+  - id: ex2m
+    label: ""
+    marker: ellipse
+    hatch: solid
+    at: { x: 657, y: 255 }
+    size: { w: 6, h: 10 }
+  - id: ext2
+    label: "悪い例：塗った所が小さい"
+    marker: none
+    align: left
+    at: { x: 690, y: 252 }
+    size: { w: 420, h: 16 }
+  - id: ex3
+    label: ""
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 653, y: 301 }
+    size: { w: 14, h: 22 }
+  - id: ex3n
+    label: ""
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 675, y: 301 }
+    size: { w: 14, h: 22 }
+  - id: ext3
+    label: "悪い例：となりの楕円まではみ出している（少しなら大丈夫）"
+    marker: none
+    align: left
+    at: { x: 690, y: 304 }
+    size: { w: 420, h: 16 }
+  - id: ex4
+    label: ""
+    marker: ellipse
+    at: { x: 653, y: 353 }
+    size: { w: 14, h: 22 }
+  - id: ext4
+    label: "悪い例：輪郭をなぞっただけ"
+    marker: none
+    align: left
+    at: { x: 690, y: 356 }
+    size: { w: 420, h: 16 }
+  - id: ex5
+    label: ""
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 653, y: 405 }
+    size: { w: 14, h: 22 }
+  - id: ext5
+    label: "悪い例：レ点（✓）を書いただけ"
+    marker: none
+    align: left
+    at: { x: 690, y: 408 }
+    size: { w: 420, h: 16 }
+  - id: ex6
+    label: ""
+    marker: ellipse
+    hatch: solid
+    color: 薄い
+    at: { x: 653, y: 457 }
+    size: { w: 14, h: 22 }
+  - id: ext6
+    label: "悪い例：塗り方が薄い"
+    marker: none
+    align: left
+    at: { x: 690, y: 460 }
+    size: { w: 420, h: 16 }
+  - id: ex_note
+    label: "悪い例は、読み取りエラーになることがある（どれも、楕円の中が十分に黒くならない）"
+    marker: none
+    align: left
+    at: { x: 640, y: 506 }
+    size: { w: 580, h: 16 }
+  - id: mis_head
+    label: "番号で起きやすい塗り間違い（埼玉県の例。高校入試は「受検番号」）"
+    marker: none
+    align: left
+    at: { x: 640, y: 560 }
+    size: { w: 580, h: 16 }
+  - id: misa0
+    label: "マーク漏れ"
+    marker: box
+    at: { x: 640, y: 584 }
+    size: { w: 150, h: 26 }
+  - id: misb0
+    label: "書いた 4 けたのうち、塗っていないけたがある"
+    marker: box
+    align: left
+    at: { x: 790, y: 584 }
+    size: { w: 430, h: 26 }
+  - id: misa1
+    label: "複数マーク"
+    marker: box
+    at: { x: 640, y: 610 }
+    size: { w: 150, h: 26 }
+  - id: misb1
+    label: "同じけたで 2 つ以上塗っている"
+    marker: box
+    align: left
+    at: { x: 790, y: 610 }
+    size: { w: 430, h: 26 }
+  - id: misa2
+    label: "けた間違い"
+    marker: box
+    at: { x: 640, y: 636 }
+    size: { w: 150, h: 26 }
+  - id: misb2
+    label: "別のけたのマーク欄を塗っている"
+    marker: box
+    align: left
+    at: { x: 790, y: 636 }
+    size: { w: 430, h: 26 }
+  - id: misa3
+    label: "0 の位置の勘違い"
+    marker: box
+    at: { x: 640, y: 662 }
+    size: { w: 150, h: 26 }
+  - id: misb3
+    label: "0 がいちばん下だと思い、9 を塗っている"
+    marker: box
+    align: left
+    at: { x: 790, y: 662 }
+    size: { w: 430, h: 26 }
+  - id: pa0
+    label: ""
+    marker: box
+    at: { x: 40, y: 770 }
+    size: { w: 140, h: 26 }
+  - id: pb0
+    label: "大学入学共通テスト（令和 8 年度）"
+    marker: box
+    align: center
+    at: { x: 180, y: 770 }
+    size: { w: 560, h: 26 }
+  - id: pc0
+    label: "埼玉県の公立高校の入試（令和 9 年度）"
+    marker: box
+    align: center
+    at: { x: 740, y: 770 }
+    size: { w: 480, h: 26 }
+  - id: pa1
+    label: "鉛筆"
+    marker: box
+    at: { x: 40, y: 796 }
+    size: { w: 140, h: 26 }
+  - id: pb1
+    label: "黒鉛筆 H・F・HB に限る（シャープペンシルはマークに使わない。メモ・計算のみ可）"
+    marker: box
+    align: left
+    at: { x: 180, y: 796 }
+    size: { w: 560, h: 26 }
+  - id: pc1
+    label: "HB または B の鉛筆（シャープペンシルも可）"
+    marker: box
+    align: left
+    at: { x: 740, y: 796 }
+    size: { w: 480, h: 26 }
+  - id: pa2
+    label: "番号の欄"
+    marker: box
+    at: { x: 40, y: 822 }
+    size: { w: 140, h: 26 }
+  - id: pb2
+    label: "受験番号は数字と英字を塗る。多いミスは数字の取り違え・入れ替え・英字の塗り忘れ"
+    marker: box
+    align: left
+    at: { x: 180, y: 822 }
+    size: { w: 560, h: 26 }
+  - id: pc2
+    label: "受検番号 4 けたを書いて塗る（上の表の 4 つ）"
+    marker: box
+    align: left
+    at: { x: 740, y: 822 }
+    size: { w: 480, h: 26 }
+  - id: pa3
+    label: "消すとき"
+    marker: box
+    at: { x: 40, y: 848 }
+    size: { w: 140, h: 26 }
+  - id: pb3
+    label: "プラスチック製の消しゴムで、消し跡を残さない"
+    marker: box
+    align: left
+    at: { x: 180, y: 848 }
+    size: { w: 560, h: 26 }
+  - id: pc3
+    label: "消しゴムできれいに消し、消しくずを払う"
+    marker: box
+    align: left
+    at: { x: 740, y: 848 }
+    size: { w: 480, h: 26 }
+  - id: rule
+    label: "鉛筆の決まりは試験ごとに違う。どれを使うかは、その試験の「受験上の注意」で確かめる。"
+    marker: none
+    align: left
+    at: { x: 40, y: 896 }
+    size: { w: 1180, h: 16 }
+  - id: nodraw
+    label: "描かなかったもの：実在の試験の解答用紙そのもの（様式はそれぞれの試験のもの）、記述式の欄、解答科目欄。ドロップアウトカラーの色は読み取り機ごとに違うので、この図の色は一例。"
+    marker: none
+    align: left
+    at: { x: 40, y: 920 }
+    size: { w: 1180, h: 16 }
+paths:
+  - id: check0
+    points: [ [ 655, 416 ], [ 659, 421 ], [ 666, 409 ] ]
+    ends: { from: none, to: none }
+  - id: overrun0
+    points: [ [ 681.0, 312.0 ], [ 679.0, 318.5 ], [ 673.5, 323.3 ], [ 666.0, 325.0 ], [ 658.5, 323.3 ], [ 653.0, 318.5 ], [ 651.0, 312.0 ], [ 653.0, 305.5 ], [ 658.5, 300.7 ], [ 666.0, 299.0 ], [ 673.5, 300.7 ], [ 679.0, 305.5 ] ]
+    close: true
+    curve: smooth
+    hatch: solid
+    ends: { from: none, to: none }
