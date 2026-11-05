@@ -11,6 +11,12 @@ sources:
   - name: "岡山県立倉敷工業高等学校「令和 2 年度 特別入学者選抜 検査問題（電気科）」（電流 I〔A〕を縦軸・電圧 V〔V〕を横軸にグラフをかく・回路図をかく）"
     url: https://www.kurako.okayama-c.ed.jp/nyuushi_jouhou/kakomon/R2/R02E-q.pdf
     retrieved: 2026-11-05
+  - name: "香川県教育委員会「中理 2 年 補充 No.2 電流の測定」（電流計の＋端子は電源の＋極側、－端子は－極側）"
+    url: https://www.pref.kagawa.lg.jp/documents/14703/j2_ri_ho_02.pdf
+    retrieved: 2026-11-05
+  - name: "ウィキブックス「中学校理科 第1分野/電流と磁界」（二次資料：回路記号の電池は線が長いほうが＋極）"
+    url: https://ja.wikibooks.org/wiki/%E4%B8%AD%E5%AD%A6%E6%A0%A1%E7%90%86%E7%A7%91_%E7%AC%AC1%E5%88%86%E9%87%8E/%E9%9B%BB%E6%B5%81%E3%81%A8%E7%A3%81%E7%95%8C
+    retrieved: 2026-11-05
 # **理科の解答用紙は、点で打つグラフと、記号で書く回路図がある。** どちらも線そのものが答え。
 #
 # 決まり（取得 2026-11-05）——
@@ -78,8 +84,8 @@ nodes:
     label: "／100"
     marker: none
     align: right
-    at: { x: 1100, y: 58 }
-    size: { w: 60, h: 14 }
+    at: { x: 1118, y: 40 }
+    size: { w: 40, h: 13 }
   - id: s1
     label: "1　記号・語句（答えだけを書く）"
     marker: none
@@ -290,7 +296,7 @@ nodes:
     at: { x: 426, y: 298 }
     size: { w: 8, h: 8 }
   - id: s2n1
-    label: "測定値は ● で打ち、折れ線にせず、近くを通る直線を枠の端まで引く"
+    label: "● で打ち、折れ線にせず、測定点の近くを通る直線を引く（この例は原点を通る）"
     marker: none
     align: left
     at: { x: 52, y: 538 }
@@ -323,11 +329,11 @@ nodes:
     at: { x: 620, y: 198 }
     size: { w: 540, h: 360 }
   - id: bat_l
-    label: "電源"
+    label: "電源装置"
     marker: none
     align: center
-    at: { x: 786, y: 232 }
-    size: { w: 40, h: 14 }
+    at: { x: 766, y: 232 }
+    size: { w: 80, h: 14 }
   - id: sw_a
     label: ""
     marker: circle
@@ -498,22 +504,28 @@ nodes:
     at: { x: 40, y: 888 }
     size: { w: 1120, h: 16 }
   - id: n3
-    label: "・回路図は電気用図記号で書く。電源は長い線と短い線、スイッチ、電熱線は長方形、電流計は Ⓐ、電圧計は Ⓥ（神奈川県の問題の選択肢）"
+    label: "・回路図は電気用図記号で書く。電源は長い線と短い線（長い線が＋極）、スイッチ、電熱線は長方形、電流計は Ⓐ、電圧計は Ⓥ（神奈川県の問題の選択肢。＋極はウィキブックス）"
     marker: none
     align: left
     at: { x: 40, y: 910 }
+    size: { w: 1120, h: 16 }
+  - id: n4
+    label: "・電流計・電圧計の＋端子は電源の＋極側に、－端子は－極側につなぐ（香川県の中 2 補充プリント）"
+    marker: none
+    align: left
+    at: { x: 40, y: 932 }
     size: { w: 1120, h: 16 }
   - id: nodraw
     label: "描かなかったもの：数値の丸め方（「小数第 1 位まで」などは問題ごとに指示され、決まった様式が見つからなかった）、部分点の配り方、観点別の欄。"
     marker: none
     align: left
-    at: { x: 40, y: 942 }
+    at: { x: 40, y: 964 }
     size: { w: 1120, h: 16 }
   - id: nodraw2
     label: "問題文は伏せた。測定値は架空。用紙は架空の様式で、実在の学校・県の解答用紙の写しではない。"
     marker: none
     align: left
-    at: { x: 40, y: 964 }
+    at: { x: 40, y: 986 }
     size: { w: 1120, h: 16 }
 paths:
   - id: gv1
