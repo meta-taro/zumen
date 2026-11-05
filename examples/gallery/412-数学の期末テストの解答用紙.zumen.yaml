@@ -1,0 +1,589 @@
+version: 1
+kind: placement
+title: 数学の期末テストの解答用紙（答えだけの欄・求め方の欄・作図・グラフ・証明）
+sources:
+  - name: "神奈川県教育委員会「令和 8 年度 公立高等学校入学者選抜 学力検査 数学 問題」注意事項（根号は最も小さい自然数・約分・円周率は π）"
+    url: https://www.pref.kanagawa.jp/documents/131902/3_r8suugaku_zen_mon.pdf
+    retrieved: 2026-11-05
+  - name: "青森県教育委員会「令和 7 年度 県立高等学校入学者選抜 学力検査 数学 問題」（作図に使った線は消さないこと・座標軸の単位の長さ）"
+    url: https://www.pref.aomori.lg.jp/soshiki/kyoiku/e-gakyo/files/R7suugaku-mondai.pdf
+    retrieved: 2026-11-05
+  - name: "福井県教育庁高校教育課「令和 10 年度入試からの問題冊子・解答用紙の予告」注意事項（（解）（作図）（説明）（証明）の欄・はみ出さない）"
+    url: https://www.pref.fukui.lg.jp/doc/koukou/nyugaku/r10yokoku_d/fil/r10degital.pdf
+    retrieved: 2026-11-05
+# **数学の解答用紙は、答えだけの欄と、求め方を書く欄が分かれている。** 作図とグラフは、線そのものが答え。
+#
+# 決まり（取得 2026-11-05）——
+# 根号の中は最も小さい自然数、分数は約分、円周率は π（神奈川県）。作図に使った線は消さない（青森県）。
+# （解）（作図）（説明）（証明）の欄には求め方を書く（福井県）。
+# 作図：A・B を中心に同じ半径（AB の半分より長い）で弧をかき、2 つの交点 P・Q を結ぶ。弧は交点を通る。
+# グラフ：y = ½x + 1。(0, 1) と (2, 2) の格子点を通る。
+nodes:
+  - id: title
+    label: "数学 期末テスト 解答用紙（架空の様式）"
+    marker: none
+    align: left
+    at: { x: 40, y: 30 }
+    size: { w: 400, h: 22 }
+  - id: hk_年
+    label: "年"
+    marker: box
+    at: { x: 470, y: 26 }
+    size: { w: 44, h: 30 }
+  - id: hv_年
+    label: ""
+    marker: box
+    at: { x: 514, y: 26 }
+    size: { w: 60, h: 30 }
+  - id: hk_組
+    label: "組"
+    marker: box
+    at: { x: 574, y: 26 }
+    size: { w: 44, h: 30 }
+  - id: hv_組
+    label: ""
+    marker: box
+    at: { x: 618, y: 26 }
+    size: { w: 60, h: 30 }
+  - id: hk_番号
+    label: "番号"
+    marker: box
+    at: { x: 678, y: 26 }
+    size: { w: 44, h: 30 }
+  - id: hv_番号
+    label: ""
+    marker: box
+    at: { x: 722, y: 26 }
+    size: { w: 70, h: 30 }
+  - id: hk_氏名
+    label: "氏名"
+    marker: box
+    at: { x: 792, y: 26 }
+    size: { w: 44, h: 30 }
+  - id: hv_氏名
+    label: ""
+    marker: box
+    at: { x: 836, y: 26 }
+    size: { w: 200, h: 30 }
+  - id: score_k
+    label: "得点"
+    marker: box
+    at: { x: 1036, y: 26 }
+    size: { w: 44, h: 30 }
+  - id: score_v
+    label: ""
+    marker: box
+    at: { x: 1080, y: 26 }
+    size: { w: 60, h: 30 }
+  - id: scorenote
+    label: "／100"
+    marker: none
+    align: right
+    at: { x: 1080, y: 58 }
+    size: { w: 60, h: 14 }
+  - id: s1
+    label: "1　計算（答えだけを書く）"
+    marker: none
+    align: left
+    at: { x: 40, y: 92 }
+    size: { w: 400, h: 18 }
+  - id: s1_n0
+    label: "(1)"
+    marker: box
+    at: { x: 40, y: 116 }
+    size: { w: 44, h: 40 }
+  - id: s1_a0
+    label: ""
+    marker: box
+    at: { x: 84, y: 116 }
+    size: { w: 220, h: 40 }
+  - id: s1_n1
+    label: "(2)"
+    marker: box
+    at: { x: 315, y: 116 }
+    size: { w: 44, h: 40 }
+  - id: s1_a1
+    label: ""
+    marker: box
+    at: { x: 359, y: 116 }
+    size: { w: 220, h: 40 }
+  - id: s1_n2
+    label: "(3)"
+    marker: box
+    at: { x: 590, y: 116 }
+    size: { w: 44, h: 40 }
+  - id: s1_a2
+    label: ""
+    marker: box
+    at: { x: 634, y: 116 }
+    size: { w: 220, h: 40 }
+  - id: s1_n3
+    label: "(4)"
+    marker: box
+    at: { x: 865, y: 116 }
+    size: { w: 44, h: 40 }
+  - id: s1_a3
+    label: ""
+    marker: box
+    at: { x: 909, y: 116 }
+    size: { w: 220, h: 40 }
+  - id: s2
+    label: "2　図形の量（単位は欄に刷ってある。数だけを書く）"
+    marker: none
+    align: left
+    at: { x: 40, y: 168 }
+    size: { w: 600, h: 18 }
+  - id: s2_n0
+    label: "(1)"
+    marker: box
+    at: { x: 40, y: 192 }
+    size: { w: 44, h: 40 }
+  - id: s2_a0
+    label: ""
+    marker: box
+    at: { x: 84, y: 192 }
+    size: { w: 310, h: 40 }
+  - id: s2_u0
+    label: "cm"
+    marker: none
+    align: right
+    at: { x: 340, y: 204 }
+    size: { w: 46, h: 16 }
+  - id: s2_n1
+    label: "(2)"
+    marker: box
+    at: { x: 406, y: 192 }
+    size: { w: 44, h: 40 }
+  - id: s2_a1
+    label: ""
+    marker: box
+    at: { x: 450, y: 192 }
+    size: { w: 310, h: 40 }
+  - id: s2_u1
+    label: "cm²"
+    marker: none
+    align: right
+    at: { x: 706, y: 204 }
+    size: { w: 46, h: 16 }
+  - id: s2_n2
+    label: "(3)"
+    marker: box
+    at: { x: 772, y: 192 }
+    size: { w: 44, h: 40 }
+  - id: s2_a2
+    label: ""
+    marker: box
+    at: { x: 816, y: 192 }
+    size: { w: 310, h: 40 }
+  - id: s2_u2
+    label: "度"
+    marker: none
+    align: right
+    at: { x: 1072, y: 204 }
+    size: { w: 46, h: 16 }
+  - id: s3
+    label: "3　文章題（（解）の欄に求め方を書き、答えは答の欄に）"
+    marker: none
+    align: left
+    at: { x: 40, y: 244 }
+    size: { w: 700, h: 18 }
+  - id: s3_k
+    label: "（解）"
+    marker: box
+    at: { x: 40, y: 268 }
+    size: { w: 70, h: 150 }
+  - id: s3_v
+    label: ""
+    marker: box
+    at: { x: 110, y: 268 }
+    size: { w: 760, h: 150 }
+  - id: s3_ph
+    label: "式・考え方（求め方や導き方を、途中まで消さずに書く）"
+    marker: none
+    align: left
+    at: { x: 124, y: 278 }
+    size: { w: 560, h: 14 }
+  - id: s3_ak
+    label: "答"
+    marker: box
+    at: { x: 890, y: 268 }
+    size: { w: 50, h: 150 }
+  - id: s3_av
+    label: ""
+    marker: box
+    at: { x: 940, y: 268 }
+    size: { w: 200, h: 150 }
+  - id: s4
+    label: "4　作図（線分 AB の垂直二等分線）"
+    marker: none
+    align: left
+    at: { x: 40, y: 440 }
+    size: { w: 520, h: 18 }
+  - id: s4_box
+    label: ""
+    marker: box
+    at: { x: 40, y: 464 }
+    size: { w: 520, h: 300 }
+  - id: pA
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 216, y: 610 }
+    size: { w: 8, h: 8 }
+  - id: pB
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 376, y: 610 }
+    size: { w: 8, h: 8 }
+  - id: lA
+    label: "A"
+    marker: none
+    align: center
+    at: { x: 194, y: 606 }
+    size: { w: 16, h: 16 }
+  - id: lB
+    label: "B"
+    marker: none
+    align: center
+    at: { x: 390, y: 606 }
+    size: { w: 16, h: 16 }
+  - id: lP
+    label: "P"
+    marker: none
+    align: center
+    at: { x: 308, y: 516.5 }
+    size: { w: 16, h: 16 }
+  - id: lQ
+    label: "Q"
+    marker: none
+    align: center
+    at: { x: 308, y: 695.5 }
+    size: { w: 16, h: 16 }
+  - id: s4n1
+    label: "コンパスの弧（作図に使った線）は消さない"
+    marker: none
+    align: left
+    at: { x: 52, y: 736 }
+    size: { w: 400, h: 14 }
+  - id: s5_box
+    label: ""
+    marker: box
+    at: { x: 600, y: 464 }
+    size: { w: 540, h: 300 }
+  - id: s5
+    label: "5　グラフ（y = ½x + 1 をかく）"
+    marker: none
+    align: left
+    at: { x: 600, y: 440 }
+    size: { w: 520, h: 18 }
+  - id: lx
+    label: "x"
+    marker: none
+    align: center
+    at: { x: 1006, y: 606 }
+    size: { w: 14, h: 16 }
+  - id: ly
+    label: "y"
+    marker: none
+    align: center
+    at: { x: 876, y: 474 }
+    size: { w: 14, h: 16 }
+  - id: lO
+    label: "O"
+    marker: none
+    align: center
+    at: { x: 854, y: 616 }
+    size: { w: 14, h: 14 }
+  - id: tx-5
+    label: "-5"
+    marker: none
+    align: center
+    at: { x: 758, y: 618 }
+    size: { w: 24, h: 12 }
+  - id: ty-5
+    label: "5"
+    marker: none
+    align: right
+    at: { x: 840, y: 508 }
+    size: { w: 24, h: 12 }
+  - id: tx5
+    label: "5"
+    marker: none
+    align: center
+    at: { x: 958, y: 618 }
+    size: { w: 24, h: 12 }
+  - id: ty5
+    label: "-5"
+    marker: none
+    align: right
+    at: { x: 840, y: 708 }
+    size: { w: 24, h: 12 }
+  - id: gpa
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 866, y: 590 }
+    size: { w: 8, h: 8 }
+  - id: gpb
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 906, y: 570 }
+    size: { w: 8, h: 8 }
+  - id: gpa_l
+    label: "(0, 1)"
+    marker: none
+    align: right
+    at: { x: 808, y: 578 }
+    size: { w: 54, h: 12 }
+  - id: gpb_l
+    label: "(2, 2)"
+    marker: none
+    align: left
+    at: { x: 918, y: 578 }
+    size: { w: 54, h: 12 }
+  - id: s5n1
+    label: "格子点を 2 つ打ってから結ぶ。1 目盛りは 1"
+    marker: none
+    align: left
+    at: { x: 612, y: 746 }
+    size: { w: 400, h: 14 }
+  - id: s6
+    label: "6　証明"
+    marker: none
+    align: left
+    at: { x: 40, y: 784 }
+    size: { w: 300, h: 18 }
+  - id: s6_k1
+    label: "仮定"
+    marker: box
+    at: { x: 40, y: 808 }
+    size: { w: 70, h: 30 }
+  - id: s6_v1
+    label: ""
+    marker: box
+    at: { x: 110, y: 808 }
+    size: { w: 1030, h: 30 }
+  - id: s6_k2
+    label: "結論"
+    marker: box
+    at: { x: 40, y: 838 }
+    size: { w: 70, h: 30 }
+  - id: s6_v2
+    label: ""
+    marker: box
+    at: { x: 110, y: 838 }
+    size: { w: 1030, h: 30 }
+  - id: s6_k3
+    label: "（証明）"
+    marker: box
+    at: { x: 40, y: 868 }
+    size: { w: 70, h: 120 }
+  - id: s6_v3
+    label: ""
+    marker: box
+    at: { x: 110, y: 868 }
+    size: { w: 1030, h: 120 }
+  - id: nh
+    label: "解答上の注意（入試の問題冊子・解答用紙の注意から）"
+    marker: none
+    align: left
+    at: { x: 40, y: 1010 }
+    size: { w: 700, h: 16 }
+  - id: n0
+    label: "・答えに根号が含まれるときは、根号の中を最も小さい自然数にする（神奈川県）"
+    marker: none
+    align: left
+    at: { x: 40, y: 1034 }
+    size: { w: 1100, h: 16 }
+  - id: n1
+    label: "・答えが分数になるときは、約分できる場合は約分する（神奈川県）"
+    marker: none
+    align: left
+    at: { x: 40, y: 1056 }
+    size: { w: 1100, h: 16 }
+  - id: n2
+    label: "・円周率は π とする（神奈川県の問題文）"
+    marker: none
+    align: left
+    at: { x: 40, y: 1078 }
+    size: { w: 1100, h: 16 }
+  - id: n3
+    label: "・作図に使った線は消さない（青森県）"
+    marker: none
+    align: left
+    at: { x: 40, y: 1100 }
+    size: { w: 1100, h: 16 }
+  - id: n4
+    label: "・（解）・（作図）・（説明）・（証明）の欄には、求め方や導き方を丁寧に書く。答えは欄をはみ出さない（福井県）"
+    marker: none
+    align: left
+    at: { x: 40, y: 1122 }
+    size: { w: 1100, h: 16 }
+  - id: nodraw
+    label: "描かなかったもの：部分点の配り方（学校ごとに違い、公表された決まりが無い）、単位を欄に刷るか自分で書かせるか（出典で確かめていない。この様式では刷った）。"
+    marker: none
+    align: left
+    at: { x: 40, y: 1154 }
+    size: { w: 1100, h: 16 }
+  - id: nodraw2
+    label: "問題文は伏せた。用紙は架空の様式で、実在の学校・県の解答用紙の写しではない。"
+    marker: none
+    align: left
+    at: { x: 40, y: 1176 }
+    size: { w: 1100, h: 16 }
+paths:
+  - id: ab
+    points: [ [ 220, 614 ], [ 380, 614 ] ]
+    weight: thick
+    ends: { from: none, to: none }
+  - id: arcA1
+    arc: { center: [ 220, 614 ], r: 110, from: -59.3, to: -27.3 }
+    weight: thin
+    ends: { from: none, to: none }
+  - id: arcA2
+    arc: { center: [ 220, 614 ], r: 110, from: 27.3, to: 59.3 }
+    weight: thin
+    ends: { from: none, to: none }
+  - id: arcB1
+    arc: { center: [ 380, 614 ], r: 110, from: 207.3, to: 239.3 }
+    weight: thin
+    ends: { from: none, to: none }
+  - id: arcB2
+    arc: { center: [ 380, 614 ], r: 110, from: 120.7, to: 152.7 }
+    weight: thin
+    ends: { from: none, to: none }
+  - id: bisector
+    points: [ [ 300, 498.5 ], [ 300, 729.5 ] ]
+    ends: { from: none, to: none }
+  - id: gv0
+    points: [ [ 750, 494 ], [ 750, 734 ] ]
+    weight: thin
+    line: dashed
+    ends: { from: none, to: none }
+  - id: gh0
+    points: [ [ 750, 494 ], [ 990, 494 ] ]
+    weight: thin
+    line: dashed
+    ends: { from: none, to: none }
+  - id: gv1
+    points: [ [ 770, 494 ], [ 770, 734 ] ]
+    weight: thin
+    line: dashed
+    ends: { from: none, to: none }
+  - id: gh1
+    points: [ [ 750, 514 ], [ 990, 514 ] ]
+    weight: thin
+    line: dashed
+    ends: { from: none, to: none }
+  - id: gv2
+    points: [ [ 790, 494 ], [ 790, 734 ] ]
+    weight: thin
+    line: dashed
+    ends: { from: none, to: none }
+  - id: gh2
+    points: [ [ 750, 534 ], [ 990, 534 ] ]
+    weight: thin
+    line: dashed
+    ends: { from: none, to: none }
+  - id: gv3
+    points: [ [ 810, 494 ], [ 810, 734 ] ]
+    weight: thin
+    line: dashed
+    ends: { from: none, to: none }
+  - id: gh3
+    points: [ [ 750, 554 ], [ 990, 554 ] ]
+    weight: thin
+    line: dashed
+    ends: { from: none, to: none }
+  - id: gv4
+    points: [ [ 830, 494 ], [ 830, 734 ] ]
+    weight: thin
+    line: dashed
+    ends: { from: none, to: none }
+  - id: gh4
+    points: [ [ 750, 574 ], [ 990, 574 ] ]
+    weight: thin
+    line: dashed
+    ends: { from: none, to: none }
+  - id: gv5
+    points: [ [ 850, 494 ], [ 850, 734 ] ]
+    weight: thin
+    line: dashed
+    ends: { from: none, to: none }
+  - id: gh5
+    points: [ [ 750, 594 ], [ 990, 594 ] ]
+    weight: thin
+    line: dashed
+    ends: { from: none, to: none }
+  - id: gv7
+    points: [ [ 890, 494 ], [ 890, 734 ] ]
+    weight: thin
+    line: dashed
+    ends: { from: none, to: none }
+  - id: gh7
+    points: [ [ 750, 634 ], [ 990, 634 ] ]
+    weight: thin
+    line: dashed
+    ends: { from: none, to: none }
+  - id: gv8
+    points: [ [ 910, 494 ], [ 910, 734 ] ]
+    weight: thin
+    line: dashed
+    ends: { from: none, to: none }
+  - id: gh8
+    points: [ [ 750, 654 ], [ 990, 654 ] ]
+    weight: thin
+    line: dashed
+    ends: { from: none, to: none }
+  - id: gv9
+    points: [ [ 930, 494 ], [ 930, 734 ] ]
+    weight: thin
+    line: dashed
+    ends: { from: none, to: none }
+  - id: gh9
+    points: [ [ 750, 674 ], [ 990, 674 ] ]
+    weight: thin
+    line: dashed
+    ends: { from: none, to: none }
+  - id: gv10
+    points: [ [ 950, 494 ], [ 950, 734 ] ]
+    weight: thin
+    line: dashed
+    ends: { from: none, to: none }
+  - id: gh10
+    points: [ [ 750, 694 ], [ 990, 694 ] ]
+    weight: thin
+    line: dashed
+    ends: { from: none, to: none }
+  - id: gv11
+    points: [ [ 970, 494 ], [ 970, 734 ] ]
+    weight: thin
+    line: dashed
+    ends: { from: none, to: none }
+  - id: gh11
+    points: [ [ 750, 714 ], [ 990, 714 ] ]
+    weight: thin
+    line: dashed
+    ends: { from: none, to: none }
+  - id: gv12
+    points: [ [ 990, 494 ], [ 990, 734 ] ]
+    weight: thin
+    line: dashed
+    ends: { from: none, to: none }
+  - id: gh12
+    points: [ [ 750, 734 ], [ 990, 734 ] ]
+    weight: thin
+    line: dashed
+    ends: { from: none, to: none }
+  - id: xaxis
+    points: [ [ 740, 614 ], [ 1004, 614 ] ]
+    ends: { from: none, to: arrow }
+  - id: yaxis
+    points: [ [ 870, 744 ], [ 870, 480 ] ]
+    ends: { from: none, to: arrow }
+  - id: graph
+    points: [ [ 750, 654 ], [ 990, 534 ] ]
+    weight: thick
+    ends: { from: none, to: none }

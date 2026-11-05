@@ -394,6 +394,7 @@ export const TITLES_EN = {
   '409-TOEIC-LRの構成': 'The TOEIC Listening & Reading Test (seven parts, 200 questions, two hours, a score instead of pass or fail)',
   '410-日本語検定と日本語能力試験': 'Nihongo Kentei and the JLPT (two separate tests of Japanese)',
   '411-国語の期末テストの解答用紙': 'A Japanese-language end-of-term test answer sheet (vertical, right to left, with genko-yoshi squares)',
+  '412-数学の期末テストの解答用紙': 'A maths end-of-term answer sheet (answer-only boxes, working space, construction, graph and proof)',
   '404-ギターのコード表とTAB譜': 'Guitar chord boxes and TAB (one fingering, two notations that face opposite ways)',
   '403-きらきら星-英語の歌詞つきの五線譜': 'Twinkle, Twinkle, Little Star (a staff score with English lyrics)',
   '402-時差の世界地図-経度の帯と国が決めた時': 'World time zones (the 15-degree bands, and the times countries actually keep)',
