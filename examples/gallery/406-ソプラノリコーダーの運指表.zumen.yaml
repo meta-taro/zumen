@@ -1,0 +1,1279 @@
+version: 1
+kind: placement
+title: ソプラノリコーダーの運指表（バロック式とジャーマン式は、ファだけが違う）
+sources:
+  - name: "Philippe Bolton「Baroque fingering chart」（リコーダー職人の運指表。● 閉じる・○ 開ける・ø 少し開ける）"
+    url: https://www.flute-a-bec.com/tablaturgb.html
+    retrieved: 2026-11-05
+  - name: "Philippe Bolton「German or \"modern\" fingerings」（ジャーマン式は 1920 年代のハルラン案。5 番を小さく 4 番を大きくしてファを並び順に）"
+    url: https://www.flute-a-bec.com/doigtes-allemands-gb.html
+    retrieved: 2026-11-05
+  - name: "Dolmetsch「Baroque/English Fingerings for the Recorder in Text Format」（穴の番号 0〜7、6・7 の 2 つ穴の a・b）"
+    url: https://dolmetsch.com/textfingeringchart.htm
+    retrieved: 2026-11-05
+  - name: "島村楽器「リコーダーのバロック式とジャーマン式の違い」（日本の小学校はジャーマン式が多い・4 番と 5 番の穴の大きさで見分ける）"
+    url: https://www.shimamura.co.jp/update/?p=59157
+    retrieved: 2026-11-05
+# **列がリコーダー 1 本、段が穴 1 つ。** 上が吹き口、裏穴（0）がいちばん上。
+#
+# 決まり（Philippe Bolton の運指表、取得 2026-11-05）——
+# ● 閉じる、○ 開ける、斜線の丸はサミング（親指の爪で裏穴を少しだけ開ける）。
+# 6・7 番は 2 つ穴。左が大きい穴、右が半音用の小さい穴。
+# バロック式とジャーマン式で違うのは、この音域ではファと高いファだけ（ほかの音は同じ押さえ方）。
+nodes:
+  - id: title
+    label: "ソプラノリコーダーの運指表"
+    marker: none
+    align: center
+    at: { x: 250, y: 40 }
+    size: { w: 988, h: 22 }
+  - id: lead
+    label: "バロック式で書き、ジャーマン式で押さえ方が変わる 2 つの音（ファ・高いファ）だけ、隣に（G）として並べた（点の地）"
+    marker: none
+    align: center
+    at: { x: 250, y: 72 }
+    size: { w: 988, h: 16 }
+  - id: hhole
+    label: "穴"
+    marker: none
+    align: left
+    at: { x: 40, y: 126 }
+    size: { w: 90, h: 16 }
+  - id: hfinger
+    label: "押さえる指"
+    marker: none
+    align: left
+    at: { x: 130, y: 126 }
+    size: { w: 110, h: 16 }
+  - id: holeT
+    label: "0（裏穴）"
+    marker: none
+    align: left
+    at: { x: 40, y: 188 }
+    size: { w: 90, h: 16 }
+  - id: fingerT
+    label: "左手の親指"
+    marker: none
+    align: left
+    at: { x: 130, y: 188 }
+    size: { w: 110, h: 16 }
+  - id: hole1
+    label: "1"
+    marker: none
+    align: left
+    at: { x: 40, y: 238 }
+    size: { w: 90, h: 16 }
+  - id: finger1
+    label: "左手の人差し指"
+    marker: none
+    align: left
+    at: { x: 130, y: 238 }
+    size: { w: 110, h: 16 }
+  - id: hole2
+    label: "2"
+    marker: none
+    align: left
+    at: { x: 40, y: 270 }
+    size: { w: 90, h: 16 }
+  - id: finger2
+    label: "左手の中指"
+    marker: none
+    align: left
+    at: { x: 130, y: 270 }
+    size: { w: 110, h: 16 }
+  - id: hole3
+    label: "3"
+    marker: none
+    align: left
+    at: { x: 40, y: 302 }
+    size: { w: 90, h: 16 }
+  - id: finger3
+    label: "左手の薬指"
+    marker: none
+    align: left
+    at: { x: 130, y: 302 }
+    size: { w: 110, h: 16 }
+  - id: hole4
+    label: "4"
+    marker: none
+    align: left
+    at: { x: 40, y: 360 }
+    size: { w: 90, h: 16 }
+  - id: finger4
+    label: "右手の人差し指"
+    marker: none
+    align: left
+    at: { x: 130, y: 360 }
+    size: { w: 110, h: 16 }
+  - id: hole5
+    label: "5"
+    marker: none
+    align: left
+    at: { x: 40, y: 392 }
+    size: { w: 90, h: 16 }
+  - id: finger5
+    label: "右手の中指"
+    marker: none
+    align: left
+    at: { x: 130, y: 392 }
+    size: { w: 110, h: 16 }
+  - id: hole6
+    label: "6（2 つ穴）"
+    marker: none
+    align: left
+    at: { x: 40, y: 424 }
+    size: { w: 90, h: 16 }
+  - id: finger6
+    label: "右手の薬指"
+    marker: none
+    align: left
+    at: { x: 130, y: 424 }
+    size: { w: 110, h: 16 }
+  - id: hole7
+    label: "7（2 つ穴）"
+    marker: none
+    align: left
+    at: { x: 40, y: 456 }
+    size: { w: 90, h: 16 }
+  - id: finger7
+    label: "右手の小指"
+    marker: none
+    align: left
+    at: { x: 130, y: 456 }
+    size: { w: 110, h: 16 }
+  - id: lefthand
+    label: "左手（上）"
+    marker: none
+    align: left
+    at: { x: 40, y: 220 }
+    size: { w: 200, h: 14 }
+  - id: righthand
+    label: "右手（下）"
+    marker: none
+    align: left
+    at: { x: 40, y: 340 }
+    size: { w: 200, h: 14 }
+  - id: rule
+    label: ""
+    marker: none
+    hatch: solid
+    at: { x: 40, y: 336 }
+    size: { w: 200, h: 0.8 }
+  - id: name_do
+    label: "ド"
+    marker: none
+    align: center
+    at: { x: 250, y: 120 }
+    size: { w: 76, h: 18 }
+  - id: sub_do
+    label: "C5"
+    marker: none
+    align: center
+    at: { x: 250, y: 142 }
+    size: { w: 76, h: 14 }
+  - id: pipe_do
+    label: ""
+    marker: box
+    at: { x: 271, y: 176 }
+    size: { w: 34, h: 302 }
+  - id: do_T
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 278, y: 186 }
+    size: { w: 20, h: 20 }
+  - id: do_1
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 278, y: 236 }
+    size: { w: 20, h: 20 }
+  - id: do_2
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 278, y: 268 }
+    size: { w: 20, h: 20 }
+  - id: do_3
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 278, y: 300 }
+    size: { w: 20, h: 20 }
+  - id: do_4
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 278, y: 358 }
+    size: { w: 20, h: 20 }
+  - id: do_5
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 278, y: 390 }
+    size: { w: 20, h: 20 }
+  - id: do_6a
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 275, y: 426 }
+    size: { w: 12, h: 12 }
+  - id: do_6b
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 290.5, y: 427.5 }
+    size: { w: 9, h: 9 }
+  - id: do_7a
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 275, y: 458 }
+    size: { w: 12, h: 12 }
+  - id: do_7b
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 290.5, y: 459.5 }
+    size: { w: 9, h: 9 }
+  - id: name_re
+    label: "レ"
+    marker: none
+    align: center
+    at: { x: 326, y: 120 }
+    size: { w: 76, h: 18 }
+  - id: sub_re
+    label: "D5"
+    marker: none
+    align: center
+    at: { x: 326, y: 142 }
+    size: { w: 76, h: 14 }
+  - id: pipe_re
+    label: ""
+    marker: box
+    at: { x: 347, y: 176 }
+    size: { w: 34, h: 302 }
+  - id: re_T
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 354, y: 186 }
+    size: { w: 20, h: 20 }
+  - id: re_1
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 354, y: 236 }
+    size: { w: 20, h: 20 }
+  - id: re_2
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 354, y: 268 }
+    size: { w: 20, h: 20 }
+  - id: re_3
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 354, y: 300 }
+    size: { w: 20, h: 20 }
+  - id: re_4
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 354, y: 358 }
+    size: { w: 20, h: 20 }
+  - id: re_5
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 354, y: 390 }
+    size: { w: 20, h: 20 }
+  - id: re_6a
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 351, y: 426 }
+    size: { w: 12, h: 12 }
+  - id: re_6b
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 366.5, y: 427.5 }
+    size: { w: 9, h: 9 }
+  - id: re_7a
+    label: ""
+    marker: circle
+    at: { x: 351, y: 458 }
+    size: { w: 12, h: 12 }
+  - id: re_7b
+    label: ""
+    marker: circle
+    at: { x: 366.5, y: 459.5 }
+    size: { w: 9, h: 9 }
+  - id: name_mi
+    label: "ミ"
+    marker: none
+    align: center
+    at: { x: 402, y: 120 }
+    size: { w: 76, h: 18 }
+  - id: sub_mi
+    label: "E5"
+    marker: none
+    align: center
+    at: { x: 402, y: 142 }
+    size: { w: 76, h: 14 }
+  - id: pipe_mi
+    label: ""
+    marker: box
+    at: { x: 423, y: 176 }
+    size: { w: 34, h: 302 }
+  - id: mi_T
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 430, y: 186 }
+    size: { w: 20, h: 20 }
+  - id: mi_1
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 430, y: 236 }
+    size: { w: 20, h: 20 }
+  - id: mi_2
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 430, y: 268 }
+    size: { w: 20, h: 20 }
+  - id: mi_3
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 430, y: 300 }
+    size: { w: 20, h: 20 }
+  - id: mi_4
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 430, y: 358 }
+    size: { w: 20, h: 20 }
+  - id: mi_5
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 430, y: 390 }
+    size: { w: 20, h: 20 }
+  - id: mi_6a
+    label: ""
+    marker: circle
+    at: { x: 427, y: 426 }
+    size: { w: 12, h: 12 }
+  - id: mi_6b
+    label: ""
+    marker: circle
+    at: { x: 442.5, y: 427.5 }
+    size: { w: 9, h: 9 }
+  - id: mi_7a
+    label: ""
+    marker: circle
+    at: { x: 427, y: 458 }
+    size: { w: 12, h: 12 }
+  - id: mi_7b
+    label: ""
+    marker: circle
+    at: { x: 442.5, y: 459.5 }
+    size: { w: 9, h: 9 }
+  - id: name_fa
+    label: "ファ"
+    marker: none
+    align: center
+    at: { x: 478, y: 120 }
+    size: { w: 76, h: 18 }
+  - id: sub_fa
+    label: "F5"
+    marker: none
+    align: center
+    at: { x: 478, y: 142 }
+    size: { w: 76, h: 14 }
+  - id: pipe_fa
+    label: ""
+    marker: box
+    at: { x: 499, y: 176 }
+    size: { w: 34, h: 302 }
+  - id: fa_T
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 506, y: 186 }
+    size: { w: 20, h: 20 }
+  - id: fa_1
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 506, y: 236 }
+    size: { w: 20, h: 20 }
+  - id: fa_2
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 506, y: 268 }
+    size: { w: 20, h: 20 }
+  - id: fa_3
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 506, y: 300 }
+    size: { w: 20, h: 20 }
+  - id: fa_4
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 506, y: 358 }
+    size: { w: 20, h: 20 }
+  - id: fa_5
+    label: ""
+    marker: circle
+    at: { x: 506, y: 390 }
+    size: { w: 20, h: 20 }
+  - id: fa_6a
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 503, y: 426 }
+    size: { w: 12, h: 12 }
+  - id: fa_6b
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 518.5, y: 427.5 }
+    size: { w: 9, h: 9 }
+  - id: fa_7a
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 503, y: 458 }
+    size: { w: 12, h: 12 }
+  - id: fa_7b
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 518.5, y: 459.5 }
+    size: { w: 9, h: 9 }
+  - id: bg_fag
+    label: ""
+    marker: box
+    hatch: dots
+    at: { x: 557, y: 164 }
+    size: { w: 70, h: 320 }
+  - id: name_fag
+    label: "ファ"
+    marker: none
+    align: center
+    at: { x: 554, y: 120 }
+    size: { w: 76, h: 18 }
+  - id: sub_fag
+    label: "F5（G）"
+    marker: none
+    align: center
+    at: { x: 554, y: 142 }
+    size: { w: 76, h: 14 }
+  - id: pipe_fag
+    label: ""
+    marker: box
+    at: { x: 575, y: 176 }
+    size: { w: 34, h: 302 }
+  - id: fag_T
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 582, y: 186 }
+    size: { w: 20, h: 20 }
+  - id: fag_1
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 582, y: 236 }
+    size: { w: 20, h: 20 }
+  - id: fag_2
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 582, y: 268 }
+    size: { w: 20, h: 20 }
+  - id: fag_3
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 582, y: 300 }
+    size: { w: 20, h: 20 }
+  - id: fag_4
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 582, y: 358 }
+    size: { w: 20, h: 20 }
+  - id: fag_5
+    label: ""
+    marker: circle
+    at: { x: 582, y: 390 }
+    size: { w: 20, h: 20 }
+  - id: fag_6a
+    label: ""
+    marker: circle
+    at: { x: 579, y: 426 }
+    size: { w: 12, h: 12 }
+  - id: fag_6b
+    label: ""
+    marker: circle
+    at: { x: 594.5, y: 427.5 }
+    size: { w: 9, h: 9 }
+  - id: fag_7a
+    label: ""
+    marker: circle
+    at: { x: 579, y: 458 }
+    size: { w: 12, h: 12 }
+  - id: fag_7b
+    label: ""
+    marker: circle
+    at: { x: 594.5, y: 459.5 }
+    size: { w: 9, h: 9 }
+  - id: name_so
+    label: "ソ"
+    marker: none
+    align: center
+    at: { x: 630, y: 120 }
+    size: { w: 76, h: 18 }
+  - id: sub_so
+    label: "G5"
+    marker: none
+    align: center
+    at: { x: 630, y: 142 }
+    size: { w: 76, h: 14 }
+  - id: pipe_so
+    label: ""
+    marker: box
+    at: { x: 651, y: 176 }
+    size: { w: 34, h: 302 }
+  - id: so_T
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 658, y: 186 }
+    size: { w: 20, h: 20 }
+  - id: so_1
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 658, y: 236 }
+    size: { w: 20, h: 20 }
+  - id: so_2
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 658, y: 268 }
+    size: { w: 20, h: 20 }
+  - id: so_3
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 658, y: 300 }
+    size: { w: 20, h: 20 }
+  - id: so_4
+    label: ""
+    marker: circle
+    at: { x: 658, y: 358 }
+    size: { w: 20, h: 20 }
+  - id: so_5
+    label: ""
+    marker: circle
+    at: { x: 658, y: 390 }
+    size: { w: 20, h: 20 }
+  - id: so_6a
+    label: ""
+    marker: circle
+    at: { x: 655, y: 426 }
+    size: { w: 12, h: 12 }
+  - id: so_6b
+    label: ""
+    marker: circle
+    at: { x: 670.5, y: 427.5 }
+    size: { w: 9, h: 9 }
+  - id: so_7a
+    label: ""
+    marker: circle
+    at: { x: 655, y: 458 }
+    size: { w: 12, h: 12 }
+  - id: so_7b
+    label: ""
+    marker: circle
+    at: { x: 670.5, y: 459.5 }
+    size: { w: 9, h: 9 }
+  - id: name_ra
+    label: "ラ"
+    marker: none
+    align: center
+    at: { x: 706, y: 120 }
+    size: { w: 76, h: 18 }
+  - id: sub_ra
+    label: "A5"
+    marker: none
+    align: center
+    at: { x: 706, y: 142 }
+    size: { w: 76, h: 14 }
+  - id: pipe_ra
+    label: ""
+    marker: box
+    at: { x: 727, y: 176 }
+    size: { w: 34, h: 302 }
+  - id: ra_T
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 734, y: 186 }
+    size: { w: 20, h: 20 }
+  - id: ra_1
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 734, y: 236 }
+    size: { w: 20, h: 20 }
+  - id: ra_2
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 734, y: 268 }
+    size: { w: 20, h: 20 }
+  - id: ra_3
+    label: ""
+    marker: circle
+    at: { x: 734, y: 300 }
+    size: { w: 20, h: 20 }
+  - id: ra_4
+    label: ""
+    marker: circle
+    at: { x: 734, y: 358 }
+    size: { w: 20, h: 20 }
+  - id: ra_5
+    label: ""
+    marker: circle
+    at: { x: 734, y: 390 }
+    size: { w: 20, h: 20 }
+  - id: ra_6a
+    label: ""
+    marker: circle
+    at: { x: 731, y: 426 }
+    size: { w: 12, h: 12 }
+  - id: ra_6b
+    label: ""
+    marker: circle
+    at: { x: 746.5, y: 427.5 }
+    size: { w: 9, h: 9 }
+  - id: ra_7a
+    label: ""
+    marker: circle
+    at: { x: 731, y: 458 }
+    size: { w: 12, h: 12 }
+  - id: ra_7b
+    label: ""
+    marker: circle
+    at: { x: 746.5, y: 459.5 }
+    size: { w: 9, h: 9 }
+  - id: name_si
+    label: "シ"
+    marker: none
+    align: center
+    at: { x: 782, y: 120 }
+    size: { w: 76, h: 18 }
+  - id: sub_si
+    label: "B5"
+    marker: none
+    align: center
+    at: { x: 782, y: 142 }
+    size: { w: 76, h: 14 }
+  - id: pipe_si
+    label: ""
+    marker: box
+    at: { x: 803, y: 176 }
+    size: { w: 34, h: 302 }
+  - id: si_T
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 810, y: 186 }
+    size: { w: 20, h: 20 }
+  - id: si_1
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 810, y: 236 }
+    size: { w: 20, h: 20 }
+  - id: si_2
+    label: ""
+    marker: circle
+    at: { x: 810, y: 268 }
+    size: { w: 20, h: 20 }
+  - id: si_3
+    label: ""
+    marker: circle
+    at: { x: 810, y: 300 }
+    size: { w: 20, h: 20 }
+  - id: si_4
+    label: ""
+    marker: circle
+    at: { x: 810, y: 358 }
+    size: { w: 20, h: 20 }
+  - id: si_5
+    label: ""
+    marker: circle
+    at: { x: 810, y: 390 }
+    size: { w: 20, h: 20 }
+  - id: si_6a
+    label: ""
+    marker: circle
+    at: { x: 807, y: 426 }
+    size: { w: 12, h: 12 }
+  - id: si_6b
+    label: ""
+    marker: circle
+    at: { x: 822.5, y: 427.5 }
+    size: { w: 9, h: 9 }
+  - id: si_7a
+    label: ""
+    marker: circle
+    at: { x: 807, y: 458 }
+    size: { w: 12, h: 12 }
+  - id: si_7b
+    label: ""
+    marker: circle
+    at: { x: 822.5, y: 459.5 }
+    size: { w: 9, h: 9 }
+  - id: name_do2
+    label: "高いド"
+    marker: none
+    align: center
+    at: { x: 858, y: 120 }
+    size: { w: 76, h: 18 }
+  - id: sub_do2
+    label: "C6"
+    marker: none
+    align: center
+    at: { x: 858, y: 142 }
+    size: { w: 76, h: 14 }
+  - id: pipe_do2
+    label: ""
+    marker: box
+    at: { x: 879, y: 176 }
+    size: { w: 34, h: 302 }
+  - id: do2_T
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 886, y: 186 }
+    size: { w: 20, h: 20 }
+  - id: do2_1
+    label: ""
+    marker: circle
+    at: { x: 886, y: 236 }
+    size: { w: 20, h: 20 }
+  - id: do2_2
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 886, y: 268 }
+    size: { w: 20, h: 20 }
+  - id: do2_3
+    label: ""
+    marker: circle
+    at: { x: 886, y: 300 }
+    size: { w: 20, h: 20 }
+  - id: do2_4
+    label: ""
+    marker: circle
+    at: { x: 886, y: 358 }
+    size: { w: 20, h: 20 }
+  - id: do2_5
+    label: ""
+    marker: circle
+    at: { x: 886, y: 390 }
+    size: { w: 20, h: 20 }
+  - id: do2_6a
+    label: ""
+    marker: circle
+    at: { x: 883, y: 426 }
+    size: { w: 12, h: 12 }
+  - id: do2_6b
+    label: ""
+    marker: circle
+    at: { x: 898.5, y: 427.5 }
+    size: { w: 9, h: 9 }
+  - id: do2_7a
+    label: ""
+    marker: circle
+    at: { x: 883, y: 458 }
+    size: { w: 12, h: 12 }
+  - id: do2_7b
+    label: ""
+    marker: circle
+    at: { x: 898.5, y: 459.5 }
+    size: { w: 9, h: 9 }
+  - id: name_re2
+    label: "高いレ"
+    marker: none
+    align: center
+    at: { x: 934, y: 120 }
+    size: { w: 76, h: 18 }
+  - id: sub_re2
+    label: "D6"
+    marker: none
+    align: center
+    at: { x: 934, y: 142 }
+    size: { w: 76, h: 14 }
+  - id: pipe_re2
+    label: ""
+    marker: box
+    at: { x: 955, y: 176 }
+    size: { w: 34, h: 302 }
+  - id: re2_T
+    label: ""
+    marker: circle
+    at: { x: 962, y: 186 }
+    size: { w: 20, h: 20 }
+  - id: re2_1
+    label: ""
+    marker: circle
+    at: { x: 962, y: 236 }
+    size: { w: 20, h: 20 }
+  - id: re2_2
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 962, y: 268 }
+    size: { w: 20, h: 20 }
+  - id: re2_3
+    label: ""
+    marker: circle
+    at: { x: 962, y: 300 }
+    size: { w: 20, h: 20 }
+  - id: re2_4
+    label: ""
+    marker: circle
+    at: { x: 962, y: 358 }
+    size: { w: 20, h: 20 }
+  - id: re2_5
+    label: ""
+    marker: circle
+    at: { x: 962, y: 390 }
+    size: { w: 20, h: 20 }
+  - id: re2_6a
+    label: ""
+    marker: circle
+    at: { x: 959, y: 426 }
+    size: { w: 12, h: 12 }
+  - id: re2_6b
+    label: ""
+    marker: circle
+    at: { x: 974.5, y: 427.5 }
+    size: { w: 9, h: 9 }
+  - id: re2_7a
+    label: ""
+    marker: circle
+    at: { x: 959, y: 458 }
+    size: { w: 12, h: 12 }
+  - id: re2_7b
+    label: ""
+    marker: circle
+    at: { x: 974.5, y: 459.5 }
+    size: { w: 9, h: 9 }
+  - id: name_mi2
+    label: "高いミ"
+    marker: none
+    align: center
+    at: { x: 1010, y: 120 }
+    size: { w: 76, h: 18 }
+  - id: sub_mi2
+    label: "E6"
+    marker: none
+    align: center
+    at: { x: 1010, y: 142 }
+    size: { w: 76, h: 14 }
+  - id: pipe_mi2
+    label: ""
+    marker: box
+    at: { x: 1031, y: 176 }
+    size: { w: 34, h: 302 }
+  - id: mi2_T
+    label: ""
+    marker: circle
+    hatch: lines
+    at: { x: 1038, y: 186 }
+    size: { w: 20, h: 20 }
+  - id: mi2_1
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 1038, y: 236 }
+    size: { w: 20, h: 20 }
+  - id: mi2_2
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 1038, y: 268 }
+    size: { w: 20, h: 20 }
+  - id: mi2_3
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 1038, y: 300 }
+    size: { w: 20, h: 20 }
+  - id: mi2_4
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 1038, y: 358 }
+    size: { w: 20, h: 20 }
+  - id: mi2_5
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 1038, y: 390 }
+    size: { w: 20, h: 20 }
+  - id: mi2_6a
+    label: ""
+    marker: circle
+    at: { x: 1035, y: 426 }
+    size: { w: 12, h: 12 }
+  - id: mi2_6b
+    label: ""
+    marker: circle
+    at: { x: 1050.5, y: 427.5 }
+    size: { w: 9, h: 9 }
+  - id: mi2_7a
+    label: ""
+    marker: circle
+    at: { x: 1035, y: 458 }
+    size: { w: 12, h: 12 }
+  - id: mi2_7b
+    label: ""
+    marker: circle
+    at: { x: 1050.5, y: 459.5 }
+    size: { w: 9, h: 9 }
+  - id: name_fa2
+    label: "高いファ"
+    marker: none
+    align: center
+    at: { x: 1086, y: 120 }
+    size: { w: 76, h: 18 }
+  - id: sub_fa2
+    label: "F6"
+    marker: none
+    align: center
+    at: { x: 1086, y: 142 }
+    size: { w: 76, h: 14 }
+  - id: pipe_fa2
+    label: ""
+    marker: box
+    at: { x: 1107, y: 176 }
+    size: { w: 34, h: 302 }
+  - id: fa2_T
+    label: ""
+    marker: circle
+    hatch: lines
+    at: { x: 1114, y: 186 }
+    size: { w: 20, h: 20 }
+  - id: fa2_1
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 1114, y: 236 }
+    size: { w: 20, h: 20 }
+  - id: fa2_2
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 1114, y: 268 }
+    size: { w: 20, h: 20 }
+  - id: fa2_3
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 1114, y: 300 }
+    size: { w: 20, h: 20 }
+  - id: fa2_4
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 1114, y: 358 }
+    size: { w: 20, h: 20 }
+  - id: fa2_5
+    label: ""
+    marker: circle
+    at: { x: 1114, y: 390 }
+    size: { w: 20, h: 20 }
+  - id: fa2_6a
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 1111, y: 426 }
+    size: { w: 12, h: 12 }
+  - id: fa2_6b
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 1126.5, y: 427.5 }
+    size: { w: 9, h: 9 }
+  - id: fa2_7a
+    label: ""
+    marker: circle
+    at: { x: 1111, y: 458 }
+    size: { w: 12, h: 12 }
+  - id: fa2_7b
+    label: ""
+    marker: circle
+    at: { x: 1126.5, y: 459.5 }
+    size: { w: 9, h: 9 }
+  - id: bg_fa2g
+    label: ""
+    marker: box
+    hatch: dots
+    at: { x: 1165, y: 164 }
+    size: { w: 70, h: 320 }
+  - id: name_fa2g
+    label: "高いファ"
+    marker: none
+    align: center
+    at: { x: 1162, y: 120 }
+    size: { w: 76, h: 18 }
+  - id: sub_fa2g
+    label: "F6（G）"
+    marker: none
+    align: center
+    at: { x: 1162, y: 142 }
+    size: { w: 76, h: 14 }
+  - id: pipe_fa2g
+    label: ""
+    marker: box
+    at: { x: 1183, y: 176 }
+    size: { w: 34, h: 302 }
+  - id: fa2g_T
+    label: ""
+    marker: circle
+    hatch: lines
+    at: { x: 1190, y: 186 }
+    size: { w: 20, h: 20 }
+  - id: fa2g_1
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 1190, y: 236 }
+    size: { w: 20, h: 20 }
+  - id: fa2g_2
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 1190, y: 268 }
+    size: { w: 20, h: 20 }
+  - id: fa2g_3
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 1190, y: 300 }
+    size: { w: 20, h: 20 }
+  - id: fa2g_4
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 1190, y: 358 }
+    size: { w: 20, h: 20 }
+  - id: fa2g_5
+    label: ""
+    marker: circle
+    at: { x: 1190, y: 390 }
+    size: { w: 20, h: 20 }
+  - id: fa2g_6a
+    label: ""
+    marker: circle
+    at: { x: 1187, y: 426 }
+    size: { w: 12, h: 12 }
+  - id: fa2g_6b
+    label: ""
+    marker: circle
+    at: { x: 1202.5, y: 427.5 }
+    size: { w: 9, h: 9 }
+  - id: fa2g_7a
+    label: ""
+    marker: circle
+    at: { x: 1187, y: 458 }
+    size: { w: 12, h: 12 }
+  - id: fa2g_7b
+    label: ""
+    marker: circle
+    at: { x: 1202.5, y: 459.5 }
+    size: { w: 9, h: 9 }
+  - id: diffnote
+    label: "ファ：バロック式は 5 を開けて 6・7 を閉じる（替え指）、ジャーマン式は 5・6・7 を開けるだけ（並び順のまま）"
+    marker: none
+    align: left
+    at: { x: 250, y: 496 }
+    size: { w: 988, h: 16 }
+  - id: lg_head
+    label: "記号"
+    marker: none
+    align: left
+    at: { x: 40, y: 540 }
+    size: { w: 120, h: 16 }
+  - id: lg0
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 170, y: 539 }
+    size: { w: 18, h: 18 }
+  - id: lgt0
+    label: "閉じる"
+    marker: none
+    align: left
+    at: { x: 196, y: 540 }
+    size: { w: 110, h: 16 }
+  - id: lg1
+    label: ""
+    marker: circle
+    at: { x: 320, y: 539 }
+    size: { w: 18, h: 18 }
+  - id: lgt1
+    label: "開ける"
+    marker: none
+    align: left
+    at: { x: 346, y: 540 }
+    size: { w: 110, h: 16 }
+  - id: lg2
+    label: ""
+    marker: circle
+    hatch: lines
+    at: { x: 470, y: 539 }
+    size: { w: 18, h: 18 }
+  - id: lgt2
+    label: "サミング（親指の爪で裏穴を少しだけ開ける）"
+    marker: none
+    align: left
+    at: { x: 496, y: 540 }
+    size: { w: 360, h: 16 }
+  - id: ta0
+    label: ""
+    marker: box
+    at: { x: 40, y: 586 }
+    size: { w: 150, h: 26 }
+  - id: tb0
+    label: "バロック式（イギリス式）"
+    marker: box
+    align: center
+    at: { x: 190, y: 586 }
+    size: { w: 524, h: 26 }
+  - id: tc0
+    label: "ジャーマン式（ドイツ式）"
+    marker: box
+    align: center
+    at: { x: 714, y: 586 }
+    size: { w: 524, h: 26 }
+  - id: ta1
+    label: "生まれ"
+    marker: box
+    at: { x: 40, y: 612 }
+    size: { w: 150, h: 26 }
+  - id: tb1
+    label: "18 世紀の指づかい。ドルメッチが復元した楽器で広めた（イギリス式の名の由来）"
+    marker: box
+    align: left
+    at: { x: 190, y: 612 }
+    size: { w: 524, h: 26 }
+  - id: tc1
+    label: "1920 年代にハルランが、ハ長調のファを押さえやすく変えた"
+    marker: box
+    align: left
+    at: { x: 714, y: 612 }
+    size: { w: 524, h: 26 }
+  - id: ta2
+    label: "ファ"
+    marker: box
+    at: { x: 40, y: 638 }
+    size: { w: 150, h: 26 }
+  - id: tb2
+    label: "5 を開け、6・7 を閉じる（替え指）"
+    marker: box
+    align: left
+    at: { x: 190, y: 638 }
+    size: { w: 524, h: 26 }
+  - id: tc2
+    label: "4 まで閉じ、5・6・7 を開けるだけ"
+    marker: box
+    align: left
+    at: { x: 714, y: 638 }
+    size: { w: 524, h: 26 }
+  - id: ta3
+    label: "半音（♯・♭）"
+    marker: box
+    at: { x: 40, y: 664 }
+    size: { w: 150, h: 26 }
+  - id: tb3
+    label: "替え指で、半音も音程が合う"
+    marker: box
+    align: left
+    at: { x: 190, y: 664 }
+    size: { w: 524, h: 26 }
+  - id: tc3
+    label: "ファ♯・ソ♯ など、ハ長調の外の音が合いにくい（穴の大きさを変えたため）"
+    marker: box
+    align: left
+    at: { x: 714, y: 664 }
+    size: { w: 524, h: 26 }
+  - id: ta4
+    label: "見分け方"
+    marker: box
+    at: { x: 40, y: 690 }
+    size: { w: 150, h: 26 }
+  - id: tb4
+    label: "前の 4 番の穴が小さく、5 番が大きい"
+    marker: box
+    align: left
+    at: { x: 190, y: 690 }
+    size: { w: 524, h: 26 }
+  - id: tc4
+    label: "4 番の穴が大きく、5 番が小さい"
+    marker: box
+    align: left
+    at: { x: 714, y: 690 }
+    size: { w: 524, h: 26 }
+  - id: ta5
+    label: "使われる所"
+    marker: box
+    at: { x: 40, y: 716 }
+    size: { w: 150, h: 26 }
+  - id: tb5
+    label: "アルトリコーダー・専門の教育"
+    marker: box
+    align: left
+    at: { x: 190, y: 716 }
+    size: { w: 524, h: 26 }
+  - id: tc5
+    label: "日本の小学校で多い。職人の Bolton は、今は勧めないとしている"
+    marker: box
+    align: left
+    at: { x: 714, y: 716 }
+    size: { w: 524, h: 26 }
+  - id: nodraw
+    label: "描かなかったもの：五線の音符（ソプラノは実際の音より 1 オクターブ下に書く。いちばん下のドは下第 1 線）、半音（♯・♭）の指づかい、高いファより上、替え指の別案。"
+    marker: none
+    align: left
+    at: { x: 40, y: 766 }
+    size: { w: 1198, h: 16 }
+  - id: nodraw2
+    label: "半音から先は楽器ごとに合う指が変わるので、楽器に付いてくる運指表を見てください。"
+    marker: none
+    align: left
+    at: { x: 40, y: 790 }
+    size: { w: 1198, h: 16 }
+  - id: src
+    label: "指づかいは、リコーダー職人 Philippe Bolton が公開している運指表（バロック式・ジャーマン式）から引きました。"
+    marker: none
+    align: left
+    at: { x: 40, y: 814 }
+    size: { w: 1198, h: 16 }
