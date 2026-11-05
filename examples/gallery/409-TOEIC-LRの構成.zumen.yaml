@@ -1,0 +1,596 @@
+version: 1
+kind: placement
+title: TOEIC L&R の構成（7 つの Part・200 問・2 時間。結果は合否ではなくスコア）
+sources:
+  - name: "IIBC「テストの形式と構成」（リスニング約 45 分・100 問、リーディング 75 分・100 問、Part 1〜7 の名前・問題数・形式）"
+    url: https://www.iibc-global.org/toeic/test/lr/about/format.html
+    retrieved: 2026-11-05
+  - name: "IIBC「TOEIC L&R について」（結果は合格・不合格ではなく、トータル 10〜990 点のスコア）"
+    url: https://www.iibc-global.org/toeic/test/lr/about.html
+    retrieved: 2026-11-05
+  - name: "IIBC「テスト結果を確認する」（リスニング 5〜495 点・リーディング 5〜495 点・トータル 10〜990 点、5 点刻み）"
+    url: https://www.iibc-global.org/toeic/test/lr/guide04.html
+    retrieved: 2026-11-05
+  - name: "日本英語検定協会「各級の過去問・試験内容」（英検は級ごとの合否・二次は面接。見本 407 と同じ出典）"
+    url: https://www.eiken.or.jp/eiken/exam/grade_2/
+    retrieved: 2026-11-05
+# **上の帯は問題数**（1 問 ＝ 5px、200 問で 1000px）。**下の帯は時間**（1 分 ＝ 8px強、120 分で 1000px）。
+#
+# 決まり（IIBC「テストの形式と構成」、取得 2026-11-05）——
+# リスニング（約 45 分・100 問）：Part 1 写真描写 6・Part 2 応答 25・Part 3 会話 39・Part 4 説明文 30。
+# リーディング（75 分・100 問）：Part 5 短文穴埋め 30・Part 6 長文穴埋め 16・Part 7 1 つの文書 29／複数の文書 25。
+# 結果は合否ではなく、L 5〜495・R 5〜495・計 10〜990（5 点刻み）。Part ごとの時間は公表されていない。問題文は写していない。
+nodes:
+  - id: title
+    label: "TOEIC Listening & Reading Test の構成"
+    marker: none
+    align: center
+    at: { x: 60, y: 36 }
+    size: { w: 1000, h: 22 }
+  - id: lead
+    label: "英語だけで、200 問すべて 4 択（Part 2 は 3 択）のマークシート。級は無く、結果は 10〜990 点のスコアで出る"
+    marker: none
+    align: center
+    at: { x: 60, y: 66 }
+    size: { w: 1000, h: 16 }
+  - id: h_count
+    label: "問題数（1 問 ＝ 5px）"
+    marker: none
+    align: left
+    at: { x: 60, y: 104 }
+    size: { w: 300, h: 16 }
+  - id: h_L
+    label: "リスニング 100 問"
+    marker: none
+    align: center
+    at: { x: 60, y: 128 }
+    size: { w: 500, h: 16 }
+  - id: h_R
+    label: "リーディング 100 問"
+    marker: none
+    align: center
+    at: { x: 560, y: 128 }
+    size: { w: 500, h: 16 }
+  - id: bar_p1
+    label: ""
+    marker: box
+    hatch: lines
+    at: { x: 60, y: 150 }
+    size: { w: 30, h: 54 }
+  - id: num_p1
+    label: "1"
+    marker: none
+    align: center
+    at: { x: 60, y: 208 }
+    size: { w: 30, h: 14 }
+  - id: cnt_p1
+    label: "6"
+    marker: none
+    align: center
+    at: { x: 60, y: 224 }
+    size: { w: 30, h: 14 }
+  - id: bar_p2
+    label: ""
+    marker: box
+    hatch: lines
+    at: { x: 90, y: 150 }
+    size: { w: 125, h: 54 }
+  - id: num_p2
+    label: "2"
+    marker: none
+    align: center
+    at: { x: 90, y: 208 }
+    size: { w: 125, h: 14 }
+  - id: cnt_p2
+    label: "25"
+    marker: none
+    align: center
+    at: { x: 90, y: 224 }
+    size: { w: 125, h: 14 }
+  - id: bar_p3
+    label: ""
+    marker: box
+    hatch: lines
+    at: { x: 215, y: 150 }
+    size: { w: 195, h: 54 }
+  - id: num_p3
+    label: "3"
+    marker: none
+    align: center
+    at: { x: 215, y: 208 }
+    size: { w: 195, h: 14 }
+  - id: cnt_p3
+    label: "39"
+    marker: none
+    align: center
+    at: { x: 215, y: 224 }
+    size: { w: 195, h: 14 }
+  - id: bar_p4
+    label: ""
+    marker: box
+    hatch: lines
+    at: { x: 410, y: 150 }
+    size: { w: 150, h: 54 }
+  - id: num_p4
+    label: "4"
+    marker: none
+    align: center
+    at: { x: 410, y: 208 }
+    size: { w: 150, h: 14 }
+  - id: cnt_p4
+    label: "30"
+    marker: none
+    align: center
+    at: { x: 410, y: 224 }
+    size: { w: 150, h: 14 }
+  - id: bar_p5
+    label: ""
+    marker: box
+    at: { x: 560, y: 150 }
+    size: { w: 150, h: 54 }
+  - id: num_p5
+    label: "5"
+    marker: none
+    align: center
+    at: { x: 560, y: 208 }
+    size: { w: 150, h: 14 }
+  - id: cnt_p5
+    label: "30"
+    marker: none
+    align: center
+    at: { x: 560, y: 224 }
+    size: { w: 150, h: 14 }
+  - id: bar_p6
+    label: ""
+    marker: box
+    at: { x: 710, y: 150 }
+    size: { w: 80, h: 54 }
+  - id: num_p6
+    label: "6"
+    marker: none
+    align: center
+    at: { x: 710, y: 208 }
+    size: { w: 80, h: 14 }
+  - id: cnt_p6
+    label: "16"
+    marker: none
+    align: center
+    at: { x: 710, y: 224 }
+    size: { w: 80, h: 14 }
+  - id: bar_p7a
+    label: ""
+    marker: box
+    at: { x: 790, y: 150 }
+    size: { w: 145, h: 54 }
+  - id: num_p7a
+    label: "7"
+    marker: none
+    align: center
+    at: { x: 790, y: 208 }
+    size: { w: 145, h: 14 }
+  - id: cnt_p7a
+    label: "29"
+    marker: none
+    align: center
+    at: { x: 790, y: 224 }
+    size: { w: 145, h: 14 }
+  - id: bar_p7b
+    label: ""
+    marker: box
+    at: { x: 935, y: 150 }
+    size: { w: 125, h: 54 }
+  - id: num_p7b
+    label: "7"
+    marker: none
+    align: center
+    at: { x: 935, y: 208 }
+    size: { w: 125, h: 14 }
+  - id: cnt_p7b
+    label: "25"
+    marker: none
+    align: center
+    at: { x: 935, y: 224 }
+    size: { w: 125, h: 14 }
+  - id: lg_bar_L
+    label: ""
+    marker: box
+    hatch: lines
+    at: { x: 60, y: 248 }
+    size: { w: 18, h: 12 }
+  - id: lg_bar_Lt
+    label: "斜線 ＝ リスニング（放送を聞く）"
+    marker: none
+    align: left
+    at: { x: 84, y: 246 }
+    size: { w: 260, h: 16 }
+  - id: lg_bar_R
+    label: ""
+    marker: box
+    at: { x: 360, y: 248 }
+    size: { w: 18, h: 12 }
+  - id: lg_bar_Rt
+    label: "白 ＝ リーディング（印刷を読む）"
+    marker: none
+    align: left
+    at: { x: 384, y: 246 }
+    size: { w: 260, h: 16 }
+  - id: lg_num
+    label: "帯の下：上が Part の番号、下が問題数"
+    marker: none
+    align: right
+    at: { x: 660, y: 246 }
+    size: { w: 400, h: 16 }
+  - id: h_time
+    label: "時間（120 分で 1000px）"
+    marker: none
+    align: left
+    at: { x: 60, y: 272 }
+    size: { w: 300, h: 16 }
+  - id: t_L
+    label: "リスニング 約 45 分"
+    marker: box
+    hatch: lines
+    at: { x: 60, y: 300 }
+    size: { w: 375, h: 34 }
+  - id: t_R
+    label: "リーディング 75 分"
+    marker: box
+    at: { x: 435, y: 300 }
+    size: { w: 625, h: 34 }
+  - id: t_note
+    label: "リスニングは放送に合わせて進む。リーディングの 75 分は、Part 5〜7 をどの順で解くかも含めて自分で配る"
+    marker: none
+    align: left
+    at: { x: 60, y: 342 }
+    size: { w: 1000, h: 16 }
+  - id: ph0
+    label: "Part"
+    marker: box
+    at: { x: 60, y: 380 }
+    size: { w: 90, h: 24 }
+  - id: ph1
+    label: "名前"
+    marker: box
+    at: { x: 150, y: 380 }
+    size: { w: 190, h: 24 }
+  - id: ph2
+    label: "問題数"
+    marker: box
+    at: { x: 340, y: 380 }
+    size: { w: 80, h: 24 }
+  - id: ph3
+    label: "形"
+    marker: box
+    at: { x: 420, y: 380 }
+    size: { w: 640, h: 24 }
+  - id: pa0
+    label: "Part 1"
+    marker: box
+    at: { x: 60, y: 404 }
+    size: { w: 90, h: 24 }
+  - id: pb0
+    label: "写真描写"
+    marker: box
+    align: left
+    at: { x: 150, y: 404 }
+    size: { w: 190, h: 24 }
+  - id: pc0
+    label: "6 問"
+    marker: box
+    at: { x: 340, y: 404 }
+    size: { w: 80, h: 24 }
+  - id: pd0
+    label: "写真 1 枚に説明 4 つ（放送のみ）"
+    marker: box
+    align: left
+    at: { x: 420, y: 404 }
+    size: { w: 640, h: 24 }
+  - id: pa1
+    label: "Part 2"
+    marker: box
+    at: { x: 60, y: 428 }
+    size: { w: 90, h: 24 }
+  - id: pb1
+    label: "応答"
+    marker: box
+    align: left
+    at: { x: 150, y: 428 }
+    size: { w: 190, h: 24 }
+  - id: pc1
+    label: "25 問"
+    marker: box
+    at: { x: 340, y: 428 }
+    size: { w: 80, h: 24 }
+  - id: pd1
+    label: "問いかけに答え 3 つ（放送のみ）"
+    marker: box
+    align: left
+    at: { x: 420, y: 428 }
+    size: { w: 640, h: 24 }
+  - id: pa2
+    label: "Part 3"
+    marker: box
+    at: { x: 60, y: 452 }
+    size: { w: 90, h: 24 }
+  - id: pb2
+    label: "会話"
+    marker: box
+    align: left
+    at: { x: 150, y: 452 }
+    size: { w: 190, h: 24 }
+  - id: pc2
+    label: "39 問"
+    marker: box
+    at: { x: 340, y: 452 }
+    size: { w: 80, h: 24 }
+  - id: pd2
+    label: "2〜3 人の会話。1 つに設問 3 つ"
+    marker: box
+    align: left
+    at: { x: 420, y: 452 }
+    size: { w: 640, h: 24 }
+  - id: pa3
+    label: "Part 4"
+    marker: box
+    at: { x: 60, y: 476 }
+    size: { w: 90, h: 24 }
+  - id: pb3
+    label: "説明文"
+    marker: box
+    align: left
+    at: { x: 150, y: 476 }
+    size: { w: 190, h: 24 }
+  - id: pc3
+    label: "30 問"
+    marker: box
+    at: { x: 340, y: 476 }
+    size: { w: 80, h: 24 }
+  - id: pd3
+    label: "アナウンスなどの短いトーク。1 つに設問 3 つ"
+    marker: box
+    align: left
+    at: { x: 420, y: 476 }
+    size: { w: 640, h: 24 }
+  - id: pa4
+    label: "Part 5"
+    marker: box
+    at: { x: 60, y: 500 }
+    size: { w: 90, h: 24 }
+  - id: pb4
+    label: "短文穴埋め"
+    marker: box
+    align: left
+    at: { x: 150, y: 500 }
+    size: { w: 190, h: 24 }
+  - id: pc4
+    label: "30 問"
+    marker: box
+    at: { x: 340, y: 500 }
+    size: { w: 80, h: 24 }
+  - id: pd4
+    label: "1 文の空所に語句"
+    marker: box
+    align: left
+    at: { x: 420, y: 500 }
+    size: { w: 640, h: 24 }
+  - id: pa5
+    label: "Part 6"
+    marker: box
+    at: { x: 60, y: 524 }
+    size: { w: 90, h: 24 }
+  - id: pb5
+    label: "長文穴埋め"
+    marker: box
+    align: left
+    at: { x: 150, y: 524 }
+    size: { w: 190, h: 24 }
+  - id: pc5
+    label: "16 問"
+    marker: box
+    at: { x: 340, y: 524 }
+    size: { w: 80, h: 24 }
+  - id: pd5
+    label: "長文 1 つに空所 4 つ（一文も入る）"
+    marker: box
+    align: left
+    at: { x: 420, y: 524 }
+    size: { w: 640, h: 24 }
+  - id: pa6
+    label: "Part 7"
+    marker: box
+    at: { x: 60, y: 548 }
+    size: { w: 90, h: 24 }
+  - id: pb6
+    label: "読解（1 つの文書）"
+    marker: box
+    align: left
+    at: { x: 150, y: 548 }
+    size: { w: 190, h: 24 }
+  - id: pc6
+    label: "29 問"
+    marker: box
+    at: { x: 340, y: 548 }
+    size: { w: 80, h: 24 }
+  - id: pd6
+    label: "文書 1 つに設問数問"
+    marker: box
+    align: left
+    at: { x: 420, y: 548 }
+    size: { w: 640, h: 24 }
+  - id: pa7
+    label: "Part 7"
+    marker: box
+    at: { x: 60, y: 572 }
+    size: { w: 90, h: 24 }
+  - id: pb7
+    label: "読解（複数の文書）"
+    marker: box
+    align: left
+    at: { x: 150, y: 572 }
+    size: { w: 190, h: 24 }
+  - id: pc7
+    label: "25 問"
+    marker: box
+    at: { x: 340, y: 572 }
+    size: { w: 80, h: 24 }
+  - id: pd7
+    label: "関連する文書を読み合わせる"
+    marker: box
+    align: left
+    at: { x: 420, y: 572 }
+    size: { w: 640, h: 24 }
+  - id: h_score
+    label: "スコア（5 点刻み。合格・不合格は無い）"
+    marker: none
+    align: left
+    at: { x: 60, y: 622 }
+    size: { w: 500, h: 16 }
+  - id: sL_bar
+    label: ""
+    marker: box
+    hatch: lines
+    at: { x: 60, y: 652 }
+    size: { w: 490, h: 14 }
+  - id: sL_lo
+    label: "5"
+    marker: none
+    align: left
+    at: { x: 60, y: 670 }
+    size: { w: 60, h: 14 }
+  - id: sL_hi
+    label: "495"
+    marker: none
+    align: right
+    at: { x: 490, y: 670 }
+    size: { w: 60, h: 14 }
+  - id: sL_name
+    label: "リスニング"
+    marker: none
+    align: center
+    at: { x: 122, y: 670 }
+    size: { w: 366, h: 14 }
+  - id: sR_bar
+    label: ""
+    marker: box
+    at: { x: 570, y: 652 }
+    size: { w: 490, h: 14 }
+  - id: sR_lo
+    label: "5"
+    marker: none
+    align: left
+    at: { x: 570, y: 670 }
+    size: { w: 60, h: 14 }
+  - id: sR_hi
+    label: "495"
+    marker: none
+    align: right
+    at: { x: 1000, y: 670 }
+    size: { w: 60, h: 14 }
+  - id: sR_name
+    label: "リーディング"
+    marker: none
+    align: center
+    at: { x: 632, y: 670 }
+    size: { w: 366, h: 14 }
+  - id: sT_bar
+    label: "トータル 10〜990（2 つの足し算）"
+    marker: box
+    at: { x: 60, y: 696 }
+    size: { w: 1000, h: 24 }
+  - id: ea0
+    label: ""
+    marker: box
+    at: { x: 60, y: 752 }
+    size: { w: 110, h: 24 }
+  - id: eb0
+    label: "TOEIC L&R"
+    marker: box
+    align: center
+    at: { x: 170, y: 752 }
+    size: { w: 445, h: 24 }
+  - id: ec0
+    label: "英検（見本 407）"
+    marker: box
+    align: center
+    at: { x: 615, y: 752 }
+    size: { w: 445, h: 24 }
+  - id: ea1
+    label: "結果"
+    marker: box
+    at: { x: 60, y: 776 }
+    size: { w: 110, h: 24 }
+  - id: eb1
+    label: "10〜990 点のスコア。合否は無い"
+    marker: box
+    align: left
+    at: { x: 170, y: 776 }
+    size: { w: 445, h: 24 }
+  - id: ec1
+    label: "級ごとに合格・不合格"
+    marker: box
+    align: left
+    at: { x: 615, y: 776 }
+    size: { w: 445, h: 24 }
+  - id: ea2
+    label: "受け方"
+    marker: box
+    at: { x: 60, y: 800 }
+    size: { w: 110, h: 24 }
+  - id: eb2
+    label: "級は無く、全員が同じ形式の 1 つのテスト"
+    marker: box
+    align: left
+    at: { x: 170, y: 800 }
+    size: { w: 445, h: 24 }
+  - id: ec2
+    label: "自分の級を選んで受ける（8 つの級）"
+    marker: box
+    align: left
+    at: { x: 615, y: 800 }
+    size: { w: 445, h: 24 }
+  - id: ea3
+    label: "技能"
+    marker: box
+    at: { x: 60, y: 824 }
+    size: { w: 110, h: 24 }
+  - id: eb3
+    label: "聞く・読むの 2 つ（話す・書くは別のテスト TOEIC S&W）"
+    marker: box
+    align: left
+    at: { x: 170, y: 824 }
+    size: { w: 445, h: 24 }
+  - id: ec3
+    label: "3 級以上は読む・書く・聞く・話す（面接）"
+    marker: box
+    align: left
+    at: { x: 615, y: 824 }
+    size: { w: 445, h: 24 }
+  - id: ea4
+    label: "答え方"
+    marker: box
+    at: { x: 60, y: 848 }
+    size: { w: 110, h: 24 }
+  - id: eb4
+    label: "すべてマークシート（選択肢）"
+    marker: box
+    align: left
+    at: { x: 170, y: 848 }
+    size: { w: 445, h: 24 }
+  - id: ec4
+    label: "マークシート＋英作文、面接"
+    marker: box
+    align: left
+    at: { x: 615, y: 848 }
+    size: { w: 445, h: 24 }
+  - id: nodraw
+    label: "描かなかったもの：問題文と選択肢（著作権）、Part ごとの時間（公表されていない）、形式が変わった年ごとの違い、正答数からスコアを出すしかた。"
+    marker: none
+    align: left
+    at: { x: 60, y: 894 }
+    size: { w: 1000, h: 16 }
+  - id: src
+    label: "問題数・時間・スコアの範囲は、TOEIC を日本で実施している IIBC（国際ビジネスコミュニケーション協会）の公式ページから引きました。"
+    marker: none
+    align: left
+    at: { x: 60, y: 918 }
+    size: { w: 1000, h: 16 }
