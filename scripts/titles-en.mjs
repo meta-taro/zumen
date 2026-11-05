@@ -392,7 +392,7 @@ export const TITLES_EN = {
   '407-英検の級ごとの構成': 'EIKEN grades at a glance (after the 2024 renewal, with the new Grade Pre-2 Plus)',
   '408-マークシートの様式と塗り方': 'Answer sheets for optical mark reading (a fictional form: ID columns, timing marks, good and bad marks)',
   '409-TOEIC-LRの構成': 'The TOEIC Listening & Reading Test (seven parts, 200 questions, two hours, a score instead of pass or fail)',
-  '410-日本語検定と日本語能力試験': 'Two Japanese-language tests that serve different people: Nihongo Kentei and the JLPT',
+  '410-日本語検定と日本語能力試験': 'Nihongo Kentei and the JLPT (two separate tests of Japanese)',
   '404-ギターのコード表とTAB譜': 'Guitar chord boxes and TAB (one fingering, two notations that face opposite ways)',
   '403-きらきら星-英語の歌詞つきの五線譜': 'Twinkle, Twinkle, Little Star (a staff score with English lyrics)',
   '402-時差の世界地図-経度の帯と国が決めた時': 'World time zones (the 15-degree bands, and the times countries actually keep)',
