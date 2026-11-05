@@ -397,6 +397,7 @@ export const TITLES_EN = {
   '412-数学の期末テストの解答用紙': 'A maths end-of-term answer sheet (answer-only boxes, working space, construction, graph and proof)',
   '413-英語の期末テストの解答用紙': 'An English test answer sheet from a Japanese junior high (four-line ruling, word order, a word-counted composition)',
   '414-理科の期末テストの解答用紙': 'Science end-of-term answer sheet (a plotted graph with a best-fit line, a circuit in standard symbols, chemical equations)',
+  '415-社会の期末テストの解答用紙': 'Social studies end-of-term answer sheet (a sketch map, a century timeline, oldest-first ordering and a counted-character answer)',
   '404-ギターのコード表とTAB譜': 'Guitar chord boxes and TAB (one fingering, two notations that face opposite ways)',
   '403-きらきら星-英語の歌詞つきの五線譜': 'Twinkle, Twinkle, Little Star (a staff score with English lyrics)',
   '402-時差の世界地図-経度の帯と国が決めた時': 'World time zones (the 15-degree bands, and the times countries actually keep)',
