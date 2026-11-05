@@ -3,6 +3,7 @@ kind: placement
 title: マークシートの様式と塗り方（架空の解答用紙・受験番号・タイミングマーク・良い例と悪い例）
 palette:
   ドロップアウトカラー: "#d9627a"
+  薄い: "#8f8f8f"
 sources:
   - name: "埼玉県教育委員会「令和 9 年度 マークシート方式及び記述式による学力検査を受検するときの注意について」（HB または B の鉛筆・良い例と悪い例・受検番号の塗り間違い 4 例・0 が上で 9 が下）"
     url: https://www.pref.saitama.lg.jp/documents/257619/r9gakuryokukensashiryou.pdf
@@ -10,14 +11,17 @@ sources:
   - name: "大学入試センター「令和 8 年度 大学入学共通テスト 受験上の注意」（黒鉛筆 H・F・HB に限る・プラスチック製の消しゴム・薄い／一部だけ／消し跡は読み取れないことがある）"
     url: https://www.dnc.ac.jp/albums/abm.php?d=4&f=abm00005930.pdf
     retrieved: 2026-11-05
-  - name: "US 5,140,139「Preparing mark/read documents…」（タイミングマークは用紙の片側の縁に間隔をおいて刷る・枠はドロップアウトインクで刷るのがふつう）"
+  - name: "US 5,140,139「Preparing mark/read documents…」（タイミングマークは用紙の片側の縁に間隔をおいて刷る）"
     url: https://patents.google.com/patent/US5140139A/en
+    retrieved: 2026-11-05
+  - name: "東京都教育委員会「マークシート方式による学力検査」（多少はみ出しても大丈夫・悪い例・HB 又は B）"
+    url: https://www.kyoiku.metro.tokyo.lg.jp/documents/d/kyoiku/12_47
     retrieved: 2026-11-05
   - name: "US 7,864,986「Optical mark reading…」（ドロップアウトカラーは人には見えるが、読み取りでは消える。薄い青や赤）"
     url: https://patents.google.com/patent/US7864986B2/en
     retrieved: 2026-11-05
 # **人が読む色と、機械が読む黒を分けて刷る。** 楕円と数字はドロップアウトカラー（読み取りで消える）、
-# タイミングマークと鉛筆の黒だけが機械に見える。
+# 読み取り機は、タイミングマークで決まる位置の黒を読む。
 #
 # 決まり（取得 2026-11-05）——
 # 受験番号は左から手で書き、その下の同じけたの数字を塗る。マーク欄は 0 が上、9 が下（埼玉県教育委員会）。
@@ -31,7 +35,7 @@ nodes:
     at: { x: 40, y: 36 }
     size: { w: 1180, h: 22 }
   - id: lead
-    label: "架空の解答用紙。楕円と数字は読み取りで消える色（ドロップアウトカラー）で刷り、機械が読むのはタイミングマークと鉛筆の黒だけ"
+    label: "架空の解答用紙。楕円と数字は読み取りで消える色（ドロップアウトカラー）で刷る。読み取り機は、タイミングマークで決まる位置が黒いかを読む"
     marker: none
     align: center
     at: { x: 40, y: 66 }
@@ -708,11 +712,11 @@ nodes:
     at: { x: 48, y: 705 }
     size: { w: 18, h: 6 }
   - id: tm_label
-    label: "← タイミングマーク（黒で刷る。読み取り機は、これで行を数える）"
+    label: "← タイミングマーク（黒で刷る。読み取り機は、これで行の位置を決める）"
     marker: none
     align: left
     at: { x: 100, y: 724 }
-    size: { w: 480, h: 16 }
+    size: { w: 490, h: 16 }
   - id: ex_head
     label: "塗り方"
     marker: none
@@ -730,7 +734,7 @@ nodes:
     marker: none
     align: left
     at: { x: 690, y: 148 }
-    size: { w: 330, h: 16 }
+    size: { w: 420, h: 16 }
   - id: ex1
     label: ""
     marker: ellipse
@@ -748,7 +752,7 @@ nodes:
     marker: none
     align: left
     at: { x: 690, y: 200 }
-    size: { w: 330, h: 16 }
+    size: { w: 420, h: 16 }
   - id: ex2
     label: ""
     marker: ellipse
@@ -766,19 +770,25 @@ nodes:
     marker: none
     align: left
     at: { x: 690, y: 252 }
-    size: { w: 330, h: 16 }
+    size: { w: 420, h: 16 }
   - id: ex3
     label: ""
     marker: ellipse
-    hatch: solid
-    at: { x: 648, y: 296 }
-    size: { w: 24, h: 32 }
+    color: ドロップアウトカラー
+    at: { x: 653, y: 301 }
+    size: { w: 14, h: 22 }
+  - id: ex3n
+    label: ""
+    marker: ellipse
+    color: ドロップアウトカラー
+    at: { x: 675, y: 301 }
+    size: { w: 14, h: 22 }
   - id: ext3
-    label: "悪い例：はみ出している"
+    label: "悪い例：となりの楕円まではみ出している（少しなら大丈夫）"
     marker: none
     align: left
     at: { x: 690, y: 304 }
-    size: { w: 330, h: 16 }
+    size: { w: 420, h: 16 }
   - id: ex4
     label: ""
     marker: ellipse
@@ -789,7 +799,7 @@ nodes:
     marker: none
     align: left
     at: { x: 690, y: 356 }
-    size: { w: 330, h: 16 }
+    size: { w: 420, h: 16 }
   - id: ex5
     label: ""
     marker: ellipse
@@ -801,11 +811,12 @@ nodes:
     marker: none
     align: left
     at: { x: 690, y: 408 }
-    size: { w: 330, h: 16 }
+    size: { w: 420, h: 16 }
   - id: ex6
     label: ""
     marker: ellipse
-    hatch: dots
+    hatch: solid
+    color: 薄い
     at: { x: 653, y: 457 }
     size: { w: 14, h: 22 }
   - id: ext6
@@ -813,7 +824,7 @@ nodes:
     marker: none
     align: left
     at: { x: 690, y: 460 }
-    size: { w: 330, h: 16 }
+    size: { w: 420, h: 16 }
   - id: ex_note
     label: "悪い例は、読み取りエラーになることがある（どれも、楕円の中が十分に黒くならない）"
     marker: none
@@ -821,11 +832,11 @@ nodes:
     at: { x: 640, y: 506 }
     size: { w: 580, h: 16 }
   - id: mis_head
-    label: "受験番号で起きやすい塗り間違い"
+    label: "番号で起きやすい塗り間違い（埼玉県の例。高校入試は「受検番号」）"
     marker: none
     align: left
     at: { x: 640, y: 560 }
-    size: { w: 400, h: 16 }
+    size: { w: 580, h: 16 }
   - id: misa0
     label: "マーク漏れ"
     marker: box
@@ -854,7 +865,7 @@ nodes:
     at: { x: 640, y: 636 }
     size: { w: 150, h: 26 }
   - id: misb2
-    label: "隣のけたの欄を塗っている"
+    label: "別のけたのマーク欄を塗っている"
     marker: box
     align: left
     at: { x: 790, y: 636 }
@@ -876,13 +887,13 @@ nodes:
     at: { x: 40, y: 770 }
     size: { w: 140, h: 26 }
   - id: pb0
-    label: "大学入学共通テスト"
+    label: "大学入学共通テスト（令和 8 年度）"
     marker: box
     align: center
     at: { x: 180, y: 770 }
     size: { w: 560, h: 26 }
   - id: pc0
-    label: "埼玉県の公立高校の入試"
+    label: "埼玉県の公立高校の入試（令和 9 年度）"
     marker: box
     align: center
     at: { x: 740, y: 770 }
@@ -893,7 +904,7 @@ nodes:
     at: { x: 40, y: 796 }
     size: { w: 140, h: 26 }
   - id: pb1
-    label: "黒鉛筆の H・F・HB に限る（シャープペンシルでマークすると読み取れないことがある）"
+    label: "黒鉛筆 H・F・HB に限る（シャープペンシルはマークに使わない。メモ・計算のみ可）"
     marker: box
     align: left
     at: { x: 180, y: 796 }
@@ -905,35 +916,58 @@ nodes:
     at: { x: 740, y: 796 }
     size: { w: 480, h: 26 }
   - id: pa2
-    label: "消すとき"
+    label: "番号の欄"
     marker: box
     at: { x: 40, y: 822 }
     size: { w: 140, h: 26 }
   - id: pb2
-    label: "プラスチック製の消しゴムで、消し跡を残さない"
+    label: "受験番号は数字と英字を塗る。多いミスは数字の取り違え・入れ替え・英字の塗り忘れ"
     marker: box
     align: left
     at: { x: 180, y: 822 }
     size: { w: 560, h: 26 }
   - id: pc2
-    label: "消しゴムできれいに消し、消しくずを払う"
+    label: "受検番号 4 けたを書いて塗る（上の表の 4 つ）"
     marker: box
     align: left
     at: { x: 740, y: 822 }
+    size: { w: 480, h: 26 }
+  - id: pa3
+    label: "消すとき"
+    marker: box
+    at: { x: 40, y: 848 }
+    size: { w: 140, h: 26 }
+  - id: pb3
+    label: "プラスチック製の消しゴムで、消し跡を残さない"
+    marker: box
+    align: left
+    at: { x: 180, y: 848 }
+    size: { w: 560, h: 26 }
+  - id: pc3
+    label: "消しゴムできれいに消し、消しくずを払う"
+    marker: box
+    align: left
+    at: { x: 740, y: 848 }
     size: { w: 480, h: 26 }
   - id: rule
     label: "鉛筆の決まりは試験ごとに違う。どれを使うかは、その試験の「受験上の注意」で確かめる。"
     marker: none
     align: left
-    at: { x: 40, y: 870 }
+    at: { x: 40, y: 896 }
     size: { w: 1180, h: 16 }
   - id: nodraw
     label: "描かなかったもの：実在の試験の解答用紙そのもの（様式はそれぞれの試験のもの）、記述式の欄、解答科目欄。ドロップアウトカラーの色は読み取り機ごとに違うので、この図の色は一例。"
     marker: none
     align: left
-    at: { x: 40, y: 894 }
+    at: { x: 40, y: 920 }
     size: { w: 1180, h: 16 }
 paths:
   - id: check0
     points: [ [ 655, 416 ], [ 659, 421 ], [ 666, 409 ] ]
+    ends: { from: none, to: none }
+  - id: overrun0
+    points: [ [ 681.0, 312.0 ], [ 679.0, 318.5 ], [ 673.5, 323.3 ], [ 666.0, 325.0 ], [ 658.5, 323.3 ], [ 653.0, 318.5 ], [ 651.0, 312.0 ], [ 653.0, 305.5 ], [ 658.5, 300.7 ], [ 666.0, 299.0 ], [ 673.5, 300.7 ], [ 679.0, 305.5 ] ]
+    close: true
+    curve: smooth
+    hatch: solid
     ends: { from: none, to: none }
