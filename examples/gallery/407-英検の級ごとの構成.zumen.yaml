@@ -21,7 +21,7 @@ sources:
 #
 # 決まり（日本英語検定協会の各級ページ、取得 2026-11-05）——
 # 3 級以上は一次（リーディング・ライティング → リスニング）に受かると二次（英語での面接）。
-# 4・5 級は一次（リーディング → リスニング）とスピーキングテスト（級の認定に影響しない）。
+# 4・5 級は一次（リーディング → リスニング）だけ。スピーキングテストは任意（級の認定とは別に合否）。
 # 問題文は写していない（構成だけ）。
 nodes:
   - id: title
@@ -29,13 +29,13 @@ nodes:
     marker: none
     align: center
     at: { x: 40, y: 36 }
-    size: { w: 1200, h: 22 }
+    size: { w: 1280, h: 22 }
   - id: lead
     label: "横の長さが時間（一次試験は 1 分 ＝ 4px、二次試験は 1 分 ＝ 8px）。2024 の印は 2024 年度に形が変わった級、2025 の印は 2025 年度第 1 回から始まった級"
     marker: none
     align: center
     at: { x: 40, y: 68 }
-    size: { w: 1200, h: 16 }
+    size: { w: 1280, h: 16 }
   - id: h_grade
     label: "級"
     marker: none
@@ -49,23 +49,23 @@ nodes:
     at: { x: 186, y: 130 }
     size: { w: 300, h: 16 }
   - id: h_second
-    label: "二次試験"
+    label: "二次試験（4・5 級は任意のスピーキングテスト）"
     marker: none
     align: left
     at: { x: 770, y: 130 }
-    size: { w: 160, h: 16 }
+    size: { w: 310, h: 16 }
   - id: h_write
     label: "ライティング"
     marker: none
     align: left
-    at: { x: 1010, y: 130 }
+    at: { x: 1090, y: 130 }
     size: { w: 230, h: 16 }
   - id: rule_h
     label: ""
     marker: none
     hatch: solid
     at: { x: 40, y: 154 }
-    size: { w: 1200, h: 0.8 }
+    size: { w: 1280, h: 0.8 }
   - id: g1_name
     label: "1 級"
     marker: none
@@ -107,7 +107,7 @@ nodes:
     label: "要約 ＋ 意見論述"
     marker: none
     align: left
-    at: { x: 1010, y: 174 }
+    at: { x: 1090, y: 174 }
     size: { w: 230, h: 16 }
   - id: gp1_name
     label: "準 1 級"
@@ -150,7 +150,7 @@ nodes:
     label: "要約 ＋ 意見論述"
     marker: none
     align: left
-    at: { x: 1010, y: 218 }
+    at: { x: 1090, y: 218 }
     size: { w: 230, h: 16 }
   - id: g2_name
     label: "2 級"
@@ -193,7 +193,7 @@ nodes:
     label: "要約 ＋ 意見論述"
     marker: none
     align: left
-    at: { x: 1010, y: 262 }
+    at: { x: 1090, y: 262 }
     size: { w: 230, h: 16 }
   - id: gp2p_name
     label: "準 2 級プラス"
@@ -237,7 +237,7 @@ nodes:
     label: "要約 ＋ 意見論述"
     marker: none
     align: left
-    at: { x: 1010, y: 306 }
+    at: { x: 1090, y: 306 }
     size: { w: 230, h: 16 }
   - id: gp2_name
     label: "準 2 級"
@@ -280,7 +280,7 @@ nodes:
     label: "E メール ＋ 意見論述"
     marker: none
     align: left
-    at: { x: 1010, y: 350 }
+    at: { x: 1090, y: 350 }
     size: { w: 230, h: 16 }
   - id: g3_name
     label: "3 級"
@@ -323,7 +323,7 @@ nodes:
     label: "E メール ＋ 意見論述"
     marker: none
     align: left
-    at: { x: 1010, y: 394 }
+    at: { x: 1090, y: 394 }
     size: { w: 230, h: 16 }
   - id: g4_name
     label: "4 級"
@@ -347,7 +347,7 @@ nodes:
   - id: g4_iv
     label: ""
     marker: box
-    hatch: lines
+    hatch: cross
     at: { x: 770, y: 434 }
     size: { w: 32, h: 24 }
   - id: g4_ivt
@@ -360,7 +360,7 @@ nodes:
     label: "（ライティングなし）"
     marker: none
     align: left
-    at: { x: 1010, y: 438 }
+    at: { x: 1090, y: 438 }
     size: { w: 230, h: 16 }
   - id: g5_name
     label: "5 級"
@@ -384,7 +384,7 @@ nodes:
   - id: g5_iv
     label: ""
     marker: box
-    hatch: lines
+    hatch: cross
     at: { x: 770, y: 478 }
     size: { w: 24, h: 24 }
   - id: g5_ivt
@@ -397,14 +397,14 @@ nodes:
     label: "（ライティングなし）"
     marker: none
     align: left
-    at: { x: 1010, y: 482 }
+    at: { x: 1090, y: 482 }
     size: { w: 230, h: 16 }
   - id: rule_b
     label: ""
     marker: none
     hatch: solid
     at: { x: 40, y: 522 }
-    size: { w: 1200, h: 0.8 }
+    size: { w: 1280, h: 0.8 }
   - id: tick0
     label: ""
     marker: none
@@ -481,208 +481,226 @@ nodes:
     marker: none
     align: left
     at: { x: 226, y: 568 }
-    size: { w: 330, h: 16 }
+    size: { w: 340, h: 16 }
   - id: lg1
     label: ""
     marker: box
     hatch: dots
-    at: { x: 560, y: 566 }
+    at: { x: 600, y: 566 }
     size: { w: 36, h: 20 }
   - id: lgt1
     label: "L リスニング"
     marker: none
     align: left
-    at: { x: 606, y: 568 }
-    size: { w: 330, h: 16 }
+    at: { x: 646, y: 568 }
+    size: { w: 340, h: 16 }
   - id: lg2
     label: ""
     marker: box
     hatch: lines
-    at: { x: 940, y: 566 }
+    at: { x: 180, y: 596 }
     size: { w: 36, h: 20 }
   - id: lgt2
-    label: "二次（面接・スピーキング）"
+    label: "二次（3 級以上・一次合格者）"
     marker: none
     align: left
-    at: { x: 986, y: 568 }
-    size: { w: 330, h: 16 }
+    at: { x: 226, y: 598 }
+    size: { w: 340, h: 16 }
+  - id: lg3
+    label: ""
+    marker: box
+    hatch: cross
+    at: { x: 600, y: 596 }
+    size: { w: 36, h: 20 }
+  - id: lgt3
+    label: "任意のスピーキング（4・5 級）"
+    marker: none
+    align: left
+    at: { x: 646, y: 598 }
+    size: { w: 340, h: 16 }
   - id: tt
     label: "2024 年度第 1 回から変わったこと（3 級以上）"
     marker: none
     align: left
-    at: { x: 40, y: 618 }
+    at: { x: 40, y: 648 }
     size: { w: 600, h: 16 }
   - id: t0_0
     label: "級"
     marker: box
     align: center
-    at: { x: 40, y: 644 }
+    at: { x: 40, y: 674 }
     size: { w: 150, h: 26 }
   - id: t0_1
     label: "ライティング"
     marker: box
     align: center
-    at: { x: 190, y: 644 }
+    at: { x: 190, y: 674 }
     size: { w: 420, h: 26 }
   - id: t0_2
     label: "リーディングの問題数"
     marker: box
     align: center
-    at: { x: 610, y: 644 }
+    at: { x: 610, y: 674 }
     size: { w: 300, h: 26 }
   - id: t0_3
     label: "試験時間（R・W）"
     marker: box
     align: center
-    at: { x: 910, y: 644 }
+    at: { x: 910, y: 674 }
     size: { w: 330, h: 26 }
   - id: t1_0
     label: "1 級"
     marker: box
     align: center
-    at: { x: 40, y: 670 }
+    at: { x: 40, y: 700 }
     size: { w: 150, h: 26 }
   - id: t1_1
     label: "1 題 → 2 題（要約を足した）"
     marker: box
     align: left
-    at: { x: 190, y: 670 }
+    at: { x: 190, y: 700 }
     size: { w: 420, h: 26 }
   - id: t1_2
     label: "41 → 35 問"
     marker: box
     align: left
-    at: { x: 610, y: 670 }
+    at: { x: 610, y: 700 }
     size: { w: 300, h: 26 }
   - id: t1_3
     label: "100 分のまま"
     marker: box
     align: left
-    at: { x: 910, y: 670 }
+    at: { x: 910, y: 700 }
     size: { w: 330, h: 26 }
   - id: t2_0
     label: "準 1 級"
     marker: box
     align: center
-    at: { x: 40, y: 696 }
+    at: { x: 40, y: 726 }
     size: { w: 150, h: 26 }
   - id: t2_1
     label: "1 題 → 2 題（要約を足した）"
     marker: box
     align: left
-    at: { x: 190, y: 696 }
+    at: { x: 190, y: 726 }
     size: { w: 420, h: 26 }
   - id: t2_2
     label: "41 → 31 問"
     marker: box
     align: left
-    at: { x: 610, y: 696 }
+    at: { x: 610, y: 726 }
     size: { w: 300, h: 26 }
   - id: t2_3
     label: "90 分のまま"
     marker: box
     align: left
-    at: { x: 910, y: 696 }
+    at: { x: 910, y: 726 }
     size: { w: 330, h: 26 }
   - id: t3_0
     label: "2 級"
     marker: box
     align: center
-    at: { x: 40, y: 722 }
+    at: { x: 40, y: 752 }
     size: { w: 150, h: 26 }
   - id: t3_1
     label: "1 題 → 2 題（要約を足した）"
     marker: box
     align: left
-    at: { x: 190, y: 722 }
+    at: { x: 190, y: 752 }
     size: { w: 420, h: 26 }
   - id: t3_2
     label: "38 → 31 問"
     marker: box
     align: left
-    at: { x: 610, y: 722 }
+    at: { x: 610, y: 752 }
     size: { w: 300, h: 26 }
   - id: t3_3
     label: "85 分のまま"
     marker: box
     align: left
-    at: { x: 910, y: 722 }
+    at: { x: 910, y: 752 }
     size: { w: 330, h: 26 }
   - id: t4_0
     label: "準 2 級"
     marker: box
     align: center
-    at: { x: 40, y: 748 }
+    at: { x: 40, y: 778 }
     size: { w: 150, h: 26 }
   - id: t4_1
     label: "1 題 → 2 題（E メールを足した）"
     marker: box
     align: left
-    at: { x: 190, y: 748 }
+    at: { x: 190, y: 778 }
     size: { w: 420, h: 26 }
   - id: t4_2
     label: "37 → 29 問"
     marker: box
     align: left
-    at: { x: 610, y: 748 }
+    at: { x: 610, y: 778 }
     size: { w: 300, h: 26 }
   - id: t4_3
     label: "75 → 80 分"
     marker: box
     align: left
-    at: { x: 910, y: 748 }
+    at: { x: 910, y: 778 }
     size: { w: 330, h: 26 }
   - id: t5_0
     label: "3 級"
     marker: box
     align: center
-    at: { x: 40, y: 774 }
+    at: { x: 40, y: 804 }
     size: { w: 150, h: 26 }
   - id: t5_1
     label: "1 題 → 2 題（E メールを足した）"
     marker: box
     align: left
-    at: { x: 190, y: 774 }
+    at: { x: 190, y: 804 }
     size: { w: 420, h: 26 }
   - id: t5_2
     label: "変わらない"
     marker: box
     align: left
-    at: { x: 610, y: 774 }
+    at: { x: 610, y: 804 }
     size: { w: 300, h: 26 }
   - id: t5_3
     label: "50 → 65 分"
     marker: box
     align: left
-    at: { x: 910, y: 774 }
+    at: { x: 910, y: 804 }
     size: { w: 330, h: 26 }
-  - id: note1
-    label: "準 2 級プラスは、目安が高校上級程度の級（2 級は高校卒業程度、準 2 級は高校中級程度）。過去問は 2025 年度第 1 回から。ライティングは要約と意見論述の 2 題。"
+  - id: note0
+    label: "3 級以上は、一次に合格した人だけが二次へ進む。"
     marker: none
     align: left
-    at: { x: 40, y: 824 }
-    size: { w: 1200, h: 16 }
+    at: { x: 40, y: 854 }
+    size: { w: 1280, h: 16 }
+  - id: note1
+    label: "準 2 級プラスは、目安が高校上級程度の級（2 級は高校卒業程度、準 2 級は高校中級程度）。2025 年度第 1 回から実施。ライティングは要約と意見論述の 2 題。"
+    marker: none
+    align: left
+    at: { x: 40, y: 878 }
+    size: { w: 1280, h: 16 }
   - id: note3
     label: "2024 年度は、準 1 級の面接で、受験者の意見を問う No. 4 に話題の導入文が付いた。リスニングと合格基準スコアは変わっていない。"
     marker: none
     align: left
-    at: { x: 40, y: 872 }
-    size: { w: 1200, h: 16 }
+    at: { x: 40, y: 926 }
+    size: { w: 1280, h: 16 }
   - id: note2
-    label: "4・5 級のスピーキングテストは級の認定に影響せず、スピーキングテストだけで合否が出る。"
+    label: "4・5 級のスピーキングテストは任意。スピーキングテスト単位で合否判定（級の認定とは別）。"
     marker: none
     align: left
-    at: { x: 40, y: 848 }
-    size: { w: 1200, h: 16 }
+    at: { x: 40, y: 902 }
+    size: { w: 1280, h: 16 }
   - id: nodraw
     label: "描かなかったもの：英検 CSE スコアと合格の基準、1〜3 級の変更のほかの問題数、S-CBT（コンピューターで受ける方式）、問題文（構成だけ）。リスニングの時間は回によって 1〜2 分ちがう。"
     marker: none
     align: left
-    at: { x: 40, y: 896 }
-    size: { w: 1200, h: 16 }
+    at: { x: 40, y: 950 }
+    size: { w: 1280, h: 16 }
   - id: src
     label: "時間と変更点は、日本英語検定協会の各級の試験内容のページと、リニューアルのページから引きました。"
     marker: none
     align: left
-    at: { x: 40, y: 920 }
-    size: { w: 1200, h: 16 }
+    at: { x: 40, y: 974 }
+    size: { w: 1280, h: 16 }
