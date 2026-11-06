@@ -168,6 +168,7 @@
   <!-- news -->
   <p class="news-h">News（<a href="feed.xml">feed</a>）</p>
   <ul class="near news">
+    <li><span class="thumb" aria-hidden="true"></span><time datetime="2026-11-06">11/6</time>Feature <a href="https://github.com/meta-taro/zumen/blob/main/CHANGELOG.md">Changelog</a> Search by the words drawn inside the diagrams: the gallery and MCP now find an example by any label on it, not just its title</li>
     <li><a href="g/415/" tabindex="-1" aria-hidden="true"><img class="thumb" src="../gallery/415-%E7%A4%BE%E4%BC%9A%E3%81%AE%E6%9C%9F%E6%9C%AB%E3%83%86%E3%82%B9%E3%83%88%E3%81%AE%E8%A7%A3%E7%AD%94%E7%94%A8%E7%B4%99.svg" alt="" width="72" height="48" loading="lazy" decoding="async"></a><time datetime="2026-11-05">11/5</time>New <a href="g/415/">Example 415</a> A fictional Japanese junior-high social studies answer sheet. Geography uses a made-up sketch map with points…</li>
     <li><a href="g/414/" tabindex="-1" aria-hidden="true"><img class="thumb" src="../gallery/414-%E7%90%86%E7%A7%91%E3%81%AE%E6%9C%9F%E6%9C%AB%E3%83%86%E3%82%B9%E3%83%88%E3%81%AE%E8%A7%A3%E7%AD%94%E7%94%A8%E7%B4%99.svg" alt="" width="72" height="48" loading="lazy" decoding="async"></a><time datetime="2026-11-05">11/5</time>New <a href="g/414/">Example 414</a> A fictional Japanese junior-high science answer sheet. The graph example plots voltage against current as dot…</li>
     <li><a href="g/413/" tabindex="-1" aria-hidden="true"><img class="thumb" src="../gallery/413-%E8%8B%B1%E8%AA%9E%E3%81%AE%E6%9C%9F%E6%9C%AB%E3%83%86%E3%82%B9%E3%83%88%E3%81%AE%E8%A7%A3%E7%AD%94%E7%94%A8%E7%B4%99.svg" alt="" width="72" height="48" loading="lazy" decoding="async"></a><time datetime="2026-11-05">11/5</time>New <a href="g/413/">Example 413</a> A fictional junior-high English answer sheet: listening answers by letter, word-order boxes, and a compositio…</li>
@@ -175,7 +176,6 @@
     <li><a href="g/411/" tabindex="-1" aria-hidden="true"><img class="thumb" src="../gallery/411-%E5%9B%BD%E8%AA%9E%E3%81%AE%E6%9C%9F%E6%9C%AB%E3%83%86%E3%82%B9%E3%83%88%E3%81%AE%E8%A7%A3%E7%AD%94%E7%94%A8%E7%B4%99.svg" alt="" width="72" height="48" loading="lazy" decoding="async"></a><time datetime="2026-11-05">11/5</time>New <a href="g/411/">Example 411</a> A fictional junior-high answer sheet for the Japanese-language test, in vertical lines read right to left: ka…</li>
     <li><a href="g/410/" tabindex="-1" aria-hidden="true"><img class="thumb" src="../gallery/410-%E6%97%A5%E6%9C%AC%E8%AA%9E%E6%A4%9C%E5%AE%9A%E3%81%A8%E6%97%A5%E6%9C%AC%E8%AA%9E%E8%83%BD%E5%8A%9B%E8%A9%A6%E9%A8%93.svg" alt="" width="72" height="48" loading="lazy" decoding="async"></a><time datetime="2026-11-05">11/5</time>New <a href="g/410/">Example 410</a> Two Japanese tests side by side, not as equivalents. Nihongo Kentei grades 1 to 7 are set against school year…</li>
     <li><a href="g/409/" tabindex="-1" aria-hidden="true"><img class="thumb" src="../gallery/409-TOEIC-LR%E3%81%AE%E6%A7%8B%E6%88%90.svg" alt="" width="72" height="48" loading="lazy" decoding="async"></a><time datetime="2026-11-05">11/5</time>New <a href="g/409/">Example 409</a> The 200 questions of the TOEIC Listening &amp; Reading Test as one bar, 5px per question: Parts 1 to 4 (listening…</li>
-    <li><a href="g/408/" tabindex="-1" aria-hidden="true"><img class="thumb" src="../gallery/408-%E3%83%9E%E3%83%BC%E3%82%AF%E3%82%B7%E3%83%BC%E3%83%88%E3%81%AE%E6%A7%98%E5%BC%8F%E3%81%A8%E5%A1%97%E3%82%8A%E6%96%B9.svg" alt="" width="72" height="48" loading="lazy" decoding="async"></a><time datetime="2026-11-05">11/5</time>New <a href="g/408/">Example 408</a> A fictional machine-read answer sheet. The ID is written in boxes and marked digit by digit, 0 at the top; an…</li>
   </ul>
   <!-- /news -->
   <div class="filters" role="group" aria-label="Filter by kind">
@@ -689,6 +689,15 @@ nodes:
     worse than writing none.
     <br><b>The scale also chooses the units:</b> <code>{ mm: 40 }</code> gives
     <code>14,000</code>, <code>{ in: 1.5 }</code> gives <code>46'-0"</code>.
+  </p>
+
+  <h3 style="font-size:17px;margin:32px 0 12px">Search by what is drawn</h3>
+  <p>
+    <b>A diagram saved as an image or a slide cannot be searched by the words inside it.</b>
+    "Which of our drawings had the DMX addresses?" has no answer.
+    In zumen, every label, note and source is text, so <b>a search hits what is drawn</b>
+    — "DMX" finds the stage lighting plot, even though no title says so.
+    <br>Try it on <a href="all/">the full gallery</a>. The VS Code panel, MCP and <code>grep</code> work the same way.
   </p>
 </section>
 

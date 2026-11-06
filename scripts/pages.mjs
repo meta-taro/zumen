@@ -29,6 +29,7 @@ import { join } from 'node:path';
 import { CATEGORIES } from './gallery-categories.mjs';
 import { CAPTIONS_EN, GROUPS_EN } from './gallery-en.mjs';
 import { TITLES_EN } from './titles-en.mjs';
+import { drawnText } from '../src/examples.ts';
 
 const DIR = 'examples/gallery';
 const SITE = 'https://meta-taro.github.io/zumen';
@@ -446,14 +447,14 @@ ${near.map((x) => `    <li><a href="../${x.no}/"><img src="../../${lang === 'ja'
  */
 function allPage(lang) {
   const desc = lang === 'ja'
-    ? `zumen の見本 ${SAMPLES.length} 枚を 1 枚に並べたページ。分野は ${CATEGORIES.length} つ。題・分野で絞り込めます。`
-    : `All ${SAMPLES.length} zumen examples on one page, across ${CATEGORIES.length} fields. Filter by title or field.`;
+    ? `zumen の見本 ${SAMPLES.length} 枚を 1 枚に並べたページ。分野は ${CATEGORIES.length} つ。題・分野だけでなく、図の中に描いてある字でも絞り込めます。`
+    : `All ${SAMPLES.length} zumen examples on one page, across ${CATEGORIES.length} fields. Filter by title, field, or any text drawn inside the diagrams.`;
   const body = `<article class="all">
   <h1>${lang === 'ja' ? `見本 ${SAMPLES.length} 枚` : `All ${SAMPLES.length} examples`}</h1>
   <p class="lead">${esc(desc)}</p>
   <div class="sift">
-    <input id="q" type="search" autocomplete="off"
-      placeholder="${lang === 'ja' ? '題や分野で絞る（例: 避難、配線、halftone）' : 'Filter by title or field'}"
+    <input id="q" type="search" autocomplete="off" data-index="../${lang === 'ja' ? '' : '../'}search.json"
+      placeholder="${lang === 'ja' ? '題・分野・図の中の字で絞る（例: 電流計、受検番号、halftone）' : 'Filter by title, field or any text inside the drawings'}"
       aria-label="${lang === 'ja' ? '絞り込み' : 'Filter'}">
     <p id="hit" class="hit" role="status">${lang === 'ja' ? `${SAMPLES.length} 枚` : `${SAMPLES.length} shown`}</p>
   </div>
@@ -464,7 +465,7 @@ ${CATEGORIES.map((g) => {
   return `  <section class="field" data-field="${esc(label)}">
     <h2><a href="../${lang === 'ja' ? '' : ''}c/${g.key}/">${esc(label)}</a> <small>${items.length}</small></h2>
     <ul class="cards">
-${items.map((s) => `      <li data-name="${esc(`${s.no} ${s.caption} ${s.en} ${label}`)}"><a href="../${lang === 'ja' ? '' : ''}g/${s.no}/"><img src="../${lang === 'ja' ? '' : '../'}gallery/${encodeURIComponent(s.name)}.svg" alt="${esc(lang === 'ja' ? s.alt : s.en)}"${dims(s)} loading="lazy" decoding="async"><span>${esc(lang === 'ja' ? s.caption : s.en)}</span></a></li>`).join('\n')}
+${items.map((s) => `      <li data-no="${s.no}" data-name="${esc(`${s.no} ${s.caption} ${s.en} ${label}`)}"><a href="../${lang === 'ja' ? '' : ''}g/${s.no}/"><img src="../${lang === 'ja' ? '' : '../'}gallery/${encodeURIComponent(s.name)}.svg" alt="${esc(lang === 'ja' ? s.alt : s.en)}"${dims(s)} loading="lazy" decoding="async"><span>${esc(lang === 'ja' ? s.caption : s.en)}</span></a></li>`).join('\n')}
     </ul>
   </section>`;
 }).filter(Boolean).join('\n')}
@@ -641,6 +642,16 @@ ${entries.join('\n')}
 </feed>
 `;
 }
+/**
+ * **図の中の字の索引**（`site/search.json`。2026-11-06）。
+ *
+ * 一覧の絞り込みは、番号・題・英題・分野にしか当たっていなかった。
+ * **正本がテキストなので、図の中に描いた字（ラベル・注記・出典）でも引ける** ——
+ * 「電流計」で理科の解答用紙が、「受検番号」でマークシートが出る。絵や PowerPoint ではできない。
+ *
+ * ページに埋めると 1 枚が重くなるので、**別のファイルにして、打ち始めたときだけ読む**（`site/all.js`）。
+ */
+want.set('site/search.json', `${JSON.stringify(Object.fromEntries(SAMPLES.map((s) => [s.no, drawnText(readFileSync(join(DIR, `${s.name}.zumen.yaml`), 'utf8'))])))}\n`);
 want.set('site/feed.xml', feedOf('ja'));
 want.set('site/en/feed.xml', feedOf('en'));
 for (const [path, lang] of [['site/index.html', 'ja'], ['site/en/index.html', 'en']]) {

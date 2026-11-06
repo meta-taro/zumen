@@ -10,7 +10,7 @@ import assert from 'node:assert/strict';
 import { readdirSync, readFileSync } from 'node:fs';
 import { describe, it } from 'node:test';
 
-import { catalogue, nearby, search, source } from '../src/examples.ts';
+import { catalogue, nearby, search, source, type Catalogue } from '../src/examples.ts';
 
 const dir = new URL('../examples/gallery/', import.meta.url);
 const files = readdirSync(dir).filter((f) => f.endsWith('.zumen.yaml'));
@@ -155,6 +155,36 @@ describe('見本を絞る', () => {
     assert.ok(found.includes('77-舞台照明仕込図'), found.join(' '));
     const ranked = search(catalogue()!, '劇場 照明 仕込図').flatMap((g) => g.items);
     assert.equal(ranked[0]!.name.endsWith('照明仕込図'), true, `先頭が ${ranked[0]!.name}`);
+  });
+
+  it('**図の中の字でも引ける**（題に無い語でも、正本に描いてあれば当たる）', () => {
+    // 「電流計」は 414 の題にも一行にも無い。回路図の中にだけある。
+    const found = search(catalogue()!, '電流計').flatMap((g) => g.items.map((i) => i.name));
+    assert.ok(found.includes('414-理科の期末テストの解答用紙'), found.join(' '));
+  });
+
+  it('**書き方の語には当てない**（`kind: placement` は図の中の字ではない）', () => {
+    const book = catalogue()!;
+    const found = search(book, 'placement').flatMap((g) => g.items);
+    assert.ok(found.every((i) => i.kind === 'placement'));
+  });
+
+  it('同じ数だけ当たったら、題に当たったものが先', () => {
+    const book: Catalogue = {
+      format: 1,
+      count: 2,
+      categories: [{
+        key: 'k',
+        label: 'k',
+        labelEn: 'k',
+        items: [
+          { name: '1-中だけ', caption: '', captionEn: '', kind: 'placement', scales: 1, uses: [] },
+          { name: '2-仕込図', caption: '', captionEn: '', kind: 'placement', scales: 1, uses: [] },
+        ],
+      }],
+    };
+    const body = (name: string) => (name === '1-中だけ' ? 'label: 仕込図' : '');
+    assert.deepEqual(search(book, '仕込図', body)[0]!.items.map((i) => i.name), ['2-仕込図', '1-中だけ']);
   });
 
   it('読点・中黒でも区切る', () => {
