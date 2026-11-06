@@ -7,6 +7,10 @@
  * 344 枚は最初から HTML に並んでいる（検索エンジンも、JS を切った人も、全部読める）。
  *
  * 照合するのは `data-name`（番号・題・英題・分野）。**空白で区切ると AND**。
+ *
+ * **図の中の字でも当たる**（2026-11-06）。正本がテキストなので、ラベル・注記・出典の字を
+ * `search.json` に索引として書き出してある。重いので**打ち始めたときに 1 回だけ読む**。
+ * 読めなければ、題と分野だけで絞る（壊れずに、狭くなるだけ）。
  */
 (() => {
   const box = document.getElementById('q');
@@ -17,12 +21,27 @@
   const fields = [...document.querySelectorAll('.field')];
   const total = cards.length;
   const unit = hit.textContent.replace(/^\d+\s*/, '');
+  let inside = {};
+  let asked = false;
+  const load = () => {
+    if (asked || !box.dataset.index) return;
+    asked = true;
+    fetch(box.dataset.index)
+      .then((res) => (res.ok ? res.json() : {}))
+      .then((index) => {
+        inside = index;
+        if (box.value !== '') sift();
+      })
+      .catch(() => {
+        // 索引が無くても一覧は使える。題と分野だけで絞り続ける。
+      });
+  };
 
   const sift = () => {
     const words = box.value.trim().toLowerCase().split(/\s+/).filter(Boolean);
     let shown = 0;
     for (const card of cards) {
-      const hay = card.dataset.name.toLowerCase();
+      const hay = `${card.dataset.name.toLowerCase()}\n${inside[card.dataset.no] ?? ''}`;
       const ok = words.every((w) => hay.includes(w));
       card.hidden = !ok;
       if (ok) shown += 1;
@@ -38,7 +57,14 @@
     hit.textContent = `${shown}${unit}`;
   };
 
-  box.addEventListener('input', sift);
+  box.addEventListener('focus', load);
+  box.addEventListener('input', () => {
+    load();
+    sift();
+  });
   // 戻ってきたときに、入っていた字で絞り直す（ブラウザが値を戻すため）。
-  if (box.value !== '') sift();
+  if (box.value !== '') {
+    load();
+    sift();
+  }
 })();

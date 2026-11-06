@@ -18,8 +18,9 @@ so however many times the AI redraws, your corrections survive.
 | | The problem | With zumen |
 |---|---|---|
 | **A team whose architecture keeps changing** | Updating the diagram is tedious, so the diagram drifts into fiction | Say what changed; the AI updates the diagram, and the layout you tidied stays |
-| **Specialists drawing on paper, Excel or PowerPoint** (lighting plots, pallet patterns, periodontal charts, property flyers…) | No dedicated software, or it is expensive; every redraw is by hand | The AI reads 389 worked examples and draws in the same notation — symbols, dimensions, legends |
+| **Specialists drawing on paper, Excel or PowerPoint** (lighting plots, pallet patterns, periodontal charts, property flyers…) | No dedicated software, or it is expensive; every redraw is by hand | The AI reads 415 worked examples and draws in the same notation — symbols, dimensions, legends |
 | **Anyone writing a spec together with an AI** | Hard to check whether the AI's drawing is right, or what it changed | Every AI rewrite arrives as a **diff; nothing changes until a person presses apply** |
+| **Anyone whose diagrams pile up** | A diagram saved as an image or a slide **cannot be searched by what is drawn in it** — "which of our drawings has an ammeter?" has no answer | **Search by the text inside the drawings.** Labels, notes and sources are all text, so a search for "DMX" finds the stage lighting plot even though no title says DMX. Works in the VS Code panel, the [example gallery](https://meta-taro.github.io/zumen/en/all/), over MCP, and with plain `grep` |
 
 ## What you see
 

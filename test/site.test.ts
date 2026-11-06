@@ -405,7 +405,7 @@ describe('徘徊の道', () => {
   it('**344 枚が 1 ページに並ぶ**（JS が無くても読める）', () => {
     for (const path of ['site/all/index.html', 'site/en/all/index.html']) {
       const html = read(path);
-      const cards = [...html.matchAll(/<li data-name="/g)].length;
+      const cards = [...html.matchAll(/<li data-no="\d+" data-name="/g)].length;
       assert.equal(cards, numbers.length, `${path} の枚数が見本の数と違う`);
     }
   });

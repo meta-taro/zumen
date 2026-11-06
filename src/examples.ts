@@ -89,34 +89,75 @@ export function source(
 }
 
 /**
- * 目次を絞る。名前・一行（和英）・道具に当たる語で。
+ * 目次を絞る。名前・一行（和英）・道具に当たる語で。**正本の中身（ラベル・注記・出典）にも当てる。**
  *
  * **語を並べてもよい**（空白・読点・中黒で区切る）。どれかに当たれば出し、
  * 当たった語の多い順に並べる。丸ごと一致だけを見ていた頃は、
  * エージェントが「劇場 照明 仕込」と並べると 0 件になり、見本を読まずに描いた（2026-10-28）。
+ *
+ * **図の中の字で引けるのは、正本がテキストだから。** 絵や PowerPoint では「電流計」で
+ * 理科の解答用紙は出てこない。題に無い語でも、中に描いてあれば当たる（2026-11-06）。
+ * 同じ数だけ当たったら、名前・一行に当たったものを先に出す（題に出る語のほうが近い）。
  */
-export function search(book: Catalogue, query: string): Category[] {
+export function search(
+  book: Catalogue,
+  query: string,
+  body: (name: string) => string | null = source,
+): Category[] {
   const terms = query
     .toLowerCase()
     .split(/[\s、，,・／/]+/)
     .filter((term) => term !== '');
   if (terms.length === 0) return book.categories;
 
-  const score = (item: Example): number => {
-    const hay = `${item.name} ${item.caption} ${item.captionEn} ${item.kind} ${item.uses.join(' ')}`.toLowerCase();
-    return terms.filter((term) => hay.includes(term)).length;
+  const score = (item: Example): { hits: number; head: number } => {
+    const head = `${item.name} ${item.caption} ${item.captionEn} ${item.kind} ${item.uses.join(' ')}`.toLowerCase();
+    const inHead = terms.filter((term) => head.includes(term));
+    if (inHead.length === terms.length) return { hits: inHead.length, head: inHead.length };
+    const text = drawnText(body(item.name) ?? '');
+    return { hits: terms.filter((term) => head.includes(term) || text.includes(term)).length, head: inHead.length };
   };
   return book.categories
     .map((group) => {
       const items = group.items
-        .map((item) => ({ item, hits: score(item) }))
+        .map((item) => ({ item, ...score(item) }))
         .filter((found) => found.hits > 0)
-        .sort((a, b) => b.hits - a.hits);
-      return { group: { ...group, items: items.map((found) => found.item) }, best: items[0]?.hits ?? 0 };
+        .sort((a, b) => b.hits - a.hits || b.head - a.head);
+      return {
+        group: { ...group, items: items.map((found) => found.item) },
+        best: items[0]?.hits ?? 0,
+        bestHead: items[0]?.head ?? 0,
+      };
     })
     .filter((found) => found.group.items.length > 0)
-    .sort((a, b) => b.best - a.best)
+    .sort((a, b) => b.best - a.best || b.bestHead - a.bestHead)
     .map((found) => found.group);
+}
+
+/**
+ * **正本のうち、図に描かれる字だけ**（題・ラベル・注記・出典の名前）を、小文字にして返す。
+ *
+ * 正本を丸ごと当てると、`kind: placement` や `hatch:` のような**書き方の語**にまで当たり、
+ * 「placement」で構成図まで出た。探したいのは図の中身なので、値だけを拾う。
+ * LP の一覧の索引（`scripts/pages.mjs` → `site/search.json`）も同じものを使う。
+ */
+export function drawnText(yaml: string): string {
+  const seen = new Set<string>();
+  for (const line of yaml.split('\n')) {
+    const found = /^\s*(?:-\s+)?(?:title|label|name|text|note|caption|technology):\s*(.+)$/.exec(line);
+    if (found === null) continue;
+    let value = found[1]!.trim();
+    if (value.startsWith('"')) {
+      try {
+        value = String(JSON.parse(value));
+      } catch {
+        // 1 行に収まらない値は、そのまま字として持つ（索引なので、引ければよい）。
+      }
+    }
+    value = value.replace(/^'|'$/g, '').replace(/\\n/g, ' ').trim().toLowerCase();
+    if (value !== '') seen.add(value);
+  }
+  return [...seen].join('\n');
 }
 
 /** 近いと見なす下限（見本の名前の 2 文字の並びのうち、題に入っている割合）。 */

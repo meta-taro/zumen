@@ -427,17 +427,17 @@ const ja = {
     listDir: '探し始める場所',
     examplesTitle: '同梱の見本を引く',
     examplesDesc:
-      '**この道具に同梱されている見本 189 枚の目次と、その正本**を返す。' +
+      '**この道具に同梱されている見本の目次と、その正本**を返す。' +
       '**何を描くか迷ったら、まずここを見ること。** zumen_spec は「どう書くか」しか渡さない —— ' +
       'zumen の値打ちは書き方ではなく、**歯周チャート・木取り図・舞台の仕込図・中古車の査定図・' +
       '継手と仕口・点字ブロック**のような、その業界の人が実務で使う図が**どう組まれているか**のほうにある。' +
       '一行は題名ではなく**その図の決まりごと**（「販売図面（作るための図ではなく、決めるための図）」）。' +
-      '引数なしなら分類と枚数だけ返す。query（「型紙」「歯」「ホーム」など和英どちらでも）で絞る。' +
+      '引数なしなら分類と枚数だけ返す。query（「型紙」「歯」「ホーム」など和英どちらでも）で絞る。**図の中に描いてある字（ラベル・注記・出典）にも当たる** —— 「電流計」で理科の解答用紙が、「受検番号」でマークシートが出る。' +
       'name を渡すと**その見本の正本（YAML）そのもの**が返るので、**真似て書ける**。' +
       '**道具の名前でも引ける**（query に views / hatch / chain / openings など）—— ' +
       '書き方は zumen_spec にあるが、**効いている実物**は見本の中にしかない。' +
       '**汎用のネットワーク図・フローチャートを量産しないこと** —— 既存の作図ソフトが得意な所を足しても、表現力の証明にならない。',
-    examplesQuery: '絞り込む語（名前と一行に当たる。和英どちらでもよい）',
+    examplesQuery: '絞り込む語（名前・一行と、図の中の字に当たる。和英どちらでもよい）',
     examplesName: '正本を読みたい見本の名前（目次の name をそのまま）',
     examplesNone: '見本がこの配り方には同梱されていません（npm の files に examples/gallery/*.zumen.yaml が入っているかを見てください）。',
     examplesMissing: (name: string) =>
@@ -1499,16 +1499,16 @@ const en: Catalog = {
     listDir: 'Where to start looking',
     examplesTitle: 'Browse the bundled examples',
     examplesDesc:
-      '**Returns the catalogue of the 189 examples bundled with this tool, and their sources.** ' +
+      '**Returns the catalogue of the examples bundled with this tool, and their sources.** ' +
       '**Look here first when deciding what to draw.** zumen_spec only tells you how to write a file — ' +
       "the value of zumen is not the syntax but how the drawings that professionals actually use are put together: " +
       'a periodontal chart, a plywood cutting diagram, a stage lighting plot, a used-car appraisal chart, ' +
       'a timber joint, tactile paving. Each one-liner states **what that drawing must get right**, not its title. ' +
-      'With no arguments you get the categories and counts. Narrow with query (Japanese or English). ' +
+      'With no arguments you get the categories and counts. Narrow with query (Japanese or English); **it also matches the text drawn inside each diagram** (labels, notes, sources), not just the title. ' +
       'Pass name to get **that example’s YAML source**, so you can copy how it is written. ' +
       'You can also query by feature (views, hatch, chain, openings…) — the syntax is in zumen_spec, but a **working example** only exists here. ' +
       '**Do not churn out generic network diagrams and flowcharts** — adding what existing tools already do proves nothing.',
-    examplesQuery: 'Filter (matches the name and the one-liner, in either language)',
+    examplesQuery: 'Filter (matches the name, the one-liner and the text inside each diagram, in either language)',
     examplesName: 'Name of the example whose source you want (use the name from the catalogue)',
     examplesNone: 'No examples are bundled with this build (check that examples/gallery/*.zumen.yaml is in the npm files list).',
     examplesMissing: (name: string) =>
