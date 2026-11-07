@@ -453,8 +453,8 @@ function allPage(lang) {
   <h1>${lang === 'ja' ? `見本 ${SAMPLES.length} 枚` : `All ${SAMPLES.length} examples`}</h1>
   <p class="lead">${esc(desc)}</p>
   <div class="sift">
-    <input id="q" type="search" autocomplete="off" data-index="../${lang === 'ja' ? '' : '../'}search.json"
-      placeholder="${lang === 'ja' ? '題・分野・図の中の字で絞る（例: 電流計、受検番号、halftone）' : 'Filter by title, field or any text inside the drawings'}"
+    <input id="q" name="q" type="search" autocomplete="off" data-index="../${lang === 'ja' ? '' : '../'}search.json"
+      placeholder="${lang === 'ja' ? '題・分野・図の中の字で絞る（例: 電流計、受検番号、DMX）' : 'Filter by title, field or any text inside the drawings'}"
       aria-label="${lang === 'ja' ? '絞り込み' : 'Filter'}">
     <p id="hit" class="hit" role="status">${lang === 'ja' ? `${SAMPLES.length} 枚` : `${SAMPLES.length} shown`}</p>
   </div>

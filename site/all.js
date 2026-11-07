@@ -57,6 +57,10 @@
     hit.textContent = `${shown}${unit}`;
   };
 
+  // **入口の検索欄から来たら、その字で絞る**（`?q=`。2026-11-07）。
+  const given = new URLSearchParams(location.search).get('q');
+  if (given !== null && box.value === '') box.value = given;
+
   box.addEventListener('focus', load);
   box.addEventListener('input', () => {
     load();
