@@ -437,6 +437,17 @@ describe('徘徊の道', () => {
     }
   });
 
+  /**
+   * **数が増えても、日本語が崩れない**（2026-11-07）。
+   * 「分野は ${n} つ」と書いていて、13 になった時点で「13 つ」になっていた。
+   * 「つ」で数えられるのは 9 まで。数が動く文に「つ」を付けない。
+   */
+  it('**10 以上の数に「つ」を付けていない**', () => {
+    const pages = ['site/index.html', 'site/all/index.html', ...numbers.map((no) => `site/g/${no}/index.html`)];
+    const bad = pages.filter((path) => /(?<![0-9０-９])[1-9][0-9]+ ?つ(?![ぎづ])/.test(read(path)));
+    assert.deepEqual(bad, []);
+  });
+
   it('**344 枚が 1 ページに並ぶ**（JS が無くても読める）', () => {
     for (const path of ['site/all/index.html', 'site/en/all/index.html']) {
       const html = read(path);

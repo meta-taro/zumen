@@ -460,7 +460,7 @@ function namesList(lang) {
 
 function allPage(lang) {
   const desc = lang === 'ja'
-    ? `zumen の見本 ${SAMPLES.length} 枚を 1 枚に並べたページ。分野は ${CATEGORIES.length} つ。題・分野だけでなく、図の中に描いてある字でも絞り込めます。`
+    ? `zumen の見本 ${SAMPLES.length} 枚を、${CATEGORIES.length} の分野に分けて 1 ページに並べました。題・分野だけでなく、図の中に描いてある字でも絞り込めます。`
     : `All ${SAMPLES.length} zumen examples on one page, across ${CATEGORIES.length} fields. Filter by title, field, or any text drawn inside the diagrams.`;
   const body = `<article class="all">
   <h1>${lang === 'ja' ? `見本 ${SAMPLES.length} 枚` : `All ${SAMPLES.length} examples`}</h1>
