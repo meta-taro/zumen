@@ -402,6 +402,41 @@ describe('徘徊の道', () => {
     assert.deepEqual(broken, []);
   });
 
+  /**
+   * **入口のページからも、図の中の字で探せる**（2026-11-07）。
+   * 一覧まで降りてきた人しか検索欄に気づかなかった。入口で打った字は `?q=` で一覧へ渡す
+   * （JS が無くても一覧は開く。絞れないだけ）。
+   */
+  it('**入口の検索欄が、一覧へ字を渡す**', () => {
+    for (const [name, page] of [['ja', ja], ['en', en]] as const) {
+      const form = page.match(/<form class="find"[^>]*>[\s\S]*?<\/form>/)?.[0];
+      assert.ok(form, `${name} の入口に検索欄が無い`);
+      assert.match(form, /action="all\/"/, `${name} の検索欄が一覧へ行かない`);
+      assert.match(form, /method="get"/, `${name} の検索欄が字を URL で渡さない`);
+      assert.match(form, /<input[^>]*name="q"/, `${name} の検索欄の名前が q でない`);
+    }
+    assert.match(read('site/all.js'), /URLSearchParams\(location\.search\)\.get\('q'\)/, '一覧が ?q= を受けない');
+    for (const path of ['site/all/index.html', 'site/en/all/index.html']) {
+      assert.match(read(path), /<input id="q"[^>]*name="q"/, `${path} の欄の名前が q でない`);
+    }
+  });
+
+  /**
+   * **打ち始めると候補が出る**（`<datalist>`。2026-11-07）。
+   * 何があるかを知らない人は、何を打てばよいかも分からない。分野と、見本の題を候補にする。
+   */
+  it('**検索欄に、分野と見本の題の候補が付いている**', () => {
+    for (const path of ['site/index.html', 'site/en/index.html', 'site/all/index.html', 'site/en/all/index.html']) {
+      const html = read(path);
+      const id = html.match(/<input[^>]*name="q"[^>]*list="([^"]+)"/)?.[1];
+      assert.ok(id, `${path} の検索欄に候補が付いていない`);
+      const list = html.match(new RegExp(`<datalist id="${id}">([\\s\\S]*?)</datalist>`))?.[1];
+      assert.ok(list, `${path} に候補の一覧が無い`);
+      const options = [...list.matchAll(/<option value="[^"]+">/g)].length;
+      assert.ok(options > numbers.length, `${path} の候補が ${options} 件しかない（見本 ${numbers.length} 枚＋分野）`);
+    }
+  });
+
   it('**344 枚が 1 ページに並ぶ**（JS が無くても読める）', () => {
     for (const path of ['site/all/index.html', 'site/en/all/index.html']) {
       const html = read(path);

@@ -445,6 +445,19 @@ ${near.map((x) => `    <li><a href="../${x.no}/"><img src="../../${lang === 'ja'
  * 検索から降りてきた人が「**どれだけあるのか**」を一目で掴める場所。
  * 分野で区切って並べ、**絞り込みはここに載せる**（`site/all.js`）。
  */
+/**
+ * **検索欄の候補**（`<datalist>`。2026-11-07）。
+ *
+ * 何があるかを知らない人は、何を打てばよいかも分からない。**分野と、見本の題**を候補に出す。
+ * 候補は手がかりで、ここに無い語（図の中の字）を打っても当たる。
+ */
+function namesList(lang) {
+  const fields = CATEGORIES.map((g) => (lang === 'ja' ? g.label : GROUPS_EN[g.key] ?? g.label));
+  const titles = SAMPLES.map((s) => (lang === 'ja' ? s.caption : s.en));
+  const options = [...new Set([...fields, ...titles])].map((v) => `<option value="${esc(v)}">`);
+  return `<!-- names -->\n  <datalist id="names">\n${options.map((o) => `    ${o}`).join('\n')}\n  </datalist>\n  <!-- /names -->`;
+}
+
 function allPage(lang) {
   const desc = lang === 'ja'
     ? `zumen の見本 ${SAMPLES.length} 枚を 1 枚に並べたページ。分野は ${CATEGORIES.length} つ。題・分野だけでなく、図の中に描いてある字でも絞り込めます。`
@@ -453,11 +466,12 @@ function allPage(lang) {
   <h1>${lang === 'ja' ? `見本 ${SAMPLES.length} 枚` : `All ${SAMPLES.length} examples`}</h1>
   <p class="lead">${esc(desc)}</p>
   <div class="sift">
-    <input id="q" type="search" autocomplete="off" data-index="../${lang === 'ja' ? '' : '../'}search.json"
-      placeholder="${lang === 'ja' ? '題・分野・図の中の字で絞る（例: 電流計、受検番号、halftone）' : 'Filter by title, field or any text inside the drawings'}"
+    <input id="q" name="q" list="names" type="search" autocomplete="off" data-index="../${lang === 'ja' ? '' : '../'}search.json"
+      placeholder="${lang === 'ja' ? '題・分野・図の中の字で絞る（例: 電流計、受検番号、DMX）' : 'Filter by title, field or any text inside the drawings'}"
       aria-label="${lang === 'ja' ? '絞り込み' : 'Filter'}">
     <p id="hit" class="hit" role="status">${lang === 'ja' ? `${SAMPLES.length} 枚` : `${SAMPLES.length} shown`}</p>
   </div>
+  ${namesList(lang)}
 ${CATEGORIES.map((g) => {
   const items = byGroup.get(g.key) ?? [];
   if (items.length === 0) return '';
@@ -660,6 +674,7 @@ for (const [path, lang] of [['site/index.html', 'ja'], ['site/en/index.html', 'e
   page = /<!-- news -->[\s\S]*?<!-- \/news -->/.test(page)
     ? page.replace(/<!-- news -->[\s\S]*?<!-- \/news -->/, block)
     : page.replace('  <div class="filters"', `  ${block}\n  <div class="filters"`);
+  page = page.replace(/<!-- names -->[\s\S]*?<!-- \/names -->/, namesList(lang));
   if (!page.includes('type="application/atom+xml"')) {
     page = page.replace('<link rel="stylesheet" href="', `<link rel="alternate" type="application/atom+xml" href="feed.xml" title="${esc(NEWS_WORD[lang].title)}">\n<link rel="stylesheet" href="`);
   }
