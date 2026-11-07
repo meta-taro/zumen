@@ -421,6 +421,22 @@ describe('徘徊の道', () => {
     }
   });
 
+  /**
+   * **打ち始めると候補が出る**（`<datalist>`。2026-11-07）。
+   * 何があるかを知らない人は、何を打てばよいかも分からない。分野と、見本の題を候補にする。
+   */
+  it('**検索欄に、分野と見本の題の候補が付いている**', () => {
+    for (const path of ['site/index.html', 'site/en/index.html', 'site/all/index.html', 'site/en/all/index.html']) {
+      const html = read(path);
+      const id = html.match(/<input[^>]*name="q"[^>]*list="([^"]+)"/)?.[1];
+      assert.ok(id, `${path} の検索欄に候補が付いていない`);
+      const list = html.match(new RegExp(`<datalist id="${id}">([\\s\\S]*?)</datalist>`))?.[1];
+      assert.ok(list, `${path} に候補の一覧が無い`);
+      const options = [...list.matchAll(/<option value="[^"]+">/g)].length;
+      assert.ok(options > numbers.length, `${path} の候補が ${options} 件しかない（見本 ${numbers.length} 枚＋分野）`);
+    }
+  });
+
   it('**344 枚が 1 ページに並ぶ**（JS が無くても読める）', () => {
     for (const path of ['site/all/index.html', 'site/en/all/index.html']) {
       const html = read(path);
