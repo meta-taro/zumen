@@ -257,6 +257,43 @@ ${body}
 }
 
 /** 見本 1 枚のページ。 */
+/**
+ * **英語の見本の説明を、70 字に満たせる**（2026-11-08）。
+ *
+ * 英語は題の言い直し（`CAPTIONS_EN`）しか持っていないので、101 枚が 70 字未満だった
+ * （"Cutting layout: the pattern may not be turned"）。
+ * 題の `（）` に入っている具体（布幅・用尺・寸法）を足し、それでも短ければ分野を言う。
+ */
+function enSummary(s, head) {
+  const detail = titleOf(s, 'en').match(/\(([^)]*)\)\s*$/)?.[1];
+  const withDetail = detail !== undefined && !head.includes(detail) ? `${head} — ${detail}.` : head;
+  if (withDetail.length >= 70) return withDetail;
+  const field = GROUPS_EN[s.group.key] ?? s.group.label;
+  return `${withDetail.replace(/\.?$/, '.')} An example from ${field}, drawn from one YAML file with zumen.`;
+}
+
+/**
+ * **分野のページの説明に、そこにある図の名前を入れる**（2026-11-08）。
+ *
+ * 13 枚とも「○○の図面 N 枚。すべて YAML 1 枚から描いたもの。」だけで、
+ * 検索結果を見た人に**何の図があるかが 1 語も届いていなかった。**
+ * 題の `（）` の前（図の種類の名前）を、字数に収まるだけ並べる。
+ */
+function groupDesc(label, items, lang) {
+  // **名前は題から取る。** カードの字（caption）は「フレット：…」のような言い切りが多く、頭だけでは図の種類にならない。
+  const names = [...new Set(items.map((s) => titleOf(s, lang).replace(/\s*[（(—].*$/, '').trim()))];
+  const head = lang === 'ja' ? `${label}の図面 ${items.length} 枚 ── ` : `${items.length} drawings in ${label} — `;
+  const tail = lang === 'ja' ? 'など。どれも YAML 1 枚から描いた図です。' : ', and more, each from one YAML file.';
+  const limit = lang === 'ja' ? 120 : 200;
+  const sep = lang === 'ja' ? '・' : ', ';
+  const picked = [];
+  for (const name of names) {
+    if ((head + [...picked, name].join(sep) + tail).length > limit) break;
+    picked.push(name);
+  }
+  return `${head}${picked.join(sep)}${tail}`;
+}
+
 function samplePage(s, lang) {
   /**
    * **検索結果に出る文は、題の言い直しにしない**（2026-09-22。86 周目）。
@@ -301,7 +338,7 @@ function samplePage(s, lang) {
    */
   const summary = (() => {
     const head = flat(lang === 'ja' ? s.caption : s.en);
-    if (lang !== 'ja') return fit(head, 150);
+    if (lang !== 'ja') return fit(enSummary(s, head), 150);
     // **note は 1 段落目とは限らない。** 題より長いものを、前のほうから探す。
     const best = [flat(s.alt), ...s.note.filter((p) => typeof p === 'string').map(flat)]
       .filter((one) => one.length > head.length)
@@ -511,9 +548,7 @@ ${items.map((s) => `      <li data-no="${s.no}" data-name="${esc(`${s.no} ${s.ca
 function groupPage(group, lang) {
   const items = byGroup.get(group.key) ?? [];
   const label = lang === 'ja' ? group.label : GROUPS_EN[group.key] ?? group.label;
-  const desc = lang === 'ja'
-    ? `${label}の図面 ${items.length} 枚。すべて YAML 1 枚から描いたもの。`
-    : `${items.length} drawings in ${label}, each generated from a single YAML file.`;
+  const desc = groupDesc(label, items, lang);
   const body = `<article>
   <h1>${esc(label)}</h1>
   <p class="lead">${esc(desc)}</p>

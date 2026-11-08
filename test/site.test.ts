@@ -442,6 +442,34 @@ describe('徘徊の道', () => {
    * 「分野は ${n} つ」と書いていて、13 になった時点で「13 つ」になっていた。
    * 「つ」で数えられるのは 9 まで。数が動く文に「つ」を付けない。
    */
+  /**
+   * **検索結果に出る文で、中身が分かる**（2026-11-08）。
+   * 分野のページは 13 枚とも「○○の図面 N 枚。すべて YAML 1 枚から描いたもの。」だけで、
+   * 何の図があるかが 1 語も無かった。英語の見本は 101 枚が 70 字未満だった。
+   */
+  it('**分野のページの説明に、そこにある図の名前が入っている**', () => {
+    const desc = (path: string): string => read(path).match(/<meta name="description" content="([^"]*)"/)?.[1] ?? '';
+    for (const key of readdirSync(new URL('../site/c/', import.meta.url))) {
+      for (const path of [`site/c/${key}/index.html`, `site/en/c/${key}/index.html`]) {
+        const html = read(path);
+        const g = path.startsWith('site/en/') ? 'site/en/g' : 'site/g';
+        const names = [...html.matchAll(/<li><a href="[./]*g\/(\d+)\/"/g)]
+          .map((m) => read(`${g}/${m[1]}/index.html`).match(/<h1[^>]*>([^<]+)/)?.[1] ?? '')
+          .map((n) => n.replace(/\s*[（(].*$/, '').trim());
+        const hits = names.filter((n) => desc(path).includes(n.replace(/&amp;/g, '&')));
+        assert.ok(hits.length >= 3, `${path} の説明に図の名前が ${hits.length} 件しかない: ${desc(path)}`);
+      }
+    }
+  });
+
+  it('**英語の見本の説明が、70 字以上ある**', () => {
+    const short = numbers.filter((no) => {
+      const d = read(`site/en/g/${no}/index.html`).match(/<meta name="description" content="([^"]*)"/)?.[1] ?? '';
+      return d.length < 70;
+    });
+    assert.deepEqual(short, []);
+  });
+
   it('**10 以上の数に「つ」を付けていない**', () => {
     const pages = ['site/index.html', 'site/all/index.html', ...numbers.map((no) => `site/g/${no}/index.html`)];
     const bad = pages.filter((path) => /(?<![0-9０-９])[1-9][0-9]+ ?つ(?![ぎづ])/.test(read(path)));
