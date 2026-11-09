@@ -100,8 +100,9 @@ ZUMEN_LOCALE=en pnpm mcp
 | `zumen-windows-arm64` | Windows（ARM。Snapdragon など）用。`zumen-windows-arm64.exe`（**置いてそのまま起動できる**）／ `.msi` ／ `setup.exe` |
 | `zumen-macos` | `zumen-macos-app.tar.gz`（**展開してそのまま起動できる**）／ `.dmg` |
 
-**mac 版は Apple Silicon 用だけ**（`aarch64`）。`macos-latest` の runner がそれなので、
-**Intel の Mac では動かない。** 要るようになったら runner を足す。
+**mac 版は 1 本で Apple シリコンと Intel の両方に入る**（universal。2026-11-09 から）。
+`macos-latest` の 1 台で両方の CPU 向けに建てて束ね、入ったかを `lipo` で確かめている。
+**v0.7.0 までは Apple シリコン用だけ**（Intel の Mac では動かない）。
 
 **インストーラより、素の実行ファイルのほうが確実です。** 署名していないので、
 インストーラは環境によっては実行が止まります（下記）。

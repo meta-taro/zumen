@@ -62,7 +62,11 @@ jobs:
 
       - run: corepack enable
 
+      # **mac は 1 本で Apple シリコンと Intel の両方に入れる**（universal。2026-11-09）。
+      # 建てる機械を増やさず、署名も 1 本のまま。Rust は両方の CPU 向けに建てて束ねる。
       - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: aarch64-apple-darwin,x86_64-apple-darwin
 
       - uses: Swatinem/rust-cache@v2
         with:
@@ -135,19 +139,27 @@ jobs:
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-        run: pnpm exec tauri build
+        run: pnpm exec tauri build --target universal-apple-darwin
 
       # **APPLE_* を 1 つも定義しない段。** ここが「署名しない」の実体。
       - name: 殻を建てる（署名しない）
         if: steps.signing.outputs.signed != 'true'
-        run: pnpm exec tauri build
+        run: pnpm exec tauri build --target universal-apple-darwin
 
       # **何ができたかを実物で言う。** 「建った」だけでは、配れるものが出たか分からない。
       - name: できたものを並べる
         run: |
-          find src-tauri/target/release/bundle -type f \
+          find src-tauri/target/universal-apple-darwin/release/bundle -type f \
             \( -name '*.dmg' -o -name '*.app.tar.gz' \) -exec ls -l {} \;
           echo "署名: ${{ steps.signing.outputs.signed }}"
+
+      # **両方の CPU が入ったかを、実物で確かめる。** 片方だけでも建ってしまうので、名前では分からない。
+      - name: Apple シリコンと Intel の両方が入っているか
+        run: |
+          archs=$(lipo -archs src-tauri/target/universal-apple-darwin/release/bundle/macos/zumen.app/Contents/MacOS/zumen)
+          echo "入っている CPU: $archs"
+          case " $archs " in *" x86_64 "*) ;; *) echo "::error::Intel（x86_64）が入っていない"; exit 1 ;; esac
+          case " $archs " in *" arm64 "*) ;; *) echo "::error::Apple シリコン（arm64）が入っていない"; exit 1 ;; esac
 
       # **インストーラだけでは足りない**（Issue #7）。
       #
@@ -155,14 +167,14 @@ jobs:
       # **置いてそのまま起動できるもの**が要る。`.app` をそのまま固めて上げる。
       - name: 素の .app を固める
         run: |
-          cd src-tauri/target/release/bundle/macos
+          cd src-tauri/target/universal-apple-darwin/release/bundle/macos
           tar czf "$GITHUB_WORKSPACE/zumen-macos-app.tar.gz" zumen.app
 
       - uses: actions/upload-artifact@v4
         with:
           name: zumen-macos
           path: |
-            src-tauri/target/release/bundle/**/*.dmg
+            src-tauri/target/universal-apple-darwin/release/bundle/**/*.dmg
             zumen-macos-app.tar.gz
           if-no-files-found: error
 
@@ -274,6 +286,6 @@ jobs:
             |---|---|
             | Windows（Intel・AMD） | 名前に `x64` が入っているもの |
             | Windows（ARM。Snapdragon など） | 名前に `arm64` が入っているもの |
-            | mac | Apple Silicon 用だけです |
+            | mac（Apple シリコン・Intel） | `.dmg` も `zumen-macos-app.tar.gz` も 1 本で両方に入ります |
 
             変更の記録は [CHANGELOG.md](../blob/develop/CHANGELOG.md)。

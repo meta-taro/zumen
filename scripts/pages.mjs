@@ -281,7 +281,9 @@ function enSummary(s, head) {
  */
 function groupDesc(label, items, lang) {
   // **名前は題から取る。** カードの字（caption）は「フレット：…」のような言い切りが多く、頭だけでは図の種類にならない。
-  const names = [...new Set(items.map((s) => titleOf(s, lang).replace(/\s*[（(—].*$/, '').trim()))];
+  // 日本語のページで題が英語のもの（米国の様式を写した見本）は、カードの字（日本語）から取る。
+  const nameOf = (s) => (lang === 'ja' && !/[ぁ-んァ-ヶ一-龥]/.test(s.title) ? s.caption : titleOf(s, lang));
+  const names = [...new Set(items.map((s) => nameOf(s).replace(/\s*[（(—].*$/, '').trim()))];
   const head = lang === 'ja' ? `${label}の図面 ${items.length} 枚 ── ` : `${items.length} drawings in ${label} — `;
   const tail = lang === 'ja' ? 'など。どれも YAML 1 枚から描いた図です。' : ', and more, each from one YAML file.';
   const limit = lang === 'ja' ? 120 : 200;
