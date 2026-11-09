@@ -462,6 +462,20 @@ describe('徘徊の道', () => {
     }
   });
 
+  /**
+   * **日本語のページに、英語の題を混ぜない**（2026-11-09）。
+   * 米国の様式を写した見本 24 枚は、正本の題が英語。分野の説明に「Sprinkler layout」がそのまま出ていた。
+   */
+  it('**日本語の分野の説明に並ぶ名前は、どれも日本語**', () => {
+    const english: string[] = [];
+    for (const key of readdirSync(new URL('../site/c/', import.meta.url))) {
+      const desc = read(`site/c/${key}/index.html`).match(/<meta name="description" content="([^"]*)"/)?.[1] ?? '';
+      const list = desc.split(' ── ')[1]?.replace(/など。.*$/, '') ?? '';
+      for (const name of list.split('・')) if (!/[ぁ-んァ-ヶ一-龥]/.test(name)) english.push(`${key}: ${name}`);
+    }
+    assert.deepEqual(english, []);
+  });
+
   it('**英語の見本の説明が、70 字以上ある**', () => {
     const short = numbers.filter((no) => {
       const d = read(`site/en/g/${no}/index.html`).match(/<meta name="description" content="([^"]*)"/)?.[1] ?? '';
