@@ -1,5 +1,6 @@
 version: 1
 kind: placement
+paper: { size: A3, orient: portrait }
 title: 数学の期末テストの解答用紙（答えだけの欄・求め方の欄・作図・グラフ・証明。作図とグラフは記入例つき）
 sources:
   - name: "神奈川県教育委員会「令和 8 年度 公立高等学校入学者選抜 学力検査 数学 問題」注意事項（根号は最も小さい自然数・約分・円周率は π）"
@@ -14,11 +15,18 @@ sources:
   - name: "東京都立立川高等学校「令和 7 年度 学校作成問題 数学」注意（分母に根号を含まない形・途中の式や計算も書く・作図に用いた線は消さない）"
     url: https://www.metro.ed.jp/tachikawa-h/assets/R7%E6%95%B0%E5%AD%A6%E5%95%8F%E9%A1%8C.pdf
     retrieved: 2026-11-05
+  - name: "長野県教育委員会「令和 7 年度 後期選抜 数学 解答用紙」（A3 縦。単位 cm・cm²・° を欄に刷る。大問ごとに「問 1 計」の欄、右下に得点合計）"
+    url: https://www.pref.nagano.lg.jp/kyoiku/kyogaku/saiyo-nyuushi/shiken/ko/documents/suugakuyoushi.pdf
+    retrieved: 2026-11-10
+  - name: "三重県教育委員会「令和 7 年度 後期選抜 数学 解答用紙」（B4 横。単位 cm・cm²・g・° を欄に刷る。証明の欄は用紙の右半分の大半）"
+    url: https://www.pref.mie.lg.jp/common/content/001184812.pdf
+    retrieved: 2026-11-10
 # **数学の解答用紙は、答えだけの欄と、求め方を書く欄が分かれている。** 作図とグラフは、線そのものが答え。
 #
 # 決まり（取得 2026-11-05）——
 # 根号の中は最も小さい自然数、分数は約分、円周率は π（神奈川県）。作図に使った線は消さない（青森県）。
-# （解）（作図）（説明）（証明）の欄には求め方を書く（福井県）。
+# （解）（作図）（説明）（証明）の欄には求め方を書く（福井県）。単位は欄に刷る（長野県・三重県の解答用紙）。
+# 証明の欄は 8〜10 行書ける高さにした（三重県は用紙の右半分の大半。2026-11-10）。
 # 作図：A・B を中心に同じ半径（AB の半分より長い）で弧をかき、2 つの交点 P・Q を結ぶ。弧は交点を通る。
 # グラフ：y = (1/2)x + 1。(0, 1) と (2, 2) の格子点を通る。
 nodes:
@@ -179,7 +187,7 @@ nodes:
     at: { x: 816, y: 192 }
     size: { w: 310, h: 40 }
   - id: s2_u2
-    label: "度"
+    label: "°"
     marker: none
     align: right
     at: { x: 1072, y: 204 }
@@ -382,65 +390,65 @@ nodes:
     label: "（証明）"
     marker: box
     at: { x: 40, y: 868 }
-    size: { w: 70, h: 120 }
+    size: { w: 70, h: 280 }
   - id: s6_v3
     label: ""
     marker: box
     at: { x: 110, y: 868 }
-    size: { w: 1030, h: 120 }
+    size: { w: 1030, h: 280 }
   - id: nh
     label: "解答上の注意（入試の問題冊子・解答用紙の注意から）"
     marker: none
     align: left
-    at: { x: 40, y: 1010 }
+    at: { x: 40, y: 1170 }
     size: { w: 700, h: 16 }
   - id: n0
     label: "・答えに根号が含まれるときは、根号の中を最も小さい自然数にする（神奈川県）"
     marker: none
     align: left
-    at: { x: 40, y: 1034 }
+    at: { x: 40, y: 1194 }
     size: { w: 1100, h: 16 }
   - id: n1
     label: "・答えが分数になるときは、約分できる場合は約分する（神奈川県）"
     marker: none
     align: left
-    at: { x: 40, y: 1056 }
+    at: { x: 40, y: 1216 }
     size: { w: 1100, h: 16 }
   - id: n2
     label: "・分母に根号を含まない形にする（有理化。都立立川高校の学校作成問題）"
     marker: none
     align: left
-    at: { x: 40, y: 1078 }
+    at: { x: 40, y: 1238 }
     size: { w: 1100, h: 16 }
   - id: n3
     label: "・円周率は π とする（神奈川県の問題文）"
     marker: none
     align: left
-    at: { x: 40, y: 1100 }
+    at: { x: 40, y: 1260 }
     size: { w: 1100, h: 16 }
   - id: n4
     label: "・作図に使った線は消さない（青森県・都立立川高校）"
     marker: none
     align: left
-    at: { x: 40, y: 1122 }
+    at: { x: 40, y: 1282 }
     size: { w: 1100, h: 16 }
   - id: n5
     label: "・（解）・（作図）・（説明）・（証明）の欄には、求め方や導き方を丁寧に書く。答えは欄をはみ出さない（福井県）"
     marker: none
     align: left
-    at: { x: 40, y: 1144 }
+    at: { x: 40, y: 1304 }
     size: { w: 1100, h: 16 }
   - id: nodraw
-    label: "描かなかったもの：部分点の配り方（学校ごとに違い、公表された決まりが無い）、単位を欄に刷るか自分で書かせるか（出典で確かめていない。この様式では刷った）。"
+    label: "描かなかったもの：部分点の配り方（学校ごとに違い、公表された決まりが無い）。単位は長野県・三重県の入試の解答用紙と同じく欄に刷った（cm・cm²・°）。"
     marker: none
     align: left
-    at: { x: 40, y: 1176 }
+    at: { x: 40, y: 1336 }
     size: { w: 1100, h: 16 }
   - id: nodraw2
     label: "問題文は伏せた。用紙は架空の様式で、実在の学校・県の解答用紙の写しではない。"
     marker: none
     align: left
-    at: { x: 40, y: 1198 }
+    at: { x: 40, y: 1358 }
     size: { w: 1100, h: 16 }
 paths:
   - id: ab
