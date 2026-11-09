@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>zumen roadmap — done, now, next, and what we will not build</title>
+<link rel="icon" type="image/svg+xml" href="../../icon.svg">
+<meta name="theme-color" content="#23232b">
+<meta name="description" content="How far zumen has come, what comes next, and what it will not build. We first measured whether hand edits survive regeneration; they did, so the project continues.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="zumen">
+<meta property="og:locale" content="en_US">
+<meta property="og:url" content="https://meta-taro.github.io/zumen/en/roadmap/">
+<meta property="og:title" content="zumen roadmap — done, now, next, and what we will not build">
+<meta property="og:description" content="How far zumen has come, what comes next, and what it will not build. We first measured whether hand edits survive regeneration; they did, so the project continues.">
+<meta property="og:image" content="https://meta-taro.github.io/zumen/og.png">
+<meta property="og:image:alt" content="A periodontal chart and a transit map, both drawn by zumen from YAML.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="zumen roadmap — done, now, next, and what we will not build">
+<meta name="twitter:description" content="How far zumen has come, what comes next, and what it will not build. We first measured whether hand edits survive regeneration; they did, so the project continues.">
+<meta name="twitter:image" content="https://meta-taro.github.io/zumen/og.png">
+<meta name="twitter:image:alt" content="A periodontal chart and a transit map, both drawn by zumen from YAML.">
+<link rel="stylesheet" href="../../style.css">
+<link rel="canonical" href="https://meta-taro.github.io/zumen/en/roadmap/">
+<link rel="alternate" hreflang="en" href="https://meta-taro.github.io/zumen/en/roadmap/">
+<link rel="alternate" hreflang="ja" href="https://meta-taro.github.io/zumen/roadmap/">
+<link rel="alternate" hreflang="x-default" href="https://meta-taro.github.io/zumen/roadmap/">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="alternate" type="text/markdown" href="https://meta-taro.github.io/zumen/llms.txt" title="llms.txt">
+<link rel="sitemap" type="application/xml" href="https://meta-taro.github.io/zumen/sitemap.xml">
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "zumen roadmap — done, now, next, and what we will not build",
+    "description": "How far zumen has come, what comes next, and what it will not build. We first measured whether hand edits survive regeneration; they did, so the project continues.",
+    "url": "https://meta-taro.github.io/zumen/en/roadmap/",
+    "inLanguage": "en"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "zumen",
+        "item": "https://meta-taro.github.io/zumen/en/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Roadmap"
+      }
+    ]
+  }
+]
+</script>
+</head>
+<body class="sub">
+<header class="bar">
+  <!--
+    パンくず（2026-09-24）。入口から現在地まで一本で出す。
+    aria-label を付けて、読み上げでも「ここは道案内」と分かるようにする。
+    区切りの記号は aria-hidden（読み上げると邪魔なだけ）。
+  -->
+  <nav class="crumbs" aria-label="Breadcrumb">
+    <a class="home" href="../../">zumen</a>
+  </nav>
+</header>
+<main>
+<article class="roadmap">
+  <h1>Roadmap</h1>
+  <p class="lead">How far it has come, what comes next, and what it will not build. <b>This is a map of where things stand, not a promise.</b></p>
+  <h2>When we would stop</h2>
+  <p>We measured one line before anything else — <b>ask in words → a diagram appears → a person fixes one spot → ask again → the fix survives.</b> If that failed, nothing else would justify using it, so we agreed to stop. It held, so the project continues.</p>
+  <div class="map">
+    <div>
+      <h2>Done</h2>
+      <ul>
+        <li>Positions a person fixed (pins) survive when the AI redraws</li>
+        <li>The file format is settled — one YAML file is the source, with the spec published separately from the code</li>
+        <li>Desktop app (macOS, and Windows on x64 and ARM)</li>
+        <li>An MCP server — AI agents read the spec and the examples, then draw</li>
+        <li>Export to SVG, Mermaid, draw.io and Markdown</li>
+        <li>Specialist examples, checked against primary sources for each field and reviewed through that field’s eyes</li>
+        <li>Search the examples by any text drawn inside them</li>
+      </ul>
+    </div>
+    <div>
+      <h2>Now</h2>
+      <ul>
+        <li>More examples — research the drawings a trade really uses first, tabulate their conventions, then draw</li>
+        <li>Review each example two or three times through the eyes of its field</li>
+      </ul>
+    </div>
+    <div>
+      <h2>Next</h2>
+      <ul>
+        <li>One macOS build for both Apple silicon and Intel (from the next release)</li>
+      </ul>
+    </div>
+    <div>
+      <h2>Known limits</h2>
+      <ul>
+        <li>Automatic layout stops being legible, even in print, beyond about 30 nodes. There is no way to split a diagram yet</li>
+        <li>Bands that wrap around a body (taping, rope knots) cannot be drawn. That needs lines with width and a way to show the part that goes behind</li>
+        <li>Not code-signed, so your computer will warn you</li>
+      </ul>
+    </div>
+  </div>
+  <h2>What we will not build</h2>
+  <ul>
+    <li><b>No race for shape coverage.</b> The shape vocabulary stays at 11 words. Expertise lives in labels (<code>tag</code>), not shapes</li>
+    <li><b>No special-purpose renderer per trade.</b> The question is how far one drawing engine and a few parts can go</li>
+    <li><b>No fully automatic output.</b> Keeping the round trip where a person corrects the drawing is the point</li>
+    <li><b>Not first: real-time co-editing, a web version, or importers from other formats.</b></li>
+    <li><b>No vendor logos.</b> An AWS icon makes a diagram read as "this runs on AWS"</li>
+  </ul>
+  <p class="note">Sources: <a href="https://github.com/meta-taro/zumen#readme">README</a> and <a href="https://github.com/meta-taro/zumen/blob/develop/CHANGELOG.md">changelog</a></p>
+</article>
+</main>
+<footer class="foot">
+  <p><a href="https://github.com/meta-taro/zumen">GitHub</a> · MIT · <a href="https://meta-taro.github.io/zumen/roadmap/">日本語</a></p>
+</footer>
+</body>
+</html>

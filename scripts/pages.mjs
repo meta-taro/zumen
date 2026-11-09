@@ -598,6 +598,328 @@ for (const g of CATEGORIES) {
   want.set(`site/c/${g.key}/index.html`, groupPage(g, 'ja'));
   want.set(`site/en/c/${g.key}/index.html`, groupPage(g, 'en'));
 }
+/**
+ * **ダウンロード・過去の版・ロードマップ**（2026-11-09）。
+ *
+ * OSS の紹介ページの決まり（姉妹の tadori と揃える）から、zumen に足りなかった 3 枚。
+ * - 版数をページに書かない。ボタンは `site/download.js` が GitHub のリリースから作る
+ *   （JS が無くても、リリースのページへの道は残る）
+ * - ロードマップは README に書いてあることだけで組む（非公開の記録から持ち出さない）
+ */
+const RELEASES_URL = 'https://github.com/meta-taro/zumen/releases';
+const INSTALL_URL = 'https://github.com/meta-taro/zumen/blob/develop/docs/install.md';
+
+const DL_WORD = {
+  ja: {
+    title: 'zumen をダウンロード — macOS・Windows',
+    h1: 'zumen をダウンロード',
+    desc: 'zumen のデスクトップアプリ。macOS と Windows（x64・ARM）向け。見ている PC に合うものに「この PC」と印を付けます。無料・MIT ライセンス。',
+    lead: 'お使いの PC に合うものを選んでください。見ている PC が分かれば「この PC」と印を付けています。',
+    loading: '最新の版を GitHub から読んでいます…',
+    pick: 'リリースのページから選ぶ',
+    cards: [
+      ['mac-arm', 'macOS', 'Apple シリコン（M1・M2・M3・M4 など）'],
+      ['mac-intel', 'macOS', 'Intel の CPU（次の版から。Apple シリコンと同じ 1 本に入ります）'],
+      ['win-x64', 'Windows', 'x64（Intel・AMD の CPU。ふつうの Windows はこちら）'],
+      ['win-arm', 'Windows', 'ARM（Snapdragon などの CPU）'],
+    ],
+    past: '過去の版はこちら →',
+    before: '入れる前に',
+    alpha: '<b>アルファ版です。</b>署名していないので、受け取った機械は警告を出します。<b>まだ日常の道具にしないでください。</b>',
+    which: 'どちらの CPU か分からないとき',
+    whichList: [
+      '<b>macOS</b>：アップルメニュー ›「この Mac について」の「チップ」が Apple M… なら Apple シリコン、「プロセッサ」が Intel… なら Intel です。',
+      '<b>Windows</b>：設定 › システム ›「バージョン情報」の「システムの種類」が「x64 ベース」なら x64、「ARM ベース」なら ARM です。',
+    ],
+    first: '初めて開くとき',
+    firstList: [
+      '<b>置いてそのまま起動できる物がおすすめです</b>（mac は <code>zumen-macos-app.tar.gz</code>、Windows は <code>zumen-windows-*.exe</code>）。インストーラより確実に開きます。',
+      '<b>macOS</b>：「壊れているため開けません」と出たら、Finder で zumen を右クリック ›「開く」を選びます。',
+      '<b>Windows</b>：「Windows によって PC が保護されました」と出たら、「詳細情報」›「実行」を選びます。',
+    ],
+    more: 'くわしい入れ方',
+    mcp: '<b>AI エージェントから描かせるだけなら、アプリは要りません。</b>MCP サーバーは Node.js（22.18 以上）だけで動きます。',
+    crumb: 'ダウンロード',
+  },
+  en: {
+    title: 'Download zumen — macOS and Windows',
+    h1: 'Download zumen',
+    desc: 'The zumen desktop app for macOS and Windows (x64 and ARM). The build that fits the computer you are on is marked "This PC". Free, MIT licence.',
+    lead: 'Pick the one that fits your computer. When we can tell which computer you are on, it is marked "This PC".',
+    loading: 'Reading the latest release from GitHub…',
+    pick: 'Pick from the releases page',
+    cards: [
+      ['mac-arm', 'macOS', 'Apple silicon (M1, M2, M3, M4 and so on)'],
+      ['mac-intel', 'macOS', 'Intel (from the next release, in the same build as Apple silicon)'],
+      ['win-x64', 'Windows', 'x64 (Intel or AMD — most Windows PCs)'],
+      ['win-arm', 'Windows', 'ARM (Snapdragon and similar)'],
+    ],
+    past: 'Older releases →',
+    before: 'Before you install',
+    alpha: '<b>This is an alpha.</b> It is not code-signed, so your computer will warn you. <b>Please do not rely on it for daily work yet.</b>',
+    which: 'Not sure which CPU you have?',
+    whichList: [
+      '<b>macOS</b>: Apple menu › About This Mac. "Chip: Apple M…" means Apple silicon; "Processor: Intel…" means Intel.',
+      '<b>Windows</b>: Settings › System › About. "System type: x64-based" means x64; "ARM-based" means ARM.',
+    ],
+    first: 'Opening it for the first time',
+    firstList: [
+      '<b>The run-without-installing builds are the safest bet</b> (<code>zumen-macos-app.tar.gz</code> on a Mac, <code>zumen-windows-*.exe</code> on Windows). They open more reliably than the installers.',
+      '<b>macOS</b>: if it says the app "is damaged and can’t be opened", right-click zumen in Finder and choose Open.',
+      '<b>Windows</b>: if it says "Windows protected your PC", choose More info › Run anyway.',
+    ],
+    more: 'Full install guide (Japanese)',
+    mcp: '<b>To let an AI agent draw, you do not need the app.</b> The MCP server runs on Node.js 22.18 or later alone.',
+    crumb: 'Download',
+  },
+};
+
+function downloadPage(lang) {
+  const w = DL_WORD[lang];
+  const base = lang === 'ja' ? '../' : '../../';
+  const body = `<article class="dl-page">
+  <h1>${w.h1}</h1>
+  <p class="lead">${esc(w.lead)}</p>
+  <div data-downloads>
+    <p data-release-status class="note">${esc(w.loading)}</p>
+    <div class="dl-grid">
+${w.cards.map(([id, os, cpu]) => `      <div class="dl" data-kind="${id}">
+        <h3>${os}</h3>
+        <p class="cpu">${esc(cpu)}</p>
+        <div class="files"><a class="btn" href="${RELEASES_URL}/latest">${esc(w.pick)}</a></div>
+      </div>`).join('\n')}
+    </div>
+    <p><a href="../releases/">${esc(w.past)}</a></p>
+  </div>
+  <h2>${w.before}</h2>
+  <div class="warn">${w.alpha}</div>
+  <h3>${w.which}</h3>
+  <ul>
+${w.whichList.map((li) => `    <li>${li}</li>`).join('\n')}
+  </ul>
+  <h3>${w.first}</h3>
+  <ul>
+${w.firstList.map((li) => `    <li>${li}</li>`).join('\n')}
+  </ul>
+  <p>${w.mcp} <a href="${INSTALL_URL}">${esc(w.more)}</a></p>
+</article>
+<script src="${base}download.js" defer></script>`;
+  return shell({
+    lang,
+    path: '/download/',
+    title: w.title,
+    desc: w.desc,
+    up: [],
+    jsonld: [
+      {
+        '@context': 'https://schema.org',
+        '@type': 'SoftwareApplication',
+        name: 'zumen',
+        url: `${SITE}${lang === 'ja' ? '' : '/en'}/download/`,
+        downloadUrl: `${RELEASES_URL}/latest`,
+        applicationCategory: 'DesignApplication',
+        operatingSystem: 'macOS, Windows',
+        license: 'https://opensource.org/licenses/MIT',
+        isAccessibleForFree: true,
+        offers: { '@type': 'Offer', price: '0', priceCurrency: lang === 'ja' ? 'JPY' : 'USD' },
+        inLanguage: lang,
+      },
+      crumbs(lang, [{ name: w.crumb }]),
+    ],
+    body,
+  });
+}
+
+const PAST_WORD = {
+  ja: {
+    title: 'zumen の過去の版 — ダウンロード',
+    h1: '過去の版',
+    desc: 'zumen のこれまでの版。版ごとに macOS と Windows（x64・ARM）の配布物を落とせます。一覧は GitHub のリリースから読んで作ります。',
+    lead: '版ごとの配布物です。いちばん新しいものは<a href="../download/">ダウンロードのページ</a>から選べます。',
+    loading: 'GitHub から読んでいます…',
+    go: 'GitHub のリリースのページで見る',
+    crumb: '過去の版',
+  },
+  en: {
+    title: 'zumen — older releases',
+    h1: 'Older releases',
+    desc: 'Every zumen release, with the macOS and Windows (x64 and ARM) builds for each. The list is read from the GitHub releases.',
+    lead: 'The builds for each release. For the newest one, use <a href="../download/">the download page</a>.',
+    loading: 'Reading from GitHub…',
+    go: 'See them on GitHub',
+    crumb: 'Older releases',
+  },
+};
+
+function releasesPage(lang) {
+  const w = PAST_WORD[lang];
+  const base = lang === 'ja' ? '../' : '../../';
+  const body = `<article class="dl-page">
+  <h1>${w.h1}</h1>
+  <p class="lead">${w.lead}</p>
+  <div data-archive>
+    <p class="note">${esc(w.loading)} <a href="${RELEASES_URL}">${esc(w.go)}</a></p>
+  </div>
+</article>
+<script src="${base}download.js" defer></script>`;
+  return shell({
+    lang,
+    path: '/releases/',
+    title: w.title,
+    desc: w.desc,
+    up: [{ href: '../download/', text: DL_WORD[lang].crumb }],
+    jsonld: [
+      {
+        '@context': 'https://schema.org',
+        '@type': 'CollectionPage',
+        name: w.title,
+        description: w.desc,
+        url: `${SITE}${lang === 'ja' ? '' : '/en'}/releases/`,
+        inLanguage: lang,
+      },
+      crumbs(lang, [{ name: DL_WORD[lang].crumb, url: `${SITE}${lang === 'ja' ? '' : '/en'}/download/` }, { name: w.crumb }]),
+    ],
+    body,
+  });
+}
+
+/**
+ * **ロードマップは README の写し**（2026-11-09）。
+ * 済み・いま・次・止めどころ・作らないもの。**約束はしない** —— 次の欄には、もう手を付けたものだけを書く。
+ */
+const MAP_WORD = {
+  ja: {
+    title: 'zumen のロードマップ — 済んだこと・いま・次・作らないもの',
+    h1: 'ロードマップ',
+    desc: 'zumen がどこまで来て、次に何をして、何を作らないか。人の手直しが再生成で壊れないことを最初に測り、成り立ったので続けています。',
+    lead: 'どこまで来て、次に何をして、何を作らないか。<b>約束ではなく、いまの見取り図です。</b>',
+    gateH: '続けるかどうかの判断',
+    gate: '最初に 1 本の線だけを測りました ── <b>文章で頼む → 図が出る → 人が 1 か所だけ直す → もう一度頼む → 直した分が壊れない。</b>ここが成り立たなければ、ほかが全部できても使う理由が無いので畳む、と決めて始めました。測って成り立ったので、続けています。',
+    cols: [
+      ['済んだこと', [
+        '人が直した位置（pins）が、AI の描き直しで壊れない',
+        '保存形式を決めた ── 正本は 1 枚の YAML。仕様は実装から分けて公開',
+        'デスクトップアプリ（macOS・Windows の x64 と ARM）',
+        'MCP サーバー ── AI エージェントが仕様と見本を読んで描ける',
+        'SVG・Mermaid・draw.io・Markdown への書き出し',
+        '専門図面の見本。分野ごとに一次資料で確かめ、分野の目で見直す',
+        '図の中に描いた字で、見本を探せる',
+      ]],
+      ['いま', [
+        '見本を増やす ── 世の中にある専門図面を先に調べ、決まりを対照表にしてから描く',
+        '描いた見本を、その分野の目で 2〜3 回見直す',
+      ]],
+      ['次', [
+        'macOS を 1 本で Apple シリコンと Intel の両方に（次の版から）',
+      ]],
+      ['分かっている限界', [
+        '自動レイアウトは、節が 30 を超えると印刷でも字が読めない。図を分ける仕組みはまだ無い',
+        '体に巻きつく帯（テーピング・ロープの結索）は描けない。線に幅を持たせる手段と、裏へ回る部分を表す手段が要る',
+        '署名していない。受け取った機械が警告を出す',
+      ]],
+    ],
+    notH: '作らないもの',
+    not: [
+      '<b>図形の網羅を追いません。</b>図形の種類は 11 語のまま。専門性は形ではなく符号（<code>tag</code>）で表します',
+      '<b>業界ごとの専用の描き手を作りません。</b>同じ描画の仕組みと少しの部品で、どこまで違う図が描けるかを追います',
+      '<b>全自動で終わらせません。</b>人が直す往復を残すこと自体が目的です',
+      '<b>リアルタイムの共同編集・Web 版・他形式の取り込みを先に作りません。</b>',
+      '<b>ベンダーのロゴを持ち込みません。</b>AWS のアイコンを使うと「AWS 上にある」と読まれます',
+    ],
+    src: 'もとの文書：<a href="https://github.com/meta-taro/zumen#readme">README</a>・<a href="https://github.com/meta-taro/zumen/blob/develop/CHANGELOG.md">変更の記録</a>',
+    crumb: 'ロードマップ',
+  },
+  en: {
+    title: 'zumen roadmap — done, now, next, and what we will not build',
+    h1: 'Roadmap',
+    desc: 'How far zumen has come, what comes next, and what it will not build. We first measured whether hand edits survive regeneration; they did, so the project continues.',
+    lead: 'How far it has come, what comes next, and what it will not build. <b>This is a map of where things stand, not a promise.</b>',
+    gateH: 'When we would stop',
+    gate: 'We measured one line before anything else — <b>ask in words → a diagram appears → a person fixes one spot → ask again → the fix survives.</b> If that failed, nothing else would justify using it, so we agreed to stop. It held, so the project continues.',
+    cols: [
+      ['Done', [
+        'Positions a person fixed (pins) survive when the AI redraws',
+        'The file format is settled — one YAML file is the source, with the spec published separately from the code',
+        'Desktop app (macOS, and Windows on x64 and ARM)',
+        'An MCP server — AI agents read the spec and the examples, then draw',
+        'Export to SVG, Mermaid, draw.io and Markdown',
+        'Specialist examples, checked against primary sources for each field and reviewed through that field’s eyes',
+        'Search the examples by any text drawn inside them',
+      ]],
+      ['Now', [
+        'More examples — research the drawings a trade really uses first, tabulate their conventions, then draw',
+        'Review each example two or three times through the eyes of its field',
+      ]],
+      ['Next', [
+        'One macOS build for both Apple silicon and Intel (from the next release)',
+      ]],
+      ['Known limits', [
+        'Automatic layout stops being legible, even in print, beyond about 30 nodes. There is no way to split a diagram yet',
+        'Bands that wrap around a body (taping, rope knots) cannot be drawn. That needs lines with width and a way to show the part that goes behind',
+        'Not code-signed, so your computer will warn you',
+      ]],
+    ],
+    notH: 'What we will not build',
+    not: [
+      '<b>No race for shape coverage.</b> The shape vocabulary stays at 11 words. Expertise lives in labels (<code>tag</code>), not shapes',
+      '<b>No special-purpose renderer per trade.</b> The question is how far one drawing engine and a few parts can go',
+      '<b>No fully automatic output.</b> Keeping the round trip where a person corrects the drawing is the point',
+      '<b>Not first: real-time co-editing, a web version, or importers from other formats.</b>',
+      '<b>No vendor logos.</b> An AWS icon makes a diagram read as "this runs on AWS"',
+    ],
+    src: 'Sources: <a href="https://github.com/meta-taro/zumen#readme">README</a> and <a href="https://github.com/meta-taro/zumen/blob/develop/CHANGELOG.md">changelog</a>',
+    crumb: 'Roadmap',
+  },
+};
+
+function roadmapPage(lang) {
+  const w = MAP_WORD[lang];
+  const body = `<article class="roadmap">
+  <h1>${w.h1}</h1>
+  <p class="lead">${w.lead}</p>
+  <h2>${w.gateH}</h2>
+  <p>${w.gate}</p>
+  <div class="map">
+${w.cols.map(([head, items]) => `    <div>
+      <h2>${head}</h2>
+      <ul>
+${items.map((li) => `        <li>${esc(li)}</li>`).join('\n')}
+      </ul>
+    </div>`).join('\n')}
+  </div>
+  <h2>${w.notH}</h2>
+  <ul>
+${w.not.map((li) => `    <li>${li}</li>`).join('\n')}
+  </ul>
+  <p class="note">${w.src}</p>
+</article>`;
+  return shell({
+    lang,
+    path: '/roadmap/',
+    title: w.title,
+    desc: w.desc,
+    up: [],
+    jsonld: [
+      {
+        '@context': 'https://schema.org',
+        '@type': 'WebPage',
+        name: w.title,
+        description: w.desc,
+        url: `${SITE}${lang === 'ja' ? '' : '/en'}/roadmap/`,
+        inLanguage: lang,
+      },
+      crumbs(lang, [{ name: w.crumb }]),
+    ],
+    body,
+  });
+}
+
+for (const lang of ['ja', 'en']) {
+  const at = lang === 'ja' ? 'site' : 'site/en';
+  want.set(`${at}/download/index.html`, downloadPage(lang));
+  want.set(`${at}/releases/index.html`, releasesPage(lang));
+  want.set(`${at}/roadmap/index.html`, roadmapPage(lang));
+}
 want.set('site/all/index.html', allPage('ja'));
 want.set('site/en/all/index.html', allPage('en'));
 
@@ -605,6 +927,9 @@ want.set('site/en/all/index.html', allPage('en'));
 const urls = [
   { ja: `${SITE}/`, en: `${SITE}/en/` },
   { ja: `${SITE}/all/`, en: `${SITE}/en/all/` },
+  { ja: `${SITE}/download/`, en: `${SITE}/en/download/` },
+  { ja: `${SITE}/releases/`, en: `${SITE}/en/releases/` },
+  { ja: `${SITE}/roadmap/`, en: `${SITE}/en/roadmap/` },
   ...CATEGORIES.map((g) => ({ ja: `${SITE}/c/${g.key}/`, en: `${SITE}/en/c/${g.key}/` })),
   ...SAMPLES.map((s) => ({ ja: `${SITE}/g/${s.no}/`, en: `${SITE}/en/g/${s.no}/` })),
 ];

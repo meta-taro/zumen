@@ -87,6 +87,59 @@
       "url": "https://meta-taro.github.io/zumen/en/",
       "inLanguage": "en",
       "description": "The AI draws it, you fix one thing, and your fix survives. 415 example drawings."
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is zumen?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A desktop diagramming tool that draws specialist drawings from a single YAML text file. An AI draws, a person corrects, and the correction survives the next generation. It is free and MIT-licensed."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "If the AI redraws, will my hand edits be undone?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. A position a person moved is recorded in the source as decided by a person (a pin), and the AI's redraw leaves it alone. That was the first thing we measured before building anything else."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What can it draw?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Not just architecture diagrams but the working drawings trades actually use — floor plans, lighting plots, periodontal charts, transit maps, fishing rigs. Each example is checked against primary sources for its field."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can AI agents such as Claude Code use it?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. It ships an MCP server; an agent reads the spec and the closest examples before drawing. The MCP server runs on Node.js alone, without the app."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which operating systems does it run on?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "macOS and Windows (x64 and ARM). From the next release, one macOS build runs on both Apple silicon and Intel. It is not code-signed yet, so your computer will warn you."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use the drawings in other tools?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes — export to SVG, Mermaid, draw.io and Markdown. The file format spec is published separately from the code, so the drawings stay readable even if zumen goes away."
+          }
+        }
+      ]
     }
   ]
 }
@@ -113,7 +166,7 @@
   </p>
 
   <div class="cta">
-    <a class="btn primary" href="https://github.com/meta-taro/zumen/releases">Download</a>
+    <a class="btn primary" href="download/" data-hero-download>Download <small></small></a>
     <a class="btn" href="https://github.com/meta-taro/zumen">GitHub</a>
     <span class="note">mac / Windows · MIT</span>
   </div>
@@ -130,6 +183,17 @@
     lighting plot, where a thing sits <b>is</b> the drawing.)
   </figcaption>
 </figure>
+
+<!-- **A paragraph that says what zumen is** (2026-11-09). Search engines and AI read this first. -->
+<section id="what">
+  <h2>What is zumen?</h2>
+  <p>
+    <b>zumen is a desktop diagramming tool that draws specialist drawings from a single YAML text file.</b>
+    An AI agent draws through MCP, a person corrects by hand, and <b>the correction survives the next generation.</b>
+    Beyond architecture diagrams, the same engine draws the working drawings trades use — floor plans,
+    lighting plots, periodontal charts, transit maps. It runs on macOS and Windows, and it is free under the MIT licence.
+  </p>
+</section>
 
 <section>
   <h2>Why diagrams rot</h2>
@@ -1190,8 +1254,8 @@ nodes:
   <div class="cols">
     <div>
       <ul>
-        <li><b>It does not chase a shape library.</b> The vocabulary stays small</li>
-        <li><b>It does not place things for you in scaled drawings.</b> Where something sits is the author's decision when dimensions carry meaning</li>
+        <li><b>It does not chase a shape library.</b> The shape vocabulary stays at 11 words; expertise lives in labels, not shapes</li>
+        <li><b>It builds no special renderer per trade.</b> The question is how far one engine and a few parts can go</li>
       </ul>
     </div>
     <div>
@@ -1201,6 +1265,26 @@ nodes:
       </ul>
     </div>
   </div>
+  <p class="note">What is done, what is next and the known limits are on the <a href="roadmap/">roadmap</a>.</p>
+</section>
+
+<section id="faq">
+  <h2>Frequently asked questions</h2>
+  <dl class="faq">
+    <dt>What is zumen?</dt>
+    <dd>A desktop diagramming tool that draws specialist drawings from a single YAML text file. An AI draws, a person corrects, and the correction survives the next generation. It is free and MIT-licensed.</dd>
+    <dt>If the AI redraws, will my hand edits be undone?</dt>
+    <dd>No. A position a person moved is recorded in the source as decided by a person (a pin), and the AI's redraw leaves it alone. That was the first thing we measured before building anything else.</dd>
+    <dt>What can it draw?</dt>
+    <dd>Not just architecture diagrams but the working drawings trades actually use — floor plans, lighting plots, periodontal charts, transit maps, fishing rigs. Each example is checked against primary sources for its field.</dd>
+    <dt>Can AI agents such as Claude Code use it?</dt>
+    <dd>Yes. It ships an MCP server; an agent reads the spec and the closest examples before drawing. The MCP server runs on Node.js alone, without the app.</dd>
+    <dt>Which operating systems does it run on?</dt>
+    <dd>macOS and Windows (x64 and ARM). From the next release, one macOS build runs on both Apple silicon and Intel. It is not code-signed yet, so your computer will warn you.</dd>
+    <dt>Can I use the drawings in other tools?</dt>
+    <dd>Yes — export to SVG, Mermaid, draw.io and Markdown. The file format spec is published separately from the code, so the drawings stay readable even if zumen goes away.</dd>
+  </dl>
+  <p class="note">Anything else: <a href="https://github.com/meta-taro/zumen/issues">open an issue on GitHub</a>.</p>
 </section>
 
 <section>
@@ -1211,8 +1295,11 @@ nodes:
     <b>Do not make it your daily tool yet.</b> A plain executable you can drop anywhere ships too.
   </div>
   <p style="margin-top:24px">
-    <a class="btn primary" href="https://github.com/meta-taro/zumen/releases">Releases</a>
+    <a class="btn primary" href="download/" data-hero-download>Download for this PC <small></small></a>
     <a class="btn" href="https://github.com/meta-taro/zumen/blob/develop/docs/install.md">How to install</a>
+  </p>
+  <p class="note">
+    <a href="releases/">Older releases</a> · <a href="https://github.com/meta-taro/zumen/releases">GitHub releases</a> · <a href="roadmap/">Roadmap</a>
   </p>
   <p class="note">
     With Rust installed, <code>pnpm app</code> runs it from source. The MCP server alone needs only
@@ -1241,5 +1328,6 @@ nodes:
 </dialog>
 
 <script src="../page.js"></script>
+<script src="../download.js" defer></script>
 </body>
 </html>

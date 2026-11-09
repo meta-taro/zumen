@@ -88,6 +88,59 @@
       "url": "https://meta-taro.github.io/zumen/",
       "inLanguage": "ja",
       "description": "AI が描き、人が直し、その直しが次の生成で壊れない図。見本 415 枚。"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "zumen とは何ですか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "1 枚の YAML（テキスト）を正本にして、専門図面を描くデスクトップの作図ツールです。AI が描き、人が直し、その直しが次の生成で壊れません。MIT ライセンスで無料です。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "AI に描き直させると、手で直した所は元に戻りませんか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "戻りません。人が動かした位置は正本に「人が決めた」と残り（pins）、AI の描き直しはそれを動かしません。この 1 点を最初に測ってから作り始めました。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "どんな図が描けますか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "構成図だけでなく、間取り・照明の仕込図・歯周チャート・路線図・釣りの仕掛け図のような、業界の人が実務で使う専門図面です。見本は分野ごとに一次資料で確かめてあります。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Claude Code などの AI エージェントから使えますか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "使えます。MCP サーバーが入っていて、エージェントは仕様と近い見本を読んでから描きます。MCP サーバーだけなら Node.js で動き、アプリは要りません。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "どの OS で動きますか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "macOS と Windows（x64・ARM）です。macOS は次の版から 1 本で Apple シリコンと Intel の両方に入ります。署名はまだ無いので、受け取った機械が警告を出します。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "描いた図はほかのツールでも使えますか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "SVG・Mermaid・draw.io・Markdown へ書き出せます。保存形式の仕様は実装から分けて公開しているので、zumen が無くなっても図は読めます。"
+          }
+        }
+      ]
     }
   ]
 }
@@ -115,7 +168,7 @@
   </p>
 
   <div class="cta">
-    <a class="btn primary" href="https://github.com/meta-taro/zumen/releases">ダウンロード</a>
+    <a class="btn primary" href="download/" data-hero-download>ダウンロード <small></small></a>
     <a class="btn" href="https://github.com/meta-taro/zumen">GitHub</a>
     <span class="note">mac / Windows・MIT</span>
   </div>
@@ -132,6 +185,17 @@
     （<b>位置を書く図</b>もあります。間取りや仕込図は、どこにあるかが図の中身だからです。）
   </figcaption>
 </figure>
+
+<!-- **「zumen とは」を言い切る段落**（2026-11-09）。検索と AI が最初に引くのはここ。 -->
+<section id="what">
+  <h2>zumen とは</h2>
+  <p>
+    <b>zumen は、1 枚の YAML（テキスト）を正本にして専門図面を描く、デスクトップの作図ツールです。</b>
+    AI エージェントが MCP で図を描き、人が手で直し、<b>その直しは次の生成でも壊れません。</b>
+    構成図だけでなく、間取り・照明の仕込図・歯周チャート・路線図のような、業界の人が実務で使う図を同じ仕組みで描きます。
+    macOS と Windows で動き、MIT ライセンスで無料です。
+  </p>
+</section>
 
 <section>
   <h2>なぜ図は腐るのか</h2>
@@ -1194,8 +1258,8 @@ nodes:
   <div class="cols">
     <div>
       <ul>
-        <li><b>図形の網羅を追いません。</b>対象は構成図の語彙だけ</li>
-        <li><b>縮尺のある図をやりません。</b>配置図・平面図のように寸法が価値になる図は、置き場所を決めるのが人なので</li>
+        <li><b>図形の網羅を追いません。</b>図形の種類は 11 語のまま。専門性は形ではなく符号で表します</li>
+        <li><b>業界ごとの専用の描き手を作りません。</b>同じ仕組みと少しの部品で、どこまで違う図が描けるかを追います</li>
       </ul>
     </div>
     <div>
@@ -1205,6 +1269,26 @@ nodes:
       </ul>
     </div>
   </div>
+  <p class="note">済んだこと・いま・次・分かっている限界は<a href="roadmap/">ロードマップ</a>に。</p>
+</section>
+
+<section id="faq">
+  <h2>よくある質問</h2>
+  <dl class="faq">
+    <dt>zumen とは何ですか？</dt>
+    <dd>1 枚の YAML（テキスト）を正本にして、専門図面を描くデスクトップの作図ツールです。AI が描き、人が直し、その直しが次の生成で壊れません。MIT ライセンスで無料です。</dd>
+    <dt>AI に描き直させると、手で直した所は元に戻りませんか？</dt>
+    <dd>戻りません。人が動かした位置は正本に「人が決めた」と残り（pins）、AI の描き直しはそれを動かしません。この 1 点を最初に測ってから作り始めました。</dd>
+    <dt>どんな図が描けますか？</dt>
+    <dd>構成図だけでなく、間取り・照明の仕込図・歯周チャート・路線図・釣りの仕掛け図のような、業界の人が実務で使う専門図面です。見本は分野ごとに一次資料で確かめてあります。</dd>
+    <dt>Claude Code などの AI エージェントから使えますか？</dt>
+    <dd>使えます。MCP サーバーが入っていて、エージェントは仕様と近い見本を読んでから描きます。MCP サーバーだけなら Node.js で動き、アプリは要りません。</dd>
+    <dt>どの OS で動きますか？</dt>
+    <dd>macOS と Windows（x64・ARM）です。macOS は次の版から 1 本で Apple シリコンと Intel の両方に入ります。署名はまだ無いので、受け取った機械が警告を出します。</dd>
+    <dt>描いた図はほかのツールでも使えますか？</dt>
+    <dd>SVG・Mermaid・draw.io・Markdown へ書き出せます。保存形式の仕様は実装から分けて公開しているので、zumen が無くなっても図は読めます。</dd>
+  </dl>
+  <p class="note">ほかの問いは <a href="https://github.com/meta-taro/zumen/issues">GitHub の Issue</a> へ。</p>
 </section>
 
 <section>
@@ -1215,8 +1299,11 @@ nodes:
     <b>まだ日常の道具にしないでください。</b>置いてそのまま起動できる実行ファイルも一緒に配っています。
   </div>
   <p style="margin-top:24px">
-    <a class="btn primary" href="https://github.com/meta-taro/zumen/releases">配布物を見る</a>
+    <a class="btn primary" href="download/" data-hero-download>この PC 用をダウンロード <small></small></a>
     <a class="btn" href="https://github.com/meta-taro/zumen/blob/develop/docs/install.md">入れ方</a>
+  </p>
+  <p class="note">
+    <a href="releases/">過去の版</a> ・ <a href="https://github.com/meta-taro/zumen/releases">GitHub のリリース</a> ・ <a href="roadmap/">ロードマップ</a>
   </p>
   <p class="note">
     Rust があれば <code>pnpm app</code> でそのまま立ちます。
@@ -1244,5 +1331,6 @@ nodes:
 </dialog>
 
 <script src="page.js"></script>
+<script src="download.js" defer></script>
 </body>
 </html>
