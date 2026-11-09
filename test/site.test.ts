@@ -631,6 +631,21 @@ describe('入口から辿れるもの', () => {
     }
   });
 
+  it('**「画面で見る」に、アプリの窓のキャプチャが言語ごとにある**', () => {
+    for (const [name, page, prefix] of [['ja', ja, 'readme/'], ['en', en, '../readme/']] as const) {
+      const at = page.indexOf('<section id="screens">');
+      assert.ok(at > 0, `${name} に「画面で見る」が無い`);
+      const block = page.slice(at, page.indexOf('</section>', at));
+      const shots = [...block.matchAll(/<img src="([^"]+)"[^>]*alt="([^"]+)"/g)];
+      assert.equal(shots.length, 2, `${name} のキャプチャが 2 枚でない`);
+      for (const [, src, alt] of shots) {
+        assert.ok(src!.startsWith(prefix) && src!.endsWith(`-${name}.png`), `${name} が別の言語の画面を使っている: ${src}`);
+        assert.ok(existsSync(new URL(`../site/${src!.replace(prefix, 'readme/')}`, import.meta.url)), `${src} が無い`);
+        assert.ok(alt!.length >= 30, `${src} の alt が短い`);
+      }
+    }
+  });
+
   it('**よくある質問は、構造化データと見える文が同じ**', () => {
     for (const [name, page] of [['ja', ja], ['en', en]] as const) {
       const block = /<script type="application\/ld\+json">([\s\S]*?)<\/script>/.exec(page)?.[1] ?? '{}';
