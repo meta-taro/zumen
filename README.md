@@ -145,6 +145,7 @@ For floor plans and other placement drawings, the source can also say:
 - **Style tables** (`styles`) — rooms carry only a style name; swap the table and the same plan takes another house style
 - **Floor patterns** — `rows` (boards across), `columns` (boards lengthwise), `grid` (tiles)
 - **Screenshots with numbered callouts** (`image`, `to: { node, at }`, `callout`) — lay a PNG / JPEG / WebP capture under the drawing and point into it in the image's own pixels, so the points stay put when you scale it; the image is embedded in the SVG
+- **Paper size** (`paper: B4` / `paper: { size: A3, orient: landscape }`) — the SVG comes out at real size in mm, one pixel being a 96 dpi pixel, so you can work back from the printable area (895 × 1300 px on B4 portrait); anything that overflows is shrunk onto the one sheet and inspection says so; `pnpm pdf` makes a PDF of that sheet, and inspection warns when printed text would fall below 2.5 mm (answer sheets, notices)
 - **Sources** (`sources`) — name, retrieval date and licence are drawn along the bottom of the figure, with the URL as a link, so the attribution travels with a single SVG
 
 The full specification is [`spec/zumen-format-v1.md`](https://github.com/meta-taro/zumen/blob/develop/spec/zumen-format-v1.md).
@@ -159,7 +160,7 @@ This is **not finished software.** It is being built in the open, small step by 
 
 - Reading and writing the source, automatic layout, SVG output (light/dark)
 - Export to Mermaid, draw.io XML, and embedding into Markdown
-- A validator (172 checks) that explains, in the writer's terms, what will not be drawn —
+- A validator (174 checks) that explains, in the writer's terms, what will not be drawn —
   including one that lays the drawing out and reports labels that would collide
 - Checks that read the drawing the way a professional would: things sitting inside a door's
   swing, lines running through boxes they do not connect, rooms that cannot be reached from a
@@ -205,6 +206,7 @@ pnpm qa:verify                # read back human verification evidence (git-qa)
 
 pnpm svg examples/gallery/25-路線図.zumen.yaml out.svg
 pnpm svg examples/gallery/25-路線図.zumen.yaml out.svg --embed-font   # carry the typeface inside, so it looks the same on every device
+pnpm pdf examples/gallery/25-路線図.zumen.yaml out.pdf   # a printable PDF (real paper size when the source names a paper)
 pnpm validate examples/gallery/14-間取り.zumen.yaml
 pnpm inspect examples/gallery/14-間取り.zumen.yaml   # observations: crossings, straddles, text overlaps, print ratio
 pnpm inspect examples/gallery/*.zumen.yaml --tally   # count them up instead: which check fires, how often, where

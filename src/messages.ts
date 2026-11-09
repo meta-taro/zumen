@@ -97,6 +97,14 @@ const ja = {
     liveFrom: 'エージェントから',
 
     conflictsHeading: '競合',
+    paperFrame: (size: string, orient: string, margin: number) => `${size} ${orient}・余白 ${margin} mm（点線の内側が刷れる所）`,
+    portrait: '縦',
+    landscape: '横',
+    paperOverflow: (pct: number) => `はみ出しているので ${pct}% に縮めて刷ります`,
+    printPreview: '印刷プレビュー',
+    printPreviewHint: '刷られる 1 枚をそのまま見る（正本に paper があるときだけ）',
+    print: '印刷',
+    close: '閉じる',
     noConflicts: '食い違いはありません。',
     takeMine: '自分の指定を採る',
     takeProposal: '提案を採る',
@@ -189,6 +197,7 @@ const ja = {
     usageMeasure: '使い方: pnpm measure <図のファイル> ...',
     usageInspect: '使い方: pnpm inspect <図のファイル> ... [--tally]（--tally はまとめて数え上げる）',
     usageSvg: '使い方: pnpm svg <図のファイル> [書き出し先] [--dark] [--vivid] [--embed-font]',
+    usagePdf: '使い方: pnpm pdf <図のファイル> [書き出し先] [--vivid]   # 刷れる PDF（正本に paper があればその紙の実寸）',
     usageTimelapse:
       '使い方: pnpm timelapse <段のファイル…> [--out 置き場] [--hold 1 段の秒数]（2 段以上）',
     timelapseWrote: (steps: number, seconds: number, path: string) =>
@@ -304,6 +313,10 @@ const ja = {
     inspectPaper: (width: number, height: number, smallest: number, longest: number, ratio: string) =>
       `  紙 ${width} × ${height}px ／ いちばん小さい字 ${smallest}px ／ 長辺 ${longest}px ／ 比 ${ratio}`,
     inspectPrint: '  **A3 に印刷しても字が読めません。**',
+    inspectSheet: (paper: string, mm: number) => `  紙 ${paper} ／ いちばん小さい字は紙の上で ${mm} mm`,
+    inspectSheetSmall: '  **紙の上の字が 2.5 mm（JIS Z 8313）を割っています。刷ると読みにくい。**',
+    inspectPrintable: (w: number, h: number) => `  余白の内側 ${w} × ${h} px（96 dpi）`,
+    inspectShrink: (pct: number) => `  **はみ出しているので ${pct}% に縮めて刷ります**`,
     /**
      * **良い知らせのときだけ出す**（2026-09-21）。
      *
@@ -479,13 +492,15 @@ const ja = {
     timelapseHold: '1 段を映す秒数（既定 2）。',
     exportTitle: '書き出す',
     exportDesc:
-      'svg（見せる）／**png（自分で見る）**／mermaid（翌日読める）／drawio（翌日編集できる）へ書き出す。落ちるものは、それぞれの書き出しが自分で断る。**png は絵そのものを返す** —— 描いたら必ず 1 枚は png で見ること（数の検査は「読めるか」しか見ていない）。Chrome が要る（無ければ、無いと言う）。',
+      'svg（見せる）／**png（自分で見る）**／pdf（刷る。正本に paper を書けばその紙の実寸）／mermaid（翌日読める）／drawio（翌日編集できる）へ書き出す。落ちるものは、それぞれの書き出しが自分で断る。**png は絵そのものを返す** —— 描いたら必ず 1 枚は png で見ること（数の検査は「読めるか」しか見ていない）。Chrome が要る（無ければ、無いと言う）。',
     exportTheme:
       '貼り先の地の色（svg にだけ効く）。省略するとライト。暗い地へ貼るときだけ dark を渡すこと。',
     exportIntent:
       '主役をどれくらい強く出すか（svg にだけ効く）。省略すると safe（淡く添える）。遠くから見せる場では vivid（塗り潰す）。どちらでも白黒で読めることは保たれる。',
     exportEmbedFont:
       '書体（Noto Sans JP の、その図で使う字だけ）を SVG の中へ入れる（svg と png にだけ効く）。どの端末で開いても同じ字形になる。訓練用の束や、地図の吹き出しに画像として出す図に使う。1 枚あたり数十 KB 増える。省略すると入れない。',
+    exportOut:
+      'pdf を書く場所（pdf にだけ効く）。省くと、path の隣に同じ名前の .pdf を書く（source だけのときは要る）。',
     needSourceOrPath: 'source か path のどちらかが要ります',
 
     // --- 画面と繋ぐ。**承認の線は動かさない。** ---
@@ -620,6 +635,7 @@ const ja = {
       '      - { kind: <openings から>, side: <sides から>, at: <0〜1>, width: <px> }',
       'scale: { mm: <1px が何 mm か>, unit: <mm | m | um> }   # 寸法の数値を出すのに要る。unit は図ぜんたいの単位（省けば縮尺が決める）',
       'north: <up / right / down / left>    # 方位記号',
+      'paper: { size: <A3 | A4 | A5 | B4 | B5 | Letter | Legal | Tabloid>, orient: <portrait（既定）| landscape>, margin: <mm。既定 10> }   # 刷る紙。SVG が mm の実寸で出る。1px＝96dpi なので余白の内側（B4 縦で 895×1300px）に収めて作る。はみ出すと縮めて刷る（解答用紙・掲示物）。paper: B4 だけでもよい',
       'wall: { mm: <間仕切の厚み>, outer: <外壁の厚み> }   # 平面図の壁を塗り潰す',
       'styles:                               # 見せ方の表。差し替えるだけで作風が変わる（販売図面の色分け・グレースケール）',
       '  <名前>: { fill: <palette の鍵>, color: <palette の鍵>, hatch: <模様> }   # 書けるのはこの 3 つだけ',
@@ -717,6 +733,8 @@ const ja = {
       'Chrome が見つからないので、絵にできませんでした。svg で書き出して開くか、CHROME_PATH に Chrome の場所を渡してください（符号化器は同梱しません）。',
     pngMade: '図を png にしました（2 倍の大きさ）。**絵を見てから直すこと。**',
     pngFailed: 'png にできませんでした。svg で書き出して開いてください。',
+    pdfMade: 'PDF にしました。paper を書いた図はその紙の大きさ、書いていない図は画面の大きさの 1 ページです。',
+    pdfFailed: 'PDF にできませんでした。svg で書き出して、ブラウザから印刷してください。',
     mustEndWith: (suffix: string) =>
       `名前は ${suffix} で終わること（マージドライバが効かなくなる）`,
     alreadyExists: '既にあります。既存の図を変えるなら propose を使ってください',
@@ -844,6 +862,9 @@ const ja = {
       'scale に mm と in の両方が書いてあります。mm のほうを採ります（寸法はミリで出ます）。フィートとインチで書きたいなら mm を消してください。',
     northUnknown: (word: string) =>
       `north が "${word}" になっています（up / right / down / left）。方位記号は描かれません。`,
+    paperSizeInvalid: `paper の大きさが読めません（A3 / A4 / A5 / B4 / B5 / Letter / Legal / Tabloid）。紙を決めずに、px の大きさで出ます。`,
+    paperOrientInvalid: 'paper.orient は portrait（縦）か landscape（横）です。縦で出ます。',
+    paperMarginInvalid: 'paper.margin は 0 以上の数（mm）です。既定の 10 mm で出ます。',
     wallInvalid: (found: string) =>
       `wall.mm が ${found} になっています。正の数を書きます（壁の厚み・mm）。壁の太さは変わりません。`,
     wallNeedsScale:
@@ -1108,6 +1129,10 @@ const ja = {
     /** 長辺の向き（`tooSmallToPrint` に渡す語）。 */
     alongVertical: '縦',
     alongHorizontal: '横',
+    paperOverflow: (paper: string, w: number, h: number, pct: number): string =>
+      `この図は ${paper} の余白の内側（${w} × ${h} px）からはみ出すので、**${pct}% に縮めて刷ります。** 画面で見た大きさのまま刷るなら、図をこの枠に収めてください（アプリでは紙の枠が出ます）。`,
+    tooSmallOnPaper: (paper: string, mm: number): string =>
+      `この図を ${paper} に刷ると、いちばん小さい字が ${mm} mm になります（下限は JIS Z 8313 の 2.5 mm）。**紙に対して図が大きすぎます。** 欄や余白を詰めて図を小さくするか、大きい紙（または向き）にしてください。文字だけを大きくすると図も伸びて、比は変わりません。`,
     tooSmallToPrint: (
       ratio: string,
       floor: string,
@@ -1293,6 +1318,14 @@ const en: Catalog = {
     liveFrom: 'From the agent',
 
     conflictsHeading: 'Conflicts',
+    paperFrame: (size: string, orient: string, margin: number) => `${size} ${orient}, ${margin} mm margin (inside the dotted line is printable)`,
+    portrait: 'portrait',
+    landscape: 'landscape',
+    paperOverflow: (pct: number) => `Overflows, so it prints at ${pct}%`,
+    printPreview: 'Print preview',
+    printPreviewHint: 'See the one sheet that will print (only when the source names a paper)',
+    print: 'Print',
+    close: 'Close',
     noConflicts: 'No disagreements.',
     takeMine: 'Keep mine',
     takeProposal: 'Take the proposal',
@@ -1377,6 +1410,7 @@ const en: Catalog = {
     usageMeasure: 'Usage: pnpm measure <diagram file> ...',
     usageInspect: 'Usage: pnpm inspect <diagram file> ... [--tally] (--tally counts them up instead)',
     usageSvg: 'Usage: pnpm svg <diagram file> [output path] [--dark] [--vivid] [--embed-font]',
+    usagePdf: 'Usage: pnpm pdf <diagram file> [output path] [--vivid]   # a printable PDF (real paper size when the source names a paper)',
     usageTimelapse:
       'Usage: pnpm timelapse <step files…> [--out dir] [--hold seconds per step] (two or more steps)',
     timelapseWrote: (steps: number, seconds: number, path: string) =>
@@ -1433,6 +1467,10 @@ const en: Catalog = {
     inspectPaper: (width: number, height: number, smallest: number, longest: number, ratio: string) =>
       `  paper ${width} × ${height}px / smallest text ${smallest}px / longest side ${longest}px / ratio ${ratio}`,
     inspectPrint: '  **Too small to read when printed on A3.**',
+    inspectSheet: (paper: string, mm: number) => `  Paper ${paper} / smallest text is ${mm} mm on paper`,
+    inspectSheetSmall: '  **Text on paper is below 2.5 mm (JIS Z 8313): hard to read once printed.**',
+    inspectPrintable: (w: number, h: number) => `  Printable area ${w} × ${h} px (96 dpi)`,
+    inspectShrink: (pct: number) => `  **Overflows, so it is printed at ${pct}%**`,
     inspectProject: '  **Large enough to project** (the text stays readable on a slide).',
     tallyHead: (files: number, quiet: number) =>
       `Counted ${files} drawings (${quiet} of them said nothing).`,
@@ -1550,13 +1588,15 @@ const en: Catalog = {
     timelapseHold: 'Seconds each step stays on screen (2 unless given).',
     exportTitle: 'Export',
     exportDesc:
-      'Exports to svg (to show), **png (to look at yourself)**, mermaid (readable tomorrow) or drawio (editable tomorrow). Each exporter states what it could not carry. **png comes back as the picture itself** — always look at one before calling a drawing done (the numeric checks only tell you whether it is readable). It needs Chrome, and says so when Chrome is missing.',
+      'Exports to svg (to show), **png (to look at yourself)**, pdf (to print; real paper size when the source names a paper), mermaid (readable tomorrow) or drawio (editable tomorrow). Each exporter states what it could not carry. **png comes back as the picture itself** — always look at one before calling a drawing done (the numeric checks only tell you whether it is readable). It needs Chrome, and says so when Chrome is missing.',
     exportTheme:
       'The background the diagram will be pasted onto (svg only). Light unless given. Pass dark only when the destination is dark.',
     exportIntent:
       'How strongly to show the main element (svg only). safe unless given (a quiet tint). Use vivid for a room viewed from a distance. Either way the diagram stays readable in black and white.',
     exportEmbedFont:
       'Embed the typeface (Noto Sans JP, only the characters this diagram uses) inside the SVG (svg and png only), so it looks the same on every device. Use it for drill packs or for a diagram shown as an image in a map pop-up. Adds a few tens of KB per diagram. Off unless given.',
+    exportOut:
+      'Where to write the pdf (pdf only). Omit it to write a .pdf with the same name next to path (required when only source is given).',
     needSourceOrPath: 'Either source or path is required',
 
     liveStatusTitle: 'Is the app connected?',
@@ -1677,6 +1717,7 @@ const en: Catalog = {
       '      - { kind: <from openings>, side: <from sides>, at: <0..1>, width: <px> }',
       'scale: { mm: <how many mm one pixel is>, unit: <mm | m | um> }   # required for dimension figures; unit picks one unit for the whole drawing (omit it and the scale decides)',
       'north: <up / right / down / left>',
+      'paper: { size: <A3 | A4 | A5 | B4 | B5 | Letter | Legal | Tabloid>, orient: <portrait (default) | landscape>, margin: <mm, default 10> }   # the sheet it is printed on: the SVG comes out at real size in mm, 1px = 96 dpi, so build inside the printable area (895×1300px on B4 portrait); overflow is shrunk to fit (answer sheets, notices). paper: B4 alone also works',
       'wall: { mm: <partition thickness>, outer: <outer wall thickness> }  # poché walls',
       'styles:                               # style table: swap it to change the house style (colour-coded or greyscale sales plans)',
       '  <name>: { fill: <palette key>, color: <palette key>, hatch: <pattern> }   # only these three',
@@ -1773,6 +1814,8 @@ const en: Catalog = {
       'Chrome was not found, so the drawing could not be rendered. Export svg and open it, or pass the path to Chrome in CHROME_PATH (no encoder is bundled).',
     pngMade: 'Rendered the drawing to png (at 2x). **Look at it before you fix anything.**',
     pngFailed: 'Could not render to png. Export svg and open it instead.',
+    pdfMade: 'Made a PDF: one page the size of the paper when the drawing names one, otherwise the size it has on screen.',
+    pdfFailed: 'Could not make a PDF. Export svg and print it from a browser.',
     mustEndWith: (suffix: string) => `The name must end with ${suffix} (the merge driver keys off it)`,
     alreadyExists: 'It already exists. Use propose to change an existing diagram.',
     notFound: 'It does not exist. Use create to make a new one.',
@@ -1887,6 +1930,9 @@ const en: Catalog = {
       'scale has both mm and in. mm wins, so the dimensions come out in millimetres. Drop mm if you want feet and inches.',
     northUnknown: (word: string) =>
       `north is "${word}" (up / right / down / left). No north arrow is drawn.`,
+    paperSizeInvalid: 'paper size is not one we know (A3 / A4 / A5 / B4 / B5 / Letter / Legal / Tabloid). The drawing comes out in pixels, with no paper.',
+    paperOrientInvalid: 'paper.orient is portrait or landscape. It comes out portrait.',
+    paperMarginInvalid: 'paper.margin is a number of mm, 0 or more. It comes out with the default 10 mm.',
     wallInvalid: (found: string) =>
       `wall.mm is ${found}. Write a positive number (wall thickness in mm). Wall thickness is unchanged.`,
     wallNeedsScale:
@@ -2100,6 +2146,10 @@ const en: Catalog = {
       `The tag on node "${id}" does not fit its marker and is not drawn. Make the marker bigger or shorten the tag.`,
     alongVertical: 'vertically',
     alongHorizontal: 'horizontally',
+    paperOverflow: (paper: string, w: number, h: number, pct: number): string =>
+      `This drawing overflows the printable area of ${paper} (${w} × ${h} px), so **it is printed shrunk to ${pct}%.** To print it at the size you see on screen, fit it inside that frame (the app shows the paper frame).`,
+    tooSmallOnPaper: (paper: string, mm: number): string =>
+      `Printed on ${paper}, the smallest text comes out at ${mm} mm (the floor is 2.5 mm, JIS Z 8313). **The drawing is too big for the paper.** Tighten the boxes and gaps so the drawing gets smaller, or choose a bigger paper (or turn it). Enlarging only the text stretches the drawing too and changes nothing.`,
     tooSmallToPrint: (
       ratio: string,
       floor: string,

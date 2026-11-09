@@ -56,6 +56,7 @@ import { TO_STRING_OPTIONS } from './format.ts';
 import { messages } from './messages.ts';
 import { HINGES, OPENINGS, SIDES, SWINGS } from './openings.ts';
 import { areaIssues } from './area.ts';
+import { paperTroubles } from './paper.ts';
 import { inkOf, isMarkupColor, isMarkupWidth, pointOf } from './markup.ts';
 
 /**
@@ -248,6 +249,13 @@ function checkMarkup(doc: Document, nodeIds: ReadonlySet<string>, add: Add, m: M
  * **書いた面積と帖数を、箱の大きさと照らす**（`src/area.ts`）。縮尺（mm）がある配置図だけ。
  */
 function checkAreaText(doc: Document, add: Add, m: Messages, at: At): void {
+  /** **刷る紙**（`src/paper.ts`）。読めない語は黙って捨てず、px のままになることを言う。 */
+  const paperNode = doc.get('paper', true);
+  for (const trouble of paperTroubles(doc.toJS()?.paper)) {
+    const said = trouble === 'size' ? m.paperSizeInvalid : trouble === 'orient' ? m.paperOrientInvalid : m.paperMarginInvalid;
+    add('warning', `paper-${trouble}-invalid`, said, at(paperNode));
+  }
+
   const scale = doc.get('scale', true);
   const mm = isMap(scale) ? scale.get('mm') : undefined;
   if (!isPositive(mm)) return;

@@ -30,6 +30,7 @@ import { CATEGORIES } from './gallery-categories.mjs';
 import { CAPTIONS_EN, GROUPS_EN } from './gallery-en.mjs';
 import { TITLES_EN } from './titles-en.mjs';
 import { drawnText } from '../src/examples.ts';
+import { svgPixels } from '../src/paper.ts';
 
 const DIR = 'examples/gallery';
 const SITE = 'https://meta-taro.github.io/zumen';
@@ -174,8 +175,8 @@ for (const group of CATEGORIES) {
        */
       size: (() => {
         const svg = readFileSync(join(DIR, `${item.name}.svg`), 'utf8').slice(0, 300);
-        const found = /width="(\d+)" height="(\d+)"/.exec(svg);
-        return found === null ? null : { w: found[1], h: found[2] };
+        const found = svgPixels(svg);
+        return found === null ? null : { w: String(found.w), h: String(found.h) };
       })(),
       group,
     });

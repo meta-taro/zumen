@@ -33,6 +33,7 @@ import { paintOrder } from './solid.ts';
 import type { Solid } from './solid.ts';
 import { drawHatch, drawHatchIn, drawTint } from './hatch.ts';
 import { contrastOn, PAPER, TINT } from './palette.ts';
+import { pageBox, type Paper } from './paper.ts';
 import type { Hatch } from './hatch.ts';
 import { pathOf } from './curve.ts';
 import { ALIGN_INSET, anchorOf } from './align.ts';
@@ -267,10 +268,11 @@ export function render(
    * 題の id は**題と地の色から決める。** 1 つのページに図を何枚も貼る（紹介ページ・Markdown の本文）ので、
    * 固定の `title` では id がぶつかり、別の図の題を読んでしまう。
    */
+  const sheet = sheetOf(placed.paper ?? null, paper);
   const titleId = placed.title === null || placed.title === '' ? null : `zumen-title-${hashOf(`${placed.title}\u0000${theme}`)}`;
   const label = titleId === null ? '' : ` role="img" aria-labelledby="${titleId}"`;
   const parts = [
-    `<svg xmlns="http://www.w3.org/2000/svg" width="${size(paper.w)}" height="${size(paper.h)}" viewBox="0 0 ${size(paper.w)} ${size(paper.h)}"${label}>`,
+    `<svg xmlns="http://www.w3.org/2000/svg" ${sheet.attrs}${label}>`,
     /**
      * **図の題は、絵の中には描かないが SVG の中には入れる。**
      *
@@ -290,7 +292,7 @@ export function render(
      * 文字は明るい灰で正しいのに、**白い紙の上では白い字**になる。
      * 紹介ページは暗い背景の上に置いているので気づかない。
      */
-    `<rect data-paper="1" x="0" y="0" width="${size(paper.w)}" height="${size(paper.h)}" fill="${palette.paper}"/>`,
+    `<rect data-paper="1" ${sheet.rect} fill="${palette.paper}"/>`,
     ...under,
     // **通り芯・寸法・方位は最前面。**
     //
@@ -736,6 +738,28 @@ function paperFor(placed: Placed, plans: Map<string, Plan>): { w: number; h: num
     for (const line of lines) w = Math.max(w, PAD_LEFT + labelWidth(line, SOURCE_FONT) + 12);
   }
   return { w, h };
+}
+
+/**
+ * **紙の大きさを SVG に書く**（`src/paper.ts`）。
+ *
+ * 紙を決めていない図は、これまでどおり px の幅と高さ（出力は 1 字も変えない）。
+ * 決めた図は mm で書き、`viewBox` を紙ぜんたいへ広げて、図を余白の内側に収める。
+ */
+function sheetOf(sheet: Paper | null, paper: { w: number; h: number }): { attrs: string; rect: string } {
+  if (sheet === null) {
+    return {
+      attrs: `width="${size(paper.w)}" height="${size(paper.h)}" viewBox="0 0 ${size(paper.w)} ${size(paper.h)}"`,
+      rect: `x="0" y="0" width="${size(paper.w)}" height="${size(paper.h)}"`,
+    };
+  }
+  const box = pageBox(sheet, paper.w, paper.h);
+  const d1 = (v: number): number => Math.round(v * 10) / 10;
+  const view = `${d1(box.x)} ${d1(box.y)} ${d1(box.w)} ${d1(box.h)}`;
+  return {
+    attrs: `width="${d1(sheet.w)}mm" height="${d1(sheet.h)}mm" viewBox="${view}" data-paper-size="${sheet.size}" data-paper-orient="${sheet.orient}"`,
+    rect: `x="${d1(box.x)}" y="${d1(box.y)}" width="${d1(box.w)}" height="${d1(box.h)}"`,
+  };
 }
 
 /** 出典の左端（物差しと揃える）。 */

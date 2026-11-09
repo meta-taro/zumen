@@ -35,7 +35,7 @@ import type { Conflict } from './merge.ts';
 import { toMermaid } from './mermaid.ts';
 import { linesOverText, overlappingInk, render, viewTitleBox } from './render.ts';
 import { timelapse } from './timelapse.ts';
-import { inspect } from './tools.ts';
+import { inspect, pdfOf } from './tools.ts';
 import { kindOf } from './kind.ts';
 import { messages } from './messages.ts';
 import { hasError, validate } from './validate.ts';
@@ -208,6 +208,21 @@ export async function placedFindings(text: string): Promise<Finding[]> {
   // 投影の下限（`tooSmallToProject`）は出さない。**路線図・仕込図・積付図は
   // 印刷して読む図**で、鳴りっぱなしの指摘は読まれなくなる（`src/projection.ts`）。
   const paper = projection(placed.width, placed.height, smallestTextOf(placed, plan));
+  // **紙が決まっている図は、紙の上の実寸で言う**（`paper:`。見積もりの A3 の話をしない）。
+  const sheet = (await inspect(text));
+  const onSheet: Finding[] = [
+    // **はみ出したら、縮めて刷ることを言う**（黙って縮めない）。
+    ...(sheet.paper !== null && sheet.printable !== null && sheet.paperShrink !== null && sheet.paperShrink < 1
+      ? [{
+          severity: 'warning' as const,
+          code: 'paper-overflow',
+          message: messages().validate.paperOverflow(sheet.paper, sheet.printable.w, sheet.printable.h, Math.round(sheet.paperShrink * 100)),
+        }]
+      : []),
+    ...(sheet.paper !== null && sheet.printedText !== null && sheet.tooSmallToPrint
+      ? [{ severity: 'warning' as const, code: 'too-small-on-paper', message: messages().validate.tooSmallOnPaper(sheet.paper, sheet.printedText) }]
+      : []),
+  ];
   /**
    * **鎖がいちばん深い所は何段か**（構成図だけ。2026-09-21）。
    *
@@ -236,6 +251,8 @@ export async function placedFindings(text: string): Promise<Finding[]> {
           })(),
         },
       ]
+    : sheet.paper !== null
+    ? onSheet
     : paper.tooSmallToPrint
     ? [
         {
@@ -858,7 +875,13 @@ export async function runInspect(paths: string[], read = readFileSync): Promise<
         ratio,
       ),
     );
-    if (seen.tooSmallToPrint) lines.push(m.inspectPrint);
+    // **紙が決まっていれば、その紙の上の字の大きさを言う**（`paper:`）。
+    if (seen.paper !== null && seen.printedText !== null) {
+      lines.push(m.inspectSheet(seen.paper, seen.printedText));
+      if (seen.tooSmallToPrint) lines.push(m.inspectSheetSmall);
+      if (seen.printable !== null) lines.push(m.inspectPrintable(seen.printable.w, seen.printable.h));
+      if (seen.paperShrink !== null && seen.paperShrink < 1) lines.push(m.inspectShrink(Math.round(seen.paperShrink * 100)));
+    } else if (seen.tooSmallToPrint) lines.push(m.inspectPrint);
     // **投影の行は、耐えるときだけ出す**（2026-09-21）。
     // 「小さすぎます」は 309 枚中 228 枚（74%）で出ていて、しかも直しようがなかった。
     else if (!seen.tooSmallToProject) lines.push(m.inspectProject);
@@ -1006,6 +1029,29 @@ export async function runSvg(paths: string[], read = readFileSync, write = write
 }
 
 /**
+ * **刷れる PDF を書く**（`pnpm pdf <図のファイル> [書き出し先]`。2026-11-10）。
+ *
+ * 正本に `paper:` があれば、その紙の実寸の 1 ページ。無ければ画面の大きさの 1 ページ。
+ * 刷る物なので、色はいつもライト。
+ */
+export async function runPdf(
+  paths: string[],
+  read = readFileSync,
+  write: (path: string, data: Buffer) => void = writeFileSync,
+  make = pdfOf,
+): Promise<RunResult> {
+  const m = messages().cli;
+  const intent = paths.includes('--vivid') ? 'vivid' : 'safe';
+  const [input, output] = paths.filter((part) => !part.startsWith('--'));
+  if (input === undefined) return { code: 1, lines: [m.usagePdf] };
+  const target = output ?? `${input.replace(/(\.zumen)?\.ya?ml$/i, '')}.pdf`;
+  const made = await make(String(read(input, 'utf8')), { intent, dir: dirname(input) });
+  if (made.pdf === null) return { code: 1, lines: [made.note] };
+  write(target, made.pdf);
+  return { code: 0, lines: [made.note, target] };
+}
+
+/**
  * **図が育つところを 1 本にする**（`pnpm timelapse <段のファイル…> [--out 置き場] [--hold 秒]`）。
  *
  * 出すのは動く SVG 1 枚と、紙を揃えた連番の SVG。
@@ -1145,6 +1191,7 @@ export async function run(argv: string[]): Promise<RunResult> {
   if (command === 'measure') return runMeasure(rest);
   if (command === 'inspect') return runInspect(rest);
   if (command === 'svg') return runSvg(rest);
+  if (command === 'pdf') return runPdf(rest);
   if (command === 'mermaid') return runMermaid(rest);
   if (command === 'compare') return runCompare(rest);
   if (command === 'timelapse') return runTimelapse(rest);
@@ -1156,6 +1203,7 @@ export async function run(argv: string[]): Promise<RunResult> {
     m.usageMeasure,
     m.usageInspect,
     m.usageSvg,
+    m.usagePdf,
     m.usageTimelapse,
     m.usageMermaid,
     m.usageCompare,

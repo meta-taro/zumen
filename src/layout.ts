@@ -24,6 +24,7 @@ import type { ElkExtendedEdge, ElkNode } from 'elkjs/lib/elk-api.js';
 import { asText, getPins, parse } from './format.ts';
 import { directionOf, elkDirection } from './direction.ts';
 import { MARGIN, gridOf, marginFor, northOf, scaleOf } from './grid.ts';
+import { paperOf, type Paper } from './paper.ts';
 import { allAxes, slideViews, viewBounds, viewsOf } from './views.ts';
 import { build } from './construct.ts';
 import type { Source as ConstructSource, Stroke } from './construct.ts';
@@ -271,6 +272,8 @@ export interface Placed {
   wall: Wall | null;
   /** **線に向きがあるか**（`src/arrows.ts`）。既定は真。 */
   arrows: boolean;
+  /** **刷る紙**（`src/paper.ts`）。書かなければ null で、SVG は px のまま。 */
+  paper?: Paper | null;
 }
 
 /** 箱の下限と上限。**文字から決めるが、際限なく広げない**（Issue #3 の 2）。 */
@@ -438,6 +441,7 @@ export async function layout(
     wall?: unknown;
     arrows?: unknown;
     sources?: unknown;
+    paper?: unknown;
   };
   const direction = elkDirection(directionOf(raw.direction));
   // **折り返すかは正本が決める**（`src/wrap.ts`）。既定は折り返さない。
@@ -722,6 +726,7 @@ export async function layout(
     north,
     wall: wallOf(raw.wall),
     arrows: arrowsOf(raw.arrows),
+    paper: paperOf(raw.paper),
     width: size.width + margin.right,
     height: size.height + margin.bottom,
   };
@@ -2031,6 +2036,7 @@ function construct(raw: Record<string, unknown>, pins: Record<string, unknown>):
     north: null,
     wall: null,
     arrows: false,
+    paper: paperOf(raw['paper']),
     width: moved === null ? PAD * 2 : moved.maxX + PAD,
     height: moved === null ? PAD * 2 : moved.maxY + PAD,
   };

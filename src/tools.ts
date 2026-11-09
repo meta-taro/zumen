@@ -35,6 +35,7 @@ import { embedFont } from './font.ts';
 import { getPins, parse } from './format.ts';
 import { roomAccess, type AccessIssue } from './access.ts';
 import { crossingEdges, crossings, edgesThroughBoxes, edgesUnderBoxes, groupEscapes, layout, overlaps, stackedEdges, straddles } from './layout.ts';
+import type { Placed } from './layout.ts';
 import { messages } from './messages.ts';
 import { PASS_LINE, measure } from './measure.ts';
 import { merge } from './merge.ts';
@@ -57,6 +58,7 @@ import { OPENINGS, SIDES } from './openings.ts';
 import type { Kind } from './kind.ts';
 import { projection, smallestTextOf, PRINT_FLOOR, PROJECTION_FLOOR, SMALLEST_TEXT } from './projection.ts';
 import { render } from './render.ts';
+import { MM_PER_PX, printableArea, svgPixels } from './paper.ts';
 import { timelapse } from './timelapse.ts';
 import type { Timelapse, TimelapseOptions } from './timelapse.ts';
 import { reviewOf } from './review.ts';
@@ -181,7 +183,7 @@ export function spec(): {
     units: [...UNITS],
     dimSides: [...DIM_SIDES],
     dimEnds: [...DIM_ENDS],
-    exports: ['svg', 'png', 'mermaid', 'drawio'],
+    exports: ['svg', 'png', 'pdf', 'mermaid', 'drawio'],
     appearances: Object.keys(APPEARANCE),
     rules: m.rules,
   };
@@ -349,8 +351,31 @@ export interface Inspection {
    * 投影に向かないだけ。路線図・査定図・仕込図・積付図はここに入る
    * （見本 95 枚のうち 36 枚がこれ）。
    * **両方が真のときだけ、本当に直すところがある。**
+   *
+   * **紙（`paper:`）が決まっている図は、その紙の実寸で測る**（`printedText` が 2.5 mm を割るか）。
    */
   tooSmallToPrint: boolean;
+  /** 刷る紙（`B4 portrait` のように）。決まっていなければ null。 */
+  paper: string | null;
+  /** 紙の上で、いちばん小さい字が何 mm か。紙が決まっていなければ null。 */
+  printedText: number | null;
+  /**
+   * **余白の内側が何 px か**（96 dpi。紙から逆算して作るときの枠）。紙が決まっていなければ null。
+   */
+  printable: { w: number; h: number } | null;
+  /** **何割に縮めて刷るか**（はみ出していなければ 1）。紙が決まっていなければ null。 */
+  paperShrink: number | null;
+}
+
+/**
+ * **紙が決まっている図は、紙の上の実寸で字を測る**（`src/paper.ts`）。
+ * 描いた SVG の `viewBox` は紙ぜんたいなので、紙の幅 ÷ その幅が 1 px の mm。
+ */
+function sheetOf(placed: Placed, source: string): { paper: string; mmPerPx: number } | null {
+  const paper = placed.paper ?? null;
+  if (paper === null) return null;
+  const page = svgPixels(render(placed, 'light', 'safe', kindOf(source) === 'placement'));
+  return page === null || page.w <= 0 ? null : { paper: `${paper.size} ${paper.orient}`, mmPerPx: paper.w / page.w };
 }
 
 /**
@@ -405,6 +430,10 @@ export async function inspect(source: string): Promise<Inspection> {
       printFloor: PRINT_FLOOR,
       tooSmallToProject: false,
       tooSmallToPrint: false,
+      paper: null,
+      printedText: null,
+      printable: null,
+      paperShrink: null,
     };
   }
 
@@ -465,7 +494,16 @@ export async function inspect(source: string): Promise<Inspection> {
       const seen = reviewOf(source);
       return { reviewed: seen.reviewed, reviewedAt: seen.at, reviewStale: seen.stale };
     })(),
-    ...projection(placed.width, placed.height, smallestTextOf(placed, kindOf(source) === 'placement')),
+    ...projection(placed.width, placed.height, smallestTextOf(placed, kindOf(source) === 'placement'), sheetOf(placed, source)),
+    ...((): { printable: { w: number; h: number } | null; paperShrink: number | null } => {
+      const sheet = sheetOf(placed, source);
+      if (sheet === null || placed.paper == null) return { printable: null, paperShrink: null };
+      const area = printableArea(placed.paper);
+      return {
+        printable: { w: Math.floor(area.w), h: Math.floor(area.h) },
+        paperShrink: Math.round((sheet.mmPerPx / MM_PER_PX) * 1000) / 1000,
+      };
+    })(),
     ...(() => {
       const kind = kindOf(source);
       return { kind, positionsInSource: measureOf(kind).positionsInSource };
@@ -526,7 +564,7 @@ export function propose(path: string, source: string, io: Io = realIo): WriteRes
 
 // --- 書き出す --------------------------------------------------------------
 
-export type ExportKind = 'svg' | 'mermaid' | 'drawio' | 'png';
+export type ExportKind = 'svg' | 'mermaid' | 'drawio' | 'png' | 'pdf';
 
 export interface ExportOptions {
   /**
@@ -588,8 +626,7 @@ function shoot(chrome: string, svg: string): Buffer {
   const dir = mkdtempSync(join(tmpdir(), 'zumen-png-'));
   const page = join(dir, 'p.html');
   const out = join(dir, 'p.png');
-  const width = Number(/width="(\d+)"/.exec(svg)?.[1] ?? 1200);
-  const height = Number(/height="(\d+)"/.exec(svg)?.[1] ?? 800);
+  const { w: width, h: height } = svgPixels(svg) ?? { w: 1200, h: 800 };
   writeFileSync(page, `<!doctype html><meta charset="utf-8"><style>*{margin:0}</style>${svg}`);
   execFileSync(chrome, [
     '--headless',
@@ -624,6 +661,62 @@ export async function pngOf(
 }
 
 /**
+ * **SVG を、刷れる PDF にする**（2026-11-10。`paper:` と組で使う）。
+ *
+ * 紙を決めた図（`width="257mm"`）は、**その紙の大きさの 1 ページ**になる。
+ * 決めていない図は、px を 96 dpi の mm にした大きさの 1 ページ（画面で見た大きさのまま）。
+ * Chrome の印刷を使う（png と同じ。依存を増やさない）。
+ */
+function print(chrome: string, svg: string): Buffer {
+  const dir = mkdtempSync(join(tmpdir(), 'zumen-pdf-'));
+  const page = join(dir, 'p.html');
+  const out = join(dir, 'p.pdf');
+  const head = /<svg\b[^>]*>/.exec(svg)?.[0] ?? '';
+  const mm = /\swidth="([\d.]+)mm" height="([\d.]+)mm"/.exec(head);
+  const px = svgPixels(svg) ?? { w: 1200, h: 800 };
+  const [w, h] = mm === null ? [(px.w * 25.4) / 96, (px.h * 25.4) / 96] : [Number(mm[1]), Number(mm[2])];
+  // **紙いっぱいに 1 枚。** 余白は図の側（`paper.margin`）が持つので、印刷の余白は 0。
+  // 図の幅と高さを紙に合わせて書き直す（px の図を 1 ページへ収めるため）。
+  const fitted = svg.replace(/<svg\b[^>]*>/, (tag) =>
+    tag.replace(/\swidth="[^"]*"/, ` width="${w}mm"`).replace(/\sheight="[^"]*"/, ` height="${h}mm"`),
+  );
+  writeFileSync(
+    page,
+    `<!doctype html><meta charset="utf-8"><style>@page{size:${w}mm ${h}mm;margin:0}html,body{margin:0}svg{display:block}</style>${fitted}`,
+  );
+  execFileSync(chrome, ['--headless', '--disable-gpu', '--no-pdf-header-footer', `--print-to-pdf=${out}`, `file://${page}`], {
+    stdio: 'ignore',
+  });
+  const pdf = readFileSync(out);
+  rmSync(dir, { recursive: true, force: true });
+  return pdf;
+}
+
+export interface Pdf {
+  /** PDF のバイト列。作れなければ null。 */
+  pdf: Buffer | null;
+  note: string;
+}
+
+export async function pdfOf(
+  source: string,
+  options: ExportOptions = {},
+  chromeOf: () => string | null = findChrome,
+  printWith: (chrome: string, svg: string) => Buffer = print,
+): Promise<Pdf> {
+  const m = messages().tools;
+  // **刷る物は明るい紙で。** 暗い地の PDF を刷ると、紙が黒く塗られる。
+  const svg = await exportAs(source, 'svg', { ...options, theme: 'light' });
+  const chrome = chromeOf();
+  if (chrome === null) return { pdf: null, note: m.noChrome };
+  try {
+    return { pdf: printWith(chrome, svg), note: m.pdfMade };
+  } catch (error) {
+    return { pdf: null, note: `${m.pdfFailed} ${String(error)}` };
+  }
+}
+
+/**
  * 書き出す。**落ちるものは、それぞれの書き出しが自分で断る。**
  */
 export async function exportAs(
@@ -634,6 +727,8 @@ export async function exportAs(
   if (kind === 'mermaid') return toMermaid(source);
   // png はここでは扱わない（絵は文字ではないので `pngOf` が返す）。
   if (kind === 'png') return (await pngOf(source, options)).note;
+  // pdf も同じ（バイト列は `pdfOf` が返す）。
+  if (kind === 'pdf') return (await pdfOf(source, options)).note;
   // **画像は正本のフォルダから読む**（`src/image-files.ts`）。フォルダが分からなければ、パスのまま敷く。
   const placed = await layout(source, options.dir === undefined ? undefined : loadImages(source, options.dir));
   if (kind === 'drawio') return toDrawio(placed, titleOf(source));

@@ -17,6 +17,7 @@ import { kindOf } from '../src/kind.ts';
 import { crossings, layout } from '../src/layout.ts';
 import { loadImages } from '../src/image-files.ts';
 import { render } from '../src/render.ts';
+import { svgPixels } from '../src/paper.ts';
 
 const DIR = 'examples/gallery';
 /**
@@ -111,9 +112,9 @@ function pageParts(page) {
     for (const item of en ? englishFirst(group.items) : group.items) {
       listed.add(item.name);
       const svg = readFileSync(join(DIR, `${item.name}.svg`), 'utf8');
-      const size = svg.match(/<svg[^>]*width="(\d+)" height="(\d+)"/);
+      const size = svgPixels(svg);
       if (size === null) throw new Error(`${item.name}.svg に大きさがありません`);
-      const [w, h] = [Number(size[1]), Number(size[2])];
+      const { w, h } = size;
       const wide = w / h >= WIDE ? ' data-wide' : '';
       // **英語のページには英語の説明。** 足し忘れは `test/gallery-en.test.ts` が落とす。
       const words = en ? CAPTIONS_EN[item.name] : null;

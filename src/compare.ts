@@ -22,6 +22,7 @@ import { layout } from './layout.ts';
 import type { Box, Placed } from './layout.ts';
 import { messages } from './messages.ts';
 import { render } from './render.ts';
+import { svgPixels } from './paper.ts';
 import type { Intent, Theme } from './tokens.ts';
 import { paletteOf } from './tokens.ts';
 
@@ -65,10 +66,7 @@ export async function compare(before: string, after: string, options: CompareOpt
 
   const left = render(a, theme, intent, kindOf(before) === 'placement');
   const right = render(b, theme, intent, kindOf(after) === 'placement');
-  const size = (svg: string) => {
-    const m = /width="([\d.]+)" height="([\d.]+)"/.exec(svg);
-    return { w: Number(m?.[1] ?? 0), h: Number(m?.[2] ?? 0) };
-  };
+  const size = (svg: string) => svgPixels(svg) ?? { w: 0, h: 0 };
   const ls = size(left);
   const rs = size(right);
   const palette = paletteOf(theme, intent);
