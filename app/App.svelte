@@ -14,6 +14,7 @@
   import iconSvg from './icon.svg?raw';
   import { percent } from '../src/measure.ts';
   import { messages } from '../src/messages.ts';
+  import { render } from '../src/render.ts';
   import { MARKUP_COLORS, MARKUP_WIDTHS } from '../src/markup.ts';
   import Canvas from './lib/Canvas.svelte';
   import Conflicts from './lib/Conflicts.svelte';
@@ -48,6 +49,15 @@
    * ここで測った大きさを渡すと、**開いた図が画面に収まる**（`Session.fit`）。
    */
   /** 赤入れの道具の板を開いているか。閉じたら道具も置く（箱を掴める状態へ戻す）。 */
+  /**
+   * **印刷プレビュー**（`paper:`。2026-11-10）。刷られる 1 枚を、書き出しと同じ絵でそのまま見る。
+   * 画面のキャンバスは承認のための絵なので、刷られる物とは別に出す。
+   */
+  let previewOpen = $state(false);
+  const previewSvg = $derived(previewOpen && session.placed !== null ? render(session.placed, 'light', 'safe', session.plan) : '');
+  const pageRule = $derived(
+    session.placed?.paper == null ? '' : `@page{size:${session.placed.paper.w}mm ${session.placed.paper.h}mm;margin:0}`,
+  );
   let markupOpen = $state(false);
   function toggleMarkup(): void {
     markupOpen = !markupOpen;
@@ -341,6 +351,9 @@
           {m.fit}<kbd>F</kbd>
         </button>
       </div>
+      {#if session.placed?.paper != null}
+        <button onclick={() => (previewOpen = true)} title={m.printPreviewHint}>{m.printPreview}</button>
+      {/if}
       <!-- **赤入れ**（仕様 §3.7、D46）。図には効かない書き込み。板を開いている間だけ道具を持つ。 -->
       <button class="markup-toggle" class:on={markupOpen} onclick={toggleMarkup} disabled={session.placed === null} title={m.markupHint}>
         ✎ {m.markup}
@@ -368,6 +381,19 @@
       </button>
     </div>
   </header>
+
+  {#if previewOpen}
+    <!-- 刷る大きさは紙が決める（`@page`）。画面では窓に収めて見せる。 -->
+    {@html `<style>${pageRule}</style>`}
+    <div class="preview" role="dialog" aria-modal="true" aria-label={m.printPreview}>
+      <div class="preview-bar">
+        <span>{m.printPreview}</span>
+        <button class="primary" onclick={() => window.print()}>{m.print}</button>
+        <button onclick={() => (previewOpen = false)}>{m.close}</button>
+      </div>
+      <div class="preview-sheet print-sheet">{@html previewSvg}</div>
+    </div>
+  {/if}
 
   <main>
     <div class="stage">
@@ -1056,5 +1082,69 @@
   }
   .keys kbd {
     color: var(--text-primary);
+  }
+  /* 印刷プレビュー。紙を窓に収めて見せ、刷るときは紙だけを出す。 */
+  .preview {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    background: rgba(20, 20, 26, 0.86);
+  }
+  .preview-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    color: #f4f4f6;
+  }
+  .preview-bar span {
+    margin-right: auto;
+    font-weight: 700;
+  }
+  .preview-sheet {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 8px 16px 24px;
+    overflow: auto;
+  }
+  .preview-sheet :global(svg) {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+  }
+  @media print {
+    :global(body *) {
+      visibility: hidden;
+    }
+    .preview,
+    .print-sheet,
+    .print-sheet :global(*) {
+      visibility: visible;
+    }
+    .preview {
+      position: static;
+      background: none;
+    }
+    .preview-bar {
+      display: none;
+    }
+    .preview-sheet {
+      position: fixed;
+      inset: 0;
+      padding: 0;
+      overflow: visible;
+    }
+    .preview-sheet :global(svg) {
+      max-width: none;
+      max-height: none;
+      box-shadow: none;
+    }
   }
 </style>

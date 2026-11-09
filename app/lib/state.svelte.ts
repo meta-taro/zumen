@@ -12,6 +12,7 @@ import { reviewOf, setReviewed } from '../../src/review.ts';
 import type { Review } from '../../src/review.ts';
 import { getPins, parse, serialize, setPin } from '../../src/format.ts';
 import { kindOf } from '../../src/kind.ts';
+import { pageBox } from '../../src/paper.ts';
 import { layout } from '../../src/layout.ts';
 import type { Placed } from '../../src/layout.ts';
 import { measure } from '../../src/measure.ts';
@@ -392,14 +393,19 @@ export class Session {
     const placed = this.placed;
     if (placed === null || this.view.w === 0 || this.view.h === 0) return;
     const PAD = 24;
-    const scale = Math.min(
-      (this.view.w - PAD * 2) / placed.width,
-      (this.view.h - PAD * 2) / placed.height,
-      1,
-    );
+    // **紙を決めた図は、紙ぜんたいを見せる**（紙から逆算して作るので、枠が見えないと意味が無い）。
+    // 紙の上に名前を書くぶん、上を少し空ける。
+    const frame =
+      placed.paper == null
+        ? { x: 0, y: 0, w: placed.width, h: placed.height }
+        : (() => {
+            const page = pageBox(placed.paper, placed.width, placed.height);
+            return { x: page.x, y: page.y - 24, w: page.w, h: page.h + 24 };
+          })();
+    const scale = Math.min((this.view.w - PAD * 2) / frame.w, (this.view.h - PAD * 2) / frame.h, 1);
     this.zoom = Math.min(4, Math.max(0.2, scale));
-    this.panX = (this.view.w - placed.width * this.zoom) / 2;
-    this.panY = (this.view.h - placed.height * this.zoom) / 2;
+    this.panX = (this.view.w - frame.w * this.zoom) / 2 - frame.x * this.zoom;
+    this.panY = (this.view.h - frame.h * this.zoom) / 2 - frame.y * this.zoom;
     // **収めたら「触っていない」に戻す。** 窓の大きさが変わったら、また収める。
     this.#touched = false;
   }

@@ -46,6 +46,7 @@ import {
   filmOf,
   inspect,
   list,
+  pdfOf,
   pinsOf,
   pngOf,
   propose,
@@ -281,20 +282,30 @@ export function buildServer(hub: Hub = createHub()): McpServer {
       description:
         m.exportDesc,
       inputSchema: {
-        kind: z.enum(['svg', 'png', 'mermaid', 'drawio']),
+        kind: z.enum(['svg', 'png', 'pdf', 'mermaid', 'drawio']),
         source: z.string().optional(),
         path: z.string().optional(),
         theme: z.enum(['light', 'dark']).optional().describe(m.exportTheme),
         intent: z.enum(['safe', 'vivid']).optional().describe(m.exportIntent),
         embedFont: z.boolean().optional().describe(m.exportEmbedFont),
+        out: z.string().optional().describe(m.exportOut),
       },
     },
-    async ({ kind, source, path, theme, intent, embedFont }) => {
+    async ({ kind, source, path, theme, intent, embedFont, out }) => {
       const body = bodyOf(source, path);
       // **png は絵で返す。** 文字で返しても、描いたものを見たことにならない。
       // **画像は、パスで渡された正本の横から読む**（`source` だけなら読まない）。
       const dir = path === undefined ? undefined : dirname(path);
       if (kind === 'png') return picture(await pngOf(body, { theme, intent, embedFont, dir }));
+      // **pdf はファイルに書く**（刷る物なので、絵でも文字でも返さない）。書いた場所を返す。
+      if (kind === 'pdf') {
+        const target = out ?? (path === undefined ? undefined : path.replace(/(\.zumen)?\.ya?ml$/i, '') + '.pdf');
+        if (target === undefined) return text(m.exportOut);
+        const made = await pdfOf(body, { intent, embedFont, dir });
+        if (made.pdf === null) return text(made.note);
+        writeFileSync(target, made.pdf);
+        return text(`${made.note}\n${target}`);
+      }
       return text(await exportAs(body, kind, { theme, intent, embedFont, dir }));
     },
   );

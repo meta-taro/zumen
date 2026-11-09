@@ -55,7 +55,7 @@
         "ja",
         "en"
       ],
-      "description": "テキスト（YAML 1 枚）を正本にする作図ツール。AI が図を描き直しても、人が手で直した所（pins）は消えない。見本 415 枚、検査 172 項目、MCP サーバー同梱。",
+      "description": "テキスト（YAML 1 枚）を正本にする作図ツール。AI が図を描き直しても、人が手で直した所（pins）は消えない。見本 415 枚、検査 174 項目、MCP サーバー同梱。",
       "keywords": "diagram as code, AI-editable architecture diagrams, MCP server, Claude Code, YAML, SVG, Mermaid, draw.io, 構成図, 間取り, 専門図面",
       "license": "https://opensource.org/licenses/MIT",
       "isAccessibleForFree": true,
@@ -77,7 +77,7 @@
         "人の手直し（pins）は再生成で壊れない",
         "正本は 1 枚の YAML（人も AI も読み書きできる）",
         "SVG・Mermaid・draw.io・Markdown 埋め込みへ書き出し",
-        "描かれないものを名指しする検査 172 項目",
+        "描かれないものを名指しする検査 174 項目",
         "MCP サーバー（エージェントが仕様を読んで描ける）",
         "Git のマージドライバ（同じ図を 2 人で直しても構造で解ける）"
       ]
@@ -139,6 +139,14 @@
             "@type": "Answer",
             "text": "SVG・Mermaid・draw.io・Markdown へ書き出せます。保存形式の仕様は実装から分けて公開しているので、zumen が無くなっても図は読めます。"
           }
+        },
+        {
+          "@type": "Question",
+          "name": "印刷する紙の大きさに合わせて作れますか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "作れます。正本に paper: B4 のように紙を書くと、図はその紙の実寸（mm）で出て、PDF にもなります。1 px は 96 dpi なので、余白の内側の大きさ（B4 縦で 895 × 1300 px）に収めて作れば、画面で見た大きさのまま刷られます。アプリには紙の枠と印刷プレビューがあります。"
+          }
         }
       ]
     }
@@ -193,6 +201,7 @@
     <b>zumen は、1 枚の YAML（テキスト）を正本にして専門図面を描く、デスクトップの作図ツールです。</b>
     AI エージェントが MCP で図を描き、人が手で直し、<b>その直しは次の生成でも壊れません。</b>
     構成図だけでなく、間取り・照明の仕込図・歯周チャート・路線図のような、業界の人が実務で使う図を同じ仕組みで描きます。
+    解答用紙や掲示物のように刷って配る図は、A3・B4 などの紙を決めて、その実寸で作れます。
     macOS と Windows で動き、MIT ライセンスで無料です。
   </p>
 </section>
@@ -224,6 +233,31 @@
   </div>
 </section>
 
+<!-- **紙から作る**（2026-11-10）。刷って配る図は、紙の大きさが先に決まる。 -->
+<section id="paper">
+  <h2>刷る紙から作る</h2>
+  <p>
+    解答用紙・掲示物・配席表のように<b>刷って配る図は、紙の大きさが先に決まっています。</b>
+    正本に <code>paper: B4</code> と 1 行書くと、図はその紙の実寸（mm）で出て、PDF にもなります。
+  </p>
+  <ul>
+    <li><b>余白の内側が何 px かが先に分かります</b>（B4 縦で 895 × 1300 px）。1 px は画面と同じ 96 dpi なので、枠に収めて作れば、画面で見た大きさのまま刷られます</li>
+    <li><b>アプリには紙と刷れる所の枠が出て、印刷プレビューから刷れます</b></li>
+    <li><b>はみ出したら、縮めて 1 枚に収めたうえで言います</b>（何 % に縮めたか）。紙の上で字が 2.5 mm を割るときも言います</li>
+    <li>紙は A3・A4・A5・B4・B5・Letter・Legal・Tabloid、縦と横。AI エージェントも MCP の検査で枠の大きさを受け取り、紙に合わせて描きます</li>
+  </ul>
+  <div class="shots">
+    <figure>
+      <img src="readme/gui-paper-ja.png" width="1280" height="820" loading="lazy" decoding="async" alt="zumen の画面。B4 横の白い紙の上に社会の解答用紙（架空の様式）が開いていて、刷れる所が点線で囲まれ、左上に「B4 横・余白 10 mm」と出ている">
+      <figcaption><b>紙の枠の中で作ります。</b>白い所が B4 横の紙、点線の内側が刷れる所です。</figcaption>
+    </figure>
+    <figure>
+      <img src="readme/gui-print-ja.png" width="1280" height="820" loading="lazy" decoding="async" alt="zumen の印刷プレビュー。暗くした画面の上に、刷られる B4 横の解答用紙が 1 枚そのまま出ていて、右上に「印刷」と「閉じる」のボタン">
+      <figcaption><b>刷られる 1 枚を、そのまま見てから刷ります。</b><code>pnpm pdf</code> や MCP でも、同じ大きさの PDF になります。</figcaption>
+    </figure>
+  </div>
+</section>
+
 <section>
   <h2>作れる図</h2>
   <p style="margin:-8px 0 24px;color:var(--fg-2)">
@@ -248,14 +282,14 @@
   <!-- news -->
   <p class="news-h">お知らせ（<a href="feed.xml">フィード</a>）</p>
   <ul class="near news">
+    <li><span class="thumb" aria-hidden="true"></span><time datetime="2026-11-10">11/10</time>機能追加 <a href="https://github.com/meta-taro/zumen/blob/main/CHANGELOG.md">変更の記録</a> 刷る紙を決められる。paper: B4 と書くと SVG が実寸の mm で出て、PDF にも書き出せる。アプリには紙の枠と印刷プレビュー</li>
+    <li><a href="g/412/" tabindex="-1" aria-hidden="true"><img class="thumb" src="gallery/412-%E6%95%B0%E5%AD%A6%E3%81%AE%E6%9C%9F%E6%9C%AB%E3%83%86%E3%82%B9%E3%83%88%E3%81%AE%E8%A7%A3%E7%AD%94%E7%94%A8%E7%B4%99.svg" alt="" width="72" height="48" loading="lazy" decoding="async"></a><time datetime="2026-11-10">11/10</time>更新 <a href="g/412/">見本 412</a> 証明の欄を広げ、角度の単位を「°」に。紙は A3 縦</li>
+    <li><a href="g/413/" tabindex="-1" aria-hidden="true"><img class="thumb" src="gallery/413-%E8%8B%B1%E8%AA%9E%E3%81%AE%E6%9C%9F%E6%9C%AB%E3%83%86%E3%82%B9%E3%83%88%E3%81%AE%E8%A7%A3%E7%AD%94%E7%94%A8%E7%B4%99.svg" alt="" width="72" height="48" loading="lazy" decoding="async"></a><time datetime="2026-11-10">11/10</time>更新 <a href="g/413/">見本 413</a> 入試の解答用紙は 4 線ではない、と書き分けた。紙は B4 横</li>
     <li><span class="thumb" aria-hidden="true"></span><time datetime="2026-11-06">11/6</time>機能追加 <a href="https://github.com/meta-taro/zumen/blob/main/CHANGELOG.md">変更の記録</a> 図の中の字で探せる。見本の一覧と MCP で、題に無い語（電流計・受検番号・DMX）でも、図に描いてあれば当たる</li>
     <li><a href="g/415/" tabindex="-1" aria-hidden="true"><img class="thumb" src="gallery/415-%E7%A4%BE%E4%BC%9A%E3%81%AE%E6%9C%9F%E6%9C%AB%E3%83%86%E3%82%B9%E3%83%88%E3%81%AE%E8%A7%A3%E7%AD%94%E7%94%A8%E7%B4%99.svg" alt="" width="72" height="48" loading="lazy" decoding="async"></a><time datetime="2026-11-05">11/5</time>追加 <a href="g/415/">見本 415</a> 社会の期末テストの解答用紙（略地図の記号・年表・古い順の並べかえ・字数を数える記述）</li>
     <li><a href="g/414/" tabindex="-1" aria-hidden="true"><img class="thumb" src="gallery/414-%E7%90%86%E7%A7%91%E3%81%AE%E6%9C%9F%E6%9C%AB%E3%83%86%E3%82%B9%E3%83%88%E3%81%AE%E8%A7%A3%E7%AD%94%E7%94%A8%E7%B4%99.svg" alt="" width="72" height="48" loading="lazy" decoding="async"></a><time datetime="2026-11-05">11/5</time>追加 <a href="g/414/">見本 414</a> 理科の期末テストの解答用紙（点で打って直線を引くグラフ・電気用図記号の回路図・化学反応式）</li>
     <li><a href="g/413/" tabindex="-1" aria-hidden="true"><img class="thumb" src="gallery/413-%E8%8B%B1%E8%AA%9E%E3%81%AE%E6%9C%9F%E6%9C%AB%E3%83%86%E3%82%B9%E3%83%88%E3%81%AE%E8%A7%A3%E7%AD%94%E7%94%A8%E7%B4%99.svg" alt="" width="72" height="48" loading="lazy" decoding="async"></a><time datetime="2026-11-05">11/5</time>追加 <a href="g/413/">見本 413</a> 英語の期末テストの解答用紙（4 線の罫・並べかえ・語数を数える英作文）</li>
     <li><a href="g/412/" tabindex="-1" aria-hidden="true"><img class="thumb" src="gallery/412-%E6%95%B0%E5%AD%A6%E3%81%AE%E6%9C%9F%E6%9C%AB%E3%83%86%E3%82%B9%E3%83%88%E3%81%AE%E8%A7%A3%E7%AD%94%E7%94%A8%E7%B4%99.svg" alt="" width="72" height="48" loading="lazy" decoding="async"></a><time datetime="2026-11-05">11/5</time>追加 <a href="g/412/">見本 412</a> 数学の期末テストの解答用紙（答えだけの欄・求め方の欄・作図・グラフ・証明。作図とグラフは記入例つき）</li>
-    <li><a href="g/411/" tabindex="-1" aria-hidden="true"><img class="thumb" src="gallery/411-%E5%9B%BD%E8%AA%9E%E3%81%AE%E6%9C%9F%E6%9C%AB%E3%83%86%E3%82%B9%E3%83%88%E3%81%AE%E8%A7%A3%E7%AD%94%E7%94%A8%E7%B4%99.svg" alt="" width="72" height="48" loading="lazy" decoding="async"></a><time datetime="2026-11-05">11/5</time>追加 <a href="g/411/">見本 411</a> 国語の期末テストの解答用紙（縦書きで右から左へ。記述は原稿用紙のマス目）</li>
-    <li><a href="g/410/" tabindex="-1" aria-hidden="true"><img class="thumb" src="gallery/410-%E6%97%A5%E6%9C%AC%E8%AA%9E%E6%A4%9C%E5%AE%9A%E3%81%A8%E6%97%A5%E6%9C%AC%E8%AA%9E%E8%83%BD%E5%8A%9B%E8%A9%A6%E9%A8%93.svg" alt="" width="72" height="48" loading="lazy" decoding="async"></a><time datetime="2026-11-05">11/5</time>追加 <a href="g/410/">見本 410</a> 日本語検定と日本語能力試験（同じ「日本語」でも、別の検定）</li>
-    <li><a href="g/409/" tabindex="-1" aria-hidden="true"><img class="thumb" src="gallery/409-TOEIC-LR%E3%81%AE%E6%A7%8B%E6%88%90.svg" alt="" width="72" height="48" loading="lazy" decoding="async"></a><time datetime="2026-11-05">11/5</time>追加 <a href="g/409/">見本 409</a> TOEIC L&amp;R の構成（7 つの Part・200 問・2 時間。結果は合否ではなくスコア）</li>
   </ul>
   <!-- /news -->
   <!-- **入口でも、図の中の字で探せる**（2026-11-07）。打った字は ?q= で一覧へ渡す。 -->
@@ -866,11 +900,11 @@
     <figure data-cat="manabi"><picture><source srcset="gallery/408-マークシートの様式と塗り方-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1244" height="1038" src="gallery/408-マークシートの様式と塗り方.svg" alt="架空のマークシートの解答用紙。左の用紙に、手で書いた受験番号 4 けたと、その下で同じけたの数字を塗る 0〜9 の縦の欄（0 が上、9 がいちばん下）、問 1〜8 の 1〜4 の楕円を並べ、左の縁に読み取り機が行を数える黒いタイミングマークを刷った。楕円と数字は読み取りで消えるドロップアウトカラーで刷り、塗った所だけが黒い。右に塗り方の良い例（楕円の中を濃く全部）と悪い例 6 つ（線だけ・小さい・はみ出し・輪郭だけ・レ点・薄い）、受験番号で起きやすい塗り間違い 4 つの表。下に、鉛筆と消しゴムの決まりを大学入学共通テストと埼玉県の公立高校入試で比べた表"></picture><figcaption>マークシートの様式と塗り方（架空の解答用紙・タイミングマーク・良い例と悪い例）</figcaption></figure>
     <figure data-cat="manabi"><picture><source srcset="gallery/409-TOEIC-LRの構成-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1298" height="1074" src="gallery/409-TOEIC-LRの構成.svg" alt="TOEIC Listening & Reading Test の 200 問を、1 問 5px の横の帯で Part 1 から 7 まで並べた図。斜線のリスニング（Part 1 写真描写 6・Part 2 応答 25・Part 3 会話 39・Part 4 説明文 30）と白のリーディング（Part 5 短文穴埋め 30・Part 6 長文穴埋め 16・Part 7 読解 1 つの文書 29・複数の文書 25）。その下に約 45 分と 75 分の時間の帯、Part ごとの形の表、リスニング 5〜495・リーディング 5〜495・トータル 10〜990 のスコアの物差し、英検との違いの表"></picture><figcaption>TOEIC L&R の構成（7 つの Part・200 問・2 時間。結果は合否ではなくスコア）</figcaption></figure>
     <figure data-cat="manabi"><picture><source srcset="gallery/410-日本語検定と日本語能力試験-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1264" height="960" src="gallery/410-日本語検定と日本語能力試験.svg" alt="左に日本語検定（日本語検定委員会）、右に日本語能力試験 JLPT（国際交流基金・日本国際教育支援協会）を、級ごとの梯子として並べた図。日本語検定は 1〜7 級で、各級のレベル（社会人上級から小学校 2 年生まで）、受検時間（1〜3 級 60 分、4〜7 級 50 分）を横の長さで、認定の総合得点率（1 級 80%程度以上、ほか 70%程度以上、届かなくても 10 ポイント下なら準の級）を添えた。JLPT は N1〜N5 で、試験科目ごとの時間を模様の違う帯で並べ（N1・N2 は言語知識と読解が 1 科目）、総合 0〜180 点の合格点と区分ごとの基準点を添えた。左右の級は対応しないと明記し、下に受ける人・段階・測るもの・結果の出し方を比べた表"></picture><figcaption>日本語検定と日本語能力試験（同じ「日本語」でも、別の検定）</figcaption></figure>
-    <figure data-cat="manabi"><picture><source srcset="gallery/411-国語の期末テストの解答用紙-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1244" height="1060" src="gallery/411-国語の期末テストの解答用紙.svg" alt="架空の中学校の国語の期末テストの解答用紙。縦書きで、右の一から左へ読む。一は漢字の読み（ひらがなで）と書き（漢字で）の縦長の欄を 4 つずつ、二は記号の小さな四角を問一から問四まで、三は十字で抜き出す縦 10 マス、四は六十字以内の記述で原稿用紙のマス目 15 マス × 4 行。マス目には架空の例文を書き、1 行目の上を 1 マスあける・小さい「っ」も 1 マス・句読点は 1 マスに 1 つで行頭に書かない・行末の句点は最後のマスに前の字と一緒・会話は行を変えてかぎかっこで終わりの。と」は 1 マスに一緒、の 5 つの決まりに丸数字を付け、下の表で説明した。上に組・番・氏名・得点の欄"></picture><figcaption>国語の期末テストの解答用紙（縦書きで右から左へ。記述は原稿用紙のマス目）</figcaption></figure>
-    <figure data-cat="manabi"><picture><source srcset="gallery/412-数学の期末テストの解答用紙-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1164" height="1302" src="gallery/412-数学の期末テストの解答用紙.svg" alt="架空の中学校の数学の期末テストの解答用紙。上に年・組・番号・氏名・得点の欄。1 は答えだけを書く計算の欄、2 は cm・cm²・度の単位を刷り込んだ欄、3 は（解）の欄に式と考え方を書き、答は右の欄に分けて書く文章題。4 は線分 AB の垂直二等分線の作図で、A と B を中心にかいたコンパスの弧が交わる点 P・Q を結び、作図に使った弧を消さずに残した記入例。5 は原点 O と x 軸・y 軸と 1 目盛り 1 の方眼に、格子点 (0, 1) と (2, 2) を打って y = (1/2)x + 1 の直線を引いた記入例。6 は仮定・結論・証明の欄。下に、根号の中は最も小さい自然数・分数は約分・分母の有理化・円周率は π・作図の線は消さない・求め方を書く欄、という入試の注意を出典の県と並べた"></picture><figcaption>数学の期末テストの解答用紙（答えだけの欄・求め方の欄・作図・グラフ・証明。作図とグラフは記入例つき）</figcaption></figure>
-    <figure data-cat="manabi"><picture><source srcset="gallery/413-英語の期末テストの解答用紙-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1204" height="1068" src="gallery/413-英語の期末テストの解答用紙.svg" alt="架空の中学校の英語の期末テストの解答用紙。上から、記号で答えるリスニングの欄（放送の回数は問題ごとに放送で言う）、ア〜オを並べた順に記号を書く並べかえの欄、4 本ずつの罫が 3 段ある英作文の欄と語数を書く欄。英作文には 12 語の記入例を添え、短縮形 I'm は 1 語、コンマとピリオドは数えないと示した。その下に英語を書く 4 線を大きく描き、上からアセンダライン・ミーンライン・基線（太線）・ディセンダラインと名前を付け、大文字・a c e などの小文字・b d f h k l・g j p q y がどの線からどの線まで入るかを縦の帯で示した。下に書くときの決まりの一覧"></picture><figcaption>英語の期末テストの解答用紙（4 線の罫・並べかえ・語数を数える英作文）</figcaption></figure>
-    <figure data-cat="manabi"><picture><source srcset="gallery/414-理科の期末テストの解答用紙-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1184" height="1090" src="gallery/414-理科の期末テストの解答用紙.svg" alt="架空の中学校の理科の期末テストの解答用紙。上に年・組・番号・氏名・得点の欄、大問ごとに小計と配点の欄。1 は記号・語句を答えだけ書く欄。2 はグラフの記入例で、横軸に電圧〔V〕、縦軸に電流〔A〕をとった方眼に測定値を黒丸で打ち、折れ線にせず原点を通る直線を枠の端まで引いた。3 は回路図の記入例で、電源装置（長い線が＋極）・スイッチ・電熱線（長方形）をつなぎ、電流計Ⓐを直列に、電圧計Ⓥを電熱線に並列につないだ。4 は化学式と化学反応式の欄で、記入例 2H₂ ＋ O₂ → 2H₂O。5 は理由を書く記述欄。下にグラフのかき方・単位の〔 〕・電気用図記号の注意"></picture><figcaption>理科の期末テストの解答用紙（点で打って直線を引くグラフ・電気用図記号の回路図・化学反応式）</figcaption></figure>
-    <figure data-wide data-cat="manabi"><picture><source srcset="gallery/415-社会の期末テストの解答用紙-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1970" height="902" src="gallery/415-社会の期末テストの解答用紙.svg" alt="架空の中学校の社会の期末テストの解答用紙。上に年・組・番号・氏名・得点（／100）の欄と、漢字の指定・字数の数え方・並べかえの書き方の注意 3 行。1 地理は架空の島の略地図に方位記号と A〜D の点、記号・漢字・すべて選ぶの欄。2 歴史は 8〜19 世紀を 1 目盛り 1 世紀にした年表に空欄 ①〜③ と X の期間の矢印、ア〜エを古い順に左から書く 4 つの枠を → でつないだ欄。3 公民は漢字の欄・記号の欄・両方正しいときだけ正答になる あ・い の欄。4 は資料 2 つを読み取って 40 字以上 60 字以内で書く 20 マス × 3 行のマス目。大問ごとに小計と配点（25・30・20・25）"></picture><figcaption>社会の期末テストの解答用紙（略地図の記号・年表・古い順の並べかえ・字数を数える記述）</figcaption></figure>
+    <figure data-cat="manabi"><picture><source srcset="gallery/411-国語の期末テストの解答用紙-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1671" height="1180" src="gallery/411-国語の期末テストの解答用紙.svg" alt="架空の中学校の国語の期末テストの解答用紙。縦書きで、右の一から左へ読む。一は漢字の読み（ひらがなで）と書き（漢字で）の縦長の欄を 4 つずつ、二は記号の小さな四角を問一から問四まで、三は十字で抜き出す縦 10 マス、四は六十字以内の記述で原稿用紙のマス目 15 マス × 4 行。マス目には架空の例文を書き、1 行目の上を 1 マスあける・小さい「っ」も 1 マス・句読点は 1 マスに 1 つで行頭に書かない・行末の句点は最後のマスに前の字と一緒・会話は行を変えてかぎかっこで終わりの。と」は 1 マスに一緒、の 5 つの決まりに丸数字を付け、下の表で説明した。上に組・番・氏名・得点の欄"></picture><figcaption>国語の期末テストの解答用紙（縦書きで右から左へ。記述は原稿用紙のマス目）</figcaption></figure>
+    <figure data-cat="manabi"><picture><source srcset="gallery/412-数学の期末テストの解答用紙-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1248" height="1765" src="gallery/412-数学の期末テストの解答用紙.svg" alt="架空の中学校の数学の期末テストの解答用紙。上に年・組・番号・氏名・得点の欄。1 は答えだけを書く計算の欄、2 は cm・cm²・度の単位を刷り込んだ欄、3 は（解）の欄に式と考え方を書き、答は右の欄に分けて書く文章題。4 は線分 AB の垂直二等分線の作図で、A と B を中心にかいたコンパスの弧が交わる点 P・Q を結び、作図に使った弧を消さずに残した記入例。5 は原点 O と x 軸・y 軸と 1 目盛り 1 の方眼に、格子点 (0, 1) と (2, 2) を打って y = (1/2)x + 1 の直線を引いた記入例。6 は仮定・結論・証明の欄。下に、根号の中は最も小さい自然数・分数は約分・分母の有理化・円周率は π・作図の線は消さない・求め方を書く欄、という入試の注意を出典の県と並べた"></picture><figcaption>数学の期末テストの解答用紙（答えだけの欄・求め方の欄・作図・グラフ・証明。作図とグラフは記入例つき）</figcaption></figure>
+    <figure data-cat="manabi"><picture><source srcset="gallery/413-英語の期末テストの解答用紙-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1684" height="1189" src="gallery/413-英語の期末テストの解答用紙.svg" alt="架空の中学校の英語の期末テストの解答用紙。上から、記号で答えるリスニングの欄（放送の回数は問題ごとに放送で言う）、ア〜オを並べた順に記号を書く並べかえの欄、4 本ずつの罫が 3 段ある英作文の欄と語数を書く欄。英作文には 12 語の記入例を添え、短縮形 I'm は 1 語、コンマとピリオドは数えないと示した。その下に英語を書く 4 線を大きく描き、上からアセンダライン・ミーンライン・基線（太線）・ディセンダラインと名前を付け、大文字・a c e などの小文字・b d f h k l・g j p q y がどの線からどの線まで入るかを縦の帯で示した。下に書くときの決まりの一覧"></picture><figcaption>英語の期末テストの解答用紙（4 線の罫・並べかえ・語数を数える英作文）</figcaption></figure>
+    <figure data-cat="manabi"><picture><source srcset="gallery/414-理科の期末テストの解答用紙-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1718" height="1213" src="gallery/414-理科の期末テストの解答用紙.svg" alt="架空の中学校の理科の期末テストの解答用紙。上に年・組・番号・氏名・得点の欄、大問ごとに小計と配点の欄。1 は記号・語句を答えだけ書く欄。2 はグラフの記入例で、横軸に電圧〔V〕、縦軸に電流〔A〕をとった方眼に測定値を黒丸で打ち、折れ線にせず原点を通る直線を枠の端まで引いた。3 は回路図の記入例で、電源装置（長い線が＋極）・スイッチ・電熱線（長方形）をつなぎ、電流計Ⓐを直列に、電圧計Ⓥを電熱線に並列につないだ。4 は化学式と化学反応式の欄で、記入例 2H₂ ＋ O₂ → 2H₂O。5 は理由を書く記述欄。下にグラフのかき方・単位の〔 〕・電気用図記号の注意"></picture><figcaption>理科の期末テストの解答用紙（点で打って直線を引くグラフ・電気用図記号の回路図・化学反応式）</figcaption></figure>
+    <figure data-cat="manabi"><picture><source srcset="gallery/415-社会の期末テストの解答用紙-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1407" height="994" src="gallery/415-社会の期末テストの解答用紙.svg" alt="架空の中学校の社会の期末テストの解答用紙。上に年・組・番号・氏名・得点（／100）の欄と、漢字の指定・字数の数え方・並べかえの書き方の注意 3 行。1 地理は架空の島の略地図に方位記号と A〜D の点、記号・漢字・すべて選ぶの欄。2 歴史は 8〜19 世紀を 1 目盛り 1 世紀にした年表に空欄 ①〜③ と X の期間の矢印、ア〜エを古い順に左から書く 4 つの枠を → でつないだ欄。3 公民は漢字の欄・記号の欄・両方正しいときだけ正答になる あ・い の欄。4 は資料 2 つを読み取って 40 字以上 60 字以内で書く 20 マス × 3 行のマス目。大問ごとに小計と配点（25・30・20・25）"></picture><figcaption>社会の期末テストの解答用紙（略地図の記号・年表・古い順の並べかえ・字数を数える記述）</figcaption></figure>
     <figure data-cat="manabi"><picture><source srcset="gallery/402-時差の世界地図-経度の帯と国が決めた時-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1010" height="1082" src="gallery/402-時差の世界地図-経度の帯と国が決めた時.svg" alt="太平洋を真ん中に置いた世界地図に、経度 15° ごとの時差の帯（−2〜±12〜−3）を破線で引き、20 都市の実際の標準時を札で置いた図。経度どおりは白、国で決めて 1 時間以上ずれる所（ソウル・ラサ・マドリード・ホノルル）は青、30 分・45 分ずらす所（コルカタ +5:30・カトマンズ +5:45 など）は橙、経度 180° より東なのに日付が先の所（キリティマティ +14・アピア +13・チャタム +12:45）は紫。日本の標準時の東経 135° を赤い線で。下に都市ごとの経度・経度で決めた時差・標準時・夏時間・わけの表"></picture><figcaption>時差の世界地図（経度の帯と、国が決めた時）</figcaption></figure>
     <figure data-cat="manabi"><picture><source srcset="gallery/400-大圏航路と等角航路-東京からニューヨーク-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1089" height="828" src="gallery/400-大圏航路と等角航路-東京からニューヨーク.svg" alt="東京からニューヨークへの 2 つの道を 2 つの図法で並べた図。左のメルカトル図法では、最短の大圏航路（赤）がアラスカの上まで北へ弧を描き、方位を一定に保つ等角航路（青の点線）がまっすぐな線になる。右の東京中心の正距方位図法では逆に、大圏航路が東京から引いた直線になり、等角航路が曲がる。5,000km・10,000km の距離の輪つき。下に長さ（約 10,850km と約 12,780km）と東京を出る向きの表"></picture><figcaption>大圏航路と等角航路（地図の直線は最短とは限らない）</figcaption></figure>
     <figure data-cat="manabi"><picture><source srcset="gallery/376-水面の波の干渉-線の本数-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" decoding="async" width="1396" height="1300" src="gallery/376-水面の波の干渉-線の本数.svg" alt="同じ波を出す 2 つの波源から広がる山と谷の円と、強め合う線（腹線）5 本・弱め合う線（節線）4 本を双曲線で描いた水面の干渉の図。距離の差が波長の整数倍で強め合い、半端で弱め合うことと、線の本数が波源の間隔と波長の比で決まること（d＝2.4λ で 5 本）を表と数直線で示している"></picture><figcaption>水面の波の干渉（線の本数は、波源の間隔と波長で決まる）</figcaption></figure>
@@ -1302,6 +1336,8 @@ nodes:
     <dd>macOS と Windows（x64・ARM）です。macOS は次の版から 1 本で Apple シリコンと Intel の両方に入ります。署名はまだ無いので、受け取った機械が警告を出します。</dd>
     <dt>描いた図はほかのツールでも使えますか？</dt>
     <dd>SVG・Mermaid・draw.io・Markdown へ書き出せます。保存形式の仕様は実装から分けて公開しているので、zumen が無くなっても図は読めます。</dd>
+    <dt>印刷する紙の大きさに合わせて作れますか？</dt>
+    <dd>作れます。正本に paper: B4 のように紙を書くと、図はその紙の実寸（mm）で出て、PDF にもなります。1 px は 96 dpi なので、余白の内側の大きさ（B4 縦で 895 × 1300 px）に収めて作れば、画面で見た大きさのまま刷られます。アプリには紙の枠と印刷プレビューがあります。</dd>
   </dl>
   <p class="note">ほかの問いは <a href="https://github.com/meta-taro/zumen/issues">GitHub の Issue</a> へ。</p>
 </section>

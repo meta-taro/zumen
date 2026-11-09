@@ -1,5 +1,6 @@
 version: 1
 kind: placement
+paper: { size: B4, orient: landscape }
 title: 英語の期末テストの解答用紙（4 線の罫・並べかえ・語数を数える英作文）
 sources:
   - name: "神奈川県教育委員会「令和 6 年度 公立高等学校入学者選抜 学力検査 英語 問題」（リスニングは放送の指示にしたがう・メモ可、短縮形は 1 語・符号は語数に含めない、活字体でも筆記体でもよい）"
@@ -14,11 +15,18 @@ sources:
   - name: "宮城県総合教育センター「指導・支援アイデア 書くこと 3」（小学校外国語の資料。4 線と基線・語を 1 文字分空けて区切る・大文字で書くとき・文末の . や ?・読点の代わりの ,）"
     url: https://www.edu-c.pref.miyagi.jp/midori/gaikokugo/eigo2021/img/file213.pdf
     retrieved: 2026-11-05
+  - name: "長野県教育委員会「令和 7 年度 後期選抜 英語 解答用紙」（A3 縦。英作文の欄は罫の無い枠。大問ごとに「問 1 計」の欄）"
+    url: https://www.pref.nagano.lg.jp/kyoiku/kyogaku/saiyo-nyuushi/shiken/ko/documents/eigoyoushi.pdf
+    retrieved: 2026-11-10
+  - name: "三重県教育委員会「令和 7 年度 後期選抜 英語 解答用紙」（B4 横。英文を書く欄は 1 行ずつの枠で、4 線ではない）"
+    url: https://www.pref.mie.lg.jp/common/content/001184818.pdf
+    retrieved: 2026-11-10
 # **英語の解答用紙だけにあるのは、4 線の罫と、語数を数える欄。**
 #
 # 決まり（取得 2026-11-05）——
 # 4 線は上からアセンダライン・ミーンライン・ベースライン（基線、太線や赤線）・ディセンダライン（羽島市立中央中学校）。
 # 大文字は第 1〜第 3 線、x 高さの小文字は第 2〜第 3 線、b d f h i k l t は第 1 線まで、g j p q y は第 4 線まで。
+# 4 線の罫は学校のプリントの形。入試の解答用紙（長野県・三重県、取得 2026-11-10）は無地の枠か 1 本線。
 # 短縮形は 1 語、符号は語数に含めない（神奈川県 R6）。記入例は 12 語：I'm / going / to / visit / Kyoto / and / I / want / to / see / old / temples。
 nodes:
   - id: title
@@ -350,11 +358,11 @@ nodes:
     at: { x: 40, y: 528 }
     size: { w: 900, h: 14 }
   - id: s4
-    label: "英語を書く 4 線（解答欄の罫は、この 4 本。第 3 線は太い線や赤い線）"
+    label: "英語を書く 4 線（この様式の解答欄の罫。第 3 線は太い線や赤い線。入試の解答用紙は 4 線ではなく、無地の枠や 1 本の線（長野県・三重県））"
     marker: none
     align: left
     at: { x: 40, y: 570 }
-    size: { w: 700, h: 18 }
+    size: { w: 1100, h: 18 }
   - id: g_l1_0
     label: ""
     marker: none

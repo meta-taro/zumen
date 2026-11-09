@@ -20,6 +20,7 @@ so however many times the AI redraws, your corrections survive.
 | **A team whose architecture keeps changing** | Updating the diagram is tedious, so the diagram drifts into fiction | Say what changed; the AI updates the diagram, and the layout you tidied stays |
 | **Specialists drawing on paper, Excel or PowerPoint** (lighting plots, pallet patterns, periodontal charts, property flyers…) | No dedicated software, or it is expensive; every redraw is by hand | The AI reads 415 worked examples and draws in the same notation — symbols, dimensions, legends |
 | **Anyone writing a spec together with an AI** | Hard to check whether the AI's drawing is right, or what it changed | Every AI rewrite arrives as a **diff; nothing changes until a person presses apply** |
+| **Anyone making sheets to print and hand out** (answer sheets, notices, seating plans…) | Building the frame in Word or Excel, you only find out at print time whether it fits; an AI asked to draw one does not know the paper size | **Fix the paper first** (`paper: B4`). You know the printable area in pixels, and what fits inside prints at the size you see on screen. The app shows the paper frame and a print preview; `pnpm pdf` makes a real-size PDF |
 | **Anyone whose diagrams pile up** | A diagram saved as an image or a slide **cannot be searched by what is drawn in it** — "which of our drawings has an ammeter?" has no answer | **Search by the text inside the drawings.** Labels, notes and sources are all text, so a search for "DMX" finds the stage lighting plot even though no title says DMX. Works in the VS Code panel, the [example gallery](https://meta-taro.github.io/zumen/en/all/), over MCP, and with plain `grep` |
 
 ## What you see
@@ -31,6 +32,10 @@ so however many times the AI redraws, your corrections survive.
 **2. Load the AI's proposal — the change shows as a diff, and nothing is applied until you say so**
 
 <img src="https://meta-taro.github.io/zumen/readme/gui-diff-en.png" width="720" alt="The zumen window with a Look before applying panel on the right showing the added Stock API lines in green, above Apply to the source of truth and Cancel buttons">
+
+**3. Start from the paper — name a paper and the sheet and its printable area appear; print from the preview at that size**
+
+<img src="https://meta-taro.github.io/zumen/readme/gui-paper-en.png" width="720" alt="The zumen window with a made-up Japanese answer sheet on a white B4 landscape sheet, the printable area outlined with a dotted line">
 
 ## Try it in a minute
 
@@ -145,6 +150,7 @@ For floor plans and other placement drawings, the source can also say:
 - **Style tables** (`styles`) — rooms carry only a style name; swap the table and the same plan takes another house style
 - **Floor patterns** — `rows` (boards across), `columns` (boards lengthwise), `grid` (tiles)
 - **Screenshots with numbered callouts** (`image`, `to: { node, at }`, `callout`) — lay a PNG / JPEG / WebP capture under the drawing and point into it in the image's own pixels, so the points stay put when you scale it; the image is embedded in the SVG
+- **Paper size** (`paper: B4` / `paper: { size: A3, orient: landscape }`) — the SVG comes out at real size in mm, one pixel being a 96 dpi pixel, so you can work back from the printable area (895 × 1300 px on B4 portrait); anything that overflows is shrunk onto the one sheet and inspection says so; `pnpm pdf` makes a PDF of that sheet, and inspection warns when printed text would fall below 2.5 mm (answer sheets, notices)
 - **Sources** (`sources`) — name, retrieval date and licence are drawn along the bottom of the figure, with the URL as a link, so the attribution travels with a single SVG
 
 The full specification is [`spec/zumen-format-v1.md`](https://github.com/meta-taro/zumen/blob/develop/spec/zumen-format-v1.md).
@@ -159,7 +165,7 @@ This is **not finished software.** It is being built in the open, small step by 
 
 - Reading and writing the source, automatic layout, SVG output (light/dark)
 - Export to Mermaid, draw.io XML, and embedding into Markdown
-- A validator (172 checks) that explains, in the writer's terms, what will not be drawn —
+- A validator (174 checks) that explains, in the writer's terms, what will not be drawn —
   including one that lays the drawing out and reports labels that would collide
 - Checks that read the drawing the way a professional would: things sitting inside a door's
   swing, lines running through boxes they do not connect, rooms that cannot be reached from a
@@ -205,6 +211,7 @@ pnpm qa:verify                # read back human verification evidence (git-qa)
 
 pnpm svg examples/gallery/25-路線図.zumen.yaml out.svg
 pnpm svg examples/gallery/25-路線図.zumen.yaml out.svg --embed-font   # carry the typeface inside, so it looks the same on every device
+pnpm pdf examples/gallery/25-路線図.zumen.yaml out.pdf   # a printable PDF (real paper size when the source names a paper)
 pnpm validate examples/gallery/14-間取り.zumen.yaml
 pnpm inspect examples/gallery/14-間取り.zumen.yaml   # observations: crossings, straddles, text overlaps, print ratio
 pnpm inspect examples/gallery/*.zumen.yaml --tally   # count them up instead: which check fires, how often, where

@@ -4,6 +4,9 @@
 # feat は、使う人から見てできることが増えたものだけ（CHANGELOG の「できることが増えます」と同じ線）。内部の整理は書かない。
 # CHANGELOG の「未リリース」で増えた項目には `<!-- news: 名前 -->` を付け、ここに同じ名前の feat を置く。
 # **いちばん新しい見本がここに無いと、テストが落ちる**（test/news.test.ts）。
+2026-11-10	feat	paper	刷る紙を決められる。paper: B4 と書くと SVG が実寸の mm で出て、PDF にも書き出せる。アプリには紙の枠と印刷プレビュー	Set the paper a drawing is printed on: write paper: B4 and the SVG comes out at real size in mm, exports to PDF, and the app shows the sheet and a print preview
+2026-11-10	fix	412	証明の欄を広げ、角度の単位を「°」に。紙は A3 縦	Wider proof box and the degree sign for angles; printed on A3 portrait
+2026-11-10	fix	413	入試の解答用紙は 4 線ではない、と書き分けた。紙は B4 横	Notes that entrance-exam answer sheets do not use four-line ruling; printed on B4 landscape
 2026-11-06	feat	search	図の中の字で探せる。見本の一覧と MCP で、題に無い語（電流計・受検番号・DMX）でも、図に描いてあれば当たる	Search by the words drawn inside the diagrams: the gallery and MCP now find an example by any label on it, not just its title
 2026-11-05	new	415
 2026-11-05	new	414

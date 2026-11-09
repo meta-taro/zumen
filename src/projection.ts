@@ -144,9 +144,28 @@ export interface Projection {
    * **両方が真のときだけ、本当に直すところがある。**
    */
   tooSmallToPrint: boolean;
+  /**
+   * **刷る紙が決まっている図の紙**（`paper:`。2026-11-10）。決まっていなければ null で、
+   * `tooSmallToPrint` は A3 に収めた見積もりのまま。
+   */
+  paper: string | null;
+  /**
+   * **紙の上で、いちばん小さい字が何 mm になるか**（紙が決まっている図だけ。ほかは null）。
+   * 紙が決まっていれば `tooSmallToPrint` はこれと 2.5 mm（JIS Z 8313）を比べる。
+   */
+  printedText: number | null;
 }
 
-export function projection(width: number, height: number, smallestText: number = SMALLEST_TEXT): Projection {
+/** JIS Z 8313 の最小文字高（mm）。 */
+export const PRINT_MIN_MM = 2.5;
+
+export function projection(
+  width: number,
+  height: number,
+  smallestText: number = SMALLEST_TEXT,
+  /** 紙が決まっている図の、紙の名前と 1 px が紙の上で何 mm か。 */
+  sheet: { paper: string; mmPerPx: number } | null = null,
+): Projection {
   // **長辺ではない。** 16:9 の画面に収めたとき、縮小率を決めるほうの辺。
   const longestSide = Math.max(height, width * SCREEN_RATIO);
   const base = {
@@ -154,16 +173,20 @@ export function projection(width: number, height: number, smallestText: number =
     longestSide,
     projectionFloor: PROJECTION_FLOOR,
     printFloor: PRINT_FLOOR,
+    paper: sheet?.paper ?? null,
+    printedText: sheet === null ? null : Math.round(smallestText * sheet.mmPerPx * 100) / 100,
   };
+  // **紙が決まっていれば、見積もりではなく実寸で言う。**
+  const printed = base.printedText;
   // 空の図では割れない。**数字を作らない。**
   if (longestSide <= 0) {
-    return { ...base, textRatio: null, tooSmallToProject: false, tooSmallToPrint: false };
+    return { ...base, textRatio: null, tooSmallToProject: false, tooSmallToPrint: printed !== null && printed < PRINT_MIN_MM };
   }
   const textRatio = smallestText / longestSide;
   return {
     ...base,
     textRatio,
     tooSmallToProject: textRatio < PROJECTION_FLOOR,
-    tooSmallToPrint: textRatio < PRINT_FLOOR,
+    tooSmallToPrint: printed === null ? textRatio < PRINT_FLOOR : printed < PRINT_MIN_MM,
   };
 }

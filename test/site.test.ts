@@ -631,10 +631,16 @@ describe('入口から辿れるもの', () => {
     }
   });
 
-  it('**「画面で見る」に、アプリの窓のキャプチャが言語ごとにある**', () => {
-    for (const [name, page, prefix] of [['ja', ja, 'readme/'], ['en', en, '../readme/']] as const) {
-      const at = page.indexOf('<section id="screens">');
-      assert.ok(at > 0, `${name} に「画面で見る」が無い`);
+  it('**「画面で見る」と「刷る紙から作る」に、アプリの窓のキャプチャが言語ごとにある**', () => {
+    for (const [name, page, prefix, id] of [
+      ['ja', ja, 'readme/', 'screens'],
+      ['en', en, '../readme/', 'screens'],
+      // **刷る紙から作る**（2026-11-10）。紙の枠と印刷プレビューの画面
+      ['ja', ja, 'readme/', 'paper'],
+      ['en', en, '../readme/', 'paper'],
+    ] as const) {
+      const at = page.indexOf(`<section id="${id}">`);
+      assert.ok(at > 0, `${name} に #${id} が無い`);
       const block = page.slice(at, page.indexOf('</section>', at));
       const shots = [...block.matchAll(/<img src="([^"]+)"[^>]*alt="([^"]+)"/g)];
       assert.equal(shots.length, 2, `${name} のキャプチャが 2 枚でない`);

@@ -72,7 +72,7 @@ async function shoot(lang) {
   );
   try {
     await waitFor(`http://localhost:${CDP}/json/version`);
-    const { evaluate, capture, close, addScript, reload } = await connect();
+    const { evaluate, capture, close, addScript, reload, resize } = await connect();
     const until = async (expression, limit = 15000) => {
       const deadline = Date.now() + limit;
       while (Date.now() < deadline) {
@@ -104,8 +104,21 @@ async function shoot(lang) {
     await until(`globalThis.zumen.diff.length > 0`);
     await sleep(400);
     writeFileSync(`${SHOTS}/gui-diff-${lang}.png`, await capture());
+    // **紙から作る**（`paper:`。2026-11-10）。紙の枠を出した画面と、印刷プレビュー。
+    // 様式は日本の解答用紙なので、英語の画面でも同じ図を開く（画面の言葉だけが変わる）。
+    await resize(1280, 820);
+    await evaluate(`globalThis.zumen.load(${JSON.stringify(readFileSync(`${OUT}/paper-ja.zumen.yaml`, 'utf8'))}, ${JSON.stringify(lang === 'ja' ? '社会の解答用紙.zumen.yaml' : 'answer-sheet.zumen.yaml')})`);
+    await until(`document.querySelector('g.sheet') !== null`);
+    await evaluate(`globalThis.zumen.fit()`);
+    await sleep(400);
+    writeFileSync(`${SHOTS}/gui-paper-${lang}.png`, await capture());
+    const preview = lang === 'ja' ? '印刷プレビュー' : 'Print preview';
+    await evaluate(`[...document.querySelectorAll('button')].find((b) => b.textContent.trim() === ${JSON.stringify(preview)}).click()`);
+    await until(`document.querySelector('.preview-sheet svg') !== null`);
+    await sleep(400);
+    writeFileSync(`${SHOTS}/gui-print-${lang}.png`, await capture());
     close();
-    console.log(`${lang}: gui-open-${lang}.png / gui-diff-${lang}.png`);
+    console.log(`${lang}: gui-open-${lang}.png / gui-diff-${lang}.png / gui-paper-${lang}.png / gui-print-${lang}.png`);
   } finally {
     chrome.kill();
     await sleep(300);
@@ -158,6 +171,7 @@ async function connect() {
     },
     addScript: (source) => send('Page.addScriptToEvaluateOnNewDocument', { source }),
     reload: () => send('Page.reload', { ignoreCache: true }),
+    resize: (width, height) => send('Emulation.setDeviceMetricsOverride', { width, height, deviceScaleFactor: 1, mobile: false }),
     capture: async () => {
       const out = await send('Page.captureScreenshot', { format: 'png' });
       return Buffer.from(out.result.data, 'base64');

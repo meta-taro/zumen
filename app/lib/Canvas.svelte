@@ -11,6 +11,7 @@
   import { drawHatch } from '../../src/hatch.ts';
   import { drawOpenings } from '../../src/openings.ts';
   import { wallWidth } from '../../src/wall.ts';
+  import { pageBox, printScale, shrinkOf } from '../../src/paper.ts';
   import type { Box, Placed } from '../../src/layout.ts';
   import { messages } from '../../src/messages.ts';
   import { EDGE, GROUP, STROKE_WIDTH, TEXT, lookOf } from '../../src/tokens.ts';
@@ -37,6 +38,25 @@
   const plan = $derived(session.plan);
   const wall = $derived(plan ? wallWidth(placed.wall, placed.mm) : null);
   const outerWall = $derived(plan ? wallWidth(placed.wall, placed.mm, true) : null);
+
+  /**
+   * **刷る紙の枠**（`paper:`。2026-11-10）。紙から逆算して作るための下地。
+   *
+   * 紙は白く、刷れる所（余白の内側）を点線で囲む。図の (0, 0) が余白の左上。
+   * はみ出していれば、何 % に縮めて刷るかを紙の上に書く。**書き出しには出ない**（画面だけ）。
+   */
+  const sheet = $derived.by(() => {
+    const paper = placed.paper ?? null;
+    if (paper === null) return null;
+    const page = pageBox(paper, placed.width, placed.height);
+    const k = printScale(paper, placed.width, placed.height);
+    return {
+      page,
+      area: { w: (paper.w - paper.margin * 2) / k, h: (paper.h - paper.margin * 2) / k },
+      label: messages().app.paperFrame(paper.size, paper.orient === 'landscape' ? messages().app.landscape : messages().app.portrait, paper.margin),
+      shrink: Math.round(shrinkOf(paper, placed.width, placed.height) * 100),
+    };
+  });
 
   /** その箱の枠の太さ。**壁の厚みは「人が置いた印」より優先する。** */
   function edge(box: Box): number {
@@ -232,6 +252,16 @@
   </defs>
 
   <g transform="translate({session.panX} {session.panY}) scale({session.zoom})">
+    {#if sheet !== null}
+      <g class="sheet" pointer-events="none">
+        <rect x={sheet.page.x} y={sheet.page.y} width={sheet.page.w} height={sheet.page.h} fill="#ffffff" stroke="#c8c8d0" stroke-width="1" />
+        <rect x="0" y="0" width={sheet.area.w} height={sheet.area.h} fill="none" stroke="#9b9ba5" stroke-width="1" stroke-dasharray="6 4" />
+        <text x={sheet.page.x} y={sheet.page.y - 8} font-size="12" fill={TEXT.edge}>{sheet.label}</text>
+        {#if sheet.shrink < 100}
+          <text x={sheet.page.x + sheet.page.w} y={sheet.page.y - 8} text-anchor="end" font-size="12" font-weight="700" fill="var(--warning-fg)">{messages().app.paperOverflow(sheet.shrink)}</text>
+        {/if}
+      </g>
+    {/if}
     {#each placed.groups as group (group.id)}
       <g>
         <rect

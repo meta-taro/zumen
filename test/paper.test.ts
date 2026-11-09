@@ -58,9 +58,13 @@ function sheets(): Sheet[] {
   const out: Sheet[] = [];
   for (const name of readdirSync(DIR).filter((f) => f.endsWith('.svg'))) {
     const body = readFileSync(`${DIR}/${name}`, 'utf8');
-    const found = /viewBox="0 0 ([\d.]+) ([\d.]+)"/.exec(body);
+    // **図そのものの viewBox を読む**（`<defs>` の矢印の印の viewBox を拾わない）。
+    // 紙を決めた図（`paper:`）は、viewBox が余白のぶん負から始まる —— 紙の右下まで見る。
+    const head = /<svg\b[^>]*>/.exec(body)?.[0] ?? '';
+    const found = /viewBox="([-\d.]+) ([-\d.]+) ([\d.]+) ([\d.]+)"/.exec(head);
     if (found === null) continue;
-    out.push({ name, body, w: Number(found[1]), h: Number(found[2]) });
+    const [x, y, w, h] = found.slice(1).map(Number) as [number, number, number, number];
+    out.push({ name, body, w: x + w, h: y + h });
   }
   return out;
 }
