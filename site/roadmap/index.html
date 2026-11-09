@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>zumen のロードマップ — 済んだこと・いま・次・作らないもの</title>
+<link rel="icon" type="image/svg+xml" href="../icon.svg">
+<meta name="theme-color" content="#23232b">
+<meta name="description" content="zumen がどこまで来て、次に何をして、何を作らないか。人の手直しが再生成で壊れないことを最初に測り、成り立ったので続けています。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="zumen">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:url" content="https://meta-taro.github.io/zumen/roadmap/">
+<meta property="og:title" content="zumen のロードマップ — 済んだこと・いま・次・作らないもの">
+<meta property="og:description" content="zumen がどこまで来て、次に何をして、何を作らないか。人の手直しが再生成で壊れないことを最初に測り、成り立ったので続けています。">
+<meta property="og:image" content="https://meta-taro.github.io/zumen/og.png">
+<meta property="og:image:alt" content="歯周チャートと路線図。どちらも zumen が YAML から描いたもの。">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="zumen のロードマップ — 済んだこと・いま・次・作らないもの">
+<meta name="twitter:description" content="zumen がどこまで来て、次に何をして、何を作らないか。人の手直しが再生成で壊れないことを最初に測り、成り立ったので続けています。">
+<meta name="twitter:image" content="https://meta-taro.github.io/zumen/og.png">
+<meta name="twitter:image:alt" content="歯周チャートと路線図。どちらも zumen が YAML から描いたもの。">
+<link rel="stylesheet" href="../style.css">
+<link rel="canonical" href="https://meta-taro.github.io/zumen/roadmap/">
+<link rel="alternate" hreflang="ja" href="https://meta-taro.github.io/zumen/roadmap/">
+<link rel="alternate" hreflang="en" href="https://meta-taro.github.io/zumen/en/roadmap/">
+<link rel="alternate" hreflang="x-default" href="https://meta-taro.github.io/zumen/roadmap/">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="alternate" type="text/markdown" href="https://meta-taro.github.io/zumen/llms.txt" title="llms.txt">
+<link rel="sitemap" type="application/xml" href="https://meta-taro.github.io/zumen/sitemap.xml">
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "zumen のロードマップ — 済んだこと・いま・次・作らないもの",
+    "description": "zumen がどこまで来て、次に何をして、何を作らないか。人の手直しが再生成で壊れないことを最初に測り、成り立ったので続けています。",
+    "url": "https://meta-taro.github.io/zumen/roadmap/",
+    "inLanguage": "ja"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "zumen",
+        "item": "https://meta-taro.github.io/zumen/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "ロードマップ"
+      }
+    ]
+  }
+]
+</script>
+</head>
+<body class="sub">
+<header class="bar">
+  <!--
+    パンくず（2026-09-24）。入口から現在地まで一本で出す。
+    aria-label を付けて、読み上げでも「ここは道案内」と分かるようにする。
+    区切りの記号は aria-hidden（読み上げると邪魔なだけ）。
+  -->
+  <nav class="crumbs" aria-label="パンくず">
+    <a class="home" href="../">zumen</a>
+  </nav>
+</header>
+<main>
+<article class="roadmap">
+  <h1>ロードマップ</h1>
+  <p class="lead">どこまで来て、次に何をして、何を作らないか。<b>約束ではなく、いまの見取り図です。</b></p>
+  <h2>続けるかどうかの判断</h2>
+  <p>最初に 1 本の線だけを測りました ── <b>文章で頼む → 図が出る → 人が 1 か所だけ直す → もう一度頼む → 直した分が壊れない。</b>ここが成り立たなければ、ほかが全部できても使う理由が無いので畳む、と決めて始めました。測って成り立ったので、続けています。</p>
+  <div class="map">
+    <div>
+      <h2>済んだこと</h2>
+      <ul>
+        <li>人が直した位置（pins）が、AI の描き直しで壊れない</li>
+        <li>保存形式を決めた ── 正本は 1 枚の YAML。仕様は実装から分けて公開</li>
+        <li>デスクトップアプリ（macOS・Windows の x64 と ARM）</li>
+        <li>MCP サーバー ── AI エージェントが仕様と見本を読んで描ける</li>
+        <li>SVG・Mermaid・draw.io・Markdown への書き出し</li>
+        <li>専門図面の見本。分野ごとに一次資料で確かめ、分野の目で見直す</li>
+        <li>図の中に描いた字で、見本を探せる</li>
+      </ul>
+    </div>
+    <div>
+      <h2>いま</h2>
+      <ul>
+        <li>見本を増やす ── 世の中にある専門図面を先に調べ、決まりを対照表にしてから描く</li>
+        <li>描いた見本を、その分野の目で 2〜3 回見直す</li>
+      </ul>
+    </div>
+    <div>
+      <h2>次</h2>
+      <ul>
+        <li>macOS を 1 本で Apple シリコンと Intel の両方に（次の版から）</li>
+      </ul>
+    </div>
+    <div>
+      <h2>分かっている限界</h2>
+      <ul>
+        <li>自動レイアウトは、節が 30 を超えると印刷でも字が読めない。図を分ける仕組みはまだ無い</li>
+        <li>体に巻きつく帯（テーピング・ロープの結索）は描けない。線に幅を持たせる手段と、裏へ回る部分を表す手段が要る</li>
+        <li>署名していない。受け取った機械が警告を出す</li>
+      </ul>
+    </div>
+  </div>
+  <h2>作らないもの</h2>
+  <ul>
+    <li><b>図形の網羅を追いません。</b>図形の種類は 11 語のまま。専門性は形ではなく符号（<code>tag</code>）で表します</li>
+    <li><b>業界ごとの専用の描き手を作りません。</b>同じ描画の仕組みと少しの部品で、どこまで違う図が描けるかを追います</li>
+    <li><b>全自動で終わらせません。</b>人が直す往復を残すこと自体が目的です</li>
+    <li><b>リアルタイムの共同編集・Web 版・他形式の取り込みを先に作りません。</b></li>
+    <li><b>ベンダーのロゴを持ち込みません。</b>AWS のアイコンを使うと「AWS 上にある」と読まれます</li>
+  </ul>
+  <p class="note">もとの文書：<a href="https://github.com/meta-taro/zumen#readme">README</a>・<a href="https://github.com/meta-taro/zumen/blob/develop/CHANGELOG.md">変更の記録</a></p>
+</article>
+</main>
+<footer class="foot">
+  <p><a href="https://github.com/meta-taro/zumen">GitHub</a> · MIT · <a href="https://meta-taro.github.io/zumen/en/roadmap/">English</a></p>
+</footer>
+</body>
+</html>

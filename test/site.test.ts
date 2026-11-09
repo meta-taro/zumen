@@ -566,3 +566,84 @@ describe('徘徊の道', () => {
     assert.deepEqual(dirty.slice(0, 5), []);
   });
 });
+
+/**
+ * **ダウンロード・過去の版・ロードマップ・よくある質問**（2026-11-09）。
+ * OSS の紹介ページの決まり（姉妹の tadori と揃える）から、zumen に足りなかった分。
+ */
+describe('入口から辿れるもの', () => {
+  const read = (path: string): string => readFileSync(path, 'utf8');
+
+  it('**3 枚が日英とも在り、sitemap に載っている**', () => {
+    const sitemap = read('site/sitemap.xml');
+    for (const page of ['download', 'releases', 'roadmap']) {
+      for (const [dir, url] of [['site', `https://meta-taro.github.io/zumen/${page}/`], ['site/en', `https://meta-taro.github.io/zumen/en/${page}/`]] as const) {
+        assert.ok(existsSync(`${dir}/${page}/index.html`), `${dir}/${page} が無い`);
+        assert.ok(sitemap.includes(`<loc>${url}</loc>`), `sitemap に ${url} が無い`);
+      }
+    }
+  });
+
+  it('**入口のダウンロードは、この PC 向けのページへ行く**', () => {
+    for (const [name, page, js] of [['ja', ja, 'download.js'], ['en', en, '../download.js']] as const) {
+      assert.match(page, /<a class="btn primary" href="download\/" data-hero-download>/, `${name} のボタンがダウンロードのページへ行かない`);
+      assert.ok(page.includes(`<script src="${js}" defer></script>`), `${name} が download.js を読んでいない`);
+    }
+    for (const path of ['site/download/index.html', 'site/en/download/index.html']) {
+      const html = read(path);
+      const kinds = [...html.matchAll(/data-kind="([a-z0-9-]+)"/g)].map((m) => m[1]);
+      assert.deepEqual(kinds, ['mac-arm', 'mac-intel', 'win-x64', 'win-arm'], `${path} の欄が OS と CPU で揃っていない`);
+      // **JS が無くても、リリースのページへは行ける。**
+      assert.ok(html.includes('https://github.com/meta-taro/zumen/releases/latest'), `${path} に JS 無しの道が無い`);
+      // **版数を書かない**（書いた翌日に古くなる）。
+      assert.doesNotMatch(html, /v?\d+\.\d+\.\d+/, `${path} に版数が書いてある`);
+    }
+  });
+
+  /**
+   * **配布物の名前の読み方が、実際の名前に合っている。**
+   * v0.7.0 の名前と、次の版（universal）の名前で確かめる。
+   */
+  it('**download.js が、OS と CPU ごとに配布物を振り分ける**', () => {
+    const src = read('site/download.js');
+    const body = src.match(/const KINDS = (\[[\s\S]*?\n {2}\]);/)?.[1];
+    assert.ok(body, 'download.js に KINDS が無い');
+    const kinds = new Function('ja', `return ${body}`)(true) as { id: string; test: (n: string, uni: boolean) => boolean }[];
+    const pick = (names: string[]) => {
+      const uni = names.some((n) => /universal\.dmg$/i.test(n));
+      return Object.fromEntries(kinds.map((k) => [k.id, names.filter((n) => k.test(n, uni))]));
+    };
+    const now = pick(['zumen-macos-app.tar.gz', 'zumen-windows-arm64.exe', 'zumen-windows-x64.exe', 'zumen_0.7.0_aarch64.dmg', 'zumen_0.7.0_arm64-setup.exe', 'zumen_0.7.0_arm64_en-US.msi', 'zumen_0.7.0_x64-setup.exe', 'zumen_0.7.0_x64_en-US.msi']);
+    assert.deepEqual(now['mac-arm'], ['zumen-macos-app.tar.gz', 'zumen_0.7.0_aarch64.dmg']);
+    assert.deepEqual(now['mac-intel'], [], 'Apple シリコン用だけの版で、Intel の欄に出している');
+    assert.deepEqual(now['win-x64'], ['zumen-windows-x64.exe', 'zumen_0.7.0_x64-setup.exe', 'zumen_0.7.0_x64_en-US.msi']);
+    assert.deepEqual(now['win-arm'], ['zumen-windows-arm64.exe', 'zumen_0.7.0_arm64-setup.exe', 'zumen_0.7.0_arm64_en-US.msi']);
+    const next = pick(['zumen-macos-app.tar.gz', 'zumen_0.8.0_universal.dmg']);
+    assert.deepEqual(next['mac-arm'], next['mac-intel'], 'universal の版で、Apple シリコンと Intel の欄が違う');
+    assert.equal(next['mac-intel']?.length, 2);
+  });
+
+  it('**「zumen とは」を言い切る段落が、冒頭にある**', () => {
+    for (const [name, page, head] of [['ja', ja, 'zumen とは'], ['en', en, 'What is zumen?']] as const) {
+      const what = page.indexOf(`<h2>${head}</h2>`);
+      assert.ok(what > 0, `${name} に「${head}」が無い`);
+      assert.ok(what < page.indexOf('<h2>', page.indexOf('<section') + 1) + 1, `${name} の「${head}」が最初の節でない`);
+    }
+  });
+
+  it('**よくある質問は、構造化データと見える文が同じ**', () => {
+    for (const [name, page] of [['ja', ja], ['en', en]] as const) {
+      const block = /<script type="application\/ld\+json">([\s\S]*?)<\/script>/.exec(page)?.[1] ?? '{}';
+      const faq = (JSON.parse(block) as { '@graph': { '@type': string; mainEntity?: { name: string; acceptedAnswer: { text: string } }[] }[] })['@graph'].find((g) => g['@type'] === 'FAQPage');
+      assert.ok(faq?.mainEntity?.length, `${name} に FAQPage が無い`);
+      const seen = [...page.matchAll(/<dt>([^<]+)<\/dt>\s*<dd>([^<]+)<\/dd>/g)].map((m) => [m[1], m[2]]);
+      assert.deepEqual(faq.mainEntity.map((q) => [q.name, q.acceptedAnswer.text]), seen, `${name} の FAQPage と見える質問が食い違う`);
+    }
+  });
+
+  /** **古い「しないこと」を残さない。** 平面図は寸法つきで描いているのに「縮尺のある図をやりません」と書いてあった。 */
+  it('**しないことに、もう描いているものを書いていない**', () => {
+    assert.doesNotMatch(ja, /縮尺のある図をやりません/);
+    assert.doesNotMatch(en, /does not place things for you in scaled drawings/);
+  });
+});
