@@ -20,7 +20,8 @@
   const cards = [...document.querySelectorAll('.cards > li[data-name]')];
   const fields = [...document.querySelectorAll('.field')];
   const total = cards.length;
-  const unit = hit.textContent.replace(/^\d+\s*/, '');
+  // **単位は前の空白ごと持つ**（「13枚」と詰まっていた）。
+  const unit = hit.textContent.replace(/^\d+/, '');
   let inside = {};
   let asked = false;
   const load = () => {
@@ -54,7 +55,8 @@
       const count = field.querySelector('h2 small');
       if (count !== null) count.textContent = String(live.length);
     }
-    hit.textContent = `${shown}${unit}`;
+    // **絞ったときは、全体の何枚中かも出す。** 見出しの「415 枚」と並ぶと、13 だけでは食い違って見える。
+    hit.textContent = words.length === 0 ? `${total}${unit}` : `${shown} / ${total}${unit}`;
   };
 
   // **入口の検索欄から来たら、その字で絞る**（`?q=`。2026-11-07）。
