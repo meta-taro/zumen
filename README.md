@@ -20,6 +20,7 @@ so however many times the AI redraws, your corrections survive.
 | **A team whose architecture keeps changing** | Updating the diagram is tedious, so the diagram drifts into fiction | Say what changed; the AI updates the diagram, and the layout you tidied stays |
 | **Specialists drawing on paper, Excel or PowerPoint** (lighting plots, pallet patterns, periodontal charts, property flyers…) | No dedicated software, or it is expensive; every redraw is by hand | The AI reads 415 worked examples and draws in the same notation — symbols, dimensions, legends |
 | **Anyone writing a spec together with an AI** | Hard to check whether the AI's drawing is right, or what it changed | Every AI rewrite arrives as a **diff; nothing changes until a person presses apply** |
+| **Anyone making sheets to print and hand out** (answer sheets, notices, seating plans…) | Building the frame in Word or Excel, you only find out at print time whether it fits; an AI asked to draw one does not know the paper size | **Fix the paper first** (`paper: B4`). You know the printable area in pixels, and what fits inside prints at the size you see on screen. The app shows the paper frame and a print preview; `pnpm pdf` makes a real-size PDF |
 | **Anyone whose diagrams pile up** | A diagram saved as an image or a slide **cannot be searched by what is drawn in it** — "which of our drawings has an ammeter?" has no answer | **Search by the text inside the drawings.** Labels, notes and sources are all text, so a search for "DMX" finds the stage lighting plot even though no title says DMX. Works in the VS Code panel, the [example gallery](https://meta-taro.github.io/zumen/en/all/), over MCP, and with plain `grep` |
 
 ## What you see
@@ -31,6 +32,10 @@ so however many times the AI redraws, your corrections survive.
 **2. Load the AI's proposal — the change shows as a diff, and nothing is applied until you say so**
 
 <img src="https://meta-taro.github.io/zumen/readme/gui-diff-en.png" width="720" alt="The zumen window with a Look before applying panel on the right showing the added Stock API lines in green, above Apply to the source of truth and Cancel buttons">
+
+**3. Start from the paper — name a paper and the sheet and its printable area appear; print from the preview at that size**
+
+<img src="https://meta-taro.github.io/zumen/readme/gui-paper-en.png" width="720" alt="The zumen window with a made-up Japanese answer sheet on a white B4 landscape sheet, the printable area outlined with a dotted line">
 
 ## Try it in a minute
 

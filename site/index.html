@@ -139,6 +139,14 @@
             "@type": "Answer",
             "text": "SVG・Mermaid・draw.io・Markdown へ書き出せます。保存形式の仕様は実装から分けて公開しているので、zumen が無くなっても図は読めます。"
           }
+        },
+        {
+          "@type": "Question",
+          "name": "印刷する紙の大きさに合わせて作れますか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "作れます。正本に paper: B4 のように紙を書くと、図はその紙の実寸（mm）で出て、PDF にもなります。1 px は 96 dpi なので、余白の内側の大きさ（B4 縦で 895 × 1300 px）に収めて作れば、画面で見た大きさのまま刷られます。アプリには紙の枠と印刷プレビューがあります。"
+          }
         }
       ]
     }
@@ -193,6 +201,7 @@
     <b>zumen は、1 枚の YAML（テキスト）を正本にして専門図面を描く、デスクトップの作図ツールです。</b>
     AI エージェントが MCP で図を描き、人が手で直し、<b>その直しは次の生成でも壊れません。</b>
     構成図だけでなく、間取り・照明の仕込図・歯周チャート・路線図のような、業界の人が実務で使う図を同じ仕組みで描きます。
+    解答用紙や掲示物のように刷って配る図は、A3・B4 などの紙を決めて、その実寸で作れます。
     macOS と Windows で動き、MIT ライセンスで無料です。
   </p>
 </section>
@@ -220,6 +229,31 @@
     <figure>
       <img src="readme/gui-diff-ja.png" width="1280" height="473" loading="lazy" decoding="async" alt="zumen の画面。右に「入れる前に見る」の欄があり、AI が足した「在庫 API」の行が緑で出ている。下に「正本へ入れる」と「やめる」のボタン">
       <figcaption><b>AI の書き換えは、入れる前に差分で見ます。</b>「在庫 API」を足す提案が緑の行で出ていて、「正本へ入れる」を押すまで図は変わりません。</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- **紙から作る**（2026-11-10）。刷って配る図は、紙の大きさが先に決まる。 -->
+<section id="paper">
+  <h2>刷る紙から作る</h2>
+  <p>
+    解答用紙・掲示物・配席表のように<b>刷って配る図は、紙の大きさが先に決まっています。</b>
+    正本に <code>paper: B4</code> と 1 行書くと、図はその紙の実寸（mm）で出て、PDF にもなります。
+  </p>
+  <ul>
+    <li><b>余白の内側が何 px かが先に分かります</b>（B4 縦で 895 × 1300 px）。1 px は画面と同じ 96 dpi なので、枠に収めて作れば、画面で見た大きさのまま刷られます</li>
+    <li><b>アプリには紙と刷れる所の枠が出て、印刷プレビューから刷れます</b></li>
+    <li><b>はみ出したら、縮めて 1 枚に収めたうえで言います</b>（何 % に縮めたか）。紙の上で字が 2.5 mm を割るときも言います</li>
+    <li>紙は A3・A4・A5・B4・B5・Letter・Legal・Tabloid、縦と横。AI エージェントも MCP の検査で枠の大きさを受け取り、紙に合わせて描きます</li>
+  </ul>
+  <div class="shots">
+    <figure>
+      <img src="readme/gui-paper-ja.png" width="1280" height="820" loading="lazy" decoding="async" alt="zumen の画面。B4 横の白い紙の上に社会の解答用紙（架空の様式）が開いていて、刷れる所が点線で囲まれ、左上に「B4 横・余白 10 mm」と出ている">
+      <figcaption><b>紙の枠の中で作ります。</b>白い所が B4 横の紙、点線の内側が刷れる所です。</figcaption>
+    </figure>
+    <figure>
+      <img src="readme/gui-print-ja.png" width="1280" height="820" loading="lazy" decoding="async" alt="zumen の印刷プレビュー。暗くした画面の上に、刷られる B4 横の解答用紙が 1 枚そのまま出ていて、右上に「印刷」と「閉じる」のボタン">
+      <figcaption><b>刷られる 1 枚を、そのまま見てから刷ります。</b><code>pnpm pdf</code> や MCP でも、同じ大きさの PDF になります。</figcaption>
     </figure>
   </div>
 </section>
@@ -1302,6 +1336,8 @@ nodes:
     <dd>macOS と Windows（x64・ARM）です。macOS は次の版から 1 本で Apple シリコンと Intel の両方に入ります。署名はまだ無いので、受け取った機械が警告を出します。</dd>
     <dt>描いた図はほかのツールでも使えますか？</dt>
     <dd>SVG・Mermaid・draw.io・Markdown へ書き出せます。保存形式の仕様は実装から分けて公開しているので、zumen が無くなっても図は読めます。</dd>
+    <dt>印刷する紙の大きさに合わせて作れますか？</dt>
+    <dd>作れます。正本に paper: B4 のように紙を書くと、図はその紙の実寸（mm）で出て、PDF にもなります。1 px は 96 dpi なので、余白の内側の大きさ（B4 縦で 895 × 1300 px）に収めて作れば、画面で見た大きさのまま刷られます。アプリには紙の枠と印刷プレビューがあります。</dd>
   </dl>
   <p class="note">ほかの問いは <a href="https://github.com/meta-taro/zumen/issues">GitHub の Issue</a> へ。</p>
 </section>

@@ -1,0 +1,1030 @@
+# README・LP の「紙から作る」の画面に使う（見本 415 から出典の行を外したもの。架空の様式）。
+# 出典つきの正本は examples/gallery/415-社会の期末テストの解答用紙.zumen.yaml。
+version: 1
+kind: placement
+paper: { size: B4, orient: landscape }
+title: 社会の期末テストの解答用紙（略地図の記号・年表・古い順の並べかえ・字数を数える記述。見本のため地理・歴史・公民を 1 枚に）
+# **社会の解答用紙は、地図と年表の上で答える。** 記号・漢字・並べかえ・字数の指定が、問いごとに違う。
+#
+# 決まり（長野県 令和 7 年度 後期選抜 社会、取得 2026-11-05）——
+# 漢字で書くよう指示された問いは漢字で。指示が無ければ、漢字の部分をひらがなで書いてもよい。
+# 字数を指定された答えは、句読点・カギ括弧も 1 字に数える。並べかえは古い順に左から記号を書く（欄は → でつなぐ）。
+# 複数の小問をあわせて配点するものは、すべて正しいときだけ正答。
+# 様式・地図の形・問いはすべて架空。実在の地図の輪郭はなぞっていない。
+nodes:
+  - id: title
+    label: "社会 期末テスト 解答用紙（架空の様式）"
+    marker: none
+    align: left
+    at: { x: 40, y: 30 }
+    size: { w: 400, h: 22 }
+  - id: hk_年
+    label: "年"
+    marker: box
+    at: { x: 470, y: 26 }
+    size: { w: 44, h: 30 }
+  - id: hv_年
+    label: ""
+    marker: box
+    at: { x: 514, y: 26 }
+    size: { w: 40, h: 30 }
+  - id: hk_組
+    label: "組"
+    marker: box
+    at: { x: 554, y: 26 }
+    size: { w: 44, h: 30 }
+  - id: hv_組
+    label: ""
+    marker: box
+    at: { x: 598, y: 26 }
+    size: { w: 40, h: 30 }
+  - id: hk_番号
+    label: "番号"
+    marker: box
+    at: { x: 638, y: 26 }
+    size: { w: 52, h: 30 }
+  - id: hv_番号
+    label: ""
+    marker: box
+    at: { x: 690, y: 26 }
+    size: { w: 48, h: 30 }
+  - id: hk_氏名
+    label: "氏名"
+    marker: box
+    at: { x: 738, y: 26 }
+    size: { w: 52, h: 30 }
+  - id: hv_氏名
+    label: ""
+    marker: box
+    at: { x: 790, y: 26 }
+    size: { w: 190, h: 30 }
+  - id: hk_得点
+    label: "得点"
+    marker: box
+    at: { x: 980, y: 26 }
+    size: { w: 52, h: 30 }
+  - id: hv_得点
+    label: ""
+    marker: box
+    at: { x: 1032, y: 26 }
+    size: { w: 100, h: 30 }
+  - id: score100
+    label: "／100"
+    marker: none
+    align: right
+    at: { x: 1080, y: 40 }
+    size: { w: 48, h: 14 }
+  - id: n0
+    label: "注意 1　「漢字で」と指示された問いは漢字で書く。指示が無ければ、漢字の部分をひらがなで書いてもよい。"
+    marker: none
+    align: left
+    at: { x: 40, y: 72 }
+    size: { w: 1080, h: 16 }
+  - id: n1
+    label: "注意 2　字数を指定された問いは、句読点・カギ括弧（「 や 『）も 1 字に数える。"
+    marker: none
+    align: left
+    at: { x: 40, y: 92 }
+    size: { w: 1080, h: 16 }
+  - id: n2
+    label: "問いの文の例　「古い順になるように左から並べて、記号を書きなさい」「すべて選び、記号を書きなさい」「数字の場合は 1 字 1 マス使うこと」"
+    marker: none
+    align: left
+    at: { x: 40, y: 112 }
+    size: { w: 1080, h: 16 }
+  - id: n3
+    label: "見本のため地理・歴史・公民を 1 枚にした。決まりは長野県のもので、県ごとに違う（神奈川県 令和 7 年度はマークシートで、並べかえも選ぶ形）。"
+    marker: none
+    align: left
+    at: { x: 40, y: 132 }
+    size: { w: 1080, h: 16 }
+  - id: s1
+    label: ""
+    marker: box
+    at: { x: 40, y: 164 }
+    size: { w: 520, h: 344 }
+  - id: s1_t
+    label: "1　地理（略地図）"
+    marker: none
+    align: left
+    at: { x: 50, y: 172 }
+    size: { w: 300, h: 18 }
+  - id: s1_sk
+    label: "小計"
+    marker: box
+    at: { x: 428, y: 170 }
+    size: { w: 44, h: 22 }
+  - id: s1_sv
+    label: ""
+    marker: box
+    at: { x: 472, y: 170 }
+    size: { w: 40, h: 22 }
+  - id: s1_pt
+    label: "／25"
+    marker: none
+    align: right
+    at: { x: 514, y: 172 }
+    size: { w: 40, h: 18 }
+  - id: s2
+    label: ""
+    marker: box
+    at: { x: 580, y: 164 }
+    size: { w: 540, h: 344 }
+  - id: s2_t
+    label: "2　歴史（年表・並べかえ）"
+    marker: none
+    align: left
+    at: { x: 590, y: 172 }
+    size: { w: 300, h: 18 }
+  - id: s2_sk
+    label: "小計"
+    marker: box
+    at: { x: 988, y: 170 }
+    size: { w: 44, h: 22 }
+  - id: s2_sv
+    label: ""
+    marker: box
+    at: { x: 1032, y: 170 }
+    size: { w: 40, h: 22 }
+  - id: s2_pt
+    label: "／30"
+    marker: none
+    align: right
+    at: { x: 1074, y: 172 }
+    size: { w: 40, h: 18 }
+  - id: s3
+    label: ""
+    marker: box
+    at: { x: 40, y: 524 }
+    size: { w: 520, h: 236 }
+  - id: s3_t
+    label: "3　公民"
+    marker: none
+    align: left
+    at: { x: 50, y: 532 }
+    size: { w: 300, h: 18 }
+  - id: s3_sk
+    label: "小計"
+    marker: box
+    at: { x: 428, y: 530 }
+    size: { w: 44, h: 22 }
+  - id: s3_sv
+    label: ""
+    marker: box
+    at: { x: 472, y: 530 }
+    size: { w: 40, h: 22 }
+  - id: s3_pt
+    label: "／20"
+    marker: none
+    align: right
+    at: { x: 514, y: 532 }
+    size: { w: 40, h: 18 }
+  - id: s4
+    label: ""
+    marker: box
+    at: { x: 580, y: 524 }
+    size: { w: 540, h: 236 }
+  - id: s4_t
+    label: "4　資料を読み取って書く"
+    marker: none
+    align: left
+    at: { x: 590, y: 532 }
+    size: { w: 300, h: 18 }
+  - id: s4_sk
+    label: "小計"
+    marker: box
+    at: { x: 988, y: 530 }
+    size: { w: 44, h: 22 }
+  - id: s4_sv
+    label: ""
+    marker: box
+    at: { x: 1032, y: 530 }
+    size: { w: 40, h: 22 }
+  - id: s4_pt
+    label: "／25"
+    marker: none
+    align: right
+    at: { x: 1074, y: 532 }
+    size: { w: 40, h: 18 }
+  - id: m_frame
+    label: ""
+    marker: box
+    at: { x: 60, y: 204 }
+    size: { w: 300, h: 220 }
+  - id: m_cap
+    label: "略地図（架空。実在の地形ではない）"
+    marker: none
+    align: left
+    at: { x: 60, y: 430 }
+    size: { w: 300, h: 14 }
+  - id: north_n
+    label: "N"
+    marker: none
+    align: center
+    at: { x: 332, y: 206 }
+    size: { w: 16, h: 14 }
+  - id: pt_A
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 146, y: 296 }
+    size: { w: 8, h: 8 }
+  - id: ptl_A
+    label: "A"
+    marker: none
+    align: left
+    at: { x: 156, y: 291 }
+    size: { w: 16, h: 16 }
+  - id: pt_B
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 228, y: 266 }
+    size: { w: 8, h: 8 }
+  - id: ptl_B
+    label: "B"
+    marker: none
+    align: left
+    at: { x: 238, y: 261 }
+    size: { w: 16, h: 16 }
+  - id: pt_C
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 286, y: 350 }
+    size: { w: 8, h: 8 }
+  - id: ptl_C
+    label: "C"
+    marker: none
+    align: left
+    at: { x: 296, y: 345 }
+    size: { w: 16, h: 16 }
+  - id: pt_D
+    label: ""
+    marker: circle
+    hatch: solid
+    at: { x: 182, y: 368 }
+    size: { w: 8, h: 8 }
+  - id: ptl_D
+    label: "D"
+    marker: none
+    align: left
+    at: { x: 192, y: 363 }
+    size: { w: 16, h: 16 }
+  - id: a1_1q
+    label: "⑴ 記号"
+    marker: none
+    align: left
+    at: { x: 380, y: 210 }
+    size: { w: 80, h: 18 }
+  - id: a1_1
+    label: ""
+    marker: box
+    at: { x: 460, y: 206 }
+    size: { w: 60, h: 26 }
+  - id: a1_2q
+    label: "⑵ 漢字で"
+    marker: none
+    align: left
+    at: { x: 380, y: 256 }
+    size: { w: 80, h: 18 }
+  - id: a1_2
+    label: ""
+    marker: box
+    at: { x: 460, y: 252 }
+    size: { w: 90, h: 26 }
+  - id: a1_2tag
+    label: "漢字"
+    marker: none
+    align: right
+    at: { x: 460, y: 280 }
+    size: { w: 90, h: 14 }
+  - id: a1_3q
+    label: "⑶ 記号（すべて選ぶ）"
+    marker: none
+    align: left
+    at: { x: 380, y: 296 }
+    size: { w: 160, h: 18 }
+  - id: a1_3
+    label: ""
+    marker: box
+    at: { x: 460, y: 316 }
+    size: { w: 90, h: 26 }
+  - id: a1_3n
+    label: "当てはまるものを全部"
+    marker: none
+    align: left
+    at: { x: 380, y: 346 }
+    size: { w: 170, h: 14 }
+  - id: a1_n
+    label: "記号は略地図の A〜D から"
+    marker: none
+    align: left
+    at: { x: 380, y: 400 }
+    size: { w: 170, h: 14 }
+  - id: c0
+    label: "8"
+    marker: none
+    align: center
+    at: { x: 600, y: 264 }
+    size: { w: 41.666666666666664, h: 14 }
+  - id: c1
+    label: "9"
+    marker: none
+    align: center
+    at: { x: 641.6666666666666, y: 264 }
+    size: { w: 41.666666666666664, h: 14 }
+  - id: c2
+    label: "10"
+    marker: none
+    align: center
+    at: { x: 683.3333333333334, y: 264 }
+    size: { w: 41.666666666666664, h: 14 }
+  - id: c3
+    label: "11"
+    marker: none
+    align: center
+    at: { x: 725, y: 264 }
+    size: { w: 41.666666666666664, h: 14 }
+  - id: c4
+    label: "12"
+    marker: none
+    align: center
+    at: { x: 766.6666666666666, y: 264 }
+    size: { w: 41.666666666666664, h: 14 }
+  - id: c5
+    label: "13"
+    marker: none
+    align: center
+    at: { x: 808.3333333333333, y: 264 }
+    size: { w: 41.666666666666664, h: 14 }
+  - id: c6
+    label: "14"
+    marker: none
+    align: center
+    at: { x: 850, y: 264 }
+    size: { w: 41.666666666666664, h: 14 }
+  - id: c7
+    label: "15"
+    marker: none
+    align: center
+    at: { x: 891.6666666666666, y: 264 }
+    size: { w: 41.666666666666664, h: 14 }
+  - id: c8
+    label: "16"
+    marker: none
+    align: center
+    at: { x: 933.3333333333333, y: 264 }
+    size: { w: 41.666666666666664, h: 14 }
+  - id: c9
+    label: "17"
+    marker: none
+    align: center
+    at: { x: 975, y: 264 }
+    size: { w: 41.666666666666664, h: 14 }
+  - id: c10
+    label: "18"
+    marker: none
+    align: center
+    at: { x: 1016.6666666666666, y: 264 }
+    size: { w: 41.666666666666664, h: 14 }
+  - id: c11
+    label: "19"
+    marker: none
+    align: center
+    at: { x: 1058.3333333333333, y: 264 }
+    size: { w: 41.666666666666664, h: 14 }
+  - id: c_unit
+    label: "世紀"
+    marker: none
+    align: right
+    at: { x: 1070, y: 280 }
+    size: { w: 40, h: 14 }
+  - id: tl_n
+    label: "目盛りの間が 1 世紀（たとえば 8 世紀は 701〜800 年）"
+    marker: none
+    align: left
+    at: { x: 600, y: 212 }
+    size: { w: 400, h: 14 }
+  - id: evb1
+    label: ""
+    marker: box
+    at: { x: 626.5, y: 302 }
+    size: { w: 72, h: 26 }
+  - id: evl1
+    label: "①"
+    marker: none
+    align: center
+    at: { x: 626.5, y: 330 }
+    size: { w: 72, h: 14 }
+  - id: evb2
+    label: ""
+    marker: box
+    at: { x: 743.1666666666666, y: 302 }
+    size: { w: 72, h: 26 }
+  - id: evl2
+    label: "②"
+    marker: none
+    align: center
+    at: { x: 743.1666666666666, y: 330 }
+    size: { w: 72, h: 14 }
+  - id: evb3
+    label: ""
+    marker: box
+    at: { x: 922.3333333333333, y: 302 }
+    size: { w: 72, h: 26 }
+  - id: evl3
+    label: "③"
+    marker: none
+    align: center
+    at: { x: 922.3333333333333, y: 330 }
+    size: { w: 72, h: 14 }
+  - id: evk3
+    label: "漢字"
+    marker: none
+    align: left
+    at: { x: 996.3333333333333, y: 310 }
+    size: { w: 40, h: 16 }
+  - id: span_l
+    label: "X の期間"
+    marker: none
+    align: center
+    at: { x: 808.3333333333333, y: 228 }
+    size: { w: 125, h: 14 }
+  - id: a2_1q
+    label: "⑴ ①〜③ に当てはまる語句（③は漢字で）"
+    marker: none
+    align: left
+    at: { x: 600, y: 364 }
+    size: { w: 400, h: 18 }
+  - id: a2_2q
+    label: "⑵ 年表の X の期間に起きたできごとを選ぶ"
+    marker: none
+    align: left
+    at: { x: 600, y: 388 }
+    size: { w: 400, h: 18 }
+  - id: a2_2
+    label: ""
+    marker: box
+    at: { x: 1000, y: 384 }
+    size: { w: 60, h: 26 }
+  - id: a2_3q
+    label: "⑶ ア〜エを古い順に並べる"
+    marker: none
+    align: left
+    at: { x: 600, y: 426 }
+    size: { w: 300, h: 18 }
+  - id: ord0
+    label: ""
+    marker: box
+    at: { x: 610, y: 450 }
+    size: { w: 56, h: 30 }
+  - id: ordA0
+    label: "→"
+    marker: none
+    align: center
+    at: { x: 666, y: 454 }
+    size: { w: 36, h: 20 }
+  - id: ord1
+    label: ""
+    marker: box
+    at: { x: 702, y: 450 }
+    size: { w: 56, h: 30 }
+  - id: ordA1
+    label: "→"
+    marker: none
+    align: center
+    at: { x: 758, y: 454 }
+    size: { w: 36, h: 20 }
+  - id: ord2
+    label: ""
+    marker: box
+    at: { x: 794, y: 450 }
+    size: { w: 56, h: 30 }
+  - id: ordA2
+    label: "→"
+    marker: none
+    align: center
+    at: { x: 850, y: 454 }
+    size: { w: 36, h: 20 }
+  - id: ord3
+    label: ""
+    marker: box
+    at: { x: 886, y: 450 }
+    size: { w: 56, h: 30 }
+  - id: ord_n
+    label: "左が古い → 右が新しい（左から記号を書く）"
+    marker: none
+    align: left
+    at: { x: 610, y: 484 }
+    size: { w: 380, h: 14 }
+  - id: a3_1q
+    label: "⑴ 漢字で"
+    marker: none
+    align: left
+    at: { x: 60, y: 568 }
+    size: { w: 80, h: 18 }
+  - id: a3_1
+    label: ""
+    marker: box
+    at: { x: 140, y: 564 }
+    size: { w: 160, h: 28 }
+  - id: a3_1tag
+    label: "漢字"
+    marker: none
+    align: right
+    at: { x: 140, y: 594 }
+    size: { w: 160, h: 14 }
+  - id: a3_2q
+    label: "⑵ 記号"
+    marker: none
+    align: left
+    at: { x: 60, y: 624 }
+    size: { w: 80, h: 18 }
+  - id: a3_2
+    label: ""
+    marker: box
+    at: { x: 140, y: 620 }
+    size: { w: 60, h: 28 }
+  - id: a3_3q
+    label: "⑶ あ・い（完答）"
+    marker: none
+    align: left
+    at: { x: 60, y: 670 }
+    size: { w: 200, h: 18 }
+  - id: a3_3a
+    label: "あ"
+    marker: box
+    at: { x: 260, y: 666 }
+    size: { w: 28, h: 28 }
+  - id: a3_3av
+    label: ""
+    marker: box
+    at: { x: 288, y: 666 }
+    size: { w: 90, h: 28 }
+  - id: a3_3b
+    label: "い"
+    marker: box
+    at: { x: 390, y: 666 }
+    size: { w: 28, h: 28 }
+  - id: a3_3bv
+    label: ""
+    marker: box
+    at: { x: 418, y: 666 }
+    size: { w: 90, h: 28 }
+  - id: a3_3n
+    label: "完答：あ・い の両方が正しいときだけ点になる（採点基準）"
+    marker: none
+    align: left
+    at: { x: 60, y: 704 }
+    size: { w: 400, h: 14 }
+  - id: d1
+    label: "資料 1（グラフ）"
+    marker: box
+    at: { x: 600, y: 564 }
+    size: { w: 150, h: 70 }
+  - id: d1h
+    label: ""
+    marker: none
+    hatch: rows
+    at: { x: 606, y: 592 }
+    size: { w: 138, h: 36 }
+  - id: d2
+    label: "資料 2（表）"
+    marker: box
+    at: { x: 762, y: 564 }
+    size: { w: 150, h: 70 }
+  - id: d2h
+    label: ""
+    marker: none
+    hatch: grid
+    at: { x: 768, y: 592 }
+    size: { w: 138, h: 36 }
+  - id: a4_q
+    label: "資料 1・2 から読み取れることをもとに、40 字以上 60 字以内で書く"
+    marker: none
+    align: left
+    at: { x: 600, y: 642 }
+    size: { w: 500, h: 16 }
+  - id: g0_0
+    label: ""
+    marker: box
+    at: { x: 600, y: 664 }
+    size: { w: 22, h: 22 }
+  - id: g0_1
+    label: ""
+    marker: box
+    at: { x: 622, y: 664 }
+    size: { w: 22, h: 22 }
+  - id: g0_2
+    label: ""
+    marker: box
+    at: { x: 644, y: 664 }
+    size: { w: 22, h: 22 }
+  - id: g0_3
+    label: ""
+    marker: box
+    at: { x: 666, y: 664 }
+    size: { w: 22, h: 22 }
+  - id: g0_4
+    label: ""
+    marker: box
+    at: { x: 688, y: 664 }
+    size: { w: 22, h: 22 }
+  - id: g0_5
+    label: ""
+    marker: box
+    at: { x: 710, y: 664 }
+    size: { w: 22, h: 22 }
+  - id: g0_6
+    label: ""
+    marker: box
+    at: { x: 732, y: 664 }
+    size: { w: 22, h: 22 }
+  - id: g0_7
+    label: ""
+    marker: box
+    at: { x: 754, y: 664 }
+    size: { w: 22, h: 22 }
+  - id: g0_8
+    label: ""
+    marker: box
+    at: { x: 776, y: 664 }
+    size: { w: 22, h: 22 }
+  - id: g0_9
+    label: ""
+    marker: box
+    at: { x: 798, y: 664 }
+    size: { w: 22, h: 22 }
+  - id: g0_10
+    label: ""
+    marker: box
+    at: { x: 820, y: 664 }
+    size: { w: 22, h: 22 }
+  - id: g0_11
+    label: ""
+    marker: box
+    at: { x: 842, y: 664 }
+    size: { w: 22, h: 22 }
+  - id: g0_12
+    label: ""
+    marker: box
+    at: { x: 864, y: 664 }
+    size: { w: 22, h: 22 }
+  - id: g0_13
+    label: ""
+    marker: box
+    at: { x: 886, y: 664 }
+    size: { w: 22, h: 22 }
+  - id: g0_14
+    label: ""
+    marker: box
+    at: { x: 908, y: 664 }
+    size: { w: 22, h: 22 }
+  - id: g0_15
+    label: ""
+    marker: box
+    at: { x: 930, y: 664 }
+    size: { w: 22, h: 22 }
+  - id: g0_16
+    label: ""
+    marker: box
+    at: { x: 952, y: 664 }
+    size: { w: 22, h: 22 }
+  - id: g0_17
+    label: ""
+    marker: box
+    at: { x: 974, y: 664 }
+    size: { w: 22, h: 22 }
+  - id: g0_18
+    label: ""
+    marker: box
+    at: { x: 996, y: 664 }
+    size: { w: 22, h: 22 }
+  - id: g0_19
+    label: ""
+    marker: box
+    at: { x: 1018, y: 664 }
+    size: { w: 22, h: 22 }
+  - id: gc0
+    label: "20"
+    marker: none
+    align: left
+    at: { x: 1044, y: 668 }
+    size: { w: 30, h: 14 }
+  - id: g1_0
+    label: ""
+    marker: box
+    at: { x: 600, y: 686 }
+    size: { w: 22, h: 22 }
+  - id: g1_1
+    label: ""
+    marker: box
+    at: { x: 622, y: 686 }
+    size: { w: 22, h: 22 }
+  - id: g1_2
+    label: ""
+    marker: box
+    at: { x: 644, y: 686 }
+    size: { w: 22, h: 22 }
+  - id: g1_3
+    label: ""
+    marker: box
+    at: { x: 666, y: 686 }
+    size: { w: 22, h: 22 }
+  - id: g1_4
+    label: ""
+    marker: box
+    at: { x: 688, y: 686 }
+    size: { w: 22, h: 22 }
+  - id: g1_5
+    label: ""
+    marker: box
+    at: { x: 710, y: 686 }
+    size: { w: 22, h: 22 }
+  - id: g1_6
+    label: ""
+    marker: box
+    at: { x: 732, y: 686 }
+    size: { w: 22, h: 22 }
+  - id: g1_7
+    label: ""
+    marker: box
+    at: { x: 754, y: 686 }
+    size: { w: 22, h: 22 }
+  - id: g1_8
+    label: ""
+    marker: box
+    at: { x: 776, y: 686 }
+    size: { w: 22, h: 22 }
+  - id: g1_9
+    label: ""
+    marker: box
+    at: { x: 798, y: 686 }
+    size: { w: 22, h: 22 }
+  - id: g1_10
+    label: ""
+    marker: box
+    at: { x: 820, y: 686 }
+    size: { w: 22, h: 22 }
+  - id: g1_11
+    label: ""
+    marker: box
+    at: { x: 842, y: 686 }
+    size: { w: 22, h: 22 }
+  - id: g1_12
+    label: ""
+    marker: box
+    at: { x: 864, y: 686 }
+    size: { w: 22, h: 22 }
+  - id: g1_13
+    label: ""
+    marker: box
+    at: { x: 886, y: 686 }
+    size: { w: 22, h: 22 }
+  - id: g1_14
+    label: ""
+    marker: box
+    at: { x: 908, y: 686 }
+    size: { w: 22, h: 22 }
+  - id: g1_15
+    label: ""
+    marker: box
+    at: { x: 930, y: 686 }
+    size: { w: 22, h: 22 }
+  - id: g1_16
+    label: ""
+    marker: box
+    at: { x: 952, y: 686 }
+    size: { w: 22, h: 22 }
+  - id: g1_17
+    label: ""
+    marker: box
+    at: { x: 974, y: 686 }
+    size: { w: 22, h: 22 }
+  - id: g1_18
+    label: ""
+    marker: box
+    at: { x: 996, y: 686 }
+    size: { w: 22, h: 22 }
+  - id: g1_19
+    label: ""
+    marker: box
+    at: { x: 1018, y: 686 }
+    size: { w: 22, h: 22 }
+  - id: gc1
+    label: "40"
+    marker: none
+    align: left
+    at: { x: 1044, y: 690 }
+    size: { w: 30, h: 14 }
+  - id: g2_0
+    label: ""
+    marker: box
+    at: { x: 600, y: 708 }
+    size: { w: 22, h: 22 }
+  - id: g2_1
+    label: ""
+    marker: box
+    at: { x: 622, y: 708 }
+    size: { w: 22, h: 22 }
+  - id: g2_2
+    label: ""
+    marker: box
+    at: { x: 644, y: 708 }
+    size: { w: 22, h: 22 }
+  - id: g2_3
+    label: ""
+    marker: box
+    at: { x: 666, y: 708 }
+    size: { w: 22, h: 22 }
+  - id: g2_4
+    label: ""
+    marker: box
+    at: { x: 688, y: 708 }
+    size: { w: 22, h: 22 }
+  - id: g2_5
+    label: ""
+    marker: box
+    at: { x: 710, y: 708 }
+    size: { w: 22, h: 22 }
+  - id: g2_6
+    label: ""
+    marker: box
+    at: { x: 732, y: 708 }
+    size: { w: 22, h: 22 }
+  - id: g2_7
+    label: ""
+    marker: box
+    at: { x: 754, y: 708 }
+    size: { w: 22, h: 22 }
+  - id: g2_8
+    label: ""
+    marker: box
+    at: { x: 776, y: 708 }
+    size: { w: 22, h: 22 }
+  - id: g2_9
+    label: ""
+    marker: box
+    at: { x: 798, y: 708 }
+    size: { w: 22, h: 22 }
+  - id: g2_10
+    label: ""
+    marker: box
+    at: { x: 820, y: 708 }
+    size: { w: 22, h: 22 }
+  - id: g2_11
+    label: ""
+    marker: box
+    at: { x: 842, y: 708 }
+    size: { w: 22, h: 22 }
+  - id: g2_12
+    label: ""
+    marker: box
+    at: { x: 864, y: 708 }
+    size: { w: 22, h: 22 }
+  - id: g2_13
+    label: ""
+    marker: box
+    at: { x: 886, y: 708 }
+    size: { w: 22, h: 22 }
+  - id: g2_14
+    label: ""
+    marker: box
+    at: { x: 908, y: 708 }
+    size: { w: 22, h: 22 }
+  - id: g2_15
+    label: ""
+    marker: box
+    at: { x: 930, y: 708 }
+    size: { w: 22, h: 22 }
+  - id: g2_16
+    label: ""
+    marker: box
+    at: { x: 952, y: 708 }
+    size: { w: 22, h: 22 }
+  - id: g2_17
+    label: ""
+    marker: box
+    at: { x: 974, y: 708 }
+    size: { w: 22, h: 22 }
+  - id: g2_18
+    label: ""
+    marker: box
+    at: { x: 996, y: 708 }
+    size: { w: 22, h: 22 }
+  - id: g2_19
+    label: ""
+    marker: box
+    at: { x: 1018, y: 708 }
+    size: { w: 22, h: 22 }
+  - id: gc2
+    label: "60"
+    marker: none
+    align: left
+    at: { x: 1044, y: 712 }
+    size: { w: 30, h: 14 }
+  - id: a4_n
+    label: "句読点も 1 マス、数字は 1 字 1 マス。2 行目の終わりで 40 字"
+    marker: none
+    align: left
+    at: { x: 600, y: 734 }
+    size: { w: 440, h: 14 }
+  - id: nodraw
+    label: "描かなかったもの：地形図の地図記号と縮尺の計算（今回は略地図にした）、「人名はフルネームで」（出典で確かめていない）、実在の地図の輪郭、部分点の付け方、問いの文。"
+    marker: none
+    align: left
+    at: { x: 40, y: 776 }
+    size: { w: 1080, h: 16 }
+  - id: src
+    label: "決まりは、長野県 令和 7 年度 後期選抜 社会の問題冊子（表紙の注意と問いの文）・解答用紙・採点基準から引きました。"
+    marker: none
+    align: left
+    at: { x: 40, y: 798 }
+    size: { w: 1080, h: 16 }
+paths:
+  - id: island
+    points: [ [ 110, 270 ], [ 170, 234 ], [ 250, 242 ], [ 320, 282 ], [ 330, 350 ], [ 282, 404 ], [ 196, 412 ], [ 128, 380 ], [ 96, 324 ] ]
+    close: true
+    curve: smooth
+    weight: normal
+    ends: { from: none, to: none }
+  - id: north
+    points: [ [ 340, 256 ], [ 340, 220 ] ]
+    weight: normal
+    ends: { from: none, to: arrow }
+  - id: tl
+    points: [ [ 600, 256 ], [ 1100, 256 ] ]
+    weight: thick
+    ends: { from: none, to: arrow }
+  - id: tk0
+    points: [ [ 600, 256 ], [ 600, 263 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: tk1
+    points: [ [ 641.7, 256 ], [ 641.7, 263 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: tk2
+    points: [ [ 683.3, 256 ], [ 683.3, 263 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: tk3
+    points: [ [ 725, 256 ], [ 725, 263 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: tk4
+    points: [ [ 766.7, 256 ], [ 766.7, 263 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: tk5
+    points: [ [ 808.3, 256 ], [ 808.3, 263 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: tk6
+    points: [ [ 850, 256 ], [ 850, 263 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: tk7
+    points: [ [ 891.7, 256 ], [ 891.7, 263 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: tk8
+    points: [ [ 933.3, 256 ], [ 933.3, 263 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: tk9
+    points: [ [ 975, 256 ], [ 975, 263 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: tk10
+    points: [ [ 1016.7, 256 ], [ 1016.7, 263 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: tk11
+    points: [ [ 1058.3, 256 ], [ 1058.3, 263 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: tk12
+    points: [ [ 1100, 256 ], [ 1100, 263 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ev1
+    points: [ [ 662.5, 256 ], [ 662.5, 300 ] ]
+    line: dashed
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ev2
+    points: [ [ 779.2, 256 ], [ 779.2, 300 ] ]
+    line: dashed
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ev3
+    points: [ [ 958.3, 256 ], [ 958.3, 300 ] ]
+    line: dashed
+    weight: thin
+    ends: { from: none, to: none }
+  - id: span
+    points: [ [ 808.3, 244 ], [ 933.3, 244 ] ]
+    weight: normal
+    ends: { from: arrow, to: arrow }

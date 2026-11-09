@@ -138,6 +138,14 @@
             "@type": "Answer",
             "text": "Yes — export to SVG, Mermaid, draw.io and Markdown. The file format spec is published separately from the code, so the drawings stay readable even if zumen goes away."
           }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I build a drawing to the paper it will be printed on?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Name the paper in the source, such as paper: B4, and the drawing comes out at that sheet’s real size in mm, and as a PDF. One pixel is a 96 dpi pixel, so whatever fits inside the printable area (895 × 1300 px on B4 portrait) prints at the size you see on screen. The app shows the paper frame and has a print preview."
+          }
         }
       ]
     }
@@ -191,7 +199,8 @@
     <b>zumen is a desktop diagramming tool that draws specialist drawings from a single YAML text file.</b>
     An AI agent draws through MCP, a person corrects by hand, and <b>the correction survives the next generation.</b>
     Beyond architecture diagrams, the same engine draws the working drawings trades use — floor plans,
-    lighting plots, periodontal charts, transit maps. It runs on macOS and Windows, and it is free under the MIT licence.
+    lighting plots, periodontal charts, transit maps. Sheets that get printed and handed out, such as answer sheets and notices,
+    can be built at the real size of an A3, B4 or other paper. It runs on macOS and Windows, and it is free under the MIT licence.
   </p>
 </section>
 
@@ -218,6 +227,31 @@
     <figure>
       <img src="../readme/gui-diff-en.png" width="1280" height="473" loading="lazy" decoding="async" alt="The zumen window with a Look before applying panel on the right showing the added Stock API lines in green, above Apply to the source of truth and Cancel buttons">
       <figcaption><b>You see an AI edit as a diff before it goes in.</b> The proposal to add Stock API shows as green lines, and the drawing does not change until you press Apply.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- Start from the paper (2026-11-10). Sheets that get printed and handed out have their size fixed first. -->
+<section id="paper">
+  <h2>Start from the paper</h2>
+  <p>
+    Answer sheets, notices and seating plans are <b>printed and handed out, so the paper size comes first.</b>
+    Add one line, <code>paper: B4</code>, and the drawing comes out at that sheet's real size in mm, and as a PDF too.
+  </p>
+  <ul>
+    <li><b>You know the printable area in pixels before you start</b> (895 × 1300 px on B4 portrait). One pixel is a 96 dpi pixel, so whatever fits inside the frame prints at the size you see on screen</li>
+    <li><b>The app shows the sheet and its printable area, and prints from a print preview</b></li>
+    <li><b>If it overflows, it is shrunk onto the one sheet and you are told by how much</b>, and also when text on paper falls below 2.5 mm</li>
+    <li>A3, A4, A5, B4, B5, Letter, Legal and Tabloid, portrait or landscape. AI agents get the frame size from the MCP inspection and draw to fit the paper</li>
+  </ul>
+  <div class="shots">
+    <figure>
+      <img src="../readme/gui-paper-en.png" width="1280" height="820" loading="lazy" decoding="async" alt="The zumen window with a Japanese social-studies answer sheet (a made-up form) on a white B4 landscape sheet; the printable area is outlined with a dotted line and the label reads B4 landscape, 10 mm margin">
+      <figcaption><b>You build inside the paper frame.</b> The white area is the B4 landscape sheet; inside the dotted line is what prints.</figcaption>
+    </figure>
+    <figure>
+      <img src="../readme/gui-print-en.png" width="1280" height="820" loading="lazy" decoding="async" alt="The zumen print preview: over a dimmed window, the B4 landscape answer sheet that will print is shown as one page, with Print and Close buttons at the top right">
+      <figcaption><b>See the one sheet that will print, then print it.</b> <code>pnpm pdf</code> and MCP produce a PDF of the same size.</figcaption>
     </figure>
   </div>
 </section>
@@ -1298,6 +1332,8 @@ nodes:
     <dd>macOS and Windows (x64 and ARM). From the next release, one macOS build runs on both Apple silicon and Intel. It is not code-signed yet, so your computer will warn you.</dd>
     <dt>Can I use the drawings in other tools?</dt>
     <dd>Yes — export to SVG, Mermaid, draw.io and Markdown. The file format spec is published separately from the code, so the drawings stay readable even if zumen goes away.</dd>
+    <dt>Can I build a drawing to the paper it will be printed on?</dt>
+    <dd>Yes. Name the paper in the source, such as paper: B4, and the drawing comes out at that sheet’s real size in mm, and as a PDF. One pixel is a 96 dpi pixel, so whatever fits inside the printable area (895 × 1300 px on B4 portrait) prints at the size you see on screen. The app shows the paper frame and has a print preview.</dd>
   </dl>
   <p class="note">Anything else: <a href="https://github.com/meta-taro/zumen/issues">open an issue on GitHub</a>.</p>
 </section>
