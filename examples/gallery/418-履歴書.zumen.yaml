@@ -1,0 +1,500 @@
+version: 1
+kind: placement
+paper: { size: A3, orient: landscape }
+title: "履歴書（厚生労働省履歴書様式例。A3 横・見開き 1 枚。性別は任意記載、配偶者・扶養・通勤時間の欄は無い）"
+sources:
+  - name: "厚生労働省「厚生労働省履歴書様式例」A3 版（ハローワークインターネットサービス）"
+    url: https://www.hellowork.mhlw.go.jp/doc/kouroushourirekisho.pdf
+    retrieved: 2026-11-10
+  - name: "厚生労働省「履歴書の様式例の作成について」令和 3 年 4 月 16 日 労働政策審議会安定分科会資料"
+    url: https://www.mhlw.go.jp/content/11601000/000769679.pdf
+    retrieved: 2026-11-10
+# **刷って手で書く様式。** 罫線と字の位置は、A3 版の PDF から拾って mm に直した（1pt = 25.4/72 mm。紙の余白 10mm の内側が原点）。
+# 決まり（同資料）—— JIS 規格の履歴書の様式例が削除されたため、公正な採用選考の参考として厚生労働省が定めた。
+# 性別は「男・女」の選択ではなく任意記載（未記載も可）。「配偶者」「扶養家族数」「配偶者の扶養義務」「通勤時間」の欄は設けない。
+# 法的拘束力は無い（使うかは企業の判断）。別の様式を使うなら、就職差別につながる項目を含めないよう留意する。
+# 写真の大きさ（縦・横）の数字は、元の様式でも空欄。
+nodes:
+  - id: title
+    label: "履　歴　書"
+    marker: none
+    at: { x: 56, y: 67 }
+    size: { w: 120, h: 30 }
+  - id: date
+    label: "年　　　　月　　　　日現在"
+    marker: none
+    align: left
+    at: { x: 365, y: 79 }
+    size: { w: 184, h: 18 }
+  - id: furi1
+    label: "ふりがな"
+    marker: none
+    align: left
+    at: { x: 61, y: 111 }
+    size: { w: 75, h: 17 }
+  - id: name
+    label: "氏　　名"
+    marker: none
+    align: left
+    at: { x: 62, y: 130 }
+    size: { w: 74, h: 18 }
+  - id: photo-1
+    label: "写真をはる位置"
+    marker: none
+    at: { x: 550, y: 83 }
+    size: { w: 110, h: 18 }
+  - id: photo-2
+    label: "写真をはる必要が\nある場合\n1. 縦\n　 横\n2. 本人単身\n　 胸から上\n3. 裏面のりづけ"
+    marker: none
+    align: left
+    at: { x: 548, y: 102 }
+    size: { w: 113, h: 102 }
+  - id: birth
+    label: "年　　　月　　　日生　　（満　　　歳）"
+    marker: none
+    align: left
+    at: { x: 191, y: 241 }
+    size: { w: 291, h: 19 }
+  - id: sex
+    label: "※性別"
+    marker: none
+    align: left
+    at: { x: 491, y: 236 }
+    size: { w: 58, h: 19 }
+  - id: furi2
+    label: "ふりがな"
+    marker: none
+    align: left
+    at: { x: 61, y: 270 }
+    size: { w: 75, h: 17 }
+  - id: addr
+    label: "現住所　〒"
+    marker: none
+    align: left
+    at: { x: 62, y: 289 }
+    size: { w: 87, h: 19 }
+  - id: tel1
+    label: "電話"
+    marker: none
+    align: left
+    at: { x: 579, y: 269 }
+    size: { w: 43, h: 19 }
+  - id: furi3
+    label: "ふりがな"
+    marker: none
+    align: left
+    at: { x: 61, y: 355 }
+    size: { w: 75, h: 17 }
+  - id: contact
+    label: "連絡先　〒"
+    marker: none
+    align: left
+    at: { x: 62, y: 375 }
+    size: { w: 87, h: 18 }
+  - id: contact-note
+    label: "（現住所以外に連絡を希望する場合のみ記入）"
+    marker: none
+    align: left
+    at: { x: 280, y: 377 }
+    size: { w: 293, h: 15 }
+  - id: tel2
+    label: "電話"
+    marker: none
+    align: left
+    at: { x: 579, y: 354 }
+    size: { w: 43, h: 19 }
+  - id: h1-y
+    label: "年"
+    marker: none
+    at: { x: 82, y: 459 }
+    size: { w: 15, h: 18 }
+  - id: h1-m
+    label: "月"
+    marker: none
+    at: { x: 132, y: 459 }
+    size: { w: 23, h: 18 }
+  - id: h1
+    label: "学　歴・職　歴（各別にまとめて書く）"
+    marker: none
+    at: { x: 269, y: 459 }
+    size: { w: 320, h: 18 }
+  - id: h2-y
+    label: "年"
+    marker: none
+    at: { x: 858, y: 72 }
+    size: { w: 15, h: 19 }
+  - id: h2-m
+    label: "月"
+    marker: none
+    at: { x: 908, y: 72 }
+    size: { w: 23, h: 19 }
+  - id: h2
+    label: "学　歴・職　歴（各別にまとめて書く）"
+    marker: none
+    at: { x: 1049, y: 72 }
+    size: { w: 313, h: 18 }
+  - id: h3-y
+    label: "年"
+    marker: none
+    at: { x: 858, y: 341 }
+    size: { w: 15, h: 19 }
+  - id: h3-m
+    label: "月"
+    marker: none
+    at: { x: 908, y: 341 }
+    size: { w: 23, h: 19 }
+  - id: h3
+    label: "免　許・資　格"
+    marker: none
+    at: { x: 1142, y: 341 }
+    size: { w: 134, h: 19 }
+  - id: motive
+    label: "志望の動機、特技、好きな学科、アピールポイントなど"
+    marker: none
+    align: left
+    at: { x: 844, y: 590 }
+    size: { w: 372, h: 17 }
+  - id: wish
+    label: "本人希望記入欄（特に給料・職種・勤務時間・勤務地・その他についての希望などがあれば記入）"
+    marker: none
+    align: left
+    at: { x: 837, y: 837 }
+    size: { w: 635, h: 17 }
+  - id: sex-note
+    label: "※「性別」欄：記載は任意です。未記載とすることも可能です。"
+    marker: none
+    align: left
+    at: { x: 54, y: 1008 }
+    size: { w: 415, h: 14 }
+  - id: about
+    label: "厚生労働省履歴書様式例（令和 3 年 4 月）を描き起こしたもの。\n性別は任意記載。配偶者・扶養家族数・配偶者の扶養義務・通勤時間の欄は設けていない"
+    marker: none
+    align: left
+    at: { x: 829, y: 998 }
+    size: { w: 650, h: 42 }
+paths:
+  - id: ln-v1
+    points: [ [ 901.5, 67.8 ], [ 901.5, 95.5 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln-h2
+    points: [ [ 52.8, 130.6 ], [ 487.6, 130.6 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln-v3
+    points: [ [ 901.5, 96.8 ], [ 901.5, 129.9 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln-v4
+    points: [ [ 901.5, 131.2 ], [ 901.5, 164.3 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln-v5
+    points: [ [ 901.5, 165.6 ], [ 901.5, 198.7 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln-h6
+    points: [ [ 52.8, 233.7 ], [ 703.3, 233.7 ] ]
+    ends: { from: none, to: none }
+  - id: ln-v7
+    points: [ [ 901.5, 200 ], [ 901.5, 233.1 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln-h8
+    points: [ [ 52.8, 268.1 ], [ 703.3, 268.1 ] ]
+    ends: { from: none, to: none }
+  - id: ln-v9
+    points: [ [ 901.5, 234.4 ], [ 901.5, 267.5 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln-v10
+    points: [ [ 901.5, 268.8 ], [ 901.5, 301.9 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln-v11
+    points: [ [ 901.5, 303.2 ], [ 901.5, 336.1 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln-v12
+    points: [ [ 901.5, 337.4 ], [ 901.5, 364.9 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln-v13
+    points: [ [ 901.5, 366.2 ], [ 901.5, 399.2 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln-v14
+    points: [ [ 901.5, 400.4 ], [ 901.5, 433.6 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln-v15
+    points: [ [ 52.1, 109.1 ], [ 52.1, 440.3 ] ]
+    ends: { from: none, to: none }
+  - id: ln-v16
+    points: [ [ 702.7, 234.4 ], [ 702.7, 440.3 ] ]
+    ends: { from: none, to: none }
+  - id: ln-v17
+    points: [ [ 901.5, 434.8 ], [ 901.5, 467.8 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln-v18
+    points: [ [ 125.8, 454.7 ], [ 125.8, 482.2 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln-v19
+    points: [ [ 901.5, 469.1 ], [ 901.5, 502 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln-v20
+    points: [ [ 125.8, 483.5 ], [ 125.8, 516.4 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln-v21
+    points: [ [ 901.5, 503.3 ], [ 901.5, 536.3 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln-v22
+    points: [ [ 125.8, 517.7 ], [ 125.8, 550.7 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln-v23
+    points: [ [ 125.8, 552 ], [ 125.8, 584.9 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln-h24
+    points: [ [ 52.8, 585.6 ], [ 703.3, 585.6 ] ]
+    ends: { from: none, to: none }
+  - id: ln-v25
+    points: [ [ 827.8, 66.5 ], [ 827.8, 571.8 ] ]
+    ends: { from: none, to: none }
+  - id: ln-v26
+    points: [ [ 1478.4, 67.8 ], [ 1478.4, 571.8 ] ]
+    ends: { from: none, to: none }
+  - id: ln-v27
+    points: [ [ 125.8, 586.2 ], [ 125.8, 619.3 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln-v28
+    points: [ [ 125.8, 620.6 ], [ 125.8, 653.7 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln-v29
+    points: [ [ 125.8, 655 ], [ 125.8, 688 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln-v30
+    points: [ [ 125.8, 689.2 ], [ 125.8, 722.2 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln-v31
+    points: [ [ 125.8, 723.5 ], [ 125.8, 756.6 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln-v32
+    points: [ [ 125.8, 757.9 ], [ 125.8, 791 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln-v33
+    points: [ [ 125.8, 792.3 ], [ 125.8, 825.2 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln-v34
+    points: [ [ 827.8, 584.9 ], [ 827.8, 817.6 ] ]
+    ends: { from: none, to: none }
+  - id: ln-v35
+    points: [ [ 1478.4, 586.2 ], [ 1478.4, 817.6 ] ]
+    ends: { from: none, to: none }
+  - id: ln-v36
+    points: [ [ 125.8, 826.5 ], [ 125.8, 859.6 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln-h37
+    points: [ [ 52.8, 860.3 ], [ 703.3, 860.3 ] ]
+    ends: { from: none, to: none }
+  - id: ln-v38
+    points: [ [ 125.8, 860.9 ], [ 125.8, 894 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln-h39
+    points: [ [ 52.8, 894.7 ], [ 703.3, 894.7 ] ]
+    ends: { from: none, to: none }
+  - id: ln-v40
+    points: [ [ 125.8, 895.3 ], [ 125.8, 928.4 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln-h41
+    points: [ [ 52.8, 929.1 ], [ 703.3, 929.1 ] ]
+    ends: { from: none, to: none }
+  - id: ln-v42
+    points: [ [ 125.8, 929.7 ], [ 125.8, 962.8 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln-h43
+    points: [ [ 52.8, 963.5 ], [ 703.3, 963.5 ] ]
+    ends: { from: none, to: none }
+  - id: ln-h44
+    points: [ [ 52.8, 997.9 ], [ 703.3, 997.9 ] ]
+    ends: { from: none, to: none }
+  - id: ln-v45
+    points: [ [ 827.8, 830.7 ], [ 827.8, 998.5 ] ]
+    ends: { from: none, to: none }
+  - id: ln-v46
+    points: [ [ 901.5, 537.6 ], [ 901.5, 570.5 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln-v47
+    points: [ [ 936.4, 67.8 ], [ 936.4, 571.8 ] ]
+    ends: { from: none, to: none }
+  - id: ln-v48
+    points: [ [ 1478.4, 832 ], [ 1478.4, 998.5 ] ]
+    ends: { from: none, to: none }
+  - id: ln-v49
+    points: [ [ 52.1, 453.4 ], [ 52.1, 998.5 ] ]
+    ends: { from: none, to: none }
+  - id: ln-v50
+    points: [ [ 488.3, 110.4 ], [ 488.3, 268.8 ] ]
+    ends: { from: none, to: none }
+  - id: ln-v51
+    points: [ [ 702.7, 454.7 ], [ 702.7, 998.5 ] ]
+    ends: { from: none, to: none }
+  - id: ln-v52
+    points: [ [ 569.2, 268.8 ], [ 569.2, 440.3 ] ]
+    ends: { from: none, to: none }
+  - id: ln-v53
+    points: [ [ 125.8, 964.1 ], [ 125.8, 997.2 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln-v54
+    points: [ [ 160.8, 454.7 ], [ 160.8, 998.5 ] ]
+    ends: { from: none, to: none }
+  - id: ln-h55
+    points: [ [ 828.4, 67.2 ], [ 1479, 67.2 ] ]
+    ends: { from: none, to: none }
+  - id: ln-h56
+    points: [ [ 828.4, 96.1 ], [ 1479, 96.1 ] ]
+    ends: { from: none, to: none }
+  - id: ln-h57
+    points: [ [ 52.8, 109.7 ], [ 488.9, 109.7 ] ]
+    ends: { from: none, to: none }
+  - id: ln-h58
+    points: [ [ 828.4, 130.5 ], [ 1479, 130.5 ] ]
+    ends: { from: none, to: none }
+  - id: ln-h59
+    points: [ [ 828.4, 164.9 ], [ 1479, 164.9 ] ]
+    ends: { from: none, to: none }
+  - id: ln-h60
+    points: [ [ 828.4, 199.3 ], [ 1479, 199.3 ] ]
+    ends: { from: none, to: none }
+  - id: ln-h61
+    points: [ [ 828.4, 233.7 ], [ 1479, 233.7 ] ]
+    ends: { from: none, to: none }
+  - id: ln-h62
+    points: [ [ 828.4, 268.1 ], [ 1479, 268.1 ] ]
+    ends: { from: none, to: none }
+  - id: ln-h63
+    points: [ [ 52.8, 289 ], [ 568.6, 289 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln-h64
+    points: [ [ 828.4, 302.5 ], [ 1479, 302.5 ] ]
+    ends: { from: none, to: none }
+  - id: ln-h65
+    points: [ [ 828.4, 336.8 ], [ 1479, 336.8 ] ]
+    ends: { from: none, to: none }
+  - id: ln-h66
+    points: [ [ 52.8, 353.9 ], [ 703.3, 353.9 ] ]
+    ends: { from: none, to: none }
+  - id: ln-h67
+    points: [ [ 828.4, 365.6 ], [ 1479, 365.6 ] ]
+    ends: { from: none, to: none }
+  - id: ln-h68
+    points: [ [ 52.8, 374.6 ], [ 568.6, 374.6 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln-h69
+    points: [ [ 828.4, 399.8 ], [ 1479, 399.8 ] ]
+    ends: { from: none, to: none }
+  - id: ln-h70
+    points: [ [ 828.4, 434.2 ], [ 1479, 434.2 ] ]
+    ends: { from: none, to: none }
+  - id: ln-h71
+    points: [ [ 52.8, 439.6 ], [ 703.3, 439.6 ] ]
+    ends: { from: none, to: none }
+  - id: ln-h72
+    points: [ [ 52.8, 454 ], [ 703.3, 454 ] ]
+    ends: { from: none, to: none }
+  - id: ln-h73
+    points: [ [ 828.4, 468.4 ], [ 1479, 468.4 ] ]
+    ends: { from: none, to: none }
+  - id: ln-h74
+    points: [ [ 52.8, 482.8 ], [ 703.3, 482.8 ] ]
+    ends: { from: none, to: none }
+  - id: ln-h75
+    points: [ [ 828.4, 502.7 ], [ 1479, 502.7 ] ]
+    ends: { from: none, to: none }
+  - id: ln-h76
+    points: [ [ 52.8, 517.1 ], [ 703.3, 517.1 ] ]
+    ends: { from: none, to: none }
+  - id: ln-h77
+    points: [ [ 828.4, 536.9 ], [ 1479, 536.9 ] ]
+    ends: { from: none, to: none }
+  - id: ln-h78
+    points: [ [ 52.8, 551.3 ], [ 703.3, 551.3 ] ]
+    ends: { from: none, to: none }
+  - id: ln-h79
+    points: [ [ 828.4, 571.2 ], [ 1479, 571.2 ] ]
+    ends: { from: none, to: none }
+  - id: ln-h80
+    points: [ [ 828.4, 585.6 ], [ 1479, 585.6 ] ]
+    ends: { from: none, to: none }
+  - id: ln-h81
+    points: [ [ 828.4, 612.8 ], [ 1479, 612.8 ] ]
+    ends: { from: none, to: none }
+  - id: ln-h82
+    points: [ [ 52.8, 620 ], [ 703.3, 620 ] ]
+    ends: { from: none, to: none }
+  - id: ln-h83
+    points: [ [ 52.8, 654.4 ], [ 703.3, 654.4 ] ]
+    ends: { from: none, to: none }
+  - id: ln-h84
+    points: [ [ 52.8, 688.6 ], [ 703.3, 688.6 ] ]
+    ends: { from: none, to: none }
+  - id: ln-h85
+    points: [ [ 52.8, 722.8 ], [ 703.3, 722.8 ] ]
+    ends: { from: none, to: none }
+  - id: ln-h86
+    points: [ [ 52.8, 757.2 ], [ 703.3, 757.2 ] ]
+    ends: { from: none, to: none }
+  - id: ln-h87
+    points: [ [ 52.8, 791.6 ], [ 703.3, 791.6 ] ]
+    ends: { from: none, to: none }
+  - id: ln-h88
+    points: [ [ 828.4, 816.9 ], [ 1479, 816.9 ] ]
+    ends: { from: none, to: none }
+  - id: ln-h89
+    points: [ [ 52.8, 825.9 ], [ 703.3, 825.9 ] ]
+    ends: { from: none, to: none }
+  - id: ln-h90
+    points: [ [ 828.4, 831.3 ], [ 1479, 831.3 ] ]
+    ends: { from: none, to: none }
+  - id: ln-h91
+    points: [ [ 828.4, 860.3 ], [ 1479, 860.3 ] ]
+    ends: { from: none, to: none }
+  - id: ln-h92
+    points: [ [ 828.4, 894.7 ], [ 1479, 894.7 ] ]
+    ends: { from: none, to: none }
+  - id: ln-h93
+    points: [ [ 828.4, 929.1 ], [ 1479, 929.1 ] ]
+    ends: { from: none, to: none }
+  - id: ln-h94
+    points: [ [ 828.4, 963.5 ], [ 1479, 963.5 ] ]
+    ends: { from: none, to: none }
+  - id: ln-h95
+    points: [ [ 828.4, 997.9 ], [ 1479, 997.9 ] ]
+    ends: { from: none, to: none }
+  - id: photo
+    points: [ [ 547.6, 67.2 ], [ 661.7, 67.2 ], [ 661.7, 213.4 ], [ 547.6, 213.4 ] ]
+    close: true
+    line: dashed
+    weight: thin
+    ends: { from: none, to: none }

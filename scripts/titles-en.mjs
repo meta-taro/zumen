@@ -400,6 +400,7 @@ export const TITLES_EN = {
   '415-社会の期末テストの解答用紙': 'Social studies end-of-term answer sheet (a sketch map, a century timeline, oldest-first ordering and a counted-character answer)',
   '416-製図用紙の様式': 'Drawing sheet layout (A3 landscape: border, centring marks, grid reference, reference scale and title block)',
   '417-はがきの宛名面': 'Address side of a Japanese postcard (postal code boxes 12 mm from the top and 8 mm from the right)',
+  '418-履歴書': 'Japanese CV form (the labour ministry template: gender is optional, and there is no spouse, dependants or commute field)',
   '404-ギターのコード表とTAB譜': 'Guitar chord boxes and TAB (one fingering, two notations that face opposite ways)',
   '403-きらきら星-英語の歌詞つきの五線譜': 'Twinkle, Twinkle, Little Star (a staff score with English lyrics)',
   '402-時差の世界地図-経度の帯と国が決めた時': 'World time zones (the 15-degree bands, and the times countries actually keep)',

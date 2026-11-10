@@ -52,6 +52,9 @@ interface Sheet {
   body: string;
   w: number;
   h: number;
+  /** 紙の左上（紙を決めた図は余白のぶん負）。 */
+  x0: number;
+  y0: number;
 }
 
 function sheets(): Sheet[] {
@@ -64,7 +67,7 @@ function sheets(): Sheet[] {
     const found = /viewBox="([-\d.]+) ([-\d.]+) ([\d.]+) ([\d.]+)"/.exec(head);
     if (found === null) continue;
     const [x, y, w, h] = found.slice(1).map(Number) as [number, number, number, number];
-    out.push({ name, body, w: x + w, h: y + h });
+    out.push({ name, body, w: x + w, h: y + h, x0: Math.min(0, x), y0: Math.min(0, y) });
   }
   return out;
 }
@@ -84,7 +87,8 @@ describe('見本の中身が、画用紙の中に収まっている', () => {
         const anchor = /text-anchor="(\w+)"/.exec(m[3]!)?.[1] ?? 'start';
         const w = widthOf(m[4]!, font);
         const left = anchor === 'middle' ? x - w / 2 : anchor === 'end' ? x - w : x;
-        if (left < -1 || left + w > sheet.w + 1 || y > sheet.h + 1 || y - font < -1) {
+        // 紙を決めた図は、viewBox が余白のぶん負から始まる（出典は下の余白に刷る）
+        if (left < sheet.x0 - 1 || left + w > sheet.w + 1 || y > sheet.h + 1 || y - font < sheet.y0 - 1) {
           over.push(`${sheet.name}: ${JSON.stringify(m[4]).slice(0, 34)}`);
         }
       }
