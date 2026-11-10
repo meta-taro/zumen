@@ -33,7 +33,7 @@ import { paintOrder } from './solid.ts';
 import type { Solid } from './solid.ts';
 import { drawHatch, drawHatchIn, drawTint } from './hatch.ts';
 import { contrastOn, PAPER, TINT } from './palette.ts';
-import { pageBox, type Paper } from './paper.ts';
+import { MM_PER_PX, pageBox, type Paper } from './paper.ts';
 import type { Hatch } from './hatch.ts';
 import { pathOf } from './curve.ts';
 import { ALIGN_INSET, anchorOf } from './align.ts';
@@ -256,9 +256,9 @@ export function render(
   const marks = plan && drawsDatum(placed) ? dimensionLayer(placed, palette) : '';
   // **縮尺の物差し**（2026-09-25）。実寸で描いた図にだけ出る。
   // 出典の行があれば、物差しはその上へ
-  const sourceRoom = placed.sources.length > 0 ? placed.sources.length * SOURCE_LINE + 8 : 0;
+  const sourceRoom = placed.sources.length > 0 && !sourcesInMargin(placed) ? placed.sources.length * SOURCE_LINE + 8 : 0;
   const bar = scaleBar(placed, frameOf(placed), paper.h - sourceRoom, inkOf(palette));
-  const credits = sourceLayer(placed, paper.h, inkOf(palette));
+  const credits = sourceLayer(placed, paper, inkOf(palette));
   const avoid = plan && drawsDatum(placed) ? wordRects(under.join('') + marks) : [];
   /**
    * **読み上げに「1 枚の絵」として渡す**（`role="img"` と、題を指す `aria-labelledby`）。
@@ -730,10 +730,12 @@ function paperFor(placed: Placed, plans: Map<string, Plan>): { w: number; h: num
   }
   // **縮尺の物差しのぶん、紙を下へ伸ばす**（2026-09-25）。
   // 伸ばさずに枠の中へ置いたら、**通り芯の丸と重なった**（見本 14 で踏んだ）。
-  if (placed.mm !== null && placed.mm > 0) h += 42;
+  // 刷る紙を決めた図には物差しを足さない（scaleBar）。足すと、その分だけ図が縮んで刷られる
+  if (placed.mm !== null && placed.mm > 0 && (placed.paper === null || placed.paper === undefined)) h += 42;
   // **出典の行のぶん、さらに下へ伸ばす**（`src/sources.ts`）。物差しより下、紙のいちばん下に置く
   const lines = sourceLines(placed.sources);
-  if (lines.length > 0) {
+  // 刷る紙を決めた図では、出典は紙の下の余白に刷る（図の大きさに数えない。sourceLayer）
+  if (lines.length > 0 && !sourcesInMargin(placed)) {
     h += lines.length * SOURCE_LINE + 8;
     for (const line of lines) w = Math.max(w, PAD_LEFT + labelWidth(line, SOURCE_FONT) + 12);
   }
@@ -775,13 +777,32 @@ function sourceLines(sources: readonly Source[]): string[] {
   );
 }
 
+/**
+ * **出典を、紙の下の余白に刷れるか**（刷る紙を決めた図だけ。2026-11-10）。
+ *
+ * 余白に入るなら、図の大きさに数えない —— 図の下へ足すと、その分だけ図が縮んで刷られる。
+ * 入らない（行が多い・長い）なら、これまでどおり図の下へ足す。出典は消さない。
+ */
+function sourcesInMargin(placed: Placed): boolean {
+  if (placed.paper === null || placed.paper === undefined) return false;
+  const lines = sourceLines(placed.sources);
+  if (lines.length === 0) return false;
+  const room = placed.paper.margin / MM_PER_PX;
+  const width = placed.paper.w / MM_PER_PX;
+  return lines.length * SOURCE_LINE + 4 <= room && lines.every((line) => PAD_LEFT + labelWidth(line, SOURCE_FONT) + 12 <= width);
+}
+
 /** 出典の行を描く。名前に URL があれば、そこへ繋ぐ。 */
-function sourceLayer(placed: Placed, paperH: number, ink: Ink): string {
+function sourceLayer(placed: Placed, paper: { w: number; h: number }, ink: Ink): string {
   const lines = sourceLines(placed.sources);
   if (lines.length === 0) return '';
-  const top = paperH - lines.length * SOURCE_LINE - 4;
+  // **刷る紙を決めた図は、紙の下の余白に刷る。** 図の下へ足すと、その分だけ図が縮んで刷られる
+  const page = placed.paper && sourcesInMargin(placed) ? pageBox(placed.paper, paper.w, paper.h) : null;
+  const bottom = page === null ? paper.h : page.y + page.h;
+  const left = page === null ? PAD_LEFT : page.x + PAD_LEFT;
+  const top = bottom - lines.length * SOURCE_LINE - 4;
   const rows = lines.map((line, i) => {
-    const t = `<text x="${PAD_LEFT}" y="${n(top + (i + 1) * SOURCE_LINE - 3)}" font-family="${ink.font}" font-size="${SOURCE_FONT}" fill="${ink.text}">${escapeText(line)}</text>`;
+    const t = `<text x="${n(left)}" y="${n(top + (i + 1) * SOURCE_LINE - 3)}" font-family="${ink.font}" font-size="${SOURCE_FONT}" fill="${ink.text}">${escapeText(line)}</text>`;
     const url = placed.sources[i]!.url;
     return url === null ? t : `<a href="${escapeAttr(url)}">${t}</a>`;
   });
@@ -836,6 +857,12 @@ function floorBands(placed: Placed, palette: Palette): string[] {
 function scaleBar(placed: Placed, frame: Frame, paperH: number, ink: Ink): string {
   const mm = placed.mm;
   if (mm === null || mm <= 0) return '';
+  /**
+   * **刷る紙を決めた図には、物差しを出さない**（2026-11-10）。
+   * 図の下へ足すと紙からはみ出して、物差しのせいで図が縮んで刷られる —— 縮んだ物差しは嘘になる。
+   * 紙の図面では、縮尺は表題欄の「尺度」に書き、縮みは比較目盛（JIS Z 8311 の 9）で見る（見本 416）。
+   */
+  if (placed.paper !== null && placed.paper !== undefined) return '';
   // 紙の 1/6 に近い、1・2・5 系列の実長（mm）
   const want = (frame.w / 6) * mm;
   const pow = 10 ** Math.floor(Math.log10(want));

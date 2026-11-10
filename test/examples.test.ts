@@ -657,6 +657,8 @@ describe('縮尺の物差し', () => {
     for (const file of readdirSync(dir).filter((f) => f.endsWith('.zumen.yaml'))) {
       const source = readFileSync(new URL(file, dir), 'utf8');
       if (!/^scale:/m.test(source)) continue;
+      // 刷る紙を決めた図には物差しを出さない（縮んで刷られた物差しは嘘になる。test/paper-size.test.ts）
+      if (/^paper:/m.test(source)) continue;
       withScale += 1;
       const svg = readFileSync(new URL(file.replace('.zumen.yaml', '.svg'), dir), 'utf8');
       if (!svg.includes('data-name="scalebar"')) missing.push(file);

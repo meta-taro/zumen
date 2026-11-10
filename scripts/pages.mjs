@@ -802,13 +802,15 @@ const MAP_WORD = {
         '保存形式を決めた ── 正本は 1 枚の YAML。仕様は実装から分けて公開',
         'デスクトップアプリ（macOS・Windows の x64 と ARM）',
         'MCP サーバー ── AI エージェントが仕様と見本を読んで描ける',
-        'SVG・Mermaid・draw.io・Markdown への書き出し',
+        'SVG・PDF・Mermaid・draw.io・Markdown への書き出し',
+        '刷る紙を決めて作る ── paper: B4 と書くと実寸の mm で出る。アプリに紙の枠と印刷プレビュー',
         '専門図面の見本。分野ごとに一次資料で確かめ、分野の目で見直す',
         '図の中に描いた字で、見本を探せる',
       ]],
       ['いま', [
         '見本を増やす ── 世の中にある専門図面を先に調べ、決まりを対照表にしてから描く',
         '描いた見本を、その分野の目で 2〜3 回見直す',
+        '刷って使う様式の見本を増やす ── 製図用紙・解答用紙のように、紙の大きさが決まっている図',
       ]],
       ['次', [
         'macOS を 1 本で Apple シリコンと Intel の両方に（次の版から）',
@@ -843,13 +845,15 @@ const MAP_WORD = {
         'The file format is settled — one YAML file is the source, with the spec published separately from the code',
         'Desktop app (macOS, and Windows on x64 and ARM)',
         'An MCP server — AI agents read the spec and the examples, then draw',
-        'Export to SVG, Mermaid, draw.io and Markdown',
+        'Export to SVG, PDF, Mermaid, draw.io and Markdown',
+        'Start from the paper — write paper: B4 and the drawing comes out at real size in mm; the app shows the sheet and a print preview',
         'Specialist examples, checked against primary sources for each field and reviewed through that field’s eyes',
         'Search the examples by any text drawn inside them',
       ]],
       ['Now', [
         'More examples — research the drawings a trade really uses first, tabulate their conventions, then draw',
         'Review each example two or three times through the eyes of its field',
+        'More print-ready forms — drawings whose paper size is fixed, like drawing sheets and answer sheets',
       ]],
       ['Next', [
         'One macOS build for both Apple silicon and Intel (from the next release)',

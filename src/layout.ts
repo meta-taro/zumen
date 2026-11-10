@@ -705,6 +705,10 @@ export async function layout(
   }
 
   const size = extent(boxes, groups, edges, allAxes(views, grid), views);
+  const sheet = paperOf(raw.paper);
+  // **刷る紙を決めた図は、右と下の息継ぎ（PAD）を足さない。** 紙の余白がその役をする。
+  // 足すと、余白の内側にぴったり描いた図が 24px はみ出して、縮めて刷られていた（2026-11-10）
+  const breath = sheet === null ? 0 : PAD;
   return {
     boxes,
     groups,
@@ -726,9 +730,9 @@ export async function layout(
     north,
     wall: wallOf(raw.wall),
     arrows: arrowsOf(raw.arrows),
-    paper: paperOf(raw.paper),
-    width: size.width + margin.right,
-    height: size.height + margin.bottom,
+    paper: sheet,
+    width: size.width + margin.right - breath,
+    height: size.height + margin.bottom - breath,
   };
 }
 
@@ -2037,8 +2041,9 @@ function construct(raw: Record<string, unknown>, pins: Record<string, unknown>):
     wall: null,
     arrows: false,
     paper: paperOf(raw['paper']),
-    width: moved === null ? PAD * 2 : moved.maxX + PAD,
-    height: moved === null ? PAD * 2 : moved.maxY + PAD,
+    // 刷る紙を決めた作図は、右と下の息継ぎを足さない（配置図と同じ）
+    width: moved === null ? PAD * 2 : moved.maxX + (paperOf(raw['paper']) === null ? PAD : 0),
+    height: moved === null ? PAD * 2 : moved.maxY + (paperOf(raw['paper']) === null ? PAD : 0),
   };
 }
 

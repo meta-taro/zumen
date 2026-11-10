@@ -139,3 +139,42 @@ describe('検査と書き出し', () => {
     assert.ok(spec().shape.includes('paper:'));
   });
 });
+
+describe('刷る紙を決めた図は、紙に数えないものを足さない（2026-11-10。見本 416 で踏んだ）', () => {
+  const EXACT = (extra: string): string => `version: 1
+kind: placement
+title: 余白の内側にぴったり
+paper: { size: A4, orient: portrait, margin: 10 }
+${extra}
+nodes:
+  - { id: a, label: 枠, at: { x: 0, y: 0 }, size: { w: 718, h: 1046 } }
+`;
+
+  it('**余白の内側にぴったり描いた図は、縮めずに刷る**（右と下の息継ぎ 24px を足さない）', async () => {
+    const seen = await inspect(EXACT(''));
+    assert.equal(seen.paperShrink, 1);
+  });
+
+  it('**出典は紙の下の余白に刷り、図の大きさに数えない**', async () => {
+    const source = EXACT('sources:\n  - name: "出典の名前"\n    url: https://example.com/\n    retrieved: 2026-11-10');
+    assert.equal((await inspect(source)).paperShrink, 1);
+    const svg = render(await layout(source), 'light', 'safe', true);
+    const y = Number(/<g data-name="sources"><a [^>]*><text x="[-\d.]+" y="([-\d.]+)"/.exec(svg)![1]);
+    assert.ok(y > 1046 && y < 1046 + 10 / MM_PER_PX, `出典が下の余白に無い（y=${y}）`);
+  });
+
+  it('**縮尺の物差しは出さない**（縮んで刷られた物差しは嘘になる。縮尺は表題欄、縮みは比較目盛で）', async () => {
+    const source = EXACT('scale: { mm: 0.264583, unit: mm }');
+    assert.equal((await inspect(source)).paperShrink, 1);
+    const svg = render(await layout(source), 'light', 'safe', true);
+    assert.doesNotMatch(svg, /scalebar/);
+  });
+
+  it('紙を決めていない図は、これまでどおり息継ぎと物差しを足す', async () => {
+    const plain = EXACT('scale: { mm: 0.264583, unit: mm }').replace(/paper:.*\n/, '');
+    const placed = await layout(plain);
+    assert.equal(placed.width, 718 + 24);
+    assert.match(render(placed, 'light', 'safe', true), /scalebar/);
+  });
+});
+
