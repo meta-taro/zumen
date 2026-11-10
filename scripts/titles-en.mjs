@@ -401,6 +401,7 @@ export const TITLES_EN = {
   '416-製図用紙の様式': 'Drawing sheet layout (A3 landscape: border, centring marks, grid reference, reference scale and title block)',
   '417-はがきの宛名面': 'Address side of a Japanese postcard (postal code boxes 12 mm from the top and 8 mm from the right)',
   '418-履歴書': 'Japanese CV form (the labour ministry template: gender is optional, and there is no spouse, dependants or commute field)',
+  '420-原稿用紙': 'Manuscript paper (B4, 20 by 20 squares, 8.5 mm squares with 4.5 mm correction strips)',
   '419-長形3号封筒の表': 'Front of a Naga 3 envelope (exactly the largest standard-size letter in Japan)',
   '404-ギターのコード表とTAB譜': 'Guitar chord boxes and TAB (one fingering, two notations that face opposite ways)',
   '403-きらきら星-英語の歌詞つきの五線譜': 'Twinkle, Twinkle, Little Star (a staff score with English lyrics)',
