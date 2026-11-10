@@ -49,7 +49,7 @@ const CARDS = [
     lang: 'ja',
     title: 'zumen',
     line: 'AI が描き、人が直し、<br><b>その直しが次の生成で壊れない。</b>',
-    foot: '見本 420 枚 ／ テキスト正本 ／ MIT',
+    foot: '見本 421 枚 ／ テキスト正本 ／ MIT',
     samples: ['72-歯周チャート', '25-路線図'],
   },
   {
@@ -57,7 +57,7 @@ const CARDS = [
     lang: 'en',
     title: 'zumen',
     line: 'The AI draws it,<br>you fix one thing,<br><b>and your fix survives.</b>',
-    foot: '420 example drawings &middot; diagrams as text &middot; MIT',
+    foot: '421 example drawings &middot; diagrams as text &middot; MIT',
     samples: ['140-Exterior-wall-platform-framing', '159-Fire-IAP-map'],
   },
 ];
