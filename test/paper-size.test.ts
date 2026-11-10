@@ -28,6 +28,10 @@ describe('紙を読む', () => {
     assert.deepEqual(paperOf({ size: 'a3', orient: 'landscape', margin: 15 }), { size: 'A3', orient: 'landscape', w: 420, h: 297, margin: 15 });
   });
 
+  it('**郵便はがき（100×148mm）も選べる**（内国郵便約款 第 21 条）', () => {
+    assert.deepEqual(paperOf({ size: 'hagaki', margin: 0 }), { size: 'Hagaki', orient: 'portrait', w: 100, h: 148, margin: 0 });
+  });
+
   it('読めない紙は null（紙を決めない＝これまでどおり）。検証器は何が読めないかを言う', () => {
     assert.equal(paperOf('B9'), null);
     assert.equal(paperOf(undefined), null);

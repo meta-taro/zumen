@@ -635,7 +635,7 @@ const ja = {
       '      - { kind: <openings から>, side: <sides から>, at: <0〜1>, width: <px> }',
       'scale: { mm: <1px が何 mm か>, unit: <mm | m | um> }   # 寸法の数値を出すのに要る。unit は図ぜんたいの単位（省けば縮尺が決める）',
       'north: <up / right / down / left>    # 方位記号',
-      'paper: { size: <A3 | A4 | A5 | B4 | B5 | Letter | Legal | Tabloid>, orient: <portrait（既定）| landscape>, margin: <mm。既定 10> }   # 刷る紙。SVG が mm の実寸で出る。1px＝96dpi なので余白の内側（B4 縦で 895×1300px）に収めて作る。はみ出すと縮めて刷る（解答用紙・掲示物）。paper: B4 だけでもよい',
+      'paper: { size: <A3 | A4 | A5 | B4 | B5 | Letter | Legal | Tabloid | Hagaki（はがき 100×148）>, orient: <portrait（既定）| landscape>, margin: <mm。既定 10> }   # 刷る紙。SVG が mm の実寸で出る。1px＝96dpi なので余白の内側（B4 縦で 895×1300px）に収めて作る。はみ出すと縮めて刷る（解答用紙・掲示物）。paper: B4 だけでもよい',
       'wall: { mm: <間仕切の厚み>, outer: <外壁の厚み> }   # 平面図の壁を塗り潰す',
       'styles:                               # 見せ方の表。差し替えるだけで作風が変わる（販売図面の色分け・グレースケール）',
       '  <名前>: { fill: <palette の鍵>, color: <palette の鍵>, hatch: <模様> }   # 書けるのはこの 3 つだけ',
@@ -862,7 +862,7 @@ const ja = {
       'scale に mm と in の両方が書いてあります。mm のほうを採ります（寸法はミリで出ます）。フィートとインチで書きたいなら mm を消してください。',
     northUnknown: (word: string) =>
       `north が "${word}" になっています（up / right / down / left）。方位記号は描かれません。`,
-    paperSizeInvalid: `paper の大きさが読めません（A3 / A4 / A5 / B4 / B5 / Letter / Legal / Tabloid）。紙を決めずに、px の大きさで出ます。`,
+    paperSizeInvalid: `paper の大きさが読めません（A3 / A4 / A5 / B4 / B5 / Letter / Legal / Tabloid / Hagaki）。紙を決めずに、px の大きさで出ます。`,
     paperOrientInvalid: 'paper.orient は portrait（縦）か landscape（横）です。縦で出ます。',
     paperMarginInvalid: 'paper.margin は 0 以上の数（mm）です。既定の 10 mm で出ます。',
     wallInvalid: (found: string) =>
@@ -1717,7 +1717,7 @@ const en: Catalog = {
       '      - { kind: <from openings>, side: <from sides>, at: <0..1>, width: <px> }',
       'scale: { mm: <how many mm one pixel is>, unit: <mm | m | um> }   # required for dimension figures; unit picks one unit for the whole drawing (omit it and the scale decides)',
       'north: <up / right / down / left>',
-      'paper: { size: <A3 | A4 | A5 | B4 | B5 | Letter | Legal | Tabloid>, orient: <portrait (default) | landscape>, margin: <mm, default 10> }   # the sheet it is printed on: the SVG comes out at real size in mm, 1px = 96 dpi, so build inside the printable area (895×1300px on B4 portrait); overflow is shrunk to fit (answer sheets, notices). paper: B4 alone also works',
+      'paper: { size: <A3 | A4 | A5 | B4 | B5 | Letter | Legal | Tabloid | Hagaki (Japanese postcard, 100×148)>, orient: <portrait (default) | landscape>, margin: <mm, default 10> }   # the sheet it is printed on: the SVG comes out at real size in mm, 1px = 96 dpi, so build inside the printable area (895×1300px on B4 portrait); overflow is shrunk to fit (answer sheets, notices). paper: B4 alone also works',
       'wall: { mm: <partition thickness>, outer: <outer wall thickness> }  # poché walls',
       'styles:                               # style table: swap it to change the house style (colour-coded or greyscale sales plans)',
       '  <name>: { fill: <palette key>, color: <palette key>, hatch: <pattern> }   # only these three',
@@ -1930,7 +1930,7 @@ const en: Catalog = {
       'scale has both mm and in. mm wins, so the dimensions come out in millimetres. Drop mm if you want feet and inches.',
     northUnknown: (word: string) =>
       `north is "${word}" (up / right / down / left). No north arrow is drawn.`,
-    paperSizeInvalid: 'paper size is not one we know (A3 / A4 / A5 / B4 / B5 / Letter / Legal / Tabloid). The drawing comes out in pixels, with no paper.',
+    paperSizeInvalid: 'paper size is not one we know (A3 / A4 / A5 / B4 / B5 / Letter / Legal / Tabloid / Hagaki). The drawing comes out in pixels, with no paper.',
     paperOrientInvalid: 'paper.orient is portrait or landscape. It comes out portrait.',
     paperMarginInvalid: 'paper.margin is a number of mm, 0 or more. It comes out with the default 10 mm.',
     wallInvalid: (found: string) =>

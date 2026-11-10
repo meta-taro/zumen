@@ -1789,7 +1789,7 @@ paper: { size: A3, orient: landscape, margin: 12 } # 向きと余白（mm）も�
 
 | 鍵 | 値 | 既定 |
 |---|---|---|
-| `size` | `A3` / `A4` / `A5` / `B4` / `B5`（JIS の A 列・B 列）／ `Letter` / `Legal` / `Tabloid`。大文字・小文字は問わない | （必須） |
+| `size` | `A3` / `A4` / `A5` / `B4` / `B5`（JIS の A 列・B 列）／ `Letter` / `Legal` / `Tabloid` ／ `Hagaki`（郵便はがき 100×148mm。内国郵便約款 第 21 条）。大文字・小文字は問わない | （必須） |
 | `orient` | `portrait`（縦）／ `landscape`（横） | `portrait` |
 | `margin` | 四辺の余白（mm）。0 以上で、紙の短辺の半分より小さい数 | `10` |
 

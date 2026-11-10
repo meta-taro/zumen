@@ -1,0 +1,168 @@
+version: 1
+kind: placement
+paper: { size: Hagaki, margin: 0 }
+title: "はがきの宛名面（縦書き。郵便番号の枠は上端から 12mm・右端から 8mm）"
+palette:
+  朱色: "#e8382a"
+# **はがきの宛名面は、機械が読む所が決まっている。** 郵便番号の枠の位置と大きさは、区分機が読むための寸法。
+#
+# 座標は mm で考えて px に直した（1px = 25.4/96 mm。paper の margin: 0 で、はがきの左上が原点）。
+# 出典：
+#   内国郵便約款（日本郵便、最近改正 2026-11-02）第 21 条（当社が発行する葉書：長辺 14.8cm・短辺 10cm、左上に料額印面、
+#   上部の中央に「郵便はがき」、上部に受取人・下部に差出人の郵便番号記入枠）・第 22 条（私製葉書：14〜15.4cm × 9〜10.7cm、2〜6g、
+#   「郵便はがき」又はこれに相当する文字を上部又は左側部の中央に）・第 23 条（通信文は表面の下部 2 分の 1 以内）
+#   https://www.post.japanpost.jp/assets/docs/about/disclosure/yakkan/1-1.pdf（取得 2026-11-10）
+#   日本郵便「郵便番号・バーコードマニュアル 郵便番号枠」（JIS S 5502。版は確かめていない（マニュアルが JIS 規格と書くだけ）：上端から 12.0±1.5mm・右端から 8.0±1.5mm、
+#   枠 5.7×8.0mm・間隔 7.0mm、ハイフンの後は 21.6mm から、全幅 47.7mm、寸法は枠線の内側から。
+#   上 3 けたとハイフンの線 0.4〜0.6mm、下 4 けた 0.2〜0.4mm。色は朱色又は金赤色）
+#   https://www.post.japanpost.jp/service/search/zipcode/zipmanual/p05.html（取得 2026-11-10）
+# 架空：住所・氏名。例：切手の枠の大きさ、差出人の郵便番号枠の位置と大きさ（一次資料で寸法を確かめていない）。
+# 色の値 #e8382a は朱色の例（日本郵便は朱色又は金赤色と言うだけで、色の値は決めていない）。
+nodes:
+  - id: zip-note
+    label: "郵便番号の枠は朱色"
+    marker: none
+    at: { x: 167, y: 81 }
+    size: { w: 181, h: 19 }
+  - id: stamp-note
+    label: "切手"
+    marker: none
+    at: { x: 30, y: 68 }
+    size: { w: 83, h: 23 }
+  - id: title
+    label: "郵 便 は が き"
+    marker: none
+    at: { x: 113, y: 11 }
+    size: { w: 152, h: 23 }
+  - id: to-addr
+    label: "東京都千代田区見本町一丁目二番三号"
+    marker: none
+    write: down
+    at: { x: 302, y: 106 }
+    size: { w: 31, h: 310 }
+  - id: to-name
+    label: "見本　花子　様"
+    marker: none
+    write: down
+    at: { x: 176, y: 121 }
+    size: { w: 26, h: 227 }
+  - id: from-addr
+    label: "大阪府大阪市見本区一ノ二"
+    marker: none
+    write: down
+    at: { x: 68, y: 317 }
+    size: { w: 23, h: 152 }
+  - id: from-name
+    label: "見本　太郎"
+    marker: none
+    write: down
+    at: { x: 34, y: 363 }
+    size: { w: 23, h: 106 }
+  - id: half-note
+    label: "下半分は\n通信文も可"
+    marker: none
+    align: left
+    at: { x: 212, y: 285 }
+    size: { w: 83, h: 38 }
+paths:
+  - id: zip1
+    points: [ [ 167.4, 45.4 ], [ 189, 45.4 ], [ 189, 75.6 ], [ 167.4, 75.6 ] ]
+    close: true
+    color: 朱色
+    ends: { from: none, to: none }
+  - id: zip2
+    points: [ [ 193.9, 45.4 ], [ 215.4, 45.4 ], [ 215.4, 75.6 ], [ 193.9, 75.6 ] ]
+    close: true
+    color: 朱色
+    ends: { from: none, to: none }
+  - id: zip3
+    points: [ [ 220.3, 45.4 ], [ 241.9, 45.4 ], [ 241.9, 75.6 ], [ 220.3, 75.6 ] ]
+    close: true
+    color: 朱色
+    ends: { from: none, to: none }
+  - id: zip4
+    points: [ [ 249.1, 45.4 ], [ 270.6, 45.4 ], [ 270.6, 75.6 ], [ 249.1, 75.6 ] ]
+    close: true
+    weight: thin
+    color: 朱色
+    ends: { from: none, to: none }
+  - id: zip5
+    points: [ [ 274.8, 45.4 ], [ 296.3, 45.4 ], [ 296.3, 75.6 ], [ 274.8, 75.6 ] ]
+    close: true
+    weight: thin
+    color: 朱色
+    ends: { from: none, to: none }
+  - id: zip6
+    points: [ [ 300.5, 45.4 ], [ 322, 45.4 ], [ 322, 75.6 ], [ 300.5, 75.6 ] ]
+    close: true
+    weight: thin
+    color: 朱色
+    ends: { from: none, to: none }
+  - id: zip7
+    points: [ [ 326.2, 45.4 ], [ 347.7, 45.4 ], [ 347.7, 75.6 ], [ 326.2, 75.6 ] ]
+    close: true
+    weight: thin
+    color: 朱色
+    ends: { from: none, to: none }
+  - id: zip-hyphen
+    points: [ [ 241.9, 60.5 ], [ 249.1, 60.5 ] ]
+    color: 朱色
+    ends: { from: none, to: none }
+  - id: stamp
+    points: [ [ 30.2, 30.2 ], [ 113.4, 30.2 ], [ 113.4, 132.3 ], [ 30.2, 132.3 ] ]
+    close: true
+    line: dashed
+    weight: thin
+    ends: { from: none, to: none }
+  - id: szip1
+    points: [ [ 22.7, 491.3 ], [ 37, 491.3 ], [ 37, 512.1 ], [ 22.7, 512.1 ] ]
+    close: true
+    weight: thin
+    color: 朱色
+    ends: { from: none, to: none }
+  - id: szip2
+    points: [ [ 39.7, 491.3 ], [ 54, 491.3 ], [ 54, 512.1 ], [ 39.7, 512.1 ] ]
+    close: true
+    weight: thin
+    color: 朱色
+    ends: { from: none, to: none }
+  - id: szip3
+    points: [ [ 56.7, 491.3 ], [ 71.1, 491.3 ], [ 71.1, 512.1 ], [ 56.7, 512.1 ] ]
+    close: true
+    weight: thin
+    color: 朱色
+    ends: { from: none, to: none }
+  - id: szip4
+    points: [ [ 75.6, 491.3 ], [ 90, 491.3 ], [ 90, 512.1 ], [ 75.6, 512.1 ] ]
+    close: true
+    weight: thin
+    color: 朱色
+    ends: { from: none, to: none }
+  - id: szip5
+    points: [ [ 92.6, 491.3 ], [ 107, 491.3 ], [ 107, 512.1 ], [ 92.6, 512.1 ] ]
+    close: true
+    weight: thin
+    color: 朱色
+    ends: { from: none, to: none }
+  - id: szip6
+    points: [ [ 109.6, 491.3 ], [ 124, 491.3 ], [ 124, 512.1 ], [ 109.6, 512.1 ] ]
+    close: true
+    weight: thin
+    color: 朱色
+    ends: { from: none, to: none }
+  - id: szip7
+    points: [ [ 126.6, 491.3 ], [ 141, 491.3 ], [ 141, 512.1 ], [ 126.6, 512.1 ] ]
+    close: true
+    weight: thin
+    color: 朱色
+    ends: { from: none, to: none }
+  - id: szip-hyphen
+    points: [ [ 71.1, 501.7 ], [ 75.6, 501.7 ] ]
+    weight: thin
+    color: 朱色
+    ends: { from: none, to: none }
+  - id: half
+    points: [ [ 0, 279.7 ], [ 378, 279.7 ] ]
+    line: dotted
+    weight: thin
+    ends: { from: none, to: none }
