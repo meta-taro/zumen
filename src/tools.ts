@@ -374,8 +374,13 @@ export interface Inspection {
 function sheetOf(placed: Placed, source: string): { paper: string; mmPerPx: number } | null {
   const paper = placed.paper ?? null;
   if (paper === null) return null;
-  const page = svgPixels(render(placed, 'light', 'safe', kindOf(source) === 'placement'));
-  return page === null || page.w <= 0 ? null : { paper: `${paper.size} ${paper.orient}`, mmPerPx: paper.w / page.w };
+  // **viewBox の幅を丸めずに読む。** svgPixels は px へ切り上げるので、紙ぴったりの図（453.5px）が
+  // 454px と読まれ、「100% に縮めて刷ります」と言っていた（2026-11-10。見本 419 で踏んだ）
+  const svg = render(placed, 'light', 'safe', kindOf(source) === 'placement');
+  const head = /<svg\b[^>]*>/.exec(svg)?.[0] ?? '';
+  const view = /viewBox="[-\d.]+ [-\d.]+ ([\d.]+) [\d.]+"/.exec(head);
+  const w = view === null ? (svgPixels(svg)?.w ?? 0) : Number(view[1]);
+  return w <= 0 ? null : { paper: `${paper.size} ${paper.orient}`, mmPerPx: paper.w / w };
 }
 
 /**

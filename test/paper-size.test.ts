@@ -28,8 +28,9 @@ describe('紙を読む', () => {
     assert.deepEqual(paperOf({ size: 'a3', orient: 'landscape', margin: 15 }), { size: 'A3', orient: 'landscape', w: 420, h: 297, margin: 15 });
   });
 
-  it('**郵便はがき（100×148mm）も選べる**（内国郵便約款 第 21 条）', () => {
+  it('**郵便はがき（100×148mm）と長形 3 号封筒（120×235mm）も選べる**（内国郵便約款 第 21 条・JIS S 5502:2010）', () => {
     assert.deepEqual(paperOf({ size: 'hagaki', margin: 0 }), { size: 'Hagaki', orient: 'portrait', w: 100, h: 148, margin: 0 });
+    assert.deepEqual(paperOf('Naga3'), { size: 'Naga3', orient: 'portrait', w: 120, h: 235, margin: 10 });
   });
 
   it('読めない紙は null（紙を決めない＝これまでどおり）。検証器は何が読めないかを言う', () => {
@@ -157,6 +158,16 @@ nodes:
   it('**余白の内側にぴったり描いた図は、縮めずに刷る**（右と下の息継ぎ 24px を足さない）', async () => {
     const seen = await inspect(EXACT(''));
     assert.equal(seen.paperShrink, 1);
+  });
+
+  it('**紙ぴったりの図を「100% に縮める」と言わない**（viewBox の幅を丸めずに読む。見本 419）', async () => {
+    const full = `version: 1
+kind: placement
+paper: { size: Naga3, margin: 0 }
+nodes:
+  - { id: a, label: 枠, at: { x: 0, y: 0 }, size: { w: 453, h: 888 } }
+`;
+    assert.equal((await inspect(full)).paperShrink, 1);
   });
 
   it('**出典は紙の下の余白に刷り、図の大きさに数えない**', async () => {

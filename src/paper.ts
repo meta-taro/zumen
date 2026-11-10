@@ -25,7 +25,7 @@
  * `paper` は**紙の上の大きさ**。同じ図に両方書ける。
  */
 
-/** JIS P 0138 の A 列・B 列と、北米の紙と、郵便はがき（mm、縦長で書く）。 */
+/** JIS P 0138 の A 列・B 列と、北米の紙と、郵便はがき・封筒（mm、縦長で書く）。 */
 export const PAPER_SIZES = {
   A3: { w: 297, h: 420 },
   A4: { w: 210, h: 297 },
@@ -37,6 +37,8 @@ export const PAPER_SIZES = {
   Tabloid: { w: 279.4, h: 431.8 },
   /** 日本郵便が発行する通常葉書（内国郵便約款 第 21 条：長辺 14.8cm・短辺 10cm）。見本 417 */
   Hagaki: { w: 100, h: 148 },
+  /** 長形 3 号封筒（JIS S 5502:2010。定形郵便物の上限）。見本 419 */
+  Naga3: { w: 120, h: 235 },
 } as const;
 export type PaperSize = keyof typeof PAPER_SIZES;
 export const PAPER_NAMES = Object.keys(PAPER_SIZES) as PaperSize[];
