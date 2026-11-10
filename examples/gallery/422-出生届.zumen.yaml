@@ -1,0 +1,1824 @@
+version: 1
+kind: placement
+paper: { size: A3, orient: landscape, margin: 0 }
+title: "出生届（戸籍届書の標準様式 別紙 1。令和 8 年 4 月から。右に出生証明書・下に個人番号カードの申請欄）"
+# **役所の窓口や病院で受け取って手で書く様式。** 左が届出人（父母など）の欄、右上が出生証明書（医師・助産師などが書く）、
+# 右下の点線枠が個人番号カード交付申請書 兼 電子証明書発行申請書、中央の文は欄ごとの注意。
+#
+# 罫線は様式の PDF（A3 横）から拾い、字は PDF から位置ごと取り出した。受理・通知の欄の字だけは図形なので絵から読んだ。
+# 字の大きさが固定なので、様式を 1.25 倍で描いて A3 へ縮めて収める（紙の上で字は約 2.5mm）。
+# 申請欄の（注）は原文が 6pt ほどの細字で、固定の字では原文の行に収まらないため要約した（図の中にもそう書いた）。
+# 出典：
+#   法務省民事局長通達「戸籍届書の標準様式の全部改正について」令和 8 年 2 月 26 日 法務省民一第 394 号（別紙 1〜35。令和 8 年 4 月 1 日施行、
+#   従前の様式の用紙も当分の間使える）別紙 1。内閣府 地方分権改革の提案募集の資料に収録
+#   https://www.cao.go.jp/bunken-suishin/teianbosyu/doc/r07/tb_r7fu_08moj_106_1.pdf（取得 2026-11-10）
+#   戸籍法 第 49 条（出生の届出は 14 日以内・出生証明書を添付）
+# 架空：なし（何も書き込んでいない白紙の様式）。
+nodes:
+  - id: t1
+    label: "出生証明書"
+    marker: none
+    align: left
+    at: { x: 1433, y: 57 }
+    size: { w: 215, h: 14 }
+  - id: t2
+    label: "出"
+    marker: none
+    align: left
+    at: { x: 168, y: 62 }
+    size: { w: 33, h: 14 }
+  - id: t3
+    label: "生"
+    marker: none
+    align: left
+    at: { x: 251, y: 62 }
+    size: { w: 33, h: 14 }
+  - id: t4
+    label: "届"
+    marker: none
+    align: left
+    at: { x: 334, y: 62 }
+    size: { w: 33, h: 14 }
+  - id: t5
+    label: "記入の注意"
+    marker: none
+    align: left
+    at: { x: 977, y: 55 }
+    size: { w: 124, h: 14 }
+  - id: t6
+    label: "記入の注意"
+    marker: none
+    align: left
+    at: { x: 1791, y: 83 }
+    size: { w: 89, h: 14 }
+  - id: t7
+    label: "鉛筆や消えやすいインキで書かない\nでください。"
+    marker: none
+    align: left
+    at: { x: 965, y: 83 }
+    size: { w: 246, h: 33 }
+  - id: t8
+    label: "男女"
+    marker: none
+    align: left
+    at: { x: 1599, y: 117 }
+    size: { w: 34, h: 14 }
+  - id: t9
+    label: "令和"
+    marker: none
+    align: left
+    at: { x: 175, y: 121 }
+    size: { w: 34, h: 14 }
+  - id: t10
+    label: "年"
+    marker: none
+    align: left
+    at: { x: 246, y: 121 }
+    size: { w: 20, h: 14 }
+  - id: t11
+    label: "月"
+    marker: none
+    align: left
+    at: { x: 299, y: 121 }
+    size: { w: 20, h: 14 }
+  - id: t12
+    label: "日届出"
+    marker: none
+    align: left
+    at: { x: 352, y: 121 }
+    size: { w: 60, h: 14 }
+  - id: t13
+    label: "子が生まれた日からかぞえて14日以\n内に提出してください。"
+    marker: none
+    align: left
+    at: { x: 965, y: 127 }
+    size: { w: 246, h: 33 }
+  - id: t14
+    label: "１男"
+    marker: none
+    align: left
+    at: { x: 1664, y: 133 }
+    size: { w: 34, h: 14 }
+  - id: t15
+    label: "２女"
+    marker: none
+    align: left
+    at: { x: 1713, y: 133 }
+    size: { w: 34, h: 14 }
+  - id: t16
+    label: "子　の　氏　名"
+    marker: none
+    align: left
+    at: { x: 1320, y: 133 }
+    size: { w: 100, h: 14 }
+  - id: t17
+    label: "の別"
+    marker: none
+    align: left
+    at: { x: 1599, y: 150 }
+    size: { w: 34, h: 14 }
+  - id: t18
+    label: "夜の12時は\n「午前０時」、\n昼の12時は\n「午後０時」と\n書いてください。"
+    marker: none
+    align: left
+    at: { x: 1797, y: 169 }
+    size: { w: 112, h: 74 }
+  - id: t19
+    label: "□には、あてはまるものに☑のよう\nにしるしをつけてください。"
+    marker: none
+    align: left
+    at: { x: 965, y: 176 }
+    size: { w: 246, h: 34 }
+  - id: t20
+    label: "午前"
+    marker: none
+    align: left
+    at: { x: 1629, y: 185 }
+    size: { w: 34, h: 14 }
+  - id: t21
+    label: "長"
+    marker: none
+    align: left
+    at: { x: 334, y: 187 }
+    size: { w: 20, h: 14 }
+  - id: t22
+    label: "殿"
+    marker: none
+    align: left
+    at: { x: 370, y: 187 }
+    size: { w: 20, h: 14 }
+  - id: t23
+    label: "生まれたとき"
+    marker: none
+    align: left
+    at: { x: 1320, y: 201 }
+    size: { w: 95, h: 14 }
+  - id: t24
+    label: "令和"
+    marker: none
+    align: left
+    at: { x: 1431, y: 201 }
+    size: { w: 34, h: 14 }
+  - id: t25
+    label: "年"
+    marker: none
+    align: left
+    at: { x: 1497, y: 201 }
+    size: { w: 20, h: 14 }
+  - id: t26
+    label: "月"
+    marker: none
+    align: left
+    at: { x: 1546, y: 201 }
+    size: { w: 20, h: 14 }
+  - id: t27
+    label: "日"
+    marker: none
+    align: left
+    at: { x: 1595, y: 201 }
+    size: { w: 20, h: 14 }
+  - id: t28
+    label: "時"
+    marker: none
+    align: left
+    at: { x: 1695, y: 201 }
+    size: { w: 20, h: 14 }
+  - id: t29
+    label: "分"
+    marker: none
+    align: left
+    at: { x: 1745, y: 201 }
+    size: { w: 20, h: 14 }
+  - id: t30
+    label: "午後"
+    marker: none
+    align: left
+    at: { x: 1629, y: 218 }
+    size: { w: 34, h: 14 }
+  - id: t31
+    label: "子の名は、常用漢字、人名用漢字、\nかたかな、ひらがなで書いてくださ\nい。子が外国人のときは、原則かた\nかなで書くとともに、住民票の処理\n上必要ですから、ローマ字を付記し\nてください。\n日本国籍を有する子の場合、名のフ\nリガナ欄には、氏名として用いられ\nる文字の読み方として一般に認めら\nれている読み方を記載してください。"
+    marker: none
+    align: left
+    at: { x: 965, y: 225 }
+    size: { w: 261, h: 175 }
+  - id: t32
+    label: "父母と"
+    marker: none
+    align: left
+    at: { x: 584, y: 239 }
+    size: { w: 53, h: 14 }
+  - id: t33
+    label: "嫡"
+    marker: none
+    align: left
+    at: { x: 678, y: 242 }
+    size: { w: 20, h: 14 }
+  - id: t34
+    label: "出"
+    marker: none
+    align: left
+    at: { x: 722, y: 242 }
+    size: { w: 20, h: 14 }
+  - id: t35
+    label: "子"
+    marker: none
+    align: left
+    at: { x: 766, y: 242 }
+    size: { w: 20, h: 14 }
+  - id: t36
+    label: "氏"
+    marker: none
+    align: left
+    at: { x: 361, y: 249 }
+    size: { w: 20, h: 14 }
+  - id: t37
+    label: "名"
+    marker: none
+    align: left
+    at: { x: 500, y: 249 }
+    size: { w: 20, h: 14 }
+  - id: t38
+    label: "１病院\n４自宅"
+    marker: none
+    align: left
+    at: { x: 1536, y: 251 }
+    size: { w: 50, h: 34 }
+  - id: t39
+    label: "２診療所\n５その他"
+    marker: none
+    align: left
+    at: { x: 1602, y: 251 }
+    size: { w: 66, h: 34 }
+  - id: t40
+    label: "３助産所"
+    marker: none
+    align: left
+    at: { x: 1684, y: 253 }
+    size: { w: 66, h: 14 }
+  - id: t41
+    label: "男"
+    marker: none
+    align: left
+    at: { x: 881, y: 254 }
+    size: { w: 20, h: 14 }
+  - id: t42
+    label: "子"
+    marker: none
+    align: left
+    at: { x: 166, y: 260 }
+    size: { w: 20, h: 14 }
+  - id: t43
+    label: "の"
+    marker: none
+    align: left
+    at: { x: 201, y: 260 }
+    size: { w: 20, h: 14 }
+  - id: t44
+    label: "氏"
+    marker: none
+    align: left
+    at: { x: 237, y: 260 }
+    size: { w: 20, h: 14 }
+  - id: t45
+    label: "名"
+    marker: none
+    align: left
+    at: { x: 272, y: 260 }
+    size: { w: 20, h: 14 }
+  - id: t46
+    label: "の"
+    marker: none
+    align: left
+    at: { x: 602, y: 266 }
+    size: { w: 20, h: 14 }
+  - id: t47
+    label: "生"
+    marker: none
+    align: left
+    at: { x: 143, y: 268 }
+    size: { w: 20, h: 14 }
+  - id: t48
+    label: "（1）"
+    marker: none
+    align: left
+    at: { x: 94, y: 280 }
+    size: { w: 40, h: 14 }
+  - id: t49
+    label: "（外国人のときは\n　ローマ字を付記\n　してください）"
+    marker: none
+    align: left
+    at: { x: 179, y: 278 }
+    size: { w: 112, h: 46 }
+  - id: t50
+    label: "女"
+    marker: none
+    align: left
+    at: { x: 881, y: 284 }
+    size: { w: 20, h: 14 }
+  - id: t51
+    label: "嫡出でない子"
+    marker: none
+    align: left
+    at: { x: 678, y: 293 }
+    size: { w: 106, h: 14 }
+  - id: t52
+    label: "続き柄"
+    marker: none
+    align: left
+    at: { x: 584, y: 294 }
+    size: { w: 53, h: 14 }
+  - id: t53
+    label: "出生した"
+    marker: none
+    align: left
+    at: { x: 1320, y: 297 }
+    size: { w: 94, h: 14 }
+  - id: t54
+    label: "ま"
+    marker: none
+    align: left
+    at: { x: 143, y: 303 }
+    size: { w: 20, h: 14 }
+  - id: t55
+    label: "出生した"
+    marker: none
+    align: left
+    at: { x: 1427, y: 306 }
+    size: { w: 82, h: 14 }
+  - id: t56
+    label: "番地\n番"
+    marker: none
+    align: left
+    at: { x: 1640, y: 323 }
+    size: { w: 34, h: 35 }
+  - id: t57
+    label: "（2）"
+    marker: none
+    align: left
+    at: { x: 94, y: 327 }
+    size: { w: 40, h: 14 }
+  - id: t58
+    label: "（10）"
+    marker: none
+    align: left
+    at: { x: 1273, y: 330 }
+    size: { w: 46, h: 14 }
+  - id: t59
+    label: "ところ及び"
+    marker: none
+    align: left
+    at: { x: 1323, y: 330 }
+    size: { w: 91, h: 14 }
+  - id: t60
+    label: "午前\n午後"
+    marker: none
+    align: left
+    at: { x: 625, y: 329 }
+    size: { w: 34, h: 32 }
+  - id: t61
+    label: "時"
+    marker: none
+    align: left
+    at: { x: 716, y: 338 }
+    size: { w: 20, h: 14 }
+  - id: t62
+    label: "分"
+    marker: none
+    align: left
+    at: { x: 787, y: 338 }
+    size: { w: 20, h: 14 }
+  - id: t63
+    label: "生まれたとき"
+    marker: none
+    align: left
+    at: { x: 166, y: 338 }
+    size: { w: 124, h: 14 }
+  - id: t64
+    label: "令和"
+    marker: none
+    align: left
+    at: { x: 306, y: 338 }
+    size: { w: 35, h: 14 }
+  - id: t65
+    label: "年"
+    marker: none
+    align: left
+    at: { x: 394, y: 338 }
+    size: { w: 20, h: 14 }
+  - id: t66
+    label: "月"
+    marker: none
+    align: left
+    at: { x: 466, y: 338 }
+    size: { w: 20, h: 14 }
+  - id: t67
+    label: "日"
+    marker: none
+    align: left
+    at: { x: 537, y: 338 }
+    size: { w: 20, h: 14 }
+  - id: t68
+    label: "とこ"
+    marker: none
+    align: left
+    at: { x: 1426, y: 338 }
+    size: { w: 49, h: 14 }
+  - id: t69
+    label: "ろ"
+    marker: none
+    align: left
+    at: { x: 1493, y: 338 }
+    size: { w: 20, h: 14 }
+  - id: t70
+    label: "れ"
+    marker: none
+    align: left
+    at: { x: 143, y: 339 }
+    size: { w: 20, h: 14 }
+  - id: t71
+    label: "号"
+    marker: none
+    align: left
+    at: { x: 1722, y: 343 }
+    size: { w: 20, h: 14 }
+  - id: t72
+    label: "その種別"
+    marker: none
+    align: left
+    at: { x: 1320, y: 362 }
+    size: { w: 94, h: 14 }
+  - id: t73
+    label: "（3）"
+    marker: none
+    align: left
+    at: { x: 94, y: 372 }
+    size: { w: 40, h: 14 }
+  - id: t74
+    label: "番地\n番"
+    marker: none
+    align: left
+    at: { x: 777, y: 369 }
+    size: { w: 36, h: 37 }
+  - id: t75
+    label: "（出生したところ\n　の種別１〜３）"
+    marker: none
+    align: left
+    at: { x: 1437, y: 365 }
+    size: { w: 112, h: 32 }
+  - id: t76
+    label: "た"
+    marker: none
+    align: left
+    at: { x: 143, y: 374 }
+    size: { w: 20, h: 14 }
+  - id: t77
+    label: "生まれたところ"
+    marker: none
+    align: left
+    at: { x: 166, y: 380 }
+    size: { w: 124, h: 14 }
+  - id: t78
+    label: "号"
+    marker: none
+    align: left
+    at: { x: 866, y: 390 }
+    size: { w: 20, h: 14 }
+  - id: t79
+    label: "施設の名称"
+    marker: none
+    align: left
+    at: { x: 1427, y: 405 }
+    size: { w: 82, h: 14 }
+  - id: t80
+    label: "子"
+    marker: none
+    align: left
+    at: { x: 143, y: 410 }
+    size: { w: 20, h: 14 }
+  - id: t81
+    label: "体重及び身長\nは、立会者が医\n師又は助産師以\n外の者で、わか\nらなければ書か\nなくてもかまい\nません。"
+    marker: none
+    align: left
+    at: { x: 1797, y: 415 }
+    size: { w: 100, h: 102 }
+  - id: t82
+    label: "生まれたところが、台湾またはパレ\nスチナ（ヨルダン川西岸地区及びガ\nザ地区）である場合、地域から記載\nすることができます。"
+    marker: none
+    align: left
+    at: { x: 965, y: 418 }
+    size: { w: 246, h: 72 }
+  - id: t83
+    label: "住"
+    marker: none
+    align: left
+    at: { x: 166, y: 432 }
+    size: { w: 20, h: 14 }
+  - id: t84
+    label: "所"
+    marker: none
+    align: left
+    at: { x: 272, y: 432 }
+    size: { w: 20, h: 14 }
+  - id: t85
+    label: "体重"
+    marker: none
+    align: left
+    at: { x: 1428, y: 438 }
+    size: { w: 34, h: 14 }
+  - id: t86
+    label: "身長"
+    marker: none
+    align: left
+    at: { x: 1602, y: 438 }
+    size: { w: 34, h: 14 }
+  - id: t87
+    label: "（4）"
+    marker: none
+    align: left
+    at: { x: 94, y: 452 }
+    size: { w: 40, h: 14 }
+  - id: t88
+    label: "（11）"
+    marker: none
+    align: left
+    at: { x: 1273, y: 459 }
+    size: { w: 46, h: 14 }
+  - id: t89
+    label: "体重及び身長"
+    marker: none
+    align: left
+    at: { x: 1323, y: 459 }
+    size: { w: 92, h: 14 }
+  - id: t90
+    label: "グラム"
+    marker: none
+    align: right
+    at: { x: 1544, y: 459 }
+    size: { w: 46, h: 14 }
+  - id: t91
+    label: "センチメートル"
+    marker: none
+    align: right
+    at: { x: 1665, y: 459 }
+    size: { w: 100, h: 14 }
+  - id: t92
+    label: "（住民登録をする\n　ところ）"
+    marker: none
+    align: left
+    at: { x: 179, y: 459 }
+    size: { w: 112, h: 32 }
+  - id: t93
+    label: "世帯主と\nの続き柄"
+    marker: none
+    align: left
+    at: { x: 617, y: 466 }
+    size: { w: 60, h: 32 }
+  - id: t94
+    label: "世帯主\nの氏名"
+    marker: none
+    align: left
+    at: { x: 306, y: 466 }
+    size: { w: 46, h: 32 }
+  - id: t95
+    label: "１単胎"
+    marker: none
+    align: left
+    at: { x: 1453, y: 508 }
+    size: { w: 50, h: 14 }
+  - id: t96
+    label: "２多胎（"
+    marker: none
+    align: left
+    at: { x: 1535, y: 508 }
+    size: { w: 66, h: 14 }
+  - id: t97
+    label: "子中第"
+    marker: none
+    align: left
+    at: { x: 1634, y: 508 }
+    size: { w: 49, h: 14 }
+  - id: t98
+    label: "子）"
+    marker: none
+    align: left
+    at: { x: 1716, y: 508 }
+    size: { w: 34, h: 14 }
+  - id: t99
+    label: "（12）"
+    marker: none
+    align: left
+    at: { x: 1273, y: 514 }
+    size: { w: 46, h: 14 }
+  - id: t100
+    label: "単胎・"
+    marker: none
+    align: left
+    at: { x: 1348, y: 514 }
+    size: { w: 52, h: 14 }
+  - id: t101
+    label: "父母の氏名"
+    marker: none
+    align: left
+    at: { x: 166, y: 520 }
+    size: { w: 124, h: 14 }
+  - id: t102
+    label: "父"
+    marker: none
+    align: left
+    at: { x: 305, y: 520 }
+    size: { w: 20, h: 14 }
+  - id: t103
+    label: "母"
+    marker: none
+    align: left
+    at: { x: 617, y: 523 }
+    size: { w: 20, h: 14 }
+  - id: t104
+    label: "多胎の別"
+    marker: none
+    align: left
+    at: { x: 1348, y: 529 }
+    size: { w: 66, h: 14 }
+  - id: t105
+    label: "生　年　月　日"
+    marker: none
+    align: left
+    at: { x: 166, y: 537 }
+    size: { w: 124, h: 14 }
+  - id: t106
+    label: "（5）"
+    marker: none
+    align: left
+    at: { x: 94, y: 542 }
+    size: { w: 40, h: 14 }
+  - id: t107
+    label: "筆頭者の氏名には、戸籍のはじめに\n記載されている人の氏名を書いてく\nださい。\n外国人のうち、次の地域の法を本国\n法とする人は、国籍に代えて地域を\n記載することができます。\n１　台湾\n２　パレスチナ（ヨルダン川西岸地\n　区及びガザ地区）"
+    marker: none
+    align: left
+    at: { x: 965, y: 555 }
+    size: { w: 246, h: 166 }
+  - id: t108
+    label: "（子が生まれたと\n　きの年齢）"
+    marker: none
+    align: left
+    at: { x: 179, y: 553 }
+    size: { w: 112, h: 32 }
+  - id: t109
+    label: "妊娠"
+    marker: none
+    align: left
+    at: { x: 1604, y: 564 }
+    size: { w: 34, h: 14 }
+  - id: t110
+    label: "年"
+    marker: none
+    align: left
+    at: { x: 359, y: 566 }
+    size: { w: 20, h: 14 }
+  - id: t111
+    label: "月"
+    marker: none
+    align: left
+    at: { x: 413, y: 566 }
+    size: { w: 20, h: 14 }
+  - id: t112
+    label: "日（満"
+    marker: none
+    align: left
+    at: { x: 466, y: 566 }
+    size: { w: 53, h: 14 }
+  - id: t113
+    label: "歳）"
+    marker: none
+    align: left
+    at: { x: 554, y: 566 }
+    size: { w: 36, h: 14 }
+  - id: t114
+    label: "年"
+    marker: none
+    align: left
+    at: { x: 669, y: 566 }
+    size: { w: 20, h: 14 }
+  - id: t115
+    label: "月"
+    marker: none
+    align: left
+    at: { x: 723, y: 566 }
+    size: { w: 20, h: 14 }
+  - id: t116
+    label: "日（満"
+    marker: none
+    align: left
+    at: { x: 776, y: 566 }
+    size: { w: 53, h: 14 }
+  - id: t117
+    label: "歳）"
+    marker: none
+    align: left
+    at: { x: 864, y: 566 }
+    size: { w: 36, h: 14 }
+  - id: t118
+    label: "生\nま\nれ\nた\n子\nの\n父\nと\n母"
+    marker: none
+    align: left
+    at: { x: 143, y: 566 }
+    size: { w: 20, h: 254 }
+  - id: t119
+    label: "満"
+    marker: none
+    align: left
+    at: { x: 1650, y: 580 }
+    size: { w: 20, h: 14 }
+  - id: t120
+    label: "週"
+    marker: none
+    align: left
+    at: { x: 1700, y: 580 }
+    size: { w: 20, h: 14 }
+  - id: t121
+    label: "日"
+    marker: none
+    align: left
+    at: { x: 1749, y: 580 }
+    size: { w: 20, h: 14 }
+  - id: t122
+    label: "（13）"
+    marker: none
+    align: left
+    at: { x: 1273, y: 580 }
+    size: { w: 46, h: 14 }
+  - id: t123
+    label: "母　の　氏　名"
+    marker: none
+    align: left
+    at: { x: 1323, y: 580 }
+    size: { w: 100, h: 14 }
+  - id: t124
+    label: "週数"
+    marker: none
+    align: left
+    at: { x: 1604, y: 596 }
+    size: { w: 34, h: 14 }
+  - id: t125
+    label: "番地\n番"
+    marker: none
+    align: left
+    at: { x: 795, y: 597 }
+    size: { w: 35, h: 36 }
+  - id: t126
+    label: "本"
+    marker: none
+    align: left
+    at: { x: 166, y: 610 }
+    size: { w: 20, h: 14 }
+  - id: t127
+    label: "籍"
+    marker: none
+    align: left
+    at: { x: 272, y: 610 }
+    size: { w: 20, h: 14 }
+  - id: t128
+    label: "この母の出産\nした子の数は、\n当該母又は家人\nなどから聞いて\n書いてください。"
+    marker: none
+    align: left
+    at: { x: 1796, y: 618 }
+    size: { w: 112, h: 74 }
+  - id: t129
+    label: "（6）"
+    marker: none
+    align: left
+    at: { x: 94, y: 631 }
+    size: { w: 40, h: 14 }
+  - id: t130
+    label: "この母の出産"
+    marker: none
+    align: left
+    at: { x: 1323, y: 633 }
+    size: { w: 91, h: 14 }
+  - id: t131
+    label: "出生子"
+    marker: none
+    align: left
+    at: { x: 1427, y: 633 }
+    size: { w: 46, h: 14 }
+  - id: t132
+    label: "（外国人のときは\n　国籍だけを書い\n　てください）"
+    marker: none
+    align: left
+    at: { x: 179, y: 628 }
+    size: { w: 112, h: 46 }
+  - id: t133
+    label: "人"
+    marker: none
+    align: left
+    at: { x: 1733, y: 638 }
+    size: { w: 20, h: 14 }
+  - id: t134
+    label: "筆頭者\nの氏名"
+    marker: none
+    align: left
+    at: { x: 306, y: 646 }
+    size: { w: 46, h: 32 }
+  - id: t135
+    label: "（14）"
+    marker: none
+    align: left
+    at: { x: 1273, y: 650 }
+    size: { w: 46, h: 14 }
+  - id: t136
+    label: "した子の数"
+    marker: none
+    align: left
+    at: { x: 1323, y: 667 }
+    size: { w: 91, h: 14 }
+  - id: t137
+    label: "死産児（妊娠満22週以後）"
+    marker: none
+    align: left
+    at: { x: 1427, y: 667 }
+    size: { w: 166, h: 14 }
+  - id: t138
+    label: "胎"
+    marker: none
+    align: left
+    at: { x: 1733, y: 670 }
+    size: { w: 20, h: 14 }
+  - id: t139
+    label: "同居を始めた\nとき"
+    marker: none
+    align: left
+    at: { x: 166, y: 687 }
+    size: { w: 124, h: 36 }
+  - id: t140
+    label: "（結婚式をあげたとき、または、同居を始め\n　たときのうち早いほうを書いてください）"
+    marker: none
+    align: left
+    at: { x: 564, y: 688 }
+    size: { w: 270, h: 32 }
+  - id: t141
+    label: "（7）"
+    marker: none
+    align: left
+    at: { x: 94, y: 697 }
+    size: { w: 40, h: 14 }
+  - id: t142
+    label: "年"
+    marker: none
+    align: left
+    at: { x: 449, y: 698 }
+    size: { w: 20, h: 14 }
+  - id: t143
+    label: "月"
+    marker: none
+    align: left
+    at: { x: 520, y: 698 }
+    size: { w: 20, h: 14 }
+  - id: t144
+    label: "上記のとおり証明する。"
+    marker: none
+    align: left
+    at: { x: 1427, y: 700 }
+    size: { w: 180, h: 14 }
+  - id: t145
+    label: "この出生証明\n書の作成者の順\n序は、この出生\nの立会者が例え\nば医師・助産師\nともに立ち会っ\nた場合には医師\nが書くように\n１、２、３の順\n序に従って書い\nてください。"
+    marker: none
+    align: left
+    at: { x: 1796, y: 696 }
+    size: { w: 100, h: 158 }
+  - id: t146
+    label: "令和"
+    marker: none
+    align: left
+    at: { x: 1585, y: 727 }
+    size: { w: 34, h: 14 }
+  - id: t147
+    label: "年"
+    marker: none
+    align: left
+    at: { x: 1651, y: 727 }
+    size: { w: 20, h: 14 }
+  - id: t148
+    label: "月"
+    marker: none
+    align: left
+    at: { x: 1700, y: 727 }
+    size: { w: 20, h: 14 }
+  - id: t149
+    label: "日"
+    marker: none
+    align: left
+    at: { x: 1749, y: 727 }
+    size: { w: 20, h: 14 }
+  - id: t150
+    label: "１医"
+    marker: none
+    align: left
+    at: { x: 1334, y: 738 }
+    size: { w: 34, h: 14 }
+  - id: t151
+    label: "師"
+    marker: none
+    align: left
+    at: { x: 1383, y: 738 }
+    size: { w: 20, h: 14 }
+  - id: t152
+    label: "子の父または母が、まだ戸籍の筆頭\n者となっていない場合は、新しい戸\n籍がつくられますので、この欄に希\n望する本籍を書いてください。"
+    marker: none
+    align: left
+    at: { x: 965, y: 738 }
+    size: { w: 246, h: 72 }
+  - id: t153
+    label: "（住所）"
+    marker: none
+    align: left
+    at: { x: 1419, y: 755 }
+    size: { w: 66, h: 14 }
+  - id: t154
+    label: "子が生まれた"
+    marker: none
+    align: left
+    at: { x: 166, y: 757 }
+    size: { w: 124, h: 14 }
+  - id: t155
+    label: "（15）"
+    marker: none
+    align: left
+    at: { x: 1273, y: 772 }
+    size: { w: 46, h: 14 }
+  - id: t156
+    label: "２助産師"
+    marker: none
+    align: left
+    at: { x: 1334, y: 772 }
+    size: { w: 66, h: 14 }
+  - id: t157
+    label: "番地\n番"
+    marker: none
+    align: left
+    at: { x: 1683, y: 776 }
+    size: { w: 34, h: 38 }
+  - id: t158
+    label: "（8）"
+    marker: none
+    align: left
+    at: { x: 94, y: 785 }
+    size: { w: 40, h: 14 }
+  - id: t159
+    label: "ときの世帯の"
+    marker: none
+    align: left
+    at: { x: 166, y: 785 }
+    size: { w: 124, h: 14 }
+  - id: t160
+    label: "号"
+    marker: none
+    align: left
+    at: { x: 1749, y: 799 }
+    size: { w: 20, h: 14 }
+  - id: t161
+    label: "３その他"
+    marker: none
+    align: left
+    at: { x: 1334, y: 802 }
+    size: { w: 66, h: 14 }
+  - id: t162
+    label: "おもな仕事と"
+    marker: none
+    align: left
+    at: { x: 166, y: 814 }
+    size: { w: 124, h: 14 }
+  - id: t163
+    label: "届け出られた事項は、人口動態調査\n（統計法に基づく基幹統計調査、厚\n生労働省所管）にも用いられます。"
+    marker: none
+    align: left
+    at: { x: 965, y: 827 }
+    size: { w: 246, h: 53 }
+  - id: t164
+    label: "（氏名）"
+    marker: none
+    align: left
+    at: { x: 1419, y: 833 }
+    size: { w: 66, h: 14 }
+  - id: t165
+    label: "（国勢調査の年…"
+    marker: none
+    align: left
+    at: { x: 302, y: 864 }
+    size: { w: 112, h: 14 }
+  - id: t166
+    label: "年…の４月１日から翌年３月31日までに子が生まれたときだけ書いてください）"
+    marker: none
+    align: left
+    at: { x: 446, y: 864 }
+    size: { w: 482, h: 14 }
+  - id: t167
+    label: "（9）"
+    marker: none
+    align: left
+    at: { x: 94, y: 880 }
+    size: { w: 40, h: 14 }
+  - id: t168
+    label: "父　母　の　職　業"
+    marker: none
+    align: left
+    at: { x: 166, y: 881 }
+    size: { w: 126, h: 14 }
+  - id: t169
+    label: "父の職業"
+    marker: none
+    align: left
+    at: { x: 306, y: 891 }
+    size: { w: 71, h: 14 }
+  - id: t170
+    label: "母の職業"
+    marker: none
+    align: left
+    at: { x: 616, y: 891 }
+    size: { w: 71, h: 14 }
+  - id: t171
+    label: "この欄は父、母又はその法定代理人である届出人が記載してください。"
+    marker: none
+    align: left
+    at: { x: 1221, y: 902 }
+    size: { w: 492, h: 14 }
+  - id: t172
+    label: "そ\nの\n他"
+    marker: none
+    align: left
+    at: { x: 143, y: 912 }
+    size: { w: 20, h: 71 }
+  - id: t173
+    label: "地方公共団体情報システム機構　宛\n（出生届の届出地市区町村長　宛）"
+    marker: none
+    align: left
+    at: { x: 1053, y: 935 }
+    size: { w: 218, h: 32 }
+  - id: t174
+    label: "申請にあたり、以下について記入してください。\n☑氏名、住所、生年月日、性別は出生届に記載された内容と同じです\n☑住所地又は住所地以外の希望した送付先にて確実に個人番号カードを受けとれます"
+    marker: none
+    align: left
+    at: { x: 1051, y: 978 }
+    size: { w: 508, h: 46 }
+  - id: t175
+    label: "2.法定代理人"
+    marker: none
+    align: left
+    at: { x: 267, y: 1031 }
+    size: { w: 86, h: 14 }
+  - id: t176
+    label: "3.同居者"
+    marker: none
+    align: left
+    at: { x: 477, y: 1031 }
+    size: { w: 60, h: 14 }
+  - id: t177
+    label: "4.医師"
+    marker: none
+    align: left
+    at: { x: 584, y: 1031 }
+    size: { w: 46, h: 14 }
+  - id: t178
+    label: "5.助産師"
+    marker: none
+    align: left
+    at: { x: 676, y: 1031 }
+    size: { w: 60, h: 14 }
+  - id: t179
+    label: "6.その他の立会者"
+    marker: none
+    align: left
+    at: { x: 782, y: 1031 }
+    size: { w: 113, h: 14 }
+  - id: t180
+    label: "届"
+    marker: none
+    align: left
+    at: { x: 143, y: 1038 }
+    size: { w: 20, h: 14 }
+  - id: t181
+    label: "①利用者証明用電子証明書暗証番号"
+    marker: none
+    align: left
+    at: { x: 1059, y: 1038 }
+    size: { w: 218, h: 14 }
+  - id: t182
+    label: "□利用者証明用電子証明書の発行を希望しない"
+    marker: none
+    align: left
+    at: { x: 1468, y: 1038 }
+    size: { w: 284, h: 14 }
+  - id: t183
+    label: "7.公設所の長"
+    marker: none
+    align: left
+    at: { x: 190, y: 1055 }
+    size: { w: 86, h: 14 }
+  - id: t184
+    label: "②住民基本台帳用暗証番号【必須】"
+    marker: none
+    align: left
+    at: { x: 1059, y: 1062 }
+    size: { w: 218, h: 14 }
+  - id: t185
+    label: "③券面事項入力補助用暗証番号【必須】"
+    marker: none
+    align: left
+    at: { x: 1468, y: 1062 }
+    size: { w: 244, h: 14 }
+  - id: t186
+    label: "住所"
+    marker: none
+    align: left
+    at: { x: 168, y: 1083 }
+    size: { w: 45, h: 14 }
+  - id: t187
+    label: "④個人番号カード送付先\n　【住所地以外への送付を希望する場合】"
+    marker: none
+    align: left
+    at: { x: 1059, y: 1084 }
+    size: { w: 258, h: 32 }
+  - id: t188
+    label: "出"
+    marker: none
+    align: left
+    at: { x: 143, y: 1100 }
+    size: { w: 20, h: 14 }
+  - id: t189
+    label: "⑤住所地において個人番号カードの送付を\n　受けることができない理由"
+    marker: none
+    align: left
+    at: { x: 1059, y: 1126 }
+    size: { w: 258, h: 32 }
+  - id: t190
+    label: "本籍"
+    marker: none
+    align: left
+    at: { x: 168, y: 1134 }
+    size: { w: 45, h: 14 }
+  - id: t191
+    label: "番地\n番"
+    marker: none
+    align: left
+    at: { x: 529, y: 1138 }
+    size: { w: 35, h: 38 }
+  - id: t192
+    label: "筆頭者\nの氏名"
+    marker: none
+    align: left
+    at: { x: 600, y: 1140 }
+    size: { w: 46, h: 32 }
+  - id: t193
+    label: "人"
+    marker: none
+    align: left
+    at: { x: 143, y: 1162 }
+    size: { w: 20, h: 14 }
+  - id: t194
+    label: "⑥連絡先電話番号【必須】"
+    marker: none
+    align: left
+    at: { x: 1059, y: 1169 }
+    size: { w: 166, h: 14 }
+  - id: t195
+    label: "署名\n（※押印は任意）"
+    marker: none
+    align: left
+    at: { x: 154, y: 1187 }
+    size: { w: 140, h: 38 }
+  - id: t196
+    label: "印"
+    marker: none
+    align: left
+    at: { x: 548, y: 1201 }
+    size: { w: 20, h: 14 }
+  - id: t197
+    label: "年"
+    marker: none
+    align: left
+    at: { x: 724, y: 1202 }
+    size: { w: 20, h: 14 }
+  - id: t198
+    label: "月"
+    marker: none
+    align: left
+    at: { x: 795, y: 1202 }
+    size: { w: 20, h: 14 }
+  - id: t199
+    label: "日生"
+    marker: none
+    align: left
+    at: { x: 865, y: 1202 }
+    size: { w: 36, h: 14 }
+  - id: t200
+    label: "事　件　簿　番　号"
+    marker: none
+    align: left
+    at: { x: 135, y: 1246 }
+    size: { w: 126, h: 14 }
+  - id: t201
+    label: "※出生届の手続について、悩みや困りごとがあれば、お近くの市区町村又は法務局にご相談ください。"
+    marker: none
+    align: left
+    at: { x: 124, y: 1282 }
+    size: { w: 706, h: 14 }
+  - id: t202
+    label: "出生届を届け出なければ、その子の戸籍がつくられず、不利益を被るおそれがあります。"
+    marker: none
+    align: left
+    at: { x: 143, y: 1305 }
+    size: { w: 611, h: 14 }
+  - id: t203
+    label: "詳しくは法務省のホームページをご覧ください。"
+    marker: none
+    align: left
+    at: { x: 143, y: 1329 }
+    size: { w: 336, h: 14 }
+  - id: juri
+    label: "受　理　令和　　年　　月　　日"
+    marker: none
+    align: left
+    at: { x: 430, y: 45 }
+    size: { w: 273, h: 14 }
+  - id: juri-no
+    label: "第　　　　　　　　　　号"
+    marker: none
+    align: left
+    at: { x: 470, y: 77 }
+    size: { w: 233, h: 14 }
+  - id: tsuchi
+    label: "通知（送付）令和　　年　　月　　日"
+    marker: none
+    align: left
+    at: { x: 430, y: 107 }
+    size: { w: 273, h: 14 }
+  - id: tsuchi-no
+    label: "第　　　　　　　　　　号"
+    marker: none
+    align: left
+    at: { x: 470, y: 138 }
+    size: { w: 233, h: 14 }
+  - id: yaku1
+    label: "書類調査"
+    marker: none
+    at: { x: 422, y: 162 }
+    size: { w: 72, h: 14 }
+  - id: yaku2
+    label: "戸籍記載"
+    marker: none
+    at: { x: 494, y: 162 }
+    size: { w: 71, h: 14 }
+  - id: yaku3
+    label: "記載調査"
+    marker: none
+    at: { x: 565, y: 162 }
+    size: { w: 70, h: 14 }
+  - id: yaku4
+    label: "調査票"
+    marker: none
+    at: { x: 635, y: 162 }
+    size: { w: 71, h: 14 }
+  - id: yaku5
+    label: "附票"
+    marker: none
+    at: { x: 706, y: 162 }
+    size: { w: 70, h: 14 }
+  - id: yaku6
+    label: "住民票"
+    marker: none
+    at: { x: 776, y: 162 }
+    size: { w: 71, h: 14 }
+  - id: yaku7
+    label: "通知"
+    marker: none
+    at: { x: 847, y: 162 }
+    size: { w: 71, h: 14 }
+  - id: shubetsu
+    label: "出生したところ\nの　種　別"
+    marker: none
+    align: left
+    at: { x: 1425, y: 253 }
+    size: { w: 100, h: 32 }
+  - id: shigoto
+    label: "1.農業だけまたは農業とその他の仕事を持っている世帯\n2.自由業・商工業・サービス業等を個人で経営している世帯\n3.企業・個人商店等（官公庁は除く）の常用勤労者世帯で勤め先の従業者数が１人から\n　99人までの世帯（日々または１年未満の契約の雇用者は５）\n4.３にあてはまらない常用勤労者世帯及び会社団体の役員の世帯（日々または１年未\n　満の契約の雇用者は５）\n5.１から４にあてはまらないその他の仕事をしている者のいる世帯\n6.仕事をしている者のいない世帯"
+    marker: none
+    align: left
+    at: { x: 327, y: 723 }
+    size: { w: 591, h: 137 }
+  - id: shibou
+    label: "（この出生子及び出生後\n　死亡した子を含む）"
+    marker: none
+    align: left
+    at: { x: 1475, y: 627 }
+    size: { w: 152, h: 33 }
+  - id: furigana
+    label: "（フ　リ　ガ　ナ）"
+    marker: none
+    align: left
+    at: { x: 163, y: 229 }
+    size: { w: 134, h: 14 }
+  - id: chichi
+    label: "父"
+    marker: none
+    align: left
+    at: { x: 188, y: 1021 }
+    size: { w: 32, h: 14 }
+  - id: haha
+    label: "母"
+    marker: none
+    align: left
+    at: { x: 188, y: 1039 }
+    size: { w: 32, h: 14 }
+  - id: bango
+    label: "個人番号カード交付申請書　兼　電子証明書発行申請書"
+    marker: none
+    align: right
+    at: { x: 1500, y: 932 }
+    size: { w: 377, h: 14 }
+  - id: kensaku
+    label: "無戸籍　法務省"
+    marker: none
+    align: left
+    at: { x: 510, y: 1328 }
+    size: { w: 105, h: 14 }
+  - id: chu
+    label: "（注）①は利用者証明用電子証明書（健康保険証としての利用などに必要）の暗証番号。発行を希望しないときは記入せず□に✓。\n　　②は住民票コード、③は個人番号や基本 4 情報をテキストデータとして利用するための暗証番号。\n　　④個人番号カードは簡易書留等で住所地へ送られる。住所地以外へ送るときだけ書く。\n※出生届・出生証明書に書いた事項は、この申請にも用いられる。（細字の注は要約した）"
+    marker: none
+    align: left
+    at: { x: 1050, y: 1195 }
+    size: { w: 830, h: 140 }
+  - id: about
+    label: "戸籍届書の標準様式 別紙 1（令和 8 年 2 月 26 日 法務省民一第 394 号、令和 8 年 4 月 1 日から）を描き起こしたもの。\n左が届出人の書く欄、右上の出生証明書は出産に立ち会った医師・助産師などが書く。A3 で刷る。"
+    marker: none
+    align: left
+    at: { x: 1000, y: 1353 }
+    size: { w: 950, h: 37 }
+paths:
+  - id: ln1
+    points: [ [ 918.4, 1235.2 ], [ 125.6, 1235.2 ], [ 125.6, 221.1 ], [ 918.4, 221.1 ] ]
+    close: true
+    ends: { from: none, to: none }
+  - id: ln2
+    points: [ [ 157.7, 221.1 ], [ 157.7, 1235.2 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln3
+    points: [ [ 157.7, 326.1 ], [ 918.4, 326.1 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln4
+    points: [ [ 918.4, 364.4 ], [ 157.7, 364.4 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln5
+    points: [ [ 157.7, 411 ], [ 918.4, 411 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln6
+    points: [ [ 918.4, 506.8 ], [ 125.6, 506.8 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln7
+    points: [ [ 918.4, 591 ], [ 157.7, 591 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln8
+    points: [ [ 157.7, 685.9 ], [ 918.4, 685.9 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln9
+    points: [ [ 918.4, 724.2 ], [ 157.7, 724.2 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln10
+    points: [ [ 918.4, 915 ], [ 125.6, 915 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln11
+    points: [ [ 918.4, 1014.1 ], [ 125.6, 1014.1 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln12
+    points: [ [ 918.4, 1078.3 ], [ 157.7, 1078.3 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln13
+    points: [ [ 157.7, 1129.1 ], [ 918.4, 1129.1 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln14
+    points: [ [ 918.4, 1182.4 ], [ 157.7, 1182.4 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln15
+    points: [ [ 296, 221.1 ], [ 296, 915 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln16
+    points: [ [ 918.4, 860.9 ], [ 296, 860.9 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln17
+    points: [ [ 918.4, 638.4 ], [ 296, 638.4 ] ]
+    line: dashed
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln18
+    points: [ [ 918.4, 553.5 ], [ 296, 553.5 ] ]
+    line: dashed
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln19
+    points: [ [ 918.4, 458.5 ], [ 296, 458.5 ] ]
+    line: dashed
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln20
+    points: [ [ 574.2, 221.1 ], [ 574.2, 326.1 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln21
+    points: [ [ 644.2, 221.1 ], [ 644.2, 326.1 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln22
+    points: [ [ 296, 246.1 ], [ 574.2, 246.1 ] ]
+    line: dashed
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln23
+    points: [ [ 435.1, 246.1 ], [ 435.1, 326.1 ] ]
+    line: dashed
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln24
+    points: [ [ 125.6, 1235.2 ], [ 125.6, 1266.6 ], [ 407.7, 1266.6 ], [ 407.7, 1235.2 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln25
+    points: [ [ 267.2, 1235.2 ], [ 267.2, 1266.6 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln26
+    points: [ [ 607.1, 915 ], [ 607.1, 879.5 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln27
+    points: [ [ 1112.6, 73.1 ], [ 964.6, 73.1 ], [ 964.6, 49.6 ], [ 1112.6, 49.6 ] ]
+    close: true
+    ends: { from: none, to: none }
+  - id: ln28
+    points: [ [ 1884.2, 109 ], [ 1785.9, 109 ], [ 1785.9, 70.9 ], [ 1884.2, 70.9 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ya29
+    points: [ [ 1794.1, 206.2 ], [ 1779.2, 206.2 ] ]
+    weight: thin
+    ends: { from: none, to: arrow }
+  - id: ya30
+    points: [ [ 1794.1, 466.8 ], [ 1779.2, 466.8 ] ]
+    weight: thin
+    ends: { from: none, to: arrow }
+  - id: ya31
+    points: [ [ 1794.1, 654.7 ], [ 1779.2, 654.7 ] ]
+    weight: thin
+    ends: { from: none, to: arrow }
+  - id: ya32
+    points: [ [ 1794.1, 765.8 ], [ 1779.2, 765.8 ] ]
+    weight: thin
+    ends: { from: none, to: arrow }
+  - id: ln33
+    points: [ [ 674.9, 255.1 ], [ 661.6, 255.1 ], [ 661.6, 241.8 ], [ 674.9, 241.8 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln34
+    points: [ [ 876.8, 266.2 ], [ 864.5, 266.2 ], [ 864.5, 254 ], [ 876.8, 254 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln35
+    points: [ [ 876.8, 296.6 ], [ 864.5, 296.6 ], [ 864.5, 284.4 ], [ 876.8, 284.4 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln36
+    points: [ [ 674.9, 306.9 ], [ 661.6, 306.9 ], [ 661.6, 293.7 ], [ 674.9, 293.7 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln37
+    points: [ [ 620.8, 359.2 ], [ 608.5, 359.2 ], [ 608.5, 346.9 ], [ 620.8, 346.9 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln38
+    points: [ [ 620.8, 342.5 ], [ 608.5, 342.5 ], [ 608.5, 330.2 ], [ 620.8, 330.2 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln39
+    points: [ [ 606.7, 506.8 ], [ 606.7, 591 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln40
+    points: [ [ 321.1, 739.8 ], [ 307.9, 739.8 ], [ 307.9, 726.6 ], [ 321.1, 726.6 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln41
+    points: [ [ 321.1, 756.2 ], [ 307.9, 756.2 ], [ 307.9, 743 ], [ 321.1, 743 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln42
+    points: [ [ 321.1, 772.6 ], [ 307.9, 772.6 ], [ 307.9, 759.4 ], [ 321.1, 759.4 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln43
+    points: [ [ 321.1, 805.9 ], [ 307.9, 805.9 ], [ 307.9, 792.7 ], [ 321.1, 792.7 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln44
+    points: [ [ 321.1, 838.7 ], [ 307.9, 838.7 ], [ 307.9, 825.5 ], [ 321.1, 825.5 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln45
+    points: [ [ 321.1, 855.6 ], [ 307.9, 855.6 ], [ 307.9, 842.4 ], [ 321.1, 842.4 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln46
+    points: [ [ 183.2, 1034.8 ], [ 169.9, 1034.8 ], [ 169.9, 1021.6 ], [ 183.2, 1021.6 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln47
+    points: [ [ 183.2, 1051.6 ], [ 169.9, 1051.6 ], [ 169.9, 1038.4 ], [ 183.2, 1038.4 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln48
+    points: [ [ 183.2, 1068.1 ], [ 169.9, 1068.1 ], [ 169.9, 1054.8 ], [ 183.2, 1054.8 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln49
+    points: [ [ 260.8, 1043.2 ], [ 247.6, 1043.2 ], [ 247.6, 1030 ], [ 260.8, 1030 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln50
+    points: [ [ 470.9, 1043.2 ], [ 457.7, 1043.2 ], [ 457.7, 1030 ], [ 470.9, 1030 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln51
+    points: [ [ 576.9, 1043.2 ], [ 563.7, 1043.2 ], [ 563.7, 1030 ], [ 576.9, 1030 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln52
+    points: [ [ 668.7, 1043.2 ], [ 655.5, 1043.2 ], [ 655.5, 1030 ], [ 668.7, 1030 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln53
+    points: [ [ 775.2, 1043.2 ], [ 761.9, 1043.2 ], [ 761.9, 1030 ], [ 775.2, 1030 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln54
+    points: [ [ 615.2, 1346.8 ], [ 493.9, 1346.8 ], [ 493.9, 1325 ], [ 615.2, 1325 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ya55
+    points: [ [ 918.9, 965.8 ], [ 936.4, 965.8 ], [ 936.4, 745.8 ], [ 960.9, 745.8 ] ]
+    weight: thin
+    ends: { from: none, to: arrow }
+  - id: ya56
+    points: [ [ 918.9, 386 ], [ 936.4, 386 ], [ 936.4, 425.8 ], [ 960.9, 425.8 ] ]
+    weight: thin
+    ends: { from: none, to: arrow }
+  - id: ya57
+    points: [ [ 918.9, 234.5 ], [ 960.9, 234.5 ] ]
+    weight: thin
+    ends: { from: none, to: arrow }
+  - id: ln58
+    points: [ [ 1713.9, 908.7 ], [ 1881.8, 908.7 ] ]
+    line: dashed
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln59
+    points: [ [ 1884.2, 912.3 ], [ 1884.2, 1345.6 ] ]
+    line: dashed
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln60
+    points: [ [ 1880.6, 1347.9 ], [ 1041.2, 1347.9 ] ]
+    line: dashed
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln61
+    points: [ [ 1038.8, 1344.4 ], [ 1038.8, 911.1 ] ]
+    line: dashed
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln62
+    points: [ [ 1042.4, 908.7 ], [ 1210.7, 908.7 ] ]
+    line: dashed
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln63
+    points: [ [ 1461.5, 1079.9 ], [ 1461.5, 1032.7 ], [ 1053, 1032.7 ], [ 1053, 1186.2 ], [ 1524.4, 1186.2 ], [ 1524.4, 1162.6 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln64
+    points: [ [ 1319.8, 1186.2 ], [ 1319.8, 1032.7 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln65
+    points: [ [ 1355.2, 1076.4 ], [ 1355.2, 1035.1 ] ]
+    line: dashed
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln66
+    points: [ [ 1390.7, 1076.4 ], [ 1390.7, 1035.1 ] ]
+    line: dashed
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln67
+    points: [ [ 1426.1, 1076.4 ], [ 1426.1, 1035.1 ] ]
+    line: dashed
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln68
+    points: [ [ 1728.3, 1079.9 ], [ 1728.3, 1056.3 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln69
+    points: [ [ 1763.7, 1076.4 ], [ 1763.7, 1058.7 ] ]
+    line: dashed
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln70
+    points: [ [ 1799.2, 1076.4 ], [ 1799.2, 1058.7 ] ]
+    line: dashed
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln71
+    points: [ [ 1834.6, 1076.4 ], [ 1834.6, 1058.7 ] ]
+    line: dashed
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln72
+    points: [ [ 1053, 1056.3 ], [ 1870, 1056.3 ], [ 1870, 1162.6 ], [ 1053, 1162.6 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln73
+    points: [ [ 1053, 1079.9 ], [ 1870, 1079.9 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln74
+    points: [ [ 1056.5, 1121.3 ], [ 1867.6, 1121.3 ] ]
+    line: dashed
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln75
+    points: [ [ 978, 190.2 ], [ 966.4, 190.2 ], [ 966.4, 178.6 ], [ 978, 178.6 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln76
+    points: [ [ 1162.9, 189.9 ], [ 1151.3, 189.9 ], [ 1151.3, 178.4 ], [ 1162.9, 178.4 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln77
+    points: [ [ 1770.2, 862.7 ], [ 1311.8, 862.7 ], [ 1311.8, 105.6 ], [ 1770.2, 105.6 ] ]
+    close: true
+    ends: { from: none, to: none }
+  - id: ln78
+    points: [ [ 1420.4, 105.6 ], [ 1420.4, 862.7 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln79
+    points: [ [ 1311.8, 173.9 ], [ 1770.2, 173.9 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln80
+    points: [ [ 1311.8, 241.7 ], [ 1770.2, 241.7 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln81
+    points: [ [ 1311.8, 431.3 ], [ 1770.2, 431.3 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln82
+    points: [ [ 1311.8, 550.7 ], [ 1770.2, 550.7 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln83
+    points: [ [ 1311.8, 690.7 ], [ 1770.2, 690.7 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln84
+    points: [ [ 1590.3, 105.6 ], [ 1590.3, 173.9 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln85
+    points: [ [ 1638.7, 105.6 ], [ 1638.7, 173.9 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln86
+    points: [ [ 1420.4, 364.3 ], [ 1770.2, 364.3 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln87
+    points: [ [ 1513, 241.7 ], [ 1513, 431.3 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln88
+    points: [ [ 1311.8, 499.2 ], [ 1770.2, 499.2 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln89
+    points: [ [ 1595.2, 431.3 ], [ 1595.2, 499.2 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln90
+    points: [ [ 1311.8, 620.7 ], [ 1770.2, 620.7 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln91
+    points: [ [ 1595.2, 550.7 ], [ 1595.2, 620.7 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln92
+    points: [ [ 1643, 550.7 ], [ 1643, 620.7 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln93
+    points: [ [ 1420.4, 294.1 ], [ 1770.2, 294.1 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln94
+    points: [ [ 1272.6, 970.7 ], [ 1053, 970.7 ], [ 1053, 930.6 ], [ 1272.6, 930.6 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ya95
+    points: [ [ 918.9, 614.4 ], [ 936.4, 614.4 ], [ 936.4, 562.1 ], [ 960.9, 562.1 ] ]
+    weight: thin
+    ends: { from: none, to: arrow }
+  - id: ln96
+    points: [ [ 918.4, 98.4 ], [ 422, 98.4 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln97
+    points: [ [ 422, 159.7 ], [ 918.4, 159.7 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln98
+    points: [ [ 422, 178.6 ], [ 918.4, 178.6 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln99
+    points: [ [ 846.6, 37 ], [ 846.6, 221.1 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln100
+    points: [ [ 775.8, 37 ], [ 775.8, 221.1 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln101
+    points: [ [ 705.9, 37 ], [ 705.9, 221.1 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln102
+    points: [ [ 635.4, 159.7 ], [ 635.4, 221.1 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln103
+    points: [ [ 564.6, 159.7 ], [ 564.6, 221.1 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln104
+    points: [ [ 493.6, 159.7 ], [ 493.6, 221.1 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln105
+    points: [ [ 918.4, 221.1 ], [ 918.4, 37 ], [ 422, 37 ], [ 422, 221.1 ] ]
+    ends: { from: none, to: none }
+  - id: ln106
+    points: [ [ 705.9, 118 ], [ 918.4, 118 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: ln107
+    points: [ [ 705.9, 55.9 ], [ 918.4, 55.9 ] ]
+    weight: thin
+    ends: { from: none, to: none }
