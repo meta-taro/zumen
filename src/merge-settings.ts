@@ -44,7 +44,7 @@ const CONSTANTS: ReadonlySet<string> = new Set(['let', 'lengths']);
 
 /** 最上位の並び（仕様 §3 の表の順）。足す節は、これより後ろにある最初の節の前へ入れる。 */
 const ORDER = [
-  'version', 'title', 'sources', 'kind', 'direction', 'wrap', 'arrows', 'grid', 'scale', 'north', 'wall',
+  'version', 'title', 'sources', 'watermark', 'kind', 'direction', 'wrap', 'arrows', 'grid', 'scale', 'north', 'wall',
   'palette', 'styles', 'floors', 'projection', 'groups', 'nodes', 'edges', 'paths', 'dims', 'parts', 'place',
   'views', 'let', 'lengths', 'steps', 'points', 'circles', 'lines', 'arcs', 'segments', 'define',
   'pins', 'review', 'markup',

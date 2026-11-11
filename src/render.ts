@@ -54,6 +54,7 @@ import type { EdgeLabel } from './edge-labels.ts';
 import { TAG_INSET, labelWidth } from './layout.ts';
 import { messages } from './messages.ts';
 import { SOURCE_FONT, SOURCE_LINE, type Source } from './sources.ts';
+import { WATERMARK_NOTE_OPACITY, WATERMARK_OPACITY, type Watermark } from './watermark.ts';
 import type { Box, Placed, PlacedEdge } from './layout.ts';
 import { hasAxes } from './views.ts';
 import type { View } from './views.ts';
@@ -308,6 +309,8 @@ export function render(
     ...(placed.strokes.length > 0 ? [strokeLayer(placed, palette)] : []),
     // **物差しはいちばん最後。** 図の上に置く（下に敷くと部屋の塗りで消える）。
     bar,
+    // **透かしは図の上に重ねる**（下に敷くと、箱の塗りで消えて切り取れてしまう）。書いたときだけ
+    ...(placed.watermark ? [watermarkLayer(placed.watermark, sheet.box, inkOf(palette))] : []),
     // 出典の層は、書いたときだけ（無い図の出力を 1 行も変えない）
     ...(credits === '' ? [] : [credits]),
     '</svg>',
@@ -477,6 +480,8 @@ export function overlappingInk(svg: string): [Word, Word, Overlap][] {
 
 /** 紙に出た文字を、矩形つきで全部拾う。**回した文字は当たり判定が合わないので見ない。** */
 export function inkWords(svg: string): { rect: Rect; word: Word }[] {
+  // **透かしは数えない**（`src/watermark.ts`）。図に重ねるのが役目で、重なりは中身そのもの
+  svg = svg.replace(/<g data-name="watermark"[^>]*>[\s\S]*?<\/g>/g, '');
   const words: { rect: Rect; word: Word }[] = [];
   const groups: (string | null)[] = [];
   const token = /<g\b([^>]*)>|<\/g>|<text x="(-?[\d.]+)" y="(-?[\d.]+)"([^>]*)>([^<]*)<\/text>/g;
@@ -748,11 +753,12 @@ function paperFor(placed: Placed, plans: Map<string, Plan>): { w: number; h: num
  * 紙を決めていない図は、これまでどおり px の幅と高さ（出力は 1 字も変えない）。
  * 決めた図は mm で書き、`viewBox` を紙ぜんたいへ広げて、図を余白の内側に収める。
  */
-function sheetOf(sheet: Paper | null, paper: { w: number; h: number }): { attrs: string; rect: string } {
+function sheetOf(sheet: Paper | null, paper: { w: number; h: number }): { attrs: string; rect: string; box: Frame } {
   if (sheet === null) {
     return {
       attrs: `width="${size(paper.w)}" height="${size(paper.h)}" viewBox="0 0 ${size(paper.w)} ${size(paper.h)}"`,
       rect: `x="0" y="0" width="${size(paper.w)}" height="${size(paper.h)}"`,
+      box: { x: 0, y: 0, w: paper.w, h: paper.h },
     };
   }
   const box = pageBox(sheet, paper.w, paper.h);
@@ -761,7 +767,29 @@ function sheetOf(sheet: Paper | null, paper: { w: number; h: number }): { attrs:
   return {
     attrs: `width="${d1(sheet.w)}mm" height="${d1(sheet.h)}mm" viewBox="${view}" data-paper-size="${sheet.size}" data-paper-orient="${sheet.orient}"`,
     rect: `x="${d1(box.x)}" y="${d1(box.y)}" width="${d1(box.w)}" height="${d1(box.h)}"`,
+    box,
   };
+}
+
+/**
+ * **透かし**（`src/watermark.ts`）。紙（紙を決めていなければ図）の真ん中を、左下から右上への対角に沿って横切る。
+ *
+ * 字の大きさは対角の 6 割に収まるように決める。添える 1 行は透かしの下に、同じ傾きで、対角の 8 割まで。
+ */
+function watermarkLayer(mark: Watermark, box: Frame, ink: Ink): string {
+  const cx = box.x + box.w / 2;
+  const cy = box.y + box.h / 2;
+  const diag = Math.hypot(box.w, box.h);
+  const angle = -Math.atan2(box.h, box.w) * 180 / Math.PI;
+  const per = (t: string): number => labelWidth(t, 100) / 100;
+  const big = Math.max(12, Math.min(diag * 0.6 / per(mark.text), box.h * 0.4));
+  const small = mark.note === null ? 0 : Math.max(8, Math.min(big * 0.16, diag * 0.8 / per(mark.note)));
+  const r = (v: number): string => String(Math.round(v * 10) / 10);
+  const text = (y: number, font: number, body: string, opacity: number): string =>
+    `<text x="${r(cx)}" y="${r(y)}" text-anchor="middle" dominant-baseline="central" font-family="${ink.font}" font-size="${r(font)}" font-weight="bold" fill="${ink.text}" fill-opacity="${opacity}">${escapeText(body)}</text>`;
+  const rows = [text(cy, big, mark.text, WATERMARK_OPACITY)];
+  if (mark.note !== null) rows.push(text(cy + big * 0.5 + small * 1.2, small, mark.note, WATERMARK_NOTE_OPACITY));
+  return `<g data-name="watermark" pointer-events="none" transform="rotate(${r(angle)} ${r(cx)} ${r(cy)})">${rows.join('')}</g>`;
 }
 
 /** 出典の左端（物差しと揃える）。 */

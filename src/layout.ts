@@ -67,6 +67,7 @@ import { kindOf, measureOf } from './kind.ts';
 import { separate } from './separate.ts';
 import { openingsOf, swingsOf } from './openings.ts';
 import { sourcesOf, type Source } from './sources.ts';
+import { watermarkOf, type Watermark } from './watermark.ts';
 import type { Hole } from './openings.ts';
 import { growFor, shapeOf } from './shapes.ts';
 
@@ -236,6 +237,8 @@ export interface Placed {
   title: string | null;
   /** **出典**（`src/sources.ts`）。図の下端に 1 行ずつ描く。書かなければ空。 */
   sources: Source[];
+  /** **透かし**（`src/watermark.ts`）。公的な様式を写した見本に入れる。書かなければ無い。 */
+  watermark?: Watermark | null;
   /** **階の一覧**（`src/floor.ts`）。下から上へ。書かなければ空。 */
   floors: string[];
   /** **折り返したか**（`src/wrap.ts`）。細長い構成図に、もう済んでいる逃げ道を言わないため。 */
@@ -441,6 +444,7 @@ export async function layout(
     wall?: unknown;
     arrows?: unknown;
     sources?: unknown;
+    watermark?: unknown;
     paper?: unknown;
   };
   const direction = elkDirection(directionOf(raw.direction));
@@ -718,6 +722,7 @@ export async function layout(
     collisions: locked,
     title: asText(raw.title),
     sources: sourcesOf(raw.sources),
+    watermark: watermarkOf(raw.watermark),
     floors: floorsOf(raw.floors),
     grid,
     views,
@@ -2029,6 +2034,7 @@ function construct(raw: Record<string, unknown>, pins: Record<string, unknown>):
     collisions: [],
     title: asText(raw.title),
     sources: sourcesOf(raw.sources),
+    watermark: watermarkOf(raw.watermark),
     floors: [],
     grid: { x: [], y: [] },
     views: [],

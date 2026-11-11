@@ -12,6 +12,7 @@
  * ここで失敗にすると、id が改名された図が CI で落ちるだけになり、
  * **人が競合として解く経路を潰してしまう。**
  */
+import { watermarkOf } from './watermark.ts';
 import { LineCounter, isMap, isScalar, isSeq, parseDocument } from 'yaml';
 import type { Document, Node, YAMLMap } from 'yaml';
 
@@ -154,6 +155,7 @@ export function validate(text: string): Finding[] {
   checkGridAndScale(doc, add, m, at);
   checkAreaText(doc, add, m, at);
   checkSources(doc, add, m, at);
+  checkWatermark(doc, add, m, at);
   checkMarkup(doc, nodeIds, add, m, at);
   checkViews(doc, add, m, at);
   checkConstruction(doc, add, m, at);
@@ -191,6 +193,21 @@ function onceForEachPart(source: Document, found: Finding[], first: number, at: 
     seen.add(key);
     return true;
   });
+}
+
+/**
+ * **透かし**（`watermark`。`src/watermark.ts`）。読めなければ、また時点の 1 行（`note`）が無ければ知らせる。
+ * 公的な様式を写した見本に入れるもので、**いつ時点の写しかが無いと、古い様式を本物と取り違える。**
+ */
+function checkWatermark(doc: Document, add: Add, m: Messages, at: At): void {
+  const raw = doc.get('watermark', true);
+  if (raw === undefined || raw === null) return;
+  const mark = watermarkOf(doc.toJS().watermark);
+  if (mark === null) {
+    add('warning', 'watermark-invalid', m.watermarkInvalid, at(raw));
+    return;
+  }
+  if (mark.note === null) add('warning', 'watermark-note-missing', m.watermarkNoteMissing, at(raw));
 }
 
 /**

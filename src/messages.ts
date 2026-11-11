@@ -809,6 +809,8 @@ const ja = {
     sourceNameMissing: (index: string) => `出典の ${index} 件目に name がありません。名前の無い出典は描かれません。`,
     sourceDateMissing: (name: string) => `出典「${name}」に取得日（retrieved: YYYY-MM-DD）がありません。いつの数かが分からなくなります。`,
     sourceDateFormat: (name: string, text: string) => `出典「${name}」の取得日 "${text}" は YYYY-MM-DD の形ではありません。`,
+    watermarkInvalid: '`watermark` は字（`watermark: 見本 SAMPLE`）か `{ text, note }` で書いてください。この透かしは描かれません。',
+    watermarkNoteMissing: '透かしに `note` がありません。いつ時点の様式を写したか、公式ではないことを 1 行で書いてください（`note: 2026-11-10 時点の様式を写したもの。公式の様式ではありません`）。',
     areaSqmMismatch: (id: string, written: string, expected: string) =>
       `ノード "${id}" に ${written}㎡ と書いてありますが、箱の大きさと縮尺から出る値は ${expected}㎡ です。箱の大きさか、書いた数を直してください。`,
     areaMatMismatch: (id: string, written: string, most: string) =>
@@ -1879,6 +1881,8 @@ const en: Catalog = {
     sourceNameMissing: (index: string) => `Source ${index} has no name. A source without a name is not drawn.`,
     sourceDateMissing: (name: string) => `Source "${name}" has no retrieval date (retrieved: YYYY-MM-DD). Readers cannot tell when the figures were taken.`,
     sourceDateFormat: (name: string, text: string) => `The retrieval date "${text}" of source "${name}" is not in YYYY-MM-DD form.`,
+    watermarkInvalid: 'Write `watermark` as text (`watermark: SAMPLE`) or as `{ text, note }`. This watermark is not drawn.',
+    watermarkNoteMissing: 'The watermark has no `note`. Add one line saying when the form was copied and that it is not the official form (`note: Copied from the form as of 2026-11-10. Not the official form`).',
     areaSqmMismatch: (id: string, written: string, expected: string) =>
       `Node "${id}" says ${written} m², but its size and the scale give ${expected} m². Fix the box size or the number.`,
     areaMatMismatch: (id: string, written: string, most: string) =>

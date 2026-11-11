@@ -165,7 +165,7 @@ This is **not finished software.** It is being built in the open, small step by 
 
 - Reading and writing the source, automatic layout, SVG output (light/dark)
 - Export to Mermaid, draw.io XML, and embedding into Markdown
-- A validator (174 checks) that explains, in the writer's terms, what will not be drawn —
+- A validator (176 checks) that explains, in the writer's terms, what will not be drawn —
   including one that lays the drawing out and reports labels that would collide
 - Checks that read the drawing the way a professional would: things sitting inside a door's
   swing, lines running through boxes they do not connect, rooms that cannot be reached from a
