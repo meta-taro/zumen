@@ -76,7 +76,9 @@ describe('見本の中身が、画用紙の中に収まっている', () => {
   it('**文字が紙からはみ出していない**', () => {
     const over: string[] = [];
     for (const sheet of sheets()) {
-      for (const m of sheet.body.matchAll(
+      // 透かし（`src/watermark.ts`）は紙の対角に沿って回してあり、回す前の幅では測れない
+      const body = sheet.body.replace(/<g data-name="watermark"[^>]*>[\s\S]*?<\/g>/g, '');
+      for (const m of body.matchAll(
         /<text x="(-?[\d.]+)" y="(-?[\d.]+)"([^>]*)>([^<]*)<\/text>/g,
       )) {
         // 回した文字は、この当たり判定では測れない（`src/write.ts`）。

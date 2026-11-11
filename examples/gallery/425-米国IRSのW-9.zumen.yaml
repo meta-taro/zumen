@@ -1,0 +1,720 @@
+version: 1
+kind: placement
+paper: { size: Letter, orient: portrait, margin: 0 }
+title: "Form W-9（米国 IRS・納税者番号の確認書 Rev. March 2024。Letter 1 ページ目の様式部分）"
+watermark:
+  text: 見本 SAMPLE
+  note: "2026-11-11 時点の Form W-9 (Rev. March 2024) を写したもの。公式の様式ではありません（Not the official form: irs.gov/FormW9）"
+# **米国の納税者番号（TIN）を、支払う側へ渡すための様式。** IRS へは送らない（様式の右上）。
+# 罫線は PDF の 1 ページ目から位置ごと写し（pdftocairo -svg）、字は pdftotext -bbox の位置から置いた。
+# 字の大きさが固定（12px）なので様式を 1.4 倍で描き、Letter へ縮めて収める。英文は欄の幅で折り返し直した（行の切れ目は原本と違う）。
+# 1 ページ目の下半分（General Instructions）は省いて詰め、下端の Cat. No. と様式番号の行をすぐ下へ寄せた。紙の余白（左 36pt・上 29pt）も切り落とした。
+#
+# 出典：
+#   IRS「Form W-9 (Rev. March 2024) Request for Taxpayer Identification Number and Certification」https://www.irs.gov/pub/irs-pdf/fw9.pdf（取得 2026-11-11）
+#   米国連邦政府の著作物は著作権の対象外（17 U.S.C. §105）。
+# 原本との違い：Part I / Part II の札は原本では黒地に白字（ここは枠だけ）。左の縦書き 2 つは原本では下から上へ読む（ここは上から下）。
+#   表題「W-9」など大きな字も 12px。「Go to」の前の三角、3b の点線のリーダーは描いていない。
+# 省いたもの：1 ページ目の下半分の General Instructions と 2〜6 ページ（説明文）。
+# 空欄のまま：番号・氏名・住所は書いていない（社会保障番号の例も入れない）。
+nodes:
+  - id: form
+    label: "Form"
+    marker: none
+    align: left
+    at: { x: 3, y: 36 }
+    size: { w: 36, h: 14 }
+  - id: w9
+    label: "W-9"
+    marker: none
+    align: left
+    at: { x: 47, y: 36 }
+    size: { w: 28, h: 14 }
+  - id: rev
+    label: "(Rev. March 2024)"
+    marker: none
+    align: left
+    at: { x: 3, y: 53 }
+    size: { w: 122, h: 14 }
+  - id: treasury
+    label: "Department of the Treasury"
+    marker: none
+    align: left
+    at: { x: 3, y: 72 }
+    size: { w: 180, h: 14 }
+  - id: irs
+    label: "Internal Revenue Service"
+    marker: none
+    align: left
+    at: { x: 3, y: 87 }
+    size: { w: 168, h: 14 }
+  - id: daimei
+    label: "Request for Taxpayer Identification Number and Certification"
+    marker: none
+    align: center
+    at: { x: 180, y: 20 }
+    size: { w: 665, h: 14 }
+  - id: goto
+    label: "Go to www.irs.gov/FormW9 for instructions and the latest information."
+    marker: none
+    align: center
+    at: { x: 191, y: 81 }
+    size: { w: 654, h: 14 }
+  - id: give
+    label: "Give form to the\nrequester. Do not send\nto the IRS."
+    marker: none
+    align: left
+    at: { x: 860, y: 29 }
+    size: { w: 153, h: 46 }
+  - id: before
+    label: "Before you begin. For guidance related to the purpose of Form W-9, see Purpose of Form, below."
+    marker: none
+    align: left
+    at: { x: 5, y: 109 }
+    size: { w: 1008, h: 14 }
+  - id: n1
+    label: "1"
+    marker: none
+    align: left
+    at: { x: 50, y: 131 }
+    size: { w: 16, h: 14 }
+  - id: l1
+    label: "Name of entity/individual. An entry is required. (For a sole proprietor or disregarded entity, enter the owner’s name on line 1, and enter\nthe business/disregarded entity’s name on line 2.)"
+    marker: none
+    align: left
+    at: { x: 74, y: 129 }
+    size: { w: 939, h: 32 }
+  - id: n2
+    label: "2"
+    marker: none
+    align: left
+    at: { x: 50, y: 198 }
+    size: { w: 16, h: 14 }
+  - id: l2
+    label: "Business name/disregarded entity name, if different from above."
+    marker: none
+    align: left
+    at: { x: 74, y: 198 }
+    size: { w: 939, h: 14 }
+  - id: n3a
+    label: "3a"
+    marker: none
+    align: left
+    at: { x: 48, y: 243 }
+    size: { w: 22, h: 14 }
+  - id: l3a
+    label: "Check the appropriate box for federal tax classification of the entity/individual whose name is entered on\nline 1. Check only one of the following seven boxes."
+    marker: none
+    align: left
+    at: { x: 75, y: 241 }
+    size: { w: 708, h: 32 }
+  - id: k1
+    label: "Individual/sole proprietor"
+    marker: none
+    align: left
+    at: { x: 97, y: 286 }
+    size: { w: 180, h: 14 }
+  - id: k2
+    label: "C corporation"
+    marker: none
+    align: left
+    at: { x: 297, y: 286 }
+    size: { w: 94, h: 14 }
+  - id: k3
+    label: "S corporation"
+    marker: none
+    align: left
+    at: { x: 431, y: 286 }
+    size: { w: 94, h: 14 }
+  - id: k4
+    label: "Partnership"
+    marker: none
+    align: left
+    at: { x: 566, y: 286 }
+    size: { w: 82, h: 14 }
+  - id: k5
+    label: "Trust/estate"
+    marker: none
+    align: left
+    at: { x: 687, y: 286 }
+    size: { w: 88, h: 14 }
+  - id: llc
+    label: "LLC. Enter the tax classification (C = C corporation, S = S corporation, P = Partnership)"
+    marker: none
+    align: left
+    at: { x: 99, y: 311 }
+    size: { w: 615, h: 14 }
+  - id: note3
+    label: "Note: Check the “LLC” box above and, in the entry space, enter the appropriate code (C, S, or P) for\nthe tax classification of the LLC, unless it is a disregarded entity. A disregarded entity should\ninstead check the appropriate box for the tax classification of its owner."
+    marker: none
+    align: left
+    at: { x: 99, y: 329 }
+    size: { w: 684, h: 46 }
+  - id: other
+    label: "Other (see instructions)"
+    marker: none
+    align: left
+    at: { x: 97, y: 379 }
+    size: { w: 168, h: 14 }
+  - id: n4
+    label: "4"
+    marker: none
+    align: left
+    at: { x: 790, y: 244 }
+    size: { w: 16, h: 14 }
+  - id: l4
+    label: "Exemptions (codes apply only\nto certain entities, not\nindividuals; see instructions\non page 3):"
+    marker: none
+    align: left
+    at: { x: 807, y: 242 }
+    size: { w: 206, h: 60 }
+  - id: exempt
+    label: "Exempt payee code (if any)"
+    marker: none
+    align: left
+    at: { x: 792, y: 309 }
+    size: { w: 221, h: 14 }
+  - id: fatca
+    label: "Exemption from Foreign Account\nTax Compliance Act (FATCA)\nreporting code (if any)"
+    marker: none
+    align: left
+    at: { x: 792, y: 340 }
+    size: { w: 221, h: 46 }
+  - id: fatca2
+    label: "(Applies to accounts maintained\noutside the United States.)"
+    marker: none
+    align: center
+    at: { x: 792, y: 415 }
+    size: { w: 221, h: 32 }
+  - id: n3b
+    label: "3b"
+    marker: none
+    align: left
+    at: { x: 48, y: 405 }
+    size: { w: 22, h: 14 }
+  - id: l3b
+    label: "If on line 3a you checked “Partnership” or “Trust/estate,” or checked “LLC” and entered “P”\nas its tax classification, and you are providing this form to a partnership, trust, or estate in\nwhich you have an ownership interest, check this box if you have any foreign partners, owners, or\nbeneficiaries. See instructions"
+    marker: none
+    align: left
+    at: { x: 75, y: 403 }
+    size: { w: 678, h: 60 }
+  - id: n5
+    label: "5"
+    marker: none
+    align: left
+    at: { x: 50, y: 467 }
+    size: { w: 16, h: 14 }
+  - id: l5
+    label: "Address (number, street, and apt. or suite no.). See instructions."
+    marker: none
+    align: left
+    at: { x: 74, y: 467 }
+    size: { w: 588, h: 14 }
+  - id: req
+    label: "Requester’s name and address (optional)"
+    marker: none
+    align: left
+    at: { x: 671, y: 467 }
+    size: { w: 342, h: 14 }
+  - id: n6
+    label: "6"
+    marker: none
+    align: left
+    at: { x: 50, y: 511 }
+    size: { w: 16, h: 14 }
+  - id: l6
+    label: "City, state, and ZIP code"
+    marker: none
+    align: left
+    at: { x: 74, y: 511 }
+    size: { w: 588, h: 14 }
+  - id: n7
+    label: "7"
+    marker: none
+    align: left
+    at: { x: 50, y: 556 }
+    size: { w: 16, h: 14 }
+  - id: l7
+    label: "List account number(s) here (optional)"
+    marker: none
+    align: left
+    at: { x: 74, y: 556 }
+    size: { w: 939, h: 14 }
+  - id: spec
+    label: "See Specific Instructions on page 3."
+    marker: none
+    write: down
+    at: { x: 21, y: 245 }
+    size: { w: 22, h: 339 }
+  - id: print
+    label: "Print or type."
+    marker: none
+    write: down
+    at: { x: 5, y: 286 }
+    size: { w: 16, h: 298 }
+  - id: p1
+    label: "Part I"
+    marker: none
+    align: center
+    at: { x: 5, y: 603 }
+    size: { w: 64, h: 14 }
+  - id: p1h
+    label: "Taxpayer Identification Number (TIN)"
+    marker: none
+    align: left
+    at: { x: 97, y: 603 }
+    size: { w: 246, h: 14 }
+  - id: ssn
+    label: "Social security number"
+    marker: none
+    align: left
+    at: { x: 719, y: 624 }
+    size: { w: 154, h: 14 }
+  - id: ein
+    label: "Employer identification number"
+    marker: none
+    align: left
+    at: { x: 719, y: 714 }
+    size: { w: 208, h: 14 }
+  - id: or
+    label: "or"
+    marker: none
+    align: left
+    at: { x: 715, y: 690 }
+    size: { w: 22, h: 14 }
+  - id: tin
+    label: "Enter your TIN in the appropriate box. The TIN provided must match the name given on line 1 to avoid\nbackup withholding. For individuals, this is generally your social security number (SSN). However, for a\nresident alien, sole proprietor, or disregarded entity, see the instructions for Part I, later. For other\nentities, it is your employer identification number (EIN). If you do not have a number, see How to get a\nTIN, later."
+    marker: none
+    align: left
+    at: { x: 5, y: 622 }
+    size: { w: 701, h: 74 }
+  - id: tinnote
+    label: "Note: If the account is in more than one name, see the instructions for line 1. See also What Name and\nNumber To Give the Requester for guidelines on whose number to enter."
+    marker: none
+    align: left
+    at: { x: 5, y: 727 }
+    size: { w: 701, h: 32 }
+  - id: h1
+    label: "–"
+    marker: none
+    align: center
+    at: { x: 800, y: 659 }
+    size: { w: 24, h: 14 }
+  - id: h2
+    label: "–"
+    marker: none
+    align: center
+    at: { x: 880, y: 659 }
+    size: { w: 25, h: 14 }
+  - id: h3
+    label: "–"
+    marker: none
+    align: center
+    at: { x: 773, y: 749 }
+    size: { w: 25, h: 14 }
+  - id: p2
+    label: "Part II"
+    marker: none
+    align: center
+    at: { x: 5, y: 783 }
+    size: { w: 64, h: 14 }
+  - id: p2h
+    label: "Certification"
+    marker: none
+    align: left
+    at: { x: 97, y: 783 }
+    size: { w: 94, h: 14 }
+  - id: c0
+    label: "Under penalties of perjury, I certify that:"
+    marker: none
+    align: left
+    at: { x: 5, y: 804 }
+    size: { w: 1008, h: 14 }
+  - id: c1
+    label: "1. The number shown on this form is my correct taxpayer identification number (or I am waiting for a number to be issued to me); and"
+    marker: none
+    align: left
+    at: { x: 5, y: 820 }
+    size: { w: 1008, h: 14 }
+  - id: c2
+    label: "2. I am not subject to backup withholding because (a) I am exempt from backup withholding, or (b) I have not been notified by the Internal Revenue\nService (IRS) that I am subject to backup withholding as a result of a failure to report all interest or dividends, or (c) the IRS has notified me that\nI am no longer subject to backup withholding; and"
+    marker: none
+    align: left
+    at: { x: 5, y: 834 }
+    size: { w: 1008, h: 46 }
+  - id: c3
+    label: "3. I am a U.S. citizen or other U.S. person (defined below); and"
+    marker: none
+    align: left
+    at: { x: 5, y: 882 }
+    size: { w: 1008, h: 14 }
+  - id: c4
+    label: "4. The FATCA code(s) entered on this form (if any) indicating that I am exempt from FATCA reporting is correct."
+    marker: none
+    align: left
+    at: { x: 5, y: 898 }
+    size: { w: 1008, h: 14 }
+  - id: c5
+    label: "Certification instructions. You must cross out item 2 above if you have been notified by the IRS that you are currently subject to backup withholding\nbecause you have failed to report all interest and dividends on your tax return. For real estate transactions, item 2 does not apply. For mortgage\ninterest paid, acquisition or abandonment of secured property, cancellation of debt, contributions to an individual retirement arrangement (IRA), and,\ngenerally, payments other than interest and dividends, you are not required to sign the certification, but you must provide your correct TIN. See the\ninstructions for Part II, later."
+    marker: none
+    align: left
+    at: { x: 5, y: 912 }
+    size: { w: 1008, h: 74 }
+  - id: sign
+    label: "Sign"
+    marker: none
+    align: left
+    at: { x: 3, y: 1028 }
+    size: { w: 36, h: 14 }
+  - id: here
+    label: "Here"
+    marker: none
+    align: left
+    at: { x: 3, y: 1046 }
+    size: { w: 36, h: 14 }
+  - id: sig
+    label: "Signature of U.S.\nperson"
+    marker: none
+    align: left
+    at: { x: 77, y: 1026 }
+    size: { w: 159, h: 32 }
+  - id: date
+    label: "Date"
+    marker: none
+    align: left
+    at: { x: 655, y: 1049 }
+    size: { w: 36, h: 14 }
+  - id: cat
+    label: "Cat. No. 10231X"
+    marker: none
+    align: left
+    at: { x: 378, y: 1132 }
+    size: { w: 108, h: 14 }
+  - id: foot
+    label: "Form W-9 (Rev. 3-2024)"
+    marker: none
+    align: right
+    at: { x: 860, y: 1132 }
+    size: { w: 154, h: 14 }
+  - id: shoryaku
+    label: "（ここから下の General Instructions と、2〜6 ページの説明は省いた。原本は出典の PDF にある）"
+    marker: none
+    align: center
+    at: { x: 5, y: 1074 }
+    size: { w: 1008, h: 14 }
+  - id: about
+    label: "IRS の Form W-9（Rev. March 2024）の 1 ページ目の様式部分を写したもの。罫線は原本の位置。字は大きさを揃え、欄の幅で折り返し直した（行の切れ目は原本と違\nう）。"
+    marker: none
+    align: left
+    at: { x: 5, y: 1156 }
+    size: { w: 1008, h: 32 }
+paths:
+  - id: sen1
+    points: [ [ 166.9, 16.3 ], [ 166.9, 54.6 ] ]
+    weight: thick
+    ends: { from: none, to: none }
+  - id: sen2
+    points: [ [ 166.9, 53.7 ], [ 166.9, 73.3 ] ]
+    weight: thick
+    ends: { from: none, to: none }
+  - id: sen3
+    points: [ [ 5.1, 106.4 ], [ 167.8, 106.4 ] ]
+    weight: thick
+    ends: { from: none, to: none }
+  - id: sen4
+    points: [ [ 166.9, 72.3 ], [ 166.9, 107.3 ] ]
+    weight: thick
+    ends: { from: none, to: none }
+  - id: sen5
+    points: [ [ 166.4, 106.4 ], [ 852.8, 106.4 ] ]
+    weight: thick
+    ends: { from: none, to: none }
+  - id: sen6
+    points: [ [ 851.4, 106.4 ], [ 1014, 106.4 ] ]
+    weight: thick
+    ends: { from: none, to: none }
+  - id: sen7
+    points: [ [ 852.3, 16.3 ], [ 852.3, 107.3 ] ]
+    weight: thick
+    ends: { from: none, to: none }
+  - id: sen8
+    points: [ [ 5.1, 128.8 ], [ 1014, 128.8 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: sen9
+    points: [ [ 45.9, 128.3 ], [ 45.9, 599.6 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: sen10
+    points: [ [ 45.4, 196 ], [ 1014, 196 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: sen11
+    points: [ [ 45.4, 240.8 ], [ 1014, 240.8 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: waku12
+    points: [ [ 74.7, 301 ], [ 89.6, 301 ], [ 89.6, 286.1 ], [ 74.7, 286.1 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: waku13
+    points: [ [ 274.4, 301 ], [ 289.3, 301 ], [ 289.3, 286.1 ], [ 274.4, 286.1 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: waku14
+    points: [ [ 408.8, 301 ], [ 423.7, 301 ], [ 423.7, 286.1 ], [ 408.8, 286.1 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: waku15
+    points: [ [ 543.2, 301 ], [ 558.1, 301 ], [ 558.1, 286.1 ], [ 543.2, 286.1 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: waku16
+    points: [ [ 664.1, 301 ], [ 679.1, 301 ], [ 679.1, 286.1 ], [ 664.1, 286.1 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: waku17
+    points: [ [ 74.7, 325.7 ], [ 89.6, 325.7 ], [ 89.6, 310.8 ], [ 74.7, 310.8 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: sen18
+    points: [ [ 717.4, 328.5 ], [ 772.1, 328.5 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: waku19
+    points: [ [ 74.7, 393.8 ], [ 89.6, 393.8 ], [ 89.6, 378.9 ], [ 74.7, 378.9 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: sen20
+    points: [ [ 241.1, 397.6 ], [ 772.1, 397.6 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: sen21
+    points: [ [ 45.4, 403.2 ], [ 758.7, 403.2 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: sen22
+    points: [ [ 757.7, 403.2 ], [ 785.6, 403.2 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: waku23
+    points: [ [ 760.8, 455.4 ], [ 775.8, 455.4 ], [ 775.8, 440.5 ], [ 760.8, 440.5 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: sen24
+    points: [ [ 785.1, 240.3 ], [ 785.1, 308.5 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: sen25
+    points: [ [ 785.1, 307.5 ], [ 785.1, 330.8 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: sen26
+    points: [ [ 952.6, 330.4 ], [ 1014, 330.4 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: sen27
+    points: [ [ 785.1, 329.9 ], [ 785.1, 375.7 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: sen28
+    points: [ [ 785.1, 374.7 ], [ 785.1, 398 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: sen29
+    points: [ [ 872.4, 397.6 ], [ 1014, 397.6 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: sen30
+    points: [ [ 785.1, 397.1 ], [ 785.1, 465.2 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: sen31
+    points: [ [ 45.4, 464.8 ], [ 664.6, 464.8 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: sen32
+    points: [ [ 45.4, 509.6 ], [ 664.6, 509.6 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: sen33
+    points: [ [ 45.4, 554.4 ], [ 664.6, 554.4 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: sen34
+    points: [ [ 663.7, 464.8 ], [ 1014, 464.8 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: sen35
+    points: [ [ 663.7, 554.4 ], [ 1014, 554.4 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: sen36
+    points: [ [ 664.1, 464.3 ], [ 664.1, 554.8 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: sen37
+    points: [ [ 5.1, 599.2 ], [ 1014, 599.2 ] ]
+    ends: { from: none, to: none }
+  - id: sen38
+    points: [ [ 5.1, 621.6 ], [ 1014, 621.6 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: waku39
+    points: [ [ 717.9, 640.2 ], [ 1013.6, 640.2 ], [ 1013.6, 621.6 ], [ 717.9, 621.6 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: waku40
+    points: [ [ 717.9, 688.8 ], [ 744.8, 688.8 ], [ 744.8, 644 ], [ 717.9, 644 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: waku41
+    points: [ [ 744.8, 688.8 ], [ 771.6, 688.8 ], [ 771.6, 644 ], [ 744.8, 644 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: waku42
+    points: [ [ 771.6, 688.8 ], [ 798.5, 688.8 ], [ 798.5, 644 ], [ 771.6, 644 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: waku43
+    points: [ [ 825.4, 688.8 ], [ 852.3, 688.8 ], [ 852.3, 644 ], [ 825.4, 644 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: waku44
+    points: [ [ 852.3, 688.8 ], [ 879.2, 688.8 ], [ 879.2, 644 ], [ 852.3, 644 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: waku45
+    points: [ [ 906, 688.8 ], [ 932.9, 688.8 ], [ 932.9, 644 ], [ 906, 644 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: waku46
+    points: [ [ 932.9, 688.8 ], [ 959.8, 688.8 ], [ 959.8, 644 ], [ 932.9, 644 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: waku47
+    points: [ [ 959.8, 688.8 ], [ 986.7, 688.8 ], [ 986.7, 644 ], [ 959.8, 644 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: waku48
+    points: [ [ 986.7, 688.8 ], [ 1013.6, 688.8 ], [ 1013.6, 644 ], [ 986.7, 644 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: waku49
+    points: [ [ 717.9, 729.8 ], [ 986.7, 729.8 ], [ 986.7, 711.2 ], [ 717.9, 711.2 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: waku50
+    points: [ [ 717.9, 778.4 ], [ 744.8, 778.4 ], [ 744.8, 733.6 ], [ 717.9, 733.6 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: waku51
+    points: [ [ 744.8, 778.4 ], [ 771.6, 778.4 ], [ 771.6, 733.6 ], [ 744.8, 733.6 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: waku52
+    points: [ [ 798.5, 778.4 ], [ 825.4, 778.4 ], [ 825.4, 733.6 ], [ 798.5, 733.6 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: waku53
+    points: [ [ 825.4, 778.4 ], [ 852.3, 778.4 ], [ 852.3, 733.6 ], [ 825.4, 733.6 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: waku54
+    points: [ [ 852.3, 778.4 ], [ 879.2, 778.4 ], [ 879.2, 733.6 ], [ 852.3, 733.6 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: waku55
+    points: [ [ 879.2, 778.4 ], [ 906, 778.4 ], [ 906, 733.6 ], [ 879.2, 733.6 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: waku56
+    points: [ [ 906, 778.4 ], [ 932.9, 778.4 ], [ 932.9, 733.6 ], [ 906, 733.6 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: waku57
+    points: [ [ 932.9, 778.4 ], [ 959.8, 778.4 ], [ 959.8, 733.6 ], [ 932.9, 733.6 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: waku58
+    points: [ [ 959.8, 778.4 ], [ 986.7, 778.4 ], [ 986.7, 733.6 ], [ 959.8, 733.6 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: sen59
+    points: [ [ 5.1, 778.4 ], [ 1014, 778.4 ] ]
+    ends: { from: none, to: none }
+  - id: sen60
+    points: [ [ 5.1, 800.8 ], [ 1014, 800.8 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: sen61
+    points: [ [ 5.1, 1024.8 ], [ 73.3, 1024.8 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: sen62
+    points: [ [ 5.1, 1069.6 ], [ 73.3, 1069.6 ] ]
+    ends: { from: none, to: none }
+  - id: sen63
+    points: [ [ 72.3, 1024.8 ], [ 651.2, 1024.8 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: sen64
+    points: [ [ 72.3, 1069.6 ], [ 651.2, 1069.6 ] ]
+    ends: { from: none, to: none }
+  - id: sen65
+    points: [ [ 72.8, 1024.3 ], [ 72.8, 1070.3 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: sen66
+    points: [ [ 650.2, 1024.8 ], [ 1014, 1024.8 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: sen67
+    points: [ [ 650.2, 1069.6 ], [ 1014, 1069.6 ] ]
+    ends: { from: none, to: none }
+  - id: sen68
+    points: [ [ 5.1, 1129.3 ], [ 852.8, 1129.3 ] ]
+    weight: thick
+    ends: { from: none, to: none }
+  - id: sen69
+    points: [ [ 851.8, 1129.3 ], [ 1014, 1129.3 ] ]
+    weight: thick
+    ends: { from: none, to: none }
+  - id: fuda70
+    points: [ [ 5.6, 599.2 ], [ 72.8, 599.2 ], [ 72.8, 621.6 ], [ 5.6, 621.6 ] ]
+    close: true
+    weight: thick
+    ends: { from: none, to: none }
+  - id: fuda71
+    points: [ [ 5.6, 778.4 ], [ 72.8, 778.4 ], [ 72.8, 800.8 ], [ 5.6, 800.8 ] ]
+    close: true
+    weight: thick
+    ends: { from: none, to: none }
