@@ -41,7 +41,7 @@ function screen(hub: Hub, id: string, at: Partial<Screen> = {}): ToScreen[] {
 describe('繋がっているか', () => {
   it('誰も居なければ 0 件で、画面は null', () => {
     const hub = new Hub(WORDS);
-    assert.deepEqual(hub.status, { screens: 0, screen: null, waiting: [] });
+    assert.deepEqual(hub.status, { screens: 0, screen: null, waiting: [], elsewhere: null });
   });
 
   it('繋いだ画面には、まず hello が行く', () => {

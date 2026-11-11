@@ -45,6 +45,7 @@ export function createHub(): Hub {
   const m = messages().mcp;
   return new Hub({
     noScreen: m.liveNoScreen,
+    elsewhere: m.liveElsewhere,
     nothingOpen: m.liveNothingOpen,
     otherDiagram: m.liveOtherDiagram,
   });

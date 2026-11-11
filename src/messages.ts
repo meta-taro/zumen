@@ -522,6 +522,8 @@ const ja = {
       '画面でその要素を選ぶ。**選ぶだけで、図は何も変わらない。**「どれの話か」を言葉で説明する代わりに使う。',
     livePointIds: '指す要素の id',
     livePointNote: '添える一言',
+    liveElsewhere:
+      '画面との線は、この PC の別の席（別に立っている zumen の MCP）が持っています。この席からは画面を読めず、提案も出せません。その席に頼むか、その席を閉じてからもう一度呼んでください（閉じれば、次の呼びでこの席が線を開き直します）。',
     liveNoScreen:
       'デスクトップアプリが繋がっていません。アプリを立ち上げる（pnpm app）か、ファイルへ入れる口（zumen_propose）を使ってください。',
     liveNothingOpen: '画面は繋がっていますが、図を開いていません。',
@@ -1619,6 +1621,8 @@ const en: Catalog = {
       'Selects that element on screen. **Selecting only; the diagram does not change.** Use it instead of describing in words which thing you mean.',
     livePointIds: 'Ids of the elements to point at',
     livePointNote: 'One line to go with it',
+    liveElsewhere:
+      'Another seat on this PC (another zumen MCP server) holds the link to the screen. This seat cannot read the screen or put proposals on it. Ask that seat, or close it and call again (the next call from this seat then reopens the link).',
     liveNoScreen:
       'The desktop app is not connected. Start it (pnpm app), or use zumen_propose, which writes the file.',
     liveNothingOpen: 'The app is connected but has no diagram open.',

@@ -37,10 +37,12 @@ export interface LiveStatus {
   reviewed: boolean;
   /** 人の答えを待っている提案。 */
   waiting: string[];
+  /** **画面との線を、この PC の別の席が持っている**なら、その説明。この席が持っていれば null。 */
+  elsewhere: string | null;
 }
 
 export function status(hub: Hub): LiveStatus {
-  const { screens, screen, waiting } = hub.status;
+  const { screens, screen, waiting, elsewhere } = hub.status;
   return {
     screens,
     path: screen?.path ?? null,
@@ -50,6 +52,7 @@ export function status(hub: Hub): LiveStatus {
     conflicts: screen?.conflicts ?? 0,
     reviewed: screen?.reviewed ?? false,
     waiting,
+    elsewhere,
   };
 }
 

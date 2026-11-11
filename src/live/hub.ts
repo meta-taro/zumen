@@ -46,6 +46,8 @@ export interface Status {
   screen: Screen | null;
   /** 人の答えを待っている提案の id。 */
   waiting: string[];
+  /** **線を別の席が持っている**なら、その断り文句。持っていなければ null。 */
+  elsewhere: string | null;
 }
 
 export type Offered =
@@ -56,12 +58,30 @@ export class Hub {
   readonly #clients = new Map<string, Client>();
   readonly #offers = new Map<string, Offer>();
   #serial = 0;
+  /** 線を別の席が持っているか（`held`）。 */
+  #elsewhere = false;
 
   /** 断り文句は呼ぶ側から渡す（文字列を散らかさない）。 */
   readonly #words: HubWords;
 
   constructor(words: HubWords) {
     this.#words = words;
+  }
+
+  /**
+   * **画面との線を、この席が持てたか**（2026-11-11）。
+   *
+   * 1 台の PC で席ごとに zumen の MCP が立つ。線を開けるのは最初の 1 つだけで、
+   * 開けなかった席が「画面が無い」と答えると、人が画面を開いているのに、エージェントは開いていないと読む。
+   * **持てなかった席は、画面の口をすぐ、別の席が持っていると断る**（待たせない）。
+   */
+  held(own: boolean): void {
+    this.#elsewhere = !own;
+  }
+
+  /** 別の席が線を持っているときの断り。持っていなければ null。 */
+  #taken(): { ok: false; reason: string } | null {
+    return this.#elsewhere ? { ok: false, reason: this.#words.elsewhere ?? this.#words.noScreen } : null;
   }
 
   /** 画面が繋がった。 */
@@ -109,6 +129,7 @@ export class Hub {
       screens: this.#clients.size,
       screen: client?.screen ?? null,
       waiting: [...this.#offers.keys()],
+      elsewhere: this.#elsewhere ? (this.#words.elsewhere ?? this.#words.noScreen) : null,
     };
   }
 
@@ -119,6 +140,8 @@ export class Hub {
    * ディスクを読むと、**人がさっきやったことが見えない。**
    */
   source(): { ok: true; source: string; path: string | null; name: string | null } | { ok: false; reason: string } {
+    const taken = this.#taken();
+    if (taken !== null) return taken;
     const client = this.#newest();
     if (client === undefined) return { ok: false, reason: this.#words.noScreen };
     if (client.screen.source === '') return { ok: false, reason: this.#words.nothingOpen };
@@ -137,6 +160,8 @@ export class Hub {
    * 別の図を開いている画面へ黙って出すと、人は何の話か分からない。
    */
   offer(source: string, options: { path?: string; note?: string } = {}): Offered {
+    const taken = this.#taken();
+    if (taken !== null) return taken;
     const targets = [...this.#clients.values()].filter((client) =>
       options.path === undefined ? client.screen.source !== '' : client.screen.path === options.path,
     );
@@ -207,6 +232,8 @@ export class Hub {
 
   /** 「この箱のことです」と指す。**選ぶだけで、何も変えない。** */
   point(ids: string[], note?: string): { ok: true; screens: number } | { ok: false; reason: string } {
+    const taken = this.#taken();
+    if (taken !== null) return taken;
     const targets = [...this.#clients.values()];
     if (targets.length === 0) return { ok: false, reason: this.#words.noScreen };
     for (const client of targets) client.send({ kind: 'point', ids, note: note ?? null });
@@ -224,6 +251,8 @@ export class Hub {
 /** 断り文句。 */
 export interface HubWords {
   noScreen: string;
+  /** 画面との線を、この PC の別の席（別の zumen の MCP）が持っている。書かなければ `noScreen` で断る。 */
+  elsewhere?: string;
   nothingOpen: string;
   otherDiagram: (asked: string, showing: string | null) => string;
 }

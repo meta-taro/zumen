@@ -119,7 +119,7 @@ function titleOf(body: string): string {
   }
 }
 
-export function buildServer(hub: Hub = createHub()): McpServer {
+export function buildServer(hub: Hub = createHub(), reopen: () => Promise<void> = async () => {}): McpServer {
   const m = messages().mcp;
   // **つないだ直後に、手順を 1 回だけ渡す。** 頼み方に関係なく、見本を読んでから描くように。
   const server = new McpServer({ name: 'zumen', version: '0.0.0' }, { instructions: m.instructions });
@@ -363,13 +363,19 @@ export function buildServer(hub: Hub = createHub()): McpServer {
   server.registerTool(
     'zumen_live_status',
     { title: m.liveStatusTitle, description: m.liveStatusDesc, inputSchema: {} },
-    () => json(liveStatus(hub)),
+    async () => {
+      await reopen();
+      return json(liveStatus(hub));
+    },
   );
 
   server.registerTool(
     'zumen_live_read',
     { title: m.liveReadTitle, description: m.liveReadDesc, inputSchema: {} },
-    () => json(liveRead(hub)),
+    async () => {
+      await reopen();
+      return json(liveRead(hub));
+    },
   );
 
   server.registerTool(
@@ -384,7 +390,10 @@ export function buildServer(hub: Hub = createHub()): McpServer {
         wait: z.number().min(1).max(MAX_WAIT_S).optional().describe(m.liveProposeWait),
       },
     },
-    async ({ source, path, note, wait }) => json(await offer(hub, source, { path, note, wait })),
+    async ({ source, path, note, wait }) => {
+      await reopen();
+      return json(await offer(hub, source, { path, note, wait }));
+    },
   );
 
   server.registerTool(
@@ -397,7 +406,10 @@ export function buildServer(hub: Hub = createHub()): McpServer {
         note: z.string().optional().describe(m.livePointNote),
       },
     },
-    ({ ids, note }) => json(point(hub, ids, note)),
+    async ({ ids, note }) => {
+      await reopen();
+      return json(point(hub, ids, note));
+    },
   );
 
   return server;
@@ -417,10 +429,14 @@ function bodyOf(source: string | undefined, path: string | undefined): string {
  * **図を読む口まで一緒に死ぬ。** 線が無いことは `zumen_live_status` が
  * `screens: 0` で言うので、黙って進んでも取り違えは起きない。
  */
-async function openLine(hub: Hub): Promise<LiveServer | null> {
+export async function openLine(hub: Hub, port: number = LIVE_PORT): Promise<LiveServer | null> {
   try {
-    return await serve(LIVE_PORT, hub);
+    const line = await serve(port, hub);
+    hub.held(true);
+    return line;
   } catch (error) {
+    // **別の席が線を持っている**（同じ PC で zumen の MCP が先に立っている）。画面の口はすぐ断る（`Hub.held`）
+    if ((error as { code?: string }).code === 'EADDRINUSE') hub.held(false);
     // 握り潰さない。stdout は MCP の通り道なので、**stderr へ出す。**
     process.stderr.write(`${messages().mcp.liveOffOn}: ${String(error)}\n`);
     return null;
@@ -435,8 +451,12 @@ async function openLine(hub: Hub): Promise<LiveServer | null> {
  */
 export async function startMcp(): Promise<void> {
   const hub = createHub();
-  await openLine(hub);
-  await buildServer(hub).connect(new StdioServerTransport());
+  let line = await openLine(hub);
+  // **線を持っていた席が閉じたら、次の画面の呼びで開き直す**（開いていれば何もしない）
+  const reopen = async (): Promise<void> => {
+    if (line === null) line = await openLine(hub);
+  };
+  await buildServer(hub, reopen).connect(new StdioServerTransport());
 }
 
 // 直接叩かれたときだけ立てる。import しても副作用が出ないようにしておく。
