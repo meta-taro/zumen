@@ -53,6 +53,7 @@ import {
   read,
   spec,
 } from './tools.ts';
+import { AGENT_ACTIONS, parseAgentAction } from './live/agent.ts';
 import { createHub, serve } from './live/server.ts';
 import type { LiveServer } from './live/server.ts';
 import { LIVE_PORT } from './live/protocol.ts';
@@ -412,7 +413,38 @@ export function buildServer(hub: Hub = createHub(), reopen: () => Promise<void> 
     },
   );
 
+  // **エージェント専用カーソル**（`src/live/agent.ts`。2026-11-12）。画面の中で指す・押す・打つ・話す。
+  // 人のマウスとキーボードは使わない。**人の承認（data-human-only）は画面が断る** —— ここにも押す口は無い。
+  server.registerTool(
+    'zumen_screen',
+    {
+      title: m.screenTitle,
+      description: m.screenDesc,
+      inputSchema: {
+        action: z.enum(AGENT_ACTIONS).describe(m.screenAction),
+        target: z.string().optional().describe(m.screenTarget),
+        text: z.string().optional().describe(m.screenText),
+        message: z.string().optional().describe(m.screenMessage),
+        seconds: z.number().optional().describe(m.screenSeconds),
+      },
+    },
+    async (input) => {
+      await reopen();
+      return json(screen(hub, input));
+    },
+  );
+
   return server;
+}
+
+/** `zumen_screen` の中身。**形を検査してから画面へ降ろす。** */
+export function screen(hub: Hub, input: unknown): { ok: true; screens: number; note: string } | { ok: false; reason: string } {
+  const m = messages().mcp;
+  const parsed = parseAgentAction(input);
+  if (!parsed.ok) return { ok: false, reason: m.agentRefused(parsed.reason) };
+  if (parsed.value.action === 'filter') return { ok: false, reason: m.screenFilterNone };
+  const sent = hub.agent(parsed.value);
+  return sent.ok ? { ...sent, note: m.screenSent } : sent;
 }
 
 /** 中身か道のどちらかを受ける。**どちらも無ければ、黙って空を返さない。** */

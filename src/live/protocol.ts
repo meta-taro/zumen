@@ -20,6 +20,8 @@
  */
 
 /** 線を張る場所。**127.0.0.1 にしか開かない。** */
+import type { AgentAction } from './agent.ts';
+
 export const LIVE_HOST = '127.0.0.1';
 export const LIVE_PORT = 4999;
 
@@ -101,7 +103,9 @@ export type ToScreen =
   /** 「この箱のことです」と指す。**選ぶだけで、何も変えない。** */
   | { kind: 'point'; ids: string[]; note: string | null }
   /** 出した提案を引っ込める（エージェントが言い直した）。 */
-  | { kind: 'withdraw'; id: string };
+  | { kind: 'withdraw'; id: string }
+  /** **エージェント専用カーソル**（`src/live/agent.ts`）。画面の中で指す・押す・打つ・話す。人の承認は押せない */
+  | { kind: 'agent'; action: AgentAction };
 
 /** 画面から来るもの。 */
 export type FromScreen =

@@ -17,6 +17,7 @@
  * `applied` が返るのは、**人が画面の「正本へ入れる」を押したとき**だけ。
  * ここには、その値を自分で立てる道が無い。
  */
+import type { AgentAction } from './agent.ts';
 import { EMPTY_SCREEN } from './protocol.ts';
 import type { Decision, Screen, ToScreen } from './protocol.ts';
 
@@ -231,6 +232,19 @@ export class Hub {
   }
 
   /** 「この箱のことです」と指す。**選ぶだけで、何も変えない。** */
+  /**
+   * **エージェント専用カーソル**を動かす（`src/live/agent.ts`）。繋がっている画面すべてへ降ろす。
+   * 画面の中で何を押せるかは画面が決める —— 人の承認（`data-human-only`）は、画面が断る。
+   */
+  agent(action: AgentAction): { ok: true; screens: number } | { ok: false; reason: string } {
+    const taken = this.#taken();
+    if (taken !== null) return taken;
+    const targets = [...this.#clients.values()];
+    if (targets.length === 0) return { ok: false, reason: this.#words.noScreen };
+    for (const client of targets) client.send({ kind: 'agent', action });
+    return { ok: true, screens: targets.length };
+  }
+
   point(ids: string[], note?: string): { ok: true; screens: number } | { ok: false; reason: string } {
     const taken = this.#taken();
     if (taken !== null) return taken;

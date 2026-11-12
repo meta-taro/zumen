@@ -107,8 +107,8 @@ import type { Session } from './state.svelte.ts';
     文言は言語で変わる。取っ手は変わらない。
   -->
   <div class="choose">
-    <button class="primary" data-act="apply" onclick={apply}>{m.apply}</button>
-    <button data-act="discard" onclick={discard}>{m.discard}</button>
+    <button class="primary" data-act="apply" data-human-only onclick={apply}>{m.apply}</button>
+    <button data-act="discard" data-human-only onclick={discard}>{m.discard}</button>
   </div>
 </section>
 

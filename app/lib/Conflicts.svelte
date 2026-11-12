@@ -55,12 +55,12 @@ import type { Conflict } from '../../src/merge.ts';
           >{conflict.elementId}</button>
           <p>{detail(conflict)}</p>
           {#if conflict.kind !== 'position-suppressed' && conflict.kind !== 'value-suppressed'}
-            <div class="choose">
+            <div class="choose" data-human-only>
               <button onclick={() => session.decide(conflict, 'human')}>{m.takeMine}</button>
               <button onclick={() => session.decide(conflict, 'ai')}>{m.takeProposal}</button>
             </div>
           {:else}
-            <div class="choose">
+            <div class="choose" data-human-only>
               <button onclick={() => session.decide(conflict, 'ai')}>{m.takeProposalAnyway}</button>
             </div>
           {/if}

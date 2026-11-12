@@ -188,4 +188,6 @@ export const DOORS = [
   'zumen_live_read',
   'zumen_live_point',
   'zumen_live_propose',
+  // エージェント専用カーソル。画面の中で指す・押す。**人の承認は押せない。**
+  'zumen_screen',
 ];

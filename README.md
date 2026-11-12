@@ -246,6 +246,9 @@ zumen_live_propose   put a proposal on the screen; optionally wait for the answe
 zumen_timelapse      film the drawing growing: one animated SVG plus numbered frames
                      (no screen recording, so it also works on a machine you are not sitting at)
 zumen_live_point     "this box" — selects it, changes nothing
+zumen_screen         the agent cursor: a purple arrow inside the window that points, clicks,
+                     types and talks by the words on screen (never the person's mouse;
+                     buttons the person must press, like apply, are refused)
 ```
 
 **The source of truth does not change.** A proposal is a diff on screen until a person

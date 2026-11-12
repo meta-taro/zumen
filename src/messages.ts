@@ -124,6 +124,11 @@ const ja = {
     notApplied: (count: number) =>
       `${count} 件は入れません。人の指定と食い違っているので、入れたあとに選んでもらいます。`,
     apply: '正本へ入れる',
+    agentName: 'エージェント',
+    agentNotFound: (target: string) => `「${target}」は画面に見つかりません。`,
+    agentHumanOnly: (target: string) => `「${target}」は人が押すボタンです。エージェントは押しません。`,
+    agentNotField: (target: string) => `「${target}」は文字を打てる欄ではありません。`,
+    agentClose: '閉じる',
     discard: 'やめる',
 
     measureHeading: 'いま何割まで自動か',
@@ -522,6 +527,31 @@ const ja = {
       '画面でその要素を選ぶ。**選ぶだけで、図は何も変わらない。**「どれの話か」を言葉で説明する代わりに使う。',
     livePointIds: '指す要素の id',
     livePointNote: '添える一言',
+    screenTitle: 'エージェント専用カーソルで、画面の中を指す・押す・打つ・話す',
+    screenDesc:
+      'デスクトップアプリの画面の中に紫の矢印（名札「エージェント」）を出し、画面に見えている言葉で指した所へ動かす。**人のマウスとキーボードは使わない。** ' +
+      'action：point（指す）・click（押す）・type（欄に打つ）・go（# で始まる画面の中の場所へ）・say（吹き出しで一言）・filter（zumen の画面には絞り込む欄が無いので断る）。' +
+      '**「正本へ入れる」「見た」「保存」など人が押すボタンは、押そうとしても画面が断る**（承認の代わりはしない）。見つからなければ画面に「見つかりません」と出す。',
+    screenAction: 'point / click / type / go / say / filter',
+    screenTarget: '画面に見えている言葉（ボタンの文字・見出し・id）。座標は使わない。go は # で始まる場所',
+    screenText: 'type で欄に打つ文字',
+    screenMessage: '吹き出しの一言（500 文字まで）',
+    screenSeconds: '吹き出しを出す秒数（1〜60）。省くと文の長さで決まる（5 秒＋1 文字 0.1 秒、上限 20 秒）',
+    screenSent: '画面へ送りました。カーソルが動き、押せないもの・見つからないものは画面の吹き出しで言います。',
+    screenFilterNone: 'zumen の画面には絞り込む欄がありません（filter は使えません）。指すなら point を使ってください。',
+    agentRefused: (reason: string) =>
+      ({
+        'not-object': '指示は { action, target, … } の形で渡してください。',
+        'action-unknown': 'action は point / click / type / go / say / filter のどれかです。',
+        'target-missing': 'target（画面に見えている言葉）が要ります。座標では指せません。',
+        'target-too-long': 'target が長すぎます（200 文字まで）。',
+        'go-not-hash': 'go で移れるのは画面の中（# で始まる場所）だけです。外のページへは移りません。',
+        'text-missing': 'type には text（打つ文字）が要ります。',
+        'text-too-long': 'text が長すぎます（2000 文字まで）。',
+        'message-missing': 'say には message（一言）が要ります。',
+        'message-too-long': 'message が長すぎます（500 文字まで）。',
+        'seconds-out-of-range': 'seconds は 1〜60 の数です。',
+      })[reason] ?? reason,
     liveElsewhere:
       '画面との線は、この PC の別の席（別に立っている zumen の MCP）が持っています。この席からは画面を読めず、提案も出せません。その席に頼むか、その席を閉じてからもう一度呼んでください（閉じれば、次の呼びでこの席が線を開き直します）。',
     liveNoScreen:
@@ -1349,6 +1379,11 @@ const en: Catalog = {
     notApplied: (count: number) =>
       `${count} are not applied. They disagree with a hand edit, so you choose afterwards.`,
     apply: 'Apply to the source of truth',
+    agentName: 'Agent',
+    agentNotFound: (target: string) => `"${target}" is not on screen.`,
+    agentHumanOnly: (target: string) => `"${target}" is for the person to press. The agent does not press it.`,
+    agentNotField: (target: string) => `"${target}" is not a field you can type into.`,
+    agentClose: 'Close',
     discard: 'Cancel',
 
     measureHeading: 'How much is still automatic',
@@ -1621,6 +1656,31 @@ const en: Catalog = {
       'Selects that element on screen. **Selecting only; the diagram does not change.** Use it instead of describing in words which thing you mean.',
     livePointIds: 'Ids of the elements to point at',
     livePointNote: 'One line to go with it',
+    screenTitle: 'Point, click, type and talk inside the app window with the agent cursor',
+    screenDesc:
+      'Shows a purple arrow (labelled "Agent") inside the desktop app and moves it to whatever you name by the words visible on screen. **The person\'s mouse and keyboard are never used.** ' +
+      'action: point, click, type (into a field), go (to a place starting with #), say (one line in a bubble), filter (refused: the zumen window has no filter field). ' +
+      '**Buttons the person must press themselves (Apply to the source of truth, Reviewed, Save…) are refused by the window** — the agent does not approve on their behalf. If nothing matches, the window says it was not found.',
+    screenAction: 'point / click / type / go / say / filter',
+    screenTarget: 'Words visible on screen (button text, heading, id). No coordinates. For go, a place starting with #',
+    screenText: 'Text to type into the field (type)',
+    screenMessage: 'One line for the bubble (up to 500 characters)',
+    screenSeconds: 'Seconds to show the bubble (1–60). Omitted, it follows the length (5 s plus 0.1 s a character, at most 20 s)',
+    screenSent: 'Sent to the window. The cursor moves; anything it may not press or cannot find is said in a bubble on screen.',
+    screenFilterNone: 'The zumen window has no filter field, so filter is not available. Use point to show something.',
+    agentRefused: (reason: string) =>
+      ({
+        'not-object': 'Pass the instruction as { action, target, … }.',
+        'action-unknown': 'action is one of point / click / type / go / say / filter.',
+        'target-missing': 'target (words visible on screen) is required. Coordinates are not accepted.',
+        'target-too-long': 'target is too long (200 characters at most).',
+        'go-not-hash': 'go only moves within the window (a place starting with #). It never opens other pages.',
+        'text-missing': 'type needs text (what to type).',
+        'text-too-long': 'text is too long (2000 characters at most).',
+        'message-missing': 'say needs message (one line).',
+        'message-too-long': 'message is too long (500 characters at most).',
+        'seconds-out-of-range': 'seconds is a number from 1 to 60.',
+      })[reason] ?? reason,
     liveElsewhere:
       'Another seat on this PC (another zumen MCP server) holds the link to the screen. This seat cannot read the screen or put proposals on it. Ask that seat, or close it and call again (the next call from this seat then reopens the link).',
     liveNoScreen:

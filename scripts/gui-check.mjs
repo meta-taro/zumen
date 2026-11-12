@@ -418,6 +418,66 @@ async function walk(line) {
     const waiting2 = hub.decision(put2.ok ? put2.id : '', 8000);
     await evaluate(`document.querySelector('[data-act="discard"]').click()`);
     check('9 線 — **やめたことも返る**（黙って待たせない）', (await waiting2) === 'discarded');
+
+    // 10 エージェント専用カーソル（`zumen_screen`。2026-11-12）
+    //
+    // 画面の中の紫の矢印が、言葉で指された所へ動く。**人のマウスは使わない**（押すのはページの中の合成イベント）。
+    // **人が押すボタン（data-human-only）は、押さずに断る。** 文言は言語で変わるので、言葉は画面から読んでから渡す。
+    const agent = async (action) => {
+      await evaluate('delete document.documentElement.dataset.agentLast');
+      const sent = hub.agent({ target: null, text: null, message: null, seconds: null, ...action });
+      if (!sent.ok) return `送れない: ${sent.reason}`;
+      await until('document.documentElement.dataset.agentLast !== undefined');
+      return evaluate('document.documentElement.dataset.agentLast');
+    };
+
+    const nodeWord = await evaluate(`document.querySelector('g.node[aria-label]').getAttribute('aria-label')`);
+    const pointed = await agent({ action: 'point', target: nodeWord, message: 'これのことです' });
+    check('10 カーソル — **point で、指した要素にカーソルと枠が出る**', pointed === 'pointed'
+      && (await evaluate(`document.querySelector('.agent-cursor.on') !== null && document.querySelector('.agent-highlight') !== null`)) === true, String(pointed));
+    const near = await evaluate(`(() => {
+      const c = document.querySelector('.agent-cursor').getBoundingClientRect();
+      const t = document.querySelector('g.node[aria-label]').getBoundingClientRect();
+      return c.left >= t.left - 2 && c.left <= t.right + 2 && c.top >= t.top - 2 && c.top <= t.bottom + 2;
+    })()`);
+    check('10 カーソル — 矢印の先は指した要素の上', near === true);
+
+    await evaluate('window.__agentTrusted = []; for (const b of document.querySelectorAll("button")) if (b.textContent.trim() === "＋") b.addEventListener("click", (e) => window.__agentTrusted.push(e.isTrusted))');
+    const zoomBefore = await evaluate('window.zumen.zoom');
+    const clicked = await agent({ action: 'click', target: '＋' });
+    check('10 カーソル — **click で、その要素が押される**', clicked === 'clicked' && (await evaluate('window.zumen.zoom')) > zoomBefore, `${clicked} ${zoomBefore}`);
+    check('10 カーソル — **人のマウスは動かない**（押したのはページの中の合成イベント）', (await evaluate('JSON.stringify(window.__agentTrusted)')) === '[false]');
+
+    const bubbleIn = async () => evaluate(`(() => {
+      const b = document.querySelector('.agent-bubble');
+      if (b === null) return 'no-bubble';
+      const r = b.getBoundingClientRect();
+      return r.left >= 8 && r.top >= 8 && r.right <= innerWidth - 8 && r.bottom <= innerHeight - 8 ? 'in' : JSON.stringify(r);
+    })()`);
+    await agent({ action: 'point', target: '＋', message: '右上の端でも、吹き出しは窓の中に収まります。'.repeat(3) });
+    check('10 カーソル — **窓の端の近くを指しても、吹き出しが窓に収まる**', (await bubbleIn()) === 'in', String(await bubbleIn()));
+
+    const textNow = await evaluate('window.zumen.text');
+    const zoomNow = await evaluate('window.zumen.zoom');
+    const missing = await agent({ action: 'click', target: 'zz-存在しないボタン-zz' });
+    check('10 カーソル — **見つからない target では何も押さず「見つかりません」と出る**', missing === 'not-found'
+      && (await evaluate('window.zumen.text')) === textNow && (await evaluate('window.zumen.zoom')) === zoomNow
+      && (await evaluate(`document.querySelector('.agent-bubble') !== null`)) === true, String(missing));
+
+    // **人の承認は押さない**
+    const put3 = hub.offer(proposal.replace('キャッシュ', 'みっつめ'), { note: 'カーソルの試験' });
+    await until('window.zumen.pending !== null');
+    const applyWord = await evaluate(`document.querySelector('[data-act="apply"]').textContent.trim()`);
+    const refused = await agent({ action: 'click', target: applyWord });
+    const after = await hub.decision(put3.ok ? put3.id : '', 900);
+    check('10 カーソル — **「正本へ入れる」は押さずに断る**', refused === 'human-only' && after === 'timeout'
+      && (await evaluate('window.zumen.pending !== null')) === true && !(await evaluate('window.zumen.text')).includes('みっつめ'), `${refused} ${after}`);
+    const reviewWord = await evaluate(`document.querySelector('button.review')?.getAttribute('title') ?? ''`);
+    if (reviewWord !== '') {
+      const reviewRefused = await agent({ action: 'click', target: reviewWord });
+      check('10 カーソル — **「見た」も押さずに断る**', reviewRefused === 'human-only', String(reviewRefused));
+    }
+    await evaluate(`document.querySelector('[data-act="discard"]').click()`);
   }
 
   check('例外が出ていない', errors.length === 0, errors.join(' | '));

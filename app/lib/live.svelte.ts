@@ -19,6 +19,9 @@
  * **人はエージェントが無視していると思う。** 状態は必ず画面に出す。
  */
 import { LIVE_HOST, LIVE_PORT } from '../../src/live/protocol.ts';
+import type { AgentAction } from '../../src/live/agent.ts';
+import { messages } from '../../src/messages.ts';
+import { AgentCursor } from './agent.ts';
 import type { Session } from './state.svelte.ts';
 
 const BASE = `http://${LIVE_HOST}:${LIVE_PORT}`;
@@ -44,8 +47,19 @@ export class Live {
   /** 最後に伝えた内容。**同じものを送り返さない**（送ると、また送りたくなる）。 */
   #last = '';
 
+  /** **エージェント専用カーソル**（`./agent.ts`）。人のマウスは使わない。人の承認は押さない。 */
+  #agent: AgentCursor;
+
   constructor(session: Session) {
     this.#session = session;
+    const m = messages().app;
+    this.#agent = new AgentCursor({
+      name: m.agentName,
+      notFound: m.agentNotFound,
+      humanOnly: m.agentHumanOnly,
+      notField: m.agentNotField,
+      close: m.agentClose,
+    });
   }
 
   /** 繋ぎにいく。**立っていなくても、諦めずに待つ。** */
@@ -97,6 +111,11 @@ export class Live {
       this.note = body.note;
       // **選ぶだけ。** 図は何も変わらない。
       this.#session.selected = body.ids[0] ?? null;
+    });
+
+    source.addEventListener('agent', (event) => {
+      const body = JSON.parse((event as MessageEvent<string>).data) as { action: AgentAction };
+      void this.#agent.run(body.action);
     });
 
     source.addEventListener('withdraw', () => {

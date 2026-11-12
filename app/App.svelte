@@ -334,9 +334,9 @@
         <span class="dot" aria-hidden="true"></span>
         {live.state === 'on' ? m.liveOn : live.state === 'connecting' ? m.liveConnecting : m.liveOff}
       </span>
-      <button onclick={open}>{m.open}</button>
-      <button onclick={save} disabled={session.text === ''}>{m.save}</button>
-      <button onclick={propose} disabled={session.text === ''} class:on={session.pending !== null}>{m.readProposal}</button>
+      <button onclick={open} data-human-only>{m.open}</button>
+      <button onclick={save} data-human-only disabled={session.text === ''}>{m.save}</button>
+      <button onclick={propose} data-human-only disabled={session.text === ''} class:on={session.pending !== null}>{m.readProposal}</button>
       <div class="zoom" role="group" aria-label={m.keyZoom}>
         <button onclick={() => session.zoomBy(1 / 1.2)} disabled={session.placed === null} title={m.zoomOut} aria-label={m.zoomOut}>−</button>
         <button class="pct" onclick={() => session.resetView()} disabled={session.placed === null} title={m.resetView}>
@@ -367,6 +367,7 @@
       -->
       <button
         class="review"
+        data-human-only
         class:done={session.review.reviewed}
         onclick={() => session.markReviewed()}
         disabled={session.placed === null || session.review.reviewed}
@@ -388,7 +389,7 @@
     <div class="preview" role="dialog" aria-modal="true" aria-label={m.printPreview}>
       <div class="preview-bar">
         <span>{m.printPreview}</span>
-        <button class="primary" onclick={() => window.print()}>{m.print}</button>
+        <button class="primary" data-human-only onclick={() => window.print()}>{m.print}</button>
         <button onclick={() => (previewOpen = false)}>{m.close}</button>
       </div>
       <div class="preview-sheet print-sheet">{@html previewSvg}</div>
@@ -450,7 +451,7 @@
             <svg width="40" height="40" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="8" height="6" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.2" /><rect x="13" y="14" width="8" height="6" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.2" /><path d="M7 10v7h6" fill="none" stroke="currentColor" stroke-width="1.2" /></svg>
             <p>{m.emptyHint}</p>
             <div class="choose">
-              <button onclick={open}>{m.open}</button>
+              <button onclick={open} data-human-only>{m.open}</button>
               <button class="primary" data-act="sample" onclick={openSample}>{m.openSample}</button>
             </div>
           </div>
