@@ -1,0 +1,1155 @@
+version: 1
+kind: placement
+paper: { size: A4, orient: landscape, margin: 0 }
+title: "バンドのステージプロットとインプットリスト（図の丸の番号＝表の Ch）"
+# 出典（取得 2026-11-13）：
+#   Musosoup「Stage plot」https://musosoup.com/blog/stage-plot
+#     客席から見た向きで描く・ドラムは奥、メインボーカルは前の中央・寸法は前の縁と中心線から・
+#     マイクとモニター（ミックス番号）・電源の位置・版と日付・連絡先・図と表で同じ名前を使う
+#   Improvised Music Company「What is a Technical Rider and why do I need one」
+#     https://www.improvisedmusic.ie/supporting-musicians/resources-opportunities/what-is-a-technical-rider-and-why-do-i-need-one
+#     ライダーはステージ図・チャンネル表・機材表の 3 つ。チャンネル表は入力数・楽器名・マイクか DI・
+#     スタンドの種類・立ち位置・子箱の入力番号。手描きなら太鼓は丸・マイクは丸・アンプは四角・ウェッジは三角
+#   Shure「Beyond the Basics: Drum Miking」https://www.shure.com/en-US/insights/beyond-the-basics-drum-miking
+#     キックの中と外に 1 本ずつ（Beta 91A ＋ Beta 52A）
+#
+# **この図の要は、図と表が同じ番号で結ばれていること。** 丸の数字は入力 Ch で、
+# PA は表の 16 行と図の 16 個の丸を突き合わせて、どこへ何を立てるかを決める。返しは M の番号で同じことをする。
+# 上手・下手：客席から見て右が上手（STAGE LEFT）。英語の left / right は演者から見た向き。
+# スネア裏はヘッドを反対から拾うので、表と逆の位相になる。卓で反転する（備考）。
+#
+# 座標は mm で考えて px に直した（1px = 25.4/96 mm。margin: 0 で紙の左上が原点）。舞台は 1/60（8 × 5m）。
+# 決まりではないもの：記号の形（手描きの慣習）・Ch の並び（ドラム→ベース→ギター→鍵盤→声はこの例の選び方）・
+#   表の列・A4 横に 1 枚でまとめたこと（図と表を分ける人もいる）。
+# 架空：バンド名・編成・版・機材の選び方・返しの中身はすべて架空。マイクの型番は例で、ライダーでは「同等品可」と添えることが多い。
+# 描かなかったもの：電話番号・メールアドレス（架空でも書かない）・照明・特効・ケーブルの引き回し。
+nodes:
+  - id: center-n
+    label: "センター"
+    marker: none
+    align: left
+    at: { x: 326, y: 76 }
+    size: { w: 75, h: 18 }
+  - id: shimote
+    label: "下手\nSTAGE\nRIGHT"
+    marker: none
+    at: { x: 8, y: 217 }
+    size: { w: 56, h: 53 }
+  - id: kamite
+    label: "上手\nSTAGE\nLEFT"
+    marker: none
+    at: { x: 576, y: 217 }
+    size: { w: 56, h: 53 }
+  - id: kyakuseki
+    label: "客席（AUDIENCE）—— 客席から見た向きで描く"
+    marker: none
+    at: { x: 131, y: 430 }
+    size: { w: 378, h: 19 }
+  - id: dr
+    label: "Dr"
+    marker: ellipse
+    at: { x: 303, y: 115 }
+    size: { w: 38, h: 22 }
+  - id: ch1
+    label: "1"
+    marker: circle
+    at: { x: 275, y: 202 }
+    size: { w: 22, h: 22 }
+  - id: ch2
+    label: "2"
+    marker: circle
+    at: { x: 309, y: 232 }
+    size: { w: 22, h: 22 }
+  - id: ch3
+    label: "3"
+    marker: circle
+    at: { x: 343, y: 196 }
+    size: { w: 22, h: 23 }
+  - id: ch4
+    label: "4"
+    marker: circle
+    at: { x: 367, y: 196 }
+    size: { w: 23, h: 23 }
+  - id: ch5
+    label: "5"
+    marker: circle
+    at: { x: 388, y: 124 }
+    size: { w: 23, h: 23 }
+  - id: ch6
+    label: "6"
+    marker: circle
+    at: { x: 277, y: 137 }
+    size: { w: 22, h: 23 }
+  - id: ch7
+    label: "7"
+    marker: circle
+    at: { x: 233, y: 194 }
+    size: { w: 23, h: 23 }
+  - id: ch8
+    label: "8"
+    marker: circle
+    at: { x: 233, y: 130 }
+    size: { w: 23, h: 22 }
+  - id: ch9
+    label: "9"
+    marker: circle
+    at: { x: 392, y: 168 }
+    size: { w: 22, h: 22 }
+  - id: mon5-n
+    label: "M5"
+    marker: none
+    align: right
+    at: { x: 147, y: 199 }
+    size: { w: 30, h: 19 }
+  - id: ba-amp-n
+    label: "Ba アンプ"
+    marker: none
+    at: { x: 100, y: 123 }
+    size: { w: 69, h: 38 }
+  - id: ac1
+    label: "AC"
+    marker: box
+    at: { x: 106, y: 171 }
+    size: { w: 26, h: 19 }
+  - id: ba
+    label: "Ba"
+    marker: ellipse
+    at: { x: 137, y: 289 }
+    size: { w: 38, h: 22 }
+  - id: ch10
+    label: "10"
+    marker: circle
+    at: { x: 175, y: 289 }
+    size: { w: 23, h: 22 }
+  - id: ch15
+    label: "15"
+    marker: circle
+    at: { x: 145, y: 323 }
+    size: { w: 23, h: 23 }
+  - id: mon3-n
+    label: "M3"
+    marker: none
+    align: left
+    at: { x: 173, y: 369 }
+    size: { w: 30, h: 19 }
+  - id: vo
+    label: "Vo"
+    marker: ellipse
+    at: { x: 301, y: 289 }
+    size: { w: 38, h: 22 }
+  - id: ch16
+    label: "16"
+    marker: circle
+    at: { x: 309, y: 326 }
+    size: { w: 22, h: 23 }
+  - id: mon1-n
+    label: "M1"
+    marker: none
+    align: right
+    at: { x: 229, y: 369 }
+    size: { w: 30, h: 19 }
+  - id: mon2-n
+    label: "M1"
+    marker: none
+    align: left
+    at: { x: 381, y: 369 }
+    size: { w: 30, h: 19 }
+  - id: sunpo-n
+    label: "1.2m"
+    marker: none
+    align: left
+    at: { x: 341, y: 347 }
+    size: { w: 38, h: 19 }
+  - id: gt-amp-n
+    label: "Gt アンプ"
+    marker: none
+    at: { x: 459, y: 123 }
+    size: { w: 69, h: 38 }
+  - id: ch11
+    label: "11"
+    marker: circle
+    at: { x: 482, y: 166 }
+    size: { w: 23, h: 22 }
+  - id: ac2
+    label: "AC"
+    marker: box
+    at: { x: 531, y: 130 }
+    size: { w: 26, h: 19 }
+  - id: key
+    label: "Key"
+    marker: ellipse
+    at: { x: 455, y: 197 }
+    size: { w: 38, h: 23 }
+  - id: ch12
+    label: "12"
+    marker: circle
+    at: { x: 526, y: 210 }
+    size: { w: 23, h: 22 }
+  - id: ch13
+    label: "13"
+    marker: circle
+    at: { x: 526, y: 241 }
+    size: { w: 23, h: 23 }
+  - id: ac3
+    label: "AC"
+    marker: box
+    at: { x: 424, y: 190 }
+    size: { w: 26, h: 19 }
+  - id: mon4-n
+    label: "M4"
+    marker: none
+    align: left
+    at: { x: 463, y: 265 }
+    size: { w: 30, h: 19 }
+  - id: gt
+    label: "Gt"
+    marker: ellipse
+    at: { x: 465, y: 289 }
+    size: { w: 38, h: 22 }
+  - id: ch14
+    label: "14"
+    marker: circle
+    at: { x: 472, y: 323 }
+    size: { w: 23, h: 23 }
+  - id: ac4
+    label: "AC"
+    marker: box
+    at: { x: 528, y: 290 }
+    size: { w: 26, h: 19 }
+  - id: mon6-n
+    label: "M2"
+    marker: none
+    align: left
+    at: { x: 501, y: 369 }
+    size: { w: 30, h: 19 }
+  - id: box-a
+    label: "A"
+    marker: box
+    at: { x: 232, y: 271 }
+    size: { w: 26, h: 19 }
+  - id: box-b
+    label: "B"
+    marker: box
+    at: { x: 380, y: 271 }
+    size: { w: 26, h: 19 }
+  - id: title
+    label: "ステージプロット ＆ インプットリスト"
+    marker: none
+    align: left
+    at: { x: 38, y: 23 }
+    size: { w: 416, h: 30 }
+  - id: band
+    label: "バンド：みほん（架空）　第 3 版　2026-11-13　連絡先：PA 担当（架空）"
+    marker: none
+    align: left
+    at: { x: 38, y: 55 }
+    size: { w: 605, h: 19 }
+  - id: in-t
+    label: "インプットリスト（Ch ＝ 図の丸の番号）"
+    marker: none
+    align: left
+    at: { x: 639, y: 76 }
+    size: { w: 415, h: 20 }
+  - id: in-h1
+    label: "Ch"
+    marker: none
+    at: { x: 639, y: 98 }
+    size: { w: 30, h: 21 }
+  - id: in-h2
+    label: "音源"
+    marker: none
+    at: { x: 669, y: 98 }
+    size: { w: 91, h: 21 }
+  - id: in-h3
+    label: "マイク・DI"
+    marker: none
+    at: { x: 760, y: 98 }
+    size: { w: 98, h: 21 }
+  - id: in-h4
+    label: "スタンド"
+    marker: none
+    at: { x: 858, y: 98 }
+    size: { w: 76, h: 21 }
+  - id: in-h5
+    label: "48V"
+    marker: none
+    at: { x: 934, y: 98 }
+    size: { w: 34, h: 21 }
+  - id: in-h6
+    label: "箱"
+    marker: none
+    at: { x: 968, y: 98 }
+    size: { w: 30, h: 21 }
+  - id: in-h7
+    label: "備考"
+    marker: none
+    at: { x: 998, y: 98 }
+    size: { w: 98, h: 21 }
+  - id: in-1-1
+    label: "1"
+    marker: none
+    at: { x: 639, y: 119 }
+    size: { w: 30, h: 21 }
+  - id: in-1-2
+    label: "キック 中"
+    marker: none
+    align: left
+    at: { x: 675, y: 119 }
+    size: { w: 83, h: 21 }
+  - id: in-1-3
+    label: "Beta 91A"
+    marker: none
+    align: left
+    at: { x: 765, y: 119 }
+    size: { w: 91, h: 21 }
+  - id: in-1-4
+    label: "—"
+    marker: none
+    at: { x: 858, y: 119 }
+    size: { w: 76, h: 21 }
+  - id: in-1-5
+    label: "○"
+    marker: none
+    at: { x: 934, y: 119 }
+    size: { w: 34, h: 21 }
+  - id: in-1-6
+    label: "A1"
+    marker: none
+    at: { x: 968, y: 119 }
+    size: { w: 30, h: 21 }
+  - id: in-1-7
+    label: "胴の中に置く"
+    marker: none
+    align: left
+    at: { x: 1003, y: 119 }
+    size: { w: 91, h: 21 }
+  - id: in-2-1
+    label: "2"
+    marker: none
+    at: { x: 639, y: 140 }
+    size: { w: 30, h: 21 }
+  - id: in-2-2
+    label: "キック 外"
+    marker: none
+    align: left
+    at: { x: 675, y: 140 }
+    size: { w: 83, h: 21 }
+  - id: in-2-3
+    label: "Beta 52A"
+    marker: none
+    align: left
+    at: { x: 765, y: 140 }
+    size: { w: 91, h: 21 }
+  - id: in-2-4
+    label: "短ブーム"
+    marker: none
+    at: { x: 858, y: 140 }
+    size: { w: 76, h: 21 }
+  - id: in-2-6
+    label: "A2"
+    marker: none
+    at: { x: 968, y: 140 }
+    size: { w: 30, h: 21 }
+  - id: in-3-1
+    label: "3"
+    marker: none
+    at: { x: 639, y: 161 }
+    size: { w: 30, h: 20 }
+  - id: in-3-2
+    label: "スネア 表"
+    marker: none
+    align: left
+    at: { x: 675, y: 161 }
+    size: { w: 83, h: 20 }
+  - id: in-3-3
+    label: "SM57"
+    marker: none
+    align: left
+    at: { x: 765, y: 161 }
+    size: { w: 91, h: 20 }
+  - id: in-3-4
+    label: "短ブーム"
+    marker: none
+    at: { x: 858, y: 161 }
+    size: { w: 76, h: 20 }
+  - id: in-3-6
+    label: "A3"
+    marker: none
+    at: { x: 968, y: 161 }
+    size: { w: 30, h: 20 }
+  - id: in-4-1
+    label: "4"
+    marker: none
+    at: { x: 639, y: 181 }
+    size: { w: 30, h: 21 }
+  - id: in-4-2
+    label: "スネア 裏"
+    marker: none
+    align: left
+    at: { x: 675, y: 181 }
+    size: { w: 83, h: 21 }
+  - id: in-4-3
+    label: "SM57"
+    marker: none
+    align: left
+    at: { x: 765, y: 181 }
+    size: { w: 91, h: 21 }
+  - id: in-4-4
+    label: "短ブーム"
+    marker: none
+    at: { x: 858, y: 181 }
+    size: { w: 76, h: 21 }
+  - id: in-4-6
+    label: "A4"
+    marker: none
+    at: { x: 968, y: 181 }
+    size: { w: 30, h: 21 }
+  - id: in-4-7
+    label: "位相を反転"
+    marker: none
+    align: left
+    at: { x: 1003, y: 181 }
+    size: { w: 91, h: 21 }
+  - id: in-5-1
+    label: "5"
+    marker: none
+    at: { x: 639, y: 202 }
+    size: { w: 30, h: 21 }
+  - id: in-5-2
+    label: "ハイハット"
+    marker: none
+    align: left
+    at: { x: 675, y: 202 }
+    size: { w: 83, h: 21 }
+  - id: in-5-3
+    label: "コンデンサー"
+    marker: none
+    align: left
+    at: { x: 765, y: 202 }
+    size: { w: 91, h: 21 }
+  - id: in-5-4
+    label: "短ブーム"
+    marker: none
+    at: { x: 858, y: 202 }
+    size: { w: 76, h: 21 }
+  - id: in-5-5
+    label: "○"
+    marker: none
+    at: { x: 934, y: 202 }
+    size: { w: 34, h: 21 }
+  - id: in-5-6
+    label: "A5"
+    marker: none
+    at: { x: 968, y: 202 }
+    size: { w: 30, h: 21 }
+  - id: in-6-1
+    label: "6"
+    marker: none
+    at: { x: 639, y: 223 }
+    size: { w: 30, h: 21 }
+  - id: in-6-2
+    label: "タム"
+    marker: none
+    align: left
+    at: { x: 675, y: 223 }
+    size: { w: 83, h: 21 }
+  - id: in-6-3
+    label: "クリップ式"
+    marker: none
+    align: left
+    at: { x: 765, y: 223 }
+    size: { w: 91, h: 21 }
+  - id: in-6-4
+    label: "クリップ"
+    marker: none
+    at: { x: 858, y: 223 }
+    size: { w: 76, h: 21 }
+  - id: in-6-5
+    label: "○"
+    marker: none
+    at: { x: 934, y: 223 }
+    size: { w: 34, h: 21 }
+  - id: in-6-6
+    label: "A6"
+    marker: none
+    at: { x: 968, y: 223 }
+    size: { w: 30, h: 21 }
+  - id: in-7-1
+    label: "7"
+    marker: none
+    at: { x: 639, y: 244 }
+    size: { w: 30, h: 21 }
+  - id: in-7-2
+    label: "フロアタム"
+    marker: none
+    align: left
+    at: { x: 675, y: 244 }
+    size: { w: 83, h: 21 }
+  - id: in-7-3
+    label: "クリップ式"
+    marker: none
+    align: left
+    at: { x: 765, y: 244 }
+    size: { w: 91, h: 21 }
+  - id: in-7-4
+    label: "クリップ"
+    marker: none
+    at: { x: 858, y: 244 }
+    size: { w: 76, h: 21 }
+  - id: in-7-5
+    label: "○"
+    marker: none
+    at: { x: 934, y: 244 }
+    size: { w: 34, h: 21 }
+  - id: in-7-6
+    label: "A7"
+    marker: none
+    at: { x: 968, y: 244 }
+    size: { w: 30, h: 21 }
+  - id: in-8-1
+    label: "8"
+    marker: none
+    at: { x: 639, y: 265 }
+    size: { w: 30, h: 20 }
+  - id: in-8-2
+    label: "トップ L"
+    marker: none
+    align: left
+    at: { x: 675, y: 265 }
+    size: { w: 83, h: 20 }
+  - id: in-8-3
+    label: "コンデンサー"
+    marker: none
+    align: left
+    at: { x: 765, y: 265 }
+    size: { w: 91, h: 20 }
+  - id: in-8-4
+    label: "長ブーム"
+    marker: none
+    at: { x: 858, y: 265 }
+    size: { w: 76, h: 20 }
+  - id: in-8-5
+    label: "○"
+    marker: none
+    at: { x: 934, y: 265 }
+    size: { w: 34, h: 20 }
+  - id: in-8-6
+    label: "A8"
+    marker: none
+    at: { x: 968, y: 265 }
+    size: { w: 30, h: 20 }
+  - id: in-8-7
+    label: "下手側"
+    marker: none
+    align: left
+    at: { x: 1003, y: 265 }
+    size: { w: 91, h: 20 }
+  - id: in-9-1
+    label: "9"
+    marker: none
+    at: { x: 639, y: 285 }
+    size: { w: 30, h: 21 }
+  - id: in-9-2
+    label: "トップ R"
+    marker: none
+    align: left
+    at: { x: 675, y: 285 }
+    size: { w: 83, h: 21 }
+  - id: in-9-3
+    label: "コンデンサー"
+    marker: none
+    align: left
+    at: { x: 765, y: 285 }
+    size: { w: 91, h: 21 }
+  - id: in-9-4
+    label: "長ブーム"
+    marker: none
+    at: { x: 858, y: 285 }
+    size: { w: 76, h: 21 }
+  - id: in-9-5
+    label: "○"
+    marker: none
+    at: { x: 934, y: 285 }
+    size: { w: 34, h: 21 }
+  - id: in-9-6
+    label: "A9"
+    marker: none
+    at: { x: 968, y: 285 }
+    size: { w: 30, h: 21 }
+  - id: in-10-1
+    label: "10"
+    marker: none
+    at: { x: 639, y: 306 }
+    size: { w: 30, h: 21 }
+  - id: in-10-2
+    label: "ベース"
+    marker: none
+    align: left
+    at: { x: 675, y: 306 }
+    size: { w: 83, h: 21 }
+  - id: in-10-3
+    label: "DI"
+    marker: none
+    align: left
+    at: { x: 765, y: 306 }
+    size: { w: 91, h: 21 }
+  - id: in-10-4
+    label: "—"
+    marker: none
+    at: { x: 858, y: 306 }
+    size: { w: 76, h: 21 }
+  - id: in-10-6
+    label: "B1"
+    marker: none
+    at: { x: 968, y: 306 }
+    size: { w: 30, h: 21 }
+  - id: in-10-7
+    label: "DI は持込"
+    marker: none
+    align: left
+    at: { x: 1003, y: 306 }
+    size: { w: 91, h: 21 }
+  - id: in-11-1
+    label: "11"
+    marker: none
+    at: { x: 639, y: 327 }
+    size: { w: 30, h: 21 }
+  - id: in-11-2
+    label: "ギター"
+    marker: none
+    align: left
+    at: { x: 675, y: 327 }
+    size: { w: 83, h: 21 }
+  - id: in-11-3
+    label: "SM57"
+    marker: none
+    align: left
+    at: { x: 765, y: 327 }
+    size: { w: 91, h: 21 }
+  - id: in-11-4
+    label: "短ブーム"
+    marker: none
+    at: { x: 858, y: 327 }
+    size: { w: 76, h: 21 }
+  - id: in-11-6
+    label: "B2"
+    marker: none
+    at: { x: 968, y: 327 }
+    size: { w: 30, h: 21 }
+  - id: in-11-7
+    label: "アンプの前"
+    marker: none
+    align: left
+    at: { x: 1003, y: 327 }
+    size: { w: 91, h: 21 }
+  - id: in-12-1
+    label: "12"
+    marker: none
+    at: { x: 639, y: 348 }
+    size: { w: 30, h: 21 }
+  - id: in-12-2
+    label: "鍵盤 L"
+    marker: none
+    align: left
+    at: { x: 675, y: 348 }
+    size: { w: 83, h: 21 }
+  - id: in-12-3
+    label: "DI"
+    marker: none
+    align: left
+    at: { x: 765, y: 348 }
+    size: { w: 91, h: 21 }
+  - id: in-12-4
+    label: "—"
+    marker: none
+    at: { x: 858, y: 348 }
+    size: { w: 76, h: 21 }
+  - id: in-12-6
+    label: "B3"
+    marker: none
+    at: { x: 968, y: 348 }
+    size: { w: 30, h: 21 }
+  - id: in-12-7
+    label: "DI は持込"
+    marker: none
+    align: left
+    at: { x: 1003, y: 348 }
+    size: { w: 91, h: 21 }
+  - id: in-13-1
+    label: "13"
+    marker: none
+    at: { x: 639, y: 369 }
+    size: { w: 30, h: 20 }
+  - id: in-13-2
+    label: "鍵盤 R"
+    marker: none
+    align: left
+    at: { x: 675, y: 369 }
+    size: { w: 83, h: 20 }
+  - id: in-13-3
+    label: "DI"
+    marker: none
+    align: left
+    at: { x: 765, y: 369 }
+    size: { w: 91, h: 20 }
+  - id: in-13-4
+    label: "—"
+    marker: none
+    at: { x: 858, y: 369 }
+    size: { w: 76, h: 20 }
+  - id: in-13-6
+    label: "B4"
+    marker: none
+    at: { x: 968, y: 369 }
+    size: { w: 30, h: 20 }
+  - id: in-13-7
+    label: "DI は持込"
+    marker: none
+    align: left
+    at: { x: 1003, y: 369 }
+    size: { w: 91, h: 20 }
+  - id: in-14-1
+    label: "14"
+    marker: none
+    at: { x: 639, y: 389 }
+    size: { w: 30, h: 21 }
+  - id: in-14-2
+    label: "コーラス Gt"
+    marker: none
+    align: left
+    at: { x: 675, y: 389 }
+    size: { w: 83, h: 21 }
+  - id: in-14-3
+    label: "SM58"
+    marker: none
+    align: left
+    at: { x: 765, y: 389 }
+    size: { w: 91, h: 21 }
+  - id: in-14-4
+    label: "長ブーム"
+    marker: none
+    at: { x: 858, y: 389 }
+    size: { w: 76, h: 21 }
+  - id: in-14-6
+    label: "B5"
+    marker: none
+    at: { x: 968, y: 389 }
+    size: { w: 30, h: 21 }
+  - id: in-15-1
+    label: "15"
+    marker: none
+    at: { x: 639, y: 410 }
+    size: { w: 30, h: 21 }
+  - id: in-15-2
+    label: "コーラス Ba"
+    marker: none
+    align: left
+    at: { x: 675, y: 410 }
+    size: { w: 83, h: 21 }
+  - id: in-15-3
+    label: "SM58"
+    marker: none
+    align: left
+    at: { x: 765, y: 410 }
+    size: { w: 91, h: 21 }
+  - id: in-15-4
+    label: "長ブーム"
+    marker: none
+    at: { x: 858, y: 410 }
+    size: { w: 76, h: 21 }
+  - id: in-15-6
+    label: "B6"
+    marker: none
+    at: { x: 968, y: 410 }
+    size: { w: 30, h: 21 }
+  - id: in-16-1
+    label: "16"
+    marker: none
+    at: { x: 639, y: 431 }
+    size: { w: 30, h: 21 }
+  - id: in-16-2
+    label: "メイン Vo"
+    marker: none
+    align: left
+    at: { x: 675, y: 431 }
+    size: { w: 83, h: 21 }
+  - id: in-16-3
+    label: "SM58"
+    marker: none
+    align: left
+    at: { x: 765, y: 431 }
+    size: { w: 91, h: 21 }
+  - id: in-16-4
+    label: "ストレート"
+    marker: none
+    at: { x: 858, y: 431 }
+    size: { w: 76, h: 21 }
+  - id: in-16-6
+    label: "B7"
+    marker: none
+    at: { x: 968, y: 431 }
+    size: { w: 30, h: 21 }
+  - id: in-16-7
+    label: "手持ちもある"
+    marker: none
+    align: left
+    at: { x: 1003, y: 431 }
+    size: { w: 91, h: 21 }
+  - id: mon-t
+    label: "返し（モニター）—— 図の三角と M の番号"
+    marker: none
+    align: left
+    at: { x: 639, y: 474 }
+    size: { w: 415, h: 21 }
+  - id: mon-h1
+    label: "Mix"
+    marker: none
+    at: { x: 639, y: 497 }
+    size: { w: 38, h: 21 }
+  - id: mon-h2
+    label: "誰"
+    marker: none
+    at: { x: 677, y: 497 }
+    size: { w: 45, h: 21 }
+  - id: mon-h3
+    label: "返し"
+    marker: none
+    at: { x: 722, y: 497 }
+    size: { w: 91, h: 21 }
+  - id: mon-h4
+    label: "中身（返してほしい音）"
+    marker: none
+    at: { x: 813, y: 497 }
+    size: { w: 264, h: 21 }
+  - id: mon-1-1
+    label: "M1"
+    marker: none
+    at: { x: 639, y: 518 }
+    size: { w: 38, h: 21 }
+  - id: mon-1-2
+    label: "Vo"
+    marker: none
+    at: { x: 677, y: 518 }
+    size: { w: 45, h: 21 }
+  - id: mon-1-3
+    label: "ウェッジ ×2"
+    marker: none
+    at: { x: 722, y: 518 }
+    size: { w: 91, h: 21 }
+  - id: mon-1-4
+    label: "Vo を多め・Key・Gt 少し"
+    marker: none
+    align: left
+    at: { x: 818, y: 518 }
+    size: { w: 257, h: 21 }
+  - id: mon-2-1
+    label: "M2"
+    marker: none
+    at: { x: 639, y: 539 }
+    size: { w: 38, h: 20 }
+  - id: mon-2-2
+    label: "Gt"
+    marker: none
+    at: { x: 677, y: 539 }
+    size: { w: 45, h: 20 }
+  - id: mon-2-3
+    label: "ウェッジ"
+    marker: none
+    at: { x: 722, y: 539 }
+    size: { w: 91, h: 20 }
+  - id: mon-2-4
+    label: "Vo・キック・自分の Gt"
+    marker: none
+    align: left
+    at: { x: 818, y: 539 }
+    size: { w: 257, h: 20 }
+  - id: mon-3-1
+    label: "M3"
+    marker: none
+    at: { x: 639, y: 559 }
+    size: { w: 38, h: 21 }
+  - id: mon-3-2
+    label: "Ba"
+    marker: none
+    at: { x: 677, y: 559 }
+    size: { w: 45, h: 21 }
+  - id: mon-3-3
+    label: "ウェッジ"
+    marker: none
+    at: { x: 722, y: 559 }
+    size: { w: 91, h: 21 }
+  - id: mon-3-4
+    label: "キック・Vo・コーラス Ba"
+    marker: none
+    align: left
+    at: { x: 818, y: 559 }
+    size: { w: 257, h: 21 }
+  - id: mon-4-1
+    label: "M4"
+    marker: none
+    at: { x: 639, y: 580 }
+    size: { w: 38, h: 21 }
+  - id: mon-4-2
+    label: "Key"
+    marker: none
+    at: { x: 677, y: 580 }
+    size: { w: 45, h: 21 }
+  - id: mon-4-3
+    label: "ウェッジ"
+    marker: none
+    at: { x: 722, y: 580 }
+    size: { w: 91, h: 21 }
+  - id: mon-4-4
+    label: "Vo・自分の Key・スネア"
+    marker: none
+    align: left
+    at: { x: 818, y: 580 }
+    size: { w: 257, h: 21 }
+  - id: mon-5-1
+    label: "M5"
+    marker: none
+    at: { x: 639, y: 601 }
+    size: { w: 38, h: 21 }
+  - id: mon-5-2
+    label: "Dr"
+    marker: none
+    at: { x: 677, y: 601 }
+    size: { w: 45, h: 21 }
+  - id: mon-5-3
+    label: "ウェッジ"
+    marker: none
+    at: { x: 722, y: 601 }
+    size: { w: 91, h: 21 }
+  - id: mon-5-4
+    label: "Ba・Vo・Gt（キックは要らない）"
+    marker: none
+    align: left
+    at: { x: 818, y: 601 }
+    size: { w: 257, h: 21 }
+  - id: note1
+    label: "図の読み方（業界の慣習。規格は無い）"
+    marker: none
+    align: left
+    at: { x: 30, y: 459 }
+    size: { w: 597, h: 18 }
+  - id: note2
+    label: "・数字の丸＝マイク・DI。数字は入力 Ch で、右の表と同じ番号。細い丸は太鼓"
+    marker: none
+    align: left
+    at: { x: 30, y: 479 }
+    size: { w: 597, h: 19 }
+  - id: note3
+    label: "・三角＝返し（足元のウェッジ）。M の番号は返しの系統。AC＝電源（100V）"
+    marker: none
+    align: left
+    at: { x: 30, y: 500 }
+    size: { w: 597, h: 19 }
+  - id: note4
+    label: "・太い枠＝ドラム台 3 × 2.4m・高さ 40cm。A・B＝ステージの子箱（表の「箱」）"
+    marker: none
+    align: left
+    at: { x: 30, y: 521 }
+    size: { w: 597, h: 19 }
+  - id: note5
+    label: "・上手は客席から見て右（STAGE LEFT）。寸法は舞台の前の縁と中心から測る"
+    marker: none
+    align: left
+    at: { x: 30, y: 542 }
+    size: { w: 597, h: 19 }
+  - id: note7
+    label: "書くこと：版と日付・連絡先・持ち込むものと借りるもの・ファンタム電源（48V）"
+    marker: none
+    align: left
+    at: { x: 30, y: 583 }
+    size: { w: 597, h: 19 }
+  - id: note8
+    label: "Ch の並べ方は決まっていない。この例はドラムから声へ。機材が変われば版を上げる"
+    marker: none
+    align: left
+    at: { x: 30, y: 604 }
+    size: { w: 597, h: 19 }
+paths:
+  - id: butai
+    points: [ [ 68, 98.3 ], [ 572, 98.3 ], [ 572, 413.2 ], [ 68, 413.2 ] ]
+    close: true
+    weight: thick
+    ends: { from: none, to: none }
+  - id: center-ue
+    points: [ [ 320, 83.1 ], [ 320, 94.5 ] ]
+    line: dashed
+    weight: thin
+    ends: { from: none, to: none }
+  - id: center-shita
+    points: [ [ 320, 417 ], [ 320, 428.3 ] ]
+    line: dashed
+    weight: thin
+    ends: { from: none, to: none }
+  - id: drumdai
+    points: [ [ 225.5, 110.9 ], [ 414.5, 110.9 ], [ 414.5, 262 ], [ 225.5, 262 ] ]
+    close: true
+    weight: thick
+    ends: { from: none, to: none }
+  - id: ft
+    points: [ [ 273.1, 175.1 ], [ 272.1, 180.3 ], [ 269.1, 184.7 ], [ 264.7, 187.7 ], [ 259.5, 188.7 ], [ 254.3, 187.7 ], [ 249.9, 184.7 ], [ 247, 180.3 ], [ 245.9, 175.1 ], [ 247, 169.9 ], [ 249.9, 165.5 ], [ 254.3, 162.5 ], [ 259.5, 161.5 ], [ 264.7, 162.5 ], [ 269.1, 165.5 ], [ 272.1, 169.9 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: tom
+    points: [ [ 322.3, 167.6 ], [ 321.5, 171.3 ], [ 319.4, 174.5 ], [ 316.2, 176.6 ], [ 312.4, 177.4 ], [ 308.7, 176.6 ], [ 305.5, 174.5 ], [ 303.4, 171.3 ], [ 302.6, 167.6 ], [ 303.4, 163.8 ], [ 305.5, 160.6 ], [ 308.7, 158.5 ], [ 312.4, 157.7 ], [ 316.2, 158.5 ], [ 319.4, 160.6 ], [ 321.5, 163.8 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: sn
+    points: [ [ 351, 178.9 ], [ 350.1, 183.5 ], [ 347.4, 187.4 ], [ 343.5, 190.1 ], [ 338.9, 191 ], [ 334.3, 190.1 ], [ 330.3, 187.4 ], [ 327.7, 183.5 ], [ 326.8, 178.9 ], [ 327.7, 174.3 ], [ 330.3, 170.3 ], [ 334.3, 167.7 ], [ 338.9, 166.8 ], [ 343.5, 167.7 ], [ 347.4, 170.3 ], [ 350.1, 174.3 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: hh
+    points: [ [ 384.3, 160 ], [ 383.4, 164.3 ], [ 380.9, 168 ], [ 377.3, 170.5 ], [ 372.9, 171.3 ], [ 368.6, 170.5 ], [ 364.9, 168 ], [ 362.4, 164.3 ], [ 361.6, 160 ], [ 362.4, 155.7 ], [ 364.9, 152 ], [ 368.6, 149.5 ], [ 372.9, 148.7 ], [ 377.3, 149.5 ], [ 380.9, 152 ], [ 383.4, 155.7 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: kick
+    points: [ [ 338.1, 209.1 ], [ 336.8, 216.1 ], [ 332.8, 222 ], [ 326.9, 225.9 ], [ 320, 227.3 ], [ 313.1, 225.9 ], [ 307.2, 222 ], [ 303.2, 216.1 ], [ 301.9, 209.1 ], [ 303.2, 202.2 ], [ 307.2, 196.3 ], [ 313.1, 192.4 ], [ 320, 191 ], [ 326.9, 192.4 ], [ 332.8, 196.3 ], [ 336.8, 202.2 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: mon5
+    points: [ [ 177, 219.8 ], [ 211, 219.8 ], [ 194, 197.2 ] ]
+    close: true
+    ends: { from: none, to: none }
+  - id: ba-amp
+    points: [ [ 99.5, 123.5 ], [ 168.8, 123.5 ], [ 168.8, 161.3 ], [ 99.5, 161.3 ] ]
+    close: true
+    ends: { from: none, to: none }
+  - id: mon3
+    points: [ [ 139.2, 389.9 ], [ 173.2, 389.9 ], [ 156.2, 367.2 ] ]
+    close: true
+    ends: { from: none, to: none }
+  - id: mon1
+    points: [ [ 258.9, 389.9 ], [ 292.9, 389.9 ], [ 275.9, 367.2 ] ]
+    close: true
+    ends: { from: none, to: none }
+  - id: mon2
+    points: [ [ 347.1, 389.9 ], [ 381.1, 389.9 ], [ 364.1, 367.2 ] ]
+    close: true
+    ends: { from: none, to: none }
+  - id: sunpo
+    points: [ [ 337, 337.6 ], [ 337, 413.2 ] ]
+    weight: thin
+    ends: { from: arrow, to: arrow }
+  - id: gt-amp
+    points: [ [ 458.6, 123.5 ], [ 527.9, 123.5 ], [ 527.9, 161.3 ], [ 458.6, 161.3 ] ]
+    close: true
+    ends: { from: none, to: none }
+  - id: kb
+    points: [ [ 430.2, 227.4 ], [ 518.4, 227.4 ], [ 518.4, 246.3 ], [ 430.2, 246.3 ] ]
+    close: true
+    ends: { from: none, to: none }
+  - id: mon4
+    points: [ [ 429, 286 ], [ 463, 286 ], [ 446, 263.3 ] ]
+    close: true
+    ends: { from: none, to: none }
+  - id: mon6
+    points: [ [ 466.8, 389.9 ], [ 500.8, 389.9 ], [ 483.8, 367.2 ] ]
+    close: true
+    ends: { from: none, to: none }
+  - id: in-col1
+    points: [ [ 638.7, 98.3 ], [ 669, 98.3 ], [ 669, 451.7 ], [ 638.7, 451.7 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: in-row1
+    points: [ [ 638.7, 119.1 ], [ 669, 119.1 ], [ 669, 139.8 ], [ 638.7, 139.8 ], [ 638.7, 160.6 ], [ 669, 160.6 ], [ 669, 181.4 ], [ 638.7, 181.4 ], [ 638.7, 202.2 ], [ 669, 202.2 ], [ 669, 223 ], [ 638.7, 223 ], [ 638.7, 243.8 ], [ 669, 243.8 ], [ 669, 264.6 ], [ 638.7, 264.6 ], [ 638.7, 285.4 ], [ 669, 285.4 ], [ 669, 306.1 ], [ 638.7, 306.1 ], [ 638.7, 326.9 ], [ 669, 326.9 ], [ 669, 347.7 ], [ 638.7, 347.7 ], [ 638.7, 368.5 ], [ 669, 368.5 ], [ 669, 389.3 ], [ 638.7, 389.3 ], [ 638.7, 410.1 ], [ 669, 410.1 ], [ 669, 430.9 ], [ 638.7, 430.9 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: in-col2
+    points: [ [ 669, 98.3 ], [ 759.7, 98.3 ], [ 759.7, 451.7 ], [ 669, 451.7 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: in-row2
+    points: [ [ 669, 119.1 ], [ 759.7, 119.1 ], [ 759.7, 139.8 ], [ 669, 139.8 ], [ 669, 160.6 ], [ 759.7, 160.6 ], [ 759.7, 181.4 ], [ 669, 181.4 ], [ 669, 202.2 ], [ 759.7, 202.2 ], [ 759.7, 223 ], [ 669, 223 ], [ 669, 243.8 ], [ 759.7, 243.8 ], [ 759.7, 264.6 ], [ 669, 264.6 ], [ 669, 285.4 ], [ 759.7, 285.4 ], [ 759.7, 306.1 ], [ 669, 306.1 ], [ 669, 326.9 ], [ 759.7, 326.9 ], [ 759.7, 347.7 ], [ 669, 347.7 ], [ 669, 368.5 ], [ 759.7, 368.5 ], [ 759.7, 389.3 ], [ 669, 389.3 ], [ 669, 410.1 ], [ 759.7, 410.1 ], [ 759.7, 430.9 ], [ 669, 430.9 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: in-col3
+    points: [ [ 759.7, 98.3 ], [ 858, 98.3 ], [ 858, 451.7 ], [ 759.7, 451.7 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: in-row3
+    points: [ [ 759.7, 119.1 ], [ 858, 119.1 ], [ 858, 139.8 ], [ 759.7, 139.8 ], [ 759.7, 160.6 ], [ 858, 160.6 ], [ 858, 181.4 ], [ 759.7, 181.4 ], [ 759.7, 202.2 ], [ 858, 202.2 ], [ 858, 223 ], [ 759.7, 223 ], [ 759.7, 243.8 ], [ 858, 243.8 ], [ 858, 264.6 ], [ 759.7, 264.6 ], [ 759.7, 285.4 ], [ 858, 285.4 ], [ 858, 306.1 ], [ 759.7, 306.1 ], [ 759.7, 326.9 ], [ 858, 326.9 ], [ 858, 347.7 ], [ 759.7, 347.7 ], [ 759.7, 368.5 ], [ 858, 368.5 ], [ 858, 389.3 ], [ 759.7, 389.3 ], [ 759.7, 410.1 ], [ 858, 410.1 ], [ 858, 430.9 ], [ 759.7, 430.9 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: in-col4
+    points: [ [ 858, 98.3 ], [ 933.5, 98.3 ], [ 933.5, 451.7 ], [ 858, 451.7 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: in-row4
+    points: [ [ 858, 119.1 ], [ 933.5, 119.1 ], [ 933.5, 139.8 ], [ 858, 139.8 ], [ 858, 160.6 ], [ 933.5, 160.6 ], [ 933.5, 181.4 ], [ 858, 181.4 ], [ 858, 202.2 ], [ 933.5, 202.2 ], [ 933.5, 223 ], [ 858, 223 ], [ 858, 243.8 ], [ 933.5, 243.8 ], [ 933.5, 264.6 ], [ 858, 264.6 ], [ 858, 285.4 ], [ 933.5, 285.4 ], [ 933.5, 306.1 ], [ 858, 306.1 ], [ 858, 326.9 ], [ 933.5, 326.9 ], [ 933.5, 347.7 ], [ 858, 347.7 ], [ 858, 368.5 ], [ 933.5, 368.5 ], [ 933.5, 389.3 ], [ 858, 389.3 ], [ 858, 410.1 ], [ 933.5, 410.1 ], [ 933.5, 430.9 ], [ 858, 430.9 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: in-col5
+    points: [ [ 933.5, 98.3 ], [ 967.6, 98.3 ], [ 967.6, 451.7 ], [ 933.5, 451.7 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: in-row5
+    points: [ [ 933.5, 119.1 ], [ 967.6, 119.1 ], [ 967.6, 139.8 ], [ 933.5, 139.8 ], [ 933.5, 160.6 ], [ 967.6, 160.6 ], [ 967.6, 181.4 ], [ 933.5, 181.4 ], [ 933.5, 202.2 ], [ 967.6, 202.2 ], [ 967.6, 223 ], [ 933.5, 223 ], [ 933.5, 243.8 ], [ 967.6, 243.8 ], [ 967.6, 264.6 ], [ 933.5, 264.6 ], [ 933.5, 285.4 ], [ 967.6, 285.4 ], [ 967.6, 306.1 ], [ 933.5, 306.1 ], [ 933.5, 326.9 ], [ 967.6, 326.9 ], [ 967.6, 347.7 ], [ 933.5, 347.7 ], [ 933.5, 368.5 ], [ 967.6, 368.5 ], [ 967.6, 389.3 ], [ 933.5, 389.3 ], [ 933.5, 410.1 ], [ 967.6, 410.1 ], [ 967.6, 430.9 ], [ 933.5, 430.9 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: in-col6
+    points: [ [ 967.6, 98.3 ], [ 997.8, 98.3 ], [ 997.8, 451.7 ], [ 967.6, 451.7 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: in-row6
+    points: [ [ 967.6, 119.1 ], [ 997.8, 119.1 ], [ 997.8, 139.8 ], [ 967.6, 139.8 ], [ 967.6, 160.6 ], [ 997.8, 160.6 ], [ 997.8, 181.4 ], [ 967.6, 181.4 ], [ 967.6, 202.2 ], [ 997.8, 202.2 ], [ 997.8, 223 ], [ 967.6, 223 ], [ 967.6, 243.8 ], [ 997.8, 243.8 ], [ 997.8, 264.6 ], [ 967.6, 264.6 ], [ 967.6, 285.4 ], [ 997.8, 285.4 ], [ 997.8, 306.1 ], [ 967.6, 306.1 ], [ 967.6, 326.9 ], [ 997.8, 326.9 ], [ 997.8, 347.7 ], [ 967.6, 347.7 ], [ 967.6, 368.5 ], [ 997.8, 368.5 ], [ 997.8, 389.3 ], [ 967.6, 389.3 ], [ 967.6, 410.1 ], [ 997.8, 410.1 ], [ 997.8, 430.9 ], [ 967.6, 430.9 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: in-col7
+    points: [ [ 997.8, 98.3 ], [ 1096.1, 98.3 ], [ 1096.1, 451.7 ], [ 997.8, 451.7 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: in-row7
+    points: [ [ 997.8, 119.1 ], [ 1096.1, 119.1 ], [ 1096.1, 139.8 ], [ 997.8, 139.8 ], [ 997.8, 160.6 ], [ 1096.1, 160.6 ], [ 1096.1, 181.4 ], [ 997.8, 181.4 ], [ 997.8, 202.2 ], [ 1096.1, 202.2 ], [ 1096.1, 223 ], [ 997.8, 223 ], [ 997.8, 243.8 ], [ 1096.1, 243.8 ], [ 1096.1, 264.6 ], [ 997.8, 264.6 ], [ 997.8, 285.4 ], [ 1096.1, 285.4 ], [ 1096.1, 306.1 ], [ 997.8, 306.1 ], [ 997.8, 326.9 ], [ 1096.1, 326.9 ], [ 1096.1, 347.7 ], [ 997.8, 347.7 ], [ 997.8, 368.5 ], [ 1096.1, 368.5 ], [ 1096.1, 389.3 ], [ 997.8, 389.3 ], [ 997.8, 410.1 ], [ 1096.1, 410.1 ], [ 1096.1, 430.9 ], [ 997.8, 430.9 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: mon-col1
+    points: [ [ 638.7, 497 ], [ 676.5, 497 ], [ 676.5, 621.7 ], [ 638.7, 621.7 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: mon-row1
+    points: [ [ 638.7, 517.8 ], [ 676.5, 517.8 ], [ 676.5, 538.6 ], [ 638.7, 538.6 ], [ 638.7, 559.4 ], [ 676.5, 559.4 ], [ 676.5, 580.2 ], [ 638.7, 580.2 ], [ 638.7, 600.9 ], [ 676.5, 600.9 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: mon-col2
+    points: [ [ 676.5, 497 ], [ 721.9, 497 ], [ 721.9, 621.7 ], [ 676.5, 621.7 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: mon-row2
+    points: [ [ 676.5, 517.8 ], [ 721.9, 517.8 ], [ 721.9, 538.6 ], [ 676.5, 538.6 ], [ 676.5, 559.4 ], [ 721.9, 559.4 ], [ 721.9, 580.2 ], [ 676.5, 580.2 ], [ 676.5, 600.9 ], [ 721.9, 600.9 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: mon-col3
+    points: [ [ 721.9, 497 ], [ 812.6, 497 ], [ 812.6, 621.7 ], [ 721.9, 621.7 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: mon-row3
+    points: [ [ 721.9, 517.8 ], [ 812.6, 517.8 ], [ 812.6, 538.6 ], [ 721.9, 538.6 ], [ 721.9, 559.4 ], [ 812.6, 559.4 ], [ 812.6, 580.2 ], [ 721.9, 580.2 ], [ 721.9, 600.9 ], [ 812.6, 600.9 ] ]
+    weight: thin
+    ends: { from: none, to: none }
+  - id: mon-col4
+    points: [ [ 812.6, 497 ], [ 1077.2, 497 ], [ 1077.2, 621.7 ], [ 812.6, 621.7 ] ]
+    close: true
+    weight: thin
+    ends: { from: none, to: none }
+  - id: mon-row4
+    points: [ [ 812.6, 517.8 ], [ 1077.2, 517.8 ], [ 1077.2, 538.6 ], [ 812.6, 538.6 ], [ 812.6, 559.4 ], [ 1077.2, 559.4 ], [ 1077.2, 580.2 ], [ 812.6, 580.2 ], [ 812.6, 600.9 ], [ 1077.2, 600.9 ] ]
+    weight: thin
+    ends: { from: none, to: none }

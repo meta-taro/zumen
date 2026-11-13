@@ -401,6 +401,7 @@ export const TITLES_EN = {
   '416-製図用紙の様式': 'Drawing sheet layout (A3 landscape: border, centring marks, grid reference, reference scale and title block)',
   '417-はがきの宛名面': 'Address side of a Japanese postcard (postal code boxes 12 mm from the top and 8 mm from the right)',
   '418-履歴書': 'Japanese CV form (the labour ministry template: gender is optional, and there is no spouse, dependants or commute field)',
+  '426-バンドのステージプロットとインプットリスト': 'Band stage plot and input list: circle numbers on the plot are the console channels',
   '425-米国IRSのW-9': 'Form W-9 (Rev. March 2024): the form part of page 1, marked SAMPLE',
   '424-適格請求書': 'Qualified invoice (the six required items, with tax rounded once per rate)',
   '423-内容証明の謄本': 'Certified-contents mail copy (vertical, at most 20 characters a line and 26 lines a sheet)',
