@@ -15,7 +15,14 @@ palette:
 #   日本郵便「郵便番号・バーコードマニュアル 郵便番号枠」〔定形郵便物〕の図（上端から 12.0±1.5mm・右端から 8.0±1.5mm、
 #   枠 5.7×8.0mm・間隔 7.0mm・全幅 47.7mm。上 3 けたとハイフン 0.4〜0.6mm・下 4 けた 0.2〜0.4mm。朱色又は金赤色）
 #   https://www.post.japanpost.jp/service/search/zipcode/zipmanual/p05.html（取得 2026-11-10）
-# 架空：住所・氏名。例：切手の位置と大きさ（封筒の切手の位置は、確かめた一次資料に書いていない。慣行の左上に置いた）。
+#   寸法は枠線の内側から測る ―― 描いた線は線の太さの半分だけ外へ出し、内側が 5.7×8.0mm になるようにした。
+#   日本郵便「手紙（定形郵便物・定形外郵便物）」（定形郵便物：厚さ 1cm まで・重さ 50g まで）
+#   https://www.post.japanpost.jp/send/domestic/charge/list/one_two.html（取得 2026-11-20）
+#   内国郵便約款 第 42 条第 4 項（郵便切手は表面の左上部（横長は右上部）にはり付ける）・別記 1「郵便番号を記載する方法」
+#   （(1)ア(ｵ) 郵便番号記入枠とあて名との間は 10mm 以上あける。例 1 の図：あて名の範囲は枠の 10mm 下から、右端から 15mm・左端から 10mm 内側。
+#   封筒の場合の枠の図は上の〔定形郵便物〕の図と同じ寸法）
+#   https://www.post.japanpost.jp/assets/docs/about/disclosure/yakkan/1-3.pdf ／ 1-1.pdf（取得 2026-11-20）
+# 架空：住所・氏名。例：切手の大きさ（位置は約款 42 条 4 項の左上部）。
 # 描かなかったもの：裏面（差出人・封じ目）。紙 1 枚に 1 面なので、表だけ。
 nodes:
   - id: zip-note
@@ -32,7 +39,7 @@ nodes:
     label: "東京都千代田区見本町一丁目二番三号"
     marker: none
     write: down
-    at: { x: 378, y: 113 }
+    at: { x: 366, y: 114 }
     size: { w: 30, h: 416 }
   - id: to-name
     label: "見本　花子　様"
@@ -41,53 +48,59 @@ nodes:
     at: { x: 214, y: 151 }
     size: { w: 26, h: 416 }
   - id: size-note
-    label: "長形 3 号 120×235mm（JIS S 5502:2010）\n＝ 定形郵便物の上限（長さ 23.5cm・幅 12cm）\n重さ 50g 以下なら定形"
+    label: "長形 3 号 120×235mm（JIS S 5502:2010）\n＝ 定形郵便物の大きさの上限（長さ 23.5cm・幅 12cm）\n厚さ 1cm・重さ 50g までなら定形"
     marker: none
     align: left
     at: { x: 23, y: 756 }
     size: { w: 408, h: 83 }
+  - id: fiction-note
+    label: "住所・氏名は架空。切手の枠の大きさは例\n差出人は裏面（この図には描いていない）"
+    marker: none
+    align: left
+    at: { x: 23, y: 690 }
+    size: { w: 408, h: 50 }
 paths:
   - id: zip1
-    points: [ [ 243, 45.4 ], [ 264.6, 45.4 ], [ 264.6, 75.6 ], [ 243, 75.6 ] ]
+    points: [ [ 242, 44.4 ], [ 265.6, 44.4 ], [ 265.6, 76.6 ], [ 242, 76.6 ] ]
     close: true
     color: 朱色
     ends: { from: none, to: none }
   - id: zip2
-    points: [ [ 269.5, 45.4 ], [ 291, 45.4 ], [ 291, 75.6 ], [ 269.5, 75.6 ] ]
+    points: [ [ 268.5, 44.4 ], [ 292, 44.4 ], [ 292, 76.6 ], [ 268.5, 76.6 ] ]
     close: true
     color: 朱色
     ends: { from: none, to: none }
   - id: zip3
-    points: [ [ 295.9, 45.4 ], [ 317.5, 45.4 ], [ 317.5, 75.6 ], [ 295.9, 75.6 ] ]
+    points: [ [ 294.9, 44.4 ], [ 318.5, 44.4 ], [ 318.5, 76.6 ], [ 294.9, 76.6 ] ]
     close: true
     color: 朱色
     ends: { from: none, to: none }
   - id: zip4
-    points: [ [ 324.7, 45.4 ], [ 346.2, 45.4 ], [ 346.2, 75.6 ], [ 324.7, 75.6 ] ]
+    points: [ [ 324.2, 44.9 ], [ 346.7, 44.9 ], [ 346.7, 76.1 ], [ 324.2, 76.1 ] ]
     close: true
     weight: thin
     color: 朱色
     ends: { from: none, to: none }
   - id: zip5
-    points: [ [ 350.4, 45.4 ], [ 371.9, 45.4 ], [ 371.9, 75.6 ], [ 350.4, 75.6 ] ]
+    points: [ [ 349.9, 44.9 ], [ 372.4, 44.9 ], [ 372.4, 76.1 ], [ 349.9, 76.1 ] ]
     close: true
     weight: thin
     color: 朱色
     ends: { from: none, to: none }
   - id: zip6
-    points: [ [ 376.1, 45.4 ], [ 397.6, 45.4 ], [ 397.6, 75.6 ], [ 376.1, 75.6 ] ]
+    points: [ [ 375.6, 44.9 ], [ 398.1, 44.9 ], [ 398.1, 76.1 ], [ 375.6, 76.1 ] ]
     close: true
     weight: thin
     color: 朱色
     ends: { from: none, to: none }
   - id: zip7
-    points: [ [ 401.8, 45.4 ], [ 423.3, 45.4 ], [ 423.3, 75.6 ], [ 401.8, 75.6 ] ]
+    points: [ [ 401.3, 44.9 ], [ 423.8, 44.9 ], [ 423.8, 76.1 ], [ 401.3, 76.1 ] ]
     close: true
     weight: thin
     color: 朱色
     ends: { from: none, to: none }
   - id: zip-hyphen
-    points: [ [ 317.5, 60.5 ], [ 324.7, 60.5 ] ]
+    points: [ [ 318.5, 60.5 ], [ 324.2, 60.5 ] ]
     color: 朱色
     ends: { from: none, to: none }
   - id: stamp
