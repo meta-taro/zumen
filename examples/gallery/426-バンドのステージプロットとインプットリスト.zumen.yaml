@@ -12,6 +12,10 @@ title: "バンドのステージプロットとインプットリスト（図の
 #     スタンドの種類・立ち位置・子箱の入力番号。手描きなら太鼓は丸・マイクは丸・アンプは四角・ウェッジは三角
 #   Shure「Beyond the Basics: Drum Miking」https://www.shure.com/en-US/insights/beyond-the-basics-drum-miking
 #     キックの中と外に 1 本ずつ（Beta 91A ＋ Beta 52A）
+#   Sound On Sound「Q. How should drums be panned?」https://www.soundonsound.com/sound-advice/q-how-should-drums-be-panned
+#     ドラムの左右は客席側から見る流儀と叩く人から見る流儀があり、業界の決まりは無い → トップ L・R に下手側・上手側を両方書く
+#   Radial「J48」https://www.radialeng.com/product/j48 （取得 2026-11-20）
+#     アクティブ DI は 48V ファンタムで動く → DI の行は 48V 欄と食い違わないよう、パッシブと書く
 #
 # **この図の要は、図と表が同じ番号で結ばれていること。** 丸の数字は入力 Ch で、
 # PA は表の 16 行と図の 16 個の丸を突き合わせて、どこへ何を立てるかを決める。返しは M の番号で同じことをする。
@@ -454,7 +458,7 @@ nodes:
     at: { x: 675, y: 223 }
     size: { w: 83, h: 21 }
   - id: in-6-3
-    label: "クリップ式"
+    label: "コンデンサー"
     marker: none
     align: left
     at: { x: 765, y: 223 }
@@ -486,7 +490,7 @@ nodes:
     at: { x: 675, y: 244 }
     size: { w: 83, h: 21 }
   - id: in-7-3
-    label: "クリップ式"
+    label: "コンデンサー"
     marker: none
     align: left
     at: { x: 765, y: 244 }
@@ -576,6 +580,12 @@ nodes:
     marker: none
     at: { x: 968, y: 285 }
     size: { w: 30, h: 21 }
+  - id: in-9-7
+    label: "上手側"
+    marker: none
+    align: left
+    at: { x: 1003, y: 285 }
+    size: { w: 91, h: 21 }
   - id: in-10-1
     label: "10"
     marker: none
@@ -588,7 +598,7 @@ nodes:
     at: { x: 675, y: 306 }
     size: { w: 83, h: 21 }
   - id: in-10-3
-    label: "DI"
+    label: "パッシブ DI"
     marker: none
     align: left
     at: { x: 765, y: 306 }
@@ -654,7 +664,7 @@ nodes:
     at: { x: 675, y: 348 }
     size: { w: 83, h: 21 }
   - id: in-12-3
-    label: "DI"
+    label: "パッシブ DI"
     marker: none
     align: left
     at: { x: 765, y: 348 }
@@ -687,7 +697,7 @@ nodes:
     at: { x: 675, y: 369 }
     size: { w: 83, h: 20 }
   - id: in-13-3
-    label: "DI"
+    label: "パッシブ DI"
     marker: none
     align: left
     at: { x: 765, y: 369 }
