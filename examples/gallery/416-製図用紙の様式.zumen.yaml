@@ -2,7 +2,7 @@ version: 1
 kind: placement
 paper: { size: A3, orient: landscape, margin: 0 }
 scale: { mm: 0.264583, unit: mm }
-title: "製図用紙の様式（A3 横。輪郭・中心マーク・区域区分・比較目盛・表題欄）"
+title: "製図用紙の様式（A3 横。輪郭・中心マーク・格子参照方式・比較目盛・表題欄）"
 # **製図用紙は、刷られる前提で様式が決まっている。** 縮んで刷られても、比較目盛を測れば元の大きさに戻せる。
 #
 # 座標は mm で考えて px に直した（1px = 25.4/96 mm。paper の margin: 0 で、用紙の左上が原点）。
@@ -155,13 +155,13 @@ nodes:
     label: ""
     marker: triangle-down
     hatch: solid
-    at: { x: 782, y: 1089 }
+    at: { x: 782, y: 1076 }
     size: { w: 23, h: 18 }
   - id: t-org
     label: "作成元　架空工業株式会社（見本）"
     align: left
-    at: { x: 907, y: 934 }
-    size: { w: 378, h: 37 }
+    at: { x: 907.1, y: 934 }
+    size: { w: 377.9, h: 37 }
   - id: t-no-k
     label: "図面番号"
     align: left
@@ -171,22 +171,22 @@ nodes:
     label: "KX-2026-0416"
     align: left
     at: { x: 1368, y: 934 }
-    size: { w: 182, h: 37 }
+    size: { w: 181.6, h: 37 }
   - id: t-name-k
     label: "図名"
     align: left
-    at: { x: 907, y: 971 }
-    size: { w: 83, h: 53 }
+    at: { x: 907.1, y: 971 }
+    size: { w: 82.9, h: 53 }
   - id: t-name
     label: "取付板"
     align: left
     at: { x: 990, y: 971 }
-    size: { w: 560, h: 53 }
+    size: { w: 559.6, h: 53 }
   - id: t-scale-k
     label: "尺度"
     align: left
-    at: { x: 907, y: 1024 }
-    size: { w: 53, h: 30 }
+    at: { x: 907.1, y: 1024 }
+    size: { w: 52.9, h: 30 }
   - id: t-scale
     label: "1:1"
     align: left
@@ -221,52 +221,52 @@ nodes:
     label: "SS400 t6"
     align: left
     at: { x: 1383, y: 1024 }
-    size: { w: 167, h: 30 }
+    size: { w: 166.6, h: 30 }
   - id: t-r0-k
     label: "設計"
     align: left
-    at: { x: 907, y: 1054 }
-    size: { w: 45, h: 31 }
+    at: { x: 907.1, y: 1054 }
+    size: { w: 44.9, h: 30.7 }
   - id: t-r0
     label: ""
     align: left
     at: { x: 952, y: 1054 }
-    size: { w: 116, h: 31 }
+    size: { w: 116, h: 30.7 }
   - id: t-r1-k
     label: "製図"
     align: left
     at: { x: 1068, y: 1054 }
-    size: { w: 45, h: 31 }
+    size: { w: 45, h: 30.7 }
   - id: t-r1
     label: ""
     align: left
     at: { x: 1113, y: 1054 }
-    size: { w: 115, h: 31 }
+    size: { w: 115, h: 30.7 }
   - id: t-r2-k
     label: "検図"
     align: left
     at: { x: 1228, y: 1054 }
-    size: { w: 46, h: 31 }
+    size: { w: 46, h: 30.7 }
   - id: t-r2
     label: ""
     align: left
     at: { x: 1274, y: 1054 }
-    size: { w: 115, h: 31 }
+    size: { w: 115, h: 30.7 }
   - id: t-r3-k
     label: "承認"
     align: left
     at: { x: 1389, y: 1054 }
-    size: { w: 45, h: 31 }
+    size: { w: 45, h: 30.7 }
   - id: t-r3
     label: ""
     align: left
     at: { x: 1434, y: 1054 }
-    size: { w: 116, h: 31 }
+    size: { w: 115.6, h: 30.7 }
   - id: rv-h-mk
     label: "記号"
     align: left
-    at: { x: 907, y: 843 }
-    size: { w: 53, h: 30 }
+    at: { x: 907.1, y: 843 }
+    size: { w: 52.9, h: 30 }
   - id: rv-h-txt
     label: "改訂の内容"
     align: left
@@ -281,12 +281,12 @@ nodes:
     label: "担当"
     align: left
     at: { x: 1451, y: 843 }
-    size: { w: 99, h: 30 }
+    size: { w: 98.6, h: 30 }
   - id: rv1-mk
     label: "△1"
     align: left
-    at: { x: 907, y: 873 }
-    size: { w: 53, h: 30 }
+    at: { x: 907.1, y: 873 }
+    size: { w: 52.9, h: 30 }
   - id: rv1-txt
     label: "穴径 φ10 → φ11（ボルト M10 のばか穴へ）"
     align: left
@@ -301,12 +301,12 @@ nodes:
     label: ""
     align: left
     at: { x: 1451, y: 873 }
-    size: { w: 99, h: 30 }
+    size: { w: 98.6, h: 30 }
   - id: rv2-mk
     label: ""
     align: left
-    at: { x: 907, y: 903 }
-    size: { w: 53, h: 31 }
+    at: { x: 907.1, y: 903 }
+    size: { w: 52.9, h: 31 }
   - id: rv2-txt
     label: ""
     align: left
@@ -321,7 +321,7 @@ nodes:
     label: ""
     align: left
     at: { x: 1451, y: 903 }
-    size: { w: 99, h: 31 }
+    size: { w: 98.6, h: 31 }
   - id: plate
     label: ""
     at: { x: 340, y: 265 }
@@ -365,7 +365,7 @@ nodes:
     at: { x: 106, y: 801 }
     size: { w: 756, h: 23 }
   - id: n1
-    label: "・輪郭線：用紙の縁から 10mm（A2〜A4）。左は綴じ代 20mm（表題欄から最も遠い辺）"
+    label: "・輪郭線：用紙の縁から 10mm 以上が望ましい（A2〜A4）。左はとじ代 20mm 以上・輪郭を含む（表題欄から最も遠い辺）"
     marker: none
     align: left
     at: { x: 106, y: 831 }
@@ -377,7 +377,7 @@ nodes:
     at: { x: 106, y: 862 }
     size: { w: 756, h: 22 }
   - id: n3
-    label: "・区域区分：偶数に分け、1 区画 25〜75mm（ここは 8×6、48.75×46.2mm）。表題欄の反対の隅から数字・ローマ字"
+    label: "・格子参照方式：偶数に分け、1 区画 25〜75mm（ここは 8×6、48.75×46.2mm）。表題欄の反対の隅から数字・ローマ字"
     marker: none
     align: left
     at: { x: 106, y: 892 }
@@ -389,10 +389,16 @@ nodes:
     at: { x: 106, y: 922 }
     size: { w: 756, h: 23 }
   - id: n5
-    label: "・表題欄：右下、長さ 170mm 以下。方向マーク（下の三角）・裁断マークは任意（裁断マークは描いていない）"
+    label: "・表題欄：右下、長さ 170mm 以下。方向マーク・裁断マークは任意（裁断マークは描いていない）"
     marker: none
     align: left
     at: { x: 106, y: 952 }
+    size: { w: 756, h: 23 }
+  - id: n6
+    label: "・方向マーク：輪郭線をまたぐ矢印。規格は長辺・短辺に 1 個ずつ（ここは下の 1 個だけ）"
+    marker: none
+    align: left
+    at: { x: 106, y: 982 }
     size: { w: 756, h: 23 }
 paths:
   - id: frame
@@ -485,35 +491,27 @@ paths:
     ends: { from: none, to: none }
   - id: scale-1
     points: [ [ 642.5, 37.8 ], [ 642.5, 56.7 ] ]
-    weight: thin
     ends: { from: none, to: none }
   - id: scale-2
     points: [ [ 680.3, 37.8 ], [ 680.3, 56.7 ] ]
-    weight: thin
     ends: { from: none, to: none }
   - id: scale-3
     points: [ [ 718.1, 37.8 ], [ 718.1, 56.7 ] ]
-    weight: thin
     ends: { from: none, to: none }
   - id: scale-4
     points: [ [ 755.9, 37.8 ], [ 755.9, 56.7 ] ]
-    weight: thin
     ends: { from: none, to: none }
   - id: scale-6
     points: [ [ 831.5, 37.8 ], [ 831.5, 56.7 ] ]
-    weight: thin
     ends: { from: none, to: none }
   - id: scale-7
     points: [ [ 869.3, 37.8 ], [ 869.3, 56.7 ] ]
-    weight: thin
     ends: { from: none, to: none }
   - id: scale-8
     points: [ [ 907.1, 37.8 ], [ 907.1, 56.7 ] ]
-    weight: thin
     ends: { from: none, to: none }
   - id: scale-9
     points: [ [ 944.9, 37.8 ], [ 944.9, 56.7 ] ]
-    weight: thin
     ends: { from: none, to: none }
   - id: scale-10
     points: [ [ 982.7, 37.8 ], [ 982.7, 56.7 ] ]
