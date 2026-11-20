@@ -1307,9 +1307,13 @@ function subtitleOn(style: Look, palette: Palette): string {
  * **配置図の置き方は `src/names.ts` が決める**（5 段 ＋ 外へ出すときの当たり判定）。
  * ここは決まったとおりに描くだけ。
  */
-/** 縦に積んだときの、見た目の高さ。 */
+/**
+ * 縦に積んだときの、見た目の高さ。
+ * 寝かせたラテン文字は、横書きの幅がそのまま高さになる（字 1 つ分ではない。
+ * 字 1 つ分で数えると、回した文字の中心が上端に寄り、半分が箱の上へ出る）。
+ */
 function stackHeight(body: string, font: number): number {
-  if (laysDown(body)) return font;
+  if (laysDown(body)) return labelWidth(body, font);
   return ([...body].length - 1) * font * 1.06 + font;
 }
 
@@ -1420,7 +1424,7 @@ function nodeText(
     const left = box.x + box.w / 2 - total / 2;
     const column = (body: string, colX: number, font: number, fill: string): string[] => {
       if (laysDown(body)) {
-        const midY = box.y + stackHeight(box.label, size) / 2;
+        const midY = box.y + stackHeight(body, font) / 2;
         return [text(colX, midY, body, font, fill, ` transform="rotate(90 ${n(colX)} ${n(midY)})"`)];
       }
       return [...body].map((glyph, i) => text(colX, box.y + font + i * font * 1.06, glyph, font, fill));

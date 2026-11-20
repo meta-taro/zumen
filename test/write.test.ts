@@ -24,7 +24,7 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
-import { layout } from '../src/layout.ts';
+import { labelWidth, layout } from '../src/layout.ts';
 import { render } from '../src/render.ts';
 import { spec } from '../src/tools.ts';
 import { validate } from '../src/validate.ts';
@@ -108,6 +108,19 @@ describe('縦組みで描く', () => {
     const found = texts(out).filter((t) => t.body === 'Nishinakajima');
     assert.equal(found.length, 1, 'ローマ字を 1 文字ずつ積んだ');
     assert.ok(found[0]!.turned, 'ローマ字を回していない');
+  });
+
+  it('**回したラテン文字は、箱の上へはみ出さない**（積んだ字と同じく上から始まる）', async () => {
+    // 見本 425（W-9）で見つかった。回した文字の中心を「上端＋字の高さの半分」に置いていたので、
+    // 長い英語は半分が箱の上へ出ていた。回した文字の長さは字の高さではなく、横書きの幅
+    const long = 'Before you begin. For guidance';
+    const out = await svg(STATION.replace('にしなかじまみなみがた', long).replace('{ w: 40, h: 120 }', '{ w: 40, h: 300 }'));
+    const m = out.match(new RegExp(`<text [^>]*y="(-?[\\d.]+)"[^>]*font-size="(\\d+)"[^>]*rotate\\(90[^>]*>${long}<`))!;
+    assert.ok(m, '回した文字が見つからない');
+    const top = Number(m[1]) - labelWidth(long, Number(m[2])) / 2;
+    const name = texts(out).find((t) => t.body === '西')!;
+    // 積んだ字の 1 つ目は「上端＋字の大きさ」に置かれる。回した文字の上端もそれより上へ出ない
+    assert.ok(top >= name.y - 16, `回した文字の上端（${top}）が、積んだ字の 1 つ目（${name.y}）より上へ出た`);
   });
 
   it('**入らなくても消さない。** 箱の大きさは正本が決める', async () => {
