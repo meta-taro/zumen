@@ -21,14 +21,11 @@ palette:
 #   https://www.post.japanpost.jp/assets/docs/about/disclosure/yakkan/1-3.pdf（取得 2026-11-20）
 #   同じ寸法は日本郵便「郵便番号・バーコードマニュアル 郵便番号枠」〔定形郵便物〕の図（JIS S 5502:2010 の封筒の規格。はがきは JIS の適用範囲外）
 #   https://www.post.japanpost.jp/service/search/zipcode/zipmanual/p05.html（取得 2026-11-10）
+# 「郵便はがき」の文字は枠の 4.0mm 上（別記 1 の私製葉書の図の、枠の左の「4.0」）。枠の右寄りの「4.0」はハイフンの高さ（枠の上の内側から 4.0mm＝高さの中央）。
+# 枠の下 10mm は「空白とします」（別記 1 (1)ア(ｵ)）なので、説明の文字（「郵便番号の枠は朱色」）も置かない。下の注記へまとめた。
 # 架空：住所・氏名。例：切手の枠の大きさ、差出人の郵便番号枠の位置と大きさ（一次資料で寸法を確かめていない）。
 # 色の値 #e8382a は朱色の例（日本郵便は朱色又は金赤色と言うだけで、色の値は決めていない）。
 nodes:
-  - id: zip-note
-    label: "郵便番号の枠は朱色"
-    marker: none
-    at: { x: 167, y: 81 }
-    size: { w: 181, h: 19 }
   - id: stamp-note
     label: "切手"
     marker: none
@@ -37,7 +34,7 @@ nodes:
   - id: title
     label: "郵 便 は が き"
     marker: none
-    at: { x: 113, y: 11 }
+    at: { x: 113, y: 13 }
     size: { w: 152, h: 23 }
   - id: to-addr
     label: "東京都千代田区見本町一丁目二番三号"
@@ -70,11 +67,11 @@ nodes:
     at: { x: 95, y: 285 }
     size: { w: 80, h: 38 }
   - id: fiction-note
-    label: "住所・氏名は架空\n切手の枠と差出人の\n郵便番号枠の大きさは例"
+    label: "郵便番号の枠は朱色\n住所・氏名は架空\n切手の枠と差出人の\n郵便番号枠の大きさは例"
     marker: none
     align: left
-    at: { x: 165, y: 440 }
-    size: { w: 200, h: 60 }
+    at: { x: 165, y: 430 }
+    size: { w: 200, h: 74 }
 paths:
   - id: zip1
     points: [ [ 166.4, 44.4 ], [ 190, 44.4 ], [ 190, 76.6 ], [ 166.4, 76.6 ] ]
