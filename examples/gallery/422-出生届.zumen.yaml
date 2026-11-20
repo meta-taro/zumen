@@ -1,7 +1,7 @@
 version: 1
 kind: placement
 paper: { size: A3, orient: landscape, margin: 0 }
-title: "出生届（戸籍届書の標準様式 別紙 1。令和 8 年 4 月から。右に出生証明書・下に個人番号カードの申請欄）"
+title: "出生届（戸籍届書の標準様式 別紙 1。令和 8 年 4 月から。右上に出生証明書・右下に個人番号カードの申請欄）"
 # **役所の窓口や病院で受け取って手で書く様式。** 左が届出人（父母など）の欄、右上が出生証明書（医師・助産師などが書く）、
 # 右下の点線枠が個人番号カード交付申請書 兼 電子証明書発行申請書、中央の文は欄ごとの注意。
 #
@@ -317,6 +317,18 @@ nodes:
     marker: none
     align: left
     at: { x: 881, y: 284 }
+    size: { w: 20, h: 14 }
+  - id: seibetsu-l
+    label: "（"
+    marker: none
+    align: left
+    at: { x: 806, y: 269 }
+    size: { w: 20, h: 14 }
+  - id: seibetsu-r
+    label: "）"
+    marker: none
+    align: left
+    at: { x: 896, y: 269 }
     size: { w: 20, h: 14 }
   - id: t51
     label: "嫡出でない子"
@@ -1068,6 +1080,18 @@ nodes:
     align: left
     at: { x: 267, y: 1031 }
     size: { w: 86, h: 14 }
+  - id: dairi-l
+    label: "（"
+    marker: none
+    align: left
+    at: { x: 355, y: 1031 }
+    size: { w: 20, h: 14 }
+  - id: dairi-r
+    label: "）"
+    marker: none
+    align: left
+    at: { x: 430, y: 1031 }
+    size: { w: 20, h: 14 }
   - id: t176
     label: "3.同居者"
     marker: none
@@ -1319,17 +1343,23 @@ nodes:
     align: left
     at: { x: 163, y: 229 }
     size: { w: 134, h: 14 }
+  - id: shikaku1
+    label: "1."
+    marker: none
+    align: left
+    at: { x: 186, y: 1030 }
+    size: { w: 22, h: 14 }
   - id: chichi
     label: "父"
     marker: none
     align: left
-    at: { x: 188, y: 1021 }
+    at: { x: 208, y: 1021 }
     size: { w: 32, h: 14 }
   - id: haha
     label: "母"
     marker: none
     align: left
-    at: { x: 188, y: 1039 }
+    at: { x: 208, y: 1039 }
     size: { w: 32, h: 14 }
   - id: bango
     label: "個人番号カード交付申請書　兼　電子証明書発行申請書"
