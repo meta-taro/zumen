@@ -14,7 +14,9 @@ title: "出生届（戸籍届書の標準様式 別紙 1。令和 8 年 4 月か
 #   https://www.cao.go.jp/bunken-suishin/teianbosyu/doc/r07/tb_r7fu_08moj_106_1.pdf（取得 2026-11-10）
 #   戸籍法 第 49 条（出生の届出は 14 日以内・出生証明書を添付）
 #   戸籍法施行規則 第 59 条・附録第 11 号様式「出生の届書（日本産業規格Ａ列四番）」（e-Gov 法令 API、取得 2026-11-24）。
-#   左半分の欄の名前・順は附録第 11 号様式と一致する（（1）〜（9）の番号・記入の注意・受理欄は標準様式で足されたもの）
+#   左半分の欄の名前・順は附録第 11 号様式と一致する（（1）〜（9）の番号・記入の注意・受理欄・年の前の「令和」、
+#   子の氏名の（外国人のときはローマ字を付記してください）・住所の（住民登録をするところ）・同居の（結婚式をあげたとき…）
+#   は標準様式で足されたもの。附録にあるのは（子が生まれたときの年齢）と本籍の（外国人のときは国籍だけを書いてください））
 # 架空：なし（何も書き込んでいない白紙の様式）。
 watermark:
   text: 見本 SAMPLE
@@ -306,7 +308,7 @@ nodes:
     label: "（1）"
     marker: none
     align: left
-    at: { x: 94, y: 280 }
+    at: { x: 86, y: 280 }
     size: { w: 40, h: 14 }
   - id: t49
     label: "（外国人のときは\n　ローマ字を付記\n　してください）"
@@ -319,18 +321,6 @@ nodes:
     marker: none
     align: left
     at: { x: 881, y: 284 }
-    size: { w: 20, h: 14 }
-  - id: seibetsu-l
-    label: "（"
-    marker: none
-    align: left
-    at: { x: 806, y: 269 }
-    size: { w: 20, h: 14 }
-  - id: seibetsu-r
-    label: "）"
-    marker: none
-    align: left
-    at: { x: 896, y: 269 }
     size: { w: 20, h: 14 }
   - id: t51
     label: "嫡出でない子"
@@ -372,13 +362,13 @@ nodes:
     label: "（2）"
     marker: none
     align: left
-    at: { x: 94, y: 327 }
+    at: { x: 86, y: 327 }
     size: { w: 40, h: 14 }
   - id: t58
     label: "（10）"
     marker: none
     align: left
-    at: { x: 1273, y: 330 }
+    at: { x: 1266, y: 330 }
     size: { w: 46, h: 14 }
   - id: t59
     label: "ところ及び"
@@ -468,7 +458,7 @@ nodes:
     label: "（3）"
     marker: none
     align: left
-    at: { x: 94, y: 372 }
+    at: { x: 86, y: 372 }
     size: { w: 40, h: 14 }
   - id: t74
     label: "番地\n番"
@@ -477,11 +467,11 @@ nodes:
     at: { x: 777, y: 369 }
     size: { w: 36, h: 37 }
   - id: t75
-    label: "（出生したところ\n　の種別１〜３）"
+    label: "（出生した\nところの\n種別１〜３）"
     marker: none
     align: left
-    at: { x: 1437, y: 365 }
-    size: { w: 112, h: 32 }
+    at: { x: 1424, y: 365 }
+    size: { w: 88, h: 46 }
   - id: t76
     label: "た"
     marker: none
@@ -504,7 +494,7 @@ nodes:
     label: "施設の名称"
     marker: none
     align: left
-    at: { x: 1427, y: 405 }
+    at: { x: 1427, y: 413 }
     size: { w: 82, h: 14 }
   - id: t80
     label: "子"
@@ -552,13 +542,13 @@ nodes:
     label: "（4）"
     marker: none
     align: left
-    at: { x: 94, y: 452 }
+    at: { x: 86, y: 452 }
     size: { w: 40, h: 14 }
   - id: t88
     label: "（11）"
     marker: none
     align: left
-    at: { x: 1273, y: 459 }
+    at: { x: 1266, y: 459 }
     size: { w: 46, h: 14 }
   - id: t89
     label: "体重及び身長"
@@ -624,7 +614,7 @@ nodes:
     label: "（12）"
     marker: none
     align: left
-    at: { x: 1273, y: 514 }
+    at: { x: 1266, y: 514 }
     size: { w: 46, h: 14 }
   - id: t100
     label: "単胎・"
@@ -666,7 +656,7 @@ nodes:
     label: "（5）"
     marker: none
     align: left
-    at: { x: 94, y: 542 }
+    at: { x: 86, y: 542 }
     size: { w: 40, h: 14 }
   - id: t107
     label: "筆頭者の氏名には、戸籍のはじめに\n記載されている人の氏名を書いてく\nださい。\n外国人のうち、次の地域の法を本国\n法とする人は、国籍に代えて地域を\n記載することができます。\n１　台湾\n２　パレスチナ（ヨルダン川西岸地\n　区及びガザ地区）"
@@ -762,7 +752,7 @@ nodes:
     label: "（13）"
     marker: none
     align: left
-    at: { x: 1273, y: 580 }
+    at: { x: 1266, y: 580 }
     size: { w: 46, h: 14 }
   - id: t123
     label: "母　の　氏　名"
@@ -804,7 +794,7 @@ nodes:
     label: "（6）"
     marker: none
     align: left
-    at: { x: 94, y: 631 }
+    at: { x: 86, y: 631 }
     size: { w: 40, h: 14 }
   - id: t130
     label: "この母の出産"
@@ -840,7 +830,7 @@ nodes:
     label: "（14）"
     marker: none
     align: left
-    at: { x: 1273, y: 650 }
+    at: { x: 1266, y: 650 }
     size: { w: 46, h: 14 }
   - id: t136
     label: "した子の数"
@@ -876,7 +866,7 @@ nodes:
     label: "（7）"
     marker: none
     align: left
-    at: { x: 94, y: 697 }
+    at: { x: 86, y: 697 }
     size: { w: 40, h: 14 }
   - id: t142
     label: "年"
@@ -948,8 +938,8 @@ nodes:
     label: "（住所）"
     marker: none
     align: left
-    at: { x: 1419, y: 755 }
-    size: { w: 66, h: 14 }
+    at: { x: 1424, y: 755 }
+    size: { w: 60, h: 14 }
   - id: t154
     label: "子が生まれた"
     marker: none
@@ -960,7 +950,7 @@ nodes:
     label: "（15）"
     marker: none
     align: left
-    at: { x: 1273, y: 772 }
+    at: { x: 1266, y: 772 }
     size: { w: 46, h: 14 }
   - id: t156
     label: "２助産師"
@@ -978,7 +968,7 @@ nodes:
     label: "（8）"
     marker: none
     align: left
-    at: { x: 94, y: 785 }
+    at: { x: 86, y: 785 }
     size: { w: 40, h: 14 }
   - id: t159
     label: "ときの世帯の"
@@ -1014,8 +1004,8 @@ nodes:
     label: "（氏名）"
     marker: none
     align: left
-    at: { x: 1419, y: 833 }
-    size: { w: 66, h: 14 }
+    at: { x: 1424, y: 833 }
+    size: { w: 60, h: 14 }
   - id: t165
     label: "（国勢調査の年…"
     marker: none
@@ -1026,13 +1016,13 @@ nodes:
     label: "年…の４月１日から翌年３月31日までに子が生まれたときだけ書いてください）"
     marker: none
     align: left
-    at: { x: 446, y: 864 }
+    at: { x: 438, y: 864 }
     size: { w: 482, h: 14 }
   - id: t167
     label: "（9）"
     marker: none
     align: left
-    at: { x: 94, y: 880 }
+    at: { x: 86, y: 880 }
     size: { w: 40, h: 14 }
   - id: t168
     label: "父　母　の　職　業"
@@ -1068,7 +1058,7 @@ nodes:
     label: "地方公共団体情報システム機構　宛\n（出生届の届出地市区町村長　宛）"
     marker: none
     align: left
-    at: { x: 1053, y: 935 }
+    at: { x: 1057, y: 935 }
     size: { w: 218, h: 32 }
   - id: t174
     label: "申請にあたり、以下について記入してください。\n☑氏名、住所、生年月日、性別は出生届に記載された内容と同じです\n☑住所地又は住所地以外の希望した送付先にて確実に個人番号カードを受けとれます"
@@ -1212,8 +1202,8 @@ nodes:
     label: "署名\n（※押印は任意）"
     marker: none
     align: left
-    at: { x: 154, y: 1187 }
-    size: { w: 140, h: 38 }
+    at: { x: 161, y: 1187 }
+    size: { w: 134, h: 38 }
   - id: t196
     label: "印"
     marker: none
@@ -1322,17 +1312,47 @@ nodes:
     at: { x: 847, y: 162 }
     size: { w: 71, h: 14 }
   - id: shubetsu
-    label: "出生したところ\nの　種　別"
+    label: "出生した\nところの種別"
     marker: none
     align: left
-    at: { x: 1425, y: 253 }
-    size: { w: 100, h: 32 }
-  - id: shigoto
-    label: "1.農業だけまたは農業とその他の仕事を持っている世帯\n2.自由業・商工業・サービス業等を個人で経営している世帯\n3.企業・個人商店等（官公庁は除く）の常用勤労者世帯で勤め先の従業者数が１人から\n　99人までの世帯（日々または１年未満の契約の雇用者は５）\n4.３にあてはまらない常用勤労者世帯及び会社団体の役員の世帯（日々または１年未\n　満の契約の雇用者は５）\n5.１から４にあてはまらないその他の仕事をしている者のいる世帯\n6.仕事をしている者のいない世帯"
+    at: { x: 1424, y: 253 }
+    size: { w: 88, h: 32 }
+  - id: shigoto1
+    label: "1.農業だけまたは農業とその他の仕事を持っている世帯"
     marker: none
     align: left
-    at: { x: 327, y: 723 }
-    size: { w: 591, h: 137 }
+    at: { x: 327, y: 726.5 }
+    size: { w: 580, h: 14 }
+  - id: shigoto2
+    label: "2.自由業・商工業・サービス業等を個人で経営している世帯"
+    marker: none
+    align: left
+    at: { x: 327, y: 743 }
+    size: { w: 580, h: 14 }
+  - id: shigoto3
+    label: "3.企業・個人商店等（官公庁は除く）の常用勤労者世帯で勤め先の従業者数が１人から\n　99人までの世帯（日々または１年未満の契約の雇用者は５）"
+    marker: none
+    align: left
+    at: { x: 327, y: 758.5 }
+    size: { w: 580, h: 32 }
+  - id: shigoto4
+    label: "4.３にあてはまらない常用勤労者世帯及び会社団体の役員の世帯（日々または１年未\n　満の契約の雇用者は５）"
+    marker: none
+    align: left
+    at: { x: 327, y: 791.5 }
+    size: { w: 580, h: 32 }
+  - id: shigoto5
+    label: "5.１から４にあてはまらないその他の仕事をしている者のいる世帯"
+    marker: none
+    align: left
+    at: { x: 327, y: 825.5 }
+    size: { w: 580, h: 14 }
+  - id: shigoto6
+    label: "6.仕事をしている者のいない世帯"
+    marker: none
+    align: left
+    at: { x: 327, y: 842.5 }
+    size: { w: 580, h: 14 }
   - id: shibou
     label: "（この出生子及び出生後\n　死亡した子を含む）"
     marker: none
@@ -1376,7 +1396,7 @@ nodes:
     at: { x: 510, y: 1328 }
     size: { w: 105, h: 14 }
   - id: chu
-    label: "（注）①利用者証明用電子証明書（健康保険証としての利用などに必要）の暗証番号。\n　　発行を希望しないときは、①に暗証番号を記入せず□に✓をつける。\n　　②住民票コードをテキストデータとして利用するための暗証番号。\n　　③個人番号や基本 4 情報を確認し、テキストデータとして利用するための暗証番号。\n　　④個人番号カードは簡易書留等で住所地へ送られる。住所地以外へ送るときだけ書く。\n※出生届・出生証明書に書いた事項は、この申請にも用いられる。\n※電子証明書では、画面に正確に出ない字（代替対象文字）は代替文字に置き換わる。\n　変えたいときは、カードの交付後に住所地の市区町村長へ申し出る。（細字の注は要約した）"
+    label: "（注）①利用者証明用電子証明書（健康保険証としての利用などに必要）の暗証番号。\n　　発行を希望しないときは、①に暗証番号を記入せず□に✓をつける。\n　　②住民票コードをテキストデータとして利用するための暗証番号。\n　　③個人番号や基本４情報を確認し、テキストデータとして利用するための暗証番号。\n　　④個人番号カードは簡易書留等で住所地へ送られる。住所地以外へ送るときだけ書く。\n※出生届・出生証明書に書いた事項は、この申請にも用いられる。\n※電子証明書では、氏名の入力で画面に正確に出ない字（代替対象文字）は代替文字に置き換わる。\n　変えたいときは、カードの交付後に住所地の市区町村長へ申し出る。（細字の注は要約した）"
     marker: none
     align: left
     at: { x: 1050, y: 1195 }
@@ -1723,14 +1743,14 @@ paths:
     line: dashed
     weight: thin
     ends: { from: none, to: none }
-  - id: ln75
-    points: [ [ 978, 190.2 ], [ 966.4, 190.2 ], [ 966.4, 178.6 ], [ 978, 178.6 ] ]
-    close: true
+  - id: seibetsu-l
+    points: [ [ 816, 254 ], [ 810, 265 ], [ 810, 286 ], [ 816, 297 ] ]
+    curve: smooth
     weight: thin
     ends: { from: none, to: none }
-  - id: ln76
-    points: [ [ 1162.9, 189.9 ], [ 1151.3, 189.9 ], [ 1151.3, 178.4 ], [ 1162.9, 178.4 ] ]
-    close: true
+  - id: seibetsu-r
+    points: [ [ 901, 254 ], [ 907, 265 ], [ 907, 286 ], [ 901, 297 ] ]
+    curve: smooth
     weight: thin
     ends: { from: none, to: none }
   - id: ln77
