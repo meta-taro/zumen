@@ -153,6 +153,29 @@ describe('道を作る（pathOf）', () => {
     assert.equal((pathOf(pts, 'smooth').match(/ C /g) ?? []).length, 2);
   });
 
+  it('閉じた輪は、最後から最初へ戻る区間も曲線で描く（継ぎ目だけ直線にしない）', () => {
+    const ring = [
+      { x: 0, y: 0 },
+      { x: 10, y: 0 },
+      { x: 10, y: 10 },
+      { x: 0, y: 10 },
+    ];
+    const d = pathOf(ring, 'smooth', true);
+    assert.equal((d.match(/ C /g) ?? []).length, 4);
+    assert.ok(d.endsWith('0 0 Z'), d);
+  });
+
+  it('最後の点が最初と同じなら、重ねずに閉じる（長さ 0 の区間で結び目を作らない）', () => {
+    const ring = [
+      { x: 0, y: 0 },
+      { x: 10, y: 0 },
+      { x: 10, y: 10 },
+      { x: 0, y: 10 },
+      { x: 0, y: 0 },
+    ];
+    assert.equal((pathOf(ring, 'smooth', true).match(/ C /g) ?? []).length, 4);
+  });
+
   it('点が 1 つ以下なら空（描くものが無い）', () => {
     assert.equal(pathOf([{ x: 1, y: 2 }], 'smooth'), '');
     assert.equal(pathOf([], 'none'), '');

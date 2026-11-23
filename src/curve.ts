@@ -68,7 +68,12 @@ function n(value: number): string {
  *
  * **2 点しかなければ直線。** 丸める角が無い。
  */
-export function pathOf(points: readonly Point[], curve: Curve, closed = false): string {
+export function pathOf(given: readonly Point[], curve: Curve, closed = false): string {
+  // 閉じる輪で最後の点が最初と同じなら、重ねずに閉じる（長さ 0 の区間は、曲線にすると結び目になる）。
+  const last = given[given.length - 1];
+  const points = closed && given.length > 2 && last!.x === given[0]!.x && last!.y === given[0]!.y
+    ? given.slice(0, -1)
+    : given;
   if (points.length < 2) return '';
   const [head, ...rest] = points;
   const start = `M ${n(head!.x)} ${n(head!.y)}`;
@@ -86,10 +91,12 @@ export function pathOf(points: readonly Point[], curve: Curve, closed = false): 
   const at = (i: number): Point =>
     closed ? points[(i + points.length) % points.length]! : points[Math.min(Math.max(i, 0), points.length - 1)]!;
   const parts: string[] = [start];
-  for (let i = 0; i < points.length - 1; i += 1) {
+  // 閉じた輪は、最後の点から最初の点へ戻る区間も曲線で描く（Z に任せると、そこだけ直線になる）。
+  const segments = closed ? points.length : points.length - 1;
+  for (let i = 0; i < segments; i += 1) {
     const p0 = at(i - 1);
     const p1 = points[i]!;
-    const p2 = points[i + 1]!;
+    const p2 = at(i + 1);
     const p3 = at(i + 2);
     const c1 = { x: p1.x + (p2.x - p0.x) / 6, y: p1.y + (p2.y - p0.y) / 6 };
     const c2 = { x: p2.x - (p3.x - p1.x) / 6, y: p2.y - (p3.y - p1.y) / 6 };
