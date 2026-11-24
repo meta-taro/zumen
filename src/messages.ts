@@ -1254,6 +1254,8 @@ const ja = {
       '**すでに `wrap: true` が書いてあります。** 折り返してもこの比なので、残っているのは 2 つだけです —— 節をまとめて鎖を短くするか、図を 2 枚に分けるか。',
     structureTooThin: (ratio: string, width: number, height: number, advice: string) =>
       `この構成図は ${width} × ${height}px で、縦横の比が ${ratio} あります。**貼った先では幅に合わせて縮む**ので、細長いほど字が小さくなります。${advice}`,
+    labelTooTallDown: (id: string, chars: number, need: number, has: number) =>
+      `ノード "${id}" の名前は縦書きで ${chars} 字ありますが、箱の高さが ${has}px しかありません（${need}px 要ります）。縦書きは箱の上端から 1 字ずつ積むので、**足りない分は下の枠を突き抜けます**。\`size.h\` を ${need}px 以上にするか、字を減らしてください。`,
     labelTooTall: (id: string, lines: number, need: number, has: number) =>
       `ノード "${id}" の名前は ${lines} 行ありますが、箱の高さが ${has}px しかありません（${need}px 要ります）。名前は箱の上下の真ん中から積むので、**足りない分は上下へはみ出して**、まわりの図に重なります。\`size.h\` を ${need}px 以上にするか、行を減らしてください。`,
     hatchTooThin: (id: string, hatch: string, side: number) =>
@@ -2271,6 +2273,8 @@ const en: Catalog = {
       '**`wrap: true` is already set.** Folded, it is still this thin, so only two things are left: merge nodes to shorten the chain, or split the drawing in two.',
     structureTooThin: (ratio: string, width: number, height: number, advice: string) =>
       `This structure diagram is ${width} × ${height}px, an aspect ratio of ${ratio}. **Pasted anywhere it will be scaled to the column width**, so the thinner it is the smaller the text gets. ${advice}`,
+    labelTooTallDown: (id: string, chars: number, need: number, has: number) =>
+      `Node "${id}" has a ${chars}-character vertical name but the box is only ${has}px tall (it needs ${need}px). Vertical names are stacked one character at a time from the top edge, so **the overflow runs through the bottom of the box**. Raise \`size.h\` to ${need}px or shorten the name.`,
     labelTooTall: (id: string, lines: number, need: number, has: number) =>
       `Node "${id}" has a ${lines}-line name but the box is only ${has}px tall (it needs ${need}px). Lines are stacked from the middle of the box, so **the overflow spills above and below** onto whatever is there. Raise \`size.h\` to ${need}px or use fewer lines.`,
     hatchTooThin: (id: string, hatch: string, side: number) =>

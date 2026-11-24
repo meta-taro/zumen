@@ -296,6 +296,20 @@ describe('折り返した名前の高さ', () => {
     assert.ok(!found.some((f) => f.code === 'label-too-tall'));
   });
 
+  it('**縦書き（write: down）の名前が箱の高さに入らなければ名指しする**（見本 99 の「裁判員1」が下の枠を突き抜けた）', async () => {
+    const { placedFindings } = await import('../src/cli.ts');
+    const found = await placedFindings(box('裁判員1', 50).replace('marker: none', 'marker: box\n    write: down'));
+    const said = found.filter((f) => f.code === 'label-too-tall');
+    assert.equal(said.length, 1, found.map((f) => f.code).join(','));
+    assert.match(said[0]!.message, /4 字/, said[0]!.message);
+  });
+
+  it('縦書きでも、入っていれば言わない', async () => {
+    const { placedFindings } = await import('../src/cli.ts');
+    const found = await placedFindings(box('裁判員1', 64).replace('marker: none', 'marker: box\n    write: down'));
+    assert.ok(!found.some((f) => f.code === 'label-too-tall'));
+  });
+
   it('1 行には言わない（折り返していないので積まない）', async () => {
     const { placedFindings } = await import('../src/cli.ts');
     const found = await placedFindings(box('1 行だけ', 8));

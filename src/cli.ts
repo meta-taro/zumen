@@ -33,13 +33,13 @@ import { PASS_LINE, measure, percent } from './measure.ts';
 import { merge } from './merge.ts';
 import type { Conflict } from './merge.ts';
 import { toMermaid } from './mermaid.ts';
-import { linesOverText, overlappingInk, render, viewTitleBox } from './render.ts';
+import { linesOverText, overlappingInk, render, stackHeight, viewTitleBox } from './render.ts';
 import { timelapse } from './timelapse.ts';
 import { inspect, pdfOf } from './tools.ts';
 import { kindOf } from './kind.ts';
 import { messages } from './messages.ts';
 import { hasError, validate } from './validate.ts';
-import { adriftDetails, crowdedNames, extentOf, hiddenTags, planNames } from './names.ts';
+import { adriftDetails, crowdedNames, extentOf, hiddenTags, NAME_FONT, planNames } from './names.ts';
 import { projection, smallestTextOf } from './projection.ts';
 import type { Finding } from './validate.ts';
 import { isEntry } from './entry.ts';
@@ -384,6 +384,24 @@ export async function placedFindings(text: string): Promise<Finding[]> {
   const tall: Finding[] = !plan
     ? []
     : placed.boxes.flatMap((box) => {
+        /**
+         * **縦書き（`write: down`）は、字を上から積む**（2026-11-24）。
+         * 箱の上端から 1 字ずつ下へ置くので、字が多いと下の枠を突き抜ける
+         * （見本 99 の「裁判員1」の「1」が、席の枠の下の線に乗っていた）。
+         */
+        if (box.write === 'down') {
+          const body = box.label.replace(/\n/g, ' ');
+          // 最後の字の下へ出る分（字の大きさの 1/4）まで入れて測る
+          const need = Math.ceil(stackHeight(body, NAME_FONT) + NAME_FONT / 4);
+          if (need <= box.h) return [];
+          return [
+            {
+              severity: 'warning' as const,
+              code: 'label-too-tall',
+              message: messages().validate.labelTooTallDown(box.id, [...body].length, need, Math.round(box.h)),
+            },
+          ];
+        }
         const lines = typeof box.label === 'string' ? box.label.split('\n').length : 1;
         if (lines < 2) return [];
         const need = lines * 14 + (box.technology === null ? 0 : 13);

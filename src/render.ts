@@ -1319,7 +1319,7 @@ function subtitleOn(style: Look, palette: Palette): string {
  * 寝かせたラテン文字は、横書きの幅がそのまま高さになる（字 1 つ分ではない。
  * 字 1 つ分で数えると、回した文字の中心が上端に寄り、半分が箱の上へ出る）。
  */
-function stackHeight(body: string, font: number): number {
+export function stackHeight(body: string, font: number): number {
   if (laysDown(body)) return labelWidth(body, font);
   return ([...body].length - 1) * font * 1.06 + font;
 }
