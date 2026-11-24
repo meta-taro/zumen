@@ -677,4 +677,24 @@ describe('縮尺の物差し', () => {
     }
     assert.deepEqual(stray.slice(0, 5), []);
   });
+
+  it('**物差しの目盛の数字どうしが、くっつかない**（「10」「20」が「1020」と読めない）', () => {
+    // 数字 1 字の幅は字の大きさの 0.6 倍とみる。字と字の間は 1 字ぶん（6px）空ける
+    const touching: string[] = [];
+    for (const file of readdirSync(dir).filter((f) => f.endsWith('.svg') && !f.endsWith('-dark.svg'))) {
+      const svg = readFileSync(new URL(file, dir), 'utf8');
+      const bar = /<g data-name="scalebar">(.*?)<\/g>/.exec(svg)?.[1];
+      if (bar === undefined) continue;
+      const spans = [...bar.matchAll(/<text x="([\d.]+)" y="[\d.]+" text-anchor="(start|middle|end)"[^>]*>([^<]*)<\/text>/g)]
+        .map(([, x, anchor, body]) => {
+          const w = body!.length * 6;
+          const left = anchor === 'start' ? Number(x) : anchor === 'middle' ? Number(x) - w / 2 : Number(x) - w;
+          return { left, right: left + w };
+        });
+      for (let i = 1; i < spans.length; i += 1) {
+        if (spans[i]!.left - spans[i - 1]!.right < 6) touching.push(file);
+      }
+    }
+    assert.deepEqual(touching.slice(0, 5), []);
+  });
 });

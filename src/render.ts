@@ -929,7 +929,14 @@ function scaleBar(placed: Placed, frame: Frame, paperH: number, ink: Ink): strin
     const align = i === 0 ? 'start' : i === 4 ? 'end' : 'middle';
     return `<text x="${n(at)}" y="${n(y + h + 9)}" text-anchor="${align}" font-family="${ink.font}" font-size="10" fill="${ink.text}">${show((real * i) / 4)}</text>`;
   };
-  return `<g data-name="scalebar">${parts.join('')}${[0, 2, 4].map(tick).join('')}` +
+  /**
+   * **真ん中の数字は、両隣と 1 字ぶん離せるときだけ書く**（2026-11-24）。
+   * 物差しが短いと「10」と「20」がくっついて「1020」と読めた（見本 28）。
+   * 端の 2 つ（0 と全長）があれば長さは読めるので、落とすのは真ん中。
+   */
+  const width = (i: number): number => show((real * i) / 4).length * 6;
+  const fits = px / 2 - width(2) / 2 - width(0) >= 6 && px - width(4) - (px / 2 + width(2) / 2) >= 6;
+  return `<g data-name="scalebar">${parts.join('')}${(fits ? [0, 2, 4] : [0, 4]).map(tick).join('')}` +
     `<text x="${n(x + px + 8)}" y="${n(y + h)}" font-family="${ink.font}" font-size="10" fill="${ink.text}">${unit}</text></g>`;
 }
 
