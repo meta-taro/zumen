@@ -559,3 +559,47 @@ describe('dims —— 書き出し', () => {
     assert.ok(out.includes('dims'));
   });
 });
+
+/**
+ * **縦の寸法線の数値は、立てて書く**（2026-11-24）。
+ *
+ * JIS B 0001:2019 11.4 d) 1)：垂直の寸法線の数値は**右辺から読める**ように書く（左へ 90° 回す）。
+ * 建築（JIS A 0150）も同じ。通り芯の寸法（`src/dimensions.ts`）はすでに立てていた。
+ */
+describe('縦の寸法の数値', () => {
+  const text = `${BASE}dims:
+  - id: width
+    from: { node: piste, side: top }
+    to: { node: piste, side: bottom }
+    offset: 30
+`;
+
+  it('**数値を左へ 90° 回して、寸法線の外側に置く**', async () => {
+    const placed = await layout(text);
+    const svg = render(placed, 'light', 'safe', true);
+    const turned = /<text x="([\d.]+)" y="([\d.]+)" text-anchor="middle"[^>]*transform="rotate\(-90 [\d.]+ [\d.]+\)"[^>]*>1,500<\/text>/.exec(svg);
+    assert.ok(turned !== null, '1,500 が立っていない');
+    // 上から下へ進む向きの右（図では左）へ 30 px：寸法線は x 170。字はさらに外（左）
+    assert.ok(Number(turned[1]) < 170, `字が寸法線の外にない: x ${turned[1]}`);
+    // 縦の真ん中（y 310）あたり
+    assert.ok(Math.abs(Number(turned[2]) - 310) < 2, `字が寸法線の真ん中にない: y ${turned[2]}`);
+  });
+
+  it('立てた数値の当たり判定は、縦に長い', async () => {
+    const placed = await layout(text);
+    const label = placeEdgeLabels(placed.edges, placed.boxes, placed.groups).find((l) => l.id.startsWith('width'));
+    assert.ok(label !== undefined);
+    assert.equal(label.upright, true);
+  });
+
+  it('横の寸法線の数値は、これまでどおり寝かせたまま', async () => {
+    const svg = render(await layout(`${BASE}dims:
+  - id: length
+    from: { node: piste, side: left }
+    to: { node: piste, side: right }
+    offset: 40
+`), 'light', 'safe', true);
+    assert.match(svg, /<text [^>]*>14,000<\/text>/);
+    assert.doesNotMatch(svg, /rotate\(-90[^>]*>14,000</);
+  });
+});

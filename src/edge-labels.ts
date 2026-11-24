@@ -62,6 +62,19 @@ export interface EdgeLabel {
   y: number;
   /** 見積った幅。当たり判定に使ったものをそのまま返す（試験で確かめられるように）。 */
   w: number;
+  /**
+   * **立てて書くか**（左へ 90° 回し、右から読む。縦の寸法線の数値。2026-11-24）。
+   * 立てたときの `x` は字の下端の線、`y` は字の真ん中（回す中心が `x, y`）。
+   */
+  upright?: true;
+}
+
+/** 字が占める矩形。**立てた字は縦に長い。** */
+export function labelRect(label: EdgeLabel): { x0: number; y0: number; x1: number; y1: number } {
+  if (label.upright === true) {
+    return { x0: label.x - LINE + 3, y0: label.y - label.w / 2, x1: label.x + 3, y1: label.y + label.w / 2 };
+  }
+  return { x0: label.x - label.w / 2, y0: label.y - LINE + 3, x1: label.x + label.w / 2, y1: label.y + 3 };
 }
 
 /**
@@ -103,14 +116,13 @@ function findSpot(
   others: readonly PlacedEdge[] = [],
 ): EdgeLabel | null {
   const w = labelWidth(text, FONT);
-  for (const ratio of SPOTS) {
-    const point = along(edge.points, ratio);
-    for (const candidate of beside(edge, text, w, point)) {
-      if (boxes.some((box) => hitsBox(candidate, box))) continue;
-      if (taken.some((other) => hitsLabel(candidate, other))) continue;
-      if (others.some((other) => other.id !== edge.id && runsUnder(other, candidate))) continue;
-      return candidate;
-    }
+  // **立てる置き場所を、どの位置でも先に探す**（寝かせるのは、どこにも立てられないときだけ）
+  const all = SPOTS.flatMap((ratio) => beside(edge, text, w, along(edge.points, ratio)));
+  for (const candidate of [...all.filter((c) => c.upright === true), ...all.filter((c) => c.upright !== true)]) {
+    if (boxes.some((box) => hitsBox(candidate, box))) continue;
+    if (taken.some((other) => hitsLabel(candidate, other))) continue;
+    if (others.some((other) => other.id !== edge.id && runsUnder(other, candidate))) continue;
+    return candidate;
   }
   return null;
 }
@@ -125,7 +137,14 @@ function findSpot(
 function beside(edge: PlacedEdge, text: string, w: number, point: { x: number; y: number }): EdgeLabel[] {
   const side = edge.labelSide;
   if (side === undefined) return SIDES.map((lift) => ({ id: edge.id, text, x: point.x, y: point.y + lift, w }));
-  return [1, -1].map((sign) => {
+  /**
+   * **縦の寸法線の数値は立てる**（JIS B 0001:2019 11.4 d) 1)・JIS A 0150。右から読む）。
+   * 外側へは字の高さの半分だけ出せばよい（立てた字の横幅は字の高さ）。
+   *
+   * **立てて置けないときは、寝かせて置く。** 短い寸法（台の高さ）では立てた字が隣の箱に当たる。
+   * 数値が消えるより、向きが決まりから外れるほうがまし（見本 386 の podium-height）。
+   */
+  const flat = [1, -1].map((sign) => {
     const nx = side.x * sign;
     const ny = side.y * sign;
     // 線から LIFT だけ離し、さらに文字の半分（向きに応じて幅か高さ）だけ外へ。
@@ -135,6 +154,12 @@ function beside(edge: PlacedEdge, text: string, w: number, point: { x: number; y
     // 当たり判定の矩形は、ベースラインの LINE - 3 上から 3 下まで。真ん中はベースラインの 4 上。
     return { id: edge.id, text, x: cx, y: cy + LINE / 2 - 3, w };
   });
+  if (side.y !== 0 || side.x === 0) return flat;
+  const upright = [1, -1].map((sign) => {
+    const cx = point.x + side.x * sign * (LIFT + LINE / 2);
+    return { id: edge.id, text, x: cx + LINE / 2 - 3, y: point.y, w, upright: true as const };
+  });
+  return [...upright, ...flat];
 }
 
 /** 折れ線を弧長で辿り、割合の位置の点を返す。 */
@@ -163,16 +188,14 @@ function distance(a: { x: number; y: number }, b: { x: number; y: number }): num
 
 /** 箱の上に字を置くと、ノードのラベルと重なって両方読めなくなる。 */
 function hitsBox(label: EdgeLabel, box: Box): boolean {
-  return (
-    label.x + label.w / 2 > box.x &&
-    label.x - label.w / 2 < box.x + box.w &&
-    label.y + 3 > box.y &&
-    label.y - LINE + 3 < box.y + box.h
-  );
+  const r = labelRect(label);
+  return r.x1 > box.x && r.x0 < box.x + box.w && r.y1 > box.y && r.y0 < box.y + box.h;
 }
 
 function hitsLabel(a: EdgeLabel, b: EdgeLabel): boolean {
-  return Math.abs(a.x - b.x) < (a.w + b.w) / 2 && Math.abs(a.y - b.y) < LINE;
+  const p = labelRect(a);
+  const q = labelRect(b);
+  return p.x0 < q.x1 && q.x0 < p.x1 && p.y0 < q.y1 && q.y0 < p.y1;
 }
 
 /**
@@ -197,7 +220,10 @@ export function edgesUnderLabels(
 
 /** 辺のどれかの線分が、名札の字の上を 6px 以上通るか。 */
 function runsUnder(edge: PlacedEdge, label: EdgeLabel, height = 12): boolean {
-  const r = { x0: label.x - label.w / 2 + 1, y0: label.y - height + 1, x1: label.x + label.w / 2 - 1, y1: label.y + 2 };
+  const box = labelRect(label);
+  const r = label.upright === true
+    ? { x0: label.x - height + 1, y0: box.y0 + 1, x1: label.x + 2, y1: box.y1 - 1 }
+    : { x0: label.x - label.w / 2 + 1, y0: label.y - height + 1, x1: label.x + label.w / 2 - 1, y1: label.y + 2 };
   for (let i = 1; i < edge.points.length; i += 1) {
     const a = edge.points[i - 1]!;
     const c = edge.points[i]!;

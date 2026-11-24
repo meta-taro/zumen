@@ -1324,6 +1324,11 @@ export function stackHeight(body: string, font: number): number {
   return ([...body].length - 1) * font * 1.06 + font;
 }
 
+/** **立てた名札は左へ 90° 回す**（縦の寸法線の数値。右から読む）。 */
+function turnOf(label: EdgeLabel): string {
+  return label.upright === true ? ` transform="rotate(-90 ${n(label.x)} ${n(label.y)})"` : '';
+}
+
 function nodeText(
   box: Box,
   palette: Palette,
@@ -1591,8 +1596,8 @@ function renderEdge(
   const label =
     placedLabel === null
       ? ''
-      : `<rect data-edge-label="1" x="${n(placedLabel.x - labelWidth(placedLabel.text, EDGE_FONT) / 2 - 3)}" y="${n(placedLabel.y - 11)}" width="${n(labelWidth(placedLabel.text, EDGE_FONT) + 6)}" height="14" fill="${palette.paper}"/>` +
-        `<text x="${n(placedLabel.x)}" y="${n(placedLabel.y)}" text-anchor="middle" font-family="${FONT}" font-size="${EDGE_FONT}" fill="${palette.text.edge}">${escapeText(placedLabel.text)}</text>`;
+      : `<rect data-edge-label="1" x="${n(placedLabel.x - labelWidth(placedLabel.text, EDGE_FONT) / 2 - 3)}" y="${n(placedLabel.y - 11)}" width="${n(labelWidth(placedLabel.text, EDGE_FONT) + 6)}" height="14" fill="${palette.paper}"${turnOf(placedLabel)}/>` +
+        `<text x="${n(placedLabel.x)}" y="${n(placedLabel.y)}" text-anchor="middle" font-family="${FONT}" font-size="${EDGE_FONT}" fill="${palette.text.edge}"${turnOf(placedLabel)}>${escapeText(placedLabel.text)}</text>`;
   return [
     `<g data-edge="${escapeAttr(edge.id)}" data-pinned="${edge.pinned}">`,
     // **配置図の動線は太く。** 壁を塗り潰したあと、細い線では動線が
