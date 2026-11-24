@@ -331,8 +331,13 @@ function widthFor(
   technology: string | null = null,
   tag: string | null = null,
 ): number {
-  const sub = technology === null ? 0 : labelWidth(technology, SUB_FONT);
-  const needed = Math.max(labelWidth(label), sub) + LABEL_PADDING * 2;
+  /**
+   * **構成図は名前も副題も 1 行に描く**（`src/render.ts` の `flat`）。
+   * 行ごとに測ると、描いた 1 行が枠からはみ出した（見本 103。2026-11-24）。
+   */
+  const flat = (body: string): string => body.replace(/\n/g, ' ');
+  const sub = technology === null ? 0 : labelWidth(flat(technology), SUB_FONT);
+  const needed = Math.max(labelWidth(flat(label)), sub) + LABEL_PADDING * 2;
   // **符号は角に置くので、ラベルとは別に幅が要る**（B5）。
   // `2"-CS-101-A3` のような配管のライン番号は、部屋名より長い。
   const code = tag === null ? 0 : labelWidth(tag, TAG_FONT) + TAG_INSET * 2;

@@ -10,7 +10,7 @@ import { readFileSync } from 'node:fs';
 import { describe, it } from 'node:test';
 
 import { parse, serialize, setPin } from '../src/format.ts';
-import { crossings, groupEscapes, layout, overlaps } from '../src/layout.ts';
+import { crossings, groupEscapes, labelWidth, layout, overlaps } from '../src/layout.ts';
 
 const R0 = readFileSync(new URL('fixtures/r0.zumen.yaml', import.meta.url), 'utf8');
 
@@ -28,6 +28,13 @@ describe('layout', () => {
       assert.equal(Number.isFinite(box.x), true, `${box.id} に x が無い`);
       assert.equal(Number.isFinite(box.y), true, `${box.id} に y が無い`);
     }
+  });
+
+  it('構成図の副題（technology）は 1 行に描くので、改行をつないだ長さで箱の幅を測る（文字が枠からはみ出さない）', async () => {
+    const tech = '各 30m³・密度 40kg/m³\n規模・魚種は架空の見本';
+    const placed = await layout(`version: 1\nnodes:\n  - id: a\n    label: 飼育槽\n    technology: ${JSON.stringify(tech)}\n`);
+    const a = placed.boxes.find((b) => b.id === 'a')!;
+    assert.ok(a.w >= labelWidth(tech.replace(/\n/g, ' '), 11), `幅 ${a.w} では 1 行の副題が入らない`);
   });
 
   it('pin を持つノードは pin の座標そのものに置かれる', async () => {
