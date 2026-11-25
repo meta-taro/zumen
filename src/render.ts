@@ -37,7 +37,7 @@ import { MM_PER_PX, pageBox, type Paper } from './paper.ts';
 import type { Hatch } from './hatch.ts';
 import { pathOf } from './curve.ts';
 import { ALIGN_INSET, anchorOf } from './align.ts';
-import { laysDown } from './write.ts';
+import { laysDown, uprightGlyph } from './write.ts';
 import { DOUBLE_GAP, dashOf, doubled } from './line.ts';
 import { roundedOf, widthOf } from './weight.ts';
 import { drawMarker } from './marker.ts';
@@ -1439,7 +1439,16 @@ function nodeText(
         const midY = box.y + stackHeight(body, font) / 2;
         return [text(colX, midY, body, font, fill, ` transform="rotate(90 ${n(colX)} ${n(midY)})"`)];
       }
-      return [...body].map((glyph, i) => text(colX, box.y + font + i * font * 1.06, glyph, font, fill));
+      return [...body].map((glyph, i) => {
+        // **縦組みの約物と小書きの仮名**（`src/write.ts` の `uprightGlyph`）
+        const look = uprightGlyph(glyph);
+        const x = colX + look.dx * font;
+        const y = box.y + font + i * font * 1.06 + look.dy * font;
+        if (!look.turn) return text(x, y, glyph, font, fill);
+        // 回す軸は字の真ん中（基準線から字の高さの 0.35 上）
+        const midY = y - font * 0.35;
+        return text(x, y, glyph, font, fill, ` transform="rotate(90 ${n(x)} ${n(midY)})"`);
+      });
     };
     const lines = column(flat(box.label), left + size / 2, size, style.text);
     if (hasSub) lines.push(...column(box.technology!, left + size + 2 + subSize / 2, subSize, sub));

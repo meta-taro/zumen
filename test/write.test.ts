@@ -123,6 +123,55 @@ describe('縦組みで描く', () => {
     assert.ok(top >= name.y - 16, `回した文字の上端（${top}）が、積んだ字の 1 つ目（${name.y}）より上へ出た`);
   });
 
+  /**
+   * **縦組みの約物と小書きの仮名**（Issue 016・JIS X 4051）。
+   *
+   * 横組みの字形をそのまま積むと、「、」「。」はますの左下に、「ー」は横棒のまま出る。
+   * 縦組みでは句読点はますの右上、小書きの仮名は少し右上、長音記号・波ダッシュ・三点リーダーは縦にする。
+   * **正本の文字は変えない**（縦組み用の別の字に置き換えない）。描くときに位置と向きだけを変える。
+   */
+  const glyphs = (out: string): { x: number; y: number; body: string; turn: string }[] =>
+    [...out.matchAll(/<text x="(-?[\d.]+)" y="(-?[\d.]+)"([^>]*)>([^<]*)<\/text>/g)].map((m) => ({
+      x: Number(m[1]),
+      y: Number(m[2]),
+      turn: m[3]!.match(/rotate\((-?\d+)/)?.[1] ?? '',
+      body: m[4]!,
+    }));
+
+  it('**句読点は、ますの右上へ寄せる**（字は変えない）', async () => {
+    const out = await svg(STATION.replace('西中島南方', '東京、大阪。').replace(/    technology: .*\n/, ''));
+    const all = glyphs(out);
+    const kyo = all.find((g) => g.body === '京')!;
+    const ten = all.find((g) => g.body === '、')!;
+    const han = all.find((g) => g.body === '阪')!;
+    const maru = all.find((g) => g.body === '。')!;
+    assert.ok(ten && maru, '句読点が別の字に置き換わった');
+    assert.ok(ten.x > kyo.x, `「、」が右へ寄っていない（${ten.x} ≦ ${kyo.x}）`);
+    assert.ok(maru.x > han.x, '「。」が右へ寄っていない');
+    // 寄せなければ、次のますの基準線は前の字から 1 字ぶん（約 16px）下。上へ寄せたなら半分より近い
+    assert.ok(ten.y - kyo.y < 8, `「、」が上へ寄っていない（前の字から ${ten.y - kyo.y}px 下）`);
+  });
+
+  it('**小書きの仮名は、少し右へ寄せる**', async () => {
+    const out = await svg(STATION.replace('西中島南方', 'きゃく').replace(/    technology: .*\n/, ''));
+    const all = glyphs(out);
+    const ki = all.find((g) => g.body === 'き')!;
+    const ya = all.find((g) => g.body === 'ゃ')!;
+    assert.ok(ya.x > ki.x, '「ゃ」が右へ寄っていない');
+    assert.ok(ya.x - ki.x < 4, '「ゃ」を寄せすぎた（句読点ほどは寄せない）');
+  });
+
+  it('**長音記号・波ダッシュ・三点リーダーは縦にする**', async () => {
+    const out = await svg(STATION.replace('西中島南方', 'ルーム〜…').replace(/    technology: .*\n/, ''));
+    const all = glyphs(out);
+    for (const body of ['ー', '〜', '…']) {
+      const g = all.find((x) => x.body === body);
+      assert.ok(g, `${body} が見つからない`);
+      assert.equal(g!.turn, '90', `${body} が縦になっていない`);
+    }
+    assert.equal(all.find((g) => g.body === 'ル')!.turn, '', '仮名まで回した');
+  });
+
   it('**入らなくても消さない。** 箱の大きさは正本が決める', async () => {
     const out = await svg(STATION.replace('{ w: 40, h: 120 }', '{ w: 40, h: 30 }'));
     assert.equal(texts(out).filter((t) => '西中島南方'.includes(t.body)).length, 5, '名前が消えた');

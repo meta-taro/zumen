@@ -45,3 +45,31 @@ export function writeOf(raw: unknown): Write {
 export function laysDown(text: string): boolean {
   return text !== '' && !/[^ -~]/.test(text);
 }
+
+/**
+ * **縦組みで、1 字をどこへ・どの向きで描くか**（Issue 016・JIS X 4051）。
+ *
+ * 横組みの字形をそのまま積むと、句読点はますの左下に、長音記号は横棒のまま出る。
+ * 縦組みでは —— 句読点（、。，．）はますの右上、小書きの仮名は少し右上、
+ * 長音記号・波ダッシュ・三点リーダー・ダッシュは 90° 回して縦にする。
+ *
+ * **正本の文字は変えない**（U+FE11 のような縦組み用の字に置き換えない）。描く位置と向きだけ。
+ * ずらす量は字の大きさに対する比（`dx`・`dy`、右と下が正）。
+ */
+export interface Upright {
+  readonly dx: number;
+  readonly dy: number;
+  readonly turn: boolean;
+}
+
+const STILL: Upright = { dx: 0, dy: 0, turn: false };
+const PUNCT = new Set([...'、。，．']);
+const SMALL = new Set([...'ぁぃぅぇぉっゃゅょゎゕゖァィゥェォッャュョヮヵヶ']);
+const TURN = new Set([...'ー〜～…‥―－']);
+
+export function uprightGlyph(glyph: string): Upright {
+  if (PUNCT.has(glyph)) return { dx: 0.6, dy: -0.62, turn: false };
+  if (SMALL.has(glyph)) return { dx: 0.12, dy: -0.1, turn: false };
+  if (TURN.has(glyph)) return { dx: 0, dy: 0, turn: true };
+  return STILL;
+}
