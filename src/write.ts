@@ -64,7 +64,13 @@ export interface Upright {
 
 const STILL: Upright = { dx: 0, dy: 0, turn: false };
 const PUNCT = new Set([...'、。，．']);
-const SMALL = new Set([...'ぁぃぅぇぉっゃゅょゎゕゖァィゥェォッャュョヮヵヶ']);
+// 小書きの仮名（ぁぃぅぇぉっゃゅょゎゕゖ と、その片仮名）。字の並びは文言ではないので符号位置で書く
+const SMALL = new Set(
+  [0x3041, 0x3043, 0x3045, 0x3047, 0x3049, 0x3063, 0x3083, 0x3085, 0x3087, 0x308e, 0x3095, 0x3096].flatMap((c) => [
+    String.fromCodePoint(c),
+    String.fromCodePoint(c + 0x60),
+  ]),
+);
 const TURN = new Set([...'ー〜～…‥―－']);
 
 export function uprightGlyph(glyph: string): Upright {
