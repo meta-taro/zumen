@@ -389,6 +389,36 @@ describe('規格番号の書き方', () => {
   });
 });
 
+describe('架空の断り', () => {
+  // 正本のコメントに「架空」と書いた見本は、絵の文字にも断りを出す。
+  // 絵だけを見た人には、架空の人名・金額・寸法が実在のものに見えるから。
+  const SAID = /架空|[Ff]ictional|例|模式/;
+  // 「架空」がコメントにあっても、架空のものを描いていない見本
+  const NOT_FICTION: Record<string, string> = {
+    '315': '別の見本（399）が架空だと指しているだけ',
+    '355': '別の見本（397）が架空だと指しているだけ',
+    '421': '何も書き込んでいない白紙の様式',
+  };
+  const files = readdirSync(dir).filter((f) => f.endsWith('.zumen.yaml'));
+  const silent = files.filter((file) => {
+    const lines = readFileSync(new URL(file, dir), 'utf8').split('\n');
+    const comment = lines.filter((l) => /^\s*#/.test(l)).join('\n');
+    const shown = lines.filter((l) => !/^\s*#/.test(l)).join('\n');
+    return comment.includes('架空') && !SAID.test(shown);
+  });
+  const number = (file: string) => file.split('-')[0]!;
+
+  it('**コメントに「架空」と書いた見本は、絵にも断りがある**', () => {
+    const missing = silent.filter((file) => NOT_FICTION[number(file)] === undefined);
+    assert.deepEqual(missing, [], '架空の断りが正本のコメントにしか無い');
+  });
+
+  it('逃がした見本が、もう逃がさなくてよいなら表から外す', () => {
+    const stale = Object.keys(NOT_FICTION).filter((n) => !silent.some((file) => number(file) === n));
+    assert.deepEqual(stale, [], '表に残っているが、もう当たらない');
+  });
+});
+
 describe('見本の説明', () => {
   /** `#` で始まる行（`# ` の後ろ）を、強調記号を外してつないだもの。 */
   const body = (file: string): string =>
