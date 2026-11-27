@@ -3,6 +3,8 @@
 # zumen
 
 <p align="center">
+
+[![zumen on StartupScores](https://startupscores.com/badge/zumen.svg?style=shield&v=combo&theme=dark)](https://startupscores.com/open-source/zumen)
   <img src="https://meta-taro.github.io/zumen/readme/hero-en.svg" width="560" alt="Four steps: the AI draws an order-flow diagram; a person moves the Order DB box to the left; the AI is asked again and adds a Stock API; the box the person moved is still where they put it">
 </p>
 
