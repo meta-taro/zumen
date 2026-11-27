@@ -14,6 +14,8 @@ title: 幕の内弁当 盛付指示書（容器 210×170・総重量 480g）
 #
 # 水気のあるものが隣へ移ると、時間が経ったとき見た目が崩れる。
 # **配るまでの時間まで含めて、位置が決まっている。**
+#
+# 盛る順は丸数字で示す。区画どうしは仕切りを共有するので、順の線（辺）は描かない（線と矢じりが仕切りの欠けに見える）。
 # 1 px = 0.5 mm
 scale: { mm: 0.5 }
 wall: { mm: 2 }
@@ -94,12 +96,3 @@ nodes:
     at: { x: 204, y: 244 }
     size: { w: 26, h: 26 }
     group: yoki
-edges:
-  - from: gohan
-    to: shusai
-  - from: shusai
-    to: fuku1
-  - from: fuku1
-    to: fuku2
-  - from: fuku2
-    to: tsukemono
